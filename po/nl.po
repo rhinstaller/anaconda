@@ -1,27 +1,29 @@
 # Dutch translation of anaconda
 # Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
 #
-# Arjan van de Ven <arjanv@redhat.com>, 2001.
-# Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003.
-# Peter van Egdom <p.van.egdom@gmail.com>, 2002, 2003, 2004, 2005, 2006.
 # ----------------------------------------------------
 # device - apparaat, partitie, opstelling (voor RAID)
 # alloceren - toewijzen
 # driver - stuurprogramma
 # root altijd met kleine letters schrijven (dus geen Root)
 #
+# Arjan van de Ven <arjanv@redhat.com>, 2001.
+# Tino Meinen <a.t.meinen@chello.nl>, 2002, 2003.
+# Peter van Egdom <p.van.egdom@gmail.com>, 2002, 2003, 2004, 2005, 2006.
+# R.E. van der Luit <nippur@fedoraproject.org>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 13:23-0500\n"
-"PO-Revision-Date: 2006-09-20 21:13+0200\n"
-"Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
-"Language-Team: Dutch <vertaling@nl.linux.org>\n"
+"PO-Revision-Date: 2009-04-08 17:45+0200\n"
+"Last-Translator: R.E. van der Luit <nippur@fedoraproject.org>\n"
+"Language-Team: Dutch <nippur@fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:265
 msgid "Unknown Error"
@@ -103,15 +105,16 @@ msgid "Starting graphical installation..."
 msgstr "Grafische installatie wordt nu opgestart..."
 
 #: ../anaconda:772
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Wat wilt u doen?"
+msgstr "Wilt u VNC gebruiken?"
 
 #: ../anaconda:773
 msgid ""
 "The VNC mode instalation offers more functionality than the text mode, would "
 "you like to use it instead?"
 msgstr ""
+"De VCN modus biedt meer functionaliteit dan de tekst modus. Wilt u liever "
+"VCN gebruiken?"
 
 #: ../anaconda:812
 msgid "Install class forcing text mode installation"
@@ -338,7 +341,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
-"Kon de gevraagde partities niet alloceren: \n"
+"Kon de gevraagde partities niet toewijzen: \n"
 "\n"
 "%s.%s"
 
@@ -489,7 +492,7 @@ msgstr "Bezig...   "
 # vraagteken of vraag
 #: ../cmdline.py:72 ../cmdline.py:77 ../cmdline.py:97
 msgid "Can't have a question in command line mode!"
-msgstr "Op de opdrachtregel geen vraagtekens gebruiken!"
+msgstr "Vragen in command-line modus zijn niet mogelijk!"
 
 #: ../cmdline.py:85 ../gui.py:1070 ../text.py:525
 #, python-format
@@ -949,7 +952,7 @@ msgstr "Bestandssysteem: %s wordt nu geformatteerd..."
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
-msgstr "Er is een fout opgetreden bij het kopieren van de schermafdrukken."
+msgstr "Er is een fout opgetreden bij het kopiëren van de schermafdrukken."
 
 #: ../gui.py:116
 msgid "Screenshots Copied"
@@ -1037,6 +1040,8 @@ msgid ""
 "Choose a passphrase for your encrypted devices. You will be prompted for the "
 "passphrase during system boot."
 msgstr ""
+"Kies een wachtzin voor uw versleutelde apparaten. U zult om deze wachtzin "
+"worden gevraagd tijdens het opstarten van het systeem."
 
 #: ../gui.py:680 ../gui.py:688 ../text.py:263 ../text.py:273
 #, fuzzy
@@ -1060,6 +1065,8 @@ msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
+"Apparaat %s is versleuteld. Om de inhoud van het apparaat te benaderen "
+"tijdens de installatie moet u de wachtzin van het apparaat beneden invoeren."
 
 #: ../gui.py:893 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1959,6 +1966,10 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"Het station /dev/%s bevat meer dan 15 partities.  Het SCSI-subsysteem in de "
+"Linux kernel staat op dit moment niet meer dan 15 partities toe.  U zult "
+"geen aanpassingen meer aan de partitionering van deze schijf kunnen doen of "
+"partities voorbij /dev/%s15 kunnen gebruiken in %s"
 
 #: ../partedUtils.py:1373
 msgid "No Drives Found"
@@ -1998,6 +2009,9 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
+"U hebt opgegeven dat blokapparaatversleuteling moet worden aangezet, maar u "
+"hebt geen wachtzin opgegeven. Als u niet teruggaat en een wachtzin opgeeft, "
+"zal blokapparaatversleuteling worden uitgezet."
 
 #: ../partitioning.py:114 ../partitions.py:126 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:28 ../textw/confirm_text.py:54
@@ -2048,6 +2062,11 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"Weet u zeker dat u het invoeren van een wachtzin voor apparaat %s wilt "
+"overslaan?\n"
+"\n"
+"Als u deze stap overslaat zal de inhoud van het apparaat niet beschikbaar "
+"zijn tijdens de installatie."
 
 #: ../partitions.py:1029
 #, python-format
@@ -2087,6 +2106,8 @@ msgid ""
 "Your boot partition is on a disk using the GPT partitioning scheme but this "
 "machine cannot boot using GPT."
 msgstr ""
+"Uw bootpartitie bevindt zich op een schijf die het GPT-partitioneringsschema "
+"gebruikt, maar deze machine kan niet booten met gebruikmaking van GPT."
 
 #: ../partitions.py:1110
 msgid "You must create an Apple Bootstrap partition."
@@ -2344,11 +2365,12 @@ msgstr "Wachtwoord"
 
 #: ../text.py:230
 msgid "Passphrase for encrypted devices"
-msgstr ""
+msgstr "Wachtwoord voor versleutelde apparaten"
 
 #: ../text.py:243
 msgid "Also add this passphrase to all existing encrypted devices"
 msgstr ""
+"Deze wachtwoordzin eveneens voor alle nieuwe versleutelde apparaten gebruiken"
 
 #: ../text.py:274
 #, fuzzy, python-format
@@ -2357,11 +2379,11 @@ msgstr "Het wachtwoord moet tenminste 6 tekens lang zijn."
 
 #: ../text.py:304 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
-msgstr ""
+msgstr "Wachtzin"
 
 #: ../text.py:312 tmp/lukspassphrase.glade.h:6
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "Dit is een algemene wachtzin"
 
 #: ../text.py:368
 msgid "Help not available"
@@ -2379,7 +2401,7 @@ msgstr "Een gebruikersnaam invoeren"
 #: ../text.py:493 tmp/instkey.glade.h:4
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "Invoeren van %(instkey)s overslaan"
 
 #: ../text.py:536
 msgid "Save Crash Dump"
@@ -2426,11 +2448,13 @@ msgid ""
 "Anaconda did not find any partitions that are valid upgrade candidates.  "
 "Note that upgrades between major releases is not supported."
 msgstr ""
+"Anaconda heeft geen partities kunnen vinden die een geldige kandidaad kunnen "
+"zijn om te upgraden. Bedenk dat upgraden tussen major releases niet "
+"ondersteund wordt."
 
 #: ../upgrade.py:120
-#, fuzzy
 msgid "No valid upgrade partition"
-msgstr "Upgrade Partitie"
+msgstr "Geen Geldige Upgrade Partitie"
 
 #: ../upgrade.py:144
 msgid "Searching"
@@ -2476,7 +2500,7 @@ msgstr "Geen stuurprogramma gevonden"
 
 #: ../upgrade.py:355
 msgid "No upgradable system was found."
-msgstr ""
+msgstr "Er is geen systeem dat een upgrade kan krijgen gevonden."
 
 #: ../upgrade.py:361 ../upgrade.py:367
 msgid "Mount failed"
@@ -2837,6 +2861,8 @@ msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
+"Niet in staat om de groepinformatie te lezen vanuit de repository. Dit is "
+"een probleem met de samenstelling van uw installatieomgeving."
 
 #: ../yuminstall.py:972
 msgid "Uncategorized"
@@ -2855,12 +2881,12 @@ msgstr ""
 #: ../yuminstall.py:1517
 #, python-format
 msgid "Too many WWIDs collected for %s, found:"
-msgstr ""
+msgstr "Te veel voor %s verzamelde WWIDs gevonden: "
 
 #: ../yuminstall.py:1519
 #, python-format
 msgid "    %s for %s"
-msgstr ""
+msgstr "    %s voor %s"
 
 #: ../yuminstall.py:1661
 #, python-format
@@ -2985,25 +3011,28 @@ msgstr "U moet een initiator-naam opgeven met een lengte die niet-nul is."
 #: ../iw/autopart_type.py:179 ../iw/autopart_type.py:183
 #: ../textw/partition_text.py:1733 ../textw/partition_text.py:1736
 #: ../textw/partition_text.py:1741 ../textw/partition_text.py:1745
-#, fuzzy
 msgid "Missing value"
-msgstr "Ontbrekend pakket"
+msgstr "Ontbrekende waarde"
 
 #: ../iw/autopart_type.py:170
 msgid "CHAP username is required if CHAP password is defined."
-msgstr ""
+msgstr "CHAP gebruikersnaam is vereist indien CHAP wachtwoord is gedefiniëerd."
 
 #: ../iw/autopart_type.py:174
 msgid "CHAP password is required if CHAP username is defined."
-msgstr ""
+msgstr "CHAP wachtwoord is vereist indien CHAP gebruikersnaam is gedefiniëerd."
 
 #: ../iw/autopart_type.py:180
 msgid "Reverse CHAP username is required if reverse CHAP password is defined."
 msgstr ""
+"Omgekeerde CHAP gebruikersnaam is vereist indien een omgekeerd CHAP "
+"wachtwoord is gedefiniëerd."
 
 #: ../iw/autopart_type.py:184
 msgid "Reverse CHAP password is required if reverse CHAP username is defined."
 msgstr ""
+"Omgekeerd CHAP wachtwoord is vereist indien omgekeerde CHAP gebruikersnaam "
+"is gedefiniëerd."
 
 #: ../iw/autopart_type.py:202
 msgid "Error with Data"
@@ -3900,7 +3929,7 @@ msgstr "RAID-opstelling bewerken"
 
 #: ../iw/network_gui.py:619
 msgid "Unknown Ethernet Device"
-msgstr ""
+msgstr "Onbekend Ethernet Apparaat"
 
 #: ../iw/network_gui.py:625
 #, fuzzy
@@ -5178,7 +5207,7 @@ msgstr "IPv4-prefix moet tussen 0 en 32 liggen."
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
-msgstr ""
+msgstr "Integer Vereist voor Prefix"
 
 #: ../textw/network_text.py:75
 #, python-format
@@ -5186,6 +5215,8 @@ msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
 msgstr ""
+"U dient een geldige integer voor de %s in te voeren. Voor IPv4 kan de waarde "
+"liggen tussen 0 en 32. Voor IPv6 kan de waarde liggen tussen 0 en 128."
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 #, fuzzy
@@ -5213,7 +5244,7 @@ msgstr "IPv6-ondersteuning aanzetten"
 
 #: ../textw/network_text.py:164
 msgid "P-to-P:"
-msgstr ""
+msgstr "P-to-P:"
 
 #: ../textw/network_text.py:182 tmp/netpostconfig.glade.h:7
 #, fuzzy
@@ -5232,7 +5263,7 @@ msgstr "Netwerkconfiguratie voor %s"
 
 #: ../textw/network_text.py:241 ../textw/network_text.py:244
 msgid "point-to-point IP address"
-msgstr ""
+msgstr "point-to-point IP adres"
 
 #: ../textw/network_text.py:272 tmp/netpostconfig.glade.h:5
 #, fuzzy
@@ -5268,7 +5299,7 @@ msgstr "Netmask"
 
 #: ../textw/network_text.py:400 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automagisch ;) buren opsporen "
 
 #: ../textw/network_text.py:403 tmp/netpostconfig.glade.h:6
 #, fuzzy
@@ -5304,7 +5335,7 @@ msgstr "Wilt u de netwerk-interfaces op dit systeem starten?"
 
 #: ../textw/network_text.py:524 ../textw/network_text.py:526
 msgid "UNCONFIGURED"
-msgstr ""
+msgstr "ONGECONFIGUREERD"
 
 #: ../textw/network_text.py:535
 msgid ""
@@ -6029,11 +6060,11 @@ msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:32
 msgid "Office"
-msgstr ""
+msgstr "Kantoor"
 
 #: ../installclasses/rhel.py:33
 msgid "Multimedia"
-msgstr ""
+msgstr "Multimedia"
 
 #: ../installclasses/rhel.py:44
 #, fuzzy
@@ -6042,11 +6073,11 @@ msgstr "Virtualisatie (Xen)"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
-msgstr ""
+msgstr "Clusteren"
 
 #: ../installclasses/rhel.py:46
 msgid "Storage Clustering"
-msgstr ""
+msgstr "Opslag clusteren"
 
 #: ../installclasses/rhel.py:50
 #, fuzzy
@@ -6490,6 +6521,9 @@ msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"Niet in staat om het kickstart-bestand te downloaden. Pas de kickstart-"
+"parameter beneden aan of druk op Annuleren om verder te gaan als een "
+"interactieve installatie."
 
 #: ../loader2/kickstart.c:356
 #, fuzzy
@@ -6889,6 +6923,9 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"Voer het IPv4 en/of het IPv6-adres en prefix (adres / prefix) in. Voor IPv4 "
+"zijn de netmask met 4 maal een punt of de CIDR-stijl prefix acceptabel. De "
+"gateway en naamserver velden dienen geldige IPv4 of IPv6-adressen te zijn."
 
 #: ../loader2/net.c:1238
 msgid "Manual TCP/IP Configuration"
@@ -6943,21 +6980,24 @@ msgstr ""
 
 #: ../loader2/net.c:2288
 msgid "Identify"
-msgstr ""
+msgstr "Identificeren"
 
 #: ../loader2/net.c:2297
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "U kunt de fysieke poort herkennen"
 
 #: ../loader2/net.c:2299
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
+"door het knipperen van de LED-indicatoren gedurende een aantal seconden. "
+"Voer een getal in tussen 1 en 30 om de duur van het knipperen van de LED-"
+"indicatoren in te stellen."
 
 #: ../loader2/net.c:2309
 msgid "Identify NIC"
-msgstr ""
+msgstr "NIC identificeren"
 
 #: ../loader2/net.c:2322
 #, fuzzy
@@ -6967,11 +7007,12 @@ msgstr "Ongeldige informatie"
 #: ../loader2/net.c:2323
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
+"U moet het aantal seconden als een geheel getal tussen 1 en 30 invoeren."
 
 #: ../loader2/net.c:2335
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "Knipperen van %s LED-indicatoren gedurende %d seconden..."
 
 #: ../loader2/nfsinstall.c:47
 msgid "NFS server name:"
@@ -7219,7 +7260,7 @@ msgstr "_Uitzondering details"
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
 #, fuzzy
@@ -7254,6 +7295,8 @@ msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
+"Deze wachtwoordzin eveneens voor alle nieuwe versleutelde apparaten "
+"gebruiken om het bootproces te stroomlijnen"
 
 #: tmp/lukspassphrase.glade.h:2
 #, fuzzy
@@ -7262,7 +7305,7 @@ msgstr "Herstellen bevestigen"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "Voer wachtzin in voor versleutelde partitie"
 
 #: tmp/lukspassphrase.glade.h:4
 #, fuzzy
@@ -8120,7 +8163,7 @@ msgstr "Arabisch"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "Assamees"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8283,7 +8326,7 @@ msgstr "Servisch(Latin)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -8307,7 +8350,7 @@ msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. generated from lang-table
 msgid "Turkish"
