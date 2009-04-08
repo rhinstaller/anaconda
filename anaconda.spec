@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.40
+Version: 11.5.0.41
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,54 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 07 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.41-1
+- Make sure we have a clean lvm ignore list when we initialize. (jgranado)
+- We need to search by name without the "mapper" prefix. (jgranado)
+- Create a min_max constraint to avoid alignments issues. (jgranado)
+- Don't exit the installer from filesystem errors. (dlehman)
+- Try not to raise exceptions from minSize calculators. (dlehman)
+- Don't traceback when PVs are encrypted or are not partitions. (dlehman)
+- Adjust device dependencies when backing out device encryption. (#493257)
+  (dlehman)
+- Include filesystem type in mount log message. (dlehman)
+- Load filesystem modules on demand (#490795, #494108). (clumens)
+- Use existing partitions when --onpart is used for PVs or raid members
+  (#493065) (rvykydal)
+- Raise message, not exception when size set in LV dialog is too big.
+  (rvykydal)
+- Raise an error when remofing an extended part with logical parts.
+  (jgranado)
+- Esthetic changes to storage/partitioning.py. (jgranado)
+- dmraid.py is no longer being used by anything, so remove it. (clumens)
+- Remove partedUtils.py. (clumens)
+- This is the only place isEfiSystemPartition is used, so pull it in.
+  (clumens)
+- getReleaseString now lives in the storage module. (clumens)
+- Stop lying about our support for dmraid and multipath in kickstart.
+  (clumens)
+- Remove some old, unused code that also uses biosGeometry. (clumens)
+- For very small disks, don't try to display a stripe in the graph
+  (#480484). (clumens)
+- Fix reading the console= parameter from the cmdline (#490731). (clumens)
+- For dmraid partititons device node name != name (hdegoede)
+- When a partition request gets unallocated, set the name back to req#
+  (hdegoede)
+- Do not use getPartitionByPath() in allocatePartitions() (hdegoede)
+- Remove no longer used iscsi_get_node_record function (hdegoede)
+- Try to handle devices which live in a subdir of /dev properly (hdegoede)
+- Split DeviceTree.addUdevDevice into several smaller methods. (dlehman)
+- Don't traceback from failure finding minimum fs size. (#494070) (dlehman)
+- udev_settle after format teardown to avoid EBUSY on device teardown.
+  (#492670) (dlehman)
+- Add a parted.Device attribute to all existing StorageDevices. (dlehman)
+- If no partitioning commands are given, apply the UI selections (#490880).
+  (clumens)
+- Update font package names for ml_IN, si_LK, etc. (#493792, #493794).
+  (clumens)
+- Fix a typo in the city name for Nepali (#493803). (clumens)
+- Fix writing out the partition= line on PPC (#492732). (clumens)
+- Do not check size when adding LV to growing VG (bug #492264) (rvykydal)
+
 * Thu Apr 02 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.40-1
 - Don't let device names affect action order in general case. (dlehman)
 - Round up when aligning to pesize for space used. (#493656) (dlehman)
