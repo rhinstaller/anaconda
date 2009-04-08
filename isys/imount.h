@@ -1,7 +1,7 @@
 /*
  * imount.h
  *
- * Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2007, 2008, 2009  Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 
 #define IMOUNT_ERR_ERRNO	1
 #define IMOUNT_ERR_OTHER	2
+#define IMOUNT_ERR_MODE		3
 
 #include <sys/mount.h>		/* for umount() */
 
@@ -29,7 +30,11 @@
 #define IMOUNT_BIND    2
 #define IMOUNT_REMOUNT 4
 
+#define IMOUNT_MODE_MOUNT  1
+#define IMOUNT_MODE_UMOUNT 2
+
 int doPwMount(char *dev, char *where, char *fs, char *options, char **err);
+int doPwUmount(char *where, char **err);
 int mkdirChain(char * origChain);
 
 #endif
