@@ -719,8 +719,8 @@ class Raid(commands.raid.F9_Raid):
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting RAID device with the name \"%s\" was found." % devicename)
 
-            dev.format.mountpoint = lvd.mountpoint
-            dev.format.mountopts = lvd.fsopts
+            dev.format.mountpoint = rd.mountpoint
+            dev.format.mountopts = rd.fsopts
             self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return rd
 
@@ -759,9 +759,9 @@ class Raid(commands.raid.F9_Raid):
         # to take place there.  Also, we only support a subset of all the
         # options on pre-existing RAIDs.
         if rd.preexist:
-            device = devicetree.getDeviceByName(rd.name)
+            device = devicetree.getDeviceByName(devicename)
             if not device:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specifeid nonexisted RAID %s in raid command" % rd.name)
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specifeid nonexistent RAID %s in raid command" % devicename)
 
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
         else:
