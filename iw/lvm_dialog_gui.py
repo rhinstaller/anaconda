@@ -367,10 +367,10 @@ class VolumeGroupEditor:
 	return iter
 
     def editLogicalVolume(self, lv, isNew = 0):
-	if isNew:
-	    tstr = _("Make Logical Volume")
-	else:
-	    tstr = _("Edit Logical Volume: %s") % lv['name']
+        if isNew:
+            tstr = _("Make Logical Volume")
+        else:
+            tstr = _("Edit Logical Volume: %s") % lv['name']
 
         dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(dialog)
@@ -405,7 +405,7 @@ class VolumeGroupEditor:
             format = lv['format']
 
         lbl = createAlignedLabel(_("_Mount Point:"))
-	maintable.attach(lbl, 0, 1, row,row+1)
+        maintable.attach(lbl, 0, 1, row,row+1)
         mountCombo = createMountPointCombo(usedev, excludeMountPoints=["/boot"])
         lbl.set_mnemonic_widget(mountCombo)
         maintable.attach(mountCombo, 1, 2, row, row + 1)
@@ -414,10 +414,8 @@ class VolumeGroupEditor:
         if not lv['exists']:
             lbl = createAlignedLabel(_("_File System Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
-            newfstypeCombo = createFSTypeMenu(format,
-                                              fstypechangeCB,
-                                              mountCombo,
-                                              ignorefs = ["mdmember", "lvmpv", "efi", "prepboot", "appleboot"])
+            newfstypeCombo = createFSTypeMenu(format, fstypechangeCB, mountCombo,
+                    ignorefs = ["mdmember", "lvmpv", "efi", "prepboot", "appleboot"])
             lbl.set_mnemonic_widget(newfstypeCombo)
             maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
             row += 1
@@ -451,7 +449,7 @@ class VolumeGroupEditor:
         else:
             lbl = createAlignedLabel(_("Logical Volume Name:"))
             lvnameEntry = gtk.Label(lv['name'])
-            
+
         maintable.attach(lbl, 0, 1, row, row + 1)
         maintable.attach(lvnameEntry, 1, 2, row, row + 1)
         row += 1
@@ -464,7 +462,7 @@ class VolumeGroupEditor:
         else:
             lbl = createAlignedLabel(_("Size (MB):"))
             sizeEntry = gtk.Label(str(lv['size']))
-            
+
         maintable.attach(lbl, 0, 1, row, row+1)
         maintable.attach(sizeEntry, 1, 2, row, row + 1)
         row += 1
@@ -474,8 +472,8 @@ class VolumeGroupEditor:
             maxlabel = createAlignedLabel(_("(Max size is %s MB)") % (maxlv,))
             maintable.attach(maxlabel, 1, 2, row, row + 1)
 
-	self.fsoptionsDict = {}
-	if lv['exists']:
+        self.fsoptionsDict = {}
+        if lv['exists']:
             templuks = None
             reallv = None
             for _lv in self.vg.lvs:
@@ -506,11 +504,11 @@ class VolumeGroupEditor:
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
 
-	while 1:
-	    rc = dialog.run()
-	    if rc == 2:
-		dialog.destroy()
-		return
+        while 1:
+            rc = dialog.run()
+            if rc == 2:
+                dialog.destroy()
+                return
 
             actions = []
             luksdev = None
@@ -532,8 +530,8 @@ class VolumeGroupEditor:
 
             mountpoint = mountCombo.get_children()[0].get_text().strip()
 
-	    # validate logical volume name
-	    lvname = lvnameEntry.get_text().strip()
+            # validate logical volume name
+            lvname = lvnameEntry.get_text().strip()
             if not templv.exists:
                 err = sanityCheckLogicalVolumeName(lvname)
                 if err:
@@ -541,52 +539,52 @@ class VolumeGroupEditor:
                                             err, custom_icon="error")
                     continue
 
-	    # check that the name is not already in use
-	    used = 0
-	    for _lv in self.lvs.values():
-		if _lv == lv:
-		    continue
+            # check that the name is not already in use
+            used = 0
+            for _lv in self.lvs.values():
+                if _lv == lv:
+                    continue
 
-		if _lv['name'] == lvname:
-		    used = 1
-		    break
+                if _lv['name'] == lvname:
+                    used = 1
+                    break
 
-	    if used:
-		self.intf.messageWindow(_("Illegal logical volume name"),
-					_("The logical volume name \"%s\" is "
-					  "already in use. Please pick "
-					  "another.") % (lvname,), custom_icon="error")
-		continue
+            if used:
+                self.intf.messageWindow(_("Illegal logical volume name"),
+                                        _("The logical volume name \"%s\" is "
+                                          "already in use. Please pick "
+                                          "another.") % (lvname,), custom_icon="error")
+                continue
 
-	    # test mount point
+            # test mount point
             # check in pending logical volume requests
-	    # these may not have been put in master list of requests
-	    # yet if we have not hit 'OK' for the volume group creation
-	    if fmt_class().mountable and mountpoint:
-		used = 0
-		curmntpt = getattr(format, "mountpoint", None)
-		    
-		for _lv in self.lvs.values():
+            # these may not have been put in master list of requests
+            # yet if we have not hit 'OK' for the volume group creation
+            if fmt_class().mountable and mountpoint:
+                used = 0
+                curmntpt = getattr(format, "mountpoint", None)
+
+                for _lv in self.lvs.values():
                     if _lv['format'].type == "luks":
                         _format = self.luks[_lv['name']]
                     else:
                         _format = _lv['format']
 
                     if not _format.mountable or curmntpt and \
-		       _format.mountpoint == curmntpt:
-			continue
+                       _format.mountpoint == curmntpt:
+                        continue
 
-		    if _format.mountpoint == mountpoint:
-			used = 1
-			break
+                    if _format.mountpoint == mountpoint:
+                        used = 1
+                        break
 
-		if used:
-		    self.intf.messageWindow(_("Mount point in use"),
-					    _("The mount point \"%s\" is in "
-					      "use. Please pick another.") %
-					    (mountpoint,),
+                if used:
+                    self.intf.messageWindow(_("Mount point in use"),
+                                            _("The mount point \"%s\" is in "
+                                              "use. Please pick another.") %
+                                            (mountpoint,),
                                             custom_icon="error")
-		    continue
+                    continue
 
             # check that size specification is numeric and positive
             if not templv.exists:
@@ -606,21 +604,21 @@ class VolumeGroupEditor:
                 size = templv.size
 
             # check that size specification is within limits
-	    pesize = int(self.peCombo.get_active_value()) / 1024.0
-	    size = lvm.clampSize(size, pesize, roundup=True)
-	    maxlv = lvm.getMaxLVSize()
-	    if size > maxlv:
-		self.intf.messageWindow(_("Not enough space"),
-					_("The current requested size "
-					  "(%10.2f MB) is larger than the maximum "
-					  "logical volume size (%10.2f MB). "
-					  "To increase this limit you can "
-					  "create more Physical Volumes from "
+            pesize = int(self.peCombo.get_active_value()) / 1024.0
+            size = lvm.clampSize(size, pesize, roundup=True)
+            maxlv = lvm.getMaxLVSize()
+            if size > maxlv:
+                self.intf.messageWindow(_("Not enough space"),
+                                        _("The current requested size "
+                                          "(%10.2f MB) is larger than the maximum "
+                                          "logical volume size (%10.2f MB). "
+                                          "To increase this limit you can "
+                                          "create more Physical Volumes from "
                                           "unpartitioned disk space and "
                                           "add them to this Volume Group.")
-					  %(size, maxlv),
+                                          %(size, maxlv),
                                         custom_icon="error")
-		continue
+                continue
 
             # Ok -- now we've done all the checks to validate the
             # user-specified parameters. Time to set up the device...
@@ -638,7 +636,7 @@ class VolumeGroupEditor:
                                               "or make the logical volume(s) smaller.")
                                               % (size, tempvg.size),
                                             custom_icon="error")
-		    continue
+                    continue
 
                 format = fmt_class(mountpoint=mountpoint)
                 if self.lukscb and self.lukscb.get_active() and \
@@ -649,7 +647,7 @@ class VolumeGroupEditor:
                 templv.format = format
             else:
                 # existing lv
-		if self.fsoptionsDict.has_key("formatcb") and \
+                if self.fsoptionsDict.has_key("formatcb") and \
                    self.fsoptionsDict["formatcb"].get_active():
                     format = fmt_class(mountpoint=mountpoint)
                     if self.lukscb and self.lukscb.get_active() and \
@@ -663,8 +661,8 @@ class VolumeGroupEditor:
                 elif format.mountable:
                     templv.format.mountpoint = mountpoint
 
-		if self.fsoptionsDict.has_key("migratecb") and \
-		   self.fsoptionsDict["migratecb"].get_active():
+                if self.fsoptionsDict.has_key("migratecb") and \
+                   self.fsoptionsDict["migratecb"].get_active():
                     format.migrate = True
 
                 if self.fsoptionsDict.has_key("resizecb") and self.fsoptionsDict["resizecb"].get_active():
@@ -678,10 +676,10 @@ class VolumeGroupEditor:
                 tempdev = StorageDevice('tmp', format=format)
                 if self.storage.formatByDefault(tempdev) and \
                    not queryNoFormatPreExisting(self.intf):
-		    continue
+                    continue
 
-	    # everything ok
-	    break
+            # everything ok
+            break
 
         if templv.format.type == "luks":
             if newluks:
@@ -701,10 +699,10 @@ class VolumeGroupEditor:
             del self.lvs[origname]
 
         self.updateLogVolStore()
-	self.updateVGSpaceLabels()
+        self.updateVGSpaceLabels()
         dialog.destroy()
         return
-	
+
     def editCurrentLogicalVolume(self):
 	iter = self.getCurrentLogicalVolume()
 
