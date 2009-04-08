@@ -46,6 +46,7 @@ from constants import *
 from partition_ui_helpers_gui import *
 from storage.partitioning import doPartitioning
 from storage.devicelibs import lvm
+from storage.devices import devicePathToName
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -801,7 +802,7 @@ class PartitionWindow(InstallWindow):
                     part = part.nextPartition()
                     continue
 
-                partName = part.getDeviceNodeName().split("/")[-1]
+                partName = devicePathToName(part.getDeviceNodeName())
                 device = self.storage.devicetree.getDeviceByName(partName)
                 if not device and not part.type & parted.PARTITION_FREESPACE:
                     log.debug("can't find partition %s in device"
