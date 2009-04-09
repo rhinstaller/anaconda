@@ -258,8 +258,10 @@ class DeviceFormat(object):
                 pass
             else:
                 log.error("error zeroing out %s: %s" % (self.device, e))
+            os.close(fd)
         except Exception as e:
             log.error("error zeroing out %s: %s" % (self.device, e))
+            os.close(fd)
 
         self.exists = False
 
