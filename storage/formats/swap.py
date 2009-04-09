@@ -92,8 +92,11 @@ class SwapSpace(DeviceFormat):
         for option in opts.split(","):
             (opt, equals, arg) = option.partition("=")
             if equals and opt == "pri":
-                self.priority = numeric_type(arg)
-                    
+                try:
+                    self.priority = int(arg)
+                except ValueError:
+                    log.info("invalid value for swap priority: %s" % arg)
+
     options = property(_getOptions, _setOptions,
                        doc="The swap device's fstab options string")
 
