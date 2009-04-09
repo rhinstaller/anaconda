@@ -187,7 +187,7 @@ def createFSTypeMenu(format, fstypechangeCB, mountCombo,
     else:
         names = device_formats.keys()
     if format and format.supported and format.formattable:
-        default = format.name
+        default = format.type
     else:
         default = get_default_filesystem_type()
         

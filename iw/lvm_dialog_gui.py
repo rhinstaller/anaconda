@@ -417,7 +417,7 @@ class VolumeGroupEditor:
             newfstypeCombo = createFSTypeMenu(format,
                                               fstypechangeCB,
                                               mountCombo,
-                                              ignorefs = ["software RAID", "physical volume (LVM)", "efi", "PPC PReP Boot", "Apple Bootstrap"])
+                                              ignorefs = ["mdmember", "lvmpv", "efi", "prepboot", "appleboot"])
             lbl.set_mnemonic_widget(newfstypeCombo)
             maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
             row += 1
@@ -488,7 +488,7 @@ class VolumeGroupEditor:
                             templuks = None
                     break
 
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(reallv, maintable, row, mountCombo, self.storage, ignorefs = ["software RAID", "physical volume (LVM)", "vfat"], luksdev=templuks)
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(reallv, maintable, row, mountCombo, self.storage, ignorefs = ["mdmember", "lvmpv", "vfat"], luksdev=templuks)
 
         # checkbutton for encryption using dm-crypt/LUKS
         if not lv['exists']:
