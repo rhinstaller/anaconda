@@ -118,6 +118,7 @@ def fsConfigFromFile(config_file):
 class FS(DeviceFormat):
     """ Filesystem class. """
     _type = "Abstract Filesystem Class"  # fs type name
+    _mountType = None                    # like _type but for passing to mount
     _name = None
     _mkfs = ""                           # mkfs utility
     _modules = []                        # kernel modules required for support
@@ -249,7 +250,7 @@ class FS(DeviceFormat):
                 options -- list of options to pass to mkfs
 
         """
-        log_method_call(self, type=self.type, device=self.device,
+        log_method_call(self, type=self.mountType, device=self.device,
                         mountpoint=self.mountpoint)
 
         intf = kwargs.get("intf")
@@ -437,7 +438,7 @@ class FS(DeviceFormat):
         """Load whatever kernel module is required to support this filesystem."""
         global kernel_filesystems
 
-        if not self._modules or self.type in kernel_filesystems:
+        if not self._modules or self.mountType in kernel_filesystems:
             return
 
         for module in self._modules:
@@ -509,7 +510,7 @@ class FS(DeviceFormat):
        
         try: 
             rc = isys.mount(self.device, mountpoint, 
-                            fstype=self.type,
+                            fstype=self.mountType,
                             options=options,
                             bindMount=isinstance(self, BindFS))
         except Exception as e:
@@ -628,8 +629,8 @@ class FS(DeviceFormat):
 
     @property
     def mountable(self):
-        return (self.type in kernel_filesystems) or \
-               (os.access("/sbin/mount.%s" % (self.type,), os.X_OK))
+        return (self.mountType in kernel_filesystems) or \
+               (os.access("/sbin/mount.%s" % (self.mountType,), os.X_OK))
 
     @property
     def defaultFormatOptions(self):
@@ -696,6 +697,13 @@ class FS(DeviceFormat):
             _type = self.migrationTarget
 
         return _type
+
+    @property
+    def mountType(self):
+        if not self._mountType:
+            self._mountType = self._type
+
+        return self._mountType
 
     # These methods just wrap filesystem-specific methods in more
     # generically named methods so filesystems and formatted devices
@@ -772,7 +780,7 @@ class Ext2FS(FS):
 
             if size is None:
                 log.warning("failed to get minimum size for %s filesystem "
-                            "on %s" % (self.type, self.device))
+                            "on %s" % (self.mountType, self.device))
                 size = self._minSize
 
         return size
@@ -834,6 +842,7 @@ register_device_format(FATFS)
 
 class EFIFS(FATFS):
     _type = "efi"
+    _mountType = "vfat"
     _modules = ["vfat"]
     _name = "EFI System Partition"
     _minSize = 50
@@ -978,6 +987,7 @@ register_device_format(HFS)
 
 class AppleBootstrapFS(HFS):
     _type = "appleboot"
+    _mountType = "hfs"
     _name = "Apple Bootstrap"
     _bootable = True
     _minSize = 800.00 / 1024.00
