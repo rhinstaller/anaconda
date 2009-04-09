@@ -386,9 +386,10 @@ class LogVol(commands.logvol.F9_LogVol):
             return lvd
 
         # Make sure this LV name is not already used in the requested VG.
-        tmp = devicetree.getDeviceByName("%s-%s" % (vg.name, lvd.name))
-        if tmp:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % vg.name)
+        if not lvd.preexist:
+            tmp = devicetree.getDeviceByName("%s-%s" % (vg.name, lvd.name))
+            if tmp:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % vg.name)
 
         # Size specification checks
         if not lvd.preexist:
@@ -861,27 +862,14 @@ class VolGroup(commands.volgroup.FC3_VolGroup):
         if vgd.pesize not in getPossiblePhysicalExtents(floor=1024):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize")
 
-        # If --noformat was given, there's really nothing to do.
-        if not vgd.format:
+        # If --noformat or --useexisting was given, there's really nothing to do.
+        if not vgd.format or vgd.preexist:
             if not vgd.vgname:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat used without giving a name")
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat or --useexisting used without giving a name")
 
             dev = devicetree.getDeviceByName(vgd.vgname)
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting VG with the name \"%s\" was found." % vgd.vgname)
-
-            return vgd
-
-        # If we were given a pre-existing VG to use, we need to verify it
-        # exists and then schedule a new format action to take place there.
-        # Also, we only support a subset of all the options on pre-existing
-        # VGs.
-        if vgd.preexist:
-            device = devicetree.getDeviceByName(vgd.vgname)
-            if not device:
-                raise KicsktartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent VG %s in volgroup command" % vgd.vgname)
-
-            devicetree.registerAction(ActionCreateFormat(device))
         else:
             request = storage.newVG(pvs=pvs,
                                     name=vgd.vgname,
