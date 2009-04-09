@@ -53,6 +53,8 @@ def get_kernel_filesystems():
     for line in open("/proc/filesystems").readlines():
         fs_list.append(line.split()[-1])
     return fs_list
+
+global kernel_filesystems
 kernel_filesystems = get_kernel_filesystems()
 
 def fsFromConfig(attrs, *args, **kwargs):
@@ -433,6 +435,8 @@ class FS(DeviceFormat):
 
     def loadModule(self):
         """Load whatever kernel module is required to support this filesystem."""
+        global kernel_filesystems
+
         if not self._modules or self.type in kernel_filesystems:
             return
 
@@ -450,6 +454,10 @@ class FS(DeviceFormat):
                 log.error("Could not load kernel module %s" % module)
                 self._supported = False
                 return
+
+        # If we successfully loaded a kernel module, for this filesystem, we
+        # also need to update the list of supported filesystems.
+        kernel_filesystems = get_kernel_filesystems()
 
     def mount(self, *args, **kwargs):
         """ Mount this filesystem.
