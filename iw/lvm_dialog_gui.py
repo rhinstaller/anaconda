@@ -367,24 +367,36 @@ class VolumeGroupEditor:
 	return iter
 
     def editLogicalVolume(self, lv, isNew = 0):
+        # Mixing logical code and gtk code is confusing to me.  So I am going
+        # to do the logic first and then create all the gtk crap!
+        #
+        # lv -- whatever self.logvolstore.get_value returns
+
+        #newfstypelabel = None # File system type label & combo
+        #newfstypeCombo = None
+        newfslabellabel = None # File system Label label & combo
+        newfslableCombo = None
+        #lvnamelabel = None # Logical Volume name label & entry
+        #lvnameentry = None
+        #lvsizelabel = None # Logical Volume size label & entry
+        #lvsizeentry = None
+        maxsizelabel = None # Maximum size label
+        #mountCombo = None # Mount Point Combo Box
+        #tstr = None # String that appears on top of the window
+        tempvg = self.getTempVG()  # copy of self.vg
+        templv = None
+        cpefsos = None # lambda function that represents
+                       # createPreExistFSOptionSection
+
+        # Define the string
         if isNew:
             tstr = _("Make Logical Volume")
         else:
             tstr = _("Edit Logical Volume: %s") % lv['name']
 
-        dialog = gtk.Dialog(tstr, self.parent)
-        gui.addFrame(dialog)
-        dialog.add_button('gtk-cancel', 2)
-        dialog.add_button('gtk-ok', 1)
-        dialog.set_position(gtk.WIN_POS_CENTER)
-
-        maintable = gtk.Table()
-        maintable.set_row_spacings(5)
-        maintable.set_col_spacings(5)
-        row = 0
-
-        tempvg = self.getTempVG()
-        templv = None
+        # Create the mountCombo.  This is the box where the mountpoint will
+        # appear.  Note that if the format is swap or Raiddevice, the mount
+        # point is none-sense.
         templuks = None
         usedev = None
         for _lv in tempvg.lvs:
@@ -403,77 +415,70 @@ class VolumeGroupEditor:
             format = self.luks[lv['name']]
         else:
             format = lv['format']
-
-        lbl = createAlignedLabel(_("_Mount Point:"))
-        maintable.attach(lbl, 0, 1, row,row+1)
         mountCombo = createMountPointCombo(usedev, excludeMountPoints=["/boot"])
-        lbl.set_mnemonic_widget(mountCombo)
-        maintable.attach(mountCombo, 1, 2, row, row + 1)
-        row += 1
 
+
+        # Stuff appears differently when the lv exists and when the lv is new.
+        # here we make that difference.  Except for newfslabelCombo,  and
+        # maxsizelabel all vars will have a value != None.
         if not lv['exists']:
-            lbl = createAlignedLabel(_("_File System Type:"))
-            maintable.attach(lbl, 0, 1, row, row + 1)
-            newfstypeCombo = createFSTypeMenu(format, fstypechangeCB, mountCombo,
+            # File system type lables & combo
+            newfstypelabel = createAlignedLabel(_("_File System Type:"))
+            newfstypeCombo = createFSTypeMenu(format, fstypechangeCB,mountCombo,
                     ignorefs = ["mdmember", "lvmpv", "efi", "prepboot", "appleboot"])
-            lbl.set_mnemonic_widget(newfstypeCombo)
-            maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
-            row += 1
+            newfstypelabel.set_mnemonic_widget(newfstypeCombo)
+
+            # Logical Volume name label & entry
+            lvnamelabel = createAlignedLabel(_("_Logical Volume Name:"))
+            lvnameentry = gtk.Entry(32)
+            lvnamelabel.set_mnemonic_widget(lvnameentry)
+            if lv['name']:
+                lvnameentry.set_text(lv['name'])
+            else:
+                lvnameentry.set_text(self.storage.createSuggestedLVName(self.getTempVG()))
+
+            # Logical Volume size label & entry
+            lvsizelabel = createAlignedLabel(_("_Size (MB):"))
+            lvsizeentry = gtk.Entry(16)
+            lvsizelabel.set_mnemonic_widget(lvsizeentry)
+            lvsizeentry.set_text("%Ld" % lv['size'])
+
+            # Maximum size label
+            maxsizelabel = createAlignedLabel(_("(Max size is %s MB)") %
+                    min(lvm.getMaxLVSize(), lv['size'] + tempvg.freeSpace))
+
+            # Encrypt Check Box button.
+            self.lukscb = gtk.CheckButton(_("_Encrypt"))
+            self.lukscb.set_data("formatstate", 1)
+            if lv['format'].type == "luks":
+                self.lukscb.set_active(1)
+            else:
+                self.lukscb.set_active(0)
+
         else:
-            maintable.attach(createAlignedLabel(_("Original File System Type:")),
-                             0, 1, row, row + 1)
+            # File system type lable & combo
+            newfstypelabel = createAlignedLabel(_("Original File System Type:"))
             if format.type:
                 newfstypeCombo = gtk.Label(format.name)
             else:
                 newfstypeCombo = gtk.Label(_("Unknown"))
 
-            maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
-            row += 1
-
+            # File system label label & combo
             if getattr(format, "label", None):
-                maintable.attach(createAlignedLabel(_("Original File System "
-                                                      "Label:")),
-                                 0, 1, row, row + 1)
-                maintable.attach(gtk.Label(format.label),
-                                 1, 2, row, row + 1)
-                row += 1
+                newfslabellabel = createAlignedLabel(_("Original File System "
+                                                      "Label:"))
+                newfslableCombo = gtk.Label(format.label)
 
-        if not lv['exists']:
-            lbl = createAlignedLabel(_("_Logical Volume Name:"))
-            lvnameEntry = gtk.Entry(32)
-            lbl.set_mnemonic_widget(lvnameEntry)
-            if lv['name']:
-                lvnameEntry.set_text(lv['name'])
-            else:
-                lvnameEntry.set_text(self.storage.createSuggestedLVName(self.getTempVG()))
-        else:
-            lbl = createAlignedLabel(_("Logical Volume Name:"))
-            lvnameEntry = gtk.Label(lv['name'])
+            # Logical Volume name label & entry
+            lvnamelabel = createAlignedLabel(_("Logical Volume Name:"))
+            lvnameentry = gtk.Label(lv['name'])
 
-        maintable.attach(lbl, 0, 1, row, row + 1)
-        maintable.attach(lvnameEntry, 1, 2, row, row + 1)
-        row += 1
+            # Logical Volume size label & entry
+            lvsizelabel = createAlignedLabel(_("Size (MB):"))
+            lvsizeentry = gtk.Label(str(lv['size']))
 
-        if not lv['exists']:
-            lbl = createAlignedLabel(_("_Size (MB):"))
-            sizeEntry = gtk.Entry(16)
-            lbl.set_mnemonic_widget(sizeEntry)
-            sizeEntry.set_text("%Ld" % lv['size'])
-        else:
-            lbl = createAlignedLabel(_("Size (MB):"))
-            sizeEntry = gtk.Label(str(lv['size']))
-
-        maintable.attach(lbl, 0, 1, row, row+1)
-        maintable.attach(sizeEntry, 1, 2, row, row + 1)
-        row += 1
-
-        if not lv['exists']:
-            maxlv = min(lvm.getMaxLVSize(), lv['size'] + tempvg.freeSpace)
-            maxlabel = createAlignedLabel(_("(Max size is %s MB)") % (maxlv,))
-            maintable.attach(maxlabel, 1, 2, row, row + 1)
-
-        self.fsoptionsDict = {}
-        if lv['exists']:
+            # Create the File System Format Section
+            self.fsoptionsDict = {}
             templuks = None
             reallv = None
             for _lv in self.vg.lvs:
@@ -485,17 +490,70 @@ class VolumeGroupEditor:
                         except IndexError:
                             templuks = None
                     break
+            # We are going to lambda the createPreExistFSOptionSection so we can call
+            # it latter with two arguments, row and mainttable.
+            cpefsos = lambda table, row: createPreExistFSOptionSection(reallv,
+                    maintable, row, mountCombo, self.storage,
+                    ignorefs = ["software RAID", "physical volume (LVM)", "vfat"],
+                    luksdev=templuks)
 
-	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(reallv, maintable, row, mountCombo, self.storage, ignorefs = ["mdmember", "lvmpv", "vfat"], luksdev=templuks)
+
+        # Here is where the gtk crap begins.
+        dialog = gtk.Dialog(tstr, self.parent)
+        gui.addFrame(dialog)
+        dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-ok', 1)
+        dialog.set_position(gtk.WIN_POS_CENTER)
+
+        # Initialize main table
+        maintable = gtk.Table()
+        maintable.set_row_spacings(5)
+        maintable.set_col_spacings(5)
+        row = 0
+
+        # Add the mountCombo that we previously created
+        lbl = createAlignedLabel(_("_Mount Point:"))
+        maintable.attach(lbl, 0, 1, row,row+1)
+        lbl.set_mnemonic_widget(mountCombo)
+        maintable.attach(mountCombo, 1, 2, row, row + 1)
+        row += 1
+
+        # Add the filesystem combo labels.
+        maintable.attach(newfstypelabel, 0, 1, row, row + 1)
+        maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
+        row += 1
+
+        # If there is a File system lable, add it.
+        if newfslabellabel is not None and newfslableCombo is not None:
+            maintable.attach(newfslabellabel, 0, 1, row, row + 1)
+            maintable.attach(newfslableCombo, 1, 2, row, row + 1)
+            row += 1
+
+        # Add the logical volume name
+        maintable.attach(lvnamelabel, 0, 1, row, row + 1)
+        maintable.attach(lvnameentry, 1, 2, row, row + 1)
+        row += 1
+
+        # Add the logical volume size
+        maintable.attach(lvsizelabel, 0, 1, row, row + 1)
+        maintable.attach(lvsizeentry, 1, 2, row, row + 1)
+        row += 1
+
+        # If there is a maxsize, add it.
+        if maxsizelabel is not None:
+            maintable.attach(maxsizelabel, 1, 2, row, row + 1)
+
+        # If we have the createPreExistFSOptionSection lamda function it means
+        # that we have a preexisting lv and we must call the lambda function
+        # to create the Pre exsisting FS option section.
+        if cpefsos is not None:
+            (row, self.fsoptionsDict) = cpefsos(maintable, row)
 
         # checkbutton for encryption using dm-crypt/LUKS
+        # FIXME: Here we could not decouple the gtk stuff from the logic because
+        #        of the createPreExistFSOptionSection function call.  We must
+        #        decouple that function.
         if not lv['exists']:
-            self.lukscb = gtk.CheckButton(_("_Encrypt"))
-            self.lukscb.set_data("formatstate", 1)
-            if lv['format'].type == "luks":
-                self.lukscb.set_active(1)
-            else:
-                self.lukscb.set_active(0)
             maintable.attach(self.lukscb, 0, 2, row, row + 1)
             row = row + 1
         else:
@@ -503,6 +561,7 @@ class VolumeGroupEditor:
 
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
+        # Here ends the gtk crap
 
         while 1:
             rc = dialog.run()
@@ -531,7 +590,7 @@ class VolumeGroupEditor:
             mountpoint = mountCombo.get_children()[0].get_text().strip()
 
             # validate logical volume name
-            lvname = lvnameEntry.get_text().strip()
+            lvname = lvnameentry.get_text().strip()
             if not templv.exists:
                 err = sanityCheckLogicalVolumeName(lvname)
                 if err:
