@@ -170,10 +170,11 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg liblbxutil libnl
     libpixman libpng libselinux libselinux-python libsemanage
     libsemanage-python libsepol libstdc++ libtermcap libthai libuser
-    libuser-python libvolume_id libxcb libxkbfile libxml2 lklug-fonts lohit-bengali-fonts
-    lohit-gujarati-fonts lohit-hindi-fonts lohit-kannada-fonts lohit-maithili-fonts
-    lohit-oriya-fonts lohit-punjabi-fonts lohit-tamil-fonts lohit-telugu-fonts
-    lvm2 madan-fonts mdadm
+    libuser-python libvolume_id libxcb libxkbfile libxml2 lklug-fonts 
+    lohit-assamese-fonts lohit-bengali-fonts lohit-gujarati-fonts lohit-hindi-fonts
+    lohit-kashmiri-fonts lohit-kannada-fonts lohit-maithili-fonts lohit-marathi-fonts
+    lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
+    lohit-telugu-fonts lvm2 madan-fonts mdadm
     mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
     newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
     policy policycoreutils popt prelink procps pycairo pygobject2 pygtk2
@@ -571,13 +572,17 @@ usr/share/anaconda/anaconda.conf
 usr/share/cracklib
 usr/share/dbus-1
 usr/share/fonts/*/lklug.ttf
+usr/share/fonts/*/lohit_as.ttf
 usr/share/fonts/*/lohit_bn.ttf
 usr/share/fonts/*/lohit_gu.ttf
 usr/share/fonts/*/lohit_hi.ttf
 usr/share/fonts/*/lohit_kn.ttf
+usr/share/fonts/*/lohit_ks.ttf
 usr/share/fonts/*/lohit_mai.ttf
+usr/share/fonts/*/lohit_mr.ttf
 usr/share/fonts/*/lohit_or.ttf
 usr/share/fonts/*/lohit_pa.ttf
+usr/share/fonts/*/lohit_sd.ttf
 usr/share/fonts/*/lohit_ta.ttf
 usr/share/fonts/*/lohit_te.ttf
 usr/share/fonts/*/lklug.ttf
