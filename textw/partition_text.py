@@ -57,7 +57,7 @@ class PartitionTypeWindow:
         while 1:
             g = GridFormHelp(screen, _("Partitioning Type"), "autopart", 1, 6)
 
-            txt = TextboxReflowed(65, _("Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target. You can also choose to create your own custom layout."))
+            txt = TextboxReflowed(65, _("Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target."))
             g.add(txt, 0, 0, (0, 0, 0, 0))
 
             opts = ((_("Use entire drive"), CLEARPART_TYPE_ALL),
