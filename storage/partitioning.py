@@ -970,11 +970,10 @@ def growPartitions(disks, partitions):
             log.debug("starting binary search: size=%d max_size=%d" % (part.req_size, max_size))
             count = 0
             op_func = add
-            increment = max_sectors
+            increment = max_grow
             last_good_size = part.req_size
             last_outcome = None
-            while (part.partedPartition.geometry.length < max_sectors and
-                   count < 3):
+            while count < 3:
                 last_size = part.req_size
                 increment /= 2
                 req_sectors = op_func(req_sectors, increment)
