@@ -987,6 +987,7 @@ def growPartitions(disks, partitions):
                     op_func = sub
                     last_outcome = False
                 else:
+                    op_func = add
                     last_good_size = part.req_size
                     last_outcome = True
 
