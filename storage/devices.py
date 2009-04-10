@@ -1274,8 +1274,11 @@ class PartitionDevice(StorageDevice):
         if self.disk:
             self.disk.removeChild()
 
-        self.parents = [disk]
-        disk.addChild()
+        if disk:
+            self.parents = [disk]
+            disk.addChild()
+        else:
+            self.parents = []
 
     disk = property(lambda p: p._getDisk(), lambda p,d: p._setDisk(d))
 

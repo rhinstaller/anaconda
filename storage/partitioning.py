@@ -633,6 +633,7 @@ def allocatePartitions(disks, partitions):
 
             partedDisk.removePartition(_part.partedPartition)
             _part.partedPartition = None
+            _part.disk = None
 
             # remove empty extended so it doesn't interfere
             extended = partedDisk.getExtendedPartition()
