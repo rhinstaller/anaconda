@@ -1222,7 +1222,7 @@ class PartitionDevice(StorageDevice):
     def _getSize(self):
         """ Get the device's size. """
         size = self._size
-        if len(self.parents) == 1:
+        if self.partedPartition:
             # this defaults to MB
             size = self.partedPartition.getSize()
         return size
