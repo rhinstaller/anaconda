@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 13:23-0500\n"
-"PO-Revision-Date: 2009-04-12 12:07+0200\n"
+"PO-Revision-Date: 2009-04-12 12:17+0200\n"
 "Last-Translator: R.E. van der Luit <nippur@fedoraproject.org>\n"
 "Language-Team: Dutch <nippur@fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -5220,14 +5220,12 @@ msgid "point-to-point IP address"
 msgstr "point-to-point IP adres"
 
 #: ../textw/network_text.py:272 tmp/netpostconfig.glade.h:5
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Dynamische IP-configuratie (DHCP) gebruiken"
+msgstr "Dynamische IP-configuratie (DHCP) "
 
 #: ../textw/network_text.py:275 ../textw/network_text.py:406
-#, fuzzy
 msgid "Manual address configuration"
-msgstr "Handmatige TCP/IP-configuratie"
+msgstr "Handmatige adres configuratie"
 
 #: ../textw/network_text.py:295, python-format
 msgid "IPv4 Configuration for %s"
@@ -5310,9 +5308,8 @@ msgid "Auto IPv6"
 msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:590 ../textw/network_text.py:669
-#, fuzzy
 msgid "DHCPv6"
-msgstr "DHCP"
+msgstr "DHCPv6"
 
 #: ../textw/network_text.py:596 ../textw/network_text.py:675
 #, python-format
@@ -6742,12 +6739,11 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Foutief argument voor schijf kickstart methode commando %s: %s"
 
 #: ../loader2/modules.c:1077
-#, fuzzy
 msgid ""
 "Both module type and name must be specified for the kickstart device command."
 msgstr ""
-"Het volgende foutief argument was opgegeven voor het kickstart driver disk "
-"commando: %s:%s"
+"Zowel module type als naam dient bij een kickstart device commando te worden "
+"gespecificeerd.."
 
 #: ../loader2/net.c:69
 #, c-format
@@ -6800,12 +6796,10 @@ msgid "Nameserver IP"
 msgstr "Naamserver IP"
 
 #: ../loader2/net.c:325
-#, fuzzy
 msgid "Missing Nameserver"
-msgstr "Naamserver"
+msgstr "Ontbrekende Naamserver"
 
 #: ../loader2/net.c:326
-#, fuzzy
 msgid ""
 "Your IP address request returned configuration information, but it did not "
 "include a nameserver address. If you do not have this information, you can "
@@ -6837,9 +6831,8 @@ msgid "Configure TCP/IP"
 msgstr "TCP/IP configureren"
 
 #: ../loader2/net.c:944
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "U moet tenminste één protocol (IPv4 of IPv6) kiezen voor DHCP."
+msgstr "U moet tenminste één protocol (IPv4 of IPv6) kiezen."
 
 #: ../loader2/net.c:952
 msgid "IPv4 Needed for NFS"
@@ -6892,9 +6885,8 @@ msgstr ""
 "invoeren."
 
 #: ../loader2/net.c:1353
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "U moet zowel een geldig IPv6-adres en een CIDR-prefix invoeren."
+msgstr "U moet zowel een geldig IPv6-adres als een CIDR-prefix invoeren."
 
 #: ../loader2/net.c:1929
 msgid "Determining host name and domain..."
@@ -6911,9 +6903,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "Foutief opstartprotocol %s opgegeven in netwerkopdracht"
 
 #: ../loader2/net.c:2110
-#, fuzzy
 msgid "Seconds:"
-msgstr "Tweede DNS-server:"
+msgstr "Seconden:"
 
 #: ../loader2/net.c:2283
 msgid "Networking Device"
@@ -6949,9 +6940,8 @@ msgid "Identify NIC"
 msgstr "NIC identificeren"
 
 #: ../loader2/net.c:2322
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Ongeldige informatie"
+msgstr "Ongeldige Duur"
 
 #: ../loader2/net.c:2323
 msgid "You must enter the number of seconds as an integer between 1 and 30."
@@ -7172,9 +7162,8 @@ msgid "_Release Notes"
 msgstr "Versie-_informatie"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "Encrypt system"
-msgstr "Encryptie sleutel"
+msgstr "Versleutel systeem"
 
 #: tmp/autopart.glade.h:2
 msgid ""
@@ -7212,24 +7201,20 @@ msgid "%(instkey)s:"
 msgstr "%(instkey)s:"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>_Wachtwoord:</b>"
+msgstr "<b>CHA_P Wachtwoord:</b>"
 
 #: tmp/iscsi-config.glade.h:2
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>_Gebruikersnaam:</b>"
+msgstr "<b>CHAP Gebr_uikersnaam:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>_Wachtwoord:</b>"
+msgstr "<b>Omgekeerd CHA_P Wachtwoord:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>_Gebruikersnaam:</b>"
+msgstr "<b>Omgekeerd CHAP Gebr_uikersnaam:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -7248,18 +7233,16 @@ msgstr ""
 "gebruiken om het bootproces te stroomlijnen"
 
 #: tmp/lukspassphrase.glade.h:2
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Herstellen bevestigen"
+msgstr "Bevestigen wachtwoordzin:"
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Enter passphrase for encrypted partition"
 msgstr "Voer wachtzin in voor versleutelde partitie"
 
 #: tmp/lukspassphrase.glade.h:4
-#, fuzzy
 msgid "Enter passphrase:"
-msgstr "Gebruikers_naam invoeren:"
+msgstr "Wachtwoordzin invoeren:"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -7306,9 +7289,8 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "_Dynamische IP-configuratie (DHCP) gebruiken"
 
 #: tmp/netpostconfig.glade.h:2
-#, fuzzy
 msgid "<b>Description Goes Here</b>"
-msgstr "Beschrijving: %s"
+msgstr "<b>Beschrijving Mag u hier neerzetten</b>"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
@@ -7316,24 +7298,20 @@ msgstr "<b>Hardware adres: DE:AD:00:BE:EF:00</b>"
 
 # instellen hier beter dan bewerken of aanpassen
 #: tmp/netpostconfig.glade.h:8
-#, fuzzy
 msgid "Edit Interface"
-msgstr "Interface %s instellen"
+msgstr "Interface bewerken"
 
 #: tmp/netpostconfig.glade.h:11
-#, fuzzy
 msgid "Encryption Key:"
 msgstr "Encryptie _sleutel:"
 
 #: tmp/netpostconfig.glade.h:13
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Handmatige TCP/IP-configuratie"
+msgstr "Handmatige configuratie"
 
 #: tmp/netpostconfig.glade.h:14
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "_Point to Point (IP):"
+msgstr "Point to Point (IP):"
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -7364,19 +7342,16 @@ msgid "_Customize now"
 msgstr "_Nu aanpassen"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "Apparaatnummer:"
+msgstr "<b>Device nummer:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN:"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "<b>_Wachtwoord:</b>"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
 msgid "Add FCP device"
@@ -7501,9 +7476,8 @@ msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Central Time - Indiana - Perry County"
-msgstr "Central Time - Indiana - Pike County"
+msgstr "Central Time - Indiana - Perry County"
 
 #. generated from zone.tab
 msgid "Central Time - Indiana - Pike County"
@@ -7559,9 +7533,8 @@ msgid "Dornod, Sukhbaatar"
 msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Dumont-d'Urville Station, Terre Adelie"
-msgstr "Dumont-d'Urville Base, Terre Adelie"
+msgstr "Dumont-d'Urville Station, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
@@ -7584,16 +7557,12 @@ msgid "Eastern Time - Indiana - Crawford County"
 msgstr "Eastern Time - Indiana - Crawford County"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Daviess, Dubois, Knox & Martin Counties"
-msgstr ""
-"Central Time - Indiana - Daviess, Dubois, Knox, Martin, Perry & Pulaski "
-"Counties"
+msgstr "Eastern Time - Indiana - Daviess, Dubois, Knox & Martin Counties"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Indiana - Pulaski County"
-msgstr "Eastern Time - Indiana - Starke County"
+msgstr "Eastern Time - Indiana - Pulaski County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Indiana - Starke County"
@@ -7639,18 +7608,16 @@ msgid "Eastern Time - Quebec - most locations"
 msgstr "Eastern Time - Ontario - meeste locaties"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Resolute, Nunavut"
-msgstr "Eastern Time - oost Nunavut"
+msgstr "Eastern Time - Resolute, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - east Nunavut - most locations"
-msgstr "Eastern Time - Indiana - meeste locaties"
+msgstr "Eastern Time - east Nunavut - most locations"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -7847,9 +7814,8 @@ msgid "Mountain Time - west Northwest Territories"
 msgstr "Mountain Time - west Northwest Territories"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time - west Nunavut"
-msgstr "Central Time - west Nunavut"
+msgstr "Mountain Time - west Nunavut"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
@@ -7916,9 +7882,8 @@ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Rondonia"
-msgstr "W Para, Rondonia"
+msgstr "Rondonia"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -7945,9 +7910,8 @@ msgid "San Juan (SJ)"
 msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "San Luis (SL)"
-msgstr "San Juan (SJ)"
+msgstr "San Luis (SL)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
@@ -8010,9 +7974,8 @@ msgid "W Amazonas"
 msgstr "W Amazone"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "W Para"
-msgstr "Waarschuwen"
+msgstr "W Para"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -8023,19 +7986,16 @@ msgid "West Kazakhstan"
 msgstr "West Kazagstan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - Eucla area"
-msgstr "West Australië"
+msgstr "Western Australia - Eucla area"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia - most locations"
-msgstr "Central Time - meeste locaties"
+msgstr "Western Australia - most locations"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Zaporozh'ye, E Lugansk / Zaporizhia, E Luhansk"
-msgstr "Zaporozh'ye, E Lugansk"
+msgstr "Zaporozh'ye, E Lugansk / Zaporizhia, E Luhansk"
 
 #. generated from zone.tab
 msgid "central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc."
@@ -8074,9 +8034,8 @@ msgid "most locations"
 msgstr "meeste locaties"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
-msgstr "meeste locaties (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
+msgstr "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF)"
 
 #. generated from zone.tab
 msgid "most of Tibet & Xinjiang"
