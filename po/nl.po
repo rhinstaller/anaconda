@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 13:23-0500\n"
-"PO-Revision-Date: 2009-04-08 17:45+0200\n"
+"PO-Revision-Date: 2009-04-12 12:07+0200\n"
 "Last-Translator: R.E. van der Luit <nippur@fedoraproject.org>\n"
 "Language-Team: Dutch <nippur@fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -145,28 +145,17 @@ msgid "unknown install method: %s"
 msgstr "Onbekende installatiemethode: %s"
 
 #: ../autopart.py:950
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
 msgstr ""
-"Kon cylinder-gebaseerde partities niet alloceren als primaire partities.\n"
-"\n"
-"%s"
+"Kon cilinder-gebaseerde partities niet alloceren als primaire partities.\n"
 
 #: ../autopart.py:955
-#, fuzzy
 msgid "Could not allocate partitions as primary partitions.\n"
-msgstr ""
-"Kon partities niet alloceren als primaire partities.\n"
-"\n"
-"%s"
+msgstr "Kon partities niet alloceren als primaire partities.\n"
 
 #: ../autopart.py:960
-#, fuzzy
 msgid "Could not allocate cylinder-based partitions.\n"
-msgstr ""
-"Kon cylinder-gebaseerde partities niet alloceren.\n"
-"\n"
-"%s"
+msgstr "Kon cilinder-gebaseerde partities niet alloceren.\n"
 
 #: ../autopart.py:1020
 #, python-format
@@ -1031,9 +1020,8 @@ msgid "Cancel"
 msgstr "Annuleren"
 
 #: ../gui.py:594 ../text.py:471
-#, fuzzy
 msgid "Installation Key"
-msgstr "Soort installatie"
+msgstr "Installatiesleutel"
 
 #: ../gui.py:649 ../text.py:224
 msgid ""
@@ -1044,20 +1032,18 @@ msgstr ""
 "worden gevraagd tijdens het opstarten van het systeem."
 
 #: ../gui.py:680 ../gui.py:688 ../text.py:263 ../text.py:273
-#, fuzzy
 msgid "Error with passphrase"
-msgstr "Fout bij het wachtwoord"
+msgstr "Fout bij wachtwoordzin"
 
 #: ../gui.py:681 ../text.py:264
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
 msgstr ""
-"De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
+"De wachtwoordzinnen die u hebt ingevoerd zijn verschillend. Probeer het "
+"opnieuw."
 
 #: ../gui.py:689
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "Het wachtwoord moet tenminste 6 tekens lang zijn."
+msgstr "Wachtwoordzin moet tenminste 6 tekens lang zijn."
 
 #: ../gui.py:721 ../text.py:297
 #, python-format
@@ -1372,12 +1358,10 @@ msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr "Computernamen mogen alleen de tekens 'a-z', 'A-Z', '-' of '.' bevatten"
 
 #: ../network.py:92
-#, fuzzy
 msgid "IP address is missing."
 msgstr "IP-adres ontbreekt."
 
 #: ../network.py:96
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
@@ -1390,30 +1374,25 @@ msgstr ""
 msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' is geen geldig IPv6-adres."
 
-#: ../network.py:101
-#, fuzzy, python-format
+#: ../network.py:101, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "'%s' is geen geldig IPv6-adres."
+msgstr "'%s' is geen geldig IP adres."
 
 #: ../packages.py:155
-#, fuzzy
 msgid "LVM operation failed"
-msgstr "Aankoppelen is mislukt"
+msgstr "LVM actie is mislukt"
 
 #: ../packages.py:272
-#, fuzzy
 msgid "Invalid Key"
-msgstr "Ongeldige prefix"
+msgstr "Ongeldige sleutel"
 
 #: ../packages.py:273
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "De ingevoerde waarde is geen geldig getal."
+msgstr "De ingevoerde sleutel is niet geldig."
 
 #: ../packages.py:301
-#, fuzzy
 msgid "_Skip"
-msgstr "Overslaan"
+msgstr "Over_slaan"
 
 #: ../packages.py:332
 msgid "Warning! This is pre-release software!"
@@ -1937,8 +1916,7 @@ msgstr ""
 "Wilt u dit station initialiseren?"
 
 # drive en device worden hier wel heel erg willekeurig door elkaar gehaald, lijkt het.
-#: ../partedUtils.py:1138
-#, fuzzy, python-format
+#: ../partedUtils.py:1138, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -1949,14 +1927,14 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"De partitietabel op apparaat %s (%s) was onleesbaar. Om nieuwe partities te "
-"maken moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE GEGEVENS "
-"op dit station verloren gaan.\n"
+"De partitietabel op apparaat %s (%s %-0.f MB) was onleesbaar.\n"
+"Om nieuwe partities te maken moet deze schijf geïnitialiseerd worden. "
+"Hierdoor zullen ALLE GEGEVENS op dit station verloren gaan.\n"
 "\n"
 "Deze actie zal alle voorgaande installatiekeuzes met betrekking tot welke "
 "stations worden genegeerd teniet doen.\n"
 "\n"
-"Wilt u dit station initialiseren?"
+"Wilt u dit station initialiseren en daarmee ALLE DATA wissen?"
 
 #: ../partedUtils.py:1288
 #, python-format
@@ -1999,9 +1977,8 @@ msgstr ""
 "bewerkt. Wilt u verder gaan met het installatieproces?"
 
 #: ../partitioning.py:106
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Encryptie sleutel"
+msgstr "Device versleutelen?"
 
 #: ../partitioning.py:107
 msgid ""
@@ -2050,9 +2027,8 @@ msgstr ""
 "partitietabel naar de schijf schrijven. Is dat OK?"
 
 #: ../partitions.py:131
-#, fuzzy
 msgid "Confirm"
-msgstr "Bevestigen:"
+msgstr "Bevestigen"
 
 #: ../partitions.py:132
 #, python-format
@@ -2372,10 +2348,9 @@ msgid "Also add this passphrase to all existing encrypted devices"
 msgstr ""
 "Deze wachtwoordzin eveneens voor alle nieuwe versleutelde apparaten gebruiken"
 
-#: ../text.py:274
-#, fuzzy, python-format
+#: ../text.py:274, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "Het wachtwoord moet tenminste 6 tekens lang zijn."
+msgstr "Wachtwoordzin moet tenminste %d tekens lang zijn."
 
 #: ../text.py:304 tmp/lukspassphrase.glade.h:5
 msgid "Passphrase"
@@ -2393,10 +2368,9 @@ msgstr "Hulptekst niet beschikbaar"
 msgid "No help is available for this step of the install."
 msgstr "Voor dit installatie-onderdeel is geen hulptekst beschikbaar."
 
-#: ../text.py:476
-#, fuzzy, python-format
+#: ../text.py:476, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "Een gebruikersnaam invoeren"
+msgstr "Voer uw %(instkey)s in alstublieft"
 
 #: ../text.py:493 tmp/instkey.glade.h:4
 #, no-c-format, python-format
@@ -2494,9 +2468,8 @@ msgstr ""
 "%s"
 
 #: ../upgrade.py:354
-#, fuzzy
 msgid "No system found"
-msgstr "Geen stuurprogramma gevonden"
+msgstr "Geen systeem gevonden"
 
 #: ../upgrade.py:355
 msgid "No upgradable system was found."
@@ -2761,8 +2734,7 @@ msgstr "Verwerken"
 msgid "Preparing transaction from installation source..."
 msgstr "De transactie vanaf de installatiebron wordt nu voorbereid..."
 
-#: ../yuminstall.py:612
-#, fuzzy, python-format
+#: ../yuminstall.py:612, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -2772,11 +2744,11 @@ msgid ""
 "\n"
 msgstr ""
 "Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend bestand "
-"of misschien door een beschadigd pakket. Controleer of de "
-"installatiebestanden alle vereiste pakketten bevatten.\n"
+", een beschadigd pakket of kapotte installatiemedia. Controleer uw "
+"installatiebron alstublieft.\n"
 "\n"
-"Als u herstart, zal uw systeem zich in een inconsistente status bevinden.Dit "
-"zal waarschijnlijk een herinstallatie inhouden.\n"
+"Als u herstart, zal uw systeem zich in een inconsistente status bevinden. "
+"Dit zal een herinstallatie noodzakelijk maken.\n"
 "\n"
 
 #: ../yuminstall.py:619 ../yuminstall.py:764 ../yuminstall.py:950
@@ -3498,9 +3470,8 @@ msgstr "(Max grootte is %s MB)"
 #: ../iw/lvm_dialog_gui.py:473 ../iw/partition_dialog_gui.py:319
 #: ../iw/partition_ui_helpers_gui.py:297 ../iw/partition_ui_helpers_gui.py:324
 #: ../iw/raid_dialog_gui.py:307
-#, fuzzy
 msgid "_Encrypt"
-msgstr "Encryptie sleutel"
+msgstr "V_ersleutel"
 
 #: ../iw/lvm_dialog_gui.py:542 ../textw/partition_text.py:1289
 msgid "Illegal size"
@@ -3739,10 +3710,9 @@ msgid "Error With Data"
 msgstr "Fout met data"
 
 #: ../iw/netconfig_dialog.py:140 ../iw/network_gui.py:157
-#: ../textw/network_text.py:48
-#, fuzzy, python-format
+#: ../textw/network_text.py:48, python-format
 msgid "A value is required for the field %s."
-msgstr "Voor het veld \"%s\" is een waarde vereist."
+msgstr "Voor het veld %s is een waarde vereist."
 
 #: ../iw/netconfig_dialog.py:148
 #, python-format
@@ -3769,15 +3739,13 @@ msgid "IP Address"
 msgstr "IP-adres"
 
 #: ../iw/netconfig_dialog.py:197
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4-prefix moet tussen 0 en 32 liggen."
+msgstr "IPv4 CIDR-prefix moet tussen 0 en 32 liggen."
 
 #: ../iw/netconfig_dialog.py:198 ../iw/netconfig_dialog.py:204
 #: ../iw/netconfig_dialog.py:212 ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "IPv4/Netmask"
+msgstr "IPv4 Netwerkmasker"
 
 #: ../iw/netconfig_dialog.py:222 ../iw/network_gui.py:27
 #: ../iw/network_gui.py:518
@@ -3789,9 +3757,8 @@ msgid "Nameserver"
 msgstr "Naamserver"
 
 #: ../iw/netconfig_dialog.py:248
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "Er was een fout bij het configureren van uw netwerk-interface."
+msgstr "Er was een fout bij het configureren van uw netwerk-interface"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:520
 msgid "Primary DNS"
@@ -3845,10 +3812,9 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:160 ../textw/network_text.py:38
-#, fuzzy, python-format
+#: ../iw/network_gui.py:160 ../textw/network_text.py:38, python-format
 msgid "Error With %s Data"
-msgstr "Fout met data"
+msgstr "Fout met data %s"
 
 #: ../iw/network_gui.py:161 ../textw/network_text.py:39
 #: ../textw/network_text.py:627 ../textw/network_text.py:631
@@ -3858,9 +3824,8 @@ msgid "%s"
 msgstr "%s"
 
 #: ../iw/network_gui.py:165 ../textw/network_text.py:59
-#, fuzzy
 msgid "The IPv4 information you have entered is invalid."
-msgstr "De ingevoerde IP-informatie is ongeldig."
+msgstr "De ingevoerde IPv4-informatie is ongeldig."
 
 #: ../iw/network_gui.py:169
 msgid ""
@@ -3923,32 +3888,28 @@ msgid "Miscellaneous Settings"
 msgstr "Overige instellingen"
 
 #: ../iw/network_gui.py:615
-#, fuzzy
 msgid "Edit Device "
-msgstr "RAID-opstelling bewerken"
+msgstr "Device bewerken"
 
 #: ../iw/network_gui.py:619
 msgid "Unknown Ethernet Device"
 msgstr "Onbekend Ethernet Apparaat"
 
 #: ../iw/network_gui.py:625
-#, fuzzy
 msgid "unknown"
-msgstr "Onbekend"
+msgstr "onbekend"
 
 #: ../iw/network_gui.py:627
-#, fuzzy
 msgid "Hardware address: "
-msgstr "Hardware-adres:"
+msgstr "Hardware-adres: "
 
 #: ../iw/network_gui.py:765 ../textw/network_text.py:223 ../loader2/net.c:943
 msgid "Missing Protocol"
 msgstr "Ontbrekend protocol"
 
 #: ../iw/network_gui.py:766 ../textw/network_text.py:224
-#, fuzzy
 msgid "You must select at least IPv4 or IPv6 support."
-msgstr "U moet tenminste één protocol (IPv4 of IPv6) kiezen voor DHCP."
+msgstr "U moet tenminste IPv4 of IPv6 ondersteuning kiezen."
 
 #: ../iw/network_gui.py:789 ../iw/network_gui.py:830 ../iw/network_gui.py:836
 #: ../textw/network_text.py:69 ../loader2/net.c:103
@@ -5157,9 +5118,8 @@ msgstr ""
 "   <Spatie>,<+>,<-> selectie  |  <F2> groep details  |  <F12> volgend scherm"
 
 #: ../textw/grpselect_text.py:117
-#, fuzzy
 msgid "No optional packages to select"
-msgstr "[%d van %d optionele pakketten geïnstalleerd]"
+msgstr "Geen optionele pakketten om te selecteren"
 
 #: ../textw/grpselect_text.py:139
 msgid "Package Group Details"
@@ -5191,19 +5151,17 @@ msgstr "3 knoppen emuleren?"
 msgid "Mouse Selection"
 msgstr "Muis keuze"
 
-#: ../textw/network_text.py:53
-#, fuzzy, python-format
+#: ../textw/network_text.py:53, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"U hebt het veld \"%s\" niet gespecificeerd. Afhankelijk van uw "
+"U hebt het veld %s niet gespecificeerd. Afhankelijk van uw "
 "netwerkomgeving kan dit later problemen geven."
 
-#: ../textw/network_text.py:70
-#, fuzzy, python-format
+#: ../textw/network_text.py:70, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv4-prefix moet tussen 0 en 32 liggen."
+msgstr "IPv%-prefix moet tussen 0 en %d liggen."
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
@@ -5219,14 +5177,12 @@ msgstr ""
 "liggen tussen 0 en 32. Voor IPv6 kan de waarde liggen tussen 0 en 128."
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
-#, fuzzy
 msgid "Prefix (Netmask)"
-msgstr "Netmask"
+msgstr "Prefix (Netmasker)"
 
 #: ../textw/network_text.py:84 tmp/netpostconfig.glade.h:15
-#, fuzzy
 msgid "Prefix"
-msgstr "IPv6/Prefix"
+msgstr "Prefix"
 
 #: ../textw/network_text.py:137
 msgid "Activate on boot"
@@ -5247,14 +5203,12 @@ msgid "P-to-P:"
 msgstr "P-to-P:"
 
 #: ../textw/network_text.py:182 tmp/netpostconfig.glade.h:7
-#, fuzzy
 msgid "ESSID:"
-msgstr "_ESSID:"
+msgstr "ESSID:"
 
 #: ../textw/network_text.py:191
-#, fuzzy
 msgid "WEP Key:"
-msgstr "Sleutel:"
+msgstr "WEP Sleutel:"
 
 #: ../textw/network_text.py:204
 #, python-format
@@ -5275,63 +5229,53 @@ msgstr "Dynamische IP-configuratie (DHCP) gebruiken"
 msgid "Manual address configuration"
 msgstr "Handmatige TCP/IP-configuratie"
 
-#: ../textw/network_text.py:295
-#, fuzzy, python-format
+#: ../textw/network_text.py:295, python-format
 msgid "IPv4 Configuration for %s"
-msgstr "Netwerkconfiguratie voor %s"
+msgstr "IPv4 Configuratie voor %s"
 
 #: ../textw/network_text.py:325 ../textw/network_text.py:337
 #: ../textw/network_text.py:340
-#, fuzzy
 msgid "IPv4 address"
-msgstr "IPv4-adres:"
+msgstr "IPv4-adres"
 
 #: ../textw/network_text.py:329
-#, fuzzy
 msgid "IPv4 network mask"
-msgstr "IPv4/Netmask"
+msgstr "IPv4 Netwerkmasker"
 
 #: ../textw/network_text.py:355 ../textw/network_text.py:358
 #: ../textw/network_text.py:361
-#, fuzzy
 msgid "IPv4 prefix (network mask)"
-msgstr "Netmask"
+msgstr "IPv4 prefix (netwerk masker)"
 
 #: ../textw/network_text.py:400 tmp/netpostconfig.glade.h:4
 msgid "Automatic neighbor discovery"
 msgstr "Automagisch ;) buren opsporen "
 
 #: ../textw/network_text.py:403 tmp/netpostconfig.glade.h:6
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Dynamische IP-configuratie (DHCP) gebruiken"
+msgstr "Dynamische IP configuratie (DHCPv6)"
 
-#: ../textw/network_text.py:430
-#, fuzzy, python-format
+#: ../textw/network_text.py:430, python-format
 msgid "IPv6 Configuration for %s"
-msgstr "Netwerkconfiguratie voor %s"
+msgstr "IPv6 configuratie voor %s"
 
 #: ../textw/network_text.py:460 ../textw/network_text.py:471
 #: ../textw/network_text.py:474
-#, fuzzy
 msgid "IPv6 address"
-msgstr "IPv6-adres:"
+msgstr "IPv6-adres"
 
 #: ../textw/network_text.py:464 ../textw/network_text.py:483
-#, fuzzy
 msgid "IPv6 prefix"
-msgstr "IPv6/Prefix"
+msgstr "IPv6 prefix"
 
 #: ../textw/network_text.py:509
-#, fuzzy
 msgid "Configure Network Interface"
-msgstr "Netwerk-interface aanzetten"
+msgstr "Configureren Netwerk Interface"
 
 # Interfaces hier niet vertaald
-#: ../textw/network_text.py:510
-#, fuzzy, python-format
+#: ../textw/network_text.py:510, python-format
 msgid "Would you like to configure the %s network interface in your system?"
-msgstr "Wilt u de netwerk-interfaces op dit systeem starten?"
+msgstr "Wilt u de %s netwerk-interfaces op dit systeem configureren?"
 
 #: ../textw/network_text.py:524 ../textw/network_text.py:526
 msgid "UNCONFIGURED"
@@ -5344,16 +5288,18 @@ msgid ""
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
 msgstr ""
+"De huidige configuratie voor elke interface staat naast de devicenaam. "
+"Ongeconfigureerde interfaces worden getoond als ONGECONFIGUREERD. Om een "
+"interface te configureren, merkt u het en kiest u Bewerken. Als u klaar "
+"bent, drukt u op OK om verder te gaan."
 
 #: ../textw/network_text.py:578 ../textw/network_text.py:657
-#, fuzzy
 msgid "Active on boot"
 msgstr "Activeren bij opstarten"
 
 #: ../textw/network_text.py:580 ../textw/network_text.py:659
-#, fuzzy
 msgid "Inactive on boot"
-msgstr "Activeren bij opstarten"
+msgstr "Niet activeren bij opstarten"
 
 #: ../textw/network_text.py:583 ../textw/network_text.py:662
 msgid "DHCP"
@@ -5361,7 +5307,7 @@ msgstr "DHCP"
 
 #: ../textw/network_text.py:588 ../textw/network_text.py:667
 msgid "Auto IPv6"
-msgstr ""
+msgstr "Auto IPv6"
 
 #: ../textw/network_text.py:590 ../textw/network_text.py:669
 #, fuzzy
@@ -5371,13 +5317,13 @@ msgstr "DHCP"
 #: ../textw/network_text.py:596 ../textw/network_text.py:675
 #, python-format
 msgid "%s, %s, %s"
-msgstr ""
+msgstr "%s, %s, %s"
 
 #: ../textw/network_text.py:598 ../textw/network_text.py:600
 #: ../textw/network_text.py:677 ../textw/network_text.py:679
 #, python-format
 msgid "%s, %s"
-msgstr ""
+msgstr "%s, %s"
 
 #: ../textw/network_text.py:701 ../loader2/net.c:1178
 msgid "Gateway:"
@@ -5396,19 +5342,16 @@ msgid "Miscellaneous Network Settings"
 msgstr "Overige netwerk instellingen"
 
 #: ../textw/network_text.py:739 ../textw/network_text.py:742
-#, fuzzy
 msgid "gateway"
-msgstr "Gateway"
+msgstr "gateway"
 
 #: ../textw/network_text.py:749 ../textw/network_text.py:752
-#, fuzzy
 msgid "primary DNS"
-msgstr "Eerste DNS-server"
+msgstr "eerste DNS-server"
 
 #: ../textw/network_text.py:761
-#, fuzzy
 msgid "secondary DNS"
-msgstr "Tweede DNS-server"
+msgstr "tweede DNS-server"
 
 #: ../textw/network_text.py:795
 msgid "automatically via DHCP"
@@ -5424,7 +5367,6 @@ msgid "Hostname Configuration"
 msgstr "Computernaam configureren"
 
 #: ../textw/network_text.py:820
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter a "
@@ -5434,7 +5376,7 @@ msgstr ""
 "Als uw systeem deel uitmaakt van een groter netwerk waarbij computernamen "
 "worden toegewezen via DHCP, selecteer automatisch via DHCP. Kies anders "
 "handmatig en voer een computernaam in voor uw systeem. Als u ervoor kiest om "
-"dat niet te doen zal uw systeem de naam 'localhost' krijgen."
+"dat niet te doen zal uw systeem de naam 'localhost' krijgen"
 
 #: ../textw/network_text.py:846 ../textw/network_text.py:852
 msgid "Invalid Hostname"
@@ -5719,10 +5661,10 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Welke station(s) wilt u gebruiken voor de installatie?"
 
 #: ../textw/partition_text.py:1569
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
-"   <Spatie>,<+>,<-> selectie  |  <F2> groep details  |  <F12> volgend scherm"
+"<Space>,<+>,<-> selectie   |   <F2> Schijf toevoegen   |   <F12> volgende "
+"scherm"
 
 #: ../textw/partition_text.py:1638
 msgid "Review Partition Layout"
@@ -5741,21 +5683,19 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "Hoe wilt u uw schijfconfiguratie aanpassen?"
 
 #: ../textw/partition_text.py:1684
-#, fuzzy
 msgid "Add FCP Device"
 msgstr "FCP-apparaat toevoegen"
 
 #: ../textw/partition_text.py:1685 tmp/zfcp-config.glade.h:5
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries machines kunnen industrie-standaard SCSI apparaten benaderen via "
-"Fibre Channel (FCP). U dient 5 parameters op te geven voor elk apparaat: een "
-"16 bit apparaatnummer, een 16 bit SCSI ID, een 64 bit World Wide Port Name "
-"(WWPN), een 16 bit SCSI LUN en een 64 bit FCP LUN."
+"Fibre Channel (FCP). U dient op te geven voor elk apparaat: een "
+"16 bit apparaatnummer, een 64 bit World Wide Port Name "
+"(WWPN) en een 64 bit FCP LUN."
 
 #: ../textw/partition_text.py:1708 tmp/iscsi-config.glade.h:7
 msgid "Configure iSCSI Parameters"
@@ -5771,19 +5711,21 @@ msgstr ""
 
 #: ../textw/partition_text.py:1734
 msgid "Username is required when password is present."
-msgstr ""
+msgstr "Gebruikersnaam is vereist indien het wachtwoord aanwezig is."
 
 #: ../textw/partition_text.py:1737
 msgid "Password is required when username is present."
-msgstr ""
+msgstr "Wachtwoord is vereist indien gebruikersnaam aanwezig is."
 
 #: ../textw/partition_text.py:1742
 msgid "Reverse username is required whenreverse password is present."
 msgstr ""
+"Omgekeerde gebruikersnaam is vereist indien omgekeerd wachtwoord aanwezig is."
 
 #: ../textw/partition_text.py:1746
 msgid "Reverse password is required whenreverse username is present."
 msgstr ""
+"Omgekeerd wachtwoord is vereist indien omgekeerde gebruikersnaam aanwezig is."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -6067,9 +6009,8 @@ msgid "Multimedia"
 msgstr "Multimedia"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Virtualization"
-msgstr "Virtualisatie (Xen)"
+msgstr "Virtualisatie"
 
 #: ../installclasses/rhel.py:45
 msgid "Clustering"
@@ -6080,9 +6021,8 @@ msgid "Storage Clustering"
 msgstr "Opslag clusteren"
 
 #: ../installclasses/rhel.py:50
-#, fuzzy
 msgid "Installation Number"
-msgstr "Soort installatie"
+msgstr "Installatie Nummer"
 
 #: ../installclasses/rhel.py:51
 msgid ""
@@ -6093,12 +6033,22 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"Wilt u nu een Installatie Nummer (soms Subscription Nummer genoemd) "
+"invullen? Deze faciliteit stelt de installer in staat om alle extra "
+"componenten die bij uw subscriptie behoren te benaderen. Indien u deze stap "
+"nu overslaat, kunnen additionele componenten later alsnog handmatig worden "
+"geïnstalleerd.\n"
+"\n"
+"Zie http://www.redhat.com/InstNum/ "
 
 #: ../installclasses/rhel.py:57
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
+"Indien u het Installatie Nummer niet kunt vinden, raadpleeg dan  http://www."
+"redhat.com/"
+"InstNum/"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6336,17 +6286,17 @@ msgstr "Wilt u nog meer stuurprogramma-diskettes laden?"
 
 #: ../loader2/driverdisk.c:600
 msgid "Cannot initialize cache instance for blkid"
-msgstr ""
+msgstr "Kan cache instance voor blkid niet initialiseren"
 
 #: ../loader2/driverdisk.c:604
 #, c-format
 msgid "Cannot probe devices in blkid: %d"
-msgstr ""
+msgstr "Kan devices in blkid niet onderzoeken: %d"
 
 #: ../loader2/driverdisk.c:614
 #, c-format
 msgid "Adding driver disc %s to the list of available DDs."
-msgstr ""
+msgstr "Voeg stuurprogrammadisk %s nu toe aan de lijst van beschikbare DDs."
 
 #: ../loader2/driverdisk.c:682 ../loader2/driverdisk.c:719
 #: ../loader2/hdinstall.c:404 ../loader2/kickstart.c:124
@@ -6526,9 +6476,8 @@ msgstr ""
 "interactieve installatie."
 
 #: ../loader2/kickstart.c:356
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "Fout bij het openen van kickstart-bestand %s: %s"
+msgstr "Fout bij het downloaden van kickstart-bestand"
 
 # vertaling ok?
 #: ../loader2/kickstart.c:487
@@ -7363,7 +7312,7 @@ msgstr "Beschrijving: %s"
 
 #: tmp/netpostconfig.glade.h:3
 msgid "<b>Hardware address: DE:AD:00:BE:EF:00</b>"
-msgstr ""
+msgstr "<b>Hardware adres: DE:AD:00:BE:EF:00</b>"
 
 # instellen hier beter dan bewerken of aanpassen
 #: tmp/netpostconfig.glade.h:8
