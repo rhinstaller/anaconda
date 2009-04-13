@@ -3,14 +3,14 @@
 # Magnus Larsson <fedoratrans@gmail.com>, 2007, 2008.
 # Göran Uddeborg <goeran@uddeborg.se>, 2008, 2009.
 #
-# $Version$
+# $Id: anaconda.po,v 1.8 2009-04-13 19:23:23+02 göran Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-04-07 12:45+0200\n"
+"PO-Revision-Date: 2009-04-13 19:18+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -404,9 +404,7 @@ msgstr "Minnesdump skriven"
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
-msgstr ""
-"Ditt systemtillstånd har skrivits till disk utan problem.  "
-"Installationsprogrammet kommer nu avslutas."
+msgstr "Ditt systemtillstånd har skrivits till disk utan problem.  Installationsprogrammet kommer nu att avslutas."
 
 #: ../exception.py:511 ../exception.py:528 ../exception.py:551
 msgid "Dump Not Written"
@@ -5415,10 +5413,7 @@ msgid ""
 "The image which was just tested was successfully verified.  It should be OK "
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
-msgstr ""
-"Bilden som just testades verifierades riktigt.  Det skall vara OK att "
-"installera från detta media.  Observera att inte alla media-/enhetsfel kan "
-"upptäckas av mediakontrollen."
+msgstr "Avbilden som just testades verifierades riktigt.  Det skall vara OK att installera från detta media.  Observera att inte alla media-/enhetsfel kan upptäckas av mediakontrollen."
 
 #: ../loader/method.c:323
 #, c-format
@@ -5610,7 +5605,7 @@ msgstr "%s-katalog:"
 #: ../loader/nfsinstall.c:83
 #, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "Ange servernamn och sökväg till dina %s-installationsavbild."
+msgstr "Ange servernamn och sökväg till din %s-installationsavbild."
 
 #: ../loader/nfsinstall.c:90
 msgid "NFS Setup"
@@ -5870,8 +5865,7 @@ msgstr "Vilken enhet vill _starta denna installation från?"
 #: tmp/autopart.glade.h:6
 msgid ""
 "Which partition would you like to resize to make room for your installation?"
-msgstr ""
-"Vilken partition ändra storlek på för att göra plats för din installation?"
+msgstr "Vilken partition vill du ändra storlek på för att göra plats för din installation?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
