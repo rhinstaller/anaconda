@@ -81,11 +81,15 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
 
+    env = os.environ.copy()
+    env.update({"LC_ALL": "C"})
+
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
-                                preexec_fn=chroot, cwd=root)
+                                preexec_fn=chroot, cwd=root,
+                                env=env)
 
         while True:
             (outStr, errStr) = proc.communicate()
@@ -143,11 +147,15 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
 
+    env = os.environ.copy()
+    env.update({"LC_ALL": "C"})
+
     try:
         proc = subprocess.Popen([command] + argv, stdin=stdin,
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE,
-                                preexec_fn=chroot, cwd=root)
+                                preexec_fn=chroot, cwd=root,
+                                env=env)
 
         while True:
             (outStr, errStr) = proc.communicate()
