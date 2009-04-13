@@ -362,9 +362,9 @@ instbin() {
     DIR=$3
     DEST=$4
 
-    iself="$(file $ROOT/$BIN | grep ELF | grep executable)"
+    iself="$(file $ROOT/$BIN | grep ELF)"
 
-    if [ -l $ROOT/$BIN ]; then
+    if [ -L $ROOT/$BIN ]; then
         cp -a $ROOT/$BIN $DIR/$DEST
     else
         if [ -z "$iself" ]; then
