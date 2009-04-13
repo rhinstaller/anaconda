@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.42
+Version: 11.5.0.43
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Apr 13 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.43-1
+- Run programs with LC_ALL=C in case we're parsing output (#492549).
+  (clumens)
+- A volume group device has a "peSize" attribute (not "pesize"). (dlehman)
+- Remove uncommitted new lv from dict on cancel. (dlehman)
+- Use the correct value when setting new extent size. (#493753) (dlehman)
+- Fix image generation so all ELF binaries have their deps included
+  (#495231). (clumens)
+- Clean up the code in editLogicalVolume function. (jgranado)
+- Setup the disks before partitioning as the nodes are needed. (jgranado)
+- Rescan the devices when we are saving a traceback. (jgranado)
+- Close file descriptors when an error occurs. (jgranado)
+- Aesthetic changes to "editLogicalVolume" function. (jgranado)
+- When deallocating a partition also set its disk attribute to None
+  (hdegoede)
+- Check self.partedPartition not being None before using it (#495077)
+  (hdegoede)
+- growPartitions: Change op_func (back to) add when an iteration succeeds
+  (hdegoede)
+- partedPartition can be None while growing partitions (#495076) (hdegoede)
+
 * Thu Apr 09 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.42-1
 - Fix display of format type for devices. (dlehman)
 - Fix handling of priority option from swap fstab entries. (#494992)
