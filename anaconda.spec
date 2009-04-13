@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.41
+Version: 11.5.0.42
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,33 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Apr 09 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.42-1
+- Fix display of format type for devices. (dlehman)
+- Fix handling of priority option from swap fstab entries. (#494992)
+  (dlehman)
+- Some fs types cannot be passed to programs (#495061, #493075). (clumens)
+- When a new module is loaded, update the kernel_filesystems list. (clumens)
+- Add more Indic fonts (#494261, pnemade).
+- Remove the message saying you can make your own layout (#495015). (clumens)
+- Put e100 (and other) firmware in its own directory if needed (#494778).
+  (clumens)
+- Run /bin/umount instead of calling umount(2) in _isys.umount (#493333)
+  (dcantrell)
+- Add doPwUmount() and mountCommandWrapper() to isys (#493333) (dcantrell)
+- Preserve symlinks and only collect deps on ELF executables. (dcantrell)
+- Use $(ARCHIVE_TAG) throughout the updates target. (dcantrell)
+- partedUtils doesn't exist anymore (katzj)
+- Revert "Show the header in certain non-lowres cases" (#493153) (katzj)
+- Pre-existing partitions names may change (#494833) (hdegoede)
+- Use getDeviceNodeName() instead of basename of device node. (hdegoede)
+- Fix ks raid --useexisting and --noformat (rvykydal)
+- Fix processing of --level and --device options of ks raid commands.
+  (rvykydal)
+- Don't start pdb immediately in debug mode (katzj)
+- Fix EDD BIOS disk order detection in general and make it work with dmraid
+  (hdegoede)
+- Update extended partition geometry when we change it (hdegoede)
+
 * Tue Apr 07 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.41-1
 - Make sure we have a clean lvm ignore list when we initialize. (jgranado)
 - We need to search by name without the "mapper" prefix. (jgranado)
