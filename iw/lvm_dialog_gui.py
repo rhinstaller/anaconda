@@ -566,6 +566,8 @@ class VolumeGroupEditor:
         while 1:
             rc = dialog.run()
             if rc == 2:
+                if isNew:
+                    del self.lvs[lv['name']]
                 dialog.destroy()
                 return
 
