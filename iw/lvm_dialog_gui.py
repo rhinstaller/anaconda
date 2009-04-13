@@ -984,7 +984,7 @@ class VolumeGroupEditor:
                     self.vg._addPV(pv)
 
             self.vg.name = volname
-            self.vg.pesize = pesize
+            self.vg.peSize = pesize
 
             if self.isNew:
                 actions = [ActionCreateDevice(self.vg)]
