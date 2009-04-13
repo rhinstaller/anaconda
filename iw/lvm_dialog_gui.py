@@ -204,7 +204,7 @@ class VolumeGroupEditor:
 
 	# now see if we need to fixup effect PV and LV sizes based on PE
         if curval > lastval:
-            rc = self.reclampLV(curval)
+            rc = self.reclampLV(curpe)
             if not rc:
 		widget.set_active(lastidx)
 		return 0
