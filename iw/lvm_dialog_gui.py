@@ -651,7 +651,7 @@ class VolumeGroupEditor:
             if not templv.exists:
                 badsize = 0
                 try:
-                    size = long(sizeEntry.get_text())
+                    size = long(lvsizeentry.get_text())
                 except:
                     badsize = 1
 
