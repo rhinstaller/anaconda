@@ -1409,13 +1409,11 @@ class DeviceTree(object):
         label = udev_device_get_label(info)
         format_type = udev_device_get_format(info)
 
-        log.debug("type is '%s'" % format_type)
-
         format = None
         if (not device) or (not format_type) or device.format.type:
             # this device has no formatting or it has already been set up
             # FIXME: this probably needs something special for disklabels
-            log.debug("bailing")
+            log.debug("no type or existing type for %s, bailing" % (name,))
             return
 
         # set up the common arguments for the format constructor
@@ -1462,7 +1460,14 @@ class DeviceTree(object):
                 if apple.minSize <= device.size <= apple.maxSize:
                     args[0] = "appleboot"
 
-        device.format = formats.getFormat(*args, **kwargs)
+        try:
+            log.debug("type detected on '%s' is '%s'" % (name, format_type,))
+            device.format = formats.getFormat(*args, **kwargs)
+        except FSError:
+            log.debug("type '%s' on '%s' invalid, assuming no format" %
+                      (format_type, name,))
+            device.format = formats.DeviceFormat()
+            return
 
         #
         # now do any special handling required for the device's format

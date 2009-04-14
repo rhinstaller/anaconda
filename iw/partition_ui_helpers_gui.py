@@ -315,7 +315,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     else:
         origfs = origrequest.format
 
-    if origfs.formattable:
+    if origfs.formattable or not origfs.type:
         formatcb = gtk.CheckButton(label=_("_Format as:"))
         maintable.attach(formatcb, 0, 1, row, row + 1)
         formatcb.set_active(origfs.formattable and not origfs.exists)
