@@ -173,6 +173,7 @@ def doAutoPartition(anaconda):
                                           "for automatic partitioning, please "
                                           "use another partitioning method."),
                                         custom_icon='error')
+            anaconda.id.storage.reset()
             return DISPATCH_BACK
 
         _schedulePartitions(anaconda, disks)
