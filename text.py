@@ -557,6 +557,11 @@ class InstallInterface:
         if exc.options == parted.EXCEPTION_CANCEL:
             return parted.EXCEPTION_UNHANDLED
         log.critical("parted exception: %s: %s" %(exc.type_string,exc.message))
+
+        if anaconda.isKickstart() and exc.type == parted.EXCEPTION_WARNING and \
+           exc.options in [parted.EXCEPTION_IGNORE, parted.EXCEPTION_OK]:
+            return 0
+
         buttons = []
         buttonToAction = {}
         flags = ((parted.EXCEPTION_FIX, N_("Fix")),
@@ -666,7 +671,7 @@ class InstallInterface:
         anaconda.id.fsset.registerProgressWindow(self.progressWindow)
         anaconda.id.fsset.registerWaitWindow(self.waitWindow)        
 
-	parted.exception_set_handler(self.partedExceptionWindow)        
+        parted.exception_set_handler(lambda exn: partedExceptionWindow(exn, anaconda))
         
 	lastrc = INSTALL_OK
 	(step, instance) = anaconda.dispatch.currentStep()
