@@ -159,9 +159,11 @@ class FS(DeviceFormat):
 
         # filesystem size does not necessarily equal device size
         self._size = kwargs.get("size")
+        self._minInstanceSize = None    # min size of this FS instance
         self._mountpoint = None     # the current mountpoint when mounted
         if self.exists:
             self._size = self._getExistingSize()
+            foo = self.minSize      # force calculation of minimum size
 
         self._targetSize = self._size
 
@@ -764,26 +766,29 @@ class Ext2FS(FS):
     @property
     def minSize(self):
         """ Minimum size for this filesystem in MB. """
-        size = self._minSize
-        if self.exists and os.path.exists(self.device):
-            buf = iutil.execWithCapture(self.resizefsProg,
-                                        ["-P", self.device],
-                                        stderr="/dev/tty5")
-            size = None
-            for line in buf.splitlines():
-                if "minimum size of the filesystem:" not in line:
-                    continue
+        if self._minInstanceSize is None:
+            # try once in the beginning to get the minimum size for an
+            # existing filesystem.
+            size = self._minSize
+            if self.exists and os.path.exists(self.device):
+                buf = iutil.execWithCapture(self.resizefsProg,
+                                            ["-P", self.device],
+                                            stderr="/dev/tty5")
+                for line in buf.splitlines():
+                    if "minimum size of the filesystem:" not in line:
+                        continue
 
-                (text, sep, minSize) = line.partition(": ")
+                    (text, sep, minSize) = line.partition(": ")
 
-                size = int(minSize) / 1024.0
+                    size = int(minSize) / 1024.0
 
-            if size is None:
-                log.warning("failed to get minimum size for %s filesystem "
-                            "on %s" % (self.mountType, self.device))
-                size = self._minSize
+                if size is None:
+                    log.warning("failed to get minimum size for %s filesystem "
+                                "on %s" % (self.mountType, self.device))
 
-        return size
+            self._minInstanceSize = size
+
+        return self._minInstanceSize
 
     @property
     def isDirty(self):
@@ -1026,29 +1031,33 @@ class NTFS(FS):
     @property
     def minSize(self):
         """ The minimum filesystem size in megabytes. """
-        size = self._minSize
-        if self.exists and os.path.exists(self.device):
-            minSize = None
-            buf = iutil.execWithCapture(self.resizefsProg,
-                                        ["-m", self.device],
-                                        stderr = "/dev/tty5")
-            for l in buf.split("\n"):
-                if not l.startswith("Minsize"):
-                    continue
-                try:
-                    min = l.split(":")[1].strip()
-                    minSize = int(min) + 250
-                except Exception, e:
-                    minSize = None
-                    log.warning("Unable to parse output for minimum size on %s: %s" %(self.device, e))
+        if self._minInstanceSize is None:
+            # we try one time to determine the minimum size.
+            size = self._minSize
+            if self.exists and os.path.exists(self.device):
+                minSize = None
+                buf = iutil.execWithCapture(self.resizefsProg,
+                                            ["-m", self.device],
+                                            stderr = "/dev/tty5")
+                for l in buf.split("\n"):
+                    if not l.startswith("Minsize"):
+                        continue
+                    try:
+                        min = l.split(":")[1].strip()
+                        minSize = int(min) + 250
+                    except Exception, e:
+                        minSize = None
+                        log.warning("Unable to parse output for minimum size on %s: %s" %(self.device, e))
 
-            if minSize is None:
-                log.warning("Unable to discover minimum size of filesystem "
-                            "on %s" %(self.device,))
-            else:
-                size = minSize
+                if minSize is None:
+                    log.warning("Unable to discover minimum size of filesystem "
+                                "on %s" %(self.device,))
+                else:
+                    size = minSize
 
-        return size
+            self._minInstanceSize = size
+
+        return self._minInstanceSize
 
     @property
     def resizeArgs(self):
