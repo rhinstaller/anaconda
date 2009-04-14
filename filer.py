@@ -304,9 +304,12 @@ class BugzillaFiler(AbstractFiler):
     def login(self, username, password):
         import bugzilla
 
-        self._bz = bugzilla.Bugzilla(url=self.bugUrl)
+        try:
+            self._bz = bugzilla.Bugzilla(url=self.bugUrl)
+            retval = self._bz.login(username, password)
+        except socket.error, e:
+            raise CommunicationError(str(e))
 
-        retval = self._bz.login(username, password)
         if not retval:
             raise LoginError(self.bugUrl, username)
 
