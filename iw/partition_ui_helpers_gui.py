@@ -331,7 +331,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         formatcb = None
         fstypeCombo = None
 
-    if not formatcb.get_active() and not origfs.migrate:
+    if formatcb and not formatcb.get_active() and not origfs.migrate:
         mountCombo.set_data("prevmountable", origfs.mountable)
 
     # this gets added to the table a bit later on
