@@ -398,7 +398,8 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         resizeOptionCB(resizecb, resizesb)
         row = row + 1
 
-        formatcb.connect("toggled", formatOptionResizeCB, (resizesb, origfs))
+        if formatcb:
+            formatcb.connect("toggled", formatOptionResizeCB, (resizesb, origfs))
 
     if luksdev:
         lukscb.set_active(1)
