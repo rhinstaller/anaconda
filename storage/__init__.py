@@ -470,11 +470,11 @@ class Storage(object):
                 if part.active and \
                    not part.getFlag(parted.PARTITION_RAID) and \
                    not part.getFlag(parted.PARTITION_LVM) and \
-                   part.fileSystemType in ("ext3", "ext2", "fat16", "fat32"):
-                    dests.append(part.path, device.name)
+                   part.fileSystem.type in ("ext3", "ext2", "fat16", "fat32"):
+                    dests.append([part.path, device.name])
 
             if not disk.partitions:
-                dests.append(device.path, device.name)
+                dests.append([device.path, device.name])
 
         return dests
 
