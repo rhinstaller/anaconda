@@ -1422,10 +1422,11 @@ class LUKSDevice(DMCryptDevice):
 
     @property
     def size(self):
-        size = super(LUKSDevice, self).size
-        if not size:
-            # break off 2KB for the LUKS header
-            size = float(self.slave.size) - (2.0 / 1024)
+        if not self.exists or not self.partedDevice:
+            # the LUKS header takes up 4040 512-byte sectors w/ a 512-bit key
+            size = float(self.slave.size) - ((4040 * 2.0) / 1024)
+        else:
+            size = self.partedDevice.getSize()
         return size
 
     def create(self, intf=None):
