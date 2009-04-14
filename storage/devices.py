@@ -2104,7 +2104,7 @@ class MDRaidArrayDevice(StorageDevice):
         if self.level is None or self.memberDevices is None or not self.uuid:
             raise DeviceError("array is not fully defined")
 
-        fmt = "ARRAY level=%s num-devices=%d UUID=%s"
+        fmt = "ARRAY level=raid%d num-devices=%d UUID=%s\n"
         return fmt % (self.level, self.memberDevices, self.uuid)
 
     @property
