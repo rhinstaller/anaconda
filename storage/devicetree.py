@@ -1225,7 +1225,7 @@ class DeviceTree(object):
                 pe_free = udev_device_get_vg_free_extents(info)
                 pv_count = udev_device_get_vg_pv_count(info)
             except (KeyError, ValueError) as e:
-                log.warning("invalid data for %s: %s" % (name, e))
+                log.warning("invalid data for %s: %s" % (device.name, e))
                 return
 
             vg_device = LVMVolumeGroupDevice(vg_name,
@@ -1245,11 +1245,11 @@ class DeviceTree(object):
                 lv_uuids = udev_device_get_lv_uuids(info)
                 lv_sizes = udev_device_get_lv_sizes(info)
             except KeyError as e:
-                log.warning("invalid data for %s: %s" % (name, e))
+                log.warning("invalid data for %s: %s" % (device.name, e))
                 return
 
             if not lv_names:
-                log.debug("no LVs listed for VG %s" % name)
+                log.debug("no LVs listed for VG %s" % device.name)
                 return
 
             lvs = []
