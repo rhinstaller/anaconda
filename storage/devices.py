@@ -580,9 +580,6 @@ class StorageDevice(Device):
     @property
     def minSize(self):
         """ The minimum size this device can be. """
-        if self.exists:
-            self.setup()
-
         if self.format.minSize:
             return self.format.minSize
         else:
