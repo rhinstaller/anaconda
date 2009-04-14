@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.43
+Version: 11.5.0.44
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Apr 13 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.44-1
+- Default to SHA512 password encoding algorithm. (dcantrell)
+- Handle format combo box not existing (#495288) (dcantrell)
+
 * Mon Apr 13 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.43-1
 - Run programs with LC_ALL=C in case we're parsing output (#492549).
   (clumens)
