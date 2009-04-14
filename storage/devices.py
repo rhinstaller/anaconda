@@ -2066,6 +2066,9 @@ class MDRaidArrayDevice(StorageDevice):
         self._totalDevices = numeric_type(totalDevices)
         self._memberDevices = numeric_type(memberDevices)
         self.sysfsPath = "/devices/virtual/block/%s" % name
+        self.chunkSize = 64.0 / 1024.0          # chunk size in MB
+        self.superBlockSize = 128.0 / 1024.0    # superblock size in MB
+
 
         # FIXME: Bitmap is more complicated than this.
         # It can be internal or external. External requires a filename.
@@ -2082,11 +2085,37 @@ class MDRaidArrayDevice(StorageDevice):
                                                 % (self.path, self.uuid))
 
     @property
+    def smallestMember(self):
+        try:
+            smallest = sorted(self.devices, key=lambda d: d.size)[0]
+        except IndexError:
+            smallest = None
+        return smallest
+
+    @property
     def size(self):
-        size = None
-        for device in self.devices:
-            if size is None or device.size < size:
-                size = device.size
+        if not self.devices:
+            return 0
+
+        size = 0
+        smallestMemberSize = self.smallestMember.size - self.superBlockSize
+        if not self.exists or not self.partedDevice:
+            if self.level == 0:
+                size = self.memberDevices * smallestMemberSize
+                size -= size % self.chunkSize
+            elif self.level == 1:
+                size = smallestMemberSize
+            elif self.level == 5:
+                size = (self.memberDevices - 1) * smallestMemberSize
+                size -= size % self.chunkSize
+            elif self.level == 6:
+                size = (self.memberDevices - 2) * smallestMemberSize
+                size -= size % self.chunkSize
+            elif self.level == 10:
+                size = (self.memberDevices / 2.0) * smallestMemberSize
+                size -= size % self.chunkSize
+        else:
+            size = self.partedDevice.getSize()
 
         return size
 
