@@ -63,12 +63,16 @@ directory = %(instPath)s/etc
 #     $5$    SHA256
 #     $6$    SHA512
 def cryptPassword(password, algo=None):
-    salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$', None: ''}
-    saltstr = salts[algo]
+    salts = {'md5': '$1$', 'sha256': '$5$', 'sha512': '$6$'}
     saltlen = 2
+
+    if algo is None:
+        algo = 'sha512'
 
     if algo == 'md5' or algo == 'sha256' or algo == 'sha512':
         saltlen = 16
+
+    saltstr = salts[algo]
 
     for i in range(saltlen):
         saltstr = saltstr + random.choice (string.letters +
