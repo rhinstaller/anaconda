@@ -33,6 +33,7 @@ import string
 import language
 import shutil
 import traceback
+from exception import handleException
 from flags import flags
 from product import *
 from constants import *
@@ -178,13 +179,17 @@ def turnOnFilesystems(anaconda):
             sys.exit(1)
         except Exception as msg:
             # catch-all
-            anaconda.intf.detailedMessageWindow(_("Storage Activation Failed"),
+            rc = anaconda.intf.detailedMessageWindow(_("Storage Activation Failed"),
                                 _("An error was encountered while "
                                   "activating your storage configuration."),
                                 msg,
                                 type = "custom",
-                                custom_buttons = [_("_Exit installer")])
-            sys.exit(1)
+                                custom_buttons = [_("_File Bug"), _("_Exit installer")])
+
+            if rc == 0:
+                handleException(anaconda, sys.exc_info())
+            elif rc == 1:
+                sys.exit(1)
 
         if not anaconda.id.upgrade:
             anaconda.id.storage.fsset.turnOnSwap(anaconda.intf)
