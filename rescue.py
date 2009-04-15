@@ -339,6 +339,9 @@ def runRescue(anaconda, instClass):
                     except Exception, e:
                         log.error("error mounting selinuxfs: %s" %(e,))
 
+                    fd = open("%s/.autorelabel" % anaconda.rootPath, "w+")
+                    fd.close()
+
                 # set a library path to use mounted fs
                 os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/X11R6/lib"
 
