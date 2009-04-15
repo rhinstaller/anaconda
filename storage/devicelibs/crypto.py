@@ -22,6 +22,7 @@
 
 import os
 from pycryptsetup import CryptSetup
+import iutil
 
 from ..errors import *
 
@@ -101,14 +102,74 @@ def luks_close(name):
 def luks_add_key(device,
                  new_passphrase=None, new_key_file=None,
                  passphrase=None, key_file=None):
-    cs = CryptSetup(yesDialog = askyes, logFunc = dolog)
-    return cs.addKey(device, new_passphrase, new_key_file, passphrase, key_file)
 
+    params = ["-q"]
+
+    p = os.pipe()
+    if passphrase:
+        os.write(p[1], "%s\n" % passphrase)
+    elif key_file and os.path.isfile(key_file):
+        params.extend(["--key-file", key_file])
+    else:
+        raise CryptoError("luks_add_key requires either a passphrase or a key file")
+
+    params.extend(["luksAddKey", device])
+
+    if new_passphrase:
+        os.write(p[1], "%s\n" % new_passphrase)
+    elif new_key_file and os.path.isfile(new_key_file):
+        params.append("%s" % new_key_file)
+    else:
+        raise CryptoError("luks_add_key requires either a passphrase or a key file to add")
+
+    os.close(p[1])
+
+    rc = iutil.execWithRedirect("cryptsetup", params,
+                                stdin = p[0],
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
+                                searchPath = 1)
+
+    os.close(p[0])
+    if rc:
+        raise CryptoError("luks add key failed with errcode %d" % (rc,))
 
 def luks_remove_key(device,
                     del_passphrase=None, del_key_file=None,
                     passphrase=None, key_file=None):
-    cs = CryptSetup(yesDialog = askyes, logFunc = dolog)
-    return cs.removeKey(device, del_passphrase, del_key_file, passphrase, key_file)
+
+    params = []
+
+    p = os.pipe()
+    if del_passphrase: #the first question is about the key we want to remove
+        os.write(p[1], "%s\n" % del_passphrase)
+
+    if passphrase:
+        os.write(p[1], "%s\n" % passphrase)
+    elif key_file and os.path.isfile(key_file):
+        params.extend(["--key-file", key_file])
+    else:
+        raise CryptoError("luks_remove_key requires either a passphrase or a key file")
+
+    params.extend(["luksRemoveKey", device])
+
+    if del_passphrase:
+        pass
+    elif del_key_file and os.path.isfile(del_key_file):
+        params.append("%s" % del_key_file)
+    else:
+        raise CryptoError("luks_remove_key requires either a passphrase or a key file to remove")
+
+    os.close(p[1])
+
+    rc = iutil.execWithRedirect("cryptsetup", params,
+                                stdin = p[0],
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
+                                searchPath = 1)
+
+    os.close(p[0])
+    if rc:
+        raise CryptoError("luks_remove_key failed with errcode %d" % (rc,))
 
 
