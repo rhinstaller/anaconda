@@ -69,7 +69,7 @@ class InstallData:
         self.timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone())
         self.users = None
         self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
-        self.auth = "--enableshadow --passalgo=sha512"
+        self.auth = "--enableshadow --passalgo=sha512 --enablefingerprint"
         self.desktop = desktop.Desktop()
         self.upgrade = None
         if flags.cmdline.has_key("preupgrade"):
