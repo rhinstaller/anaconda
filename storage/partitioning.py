@@ -373,7 +373,7 @@ def partitionCompare(part1, part2):
     ret -= cmp(part1.req_primary, part2.req_primary) * 200
 
     # larger requests go to the front of the list
-    ret -= cmp(part1.size, part2.size) * 100
+    ret -= cmp(part1.req_base_size, part2.req_base_size) * 100
 
     # fixed size requests to the front
     ret += cmp(part1.req_grow, part2.req_grow) * 50
