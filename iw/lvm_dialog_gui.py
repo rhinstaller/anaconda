@@ -1057,7 +1057,7 @@ class VolumeGroupEditor:
                         origlv = _lv
                         break
 
-                if lv.resizable and lv.targetSize != origlv.currentSize:
+                if lv.resizable and lv.targetSize != origlv.size:
                     actions.append(ActionResizeDevice(origlv, lv.targetSize))
 
                 if lv.format.exists:
