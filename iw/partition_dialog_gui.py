@@ -201,6 +201,7 @@ class PartitionEditor:
                     actions.append(ActionCreateDevice(request))
                 else:
                     request.req_size = size
+                    request.req_base_size = size
                     request.req_grow = grow
                     request.req_max_size = maxsize
                     request.req_primary = primary
