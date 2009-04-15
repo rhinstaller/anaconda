@@ -108,7 +108,7 @@ import platform
 from errors import *
 from iutil import log_method_call, notify_kernel, numeric_type
 from udev import *
-from formats import get_device_format_class, getFormat
+from formats import get_device_format_class, getFormat, DeviceFormat
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -1156,6 +1156,10 @@ class PartitionDevice(StorageDevice):
 
         self.disk.addPartition(self)
         self.disk.commit()
+
+        # Ensure old metadata which lived in freespace so did not get
+        # explictly destroyed by a destroyformat action gets wiped
+        DeviceFormat(device=self.path, exists=True).destroy()
 
         self.partedPartition = self.disk.partedDisk.getPartitionByPath(self.path)
 
