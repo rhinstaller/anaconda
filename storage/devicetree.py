@@ -1481,7 +1481,7 @@ class DeviceTree(object):
         elif device.format.type == "lvmpv":
             self.handleUdevLVMPVFormat(info, device)
 
-    def _handleInconsistencies(self, device):
+    def _handleInconsistencies(self):
         def reinitializeVG(vg):
             # First we remove VG data
             try:
@@ -1503,65 +1503,70 @@ class DeviceTree(object):
                           "exists": parent.exists}
                 parent.format = formats.getFormat(*[""], **kwargs)
 
-        if device.type == "lvmvg":
-            paths = []
-            for parent in device.parents:
-                paths.append(parent.path)
-
-            # when zeroMbr is true he wont ask.
-            if not device.complete and (self.zeroMbr or \
-                    questionReinitILVM(intf=self.intf, \
-                        vg_name=device.name, pv_names=paths)):
-                reinitializeVG(device)
-
-            elif not device.complete:
-                # The user chose not to reinitialize.
-                # hopefully this will ignore the vg components too.
-                self._removeDevice(device)
-                lvm.lvm_cc_addFilterRejectRegexp(device.name)
-                lvm.blacklistVG(device.name)
+        def leafInconsistencies(device):
+            if device.type == "lvmvg":
+                paths = []
                 for parent in device.parents:
-                    self._removeDevice(parent, moddisk=False)
-                    lvm.lvm_cc_addFilterRejectRegexp(parent.name)
+                    paths.append(parent.path)
 
-            return
+                # when zeroMbr is true he wont ask.
+                if not device.complete and (self.zeroMbr or \
+                        questionReinitILVM(intf=self.intf, \
+                            vg_name=device.name, pv_names=paths)):
+                    reinitializeVG(device)
 
-        elif device.type == "lvmlv":
-            # we might have already fixed this.
-            if device not in self._devices or \
-                    device.name in self._ignoredDisks:
+                elif not device.complete:
+                    # The user chose not to reinitialize.
+                    # hopefully this will ignore the vg components too.
+                    self._removeDevice(device)
+                    lvm.lvm_cc_addFilterRejectRegexp(device.name)
+                    lvm.blacklistVG(device.name)
+                    for parent in device.parents:
+                        self._removeDevice(parent, moddisk=False)
+                        lvm.lvm_cc_addFilterRejectRegexp(parent.name)
+
                 return
 
-            paths = []
-            for parent in device.vg.parents:
-                paths.append(parent.path)
+            elif device.type == "lvmlv":
+                # we might have already fixed this.
+                if device not in self._devices or \
+                        device.name in self._ignoredDisks:
+                    return
 
-            if not device.complete and (self.zeroMbr or \
-                questionReinitILVM(intf=self.intf, \
-                    lv_name=device.name, pv_names=paths)):
-
-                # destroy all lvs.
-                for lv in device.vg.lvs:
-                    lv.destroy()
-                    device.vg._removeLogVol(lv)
-                    self._removeDevice(lv)
-
-                reinitializeVG(device.vg)
-
-            elif not device.complete:
-                # ignore all the lvs.
-                for lv in device.vg.lvs:
-                    self._removeDevice(lv)
-                    lvm.lvm_cc_addFilterRejectRegexp(lv.name)
-                # ignore the vg
-                self._removeDevice(device.vg)
-                lvm.lvm_cc_addFilterRejectRegexp(device.vg.name)
-                lvm.blacklistVG(device.vg.name)
-                # ignore all the pvs
+                paths = []
                 for parent in device.vg.parents:
-                    self._removeDevice(parent, moddisk=False)
-                    lvm.lvm_cc_addFilterRejectRegexp(parent.name)
-            return
+                    paths.append(parent.path)
+
+                if not device.complete and (self.zeroMbr or \
+                    questionReinitILVM(intf=self.intf, \
+                        lv_name=device.name, pv_names=paths)):
+
+                    # destroy all lvs.
+                    for lv in device.vg.lvs:
+                        lv.destroy()
+                        device.vg._removeLogVol(lv)
+                        self._removeDevice(lv)
+
+                    reinitializeVG(device.vg)
+
+                elif not device.complete:
+                    # ignore all the lvs.
+                    for lv in device.vg.lvs:
+                        self._removeDevice(lv)
+                        lvm.lvm_cc_addFilterRejectRegexp(lv.name)
+                    # ignore the vg
+                    self._removeDevice(device.vg)
+                    lvm.lvm_cc_addFilterRejectRegexp(device.vg.name)
+                    lvm.blacklistVG(device.vg.name)
+                    # ignore all the pvs
+                    for parent in device.vg.parents:
+                        self._removeDevice(parent, moddisk=False)
+                        lvm.lvm_cc_addFilterRejectRegexp(parent.name)
+                return
+
+        # Address the inconsistencies present in the tree leaves.
+        for leaf in self.leaves:
+            leafInconsistencies(leaf)
 
     def populate(self):
         """ Locate all storage devices. """
@@ -1594,8 +1599,7 @@ class DeviceTree(object):
 
         # After having the complete tree we make sure that the system
         # inconsistencies are ignored or resolved.
-        for leaf in self.leaves:
-            self._handleInconsistencies(leaf)
+        self._handleInconsistencies()
 
         self.teardownAll()
         try:
