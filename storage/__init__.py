@@ -456,25 +456,22 @@ class Storage(object):
         self.reset()
 
         dests = []
-        for device in self.devices:
-            if not device.removable:
+
+        for part in self.disks:
+            if not disk.removable and \
+                    disk.format is not None  and \
+                    disk.format.mountable:
+                dests.append([disk.path, disk.name])
+
+        for part in self.partitions:
+            if not part.disk.removable:
                 continue
 
-            try:
-                dev = parted.Device(path=device.path)
-                disk = parted.Disk(device=dev)
-            except Exception:
-                continue
-
-            for part in disk.partitions:
-                if part.active and \
-                   not part.getFlag(parted.PARTITION_RAID) and \
-                   not part.getFlag(parted.PARTITION_LVM) and \
-                   part.fileSystem.type in ("ext3", "ext2", "fat16", "fat32"):
-                    dests.append([part.path, device.name])
-
-            if not disk.partitions:
-                dests.append([device.path, device.name])
+            elif part.partedPartition.active and \
+                    not part.partedPartition.getFlag(parted.PARTITION_RAID) and \
+                    not part.partedPartition.getFlag(parted.PARTITION_LVM) and \
+                    part.format.mountable:
+                dests.append([part.path, part.name])
 
         return dests
 
