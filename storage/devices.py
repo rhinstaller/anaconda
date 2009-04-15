@@ -2024,7 +2024,9 @@ class LVMLogicalVolumeDevice(DMDevice):
         if not self.exists:
             raise DeviceError("device has not been created")
 
-        self.format.teardown()
+        if self.format.exists:
+            self.format.teardown()
+
         udev_settle(timeout=10)
         lvm.lvresize(self.vg.name, self._name, self.size)
 
