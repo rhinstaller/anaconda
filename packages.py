@@ -113,9 +113,6 @@ def turnOnFilesystems(anaconda):
 
         try:
             anaconda.id.storage.doIt()
-        except Exception:
-            # better to get ful exceptions for debugging
-            raise
         except DeviceResizeError as (msg, device):
             # XXX does this make any sense? do we support resize of
             #     devices other than partitions?
