@@ -2018,11 +2018,13 @@ class LVMLogicalVolumeDevice(DMDevice):
         self.exists = False
 
     def resize(self, intf=None):
-        # XXX should we set up anything before doing this?
         # XXX resize format probably, right?
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created")
+
+        # Setup VG parents (in case they are dmraid partitions for example)
+        self.vg.setupParents()
 
         if self.format.exists:
             self.format.teardown()
