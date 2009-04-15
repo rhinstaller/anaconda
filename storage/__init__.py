@@ -233,6 +233,7 @@ class Storage(object):
 
     def doIt(self):
         self.devicetree.processActions()
+        self.doEncryptionPassphraseRetrofits()
 
         # now set the boot partition's flag
         try:
@@ -752,6 +753,27 @@ class Storage(object):
                         break
 
         return lvtemplate
+
+    def doEncryptionPassphraseRetrofits(self):
+        """ Add the global passphrase to all preexisting LUKS devices.
+
+            This establishes a common passphrase for all encrypted devices
+            in the system so that users only have to enter one passphrase
+            during system boot.
+        """
+        if not self.retrofitPassphrase:
+            return
+
+        for device in self.devices:
+            if device.format.type == "luks" and \
+               device.format._LUKS__passphrase != self.encryptionPassphrase:
+                log.info("adding new passphrase to preexisting encrypted "
+                         "device %s" % device.path)
+                try:
+                    device.format.addPassphrase(self.encryptionPassphrase)
+                except CryptoError:
+                    log.error("failed to add new passphrase to existing "
+                              "device %s" % device.path)
 
     def sanityCheck(self):
         """ Run a series of tests to verify the storage configuration.
