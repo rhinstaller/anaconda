@@ -158,7 +158,8 @@ def mdactivate(device, members=[], super_minor=None, uuid=None):
         identifier = ""
 
     rc = iutil.execWithRedirect("mdadm",
-                                ["--assemble",
+                                ["--run",
+                                 "--assemble",
                                  device,
                                  identifier,
                                  "--auto=md",
