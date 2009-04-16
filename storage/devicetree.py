@@ -1568,6 +1568,20 @@ class DeviceTree(object):
         for leaf in self.leaves:
             leafInconsistencies(leaf)
 
+        # Automatically handle the cases where we find a format on a
+        # disk with partitions.  I trust that the partitions list
+        # avoids the ignored devices.
+        for part in self.getDevicesByInstance(PartitionDevice):
+            if part.parents[0].format.type is not None:
+                disk = part.parents[0]
+                format = formats.getFormat(None,
+                                           device=disk.path,
+                                           exists=True)
+                log.warning("Automatically corrected fomrat error on %s. "
+                        "Changed from %s to %s." %
+                        (disk.name, disk.format, format))
+                disk.format = format
+
     def populate(self):
         """ Locate all storage devices. """
         # each iteration scans any devices that have appeared since the
