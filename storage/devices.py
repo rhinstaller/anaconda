@@ -233,7 +233,7 @@ class Device(object):
               "descr": self.description, "status": self.status})
         return s
 
-    def writeKS(self, f, preexisting=False, s=None):
+    def writeKS(self, f, preexisting=False, noformat=False, s=None):
         return
 
     def removeChild(self):
@@ -962,7 +962,7 @@ class PartitionDevice(StorageDevice):
                "partedPart": self.partedPartition, "disk": self.disk})
         return s
 
-    def writeKS(self, f, preexisting=False, s=None):
+    def writeKS(self, f, preexisting=False, noformat=False, s=None):
         args = []
 
         if self.isExtended:
@@ -981,6 +981,8 @@ class PartitionDevice(StorageDevice):
                 args.append("--ondisk=%s" % self.req_disks[0])
             else:
                 args.append("--onpart=%s" % self.name)
+        if noformat:
+            args.append("--noformat")
 
         f.write("#part ")
         self.format.writeKS(f)
@@ -1453,8 +1455,8 @@ class LUKSDevice(DMCryptDevice):
                                parents=parents, sysfsPath=sysfsPath,
                                uuid=None, exists=exists)
 
-    def writeKS(self, f, preexisting=False, s=None):
-        self.slave.writeKS(f, preexisting=preexisting)
+    def writeKS(self, f, preexisting=False, noformat=False, s=None):
+        self.slave.writeKS(f, preexisting=preexisting, noformat=noformat, s=s)
         self.format.writeKS(f)
         if s:
             f.write(" %s" % s)
@@ -1607,7 +1609,7 @@ class LVMVolumeGroupDevice(DMDevice):
                "freeExtents": self.freeExtents, "pvs": self.pvs, "lvs": self.lvs})
         return s
 
-    def writeKS(self, f, preexisting=False, s=None):
+    def writeKS(self, f, preexisting=False, noformat=False, s=None):
         args = ["--pesize=%s" % self.peSize]
         pvs = []
 
@@ -1616,6 +1618,8 @@ class LVMVolumeGroupDevice(DMDevice):
 
         if preexisting:
             args.append("--useexisting")
+        if noformat:
+            args.append("--noformat")
 
         f.write("#volgroup %s %s %s" % (self.name, " ".join(args), " ".join(pvs)))
         if s:
@@ -1987,7 +1991,7 @@ class LVMLogicalVolumeDevice(DMDevice):
               {"vgdev": self.vg, "percent": self.req_percent})
         return s
 
-    def writeKS(self, f, preexisting=False, s=None):
+    def writeKS(self, f, preexisting=False, noformat=False, s=None):
         args = ["--name=%s" % self.lvname,
                 "--vgname=%s" % self.vg.name]
 
@@ -2004,6 +2008,8 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         if preexisting:
             args.append("--useexisting")
+        if noformat:
+            args.append("--noformat")
 
         f.write("#logvol ")
         self.format.writeKS(f)
@@ -2244,7 +2250,7 @@ class MDRaidArrayDevice(StorageDevice):
                "memberDevices": self.memberDevices, "totalDevices": self.totalDevices})
         return s
 
-    def writeKS(self, f, preexisting=False, s=None):
+    def writeKS(self, f, preexisting=False, noformat=False, s=None):
         args = ["--level=%s" % self.level,
                 "--device=%s" % self.name]
         mems = []
@@ -2253,6 +2259,8 @@ class MDRaidArrayDevice(StorageDevice):
             args.append("--spares=%s" % self.spares)
         if preexisting:
             args.append("--useexisting")
+        if noformat:
+            args.append("--noformat")
 
         for mem in self.parents:
             mems.append("raid.%s" % mem.format.uuid)

@@ -990,7 +990,6 @@ class Storage(object):
 
         # the various partitioning commands
         dict = {}
-        ordering = []
         actions = filter(lambda x: x.device.format.type != "luks",
                          self.devicetree.findActions(type="create"))
 
@@ -999,12 +998,19 @@ class Storage(object):
                 dict[action.device.path].append(action)
             else:
                 dict[action.device.path] = [action]
-                ordering.append(action.device.path)
 
-        for path in ordering:
-            for device in map(lambda x: x.device, dict[path]):
-                device.writeKS(f, preexisting=useExisting(dict[path]))
-                f.write("\n")
+        for device in self.devices:
+            # If there's no action for the given device, it must be one
+            # we are reusing.
+            if not dict.has_key(device.path):
+                noformat = True
+                preexisting = True
+            else:
+                noformat = False
+                preexisting = useExisting(dict[device.path])
+
+            device.writeKS(f, preexisting=preexisting, noformat=noformat)
+            f.write("\n")
 
         self.iscsi.writeKS(f)
         self.zfcp.writeKS(f)
