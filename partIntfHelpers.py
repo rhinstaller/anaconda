@@ -48,7 +48,7 @@ def sanityCheckVolumeGroupName(volname):
 	return _("Error - the volume group name %s is not valid." % (volname,))
 
     for i in range(0, len(volname)):
-	rc = string.find(string.letters + string.digits + '.' + '_', volname[i])
+	rc = string.find(string.letters + string.digits + '.' + '_' + '-', volname[i])
 	if rc == -1:
 	    return _("Error - the volume group name contains illegal "
 		     "characters or spaces.  Acceptable characters "

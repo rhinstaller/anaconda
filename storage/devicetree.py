@@ -1660,6 +1660,10 @@ class DeviceTree(object):
             if device.name == name:
                 found = device
                 break
+            elif (device.type == "lvmlv" or device.type == "lvmvg") and \
+                    device.name == name.replace("--","-"):
+                found = device
+                break
 
         log.debug("found %s" % found)
         return found

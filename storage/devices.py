@@ -1576,6 +1576,21 @@ class LVMVolumeGroupDevice(DMDevice):
             raise DeviceError("device has not been created")
 
     @property
+    def path(self):
+        """ Device node representing this device. """
+        # Thank you lvm for this lovely hack.
+        return "%s/%s" % (self._devDir, self.name.replace("-","--"))
+
+    def getDMNode(self):
+        """ Return the dm-X (eg: dm-0) device node for this device. """
+        # Thank you lvm for this lovely hack.
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        return dm.dm_node_from_name(self.name.replace("-","--"))
+
+    @property
     def status(self):
         """ The device's status (True means active). """
         if not self.exists:
@@ -1936,6 +1951,23 @@ class LVMLogicalVolumeDevice(DMDevice):
     def vg(self):
         """ This Logical Volume's Volume Group. """
         return self.parents[0]
+
+    @property
+    def path(self):
+        """ Device node representing this device. """
+        # Thank you lvm for this lovely hack.
+        return "%s/%s-%s" % (self._devDir, self.vg.name.replace("-","--"),
+                self._name.replace("-","--"))
+
+    def getDMNode(self):
+        """ Return the dm-X (eg: dm-0) device node for this device. """
+        # Thank you lvm for this lovely hack.
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created")
+
+        return dm.dm_node_from_name("%s-%s" % (self.vg.name.replace("-","--"), \
+                self._name.replace("-","--")))
 
     @property
     def name(self):
