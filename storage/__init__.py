@@ -470,7 +470,7 @@ class Storage(object):
             elif part.partedPartition.active and \
                     not part.partedPartition.getFlag(parted.PARTITION_RAID) and \
                     not part.partedPartition.getFlag(parted.PARTITION_LVM) and \
-                    part.format.mountable:
+                    part.format is not None and part.format.mountable:
                 dests.append([part.path, part.name])
 
         return dests
