@@ -142,32 +142,7 @@ class SaveExceptionWindow:
     def __init__(self, anaconda, longTracebackFile=None, screen=None):
         self.anaconda = anaconda
         self.screen = screen
-
-    def _destCb(self, *args):
-        if self.rg.getSelection() == "disk":
-            self.bugzillaNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.bugzillaPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.bugDesc.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.scpNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.scpPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.scpHostEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.scpDestEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-        elif self.rg.getSelection() == "scp":
-            self.bugzillaNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.bugzillaPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.bugDesc.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.scpNameEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.scpPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.scpHostEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.scpDestEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
-        else:
-            self.bugzillaNameEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.bugzillaPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.bugDesc.setFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.scpNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.scpPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.scpHostEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.scpDestEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
+        self._method = "disk"
 
     def getrc(self):
         if self.rc == TEXT_OK_CHECK:
@@ -192,24 +167,28 @@ class SaveExceptionWindow:
         self.screen.popWindow()
         self.screen.refresh()
 
-    def run(self):
-        toplevel = GridForm(self.screen, _("Save"), 1, 7)
+    def runSaveToDisk(self):
+        toplevel = GridForm(self.screen, _("Save to local disk"), 1, 2)
 
-        self.rg = RadioGroup()
-        self.diskButton = self.rg.add(_("Save to local disk"), "disk", True)
-        self.bugzillaButton = self.rg.add(_("Send to bugzilla (%s)") % product.bugUrl, "bugzilla", False)
-        self.scpButton = self.rg.add(_("Send to remote server (scp)"), "scp", False)
+        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
+        self.diskList = Listbox(height=3, scroll=1)
 
-        self.diskButton.setCallback(self._destCb, None)
-        self.bugzillaButton.setCallback(self._destCb, None)
-        self.scpButton.setCallback(self._destCb, None)
+        for (dev, desc) in self.dests:
+            self.diskList.append("/dev/%s - %s" % (dev, desc), dev)
+
+        toplevel.add(self.diskList, 0, 0, (0, 0, 0, 1))
+        toplevel.add(buttons, 0, 1, growx=1)
+
+        result = toplevel.run()
+        return buttons.buttonPressed(result)
+
+    def runSaveToBugzilla(self):
+        toplevel = GridForm(self.screen, _("Send to bugzilla (%s)") % product.bugUrl, 1, 2)
 
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
         self.bugzillaNameEntry = Entry(24)
         self.bugzillaPasswordEntry = Entry(24, password=1)
         self.bugDesc = Entry(24)
-
-        self.diskList = Listbox(height=3, scroll=1)
 
         bugzillaGrid = Grid(2, 3)
         bugzillaGrid.setField(Label(_("User name")), 0, 0, anchorLeft=1)
@@ -219,6 +198,16 @@ class SaveExceptionWindow:
         bugzillaGrid.setField(Label(_("Bug Description")), 0, 2, anchorLeft=1)
         bugzillaGrid.setField(self.bugDesc, 1, 2)
 
+        toplevel.add(bugzillaGrid, 0, 0, (0, 0, 0, 1))
+        toplevel.add(buttons, 0, 1, growx=1)
+
+        result = toplevel.run()
+        return buttons.buttonPressed(result)
+
+    def runSaveToRemote(self):
+        toplevel = GridForm(self.screen, _("Send to remote server (scp)"), 1, 2)
+
+        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
         self.scpNameEntry = Entry(24)
         self.scpPasswordEntry = Entry(24, password=1)
         self.scpHostEntry = Entry(24)
@@ -234,45 +223,67 @@ class SaveExceptionWindow:
         scpGrid.setField(Label(_("Destination file")), 0, 3, anchorLeft=1)
         scpGrid.setField(self.scpDestEntry, 1, 3)
 
+        toplevel.add(scpGrid, 0, 0, (0, 0, 0, 1))
+        toplevel.add(buttons, 0, 1, growx=1)
+
+        result = toplevel.run()
+        return buttons.buttonPressed(result)
+
+    def run(self):
+        mapping = {"disk": self.runSaveToDisk,
+                   "scp": self.runSaveToRemote,
+                   "bugzilla": self.runSaveToBugzilla}
+
+        toplevel = GridForm(self.screen, _("Save"), 1, 4)
+
+        self.rg = RadioGroup()
+        self.diskButton = self.rg.add(_("Save to local disk"), "disk", True)
+        self.bugzillaButton = self.rg.add(_("Send to bugzilla (%s)") % product.bugUrl, "bugzilla", False)
+        self.scpButton = self.rg.add(_("Send to remote server (scp)"), "scp", False)
+
+        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
+
         toplevel.add(self.diskButton, 0, 0, (0, 0, 0, 1))
-        toplevel.add(self.diskList, 0, 1, (0, 0, 0, 1))
-        toplevel.add(self.bugzillaButton, 0, 2, (0, 0, 0, 1))
-        toplevel.add(bugzillaGrid, 0, 3, (0, 0, 0, 1))
-        toplevel.add(self.scpButton, 0, 4, (0, 0, 0, 1))
-        toplevel.add(scpGrid, 0, 5, (0, 0, 0, 1))
-        toplevel.add(buttons, 0, 6, growx=1)
+        toplevel.add(self.bugzillaButton, 0, 1, (0, 0, 0, 1))
+        toplevel.add(self.scpButton, 0, 2, (0, 0, 0, 1))
+        toplevel.add(buttons, 0, 3, growx=1)
 
         try:
-            dests = self.anaconda.id.storage.exceptionDisks()
+            self.dests = self.anaconda.id.storage.exceptionDisks()
         except Exception as e:
             log.error("Error when probing exception disks: %s" % e)
-            dests = []
+            self.dests = []
 
-        if len(dests) > 0:
-            for (dev, desc) in dests:
-                self.diskList.append("/dev/%s - %s" % (dev, desc), dev)
-
-#            self.diskList.setCurrent("sda")
-
-            self.bugzillaNameEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-            self.bugzillaPasswordEntry.setFlags(FLAG_DISABLED, FLAGS_SET)
-        else:
+        # If there aren't any local disks, don't set it to be the default.
+        if len(self.dests) == 0:
             self.diskButton.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
             self.diskButton.w.checkboxSetValue(" ")
             self.bugzillaButton.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
             self.bugzillaButton.w.checkboxSetValue("*")
 
-        result = toplevel.run()
-        self.rc = buttons.buttonPressed(result)
+        while True:
+            result = toplevel.run()
+            rc = buttons.buttonPressed(result)
+
+            if rc == TEXT_OK_CHECK:
+                if mapping[self.rg.getSelection()]() == TEXT_CANCEL_CHECK:
+                    continue
+
+                self.rc = TEXT_OK_CHECK
+                self._method = self.rg.getSelection()
+            else:
+                self.rc = TEXT_CANCEL_CHECK
+
+            break
 
     def saveToDisk(self):
-        return self.rg.getSelection() == "disk"
+        return self._method == "disk"
 
     def saveToLocal(self):
         return False
 
     def saveToRemote(self):
-        return self.rg.getSelection() == "scp"
+        return self._method == "scp"
 
 class MainExceptionWindow:
     def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
