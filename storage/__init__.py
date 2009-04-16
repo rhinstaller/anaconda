@@ -949,6 +949,18 @@ class Storage(object):
         self.zfcp.write(instPath)
 
     def writeKS(self, f):
+        def useExisting(lst):
+            foundCreateDevice = False
+            foundCreateFormat = False
+
+            for l in lst:
+                if isinstance(l, ActionCreateDevice):
+                    foundCreateDevice = True
+                elif isinstance(l, ActionCreateFormat):
+                    foundCreateFormat = True
+
+            return (foundCreateFormat and not foundCreateDevice)
+
         log.warning("Storage.writeKS not completely implemented")
         f.write("# The following is the partition information you requested\n")
         f.write("# Note that any partitions you deleted are not expressed\n")
@@ -991,7 +1003,7 @@ class Storage(object):
 
         for path in ordering:
             for device in map(lambda x: x.device, dict[path]):
-                device.writeKS(f)
+                device.writeKS(f, preexisting=useExisting(dict[path]))
                 f.write("\n")
 
         self.iscsi.writeKS(f)
