@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.44
+Version: 11.5.0.45
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -36,7 +36,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define pythonpyblockver 0.24-1
 %define libbdevidver 5.1.2-1
 %define e2fsver 1.41.0
-%define nmver 0.7.0
+%define nmver 1:0.7.1-3.git20090414
 %define dbusver 1.2.3
 %define createrepover 0.4.7
 %define yumutilsver 1.1.11-3
@@ -211,6 +211,41 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Apr 16 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.45-1
+- Touch /.autorelabel when running under rescue mode (#491747). (clumens)
+- Add support for fingerprint-based logins (#481273). (clumens)
+- Add a "File Bug" button to the catch-all partitioning exception handler.
+  (clumens)
+- Remove the early catch-all exception handler (#495933). (clumens)
+- Implement the save to USB using devicetree devices. (jgranado)
+- Use size instead of currentSize when comparing lv sizes (hdegoede)
+- Make sure all pv's of an lv's vg are setup before resizing an lv (hdegoede)
+- Do not try to teardown a non existing format (hdegoede)
+- Center the bootloader configuration dialog (#495802). (clumens)
+- Destroy (potential) stale metadata when creating a new partition (hdegoede)
+- use partition req_base_size instead of size in partitionCompare()
+  (hdegoede)
+- Fix changing size of newly created partitions (hdegoede)
+- Don't traceback on invalid filesystem detection (#495156) (dcantrell)
+- Check to see if formatcb is None. (jgranado)
+- Use the PV name when logging error messages. (jgranado)
+- Don't set up the device to obtain minSize anymore. (dlehman)
+- Improve estimate of md arrays' size. (dlehman)
+- Determine minimum size for filesystems once, from constructor. (dlehman)
+- Fix estimate of LUKS header size for newly encrypted devices. (#493575)
+  (dlehman)
+- Fix two syntax problems with generated mdadm.conf entries. (#495552)
+  (dlehman)
+- Default to AES-XTS cipher mode with 512 bit key for new LUKS devices.
+  (dlehman)
+- When going back from a failed shrink, reset the device action set.
+  (clumens)
+- If we can't communicate while logging in to bugzilla, error (#492470).
+  (clumens)
+- Make save to usb work. (jgranado)
+- We don't always have a formatcb either (#495665). (clumens)
+- The entry is named lvsizeentry now. (jgranado)
+
 * Mon Apr 13 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.44-1
 - Default to SHA512 password encoding algorithm. (dcantrell)
 - Handle format combo box not existing (#495288) (dcantrell)
