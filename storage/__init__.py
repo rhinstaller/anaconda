@@ -516,6 +516,13 @@ class Storage(object):
                     else:
                         return _("This device is part of a LVM volume "
                                  "group.")
+        elif device.format.type == "luks":
+            try:
+                luksdev = self.devicetree.getChildren(device)[0]
+            except IndexError:
+                pass
+            else:
+                return self.deviceImmutable(luksdev)
         elif isinstance(device, PartitionDevice) and device.isExtended:
             reasons = {}
             for dep in self.deviceDeps(device):
