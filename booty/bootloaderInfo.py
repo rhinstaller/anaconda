@@ -67,12 +67,12 @@ def syncDataToDisk(dev, mntpt, instRoot = "/"):
     # and xfs is even more "special" (#117968)
     if isys.readFSType(dev) == "xfs":
         iutil.execWithRedirect("/usr/sbin/xfs_freeze",
-                               ["/usr/sbin/xfs_freeze", "-f", mntpt],
+                               ["-f", mntpt],
                                stdout = "/dev/tty5",
                                stderr = "/dev/tty5",
                                root = instRoot)
         iutil.execWithRedirect("/usr/sbin/xfs_freeze",
-                               ["/usr/sbin/xfs_freeze", "-u", mntpt],
+                               ["-u", mntpt],
                                stdout = "/dev/tty5",
                                stderr = "/dev/tty5",
                                root = instRoot)    
@@ -534,7 +534,7 @@ class efiBootloaderInfo(bootloaderInfo):
     # XXX wouldn't it be nice to have a real interface to use efibootmgr from?
     def removeOldEfiEntries(self, instRoot):
         p = os.pipe()
-        iutil.execWithRedirect('/usr/sbin/efibootmgr', ["efibootmgr"],
+        iutil.execWithRedirect('/usr/sbin/efibootmgr', [],
                                root = instRoot, stdout = p[1])
         os.close(p[1])
 
@@ -552,7 +552,7 @@ class efiBootloaderInfo(bootloaderInfo):
             if string.join(fields[1:], " ") == productName:
                 entry = fields[0][4:8]
                 iutil.execWithRedirect('/usr/sbin/efibootmgr',
-                                       ["efibootmgr", "-b", entry, "-B"],
+                                       ["-b", entry, "-B"],
                                        root = instRoot,
                                        stdout="/dev/tty5", stderr="/dev/tty5")
 
@@ -582,7 +582,7 @@ class efiBootloaderInfo(bootloaderInfo):
         argv = [ "/usr/sbin/efibootmgr", "-c" , "-w", "-L",
                  productName, "-d", "/dev/%s" % bootdisk,
                  "-p", bootpart, "-l", "\\EFI\\redhat\\" + self.bootloader ]
-        iutil.execWithRedirect(argv[0], argv, root = instRoot,
+        iutil.execWithRedirect(argv[0], argv[1:], root = instRoot,
                                stdout = "/dev/tty5",
                                stderr = "/dev/tty5")
 

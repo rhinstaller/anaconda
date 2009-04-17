@@ -110,7 +110,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             # Calling swriteboot. The first argument is the disk to write
             # to and the second argument is a path to the bootstrap loader
             # file.
-            args = ("swriteboot", ("/dev/%s" % wbd), "/boot/bootlx")
+            args = [("/dev/%s" % wbd), "/boot/bootlx"]
             iutil.execWithRedirect ('/sbin/swriteboot', args,
                                     root = instRoot,
                                     stdout = "/dev/tty5",
@@ -121,7 +121,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             # the number of the partition on which aboot.conf resides.
             # It's always the boot partition whether it's / or /boot (with
             # the mount point being omitted.)
-            args = ("abootconf", ("/dev/%s" % wbd), str (bdpn))
+            args = [("/dev/%s" % wbd), str (bdpn)]
             iutil.execWithRedirect ('/sbin/abootconf', args,
                                     root = instRoot,
                                     stdout = "/dev/tty5",

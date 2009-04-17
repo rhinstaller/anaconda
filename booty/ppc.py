@@ -144,7 +144,7 @@ class ppcBootloaderInfo(bootloaderInfo):
         
         if not flags.test:
             iutil.execWithRedirect(ybinargs[0],
-                                   ybinargs,
+                                   ybinargs[1:],
                                    stdout = "/dev/tty5",
                                    stderr = "/dev/tty5",
                                    root = instRoot)

@@ -71,7 +71,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
         # copy the stage files over into /boot
         iutil.execWithRedirect("/sbin/grub-install",
-                               ["/sbin/grub-install", "--just-copy"],
+                               ["--just-copy"],
                                stdout = "/dev/tty5", stderr = "/dev/tty5",
                                root = instRoot)
 
@@ -89,7 +89,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 syncDataToDisk(bootDev, "/", instRoot)
 
             iutil.execWithRedirect('/sbin/grub' ,
-                                   [ "grub",  "--batch", "--no-floppy",
+                                   [ "--batch", "--no-floppy",
                                      "--device-map=/boot/grub/device.map" ],
                                    stdin = p[0],
                                    stdout = "/dev/tty5", stderr = "/dev/tty5",

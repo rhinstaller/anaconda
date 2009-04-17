@@ -95,7 +95,7 @@ class sparcBootloaderInfo(bootloaderInfo):
 
         if not flags.test:
             iutil.execWithRedirect(sbinargs[0],
-                                   sbinargs,
+                                   sbinargs[1:],
                                    stdout = "/dev/tty5",
                                    stderr = "/dev/tty5",
                                    root = instRoot)

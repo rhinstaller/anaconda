@@ -153,8 +153,7 @@ class s390BootloaderInfo(bootloaderInfo):
         f.close()
 
         if not justConfigFile:
-            argv = [ "/sbin/zipl" ]
-            iutil.execWithRedirect(argv[0], argv, root = instRoot,
+            iutil.execWithRedirect("/sbin/zipl", [], root = instRoot,
                                    stdout = "/dev/stdout",
                                    stderr = "/dev/stderr")
             
