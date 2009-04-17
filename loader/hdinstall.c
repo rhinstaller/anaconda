@@ -58,85 +58,76 @@ extern uint64_t flags;
 static char * setupIsoImages(char * device, char * dirName, char * location) {
     int rc = 0;
     char *url = NULL, *dirspec, *updpath, *path;
-    char *typetry[] = {"ext3", "ext2", "vfat", NULL};
-    char **type;
 
     logMessage(INFO, "mounting device %s for hard drive install", device);
 
-    if (!FL_TESTING(flags)) {
-        for (type=typetry; *type; type++) {
-            if (!doPwMount(device, "/mnt/isodir", *type, "ro", NULL))
-                break;
-        }
+    if (FL_TESTING(flags))
+        return NULL;
 
-        if (!type)
-            return NULL;
+    if (doPwMount(device, "/mnt/isodir", "auto", "ro", NULL))
+        return NULL;
 
-        if (asprintf(&dirspec, "/mnt/isodir%.*s",
-                     (int) (strrchr(dirName, '/') - dirName), dirName) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+    if (asprintf(&dirspec, "/mnt/isodir%.*s",
+                 (int) (strrchr(dirName, '/') - dirName), dirName) == -1) {
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+        abort();
+    }
 
-        if (asprintf(&path, "/mnt/isodir%s", dirName) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+    if (asprintf(&path, "/mnt/isodir%s", dirName) == -1) {
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+        abort();
+    }
 
-        if (path) {
-            logMessage(INFO, "Path to stage2 image is %s", path);
+    if (path) {
+        logMessage(INFO, "Path to stage2 image is %s", path);
 
-            rc = copyFile(path, "/tmp/install.img");
-            rc = mountStage2("/tmp/install.img");
+        rc = copyFile(path, "/tmp/install.img");
+        rc = mountStage2("/tmp/install.img");
 
-            free(path);
+        free(path);
 
-            if (rc) {
-                umountLoopback("/mnt/runtime", "/dev/loop0");
-                umount("/mnt/isodir");
-                goto err;
-            }
-
-            if (asprintf(&updpath, "%s/updates.img", dirspec) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
-            logMessage(INFO, "Looking for updates for HD in %s", updpath);
-            copyUpdatesImg(updpath);
-            free(updpath);
-
-            if (asprintf(&updpath, "%s/product.img", dirspec) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
-            logMessage(INFO, "Looking for product for HD in %s", updpath);
-            copyProductImg(updpath);
-
-            free(updpath);
-            free(dirspec);
+        if (rc) {
+            umountLoopback("/mnt/runtime", "/dev/loop0");
             umount("/mnt/isodir");
-
-            if (asprintf(&url, "hd:%s:/%s", device,
-                         dirName ? dirName : ".") == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
-            return url;
-        } else {
-            free(dirspec);
-            free(path);
-
-            if (rc) {
-                umount("/mnt/isodir");
-                return NULL;
-            }
+            goto err;
         }
+
+        if (asprintf(&updpath, "%s/updates.img", dirspec) == -1) {
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+            abort();
+        }
+
+        logMessage(INFO, "Looking for updates for HD in %s", updpath);
+        copyUpdatesImg(updpath);
+        free(updpath);
+
+        if (asprintf(&updpath, "%s/product.img", dirspec) == -1) {
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+            abort();
+        }
+
+        logMessage(INFO, "Looking for product for HD in %s", updpath);
+        copyProductImg(updpath);
+
+        free(updpath);
+        free(dirspec);
+        umount("/mnt/isodir");
+
+        if (asprintf(&url, "hd:%s:/%s", device,
+                     dirName ? dirName : ".") == -1) {
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+            abort();
+        }
+
+        return url;
     } else {
-        /* in test mode I dont know what to do - just pretend I guess */
-        type = typetry;
+        free(dirspec);
+        free(path);
+
+        if (rc) {
+            umount("/mnt/isodir");
+            return NULL;
+        }
     }
 
 err:
