@@ -750,7 +750,7 @@ class Raid(commands.raid.F9_Raid):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
         kwargs["name"] = devicename
-        kwargs["level"] = rd.level.lower()
+        kwargs["level"] = rd.level
         kwargs["parents"] = raidmems
         kwargs["memberDevices"] = len(raidmems)
         kwargs["totalDevices"] = kwargs["memberDevices"]+rd.spares

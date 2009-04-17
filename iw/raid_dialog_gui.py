@@ -75,19 +75,19 @@ class RaidEditor:
     def createRaidLevelMenu(self, levels, reqlevel):
         levelcombo = gtk.combo_box_new_text()
 	defindex = 0
-        if "RAID1" in levels:
-            defindex = levels.index("RAID1")
+        if mdraidlib.RAID1 in levels:
+            defindex = levels.index(mdraidlib.RAID1)
 	i = 0
 	for lev in levels:
-            levelcombo.append_text(lev)
+            levelcombo.append_text("RAID%d" % lev)
 
-	    if reqlevel and lev == reqlevel:
+	    if reqlevel is not None and lev == reqlevel:
 		defindex = i
 	    i = i + 1
 
         levelcombo.set_active(defindex)
 
-	if reqlevel and reqlevel == "RAID0":
+	if reqlevel is not None and reqlevel == mdraidlib.RAID0:
 	    self.sparesb.set_sensitive(0)
 
         if self.sparesb:
@@ -115,7 +115,7 @@ class RaidEditor:
 	numparts = sparesb.get_data("numparts")
 	maxspares = mdraidlib.get_raid_max_spares(raidlevel, numparts)
 
-	if maxspares > 0 and raidlevel != "raid0":
+	if maxspares > 0 and not mdraidlib.isRaid(mdraidlib.RAID0, raidlevel):
 	    adj = sparesb.get_adjustment() 
 	    value = adj.value 
 	    if adj.value > maxspares: 
@@ -169,7 +169,7 @@ class RaidEditor:
                 model = self.levelcombo.get_model()
                 raidlevel = model[self.levelcombo.get_active()][0]
 
-                if raidlevel != "RAID0":
+                if not mdraidlib.isRaid(mdraidlib.RAID0, raidlevel):
                     self.sparesb.update()
                     spares = self.sparesb.get_value_as_int()
                 else:
@@ -177,10 +177,9 @@ class RaidEditor:
 
                 format = fmt_class(mountpoint=mountpoint)
                 members = len(raidmembers) - spares
-                level = int(raidlevel.lower().replace("raid", ""))
 
                 request = self.storage.newMDArray(minor=raidminor,
-                                                  level=level,
+                                                  level=raidlevel,
                                                   format=format,
                                                   parents=raidmembers,
                                                   totalDevices=len(raidmembers),

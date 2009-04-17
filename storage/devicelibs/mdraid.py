@@ -39,6 +39,13 @@ RAID1 = 1
 RAID0 = 0
 
 def getRaidLevels():
+    mdstat_descriptors = {
+        RAID10: ("[RAID10]", "[raid10]"),
+        RAID6: ("[RAID6]", "[raid6]"),
+        RAID5: ("[RAID5]", "[raid5]"),
+        RAID1: ("[RAID1]", "[raid1]"),
+        RAID0: ("[RAID0]", "[raid0]"),
+    }
     avail = []
     try:
         f = open("/proc/mdstat", "r")
@@ -51,9 +58,11 @@ def getRaidLevels():
 
             lst = l.split()
 
-            for lev in ["RAID0", "RAID1", "RAID5", "RAID6", "RAID10"]:
-                if "[" + lev + "]" in lst or "[" + lev.lower() + "]" in lst:
-                    avail.append(lev)
+            for level in mdstat_descriptors:
+                for d in mdstat_descriptors[level]:
+                    if d in lst:
+                        avail.append(level)
+                        break
 
         f.close()
 
@@ -62,13 +71,20 @@ def getRaidLevels():
 
 raid_levels = getRaidLevels()
 
+def raidLevel(descriptor):
+    for level in raid_levels:
+        if isRaid(level, descriptor):
+            return level
+    else:
+        raise ValueError, "invalid raid level descriptor %s" % descriptor
+
 def isRaid(raid, raidlevel):
     """Return whether raidlevel is a valid descriptor of raid"""
-    raid_descriptors = {RAID10: ("RAID10", "10", 10),
-                        RAID6: ("RAID6", "6", 6),
-                        RAID5: ("RAID5", "5", 5),
-                        RAID1: ("mirror", "RAID1", "1", 1),
-                        RAID0: ("stripe", "RAID0", "0", 0)}
+    raid_descriptors = {RAID10: ("RAID10", "raid10", "10", 10),
+                        RAID6: ("RAID6", "raid6", "6", 6),
+                        RAID5: ("RAID5", "raid5", "5", 5),
+                        RAID1: ("mirror", "RAID1", "raid1", "1", 1),
+                        RAID0: ("stripe", "RAID0", "raid0", "0", 0)}
 
     if raid in raid_descriptors:
         return raidlevel in raid_descriptors[raid]

@@ -2098,7 +2098,10 @@ class MDRaidArrayDevice(StorageDevice):
         StorageDevice.__init__(self, name, format=format, exists=exists,
                                minor=minor, size=size,
                                parents=parents, sysfsPath=sysfsPath)
-        self.level = level
+        if level is not None:
+            self.level = mdraid.raidLevel(level)
+        else:
+            self.level = level
         self.uuid = uuid
         self._totalDevices = numeric_type(totalDevices)
         self._memberDevices = numeric_type(memberDevices)
@@ -2137,18 +2140,18 @@ class MDRaidArrayDevice(StorageDevice):
         size = 0
         smallestMemberSize = self.smallestMember.size - self.superBlockSize
         if not self.exists or not self.partedDevice:
-            if self.level == 0:
+            if self.level == mdraid.RAID0:
                 size = self.memberDevices * smallestMemberSize
                 size -= size % self.chunkSize
-            elif self.level == 1:
+            elif self.level == mdraid.RAID1:
                 size = smallestMemberSize
-            elif self.level == 5:
+            elif self.level == mdraid.RAID5:
                 size = (self.memberDevices - 1) * smallestMemberSize
                 size -= size % self.chunkSize
-            elif self.level == 6:
+            elif self.level == mdraid.RAID6:
                 size = (self.memberDevices - 2) * smallestMemberSize
                 size -= size % self.chunkSize
-            elif self.level == 10:
+            elif self.level == mdraid.RAID10:
                 size = (self.memberDevices / 2.0) * smallestMemberSize
                 size -= size % self.chunkSize
         else:
@@ -2230,7 +2233,7 @@ class MDRaidArrayDevice(StorageDevice):
 
         info = mdraid.mdexamine(self.devices[0].path)
         if self.level is None:
-            self.level = info['level']
+            self.level = mdraid.raidLevel(info['level'])
         if self.memberDevices is None:
             self.memberDevices = info['nrDisks']
         if self.totalDevices is None:
@@ -2417,10 +2420,10 @@ class MDRaidArrayDevice(StorageDevice):
     def formatArgs(self):
         formatArgs = []
         if self.format.type == "ext2":
-            if self.level == 5:
+            if self.level == mdraid.RAID5:
                 formatArgs = ['-R',
                               'stride=%d' % ((self.memberDevices - 1) * 16)]
-            elif self.level == 0:
+            elif self.level == mdraid.RAID0:
                 formatArgs = ['-R',
                               'stride=%d' % (self.memberDevices * 16)]
 
