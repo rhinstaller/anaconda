@@ -81,6 +81,7 @@ def copyAnacondaLogs(anaconda):
     for (fn, dest) in (("/tmp/anaconda.log", "anaconda.log"),
                        ("/tmp/syslog", "anaconda.syslog"),
                        ("/tmp/X.log", "anaconda.xlog"),
+                       ("/tmp/program.log", "program.log"),
                        ("/tmp/storage.log", "storage.log")):
         if os.access(fn, os.R_OK):
             try:
