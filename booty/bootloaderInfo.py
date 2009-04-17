@@ -558,9 +558,9 @@ class efiBootloaderInfo(bootloaderInfo):
 
     def addNewEfiEntry(self, instRoot):
         try:
-            bootdev = storage.fsset.mountpoints["/boot/efi"]
+            bootdev = self.storage.fsset.mountpoints["/boot/efi"]
         except KeyError:
-            bootdev = storage.devicetree.getDeviceByName("sda1")
+            bootdev = self.storage.devicetree.getDeviceByName("sda1")
 
         link = "%s%s/%s" % (instRoot, "/etc/", self.configname)
         if not os.access(link, os.R_OK):
