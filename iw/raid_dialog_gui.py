@@ -63,12 +63,13 @@ class RaidEditor:
 	    partname = "%s" % part.name
 	    partsize = "%8.0f MB" % part.size
 
-            if not self.origrequest.exists:
-                partlist.append_row((partname, partsize), False)
+            if part in tempDevList:
+                #list the partition and put it as selected
+                partlist.append_row((partname, partsize), True)
             else:
-                if part in tempDevList:
-                    #list the partition and put it as selected
-                    partlist.append_row((partname, partsize), True)
+                if not self.origrequest.exists:
+                    partlist.append_row((partname, partsize), False)
+
 
 	return (partlist, sw)
 
