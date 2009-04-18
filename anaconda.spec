@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.45
+Version: 11.5.0.46
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,26 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Apr 17 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.46-1
+- Clean up argument list after changing from rhpl to iutil for
+  execWithRedirect (jkeating)
+- Fix NameError traceback setting up bootloader in EFI installs (wwoods)
+- No longer force ISOs to be on ext2, ext3, or vfat partitions. (clumens)
+- Sending translation for German (ckpinguin)
+- Split text mode exn saving into multiple screren (#469380). (clumens)
+- Copy /tmp/program.log to /mnt/sysimage/var/log/. (clumens)
+- Fix member preselection in raid UI. (rvykydal)
+- Fix editing of raid device (persistence of level choice) (#496159)
+  (rvykydal)
+- Fix ks --useexisting and --noformat options of logvol and volgroup
+  (rvykydal)
+- Make sure inconsistencies dont screw us up. (jgranado)
+- Re-implement the inconsistency functionality. (jgranado)
+- Allow the use of "-" in the lvm names. (495329) (jgranado)
+- Make sure we "insist" on mdadm commands. (491729) (jgranado)
+- [PATCH] Possible fix for some encryption related bugs during the Custom
+  Layout editation (#495848) (msivak)
+
 * Thu Apr 16 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.45-1
 - Touch /.autorelabel when running under rescue mode (#491747). (clumens)
 - Add support for fingerprint-based logins (#481273). (clumens)
