@@ -1134,6 +1134,9 @@ class NoDevFS(FS):
     def _setDevice(self, devspec):
         self._device = devspec
 
+    def _getExistingSize(self):
+        pass
+
 register_device_format(NoDevFS)
 
 
@@ -1170,6 +1173,9 @@ class BindFS(FS):
     @property
     def mountable(self):
         return True
+
+    def _getExistingSize(self):
+        pass
 
 register_device_format(BindFS)
 
