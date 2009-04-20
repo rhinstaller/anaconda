@@ -174,10 +174,10 @@ def mdactivate(device, members=[], super_minor=None, uuid=None):
         identifier = ""
 
     rc = iutil.execWithRedirect("mdadm",
-                                ["--run",
-                                 "--assemble",
+                                ["--assemble",
                                  device,
                                  identifier,
+                                 "--run",
                                  "--auto=md",
                                  "--update=super-minor"] + members,
                                 stderr = "/dev/tty5",
