@@ -1214,8 +1214,8 @@ class DeviceTree(object):
             for lv in vg_device.lvs:
                 try:
                     lv.setup()
-                except DeviceError as e:
-                    log.info("setup of %s failed: %s" % (lv.name, e))
+                except DeviceError as (msg, path):
+                    log.info("setup of %s failed: %s" % (lv.name, msg))
         else:
             try:
                 vg_uuid = udev_device_get_vg_uuid(info)
@@ -1269,9 +1269,9 @@ class DeviceTree(object):
 
                     try:
                         lv_device.setup()
-                    except DeviceError as e:
+                    except DeviceError as (msg, path):
                         log.info("setup of %s failed: %s"
-                                            % (lv_device.name, e))
+                                            % (lv_device.name, msg))
 
     def handleUdevMDMemberFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
@@ -1649,8 +1649,8 @@ class DeviceTree(object):
         for device in self.leaves:
             try:
                 device.setup()
-            except DeviceError as e:
-                log.debug("setup of %s failed: %s" % (device.name, e))
+            except DeviceError as (msg, path):
+                log.debug("setup of %s failed: %s" % (device.name, msg))
 
     def getDeviceBySysfsPath(self, path):
         found = None

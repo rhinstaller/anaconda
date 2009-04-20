@@ -1454,20 +1454,20 @@ class FSSet(object):
 
                     intf.messageWindow(_("Error"), msg)
                 sys.exit(0)
-            except DeviceError as msg:
+            except DeviceError as (msg, path):
                 if intf:
                     if upgrading:
                         err = _("Error enabling swap device %s: %s\n\n"
                                 "The /etc/fstab on your upgrade partition "
                                 "does not reference a valid swap "
                                 "device.\n\nPress OK to exit the "
-                                "installer") % (device.path, msg)
+                                "installer") % (path, msg)
                     else:
                         err = _("Error enabling swap device %s: %s\n\n"
                                 "This most likely means this swap "
                                 "device has not been initialized.\n\n"
                                 "Press OK to exit the installer.") % \
-                              (device.path, msg)
+                              (path, msg)
                     intf.messageWindow(_("Error"), err)
                 sys.exit(0)
 
