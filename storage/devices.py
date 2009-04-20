@@ -2406,6 +2406,8 @@ class MDRaidArrayDevice(StorageDevice):
         self.updateSysfsPath()
         info = udev_get_block_device("/sys%s" % self.sysfsPath)
         self.uuid = udev_device_get_md_uuid(info)
+        for member in self.devices:
+            member.mdUuid = self.uuid
 
     @property
     def formatArgs(self):
