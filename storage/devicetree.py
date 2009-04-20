@@ -1328,13 +1328,8 @@ class DeviceTree(object):
                                          memberDevices=md_devices,
                                          uuid=md_uuid,
                                          sysfsPath=sysfs_path,
-                                         exists=True,
-                                         parents=[device])
-            try:
-                md_array.setup()
-            except (DeviceError, MDRaidError) as e:
-                log.info("setup of md array %s failed: %s"
-                            % (md_array.name, e))
+                                         exists=True)
+            md_array._addDevice(device)
             self._addDevice(md_array)
 
     def handleUdevDMRaidMemberFormat(self, info, device):
