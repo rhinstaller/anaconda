@@ -2234,14 +2234,6 @@ class MDRaidArrayDevice(StorageDevice):
         info = mdraid.mdexamine(self.devices[0].path)
         if self.level is None:
             self.level = mdraid.raidLevel(info['level'])
-        if self.memberDevices is None:
-            self.memberDevices = info['nrDisks']
-        if self.totalDevices is None:
-            self.totalDevices = info['totalDisks']
-        if self.uuid is None:
-            self.uuid = info['uuid']
-        if self.minor is None:
-            self.minor = info['mdMinor']
 
     @property
     def fstabSpec(self):

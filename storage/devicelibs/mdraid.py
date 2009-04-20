@@ -199,49 +199,24 @@ def mddeactivate(device):
         raise MDRaidError("mddeactivate failed for %s" % device)
 
 def mdexamine(device):
-    # XXX NOTUSED: we grab metadata from udev, which ran 'mdadm -E --export'
-    #
-    # FIXME: this will not work with version >= 1 metadata
-    #
-    # We should use mdadm -Eb or mdadm -E --export for a more easily
-    # parsed output format.
-    lines = iutil.execWithCapture("mdadm",
-                                  ["--examine", device],
-                                  stderr="/dev/tty5").splitlines()
+    vars = iutil.execWithCapture("mdadm",
+                                 ["--examine", "--brief", device],
+                                 stderr="/dev/tty5").split()
 
-    info = {
-            'major': "-1",
-            'minor': "-1",
-            'uuid' : "",
-            'level': -1,
-            'nrDisks': -1,
-            'totalDisks': -1,
-            'mdMinor': -1,
-        }
+    info = {}
+    if vars:
+        try:
+            info["device"] = vars[1]
+            vars = vars[2:]
+        except IndexError:
+            return {}
 
-    for line in lines:
-        (key, sep, val) = line.strip().partition(" : ")
-        if not sep:
-            continue
-        if key == "Version":
-            (major, sep, minor) = val.partition(".")
-            info['major'] = major
-            info['minor'] = minor
-        elif key == "UUID":
-            info['uuid'] = val.split()[0]
-        elif key == "Raid Level":
-            info['level'] = int(val[4:])
-        elif key == "Raid Devices":
-            info['nrDisks'] = int(val)
-        elif key == "Total Devices":
-            info['totalDisks'] = int(val)
-        elif key == "Preferred Minor":
-            info['mdMinor'] = int(val)
-        else:
+    for var in vars:
+        (name, equals, value) = var.partition("=")
+        if not equals:
             continue
 
-    if not info['uuid']:
-        raise MDRaidError("UUID missing from device info")
+        info[name.lower()] = value.strip()
 
     return info
 
