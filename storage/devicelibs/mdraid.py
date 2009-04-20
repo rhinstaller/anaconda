@@ -153,7 +153,6 @@ def mdadd(device):
     rc = iutil.execWithRedirect("mdadm",
                                 ["--incremental", 
                                  "--quiet",
-                                 "--auto=md",
                                  device],
                                 stderr = "/dev/tty5",
                                 stdout = "/dev/tty5",
