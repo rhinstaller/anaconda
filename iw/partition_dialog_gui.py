@@ -214,6 +214,12 @@ class PartitionEditor:
             else:
                 # preexisting partition, just set mount point and format flag
                 request = self.origrequest
+                if request.format.type == "luks":
+                    usedev = self.storage.devicetree.getChildren(request)[0]
+                else:
+                    usedev = request
+
+                origformat = usedev.format
                 mountpoint = self.mountCombo.get_children()[0].get_text()
                 devicetree = self.anaconda.id.storage.devicetree
 
@@ -223,17 +229,10 @@ class PartitionEditor:
 
                        # carry over exists, migrate, size, and device
                        # necessary for partition editor UI
-                       try:
-                           format = fmt_class(mountpoint=mountpoint,
-                                              exists=request.format.exists,
-                                              migrate=request.format.migrate,
-                                              size=request.format.size,
-                                              device=request.format.device)
-                       except AttributeError:
-                           format = fmt_class(mountpoint=mountpoint,
-                                              exists=request.format.exists,
-                                              migrate=request.format.migrate,
-                                              device=request.format.device)
+                       format = fmt_class(mountpoint=mountpoint,
+                                          exists=origformat.exists,
+                                          size=getattr(origformat, "size", None),
+                                          device=usedev.path)
 
                        luksdev = None
                        if self.fsoptionsDict.has_key("lukscb") and \
@@ -245,7 +244,7 @@ class PartitionEditor:
                            format = getFormat("luks",
                                               device=self.origrequest.path,
                                               passphrase=self.storage.encryptionPassphrase)
-                       actions.append(ActionCreateFormat(request, format))
+                       actions.append(ActionCreateFormat(usedev, format))
                        if luksdev:
                            actions.append(ActionCreateDevice(luksdev))
                            actions.append(ActionCreateFormat(luksdev))
@@ -266,7 +265,7 @@ class PartitionEditor:
 
                 if self.fsoptionsDict.has_key("migratecb") and \
                    self.fsoptionsDict["migratecb"].get_active():
-                    actions.append(ActionMigrateFormat(request))
+                    actions.append(ActionMigrateFormat(usedev))
 
                 if self.fsoptionsDict.has_key("resizecb") and \
                    self.fsoptionsDict["resizecb"].get_active():
