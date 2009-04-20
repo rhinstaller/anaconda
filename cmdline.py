@@ -104,7 +104,7 @@ class InstallInterface:
             while 1:
                 time.sleep(5)
 
-    def exceptionWindow(self, shortText, longTextFile):
+    def mainExceptionWindow(self, shortText, longTextFile):
         print(shortText)
 
     def waitWindow(self, title, text):
