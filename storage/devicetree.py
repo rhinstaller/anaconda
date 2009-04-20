@@ -28,6 +28,7 @@ from errors import *
 from devices import *
 from deviceaction import *
 import formats
+import devicelibs.mdraid
 from udev import *
 from iutil import log_method_call
 
@@ -1293,15 +1294,34 @@ class DeviceTree(object):
                 log.warning("invalid data for %s: %s" % (name, e))
                 return
 
-            # find the first unused minor
-            minor = 0
-            while True:
-                if self.getDeviceByName("md%d" % minor):
-                    minor += 1
+            # try to name the array based on the preferred minor
+            md_info = devicelibs.mdraid.mdexamine(device.path)
+            md_path = md_info.get("device", "")
+            md_name = devicePathToName(md_info.get("device", ""))
+            if md_name:
+                try:
+                    minor = int(md_name[2:])     # strip off leading "md"
+                except (IndexError, ValueError):
+                    minor = None
+                    md_name = None
                 else:
-                    break
+                    array = self.getDeviceByName(md_name)
+                    if array and array.uuid != md_uuid:
+                        md_name = None
 
-            md_name = "md%d" % minor
+            if not md_name:
+                # if we don't have a name yet, find the first unused minor
+                minor = 0
+                while True:
+                    if self.getDeviceByName("md%d" % minor):
+                        minor += 1
+                    else:
+                        break
+
+                md_name = "md%d" % minor
+
+            log.debug("using name %s for md array containing member %s"
+                        % (md_name, device.name))
             md_array = MDRaidArrayDevice(md_name,
                                          level=md_level,
                                          minor=minor,
