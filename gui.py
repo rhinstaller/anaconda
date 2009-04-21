@@ -697,12 +697,19 @@ class PassphraseEntryWindow:
         self.win.show()
         self.passphraseLabel.set_text(self.txt)
         self.passphraseEntry.grab_focus()
+
+        busycursor = getBusyCursorStatus()
+        setCursorToNormal()
+
         rc = self.win.run()
         passphrase = None
         isglobal = False
         if rc == gtk.RESPONSE_OK:
             passphrase = self.passphraseEntry.get_text()
             isglobal = self.globalcheckbutton.get_active()
+
+        if busycursor:
+            setCursorToBusy()
 
         self.rc = (passphrase, isglobal)
         return self.rc
