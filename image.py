@@ -260,7 +260,7 @@ def scanForMedia(tree, storage):
             continue
 
         if not verifyMedia(tree, 1):
-            isys.umount(tree)
+            dev.format.unmount()
             continue
 
         return dev.name
