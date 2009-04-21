@@ -246,6 +246,8 @@ class DeviceFormat(object):
         # hope that it will wipe any metadata from filesystems that
         # previously occupied this device
         log.debug("zeroing out beginning and end of %s..." % self.device)
+        fd = None
+
         try:
             fd = os.open(self.device, os.O_RDWR)
             buf = '\0' * 1024 * 1024
@@ -258,10 +260,13 @@ class DeviceFormat(object):
                 pass
             else:
                 log.error("error zeroing out %s: %s" % (self.device, e))
-            os.close(fd)
+
+            if fd:
+                os.close(fd)
         except Exception as e:
             log.error("error zeroing out %s: %s" % (self.device, e))
-            os.close(fd)
+            if fd:
+                os.close(fd)
 
         self.exists = False
 
