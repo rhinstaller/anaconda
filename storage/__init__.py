@@ -43,6 +43,7 @@ from formats import getFormat
 from formats import get_device_format_class
 from formats import get_default_filesystem_type
 from devicelibs.lvm import safeLvmName
+from devicelibs.dm import name_from_dm_node
 from udev import *
 import iscsi
 import zfcp
@@ -1186,6 +1187,10 @@ def get_containing_device(path, devicetree):
     except Exception:
         return None
 
+    if device_name.startswith("dm-"):
+        # have I told you lately that I love you, device-mapper?
+        device_name = name_from_dm_node(device_name)
+
     return devicetree.getDeviceByName(device_name)
 
 
@@ -1288,9 +1293,13 @@ class FSSet(object):
             # bind mount... set fstype so later comparison won't
             # turn up false positives
             fstype = "bind"
-            device = FileDevice(devspec,
-                                parents=get_containing_device(devspec, self.devicetree),
-                                exists=True)
+
+            # This is probably not going to do anything useful, so we'll
+            # make sure to try again from FSSet.mountFilesystems. The bind
+            # mount targets should be accessible by the time we try to do
+            # the bind mount from there.
+            parents = get_containing_device(devspec, self.devicetree)
+            device = DirectoryDevice(devspec, parents=parents, exists=True)
             device.format = getFormat("bind",
                                       device=device.path,
                                       exists=True)
@@ -1498,6 +1507,11 @@ class FSSet(object):
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs, self.proc])
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
+        for device in devices[:]:
+            # make sure all the bind mounts are at the end of the list
+            if device.format.type == "bind":
+                devices.remove(device)
+                devices.append(device)
 
         for device in devices:
             if not device.format.mountable or not device.format.mountpoint:
@@ -1509,6 +1523,21 @@ class FSSet(object):
             options = device.format.options
             if "noauto" in options.split(","):
                 continue
+
+            if device.format.type == "bind":
+                # set up the DirectoryDevice's parents now that they are
+                # accessible
+                #
+                # -- bind formats' device and mountpoint are always both
+                #    under the chroot. no exceptions. none, damn it.
+                targetDir = "%s/%s" % (anaconda.rootPath, device.path)
+                parent = get_containing_device(targetDir, self.devicetree)
+                if not parent:
+                    log.error("cannot determine which device contains "
+                              "directory %s" % device.path)
+                    device.parents = []
+                else:
+                    device.parents = [parent]
 
             try:
                 device.setup()
