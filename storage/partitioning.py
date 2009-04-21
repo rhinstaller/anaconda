@@ -569,6 +569,9 @@ def doPartitioning(storage, exclusiveDisks=None):
     # allocatePartitions() takes care of this for new partitions, but not
     # for pre-existing ones, so we update the name of all partitions here
     for part in partitions:
+        # needed because of XXX hack below
+        if part.isExtended:
+            continue
         part.updateName()
 
     # XXX hack -- if we created any extended partitions we need to add
