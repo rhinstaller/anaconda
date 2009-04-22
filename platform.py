@@ -346,6 +346,12 @@ class NewWorldPPC(PPC):
         else:
             return 0
 
+class PS3(PPC):
+    _diskType = parted.diskType["msdos"]
+
+    def __init__(self, anaconda):
+        PPC.__init__(self, anaconda)
+
 class S390(Platform):
     _bootloaderPackage = "s390utils"
 
@@ -435,10 +441,12 @@ def getPlatform(anaconda):
     elif iutil.isPPC():
         ppcMachine = iutil.getPPCMachine()
 
-        if (ppcMachine == "PMac" and iutil.getPPCMacGen() == "NewWorld") or ppcMachine == "PS3":
+        if (ppcMachine == "PMac" and iutil.getPPCMacGen() == "NewWorld"):
             return NewWorldPPC(anaconda)
         elif ppcMachine in ["iSeries", "pSeries"]:
             return IPSeriesPPC(anaconda)
+        elif ppcMachine == "PS3":
+            return PS3(anaconda)
         else:
             raise SystemError, "Unsupported PPC machine type"
     elif iutil.isS390():
