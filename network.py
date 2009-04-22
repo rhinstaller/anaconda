@@ -31,7 +31,6 @@ import socket
 import struct
 import os
 import time
-import minihal
 import rhpl
 import dbus
 from flags import flags
@@ -384,26 +383,25 @@ class Network:
         if flags.cmdline.has_key('ksdevice'):
             ksdevice = flags.cmdline['ksdevice']
 
-        # XXX: this should use NetworkManager
-        for device in minihal.get_devices_by_type("net"):
-            if device.has_key('net.arp_proto_hw_id'):
-                if device['net.arp_proto_hw_id'] == 1:
-                    dev = device['device']
-                    if not self.netdevices.has_key(dev):
-                        self.netdevices[dev] = NetworkDevice(dev);
-                    self.netdevices[dev].set(('HWADDR', device['net.address']))
-                    self.netdevices[dev].set(('DESC', device['description']))
+        for dev in isys.getDeviceProperties().keys():
+            if not self.netdevices.has_key(dev):
+                self.netdevices[dev] = NetworkDevice(dev)
 
-                    if not ksdevice:
-                        continue
+            hwaddr = isys.getMacAddress(dev)
 
-                    if ksdevice == 'link' and isys.getLinkStatus(dev):
-                        self.ksdevice = dev
-                    elif ksdevice == dev:
-                        self.ksdevice = dev
-                    elif ksdevice.find(':') != -1:
-                        if ksdevice.lower() == device['net.address'].lower():
-                            self.ksdevice = dev
+            self.netdevices[dev].set(('HWADDR', hwaddr))
+            self.netdevices[dev].set(('DESC', isys.getNetDevDesc(dev)))
+
+            if not ksdevice:
+                continue
+
+            if ksdevice == 'link' and isys.getLinkStatus(dev):
+                self.ksdevice = dev
+            elif ksdevice == dev:
+                self.ksdevice = dev
+            elif ksdevice.find(':') != -1:
+                if ksdevice.upper() == hwaddr:
+                    self.ksdevice = dev
 
         return self.netdevices
 

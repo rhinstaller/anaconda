@@ -36,7 +36,6 @@ import resource
 import re
 import struct
 import block
-import minihal
 import rhpl
 import dbus
 
@@ -47,7 +46,6 @@ import warnings
 NM_SERVICE = "org.freedesktop.NetworkManager"
 NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
 NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
-DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
 NM_CONNECTION_IFACE = "org.freedesktop.NetworkManagerSettings.Connection"
 NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
@@ -57,6 +55,12 @@ NM_STATE_ASLEEP = 1
 NM_STATE_CONNECTING = 2
 NM_STATE_CONNECTED = 3
 NM_STATE_DISCONNECTED = 4
+
+HAL_SERVICE = "org.freedesktop.Hal"
+HAL_PATH = "/org/freedesktop/Hal"
+HAL_DEVICE_IFACE = "org.freedesktop.Hal.Device"
+
+DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 
 mountCount = {}
 
@@ -578,6 +582,36 @@ def getMacAddress(dev):
 
     device_macaddr = device_props_iface.Get(NM_MANAGER_IFACE, "HwAddress")
     return device_macaddr.upper()
+
+# Get a description string for a network device (e.g., eth0)
+def getNetDevDesc(dev):
+    desc = "Network Interface"
+
+    if dev == '' or dev is None:
+        return desc
+
+    bus = dbus.SystemBus()
+    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
+    devlist = nm.get_dbus_method("GetDevices")()
+
+    for path in devlist:
+        device = bus.get_object(HAL_SERVICE, path)
+        device_iface = dbus.Interface(device, HAL_DEVICE_IFACE)
+        device_props = device_iface.get_dbus_method("GetAllProperties")()
+
+        if dev == device_props['net.interface']:
+            if device_props.has_key('info.product'):
+                if device_props.has_key('info.vendor'):
+                    desc = "%s %s" % (device_props['info.product'],
+                                      device_props['info.vendor'],)
+                else:
+                    desc = device_props['info.product']
+            else:
+                desc = device_props['info.udi']
+
+            return desc
+
+    return desc
 
 # Determine if a network device is a wireless device.
 def isWireless(dev):

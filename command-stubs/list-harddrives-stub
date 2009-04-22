@@ -18,20 +18,48 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import dbus
 import sys
 
-sys.path.append('/usr/lib/anaconda')
+HAL_INTERFACE = "org.freedesktop.Hal"
+HAL_MANAGER_PATH = "/org/freedesktop/Hal/Manager"
+HAL_MANAGER_INTERFACE = "org.freedesktop.Hal.Manager"
+HAL_DEVICE_INTERFACE = "org.freedesktop.Hal.Device"
 
-import minihal
+def main(argv):
+    lst = set()
 
-lst = []
+    try:
+        bus = dbus.SystemBus()
+        hal = dbus.Interface(bus.get_object(HAL_INTERFACE,
+                                            HAL_MANAGER_PATH),
+                             HAL_MANAGER_INTERFACE)
+    except:
+        sys.exit(1)
 
-for drive in minihal.get_devices_by_type("volume"):
-    if not drive.has_key("device") or not drive.has_key("volume.size"):
-        continue
+    for udi in hal.FindDeviceByCapability("volume"):
+        try:
+            haldev = dbus.Interface(bus.get_object(HAL_INTERFACE, udi),
+                                    HAL_DEVICE_INTERFACE)
+            props = haldev.GetAllProperties()
+        except dbus.exceptions.DBusException:
+            continue
 
-    lst.append("%s %s" % (drive["device"], drive["volume_size"]/(1024*1024)))
+        if not props.has_key('volume.size'):
+            continue
 
-lst.sort()
-for entry in lst:
-    print lst
+        size = str(props['volume.size'] / (1024 * 1024))
+        if props.has_key('block.device'):
+            devnode = props['block.device'].encode('utf-8')
+        elif props.has_key('linux.device_file'):
+            devnode = props['linux.device_file'].encode('utf-8')
+
+        lst.add("%s %s" % (devnode, size,))
+
+    lst = list(lst)
+    lst.sort()
+    for entry in lst:
+        print entry
+
+if __name__ == "__main__":
+    main(sys.argv)

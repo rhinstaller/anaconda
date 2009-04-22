@@ -10,8 +10,6 @@ setattr
 ^partitions.py:[0-9]*: Object \(bestprep\) has no attribute \(getPreExisting\)$
 ^partitions.py:[0-9]*: Object \(bestreq\) has no attribute \(format\)$
 ^iscsi.py:[0-9]*: Invalid arguments to \(addTarget\), got 0, expected between 1 and 7$
-^minihal.py:[0-9]*: Object \(haldev\) has no attribute \(GetAllProperties\)$
-^minihal.py:[0-9]*: Object \(hal\) has no attribute \(FindDeviceByCapability\)$
 ^(.*isys/isys.py|network.py):[0-9]*: Object \(.*_iface\) has no attribute \(Get.*\)$
 ^network.py:[0-9]*: Object \(.*props\) has no attribute \(Get\)$
 ^kickstart.py:[0-9]*: No global \(fileSystemTypeGet.*\) found$
