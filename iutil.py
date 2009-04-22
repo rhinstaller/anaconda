@@ -476,6 +476,7 @@ def makeDriveDeviceNodes():
             dev = "%s%s%d" % (drive, sep, i)
             isys.makeDevInode(dev, "/dev/%s" % (dev,))
 
+    isys.flushDriveDict()
     cdroms = isys.cdromList()
     for drive in cdroms:
         isys.makeDevInode(drive, "/dev/%s" % (drive,))
