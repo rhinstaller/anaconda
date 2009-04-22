@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.46
+Version: 11.5.0.47
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,32 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 21 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.47-1
+- Fix adding of fifth partition in UI (#496930). (rvykydal)
+- Define the fd variable before it can ever be referenced (#496930).
+  (clumens)
+- Fix preservation of format attrs for preexisting luks partitions. (dlehman)
+- Set md member devices' uuids after creating an array. (dlehman)
+- Don't try to get size for nodev and bind filesystems. (dlehman)
+- Include the device path in DeviceError exceptions. (dlehman)
+- Mdadm's incremental mode ignores the auto option, so don't use it.
+  (dlehman)
+- Use incremental mode for all md member addition during probing. (dlehman)
+- Try to name existing md arrays based on their preferred minor. (dlehman)
+- Reimplement mdexamine using a more easily parseable output format.
+  (dlehman)
+- Fix position of "--run" option to mdadm assemble. (dlehman)
+- Handle passphrase prompts without a traceback in cmdline mode. (#492123)
+  (dlehman)
+- Fix another device vs. string problem in EFI bootloader config (#496669).
+  (clumens)
+- Add the device's name to mdadm.conf (#496390). (clumens)
+- Show normal cursor during passphrase entry (#496534) (msivak)
+- Fix traceback in cmdline mode after exception handling cleanup (#496644)
+  (katzj)
+- DeviceError only returns a message, not (message, device) tuple (#496343).
+  (clumens)
+
 * Fri Apr 17 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.46-1
 - Clean up argument list after changing from rhpl to iutil for
   execWithRedirect (jkeating)
