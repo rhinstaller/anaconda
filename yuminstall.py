@@ -1002,6 +1002,10 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         anaconda.backend.removeInstallImage()
 
+        # clean up rpmdb locks so that kickstart %post scripts aren't
+        # unhappy (#496961)
+        self._resetRpmDb(anaconda.rootPath)
+
     def doBackendSetup(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
             return DISPATCH_BACK
