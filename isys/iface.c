@@ -356,6 +356,26 @@ int iface_have_in6_addr(struct in6_addr *addr6) {
     return _iface_have_valid_addr(addr6, AF_INET6, INET6_ADDRSTRLEN);
 }
 
+/* Check if NM has an active connection */
+gboolean is_nm_connected(void) {
+    NMState state;
+    NMClient *client = NULL;
+
+    g_type_init();
+
+    client = nm_client_new();
+    if (!client)
+        return FALSE;
+
+    state = nm_client_get_state(client);
+    g_object_unref(client);
+
+    if (state == NM_STATE_CONNECTED)
+        return TRUE;
+    else
+        return FALSE;
+}
+
 /* Check if NM is already running */
 gboolean is_nm_running(void) {
     gboolean running;

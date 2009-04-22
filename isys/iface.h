@@ -26,6 +26,7 @@
 #include <net/if.h>
 #include <netlink/cache.h>
 #include <netlink/socket.h>
+#include <glib.h>
 
 /* Enumerated types used in iface.c as well as loader's network code */
 enum { IPUNUSED, IPV4, IPV6 };
@@ -139,6 +140,11 @@ int iface_have_in_addr(struct in_addr *addr);
  * address, 0 otherwise.
  */
 int iface_have_in6_addr(struct in6_addr *addr6);
+
+/*
+ * Checks if NetworkManager has an active connection.
+ */
+gboolean is_nm_connected(void);
 
 /*
  * Start NetworkManager

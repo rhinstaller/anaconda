@@ -1893,6 +1893,9 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
     int rc, err;
 
+    if (is_nm_connected() == TRUE)
+        return 0;
+
     memset(iface, 0, sizeof(*iface));
 
     do {
