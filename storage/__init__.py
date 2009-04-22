@@ -859,10 +859,16 @@ class Storage(object):
             errors.append(_("Bootable partitions cannot be on an %s "
                             "filesystem.") % boot.format.type)
 
-        if (boot and filter(lambda d: d.type == "luks/dm-crypt",
-                            self.deviceDeps(boot))):
+        if boot and boot.type == "luks/dm-crypt":
+            # Handle encrypted boot on a partition.
             errors.append(_("Bootable partitions cannot be on an "
                             "encrypted block device"))
+        elif boot:
+            # Handle encrypted boot on more complicated devices.
+            for dev in map(lambda d: d.type == "luks/dm-crypt", self.devices):
+                if boot in self.deviceDeps(dev):
+                    errors.append(_("Bootable partitions cannot be on an "
+                                    "encrypted block device"))
 
         if not swaps:
             warnings.append(_("You have not specified a swap partition.  "
