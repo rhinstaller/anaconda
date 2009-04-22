@@ -997,19 +997,23 @@ class PartitionDevice(StorageDevice):
 
     @property
     def isExtended(self):
-        return self.partType & parted.PARTITION_EXTENDED
+        return (self.partType is not None and
+                self.partType & parted.PARTITION_EXTENDED)
 
     @property
     def isLogical(self):
-        return self.partType & parted.PARTITION_LOGICAL
+        return (self.partType is not None and
+                self.partType & parted.PARTITION_LOGICAL)
 
     @property
     def isPrimary(self):
-        return self.partType == parted.PARTITION_NORMAL
+        return (self.partType is not None and
+                self.partType == parted.PARTITION_NORMAL)
 
     @property
     def isProtected(self):
-        return self.partType & parted.PARTITION_PROTECTED
+        return (self.partType is not None and
+                self.partType & parted.PARTITION_PROTECTED)
 
     def _getPartedPartition(self):
         return self._partedPartition
