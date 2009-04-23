@@ -391,8 +391,7 @@ class LogVol(commands.logvol.F9_LogVol):
             if tmp:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % vg.name)
 
-        # Size specification checks
-        if not lvd.preexist:
+            # Size specification checks
             if lvd.percent == 0:
                 if lvd.size == 0:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Size required")
@@ -437,11 +436,18 @@ class LogVol(commands.logvol.F9_LogVol):
             if lvd.passphrase and not storage.encryptionPassphrase:
                 storage.encryptionPassphrase = lvd.passphrase
 
-            luksformat = request.format
-            request.format = getFormat("luks", passphrase=lvd.passphrase, device=request.path)
-            luksdev = LUKSDevice("luks%d" % storage.nextID,
-                                 format=luksformat,
-                                 parents=request)
+            if lvd.preexist:
+                luksformat = format
+                device.format = getFormat("luks", passphrase=lvd.passphrase, device=device.path)
+                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                                     format=luksformat,
+                                     parents=device)
+            else:
+                luksformat = request.format
+                request.format = getFormat("luks", passphrase=lvd.passphrase, device=request.path)
+                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                                     format=luksformat,
+                                     parents=request)
             storage.createDevice(luksdev)
 
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
@@ -663,11 +669,18 @@ class Partition(commands.partition.F9_Partition):
             if pd.passphrase and not storage.encryptionPassphrase:
                storage.encryptionPassphrase = pd.passphrase
 
-            luksformat = request.format
-            request.format = getFormat("luks", passphrase=pd.passphrase, device=request.path)
-            luksdev = LUKSDevice("luks%d" % storage.nextID,
-                                 format=luksformat,
-                                 parents=request)
+            if pd.preexist:
+                luksformat = format
+                device.format = getFormat("luks", passphrase=pd.passphrase, device=device.path)
+                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                                     format=luksformat,
+                                     parents=device)
+            else:
+                luksformat = request.format
+                request.format = getFormat("luks", passphrase=pd.passphrase, device=request.path)
+                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                                     format=luksformat,
+                                     parents=request)
             storage.createDevice(luksdev)
 
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
@@ -782,11 +795,18 @@ class Raid(commands.raid.F9_Raid):
             if rd.passphrase and not storage.encryptionPassphrase:
                storage.encryptionPassphrase = rd.passphrase
 
-            luksformat = request.format
-            request.format = getFormat("luks", passphrase=rd.passphrase, device=request.path)
-            luksdev = LUKSDevice("luks%d" % storage.nextID,
-                                 format=luksformat,
-                                 parents=request)
+            if rd.preexist:
+                luksformat = format
+                device.format = getFormat("luks", passphrase=rd.passphrase, device=device.path)
+                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                                     format=luksformat,
+                                     parents=device)
+            else:
+                luksformat = request.format
+                request.format = getFormat("luks", passphrase=rd.passphrase, device=request.path)
+                luksdev = LUKSDevice("luks%d" % storage.nextID,
+                                     format=luksformat,
+                                     parents=request)
             storage.createDevice(luksdev)
 
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
