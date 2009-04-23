@@ -160,6 +160,11 @@ class RaidEditor:
 		    raidmembers.append(dev)
 
                 iter = model.iter_next(iter)
+
+            # The user has to select some devices to be part of the array.
+            if not raidmembers:
+                continue
+
             mountpoint = self.mountCombo.get_children()[0].get_text()
 
             if not self.origrequest.exists:
