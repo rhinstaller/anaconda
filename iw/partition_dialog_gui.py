@@ -271,14 +271,12 @@ class PartitionEditor:
                     elif not self.fsoptionsDict["formatcb"].get_active():
                         creates = devicetree.findActions(type="create",
                                                          object="format",
-                                                         path=request.format.device)
+                                                         path=usedev.path)
                         for action in creates:
                             devicetree.cancelAction(action)
 
-                        request.format.exists = True
-
-                        if request.format.mountable:
-                            request.format.mountpoint = mountpoint
+                        if usedev.format.mountable:
+                            usedev.format.mountpoint = mountpoint
 
                 request.weight = self.anaconda.platform.weight(mountpoint=mountpoint,
                                                                fstype=request.format.type)
