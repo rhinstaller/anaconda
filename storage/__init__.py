@@ -537,6 +537,10 @@ class Storage(object):
                     msg += "%s: %s" % (dev, reasons[dev])
                 return msg
 
+        for i in self.devicetree.immutableDevices:
+            if i[0] == device.name:
+                return i[1]
+
         return False
 
     def deviceDeps(self, device):
