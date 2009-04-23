@@ -837,6 +837,7 @@ class FATFS(FS):
     _modules = ["vfat"]
     _labelfs = "dosfslabel"
     _fsck = "dosfsck"
+    _supported = True
     _formattable = True
     _maxSize = 1024 * 1024
     _packages = [ "dosfstools" ]
