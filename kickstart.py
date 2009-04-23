@@ -710,6 +710,7 @@ class Raid(commands.raid.F9_Raid):
         elif rd.mountpoint.startswith("pv."):
             type = "lvmpv"
             kwargs["name"] = rd.mountpoint
+            self.handler.onPart[kwargs["name"]] = devicename
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
