@@ -1507,9 +1507,9 @@ class FSSet(object):
             try:
                 device.format.setup(options=options,
                                     chroot=anaconda.rootPath)
-            except OSError as (num, msg):
+            except OSError as e:
                 if intf:
-                    if num == errno.EEXIST:
+                    if e.errno == errno.EEXIST:
                         intf.messageWindow(_("Invalid mount point"),
                                            _("An error occurred when trying "
                                              "to create %s.  Some element of "
@@ -1527,8 +1527,8 @@ class FSSet(object):
                                              "cannot continue.\n\n"
                                              "Press <Enter> to exit the "
                                              "installer.")
-                                            % (device.format.mountpoint, msg))
-                log.error("OSError: (%d) %s" % (num, msg) )
+                                            % (device.format.mountpoint, e.strerror))
+                log.error("OSError: (%d) %s" % (e.errno, e.strerror))
                 sys.exit(0)
             except SystemError as (num, msg):
                 if raiseErrors:

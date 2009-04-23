@@ -145,8 +145,8 @@ class Users:
 
         try:
             (pid, status) = os.waitpid(childpid, 0)
-        except OSError, (num, msg):
-            log.critical("exception from waitpid while creating a user: %s %s" % (num, msg))
+        except OSError as e:
+            log.critical("exception from waitpid while creating a user: %s %s" % (e.errno, e.strerror))
             return False
 
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):

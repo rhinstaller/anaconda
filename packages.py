@@ -225,8 +225,8 @@ def setupTimezone(anaconda):
     else:
         try:
             shutil.copyfile(tzfile, "/etc/localtime")
-        except OSError, (errno, msg):
-            log.error("Error copying timezone (from %s): %s" %(tzfile, msg))
+        except OSError as e:
+            log.error("Error copying timezone (from %s): %s" %(tzfile, e.strerror))
 
     if iutil.isS390():
         return

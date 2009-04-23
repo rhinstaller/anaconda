@@ -44,8 +44,8 @@ class Timezone:
         else:
             try:
                 shutil.copyfile(fromFile, instPath + "/etc/localtime")
-            except OSError, (errno, msg):
-                log.error("Error copying timezone (from %s): %s" % (fromFile, msg))
+            except OSError as e:
+                log.error("Error copying timezone (from %s): %s" % (fromFile, e.strerror))
 
         f = open(instPath + "/etc/sysconfig/clock", "w")
 

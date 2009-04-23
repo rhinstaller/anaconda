@@ -91,13 +91,13 @@ class InstSyslog:
             return
         try:
             os.kill (self.pid, 15)
-        except OSError, (num, msg):
-            log.error("killing syslogd failed: %s %s" %(num, msg))
+        except OSError as e:
+            log.error("killing syslogd failed: %s %s" %(e.errno, e.strerror))
 	
         try:
 	    os.waitpid (self.pid, 0)
-        except OSError, (num, msg):
-            log.error("exception from waitpid in syslogd::stop: %s %s" % (num, msg))
+        except OSError as e:
+            log.error("exception from waitpid in syslogd::stop: %s %s" % (e.errno, e.strerror))
 
         self.pid = -1
 

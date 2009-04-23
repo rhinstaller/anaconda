@@ -72,7 +72,5 @@ class Security:
                 log.info("would have run %s" %(args,))
         except RuntimeError, msg:
             log.error ("lokkit run failed: %s" %(msg,))
-        except OSError, (errno, msg):
-            log.error ("lokkit run failed: %s" %(msg,))
-        
-        
+        except OSError as e:
+            log.error ("lokkit run failed: %s" % e.strerror)

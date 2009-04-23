@@ -90,8 +90,8 @@ def copytree(src, dst, symlinks=False, preserveOwner=False,
         if preserveSelinux:
             selinux.lsetfilecon(dst, selinux.lgetfilecon(src)[1])
         shutil.copystat(src, dst)
-    except OSError, why:
-        errors.extend((src, dst, str(why)))
+    except OSError as e:
+        errors.extend((src, dst, e.strerror))
     if errors:
         raise Error, errors
 
@@ -299,7 +299,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 try:
                     os.rmdir("%s/mnt/%s" %(anaconda.rootPath,
                                            e.format.mountpoint))
-                except OSError, e:
+                except OSError as e:
                     log.debug("error removing %s" %(tocopy,))
             for e in [entry] + fsdict[tocopy]:                
                 e.format.setup(chroot=anaconda.rootPath)

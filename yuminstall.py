@@ -201,8 +201,8 @@ class AnacondaCallback:
             if os.path.dirname(fn).startswith("%s/var/cache/yum/" % self.rootPath):
                 try:
                     os.unlink(fn)
-                except OSError, e:
-                    log.debug("unable to remove file %s" %(e,))
+                except OSError as e:
+                    log.debug("unable to remove file %s" %(e.strerror,))
 
             self.donepkgs += 1
             self.doneSize += self.inProgressPo.returnSimple("installedsize") / 1024.0

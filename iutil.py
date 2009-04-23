@@ -103,8 +103,8 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
             if proc.returncode is not None:
                 ret = proc.returncode
                 break
-    except OSError, (errno, msg):
-        errstr = "Error running %s: %s" % (command, msg)
+    except OSError as e:
+        errstr = "Error running %s: %s" % (command, e.strerror)
         log.error(errstr)
         runningLog.write(errstr)
         runningLog.close()
@@ -168,9 +168,9 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
 
             if proc.returncode is not None:
                 break
-    except OSError, (errno, msg):
-        log.error ("Error running " + command + ": " + msg)
-        raise RuntimeError, "Error running " + command + ": " + msg
+    except OSError as e:
+        log.error ("Error running " + command + ": " + e.strerror)
+        raise RuntimeError, "Error running " + command + ": " + e.strerror
 
     return rc
 
@@ -226,10 +226,9 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
     while 1:
         try:
             s = os.read(p[0], 1)
-        except OSError, args:
-            (num, _str) = args
-            if (num != 4):
-                raise IOError, args
+        except OSError as e:
+            if e.errno != 4:
+                raise IOError, e.args
 
         os.write(stdout, s)
         runningLog.write(s)
@@ -240,8 +239,8 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
 
     try:
         (pid, status) = os.waitpid(childpid, 0)
-    except OSError, (num, msg):
-        log.critical("exception from waitpid: %s %s" %(num, msg))
+    except OSError as e:
+        log.critical("exception from waitpid: %s %s" %(e.errno, e.strerror))
 
     progress and progress.pop()
 
@@ -259,8 +258,8 @@ def execConsole():
     try:
         proc = subprocess.Popen(["/bin/sh"])
         proc.wait()
-    except OSError, (errno, msg):
-        raise RuntimeError, "Error running /bin/sh: " + msg
+    except OSError as e:
+        raise RuntimeError, "Error running /bin/sh: " + e.strerror
 
 ## Get the size of a directory and all its subdirectories.
 # @param dir The name of the directory to find the size of.
@@ -338,14 +337,14 @@ def swapSuggestion(quiet=0):
 def mkdirChain(dir):
     try:
         os.makedirs(dir, 0755)
-    except OSError, (errno, msg):
+    except OSError as e:
         try:
-            if errno == EEXIST and stat.S_ISDIR(os.stat(dir).st_mode):
+            if e.errno == EEXIST and stat.S_ISDIR(os.stat(dir).st_mode):
                 return
         except:
             pass
 
-        log.error("could not create directory %s: %s" % (dir, msg))
+        log.error("could not create directory %s: %s" % (dir, e.strerror))
 
 ## Get the total amount of swap memory.
 # @return The total amount of swap memory in kilobytes, or 0 if unknown.
