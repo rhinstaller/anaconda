@@ -128,6 +128,10 @@ fi
 
 %changelog
 * Thu Apr 23 2009 Martin Sivak <msivak@redhat.com> 11.1.2.169-1
+-  Activate ipv6 nics when an ipv6 ip is defined (jgranado).
+   Resolves: rhbz#445394
+-  Check for DNS validity (jgranado).
+   Resolves: rhbz#465174
 -  Do not crash when more than 32 tape devices are present (rvykydal)
    Resolves: rhbz#476186
 -  Ignore a subset of parted errors that are not critical (clumens)
