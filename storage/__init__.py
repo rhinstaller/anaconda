@@ -765,6 +765,9 @@ class Storage(object):
         warnings = []
         errors = []
 
+        mustbeonlinuxfs = ['/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib']
+        mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc']
+
         filesystems = self.fsset.mountpoints
         root = self.fsset.rootDevice
         swaps = self.fsset.swapDevices
@@ -879,6 +882,14 @@ class Storage(object):
                               "Although not strictly required in all cases, "
                               "it will significantly improve performance for "
                               "most installations."))
+
+        for (mountpoint, dev) in filesystems.items():
+            if mountpoint in mustbeonroot:
+                errors.append(_("This mount point is invalid.  The %s directory must "
+                                "be on the / file system.") % mountpoint)
+
+            if mountpoint in mustbeonlinuxfs and (not dev.format.mountable or not dev.format.linuxNative):
+                errors.append(_("The mount point %s must be on a linux file system.") % mountpoint)
 
         return (errors, warnings)
 
