@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.168
+Version: 11.1.2.169
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,32 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 23 2009 Martin Sivak <msivak@redhat.com> 11.1.2.169-1
+-  Do not crash when more than 32 tape devices are present (rvykydal)
+   Resolves: rhbz#476186
+-  Ignore a subset of parted errors that are not critical (clumens)
+   Resolves: rhbz#455465
+-  The FTP USER command does not need to be followed by a PASS (msivak)
+   Resolves: rhbz#477536
+-  patch to skip accounts screen if using autostep and encrypted root password (msivak)
+   Resolves: rhbz#471122
+-  rhel5 fix for cmdline being overridden by text when graphical install is detected as unworkable (msivak)
+   Resolves: rhbz#456325
+-  Rewrote parts of pkgorder script to improve it's speed. (mgracik)
+   Resolves: rhbz#451083
+-  Fix for traceback in Partitions.doMetaDeletes.addSnap() (dcantrell)
+   Resolves: rhbz#433824
+-  More robust filtering of physical volumes in autopartitioning (rvykydal)
+   Resolves: rhbz#475271
+-  Fix user --groups kickstart option (rvykydal)
+   Resolves: rhbz#454418
+-  Let LCS devices come online after s390 installation (dcantrell)
+   Resolves: rhbz#471101
+-  Added support for mdadm raid10 installs (mgracik)
+   Resolves: rhbz#467996
+-  Updated the project URL (mgracik)
+   Resolves: rhbz#482781
+
 * Thu Dec 18 2008 Joel Granados <jgranado@redhat.com> 11.1.2.168-1
 -  Make anaconda work with new API change in YUM (jgranado)
    Resolves: rhbz:#476957
