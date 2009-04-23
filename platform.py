@@ -41,6 +41,7 @@ class Platform(object):
     _bootFSType = "ext3"
     _bootloaderPackage = None
     _diskType = parted.diskType["msdos"]
+    _isEfi = iutil.isEfi()
     _minimumSector = 0
     _supportsMdRaidBoot = False
     _minBootPartSize = 50
@@ -116,6 +117,10 @@ class Platform(object):
     def diskType(self, value):
         """Sets the disk label type."""
         self._diskType = value
+
+    @property
+    def isEfi(self):
+        return self._isEfi
 
     @property
     def minimumSector(self, disk):
@@ -370,7 +375,6 @@ class Sparc(Platform):
 
 class X86(EFI):
     _bootloaderPackage = "grub"
-    _isEfi = iutil.isEfi()
     _supportsMdRaidBoot = True
 
     def __init__(self, anaconda):
@@ -405,10 +409,6 @@ class X86(EFI):
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
 
         return ret
-
-    @property
-    def isEfi(self):
-        return self._isEfi
 
     @property
     def maxBootPartSize(self):
