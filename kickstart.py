@@ -586,6 +586,8 @@ class Partition(commands.partition.F9_Partition):
             type = "EFI System Partition"
             pd.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
             kwargs["weight"] = self.handler.anaconda.platform.weight(fstype="efi")
+        elif pd.mountpoint == "/boot":
+            type = self.handler.anaconda.platform.bootFSType
         else:
             if pd.fstype != "":
                 type = pd.fstype
@@ -700,6 +702,8 @@ class Raid(commands.raid.F9_Raid):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
 
             rd.mountpoint = ""
+        elif rd.mountpoint == "/boot" and self.handler.anaconda.platform.supportsMdRaidBoot:
+            type = self.handler.anaconda.platform.bootFSType
         else:
             if rd.fstype != "":
                 type = rd.fstype
