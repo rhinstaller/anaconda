@@ -106,7 +106,7 @@ class InstallInterface:
 
     def passphraseEntryWindow(self, device):
         print(_("Can't have a question in command line mode!"))
-        print("(passphraseEntryWindow: '%s')" % device.path)
+        print("(passphraseEntryWindow: '%s')" % device)
         # don't exit
         while 1:
             time.sleep(5)
