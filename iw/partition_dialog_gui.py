@@ -212,7 +212,7 @@ class PartitionEditor:
                     actions.append(ActionCreateDevice(luksdev))
                     actions.append(ActionCreateFormat(luksdev))
             else:
-                # preexisting partition, just set mount point and format flag
+                # preexisting partition
                 request = self.origrequest
                 if request.format.type == "luks":
                     usedev = self.storage.devicetree.getChildren(request)[0]
@@ -244,6 +244,26 @@ class PartitionEditor:
                             format = getFormat("luks",
                                                device=self.origrequest.path,
                                                passphrase=self.storage.encryptionPassphrase)
+                        elif self.fsoptionsDict.has_key("lukscb") and \
+                             not self.fsoptionsDict["lukscb"].get_active() and \
+                             request.format.type == "luks":
+                            # user elected to format the device w/o encryption
+                            try:
+                                luksdev = self.storage.devicetree.getChildren(request)[0]
+                            except IndexError:
+                                pass
+                            else:
+                                actions.append(ActionDestroyFormat(luksdev))
+                                actions.append(ActionDestroyDevice(luksdev))
+                                luksdev = None
+
+                            actions.append(ActionDestroyFormat(request))
+                            # we set the new format's device while under the
+                            # impression that the device was going to be
+                            # encrypted, so we need to remedy that now
+                            format.device = request.path
+                            usedev = request
+
                         actions.append(ActionCreateFormat(usedev, format))
                         if luksdev:
                             actions.append(ActionCreateDevice(luksdev))
