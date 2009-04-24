@@ -760,6 +760,10 @@ mptsas
 	scsi_hostadapter
 	"LSI Logic Fusion MPT SAS Host Driver"
 
+mvsas
+	scsi_hostadapter
+	"Marvell RAID bus controller MV64460/64461/64462"
+
 ncr53c8xx
 	scsi_hostadapter
 	"Symbios/NCR 53C8xx"
