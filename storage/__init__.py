@@ -130,7 +130,7 @@ def storageComplete(anaconda):
             (passphrase, retrofit) = anaconda.intf.getLuksPassphrase(preexist=existing_luks)
             if passphrase:
                 anaconda.id.storage.encryptionPassphrase = passphrase
-                anaconda.id.storage.retrofitPassphrase = retrofit
+                anaconda.id.storage.encryptionRetrofit = retrofit
                 break
             else:
                 rc = anaconda.intf.messageWindow(_("Encrypt device?"),
@@ -763,7 +763,7 @@ class Storage(object):
             in the system so that users only have to enter one passphrase
             during system boot.
         """
-        if not self.retrofitPassphrase:
+        if not self.encryptionRetrofit:
             return
 
         for device in self.devices:
