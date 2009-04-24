@@ -558,7 +558,7 @@ class InstallInterface:
             return parted.EXCEPTION_UNHANDLED
         log.critical("parted exception: %s: %s" %(exc.type_string,exc.message))
 
-        if anaconda.isKickstart() and exc.type == parted.EXCEPTION_WARNING and \
+        if anaconda.isKickstart and exc.type == parted.EXCEPTION_WARNING and \
            exc.options in [parted.EXCEPTION_IGNORE, parted.EXCEPTION_OK]:
             return 0
 
