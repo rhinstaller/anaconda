@@ -327,7 +327,7 @@ def runRescue(anaconda, instClass):
                 # now turn on swap
                 if not readOnly:
                     try:
-                        anaconda.id.storage.fsset.turnOnSwap(anaconda.intf)
+                        anaconda.id.storage.fsset.turnOnSwap(anaconda)
                     except:
                         log.error("Error enabling swap")
 

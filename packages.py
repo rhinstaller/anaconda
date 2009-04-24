@@ -193,7 +193,7 @@ def turnOnFilesystems(anaconda):
                 sys.exit(1)
 
         if not anaconda.id.upgrade:
-            anaconda.id.storage.fsset.turnOnSwap(anaconda.intf)
+            anaconda.id.storage.fsset.turnOnSwap(anaconda)
             anaconda.id.storage.fsset.mountFilesystems(anaconda,
                                                        raiseErrors=False,
                                                        readOnly=False,

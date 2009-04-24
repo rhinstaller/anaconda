@@ -1481,13 +1481,13 @@ class FSSet(object):
                                         options)
         return mtab
 
-    def turnOnSwap(self, intf=None, upgrading=None):
+    def turnOnSwap(self, anaconda, upgrading=None):
         for device in self.swapDevices:
             try:
                 device.setup()
                 device.format.setup()
             except SuspendError:
-                if intf:
+                if anaconda.intf:
                     if upgrading:
                         msg = _("The swap device:\n\n     %s\n\n"
                                 "in your /etc/fstab file is currently in "
@@ -1506,10 +1506,10 @@ class FSSet(object):
                                 "to format all swap devices.") \
                               % device.path
 
-                    intf.messageWindow(_("Error"), msg)
+                    anaconda.intf.messageWindow(_("Error"), msg)
                 sys.exit(0)
             except DeviceError as (msg, path):
-                if intf:
+                if anaconda.intf:
                     if upgrading:
                         err = _("Error enabling swap device %s: %s\n\n"
                                 "The /etc/fstab on your upgrade partition "
@@ -1522,7 +1522,7 @@ class FSSet(object):
                                 "device has not been initialized.\n\n"
                                 "Press OK to exit the installer.") % \
                               (path, msg)
-                    intf.messageWindow(_("Error"), err)
+                    anaconda.intf.messageWindow(_("Error"), err)
                 sys.exit(0)
 
     def mountFilesystems(self, anaconda, raiseErrors=None, readOnly=None,
