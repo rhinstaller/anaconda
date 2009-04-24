@@ -1564,7 +1564,13 @@ class DeviceTree(object):
 
                     # destroy all lvs.
                     for lv in device.vg.lvs:
-                        lv.destroy()
+                        try:
+                            # reinitializeVG should clean up if necessary
+                            lv.destroy()
+                        except StorageError as e:
+                            log.info("error removing lv %s from "
+                                     "inconsistent/incomplete vg %s"
+                                     % (lv.lvname, device.vg.name))
                         device.vg._removeLogVol(lv)
                         self._removeDevice(lv)
 
