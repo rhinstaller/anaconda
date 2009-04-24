@@ -131,9 +131,6 @@ def storageComplete(anaconda):
             if passphrase:
                 anaconda.id.storage.encryptionPassphrase = passphrase
                 anaconda.id.storage.retrofitPassphrase = retrofit
-                for dev in anaconda.id.storage.devices:
-                    if dev.format.type == "luks" and not dev.format.exists:
-                        dev.format.passphrase = passphrase
                 break
             else:
                 rc = anaconda.intf.messageWindow(_("Encrypt device?"),
@@ -151,6 +148,11 @@ def storageComplete(anaconda):
                     undoEncryption(anaconda.id.storage)
                     anaconda.id.storage.encryptedAutoPart = False
                     break
+
+    if anaconda.id.storage.encryptionPassphrase:
+        for dev in anaconda.id.storage.devices:
+            if dev.format.type == "luks" and not dev.format.exists:
+                dev.format.passphrase = anaconda.id.storage.encryptionPassphrase
 
     if anaconda.isKickstart:
         return
