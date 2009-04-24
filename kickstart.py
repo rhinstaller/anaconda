@@ -392,8 +392,8 @@ class LogVol(commands.logvol.F9_LogVol):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % vg.name)
 
             # Size specification checks
-            if lvd.percent == 0:
-                if lvd.size == 0:
+            if not lvd.percent:
+                if not lvd.size:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Size required")
                 elif not lvd.grow and lvd.size*1024 < vg.peSize:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size.")
@@ -616,7 +616,7 @@ class Partition(commands.partition.F9_Partition):
             return pd
 
         # Size specification checks.
-        if pd.size is None and pd.onPart == "":
+        if not pd.size and not pd.onPart:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition requires a size specification")
 
         # Now get a format to hold a lot of these extra values.
