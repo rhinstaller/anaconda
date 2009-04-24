@@ -133,8 +133,12 @@ def doDeleteDevice(intf, storage, device, confirm=1, quiet=0):
     if confirm and not confirmDelete(intf, device):
         return False
 
-    for dep in storage.deviceDeps(device):
-        storage.destroyDevice(dep)
+    deps = storage.deviceDeps(device)
+    while deps:
+        leaves = [d for d in deps if d.isleaf]
+        for leaf in leaves:
+            storage.destroyDevice(leaf)
+            deps.remove(leaf)
 
     storage.destroyDevice(device)
     return True
@@ -157,12 +161,14 @@ def doDeleteDependentDevices(intf, storage, device, confirm=1, quiet=0):
         return False
 
     immutable = []
-    for dep in deps:
-        if storage.deviceImmutable(dep):
-            immutable.append(dep.path)
-            continue
-        else:
-            storage.destroyDevice(dep)
+    while deps:
+        leaves = [d for d in deps if d.isleaf]
+        for leaf in leaves:
+            if storage.deviceImmutable(leaf):
+                immutable.append(leaf.path)
+            else:
+                storage.destroyDevice(leaf)
+            deps.remove(leaf)
 
     if immutable and not quiet:
         remaining = "\t" + "\n\t".join(immutable) + "\n"
