@@ -1291,7 +1291,10 @@ class VolumeGroupEditor:
 		iter = self.logvolstore.append()
 		self.logvolstore.set_value(iter, 0, lv.lvname)
                 if lv.format.type == "luks":
-                    format = self.storage.devicetree.getChildren(lv)[0].format
+                    try:
+                        format = self.storage.devicetree.getChildren(lv)[0].format
+                    except IndexError:
+                        format = lv.format
                 else:
                     format = lv.format
 
