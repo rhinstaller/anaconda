@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.47
+Version: 11.5.0.48
 Release: 1
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,50 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Apr 24 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.48-1
+- Fix handling of swap files. (#496529) (dlehman)
+- Pass anaconda to turnOnSwap so we can use swap files. (dlehman)
+- Fix incorrect attribute name use for retrofit flag. (dlehman)
+- Use slightly better checks when testing for 0 size (#493656, #497186,
+  #497389). (clumens)
+- If the LV has no child, don't attempt to grab its format (#497239).
+  (clumens)
+- Apply the global passphrase when doing kickstart autopart (#497533).
+  (clumens)
+- Add support for encryption passphrase retrofits. (dlehman)
+- Bring luks_add_key and luks_remove_key back into devicelibs.crypto.
+  (dlehman)
+- Don't let lvremove failures from incomplete vgs crash the install.
+  (#497401) (dlehman)
+- Allow setting a mountpoint w/o formatting an encrypted partition.
+  (#495417) (dlehman)
+- Remove encryption from preexisting device if "Encrypt" is deactivated.
+  (dlehman)
+- Fix indentation of preexisting partition handling block. (dlehman)
+- The device passed to the luks passphrase dialogs is a string. (#492123)
+  (dlehman)
+- Protect against tracebacks from the partition isFoo properties. (dlehman)
+- Fix handling of bind mounts. (#496406) (dlehman)
+- Add more filesystem checks. (clumens)
+- Support vfat filesystems in the partitioning UI (#496351). (clumens)
+- Remove devices in leaves first order (#496630) (hdegoede)
+- Don't remove an inconsistent lvm partition from the devicetree (#496638)
+  (hdegoede)
+- Move isEfi to be a property on Platform instead of on X86 (#497394).
+  (clumens)
+- Support --encrypted --useexisting on kickstart installs (#497147).
+  (clumens)
+- When making a RAID device, require that some members be selected
+  (#491932). (clumens)
+- When catching an OSError, handle it as an object instead of a tuple
+  (#497374). (clumens)
+- Enforce the fstype that holds /boot on kickstart installs (#497238).
+  (clumens)
+- Fix ps3 platform support (#497203) (katzj)
+- Clean up rpmdb locks at the end of the install (#496961) (katzj)
+- Don't allow /boot to be on an encrypted device (#496866). (clumens)
+- Use the correct unmount method (#496764). (clumens)
+
 * Tue Apr 21 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.47-1
 - Fix adding of fifth partition in UI (#496930). (rvykydal)
 - Define the fd variable before it can ever be referenced (#496930).
