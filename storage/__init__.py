@@ -1483,6 +1483,17 @@ class FSSet(object):
 
     def turnOnSwap(self, anaconda, upgrading=None):
         for device in self.swapDevices:
+            if isinstance(device, FileDevice):
+                # set up FileDevices' parents now that they are accessible
+                targetDir = "%s/%s" % (anaconda.rootPath, device.path)
+                parent = get_containing_device(targetDir, self.devicetree)
+                if not parent:
+                    log.error("cannot determine which device contains "
+                              "directory %s" % device.path)
+                    device.parents = []
+                else:
+                    device.parents = [parent]
+
             try:
                 device.setup()
                 device.format.setup()
