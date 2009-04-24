@@ -1,19 +1,22 @@
+# translation of anaconda.master.po to icelandic
 # Íslensk þýðing anaconda
 # Copyright (C) 2002
 # This file is distributed under the same license as the PACKAGE package.
-# Richard Allen <ra@ra.is>, 2002.
 #
+# Richard Allen <ra@ra.is>, 2002.
+# Sveinn í Felli <sveinki@nett.is>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2007-07-21 01:31+0000\n"
-"Last-Translator: Richard Allen <ra@ra.is>\n"
-"Language-Team: is <kde-isl@molar.is>\n"
+"PO-Revision-Date: 2009-04-24 10:52+0000\n"
+"Last-Translator: Sveinn í Felli <sveinki@nett.is>\n"
+"Language-Team: icelandic <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../anaconda:266 ../anaconda:312
 #, fuzzy, python-format
@@ -103,9 +106,8 @@ msgid "Starting graphical installation..."
 msgstr "Ræsi myndræna uppsetningu..."
 
 #: ../anaconda:823
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Hvað viltu gera?"
+msgstr "Myndirðu vilja nota VNC?"
 
 #: ../anaconda:824
 msgid ""
@@ -341,8 +343,7 @@ msgstr "Get ekki breytt skrá"
 
 #: ../exception.py:425
 #, python-format
-msgid ""
-"There was an error logging into %s using the provided username and password."
+msgid "There was an error logging into %s using the provided username and password."
 msgstr ""
 
 #: ../exception.py:462
@@ -499,7 +500,7 @@ msgstr ""
 #: ../gui.py:736
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:766
 #, fuzzy
@@ -851,8 +852,7 @@ msgstr "Get ekki fundið diskmyndina"
 
 #: ../livecd.py:109
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "Uppgefin staðsetning er ekki gildur %s lifandi diskur sem hægt er að setja "
 "upp frá."
@@ -911,8 +911,7 @@ msgstr "Heiti vélar verður að byrja á gildum staf á bilinu 'a-z' eða 'A-Z'
 
 #: ../network.py:69
 #, fuzzy
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "Heiti vélar má einungis innihalda stafina 'a-z', 'A-Z', '-', eða '.'"
 
 #: ../network.py:178
@@ -945,8 +944,7 @@ msgstr "Sæki"
 #: ../packages.py:123
 #, fuzzy, python-format
 msgid "An error was encountered while resizing device %s."
-msgstr ""
-"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../packages.py:130
 #, fuzzy
@@ -956,28 +954,25 @@ msgstr "Tenging mistókst"
 #: ../packages.py:131
 #, fuzzy, python-format
 msgid "An error was encountered while creating device %s."
-msgstr ""
-"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Fjarlæging tækis mistókst"
 
 #: ../packages.py:139
 #, fuzzy, python-format
 msgid "An error was encountered while removing device %s."
-msgstr ""
-"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Uppsetning tækis mistókst"
 
 #: ../packages.py:147
 #, fuzzy, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr ""
-"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../packages.py:158
 #, fuzzy
@@ -987,8 +982,7 @@ msgstr "Sæki"
 #: ../packages.py:159
 #, fuzzy, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr ""
-"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../packages.py:166
 #, fuzzy
@@ -998,8 +992,7 @@ msgstr "Tenging mistókst"
 #: ../packages.py:167
 #, fuzzy, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr ""
-"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../packages.py:175
 #, fuzzy
@@ -1009,8 +1002,7 @@ msgstr "Forsníð"
 #: ../packages.py:176
 #, fuzzy, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr ""
-"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
@@ -1314,8 +1306,7 @@ msgid "Confirm Reset"
 msgstr "Staðfesta frumstillingu"
 
 #: ../partIntfHelpers.py:312
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Ertu viss um að þú viljir frumstilla disksneiðatöfluna ?"
 
 #: ../partedUtils.py:108 ../iw/partition_gui.py:779 ../iw/partition_gui.py:927
@@ -1598,11 +1589,11 @@ msgstr "Vi_sta á diskling"
 #: ../text.py:200
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "Senda til Bugzilla (%s)"
 
 #: ../text.py:201
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "Senda á fjarlægan þjón (scp)"
 
 #: ../text.py:215 ../text.py:228
 msgid "User name"
@@ -1614,11 +1605,11 @@ msgstr "Lykilorð"
 
 #: ../text.py:219
 msgid "Bug Description"
-msgstr ""
+msgstr "Lýsing á villu"
 
 #: ../text.py:232
 msgid "Host (host:port)"
-msgstr ""
+msgstr "Vél (host:port)"
 
 #: ../text.py:234
 #, fuzzy
@@ -1640,7 +1631,7 @@ msgstr "Lykilorðið verður að vera minnst 6 stafir að lengd."
 
 #: ../text.py:387 tmp/lukspassphrase.glade.h:6
 msgid "Passphrase"
-msgstr ""
+msgstr "Lykilsetning"
 
 #: ../text.py:395 tmp/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
@@ -1675,8 +1666,7 @@ msgstr "Velkomin(n) í %s"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
+msgstr "  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
 
 #: ../text.py:664 ../loader/net.c:111 ../loader/net.c:454 ../loader/net.c:510
 #: ../loader/net.c:655 ../loader/net.c:663 ../loader/net.c:1086
@@ -1690,8 +1680,7 @@ msgstr "Hætt við"
 
 #: ../text.py:691
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Þú kemst ekki í fyrra þrep uppsetningar héðan. Þú þarft að byrja upp á nýtt."
+msgstr "Þú kemst ekki í fyrra þrep uppsetningar héðan. Þú þarft að byrja upp á nýtt."
 
 #: ../upgrade.py:92 ../upgrade.py:113
 msgid "Proceed with upgrade?"
@@ -2068,12 +2057,11 @@ msgstr "Sæki"
 
 #: ../yuminstall.py:708
 msgid "Retrying download..."
-msgstr ""
+msgstr "Reyni aftur niðurhal..."
 
 #: ../yuminstall.py:780
 #, fuzzy, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "Það kom upp villa við uppsetninguna vegna eftirfarandi skilyrða: %s"
 
 #: ../yuminstall.py:815 ../yuminstall.py:816
@@ -2268,7 +2256,7 @@ msgstr "Engir aukapakkar til að velja"
 #: ../iw/GroupSelector.py:425
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/account_gui.py:52
 #, fuzzy
@@ -2320,8 +2308,7 @@ msgid ""
 msgstr "Viltu halda áfram með uppfærsluna?"
 
 #: ../iw/account_gui.py:145 ../textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "Uppgefið lykilorð er með stöfum sem ekki falla undir ascii staðalinn og mega "
 "því ekki vera í lykilorðum."
@@ -2347,8 +2334,7 @@ msgid "Resize Device Error"
 msgstr ""
 
 #: ../iw/autopart_type.py:208
-msgid ""
-"Do you really want to boot from a disk which is not used for installation?"
+msgid "Do you really want to boot from a disk which is not used for installation?"
 msgstr ""
 
 #: ../iw/autopart_type.py:285
@@ -2365,7 +2351,7 @@ msgstr "Gagnavilla"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Endurskanna diska"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
 #, fuzzy
@@ -2374,7 +2360,7 @@ msgstr "_Hunsa drif"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Skipta út Linux kerfi sem fyrir er"
 
 #: ../iw/autopart_type.py:454
 #, fuzzy
@@ -2478,7 +2464,7 @@ msgstr ""
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Slökkva"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
 #, fuzzy
@@ -2710,8 +2696,7 @@ msgstr "Ógilt heiti sýndardisks"
 #: ../iw/lvm_dialog_gui.py:556
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Heiti sýndardisksins \"%s\" er þegar í notkun. Vinsamlegast veldu annað."
+msgstr "Heiti sýndardisksins \"%s\" er þegar í notkun. Vinsamlegast veldu annað."
 
 #: ../iw/lvm_dialog_gui.py:584
 msgid "Mount point in use"
@@ -2780,8 +2765,7 @@ msgstr "Heiti í notkun"
 #: ../iw/lvm_dialog_gui.py:871
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Heiti sýndardiskhópsins \"%s\" er þegar í notkun. Vinsamlegast veldu annað."
+msgstr "Heiti sýndardiskhópsins \"%s\" er þegar í notkun. Vinsamlegast veldu annað."
 
 #: ../iw/lvm_dialog_gui.py:1095
 msgid "Not enough physical volumes"
@@ -3110,16 +3094,13 @@ msgid "Partitioning"
 msgstr "Disksneiðing"
 
 #: ../iw/partition_gui.py:612
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "Disksneiðarnar sem þú bjóst til ollu eftirfarandi villum."
 
 #: ../iw/partition_gui.py:614
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
-msgstr ""
-"Þessar villur verður að lagfæra áður en uppsetningin á %s getur haldið áfram."
+msgid "You must correct these errors before you continue your installation of %s."
+msgstr "Þessar villur verður að lagfæra áður en uppsetningin á %s getur haldið áfram."
 
 #: ../iw/partition_gui.py:620
 msgid "Partitioning Errors"
@@ -3502,8 +3483,7 @@ msgstr "Afrita drif"
 
 #: ../iw/raid_dialog_gui.py:740
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
+msgstr "Það kom upp villa við að hreinsa diskana sem afrita á í. Afritun mistókst."
 
 #: ../iw/raid_dialog_gui.py:773
 msgid ""
@@ -3629,8 +3609,7 @@ msgstr ""
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr ""
-"Þessar villur verður að lagfæra áður en uppsetningin á %s getur haldið áfram."
+msgstr "Þessar villur verður að lagfæra áður en uppsetningin á %s getur haldið áfram."
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -3666,8 +3645,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:137 ../textw/upgrade_bootloader_text.py:120
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Uppsetningarforritið hefur fundið %s ræsistjórann á %s."
 
 #: ../iw/upgrade_bootloader_gui.py:141
@@ -3796,8 +3774,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Stærð diskminnisskráarinnar verður að vera á milli 1 og 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:183
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Það er ekki nægjanlegt laust pláss á disknum sem þú valdir fyrir "
 "diskminnissneiðina."
@@ -4402,8 +4379,7 @@ msgstr ""
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"Rótarsneiðin þín er minni en 250 megabæti sem er yfirleitt of lítið fyrir %s."
+msgstr "Rótarsneiðin þín er minni en 250 megabæti sem er yfirleitt of lítið fyrir %s."
 
 #: ../storage/__init__.py:762
 #, fuzzy, python-format
@@ -4424,8 +4400,7 @@ msgstr ""
 "venjulega %s uppsetningu."
 
 #: ../storage/__init__.py:797
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "Uppsetning á USB tæki.  Ekki er víst að út komi kerfi sem virkar."
 
 #: ../storage/__init__.py:800
@@ -4988,8 +4963,7 @@ msgstr "Gat ekki lesið rekladisklinginn úr skrá."
 #: ../loader/driverdisk.c:353
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Settu rekladisklinginn í /dev/%s og veldu \"Í lagi\" til að halda áfram."
+msgstr "Settu rekladisklinginn í /dev/%s og veldu \"Í lagi\" til að halda áfram."
 
 #: ../loader/driverdisk.c:359
 msgid "Insert Driver Disk"
@@ -5216,10 +5190,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Velkomin(n) í %s - Björgunarham"
 
 #: ../loader/lang.c:65 ../loader/loader.c:226
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
 
 #: ../loader/lang.c:375
 msgid "Choose a Language"
@@ -5261,8 +5233,7 @@ msgstr ""
 #: ../loader/loader.c:496
 #, fuzzy, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr ""
-"Settu uppfærsludisklinginn í /dev/%s og veldu \"Í lagi\" til að halda áfram."
+msgstr "Settu uppfærsludisklinginn í /dev/%s og veldu \"Í lagi\" til að halda áfram."
 
 #: ../loader/loader.c:502
 msgid "Updates Disk"
@@ -5353,8 +5324,7 @@ msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Það eru engir sérstakir tækjareklar í notkun. Viltu lesa einhverja inn núna?"
+msgstr "Það eru engir sérstakir tækjareklar í notkun. Viltu lesa einhverja inn núna?"
 
 #: ../loader/loader.c:1636
 msgid "Devices"
@@ -5419,7 +5389,7 @@ msgstr ""
 
 #: ../loader/mediacheck.c:101
 msgid "Success"
-msgstr ""
+msgstr "Tókst"
 
 #: ../loader/mediacheck.c:102
 msgid ""
@@ -5451,8 +5421,7 @@ msgstr "Óleyfilegt viðfang við tækjaskipun hraðuppsetningar %s: %s"
 #: ../loader/modules.c:348
 #, fuzzy
 msgid "A module name must be specified for the kickstart device command."
-msgstr ""
-"Bæði heiti og gerð rekils þarf að gefa upp í tækjaskipun hraðuppsetningar."
+msgstr "Bæði heiti og gerð rekils þarf að gefa upp í tækjaskipun hraðuppsetningar."
 
 #: ../loader/net.c:111
 msgid "Invalid Prefix"
@@ -5533,10 +5502,8 @@ msgid "Missing Information"
 msgstr "Upplýsingar vantar"
 
 #: ../loader/net.c:1087
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"Þú verður að gefa upp gilt IPv4 vistfang og netmöskva eða CIDR forskeyti."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "Þú verður að gefa upp gilt IPv4 vistfang og netmöskva eða CIDR forskeyti."
 
 #: ../loader/net.c:1094
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
@@ -5571,7 +5538,7 @@ msgstr ""
 
 #: ../loader/net.c:1808
 msgid "Identify"
-msgstr ""
+msgstr "Auðkenna"
 
 #: ../loader/net.c:1817
 msgid "You can identify the physical port for"
@@ -5585,7 +5552,7 @@ msgstr ""
 
 #: ../loader/net.c:1829
 msgid "Identify NIC"
-msgstr ""
+msgstr "Auðkenna NIC"
 
 #: ../loader/net.c:1842
 #, fuzzy
@@ -5629,14 +5596,14 @@ msgid "That directory could not be mounted from the server."
 msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum."
 
 #: ../loader/nfsinstall.c:260
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Þetta skráakerfi virðist ekki innihalda %s uppsetningartré."
+msgstr "Þessi mappa virðist ekki innihalda %s uppsetningarmynd."
 
 #: ../loader/nfsinstall.c:336
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "óleyfilegt viðfang við NFS skipun hraðuppsetningar %s: %s"
+msgstr "óleyfilegt viðfang við NFS hraðuppsetningar skipun %s: %s"
 
 #: ../loader/telnetd.c:89 ../loader/telnetd.c:128
 msgid "Telnet"
@@ -5651,9 +5618,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Keyri anaconda gegnum telnet..."
 
 #: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Gat ekki sótt %s://%s/%s/%s."
+msgstr "Gat ekki sótt %s://%s%s."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -5666,8 +5633,7 @@ msgstr "óleyfilegt viðfang við Url skipun hraðuppsetningar %s: %s"
 
 #: ../loader/urlinstall.c:428
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
-"Þú verður að gefa upp --url viðfangið við Url hraðuppsetningaraðferðina."
+msgstr "Þú verður að gefa upp --url viðfangið við Url hraðuppsetningaraðferðina."
 
 #: ../loader/urlinstall.c:437
 #, c-format
@@ -5680,23 +5646,20 @@ msgstr "Sæki"
 
 #: ../loader/urls.c:295
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr ""
 
 #: ../loader/urls.c:321
-#, fuzzy
 msgid "URL Setup"
-msgstr "NFS Stillingar"
+msgstr "Stillingar slóða (URL)"
 
 #: ../loader/urls.c:329
-#, fuzzy
 msgid "You must enter a URL."
-msgstr "Þú verður að nefna möppu."
+msgstr "Þú verður að setja inn slóð (URL)"
 
 #: ../loader/urls.c:335
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "Slóðin (URL) verður að vera annað hvort FTP eða HTTP"
 
 #: ../loader/urls.c:346
 msgid "Unknown Host"
@@ -5724,42 +5687,36 @@ msgid ""
 msgstr ""
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "_Eyða"
+msgstr "Afve_lja"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "Set inn pakka"
+msgstr "A_fvelja alla aukapakka"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Engir aukapakkar til að velja"
+msgstr "_Aukapakkar"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "_Eyða"
+msgstr "_Velja"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "Engir aukapakkar til að velja"
+msgstr "_Velja alla aukapakka"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #: tmp/account.glade.h:1
 msgid "Confirm:"
 msgstr "Staðfesta:"
 
 #: tmp/account.glade.h:2
-#, fuzzy
 msgid "Root Password:"
-msgstr "Rótarlykilorð"
+msgstr "Rótarlykilorð (kerfisstjóra):"
 
 #: tmp/account.glade.h:3
 msgid ""
@@ -5790,14 +5747,12 @@ msgid "<b>Repository _name:</b>"
 msgstr "<b>Heiti hugbú_naðarsafns:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>Heiti hugbú_naðarsafns:</b>"
+msgstr "<b>Gerð hugbú_naðarsafns:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Stillingar TCP/IP"
+msgstr "Stillingar á _proxy milliþjóni"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -5806,67 +5761,58 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Harður diskur"
 
 #: tmp/addrepo.glade.h:9
-#, fuzzy
-msgid ""
-"Please provide the configuration information for this software repository."
-msgstr ""
-"Vinsamlega gefðu upp staðsetningu hugbúnaðarsafnsins sem inniheldur auka "
-"hugbúnaðinn þinn. Athugaðu að þetta verður að gera gilt safn fyrir %s."
+msgid "Please provide the configuration information for this software repository."
+msgstr "Vinsamlega gefðu upp stillingar fyrir hugbúnaðarsafnið."
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Ógild slóð á hugbúnaðarsafn"
+msgstr "Slóð milliþjóns (host:port)"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "Ekkert lykilorð"
+msgstr "Lykil_orð á milliþjóni"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "FTP þjónn:"
+msgstr "_Notandanafn á milliþjóni"
 
 #: tmp/addrepo.glade.h:13
-#, fuzzy
 msgid "Repository _URL"
-msgstr "<b>Hugbúnaðar_slóð:</b>"
+msgstr "Slóð á h_ugbúnaðarsafn"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Veldu rekil"
+msgstr "Veldu möppu"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "Slóðin vísar á lista yfir spegla"
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "NFS mappa"
+msgstr "_Mappa"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "Stillingar RAID"
+msgstr "S_tillingar"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "Disksneið"
+msgstr "_Disksneið"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "S_lóð"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Nafnaþjónn:"
+msgstr "Þ_jónn:"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -5877,98 +5823,88 @@ msgid "_Next"
 msgstr "Á_fram"
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "<b>Heiti hugbú_naðarsafns:</b>"
+msgstr "<b>Stækka/minnka (í MB):</b>"
 
 #: tmp/autopart.glade.h:3
 msgid "Re_view and modify partitioning layout"
-msgstr "_Endurskoða (og breyta ef þarf) disksneiðunum"
+msgstr "Endurs_koða (og breyta ef þarf) disksneiðunum"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "Disksvæði sem breyta á í stærð"
 
 #: tmp/autopart.glade.h:5
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "Hvaða disk viltu nota til að ræsa þessaru uppsetningu af?"
+msgstr "Hvaða disk viltu nota til að _ræsa þessa uppsetningu af?"
 
 #: tmp/autopart.glade.h:6
-#, fuzzy
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
-msgstr "Á hvaða disksneið er rót skráarkerfisins?"
+msgid "Which partition would you like to resize to make room for your installation?"
+msgstr "Hvaða disksneið viltu breyta stærð á til að koma fyrir uppsetningunni?"
 
 #: tmp/autopart.glade.h:7
 msgid "_Advanced storage configuration"
 msgstr "_Frekari stillingar diskgeymslu"
 
 #: tmp/autopart.glade.h:8
-#, fuzzy
 msgid "_Encrypt system"
-msgstr "Dulritunarlykill"
+msgstr "Dulkóða k_erfið"
 
 #: tmp/autopart.glade.h:10
 msgid "_Select the drive(s) to use for this installation."
 msgstr "_Veldu hörðu diskana sem þú vilt nota í þessari uppsetningu."
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "Endurræsa"
+msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
-#, fuzzy
 msgid "BIOS Drive Order"
-msgstr "Breyta röð drifa"
+msgstr "Röð drifa í BIOS"
 
 #: tmp/blwhere.glade.h:3
-#, fuzzy
 msgid "Boot loader device"
-msgstr "Ræsistjóri"
+msgstr "Tæki með ræsistjóra"
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
-msgstr ""
+msgstr "Fyrsta BIOS-drif:"
 
 #: tmp/blwhere.glade.h:5
 msgid "Fourth BIOS drive:"
-msgstr ""
+msgstr "Fjórða BIOS-drif:"
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
-msgstr ""
+msgstr "MBR (MasterBootRecord - Ræsigeiri disks)"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
-msgstr ""
+msgstr "Annað BIOS-drif:"
 
 #: tmp/blwhere.glade.h:8
 msgid "Third BIOS drive:"
-msgstr ""
+msgstr "Fyrsta BIOS-drif:"
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
-msgstr "Hvar viltu setja upp ræsistjórann?"
+msgstr "Hvar viltu setja upp ræsistjórann fyrir kerfið?"
 
 #: tmp/detailed-dialog.glade.h:1
-#, fuzzy
 msgid "Info"
-msgstr "Hunsa"
+msgstr "Upplýsingar"
 
 #: tmp/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr ""
+msgstr "_Nánar"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "Lýsin_g á villu"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "Útta_ksskrá"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
@@ -5976,29 +5912,29 @@ msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"Staðvært geymslutæki\n"
+"Diskur á vél\n"
+"Fjarlægur þjónn (scp)"
 
 #: tmp/exnSave.glade.h:6
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "Veldu úttaksstað til að vista rakningarskrána á."
 
 #: tmp/exnSave.glade.h:8
-#, fuzzy
 msgid "Select A File"
-msgstr "Veldu rekil"
+msgstr "Veldu skrá"
 
 #: tmp/exnSave.glade.h:9
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_Vél (host:port)"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_Password"
-msgstr "_Lykilorð:"
+msgstr "_Lykilorð"
 
 #: tmp/exnSave.glade.h:11
-#, fuzzy
 msgid "_User name"
-msgstr "Notandanafn"
+msgstr "_Notandanafn"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
@@ -6011,24 +5947,20 @@ msgid "Please enter your %(instkey)s."
 msgstr "Vinsamlegast sláðu inn %(instkey)s."
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>Lykilorð:</b>"
+msgstr "<b>CHAP _lykilorð:</b>"
 
 #: tmp/iscsi-config.glade.h:2
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>_Notandanafn:</b>"
+msgstr "<b>CHAP _notandanafn:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>Lykilorð:</b>"
+msgstr "<b>Snú_a við CHAP lykilorði:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>_Notandanafn:</b>"
+msgstr "<b>_Snúa við CHAP notandanafni:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -6058,26 +5990,25 @@ msgstr "Setja upp á harða diskinn"
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr ""
+msgstr "Bæta þessari lykilsetningu inn fyrir öll dulkóðuð tæki til að einfalda ræsingarferlið"
 
 #: tmp/lukspassphrase.glade.h:2
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
+msgstr "Settu inn lykilsetningu fyrir þessa dulkóðuðu disksneið. Þú verður krafinn um þessa setningu við ræsingu kerfisins."
 
 #: tmp/lukspassphrase.glade.h:3
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Staðfesta frumstillingu"
+msgstr "Staðfestu lykilsetningu (passphrase):"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "Settu inn lykilsetningu (passphrase) fyrir dulkóðuðu disksneiðina"
 
 #: tmp/lukspassphrase.glade.h:5
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "Settu inn lykilsetningu (passphrase):"
 
 #: tmp/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6112,15 +6043,14 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Nota lausbun_dnar IP stillingar (DHCP)"
 
 #: tmp/network.glade.h:1
-#, fuzzy
 msgid "Hostname:"
-msgstr "Vélarheiti"
+msgstr "Vélarheiti:"
 
 #: tmp/network.glade.h:2
 msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
-msgstr ""
+msgstr "Gefðu núna þessari tölvu nafn. Vélarheitið er notað til að auðkenna tölvuna á netkerfum."
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6158,12 +6088,11 @@ msgstr "_Bæta við auka hugbúnaðarsöfnum"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "_Sérsníða nú"
+msgstr "_Sérsníða núna"
 
 #: tmp/tasksel.glade.h:8
-#, fuzzy
 msgid "_Modify repository"
-msgstr "_Bæta við hugbúnaðarsafni"
+msgstr "Bre_yta hugbúnaðarsafni"
 
 #: tmp/zfcp-config.glade.h:1
 msgid "<b>Device number:</b>"
@@ -6263,7 +6192,7 @@ msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebreska"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -6306,9 +6235,8 @@ msgid "Macedonian"
 msgstr "Makedónía"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "Marathi"
+msgstr "Maithili"
 
 #. generated from lang-table
 msgid "Malay"
@@ -6323,14 +6251,12 @@ msgid "Marathi"
 msgstr "Marathi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "Bengalí"
+msgstr "Nepalska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "Norska"
+msgstr "Norska(bókmál)"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -6397,9 +6323,8 @@ msgid "Swedish"
 msgstr "Sænska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "Tamil"
+msgstr "Tajik"
 
 #. generated from lang-table
 msgid "Tamil"
@@ -6428,3 +6353,4 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
+
