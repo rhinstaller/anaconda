@@ -729,6 +729,20 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         }
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
             loaderData->netDev = strdup(argv[i] + 9);
+
+            /* Scan the MAC address and replace '-' with ':'.  This shouldn't
+             * really be getting supplied, but it was accidentally supported
+             * in RHEL4 and we need to continue support for now.
+             */
+            front = loaderData->netDev;
+            if (front) {
+                while (*front != '\0') {
+                    if (*front == '-')
+                        *front = ':';
+                    front++;
+                }
+            }
+
             loaderData->netDev_set = 1;
         }
         else if (!strncmp(argv[i], "BOOTIF=", 7)) {
