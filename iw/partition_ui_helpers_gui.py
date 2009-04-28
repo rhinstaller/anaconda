@@ -337,7 +337,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     # this gets added to the table a bit later on
     lukscb = gtk.CheckButton(_("_Encrypt"))
 
-    if origfs.migratable:
+    if origfs.migratable and origfs.exists:
         migratecb = gtk.CheckButton(label=_("Mi_grate filesystem to:"))
         if formatcb is not None:
             migratecb.set_active(origfs.migrate and (not formatcb.get_active()))
@@ -367,7 +367,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
                          (fstypeCombo, mountCombo, origfs, lukscb,
                           migfstypeCombo, migratecb, FLAG_FORMAT))
 
-    if origrequest.resizable:
+    if origrequest.resizable and origfs.exists:
         resizecb = gtk.CheckButton(label=_("_Resize"))
         resizecb.set_active(origfs.resizable and \
                             (origfs.currentSize != origfs.targetSize) and \

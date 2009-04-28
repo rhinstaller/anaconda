@@ -384,7 +384,7 @@ class RaidEditor:
 	    lbl.set_mnemonic_widget(self.fstypeCombo)
             maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
             row += 1
-        else:
+        elif format.exists:
             maintable.attach(createAlignedLabel(_("Original File System Type:")),
                              0, 1, row, row + 1)
             if format.type:
@@ -490,7 +490,7 @@ class RaidEditor:
 	# format or not?
 	self.formatButton = None
 	self.fsoptionsDict = {}
-	if not format.exists:
+	if not format.exists and not origrequest.exists:
 	    self.formatButton = gtk.CheckButton(_("_Format partition?"))
 	    if not format.type:
 		self.formatButton.set_active(1)
