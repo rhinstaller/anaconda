@@ -200,15 +200,6 @@ class AnacondaYumRepo(YumRepository):
         elif mirrorlist and not uri:
             self.mirrorlist = mirrorlist
 
-        self.setAttribute('cachedir', '/tmp/cache/')
-        self.setAttribute('pkgdir', root)
-        self.setAttribute('hdrdir', '/tmp/cache/headers')
-
-    def dirSetup(self):
-        YumRepository.dirSetup(self)
-        if not os.path.isdir(self.hdrdir):
-            os.makedirs(self.hdrdir, mode=0755)
-
     #XXX: FIXME duplicated from YumRepository due to namespacing
     def __headersListFromDict(self):
         """Convert our dict of headers to a list of 2-tuples for urlgrabber."""
@@ -421,7 +412,7 @@ class YumSorter(yum.YumBase):
         stats.print_stats(20)
         return rc
 
-    def resolveDeps(self):
+    def resolveDeps(self, *args, **kwargs):
         if self.dsCallback: self.dsCallback.start()
         unresolved = self.tsInfo.getMembers()
         while len(unresolved) > 0:
@@ -592,7 +583,7 @@ class AnacondaYum(YumSorter):
                                      "/tmp/updates/pluginconf.d"])
         self.plugins.run('init')
 
-        self.repos.setCacheDir('/tmp/cache')
+        self.repos.setCacheDir(self.conf.cachedir)
 
     def downloadHeader(self, po):
         while True:
