@@ -1261,7 +1261,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         foundkernel = False
 
-        if isys.smpAvailable() or isys.htavailable():
+        if (isys.smpAvailable() or isys.htavailable()) and not rpmUtils.arch.canonArch.startswith("ppc64"):
             if selectKernel("kernel-smp"):
                 foundkernel = True
 
