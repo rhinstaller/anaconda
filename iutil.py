@@ -553,10 +553,9 @@ def isEfi():
         return efi
 
     efi = False
-    if isX86():
-        # XXX need to make sure efivars is loaded...
-        if os.path.exists("/sys/firmware/efi"):
-            efi = True
+    # XXX need to make sure efivars is loaded...
+    if os.path.exists("/sys/firmware/efi"):
+        efi = True
 
     return efi
 
