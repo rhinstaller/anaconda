@@ -346,6 +346,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
     }
 
     loaderData->method = METHOD_NFS;
+    loaderData->stage2Data = NULL;
 
     substr = strstr(dir, ".img");
     if (!substr || (substr && *(substr+4) != '\0')) {
