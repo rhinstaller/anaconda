@@ -368,8 +368,7 @@ sbin/e2fsck
 sbin/e2label
 sbin/fdisk
 sbin/fsck
-sbin/fsck.ext2
-sbin/fsck.ext3
+sbin/fsck.ext*
 sbin/fsck.jfs
 sbin/fsck.reiserfs
 sbin/fsck.xfs
@@ -388,8 +387,7 @@ sbin/mdadm
 sbin/mkdosfs
 sbin/mke2fs
 sbin/mkfs.btrfs
-sbin/mkfs.ext2
-sbin/mkfs.ext3
+sbin/mkfs.ext*
 sbin/mkfs.gfs2
 sbin/mkfs.jfs
 sbin/mkfs.msdos
