@@ -48,6 +48,12 @@ class RescueInterface:
     def progressWindow(self, title, text, total):
         return ProgressWindow(self.screen, title, text, total)
 
+    def detailedMessageWindow(self, title, text, longText=None, type="ok",
+                              default=None, custom_icon=None,
+                              custom_buttons=[]):
+        return self.messageWindow(title, text, type, default, custom_icon,
+                                  custom_buttons)
+
     def messageWindow(self, title, text, type = "ok", default = None,
                       custom_icon=None, custom_buttons=[]):
 	if type == "ok":
@@ -94,6 +100,15 @@ class RescueInterface:
         (passphrase, isglobal) = w.run()
         w.pop()
         return (passphrase, isglobal)
+
+    def shutdown (self):
+        pass
+
+    def suspend(self):
+        pass
+
+    def resume(self):
+        pass
 
     def __init__(self, screen):
         self.screen = screen
