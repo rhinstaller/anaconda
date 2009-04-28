@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.169
+Version: 11.1.2.170
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,18 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 28 2009 Chris Lumens <clumens@redhat.com> 11.1.2.170-1
+- No longer set cachedir since the rebased yum won't let us.
+  Resolves: rhbz#497288
+- Support a dashed format of MAC in kickstarts (msivak).
+  Resolves: rhbz#480309
+- Fix a typo in the parted exception ignoring patch
+  Related: rhbz#455465
+- Add support for Marvell RAID bus controller MV64460/64461/64462 (msivak).
+  Resolves: rhbz#493179
+- Add support for the "Emulex OneConnect 10GbE NIC" (msivak).
+  Resolves: rhbz#496875
+
 * Thu Apr 23 2009 Martin Sivak <msivak@redhat.com> 11.1.2.169-1
 -  Activate ipv6 nics when an ipv6 ip is defined (jgranado).
    Resolves: rhbz#445394
