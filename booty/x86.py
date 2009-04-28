@@ -552,10 +552,14 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
     def __init__(self, storage):
         bootloaderInfo.__init__(self, storage)
-        efiBootloaderInfo.__init__(self, storage, initialize=False)
 
+        # these have to be set /before/ efiBootloaderInfo.__init__(), or
+        # they'll be overwritten.
         self._configdir = "/boot/grub"
         self._configname = "grub.conf"
+
+        efiBootloaderInfo.__init__(self, storage, initialize=False)
+
         # XXX use checkbootloader to determine what to default to
         self.useGrubVal = 1
         self.kernelLocation = "/boot/"
