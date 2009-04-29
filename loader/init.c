@@ -348,6 +348,11 @@ static int termcmp(struct termios *a, struct termios *b) {
 static void createDevices(void) {
     int i;
 
+    /*	unset the umask so devices are created with correct perms
+	and not complemented by the previous umask call */
+
+    mode_t previous_umask = umask(0); 
+
     for (i = 0; devnodes[i].devname != NULL; i++) {
         char devname[64];
         int type = -1;
@@ -373,6 +378,9 @@ static void createDevices(void) {
                   makedev(devnodes[i].major, devnodes[i].minor)) < 0)
             fprintf(stderr, "Unable to create device %s: %m\n", devname);
     }
+
+    /* Restore umask for minimal side affects */
+    umask(previous_umask); 
 }
 
 static void termReset(void) {
