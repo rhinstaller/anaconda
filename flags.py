@@ -59,7 +59,7 @@ class Flags:
                 (key, val) = i.split("=", 1)
             except:
                 key = i
-                val = True
+                val = None
 
             cmdlineDict[key] = val
 
