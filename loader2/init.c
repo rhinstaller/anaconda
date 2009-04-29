@@ -450,6 +450,11 @@ static int copyDirectory(char * from, char * to) {
 static void createDevices(void) {
     int i;
 
+    /*	unset the umask so devices are created with correct perms
+	and not complemented by the previous umask call */
+
+    mode_t previous_umask = umask(0); 
+
     for (i = 0; devnodes[i].devname != NULL; i++) {
         char devname[64];
         int type = -1;
@@ -476,6 +481,9 @@ static void createDevices(void) {
             fprintf(stderr, "Unable to create device %s: %s\n", devname, 
                     strerror(errno));
     }
+
+    /* Restore umask for minimal side affects */
+    umask(previous_umask); 
 }
 
 static void termReset(void) {
