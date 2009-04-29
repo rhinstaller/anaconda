@@ -20,7 +20,7 @@
 
 include Makefile.inc
 VERSION := $(shell awk '/Version:/ { print $$2 }' anaconda.spec)
-RELEASE := $(shell awk '/Release:/ { print $$2 }' anaconda.spec)
+RELEASE := $(shell awk '/Release:/ { split($$2, r, "%"); print r[1] }' anaconda.spec)
 CVSROOT ?= ${CVSROOT:-$(shell cat CVS/Root 2>/dev/null)}
 
 SUBDIRS = isys loader po booty \
