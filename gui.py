@@ -487,7 +487,7 @@ class ProgressWindow:
             self.window.set_modal(True)            
         self.window.set_title (title)
         self.window.set_position (gtk.WIN_POS_CENTER)
-        self.lastUpdate = int(time.time())
+        self.lastUpdate = time.time()
         self.updsecs = updsecs
         box = gtk.VBox (False, 5)
         box.set_border_width (10)
@@ -511,9 +511,18 @@ class ProgressWindow:
         processEvents()
 
     def pulse(self):
+        then = self.lastUpdate
+        now = time.time()
+        delta = now-then
+        if delta < 0.01:
+            return
         self.progress.set_pulse_step(self.updpct)
-        self.progress.pulse()
-        processEvents()
+        self.lastUpdate = now
+        # if we've had a largish gap, some smoothing does actually help.
+        while delta > 0:
+            self.progress.pulse()
+            processEvents()
+            delta -= 0.05
 
     def set (self, amount):
         # only update widget if we've changed by 5% or our timeout has
@@ -521,7 +530,7 @@ class ProgressWindow:
         curval = self.progress.get_fraction()
         newval = float (amount) / self.total
         then = self.lastUpdate
-        now = int(time.time())
+        now = time.time()
         if newval < 0.998:
             if ((newval - curval) < self.updpct and (now-then) < self.updsecs):
                 return
