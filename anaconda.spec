@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.170
+Version: 11.1.2.171
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Apr 30 2009 Chris Lumens <clumens@redhat.com> 11.1.2.171-1
+- Remove umask temporarily so device permissions are correct (wmealing).
+  Resolves: rhbz#383531
+
 * Tue Apr 28 2009 Chris Lumens <clumens@redhat.com> 11.1.2.170-1
 - No longer set cachedir since the rebased yum won't let us.
   Resolves: rhbz#497288
