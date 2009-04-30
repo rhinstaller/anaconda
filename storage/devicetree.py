@@ -526,7 +526,11 @@ class DeviceTree(object):
                 # generally destroy partitions after lvs, vgs, &c
                 elif isinstance(a1.device, PartitionDevice) and \
                      isinstance(a2.device, PartitionDevice):
-                    ret = cmp(a2.device.name, a1.device.name)
+                    if a1.device.disk == a2.device.disk:
+                        ret = cmp(a2.device.partedPartition.number,
+                                  a1.device.partedPartition.number)
+                    else:
+                        ret = cmp(a2.device.name, a1.device.name)
                 elif isinstance(a1.device, PartitionDevice) and \
                      not isinstance(a2.device, DiskDevice):
                     ret = 1
@@ -605,7 +609,11 @@ class DeviceTree(object):
                 # generally create partitions before other device types
                 elif isinstance(a1.device, PartitionDevice) and \
                      isinstance(a2.device, PartitionDevice):
-                    ret = cmp(a1.device.name, a2.device.name)
+                    if a1.device.disk == a2.device.disk:
+                        ret = cmp(a1.device.partedPartition.number,
+                                  a2.device.partedPartition.number)
+                    else:
+                        ret = cmp(a1.device.name, a2.device.name)
                 elif isinstance(a1.device, PartitionDevice) and \
                      not isinstance(a2.device, DiskDevice):
                     ret = -1
