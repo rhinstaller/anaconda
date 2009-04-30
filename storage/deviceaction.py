@@ -342,7 +342,7 @@ class ActionResizeFormat(DeviceAction):
     obj = ACTION_OBJECT_FORMAT
 
     def __init__(self, device, newsize):
-        if device.targetSize == newsize:
+        if device.format.targetSize == newsize:
             raise ValueError("new size same as old size")
 
         DeviceAction.__init__(self, device)

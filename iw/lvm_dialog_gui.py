@@ -729,7 +729,6 @@ class VolumeGroupEditor:
                 if self.fsoptionsDict.has_key("resizecb") and self.fsoptionsDict["resizecb"].get_active():
                     targetSize = self.fsoptionsDict["resizesb"].get_value_as_int()
                     templv.targetSize = targetSize
-                    format.targetSize = targetSize
 
                 templv.format = format
 
@@ -1071,8 +1070,8 @@ class VolumeGroupEditor:
                         actions.append(ActionMigrateFormat(origlv))
 
                     if lv.format.resizable and \
-                       lv.format.targetSize != lv.format.currentSize:
-                        new_size = lv.format.targetSize
+                       lv.targetSize != lv.format.currentSize:
+                        new_size = lv.targetSize
                         actions.append(ActionResizeFormat(origlv, new_size))
                 elif lv.format.type:
                     log.debug("new format: %s" % lv.format.type)
