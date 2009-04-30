@@ -239,10 +239,16 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
 
-        hds = map(lambda x: x.name, self.handler.id.storage.disks)
+        hds = map(udev_device_get_name, udev_get_block_devices())
         for disk in self.drives:
             if disk not in hds:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
+
+        # If doing the early kickstart processing, we will not yet have an
+        # instdata attribute.  That's okay because we pull the lists right
+        # out of this class instead of the instdata.
+        if not self.handler.id:
+            return retval
 
         self.handler.id.storage.clearPartType = self.type
         self.handler.id.storage.clearPartDisks = self.drives
@@ -1024,7 +1030,7 @@ class EarlyKSHandler(superclass):
         self.id = self.anaconda.id
 
         self.maskAllExcept(["vnc", "displaymode", "text", "cmdline",
-                            "graphical", "rescue", "ignoredisk"])
+                            "graphical", "rescue", "ignoredisk", "clearpart"])
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
@@ -1148,6 +1154,12 @@ def fullCommandPass(anaconda, file, earlyKS):
     import storage
     anaconda.id.storage.ignoredDisks = earlyKS.ignoredisk.ignoredisk
     anaconda.id.storage.exclusiveDisks = earlyKS.ignoredisk.onlyuse
+
+    anaconda.id.storage.clearPartType = earlyKS.clearpart.type
+    anaconda.id.storage.clearPartDisks = earlyKS.clearpart.drives
+    if earlyKS.clearpart.initAll:
+        anaconda.id.storage.reinitializeDisks = earlyKS.clearpart.initAll
+
     storage.storageInitialize(anaconda)
 
     handler = AnacondaKSHandler(anaconda)
