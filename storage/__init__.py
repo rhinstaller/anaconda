@@ -1542,11 +1542,6 @@ class FSSet(object):
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs, self.proc])
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
-        for device in devices[:]:
-            # make sure all the bind mounts are at the end of the list
-            if device.format.type == "bind":
-                devices.remove(device)
-                devices.append(device)
 
         for device in devices:
             if not device.format.mountable or not device.format.mountpoint:
