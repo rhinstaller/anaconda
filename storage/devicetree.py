@@ -1493,6 +1493,14 @@ class DeviceTree(object):
             device.format = formats.DeviceFormat()
             return
 
+        if getattr(device, "partedDisk", None):
+            # Any detected formatting is spurious. Ignore it.
+            # We don't want to try to remove it since that could wipe out
+            # valid data like the partition table or data in existing
+            # partitions.
+            device.format = None
+            return
+
         #
         # now do any special handling required for the device's format
         #
