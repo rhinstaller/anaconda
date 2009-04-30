@@ -20,6 +20,7 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
+import glob
 import os, string, stat, sys
 import signal
 import os.path
@@ -914,3 +915,9 @@ def reIPL(anaconda, loader_pid):
     # or a two-item list with errorMessage and rebootInstr (=> shutdown)
     return message
 
+def resetRpmDb(rootdir):
+    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % rootdir):
+        try:
+            os.unlink(rpmfile)
+        except Exception, e:
+            log.debug("error %s removing file: %s" %(e,rpmfile))

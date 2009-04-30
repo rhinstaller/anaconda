@@ -50,7 +50,7 @@ def guessGuestArch(rootdir):
     """root path -> None|"architecture"
     Guess the architecture of installed system
     """
-
+    iutil.resetRpmDb(rootdir)
     ts = rpm.ts(rootdir)
 
     packages = ["filesystem", "initscripts"]

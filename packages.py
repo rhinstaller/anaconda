@@ -307,13 +307,7 @@ def rpmKernelVersionList(rootPath = "/"):
 
     versions = []
 
-    # FIXME: and make sure that the rpmdb doesn't have stale locks :/
-    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % rootPath):
-        try:
-            os.unlink(rpmfile)
-        except:
-            log.debug("failed to unlink %s" % rpmfile)
-
+    iutil.resetRpmDb(rootPath)
     ts = rpm.TransactionSet(rootPath)
 
     mi = ts.dbMatch('provides', 'kernel')

@@ -1004,7 +1004,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # clean up rpmdb locks so that kickstart %post scripts aren't
         # unhappy (#496961)
-        self._resetRpmDb(anaconda.rootPath)
+        iutil.resetRpmDb(anaconda.rootPath)
 
     def doBackendSetup(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
@@ -1012,7 +1012,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         if anaconda.id.getUpgrade():
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
-           self._resetRpmDb(anaconda.rootPath)
+           iutil.resetRpmDb(anaconda.rootPath)
 
         iutil.writeRpmPlatform()
         self.ayum = AnacondaYum(anaconda)
@@ -1480,13 +1480,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self._checkUpgradeVersion(anaconda)
         self._checkUpgradeArch(anaconda)
 
-    def _resetRpmDb(self, rootPath):
-        for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % rootPath):
-            try:
-                os.unlink(rpmfile)
-            except Exception, e:
-                log.debug("error %s removing file: %s" %(e,rpmfile))
-
     def _checkUpgradeVersion(self, anaconda):
         # Figure out current version for upgrade nag and for determining weird
         # upgrade cases
@@ -1514,7 +1507,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                                       "process?") %(productName,),
                                     type = "yesno")
             if rc == 0:
-                self._resetRpmDb(anaconda.rootPath)
+                iutil.resetRpmDb(anaconda.rootPath)
                 sys.exit(0)
 
     def _checkUpgradeArch(self, anaconda):
@@ -1545,7 +1538,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                                         %(productName, myarch, po.arch),
                                         type="yesno")
                 if rc == 0:
-                    self._resetRpmDb(anaconda.rootPath)
+                    iutil.resetRpmDb(anaconda.rootPath)
                     sys.exit(0)
                 else:
                     log.warning("upgrade between possibly incompatible "
