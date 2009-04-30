@@ -58,6 +58,7 @@ fi
 
 # devkit-disks is now mounting lots of stuff.  for now, let's just try to unmount it all
 umount /media/*
+for mnt in $(cat /proc/mounts |grep ^/dev |grep -v live | awk {'print $2;'}) ; do umount $mnt 2>/dev/null ; done
 /sbin/swapoff -a
 /sbin/lvm vgchange -an --ignorelockingfailure
 
