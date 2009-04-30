@@ -185,8 +185,8 @@ class DeviceTree(object):
         except for resize actions.
     """
 
-    def __init__(self, intf=None, ignored=[], exclusive=[], clear=[],
-                 zeroMbr=None, reinitializeDisks=None, protected=[],
+    def __init__(self, intf=None, ignored=[], exclusive=[], type=CLEARPART_TYPE_NONE,
+                 clear=[], zeroMbr=None, reinitializeDisks=None, protected=[],
                  passphrase=None, luksDict=None):
         # internal data members
         self._devices = []
@@ -194,6 +194,7 @@ class DeviceTree(object):
 
         self.intf = intf
         self.exclusiveDisks = exclusive
+        self.clearPartType = type
         self.clearPartDisks = clear
         self.zeroMbr = zeroMbr
         self.reinitializeDisks = reinitializeDisks
