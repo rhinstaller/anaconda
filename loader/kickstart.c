@@ -408,12 +408,13 @@ int isKickstartFileRemote(char *ksFile) {
         return 0;
     }
 
-    if (!strncmp(ksFile, "ks=", 3)) {
+    if (!strcmp(ksFile, "ks")) {
+       return 1;
+    } else if (!strncmp(ksFile, "ks=", 3)) {
         location = ksFile + 3;
     }
 
-    if (!strncmp(location, "ks", 2) ||
-        !strncmp(location, "http://", 7) ||
+    if (!strncmp(location, "http://", 7) ||
         !strncmp(location, "ftp://", 6) ||
         !strncmp(location, "nfs:", 4)) {
         return 1;
