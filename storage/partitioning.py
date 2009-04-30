@@ -249,6 +249,31 @@ def doAutoPartition(anaconda):
         anaconda.id.storage.reset()
         return DISPATCH_BACK
 
+def shouldClear(part, clearPartType, clearPartDisks=None, protectedPartitions=None):
+    if not isinstance(part, PartitionDevice):
+        return False
+
+    # If we got a list of disks to clear, make sure this one's on it
+    if clearPartDisks and part.disk.name not in clearPartDisks:
+        return False
+
+    # Don't clear partitions holding install media.
+    if protectedPartitions and part.name in protectedPartitions:
+        return False
+
+    # We don't want to fool with extended partitions, freespace, &c
+    if part.partType not in [parted.PARTITION_NORMAL, parted.PARTITION_LOGICAL]:
+        return False
+
+    if clearPartType != CLEARPART_TYPE_ALL and not part.format.linuxNative and \
+       not part.getFlag(parted.PARTITION_LVM) and \
+       not part.getFlag(parted.PARTIITON_RAID) and \
+       not part.getFlag(parted.PARTITION_SWAP):
+        return False
+
+    # TODO: do platform-specific checks on ia64, pSeries, iSeries, mac
+
+    return True
 
 def clearPartitions(storage):
     """ Clear partitions and dependent devices from disks.
@@ -276,35 +301,8 @@ def clearPartitions(storage):
     clearparts = [] # list of partitions we'll remove
     for part in partitions:
         log.debug("clearpart: looking at %s" % part.name)
-        clear = False   # whether or not we will clear this partition
-
-        # if we got a list of disks to clear, make sure this one's on it
-        if storage.clearPartDisks and \
-           part.disk.name not in storage.clearPartDisks:
-            continue
-
-        # don't clear partitions holding install media
-        if part.name in storage.protectedPartitions:
-            continue
-
-        # we don't want to fool with extended partitions, freespace, &c
-        if part.partType not in (parted.PARTITION_NORMAL,
-                                 parted.PARTITION_LOGICAL):
-            continue
-
-        if storage.clearPartType == CLEARPART_TYPE_ALL:
-            clear = True
-        else:
-            if part.format and part.format.linuxNative:
-                clear = True
-            elif part.partedPartition.getFlag(parted.PARTITION_LVM) or \
-                 part.partedPartition.getFlag(parted.PARTITION_RAID) or \
-                 part.partedPartition.getFlag(parted.PARTITION_SWAP):
-                clear = True
-
-        # TODO: do platform-specific checks on ia64, pSeries, iSeries, mac
-
-        if not clear:
+        if not shouldClear(part, storage.clearPartType, storage.clearPartDisks,
+                           storage.protectedPartitions):
             continue
 
         log.debug("clearing %s" % part.name)
