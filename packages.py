@@ -141,10 +141,10 @@ def turnOnFilesystems(anaconda):
                                 type = "custom",
                                 custom_buttons = [_("_Exit installer")])
             sys.exit(1)
-        except DeviceError as msg:
+        except DeviceError as (msg, device):
             anaconda.intf.detailedMessageWindow(_("Device Setup Failed"),
                                 _("An error was encountered while "
-                                  "activating your storage configuration."),
+                                  "setting up device %s.") % (device,),
                                 msg,
                                 type = "custom",
                                 custom_buttons = [_("_Exit installer")])
