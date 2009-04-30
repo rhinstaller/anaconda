@@ -310,7 +310,7 @@ def upgradeMountFilesystems(anaconda):
 
         anaconda.id.storage.fsset.parseFSTab(chroot=anaconda.rootPath)
     if flags.setupFilesystems:
-        anaconda.id.storage.fsset.turnOnSwap(upgrading=True)
+        anaconda.id.storage.fsset.turnOnSwap(anaconda, upgrading=True)
         anaconda.id.storage.fsset.mkDevRoot(anaconda.rootPath)
 
     # if they've been booting with selinux disabled, then we should
