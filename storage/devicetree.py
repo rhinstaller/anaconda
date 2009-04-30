@@ -27,6 +27,8 @@ import re
 from errors import *
 from devices import *
 from deviceaction import *
+from partitioning import shouldClear
+from pykickstart.constants import *
 import formats
 import devicelibs.mdraid
 from udev import *
@@ -1174,7 +1176,9 @@ class DeviceTree(object):
                 device = self.addUdevPartitionDevice(info)
 
         # now handle the device's formatting
-        self.handleUdevDeviceFormat(info, device)
+        if not shouldClear(device, self.clearPartType, self.clearPartDisks,
+                           self.protectedPartitions):
+            self.handleUdevDeviceFormat(info, device)
 
     def handleUdevLUKSFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
