@@ -1511,6 +1511,13 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 sys.exit(0)
 
     def _checkUpgradeArch(self, anaconda):
+        def compareArch(a, b):
+            import re
+            if re.match("i.86", a) and re.match("i.86", b):
+                return True
+            else:
+                return a == b
+
         # get the arch of the initscripts package
         try:
             pkgs = self.ayum.pkgSack.returnNewestByName('initscripts')
@@ -1527,7 +1534,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         log.info("initscripts is arch: %s" %(myarch,))
         for po in self.ayum.rpmdb.getProvides('initscripts'):
             log.info("po.arch is arch: %s" %(po.arch,))
-            if po.arch != myarch:
+            if not compareArch(po.arch, myarch):
                 rc = anaconda.intf.messageWindow(_("Warning"),
                                         _("The arch of the release of %s you "
                                           "are upgrading to appears to be %s "
