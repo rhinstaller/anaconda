@@ -770,7 +770,7 @@ if __name__ == "__main__":
     #we prefer vnc over text mode, so ask about that, but only if the KS file doesn't specify anything special
     if opts.display_mode == 't' and flags.vncquestion:
         title = _("Would you like to use VNC?")
-        message = _("The VNC mode instalation offers more functionality than the text mode, would you like to use it instead?")
+        message = _("The VNC mode installation offers more functionality than the text mode, would you like to use it instead?")
 
         ret = vnc.askVncWindow(title, message)
         if ret != -1:
