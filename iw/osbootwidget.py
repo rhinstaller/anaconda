@@ -349,6 +349,7 @@ class OSBootWidget:
 
         for dev in keys:
             (label, longlabel, fstype) = self.imagelist[dev]
+            device = self.storage.devicetree.getDeviceByName(dev)
             if self.blname == "GRUB":
                 theLabel = longlabel
             else:
@@ -365,9 +366,10 @@ class OSBootWidget:
             if rootDev and rootDev.name == dev:
 		isRoot = 1
 
+            devPath = getattr(device, "path", "/dev/%s" % dev)
             iter = self.osStore.append()
             self.osStore.set_value(iter, 1, theLabel)
-            self.osStore.set_value(iter, 2, "/dev/%s" % (dev,))
+            self.osStore.set_value(iter, 2, devPath)
             self.osStore.set_value(iter, 3, isRoot)
             if self.defaultDev == dev:
                 self.osStore.set_value(iter, 0, True)
