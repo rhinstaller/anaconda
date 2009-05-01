@@ -641,8 +641,9 @@ def setFileContext(fn, con, instroot = '/'):
 def resetFileContext(fn, instroot = '/'):
     con = matchPathContext(fn)
     if con:
-        return setFileContext(fn, con, instroot)
-    return False
+        if setFileContext(fn, con, instroot):
+            return con
+    return None
 
 def prefix2netmask(prefix):
     return _isys.prefix2netmask(prefix)
