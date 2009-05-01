@@ -36,18 +36,15 @@ struct nl_cache *nl_get_link_cache(struct nl_handle **handle) {
     struct nl_cache *cache = NULL;
 
     if ((*handle = nl_handle_alloc()) == NULL) {
-        perror("nl_handle_alloc() failure in nl_get_link_cache()");
         return NULL;
     }
 
     if (nl_connect(*handle, NETLINK_ROUTE)) {
-        perror("nl_connect() failure in nl_get_link_cache()");
         nl_handle_destroy(*handle);
         return NULL;
     }
 
     if ((cache = rtnl_link_alloc_cache(*handle)) == NULL) {
-        perror("rtnl_link_alloc_cache() failure in nl_get_link_cache()");
         nl_close(*handle);
         nl_handle_destroy(*handle);
         return NULL;
@@ -74,25 +71,21 @@ char *nl_ip2str(char *ifname) {
     struct nl_addr *addr = NULL;
 
     if (ifname == NULL) {
-        perror("Missing ifname in nl_ip2str()");
         return NULL;
     }
 
     if ((cache = nl_get_link_cache(&handle)) == NULL) {
-        perror("nl_get_link_cache() failure in nl_ip2str()");
         return NULL;
     }
 
     ifindex = rtnl_link_name2i(cache, ifname);
 
     if ((cache = rtnl_addr_alloc_cache(handle)) == NULL) {
-        perror("rtnl_addr_alloc_cache() failure in nl_ip2str()");
         goto ip2str_error;
     }
 
     /* find the IPv4 and IPv6 addresses for this interface */
     if ((obj = nl_cache_get_first(cache)) == NULL) {
-        perror("nl_cache_get_first() failure in nl_ip2str()");
         goto ip2str_error;
     }
 
@@ -128,7 +121,6 @@ char *nl_ip2str(char *ifname) {
                 buflen += 1;
 
                 if ((buf = malloc(buflen)) == NULL) {
-                    perror("malloc() failure on buf in nl_ip2str()");
                     nl_addr_destroy(addr);
                     goto ip2str_error;
                 }
@@ -140,7 +132,6 @@ char *nl_ip2str(char *ifname) {
                 if ((pos = index(buf, '/')) != NULL) {
                     *pos = '\0';
                     if ((buf = realloc(buf, strlen(buf) + 1)) == NULL) {
-                        perror("realloc() failure on buf in nl_ip2str()");
                         nl_addr_destroy(addr);
                         goto ip2str_error;
                     }
@@ -192,27 +183,22 @@ char *nl_mac2str(char *ifname) {
     struct nl_addr *addr = NULL;
 
     if (ifname == NULL) {
-        perror("Missing ifname in nl_mac2str()");
         return NULL;
     }
 
     if ((cache = nl_get_link_cache(&handle)) == NULL) {
-        perror("nl_get_link_cache() failure in nl_mac2str()");
         return NULL;
     }
 
     if ((link = rtnl_link_get_by_name(cache, ifname)) == NULL) {
-        perror("rtnl_link_get_by_name() failure in nl_mac2str()");
         goto mac2str_error2;
     }
 
     if ((addr = rtnl_link_get_addr(link)) == NULL) {
-        perror("rtnl_link_get_addr() failure in nl_mac2str()");
         goto mac2str_error3;
     }
 
     if ((buf = malloc(buflen)) == NULL) {
-        perror("malloc() failure on buf in nl_mac2str()");
         goto mac2str_error4;
     }
 
