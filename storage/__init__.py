@@ -479,7 +479,7 @@ class Storage(object):
 
         return dests
 
-    def deviceImmutable(self, device):
+    def deviceImmutable(self, device, ignoreProtected=False):
         """ Return any reason the device cannot be modified/removed.
 
             Return False if the device can be removed.
@@ -495,7 +495,7 @@ class Storage(object):
         if not isinstance(device, Device):
             raise ValueError("arg1 (%s) must be a Device instance" % device)
 
-        if device.name in self.protectedPartitions:
+        if not ignoreProtected and device.name in self.protectedPartitions:
             return _("This partition is holding the data for the hard "
                       "drive install.")
         elif isinstance(device, PartitionDevice) and device.isProtected:
