@@ -499,19 +499,19 @@ class FS(DeviceFormat):
         #         os.path.join("/mnt/foo", "/") -> "/"
         #
         #mountpoint = os.path.join(chroot, mountpoint)
-        mountpoint = os.path.normpath("%s/%s" % (chroot, mountpoint))
-        iutil.mkdirChain(mountpoint)
+        chrootedMountpoint = os.path.normpath("%s/%s" % (chroot, mountpoint))
+        iutil.mkdirChain(chrootedMountpoint)
         if flags.selinux:
-            ret = isys.resetFileContext(mountpoint)
+            ret = isys.resetFileContext(mountpoint, chroot)
             log.info("set SELinux context for mountpoint %s to %s" \
                      % (mountpoint, ret))
 
         # passed in options override default options
         if not options or not isinstance(options, str):
             options = self.options
-       
+
         try: 
-            rc = isys.mount(self.device, mountpoint, 
+            rc = isys.mount(self.device, chrootedMountpoint, 
                             fstype=self.mountType,
                             options=options,
                             bindMount=isinstance(self, BindFS))
@@ -522,15 +522,15 @@ class FS(DeviceFormat):
             raise FSError("mount failed: %s" % rc)
 
         if flags.selinux:
-            ret = isys.resetFileContext(mountpoint)
+            ret = isys.resetFileContext(mountpoint, chroot)
             log.info("set SELinux context for newly mounted filesystem "
                      "root at %s to %s" %(mountpoint, ret))
             if self.lostAndFoundContext is None:
                 self.lostAndFoundContext = isys.matchPathContext("/lost+found")
             isys.setFileContext("%s/lost+found" % mountpoint,
-                                self.lostAndFoundContext)
+                                self.lostAndFoundContext, chroot)
 
-        self._mountpoint = mountpoint
+        self._mountpoint = chrootedMountpoint
 
     def unmount(self):
         """ Unmount this filesystem. """
