@@ -1050,7 +1050,7 @@ class PartitionWindow(InstallWindow):
                                custom_icon="error")
             return
 
-        reason = self.storage.deviceImmutable(device)
+        reason = self.storage.deviceImmutable(device, ignoreProtected=True)
         if reason:
             self.intf.messageWindow(_("Unable To Edit"),
                                     _("You cannot edit this device:\n\n%s")
