@@ -52,7 +52,7 @@ LIBS += ../stubs/libunicode-lite.a ../wlite/libwlite.a
 
 # linuxrc + shutdown on s390, init everywhere else
 ifneq (,$(filter s390 s390x,$(ARCH)))
-BINS += linuxrc.s390 shutdown
+BINS += linuxrc.s390 lsznet.raw shutdown
 SHUTDOWNOPTS = -DAS_SHUTDOWN=1
 else
 OBJS += ibft.o
@@ -80,6 +80,9 @@ loader.po: $(wildcard *.c)
 	sed -i 's/charset=CHARSET/charset=UTF-8/' $@
 
 linuxrc.s390:
+	@echo "Nothing to do for $@"
+
+lsznet.raw:
 	@echo "Nothing to do for $@"
 
 init: init.o undomounts.o shutdown.o
