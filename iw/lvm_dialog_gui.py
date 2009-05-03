@@ -247,12 +247,13 @@ class VolumeGroupEditor:
     def createPEOptionMenu(self, default=4096):
         peCombo = datacombo.DataComboBox()
 
-        actualPE = lvm.getPossiblePhysicalExtents(floor=1024)
-        for curpe in actualPE:
+        actualPE = []
+        for curpe in lvm.getPossiblePhysicalExtents(floor=1024):
             # don't show PE over 128M, unless it's the default
             if curpe > 131072 and curpe != default:
                 continue
 
+            actualPE.append(curpe)
             val = self.prettyFormatPESize(curpe)
 
             peCombo.append(val, curpe)
