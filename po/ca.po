@@ -5,7 +5,7 @@
 # Mireia Farrús <mifarrus@softcatala.org>, 2003.
 # Jordi Mas <jmas@softcatala.org>, 2003.
 # Josep Puigdemont <josep.puigdemont@gmail.com>, 2003, 2004, 2005, 2006, 2007.
-# Xavier Conde Rueda <xavi.conde@gmail.com>, 2004, 2006-8.
+# Xavier Conde Rueda <xavi.conde@gmail.com>, 2004, 2006-9.
 #
 # This file is translated according to the glossary and style guide of
 #   Softcatalà. If you plan to modify this file, please read first the page
@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-03-29 10:40+0200\n"
+"PO-Revision-Date: 2009-05-03 10:40+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -705,8 +705,8 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"El programari que heu seleccionat per instal·lar requereix els següents discos "
-"de %s %s:\n"
+"El programari que heu seleccionat per instal·lar requereix els següents "
+"discos de %s %s:\n"
 "\n"
 "%s\n"
 "Tingueu-los a punt abans de continuar amb la instal·lació. Si heu de "
@@ -789,8 +789,9 @@ msgstr "S'ha produït un error en escriure la propietat FCP %s per a reIPL (%s)"
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr "S'ha produït un error en escriure la propietat FCP predeterminada %s "
-"per a reIPL (%s)"
+msgstr ""
+"S'ha produït un error en escriure la propietat FCP predeterminada %s per a "
+"reIPL (%s)"
 
 #: ../iutil.py:870
 #, python-format
@@ -804,8 +805,8 @@ msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
-"Després de l'aturada, realitzaeu un IPL manual des del dispositiu que contingui "
-"/boot per continuar la instal·lació"
+"Després de l'aturada, realitzaeu un IPL manual des del dispositiu que "
+"contingui /boot per continuar la instal·lació"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
@@ -889,8 +890,8 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
-"Al vostre fitxer kickstart manca informació necessària que l'anaconda no "
-"pot preguntar. Afegiu les següents seccions i proveu de nou:\n"
+"Al vostre fitxer kickstart manca informació necessària que l'anaconda no pot "
+"preguntar. Afegiu les següents seccions i proveu de nou:\n"
 "%s"
 
 #: ../livecd.py:108
@@ -1037,7 +1038,8 @@ msgstr "Ha fallat la migració"
 #: ../packages.py:167
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "S'ha produït un error en migrar el sistema de fitxers al dispositiu %s."
+msgstr ""
+"S'ha produït un error en migrar el sistema de fitxers al dispositiu %s."
 
 #: ../packages.py:175
 msgid "Formatting Failed"
@@ -1775,8 +1777,8 @@ msgid ""
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"No s'ha pogut muntar un o més dels sistemes de fitxers llistats a /etc/fstab. "
-"Resoleu el problema i intenteu actualitzar de nou.\n"
+"No s'ha pogut muntar un o més dels sistemes de fitxers llistats a /etc/"
+"fstab. Resoleu el problema i intenteu actualitzar de nou.\n"
 "%s"
 
 #: ../upgrade.py:247
@@ -1788,9 +1790,9 @@ msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
-"No s'ha trobat l'arrel del sistema instal·lat anteriorment. Podeu sortir "
-"de l'instal·lador o tornar enrere per escollir la instal·lació en comptes "
-"de l'actualització."
+"No s'ha trobat l'arrel del sistema instal·lat anteriorment. Podeu sortir de "
+"l'instal·lador o tornar enrere per escollir la instal·lació en comptes de "
+"l'actualització."
 
 #: ../upgrade.py:271
 msgid ""
@@ -2199,15 +2201,15 @@ msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
-"Alguns dels vostres repositoris necessiten accés per xarxa, però s'ha produït "
-"un error en habilitar la xarxa en el sistema."
+"Alguns dels vostres repositoris necessiten accés per xarxa, però s'ha "
+"produït un error en habilitar la xarxa en el sistema."
 
 #: ../yuminstall.py:1057
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
-"No s'ha pogut llegir la informació del grup del dipòsit. Aquest és un "
+"No s'ha pogut llegir la informació del grup del repositori. Aquest és un "
 "problema en la generació del vostre arbre d'instal·lació."
 
 #: ../yuminstall.py:1095
@@ -2548,13 +2550,11 @@ msgstr "Apagueu"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Apagueu per usar el sistema que heu instal·lat.\n"
+msgstr "Apagueu per usar el sistema que heu instal·lat.\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Reinicieu per usar el sistema que heu instal·lat.\n"
+msgstr "Reinicieu per usar el sistema que heu instal·lat.\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
@@ -2576,10 +2576,10 @@ msgid ""
 msgstr ""
 "Enhorabona, s'ha completat la instal·lació de %s.\n"
 "\n"
-"Reinicieu ara per fer servir el sistema instal·lat. "
-"Poden haver actualitzacions disponibles per a assegurar el bon funcionament "
-"del vostre sistema. Es recomana la instal·lació de les actualitzacions "
-"després del reinici."
+"Reinicieu ara per fer servir el sistema instal·lat. Poden haver "
+"actualitzacions disponibles per a assegurar el bon funcionament del vostre "
+"sistema. Es recomana la instal·lació de les actualitzacions després del "
+"reinici."
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -3536,8 +3536,8 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"La unitat de destí %s té una partició que no es pot suprimir pel "
-"següent motiu:\n"
+"La unitat de destí %s té una partició que no es pot suprimir pel següent "
+"motiu:\n"
 "\n"
 "«%s»\n"
 "\n"
@@ -3628,8 +3628,8 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"No s'han pogut llegir les metadades del paquet del dipòsit. Pot ser que "
-"manquin dades del dipòsit al directori. Comproveu que el vostre dipòsit "
+"No s'han pogut llegir les metadades del paquet del repositori. Pot ser que "
+"manquin dades del repositori al directori. Comproveu que el vostre repositori "
 "estigui generat correctament.\n"
 "\n"
 "%s"
@@ -3639,7 +3639,7 @@ msgstr ""
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "Ja s'ha afegit el dipòsit %s. Escolliu un nom i una URL diferents."
+msgstr "Ja s'ha afegit el repositori %s. Escolliu un nom i una URL diferents."
 
 #: ../iw/task_gui.py:175
 msgid "Edit Repository"
@@ -3655,7 +3655,7 @@ msgstr "Heu de proporcionar una URL HTTP, HTTPS o FTP a un servidor rèplica."
 
 #: ../iw/task_gui.py:250 ../iw/task_gui.py:388
 msgid "Invalid Repository URL"
-msgstr "L'URL del dipòsit no és vàlida"
+msgstr "L'URL del repositori no és vàlida"
 
 #: ../iw/task_gui.py:251 ../iw/task_gui.py:389
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
@@ -3679,15 +3679,15 @@ msgstr "Entreu el nom d'un servidor NFS i el camí."
 
 #: ../iw/task_gui.py:325
 msgid "Invalid Repository Name"
-msgstr "El nom del dipòsit no és vàlid"
+msgstr "El nom del repositori no és vàlid"
 
 #: ../iw/task_gui.py:326
 msgid "You must provide a repository name."
-msgstr "Heu de proporcionar el nom del dipòsit."
+msgstr "Heu de proporcionar el nom del repositori."
 
 #: ../iw/task_gui.py:450 tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr "Afegeix un dipòsit"
+msgstr "Afegeix un repositori"
 
 #: ../iw/task_gui.py:455
 msgid "No Software Repos Enabled"
@@ -3887,9 +3887,9 @@ msgid ""
 "network source."
 msgstr ""
 "La vostra font d'instal·lació està establerta a una ubicació de xarxa, però "
-"no s'han trobat dispositius en el vostre sistema. Per evitar una instal·lació "
-"en xarxa, arrenqueu amb tot el DVD o tots els CD, o no indiqueu el paràmetre "
-"repo= que especifica una font de xarxa."
+"no s'han trobat dispositius en el vostre sistema. Per evitar una "
+"instal·lació en xarxa, arrenqueu amb tot el DVD o tots els CD, o no indiqueu "
+"el paràmetre repo= que especifica una font de xarxa."
 
 #: ../iw/welcome_gui.py:67
 msgid "E_xit Installer"
@@ -4375,8 +4375,9 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"S'han activat les opcions d'emmagatzematge que heu escollit. Ja no podeu tornar a "
-"la pantalla d'edició del disc. Voleu continuar amb el procés d'instal·lació?"
+"S'han activat les opcions d'emmagatzematge que heu escollit. Ja no podeu "
+"tornar a la pantalla d'edició del disc. Voleu continuar amb el procés "
+"d'instal·lació?"
 
 #: ../storage/__init__.py:127
 msgid "Encrypt device?"
@@ -4609,9 +4610,9 @@ msgstr ""
 "     /dev/%s\n"
 "\n"
 "al vostre fitxer /etc/fstab s'està fent servir com a dispositiu per a "
-"suspensió de programari, per tant el vostre sistema està hibernant. Si "
-"esteu fent una nova instal·lació, assegureu-vos que l'instal·lador està "
-"configurat per formatar totes les particions d'intercanvi."
+"suspensió de programari, per tant el vostre sistema està hibernant. Si esteu "
+"fent una nova instal·lació, assegureu-vos que l'instal·lador està configurat "
+"per formatar totes les particions d'intercanvi."
 
 #: ../storage/__init__.py:1428
 #, python-format
@@ -4697,15 +4698,14 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"S'ha produït un error en muntar el dispositiu %s com a %s: %s. Aquest és un error fatal i "
-"la instal·lació no pot continuar.\n"
+"S'ha produït un error en muntar el dispositiu %s com a %s: %s. Aquest és un "
+"error fatal i la instal·lació no pot continuar.\n"
 "\n"
 "Premeu <tecla de retorn> per a sortir de l'instal·lador."
 
 #: ../storage/devices.py:1059
 msgid "boot flag not available for this partition"
-msgstr ""
-"marcador d'arrencada no disponible per a aquesta partició"
+msgstr "marcador d'arrencada no disponible per a aquesta partició"
 
 #: ../storage/devicetree.py:87
 msgid "Confirm"
@@ -4787,8 +4787,8 @@ msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
-"No s'ha trobat prou espai lliure per al particionat automàtic. Feu "
-"servir un altre mètode."
+"No s'ha trobat prou espai lliure per al particionat automàtic. Feu servir un "
+"altre mètode."
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -5859,7 +5859,7 @@ msgstr "_Afegeix una unitat"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
-msgstr "<b>_Nom del dipòsit:</b>"
+msgstr "<b>_Nom del repositori:</b>"
 
 #: tmp/addrepo.glade.h:2
 msgid "<b>Repository _type:</b>"
@@ -6187,7 +6187,7 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
-"Seleccioneu dipòsits addicionals que vulgueu utilitzar per a la instal·lació "
+"Seleccioneu repositoris addicionals que vulgueu utilitzar per a la instal·lació "
 "de programari."
 
 #: tmp/tasksel.glade.h:4
@@ -6211,7 +6211,7 @@ msgstr ""
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "_Afegeix més dipòsits de programari"
+msgstr "_Afegeix més repositoris"
 
 #: tmp/tasksel.glade.h:7
 msgid "_Customize now"
