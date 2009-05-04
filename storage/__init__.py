@@ -1337,9 +1337,9 @@ class FSSet(object):
             format = getFormat(fstype)
             if devspec == "none" or \
                isinstance(format, get_device_format_class("nodev")):
-                device = NoDevice(format)
+                device = NoDevice(format=format)
             else:
-                device = StorageDevice(devspec)
+                device = StorageDevice(devspec, format=format)
 
         if device is None:
             log.error("failed to resolve %s (%s) from fstab" % (devspec,
