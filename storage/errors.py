@@ -126,4 +126,7 @@ class PartitioningWarning(StorageError):
 class UdevError(StorageError):
     pass
 
+# fstab
+class UnrecognizedFSTabEntryError(StorageError):
+    pass
 
