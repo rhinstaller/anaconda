@@ -1233,6 +1233,7 @@ class FSSet(object):
         self._sysfs = None
         self._proc = None
         self._devshm = None
+        self.preserveLines = []     # lines we just ignore and preserve
 
     @property
     def sysfs(self):
@@ -1344,7 +1345,12 @@ class FSSet(object):
         if device is None:
             log.error("failed to resolve %s (%s) from fstab" % (devspec,
                                                                 fstype))
-            return None
+            raise UnrecognizedFSTabEntryError()
+
+        if device.format.type is None:
+            log.info("Unrecognized filesystem type for %s (%s)"
+                     % (device.name, fstype))
+            raise UnrecognizedFSTabEntryError()
 
         # make sure, if we're using a device from the tree, that
         # the device's format we found matches what's in the fstab
@@ -1430,6 +1436,10 @@ class FSSet(object):
 
                 try:
                     device = self._parseOneLine((devspec, mountpoint, fstype, options, dump, passno))
+                except UnrecognizedFSTabEntryError:
+                    # just write the line back out as-is after upgrade
+                    self.preserveLines.append(line)
+                    continue
                 except Exception as e:
                     raise Exception("fstab entry %s is malformed: %s" % (devspec, e))
 
@@ -1828,4 +1838,10 @@ class FSSet(object):
             fstab = fstab + device.fstabComment
             fstab = fstab + format % (devspec, mountpoint, fstype,
                                       options, dump, passno)
+
+        # now, write out any lines we were unable to process because of
+        # unrecognized filesystems or unresolveable device specifications
+        for line in self.preserveLines:
+            fstab += line
+
         return fstab
