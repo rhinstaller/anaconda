@@ -267,7 +267,7 @@ def shouldClear(part, clearPartType, clearPartDisks=None, protectedPartitions=No
 
     if clearPartType != CLEARPART_TYPE_ALL and not part.format.linuxNative and \
        not part.getFlag(parted.PARTITION_LVM) and \
-       not part.getFlag(parted.PARTIITON_RAID) and \
+       not part.getFlag(parted.PARTITION_RAID) and \
        not part.getFlag(parted.PARTITION_SWAP):
         return False
 
