@@ -1378,7 +1378,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                                      _("OK"), _("Back"), NULL);
                 }
 
-                if (rc && rc != 1) {
+                if (rc && (rc != 1) && (loaderData->method == -1)) {
                     loaderData->method = -1;
                     step = STEP_KBD;
                     dir = -1;

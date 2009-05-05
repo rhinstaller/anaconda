@@ -2,7 +2,7 @@
  * net.c
  *
  * Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005  Red Hat, Inc.
- *               2006, 2007, 2008
+ *               2006, 2007, 2008, 2009
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1939,6 +1939,11 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
             /* Going back to the interface selection screen, so unset anything
              * we set before attempting to bring the incorrect interface up.
              */
+            if ((rc = writeDisabledNetInfo()) != 0) {
+                logMessage(ERROR, "writeDisabledNetInfo failure (%s): %d",
+                           __func__, rc);
+            }
+
             loaderData->netDev_set = 0;
             loaderData->ipinfo_set = 0;
             free(loaderData->ipv4);
