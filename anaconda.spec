@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.48
+Version: 11.5.0.49
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,58 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon May 04 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.49-1
+- Collect network interfaces from NetworkManager (#493995) (dcantrell)
+- Handle fstab entries whose filesystem we don't recognize.(#498120)
+  (dlehman)
+- Add an error signifying an unrecognized entry in /etc/fstab. (dlehman)
+- Don't drop discovered format with unknown devices when parsing fstab.
+  (dlehman)
+- Fix display of paths for device-mapper device in bootloader widget.
+  (dlehman)
+- Don't call udevDeviceFormat if we're just going to clear the device
+  (#497323). (clumens)
+- Pass clearPartType to the devicetree as well. (clumens)
+- Break the complex should-clear logic out of clearPartitions. (clumens)
+- Handle clearpart in the early kickstart pass too. (clumens)
+- Correct setting the SELinux context on mountpoints (#494995). (clumens)
+- make resetFileContext return the context set (wwoods)
+- Allow editing of the hdiso source partition so it can be mounted
+  (#498591). (clumens)
+- Add a ignoreProtected= parameter to deviceImmutable that does the obvious.
+  (clumens)
+- Be more aggressive unmounting before install starts (#498260) (katzj)
+- Add %%{?dist} to the release number in the spec file. (dcantrell)
+- Configure network in kickstartNetworkUp() iff NM is not connected
+  (#490518) (dcantrell)
+- Don't segfault with "ks someotherparam" (#498307). (clumens)
+- Fix the arch upgrade check in yuminstall.py, too (#498280). (clumens)
+- Move _resetRpmDb into iutil so we can access it everywhere. (clumens)
+- Don't mount bind mounts last, that makes /dev break. (pjones)
+- Pass anaconda to storage.FSSet.turnOnSwap. (dlehman)
+- Ignore spurious formatting on partitioned devices. (dlehman)
+- Revert "DeviceError only returns a message, not (message, device) tuple
+  (#496343)." (dlehman)
+- Fix action sorting for partitions on the same disk. (#498064) (dlehman)
+- Fix traceback in second editing of existing raid dev (#497234). (rvykydal)
+- Allow existing LVs with filesystems to be resized (#490913) (dcantrell)
+- Rate limit pulse() calls to ProgressWindow. (pjones)
+- Don't populate flags.cmdline with "True" values when no = is used. (pjones)
+- Add "nomodeset" to the list of command line arguments copied to grub.conf
+  (pjones)
+- Use device.format.mountType insead of device.format.type for fstab.
+  (pjones)
+- Initialize x86 class variables before efiBootloaderInfo.__init__() (pjones)
+- Fix a segfault on nfs+kickstart (pjones)
+- Fix an error when raising FormatCreateException. (clumens)
+- Add more windows to the rescue interface class (#498014). (clumens)
+- Remove requirement for EFI machines to be x86, since IA64 is too
+  (#497934). (clumens)
+- Fix the kernel package selection on ppc64 machines (#497264). (clumens)
+- Include fsck.ext4 and mkfs.ext4 in the images (#497996). (clumens)
+- Properly restore SIGCHLD if X startup fails (wwoods)
+- Fix kickstart PV references handling for lvm on raid (#497352). (rvykydal)
+
 * Fri Apr 24 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.48-1
 - Fix handling of swap files. (#496529) (dlehman)
 - Pass anaconda to turnOnSwap so we can use swap files. (dlehman)
