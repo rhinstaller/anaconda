@@ -544,7 +544,7 @@ class RaidCloneDialog:
 
     def getInterestingRequestsForDrive(self, drive):
         disk = self.storage.devicetree.getDeviceByName(drive)
-        allrequests = self.storage.getDependentDevices(disk)
+        allrequests = self.storage.devicetree.getDependentDevices(disk)
 
 	if not allrequests:
 	    return allrequests
