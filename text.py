@@ -671,7 +671,7 @@ class InstallInterface:
         anaconda.id.fsset.registerProgressWindow(self.progressWindow)
         anaconda.id.fsset.registerWaitWindow(self.waitWindow)        
 
-        parted.exception_set_handler(lambda exn: partedExceptionWindow(exn, anaconda))
+        parted.exception_set_handler(self.partedExceptionWindow)
         
 	lastrc = INSTALL_OK
 	(step, instance) = anaconda.dispatch.currentStep()
