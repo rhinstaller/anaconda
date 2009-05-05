@@ -247,7 +247,7 @@ class NetworkDevice(SimpleConfigFile):
             keys.remove("KEY")
 
         for key in keys:
-            if key in ("NM_CONTROLLED"):
+            if key in ("NM_CONTROLLED", "NAME"):
                 continue
             # make sure we include autoneg in the ethtool line
             elif key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
