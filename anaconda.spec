@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.171
+Version: 11.1.2.172
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 5 2009 Joel Granados <jgranado@redhat.com> 11.1.2.172-1
+- The lambda function in run() is not needed (jgranado).
+  Resolves: rhbz#498935
+- Increase max NIC identification duration to 5 minutes (dcantrell).
+  Resolves: rhbz#473747
+- Correct a spelling error (dcantrell).
+  Resolves: rhbz#489997
+- Remove noise from isys/nl.c (dcantrell).
+  Resolves: rhbz#490735
+
 * Thu Apr 30 2009 Chris Lumens <clumens@redhat.com> 11.1.2.171-1
 - Remove umask temporarily so device permissions are correct (wmealing).
   Resolves: rhbz#383531
