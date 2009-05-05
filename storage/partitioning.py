@@ -727,7 +727,10 @@ def allocatePartitions(disks, partitions):
                                                            best.getSize()))
                 free = best
 
-            if free and _part.req_bootable:
+            # For platforms with a fake boot partition (like Apple Bootstrap or
+            # PReP) and multiple disks, we need to ensure the /boot partition
+            # ends up on the same disk as the fake one.
+            if free and (_part.req_bootable or getattr(_part.format, "mountpoint", "").startswith("/boot")):
                 # if this is a bootable partition we want to
                 # use the first freespace region large enough
                 # to satisfy the request
