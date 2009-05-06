@@ -1,7 +1,8 @@
 #
 # network.py - network configuration install data
 #
-# Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008  Red Hat, Inc.
+# Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007  Red Hat, Inc.
+#               2008, 2009
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -624,7 +625,7 @@ class Network:
                     log.warning("unable to copy %s to target system" % (dhclientconf,))
 
         # /etc/sysconfig/network
-        if (not instPath) or (not os.path.isfile(destnetwork)):
+        if (not instPath) or (not os.path.isfile(destnetwork)) or flags.livecdInstall:
             newnetwork = "%s.new" % (destnetwork,)
 
             f = open(newnetwork, "w")
@@ -671,7 +672,7 @@ class Network:
                 self.domains = [domainname]
 
         # /etc/resolv.conf
-        if (not instPath) or (not os.path.isfile(instPath + '/etc/resolv.conf')):
+        if (not instPath) or (not os.path.isfile(instPath + '/etc/resolv.conf')) or flags.livecdInstall:
             if os.path.isfile('/etc/resolv.conf') and instPath != '':
                 destresolv = "%s/etc/resolv.conf" % (instPath,)
                 shutil.copy('/etc/resolv.conf', destresolv)
@@ -692,7 +693,7 @@ class Network:
 
         # /etc/udev/rules.d/70-persistent-net.rules
         rules = instPath + "/etc/udev/rules.d/70-persistent-net.rules"
-        if (not instPath) or (not os.path.isfile(rules)):
+        if (not instPath) or (not os.path.isfile(rules)) or flags.livecdInstall:
             if not os.path.isdir("%s/etc/udev/rules.d" %(instPath,)):
                 iutil.mkdirChain("%s/etc/udev/rules.d" %(instPath,))
 
