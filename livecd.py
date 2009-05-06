@@ -333,6 +333,17 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
         if rc:
             log.error("error running resize2fs; leaving filesystem as is")
+            return
+
+        # we should also do a fsck afterwards
+        cmd = ["e2fsck", "-f", "-y", rootDevice.path]
+        out = open("/dev/tty5", "w")
+        proc = subprocess.Popen(cmd, stdout=out, stderr=out)
+        rc = proc.poll()
+        while rc is None:
+            win and win.refresh()
+            time.sleep(0.5)
+            rc = proc.poll()
 
     def doPostInstall(self, anaconda):
         self._doFilesystemMangling(anaconda)
