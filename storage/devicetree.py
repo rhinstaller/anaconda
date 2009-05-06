@@ -1176,9 +1176,7 @@ class DeviceTree(object):
                 device = self.addUdevPartitionDevice(info)
 
         # now handle the device's formatting
-        if not shouldClear(device, self.clearPartType, self.clearPartDisks,
-                           self.protectedPartitions):
-            self.handleUdevDeviceFormat(info, device)
+        self.handleUdevDeviceFormat(info, device)
 
     def handleUdevLUKSFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
@@ -1504,6 +1502,12 @@ class DeviceTree(object):
             # valid data like the partition table or data in existing
             # partitions.
             device.format = None
+            return
+
+        if shouldClear(device, self.clearPartType, self.clearPartDisks,
+                       self.protectedPartitions):
+            # if this is a partition that will be cleared by clearpart,
+            # don't bother with format-specific processing
             return
 
         #
