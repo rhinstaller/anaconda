@@ -818,7 +818,22 @@ def mediaPresent(device):
         return True
 
 def driveIsIscsi(device):
+    def convertDmToSd(minor):
+        slaves = []
+        slavepath = "/sys/block/dm-%d/slaves" % (minor,)
+        if os.path.isdir(slavepath):
+            slaves = os.listdir(slavepath)
+        return slaves
+
     # ewww.  just ewww.
+    if re.search("mapper/mpath[0-9]*",device) is not None:
+        mpath = '/dev/'+ device
+        if os.path.exists(mpath):
+            minor = os.minor(os.stat(mpath).st_rdev)
+            sddisk = convertDmToSd(minor)
+            if len(sddisk) > 0:
+                device = sddisk[0]
+
     if not os.path.islink("/sys/block/%s/device" %(device,)):
         return False
     target = os.readlink("/sys/block/%s/device" %(device,))
