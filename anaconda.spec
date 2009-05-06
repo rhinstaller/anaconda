@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.49
+Version: 11.5.0.50
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,31 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed May 06 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.50-1
+- Use storage objects throughout the partition editing UI code (#491806,
+  #496002). (clumens)
+- Verify filesystems after the live resize (katzj)
+- Verify with fsck after resizing filesystems (katzj)
+- IBM improvements to linuxrc.s390 (#475350) (dcantrell)
+- Write out correct hostname during LiveCD installs (#492515) (dcantrell)
+- Enter in hostname entry field advances to next screen (#494135) (dcantrell)
+- Check if we'll clear a partition after setting its format attr. (#499251)
+  (dlehman)
+- Don't pass the default clearPartType value to the device tree. (dlehman)
+- Fix some logic errors in storage.partitioning.shouldClear. (dlehman)
+- Forward port various iscsi fixes from 5.4 iscsi work (hdegoede)
+- Avoid writing out NAME= in ifcfg files (#497485) (dcantrell)
+- Retry network configuration in loader (#492009) (dcantrell)
+- Make sure /boot ends up on the same disk as Apple Bootstrap (#497390).
+  (clumens)
+- Handle that the default bootloader entry can sometimes be None (#496618).
+  (clumens)
+- The PS3 bootloader allows booting from ext4 filesystems (#498539).
+  (clumens)
+- Support LVM PE sizes > 128MB (#497733) (cristian.ciupitu)
+- Set ANACONDAVERSION on most livecd installs. (clumens)
+- getDependentDevices is in devicetree, not storage (#499144). (clumens)
+
 * Mon May 04 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.49-1
 - Collect network interfaces from NetworkManager (#493995) (dcantrell)
 - Handle fstab entries whose filesystem we don't recognize.(#498120)
