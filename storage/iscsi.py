@@ -97,12 +97,13 @@ class iscsi(object):
         self.initiatorSet = False
         self.started = False
 
-        try:
-            initiatorname = libiscsi.get_firmware_initiator_name()
-            self._initiator = initiatorname
-            self.initiatorSet = True
-        except:
-            pass
+        if flags.ibft:
+            try:
+                initiatorname = libiscsi.get_firmware_initiator_name()
+                self._initiator = initiatorname
+                self.initiatorSet = True
+            except:
+                pass
 
     def _getInitiator(self):
         if self._initiator != "":
@@ -111,12 +112,11 @@ class iscsi(object):
         return randomIname()
 
     def _setInitiator(self, val):
-        if self._initiator != "" and val != self._initiator:
+        if self.initiatorSet and val != self._initiator:
             raise ValueError, "Unable to change iSCSI initiator name once set"
         if len(val) == 0:
             raise ValueError, "Must provide a non-zero length string"
         self._initiator = val
-        self.initiatorSet = True
 
     initiator = property(_getInitiator, _setInitiator)
 
@@ -148,7 +148,7 @@ class iscsi(object):
         if not has_iscsi():
             return
 
-        if not self.initiatorSet:
+        if self._initiator == "":
             log.info("no initiator set")
             return
 
@@ -165,6 +165,7 @@ class iscsi(object):
         fd = os.open(INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)
+        self.initiatorSet = True
 
         for dir in ['ifaces','isns','nodes','send_targets','slp','static']:
             fulldir = "/var/lib/iscsi/%s" % (dir,)
@@ -190,16 +191,16 @@ class iscsi(object):
 
         if not has_iscsi():
             raise IOError, _("iSCSI not available")
-        if not self.initiatorSet:
+        if self._initiator == "":
             raise ValueError, _("No initiator name set")
 
-        self.startup(intf)
-
-        if user:
+        if user or pw or user_in or pw_in:
             # Note may raise a ValueError
             authinfo = libiscsi.chapAuthInfo(username=user, password=pw,
                                              reverse_username=user_in,
                                              reverse_password=pw_in)
+        self.startup(intf)
+
         # Note may raise an IOError
         found_nodes = libiscsi.discover_sendtargets(address=ipaddr,
                                                     port=int(port),
@@ -250,6 +251,7 @@ class iscsi(object):
                 f.write(" --password %s" % auth.password)
                 if len(auth.reverse_username):
                     f.write(" --reverse-user %s" % auth.reverse_username)
+                if len(auth.reverse_password):
                     f.write(" --reverse-password %s" % auth.reverse_password)
             f.write("\n")
 

@@ -223,15 +223,6 @@ class PartitionTypeWindow:
 
         (user, pw, user_in, pw_in) = entries[2:]
 
-        if len(user) == 0:
-            user = None
-        if len(pw) == 0:
-            pw = None
-        if len(user_in) == 0:
-            user_in = None
-        if len(pw_in) == 0:
-            pw_in = None
-
         target = entries[0].strip()
         try:
             idx = target.rfind(":")

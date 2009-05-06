@@ -292,15 +292,6 @@ class PartitionTypeWindow(InstallWindow):
             user_in = dxml.get_widget("userinEntry").get_text().strip()
             pw_in = dxml.get_widget("passinEntry").get_text().strip()
 
-            if len(user) == 0:
-                user = None
-            if len(pw) == 0:
-                pw = None
-            if len(user_in) == 0:
-                user_in = None
-            if len(pw_in) == 0:
-                pw_in = None
-
             err = None
             try:
                 idx = target.rfind(":")
