@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.172
+Version: 11.1.2.173
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed May 6 2009 Joel Granados <jgranado@redhat.com> 11.1.2.173-1
+- Allow bootloader on mbr when /boot is mdraid1 (hansg).
+  Resolves: rhbz#475973
+- Don't traceback on read only (write protected) disks (hansg).
+  Resolves: rhbz#471883
+- most noticably it fixes chap / reverse chap in combination with ibft (hansg).
+  Resolves: rhbz#497438
+- Recognize mpath iscsi setups as using iscsi (hansg).
+  Resolves: rhbz#466614
+
 * Tue May 5 2009 Joel Granados <jgranado@redhat.com> 11.1.2.172-1
 - The lambda function in run() is not needed (jgranado).
   Resolves: rhbz#498935
