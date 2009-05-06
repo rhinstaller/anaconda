@@ -253,6 +253,9 @@ def shouldClear(part, clearPartType, clearPartDisks=None, protectedPartitions=No
     if not isinstance(part, PartitionDevice):
         return False
 
+    if clearPartType == CLEARPART_TYPE_NONE:
+        return False
+
     # If we got a list of disks to clear, make sure this one's on it
     if clearPartDisks and part.disk.name not in clearPartDisks:
         return False
@@ -265,7 +268,8 @@ def shouldClear(part, clearPartType, clearPartDisks=None, protectedPartitions=No
     if part.partType not in [parted.PARTITION_NORMAL, parted.PARTITION_LOGICAL]:
         return False
 
-    if clearPartType != CLEARPART_TYPE_ALL and not part.format.linuxNative and \
+    if clearPartType == CLEARPART_TYPE_LINUX and \
+       not part.format.linuxNative and \
        not part.getFlag(parted.PARTITION_LVM) and \
        not part.getFlag(parted.PARTITION_RAID) and \
        not part.getFlag(parted.PARTITION_SWAP):
