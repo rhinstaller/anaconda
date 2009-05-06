@@ -79,12 +79,12 @@ class VolumeGroupEditor:
         pvlist = self.getSelectedPhysicalVolumes()
 	for pv in pvlist:
             try:
-                pesize = int(self.peCombo.get_active_value())
+                pesize = int(self.peCombo.get_active_value()) / 1024.0
             except:
                 pesize = self.vg.peSize
 
             # FIXME: move this logic into a property of LVMVolumeGroupDevice
-            pvsize = lvm.clampSize(pv.size, pesize) - int(pesize/1024)
+            pvsize = max(0, lvm.clampSize(pv.size, pesize) - pesize)
 	    if first:
 		minpvsize = pvsize
 		first = 0
