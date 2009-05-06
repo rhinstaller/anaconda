@@ -281,10 +281,18 @@ class Storage(object):
                                           _("Finding storage devices..."))
         self.iscsi.startup(self.anaconda.intf)
         self.zfcp.startup()
+        if not self.anaconda.isKickstart:
+            # clearPartType defaults to CLEARPART_TYPE_LINUX, but the user
+            # has not made any selection, so we need to ignore it during
+            # population of the device tree
+            clearPartType = CLEARPART_TYPE_NONE
+        else:
+            clearPartType = self.clearPartType
+
         self.devicetree = DeviceTree(intf=self.anaconda.intf,
                                      ignored=self.ignoredDisks,
                                      exclusive=self.exclusiveDisks,
-                                     type=self.clearPartType,
+                                     type=clearPartType,
                                      clear=self.clearPartDisks,
                                      reinitializeDisks=self.reinitializeDisks,
                                      protected=self.protectedPartitions,
