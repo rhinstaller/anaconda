@@ -959,7 +959,16 @@ class DiskSet:
     def savePartitions (self):
         """Write the partition tables out to the disks."""
         for disk in self.disks.values():
-            disk.commit()
+            log.info("disk.commit() for %s" % (disk.dev.path,))
+            try:
+                disk.commit()
+            except:
+                # if this fails, remove the disk so we don't use it later
+                # Basically if we get here, badness has happened and we want
+                # to prevent tracebacks from ruining the day any more.
+                del disk
+                continue
+
             # FIXME: this belongs in parted itself, but let's do a hack...
             if iutil.isMactel() and disk.type.name == "gpt" and \
                     os.path.exists("/usr/sbin/gptsync"):
