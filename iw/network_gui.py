@@ -2,7 +2,7 @@
 # network_gui.py: Network configuration dialog
 #
 # Copyright (C) 2000, 2001, 2002, 2003, 2004, 2005, 2006,  Red Hat, Inc.
-#               2007, 2008
+#               2007, 2008, 2009
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -42,6 +42,9 @@ class NetworkWindow(InstallWindow):
         self.icon = self.xml.get_widget("icon")
         self.hostnameEntry = self.xml.get_widget("hostnameEntry")
         self.hostnameEntry.set_text(self.hostname)
+        self.hostnameEntry.connect("activate",
+                                   lambda w: self.ics.setGrabNext(1))
+        self.hostnameEntry.grab_focus()
 
         # load the icon
         gui.readImageFromFile("network.png", image=self.icon)
