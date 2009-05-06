@@ -46,7 +46,7 @@ from constants import *
 from partition_ui_helpers_gui import *
 from storage.partitioning import doPartitioning
 from storage.devicelibs import lvm
-from storage.devices import devicePathToName
+from storage.devices import devicePathToName, PartitionDevice
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -106,10 +106,11 @@ class DiskStripeSlice:
         if self.group:
             self.group.destroy()
             self.group = None
+        del self.partedPartition
         del self.partition
 
     def select(self):
-        if self.partition.type != parted.PARTITION_EXTENDED:
+        if self.partedPartition.type != parted.PARTITION_EXTENDED:
             self.group.raise_to_top()
         self.box.set(outline_color="red")
         self.box.set(fill_color=self.selectColor())
@@ -121,23 +122,23 @@ class DiskStripeSlice:
         return self.partition
 
     def fillColor(self):
-        if self.partition.type & parted.PARTITION_FREESPACE:
+        if self.partedPartition.type & parted.PARTITION_FREESPACE:
             return "grey88"
         return "white"
 
     def selectColor(self):
-        if self.partition.type & parted.PARTITION_FREESPACE:
+        if self.partedPartition.type & parted.PARTITION_FREESPACE:
             return "cornsilk2"
         return "cornsilk1"
 
     def sliceText(self):
-        if self.partition.type & parted.PARTITION_EXTENDED:
+        if self.partedPartition.type & parted.PARTITION_EXTENDED:
             return ""
-        if self.partition.type & parted.PARTITION_FREESPACE:
+        if self.partedPartition.type & parted.PARTITION_FREESPACE:
             rc = "Free\n"
         else:
-            rc = "%s\n" % (self.partition.getDeviceNodeName().split("/")[-1],)
-        rc = rc + "%Ld MB" % (self.partition.getSize(unit="MB"),)
+            rc = "%s\n" % (self.partedPartition.getDeviceNodeName().split("/")[-1],)
+        rc = rc + "%Ld MB" % (self.partedPartition.getSize(unit="MB"),)
         return rc
 
     def update(self):
@@ -156,10 +157,10 @@ class DiskStripeSlice:
         if totalSectors == 0:
             return
 
-        xoffset = self.partition.geometry.start / totalSectors * width
-        xlength = self.partition.geometry.length / totalSectors * width
+        xoffset = self.partedPartition.geometry.start / totalSectors * width
+        xlength = self.partedPartition.geometry.length / totalSectors * width
 
-        if self.partition.type & parted.PARTITION_LOGICAL:
+        if self.partedPartition.type & parted.PARTITION_LOGICAL:
             yoffset = 0.0 + LOGICAL_INSET
             yheight = STRIPE_HEIGHT - (LOGICAL_INSET * 2)
             texty = 0.0
@@ -179,6 +180,7 @@ class DiskStripeSlice:
     def __init__(self, parent, partition, treeView, editCB):
         self.text = None
         self.partition = partition
+        self.partedPartition = partition.partedPartition
         self.parent = parent
         self.treeView = treeView
         self.editCB = editCB
@@ -814,7 +816,7 @@ class PartitionWindow(InstallWindow):
                         part = part.nextPartition()
                         continue
 
-                stripe.add(part)
+                stripe.add(device)
                 if device and device.isExtended:
                     if extendedParent:
                         raise RuntimeError, ("can't handle more than "
@@ -948,13 +950,10 @@ class PartitionWindow(InstallWindow):
             return
         device = model[iter]['PyObject']
         if device:
-            # PyObject is always a Device but not always a PartitionDevice
-            try:
-                partition = device.partedPartition
-            except AttributeError:
+            if not isinstance(device, PartitionDevice):
                 return
 
-            self.diskStripeGraph.selectSlice(partition)
+            self.diskStripeGraph.selectSlice(device)
 
     def newCB(self, widget):
         device = self.storage.newPartition(fmt_type=self.storage.defaultFSType,
