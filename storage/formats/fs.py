@@ -394,6 +394,8 @@ class FS(DeviceFormat):
         if rc:
             raise FSResizeError("resize failed: %s" % rc, self.device)
 
+        self.doCheck(intf=intf)
+
         # XXX must be a smarter way to do this
         self._size = self.targetSize
         self.notifyKernel()
