@@ -32,7 +32,6 @@ def partitionObjectsInitialize(anaconda):
     # shut down all dm devices
     anaconda.id.diskset.closeDevices()
     anaconda.id.diskset.stopMdRaid()
-    anaconda.id.iscsi.shutdown()
     anaconda.id.zfcp.shutdown()
 
     # clean slate about drives

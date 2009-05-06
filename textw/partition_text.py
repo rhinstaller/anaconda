@@ -1675,7 +1675,7 @@ class PartitionTypeWindow:
         else:
             try:
                 return self.addIscsiDriveDialog(screen)
-            except ValueError, e:
+            except (ValueError, IOError), e:
                 ButtonChoiceWindow(screen, _("Error"), "%s" %(e,))
                 return INSTALL_BACK
 
@@ -1718,33 +1718,6 @@ class PartitionTypeWindow:
             return INSTALL_BACK
 
         (user, pw, user_in, pw_in) = entries[2:]
-
-        if len(user) == 0:
-            user = None
-        if len(pw) == 0:
-            pw = None
-        if len(user_in) == 0:
-            user_in = None
-        if len(pw_in) == 0:
-            pw_in = None
-
-        if user is not None or pw is not None:
-            if user is None:
-                ButtonChoiceWindow(screen, _("Missing value"),
-                    _("Username is required when password is present."))
-            if pw is None:
-                ButtonChoiceWindow(screen, _("Missing value"),
-                    _("Password is required when username is present."))
-
-        if user_in is not None or pw_in is not None:
-            if user_in is None:
-                ButtonChoiceWindow(screen, _("Missing value"),
-                                   _("Reverse username is required when"
-                                     "reverse password is present."))
-            if pw_in is None:
-                ButtonChoiceWindow(screen, _("Missing value"),
-                                   _("Reverse password is required when"
-                                     "reverse username is present."))
 
         target = entries[0].strip()
         try:

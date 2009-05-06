@@ -13,10 +13,8 @@
 #
 
 import os
-import errno
-import string
-import signal
 import iutil
+import isys
 from flags import flags
 import logging
 import shutil
@@ -26,13 +24,15 @@ log = logging.getLogger("anaconda")
 
 from rhpl.translate import _, N_
 
+has_libiscsi = True
+try:
+    import libiscsi
+except ImportError:
+    has_libiscsi = False
+
 # Note that stage2 copies all files under /sbin to /usr/sbin
-global ISCSID
 ISCSID=""
-global ISCSIADM
-ISCSIADM = ""
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
-ISCSID_CONF="/etc/iscsi/iscsid.conf"
 
 def find_iscsi_files():
     global ISCSID
@@ -41,137 +41,23 @@ def find_iscsi_files():
             path="%s/iscsid" % (dir,)
             if os.access(path, os.X_OK):
                 ISCSID=path
-    global ISCSIADM
-    if ISCSIADM == "":
-        for dir in ("/usr/sbin", "/tmp/updates", "/mnt/source/RHupdates"):
-            path="%s/iscsiadm" % (dir,)
-            if os.access(path, os.X_OK):
-                ISCSIADM=path
 
 def has_iscsi():
     find_iscsi_files()
-    if ISCSID == "" or ISCSIADM == "":
+    if ISCSID == "" or not has_libiscsi:
         return False
 
     log.info("ISCSID is %s" % (ISCSID,))
-    log.info("ISCSIADM is %s" % (ISCSIADM,))
 
     # make sure the module is loaded
     if not os.access("/sys/module/iscsi_tcp", os.X_OK):
         return False
     return True
 
-class iscsiTarget:
-    def __init__(self, ipaddr, port=None, user=None, pw=None,
-            user_in=None, pw_in=None, discover=True, login=True):
-        # FIXME: validate ipaddr
-        self.ipaddr = ipaddr
-        if not port: # FIXME: hack hack hack
-            port = 3260
-        self.port = str(port)
-        self.user = user
-        self.password = pw
-        self.user_in = user_in
-        self.password_in = pw_in
-        self._portal = None
-        self._nodes = []
-        self.doDiscovery = discover
-        self.doLogin = login
-
-        find_iscsi_files()
-
-    def _getPortal(self):
-        if self._portal is None:
-            argv = [ "-m", "discovery", "-t", "st", "-p", self.ipaddr ]
-            log.debug("iscsiadm %s" %(string.join(argv),))
-            records = iutil.execWithCapture(ISCSIADM, argv)
-            records = records.strip()
-            for line in records.split("\n"):
-                log.debug("  %s" % (line,))
-                if not line or line.find("found!") != -1:
-                    log.warn("no record found!")
-                    continue
-                pnlist = line.split()
-                if len(pnlist) != 2:
-                    log.warn("didn't get what we expected from iscsiadm")
-                    continue
-                (portal, node) = pnlist
-                if portal.startswith(self.ipaddr):
-                    self._portal = portal
-                    self._nodes.append(node)
-        return self._portal
-    portal = property(_getPortal)
-
-    def _getNode(self):
-        if len(self._nodes) == 0:
-            # _getPortal() fills the list, if possible.
-            self._getPortal()
-        return self._nodes
-    nodes = property(_getNode)
-
-    def discover(self):
-        argv = [ "-m", "discovery", "-t", "st", "-p",
-                 "%s:%s" % (self.ipaddr, self.port) ]
-        log.debug("iscsiadm %s" %(string.join(argv),))
-        rc = iutil.execWithRedirect(ISCSIADM, argv,
-                                    stdout = "/dev/tty5", stderr="/dev/tty5")
-        if rc != 0:
-            log.warn("iscsiadm failed to discover on %s" %(self.ipaddr,))
-            return False
-        return True
-
-    def addNode(self, node):
-        if node is None or self.portal is None:
-            log.warn("unable to find portal information")
-            return
-
-        argv = [ "-m", "node", "-T", node, "-p", self.portal,
-                 "-o", "new" ]
-        log.debug("iscsiadm %s" %(string.join(argv),))
-        iutil.execWithRedirect(ISCSIADM, argv,
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
-
-    def loginToNode(self, node):
-        if node is None or self.portal is None:
-            log.warn("unable to find portal information")
-            return
-
-        argv = [ "-m", "node", "-T", node, "-p", self.portal, "--login" ]
-        log.debug("iscsiadm %s" %(string.join(argv),))
-        rc = iutil.execWithRedirect(ISCSIADM, argv,
-                                    stdout = "/dev/tty5", stderr="/dev/tty5")
-        if rc != 0:
-            log.warn("iscsiadm failed to login to %s" %(self.ipaddr,))
-            return False
-        return True
-
-    def login(self):
-        if len(self.nodes) == 0 or self.portal is None:
-            log.warn("unable to find portal information")
-            return False
-
-
-        ret = False
-        for node in self.nodes:
-            if self.loginToNode(node):
-                ret = True
-                self.addNode(node)
-
-        # we return True if there were any successful logins for our portal.
-        return ret
-
-    def logout(self):
-        for node in self.nodes:
-            argv = [ "-m", "node", "-T", node, "-p", self.portal, "--logout" ]
-            log.debug("iscsiadm %s" %(string.join(argv),))
-            rc = iutil.execWithRedirect(ISCSIADM, argv,
-                                    stdout = "/dev/tty5", stderr="/dev/tty5")
-
-
 def randomIname():
     """Generate a random initiator name the same way as iscsi-iname"""
     
-    s = "iqn.2005-03.com.max:01."
+    s = "iqn.1994-05.com.rhel:01."
     m = md5.md5()
     u = os.uname()
     for i in u:
@@ -182,249 +68,81 @@ def randomIname():
         s += dig[random.randrange(0, 32)]
     return s
 
+def stabilize(intf = None):
+    # Wait for udev to create the devices for the just added disks
+    if intf:
+        w = intf.waitWindow(_("Scanning iSCSI nodes"),
+                            _("Scanning iSCSI nodes"))
+    time.sleep(2)
+
+    # ensure we have device nodes for our partitions
+    isys.flushDriveDict()
+    iutil.makeDriveDeviceNodes()
+
+    if intf:
+        w.pop()
+
 class iscsi(object):
     def __init__(self):
-        self.fwinfo = self._queryFirmware()
-        self.targets = []
+        self.nodes = []
         self._initiator = ""
         self.initiatorSet = False
-        self.oldInitiatorFile = None
-        self.iscsidStarted = False
+        self.started = False
 
-        if self.fwinfo and self.fwinfo.has_key("iface.initiatorname"):
-            self._initiator = self.fwinfo["iface.initiatorname"]
-            self.initiatorSet = True
+        if flags.ibft:
+            try:
+                initiatorname = libiscsi.get_firmware_initiator_name()
+                self._initiator = initiatorname
+                self.initiatorSet = True
+            except:
+                pass
 
     def _getInitiator(self):
         if self._initiator != "":
             return self._initiator
 
-        if self.fwinfo and self.fwinfo.has_key("iface.initiatorname"):
-            return self.fwinfo["iface.initiatorname"]
-        else:
-            return randomIname()
+        return randomIname()
 
     def _setInitiator(self, val):
-        if self._initiator != "" and val != self._initiator:
+        if self.initiatorSet and val != self._initiator:
             raise ValueError, "Unable to change iSCSI initiator name once set"
         if len(val) == 0:
             raise ValueError, "Must provide a non-zero length string"
         self._initiator = val
-        self.initiatorSet = True
 
     initiator = property(_getInitiator, _setInitiator)
 
-    def _queryFirmware(self):
-        # Example:
-        # [root@elm3b87 ~]# iscsiadm -m fw
-        # iface.initiatorname = iqn.2007-05.com.ibm.beaverton.elm3b87:01
-        # iface.hwaddress = 00:14:5e:b3:8e:b2
-
-        # iface.bootproto = DHCP
-        # or
-        # iface.bootproto = STATIC
-        # iface.ipaddress = 192.168.32.72
-        # iface.subnet_mask = 255.255.252.0
-        # iface.gateway = 192.168.35.254
-
-        # node.name = iqn.1992-08.com.netapp:sn.84183797
-        # node.conn[0].address = 9.47.67.152
-        # node.conn[0].port = 3260
-
-        find_iscsi_files()
-
-        if not has_iscsi():
+    def _startIBFT(self, intf = None):
+        if not flags.ibft:
             return
-
-        retval = {}
-
-        argv = [ "-m", "fw" ]
-        log.debug("queryFirmware: ISCSIADM is %s" % (ISCSIADM,))
-        result = iutil.execWithCapture(ISCSIADM, argv)
-        result = result.strip()
-
-        if len(result) == 0 \
-                or result[0].find("iscsiadm -") != -1 \
-                or result[0].find("iscsiadm: ") != -1:
-            log.debug("queryFirmware: iscsiadm %s returns bad output: %s" %
-                (argv,result))
-
-            # Try querying the node records instead
-            argv = [ "-m", "node", "-o", "show", "-S" ]
-            result = iutil.execWithCapture(ISCSIADM, argv)
-
-            if len(result) == 0 \
-                    or result[0].find("iscsiadm -") != -1 \
-                    or result[0].find("iscsiadm: ") != -1:
-                log.debug("queryFirmware: iscsiadm %s returns bad output: %s" %
-                    (argv,result))
-                return retval
-
-        for line in result.split("\n"):
-            SPLIT = " = "
-            idx = line.find(SPLIT)
-            if idx != -1:
-                lhs = line[:idx]
-                rhs = line[idx+len(SPLIT):]
-                retval[lhs] = rhs
-
-        return retval
-
-    def _startIscsiDaemon(self):
-        psout = iutil.execWithCapture("/usr/bin/pidof", ["iscsid"])
-        if psout.strip() == "":
-            log.info("iSCSI startup")
-            iutil.execWithRedirect(ISCSID, [],
-                                   stdout="/dev/tty5", stderr="/dev/tty5")
-            self.iscsidStarted = True
-            time.sleep(2)
-
-    def _stopIscsiDaemon(self):
-        result = iutil.execWithCapture(ISCSIADM, ["-k", "0"])
-        result.strip()
-        if result == "":
-            return
-
-        psout = iutil.execWithCapture("/usr/bin/pidof", ["iscsid"])
-        if psout.strip() != "":
-            log.info("iSCSI shutdown")
-            for t in self.targets:
-                t.logout()
-
-            for pidstr in psout.split():
-                pid = string.atoi(pidstr)
-                log.info("killing %s %d" % (ISCSID, pid))
-
-                os.kill(pid, signal.SIGKILL)
-
-            self.iscsidStarted = False
-
-    def shutdown(self):
-        if not has_iscsi():
-            return
-
-        if flags.test:
-            if self.oldInitiatorFile != None:
-                f = open(INITIATOR_FILE, "w")
-                for line in self.oldInitiatorFile:
-                    f.write(line)
-                f.close ()
-                self.oldInitiatorFile = None
-        self._stopIscsiDaemon()
-
-    def updateIscsidConf(self, values):
-        oldIscsidFile = []
-        try:
-            f = open(ISCSID_CONF, "r")
-            oldIscsidFile = f.readlines()
-            f.close()
-        except IOError, x:
-            if x.errno != errno.ENOENT:
-                raise RuntimeError, "Cannot open %s for read." % (ISCSID_CONF,)
 
         try:
-            f = open(ISCSID_CONF, "w")
+            found_nodes = libiscsi.discover_firmware()
         except:
-            raise RuntimeError, "Cannot open %s for write." % (ISCSID_CONF,)
+            # an exception here means there is no ibft firmware, just return
+            return
 
-        lines = {}
-        for line in oldIscsidFile:
-            line = line.strip()
-            (k,v) = line.split('=')
-            k = k.strip()
-            v = v.strip()
+        for node in found_nodes:
+            try:
+                node.login()
+                self.nodes.append(node)
+            except:
+                # FIXME, what to do when we cannot log in to a firmware
+                # provided node ??
+                pass
 
-        for k,v in values.items():
-            commentK = '#%s' % (k,)
-            if lines.has_key(commentK):
-                del lines[commentK]
-            lines[k] = v
-
-        for k,v in lines.items():
-            f.write("%s = %s\n" % (k, v))
-        f.close()
-
-    def loginToDefaultDrive(self):
-        find_iscsi_files()
-
-        argv = [ "-m", "fw" ]
-        log.debug("iscsiadm %s" % (string.join(argv),))
-        result = iutil.execWithCapture(ISCSIADM, argv)
-        log.debug("iscsiadm result: %s" % (result,))
-
-        result = result.strip()
-        result = string.split(result, '\n')
-        results = []
-        n = -1
-
-        in_record = False
-        for x in range(0, len(result)):
-            line = result[x]
-            if line == '# BEGIN RECORD':
-                n += 1
-                results.append({})
-                in_record = True
-                continue
-            elif line == '# END RECORD':
-                in_record = False
-                continue
-            elif in_record:
-                try:
-                    (k,v) = line.split(' = ')
-                    results[n][k] = v
-                except ValueError:
-                    pass
-
-        for n in range(0, len(results)):
-            record = results[n]
-            replacements = {}
-            for k,v in record.items():
-                if '[0]' in k:
-                    replacements[k] = k.replace('[0]','[%s]' % (n,))
-            for k0,k1 in replacements.items():
-                v = record[k0]
-                del record[k0]
-                record[k1] = v
-
-            self.updateIscsidConf(record)
-
-            if record.has_key('node.session.auth.username'):
-                username = record['node.session.auth.username']
-            else:
-                username = None
-
-            if record.has_key('node.session.auth.password'):
-                password = record['node.session.auth.password']
-            else:
-                password = None
-
-            t = iscsiTarget(ipaddr=record['node.conn[%s].address' % (n,)],
-                            port=record['node.conn[%s].port' % (n,)],
-                            user=username,
-                            pw=password,
-                            discover = False)
-            self.targets.append(t)
-
-    def startIBFT(self):
-        # If there is a default drive in the iSCSI configuration, then
-        # automatically attach to it. Do this before testing the initiator
-        # name, because it is provided by the iBFT too
-
-        if flags.ibft:
-            self.loginToDefaultDrive()
+        stabilize(intf)
 
     def startup(self, intf = None):
+        if self.started:
+            return
+
         if not has_iscsi():
             return
 
-        if not self.initiatorSet:
+        if self._initiator == "":
             log.info("no initiator set")
             return
-        if flags.test:
-            if os.access(INITIATOR_FILE, os.R_OK):
-                f = open(INITIATOR_FILE, "r")
-                self.oldInitiatorFile = f.readlines()
-                f.close()
 
         if intf:
             w = intf.waitWindow(_("Initializing iSCSI initiator"),
@@ -439,129 +157,94 @@ class iscsi(object):
         fd = os.open(INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
         os.write(fd, "InitiatorName=%s\n" %(self.initiator))
         os.close(fd)
+        self.initiatorSet = True
 
-        if not os.path.isdir("/var/lib/iscsi"):
-            os.makedirs("/var/lib/iscsi", 0660)
         for dir in ['ifaces','isns','nodes','send_targets','slp','static']:
             fulldir = "/var/lib/iscsi/%s" % (dir,)
             if not os.path.isdir(fulldir):
-                os.makedirs(fulldir, 0660)
+                os.makedirs(fulldir, 0755)
 
-        self._startIscsiDaemon()
-        self.startIBFT()
-
-        for t in self.targets:
-            if t.doDiscovery:
-                if not t.discover():
-                    continue
-            if t.doLogin:
-                t.login()
+        log.info("iSCSI startup")
+        iutil.execWithRedirect(ISCSID, [],
+                               stdout="/dev/tty5", stderr="/dev/tty5")
+        time.sleep(1)
 
         if intf:
             w.pop()
 
+        self._startIBFT(intf)
+        self.started = True
+
     def addTarget(self, ipaddr, port="3260", user=None, pw=None,
                   user_in=None, pw_in=None, intf=None):
-        if not self.iscsidStarted:
-            self.startup(intf)
-            if not self.iscsidStarted:
-                # can't start for some reason.... just fallback I guess
-                return
+        authinfo = None
+        found = 0
+        logged_in = 0
 
-        commentUser = '#'
-        commentUser_in = '#'
+        if not has_iscsi():
+            raise IOError, _("iSCSI not available")
+        if self._initiator == "":
+            raise ValueError, _("No initiator name set")
 
-        if user is not None or pw is not None:
-            commentUser = ''
-            if user is None:
-                raise ValueError, "user is required"
-            if pw is None:
-                raise ValueError, "pw is required"
+        if user or pw or user_in or pw_in:
+            # Note may raise a ValueError
+            authinfo = libiscsi.chapAuthInfo(username=user, password=pw,
+                                             reverse_username=user_in,
+                                             reverse_password=pw_in)
+        self.startup(intf)
 
-        if user_in is not None or pw_in is not None:
-            commentUser_in = ''
-            if user_in is None:
-                raise ValueError, "user_in is required"
-            if pw_in is None:
-                raise ValueError, "pw_in is required"
+        # Note may raise an IOError
+        found_nodes = libiscsi.discover_sendtargets(address=ipaddr,
+                                                    port=int(port),
+                                                    authinfo=authinfo)
+        if found_nodes == None:
+            raise IOError, _("No iSCSI nodes discovered")
 
-        # If either a user/pw pair was specified or a user_in/pw_in was
-        # specified, then CHAP is specified.
-        if commentUser == '' or commentUser_in == '':
-            commentChap = ''
-        else:
-            commentChap = '#'
+        if intf:
+            w = intf.waitWindow(_("Logging in to iSCSI nodes"),
+                                _("Logging in to iSCSI nodes"))
 
+        for node in found_nodes:
+            # skip nodes we already have
+            if node in self.nodes:
+                continue
 
-        oldIscsidFile = []
-        try:
-            f = open(ISCSID_CONF, "r")
-            oldIscsidFile = f.readlines()
-            f.close()
-        except IOError, x:
-            if x.errno != errno.ENOENT:
-                raise RuntimeError, "Cannot open %s for read." % (ISCSID_CONF,)
+            found = found + 1
+            try:
+                if (authinfo):
+                    node.setAuth(authinfo)
+                node.login()
+                self.nodes.append(node)
+                logged_in = logged_in + 1
+            except:
+                # some nodes may require different credentials
+                pass
 
-        try:
-            f = open(ISCSID_CONF, "w")
-        except:
-            raise RuntimeError, "Cannot open %s for write." % (ISCSID_CONF,)
+        if intf:
+            w.pop()
 
-        vals = {
-            "node.session.auth.authmethod = ": [commentChap, "CHAP"],
-            "node.session.auth.username = ": [commentUser, user],
-            "node.session.auth.password = ": [commentUser, pw],
-            "node.session.auth.username_in = ": [commentUser_in, user_in],
-            "node.session.auth.password_in = ": [commentUser_in, pw_in],
-            "discovery.sendtargets.auth.authmethod = ": [commentChap, "CHAP"],
-            "discovery.sendtargets.auth.username = ": [commentUser, user],
-            "discovery.sendtargets.auth.password = ": [commentUser, pw],
-            "discovery.sendtargets.auth.username_in = ":
-                [commentUser_in, user_in],
-            "discovery.sendtargets.auth.password_in = ":
-                [commentUser_in, pw_in],
-            }
+        if found == 0:
+            raise IOError, _("No new iSCSI nodes discovered")
 
-        for line in oldIscsidFile:
-            s  = line.strip()
-            # grab the cr/lf/cr+lf
-            nl = line[line.find(s)+len(s):]
-            found = False
-            for (k, (c, v)) in vals.items():
-                if line.find(k) != -1:
-                    f.write("%s%s%s%s" % (c, k, v, nl))
-                    found=True
-                    del vals[k]
-                    break
-            if not found:
-                f.write(line)
+        if logged_in == 0:
+            raise IOError, _("Could not log in to any of the discovered nodes")
 
-        for (k, (c, v)) in vals.items():
-            f.write("%s%s%s\n" % (c, k, v))
-        f.close ()
-
-        t = iscsiTarget(ipaddr, port, user, pw, user_in, pw_in)
-        if not t.discover():
-            return
-        if not t.login():
-            return
-        self.targets.append(t)
-        return
+        stabilize(intf)
 
     def writeKS(self, f):
         if not self.initiatorSet:
             return
         f.write("iscsiname %s\n" %(self.initiator,))
-        for t in self.targets:
-            f.write("iscsi --ipaddr %s --port %s" %(t.ipaddr, t.port))
-            if t.user:
-                f.write(" --user %s" %(t.user,))
-            if t.password:
-                f.write(" --password %s" %(t.password,))
-            if t.user_in:
-                f.write(" --reverse-user %s" % (t.user_in,))
-            if t.password_in:
-                f.write(" --reverse-password %s" % (t.password_in,))
+        for n in self.nodes:
+            f.write("iscsi --ipaddr %s --port %s" %(n.address, n.port))
+            auth = n.getAuth()
+            if auth:
+                f.write(" --user %s" % auth.username)
+                f.write(" --password %s" % auth.password)
+                if len(auth.reverse_username):
+                    f.write(" --reverse-user %s" % auth.reverse_username)
+                if len(auth.reverse_password):
+                    f.write(" --reverse-password %s" % auth.reverse_password)
             f.write("\n")
 
     def write(self, instPath):
@@ -576,10 +259,10 @@ class iscsi(object):
             os.close(fd)
 
             # copy "db" files.  *sigh*
-            if not os.path.isdir(instPath + "/var/lib/iscsi"):
-                os.makedirs(instPath + "/var/lib/iscsi", 0755)
-            for d in ("/var/lib/iscsi/nodes", "/var/lib/iscsi/send_targets"):
-                if os.path.isdir(d):
-                    shutil.copytree(d, instPath + d)
+            if os.path.isdir(instPath + "/var/lib/iscsi"):
+                shutil.rmtree(instPath + "/var/lib/iscsi")
+            if os.path.isdir("/var/lib/iscsi"):
+                shutil.copytree("/var/lib/iscsi", instPath + "/var/lib/iscsi",
+                                symlinks=True)
 
 # vim:tw=78:ts=4:et:sw=4

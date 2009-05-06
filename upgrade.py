@@ -138,6 +138,9 @@ def findExistingRoots(anaconda, upgradeany = 0):
             return [(anaconda.rootPath, 'ext2', "")]
         return []
 
+    # make ibft configured iscsi disks available
+    anaconda.id.iscsi.startup(anaconda.intf)
+
     anaconda.id.diskset.openDevices()
     anaconda.id.partitions.getEncryptedDevices(anaconda.id.diskset)
     
