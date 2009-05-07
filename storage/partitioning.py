@@ -256,6 +256,13 @@ def shouldClear(part, clearPartType, clearPartDisks=None, protectedPartitions=No
     if clearPartType == CLEARPART_TYPE_NONE:
         return False
 
+    # Never clear the special first partition on a Mac disk label, as that
+    # holds the partition table itself.
+    if part.disk.partedDisk.type == "mac" and \
+       part.partedPartition.number == 1 and \
+       part.partedPartition.name == "Apple":
+        return False
+
     # If we got a list of disks to clear, make sure this one's on it
     if clearPartDisks and part.disk.name not in clearPartDisks:
         return False
