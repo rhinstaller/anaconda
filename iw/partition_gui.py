@@ -180,11 +180,18 @@ class DiskStripeSlice:
     def __init__(self, parent, partition, treeView, editCB):
         self.text = None
         self.partition = partition
-        self.partedPartition = partition.partedPartition
         self.parent = parent
         self.treeView = treeView
         self.editCB = editCB
         pgroup = parent.getGroup()
+
+        # Slices representing freespace are passed a pyparted object as
+        # partition, not an anaconda storage object.  Therefore, they do
+        # not have a partedPartition attribute.
+        if self.partition and hasattr(self.partition, "partedPartition"):
+            self.partedPartition = self.partition.partedPartition
+        else:
+            self.partedPartition = self.partition
 
         self.group = pgroup.add(gnomecanvas.CanvasGroup)
         self.box = self.group.add(gnomecanvas.CanvasRect)
@@ -816,7 +823,13 @@ class PartitionWindow(InstallWindow):
                         part = part.nextPartition()
                         continue
 
-                stripe.add(device)
+                # If this is a freespace "partition", there's no device so
+                # don't add it.
+                if device:
+                    stripe.add(device)
+                else:
+                    stripe.add(part)
+
                 if device and device.isExtended:
                     if extendedParent:
                         raise RuntimeError, ("can't handle more than "
