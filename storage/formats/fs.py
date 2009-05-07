@@ -765,6 +765,28 @@ class Ext2FS(FS):
     _migratefs = "tune2fs"
     _defaultMigrateOptions = ["-j"]
 
+    def doMigrate(self, intf=None):
+        FS.doMigrate(self, intf=intf)
+        self.tuneFS()
+
+    def doFormat(self, *args, **kwargs):
+        FS.doFormat(self, *args, **kwargs)
+        self.tuneFS()
+
+    def tuneFS(self):
+        if not isys.ext2HasJournal(self.device):
+            # only do this if there's a journal
+            return
+
+        try:
+            rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
+                                        ["-c0", "-i0",
+                                         "-ouser_xattr,acl", self.device],
+                                        stdout = "/dev/tty5",
+                                        stderr = "/dev/tty5")
+        except Exception as e:
+            log.error("failed to run tune2fs on %s: %s" % (self.device, e))
+
     @property
     def minSize(self):
         """ Minimum size for this filesystem in MB. """
