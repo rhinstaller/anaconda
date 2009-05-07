@@ -89,7 +89,7 @@ class InstallInterface:
 
         while 1:
             time.sleep(5)
-        
+
     def messageWindow(self, title, text, type="ok", default = None,
                       custom_icon = None, custom_buttons = []):
         if type == "ok":
@@ -103,6 +103,12 @@ class InstallInterface:
             # don't exit
             while 1:
                 time.sleep(5)
+
+    def detailedMessageWindow(self, title, text, longText=None, type="ok",
+                              default=None, custom_buttons=None,
+                              custom_icon=None):
+        self.messageWindow(title, text, type=type, default=default,
+                           custom_buttons=custom_buttons, custom_icon=custom_icon)
 
     def passphraseEntryWindow(self, device):
         print(_("Can't have a question in command line mode!"))
