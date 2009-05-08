@@ -193,7 +193,7 @@ updates:
 			installclasses|storage|booty) \
 				rm -rf updates-img/$$dn ; \
 				cp -a $$dn updates-img ; \
-				find updates-img/$$dn -type f | grep Makefile | xargs rm -f ;; \
+				find updates-img/$$dn -type f | egrep 'Makefile|\.pyc' | xargs rm -f ;; \
 			loader|po|scripts|command-stubs|tests|bootdisk|docs|fonts|utils|gptsync) \
 				continue ;; \
 			*) \
