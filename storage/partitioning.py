@@ -555,9 +555,16 @@ def doPartitioning(storage, exclusiveDisks=None):
     for disk in disks:
         disk.setup()
 
-    partitions = storage.partitions
-    for part in partitions:
+    partitions = storage.partitions[:]
+    for part in storage.partitions:
         part.req_bootable = False
+
+        if part.exists or storage.deviceImmutable(part):
+            # if the partition is preexisting or part of a complex device
+            # then we shouldn't modify it
+            partitions.remove(part)
+            continue
+
         if not part.exists:
             # start over with flexible-size requests
             part.req_size = part.req_base_size
@@ -577,7 +584,7 @@ def doPartitioning(storage, exclusiveDisks=None):
     # The number and thus the name of partitions may have changed now,
     # allocatePartitions() takes care of this for new partitions, but not
     # for pre-existing ones, so we update the name of all partitions here
-    for part in partitions:
+    for part in storage.partitions:
         # needed because of XXX hack below
         if part.isExtended:
             continue
