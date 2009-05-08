@@ -249,7 +249,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
              int justProbe) {
     int i;
     char ** modList;
-    char modules[1024];
+    char *modules = NULL;
     
     /* we always want to try to find out about pcmcia controllers even
      * if using noprobe */
@@ -268,18 +268,39 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
                 printf("%s\n", modList[i]);
         } else if (modList) {
             int probeVirtioAgain = 0;
+            int len = 0;
+
+            /* compute length of colon-separated string */
+            for (i = 0; modList[i]; i++) {
+                if (i) {
+                    len += 1;    /* ':' between each module name */
+                }
+
+                len += strlen(modList[i]);
+            }
+
+            len += 1;            /* '\0' at the end */
+
+            if ((modules = malloc(len)) == NULL) {
+                logMessage(ERROR, "error building modules string");
+                return 0;
+            }
 
             *modules = '\0';
-            
+
             for (i = 0; modList[i]; i++) {
-                if (i) strcat(modules, ":");
-                strcat(modules, modList[i]);
+                if (i) {
+                    modules = strcat(modules, ":");
+                }
+
+                modules = strcat(modules, modList[i]);
 
                 if (!strcmp(modList[i], "virtio_pci"))
                     probeVirtioAgain = 1;
             }
             
             mlLoadModuleSet(modules, modLoaded, modDeps, modInfo);
+            free(modules);
 
             if (probeVirtioAgain)
                 probeVirtio(modInfo, modLoaded, modDeps);
