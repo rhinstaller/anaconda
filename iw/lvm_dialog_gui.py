@@ -721,7 +721,7 @@ class VolumeGroupEditor:
 
                     templv.format = format
                 elif format.mountable:
-                    templv.format.mountpoint = mountpoint
+                    format.mountpoint = mountpoint
 
                 if self.fsoptionsDict.has_key("migratecb") and \
                    self.fsoptionsDict["migratecb"].get_active():
