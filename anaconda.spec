@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.50
+Version: 11.5.0.51
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu May 07 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.51-1
+- Don't clear the first partition on any disk with a Mac disk label
+  (#492154). (clumens)
+- Add detailedMessageWindow to the cmdline class (#499700). (clumens)
+- Don't traceback when a freespace partition is present (#499662). (clumens)
+- Do nomodeset when doing xdriver=vesa (ajax)
+- Fix calculation of smallest PV's size in the lvm dialog. (#493753)
+  (dlehman)
+- Fix KeyError when partition numbers change during allocation. (#497911)
+  (dlehman)
+- Update EFI CD booting code in mk-images (pjones)
+
 * Wed May 06 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.50-1
 - Use storage objects throughout the partition editing UI code (#491806,
   #496002). (clumens)
