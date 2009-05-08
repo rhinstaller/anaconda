@@ -1574,7 +1574,7 @@ class FSSet(object):
             if "noauto" in options.split(","):
                 continue
 
-            if device.format.type == "bind":
+            if device.format.type == "bind" and device != self.dev:
                 # set up the DirectoryDevice's parents now that they are
                 # accessible
                 #
