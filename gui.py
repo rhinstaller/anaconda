@@ -1489,7 +1489,6 @@ class InstallControlWindow:
     def createWidgets (self):
         self.window.set_title(_("%s Installer") %(productName,))
         
-        # FIXME: doesn't handle the lowres case
         i = self.mainxml.get_widget("headerImage")        
         p = readImageFromFile("anaconda_header.png",
                               dither = False, image = i)

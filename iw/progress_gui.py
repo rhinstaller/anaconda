@@ -105,9 +105,6 @@ class InstallProgressWindow (InstallWindow):
         else:
             files = ["progress_first.png"]
 
-        if self.intf.runres != '800x600':
-            files = ["progress_first-lowres.png"]
-
         return files
         
 

@@ -212,7 +212,6 @@ def parseOptions():
 
     # Display
     op.add_option("--headless", dest="isHeadless", action="store_true", default=False)
-    op.add_option("--lowres", dest="runres", action="store_const", const="640x480")
     op.add_option("--nofb")
     op.add_option("--resolution", action="callback", callback=resolution_cb, dest="runres",
                   default="800x600", nargs=1, type="string")
