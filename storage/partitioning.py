@@ -253,7 +253,7 @@ def shouldClear(part, clearPartType, clearPartDisks=None, protectedPartitions=No
     if not isinstance(part, PartitionDevice):
         return False
 
-    if clearPartType == CLEARPART_TYPE_NONE:
+    if not clearPartType in [CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL]:
         return False
 
     # Never clear the special first partition on a Mac disk label, as that
