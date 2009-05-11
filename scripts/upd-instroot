@@ -158,7 +158,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     dejavu-sans-mono-fonts device-mapper
     device-mapper-libs dhclient dhcpv6-client dmapi dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme
-    elfutils-libelf expat firstboot fontconfig fonts-ISO8859-2 freetype gail
+    elfutils-libelf expat firstboot fontconfig fonts-ISO8859-2 freetype gail gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
     gnome-python2-gtkhtml2 gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal
     hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
@@ -459,6 +459,7 @@ usr/$LIBDIR/xserver/SecurityPolicy
 usr/bin/Xorg
 usr/bin/Xvnc
 usr/bin/chattr*
+usr/bin/gdb-gdbserver
 usr/bin/gdialog
 usr/bin/gdk-pixbuf-query-loaders*
 usr/bin/gtk-query*
