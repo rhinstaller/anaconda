@@ -1182,10 +1182,11 @@ def fullCommandPass(anaconda, file, earlyKS):
     anaconda.id.storage.ignoredDisks = earlyKS.ignoredisk.ignoredisk
     anaconda.id.storage.exclusiveDisks = earlyKS.ignoredisk.onlyuse
 
-    anaconda.id.storage.clearPartType = earlyKS.clearpart.type
-    anaconda.id.storage.clearPartDisks = earlyKS.clearpart.drives
-    if earlyKS.clearpart.initAll:
-        anaconda.id.storage.reinitializeDisks = earlyKS.clearpart.initAll
+    if earlyKS.clearpart.type is not None:
+        anaconda.id.storage.clearPartType = earlyKS.clearpart.type
+        anaconda.id.storage.clearPartDisks = earlyKS.clearpart.drives
+        if earlyKS.clearpart.initAll:
+            anaconda.id.storage.reinitializeDisks = earlyKS.clearpart.initAll
 
     storage.storageInitialize(anaconda)
 
