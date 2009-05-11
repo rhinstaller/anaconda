@@ -712,6 +712,16 @@ class DiskDevice(StorageDevice):
                     else:
                         raise DeviceUserDeniedFormatError("User prefered to not format.")
 
+                # When the device has no partition table but it has a FS, it
+                # will be created with label type loop.  Treat the same as if
+                # the device had no label (cause it really doesn't).
+                if self.partedDisk.type == "loop":
+                    if initcb is not None and initcb():
+                        self.partedDisk = parted.freshDisk(device=self.partedDevice, \
+                                ty = platform.getPlatform(None).diskType)
+                    else:
+                        raise DeviceUserDeniedFormatError("User prefered to not format.")
+
         # We save the actual state of the disk here. Before the first
         # modification (addPartition or removePartition) to the partition
         # table we reset self.partedPartition to this state so we can
