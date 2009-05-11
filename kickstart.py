@@ -424,6 +424,15 @@ class LogVol(commands.logvol.F9_LogVol):
 
             devicetree.registerAction(ActionCreateFormat(device, format))
         else:
+            # If a previous device has claimed this mount point, delete the
+            # old one.
+            try:
+                if format.mountpoint:
+                    device = storage.fsset.mountpoints[format.mountpoint]
+                    storage.destroyDevice(device)
+            except KeyError:
+                pass
+
             request = storage.newLV(format=format,
                                     name=lvd.name,
                                     vg=vg,
@@ -663,6 +672,15 @@ class Partition(commands.partition.F9_Partition):
 
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
         else:
+            # If a previous device has claimed this mount point, delete the
+            # old one.
+            try:
+                if pd.mountpoint:
+                    device = storage.fsset.mountpoints[pd.mountpoint]
+                    storage.destroyDevice(device)
+            except KeyError:
+                pass
+
             request = storage.newPartition(**kwargs)
 
             # FIXME: no way to specify an fsprofile right now
@@ -790,6 +808,15 @@ class Raid(commands.raid.F9_Raid):
 
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
         else:
+            # If a previous device has claimed this mount point, delete the
+            # old one.
+            try:
+                if rd.mountpoint:
+                    device = storage.fsset.mountpoints[rd.mountpoint]
+                    storage.destroyDevice(device)
+            except KeyError:
+                pass
+
             request = storage.newMDArray(**kwargs)
 
             # FIXME: no way to specify an fsprofile right now
