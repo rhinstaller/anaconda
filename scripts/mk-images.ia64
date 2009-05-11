@@ -80,6 +80,7 @@ prepareBootImage() {
 	dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_FILENAME 2>/dev/null
 	mkdosfs -C $MBD_FILENAME $BOOTDISKSIZE >/dev/null
 	mount -o loop -t vfat $MBD_FILENAME $MBD_BOOTTREE
+	[ $? = 0 ] || exit 1
 	cp -R $MBD_BOOTTREE_TMP/* $MBD_BOOTTREE
 }
 

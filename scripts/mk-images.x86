@@ -103,6 +103,7 @@ makeBootImages() {
     mkdosfs $TOPDESTPATH/images/diskboot.img
     $SYSLINUX $TOPDESTPATH/images/diskboot.img
     mount -o loop $TOPDESTPATH/images/diskboot.img $TOPDESTPATH/images/fobpath
+    [ $? = 0 ] || exit 1
     cp -r $TOPDESTPATH/isolinux/* $TOPDESTPATH/images/fobpath/
     grep -v local $TOPDESTPATH/images/fobpath/isolinux.cfg > $TOPDESTPATH/images/fobpath/syslinux.cfg
     rm -f $TOPDESTPATH/images/fobpath/isolinux.cfg
