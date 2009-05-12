@@ -471,7 +471,7 @@ class Storage(object):
 
         dests = []
 
-        for part in self.disks:
+        for disk in self.disks:
             if not disk.removable and \
                     disk.format is not None  and \
                     disk.format.mountable:
