@@ -204,6 +204,7 @@ class BootImages:
         import parted
         retval = []
         foundDos = False
+        foundAppleBootstrap = False
 
         for part in [p for p in storage.partitions if p.exists]:
             # Skip extended, metadata, freespace, etc.
@@ -224,9 +225,11 @@ class BootImages:
                 # maybe questionable, but the first ntfs or fat is likely to
                 # be the correct one to boot with XP using ntfs
                 foundDos = True
-            elif type in ["hfs", "hfs+"] and rhpl.getPPCMachine() == "PMac":
-                if part.bootable:
-                    retval.append((part, type))
+            elif type == "appleboot" and rhpl.getPPCMachine() == "PMac" and part.bootable:
+                foundAppleBootstrap = True
+            elif type in ["hfs", "hfs+"] and foundAppleBootstrap:
+                # questionable for same reason as above, but on mac this time
+                retval.append((part, type))
 
         rootDevice = storage.fsset.rootDevice
 
