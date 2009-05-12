@@ -25,7 +25,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define libnlver 1.0
 %define libselinuxver 1.6
 %define mkinitrdver 5.1.2-1
-%define pykickstartver 1.48
+%define pykickstartver 1.53
 %define rpmpythonver 4.2-0.61
 %define slangver 2.0.6-2
 %define yumver 2.9.2

@@ -543,9 +543,9 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
-class Partition(commands.partition.F9_Partition):
+class Partition(commands.partition.F11_Partition):
     def parse(self, args):
-        pd = commands.partition.F9_Partition.parse(self, args)
+        pd = commands.partition.F11_Partition.parse(self, args)
 
         storage = self.handler.id.storage
         devicetree = storage.devicetree
