@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.173
+Version: 11.1.2.174
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,28 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed May 13 2009 Joel Granados <jgranado@redhat.com> 11.1.2.174-1
+- Include valid timezones in stage 2 (rvykydal).
+  Resolves: rhbz#481617
+- Fix traceback in timezone setting (kickstart interactive text mode) (rvykydal).
+  Resolves: rhbz#481617
+- Compute size of modules buffer in loader (dcantrell).
+  Resolves: rhbz#484092
+- Include /sbin/ipcalc for IP address validation (dcantrell).
+  Resolves: rhbz#460579
+- Require latest libdhcp (dcantrell).
+  Resolves rhbz#444919
+- Make buildinstall error out if mount of loop device fails (rvykydal).
+  Resolves: rhbz#472552
+- Update Anaconda with new description for Emulex lpfc driver (msivak).
+  Resolves: rhbz#498511
+- Get the libfipscheck from correct location (library was rebased) (msivak)
+  Resolves: rhbz#498992
+- Add support for LSI MPT Fusion SAS 2.0 Device Driver (msivak).
+  Resolves: rhbz#475671
+- IBM improvements to linuxrc.s390 (dcantrell).
+  Resolves: rhbz#475350
+
 * Wed May 6 2009 Joel Granados <jgranado@redhat.com> 11.1.2.173-1
 - Allow bootloader on mbr when /boot is mdraid1 (hansg).
   Resolves: rhbz#475973
