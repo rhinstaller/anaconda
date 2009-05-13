@@ -59,12 +59,12 @@ def setupRepo(anaconda, repo):
             else:
                 repo.groups_added = True
                 log.info("added group information for repository %s" %(repo.name))
-    except yum.Errors.RepoError, e:
+    except (IOError, yum.Errors.RepoError) as e:
         anaconda.intf.messageWindow(_("Error"),
               _("Unable to read package metadata from repository.  "
                 "This may be due to a missing repodata directory.  "
                 "Please ensure that your repository has been "
-                "correctly generated.\n\n%s" %(e,)),
+                "correctly generated.\n\n%s" % str(e)),
                                 type="ok", custom_icon="error")
         anaconda.backend.ayum.repos.delete(repo.id)
         return False
