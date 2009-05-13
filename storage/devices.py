@@ -2436,7 +2436,7 @@ class MDRaidArrayDevice(StorageDevice):
         if os.access(state_file, os.R_OK):
             state = open(state_file).read().strip()
             log.debug("%s state is %s" % (self.name, state))
-            if state in ("clean", "active"):
+            if state in ("clean", "active", "active-idle"):
                 status = True
 
         return status
