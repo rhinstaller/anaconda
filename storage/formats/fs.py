@@ -672,8 +672,7 @@ class FS(DeviceFormat):
 
     options = property(_getOptions, _setOptions)
 
-    @property
-    def migratable(self):
+    def _isMigratable(self):
         """ Can filesystems of this type be migrated? """
         return bool(self._migratable and self.migratefsProg and
                     filter(lambda d: os.access("%s/%s"
@@ -681,6 +680,8 @@ class FS(DeviceFormat):
                                                os.X_OK),
                            os.environ["PATH"].split(":")) and
                     self.migrationTarget)
+
+    migratable = property(_isMigratable)
 
     def _setMigrate(self, migrate):
         if not migrate:
@@ -837,11 +838,10 @@ class Ext3FS(Ext2FS):
     _modules = ["ext3"]
     _defaultMigrateOptions = ["-O", "extents"]
 
-    @property
-    def migratable(self):
+    def _isMigratable(self):
         """ Can filesystems of this type be migrated? """
         return (flags.cmdline.has_key("ext4migrate") and
-                Ext2FS.migratable)
+                Ext2FS._isMigratable(self))
 
 register_device_format(Ext3FS)
 
