@@ -5,32 +5,33 @@
 # translation of th.po to Thai
 # Thai translation of PACKAGE.
 # Copyright (C) 2002,2003, 2004 Free Software Foundation, Inc.
+#
 # Kamthorn Krairaksa <kamthorn_k@yahoo.com>, 2002, 2004.
 # Supphachoke Suntiwichaya <mrchoke@opentle.org>, 2003, 2004.
 # Surichat Sumrit <nook@opentle.org>, 2004.
-#
+# Manatsawin Hanmongkolchai <manatsawin@gmail.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2005-12-31 18:44+0700\n"
-"Last-Translator: Vorasilp Kijchavengkul <vorasilp@gmail.com>\n"
-"Language-Team: Thai <L10N@OpenTLE.org>\n"
+"PO-Revision-Date: 2009-05-13 21:17+0700\n"
+"Last-Translator: Manatsawin Hanmongkolchai <manatsawin@gmail.com>\n"
+"Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: Lokalize 0.3\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
-#: ../anaconda:266 ../anaconda:312
-#, fuzzy, python-format
+#: ../anaconda:266 ../anaconda:312, python-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr "เกิดข้อผิดพลาดในการเปิดไฟล์คิกสตาร์ท %s: %s"
+msgstr "เกิดข้อผิดพลาดในการประมวลผลบรรทัด %%ksappend: %s"
 
 #: ../anaconda:269 ../anaconda:315
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "เกิดข้อผิดพลาดที่ไม่รู้จักในการประมวลผลบรรทัด %%ksappend: %s"
 
 #: ../anaconda:283 ../anaconda:327 ../cmdline.py:86 ../gui.py:1251
 #: ../text.py:543
@@ -46,20 +47,21 @@ msgstr ""
 
 #: ../anaconda:449
 msgid "Press <enter> for a shell"
-msgstr ""
+msgstr "กด <enter> เพื่อเรียกเชลล์"
 
 #: ../anaconda:458
-#, fuzzy
 msgid "Fatal Error"
-msgstr "เกิดข้อผิดพลาด"
+msgstr "ข้อผิดพลาดร้ายแรง"
 
-#: ../anaconda:459
-#, fuzzy, python-format
+#: ../anaconda:459, python-format
 msgid ""
 "You do not have enough RAM to install %s on this machine.\n"
 "\n"
 "Press <return> to reboot your system.\n"
-msgstr "คุณไม่มีแรมมากพอที่จะติดตั้ง %s บนเครื่องนี้"
+msgstr ""
+"คุณไม่มีหน่วยความจำพอจะติดตั้ง %s ในเครื่องนี้\n"
+"\n"
+"กด <return> เพื่อเริ่มระบบใหม่\n"
 
 #: ../anaconda:464 ../rescue.py:285 ../rescue.py:311 ../rescue.py:324
 #: ../rescue.py:397 ../rescue.py:406 ../text.py:694
@@ -108,9 +110,8 @@ msgid "Starting graphical installation..."
 msgstr "เริ่มต้นการติดตั้งแบบกราฟิก"
 
 #: ../anaconda:823
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "คุณต้องการที่จะทำอะไร?"
+msgstr "คุณต้องการใช้ VNC หรือไม่?"
 
 #: ../anaconda:824
 msgid ""
@@ -118,6 +119,8 @@ msgid ""
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
+"โหมดข้อความมีตัวเลือกในการติดตั้งบางส่วน มันไม่อนุญาตให้คุณระบุโครงสร้างพาร์ติชั่นหรือเลือกแพคเกจเอง "
+"คุณต้องการใช้โหมด VNC ต่อไปหรือไม่?"
 
 #: ../anaconda:852
 msgid "Install class forcing text mode installation"
@@ -129,27 +132,23 @@ msgstr "การติดตั้งแบบกราฟิกไม่สา
 
 #: ../anaconda:879
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "ตัวแปร DISPLAY ไม่ได้กำหนดไว้ จะเริ่มโหมดข้อความ!"
 
 #: ../anaconda:1047
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "การตั้งค่า reipl สำเร็จ => รีบูต"
 
 #: ../anaconda:1050
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "การตั้งค่า reipl ล้มเหลว => หยุด"
 
-#: ../backend.py:144
-#, fuzzy, python-format
+#: ../backend.py:144, python-format
 msgid "Upgrading %s\n"
-msgstr ""
-"กำลังอัพเกรด %s แพ็กเกจ\n"
-"\n"
+msgstr "กำลังอัพเกรด %s\n"
 
-#: ../backend.py:146
-#, fuzzy, python-format
+#: ../backend.py:146, python-format
 msgid "Installing %s\n"
-msgstr "_ติดตั้ง %s ใหม่ทั้งหมด"
+msgstr "กำลังติดตั้ง %s\n"
 
 #: ../backend.py:166
 msgid "Copying File"
@@ -160,13 +159,12 @@ msgid "Transferring install image to hard drive..."
 msgstr "กำลังถ่ายโอนอิมเมจสำหรับติดตั้งไปที่ฮาร์ดไดรฟ์..."
 
 #: ../backend.py:177
-#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is probably due to bad media."
 msgstr ""
 "เกิดข้อผิดพลาดขณะที่กำลังถ่ายโอนอิมเมจสำหรับติดตั้งไปยังฮาร์ดไดรฟ์ของคุณ "
-"เป็นไปได้ว่าคุณไม่มีที่ว่างบนดิสก์"
+"เป้นไปได้ว่าสื่อที่คุณใช้ไม่สมบูรณ์"
 
 #: ../backend.py:181
 msgid ""
@@ -217,16 +215,15 @@ msgid "Warning"
 msgstr "ข้อความเตือน"
 
 #: ../bootloader.py:44
-#, fuzzy
 msgid ""
 "Your filesystems have already been activated.  You cannot go back past this "
 "point.\n"
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"รายการการแบ่งพาร์ทิชันที่คุณได้เลือกไว้ได้ถูกเริ่มใช้งานแล้ว "
-"คุณไม่สามารถย้อนกลับไปยังขั้นตอนการแก้ไขดิสก์ได้แล้ว "
-"คุณต้องการดำเนินการต่อในขั้นตอนการติดตั้งหรือไม่?"
+"ระบบแฟ้มของคุณได้เริ่มใช้งานแล้ว คุณไม่สามารถย้อนกลับไปก่อนจุดนี้ได้\n"
+"\n"
+"คุณต้องการติดตั้งต่อหรือไม่?"
 
 #: ../bootloader.py:48 ../exception.py:468 ../exception.py:485
 #: ../exception.py:508 ../exception.py:523 ../exception.py:548 ../gui.py:1256
@@ -238,9 +235,8 @@ msgstr ""
 #: ../yuminstall.py:1027 ../yuminstall.py:1052 ../yuminstall.py:1112
 #: ../yuminstall.py:1307 ../yuminstall.py:1344 ../storage/__init__.py:85
 #: ../storage/__init__.py:1508
-#, fuzzy
 msgid "_Exit installer"
-msgstr "ตัวติดตั้ง %s"
+msgstr "_ออกจากการติดตั้ง"
 
 #: ../bootloader.py:48 ../image.py:92 ../image.py:248 ../kickstart.py:1214
 #: ../kickstart.py:1253 ../partedUtils.py:988 ../upgrade.py:100
@@ -266,8 +262,7 @@ msgstr "การติดตั้งบูตโหลดเดอร์..."
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"ไม่มีแพ็กเกจของเคอร์เนลถูกติดตั้งอยู่บนระบบของคุณ การตั้งค่าของบูตโหลดเดอร์จะไม่ถูกเปลี่ยนแปลง"
+msgstr "ไม่มีแพ็กเกจของเคอร์เนลถูกติดตั้งอยู่บนระบบของคุณ การตั้งค่าของบูตโหลดเดอร์จะไม่ถูกเปลี่ยนแปลง"
 
 #: ../cmdline.py:55
 msgid "Completed"
@@ -282,23 +277,20 @@ msgid "Can't have a question in command line mode!"
 msgstr "ไม่สามารถถามคำถามขณะที่อยู่ในโหมดบรรทัดคำสั่งได้!"
 
 #: ../constants.py:74
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
 "เกิดข้อผิดพลาดที่ไม่สามารถจัดการได้ คล้ายจะเป็นบั๊ก กรุณาคัดลอกข้อความทั้งหมดที่แสดงนี้ "
-"และส่งรายงานบั๊กพร้อมรายละเอียดที่เกี่ยวข้องกับอนาคอนดาไปที่ http://bugzilla.redhat.com/"
-"bugzilla/"
+"และส่งรายงานบั๊ก"
 
 #: ../constants.py:80
 msgid " with the provider of this software."
-msgstr ""
+msgstr "กับผู้ให้บริการซอฟต์แวร์นี้ "
 
-#: ../constants.py:84
-#, fuzzy, python-format
+#: ../constants.py:84, python-format
 msgid " against anaconda at %s"
-msgstr "กำลังอ่านอนาคอนดาอัพเดต"
+msgstr "กับอนาคอนดาที่ %s"
 
 #: ../exception.py:391
 #, python-format
@@ -308,6 +300,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ไม่สามารถแจ้งบั๊กของคุณได้เนื่องจากมีข้อผิดพลาดต่อไปนี้ระหว่างติดต่อกับ bugzilla:\n"
+"\n"
+"%s"
 
 #: ../exception.py:394
 #, python-format
@@ -317,46 +312,44 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ไม่สามารถแจ้งบั๊กของคุณได้เนื่องจากมีข้อมูลที่ผิดในเขตข้อมูลต่างๆ โดยอาจจะเป็นบั๊กของอนาคอนดา:\n"
+"\n"
+"%s"
 
 #: ../exception.py:398
-#, fuzzy
 msgid "Unable To File Bug"
-msgstr "ไม่สามารถลบออกได้"
+msgstr "ไม่สามารถรายงานบั๊ก"
 
 #: ../exception.py:404
-#, fuzzy
 msgid "Bug Filing Not Supported"
-msgstr "ไม่สนับสนุน"
+msgstr "ไม่รองรับการรายงานบั๊ก"
 
 #: ../exception.py:405
 msgid ""
 "Your distribution does not provide a supported bug filing system, so you "
 "cannot save your exception this way."
-msgstr ""
+msgstr "ชุดแจกจ่ายของคุณไม่มีวิธีในการรายงานบั๊ก คุณจึงไม่สามารถบันทึกข้อผิดพลาดด้วยวิธีนี้ได้"
 
 #: ../exception.py:411
-#, fuzzy
 msgid "Invalid Bug Information"
-msgstr "ข้อมูลเกี่ยวกับ IP ไม่ถูกต้อง"
+msgstr "ข้อมูลบั๊กไม่ถูกต้อง"
 
 #: ../exception.py:412
 msgid "Please provide a valid username, password, and short bug description."
-msgstr ""
+msgstr "โปรดป้อนชื่อผู้ใช้งาน, รหัสผ่านและรายละเอียดสั้นๆ ของบั๊กที่ถูกต้อง"
 
 #: ../exception.py:424
-#, fuzzy
 msgid "Unable To Login"
-msgstr "ไม่สามารถแก้ไขได้"
+msgstr "ไม่สามารถเข้าระบบ"
 
 #: ../exception.py:425
 #, python-format
-msgid ""
-"There was an error logging into %s using the provided username and password."
-msgstr ""
+msgid "There was an error logging into %s using the provided username and password."
+msgstr "เกิดข้อผิดพลาดขณะเข้าสู่ %s โดยใช้ชื่อผู้ใช้และรหัสผ่านที่ให้มา"
 
 #: ../exception.py:462
 msgid "Bug Created"
-msgstr ""
+msgstr "สร้างบั๊กแล้ว"
 
 #: ../exception.py:463
 #, python-format
@@ -367,11 +360,14 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"ได้สร้างบั๊กตัวใหม่พร้อมข้อผิดพลาดแนบไปด้วยแล้ว "
+"โปรดเติมข้อมูลเพิ่มเติมว่าคุณกำลังทำอะไรอยู่แล้วเกิดบั๊ก, ภาพหน้าจอ และข้อมูลอื่นๆ เกี่ยวกับบั๊กนี้:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:479
-#, fuzzy
 msgid "Bug Updated"
-msgstr "อัพเดท"
+msgstr "อัพเดทบั๊กแล้ว"
 
 #: ../exception.py:480
 #, python-format
@@ -382,51 +378,49 @@ msgid ""
 "\n"
 "%s/%s"
 msgstr ""
+"มีบั๊กที่มีข้อมูลของคุณอยู่แล้ว ได้เพิ่มบัญชีของคุณไปยังรายการ CC "
+"และข้อมูลข้อผิดพลาดได้ส่งเป็นความคิดเห็น โปรดเขียนรายละเอียดเพิ่มเติมโดยละเอียดเกี่ยวกับบั๊กนี้:\n"
+"\n"
+"%s/%s"
 
 #: ../exception.py:504 ../exception.py:519 ../exception.py:544
 msgid "Dump Written"
 msgstr "เขียนถ่ายข้อมูล"
 
 #: ../exception.py:505 ../exception.py:520
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the disk. The installer "
 "will now exit."
-msgstr ""
-"สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
+msgstr "สถานะของระบบของคุณถูกเขียนเก็บลงบนดิสก์เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
 
 #: ../exception.py:511 ../exception.py:528 ../exception.py:551
-#, fuzzy
 msgid "Dump Not Written"
-msgstr "เขียนถ่ายข้อมูล"
+msgstr "ไม่ได้เขียนถ่ายข้อมูล"
 
 #: ../exception.py:512 ../exception.py:529
 msgid "There was a problem writing the system state to the disk."
-msgstr ""
+msgstr "มีปัญหาในการเขียนสถานะระบบลงดิสก์"
 
 #: ../exception.py:535 ../exception.py:558 ../rescue.py:201
 #: ../yuminstall.py:1022
-#, fuzzy
 msgid "No Network Available"
-msgstr "อุปกรณ์เครือข่าย"
+msgstr "ไม่มีเครือข่าย"
 
 #: ../exception.py:536 ../exception.py:559
 msgid ""
 "Cannot save a bug report since there is no active networking device "
 "available."
-msgstr ""
+msgstr "ไม่สามารถบันทึกรายงานบั๊กเพราะไม่มีอุปกรณ์เครือข่ายทำงานอยู่"
 
 #: ../exception.py:545
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the remote host.  The "
 "installer will now exit."
-msgstr ""
-"สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
+msgstr "สถานะของระบบของคุณถูกบันทึกลงในโฮสต์ปลายทางเรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
 
 #: ../exception.py:552
 msgid "There was a problem writing the system state to the remote host."
-msgstr ""
+msgstr "มีปัญหาในการเขียนสถานะระบบไปยังโฮสต์ปลายทาง"
 
 #: ../gui.py:106
 msgid "An error occurred copying the screenshots over."
@@ -472,47 +466,42 @@ msgstr ""
 "2-3 ครั้งจึงจะสำเร็จ"
 
 #: ../gui.py:546 ../text.py:500
-#, fuzzy
 msgid "Installation Key"
-msgstr "ประเภทของการติดตั้ง"
+msgstr "คีย์ติดตั้ง"
 
 #: ../gui.py:617 ../text.py:308
 msgid ""
 "Choose a passphrase for your encrypted devices. You will be prompted for the "
 "passphrase during system boot."
-msgstr ""
+msgstr "เลือกรหัสผ่านสำหรับอุปกรณ์ที่เข้ารหัสผ่านของคุณ รหัสผ่านนี้จะถูกถามขณะเปิดระบบ"
 
 #: ../gui.py:636 ../gui.py:644 ../text.py:346 ../text.py:356
-#, fuzzy
 msgid "Error with passphrase"
 msgstr "รหัสผ่านผิดพลาด"
 
 #: ../gui.py:637 ../text.py:347
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "รหัสผ่านที่คุณป้อนแตกต่างกัน  กรุณาลองใหม่อีกครั้ง"
+msgstr "รหัสผ่านที่คุณป้อนแตกต่างกัน กรุณาลองใหม่อีกครั้ง"
 
 #: ../gui.py:645
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "รหัสผ่านต้องยาวอย่างน้อย 6 ตัวอักษร"
+msgstr "รหัสผ่านต้องยาวอย่างน้อย 8 ตัวอักษร"
 
 #: ../gui.py:679 ../text.py:380
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
-msgstr ""
+msgstr "อุปกรณ์ %s ได้เข้ารหัสไว้ ในการเข้าถึงอุปกรณ์นี้ขณะติดตั้ง คุณต้องใส่รหัสผ่านของอุปกรณ์ด้านล่างนี้"
 
 #: ../gui.py:736
 #, python-format
 msgid "Bugzilla (%s)"
-msgstr ""
+msgstr "Bugzilla (%s)"
 
 #: ../gui.py:766
-#, fuzzy
 msgid "No devices found"
-msgstr "ไม่พบไดรฟ์เวอร์"
+msgstr "ไม่พบอุปกรณ์"
 
 #: ../gui.py:873 ../gui.py:1461 ../partIntfHelpers.py:149
 #: ../partIntfHelpers.py:304 ../text.py:98 ../text.py:99
@@ -528,9 +517,8 @@ msgid "_Debug"
 msgstr "_ดีบั๊ก"
 
 #: ../gui.py:1049 ../gui.py:1051 ../gui.py:1458 ../livecd.py:113
-#, fuzzy
 msgid "Exit installer"
-msgstr "ตัวติดตั้ง %s"
+msgstr "ออกจากตัวติดตั้ง"
 
 #: ../gui.py:1051 ../text.py:283 ../text.py:291
 msgid "Debug"
@@ -588,14 +576,12 @@ msgid "_Reboot"
 msgstr "_รีบูต"
 
 #: ../gui.py:1389
-#, fuzzy
 msgid "Exiting"
-msgstr "ออกจากโปรแกรมติดตั้ง"
+msgstr "กำลังออก"
 
 #: ../gui.py:1459
-#, fuzzy
 msgid "Are you sure you wish to exit the installation?"
-msgstr "คุณแน่ใจหรือไม่ว่าคุณต้องการลบ logical volume \"%s\"?"
+msgstr "คุณแน่ใจหรือไม่ว่าคุณต้องการออกจากการติดตั้ง?"
 
 #: ../gui.py:1468
 #, python-format
@@ -619,10 +605,14 @@ msgid ""
 "It is recommended that you exit and abort your installation, but you can "
 "choose to continue if you think this is in error."
 msgstr ""
+"อิมเมจ ISO %s มีขนาดที่ไม่ใช่ตัวคูณร่วมของ 2048 ไบต์ "
+"อาจจะเป็นไปได้ว่าไฟล์เสียหายขณะส่งไปยังคอมพิวเตอร์นี้\n"
+"\n"
+"แนะนำให้คุณออกและยกเลิกการติดตั้ง แต่คุณสามารถทำต่อไปได้ หากคุณคิดว่าข้อความนี้ไม่ถูกต้อง"
 
 #: ../image.py:156
 msgid "Couldn't Mount ISO Source"
-msgstr ""
+msgstr "ไม่สามารถเมานต์ต้นตอ ISO"
 
 #: ../image.py:157
 #, python-format
@@ -632,10 +622,12 @@ msgid ""
 "there was a problem mounting a partition.  Click exit to abort the "
 "installation."
 msgstr ""
+"เกิดข้อผิดพลาดในการเมานต์อุปกรณ์ต้นทาง %s อาจจะเพราะอิมเมจ ISO อยู่บนอุปกรณ์เก็บข้อมูลขั้นสูงเช่น LVM, "
+"RAID  หรือมีปัญหาในการเมานต์พาร์ติชั่น คลิก ออก เพื่อยกเลิกการติดตั้ง"
 
 #: ../image.py:185
 msgid "Missing ISO 9660 Image"
-msgstr ""
+msgstr "ISO 9660 อิมเมจหายไป"
 
 #: ../image.py:186
 #, python-format
@@ -646,13 +638,15 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
+"โปรแกรมติดตั้งพยายามเมานต์อิมเมจ #%s แต่ไม่สามารถหามันบนฮาร์ดไดรฟ์ได้\n"
+"\n"
+"กรุณาคัดลอกอิมเมจนี้ลงในไดรฟ์และคลิก ลองใหม่ หรือคลิก ออก เพื่อยกเลิกการติดตั้ง"
 
 #: ../image.py:241
 msgid "Required Install Media"
 msgstr "สื่อสำหรับติดตั้งที่ต้องการ"
 
-#: ../image.py:242
-#, fuzzy, python-format
+#: ../image.py:242, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -661,7 +655,7 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"ซอฟต์แวร์ที่คุณได้เลือกเพื่อจะติดตั้ง ต้องการแผ่นซีดีดังต่อไปนี้:\n"
+"ซอฟต์แวร์ที่คุณได้เลือกเพื่อจะติดตั้ง ต้องการแผ่น %s %s ดังต่อไปนี้:\n"
 "\n"
 "%s\n"
 "กรุณาเตรียมไว้ให้พร้อมก่อนทำการติดตั้ง ถ้าคุณต้องการยกเลิกและจะรีบูต ให้เลือก \"รีบูต\""
@@ -672,13 +666,12 @@ msgstr ""
 msgid "_Back"
 msgstr "_ย้อนกลับ"
 
-#: ../image.py:286
-#, fuzzy, python-format
+#: ../image.py:286, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"เกิดข้อผิดพลาดระหว่างยกเลิกการเมานท์ซีดี ให้ตรวจดูว่าคุณไม่ได้กำลังเข้าใช้งาน %s จากเชลล์บน "
+"เกิดข้อผิดพลาดระหว่างยกเลิกการเมานท์แผ่น ให้ตรวจดูว่าคุณไม่ได้กำลังเข้าใช้งาน %s จากเชลล์บน "
 "tty2 แล้วให้คลิ้ก ตกลง เพื่อลองใหม่อีกครั้ง"
 
 #: ../installclass.py:71
@@ -688,59 +681,59 @@ msgstr "ติดตั้งบนระบบ"
 #: ../iutil.py:740
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "ผิดพลาด: ขณะเปิดไม่สามารถกำหนดเมธอด reIPL เป็น %s (%s: %s)"
 
 #: ../iutil.py:748
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "ผิดพลาด: ขณะเขียนไม่สามารถกำหนดเมธอด reIPL เป็น %s (%s: %s)"
 
 #: ../iutil.py:755
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "ผิดพลาด: ขณะปิดไม่สามารถกำหนดเมธอด reIPL เป็น %s (%s: %s)"
 
 #: ../iutil.py:765 ../iutil.py:817
 #, python-format
 msgid "Error: %s splits into %s but not like we expect"
-msgstr ""
+msgstr "ผิดพลาด: %s แบ่งเป็น %s แต่ไม่ใช่ที่เราคาดไว้"
 
 #: ../iutil.py:778
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "ผิดพลาด: ไม่สามารถกำหนด %s เป็นอุปกรณ์ reIPL (%s)"
 
 #: ../iutil.py:787
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "ผิดพลาด: ไม่สามารถรีเซต loadparm (%s)"
 
 #: ../iutil.py:796
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "คำเตือน: ไม่สามารถรีเซต parm (%s)"
 
 #: ../iutil.py:806
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
-msgstr ""
+msgstr "หลังจากปิดเครื่อง กรุณาทำ IPL ด้วยตนเองจากอุปกรณ์ DASD %s เพื่อติดตั้งต่อไป"
 
 #: ../iutil.py:834
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "ผิดพลาด: อ่านคุณสมบัติ FCP %s สำหรับ reIPL (%s)"
 
 #: ../iutil.py:847
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "ผิดพลาด: เขียนคุณสมบัติ FCP %s สำหรับ reIPL (%s)"
 
 #: ../iutil.py:860
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "ผิดพลาด: เขียน FCP ปริยาย %s สำหรับ reIPL (%s)"
 
 #: ../iutil.py:870
 #, python-format
@@ -748,54 +741,51 @@ msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
+"หลังปิดเครื่อง กรุณาทำ IPL ด้วยตัวเองจาก FCP %(device)s ด้วย WWPN %(wwpn)s "
+"และ LUN %(lun)s เพื่อติดตั้งต่อไป"
 
 #: ../iutil.py:877
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
-msgstr ""
+msgstr "หลังปิดเครื่องกรุณาทำ IPL ด้วยตัวเองจากอุปกรณ์ที่มี /boot เพื่อติดตั้งต่อไป"
 
 #: ../iutil.py:887
 msgid "Could not get information for mount point /boot or /"
-msgstr ""
+msgstr "ไม่สามารถหาข้อมูลสำหรับจุดเมานต์ /boot หรือ /"
 
 #: ../iutil.py:897
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "ไม่สามารถหาชนิดจุดเมานต์"
 
 #: ../iutil.py:901
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "จุดเมานต์ /boot หรือ / อยู่บนดิสก์ที่เราไม่คุ้นเคย"
 
-#: ../kickstart.py:96
-#, fuzzy, python-format
+#: ../kickstart.py:96, python-format
 msgid ""
 "There was an error running the kickstart script at line %s.  You may examine "
 "the output in %s.  This is a fatal error and your install will be aborted.  "
 "Press the OK button to exit the installer."
 msgstr ""
-"เกิดข้อผิดพลาดขณะติดตั้ง %s อาจเกิดจากแผ่นเสีย ข้อมูลเสียหาย หรือมีที่ว่างบนดิสก์ไม่พอ "
-"รวมทั้งอาจเป็นเพราะปัญหาทางด้านฮาร์ดแวร์ นี้เป็นข้อผิดผลาดร้ายแรง "
-"และการติดตั้งจำเป็นจะต้องถูกยกเลิก กรุณาตรวจสอบแผ่น แล้วลองใหม่อีกครั้ง\n"
-"\n"
-"กดปุ่ม ตกลง เพื่อรีบูตระบบใหม่"
+"เกิดข้อผิดพลาดขณะเรียกสคริปต์ kickstart ที่บรรทัด %s คุณสามารถดูผลลัพท์ใน %s "
+"นี่เป็นข้อผิดพลาดร้ายแรงและจะยกเลิอกการติดตั้ง กดปุ่ม ตกลง เพื่อออก"
 
 #: ../kickstart.py:111 ../kickstart.py:113
 msgid "Scriptlet Failure"
 msgstr "Scriptlet ผิดพลาด"
 
 #: ../kickstart.py:1155 ../kickstart.py:1172
-#, fuzzy
 msgid "Running..."
-msgstr "กำลังตรวจสอบ \"%s\"..."
+msgstr "กำลังทำงาน..."
 
 #: ../kickstart.py:1156
 msgid "Running post-install scripts"
-msgstr ""
+msgstr "กำลังเรียกใช้สคริปต์หลังติดตั้ง..."
 
 #: ../kickstart.py:1173
 msgid "Running pre-install scripts"
-msgstr ""
+msgstr "กำลังเรียกใช้สคริปต์ก่อนติดตั้ง..."
 
 #: ../kickstart.py:1205
 msgid "Missing Package"
@@ -815,16 +805,14 @@ msgid "_Abort"
 msgstr "_ยกเลิก"
 
 #: ../kickstart.py:1213 ../kickstart.py:1252
-#, fuzzy
 msgid "_Ignore All"
-msgstr "ไม่ต้องสนใจ"
+msgstr "_ไม่สนใจทั้งหมด"
 
 #: ../kickstart.py:1243
 msgid "Missing Group"
 msgstr "ไม่พบกลุ่ม"
 
-#: ../kickstart.py:1244
-#, fuzzy, python-format
+#: ../kickstart.py:1244, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
@@ -839,25 +827,23 @@ msgid ""
 "prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"ไฟล์ kickstart ของคุณขาดข้อมูลจำเป็นที่ anaconda ไม่สามารถถามได้ กรุณาเพิ่มส่วนต่อไปนี้และลองใหม่:\n"
+"%s"
 
 #: ../livecd.py:108
-#, fuzzy
 msgid "Unable to find image"
-msgstr "ไม่สามารถเรียกอิมเมจ %s สำหรับติดตั้งมาได้"
+msgstr "ไม่สามารถหาอิมเมจ"
 
 #: ../livecd.py:109
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgid "The given location isn't a valid %s live CD to use as an installation source."
+msgstr "ตำแหน่งที่ระบุไม่ใช่ live CD %s ที่ถูกต้องสำหรับติดตั้ง"
 
 #: ../livecd.py:171
-#, fuzzy
 msgid "Copying live image to hard drive."
-msgstr "กำลังถ่ายโอนอิมเมจสำหรับติดตั้งไปที่ฮาร์ดไดรฟ์..."
+msgstr "กำลังถ่ายโอนอิมเมจ live ไปที่ฮาร์ดไดรฟ์..."
 
 #: ../livecd.py:190
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -865,159 +851,131 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"แพ็กเกจ %s-%s-%s ไม่สามารถเปิดใช้งานได้ อาจเพราะว่าไม่มีอยู่ หรือเกิดความเสียหายกับข้อมูล "
-"ถ้าคุณติดตั้งด้วยแผ่นซีดี ก็อาจเป็นไปได้ว่าแผ่นไม่สมบูรณ์ หรือตัวอ่านชำรุด\n"
+"เกิดข้อผิดพลาดขณะติดตั้งอิมเมจ live ลงฮาร์ดไดรฟ์ของคุณ อาจจะเกิดจากสื่อที่ใช้ไม่ดี "
+"กรุณาตรวจสอบสื่อที่ใช้ติดตั้ง\n"
 "\n"
-"กดปุ่ม <return> เพื่อลองใหม่"
+"หากคุณออก ระบบของคุณจะอยู่ในสภาวะไม่เสถียรที่จะต้องติดตั้งใหม่"
 
 #: ../livecd.py:220
-#, fuzzy
 msgid "Doing post-installation"
-msgstr "%s %s การติดตั้ง"
+msgstr "กำลังทำงานหลังติดตั้ง"
 
 #: ../livecd.py:221
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes..."
-msgstr "กำลังเริ่มกระบวนการติดตั้ง อาจจะใช้เวลาสักครู่..."
+msgstr "กำลังทำการเปลี่ยนแปลงระบบแฟ้มหลังการติดตั้ง อาจจะใช้เวลาหลายนาที..."
 
 #: ../livecd.py:383
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
-msgstr ""
+msgstr "ระบบแฟ้มรากที่สร้างมีขนาดไม่พอสำหรับอิมเมจ live นี้ (ต้องการ %.2f MB)"
 
 #: ../network.py:58
-#, fuzzy
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr "ชื่อโฮสต์ควรมีความยาวไม่เกิน 64 ตัวอักษร"
 
 #: ../network.py:64
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr "ชื่อโฮสต์จะต้องเริ่มต้นด้วยตัวอักษร 'a-z' หรือ 'A-Z'"
+msgstr "ชื่อโฮสต์จะต้องเริ่มต้นด้วยตัวอักษร 'a-z', 'A-Z' หรือ '0-9'"
 
 #: ../network.py:69
-#, fuzzy
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "ชื่อโฮสต์ต้องประกอบด้วยตัวอักษร 'a-z', 'A-Z', '-', หรือ '.' เท่านั้น"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgstr "ชื่อโฮสต์ต้องประกอบด้วยตัวอักษร 'a-z', 'A-Z', '0-9', '-', หรือ '.' เท่านั้น"
 
 #: ../network.py:178
-#, fuzzy
 msgid "IP address is missing."
-msgstr "หมายเลข IP ไม่มี"
+msgstr "ไม่มีหมายเลข IP"
 
 #: ../network.py:182
-#, fuzzy
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr "หมายเลข IP จะต้องเป็นตัวเลขระหว่าง 0 ถึง 255"
+msgstr "หมายเลข IPv4 ต้องมีเลขสี่ตัวระหว่าง 0 ถึง 255 คั่นด้วยจุลภาค"
 
-#: ../network.py:185
-#, fuzzy, python-format
+#: ../network.py:185, python-format
 msgid "'%s' is not a valid IPv6 address."
-msgstr "ชื่อ %s ใช้เป็นชื่อโฮสต์ไม่ได้"
+msgstr "'%s' เป็นที่อยู่ IPv6 ที่ไม่ถูกต้อง"
 
-#: ../network.py:187
-#, fuzzy, python-format
+#: ../network.py:187, python-format
 msgid "'%s' is an invalid IP address."
-msgstr "ชื่อ %s ใช้เป็นชื่อโฮสต์ไม่ได้"
+msgstr "'%s' เป็นที่อยู่ IP ที่ไม่ถูกต้อง"
 
 #: ../packages.py:122
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "กำลังเรียกคืน"
+msgstr "การปรับขนาดอุปกรณ์ล้มเหลว"
 
-#: ../packages.py:123
-#, fuzzy, python-format
+#: ../packages.py:123, python-format
 msgid "An error was encountered while resizing device %s."
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดเกิดขึ้นขณะปรับขนาดอุปกรณ์ %s"
 
 #: ../packages.py:130
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "เมานท์ล้มเหลว"
+msgstr "การสร้างอุปกรณ์ล้มเหลว"
 
-#: ../packages.py:131
-#, fuzzy, python-format
+#: ../packages.py:131, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดในการสร้างอุปกรณ์ %s"
 
 #: ../packages.py:138
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "การถอดอุปกรณ์ล้มเหลว"
 
-#: ../packages.py:139
-#, fuzzy, python-format
+#: ../packages.py:139, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดเกิดขึ้นขณะถอดอุปกรณ์ %s"
 
 #: ../packages.py:146
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "การติดตั้งอุปกรณ์ล้มเหลว"
 
-#: ../packages.py:147
-#, fuzzy, python-format
+#: ../packages.py:147, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดเกิดขึ้นขณะกำลังติดตั้งอุปกรณ์ %s"
 
 #: ../packages.py:158
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "กำลังเรียกคืน"
+msgstr "การปรับขนาดล้มเหลว"
 
-#: ../packages.py:159
-#, fuzzy, python-format
+#: ../packages.py:159, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดเกิดขึ้นในการปรับขนาดอุปกรณ์ %s"
 
 #: ../packages.py:166
-#, fuzzy
 msgid "Migration Failed"
-msgstr "เมานท์ล้มเหลว"
+msgstr "การย้ายข้อมูลล้มเหลว"
 
-#: ../packages.py:167
-#, fuzzy, python-format
+#: ../packages.py:167, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดเกิดขึ้นในการย้ายข้อมูลระบบแฟ้มบนอุปกรณ์ %s"
 
 #: ../packages.py:175
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "กำลังฟอร์แมต"
+msgstr "การฟอร์แมตล้มเหลว"
 
-#: ../packages.py:176
-#, fuzzy, python-format
+#: ../packages.py:176, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดเกิดขึ้นในการฟอร์แมตอุปกรณ์ %s"
 
 #: ../packages.py:184
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "การเปิดใช้อุปกรณ์เก็บข้อมูลล้มเหลว"
 
 #: ../packages.py:185
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"ข้อผิดพลาดต่อไปนี้เกิดเมื่อตีความค่าที่กำหนดไว้สำหรับ kickstart:\n"
-"\n"
-"%s"
+msgstr "เกิดข้อผิดพลาดในการเปิดใช้การตั้งค่าอุปกรณ์เก็บข้อมูลของคุณ"
 
 #: ../packages.py:353
-#, fuzzy
 msgid "Invalid Key"
-msgstr "สตริงของไอพีไม่ถูกต้อง"
+msgstr "คีย์ไม่ถูกต้อง"
 
 #: ../packages.py:354
-#, fuzzy
 msgid "The key you entered is invalid."
-msgstr "ค่าที่คุณป้อนเข้ามาเป็นตัวเลขที่ไม่ถูกต้อง"
+msgstr "คีย์ที่คุณระบุไม่ถูกต้อง"
 
 #: ../packages.py:379 ../rescue.py:248 ../rescue.py:250
 #: ../textw/upgrade_text.py:133 ../loader/cdinstall.c:248
@@ -1026,16 +984,14 @@ msgid "Skip"
 msgstr "ข้ามไป"
 
 #: ../packages.py:382
-#, fuzzy
 msgid "_Skip"
-msgstr "ข้ามไป"
+msgstr "_ข้าม"
 
 #: ../packages.py:414 ../packages.py:437
 msgid "Warning! This is pre-release software!"
 msgstr "คำเตือน! นี้เป็นซอฟต์แวร์รุ่นทดสอบเท่านั้น! "
 
-#: ../packages.py:415
-#, fuzzy, python-format
+#: ../packages.py:415, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1055,13 +1011,13 @@ msgstr ""
 "เพื่อรวบรวมการตอบรับจากนักทดสอบ และยังไม่เหมาะสมสำหรับการนำไปใช้งานจริงในชีวิตประจำวัน\n"
 "ถ้าต้องการรายงานผลการทดสอบ ให้เข้าไปที่:\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
 "และส่งรายงานที่เกี่ยวข้องกับ %s.\n"
 
 #: ../packages.py:428
 msgid "_Install anyway"
-msgstr "ดำเนินการติดตั้งต่อ"
+msgstr "_ดำเนินการติดตั้งต่อ"
 
 #: ../partIntfHelpers.py:41
 msgid "Please enter a volume group name."
@@ -1105,13 +1061,12 @@ msgstr ""
 "ข้อผิดพลาด - ชื่อของ logical volume มีอักขระที่ไม่ถูกต้อง หรือมีช่องว่างอยู่ "
 "อักขระที่ใช้ได้จะเป็นตัวหนังสือ ตัวเลข หรือ '.' หรือ '_'."
 
-#: ../partIntfHelpers.py:101
-#, fuzzy, python-format
+#: ../partIntfHelpers.py:101, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
-"ตำแหน่งเมานท์ที่กำหนดไม่ถูกต้อง ตำแหน่งเมานท์จะต้องเริ่มกำหนดจาก '/' เท่านั้น และต้องไม่จบด้วย "
+"ตำแหน่งเมานท์ %s ไม่ถูกต้อง ตำแหน่งเมานท์จะต้องเริ่มกำหนดจาก '/' เท่านั้น และต้องไม่จบด้วย "
 "'/' จะต้องใช้ตัวอักษรที่พิมพ์ได้ และไม่มีช่องว่าง"
 
 #: ../partIntfHelpers.py:108
@@ -1131,10 +1086,9 @@ msgstr "คุณต้องเลือกพาร์ทิชันที่
 msgid "Confirm Delete"
 msgstr "ยืนยันการลบ"
 
-#: ../partIntfHelpers.py:146
-#, fuzzy, python-format
+#: ../partIntfHelpers.py:146, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "คุณกำลังจะลบพาร์ทิชันทั้งหมดบนดีไวซ์ '/dev/%s'"
+msgstr "คุณกำลังจะลบพาร์ทิชันทั้งหมดบนดีไวซ์ '%s'"
 
 #: ../partIntfHelpers.py:149 ../partIntfHelpers.py:304
 #: ../iw/lvm_dialog_gui.py:750 ../iw/lvm_dialog_gui.py:1261
@@ -1161,26 +1115,23 @@ msgstr ""
 msgid "Format as Swap?"
 msgstr "ฟอร์แมตเป็น swap หรือไม่?"
 
-#: ../partIntfHelpers.py:186
-#, fuzzy, python-format
+#: ../partIntfHelpers.py:186, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s มีชนิดพาร์ทิชันเป็นแบบ 0x82 (ลินุกซ์ swap) แต่พบว่ายังไม่ถูกฟอร์แมตเป็นพาร์ทิชันลินุกซ์ "
+"%s มีชนิดพาร์ทิชันเป็นแบบ 0x82 (ลินุกซ์ swap) แต่พบว่ายังไม่ถูกฟอร์แมตเป็นพาร์ทิชันลินุกซ์ "
 "swap\n"
 "\n"
 "คุณต้องการฟอร์แมตพาร์ทิชันนี้เป็นพาร์ทิชัน swap หรือไม่?"
 
-#: ../partIntfHelpers.py:201
-#, fuzzy, python-format
+#: ../partIntfHelpers.py:201, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "คุณต้องเลือกอย่างน้อยหนึ่งฮาร์ดไดรฟ์ เพื่อใช้ในการติดตั้ง %s"
 
 #: ../partIntfHelpers.py:206
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1280,23 +1231,20 @@ msgstr "คุณกำลังจะลบ logical volume \"%s\""
 msgid "You are about to delete a RAID device."
 msgstr "คุณกำลังจะลบดีไวซ์ RAID"
 
-#: ../partIntfHelpers.py:296
-#, fuzzy, python-format
+#: ../partIntfHelpers.py:296, python-format
 msgid "You are about to delete the %s partition."
-msgstr "คุณกำลังจะลบพาร์ทิชัน /dev/%s "
+msgstr "คุณกำลังจะลบพาร์ทิชัน %s "
 
-#: ../partIntfHelpers.py:300
-#, fuzzy, python-format
+#: ../partIntfHelpers.py:300, python-format
 msgid "You are about to delete the %s %s"
-msgstr "คุณกำลังจะลบพาร์ทิชัน /dev/%s "
+msgstr "คุณกำลังจะลบพาร์ทิชัน %s %s "
 
 #: ../partIntfHelpers.py:311
 msgid "Confirm Reset"
 msgstr "ยืนยันการรีเซ็ต"
 
 #: ../partIntfHelpers.py:312
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตตารางพาร์ทิชันกลับไปยังสถานะดั้งเดิมของมัน?"
 
 #: ../partedUtils.py:108 ../iw/partition_gui.py:779 ../iw/partition_gui.py:927
@@ -1319,8 +1267,7 @@ msgstr ""
 "\n"
 "คุณต้องการเปลี่ยนรูปแบบของ DASD นี้ให้เป็นรูปแบบ CDL หรือไม่?"
 
-#: ../partedUtils.py:200
-#, fuzzy, python-format
+#: ../partedUtils.py:200, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this drive for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1328,7 +1275,7 @@ msgid ""
 "\n"
 "Would you like to re-initialize this drive?"
 msgstr ""
-"ปัจจุบัน /dev/%s มีการจัดรูปแบบพาร์ทิชันแบบ %s ซึ่งถ้าต้องการใช้ดิสก์นี้สำหรับการติดตั้ง %s "
+"ปัจจุบัน %s มีการจัดรูปแบบพาร์ทิชันแบบ %s ซึ่งถ้าต้องการใช้ดิสก์นี้สำหรับการติดตั้ง %s "
 "จะต้องตระเตรียมขึ้นใหม่ ซึ่งจะทำให้สูญเสียข้อมูลทั้งหมดบนไดรฟ์นี้\n"
 "\n"
 "คุณต้องการให้ฟอร์แมตไดรฟ์นี้หรือไม่?"
@@ -1339,7 +1286,7 @@ msgstr "ไ_ม่ต้องสนใจไดรฟ์นี้"
 
 #: ../partedUtils.py:210 ../storage/devicetree.py:131
 msgid "_Re-initialize drive"
-msgstr ""
+msgstr "_เปิดใช้อุปกรณ์ใหม่"
 
 #: ../partedUtils.py:740
 msgid "Initializing"
@@ -1350,8 +1297,7 @@ msgstr "กำลังเตรียมความพร้อม..."
 msgid "Please wait while formatting drive %s...\n"
 msgstr "กรุณารอสักครู่ กำลังฟอร์แมตไดรฟ์ %s...\n"
 
-#: ../partedUtils.py:826
-#, fuzzy, python-format
+#: ../partedUtils.py:826, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "\n"
@@ -1363,7 +1309,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"ตารางของพาร์ทิชันบน %s (%s) ไม่สามารถอ่านได้ ถ้าต้องการจะสร้างพาร์ทิชันใหม่ "
+"ตารางของพาร์ทิชันบน %s (%s %-0.f MB) ไม่สามารถอ่านได้ ถ้าต้องการจะสร้างพาร์ทิชันใหม่ "
 "จะต้องมีการตระเตรียมมันก่อน ซึ่งจะทำให้สูญเสียข้อมูลทั้งหมดบนไดรฟ์นี้\n"
 "\n"
 "การปฏิบัติการนี้จะกำหนดตัวเลือกใหม่ "
@@ -1379,6 +1325,8 @@ msgid ""
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
 msgstr ""
+"ไดรฟ /dev/%s มีพาร์ติชั่นมากกว่า 15 ตัว ระบบย่อย SCSI ในเคอร์เนลลินุกซ์ไม่รองรับพาร์ติชั่นมากกว่า 15 "
+"ตัวในขณะนี้ คุณจะไม่สามารถแก้ไขพาร์ติชั่นของดิสก์นี้หรือใช้พาร์ติชั่นใดๆ เกิน /dev/%s15 ใน %s"
 
 #: ../partedUtils.py:1058 ../storage/__init__.py:851
 msgid "No Drives Found"
@@ -1402,9 +1350,8 @@ msgid "First sector of boot partition"
 msgstr "เซกเตอร์แรกของบูตพาร์ทิชัน"
 
 #: ../platform.py:165
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "แก้ไขพาร์ทิชัน"
+msgstr "พาร์ติชั่นระบบ EFI"
 
 #: ../platform.py:256
 msgid "PPC PReP Boot"
@@ -1420,7 +1367,7 @@ msgstr "เมื่อเสร็จแล้ว กรุณาออกจ�
 
 #: ../rescue.py:174
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "ไม่สามารถหา /bin/sh เพื่อเรียกใช้ จะไม่เปิดเชลล์"
 
 #: ../rescue.py:193
 msgid "Setup Networking"
@@ -1444,7 +1391,7 @@ msgstr "ไม่"
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
-msgstr ""
+msgstr "ไม่สามารถเปิดใช้อุปกรณ์เครือข่าย ในระบบกู้ชีพจะไม่มีการเชื่อมต่อเครือข่าย"
 
 #: ../rescue.py:237 ../rescue.py:306 ../rescue.py:317 ../rescue.py:392
 msgid "Rescue"
@@ -1487,9 +1434,8 @@ msgid "System to Rescue"
 msgstr "ระบบที่จะกู้"
 
 #: ../rescue.py:283
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "พาร์ทิชันใดคือพาร์ทิชัน root ที่คุณติดตั้งไว้?"
+msgstr "อุปกรณ์ใดเก็บพาร์ทิชัน root ที่คุณติดตั้งไว้?"
 
 #: ../rescue.py:285 ../rescue.py:289 ../text.py:664 ../text.py:666
 msgid "Exit"
@@ -1560,16 +1506,16 @@ msgstr "บันทึก"
 
 #: ../text.py:199
 msgid "Save to local disk"
-msgstr ""
+msgstr "บันทึกไปยังดิสก์บนเครื่อง"
 
 #: ../text.py:200
 #, python-format
 msgid "Send to bugzilla (%s)"
-msgstr ""
+msgstr "ส่งไปยัง bugzilla (%s)"
 
 #: ../text.py:201
 msgid "Send to remote server (scp)"
-msgstr ""
+msgstr "ส่งไปยังเซิร์ฟเวอร์ระยะไกล (scp)"
 
 #: ../text.py:215 ../text.py:228
 msgid "User name"
@@ -1581,57 +1527,52 @@ msgstr "รหัสผ่าน"
 
 #: ../text.py:219
 msgid "Bug Description"
-msgstr ""
+msgstr "รายละเอียดบั๊ก"
 
 #: ../text.py:232
 msgid "Host (host:port)"
-msgstr ""
+msgstr "โฮสต์ (host:port)"
 
 #: ../text.py:234
-#, fuzzy
 msgid "Destination file"
-msgstr "เมานท์ล้มเหลว"
+msgstr "ไฟล์ปลายทาง"
 
 #: ../text.py:313
 msgid "Passphrase for encrypted device"
-msgstr ""
+msgstr "รหัสผ่านสำหรับอุปกรณ์ที่เข้ารหัส"
 
 #: ../text.py:326
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr ""
+msgstr "เพิ่มรหัสผ่านนี้ไปยังอุปกรณ์ที่เข้ารหัสอยู่แล้วทั้งหมด"
 
-#: ../text.py:357
-#, fuzzy, python-format
+#: ../text.py:357, python-format
 msgid "The passphrase must be at least %d characters long."
-msgstr "รหัสผ่านต้องยาวอย่างน้อย 6 ตัวอักษร"
+msgstr "รหัสผ่านต้องยาวอย่างน้อย %d ตัวอักษร"
 
 #: ../text.py:387 tmp/lukspassphrase.glade.h:6
 msgid "Passphrase"
-msgstr ""
+msgstr "รหัสผ่าน"
 
 #: ../text.py:395 tmp/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "นี่เป็นรหัสผ่านโดยรวม"
 
 #: ../text.py:461 ../text.py:465
-#, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "การติดตั้งแบบกราฟิกไม่สามารถทำได้... กำลังเริ่มการติดตั้งบนโหมดตัวอักษร"
+msgstr "การแก้ไขคลังแพคเกจไม่สามารถทำในโหมดข้อความได้"
 
-#: ../text.py:505
-#, fuzzy, python-format
+#: ../text.py:505, python-format
 msgid "Please enter your %(instkey)s"
-msgstr "กรุณาป้อนชื่อของ volume group"
+msgstr "กรุณาใส่ %(instkey)s"
 
 #: ../text.py:522 tmp/instkey.glade.h:6
 #, no-c-format, python-format
 msgid "Skip entering %(instkey)s"
-msgstr ""
+msgstr "ข้ามการใส่ %(instkey)s"
 
-#: ../text.py:570 ../loader/lang.c:63 ../loader/loader.c:215
-#, fuzzy, c-format, python-format
+#: ../text.py:570 ../loader/lang.c:63 ../loader/loader.c:215, c-format, python-format
 msgid "Welcome to %s for %s"
-msgstr "ยินดีต้อนรับสู่ %s"
+msgstr "ยินดีต้อนรับสู่ %s สำหรับ %s"
 
 #: ../text.py:572
 #, python-format
@@ -1642,8 +1583,7 @@ msgstr "ยินดีต้อนรับสู่ %s"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> ระหว่าง elements   |  <Space> เลือก   |  <F12> หน้าจอถัดไป"
+msgstr "  <Tab>/<Alt-Tab> สลับส่วนประกอบ   |  <Space> เลือก   |  <F12> หน้าจอถัดไป"
 
 #: ../text.py:664 ../loader/net.c:111 ../loader/net.c:454 ../loader/net.c:510
 #: ../loader/net.c:655 ../loader/net.c:663 ../loader/net.c:1086
@@ -1670,11 +1610,12 @@ msgid ""
 "is for %s architecture. \n"
 "\n"
 msgstr ""
+"คุณได้เลือกที่จะอัพเกรดสถาปัตยกรรม %s แต่ระบบที่ติดตั้งไว้สำหรับสถาปัตยกรรม %s\n"
+"\n"
 
-#: ../upgrade.py:97
-#, fuzzy, python-format
+#: ../upgrade.py:97, python-format
 msgid "Would you like to upgrade  the installed system to the %s architecture?"
-msgstr "คุณต้องการจัดการกับระบบไฟล์ของพาร์ทิชันนี้อย่างไร?"
+msgstr "คุณต้องการอัพเกรดระบบที่ติดตั้งไว้เป็นสถาปัตยกรรม %s หรือไม่?"
 
 #: ../upgrade.py:114
 msgid ""
@@ -1694,26 +1635,25 @@ msgstr "คุณต้องการดำเนินการอัพเก
 msgid "Mount failed"
 msgstr "เมานท์ล้มเหลว"
 
-#: ../upgrade.py:240
-#, fuzzy, python-format
+#: ../upgrade.py:240, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"ระบบไฟล์ที่อยู่ในรายการของไฟล์ /etc/fstab บนระบบลินุกซ์เดิมไม่สามารถเมานท์ "
-"กรุณาแก้ไขปัญหาก่อน แล้วค่อยดำเนินการอัพเกรดใหม่อีกครั้ง"
+"เกิดข้อผิดพลาดต่อไปนี้ขณะกำลังเมานต์ระบบแฟ้มใน /etc/fstab โปรดแก้ไขปัญหานี้และลองอัพเกรดอีกครั้ง\n"
+"%s"
 
 #: ../upgrade.py:247
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "เริ่มต้นการอัพเกรด"
+msgstr "ไม่พบ root ของอัพเดต"
 
 #: ../upgrade.py:248
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
+"ไม่พบ root ของระบบที่ติดตั้งไว้ คุณสามารถออกจากโปรแกรมติดตั้งหรือย้อนกลับไปเลือกติดตั้งแทนการอัพเดต"
 
 #: ../upgrade.py:271
 msgid ""
@@ -1773,10 +1713,9 @@ msgstr "เชื่อมต่อได้แล้ว!"
 msgid "Will try to connect again in 15 seconds..."
 msgstr "จะพยายามเชื่อมต่ออีกครั้งภายในเวลา 15 วินาที..."
 
-#: ../vnc.py:188
-#, fuzzy, python-format
+#: ../vnc.py:188, python-format
 msgid "Giving up attempting to connect after %d tries!\n"
-msgstr "กำลังยกเลิกความพยายามที่จะเชื่อมต่อ หลังจากพยายามมาแล้ว 50 ครั้ง!\n"
+msgstr "กำลังยกเลิกความพยายามที่จะเชื่อมต่อ หลังจากพยายามมาแล้ว %d ครั้ง!\n"
 
 #: ../vnc.py:197
 #, python-format
@@ -1805,9 +1744,14 @@ msgid ""
 "to the vncviewer is unsuccessful\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"คุณเลือกที่จะติดต่อกับ vncviewer ที่กำลังรับการเชื่อมต่ออยู่\n"
+"การเชื่อมต่อนี้ไม่ต้องกำหนดรหัสผ่าน หากคุณกำหนดไว้\n"
+"รหัสผ่านนี้จะถูกใช้เมื่อการเชื่อมต่อไปยัง vncviewer ล้มเหลว\n"
+"\n"
 
 #: ../vnc.py:245
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -1830,15 +1774,22 @@ msgid ""
 "You chose to execute vnc with a password. \n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"คุณเลือกที่จะเรียกใช้ vnc โดยใส่รหัสผ่าน\n"
+"\n"
 
 #: ../vnc.py:251
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "ข้อผิดพลาดที่ไม่รู้จัก"
+msgstr ""
+"\n"
+"\n"
+"ข้อผิดพลาดที่ไม่รู้จัก จะยกเลิก\n"
+"\n"
 
 #: ../vnc.py:273 ../vnc.py:366
 msgid "VNC Configuration"
@@ -1878,7 +1829,6 @@ msgid "Password Length"
 msgstr "ความยาวของรหัสผ่าน"
 
 #: ../vnc.py:312 ../vnc.py:411
-#, fuzzy
 msgid "The password must be at least six characters long."
 msgstr "รหัสผ่านต้องยาวอย่างน้อย 6 ตัวอักษร"
 
@@ -1929,37 +1879,31 @@ msgid "Processing"
 msgstr "กำลังประมวลผล"
 
 #: ../yuminstall.py:132
-#, fuzzy
 msgid "Preparing transaction from installation source..."
-msgstr "กำลังเตรียมที่จะติดตั้ง..."
+msgstr "กำลังเตรียมการส่งข้อมูลจากแหล่งติดตั้ง..."
 
-#: ../yuminstall.py:163
-#, fuzzy, python-format
+#: ../yuminstall.py:163, python-format
 msgid "<b>Installing %s</b> (%s)\n"
-msgstr "_ติดตั้ง %s ใหม่ทั้งหมด"
+msgstr "<b>กำลังติดตั้ง %s<b> (%s)\n"
 
 #: ../yuminstall.py:212
 #, python-format
 msgid "%s of %s packages completed"
-msgstr ""
+msgstr "เสร็จแล้ว %s จาก %s แพคเกจ"
 
 #: ../yuminstall.py:222
-#, fuzzy
 msgid "Finishing upgrade"
-msgstr "กำลังเริ่มกระบวนการติดตั้ง อาจจะใช้เวลาสักครู่..."
+msgstr "กำลังทำให้อัพเดตสมบูรณ์"
 
 #: ../yuminstall.py:223
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while..."
-msgstr "กำลังเริ่มกระบวนการติดตั้ง อาจจะใช้เวลาสักครู่..."
+msgstr "กำลังทำให้การอัพเกรดสมบูรณ์ อาจจะใช้เวลาสักครู่..."
 
 #: ../yuminstall.py:293 ../iw/task_gui.py:301
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "ชื่อรายการบูตไม่ถูกต้อง"
+msgstr "เกิดข้อผิดพลาดในการตั้งคลังแพคเกจ"
 
-#: ../yuminstall.py:294 ../iw/task_gui.py:302
-#, fuzzy, python-format
+#: ../yuminstall.py:294 ../iw/task_gui.py:302, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -1967,16 +1911,15 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"การแบ่งพาร์ทิชันของคุณมีข้อผิดพลาดเกิดขึ้นดังนี้:\n"
+"มีข้อผิดพลาดเกิดขึ้นในการติดตั้งคลังแพคเกจสำหรับติดตั้ง:\n"
 "\n"
 "%s\n"
 "\n"
-"กดปุ่ม 'ตกลง' เพื่อรีบูตระบบของคุณ"
+"กรุณาป้อนข้อมูลที่ถูกต้องสำหรับการติดตั้ง %s"
 
 #: ../yuminstall.py:353
-#, fuzzy
 msgid "Change Disc"
-msgstr "เปลี่ยนแผ่นซีดี"
+msgstr "เปลี่ยนแผ่น"
 
 #: ../yuminstall.py:354
 #, python-format
@@ -1984,37 +1927,31 @@ msgid "Please insert %s disc %d to continue."
 msgstr "โปรดใส่โปรแกรม %s แผ่น %d เพื่อดำเนินการติดตั้งต่อ"
 
 #: ../yuminstall.py:364
-#, fuzzy
 msgid "Wrong Disc"
-msgstr "ใส่ซีดีรอมผิด"
+msgstr "ใส่แผ่นผิด"
 
-#: ../yuminstall.py:365
-#, fuzzy, python-format
+#: ../yuminstall.py:365, python-format
 msgid "That's not the correct %s disc."
-msgstr "นี่ไม่ใช่ซีดีรอมของ %s"
+msgstr "นี่ไม่ใช่แผ่นของ %s"
 
 #: ../yuminstall.py:372
-#, fuzzy
 msgid "Unable to access the disc."
-msgstr "ไม่สามารถเข้าถึงแผ่นซีดีได้"
+msgstr "ไม่สามารถเข้าถึงแผ่นได้"
 
 #: ../yuminstall.py:530
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr ""
+msgstr "คลังแพคเกจ %r ไม่ระบุชื่อในการตั้งค่า จะใช้ id แทน"
 
 #: ../yuminstall.py:654 ../yuminstall.py:656
-#, fuzzy
 msgid "Re_boot"
-msgstr "รีบูต"
+msgstr "_รีบูต"
 
 #: ../yuminstall.py:654
-#, fuzzy
 msgid "_Eject"
-msgstr "เอาแผ่นซีดีออก"
+msgstr "_ดีดแผ่น"
 
-#: ../yuminstall.py:665
-#, fuzzy, python-format
+#: ../yuminstall.py:665, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -2023,127 +1960,111 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"แพ็กเกจ %s-%s-%s ไม่สามารถเปิดใช้งานได้ อาจเพราะว่าไม่มีอยู่ หรือเกิดความเสียหายกับข้อมูล "
-"ถ้าคุณติดตั้งด้วยแผ่นซีดี ก็อาจเป็นไปได้ว่าแผ่นไม่สมบูรณ์ หรือตัวอ่านชำรุด\n"
+"ไม่สามารถเปิดไฟล์ %s อาจเพราะว่าไม่มีอยู่ หรือเกิดความเสียหายกับแพคเกจหรือ"
+"สื่อติดตั้ง โปรดตรวจสอบแหล่งติดตั้งของคุณ\n"
 "\n"
-"กดปุ่ม <return> เพื่อลองใหม่"
+"ถ้าคุณออก ระบบของคุณจะอยู่ในสภาพไม่สมบูรณ์ที่อาจจะต้องติดตั้งซ้ำ\n"
+"\n"
 
 #: ../yuminstall.py:708
-#, fuzzy
 msgid "Retrying"
-msgstr "กำลังเรียกคืน"
+msgstr "กำลังลองซ้ำ"
 
 #: ../yuminstall.py:708
 msgid "Retrying download..."
-msgstr ""
+msgstr "กำลังดาวน์โหลดซ้ำ..."
 
-#: ../yuminstall.py:780
-#, fuzzy, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
-msgstr ""
-"ชื่อโฮสต์ \"%s\" ไม่ถูกต้องเพราะเหตุผลดังนี้:\n"
-"\n"
-"%s"
+#: ../yuminstall.py:780, python-format
+msgid "There was an error running your transaction for the following reason: %s\n"
+msgstr "มีข้อผิดพลาดในการถ่ายโอนข้อมูลเพราะ %s\n"
 
 #: ../yuminstall.py:815 ../yuminstall.py:816
 msgid "file conflicts"
-msgstr ""
+msgstr "ไฟล์ขัดแย้งกัน"
 
 #: ../yuminstall.py:817
-#, fuzzy
 msgid "older package(s)"
-msgstr "แพ็กเกจเสริม"
+msgstr "แพคเกจเก่ากว่า"
 
 #: ../yuminstall.py:818
 msgid "insufficient disk space"
-msgstr ""
+msgstr "เนื้อที่ดิสก์ไม่เพียงพอ"
 
 #: ../yuminstall.py:819
 msgid "insufficient disk inodes"
-msgstr ""
+msgstr "inode ดิสก์ไม่เพียงพอ"
 
 #: ../yuminstall.py:820
-#, fuzzy
 msgid "package conflicts"
-msgstr "แพ็กเกจปริยาย"
+msgstr "แพคเกจชนกัน"
 
 #: ../yuminstall.py:821
 msgid "package already installed"
-msgstr ""
+msgstr "แพคเกจติดตั้งไว้อยู่แล้ว"
 
 #: ../yuminstall.py:822
-#, fuzzy
 msgid "required package"
-msgstr "พื้นที่ว่าง"
+msgstr "แพคเกจที่ต้องการ"
 
 #: ../yuminstall.py:823
 msgid "package for incorrect arch"
-msgstr ""
+msgstr "แพคเกจผิดสถาปัตยกรรม"
 
 #: ../yuminstall.py:824
 msgid "package for incorrect os"
-msgstr ""
+msgstr "แพคเกจผิดระบบปฎิบัติการ"
 
 #: ../yuminstall.py:838
 msgid "You need more space on the following file systems:\n"
-msgstr ""
+msgstr "คุณต้องการเนื้อที่เพิ่มเติมในระบบไฟล์ต่อไปนี้:\n"
 
-#: ../yuminstall.py:851
-#, fuzzy, python-format
+#: ../yuminstall.py:851, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
-msgstr "แพ็กเกจที่จะติดตั้งถูกเก็บในสื่อประเภทใด?"
+msgstr ""
+"มีไฟล์ขัดแย้งกันระหว่างที่ตรวจสอบแพคเกจที่จะติดตั้ง:\n"
+"%s\n"
 
-#: ../yuminstall.py:854
-#, fuzzy, python-format
+#: ../yuminstall.py:854, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
-msgstr ""
-"ชื่อโฮสต์ \"%s\" ไม่ถูกต้องเพราะเหตุผลดังนี้:\n"
-"\n"
-"%s"
+msgstr "มีข้อผิดพลาดในการถ่ายโอนข้อมูลเพราะ %s\n"
 
 #: ../yuminstall.py:861 ../yuminstall.py:866
-#, fuzzy
 msgid "Error Running Transaction"
-msgstr "กำลังเตรียมตั้งชุดคำสั่งสำหรับติดตั้ง RPM..."
+msgstr "มีข้อผิดพลาดในการถ่ายโอนข้อมูล"
 
 #: ../yuminstall.py:1023
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
-msgstr ""
+msgstr "คลังแพคเกจบางอันของคุณต้องการระบบเครือข่าย แต่ไม่สามารถเปิดใช้ระบบเครือข่ายบนเครื่องได้"
 
 #: ../yuminstall.py:1057
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
-msgstr ""
+msgstr "ไม่สามารถอ่านข้อมูลกลุ่มแพคเกจจากคลัง นี่เป็นปัญหากับการสร้างทรีติดตั้งระบบ"
 
 #: ../yuminstall.py:1095
-#, fuzzy
 msgid "Retrieving installation information..."
-msgstr "กำลังอ่านข้อมูลแพ็กเกจ..."
+msgstr "กำลังรับข้อมูลการติดตั้ง..."
 
-#: ../yuminstall.py:1097
-#, fuzzy, python-format
+#: ../yuminstall.py:1097, python-format
 msgid "Retrieving installation information for %s..."
-msgstr "กำลังอ่านข้อมูลแพ็กเกจ..."
+msgstr "กำลังรับข้อมูลการติดตั้งของ %s..."
 
 #: ../yuminstall.py:1099
-#, fuzzy
 msgid "Installation Progress"
-msgstr "ประเภทของการติดตั้ง"
+msgstr "กระบวนการติดตั้ง"
 
 #: ../yuminstall.py:1112 ../textw/constants_text.py:64
 msgid "Edit"
 msgstr "แก้ไข"
 
-#: ../yuminstall.py:1125 ../yuminstall.py:1313
-#, fuzzy, python-format
+#: ../yuminstall.py:1125 ../yuminstall.py:1313, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
@@ -2151,12 +2072,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"ไม่สามารถอ่านรายการ header ได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือแผ่นซีดีได้รับความเสียหาย "
-"กดปุ่ม <return> เพื่อลองดูอีกครั้ง"
+"ไม่สามารถอ่านข้อมูลแพคเกจได้ อาจจะเกิดจากไดเรคทอรี repodata หายไป "
+"โปรดตรวจสอบว่าทรีติดตั้งของคุณได้ถูกสร้างอย่างถูกต้องแล้ว\n"
+"\n"
+"%s"
 
 #: ../yuminstall.py:1176 ../iw/GroupSelector.py:485
 msgid "Uncategorized"
-msgstr ""
+msgstr "ไร้สังกัด"
 
 #: ../yuminstall.py:1338
 #, python-format
@@ -2165,6 +2088,8 @@ msgid ""
 "do not have enough available.  You can change your selections or exit the "
 "installer."
 msgstr ""
+"แพคเกจที่คุณเลือกไว้ต้องการเนื้อที่ว่าง %d MB แต่คุณมีไม่พอ "
+"คุณสามารถแก้ไขการเลือกแพคเกจหรือออกจากการติดตั้ง"
 
 #: ../yuminstall.py:1357
 msgid "Reboot?"
@@ -2174,34 +2099,30 @@ msgstr "รีบูตหรือไม่?"
 msgid "The system will be rebooted now."
 msgstr "ระบบของคุณจะถูกรีบูตเดี๋ยวนี้ "
 
-#: ../yuminstall.py:1511
-#, fuzzy, python-format
+#: ../yuminstall.py:1511, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"สถาปัตยกรรมของรีลีสของ %s ที่คุณกำลังอัพเกรดคือ %s ซึ่งไม่เข้ากันกับระบบที่ติดตั้งไว้ก่อนหน้านี้สำหรับ "
-"%s  เป็นไปได้ว่าการอัพเกรดจะไม่สำเร็จ  คุณแน่ใจว่ายังต้องการจะอัพเกรดต่อหรือไม่?"
+"เหมือนว่าคุณกำลังจะอัพเกรดระบบจากรุ่นที่เก่าเกินกว่าจะอัพเกรดเป็น %s รุ่นนี้ได้ "
+"คุณต้องการอัพเกรดต่อไปหรือไม่?"
 
-#: ../yuminstall.py:1540
-#, fuzzy, python-format
+#: ../yuminstall.py:1540, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"สถาปัตยกรรมของรีลีสของ %s ที่คุณกำลังอัพเกรดคือ %s ซึ่งไม่เข้ากันกับระบบที่ติดตั้งไว้ก่อนหน้านี้สำหรับ "
-"%s  เป็นไปได้ว่าการอัพเกรดจะไม่สำเร็จ  คุณแน่ใจว่ายังต้องการจะอัพเกรดต่อหรือไม่?"
+"สถาปัตยกรรมของชุด %s ที่คุณกำลังอัพเกรดเป็น %s ส่วนระบบติดตั้ดตั้งไว้คือ %s ซึ่งการอัพเกรดอาจจะไม่สำเร็จ "
+"คุณต้องการอัพเกรดต่อไปหรือไม่?"
 
 #: ../yuminstall.py:1591
-#, fuzzy
 msgid "Post Upgrade"
-msgstr "อัพเกรด"
+msgstr "หลังการอัพเกรด"
 
 #: ../yuminstall.py:1592
-#, fuzzy
 msgid "Performing post upgrade configuration..."
-msgstr "ดำเนินการปรับแต่งหลังติดตั้งแล้ว..."
+msgstr "ดำเนินการปรับแต่งหลังการอัพเดต"
 
 #: ../yuminstall.py:1594
 msgid "Post Install"
@@ -2209,14 +2130,13 @@ msgstr "ช่วงหลังติดตั้ง"
 
 #: ../yuminstall.py:1595
 msgid "Performing post install configuration..."
-msgstr "ดำเนินการปรับแต่งหลังติดตั้งแล้ว..."
+msgstr "กำลังปรับแต่งหลังติดตั้ง..."
 
 #: ../yuminstall.py:1820
 msgid "Install Starting"
 msgstr "เริ่มการติดตั้ง"
 
 #: ../yuminstall.py:1821
-#, fuzzy
 msgid "Starting install process.  This may take several minutes..."
 msgstr "กำลังเริ่มกระบวนการติดตั้ง อาจจะใช้เวลาสักครู่..."
 
@@ -2228,34 +2148,30 @@ msgstr "การตรวจสอบการขึ้นต่อกัน"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "กำลังตรวจสอบการขึ้นต่อกันของแพ็กเกจที่เลือกเพื่อใช้สำหรับการติดตั้ง..."
 
-#: ../iw/GroupSelector.py:147
-#, fuzzy, python-format
+#: ../iw/GroupSelector.py:147, python-format
 msgid "Packages in %s"
-msgstr "การเลือกกลุ่มของแพ็กเกจ"
+msgstr "แพคเกจใน %s"
 
-#: ../iw/GroupSelector.py:424
-#, fuzzy, python-format
+#: ../iw/GroupSelector.py:424, python-format
 msgid "Optional packages selected: %d of %d"
-msgstr "แพ็กเกจที่จะติดตั้งถูกเก็บในสื่อประเภทใด?"
+msgstr "แพคเกจเสริมที่เลือก: %d จาก %d"
 
 #: ../iw/GroupSelector.py:425
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: ../iw/account_gui.py:52
-#, fuzzy
 msgid "Root _Password:"
 msgstr "_รหัสผ่านของ root: "
 
 #: ../iw/account_gui.py:54
-#, fuzzy
 msgid "_Confirm:"
 msgstr "_ยืนยันรหัสผ่าน: "
 
 #: ../iw/account_gui.py:97
 msgid "Caps Lock is on."
-msgstr ""
+msgstr "เปิด Caps Lock อยู่"
 
 #: ../iw/account_gui.py:107 ../iw/account_gui.py:115 ../iw/account_gui.py:122
 #: ../iw/account_gui.py:144 ../textw/userauth_text.py:74
@@ -2266,8 +2182,7 @@ msgstr "รหัสผ่านผิดพลาด"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"คุณจะต้องกำหนดรหัสผ่านของ root และทำการยืนยันโดยพิมพ์มันซ้ำในช่องถัดมา จึงจะดำเนินการต่อได้"
+msgstr "คุณจะต้องกำหนดรหัสผ่านของ root และทำการยืนยันโดยพิมพ์มันซ้ำในช่องถัดมา จึงจะดำเนินการต่อได้"
 
 #: ../iw/account_gui.py:116
 msgid "The passwords you entered were different.  Please try again."
@@ -2278,22 +2193,21 @@ msgid "The root password must be at least six characters long."
 msgstr "รหัสผ่านของ root ต้องยาวอย่างน้อย 6 ตัวอักษร"
 
 #: ../iw/account_gui.py:132 ../textw/userauth_text.py:83
-#, fuzzy
 msgid "Weak Password"
-msgstr "รหัสผ่าน"
+msgstr "รหัสผ่านง่าย"
 
-#: ../iw/account_gui.py:133 ../textw/userauth_text.py:84
-#, fuzzy, python-format
+#: ../iw/account_gui.py:133 ../textw/userauth_text.py:84, python-format
 msgid ""
 "Weak password provided: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "คุณต้องการดำเนินการอัพเกรดต่อไปหรือไม่?"
+msgstr ""
+"รหัสผ่านที่เลือกไว้ง่ายเกินไป: %s\n"
+"\n"
+"คุณต้องการติดตั้งต่อไปด้วยรหัสผ่านนี้หรือไม่?"
 
 #: ../iw/account_gui.py:145 ../textw/userauth_text.py:75
-#, fuzzy
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "รหัสผ่านมีตัวอักษรที่ไม่ใช่รหัส ascii ซึ่งจะไม่อนุญาตให้ใช้ในรหัสผ่าน"
 
 #: ../iw/autopart_type.py:101
@@ -2301,80 +2215,73 @@ msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
 msgstr ""
+"ไม่มีพาร์ติชั่นที่สามารถปรับขนาดได้ เฉพาะพาร์ติชั่น physical "
+"ที่มีระบบไฟล์บางตัวเท่านั้นจะสามารถปรับขนาดได้"
 
 #: ../iw/autopart_type.py:124
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "กำลังฟอร์แมตระบบไฟล์ %s ..."
+msgstr "มีข้อผิดพลาดในการปรับขนาดระบบไฟล์"
 
 #: ../iw/autopart_type.py:125 ../iw/autopart_type.py:134
 #, python-format
 msgid "%s: %s"
-msgstr ""
+msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:133
 msgid "Resize Device Error"
-msgstr ""
+msgstr "เกิดข้อผิดพลาดในการย่อขนาดอุปกรณ์"
 
 #: ../iw/autopart_type.py:208
-msgid ""
-"Do you really want to boot from a disk which is not used for installation?"
-msgstr ""
+msgid "Do you really want to boot from a disk which is not used for installation?"
+msgstr "คุณต้องการบูทจากดิสก์ที่ไม่ได้ใช้ในการติดตั้งหรือไม่?"
 
 #: ../iw/autopart_type.py:285
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "ชื่อของ Volume Group ไม่ถูกต้อง"
+msgstr "ชื่อ Initiator ไม่ถูกต้อง"
 
 #: ../iw/autopart_type.py:286
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "คุณต้องระบุชื่อล็อกอินของผู้ใช้"
+msgstr "คุณต้องระบุชื่อ initiator"
 
 #: ../iw/autopart_type.py:321
-#, fuzzy
 msgid "Error with Data"
 msgstr "เกิดข้อผิดพลาดกับข้อมูล"
 
 #: ../iw/autopart_type.py:398 ../iw/autopart_type.py:399
 msgid "Rescanning disks"
-msgstr ""
+msgstr "กำลังสแกนดิสก์ใหม่"
 
 #: ../iw/autopart_type.py:452 ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "ไ_ม่ต้องสนใจไดรฟ์นี้"
+msgstr "ใช้ทั้งไดรฟ์"
 
 #: ../iw/autopart_type.py:453 ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "ทับระบบลินุกซ์เดิม"
 
 #: ../iw/autopart_type.py:454
-#, fuzzy
 msgid "Shrink current system"
-msgstr "Encryption Key"
+msgstr "ย่อขนาดระบบปัจจุบัน"
 
 #: ../iw/autopart_type.py:455 ../textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "ไม่มีพื้นที่ว่าง"
+msgstr "ใช้พื้นที่ว่าง"
 
 #: ../iw/autopart_type.py:456
 msgid "Create custom layout"
-msgstr ""
+msgstr "สร้างโครงสร้างเอง"
 
 #: ../iw/blpasswidget.py:47
 msgid "_Use a boot loader password"
 msgstr "ใ_ช้รหัสผ่านสำหรับบูตโหลดเดอร์"
 
 #: ../iw/blpasswidget.py:48
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
 msgstr ""
-"รหัสผ่านของบูตโหลดเดอร์จะทำหน้าที่ป้องกันผู้ใช้จากการเปลี่ยนแปลงตัวเลือกที่จะผ่านไปให้เคอร์เนล  "
-"ถ้าต้องการความปลอดภัยสูงสุด ขอแนะนำให้ตั้งรหัสผ่านนี้"
+"รหัสผ่านของบูตโหลดเดอร์จะทำหน้าที่ป้องกันผู้ใช้จากการเปลี่ยนแปลงตัวเลือกที่จะผ่านไปให้เคอร์เนลเพื่อความปล"
+"อดภัย"
 
 #: ../iw/blpasswidget.py:79
 msgid "Change _password"
@@ -2409,7 +2316,6 @@ msgid "Passwords do not match"
 msgstr "รหัสผ่านไม่ตรงกัน"
 
 #: ../iw/blpasswidget.py:152
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -2425,49 +2331,43 @@ msgid "Boot Loader Configuration"
 msgstr "การตั้งค่าบูตโหลดเดอร์"
 
 #: ../iw/bootloader_main_gui.py:179 ../iw/bootloader_main_gui.py:184
-#: ../iw/bootloader_main_gui.py:221
-#, fuzzy, python-format
+#: ../iw/bootloader_main_gui.py:221, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "การติดตั้งบูตโหลดเดอร์..."
+msgstr "_ติดตั้งบูทโหลดเดอร์บน /dev/%s"
 
 #: ../iw/bootloader_main_gui.py:227
-#, fuzzy
 msgid "_Change device"
-msgstr "เปลี่ยนแผ่นซีดี"
+msgstr "_เปลี่ยนอุปกรณ์"
 
 #: ../iw/congrats_gui.py:33
 msgid "Congratulations"
 msgstr "ขอแสดงความยินดี"
 
-#: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39
-#, fuzzy, python-format
+#: ../iw/congrats_gui.py:74 ../textw/complete_text.py:39, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "ขอแสดงความยินดี การติดตั้ง %s ของคุณเสร็จสมบูรณ์.\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77 ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "ปิดเครื่อง"
 
 #: ../iw/congrats_gui.py:79 ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr "กรุณาเชื่อมต่อไปที่ง %s เพื่อเริ่มติดตั้ง..."
+msgstr "กรุณาปิดเครื่องเพื่อใช้ระบบที่ถูกติดตั้ง\n"
 
 #: ../iw/congrats_gui.py:81 ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr "กรุณาเชื่อมต่อไปที่ง %s เพื่อเริ่มติดตั้ง..."
+msgstr "กรุณาเปิดเครื่องใหม่เพื่อใช้ระบบที่ถูกติดตั้ง\n"
 
 #: ../iw/congrats_gui.py:86 ../textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
-msgstr ""
+msgstr "อาจมีอัพเดตที่ช่วยให้ระบบของคุณทำงานได้ดี และหลังเปิดเครื่องใหม่แล้วแนะนำให้ติดตั้งอัพเดตเหล่านี้"
 
 #: ../iw/congrats_gui.py:90 ../textw/complete_text.py:55
 #, python-format
@@ -2478,6 +2378,10 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"ขอแสดงความยินดี การติดตั้ง %s ของคุณสมบูรณ์แล้ว\n"
+"\n"
+"โปรดเปิดเครื่องใหม่เพื่อใช้ระบบที่ถูกติดตั้ง และระบบอาจมีอัพเดตเพื่อให้ระบบของคุณทำงานได้ถูกต้อง "
+"หลังการเปิดเครื่องใหม่แนะนำให้ติดตั้งอัพเดตเหล่านี้"
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2486,7 +2390,7 @@ msgstr "ตรวจสอบความเป็นไปได้ในกา
 #: ../iw/examine_gui.py:59
 #, python-format
 msgid "_Install %s"
-msgstr "_ติดตั้ง %s ใหม่ทั้งหมด"
+msgstr "_ติดตั้ง %s"
 
 #: ../iw/examine_gui.py:61
 msgid ""
@@ -2500,8 +2404,7 @@ msgstr ""
 msgid "_Upgrade an existing installation"
 msgstr "_อัพเกรดระบบที่ติดตั้งไว้แล้ว"
 
-#: ../iw/examine_gui.py:67
-#, fuzzy, python-format
+#: ../iw/examine_gui.py:67, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option preserves the existing data on your drives."
@@ -2545,7 +2448,6 @@ msgid "Confirm Physical Extent Change"
 msgstr "ยืนยันการเปลี่ยนแปลงส่วนยืดขยายทางกายภาพ"
 
 #: ../iw/lvm_dialog_gui.py:131
-#, fuzzy
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2666,9 +2568,8 @@ msgstr "(ขนาดสูงสุด เท่ากับ %s เมกะไ
 
 #: ../iw/lvm_dialog_gui.py:495 ../iw/partition_dialog_gui.py:413
 #: ../iw/partition_ui_helpers_gui.py:322 ../iw/raid_dialog_gui.py:345
-#, fuzzy
 msgid "_Encrypt"
-msgstr "Encryption Key"
+msgstr "_เข้ารหัส"
 
 #: ../iw/lvm_dialog_gui.py:540
 msgid "Illegal Logical Volume Name"
@@ -2687,10 +2588,9 @@ msgstr "logical volume ชื่อ \"%s\" ได้ถูกใช้ไปแ�
 msgid "Mount point in use"
 msgstr "ตำแหน่งเมานท์ถูกใช้อยู่"
 
-#: ../iw/lvm_dialog_gui.py:585
-#, fuzzy, python-format
+#: ../iw/lvm_dialog_gui.py:585, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr "ตำแหน่งเมานท์ %s ได้ถูกใช้ไปแล้ว กรุณาเลือกที่อื่น"
+msgstr "ตำแหน่งเมานท์ \"%s\" ได้ถูกใช้ไปแล้ว กรุณาเลือกที่อื่น"
 
 #: ../iw/lvm_dialog_gui.py:600
 msgid "Illegal size"
@@ -2700,15 +2600,15 @@ msgstr "ขนาดไม่ถูกต้อง"
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "ขนาดที่คุณป้อนเข้ามา เป็นตัวเลขที่ไม่ถูกต้อง (ต้องมากกว่า 0)"
 
-#: ../iw/lvm_dialog_gui.py:614
-#, fuzzy, python-format
+#: ../iw/lvm_dialog_gui.py:614, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
 "volume size (%10.2f MB). To increase this limit you can create more Physical "
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 "ขนาดที่ต้องการในปัจจุบัน (%10.2f MB) ใหญ่กว่าขนาดสูงสุดของ logical volume (%10.2f MB) "
-"ถ้าต้องการเพิ่มอีก คุณต้องเพิ่มขนาดของส่วนยืดขยายทางกายภาพสำหรับ volume group นี้"
+"ถ้าต้องการเพิ่มอีก คุณสามารถสร้าง Physical Volume จากดิสก์ที่ยังไม่ได้สร้างพาร์ติชั่นและเพิ่มไปยัง "
+"volume group นี้"
 
 #: ../iw/lvm_dialog_gui.py:708
 msgid "No free slots"
@@ -2724,7 +2624,6 @@ msgid "No free space"
 msgstr "ไม่มีพื้นที่ว่าง"
 
 #: ../iw/lvm_dialog_gui.py:716
-#, fuzzy
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -2733,8 +2632,7 @@ msgstr ""
 "ไม่มีพื้นที่ว่างเหลือใน volume group พอที่จะสร้าง logical volume ได้  เพื่อจะเพิ่ม logical "
 "volume คุณจำเป็นต้องลดขนาดของ logical volume อื่นๆ ที่มีอยู่แล้วลง"
 
-#: ../iw/lvm_dialog_gui.py:748
-#, fuzzy, python-format
+#: ../iw/lvm_dialog_gui.py:748, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "คุณแน่ใจหรือไม่ว่าคุณต้องการลบ logical volume \"%s\"?"
 
@@ -2832,9 +2730,8 @@ msgid "_Edit"
 msgstr "แ_ก้ไข"
 
 #: ../iw/lvm_dialog_gui.py:1273
-#, fuzzy
 msgid "_Logical Volumes"
-msgstr "Logical Volumes"
+msgstr "_Logical Volumes"
 
 #: ../iw/netconfig_dialog.py:193 ../textw/netconfig_text.py:36
 #, python-format
@@ -2850,20 +2747,17 @@ msgstr ""
 msgid "Error With Data"
 msgstr "เกิดข้อผิดพลาดกับข้อมูล"
 
-#: ../iw/netconfig_dialog.py:203
-#, fuzzy, python-format
+#: ../iw/netconfig_dialog.py:203, python-format
 msgid "A value is required for the field %s."
-msgstr "จำเป็นต้องป้อนค่าในช่อง \"%s\"."
+msgstr "จำเป็นต้องป้อนค่าในช่อง %s"
 
-#: ../iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#: ../iw/netconfig_dialog.py:213, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "เกิดข้อผิดพลาดระหว่างสำเนาภาพหน้าจอ"
+msgstr "เกิดข้อผิดพลาดขณะเปิดใช้ระบบเครือข่าย %s"
 
 #: ../iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดในการตั้งค่าเครือข่าย"
 
 #: ../iw/netconfig_dialog.py:237
 msgid "Dynamic IP"
@@ -2880,17 +2774,15 @@ msgid "IP Address"
 msgstr "หมายเลขไอพี"
 
 #: ../iw/netconfig_dialog.py:263 ../textw/netconfig_text.py:224
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "หมายเลข IP จะต้องเป็นตัวเลขระหว่าง 1 ถึง 255"
+msgstr "เลขขึ้นต้น CIDR ของ IPv4 จะต้องเป็นตัวเลขระหว่าง 1 ถึง 255"
 
 #: ../iw/netconfig_dialog.py:264 ../iw/netconfig_dialog.py:270
 #: ../iw/netconfig_dialog.py:278 ../iw/netconfig_dialog.py:281
 #: ../textw/netconfig_text.py:225 ../textw/netconfig_text.py:231
 #: ../textw/netconfig_text.py:239
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "IP/เน็ตมาสก์"
+msgstr "เน็ตมาส์กของ IPv4"
 
 #: ../iw/netconfig_dialog.py:291 ../textw/netconfig_text.py:252
 msgid "Gateway"
@@ -2901,19 +2793,16 @@ msgid "Nameserver"
 msgstr "Nameserver"
 
 #: ../iw/netconfig_dialog.py:310
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดในการตั้งค่าอุปกรณ์เครือข่าย:"
 
 #: ../iw/network_gui.py:60 ../iw/network_gui.py:66
-#, fuzzy
 msgid "Error with Hostname"
-msgstr "เกิดข้อผิดพลาดกับข้อมูล"
+msgstr "เกิดข้อผิดพลาดกับชื่อโฮสต์"
 
 #: ../iw/network_gui.py:61
-#, fuzzy
 msgid "You must enter a valid hostname for this computer."
-msgstr "คุณต้องป้อนชื่อเซิร์ฟเวอร์"
+msgstr "คุณต้องป้อนชื่อโฮสต์ที่ถูกต้องสำหรับเครื่องนี้"
 
 #: ../iw/network_gui.py:67
 #, python-format
@@ -2927,9 +2816,8 @@ msgstr ""
 "%s"
 
 #: ../iw/osbootwidget.py:49
-#, fuzzy
 msgid "Boot loader operating system list"
-msgstr "รหัสผ่านสำหรับบูตโหลดเดอร์สั้นเกินไป"
+msgstr "รายการระบบปฎิบัติการในบูทโหลดเดอร์"
 
 #: ../iw/osbootwidget.py:65
 msgid "Default"
@@ -2948,7 +2836,6 @@ msgid "Image"
 msgstr "อิมเมจ"
 
 #: ../iw/osbootwidget.py:135
-#, fuzzy
 msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
@@ -3023,10 +2910,9 @@ msgstr "ขยายพื้นที่จนใ_หญ่ที่สุด�
 msgid "Add Partition"
 msgstr "เพิ่มพาร์ทิชัน"
 
-#: ../iw/partition_dialog_gui.py:278
-#, fuzzy, python-format
+#: ../iw/partition_dialog_gui.py:278, python-format
 msgid "Edit Partition: %s"
-msgstr "แก้ไขพาร์ทิชัน: /dev/%s"
+msgstr "แก้ไขพาร์ทิชัน: %s"
 
 #: ../iw/partition_dialog_gui.py:315
 msgid "File System _Type:"
@@ -3043,12 +2929,12 @@ msgstr "กำหนดให้เป็นพาร์ทิชันห_ล�
 #: ../iw/partition_gui.py:317
 #, python-format
 msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-msgstr ""
+msgstr "ไดรฟ์ %s (Geom: %s/%s/%s) (รุ่น: %s)"
 
 #: ../iw/partition_gui.py:322
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
-msgstr ""
+msgstr "ไดรฟ์ %s (%-0.f MB) (รุ่น: %s)"
 
 #: ../iw/partition_gui.py:367
 msgid "Type"
@@ -3079,14 +2965,11 @@ msgid "Partitioning"
 msgstr "การแบ่งพาร์ทิชัน"
 
 #: ../iw/partition_gui.py:612
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
-msgstr ""
+msgid "The partitioning scheme you requested caused the following critical errors."
+msgstr "การแบ่งพาร์ติชั่นที่คุณเลือกไว้ทำให้เกิดข้อผิดพลาดร้ายแรงดังต่อไปนี้"
 
-#: ../iw/partition_gui.py:614
-#, fuzzy, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+#: ../iw/partition_gui.py:614, python-format
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "ข้อผิดพลาดเหล่านี้จะต้องแก้ไขให้ถูกต้องก่อนที่จะดำเนินการติดตั้ง %s ต่อไป"
 
 #: ../iw/partition_gui.py:620
@@ -3095,7 +2978,7 @@ msgstr "ข้อผิดพลาดเกี่ยวกับการแบ
 
 #: ../iw/partition_gui.py:627
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "การแบ่งพาร์ติชั่นที่คุณเลือกไว้ทำให้เกิดคำเตือนต่อไปนี้"
 
 #: ../iw/partition_gui.py:629
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3157,19 +3040,18 @@ msgid "Unable To Edit"
 msgstr "ไม่สามารถแก้ไขได้"
 
 #: ../iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "คุณต้องเลือกพาร์ทิชันที่จะแก้ไข"
+msgstr "คุณต้องเลือกอุปกรณ์ที่จะแก้ไข"
 
-#: ../iw/partition_gui.py:1070
-#, fuzzy, python-format
+#: ../iw/partition_gui.py:1070, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"คุณไม่สามารถแก้ไขพาร์ทิชันนี้ได้:\n"
+"คุณไม่สามารถแก้ไขอุปกรณ์นี้ได้:\n"
 "\n"
+"%s"
 
 #: ../iw/partition_gui.py:1177 ../iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3216,7 +3098,6 @@ msgstr ""
 "\n"
 
 #: ../iw/partition_gui.py:1232
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -3293,13 +3174,11 @@ msgstr "แปลงระบบไฟล์"
 msgid "_Resize"
 msgstr "ขนาด_คงที่"
 
-#: ../iw/partition_ui_helpers_gui.py:409
-#, fuzzy, python-format
+#: ../iw/partition_ui_helpers_gui.py:409, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
 "select the drive in the 'Allowable Drives' checklist."
-msgstr ""
-"พาร์ทิชันชนิด '%s' จะต้องอยู่บนไดรฟ์เดียว  ทำได้โดยการเลือกไดรฟ์ในรายการ 'ไดรฟ์ที่อนุญาต'"
+msgstr "พาร์ทิชันชนิด '%s' จะต้องอยู่บนไดรฟ์เดียว  ทำได้โดยการเลือกไดรฟ์ในรายการ 'ไดรฟ์ที่อนุญาต'"
 
 #: ../iw/progress_gui.py:37
 msgid "Installing Packages"
@@ -3323,10 +3202,9 @@ msgstr ""
 msgid "Make RAID Device"
 msgstr "สร้างอุปกรณ์ RAID"
 
-#: ../iw/raid_dialog_gui.py:329
-#, fuzzy, python-format
+#: ../iw/raid_dialog_gui.py:329, python-format
 msgid "Edit RAID Device: %s"
-msgstr "แก้ไขอุปกรณ์ RAID"
+msgstr "แก้ไขอุปกรณ์ RAID: %s"
 
 #: ../iw/raid_dialog_gui.py:331
 msgid "Edit RAID Device"
@@ -3366,7 +3244,6 @@ msgid "Source Drive Error"
 msgstr "ไดรฟ์ต้นฉบับมีข้อผิดพลาด"
 
 #: ../iw/raid_dialog_gui.py:574
-#, fuzzy
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -3377,8 +3254,7 @@ msgstr ""
 "\n"
 "พาร์ทิชันเหล่านี้จะต้องถูกลบทิ้งก่อน ไดรฟ์นี้จึงจะถูกสำเนาได้"
 
-#: ../iw/raid_dialog_gui.py:588
-#, fuzzy, python-format
+#: ../iw/raid_dialog_gui.py:588, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3386,12 +3262,11 @@ msgid ""
 "You must remove these partitions or restrict them to this drive before this "
 "drive can be cloned. "
 msgstr ""
-"ไดรฟ์ต้นฉบับที่เลือก มีพาร์ทิชันซึ่งไม่ได้จำกัดอยู่เพียงในไดรฟ์ /dev/%s\n"
+"ไดรฟ์ต้นฉบับที่เลือก มีพาร์ทิชันซึ่งไม่ได้จำกัดอยู่เพียงในไดรฟ์ %s\n"
 "\n"
 "พาร์ทิชันเหล่านี้จะต้องถูกลบทิ้ง หรือถูกจำกัดให้อยู่เพียงในไดรฟ์นี้ก่อน ไดรฟ์นี้จึงจะถูกสำเนาได้"
 
 #: ../iw/raid_dialog_gui.py:601
-#, fuzzy
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -3412,13 +3287,11 @@ msgstr "ไดรฟ์เป้าหมายมีข้อผิดพลา
 msgid "Please select the target drives for the clone operation."
 msgstr "กรุณาเลือกไดรฟ์เป้าหมายสำหรับการสำเนา"
 
-#: ../iw/raid_dialog_gui.py:622
-#, fuzzy, python-format
+#: ../iw/raid_dialog_gui.py:622, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "ไดรฟ์ต้นฉบับ /dev/%s ไม่สามารถถูกเลือกเป็นไดรฟ์เป้าหมายพร้อมๆ กันได้"
+msgstr "ไดรฟ์ต้นฉบับ %s ไม่สามารถถูกเลือกเป็นไดรฟ์เป้าหมายพร้อมๆ กันได้"
 
-#: ../iw/raid_dialog_gui.py:638
-#, fuzzy, python-format
+#: ../iw/raid_dialog_gui.py:638, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3427,7 +3300,7 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"ไดรฟ์เป้าหมาย /dev/%s มีพาร์ทิชันซึ่งไม่สามารถเอาออกได้ เนื่องจากสาเหตุดังนี้:\n"
+"ไดรฟ์เป้าหมาย %s มีพาร์ทิชันซึ่งไม่สามารถเอาออกได้ เนื่องจากสาเหตุดังนี้:\n"
 "\n"
 "\"%s\"\n"
 "\n"
@@ -3437,13 +3310,12 @@ msgstr ""
 msgid "Please select a source drive."
 msgstr "กรุณาเลือกไดรฟ์ต้นฉบับ"
 
-#: ../iw/raid_dialog_gui.py:721
-#, fuzzy, python-format
+#: ../iw/raid_dialog_gui.py:721, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"ไดรฟ์ /dev/%s จะถูกสำเนาไปยังไดรฟ์ต่อไปนี้:\n"
+"ไดรฟ์ %s จะถูกสำเนาไปยังไดรฟ์ต่อไปนี้:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:726
@@ -3469,7 +3341,6 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
 
 #: ../iw/raid_dialog_gui.py:773
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -3491,7 +3362,7 @@ msgstr ""
 "ที่มีขนาดใกล้เคียงกัน  จากนั้นก็สามารถสร้างอุปกรณ์ RAID ได้ทันที\n"
 "\n"
 "ข้อสังเกต: ไดรฟ์ต้นฉบับจะต้องมีพาร์ทิชันที่จำกัดอยู่เพียงบนไดรฟ์นั้นเท่านั้น และมีเฉพาะพาร์ทิชัน RAID "
-"ซอฟต์แวร์ที่ไม่ได้ใช้งาน  พาร์ทิชันชนิดอื่นๆ ไม่อนุญาตให้มี\n"
+"ซอฟต์แวร์ที่ไม่ได้ใช้งาน  ไม่อนุญาตให้มีพาร์ทิชันชนิดอื่นๆ\n"
 "\n"
 "ข้อมูลทุกอย่างบนไดรฟ์เป้าหมายจะถูกทำลายทั้งหมดในขั้นตอนนี้"
 
@@ -3507,8 +3378,7 @@ msgstr "ไดรฟ์เป้าหมาย:"
 msgid "Drives"
 msgstr "ไดรฟ์"
 
-#: ../iw/task_gui.py:64
-#, fuzzy, python-format
+#: ../iw/task_gui.py:64, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
 "missing repodata directory.  Please ensure that your repository has been "
@@ -3516,80 +3386,72 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"ไม่สามารถอ่านรายการ header ได้ อาจจะมีสาเหตุมาจากไฟล์หายไป หรือแผ่นซีดีได้รับความเสียหาย "
-"กดปุ่ม <return> เพื่อลองดูอีกครั้ง"
+"ไม่สามารถอ่านข้อมูลแพคเกจจากรคลังได้ อาจจะเกิดจากไดเรคทอรี repodata หายไป "
+"โปรดตรวจสอบว่าคลังแพคเกจของคุณได้ถูกสร้างอย่างถูกต้องแล้ว\n"
+"\n"
+"%s"
 
-#: ../iw/task_gui.py:162
-#, fuzzy, python-format
+#: ../iw/task_gui.py:162, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr "ตำแหน่งเมานท์ \"%s\" ได้ถูกใช้ไปแล้ว กรุณาเลือกตำแหน่งเมานท์อื่น"
+msgstr "คลัง %s ถูกเพิ่มไว้อยู่แล้ว กรุณาระบุชื่อคลังและ URL อื่น"
 
 #: ../iw/task_gui.py:175
-#, fuzzy
 msgid "Edit Repository"
-msgstr "ชื่อรายการบูตไม่ถูกต้อง"
+msgstr "แก้ไขคลังแพคเกจ"
 
 #: ../iw/task_gui.py:238
-#, fuzzy
 msgid "Invalid Proxy URL"
-msgstr "ชื่อรายการบูตไม่ถูกต้อง"
+msgstr "ตำแหน่งพร็อกซี่ไม่ถูกต้อง"
 
 #: ../iw/task_gui.py:239
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr ""
+msgstr "คุณต้องระบุพร็อกซี่เป็น HTTP, HTTPS หรือ FTP"
 
 #: ../iw/task_gui.py:250 ../iw/task_gui.py:388
-#, fuzzy
 msgid "Invalid Repository URL"
-msgstr "ชื่อรายการบูตไม่ถูกต้อง"
+msgstr "URL คลังแพคเกจไม่ถูกต้อง"
 
 #: ../iw/task_gui.py:251 ../iw/task_gui.py:389
-#, fuzzy
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "คุณต้องระบุชื่อล็อกอินของผู้ใช้"
+msgstr "คุณต้องระบุ URL คลังแพคเกจแบบ HTTP, HTTPS หรือ FTP"
 
 #: ../iw/task_gui.py:273 ../iw/task_gui.py:398
-#, fuzzy
 msgid "No Media Found"
-msgstr "ไม่พบไดรฟ์ในเครื่อง"
+msgstr "ไม่พบสื่อ"
 
 #: ../iw/task_gui.py:274 ../iw/task_gui.py:399
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
-msgstr ""
+msgstr "ไม่พบสื่อติดตั้ง กรุณาใส่แผ่นลงในไดรฟ์ของคุณและลองใหม่"
 
 #: ../iw/task_gui.py:293 ../iw/task_gui.py:415
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "กรุณาป้อนชื่อของ volume group"
+msgstr "กรุณาระบุเซิร์ฟเวอร์ NFS และพาธ"
 
 #: ../iw/task_gui.py:325
-#, fuzzy
 msgid "Invalid Repository Name"
-msgstr "ชื่อโฮสต์ไม่ถูกต้อง"
+msgstr "ชื่อคลังไม่ถูกต้อง"
 
 #: ../iw/task_gui.py:326
-#, fuzzy
 msgid "You must provide a repository name."
-msgstr "คุณต้องระบุชื่อล็อกอินของผู้ใช้"
+msgstr "คุณต้องระบุชื่อคลัง"
 
 #: ../iw/task_gui.py:450 tmp/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr ""
+msgstr "เพิ่มคลังแพคเกจ"
 
 #: ../iw/task_gui.py:455
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "ไม่มีคลังแพคเกจเปิดใช้"
 
 #: ../iw/task_gui.py:456
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "ข้อผิดพลาดเหล่านี้จะต้องแก้ไขให้ถูกต้องก่อนที่จะดำเนินการติดตั้ง %s ต่อไป"
+msgstr "คุณต้องเปิดคลังแพคเกจอย่างน้อยหนึ่งคลังเพื่อติดตั้งต่อไป"
 
 #: ../iw/timezone_gui.py:63 ../textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -3611,7 +3473,7 @@ msgstr "กำลังจะอัพเดตบูตโหลดเดอร
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
-msgstr ""
+msgstr "เนื่องจากมีการแก้ไขระบบจึงไม่สามารถอัพเดตการตั้งค่าบูทโหลดเดอร์ของคุณให้โดยอัตโนมัติได้"
 
 #: ../iw/upgrade_bootloader_gui.py:130 ../textw/upgrade_bootloader_text.py:111
 msgid ""
@@ -3621,8 +3483,7 @@ msgstr "ตัวติดตั้งตรวจไม่พบบูตโห
 
 #: ../iw/upgrade_bootloader_gui.py:137 ../textw/upgrade_bootloader_text.py:120
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "ตัวติดตั้งได้ตรวจสอบพบบูตโหลดเดอร์ของ %s ซึ่งถูกติดตั้งไว้ที่ %s"
 
 #: ../iw/upgrade_bootloader_gui.py:141
@@ -3634,24 +3495,21 @@ msgid "_Create new boot loader configuration"
 msgstr "_ติดตั้งบูตโหลดเดอร์ใหม่"
 
 #: ../iw/upgrade_bootloader_gui.py:148
-#, fuzzy
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
-msgstr ""
-"ตัวเลือกนี้จะทำให้คุณติดตั้งบูตโหลดเดอร์ใหม่ ถ้าคุณจะเปลี่ยนบูตโหลดเดอร์ คุณควรจะเลือกหัวข้อนี้"
+msgstr "ตัวเลือกนี้จะสร้างการตั้งค่าบูตโหลดเดอร์ใหม่ ถ้าคุณจะเปลี่ยนบูตโหลดเดอร์ คุณควรจะเลือกหัวข้อนี้"
 
 #: ../iw/upgrade_bootloader_gui.py:155
 msgid "_Skip boot loader updating"
 msgstr "_ข้ามการอัพเดทบูตโหลดเดอร์"
 
 #: ../iw/upgrade_bootloader_gui.py:156
-#, fuzzy
 msgid ""
 "This option makes no changes to boot loader configuration.  If you are using "
 "a third party boot loader, you should choose this."
 msgstr ""
-"จะไม่มีการเปลี่ยนแปลงเกี่ยวกับบูตโหลดเดอร์ ถ้าคุณกำลังใช้บูตโหลดเดอร์ของผู้อื่นอยู่แล้ว "
+"ตัวเลือกนี้จะไม่มีการเปลี่ยนแปลงเกี่ยวกับบูตโหลดเดอร์ ถ้าคุณกำลังใช้บูตโหลดเดอร์ของผู้อื่นอยู่แล้ว "
 "คุณควรเลือกข้อนี้"
 
 #: ../iw/upgrade_bootloader_gui.py:167
@@ -3662,8 +3520,7 @@ msgstr "คุณต้องการที่จะทำอะไร?"
 msgid "Migrate File Systems"
 msgstr "แปลงระบบไฟล์"
 
-#: ../iw/upgrade_migratefs_gui.py:70
-#, fuzzy, python-format
+#: ../iw/upgrade_migratefs_gui.py:70, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -3671,27 +3528,24 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s รุ่นนี้สนับสนุนระบบไฟล์แบบ ext3 ซึ่งระบบไฟล์แบบใหม่นี้มีข้อดีกว่าระบบไฟล์แบบ ext2 "
-"ที่เคยใช้กันตามปกติบน %s รุ่นเดิมหลายประการ "
-"โปรแกรมการติดตั้งสามารถที่จะแปลงรูปแบบของพาร์ทิชันแบบ ext2 เป็นแบบ ext3 ได้ "
-"โดยข้อมูลจะไม่สูญหาย\n"
+"%s รุ่นนี้สนับสนุนระบบไฟล์แบบใหม่ซึ่งมีข้อดีมากกว่าระบบไฟล์เดิมใน %s "
+"โปรแกรมติดตั้งนี้สามารถอัพเกรดพาร์ติชั่นได้โดยไม่ทำให้ข้อมูลเสียหาย\n"
 "\n"
-"พาร์ทิชันใดบ้างต่อไปนี้ที่คุณต้องการแปลง?"
+"คุณต้องการอัพเกรดพาร์ติชั่นใด?"
 
 #: ../iw/upgrade_swap_gui.py:35
 msgid "Upgrade Swap Partition"
 msgstr "อัพเกรดพาร์ทิชันสวอป"
 
-#: ../iw/upgrade_swap_gui.py:94 ../textw/upgrade_text.py:101
-#, fuzzy, python-format
+#: ../iw/upgrade_swap_gui.py:94 ../textw/upgrade_text.py:101, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
 "kernels, up to twice the amount of RAM on the system.  You currently have %"
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"เคอร์เนลเวอร์ชัน 2.4 มีความต้องการใช้สวอปมากกว่าเคอร์เนลรุ่นเก่า "
-"ซึ่งจะต้องการขนาดสวอปอย่างน้อย 2 เท่าของหน่วยความจำของระบบ ซึ่งขณะนี้ระบบของคุณมีสวอปขนาด "
+"เคอร์เนลเวอร์ชัน 2.4 หรือใหม่กว่ามีความต้องการใช้สวอปมากกว่าเคอร์เนลรุ่นเก่า "
+"ซึ่งจะต้องการขนาดสวอปสูงสุดอย่างน้อย 2 เท่าของหน่วยความจำของระบบ ซึ่งขณะนี้ระบบของคุณมีสวอปขนาด "
 "%d MB แต่คุณอาจจะสร้างพื้นที่สวอปเพิ่มเติมบนระบบไฟล์ตัวใดตัวหนึ่งของคุณได้ในตอนนี้"
 
 #: ../iw/upgrade_swap_gui.py:101
@@ -3721,8 +3575,7 @@ msgstr "พาร์ทิชัน"
 msgid "Free Space (MB)"
 msgstr "พื้นที่ว่าง (เมกะไบต์)"
 
-#: ../iw/upgrade_swap_gui.py:158
-#, fuzzy, python-format
+#: ../iw/upgrade_swap_gui.py:158, python-format
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
@@ -3737,7 +3590,6 @@ msgid "I _don't want to create a swap file"
 msgstr "ฉันไ_ม่ต้องการสร้างไฟล์สวอป"
 
 #: ../iw/upgrade_swap_gui.py:193
-#, fuzzy
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
@@ -3750,13 +3602,12 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "ไฟล์สวอปจะต้องมีขนาดอยู่ระหว่าง 1 - 2000 เมกะไบต์"
 
 #: ../iw/upgrade_swap_gui.py:208 ../textw/upgrade_text.py:183
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "ฮาร์ดดิสก์ของคุณมีพื้นที่ไม่เพียงพอต่อการสร้างพาร์ทิชันสวอป"
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "ต้องการติดตั้งผ่านเครือข่าย"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -3765,11 +3616,13 @@ msgid ""
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
 msgstr ""
+"แหล่งติดตั้งของคุณมาจากเครือข่าย แต่ไม่พบอุปกรณ์เครือข่ายบนเครื่องของคุณ "
+"หากไม่ต้องการติดตั้งผ่านเครือข่ายให้บูทโดยใช้ชุด DVD หรือ CD เต็ม และไม่ระบุพารามิเตอร์ repo= "
+"ที่ระบุแหล่งจากเครือข่าย"
 
 #: ../iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "ตัวติดตั้ง %s"
+msgstr "_ออกจากต้วติดตั้ง"
 
 #: ../iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -3846,81 +3699,69 @@ msgstr "การเลือกแป้นพิมพ์"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "แป้นพิมพ์ที่ต่ออยู่กับคอมพิวเตอร์เครื่องนี้เป็นรุ่นใด?"
 
-#: ../textw/netconfig_text.py:41
-#, fuzzy, python-format
+#: ../textw/netconfig_text.py:41, python-format
 msgid "A value is required for the field %s"
-msgstr "จำเป็นต้องป้อนค่าในช่อง \"%s\"."
+msgstr "จำเป็นต้องป้อนค่าในช่อง %s"
 
 #: ../textw/netconfig_text.py:86 tmp/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr ""
+msgstr "เปิดใช้อุปกรณ์เครือข่าย"
 
 #: ../textw/netconfig_text.py:89 tmp/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
-msgstr ""
+msgstr "กระบวนการนี้ต้องการการเชื่อมต่อเครือข่ายขณะติดตั้ง กรุณาตั้งค่าอุปกรณ์เครือข่าย"
 
 #: ../textw/netconfig_text.py:127
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "ใช้การกำหนดค่า IP แบบไดนามิก (BOOTP/DHCP)"
+msgstr "ใช้การกำหนดค่า IP แบบไดนามิก (DHCP)"
 
 #: ../textw/netconfig_text.py:130 ../loader/net.c:542
 msgid "Enable IPv4 support"
-msgstr ""
+msgstr "เปิดใช้การสนับสนุน IPv4"
 
 #: ../textw/netconfig_text.py:137
-#, fuzzy
 msgid "IPv4 Address:"
-msgstr "หมายเลข IP:"
+msgstr "หมายเลข IPv4:"
 
 #: ../textw/netconfig_text.py:157 ../loader/net.c:896
 msgid "Gateway:"
 msgstr "เกตเวย์:"
 
 #: ../textw/netconfig_text.py:160
-#, fuzzy
 msgid "Nameserver:"
-msgstr "Nameserver"
+msgstr "Nameserver:"
 
 #: ../textw/netconfig_text.py:190
-#, fuzzy
 msgid "Missing Device"
-msgstr "ไม่พบแพ็กเกจ"
+msgstr "ไม่พบอุปกรณ์"
 
 #: ../textw/netconfig_text.py:191
-#, fuzzy
 msgid "You must select a network device"
-msgstr "คุณต้องเลือกพาร์ทิชันที่จะแก้ไข"
+msgstr "คุณต้องเลือกอุปกรณ์เครือข่าย"
 
 #: ../textw/netconfig_text.py:242
-#, fuzzy
 msgid "IPv4 Network Mask "
-msgstr "IP/เน็ตมาสก์"
+msgstr "เน็ตมาสก์ IPv4"
 
 #: ../textw/netconfig_text.py:265
-#, fuzzy
 msgid "Configuring Network Interfaces"
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "กำลังตั้งค่าอุปกรณ์เครือข่าย"
 
 #: ../textw/netconfig_text.py:265
-#, fuzzy
 msgid "Waiting for NetworkManager..."
-msgstr "กำลังรอการเชื่อมต่อเทลเน็ต..."
+msgstr "กำลังรอ NetworkManager..."
 
 #: ../textw/netconfig_text.py:271
-#, fuzzy
 msgid "Error configuring network device"
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดเกิดขึ้นในการตั้งค่าอุปกรณ์เครือข่าย"
 
-#: ../textw/netconfig_text.py:271
-#, fuzzy, python-format
+#: ../textw/netconfig_text.py:271, python-format
 msgid "Error configuring network device %s"
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดเกิดขึ้นในการตั้งค่าอุปกรณ์เครือข่าย %s"
 
 #: ../textw/partition_text.py:58
-#, fuzzy
 msgid "Partitioning Type"
 msgstr "ชนิดของพาร์ทิชัน"
 
@@ -3931,31 +3772,28 @@ msgid ""
 "use as the install target. You can also choose to create your own custom "
 "layout."
 msgstr ""
+"การติดตั้งนี้ต้องการการจัดพาร์ติชั่นในฮาร์ดไดรฟ์ โครงสร้างมาตราฐานนี้เหมาะกับผู้ใช้ทุกคน "
+"กรุณาเลือกว่าจะให้ใช้ที่ใดและไดรฟ์ใดที่จะติดตั้ง คุณยังสามารถสร้างโครงสร้างเองได้"
 
 #: ../textw/partition_text.py:76
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "ไดรฟ์ใดบ้างที่คุณต้องการใช้ในการติดตั้ง?"
 
 #: ../textw/partition_text.py:91
-#, fuzzy
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> การเลือก   |   <F2> รายละเอียดของกลุ่ม   |   <F12> หน้าจอถัดไป"
+msgstr "<Space>,<+>,<-> เลือก   |   <F2> เพิ่มไดรฟ์   |   <F12> หน้าจอถัดไป"
 
 #: ../textw/partition_text.py:165 tmp/adddrive.glade.h:3
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "ตัวเลือกขนาดเพิ่มเติม"
+msgstr "ตัวเลือกอุปกรณ์เก็บข้อมูลขั้นสูง"
 
 #: ../textw/partition_text.py:166 tmp/adddrive.glade.h:5
-#, fuzzy
 msgid "How would you like to modify your drive configuration?"
-msgstr "คุณต้องการจัดการกับระบบไฟล์ของพาร์ทิชันนี้อย่างไร?"
+msgstr "คุณต้องการแก้ไขการตั้งค่าไดรฟ์นี้อย่างไร?"
 
 #: ../textw/partition_text.py:189
-#, fuzzy
 msgid "Add FCP Device"
-msgstr "เพิ่มอุปกรณ์"
+msgstr "เพิ่มอุปกรณ์ FCP"
 
 #: ../textw/partition_text.py:190 tmp/zfcp-config.glade.h:5
 msgid ""
@@ -3963,52 +3801,50 @@ msgid ""
 "(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
+"เครื่อง zSeries สามารถเข้าถึงอุปกรณ์มาตราฐานอุตสาหกรรม SCSI ผ่าน Fibre Channel (FCP) "
+"คุณต้องระบุเลขอุปกรณ์ 16 บิต, ชื่อ World Wide Port Name (WWPM) 64 bit และ FCP LUN 64 bit "
+"สำหรับแต่ละอุปกรณ์"
 
 #: ../textw/partition_text.py:213 tmp/iscsi-config.glade.h:7
-#, fuzzy
 msgid "Configure iSCSI Parameters"
-msgstr "พารามิเตอร์ Chandev"
+msgstr "ตั้งค่าพารามิเตอร์ iSCSI"
 
 #: ../textw/partition_text.py:214 tmp/iscsi-config.glade.h:8
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
+"การใช้ไดรฟ์ iSCSI คุณต้องระบุที่อยู่ของไดรฟ์ iSCSI และชื่อ iSCSI initiator ที่คุณกำหนดไว้สำหรับโฮสต์"
 
 #: ../textw/partition_text.py:215
-#, fuzzy
 msgid "Target IP Address"
-msgstr "หมายเลข IP:"
+msgstr "หมายเลข IP เป้าหมาย"
 
 #: ../textw/partition_text.py:216
-#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "ชื่อของ Volume Group ไม่ถูกต้อง"
+msgstr "ชื่อ iSCSI Initiator"
 
 #: ../textw/partition_text.py:217
-#, fuzzy
 msgid "CHAP username"
-msgstr "ชื่อไซต์ FTP:"
+msgstr "ชื่อผู้ใช้ CHAP"
 
 #: ../textw/partition_text.py:218
-#, fuzzy
 msgid "CHAP password"
-msgstr "รหัสผ่าน"
+msgstr "รหัสผ่าน CHAP"
 
 #: ../textw/partition_text.py:219
 msgid "Reverse CHAP username"
-msgstr ""
+msgstr "ชื่อผู้ใช้ CHAP กลับหลัง"
 
 #: ../textw/partition_text.py:220
 msgid "Reverse CHAP password"
-msgstr ""
+msgstr "รหัสผ่าน CHAP กลับหลัง"
 
 #: ../textw/progress_text.py:46
 msgid "Package Installation"
 msgstr "การติดตั้งแพ็กเกจ"
 
 #: ../textw/timezone_text.py:75
-#, fuzzy
 msgid "In which time zone are you located?"
 msgstr "คุณอยู่ในเขตเวลาอะไร?"
 
@@ -4038,12 +3874,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s รุ่นนี้สนับสนุนระบบไฟล์แบบ ext3 ซึ่งระบบไฟล์แบบใหม่นี้มีข้อดีกว่าระบบไฟล์แบบ ext2 "
-"ที่เคยใช้กันตามปกติบน %s รุ่นเดิมหลายประการ "
-"โปรแกรมการติดตั้งสามารถที่จะแปลงรูปแบบของพาร์ทิชันแบบ ext2 เป็นแบบ ext3 ได้ "
-"โดยข้อมูลจะไม่สูญหาย\n"
+"%s รุ่นนี้สนับสนุนระบบไฟล์แบบใหม่ซึ่งมีข้อดีมากกว่าระบบไฟล์เดิมใน %s "
+"โปรแกรมติดตั้งนี้สามารถอัพเกรดพาร์ติชั่นได้โดยไม่ทำให้ข้อมูลเสียหาย\n"
 "\n"
-"พาร์ทิชันใดบ้างต่อไปนี้ที่คุณต้องการแปลง?"
+"คุณต้องการอัพเกรดพาร์ติชั่นใด?"
 
 #: ../textw/upgrade_text.py:119
 msgid "Free Space"
@@ -4078,7 +3912,6 @@ msgid "System to Upgrade"
 msgstr "ระบบที่จะอัพเกรด"
 
 #: ../textw/upgrade_text.py:220
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
@@ -4094,14 +3927,12 @@ msgid "Root Password"
 msgstr "รหัสผ่านของ Root"
 
 #: ../textw/userauth_text.py:33
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
 msgstr ""
 "เลือกรหัสผ่านของ Root คุณต้องพิมพ์มันสองครั้งเพื่อให้คุณมั่นใจว่ารหัสผ่านคืออะไร "
-"และจะได้พิมพ์ไม่ผิดพลาด \n"
-"จำไว้ว่ารหัสผ่านของ Root คือส่วนที่สำคัญยิ่งสำหรับความปลอดภัยของระบบ!"
+"และจะได้พิมพ์ไม่ผิดพลาด"
 
 #: ../textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
@@ -4127,6 +3958,8 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup require."
 msgstr ""
+"บูทโหลดเดอร์ z/IPL จะถูกติดตั้งบนระบบของคุณหลังติดตั้งเสร็จแล้ว คุณจะสามารถป้อนพารามิเตอร์ของเคอร์เนลและ "
+"chandev เพิ่มเติมตามที่เครื่องหรือการตั้งค่าของคุณจะต้องการ"
 
 #: ../textw/zipl_text.py:67
 msgid "z/IPL Configuration"
@@ -4134,12 +3967,11 @@ msgstr "การกำหนดค่า z/IPL"
 
 #: ../textw/zipl_text.py:75 ../textw/zipl_text.py:79
 msgid "Chandev line "
-msgstr ""
+msgstr "บรรทัด Chandev"
 
 #: ../installclasses/fedora.py:39
-#, fuzzy
 msgid "_Fedora"
-msgstr "_ฟอร์แมต"
+msgstr "_Fedora"
 
 #: ../installclasses/fedora.py:40 ../installclasses/rhel.py:45
 #, python-format
@@ -4148,62 +3980,59 @@ msgid ""
 "general internet usage. What additional tasks would you like your system to "
 "include support for?"
 msgstr ""
+"การติดตั้งปริยายของ %s มีชุดซอฟต์แวร์ที่เหมาะกับการใช้อินเทอร์เน็ตทั่วไป "
+"คุณต้องการให้ระบบของคุณรองรับงานใดเพิ่มเติมอีก?"
 
 #: ../installclasses/fedora.py:49
 msgid "Office and Productivity"
-msgstr ""
+msgstr "สำนักงาน"
 
 #: ../installclasses/fedora.py:50 ../installclasses/rhel.py:57
 #: ../installclasses/rhel.py:62
 msgid "Software Development"
-msgstr ""
+msgstr "การพัฒนาซอฟต์แวร์"
 
 #: ../installclasses/fedora.py:51
-#, fuzzy
 msgid "Web Server"
-msgstr "Nameserver"
+msgstr "เว็บเซิร์ฟเวอร์"
 
 #: ../installclasses/rhel.py:44
-#, fuzzy
 msgid "Red Hat Enterprise Linux"
-msgstr "Red Hat Enterprise Linux WS"
+msgstr "Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel.py:54
 msgid "Office"
-msgstr ""
+msgstr "สำนักงาน"
 
 #: ../installclasses/rhel.py:55
 msgid "Multimedia"
-msgstr ""
+msgstr "สื่อผสม"
 
 #: ../installclasses/rhel.py:61
-#, fuzzy
 msgid "Web server"
-msgstr "Nameserver"
+msgstr "เว็บเซิร์ฟเวอร์"
 
 #: ../installclasses/rhel.py:66
-#, fuzzy
 msgid "Virtualization"
-msgstr "ขอแสดงความยินดี"
+msgstr "ระบบเสมือน"
 
 #: ../installclasses/rhel.py:67
 msgid "Clustering"
-msgstr ""
+msgstr "คลัสเตอร์"
 
 #: ../installclasses/rhel.py:68
 msgid "Storage Clustering"
-msgstr ""
+msgstr "คลัสเตอร์อุปกรณ์เก็บข้อมูล"
 
 #: ../installclasses/rhel.py:72
-#, fuzzy
 msgid "Installation Number"
-msgstr "ประเภทของการติดตั้ง"
+msgstr "หมายเลขการติดตั้ง"
 
 #: ../installclasses/rhel.py:73
 msgid ""
 "To install the full set of supported packages included in your subscription, "
 "please enter your Installation Number"
-msgstr ""
+msgstr "หากจะติดตั้งแพคเกจทั้งหมดที่รวมในค่าบำรุงรักษาทั้งหมด กรุณากรอกหมายเลขติดตั้ง"
 
 #: ../installclasses/rhel.py:76
 msgid ""
@@ -4218,26 +4047,29 @@ msgid ""
 "* You will not get software and security updates for packages not included "
 "in your subscription."
 msgstr ""
+"หากคุณไม่สามารถหาหมายเลขการติดตั้ง ปรึกษา http://www."
+"redhat.com/apps/support/in.html.\n"
+"\n"
+"หากคุณข้ามไป:\n"
+"* คุณจะไม่สามารถเข้าถึงแพคเกจทั้งหมดที่รวมในค่าบำรุงรักษา\n"
+"* อาจทำให้การติดตั้งนี้ไม่สนับสนุน/รับรองโดย Red Hat Enterprise Linux\n"
+"* คุณจะไม่ได้รับอัพเดตซอฟต์แวร์และความปลอดภัยของแพคเกจที่ไม่ได้รวมในค่าบำรุงรักษา"
 
 #: ../storage/__init__.py:81
-#, fuzzy
 msgid "Unknown Device"
-msgstr "ไม่ทราบ"
+msgstr "อุปกรณ์ที่ไม่ทราบ"
 
-#: ../storage/__init__.py:82
-#, fuzzy, python-format
+#: ../storage/__init__.py:82, python-format
 msgid ""
 "The installation source given by device %s could not be found.  Please check "
 "your parameters and try again."
-msgstr ""
-"เกิดข้อผิดพลาดขณะอ่านตัวติดตั้งจากไฟล์ ISO กรุณาตรวจสอบไฟล์ ISO ของคุณ แล้วลองใหม่อีกครั้ง"
+msgstr "ไม่พบแหล่งติดตั้งจากอุปกรณ์ %s โปรดตรวจสอบพารามิเตอร์ของคุณและลองซ้ำ"
 
 #: ../storage/__init__.py:95
 msgid "Installation cannot continue."
 msgstr "การติดตั้งไม่สามารถดำเนินการต่อได้"
 
 #: ../storage/__init__.py:96
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -4248,9 +4080,8 @@ msgstr ""
 "คุณต้องการดำเนินการต่อในขั้นตอนการติดตั้งหรือไม่?"
 
 #: ../storage/__init__.py:127
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Encryption Key"
+msgstr "เข้ารหัสอุปกรณ์?"
 
 #: ../storage/__init__.py:128
 msgid ""
@@ -4258,40 +4089,40 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
+"การเข้ารหัสอุปกรณ์ที่คุณระบุไว้น่าจะเปิดใช้งานแล้ว แต่คุณยังไม่ได้ระบุรหัสผ่าน "
+"หากคุณไม่กลับไปใส่รหัสผ่านจะไม่ใช้งานการเข้ารหัสข้อมูล"
 
 #: ../storage/__init__.py:146
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "เ_ปลี่ยนระบบไฟล์ในพาร์ทิชันให้เป็นแบบ:"
+msgstr "บันทึกการตั้งค่าอุปกรณ์เก็บข้อมูลลงดิสก์"
 
 #: ../storage/__init__.py:147
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
+"ตัวเลือกการจัดพาร์ติชั่นของคุณได้ถูกเขียนลงดิสก์แล้ว ข้อมูลใดๆ "
+"ในพาร์ติชั่นที่ถูกลบหรือฟอร์แมตจะสูญหายเรียบร้อยแล้ว"
 
 #: ../storage/__init__.py:152
-#, fuzzy
 msgid "Go _back"
 msgstr "_ย้อนกลับ"
 
 #: ../storage/__init__.py:153
 msgid "_Write changes to disk"
-msgstr ""
+msgstr "_บันทึกการเปลี่ยนแปลง"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "ไม่พบแพ็กเกจ"
+msgstr "กำลังหาอุปกรณ์"
 
 #: ../storage/__init__.py:253
-#, fuzzy
 msgid "Finding storage devices..."
-msgstr "กำลังเริ่มกระบวนการติดตั้ง อาจจะใช้เวลาสักครู่..."
+msgstr "กำลังหาอุปกรณ์เก็บข้อมูล"
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "ตรวจพบข้อผิดพลาดระบบไฟล์ ไม่สามารถทำต่อไปได้"
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
@@ -4301,23 +4132,19 @@ msgstr "คุณไม่สามารถลบพาร์ทิชันน
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "คุณไม่สามารถลบพาทิชันบน DASD ที่มีรูปแบบ LDL"
 
-#: ../storage/__init__.py:491
-#, fuzzy, python-format
+#: ../storage/__init__.py:491, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "พาร์ทิชันนี้เป็นส่วนหนึ่งของอุปกรณ์ RAID /dev/md%s"
+msgstr "พาร์ทิชันนี้เป็นส่วนหนึ่งของอุปกรณ์ RAID %s"
 
 #: ../storage/__init__.py:494
-#, fuzzy
 msgid "This device is part of a RAID device."
 msgstr "พาร์ทิชันนี้เป็นส่วนหนึ่งของอุปกรณ์ RAID"
 
-#: ../storage/__init__.py:499
-#, fuzzy, python-format
+#: ../storage/__init__.py:499, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "พาร์ทิชันนี้เป็นส่วนหนึ่งของ LVM volume group '%s'"
 
 #: ../storage/__init__.py:502
-#, fuzzy
 msgid "This device is part of a LVM volume group."
 msgstr "พาร์ทิชันนี้เป็นส่วนหนึ่งของ LVM volume group"
 
@@ -4327,6 +4154,8 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"พาร์ติชั่นนี้เป็นพาร์ติชั่น extended ซึ่งเก็บพาร์ติชั่น logical ซึึ่งไม่สามารถลบได้:\n"
+"\n"
 
 #: ../storage/__init__.py:751
 #, python-format
@@ -4342,13 +4171,12 @@ msgid ""
 "install %s."
 msgstr "พาร์ทิชัน root ของคุณ (/) มีขนาดเล็กกว่า 250 เมกะไบต์ ซึ่งเล็กเกินไปที่จะติดตั้ง %s"
 
-#: ../storage/__init__.py:762
-#, fuzzy, python-format
+#: ../storage/__init__.py:762, python-format
 msgid ""
 "Your / partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"พาร์ทิชัน %s ที่คุณสร้างมีขนาดเล็กกว่า %s เมกะไบต์ "
+"พาร์ทิชัน / ที่คุณสร้างมีขนาดเล็กกว่า %s เมกะไบต์ "
 "ซึ่งมีขนาดต่ำกว่าที่แนะนำสำหรับที่จะใช้ในการติดตั้ง %s ตามปกติ"
 
 #: ../storage/__init__.py:770
@@ -4361,20 +4189,18 @@ msgstr ""
 "ซึ่งมีขนาดต่ำกว่าที่แนะนำสำหรับที่จะใช้ในการติดตั้ง %s ตามปกติ"
 
 #: ../storage/__init__.py:797
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "กำลังติดตั้งบนอุปกรณ์ USB ซึ่งอาจสร้างระบบที่ทำงานไม่ได้"
 
 #: ../storage/__init__.py:800
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
-msgstr ""
+msgstr "กำลังติดตั้งบนอุปกรณ์ FireWire ซึ่งอาจสร้างระบบที่ทำงานไม่ได้"
 
 #: ../storage/__init__.py:804
-#, fuzzy
 msgid "You have not created a boot partition."
-msgstr "คุณต้องสร้างพาร์ทิชันบูต PPC PReP"
+msgstr "คุณต้องสร้างพาร์ทิชันบูต"
 
 #: ../storage/__init__.py:808
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -4385,19 +4211,16 @@ msgid "Bootable partitions cannot be on a logical volume."
 msgstr "พาร์ทิชันที่บูตได้ จะต้องไม่อยู่บน logical volume"
 
 #: ../storage/__init__.py:818
-#, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr "พาร์ทิชันที่บูตได้ ต้องอยู่บนอุปกรณ์ RAID1 เท่านั้น"
+msgstr "พาร์ทิชันที่บูตได้ ไม่สามารถอยู่บนอุปกรณ์ RAID"
 
-#: ../storage/__init__.py:823 ../storage/__init__.py:828
-#, fuzzy, python-format
+#: ../storage/__init__.py:823 ../storage/__init__.py:828, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "พาร์ทิชันที่บูตได้ จะต้องไม่อยู่บน logical volume"
+msgstr "พาร์ทิชันที่บูตได้ จะต้องไม่อยู่บนระบบไฟล์ %s"
 
 #: ../storage/__init__.py:833
-#, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "พาร์ทิชันที่บูตได้ จะต้องไม่อยู่บน logical volume"
+msgstr "พาร์ทิชันที่บูตได้ จะต้องไม่อยู่บนอุปกรณ์เข้ารหัส"
 
 #: ../storage/__init__.py:837
 msgid ""
@@ -4445,6 +4268,12 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
+"อุปกรณ์สว็อป:\n"
+"\n"
+"     %s\n"
+"\n"
+"ใน /etc/fstab ถูกใช้เป็นอุปกรณ์พักเครื่องแบบซอฟต์แวร์ ซึ่งหมายความว่าระบบของคุณกำลังอยู่ในโหมดจำศีล "
+"หากจะอัพเกรดกรุณาปิดเครื่องโดยไม่ต้องใช้โหมดจำศีล"
 
 #: ../storage/__init__.py:1414
 #, python-format
@@ -4457,9 +4286,14 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap devices."
 msgstr ""
+"อุปกรณ์ swap:\n"
+"\n"
+"     %s\n"
+"\n"
+"ใน /etc/fstab ถูกใช้เป็นอุปกรณ์พักเครื่องแบบซอฟต์แวร์ ซึ่งหมายความว่าระบบของคุณกำลังอยู่ในโหมดจำศีล "
+"หากจะติดตั้งใหม่กรุณาตั้งให้ฟอร์แมตอุปกรณ์สว็อปทั้งหมด"
 
-#: ../storage/__init__.py:1428
-#, fuzzy, python-format
+#: ../storage/__init__.py:1428, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4470,12 +4304,11 @@ msgid ""
 msgstr ""
 "เกิดข้อผิดพลาดขึ้นในระหว่างใช้งาน swap บนพื้นที่ %s: %s\n"
 "\n"
-"ปัญหานี้ส่วนใหญ่มักเกิดจากการที่ไม่ได้มีการเตรียม swap ไว้\n"
+"/etc/fstab บนพาร์ติชั่นที่อัพเกรดไม่ได้อ้างถึงพาร์ติชั่น swap ที่มีอยู่\n"
 "\n"
 "กดปุ่ม ตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../storage/__init__.py:1434
-#, fuzzy, python-format
+#: ../storage/__init__.py:1434, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4493,8 +4326,7 @@ msgstr ""
 msgid "Invalid mount point"
 msgstr "ตำแหน่งเมานท์ไม่ถูกต้อง"
 
-#: ../storage/__init__.py:1476
-#, fuzzy, python-format
+#: ../storage/__init__.py:1476, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -4506,8 +4338,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../storage/__init__.py:1486
-#, fuzzy, python-format
+#: ../storage/__init__.py:1486, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -4520,41 +4351,35 @@ msgstr ""
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
 #: ../storage/__init__.py:1499 ../storage/__init__.py:1520
-#, fuzzy
 msgid "Unable to mount filesystem"
-msgstr "ไม่สามารถโหลดไฟล์ได้!"
+msgstr "ไม่สามารถเมานต์ระบบไฟล์"
 
 #: ../storage/__init__.py:1500
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
-msgstr ""
+msgstr "เกิดข้อผิดพลาดในการเมานต์อุปกรณ์ %s เป็น %s คุณอาจติดตั้งต่อไป แต่อาจเกิดปัญหา"
 
-#: ../storage/__init__.py:1521
-#, fuzzy, python-format
+#: ../storage/__init__.py:1521, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"เกิดข้อผิดพลาดขณะที่พยายามสร้าง %s: %s นี่เป็นข้อผิดพลาดร้ายแรง "
+"เกิดข้อผิดพลาดในการเมานต์อุปกรณ์ %s เป็น %s นี่เป็นข้อผิดพลาดร้ายแรง "
 "และการติดตั้งไม่สามารถทำต่อไปได้\n"
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
 #: ../storage/devices.py:1059
-#, fuzzy
 msgid "boot flag not available for this partition"
-msgstr ""
-"คุณไม่สามารถลบพาร์ทิชันนี้ได้:\n"
-"\n"
+msgstr "พาร์ติชั่นนี้ไม่สามารถใช้งาน boot flag"
 
 #: ../storage/devicetree.py:87
-#, fuzzy
 msgid "Confirm"
-msgstr "ยืนยันรหัสผ่าน:"
+msgstr "ยึนยัน"
 
 #: ../storage/devicetree.py:88
 #, python-format
@@ -4564,6 +4389,9 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"คุณต้องการข้ามการใส่รหัสผ่านอุปกรณ์ %s?\n"
+"\n"
+"หากคุณข้ามไป ในช่วงการติดตั้งจะไม่สามารถใช้ข้อมูลในอุปกรณ์นี้"
 
 #: ../storage/devicetree.py:126
 #, python-format
@@ -4571,6 +4399,8 @@ msgid ""
 "Error processing drive %s.\n"
 "Maybe it needs to be reinitialized.YOU WILL LOSE ALL DATA ON THIS DRIVE!"
 msgstr ""
+"มีข้อผิดพลาดในการประมวลผลไดรฟ์ %s\n"
+"มันอาจจะต้องถูกจัดเตรียมใหม่ ซึ่งคุณจะเสียข้อมูลทั้งหมดในไดรฟ์!"
 
 #: ../storage/devicetree.py:151
 #, python-format
@@ -4580,57 +4410,55 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"มีข้อผิดพลาดในการประมวลผล LVM\n"
+"เหมือนว่าจะมีข้อมูล LVM ไม่ตรงกัน (%s) สร้าง %s. คุณสามารถเตรียม PV ที่เกี่ยวข้องทั้งหมดใหม่ ซึ่งจะลบ "
+"metadata ของ LVM ทั้งหมดหรือเพิกเฉยเพื่อรักษาข้อมูลไว้"
 
 #: ../storage/devicetree.py:159
-#, fuzzy
 msgid "_Ignore drive(s)"
 msgstr "ไ_ม่ต้องสนใจไดรฟ์นี้"
 
 #: ../storage/devicetree.py:160
 msgid "_Re-initialize drive(s)"
-msgstr ""
+msgstr "_เปิดใช้อุปกรณ์ใหม่"
 
 #: ../storage/iscsi.py:98 ../storage/iscsi.py:99
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "กำลังโหลดไดรเวอร์ SCSI"
+msgstr "กำลังค้นหาโหนด SCSI"
 
 #: ../storage/iscsi.py:172 ../storage/iscsi.py:173
-#, fuzzy
 msgid "Initializing iSCSI initiator"
-msgstr "กำลังเตรียมความพร้อม..."
+msgstr "กำลังเตรียมความพร้อม iSCSI initiator"
 
 #: ../storage/iscsi.py:208
-#, fuzzy
 msgid "iSCSI not available"
-msgstr "ไม่มีคำแนะนำ"
+msgstr "iSCSI ใช้งานไม่ได้"
 
 #: ../storage/iscsi.py:210
-#, fuzzy
 msgid "No initiator name set"
-msgstr "ชื่อของ Volume Group ไม่ถูกต้อง"
+msgstr "ไม่ได้ระบุชื่อ initiator"
 
 #: ../storage/iscsi.py:224
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "ไม่พบโหนด iSCSI"
 
 #: ../storage/iscsi.py:227 ../storage/iscsi.py:228
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "กำลังเข้าสู่โหนด iSCSI"
 
 #: ../storage/iscsi.py:250
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "ไม่พบโหนด iSCSI ใหม่"
 
 #: ../storage/iscsi.py:253
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "ไม่สามารถเข้าสู่ระบบของโหนดที่ค้นพบตัวใดได้เลย"
 
 #: ../storage/partitioning.py:175
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
-msgstr ""
+msgstr "ไม่สามารถหาเนื้อที่พอจะจัดพาร์ติชั่นอัตโนมัติได้ กรุณาใช้วิธีจัดพาร์ติชั่นอื่นๆ"
 
 #: ../storage/partitioning.py:192
 msgid "Warnings During Automatic Partitioning"
@@ -4675,6 +4503,9 @@ msgid ""
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
+"\n"
+"\n"
+"กดปุ่ม 'ตกลง' เพื่อเลือกวิธีจัดพาร์ติชั่นแบบอื่นๆ"
 
 #: ../storage/partitioning.py:234
 msgid "Automatic Partitioning Errors"
@@ -5016,8 +4847,7 @@ msgstr "เลือกไดรฟ์เวอร์อุปกรณ์ที
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr ""
-"เกิดข้อผิดพลาดขณะอ่านตัวติดตั้งจากไฟล์ ISO กรุณาตรวจสอบไฟล์ ISO ของคุณ แล้วลองใหม่อีกครั้ง"
+msgstr "เกิดข้อผิดพลาดขณะอ่านตัวติดตั้งจากไฟล์ ISO กรุณาตรวจสอบไฟล์ ISO ของคุณ แล้วลองใหม่อีกครั้ง"
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -5113,8 +4943,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "ยินดีต้อนรับสู่ %s - Rescue Mode"
 
 #: ../loader/lang.c:65 ../loader/loader.c:226
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> ระหว่าง elements  | <Space> เลือก | <F12> หน้าถัดไป "
 
 #: ../loader/lang.c:375
@@ -5418,8 +5247,7 @@ msgstr "ข้อมูลไม่ถูกต้อง"
 
 #: ../loader/net.c:1087
 #, fuzzy
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "คุณต้องป้อนค่าที่เป็นไปได้ทั้งหมายเลข IP และเน็ตมาสก์"
 
 #: ../loader/net.c:1094
@@ -5562,8 +5390,7 @@ msgstr "กำลังเรียกคืน"
 
 #: ../loader/urls.c:295
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr ""
 
 #: ../loader/urls.c:321
@@ -5690,8 +5517,7 @@ msgid ""
 msgstr ""
 
 #: tmp/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr ""
 
 #: tmp/addrepo.glade.h:10
@@ -5776,8 +5602,7 @@ msgstr "ภาษาอะไรที่คุณต้องการใช้
 
 #: tmp/autopart.glade.h:6
 #, fuzzy
-msgid ""
-"Which partition would you like to resize to make room for your installation?"
+msgid "Which partition would you like to resize to make room for your installation?"
 msgstr "พาร์ทิชันใดคือพาร์ทิชัน root ที่คุณติดตั้งไว้?"
 
 #: tmp/autopart.glade.h:7
@@ -6326,3 +6151,4 @@ msgstr "ภาษาชาวเวลส์"
 #, fuzzy
 msgid "Zulu"
 msgstr "ภาษาซูลู"
+
