@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.51
+Version: 11.5.0.52
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,39 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed May 13 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.52-1
+- Add a Mac OS boot line to yaboot.conf (#499964). (clumens)
+- Catch IOError when enabling repos (#500439). (clumens)
+- Use a newer version of the kickstart Partition command. (clumens)
+- Fix a traceback when installing over previous installs on PPC (#499963).
+  (clumens)
+- Fix a typo when probing exception disks. (clumens)
+- Add support for --noformat too. (clumens)
+- Add support for --onpart, --ondrive, and --useexisting. (clumens)
+- Make the storage.writeKS method useful and called from instdata (#493703).
+  (clumens)
+- Add writeKS methods to the device objects. (clumens)
+- Add writeKS methods to all the format objects. (clumens)
+- upd-instroot: Add gdbserver (ajax)
+- Remove text-mode syslinux help (katzj)
+- If clearPartType is None, don't attempt to clear a device (#499321).
+  (clumens)
+- Only set clearpart data if the command was provided in the kickstart file.
+  (clumens)
+- Override previously defined mountpoints in kickstart (#499746). (clumens)
+- Yet another font package name has changed (#499322). (clumens)
+- Set new mountpoint correctly for existing encrypted LVs. (#496363)
+  (dlehman)
+- Once a partition is part of another device it cannot be modified.
+  (#496760) (dlehman)
+- Maintain request sort order by using req_disks instead of parents.
+  (dlehman)
+- Do not set a parent on the /mnt/sysimage/dev bind mount object (#499724).
+  (clumens)
+- Skip .pyc files in subdirectories when running make updates. (clumens)
+- Remove 'lowres' option. (ajax)
+- Run tune2fs on newly formatted ext[34] filesystems. (#495476) (dlehman)
+
 * Thu May 07 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.51-1
 - Don't clear the first partition on any disk with a Mac disk label
   (#492154). (clumens)
