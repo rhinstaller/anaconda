@@ -126,12 +126,15 @@ class FS(DeviceFormat):
     _labelfs = ""                        # labeling utility
     _fsck = ""                           # fs check utility
     _migratefs = ""                      # fs migration utility
+    _infofs = ""                         # fs info utility
     _defaultFormatOptions = []           # default options passed to mkfs
     _defaultMountOptions = ["defaults"]  # default options passed to mount
     _defaultLabelOptions = []
     _defaultCheckOptions = []
     _defaultMigrateOptions = []
+    _defaultInfoOptions = []
     _migrationTarget = None
+    _existingSizeFields = []
     lostAndFoundContext = None
 
     def __init__(self, *args, **kwargs):
@@ -158,7 +161,7 @@ class FS(DeviceFormat):
         self.label = kwargs.get("label")
 
         # filesystem size does not necessarily equal device size
-        self._size = kwargs.get("size")
+        self._size = kwargs.get("size", 0)
         self._minInstanceSize = None    # min size of this FS instance
         self._mountpoint = None     # the current mountpoint when mounted
         if self.exists:
@@ -204,22 +207,82 @@ class FS(DeviceFormat):
 
     def _getExistingSize(self):
         """ Determine the size of this filesystem.  Filesystem must
-            exist.
+            exist.  Each filesystem varies, but the general procedure
+            is to run the filesystem dump or info utility and read
+            the block size and number of blocks for the filesystem
+            and compute megabytes from that.
+
+            The loop that reads the output from the infofsProg is meant
+            to be simple, but take in to account variations in output.
+            The general procedure:
+                1) Capture output from infofsProg.
+                2) Iterate over each line of the output:
+                       a) Trim leading and trailing whitespace.
+                       b) Break line into fields split on ' '
+                       c) If line begins with any of the strings in
+                          _existingSizeFields, start at the end of
+                          fields and take the first one that converts
+                          to a long.  Store this in the values list.
+                       d) Repeat until the values list length equals
+                          the _existingSizeFields length.
+                3) If the length of the values list equals the length
+                   of _existingSizeFields, compute the size of this
+                   filesystem by multiplying all of the values together
+                   to get bytes, then convert to megabytes.  Return
+                   this value.
+                4) If we were unable to capture all fields, return 0.
+
+            The caller should catch exceptions from this method.  Any
+            exception raised indicates a need to change the fields we
+            are looking for, the command to run and arguments, or
+            something else.  If you catch an exception from this method,
+            assume the filesystem cannot be resized.
         """
-        size = 0
+        size = self._size
 
-        if self.mountable:
-            origMountPoint = self._mountpoint
+        if self.mountable and self.exists and not size:
+            try:
+                values = []
+                argv = self._defaultInfoOptions + [ self.device ]
 
-            tmppath = tempfile.mkdtemp(prefix='getsize-', dir='/tmp')
-            self.mount(mountpoint=tmppath, options="ro")
-            buf = os.statvfs(tmppath)
-            self.unmount()
-            os.rmdir(tmppath)
+                buf = iutil.execWithCapture(self.infofsProg, argv,
+                                            stderr="/dev/tty5")
 
-            self._mountpoint = origMountPoint
+                for line in buf.splitlines():
+                    found = False
 
-            size = (buf.f_frsize * buf.f_blocks) / 1024.0 / 1024.0
+                    line = line.strip()
+                    tmp = line.split(' ')
+                    tmp.reverse()
+
+                    for field in self._existingSizeFields:
+                        if line.startswith(field):
+                            for subfield in tmp:
+                                try:
+                                    values.append(long(subfield))
+                                    found = True
+                                    break
+                                except ValueError:
+                                    continue
+
+                        if found:
+                            break
+
+                    if len(values) == len(self._existingSizeFields):
+                        break
+
+                if len(values) != len(self._existingSizeFields):
+                    return 0
+
+                size = 1
+                for value in values:
+                    size *= value
+
+                # report current size as megabytes
+                size = size / 1024.0 / 1024.0
+            except Exception as e:
+                log.error("failed to obtain size of filesystem on %s: %s"
+                          % (self.device, e))
 
         return size
 
@@ -610,13 +673,19 @@ class FS(DeviceFormat):
         return self._migratefs
 
     @property
+    def infofsProg(self):
+        """ Program used to get information for this filesystem type. """
+        return self._infofs
+
+    @property
     def migrationTarget(self):
         return self._migrationTarget
 
     @property
     def utilsAvailable(self):
         # we aren't checking for fsck because we shouldn't need it
-        for prog in [self.mkfsProg, self.resizefsProg, self.labelfsProg]:
+        for prog in [self.mkfsProg, self.resizefsProg, self.labelfsProg,
+                     self.infofsProg]:
             if not prog:
                 continue
 
