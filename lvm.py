@@ -195,6 +195,27 @@ def vgremove(vgname):
         if rc:
             raise SystemError, "pvcreate failed for %s" % (pvname,)
 
+def pvremove(pvname):
+
+    # Check that device is PV
+    args = ["pvdisplay", pvname]
+
+    log.info(string.join(args, ' '))
+    rc = iutil.execWithRedirect("lvm", args, stdout = output,
+                                stderr = output, searchPath = 1)
+    if rc:
+        # No LVM metadata found on partition
+        return
+
+    args = ["pvremove", "-ff", "-y", "-v", pvname]
+
+    log.info(string.join(args, ' '))
+    rc = iutil.execWithRedirect("lvm", args, stdout = output,
+                                stderr = output, searchPath = 1)
+
+    if rc:
+        raise SystemError, "pvremove failed for %s" % (pvname,)
+
 def lvlist():
     global lvmDevicePresent
     if lvmDevicePresent == 0:

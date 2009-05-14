@@ -881,6 +881,10 @@ def deletePart(diskset, delete):
     part = disk.next_partition()
     while part:
         if part.geom.start == delete.start and part.geom.end == delete.end:
+            device = fsset.PartedPartitionDevice(part).getDevice()
+            if delete.clobber:
+                log.debug("removing lvm metadata from %s" %(device,))
+                lvm.pvremove("/dev/%s" % (device,))
             disk.delete_partition(part)
             return
         part = disk.next_partition(part)
@@ -1118,12 +1122,20 @@ def doClearPartAction(anaconda, partitions, diskset):
                     part = disk.next_partition(part)
                     continue
 
-                partitions.deleteDependentRequests(old)
+                # for PV, set a flag to remove lvm metadata in deletePart
+                # and do not create dependent delete requests (VGs, LVs)
+                # because they would be processed (in doMetaDeletes) after
+                # lvm metadata had been removed and thus fail
+                if not old.fstype.getName() == "physical volume (LVM)": 
+                    partitions.deleteDependentRequests(old)
+                    clobber = False
+                else:
+                    clobber = True
                 partitions.removeRequest(old)
 
                 drive = partedUtils.get_partition_drive(part)
                 delete = partRequests.DeleteSpec(drive, part.geom.start,
-                                                 part.geom.end)
+                                                 part.geom.end, clobber=clobber)
                 partitions.addDelete(delete)
 
             # ia64 autopartitioning is strange as /boot/efi is vfat --

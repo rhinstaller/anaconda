@@ -291,6 +291,23 @@ def labelDisk(deviceFile, forceLabelType=None):
                 'gpt' in archLabels[rhpl.getArch()]:
             label = parted.disk_type_get('gpt')
 
+    # remove metadata from partitions
+    try:
+        disk = parted.PedDisk.new(dev)
+    except parted.error, msg:
+        log.debug("parted error: %s" % (msg,))
+    else:    
+        part = disk.next_partition()
+        while part:
+            if (not part.is_active() or (part.type == parted.PARTITION_EXTENDED) or
+               (part.disk.type.name == "mac" and part.num == 1 and part.get_name() == "Apple")):
+                part = disk.next_partition(part)
+                continue
+            device = fsset.PartedPartitionDevice(part).getDevice()
+            log.debug("removing lvm metadata from %s" %(device,))
+            lvm.pvremove("/dev/%s" % (device,))
+            part = disk.next_partition(part)
+
     disk = dev.disk_new_fresh(label)
     disk.commit()
     return disk

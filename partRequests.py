@@ -38,17 +38,19 @@ log = logging.getLogger("anaconda")
 class DeleteSpec:
     """Defines a preexisting partition which is intended to be removed."""
     
-    def __init__(self, drive, start, end):
+    def __init__(self, drive, start, end, clobber=False):
         """Initializes a DeleteSpec.
 
         drive is the text form of the drive
         start is the start sector of the deleted partition
         end is the end sector of the deleted partition
+        clobber - remove metadata from partition
         """
         
         self.drive = drive
         self.start = start
         self.end = end
+        self.clobber = clobber
 
     def __str__(self):
         return "drive: %s  start: %s  end: %s" %(self.drive, self.start,
