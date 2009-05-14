@@ -1095,6 +1095,10 @@ class XFS(FS):
     _dump = True
     _check = True
     _packages = ["xfsprogs"]
+    _infofs = "xfs_db"
+    _defaultInfoOptions = ["-c", "\"sb 0\"", "-c", "\"p dblocks\"",
+                           "-c", "\"p blocksize\""]
+    _existingSizeFields = ["dblocks =", "blocksize ="]
 
 register_device_format(XFS)
 
