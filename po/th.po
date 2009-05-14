@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-05-13 21:17+0700\n"
+"PO-Revision-Date: 2009-05-14 10:29+0700\n"
 "Last-Translator: Manatsawin Hanmongkolchai <manatsawin@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -3165,14 +3165,12 @@ msgid "_Format as:"
 msgstr "ฟอร์แมตเป็น:"
 
 #: ../iw/partition_ui_helpers_gui.py:325
-#, fuzzy
 msgid "Mi_grate filesystem to:"
-msgstr "แปลงระบบไฟล์"
+msgstr "_แปลงระบบไฟล์เป็น:"
 
 #: ../iw/partition_ui_helpers_gui.py:351 tmp/autopart.glade.h:9
-#, fuzzy
 msgid "_Resize"
-msgstr "ขนาด_คงที่"
+msgstr "_ปรับขนาด"
 
 #: ../iw/partition_ui_helpers_gui.py:409, python-format
 msgid ""
@@ -3865,8 +3863,7 @@ msgstr "ข้ามการอัพเดตบูตโหลดเดอร
 msgid "Create new boot loader configuration"
 msgstr "ติดตั้งบูตโหลดเดอร์ใหม่"
 
-#: ../textw/upgrade_text.py:38
-#, fuzzy, python-format
+#: ../textw/upgrade_text.py:38, python-format
 msgid ""
 "This release of %s supports the an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -4476,7 +4473,6 @@ msgstr ""
 "%s"
 
 #: ../storage/partitioning.py:206 ../storage/partitioning.py:230
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -4511,8 +4507,7 @@ msgstr ""
 msgid "Automatic Partitioning Errors"
 msgstr "การแบ่งพาร์ทิชันอัตโนมัติมีข้อผิดพลาด"
 
-#: ../storage/partitioning.py:235
-#, fuzzy, python-format
+#: ../storage/partitioning.py:235, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -4536,14 +4531,12 @@ msgid "Your system will now be rebooted."
 msgstr "ระบบของคุณจะถูกรีบูตโดยทันที"
 
 #: ../storage/zfcp.py:52
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "คุณไม่ได้กำหนดชื่อโฮสต์"
+msgstr "คุณไม่ได้กำหนดเลขอุปกรณ์ หรือเลขนั้นไม่ถูกต้อง"
 
 #: ../storage/zfcp.py:54
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "คุณไม่ได้กำหนดชื่อโฮสต์"
+msgstr "คุณไม่ได้กำหนดชื่อพอร์ตสากลหรือชื่อนั้นไม่ถูกต้อง"
 
 #: ../storage/zfcp.py:56
 msgid "You have not specified a FCP LUN or the number is invalid."
@@ -4552,49 +4545,44 @@ msgstr "คุณไม่ได้กำหนด FCP LUN หรือค่า
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "vginfo ล้มเหลวสำหรับ %s"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "lvs ล้มเหลวสำหรับ %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "attr dict ต้องมีชนิดอยู่"
 
 #: ../storage/formats/fs.py:111
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "การตั้งค่าระบบไฟล์ขาดชนิด"
 
 #: ../storage/formats/fs.py:270
 msgid "Formatting"
 msgstr "กำลังฟอร์แมต"
 
-#: ../storage/formats/fs.py:271
-#, fuzzy, python-format
+#: ../storage/formats/fs.py:271, python-format
 msgid "Creating filesystem on %s..."
-msgstr "กำลังตรวจสอบหาพื้นที่เสียใน /dev/%s..."
+msgstr "กำลังสร้างระบบไฟล์บน %s"
 
 #: ../storage/formats/fs.py:367
-#, fuzzy
 msgid "Resizing"
-msgstr "กำลังเรียกคืน"
+msgstr "กำลังปรับขนาด"
 
-#: ../storage/formats/fs.py:368
-#, fuzzy, python-format
+#: ../storage/formats/fs.py:368, python-format
 msgid "Resizing filesystem on %s..."
-msgstr "กำลังฟอร์แมตระบบไฟล์ %s ..."
+msgstr "กำลังปรับขนาดระบบไฟล์ %s ..."
 
 #: ../storage/formats/fs.py:409
-#, fuzzy
 msgid "Checking"
-msgstr "กำลังตรวจสอบ \"%s\"..."
+msgstr "กำลังตรวจสอบ"
 
-#: ../storage/formats/fs.py:410
-#, fuzzy, python-format
+#: ../storage/formats/fs.py:410, python-format
 msgid "Checking filesystem on %s..."
-msgstr "กำลังตรวจสอบหาพื้นที่เสียใน /dev/%s..."
+msgstr "กำลังตรวจสอบหาพื้นที่เสียใน %s..."
 
 #: ../loader/cdinstall.c:185 ../loader/cdinstall.c:206
 #: ../loader/mediacheck.c:60
@@ -4607,17 +4595,15 @@ msgid "Test"
 msgstr "ทดสอบ"
 
 #: ../loader/cdinstall.c:185 ../loader/cdinstall.c:189
-#, fuzzy
 msgid "Eject Disc"
-msgstr "เอาแผ่นซีดีออก"
+msgstr "เอาแผ่นออก"
 
-#: ../loader/cdinstall.c:186
-#, fuzzy, c-format
+#: ../loader/cdinstall.c:186, c-format
 msgid ""
 "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
 "the disc and insert another for testing."
 msgstr ""
-"เลือก \"%s\" เพื่อทดสอบซีดีที่อยู่ในไดรฟ์ หรือ \"%s\" เพื่อเอาแผ่นซีดีออก "
+"เลือก \"%s\" เพื่อทดสอบแผ่นที่อยู่ในไดรฟ์ หรือ \"%s\" เพื่อเอาแผ่นออก "
 "และเปลี่ยนแผ่นอื่นสำหรับการทดสอบ"
 
 #: ../loader/cdinstall.c:207
@@ -4629,21 +4615,21 @@ msgid ""
 "the first time. After they have been successfully tested, it is not required "
 "to retest each disc prior to using it again."
 msgstr ""
+"หากคุณต้องการทดสอบแผ่นอื่นๆ ให้ใส่แผ่นถัดไปและกด \"%s\" การทดสอบแต่ละแผ่นนี้ไม่จำเป็นต้องทำ "
+"แต่แนะนำให้ทำอย่างยิ่ง อย่างน้อยแต่ละแผ่นควรได้รับการทดสอบก่อนใช้ครั้งแรก ในครั้งต่อๆ "
+"ไปก็ไม่จำเป็นต้องทดสอบซ้ำอีก"
 
-#: ../loader/cdinstall.c:229
-#, fuzzy, c-format
+#: ../loader/cdinstall.c:229, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
-msgstr "ไม่พบแผ่นซีดี %s ในไดรฟ์ซีดีรอมของคุณ กรุณาใส่แผ่นซีดี %s แล้วกด %s เพื่อลองใหม่อีกครั้ง"
+msgstr "ไม่พบแผ่น %s ในไดรฟ์ของคุณ กรุณาใส่แผ่น %s แล้วกด %s เพื่อลองใหม่อีกครั้ง"
 
 #: ../loader/cdinstall.c:248
-#, fuzzy
 msgid "Disc Found"
-msgstr "ตรวจพบแผ่นซีดี"
+msgstr "ตรวจพบแผ่น"
 
-#: ../loader/cdinstall.c:249
-#, fuzzy, c-format
+#: ../loader/cdinstall.c:249, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
 "\n"
@@ -4654,35 +4640,31 @@ msgstr ""
 "เลือก %s ถ้าจะข้ามการตรวจสอบแผ่นข้อมูล และเริ่มเข้าสู่การติดตั้ง"
 
 #: ../loader/cdinstall.c:339
-#, fuzzy
 msgid "Scanning"
-msgstr "ข้อความเตือน"
+msgstr "กำลังค้นหา"
 
 #: ../loader/cdinstall.c:339 ../loader/cdinstall.c:341
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "กำลังค้นหาแผ่นติดตั้งบนไดรฟ์ซีดี %s"
 
-#: ../loader/cdinstall.c:442
-#, fuzzy, c-format
+#: ../loader/cdinstall.c:442, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
-msgstr "ไม่พบแผ่นซีดี %s ในไดรฟ์ซีดีรอมของคุณ กรุณาใส่แผ่นซีดี %s แล้วกด %s เพื่อลองใหม่อีกครั้ง"
+msgstr "ไม่พบแผ่น %s ในไดรฟ์ซีดีรอมของคุณ กรุณาใส่แผ่น %s แล้วกด %s เพื่อลองใหม่อีกครั้ง"
 
 #: ../loader/cdinstall.c:451
-#, fuzzy
 msgid "Disc Not Found"
-msgstr "ไม่พบแผ่นซีดี"
+msgstr "ไม่พบแผ่น"
 
 #: ../loader/cdinstall.c:518
 msgid "Cannot find kickstart file on CDROM."
 msgstr "ไม่สามารถหาไฟล์คิกสตาร์ทในซีดีรอม"
 
-#: ../loader/copy.c:51 ../loader/method.c:280
-#, fuzzy, c-format
+#: ../loader/copy.c:51 ../loader/method.c:280, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "อ่านไดเรกทอรี %s ล้มเหลว: %s"
+msgstr "อ่านไดเรกทอรี %s ล้มเหลว: %m"
 
 #: ../loader/driverdisk.c:139
 msgid "Loading"
@@ -4694,7 +4676,7 @@ msgstr "กำลังอ่านแผ่นไดรเวอร์..."
 
 #: ../loader/driverdisk.c:238 ../loader/driverdisk.c:270
 msgid "Driver Disk Source"
-msgstr ""
+msgstr "แหล่งแผ่นไดรเวอร์"
 
 #: ../loader/driverdisk.c:239
 msgid ""
@@ -4703,11 +4685,10 @@ msgid ""
 msgstr "คุณมีอุปกรณ์หลายตัวบนระบบนี้ คุณต้องการติดตั้งทั้งหมดหรือไม่?"
 
 #: ../loader/driverdisk.c:271
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr "คุณมีอุปกรณ์หลายตัวบนระบบนี้ คุณต้องการติดตั้งทั้งหมดหรือไม่?"
+msgstr "มีพาร์ติชั่นหลายตัวบนไดรฟ์นี้ที่อาจมีไดรเวอร์ คุณต้องการใช้ตัวใด?"
 
 #: ../loader/driverdisk.c:306
 msgid "Failed to mount partition."
@@ -4719,12 +4700,11 @@ msgstr "เลือกอิมเมจของแผ่น driver"
 
 #: ../loader/driverdisk.c:312
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "เลือกไฟล์ไดรเวอร์"
 
 #: ../loader/driverdisk.c:341
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "การเมานท์แผ่นดิสก์ไดรเวอร์ล้มเหลว"
+msgstr "การโหลดแผ่นไดรเวอร์จากไฟล์ล้มเหลว"
 
 #: ../loader/driverdisk.c:353
 #, c-format
@@ -4742,7 +4722,7 @@ msgstr "การเมานท์แผ่นดิสก์ไดรเวอ
 #: ../loader/driverdisk.c:380
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
-msgstr ""
+msgstr "แผ่นไดรเวอร์ไม่สามารถใช้กับ %s รุ่นนี้"
 
 #: ../loader/driverdisk.c:443
 msgid "Manually choose"
@@ -4758,6 +4738,7 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+"ไม่มีอุปกรณ์ชนิดนั้นๆ บนแผ่นไดรเวอร์นี้ คุณต้องการเลือกด้วยตัวเอง, ทำต่อไปหรือใส่แผ่นไดรเวอร์อื่นๆ?"
 
 #: ../loader/driverdisk.c:483
 msgid "Driver disk"
@@ -4788,25 +4769,23 @@ msgstr "Kickstart ผิดพลาด"
 #: ../loader/driverdisk.c:540
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr ""
+msgstr "ไม่รู้จักแหล่งแผ่นไดรเวอร์ที่ระบุในคิกสตาร์ท: %s"
 
 #: ../loader/driverdisk.c:577
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
+msgstr "ได้ระบุอากิวเมนต์ที่ผิดต่อไปนี้สำหรับคำสั่งแผ่นไดรเวอร์จากคิกสตาร์ท: %s:%s"
 
-#: ../loader/driverselect.c:67
-#, fuzzy, c-format
+#: ../loader/driverselect.c:67, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
 "โมดูล %s สามารถรับพารามีเตอร์ซึ่งมีผลต่อการทำงานได้ ให้ใช้ช่องว่างเป็นตัวแบ่งแต่ละ พารามีเตอร์ "
-"ถ้าคุณไม่ทราบว่ามีพารามีเตอร์ใดบ้างให้ใช้ ก็เพียงแต่กดปุ่ม \"ตกลง\" หรือ \"F1\" "
-"สำหรับดูรายการที่มี"
+"ถ้าคุณไม่ทราบว่ามีพารามีเตอร์ใดบ้างให้ใช้ ก็เพียงแต่กดปุ่ม \"ตกลง\""
 
 #: ../loader/driverselect.c:91
 msgid "Enter Module Parameters"
@@ -4824,7 +4803,7 @@ msgstr "โหลดแผ่นไดรเวอร์"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
+msgstr "ไม่พบไดรเวอร์ให้ป้อนเข้าไปเอง คุณต้องการใช้แผ่นไดรเวอร์หรือไม่?"
 
 #: ../loader/driverselect.c:197
 msgid ""
@@ -4843,11 +4822,10 @@ msgid "Select Device Driver to Load"
 msgstr "เลือกไดรฟ์เวอร์อุปกรณ์ที่จะใช้ในการโหลด"
 
 #: ../loader/hdinstall.c:144
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
-msgstr "เกิดข้อผิดพลาดขณะอ่านตัวติดตั้งจากไฟล์ ISO กรุณาตรวจสอบไฟล์ ISO ของคุณ แล้วลองใหม่อีกครั้ง"
+msgstr "เกิดข้อผิดพลาดขณะหาอิมเมจติดตั้ง กรุณาตรวจสอบอิมเมจของคุณ แล้วลองใหม่อีกครั้ง"
 
 #: ../loader/hdinstall.c:232
 msgid ""
@@ -4855,18 +4833,16 @@ msgid ""
 "configure additional devices?"
 msgstr "ดูเหมือนจะไม่มีฮาร์ดไดรฟ์บนระบบของคุณ! คุณต้องการจะกำหนดค่าอุปกรณ์เพิ่มเติมอีกหรือไม่?"
 
-#: ../loader/hdinstall.c:246
-#, fuzzy, c-format
+#: ../loader/hdinstall.c:246, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"อิมเมจซีดี (iso9660) สำหรับ %s ถูกเก็บที่พาร์ทิชัน และไดเรกทอรีใด? "
+"อิมเมจติดตั้ง %s ถูกเก็บที่พาร์ทิชัน และไดเรกทอรีใด? "
 "ถ้าคุณไม่เห็นดิสก์ไดรฟ์ที่คุณใช้อยู่ในรายการนี้ ให้กด F2 เพื่อปรับแต่งอุปกรณ์เพิ่มเติม"
 
 #: ../loader/hdinstall.c:273
-#, fuzzy
 msgid "Directory holding image:"
 msgstr "ไดเรกทอรีที่เก็บอิมเมจ:"
 
@@ -4874,15 +4850,14 @@ msgstr "ไดเรกทอรีที่เก็บอิมเมจ:"
 msgid "Select Partition"
 msgstr "เลือกพาร์ทิชัน"
 
-#: ../loader/hdinstall.c:353
-#, fuzzy, c-format
+#: ../loader/hdinstall.c:353, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "อุปกรณ์ %s ไม่มีอิมเมจของซีดี %s อยู่"
+msgstr "อุปกรณ์ %s ไม่มีอิมเมจติดตั้ง"
 
 #: ../loader/hdinstall.c:385
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr ""
+msgstr "อากิวเมนต์ของคำสั่งเมธอด HD คิกสตาร์ทผิด %s: %s"
 
 #: ../loader/hdinstall.c:455 ../loader/hdinstall.c:511
 msgid "Cannot find kickstart file on hard drive."
@@ -4901,15 +4876,13 @@ msgstr "ประเภทของแป้นพิมพ์"
 msgid "What type of keyboard do you have?"
 msgstr "คุณมีแป้นพิมพ์ประเภทใด?"
 
-#: ../loader/kickstart.c:133
-#, fuzzy, c-format
+#: ../loader/kickstart.c:133, c-format
 msgid "Error opening kickstart file %s: %m"
 msgstr "เกิดข้อผิดพลาดในการเปิดไฟล์คิกสตาร์ท %s: %s"
 
-#: ../loader/kickstart.c:143
-#, fuzzy, c-format
+#: ../loader/kickstart.c:143, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "เกิดข้อพิดพลาดในการอ่านเนื้อหาของไฟล์คิกสตาร์ท %s: %s"
+msgstr "เกิดข้อพิดพลาดในการอ่านเนื้อหาของไฟล์คิกสตาร์ท %s: %m"
 
 #: ../loader/kickstart.c:186
 #, c-format
@@ -4917,52 +4890,49 @@ msgid "Error in %s on line %d of kickstart file %s."
 msgstr "เกิดข้อผิดพลาดใน %s ในบรรทัดที่ %d ของไฟล์คิกสตาร์ท %s "
 
 #: ../loader/kickstart.c:285
-#, fuzzy
 msgid "Cannot find ks.cfg on removable media."
-msgstr "บนแผ่นบูตไม่มีไฟล์ ks.cfg"
+msgstr "บนสื่อถอดเสียบไม่มีไฟล์ ks.cfg"
 
 #: ../loader/kickstart.c:380
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
+"ไม่สามารถดาวน์โหลดไฟล์คิกสตาร์ทได้ "
+"กรุณาแก้ไขพารามิเตอร์คิกสตาร์ทด้านล่างนี้หรือกดยกเลิกเพื่อติดตั้งต่อในแบบโต้ตอบ"
 
 #: ../loader/kickstart.c:389
-#, fuzzy
 msgid "Error downloading kickstart file"
-msgstr "เกิดข้อผิดพลาดในการเปิดไฟล์คิกสตาร์ท %s: %s"
+msgstr "เกิดข้อผิดพลาดในการดาวน์โหลดไฟล์คิกสตาร์ท %s: %s"
 
 #: ../loader/kickstart.c:554
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
+msgstr "อากิวเมนต์ไปยังคำสั่งชัทดาวน์จากคิกสตาร์ทผิด %s: %s"
 
-#: ../loader/lang.c:64
-#, fuzzy, c-format
+#: ../loader/lang.c:64, c-format
 msgid "Welcome to %s for %s - Rescue Mode"
-msgstr "ยินดีต้อนรับสู่ %s - Rescue Mode"
+msgstr "ยินดีต้อนรับสู่ %s สำหรับ %s - โหมดกู้ชีพ"
 
 #: ../loader/lang.c:65 ../loader/loader.c:226
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> ระหว่าง elements  | <Space> เลือก | <F12> หน้าถัดไป "
+msgstr "  <Tab>/<Alt-Tab> สลับส่วนประกอบ  | <Space> เลือก | <F12> หน้าถัดไป "
 
 #: ../loader/lang.c:375
 msgid "Choose a Language"
 msgstr "เลือกภาษา"
 
 #: ../loader/loader.c:127
-#, fuzzy
 msgid "Local CD/DVD"
-msgstr "ซีดีรอมในเครื่อง"
+msgstr "CD/DVD ในเครื่อง"
 
 #: ../loader/loader.c:128
 msgid "Hard drive"
 msgstr "ฮาร์ดไดรฟ์"
 
 #: ../loader/loader.c:129
-#, fuzzy
 msgid "NFS directory"
-msgstr "%s ไดเรกทอรี:"
+msgstr "ไดเรกทอรี NFS:"
 
 #: ../loader/loader.c:433 ../loader/loader.c:477
 msgid "Update Disk Source"
@@ -4975,16 +4945,14 @@ msgid ""
 msgstr "คุณมีอุปกรณ์หลายตัวบนระบบนี้ คุณต้องการติดตั้งทั้งหมดหรือไม่?"
 
 #: ../loader/loader.c:478
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
-msgstr "คุณมีอุปกรณ์หลายตัวบนระบบนี้ คุณต้องการติดตั้งทั้งหมดหรือไม่?"
+msgstr "มีหลายพาร์ติชั่นบนอุปกรณ์นี้ที่อาจเก็บอิมเมจอัพเกรด คุณต้องการใช้ตัวใด?"
 
-#: ../loader/loader.c:496
-#, fuzzy, c-format
+#: ../loader/loader.c:496, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "ใส่แผ่นดิสก์อัพเดทใน /dev/%s และกด \"ตกลง\" เพื่อดำเนินการต่อไป"
+msgstr "ใส่แผ่นดิสก์อัพเดทใน %s และกด \"ตกลง\" เพื่อดำเนินการต่อไป"
 
 #: ../loader/loader.c:502
 msgid "Updates Disk"
@@ -5007,11 +4975,12 @@ msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
+"ไม่สามารถดาวน์โหลดอิมเมจอัพเกรด กรุณาระบุตำแหน่งอัพเกรดด้านล่างนี้หรือยกด ยกเลิก "
+"เพื่อดำเนินการต่อโดยไม่ต้องอัพเกรด..."
 
 #: ../loader/loader.c:570
-#, fuzzy
 msgid "Error downloading updates image"
-msgstr "เกิดข้อผิดพลาดในการเปิดไฟล์คิกสตาร์ท %s: %s"
+msgstr "เกิดข้อผิดพลาดในการดาวน์โหลดอิมเมจอัพเกรด"
 
 #: ../loader/loader.c:1196
 #, c-format
@@ -5020,11 +4989,11 @@ msgstr "คุณไม่มีแรมมากพอที่จะติด
 
 #: ../loader/loader.c:1253
 msgid "Media Detected"
-msgstr ""
+msgstr "ตรวจพบสื่อ"
 
 #: ../loader/loader.c:1254
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "ตรวจพบสื่อติดตั้งบนเครื่อง..."
 
 #: ../loader/loader.c:1370
 msgid "Rescue Method"
@@ -5039,9 +5008,8 @@ msgid "What type of media contains the rescue image?"
 msgstr "อิมเมจสำหรับกู้ระบบถูกเก็บในสื่อประเภทใด?"
 
 #: ../loader/loader.c:1375
-#, fuzzy
 msgid "What type of media contains the installation image?"
-msgstr "อิมเมจสำหรับกู้ระบบถูกเก็บในสื่อประเภทใด?"
+msgstr "อิมเมจสำหรับติดตั้งถูกเก็บในสื่อประเภทใด?"
 
 #: ../loader/loader.c:1408
 msgid "No driver found"
@@ -5060,6 +5028,7 @@ msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"ไม่สามารถหาอุปกรณ์ใดๆของชนิดที่ใช้ในการติดตั้งนี้ คุณต้องการเลือกไดรเวอร์เองหรือใช้แผ่นไดรเวอร์หรือไม่?"
 
 #: ../loader/loader.c:1630
 msgid "The following devices have been found on your system."
@@ -5081,22 +5050,20 @@ msgstr "เสร็จ"
 
 #: ../loader/loader.c:1638
 msgid "Add Device"
-msgstr "Add Device"
+msgstr "เพิ่มอุปกรณ์"
 
 #: ../loader/loader.c:1850
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "loader has already been run.  Starting shell.\n"
 
-#: ../loader/loader.c:2224
-#, fuzzy, c-format
+#: ../loader/loader.c:2224, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait...\n"
-msgstr "Running anaconda, the %s rescue mode - please wait...\n"
+msgstr "กำลังเรียกอนาคอนดา โหมดกู้ชีพของ %s โปรดรอ\n"
 
-#: ../loader/loader.c:2226
-#, fuzzy, c-format
+#: ../loader/loader.c:2226, c-format
 msgid "Running anaconda %s, the %s system installer - please wait...\n"
-msgstr "กำลังรันโปรแกรมอนาคอนดา ตัวติดตั้งระบบ %s - กรุณารอสักครู่...\n"
+msgstr "กำลังรันโปรแกรมอนาคอนดา ตัวติดตั้งระบบ %s กรุณารอสักครู่...\n"
 
 #: ../loader/mediacheck.c:46
 #, c-format
@@ -5127,10 +5094,12 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"อิมเมจที่เพิ่งทดสอบไปนี้มีข้อผิดพลาด อาจเกิดจากดาวน์โหลดแล้วเสียหาย หรือแผ่นเสีย "
+"หากเป้นไปได้กรุณาลองทำความสะอาดแผ่นแล้วลองใหม่ หากการทดสอบนี้ยังล้มเหลวคุณไม่ควรจะติดตั้งต่อไป"
 
 #: ../loader/mediacheck.c:101
 msgid "Success"
-msgstr ""
+msgstr "สำเร็จ"
 
 #: ../loader/mediacheck.c:102
 msgid ""
@@ -5138,6 +5107,8 @@ msgid ""
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
 msgstr ""
+"อิมเมจที่เพิ่งทดสอบไปนั้นผ่านการทดสอบ ดังนั้นสามารถติดตั้งจากสื่อนี่ได้ "
+"แต่อย่างไรก็ตามระบบตรวจสอบสื่อไม่สามารถตรวจสอบข้อผิดพลาดจากสื่อหรือไดรฟ์ทั้งหมด"
 
 #: ../loader/method.c:323
 #, c-format
@@ -5157,77 +5128,69 @@ msgstr "การตรวจสอบ Checksum"
 #: ../loader/modules.c:336
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
+msgstr "อากิวเมนต์ไปยังคำสั่งอุปกรณ์ในคิกสตาร์ทผิด %s: %s"
 
 #: ../loader/modules.c:348
 msgid "A module name must be specified for the kickstart device command."
-msgstr ""
+msgstr "ต้องระบุชื่อมอดูลสำหรับคำสั่งอุปกรณ์คิกสตาร์ท"
 
 #: ../loader/net.c:111
-#, fuzzy
 msgid "Invalid Prefix"
-msgstr "สตริงของไอพีไม่ถูกต้อง"
+msgstr "เลขขึ้นต้นผิด"
 
 #: ../loader/net.c:112
 msgid ""
 "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
 "IPv6 networks"
-msgstr ""
+msgstr "เลขขึ้นต้นต้องอยู่ระหว่าง 1-32 สำหรับเครือข่าย IPv4 และ 1-128 สำหรับ IPv6"
 
 #: ../loader/net.c:454 ../loader/net.c:510
-#, fuzzy
 msgid "Network Error"
-msgstr "ไม่มีรหัสผ่าน"
+msgstr "เครือข่ายผิดพลาด"
 
 #: ../loader/net.c:455 ../loader/net.c:511
-#, fuzzy
 msgid "There was an error configuring your network interface."
-msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
+msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังตั้งค่าระบบเครือข่าย"
 
 #: ../loader/net.c:556
 msgid "Enable IPv6 support"
-msgstr ""
+msgstr "เปิดใช้การรองรับ IPv6"
 
 #: ../loader/net.c:596
 msgid "Configure TCP/IP"
 msgstr "กำหนดค่า TCP/IP"
 
 #: ../loader/net.c:655
-#, fuzzy
 msgid "Missing Protocol"
-msgstr "ไม่พบกลุ่ม"
+msgstr "โพรโตคอลหายไป"
 
 #: ../loader/net.c:656
-#, fuzzy
 msgid "You must select at least one protocol (IPv4 or IPv6)."
-msgstr "คุณต้องเลือกติดตั้งอย่างน้อยหนึ่งภาษา"
+msgstr "คุณต้องเลือกอย่างน้อยหนึ่งโพรโตคอล (IPv4 หรือ IPv6)"
 
 #: ../loader/net.c:663
 msgid "IPv4 Needed for NFS"
-msgstr ""
+msgstr "ต้องใช้ IPv4 สำหรับ NFS"
 
 #: ../loader/net.c:664
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "การติดตั้งผ่าน NFS ต้องการ IPv4"
 
 #: ../loader/net.c:763
-#, fuzzy
 msgid "IPv4 address:"
-msgstr "หมายเลข IP:"
+msgstr "หมายเลข IPv4:"
 
 #: ../loader/net.c:775 ../loader/net.c:842 tmp/netconfig.glade.h:1
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../loader/net.c:830
-#, fuzzy
 msgid "IPv6 address:"
-msgstr "หมายเลข IP:"
+msgstr "หมายเลข IPv6:"
 
 #: ../loader/net.c:904
-#, fuzzy
 msgid "Name Server:"
-msgstr "Nameserver"
+msgstr "Name Server:"
 
 #: ../loader/net.c:943
 msgid ""
@@ -5235,38 +5198,37 @@ msgid ""
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
+"ใส่หมายเลข IPv4 และ/หรือ IPv6 และเลขขึ้นต้น (ที่อยู่/เลข) สำหรับ IPv4 "
+"สามารถกรอกเน็ตมาส์กแบบจุดสี่ตัวหรือแบบ CIDR ก็ได้ และช่องเกตเวย์และเนมเซิร์ฟเวอร์จะต้องเป็นที่อยู่ IPv4 "
+"หรือ IPv6 ที่ถูกต้อง"
 
 #: ../loader/net.c:963
-#, fuzzy
 msgid "Manual TCP/IP Configuration"
-msgstr "การกำหนดค่า z/IPL"
+msgstr "ตั้งค่า TCP/IP เอง"
 
 #: ../loader/net.c:1086 ../loader/net.c:1093
 msgid "Missing Information"
 msgstr "ข้อมูลไม่ถูกต้อง"
 
 #: ../loader/net.c:1087
-#, fuzzy
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr "คุณต้องป้อนค่าที่เป็นไปได้ทั้งหมายเลข IP และเน็ตมาสก์"
+msgstr "คุณต้องป้อนค่าหมายเลข IPv4 และเน็ตมาสก์หรือ CIDR ที่ถูกต้อง"
 
 #: ../loader/net.c:1094
-#, fuzzy
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "คุณต้องป้อนค่าที่เป็นไปได้ทั้งหมายเลข IP และเน็ตมาสก์"
+msgstr "คุณต้องป้อนค่าหมายเลข IPv6 และเน็ตมาสก์หรือ CIDR ที่ถูกต้อง"
 
 #: ../loader/net.c:1542
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "อากิวเมนต์คำสั่งเครือข่ายของ kickstart ผิด %s: %s"
 
 #: ../loader/net.c:1565
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "bootproto %s ที่ระบุในคำสั่งเครือข่ายผิด"
 
 #: ../loader/net.c:1637
-#, fuzzy
 msgid "Seconds:"
 msgstr "DNS รอง:"
 
@@ -5282,40 +5244,38 @@ msgstr "คุณมีอุปกรณ์เครือข่ายหลา
 
 #: ../loader/net.c:1808
 msgid "Identify"
-msgstr ""
+msgstr "จำแนก"
 
 #: ../loader/net.c:1817
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "คุณสามารถจำแนกพอร์ตกายภาพของ"
 
 #: ../loader/net.c:1819
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
+msgstr "โดยกระพริบไฟ LED ให้กรอกเวลาระหว่าง 1 - 30 วินาทีเพื่อกระพริบไฟ LED ของพอร์ตนั้นๆ"
 
 #: ../loader/net.c:1829
 msgid "Identify NIC"
-msgstr ""
+msgstr "จำแนกการ์ดเครือข่าย"
 
 #: ../loader/net.c:1842
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "ข้อมูลเกี่ยวกับ IP ไม่ถูกต้อง"
+msgstr "เวลาผิด"
 
 #: ../loader/net.c:1843
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "คุณต้องใส่เวลาเป็นวินาทีระหว่าง 1-30"
 
 #: ../loader/net.c:1855
 #, c-format
 msgid "Flashing %s port lights for %d seconds..."
-msgstr ""
+msgstr "จะกระพริบไฟพอร์ต %s เป็นเวลา %d วินาที..."
 
-#: ../loader/net.c:2015 ../loader/net.c:2019
-#, fuzzy, c-format
+#: ../loader/net.c:2015 ../loader/net.c:2019, c-format
 msgid "Waiting for NetworkManager to configure %s...\n"
-msgstr "กำลังรอการเชื่อมต่อเทลเน็ต..."
+msgstr "กำลังรอให้ NetworkManager ตั้งค่า %s...\n"
 
 #: ../loader/nfsinstall.c:68
 msgid "NFS server name:"
@@ -5329,7 +5289,7 @@ msgstr "%s ไดเรกทอรี:"
 #: ../loader/nfsinstall.c:83
 #, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr ""
+msgstr "กรุณาป้อนชื่อเซิร์ฟเวอร์และพาธไปยังอิมเมจติดตั้ง %s"
 
 #: ../loader/nfsinstall.c:90
 msgid "NFS Setup"
@@ -5339,15 +5299,14 @@ msgstr "การตั้งค่า NFS"
 msgid "That directory could not be mounted from the server."
 msgstr "ไม่สามารถเมานท์ไดเรกทอรีจากเซิร์ฟเวอร์ได้"
 
-#: ../loader/nfsinstall.c:260
-#, fuzzy, c-format
+#: ../loader/nfsinstall.c:260, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "ไดเรกทอรีนั้นดูเหมือนจะไม่มีชุดติดตั้ง %s"
+msgstr "ไดเรกทอรีนั้นดูเหมือนจะไม่มีอิมเมจติดตั้ง %s"
 
 #: ../loader/nfsinstall.c:336
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr ""
+msgstr "อากิวเมนต์คำสั่ง NFS ในคิกสตาร์ทผิด %s: %s"
 
 #: ../loader/telnetd.c:89 ../loader/telnetd.c:128
 msgid "Telnet"
@@ -5361,14 +5320,13 @@ msgstr "กำลังรอการเชื่อมต่อเทลเน
 msgid "Running anaconda via telnet..."
 msgstr "กำลังรันโปรแกรมอนาคอนดาผ่านเทลเน็ต..."
 
-#: ../loader/urlinstall.c:84
-#, fuzzy, c-format
+#: ../loader/urlinstall.c:84, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "ไม่สามารถเรียกคืน  %s://%s/%s/%s"
+msgstr "ไม่สามารถรับ  %s://%s%s"
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
-msgstr "ไม่สามารถเรียกอิมเมจสำหรับติดตั้งคืนมาได้"
+msgstr "ไม่สามารถรับอิมเมจสำหรับติดตั้ง"
 
 #: ../loader/urlinstall.c:419
 #, c-format
@@ -5386,26 +5344,24 @@ msgstr "ไม่รู้จัก URL ชนิดนี้ %s"
 
 #: ../loader/urls.c:235 ../loader/urls.c:237 ../loader/urls.c:240
 msgid "Retrieving"
-msgstr "กำลังเรียกคืน"
+msgstr "กำลังรับ"
 
 #: ../loader/urls.c:295
 #, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
-msgstr ""
+msgstr "กรุณากรอก URL ที่มีอิมเมจติดตั้ง %s บนเซิร์ฟเวอร์"
 
 #: ../loader/urls.c:321
-#, fuzzy
 msgid "URL Setup"
-msgstr "การตั้งค่า NFS"
+msgstr "ตั้งค่า URL"
 
 #: ../loader/urls.c:329
-#, fuzzy
 msgid "You must enter a URL."
-msgstr "คุณต้องป้อนไดเรกทอรี"
+msgstr "คุณต้องป้อน URL"
 
 #: ../loader/urls.c:335
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "URL ต้องเป็น ftp หรือ http"
 
 #: ../loader/urls.c:346
 msgid "Unknown Host"
@@ -5431,44 +5387,40 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"แพคเกจบางตัวที่อยู่ในกลุ่มนี้ไม่จำเป็นต้องติดตั้ง แต่อาจเพิ่มคุณสมบัติในการใช้งาน "
+"กรุณาเลือกแพคเกจที่ต้องการติดตั้งเพิ่มเติม"
 
 #: tmp/GroupSelector.glade.h:2
-#, fuzzy
 msgid "_Deselect"
-msgstr "_ลบ"
+msgstr "_ไม่เลือก"
 
 #: tmp/GroupSelector.glade.h:3
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "กำลังติดตั้งแพ็กเกจ"
+msgstr "_ไม่เลือกแพคเกจเพิ่มเติมทั้งหมด"
 
 #: tmp/GroupSelector.glade.h:4
-#, fuzzy
 msgid "_Optional packages"
-msgstr "แพ็กเกจที่จะติดตั้งถูกเก็บในสื่อประเภทใด?"
+msgstr "_แพคเกจเพิ่มเติม"
 
 #: tmp/GroupSelector.glade.h:5
-#, fuzzy
 msgid "_Select"
-msgstr "_ลบ"
+msgstr "_เลือก"
 
 #: tmp/GroupSelector.glade.h:6
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "แพ็กเกจที่จะติดตั้งถูกเก็บในสื่อประเภทใด?"
+msgstr "_เลือกแพคเกจเพิ่มเติมทั้งหมด"
 
 #: tmp/GroupSelector.glade.h:7
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #: tmp/account.glade.h:1
 msgid "Confirm:"
 msgstr "ยืนยันรหัสผ่าน:"
 
 #: tmp/account.glade.h:2
-#, fuzzy
 msgid "Root Password:"
-msgstr "รหัสผ่านของ Root"
+msgstr "รหัสผ่านของ Root:"
 
 #: tmp/account.glade.h:3
 msgid ""
@@ -5477,36 +5429,32 @@ msgid ""
 msgstr "บัญชี root ใช้สำหรับการบริหารจัดการระบบ  ป้อนรหัสผ่านสำหรับผู้ใช้ root"
 
 #: tmp/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _ZFCP LUN"
-msgstr "FCP LUN"
+msgstr "เพิ่ม _ZFCP LUN"
 
 #: tmp/adddrive.glade.h:2
 msgid "Add _iSCSI target"
-msgstr ""
+msgstr "เพิ่มเป้าหมาย _iSCSI"
 
 #: tmp/adddrive.glade.h:4
 msgid "Disable _dmraid device"
-msgstr ""
+msgstr "ปิดอุปกรณ์ _dmraid"
 
 #: tmp/adddrive.glade.h:6
-#, fuzzy
 msgid "_Add drive"
-msgstr "ฮาร์ดไดรฟ์"
+msgstr "_เพิ่มไดรฟ์"
 
 #: tmp/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
-msgstr ""
+msgstr "<b>_ชื่อคลังแพคเกจ:</b>"
 
 #: tmp/addrepo.glade.h:2
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "Nameserver"
+msgstr "<b>_ชนิดคลังแพคเกจ:</b>"
 
 #: tmp/addrepo.glade.h:4
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "กำหนดค่า TCP/IP"
+msgstr "_ตั้งค่าพร็อกซี่"
 
 #: tmp/addrepo.glade.h:5
 msgid ""
@@ -5515,63 +5463,58 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"ฮาร์ดไดรฟ์"
 
 #: tmp/addrepo.glade.h:9
 msgid "Please provide the configuration information for this software repository."
-msgstr ""
+msgstr "กรุณาระบุข้อมูลการตั้งค่าคลังซอฟต์แวร์นี้เพิ่มเติม"
 
 #: tmp/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "ชื่อรายการบูตไม่ถูกต้อง"
+msgstr "_URL พร็อกซี่ (host:port)"
 
 #: tmp/addrepo.glade.h:11
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "ไม่มีรหัสผ่าน"
+msgstr "_รหัสผ่านพร็อกซี่"
 
 #: tmp/addrepo.glade.h:12
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "ชื่อไซต์ FTP:"
+msgstr "_ชื่อผู้ใช้พร็อกซี่"
 
 #: tmp/addrepo.glade.h:13
-#, fuzzy
 msgid "Repository _URL"
-msgstr "ชื่อรายการบูตไม่ถูกต้อง"
+msgstr "_URL คลังแพคเกจ"
 
 #: tmp/addrepo.glade.h:14
-#, fuzzy
 msgid "Select A Directory"
-msgstr "เลือกไดรฟ์เวอร์"
+msgstr "เลือกไดเรคทอรี"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "U_RL เป็นรายการแหล่งสำเนา"
 
 #: tmp/addrepo.glade.h:16
-#, fuzzy
 msgid "_Directory"
-msgstr "%s ไดเรกทอรี:"
+msgstr "_ไดเรคทอรี"
 
 #: tmp/addrepo.glade.h:17
-#, fuzzy
 msgid "_Options"
-msgstr "ตัวเลือก RAID"
+msgstr "_ตัวเลือก"
 
 #: tmp/addrepo.glade.h:18
-#, fuzzy
 msgid "_Partition"
-msgstr "พาร์ทิชัน"
+msgstr "_พาร์ทิชัน"
 
 #: tmp/addrepo.glade.h:19
 msgid "_Path"
-msgstr ""
+msgstr "_พาธ"
 
 #: tmp/addrepo.glade.h:20
-#, fuzzy
 msgid "_Server"
-msgstr "Nameserver"
+msgstr "_เซิร์ฟเวอร์"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -5582,100 +5525,88 @@ msgid "_Next"
 msgstr "_ถัดไป "
 
 #: tmp/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Resize _target (in MB):</b>"
-msgstr "Nameserver"
+msgstr "<b>_ขนาดเป้าหมาย (เป็น MB):</b>"
 
 #: tmp/autopart.glade.h:3
-#, fuzzy
 msgid "Re_view and modify partitioning layout"
-msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
+msgstr "_ทบทวนและแก้ไขโครงสร้างพาร์ทิชัน"
 
 #: tmp/autopart.glade.h:4
 msgid "Volume to Resize"
-msgstr ""
+msgstr "ไดรฟ์ที่จะปรับขนาด"
 
 #: tmp/autopart.glade.h:5
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "ภาษาอะไรที่คุณต้องการใช้ในระหว่างกระบวนการการติดตั้ง?"
+msgstr "_คุณต้องการบูทการติดตั้งนี้จากไดรฟ์ใด?"
 
 #: tmp/autopart.glade.h:6
-#, fuzzy
 msgid "Which partition would you like to resize to make room for your installation?"
-msgstr "พาร์ทิชันใดคือพาร์ทิชัน root ที่คุณติดตั้งไว้?"
+msgstr "คุณต้องการย่อขนาดพาร์ติชั่นใดเพื่อใช้ติดตั้ง?"
 
 #: tmp/autopart.glade.h:7
-#, fuzzy
 msgid "_Advanced storage configuration"
-msgstr "การตั้งค่าบูตโหลดเดอร์ขั้นสูง"
+msgstr "_การตั้งค่าอุปกรณ์เก็บข้อมูลขั้นสูง"
 
 #: tmp/autopart.glade.h:8
-#, fuzzy
 msgid "_Encrypt system"
-msgstr "Encryption Key"
+msgstr "_เข้ารหัสระบบ"
 
 #: tmp/autopart.glade.h:10
-#, fuzzy
 msgid "_Select the drive(s) to use for this installation."
-msgstr "เลือกไดรฟ์หนึ่งหรือหลายๆ ตัว ที่คุณต้องการใช้ในการติดตั้งครั้งนี้"
+msgstr "_เลือกไดรฟ์ที่ใช้ในการติดตั้ง"
 
 #: tmp/blwhere.glade.h:1
-#, fuzzy
 msgid "/boot"
-msgstr "รีบูต"
+msgstr "/boot"
 
 #: tmp/blwhere.glade.h:2
-#, fuzzy
 msgid "BIOS Drive Order"
-msgstr "แก้ไขลำดับของไดรฟ์"
+msgstr "ลำดับของไดรฟ์ใน BIOS"
 
 #: tmp/blwhere.glade.h:3
-#, fuzzy
 msgid "Boot loader device"
-msgstr "บูตโหลดเดอร์"
+msgstr "ไดรฟ์บูตโหลดเดอร์"
 
 #: tmp/blwhere.glade.h:4
 msgid "First BIOS drive:"
-msgstr ""
+msgstr "ไดรฟ์ BIOS แรก:"
 
 #: tmp/blwhere.glade.h:5
 msgid "Fourth BIOS drive:"
-msgstr ""
+msgstr "ไดรฟ์ BIOS ที่สี่:"
 
 #: tmp/blwhere.glade.h:6
 msgid "MBR"
-msgstr ""
+msgstr "MBR"
 
 #: tmp/blwhere.glade.h:7
 msgid "Second BIOS drive:"
-msgstr ""
+msgstr "ไดรฟ์ BIOS ที่สอง:"
 
 #: tmp/blwhere.glade.h:8
 msgid "Third BIOS drive:"
-msgstr ""
+msgstr "ไดรฟ์ BIOS ที่สาม:"
 
 #: tmp/blwhere.glade.h:9
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
 msgstr "คุณต้องการติดตั้งบูตโหลดเดอร์ไว้ที่ใด?"
 
 #: tmp/detailed-dialog.glade.h:1
-#, fuzzy
 msgid "Info"
-msgstr "ไม่ต้องสนใจ"
+msgstr "ข้อมูล"
 
 #: tmp/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr ""
+msgstr "_รายละเอียด"
 
 #: tmp/exnSave.glade.h:1
 msgid "Bug _description"
-msgstr ""
+msgstr "_รายละเอียดบั๊ก"
 
 #: tmp/exnSave.glade.h:2
 msgid "Destination _file"
-msgstr ""
+msgstr "_ไฟล์ปลายทาง"
 
 #: tmp/exnSave.glade.h:3
 msgid ""
@@ -5683,169 +5614,154 @@ msgid ""
 "Local disk\n"
 "Remote server (scp)"
 msgstr ""
+"อุปกรณ์เก็บข้อมูลบนเครื่อง\n"
+"ดิสก์บนเครื่อง\n"
+"เซิร์ฟเวอร์ระยะไกล (scp)"
 
 #: tmp/exnSave.glade.h:6
 msgid "Please choose a destination for saving your traceback."
-msgstr ""
+msgstr "เลือกเป้าหมายที่จะเซฟข้อผิดพลาด"
 
 #: tmp/exnSave.glade.h:8
-#, fuzzy
 msgid "Select A File"
-msgstr "เลือกไดรฟ์เวอร์"
+msgstr "เลือกไฟล์"
 
 #: tmp/exnSave.glade.h:9
 msgid "_Host (host:port)"
-msgstr ""
+msgstr "_โฮสต์ (host:port)"
 
 #: tmp/exnSave.glade.h:10
-#, fuzzy
 msgid "_Password"
-msgstr "_รหัสผ่าน:"
+msgstr "_รหัสผ่าน"
 
 #: tmp/exnSave.glade.h:11
-#, fuzzy
 msgid "_User name"
-msgstr "ชื่อผู้ใช้"
+msgstr "_ชื่อผู้ใช้"
 
 #: tmp/instkey.glade.h:2
 #, no-c-format
 msgid "%(instkey)s:"
-msgstr ""
+msgstr "%(instkey)s:"
 
-#: tmp/instkey.glade.h:4
-#, fuzzy, no-c-format
+#: tmp/instkey.glade.h:4, no-c-format
 msgid "Please enter your %(instkey)s."
-msgstr "กรุณาป้อนชื่อของ volume group"
+msgstr "กรุณาป้อน %(instkey)s"
 
 #: tmp/iscsi-config.glade.h:1
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "_รหัสผ่าน:"
+msgstr "<b>_รหัสผ่าน CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:2
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "ชื่อผู้ใช้"
+msgstr "<b>_ชื่อผู้ใช้ CHAP:</b>"
 
 #: tmp/iscsi-config.glade.h:3
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "_รหัสผ่าน:"
+msgstr "<b>_รหัสผ่าน CHAP กลับหลัง:</b>"
 
 #: tmp/iscsi-config.glade.h:4
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "ชื่อผู้ใช้"
+msgstr "<b>_ชื่อผู้ใช้ CHAP กลับหลัง:</b>"
 
 #: tmp/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
-msgstr ""
+msgstr "<b>_IP เป้าหมาย:</b>"
 
 #: tmp/iscsi-config.glade.h:6
 msgid "<b>iSCSI Initiator _Name:</b>"
-msgstr ""
+msgstr "<b>ชื่อ iSCSI Initiator:</b>"
 
 #: tmp/iscsi-config.glade.h:9
 msgid "_Add target"
-msgstr ""
+msgstr "_เพิ่มเป้าหมาย"
 
 #: tmp/liveinst.desktop.in.h:1
-#, fuzzy
 msgid "Install"
-msgstr "_ติดตั้ง %s ใหม่ทั้งหมด"
+msgstr "ติดตั้ง"
 
 #: tmp/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr ""
+msgstr "ติดตั้ง live CD ลงฮาร์ดดิสก์"
 
 #: tmp/liveinst.desktop.in.h:3
-#, fuzzy
 msgid "Install to Hard Drive"
-msgstr "เริ่มการติดตั้ง"
+msgstr "ติดตั้งลงฮาร์ดดิสก์"
 
 #: tmp/lukspassphrase.glade.h:1
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr ""
+msgstr "เพิ่มรหัสนี้ไปยังอุปกรณ์เข้ารหัสเดิมทุกตัวเพื่อทำให้กระบวนการบูทราบรื่น"
 
 #: tmp/lukspassphrase.glade.h:2
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
+msgstr "เลือกรหัสผ่านสำหรับพาร์ติชั่นเข้ารหัสนี้ คุณจะถูกถามรหัสผ่านขณะบูท"
 
 #: tmp/lukspassphrase.glade.h:3
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "ยืนยันการรีเซ็ต"
+msgstr "ยืนยันรหัสผ่าน:"
 
 #: tmp/lukspassphrase.glade.h:4
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "ใส่รหัสผ่านของพาร์ติชั่นที่เข้ารหัส"
 
 #: tmp/lukspassphrase.glade.h:5
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "ใส่รหัสผ่าน:"
 
 #: tmp/netconfig.glade.h:2
-#, fuzzy
 msgid "<b>Gateway:</b>"
-msgstr "เกตเวย์:"
+msgstr "<b>เกตเวย์:</b>"
 
 #: tmp/netconfig.glade.h:3
-#, fuzzy
 msgid "<b>IPv4 Address:</b>"
-msgstr "หมายเลขไอพี"
+msgstr "<b>หมายเลข IPv4:</b>"
 
 #: tmp/netconfig.glade.h:4
-#, fuzzy
 msgid "<b>IPv6 Address:</b>"
-msgstr "หมายเลขไอพี"
+msgstr "<b>หมายเลข IPv6:</b>"
 
 #: tmp/netconfig.glade.h:5
-#, fuzzy
 msgid "<b>Nameserver:</b>"
-msgstr "Nameserver"
+msgstr "<b>Nameserver:</b>"
 
 #: tmp/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr ""
+msgstr "<b>_อินเทอร์เฟส:</b>"
 
 #: tmp/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr ""
+msgstr "เปิดใช้ IPv_4"
 
 #: tmp/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr ""
+msgstr "เปิดใช้ IPv_6"
 
 #: tmp/netconfig.glade.h:11
-#, fuzzy
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "ใช้การกำหนดค่า IP แบบไดนามิก (BOOTP/DHCP)"
+msgstr "ใช้การกำหนดค่า IP แบบไดนามิก (_DHCP)"
 
 #: tmp/network.glade.h:1
-#, fuzzy
 msgid "Hostname:"
-msgstr "ชื่อโฮสต์"
+msgstr "ชื่อโฮสต์:"
 
 #: tmp/network.glade.h:2
 msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
-msgstr ""
+msgstr "กรุณาตั้งชื่อคอมพิวเตอร์นี้ ชื่อโฮสต์นี้จะแสดงบนเครือข่าย"
 
 #: tmp/tasksel.glade.h:1
-#, fuzzy
 msgid "Customize _later"
-msgstr "ปรับเลือกเอง"
+msgstr "ปรับ_ภายหลัง:"
 
 #: tmp/tasksel.glade.h:2
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
+msgstr "กรุณาเลือกคลังแพคเกจเพิ่มเติมใดๆ ที่จะใช้ในการติดตั้งซอฟต์แวร์"
 
 #: tmp/tasksel.glade.h:4
 #, no-c-format
@@ -5854,46 +5770,42 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
+"การติดตั้งปริยายของ %s มีชุดซอฟต์แวร์ที่เหมาะกับการใช้อินเทอร์เน็ตทั่วไป "
+"คุณต้องการให้ระบบของคุณรองรับงานใดเพิ่มเติมอีก?"
 
 #: tmp/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
-msgstr ""
+msgstr "คุณสามารถปรับแต่งการติดตั้งซอฟต์แวร์ได้เลย หรือหลังจากการติดตั้งแล้วผ่านโปรแกรมจัดการซอฟต์แวร์"
 
 #: tmp/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr ""
+msgstr "_เพิ่มคลังซอฟต์แวร์เพิ่มเติม"
 
 #: tmp/tasksel.glade.h:7
-#, fuzzy
 msgid "_Customize now"
-msgstr "ปรับเลือกเอง"
+msgstr "_ปรับเลย"
 
 #: tmp/tasksel.glade.h:8
-#, fuzzy
 msgid "_Modify repository"
-msgstr "แ_ก้ไขพาร์ทิชัน"
+msgstr "_แก้ไขคลังแพคเกจ"
 
 #: tmp/zfcp-config.glade.h:1
-#, fuzzy
 msgid "<b>Device number:</b>"
-msgstr "อุปกรณ์"
+msgstr "<b>หมายเลขอุปกรณ์:</b>"
 
 #: tmp/zfcp-config.glade.h:2
-#, fuzzy
 msgid "<b>FCP LUN:</b>"
-msgstr "FCP LUN"
+msgstr "<b>FCP LUN:</b>"
 
 #: tmp/zfcp-config.glade.h:3
-#, fuzzy
 msgid "<b>WWPN:</b>"
-msgstr "_รหัสผ่าน:"
+msgstr "<b>WWPN:</b>"
 
 #: tmp/zfcp-config.glade.h:4
-#, fuzzy
 msgid "Add FCP device"
-msgstr "เพิ่มอุปกรณ์"
+msgstr "เพิ่มอุปกรณ์ FCP"
 
 #. generated from lang-table
 msgid "Afrikaans"
@@ -5905,7 +5817,7 @@ msgstr "ภาษาอาหรับ"
 
 #. generated from lang-table
 msgid "Assamese"
-msgstr ""
+msgstr "ภาษาอัสสมี"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -5968,9 +5880,8 @@ msgid "German"
 msgstr "ภาษาเยอรมัน"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Greek"
-msgstr "ว่าง"
+msgstr "ภาษากรีก"
 
 #. generated from lang-table
 msgid "Gujarati"
@@ -5978,7 +5889,7 @@ msgstr "ภาษากูจาราติ"
 
 #. generated from lang-table
 msgid "Hebrew"
-msgstr ""
+msgstr "ภาษาฮีบรู"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -5994,7 +5905,7 @@ msgstr "ภาษาไอซ์แลนด์"
 
 #. generated from lang-table
 msgid "Iloko"
-msgstr ""
+msgstr "ภาษาอีโลกาโน"
 
 #. generated from lang-table
 msgid "Indonesian"
@@ -6010,7 +5921,7 @@ msgstr "ภาษาญี่ปุ่น"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr ""
+msgstr "ภาษากัณณาท"
 
 #. generated from lang-table
 msgid "Korean"
@@ -6021,42 +5932,36 @@ msgid "Macedonian"
 msgstr "ภาษามาซีโดเนีย"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Maithili"
-msgstr "ภาษากูจาราติ"
+msgstr "ภาษาไมถิลี"
 
 #. generated from lang-table
 msgid "Malay"
 msgstr "ภาษามาเลย์"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Malayalam"
-msgstr "ภาษามาเลย์"
+msgstr "ภาษามลยาฬัม"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Marathi"
-msgstr "ภาษากูจาราติ"
+msgstr "ภาษามาราฐี"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Nepali"
-msgstr "ภาษาเบนการี"
+msgstr "ภาษาเนปาล"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Norwegian(Bokmål)"
-msgstr "ภาษานอร์วีเจียน"
+msgstr "ภาษานอร์เวย์ (Bokmål)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Northern Territory"
+msgstr "ภาษา Northern Sotho"
 
 #. generated from lang-table
 msgid "Oriya"
-msgstr ""
+msgstr "ภาษาโอริยา"
 
 #. generated from lang-table
 msgid "Persian"
@@ -6079,32 +5984,28 @@ msgid "Punjabi"
 msgstr "ภาษาปัญจาบ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "ภาษาโครเอเชียน"
+msgstr "ภาษาโรมาเนีย"
 
 #. generated from lang-table
 msgid "Russian"
 msgstr "ภาษารัสเซีย"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "ภาษาเปอร์เซีย"
+msgstr "ภาษาเซอร์เบียน"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian(Latin)"
-msgstr "ภาษาเปอร์เซีย"
+msgstr "ภาษาเซอร์เบียน(ละติน)"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr ""
+msgstr "ภาษาสิงหล"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "ภาษาสโลเวเนียน"
+msgstr "ภาษาสโลวะเกีย"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -6119,9 +6020,8 @@ msgid "Swedish"
 msgstr "ภาษาสวีเดน"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tajik"
-msgstr "ภาษาทมิฬ"
+msgstr "ภาษาทาจิก"
 
 #. generated from lang-table
 msgid "Tamil"
@@ -6129,7 +6029,7 @@ msgstr "ภาษาทมิฬ"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr ""
+msgstr "ภาษาเตลุคู"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -6148,7 +6048,7 @@ msgid "Welsh"
 msgstr "ภาษาชาวเวลส์"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Zulu"
 msgstr "ภาษาซูลู"
+
 
