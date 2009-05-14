@@ -427,8 +427,8 @@ class LogVol(commands.logvol.F9_LogVol):
             # If a previous device has claimed this mount point, delete the
             # old one.
             try:
-                if format.mountpoint:
-                    device = storage.fsset.mountpoints[format.mountpoint]
+                if lvd.mountpoint:
+                    device = storage.fsset.mountpoints[lvd.mountpoint]
                     storage.destroyDevice(device)
             except KeyError:
                 pass
