@@ -837,6 +837,9 @@ class Ext2FS(FS):
     _migrationTarget = "ext3"
     _migratefs = "tune2fs"
     _defaultMigrateOptions = ["-j"]
+    _infofs = "dumpe2fs"
+    _defaultInfoOptions = ["-h"]
+    _existingSizeFields = ["Block count:", "Block size:"]
 
     def doMigrate(self, intf=None):
         FS.doMigrate(self, intf=intf)
