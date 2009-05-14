@@ -1063,6 +1063,9 @@ class JFS(FS):
     _supported = False
     _dump = True
     _check = True
+    _infofs = "jfs_tune"
+    _defaultInfoOptions = ["-l"]
+    _existingSizeFields = ["Aggregate block size:", "Aggregate size:"]
 
     @property
     def supported(self):
