@@ -951,9 +951,7 @@ class DeviceTree(object):
             # something must be wrong -- if all of the slaves are in
             # the tree, this device should be as well
             if device is None:
-                log.warning("using generic DM device for %s" % name)
-                device = DMDevice(name, exists=True, parents=slaves)
-                self._addDevice(device)
+                log.warning("ignoring dm device %s" % name)
 
         return device
 
