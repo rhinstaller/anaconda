@@ -665,15 +665,15 @@ int main(int argc, char **argv) {
     }
     printf("done\n");
 
-    /* we want our /tmp to be ramfs, but we also want to let people hack
+    /* we want our /tmp to be tmpfs, but we also want to let people hack
      * their initrds to add things like a ks.cfg, so this has to be a little
      * tricky */
     if (!testing) {
         rename("/tmp", "/oldtmp");
         mkdir("/tmp", 0755);
 
-        printf("mounting /tmp as ramfs... ");
-        if (mount("none", "/tmp", "ramfs", 0, NULL))
+        printf("mounting /tmp as tmpfs... ");
+        if (mount("none", "/tmp", "tmpfs", 0, NULL))
             fatal_error(1);
         printf("done\n");
 
