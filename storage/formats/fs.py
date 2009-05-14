@@ -1148,6 +1148,9 @@ class NTFS(FS):
     _defaultMountOptions = ["defaults"]
     _defaultCheckOptions = ["-c"]
     _packages = ["ntfsprogs"]
+    _infofs = "ntfsinfo"
+    _defaultInfoOptions = ["-m"]
+    _existingSizeFields = ["Cluster Size:", "Volume Size in Clusters:"]
 
     @property
     def minSize(self):
