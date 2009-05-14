@@ -480,20 +480,9 @@ class VolumeGroupEditor:
 
             # Create the File System Format Section
             self.fsoptionsDict = {}
-            templuks = None
-            reallv = None
-            for _lv in self.vg.lvs:
-                if _lv.lvname == lv['name']:
-                    reallv = _lv
-                    if _lv.format.type == "luks":
-                        try:
-                            templuks = self.storage.devicetree.getChildren(_lv)[0]
-                        except IndexError:
-                            templuks = None
-                    break
             # We are going to lambda the createPreExistFSOptionSection so we can call
             # it latter with two arguments, row and mainttable.
-            cpefsos = lambda table, row: createPreExistFSOptionSection(reallv,
+            cpefsos = lambda table, row: createPreExistFSOptionSection(templv,
                     maintable, row, mountCombo, self.storage,
                     ignorefs = ["software RAID", "physical volume (LVM)", "vfat"],
                     luksdev=templuks)
@@ -573,7 +562,6 @@ class VolumeGroupEditor:
                 return
 
             actions = []
-            luksdev = None
             targetSize = None
             migrate = None
             format = None
@@ -718,6 +706,9 @@ class VolumeGroupEditor:
                         format = getFormat("luks",
                                            device=templv.path,
                                            passphrase=self.storage.encryptionPassphrase)
+                    elif self.lukscb and self.lukscb.get_active():
+                        newluks = format
+                        format = templv.format
 
                     templv.format = format
                 elif format.mountable:
@@ -730,8 +721,6 @@ class VolumeGroupEditor:
                 if self.fsoptionsDict.has_key("resizecb") and self.fsoptionsDict["resizecb"].get_active():
                     targetSize = self.fsoptionsDict["resizesb"].get_value_as_int()
                     templv.targetSize = targetSize
-
-                templv.format = format
 
             if format.exists and format.mountable and format.mountpoint:
                 tempdev = StorageDevice('tmp', format=format)
@@ -1062,18 +1051,36 @@ class VolumeGroupEditor:
 
                 if lv.format.exists:
                     log.debug("format already exists")
-                    if hasattr(origlv.format, "mountpoint"):
-                        origlv.format.mountpoint = lv.format.mountpoint
+                    if lv.format.type == "luks":
+                        # see if the luks device already exists
+                        try:
+                            usedev = self.storage.devicetree.getChildren(origlv)[0]
+                        except IndexError:
+                            # the luks device does not exist, meaning we
+                            # do not have a key for it
+                            continue
 
-                    if lv.format.migratable and lv.format.migrate and \
-                       not origlv.format.migrate:
-                        origlv.format.migrate = lv.format.migrate
-                        actions.append(ActionMigrateFormat(origlv))
+                        format = self.luks[lv.lvname]
+                        if not format.exists:
+                            actions.append(ActionCreateFormat(usedev, format))
+                    else:
+                        usedev = origlv
+                        format = lv.format
 
-                    if lv.format.resizable and \
-                       lv.targetSize != lv.format.currentSize:
+                    if hasattr(format, "mountpoint"):
+                        usedev.format.mountpoint = format.mountpoint
+
+                    if format.migratable and format.migrate and \
+                       not usedev.format.migrate:
+                        usedev.format.migrate = format.migrate
+                        actions.append(ActionMigrateFormat(usedev))
+
+                    # check the lv's format also, explicitly, in case it is
+                    # encrypted. in this case we must check them both.
+                    if format.resizable and lv.format.resizable and \
+                       lv.targetSize != format.currentSize:
                         new_size = lv.targetSize
-                        actions.append(ActionResizeFormat(origlv, new_size))
+                        actions.append(ActionResizeFormat(usedev, new_size))
                 elif lv.format.type:
                     log.debug("new format: %s" % lv.format.type)
                     # destroy old format and any associated luks devices
