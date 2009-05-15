@@ -985,7 +985,7 @@ class PartitionDevice(StorageDevice):
         if self.req_primary:
             args.append("--asprimary")
         if self.req_size:
-            args.append("--size=%s" % self.req_size)
+            args.append("--size=%s" % (self.req_size or 1))
         if preexisting:
             if len(self.req_disks) == 1:
                 args.append("--ondisk=%s" % self.req_disks[0])
@@ -2006,7 +2006,7 @@ class LVMLogicalVolumeDevice(DMDevice):
                 "--vgname=%s" % self.vg.name]
 
         if self.req_grow:
-            args.extend(["--grow", "--size=%s" % self.req_size])
+            args.extend(["--grow", "--size=%s" % (self.req_size or 1)])
 
             if self.req_max_size > 0:
                 args.append("--maxsize=%s" % self.req_max_size)
