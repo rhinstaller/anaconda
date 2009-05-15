@@ -559,7 +559,8 @@ def doPartitioning(storage, exclusiveDisks=None):
     for part in storage.partitions:
         part.req_bootable = False
 
-        if part.exists or storage.deviceImmutable(part):
+        if part.exists or \
+           (storage.deviceImmutable(part) and part.partedPartition):
             # if the partition is preexisting or part of a complex device
             # then we shouldn't modify it
             partitions.remove(part)
