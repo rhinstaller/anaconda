@@ -2494,7 +2494,10 @@ class MDRaidArrayDevice(StorageDevice):
             self.format.teardown()
             udev_settle(timeout=10)
 
-        if self.status:
+        # We don't really care what the array's state is. If the device
+        # file exists, we want to deactivate it. mdraid has too many
+        # states.
+        if self.exists and os.path.exists(self.path):
             mdraid.mddeactivate(self.path)
 
         if recursive:
