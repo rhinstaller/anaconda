@@ -1021,6 +1021,7 @@ class DeviceTree(object):
         device = None
 
         disk_name = os.path.basename(os.path.dirname(sysfs_path))
+        disk_name = disk_name.replace('!','/')
         disk = self.getDeviceByName(disk_name)
 
         if disk is None:
