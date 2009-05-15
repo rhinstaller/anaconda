@@ -291,7 +291,7 @@ class PartitionEditor:
 
                     try:
                         actions.append(ActionResizeDevice(request, size))
-                        if request.format.type:
+                        if request.format.type and request.format.exists:
                             actions.append(ActionResizeFormat(request, size))
                     except ValueError:
                         pass
