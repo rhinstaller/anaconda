@@ -281,7 +281,7 @@ class Storage(object):
                                           _("Finding storage devices..."))
         self.iscsi.startup(self.anaconda.intf)
         self.zfcp.startup()
-        if not self.anaconda.isKickstart:
+        if self.anaconda.id.getUpgrade() or not self.anaconda.isKickstart:
             # clearPartType defaults to CLEARPART_TYPE_LINUX, but the user
             # has not made any selection, so we need to ignore it during
             # population of the device tree
