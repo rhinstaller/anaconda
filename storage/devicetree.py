@@ -772,7 +772,8 @@ class DeviceTree(object):
         elif action.isFormat() and \
              (action.isCreate() or action.isMigrate() or action.isResize()):
             action.cancel()
-            self._actions.remove(action)
+
+        self._actions.remove(action)
 
     def findActions(self, device=None, type=None, object=None, path=None):
         """ Find all actions that match all specified parameters.
