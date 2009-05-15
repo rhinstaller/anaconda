@@ -1620,7 +1620,7 @@ class LVMVolumeGroupDevice(DMDevice):
         return s
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
-        args = ["--pesize=%s" % self.peSize]
+        args = ["--pesize=%s" % int(self.peSize)]
         pvs = []
 
         for pv in self.pvs:
