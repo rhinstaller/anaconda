@@ -308,6 +308,7 @@ char * getProductPath(void) {
 
 void initializeConsole() {
     /* enable UTF-8 console */
+    setenv("LANG","en_US.UTF-8",1);
     printf("\033%%G");
     fflush(stdout);
 
