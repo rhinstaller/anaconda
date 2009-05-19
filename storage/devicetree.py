@@ -1105,7 +1105,7 @@ class DeviceTree(object):
 
         # If this is a mac-formatted disk we just initialized, make sure the
         # partition table partition gets added to the device tree.
-        if device.partedDisk.type == "mac" and len(device.partedDisk.partitions) == 1:
+        if device.partedDisk and device.partedDisk.type == "mac" and len(device.partedDisk.partitions) == 1:
             name = device.partedDisk.partitions[0].getDeviceNodeName()
             if not self.getDeviceByName(name):
                 partDevice = PartitionDevice(name, exists=True, parents=[device])
