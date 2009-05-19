@@ -26,6 +26,7 @@ import parted
 import gui
 import datacombo
 from constants import *
+from storage.devices import devicePathToName
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -293,13 +294,11 @@ class OSBootWidget:
         if not iter:
             return None
 
-        dev = model.get_value(iter, 2)
-        theDev = dev[5:] # strip /dev/
-        
+        dev = devicePathToName(model.get_value(iter, 2))
         label = model.get_value(iter, 1)
         isRoot = model.get_value(iter, 3)
         isDefault = model.get_value(iter, 0)
-        return (theDev, label, isDefault, isRoot)
+        return (dev, label, isDefault, isRoot)
 
 
     def addEntry(self, widget, *args):
