@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.52
+Version: 11.5.0.53
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,37 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon May 18 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.53-1
+- LVMVolumeGroupDevice stores pesize in MB, kickstart expects it in KB.
+  (dlehman)
+- Don't schedule a format resize if reformat scheduled. (#500991) (dlehman)
+- Deactivate md arrays regardless of state if the device is present.
+  (#496441) (dlehman)
+- Lame hack to make sure --size= is never 0 (#500905). (clumens)
+- Don't filter out partitions that haven't been allocated (#500932).
+  (clumens)
+- Write out PE size as an integer, since that's what anaconda wants
+  (#501049). (clumens)
+- Set clearPartType to None on preupgrade too (#499321). (clumens)
+- Fix indentation of line to remove cancelled actions from the list.
+  (#500932) (dlehman)
+- Consider active-idle state of md device as accepatable status of device
+  (#497407) (rvykydal)
+- Fix detection of cciss disks (#499408) (dchapman)
+- Get existing fs size for xfs. (dcantrell)
+- Get existing fs size for ntfs. (dcantrell)
+- Get existing fs size for jfs. (dcantrell)
+- Get existing fs size for ext2, ext3, and ext4. (dcantrell)
+- Compute existing filesystem size using fs info utility. (dcantrell)
+- Do not allow users to migrate ext4 to ext4. (dcantrell)
+- Correct handling of formats on encrypted preexisting LVs. (#499828)
+  (dlehman)
+- Ignore unrecognized device-mapper devices we find. (#499967) (dlehman)
+- loader: Mount /tmp as tmpfs not ramfs so we can swap it out (ajax)
+- format.mountpoint -> lvd.mountpoint (#500913). (clumens)
+- Treat the loop labels as devices without a label.(#493219) (jgranado)
+- Add the partition table partition after initializing (#498602). (clumens)
+
 * Wed May 13 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.52-1
 - Add a Mac OS boot line to yaboot.conf (#499964). (clumens)
 - Catch IOError when enabling repos (#500439). (clumens)
