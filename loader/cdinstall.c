@@ -336,7 +336,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                        devices[i]->device, location);
 
             if (!FL_CMDLINE(flags))
-                winStatus(60, 3, _("Scanning"), _("Looking for installation images on CD device %s"), devices[i]->device);
+                winStatus(60, 3, _("Scanning"), _("Looking for installation images on CD device %s\n"), devices[i]->device);
             else
                 printf(_("Looking for installation images on CD device %s"), devices[i]->device);
 
