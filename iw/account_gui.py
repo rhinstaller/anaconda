@@ -130,11 +130,9 @@ class AccountWindow (InstallWindow):
         except ValueError, e:
             msg = gettext.ldgettext("cracklib", e)
             ret = self.intf.messageWindow(_("Weak Password"),
-                                          _("Weak password provided: %s"
-                                            "\n\n"
-                                            "Would you like to continue with "
-                                            "this password?") % (msg, ),
-                                          type = "yesno")
+                                          _("You have provided a weak password: %s") % msg,
+                                          type="custom", custom_icon="error",
+                                          custom_buttons=[_("Cancel"), _("Use Anyway")])
             if ret == 0:
                 self.passwordError()
 
