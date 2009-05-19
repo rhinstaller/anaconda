@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.53
+Version: 11.5.0.54
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 19 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.54-1
+- We are not guaranteed to have a partedDisk in the udev code (#501556,
+  #501428). (clumens)
+- The location of the options wiki page has changed. (clumens)
+- Disable BETANAG. (clumens)
+- Install a en_US.UTF-8 locale in the first stage image. (notting)
+- Reset font when changing language. (notting)
+- Set locale to en_US.UTF-8 when initializing the console. (notting)
+
 * Mon May 18 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.53-1
 - LVMVolumeGroupDevice stores pesize in MB, kickstart expects it in KB.
   (dlehman)
