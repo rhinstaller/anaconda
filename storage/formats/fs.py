@@ -915,6 +915,8 @@ class Ext3FS(Ext2FS):
         return (flags.cmdline.has_key("ext4migrate") and
                 Ext2FS._isMigratable(self))
 
+    migratable = property(_isMigratable)
+
 register_device_format(Ext3FS)
 
 
