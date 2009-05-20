@@ -250,7 +250,7 @@ def upgradeMountFilesystems(anaconda):
 	    sys.exit(0)
         except IndexError as e:
             # The upgrade root is search earlier but we give the message here.
-            log.debug("No upgrade root was fond.")
+            log.debug("No upgrade root was found.")
             rc = anaconda.intf.messageWindow(_("Upgrade root not found"),
                     _("The root for the previously installed system was not "
                       "found.  You can exit installer or backtrack to choose "
