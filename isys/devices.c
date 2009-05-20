@@ -178,6 +178,7 @@ storagedone:
             snprintf(path, 64, "/sys/class/net/%s/address", ent->d_name);
             fd = open(path, O_RDONLY);
             if (fd != -1) {
+                memset(buf, '\0', 64);
                 if (read(fd, buf, 64) > 0) {
                     int i;
                     for (i = (strlen(buf)-1); isspace(buf[i]); i--)
