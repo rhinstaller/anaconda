@@ -321,9 +321,9 @@ def swapSuggestion(quiet=0):
         minswap = 256
         maxswap = 512
     else:
-        if mem > 2000:
-            minswap = 1000
-            maxswap = 2000 + mem
+        if mem > 2048:
+            minswap = 1024
+            maxswap = 2048 + mem
         else:
             minswap = mem
             maxswap = 2*mem
