@@ -90,6 +90,10 @@ def _schedulePartitions(anaconda, disks):
 
         if request.fstype is None:
             request.fstype = anaconda.id.storage.defaultFSType
+        # This is a little unfortunate but let the backend dictate the rootfstype
+        # so that things like live installs can do the right thing
+        if request.mountpoint == "/" and anaconda.backend.rootFsType != None:
+            request.fstype = anaconda.backend.rootFsType
 
         dev = anaconda.id.storage.newPartition(fmt_type=request.fstype,
                                                size=request.size,
