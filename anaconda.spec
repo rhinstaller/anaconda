@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.175
+Version: 11.1.2.176
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 21 2009 Joel Granados <jgranado@redhat.com> 11.1.2.176-1
+- Remove LVM metadata when doing clearpart (rvykydal).
+  Resolves: rhbz#462615
+- Put lspci in the minstg2.img so inVmware doesn't traceback (clumens).
+  Resolves: rhbz#476476
+
 * Mon May 18 2009 Joel Granados <jgranado@redhat.com> 11.1.2.175-1
 - Change the description of be2net (msivak).
   Resolves: rhbz#496875
