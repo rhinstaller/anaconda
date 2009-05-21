@@ -1568,7 +1568,12 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     if (!noksdev) {
         if (device) {
-            loaderData->netDev = strdup(device);
+            /* If --device=MAC was given, translate into a device name now. */
+            if (index(device, ':') != NULL)
+                loaderData->netDev = iface_mac2device(device);
+            else
+                loaderData->netDev = strdup(device);
+
             loaderData->netDev_set = 1;
         }
 
