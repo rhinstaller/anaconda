@@ -145,7 +145,7 @@ class LUKSDevice:
                                     stdout = "/dev/null",
                                     stderr = "/dev/null",
                                     searchPath = 1)
-        return not rc
+        return rc
 
     def formatDevice(self, devPrefix="/dev"):
         """Write a LUKS header onto the device."""
