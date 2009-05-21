@@ -181,12 +181,16 @@ class EFI(Platform):
         return ret
 
     def checkBootRequest(self, req):
+        errors = Platform.checkBootRequest(self, req)
+
         if req.format.mountpoint == "/boot":
             if not req.format.type.startswith("ext"):
-                raise FSError("/boot is not ext2")
+                errors.append(_("/boot is not on an ext2 filesystem."))
         elif req.format.mountpoint == "/boot/efi":
             if req.format.type != "efi":
-                raise FSError("/boot/efi is not efi")
+                errors.append(_("/boot/efi is not EFI."))
+
+        return errors
 
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
@@ -212,6 +216,8 @@ class Alpha(Platform):
     _diskType = parted.diskType["bsd"]
 
     def checkBootRequest(self, req):
+        errors = Platform.checkBootRequest(self, req)
+
         disk = req.disk
         if not disk:
             raise DeviceError("Boot partition has no disk")
@@ -219,8 +225,8 @@ class Alpha(Platform):
         disk = disk.partedDisk
 
         # Check that we're a BSD disk label
-        if not disk.type == self.diskType:
-            raise DeviceError("Disk label is not %s" % self.diskType)
+        if not disk.type == self.diskType.name:
+            errors.append(_("%s must have a bsd disk label.") % req.disk.name)
 
         # The first free space should start at the beginning of the drive and
         # span for a megabyte or more.
@@ -232,9 +238,9 @@ class Alpha(Platform):
             free = free.nextPartition()
 
         if not free or free.geoemtry.start != 1L or free.getSize(unit="MB") < 1:
-            raise DeviceError("Disk does not have enough free space at the beginning")
+            errors.append(_("The disk %s requires at least 1MB of free space at the beginning.") % req.disk.name)
 
-        return
+        return errors
 
 class IA64(EFI):
     _bootloaderPackage = "elilo"
@@ -282,12 +288,16 @@ class IPSeriesPPC(PPC):
         return ret
 
     def checkBootRequest(self, req):
+        errors = PPC.checkBootRequest(self, req)
+
         bootPart = getattr(req, "partedPartition", None)
         if not bootPart:
             raise DeviceError("Boot partition has no partedPartition")
 
         if bootPart.geometry.end * bootPart.geometry.device.sectorSize / (1024.0 * 1024) > 4096:
-            raise DeviceError("Boot partition is located too high")
+            errors.append(_("The boot partition must be within the first 4MB of the disk."))
+
+        return errors
 
     def setDefaultPartitioning(self):
         ret = PPC.setDefaultPartitioning(self)
@@ -338,6 +348,8 @@ class NewWorldPPC(PPC):
         return ret
 
     def checkBootRequest(self, req):
+        errors = PPC.checkBootRequest(self, req)
+
         disk = req.disk
         if not disk:
             raise DeviceError("Boot partition has no disk")
@@ -345,8 +357,10 @@ class NewWorldPPC(PPC):
         disk = disk.partedDisk
 
         # Check that we're a Mac disk label
-        if not disk.type == self.diskType:
-            raise DeviceError("Disk label is not %s" % self.diskType.name)
+        if not disk.type == self.diskType.name:
+            errors.append(_("%s must have a mac disk label.") % req.disk.name)
+
+        return errors
 
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
