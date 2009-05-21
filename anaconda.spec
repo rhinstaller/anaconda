@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.176
+Version: 11.1.2.177
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 21 2009 Joel Granados <jgranado@redhat.com> 11.1.2.177-1
+- Do not load storage drivers before loading DUD over network (rvykydal).
+  Resolves: rhbz#454478
+
 * Thu May 21 2009 Joel Granados <jgranado@redhat.com> 11.1.2.176-1
 - Remove LVM metadata when doing clearpart (rvykydal).
   Resolves: rhbz#462615
