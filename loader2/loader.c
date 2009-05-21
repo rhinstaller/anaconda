@@ -1631,13 +1631,24 @@ int main(int argc, char ** argv) {
      *        but is done as a quick hack for the present.
      */
     earlyModuleLoad(modInfo, modLoaded, modDeps, 0);
-    busProbe(modInfo, modLoaded, modDeps, 0);
-
-    /* JKFIXME: we'd really like to do this before the busprobe, but then
-     * we won't have network devices available (and that's the only thing
-     * we support with this right now */
     if (loaderData.ddsrc != NULL) {
+	/* If we load DUD over network (from ftp, http, or nfs location)
+         * do not load storage drivers so that they can be updated
+	 * from DUD before loading (#454478).
+	 */
+        if (!strncmp(loaderData.ddsrc, "nfs:", 4) || 
+            !strncmp(loaderData.ddsrc, "ftp://", 6) ||
+            !strncmp(loaderData.ddsrc, "http://", 7)) {
+            uint64_t save_flags = flags;
+            flags |= LOADER_FLAGS_NOSTORAGE;
+            busProbe(modInfo, modLoaded, modDeps, 0);
+            flags = save_flags;
+        } else {
+            busProbe(modInfo, modLoaded, modDeps, 0);
+        }
         getDDFromSource(&loaderData, loaderData.ddsrc);
+    } else {
+        busProbe(modInfo, modLoaded, modDeps, 0);
     }
 
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
