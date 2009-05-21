@@ -873,49 +873,7 @@ class Storage(object):
             warnings.append(_("Installing on a FireWire device.  This may "
                               "or may not produce a working system."))
 
-        if not boot:
-            errors.append(_("You have not created a boot partition."))
-
-        if (boot and boot.type == "mdarray" and
-            boot.level != 1):
-            errors.append(_("Bootable partitions can only be on RAID1 "
-                            "devices."))
-
-        # can't have bootable partition on LV
-        if boot and boot.type == "lvmlv":
-            errors.append(_("Bootable partitions cannot be on a "
-                            "logical volume."))
-
-        # most arches can't have boot on RAID
-        if boot and boot.type == "mdarray" and not self.anaconda.platform.supportsMdRaidBoot:
-            errors.append(_("Bootable partitions cannot be on a RAID "
-                            "device."))
-
-        # Lots of filesystems types don't support /boot.
-        if boot and not boot.format.bootable:
-            errors.append(_("Bootable partitions cannot be on an %s "
-                            "filesystem.") % boot.format.name)
-
-        # vfat /boot is insane.
-        if (boot and boot == root and boot.format.type == "vfat"):
-            errors.append(_("Bootable partitions cannot be on an %s "
-                            "filesystem.") % boot.format.type)
-
-        if boot and boot.type == "luks/dm-crypt":
-            # Handle encrypted boot on a partition.
-            errors.append(_("Bootable partitions cannot be on an "
-                            "encrypted block device"))
-        elif boot:
-            # Handle encrypted boot on more complicated devices.
-            for dev in map(lambda d: d.type == "luks/dm-crypt", self.devices):
-                if boot in self.deviceDeps(dev):
-                    errors.append(_("Bootable partitions cannot be on an "
-                                    "encrypted block device"))
-
-        try:
-            self.anaconda.platform.checkBootRequest(boot)
-        except DeviceError as e:
-            errors.append(str(e))
+        errors.extend(self.anaconda.platform.checkBootRequest(boot))
 
         if not swaps:
             warnings.append(_("You have not specified a swap partition.  "

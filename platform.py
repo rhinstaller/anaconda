@@ -104,9 +104,42 @@ class Platform(object):
 
     def checkBootRequest(self, req):
         """Perform an architecture-specific check on the boot device.  Not all
-           platforms may need to do any checks.  Raises an exception if there
-           is a problem, or returns True otherwise."""
-        return
+           platforms may need to do any checks.  Returns a list of errors if
+           there is a problem, or [] otherwise."""
+        errors = []
+
+        if not req:
+            return [_("You have not created a boot partition.")]
+
+        if req.type == "mdarray" and req.level != 1:
+            errors.append(_("Bootable partitions can only be on RAID1 devices."))
+
+        # can't have bootable partition on LV
+        if req.type == "lvmlv":
+            errors.append(_("Bootable partitions cannot be on a logical volume."))
+
+        # most arches can't have boot on RAID
+        if req.type == "mdarray" and not self.supportsMdRaidBoot:
+            errors.append(_("Bootable partitions cannot be on a RAID device."))
+
+        # Lots of filesystems types don't support /boot.
+        if not req.format.bootable:
+            errors.append(_("Bootable partitions cannot be on an %s filesystem.") % req.format.name)
+
+        # vfat /boot is insane.
+        if req == self.anaconda.id.storage.fsset.rootDevice and req.format.type == "vfat":
+            errors.append(_("Bootable partitions cannot be on an %s filesystem.") % req.format.type)
+
+        if req.type == "luks/dm-crypt":
+            # Handle encrypted boot on a partition.
+            errors.append(_("Bootable partitions cannot be on an encrypted block device"))
+        else:
+            # Handle encrypted boot on more complicated devices.
+            for dev in map(lambda d: d.type == "luks/dm-crypt", self.anaconda.id.storage.devices):
+                if req in self.anaconda.id.storage.deviceDeps(dev):
+                    errors.append(_("Bootable partitions cannot be on an encrypted block device"))
+
+        return errors
 
     @property
     def diskType(self):
