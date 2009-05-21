@@ -118,6 +118,11 @@ char *iface_ip2str(char *, int);
  */
 char *iface_mac2str(char *);
 
+/* Given an interface's MAC address, return the name (e.g., eth0) in human
+ * readable format.  Return NULL for no match
+ */
+char *iface_mac2device(char *);
+
 /*
  * Convert an IPv4 CIDR prefix to a dotted-quad netmask.  Return NULL on
  * failure.

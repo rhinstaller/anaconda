@@ -222,6 +222,54 @@ char *iface_ip2str(char *ifname, int family) {
     return NULL;
 }
 
+/* Given an interface's MAC address, return the name (e.g., eth0) in human
+ * readable format.  Return NULL for no match
+ */
+char *iface_mac2device(char *mac) {
+    struct nl_handle *handle = NULL;
+    struct nl_cache *cache = NULL;
+    struct rtnl_link *link = NULL;
+    struct nl_addr *mac_as_nl_addr = NULL;
+    char *retval = NULL;
+    int i, n;
+
+    if (mac == NULL) {
+        return NULL;
+    }
+
+    if ((mac_as_nl_addr = nl_addr_parse(mac, AF_LLC)) == NULL) {
+        return NULL;
+    }
+
+    if ((cache = _iface_get_link_cache(&handle)) == NULL) {
+        return NULL;
+    }
+
+    n = nl_cache_nitems(cache);
+    for (i = 0; i <= n; i++) {
+        struct nl_addr *addr;
+
+        if ((link = rtnl_link_get(cache, i)) == NULL) {
+            continue;
+        }
+
+        addr = rtnl_link_get_addr(link);
+
+        if (!nl_addr_cmp(mac_as_nl_addr, addr)) {
+            retval = strdup(rtnl_link_get_name(link));
+            rtnl_link_put(link);
+            break;
+        }
+
+        rtnl_link_put(link);
+    }
+
+    nl_close(handle);
+    nl_handle_destroy(handle);
+
+    return retval;
+}
+
 /*
  * Given an interface name (e.g., eth0), return the MAC address in human
  * readable format (e.g., 00:11:52:12:D9:A0).  Return NULL for no match.
