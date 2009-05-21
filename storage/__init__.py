@@ -912,6 +912,11 @@ class Storage(object):
                     errors.append(_("Bootable partitions cannot be on an "
                                     "encrypted block device"))
 
+        try:
+            self.anaconda.platform.checkBootRequest(boot)
+        except DeviceError as e:
+            errors.append(str(e))
+
         if not swaps:
             warnings.append(_("You have not specified a swap partition.  "
                               "Although not strictly required in all cases, "
