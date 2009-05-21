@@ -337,6 +337,17 @@ class NewWorldPPC(PPC):
 
         return ret
 
+    def checkBootRequest(self, req):
+        disk = req.disk
+        if not disk:
+            raise DeviceError("Boot partition has no disk")
+
+        disk = disk.partedDisk
+
+        # Check that we're a Mac disk label
+        if not disk.type == self.diskType:
+            raise DeviceError("Disk label is not %s" % self.diskType.name)
+
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
         ret.append(PartSpec(fstype="Apple Bootstrap", size=1, maxSize=1,
