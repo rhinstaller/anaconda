@@ -518,7 +518,7 @@ usr/share/hwdata/videodrivers
 usr/share/hwdata/MonitorsDB
 usr/share/xorg/extramodes
 usr/share/xorg/vesamodes
-usr/share/zoneinfo/zone.tab
+usr/share/zoneinfo/*
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
@@ -836,7 +836,7 @@ usr/share/terminfo/v/vt320-w
 usr/share/themes/Clearlooks/gtk-2.0/*
 usr/share/themes/Clearlooks/index.theme
 usr/share/vte/termcap/xterm
-usr/share/zoneinfo
+usr/share/zoneinfo/*
 EOF
 
 # more dogtail stuff...
@@ -1331,9 +1331,6 @@ rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/compiler/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/email/test/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/curses/
 rm -rf $DESTGR/usr/$LIBDIR/python?.?/site-packages/pydoc.py
-
-# clean up tzdata
-rm -rf $TZDIR
 
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
