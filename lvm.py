@@ -263,6 +263,9 @@ def pvlist():
         except:
             continue
         log.info("pv is %s in vg %s, size is %s" %(dev, vg, size))
+        # We only append if the device is valid
+        if dev.strip().lower() == "unknown device":
+            continue
         pvs.append( (dev, vg, size) )
 
     return pvs
