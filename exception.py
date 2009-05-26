@@ -243,7 +243,7 @@ class AnacondaExceptionDump:
         for (file, lineno, func, text) in [f[1:5] for f in self.stack]:
             if type(text) == type([]):
                 text = "".join(text)
-            s += "%s %s %s\n" % (file, func, text)
+            s += "%s %s %s\n" % (os.path.basename(file), func, text)
 
         return hashlib.sha256(s).hexdigest()
 
