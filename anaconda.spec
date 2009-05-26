@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.177
+Version: 11.1.2.178
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -14,7 +14,7 @@ BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
 BuildPreReq: pykickstart, yum >= 2.9.2, device-mapper >= 1.01.05-3, 
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
-BuildPreReq: libdhcp-devel >= 1.20-6, mkinitrd-devel >= 5.1.2-1
+BuildPreReq: libdhcp-devel >= 1.20-10, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel, libnl-devel >= 1.0-0.10.pre5.5
 %ifnarch s390 s390x
 BuildPreReq: iscsi-initiator-utils >= 6.2.0.871-0.0
@@ -127,6 +127,18 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue May 26 Joel Granados <jgranado@redhat.com> 11.1.2.178-1
+- Fix specification of zoneinfo files to be included in stage2 (rvykydal).
+  Resolves: rhbz#481617
+- Fix the location of libfipscheck in initrd too (msivak).
+  Resolves: rhbz#498992
+- cryptsetup status reversed its exit codes (dcantrell).
+  Resolves: rhbz#499824
+- Require latest libdhcp (jgranado).
+  Resolves: rhbz#444919
+- Do not include removed physical volumes in pvlist (rvykydal).
+  Resolves: rhbz#502438
+
 * Thu May 21 2009 Joel Granados <jgranado@redhat.com> 11.1.2.177-1
 - Do not load storage drivers before loading DUD over network (rvykydal).
   Resolves: rhbz#454478
