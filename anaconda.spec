@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.55
+Version: 11.5.0.56
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 26 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.56-1
+- Ensure matching rootfs type to live type with autopart (#501876) (katzj)
+
 * Tue May 26 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.55-1
 - Fix blank network device descriptions in the loader. (#501757) (notting)
 - Make sure the right _isMigratable gets used for Ext3FS (#501585). (clumens)
