@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.54
+Version: 11.5.0.55
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 26 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.55-1
+- Fix blank network device descriptions in the loader. (#501757) (notting)
+- Make sure the right _isMigratable gets used for Ext3FS (#501585). (clumens)
+
 * Tue May 19 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.54-1
 - We are not guaranteed to have a partedDisk in the udev code (#501556,
   #501428). (clumens)
