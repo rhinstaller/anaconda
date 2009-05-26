@@ -127,7 +127,7 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Tue May 26 Joel Granados <jgranado@redhat.com> 11.1.2.178-1
+* Tue May 26 2009 Joel Granados <jgranado@redhat.com> 11.1.2.178-1
 - Fix specification of zoneinfo files to be included in stage2 (rvykydal).
   Resolves: rhbz#481617
 - Fix the location of libfipscheck in initrd too (msivak).
