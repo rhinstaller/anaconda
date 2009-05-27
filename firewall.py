@@ -85,8 +85,8 @@ class Firewall:
             log.error ("lokkit run failed: %s", e.strerror)
         else:
             f = open(instPath +
-                     '/etc/sysconfig/system-config-securitylevel', 'w')
-            f.write("# system-config-securitylevel config written out by anaconda\n\n")
+                     '/etc/sysconfig/system-config-firewall', 'w')
+            f.write("# system-config-firewall config written out by anaconda\n\n")
             for arg in args[3:]:
                 f.write("%s\n" %(arg,))
             f.close()
