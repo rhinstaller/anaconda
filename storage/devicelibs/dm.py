@@ -67,6 +67,14 @@ def dm_node_from_name(map_name):
     log.debug("dm_node_from_name(%s) returning '%s'" % (map_name, dm_node))
     return dm_node
 
+def dm_is_multipath(major, minor):
+    for map in block.dm.maps():
+        dev = map.dev
+        if dev.major == int(major) and dev.minor == int(minor):
+            for table in map.table:
+                if table.type == 'multipath':
+                    return True
+
 def _get_backing_devnums_from_map(map_name):
     ret = []
     buf = iutil.execWithCapture("dmsetup",

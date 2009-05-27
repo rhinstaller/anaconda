@@ -64,6 +64,9 @@ class FormatTeardownError(DeviceFormatError):
 class DMRaidMemberError(DeviceFormatError):
     pass
 
+class MultipathMemberError(DeviceFormatError):
+    pass
+
 class FSError(DeviceFormatError):
     pass
 

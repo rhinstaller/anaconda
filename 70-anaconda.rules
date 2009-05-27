@@ -8,7 +8,7 @@ IMPORT{program}="$env{ANACBIN}/blkid -o udev -p $tempnode"
 
 KERNEL!="dm-*", GOTO="anaconda_mdraid"
 
-IMPORT{program}="$env{ANACBIN}/dmsetup info -c --nameprefixes --unquoted --rows --noheadings -o name,uuid,suspended,readonly,major,minor,open,tables_loaded -j%M -m%m"
+IMPORT{program}="$env{ANACBIN}/dmsetup info -c --nameprefixes --unquoted --rows --noheadings -o name,uuid,suspended,readonly,major,minor,open,tables_loaded,names_using_dev -j%M -m%m"
 ENV{DM_NAME}!="?*", GOTO="anaconda_end"
 
 SYMLINK+="disk/by-id/dm-name-$env{DM_NAME}"

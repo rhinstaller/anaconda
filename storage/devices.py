@@ -104,6 +104,7 @@ from devicelibs import dm
 import parted
 import _ped
 import platform
+import block
 
 from errors import *
 from iutil import log_method_call, notify_kernel, numeric_type
@@ -416,7 +417,7 @@ class StorageDevice(Device):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None,
-                 sysfsPath='', parents=None, exists=None):
+                 sysfsPath='', parents=None, exists=None, serial=None):
         """ Create a StorageDevice instance.
 
             Arguments:
@@ -446,6 +447,7 @@ class StorageDevice(Device):
         self.minor = numeric_type(minor)
         self.sysfsPath = sysfsPath
         self.exists = exists
+        self.serial = serial
 
         self.protected = False
 
@@ -2733,19 +2735,34 @@ class DMRaidArrayDevice(DiskDevice):
         # information about it
         self._size = self.currentSize
 
+class _MultipathDeviceNameGenerator:
+    def __init__(self):
+        self.number = 0
+    def get(self):
+        ret = self.number
+        self.number += 1
+        return ret
+_multipathDeviceNameGenerator = _MultipathDeviceNameGenerator()
 
-class MultipathDevice(DMDevice):
+def generateMultipathDeviceName():
+    number = _multipathDeviceNameGenerator.get()
+    return "mpath%s" % (number, )
+
+class MultipathDevice(DiskDevice):
     """ A multipath device """
     _type = "dm-multipath"
     _packages = ["device-mapper-multipath"]
+    _devDir = "/dev/mapper"
 
-    def __init__(self, name, format=None, size=None,
-                 exists=None, parents=None, sysfsPath=''):
+    def __init__(self, name, info, format=None, size=None,
+                 parents=None, sysfsPath='', initcb=None,
+                 initlabel=None):
         """ Create a MultipathDevice instance.
 
             Arguments:
 
                 name -- the device name (generally a device node's basename)
+                info -- the udev info for this device
 
             Keyword Arguments:
 
@@ -2753,12 +2770,74 @@ class MultipathDevice(DMDevice):
                 size -- the device's size
                 format -- a DeviceFormat instance
                 parents -- a list of the backing devices (Device instances)
-                exists -- indicates whether this is an existing device
+                initcb -- the call back to be used when initiating disk.
+                initlabel -- whether to start with a fresh disklabel
         """
-        DMDevice.__init__(self, name, format=format, size=size,
-                          parents=parents, sysfsPath=sysfsPath,
-                          exists=exists)
 
+        self._info = info
+        self._isUp = False
+        self._pyBlockMultiPath = None
+        self.setupIdentity()
+        DiskDevice.__init__(self, name, format=format, size=size,
+                          parents=parents, sysfsPath=sysfsPath,
+                          initcb=initcb, initlabel=initlabel)
+
+    def setupIdentity(self):
+        """ Adds identifying remarks to MultipathDevice object.
+        
+            May be overridden by a sub-class for e.g. RDAC handling.
+        """
+        self._serial = self._info['ID_SERIAL_SHORT']
+
+    @property
+    def identity(self):
+        """ Get identity set with setupIdentityFromInfo()
+        
+            May be overridden by a sub-class for e.g. RDAC handling.
+        """
+        if not hasattr(self, "_serial"):
+            raise RuntimeError, "setupIdentityFromInfo() has not been called."
+        return self._serial
+
+    @property
+    def status(self):
+        return self._isUp
+
+    @property
+    def wwid(self):
+        serial = self.identity
+        ret = []
+        while serial:
+            ret.append(serial[:2])
+            serial = serial[2:]
+        return ":".join(ret)
+
+    @property
+    def description(self):
+        return "WWID %s" % (self.wwid,)
+
+    def addParent(self, parent):
+        if self.status:
+            self.teardown()
+            self.parents.append(parent)
+            self.setup()
+        else:
+            self.parents.append(parent)
+
+    def setup(self, intf=None):
+        if self.status:
+            self.teardown()
+        self._isUp = True
+        parents = []
+        for p in self.parents:
+            parents.append(p.path)
+        self._pyBlockMultiPath = block.device.MultiPath(*parents)
+
+    def teardown(self, recursive=None):
+        if not self.status:
+            return
+        self._isUp = False
+        self._pyBlockMultiPath = None
 
 class NoDevice(StorageDevice):
     """ A nodev device for nodev filesystems like tmpfs. """

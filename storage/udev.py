@@ -134,6 +134,10 @@ def udev_device_get_label(udev_info):
     """ Get the label from the device's format as reported by udev. """
     return udev_info.get("ID_FS_LABEL")
 
+def udev_device_is_multipath_member(info):
+    """ Return True if the device is part of a multipath. """
+    return info.get("ID_FS_TYPE") == "multipath_member"
+
 def udev_device_is_dm(info):
     """ Return True if the device is a device-mapper device. """
     return info.has_key("DM_NAME")
@@ -157,6 +161,10 @@ def udev_device_is_disk(info):
 def udev_device_is_partition(info):
     has_start = os.path.exists("/sys/%s/start" % info['sysfs_path'])
     return info.get("DEVTYPE") == "partition" or has_start
+
+def udev_device_get_serial(udev_info):
+    """ Get the serial number/UUID from the device as reported by udev. """
+    return udev_info.get("ID_SERIAL_SHORT")
 
 def udev_device_get_sysfs_path(info):
     return info['sysfs_path']
@@ -275,6 +283,34 @@ def udev_device_is_dmraid_partition(info, devicetree):
             return True
 
     return False
+
+def udev_device_is_multipath_partition(info, devicetree):
+    """ Return True if the device is a partition of a multipath device. """
+    if not udev_device_is_dm(info):
+        return False
+    if not info["DM_NAME"].startswith("mpath"):
+        return False
+    diskname = udev_device_get_dmraid_partition_disk(info)
+    if diskname is None:
+        return False
+
+    # this is sort of a lame check, but basically, if diskname gave us "mpath0"
+    # and we start with "mpath" but we're not "mpath0", then we must be
+    # "mpath0" plus some non-numeric crap.
+    if diskname != info["DM_NAME"]:
+        return True
+
+    return False
+
+def udev_device_get_multipath_partition_disk(info):
+    """ Return True if the device is a partition of a multipath device. """
+    # XXX PJFIX This whole function is crap.
+    if not udev_device_is_dm(info):
+        return False
+    if not info["DM_NAME"].startswith("mpath"):
+        return False
+    diskname = udev_device_get_dmraid_partition_disk(info)
+    return diskname
 
 # iscsi disks have ID_PATH in the form of:
 # ip-${iscsi_address}:${iscsi_port}-iscsi-${iscsi_tgtname}-lun-${lun}

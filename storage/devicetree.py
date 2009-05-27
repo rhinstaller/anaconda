@@ -31,6 +31,7 @@ from partitioning import shouldClear
 from pykickstart.constants import *
 import formats
 import devicelibs.mdraid
+import devicelibs.dm
 from udev import *
 from iutil import log_method_call
 
@@ -230,6 +231,7 @@ class DeviceTree(object):
 
         self.__passphrase = passphrase
         self.__luksDevs = {}
+        self.__multipaths = {}
         if luksDict and isinstance(luksDict, dict):
             self.__luksDevs = luksDict
         self._ignoredDisks = []
@@ -982,16 +984,25 @@ class DeviceTree(object):
             # try to get the device again now that we've got all the slaves
             device = self.getDeviceByName(name)
 
-            if device is None and \
-                    udev_device_is_dmraid_partition(info, self):
-                diskname = udev_device_get_dmraid_partition_disk(info)
-                disk = self.getDeviceByName(diskname)
-                device = PartitionDevice(name, sysfsPath=sysfs_path,
-                                         major=udev_device_get_major(info),
-                                         minor=udev_device_get_minor(info),
-                                         exists=True, parents=[disk])
-                # DWL FIXME: call self.addUdevPartitionDevice here instead
-                self._addDevice(device)
+            if device is None:
+                if udev_device_is_multipath_partition(info, self):
+                    diskname = udev_device_get_multipath_partition_disk(info)
+                    disk = self.getDeviceByName(diskname)
+                    device = PartitionDevice(name, sysfsPath=sysfs_path,
+                                             major=udev_device_get_major(info),
+                                             minor=udev_device_get_minor(info),
+                                             exists=True, parents=[disk])
+                elif udev_device_is_dmraid_partition(info, self):
+                    diskname = udev_device_get_dmraid_partition_disk(info)
+                    disk = self.getDeviceByName(diskname)
+                    device = PartitionDevice(name, sysfsPath=sysfs_path,
+                                             major=udev_device_get_major(info),
+                                             minor=udev_device_get_minor(info),
+                                             exists=True, parents=[disk])
+                if not device is None:
+                    # DWL FIXME: call self.addUdevPartitionDevice here instead
+                    self._addDevice(device)
+
 
             # if we get here, we found all of the slave devices and
             # something must be wrong -- if all of the slaves are in
@@ -1104,6 +1115,7 @@ class DeviceTree(object):
         log_method_call(self, name=name)
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
+        serial = udev_device_get_serial(info)
         device = None
 
         kwargs = {}
@@ -1193,7 +1205,18 @@ class DeviceTree(object):
         #
         # The first step is to either look up or create the device
         #
-        if udev_device_is_dm(info):
+        if udev_device_is_multipath_member(info):
+            device = StorageDevice(name,
+                            major=udev_device_get_major(info),
+                            minor=udev_device_get_minor(info),
+                            sysfsPath=sysfs_path, exists=True,
+                            serial=udev_device_get_serial(info))
+            self._addDevice(device)
+        elif udev_device_is_dm(info) and \
+               devicelibs.dm.dm_is_multipath(info["DM_MAJOR"], info["DM_MINOR"]):
+            log.debug("%s is a multipath device" % name)
+            self.addUdevDMDevice(info)
+        elif udev_device_is_dm(info):
             log.debug("%s is a device-mapper device" % name)
             # try to look up the device
             if device is None and uuid:
@@ -1413,6 +1436,44 @@ class DeviceTree(object):
             md_array._addDevice(device)
             self._addDevice(md_array)
 
+    def handleMultipathMemberFormat(self, info, device):
+        log_method_call(self, name=device.name, type=device.format.type)
+
+        serial = udev_device_get_serial(info)
+        found = False
+        if self.__multipaths.has_key(serial):
+            mp = self.__multipaths[serial]
+            mp.addParent(device)
+        else:
+            name = generateMultipathDeviceName()
+            devname = "/dev/mapper/%s" % (name,)
+
+            if self.zeroMbr:
+                cb = lambda: True
+            else:
+                desc = []
+                serialtmp = serial
+                while serialtmp:
+                    desc.append(serialtmp[:2])
+                    serialtmp = serialtmp[2:]
+                desc = "WWID %s" % (":".join(desc),)
+
+                cb = lambda: questionInitializeDisk(self.intf, devname, desc)
+
+            initlabel = False
+            if not self.clearPartDisks or \
+                    rs.name in self.clearPartDisks:
+                initlabel = self.reinitializeDisks
+                for protected in self.protectedDevNames:
+                    disk_name = re.sub(r'p\d+$', '', protected)
+                    if disk_name != protected and \
+                            disk_name == name:
+                        initlabel = False
+                        break
+            mp = MultipathDevice(name, info, parents=[device], initcb=cb,
+                                 initlabel=initlabel)
+            self.__multipaths[serial] = mp
+
     def handleUdevDMRaidMemberFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
         name = udev_device_get_name(info)
@@ -1504,6 +1565,7 @@ class DeviceTree(object):
         uuid = udev_device_get_uuid(info)
         label = udev_device_get_label(info)
         format_type = udev_device_get_format(info)
+        serial = udev_device_get_serial(info)
 
         format = None
         if (not device) or (not format_type) or device.format.type:
@@ -1517,10 +1579,13 @@ class DeviceTree(object):
         kwargs = {"uuid": uuid,
                   "label": label,
                   "device": device.path,
+                  "serial": serial,
                   "exists": True}
 
         # set up type-specific arguments for the format constructor
-        if format_type == "crypto_LUKS":
+        if format_type == "multipath_member":
+            kwargs["multipath_members"] = self.getDevicesBySerial(serial)
+        elif format_type == "crypto_LUKS":
             # luks/dmcrypt
             kwargs["name"] = "luks-%s" % uuid
         elif format_type in formats.mdraid.MDRaidMember._udevTypes:
@@ -1590,6 +1655,8 @@ class DeviceTree(object):
             self.handleUdevDMRaidMemberFormat(info, device)
         elif device.format.type == "lvmpv":
             self.handleUdevLVMPVFormat(info, device)
+        elif device.format.type == "multipath_member":
+            self.handleMultipathMemberFormat(info, device)
 
     def _handleInconsistencies(self):
         def reinitializeVG(vg):
@@ -1708,6 +1775,49 @@ class DeviceTree(object):
                         (disk.name, disk.format, format))
                 disk.format = format
 
+    def identifyMultipaths(self, devices):
+        log.info("devices to scan for multipath: %s" % [d['name'] for d in devices])
+        serials = {}
+        non_disk_devices = {}
+        for d in devices:
+            serial = udev_device_get_serial(d)
+            if not udev_device_is_disk(d):
+                non_disk_devices.setdefault(serial, [])
+                non_disk_devices[serial].append(d)
+                log.info("adding %s to non_disk_device list" % (d['name'],))
+                continue
+
+            serials.setdefault(serial, [])
+            serials[serial].append(d)
+
+        singlepath_disks = []
+        multipath_disks = []
+        for serial, disks in serials.items():
+            if len(disks) == 1:
+                log.info("adding %s to singlepath_disks" % (disks[0]['name'],))
+                singlepath_disks.append(disks[0])
+            else:
+                multipath_members = {}
+                for d in disks:
+                    log.info("adding %s to multipath_disks" % (d['name'],))
+                    d["ID_FS_TYPE"] = "multipath_member"
+                    multipath_disks.append(d)
+
+                    multipath_members[d['name']] = { 'info': d,
+                                                     'found': False }
+                    log.info("found multipath set: [%s]" % [d['name'] for d in disks])
+
+        for serial in [d['ID_SERIAL_SHORT'] for d in multipath_disks]:
+            if non_disk_devices.has_key(serial):
+                    log.info("filtering out non disk devices [%s]" % [d['name'] for d in non_disk_devices[serial]])
+                    del non_disk_devices[serial]
+
+        partition_devices = []
+        for devices in non_disk_devices.values():
+            partition_devices += devices
+
+        return partition_devices + multipath_disks + singlepath_disks
+
     def populate(self):
         """ Locate all storage devices. """
 
@@ -1723,27 +1833,32 @@ class DeviceTree(object):
 
         # each iteration scans any devices that have appeared since the
         # previous iteration
-        old_devices = []
+        old_devices = {}
         ignored_devices = []
+        first_iteration = True
+        handled_mpaths = False
         while True:
             devices = []
             new_devices = udev_get_block_devices()
 
             for new_device in new_devices:
-                found = False
-                for old_device in old_devices:
-                    if old_device['name'] == new_device['name']:
-                        found = True
-                        break
-
-                if not found:
+                if not old_devices.has_key(new_device['name']):
+                    old_devices[new_device['name']] = new_device
                     devices.append(new_device)
 
             if len(devices) == 0:
-                # nothing is changing -- we are finished building devices
-                break
+                if handled_mpaths:
+                    # nothing is changing -- we are finished building devices
+                    break
+                for mp in self.__multipaths.values():
+                    log.info("adding mpath device %s" % (mp.name,))
+                    mp.setup()
+                    self._addDevice(mp)
+                handled_mpaths = True
 
-            old_devices = new_devices
+            if first_iteration:
+                devices = self.identifyMultipaths(devices)
+                first_iteration = False
             log.info("devices to scan: %s" % [d['name'] for d in devices])
             for dev in devices:
                 self.addUdevDevice(dev)
@@ -1802,6 +1917,16 @@ class DeviceTree(object):
                 break
 
         return found
+
+    def getDevicesBySerial(self, serial):
+        devices = []
+        for device in self._devices:
+            if not hasattr(device, "serial"):
+                log.warning("device %s has no serial attr" % device.name)
+                continue
+            if device.serial == serial:
+                devices.append(device)
+        return devices
 
     def getDeviceByLabel(self, label):
         if not label:
