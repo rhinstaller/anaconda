@@ -713,6 +713,14 @@ class DeviceTree(object):
 
             dev.disk.partedDisk.removePartition(dev.partedPartition)
 
+            # adjust all other PartitionDevice instances belonging to the
+            # same disk so the device name matches the potentially altered
+            # name of the parted.Partition
+            for device in self._devices:
+                if isinstance(device, PartitionDevice) and \
+                   device.disk == dev.disk:
+                    device.updateName()
+
         self._devices.remove(dev)
         log.debug("removed %s (%s) from device tree" % (dev.name,
                                                         dev.type))
