@@ -226,11 +226,11 @@ class DeviceTree(object):
                 continue
 
             log.debug("action '%s' (%s)" % (a, id(a)))
-            destroys = self.findActions(path=a.device.path,
+            destroys = self.findActions(devid=a.device.id,
                                         type="destroy",
                                         object="device")
 
-            creates = self.findActions(path=a.device.path,
+            creates = self.findActions(devid=a.device.id,
                                        type="create",
                                        object="device")
 
@@ -282,11 +282,11 @@ class DeviceTree(object):
                 continue
 
             log.debug("action '%s' (%s)" % (a, id(a)))
-            creates = self.findActions(path=a.device.path,
+            creates = self.findActions(devid=a.device.id,
                                        type="create",
                                        object="device")
 
-            destroys = self.findActions(path=a.device.path,
+            destroys = self.findActions(devid=a.device.id,
                                         type="destroy",
                                         object="device")
 
@@ -318,7 +318,7 @@ class DeviceTree(object):
 
             # remove all actions on this from after the first destroy up
             # to the last create
-            dev_actions = self.findActions(path=a.device.path)
+            dev_actions = self.findActions(devid=a.device.id)
             for rem in dev_actions:
                 if rem == stop_action:
                     break
@@ -337,7 +337,7 @@ class DeviceTree(object):
                 continue
 
             log.debug("action '%s' (%s)" % (a, id(a)))
-            loops = self.findActions(path=a.device.path,
+            loops = self.findActions(devid=a.device.id,
                                      type="resize",
                                      object="device")
 
@@ -359,11 +359,11 @@ class DeviceTree(object):
                 continue
 
             log.debug("action '%s' (%s)" % (a, id(a)))
-            destroys = self.findActions(path=a.device.path,
+            destroys = self.findActions(devid=a.device.id,
                                         type="destroy",
                                         object="format")
 
-            creates = self.findActions(path=a.device.path,
+            creates = self.findActions(devid=a.device.id,
                                        type="create",
                                        object="format")
 
@@ -396,7 +396,7 @@ class DeviceTree(object):
 
             # now we remove all actions on this device's format between
             # the start index (into self._actions) and stop_action.
-            dev_actions = self.findActions(path=a.device.path,
+            dev_actions = self.findActions(devid=a.device.id,
                                            object="format")
             for rem in dev_actions:
                 end = self._actions.index(stop_action)
@@ -417,11 +417,11 @@ class DeviceTree(object):
                 continue
 
             log.debug("action '%s' (%s)" % (a, id(a)))
-            creates = self.findActions(path=a.device.path,
+            creates = self.findActions(devid=a.device.id,
                                        type="create",
                                        object="format")
 
-            destroys = self.findActions(path=a.device.path,
+            destroys = self.findActions(devid=a.device.id,
                                         type="destroy",
                                         object="format")
 
@@ -453,7 +453,7 @@ class DeviceTree(object):
 
             # remove all actions on this from after the first destroy up
             # to the last create
-            dev_actions = self.findActions(path=a.device.path,
+            dev_actions = self.findActions(devid=a.device.id,
                                            object="format")
             for rem in dev_actions:
                 if rem == stop_action:
@@ -473,7 +473,7 @@ class DeviceTree(object):
                 continue
 
             log.debug("action '%s' (%s)" % (a, id(a)))
-            loops = self.findActions(path=a.device.path,
+            loops = self.findActions(devid=a.device.id,
                                      type="resize",
                                      object="format")
 
@@ -495,7 +495,7 @@ class DeviceTree(object):
                 continue
 
             log.debug("action '%s' (%s)" % (a, id(a)))
-            loops = self.findActions(path=a.device.path,
+            loops = self.findActions(devid=a.device.id,
                                      type="migrate",
                                      object="format")
 
@@ -783,7 +783,8 @@ class DeviceTree(object):
 
         self._actions.remove(action)
 
-    def findActions(self, device=None, type=None, object=None, path=None):
+    def findActions(self, device=None, type=None, object=None, path=None,
+                    devid=None):
         """ Find all actions that match all specified parameters.
 
             Keyword arguments:
@@ -794,7 +795,8 @@ class DeviceTree(object):
                 path -- device path to match (string, or None to match any)
 
         """
-        if device is None and type is None and object is None and path is None:
+        if device is None and type is None and object is None and \
+           path is None and devid is None:
             return self._actions[:]
 
         # convert the string arguments to the types used in actions
@@ -813,6 +815,9 @@ class DeviceTree(object):
                 continue
 
             if path is not None and action.device.path != path:
+                continue
+
+            if devid is not None and action.device.id != devid:
                 continue
                 
             actions.append(action)
