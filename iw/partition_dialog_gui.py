@@ -271,7 +271,7 @@ class PartitionEditor:
                     elif not self.fsoptionsDict["formatcb"].get_active():
                         creates = devicetree.findActions(type="create",
                                                          object="format",
-                                                         path=usedev.path)
+                                                         devid=usedev.id)
                         for action in creates:
                             devicetree.cancelAction(action)
 

@@ -176,6 +176,10 @@ class Device(object):
         before destroying the device itself.
 
     """
+
+    # This is a counter for generating unique ids for Devices.
+    _id = 0
+
     _type = "generic device"
     _packages = []
 
@@ -200,6 +204,10 @@ class Device(object):
         self.parents = parents
         self.kids = 0
         self.description = description
+
+        # Set this instance's id and increment the counter.
+        self.id = Device._id
+        Device._id += 1
 
         for parent in self.parents:
             parent.addChild()
@@ -227,10 +235,12 @@ class Device(object):
         s = ("%(type)s instance (%(id)s) --\n"
              "  description = %(descr)s  name = %(name)s  status = %(status)s"
              "  parents = %(parents)s\n"
-             "  kids = %(kids)s\n" %
+             "  kids = %(kids)s\n"
+             "  id = %(dev_id)s\n" %
              {"type": self.__class__.__name__, "id": "%#x" % id(self),
               "name": self.name, "parents": self.parents, "kids": self.kids,
-              "descr": self.description, "status": self.status})
+              "descr": self.description, "status": self.status,
+              "dev_id": self.id})
         return s
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
