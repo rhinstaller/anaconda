@@ -467,6 +467,9 @@ class Storage(object):
                    available for the purpose of storing the exception
                    report.
         """
+        # When a usb is connected from before the start of the installation,
+        # it is not correctly detected.
+        udev.udev_trigger()
         self.reset()
 
         dests = []
