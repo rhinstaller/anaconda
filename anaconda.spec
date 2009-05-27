@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.178
+Version: 11.1.2.179
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed May 27 2009 Joel Granados <jgranado@redhat.com> 11.1.2.179-1
+- Look for ipcalc in the right place (jgranado).
+  Resolves: rhbz#502249
+
 * Tue May 26 2009 Joel Granados <jgranado@redhat.com> 11.1.2.178-1
 - Fix specification of zoneinfo files to be included in stage2 (rvykydal).
   Resolves: rhbz#481617
