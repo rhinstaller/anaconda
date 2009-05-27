@@ -73,7 +73,7 @@ class Firewall:
 	args = [ "--quiet", "--nostart", "-f" ] + self.getArgList()
 
         try:
-            if not flags.test:
+            if not flags.test and not os.path.exists("%s/etc/sysconfig/iptables" %(instPath,)):
                 iutil.execWithRedirect("/usr/sbin/lokkit", args,
                                        root=instPath, stdout="/dev/null",
                                        stderr="/dev/null")
