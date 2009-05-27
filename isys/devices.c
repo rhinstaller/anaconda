@@ -68,7 +68,7 @@ struct device **getDevices(enum deviceType type) {
             fd = open(path, O_RDONLY);
             if (fd == -1)
                 continue;
-            if (read(fd, buf, 64) <= 0) {
+            if (read(fd, buf, 63) <= 0) {
                 close(fd);
                 continue;
             }
@@ -97,7 +97,7 @@ struct device **getDevices(enum deviceType type) {
 
                 if (fd == -1)
                     continue;
-                if (read(fd, buf, 64) <= 0) {
+                if (read(fd, buf, 63) <= 0) {
                     close(fd);
                     continue;
                 }
@@ -155,7 +155,7 @@ storagedone:
             fd = open(path, O_RDONLY);
             if (fd == -1)
                 continue;
-            if (read(fd, buf, 64) <= 0) {
+            if (read(fd, buf, 63) <= 0) {
                 close(fd);
                 continue;
             }
@@ -179,7 +179,7 @@ storagedone:
             fd = open(path, O_RDONLY);
             if (fd != -1) {
                 memset(buf, '\0', 64);
-                if (read(fd, buf, 64) > 0) {
+                if (read(fd, buf, 63) > 0) {
                     int i;
                     for (i = (strlen(buf)-1); isspace(buf[i]); i--)
                         buf[i] = '\0';
