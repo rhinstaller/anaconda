@@ -771,7 +771,7 @@ class PartitionWindow(InstallWindow):
                         self.tree[iter]['Format'] = self.checkmark_pixbuf
                     self.tree[iter]['IsFormattable'] = format.formattable
                 else:
-                    ptype = _("None")
+                    ptype = _("Unknown")
                     self.tree[iter]['IsFormattable'] = False
 
 		if array.minor is not None:
@@ -925,7 +925,7 @@ class PartitionWindow(InstallWindow):
                     if format and format.type:
                         ptype = format.name
                     else:
-                        ptype = _("None")
+                        ptype = _("Unknown")
                 if part.type & parted.PARTITION_FREESPACE:
                     devname = _("Free")
                 else:
