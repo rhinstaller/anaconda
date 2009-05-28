@@ -248,7 +248,8 @@ class NetworkDevice(SimpleConfigFile):
             keys.remove("KEY")
 
         for key in keys:
-            if key in ("NM_CONTROLLED", "NAME"):
+            if (key == 'NAME') or \
+               (key == 'NM_CONTROLLED' and not flags.livecdInstall):
                 continue
             # make sure we include autoneg in the ethtool line
             elif key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
@@ -283,9 +284,9 @@ class Network:
             # NetworkManager first, then fill in the gaps with the data
             # from the ifcfg file
             useNetworkManager = False
-            if ifcfg_contents.has_key('NM_CONTROLLED'):
-                if ifcfg_contents['NM_CONTROLLED'].lower() == 'yes' or ifcfg_contents['NM_CONTROLLED'] == '':
-                    useNetworkManager = True
+            if ifcfg_contents.has_key('NM_CONTROLLED') and \
+               not ifcfg_contents['NM_CONTROLLED'].lower() == 'no':
+                useNetworkManager = True
 
             # this interface is managed by NetworkManager, so read from
             # NetworkManager first
