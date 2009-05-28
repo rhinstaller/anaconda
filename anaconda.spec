@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.56
+Version: 11.5.0.57
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu May 28 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.57-1
+- Create and use unique ids for Device instances. (#500808) (dlehman)
+- Adjust remaining PartitionDevices' names after removing a partition.
+  (dlehman)
+
 * Tue May 26 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.56-1
 - Ensure matching rootfs type to live type with autopart (#501876) (katzj)
 
