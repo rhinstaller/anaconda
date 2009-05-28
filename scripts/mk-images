@@ -449,7 +449,7 @@ EOF
     cp -f $IMGPATH/usr/sbin/xinetd $MBD_DIR/sbin/xinetd
     cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
     cp -f $IMGPATH/usr/bin/bash $MBD_DIR/sbin/bash
-    cp -f $IMGPATH/bin/ipcalc $MBD_DIR/sbin/ipcalc
+    cp -f $IMGPATH/usr/bin/ipcalc $MBD_DIR/sbin/ipcalc
     cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
 
     # make some symlinks
