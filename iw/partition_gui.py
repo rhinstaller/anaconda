@@ -50,6 +50,7 @@ from storage.devices import devicePathToName, PartitionDevice
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -1216,15 +1217,18 @@ class PartitionWindow(InstallWindow):
         maintable.set_col_spacings(5)
         row = 0
 
-	lbltxt = _("Software RAID allows you to combine "
-		   "several disks into a larger "
-		   "RAID device.  A RAID device can be configured to "
-		   "provide additional speed and "
-		   "reliability compared to using an individual drive.  "
-		   "For more information on using RAID devices "
-		   "please consult the %s documentation.\n\n"
-		   "You currently have %s software RAID "
-		   "partition(s) free to use.\n\n") % (productName, len(availraidparts))
+	numparts = P_("You currently have %d software RAID partition free to use.",
+		    "You currently have %d software RAID partitions free to use.",
+		    len(availraidparts)) % len(availraidparts,)
+
+	lbltxt = _("Software RAID allows you to combine several disks into "
+		    "a larger RAID device.  A RAID device can be configured "
+		    "to provide additional speed and reliability compared "
+		    "to using an individual drive.  For more information on "
+		    "using RAID devices please consult the %s "
+		    "documentation.") % (productName,)
+
+	lbltxt = lbltxt + "\n\n" + numparts + "\n\n"
 
         if len(availraidparts) < 2:
 	    lbltxt = lbltxt + _("To use RAID you must first "

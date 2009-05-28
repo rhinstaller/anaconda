@@ -51,6 +51,7 @@ import packages
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 import network
 
@@ -81,10 +82,7 @@ def size_string (size):
         size = size / 1024
         retval = _("%s KB") %(number_format(size),)
     else:
-        if size == 1:
-            retval = _("%s Byte") %(number_format(size),)
-        else:
-            retval = _("%s Bytes") %(number_format(size),)
+        retval = P_("%s Byte", "%s Bytes", size) % (number_format(size),)
 
     return to_unicode(retval)
 
@@ -209,8 +207,10 @@ class AnacondaCallback:
             self.doneFiles += len(hdr[rpm.RPMTAG_BASENAMES])
 
             if self.donepkgs <= self.numpkgs:
-                self.progress.set_text(_("%s of %s packages completed")
-                                       %(self.donepkgs, self.numpkgs))
+                self.progress.set_text(P_("Packages completed: %d of %d",
+                                          "Packages completed: %d of %d",
+                                          self.numpkgs)
+                                       % (self.donepkgs, self.numpkgs,))
             self.progress.set_fraction(float(self.doneSize / self.totalSize))
             self.progress.processEvents()
 

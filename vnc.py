@@ -32,6 +32,7 @@ import subprocess
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -185,7 +186,9 @@ class VncServer:
             else:
                 log.critical(err)
                 sys.exit(1)
-        self.log.error(_("Giving up attempting to connect after %d tries!\n" % maxTries ))
+        self.log.error(P_("Giving up attempting to connect after %d try!\n",
+                          "Giving up attempting to connect after %d tries!\n",
+                          maxTries) % (maxTries,))
         return False
 
     def VNCListen(self):

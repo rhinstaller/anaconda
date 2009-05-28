@@ -28,9 +28,9 @@ all: $(FMTCATALOGS)
 
 $(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES) intltool-po
 	xgettext --from-code=UTF-8 --default-domain=$(NLSPACKAGE) \
-		 --keyword=_ --keyword=N_ --lang=python $(PYPOTFILES)
+		 --keyword=_ --keyword=N_ --keyword=P_:1,2 --lang=python $(PYPOTFILES)
 	xgettext --from-code=UTF-8 --default-domain=$(NLSPACKAGE) -j \
-		 --keyword=_ --keyword=N_ --lang=c $(CPOTFILES) tmp/*.h
+		 --keyword=_ --keyword=N_ --keyword=P_:1,2 --lang=c $(CPOTFILES) tmp/*.h
 	cat ../lang-table | cut -f1 | while read line; do echo -e "\n#. generated from lang-table\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po
 	if cmp -s $(NLSPACKAGE).po $(NLSPACKAGE).pot; then \
 	    rm -f $(NLSPACKAGE).po; \

@@ -827,7 +827,7 @@ class Storage(object):
         if (root and
             root.size < self.anaconda.backend.getMinimumSizeMB("/")):
             errors.append(_("Your / partition is less than %s "
-                            "megabytes which is lower than recommended "
+                            "MB which is lower than recommended "
                             "for a normal %s install.")
                           %(self.anaconda.backend.getMinimumSizeMB("/"),
                             productName))

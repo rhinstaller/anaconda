@@ -40,6 +40,7 @@ import imputil
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -369,8 +370,12 @@ class LuksPassphraseWindow:
                 if len(passphrase) < self.minLength:
                     ButtonChoiceWindow(self.screen,
                                        _("Error with passphrase"),
-                                       _("The passphrase must be at least "
-                                         "%d characters long.") % (self.minLength,),
+                                       P_("The passphrase must be at least "
+                                          "%d character long.",
+                                          "The passphrase must be at least "
+                                          "%d characters long.",
+                                          self.minLength)
+                                         % (self.minLength,),
                                        buttons=[TEXT_OK_BUTTON])
                     passphraseentry.set("")
                     confirmentry.set("")

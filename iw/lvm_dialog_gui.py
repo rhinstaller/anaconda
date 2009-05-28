@@ -34,6 +34,7 @@ from storage.deviceaction import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 import logging
 log = logging.getLogger("anaconda")
@@ -764,12 +765,16 @@ class VolumeGroupEditor:
 	self.editLogicalVolume(lv)
 
     def addLogicalVolumeCB(self, widget):
-	if self.numAvailableLVSlots() < 1:
-	    self.intf.messageWindow(_("No free slots"),
-				    _("You cannot create more than %s logical "
-				    "volumes per volume group.") % (lvm.MAX_LV_SLOTS,), custom_icon="error")
-	    return
-	
+        if self.numAvailableLVSlots() < 1:
+            self.intf.messageWindow(_("No free slots"),
+                P_("You cannot create more than %d logical volume "
+                   "per volume group.",
+                   "You cannot create more than %d logical volumes "
+                   "per volume group.", lvm.MAX_LV_SLOTS)
+                % (lvm.MAX_LV_SLOTS,),
+                custom_icon="error")
+            return
+
         (total, used, free) = self.computeSpaceValues()
 	if free <= 0:
 	    self.intf.messageWindow(_("No free space"),
