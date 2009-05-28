@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.179
+Version: 11.1.2.180
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu May 28 2009 Joel Granados <jgranado@redhat.com> 11.1.2.180-1
+- Look for ipcalc in the right place (jgranado).
+  Resolves: rhbz#502249
+
 * Wed May 27 2009 Joel Granados <jgranado@redhat.com> 11.1.2.179-1
 - Look for ipcalc in the right place (jgranado).
   Resolves: rhbz#502249
