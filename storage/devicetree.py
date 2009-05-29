@@ -548,7 +548,7 @@ class DeviceTree(object):
                 ret = 1
             elif a1.isResize() and a2.isResize():
                 if a1.device.path == a2.device.path:
-                    if a1.obj and a2.obj:
+                    if a1.obj == a2.obj:
                         ret = 0
                     elif a1.isFormat() and not a2.isFormat():
                         # same path, one device, one format
