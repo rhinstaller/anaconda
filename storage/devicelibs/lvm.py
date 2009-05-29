@@ -371,7 +371,7 @@ def lvremove(vg_name, lv_name):
 
 def lvresize(vg_name, lv_name, size):
     args = ["lvresize"] + \
-            ["-L", "%dm" % size] + \
+            ["--force", "-L", "%dm" % size] + \
             config_args + \
             ["%s/%s" % (vg_name, lv_name)]
 
