@@ -21,6 +21,7 @@
 #
 
 import iutil
+import os.path
 from flags import flags
 from constants import *
 
