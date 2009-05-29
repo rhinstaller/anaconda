@@ -583,6 +583,7 @@ makeinitrd() {
         ln -s /tmp $MBD_DIR/var/state/xkb
         cp $IMGPATH/usr/bin/xauth $MBD_DIR/sbin/xauth
         cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
+        cp $IMGPATH/usr/bin/ipcalc $MBD_DIR/sbin/ipcalc
     fi
 
     if [ -n "$INITRDMODULES" ]; then
@@ -635,7 +636,6 @@ makeinitrd() {
     instbin $IMGPATH /usr/sbin/udevadm $MBD_DIR /sbin/udevadm
     instbin $IMGPATH /usr/bin/udevinfo $MBD_DIR /sbin/udevinfo
     instbin $IMGPATH /usr/sbin/udevsettle $MBD_DIR /sbin/udevsettle
-    instbin $IMGPATH /bin/ipcalc $MBD_DIR /sbin/ipcalc
 
     instbin $IMGPATH /usr/bin/bash $MBD_DIR /sbin/bash
     ( cd $MBD_DIR/sbin ; ln -sf bash sh )
