@@ -453,8 +453,8 @@ class WaitWindow:
                 self.window.set_transient_for(parent)
         else:
             self.window = gtk.Window(gtk.WINDOW_POPUP)
-            self.window.set_modal(True)
-            
+
+        self.window.set_modal(True)
         self.window.set_title(title)
         self.window.set_position(gtk.WIN_POS_CENTER)
         label = WrappingLabel(text)
