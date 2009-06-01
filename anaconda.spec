@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.181
+Version: 11.1.2.182
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jun 1 2009 Joel Granados <jgranado@redhat.com>  11.1.2.182-1
+- Add support for IGB VF device (jgranado).
+  Resolves: rhbz#502875
+- Fix the error caused by change in fipscheck (again..) (msivak).
+  Resolves: rhbz#498992
+
 * Thu May 28 2009 Joel Granados <jgranado@redhat.com> 11.1.2.181-1
 - Look for ipcalc in the right place (jgranado).
   Resolves: rhbz#502249
