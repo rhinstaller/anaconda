@@ -348,7 +348,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def doPostInstall(self, anaconda):
         self._doFilesystemMangling(anaconda)
 
-        # setup /etc/rpm/platform for the post-install environment
+        # setup /etc/rpm/ for the post-install environment
         iutil.writeRpmPlatform(anaconda.rootPath)
 
         # maybe heavy handed, but it'll do

@@ -560,14 +560,14 @@ def isEfi():
 
     return efi
 
-## Generate the /etc/rpm/platform and /etc/rpm/macros files.
+## Generate the /etc/rpm/macros file.
 # @param root The root of the filesystem to create the files in.
 def writeRpmPlatform(root="/"):
     import rhpl.arch
 
     if flags.test:
         return
-    if not flags.updateRpmPlatform and os.access("%s/etc/rpm/platform" %(root,), os.R_OK):
+    if os.access("%s/etc/rpm/platform" %(root,), os.R_OK):
         return
     if not os.access("%s/etc/rpm" %(root,), os.X_OK):
         os.mkdir("%s/etc/rpm" %(root,))
@@ -580,10 +580,6 @@ def writeRpmPlatform(root="/"):
 
     # now make the current install believe it, too
     rhpl.arch.canonArch = myarch
-
-#    f = open("%s/etc/rpm/platform" %(root,), 'w+')
-#    f.write("%s-redhat-linux\n" %(myarch,))
-#    f.close()
 
     # FIXME: writing /etc/rpm/macros feels wrong somehow
     # temporary workaround for #92285

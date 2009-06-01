@@ -37,7 +37,7 @@ from storage import storageComplete
 from storage.partitioning import doAutoPartition
 from bootloader import writeBootloader, bootloaderSetupChoices
 from flags import flags
-from upgrade import upgradeMountFilesystems, queryUpgradeArch
+from upgrade import upgradeMountFilesystems
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 from upgrade import findRootParts, queryUpgradeContinue
 from installmethod import doMethodComplete
@@ -83,7 +83,6 @@ installSteps = [
     ("autopartitionexecute", doAutoPartition, ),
     ("partition", ),
     ("upgrademount", upgradeMountFilesystems, ),
-    ("upgradearchitecture", queryUpgradeArch, ),
     ("upgradecontinue", queryUpgradeContinue, ),
     ("upgradeswapsuggestion", upgradeSwapSuggestion, ),
     ("addswap", ),

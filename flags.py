@@ -83,7 +83,6 @@ class Flags:
 	self.__dict__['flags']['selinux'] = SELINUX_DEFAULT
         self.__dict__['flags']['debug'] = 0
 	self.__dict__['flags']['targetarch'] = None
-	self.__dict__['flags']['updateRpmPlatform'] = False
         self.__dict__['flags']['cmdline'] = self.createCmdlineDict()
         self.__dict__['flags']['useIPv4'] = True
         self.__dict__['flags']['useIPv6'] = True

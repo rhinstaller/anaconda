@@ -46,73 +46,6 @@ import rpm
 import logging
 log = logging.getLogger("anaconda")
 
-def guessGuestArch(rootdir):
-    """root path -> None|"architecture"
-    Guess the architecture of installed system
-    """
-    iutil.resetRpmDb(rootdir)
-    ts = rpm.ts(rootdir)
-
-    packages = ["filesystem", "initscripts"]
-
-    #get information from packages
-    for pkg in packages:
-        try:
-            mi=ts.dbMatch("name",pkg)
-            for hdr in mi:
-                return hdr["arch"]
-        except:
-            pass
-
-    return None
-
-
-def isUpgradingArch(anaconda):
-    """anaconda -> (bool, oldarch)
-    Check if the upgrade should change architecture of installation"""
-
-    def compareArch(a, b):
-        import re
-        if re.match("i.86", a) and re.match("i.86", b):
-            return True
-        else:
-            return a == b
-
-    try:
-        rpmplatform = open(anaconda.rootPath+"/etc/rpm/platform").readline().strip()
-        rpmarch = rpmplatform[:rpmplatform.index("-")]
-        return compareArch(rhpl.arch.canonArch, rpmarch), rpmarch
-    except IOError:
-        #try some fallback methods
-        rpmarch = guessGuestArch(anaconda.rootPath)
-        if rpmarch:
-            return compareArch(rhpl.arch.canonArch, rpmarch), rpmarch
-        else:
-            return False, "unknown"
-
-def queryUpgradeArch(anaconda):
-    archupgrade, oldrpmarch = isUpgradingArch(anaconda) #Check if we are to upgrade the architecture of previous product
-
-    if anaconda.dir == DISPATCH_FORWARD or not archupgrade:
-        return DISPATCH_FORWARD
-
-    rc = anaconda.intf.messageWindow(_("Proceed with upgrade?"),
-                       _("You have choosen the upgrade for %s "
-                         "architecture, but the installed system "
-                         "is for %s architecture. "
-                         "\n\n" % (rhpl.arch.canonArch, oldrpmarch,)) + 
-                       _("Would you like to upgrade "
-                         " the installed system to the %s architecture?" % (rhpl.arch.canonArch,)),
-                         type="custom", custom_icon=["error","error"],
-                         custom_buttons=[_("_Exit installer"), _("_Continue")])
-
-    if rc == 0:
-        sys.exit(0)
-
-    flags.updateRpmPlatform = True
-
-    return DISPATCH_FORWARD
-
 def queryUpgradeContinue(anaconda):
     if anaconda.dir == DISPATCH_FORWARD:
         return
@@ -337,7 +270,6 @@ def setSteps(anaconda):
                 "upgrademount",
                 "upgrademigfind",
                 "upgrademigratefs",
-                "upgradearchitecture",
                 "enablefilesystems",
                 "upgradecontinue",
                 "reposetup",

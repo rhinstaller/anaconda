@@ -1427,9 +1427,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.initLog(anaconda.id, anaconda.rootPath)
 
         if flags.setupFilesystems:
-            # setup /etc/rpm/platform for the post-install environment
+            # setup /etc/rpm/ for the post-install environment
             iutil.writeRpmPlatform(anaconda.rootPath)
-            
+
             try:
                 # FIXME: making the /var/lib/rpm symlink here is a hack to
                 # workaround db->close() errors from rpm
