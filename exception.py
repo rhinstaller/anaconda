@@ -190,6 +190,9 @@ class AnacondaExceptionDump:
                    ]
         idSkipList = []
 
+        # Skip any local variables that contain these words
+        localSkipList = [ "passphrase", "password" ]
+
         # Catch attributes that do not exist at the time we do the exception dump
         # and ignore them.
         for k in skipList:
@@ -207,6 +210,10 @@ class AnacondaExceptionDump:
             fd.write ("\nLocal variables in innermost frame:\n")
             try:
                 for (key, value) in frame.f_locals.items():
+                    loweredKey = key.lower()
+                    if len(filter(lambda s: loweredKey.find(s) != -1, localSkipList)) > 0:
+                        continue
+
                     fd.write ("%s: %s\n" % (key, value))
             except:
                 pass
