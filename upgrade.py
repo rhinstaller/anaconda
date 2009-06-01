@@ -246,6 +246,11 @@ def upgradeMountFilesystems(anaconda):
         anaconda.id.storage.fsset.turnOnSwap(anaconda, upgrading=True)
         anaconda.id.storage.fsset.mkDevRoot(anaconda.rootPath)
 
+    # Move /etc/rpm/platform out of the way.
+    if os.path.exists(anaconda.rootPath + "/etc/rpm/platform"):
+        shutil.move(anaconda.rootPath + "/etc/rpm/platform",
+                    anaconda.rootPath + "/etc/rpm/platform.rpmsave")
+
     # if they've been booting with selinux disabled, then we should
     # disable it during the install as well (#242510)
     try:
