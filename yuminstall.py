@@ -473,8 +473,9 @@ class AnacondaYum(YumSorter):
                     repo.baseurl = uri
                 except RepoError:
                     replace = False
-            else:
-                # If there was an error finding the "base" repo, create a new one now.
+
+            # If there was an error finding the "base" repo, create a new one now.
+            if not replace:
                 repo = AnacondaYumRepo("anaconda-%s-%s" % (rid, productStamp))
                 repo.baseurl = uri
 
