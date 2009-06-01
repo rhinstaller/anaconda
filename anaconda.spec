@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.57
+Version: 11.5.0.58
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sun May 31 2009 David Lehman <dlehman@redhat.com> - 11.5.0.58-1
+- Pass --force to lvresize so it doesn't ask for confirmation. (dlehman)
+- Fix a typo in action sorting for resize actions (fs vs. device). (#501000)
+  (dlehman)
+- Sending translation for French (mrtom)
+
 * Thu May 28 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.57-1
 - Create and use unique ids for Device instances. (#500808) (dlehman)
 - Adjust remaining PartitionDevices' names after removing a partition.
