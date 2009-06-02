@@ -455,6 +455,7 @@ class WaitWindow:
             self.window = gtk.Window(gtk.WINDOW_POPUP)
 
         self.window.set_modal(True)
+        self.window.set_type_hint (gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
         self.window.set_title(title)
         self.window.set_position(gtk.WIN_POS_CENTER)
         label = WrappingLabel(text)
@@ -484,7 +485,9 @@ class ProgressWindow:
                 self.window.set_transient_for(parent)
         else:
             self.window = gtk.Window(gtk.WINDOW_POPUP)
-            self.window.set_modal(True)            
+
+        self.window.set_modal(True)
+        self.window.set_type_hint (gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
         self.window.set_title (title)
         self.window.set_position (gtk.WIN_POS_CENTER)
         self.lastUpdate = time.time()
