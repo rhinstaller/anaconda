@@ -550,8 +550,7 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src) {
 
 }
 
-static void getDDFromDev(struct loaderData_s * loaderData, char * dev, 
-                         char * fstype);
+static void getDDFromDev(struct loaderData_s * loaderData, char * dev);
 
 void useKickstartDD(struct loaderData_s * loaderData,
                     int argc, char ** argv) {
@@ -565,12 +564,13 @@ void useKickstartDD(struct loaderData_s * loaderData,
     poptContext optCon;
     int rc;
     struct poptOption ksDDOptions[] = {
+        /* The --type option is deprecated and now has no effect. */
         { "type", '\0', POPT_ARG_STRING, &fstype, 0, NULL, NULL },
         { "source", '\0', POPT_ARG_STRING, &src, 0, NULL, NULL },
         { "biospart", '\0', POPT_ARG_NONE, &usebiosdev, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
-    
+
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksDDOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
@@ -606,20 +606,14 @@ void useKickstartDD(struct loaderData_s * loaderData,
     }
 
     if (dev) {
-        return getDDFromDev(loaderData, dev, fstype);
+        return getDDFromDev(loaderData, dev);
     } else {
         return getDDFromSource(loaderData, src);
     }
 }
 
-static void getDDFromDev(struct loaderData_s * loaderData, char * dev, 
-                        char * fs) {
-    if (fs) {
-        if (doPwMount(dev, "/tmp/drivers", fs, "ro", NULL)) {
-            logMessage(ERROR, "unable to mount %s as %s", dev, fs);
-            return;
-        }
-    } else if (doPwMount(dev, "/tmp/drivers", "auto", "ro", NULL)) {
+static void getDDFromDev(struct loaderData_s * loaderData, char * dev) {
+    if (doPwMount(dev, "/tmp/drivers", "auto", "ro", NULL)) {
         logMessage(ERROR, "unable to mount driver disk %s", dev);
         return;
     }
