@@ -2,7 +2,7 @@
 
 Summary: Graphical system installer
 Name:    anaconda
-Version: 11.5.0.58
+Version: 11.5.0.59
 Release: 1%{?dist}
 License: GPLv2+
 Group:   Applications/System
@@ -211,6 +211,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jun 02 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.59-1
+- Do not show disabled repos such as rawhide during the install (#503798).
+  (jkeating)
+
 * Sun May 31 2009 David Lehman <dlehman@redhat.com> - 11.5.0.58-1
 - Pass --force to lvresize so it doesn't ask for confirmation. (dlehman)
 - Fix a typo in action sorting for resize actions (fs vs. device). (#501000)
