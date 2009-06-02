@@ -983,7 +983,7 @@ commandMap = {
         "device": commands.device.F8_Device,
         "deviceprobe": commands.deviceprobe.FC3_DeviceProbe,
         "dmraid": DmRaid,
-        "driverdisk": commands.driverdisk.FC3_DriverDisk,
+        "driverdisk": commands.driverdisk.F12_DriverDisk,
         "firewall": Firewall,
         "firstboot": Firstboot,
         "graphical": commands.displaymode.FC3_DisplayMode,
