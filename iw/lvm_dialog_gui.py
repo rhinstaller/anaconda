@@ -827,11 +827,9 @@ class VolumeGroupEditor:
                 pvsize = pvreq.getActualSize(self.partitions, self.diskset)
                 # have to clamp pvsize to multiple of PE
                 clampedSize = lvm.clampPVSize(pvsize, curpe)
-                if pvsize == clampedSize:
-                    # This is a corner case were we say that the available size of the VG
-                    # is the total size of the paritition.  Given that the pvs need metadata
-                    # it is better to be on the safe side and give ourselves on pe of extra
-                    # space.
+                if long(pvsize) == clampedSize:
+                    # If clamping reserves only less than 1MB for lvm metadata,
+                    # reserve one more PE.
                     clampedSize = clampedSize - (curpe / 1024)
 
                 availSpaceMB = availSpaceMB + clampedSize
