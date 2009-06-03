@@ -2815,7 +2815,7 @@ class FileDevice(StorageDevice):
 
     @property
     def fstabSpec(self):
-        return self.path
+        return self.name
 
     @property
     def path(self):
@@ -2829,6 +2829,9 @@ class FileDevice(StorageDevice):
         if status: 
             # this is the actual active mountpoint
             root = self.parents[0].format._mountpoint
+            # trim the mountpoint down to the chroot since we already have
+            # the otherwise fully-qualified path
+            root = root[:-len(self.parents[0].format.mountpoint)]
 
         return os.path.normpath("%s/%s" % (root, path))
 
