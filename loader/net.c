@@ -1544,11 +1544,9 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         poptFreeContext(optCon);
     }
 
-    /* if they've specified dhcp/bootp or haven't specified anything, 
-     * use dhcp for the interface */
-    if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
-                       !strncmp(bootProto, "bootp", 4))) ||
-        (!bootProto && !loaderData->ipv4)) {
+    /* if they've specified dhcp/bootp use dhcp for the interface */
+    if (bootProto && (!strncmp(bootProto, "dhcp", 4) || 
+                       !strncmp(bootProto, "bootp", 4))) {
         loaderData->ipv4 = strdup("dhcp");
         loaderData->ipinfo_set = 1;
     } else if (loaderData->ipv4) {
