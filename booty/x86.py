@@ -35,9 +35,6 @@ class x86BootloaderInfo(efiBootloaderInfo):
     def getPassword (self):
         return self.pure
 
-    def setForceLBA(self, val):
-        self.forceLBA32 = val
-        
     def setUseGrub(self, val):
         self.useGrubVal = val
 
@@ -104,8 +101,6 @@ class x86BootloaderInfo(efiBootloaderInfo):
             return
 
         args = "--stage2=/boot/grub/stage2 "
-        if self.forceLBA32:
-            args = "%s--force-lba " % (args,)
 
         cmds = []
         for bootDev in bootDevs:
@@ -345,11 +340,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
                       instRoot + sysconf + '.rpmsave')
         f = open(instRoot + sysconf, 'w+')
         f.write("boot=/dev/%s\n" %(grubTarget,))
-        # XXX forcelba never gets read back...
-        if self.forceLBA32:
-            f.write("forcelba=1\n")
-        else:
-            f.write("forcelba=0\n")
+        f.write("forcelba=0\n")
         f.close()
             
         if not justConfigFile:
@@ -408,8 +399,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 config.addEntry("message", message, replace = 0)
 
         if not config.testEntry('lba32'):
-            if self.forceLBA32 or (bl.above1024 and
-                                   rhpl.getArch() != "x86_64"):
+            if bl.above1024 and rhpl.getArch() != "x86_64":
                 config.addEntry("lba32", replace = 0)
 
         return config
@@ -507,11 +497,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         if not os.access(instRoot + sysconf, os.R_OK):
             f = open(instRoot + sysconf, "w+")
             f.write("boot=%s\n" %(installDev,))
-            # XXX forcelba never gets read back at all...
-            if self.forceLBA32:
-                f.write("forcelba=1\n")
-            else:
-                f.write("forcelba=0\n")
+            f.write("forcelba=0\n")
             f.close()
         
     def write(self, instRoot, bl, kernelList, chainList,
@@ -542,12 +528,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
     def getArgList(self):
         args = bootloaderInfo.getArgList(self)
-        
-        if self.forceLBA32:
-            args.append("--lba32")
+
         if self.password:
             args.append("--md5pass=%s" %(self.password))
-        
+
         return args
 
     def __init__(self, storage):

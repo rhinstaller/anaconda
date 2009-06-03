@@ -267,9 +267,6 @@ class bootloaderInfo:
     def useGrub(self):
         return self.useGrubVal
 
-    def setForceLBA(self, val):
-        pass
-    
     def setPassword(self, val, isCrypted = 1):
         pass
 
@@ -475,7 +472,6 @@ class bootloaderInfo:
         self._configdir = None
         self._configname = None
         self.kernelLocation = "/boot/"
-        self.forceLBA32 = 0
         self.password = None
         self.pure = None
         self.above1024 = 0

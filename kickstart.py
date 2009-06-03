@@ -200,8 +200,6 @@ class Bootloader(commands.bootloader.F8_Bootloader):
             if self.appendLine:
                 self.handler.id.bootloader.args.set(self.appendLine)
 
-            self.handler.id.bootloader.setForceLBA(self.forceLBA)
-
             if self.password:
                 self.handler.id.bootloader.setPassword(self.password, isCrypted = 0)
 
