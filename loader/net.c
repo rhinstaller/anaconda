@@ -618,18 +618,16 @@ int configureTCPIP(char * device, iface_t * iface,
      *     noipv4 noipv6
      *     ip=<val> noipv6
      *     ipv6=<val> noipv4
-     * we also skip this form for anyone doing a kickstart install
      */
     if ((FL_IP_PARAM(flags) && FL_IPV6_PARAM(flags)) ||
         (FL_IP_PARAM(flags) && FL_NOIPV6(flags)) ||
         (FL_IPV6_PARAM(flags) && FL_NOIPV4(flags)) ||
-        (FL_NOIPV4(flags) && FL_NOIPV6(flags)) ||
-        (FL_IS_KICKSTART(flags))) {
+        (FL_NOIPV4(flags) && FL_NOIPV6(flags))) {
         skipForm = 1;
         newtPopWindow();
     }
 #else
-    if (FL_IP_PARAM(flags) || FL_NOIPV4(flags) || FL_IS_KICKSTART(flags)) {
+    if (FL_IP_PARAM(flags) || FL_NOIPV4(flags)) {
         skipForm = 1;
         newtPopWindow();
     }
