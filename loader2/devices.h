@@ -91,6 +91,9 @@ struct devnode devnodes[] = {
     {"adb", CHARDEV, 56, 0, 0644, "root", "root"},
     {"iseries", DIRTYPE, 0, 0, 0755, "root", "root" },
 #endif
+#ifdef __ia64__
+    {"efirtc", CHARDEV, 10, 136, 0644, "root", "root"},
+#endif
     {"rtc", CHARDEV, 10, 135, 0644, "root", "root"},
     { NULL, 0, 0, 0, 0, NULL, NULL },
 };
