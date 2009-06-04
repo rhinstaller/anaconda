@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.182
+Version: 11.1.2.183
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,7 +127,13 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Mon Jun 1 2009 Joel Granados <jgranado@redhat.com>  11.1.2.182-1
+* Thu Jun 4 2009 Joel Granados <jgranado@redhat.com> 11.1.2.183-1
+- Create efirtc device node on ia64 to access hw clock (rvykydal).
+  Resolves: rhbz#485200
+- Reserve enough space for lvm metadata when computing PV size usable for LVs (rvykydal).
+  Resolves: rhbz#500431
+
+* Mon Jun 1 2009 Joel Granados <jgranado@redhat.com> 11.1.2.182-1
 - Add support for IGB VF device (jgranado).
   Resolves: rhbz#502875
 - Fix the error caused by change in fipscheck (again..) (msivak).
