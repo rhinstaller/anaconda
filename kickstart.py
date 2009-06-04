@@ -164,9 +164,9 @@ class AutoStep(commands.autostep.FC3_AutoStep):
         flags.autoscreenshot = self.autoscreenshot
         return retval
 
-class Bootloader(commands.bootloader.F8_Bootloader):
+class Bootloader(commands.bootloader.F12_Bootloader):
     def parse(self, args):
-        retval = commands.bootloader.F8_Bootloader.parse(self, args)
+        retval = commands.bootloader.F12_Bootloader.parse(self, args)
 
         if self.location == "none":
             location = None
