@@ -70,18 +70,14 @@ class InstallClass(BaseInstallClass):
              }
 
     instkeyname = N_("Installation Number")
-    instkeydesc = N_("To install the full set of supported packages included "
-                    "in your subscription, please enter your Installation "
-                    "Number")
-    skipkeytext = N_("If you're unable to locate the Installation Number, "
-                    "consult http://www.redhat.com/apps/support/in.html.\n\n"
-                    "If you skip:\n"
-                    "* You may not get access to the full set of "
-                    "packages included in your subscription.\n"
-                    "* It may result in an unsupported/uncertified "
-                    "installation of Red Hat Enterprise Linux.\n"
-                    "* You will not get software and security updates "
-                    "for packages not included in your subscription.")
+    instkeydesc = N_("Would you like to enter an Installation Number "
+                     "(sometimes called Subscription Number) now? This feature "
+                     "enables the installer to access any extra components "
+                     "included with your subscription.  If you skip this step, "
+                     "additional components can be installed manually later.\n\n"
+                     "See http://www.redhat.com/InstNum/ for more information.")
+    skipkeytext = N_("If you cannot locate the Installation Number, consult "
+                     "http://www.redhat.com/InstNum/")
 
     bugFiler = BugzillaFiler(bugUrl="https://bugzilla.redhat.com/xmlrpc.cgi")
 
