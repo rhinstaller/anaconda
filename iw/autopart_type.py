@@ -443,10 +443,17 @@ class PartitionTypeWindow(InstallWindow):
                 (_("Shrink current system"), -2),
                 (_("Use free space"), CLEARPART_TYPE_NONE),
                 (_("Create custom layout"), -1))
+
+        # if not set in ks, use UI default
+        if self.storage.clearPartType is None:
+            preselected = CLEARPART_TYPE_LINUX
+        else:
+            preselected = self.storage.clearPartType 
+
         for (txt, val) in opts:
             iter = store.append(None)
             store[iter] = (txt, val)
-            if val == self.storage.clearPartType:
+            if val == preselected:
                 self.combo.set_active_iter(iter)
 
         if ((self.combo.get_active() == -1) or

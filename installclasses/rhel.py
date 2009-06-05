@@ -89,8 +89,7 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setInstallData(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self, 
                                                 anaconda.id.storage,
-                                                anaconda.platform,
-                                                CLEARPART_TYPE_LINUX)
+                                                anaconda.platform)
 
     def setSteps(self, anaconda):
         dispatch = anaconda.dispatch

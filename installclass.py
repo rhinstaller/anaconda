@@ -187,8 +187,7 @@ class BaseInstallClass(object):
         from backend import AnacondaBackend
         return AnacondaBackend
 
-    def setDefaultPartitioning(self, storage, platform,
-                               clear = CLEARPART_TYPE_LINUX, doClear = True):
+    def setDefaultPartitioning(self, storage, platform):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
                                  size=1024, grow=True, asVol=True)]
 
@@ -199,12 +198,6 @@ class BaseInstallClass(object):
         (minswap, maxswap) = iutil.swapSuggestion()
         autorequests.append(PartSpec(fstype="swap", size=minswap, maxSize=maxswap,
                                      grow=True, asVol=True))
-
-        if doClear:
-            storage.clearPartType = clear
-            storage.clearPartDisks = []
-        else:
-            storage.clearPartType = CLEARPART_TYPE_NONE
 
         storage.autoPartitionRequests = autorequests
 

@@ -665,6 +665,7 @@ class PartitionWindow(InstallWindow):
 
     def getPrev(self):
         self.diskStripeGraph.shutDown()
+        self.storage.clearPartType = None
         self.storage.reset()
         self.tree.clear()
         del self.parent

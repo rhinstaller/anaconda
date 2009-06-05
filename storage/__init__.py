@@ -202,7 +202,7 @@ class Storage(object):
         self.ignoredDisks = []
         self.exclusiveDisks = []
         self.doAutoPart = False
-        self.clearPartType = CLEARPART_TYPE_NONE
+        self.clearPartType = None
         self.clearPartDisks = []
         self.encryptedAutoPart = False
         self.encryptionPassphrase = None
@@ -281,10 +281,7 @@ class Storage(object):
                                           _("Finding storage devices..."))
         self.iscsi.startup(self.anaconda.intf)
         self.zfcp.startup()
-        if self.anaconda.id.getUpgrade() or not self.anaconda.isKickstart:
-            # clearPartType defaults to CLEARPART_TYPE_LINUX, but the user
-            # has not made any selection, so we need to ignore it during
-            # population of the device tree
+        if self.anaconda.id.getUpgrade():
             clearPartType = CLEARPART_TYPE_NONE
         else:
             clearPartType = self.clearPartType
@@ -934,7 +931,7 @@ class Storage(object):
         f.write("# not guaranteed to work\n")
 
         # clearpart
-        if self.clearPartType == CLEARPART_TYPE_NONE:
+        if self.clearPartType is None or self.clearPartType == CLEARPART_TYPE_NONE:
             args = ["--none"]
         elif self.clearPartType == CLEARPART_TYPE_LINUX:
             args = ["--linux"]

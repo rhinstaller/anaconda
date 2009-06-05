@@ -67,7 +67,11 @@ class PartitionTypeWindow:
             for (txt, val) in opts:
                 typebox.append(txt, val)
 
-            typebox.setCurrent(anaconda.id.storage.clearPartType)
+            if anaconda.id.storage.clearPartType is None:
+                preselection = CLEARPART_TYPE_LINUX
+            else:
+                preselection = anaconda.id.storage.clearPartType
+            typebox.setCurrent(preselection)
 
             g.add(typebox, 0, 1, (0, 1, 0, 0))
 

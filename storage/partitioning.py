@@ -306,7 +306,7 @@ def clearPartitions(storage):
             - Needs some error handling, especially for the parted bits.
 
     """
-    if storage.clearPartType == CLEARPART_TYPE_NONE:
+    if storage.clearPartType is None or storage.clearPartType == CLEARPART_TYPE_NONE:
         # not much to do
         return
 
