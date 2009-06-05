@@ -199,11 +199,16 @@ def writeBootloader(anaconda):
 
     dosync()
     try:
-        anaconda.id.bootloader.write(anaconda.rootPath, anaconda.id.bootloader,
-                                     kernelList, otherList, defaultDev,
-                                     justConfigFile)
+        rc = anaconda.id.bootloader.write(anaconda.rootPath, anaconda.id.bootloader,
+                                          kernelList, otherList, defaultDev,
+                                          justConfigFile)
 	if not justConfigFile:
 	    w.pop()
+
+        if rc and anaconda.intf:
+            anaconda.intf.messageWindow(_("Warning"),
+                               _("There was an error installing the bootloader.  "
+                                 "Your system may not be bootable."))
     except booty.BootyNoKernelWarning:
 	if not justConfigFile:
 	    w.pop()

@@ -405,15 +405,17 @@ class bootloaderInfo:
 
     def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig):
+        rc = 0
+
         if len(kernelList) >= 1:
             config = self.getBootloaderConfig(instRoot, bl,
                                               kernelList, chainList,
                                               defaultDev)
-            config.write(instRoot + self.configfile, perms = self.perms)
+            rc = config.write(instRoot + self.configfile, perms = self.perms)
         else:
             raise booty.BootyNoKernelWarning
 
-        return ""
+        return rc
 
     def getArgList(self):
         args = []
@@ -533,9 +535,11 @@ class efiBootloaderInfo(bootloaderInfo):
     # XXX wouldn't it be nice to have a real interface to use efibootmgr from?
     def removeOldEfiEntries(self, instRoot):
         p = os.pipe()
-        iutil.execWithRedirect('/usr/sbin/efibootmgr', [],
-                               root = instRoot, stdout = p[1])
+        rc = iutil.execWithRedirect('/usr/sbin/efibootmgr', [],
+                                    root = instRoot, stdout = p[1])
         os.close(p[1])
+        if rc:
+            return rc
 
         c = os.read(p[0], 1)
         buf = c
@@ -550,10 +554,14 @@ class efiBootloaderInfo(bootloaderInfo):
                 continue
             if string.join(fields[1:], " ") == productName:
                 entry = fields[0][4:8]
-                iutil.execWithRedirect('/usr/sbin/efibootmgr',
-                                       ["-b", entry, "-B"],
-                                       root = instRoot,
-                                       stdout="/dev/tty5", stderr="/dev/tty5")
+                rc = iutil.execWithRedirect('/usr/sbin/efibootmgr',
+                                            ["-b", entry, "-B"],
+                                            root = instRoot,
+                                            stdout="/dev/tty5", stderr="/dev/tty5")
+                if rc:
+                    return rc
+
+        return 0
 
     def addNewEfiEntry(self, instRoot):
         try:
@@ -581,16 +589,19 @@ class efiBootloaderInfo(bootloaderInfo):
         argv = [ "/usr/sbin/efibootmgr", "-c" , "-w", "-L",
                  productName, "-d", "/dev/%s" % bootdisk,
                  "-p", bootpart, "-l", "\\EFI\\redhat\\" + self.bootloader ]
-        iutil.execWithRedirect(argv[0], argv[1:], root = instRoot,
-                               stdout = "/dev/tty5",
-                               stderr = "/dev/tty5")
+        rc = iutil.execWithRedirect(argv[0], argv[1:], root = instRoot,
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+        return rc
 
     def installGrub(self, instRoot, bootDevs, grubTarget, grubPath,
                     target, cfPath):
         if not iutil.isEfi():
             raise EnvironmentError
-        self.removeOldEfiEntries(instRoot)
-        self.addNewEfiEntry(instRoot)
+        rc = self.removeOldEfiEntries(instRoot)
+        if rc:
+            return rc
+        return self.addNewEfiEntry(instRoot)
 
     def __init__(self, storage, initialize = True):
         if initialize:

@@ -141,33 +141,39 @@ class ppcBootloaderInfo(bootloaderInfo):
         isys.sync()
 
         ybinargs = [ yabootProg, "-f", "-C", cf ]
-        
+
         if not flags.test:
-            iutil.execWithRedirect(ybinargs[0],
-                                   ybinargs[1:],
-                                   stdout = "/dev/tty5",
-                                   stderr = "/dev/tty5",
-                                   root = instRoot)
+            rc = iutil.execWithRedirect(ybinargs[0],
+                                        ybinargs[1:],
+                                        stdout = "/dev/tty5",
+                                        stderr = "/dev/tty5",
+                                        root = instRoot)
+            if rc:
+                return rc
 
         if (not os.access(instRoot + "/etc/yaboot.conf", os.R_OK) and
             os.access(instRoot + "/boot/etc/yaboot.conf", os.R_OK)):
             os.symlink("../boot/etc/yaboot.conf",
                        instRoot + "/etc/yaboot.conf")
-        
-        return ""
+
+        return 0
 
     def setPassword(self, val, isCrypted = 1):
         # yaboot just handles the password and doesn't care if its crypted
         # or not
         self.password = val
-        
+
     def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig):
         if len(kernelList) >= 1:
-            out = self.writeYaboot(instRoot, bl, kernelList, 
-                                 chainList, defaultDev, justConfig)
+            rc = self.writeYaboot(instRoot, bl, kernelList, 
+                                  chainList, defaultDev, justConfig)
+            if rc:
+                return rc
         else:
             raise BootyNoKernelWarning
+
+        return 0
 
     def __init__(self, storage):
         bootloaderInfo.__init__(self, storage)

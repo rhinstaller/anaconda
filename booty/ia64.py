@@ -11,25 +11,27 @@ class ia64BootloaderInfo(efiBootloaderInfo):
         config.addEntry("relocatable")
 
         return config
-            
+
     def writeLilo(self, instRoot, bl, kernelList, 
                   chainList, defaultDev, justConfig):
         config = self.getBootloaderConfig(instRoot, bl,
                                           kernelList, chainList, defaultDev)
-        config.write(instRoot + self.configfile, perms = 0755)
+        return config.write(instRoot + self.configfile, perms = 0755)
 
-        return ""
-        
     def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig):
         if len(kernelList) >= 1:
-            out = self.writeLilo(instRoot, bl, kernelList, 
-                                 chainList, defaultDev, justConfig)
+            rc = self.writeLilo(instRoot, bl, kernelList,
+                                chainList, defaultDev, justConfig)
+            if rc:
+                return rc
         else:
             raise BootyNoKernelWarning
 
-        self.removeOldEfiEntries(instRoot)
-        self.addNewEfiEntry(instRoot)
+        rc = self.removeOldEfiEntries(instRoot)
+        if rc:
+            return rc
+        return self.addNewEfiEntry(instRoot)
 
     def makeInitrd(self, kernelTag):
         return "/boot/efi/EFI/redhat/initrd%s.img" % kernelTag

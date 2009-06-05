@@ -67,10 +67,12 @@ class x86BootloaderInfo(efiBootloaderInfo):
             syncDataToDisk(bootDev, "/", instRoot)
 
         # copy the stage files over into /boot
-        iutil.execWithRedirect("/sbin/grub-install",
-                               ["--just-copy"],
-                               stdout = "/dev/tty5", stderr = "/dev/tty5",
-                               root = instRoot)
+        rc = iutil.execWithRedirect("/sbin/grub-install",
+                                    ["--just-copy"],
+                                    stdout = "/dev/tty5", stderr = "/dev/tty5",
+                                    root = instRoot)
+        if rc:
+            return rc
 
         # really install the bootloader
         for cmd in cmds:
@@ -85,20 +87,22 @@ class x86BootloaderInfo(efiBootloaderInfo):
             else:
                 syncDataToDisk(bootDev, "/", instRoot)
 
-            iutil.execWithRedirect('/sbin/grub' ,
-                                   [ "--batch", "--no-floppy",
-                                     "--device-map=/boot/grub/device.map" ],
-                                   stdin = p[0],
-                                   stdout = "/dev/tty5", stderr = "/dev/tty5",
-                                   root = instRoot)
+            rc = iutil.execWithRedirect('/sbin/grub' ,
+                                        [ "--batch", "--no-floppy",
+                                          "--device-map=/boot/grub/device.map" ],
+                                        stdin = p[0],
+                                        stdout = "/dev/tty5", stderr = "/dev/tty5",
+                                        root = instRoot)
             os.close(p[0])
+
+            if rc:
+                return rc
 
     def installGrub(self, instRoot, bootDevs, grubTarget, grubPath,
                     target, cfPath):
         if iutil.isEfi():
-            efiBootloaderInfo.installGrub(self, instRoot, bootDevs, grubTarget,
-                                          grubPath, target, cfPath)
-            return
+            return efiBootloaderInfo.installGrub(self, instRoot, bootDevs, grubTarget,
+                                                 grubPath, target, cfPath)
 
         args = "--stage2=/boot/grub/stage2 "
 
@@ -117,7 +121,11 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 (args, grubPath, stage1Target, grubPath, bPart, grubPath)
             cmds.append(cmd)
 
-            self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
+            rc = self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
+            if rc:
+                return rc
+
+        return 0
 
     def writeGrub(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfigFile):
@@ -344,10 +352,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
         f.close()
             
         if not justConfigFile:
-            self.installGrub(instRoot, bootDevs, grubTarget, grubPath, \
-                             target, cfPath)
+            return self.installGrub(instRoot, bootDevs, grubTarget, grubPath,
+                                    target, cfPath)
 
-        return ""
+        return 0
 
     def getMatchingPart(self, bootDev, target):
         bootName, bootPartNum = getDiskPart(bootDev, self.storage)
@@ -488,9 +496,9 @@ class x86BootloaderInfo(efiBootloaderInfo):
             cmds.append(cmd)
         
             if not justConfigFile:
-                self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
+                return self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
  
-        return ""
+        return 0
 
     def writeSysconfig(self, instRoot, installDev):
         sysconf = '/etc/sysconfig/grub'
@@ -508,16 +516,18 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # XXX HACK ALERT - see declaration above
         if self.doUpgradeOnly:
             if self.useGrubVal:
-                self.upgradeGrub(instRoot, bl, kernelList,
-                                 chainList, defaultDev, justConfig)
-            return        
+                return self.upgradeGrub(instRoot, bl, kernelList,
+                                        chainList, defaultDev, justConfig)
+            return 0
 
         if len(kernelList) < 1:
             raise BootyNoKernelWarning
 
-        out = self.writeGrub(instRoot, bl, kernelList, 
-                             chainList, defaultDev,
-                             justConfig | (not self.useGrubVal))
+        rc = self.writeGrub(instRoot, bl, kernelList, 
+                            chainList, defaultDev,
+                            justConfig | (not self.useGrubVal))
+        if rc:
+            return rc
 
         # XXX move the lilo.conf out of the way if they're using GRUB
         # so that /sbin/installkernel does a more correct thing
@@ -525,6 +535,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             os.rename(instRoot + "/etc/lilo.conf",
                       instRoot + "/etc/lilo.conf.anaconda")
 
+        return 0
 
     def getArgList(self):
         args = bootloaderInfo.getArgList(self)

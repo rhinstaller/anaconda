@@ -94,18 +94,20 @@ class sparcBootloaderInfo(bootloaderInfo):
             sbinargs += ["-U"]
 
         if not flags.test:
-            iutil.execWithRedirect(sbinargs[0],
-                                   sbinargs[1:],
-                                   stdout = "/dev/tty5",
-                                   stderr = "/dev/tty5",
-                                   root = instRoot)
+            rc = iutil.execWithRedirect(sbinargs[0],
+                                        sbinargs[1:],
+                                        stdout = "/dev/tty5",
+                                        stderr = "/dev/tty5",
+                                        root = instRoot)
+            if rc:
+                return rc
 
         if (not os.access(instRoot + "/etc/silo.conf", os.R_OK) and
             os.access(instRoot + "/boot/etc/silo.conf", os.R_OK)):
             os.symlink("../boot/etc/silo.conf",
                        instRoot + "/etc/silo.conf")
 
-        return ""
+        return 0
 
     def setPassword(self, val, isCrypted = 1):
         # silo just handles the password unencrypted
@@ -114,8 +116,8 @@ class sparcBootloaderInfo(bootloaderInfo):
     def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig):
         if len(kernelList) >= 1:
-            self.writeSilo(instRoot, bl, kernelList, chainList,
-                        defaultDev, justConfig)
+            return self.writeSilo(instRoot, bl, kernelList, chainList,
+                                  defaultDev, justConfig)
         else:
             raise BootyNoKernelWarning
 

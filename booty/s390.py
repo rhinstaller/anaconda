@@ -153,19 +153,24 @@ class s390BootloaderInfo(bootloaderInfo):
         f.close()
 
         if not justConfigFile:
-            iutil.execWithRedirect("/sbin/zipl", [], root = instRoot,
-                                   stdout = "/dev/stdout",
-                                   stderr = "/dev/stderr")
-            
-        return ""
+            rc = iutil.execWithRedirect("/sbin/zipl", [], root = instRoot,
+                                        stdout = "/dev/stdout",
+                                        stderr = "/dev/stderr")
+            if rc:
+                return rc
+
+        return 0
 
     def write(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfig):
-        out = self.writeZipl(instRoot, bl, kernelList, 
-                             chainList, defaultDev,
-                             justConfig | (not self.useZiplVal))
-        out = self.writeChandevConf(bl, instRoot)
-    
+        rc = self.writeZipl(instRoot, bl, kernelList, 
+                            chainList, defaultDev,
+                            justConfig | (not self.useZiplVal))
+        if rc:
+            return rc
+
+        return self.writeChandevConf(bl, instRoot)
+
     def __init__(self, storage):
         bootloaderInfo.__init__(self, storage)
         self.useZiplVal = 1      # only used on s390

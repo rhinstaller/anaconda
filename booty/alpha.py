@@ -111,10 +111,12 @@ class alphaBootloaderInfo(bootloaderInfo):
             # to and the second argument is a path to the bootstrap loader
             # file.
             args = [("/dev/%s" % wbd), "/boot/bootlx"]
-            iutil.execWithRedirect ('/sbin/swriteboot', args,
-                                    root = instRoot,
-                                    stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+            rc = iutil.execWithRedirect ('/sbin/swriteboot', args,
+                                         root = instRoot,
+                                         stdout = "/dev/tty5",
+                                         stderr = "/dev/tty5")
+            if rc:
+                return rc
 
             # Calling abootconf to configure the installed aboot. The
             # first argument is the disk to use, the second argument is
@@ -122,10 +124,14 @@ class alphaBootloaderInfo(bootloaderInfo):
             # It's always the boot partition whether it's / or /boot (with
             # the mount point being omitted.)
             args = [("/dev/%s" % wbd), str (bdpn)]
-            iutil.execWithRedirect ('/sbin/abootconf', args,
-                                    root = instRoot,
-                                    stdout = "/dev/tty5",
-                                    stderr = "/dev/tty5")
+            rc = iutil.execWithRedirect ('/sbin/abootconf', args,
+                                         root = instRoot,
+                                         stdout = "/dev/tty5",
+                                         stderr = "/dev/tty5")
+            if rc:
+                return rc
+
+        return 0
 
 
     def write(self, instRoot, bl, kernelList, chainList,
@@ -133,8 +139,8 @@ class alphaBootloaderInfo(bootloaderInfo):
         if len(kernelList) < 1:
             raise BootyNoKernelWarning
 
-        self.writeAboot(instRoot, bl, kernelList, 
-                        chainList, defaultDev, justConfig)
+        return self.writeAboot(instRoot, bl, kernelList,
+                               chainList, defaultDev, justConfig)
 
     def __init__(self, storage):
         bootloaderInfo.__init__(self, storage)
