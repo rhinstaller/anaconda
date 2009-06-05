@@ -689,6 +689,7 @@ etc/security/limits.conf
 etc/security/pam_env.conf
 lib/security
 $LIBDIR/security/pam_*
+$LIBDIR/libwrap*.so*
 usr/bin/xauth
 EOF
 fi

@@ -580,6 +580,7 @@ makeinitrd() {
         mkdir -p $MBD_DIR/etc/{pam.d,security}
         mkdir -p $MBD_DIR/$LIBDIR/security
         cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
+        cp $IMGPATH/$LIBDIR/libwrap*.so* $MBD_DIR/$LIBDIR/
         ln -s /tmp $MBD_DIR/var/state/xkb
         cp $IMGPATH/usr/bin/xauth $MBD_DIR/sbin/xauth
         cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
