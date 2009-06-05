@@ -1206,9 +1206,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         for (path, name) in anaconda.id.extraModules:
             if ext != "":
-                moduleProvides = "kmod-%s-%s" % (name, ext)
+                moduleProvides = "dud-%s-%s" % (name, ext)
             else:
-                moduleProvides = "%s-kmod" % name
+                moduleProvides = "dud-%s" % name
 
             pkgs = self.ayum.returnPackagesByDep(moduleProvides)
 
@@ -1216,14 +1216,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 log.warning("Didn't find any package providing module %s" % name)
 
             for pkg in pkgs:
-                if ext == "" and pkg.name == "kmod"+name:
-                    log.info("selecting package %s for module %s" % (pkg.name, name))
-                    self.ayum.install(po=pkg)
-                elif ext != "" and pkg.name.find("-"+ext) != -1:
-                    log.info("selecting package %s for module %s" % (pkg.name, name))
-                    self.ayum.install(po=pkg)
-                else:
-                    continue
+                log.info("selecting package %s for module %s" % (pkg.name, name))
+                self.ayum.install(po=pkg)
 
     def selectBestKernel(self, anaconda):
         """Find the best kernel package which is available and select it."""
