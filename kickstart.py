@@ -646,7 +646,7 @@ class Partition(commands.partition.F11_Partition):
         if pd.disk:
             disk = devicetree.getDeviceByName(pd.disk)
             if not disk:
-                pd.disk = "mapper/" % pd.disk
+                pd.disk = "mapper/%s" % pd.disk
                 disk = devicetree.getDeviceByName(pd.disk)
 
                 if not disk:
