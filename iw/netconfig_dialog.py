@@ -144,10 +144,10 @@ class NetworkConfigurator:
 
         for dev in devs:
             i = store.append(None)
-            desc = netdevs[dev].get("desc")
+            hwaddr = netdevs[dev].get("HWADDR")
 
-            if desc:
-                desc = "%s - %s" %(dev, desc)
+            if hwaddr:
+                desc = "%s - %s" %(dev, hwaddr,)
             else:
                 desc = "%s" %(dev,)
 
