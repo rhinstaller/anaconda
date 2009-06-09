@@ -61,42 +61,19 @@ function tv() {
     fi
 }
 
-# for checkipv6 / checkipv4 see also:
-# https://bugzilla.redhat.com/show_bug.cgi?id=234152#c11
-# https://enterprise.redhat.com/issue-tracker/?module=issues&action=view&tid=115847
-
-# see also RFC4291,sec.2.2
-# the following check is incomplete, but sufficient to distinguish from IPv4
 function checkipv6()
 {
     local ip=$1
     [ -z "$ip" ] && return 1
-    echo $ip | awk -F':' '
-        BEGIN {
-          error = 0
-        }
-
-        {
-          if (NF > 8) {
-            error = 1
-            exit error
-          }
-          for (i = 1; i <= NF; i++) {
-            if ( ! match(toupper($i), "^[0-9A-F]{0,4}$") ) {
-              error = 1
-              break
-            }
-          }
-          exit error
-        }
-    '
+    /sbin/ipcalc -c -6 "$ip" >/dev/null 2>&1
     return $?
 }
 
 function checkipv4()
 {
     local ip=$1
-    echo $ip | awk -F'.' '{ if (NF != 4) { exit 1 } i=1; while (i<=NF) { if ($i>255 || $i<0) { exit 1 }; i=i+1; } exit 0 }'
+    [ -z "$ip" ] && return 1
+    /sbin/ipcalc -c -4 "$ip" >/dev/null 2>&1
     return $?
 }
 
