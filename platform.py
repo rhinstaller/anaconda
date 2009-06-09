@@ -109,7 +109,7 @@ class Platform(object):
         errors = []
 
         if not req:
-            return [_("You have not created a boot partition.")]
+            return [_("You have not created a bootable partition.")]
 
         if req.type == "mdarray" and req.level != 1:
             errors.append(_("Bootable partitions can only be on RAID1 devices."))
@@ -214,6 +214,9 @@ class EFI(Platform):
         return ret
 
     def checkBootRequest(self, req):
+        if not req:
+            return [_("You have not created a /boot/efi partition.")]
+
         errors = Platform.checkBootRequest(self, req)
 
         if req.format.mountpoint == "/boot":
