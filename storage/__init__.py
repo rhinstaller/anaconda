@@ -876,10 +876,16 @@ class Storage(object):
         errors.extend(self.anaconda.platform.checkBootRequest(boot))
 
         if not swaps:
-            warnings.append(_("You have not specified a swap partition.  "
-                              "Although not strictly required in all cases, "
-                              "it will significantly improve performance for "
-                              "most installations."))
+            if iutil.memInstalled() < isys.EARLY_SWAP_RAM:
+                errors.append(_("You have not specified a swap partition.  "
+                                "Due to the amount of memory present, a "
+                                "swap partition is required to complete "
+                                "installation."))
+            else:
+                warnings.append(_("You have not specified a swap partition.  "
+                                  "Although not strictly required in all cases, "
+                                  "it will significantly improve performance "
+                                  "for most installations."))
 
         for (mountpoint, dev) in filesystems.items():
             if mountpoint in mustbeonroot:
