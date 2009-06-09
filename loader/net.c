@@ -1852,7 +1852,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                         continue;
                     }
 
-                    if (secs <=0 || secs > 30) {
+                    if (secs <=0 || secs > 300) {
                         newtWinMessage(_("Invalid Duration"), _("OK"),
                                        _("You must enter the number of "
                                          "seconds as an integer between 1 "
