@@ -675,6 +675,9 @@ class AnacondaYum(YumSorter):
         if rc == 0:
             sys.exit(0)
         else:
+            if os.path.exists(package.localPkg()):
+                os.unlink(package.localPkg())
+
             if not self.isodir and self.currentMedia:
                 self._switchCD(self.currentMedia)
             else:
