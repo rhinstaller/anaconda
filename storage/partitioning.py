@@ -138,6 +138,11 @@ def _scheduleLVs(anaconda, devs):
         if request.fstype is None:
             request.fstype = anaconda.id.storage.defaultFSType
 
+        # This is a little unfortunate but let the backend dictate the rootfstype
+        # so that things like live installs can do the right thing
+        if request.mountpoint == "/" and anaconda.backend.rootFsType != None:
+            request.fstype = anaconda.backend.rootFsType
+
         # FIXME: move this to a function and handle exceptions
         dev = anaconda.id.storage.newLV(vg=vg,
                                         fmt_type=request.fstype,
