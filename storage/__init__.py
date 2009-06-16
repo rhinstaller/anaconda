@@ -1342,7 +1342,7 @@ class FSSet(object):
         elif devspec.startswith("/dev/loop"):
             # FIXME: create devices.LoopDevice
             log.warning("completely ignoring your loop mount")
-        elif ":" in devspec:
+        elif ":" in devspec and fstype.startswith("nfs"):
             # NFS -- preserve but otherwise ignore
             device = NFSDevice(devspec,
                                format=getFormat(fstype,
