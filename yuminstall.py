@@ -579,7 +579,33 @@ class AnacondaYum(YumSorter):
 
     # Override this method so yum doesn't nuke our existing logging config.
     def doLoggingSetup(self, *args, **kwargs):
-        pass
+
+        import yum.logginglevels
+
+        file_handler = logging.FileHandler("/tmp/yum.log")
+        file_formatter = logging.Formatter("[%(asctime)s] %(levelname)-8s: %(message)s")
+        file_handler.setFormatter(file_formatter)
+
+        tty3_handler = logging.FileHandler("/dev/tty3")
+        tty3_formatter = logging.Formatter("%(asctime)s %(levelname)-8s: %(name)s: %(message)s", "%H:%M:%S")
+        tty3_handler.setFormatter(tty3_formatter)
+
+        verbose = logging.getLogger("yum.verbose")
+        verbose.setLevel(yum.logginglevels.DEBUG_2)
+        verbose.propagate = False
+        verbose.addHandler(file_handler)
+
+        logger = logging.getLogger("yum")
+        logger.propagate = False
+        logger.setLevel(yum.logginglevels.INFO_2)
+        logger.addHandler(file_handler)
+        logger.addHandler(tty3_handler)
+
+        # XXX filelogger is set in setFileLog - do we or user want it?
+        filelogger = logging.getLogger("yum.filelogging")
+        filelogger.setLevel(logging.INFO)
+        filelogger.propagate = False
+
 
     def doConfigSetup(self, fn='/tmp/anaconda-yum.conf', root='/'):
         if hasattr(self, "preconf"):
