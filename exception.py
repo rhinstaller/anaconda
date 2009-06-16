@@ -229,7 +229,8 @@ class AnacondaExceptionDump:
                      "/tmp/lvmout", "/tmp/resize.out",
                      "/tmp/program.log", "/tmp/storage.log",
                      anaconda.rootPath + "/root/install.log",
-                     anaconda.rootPath + "/root/upgrade.log"):
+                     anaconda.rootPath + "/root/upgrade.log",
+                     "/proc/cmdline"):
             try:
                 f = open(file, 'r')
                 line = "\n\n%s:\n" % (file,)
