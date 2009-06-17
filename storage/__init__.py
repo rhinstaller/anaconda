@@ -1854,7 +1854,7 @@ class FSSet(object):
                 options = device.format.options
             else:
                 mountpoint = device.format.mountpoint
-                options = device.format.mountopts
+                options = device.format.options
                 if not mountpoint:
                     log.warning("%s filesystem on %s has no mountpoint" % \
                                                             (fstype,
