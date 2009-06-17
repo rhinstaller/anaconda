@@ -745,8 +745,7 @@ if __name__ == "__main__":
             if vncS.vncconnectport == "":
                 vncS.vncconnectport = earlyKS.vnc.port
 
-        if earlyKS.displaymode.displayMode != None:
-            flags.vncquestion = False
+        flags.vncquestion = False
 
     #
     # Determine install method - GUI or TUI
