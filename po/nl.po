@@ -1,5 +1,6 @@
+# translation of anaconda.rhel5-branch.po to Dutch
 # Dutch translation of anaconda
-# Copyright (C) 2003, 2004, 2005, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2003, 2004, 2005, 2006, 2009 Free Software Foundation, Inc.
 #
 # ----------------------------------------------------
 # device - apparaat, partitie, opstelling (voor RAID)
@@ -16,14 +17,14 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 13:23-0500\n"
-"PO-Revision-Date: 2009-04-12 12:17+0200\n"
+"PO-Revision-Date: 2009-06-17 14:26+0200\n"
 "Last-Translator: R.E. van der Luit <nippur@fedoraproject.org>\n"
 "Language-Team: Dutch <nippur@fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 0.3\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:265
 msgid "Unknown Error"
@@ -32,8 +33,7 @@ msgstr "Onbekende fout"
 #: ../anaconda:268
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
-"Fout bij het lezen van het tweede deel van de kickstartconfiguratie: %s!"
+msgstr "Fout bij het lezen van het tweede deel van de kickstartconfiguratie: %s!"
 
 #: ../anaconda:405
 msgid "Press <enter> for a shell"
@@ -110,8 +110,8 @@ msgstr "Wilt u VNC gebruiken?"
 
 #: ../anaconda:773
 msgid ""
-"The VNC mode installation offers more functionality than the text mode, would "
-"you like to use it instead?"
+"The VNC mode installation offers more functionality than the text mode, "
+"would you like to use it instead?"
 msgstr ""
 "De VCN modus biedt meer functionaliteit dan de tekst modus. Wilt u liever "
 "VCN gebruiken?"
@@ -122,8 +122,7 @@ msgstr "Installatieklasse forceert een installatie in tekstmodus"
 
 #: ../anaconda:844
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Grafische installatie niet beschikbaar...  Tekstmodus wordt nu opgestart."
+msgstr "Grafische installatie niet beschikbaar...  Tekstmodus wordt nu opgestart."
 
 #: ../anaconda:852
 msgid "DISPLAY variable not set. Starting text mode!"
@@ -146,8 +145,7 @@ msgstr "Onbekende installatiemethode: %s"
 
 #: ../autopart.py:950
 msgid "Could not allocate cylinder-based partitions as primary partitions.\n"
-msgstr ""
-"Kon cilinder-gebaseerde partities niet alloceren als primaire partities.\n"
+msgstr "Kon cilinder-gebaseerde partities niet alloceren als primaire partities.\n"
 
 #: ../autopart.py:955
 msgid "Could not allocate partitions as primary partitions.\n"
@@ -199,8 +197,7 @@ msgstr ""
 
 #: ../autopart.py:1033
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Opstartpartitie %s voldoet mogelijk niet aan de opstart-voorwaarden voor uw "
 "architectuur."
@@ -497,8 +494,7 @@ msgstr ""
 
 #: ../cmdline.py:116
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
-"Uitzonderingen op Parted kunnen niet op de opdrachtregel behandeld worden!"
+msgstr "Uitzonderingen op Parted kunnen niet op de opdrachtregel behandeld worden!"
 
 #: ../cmdline.py:161
 #, python-format
@@ -1350,8 +1346,7 @@ msgstr "Computernaam moet 64 -of minder- tekens lang zijn."
 
 #: ../network.py:54
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Computernaam moet beginnen met een geldig teken in het bereik 'a-z' of 'A-Z'"
+msgstr "Computernaam moet beginnen met een geldig teken in het bereik 'a-z' of 'A-Z'"
 
 #: ../network.py:59
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1374,7 +1369,8 @@ msgstr ""
 msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' is geen geldig IPv6-adres."
 
-#: ../network.py:101, python-format
+#: ../network.py:101
+#, python-format
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' is geen geldig IP adres."
 
@@ -1549,8 +1545,7 @@ msgstr "Verwijderen bevestigen"
 #: ../partIntfHelpers.py:234
 #, python-format
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr ""
-"U staat op het punt alle partities op het apparaat '/dev/%s' te verwijderen."
+msgstr "U staat op het punt alle partities op het apparaat '/dev/%s' te verwijderen."
 
 #: ../partIntfHelpers.py:237 ../partIntfHelpers.py:530
 #: ../iw/lvm_dialog_gui.py:785 ../iw/lvm_dialog_gui.py:1145
@@ -1744,16 +1739,14 @@ msgid "Confirm Reset"
 msgstr "Herstellen bevestigen"
 
 #: ../partIntfHelpers.py:538
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Weet u zeker dat u de partitietabel wilt herstellen naar de oorspronkelijke "
 "toestand?"
 
 #: ../partRequests.py:263
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Dit koppelpunt is ongeldig.  De map %s moet zich op het / -bestandssysteem "
 "bevinden."
@@ -1783,8 +1776,7 @@ msgstr "Het koppelpunt \"%s\" is reeds in gebruik. Kies een ander koppelpunt."
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"De grootte van partitie %s (%10.2f MB) overschrijdt de limiet van %10.2f MB."
+msgstr "De grootte van partitie %s (%10.2f MB) overschrijdt de limiet van %10.2f MB."
 
 #: ../partRequests.py:511
 #, python-format
@@ -1916,7 +1908,8 @@ msgstr ""
 "Wilt u dit station initialiseren?"
 
 # drive en device worden hier wel heel erg willekeurig door elkaar gehaald, lijkt het.
-#: ../partedUtils.py:1138, python-format
+#: ../partedUtils.py:1138
+#, python-format
 msgid ""
 "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
 "To create new partitions it must be initialized, causing the loss of ALL "
@@ -2063,8 +2056,7 @@ msgstr ""
 "s te installeren."
 
 #: ../partitions.py:1067 ../partitions.py:1090
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "U moet een partitie /boot/efi aanmaken, van type FAT en met een grootte van "
 "50 megabytes."
@@ -2103,10 +2095,8 @@ msgstr ""
 "aanbevolen voor een normale %s installatie."
 
 #: ../partitions.py:1185
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"Installeren op een USB-apparaat. Dit kan een niet-werkend systeem opleveren."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "Installeren op een USB-apparaat. Dit kan een niet-werkend systeem opleveren."
 
 #: ../partitions.py:1188
 msgid ""
@@ -2188,8 +2178,7 @@ msgstr "Geannuleerd"
 
 #: ../rescue.py:296 ../text.py:715
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Het is niet mogelijk om naar de vorige stap terug te gaan. Probeer opnieuw."
+msgstr "Het is niet mogelijk om naar de vorige stap terug te gaan. Probeer opnieuw."
 
 #: ../rescue.py:328 ../rescue.py:395 ../rescue.py:403 ../rescue.py:489
 msgid "Rescue"
@@ -2345,10 +2334,10 @@ msgstr "Wachtwoord voor versleutelde apparaten"
 
 #: ../text.py:243
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr ""
-"Deze wachtwoordzin eveneens voor alle nieuwe versleutelde apparaten gebruiken"
+msgstr "Deze wachtwoordzin eveneens voor alle nieuwe versleutelde apparaten gebruiken"
 
-#: ../text.py:274, python-format
+#: ../text.py:274
+#, python-format
 msgid "The passphrase must be at least %d characters long."
 msgstr "Wachtwoordzin moet tenminste %d tekens lang zijn."
 
@@ -2368,7 +2357,8 @@ msgstr "Hulptekst niet beschikbaar"
 msgid "No help is available for this step of the install."
 msgstr "Voor dit installatie-onderdeel is geen hulptekst beschikbaar."
 
-#: ../text.py:476, python-format
+#: ../text.py:476
+#, python-format
 msgid "Please enter your %(instkey)s"
 msgstr "Voer uw %(instkey)s in alstublieft"
 
@@ -2387,17 +2377,14 @@ msgid "Welcome to %s"
 msgstr "Welkom bij %s"
 
 #: ../text.py:597
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> hulp | <Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> hulp | <Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
 
 #: ../text.py:599
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"   <Tab>/<Alt-Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
+msgstr "   <Tab>/<Alt-Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
 
 #: ../upgrade.py:92
 msgid "Proceed with upgrade?"
@@ -2706,8 +2693,7 @@ msgstr "Stoppen met verbinding maken na het 50 keer te hebben geprobeerd!\n"
 #: ../vnc.py:306
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Maak met uw vnc-cliënt verbinding met %s om de installatie te beginnen."
+msgstr "Maak met uw vnc-cliënt verbinding met %s om de installatie te beginnen."
 
 #: ../vnc.py:308
 msgid "Please manually connect your vnc client to begin the install."
@@ -2734,7 +2720,8 @@ msgstr "Verwerken"
 msgid "Preparing transaction from installation source..."
 msgstr "De transactie vanaf de installatiebron wordt nu voorbereid..."
 
-#: ../yuminstall.py:612, python-format
+#: ../yuminstall.py:612
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -2743,8 +2730,8 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend bestand "
-", een beschadigd pakket of kapotte installatiemedia. Controleer uw "
+"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend "
+"bestand , een beschadigd pakket of kapotte installatiemedia. Controleer uw "
 "installatiebron alstublieft.\n"
 "\n"
 "Als u herstart, zal uw systeem zich in een inconsistente status bevinden. "
@@ -2802,8 +2789,7 @@ msgstr "Fout bij het uitvoeren van transactie"
 
 #: ../yuminstall.py:760
 #, python-format
-msgid ""
-"There was an error running your transaction, for the following reason(s): %s"
+msgid "There was an error running your transaction, for the following reason(s): %s"
 msgstr ""
 "Er was een fout bij het uitvoeren van uw transactie, vanwege de volgende "
 "reden(en): %s"
@@ -2876,8 +2862,7 @@ msgstr "De installatie gaat nu beginnen"
 
 #: ../yuminstall.py:1694
 msgid "Starting install process.  This may take several minutes..."
-msgstr ""
-"Het installatieproces wordt nu opgestart. Dit kan enkele minuten duren..."
+msgstr "Het installatieproces wordt nu opgestart. Dit kan enkele minuten duren..."
 
 #: ../yuminstall.py:1710
 msgid "Post Upgrade"
@@ -2905,8 +2890,7 @@ msgstr "Controle van afhankelijkheden"
 
 #: ../yuminstall.py:1979
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
-"De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd..."
+msgstr "De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd..."
 
 #: ../zfcp.py:44
 msgid "You have not specified a device number or the number is invalid"
@@ -2939,8 +2923,7 @@ msgstr ""
 
 #: ../iw/account_gui.py:49
 msgid "The passwords you entered were different.  Please try again."
-msgstr ""
-"De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
+msgstr "De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
 
 #: ../iw/account_gui.py:56
 msgid "The root password must be at least six characters long."
@@ -3710,7 +3693,8 @@ msgid "Error With Data"
 msgstr "Fout met data"
 
 #: ../iw/netconfig_dialog.py:140 ../iw/network_gui.py:157
-#: ../textw/network_text.py:48, python-format
+#: ../textw/network_text.py:48
+#, python-format
 msgid "A value is required for the field %s."
 msgstr "Voor het veld %s is een waarde vereist."
 
@@ -3812,7 +3796,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/network_gui.py:160 ../textw/network_text.py:38, python-format
+#: ../iw/network_gui.py:160 ../textw/network_text.py:38
+#, python-format
 msgid "Error With %s Data"
 msgstr "Fout met data %s"
 
@@ -4107,14 +4092,12 @@ msgid "Partitioning"
 msgstr "Partitioneren"
 
 #: ../iw/partition_gui.py:638
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Er zijn de volgende kritieke fouten met uw opgegeven partitieschema."
 
 #: ../iw/partition_gui.py:641
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Deze fouten moeten worden hersteld voordat u verder kunt gaan met de "
 "installatie van %s."
@@ -4125,8 +4108,7 @@ msgstr "Partitioneringsfouten"
 
 #: ../iw/partition_gui.py:653
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"Bij uw opgegeven partitieschema worden de volgende waarschuwingen gegeven."
+msgstr "Bij uw opgegeven partitieschema worden de volgende waarschuwingen gegeven."
 
 #: ../iw/partition_gui.py:655
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4264,8 +4246,7 @@ msgstr "Een RAID-_opstelling maken (standaard=/dev/md%s)."
 #: ../iw/partition_gui.py:1283
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr ""
-"Een _station klonen om een RAID-opstelling te maken (standaard=/dev/md%s)."
+msgstr "Een _station klonen om een RAID-opstelling te maken (standaard=/dev/md%s)."
 
 #: ../iw/partition_gui.py:1322
 msgid "Couldn't Create Drive Clone Editor"
@@ -4273,8 +4254,7 @@ msgstr "Kon de 'stationskloon-editor' niet aanmaken"
 
 #: ../iw/partition_gui.py:1323
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"De stationskloon-editor kon om een of andere reden niet aangemaakt worden."
+msgstr "De stationskloon-editor kon om een of andere reden niet aangemaakt worden."
 
 #: ../iw/partition_gui.py:1369
 msgid "Ne_w"
@@ -4572,8 +4552,7 @@ msgstr "Kloonstations"
 
 #: ../iw/raid_dialog_gui.py:689
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Er was een fout bij het schonen van de doelstations.  Klonen is mislukt."
+msgstr "Er was een fout bij het schonen van de doelstations.  Klonen is mislukt."
 
 #: ../iw/raid_dialog_gui.py:723
 msgid ""
@@ -4673,8 +4652,7 @@ msgstr "U moet een HTTP of FTP URL naar een repository opgeven."
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
-msgstr ""
-"De repository %s is al toegevoegd. Kies een andere repository naam en URL."
+msgstr "De repository %s is al toegevoegd. Kies een andere repository naam en URL."
 
 #: ../iw/timezone_gui.py:61 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
@@ -4694,8 +4672,7 @@ msgstr "Dit zal uw huidige bootloader vernieuwen."
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Het installatieprogramma heeft de bootloader %s gedetecteerd, momenteel op %"
 "s geïnstalleerd."
@@ -4838,8 +4815,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "De grootte van het wisselbestand moet liggen tussen 1 en 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:177
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "Er is niet voldoende ruimte vrij op het apparaat dat u selecteerde voor de "
 "wissel-partitie."
@@ -4983,10 +4959,8 @@ msgstr ""
 "elk van deze partities wilt geven."
 
 #: ../textw/bootloader_text.py:291
-msgid ""
-" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr ""
-" <Spatie> selecteer | <F2> standaard | <F4> verwijder | <F12> volgend scherm"
+msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr " <Spatie> selecteer | <F2> standaard | <F4> verwijder | <F12> volgend scherm"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -5112,10 +5086,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "Selecteer de pakketgroepen die u geïnstalleerd wilt hebben."
 
 #: ../textw/grpselect_text.py:105
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"   <Spatie>,<+>,<-> selectie  |  <F2> groep details  |  <F12> volgend scherm"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "   <Spatie>,<+>,<-> selectie  |  <F2> groep details  |  <F12> volgend scherm"
 
 #: ../textw/grpselect_text.py:117
 msgid "No optional packages to select"
@@ -5151,17 +5123,19 @@ msgstr "3 knoppen emuleren?"
 msgid "Mouse Selection"
 msgstr "Muis keuze"
 
-#: ../textw/network_text.py:53, python-format
+#: ../textw/network_text.py:53
+#, python-format
 msgid ""
 "You have not specified the field %s.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"U hebt het veld %s niet gespecificeerd. Afhankelijk van uw "
-"netwerkomgeving kan dit later problemen geven."
+"U hebt het veld %s niet gespecificeerd. Afhankelijk van uw netwerkomgeving "
+"kan dit later problemen geven."
 
-#: ../textw/network_text.py:70, python-format
+#: ../textw/network_text.py:70
+#, python-format
 msgid "IPv%d prefix must be between 0 and %d."
-msgstr "IPv%-prefix moet tussen 0 en %d liggen."
+msgstr "IPv%d-prefix moet tussen 0 en %d liggen."
 
 #: ../textw/network_text.py:74
 msgid "Integer Required for Prefix"
@@ -5227,7 +5201,8 @@ msgstr "Dynamische IP-configuratie (DHCP) "
 msgid "Manual address configuration"
 msgstr "Handmatige adres configuratie"
 
-#: ../textw/network_text.py:295, python-format
+#: ../textw/network_text.py:295
+#, python-format
 msgid "IPv4 Configuration for %s"
 msgstr "IPv4 Configuratie voor %s"
 
@@ -5253,7 +5228,8 @@ msgstr "Automagisch ;) buren opsporen "
 msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Dynamische IP configuratie (DHCPv6)"
 
-#: ../textw/network_text.py:430, python-format
+#: ../textw/network_text.py:430
+#, python-format
 msgid "IPv6 Configuration for %s"
 msgstr "IPv6 configuratie voor %s"
 
@@ -5271,7 +5247,8 @@ msgid "Configure Network Interface"
 msgstr "Configureren Netwerk Interface"
 
 # Interfaces hier niet vertaald
-#: ../textw/network_text.py:510, python-format
+#: ../textw/network_text.py:510
+#, python-format
 msgid "Would you like to configure the %s network interface in your system?"
 msgstr "Wilt u de %s netwerk-interfaces op dit systeem configureren?"
 
@@ -5527,8 +5504,7 @@ msgstr "Niet ondersteund"
 
 #: ../textw/partition_text.py:772
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"LVM Volume Groups kunnen alleen bij een grafische installatie bewerkt worden."
+msgstr "LVM Volume Groups kunnen alleen bij een grafische installatie bewerkt worden."
 
 #: ../textw/partition_text.py:848 ../textw/partition_text.py:901
 msgid "Invalid Entry for Partition Size"
@@ -5626,10 +5602,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1456
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Hulp   F2-Nieuw   F3-Bewerken   F4-Verwijderen   F5-Herstellen   F12-OK"
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Hulp   F2-Nieuw   F3-Bewerken   F4-Verwijderen   F5-Herstellen   F12-OK"
 
 #: ../textw/partition_text.py:1485
 msgid "No Root Partition"
@@ -5690,9 +5664,8 @@ msgid ""
 "Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 "zSeries machines kunnen industrie-standaard SCSI apparaten benaderen via "
-"Fibre Channel (FCP). U dient op te geven voor elk apparaat: een "
-"16 bit apparaatnummer, een 64 bit World Wide Port Name "
-"(WWPN) en een 64 bit FCP LUN."
+"Fibre Channel (FCP). U dient op te geven voor elk apparaat: een 16 bit "
+"apparaatnummer, een 64 bit World Wide Port Name (WWPN) en een 64 bit FCP LUN."
 
 #: ../textw/partition_text.py:1708 tmp/iscsi-config.glade.h:7
 msgid "Configure iSCSI Parameters"
@@ -5716,13 +5689,11 @@ msgstr "Wachtwoord is vereist indien gebruikersnaam aanwezig is."
 
 #: ../textw/partition_text.py:1742
 msgid "Reverse username is required whenreverse password is present."
-msgstr ""
-"Omgekeerde gebruikersnaam is vereist indien omgekeerd wachtwoord aanwezig is."
+msgstr "Omgekeerde gebruikersnaam is vereist indien omgekeerd wachtwoord aanwezig is."
 
 #: ../textw/partition_text.py:1746
 msgid "Reverse password is required whenreverse username is present."
-msgstr ""
-"Omgekeerd wachtwoord is vereist indien omgekeerde gebruikersnaam aanwezig is."
+msgstr "Omgekeerd wachtwoord is vereist indien omgekeerde gebruikersnaam aanwezig is."
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
@@ -6044,8 +6015,7 @@ msgid ""
 "InstNum/"
 msgstr ""
 "Indien u het Installatie Nummer niet kunt vinden, raadpleeg dan  http://www."
-"redhat.com/"
-"InstNum/"
+"redhat.com/InstNum/"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6231,8 +6201,7 @@ msgstr "Laden van stuurprogramma-bestand mislukt."
 #: ../loader2/driverdisk.c:389
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Voer uw stuurprogramma-diskette in /dev/%s en druk op \"OK\" om door te gaan."
+msgstr "Voer uw stuurprogramma-diskette in /dev/%s en druk op \"OK\" om door te gaan."
 
 #: ../loader2/driverdisk.c:391
 msgid "Insert Driver Disk"
@@ -6488,10 +6457,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "Welkom bij %s - Herstel modus"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"   <Tab>/<Alt-Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "   <Tab>/<Alt-Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
 
 #: ../loader2/lang.c:366
 msgid "Choose a Language"
@@ -6555,8 +6522,7 @@ msgstr ""
 #: ../loader2/loader.c:879
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
-"U hebt te weinig RAM-geheugen in deze machine om %s te kunnen installeren."
+msgstr "U hebt te weinig RAM-geheugen in deze machine om %s te kunnen installeren."
 
 #: ../loader2/loader.c:1042
 msgid "Rescue Method"
@@ -6603,8 +6569,7 @@ msgstr "De volgende apparaten zijn op uw systeem gevonden."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Er zijn geen stuurprogramma's voor uw systeem geladen. Wilt u deze nu laden?"
+msgstr "Er zijn geen stuurprogramma's voor uw systeem geladen. Wilt u deze nu laden?"
 
 #: ../loader2/loader.c:1284
 msgid "Devices"
@@ -6684,8 +6649,7 @@ msgstr "Het is OK om vanaf dit medium te installeren."
 
 #: ../loader2/mediacheck.c:415
 msgid "No checksum information available, unable to verify media."
-msgstr ""
-"Geen controlesom-informatie beschikbaar, kon het medium niet verifiëren."
+msgstr "Geen controlesom-informatie beschikbaar, kon het medium niet verifiëren."
 
 #: ../loader2/mediacheck.c:420
 msgid "Media Check Result"
@@ -6739,8 +6703,7 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Foutief argument voor schijf kickstart methode commando %s: %s"
 
 #: ../loader2/modules.c:1077
-msgid ""
-"Both module type and name must be specified for the kickstart device command."
+msgid "Both module type and name must be specified for the kickstart device command."
 msgstr ""
 "Zowel module type als naam dient bij een kickstart device commando te worden "
 "gespecificeerd.."
@@ -6878,8 +6841,7 @@ msgid "Missing Information"
 msgstr "Ontbrekende informatie"
 
 #: ../loader2/net.c:1347
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "U moet zowel een geldig IPv4-adres en een netwerkmasker of CIDR-prefix "
 "invoeren."
@@ -6945,8 +6907,7 @@ msgstr "Ongeldige Duur"
 
 #: ../loader2/net.c:2323
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
-"U moet het aantal seconden als een geheel getal tussen 1 en 30 invoeren."
+msgstr "U moet het aantal seconden als een geheel getal tussen 1 en 30 invoeren."
 
 #: ../loader2/net.c:2335
 #, c-format
@@ -7489,8 +7450,7 @@ msgstr "Central Time - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
-msgstr ""
-"Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
+msgstr "Central Time - Michigan - Dickinson, Gogebic, Iron & Menominee Counties"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Morton County (except Mandan area)"
@@ -7589,8 +7549,7 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Eastern Time - Michigan - meeste locaties"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Eastern Time - Ontario & Quebec - plaatsen die DST 1967-1973 niet in acht "
 "namen"
@@ -7772,10 +7731,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8280,2596 +8237,3 @@ msgstr "Welsh"
 msgid "Zulu"
 msgstr "Zulu"
 
-# drive en device worden hier wel heel erg willekeurig door elkaar gehaald, lijkt het.
-#~ msgid ""
-#~ "The partition table on device %s was unreadable. To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "De partitietabel op apparaat %s was onleesbaar. Om nieuwe partities te "
-#~ "maken moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE "
-#~ "GEGEVENS op dit station verloren gaan.\n"
-#~ "\n"
-#~ "Deze actie zal alle voorgaande installatiekeuzes met betrekking tot welke "
-#~ "stations worden genegeerd teniet doen.\n"
-#~ "\n"
-#~ "Wilt u dit station initialiseren?"
-
-#~ msgid "Netmask"
-#~ msgstr "Netmask"
-
-#~ msgid "Jan Mayen"
-#~ msgstr "Jan Mayen"
-
-#~ msgid "Svalbard"
-#~ msgstr "Svalbard"
-
-#~ msgid "Hardware address: %s"
-#~ msgstr "Hardware-adres: %s"
-
-#~ msgid "Use dynamic IP configuration (_DHCP)"
-#~ msgstr "Dynamische IP-configuratie (_DHCP) gebruiken"
-
-#~ msgid "_Activate on boot"
-#~ msgstr "_Activeren bij opstarten"
-
-#, fuzzy
-#~ msgid "Address"
-#~ msgstr "IP-adres"
-
-#~ msgid "_ESSID:"
-#~ msgstr "_ESSID:"
-
-#~ msgid "Configure %s"
-#~ msgstr "%s configureren"
-
-#, fuzzy
-#~ msgid "Invalid or missing IPv6 prefix (must be between 0 and 128)."
-#~ msgstr "IPv6-prefix moet tussen 0 en 128 liggen."
-
-#~ msgid "Hardware Address: %s"
-#~ msgstr "Hardware-adres: %s"
-
-# arabisch?
-#~ msgid "Persian"
-#~ msgstr "Persisch"
-
-#~ msgid "Avoid unwanted packet collisions"
-#~ msgstr "Ongewenste pakketbotsingen vermijden"
-
-#~ msgid "Maximize register values for high speed network traffic"
-#~ msgstr "Registerwaarden voor hoge snelheid netwerkverkeer maximaliseren"
-
-#~ msgid ""
-#~ "You must select at least one protocol (IPv4 or IPv6) for manual "
-#~ "configuration."
-#~ msgstr ""
-#~ "U moet tenminste één protocol (IPv4 of IPv6) kiezen voor handmatige "
-#~ "configuratie."
-
-#~ msgid "Please enter the registration key for your version of %s."
-#~ msgstr "Voer de registratiesleutel in voor uw versie van %s."
-
-#~ msgid "Enter Registration Key"
-#~ msgstr "Registratiesleutel invoeren"
-
-#~ msgid "Error mounting file system on %s: %s"
-#~ msgstr "Fout bij het aankoppelen van het bestandssysteem aan %s: %s"
-
-#~ msgid "Device number"
-#~ msgstr "Apparaatnummer"
-
-#~ msgid "SCSI Id"
-#~ msgstr "SCSI Id"
-
-#~ msgid "You have not specified a SCSI ID or the ID is invalid."
-#~ msgstr "U hebt geen SCSI ID opgegeven of het ID is ongeldig."
-
-#~ msgid "WWPN"
-#~ msgstr "WWPN"
-
-#~ msgid "SCSI LUN"
-#~ msgstr "SCSI LUN"
-
-#~ msgid "You have not specified a SCSI LUN or the number is invalid."
-#~ msgstr "U hebt geen SCSI LUN opgegeven of het nummer is ongeldig."
-
-#~ msgid "FCP LUN"
-#~ msgstr "FCP LUN"
-
-#~ msgid "IPv_4 Address:"
-#~ msgstr "IPv_4-adres:"
-
-#~ msgid "IPv_6 Address:"
-#~ msgstr "IPv_6-adres:"
-
-#~ msgid "ZFCP Configuration"
-#~ msgstr "ZFCP configuratie"
-
-#~ msgid "_Remove"
-#~ msgstr "_Verwijderen"
-
-#~ msgid "FCP Devices"
-#~ msgstr "FCP apparaten"
-
-#~ msgid "Edit FCP device %s"
-#~ msgstr "FCP apparaat %s bewerken"
-
-#~ msgid ""
-#~ "You're about to remove a FCP disk from your configuration. Are you sure "
-#~ "that you wish to continue?"
-#~ msgstr ""
-#~ "U staat op het punt om een FCP schijf te verwijderen uit uw configuratie. "
-#~ "Weet u zeker dat u verder wilt gaan?"
-
-#~ msgid "Invalid IP string"
-#~ msgstr "Ongeldige IP-informatie"
-
-#~ msgid "The entered IP '%s' is not a valid IP."
-#~ msgstr "Het ingevoerde IP '%s' is geen geldig IP."
-
-#~ msgid "Point to Point (IP)"
-#~ msgstr "Point to Point (IP)"
-
-#~ msgid "Network Device: %s"
-#~ msgstr "Netwerkapparaat: %s"
-
-#~ msgid "Configure using DHCP"
-#~ msgstr "Configureren via DHCP"
-
-#~ msgid "You must enter valid IP information to continue"
-#~ msgstr "U moet geldige IP instellingen invoeren om verder te gaan"
-
-#~ msgid "Tertiary DNS:"
-#~ msgstr "Derde DNS-server:"
-
-#~ msgid "FCP Device"
-#~ msgstr "FCP apparaat"
-
-#~ msgid "Device #"
-#~ msgstr "Apparaat #"
-
-#~ msgid "Add"
-#~ msgstr "Toevoegen"
-
-#~ msgid "Remove"
-#~ msgstr "Verwijderen"
-
-#~ msgid "DDC Probed Monitor"
-#~ msgstr "Beeldscherm onderzocht met DDC"
-
-#~ msgid "Tertiary DNS"
-#~ msgstr "Derde DNS-server"
-
-#~ msgid "_Tertiary DNS"
-#~ msgstr "_Derde DNS-server"
-
-#~ msgid "Configure using _DHCP"
-#~ msgstr "Configureren via _DHCP"
-
-#~ msgid "_IP Address"
-#~ msgstr "_IP-adres"
-
-#~ msgid "Net_mask"
-#~ msgstr "Net_mask"
-
-#~ msgid "_Point to Point (IP)"
-#~ msgstr "_Point to Point (IP)"
-
-#~ msgid "Registration Key Required"
-#~ msgstr "Registratiesleutel vereist"
-
-#~ msgid ""
-#~ "A registration key is required to install %s.  Please contact your "
-#~ "support representative if you did not receive a key with your product."
-#~ msgstr ""
-#~ "Een registratiesleutel is vereist om %s te installeren. Neem contact op "
-#~ "met uw support-vertegenwoordiger als u geen sleutel bij uw product hebt "
-#~ "gekregen."
-
-#~ msgid "Invalid CIDR Mask"
-#~ msgstr "Ongeldig CIDR-mask"
-
-#~ msgid "Failed to log into %s: %s"
-#~ msgstr "Inloggen op %s: %s mislukt"
-
-#~ msgid "Failed to retrieve %s: %s"
-#~ msgstr "Ophalen van %s: %s mislukt"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of  software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to include  support for?"
-#~ msgstr ""
-#~ "De standaardinstallatie van %s bevat een software-verzameling die "
-#~ "gebruikt kan worden voor algemeen internet-gebruik. Voor welke "
-#~ "additionele taken wilt u dat uw systeem ondersteuning biedt?"
-
-#~ msgid "Heilongjiang"
-#~ msgstr "Heilongjiang"
-
-#~ msgid "Newfoundland Island"
-#~ msgstr "Newfoundland Eiland"
-
-#~ msgid "southwest Xinjiang Uyghur"
-#~ msgstr "zuidwest Xinjiang Uyghur"
-
-#~ msgid "Could not allocate partitions"
-#~ msgstr "Kon partities niet alloceren"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "You can choose a different automatic partitioning option, or click 'Back' "
-#~ "to select manual partitioning.\n"
-#~ "\n"
-#~ "Press 'OK' to continue."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "U kunt een andere automatische partitioneringsoptie kiezen, of op 'Terug' "
-#~ "klikken om handmatige partitionering te kiezen.\n"
-#~ "\n"
-#~ "Druk op 'OK' om door te gaan."
-
-#~ msgid "Upgrading %s-%s-%s.%s.\n"
-#~ msgstr "Bezig met upgraden van %s-%s-%s.%s.\n"
-
-#~ msgid "Installing %s-%s-%s.%s.\n"
-#~ msgstr "Installeren van %s-%s-%s.%s.\n"
-
-#~ msgid ""
-#~ "The package %s-%s-%s.%s cannot be opened. This is due to a missing file "
-#~ "or perhaps a corrupt package.  If you are installing from CD media this "
-#~ "usually means the CD media is corrupt, or the CD drive is unable to read "
-#~ "the media.\n"
-#~ "\n"
-#~ "Press 'Retry' to try again."
-#~ msgstr ""
-#~ "Het pakket %s-%s-%s.%s kon niet worden geopend. Dit kan veroorzaakt zijn "
-#~ "door een ontbrekend of verminkt bestand. Indien u vanaf een CD-Rom "
-#~ "installeert wordt dit meestal veroorzaakt door een defect op de CD of een "
-#~ "CD-Rom speler die de CD niet goed kan lezen.\n"
-#~ "\n"
-#~ "Druk op 'Opnieuw' om het nogmaals te proberen."
-
-#~ msgid ""
-#~ "If you reboot, your system will be left in an inconsistent state that "
-#~ "will likely require reinstallation.  Are you sure you wish to continue?"
-#~ msgstr ""
-#~ "Als u herstart, zal uw systeem zich in een inconsistente status bevinden. "
-#~ "Dit zal waarschijnlijk een herinstallatie inhouden.  Weet u zeker dat u "
-#~ "verder wilt gaan?"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Annuleren"
-
-#~ msgid "iSCSI Configuration"
-#~ msgstr "iSCSI-configuratie"
-
-#~ msgid "No IP address entered, skipping iSCSI setup"
-#~ msgstr "Geen IP-adres ingevoerd, iSCSI configuratie wordt overgeslagen"
-
-#~ msgid "Target IP address:"
-#~ msgstr "Doel IP-adres:"
-
-#~ msgid "Port Number:"
-#~ msgstr "Poortnummer:"
-
-#~ msgid "Red Hat Enterprise Linux AS"
-#~ msgstr "Red Hat Enterprise Linux AS"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tAdministration Tools\n"
-#~ "\tServer Configuration Tools\n"
-#~ "\tWeb Server\n"
-#~ "\tWindows File Server (SMB)\n"
-#~ msgstr ""
-#~ "\tBureaublad schil (GNOME)\n"
-#~ "\tHulpmiddelen voor beheer\n"
-#~ "\tHulpmiddelen voor serverconfiguratie\n"
-#~ "\tWeb-server\n"
-#~ "\tWindows fileserver (SMB)\n"
-
-#~ msgid "Red Hat Enterprise Linux Desktop"
-#~ msgstr "Red Hat Enterprise Linux Desktop"
-
-#~ msgid "Red Hat Enterprise Linux ES"
-#~ msgstr "Red Hat Enterprise Linux ES"
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, "
-#~ "1.2.3.4)."
-#~ msgstr ""
-#~ "Voer de IP-configuratie voor deze machine in. Elk item moet worden "
-#~ "ingevoerd als een IP-adres in decimale notatie, gescheiden door punten "
-#~ "(bijvoorbeeld: 1.2.3.4)."
-
-#~ msgid "Netmask:"
-#~ msgstr "Netmask:"
-
-#~ msgid "Default gateway (IP):"
-#~ msgstr "Standaard gateway (IP):"
-
-#~ msgid "Primary nameserver:"
-#~ msgstr "Eerste naamserver:"
-
-#~ msgid "iSCSI configuration"
-#~ msgstr "iSCSI-configuratie"
-
-#~ msgid "The release notes are missing."
-#~ msgstr "Versie-informatie ontbreekt."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT upgraded:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "De volgende pakketten waren wel beschikbaar in deze versie maar werden "
-#~ "NIET vernieuwd:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were available in this version but NOT installed:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "De volgende pakketten waren wel beschikbaar in deze versie maar werden "
-#~ "NIET geïnstalleerd:\n"
-
-# Vinden is letterlijk, maar zoeken is hier beter
-#~ msgid "Finding"
-#~ msgstr "Zoekende"
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Pakketten die een upgrade krijgen worden nu opgezocht..."
-
-#~ msgid ""
-#~ "The installation program is unable to upgrade systems with a pre-rpm 4.x "
-#~ "database. Please install the errata rpm packages for your release as "
-#~ "described in the release notes and then run the upgrade procedure."
-#~ msgstr ""
-#~ "Het installatieprogramma is niet in staat om systemen een upgrade te "
-#~ "geven die nog gebruik maken van een een pre-rpm 4.x-database. Installeer "
-#~ "eerst de errata rpm-pakketten van uw distributie-versie, zoals beschreven "
-#~ "in de versie-informatie en voer daarna de upgrade-procedure uit."
-
-#~ msgid "An error occurred when finding the packages to upgrade."
-#~ msgstr ""
-#~ "Er is een fout opgetreden bij het zoeken naar pakketten die moeten worden "
-#~ "vernieuwd."
-
-#~ msgid "What type of system would you like to install?"
-#~ msgstr "Wat voor soort systeem wilt u installeren?"
-
-#~ msgid "Customize Packages to Upgrade"
-#~ msgstr "Aanpassen van pakketten die upgrade krijgen"
-
-#~ msgid ""
-#~ "The packages you have installed, and any other packages which are needed "
-#~ "to satisfy their dependencies, have been selected for installation. Would "
-#~ "you like to customize the set of packages that will be upgraded?"
-#~ msgstr ""
-#~ "De geïnstalleerde pakketten, en andere mogelijke pakketten die nodig zijn "
-#~ "om aan de afhankelijkheden te voldoen, zijn geselecteerd voor "
-#~ "installatie. Wilt u de verzameling pakketten aanpassen die zullen worden "
-#~ "vernieuwd?"
-
-#~ msgid "Hide _Help"
-#~ msgstr "_Hulp Verbergen"
-
-#~ msgid "Show _Help"
-#~ msgstr "_Hulp Tonen"
-
-#~ msgid ""
-#~ "Installing <product> requires partitioning of your hard drive.  You can "
-#~ "either use the default partitioning layout or create your own."
-#~ msgstr ""
-#~ "Installatie vereist partitionering van uw harde schijf. Standaard wordt "
-#~ "een partitionerings-opmaak gekozen die geschikt is voor de meeste "
-#~ "gebruikers. U kunt ervoor kiezen om deze te gebruiken of om er zelf een "
-#~ "aan te maken."
-
-#~ msgid "Select the drive(s) to use for this installation."
-#~ msgstr "Kies de station(s) die u voor deze installatie wilt gebruiken."
-
-#~ msgid "_Review and modify partitioning layout"
-#~ msgstr "De partitieopmaak herzien en _aanpassen"
-
-#~ msgid "Amharic"
-#~ msgstr "Amhaars"
-
-#~ msgid "Thai"
-#~ msgstr "Thai"
-
-#~ msgid ""
-#~ "This group includes all the packages available.  Note that there are "
-#~ "substantially more packages than just the ones in all the other package "
-#~ "groups on this page."
-#~ msgstr ""
-#~ "Deze groep bevat alle beschikbare pakketten.  Bedenk wel dat dit "
-#~ "substantieel meer pakketten zijn dan de pakketten van alle overige "
-#~ "pakketgroepen op deze pagina tezamen."
-
-#~ msgid "Everything"
-#~ msgstr "Alles"
-
-#~ msgid ""
-#~ "Choose this group to get the minimal possible set of packages.  Useful "
-#~ "for creating small router/firewall boxes, for example."
-#~ msgstr ""
-#~ "Kies deze groep voor een zo klein mogelijke verzameling pakketten. Dat is "
-#~ "bijvoorbeeld handig bij het opzetten van een kleine router/firewall-"
-#~ "computer."
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Overig"
-
-#~ msgid ""
-#~ "You are trying to install on a machine which isn't supported by this "
-#~ "release of %s."
-#~ msgstr ""
-#~ "U probeert te installeren op een machine die niet is ondersteund door "
-#~ "deze versie van %s."
-
-#~ msgid "Automatic Partitioning"
-#~ msgstr "Automatisch partitioneren"
-
-#~ msgid "I want to have automatic partitioning:"
-#~ msgstr "Ik wil automatisch partitioneren gebruiken:"
-
-#~ msgid "Select the drive(s) to use for this installation:"
-#~ msgstr "Kies de station(s) die u voor deze installatie wilt gebruiken:"
-
-#~ msgid "Re_view (and modify if needed) the partitions created"
-#~ msgstr "De aangemaakte partities herzien en zonodig _aanpassen"
-
-#~ msgid "Change Boot Loader"
-#~ msgstr "Bootloader veranderen"
-
-#~ msgid ""
-#~ "You have elected to not install any boot loader. It is strongly "
-#~ "recommended that you install a boot loader unless you have an advanced "
-#~ "need.  A boot loader is almost always required in order to reboot your "
-#~ "system into Linux directly from the hard drive.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "U hebt de keuze gemaakt om geen bootloader te installeren. Het wordt "
-#~ "sterk aanbevolen wel een bootloader te installeren tenzij het een "
-#~ "bijzondere noodzaak betreft.  Om uw systeem direkt vanaf de harde schijf "
-#~ "op te kunnen starten in Linux, is een bootloader eigenlijk altijd "
-#~ "vereist.\n"
-#~ "\n"
-#~ "Weet u zeker dat u het installeren van de bootloader wilt overslaan?"
-
-#~ msgid "C_ontinue with no boot loader"
-#~ msgstr "_Doorgaan zonder bootloader"
-
-#~ msgid ""
-#~ "Please select the boot loader that the computer will use.  GRUB is the "
-#~ "default boot loader. However, if you do not wish to overwrite your "
-#~ "current boot loader, select \"Do not install a boot loader.\"  "
-#~ msgstr ""
-#~ "Selecteer de bootloader die de computer zal gebruiken. GRUB is de "
-#~ "standaard bootloader. Als u echter uw huidige bootloader niet wilt "
-#~ "overschrijven, selecteer dan: \"Geen bootloader installeren.\"  "
-
-#~ msgid "Use _GRUB as the boot loader"
-#~ msgstr "_GRUB als bootloader gebruiken"
-
-#~ msgid "_Do not install a boot loader"
-#~ msgstr "_Geen bootloader installeren"
-
-#~ msgid "_Change boot loader"
-#~ msgstr "Bootloader _aanpassen"
-
-#~ msgid "Unresolved Dependencies"
-#~ msgstr "Onopgeloste afhankelijkheden"
-
-#~ msgid "Total install size: %s"
-#~ msgstr "Totale installatiegrootte: %s"
-
-#~ msgid "Requirement"
-#~ msgstr "Vereiste"
-
-#~ msgid "_Install packages to satisfy dependencies"
-#~ msgstr "Pakketten _installeren om aan afhankelijkheden te voldoen"
-
-#~ msgid "_Do not install packages that have dependencies"
-#~ msgstr "Pakketten die afhankelijkheden hebben _niet installeren"
-
-#~ msgid "I_gnore package dependencies"
-#~ msgstr "Pakket-afhankelijkheden _negeren"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection, including:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "De standaard installatie omgeving bevat onze aanbevolen pakket selectie "
-#~ "waaronder:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'system-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Na de installatie kunt u aanvullende software toevoegen of verwijderen "
-#~ "met het programma 'system-config-packages'.\n"
-#~ "\n"
-#~ "Als u bekend bent met %s, zijn er mogelijk specifieke pakketten die u "
-#~ "wel, of juist niet wilt installeren. Gebruik de aanvink-optie hieronder "
-#~ "om uw installatie aan te passen."
-
-#~ msgid ""
-#~ "If you would like to change the default package set to be installed you "
-#~ "can choose to customize this below."
-#~ msgstr ""
-#~ "Als u de standaard pakket-verzameling wilt aanpassen kunt u dat hieronder "
-#~ "aangeven."
-
-#~ msgid "_Install default software packages"
-#~ msgstr "_Installeer standaard softwarepakketten"
-
-#~ msgid "_Customize software packages to be installed"
-#~ msgstr "_Aanpassen van de verzameling pakketten die worden geïnstalleerd"
-
-#~ msgid "Packages in %s"
-#~ msgstr "Pakketten in %s"
-
-#~ msgid ""
-#~ "No description available for %s.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Geen beschrijving beschikbaar voor %s.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "The default installation environment includes our recommended package "
-#~ "selection.  After installation, additional software can be added or "
-#~ "removed using the 'system-config-packages' tool.\n"
-#~ "\n"
-#~ "However %s ships with many more applications, and you may customize the "
-#~ "selection of software installed if you want."
-#~ msgstr ""
-#~ "De standaard installatie omgeving bevat onze aangeraden pakket selectie.  "
-#~ "Na de installatie kan additionele software worden toegevoegd of "
-#~ "verwijderd door gebruik te maken van de tool 'system-config-packages'.\n"
-#~ "\n"
-#~ "%s heeft echter veel meer toepassingen en u kunt de verzameling "
-#~ "geïnstalleerde software desgewenst aanpassen."
-
-#~ msgid "Select individual packages"
-#~ msgstr "Individuele pakketten kiezen"
-
-#~ msgid "Package :"
-#~ msgstr "Pakket :"
-
-#~ msgid "Size    :"
-#~ msgstr "Grootte :"
-
-#~ msgid "%.1f KBytes"
-#~ msgstr "%.1f KByte"
-
-#~ msgid "Total size"
-#~ msgstr "Totale grootte"
-
-#~ msgid "Individual Package Selection"
-#~ msgstr "Pakketten afzonderlijk selecteren"
-
-#~ msgid ""
-#~ "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package "
-#~ "description"
-#~ msgstr ""
-#~ "   <Spatie>,<+>,<-> selectie   |   <F1> hulp   |   <F2> pakket-"
-#~ "beschrijving"
-
-#~ msgid "Package Dependencies"
-#~ msgstr "Pakket afhankelijkheden"
-
-#~ msgid ""
-#~ "Some of the packages you have selected to install require packages you "
-#~ "have not selected. If you just select OK all of those required packages "
-#~ "will be installed."
-#~ msgstr ""
-#~ "Enkele van de pakketten die u heeft geselecteerd hebben weer andere "
-#~ "pakketten nodig die u niet geselecteerd heeft. Als u gewoon OK geeft, "
-#~ "worden al die benodigde pakketten geïnstalleerd."
-
-#~ msgid "Install packages to satisfy dependencies"
-#~ msgstr "Pakketten installeren om aan afhankelijkheden te voldoen"
-
-#~ msgid "Do not install packages that have dependencies"
-#~ msgstr "Geen pakketten installeren die afhankelijkheden hebben"
-
-#~ msgid "Ignore package dependencies"
-#~ msgstr "Pakket-afhankelijkheden negeren"
-
-#~ msgid ""
-#~ "Some packages associated with this group are not required to be installed "
-#~ "but may provide additional functionality.  Please choose the packages "
-#~ "which you would like to have installed."
-#~ msgstr ""
-#~ "Sommige pakketten die geassocieerd worden met deze groep zijn niet "
-#~ "vereist om geïnstalleerd te worden, maar bieden mogelijk additionele "
-#~ "functionaliteit. Kies de pakketten die u geïnstalleerd wilt hebben."
-
-#~ msgid "dialog1"
-#~ msgstr "dialog1"
-
-#~ msgid ""
-#~ "No mouse was detected.  A mouse is required for graphical installation.  "
-#~ "Starting text mode."
-#~ msgstr ""
-#~ "Er is geen muis gevonden.  Voor de grafische installatie is een muis "
-#~ "vereist. Tekstmodus wordt nu opgestart."
-
-#~ msgid "Detected mouse type: %s"
-#~ msgstr "Gedetecteerd muistype: %s"
-
-#~ msgid "Using mouse type: %s"
-#~ msgstr "Muistype dat nu wordt gebruikt: %s"
-
-#~ msgid ""
-#~ "An unhandled exception has occurred.  This is most likely a bug.  Please "
-#~ "copy the full text of this exception or save the crash dump to a floppy "
-#~ "then file a detailed bug report against anaconda at %s"
-#~ msgstr ""
-#~ "Er is iets uitzonderlijks gebeurd.  Het is waarschijnlijk een fout.  Wij "
-#~ "verzoeken u om de volledige tekst van deze 'exception' te kopiëren of de "
-#~ "'crash-dump' op diskette te schrijven en een gedetailleerd foutrapport "
-#~ "voor het pakket anaconda te maken op %s"
-
-#~ msgid "Remote Login (SSH)"
-#~ msgstr "Login op afstand (SSH)"
-
-#~ msgid "Web Server (HTTP, HTTPS)"
-#~ msgstr "Web-server (HTTP, HTTPS)"
-
-#~ msgid "File Transfer (FTP)"
-#~ msgstr "Bestand-overdracht (FTP)"
-
-#~ msgid "Mail Server (SMTP)"
-#~ msgstr "Mail-server (SMTP)"
-
-#~ msgid "Unable to make boot floppy"
-#~ msgstr "Niet in staat om opstartdiskette te maken"
-
-#~ msgid ""
-#~ "The size of the kernel modules needed for your machine make it impossible "
-#~ "to create a boot disk that will fit on a floppy diskette."
-#~ msgstr ""
-#~ "Door de grootte en het aantal kernel-modules die benodigd zijn voor uw "
-#~ "computer is het onmogelijk een opstartdiskette te maken die op één floppy "
-#~ "past."
-
-#~ msgid "Insert a floppy disk"
-#~ msgstr "Voer een diskette in"
-
-#~ msgid ""
-#~ "Please remove any diskettes from the floppy drive, and insert the floppy "
-#~ "diskette that is to contain the boot disk.\n"
-#~ "\n"
-#~ "All data will be ERASED during creation of the boot disk."
-#~ msgstr ""
-#~ "Verwijder, indien nodig, diskettes uit het diskettestation en voer een "
-#~ "nieuwe in die de opstartdiskette zal worden.\n"
-#~ "\n"
-#~ "Bij het maken van de opstartdiskette zullen alle oude gegevens hierop "
-#~ "worden VERWIJDERD."
-
-#~ msgid "_Make boot disk"
-#~ msgstr "_Opstartdiskette maken"
-
-#~ msgid ""
-#~ "An error occurred while making the boot disk. Please make sure that there "
-#~ "is a floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Bij het maken van de opstartdiskette is een fout opgetreden. Zorg dat er "
-#~ "een diskette in de eerste floppydrive zit."
-
-#~ msgid "Creating"
-#~ msgstr "Aanmaken"
-
-#~ msgid "Creating boot disk..."
-#~ msgstr "Opstartdiskette wordt aangemaakt..."
-
-# diskettestation? ipv floppydrive
-#~ msgid ""
-#~ "An error occurred while attempting to verify the boot disk.  Please make "
-#~ "sure that you have a good floppy in the first floppy drive."
-#~ msgstr ""
-#~ "Bij het verifiëren van de opstartdiskette is een fout opgetreden. Zorg "
-#~ "dat er een goede diskette in de eerste floppydrive zit."
-
-#~ msgid ""
-#~ "Your boot floppy appears to be invalid.  This is likely due to a bad "
-#~ "floppy.  Please make sure that you have a good floppy in the first floppy "
-#~ "drive."
-#~ msgstr ""
-#~ "Blijkbaar is uw opstartdiskette ongeldig. Dit komt waarschijnlijk door "
-#~ "een slechte diskette. Zorg dat er een goede diskette in de eerste "
-#~ "floppydrive zit."
-
-#~ msgid "_Save to floppy"
-#~ msgstr "_Opslaan op diskette"
-
-#~ msgid ""
-#~ "The following ISO images are missing which are required for the install:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "The system will now reboot."
-#~ msgstr ""
-#~ "De volgende ISO bestanden, welke nodig zijn voor de installatie, "
-#~ "ontbreken:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "Het systeem zal nu herstarten."
-
-#~ msgid "Reading"
-#~ msgstr "Lezen"
-
-# return? moet dit niet enter zijn?
-#~ msgid ""
-#~ "Unable to read header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Het was niet mogelijk om de zogenaamde \"header list\" te lezen. Dit kan "
-#~ "veroorzaakt worden door een ontbrekend bestand of door een beschadigde "
-#~ "media-drager. Kies <Enter> om het installatieprogramma een nieuwe poging "
-#~ "te laten doen."
-
-# return? moet dit niet enter zijn?
-#~ msgid ""
-#~ "Unable to read comps file.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Het \"comps\" bestand kon niet worden geopend. Dit komt door een "
-#~ "ontbrekend bestand of een beschadigde mediadrager.  Geef <Enter> om "
-#~ "opnieuw te proberen."
-
-#~ msgid "Installing..."
-#~ msgstr "Installeren..."
-
-#~ msgid "Error Installing Package"
-#~ msgstr "Fout bij installeren van pakket"
-
-#~ msgid ""
-#~ "There was an error installing %s.  This can indicate media failure, lack "
-#~ "of disk space, and/or hardware problems.  This is a fatal error and your "
-#~ "install will be aborted.  Please verify your media and try your install "
-#~ "again.\n"
-#~ "\n"
-#~ "Press the OK button to reboot your system."
-#~ msgstr ""
-#~ "Er was een fout bij het installeren van %s.  De oorzaak kan zijn: slechte "
-#~ "mediadrager, te weinig vrije ruimte of hardwareproblemen. Dit is een "
-#~ "fatale fout en uw installatie zal worden afgebroken.  Controleer uw "
-#~ "mediadrager en probeer opnieuw te installeren.\n"
-#~ "\n"
-#~ "Geef OK om uw systeem opnieuw op te starten."
-
-#~ msgid ""
-#~ "Unable to merge header list.  This may be due to a missing file or bad "
-#~ "media.  Press <return> to try again."
-#~ msgstr ""
-#~ "Het was niet mogelijk om de zogenaamde \"header list\" samen te voegen. "
-#~ "Dit kan veroorzaakt worden door een ontbrekend bestand of door een "
-#~ "beschadigde media-drager. Kies <Enter> om het installatieprogramma een "
-#~ "nieuwe poging te laten doen."
-
-#~ msgid ""
-#~ "Installing %s packages\n"
-#~ "\n"
-#~ msgstr ""
-#~ "%s pakketten worden nu geïnstalleerd\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "The following packages were automatically\n"
-#~ "selected to be installed:\n"
-#~ "%s\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "De volgende pakketten werden automatisch\n"
-#~ "geselecteerd voor installatie:\n"
-#~ "%s\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Blijkbaar heeft u te weinig schijfruimte om de door u geselecteerde "
-#~ "pakketten te kunnen installeren. U heeft meer ruimte nodig op de volgende "
-#~ "bestandssystemen:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Benodigde schijfruimte"
-
-#~ msgid ""
-#~ "You don't appear to have enough file nodes to install the packages you've "
-#~ "selected. You need more file nodes on the following file systems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Blijkbaar heeft u te weinig bestandsknooppunten (file nodes) om de door u "
-#~ "geselecteerde pakketten te kunnen installeren. U heeft meer ruimte nodig "
-#~ "op de volgende bestandssystemen:\n"
-#~ "\n"
-
-#~ msgid "Nodes Needed"
-#~ msgstr "Benodigde knooppunten"
-
-#~ msgid "Disk Space"
-#~ msgstr "Schijfruimte"
-
-#~ msgid ""
-#~ "The arch of the release of %s you are upgrading to appears to be %s which "
-#~ "does not match your previously installed arch of %s.  This is likely to "
-#~ "not succeed.  Are you sure you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "De architectuur van de versie van %s die u aan het upgraden bent lijkt %s "
-#~ "te zijn, welke niet overeenkomt met de vorige geinstalleerde architectuur "
-#~ "van %s.  Dit zal waarschijnlijk niet lukken.  Weet u zeker dat u wilt "
-#~ "doorgaan met het upgrade proces?"
-
-#~ msgid ""
-#~ "This system appears to have third party packages installed that overlap "
-#~ "with packages included in %s. Because these packages overlap, continuing "
-#~ "the upgrade process may cause them to stop functioning properly or may "
-#~ "cause other system instability.  Please see the release notes for more "
-#~ "information.\n"
-#~ "\n"
-#~ "Do you wish to continue the upgrade process?"
-#~ msgstr ""
-#~ "Dit systeem heeft blijkbaar geïnstalleerde pakketten van derden die "
-#~ "overlappen met pakketten van %s. Omdat deze pakketten overlappen kunnen "
-#~ "ze, indien u doorgaat met de upgrade, ophouden juist te functioneren, of "
-#~ "systeem-instabiliteit veroorzaken. Zie versie informatie voor meer "
-#~ "informatie.\n"
-#~ "\n"
-#~ "Wilt u doorgaan met het upgrade-proces?"
-
-#~ msgid ""
-#~ "This system does not have an /etc/redhat-release file.  It is possible "
-#~ "that this is not a %s system. Continuing with the upgrade process may "
-#~ "leave the system in an unusable state.  Do you wish to continue the "
-#~ "upgrade process?"
-#~ msgstr ""
-#~ "Dit systeem mist het bestand: /etc/redhat-release.  Mogelijk is dit geen %"
-#~ "s systeem. Doorgaan met het upgrade-proces kan het systeem in een "
-#~ "onbruikbare staat achterlaten.  Wilt u doorgaan met het upgrade-proces?"
-
-#~ msgid "Authentication Configuration"
-#~ msgstr "Aanmeldingscontrole configureren"
-
-#~ msgid "Enable _MD5 passwords"
-#~ msgstr "_MD5-wachtwoorden gebruiken"
-
-#~ msgid "Enable shado_w passwords"
-#~ msgstr "Schaduw-wachtwoorden gebruiken"
-
-#~ msgid "Enable N_IS"
-#~ msgstr "N_IS gebruiken"
-
-#~ msgid "Use _broadcast to find NIS server"
-#~ msgstr "_Broadcast gebruiken om de NIS-server te vinden"
-
-#~ msgid "NIS _Domain: "
-#~ msgstr "NIS-_domein: "
-
-# ../comps/comps-master:698
-#~ msgid "NIS _Server: "
-#~ msgstr "NIS-_server: "
-
-#~ msgid "Enable _LDAP"
-#~ msgstr "_LDAP gebruiken"
-
-#~ msgid "Use _TLS lookups"
-#~ msgstr "_TLS-lookups gebruiken"
-
-# ../comps/comps-master:698
-#~ msgid "LDAP _Server:"
-#~ msgstr "LDAP-_server:"
-
-#~ msgid "LDAP _Base DN:"
-#~ msgstr "LDAP _Basis-DN:"
-
-#~ msgid "Enable _Kerberos"
-#~ msgstr "_Kerberos gebruiken"
-
-#~ msgid "R_ealm:"
-#~ msgstr "R_ealm:"
-
-#~ msgid "K_DC:"
-#~ msgstr "K_DC:"
-
-# ../comps/comps-master:698
-#~ msgid "_Admin Server:"
-#~ msgstr "_Admin-server:"
-
-#~ msgid "Enable SMB _Authentication"
-#~ msgstr "SMB-aanmelding gebruiken"
-
-# ../comps/comps-master:698
-#~ msgid "SMB _Server:"
-#~ msgstr "SMB-_server:"
-
-#~ msgid "SMB Work_group:"
-#~ msgstr "SMB-werk_groep:"
-
-#~ msgid "LDAP"
-#~ msgstr "LDAP"
-
-#~ msgid "Kerberos 5"
-#~ msgstr "Kerberos 5"
-
-#~ msgid "SMB"
-#~ msgstr "SMB"
-
-#~ msgid "Boot Diskette Creation"
-#~ msgstr "Opstartdiskette aanmaken"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working, if you chose not to install "
-#~ "a boot loader, or if your third-party boot loader does not support "
-#~ "Linux.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ msgstr ""
-#~ "De opstartdiskette biedt de mogelijkheid uw %s systeem vanaf diskette op "
-#~ "te starten. Een opstartdiskette is handig als de opstart-configuratie "
-#~ "plotseling niet meer werkt, als u er voor kiest geen bootloader te "
-#~ "installeren of als uw externe bootloader geen ondersteuning biedt voor "
-#~ "Linux.\n"
-#~ "\n"
-#~ "Het wordt sterk aanbevolen een opstartdiskette te maken.\n"
-
-#~ msgid "_Yes, I would like to create a boot diskette"
-#~ msgstr "_Ja, ik wil een opstartdiskette maken"
-
-#~ msgid "No, I _do not want to create a boot diskette"
-#~ msgstr "_Nee, ik wil geen opstartdiskette maken"
-
-#~ msgid "fdasd"
-#~ msgstr "fdasd"
-
-#~ msgid "Select drive to run fdasd on"
-#~ msgstr "Kies een station waar fdasd op uitgevoerd moet worden"
-
-#~ msgid ""
-#~ "Formatting the selected DASD device will destroy all contents of the "
-#~ "device. Do you really want to format the selected DASD device?"
-#~ msgstr ""
-#~ "Het formatteren van het geselecteerde DASD-apparaat zal alle gegevens op "
-#~ "dit apparaat vernietigen. Wilt u het geselecteerde DASD-apparaat echt "
-#~ "formatteren?"
-
-#~ msgid "Partitioning with fdisk"
-#~ msgstr "Met fdisk partitioneren"
-
-#~ msgid "Select a drive to partition with fdisk:"
-#~ msgstr "Kies een station dat met fdisk moet worden gepartitioneerd:"
-
-#~ msgid "Active"
-#~ msgstr "Actief"
-
-#~ msgid "Firewall"
-#~ msgstr "Firewall"
-
-#~ msgid "Warning - No Firewall"
-#~ msgstr "Waarschuwing - geen firewall"
-
-#~ msgid ""
-#~ "If this system is attached directly to the Internet or is on a large "
-#~ "public network, it is recommended that a firewall be configured to help "
-#~ "prevent unauthorized access.  However, you have selected not to configure "
-#~ "a firewall.  Choose \"Proceed\" to continue without a firewall."
-#~ msgstr ""
-#~ "Als dit systeem rechtstreeks met het Internet is verbonden of deel "
-#~ "uitmaakt van een groot publiek netwerk, is het aan te raden om een "
-#~ "firewall te configureren om ongeautoriseerde toegang te helpen voorkomen. "
-#~ "Echter, u heeft er voor gekozen om geen firewall te configureren.  Kies "
-#~ "\"Verder gaan\" om door te gaan zonder firewall."
-
-#~ msgid "_Configure Firewall"
-#~ msgstr "_Configureer firewall"
-
-#~ msgid "_Proceed"
-#~ msgstr "_Verder gaan"
-
-#~ msgid ""
-#~ "A firewall can help prevent unauthorized access to your computer from the "
-#~ "outside world.  Would you like to enable a firewall?"
-#~ msgstr ""
-#~ "Een firewall kan beschermen tegen ongeautoriseerde toegang tot uw "
-#~ "computer door de buitenwereld.  Wilt u een firewall aanzetten?"
-
-#~ msgid "N_o firewall"
-#~ msgstr "_Geen firewall gebruiken"
-
-#~ msgid "_Enable firewall"
-#~ msgstr "_Firewall aanzetten"
-
-#~ msgid ""
-#~ "You can use a firewall to allow access to specific services on your "
-#~ "computer from other computers. Which services, if any, do you wish to "
-#~ "allow access to ?"
-#~ msgstr ""
-#~ "U kunt een firewall gebruiken om aan andere computers toegang te verlenen "
-#~ "tot bepaalde services op uw computer. Tot welke services wilt u toegang "
-#~ "verlenen?"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides finer-grained security "
-#~ "controls than those available in a traditional Linux system.  It can be "
-#~ "set up in a disabled state, a state which only warns about things which "
-#~ "would be denied, or a fully active state."
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) biedt meer verfijnde "
-#~ "beveiligingscontroles dan gebruikelijk in een traditioneel Linux "
-#~ "systeem.  SELinux kan worden uitgezet zodat het niet actief is. Het kan "
-#~ "ook worden ingesteld zodat het alleen waarschuwt over zaken die niet "
-#~ "zouden zijn toegestaan. SELinux kan ook worden ingesteld zodat het "
-#~ "volledig actief is."
-
-#~ msgid "Enable _SELinux?:"
-#~ msgstr "_SELinux aanzetten?:"
-
-#~ msgid "All Packages"
-#~ msgstr "Alle pakketten"
-
-#~ msgid ""
-#~ "Package: %s\n"
-#~ "Version: %s\n"
-#~ msgstr ""
-#~ "Pakket: %s\n"
-#~ "Versie: %s\n"
-
-#~ msgid "_Tree View"
-#~ msgstr "Hiër_archisch weergeven"
-
-#~ msgid "_Flat View"
-#~ msgstr "_Plat weergeven"
-
-#~ msgid "_Package"
-#~ msgstr "_Pakket"
-
-#~ msgid "_Size (MB)"
-#~ msgstr "_Grootte (MB)"
-
-#~ msgid "Total size: "
-#~ msgstr "Totale grootte: "
-
-#~ msgid "Select _all in group"
-#~ msgstr "_Gehele groep selecteren"
-
-#~ msgid "_Unselect all in group"
-#~ msgstr "Gehele groep _de-selecteren"
-
-#~ msgid "Minimal"
-#~ msgstr "Minimaal"
-
-#~ msgid "Details for '%s'"
-#~ msgstr "Details voor '%s'"
-
-#~ msgid ""
-#~ "A package group can have both Base and Optional package members.  Base "
-#~ "packages are always selected as long as the package group is selected.\n"
-#~ "\n"
-#~ "Select the optional packages to be installed:"
-#~ msgstr ""
-#~ "Een pakketgroep kan zowel basispakketten als facultatieve pakketten "
-#~ "bevatten. Basispakketten worden automatisch geselecteerd als de "
-#~ "pakketgroep is geselecteerd.\n"
-#~ "\n"
-#~ "Kies de facultatieve pakketten die u wilt installeren:"
-
-#~ msgid "Base Packages"
-#~ msgstr "Basispakketten"
-
-#~ msgid "Details"
-#~ msgstr "Details"
-
-#~ msgid "_Select individual packages"
-#~ msgstr "Pakketten af_zonderlijk kiezen"
-
-#~ msgid "System clock uses _UTC"
-#~ msgstr "Systeemklok gebruikt _UTC"
-
-#~ msgid "Please select the nearest city in your timezone:"
-#~ msgstr "Kies de dichtstbijzijnde stad in uw tijdzone:"
-
-#~ msgid "_Location"
-#~ msgstr "_Lokatie"
-
-#~ msgid "Description"
-#~ msgstr "Beschrijving"
-
-#~ msgid "Unprobed Monitor"
-#~ msgstr "Beeldscherm niet onderzocht"
-
-#~ msgid "Customize Graphical Configuration"
-#~ msgstr "Grafische configuratie aanpassen"
-
-#~ msgid "_Color Depth:"
-#~ msgstr "_Kleurdiepte:"
-
-#~ msgid "256 Colors (8 Bit)"
-#~ msgstr "256 Kleuren (8 Bit)"
-
-#~ msgid "High Color (16 Bit)"
-#~ msgstr "Hoge Kleuren (16 Bit)"
-
-#~ msgid "True Color (24 Bit)"
-#~ msgstr "Ware Kleuren (24 Bit)"
-
-#~ msgid "_Screen Resolution:"
-#~ msgstr "_Schermresolutie:"
-
-#~ msgid "Please choose your default desktop environment:"
-#~ msgstr "Kies uw standaard desktop-omgeving:"
-
-#~ msgid "Your desktop environment is:"
-#~ msgstr "Uw desktop-omgeving is:"
-
-#~ msgid "GNO_ME"
-#~ msgstr "GNO_ME"
-
-#~ msgid "_KDE"
-#~ msgstr "_KDE"
-
-#~ msgid "Please choose your login type:"
-#~ msgstr "Kies uw login-type:"
-
-#~ msgid "_Text"
-#~ msgstr "T_ekst"
-
-#~ msgid "_Graphical"
-#~ msgstr "_Grafisch"
-
-#~ msgid "Monitor Configuration"
-#~ msgstr "Beeldscherm Instellingen"
-
-#~ msgid "Monitor Unspecified"
-#~ msgstr "Beeldscherm niet gespecificeerd"
-
-#~ msgid ""
-#~ "You have not selected a monitor type.  It is recommended you choose the "
-#~ "closest matching model in order to have the highest possible display "
-#~ "quality."
-#~ msgstr ""
-#~ "U hebt geen beeldscherm-type gekozen. Het is aan te raden dat u het model "
-#~ "kiest dat er het meest op lijkt om een zo goed mogelijke beeld kwaliteit "
-#~ "te krijgen."
-
-#~ msgid "_Choose monitor type"
-#~ msgstr "_Kies beeldscherm-type"
-
-#~ msgid ""
-#~ "In most cases, the monitor can be automatically detected. If the detected "
-#~ "settings are not correct for the monitor, select the right settings."
-#~ msgstr ""
-#~ "In de meeste gevallen kan het beeldscherm automatisch gedetecteerd "
-#~ "worden. Als de gedetecteerde instellingen voor het beeldscherm niet "
-#~ "kloppen, kies dan zelf de juiste instellingen."
-
-#~ msgid "Restore _original values"
-#~ msgstr "_Oorspronkelijke waardes terughalen"
-
-#~ msgid "Hori_zontal Sync:"
-#~ msgstr "Hori_zontale sync:"
-
-#~ msgid "_Vertical Sync:"
-#~ msgstr "_Verticale sync:"
-
-#~ msgid "kHz"
-#~ msgstr "kHz"
-
-#~ msgid "Hz"
-#~ msgstr "Hz"
-
-#~ msgid "Graphical Interface (X) Configuration"
-#~ msgstr "Grafische omgeving (X) configureren"
-
-#~ msgid "Unknown video card"
-#~ msgstr "Onbekende videokaart"
-
-#~ msgid ""
-#~ "An error has occurred selecting the video card %s. Please report this "
-#~ "error to %s."
-#~ msgstr ""
-#~ "Er is een fout opgetreden bij het selecteren van de videokaart %s. "
-#~ "Rapporteer deze fout bij %s."
-
-#~ msgid "Unspecified video card"
-#~ msgstr "Onbekende videokaart"
-
-#~ msgid ""
-#~ "You need to pick a video card before X configuration can continue.  If "
-#~ "you want to skip X configuration entirely choose the 'Skip X "
-#~ "Configuration' button."
-#~ msgstr ""
-#~ "U moet een videokaart kiezen voordat de configuratie van X kan doorgaan. "
-#~ "Als u de configuratie van X in zijn geheel wilt overslaan, kies dan: 'X-"
-#~ "configureren overslaan'."
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Uw systeem zal worden geconfigureerd om gebruik te maken van de frame "
-#~ "buffer driver voor het X Window System.  Als u het X Window System niet "
-#~ "wilt configureren, kies dan 'X configureren overslaan'."
-
-#~ msgid ""
-#~ "Your video ram size can not be autodetected.  Choose your video ram size "
-#~ "from the choices below:"
-#~ msgstr ""
-#~ "Het geheugen op uw videokaart kan niet automatisch worden gedetecteerd. "
-#~ "Kies uw videogeheugen uit onderstaande lijst:"
-
-#~ msgid ""
-#~ "In most cases, the video hardware can be automatically detected. If the "
-#~ "detected settings are not correct for the hardware, select the right "
-#~ "settings."
-#~ msgstr ""
-#~ "In de meeste gevallen kan de videohardware automatisch worden "
-#~ "gedetecteerd. Als de gedetecteerde instellingen voor de hardware niet "
-#~ "kloppen, kies dan zelf de juiste instellingen."
-
-#~ msgid "_Video card RAM: "
-#~ msgstr "_Videokaart RAM: "
-
-#~ msgid "_Skip X configuration"
-#~ msgstr "X configureren _overslaan"
-
-#~ msgid ""
-#~ "The boot diskette allows you to boot your %s system from a floppy "
-#~ "diskette.  A boot diskette allows you to boot your system in the event "
-#~ "your bootloader configuration stops working.\n"
-#~ "\n"
-#~ "It is highly recommended you create a boot diskette.\n"
-#~ "\n"
-#~ "Would you like to create a boot diskette?"
-#~ msgstr ""
-#~ "De opstartdiskette biedt de mogelijkheid om uw %s systeem vanaf de "
-#~ "diskette op te starten. Dit is met name van belang als uw bootloader- "
-#~ "configuratie, om welke reden dan ook, niet meer functioneert.\n"
-#~ "\n"
-#~ "Het wordt sterk aanbevolen om een opstartdiskette te maken.\n"
-#~ "\n"
-#~ "Wilt u nu een opstartdiskette maken?"
-
-#~ msgid "Boot Diskette"
-#~ msgstr "Opstartdiskette"
-
-#~ msgid "Choose a disk to run fdasd or dasdfmt on"
-#~ msgstr "Kies een schijf om fdasd of dasdfmt op uit te voeren"
-
-#~ msgid "Next"
-#~ msgstr "Volgende"
-
-#~ msgid "Edit Partitions"
-#~ msgstr "Partities bewerken"
-
-#~ msgid "Format DASD"
-#~ msgstr "DASD formatteren"
-
-#~ msgid "Disk Setup"
-#~ msgstr "Harde schijf instellen"
-
-#~ msgid "An error occurred while running %s on drive %s."
-#~ msgstr "Er is een fout opgetreden bij het uitvoeren van %s op schijf %s."
-
-#~ msgid ""
-#~ "Running dasdfmt means the loss of \n"
-#~ "ALL DATA on drive %s.\n"
-#~ "\n"
-#~ "Do you really want this?"
-#~ msgstr ""
-#~ "Het uitvoeren van dasdfmt betekent \n"
-#~ "het verlies van ALLE DATA op station \n"
-#~ "%s.\n"
-#~ "\n"
-#~ "Wilt u dit echt?"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems. Please check your hardware for the cause of this problem "
-#~ "or use dasdfmt.\n"
-#~ "\n"
-#~ "Back to the fdasd screen?"
-#~ msgstr ""
-#~ "Er is een fout opgetreden - geen geldige apparaten gevonden waar nieuwe "
-#~ "bestandssystemen op kunnen worden gemaakt. Controleer uw hardware om de "
-#~ "oorzaak van dit probleem op te sporen of gebruik dasdfmt.\n"
-#~ "\n"
-#~ "Terug naar het fdasd-scherm?"
-
-#~ msgid "Choose a disk to run fdisk on"
-#~ msgstr "Kies een schijf om fdisk op uit te voeren"
-
-#~ msgid "Enable firewall"
-#~ msgstr "Firewall aanzetten"
-
-#~ msgid "No firewall"
-#~ msgstr "Geen firewall"
-
-#~ msgid "Allow incoming:"
-#~ msgstr "Binnenkomend toestaan:"
-
-#~ msgid "Invalid Choice"
-#~ msgstr "Ongeldige keuze"
-
-#~ msgid "You cannot customize a disabled firewall."
-#~ msgstr "U kunt een firewall die is uitgezet niet aanpassen."
-
-#~ msgid "Customize Firewall Configuration"
-#~ msgstr "Firewall configuratie aanpassen"
-
-#~ msgid ""
-#~ "With a firewall, you may wish to allow access to specific services on "
-#~ "your computer from others.  Allow access to which services?"
-#~ msgstr ""
-#~ "Met behulp van een firewall kunt u toegang verlenen tot bepaalde services "
-#~ "op uw computer aan anderen.  Tot welke services wilt u toegang verlenen?"
-
-#~ msgid "Security Enhanced Linux"
-#~ msgstr "Security Enhanced Linux"
-
-#~ msgid "Edit User"
-#~ msgstr "Gebruiker bewerken"
-
-#~ msgid "Add User"
-#~ msgstr "Gebruiker toevoegen"
-
-#~ msgid "User Name"
-#~ msgstr "Gebruikersnaam"
-
-#~ msgid "Password (confirm)"
-#~ msgstr "Wachtwoord (bevestigen)"
-
-#~ msgid "Full Name"
-#~ msgstr "Volledige naam"
-
-#~ msgid "Bad User Name"
-#~ msgstr "Ongeldige gebruikersnaam"
-
-#~ msgid "User names must contain only characters A-Z, a-z, and 0-9."
-#~ msgstr "Gebruikersnamen mogen alleen de tekens A-Z, a-z en 0-9 bevatten."
-
-#~ msgid "Missing User Name"
-#~ msgstr "Ontbrekende gebruikersnaam"
-
-#~ msgid "User Exists"
-#~ msgstr "Gebruiker bestaat"
-
-#~ msgid ""
-#~ "The root user is already configured. You don't need to add this user here."
-#~ msgstr ""
-#~ "De gebruiker root is reeds geconfigureerd. U hoeft deze gebruiker hier "
-#~ "niet toe te voegen."
-
-#~ msgid ""
-#~ "This system user is already configured. You don't need to add this user "
-#~ "here."
-#~ msgstr ""
-#~ "Deze systeem-gebruiker is reeds geconfigureerd. U hoeft deze gebruiker "
-#~ "hier niet toe te voegen."
-
-#~ msgid "This user id already exists.  Choose another."
-#~ msgstr "Deze gebruikers-id bestaat reeds.  Kies een andere."
-
-#~ msgid ""
-#~ "You should use a normal user account for most activities on your system. "
-#~ "By not using the root account casually, you'll reduce the chance of "
-#~ "disrupting your system's configuration."
-#~ msgstr ""
-#~ "Voor de meeste activiteiten op uw systeem zou u een normaal account "
-#~ "moeten gebruiken. Door het root-account niet nonchalant te gebruiken, "
-#~ "reduceert u de kans dat de configuratie van uw systeem ontregeld wordt."
-
-#~ msgid "User Account Setup"
-#~ msgstr "Gebruikers-account opstellen"
-
-#~ msgid ""
-#~ "What other user accounts would you like to have on the system? You should "
-#~ "have at least one non-root account for normal work, but multi-user "
-#~ "systems can have any number of accounts set up."
-#~ msgstr ""
-#~ "Welke andere gebruiker-accounts wilt u op het systeem hebben? U zou "
-#~ "tenminste één niet-root account moeten hebben voor het normale werk. "
-#~ "Multi-user systemen kunnen echter een willekeurig aantal accounts hebben."
-
-#~ msgid "Enter the information for the user."
-#~ msgstr "De informatie van de gebruiker invoeren."
-
-#~ msgid "Change the information for this user."
-#~ msgstr "De informatie van de gebruiker aanpassen."
-
-#~ msgid "Use Shadow Passwords"
-#~ msgstr "Schaduw-wachtwoorden gebruiken"
-
-#~ msgid "Enable MD5 Passwords"
-#~ msgstr "MD5-wachtwoorden gebruiken"
-
-#~ msgid "Enable NIS"
-#~ msgstr "NIS gebruiken"
-
-#~ msgid "NIS Domain:"
-#~ msgstr "NIS-domein:"
-
-#~ msgid "NIS Server:"
-#~ msgstr "NIS-server:"
-
-#~ msgid "Request server via broadcast"
-#~ msgstr "De server via broadcast verzoeken"
-
-#~ msgid "Enable LDAP"
-#~ msgstr "LDAP gebruiken"
-
-#~ msgid "LDAP Server:"
-#~ msgstr "LDAP-server:"
-
-#~ msgid "LDAP Base DN:"
-#~ msgstr "LDAP Basis-DN:"
-
-#~ msgid "Use TLS connections"
-#~ msgstr "TLS-verbindingen gebruiken"
-
-#~ msgid "Enable Kerberos"
-#~ msgstr "Kerberos gebruiken"
-
-#~ msgid "Realm:"
-#~ msgstr "Realm:"
-
-#~ msgid "KDC:"
-#~ msgstr "KDC:"
-
-#~ msgid "Admin Server:"
-#~ msgstr "Admin-server:"
-
-#~ msgid "Color Depth"
-#~ msgstr "Kleurdiepte"
-
-#~ msgid "Please select the color depth you would like to use:"
-#~ msgstr "Selecteer de gewenste kleurdiepte:"
-
-#~ msgid "Resolution"
-#~ msgstr "Resolutie"
-
-# Beter; X configureren of X instellen?
-#~ msgid "X Customization"
-#~ msgstr "X Configureren"
-
-#~ msgid ""
-#~ "Select the color depth and video mode you want to use for your system. "
-#~ msgstr ""
-#~ "Kies kleurdiepte en de videomodus die u voor uw systeem wilt gebruiken. "
-
-#~ msgid "Color Depth:"
-#~ msgstr "Kleurdiepte:"
-
-#~ msgid "Change"
-#~ msgstr "Veranderen"
-
-#~ msgid "Resolution:"
-#~ msgstr "Resolutie:"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Standaard desktop:"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid "KDE"
-#~ msgstr "KDE"
-
-#~ msgid "Default Login:"
-#~ msgstr "Standaard login:"
-
-#~ msgid "Graphical"
-#~ msgstr "Grafisch"
-
-#~ msgid "Text"
-#~ msgstr "Tekst"
-
-#~ msgid "Monitor"
-#~ msgstr "Beeldscherm"
-
-#~ msgid "Please select the monitor attached to your system."
-#~ msgstr "Selecteer het beeldscherm dat bij uw systeem hoort."
-
-#~ msgid "horizontal"
-#~ msgstr "horizontaal"
-
-#~ msgid "vertical"
-#~ msgstr "vertikaal"
-
-#~ msgid "Invalid Sync Rates"
-#~ msgstr "Ongeldige sync frequenties"
-
-#~ msgid ""
-#~ "The %s sync rate is invalid:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "A valid sync rate can be of the form:\n"
-#~ "\n"
-#~ "      31.5                   a single number\n"
-#~ "    50.1-90.2                a range of numbers\n"
-#~ "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
-#~ msgstr ""
-#~ "De %s sync-frequentie is ongeldig:\n"
-#~ "\n"
-#~ "      %s\n"
-#~ "\n"
-#~ "Een geldige sync-frequentie is in de vorm:\n"
-#~ "\n"
-#~ "      31.5                   een enkel getal\n"
-#~ "    50.1-90.2                een bereik van getallen\n"
-#~ "31.5,35.0,39.3-40.0          een lijst van getallen/bereiken\n"
-
-#~ msgid "Monitor Sync Rates"
-#~ msgstr "Beeldscherm sync frequenties"
-
-#~ msgid ""
-#~ "Please enter the sync rates for your monitor. \n"
-#~ "\n"
-#~ "NOTE - it is not usually necessary to edit sync rates manually, and care "
-#~ "should be taken to make sure the values entered are accurate."
-#~ msgstr ""
-#~ "Voer de sync-frequenties in voor uw beeldscherm. \n"
-#~ "\n"
-#~ "LET WEL - het is gewoonlijk niet nodig om sync-frequenties handmatig te "
-#~ "bewerken. Voorzichtigheid is geboden; Verzeker uzelf ervan dat de "
-#~ "ingevoerde waarden accuraat zijn."
-
-#~ msgid "HSync Rate: "
-#~ msgstr "HSync freq: "
-
-#~ msgid "VSync Rate: "
-#~ msgstr "VSync freq: "
-
-#~ msgid ""
-#~ "Select the monitor for your system.  Use the '%s' button to reset to the "
-#~ "probed values."
-#~ msgstr ""
-#~ "Selecteer uw beeldscherm.  Gebruik de '%s'-knop om de gevonden waarden te "
-#~ "herstellen."
-
-#~ msgid "Monitor:"
-#~ msgstr "Beeldscherm:"
-
-#~ msgid "HSync Rate:"
-#~ msgstr "HSync freq:"
-
-#~ msgid "VSync Rate:"
-#~ msgstr "VSync freq:"
-
-#~ msgid "Choose monitor type"
-#~ msgstr "Kies beeldscherm-type"
-
-#~ msgid "Proceed"
-#~ msgstr "Verder gaan"
-
-#~ msgid "Video Card"
-#~ msgstr "Videokaart"
-
-#~ msgid ""
-#~ "Please select the video card present in your system.  Choose '%s' to "
-#~ "reset the selection to the card the installer detected in your system."
-#~ msgstr ""
-#~ "Selecteer welke videokaart in uw systeem zit.  Kies '%s' om de selectie "
-#~ "te herstellen naar de kaart die het installatieprogramma heeft "
-#~ "gedetecteerd in uw systeem."
-
-#~ msgid "Video RAM"
-#~ msgstr "Video-RAM"
-
-#~ msgid ""
-#~ "Please select the amount of video RAM present on your video card. Choose "
-#~ "'%s' to reset the selection to the amount the installer detected on your "
-#~ "card."
-#~ msgstr ""
-#~ "Selecteer de hoeveelheid video-RAM op uw videokaart. Kies '%s' om de "
-#~ "selectie te herstellen naar de hoeveelheid RAM die het "
-#~ "installatieprogramma heeft gedetecteerd op uw kaart."
-
-#~ msgid "Skip X Configuration"
-#~ msgstr "X configureren overslaan"
-
-#~ msgid "Video Card Configuration"
-#~ msgstr "Videokaart configureren"
-
-#~ msgid "Select the video card and video RAM for your system."
-#~ msgstr "Selecteer de videokaart en video-RAM voor uw systeem."
-
-#~ msgid "Video Card:"
-#~ msgstr "Videokaart:"
-
-#~ msgid "Unknown card"
-#~ msgstr "Onbekende kaart"
-
-#~ msgid "Video RAM:"
-#~ msgstr "Video-RAM:"
-
-#~ msgid ""
-#~ "If you would like to test additional media, insert the next CD and press "
-#~ "\"%s\". You do not have to test all CDs, although it is recommended you "
-#~ "do so at least once.\n"
-#~ "\n"
-#~ "To begin the installation process insert CD #1 into the drive and press "
-#~ "\"%s\"."
-#~ msgstr ""
-#~ "Als u andere mediadragers wilt testen, voert u de volgende CD in en klikt "
-#~ "u op \"%s\". U hoeft niet alle CDs te testen alhoewel het wel wordt "
-#~ "aangeraden dit tenminste één keer te doen.\n"
-#~ "\n"
-#~ "Om het installatieproces te starten voert u CD #1 in en klikt u op \"%s\"."
-
-#~ msgid "The media check %sis complete, and the result is: %s\n"
-#~ msgstr "De medium-controle %s is compleet en het resultaat is: %s\n"
-
-#~ msgid "Chubut (CH)"
-#~ msgstr "Chubut (CH)"
-
-#~ msgid "Eastern Standard Time - central Nunavut"
-#~ msgstr "Eastern Standard Time - centraal Nunavut"
-
-#~ msgid "Great Britain"
-#~ msgstr "Groot Britannië"
-
-#~ msgid "Northern Ireland"
-#~ msgstr "Noord Ierland"
-
-#~ msgid "Tasmania"
-#~ msgstr "Tasmanië"
-
-#~ msgid "Yap"
-#~ msgstr "Yap"
-
-#~ msgid "northeast Mali"
-#~ msgstr "noordoost Mali"
-
-#~ msgid "southwest Mali"
-#~ msgstr "Zuidwest Mali"
-
-#~ msgid "Additional Language Support"
-#~ msgstr "Extra taalondersteuning"
-
-#~ msgid "Select the _default language for the system:   "
-#~ msgstr "_Kies de standaardtaal voor dit systeem:   "
-
-#~ msgid "Select _additional languages to install on the system:"
-#~ msgstr "Kies _andere talen die u op dit systeem wilt installeren:"
-
-#~ msgid "_Select All"
-#~ msgstr "Alles _selecteren"
-
-#~ msgid "Select Default _Only"
-#~ msgstr "_Alleen standaard selecteren"
-
-#~ msgid "Rese_t"
-#~ msgstr "_Resetten"
-
-#~ msgid "Select All"
-#~ msgstr "Alles selecteren"
-
-#~ msgid "Reset"
-#~ msgstr "Resetten"
-
-#~ msgid ""
-#~ "Choose additional languages that you would like to use on this system:"
-#~ msgstr "Kies andere talen die u op dit systeem wilt gaan gebruiken:"
-
-#~ msgid "Language Support"
-#~ msgstr "Taalondersteuning"
-
-#~ msgid "Default Language"
-#~ msgstr "Standaardtaal"
-
-#~ msgid "Choose the default language for this system: "
-#~ msgstr "Kies de standaardtaal voor dit systeem: "
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Voor Errata-informatie (updates en bug fixes), bezoek:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "Voor informatie over automatische updates via Red Hat Network, bezoek:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "Voor informatie over het gebruik en het configureren van het systeem, "
-#~ "bezoek:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "Om uw systeem te registreren voor ondersteuning, bezoek:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Silo instellingen"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "SILO bootrecord installeren op:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "PROM-alias maken"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Standaard PROM-boot-device instellen op Linux"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Kernel-parameters"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Opstartdiskette maken"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "SILO niet installeren"
-
-#~ msgid "Default boot image"
-#~ msgstr "Standaard boot-image"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "PROM alias 'Linux' maken"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Standaard PROM boot-device instellen"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Waar wilt u de bootloader installeren?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "De bootloader die Red Hat gebruikt kan ook andere besturingssystemen "
-#~ "opstarten. U moet aangeven van welke partities u wilt kunnen opstarten en "
-#~ "welk label u elk van deze partities wilt geven."
-
-#~ msgid "no suggestion"
-#~ msgstr "geen suggestie"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "_LILO als bootloader gebruiken"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Niet in staat de stationsvolgorde te veranderen voor LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr ""
-#~ "We ondersteunen het wisselen van stationsvolgorde niet voor gebruik met "
-#~ "LILO."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Bootloader LILO gebruiken"
-
-#~ msgid "%s Installer on %s"
-#~ msgstr "%s Installatie op %s"
-
-#~ msgid ""
-#~ "You have selected not to install a boot loader on your system.  You will "
-#~ "have to create a boot disk to boot your system with this option.\n"
-#~ "\n"
-#~ "Would you like to continue and not install a boot loader?"
-#~ msgstr ""
-#~ "U heeft ervoor gekozen geen bootloader op uw systeem te installeren. U "
-#~ "zult een opstartdiskette moeten maken om uw systeem te kunnen opstarten.\n"
-#~ "\n"
-#~ "Wilt u doorgaan en geen bootloader installeren?"
-
-#~ msgid "Total"
-#~ msgstr "Totaal"
-
-#~ msgid "Remaining"
-#~ msgstr "Resterend"
-
-#~ msgid "Installing %s-%s-%s.%s"
-#~ msgstr "Bezig met installeren van %s-%s-%s.%s"
-
-#~ msgid "Package Progress: "
-#~ msgstr "Pakket Voortgang: "
-
-#~ msgid "Total Progress:   "
-#~ msgstr "Algemene Voortgang:   "
-
-#~ msgid "Status"
-#~ msgstr "Status"
-
-#~ msgid "Time"
-#~ msgstr "Tijd"
-
-#~ msgid ""
-#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
-#~ "or higher.  This appears to be an older system.  Do you wish to continue "
-#~ "the upgrade process?"
-#~ msgstr ""
-#~ "Upgrades voor deze versie van %s zijn alleen ondersteund voor Red Hat "
-#~ "Linux 6.2 of hoger.  Dit is blijkbaar een ouder systeem. Wilt u doorgaan "
-#~ "met het upgrade-proces?"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tBureaublad schil (GNOME)\n"
-#~ "\tKantoorpakket (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tGeluid en video applicaties\n"
-#~ "\tSpelletjes\n"
-#~ "\tHulpmiddelen voor beheer\n"
-
-#~ msgid ""
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ msgstr ""
-#~ "\tBureaublad schil (GNOME)\n"
-#~ "\tKantoorpakket (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tGeluid en video applicaties\n"
-#~ "\tSpelletjes\n"
-#~ "\tHulpmiddelen voor software-ontwikkeling\n"
-#~ "\tHulpmiddelen voor beheer\n"
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Fysieke omvang:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) biedt strictere toegangscontroles om de "
-#~ "veiligheid van uw systeem te verbeteren.  Hoe wilt u de ondersteuning "
-#~ "hiervoor gebruiken?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "SELinux uitzetten"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Waarschuwen bij overtredingen"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "SCSI ID:"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "SCSI LUN:"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "O Argentinië (BA, DF, SC, TF)"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Ongeldige poort gegeven: %s.  De juiste vorm is: 'poort:protocol', "
-#~ "waarbij poort een getal tussen de 1 en 65535 is en protocol ofwel 'tcp' "
-#~ "of 'udp'.\n"
-#~ "\n"
-#~ "Bijvoorbeeld: '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Waarschuwing: foutief teken"
-
-#~ msgid "Allow others on the internet to access these services."
-#~ msgstr "Sta anderen op het internet toe om deze services te benaderen."
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "Binnenkomend _toestaan voor:"
-
-#~ msgid "Other _ports:"
-#~ msgstr "Andere _poorten:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "_Security Enhanced Linux (SELinux) Extensies:"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Veilige verbindingen:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "E-mail (SMTP)"
-
-#~ msgid "Other ports"
-#~ msgstr "Andere poorten"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Firewall configureren - Aanpassen"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "U kunt uw firewall op twee manier instellen. Ten eerste kunt u er voor "
-#~ "kiezen om van bepaalde netwerkinterfaces alle verkeer toe te laten. Ten "
-#~ "tweede kunt u bepaalde protocollen expliciet toelaten door de firewall. "
-#~ "In een door komma's gescheiden lijst kunt u extra poorten specificeren. "
-#~ "Deze staan in de vorm: 'service:protocol' zoals bijvoorbeeld 'imap.tcp'. "
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Waarschuwing: %s is geen geldige poort."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "De CDROM kon niet worden aangekoppeld."
-
-# Voor het systeem hier weggelaten, het wekt alleem maar verwarring
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Het root-wachtwoord (van de systeembeheerder) invoeren."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "Firewall _aanpassen"
-
-# woordje inkomend toegevoegd voor verduidelijking
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr ""
-#~ "Welke diensten (inkomend) mogen door de firewall worden doorgelaten?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Indien u alle verkeer van een apparaat wilt toestaan, selecteert u deze "
-#~ "hieronder."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "Veilige ver_bindingen:"
-
-#~ msgid "Farsi"
-#~ msgstr "Farsi"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "This installation process is outlined in detail in the Official %s "
-#~ "Installation Guide available from Red Hat, Inc. If you have access to "
-#~ "this manual, you should read the installation section before continuing.\n"
-#~ "\n"
-#~ "If you have purchased Official %s, be sure to register your purchase "
-#~ "through our web site, http://www.redhat.com/."
-#~ msgstr ""
-#~ "Welkom bij %s!\n"
-#~ "\n"
-#~ "Dit installatieproces is uitvoerig beschreven in de Officiële %s "
-#~ "Installatiegids die beschikbaar is bij Red Hat, Inc. Als u deze "
-#~ "handleiding bezit, raden wij u aan om het hoofdstuk 'Installatie' te "
-#~ "lezen voordat u verder gaat. \n"
-#~ "\n"
-#~ "Als u een 'Official %s' heeft gekocht, is het aanbevolen om uw aanschaf "
-#~ "te registreren via onze website, http://www.redhat.com/."
-
-#~ msgid ""
-#~ "If you created a boot diskette during this installation as your primary "
-#~ "means of booting %s, insert it before rebooting your newly installed "
-#~ "system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Als u een opstartdiskette tijdens deze installatie hebt aangemaakt als uw "
-#~ "enige manier van opstarten van %s, doe deze in de floppy drive voordat u "
-#~ "uw nieuw geïnstalleerd systeem start.\n"
-#~ "\n"
-
-#~ msgid "Online Help"
-#~ msgstr "Online Hulp"
-
-#~ msgid "_Install BETA"
-#~ msgstr "BETA _Installeren"
-
-#~ msgid ""
-#~ "You have elected to disable the firewall on this system.  This is not "
-#~ "recomended if this system is attached directly to the Internet or is on a "
-#~ "large public network. A firewall will help prevent unauthorized access to "
-#~ "your system.\n"
-#~ "\n"
-#~ "Are you sure you want to turn off the firewall?"
-#~ msgstr ""
-#~ "U heeft er voor gekozen om de firewall op dit systeem uit te schakelen. "
-#~ "Dit is niet aan te raden als dit systeem rechtstreeks met het Internet is "
-#~ "verbonden of deel uitmaakt van een groot publiek netwerk. Een firewall "
-#~ "zal ongeautoriseerde toegang tot dit systeem helpen voorkomen.\n"
-#~ "\n"
-#~ "Weet u zeker dat u de firewall uit wilt schakelen?"
-
-#~ msgid "Set hostname"
-#~ msgstr "Computernaam instellen"
-
-#~ msgid "Welcome"
-#~ msgstr "Welkom"
-
-#~ msgid "Hardware clock set to GMT?"
-#~ msgstr "Geeft de hardwareklok GMT aan?"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "WARNING!!! VNC server running with NO PASSWORD!"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "WAARSCHUWING!!! VNC-server draait ZONDER WACHTWOORD!"
-
-#~ msgid "You can use the vncpasswd=<password> boot option"
-#~ msgstr "U kunt de boot-optie vncpasswd=<wachtwoord> gebruiken"
-
-#~ msgid ""
-#~ "if you would like to secure the server.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "als u de server wilt beveiligen.\n"
-#~ "\n"
-
-#~ msgid "Enter a boot loader password and then confirm it."
-#~ msgstr "Een bootloader-wachtwoord invoeren en bevestigen."
-
-#~ msgid ""
-#~ "The default workstation environment includes our recommendations for new "
-#~ "users, including:\n"
-#~ "\n"
-#~ "\tDesktop shell (GNOME)\n"
-#~ "\tOffice suite (OpenOffice)\n"
-#~ "\tWeb browser (Mozilla) \n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tSound and video applications\n"
-#~ "\tGames\n"
-#~ "\tSoftware Development Tools\n"
-#~ "\tAdministration Tools\n"
-#~ "\n"
-#~ "After installation, additional software can be added or removed using the "
-#~ "'redhat-config-packages' tool.\n"
-#~ "\n"
-#~ "If you are familiar with %s, you may have specific packages you would "
-#~ "like to install or avoid installing. Check the box below to customize "
-#~ "your installation."
-#~ msgstr ""
-#~ "De standaard werkstationomgeving bevat onze aanbevelingen voor nieuwe "
-#~ "gebruikers waaronder:\n"
-#~ "\n"
-#~ "\tDesktop-shell (GNOME)\n"
-#~ "\tKantoor-pakket (OpenOffice)\n"
-#~ "\tWebbrowser (Mozilla)\n"
-#~ "\tEmail (Evolution)\n"
-#~ "\tInstant messaging\n"
-#~ "\tGeluid en video-toepassingen\n"
-#~ "\tSpellen\n"
-#~ "\tGereedschap voor softwareontwikkeling\n"
-#~ "\tGereedschap voor systeembeheer\n"
-#~ "\n"
-#~ "Na de installatie kan aanvullende software worden toegevoegd of "
-#~ "verwijderd via het programma 'redhat-config-packages'.\n"
-#~ "\n"
-#~ "Als u bekend bent met %s, zijn er mogelijk specifieke pakketten die u "
-#~ "wel, of juist niet wilt installeren. Gebruik de aanvink-optie hieronder "
-#~ "om uw installatie aan te passen."
-
-#~ msgid "Personal Desktop Defaults"
-#~ msgstr "Personal Desktop standaard"
-
-#~ msgid "Firewall Configuration"
-#~ msgstr "Firewall configureren"
-
-#~ msgid "Select a security level for the system:  "
-#~ msgstr "Kies een beveiligingsniveau voor dit systeem:  "
-
-#~ msgid "Hi_gh"
-#~ msgstr "_Hoog"
-
-#~ msgid "_Medium"
-#~ msgstr "Ge_middeld"
-
-#~ msgid "Use _default firewall rules"
-#~ msgstr "_Standaard-firewall regels gebruiken"
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want to setup the X Window System , choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Uw systeem zal worden geconfigureerd om gebruik te maken van de frame "
-#~ "buffer driver voor het X Window System. Als u het X Window System niet "
-#~ "wilt configureren, kies dan 'X configureren overslaan'."
-
-#~ msgid ""
-#~ "A firewall protects against unauthorized network intrusions. High "
-#~ "security blocks all incoming accesses. Medium blocks access to system "
-#~ "services (such as telnet or printing), but allows other connections. No "
-#~ "firewall allows all connections and is not recommended. "
-#~ msgstr ""
-#~ "Een firewall beschermt tegen ongeautoriseerde netwerk-inbreuken. Bij Hoge "
-#~ "Beveiliging worden alle binnenkomende toegangen geblokkeerd. Bij "
-#~ "Gemiddeld wordt de toegang tot systeem-services (zoals telnet of printen) "
-#~ "geblokkeerd. Bij Geen firewall worden alle verbindingen toegestaan, "
-#~ "hetgeen wordt afgeraden."
-
-#~ msgid "Security Level:"
-#~ msgstr "Beveiligingsniveau:"
-
-#~ msgid "High"
-#~ msgstr "Hoog"
-
-#~ msgid "Medium"
-#~ msgstr "Gemiddeld"
-
-#~ msgid "VNC server now running - please connect to install..."
-#~ msgstr ""
-#~ "VNC-server is nu opgestart - maak een verbinding om te installeren..."
-
-#~ msgid "Generic"
-#~ msgstr "Algemeen"
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Uw systeem zal worden geconfigureerd om gebruik te maken van de frame "
-#~ "buffer driver voor het X Window System. Als u het X Window System niet "
-#~ "wilt configureren, kies dan 'X configureren overslaan'."
-
-#~ msgid "DASD partitions can only be deleted with fdasd"
-#~ msgstr "DASD-partities kunnen alleen met fdasd worden verwijderd"
-
-# typo in inititalize? al doorgebeld?
-#~ msgid "You must go back and use fdasd to inititalize this partition"
-#~ msgstr ""
-#~ "U moet teruggaan en dan fdasd gebruiken om deze partitie te initialiseren"
-
-#~ msgid "Root password accepted."
-#~ msgstr "Het root-wachtwoord is geaccepteerd"
-
-#~ msgid "Root password is too short."
-#~ msgstr "Het root-wachtwoord is te kort"
-
-#~ msgid "Root passwords do not match."
-#~ msgstr "De root-wachtwoorden komen niet overeen."
-
-#~ msgid "_Accept the current package list"
-#~ msgstr "De huidige pakketkeuze _accepteren"
-
-#~ msgid ""
-#~ "Choose this option to install your system from scratch.  Depending on how "
-#~ "you choose to partition your system the existing data on your drives may "
-#~ "or may not be preserved."
-#~ msgstr ""
-#~ "Kies deze optie om een nieuwe installatie te maken. Afhankelijk van de "
-#~ "wijze waarop u uw systeem partitioneert, zullen de gegevens op uw harde "
-#~ "schijf behouden blijven of niet."
-
-#~ msgid "_Customize packages to be upgraded"
-#~ msgstr "De pakketten die worden bijgewerkt _aanpassen."
-
-#~ msgid "Check for _bad blocks"
-#~ msgstr "Controleren op _schijffouten"
-
-#~ msgid "Make _RAID"
-#~ msgstr "_RAID maken"
-
-#~ msgid "Location"
-#~ msgstr "Lokatie"
-
-#~ msgid "Use _daylight saving time (US only)"
-#~ msgstr "_Zomertijd gebruiken (alleen voor de VS)"
-
-#~ msgid "UTC Offset"
-#~ msgstr "Verschil met UTC"
-
-#~ msgid ""
-#~ "If you created a boot disk to use to boot your %s system, insert it "
-#~ "before you press <Enter> to reboot.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Als u een opstartdiskette heeft gemaakt om uw %s systeem op te starten, "
-#~ "voer deze dan in voordat u <Enter> geeft om te herstarten.\n"
-#~ "\n"
-
-#~ msgid "Use bootp/dhcp"
-#~ msgstr "Bootp/dhcp gebruiken"
-
-#~ msgid "Secondary nameserver:"
-#~ msgstr "Tweede naamserver:"
-
-#~ msgid "Tertiary nameserver:"
-#~ msgstr "Derde naamserver:"
-
-#~ msgid ""
-#~ "The hostname is the name of your computer.  If your computer is attached "
-#~ "to a network, this may be assigned by your network administrator."
-#~ msgstr ""
-#~ "De computernaam is de naam van uw computer.  Als uw computer is verbonden "
-#~ "met een netwerk kan dit door de netwerkbeheerder worden toegewezen."
-
-#~ msgid "You must go back and use fdasd to initialize this partition"
-#~ msgstr ""
-#~ "U moet teruggaan en fdasd gebruiken om deze partitie te initialiseren."
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr ""
-#~ "Het opnieuw opstellen van de RPM-database is mislukt. Mogelijk heeft u "
-#~ "geen vrije schijfruimte meer?"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Welk type CDROM heeft U?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "CDROM initialiseren..."
-
-#~ msgid ""
-#~ "This module can take parameters which affects its operation. If you don't "
-#~ "know what parameters to supply, just skip this screen by pressing the \"OK"
-#~ "\" button now."
-#~ msgstr ""
-#~ "Deze module kan parameters meekrijgen die de werking beïnvloeden.  Als u "
-#~ "niet weet welke parameters u moet opgeven, kunt u dit scherm gewoon "
-#~ "overslaan door nu op \"OK\" te klikken."
-
-#~ msgid "Insert your driver disk and press \"OK\" to continue."
-#~ msgstr "Voer uw driver-diskette in en geef \"OK\" om door te gaan."
-
-#~ msgid ""
-#~ "Which driver should I try?. If the driver you need does not appear in "
-#~ "this list, and you have a separate driver disk, please press F2."
-#~ msgstr ""
-#~ "Welke driver zal ik proberen? Als de benodigde driver niet in de lijst "
-#~ "voorkomt, en u heeft een aparte driver-diskette, druk dan op F2."
-
-#~ msgid "Specify module parameters"
-#~ msgstr "Module-parameters opgeven"
-
-#~ msgid "Failed to insert %s module."
-#~ msgstr "Invoegen van module %s is niet gelukt."
-
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Fout bij openen: kickstart-bestand %s: %s"
-
-#~ msgid "What kind of device would you like to add"
-#~ msgstr "Wat voor apparaat wilt u toevoegen?"
-
-#~ msgid "The following devices have been found on your system:"
-#~ msgstr "De volgende apparaten zijn op uw systeem gevonden:"
-
-#~ msgid ""
-#~ "No special device drivers have been loaded for your system. Would you "
-#~ "like to load any now?"
-#~ msgstr ""
-#~ "Er zijn geen speciale device-drivers voor uw systeem geladen. Wilt u er "
-#~ "nu een laden?"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Die map bevat kennelijk geen Red Hat installatie-boom."
-
-#~ msgid "That directory could not be mounted from the server"
-#~ msgstr "Die map kon niet van de server worden aangekoppeld"
-
-#~ msgid "File %s/%s not found on server."
-#~ msgstr "Bestand %s/%s niet gevonden op de server."
-
-#~ msgid "Unable to retrieve the first install image"
-#~ msgstr "Niet in staat om het eerste installatie-image binnen te halen"
-
-#~ msgid "FTP and HTTP installs require 20MB or more of system memory."
-#~ msgstr "FTP en HTTP-installaties vereisen 20 MB of meer systeemgeheugen."
-
-#~ msgid "Insert your updates disk and press \"OK\" to continue."
-#~ msgstr "Voer uw updates-diskette in en klik op \"OK\" om door te gaan."
-
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid update disk for this release "
-#~ "of %s."
-#~ msgstr ""
-#~ "De ingevoerde diskette is geen geldige upgrade-diskette voor deze versie "
-#~ "van %s."
-
-#~ msgid "Failed to mount floppy disk."
-#~ msgstr "Aankoppelen diskette mislukt."
-
-#~ msgid ""
-#~ "The second stage of the install which you have selected does not match "
-#~ "the boot disk which you are using.  This shouldn't happen, and I'm "
-#~ "rebooting your system now."
-#~ msgstr ""
-#~ "De tweede trap van de installatie die u geselecteerd heeft, komt niet "
-#~ "overeen met de gebruikte opstartdiskette.  Dit zou niet mogen gebeuren en "
-#~ "ik zal nu uw systeem opnieuw opstarten."
-
-#~ msgid ""
-#~ "No hard drives have been found. You probably need to manually choose "
-#~ "device drivers for the installation to succeed. Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "Er zijn geen harde schijven gevonden. U moet waarschijnlijk handmatig "
-#~ "device-drivers kiezen om door te kunnen gaan met de installatie. Wilt u "
-#~ "nu drivers selecteren?"
-
-#~ msgid ""
-#~ "FAIL.\n"
-#~ "\n"
-#~ "It is not recommended to use this media."
-#~ msgstr ""
-#~ "FOUT\n"
-#~ "\n"
-#~ "Het wordt niet aangeraden dit medium te gebruiken."
-
-#~ msgid "Failed to mount driver disk: %s."
-#~ msgstr "Aankoppelen driver-diskette: %s mislukt."
-
-#~ msgid "The wrong diskette was inserted."
-#~ msgstr "De verkeerde diskette is ingevoerd."
-
-#~ msgid "Please insert the %s driver disk now."
-#~ msgstr "Voer nu de %s driver-diskette in."
-
-#~ msgid "Sending request for IP information..."
-#~ msgstr "Verzoek om IP-informatie wordt verzonden..."
-
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "foutief argument om netwerkopdracht %s op te starten: %s"
-
-#~ msgid "Boot protocol to use"
-#~ msgstr "Het te gebruiken opstartprotocol"
-
-#~ msgid "Network gateway"
-#~ msgstr "Netwerk gateway"
-
-#~ msgid "IP address"
-#~ msgstr "IP adres"
-
-#~ msgid "Domain name"
-#~ msgstr "Domeinnaam"
-
-#~ msgid "Network device"
-#~ msgstr "Netwerk apparaat"
-
-#~ msgid "No DNS lookups"
-#~ msgstr "Geen DNS-opzoeken"
-
-#~ msgid ""
-#~ " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ " <Tab>/<Alt-Tab> tussen items   |   <Spatie> selecteert  |   <F12> "
-#~ "volgend scherm"
-
-#~ msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-#~ msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
-
-#~ msgid "Network configuration"
-#~ msgstr "Netwerk-configuratie"
-
-#~ msgid "Would you like to set up networking?"
-#~ msgstr "Wilt u uw netwerk instellen?"
-
-#~ msgid "PC Card"
-#~ msgstr "PC-kaart"
-
-#~ msgid "Initializing PC Card Devices..."
-#~ msgstr "PC-kaart apparaten worden geïnitialiseerd..."
-
-#~ msgid "PCMCIA"
-#~ msgstr "PCMCIA"
-
-#~ msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-#~ msgstr "Doe nu uw PCMCIA driver-diskette in de floppydrive."
-
-#~ msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-#~ msgstr ""
-#~ "Deze diskette is waarschijnlijk geen Red Hat PCMCIA driver diskette."
-
-#~ msgid "Use proxy server"
-#~ msgstr "Proxyserver gebruiken"
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP Proxy:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "HTTP Proxy:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "FTP Proxy Poort:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "HTTP Proxy Poort:"
-
-#~ msgid ""
-#~ "Your mouse was not automatically detected.  To proceed in the graphical "
-#~ "installation mode, please proceed to the next screen and provide your "
-#~ "mouse information. You may also use text mode installation which does not "
-#~ "require a mouse."
-#~ msgstr ""
-#~ "Uw muis werd niet automatisch gedetecteerd. Om verder te gaan met een "
-#~ "grafische installatie dient u in het volgende scherm informatie over uw "
-#~ "muis op te geven. U kunt ook kiezen voor de tekstgebaseerde installatie "
-#~ "waar geen muis voor nodig is."
-
-#~ msgid "Attempting to start VESA driver X server"
-#~ msgstr "Er wordt nu getracht de VESA-driver van de X-server op te starten."
-
-#~ msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-#~ msgstr ""
-#~ "Wachten op het opstarten van de X-server... logboek gevonden in /tmp/X."
-#~ "log\n"
-
-#~ msgid " X server started successfully."
-#~ msgstr " X-server met succes opgestart."
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system.  FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr ""
-#~ "De volgende parities met een linux installatie zijn op uw systeem "
-#~ "gevonden:"
-
-#~ msgid ""
-#~ "The following root partitions have been found on your system. FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr ""
-#~ "De volgende aankoppel punten met een Linux installatie zijn op uw systeem "
-#~ "gevonden:"
-
-#~ msgid "Probing for video card:   "
-#~ msgstr "Videokaart wordt nu onderzocht:   "
-
-#~ msgid "Probing for video card:   %s"
-#~ msgstr "Videokaart wordt nu onderzocht:   %s"
-
-#~ msgid "Probing for monitor type: %s"
-#~ msgstr "Beeldschermtype wordt nu onderzocht: %s"
-
-#~ msgid "Probing for mouse type:   "
-#~ msgstr "Muistype wordt nu onderzocht:   "
-
-#~ msgid "Probing for mouse type:   %s"
-#~ msgstr "Muistype wordt nu onderzocht:   %s"
-
-#~ msgid "Skipping mouse probe."
-#~ msgstr "Onderzoek naar muis wordt nu overgeslagen."
-
-#~ msgid "Account Configuration"
-#~ msgstr "Account Configuratie"
-
-#~ msgid "User password accepted."
-#~ msgstr "Wachtwoord geaccepteerd"
-
-#~ msgid "Root account can not be added here."
-#~ msgstr "Het root-account kan hier niet worden toegevoegd."
-
-#~ msgid "System accounts can not be added here."
-#~ msgstr "Systeemaccounts kunnen hier niet worden toegevoegd."
-
-#~ msgid "Please enter user password."
-#~ msgstr "Geef het gebruikerswachtwoord."
-
-#~ msgid "User password is too short."
-#~ msgstr "Wachtwoord is te kort."
-
-#~ msgid "User passwords do not match."
-#~ msgstr "Wachtwoorden komen niet overeen."
-
-#~ msgid "Add a New User"
-#~ msgstr "Een nieuwe gebruiker toevoegen"
-
-#~ msgid "Add a User Account"
-#~ msgstr "Een gebruikersaccount toevoegen"
-
-#~ msgid "Enter a user _password:"
-#~ msgstr "Gebruikerswachtwoord invoeren:"
-
-#~ msgid "Pass_word (confirm):"
-#~ msgstr "Wacht_woord (bevestigen):"
-
-#~ msgid "_Full Name:"
-#~ msgstr "_Volledige Naam"
-
-#~ msgid "Account Name"
-#~ msgstr "Accountnaam"
-
-#~ msgid ""
-#~ "It is recommended that you create a personal account for normal (non-"
-#~ "administrative) use. Accounts can also be created for additional users."
-#~ msgstr ""
-#~ "Het wordt aangeraden een persoonlijk account aan te maken voor normaal "
-#~ "gebruik (niet-beheerder).  Ook voor andere gebruikers kunnen accounts "
-#~ "worden aangemaakt."
-
-#~ msgid ""
-#~ "You don't have any Linux partitions.\n"
-#~ "You can't upgrade this sytem!"
-#~ msgstr ""
-#~ "U heeft geen Linux-partities.\n"
-#~ "U kunt dit systeem niet upgraden!"
-
-#~ msgid "Please select the device containing the root filesystem: "
-#~ msgstr "Geef de partitie die het root-bestandssysteem bevat:"
-
-#~ msgid "Upgrading the %s installation on partition /dev/%s"
-#~ msgstr "Upgrade van de %s installatie op partitie /dev/%s"
-
-#~ msgid "Manually partition with _fdisk (experts only)"
-#~ msgstr "Handmatig partitioneren met _fdisk (voor experts)"
-
-#~ msgid "   _Test Setting   "
-#~ msgstr "   Instellingen _Testen   "
-
-#~ msgid "fdisk"
-#~ msgstr "fdisk"
-
-#~ msgid "You don't have any Linux partitions. You can't upgrade this system!"
-#~ msgstr "U heeft geen Linux partities. U kunt dit systeem niet upgraden!"
