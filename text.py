@@ -551,7 +551,7 @@ class InstallInterface:
         exnWin = ExceptionWindow(shortText, longTextFile, self.screen)
         return exnWin
 
-    def partedExceptionWindow(self, exc):
+    def partedExceptionWindow(self, exc, anaconda):
         # if our only option is to cancel, let us handle the exception
         # in our code and avoid popping up the exception window here.
         if exc.options == parted.EXCEPTION_CANCEL:
@@ -671,7 +671,7 @@ class InstallInterface:
         anaconda.id.fsset.registerProgressWindow(self.progressWindow)
         anaconda.id.fsset.registerWaitWindow(self.waitWindow)        
 
-        parted.exception_set_handler(self.partedExceptionWindow)
+        parted.exception_set_handler(lambda exn: self.partedExceptionWindow(exn, anaconda))
         
 	lastrc = INSTALL_OK
 	(step, instance) = anaconda.dispatch.currentStep()
@@ -690,12 +690,13 @@ class InstallInterface:
                 # reget the args.  they could change (especially direction)
                 (foo, args) = anaconda.dispatch.currentStep()
 
-                nextWindow = None
+                namespace = {'nextWindow' : None} 
+
 		s = "from %s import %s; nextWindow = %s" % \
 			(file, classNames[step], classNames[step])
-		exec s
+		exec s in namespace
 
-		win = nextWindow()
+		win = namespace['nextWindow']()
 
 		#log.info("TUI running step %s (class %s, file %s)" % 
 			 #(step, file, classNames))
