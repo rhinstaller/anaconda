@@ -391,6 +391,7 @@ class PartitionTypeWindow(InstallWindow):
                                      self.storage.clearPartDisks,
                                      self.drivelist,
                                      disallowDrives=[self.anaconda.updateSrc])
+            self.anaconda.id.bootloader.updateDriveList()
             self._fillBootStore()
             w.pop()
 

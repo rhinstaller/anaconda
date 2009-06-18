@@ -130,6 +130,7 @@ class PartitionTypeWindow:
             if rc == "F2":
                 if self.addDriveDialog(screen) != INSTALL_BACK:
                     anaconda.id.storage.reset()
+                    anaconda.id.bootloader.updateDriveList()
                 continue
 
             if res == TEXT_BACK_CHECK:
