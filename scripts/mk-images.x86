@@ -170,5 +170,8 @@ doPostImages() {
         mkisocmd="mkisofs -v -o $TOPDESTPATH/images/$BOOTISO $BIOSARGS $EFIARGS -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images=$TOPDESTPATH/images $EFIGRAFT"
         echo $PWD:\$ $mkisocmd
 	$mkisocmd
+	if [ -x /usr/bin/isohybrid ]; then
+            isohybrid $TOPDESTPATH/images/$BOOTISO || echo "Unable to make hybrid boot.iso"
+        fi
     fi
 }
