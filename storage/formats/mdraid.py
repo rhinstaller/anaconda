@@ -23,6 +23,7 @@
 import os
 
 from iutil import log_method_call
+from flags import flags
 from parted import PARTITION_RAID
 from ..errors import *
 from ..devicelibs import mdraid
@@ -95,6 +96,9 @@ class MDRaidMember(DeviceFormat):
     def writeKS(self, f):
         f.write("raid.%s" % self.mdUuid)
 
+
+if flags.cmdline.has_key("iswmd"):
+    MDRaidMember._udevTypes.append("isw_raid_member")
 
 register_device_format(MDRaidMember)
 

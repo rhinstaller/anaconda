@@ -21,6 +21,7 @@
 #
 
 from iutil import log_method_call
+from flags import flags
 from ..errors import *
 from . import DeviceFormat, register_device_format
 
@@ -92,6 +93,10 @@ class DMRaidMember(DeviceFormat):
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
         raise DMRaidMemberError("destruction of dmraid members is non-sense")
+
+
+if flags.cmdline.has_key("iswmd"):
+    DMRaidMember._udevTypes.remove("isw_raid_member")
 
 register_device_format(DMRaidMember)
 
