@@ -46,6 +46,7 @@ ENV{ID_FS_USAGE}=="filesystem|other", ENV{ID_FS_LABEL_ENC}=="?*", SYMLINK+="disk
 LABEL="anaconda_mdraid_member"
 # probe raid metadata of mdraid member devices
 ENV{ID_FS_TYPE}=="linux_raid_member", IMPORT{program}="$env{ANACBIN}/mdadm --examine --export $tempnode"
+ENV{ID_FS_TYPE}=="isw_raid_member", IMPORT{program}="$env{ANACBIN}/mdadm --examine --export $tempnode"
 
 # probe metadata of LVM2 physical volumes
 ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="$env{ANACBIN}/lvm pvs --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -opv_name,pv_uuid,pv_size,vg_name,vg_uuid,pv_pe_count,pv_pe_alloc_count,pe_start $tempnode"
