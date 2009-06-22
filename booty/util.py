@@ -1,11 +1,13 @@
 import string
+from flags import flags
 
 def getDiskPart(dev, storage):
     path = storage.devicetree.getDeviceByName(dev).path[5:]
     cut = len(dev)
     if (path.startswith('rd/') or path.startswith('ida/') or
             path.startswith('cciss/') or path.startswith('sx8/') or
-            path.startswith('mapper/') or path.startswith('mmcblk')):
+            path.startswith('mapper/') or path.startswith('mmcblk') or
+            path.startswith('md')):
         if dev[-2] == 'p':
             cut = -1
         elif dev[-3] == 'p':

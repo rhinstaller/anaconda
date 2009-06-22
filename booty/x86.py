@@ -4,6 +4,7 @@ import string
 from booty import BootyNoKernelWarning
 from util import getDiskPart
 from bootloaderInfo import *
+from flags import flags
 import checkbootloader
 import iutil
 import rhpl
@@ -51,12 +52,16 @@ class x86BootloaderInfo(efiBootloaderInfo):
         if path.startswith("mapper/luks-"):
             return []
 
+
         if path.startswith('md'):
-            bootable = 0
-            parts = checkbootloader.getRaidDisks(device, self.storage,
+            if flags.cmdline.has_key("iswmd"):
+                return [device]
+            else:
+                bootable = 0
+                parts = checkbootloader.getRaidDisks(device, self.storage,
                                                  raidLevel=1, stripPart=0)
-            parts.sort()
-            return parts
+                parts.sort()
+                return parts
 
         return [device]
 
@@ -332,8 +337,9 @@ class x86BootloaderInfo(efiBootloaderInfo):
             # XXX hack city.  If they're not the sort of thing that'll
             # be in the device map, they shouldn't still be in the list.
             path = self.storage.devicetree.getDeviceByName(drive).path
-            if not drive.startswith('md'):
-                f.write("(%s)     %s\n" % (self.grubbyDiskName(drive), path))
+            if ((drive.startswith('md') and flags.cmdline.has_key("iswmd")) or
+                not drive.startswith('md')):
+                    f.write("(%s)     %s\n" % (self.grubbyDiskName(drive), path))
         f.close()
 
         sysconf = '/etc/sysconfig/grub'
