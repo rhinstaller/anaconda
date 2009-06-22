@@ -195,9 +195,14 @@ def udev_device_is_dm(info):
     """ Return True if the device is a device-mapper device. """
     return info.has_key("DM_NAME")
 
+def udev_device_is_md_container(info):
+    """ Return True if the device is a mdraid container device. """
+    return info.get("MD_LEVEL") == "container"
+
 def udev_device_is_md(info):
-    """ Return True is the device is an mdraid array device. """
-    return info.has_key("MD_METADATA")
+    """ Return True if the device is a mdraid array device. """
+    return info.has_key("MD_DEVNAME") and \
+           info.has_key("MD_METADATA")
 
 def udev_device_is_cdrom(info):
     """ Return True if the device is an optical drive. """

@@ -2560,6 +2560,37 @@ class MDRaidArrayDevice(StorageDevice):
         # real work, but it isn't our place to do it from here.
         self.exists = False
 
+class MDRaidContainerDevice(MDRaidArrayDevice):
+    """ An mdraid container device.
+    """
+    _type = "mdcontainer"
+    _devDir = "/dev/md"
+
+    def __init__(self, name, 
+                 memberDevices=None, 
+                 uuid=None, exists=None,
+                 parents=None):
+        """ Create a MDRaidContainerDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                parents -- list of member devices (StorageDevice instances)
+                uuid -- the device's UUID
+                exists -- indicates whether this is an existing device
+        """
+        MDRaidArrayDevice.__init__(self, name, 
+                                  memberDevices=memberDevices,
+                                  uuid=uuid, exists=exists, parents=parents)
+
+    def addFirstDevice(self, path):
+        mdraid.mdadd(path, True)
+        udev_settle(timeout=10)
+        real=os.readlink(self.path).split('/')[1]
+        self.sysfsPath = "/devices/virtual/block/%s" % real
 
 class DMRaidArrayDevice(DiskDevice):
     """ A dmraid (device-mapper RAID) device """

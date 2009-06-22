@@ -149,11 +149,14 @@ def mddestroy(device):
     if rc:
         raise MDRaidError("mddestroy failed for %s" % device)
 
-def mdadd(device):
+def mdadd(device, no_degraded=False):
+    args = ["--incremental", "--quiet"]
+    if no_degraded:
+        args.append("--no-degraded")
+    args.append(device)
+
     rc = iutil.execWithRedirect("mdadm",
-                                ["--incremental", 
-                                 "--quiet",
-                                 device],
+                                args,
                                 stderr = "/dev/tty5",
                                 stdout = "/dev/tty5",
                                 searchPath=1)
