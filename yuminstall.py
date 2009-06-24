@@ -591,7 +591,7 @@ class AnacondaYum(YumSorter):
         tty3_handler.setFormatter(tty3_formatter)
 
         verbose = logging.getLogger("yum.verbose")
-        verbose.setLevel(yum.logginglevels.DEBUG_2)
+        verbose.setLevel(logging.DEBUG)
         verbose.propagate = False
         verbose.addHandler(file_handler)
 
