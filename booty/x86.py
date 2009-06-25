@@ -476,6 +476,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         else:
             stage1Devs = [theDev[5:]]
 
+        cmds = []
         for stage1Dev in stage1Devs:
             # cross fingers; if we can't find a root device on the same
             # hardware as this boot device, we just blindly hope the first
@@ -494,15 +495,14 @@ class x86BootloaderInfo(efiBootloaderInfo):
                     break
                     
             args = "--stage2=/boot/grub/stage2 "
-            cmd ="root %s" % (grubbyRootPart,)
-            cmds = [ cmd ]
-            cmd = "install %s%s/stage1 d %s %s/stage2 p %s%s/grub.conf" \
+            cmd ="root %s\n" % (grubbyRootPart,)
+            cmd += "install %s%s/stage1 d %s %s/stage2 p %s%s/grub.conf" \
                 % (args, grubPath, grubbyStage1Dev, grubPath, grubbyRootPart,
                    grubPath)
             cmds.append(cmd)
         
-            if not justConfigFile:
-                return self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
+        if not justConfigFile:
+            return self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
  
         return 0
 
