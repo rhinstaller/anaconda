@@ -65,6 +65,8 @@ def copytree(src, dst, symlinks=False, preserveOwner=False,
             if symlinks and os.path.islink(srcname):
                 linkto = os.readlink(srcname)
                 os.symlink(linkto, dstname)
+                if preserveSelinux:
+                    selinux.lsetfilecon(dstname, selinux.lgetfilecon(srcname)[1])
             elif os.path.isdir(srcname):
                 copytree(srcname, dstname, symlinks, preserveOwner, preserveSelinux)
             else:
