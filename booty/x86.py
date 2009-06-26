@@ -111,8 +111,8 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
         args = "--stage2=/boot/grub/stage2 "
 
-        cmds = []
         for bootDev in bootDevs:
+            cmds = []
             gtPart = self.getMatchingPart(bootDev, grubTarget)
             gtDisk = self.grubbyPartitionName(getDiskPart(gtPart, self.storage)[0])
             bPart = self.grubbyPartitionName(bootDev)
