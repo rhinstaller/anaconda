@@ -6,6 +6,7 @@ LDSO=""
 get_dso_deps() {
     root="$1" ; shift
     bin="$1" ; shift
+    LDSODIR="$1" ; shift
     DSO_DEPS=""
 
     declare -a FILES
@@ -13,12 +14,19 @@ get_dso_deps() {
 
     # this is a hack, but the only better way requires binutils or elfutils
     # be installed.  i.e., we need readelf to find the interpretter.
+    $LDSO --verify $bin >/dev/null 2>&1
+    case $? in
+      [02]) ;;
+        *) unset LDSO ;;
+    esac
     if [ -z "$LDSO" ]; then
-        for ldso in $root/$LIBDIR/ld*.so* ; do
+        for ldso in $root/$LDSODIR/ld*.so* ; do
             [ -L $ldso ] && continue
             [ -x $ldso ] || continue
-            $ldso --verify $bin >/dev/null 2>&1 || continue
-            LDSO=$(echo $ldso |sed -e "s,$root,,")
+            $ldso --verify $bin >/dev/null 2>&1
+            case $? in
+                [02]) LDSO=$(echo $ldso |sed -e "s,$root,,") ; break ;;
+            esac
         done
     fi
 
@@ -73,7 +81,7 @@ EOF
 
     DSO_DEPS="${FILES[@]}"
 
-    for l in $(/usr/sbin/chroot $root find /$LIBDIR -maxdepth 1 -type l -name ld*.so*); do
+    for l in $(/usr/sbin/chroot $root find /$LDSODIR -maxdepth 1 -type l -name ld*.so*); do
        [ "$(/usr/sbin/chroot $root readlink -f $l)" == "$LDSO" ] && DSO_DEPS="$DSO_DEPS $l"
     done
 
@@ -98,13 +106,19 @@ instFile() {
 	cp -aL $FILE $DESTROOT/`dirname $FILE`
     fi
 
-    file $FILE | egrep -q ": (setuid )?ELF" &&  {
-        get_dso_deps $(pwd) "$FILE"
+    f=$(file $FILE)
+    echo $f | egrep -q ": (setuid )?ELF" &&  {
+        if echo $f | grep -q " 64-bit " ; then
+            get_dso_deps $(pwd) "$FILE" lib64
+        else
+            get_dso_deps $(pwd) "$FILE" lib
+        fi
         local DEPS="$DSO_DEPS"
         for x in $DEPS ; do
             instFile ./$x $DESTROOT
         done
     }
+    unset f
 }
 
 instDir() {
