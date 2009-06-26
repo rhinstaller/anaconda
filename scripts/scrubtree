@@ -34,7 +34,7 @@ p=$1
 
 ARCH=`uname -m | sed -e 's/i.86/i386/'`
 
-if [ $ARCH = x86_64 -o $ARCH = s390x ]; then
+if [ $ARCH = x86_64 -o $ARCH = s390x -o $ARCH = ppc64 ]; then
     LIBDIR=lib64
 else
     LIBDIR=lib

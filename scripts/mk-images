@@ -140,7 +140,7 @@ else
     CRAMBS=""
 fi
 
-if [ $BUILDARCH = x86_64 -o $BUILDARCH = s390x ]; then
+if [ "$BUILDARCH" = "x86_64" -o "$BUILDARCH" = "s390x" -o "$BUILDARCH" = "ppc64" ]; then
     LIBDIR=lib64
 else
     LIBDIR=lib
