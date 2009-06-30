@@ -90,6 +90,12 @@ class UpgradeExamineWindow (InstallWindow):
 	else:
 	    self.doupgrade = self.anaconda.id.upgrade
 
+        # we might get here after storage reset that obsoleted
+        # root device objects we had found
+        if not self.anaconda.id.rootParts:
+            self.anaconda.id.rootParts = upgrade.findExistingRoots(self.anaconda)
+            upgrade.setUpgradeRoot(self.anaconda)
+
         self.parts = self.anaconda.id.rootParts 
 
         vbox = gtk.VBox (False, 10)

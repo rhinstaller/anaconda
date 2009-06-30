@@ -287,6 +287,8 @@ class Storage(object):
                                      luksDict=self.__luksDevs)
         self.devicetree.populate()
         self.fsset = FSSet(self.devicetree)
+        self.anaconda.id.rootParts = None
+        self.anaconda.id.upgradeRoot = None
         w.pop()
 
     @property
