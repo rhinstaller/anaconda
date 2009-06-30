@@ -1123,7 +1123,7 @@ int writeDisabledNetInfo(void) {
 
     for (i = 0; devs[i]; i++) {
         /* remove dhclient-DEVICE.conf if we have it */
-        if (asprintf(&ofile, "/etc/dhclient-%s.conf", devs[i]->device) == -1) {
+        if (asprintf(&ofile, "/etc/dhcp/dhclient-%s.conf", devs[i]->device) == -1) {
             return 5;
         }
 
@@ -1219,7 +1219,7 @@ int writeEnabledNetInfo(iface_t *iface) {
         }
     }
 
-    if (asprintf(&ofile, "/etc/dhclient-%s.conf", iface->device) == -1) {
+    if (asprintf(&ofile, "/etc/dhcp/dhclient-%s.conf", iface->device) == -1) {
         return 17;
     }
 

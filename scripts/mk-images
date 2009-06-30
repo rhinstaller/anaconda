@@ -539,6 +539,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/cache/hald
     mkdir -p $MBD_DIR/var/lib/dbus
     mkdir -p $MBD_DIR/var/lib/dhclient
+    mkdir -p $MBD_DIR/etc/dhcp
     mkdir -p $MBD_DIR/var/lock/rpm
     mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/run/dbus
