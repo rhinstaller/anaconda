@@ -249,11 +249,15 @@ class SaveExceptionWindow:
         toplevel.add(self.scpButton, 0, 2, (0, 0, 0, 1))
         toplevel.add(buttons, 0, 3, growx=1)
 
-        try:
-            self.dests = self.anaconda.id.storage.exceptionDisks()
-        except Exception as e:
-            log.error("Error when probing exception disks: %s" % e)
-            self.dests = []
+        self.dests = []
+        if self.anaconda.id.storage.devicetree.populated:
+            try:
+                self.dests = self.anaconda.id.storage.exceptionDisks()
+            except Exception as e:
+                log.error("Error when probing exception disks: %s" % e)
+        else:
+            log.info("Storage configuration unknown; not probing for "
+                     "exception disks")
 
         # If there aren't any local disks, don't set it to be the default.
         if len(self.dests) == 0:

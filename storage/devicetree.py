@@ -194,6 +194,9 @@ class DeviceTree(object):
         self._devices = []
         self._actions = []
 
+        # indicates whether or not the tree has been fully populated
+        self.populated = False
+
         self.intf = intf
         self.exclusiveDisks = exclusive
         self.clearPartType = type
@@ -1733,6 +1736,11 @@ class DeviceTree(object):
 
     def populate(self):
         """ Locate all storage devices. """
+
+        # mark the tree as unpopulated so exception handlers can tell the
+        # exception originated while finding storage devices
+        self.populated = False
+
         # each iteration scans any devices that have appeared since the
         # previous iteration
         old_devices = []
@@ -1759,6 +1767,8 @@ class DeviceTree(object):
             log.info("devices to scan: %s" % [d['name'] for d in devices])
             for dev in devices:
                 self.addUdevDevice(dev)
+
+        self.populated = True
 
         # After having the complete tree we make sure that the system
         # inconsistencies are ignored or resolved.
