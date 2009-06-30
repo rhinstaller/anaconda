@@ -203,7 +203,13 @@ class DeviceTree(object):
         self.clearPartDisks = clear
         self.zeroMbr = zeroMbr
         self.reinitializeDisks = reinitializeDisks
-        self.protectedPartitions = protected
+
+        # protected device specs as provided by the user
+        self.protectedDevSpecs = protected
+
+        # names of protected devices at the time of tree population
+        self.protectedDevNames = []
+
         self.__passphrase = passphrase
         self.__luksDevs = {}
         if luksDict and isinstance(luksDict, dict):
@@ -1160,8 +1166,7 @@ class DeviceTree(object):
         # was specified
         if not self.clearPartDisks or name in self.clearPartDisks:
             initlabel = self.reinitializeDisks
-
-            for protected in self.protectedPartitions:
+            for protected in self.protectedDevNames:
                 _p = "/sys/%s/%s" % (sysfs_path, protected)
                 if os.path.exists(os.path.normpath(_p)):
                     initlabel = False
@@ -1269,6 +1274,12 @@ class DeviceTree(object):
             log.debug("%s is a partition" % name)
             if device is None:
                 device = self.addUdevPartitionDevice(info)
+
+        # If this device is protected, mark it as such now. Once the tree
+        # has been populated, devices' protected attribute is how we will
+        # identify protected devices.
+        if device.name in self.protectedDevNames:
+            device.protected = True
 
         # now handle the device's formatting
         self.handleUdevDeviceFormat(info, device)
@@ -1493,7 +1504,7 @@ class DeviceTree(object):
                     # we will not wipe the disklabel even if
                     # clearpart --initlabel was specified
                     initlabel = self.reinitializeDisks
-                    for protected in self.protectedPartitions:
+                    for protected in self.protectedDevNames:
                         disk_name = re.sub(r'p\d+$', '', protected)
                         if disk_name != protected and \
                            disk_name == rs.name:
@@ -1740,6 +1751,12 @@ class DeviceTree(object):
         # mark the tree as unpopulated so exception handlers can tell the
         # exception originated while finding storage devices
         self.populated = False
+
+        # resolve the protected device specs to device names
+        for spec in self.protectedDevSpecs:
+            name = udev_resolve_devspec(spec)
+            if name:
+                self.protectedDevNames.append(name)
 
         # each iteration scans any devices that have appeared since the
         # previous iteration

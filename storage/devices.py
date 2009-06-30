@@ -429,6 +429,8 @@ class StorageDevice(Device):
         self.sysfsPath = sysfsPath
         self.exists = exists
 
+        self.protected = False
+
         # this may be handy for disk, dmraid, mpath, mdraid
         self.diskLabel = None
 

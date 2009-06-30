@@ -69,26 +69,15 @@ def storageInitialize(anaconda):
     if os.path.exists("/dev/live") and \
        stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
         target = os.readlink("/dev/live")
-        storage.protectedPartitions = [target]
+        storage.protectedDevSpecs = [target]
         storage.reset()
     elif anaconda.methodstr and anaconda.methodstr.startswith("hd:"):
         method = anaconda.methodstr[3:]
         devspec = method.split(":", 3)[0]
-
-        for entry in udev_get_block_devices():
-            if devspec.startswith("LABEL=") and udev_device_get_label(entry) == devspec[6:]:
-                storage.protectedPartitions = [udev_device_get_name(entry)]
-                break
-            elif devspec.startswith("UUID=") and udev_device_get_uuid(entry) == devspec[5:]:
-                storage.protectedPartitions = [udev_device_get_name(entry)]
-                break
-            elif udev_device_get_name(entry) == devicePathToName(devspec):
-                storage.protectedPartitions = [udev_device_get_name(entry)]
-                break
-
+        storage.protectedDevSpecs.append(devspec)
         storage.reset()
 
-        if not storage.protectedPartitions or not storage.devicetree.getDeviceByName(storage.protectedPartitions[0]):
+        if not storage.protectedDevices:
             if anaconda.id.getUpgrade():
                 return
             else:
@@ -209,7 +198,7 @@ class Storage(object):
         self.encryptionRetrofit = False
         self.reinitializeDisks = False
         self.zeroMbr = None
-        self.protectedPartitions = []
+        self.protectedDevSpecs = []
         self.autoPartitionRequests = []
 
         self.__luksDevs = {}
@@ -228,7 +217,7 @@ class Storage(object):
                                      type=self.clearPartType,
                                      clear=self.clearPartDisks,
                                      reinitializeDisks=self.reinitializeDisks,
-                                     protected=self.protectedPartitions,
+                                     protected=self.protectedDevSpecs,
                                      zeroMbr=self.zeroMbr,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs)
@@ -292,7 +281,7 @@ class Storage(object):
                                      type=clearPartType,
                                      clear=self.clearPartDisks,
                                      reinitializeDisks=self.reinitializeDisks,
-                                     protected=self.protectedPartitions,
+                                     protected=self.protectedDevSpecs,
                                      zeroMbr=self.zeroMbr,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs)
@@ -448,6 +437,13 @@ class Storage(object):
         swaps = [d for d in devices if d.format.type == "swap"]
         swaps.sort(key=lambda d: d.name)
         return swaps
+
+    @property
+    def protectedDevices(self):
+        devices = self.devicetree.devices.values()
+        protected = [d for d in devices if d.protected]
+        protected.sort(key=lambda d: d.name)
+        return protected
 
     def exceptionDisks(self):
         """ Return a list of removable devices to save exceptions to.
