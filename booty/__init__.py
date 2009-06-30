@@ -16,7 +16,7 @@
 #
 """Module for manipulation and creation of boot loader configurations"""
 
-import rhpl
+import iutil
 from bootloaderInfo import *
 from bootloader import *
 
@@ -30,25 +30,22 @@ class BootyNoKernelWarning:
 # return instance of the appropriate bootloader for our arch
 def getBootloader(storage):
     """Get the bootloader info object for your architecture"""
-    if rhpl.getArch() == 'i386':
+    if iutil.isX86():
         import x86
         return x86.x86BootloaderInfo(storage)
-    elif rhpl.getArch() == 'ia64':
+    elif iutil.isIA64():
         import ia64
         return ia64.ia64BootloaderInfo(storage)
-    elif rhpl.getArch() == 's390' or rhpl.getArch() == "s390x":
+    elif iutil.isS390():
         import s390
         return s390.s390BootloaderInfo(storage)
-    elif rhpl.getArch() == "alpha":
+    elif iutil.isAlpha():
         import alpha
         return alpha.alphaBootloaderInfo(storage)
-    elif rhpl.getArch() == "x86_64":
-        import x86
-        return x86.x86BootloaderInfo(storage)
-    elif rhpl.getArch() == "ppc":
+    elif iutil.isPPC():
         import ppc
         return ppc.ppcBootloaderInfo(storage)
-    elif rhpl.getArch() == "sparc":
+    elif iutil.isSparc():
         import sparc
         return sparc.sparcBootloaderInfo(storage)
     else:

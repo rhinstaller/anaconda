@@ -17,7 +17,6 @@
 
 import os
 import string
-import rhpl
 
 from util import getDiskPart
 import iutil

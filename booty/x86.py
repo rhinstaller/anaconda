@@ -7,7 +7,6 @@ from bootloaderInfo import *
 from flags import flags
 import checkbootloader
 import iutil
-import rhpl
 
 class x86BootloaderInfo(efiBootloaderInfo):
     def setPassword(self, val, isCrypted = 1):
@@ -413,7 +412,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 config.addEntry("message", message, replace = 0)
 
         if not config.testEntry('lba32'):
-            if bl.above1024 and rhpl.getArch() != "x86_64":
+            if bl.above1024 and not iutil.isX86(bits=32):
                 config.addEntry("lba32", replace = 0)
 
         return config

@@ -5,14 +5,13 @@ from booty import BootyNoKernelWarning
 from util import getDiskPart
 from bootloaderInfo import *
 import iutil
-import rhpl
 
 class ppcBootloaderInfo(bootloaderInfo):
     def getBootDevs(self, bl):
         import parted
 
         retval = []
-        machine = rhpl.getPPCMachine()
+        machine = iutil.getPPCMachine()
 
         if machine == 'pSeries':
             for dev in self.storage.fsset.devices:
@@ -74,7 +73,7 @@ class ppcBootloaderInfo(bootloaderInfo):
         f.write("enablenetboot\n")        
 
         yabootProg = "/sbin/mkofboot"
-        if rhpl.getPPCMachine() == "PMac":
+        if iutil.getPPCMachine() == "PMac":
             # write out the first hfs/hfs+ partition as being macosx
             for (label, longlabel, device) in chainList:
                 if ((not label) or (label == "")):
@@ -84,7 +83,7 @@ class ppcBootloaderInfo(bootloaderInfo):
             
             f.write("magicboot=/usr/lib/yaboot/ofboot\n")
 
-        elif rhpl.getPPCMachine() == "pSeries":
+        elif iutil.getPPCMachine() == "pSeries":
             f.write("nonvram\n")
             f.write("fstype=raw\n")
 

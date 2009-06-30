@@ -29,7 +29,6 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
 from lilo import LiloConfigFile
-import rhpl
 
 from flags import flags
 import iutil
@@ -40,13 +39,13 @@ import booty
 import checkbootloader
 from util import getDiskPart
 
-if rhpl.getArch() not in ("s390", "s390x"):
+if not iutil.isS390():
     import block
 
 dosFilesystems = ('FAT', 'fat16', 'fat32', 'ntfs', 'hpfs')
 
 def doesDualBoot():
-    if rhpl.getArch() == "i386" or rhpl.getArch() == "x86_64":
+    if iutil.isX86():
         return 1
     return 0
 
@@ -112,7 +111,7 @@ class KernelArguments:
         newArgs = []
         cfgFilename = "/tmp/install.cfg"
 
-        if rhpl.getArch() == "s390":
+        if iutil.isS390():
             self.cargs = []
             f = open(cfgFilename)
             for line in f:
@@ -189,7 +188,7 @@ class BootImages:
             if not self.images.has_key(dev.name):
                 if type in dosFilesystems and doesDualBoot():
                     self.images[dev.name] = ("Other", "Other", type)
-                elif type in ("hfs", "hfs+") and rhpl.getPPCMachine() == "PMac":
+                elif type in ("hfs", "hfs+") and iutil.getPPCMachine() == "PMac":
                     self.images[dev.name] = ("Other", "Other", type)
                 else:
                     self.images[dev.name] = (None, None, type)
@@ -228,7 +227,7 @@ class BootImages:
                 # maybe questionable, but the first ntfs or fat is likely to
                 # be the correct one to boot with XP using ntfs
                 foundDos = True
-            elif type == "appleboot" and rhpl.getPPCMachine() == "PMac" and part.bootable:
+            elif type == "appleboot" and iutil.getPPCMachine() == "PMac" and part.bootable:
                 foundAppleBootstrap = True
             elif type in ["hfs", "hfs+"] and foundAppleBootstrap:
                 # questionable for same reason as above, but on mac this time
@@ -505,7 +504,7 @@ class bootloaderInfo:
             else:
                 device = console
 
-            if not device and rhpl.getArch() != "ia64":
+            if not device and iutil.isIA64():
                 self.serialDevice = "ttyS0"
                 self.serialOptions = ""
             else:
