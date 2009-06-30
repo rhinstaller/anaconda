@@ -20,8 +20,7 @@
 #
 
 import string
-
-from rhpl.simpleconfig import SimpleConfigFile
+from simpleconfig import SimpleConfigFile
 
 import logging
 log = logging.getLogger("anaconda")

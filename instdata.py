@@ -39,8 +39,7 @@ import users
 import shlex
 from flags import *
 from constants import *
-
-from rhpl.simpleconfig import SimpleConfigFile
+from simpleconfig import SimpleConfigFile
 import rhpl.keyboard as keyboard
 
 from pykickstart.version import versionToString, DEVEL

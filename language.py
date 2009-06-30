@@ -25,7 +25,7 @@ import string
 import locale
 
 import gettext
-from rhpl.simpleconfig import SimpleConfigFile
+from simpleconfig import SimpleConfigFile
 
 import logging
 log = logging.getLogger("anaconda")

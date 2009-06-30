@@ -32,11 +32,9 @@ import socket
 import struct
 import os
 import time
-import rhpl
 import dbus
 from flags import flags
-
-from rhpl.simpleconfig import SimpleConfigFile
+from simpleconfig import SimpleConfigFile
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
