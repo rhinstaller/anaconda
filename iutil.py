@@ -26,7 +26,6 @@ import signal
 import os.path
 from errno import *
 import inspect
-import rhpl
 import warnings
 import subprocess
 from flags import flags
@@ -565,7 +564,7 @@ def isEfi():
 ## Generate the /etc/rpm/macros file.
 # @param root The root of the filesystem to create the files in.
 def writeRpmPlatform(root="/"):
-    import rhpl.arch
+    import rpmUtils.arch
 
     if flags.test:
         return
@@ -574,14 +573,14 @@ def writeRpmPlatform(root="/"):
     if not os.access("%s/etc/rpm" %(root,), os.X_OK):
         os.mkdir("%s/etc/rpm" %(root,))
 
-    myarch = rhpl.arch.canonArch
+    myarch = rpmUtils.arch.canonArch
 
     # now allow an override with rpmarch=i586 on the command line (#101971)
     if flags.targetarch != None:
         myarch = flags.targetarch
 
     # now make the current install believe it, too
-    rhpl.arch.canonArch = myarch
+    rpmUtils.arch.canonArch = myarch
 
     # FIXME: writing /etc/rpm/macros feels wrong somehow
     # temporary workaround for #92285
