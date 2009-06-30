@@ -429,7 +429,7 @@ class PartitionEditor:
         # aren't protected (we'd still like to be able to mount them, though)
 	self.fsoptionsDict = {}
         if self.origrequest.exists and \
-           not self.storage.isProtected(self.origrequest):
+           not self.origrequest.protected:
 	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo, self.storage, luksdev=luksdev)
 
         # size options

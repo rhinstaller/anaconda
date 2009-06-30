@@ -1610,8 +1610,8 @@ class DeviceTree(object):
             device.format = None
             return
 
-        if shouldClear(device, self.clearPartType, self.clearPartDisks,
-                       self.protectedPartitions):
+        if shouldClear(device, self.clearPartType,
+                       clearPartDisks=self.clearPartDisks):
             # if this is a partition that will be cleared by clearpart,
             # don't bother with format-specific processing
             return

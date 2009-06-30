@@ -501,7 +501,7 @@ class Storage(object):
         if not isinstance(device, Device):
             raise ValueError("arg1 (%s) must be a Device instance" % device)
 
-        if not ignoreProtected and device.name in self.protectedPartitions:
+        if not ignoreProtected and device.protected:
             return _("This partition is holding the data for the hard "
                       "drive install.")
         elif isinstance(device, PartitionDevice) and device.isProtected:
@@ -895,7 +895,7 @@ class Storage(object):
 
     def isProtected(self, device):
         """ Return True is the device is protected. """
-        return device.name in self.protectedPartitions
+        return device.protected
 
     def checkNoDisks(self):
         """Check that there are valid disk devices."""
@@ -1015,7 +1015,7 @@ def findExistingRootDevices(anaconda, upgradeany=False):
         if not device.format.linuxNative or not device.format.mountable:
             continue
 
-        if device.name in anaconda.id.storage.protectedPartitions:
+        if device.protected:
             # can't upgrade the part holding hd: media so why look at it?
             continue
 
@@ -1057,8 +1057,7 @@ def mountExistingSystem(anaconda, rootEnt,
     else:
         readOnly = ""
 
-    if rootDevice.name in anaconda.id.storage.protectedPartitions and \
-       os.path.ismount("/mnt/isodir"):
+    if rootDevice.protected and os.path.ismount("/mnt/isodir"):
         isys.mount("/mnt/isodir",
                    rootPath,
                    fstype=rootDevice.format.type,

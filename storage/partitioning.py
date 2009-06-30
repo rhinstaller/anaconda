@@ -258,7 +258,7 @@ def doAutoPartition(anaconda):
         anaconda.id.storage.reset()
         return DISPATCH_BACK
 
-def shouldClear(part, clearPartType, clearPartDisks=None, protectedPartitions=None):
+def shouldClear(part, clearPartType, clearPartDisks=None):
     if not isinstance(part, PartitionDevice):
         return False
 
@@ -277,7 +277,7 @@ def shouldClear(part, clearPartType, clearPartDisks=None, protectedPartitions=No
         return False
 
     # Don't clear partitions holding install media.
-    if protectedPartitions and part.name in protectedPartitions:
+    if part.protected:
         return False
 
     # We don't want to fool with extended partitions, freespace, &c
@@ -321,8 +321,7 @@ def clearPartitions(storage):
     clearparts = [] # list of partitions we'll remove
     for part in partitions:
         log.debug("clearpart: looking at %s" % part.name)
-        if not shouldClear(part, storage.clearPartType, storage.clearPartDisks,
-                           storage.protectedPartitions):
+        if not shouldClear(part, storage.clearPartType, storage.clearPartDisks):
             continue
 
         log.debug("clearing %s" % part.name)

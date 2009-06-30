@@ -1434,12 +1434,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # If there are any protected partitions we want to mount, create their
         # mount points now.
-        protected = anaconda.id.storage.protectedPartitions
-        if protected:
-            for protectedDev in protected:
-                request = anaconda.id.storage.devicetree.getDeviceByName(protectedDev)
-                if request and request.format.mountpoint:
-                    dirList.append(request.format.mountpoint)
+        for protected in anaconda.id.storage.protectedDevices:
+            if getattr(protected.format, "mountpoint", None):
+                dirList.append(protected.format.mountpoint)
 
         for i in dirList:
             try:
