@@ -11,6 +11,7 @@ get_dso_deps() {
 
     declare -a FILES
     declare -a NAMES
+    [ -z "$LDSODIR" ] && LDSODIR=$LIBDIR
 
     # this is a hack, but the only better way requires binutils or elfutils
     # be installed.  i.e., we need readelf to find the interpretter.
