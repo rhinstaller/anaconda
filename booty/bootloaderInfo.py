@@ -24,9 +24,12 @@ import string
 import struct
 from copy import copy
 
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
+
 from lilo import LiloConfigFile
 import rhpl
-from rhpl.translate import _, N_
 
 from flags import flags
 import iutil
