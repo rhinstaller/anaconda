@@ -36,7 +36,6 @@ import resource
 import re
 import struct
 import block
-import rhpl
 import dbus
 
 import logging
@@ -483,7 +482,7 @@ def driveUsesModule(device, modules):
     return rc
 
 def vtActivate (num):
-    if rhpl.getArch() == "s390":
+    if iutil.isS390():
         return
     _isys.vtActivate (num)
 
