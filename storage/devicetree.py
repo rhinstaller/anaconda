@@ -1797,6 +1797,9 @@ class DeviceTree(object):
                 log.debug("setup of %s failed: %s" % (device.name, msg))
 
     def getDeviceBySysfsPath(self, path):
+        if not path:
+            return None
+
         found = None
         for device in self._devices:
             if device.sysfsPath == path:
@@ -1806,6 +1809,9 @@ class DeviceTree(object):
         return found
 
     def getDeviceByUuid(self, uuid):
+        if not uuid:
+            return None
+
         found = None
         for device in self._devices:
             if device.uuid == uuid:
@@ -1818,6 +1824,9 @@ class DeviceTree(object):
         return found
 
     def getDeviceByLabel(self, label):
+        if not label:
+            return None
+
         found = None
         for device in self._devices:
             _label = getattr(device.format, "label", None)
@@ -1832,6 +1841,9 @@ class DeviceTree(object):
 
     def getDeviceByName(self, name):
         log.debug("looking for device '%s'..." % name)
+        if not name:
+            return None
+
         found = None
         for device in self._devices:
             if device.name == name:
