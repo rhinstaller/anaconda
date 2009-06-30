@@ -35,9 +35,6 @@ from storage import findExistingRootDevices, getReleaseString
 from storage import mountExistingSystem
 from storage.formats import getFormat
 
-import rhpl
-import rhpl.arch
-
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
