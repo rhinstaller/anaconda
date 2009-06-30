@@ -923,25 +923,9 @@ register_device_format(Ext3FS)
 class Ext4FS(Ext3FS):
     """ ext4 filesystem. """
     _type = "ext4"
-    _bootable = None
     _defaultFormatOptions = ["-t", "ext4"]
     _migratable = False
     _modules = ["ext4"]
-
-    @property
-    def bootable(self):
-        if self._bootable is not None:
-            return self._bootable
-
-        import platform
-        p = platform.getPlatform(None)
-
-        if isinstance(p, platform.PS3):
-            self._bootable = True
-        else:
-            self._bootable = False
-
-        return self._bootable
 
 register_device_format(Ext4FS)
 
