@@ -29,6 +29,29 @@ from errors import *
 import logging
 log = logging.getLogger("storage")
 
+def udev_resolve_devspec(devspec):
+    if not devspec:
+        return None
+
+    import devices as _devices
+    ret = None
+    for dev in udev_get_block_devices():
+        if devspec.startswith("LABEL="):
+            if udev_device_get_label(dev) == devspec[6:]:
+                ret = dev
+                break
+        elif devspec.startswith("UUID="):
+            if udev_device_get_uuid(dev) == devspec[5:]:
+                ret = dev
+                break
+        else:
+            if udev_device_get_name(dev) == _devices.devicePathToName(devspec):
+                ret = dev
+                break
+
+    del _devices
+    if ret:
+        return udev_device_get_name(dev)
 
 def udev_get_block_devices():
     udev_settle(timeout=30)
