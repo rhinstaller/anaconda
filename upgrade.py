@@ -59,20 +59,26 @@ def queryUpgradeContinue(anaconda):
         sys.exit(0)
     return DISPATCH_FORWARD
 
+def setUpgradeRoot(anaconda):
+    anaconda.id.upgradeRoot = []
+    root_device = None
+    # kickstart can pass device as device name or uuid. No quotes allowed.
+    if anaconda.isKickstart and anaconda.id.ksdata.upgrade.root_device is not None:
+        root_device = anaconda.id.ksdata.upgrade.root_device
+    for (dev, label) in anaconda.id.rootParts:
+        if ((root_device is not None) and
+            (root_device == dev.name or root_device == "UUID=%s" % dev.format.uuid)):
+            anaconda.id.upgradeRoot.insert(0, (dev,label))
+        else:
+            anaconda.id.upgradeRoot.append((dev,label))
+
 def findRootParts(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
     if anaconda.id.rootParts is None:
         anaconda.id.rootParts = findExistingRoots(anaconda)
 
-    root_device = None
-    # ks.cfg can pass device as raw device, label or uuid. no quotes allowed
-    if anaconda.isKickstart and anaconda.id.ksdata.upgrade.root_device is not None:
-        root_device=anaconda.id.ksdata.upgrade.root_device
-
-    anaconda.id.upgradeRoot = []
-    for (dev, label) in anaconda.id.rootParts:
-        anaconda.id.upgradeRoot.append( (dev, label) )
+    setUpgradeRoot(anaconda)
 
     if anaconda.id.rootParts is not None and len(anaconda.id.rootParts) > 0:
         anaconda.dispatch.skipStep("findinstall", skip = 0)
