@@ -152,7 +152,7 @@ die () {
 
 PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
-    btrfs-progs busybox-anaconda bzip2 bzip2-libs cairo cjkuni-uming-fonts
+    btrfs-progs bzip2 bzip2-libs cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
     cryptsetup-luks db4 dbus dbus-python dejavu-sans-fonts
     dejavu-sans-mono-fonts device-mapper
@@ -353,7 +353,6 @@ sbin/arping
 sbin/badblocks
 sbin/btrfsctl
 sbin/btrfsck
-sbin/busybox.anaconda
 sbin/clock
 sbin/consoletype
 sbin/cryptsetup
@@ -966,8 +965,6 @@ find $DEST -type d | xargs chmod 755
 if [ -f $DEST/bin/bash ]; then
     rm -f $DEST/bin/ash
     ln -s bash $DEST/bin/sh
-else
-    ln -sf busybox $DEST/bin/sh
 fi
 
 [ -d $DEST/bin ] || die "ERROR: directory missing: $DEST/bin"

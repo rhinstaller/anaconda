@@ -468,22 +468,6 @@ EOF
     # copy in the binaries
     instbin $IMGPATH /usr/bin/login $MBD_DIR /sbin/login
     instbin $IMGPATH /usr/sbin/sshd $MBD_DIR /sbin/sshd
-    instbin $IMGPATH /usr/bin/busybox $MBD_DIR /sbin/busybox
-
-    # make some symlinks
-    (cd $MBD_DIR/sbin;
-        set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\.\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
-        while [ -n "$1" ]; do
-              if [ $1 != "busybox" -a $1 != "sh" ]; then
-                # if file doesnt already exist, link to busybox
-                if [ ! -f "$1" ]; then
-                    ln -sf ./busybox $1
-                else
-                    [ -n "$DEBUG" ] && echo "Overriding busybox version of $1"
-                fi
-            fi
-            shift
-        done )
 }
 
 

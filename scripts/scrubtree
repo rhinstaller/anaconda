@@ -53,30 +53,4 @@ if [ $ARCH != s390 -a $ARCH != s390x ]; then
 fi
 rm $p/etc/ld.so.conf
 
-#
-# make sure we have links for programs supplied by busybox
-#
-# HOWEVER dont clobber existing programs supplied by other packages if exist
-#
-mv $p/usr/sbin/busybox.anaconda $p/usr/bin/busybox
-(cd $p/usr/bin;
-set $(./busybox 2>&1| awk '/^\t([[:alnum:]\-_\.\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
-dontclobber=(sh busybox reboot shutdown poweroff)
-while [ -n "$1" ]; do
-    save=
-    for n in ${dontclobber[@]} ; do
-	if [ "$1" == "$n" ]; then
-	    save=$n
-	fi
-    done
-    # if it's not in our list and it doesn't exist, link to busybox
-    if [ -z "$save" -a ! -f "$1" -a ! -f "$p/usr/sbin/$1" ]; then
-	ln -sf ./busybox $1
-    else
-	[ -n "$DEBUG" ] && echo "Overriding busybox version of $1"
-    fi
-    shift
-done
-)
-
 umount $p/proc
