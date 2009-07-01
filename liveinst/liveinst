@@ -1,0 +1,76 @@
+#!/bin/sh
+#
+# Simple script to kick off an install from a live CD
+#
+# Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+if [ -z "$LIVE_BLOCK" ]; then
+    if [ -b "/dev/mapper/live-osimg-min" ]; then
+       LIVE_BLOCK="/dev/mapper/live-osimg-min"
+    else
+       LIVE_BLOCK="/dev/live-osimg"
+    fi
+fi
+
+if [ ! -b $LIVE_BLOCK ]; then
+  zenity --error --title="Not a Live image" --text "Can't do live image installation unless running from a live image"
+  exit 1
+fi
+
+# load modules that would get loaded by the loader... (#230945)
+for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts ; do /sbin/modprobe $i 2>/dev/null ; done
+
+export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | cut -d ' ' -f 1 )
+export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.*([0-9]+) *\(.*$/\1/' )
+export ANACONDA_BUGURL=${ANACONDA_BUGURL:="https://bugzilla.redhat.com/bugzilla/"}
+export ANACONDAVERSION=$(rpm -q --qf "%{VERSION}-%{RELEASE}" anaconda)
+
+export PATH=/sbin:/usr/sbin:$PATH
+
+if [ -n "$DISPLAY" -a -n "$LANG" ]; then
+    INSTLANG="--lang $LANG"
+fi
+
+# eventually, we might want to allow a more "normal" install path
+ANACONDA="/usr/sbin/anaconda --liveinst --method=livecd://$LIVE_BLOCK $INSTLANG"
+
+if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
+    current=$(cat /selinux/enforce)
+    /usr/sbin/setenforce 0
+fi
+
+if [ ! -e /selinux/load ]; then
+    ANACONDA="$ANACONDA --noselinux"
+fi
+
+# devkit-disks is now mounting lots of stuff.  for now, let's just try to unmount it all
+umount /media/*
+for mnt in $(cat /proc/mounts |grep ^/dev |grep -v live | awk {'print $2;'}) ; do umount $mnt 2>/dev/null ; done
+/sbin/swapoff -a
+/sbin/lvm vgchange -an --ignorelockingfailure
+
+if [ -x /usr/bin/devkit-disks ]; then
+    /usr/bin/devkit-disks --inhibit -- /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA $*"
+elif [ -x /usr/bin/hal-lock -a -e /var/lock/subsys/haldaemon ]; then
+    /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA $*"
+else
+    $ANACONDA $*
+fi
+
+if [ -n "$current" ]; then
+    /usr/sbin/setenforce $current
+fi
