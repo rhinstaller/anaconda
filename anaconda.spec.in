@@ -135,7 +135,6 @@ Requires: device-mapper
 %ifarch s390 s390x
 Requires: openssh
 %endif
-Requires: busybox-anaconda
 Requires: isomd5sum
 Requires: yum-utils >= %{yumutilsver}
 Requires: NetworkManager >= %{nmver}
