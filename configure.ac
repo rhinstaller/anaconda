@@ -146,7 +146,7 @@ else
 fi
 
 # SELinux support can be enabled or disabled
-AC_ARG_WITH(selinux,
+AC_ARG_ENABLE(selinux,
     AC_HELP_STRING([--enable-selinux],
                    [enable SELinux support (default is yes)]),
     [selinux=$enableval],
@@ -163,7 +163,7 @@ if test x$selinux = xyes ; then
 fi
 
 # NFS support can, in theory, be enabled or disabled
-AC_ARG_WITH(nfs,
+AC_ARG_ENABLE(nfs,
     AC_HELP_STRING([--enable-nfs],
                    [enable NFS support (default is yes)]),
     [nfs=$enableval],
