@@ -1532,12 +1532,14 @@ int doDhcp(struct networkDeviceConfig *dev) {
     char *r = NULL, *class = NULL;
     char namebuf[HOST_NAME_MAX];
     time_t timeout;
-    int loglevel, status, ret = 0, i;
+    int loglevel, status, ret = 0, i, sz = 0;
     int shmpump;
     DHCP_Preference pref = 0;
     pid_t pid;
     key_t key;
     int mturet;
+    int culvert[2];
+    char buf[PATH_MAX];
 
     /* clear existing IP addresses */
     clearInterface(dev->dev.device);
@@ -1602,9 +1604,16 @@ int doDhcp(struct networkDeviceConfig *dev) {
 
         strncpy(pumpdev->device, dev->dev.device, IF_NAMESIZE);
 
+        if (pipe(culvert) == -1) {
+            logMessage(ERROR, "%s: pipe(): %s", __func__, strerror(errno));
+            return 1;
+        }
+
         /* call libdhcp in a separate process because libdhcp is bad */
         pid = fork();
         if (pid == 0) {
+            close(culvert[0]);
+
             if (pumpdev->set & PUMP_INTFINFO_HAS_MTU) {
                 mturet = nl_set_device_mtu((char *) pumpdev->device, pumpdev->mtu);
 
@@ -1658,14 +1667,24 @@ int doDhcp(struct networkDeviceConfig *dev) {
                 }
             }
 
-            /* we lose bootFile here, but you know, I just don't care, because
-             * we don't need it past doDhcp() calls, so whatever   --dcantrell
-             */
+            if (pumpdev->set & PUMP_INTFINFO_HAS_BOOTFILE) {
+                if (pumpdev->bootFile) {
+                    if (write(culvert[1], pumpdev->bootFile,
+                              strlen(pumpdev->bootFile) + 1) == -1) {
+                        logMessage(ERROR, "failed to send bootFile to parent "
+                                          "in %s: %s", __func__,
+                                   strerror(errno));
+                    }
+                }
+            }
 
+            close(culvert[1]);
             exit(0);
         } else if (pid == -1) {
             logMessage(CRITICAL, "dhcp client failed to start");
         } else {
+            close(culvert[1]);
+
             if (waitpid(pid, &status, 0) == -1) {
                 logMessage(ERROR, "waitpid() failure in %s", __func__);
             }
@@ -1732,6 +1751,36 @@ int doDhcp(struct networkDeviceConfig *dev) {
                     dev->dev.domain = strdup(namebuf);
                 }
             }
+
+            if (dev->dev.set & PUMP_INTFINFO_HAS_BOOTFILE) {
+                memset(&buf, '\0', sizeof(buf));
+                free(dev->dev.bootFile);
+                dev->dev.bootFile = NULL;
+
+                while ((sz = read(culvert[0], &buf, sizeof(buf))) > 0) {
+                    if (dev->dev.bootFile == NULL) {
+                        dev->dev.bootFile = calloc(sizeof(char), sz + 1);
+                        if (dev->dev.bootFile == NULL) {
+                            logMessage(ERROR, "unable to read bootfile");
+                            break;
+                        }
+
+                        dev->dev.bootFile = strncpy(dev->dev.bootFile, buf, sz);
+                    } else {
+                        dev->dev.bootFile = realloc(dev->dev.bootFile,
+                                                    strlen(dev->dev.bootFile) +
+                                                    sz + 1);
+                        if (dev->dev.bootFile == NULL) {
+                            logMessage(ERROR, "unable to read bootfile");
+                            break;
+                        }
+
+                        dev->dev.bootFile = strncat(dev->dev.bootFile, buf, sz);
+                    }
+                }
+            }
+
+            close(culvert[0]);
 
             if (shmdt(pumpdev) == -1) {
                 logMessage(ERROR, "%s: shmdt() pumpdev: %s", __func__,
