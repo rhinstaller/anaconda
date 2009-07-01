@@ -84,6 +84,41 @@ class Users:
     def __init__ (self):
         self.admin = libuser.admin()
 
+    def createGroup (self, name=None, gid=None, root="/mnt/sysimage"):
+        childpid = os.fork()
+
+        if not childpid:
+            os.chroot(root)
+
+            del(os.environ["LIBUSER_CONF"])
+            self.admin = libuser.admin()
+
+            try:
+                if self.admin.lookupGroupByName(name):
+                    os._exit(1)
+
+                groupEnt = self.admin.initGroup(name)
+
+                if gid >= 0:
+                    groupEnt.set(libuser.GIDNUMBER, gid)
+
+                self.admin.addGroup(groupEnt)
+                os._exit(0)
+            except Exception, e:
+                log.critical("Error when creating new group: %s" % str(e))
+                os._exit(1)
+
+        try:
+            (pid, status) = os.waitpid(childpid, 0)
+        except OSError as e:
+            log.critical("exception from waitpid while creating a group: %s %s" % (e.errno, e.strerror))
+            return False
+
+        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
+            return True
+        else:
+            return False
+
     def createUser (self, name=None, password=None, isCrypted=False, groups=[],
                     homedir=None, shell=None, uid=None, algo=None, lock=False,
                     root="/mnt/sysimage"):

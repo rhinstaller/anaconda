@@ -182,6 +182,12 @@ class InstallData:
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=self.anaconda.rootPath)
 
+            for gd in self.ksdata.group.groupList:
+                if not self.users.createGroup(name=gd.name,
+                                              gid=gd.gid,
+                                              root=self.anaconda.rootPath):
+                    log.error("Group %s already exists, not creating." % gd.name)
+
             for ud in self.ksdata.user.userList:
                 if not self.users.createUser(name=ud.name,
                                              password=ud.password,

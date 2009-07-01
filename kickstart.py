@@ -985,6 +985,7 @@ commandMap = {
         "firewall": Firewall,
         "firstboot": Firstboot,
         "graphical": commands.displaymode.FC3_DisplayMode,
+        "group": commands.group.F12_Group,
         "halt": Reboot,
         "harddrive": commands.method.FC6_Method,
         "ignoredisk": IgnoreDisk,
