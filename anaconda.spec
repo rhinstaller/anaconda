@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.183
+Version: 11.1.2.184
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 1 2009 Martin Sivak <msivak@redhat.com> 11.1.2.184-1
+- Fix handling of parted exceptions in text mode (rvykydal)
+  Resolves: rhbz#506725
+
 * Thu Jun 4 2009 Joel Granados <jgranado@redhat.com> 11.1.2.183-1
 - Create efirtc device node on ia64 to access hw clock (rvykydal).
   Resolves: rhbz#485200
