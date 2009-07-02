@@ -386,3 +386,30 @@ def udev_device_get_iscsi_port(info):
     path_components = info["ID_PATH"].split("-")
 
     return path_components[1].split(":")[1]
+
+# fcoe disks have ID_PATH in the form of:
+# pci-eth#-fc-${id}
+# fcoe parts look like this:
+# pci-eth#-fc-${id}-part#
+def udev_device_is_fcoe(info):
+    try:
+        path_components = info["ID_PATH"].split("-")
+
+        if info["ID_BUS"] == "scsi" and len(path_components) >= 4 and \
+           path_components[0] == "pci" and path_components[2] == "fc" and \
+           path_components[1][0:3] == "eth":
+            return True
+    except LookupError:
+        pass
+
+    return False
+
+def udev_device_get_fcoe_nic(info):
+    path_components = info["ID_PATH"].split("-")
+
+    return path_components[1]
+
+def udev_device_get_fcoe_identifier(info):
+    path_components = info["ID_PATH"].split("-")
+
+    return path_components[3]
