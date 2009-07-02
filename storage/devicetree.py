@@ -1152,6 +1152,11 @@ class DeviceTree(object):
             kwargs["iscsi_address"] = udev_device_get_iscsi_address(info)
             kwargs["iscsi_port"]    = udev_device_get_iscsi_port(info)
             log.debug("%s is an iscsi disk" % name)
+        elif udev_device_is_fcoe(info):
+            diskType = FcoeDiskDevice
+            kwargs["nic"]        = udev_device_get_fcoe_nic(info)
+            kwargs["identifier"] = udev_device_get_fcoe_identifier(info)
+            log.debug("%s is an fcoe disk" % name)
         else:
             diskType = DiskDevice
             log.debug("%s is a disk" % name)
