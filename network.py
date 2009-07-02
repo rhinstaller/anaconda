@@ -670,6 +670,29 @@ class Network:
             if domainname:
                 self.domains = [domainname]
 
+        # /etc/hosts
+        # update lines for 127.0.0.1 and ::1 with hostname if the file exists
+        if instPath and os.path.isfile(instPath + "/etc/hosts"):
+            of = open(instPath + "/etc/hosts", "r")
+            updatedlines = []
+            update = False
+            for line in of:
+                line = line.strip()
+                if line.startswith('127.0.0.1') or line.startswith('::1'):
+                    if self.hostname not in line.split():
+                        line += " %s" % self.hostname
+                        update = True
+                updatedlines.append(line)
+            of.close()
+
+            if update:
+                nf = open(instPath + "/etc/hosts", "w")
+                upd_comment = "# hostname %s added to /etc/hosts by anaconda\n" % self.hostname
+                nf.write(upd_comment + '\n'.join(updatedlines) + '\n')
+                nf.close()
+                log.info("/etc/hosts updated with hostname %s" % self.hostname) 
+
+
         # /etc/resolv.conf
         if (not instPath) or (not os.path.isfile(instPath + '/etc/resolv.conf')) or flags.livecdInstall:
             if os.path.isfile('/etc/resolv.conf') and instPath != '':
