@@ -359,7 +359,7 @@ class Device(object):
 class NetworkStorageDevice(object):
     """ Virtual base class for network backed storage devices """
 
-    def __init__(self, host_address):
+    def __init__(self, host_address=None, nic=None):
         """ Create a NetworkStorage Device instance. Note this class is only
             to be used as a baseclass and then only with multiple inheritance.
             The only correct use is:
@@ -369,13 +369,15 @@ class NetworkStorageDevice(object):
             1) Be able to check if a StorageDevice is network backed
                (using isinstance).
             2) To be able to get the host address of the host (server) backing
-               the storage.
+               the storage *or* the NIC through which the storage is connected
 
             Arguments:
 
                 host_address -- host address of the backing server
+                nic -- nic to which the storage is bound
         """
         self.host_address = host_address
+        self.nic = nic
 
 
 class StorageDevice(Device):
@@ -2927,8 +2929,21 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
         self.iscsi_address = kwargs.pop("iscsi_address")
         self.iscsi_port    = int(kwargs.pop("iscsi_port"))
         DiskDevice.__init__(self, device, **kwargs)
-        NetworkStorageDevice.__init__(self, self.iscsi_address)
+        NetworkStorageDevice.__init__(self, host_address=self.iscsi_address)
         log.debug("created new iscsi disk %s %s:%d" % (self.iscsi_name, self.iscsi_address, self.iscsi_port))
+
+
+class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
+    """ An FCoE disk. """
+    _type = "fcoe"
+    _packages = ["fcoe-utils"]
+
+    def __init__(self, device, **kwargs):
+        self.nic = kwargs.pop("nic")
+        self.identifier = kwargs.pop("identifier")
+        DiskDevice.__init__(self, device, **kwargs)
+        NetworkStorageDevice.__init__(self, nic=self.nic)
+        log.debug("created new fcoe disk %s @ %s" % (device, self.nic))
 
 
 class OpticalDevice(StorageDevice):
