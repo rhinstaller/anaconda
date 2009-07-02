@@ -26,7 +26,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define libnlver 1.0
 %define libselinuxver 1.6
 %define mkinitrdver 5.1.2-1
-%define pykickstartver 1.53
+%define pykickstartver 1.55
 %define rpmpythonver 4.2-0.61
 %define slangver 2.0.6-2
 %define yumver 2.9.2
@@ -213,6 +213,147 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jul 02 2009 Chris Lumens <clumens@redhat.com> - 12.0-1
+- network --bootproto no longer implies DHCP. (clumens)
+- Don't unconditionally skip the network config screen in kickstart. (clumens)
+- Allow creating new groups through kickstart. (clumens)
+- Set focus on hostname entry in network UI screen (#494135) (rvykydal)
+- Fix upgrade selected in UI after storage reset (#503302) (rvykydal)
+- Add support for specifying upgrade partition in ks (#471232) (rvykydal)
+- Add missing liveinst/* files. (dcantrell)
+- Update code that checks for devices that contain install media. (dlehman)
+- Rework tracking of devices containing installation media. (#497087) (dlehman)
+- Add function storage.udev.udev_resolve_devspec. (dlehman)
+- Prevent false positives in devtree's device lookup methods. (dlehman)
+- Skip exceptionDisks if exn originated in devtree.populate. (#497240) (dlehman)
+- Stop using rhpl.arch in writeRpmPlatform() (katzj)
+- Move simpleconfig (back) into anaconda from rhpl (katzj)
+- Use iutil arch specifiers rather than rhpl (katzj)
+- Remove unused rhpl imports (katzj)
+- Switch to using iutil.isS390 instead of rhpl.getArch (katzj)
+- Stop using rhpl.translate (katzj)
+- Default to /boot on ext4 (katzj)
+- Allow /boot on ext4 now that we have a grub that allows it (katzj)
+- Make sure the library directory is always set (notting)
+- Write out "MAILADDR root" into mdadm.conf (#508321) (rvykydal)
+- Do not install grub more times than needed. (rvykydal)
+- Ensure we set the SELinux context correctly on symlinks (#505054) (katzj)
+- udev dropped vol_id (#506360) (katzj)
+- Handle installing multilib into the installer intramfs correctly. (notting)
+- Set LIBDIR appropriately on PPC64. (notting)
+- Fix grub upgrade (#505966) (rvykydal)
+- Include yum.log in anacdump.txt too. (rvykydal)
+- Access format options property instead of mountopts attr. (#506219) (dlehman)
+- Be more careful about identifying NFS fstab entries. (dlehman)
+- Don't add leading directory for files twice. (#503830) (dlehman)
+- booty changes for iswmd (Jacek.Danecki)
+- Support for MD containers. (Jacek.Danecki)
+- New iswmd parameter for kernel cmdline (Jacek.Danecki)
+- New udev rule for using mdadm for isw_raid_member (Jacek.Danecki)
+- Use isohybrid to make boot.iso a hybrid image (katzj)
+- Log yum messages. (rvykydal)
+- Tell booty to rescan for bootable drivers when an extra disks get
+  added (hdegoede)
+- Do not encourage VNC when doing kickstart text installs (#506534) (dcantrell)
+- Rename bootstrap to autogen.sh (dcantrell)
+- Include the contents of /proc/cmdline in exception reports (katzj)
+- Include libwrap library for sshd and telnet in s390 installs (jgranado)
+- Enforcing matching rootfs type on LVs as well as for partitions
+  (#504743) (katzj)
+- Remove problem packages before attempting a re-download (#501887). (clumens)
+- Be more explicit about what's lacking on EFI systems (#501341). (clumens)
+- If not enough memory is installed, enforce swap partition creation
+  (#498742). (clumens)
+- Convert to using automake/autoconf. (dcantrell)
+- Convert po/ subdirectory to GNU gettext template system. (dcantrell)
+- Restructure liveinst/ for the new build system. (dcantrell)
+- Add m4/ subdirectory with autoconf macros. (dcantrell)
+- Removed py-compile script. (dcantrell)
+- Rename anaconda.spec to anaconda.spec.in (dcantrell)
+- Ignore autoconf and automake files in the tree. (dcantrell)
+- Removed toplevel Makefile and Makefile.inc (dcantrell)
+- Show MAC address of network device in combo box (#504216) (dcantrell)
+- Remove loader/tr/.cvsignore (dcantrell)
+- Increase max NIC identification duration to 5 minutes (#473747). (dcantrell)
+- Use /sbin/ipcalc for IP address validation (#460579) (dcantrell)
+- Fix an obvious traceback when doing part --ondisk= (#504687). (clumens)
+- Catch errors from bootloader installation (#502210). (clumens)
+- Remove umask temporarily so device permissions are correct
+  (#383531, wmealing).
+- Remove the name check on driver disk packages (#472951). (clumens)
+- Make the installation key text more descriptive (#474375). (clumens)
+- Fix discovery of existing raid/lvm for ks install without clearpart
+  (#503310, #503681) (rvykydal)
+- Use the F12 version of the bootloader command. (clumens)
+- It's /sbin/fsadm, not /sbin/e2fsadm (#504043). (clumens)
+- Remove the bootloader --lba32 option. (clumens)
+- Use gettext.ldngettext when necessary (#467603) (dcantrell)
+- Test NM_CONTROLLED setting correctly in network.py (#502466) (dcantrell)
+- Show unknown partitions as "Unknown" in partition editor. (dcantrell)
+- Add a type hint on popup windows (rstrode). (clumens)
+- Use the F12 version of the driverdisk command. (clumens)
+- Remove driverdisk --type, since mount can figure that out. (clumens)
+- Fix an error when editing an unreachable repo (#503454). (clumens)
+- If /etc/rpm/platform is found, move it out of the way. (clumens)
+- We no longer write out /etc/rpm/platform, so don't offer to upgrade
+  it. (clumens)
+- Remove locals containing "passphrase" or "password" from exns
+  (#503442). (clumens)
+- Make progress bars modal (#493263, #498553, rstrode). (clumens)
+- Make sure to import os.path if we are going to use it. (jgranado)
+- ipcalc is copied to /usr/lib. (jgranado)
+- Limit the trigger to block type devices. (jgranado)
+- We need ipcalc for new s390 installation script. (jgranado)
+- Fix off-by-one errors in read. (notting)
+- sysconfig file changed names for system-config-firewall (katzj)
+- Don't write out firewall settings if they already exist (#502479) (katzj)
+- Make sure that the devices are correctly detected (#491700) (jgranado)
+- Make the save-to-bugzilla dupe detection smarter. (clumens)
+- If network --device=MAC is given, translate to device name
+  (#185522). (clumens)
+- Add a function to convert MAC addresses to device names. (clumens)
+- Move /boot checks from sanityCheck into Platform.checkBootRequest. (clumens)
+- Return translated strings from checkBootRequest. (clumens)
+- Check that /boot is on a Mac disk label for PPC installs (#497745). (clumens)
+- Call checkBootRequest from sanityCheck. (clumens)
+- Put some space in that big scary warning. (clumens)
+- fond -> found (clumens)
+- Use powers of two in swapSuggestion (#463885). (clumens)
+- Trim "mapper/" off device names in the bootloader UI (#501057). (clumens)
+- Make the weak password dialog comply with the HIG (#487435). (clumens)
+- Add a newline to a cmdline mode string (#497575). (clumens)
+
+* Tue Jun 02 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.59-1
+- Do not show disabled repos such as rawhide during the install (#503798).
+  (jkeating)
+
+* Sun May 31 2009 David Lehman <dlehman@redhat.com> - 11.5.0.58-1
+- Pass --force to lvresize so it doesn't ask for confirmation. (dlehman)
+- Fix a typo in action sorting for resize actions (fs vs. device). (#501000)
+  (dlehman)
+- Sending translation for French (mrtom)
+
+* Thu May 28 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.57-1
+- Create and use unique ids for Device instances. (#500808) (dlehman)
+- Adjust remaining PartitionDevices' names after removing a partition.
+  (dlehman)
+
+* Tue May 26 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.56-1
+- Ensure matching rootfs type to live type with autopart (#501876) (katzj)
+
+* Tue May 26 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.55-1
+- Fix blank network device descriptions in the loader. (#501757) (notting)
+- Make sure the right _isMigratable gets used for Ext3FS (#501585). (clumens)
+
+* Tue May 19 2009 Chris Lumens <clumens@redhat.com> - 11.5.0.54-1
+- We are not guaranteed to have a partedDisk in the udev code (#501556,
+  #501428). (clumens)
+- The location of the options wiki page has changed. (clumens)
+- Disable BETANAG. (clumens)
+- Install a en_US.UTF-8 locale in the first stage image. (notting)
+- Reset font when changing language. (notting)
+- Set locale to en_US.UTF-8 when initializing the console. (notting)
+
 * Mon May 18 2009 David Cantrell <dcantrell@redhat.com> - 11.5.0.53-1
 - LVMVolumeGroupDevice stores pesize in MB, kickstart expects it in KB.
   (dlehman)
