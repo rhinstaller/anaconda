@@ -21,6 +21,7 @@ import os
 import iutil
 import logging
 import time
+from flags import flags
 log = logging.getLogger("anaconda")
 
 import gettext
@@ -86,7 +87,22 @@ class fcoe(object):
         return
 
     def write(self, instPath, anaconda):
-        # erm, do we need todo anything here ?
+        if flags.test or not self.nics:
+            return
+
+        if not os.path.isdir(instPath + "/etc/fcoe"):
+            os.makedirs(instPath + "/etc/fcoe", 0755)
+
+        for nic in self.nics:
+            fd = os.open(instPath + "/etc/fcoe/cfg-" + nic,
+                         os.O_RDWR | os.O_CREAT)
+            os.write(fd, '# Created by anaconda\n')
+            os.write(fd, '# Enable/Disable FCoE service at the Ethernet port\n')
+            os.write(fd, 'FCOE_ENABLE="yes"\n')
+            os.write(fd, '# Indicate if DCB service is required at the Ethernet port\n')
+            os.write(fd, 'DCB_REQUIRED="no"\n')
+            os.close(fd)
+
         return
 
 # vim:tw=78:ts=4:et:sw=4
