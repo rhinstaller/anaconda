@@ -162,6 +162,9 @@ class PartitionTypeWindow:
             newdrv.append("Add iSCSI target")
         if iutil.isS390():
             newdrv.append( "Add zFCP LUN" )
+        from storage import fcoe
+        if fcoe.has_fcoe():
+            newdrv.append("Add FCoE SAN")
 
         if len(newdrv) == 0:
             return INSTALL_BACK
@@ -176,9 +179,15 @@ class PartitionTypeWindow:
         
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
-        if choice == 1:
+        if newdrv[choice] == "Add zFCP LUN":
             try:
                 return self.addZFCPDriveDialog(screen)
+            except ValueError, e:
+                ButtonChoiceWindow(screen, _("Error"), str(e))
+                return INSTALL_BACK
+        elif newdrv[choice] == "Add FCoE SAN":
+            try:
+                return self.addFcoeDriveDialog(screen)
             except ValueError, e:
                 ButtonChoiceWindow(screen, _("Error"), str(e))
                 return INSTALL_BACK
@@ -204,6 +213,24 @@ class PartitionTypeWindow:
         fcplun = entries[2].strip()
         self.anaconda.id.storage.zfcp.addFCP(devnum, wwpn, fcplun)
                                         
+        return INSTALL_OK
+
+    def addFcoeDriveDialog(self, screen):
+        (button, entries) = EntryWindow(screen,
+                                        _("Add FCoE SAN"),
+                                        _("Enter the device name for the NIC which is connected to the FCoE SAN. For example \"eth0\"."),
+                                        prompts = [ _("NIC device name") ] )
+        if button == TEXT_CANCEL_CHECK:
+            return INSTALL_BACK
+
+        nic = entries[0].strip()
+        if nic not in self.anaconda.id.network.available():
+            ButtonChoiceWindow(screen, _("Error"),
+                               _("%s is not a valid NIC device name.") % nic)
+            return INSTALL_BACK
+
+        self.anaconda.id.storage.fcoe.addSan(nic)
+
         return INSTALL_OK
 
     def addIscsiDriveDialog(self, screen):

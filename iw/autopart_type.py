@@ -32,6 +32,7 @@ from iw_gui import *
 from flags import flags
 import network
 from storage import iscsi
+from storage import fcoe
 from storage.deviceaction import *
 
 import gettext
@@ -325,6 +326,81 @@ class PartitionTypeWindow(InstallWindow):
         return rc
 
 
+    def addFcoeDrive(self):
+        (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade",
+                                            "fcoeDialog")
+
+        # Populate the combo
+        combo = dxml.get_widget("fcoeNicCombo")
+        cell = gtk.CellRendererText()
+        combo.pack_start(cell, True)
+        combo.set_attributes(cell, text = 0)
+        cell.set_property("wrap-width", 525)
+        combo.set_size_request(480, -1)
+        store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+        combo.set_model(store)
+
+        netdevs = self.anaconda.id.network.available()
+        keys = netdevs.keys()
+        keys.sort()
+        selected_interface = None
+        for dev in keys:
+            # Skip NIC's which are connected (iow in use for a net install)
+            if dev in network.getActiveNetDevs():
+                continue
+
+            i = store.append(None)
+
+            desc = netdevs[dev].get("DESC")
+            if desc:
+                desc = "%s - %s" %(dev, desc)
+            else:
+                desc = "%s" %(dev,)
+
+            mac = netdevs[dev].get("HWADDR")
+            if mac:
+                desc = "%s - %s" %(desc, mac)
+
+            if selected_interface is None:
+                selected_interface = i
+
+            store[i] = (desc, dev)
+
+        if selected_interface:
+            combo.set_active_iter(selected_interface)
+        else:
+            combo.set_active(0)
+
+        # Show the dialog
+        gui.addFrame(dialog)
+        dialog.show_all()
+        sg = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
+        sg.add_widget(dxml.get_widget("fcoeNicCombo"))
+
+        while 1:
+            rc = dialog.run()
+
+            if rc == gtk.RESPONSE_CANCEL:
+                break;
+
+            iter = combo.get_active_iter()
+            if iter is None:
+                self.intf.messageWindow(_("Error"),
+                                        "Must select a NIC to use.",
+                                        type="warning", custom_icon="error")
+                continue;
+
+            try:
+                self.storage.fcoe.addSan(store.get_value(iter, 1), self.intf)
+            except IOError, e:
+                self.intf.messageWindow(_("Error"), str(e))
+                rc = gtk.RESPONSE_CANCEL
+
+            break
+
+        dialog.destroy()
+        return rc
+
     def addZfcpDrive(self):
         (dxml, dialog) = gui.getGladeWidget("zfcp-config.glade",
                                             "zfcpDialog")
@@ -366,6 +442,10 @@ class PartitionTypeWindow(InstallWindow):
             dxml.get_widget("iscsiRadio").set_sensitive(False)
             dxml.get_widget("iscsiRadio").set_active(False)
 
+        if not fcoe.has_fcoe():
+            dxml.get_widget("fcoeRadio").set_sensitive(False)
+            dxml.get_widget("fcoeRadio").set_active(False)
+
         #figure out what advanced devices we have available and set sensible default
         group = dxml.get_widget("iscsiRadio").get_group()
         for button in group:
@@ -379,6 +459,8 @@ class PartitionTypeWindow(InstallWindow):
             return
         if dxml.get_widget("iscsiRadio").get_active() and iscsi.has_iscsi():
             rc = self.addIscsiDrive()
+        elif dxml.get_widget("fcoeRadio").get_active() and fcoe.has_fcoe():
+            rc = self.addFcoeDrive()
         elif dxml.get_widget("zfcpRadio") is not None and dxml.get_widget("zfcpRadio").get_active():
             rc = self.addZfcpDrive()
         dialog.destroy()
@@ -498,7 +580,7 @@ class PartitionTypeWindow(InstallWindow):
             self.xml.get_widget("bootDriveCombo").set_sensitive(False)
             self.xml.get_widget("encryptButton").set_sensitive(False)
 
-        if not iutil.isS390() and not iscsi.has_iscsi():
+        if not iutil.isS390() and not iscsi.has_iscsi() and not fcoe.has_fcoe():
             self.xml.get_widget("addButton").set_sensitive(False)
 
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged,

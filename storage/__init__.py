@@ -46,6 +46,7 @@ from devicelibs.lvm import safeLvmName
 from devicelibs.dm import name_from_dm_node
 from udev import *
 import iscsi
+import fcoe
 import zfcp
 
 import gettext
@@ -204,6 +205,7 @@ class Storage(object):
         self.__luksDevs = {}
 
         self.iscsi = iscsi.iscsi()
+        self.fcoe = fcoe.fcoe()
         self.zfcp = zfcp.ZFCP()
 
         self._nextID = 0
@@ -269,6 +271,7 @@ class Storage(object):
         w = self.anaconda.intf.waitWindow(_("Finding Devices"),
                                           _("Finding storage devices..."))
         self.iscsi.startup(self.anaconda.intf)
+        self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup()
         if self.anaconda.id.getUpgrade():
             clearPartType = CLEARPART_TYPE_NONE
@@ -913,6 +916,7 @@ class Storage(object):
     def write(self, instPath):
         self.fsset.write(instPath)
         self.iscsi.write(instPath, self.anaconda)
+        self.fcoe.write(instPath, self.anaconda)
         self.zfcp.write(instPath)
 
     def writeKS(self, f):
@@ -980,6 +984,7 @@ class Storage(object):
             f.write("\n")
 
         self.iscsi.writeKS(f)
+        self.fcoe.writeKS(f)
         self.zfcp.writeKS(f)
 
 
