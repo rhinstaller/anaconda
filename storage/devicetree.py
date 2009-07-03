@@ -126,10 +126,24 @@ def questionInitializeDisk(intf=None, name=None):
     if not intf or not name:
         pass
     else:
+        if not name.startswith('/dev/'):
+            devpath = '/dev/' + name
+        else:
+            devpath = name
+
+        dev = parted.getDevice(devpath)
+        bypath = deviceNameToDiskByPath(name)
+        details = ""
+
+        if bypath:
+            details = "\n\nDevice details:\n%s" % (bypath,)
+
         rc = intf.messageWindow(_("Warning"),
-                _("Error processing drive %s.\n"
-                  "Maybe it needs to be reinitialized.  "
-                  "YOU WILL LOSE ALL DATA ON THIS DRIVE!") % (name,),
+                _("Error processing drive %s %-0.fMB (%s).\n\n"
+                  "Maybe it needs to be reinitialized.  YOU "
+                  "WILL LOSE ALL DATA ON THIS DRIVE IF YOU "
+                  "REINITIALIZE IT!%s")
+                % (name, dev.getSize(), dev.model, details,),
                 type="custom",
                 custom_buttons = [ _("_Ignore drive"),
                                    _("_Re-initialize drive") ],
