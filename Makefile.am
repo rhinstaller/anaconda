@@ -147,7 +147,7 @@ updates:
 	build_isys="$$(git diff --stat $(ARCHIVE_TAG) isys | grep " | " | cut -d ' ' -f 2 | egrep "(Makefile|\.h|\.c)$$")" ; \
 	git diff --stat $(ARCHIVE_TAG) | grep " | " | \
 	grep -v "\.spec" | grep -v "Makefile" | grep -v "\.c\ " | \
-	grep -v "\.h" | grep -v "\.sh" | \
+	grep -v "\.h" | grep -v "\.sh" | grep -v "configure\.ac" | \
 	while read sourcefile stuff ; do \
 		dn="$$(echo $$sourcefile | cut -d '/' -f 1)" ; \
 		case $$dn in \
