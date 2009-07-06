@@ -158,9 +158,9 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     dejavu-sans-mono-fonts device-mapper
     device-mapper-libs dhclient dhcpv6-client dmapi dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme
-    elfutils-libelf expat firstboot fontconfig fonts-ISO8859-2 freetype gail gdb-gdbserver
+    elfutils-libelf expat firstboot fontconfig fonts-ISO8859-2 freetype gail gawk gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
-    gnome-python2-gtkhtml2 gnome-themes gpm gtk2 gtk2-engines gtkhtml2 hal
+    gnome-python2-gtkhtml2 gnome-themes gpm grep gtk2 gtk2-engines gtkhtml2 hal
     hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
     jfsutils keyutils-libs krb5-libs libICE libSM libX11 libXau
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
@@ -216,8 +216,8 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils binutils libgcc tcp_wrappers
               sed net-tools openssh openssh-server coreutils
-              login initscripts bash portmap pam
-              login mount grep modutils gawk
+              login initscripts portmap pam
+              login mount modutils
               strace xorg-x11-xauth xorg-x11-libs"
 fi
 
@@ -304,6 +304,7 @@ bin/env
 bin/false
 bin/fdisk*
 bin/gawk
+bin/*grep
 bin/kill
 bin/ln
 bin/ls
