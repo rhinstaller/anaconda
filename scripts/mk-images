@@ -716,6 +716,9 @@ makeinitrd() {
       cp -a org.freedesktop.nm_dispatcher.service $MBD_DIR/usr/share/dbus-1/system-services
     )
 
+    # Misc
+    instbin $IMGPATH /usr/bin/sleep $MBD_DIR /bin/sleep
+
     # Indirect dependencies
     install -m 755 $IMGPATH/$LIBDIR/libfreebl3.so $MBD_DIR/$LIBDIR/
     install -m 755 $IMGPATH/$LIBDIR/libsoftokn3.so $MBD_DIR/$LIBDIR/
