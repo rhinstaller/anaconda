@@ -213,6 +213,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jul 06 2009 Chris Lumens <clumens@redhat.com> - 12.1-1
+- Include the rest of the libs isys needs to link against (#509572).
+  (clumens)
+- Add FCoE disks to the devicetree with a type of FcoeDiskDevice (hdegoede)
+- Add FcoeDiskDevice class to storage/devices.py (hdegoede)
+- Add FCoE support to storage/udev.py (hdegoede)
+- Write out configuration of FCoE to installed system (hdegoede)
+- Initial FCoE support (hdegoede)
+
 * Thu Jul 02 2009 Chris Lumens <clumens@redhat.com> - 12.0-1
 - network --bootproto no longer implies DHCP. (clumens)
 - Don't unconditionally skip the network config screen in kickstart. (clumens)
