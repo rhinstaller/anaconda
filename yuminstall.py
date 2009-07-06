@@ -1614,10 +1614,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             w = anaconda.intf.waitWindow(_("Post Install"),
                                     _("Performing post install configuration..."))
 
-        if len(self.ayum.tsInfo.matchNaevr(name='rhgb')) > 0:
-            anaconda.id.bootloader.args.append("rhgb quiet")
-        elif len(self.ayum.tsInfo.matchNaevr(name='plymouth')) > 0:
-            anaconda.id.bootloader.args.append("rhgb quiet")
+        if not iutil.isS390():
+            if len(self.ayum.tsInfo.matchNaevr(name='rhgb')) > 0:
+                anaconda.id.bootloader.args.append("rhgb quiet")
+            elif len(self.ayum.tsInfo.matchNaevr(name='plymouth')) > 0:
+                anaconda.id.bootloader.args.append("rhgb quiet")
 
         if self.ayum.tsInfo.getProvides("service(graphical-login)") != {} and anaconda.id.displayMode == 'g' and not flags.usevnc:
             anaconda.id.desktop.setDefaultRunLevel(5)
