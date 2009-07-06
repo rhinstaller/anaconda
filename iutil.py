@@ -764,13 +764,7 @@ def reIPLonCCW(iplsubdev, reipl_path):
     device = "<unknown>"
 
     try:
-        iplbits = re.split ('([0-9]+)', iplsubdev)
-        if len (iplbits) != 3:
-            message = _("Error: %s splits into %s but not like we expect" % (iplsubdev,iplbits,))
-            log.warning(message)
-            raise Exception (message)
-
-        device = os.readlink("/sys/block/" + iplbits[0] + "/device").split('/')[-1]
+        device = os.readlink("/sys/block/" + iplsubdev + "/device").split('/')[-1]
 
         writeReiplMethod(reipl_path, 'ccw')
 
@@ -816,13 +810,7 @@ def reIPLonFCP(iplsubdev, reipl_path):
     fcpvalue = { "device": "<unknown>", "wwpn": "<unknown>", "lun": "<unknown>" }
 
     try:
-        iplbits = re.split ('([0-9]+)', iplsubdev)
-        if len (iplbits) != 3:
-            message = _("Error: %s splits into %s but not like we expect" % (iplsubdev,iplbits,))
-            log.warning(message)
-            raise Exception (message)
-
-        syspath = "/sys/block/" + iplbits[0] + "/device"
+        syspath = "/sys/block/" + iplsubdev + "/device"
 
         fcpprops = [ ("hba_id", "device"), ("wwpn", "wwpn"), ("fcp_lun", "lun") ]
 
@@ -883,19 +871,7 @@ def reIPL(anaconda, loader_pid):
 
     reipl_path = "/sys/firmware/reipl"
 
-    iplfs = anaconda.id.fsset.getEntryByMountPoint("/boot")
-    if iplfs is None:
-        iplfs = anaconda.id.fsset.getEntryByMountPoint("/")
-
-    if iplfs is None:
-        message = _("Could not get information for mount point /boot or /")
-        log.warning(message)
-        return (message, instruction)
-
-    try:
-        ipldev = iplfs.device.device
-    except:
-        ipldev = None
+    ipldev = anaconda.id.bootloader.device
 
     if ipldev is None:
         message = _("Error determining mount point type")
