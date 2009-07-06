@@ -762,8 +762,7 @@ class AnacondaYum(YumSorter):
         return (downloadpkgs, totalSize, totalFiles)
 
     def setColor(self):
-        if (rpmUtils.arch.canonArch.startswith("ppc64") or
-        rpmUtils.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
+        if rpmUtils.arch.isMultiLibArch():
             self.ts.ts.setColor(3)
 
     def run(self, instLog, cb, intf, id):
@@ -1285,7 +1284,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         foundkernel = False
 
-        if (isys.smpAvailable() or isys.htavailable()) and not rpmUtils.arch.canonArch.startswith("ppc64"):
+        if (isys.smpAvailable() or isys.htavailable()) and rpmUtils.arch.canonArch != "ppc64":
             if selectKernel("kernel-smp"):
                 foundkernel = True
 
