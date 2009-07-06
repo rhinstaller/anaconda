@@ -185,7 +185,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     setup slang smc-meera-fonts specspo sqlite synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
     tzdata udev un-core-fonts-dotum urw-fonts util-linux-ng tigervnc-server
-    tigervnc-server-module vlgothic-fonts
+    tigervnc-server-module vlgothic-fonts vim-minimal
     wpa_supplicant xkeyboard-config xfsdump xfsprogs xorg-x11 xorg-x11-auth
     xorg-x11-base xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
     xorg-x11-fonts-misc xorg-x11-libs xorg-x11-libs-data xorg-x11-server-utils
@@ -283,33 +283,50 @@ $LIBDIR/libnsspem.so
 $LIBDIR/libsmime3.so
 $LIBDIR/libsoftokn3.so
 $LIBDIR/libssl3.so
+bin/arch
+bin/basename
 bin/bash
 bin/cat
+bin/chgrp
 bin/chmod
+bin/chown
 bin/cp
 bin/cpio
+bin/cut
+bin/date
 bin/dbus-daemon
 bin/dbus-uuidgen
 bin/dd
 bin/df
 bin/du
+bin/echo
+bin/env
+bin/false
 bin/fdisk*
 bin/gawk
+bin/kill
 bin/ln
 bin/ls
 bin/mkdir
 bin/mknod
+bin/mktemp
+bin/more
 bin/mount
 bin/mv
 bin/ntfs-3g
 bin/ps
+bin/pwd
 bin/rm
+bin/rmdir
 bin/rpm
 bin/sed
 bin/sleep
 bin/sort
+bin/sync
 bin/touch
+bin/true
 bin/umount
+bin/vi
 boot/*.b
 boot/bootlx
 boot/efi/EFI/redhat/elilo.efi
@@ -462,9 +479,12 @@ usr/$LIBDIR/libiscsi.so*
 usr/$LIBDIR/libsqlite3.so*
 usr/$LIBDIR/xorg/modules
 usr/$LIBDIR/xserver/SecurityPolicy
+usr/bin/[
 usr/bin/Xorg
 usr/bin/Xvnc
 usr/bin/chattr*
+usr/bin/du
+usr/bin/expr
 usr/bin/gdb-gdbserver
 usr/bin/gdialog
 usr/bin/gdk-pixbuf-query-loaders*
@@ -480,18 +500,24 @@ usr/bin/logger
 usr/bin/lsattr*
 usr/bin/lshal
 usr/bin/maketilo
+usr/bin/md5sum
 usr/bin/mini-wm
 usr/bin/mkzimage
 usr/bin/pango*
 usr/bin/python
 usr/bin/python?.?
+usr/bin/readlink
 usr/bin/reduce-font
 usr/bin/setxkbmap
+usr/bin/sha1sum
+usr/bin/split
 usr/bin/syslinux
 usr/bin/tac
 usr/bin/tail
+usr/bin/tee
 usr/bin/tilo
-usr/bin/udevinfo
+usr/bin/wc
+usr/bin/udev*
 usr/bin/uniq
 usr/bin/vncconfig
 usr/bin/vncpasswd
@@ -955,6 +981,10 @@ find $DEST -type d | xargs chmod 755
 if [ -f $DEST/bin/bash ]; then
     rm -f $DEST/bin/ash
     ln -s bash $DEST/bin/sh
+fi
+
+if [ -f $DEST/bin/gawk ]; then
+    ln -sf awk $DEST/bin/gawk
 fi
 
 [ -d $DEST/bin ] || die "ERROR: directory missing: $DEST/bin"
