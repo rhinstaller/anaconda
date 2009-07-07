@@ -746,7 +746,8 @@ makemainimage () {
         mke2fs -q -F $mmi_tmpimage > /dev/null 
 	tune2fs -c0 -i0 $mmi_tmpimage >/dev/null
         mount -o loop $mmi_tmpimage $mmi_mntpoint
-        [ $? = 0 ] || return $?
+        rc=$?
+        [ $rc = 0 ] || return $rc
 
         (cd $IMGPATH; find . | fgrep -v "./usr/lib/anaconda-runtime" |
 	        cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
@@ -783,7 +784,8 @@ makeSecondStage() {
     [ $? = 0 ] || exit 1
     echo "Building stage2.img"
     makemainimage "stage2" "squashfs"
-    [ $? = 0 ] || exit 1
+    rc=$?
+    [ $rc = 0 ] || exit $rc
 }
 
 doPostImages() {

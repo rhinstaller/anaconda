@@ -161,6 +161,8 @@ $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$
 
 echo "Making images..."
 $MK_IMAGES $DEBUGSTR $NOGRSTR $PKGDIR $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
+rc=$?
+[ $rc = 0 ] || exit $rc
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=$PRODUCTPATH/base --packagesDir=$PKGDIR --pixmapsDir=$PRODUCTPATH/pixmaps --outfile=$p/.discinfo
