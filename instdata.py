@@ -198,7 +198,8 @@ class InstallData:
                                              uid=ud.uid,
                                              algo=self.getPassAlgo(),
                                              lock=ud.lock,
-                                             root=self.anaconda.rootPath):
+                                             root=self.anaconda.rootPath,
+                                             gecos=ud.gecos):
                     log.error("User %s already exists, not creating." % ud.name)
 
 

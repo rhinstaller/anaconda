@@ -121,7 +121,7 @@ class Users:
 
     def createUser (self, name=None, password=None, isCrypted=False, groups=[],
                     homedir=None, shell=None, uid=None, algo=None, lock=False,
-                    root="/mnt/sysimage"):
+                    root="/mnt/sysimage", gecos=None):
         childpid = os.fork()
 
         if not childpid:
@@ -152,6 +152,9 @@ class Users:
 
                 if uid >= 0:
                     userEnt.set(libuser.UIDNUMBER, uid)
+
+                if gecos:
+                    userEnt.set(libuser.GECOS, gecos)
 
                 self.admin.addUser(userEnt)
                 self.admin.addGroup(groupEnt)
