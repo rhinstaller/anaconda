@@ -129,10 +129,7 @@ class AnacondaCallback:
                     self.progressWindowClass (_("Processing"), 
                                               _("Preparing transaction from installation source..."),
                                               total)
-                try:
-                    self.incr = total / 10
-                except:
-                    pass
+                self.incr = total / 10
 
         if what == rpm.RPMCALLBACK_TRANS_PROGRESS:
             if self.progressWindow and amount > self.lastprogress + self.incr:
@@ -195,7 +192,6 @@ class AnacondaCallback:
             self.openfile.close()
             self.openfile = None
 
-            repo = self.repos.getRepo(self.inProgressPo.repoid)
             if os.path.dirname(fn).startswith("%s/var/cache/yum/" % self.rootPath):
                 try:
                     os.unlink(fn)
@@ -224,9 +220,6 @@ class AnacondaCallback:
                                                    0, pulse=True)
             else:
                 self.initWindow.pulse()
-
-        else:
-            pass
 
         if self.initWindow is None:
             self.progress.processEvents()
@@ -1290,8 +1283,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             self.selectPackage(anaconda.platform.bootloaderPackage)
             self.selectFSPackages(anaconda.id.storage)
             self.selectAnacondaNeeds()
-
-        if anaconda.id.getUpgrade():
+        else:
             self.ayum.update()
 
         try:
