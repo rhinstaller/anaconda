@@ -1097,8 +1097,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 self.ayum._setGroups(None)
                 continue
 
-        self._catchallCategory()
-
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         self.__withFuncDo(anaconda, lambda r: self.ayum.doRepoSetup(thisrepo=r.id),
                           thisrepo=thisrepo, fatalerrors=fatalerrors)
@@ -1185,29 +1183,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                                      {"repo": repo.id}))
 
         self.ayum.repos.callback = None
-
-    def _catchallCategory(self):
-        # FIXME: this is a bad hack, but catch groups which aren't in
-        # a category yet are supposed to be user-visible somehow.
-        # conceivably should be handled by yum
-        grps = {}
-        for g in self.ayum.comps.groups:
-            if g.user_visible:
-                grps[g.groupid] = g
-
-        for cat in self.ayum.comps.categories:
-            for g in cat.groups:
-                if grps.has_key(g):
-                    del grps[g]
-
-        if len(grps.keys()) == 0:
-            log.info("no groups missing")
-            return
-        c = yum.comps.Category()
-        c.name = _("Uncategorized")
-        c._groups = grps
-        c.categoryid = "uncategorized"
-        self.ayum.comps._categories[c.categoryid] = c
 
     def getDefaultGroups(self, anaconda):
         langs = anaconda.id.instLanguage.getCurrentLangSearchList()
