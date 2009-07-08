@@ -743,17 +743,12 @@ class AnacondaYum(YumSorter):
         downloadpkgs = []
         totalSize = 0
         totalFiles = 0
-        for txmbr in self.tsInfo.getMembers():
-            if txmbr.ts_state in ['i', 'u']:
-                po = txmbr.po
-            else:
-                continue
-
-            if po:
-                totalSize += int(po.returnSimple("installedsize")) / 1024
-                for filetype in po.returnFileTypes():
-                    totalFiles += len(po.returnFileEntries(ftype=filetype))
-                downloadpkgs.append(po)
+        for txmbr in self.tsInfo.getMembersWithState(output_states=TS_INSTALL_STATES):
+            if txmbr.po:
+                totalSize += int(txmbr.po.returnSimple("installedsize")) / 1024
+                for filetype in txmbr.po.returnFileTypes():
+                    totalFiles += len(txmbr.po.returnFileEntries(ftype=filetype))
+                downloadpkgs.append(txmbr.po)
 
         return (downloadpkgs, totalSize, totalFiles)
 
