@@ -2090,6 +2090,22 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Test if vg exits and if it has all pvs. """
         return self.vg.complete
 
+    @property
+    def status(self):
+        """ True if the LV is active, False otherwise. """
+        try:
+            lvstatus = lvm.lvs(self.vg.name)
+        except lvm.LVMError:
+            return False
+
+        try:
+            if lvstatus[self._name]['attr'].find('a') == -1:
+                return False
+            else:
+                return True
+        except KeyError:
+            return False
+
     def setup(self, intf=None):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, status=self.status)
