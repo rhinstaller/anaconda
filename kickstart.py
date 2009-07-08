@@ -257,6 +257,15 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
 
         return retval
 
+class Fcoe(commands.fcoe.F12_Fcoe):
+    def parse(self, args):
+        retval = commands.fcoe.F12_Fcoe.parse(self, args)
+
+        for fc in self.fcoe:
+            self.handler.id.fcoe.addSan(nic=self.nic)
+
+        return retval
+
 class Firewall(commands.firewall.F10_Firewall):
     def parse(self, args):
         retval = commands.firewall.F10_Firewall.parse(self, args)
@@ -982,6 +991,7 @@ commandMap = {
         "deviceprobe": commands.deviceprobe.FC3_DeviceProbe,
         "dmraid": DmRaid,
         "driverdisk": commands.driverdisk.F12_DriverDisk,
+        "fcoe": Fcoe,
         "firewall": Firewall,
         "firstboot": Firstboot,
         "graphical": commands.displaymode.FC3_DisplayMode,
