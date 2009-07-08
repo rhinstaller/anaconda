@@ -319,7 +319,7 @@ def vginfo(vg_name):
 def lvs(vg_name):
     args = ["lvs", "--noheadings", "--nosuffix"] + \
             ["--units", "m"] + \
-            ["-o", "lv_name,lv_uuid,lv_size"] + \
+            ["-o", "lv_name,lv_uuid,lv_size,lv_attr"] + \
             config_args + \
             [vg_name]
 
@@ -332,9 +332,10 @@ def lvs(vg_name):
         line = line.strip()
         if not line:
             continue
-        (name, uuid, size) = line.split()
+        (name, uuid, size, attr) = line.split()
         lvs[name] = {"size": size,
-                     "uuid": uuid}
+                     "uuid": uuid,
+                     "attr": attr}
 
     if not lvs:
         raise LVMError(_("lvs failed for %s" % vg_name))
