@@ -555,7 +555,7 @@ class AnacondaYum(YumSorter):
     # We need to make sure $releasever gets set up before .repo files are
     # read.  Since there's no redhat-release package in /mnt/sysimage (and
     # won't be for quite a while), we need to do our own substutition.
-    def _getReleasever():
+    def _getReleasever(self):
         from ConfigParser import ConfigParser
         c = ConfigParser()
 
