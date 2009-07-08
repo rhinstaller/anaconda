@@ -555,11 +555,11 @@ class AnacondaYum(YumSorter):
     # We need to make sure $releasever gets set up before .repo files are
     # read.  Since there's no redhat-release package in /mnt/sysimage (and
     # won't be for quite a while), we need to do our own substutition.
-    def getReposFromConfig(self):
-        def _getReleasever():
-            from ConfigParser import ConfigParser
-            c = ConfigParser()
+    def _getReleasever():
+        from ConfigParser import ConfigParser
+        c = ConfigParser()
 
+        try:
             if os.access("%s/.treeinfo" % self.anaconda.methodstr, os.R_OK):
                 ConfigParser.read(c, "%s/.treeinfo" % self.anaconda.methodstr)
             else:
@@ -569,13 +569,8 @@ class AnacondaYum(YumSorter):
                 ConfigParser.read(c, "/tmp/.treeinfo")
 
             return c.get("general", "version")
-
-        try:
-            self.yumvar["releasever"] = _getReleasever()
         except:
-            self.yumvar["releasever"] = productVersion
-
-        YumSorter.getReposFromConfig(self)
+            return productVersion
 
     # Override this method so yum doesn't nuke our existing logging config.
     def doLoggingSetup(self, *args, **kwargs):
@@ -611,6 +606,7 @@ class AnacondaYum(YumSorter):
         if hasattr(self, "preconf"):
             self.preconf.fn = fn
             self.preconf.root = root
+            self.preconf.releasever = self._getReleasever()
             self.preconf.enabled_plugins = ["whiteout", "blacklist"]
             YumSorter._getConfig(self)
         else:
