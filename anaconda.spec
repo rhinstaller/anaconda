@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.184
+Version: 11.1.2.185
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 08 2009 Chris Lumens <clumens@redhat.com> 11.1.2.185-1
+- Save bootfile, if we have it, from DHCP response (dcantrell).
+  Resolves: rhbz#448006
+
 * Wed Jul 1 2009 Martin Sivak <msivak@redhat.com> 11.1.2.184-1
 - Fix handling of parted exceptions in text mode (rvykydal)
   Resolves: rhbz#506725
