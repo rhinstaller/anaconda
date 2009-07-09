@@ -2443,7 +2443,7 @@ class MDRaidArrayDevice(StorageDevice):
         device.setup()
         udev_settle(timeout=10)
         try:
-            mdraid.mdadd(device.path)
+            mdraid.mdadd(device.path, len(self.devices) < self.memberDevices)
         except MDRaidError as e:
             log.warning("failed to add member %s to md array %s: %s"
                         % (device.path, self.path, e))
