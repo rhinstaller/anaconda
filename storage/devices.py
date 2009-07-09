@@ -2220,10 +2220,13 @@ class MDRaidArrayDevice(StorageDevice):
         StorageDevice.__init__(self, name, format=format, exists=exists,
                                minor=minor, size=size,
                                parents=parents, sysfsPath=sysfsPath)
-        if level is not None:
+
+        self.level = level
+        if level == "container":
+            self._type = "mdcontainer"
+        elif level is not None:
             self.level = mdraid.raidLevel(level)
-        else:
-            self.level = level
+
         self.uuid = uuid
         self._totalDevices = numeric_type(totalDevices)
         self._memberDevices = numeric_type(memberDevices)

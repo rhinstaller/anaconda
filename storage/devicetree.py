@@ -888,8 +888,10 @@ class DeviceTree(object):
                 return True
 
         # Ignore partitions found on the raw disks which are part of a
-        # dmraidset
-        for set in self.getDevicesByType("dm-raid array"):
+        # biosraidset
+        sets = self.getDevicesByType("dm-raid array")
+        sets.extend(self.getDevicesByType("mdcontainer"))
+        for set in sets:
             for disk in set.parents:
                 if disk.name == os.path.basename(os.path.dirname(sysfs_path)):
                     return True
@@ -1189,13 +1191,13 @@ class DeviceTree(object):
             log.debug("%s is a cdrom" % name)
             if device is None:
                 device = self.addUdevOpticalDevice(info)
-        elif udev_device_is_dmraid(info):
+        elif udev_device_is_biosraid(info):
             # This is special handling to avoid the "unrecognized disklabel"
-            # code since dmraid member disks won't have a disklabel. We
+            # code since biosraid member disks won't have a disklabel. We
             # use a StorageDevice because DiskDevices need disklabels.
             # Quite lame, but it doesn't matter much since we won't use
             # the StorageDevice instances for anything.
-            log.debug("%s is part of a dmraid" % name)
+            log.debug("%s is part of a biosraid" % name)
             if device is None:
                 device = StorageDevice(name,
                                 major=udev_device_get_major(info),
@@ -1498,7 +1500,7 @@ class DeviceTree(object):
         if format_type == "crypto_LUKS":
             # luks/dmcrypt
             kwargs["name"] = "luks-%s" % uuid
-        elif format_type == "linux_raid_member":
+        elif format_type in formats.mdraid.MDRaidMember._udevTypes:
             # mdraid
             try:
                 kwargs["mdUuid"] = udev_device_get_md_uuid(info)
