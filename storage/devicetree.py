@@ -1279,6 +1279,9 @@ class DeviceTree(object):
             log.debug("%s is a partition" % name)
             if device is None:
                 device = self.addUdevPartitionDevice(info)
+        else:
+            log.error("Unknown block device type for: %s" % name)
+            return
 
         # If this device is protected, mark it as such now. Once the tree
         # has been populated, devices' protected attribute is how we will
