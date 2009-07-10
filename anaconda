@@ -453,7 +453,7 @@ class Anaconda:
     def setInstallInterface(self, display_mode):
         # setup links required by graphical mode if installing and verify display mode
         if display_mode == 'g':
-            stdoutLog.info (_("Starting graphical installation..."))
+            stdoutLog.info (_("Starting graphical installation."))
 
             try:
                 from gui import InstallInterface
@@ -802,7 +802,7 @@ if __name__ == "__main__":
     #
     # if no X server, we have to use text mode
     if not (flags.test or flags.rootpath or x_already_set) and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
-         stdoutLog.warning(_("Graphical installation not available...  "
+         stdoutLog.warning(_("Graphical installation not available. "
                              "Starting text mode."))
          time.sleep(2)
          opts.display_mode = 't'
