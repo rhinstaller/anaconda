@@ -135,26 +135,39 @@ class ZFCPDevice:
         f = open("/proc/scsi/scsi", "r")
         lines = f.readlines()
         f.close()
+        # alternatively iterate over /sys/bus/scsi/devices/*:0:*:*/
 
         for line in lines:
             if not line.startswith("Host"):
                 continue
             scsihost = string.split(line)
             host = scsihost[1]
-            channel = scsihost[3]
+            channel = "0"
             id = scsihost[5]
             lun = scsihost[7]
-            scsidev = "%s:%s:%s:%s" % (host[4], channel[1], id[1], lun[1])
-            fcpsysfs = "%s/%s/fcp_lun" % (scsidevsysfs, scsidev)
-            fcpdel = "%s/%s/delete" % (scsidevsysfs, scsidev)
+            scsidev = "%s:%s:%s:%s" % (host[4:], channel, id, lun)
+            fcpsysfs = "%s/%s" % (scsidevsysfs, scsidev)
+            scsidel = "%s/%s/delete" % (scsidevsysfs, scsidev)
 
-            f = open(fcpsysfs, "r")
-            fcplunsysfs = f.readline()
+            f = open("%s/hba_id" %(fcpsysfs), "r")
+            fcphbasysfs = f.readline().strip()
+            f.close()
+            f = open("%s/wwpn" %(fcpsysfs), "r")
+            fcpwwpnsysfs = f.readline().strip()
+            f.close()
+            f = open("%s/fcp_lun" %(fcpsysfs), "r")
+            fcplunsysfs = f.readline().strip()
             f.close()
 
-            if fcplunsysfs[:6] == self.fcplun[:6]:
-                loggedWriteLineToFile(fcpdel, "1")
-                break
+            if fcphbasysfs == self.devnum \
+                    and fcpwwpnsysfs == self.wwpn \
+                    and fcplunsysfs == self.fcplun:
+                loggedWriteLineToFile(scsidel, "1")
+                udev_settle()
+                return
+
+        log.warn("no scsi device found to delete for zfcp %s %s %s"
+                 %(self.devnum, self.wwpn, self.fcplun))
 
     def offlineDevice(self):
         offline = "%s/%s/online" %(zfcpsysfs, self.devnum)
