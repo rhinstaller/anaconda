@@ -129,10 +129,7 @@ class AnacondaCallback:
                     self.progressWindowClass (_("Processing"), 
                                               _("Preparing transaction from installation source..."),
                                               total)
-                try:
-                    self.incr = total / 10
-                except:
-                    pass
+                self.incr = total / 10
 
         if what == rpm.RPMCALLBACK_TRANS_PROGRESS:
             if self.progressWindow and amount > self.lastprogress + self.incr:
@@ -195,7 +192,6 @@ class AnacondaCallback:
             self.openfile.close()
             self.openfile = None
 
-            repo = self.repos.getRepo(self.inProgressPo.repoid)
             if os.path.dirname(fn).startswith("%s/var/cache/yum/" % self.rootPath):
                 try:
                     os.unlink(fn)
@@ -224,9 +220,6 @@ class AnacondaCallback:
                                                    0, pulse=True)
             else:
                 self.initWindow.pulse()
-
-        else:
-            pass
 
         if self.initWindow is None:
             self.progress.processEvents()
@@ -555,11 +548,11 @@ class AnacondaYum(YumSorter):
     # We need to make sure $releasever gets set up before .repo files are
     # read.  Since there's no redhat-release package in /mnt/sysimage (and
     # won't be for quite a while), we need to do our own substutition.
-    def getReposFromConfig(self):
-        def _getReleasever():
-            from ConfigParser import ConfigParser
-            c = ConfigParser()
+    def _getReleasever(self):
+        from ConfigParser import ConfigParser
+        c = ConfigParser()
 
+        try:
             if os.access("%s/.treeinfo" % self.anaconda.methodstr, os.R_OK):
                 ConfigParser.read(c, "%s/.treeinfo" % self.anaconda.methodstr)
             else:
@@ -569,13 +562,8 @@ class AnacondaYum(YumSorter):
                 ConfigParser.read(c, "/tmp/.treeinfo")
 
             return c.get("general", "version")
-
-        try:
-            self.yumvar["releasever"] = _getReleasever()
         except:
-            self.yumvar["releasever"] = productVersion
-
-        YumSorter.getReposFromConfig(self)
+            return productVersion
 
     # Override this method so yum doesn't nuke our existing logging config.
     def doLoggingSetup(self, *args, **kwargs):
@@ -611,6 +599,7 @@ class AnacondaYum(YumSorter):
         if hasattr(self, "preconf"):
             self.preconf.fn = fn
             self.preconf.root = root
+            self.preconf.releasever = self._getReleasever()
             self.preconf.enabled_plugins = ["whiteout", "blacklist"]
             YumSorter._getConfig(self)
         else:
@@ -747,17 +736,12 @@ class AnacondaYum(YumSorter):
         downloadpkgs = []
         totalSize = 0
         totalFiles = 0
-        for txmbr in self.tsInfo.getMembers():
-            if txmbr.ts_state in ['i', 'u']:
-                po = txmbr.po
-            else:
-                continue
-
-            if po:
-                totalSize += int(po.returnSimple("installedsize")) / 1024
-                for filetype in po.returnFileTypes():
-                    totalFiles += len(po.returnFileEntries(ftype=filetype))
-                downloadpkgs.append(po)
+        for txmbr in self.tsInfo.getMembersWithState(output_states=TS_INSTALL_STATES):
+            if txmbr.po:
+                totalSize += int(txmbr.po.returnSimple("installedsize")) / 1024
+                for filetype in txmbr.po.returnFileTypes():
+                    totalFiles += len(txmbr.po.returnFileEntries(ftype=filetype))
+                downloadpkgs.append(txmbr.po)
 
         return (downloadpkgs, totalSize, totalFiles)
 
@@ -1101,8 +1085,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 self.ayum._setGroups(None)
                 continue
 
-        self._catchallCategory()
-
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         self.__withFuncDo(anaconda, lambda r: self.ayum.doRepoSetup(thisrepo=r.id),
                           thisrepo=thisrepo, fatalerrors=fatalerrors)
@@ -1189,29 +1171,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                                      {"repo": repo.id}))
 
         self.ayum.repos.callback = None
-
-    def _catchallCategory(self):
-        # FIXME: this is a bad hack, but catch groups which aren't in
-        # a category yet are supposed to be user-visible somehow.
-        # conceivably should be handled by yum
-        grps = {}
-        for g in self.ayum.comps.groups:
-            if g.user_visible:
-                grps[g.groupid] = g
-
-        for cat in self.ayum.comps.categories:
-            for g in cat.groups:
-                if grps.has_key(g):
-                    del grps[g]
-
-        if len(grps.keys()) == 0:
-            log.info("no groups missing")
-            return
-        c = yum.comps.Category()
-        c.name = _("Uncategorized")
-        c._groups = grps
-        c.categoryid = "uncategorized"
-        self.ayum.comps._categories[c.categoryid] = c
 
     def getDefaultGroups(self, anaconda):
         langs = anaconda.id.instLanguage.getCurrentLangSearchList()
@@ -1324,8 +1283,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             self.selectPackage(anaconda.platform.bootloaderPackage)
             self.selectFSPackages(anaconda.id.storage)
             self.selectAnacondaNeeds()
-
-        if anaconda.id.getUpgrade():
+        else:
             self.ayum.update()
 
         try:

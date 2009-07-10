@@ -218,10 +218,6 @@ def udev_device_is_dm(info):
     """ Return True if the device is a device-mapper device. """
     return info.has_key("DM_NAME")
 
-def udev_device_is_md_container(info):
-    """ Return True if the device is a mdraid container device. """
-    return info.get("MD_LEVEL") == "container"
-
 def udev_device_is_md(info):
     """ Return True if the device is a mdraid array device. """
     return info.has_key("MD_DEVNAME") and \
@@ -322,16 +318,19 @@ def udev_device_get_lv_sizes(info):
 
     return [float(s) / 1024 for s in sizes]
 
-def udev_device_is_dmraid(info):
+def udev_device_is_biosraid(info):
     # Note that this function does *not* identify raid sets.
     # Tests to see if device is parto of a dmraid set.
-    # dmraid and mdriad have the same ID_FS_USAGE string,  ID_FS_TYPE has a
+    # dmraid and mdraid have the same ID_FS_USAGE string, ID_FS_TYPE has a
     # string that describes the type of dmraid (isw_raid_member...),  I don't
     # want to maintain a list and mdraid's ID_FS_TYPE='linux_raid_member', so
     # dmraid will be everything that is raid and not linux_raid_member
     from formats.dmraid import DMRaidMember
+    from formats.mdraid import MDRaidMember
     if info.has_key("ID_FS_TYPE") and \
-            info["ID_FS_TYPE"] in DMRaidMember._udevTypes:
+            (info["ID_FS_TYPE"] in DMRaidMember._udevTypes or \
+             info["ID_FS_TYPE"] in MDRaidMember._udevTypes) and \
+            info["ID_FS_TYPE"] != "linux_raid_member":
         return True
 
     return False

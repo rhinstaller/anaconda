@@ -26,7 +26,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define libnlver 1.0
 %define libselinuxver 1.6
 %define mkinitrdver 5.1.2-1
-%define pykickstartver 1.55
+%define pykickstartver 1.56
 %define rpmpythonver 4.2-0.61
 %define slangver 2.0.6-2
 %define yumver 2.9.2
@@ -212,6 +212,42 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jul 09 2009 David Cantrell <dcantrell@redhat.com> - 12.2-1
+- mdmon added to install.img (Jacek.Danecki)
+- Remove some unnecessary code. (clumens)
+- Use a method yum provides, rather than inventing our own. (clumens)
+- Remove _catchallCategory.  yum handles this for us now. (clumens)
+- Write out NM_CONTROLLED=no for NICs used for FCoE (hdegoede)
+- Add support for biosraid using mdadm (hdegoede)
+- Reverse: "Support for MD containers" (hdegoede)
+- When all udev_is-foo() checks fail return instead of backtracing (hdegoede)
+- 70-anaconda.rules: always import blkid output (hdegoede)
+- Make sure to have "self" as an argument. (clumens)
+- Add kickstart fcoe command (hdegoede)
+- Use the yum preconf object to do $releasever substitution. (clumens)
+- Indicate LV status according to lv_attr active bit (#491754) (dcantrell)
+- Include lv_attr in lvm.lvs() return value. (dcantrell)
+- Fix list of 64-bit arches. (notting)
+- We also need -DUSESELINUX if we want to call matchPathContext. (clumens)
+- Clean up some arch code. (notting)
+- Update /etc/hosts with hostname for loopback IP address (#506384)
+  (rvykydal)
+- Add missing LAYER2 and PORTNO handling for s390x. (dcantrell)
+- Ignore configure.ac when generating updates.img (dcantrell)
+- AC_ARG_WITH -> AC_ARG_ENABLE (dcantrell)
+- dhclient now reads config files from /etc/dhcp (dcantrell)
+- no "rhgb quiet" on s390 to enable visible boot progress and system
+  automation (#509881) (maier)
+- fix backtrace in s390 reipl support due to missing anaconda.id.fsset
+  (#509877) (maier)
+- Put sleep in /bin on the initrd (#505639). (clumens)
+- Also include the grep programs. (clumens)
+- Add programs from vim-minimal, coreutils, and util-linux-ng. (clumens)
+- Move programs that aren't s390-specific into the main image. (clumens)
+- Look for /bin/sh, not /sbin/busybox. (clumens)
+- No longer symlink binaries to busybox. (clumens)
+- No longer require busybox. (clumens)
+
 * Mon Jul 06 2009 Chris Lumens <clumens@redhat.com> - 12.1-1
 - Include the rest of the libs isys needs to link against (#509572).
   (clumens)

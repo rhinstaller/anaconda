@@ -888,8 +888,10 @@ class DeviceTree(object):
                 return True
 
         # Ignore partitions found on the raw disks which are part of a
-        # dmraidset
-        for set in self.getDevicesByType("dm-raid array"):
+        # biosraidset
+        sets = self.getDevicesByType("dm-raid array")
+        sets.extend(self.getDevicesByType("mdcontainer"))
+        for set in sets:
             for disk in set.parents:
                 if disk.name == os.path.basename(os.path.dirname(sysfs_path)):
                     return True
@@ -977,68 +979,6 @@ class DeviceTree(object):
                 log.warning("ignoring dm device %s" % name)
 
         return device
-
-
-    def addUdevMDContainerDevice(self, info):
-        log.debug("info=%s" % info)
-        if info.has_key("MD_DEVNAME"):
-            log.debug("real MD container")
-        else:
-            log.debug("isw md member")
-            name = udev_device_get_name(info)
-            sysfs_path = udev_device_get_sysfs_path(info)
-            
-            device = StorageDevice(name,
-                            major=udev_device_get_major(info),
-                            minor=udev_device_get_minor(info),
-                            sysfsPath=sysfs_path, exists=True)
-            self._addDevice(device)
-
-            format_type = udev_device_get_format(info)
-            args = [format_type]
-            kwargs = {"mdUuid": udev_device_get_md_uuid(info),
-                      "uuid": udev_device_get_uuid(info),
-                  "label": udev_device_get_label(info),
-                  "device": device.path,
-                  "exists": True}
-
-            log.debug("uuid=%s" % kwargs["uuid"])
-            log.debug("mdUuid=%s" % kwargs["mdUuid"])
-            device.format = formats.getFormat(*args, **kwargs)
-            log.debug("format=%s mdUuid=%s" % (device.format, device.format.mdUuid))
-            
-            if device.format.mdUuid:
-                md_array = self.getDeviceByUuid(device.format.mdUuid)
-                if md_array:
-                    log.debug("_addDevice to array")
-                    md_array._addDevice(device)
-                else:
-                    try:
-                        md_level = udev_device_get_md_level(info)
-                        md_devices = int(udev_device_get_md_devices(info))
-                        md_uuid = udev_device_get_md_uuid(info)
-                    except (KeyError, ValueError) as e:
-                        log.warning("invalid data for %s: %s" % (name, e))
-                        return
-         
-                    minor = 0
-                    while True:
-                          if self.getDeviceByName("imsm%d" % minor):
-                                minor += 1
-                          else:
-                                break
-                    md_name = "imsm%d" % minor
-                    md_array = MDRaidContainerDevice(name=md_name,
-                                                 memberDevices=md_devices,
-                                                 uuid=md_uuid,
-                                                 exists=True,
-                                                 parents=[device])
-                    try: 
-                        md_array.addFirstDevice(device.path)
-                        self._addDevice(md_array)
-                        return 
-                    except MDRaidError as e:
-                          log.warning("failed to add member to md array %s" % e)
 
     def addUdevMDDevice(self, info):
         name = udev_device_get_name(info)
@@ -1239,14 +1179,6 @@ class DeviceTree(object):
 
             if device is None:
                 device = self.addUdevDMDevice(info)
-        elif udev_device_is_md_container(info):
-            log.debug("%s is an md container device" % name)
-            if device is None and uuid:
-                # try to find the device by uuid
-                device = self.getDeviceByUuid(uuid)
-
-            if device is None:
-                device = self.addUdevMDContainerDevice(info)
         elif udev_device_is_md(info):
             log.debug("%s is an md device" % name)
             if device is None and uuid:
@@ -1259,13 +1191,13 @@ class DeviceTree(object):
             log.debug("%s is a cdrom" % name)
             if device is None:
                 device = self.addUdevOpticalDevice(info)
-        elif udev_device_is_dmraid(info):
+        elif udev_device_is_biosraid(info):
             # This is special handling to avoid the "unrecognized disklabel"
-            # code since dmraid member disks won't have a disklabel. We
+            # code since biosraid member disks won't have a disklabel. We
             # use a StorageDevice because DiskDevices need disklabels.
             # Quite lame, but it doesn't matter much since we won't use
             # the StorageDevice instances for anything.
-            log.debug("%s is part of a dmraid" % name)
+            log.debug("%s is part of a biosraid" % name)
             if device is None:
                 device = StorageDevice(name,
                                 major=udev_device_get_major(info),
@@ -1279,6 +1211,9 @@ class DeviceTree(object):
             log.debug("%s is a partition" % name)
             if device is None:
                 device = self.addUdevPartitionDevice(info)
+        else:
+            log.error("Unknown block device type for: %s" % name)
+            return
 
         # If this device is protected, mark it as such now. Once the tree
         # has been populated, devices' protected attribute is how we will
@@ -1565,7 +1500,7 @@ class DeviceTree(object):
         if format_type == "crypto_LUKS":
             # luks/dmcrypt
             kwargs["name"] = "luks-%s" % uuid
-        elif format_type == "linux_raid_member":
+        elif format_type in formats.mdraid.MDRaidMember._udevTypes:
             # mdraid
             try:
                 kwargs["mdUuid"] = udev_device_get_md_uuid(info)

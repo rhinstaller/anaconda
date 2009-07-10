@@ -2090,6 +2090,22 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Test if vg exits and if it has all pvs. """
         return self.vg.complete
 
+    @property
+    def status(self):
+        """ True if the LV is active, False otherwise. """
+        try:
+            lvstatus = lvm.lvs(self.vg.name)
+        except lvm.LVMError:
+            return False
+
+        try:
+            if lvstatus[self._name]['attr'].find('a') == -1:
+                return False
+            else:
+                return True
+        except KeyError:
+            return False
+
     def setup(self, intf=None):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, status=self.status)
@@ -2204,10 +2220,13 @@ class MDRaidArrayDevice(StorageDevice):
         StorageDevice.__init__(self, name, format=format, exists=exists,
                                minor=minor, size=size,
                                parents=parents, sysfsPath=sysfsPath)
-        if level is not None:
+
+        self.level = level
+        if level == "container":
+            self._type = "mdcontainer"
+        elif level is not None:
             self.level = mdraid.raidLevel(level)
-        else:
-            self.level = level
+
         self.uuid = uuid
         self._totalDevices = numeric_type(totalDevices)
         self._memberDevices = numeric_type(memberDevices)
@@ -2564,37 +2583,6 @@ class MDRaidArrayDevice(StorageDevice):
         # real work, but it isn't our place to do it from here.
         self.exists = False
 
-class MDRaidContainerDevice(MDRaidArrayDevice):
-    """ An mdraid container device.
-    """
-    _type = "mdcontainer"
-    _devDir = "/dev/md"
-
-    def __init__(self, name, 
-                 memberDevices=None, 
-                 uuid=None, exists=None,
-                 parents=None):
-        """ Create a MDRaidContainerDevice instance.
-
-            Arguments:
-
-                name -- the device name (generally a device node's basename)
-
-            Keyword Arguments:
-
-                parents -- list of member devices (StorageDevice instances)
-                uuid -- the device's UUID
-                exists -- indicates whether this is an existing device
-        """
-        MDRaidArrayDevice.__init__(self, name, 
-                                  memberDevices=memberDevices,
-                                  uuid=uuid, exists=exists, parents=parents)
-
-    def addFirstDevice(self, path):
-        mdraid.mdadd(path, True)
-        udev_settle(timeout=10)
-        real=os.readlink(self.path).split('/')[1]
-        self.sysfsPath = "/devices/virtual/block/%s" % real
 
 class DMRaidArrayDevice(DiskDevice):
     """ A dmraid (device-mapper RAID) device """
