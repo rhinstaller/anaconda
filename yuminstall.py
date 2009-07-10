@@ -1584,7 +1584,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             repo.dirCleanup()
 
         # expire yum caches on upgrade
-        if anaconda.id.getUpgrade() and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
+        if (flags.cmdline.has_key("preupgrade") or anaconda.id.getUpgrade()) and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
             log.info("Expiring yum caches")
             try:
                 iutil.execWithRedirect("yum", ["clean", "all"],
@@ -1595,7 +1595,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 pass
 
         # nuke preupgrade
-        if flags.cmdline.has_key("preupgrade") and anaconda.id.getUpgrade() and os.path.exists("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,)):
+        if flags.cmdline.has_key("preupgrade") and os.path.exists("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,)):
             try:
                 shutil.rmtree("%s/var/cache/yum/anaconda-upgrade" %(anaconda.rootPath,))
             except:
