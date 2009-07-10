@@ -2835,7 +2835,7 @@ class FileDevice(StorageDevice):
         for parent in self.parents:
             parent.format.setup()
 
-    def teardown(self):
+    def teardown(self, recursive=None):
         StorageDevice.teardown(self)
         if self.format and self.format.exists and not self.format.status:
             self.format.device = self.path
