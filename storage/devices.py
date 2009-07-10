@@ -143,6 +143,23 @@ def devicePathToName(devicePath):
     return name
 
 
+def deviceNameToDiskByPath(deviceName=None):
+    bypath = '/dev/disk/by-path'
+
+    if not deviceName:
+        return ""
+
+    if not os.path.isdir(bypath):
+        return ""
+
+    for path in os.listdir(bypath):
+        target = os.path.basename(os.readlink(bypath + '/' + path))
+        if target == deviceName:
+            return path
+
+    return ""
+
+
 class Device(object):
     """ A generic device.
 
