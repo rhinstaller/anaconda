@@ -220,8 +220,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def _doFilesystemMangling(self, anaconda):
         # FIXME: this whole method is a big fucking mess
         log.info("doing post-install fs mangling")
-        wait = anaconda.intf.waitWindow(_("Doing post-installation"),
-                                        _("Performing post-installation filesystem changes.  This may take several minutes..."))
+        wait = anaconda.intf.waitWindow(_("Post-Installation"),
+                                        _("Performing post-installation filesystem changes.  This may take several minutes."))
 
         # resize rootfs first, since it is 100% full due to genMinInstDelta
         self._resizeRootfs(anaconda, wait)

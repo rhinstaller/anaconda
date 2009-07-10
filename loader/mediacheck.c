@@ -49,9 +49,9 @@ int doMediaCheck(char *file, char *descr) {
     }
 
     if (descr)
-	snprintf(tmpstr, sizeof(tmpstr), _("Checking \"%s\"..."), descr);
+	snprintf(tmpstr, sizeof(tmpstr), _("Checking \"%s\"."), descr);
     else
-	snprintf(tmpstr, sizeof(tmpstr), _("Checking media now..."));
+	snprintf(tmpstr, sizeof(tmpstr), _("Checking media."));
 
     dlen = strlen(tmpstr);
     if (dlen > 65)

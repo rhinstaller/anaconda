@@ -165,7 +165,7 @@ class AnacondaBackend:
 
         try:
             win = anaconda.intf.waitWindow(_("Copying File"),
-                    _("Transferring install image to hard drive..."))
+                    _("Transferring install image to hard drive"))
             shutil.copyfile(installimg, self._loopbackFile)
             win.pop()
         except Exception, e:
@@ -176,8 +176,8 @@ class AnacondaBackend:
 
             if isinstance(e, IOError) and e.errno == 5:
                 msg = _("An error occurred transferring the install image "
-                        "to your hard drive.  This is probably due to "
-                        "bad media.")
+                        "to your hard drive.  This is often cause by "
+                        "damaged or low quality media.")
             else:
                 msg = _("An error occurred transferring the install image "
                         "to your hard drive. You are probably out of disk "

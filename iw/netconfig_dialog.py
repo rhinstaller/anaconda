@@ -233,9 +233,9 @@ class NetworkConfigurator:
         if self.xml.get_widget("dhcpCheckbutton").get_active():
             netdev.set(('BOOTPROTO', 'dhcp'))
             self.window.hide()
-            w = gui.WaitWindow(_("Dynamic IP"),
-                               _("Sending request for IP information "
-                                 "for %s...") % (netdev.get('DEVICE'),))
+            w = gui.WaitWindow(_("Dynamic IP Address"),
+                               _("Sending request for IP address information "
+                                 "for %s") % (netdev.get('DEVICE'),))
             haveNet = self.network.bringUp()
             w.pop()
         else:

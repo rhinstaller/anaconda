@@ -63,7 +63,7 @@ void winStatus(int width, int height, char * title, char * text, ...) {
 
 void scsiWindow(const char * driver) {
     winStatus(40, 3, _("Loading SCSI driver"),
-        _("Loading %s driver..."), driver);
+        _("Loading %s driver"), driver);
 }
 
 void progressCallback(void *pbdata, long long pos, long long total) {

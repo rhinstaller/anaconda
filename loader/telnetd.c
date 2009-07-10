@@ -86,7 +86,7 @@ int beTelnet(void) {
     bind(sock, (struct sockaddr *) &address, sizeof(address));
     listen(sock, 5);
 
-    winStatus(45, 3, _("Telnet"), _("Waiting for telnet connection..."));
+    winStatus(45, 3, _("Telnet"), _("Waiting for telnet connection."));
 
     if ((conn = accept(sock, (struct sockaddr *) &address, &addrLength)) < 0) {
         newtWinMessage(_("Error"), _("OK"), "accept failed: %s",
@@ -125,7 +125,7 @@ int beTelnet(void) {
     if (child) {
 #ifndef DEBUG_TELNET
         startNewt();
-        winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet..."));
+        winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet."));
 #endif
 
         fds[0].events = POLLIN;

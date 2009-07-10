@@ -269,7 +269,7 @@ class Storage(object):
                 self.__luksDevs[device.format.uuid] = device.format._LUKS__passphrase
 
         w = self.anaconda.intf.waitWindow(_("Finding Devices"),
-                                          _("Finding storage devices..."))
+                                          _("Finding storage devices"))
         self.iscsi.startup(self.anaconda.intf)
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup()

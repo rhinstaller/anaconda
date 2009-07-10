@@ -1409,10 +1409,10 @@ class InstallControlWindow:
                                                     _("_Retry")])
                 if not win.getrc():
                     if flags.rootpath:
-                        msg =  _("The installer will now exit...")
+                        msg =  _("The installer will now exit.")
                         buttons = [_("_Exit installer")]
                     else:
-                        msg =  _("Your system will now be rebooted...")
+                        msg =  _("Your system will now be rebooted.")
                         buttons = [_("_Reboot")]
 
                     MessageWindow(_("Exiting"),

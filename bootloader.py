@@ -140,7 +140,7 @@ def writeBootloader(anaconda):
 
     # We don't need to let the user know if we're just doing the bootloader.
     if not justConfigFile:
-        w = anaconda.intf.waitWindow(_("Bootloader"), _("Installing bootloader..."))
+        w = anaconda.intf.waitWindow(_("Bootloader"), _("Installing bootloader."))
 
     kernelList = []
     otherList = []

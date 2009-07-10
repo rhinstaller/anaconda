@@ -136,7 +136,7 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
 
     if (!FL_CMDLINE(flags)) {
         startNewt();
-        winStatus(40, 3, _("Loading"), _("Reading driver disk..."));
+        winStatus(40, 3, _("Loading"), _("Reading driver disk"));
     }
 
     sprintf(dest, "/tmp/DD-%d", disknum);

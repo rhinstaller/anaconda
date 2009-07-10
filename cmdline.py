@@ -60,7 +60,7 @@ class ProgressWindow:
     def __init__(self, title, text, total, updpct = 0.05, pulse = False):
         self.total = total
         print(text)
-        print(_("In progress...   "))
+        print(_("In progress"))
 
 class InstallInterface:
     def __init__(self):

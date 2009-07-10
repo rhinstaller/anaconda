@@ -523,7 +523,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
                 break;
             } else {
                 /* Copy everything to /tmp/updates so we can unmount the disk  */
-                winStatus(40, 3, _("Updates"), _("Reading anaconda updates..."));
+                winStatus(40, 3, _("Updates"), _("Reading anaconda updates"));
                 if (!copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
                                    copyErrorFn)) {
                     dir = 1;
@@ -1255,7 +1255,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
             logMessage(INFO, "Detected stage 2 image on CD (url: %s)", url);
             winStatus(50, 3, _("Media Detected"),
-                      _("Local installation media detected..."), 0);
+                      _("Found local installation media"), 0);
             sleep(3);
             newtPopWindow();
 
@@ -2225,9 +2225,9 @@ int main(int argc, char ** argv) {
         char *fmt;
 
         if (FL_RESCUE(flags)) {
-            fmt = _("Running anaconda %s, the %s rescue mode - please wait...\n");
+            fmt = _("Running anaconda %s, the %s rescue mode - please wait.\n");
         } else {
-            fmt = _("Running anaconda %s, the %s system installer - please wait...\n");
+            fmt = _("Running anaconda %s, the %s system installer - please wait.\n");
         }
         printf(fmt, VERSION, getProductName());
 

@@ -126,8 +126,8 @@ class AnacondaCallback:
             # step 6 is the bulk of the ts processing time
             if amount == 6:
                 self.progressWindow = \
-                    self.progressWindowClass (_("Processing"), 
-                                              _("Preparing transaction from installation source..."),
+                    self.progressWindowClass (_("Preparing to install"), 
+                                              _("Preparing transaction from installation source"),
                                               total)
                 self.incr = total / 10
 
@@ -216,7 +216,7 @@ class AnacondaCallback:
                       rpm.RPMCALLBACK_UNINST_STOP):
             if self.initWindow is None:
                 self.initWindow = self.pulseWindow(_("Finishing upgrade"),
-                                                   _("Finishing upgrade process.  This may take a little while..."),
+                                                   _("Finishing upgrade process.  This may take a little while."),
                                                    0, pulse=True)
             else:
                 self.initWindow.pulse()
@@ -726,7 +726,7 @@ class AnacondaYum(YumSorter):
 
         delay = 0.25*(2**(obj.tries-1))
         if delay > 1:
-            w = self.anaconda.intf.waitWindow(_("Retrying"), _("Retrying download..."))
+            w = self.anaconda.intf.waitWindow(_("Retrying"), _("Retrying download."))
             time.sleep(delay)
             w.pop()
         else:
@@ -1109,9 +1109,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         for repo in repos:
             if repo.name is None:
-                txt = _("Retrieving installation information...")
+                txt = _("Retrieving installation information.")
             else:
-                txt = _("Retrieving installation information for %s...")%(repo.name)
+                txt = _("Retrieving installation information for %s.")%(repo.name)
 
             waitwin = anaconda.intf.waitWindow(_("Installation Progress"), txt)
 
@@ -1566,10 +1566,10 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         if anaconda.id.getUpgrade():
             w = anaconda.intf.waitWindow(_("Post Upgrade"),
-                                    _("Performing post upgrade configuration..."))
+                                    _("Performing post-upgrade configuration"))
         else:
-            w = anaconda.intf.waitWindow(_("Post Install"),
-                                    _("Performing post install configuration..."))
+            w = anaconda.intf.waitWindow(_("Post Installation"),
+                                    _("Performing post-installation configuration"))
 
         if not iutil.isS390():
             if len(self.ayum.tsInfo.matchNaevr(name='rhgb')) > 0:
@@ -1795,8 +1795,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
 class DownloadHeaderProgress:
     def __init__(self, intf, ayum=None):
-        window = intf.progressWindow(_("Install Starting"),
-                                     _("Starting install process.  This may take several minutes..."),
+        window = intf.progressWindow(_("Installation Starting"),
+                                     _("Starting installation process"),
                                      1.0, 0.01)
         self.window = window
         self.ayum = ayum
@@ -1835,7 +1835,7 @@ class DownloadHeaderProgress:
 class YumDepSolveProgress:
     def __init__(self, intf, ayum = None):
         window = intf.progressWindow(_("Dependency Check"),
-                                     _("Checking dependencies in packages selected for installation..."),
+                                     _("Checking dependencies in packages selected for installation"),
                                      1.0, 0.01)
         self.window = window
 

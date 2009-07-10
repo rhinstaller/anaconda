@@ -1900,7 +1900,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                     }
 
                     winStatus(idrc, 3, NULL,
-                              _("Flashing %s port lights for %d seconds..."),
+                              _("Flashing %s port lights for %d seconds."),
                               devices[deviceNum], secs);
 
                     if (identifyNIC(devices[deviceNum], secs)) {
@@ -2068,11 +2068,11 @@ int get_connection(iface_t *iface) {
 
     /* display status */
     if (FL_CMDLINE(flags)) {
-        printf(_("Waiting for NetworkManager to configure %s...\n"),
+        printf(_("Waiting for NetworkManager to configure %s.\n"),
                iface->device);
     } else {
         winStatus(55, 3, NULL,
-                  _("Waiting for NetworkManager to configure %s...\n"),
+                  _("Waiting for NetworkManager to configure %s.\n"),
                   iface->device, 0);
     }
 

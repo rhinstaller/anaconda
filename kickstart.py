@@ -1239,8 +1239,8 @@ def runPostScripts(anaconda):
 
     log.info("Running kickstart %%post script(s)")
     if anaconda.intf is not None:
-        w = anaconda.intf.waitWindow(_("Running..."),
-                            _("Running post-install scripts"))
+        w = anaconda.intf.waitWindow(_("Post-Installation"),
+                            _("Running post-installation scripts"))
         
     map (lambda s: s.run(anaconda.rootPath, flags.serial, anaconda.intf), postScripts)
 
@@ -1256,8 +1256,8 @@ def runPreScripts(anaconda, scripts):
 
     log.info("Running kickstart %%pre script(s)")
     if anaconda.intf is not None:
-        w = anaconda.intf.waitWindow(_("Running..."),
-                            _("Running pre-install scripts"))
+        w = anaconda.intf.waitWindow(_("Pre-Installation"),
+                            _("Running pre-installation scripts"))
     
     map (lambda s: s.run("/", flags.serial, anaconda.intf), preScripts)
 

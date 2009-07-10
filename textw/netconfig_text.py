@@ -262,7 +262,7 @@ class NetworkConfiguratorText:
                         self._handleIPError(_("Nameserver"), msg)
                         continue
 
-            w = self.anaconda.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager..."))
+            w = self.anaconda.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager"))
             result = self.anaconda.id.network.bringUp()
             w.pop()
             if result:

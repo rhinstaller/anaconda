@@ -341,7 +341,7 @@ class FS(DeviceFormat):
         w = None
         if intf:
             w = intf.progressWindow(_("Formatting"),
-                                    _("Creating filesystem on %s...")
+                                    _("Creating filesystem on %s")
                                     % (self.device,),
                                     100, pulse = True)
 
@@ -438,7 +438,7 @@ class FS(DeviceFormat):
         w = None
         if intf:
             w = intf.progressWindow(_("Resizing"),
-                                    _("Resizing filesystem on %s...")
+                                    _("Resizing filesystem on %s")
                                     % (self.device,),
                                     100, pulse = True)
 
@@ -482,7 +482,7 @@ class FS(DeviceFormat):
         w = None
         if intf:
             w = intf.progressWindow(_("Checking"),
-                                    _("Checking filesystem on %s...")
+                                    _("Checking filesystem on %s")
                                     % (self.device),
                                     100, pulse = True)
 
