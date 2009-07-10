@@ -20,13 +20,9 @@
 #ifndef H_ISYS
 #define H_ISYS
 
-#define MIN_RAM			64000	    
-#define MIN_GUI_RAM		192000
-#if defined(__x86_64__) || defined(__ia64__) || defined(__s390x__) || defined(__ppc64__)
-#define EARLY_SWAP_RAM		400000
-#else
-#define EARLY_SWAP_RAM		270000
-#endif
+#define MIN_RAM			131072
+#define MIN_GUI_RAM		393216
+#define EARLY_SWAP_RAM		524288
 
 #define OUTPUT_TERMINAL "/dev/tty5"
 
