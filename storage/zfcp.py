@@ -225,7 +225,7 @@ class ZFCP:
             try:
                 self.addFCP(devnum, wwpn, fcplun)
             except ValueError, e:
-                log.warn("Invalid FCP device configuration: %s" %(e,))
+                log.warn(str(e))
                 continue
 
     def addFCP(self, devnum, wwpn, fcplun):
@@ -237,7 +237,10 @@ class ZFCP:
         if len(self.fcpdevs) == 0:
             return
         for d in self.fcpdevs:
-            d.offlineDevice()
+            try:
+                d.offlineDevice()
+            except ValueError, e:
+                log.warn(str(e))
 
     def startup(self):
         if not self.hasReadConfig:
@@ -247,7 +250,10 @@ class ZFCP:
         if len(self.fcpdevs) == 0:
             return
         for d in self.fcpdevs:
-            d.onlineDevice()
+            try:
+                d.onlineDevice()
+            except ValueError, e:
+                log.warn(str(e))
 
     def writeKS(self, f):
         if len(self.fcpdevs) == 0:

@@ -211,7 +211,10 @@ class PartitionTypeWindow:
         devnum = entries[0].strip()
         wwpn = entries[1].strip()
         fcplun = entries[2].strip()
-        self.anaconda.id.storage.zfcp.addFCP(devnum, wwpn, fcplun)
+        try:
+            self.anaconda.id.storage.zfcp.addFCP(devnum, wwpn, fcplun)
+        except ValueError, e:
+            log.warn(str(e)) # alternatively popup error dialog instead
                                         
         return INSTALL_OK
 

@@ -966,7 +966,10 @@ class ZFCP(commands.zfcp.FC3_ZFCP):
     def parse(self, args):
         retval = commands.zfcp.FC3_ZFCP.parse(self, args)
         for fcp in self.zfcp:
-            self.handler.id.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
+            try:
+                self.handler.id.zfcp.addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
+            except ValueError, e:
+                log.warning(str(e))
 
         isys.flushDriveDict()
         return retval
