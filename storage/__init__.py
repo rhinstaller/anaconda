@@ -1851,6 +1851,10 @@ class FSSet(object):
             if not device.format.mountable and device.format.type != "swap":
                 continue
 
+            # Don't write out lines for optical devices, either.
+            if isinstance(device, OpticalDevice):
+                continue
+
             fstype = getattr(device.format, "mountType", device.format.type)
             if fstype == "swap":
                 mountpoint = "swap"
