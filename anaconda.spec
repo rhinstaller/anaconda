@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.186
+Version: 11.1.2.187
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jul 10 2009 Joel Granados <jgranado@redhat.com> 11.1.2.187-1
+- Add support for the qlge driver (jgranado)
+  Resolves: rhbz#504034
+
 * Mon Jul 10 2009 Joel Granados <jgranado@redhat.com> 11.1.2.186-1
 - update support for ext4 in anaconda (jbastian)
   Resolves: rhbz#510634
