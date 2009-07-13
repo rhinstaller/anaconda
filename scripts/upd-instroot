@@ -235,7 +235,7 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump libidn
                 modutils mtools mt-st mtr net-tools open smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
                 device-mapper device-mapper-libs dmraid ntfsprogs samba-client
-                firstaidkit-plugin-all"
+		firstaidkit firstaidkit-plugin-all dialog"
 
 if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
     PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
@@ -832,6 +832,8 @@ usr/sbin/smartctl
 usr/sbin/traceroute
 usr/$LIBDIR/firstaidkit/plugins/
 usr/lib/python?.?/site-packages/pyfirstaidkit/
+usr/bin/dialog
+usr/bin/firstaidkit-qs
 EOF
 
 if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then

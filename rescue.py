@@ -34,6 +34,7 @@ import iutil
 import shutil
 import time
 import network
+import subprocess
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -128,6 +129,22 @@ def makeMtab(instPath, fsset):
     finally:
         f.close()
 
+def makeFStab(instPath = ""):
+    if os.access("/etc/mtab", os.R_OK):
+        f = open("/etc/mtab" %(instPath,), "r")
+        buf = f.read()
+        f.close()
+    else:
+        buf = ""
+
+    try:
+        f = open(instPath + "/etc/fstab", "w+")
+        if buf:
+            f.write(buf)
+        f.close()
+    except IOError, e:
+        log.info("failed to write /etc/fstab: %s" % e)
+
 # make sure they have a resolv.conf in the chroot
 def makeResolvConf(instPath):
     if not os.access("/etc/resolv.conf", os.R_OK):
@@ -183,11 +200,18 @@ def runShell(screen = None, msg=""):
             "system will reboot."))
     print
 
-    if os.path.exists("/bin/bash"):
-        iutil.execConsole()
-    else:
-        print(_("Unable to find /bin/sh to execute!  Not starting shell"))
-        time.sleep(5)
+    proc = None
+
+    if os.path.exists("/usr/bin/firstaidkit-qs") and os.path.exists("/usr/bin/dialog"):
+        proc = subprocess.Popen(["/bin/firstaidkit-qs"])
+        proc.wait()
+    
+    if proc is None or proc.returncode!=0:
+        if os.path.exists("/bin/bash"):
+            iutil.execConsole()
+        else:
+            print(_("Unable to find /bin/sh to execute!  Not starting shell"))
+            time.sleep(5)
 
     if screen:
         screen.finish()
@@ -435,6 +459,9 @@ def runRescue(anaconda, instClass):
         except Exception, e:
             log.error("error making a resolv.conf: %s" %(e,))
         msgStr = _("Your system is mounted under the %s directory.") % (anaconda.rootPath,)
+
+    #create /etc/fstab in ramdisk, so it is easier to work with RO mounted filesystems
+    makeFStab()
 
     # run %post if we've mounted everything
     if anaconda.isKickstart:
