@@ -103,8 +103,8 @@ def copyScreenshots():
             os.mkdir(destDir, 0750)
         except:
             window = MessageWindow("Error Saving Screenshot", 
-                                   _("An error occurred copying the "
-                                   "screenshots over."), type="warning")
+                                   _("An error occurred saving screenshots "
+                                     "to disk."), type="warning")
             return
 
     # copy all png's over
@@ -115,7 +115,7 @@ def copyScreenshots():
             shutil.copyfile(screenshotDir + '/' + f, destDir + '/' + fname)
 
     window = MessageWindow(_("Screenshots Copied"), 
-                           _("The screenshots have been saved into the "
+                           _("The screenshots have been saved in the "
                              "directory:\n\n"
                              "\t/root/anaconda-screenshots/\n\n"
                              "You can access these when you reboot and "
@@ -628,8 +628,8 @@ class luksPassphraseWindow:
         else:
             self.initialPassphrase = ""
 
-        txt = _("Choose a passphrase for your encrypted devices. "
-                "You will be prompted for the passphrase during system "
+        txt = _("Choose a passphrase for the encrypted devices. "
+                "You will be prompted for this passphrase during system "
                 "boot.")
         luksxml.get_widget("mainLabel").set_text(txt)
 
@@ -1277,8 +1277,8 @@ class InstallInterface:
         gtk.gdk.beep()
 
     def kickstartErrorWindow(self, text):
-        s = _("The following error was found while parsing your "
-              "kickstart configuration:\n\n%s") %(text,)
+        s = _("The following error was found while parsing the "
+              "kickstart configuration file:\n\n%s") %(text,)
         return self.messageWindow(_("Error Parsing Kickstart Config"),
                                   s,
                                   type = "custom",
@@ -1412,7 +1412,7 @@ class InstallControlWindow:
                         msg =  _("The installer will now exit.")
                         buttons = [_("_Exit installer")]
                     else:
-                        msg =  _("Your system will now be rebooted.")
+                        msg =  _("The system will now reboot.")
                         buttons = [_("_Reboot")]
 
                     MessageWindow(_("Exiting"),
@@ -1485,7 +1485,7 @@ class InstallControlWindow:
     def _doExitConfirm (self, win = None, *args):
         # FIXME: translate the string
         win = MessageWindow(_("Exit installer"),
-                            _("Are you sure you wish to exit the installation?"),
+                            _("Are you sure you wish to exit the installer?"),
                             type="custom", custom_icon="question",
                             custom_buttons = [_("Cancel"), _("_Exit installer")],
                             parent = win)

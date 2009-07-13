@@ -96,7 +96,7 @@ class AnacondaKSScript(Script):
                     msg = _("There was an error running the kickstart "
                             "script at line %s.  You may examine the "
                             "output in %s.  This is a fatal error and "
-                            "your install will be aborted.  Press the "
+                            "installation will be aborted.  Press the "
                             "OK button to exit the installer.") % (self.lineno, messages)
 
                     if self.logfile is not None and os.path.isfile(messages):
@@ -1178,8 +1178,8 @@ def earlyCommandPass(anaconda, file):
     try:
         ksparser.readKickstart(file)
     except KickstartError, e:
-        print _("The following error was found while parsing your "
-                "kickstart configuration:\n\n%s") % e
+        print _("The following error was found while parsing the"
+                "kickstart configuration file:\n\n%s") % e
         sys.exit(1)
 
     # And return the handler object so we can get information out of it.
@@ -1294,7 +1294,7 @@ def selectPackages(anaconda):
                                   "package '%s' should be installed.  "
                                   "This package does not exist. "
                                   "Would you like to continue or "
-                                  "abort your installation?") %(pkg,),
+                                  "abort this installation?") %(pkg,),
                                 type="custom",
                                 custom_buttons=[_("_Abort"),
                                                 _("_Ignore All"),
@@ -1332,7 +1332,7 @@ def selectPackages(anaconda):
                                           "group '%s' should be installed. "
                                           "This group does not exist. "
                                           "Would you like to continue or "
-                                          "abort your installation?")
+                                          "abort this installation?")
                                         %(grp.name,),
                                         type="custom",
                                         custom_buttons=[_("_Abort"),
@@ -1434,7 +1434,8 @@ def setSteps(anaconda):
                 errors.append(msg)
 
         if len(errors) > 0:
-            anaconda.intf.kickstartErrorWindow(_("Your kickstart file is missing "
-                "required information that anaconda cannot prompt for.  Please "
-                "add the following sections and try again:\n%s") % ", ".join(errors))
+            anaconda.intf.kickstartErrorWindow(_("The kickstart configuration "
+                "file is missing required information that anaconda cannot "
+                "prompt for.  Please add the following sections and try "
+                "again:\n%s") % ", ".join(errors))
             sys.exit(0)

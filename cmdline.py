@@ -83,8 +83,8 @@ class InstallInterface:
         return ProgressWindow(title, text, total, updpct, pulse)
 
     def kickstartErrorWindow(self, text):
-        s = _("The following error was found while parsing your "
-              "kickstart configuration:\n\n%s") %(text,)
+        s = _("The following error was found while parsing the "
+              "kickstart configuration file:\n\n%s") %(text,)
         print(s)
 
         while 1:
@@ -95,7 +95,7 @@ class InstallInterface:
         if type == "ok":
             print(text)
         else:
-            print(_("Can't have a question in command line mode!"))
+            print(_("Command line mode requires all choices to be specified in a kickstart configuration file."))
             print(title)
             print(text)
             print(type, custom_buttons)

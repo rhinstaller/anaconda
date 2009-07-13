@@ -51,7 +51,7 @@ def isEfiSystemPartition(part):
 def bootloaderSetupChoices(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         rc = anaconda.intf.messageWindow(_("Warning"),
-                _("Your filesystems have already been activated.  You "
+                _("Filesystems have already been activated.  You "
                   "cannot go back past this point.\n\nWould you like to "
                   "continue with the installation?"),
                 type="custom", custom_icon=["error","error"],
@@ -208,14 +208,14 @@ def writeBootloader(anaconda):
         if rc and anaconda.intf:
             anaconda.intf.messageWindow(_("Warning"),
                                _("There was an error installing the bootloader.  "
-                                 "Your system may not be bootable."))
+                                 "The system may not be bootable."))
     except booty.BootyNoKernelWarning:
 	if not justConfigFile:
 	    w.pop()
         if anaconda.intf:
             anaconda.intf.messageWindow(_("Warning"),
-                               _("No kernel packages were installed on your "
-                                 "system.  Your boot loader configuration "
+                               _("No kernel packages were installed on the "
+                                 "system.  Bootloader configuration "
                                  "will not be changed."))
 
     dosync()

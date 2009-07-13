@@ -409,7 +409,7 @@ def saveToBugzilla(anaconda, exn, dest):
 
     if not filer.supportsFiling() or not filer.bugUrl:
         anaconda.intf.messageWindow(_("Bug Filing Not Supported"),
-                                    _("Your distribution does not provide a "
+                                    _("This distribution does not provide a "
                                       "supported bug filing system, so you "
                                       "cannot save your exception this way."))
         return False
@@ -417,7 +417,8 @@ def saveToBugzilla(anaconda, exn, dest):
     if dest[0].strip() == "" or dest[1].strip() == "" or dest[2].strip() == "":
         anaconda.intf.messageWindow(_("Invalid Bug Information"),
                                     _("Please provide a valid username, "
-                                      "password, and short bug description."))
+                                      "password, and a short description of "
+                                      "the bug."))
         return False
 
     hash = exn.hash()
@@ -467,10 +468,10 @@ def saveToBugzilla(anaconda, exn, dest):
         # Tell the user we created a new bug for them and that they should
         # go add a descriptive comment.
         anaconda.intf.messageWindow(_("Bug Created"),
-            _("A new bug has been created with your traceback attached. "
+            _("A new bug has been created with the traceback attached. "
               "Please add additional information such as what you were doing "
-              "when you encountered the bug, screenshots, and whatever else "
-              "is appropriate to the following bug:\n\n%s/%s") % (bugzillaUrl, bug.id()),
+              "when you encountered the bug, screenshots, and any other "
+              "relevant information to the following bug:\n\n%s/%s") % (bugzillaUrl, bug.id()),
             type="custom", custom_icon="info",
             custom_buttons=[_("_Exit installer")])
         sys.exit(0)
@@ -484,10 +485,10 @@ def saveToBugzilla(anaconda, exn, dest):
         # Tell the user which bug they've been CC'd on and that they should
         # go add a descriptive comment.
         anaconda.intf.messageWindow(_("Bug Updated"),
-            _("A bug with your information already exists.  Your account has "
-              "been added to the CC list and your traceback added as a "
-              "comment.  Please add additional descriptive information to the "
-              "following bug:\n\n%s/%s") % (bugzillaUrl, bug.id()),
+            _("A bug with this profile has already been filed.  Your account "
+              "has been added to the CC list and your traceback added as a "
+              "comment.  Please review the following bug, and add additional "
+              "information if necessary:\n\n%s/%s") % (bugzillaUrl, bug.id()),
             type="custom", custom_icon="info",
             custom_buttons=[_("_Exit installer")])
         sys.exit(0)
@@ -509,7 +510,7 @@ def runSaveDialog(anaconda, exn):
 
                 if cpSucceeded:
                     anaconda.intf.messageWindow(_("Dump Written"),
-                        _("Your system's state has been successfully written to "
+                        _("System state has been successfully written to "
                           "the disk. The installer will now exit."),
                         type="custom", custom_icon="info",
                         custom_buttons=[_("_Exit installer")])
@@ -524,7 +525,7 @@ def runSaveDialog(anaconda, exn):
                 try:
                     shutil.copyfile(exn.tbFile, "%s/InstallError.txt" %(dest,))
                     anaconda.intf.messageWindow(_("Dump Written"),
-                        _("Your system's state has been successfully written to "
+                        _("System state has been successfully written to "
                           "the disk. The installer will now exit."),
                         type="custom", custom_icon="info",
                         custom_buttons=[_("_Exit installer")])
@@ -549,15 +550,15 @@ def runSaveDialog(anaconda, exn):
 
                 if scpSucceeded:
                     anaconda.intf.messageWindow(_("Dump Written"),
-                        _("Your system's state has been successfully written to "
+                        _("System state has been successfully transferred to "
                           "the remote host.  The installer will now exit."),
                         type="custom", custom_icon="info",
                         custom_buttons=[_("_Exit installer")])
                     sys.exit(0)
                 else:
                     anaconda.intf.messageWindow(_("Dump Not Written"),
-                        _("There was a problem writing the system state to the "
-                          "remote host."))
+                        _("There was a problem transferring the system state "
+                          "to the remote host."))
                     continue
             else:
                 if not hasActiveNetDev():

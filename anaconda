@@ -802,7 +802,7 @@ if __name__ == "__main__":
     #
     # if no X server, we have to use text mode
     if not (flags.test or flags.rootpath or x_already_set) and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
-         stdoutLog.warning(_("Graphical installation not available. "
+         stdoutLog.warning(_("Graphical installation is not available. "
                              "Starting text mode."))
          time.sleep(2)
          opts.display_mode = 't'
@@ -810,7 +810,7 @@ if __name__ == "__main__":
     if opts.isHeadless: # s390/iSeries checks
         if opts.display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
                                              flags.usevnc):
-            stdoutLog.warning(_("DISPLAY variable not set. Starting text mode!"))
+            stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
             opts.display_mode = 't'
             graphical_failed = 1
             time.sleep(2)

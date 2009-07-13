@@ -126,7 +126,7 @@ class AnacondaCallback:
             # step 6 is the bulk of the ts processing time
             if amount == 6:
                 self.progressWindow = \
-                    self.progressWindowClass (_("Preparing to install"), 
+                    self.progressWindowClass (_("Preparing to install"),
                                               _("Preparing transaction from installation source"),
                                               total)
                 self.incr = total / 10

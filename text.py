@@ -325,8 +325,8 @@ class LuksPassphraseWindow:
         self.passphrase = passphrase
         self.minLength = 8
         self.preexist = preexist
-        self.txt = _("Choose a passphrase for your encrypted devices. You "
-                     "will be prompted for the passphrase during system boot.")
+        self.txt = _("Choose a passphrase for the encrypted devices. You "
+                     "will be prompted for this passphrase during system boot.")
         self.rc = None
 
     def run(self):
@@ -564,8 +564,8 @@ class InstallInterface:
         
 
     def kickstartErrorWindow(self, text):
-        s = _("The following error was found while parsing your "
-              "kickstart configuration:\n\n%s") %(text,)
+        s = _("The following error was found while parsing the "
+              "kickstart configuration file:\n\n%s") %(text,)
         self.messageWindow(_("Error Parsing Kickstart Config"),
                            s,
                            type = "custom",
