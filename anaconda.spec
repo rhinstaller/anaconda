@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.185
+Version: 11.1.2.186
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -127,6 +127,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Jul 10 2009 Joel Granados <jgranado@redhat.com> 11.1.2.186-1
+- update support for ext4 in anaconda (jbastian)
+  Resolves: rhbz#510634
+
 * Wed Jul 08 2009 Chris Lumens <clumens@redhat.com> 11.1.2.185-1
 - Save bootfile, if we have it, from DHCP response (dcantrell).
   Resolves: rhbz#448006
