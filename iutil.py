@@ -236,11 +236,22 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
         runningLog.write(s)
         if progress: progress.pulse()
 
+        # break out early if the sub-process changes status.
+        # no need to flush the stream if the process has exited
+        try:
+            (pid, status) = os.waitpid(childpid,os.WNOHANG)
+            if pid != 0:
+                break
+        except OSError as e:
+            log.critical("exception from waitpid: %s %s" %(e.errno, e.strerror))
+
         if len(s) < 1:
             break
 
     try:
-        (pid, status) = os.waitpid(childpid, 0)
+        #if we didn't already get our child's exit status above, do so now.
+        if not pid:
+            (pid, status) = os.waitpid(childpid, 0)
     except OSError as e:
         log.critical("exception from waitpid: %s %s" %(e.errno, e.strerror))
 

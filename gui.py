@@ -521,7 +521,10 @@ class ProgressWindow:
             return
         self.progress.set_pulse_step(self.updpct)
         self.lastUpdate = now
-        # if we've had a largish gap, some smoothing does actually help.
+        # if we've had a largish gap, some smoothing does actually help,
+        # but don't go crazy
+        if delta > 2:
+            delta=2
         while delta > 0:
             self.progress.pulse()
             processEvents()
