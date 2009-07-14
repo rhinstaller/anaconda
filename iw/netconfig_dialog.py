@@ -226,8 +226,12 @@ class NetworkConfigurator:
         combo = self.xml.get_widget("interfaceCombo")
         active = combo.get_active_iter()
         val = combo.get_model().get_value(active, 1)
-        netdev = self.network.available()[val]
-        netdev.set(('ONBOOT', 'yes'))
+        for v, dev in self.network.available().items():
+            if v == val:
+                dev.set(('ONBOOT', 'yes'))
+                netdev = dev
+            else:
+                dev.set(('ONBOOT', 'no'))
 
         # FIXME: need to do input validation
         if self.xml.get_widget("dhcpCheckbutton").get_active():

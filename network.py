@@ -538,7 +538,7 @@ class Network:
             ipv6autoconf = dev.get('IPV6_AUTOCONF').lower()
             dhcpv6c = dev.get('DHCPV6C').lower()
 
-            newifcfg = "%s/ifcfg-%s.new" % (netscripts, device,)
+            newifcfg = "/tmp/ifcfg-%s.new" % (device,)
             f = open(newifcfg, "w")
             if len(dev.get("DESC")) > 0:
                 f.write("# %s\n" % (dev.get("DESC"),))
@@ -596,6 +596,11 @@ class Network:
 
             # move the new ifcfg in place
             destcfg = "%s/ifcfg-%s" % (netscripts, device,)
+            try:
+                os.remove(destcfg)
+            except OSError as e:
+                if e.errno != 2:
+                    raise
             shutil.move(newifcfg, destcfg)
 
             # XXX: is this necessary with NetworkManager?
