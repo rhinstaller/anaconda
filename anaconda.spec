@@ -16,6 +16,7 @@ BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: libdhcp-devel >= 1.20-10, mkinitrd-devel >= 5.1.2-1
 BuildPreReq: audit-libs-devel, libnl-devel >= 1.0-0.10.pre5.5
+BuildPreReq: libdhcp6client >= 1.0.10-17
 %ifnarch s390 s390x
 BuildPreReq: iscsi-initiator-utils >= 6.2.0.871-0.0
 %endif
