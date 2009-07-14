@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.187
+Version: 11.1.2.188
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 11 2009 Joel Granados <jgranado@redhat.com> 11.1.2.188-1
+- Require libdhcp6client for the build (jgranado).
+  Related: rhbz#506722
+
 * Mon Jul 10 2009 Joel Granados <jgranado@redhat.com> 11.1.2.187-1
 - Add support for the qlge driver (jgranado)
   Resolves: rhbz#504034
