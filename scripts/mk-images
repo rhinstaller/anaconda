@@ -718,7 +718,7 @@ makeinitrd() {
     )
 
     # Misc
-    instbin $IMGPATH /usr/bin/sleep $MBD_DIR /bin/sleep
+    instbin $IMGPATH /usr/bin/sleep $MBD_DIR /sbin/sleep
 
     # Indirect dependencies
     install -m 755 $IMGPATH/$LIBDIR/libfreebl3.so $MBD_DIR/$LIBDIR/
