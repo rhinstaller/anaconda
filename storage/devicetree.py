@@ -899,6 +899,7 @@ class DeviceTree(object):
         for ignored in self._ignoredDisks:
             if ignored == os.path.basename(os.path.dirname(sysfs_path)):
                 # this is a partition on a disk in the ignore list
+                lvm.lvm_cc_addFilterRejectRegexp(name)
                 return True
 
         # Ignore partitions found on the raw disks which are part of a
@@ -908,6 +909,7 @@ class DeviceTree(object):
         for set in sets:
             for disk in set.parents:
                 if disk.name == os.path.basename(os.path.dirname(sysfs_path)):
+                    lvm.lvm_cc_addFilterRejectRegexp(name)
                     return True
 
         # Ignore loop and ram devices, we normally already skip these in
