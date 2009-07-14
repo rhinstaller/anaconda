@@ -103,9 +103,10 @@ class NetworkConfiguratorText:
         selected_interface = None
 
         for dev in devs:
-            desc = netdevs[dev].get("DESC")
-            if desc:
-                desc = "%s - %.50s" % (dev, desc)
+            hwaddr = netdevs[dev].get("HWADDR")
+
+            if hwaddr:
+                desc = "%s - %.50s" % (dev, hwaddr)
             else:
                 desc = dev
 
