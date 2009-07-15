@@ -1085,6 +1085,17 @@ class InstallInterface:
         addFrame(win.dialog)
         return win
 
+    def exitWindow(self, title, text):
+        if self.icw:
+            parent = self.icw.window
+        else:
+            parent = None
+
+        rc = MessageWindow (title, text, type="custom",
+                            custom_icon="info", parent=parent,
+                            custom_buttons=[_("_Exit installer")]).getrc()
+        return rc
+
     def getInstallKey(self, anaconda, key = ""):
         d = InstallKeyWindow(anaconda, key)
         rc = d.run()
