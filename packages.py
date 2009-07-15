@@ -366,7 +366,7 @@ def regKeyScreen(anaconda):
         anaconda.id.instClass.skipkey = False
 
     while not anaconda.id.instClass.skipkey:
-        rc = anaconda.intf.getInstallKey(anaconda, key)
+        rc = anaconda.intf.getInstallKey(key)
         if rc is None and anaconda.dispatch.canGoBack():
             return DISPATCH_BACK
         elif rc is None:

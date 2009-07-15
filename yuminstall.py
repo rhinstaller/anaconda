@@ -288,7 +288,7 @@ class AnacondaYum(YumSorter):
                       "installation repository:\n\n%s\n\nPlease provide the "
                       "correct information for installing %s.") % (e, productName))
 
-                self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow(anaconda)
+                self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow()
 
         self.doConfigSetup(root=anaconda.rootPath)
         self.conf.installonlypkgs = []
@@ -406,7 +406,7 @@ class AnacondaYum(YumSorter):
 
                 # Calling _switchImage takes care of mounting /mnt/isodir first.
                 if not network.hasActiveNetDev():
-                    if not self.anaconda.intf.enableNetwork(self.anaconda):
+                    if not self.anaconda.intf.enableNetwork():
                         self._baseRepoURL = None
                         return
 
@@ -416,7 +416,7 @@ class AnacondaYum(YumSorter):
                 self._baseRepoURL = m
             elif m.startswith("nfs:"):
                 if not network.hasActiveNetDev():
-                    if not self.anaconda.intf.enableNetwork(self.anaconda):
+                    if not self.anaconda.intf.enableNetwork():
                         self._baseRepoURL = None
 
                 isys.mount(m[4:], self.tree, "nfs")
@@ -680,7 +680,7 @@ class AnacondaYum(YumSorter):
         pkgFile = to_unicode(os.path.basename(package.remote_path))
 
         if package.repo.needsNetwork() and not network.hasActiveNetDev():
-            if not self.anaconda.intf.enableNetwork(self.anaconda):
+            if not self.anaconda.intf.enableNetwork():
                 return
 
         rc = self.anaconda.intf.messageWindow(_("Error"),
@@ -1043,7 +1043,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         # know this in advance.
         if len(filter(lambda r: r.needsNetwork(), self.ayum.repos.listEnabled())) > 0 and \
            not network.hasActiveNetDev():
-               if not anaconda.intf.enableNetwork(anaconda):
+               if not anaconda.intf.enableNetwork():
                    anaconda.intf.messageWindow(_("No Network Available"),
                        _("Some of your software repositories require "
                          "networking, but there was an error enabling the "
@@ -1128,7 +1128,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 except RepoError, e:
                     waitwin.pop()
                     if repo.needsNetwork() and not network.hasActiveNetDev():
-                        if anaconda.intf.enableNetwork(anaconda):
+                        if anaconda.intf.enableNetwork():
                             repo.mirrorlistparsed = False
                             continue
 
@@ -1156,7 +1156,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     sys.exit(0)
                 elif rc == 1:
                     # edit
-                    anaconda.intf.editRepoWindow(anaconda, repo)
+                    anaconda.intf.editRepoWindow(repo)
                 elif rc == 2:
                     # retry, but only if button is present
                     continue

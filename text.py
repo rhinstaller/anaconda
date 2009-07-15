@@ -480,11 +480,11 @@ class InstallInterface:
         return self.messageWindow(title, text, type, default, custom_icon,
                                   custom_buttons)
 
-    def createRepoWindow(self, anaconda):
+    def createRepoWindow(self):
         self.messageWindow(_("Error"),
                            _("Repository editing is not available in text mode."))
 
-    def editRepoWindow(self, anaconda, repoObj):
+    def editRepoWindow(self, repoObj):
         self.messageWindow(_("Error"),
                            _("Repository editing is not available in text mode."))
 
@@ -509,16 +509,16 @@ class InstallInterface:
         w.pop()
         return (passphrase, isglobal)
 
-    def enableNetwork(self, anaconda):
-        if len(anaconda.id.network.netdevices) == 0:
+    def enableNetwork(self):
+        if len(self.anaconda.id.network.netdevices) == 0:
             return False
         from netconfig_text import NetworkConfiguratorText
-        w = NetworkConfiguratorText(self.screen, anaconda)
+        w = NetworkConfiguratorText(self.screen, self.anaconda)
         ret = w.run()
         return ret != INSTALL_BACK
 
-    def getInstallKey(self, anaconda, key = ""):
-        ic = anaconda.id.instClass
+    def getInstallKey(self, key = ""):
+        ic = self.anaconda.id.instClass
         keyname = _(ic.instkeyname)
         if keyname is None:
             keyname = _("Installation Key")
@@ -532,7 +532,7 @@ class InstallInterface:
 
 
         radio = RadioGroup()
-        keyradio = radio.add(keyname, "key", int(not anaconda.id.instClass.skipkey))
+        keyradio = radio.add(keyname, "key", int(not self.anaconda.id.instClass.skipkey))
         keyentry = Entry(24)
         keyentry.set(key)
 
@@ -545,7 +545,7 @@ class InstallInterface:
         if ic.allowinstkeyskip:
             skipradio = radio.add(_("Skip entering %(instkey)s") %
                                   {"instkey": keyname}, "skip", 
-                                  int(anaconda.id.instClass.skipkey))
+                                  int(self.anaconda.id.instClass.skipkey))
             g.add(skipradio, 0, 2)
 
         bb = ButtonBar(self.screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
@@ -577,8 +577,8 @@ class InstallInterface:
         exnWin = MainExceptionWindow(shortText, longTextFile, self.screen)
         return exnWin
 
-    def saveExceptionWindow(self, anaconda, longTextFile):
-        win = SaveExceptionWindow (anaconda, longTextFile, self.screen)
+    def saveExceptionWindow(self, longTextFile):
+        win = SaveExceptionWindow (self.anaconda, longTextFile, self.screen)
         return win
 
     def waitWindow(self, title, text):
@@ -631,6 +631,7 @@ class InstallInterface:
         return True
 
     def run(self, anaconda):
+        self.anaconda = anaconda
         instLang = anaconda.id.instLanguage
 
         if instLang.getFontFile(instLang.getCurrent()) == "none":

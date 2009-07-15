@@ -998,11 +998,11 @@ class InstallInterface:
     def resume(self):
         pass
 
-    def enableNetwork(self, anaconda):
-        if len(anaconda.id.network.netdevices) == 0:
+    def enableNetwork(self):
+        if len(self.anaconda.id.network.netdevices) == 0:
             return False
         from netconfig_dialog import NetworkConfigurator
-        net = NetworkConfigurator(anaconda.id.network)
+        net = NetworkConfigurator(self.anaconda.id.network)
         ret = net.run()
         net.destroy()
 
@@ -1035,21 +1035,21 @@ class InstallInterface:
                 custom_buttons, custom_icon, run=True, parent=parent).getrc()
         return rc
 
-    def createRepoWindow(self, anaconda):
+    def createRepoWindow(self):
         from task_gui import RepoCreator
-        dialog = RepoCreator(anaconda)
+        dialog = RepoCreator(self.anaconda)
         dialog.createDialog()
         dialog.run()
 
-    def editRepoWindow(self, anaconda, repoObj):
+    def editRepoWindow(self, repoObj):
         from task_gui import RepoEditor
-        dialog = RepoEditor(anaconda, repoObj)
+        dialog = RepoEditor(self.anaconda, repoObj)
         dialog.createDialog()
         dialog.run()
 
-    def methodstrRepoWindow(self, anaconda):
+    def methodstrRepoWindow(self):
         from task_gui import RepoMethodstrEditor
-        dialog = RepoMethodstrEditor(anaconda)
+        dialog = RepoMethodstrEditor(self.anaconda)
         dialog.createDialog()
         return dialog.run()
 
@@ -1096,8 +1096,8 @@ class InstallInterface:
                             custom_buttons=[_("_Exit installer")]).getrc()
         return rc
 
-    def getInstallKey(self, anaconda, key = ""):
-        d = InstallKeyWindow(anaconda, key)
+    def getInstallKey(self, key = ""):
+        d = InstallKeyWindow(self.anaconda, key)
         rc = d.run()
         if rc == gtk.RESPONSE_CANCEL:
             ret = None

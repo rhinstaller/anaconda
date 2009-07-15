@@ -488,7 +488,7 @@ class TaskWindow(InstallWindow):
             return
 
         if repo.needsNetwork() and not network.hasActiveNetDev():
-            if not self.anaconda.intf.enableNetwork(self.anaconda):
+            if not self.anaconda.intf.enableNetwork():
                 return gtk.RESPONSE_CANCEL
 
         dialog = RepoEditor(self.anaconda, repo)
@@ -504,7 +504,7 @@ class TaskWindow(InstallWindow):
             return gtk.RESPONSE_CANCEL
 
         if dialog.repo.needsNetwork() and not network.hasActiveNetDev():
-            if not self.anaconda.intf.enableNetwork(self.anaconda):
+            if not self.anaconda.intf.enableNetwork():
                 return gtk.RESPONSE_CANCEL
 
         s = self.xml.get_widget("repoList").get_model()
@@ -536,7 +536,7 @@ class TaskWindow(InstallWindow):
 
         if not wasChecked:
             if repo.needsNetwork() and not network.hasActiveNetDev():
-                if not self.anaconda.intf.enableNetwork(self.anaconda):
+                if not self.anaconda.intf.enableNetwork():
                     return
 
             repo.enable()
