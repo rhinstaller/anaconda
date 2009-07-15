@@ -40,6 +40,7 @@ class LUKS(DeviceFormat):
     """ A LUKS device. """
     _type = "luks"
     _name = "LUKS"
+    _lockedName = _("Encrypted")
     _udevTypes = ["crypto_LUKS"]
     _formattable = True                 # can be formatted
     _supported = False                  # is supported
@@ -80,6 +81,16 @@ class LUKS(DeviceFormat):
             self.mapName = "luks-%s" % self.uuid
         elif not self.mapName and self.device:
             self.mapName = "luks-%s" % os.path.basename(self.device)
+
+    @property
+    def name(self):
+        name = self._name
+        # for existing locked devices, show "Encrypted" instead of LUKS
+        if self.hasKey or not self.exists:
+            name = self._name
+        else:
+            name = "%s (%s)" % (self._lockedName, self._name)
+        return name
 
     def _setPassphrase(self, passphrase):
         """ Set the passphrase used to access this device. """
