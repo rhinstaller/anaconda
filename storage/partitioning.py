@@ -706,10 +706,6 @@ def allocatePartitions(disks, partitions):
             sectorSize = disk.device.physicalSectorSize
             best = None
 
-            # TODO: On alpha we are supposed to reserve either one or two
-            #       MB at the beginning of each disk. Awesome.
-            #         -- maybe we do not care about alpha...
-
             log.debug("checking freespace on %s" % _disk.name)
 
             new_part_type = getNextPartitionType(disk)
@@ -719,9 +715,14 @@ def allocatePartitions(disks, partitions):
                 continue
 
             if _part.req_primary and new_part_type != parted.PARTITION_NORMAL:
-                # we need a primary slot and none are free on this disk
-                log.debug("no primary slots available on %s" % _disk.name)
-                continue
+                if disk.primaryPartitionCount < disk.maxPrimaryPartitionCount:
+                    # don't fail to create a primary if there are only three
+                    # primary partitions on the disk (#505269)
+                    new_part_type = parted.PARTITION_NORMAL
+                else:
+                    # we need a primary slot and none are free on this disk
+                    log.debug("no primary slots available on %s" % _disk.name)
+                    continue
 
             best = getBestFreeSpaceRegion(disk,
                                           new_part_type,
