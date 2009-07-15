@@ -2761,7 +2761,7 @@ class NoDevice(StorageDevice):
         if format:
             name = format.type
         else:
-            name = "nodev"
+            name = "none"
 
         StorageDevice.__init__(self, name, format=format)
 
