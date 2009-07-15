@@ -20,7 +20,7 @@
 from installclass import BaseInstallClass
 from constants import *
 from product import *
-from filer import *
+from meh.filer import *
 from flags import flags
 import os
 import iutil
@@ -79,7 +79,9 @@ class InstallClass(BaseInstallClass):
     skipkeytext = N_("If you cannot locate the Installation Number, consult "
                      "http://www.redhat.com/InstNum/")
 
-    bugFiler = BugzillaFiler(bugUrl="https://bugzilla.redhat.com/xmlrpc.cgi")
+    bugFiler = BugzillaFiler("https://bugzilla.redhat.com/xmlrpc.cgi",
+                             "https://bugzilla.redhat.com/",
+                             product.productVersion, product.productName)
 
     def setInstallData(self, anaconda):
 	BaseInstallClass.setInstallData(self, anaconda)

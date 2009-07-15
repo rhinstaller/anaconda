@@ -31,7 +31,8 @@ import types
 from instdata import InstallData
 
 from constants import *
-from filer import *
+from meh.filer import *
+from product import *
 from storage.partspec import *
 
 import gettext
@@ -56,7 +57,8 @@ class BaseInstallClass(object):
     # default to showing the upgrade option
     showUpgrade = True
 
-    bugFiler = AbstractFiler()
+    bugFiler = AbstractFiler(product.bugUrl, product.bugUrl,
+                             product.productVersion, product.productName)
 
     # list of of (txt, grplist) tuples for task selection screen
     tasks = []

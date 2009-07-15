@@ -20,7 +20,7 @@
 from installclass import BaseInstallClass
 from constants import *
 from product import *
-from filer import *
+from meh.filer import *
 from flags import flags
 import os, types
 import iutil
@@ -50,7 +50,9 @@ class InstallClass(BaseInstallClass):
              (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
              (N_("Web Server"), ["web-server"])]
 
-    bugFiler = BugzillaFiler(bugUrl="https://bugzilla.redhat.com/xmlrpc.cgi",
+    bugFiler = BugzillaFiler("https://bugzilla.redhat.com/xmlrpc.cgi",
+                             "https://bugzilla.redhat.com/",
+                             product.productVersion, product.productName,
                              develVersion="rawhide", defaultProduct="Fedora")
 
     def getPackagePaths(self, uri):
