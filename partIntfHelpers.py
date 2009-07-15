@@ -272,7 +272,7 @@ def partitionPreExistFormatWarnings(intf, warnings):
 def getPreExistFormatWarnings(storage):
     """Return a list of preexisting devices being formatted."""
     devices = []
-    for device in storage.devicetree.devices.values():
+    for device in storage.devicetree.devices:
         if device.exists and not device.format.exists:
             devices.append(device)
 

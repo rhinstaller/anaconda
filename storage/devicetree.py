@@ -684,7 +684,7 @@ class DeviceTree(object):
             log.debug("action: %s" % action)
 
         log.debug("resetting parted disks...")
-        for device in self.devices.itervalues():
+        for device in self.devices:
             if isinstance(device, DiskDevice):
                 device.resetPartedDisk()
 
@@ -864,7 +864,7 @@ class DeviceTree(object):
                 if part.partType and part.isLogical and part.disk == dep.disk:
                     logicals.append(part)
 
-        for device in self.devices.values():
+        for device in self.devices:
             if device.dependsOn(dep):
                 dependents.append(device)
             else:
@@ -928,7 +928,7 @@ class DeviceTree(object):
         sysfs_path = udev_device_get_sysfs_path(info)
         device = None
 
-        for dmdev in self.devices.values():
+        for dmdev in self.devices:
             if not isinstance(dmdev, DMDevice):
                 continue
 
@@ -1830,6 +1830,24 @@ class DeviceTree(object):
         log.debug("found %s" % found)
         return found
 
+    def getDeviceByPath(self, path):
+        log.debug("looking for device '%s'..." % path)
+        if not path:
+            return None
+
+        found = None
+        for device in self._devices:
+            if device.path == path:
+                found = device
+                break
+            elif (device.type == "lvmlv" or device.type == "lvmvg") and \
+                    device.path == path.replace("--","-"):
+                found = device
+                break
+
+        log.debug("found %s" % found)
+        return found
+
     def getDevicesByType(self, device_type):
         # TODO: expand this to catch device format types
         return [d for d in self._devices if d.type == device_type]
@@ -1839,14 +1857,13 @@ class DeviceTree(object):
 
     @property
     def devices(self):
-        """ Dict with device path keys and Device values. """
-        devices = {}
-
+        """ List of device instances """
+        devices = []
         for device in self._devices:
-            if device.path in devices:
+            if device.path in [d.path for d in devices]:
                 raise DeviceTreeError("duplicate paths in device tree")
 
-            devices[device.path] = device
+            devices.append(device)
 
         return devices
 
@@ -1924,7 +1941,7 @@ class DeviceTree(object):
                 log.error("failed to resolve device %s" % devspec)
         elif devspec.startswith("/dev/"):
             # device path
-            device = self.devices.get(devspec)
+            device = self.getDeviceByPath(devspec)
             if device is None:
                 if blkidTab:
                     # try to use the blkid.tab to correlate the device

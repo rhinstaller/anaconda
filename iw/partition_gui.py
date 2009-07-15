@@ -1045,7 +1045,7 @@ class PartitionWindow(InstallWindow):
                     rc = -1
                 else:
                     rc = 0
-                    all_devices = self.storage.devicetree.devices.values()
+                    all_devices = self.storage.devicetree.devices
                     bootDevs = [d for d in all_devices if d.bootable]
                     #if reqs:
                     #    for req in reqs:

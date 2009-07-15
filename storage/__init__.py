@@ -297,7 +297,7 @@ class Storage(object):
     @property
     def devices(self):
         """ A list of all the devices in the device tree. """
-        devices = self.devicetree.devices.values()
+        devices = self.devicetree.devices
         devices.sort(key=lambda d: d.path)
         return devices
 
@@ -312,10 +312,9 @@ class Storage(object):
             system's disks.
         """
         disks = []
-        devices = self.devicetree.devices
-        for d in devices:
-            if isinstance(devices[d], DiskDevice) and devices[d].mediaPresent:
-                disks.append(devices[d])
+        for device in self.devicetree.devices:
+            if isinstance(device, DiskDevice) and device.mediaPresent:
+                disks.append(device)
         disks.sort(key=lambda d: d.name)
         return disks
 
@@ -363,7 +362,7 @@ class Storage(object):
             does not necessarily reflect the actual on-disk state of the
             system's disks.
         """
-        devices = self.devicetree.devices.values()
+        devices = self.devicetree.devices
         pvs = [d for d in devices if d.format.type == "lvmpv"]
         pvs.sort(key=lambda d: d.name)
         return pvs
@@ -402,7 +401,7 @@ class Storage(object):
             does not necessarily reflect the actual on-disk state of the
             system's disks.
         """
-        devices = self.devicetree.devices.values()
+        devices = self.devicetree.devices
         members = [d for d in devices if d.format.type == "mdmember"]
         members.sort(key=lambda d: d.name)
         return members
@@ -438,14 +437,14 @@ class Storage(object):
             does not necessarily reflect the actual on-disk state of the
             system's disks.
         """
-        devices = self.devicetree.devices.values()
+        devices = self.devicetree.devices
         swaps = [d for d in devices if d.format.type == "swap"]
         swaps.sort(key=lambda d: d.name)
         return swaps
 
     @property
     def protectedDevices(self):
-        devices = self.devicetree.devices.values()
+        devices = self.devicetree.devices
         protected = [d for d in devices if d.protected]
         protected.sort(key=lambda d: d.name)
         return protected
@@ -1200,7 +1199,7 @@ class CryptTab(object):
 
     def populate(self):
         """ Populate the instance based on the device tree's contents. """
-        for device in self.devicetree.devices.values():
+        for device in self.devicetree.devices:
             # XXX should we put them all in there or just the ones that
             #     are part of a device containing swap or a filesystem?
             #
@@ -1321,9 +1320,7 @@ class FSSet(object):
 
     @property
     def devices(self):
-        devices = self.devicetree.devices.values()
-        devices.sort(key=lambda d: d.path)
-        return devices
+        return sorted(self.devicetree.devices, key=lambda d: d.path)
 
     @property
     def mountpoints(self):
@@ -1487,7 +1484,7 @@ class FSSet(object):
                 if not device:
                     continue
 
-                if device not in self.devicetree.devices.values():
+                if device not in self.devicetree.devices:
                     self.devicetree._addDevice(device)
 
     def fsFreeSpace(self, chroot='/'):

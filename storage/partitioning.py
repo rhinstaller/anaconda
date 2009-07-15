@@ -162,7 +162,7 @@ def doAutoPartition(anaconda):
     log.debug("clearPartDisks: %s" % anaconda.id.storage.clearPartDisks)
     log.debug("autoPartitionRequests: %s" % anaconda.id.storage.autoPartitionRequests)
     log.debug("storage.disks: %s" % anaconda.id.storage.disks)
-    log.debug("all names: %s" % [d.name for d in anaconda.id.storage.devicetree.devices.values()])
+    log.debug("all names: %s" % [d.name for d in anaconda.id.storage.devices])
     if anaconda.dir == DISPATCH_BACK:
         anaconda.id.storage.reset()
         return

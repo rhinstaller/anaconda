@@ -250,7 +250,7 @@ def presentRequiredMediaMessage(anaconda):
 # Find an attached CD/DVD drive with media in it that contains packages,
 # and return that device name.
 def scanForMedia(tree, storage):
-    for dev in storage.devicetree.devices.values():
+    for dev in storage.devicetree.devices:
         if dev.type != "cdrom":
             continue
 
