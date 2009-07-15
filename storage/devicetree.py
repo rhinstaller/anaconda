@@ -700,7 +700,8 @@ class DeviceTree(object):
             Raise ValueError if the device's identifier is already
             in the list.
         """
-        if newdev.path in [d.path for d in self._devices]:
+        if newdev.path in [d.path for d in self._devices] and \
+           not isinstance(newdev, NoDevice):
             raise ValueError("device is already in tree")
 
         # make sure this device's parent devices are in the tree already
@@ -1860,7 +1861,8 @@ class DeviceTree(object):
         """ List of device instances """
         devices = []
         for device in self._devices:
-            if device.path in [d.path for d in devices]:
+            if device.path in [d.path for d in devices] and \
+               not isinstance(device, NoDevice):
                 raise DeviceTreeError("duplicate paths in device tree")
 
             devices.append(device)
