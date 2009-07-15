@@ -546,7 +546,6 @@ if __name__ == "__main__":
     setupPythonUpdates()
 
     import signal, string, isys, iutil, time
-    from exception import handleException
     import dispatch
     import warnings
     import vnc
@@ -958,14 +957,13 @@ if __name__ == "__main__":
         kickstart.setSteps(anaconda)
 
     # comment out the next line to make exceptions non-fatal
-    sys.excepthook = lambda type, value, tb, anaconda=anaconda: handleException(anaconda, (type, value, tb))
+    from exception import initExceptionHandling
+    initExceptionHandling(anaconda)
 
     try:
         anaconda.intf.run(anaconda)
     except SystemExit, code:
         anaconda.intf.shutdown()
-    except:
-        handleException(anaconda, sys.exc_info())
 
     if anaconda.isKickstart and anaconda.id.ksdata.reboot.eject:
         for drive in anaconda.id.storage.devicetree.devices.values():

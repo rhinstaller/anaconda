@@ -33,7 +33,6 @@ import string
 import language
 import shutil
 import traceback
-from exception import handleException
 from flags import flags
 from product import *
 from constants import *
@@ -189,7 +188,7 @@ def turnOnFilesystems(anaconda):
                                 custom_buttons = [_("_File Bug"), _("_Exit installer")])
 
             if rc == 0:
-                handleException(anaconda, sys.exc_info())
+                raise
             elif rc == 1:
                 sys.exit(1)
 
