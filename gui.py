@@ -1073,12 +1073,16 @@ class InstallInterface:
         return rc
 
     def mainExceptionWindow(self, shortText, longTextFile):
+        from meh.ui.gui import MainExceptionWindow
         log.critical(shortText)
         win = MainExceptionWindow (shortText, longTextFile)
+        addFrame(win.dialog)
         return win
 
-    def saveExceptionWindow(self, anaconda, longTextFile):
-        win = SaveExceptionWindow (anaconda, longTextFile)
+    def saveExceptionWindow(self, longTextFile):
+        from meh.ui.gui import SaveExceptionWindow
+        win = SaveExceptionWindow (self.anaconda, longTextFile)
+        addFrame(win.dialog)
         return win
 
     def getInstallKey(self, anaconda, key = ""):
