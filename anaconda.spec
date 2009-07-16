@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.188
+Version: 11.1.2.189
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 16 2009 Radek Vykydal <rvykydal@redhat.com> 11.1.2.189-1
+- Make buildinstall error out if mount of loop device fails (rvykydal).
+  Resolves: rhbz#472552
+
 * Tue Jul 11 2009 Joel Granados <jgranado@redhat.com> 11.1.2.188-1
 - Require libdhcp6client for the build (jgranado).
   Related: rhbz#506722
