@@ -1247,7 +1247,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
      * it.  However if stage2= was given, use that value as an override here.
      * That will also then bypass any method selection UI in loader.
      */
-    if (!FL_ASKMETHOD(flags) && !loaderData->stage2Data) {
+    if (!FL_ASKMETHOD(flags)) {
         url = findAnacondaCD("/mnt/stage2");
         if (url) {
             setStage2LocFromCmdline(url, loaderData);
@@ -1261,7 +1261,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
             skipLangKbd = 1;
             flags |= LOADER_FLAGS_NOPASS;
-        } else if (loaderData->instRepo) {
+        } else if (!loaderData->stage2Data && loaderData->instRepo) {
             /* If no CD/DVD with a stage2 image was found and we were given a
              * repo=/method= parameter, try to piece together a valid setting
              * for the stage2= parameter based on that.
