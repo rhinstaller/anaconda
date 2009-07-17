@@ -52,8 +52,7 @@ class InstallClass(BaseInstallClass):
 
     bugFiler = BugzillaFiler("https://bugzilla.redhat.com/xmlrpc.cgi",
                              "https://bugzilla.redhat.com/",
-                             product.productVersion, product.productName,
-                             develVersion="rawhide", defaultProduct="Fedora")
+                             product.productVersion, product.productName)
 
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
