@@ -1235,7 +1235,7 @@ class DeviceTree(object):
         # If this device is protected, mark it as such now. Once the tree
         # has been populated, devices' protected attribute is how we will
         # identify protected devices.
-        if device.name in self.protectedDevNames:
+        if device and device.name in self.protectedDevNames:
             device.protected = True
 
         # now handle the device's formatting
