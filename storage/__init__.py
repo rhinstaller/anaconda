@@ -1541,6 +1541,8 @@ class FSSet(object):
                     log.error("cannot determine which device contains "
                               "directory %s" % device.path)
                     device.parents = []
+                    self.devicetree._removeDevice(device)
+                    continue
                 else:
                     device.parents = [parent]
 
@@ -1616,6 +1618,8 @@ class FSSet(object):
                     log.error("cannot determine which device contains "
                               "directory %s" % device.path)
                     device.parents = []
+                    self.devicetree._removeDevice(device)
+                    continue
                 else:
                     device.parents = [parent]
 
