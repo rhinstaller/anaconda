@@ -139,7 +139,7 @@ def setupPythonUpdates():
     except:
 	pass
 
-    for pypkg in ("block", "rhpl", "yum", "rpmUtils", "urlgrabber", "pykickstart", "parted"):
+    for pypkg in ("block", "rhpl", "yum", "rpmUtils", "urlgrabber", "pykickstart", "parted", "meh"):
 	# get the libdir.  *sigh*
 	if os.access("/usr/lib64/python%s/site-packages/%s" %(pyver, pypkg),
 		     os.X_OK):
