@@ -2993,6 +2993,9 @@ class OpticalDevice(StorageDevice):
         if not self.exists:
             raise DeviceError("device has not been created", self.path)
 
+        #try to umount and close device before ejecting
+        self.teardown()
+
         # Make a best effort attempt to do the eject.  If it fails, it's not
         # critical.
         fd = os.open(self.path, os.O_RDONLY | os.O_NONBLOCK)
