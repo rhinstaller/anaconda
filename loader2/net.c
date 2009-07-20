@@ -2346,7 +2346,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                          _("You can identify the physical port for"),
                          devices[deviceNum],
                          _("by flashing the LED lights for a number of "
-                           "seconds.  Enter a number between 1 and 30 to "
+                           "seconds.  Enter a number between 1 and 300 to "
                            "set the duration to flash the LED port "
                            "lights.")) == -1) {
                 logMessage(ERROR, "asprintf() failure in %s: %m", __func__);
