@@ -136,43 +136,13 @@ install-buildrequires:
 # created.  By default, the updates subdirectory is removed after the
 # image is made, but if you want to keep it around, run:
 #     make updates.img KEEP=y
-# And since shell is both stupid and amusing, I only match the first
-# character to be a 'y' or 'Y', so you can do:
-#     make updates.img KEEP=yosemite
-# Ahh, shell.
 updates:
-	@if [ ! -d updates-img ]; then \
-		mkdir updates-img ; \
-	fi ; \
-	build_isys="$$(git diff --stat $(ARCHIVE_TAG) isys | grep " | " | cut -d ' ' -f 2 | egrep "(Makefile|\.h|\.c)$$")" ; \
-	git diff --stat $(ARCHIVE_TAG) | grep " | " | \
-	grep -v "\.spec" | grep -v "Makefile" | grep -v "\.c\ " | \
-	grep -v "\.h" | grep -v "\.sh" | grep -v "configure\.ac" | \
-	while read sourcefile stuff ; do \
-		dn="$$(echo $$sourcefile | cut -d '/' -f 1)" ; \
-		case $$dn in \
-			installclasses|storage|booty) \
-				rm -rf updates-img/$$dn ; \
-				cp -a $$dn updates-img ; \
-				find updates-img/$$dn -type f | egrep 'Makefile|\.pyc' | xargs rm -f ;; \
-			loader|po|scripts|command-stubs|tests|bootdisk|docs|fonts|utils|gptsync) \
-				continue ;; \
-			*) \
-				cp -a $$sourcefile updates-img ;; \
-		esac ; \
-	done ; \
-	if [ ! -z "$$build_isys" ]; then \
-		make -C isys ; \
-		cp isys/_isys.so updates-img ; \
-	fi ; \
-	cd updates-img ; \
-	echo -n "Creating updates.img..." ; \
-	( find . | cpio -c -o | gzip -9c ) > ../updates.img ; \
-	cd .. ; \
+	@opts="-c" ; \
 	keep="$$(echo $(KEEP) | cut -c1 | tr [a-z] [A-Z])" ; \
 	if [ ! "$$keep" = "Y" ]; then \
-		rm -rf updates-img ; \
+		opts="${opts} -k" ; \
 	fi
+	scripts/makeupdates ${opts}
 
 # DEPRECATED TARGETS:
 archive-no-tag: dist

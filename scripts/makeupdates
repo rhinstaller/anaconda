@@ -1,0 +1,212 @@
+#!/usr/bin/env python
+#
+# makeupdates - Generate an updates.img containing changes since the last
+#               tag, but only changes that do not need to be compiled.  If
+#               you need an updated _isys.so or a new loader, you should
+#               still compile things as usual.
+#
+# Copyright (C) 2009  Red Hat, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation; either version 2.1 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author: David Cantrell <dcantrell@redhat.com>
+
+import getopt
+import os
+import shutil
+import subprocess
+import sys
+
+def getArchiveTag(configure, spec):
+    tag = ""
+
+    f = open(configure)
+    lines = f.readlines()
+    f.close()
+
+    for line in lines:
+        if line.startswith('AC_INIT('):
+            fields = line.split('[')
+            tag += fields[1].split(']')[0] + '-' + fields[2].split(']')[0]
+            break
+        else:
+            continue
+
+    f = open(spec)
+    lines = f.readlines()
+    f.close()
+
+    for line in lines:
+        if line.startswith('Release:'):
+            tag += '-' + line.split()[1].split('%')[0]
+        else:
+            continue
+
+    return tag
+
+def doGitDiff(tag, args=[]):
+    proc = subprocess.Popen(['git', 'diff', '--stat', tag] + args,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE).communicate()
+
+    lines = proc[0].split('\n')
+    return lines
+
+def copyUpdatedFiles(tag, updates, cwd):
+    def pruneFile(src, names):
+        lst = []
+
+        for name in names:
+            if name.startswith('Makefile') or name.endswith('.pyc'):
+                lst.append(name)
+
+        return lst
+
+    subdirs = []
+
+    lines = doGitDiff(tag)
+    for line in lines:
+        if line.find(' | ') == -1:
+            continue
+
+        fields = line.split()
+        file = fields[0]
+
+        if file.endswith('.spec.in') or file.startswith('Makefile') or \
+           file.endswith('.c') or file.endswith('.h') or \
+           file.endswith('.sh') or file == 'configure.ac':
+            continue
+
+        if file.find('/') != -1:
+            fields = file.split('/')
+            subdir = fields[0]
+
+            if subdir == 'installclasses' or subdir == 'storage' or \
+               subdir == 'booty':
+                subupdates = os.path.realpath(updates + '/' + subdir)
+                if os.path.isdir(subupdates):
+                    shutil.rmtree(subupdates)
+
+                if not subdir in subdirs:
+                    sys.stdout.write("Including %s/\n" % (subdir,))
+                    subdirs.append(subdir)
+
+                shutil.copytree(os.path.realpath(cwd + '/' + subdir),
+                                subupdates, ignore=pruneFile)
+            elif subdir == 'loader' or subdir == 'po' or \
+                 subdir =='scripts' or subdir == 'command-stubs' or \
+                 subdir == 'tests' or subdir == 'bootdisk' or \
+                 subdir == 'docs' or subdir == 'fonts' or \
+                 subdir == 'utils' or subdir == 'gptsync':
+                continue
+            else:
+                sys.stdout.write("Including %s\n" % (file,))
+                shutil.copy2(file, updates)
+
+def isysChanged(tag):
+    lines = doGitDiff(tag, ['isys'])
+
+    for line in lines:
+        if line.find(' | ') == -1:
+            continue
+
+        fields = line.split()
+        file = fields[0]
+
+        if file.startswith('Makefile') or file.endswith('.h') or \
+           file.endswith('.c'):
+            return True
+
+    return False
+
+def copyUpdatedIsys(updates, cwd):
+    os.chdir(cwd)
+
+    if not os.path.isfile('Makefile'):
+        if not os.path.isfile('configure'):
+            os.system('./autogen.sh')
+        os.system('./configure')
+
+    os.system('make')
+
+    isysmodule = os.path.realpath(cwd + '/isys/.libs/_isys.so')
+    if os.path.isfile(isysmodule):
+        shutil.copy2(isysmodule, updates)
+
+def createUpdatesImage(cwd, updates):
+    os.chdir(updates)
+    os.system("find . | cpio -c -o | gzip -9cv > %s/updates.img" % (cwd,))
+    sys.stdout.write("updates.img ready\n")
+
+def usage(cmd):
+    sys.stdout.write("Usage: %s [OPTION]...\n" % (cmd,))
+    sys.stdout.write("Options:\n")
+    sys.stdout.write("    -k, --keep       Do not delete updates subdirectory.\n")
+    sys.stdout.write("    -c, --compile    Compile code if there are isys changes.\n")
+    sys.stdout.write("    -h, --help       Display this help and exit.\n")
+
+def main(argv):
+    prog = os.path.basename(sys.argv[0])
+    cwd = os.getcwd()
+    configure = os.path.realpath(cwd + '/configure.ac')
+    spec = os.path.realpath(cwd + '/anaconda.spec.in')
+    updates = cwd + '/updates'
+    keep, compile, help, unknown = False, False, False, False
+
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], 'kc?',
+                                   ['keep', 'compile', 'help'])
+    except getopt.GetoptError:
+        help = True
+
+    for o, a in opts:
+        if o in ('-k', '--keep'):
+            keep = True
+        elif o in ('-c', '--compile'):
+            compile = True
+        elif o in ('-?', '--help'):
+            help = True
+        else:
+            unknown = True
+
+    if help:
+        usage(prog)
+        sys.exit(0)
+    elif unknown:
+        sys.stderr.write("%s: extra operand `%s'" % (prog, sys.argv[1],))
+        sys.stderr.write("Try `%s --help' for more information." % (prog,))
+        sys.exit(1)
+
+    if not os.path.isfile(configure) and not os.path.isfile(spec):
+        sys.stderr.write("You must be at the top level of the anaconda source tree.\n")
+        sys.exit(1)
+
+    tag = getArchiveTag(configure, spec)
+
+    if not os.path.isdir(updates):
+        os.makedirs(updates)
+
+    copyUpdatedFiles(tag, updates, cwd)
+
+    if compile:
+        if isysChanged(tag):
+            copyUpdatedIsys(updates, cwd)
+
+    createUpdatesImage(cwd, updates)
+
+    if not keep:
+        shutil.rmtree(updates)
+
+if __name__ == "__main__":
+    main(sys.argv)
