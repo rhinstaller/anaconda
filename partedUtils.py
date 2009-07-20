@@ -502,9 +502,7 @@ def sniffFilesystemType(device):
     # ext2 check
     if struct.unpack("<H", buf[1080:1082]) == (0xef53,):
         if isys.ext2HasJournal(dev, makeDevNode = 0):
-            if fsset.ext4devFileSystem.probe(dev):
-                return "ext4dev"
-            elif fsset.ext4FileSystem.probe(dev):
+            if fsset.ext4FileSystem.probe(dev):
                 return "ext4"
             else:
                 return "ext3"
@@ -884,7 +882,7 @@ class DiskSet:
                     if part.fs_type:
                         fstype = part.fs_type.name
 
-                    # parted doesn't tell ext4/ext4dev from ext3 for us
+                    # parted doesn't tell ext4 from ext3 for us
                     if fstype == "ext3": 
                         fstype = sniffFilesystemType("/dev/%s" % theDev)
 

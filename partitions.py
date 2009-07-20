@@ -266,7 +266,7 @@ class Partitions:
 
                 device = partedUtils.get_partition_name(part)
 
-                # parted doesn't tell ext4/ext4dev from ext3 for us
+                # parted doesn't tell ext4 from ext3 for us
                 if ptype == fsset.fileSystemTypeGet("ext3"): 
                     fsname = partedUtils.sniffFilesystemType("/dev/%s" % device)
                     try:
@@ -1228,9 +1228,9 @@ class Partitions:
                     errors.append("Bootable partitions cannot be on a GFS2 "
                                   "filesystem.")
                     
-                # no ext4dev or ext4 support in grub
+                # no ext4 support in grub
                 if (bootreq and bootreq.fstype and
-                    bootreq.fstype.getName() in ["ext4", "ext4dev"]):
+                    bootreq.fstype.getName() in ["ext4"]):
                     errors.append("Bootable partitions cannot be on an %s "
                                   "filesystem." % bootreq.fstype.getName())
                     

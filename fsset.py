@@ -716,8 +716,7 @@ class ext4FileSystem(extFileSystem):
             if f in ext4FileSystem.specialFeatures:
                 if  flags and "test_filesystem" in flags:
                     ext4 = fileSystemTypeGet("ext4")
-                    ext4dev = fileSystemTypeGet("ext4dev")
-                    if not ext4dev.isMountable() and ext4.isMountable():
+                    if ext4.isMountable():
                         log.debug("%s probed as ext4" % (device,))
                         return True
                 else:
@@ -776,29 +775,6 @@ class ext4FileSystem(extFileSystem):
         extFileSystem.setExt3Options(self, entry, progress, chroot)
  
 fileSystemTypeRegister(ext4FileSystem())
-
-class ext4devFileSystem(ext4FileSystem):
-
-    # taken from e4fsprogs lib/blkid/probe.c
-    def probe(device):
-        flags, features = getExtFSFlagsFeatures(device) 
-        if flags and ('test_filesystem' in flags):
-            ext4 = fileSystemTypeGet("ext4")
-            ext4dev = fileSystemTypeGet("ext4dev")
-            if ext4dev.isMountable() or not ext4.isMountable():
-                log.debug("%s probed as ext4dev" % (device,))
-                return True
-        log.debug("%s not probed as ext4dev" % (device,))
-        return False
-    probe = staticmethod(probe)
-
-    def __init__(self):
-        ext4FileSystem.__init__(self)
-        self.name = "ext4dev"
-        # options are set in mke4fs.conf
-        #self.extraFormatArgs = [ "-j", "-I", "256", "-E", "test_fs" ]
- 
-fileSystemTypeRegister(ext4devFileSystem())
 
 class raidMemberDummyFileSystem(FileSystemType):
     def __init__(self):
@@ -3098,8 +3074,6 @@ def getFStoTry(device):
             create = 0
         else:
             create = 1
-        if ext4devFileSystem.probe(device):
-            rc.append("ext4dev")
         if ext4FileSystem.probe(device):
             rc.append("ext4")
         if isys.ext2HasJournal(device, makeDevNode = create):
