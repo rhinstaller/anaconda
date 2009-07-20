@@ -139,186 +139,6 @@ class ProgressWindow:
 	g.draw()
 	self.screen.refresh()
 
-class SaveExceptionWindow:
-    def __init__(self, anaconda, longTracebackFile=None, screen=None):
-        self.anaconda = anaconda
-        self.screen = screen
-        self._method = "disk"
-
-    def getrc(self):
-        if self.rc == TEXT_OK_CHECK:
-            return EXN_OK
-        elif self.rc == TEXT_CANCEL_CHECK:
-            return EXN_CANCEL
-
-    def getDest(self):
-        if self.saveToDisk():
-            return self.diskList.current()
-        elif self.saveToRemote():
-            return map(lambda e: e.value(), [self.scpNameEntry,
-                                             self.scpPasswordEntry,
-                                             self.scpHostEntry,
-                                             self.scpDestEntry])
-        else:
-            return map(lambda e: e.value(), [self.bugzillaNameEntry,
-                                             self.bugzillaPasswordEntry,
-                                             self.bugDesc])
-
-    def pop(self):
-        self.screen.popWindow()
-        self.screen.refresh()
-
-    def runSaveToDisk(self):
-        toplevel = GridForm(self.screen, _("Save to local disk"), 1, 2)
-
-        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
-        self.diskList = Listbox(height=3, scroll=1)
-
-        for (dev, desc) in self.dests:
-            self.diskList.append("/dev/%s - %s" % (dev, desc), dev)
-
-        toplevel.add(self.diskList, 0, 0, (0, 0, 0, 1))
-        toplevel.add(buttons, 0, 1, growx=1)
-
-        result = toplevel.run()
-        return buttons.buttonPressed(result)
-
-    def runSaveToBugzilla(self):
-        toplevel = GridForm(self.screen, _("Send to bugzilla (%s)") % product.bugUrl, 1, 2)
-
-        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
-        self.bugzillaNameEntry = Entry(24)
-        self.bugzillaPasswordEntry = Entry(24, password=1)
-        self.bugDesc = Entry(24)
-
-        bugzillaGrid = Grid(2, 3)
-        bugzillaGrid.setField(Label(_("User name")), 0, 0, anchorLeft=1)
-        bugzillaGrid.setField(self.bugzillaNameEntry, 1, 0)
-        bugzillaGrid.setField(Label(_("Password")), 0, 1, anchorLeft=1)
-        bugzillaGrid.setField(self.bugzillaPasswordEntry, 1, 1)
-        bugzillaGrid.setField(Label(_("Bug Description")), 0, 2, anchorLeft=1)
-        bugzillaGrid.setField(self.bugDesc, 1, 2)
-
-        toplevel.add(bugzillaGrid, 0, 0, (0, 0, 0, 1))
-        toplevel.add(buttons, 0, 1, growx=1)
-
-        result = toplevel.run()
-        return buttons.buttonPressed(result)
-
-    def runSaveToRemote(self):
-        toplevel = GridForm(self.screen, _("Send to remote server (scp)"), 1, 2)
-
-        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
-        self.scpNameEntry = Entry(24)
-        self.scpPasswordEntry = Entry(24, password=1)
-        self.scpHostEntry = Entry(24)
-        self.scpDestEntry = Entry(24)
-
-        scpGrid = Grid(2, 4)
-        scpGrid.setField(Label(_("User name")), 0, 0, anchorLeft=1)
-        scpGrid.setField(self.scpNameEntry, 1, 0)
-        scpGrid.setField(Label(_("Password")), 0, 1, anchorLeft=1)
-        scpGrid.setField(self.scpPasswordEntry, 1, 1)
-        scpGrid.setField(Label(_("Host (host:port)")), 0, 2, anchorLeft=1)
-        scpGrid.setField(self.scpHostEntry, 1, 2)
-        scpGrid.setField(Label(_("Destination file")), 0, 3, anchorLeft=1)
-        scpGrid.setField(self.scpDestEntry, 1, 3)
-
-        toplevel.add(scpGrid, 0, 0, (0, 0, 0, 1))
-        toplevel.add(buttons, 0, 1, growx=1)
-
-        result = toplevel.run()
-        return buttons.buttonPressed(result)
-
-    def run(self):
-        mapping = {"disk": self.runSaveToDisk,
-                   "scp": self.runSaveToRemote,
-                   "bugzilla": self.runSaveToBugzilla}
-
-        toplevel = GridForm(self.screen, _("Save"), 1, 4)
-
-        self.rg = RadioGroup()
-        self.diskButton = self.rg.add(_("Save to local disk"), "disk", True)
-        self.bugzillaButton = self.rg.add(_("Send to bugzilla (%s)") % product.bugUrl, "bugzilla", False)
-        self.scpButton = self.rg.add(_("Send to remote server (scp)"), "scp", False)
-
-        buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
-
-        toplevel.add(self.diskButton, 0, 0, (0, 0, 0, 1))
-        toplevel.add(self.bugzillaButton, 0, 1, (0, 0, 0, 1))
-        toplevel.add(self.scpButton, 0, 2, (0, 0, 0, 1))
-        toplevel.add(buttons, 0, 3, growx=1)
-
-        self.dests = []
-        if self.anaconda.id.storage.devicetree.populated:
-            try:
-                self.dests = self.anaconda.id.storage.exceptionDisks()
-            except Exception as e:
-                log.error("Error when probing exception disks: %s" % e)
-        else:
-            log.info("Storage configuration unknown; not probing for "
-                     "exception disks")
-
-        # If there aren't any local disks, don't set it to be the default.
-        if len(self.dests) == 0:
-            self.diskButton.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
-            self.diskButton.w.checkboxSetValue(" ")
-            self.bugzillaButton.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)
-            self.bugzillaButton.w.checkboxSetValue("*")
-
-        while True:
-            result = toplevel.run()
-            rc = buttons.buttonPressed(result)
-
-            if rc == TEXT_OK_CHECK:
-                if mapping[self.rg.getSelection()]() == TEXT_CANCEL_CHECK:
-                    continue
-
-                self.rc = TEXT_OK_CHECK
-                self._method = self.rg.getSelection()
-            else:
-                self.rc = TEXT_CANCEL_CHECK
-
-            break
-
-    def saveToDisk(self):
-        return self._method == "disk"
-
-    def saveToLocal(self):
-        return False
-
-    def saveToRemote(self):
-        return self._method == "scp"
-
-class MainExceptionWindow:
-    def __init__ (self, shortTraceback, longTracebackFile=None, screen=None):
-        self.text = "%s\n\n" % shortTraceback
-        self.screen = screen
-
-        self.buttons=[TEXT_OK_BUTTON]
-
-        self.buttons.append(_("Save"))
-
-        if not flags.livecdInstall:
-            self.buttons.append(_("Debug"))
-
-    def run(self):
-        log.info ("in run, screen = %s" % self.screen)
-	self.rc = ButtonChoiceWindow(self.screen, _("Exception Occurred"),
-                                     self.text, self.buttons)
-
-    def getrc(self):
-        if self.rc == string.lower(_("Debug")):
-            return EXN_DEBUG
-        elif self.rc == string.lower(_("Save")):
-            return EXN_SAVE
-        else:
-            return EXN_OK
-
-    def pop(self):
-        self.screen.popWindow()
-	self.screen.refresh()
-
 class LuksPassphraseWindow:
     def __init__(self, screen, passphrase = "", preexist = False):
         self.screen = screen
@@ -440,6 +260,10 @@ class PassphraseEntryWindow:
 class InstallInterface:
     def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
         return ProgressWindow(self.screen, title, text, total, updpct, pulse)
+
+    def exitWindow(self, title, text):
+        return self.messageWindow(title, text, type="custom",
+                                  custom_buttons=[_("Exit installer")])
 
     def messageWindow(self, title, text, type="ok", default = None,
 		      custom_icon=None, custom_buttons=[]):
@@ -573,12 +397,14 @@ class InstallInterface:
                            custom_icon="error")
                            
     def mainExceptionWindow(self, shortText, longTextFile):
+        from meh.ui.text import MainExceptionWindow
         log.critical(shortText)
-        exnWin = MainExceptionWindow(shortText, longTextFile, self.screen)
+        exnWin = MainExceptionWindow(shortText, longTextFile, screen=self.screen)
         return exnWin
 
     def saveExceptionWindow(self, longTextFile):
-        win = SaveExceptionWindow (self.anaconda, longTextFile, self.screen)
+        from meh.ui.text import SaveExceptionWindow
+        win = SaveExceptionWindow (self.anaconda, longTextFile, screen=self.screen)
         return win
 
     def waitWindow(self, title, text):
