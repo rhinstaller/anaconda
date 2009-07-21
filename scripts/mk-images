@@ -718,6 +718,11 @@ makeinitrd() {
     )
 
     # Misc
+    instbin $IMGPATH /usr/bin/ln $MBD_DIR /sbin/ln
+    instbin $IMGPATH /usr/bin/readlink $MBD_DIR /sbin/readlink
+    instbin $IMGPATH /usr/bin/rm $MBD_DIR /sbin/rm
+    instbin $IMGPATH /usr/bin/rmdir $MBD_DIR /sbin/rmdir
+    instbin $IMGPATH /usr/bin/sed $MBD_DIR /sbin/sed
     instbin $IMGPATH /usr/bin/sleep $MBD_DIR /sbin/sleep
 
     # Indirect dependencies
