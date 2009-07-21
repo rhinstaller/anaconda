@@ -569,7 +569,6 @@ makeinitrd() {
         ln -s /tmp $MBD_DIR/var/state/xkb
         cp $IMGPATH/usr/bin/xauth $MBD_DIR/sbin/xauth
         cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
-        cp $IMGPATH/usr/bin/ipcalc $MBD_DIR/sbin/ipcalc
     fi
 
     if [ -n "$INITRDMODULES" ]; then
@@ -647,6 +646,10 @@ makeinitrd() {
     instbin $IMGPATH /usr/sbin/arping $MBD_DIR /sbin/arping
     instbin $IMGPATH /usr/sbin/ifconfig $MBD_DIR /sbin/ifconfig
     instbin $IMGPATH /usr/sbin/ip $MBD_DIR /sbin/ip
+    instbin $IMGPATH /usr/bin/ipcalc $MBD_DIR /sbin/ipcalc
+    instbin $IMGPATH /usr/bin/hostname $MBD_DIR /sbin/hostname
+    instbin $IMGPATH /usr/sbin/ethtool $MBD_DIR /sbin/ethtool
+    instbin $IMGPATH /usr/sbin/route $MBD_DIR /sbin/route
     touch $MBD_DIR/etc/resolv.conf
 
     # hwdata
@@ -718,12 +721,19 @@ makeinitrd() {
     )
 
     # Misc
+    instbin $IMGPATH /usr/bin/awk $MBD_DIR /sbin/awk
+    instbin $IMGPATH /usr/bin/egrep $MBD_DIR /sbin/egrep
+    instbin $IMGPATH /usr/bin/fgrep $MBD_DIR /sbin/fgrep
+    instbin $IMGPATH /usr/bin/gawk $MBD_DIR /sbin/gawk
+    instbin $IMGPATH /usr/bin/grep $MBD_DIR /sbin/grep
+    instbin $IMGPATH /usr/bin/kill $MBD_DIR /sbin/kill
     instbin $IMGPATH /usr/bin/ln $MBD_DIR /sbin/ln
     instbin $IMGPATH /usr/bin/readlink $MBD_DIR /sbin/readlink
     instbin $IMGPATH /usr/bin/rm $MBD_DIR /sbin/rm
     instbin $IMGPATH /usr/bin/rmdir $MBD_DIR /sbin/rmdir
     instbin $IMGPATH /usr/bin/sed $MBD_DIR /sbin/sed
     instbin $IMGPATH /usr/bin/sleep $MBD_DIR /sbin/sleep
+    instbin $IMGPATH /usr/bin/touch $MBD_DIR /sbin/touch
 
     # Indirect dependencies
     install -m 755 $IMGPATH/$LIBDIR/libfreebl3.so $MBD_DIR/$LIBDIR/
