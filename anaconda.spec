@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.189
+Version: 11.1.2.190
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jul 21 2009 Martin Sivak <msivak@redhat.com> 11.1.2.190-1
+- Correct a message presented to the user.
+  Related: rhbz#473747
+- Remove ext4dev
+  Resolves: rhbz#510634
+
 * Thu Jul 16 2009 Radek Vykydal <rvykydal@redhat.com> 11.1.2.189-1
 - Make buildinstall error out if mount of loop device fails (rvykydal).
   Resolves: rhbz#472552
