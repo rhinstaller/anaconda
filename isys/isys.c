@@ -1438,9 +1438,9 @@ static PyObject * doDeviceReadOnly(PyObject *s, PyObject *args) {
 
     close(fd);
     if (is_ro)
-        return Py_RETURN_TRUE;
+        Py_RETURN_TRUE;
     else
-        return Py_RETURN_FALSE;
+        Py_RETURN_FALSE;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

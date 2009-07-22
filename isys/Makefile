@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-CFLAGS +=  -I$(PYTHONINCLUDE) -I.. -DHAVE_NFS
+CFLAGS +=  -I$(PYTHONINCLUDE) -I.. -DHAVE_NFS -fno-strict-aliasing
 
 OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
           smp.o devnodes.o cpio.o uncpio.o dasd.o \
