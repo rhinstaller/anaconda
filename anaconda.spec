@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.190
+Version: 11.1.2.191
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jul 22 2009 Chris Lumens <clumens@redhat.com> 11.1.2.191-1
+- Ignore block devices set to read-only.
+  Related: rhbz#471883
+
 * Tue Jul 21 2009 Martin Sivak <msivak@redhat.com> 11.1.2.190-1
 - Correct a message presented to the user.
   Related: rhbz#473747
