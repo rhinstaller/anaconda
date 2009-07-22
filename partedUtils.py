@@ -1223,7 +1223,7 @@ class DiskSet:
             if (DiskSet.exclusiveDisks != [] and drive not in DiskSet.exclusiveDisks) or drive in DiskSet.skippedDisks:
                 continue
             deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
-            if not isys.mediaPresent(drive):
+            if not isys.mediaPresent(drive) or isys.deviceIsReadOnly(drive):
                 self._removeDisk(drive)
                 continue
 

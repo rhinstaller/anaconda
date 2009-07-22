@@ -300,7 +300,7 @@ def driveDict(klassArg):
                 devName = "/dev/%s" % (device,)
                 makeDevInode(device, devName)
 
-                if not mediaPresent (device):
+                if not mediaPresent (device) or deviceIsReadOnly(device):
                     new[device] = dev
                     continue
 
