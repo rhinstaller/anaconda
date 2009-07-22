@@ -804,6 +804,12 @@ def driveUsesModule(device, modules):
                     pass
     return rc
 
+def deviceIsReadOnly(device):
+    if not device.startswith("/dev/"):
+        return _isys.deviceIsReadOnly("/dev/" + device)
+    else:
+        return _isys.deviceIsReadOnly(device)
+
 def mediaPresent(device):
     try:
         fd = os.open("/dev/%s" % device, os.O_RDONLY)

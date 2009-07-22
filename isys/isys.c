@@ -124,6 +124,7 @@ static PyObject * doGetBiosDisk(PyObject * s, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
 static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
+static PyObject * doDeviceReadOnly(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -180,6 +181,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
     { "prefix2netmask", (PyCFunction) doPrefixToNetmask, METH_VARARGS, NULL },
+    { "deviceIsReadOnly", (PyCFunction) doDeviceReadOnly, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -1414,6 +1416,31 @@ static PyObject * doAuditDaemon(PyObject *s) {
     audit_daemonize();
     Py_INCREF(Py_None);
     return Py_None;
+}
+
+static PyObject * doDeviceReadOnly(PyObject *s, PyObject *args) {
+    char *diskname = NULL;
+    int fd, is_ro;
+
+    if (!PyArg_ParseTuple(args, "s", &diskname)) return NULL;
+
+    fd = open(diskname, O_RDONLY);
+    if (fd == -1) {
+      Py_INCREF(Py_None);
+      return Py_None;
+    }
+
+    if (ioctl(fd, BLKROGET, &is_ro)) {
+        close(fd);
+        PyErr_SetFromErrno(PyExc_SystemError);
+        return NULL;
+    }
+
+    close(fd);
+    if (is_ro)
+        return Py_RETURN_TRUE;
+    else
+        return Py_RETURN_FALSE;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */
