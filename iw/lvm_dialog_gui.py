@@ -959,7 +959,9 @@ class VolumeGroupEditor:
 
 	    # everything ok
 	    break
+        return self.convertToActions()
 
+    def convertToActions(self):
         # here we have to figure out what all was done and convert it to
         # devices and actions
         #
@@ -970,6 +972,8 @@ class VolumeGroupEditor:
         log.debug("finished editing vg")
         log.debug("pvs: %s" % [p.name for p in self.pvs])
         log.debug("luks: %s" % self.luks.keys())
+        volname = self.volnameEntry.get_text().strip()
+        pesize = int(self.peCombo.get_active_value()) / 1024.0
         for lv in self.lvs.itervalues():
             log.debug("lv %s" % lv)
             _luks = self.luks.get(lv['name'])

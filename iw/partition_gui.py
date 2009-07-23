@@ -709,7 +709,7 @@ class PartitionWindow(InstallWindow):
 		    else:
 			self.tree[iter]['Mount Point'] = ""
 		    self.tree[iter]['Size (MB)'] = "%Ld" % lv.size
-		    self.tree[iter]['PyObject'] = vg
+		    self.tree[iter]['PyObject'] = lv
 		
                     if lv.format.type == "luks" and not lv.format.exists:
                         # we're creating the LUKS header
@@ -996,6 +996,8 @@ class PartitionWindow(InstallWindow):
                 justRedraw = False
             else:
                 justRedraw = True
+                if device.type == "lvmlv" and device in device.vg.lvs:
+                    device.vg._removeLogVol(device)
 
             self.refresh(justRedraw=justRedraw)
                 
@@ -1078,7 +1080,7 @@ class PartitionWindow(InstallWindow):
         elif device.type == "lvmvg":
             self.editLVMVolumeGroup(device)
         elif device.type == "lvmlv":
-            self.editLVMVolumeGroup(device)
+            self.editLVMLogicalVolume(device)
         elif isinstance(device, storage.devices.PartitionDevice):
             self.editPartition(device)
 
@@ -1172,6 +1174,34 @@ class PartitionWindow(InstallWindow):
 
 	vgeditor.destroy()
 
+    def editLVMLogicalVolume (self, device):
+        vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.anaconda,
+                                                    self.intf,
+                                                    self.parent,
+                                                    device.vg,
+                                                    isNew = False)
+        while True:
+            lv = vgeditor.lvs[device.lvname]
+            vgeditor.editLogicalVolume(lv)
+            actions = vgeditor.convertToActions();
+
+            for action in actions:
+                # FIXME: handle exceptions
+                self.storage.devicetree.registerAction(action)
+
+            if self.refresh(justRedraw=True):
+                actions.reverse()
+                for action in actions:
+                    self.storage.devicetree.cancelAction(action)
+
+                if self.refresh():
+                    raise RuntimeError, ("Returning partitions to state "
+                                         "prior to edit failed")
+                continue
+            else:
+                break
+
+        vgeditor.destroy()
 
     def makeLvmCB(self, widget):
         if not getFormat("lvmpv").supported or not lvm.has_lvm():
