@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.192
+Version: 11.1.2.193
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jul 23 2009 Joel Granados <jgranado@redhat.com>  11.1.2.193-1
+- Make sure we include libdrm.so files in the image.
+  Related: rhbz#510397
+
 * Wed Jul 22 2009 Chris Lumens <clumens@redhat.com> 11.1.2.192-1
 - Fix compile errors in the previous patch.
   Related: rhbz#471883
