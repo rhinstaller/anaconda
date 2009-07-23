@@ -212,6 +212,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 22 2009 David Cantrell <dcantrell@redhat.com> - 12.4-1
+- Add scripts/makeupdates to generate updates.img files. (dcantrell)
+- Add python-decorator to the stage2 image for pyparted (#513175). (clumens)
+- Set stage2= on x86 boot.iso (katzj)
+- Try to auto-find the CD even if stage2= is specified (katzj)
+- Make sure we have a device before check if it's protected. (#510033)
+  (dlehman)
+- Remove unresolvable file devices from the devicetree. (#503830) (dlehman)
+- Support multiple fstab entries of a single nodev fstype. (#505969)
+  (dlehman)
+- Refer to nodev devices as "none", not "nodev". (dlehman)
+- Change DeviceTree.devices from a dict to a list. (dlehman)
+- Show locked LUKS devices as "Encrypted (LUKS)", not "LUKS". (dlehman)
+- Allow creation of four primary partitions on a disk. (#505269) (dlehman)
+- Add a bunch more stuff to the initrd needed for networking. (clumens)
+- Add more things to /sbin on the initrd that udev requires. (clumens)
+- Add dmesg to the images. (clumens)
+
 * Mon Jul 20 2009 David Cantrell <dcantrell@redhat.com> - 12.3-1
 - Set GECOS field for new user accounts specific in ks files (dcantrell)
 - Show MAC address of network device in text mode too. (rvykydal)
