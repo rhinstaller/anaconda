@@ -1513,6 +1513,12 @@ class InstallControlWindow:
         else:
             self.window.set_size_request(800, 600)
             self.window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
+            # this is kind of poor, but if we're running in the live mode
+            # and the dpi is something weird, give ourselves as much 
+            # space as we can.  this gets things to fit with a dpi
+            # of up to 147
+            if not runningMiniWm():
+                i.hide()
 
         if flags.debug:
             self.mainxml.get_widget("debugButton").show_now()
