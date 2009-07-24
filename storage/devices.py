@@ -200,7 +200,7 @@ class Device(object):
     _type = "generic device"
     _packages = []
 
-    def __init__(self, name, parents=None, description=''):
+    def __init__(self, name, parents=None):
         """ Create a Device instance.
 
             Arguments:
@@ -210,7 +210,6 @@ class Device(object):
             Keyword Arguments:
 
                 parents -- a list of required Device instances
-                description -- a string describing the device
 
         """
         self._name = name
@@ -220,7 +219,6 @@ class Device(object):
             raise ValueError("parents must be a list of Device instances")
         self.parents = parents
         self.kids = 0
-        self.description = description
 
         # Set this instance's id and increment the counter.
         self.id = Device._id
@@ -250,14 +248,13 @@ class Device(object):
 
     def __str__(self):
         s = ("%(type)s instance (%(id)s) --\n"
-             "  description = %(descr)s  name = %(name)s  status = %(status)s"
+             "  name = %(name)s  status = %(status)s"
              "  parents = %(parents)s\n"
              "  kids = %(kids)s\n"
              "  id = %(dev_id)s\n" %
              {"type": self.__class__.__name__, "id": "%#x" % id(self),
               "name": self.name, "parents": self.parents, "kids": self.kids,
-              "descr": self.description, "status": self.status,
-              "dev_id": self.id})
+              "status": self.status, "dev_id": self.id})
         return s
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
@@ -434,7 +431,6 @@ class StorageDevice(Device):
                 sysfsPath -- sysfs device path
                 format -- a DeviceFormat instance
                 parents -- a list of required Device instances
-                description -- a string describing the device
 
         """
         # allow specification of individual parents
