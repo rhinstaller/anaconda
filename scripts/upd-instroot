@@ -156,7 +156,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
     cryptsetup-luks db4 dbus dbus-python dejavu-sans-fonts
     dejavu-sans-mono-fonts device-mapper
-    device-mapper-libs dhclient dhcpv6-client dmapi dmraid dmraid-libs
+    device-mapper-libs dhclient dhcpv6-client dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme ethtool
     elfutils-libelf expat firstboot fontconfig fonts-ISO8859-2 freetype gail gawk gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
@@ -167,9 +167,9 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
     libXxf86misc libacl libart_lgpl libattr libbdevid libbdevid-python
     libbonobo libfontenc libgcc
-    libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg liblbxutil libnl
-    libpixman libpng libselinux libselinux-python libsemanage
-    libsemanage-python libsepol libstdc++ libtermcap libthai libuser
+    libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libnl
+    libpng libselinux libselinux-python libsemanage
+    libsemanage-python libsepol libstdc++ libthai libuser
     libuser-python libvolume_id libxcb libxkbfile libxml2 lklug-fonts 
     lohit-assamese-fonts lohit-bengali-fonts lohit-gujarati-fonts lohit-hindi-fonts
     lohit-kashmiri-fonts lohit-kannada-fonts lohit-maithili-fonts lohit-marathi-fonts
@@ -177,20 +177,20 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     lohit-telugu-fonts lvm2 madan-fonts mdadm
     mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
     newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
-    policy policycoreutils popt prelink procps pycairo pygobject2 pygtk2
-    pygtk2-libglade pykickstart pyparted pyspi python python-bugzilla python-decorator
-    python-elementtree python-libs python-pyblock python-sqlite
-    python-urlgrabber pyxf86config raidtools readline redhat-artwork
+    policycoreutils popt prelink procps pycairo pygobject2 pygtk2
+    pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
+    python-libs python-pyblock python-sqlite
+    python-urlgrabber pyxf86config readline redhat-artwork
     reiserfs-utils rhpl rpm rpm-libs rpm-python sed selinux-policy-targeted
     setup slang smc-meera-fonts specspo sqlite synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
     tzdata udev un-core-fonts-dotum urw-fonts util-linux-ng tigervnc-server
     tigervnc-server-module vlgothic-fonts vim-minimal
-    wpa_supplicant xkeyboard-config xfsdump xfsprogs xorg-x11 xorg-x11-auth
-    xorg-x11-base xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
-    xorg-x11-fonts-misc xorg-x11-libs xorg-x11-libs-data xorg-x11-server-utils
-    xorg-x11-server-Xorg xorg-x11-xkb-utils xorg-x11-xkbdata xorg-x11-xfs yum
-    yum-fedorakmod yum-metadata-parser zenity zlib /etc/gtk-2.0/gtkrc"
+    wpa_supplicant xkeyboard-config xfsdump xfsprogs xorg-x11-auth
+    xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
+    xorg-x11-fonts-misc xorg-x11-server-utils
+    xorg-x11-server-Xorg xorg-x11-xkb-utils xorg-x11-xfs yum
+    yum-metadata-parser zenity zlib /etc/gtk-2.0/gtkrc"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
@@ -232,7 +232,7 @@ fi
 #
 PACKAGESRESCUE="bzip2 bzip2-libs dump libidn
                 findutils ftp gzip iputils joe krb5-libs less man
-                modutils mtools mt-st mtr net-tools open smartmontools
+                modutils mtools mt-st mtr net-tools smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
                 device-mapper device-mapper-libs dmraid ntfsprogs samba-client
 		firstaidkit firstaidkit-plugin-all dialog"
