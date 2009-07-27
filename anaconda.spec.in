@@ -186,7 +186,6 @@ update-desktop-database &> /dev/null || :
 %files -f %{name}.lang
 %defattr(-,root,root)
 %doc COPYING
-%doc ChangeLog
 %doc docs/command-line.txt
 %doc docs/install-methods.txt
 %doc docs/kickstart-docs.txt

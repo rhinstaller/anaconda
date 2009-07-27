@@ -23,7 +23,7 @@ SUBDIRS = isys po loader booty storage textw utils scripts bootdisk \
           installclasses iw command-stubs ui docs pixmaps tests fonts \
           gptsync liveinst
 
-EXTRA_DIST = ChangeLog config.rpath COPYING pychecker-false-positives \
+EXTRA_DIST = config.rpath COPYING pychecker-false-positives \
              pycheckrc-for-anaconda runpychecker.sh lang-table \
              anaconda.spec.in
 
@@ -31,7 +31,7 @@ MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
                        depcomp install-sh ltmain.sh missing ABOUT-NLS \
                        INSTALL aclocal.m4 configure *.pyc py-compile
 
-CLEANFILES = *~ ChangeLog lang-names anaconda.spec
+CLEANFILES = *~ lang-names anaconda.spec
 
 MOSTLYCLEANDIRS = m4
 
@@ -94,9 +94,6 @@ archive:
 src: archive
 	@rpmbuild -ts --nodeps $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.bz2 || exit 1
 	@rm -f $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.bz2
-
-ChangeLog:
-	(GIT_DIR=.git git log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 
 pycheck:
 	PYTHONPATH=$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) *.py textw/*.py iw/*.py installclasses/*.py storage/*.py | grep -v "__init__() not called"
