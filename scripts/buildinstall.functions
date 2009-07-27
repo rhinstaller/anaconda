@@ -85,6 +85,11 @@ EOF
     for l in $(/usr/sbin/chroot $root find /$LDSODIR -maxdepth 1 -type l -name ld*.so*); do
        [ "$(/usr/sbin/chroot $root readlink -f $l)" == "$LDSO" ] && DSO_DEPS="$DSO_DEPS $l"
     done
+    if [ "$(uname -m)" == "s390x" ]; then
+       for l in $(/usr/sbin/chroot $root find /lib -maxdepth 1 -type 1 -name ld*.so*); do
+          [ "$(/usr/sbin/chroot $root readlink -f $l)" == "$LDSO" ] && DSO_DEPS="$DSO_DEPS $l"
+       done
+    fi
 
     [ -n "$DEBUG" ] && echo "DSO_DEPS for $bin are $DSO_DEPS"
 }

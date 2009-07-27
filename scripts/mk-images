@@ -396,6 +396,11 @@ instbin() {
                 ln -s $linker ld-linux.so.2
             fi
             popd
+            if [ "$BUILDARCH" = "s390x" ]; then
+                pushd $DIR/lib
+                ln -s ../$LIBDIR/ld64.so.1
+                popd
+            fi
         fi
     fi
 }
