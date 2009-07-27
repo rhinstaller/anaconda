@@ -462,7 +462,7 @@ declare -r BUSIDFORMAT=[[:xdigit:]][[:xdigit:]][[:xdigit:]][[:xdigit:]]
 declare -r IDFORMAT=$PREFIXFORMAT.$SSIDFORMAT.$BUSIDFORMAT
 declare -r SUBCHANNEL_TYPE_IO=0
 
-. /sbin/controlunits.sh
+. /sbin/controlunits
 
 function cardtype2cleartext() {
     local cardtype=$1

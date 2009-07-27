@@ -595,6 +595,7 @@ makeinitrd() {
         instbin $IMGPATH ${LOADERBINDIR##IMGPATH}/shutdown $MBD_DIR /sbin/shutdown
         instbin $IMGPATH /usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR /sbin/init
         instbin $IMGPATH /usr/lib/anaconda-runtime/loader/lsznet.raw $MBD_DIR /sbin/lsznet
+        instbin $IMGPATH /usr/lib/anaconda-runtime/loader/controlunits.sh $MBD_DIR /sbin/controlunits
         instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
     fi
 
