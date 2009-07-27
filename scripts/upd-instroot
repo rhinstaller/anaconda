@@ -217,7 +217,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils binutils libgcc tcp_wrappers
               sed net-tools openssh openssh-server coreutils
               login initscripts portmap pam
-              login mount modutils
+              login mount modutils s390utils-cmsfs
               strace xorg-x11-xauth xorg-x11-libs"
 fi
 
