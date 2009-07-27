@@ -40,7 +40,7 @@ import shlex
 from flags import *
 from constants import *
 from simpleconfig import SimpleConfigFile
-import rhpl.keyboard as keyboard
+import system_config_keyboard.keyboard as keyboard
 
 from pykickstart.version import versionToString, DEVEL
 

@@ -51,7 +51,7 @@ else
     PATTERN=i386
 fi
 
-MAPS=$(python -c "import rhpl.keyboard_models ; rhpl.keyboard_models.get_supported_models()")
+MAPS=$(python -c "import system_config_keyboard.keyboard_models ; system_config_keyboard.keyboard_models.get_supported_models()")
 
 for map in $MAPS ; do 
  eval find /lib/kbd/keymaps/$PATTERN -name "$map.map*.gz" | while read n; do

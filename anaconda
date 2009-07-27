@@ -776,7 +776,7 @@ if __name__ == "__main__":
 
     import instdata
 
-    import rhpl.keyboard as keyboard
+    import system_config_keyboard.keyboard as keyboard
 
     log.info("anaconda called with cmdline = %s" %(sys.argv,))
     log.info("Display mode = %s" %(opts.display_mode,))
