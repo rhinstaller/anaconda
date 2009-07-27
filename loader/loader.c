@@ -1973,9 +1973,11 @@ int main(int argc, char ** argv) {
     }
 
     /* Disable all network interfaces in NetworkManager by default */
+#if !defined(__s390__) && !defined(__s390x__)
     if ((i = writeDisabledNetInfo()) != 0) {
         logMessage(ERROR, "writeDisabledNetInfo failure: %d", i);
     }
+#endif
 
     /* Start NetworkManager now so it's always available to talk to. */
     if (iface_start_NetworkManager())
