@@ -114,7 +114,7 @@ def udev_get_block_device(sysfs_path):
 
     entry = open(db_path).read()
     dev = udev_parse_block_entry(entry)
-    if dev:
+    if dev.has_key("name"):
         # XXX why do we do this? is /sys going to move during installation?
         dev['sysfs_path'] = sysfs_path[4:]  # strip off the leading '/sys'
         dev = udev_parse_uevent_file(dev)
@@ -138,8 +138,7 @@ def udev_parse_uevent_file(dev):
     return dev
 
 def udev_parse_block_entry(buf):
-    dev = {'name': None,
-           'symlinks': []}
+    dev = {}
 
     for line in buf.splitlines():
         line.strip()
@@ -150,7 +149,10 @@ def udev_parse_block_entry(buf):
         if tag == "N":
             dev['name'] = val
         elif tag == "S":
-            dev['symlinks'].append(val)
+            if dev.has_key('symlinks'):
+                dev['symlinks'].append(val)
+            else:
+                dev['symlinks'] = [val]
         elif tag == "E":
             if val.count("=") > 1 and val.count(" ") > 0:
                 # eg: LVM2_LV_NAME when querying the VG for its LVs
@@ -174,8 +176,7 @@ def udev_parse_block_entry(buf):
 
                 dev[var_name] = var_val
 
-    if dev.get("name"):
-        return dev
+    return dev
 
 def udev_settle(timeout=None):
     argv = ["settle"]
