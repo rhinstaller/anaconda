@@ -417,6 +417,31 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
         return config
 
+    def updateDeviceMap(self, instRoot):
+        if os.access(instRoot + "/boot/grub/device.map", os.R_OK):
+            f = open(instRoot + "/boot/grub/device.map", "r")
+            updatedlines = []
+            update = False
+            for line in f:
+                line = line.strip()
+                if line.startswith('(hd'):
+                    (grubdisk, path) = line.split()[:2]
+                    i = int(grubdisk.lstrip('(hd ').rstrip(') '))
+                    actual_path = self.storage.devicetree.getDeviceByName(self.drivelist[i]).path
+                    if path != actual_path:
+                        line = "%s     %s" % (grubdisk, actual_path)
+                        update = True
+                updatedlines.append(line)
+            f.close()
+
+            if update:
+                os.rename(instRoot + "/boot/grub/device.map",
+                          instRoot + "/boot/grub/device.map.rpmsave")
+                f = open(instRoot + "/boot/grub/device.map", "w+")
+                upd_comment = "# file updated by anaconda\n"
+                f.write(upd_comment + '\n'.join(updatedlines) + '\n')
+                f.close()
+
     # this is a hackish function that depends on the way anaconda writes
     # out the grub.conf with a #boot= comment
     # XXX this falls into the category of self.doUpgradeOnly
@@ -449,6 +474,9 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
         # migrate info to /etc/sysconfig/grub
         self.writeSysconfig(instRoot, theDev)
+
+        # update device.map
+        self.updateDeviceMap(instRoot)
 
         # more suckage.  grub-install can't work without a valid /etc/mtab
         # so we have to do shenanigans to get updated grub installed...
