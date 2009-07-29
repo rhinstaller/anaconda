@@ -170,7 +170,9 @@ def udev_parse_block_entry(buf):
                 if not sep:
                     continue
 
-                if var_val.count(" "):
+                # Skip splitting for any keys matching MODEL or VENDOR, since
+                # those values could include embedded, unquoted spaces.
+                if var_val.count(" ") and var_name.find("MODEL") == -1 and var_name.find("VENDOR") == -1:
                     # eg: DEVLINKS
                     var_val = var_val.split()
 
