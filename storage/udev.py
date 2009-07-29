@@ -100,7 +100,7 @@ def enumerate_block_devices():
         devices.append(sysfs_path)
     return devices
 
-def udev_get_block_device(sysfs_path):
+def udev_get_block_device(sysfs_path, requireName=True):
     if not os.path.exists(sysfs_path):
         log.debug("%s does not exist" % sysfs_path)
         return None
@@ -114,7 +114,7 @@ def udev_get_block_device(sysfs_path):
 
     entry = open(db_path).read()
     dev = udev_parse_block_entry(entry)
-    if dev.has_key("name"):
+    if requireName and dev.has_key("name"):
         # XXX why do we do this? is /sys going to move during installation?
         dev['sysfs_path'] = sysfs_path[4:]  # strip off the leading '/sys'
         dev = udev_parse_uevent_file(dev)
