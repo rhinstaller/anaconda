@@ -208,6 +208,30 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 29 2009 Chris Lumens <clumens@redhat.com> - 12.6-1
+- Fix CDLABEL substitution in syslinux.cfg for x86 boot.iso (katzj)
+- And finish off the removal of rhpl (katzj)
+- Use keyboard bits from system-config-keyboard now (katzj)
+- Use python-meh instead of our own exception handling now (clumens)
+- NM no longer exposes information through HAL (#514501). (clumens)
+- Put mkdir into /sbin on the initrd, too. (clumens)
+- Make sure controlunits.sh is installed to initrd on s390 (dcantrell)
+- Remove ChangeLog (#512502) (dcantrell)
+- Add s390utils-cmsfs in upd-instroot for s390 (dcantrell)
+- Make sure s390 gets /lib/ld64.so.1 (dcantrell)
+- Skip writeDisabledNetInfo() when loader starts on s390 (dcantrell)
+- Fix part --onpart= to print the device name instead of the __str__.
+  (clumens)
+- Just pull in all python modules for stage2 (katzj)
+- Trim PACKAGES list in upd-instroot. (dcantrell)
+- Update linuxrc.s390 and friends to reflect review comments. (maier)
+- Log non-upgradable upgrade candidate roots. (rvykydal)
+- unmountFilesystems -> umountFilesystems (#510970). (clumens)
+- Disable devel repos on release (#503798) (katzj)
+- Work around problems with live installs and dpi other than 96 (#506512)
+  (katzj)
+- Fix obvious typo in font name (katzj)
+
 * Wed Jul 22 2009 David Cantrell <dcantrell@redhat.com> - 12.5-1
 - New build because koji hates me.
 
