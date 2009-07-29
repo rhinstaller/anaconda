@@ -121,7 +121,7 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
     return (passphrase, isglobal)
 
 # Don't really know where to put this.
-def questionInitializeDisk(intf=None, name=None):
+def questionInitializeDisk(intf=None, name=None, description=None):
     retVal = False # The less destructive default
     if not intf or not name:
         pass
@@ -135,15 +135,18 @@ def questionInitializeDisk(intf=None, name=None):
         bypath = deviceNameToDiskByPath(name)
         details = ""
 
+        if description is None:
+            description = dev.model
+
         if bypath:
             details = "\n\nDevice details:\n%s" % (bypath,)
 
         rc = intf.messageWindow(_("Warning"),
-                _("Error processing drive %s %-0.fMB (%s).\n\n"
-                  "Maybe it needs to be reinitialized.  YOU "
-                  "WILL LOSE ALL DATA ON THIS DRIVE IF YOU "
-                  "REINITIALIZE IT!%s")
-                % (name, dev.getSize(), dev.model, details,),
+                _("Error processing drive:\n\n"
+                  "%s\n%-0.fMB\n%s\n\n"
+                  "This device may need to be reinitialized.\n\n"
+                  "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!%s")
+                % (name, dev.getSize(), description, details,),
                 type="custom",
                 custom_buttons = [ _("_Ignore drive"),
                                    _("_Re-initialize drive") ],
