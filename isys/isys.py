@@ -600,7 +600,9 @@ def getNetDevDesc(dev):
             udev_path = device_props['Udi']
             dev = udev_get_block_device(udev_path, requireName=False)
 
-            if dev.has_key("ID_VENDOR_ENC") and dev.has_key("ID_MODEL_ENC"):
+            if dev is None:
+                log.debug("weird, we have a None dev with path %s" % path)
+            elif dev.has_key("ID_VENDOR_ENC") and dev.has_key("ID_MODEL_ENC"):
                 desc = "%s %s" % (dev["ID_VENDOR_ENC"], dev["ID_MODEL_ENC"])
             elif dev.has_key("ID_VENDOR_FROM_DATABASE") and dev.has_key("ID_MODEL_FROM_DATABASE"):
                 desc = "%s %s" % (dev["ID_VENDOR_FROM_DATABASE"], dev["ID_MODEL_FROM_DATABASE"])
