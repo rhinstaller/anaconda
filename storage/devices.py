@@ -1019,7 +1019,7 @@ class PartitionDevice(StorageDevice):
             args.append("--size=%s" % (self.req_size or 1))
         if preexisting:
             if len(self.req_disks) == 1:
-                args.append("--ondisk=%s" % self.req_disks[0])
+                args.append("--ondisk=%s" % self.req_disks[0].name)
             else:
                 args.append("--onpart=%s" % self.name)
         if noformat:
