@@ -970,11 +970,6 @@ class PartitionWindow(InstallWindow):
 
             self.diskStripeGraph.selectSlice(device)
 
-    def makepartCB(self, widget):
-        device = self.storage.newPartition(fmt_type=self.storage.defaultFSType,
-                                           size=200)
-        self.editPartition(device, isNew=1)
-
     def deleteCB(self, widget):
         """ Right now we can say that if the device is partitioned we
             want to delete all of the devices it contains. At some point
@@ -1020,9 +1015,10 @@ class PartitionWindow(InstallWindow):
         # We activate the create Volume Group radio button if there is a free
         # partition with a Physical Volume format.
         activate_create_vg = False
+        availpvs = len(self.storage.unusedPVs())
         if (lvm.has_lvm()
                 and getFormat("lvmpv").supported
-                and len(self.storage.unusedPVs()) > 0):
+                and availpvs > 0):
             activate_create_vg = True
 
         # We activate the create RAID dev if there are partitions that have
@@ -1101,17 +1097,53 @@ class PartitionWindow(InstallWindow):
         gui.addFrame(self.dialog)
         self.dialog.show_all()
 
-        # We loop in the self.dialog.run() only for the help screens.
-        # dialog_rc == 2 -> partition about
-        # dialog_rc == 3 -> raid about
-        # dialog_rc == 4 -> lvm about
-        while True:
-            dialog_rc = self.dialog.run()
-            if dialog_rc == 2 or dialog_rc == 3 or dialog_rc == 4:
-                # FIXME: Code to handle the About messages.
-                pass
-            else:
-                break
+        # Lets work the information messages with CB
+        # The RAID info message
+        rinfo_button = create_storage_xml.get_widget("create_storage_info_raid")
+        whatis_r = _("Software RAID allows you to combine several disks into "
+                    "a larger RAID device.  A RAID device can be configured "
+                    "to provide additional speed and reliability compared "
+                    "to using an individual drive.  For more information on "
+                    "using RAID devices please consult the %s "
+                    "documentation.\n") % (productName,)
+        whatneed_r = _("To use RAID you must first create at least two "
+                "partitions of type 'software RAID'.  Then you can create a "
+                "RAID device that can be formatted and mounted.\n\n")
+        whathave_r = P_(
+                "You currently have %d software RAID partition free to use.",
+                "You currently have %d software RAID partitions free to use.",
+                availraidparts) % (availraidparts,)
+        rinfo_message = "%s\n%s%s" % (whatis_r, whatneed_r, whathave_r)
+        rinfo_cb = lambda x : self.intf.messageWindow(_("About RAID"),
+                                rinfo_message, custom_icon="information")
+        rinfo_button.connect("clicked", rinfo_cb)
+
+        # The LVM info message
+        lvminfo_button = create_storage_xml.get_widget("create_storage_info_lvm")
+        whatis_lvm = _("Logical Volume Manager (LVM) is a 3 level construct. "
+                "The fist level is made up of disks or partitions formated with "
+                "LVM metadata called Physical Volumes (PV).  A Volume Group "
+                "(VG) sits on top of one or more PVs. The VG, in turn, is the "
+                "base to creat one ore more Logical Volumes (LV).  Note that a "
+                "VG can be an aggregate of PVs from multiple physical disk.  For "
+                "more information on using LVM please consult the %s "
+                "documentation\n") % (productName, )
+        whatneed_lvm = _("To create a PV you need a partition with "
+                "free space.  To create a VG you need a PV that is not "
+                "part of any existing VG.  To create a LV you need a VG with "
+                "free space.\n\n")
+        whathave_lvm = P_("You currently have %d available PV free to use.\n",
+                            "You currently have %d available PVs free to use.\n",
+                            availpvs) % (availpvs, )
+        if free_part_available:
+            whathave_lvm = whathave_lvm + _("You currently have free space to "
+                    "create PVs.")
+        lvminfo_message = "%s\n%s%s" % (whatis_lvm, whatneed_lvm, whathave_lvm)
+        lvminfo_cb = lambda x : self.intf.messageWindow(_("About LVM"),
+                                    lvminfo_message, custom_icon="information")
+        lvminfo_button.connect("clicked", lvminfo_cb)
+
+        dialog_rc = self.dialog.run()
 
         # If Cancel was pressed
         if dialog_rc == 0:
@@ -1375,142 +1407,6 @@ class PartitionWindow(InstallWindow):
 
         vgeditor.destroy()
 
-    def makeLvmCB(self, widget):
-        if not getFormat("lvmpv").supported or not lvm.has_lvm():
-	    self.intf.messageWindow(_("Not supported"),
-				    _("LVM is NOT supported on "
-				      "this platform."), type="ok",
-				    custom_icon="error")
-	    return
-
-        vg = self.storage.newVG()
-        self.editLVMVolumeGroup(vg, isNew = 1)
-	return
-
-    def makeraidCB(self, widget):
-        if not getFormat("software RAID").supported:
-	    self.intf.messageWindow(_("Not supported"),
-				    _("Software RAID is NOT supported on "
-				      "this platform."), type="ok",
-				    custom_icon="error")
-	    return
-
-	availminors = self.storage.unusedMDMinors
-	if len(availminors) < 1:
-	    self.intf.messageWindow(_("No RAID minor device numbers available"),
-				    _("A software RAID device cannot "
-				      "be created because all of the "
-				      "available RAID minor device numbers "
-				      "have been used."),
-				    type="ok", custom_icon="error")
-	    return
-	    
-	
-	# see if we have enough free software RAID partitions first
-	# if no raid partitions exist, raise an error message and return
-	availraidparts = self.storage.unusedMDMembers()
-
-	dialog = gtk.Dialog(_("RAID Options"), self.parent)
-	gui.addFrame(dialog)
-	dialog.add_button('gtk-cancel', 2)
-	dialog.add_button('gtk-ok', 1)
-        dialog.set_position(gtk.WIN_POS_CENTER)
-	
-        maintable = gtk.Table()
-        maintable.set_row_spacings(5)
-        maintable.set_col_spacings(5)
-        row = 0
-
-	numparts = P_("You currently have %d software RAID partition free to use.",
-		    "You currently have %d software RAID partitions free to use.",
-		    len(availraidparts)) % len(availraidparts,)
-
-	lbltxt = _("Software RAID allows you to combine several disks into "
-		    "a larger RAID device.  A RAID device can be configured "
-		    "to provide additional speed and reliability compared "
-		    "to using an individual drive.  For more information on "
-		    "using RAID devices please consult the %s "
-		    "documentation.") % (productName,)
-
-	lbltxt = lbltxt + "\n\n" + numparts + "\n\n"
-
-        if len(availraidparts) < 2:
-	    lbltxt = lbltxt + _("To use RAID you must first "
-				"create at least two partitions of type "
-				"'software RAID'.  Then you can "
-				"create a RAID device that can "
-				"be formatted and mounted.\n\n")
-	    
-	lbltxt = lbltxt + _("What do you want to do now?")
-	
-	lbl = gui.WrappingLabel(lbltxt)
-	maintable.attach(lbl, 0, 1, row, row + 1)
-	row = row + 1
-	
-	newminor = availminors[0]
-        radioBox = gtk.VBox (False)
-
-        createRAIDpart = gtk.RadioButton(None, _("Create a software RAID _partition."))
-	radioBox.pack_start(createRAIDpart, False, False, padding=10)
-        createRAIDdev = gtk.RadioButton(createRAIDpart,
-		    _("Create a RAID _device [default=/dev/md%s].") % newminor)
-	radioBox.pack_start(createRAIDdev, False, False, padding=10)
-
-        doRAIDclone = gtk.RadioButton(createRAIDpart,
-				      _("Clone a _drive to create a "
-					"RAID device [default=/dev/md%s].") % newminor)
-	radioBox.pack_start(doRAIDclone, False, False, padding=10)
-
-        createRAIDpart.set_active(1)
-        doRAIDclone.set_sensitive(0)
-        createRAIDdev.set_sensitive(0)
-        if len(availraidparts) > 0 and len(self.storage.disks) > 1:
-            doRAIDclone.set_sensitive(1)
-
-        if len(availraidparts) > 1:
-            createRAIDdev.set_active(1)
-	    createRAIDdev.set_sensitive(1)
-
-	align = gtk.Alignment(0.5, 0.0)
-	align.add(radioBox)
-	maintable.attach(align,0,1,row, row+1)
-	row = row + 1
-
-	maintable.show_all()
-	dialog.vbox.pack_start(maintable)
-	dialog.show_all()
-	rc = dialog.run()
-	dialog.destroy()
-	if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
-	    return
-
-	# see which option they choose
-	if createRAIDpart.get_active():
-            member = self.storage.newPartition(fmt_type="software RAID",
-                                               size=200)
-	    rc = self.editPartition(member,
-                                    isNew = 1,
-                                    restrictfs=["mdmember"])
-	elif createRAIDdev.get_active():
-	    array = self.storage.newMDArray(fmt_type=self.storage.defaultFSType)
-	    self.editRaidArray(array, isNew=1)
-	else:
-            cloneDialog = raid_dialog_gui.RaidCloneDialog(self.storage,
-                                                          self.intf,
-                                                          self.parent)
-            if cloneDialog is None:
-                self.intf.messageWindow(_("Couldn't Create Drive Clone Editor"),
-                                        _("The drive clone editor could not "
-                                          "be created for some reason."),
-					custom_icon="error")
-                return
-            
-            if cloneDialog.run():
-                self.refresh()
-
-            cloneDialog.destroy()
-	    return
-
     def viewButtonCB(self, widget):
 	self.show_uneditable = not widget.get_active()
         self.diskStripeGraph.shutDown()
@@ -1538,10 +1434,6 @@ class PartitionWindow(InstallWindow):
                (_("_Edit"), self.editCB),
                (_("_Delete"), self.deleteCB),
                (_("Re_set"), self.resetCB))
-
-#               (_("_Partition"), self.makepartCB),
-#               (_("R_AID"), self.makeraidCB),
-#               (_("_LVM"), self.makeLvmCB))
 
         for label, cb in ops:
             button = gtk.Button(label)

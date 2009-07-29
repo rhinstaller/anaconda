@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Wed Jul 29 18:27:47 2009 -->
+<!--Generated with glade3 3.4.5 on Thu Jul 30 13:53:49 2009 -->
 <glade-interface>
   <widget class="GtkDialog" id="create_storage_dialog">
     <property name="visible">True</property>
@@ -27,21 +27,7 @@
                   </widget>
                 </child>
                 <child>
-                  <widget class="GtkLinkButton" id="linkbutton1">
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="has_tooltip">True</property>
-                    <property name="label" translatable="yes">gtk-about</property>
-                    <property name="relief">GTK_RELIEF_NONE</property>
-                    <property name="use_stock">True</property>
-                    <property name="xalign">1</property>
-                    <property name="response_id">2</property>
-                    <property name="uri">http://glade.gnome.org</property>
-                  </widget>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
+                  <placeholder/>
                 </child>
               </widget>
             </child>
@@ -87,12 +73,12 @@
                   </widget>
                 </child>
                 <child>
-                  <widget class="GtkLinkButton" id="linkbutton2">
-                    <property name="sensitive">False</property>
+                  <widget class="GtkLinkButton" id="create_storage_info_raid">
+                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="has_tooltip">True</property>
-                    <property name="label" translatable="yes">gtk-about</property>
+                    <property name="label" translatable="yes">gtk-info</property>
                     <property name="relief">GTK_RELIEF_NONE</property>
                     <property name="use_stock">True</property>
                     <property name="xalign">1</property>
@@ -100,6 +86,7 @@
                     <property name="uri">http://glade.gnome.org</property>
                   </widget>
                   <packing>
+                    <property name="expand">False</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -213,12 +200,12 @@
                   </widget>
                 </child>
                 <child>
-                  <widget class="GtkLinkButton" id="linkbutton3">
-                    <property name="sensitive">False</property>
+                  <widget class="GtkLinkButton" id="create_storage_info_lvm">
+                    <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
                     <property name="has_tooltip">True</property>
-                    <property name="label" translatable="yes">gtk-about</property>
+                    <property name="label" translatable="yes">gtk-info</property>
                     <property name="relief">GTK_RELIEF_NONE</property>
                     <property name="use_stock">True</property>
                     <property name="xalign">1</property>
@@ -226,6 +213,7 @@
                     <property name="uri">http://glade.gnome.org</property>
                   </widget>
                   <packing>
+                    <property name="expand">False</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
