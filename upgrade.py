@@ -76,7 +76,8 @@ def findRootParts(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
     if anaconda.id.rootParts is None:
-        anaconda.id.rootParts = findExistingRoots(anaconda)
+        anaconda.id.rootParts = findExistingRoots(anaconda,
+                                                  flags.cmdline.has_key("upgradeany"))
 
     setUpgradeRoot(anaconda)
 
@@ -88,10 +89,10 @@ def findRootParts(anaconda):
         anaconda.dispatch.skipStep("findinstall", skip = 1)
         anaconda.dispatch.skipStep("installtype", skip = 0)
 
-def findExistingRoots(anaconda, upgradeany = 0):
+def findExistingRoots(anaconda, upgradeany=False):
     if not flags.setupFilesystems:
         (prod, ver) = getReleaseString (anaconda.rootPath)
-        if flags.cmdline.has_key("upgradeany") or upgradeany == 1 or anaconda.id.instClass.productUpgradable(prod, ver):
+        if flags.cmdline.has_key("upgradeany") or upgradeany or anaconda.id.instClass.productUpgradable(prod, ver):
             return [(anaconda.rootPath, "")]
         return []
 
