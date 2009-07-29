@@ -30,6 +30,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "init.h"
+
 #ifdef AS_SHUTDOWN
 int testing = 0;
 #else
@@ -39,25 +41,11 @@ extern int testing;
 void disableSwap(void);
 void unmountFilesystems(void);
 
-static void rebootHandler(int signum) {
-    printf("rebooting system\n");
-#if USE_MINILIBC
-    reboot(0xfee1dead, 672274793, 0x1234567);
-#else
-    reboot(RB_AUTOBOOT);
-#endif
-}
+static void performTerminations(int doKill) {
+	if (testing || !doKill)
+		return;
 
-void shutDown(int noKill, int doReboot, int doPowerOff) {
-    sync(); sync();
-
-    printf("disabling swap...\n");
-    disableSwap();
-
-    printf("unmounting filesystems...\n"); 
-    unmountFilesystems();
-
-    if (!testing && !noKill) {
+	sync();
 	printf("sending termination signals...");
 	kill(-1, 15);
 	sleep(2);
@@ -67,25 +55,60 @@ void shutDown(int noKill, int doReboot, int doPowerOff) {
 	kill(-1, 9);
 	sleep(2);
 	printf("done\n");
-    }
+}
 
-    if (doReboot) {
-	printf("rebooting system\n");
-	sleep(2);
+static void performUnmounts(int doKill) {
+	if (testing || !doKill)
+		return;
+
+	printf("disabling swap...\n");
+	disableSwap();
+
+	printf("unmounting filesystems...\n"); 
+	unmountFilesystems();
+}
+
+static void performReboot(reboot_action rebootAction) {
+	if (rebootAction == POWEROFF) {
+        printf("powering off system\n");
+		sleep(2);
+        reboot(RB_POWER_OFF);
+	} else if (rebootAction == REBOOT) {
+		printf("rebooting system\n");
+		sleep(2);
 
 #if USE_MINILIBC
-	reboot(0xfee1dead, 672274793, 0x1234567);
+		reboot(0xfee1dead, 672274793, 0x1234567);
 #else
-	reboot(RB_AUTOBOOT);
+		reboot(RB_AUTOBOOT);
 #endif
-    } else if (doPowerOff)  {
-        printf("powering off system\n");
-        reboot(RB_POWER_OFF);
-    } else {
+	}
+}
+
+static int shouldReboot = 0;
+
+static void rebootHandler(int signum) {
+    shouldReboot = 1;
+}
+
+void shutDown(int doKill, reboot_action rebootAction) {
+	if (rebootAction == POWEROFF || rebootAction == REBOOT) {
+		performUnmounts(doKill);
+		performTerminations(doKill);
+		if (!doKill)
+			performReboot(rebootAction);
+	}
+	
 	printf("you may safely reboot your system\n");
-        signal(SIGINT, rebootHandler);
-        while (1) sleep(60);
-    }
+    signal(SIGINT, rebootHandler);
+	while (1) {
+		sleep(1);
+		if (shouldReboot) {
+			performUnmounts(1);
+			performTerminations(1);
+			performReboot(REBOOT);
+		}
+	}
 
     exit(0);
 
@@ -122,3 +145,5 @@ int main(int argc, char ** argv) {
     return 0;
 }
 #endif
+
+/* vim:set shiftwidth=4 softtabstop=4 ts=4: */

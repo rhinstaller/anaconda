@@ -53,6 +53,7 @@
 #include <termios.h>
 #include <libgen.h>
 
+#include "init.h"
 #include "copy.h"
 #include "devt.h"
 #include "devices.h"
@@ -110,10 +111,8 @@ char * env[] = {
  */
 
 int testing=0;
-void unmountFilesystems(void);
-void disableSwap(void);
-void shutDown(int noKill, int doReboot, int doPowerOff);
-static int getNoKill(void);
+void shutDown(int doKill, reboot_action rebootAction);
+static int getKillPolicy(void);
 struct termios ts;
 
 static void printstr(char * string) {
@@ -396,22 +395,22 @@ static void termReset(void) {
 /* reboot handler */
 static void sigintHandler(int signum) {
     termReset();
-    shutDown(getNoKill(), 1, 0);
+    shutDown(getKillPolicy(), REBOOT);
 }
 
 /* halt handler */
 static void sigUsr1Handler(int signum) {
     termReset();
-    shutDown(getNoKill(), 0, 0);
+    shutDown(getKillPolicy(), HALT);
 }
 
 /* poweroff handler */
 static void sigUsr2Handler(int signum) {
     termReset();
-    shutDown(getNoKill(), 0, 1);
+    shutDown(getKillPolicy(), POWEROFF);
 }
 
-static int getNoKill(void) {
+static int getKillPolicy(void) {
     int fd;
     int len;
     char buf[1024];
@@ -421,9 +420,9 @@ static int getNoKill(void) {
         len = read(fd, buf, sizeof(buf) - 1);
         close(fd);
         if ((len > 0) && strstr(buf, "nokill"))
-            return 1;
+            return 0;
     }
-    return 0;
+    return 1;
 }
 
 static int getInitPid(void) {
@@ -453,7 +452,7 @@ int main(int argc, char **argv) {
     int doShutdown =0;
     int isSerial = 0;
     char * console = NULL;
-    int noKill = 0;
+    int doKill = 1;
     char * argvc[15];
     char ** argvp = argvc;
     char twelve = 12;
@@ -541,7 +540,7 @@ int main(int argc, char **argv) {
         }
     }
 
-    noKill = getNoKill();
+    doKill = getKillPolicy();
 
 #if !defined(__s390__) && !defined(__s390x__)
     static struct termios orig_cmode;
@@ -749,7 +748,7 @@ int main(int argc, char **argv) {
         printf("running %s\n", argvc[0]);
         execve(argvc[0], argvc, env);
 
-        shutDown(1, 0, 0);
+        shutDown(1, HALT);
     }
 
     /* signal handlers for halt/poweroff */
@@ -797,7 +796,7 @@ int main(int argc, char **argv) {
     if (testing)
         exit(0);
 
-    shutDown(noKill, doReboot, 0);
+    shutDown(doKill, doReboot?REBOOT:HALT);
 
     return 0;
 }
