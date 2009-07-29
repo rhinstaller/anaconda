@@ -55,10 +55,6 @@ NM_STATE_CONNECTING = 2
 NM_STATE_CONNECTED = 3
 NM_STATE_DISCONNECTED = 4
 
-HAL_SERVICE = "org.freedesktop.Hal"
-HAL_PATH = "/org/freedesktop/Hal"
-HAL_DEVICE_IFACE = "org.freedesktop.Hal.Device"
-
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 
 mountCount = {}
@@ -584,6 +580,7 @@ def getMacAddress(dev):
 
 # Get a description string for a network device (e.g., eth0)
 def getNetDevDesc(dev):
+    from storage.udev import udev_get_block_device
     desc = "Network Interface"
 
     if dev == '' or dev is None:
@@ -594,19 +591,19 @@ def getNetDevDesc(dev):
     devlist = nm.get_dbus_method("GetDevices")()
 
     for path in devlist:
-        device = bus.get_object(HAL_SERVICE, path)
-        device_iface = dbus.Interface(device, HAL_DEVICE_IFACE)
-        device_props = device_iface.get_dbus_method("GetAllProperties")()
+        device = bus.get_object(NM_SERVICE, path)
+        device_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
+        device_props = device_iface.get_dbus_method("GetAll")(NM_DEVICE_IFACE)
 
-        if dev == device_props['net.interface']:
-            if device_props.has_key('info.product'):
-                if device_props.has_key('info.vendor'):
-                    desc = "%s %s" % (device_props['info.product'],
-                                      device_props['info.vendor'],)
-                else:
-                    desc = device_props['info.product']
-            else:
-                desc = device_props['info.udi']
+        if dev == device_props['Interface']:
+            # This is the sysfs path (for now).
+            udev_path = device_props['Udi']
+            dev = udev_get_block_device(udev_path, requireName=False)
+
+            if dev.has_key("ID_VENDOR_ENC") and dev.has_key("ID_MODEL_ENC"):
+                desc = "%s %s" % (dev["ID_VENDOR_ENC"], dev["ID_MODEL_ENC"])
+            elif dev.has_key("ID_VENDOR_FROM_DATABASE") and dev.has_key("ID_MODEL_FROM_DATABASE"):
+                desc = "%s %s" % (dev["ID_VENDOR_FROM_DATABASE"], dev["ID_MODEL_FROM_DATABASE"])
 
             return desc
 
