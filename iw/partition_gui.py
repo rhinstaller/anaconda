@@ -1428,7 +1428,8 @@ class PartitionWindow(InstallWindow):
 
         # operational buttons
         buttonBox = gtk.HButtonBox()
-        buttonBox.set_layout(gtk.BUTTONBOX_SPREAD)
+        buttonBox.set_spacing(6)
+        buttonBox.set_layout(gtk.BUTTONBOX_END)
 
         ops = ((_("_Create"), self.createCB),
                (_("_Edit"), self.editCB),
@@ -1466,7 +1467,6 @@ class PartitionWindow(InstallWindow):
 	vpaned.add1(frame)
 
         box = gtk.VBox(False, 5)
-        box.pack_start(buttonBox, False)
         sw = gtk.ScrolledWindow()
         sw.add(self.treeView)
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -1478,7 +1478,9 @@ class PartitionWindow(InstallWindow):
 	self.toggleViewButton.set_active(not self.show_uneditable)
 	self.toggleViewButton.connect("toggled", self.viewButtonCB)
 	box.pack_start(self.toggleViewButton, False, False)
-	
+        box.pack_start(buttonBox, False)
+        box.pack_start(gtk.HSeparator(), False)
+
 	vpaned.add2(box)
 
 	# XXX should probably be set according to height 
