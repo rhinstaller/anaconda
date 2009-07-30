@@ -1044,8 +1044,13 @@ class PartitionWindow(InstallWindow):
                 and not activate_create_raid_dev
                 and not activate_create_raid_clone):
             self.intf.messageWindow(_("Cannot perform any creation action"),
-                                    _("Follows an explination... "),
-                                    custom_icon="warning")
+                        _("Note that the creation action requires one of the "
+                        "following:\n\n"
+                        "* Free space in one of the Hard Drives.\n"
+                        "* At least two free Software RAID partitions.\n"
+                        "* At least one free physical volume (LVM) partition.\n"
+                        "* At least one Volume Group with free space."),
+                        custom_icon="warning")
             return
 
         # GTK crap starts here.
