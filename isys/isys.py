@@ -190,6 +190,7 @@ def umount(what, removeDir = True):
 	mountCount[what] = mountCount[what] - 1
 	return
 
+    log.debug("isys.py:umount()- going to unmount %s, removeDir = %s" % (what, removeDir))
     rc = _isys.umount(what)
 
     if removeDir and os.path.isdir(what):
