@@ -1,4 +1,4 @@
-# translation of anaconda.master.po to icelandic
+# translation of anaconda.f11-branch.po to
 # Íslensk þýðing anaconda
 # Copyright (C) 2002
 # This file is distributed under the same license as the PACKAGE package.
@@ -7,12 +7,12 @@
 # Sveinn í Felli <sveinki@nett.is>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.master\n"
+"Project-Id-Version: anaconda.f11-branch\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-04-24 10:52+0000\n"
-"Last-Translator: Sveinn í Felli <sveinki@nett.is>\n"
-"Language-Team: icelandic <kde-isl@molar.is>\n"
+"PO-Revision-Date: 2009-07-30 15:10+0000\n"
+"Last-Translator: \n"
+"Language-Team:  <is@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,7 +26,7 @@ msgstr "Villa við opnun hraðuppsetningarskrár %s: %s"
 #: ../anaconda:269 ../anaconda:315
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "Óþekkt villa kom upp við keyrslu %%ksappend lína: %s"
 
 #: ../anaconda:283 ../anaconda:327 ../cmdline.py:86 ../gui.py:1251
 #: ../text.py:543
@@ -3602,7 +3602,7 @@ msgstr "Bæta við hugbúnaðarsafni"
 
 #: ../iw/task_gui.py:455
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "Engin hugbúnaðarsöfn eru virk"
 
 #: ../iw/task_gui.py:456
 #, fuzzy
@@ -3781,7 +3781,7 @@ msgstr ""
 
 #: ../iw/welcome_gui.py:56 ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Krafist er netuppsetningar"
 
 #: ../iw/welcome_gui.py:57 ../textw/welcome_text.py:37
 msgid ""
@@ -4013,22 +4013,20 @@ msgid "iSCSI Initiator Name"
 msgstr "Heiti iSCSI _rekils"
 
 #: ../textw/partition_text.py:217
-#, fuzzy
 msgid "CHAP username"
-msgstr "FTP þjónn:"
+msgstr "CHAP notandanafn"
 
 #: ../textw/partition_text.py:218
-#, fuzzy
 msgid "CHAP password"
-msgstr "Lykilorð"
+msgstr "CHAP lykilorð"
 
 #: ../textw/partition_text.py:219
 msgid "Reverse CHAP username"
-msgstr ""
+msgstr "Snúa við CHAP notandanafni"
 
 #: ../textw/partition_text.py:220
 msgid "Reverse CHAP password"
-msgstr ""
+msgstr "Snúa við CHAP lykilorði"
 
 #: ../textw/progress_text.py:46
 msgid "Package Installation"
@@ -4314,21 +4312,19 @@ msgstr "_Til baka"
 
 #: ../storage/__init__.py:153
 msgid "_Write changes to disk"
-msgstr ""
+msgstr "Skrifa bre_ytingar á disk"
 
 #: ../storage/__init__.py:252
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Pakka vantar"
+msgstr "Finn tæki"
 
 #: ../storage/__init__.py:253
-#, fuzzy
 msgid "Finding storage devices..."
-msgstr "Lýk við uppfærsluna"
+msgstr "Finn geymslumiðla..."
 
 #: ../storage/__init__.py:269
 msgid "Filesystem error detected, cannot continue."
-msgstr ""
+msgstr "Villa fannst í skráakerfi, get ekki haldið áfram."
 
 #: ../storage/__init__.py:480
 msgid "This partition is holding the data for the hard drive install."
@@ -4778,12 +4774,12 @@ msgstr "Þú hefur ekki skilgreint FCP LUN eða það er ógilt."
 #: ../storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "vginfo brást fyrir %s"
 
 #: ../storage/devicelibs/lvm.py:354
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "lvs brást fyrir %s"
 
 #: ../storage/formats/fs.py:64
 msgid "attr dict must include a type"
@@ -5990,13 +5986,17 @@ msgstr "Setja upp á harða diskinn"
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr "Bæta þessari lykilsetningu inn fyrir öll dulkóðuð tæki til að einfalda ræsingarferlið"
+msgstr ""
+"Bæta þessari lykilsetningu inn fyrir öll dulkóðuð tæki til að einfalda "
+"ræsingarferlið"
 
 #: tmp/lukspassphrase.glade.h:2
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr "Settu inn lykilsetningu fyrir þessa dulkóðuðu disksneið. Þú verður krafinn um þessa setningu við ræsingu kerfisins."
+msgstr ""
+"Settu inn lykilsetningu fyrir þessa dulkóðuðu disksneið. Þú verður krafinn "
+"um þessa setningu við ræsingu kerfisins."
 
 #: tmp/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
@@ -6050,7 +6050,9 @@ msgstr "Vélarheiti:"
 msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
-msgstr "Gefðu núna þessari tölvu nafn. Vélarheitið er notað til að auðkenna tölvuna á netkerfum."
+msgstr ""
+"Gefðu núna þessari tölvu nafn. Vélarheitið er notað til að auðkenna tölvuna "
+"á netkerfum."
 
 #: tmp/tasksel.glade.h:1
 msgid "Customize _later"
