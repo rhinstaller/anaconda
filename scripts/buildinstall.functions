@@ -56,11 +56,8 @@ EOF
     while [ $n -lt ${#FILES[*]} ]; do
         FILE="${FILES[$n]}"
         if [ "$FILE" == "not found" ]; then
-            cat 1>&2 <<EOF
-There are missing files on your system.  The dynamic object $bin
-requires ${NAMES[$n]} n order to properly function.  mkinitrd cannot continue.
-EOF
-            exit 1
+            echo "WARNING: The dynamic object $bin requires ${NAMES[$n]} n order to properly function."
+            continue
         fi
        case "$FILE" in
          /lib*)
