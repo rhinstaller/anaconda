@@ -208,6 +208,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jul 31 2009 Chris Lumens <clumens@redhat.com> - 12.7-1
+- Fix up udev sillies (related to #514501) (katzj)
+- Log when we unmount filesystems so we have a match for mount messages.
+  (clumens)
+- Let's not exit from buildinstall.functions, say, ever (katzj)
+- Rework shutDown() to better accomidate "nokill" better. (pjones)
+- Make upgradeany boot option work again (#513227) (rvykydal)
+- Update device.map when upgrading (#513393) (rvykydal)
+- Catch None devs (katzj)
+
 * Wed Jul 29 2009 Chris Lumens <clumens@redhat.com> - 12.6-1
 - Fix CDLABEL substitution in syslinux.cfg for x86 boot.iso (katzj)
 - And finish off the removal of rhpl (katzj)
