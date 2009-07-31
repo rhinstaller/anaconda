@@ -294,7 +294,7 @@ class iscsi(object):
     def getNode(self, name, address, port):
         for node in self.nodes:
             if node.name == name and node.address == address and \
-               node.port == port:
+               node.port == int(port):
                 return node
 
         return None
