@@ -261,16 +261,17 @@ class iscsi(object):
 
         if not flags.test:
             root = anaconda.id.storage.fsset.rootDevice
-            disks = anaconda.id.storage.devicetree.getDevicesByType("iscsi")
 
             # set iscsi nodes to autostart
-            for disk in disks:
-                # devices used for root get started by the initrd
-                if root.dependsOn(disk):
-                    continue
+            for node in self.nodes:
+                autostart = True
+                disks = self.getNodeDisks(node, anaconda.id.storage)
+                for disk in disks:
+                    # nodes used for root get started by the initrd
+                    if root.dependsOn(disk):
+                        autostart = False
 
-                node = self.getNode(disk.iscsi_name, disk.iscsi_address, disk.iscsi_port)
-                if node:
+                if autostart:
                     node.setParameter("node.startup", "automatic")
 
             if not os.path.isdir(instPath + "/etc/iscsi"):
