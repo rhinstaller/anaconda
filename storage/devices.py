@@ -1141,7 +1141,8 @@ class PartitionDevice(StorageDevice):
 
     def dependsOn(self, dep):
         """ Return True if this device depends on dep. """
-        if isinstance(dep, PartitionDevice) and dep.isExtended and self.isLogical:
+        if isinstance(dep, PartitionDevice) and dep.isExtended and \
+           self.isLogical and self.disk == dep.disk:
             return True
 
         return Device.dependsOn(self, dep)
