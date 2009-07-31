@@ -1110,6 +1110,7 @@ class DeviceTree(object):
                                    udev_device_get_iscsi_name(info),
                                    udev_device_get_iscsi_address(info),
                                    udev_device_get_iscsi_port(info))
+            kwargs["ibft"] = kwargs["node"] in self.iscsi.ibftNodes
             log.debug("%s is an iscsi disk" % name)
         elif udev_device_is_fcoe(info):
             diskType = FcoeDiskDevice

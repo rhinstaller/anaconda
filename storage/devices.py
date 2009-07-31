@@ -2932,6 +2932,7 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
 
     def __init__(self, device, **kwargs):
         self.node = kwargs.pop("node")
+        self.ibft = kwargs.pop("ibft")
         DiskDevice.__init__(self, device, **kwargs)
         NetworkStorageDevice.__init__(self, host_address=self.node.address)
         log.debug("created new iscsi disk %s %s:%d" % (self.node.name, self.node.address, self.node.port))

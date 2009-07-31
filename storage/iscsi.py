@@ -92,7 +92,10 @@ def stabilize(intf = None):
 
 class iscsi(object):
     def __init__(self):
+        # This list contains all nodes
         self.nodes = []
+        # This list contains nodes discovered through iBFT (or other firmware)
+        self.ibftNodes = []
         self._initiator = ""
         self.initiatorSet = False
         self.started = False
@@ -134,6 +137,7 @@ class iscsi(object):
             try:
                 node.login()
                 self.nodes.append(node)
+                self.ibftNodes.append(node)
             except:
                 # FIXME, what to do when we cannot log in to a firmware
                 # provided node ??
