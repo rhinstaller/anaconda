@@ -317,6 +317,9 @@ class Device(object):
 
         return False
 
+    def dracutSetupString(self):
+        return ""
+
     @property
     def status(self):
         """ This device's status.
@@ -2937,6 +2940,22 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
         NetworkStorageDevice.__init__(self, host_address=self.node.address)
         log.debug("created new iscsi disk %s %s:%d" % (self.node.name, self.node.address, self.node.port))
 
+    def dracutSetupString(self):
+        if self.ibft:
+            return "iscsi_firmware"
+
+        netroot="netroot=iscsi:"
+        auth = self.node.getAuth()
+        if auth:
+            netroot += "%s:%s" % (auth.username, auth.password)
+            if len(auth.reverse_username) or len(auth.reverse_password):
+                netroot += ":%s:%s" % (auth.reverse_username,
+                                       auth.reverse_password)
+
+        netroot += "@%s::%d::%s" % (self.node.address, self.node.port,
+                                    self.node.name)
+
+        return netroot
 
 class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An FCoE disk. """
