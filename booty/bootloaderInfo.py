@@ -87,7 +87,15 @@ def rootIsDevice(dev):
 class KernelArguments:
 
     def get(self):
-        return self.args
+        args = self.args
+        root = self.storage.fsset.rootDevice
+        for d in self.storage.devices:
+            if root.dependsOn(d):
+                dracutSetupString = d.dracutSetupString()
+                if len(dracutSetupString):
+                    args += " %s" % dracutSetupString
+
+        return args
 
     def set(self, args):
         self.args = args
@@ -107,7 +115,7 @@ class KernelArguments:
         self.args = self.args + "%s" % (args,)
         
 
-    def __init__(self):
+    def __init__(self, storage):
         newArgs = []
         cfgFilename = "/tmp/install.cfg"
 
@@ -144,6 +152,7 @@ class KernelArguments:
                 newArgs.append(arg)
 
         self.args = " ".join(newArgs)
+        self.storage = storage
 
 
 class BootImages:
@@ -468,7 +477,7 @@ class bootloaderInfo:
     drivelist = property(_getDriveList, _setDriveList)
 
     def __init__(self, storage):
-        self.args = KernelArguments()
+        self.args = KernelArguments(storage)
         self.images = BootImages()
         self.device = None
         self.defaultDevice = None  # XXX hack, used by kickstart
