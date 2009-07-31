@@ -2931,12 +2931,10 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
     _packages = ["iscsi-initiator-utils"]
 
     def __init__(self, device, **kwargs):
-        self.iscsi_name    = kwargs.pop("iscsi_name")
-        self.iscsi_address = kwargs.pop("iscsi_address")
-        self.iscsi_port    = int(kwargs.pop("iscsi_port"))
+        self.node = kwargs.pop("node")
         DiskDevice.__init__(self, device, **kwargs)
-        NetworkStorageDevice.__init__(self, host_address=self.iscsi_address)
-        log.debug("created new iscsi disk %s %s:%d" % (self.iscsi_name, self.iscsi_address, self.iscsi_port))
+        NetworkStorageDevice.__init__(self, host_address=self.node.address)
+        log.debug("created new iscsi disk %s %s:%d" % (self.node.name, self.node.address, self.node.port))
 
 
 class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):

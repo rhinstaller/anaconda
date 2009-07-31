@@ -222,7 +222,8 @@ class Storage(object):
                                      protected=self.protectedDevSpecs,
                                      zeroMbr=self.zeroMbr,
                                      passphrase=self.encryptionPassphrase,
-                                     luksDict=self.__luksDevs)
+                                     luksDict=self.__luksDevs,
+                                     iscsi=self.iscsi)
         self.fsset = FSSet(self.devicetree)
 
     def doIt(self):
@@ -287,7 +288,8 @@ class Storage(object):
                                      protected=self.protectedDevSpecs,
                                      zeroMbr=self.zeroMbr,
                                      passphrase=self.encryptionPassphrase,
-                                     luksDict=self.__luksDevs)
+                                     luksDict=self.__luksDevs,
+                                     iscsi=self.iscsi)
         self.devicetree.populate()
         self.fsset = FSSet(self.devicetree)
         self.anaconda.id.rootParts = None

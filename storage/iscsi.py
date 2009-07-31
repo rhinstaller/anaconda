@@ -299,9 +299,7 @@ class iscsi(object):
         nodeDisks = []
         iscsiDisks = storage.devicetree.getDevicesByType("iscsi")
         for disk in iscsiDisks:
-            if node.name    == disk.iscsi_name and \
-               node.address == disk.iscsi_address and \
-               node.port    == disk.iscsi_port:
+            if disk.node == node:
                 nodeDisks.append(disk)
 
         return nodeDisks

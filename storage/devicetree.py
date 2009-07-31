@@ -203,7 +203,7 @@ class DeviceTree(object):
 
     def __init__(self, intf=None, ignored=[], exclusive=[], type=CLEARPART_TYPE_NONE,
                  clear=[], zeroMbr=None, reinitializeDisks=None, protected=[],
-                 passphrase=None, luksDict=None):
+                 passphrase=None, luksDict=None, iscsi=None):
         # internal data members
         self._devices = []
         self._actions = []
@@ -217,6 +217,7 @@ class DeviceTree(object):
         self.clearPartDisks = clear
         self.zeroMbr = zeroMbr
         self.reinitializeDisks = reinitializeDisks
+        self.iscsi = iscsi
 
         # protected device specs as provided by the user
         self.protectedDevSpecs = protected
@@ -1105,9 +1106,10 @@ class DeviceTree(object):
         kwargs = {}
         if udev_device_is_iscsi(info):
             diskType = iScsiDiskDevice
-            kwargs["iscsi_name"]    = udev_device_get_iscsi_name(info)
-            kwargs["iscsi_address"] = udev_device_get_iscsi_address(info)
-            kwargs["iscsi_port"]    = udev_device_get_iscsi_port(info)
+            kwargs["node"] = self.iscsi.getNode(
+                                   udev_device_get_iscsi_name(info),
+                                   udev_device_get_iscsi_address(info),
+                                   udev_device_get_iscsi_port(info))
             log.debug("%s is an iscsi disk" % name)
         elif udev_device_is_fcoe(info):
             diskType = FcoeDiskDevice
