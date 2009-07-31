@@ -268,13 +268,10 @@ class iscsi(object):
                 # devices used for root get started by the initrd
                 if root.dependsOn(disk):
                     continue
-                # find the iscsi node matching this disk
-                for node in self.nodes:
-                    if node.name    == disk.iscsi_name and \
-                       node.address == disk.iscsi_address and \
-                       node.port    == disk.iscsi_port:
-                        node.setParameter("node.startup", "automatic")
-                        break
+
+                node = self.getNode(disk.iscsi_name, disk.iscsi_address, disk.iscsi_port)
+                if node:
+                    node.setParameter("node.startup", "automatic")
 
             if not os.path.isdir(instPath + "/etc/iscsi"):
                 os.makedirs(instPath + "/etc/iscsi", 0755)
@@ -288,5 +285,24 @@ class iscsi(object):
             if os.path.isdir("/var/lib/iscsi"):
                 shutil.copytree("/var/lib/iscsi", instPath + "/var/lib/iscsi",
                                 symlinks=True)
+
+    def getNode(self, name, address, port):
+        for node in self.nodes:
+            if node.name == name and node.address == address and \
+               node.port == port:
+                return node
+
+        return None
+
+    def getNodeDisks(self, node, storage):
+        nodeDisks = []
+        iscsiDisks = storage.devicetree.getDevicesByType("iscsi")
+        for disk in iscsiDisks:
+            if node.name    == disk.iscsi_name and \
+               node.address == disk.iscsi_address and \
+               node.port    == disk.iscsi_port:
+                nodeDisks.append(disk)
+
+        return nodeDisks
 
 # vim:tw=78:ts=4:et:sw=4
