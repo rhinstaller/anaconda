@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-03-27 15:38-0400\n"
-"PO-Revision-Date: 2009-05-03 10:40+0200\n"
+"PO-Revision-Date: 2009-08-03 10:40+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -799,6 +799,8 @@ msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
+"Després de l'apagada, feu un IPL manual des de l'FCP %(device)s amb WWPN %"
+"(wwpn)s i LUN %(lun)s per continuar amb la instal·lació"
 
 #: ../iutil.py:877
 msgid ""
@@ -4741,6 +4743,11 @@ msgid ""
 "reinitialize all related PVs, which will erase all LVM metadata. Or ignore, "
 "which will preserve contents."
 msgstr ""
+"S'ha produït un error en processar el gestor de volums lògics (LVM).\n"
+"Sembla que hi ha dades LVM inconsistents. (%s) fa en total %s. Podeu "
+"reinicialitzar tots els volums físics relacionats, la qual cosa suprimirà "
+"totes les metadades del LVM. O bé ignorar-ho, i així es conservaran els "
+"continguts."
 
 #: ../storage/devicetree.py:159
 msgid "_Ignore drive(s)"
@@ -5910,7 +5917,7 @@ msgstr "Seleccioneu un directori"
 
 #: tmp/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr "La URL és una llista de servidors"
+msgstr "La URL és una _llista de servidors"
 
 #: tmp/addrepo.glade.h:16
 msgid "_Directory"
@@ -6363,7 +6370,7 @@ msgstr "Macedoni"
 
 #. generated from lang-table
 msgid "Maithili"
-msgstr ""
+msgstr "Maithili"
 
 #. generated from lang-table
 msgid "Malay"
