@@ -326,6 +326,18 @@ natsemi
 	eth
 	"NatSemi DP83815 Fast Ethernet"
 
+mlx4_core
+	eth
+	"Mellanox ConnectX mt26448 10Gb/s low-level driver"
+
+mlx4_en
+	eth
+	"Mellanox ConnectX mt26448 10Gb/s Ethernet Driver"
+
+mlx4_ib
+	eth
+	"Mellanox ConnectX mt26448 10Gb/s InfiniBand driver"
+
 myri_sbus
 	eth
 	"MyriCOM MyriNET SBUS"
