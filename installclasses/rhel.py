@@ -41,7 +41,7 @@ class InstallClass(BaseInstallClass):
                                    ["development-libs", "development-tools",
                                     "gnome-software-development", 
                                     "x-software-development"],)],
-               'vt'            : [(N_("Virtualization"), ["virtualization"])],
+               'vt'            : [(N_("Virtualization"), ["xen"])],
                'cluster'       : [(N_("Clustering"), ["clustering"])],
                'clusterstorage': [(N_("Storage Clustering"), 
                                    ["cluster-storage"])]
