@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.193
+Version: 11.1.2.194
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 03 2009 Martin Sivak <msivak@redhat.com> 11.1.2.194-1
+- comps changed. replaced "virtualization" with "xen" (jgranados)
+  Resolves: rhbz#514885
+- Add support for Melanox ConnectX mt26448 10Gb/s Infiniband, Ethernet, and FC (msivak)
+  Resolves: rhbz#514971
+
 * Thu Jul 23 2009 Joel Granados <jgranado@redhat.com>  11.1.2.193-1
 - Make sure we include libdrm.so files in the image.
   Related: rhbz#510397
