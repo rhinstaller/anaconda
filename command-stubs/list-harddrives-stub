@@ -18,43 +18,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import dbus
 import sys
-
-HAL_INTERFACE = "org.freedesktop.Hal"
-HAL_MANAGER_PATH = "/org/freedesktop/Hal/Manager"
-HAL_MANAGER_INTERFACE = "org.freedesktop.Hal.Manager"
-HAL_DEVICE_INTERFACE = "org.freedesktop.Hal.Device"
+import parted
 
 def main(argv):
     lst = set()
 
-    try:
-        bus = dbus.SystemBus()
-        hal = dbus.Interface(bus.get_object(HAL_INTERFACE,
-                                            HAL_MANAGER_PATH),
-                             HAL_MANAGER_INTERFACE)
-    except:
-        sys.exit(1)
+    for dev in filter(lambda d: d.type <= parted.DEVICE_SX8, parted.getAllDevices()):
+        disk = parted.Disk(dev)
 
-    for udi in hal.FindDeviceByCapability("volume"):
-        try:
-            haldev = dbus.Interface(bus.get_object(HAL_INTERFACE, udi),
-                                    HAL_DEVICE_INTERFACE)
-            props = haldev.GetAllProperties()
-        except dbus.exceptions.DBusException:
-            continue
-
-        if not props.has_key('volume.size'):
-            continue
-
-        size = str(props['volume.size'] / (1024 * 1024))
-        if props.has_key('block.device'):
-            devnode = props['block.device'].encode('utf-8')
-        elif props.has_key('linux.device_file'):
-            devnode = props['linux.device_file'].encode('utf-8')
-
-        lst.add("%s %s" % (devnode, size,))
+        for part in disk.partitions:
+            lst.add("%s %s" % (part.path, int(part.getSize())))
 
     lst = list(lst)
     lst.sort()
