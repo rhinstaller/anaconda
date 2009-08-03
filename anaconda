@@ -562,7 +562,7 @@ if __name__ == "__main__":
     # automatically, I don't know.  but we need to trigger so that we
     # have all the information about netdevs that we care about for 
     # NetworkManager in the udev database
-    from storage.udev import udev_trigger, udev_settle
+    from baseudev import udev_trigger, udev_settle
     udev_trigger("net")
     udev_settle()
     # and for added fun, once doesn't seem to be enough?  so we 
