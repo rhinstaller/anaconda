@@ -1171,6 +1171,8 @@ class PartitionDevice(StorageDevice):
     def _setBootable(self, bootable):
         """ Set the bootable flag for this partition. """
         if self.partedPartition:
+            if iutil.isS390():
+                return
             if self.flagAvailable(parted.PARTITION_BOOT):
                 if bootable:
                     self.setFlag(parted.PARTITION_BOOT)
