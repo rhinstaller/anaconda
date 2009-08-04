@@ -100,6 +100,7 @@ class KernelArguments:
                     args += self.id.network.dracutSetupString(d.host_address)
 
         args += self.id.instLanguage.dracutSetupString()
+        args += self.id.keyboard.dracutSetupString()
 
         return args
 
