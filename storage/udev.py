@@ -25,6 +25,7 @@ import stat
 
 import iutil
 from errors import *
+from baseudev import *
 
 import logging
 log = logging.getLogger("storage")
@@ -56,7 +57,7 @@ def udev_resolve_devspec(devspec):
 def udev_get_block_devices():
     udev_settle(timeout=30)
     entries = []
-    for path in enumerate_block_devices():
+    for path in udev_enumerate_block_devices():
         entry = udev_get_block_device(path)
         if entry:
             entries.append(entry)
@@ -87,112 +88,28 @@ def __is_blacklisted_blockdev(dev_name):
 
     return False
 
-def enumerate_block_devices():
-    top_dir = "/sys/class/block"
-    devices = []
-    for dev_name in os.listdir(top_dir):
-        if __is_blacklisted_blockdev(dev_name):
-            continue
-        full_path = os.path.join(top_dir, dev_name)
-        link_ref = os.readlink(full_path)
-        real_path = os.path.join(top_dir, link_ref)
-        sysfs_path = os.path.normpath(real_path)
-        devices.append(sysfs_path)
-    return devices
+def udev_enumerate_block_devices():
+    import os.path
 
-def udev_get_block_device(sysfs_path, requireName=True):
-    if not os.path.exists(sysfs_path):
-        log.debug("%s does not exist" % sysfs_path)
-        return None
+    return filter(lambda d: not __is_blacklisted_blockdev(os.path.basename(d)),
+                  udev_enumerate_devices(deviceClass="block"))
 
-    db_entry = sysfs_path[4:].replace("/", "\\x2f")
-    db_root = "/dev/.udev/db"
-    db_path = os.path.normpath("%s/%s" % (db_root, db_entry))
-    if not os.access(db_path, os.R_OK):
-        log.debug("db entry %s does not exist" % db_path)
-        return None
-
-    entry = open(db_path).read()
-    dev = udev_parse_block_entry(entry)
-    if requireName and dev.has_key("name"):
-        # XXX why do we do this? is /sys going to move during installation?
-        dev['sysfs_path'] = sysfs_path[4:]  # strip off the leading '/sys'
-        dev = udev_parse_uevent_file(dev)
-
-    # now add in the contents of the uevent file since they're handy
-    return dev
-
-def udev_parse_uevent_file(dev):
-    path = os.path.normpath("/sys/%s/uevent" % dev['sysfs_path'])
-    if not os.access(path, os.R_OK):
+def udev_get_block_device(sysfs_path):
+    dev = udev_get_device(sysfs_path)
+    if not dev or not dev.has_key("name"):
+        return {"name": None, "symlinks": []}
+    else:
         return dev
 
-    with open(path) as f:
-        for line in f.readlines():
-            (key, equals, value) = line.strip().partition("=")
-            if not equals:
-                continue
-
-            dev[key] = value
-
-    return dev
-
 def udev_parse_block_entry(buf):
-    dev = {}
+    dev = udev_parse_entry(buf)
 
-    for line in buf.splitlines():
-        line.strip()
-        (tag, sep, val) = line.partition(":")
-        if not sep:
-            continue
-
-        if tag == "N":
-            dev['name'] = val
-        elif tag == "S":
-            if dev.has_key('symlinks'):
-                dev['symlinks'].append(val)
-            else:
-                dev['symlinks'] = [val]
-        elif tag == "E":
-            if val.count("=") > 1 and val.count(" ") > 0:
-                # eg: LVM2_LV_NAME when querying the VG for its LVs
-                vars = val.split()
-                vals = []
-                var_name = None
-                for (index, subval) in enumerate(vars):
-                    (var_name, sep, var_val) = subval.partition("=")
-                    if sep:
-                        vals.append(var_val)
-
-                dev[var_name] = vals
-            else:
-                (var_name, sep, var_val) = val.partition("=")
-                if not sep:
-                    continue
-
-                # Skip splitting for any keys matching MODEL or VENDOR, since
-                # those values could include embedded, unquoted spaces.
-                if var_val.count(" ") and var_name.find("MODEL") == -1 and var_name.find("VENDOR") == -1:
-                    # eg: DEVLINKS
-                    var_val = var_val.split()
-
-                dev[var_name] = var_val
+    for (key, value) in dev.iteritems():
+        if value.count(" "):
+            # eg: DEVLINKS
+            dev.update({key: value.split()})
 
     return dev
-
-def udev_settle(timeout=None):
-    argv = ["settle"]
-    if timeout:
-        argv.append("--timeout=%d" % int(timeout))
-
-    iutil.execWithRedirect("udevadm", argv, stderr="/dev/null", searchPath=1)
-
-def udev_trigger(subsystem=None):
-    argv = ["trigger"]
-    if subsystem:
-        argv.append("--subsystem-match=%s" % subsystem)
-
-    iutil.execWithRedirect("udevadm", argv, stderr="/dev/null", searchPath=1)
 
 
 # These are functions for retrieving specific pieces of information from

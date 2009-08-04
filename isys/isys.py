@@ -581,7 +581,7 @@ def getMacAddress(dev):
 
 # Get a description string for a network device (e.g., eth0)
 def getNetDevDesc(dev):
-    from storage.udev import udev_get_block_device
+    from baseudev import udev_get_device
     desc = "Network Interface"
 
     if dev == '' or dev is None:
@@ -599,7 +599,7 @@ def getNetDevDesc(dev):
         if dev == device_props['Interface']:
             # This is the sysfs path (for now).
             udev_path = device_props['Udi']
-            dev = udev_get_block_device(udev_path, requireName=False)
+            dev = udev_get_device(udev_path)
 
             if dev is None:
                 log.debug("weird, we have a None dev with path %s" % path)
