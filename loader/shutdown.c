@@ -143,7 +143,7 @@ int main(int argc, char ** argv) {
     dup2(fd, 2);
     close(fd);
 
-    shutDown(0, doReboot, 0);
+    shutDown(0, doReboot ? REBOOT : HALT);
     return 0;
 }
 #endif
