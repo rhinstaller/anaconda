@@ -130,15 +130,15 @@ def makeMtab(instPath, fsset):
         f.close()
 
 def makeFStab(instPath = ""):
-    if os.access("/etc/mtab", os.R_OK):
-        f = open("/etc/mtab" %(instPath,), "r")
+    if os.access("/proc/mounts", os.R_OK):
+        f = open("/proc/mounts", "r")
         buf = f.read()
         f.close()
     else:
         buf = ""
 
     try:
-        f = open(instPath + "/etc/fstab", "w+")
+        f = open(instPath + "/etc/fstab", "a")
         if buf:
             f.write(buf)
         f.close()
@@ -203,7 +203,7 @@ def runShell(screen = None, msg=""):
     proc = None
 
     if os.path.exists("/usr/bin/firstaidkit-qs") and os.path.exists("/usr/bin/dialog"):
-        proc = subprocess.Popen(["/bin/firstaidkit-qs"])
+        proc = subprocess.Popen(["/usr/bin/firstaidkit-qs"])
         proc.wait()
     
     if proc is None or proc.returncode!=0:
