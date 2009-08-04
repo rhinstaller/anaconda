@@ -779,3 +779,37 @@ class Network:
             return True
 
         return False
+
+    # get a kernel cmdline string for dracut needed for access to host host
+    def dracutSetupString(self, host):
+        if not host:
+            return ""
+
+        # First of all find out which interface leads to host
+        route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
+        if not route:
+            log.error("Could net get interface for route to %s" % host)
+            return ""
+
+        routeInfo = route.split()
+        if routeInfo[0] != host or len(routeInfo) < 5:
+            log.error('Unexpected "ip route get to %s" reply: %s' %
+                      (host, routeInfo))
+            return ""
+
+        if routeInfo[2] not in self.netdevices.keys():
+            log.error('Unknown network interface: %s' % routeInfo[2])
+            return ""
+
+        dev = self.netdevices[routeInfo[2]]
+        if dev.get('bootproto').lower() == 'dhcp':
+            return "ip=%s:dhcp" % routeInfo[2]
+
+        if self.hostname:
+            hostname = self.hostname
+        else:
+            hostname = ""
+
+        ip = "ip=%s::%s:%s:%s:none" % (dev.get('ipaddr'),
+             dev.get('GATEWAY', ''), dev.get('netmask'), hostname,
+             routeInfo[2])

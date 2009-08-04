@@ -94,6 +94,10 @@ class KernelArguments:
                 dracutSetupString = d.dracutSetupString()
                 if len(dracutSetupString):
                     args += " %s" % dracutSetupString
+                import storage
+                if isinstance(d, storage.devices.NetworkStorageDevice):
+                    args += " "
+                    args += self.network.dracutSetupString(d.host_address)
 
         return args
 
@@ -115,7 +119,7 @@ class KernelArguments:
         self.args = self.args + "%s" % (args,)
         
 
-    def __init__(self, storage):
+    def __init__(self, storage, network):
         newArgs = []
         cfgFilename = "/tmp/install.cfg"
 
@@ -153,6 +157,7 @@ class KernelArguments:
 
         self.args = " ".join(newArgs)
         self.storage = storage
+        self.network = network
 
 
 class BootImages:
@@ -476,8 +481,8 @@ class bootloaderInfo:
         self._drivelist = val
     drivelist = property(_getDriveList, _setDriveList)
 
-    def __init__(self, storage):
-        self.args = KernelArguments(storage)
+    def __init__(self, storage, network):
+        self.args = KernelArguments(storage, network)
         self.images = BootImages()
         self.device = None
         self.defaultDevice = None  # XXX hack, used by kickstart
@@ -614,9 +619,9 @@ class efiBootloaderInfo(bootloaderInfo):
             return rc
         return self.addNewEfiEntry(instRoot)
 
-    def __init__(self, storage, initialize = True):
+    def __init__(self, storage, network, initialize = True):
         if initialize:
-            bootloaderInfo.__init__(self, storage)
+            bootloaderInfo.__init__(self, storage, network)
         else:
             self.storage = storage
 

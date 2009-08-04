@@ -74,7 +74,7 @@ class InstallData:
         if flags.cmdline.has_key("preupgrade"):
             self.upgrade = True
         self.storage = storage.Storage(self.anaconda)
-        self.bootloader = booty.getBootloader(self.storage)
+        self.bootloader = booty.getBootloader(self.storage, self.network)
         self.upgradeRoot = None
         self.rootParts = None
         self.upgradeSwapInfo = None
