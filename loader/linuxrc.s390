@@ -40,6 +40,8 @@
 # - udev rule for lcs/ctcm vs. cu3088
 # - make sure netiucv gets loaded even without udev events since on no bus
 
+# debug: set -x
+
 VERSION=1.2
 
 export TEXTDOMAIN=s390installer
@@ -151,6 +153,7 @@ function startinetd()
         echo
         echo $"Connect now to $IPADDR and login as user root to start the installation."
         echo $"E.g. using: ssh -X root@$IPADDR"
+        echo $"After login, please start the installation using: loader"
         read
         while : ; do
             /bin/sh --login
@@ -188,6 +191,7 @@ function readcmsfile() # $1=dasdport $2=filename
         echo $"DASD $dev could not be set online"
         return 1
     fi
+    udevadm settle
     if ! cmsfscat -d /dev/dasda -a $2 > /tmp/$2; then
         echo $"Could not read conf file $2 on CMS DASD $1."
     fi
@@ -195,6 +199,7 @@ function readcmsfile() # $1=dasdport $2=filename
         echo $"DASD $dev could not be set offline again"
         return 1
     fi
+    udevadm settle
     # consequences of no more module unload: loader/anaconda can no longer
     # use DASD option to online DASDs and set other DASD parameters!
 }
@@ -262,11 +267,13 @@ function init_main() {
         # udevd req'd by udevadm settle (/dev/.udev/queue)
         # in readcmsfile, dialog_network_table, semantic_check_subchannels.
         # (important: start udevd at the right time, e.g. after setup of /dev)
-        echo $"starting udev..."
+        echo $"Starting udev..."
         udevd --daemon
+        # debug: udevadm control --log-priority=debug
 
         mount -t devpts /dev/pts /dev/pts
         mount -t sysfs none /sys
+
         # remount root fs rw
         mount /dev/root /  -o remount,rw
 
@@ -284,9 +291,20 @@ function init_main() {
         echo -e "127.0.0.1\tlocalhost.localdomain localhost localhost4 localhost4.localdomain4" > /etc/hosts
         echo -e     "::1\t\tlocalhost.localdomain localhost localhost6 localhost6.localdomain6" >> /etc/hosts
 
-        # init.c would also fork /sbin/dbus-uuidgen --ensure
-        #                    and /sbin/dbus-daemon --system
+        /sbin/dbus-uuidgen --ensure &
+        [ $? != 0 ] && echo "error on calling /sbin/dbus-uuidgen --ensure"
+        /sbin/dbus-daemon --system &
+        [ $? != 0 ] && echo "error on calling /sbin/dbus-daemon --system"
 
+    fi # testing
+}
+
+# trigger udev to automatically load device drivers
+function udev_setup() {
+    if [ -z "$testing" ]; then
+       # debug: udevadm monitor &
+       udevadm trigger
+       udevadm settle
     fi # testing
 }
 
@@ -462,7 +480,7 @@ declare -r BUSIDFORMAT=[[:xdigit:]][[:xdigit:]][[:xdigit:]][[:xdigit:]]
 declare -r IDFORMAT=$PREFIXFORMAT.$SSIDFORMAT.$BUSIDFORMAT
 declare -r SUBCHANNEL_TYPE_IO=0
 
-. /sbin/controlunits
+. /sbin/controlunits.sh
 
 function cardtype2cleartext() {
     local cardtype=$1
@@ -565,6 +583,7 @@ function set_device_online() {
         echo $"Could not set device ($SUBCHANNELS) online"
         return 1
     fi
+    udevadm settle
     local i=1
     while : ; do
         local online
@@ -754,6 +773,7 @@ function rollback_config() {
         if [ "$NETTYPE" = "iucv" ]; then
             if [ -n "$DEVICE" ]; then
                 sysecho /sys/bus/iucv/drivers/netiucv/remove $DEVICE
+                udevadm settle
             fi
         else # "$NETTYPE" != "iucv"
             if [ -n "$SCH_R_DEVBUSID" ]; then
@@ -764,8 +784,10 @@ function rollback_config() {
                 esac
                 [ -f /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online ] && \
                     sysecho /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online "0"
+                udevadm settle
                 [ -f /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/ungroup ] && \
                     sysecho /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/ungroup "1"
+                udevadm settle
             fi
         fi
     fi
@@ -1307,6 +1329,7 @@ function handle_subchannels() {
         driver=$NETTYPE
     fi
     if sysecho /sys/bus/ccwgroup/drivers/${driver}/group "$SUBCHANNELS"; then
+        udevadm settle
         case "$NETTYPE" in
             qeth)
                 # Just preliminary card_type info until device goes online!
@@ -1797,6 +1820,7 @@ function handle_peerid() {
         echo $"Could not create new IUCV connection to peer $PEERID"
         return 1
     fi
+    udevadm settle
     # find netiucv with proper guest user ID in
     # /sys/bus/iucv/drivers/netiucv/netiucv[0-9]+/user
     local userpath
@@ -1927,6 +1951,12 @@ function do_ipaddr() {
     ask IPADDR \
         question_prefix_ipaddr question_choices_ipaddr \
         -h helptext_ipaddr -s syntax_check_ipaddr
+    if [ "$ipv6" ]; then
+       # qeth_l3 would load ipv6 automatically but not qeth_l2
+       modprobe ipv6
+       tv disable_ipv6_autoconf
+    fi
+
     # no handling/configuring of IPADDR yet, since more parameters needed
 }
 
@@ -2686,6 +2716,7 @@ function final_check() {
 ### MAIN ###
 
 init_main
+udev_setup
 
 # Parse configuration
 if [ -n "$CMSDASD" -a -n "$CMSCONFFILE" ]; then
@@ -2719,9 +2750,11 @@ if [ -r /sys/firmware/ipl/ipl_type ]; then
                     fi
                     sysecho /sys/bus/ccw/drivers/zfcp/$CD_DEVICE/online 1 \
                         || echo $"Could not set FCP device $CD_DEVICE online"
+                    udevadm settle
                     # port (WWPN) appears automatically
                     sysecho /sys/bus/ccw/drivers/zfcp/$CD_DEVICE/$WWPN/unit_add $LUN \
                         || echo $"Could not add LUN $LUN at WWPN $WWPN on FCP device $CD_DEVICE"
+                    udevadm settle
                     break
                     ;;
                 n|N|[Nn][Oo])
@@ -2762,8 +2795,6 @@ while : ; do
     fi
     do_nettype
     # precondition: driver (qeth/lcs/ctcm/netiucv) loaded incl. dependencies
-    # only works, if ipv6 kernel module has been loaded before:
-    [ "$NETTYPE" = "qeth" ] && tv disable_ipv6_autoconf
     if [ "$NETTYPE" != "iucv" ]; then
         # all interface types except for iucv have ccw config
         [ -n "$CHANDEV" ] && do_chandev
