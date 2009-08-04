@@ -162,6 +162,8 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 
 %ifarch %livearches
 desktop-file-install --vendor="" --dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
+%else
+%{__rm} -rf %{buildroot}%{_bindir}/liveinst %{buildroot}%{_sbindir}/liveinst
 %endif
 
 %find_lang %{name}
