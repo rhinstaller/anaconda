@@ -805,11 +805,15 @@ class Network:
         if dev.get('bootproto').lower() == 'dhcp':
             return "ip=%s:dhcp" % routeInfo[2]
 
+        if dev.get('GATEWAY'):
+            gateway = dev.get('GATEWAY')
+        else:
+            gateway = ""
+
         if self.hostname:
             hostname = self.hostname
         else:
             hostname = ""
 
-        ip = "ip=%s::%s:%s:%s:none" % (dev.get('ipaddr'),
-             dev.get('GATEWAY', ''), dev.get('netmask'), hostname,
-             routeInfo[2])
+        return "ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'), gateway,
+               dev.get('netmask'), hostname, routeInfo[2])
