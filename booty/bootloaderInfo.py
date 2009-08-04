@@ -88,8 +88,8 @@ class KernelArguments:
 
     def get(self):
         args = self.args
-        root = self.storage.fsset.rootDevice
-        for d in self.storage.devices:
+        root = self.id.storage.fsset.rootDevice
+        for d in self.id.storage.devices:
             if root.dependsOn(d):
                 dracutSetupString = d.dracutSetupString()
                 if len(dracutSetupString):
@@ -97,7 +97,7 @@ class KernelArguments:
                 import storage
                 if isinstance(d, storage.devices.NetworkStorageDevice):
                     args += " "
-                    args += self.network.dracutSetupString(d.host_address)
+                    args += self.id.network.dracutSetupString(d.host_address)
 
         return args
 
@@ -119,7 +119,7 @@ class KernelArguments:
         self.args = self.args + "%s" % (args,)
         
 
-    def __init__(self, storage, network):
+    def __init__(self, instData):
         newArgs = []
         cfgFilename = "/tmp/install.cfg"
 
@@ -156,8 +156,7 @@ class KernelArguments:
                 newArgs.append(arg)
 
         self.args = " ".join(newArgs)
-        self.storage = storage
-        self.network = network
+        self.id = instData
 
 
 class BootImages:
@@ -481,8 +480,8 @@ class bootloaderInfo:
         self._drivelist = val
     drivelist = property(_getDriveList, _setDriveList)
 
-    def __init__(self, storage, network):
-        self.args = KernelArguments(storage, network)
+    def __init__(self, instData):
+        self.args = KernelArguments(instData)
         self.images = BootImages()
         self.device = None
         self.defaultDevice = None  # XXX hack, used by kickstart
@@ -494,7 +493,7 @@ class bootloaderInfo:
         self.pure = None
         self.above1024 = 0
         self.timeout = None
-        self.storage = storage
+        self.storage = instData.storage
 
         # this has somewhat strange semantics.  if 0, act like a normal
         # "install" case.  if 1, update lilo.conf (since grubby won't do that)
@@ -619,11 +618,11 @@ class efiBootloaderInfo(bootloaderInfo):
             return rc
         return self.addNewEfiEntry(instRoot)
 
-    def __init__(self, storage, network, initialize = True):
+    def __init__(self, instData, initialize = True):
         if initialize:
-            bootloaderInfo.__init__(self, storage, network)
+            bootloaderInfo.__init__(self, instData)
         else:
-            self.storage = storage
+            self.storage = instData.storage
 
         if iutil.isEfi():
             self._configdir = "/boot/efi/EFI/redhat"

@@ -171,8 +171,8 @@ class s390BootloaderInfo(bootloaderInfo):
 
         return self.writeChandevConf(bl, instRoot)
 
-    def __init__(self, storage, network):
-        bootloaderInfo.__init__(self, storage, network)
+    def __init__(self, instData):
+        bootloaderInfo.__init__(self, instData)
         self.useZiplVal = 1      # only used on s390
         self.kernelLocation = "/boot/"
         self.configfile = "/etc/zipl.conf"

@@ -142,8 +142,8 @@ class alphaBootloaderInfo(bootloaderInfo):
         return self.writeAboot(instRoot, bl, kernelList,
                                chainList, defaultDev, justConfig)
 
-    def __init__(self, storage, network):
-        bootloaderInfo.__init__(self, storage, network)
+    def __init__(self, instData):
+        bootloaderInfo.__init__(self, instData)
         self.useGrubVal = 0
         self.configfile = "/etc/aboot.conf"
         # self.kernelLocation is already set to what we need.

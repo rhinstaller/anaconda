@@ -28,25 +28,25 @@ class BootyNoKernelWarning:
         return self.value
 
 # return instance of the appropriate bootloader for our arch
-def getBootloader(storage, network):
+def getBootloader(instData):
     """Get the bootloader info object for your architecture"""
     if iutil.isX86():
         import x86
-        return x86.x86BootloaderInfo(storage, network)
+        return x86.x86BootloaderInfo(instData)
     elif iutil.isIA64():
         import ia64
-        return ia64.ia64BootloaderInfo(storage, network)
+        return ia64.ia64BootloaderInfo(instData)
     elif iutil.isS390():
         import s390
-        return s390.s390BootloaderInfo(storage, network)
+        return s390.s390BootloaderInfo(instData)
     elif iutil.isAlpha():
         import alpha
-        return alpha.alphaBootloaderInfo(storage, network)
+        return alpha.alphaBootloaderInfo(instData)
     elif iutil.isPPC():
         import ppc
-        return ppc.ppcBootloaderInfo(storage, network)
+        return ppc.ppcBootloaderInfo(instData)
     elif iutil.isSparc():
         import sparc
-        return sparc.sparcBootloaderInfo(storage, network)
+        return sparc.sparcBootloaderInfo(instData)
     else:
-        return bootloaderInfo(storage, network)
+        return bootloaderInfo(instData)
