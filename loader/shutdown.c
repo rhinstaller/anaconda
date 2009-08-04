@@ -85,7 +85,7 @@ static void performReboot(reboot_action rebootAction) {
 	}
 }
 
-static int shouldReboot = 0;
+int shouldReboot = 0;
 
 static void rebootHandler(int signum) {
     shouldReboot = 1;
@@ -98,16 +98,18 @@ void shutDown(int doKill, reboot_action rebootAction) {
 		if (!doKill)
 			performReboot(rebootAction);
 	}
+
+	if (!shouldReboot && rebootAction != REBOOT)
+		printf("you may safely reboot your system\n");
 	
-	printf("you may safely reboot your system\n");
     signal(SIGINT, rebootHandler);
 	while (1) {
-		sleep(1);
 		if (shouldReboot) {
 			performUnmounts(1);
 			performTerminations(1);
 			performReboot(REBOOT);
 		}
+		sleep(1);
 	}
 
     exit(0);
