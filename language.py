@@ -234,3 +234,15 @@ class Language:
 	    f.write("lang %s\n" % self.targetLang)
         else:
 	    f.write("lang %s\n" % self.info['LANG'])
+
+    def dracutSetupString(self):
+        args=""
+
+        for key in self.info.keys():
+            if self.info[key] != None:
+                if key == "LANG" and self.targetLang is not None:
+                    args += " %s=%s" % (key, self.targetLang)
+                else:
+                    args += " %s=%s" % (key, self.info[key])
+
+        return args

@@ -99,6 +99,8 @@ class KernelArguments:
                     args += " "
                     args += self.id.network.dracutSetupString(d.host_address)
 
+        args += self.id.instLanguage.dracutSetupString()
+
         return args
 
     def set(self, args):
