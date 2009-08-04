@@ -1775,7 +1775,7 @@ static void add_to_path_env(const char *env, const char *val)
 }
 
 int main(int argc, char ** argv) {
-    int rc, i;
+    int rc;
 
     struct stat sb;
     struct serial_struct si;
