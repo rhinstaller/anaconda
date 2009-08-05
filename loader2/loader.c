@@ -1651,6 +1651,14 @@ int main(int argc, char ** argv) {
         busProbe(modInfo, modLoaded, modDeps, 0);
     }
 
+    /*
+     * BUG#514971: If the mlx4_core is loaded load the mlx4_en too, since we do not use the modprobe rules
+     */
+    if(mlModuleInList("mlx4_core", modLoaded)){
+        logMessage(INFO, "mlx4_core module detected, trying to load the Ethernet part of it (mlx4_en)");
+        mlLoadModuleSet("mlx4_en", modLoaded, modDeps, modInfo);
+    }
+
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
      * and then getKickstartFile() changes it and sets FL_KICKSTART.  
      * kind of weird. */
