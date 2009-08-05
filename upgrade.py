@@ -188,18 +188,26 @@ def upgradeMountFilesystems(anaconda):
         except IndexError as e:
             # The upgrade root is search earlier but we give the message here.
             log.debug("No upgrade root was found.")
-            rc = anaconda.intf.messageWindow(_("Upgrade root not found"),
+            if anaconda.isKickstart and anaconda.id.ksdata.upgrade.upgrade:
+                anaconda.intf.messageWindow(_("Upgrade root not found"),
                     _("The root for the previously installed system was not "
-                      "found.  You can exit installer or backtrack to choose "
-                      "installation instead of upgrade."),
-                type="custom",
-                custom_buttons = [ _("_Back"),
-                                   _("_Exit installer") ],
-                custom_icon="question")
-            if rc == 0:
-                return DISPATCH_BACK
-            elif rc == 1:
+                      "found."), type="custom",
+                    custom_icon="info",
+                    custom_buttons=[_("Exit installer")])
                 sys.exit(0)
+            else:
+                rc = anaconda.intf.messageWindow(_("Upgrade root not found"),
+                        _("The root for the previously installed system was not "
+                          "found.  You can exit installer or backtrack to choose "
+                          "installation instead of upgrade."),
+                    type="custom",
+                    custom_buttons = [ _("_Back"),
+                                       _("_Exit installer") ],
+                    custom_icon="question")
+                if rc == 0:
+                    return DISPATCH_BACK
+                elif rc == 1:
+                    sys.exit(0)
 
 	checkLinks = ( '/etc', '/var', '/var/lib', '/var/lib/rpm',
 		       '/boot', '/tmp', '/var/tmp', '/root',
