@@ -467,7 +467,7 @@ class LogVol(commands.logvol.F9_LogVol):
                                      parents=device)
             else:
                 luksformat = request.format
-                request.format = getFormat("luks", passphrase=lvd.passphrase, device=request.path)
+                request.format = getFormat("luks", passphrase=lvd.passphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      format=luksformat,
                                      parents=request)
@@ -709,7 +709,7 @@ class Partition(commands.partition.F11_Partition):
                                      parents=device)
             else:
                 luksformat = request.format
-                request.format = getFormat("luks", passphrase=pd.passphrase, device=request.path)
+                request.format = getFormat("luks", passphrase=pd.passphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      format=luksformat,
                                      parents=request)
@@ -845,7 +845,7 @@ class Raid(commands.raid.F9_Raid):
                                      parents=device)
             else:
                 luksformat = request.format
-                request.format = getFormat("luks", passphrase=rd.passphrase, device=request.path)
+                request.format = getFormat("luks", passphrase=rd.passphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      format=luksformat,
                                      parents=request)
