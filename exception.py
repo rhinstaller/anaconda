@@ -31,6 +31,9 @@ import signal
 from flags import flags
 import kickstart
 
+import logging
+log = logging.getLogger("anaconda")
+
 class AnacondaExceptionHandler(ExceptionHandler):
     def postWriteHook(self, (ty, value, tb), anaconda):
         # See if /mnt/sysimage is present and put exception there as well
