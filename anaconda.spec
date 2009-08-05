@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.194
+Version: 11.1.2.195
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 05 2009 Martin Sivak <msivak@redhat.com> 11.1.2.195-1
+- Update the loader with support code for Mellanox cards
+  Resolves: rhbz#514971
+
 * Mon Aug 03 2009 Martin Sivak <msivak@redhat.com> 11.1.2.194-1
 - comps changed. replaced "virtualization" with "xen" (jgranados)
   Resolves: rhbz#514885
