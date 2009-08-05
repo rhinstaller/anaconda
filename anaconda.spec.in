@@ -207,6 +207,40 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 05 2009 Chris Lumens <clumens@redhat.com> - 12.8-1
+- Don't try to unmount the CD before we later unmount the CD (#515564).
+  (clumens)
+- Do not offer going back when ugrade root for ks upgrade is not found
+  (#499321) (rvykydal)
+- Rebuild .pot file and update translations. (clumens)
+- Import the logging stuff (#515564). (clumens)
+- Add keyboard kernel cmdline options to grub.conf for dracut (hdegoede)
+- Fix backtrace in network.dracutSetupString in the static ip case (hdegoede)
+- Write dracut i18n cmdline options to grub.conf (hdegoede)
+- Pass InstalltData to booty __init__ as it needs access to many of its
+  members (hdegoede)
+- Fix ctrl-alt-deleter behavior /before/ end of install. (pjones)
+- Merge branch 'master' of ssh://git.fedoraproject.org/git/anaconda (notting)
+- No longer use HAL in list-harddrives. (clumens)
+- The names of a couple basic udev methods has changed. (clumens)
+- Move basic udev methods out of the storage module (#514592). (clumens)
+- We do not actually require gtkhtml2 or the python bindings for it.
+  (notting)
+- Fix some typos in rescue mode (#515091) (msivak)
+- Add a dracutSetupString method to network.py (hdegoede)
+- Fix backtrace due to iscsi.getNode() not finding the iscsi node (hdegoede)
+- Use dracutSetupString() method to add the kernel parameters needed for
+  dracut (hdegoede)
+- Add a dracutSetupString method to devices.py classes (hdegoede)
+- Differentiate between ibft discovered and manually added iscsi disks
+  (hdegoede)
+- Store iscsi node pointer in iScsiDiskDevice objects (hdegoede)
+- When checking logical partition dependcies, make sure the are one the same
+  disk (hdegoede)
+- Only set iscsi nodes to autostart when none of the LUN's contain /
+  (hdegoede)
+- Add functions to go from an iScsiDiskDevice to an libiscsi node (hdegoede)
+
 * Fri Jul 31 2009 Chris Lumens <clumens@redhat.com> - 12.7-1
 - Fix up udev sillies (related to #514501) (katzj)
 - Log when we unmount filesystems so we have a match for mount messages.
