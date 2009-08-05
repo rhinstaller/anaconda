@@ -141,9 +141,9 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         self.handler.id.auth = self.authconfig
         return retval
 
-class AutoPart(commands.autopart.F9_AutoPart):
+class AutoPart(commands.autopart.F12_AutoPart):
     def parse(self, args):
-        retval = commands.autopart.F9_AutoPart.parse(self, args)
+        retval = commands.autopart.F12_AutoPart.parse(self, args)
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
@@ -354,9 +354,9 @@ class Lang(commands.lang.FC3_Lang):
         self.handler.skipSteps.append("language")
         return retval
 
-class LogVol(commands.logvol.F9_LogVol):
+class LogVol(commands.logvol.F12_LogVol):
     def parse(self, args):
-        lvd = commands.logvol.F9_LogVol.parse(self, args)
+        lvd = commands.logvol.F12_LogVol.parse(self, args)
 
         storage = self.handler.id.storage
         devicetree = storage.devicetree
@@ -551,9 +551,9 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
-class Partition(commands.partition.F11_Partition):
+class Partition(commands.partition.F12_Partition):
     def parse(self, args):
-        pd = commands.partition.F11_Partition.parse(self, args)
+        pd = commands.partition.F12_Partition.parse(self, args)
 
         storage = self.handler.id.storage
         devicetree = storage.devicetree
@@ -724,9 +724,9 @@ class Reboot(commands.reboot.FC6_Reboot):
         self.handler.skipSteps.append("complete")
         return retval
 
-class Raid(commands.raid.F9_Raid):
+class Raid(commands.raid.F12_Raid):
     def parse(self, args):
-        rd = commands.raid.F9_Raid.parse(self, args)
+        rd = commands.raid.F12_Raid.parse(self, args)
         raidmems = []
         devicename = "md%d" % rd.device
 
