@@ -29,6 +29,7 @@ import warnings
 import types
 import locale
 import glob
+import tempfile
 
 import rpm
 import rpmUtils
@@ -628,6 +629,28 @@ class AnacondaYum(YumSorter):
 
         if self.anaconda.isKickstart:
             for ksrepo in self.anaconda.id.ksdata.repo.repoList:
+                # yum doesn't understand nfs:// and doesn't want to.  We need
+                # to first do the mount, then translate it into a file:// that
+                # yum does understand.
+                if ksrepo.baseurl and ksrepo.baseurl.startswith("nfs://"):
+                    if not network.hasActiveNetDev() and not self.anaconda.intf.enableNetwork():
+                        self.anaconda.intf.messageWindow(_("No Network Available"),
+                            _("Some of your software repositories require "
+                              "networking, but there was an error enabling the "
+                              "network on your system."),
+                            type="custom", custom_icon="error",
+                            custom_buttons=[_("_Exit installer")])
+                        sys.exit(1)
+
+                    dest = tempfile.mkdtemp("", ksrepo.name, "/mnt")
+
+                    try:
+                        isys.mount(ksrepo.baseurl[6:], dest, "nfs")
+                    except Exception as e:
+                        log.error("error mounting NFS repo: %s" % e)
+
+                    ksrepo.baseurl = "file://%s" % dest
+
                 repo = AnacondaYumRepo(ksrepo.name)
                 repo.mirrorlist = ksrepo.mirrorlist
                 repo.name = ksrepo.name
