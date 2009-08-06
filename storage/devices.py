@@ -235,7 +235,7 @@ class Device(object):
         """
         new = self.__class__.__new__(self.__class__)
         memo[id(self)] = new
-        shallow_copy_attrs = ('partedDisk', '_partedDevice',
+        shallow_copy_attrs = ('_partedDisk', '_partedDevice',
                              '_partedPartition', '_origPartedDisk',
                              '_raidSet')
         for (attr, value) in self.__dict__.items():
@@ -722,35 +722,9 @@ class DiskDevice(StorageDevice):
         StorageDevice.__init__(self, device, format=format, size=size,
                                major=major, minor=minor, exists=True,
                                sysfsPath=sysfsPath, parents=parents)
-
-        self.partedDisk = None
-
-        log.debug("looking up parted Device: %s" % self.path)
-
-        if self.partedDevice:
-            log.debug("creating parted Disk: %s" % self.path)
-            if initlabel:
-                self.partedDisk = self.freshPartedDisk()
-            else:
-                try:
-                    self.partedDisk = parted.Disk(device=self.partedDevice)
-                except _ped.DiskLabelException:
-                    # if we have a cb function use it. else an error.
-                    if initcb is not None and initcb():
-                        self.partedDisk = parted.freshDisk(device=self.partedDevice, \
-                                ty = platform.getPlatform(None).diskType)
-                    else:
-                        raise DeviceUserDeniedFormatError("User prefered to not format.")
-
-                # When the device has no partition table but it has a FS, it
-                # will be created with label type loop.  Treat the same as if
-                # the device had no label (cause it really doesn't).
-                if self.partedDisk.type == "loop":
-                    if initcb is not None and initcb():
-                        self.partedDisk = parted.freshDisk(device=self.partedDevice, \
-                                ty = platform.getPlatform(None).diskType)
-                    else:
-                        raise DeviceUserDeniedFormatError("User prefered to not format.")
+        self._partedDisk = None
+        self._initlabel = initlabel
+        self._initcb = initcb
 
         # We save the actual state of the disk here. Before the first
         # modification (addPartition or removePartition) to the partition
@@ -760,6 +734,43 @@ class DiskDevice(StorageDevice):
             self._origPartedDisk = self.partedDisk.duplicate()
         else:
             self._origPartedDisk = None
+
+
+    @property
+    def partedDisk(self):
+        if self._partedDisk:
+            return self._partedDisk
+
+        log.debug("looking up parted Device: %s" % self.path)
+
+        if self.partedDevice:
+            log.debug("creating parted Disk: %s" % self.path)
+            if self._initlabel:
+                self._partedDisk = self.freshPartedDisk()
+            else:
+                try:
+                    self._partedDisk = parted.Disk(device=self.partedDevice)
+                except _ped.DiskLabelException:
+                    # if we have a cb function use it. else an error.
+                    if self._initcb is not None and self._initcb():
+                        self._partedDisk = parted.freshDisk( \
+                                device=self.partedDevice, \
+                                ty = platform.getPlatform(None).diskType)
+                    else:
+                        raise DeviceUserDeniedFormatError("User prefered to not format.")
+
+                # When the device has no partition table but it has a FS, it
+                # will be created with label type loop.  Treat the same as if
+                # the device had no label (cause it really doesn't).
+                if self._partedDisk.type == "loop":
+                    if self._initcb is not None and self._initcb():
+                        self._partedDisk = parted.freshDisk( \
+                                device=self.partedDevice, \
+                                ty = platform.getPlatform(None).diskType)
+                    else:
+                        raise DeviceUserDeniedFormatError("User prefered to not format.")
+
+        return self._partedDisk
 
     def __str__(self):
         s = StorageDevice.__str__(self)
@@ -795,7 +806,7 @@ class DiskDevice(StorageDevice):
     def resetPartedDisk(self):
         """ Reset parted.Disk to reflect the actual layout of the disk. """
         log_method_call(self, self.name)
-        self.partedDisk = self._origPartedDisk
+        self._partedDisk = self._origPartedDisk
 
     def removePartition(self, device):
         log_method_call(self, self.name, part=device.name)
