@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.nl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-05 10:18-0400\n"
-"PO-Revision-Date: 2009-07-29 21:44+0200\n"
+"PO-Revision-Date: 2009-08-06 23:26+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -227,9 +227,8 @@ msgid "Bootloader"
 msgstr "Bootloader"
 
 #: bootloader.py:143
-#, fuzzy
 msgid "Installing bootloader."
-msgstr "Installeren van bootloader..."
+msgstr "Installeren van bootloader."
 
 #: bootloader.py:210
 msgid ""
@@ -251,9 +250,8 @@ msgid "Completed"
 msgstr "Voltooid"
 
 #: cmdline.py:63
-#, fuzzy
 msgid "In progress"
-msgstr "Bezig...   "
+msgstr "Bezig"
 
 #: cmdline.py:86 gui.py:1135 text.py:391
 #, fuzzy, python-format
@@ -427,7 +425,6 @@ msgid "The installer will now exit."
 msgstr "Het installatieprogramma zal nu afsluiten..."
 
 #: gui.py:1270 storage/partitioning.py:256
-#, fuzzy
 msgid "The system will now reboot."
 msgstr "Het systeem zal nu herstarten."
 
@@ -1265,7 +1262,7 @@ msgstr "Opstartpartities mogen niet op een %s bestandssysteem staan."
 
 #: platform.py:227
 msgid "/boot/efi is not EFI."
-msgstr ""
+msgstr "/boot/efi is niet EFI."
 
 #: platform.py:265
 #, python-format
@@ -1975,14 +1972,13 @@ msgstr ""
 "een probleem met de samenstelling van uw installatieomgeving."
 
 #: yuminstall.py:1118
-#, fuzzy
 msgid "Retrieving installation information."
-msgstr "Bezig met ophalen van installatie-informatie..."
+msgstr "Bezig met ophalen van installatie-informatie."
 
 #: yuminstall.py:1120
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s."
-msgstr "Bezig met ophalen van installatie-informatie voor %s..."
+msgstr "Bezig met ophalen van installatie-informatie voor %s."
 
 #: yuminstall.py:1122
 msgid "Installation Progress"
@@ -3920,9 +3916,8 @@ msgid "Loading"
 msgstr "Bezig met laden"
 
 #: loader/driverdisk.c:139
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Inlezen van stuurprogrammaschijf..."
+msgstr "Inlezen van stuurprogrammaschijf"
 
 #: loader/driverdisk.c:238 loader/driverdisk.c:270
 msgid "Driver Disk Source"
@@ -4253,9 +4248,8 @@ msgid "Updates"
 msgstr "Updates"
 
 #: loader/loader.c:526
-#, fuzzy
 msgid "Reading anaconda updates"
-msgstr "Anaconda updates worden nu gelezen..."
+msgstr "Inlezen van anaconda updates"
 
 #: loader/loader.c:562
 msgid ""
@@ -4701,12 +4695,12 @@ msgstr "%s is geen geldige computernaam."
 
 #: loader/windows.c:65
 msgid "Loading SCSI driver"
-msgstr "SCSI-stuurprogramma wordt geladen"
+msgstr "Laden van SCSI-stuurprogramma"
 
 #: loader/windows.c:66
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver"
-msgstr "Stuurprogramma %s wordt nu geladen..."
+msgstr "Laden van %s stuurprogramma"
 
 #: storage/__init__.py:85
 msgid "Unknown Device"
@@ -5114,7 +5108,7 @@ msgstr ""
 
 #: storage/devicetree.py:148
 msgid "_Ignore drive"
-msgstr "_Negeer station"
+msgstr "Station _negeren"
 
 #: storage/devicetree.py:149
 msgid "_Re-initialize drive"
@@ -5134,14 +5128,12 @@ msgstr ""
 "wissen. Of negeren, wat de inhoud zal behouden."
 
 #: storage/devicetree.py:174
-#, fuzzy
 msgid "_Ignore"
-msgstr "Alles _negeren"
+msgstr "_Negeren"
 
 #: storage/devicetree.py:175
-#, fuzzy
 msgid "_Re-initialize"
-msgstr "Station _opnieuw initialiseren"
+msgstr "_Opnieuw initialiseren"
 
 #: storage/devicetree.py:1634 storage/devicetree.py:1683
 #, fuzzy
@@ -5173,9 +5165,9 @@ msgstr "Aanpassen van de grootte"
 # Bestandssysteem / wordt nu geformatteerd
 # Misschien ook nog aanhalingstekens gebruiken?
 #: storage/formats/fs.py:441
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s"
-msgstr "Aanpassen van de grootte van het bestandssysteem op %s..."
+msgstr "Aanpassen van de grootte van het bestandssysteem op %s"
 
 #: storage/formats/fs.py:484
 msgid "Checking"
@@ -5437,9 +5429,8 @@ msgstr ""
 "Wide Port Name (WWPN) en een 64-bit FCP LUN op te geven voor elk apparaat."
 
 #: textw/partition_text.py:223
-#, fuzzy
 msgid "Add FCoE SAN"
-msgstr "_ZFCP LUN toevoegen"
+msgstr "FCoE SAN toevoegen"
 
 #: textw/partition_text.py:224
 msgid ""
@@ -5640,7 +5631,7 @@ msgstr "Chandev-regel "
 
 #: ui/GroupSelector.glade:8
 msgid "window1"
-msgstr ""
+msgstr "window1"
 
 #: ui/GroupSelector.glade:203
 msgid "_Optional packages"
@@ -5705,9 +5696,8 @@ msgid "Add _ZFCP LUN"
 msgstr "_ZFCP LUN toevoegen"
 
 #: ui/adddrive.glade:207
-#, fuzzy
 msgid "Add _FCoE SAN"
-msgstr "_ZFCP LUN toevoegen"
+msgstr "_FCoE SAN toevoegen"
 
 #: ui/adddrive.glade:228
 msgid "Disable _dmraid device"
@@ -5834,7 +5824,7 @@ msgstr "Volume om grootte van aan te passen"
 
 #: ui/autopart.glade:430
 msgid "_Shrink"
-msgstr ""
+msgstr "_Krimpen"
 
 #: ui/autopart.glade:475
 #, fuzzy
@@ -5958,9 +5948,8 @@ msgstr ""
 "gebruiken om het bootproces te stroomlijnen"
 
 #: ui/lukspassphrase.glade:368
-#, fuzzy
 msgid "label1"
-msgstr "Label"
+msgstr "label1"
 
 #: ui/netconfig.glade:109
 msgid "<b>_Interface:</b>"
