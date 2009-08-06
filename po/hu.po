@@ -1,9 +1,12 @@
+# Hungarian translation of anaconda.
+# This file is distributed under the same license as the anaconda package.
+# Copyright (C) 2004-2009 Fedora Project.
 # Arpad Biro <biro_arpad@yahoo.com>, 2004, 2005, 2006, 2007.
 # Széll Tamás <tomi@digiflex.hu>, 2004.
 # Gabor SUVEG <gabor@suveg.hu>, 2004.
 # Szentiványi Gábor <szentivanyi.gabor@ulx.hu>, 2006.
 # Gábor Szentiványi <szenti@ulx.hu>, 2006.
-# Sulyok Péter <peti@fedoraproject.org>, 2008.
+# Sulyok Péter <peti@fedoraproject.org>, 2008, 2009.
 #
 #
 msgid ""
@@ -11,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-05 10:18-0400\n"
-"PO-Revision-Date: 2009-04-03 06:50+0200\n"
+"PO-Revision-Date: 2009-08-06 19:43+0200\n"
 "Last-Translator: Sulyok Péter <peti@fedoraproject.org>\n"
 "Language-Team: Hungarian <Hungarian <fedora-trans-hu@redhat.com>>\n"
 "MIME-Version: 1.0\n"
@@ -61,9 +64,8 @@ msgstr ""
 "módban."
 
 #: anaconda:459
-#, fuzzy
 msgid "Starting graphical installation."
-msgstr "Grafikus telepítő indul…"
+msgstr "Ablakos telepítő indul…"
 
 #: anaconda:775
 msgid "Would you like to use VNC?"
@@ -84,14 +86,12 @@ msgid "Install class forcing text mode installation"
 msgstr "A telepítő osztály szöveges módú telepítést erőletet"
 
 #: anaconda:821
-#, fuzzy
 msgid "Graphical installation is not available. Starting text mode."
-msgstr "Grafikus telepítés nem elérhető…  Indulás szöveges módban."
+msgstr "Ablakos telepítés nem érhető el. Indulás szöveges módban."
 
 #: anaconda:829
-#, fuzzy
 msgid "DISPLAY variable not set. Starting text mode."
-msgstr "DISPLAY változó nincs beállítva. Indulás szöveges módban!"
+msgstr "DISPLAY változó nincs beállítva. Indulás szöveges módban."
 
 #: anaconda:997
 msgid "reipl configuration successful => reboot"
@@ -116,26 +116,24 @@ msgid "Copying File"
 msgstr "Fájl másolása"
 
 #: backend.py:168
-#, fuzzy
 msgid "Transferring install image to hard drive"
-msgstr "Telepítési képmás másolása a merevlemezre..."
+msgstr "Telepítő képmás másolása a merevlemezre"
 
 #: backend.py:178
-#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
 msgstr ""
-"A telepítő képmást merevlemezre másolva hiba történt.  Ezt valószínűleg "
-"hibás adathordozó okozta."
+"A telepítő képmást merevlemezre másolva hiba történt.  Ezt gyakran sérült "
+"vagy gyenge minőségű adathordozó okozza."
 
 #: backend.py:182
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"Hiba történt a telepítési képmásnak a merevlemezre írásakor. Valószínűleg "
-"kevés a szabad lemezterülete."
+"Hiba történt a telepítési képmást merevlemezre írván. Valószínűleg kevés a "
+"szabad hely."
 
 #: backend.py:186 image.py:285 livecd.py:192 livecd.py:396
 #: partIntfHelpers.py:208 text.py:308 text.py:312 yuminstall.py:364
@@ -174,14 +172,13 @@ msgid "Warning"
 msgstr "Figyelmeztetés"
 
 #: bootloader.py:54
-#, fuzzy
 msgid ""
 "Filesystems have already been activated.  You cannot go back past this "
 "point.\n"
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"A fájlrendszerek elkészültek. Innen már nincs visszaút.\n"
+"A fájlrendszerek már működnek.  Innen már nincs visszaút.\n"
 "\n"
 "Szeretné folytatni a telepítéssel?"
 
@@ -211,43 +208,42 @@ msgid "Bootloader"
 msgstr "Rendszerindító"
 
 #: bootloader.py:143
-#, fuzzy
 msgid "Installing bootloader."
-msgstr "A rendszerindító telepítése..."
+msgstr "Rendszerindító telepítése."
 
 #: bootloader.py:210
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
 msgstr ""
+"Hiba történt a rendszerindítót telepítvén.  A rendszert talán nem lehet "
+"elindítani."
 
 #: bootloader.py:217
-#, fuzzy
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
 msgstr ""
-"Nincs rendszermag csomag telepítve a gépre, ezért a rendszerindító "
-"beállításai nem változnak meg."
+"Nem települtek rendszermag csomagok. A rendszerindító beállításai nem "
+"változnak meg."
 
 #: cmdline.py:55
 msgid "Completed"
 msgstr "Kész"
 
 #: cmdline.py:63
-#, fuzzy
 msgid "In progress"
-msgstr "Folyamatban...   "
+msgstr "Folyamatban"
 
 #: cmdline.py:86 gui.py:1135 text.py:391
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
 "file:\n"
 "\n"
 "%s"
 msgstr ""
-"A kickstart beállítást értelmezvén a következő hiba merült fel:\n"
+"A kickstart beállítás fájlt értelmezvén a következő hiba merült fel:\n"
 "\n"
 "%s"
 
@@ -256,6 +252,8 @@ msgid ""
 "Command line mode requires all choices to be specified in a kickstart "
 "configuration file."
 msgstr ""
+"A parancssoros módhoz minden választást meg kell adni a kickstart beállítás "
+"fájlban."
 
 #: cmdline.py:114 cmdline.py:121
 msgid "Can't have a question in command line mode!"
@@ -279,16 +277,14 @@ msgid " against anaconda at %s"
 msgstr " anaconda tárggyal %s helyen"
 
 #: gui.py:106
-#, fuzzy
 msgid "An error occurred saving screenshots to disk."
-msgstr "A képernyőképeket átmásolván hiba történt."
+msgstr "A képernyőképeket lemezre mentvén hiba történt."
 
 #: gui.py:117
 msgid "Screenshots Copied"
 msgstr "Képernyőképek átmásolva"
 
 #: gui.py:118
-#, fuzzy
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -328,7 +324,6 @@ msgid "Installation Key"
 msgstr "Telepítő kulcs"
 
 #: gui.py:631 text.py:148
-#, fuzzy
 msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
@@ -401,18 +396,16 @@ msgid "_Retry"
 msgstr "Újr_a"
 
 #: gui.py:1267
-#, fuzzy
 msgid "The installer will now exit."
-msgstr "A telepítő most kilép..."
+msgstr "A telepítő most kilép."
 
 #: gui.py:1270 storage/partitioning.py:256
-#, fuzzy
 msgid "The system will now reboot."
-msgstr "A rendszer újraindítása következik."
+msgstr "A rendszer újraindul."
 
 #: gui.py:1271 image.py:248 packages.py:433 yuminstall.py:1345
 msgid "_Reboot"
-msgstr "Ú_jraindítás"
+msgstr "Újrai_ndítás"
 
 #: gui.py:1273
 msgid "Exiting"
@@ -423,7 +416,6 @@ msgid "Exit installer"
 msgstr "Kilépés a telepítőből"
 
 #: gui.py:1343
-#, fuzzy
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Biztos, hogy ki kíván lépni a telepítőből?"
 
@@ -614,15 +606,15 @@ msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "A / vagy a /boot csatolási pont számunkra ismeretlen lemezen van"
 
 #: kickstart.py:96
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the kickstart script at line %s.  You may examine "
 "the output in %s.  This is a fatal error and installation will be aborted.  "
 "Press the OK button to exit the installer."
 msgstr ""
-"A kickstart írás %s. sorában hiba történt.  %s fájlban megvizsgálhatja a "
-"kimenetet.  Ez végzetes hiba. A telepítés nem folytatható.  Nyomjon OK-t, "
-"hogy kilépjen a telepítőből."
+"A kickstart írást feldolgozván a %s. sorban hiba történt.  %s fájlban "
+"megvizsgálhatja a kimenetet.  Ez végzetes hiba. A telepítés nem "
+"folytatható.  Nyomjon OK-t, hogy kilépjen a telepítőből."
 
 #: kickstart.py:111 kickstart.py:113
 msgid "Scriptlet Failure"
@@ -639,34 +631,30 @@ msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Ismeretlen hiba %%ksappend sorokat feldolgozván: %s"
 
 #: kickstart.py:1181
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing thekickstart configuration "
 "file:\n"
 "\n"
 "%s"
 msgstr ""
-"A kickstart beállítást értelmezvén a következő hiba merült fel:\n"
+"A kickstart beállítás fájlt értelmezvén a következő hiba merült fel:\n"
 "\n"
 "%s"
 
 #: kickstart.py:1242 livecd.py:223
-#, fuzzy
 msgid "Post-Installation"
 msgstr "Telepítés után"
 
 #: kickstart.py:1243
-#, fuzzy
 msgid "Running post-installation scripts"
 msgstr "Telepítés utáni írások futtatása"
 
 #: kickstart.py:1259
-#, fuzzy
 msgid "Pre-Installation"
-msgstr "Csomagok telepítése"
+msgstr "Telepítés előtt"
 
 #: kickstart.py:1260
-#, fuzzy
 msgid "Running pre-installation scripts"
 msgstr "Telepítés előtti írások futtatása"
 
@@ -675,12 +663,12 @@ msgid "Missing Package"
 msgstr "Hiányzó csomag"
 
 #: kickstart.py:1293
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
-"„%s” csomagot telepítésre jelölte.  Nincs ilyen csomag. Folytatni akarja, "
+"„%s” csomagot megjelölte telepítésre.  Nincs ilyen csomag. Folytatni akarja, "
 "vagy megszakítja a telepítést?"
 
 #: kickstart.py:1299 kickstart.py:1338
@@ -696,24 +684,24 @@ msgid "Missing Group"
 msgstr "Hiányzó csoport"
 
 #: kickstart.py:1331
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
-"„%s” csoportot telepítésre jelölte. Nincs ilyen csoport. Folytatni akarja, "
-"vagy megszakítja a telepítést?"
+"„%s” csoportot megjelölte telepítésre. Nincs ilyen csoport. Folytatni "
+"akarja, vagy megszakítja a telepítést?"
 
 #: kickstart.py:1437
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
 "anaconda cannot prompt for.  Please add the following sections and try "
 "again:\n"
 "%s"
 msgstr ""
-"A kickstart fájlból olyan adat hiányzik, amit a telepítő nem tud bekérni.  "
-"Kérem adja hozzá a következő szakaszokat, majd próbálja újra:\n"
+"A kickstart beállítás fájlból olyan adat hiányzik, amit a telepítő nem tud "
+"bekérni.  Kérem adja hozzá a következő szakaszokat, majd próbálja újra:\n"
 "%s"
 
 #: livecd.py:110
@@ -746,11 +734,10 @@ msgstr ""
 "majd."
 
 #: livecd.py:224
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
-msgstr "Fájlrendszer telepítés utáni igazítása. Ez néhány percig eltarthat..."
+msgstr "Fájlrendszer telepítés utáni igazítása.  Ez néhány percig eltarthat."
 
 #: livecd.py:397
 #, python-format
@@ -873,7 +860,7 @@ msgstr "Hiba történt a tároló beállítást érvényesítvén."
 
 #: packages.py:188
 msgid "_File Bug"
-msgstr ""
+msgstr "_Hiba iktatása"
 
 #: packages.py:350
 msgid "Invalid Key"
@@ -1181,9 +1168,8 @@ msgid "First sector of boot partition"
 msgstr "A rendszerindító rész első szektora"
 
 #: platform.py:112
-#, fuzzy
 msgid "You have not created a bootable partition."
-msgstr "Nincs rendszerindító rész."
+msgstr "Nem csinált rendszerindító részt."
 
 #: platform.py:115
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1211,37 +1197,34 @@ msgid "EFI System Partition"
 msgstr "EFI rendszer rész"
 
 #: platform.py:218
-#, fuzzy
 msgid "You have not created a /boot/efi partition."
-msgstr "Nincs rendszerindító rész."
+msgstr "Nem csinált /boot/efi részt."
 
 #: platform.py:224
-#, fuzzy
 msgid "/boot is not on an ext2 filesystem."
-msgstr "Rendszerindító rész nem lehet %s fájlrendszeren."
+msgstr "/boot nem ext2 fájlrendszer."
 
 #: platform.py:227
 msgid "/boot/efi is not EFI."
-msgstr ""
+msgstr "/boot/efi nem EFI."
 
 #: platform.py:265
 #, python-format
 msgid "%s must have a bsd disk label."
-msgstr ""
+msgstr "%s résznek rendelkeznie kell BSD lemez címkével."
 
 #: platform.py:277
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
-msgstr ""
+msgstr "%s lemez elején legalább 1MB szabad helynek kell lennie."
 
 #: platform.py:322
 msgid "PPC PReP Boot"
 msgstr "PPC PReP rendszerindító"
 
 #: platform.py:334
-#, fuzzy
 msgid "The boot partition must be within the first 4MB of the disk."
-msgstr "A rendszerállapotot lemezre írván hiba történt."
+msgstr "A boot résznek a lemez első 4MB-jában kell lennie."
 
 #: platform.py:379 platform.py:382
 msgid "Apple Bootstrap"
@@ -1250,7 +1233,7 @@ msgstr "Apple rendszerindító"
 #: platform.py:397
 #, python-format
 msgid "%s must have a mac disk label."
-msgstr ""
+msgstr "%s résznek kell egy mac lemez címke."
 
 #: rescue.py:199
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1388,7 +1371,7 @@ msgstr ""
 
 #: rescue.py:444
 msgid "You don't have any Linux partitions.  Rebooting.\n"
-msgstr ""
+msgstr "Nincs Linux lemezrész.  Újraindulás.\n"
 
 #: rescue.py:447
 msgid "Rescue Mode"
@@ -1724,12 +1707,11 @@ msgstr "%s kB"
 
 #: yuminstall.py:129
 msgid "Preparing to install"
-msgstr ""
+msgstr "Telepítés előkészítése"
 
 #: yuminstall.py:130
-#, fuzzy
 msgid "Preparing transaction from installation source"
-msgstr "Tranzakció előkészítése telepítő forrásból..."
+msgstr "Tranzakció előkészítése telepítő forrásból"
 
 #: yuminstall.py:158
 #, python-format
@@ -1741,9 +1723,8 @@ msgid "Finishing upgrade"
 msgstr "Felfejlesztés befejezése"
 
 #: yuminstall.py:219
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while."
-msgstr "Felfejlesztés befejezése.  Ez egy ideig eltarthat..."
+msgstr "Felfejlesztés befejezése.  Ez egy ideig eltarthat."
 
 #: yuminstall.py:286 iw/task_gui.py:301
 msgid "Error Setting Up Repository"
@@ -1821,9 +1802,8 @@ msgid "Retrying"
 msgstr "Újrapróbálás"
 
 #: yuminstall.py:735
-#, fuzzy
 msgid "Retrying download."
-msgstr "Letöltés újrapróbálása…"
+msgstr "Újrapróbálok letölteni."
 
 #: yuminstall.py:801
 #, python-format
@@ -1908,14 +1888,13 @@ msgstr ""
 "telepítési fa készítésében lépett fel."
 
 #: yuminstall.py:1118
-#, fuzzy
 msgid "Retrieving installation information."
-msgstr "Telepítési információk beolvasása..."
+msgstr "Telepítő információk beszerzése."
 
 #: yuminstall.py:1120
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s."
-msgstr "Telepítési információk beolvasása %s számára..."
+msgstr "Telepítő információk beszerzése %s számára."
 
 #: yuminstall.py:1122
 msgid "Installation Progress"
@@ -1982,38 +1961,32 @@ msgid "Post Upgrade"
 msgstr "Felfejlesztés után"
 
 #: yuminstall.py:1574
-#, fuzzy
 msgid "Performing post-upgrade configuration"
-msgstr "Felfejlesztés utáni beállítás..."
+msgstr "Felfejlesztés utáni beállítás elvégzése."
 
 #: yuminstall.py:1576
-#, fuzzy
 msgid "Post Installation"
 msgstr "Telepítés után"
 
 #: yuminstall.py:1577
-#, fuzzy
 msgid "Performing post-installation configuration"
-msgstr "Telepítés utáni beállítás..."
+msgstr "Telepítés utáni beállítás elvégzése."
 
 #: yuminstall.py:1803
-#, fuzzy
 msgid "Installation Starting"
 msgstr "Kezdődik a telepítés"
 
 #: yuminstall.py:1804
-#, fuzzy
 msgid "Starting installation process"
-msgstr "Telepítés haladása"
+msgstr "Telepítés folyamat indul"
 
 #: yuminstall.py:1842
 msgid "Dependency Check"
 msgstr "Függőség ellenőrzés"
 
 #: yuminstall.py:1843
-#, fuzzy
 msgid "Checking dependencies in packages selected for installation"
-msgstr "A telepítésre kiválasztott csomagok közötti függőségek ellenőrzése..."
+msgstr "A telepítésre kiválasztott csomagok közötti függőségek ellenőrzése"
 
 #: installclasses/fedora.py:39
 msgid "_Fedora"
@@ -2084,12 +2057,20 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"Szeretne megadni egy telepítés/előfizetés számot (Installation/Subscription "
+"Number)? Ez a lehetőség hozzáférést biztosít az előfizetésben foglalt extra "
+"összetevőkhöz.  Ha átugorja e lépést, később kézi vezérléssel telepíthet "
+"további összetevőket.\n"
+"\n"
+"Bővebb tudnivalókért lásd http://www.redhat.com/InstNum/."
 
 #: installclasses/rhel.py:79
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
+"Ha nem találja a telepítés számot, tájékozódjon a http://www.redhat.com/"
+"InstNum/ lapon."
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2150,12 +2131,11 @@ msgstr "Gyenge jelszó"
 #: iw/account_gui.py:133
 #, python-format
 msgid "You have provided a weak password: %s"
-msgstr ""
+msgstr "Gyenge jelszót adott meg: %s"
 
 #: iw/account_gui.py:135
-#, fuzzy
 msgid "Use Anyway"
-msgstr "Használó név"
+msgstr "Mégis használjuk"
 
 #: iw/account_gui.py:143 textw/userauth_text.py:75
 msgid ""
@@ -2587,6 +2567,8 @@ msgid ""
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
+"A beállított logikai köteteknek %d MB kell, de a kötetcsoportban csak %d MB "
+"van.  Kérem bővítse a kötetcsoportot, vagy szűkítse a logikai kötetet."
 
 #: iw/lvm_dialog_gui.py:769
 msgid "No free slots"
@@ -2737,14 +2719,13 @@ msgid "Error Configuring Network"
 msgstr "Hálózat beállítás hiba"
 
 #: iw/netconfig_dialog.py:240
-#, fuzzy
 msgid "Dynamic IP Address"
 msgstr "Változó IP cím"
 
 #: iw/netconfig_dialog.py:241
-#, fuzzy, python-format
+#, python-format
 msgid "Sending request for IP address information for %s"
-msgstr "%s IP adatainak lekérdezése..."
+msgstr "%s IP adatainak lekérdezése"
 
 #: iw/netconfig_dialog.py:256 iw/netconfig_dialog.py:259
 #: textw/netconfig_text.py:215 textw/netconfig_text.py:218
@@ -3062,7 +3043,7 @@ msgid "RAID Options"
 msgstr "RAID beállítás"
 
 #: iw/partition_gui.py:1225
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
 "device.  A RAID device can be configured to provide additional speed and "
@@ -3070,12 +3051,9 @@ msgid ""
 "using RAID devices please consult the %s documentation."
 msgstr ""
 "Szoftver RAID esetén több lemezt össze lehet vonni egy nagyobb RAID "
-"eszközbe.  RAID eszköz az külön álló lemezekhez képest nagyobb sebességet, "
-"és megbízhatóságot biztosítanak.  RAID eszközök használatával kapcsolatban "
-"olvassa el a %s dokumentációt.\n"
-"\n"
-"Jelenleg %s szoftver RAID rész áll rendelkezésre.\n"
-"\n"
+"eszközbe.  RAID eszközök külön álló lemezekhez képest nagyobb sebességet, és "
+"megbízhatóságot nyújtanak.  RAID eszközök használatával kapcsolatban kérem "
+"olvassa el a %s dokumentációt."
 
 #: iw/partition_gui.py:1235
 msgid ""
@@ -3751,9 +3729,9 @@ msgid "Scanning"
 msgstr "Beolvasás"
 
 #: loader/cdinstall.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation images on CD device %s\n"
-msgstr "Telepítő képeket keresek %s CD eszközön"
+msgstr "Telepítő képeket keresek %s CD eszközön\n"
 
 #: loader/cdinstall.c:341
 #, c-format
@@ -3798,9 +3776,8 @@ msgid "Loading"
 msgstr "Betöltés"
 
 #: loader/driverdisk.c:139
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Vezérlőprogram lemez olvasása..."
+msgstr "Vezérlőprogram lemez olvasása"
 
 #: loader/driverdisk.c:238 loader/driverdisk.c:270
 msgid "Driver Disk Source"
@@ -4126,9 +4103,8 @@ msgid "Updates"
 msgstr "Frissítések"
 
 #: loader/loader.c:526
-#, fuzzy
 msgid "Reading anaconda updates"
-msgstr "Anaconda frissítések olvasása..."
+msgstr "Anaconda frissítések olvasása"
 
 #: loader/loader.c:562
 msgid ""
@@ -4153,9 +4129,8 @@ msgid "Media Detected"
 msgstr "Adathordozó érzékelve"
 
 #: loader/loader.c:1258
-#, fuzzy
 msgid "Found local installation media"
-msgstr "Helyi telepítő adathordozó érzékelve..."
+msgstr "Helyi telepítő adathordozó érzékelve"
 
 #: loader/loader.c:1374
 msgid "Rescue Method"
@@ -4222,14 +4197,14 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "betöltő már lefutott.  Rendszerhéj indítása.\n"
 
 #: loader/loader.c:2230
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
-msgstr "Anaconda %s, a %s mentő mód fut – kérem várjon…\n"
+msgstr "Anaconda %s, a %s mentő mód fut – kérem várjon.\n"
 
 #: loader/loader.c:2232
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr "Anaconda %s, a %s rendszer telepítő fut – kérem várjon…\n"
+msgstr "Anaconda %s, a %s rendszer telepítő fut – kérem várjon.\n"
 
 #: loader/mediacheck.c:46
 #, c-format
@@ -4237,14 +4212,14 @@ msgid "Unable to find install image %s"
 msgstr "Nem találtam e telepítési képmást: %s"
 
 #: loader/mediacheck.c:52
-#, fuzzy, c-format
+#, c-format
 msgid "Checking \"%s\"."
-msgstr "„%s” ellenőrzése..."
+msgstr "„%s” ellenőrzése."
 
 #: loader/mediacheck.c:54
-#, fuzzy, c-format
+#, c-format
 msgid "Checking media."
-msgstr "Adathordozó ellenőrzése folyik..."
+msgstr "Adathordozó ellenőrzése."
 
 #: loader/mediacheck.c:86
 msgid ""
@@ -4457,14 +4432,14 @@ msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Meg kell adnia a másodpercek számát 1 és 30 közötti egészként."
 
 #: loader/net.c:1903
-#, fuzzy, c-format
+#, c-format
 msgid "Flashing %s port lights for %d seconds."
-msgstr "%s kapu fények villogtatása %d másodpercig…"
+msgstr "%s kapu fények villogtatása %d másodpercig."
 
 #: loader/net.c:2071 loader/net.c:2075
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
-msgstr "Várok NetworkManager %s beállítására...\n"
+msgstr "Várok, hogy NetworkManager beállítsa %s eszközt.\n"
 
 #: loader/nfsinstall.c:68
 msgid "NFS server name:"
@@ -4504,14 +4479,12 @@ msgid "Telnet"
 msgstr "Telnet"
 
 #: loader/telnetd.c:89
-#, fuzzy
 msgid "Waiting for telnet connection."
-msgstr "Várakozás a telnet kapcsolatra..."
+msgstr "Várakozás telnet kapcsolatra."
 
 #: loader/telnetd.c:128
-#, fuzzy
 msgid "Running anaconda via telnet."
-msgstr "Anaconda elindítása telneten át..."
+msgstr "Anaconda futtatása telneten át."
 
 #: loader/urlinstall.c:84
 #, c-format
@@ -4573,9 +4546,9 @@ msgid "Loading SCSI driver"
 msgstr "SCSI vezérlő betöltése"
 
 #: loader/windows.c:66
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver"
-msgstr "%s vezérlő betöltése..."
+msgstr "%s vezérlő betöltése"
 
 #: storage/__init__.py:85
 msgid "Unknown Device"
@@ -4642,9 +4615,8 @@ msgid "Finding Devices"
 msgstr "Eszközök keresése"
 
 #: storage/__init__.py:273
-#, fuzzy
 msgid "Finding storage devices"
-msgstr "Tároló eszközök keresése…"
+msgstr "Tároló eszközök keresése"
 
 #: storage/__init__.py:511
 msgid "This partition is holding the data for the hard drive install."
@@ -4699,12 +4671,12 @@ msgstr ""
 "telepítéséhez."
 
 #: storage/__init__.py:828
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s MB which is lower than recommended for a "
 "normal %s install."
 msgstr ""
-"A rész kisebb %s megabájtnál, ami kevesebb, mint a normál %s telepítésre "
+"A / rész kisebb %s MB-nál, ami kevesebb, mint a normál %s telepítésre "
 "ajánlott minimum."
 
 #: storage/__init__.py:838
@@ -4713,6 +4685,8 @@ msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr ""
+"A / rész nem egyezik meg az élő képpel, ahonnan telepít.  %s fájlrendszert "
+"kell kialakítani."
 
 #: storage/__init__.py:845
 #, python-format
@@ -4739,13 +4713,12 @@ msgstr ""
 "eredményezhet."
 
 #: storage/__init__.py:882
-#, fuzzy
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
 msgstr ""
-"Nem adott meg lapozó részt.  Erre nincs mindig szükség, de a legtöbb esetben "
-"jelentősen növelheti a teljesítményt."
+"Nem adott meg lapozó részt.  A memória mérete miatt, lapozó rész kell a "
+"telepítés befejezéséhez."
 
 #: storage/__init__.py:887
 msgid ""
@@ -4760,11 +4733,12 @@ msgstr ""
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
+"Ez a csatoló pont érvénytelen.  %s mappának a / fájlrendszerben kell lennie."
 
 #: storage/__init__.py:898
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s must be on a linux file system."
-msgstr "„%s” csatoló pontot már használják. Kérem válasszon másikat."
+msgstr "%s csatoló pontnak linuxos fájlrendszerben kell lennie."
 
 #: storage/__init__.py:909
 msgid "No Drives Found"
@@ -4958,15 +4932,17 @@ msgstr ""
 "közben."
 
 #: storage/devicetree.py:142
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error processing drive %s %-0.fMB (%s).\n"
 "\n"
 "Maybe it needs to be reinitialized.  YOU WILL LOSE ALL DATA ON THIS DRIVE IF "
 "YOU REINITIALIZE IT!%s"
 msgstr ""
-"%s eszközt feldolgozván hiba történt.\n"
-"Talán újra kellene alakítani. MINDEN ADAT EL FOG VESZNI AZ ESZKÖZÖN!"
+"%s %-0.fMB (%s) eszközt feldolgozván hiba történt.\n"
+"\n"
+"Talán újra kellene alakítani.  MINDEN ADAT EL FOG VESZNI AZ ESZKÖZÖN HA ÚJRA "
+"ALAKÍTJA!%s"
 
 #: storage/devicetree.py:148
 msgid "_Ignore drive"
@@ -4977,7 +4953,7 @@ msgid "_Re-initialize drive"
 msgstr "Eszköz új_rainicializálása"
 
 #: storage/devicetree.py:169
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error processing LVM.\n"
 "There is inconsistent LVM data on %s.  You can reinitialize all related PVs "
@@ -4985,24 +4961,21 @@ msgid ""
 "contents."
 msgstr ""
 "LVM-et feldolgozván hiba történt.\n"
-"Úgy tűnik ellentmondásos LVM adatok vannak. (%s) alkot %s-t. Újra lehet "
-"alakítani minden kapcsolódó PV-t (fizikai kötetet), ami minden LVM leíró "
-"adatot töröl. Vagy kihagyja megőrizvén a tartalmat."
+"Úgy tűnik ellentmondásos LVM adatok vannak. %s eszközön.  Újra lehet "
+"alakítani minden kapcsolódó PV-t (%s) (fizikai kötetet), ami minden LVM "
+"leíró adatot töröl, vagy mellőzni megőrizvén a tartalmat."
 
 #: storage/devicetree.py:174
-#, fuzzy
 msgid "_Ignore"
-msgstr "_Mindegyik mellőzése"
+msgstr "_Mellőz"
 
 #: storage/devicetree.py:175
-#, fuzzy
 msgid "_Re-initialize"
-msgstr "Eszköz új_rainicializálása"
+msgstr "Újra _alakít"
 
 #: storage/devicetree.py:1634 storage/devicetree.py:1683
-#, fuzzy
 msgid "This partition is part of an inconsistent LVM Volume Group."
-msgstr "E rész egy LVM kötetcsoporthoz tartozik."
+msgstr "E rész egy ellentmondásos LVM kötetcsoporthoz tartozik."
 
 #: storage/formats/fs.py:66
 msgid "attr dict must include a type"
@@ -5017,27 +4990,27 @@ msgid "Formatting"
 msgstr "Kialakítás"
 
 #: storage/formats/fs.py:344
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s"
-msgstr "Fájlrendszer teremtése %s részen…"
+msgstr "Fájlrendszer kialakítása %s részen"
 
 #: storage/formats/fs.py:440
 msgid "Resizing"
 msgstr "Átméretezés"
 
 #: storage/formats/fs.py:441
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s"
-msgstr "Fájlrendszer átméretezése %s részen…"
+msgstr "Fájlrendszer átméretezése %s részen"
 
 #: storage/formats/fs.py:484
 msgid "Checking"
 msgstr "Ellenőrzés"
 
 #: storage/formats/fs.py:485
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s"
-msgstr "Fájlrendszer ellenőrzése %s részen…"
+msgstr "Fájlrendszer ellenőrzése %s részen"
 
 #: storage/iscsi.py:82 storage/iscsi.py:83
 msgid "Scanning iSCSI nodes"
@@ -5228,9 +5201,8 @@ msgid "Configuring Network Interfaces"
 msgstr "Hálózat csatolók beállítása"
 
 #: textw/netconfig_text.py:266
-#, fuzzy
 msgid "Waiting for NetworkManager"
-msgstr "Várok a NetworkManagerre..."
+msgstr "Várok a NetworkManagerre"
 
 #: textw/netconfig_text.py:272
 msgid "Error configuring network device"
@@ -5246,7 +5218,6 @@ msgid "Partitioning Type"
 msgstr "Felosztás típusa"
 
 #: textw/partition_text.py:60
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
@@ -5254,8 +5225,7 @@ msgid ""
 msgstr ""
 "A telepítés a merevlemez felosztását igényli.  Az alapértelmezett felosztás "
 "megfelel a legtöbb használónak.  Válassza ki, mely helyet használjuk, és "
-"mely eszközökre telepítsünk. Választhatja azt is, hogy csinál egy saját "
-"egyedi felosztást."
+"mely eszközökre telepítsünk."
 
 #: textw/partition_text.py:80
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5289,25 +5259,24 @@ msgstr ""
 "64 bites FCP LUN."
 
 #: textw/partition_text.py:223
-#, fuzzy
 msgid "Add FCoE SAN"
-msgstr "_ZFCP LUN hozzáadása"
+msgstr "FCoE SAN hozzáadása"
 
 #: textw/partition_text.py:224
 msgid ""
 "Enter the device name for the NIC which is connected to the FCoE SAN. For "
 "example \"eth0\"."
 msgstr ""
+"Adja meg a FCoE SAN-hoz kapcsolódó hálókártya eszköz nevét. Például „eth0”."
 
 #: textw/partition_text.py:225
-#, fuzzy
 msgid "NIC device name"
-msgstr "Nem találtam eszközt"
+msgstr "Hálókártya név"
 
 #: textw/partition_text.py:232
-#, fuzzy, python-format
+#, python-format
 msgid "%s is not a valid NIC device name."
-msgstr "%s nem érvényes gazdanév."
+msgstr "%s nem érvényes hálókártya név."
 
 #: textw/partition_text.py:248 ui/iscsi-config.glade:7
 msgid "Configure iSCSI Parameters"
@@ -5445,7 +5414,7 @@ msgid "The root password must be at least 6 characters long."
 msgstr "Rendszergazda jelszó legalább 6 jel hosszú kell legyen."
 
 #: textw/userauth_text.py:84
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have provided a weak password: %s\n"
 "\n"
@@ -5489,7 +5458,7 @@ msgstr "Chandev sor "
 
 #: ui/GroupSelector.glade:8
 msgid "window1"
-msgstr ""
+msgstr "window1"
 
 #: ui/GroupSelector.glade:203
 msgid "_Optional packages"
@@ -5554,9 +5523,8 @@ msgid "Add _ZFCP LUN"
 msgstr "_ZFCP LUN hozzáadása"
 
 #: ui/adddrive.glade:207
-#, fuzzy
 msgid "Add _FCoE SAN"
-msgstr "_ZFCP LUN hozzáadása"
+msgstr "_FCoE SAN hozzáadása"
 
 #: ui/adddrive.glade:228
 msgid "Disable _dmraid device"
@@ -5676,25 +5644,22 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Felosztás felül_vizsgálata és megváltoztatása"
 
 #: ui/autopart.glade:344
-#, fuzzy
 msgid "Volume to Shrink"
-msgstr "Átméretezendő kötet"
+msgstr "Csökkentendő kötet"
 
 #: ui/autopart.glade:430
 msgid "_Shrink"
-msgstr ""
+msgstr "_Csökkent"
 
 #: ui/autopart.glade:475
-#, fuzzy
 msgid ""
 "Which partition would you like to shrink to make room for your installation?"
 msgstr ""
-"Melyik részt szeretné átméretezni, hogy helyet csináljon a telepítésnek?"
+"Melyik részt szeretné csökkenteni, hogy helyet csináljon a telepítésnek?"
 
 #: ui/autopart.glade:520
-#, fuzzy
 msgid "<b>Shrink _target (in MB):</b>"
-msgstr "<b>_Cél átméretezése (MB-ban):</b>"
+msgstr "<b>_Cél csökkentése (MB-ban):</b>"
 
 #: ui/blwhere.glade:8
 msgid "Boot loader device"
@@ -5805,9 +5770,8 @@ msgstr ""
 "a betöltés folyamatát"
 
 #: ui/lukspassphrase.glade:368
-#, fuzzy
 msgid "label1"
-msgstr "Címke"
+msgstr "label1"
 
 #: ui/netconfig.glade:109
 msgid "<b>_Interface:</b>"
@@ -5911,552 +5875,3 @@ msgstr "<b>WWPN:</b>"
 msgid "<b>FCP LUN:</b>"
 msgstr "<b>FCP LUN:</b>"
 
-#~ msgid "Fatal Error"
-#~ msgstr "Végzetes hiba"
-
-#~ msgid ""
-#~ "You do not have enough RAM to install %s on this machine.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr ""
-#~ "Nincs elég RAM a gépben %s telepítéséhez.\n"
-#~ "\n"
-#~ "Nyomjon <Enter>-t, hogy újrainduljon a rendszer.\n"
-
-#~ msgid ""
-#~ "Your bug could not be filed due to the following error when communicating "
-#~ "with bugzilla:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "A hibajelentést nem sikerült iktatni, mert azt a bugzillával közölvén, a "
-#~ "következő hiba merült fel:\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Your bug could not be filed due to bad information in the bug fields.  "
-#~ "This is most likely an error in anaconda:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "A hibajelentést nem tudtam iktatni a hiba mezőkbeli hibás információ "
-#~ "miatt.  Ez legvalószínűbben egy hiba az anacondában:\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "Unable To File Bug"
-#~ msgstr "Nem lehet hibát iktatni"
-
-#~ msgid "Bug Filing Not Supported"
-#~ msgstr "Hiba iktatása nem támogatott"
-
-#~ msgid ""
-#~ "Your distribution does not provide a supported bug filing system, so you "
-#~ "cannot save your exception this way."
-#~ msgstr ""
-#~ "E kiadáshoz nincs támogatott hibaiktató rendszert, ezért ilyen módon nem "
-#~ "mentheti el a kivételt."
-
-#~ msgid "Invalid Bug Information"
-#~ msgstr "Érvénytelen hiba információ"
-
-#~ msgid ""
-#~ "Please provide a valid username, password, and short bug description."
-#~ msgstr ""
-#~ "Kérem adjon meg érvényes használó nevet, jelszót, és egy rövid leírást a "
-#~ "hibáról."
-
-#~ msgid "Unable To Login"
-#~ msgstr "Nem lehet bejelentkezni"
-
-#~ msgid ""
-#~ "There was an error logging into %s using the provided username and "
-#~ "password."
-#~ msgstr ""
-#~ "Hiba történt %s rendszerbe bejelentkezvén a megadott használó névvel és "
-#~ "jelszóval."
-
-#~ msgid "Bug Created"
-#~ msgstr "Hibajelentés kész"
-
-#~ msgid ""
-#~ "A new bug has been created with your traceback attached. Please add "
-#~ "additional information such as what you were doing when you encountered "
-#~ "the bug, screenshots, and whatever else is appropriate to the following "
-#~ "bug:\n"
-#~ "\n"
-#~ "%s/%s"
-#~ msgstr ""
-#~ "Új hibajelentést teremtettem a nyomkövetést csatolva. Kérem adjon meg "
-#~ "további információt: mit csinált amikor beleszaladt a hibába, "
-#~ "képernyőképeket,és bármi mást, ami helyénvaló a következő hiba kapcsán:\n"
-#~ "\n"
-#~ "%s/%s"
-
-#~ msgid "Bug Updated"
-#~ msgstr "Hiba frissítve"
-
-#~ msgid ""
-#~ "A bug with your information already exists.  Your account has been added "
-#~ "to the CC list and your traceback added as a comment.  Please add "
-#~ "additional descriptive information to the following bug:\n"
-#~ "\n"
-#~ "%s/%s"
-#~ msgstr ""
-#~ "Az ön információjával már van hibajelentés.  Az ön számláját hozzáadtam a "
-#~ "másolat listához, illetve hozzáadtam a nyomkövetést a megjegyzésként.  "
-#~ "Kérem adjon hozzá további leíró információt a következő hibához:\n"
-#~ "\n"
-#~ "%s/%s"
-
-#~ msgid "Dump Written"
-#~ msgstr "Lerakás kiírva"
-
-#~ msgid ""
-#~ "Your system's state has been successfully written to the disk. The "
-#~ "installer will now exit."
-#~ msgstr "A rendszer állapotát sikerült lemezre írni. A telepítő kilép."
-
-#~ msgid "Dump Not Written"
-#~ msgstr "Nincs lerakás kiírva"
-
-#~ msgid ""
-#~ "Cannot save a bug report since there is no active networking device "
-#~ "available."
-#~ msgstr ""
-#~ "Nem tudom elmenteni hibajelentést, mivel nem érek el működő hálózat "
-#~ "eszközt."
-
-#~ msgid ""
-#~ "Your system's state has been successfully written to the remote host.  "
-#~ "The installer will now exit."
-#~ msgstr ""
-#~ "A rendszer állapotát sikerült a távoli gépre írni.  A telepítő kilép."
-
-#~ msgid "There was a problem writing the system state to the remote host."
-#~ msgstr ""
-#~ "Hiba történt a rendszer állapotának távoli gépre történő írása közben."
-
-#~ msgid "Bugzilla (%s)"
-#~ msgstr "Bugzilla (%s)"
-
-#~ msgid "Debug"
-#~ msgstr "Hibakeresés"
-
-#~ msgid "Exception Occurred"
-#~ msgstr "Kivétel történt"
-
-#~ msgid "Error: %s splits into %s but not like we expect"
-#~ msgstr "Hiba: %s szétválik %s-re, de nem úgy, ahogy várjuk"
-
-#~ msgid "Could not get information for mount point /boot or /"
-#~ msgstr "A /boot vagy a / csatolási pontról nem kaptam adatokat"
-
-#~ msgid "Running..."
-#~ msgstr "Futtatás..."
-
-#~ msgid "Doing post-installation"
-#~ msgstr "Telepítés utáni műveletek"
-
-#~ msgid "None"
-#~ msgstr "Semmi"
-
-#~ msgid ""
-#~ "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-#~ "DASDs are not supported for usage during an install of %s.  If you wish "
-#~ "to use this disk for installation, it must be re-initialized causing the "
-#~ "loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to reformat this DASD using CDL format?"
-#~ msgstr ""
-#~ "%s eszköz LDL típusú CDL helyett. LDL DASD-k nem használhatók %s "
-#~ "telepítésekor.  Ha ezt a lemezt telepítéskor szeretné használni, újra "
-#~ "kell inicializálnia, amelynek hatására a lemezen található ÖSSZES ADAT "
-#~ "elvész.\n"
-#~ "\n"
-#~ "Át szeretné állítani a DASD-t a CDL-re?"
-
-#~ msgid ""
-#~ "/dev/%s currently has a %s partition layout.  To use this drive for the "
-#~ "installation of %s, it must be re-initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to re-initialize this drive?"
-#~ msgstr ""
-#~ "/dev/%s eszközön jelenleg %s felosztás van.  Ahhoz, hogy %s telepítéséhez "
-#~ "ezt az eszközt használja, előbb inicializálnia kell, ami az eszközön "
-#~ "meglévő ÖSSZES ADAT elvesztésével jár.\n"
-#~ "\n"
-#~ "Szeretné inicializálni ezt az eszközt?"
-
-#~ msgid "Initializing"
-#~ msgstr "Inicializálás"
-
-#~ msgid "Please wait while formatting drive %s...\n"
-#~ msgstr "Kérem várjon amíg kialakítom %s eszközt...\n"
-
-#~ msgid ""
-#~ "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-#~ "\n"
-#~ "To create new partitions it must be initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "%s (%s %-0.f MB) eszköz felosztás táblája olvashatatlan.\n"
-#~ "\n"
-#~ "Új részekre osztáshoz előbb inicializálni kell, ami hatására az eszközön "
-#~ "meglévő ÖSSZES ADAT elvész.\n"
-#~ "\n"
-#~ "Ez a művelet felülbírálja a korábbi választásokat a mellőzendő eszközöket "
-#~ "illetően.\n"
-#~ "\n"
-#~ "Inicializálni szeretné ezt az eszközt, MINDEN ADATot törölve?"
-
-# 3. %s: productName
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem "
-#~ "in the Linux kernel does not allow for more than 15 partitons at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "A /dev/%s eszközön több mint 15 rész van.  A Linux kernel jelenlegi SCSI "
-#~ "alrendszere nem engedélyez 15-nél több részt.  E lemez felosztását nem "
-#~ "lehet majd megváltoztatni, továbbá %s rendszerben a /dev/%s15 utáni "
-#~ "részeket nem lehet majd használni."
-
-#~ msgid "Save"
-#~ msgstr "Mentés"
-
-#~ msgid "Save to local disk"
-#~ msgstr "Helyi lemezre mentés"
-
-#~ msgid "Send to bugzilla (%s)"
-#~ msgstr "Beküldés bugzillába (%s)"
-
-#~ msgid "Send to remote server (scp)"
-#~ msgstr "Távoli kiszolgálóra másolás (scp)"
-
-#~ msgid "Password"
-#~ msgstr "Jelszó"
-
-#~ msgid "Bug Description"
-#~ msgstr "Hiba leírás"
-
-#~ msgid "Host (host:port)"
-#~ msgstr "Gazda (gazda:kapu)"
-
-#~ msgid "Destination file"
-#~ msgstr "Cél fájl"
-
-#~ msgid "The passphrase must be at least %d characters long."
-#~ msgstr "A jelszó legalább %d jel hosszú kell legyen."
-
-#~ msgid ""
-#~ "You have choosen the upgrade for %s architecture, but the installed "
-#~ "system is for %s architecture. \n"
-#~ "\n"
-#~ msgstr ""
-#~ "Ön %s architektúrára felfejlesztést választotta, de a telepített rendszer%"
-#~ "s architektúrára való. \n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Would you like to upgrade  the installed system to the %s architecture?"
-#~ msgstr "Szeretné felfejleszteni a telepített rendszert %s architektúrára?"
-
-#~ msgid "Giving up attempting to connect after %d tries!\n"
-#~ msgstr "Feladom %d csatlakozási kísérlet után!\n"
-
-#~ msgid "%s Byte"
-#~ msgstr "%s bájt"
-
-#~ msgid "%s Bytes"
-#~ msgstr "%s bájt"
-
-#~ msgid "Processing"
-#~ msgstr "Feldolgozás"
-
-#~ msgid "%s of %s packages completed"
-#~ msgstr "%s befejezve %s csomagból"
-
-#~ msgid "Starting install process.  This may take several minutes..."
-#~ msgstr "Telepítő indítása. Ez néhány percig eltarthat..."
-
-#~ msgid "You cannot create more than %s logical volumes per volume group."
-#~ msgstr "Egy kötet csoportban legfeljebb %s logikai kötet lehet."
-
-# drivetext = _("Drive %s (Geom: %s/%s/%s) "
-#                          "(Model: %s)") % ('/dev/' + drive,
-#~ msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-#~ msgstr "%s eszköz (geom.: %s/%s/%s) (modell: %s)"
-
-#~ msgid ""
-#~ "To install the full set of supported packages included in your "
-#~ "subscription, please enter your Installation Number"
-#~ msgstr ""
-#~ "Az ön előfizetésében szereplő összes támogatott csomag telepítéséhez adja "
-#~ "meg a telepítés számát."
-
-#~ msgid ""
-#~ "If you're unable to locate the Installation Number, consult http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "If you skip:\n"
-#~ "* You may not get access to the full set of packages included in your "
-#~ "subscription.\n"
-#~ "* It may result in an unsupported/uncertified installation of Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* You will not get software and security updates for packages not "
-#~ "included in your subscription."
-#~ msgstr ""
-#~ "Ha nem találja a telepítés számát, akkor keresse fel a következő "
-#~ "weblapot: http://www.redhat.com/apps/support/in.html\n"
-#~ "\n"
-#~ "Ha kihagyja a lépést:\n"
-#~ "* nem férhet hozzá az Ön előfizetésében szereplő összes csomaghoz\n"
-#~ "* az nem támogatott/igazolt Red Hat Enterprise Linux telepítést "
-#~ "eredményezhet.\n"
-#~ "* nem fog szoftvert és biztonsági frissítéseket kapni olyan csomagokhoz, "
-#~ "amik nincsenek az előfizetésében."
-
-#~ msgid "Filesystem error detected, cannot continue."
-#~ msgstr "Fájlrendszer hibát észleltem, nem lehet továbblépni."
-
-#~ msgid "boot flag not available for this partition"
-#~ msgstr "nem lehet rendszerindító jelzés e részhez"
-
-#~ msgid "_Ignore drive(s)"
-#~ msgstr "Eszköz(ök) _mellőzése"
-
-#~ msgid "_Re-initialize drive(s)"
-#~ msgstr "Eszköz(ök) új_ra inicializálása"
-
-#~ msgid "Your system will now be rebooted."
-#~ msgstr "A rendszer újraindul."
-
-#~ msgid "Bug _description"
-#~ msgstr "Hiba l_eírás"
-
-#~ msgid "Destination _file"
-#~ msgstr "Cél _fájl"
-
-#~ msgid ""
-#~ "Local storage device\n"
-#~ "Local disk\n"
-#~ "Remote server (scp)"
-#~ msgstr ""
-#~ "Helyi tároló eszköz\n"
-#~ "Helyi lemez\n"
-#~ "Távoli kiszolgáló (scp)"
-
-#~ msgid "Please choose a destination for saving your traceback."
-#~ msgstr "Kérem válassza ki a célt a nyomkövetés mentésének."
-
-#~ msgid "Select A File"
-#~ msgstr "Fájl választás"
-
-#~ msgid "_Host (host:port)"
-#~ msgstr "_Gazda (gazda:kapu)"
-
-#~ msgid "_Password"
-#~ msgstr "J_elszó"
-
-#~ msgid "_User name"
-#~ msgstr "_Használó név"
-
-#~ msgid "Install"
-#~ msgstr "Telepítés"
-
-#~ msgid "Install the live CD to your hard disk"
-#~ msgstr "Élő CD telepítése a merevlemezre"
-
-#~ msgid "Install to Hard Drive"
-#~ msgstr "Telepítés merevlemezre"
-
-#~ msgid "Afrikaans"
-#~ msgstr "afrikán (Dél-Afrika-i holland)"
-
-#~ msgid "Arabic"
-#~ msgstr "arab"
-
-#~ msgid "Assamese"
-#~ msgstr "asszám (India)"
-
-#~ msgid "Bengali"
-#~ msgstr "bengáli"
-
-#~ msgid "Bengali(India)"
-#~ msgstr "bengáli (India)"
-
-#~ msgid "Bulgarian"
-#~ msgstr "bolgár"
-
-#~ msgid "Catalan"
-#~ msgstr "katalán"
-
-#~ msgid "Chinese(Simplified)"
-#~ msgstr "kínai (egyszerűsített)"
-
-#~ msgid "Chinese(Traditional)"
-#~ msgstr "kínai (hagyományos)"
-
-#~ msgid "Croatian"
-#~ msgstr "horvát"
-
-#~ msgid "Czech"
-#~ msgstr "cseh"
-
-#~ msgid "Danish"
-#~ msgstr "dán"
-
-#~ msgid "Dutch"
-#~ msgstr "holland"
-
-#~ msgid "English"
-#~ msgstr "angol"
-
-#~ msgid "Estonian"
-#~ msgstr "észt"
-
-#~ msgid "Finnish"
-#~ msgstr "finn"
-
-#~ msgid "French"
-#~ msgstr "francia"
-
-#~ msgid "German"
-#~ msgstr "német"
-
-#~ msgid "Greek"
-#~ msgstr "görög"
-
-#~ msgid "Gujarati"
-#~ msgstr "gudzsarati (India)"
-
-#~ msgid "Hebrew"
-#~ msgstr "héber"
-
-#~ msgid "Hindi"
-#~ msgstr "hindi (India)"
-
-#~ msgid "Hungarian"
-#~ msgstr "magyar"
-
-#~ msgid "Icelandic"
-#~ msgstr "izlandi"
-
-#~ msgid "Iloko"
-#~ msgstr "iloko (Fülöp-szk.)"
-
-#~ msgid "Indonesian"
-#~ msgstr "indonéz"
-
-#~ msgid "Italian"
-#~ msgstr "olasz"
-
-#~ msgid "Japanese"
-#~ msgstr "japán"
-
-#~ msgid "Kannada"
-#~ msgstr "kanada (India)"
-
-#~ msgid "Korean"
-#~ msgstr "koreai"
-
-#~ msgid "Macedonian"
-#~ msgstr "macedón"
-
-#~ msgid "Maithili"
-#~ msgstr "majtili (India/Nepál)"
-
-#~ msgid "Malay"
-#~ msgstr "maláj"
-
-#~ msgid "Malayalam"
-#~ msgstr "malajalam (India)"
-
-#~ msgid "Marathi"
-#~ msgstr "marati (India)"
-
-#~ msgid "Nepali"
-#~ msgstr "nepáli"
-
-#~ msgid "Norwegian(Bokmål)"
-#~ msgstr "ónorvég"
-
-#~ msgid "Northern Sotho"
-#~ msgstr "északszoto (Dél-Afrika)"
-
-#~ msgid "Oriya"
-#~ msgstr "orija (India)"
-
-#~ msgid "Persian"
-#~ msgstr "perzsa"
-
-#~ msgid "Polish"
-#~ msgstr "lengyel"
-
-#~ msgid "Portuguese"
-#~ msgstr "portugál"
-
-#~ msgid "Portuguese(Brazilian)"
-#~ msgstr "portugál (brazil)"
-
-#~ msgid "Punjabi"
-#~ msgstr "pandzsab (India/Pakisztán)"
-
-#~ msgid "Romanian"
-#~ msgstr "román"
-
-#~ msgid "Russian"
-#~ msgstr "orosz"
-
-#~ msgid "Serbian"
-#~ msgstr "szerb"
-
-#~ msgid "Serbian(Latin)"
-#~ msgstr "szerb (latin)"
-
-#~ msgid "Sinhala"
-#~ msgstr "szinala (Sri Lanka)"
-
-#~ msgid "Slovak"
-#~ msgstr "szlovák"
-
-#~ msgid "Slovenian"
-#~ msgstr "szlovén"
-
-#~ msgid "Spanish"
-#~ msgstr "spanyol"
-
-#~ msgid "Swedish"
-#~ msgstr "svéd"
-
-#~ msgid "Tajik"
-#~ msgstr "tadzsik"
-
-#~ msgid "Tamil"
-#~ msgstr "tamil (India/Sri Lanka)"
-
-#~ msgid "Telugu"
-#~ msgstr "telugu (India)"
-
-#~ msgid "Turkish"
-#~ msgstr "török"
-
-#~ msgid "Ukrainian"
-#~ msgstr "ukrán"
-
-#~ msgid "Vietnamese"
-#~ msgstr "vietnámi"
-
-#~ msgid "Welsh"
-#~ msgstr "velszi"
-
-#~ msgid "Zulu"
-#~ msgstr "zulu (Dél-Afrika)"
