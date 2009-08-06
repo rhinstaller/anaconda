@@ -155,7 +155,7 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
         sizestr = "%8.0f MB" % disk.size
         drivelist.append_row((disk.name,
                               sizestr,
-                              disk.model),
+                              disk.description),
                              selected)
 
     if len(disks) < 2:

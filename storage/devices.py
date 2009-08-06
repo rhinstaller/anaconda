@@ -783,6 +783,10 @@ class DiskDevice(StorageDevice):
         return getattr(self.partedDevice, "model", None)
 
     @property
+    def description(self):
+        return self.model
+
+    @property
     def size(self):
         """ The disk's size in MB """
         return super(DiskDevice, self).size
