@@ -55,10 +55,19 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         if not searchPath and not os.access (command, os.X_OK):
             raise RuntimeError, command + " can not be run"
 
+    def closefds ():
+        runningLog.close()
+        stdinclose()
+        stdoutclose()
+        stderrclose()
+
+    stdinclose = stdoutclose = stderrclose = lambda : None
+
     argv = list(argv)
     if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
             stdin = os.open(stdin, os.O_RDONLY)
+            stdinclose = lambda : os.close(stdin)
         else:
             stdin = sys.stdin.fileno()
     elif isinstance(stdin, int):
@@ -68,6 +77,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 
     if isinstance(stdout, str):
         stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
+        stdoutclose = lambda : os.close(stdout)
     elif isinstance(stdout, int):
         pass
     elif stdout is None or not isinstance(stdout, file):
@@ -75,6 +85,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 
     if isinstance(stderr, str):
         stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+        stderrclose = lambda : os.close(stderr)
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
@@ -109,10 +120,10 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         errstr = "Error running %s: %s" % (command, e.strerror)
         log.error(errstr)
         runningLog.write(errstr)
-        runningLog.close()
+        closefds()
         raise RuntimeError, errstr
 
-    runningLog.close()
+    closefds()
     return ret
 
 ## Run an external program and capture standard out.
@@ -126,12 +137,19 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     def chroot():
         os.chroot(root)
 
+    def closefds ():
+        runningLog.close()
+        stdinclose()
+        stderrclose()
+
+    stdinclose = stderrclose = lambda : None
     rc = ""
     argv = list(argv)
 
     if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
             stdin = os.open(stdin, os.O_RDONLY)
+            stdinclose = lambda : os.close(stdin)
         else:
             stdin = sys.stdin.fileno()
     elif isinstance(stdin, int):
@@ -141,6 +159,7 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
 
     if isinstance(stderr, str):
         stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+        stderrclose = lambda : os.close(stderr)
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
@@ -172,8 +191,10 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
                 break
     except OSError as e:
         log.error ("Error running " + command + ": " + e.strerror)
+        closefds()
         raise RuntimeError, "Error running " + command + ": " + e.strerror
 
+    closefds()
     return rc
 
 def execWithPulseProgress(command, argv, stdin = None, stdout = None,
@@ -181,10 +202,19 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
     def chroot():
         os.chroot(root)
 
+    def closefds ():
+        runningLog.close()
+        stdinclose()
+        stdoutclose()
+        stderrclose()
+
+    stdinclose = stdoutclose = stderrclose = lambda : None
+
     argv = list(argv)
     if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
             stdin = os.open(stdin, os.O_RDONLY)
+            stdinclose = lambda : os.close(stdin)
         else:
             stdin = sys.stdin.fileno()
     elif isinstance(stdin, int):
@@ -194,6 +224,7 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
 
     if isinstance(stdout, str):
         stdout = os.open(stdout, os.O_RDWR|os.O_CREAT)
+        stdoutclose = lambda : os.close(stdout)
     elif isinstance(stdout, int):
         pass
     elif stdout is None or not isinstance(stdout, file):
@@ -201,6 +232,7 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
 
     if isinstance(stderr, str):
         stderr = os.open(stderr, os.O_RDWR|os.O_CREAT)
+        stderrclose = lambda : os.close(stderr)
     elif isinstance(stderr, int):
         pass
     elif stderr is None or not isinstance(stderr, file):
@@ -257,6 +289,7 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
 
     progress and progress.pop()
 
+    closefds()
     # *shrug*  no clue why this would happen, but hope that things are fine
     if status is None:
         return 0
