@@ -972,7 +972,7 @@ class DeviceTree(object):
                 else:
                     # we haven't scanned the slave yet, so do it now
                     path = os.path.normpath("%s/%s" % (dir, slave_name))
-                    new_info = udev_get_block_device(os.path.realpath(path))
+                    new_info = udev_get_block_device(os.path.realpath(path)[4:])
                     if new_info:
                         self.addUdevDevice(new_info)
                         if self.getDeviceByName(dev_name) is None:
@@ -1034,7 +1034,7 @@ class DeviceTree(object):
             else:
                 # we haven't scanned the slave yet, so do it now
                 path = os.path.normpath("%s/%s" % (dir, slave_name))
-                new_info = udev_get_block_device(os.path.realpath(path))
+                new_info = udev_get_block_device(os.path.realpath(path)[4:])
                 if new_info:
                     self.addUdevDevice(new_info)
                     if self.getDeviceByName(dev_name) is None:
@@ -1083,8 +1083,7 @@ class DeviceTree(object):
 
         if disk is None:
             # create a device instance for the disk
-            path = os.path.dirname(os.path.realpath(sysfs_path))
-            new_info = udev_get_block_device(path)
+            new_info = udev_get_block_device(os.path.dirname(sysfs_path))
             if new_info:
                 self.addUdevDevice(new_info)
                 disk = self.getDeviceByName(disk_name)

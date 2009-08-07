@@ -246,7 +246,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         iutil.notify_kernel("/sys%s" %rootDevice.sysfsPath)
         storage.udev.udev_settle()
         rootDevice.updateSysfsPath()
-        info = storage.udev.udev_get_block_device("/sys%s" % rootDevice.sysfsPath)
+        info = storage.udev.udev_get_block_device(rootDevice.sysfsPath)
         rootDevice.format.uuid = storage.udev.udev_device_get_uuid(info)
         log.info("reset the rootdev (%s) to have a uuid of %s" %(rootDevice.sysfsPath, rootDevice.format.uuid))
 

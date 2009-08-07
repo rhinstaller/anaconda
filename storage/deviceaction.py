@@ -274,7 +274,7 @@ class ActionCreateFormat(DeviceAction):
         # Get the UUID now that the format is created
         udev_settle()
         self.device.updateSysfsPath()
-        info = udev_get_block_device("/sys%s" % self.device.sysfsPath)
+        info = udev_get_block_device(self.device.sysfsPath)
         self.device.format.uuid = udev_device_get_uuid(info)
 
     def cancel(self):

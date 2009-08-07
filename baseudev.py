@@ -35,15 +35,15 @@ def udev_enumerate_devices(deviceClass="block"):
         link_ref = os.readlink(full_path)
         real_path = os.path.join(top_dir, link_ref)
         sysfs_path = os.path.normpath(real_path)
-        devices.append(sysfs_path)
+        devices.append(sysfs_path[4:])
     return devices
 
 def udev_get_device(sysfs_path):
-    if not os.path.exists(sysfs_path):
+    if not os.path.exists("/sys%s" % sysfs_path):
         log.debug("%s does not exist" % sysfs_path)
         return None
 
-    db_entry = sysfs_path[4:].replace("/", "\\x2f")
+    db_entry = sysfs_path.replace("/", "\\x2f")
     db_root = "/dev/.udev/db"
     db_path = os.path.normpath("%s/%s" % (db_root, db_entry))
     if not os.access(db_path, os.R_OK):
@@ -53,8 +53,7 @@ def udev_get_device(sysfs_path):
     entry = open(db_path).read()
     dev = udev_parse_entry(entry)
     if dev.has_key("name"):
-        # XXX why do we do this? is /sys going to move during installation?
-        dev['sysfs_path'] = sysfs_path[4:]  # strip off the leading '/sys'
+        dev['sysfs_path'] = sysfs_path
         dev = udev_parse_uevent_file(dev)
 
     # now add in the contents of the uevent file since they're handy

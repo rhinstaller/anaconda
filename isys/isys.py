@@ -599,7 +599,7 @@ def getNetDevDesc(dev):
         if dev == device_props['Interface']:
             # This is the sysfs path (for now).
             udev_path = device_props['Udi']
-            dev = udev_get_device(udev_path)
+            dev = udev_get_device(udev_path[4:])
 
             if dev is None:
                 log.debug("weird, we have a None dev with path %s" % path)

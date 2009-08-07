@@ -2591,7 +2591,7 @@ class MDRaidArrayDevice(StorageDevice):
         self.setup()
         udev_settle()
         self.updateSysfsPath()
-        info = udev_get_block_device("/sys%s" % self.sysfsPath)
+        info = udev_get_block_device(self.sysfsPath)
         self.uuid = udev_device_get_md_uuid(info)
         for member in self.devices:
             member.mdUuid = self.uuid
