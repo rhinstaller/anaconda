@@ -184,8 +184,8 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
     policycoreutils popt prelink procps pycairo pygobject2 pygtk2
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
-    python-libs python-pyblock python-sqlite
-    python-urlgrabber pyxf86config readline redhat-artwork
+    python-libs python-nss python-pyblock python-sqlite
+    python-urlgrabber python-volume_key pyxf86config readline redhat-artwork
     reiserfs-utils rpm rpm-libs rpm-python sed selinux-policy-targeted
     setup slang smc-meera-fonts specspo sqlite synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
@@ -243,7 +243,7 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump libidn
                 openssh openssh-clients pciutils rsh traceroute tar rsync
                 device-mapper device-mapper-libs dmraid ntfsprogs samba-client
 		firstaidkit dialog firstaidkit-plugin-passwd firstaidkit-plugin-xserver
-		firstaidkit-gui firstaidkit-plugin-mdadm-conf firstaidkit-plugin-key-recovery"
+		firstaidkit-gui firstaidkit-plugin-mdadm-conf firstaidkit-plugin-key-recovery volume_key"
 
 if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
   PACKAGESRESCUE="$PACKAGESRESCUE gpart grub firstaidkit-plugin-grub"
@@ -834,6 +834,7 @@ usr/bin/sftp
 usr/bin/shred
 usr/bin/ssh
 usr/bin/termidx
+usr/bin/volume_key
 usr/bin/xargs
 usr/bin/ntfscat
 usr/bin/ntfscluster
