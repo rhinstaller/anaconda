@@ -1974,6 +1974,8 @@ int main(int argc, char ** argv) {
 
     /* Disable all network interfaces in NetworkManager by default */
 #if !defined(__s390__) && !defined(__s390x__)
+    int i;
+
     if ((i = writeDisabledNetInfo()) != 0) {
         logMessage(ERROR, "writeDisabledNetInfo failure: %d", i);
     }
