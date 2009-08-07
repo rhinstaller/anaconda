@@ -209,6 +209,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Aug 06 2009 David Cantrell <dcantrell@redhat.com> - 12.10-1
+- Add missing 'i' in loader/loader.c for non-s390 arches. (dcantrell)
+
 * Thu Aug 06 2009 David Cantrell <dcantrell@redhat.com> - 12.9-1
 - Avoid finding the word 'engine' in comments. (jkeating)
 - Don't try to get dso deps of statically linked files. (jkeating)
