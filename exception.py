@@ -52,7 +52,13 @@ class AnacondaExceptionHandler(ExceptionHandler):
             pass
 
     def runDebug(self, (ty, value, tb)):
-        isys.vtActivate(1)
+        # vtActivate does not work on certain ppc64 machines, so just skip
+        # that and continue with the rest of the debugger setup.
+        try:
+            isys.vtActivate(1)
+        except SystemError:
+            pass
+
         self.intf.__del__ ()
 
         pidfl = "/tmp/vncshell.pid"
