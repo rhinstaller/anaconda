@@ -110,7 +110,8 @@ instFile() {
     fi
 
     f=$(file $FILE)
-    echo $f | egrep -q ": (setuid )?ELF" &&  {
+    echo $f | egrep -q ": (setuid )?ELF" &&
+    echo $f | egrep -qv "statically linked" &&  {
         if echo $f | grep -q " 64-bit " ; then
             get_dso_deps $(pwd) "$FILE" lib64
         else
