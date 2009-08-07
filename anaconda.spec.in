@@ -209,6 +209,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Aug 07 2009 Chris Lumens <clumens@redhat.com> - 12.11-1
+- upd-instroot: Inspect gtkrc for cursor theme (ajax)
+- Support NFS repos in kickstart (#495620, #507093). (clumens)
+- upd-instroot: xorg-x11-auth -> xorg-x11-xauth (ajax)
+- Check to see if the arch string starts with ppc64. (#516144) (jgranado)
+- vtActivate doesn't work on some ppc64 machines, so don't traceback
+  (#516206). (clumens)
+- Make all sysfs path's be _without_ /sys prefix (#516168) (hdegoede)
+- Do not go interactive if timezone in ks is not valid (#473647) (rvykydal)
+- Fix going back from "NFS Setup" screen in stage 1 (#507064) (rvykydal)
+
 * Thu Aug 06 2009 David Cantrell <dcantrell@redhat.com> - 12.10-1
 - Add missing 'i' in loader/loader.c for non-s390 arches. (dcantrell)
 
