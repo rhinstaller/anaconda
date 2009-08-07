@@ -888,8 +888,7 @@ class Timezone(commands.timezone.FC6_Timezone):
         tab = zonetab.ZoneTab()
         if self.timezone not in (entry.tz.replace(' ','_') for entry in
                                  tab.getEntries()):
-            log.warning("Timezone %s set in kickstart is not valid, will ask" % (self.timezone,))
-            return retval
+            log.warning("Timezone %s set in kickstart is not valid." % (self.timezone,))
 
         self.handler.id.timezone.setTimezoneInfo(self.timezone, self.isUtc)
         self.handler.skipSteps.append("timezone")
