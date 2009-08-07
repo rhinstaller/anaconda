@@ -122,6 +122,11 @@ expandPackageSet() {
             echo "usr/share/icons/$theme" >> $KEEPFILES
             theme=$(grep Inherits $YUMDIR/usr/share/icons/$theme/index.theme | cut -d = -f 2)
         done
+
+        cursortheme=$(grep "gtk-cursor-theme-name" $YUMDIR/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
+        if [ -n "$cursortheme" ]; then
+            echo "usr/share/icons/$cursortheme" >> $KEEPFILES
+        fi
     fi
 
     echo `date` "Installing files"
