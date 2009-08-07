@@ -113,7 +113,7 @@ expandPackageSet() {
         gtktheme=$(grep "gtk-theme-name" $YUMDIR/etc/gtk-2.0/gtkrc | awk {'print $3;'} | sed -e 's/"//g')
         echo "usr/share/themes/$gtktheme" >> $KEEPFILES
         # find gtk engine needed
-        for engine in `grep engine $YUMDIR/usr/share/themes/$gtktheme/gtk-2.0/gtkrc | awk {'print $2;'} | sed -e 's/"//g' | sort -u` ; do
+        for engine in `grep engine $YUMDIR/usr/share/themes/$gtktheme/gtk-2.0/gtkrc | grep -v ^# | awk {'print $2;'} | sed -e 's/"//g' | sort -u` ; do
             echo "usr/$LIBDIR/gtk-2.0/*/engines/*$engine*" >> $KEEPFILES
         done
 
