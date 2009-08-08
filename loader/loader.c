@@ -1454,10 +1454,11 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_NETWORK: {
-                if ((installMethods[validMethods[loaderData->method]].type !=
-                      DEVICE_NETWORK) && (!hasGraphicalOverride()) &&
-                     !FL_ASKNETWORK(flags) &&
-                     !FL_EARLY_NETWORKING(flags)) {
+                if (((installMethods[validMethods[loaderData->method]].type !=
+                       DEVICE_NETWORK) && (!hasGraphicalOverride()) &&
+                      !FL_ASKNETWORK(flags) &&
+                      !FL_EARLY_NETWORKING(flags)) ||
+                     (is_nm_connected())) {
                     needsNetwork = 0;
                     if (dir == 1) 
                         step = STEP_STAGE2;

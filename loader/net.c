@@ -445,7 +445,9 @@ int readNetConfig(char * device, iface_t * iface,
 
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
-    if (!FL_TESTING(flags) && ((iface->ipv4method > 0) || (iface->ipv6method > 0))) {
+    if (!FL_TESTING(flags) && !FL_ASKNETWORK(flags) &&
+        ((iface->ipv4method > IPV4_UNUSED_METHOD) ||
+         (iface->ipv6method > IPV4_UNUSED_METHOD))) {
         logMessage(INFO, "doing kickstart... setting it up");
 
         err = writeEnabledNetInfo(iface);
@@ -1987,6 +1989,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
             loaderData->ipinfo_set = 0;
             free(loaderData->ipv4);
             loaderData->ipv4 = NULL;
+            break;
         } else {
             break;
         }
