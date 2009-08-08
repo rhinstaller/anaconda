@@ -152,7 +152,7 @@ function startinetd()
     if [ -z "$RUNKS" ]; then
         echo
         echo $"Connect now to $IPADDR and login as user root to start the installation."
-        echo $"E.g. using: ssh -X root@$IPADDR"
+        echo $"E.g. using: ssh -x root@$IPADDR"
         echo $"After login, please start the installation using: loader"
         read
         while : ; do
