@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.nl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-05 10:18-0400\n"
-"PO-Revision-Date: 2009-08-06 23:26+0200\n"
+"PO-Revision-Date: 2009-08-08 11:25+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -71,9 +71,8 @@ msgstr ""
 "Tekstmodus wordt nu opgestart."
 
 #: anaconda:459
-#, fuzzy
 msgid "Starting graphical installation."
-msgstr "Grafische installatie wordt nu opgestart..."
+msgstr "Grafische installatie wordt nu opgestart."
 
 #: anaconda:775
 msgid "Would you like to use VNC?"
@@ -94,15 +93,13 @@ msgid "Install class forcing text mode installation"
 msgstr "Installatieklasse forceert een installatie in tekstmodus"
 
 #: anaconda:821
-#, fuzzy
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
-"Grafische installatie niet beschikbaar...  Tekstmodus wordt nu opgestart."
+"Grafische installatie is niet beschikbaar. Tekstmodus wordt nu opgestart."
 
 #: anaconda:829
-#, fuzzy
 msgid "DISPLAY variable not set. Starting text mode."
-msgstr "Variabele DISPLAY is niet ingesteld. Tekstmodus wordt nu opgestart!"
+msgstr "Variabele DISPLAY is niet ingesteld. Tekstmodus wordt nu opgestart."
 
 #: anaconda:997
 msgid "reipl configuration successful => reboot"
@@ -1221,9 +1218,8 @@ msgid "First sector of boot partition"
 msgstr "Eerste sector van de opstartpartitie"
 
 #: platform.py:112
-#, fuzzy
 msgid "You have not created a bootable partition."
-msgstr "U hebt geen boot-partitie aangemaakt."
+msgstr "U hebt geen opstartpartitie aangemaakt."
 
 #: platform.py:115
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1251,14 +1247,12 @@ msgid "EFI System Partition"
 msgstr "EFI-systeempartitie"
 
 #: platform.py:218
-#, fuzzy
 msgid "You have not created a /boot/efi partition."
-msgstr "U hebt geen boot-partitie aangemaakt."
+msgstr "U hebt geen /boot/efi partitie aangemaakt."
 
 #: platform.py:224
-#, fuzzy
 msgid "/boot is not on an ext2 filesystem."
-msgstr "Opstartpartities mogen niet op een %s bestandssysteem staan."
+msgstr "/boot bevindt zich niet op een ext2 bestandssyteem."
 
 #: platform.py:227
 msgid "/boot/efi is not EFI."
@@ -2064,9 +2058,8 @@ msgid "Performing post-installation configuration"
 msgstr "Uitvoeren van post-installatie configuratie..."
 
 #: yuminstall.py:1803
-#, fuzzy
 msgid "Installation Starting"
-msgstr "De installatie gaat nu beginnen"
+msgstr "Installatie gaat nu beginnen"
 
 #: yuminstall.py:1804
 #, fuzzy
@@ -2219,7 +2212,7 @@ msgstr "Zwak wachtwoord"
 #: iw/account_gui.py:133
 #, python-format
 msgid "You have provided a weak password: %s"
-msgstr ""
+msgstr "U hebt een zwak wachtwoord opgegeven: %s"
 
 #: iw/account_gui.py:135
 #, fuzzy
@@ -3869,9 +3862,9 @@ msgid "Scanning"
 msgstr "Bezig met scannen"
 
 #: loader/cdinstall.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation images on CD device %s\n"
-msgstr "Bezig met zoeken naar installatie-images op CD-apparaat %s"
+msgstr "Bezig met zoeken naar installatie-images op CD-apparaat %s\n"
 
 #: loader/cdinstall.c:341
 #, c-format
@@ -4274,9 +4267,8 @@ msgid "Media Detected"
 msgstr "Media gevonden"
 
 #: loader/loader.c:1258
-#, fuzzy
 msgid "Found local installation media"
-msgstr "Lokale installatiemedia gevonden..."
+msgstr "Lokale installatiemedia gevonden"
 
 #: loader/loader.c:1374
 msgid "Rescue Method"
@@ -4361,14 +4353,14 @@ msgid "Unable to find install image %s"
 msgstr "Kan installatie-image %s niet vinden"
 
 #: loader/mediacheck.c:52
-#, fuzzy, c-format
+#, c-format
 msgid "Checking \"%s\"."
-msgstr "Controleren van \"%s\"..."
+msgstr "Controleren van \"%s\"."
 
 #: loader/mediacheck.c:54
-#, fuzzy, c-format
+#, c-format
 msgid "Checking media."
-msgstr "Medium wordt nu gecontroleerd..."
+msgstr "Medium wordt nu gecontroleerd."
 
 #: loader/mediacheck.c:86
 msgid ""
@@ -4635,9 +4627,8 @@ msgid "Waiting for telnet connection."
 msgstr "Wachten op telnetverbinding..."
 
 #: loader/telnetd.c:128
-#, fuzzy
 msgid "Running anaconda via telnet."
-msgstr "Anaconda wordt via telnet opgestart..."
+msgstr "Anaconda wordt via telnet opgestart."
 
 #: loader/urlinstall.c:84
 #, c-format
@@ -5174,9 +5165,9 @@ msgid "Checking"
 msgstr "Controleren"
 
 #: storage/formats/fs.py:485
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s"
-msgstr "Controleren van het bestandssysteem op %s..."
+msgstr "Controleren van het bestandssysteem op %s"
 
 #: storage/iscsi.py:82 storage/iscsi.py:83
 msgid "Scanning iSCSI nodes"
@@ -5439,9 +5430,8 @@ msgid ""
 msgstr ""
 
 #: textw/partition_text.py:225
-#, fuzzy
 msgid "NIC device name"
-msgstr "Geen apparaten gevonden"
+msgstr "NIC-apparaatnaam"
 
 #: textw/partition_text.py:232
 #, fuzzy, python-format
@@ -5587,13 +5577,13 @@ msgid "The root password must be at least 6 characters long."
 msgstr "Het root-wachtwoord moet tenminste 6 tekens lang zijn."
 
 #: textw/userauth_text.py:84
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have provided a weak password: %s\n"
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
-"Zwak wachtwoord opgegeven: %s\n"
+"U hebt een zwak wachtwoord opgegeven: %s\n"
 "\n"
 "Wilt u doorgaan met dit wachtwoord?"
 
