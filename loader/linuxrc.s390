@@ -2963,14 +2963,20 @@ ONBOOT="yes"
 CTCPROT="$CTCPROT"
 EOF
 if [ "$ipv6" ]; then
-    echo DNS=\"$(echo $DNS | cut -d ',' -f 1)\" >> /tmp/install.cfg
+    DNS1=$(echo $DNS | cut -d ',' -f 1)
+    echo DNS=\"$DNS1\" >> /tmp/install.cfg
+    echo DNS1=\"$DNS1\" >> /tmp/install.cfg
+    echo DNS2=\"$(echo $DNS | cut -d ',' -f 2)\" >> /tmp/install.cfg
 else
-    echo DNS=\"$(echo $DNS | cut -d ':' -f 1)\" >> /tmp/install.cfg
+    DNS1=$(echo $DNS | cut -d ':' -f 1)
+    echo DNS=\"$DNS1\" >> /tmp/install.cfg
+    echo DNS1=\"$DNS1\" >> /tmp/install.cfg
+    echo DNS2=\"$(echo $DNS | cut -d ':' -f 2)\" >> /tmp/install.cfg
 fi
 cat >> /tmp/install.cfg << EOF
 export LANG PORTNAME S390ARCH TEXTDOMAIN TEXTDOMAINDIR
 export HOSTNAME DEVICE NETTYPE IPADDR GATEWAY MTU
-export NETWORK NETMASK BROADCAST DNS SEARCHDNS
+export NETWORK NETMASK BROADCAST DNS DNS1 DNS2 SEARCHDNS
 export PEERID ONBOOT SUBCHANNELS CTCPROT
 EOF
 # immediately read it in again to export these into the shell below
@@ -2985,13 +2991,17 @@ if [ ! -d "$NETSCRIPTS" ]; then
     mkdir -p $NETSCRIPTS
 fi
 
+# to please NetworkManager on startup in loader before loader reconfigures net
+cat > /etc/sysconfig/network << EOF
+HOSTNAME=$HOSTNAME
+EOF
+
 cat > $IFCFGFILE << EOF
 DEVICE=$DEVICE
 ONBOOT=yes
 BOOTPROTO=static
 GATEWAY=$GATEWAY
 BROADCAST=$BROADCAST
-HOSTNAME=$HOSTNAME
 MTU=$MTU
 SUBCHANNELS=$SUBCHANNELS
 EOF
@@ -3010,11 +3020,10 @@ IPADDR=$IPADDR
 NETMASK=$NETMASK
 EOF
 fi
-if [ "$ipv6" ]; then
-    [ "$DNS" != "" ] && echo "DNS=$(echo $DNS | cut -d ',' -f 1)" >> $IFCFGFILE
-else
-    [ "$DNS" != "" ] && echo "DNS=$(echo $DNS | cut -d ':' -f 1)" >> $IFCFGFILE
-fi
+[ "$DNS1" != "" ] && echo "DNS1=$DNS1" >> $IFCFGFILE
+[ "$DNS2" != "" ] && echo "DNS2=$DNS2" >> $IFCFGFILE
+# colons in SEARCHDNS already replaced with spaces above for /etc/resolv.conf
+[ "$SEARCHDNS" != "" ] && echo "DOMAIN=\"$SEARCHDNS\"" >> $IFCFGFILE
 [ "$NETTYPE" != "" ] && echo "NETTYPE=$NETTYPE" >> $IFCFGFILE
 [ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> $IFCFGFILE
 [ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> $IFCFGFILE
