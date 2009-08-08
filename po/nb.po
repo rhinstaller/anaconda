@@ -1,12 +1,12 @@
-# Kjartan Maraas <kmaraas@gnome.org>, 1998-2007.
+# Kjartan Maraas <kmaraas@gnome.org>, 1998-2009.
 #
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda FC9\n"
+"Project-Id-Version: anaconda FC12\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-05 10:18-0400\n"
-"PO-Revision-Date: 2008-10-11 11:28+0200\n"
+"PO-Revision-Date: 2009-08-08 13:33+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@broadpark.no>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -56,9 +56,8 @@ msgstr ""
 "Starter tekstmodus."
 
 #: anaconda:459
-#, fuzzy
 msgid "Starting graphical installation."
-msgstr "Starter grafisk installasjon..."
+msgstr "Starter grafisk installasjon."
 
 #: anaconda:775
 msgid "Would you like to use VNC?"
@@ -76,14 +75,12 @@ msgid "Install class forcing text mode installation"
 msgstr "Installasjonsklassen krever installasjon i tekstmodus"
 
 #: anaconda:821
-#, fuzzy
 msgid "Graphical installation is not available. Starting text mode."
-msgstr "Grafisk installasjon er ikke tilgjengelig... Starter i tekstmodus."
+msgstr "Grafisk installasjon er ikke tilgjengelig. Starter tekstmodus."
 
 #: anaconda:829
-#, fuzzy
 msgid "DISPLAY variable not set. Starting text mode."
-msgstr "DISPLAY-variabelen er ikke satt. Starter tekstmodus!"
+msgstr "DISPLAY-variabelen er ikke satt. Starter tekstmodus."
 
 #: anaconda:997
 msgid "reipl configuration successful => reboot"
@@ -108,18 +105,15 @@ msgid "Copying File"
 msgstr "Kopierer fil"
 
 #: backend.py:168
-#, fuzzy
 msgid "Transferring install image to hard drive"
-msgstr "Overfører installasjonsbildet til harddisken..."
+msgstr "Overfører installasjonsbildet til harddisken"
 
 #: backend.py:178
 #, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
-msgstr ""
-"En feil oppsto under overføring av installasjonsfilen til din harddisk. Det "
-"er sannsynlig at mediet er dårlig."
+msgstr "En feil oppsto under overføring av installasjonsfilen til din harddisk. Det er sannsynlig at mediet er ødelagt eller dårlig."
 
 #: backend.py:182
 msgid ""
@@ -166,7 +160,6 @@ msgid "Warning"
 msgstr "Advarsel"
 
 #: bootloader.py:54
-#, fuzzy
 msgid ""
 "Filesystems have already been activated.  You cannot go back past this "
 "point.\n"
@@ -204,9 +197,8 @@ msgid "Bootloader"
 msgstr "Oppstartslaster"
 
 #: bootloader.py:143
-#, fuzzy
 msgid "Installing bootloader."
-msgstr "Installerer oppstartslaster..."
+msgstr "Installerer oppstartslaster."
 
 #: bootloader.py:210
 msgid ""
@@ -215,7 +207,6 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:217
-#, fuzzy
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
@@ -228,12 +219,11 @@ msgid "Completed"
 msgstr "Ferdig"
 
 #: cmdline.py:63
-#, fuzzy
 msgid "In progress"
-msgstr "Pågår...   "
+msgstr "Pågår"
 
 #: cmdline.py:86 gui.py:1135 text.py:391
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
 "file:\n"
@@ -272,16 +262,14 @@ msgid " against anaconda at %s"
 msgstr " for anaconda på %s"
 
 #: gui.py:106
-#, fuzzy
 msgid "An error occurred saving screenshots to disk."
-msgstr "En feil oppstod under kopiering av skjermdump."
+msgstr "En feil oppstod under kopiering av skjermdump til disk."
 
 #: gui.py:117
 msgid "Screenshots Copied"
 msgstr "Skjermdump kopiert"
 
 #: gui.py:118
-#, fuzzy
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -322,13 +310,10 @@ msgid "Installation Key"
 msgstr "Installasjonsnøkkel"
 
 #: gui.py:631 text.py:148
-#, fuzzy
 msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
-msgstr ""
-"Velg et passord for denne krypterte partisjonen. Du vil bli spurt om dette "
-"passordet når systemet startes."
+msgstr "Velg et passord for krypterte enheter. Du vil bli spurt om dette passordet når systemet startes."
 
 #: gui.py:650 gui.py:658 text.py:186 text.py:196
 msgid "Error with passphrase"
@@ -394,12 +379,10 @@ msgid "_Retry"
 msgstr "P_røv igjen"
 
 #: gui.py:1267
-#, fuzzy
 msgid "The installer will now exit."
-msgstr "Installasjonsprogrammet avsluttes nå..."
+msgstr "Installasjonsprogrammet avsluttes nå."
 
 #: gui.py:1270 storage/partitioning.py:256
-#, fuzzy
 msgid "The system will now reboot."
 msgstr "Systemet vil nå startes på nytt."
 
@@ -416,7 +399,6 @@ msgid "Exit installer"
 msgstr "Avslutt installering"
 
 #: gui.py:1343
-#, fuzzy
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Er du sikker på at du vil avslutte installasjonen?"
 
@@ -622,7 +604,7 @@ msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Ukjent feil under prosessering av %%ksappend linjer: %s"
 
 #: kickstart.py:1181
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing thekickstart configuration "
 "file:\n"
@@ -634,24 +616,20 @@ msgstr ""
 "%s"
 
 #: kickstart.py:1242 livecd.py:223
-#, fuzzy
 msgid "Post-Installation"
-msgstr "Etter-installasjon"
+msgstr "Etter installasjon"
 
 #: kickstart.py:1243
-#, fuzzy
 msgid "Running post-installation scripts"
-msgstr "Kjører skript for ferdigstilling av installasjon"
+msgstr "Kjører skript etter installasjon"
 
 #: kickstart.py:1259
-#, fuzzy
 msgid "Pre-Installation"
-msgstr "Pakkeinstallasjon"
+msgstr "Før installasjon"
 
 #: kickstart.py:1260
-#, fuzzy
 msgid "Running pre-installation scripts"
-msgstr "Kjører skript for å klargjøre installasjon"
+msgstr "Kjører skript før installasjon"
 
 #: kickstart.py:1292
 msgid "Missing Package"
@@ -671,9 +649,8 @@ msgid "_Abort"
 msgstr "_Avbryt"
 
 #: kickstart.py:1300 kickstart.py:1339
-#, fuzzy
 msgid "_Ignore All"
-msgstr "Overse"
+msgstr "_Ignorer alle"
 
 #: kickstart.py:1330
 msgid "Missing Group"
@@ -684,9 +661,7 @@ msgstr "Manglende gruppe"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
-msgstr ""
-"Du har oppgitt at gruppen «%s» skal installeres. Denne gruppen eksisterer "
-"ikke. Vil du fortsette eller avbryte installasjonen?"
+msgstr "Du har oppgitt at gruppen «%s» skal installeres. Denne gruppen eksisterer ikke. Vil du fortsette eller avbryte installasjonen?"
 
 #: kickstart.py:1437
 #, python-format
@@ -747,9 +722,8 @@ msgstr ""
 "Rotfilsystemet tu laget er ikke stort nok for dette bildet (%.2f MB kreves)."
 
 #: network.py:56
-#, fuzzy
 msgid "Hostname must be 255 or fewer characters in length."
-msgstr "Vertsnavnet må være 64 tegn eller mindre i lengde."
+msgstr "Vertsnavnet må være maksimum 255 tegn langt."
 
 #: network.py:62
 msgid ""
@@ -785,19 +759,17 @@ msgid "'%s' is an invalid IP address."
 msgstr "«%s» er ikke en gyldig IP-adresse."
 
 #: packages.py:121
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "Endring av størrelse feilet"
+msgstr "Endring av størrelse for enhet feilet"
 
 #: packages.py:122
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
 #: packages.py:129
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "Målfil"
+msgstr "Oppretting av enhet feilet"
 
 #: packages.py:130
 #, fuzzy, python-format
@@ -806,7 +778,7 @@ msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
 #: packages.py:137
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Fjerning av enhet feilet"
 
 #: packages.py:138
 #, fuzzy, python-format
@@ -815,7 +787,7 @@ msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
 #: packages.py:145
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Oppsett av enhet feilet"
 
 #: packages.py:146
 #, fuzzy, python-format
@@ -827,24 +799,22 @@ msgid "Resizing Failed"
 msgstr "Endring av størrelse feilet"
 
 #: packages.py:158
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
 #: packages.py:165
-#, fuzzy
 msgid "Migration Failed"
-msgstr "LVM-operasjon feilet"
+msgstr "Migrering feilet"
 
 #: packages.py:166
-#, fuzzy, python-format
+#, python-format, fuzzy
 msgid "An error was encountered while migrating filesystem on device %s."
 msgstr "Det oppsto en feil under endring av størrelse på enhet %s."
 
 #: packages.py:174
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "Formaterer"
+msgstr "Formatering feilet"
 
 #: packages.py:175
 #, fuzzy, python-format
@@ -1381,7 +1351,7 @@ msgstr ""
 
 #: rescue.py:444
 msgid "You don't have any Linux partitions.  Rebooting.\n"
-msgstr ""
+msgstr "Du har ingen Linux-partisjoner. Starter på nytt.\n"
 
 #: rescue.py:447
 msgid "Rescue Mode"
@@ -1712,12 +1682,11 @@ msgstr "%s KB"
 
 #: yuminstall.py:129
 msgid "Preparing to install"
-msgstr ""
+msgstr "Forbereder installasjon"
 
 #: yuminstall.py:130
-#, fuzzy
 msgid "Preparing transaction from installation source"
-msgstr "Forbereder transaksjon fra installasjonskilden..."
+msgstr "Forbereder transaksjon fra installasjonskilden"
 
 #: yuminstall.py:158
 #, python-format
@@ -1725,9 +1694,8 @@ msgid "<b>Installing %s</b> (%s)\n"
 msgstr "<b>Installerer %s</b> (%s)\n"
 
 #: yuminstall.py:218
-#, fuzzy
 msgid "Finishing upgrade"
-msgstr "Fullfører oppgraderingen..."
+msgstr "Fullfører oppgraderingen"
 
 #: yuminstall.py:219
 #, fuzzy
@@ -1810,9 +1778,8 @@ msgid "Retrying"
 msgstr "Prøver på nytt"
 
 #: yuminstall.py:735
-#, fuzzy
 msgid "Retrying download."
-msgstr "Prøver nedlasting på nytt..."
+msgstr "Prøver nedlasting på nytt."
 
 #: yuminstall.py:801
 #, python-format
@@ -1897,14 +1864,13 @@ msgstr ""
 "genereringen av ditt installasjonstre."
 
 #: yuminstall.py:1118
-#, fuzzy
 msgid "Retrieving installation information."
-msgstr "Henter informasjon om installasjonen..."
+msgstr "Henter informasjon om installasjonen."
 
 #: yuminstall.py:1120
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s."
-msgstr "Henter installasjonsinformasjon for %s..."
+msgstr "Henter installasjonsinformasjon for %s."
 
 #: yuminstall.py:1122
 msgid "Installation Progress"
@@ -1980,9 +1946,8 @@ msgid "Performing post-upgrade configuration"
 msgstr "Utfører konfigurasjon etter oppgradering..."
 
 #: yuminstall.py:1576
-#, fuzzy
 msgid "Post Installation"
-msgstr "Etter-installasjon"
+msgstr "Etter installasjon"
 
 #: yuminstall.py:1577
 #, fuzzy
@@ -1990,14 +1955,12 @@ msgid "Performing post-installation configuration"
 msgstr "Utfører konfigurasjon etter installering..."
 
 #: yuminstall.py:1803
-#, fuzzy
 msgid "Installation Starting"
 msgstr "Starter installasjon"
 
 #: yuminstall.py:1804
-#, fuzzy
 msgid "Starting installation process"
-msgstr "Fremdrift for installasjonen"
+msgstr "Starter installasjonsprosess"
 
 #: yuminstall.py:1842
 msgid "Dependency Check"
@@ -2033,7 +1996,6 @@ msgid "Software Development"
 msgstr "Programvareutvikling"
 
 #: installclasses/fedora.py:51
-#, fuzzy
 msgid "Web Server"
 msgstr "Webtjener"
 
@@ -2144,12 +2106,11 @@ msgstr "Svakt passord"
 #: iw/account_gui.py:133
 #, python-format
 msgid "You have provided a weak password: %s"
-msgstr ""
+msgstr "Du har oppgitt et svakt passord: %s"
 
 #: iw/account_gui.py:135
-#, fuzzy
 msgid "Use Anyway"
-msgstr "Brukernavn"
+msgstr "Bruk likevel"
 
 #: iw/account_gui.py:143 textw/userauth_text.py:75
 msgid ""
@@ -2197,26 +2158,23 @@ msgstr "Feil med data"
 
 #: iw/autopart_type.py:469 iw/autopart_type.py:470
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Søker etter disker på nytt"
 
 #: iw/autopart_type.py:524 textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "_Overse stasjon"
+msgstr "Bruk hele stasjonen"
 
 #: iw/autopart_type.py:525 textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Erstatt eksisterende Linux-system"
 
 #: iw/autopart_type.py:526
-#, fuzzy
 msgid "Shrink current system"
-msgstr "Krypt_er systemet"
+msgstr "Krymp eksisterende system"
 
 #: iw/autopart_type.py:527 textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Ingen ledig plass"
+msgstr "Bruk ledig plass"
 
 #: iw/autopart_type.py:528
 msgid "Create custom layout"
@@ -2308,7 +2266,7 @@ msgstr ""
 
 #: iw/congrats_gui.py:77 textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Slå av"
 
 #: iw/congrats_gui.py:79 textw/complete_text.py:44
 #, fuzzy
@@ -2734,14 +2692,13 @@ msgid "Error Configuring Network"
 msgstr "Feil under konfigurasjon av nettverksenhet"
 
 #: iw/netconfig_dialog.py:240
-#, fuzzy
 msgid "Dynamic IP Address"
-msgstr "Dynamisk IP"
+msgstr "Dynamisk IP-adresse"
 
 #: iw/netconfig_dialog.py:241
-#, fuzzy, python-format
+#, python-format
 msgid "Sending request for IP address information for %s"
-msgstr "Sender forespørsel om IP-informasjon for %s..."
+msgstr "Sender forespørsel om IP-adresseinformasjon for %s"
 
 #: iw/netconfig_dialog.py:256 iw/netconfig_dialog.py:259
 #: textw/netconfig_text.py:215 textw/netconfig_text.py:218
@@ -2772,13 +2729,12 @@ msgid "Error configuring network device:"
 msgstr "Feil under konfigurasjon av nettverksenhet:"
 
 #: iw/network_gui.py:66 iw/network_gui.py:72
-#, fuzzy
 msgid "Error with Hostname"
-msgstr "Feil med data"
+msgstr "Feil med vertsnavn"
 
 #: iw/network_gui.py:67
 msgid "You must enter a valid hostname for this computer."
-msgstr ""
+msgstr "Du må oppgi et gyldig vertsnavn for denne datamaskinen."
 
 #: iw/network_gui.py:73
 #, python-format
@@ -3633,9 +3589,8 @@ msgid ""
 msgstr ""
 
 #: iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Avslutt installering"
+msgstr "A_vslutt installering"
 
 #: iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -3748,9 +3703,9 @@ msgid "Scanning"
 msgstr "Søker"
 
 #: loader/cdinstall.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation images on CD device %s\n"
-msgstr "Ser etter installasjonsbilder på CD-enhet %s"
+msgstr "Ser etter installasjonsbilder på CD-enhet %s\n"
 
 #: loader/cdinstall.c:341
 #, c-format
@@ -3795,9 +3750,8 @@ msgid "Loading"
 msgstr "Laster"
 
 #: loader/driverdisk.c:139
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Leser driverdisk..."
+msgstr "Leser driverdisk"
 
 #: loader/driverdisk.c:238 loader/driverdisk.c:270
 msgid "Driver Disk Source"
@@ -4119,9 +4073,8 @@ msgid "Updates"
 msgstr "Oppdateringer"
 
 #: loader/loader.c:526
-#, fuzzy
 msgid "Reading anaconda updates"
-msgstr "Leser anaconda-oppdateringer..."
+msgstr "Leser anaconda-oppdateringer"
 
 #: loader/loader.c:562
 msgid ""
@@ -4145,9 +4098,8 @@ msgid "Media Detected"
 msgstr "Medie funnet"
 
 #: loader/loader.c:1258
-#, fuzzy
 msgid "Found local installation media"
-msgstr "Lokalt installasjonsmedie funnet..."
+msgstr "Lokalt installasjonsmedie funnet"
 
 #: loader/loader.c:1374
 msgid "Rescue Method"
@@ -4214,15 +4166,14 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "laster er allerede kjørt. Starter skall.\n"
 
 #: loader/loader.c:2230
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
-msgstr "Kjører anaconda %s, feilrettingsmodus for %s - vennligst vent...\n"
+msgstr "Kjører anaconda %s, feilrettingsmodus for %s - vennligst vent.\n"
 
 #: loader/loader.c:2232
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr ""
-"Kjører anaconda %s, installeringsprogrammet for %s - vennligst vent...\n"
+msgstr "Kjører anaconda %s, installeringsprogrammet for %s - vennligst vent.\n"
 
 #: loader/mediacheck.c:46
 #, c-format
@@ -4230,14 +4181,14 @@ msgid "Unable to find install image %s"
 msgstr "Fant ikke installasjonsbilde %s"
 
 #: loader/mediacheck.c:52
-#, fuzzy, c-format
+#, c-format
 msgid "Checking \"%s\"."
-msgstr "Kontrollerer \"%s\"..."
+msgstr "Kontrollerer «%s»."
 
 #: loader/mediacheck.c:54
-#, fuzzy, c-format
+#, c-format
 msgid "Checking media."
-msgstr "Sjekker medium nå..."
+msgstr "Sjekker media."
 
 #: loader/mediacheck.c:86
 msgid ""
@@ -4443,14 +4394,14 @@ msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Du må oppgi antall sekunder som et heltall mellom 1 og 30."
 
 #: loader/net.c:1903
-#, fuzzy, c-format
+#, c-format
 msgid "Flashing %s port lights for %d seconds."
-msgstr "Blinker med lysene for port %s i %d sekunder..."
+msgstr "Blinker med lysene for port %s i %d sekunder."
 
 #: loader/net.c:2071 loader/net.c:2075
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
-msgstr "Venter på av NetworkManager skal konfigurere %s...\n"
+msgstr "Venter på at NetworkManager skal konfigurere %s.\n"
 
 #: loader/nfsinstall.c:68
 msgid "NFS server name:"
@@ -4462,9 +4413,9 @@ msgid "%s directory:"
 msgstr "Katalog for %s:"
 
 #: loader/nfsinstall.c:83
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr "Vennligst oppgi navn på tjener og sti til dine %s-bilder."
+msgstr "Vennligst oppgi navn på tjener og sti til ditt %s-installasjonsbilde."
 
 #: loader/nfsinstall.c:90
 msgid "NFS Setup"
@@ -4489,14 +4440,12 @@ msgid "Telnet"
 msgstr "Telnet"
 
 #: loader/telnetd.c:89
-#, fuzzy
 msgid "Waiting for telnet connection."
-msgstr "Venter på telnet-forbindelse..."
+msgstr "Venter på telnet-forbindelse."
 
 #: loader/telnetd.c:128
-#, fuzzy
 msgid "Running anaconda via telnet."
-msgstr "Kjører anaconda via telnet..."
+msgstr "Kjører anaconda via telnet."
 
 #: loader/urlinstall.c:84
 #, c-format
@@ -4557,14 +4506,13 @@ msgid "Loading SCSI driver"
 msgstr "Laster SCSI-driver"
 
 #: loader/windows.c:66
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver"
-msgstr "Laster driver %s..."
+msgstr "Laster driver %s"
 
 #: storage/__init__.py:85
-#, fuzzy
 msgid "Unknown Device"
-msgstr "Ukjent Ethernet-enhet"
+msgstr "Ukjent enhet"
 
 #: storage/__init__.py:86
 #, fuzzy, python-format
@@ -4624,14 +4572,12 @@ msgid "_Write changes to disk"
 msgstr "S_kriver endringer til disk"
 
 #: storage/__init__.py:272
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Mangler enhet"
+msgstr "Finner enheter"
 
 #: storage/__init__.py:273
-#, fuzzy
 msgid "Finding storage devices"
-msgstr "Fullfører oppgraderingen..."
+msgstr "Finner lagringsenheter"
 
 #: storage/__init__.py:511
 msgid "This partition is holding the data for the hard drive install."
@@ -4642,24 +4588,22 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Du kan ikke slette en partisjon fra en LDL-formatert DASD."
 
 #: storage/__init__.py:522
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Denne partisjonen er en del av RAID-enhet /dev/md%s."
+msgstr "Denne enheten er en del av RAID-enhet %s."
 
 #: storage/__init__.py:525
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Denne partisjonen er en del av en RAID-enhet."
+msgstr "Denne enheten er en del av en RAID-enhet."
 
 #: storage/__init__.py:530
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Denne partisjonen er en del av LVM-volumgruppe «%s»."
+msgstr "Denne enheten er en del av LVM-volumgruppe «%s»."
 
 #: storage/__init__.py:533
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "Denne partisjonen er en del av en LVM-volumgruppe."
+msgstr "Denne enheten er en del av en LVM-volumgruppe."
 
 #: storage/__init__.py:549
 msgid ""
@@ -4974,19 +4918,16 @@ msgid ""
 msgstr ""
 
 #: storage/devicetree.py:174
-#, fuzzy
 msgid "_Ignore"
-msgstr "Overse"
+msgstr "_Ignorer"
 
 #: storage/devicetree.py:175
-#, fuzzy
 msgid "_Re-initialize"
-msgstr "_Re-initialiser enheten"
+msgstr "_Re-initier"
 
 #: storage/devicetree.py:1634 storage/devicetree.py:1683
-#, fuzzy
 msgid "This partition is part of an inconsistent LVM Volume Group."
-msgstr "Denne partisjonen er en del av en LVM-volumgruppe."
+msgstr "Denne partisjonen er en del av en inkonsistent LVM-volumgruppe."
 
 #: storage/formats/fs.py:66
 msgid "attr dict must include a type"
@@ -5001,32 +4942,31 @@ msgid "Formatting"
 msgstr "Formaterer"
 
 #: storage/formats/fs.py:344
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s"
-msgstr "Sjekker filsystem på %s..."
+msgstr "Lager filsystem på %s"
 
 #: storage/formats/fs.py:440
 msgid "Resizing"
 msgstr "Endrer størrelse"
 
 #: storage/formats/fs.py:441
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s"
-msgstr "Endrer størrelse for filsystem på %s..."
+msgstr "Endrer størrelse for filsystem på %s"
 
 #: storage/formats/fs.py:484
 msgid "Checking"
 msgstr "Sjekker"
 
 #: storage/formats/fs.py:485
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s"
-msgstr "Sjekker filsystem på %s..."
+msgstr "Sjekker filsystem på %s"
 
 #: storage/iscsi.py:82 storage/iscsi.py:83
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "Laster SCSI-driver"
+msgstr "Søker gjennom iSCSI-noder"
 
 #: storage/iscsi.py:160 storage/iscsi.py:161
 msgid "Initializing iSCSI initiator"
@@ -5034,7 +4974,7 @@ msgstr "Initierer iSCSI-initiator"
 
 #: storage/iscsi.py:197
 msgid "iSCSI not available"
-msgstr ""
+msgstr "iSCSI er ikke tilgjengelig"
 
 #: storage/iscsi.py:199
 #, fuzzy
@@ -5208,14 +5148,12 @@ msgid "IPv4 Network Mask "
 msgstr "IPv4-nettmaske "
 
 #: textw/netconfig_text.py:266
-#, fuzzy
 msgid "Configuring Network Interfaces"
-msgstr "Konfigurer nettverksgrensesnitt"
+msgstr "Konfigurerer nettverksgrensesnitt"
 
 #: textw/netconfig_text.py:266
-#, fuzzy
 msgid "Waiting for NetworkManager"
-msgstr "Venter på av NetworkManager skal konfigurere %s...\n"
+msgstr "Venter på NetworkManager"
 
 #: textw/netconfig_text.py:272
 msgid "Error configuring network device"
@@ -5273,9 +5211,8 @@ msgstr ""
 "Number (WWPN) og et 64-bit FCP-LUN for hver enhet."
 
 #: textw/partition_text.py:223
-#, fuzzy
 msgid "Add FCoE SAN"
-msgstr "Legg til _ZFCP-LUN"
+msgstr "Legg til FCoE SAN"
 
 #: textw/partition_text.py:224
 msgid ""
@@ -5289,9 +5226,9 @@ msgid "NIC device name"
 msgstr "Ingen drivere funnet"
 
 #: textw/partition_text.py:232
-#, fuzzy, python-format
+#, python-format
 msgid "%s is not a valid NIC device name."
-msgstr "%s er ikke et gyldig vertsnavn."
+msgstr "%s er ikke et gyldig enhetsnavn for NIC."
 
 #: textw/partition_text.py:248 ui/iscsi-config.glade:7
 msgid "Configure iSCSI Parameters"
@@ -5314,14 +5251,12 @@ msgid "iSCSI Initiator Name"
 msgstr "Navn på iSCSI-initiator"
 
 #: textw/partition_text.py:252
-#, fuzzy
 msgid "CHAP username"
-msgstr "Brukernavn for _proxy"
+msgstr "CHAP-brukernavn"
 
 #: textw/partition_text.py:253
-#, fuzzy
 msgid "CHAP password"
-msgstr "Passord"
+msgstr "CHAP-passord"
 
 #: textw/partition_text.py:254
 msgid "Reverse CHAP username"
@@ -5538,9 +5473,8 @@ msgid "Add _ZFCP LUN"
 msgstr "Legg til _ZFCP-LUN"
 
 #: ui/adddrive.glade:207
-#, fuzzy
 msgid "Add _FCoE SAN"
-msgstr "Legg til _ZFCP-LUN"
+msgstr "Legg til _FCoE SAN"
 
 #: ui/adddrive.glade:228
 msgid "Disable _dmraid device"
@@ -5585,9 +5519,8 @@ msgid "Configure _proxy"
 msgstr "Konfigurer _proxy"
 
 #: ui/addrepo.glade:344
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Vert (vert:port)"
+msgstr "Proxy U_RL (vert:port)"
 
 #: ui/addrepo.glade:373
 msgid "Proxy u_sername"
@@ -5747,14 +5680,12 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Navn på iSCSI-initiator:</b>"
 
 #: ui/iscsi-config.glade:278
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>Br_ukernavn:</b>"
+msgstr "<b>CHAP br_ukernavn:</b>"
 
 #: ui/iscsi-config.glade:330
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>_Passord:</b>"
+msgstr "<b>CHAP _passord:</b>"
 
 #: ui/iscsi-config.glade:382
 #, fuzzy
@@ -5837,9 +5768,8 @@ msgid ""
 msgstr ""
 
 #: ui/network.glade:134
-#, fuzzy
 msgid "Hostname:"
-msgstr "Vertsnavn"
+msgstr "Vertsnavn:"
 
 #: ui/tasksel.glade:35
 msgid ""
@@ -5896,482 +5826,3 @@ msgstr "<b>WWPN:</b>"
 #: ui/zfcp-config.glade:212
 msgid "<b>FCP LUN:</b>"
 msgstr "<b>FCP-LUN</b>"
-
-#, fuzzy
-#~ msgid "Fatal Error"
-#~ msgstr "Feil"
-
-#, fuzzy
-#~ msgid ""
-#~ "You do not have enough RAM to install %s on this machine.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr "Du har ikke nok RAM til å installere %s på denne maskinen."
-
-#~ msgid "Unable To File Bug"
-#~ msgstr "Kan ikke rapportere feil"
-
-#~ msgid "Bug Filing Not Supported"
-#~ msgstr "Feilrapportering ikke støttet"
-
-#~ msgid "Invalid Bug Information"
-#~ msgstr "Ugyldig informasjon om feil"
-
-#~ msgid ""
-#~ "Please provide a valid username, password, and short bug description."
-#~ msgstr ""
-#~ "Vennligst oppgi et gyldig brukernavn, passord og en kort feilbeskrivelse."
-
-#~ msgid "Unable To Login"
-#~ msgstr "Kan ikke logge inn"
-
-#~ msgid "Bug Created"
-#~ msgstr "Feilrapport opprettet"
-
-#~ msgid "Bug Updated"
-#~ msgstr "Feilrapport oppdatert"
-
-#~ msgid "Dump Written"
-#~ msgstr "Dump skrevet"
-
-#~ msgid ""
-#~ "Your system's state has been successfully written to the disk. The "
-#~ "installer will now exit."
-#~ msgstr ""
-#~ "Systemets tilstand ble skrevet til disk. Installasjonsprogrammet vil nå "
-#~ "avslutte."
-
-#~ msgid "Dump Not Written"
-#~ msgstr "Dump ikke skrevet"
-
-#~ msgid ""
-#~ "Your system's state has been successfully written to the remote host.  "
-#~ "The installer will now exit."
-#~ msgstr ""
-#~ "Systemets tilstand ble skrevet til ekstern vert. Installasjonen vil nå "
-#~ "avslutte."
-
-#~ msgid "There was a problem writing the system state to the remote host."
-#~ msgstr ""
-#~ "Det oppsto et problem med skriving av tilstand for systemet til ekstern "
-#~ "vert."
-
-#~ msgid "Bugzilla (%s)"
-#~ msgstr "Bugzilla (%s)"
-
-#~ msgid "Debug"
-#~ msgstr "Debug"
-
-#~ msgid "Exception Occurred"
-#~ msgstr "Uventet hendelse oppstod"
-
-#~ msgid "Running..."
-#~ msgstr "Kjører..."
-
-#~ msgid "Doing post-installation"
-#~ msgstr "Sluttfører installering"
-
-#~ msgid "None"
-#~ msgstr "Ingen"
-
-#~ msgid ""
-#~ "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-#~ "DASDs are not supported for usage during an install of %s.  If you wish "
-#~ "to use this disk for installation, it must be re-initialized causing the "
-#~ "loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to reformat this DASD using CDL format?"
-#~ msgstr ""
-#~ "Enheten %s er LDL-formatert i stedet for CDL-formatert. LDL-formaterte "
-#~ "DASDer er ikke støttet under installasjon av %s. Hvis du ønsker å bruke "
-#~ "denne disken under installasjonen må den initieres på nytt. Dette "
-#~ "medfører tap av ALLE DATA på denne disken.\n"
-#~ "\n"
-#~ "Vil du reformattere denne DASDen med CDL-format?"
-
-#~ msgid ""
-#~ "/dev/%s currently has a %s partition layout.  To use this drive for the "
-#~ "installation of %s, it must be re-initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to re-initialize this drive?"
-#~ msgstr ""
-#~ "/dev/%s har nå partisjonsutforming %s. For å bruke denne enheten med en "
-#~ "installasjon av %s må den re-initieres. Dette medfører tap av ALLE DATA "
-#~ "på denne denheten.\n"
-#~ "\n"
-#~ "Ønsker du å re-initiere denne enheten?"
-
-#~ msgid "Initializing"
-#~ msgstr "Initierer"
-
-#~ msgid "Please wait while formatting drive %s...\n"
-#~ msgstr "Vennligst vent mens stasjon %s formateres...\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-#~ "\n"
-#~ "To create new partitions it must be initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "Partisjonstabellen på enhet %s (%s) kunne ikke leses. For å opprette nye "
-#~ "partisjoner må denne initieres. Dette medfører tap av ALLE DATA på denne "
-#~ "disken.\n"
-#~ "\n"
-#~ "Denne operasjonen vil ignorere ethvert tidligere valg om disker som skal "
-#~ "overses.\n"
-#~ "\n"
-#~ "Ønsker du å initiere denne stasjonen og slette ALLE DATA?"
-
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem "
-#~ "in the Linux kernel does not allow for more than 15 partitons at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "Enheten /dev/%s har flere enn 15 partisjoner. SCSI-subsystemet i Linux-"
-#~ "kjernen tillater ikke flere enn 15 partisjoner for øyeblikket. Du vil "
-#~ "ikke ha mulighet til å gjøre endringer i partisjoneringen av denne "
-#~ "enheten eller bruker noen partisjoner etter /dev/%s15 på %s."
-
-#~ msgid "Save"
-#~ msgstr "Lagre"
-
-#~ msgid "Save to local disk"
-#~ msgstr "Lagre til lokal disk"
-
-#~ msgid "Send to bugzilla (%s)"
-#~ msgstr "Send til bugzilla (%s)"
-
-#~ msgid "Send to remote server (scp)"
-#~ msgstr "Send til ekstern tjener (scp)"
-
-#~ msgid "Password"
-#~ msgstr "Passord"
-
-#~ msgid "Bug Description"
-#~ msgstr "Beskrivelse av feil"
-
-#~ msgid "Host (host:port)"
-#~ msgstr "Vert (vert:port)"
-
-#~ msgid "Destination file"
-#~ msgstr "Målfil"
-
-#~ msgid "The passphrase must be at least %d characters long."
-#~ msgstr "Passordet må være minst %d tegn langt."
-
-#~ msgid ""
-#~ "You have choosen the upgrade for %s architecture, but the installed "
-#~ "system is for %s architecture. \n"
-#~ "\n"
-#~ msgstr ""
-#~ "Du har valgt oppgradering for arkitekturen %s, men installert system er "
-#~ "for arkitektur %s.\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Would you like to upgrade  the installed system to the %s architecture?"
-#~ msgstr "Vil du oppgradere installert system til %s-arkitektur?"
-
-#~ msgid "Giving up attempting to connect after %d tries!\n"
-#~ msgstr "Gir opp forsøk på å koble til etter %d forsøk!\n"
-
-#~ msgid "%s Byte"
-#~ msgstr "%s byte"
-
-#~ msgid "%s Bytes"
-#~ msgstr "%s bytes"
-
-#~ msgid "Processing"
-#~ msgstr "Arbeider"
-
-#~ msgid "%s of %s packages completed"
-#~ msgstr "%s av %s pakker er fullført"
-
-#~ msgid "Starting install process.  This may take several minutes..."
-#~ msgstr "Starter installasjon. Dette kan ta flere minutter..."
-
-#~ msgid "You cannot create more than %s logical volumes per volume group."
-#~ msgstr "Du kan ikke lage mer enn %s logiske volumer per volumgruppe."
-
-#~ msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-#~ msgstr "Stasjon %s (Geom: %s/%s/%s) (Modell: %s)"
-
-#~ msgid ""
-#~ "To install the full set of supported packages included in your "
-#~ "subscription, please enter your Installation Number"
-#~ msgstr ""
-#~ "For å installere hele settet av pakker som støttes og som er inkludert i "
-#~ "dittabonnement, vennligst angi ditt Installasjonsnummer."
-
-#~ msgid ""
-#~ "If you're unable to locate the Installation Number, consult http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "If you skip:\n"
-#~ "* You may not get access to the full set of packages included in your "
-#~ "subscription.\n"
-#~ "* It may result in an unsupported/uncertified installation of Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* You will not get software and security updates for packages not "
-#~ "included in your subscription."
-#~ msgstr ""
-#~ "Om du ikke kan finne Installasjonsnummeret, http://www.redhat.com/apps/"
-#~ "support/in.html.\n"
-#~ "\n"
-#~ "Om du hopper over dette:\n"
-#~ "* Du får kanskje ikke tilgang til hele settet av pakker som inngår i ditt "
-#~ "abonnement.\n"
-#~ "* Det kan resultere i en usupportert/usertifisert installasjon av Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* Du vil ikke få program- og sikkerhetsoppdateringer for pakker som ikke "
-#~ "inngår i ditt abonnement."
-
-#, fuzzy
-#~ msgid "boot flag not available for this partition"
-#~ msgstr ""
-#~ "Du kan ikke slette denne partisjonen:\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid "_Ignore drive(s)"
-#~ msgstr "_Overse stasjon"
-
-#, fuzzy
-#~ msgid "_Re-initialize drive(s)"
-#~ msgstr "_Re-initialiser enheten"
-
-#~ msgid "Your system will now be rebooted."
-#~ msgstr "Systemet vil nå startes på nytt."
-
-#~ msgid "Bug _description"
-#~ msgstr "_Beskrivelse av feil"
-
-#~ msgid "Destination _file"
-#~ msgstr "Mål_fil"
-
-#, fuzzy
-#~ msgid ""
-#~ "Local storage device\n"
-#~ "Local disk\n"
-#~ "Remote server (scp)"
-#~ msgstr ""
-#~ "Lokal disk\n"
-#~ "Ekstern tjener (scp)"
-
-#~ msgid "Please choose a destination for saving your traceback."
-#~ msgstr "Vennligst velg et mål for lagring av feilsøkingsinformasjonen."
-
-#~ msgid "Select A File"
-#~ msgstr "Velg en fil"
-
-#~ msgid "_Host (host:port)"
-#~ msgstr "_Vert (vert:port)"
-
-#~ msgid "_Password"
-#~ msgstr "_Passord"
-
-#~ msgid "_User name"
-#~ msgstr "Br_ukernavn"
-
-#~ msgid "Install"
-#~ msgstr "Installer"
-
-#~ msgid "Install the live CD to your hard disk"
-#~ msgstr "Installer live-CDen til harddisken din."
-
-#~ msgid "Install to Hard Drive"
-#~ msgstr "Installer til harddisk"
-
-#~ msgid "Afrikaans"
-#~ msgstr "Afrikaans"
-
-#~ msgid "Arabic"
-#~ msgstr "Arabisk"
-
-#~ msgid "Assamese"
-#~ msgstr "Assamesisk"
-
-#~ msgid "Bengali"
-#~ msgstr "Bengali"
-
-#~ msgid "Bengali(India)"
-#~ msgstr "Bengali (India)"
-
-#~ msgid "Bulgarian"
-#~ msgstr "Bulgarsk"
-
-#~ msgid "Catalan"
-#~ msgstr "Katalansk"
-
-#~ msgid "Chinese(Simplified)"
-#~ msgstr "Kinesisk(forenklet)"
-
-#~ msgid "Chinese(Traditional)"
-#~ msgstr "Kinesisk(tradisjonell)"
-
-#~ msgid "Croatian"
-#~ msgstr "Kroatisk"
-
-#~ msgid "Czech"
-#~ msgstr "Tsjekkisk"
-
-#~ msgid "Danish"
-#~ msgstr "Dansk"
-
-#~ msgid "Dutch"
-#~ msgstr "Nederlandsk"
-
-#~ msgid "English"
-#~ msgstr "Engelsk"
-
-#~ msgid "Estonian"
-#~ msgstr "Estisk"
-
-#~ msgid "Finnish"
-#~ msgstr "Finsk"
-
-#~ msgid "French"
-#~ msgstr "Fransk"
-
-#~ msgid "German"
-#~ msgstr "Tysk"
-
-#~ msgid "Greek"
-#~ msgstr "Gresk"
-
-#~ msgid "Gujarati"
-#~ msgstr "Gujarati"
-
-#~ msgid "Hebrew"
-#~ msgstr "Hebraisk"
-
-#~ msgid "Hindi"
-#~ msgstr "Hindi"
-
-#~ msgid "Hungarian"
-#~ msgstr "Ungarsk"
-
-#~ msgid "Icelandic"
-#~ msgstr "Islandsk"
-
-#~ msgid "Iloko"
-#~ msgstr "Iloko"
-
-#~ msgid "Indonesian"
-#~ msgstr "Indonesisk"
-
-#~ msgid "Italian"
-#~ msgstr "Italiensk"
-
-#~ msgid "Japanese"
-#~ msgstr "Japansk"
-
-#~ msgid "Kannada"
-#~ msgstr "Kannada"
-
-#~ msgid "Korean"
-#~ msgstr "Koreansk"
-
-#~ msgid "Macedonian"
-#~ msgstr "Makedonsk"
-
-#, fuzzy
-#~ msgid "Maithili"
-#~ msgstr "Marathi"
-
-#~ msgid "Malay"
-#~ msgstr "Malay"
-
-#~ msgid "Malayalam"
-#~ msgstr "Malayalam"
-
-#~ msgid "Marathi"
-#~ msgstr "Marathi"
-
-#, fuzzy
-#~ msgid "Nepali"
-#~ msgstr "Bengali"
-
-#~ msgid "Norwegian(Bokmål)"
-#~ msgstr "Norsk bokmål"
-
-#~ msgid "Northern Sotho"
-#~ msgstr "Nordre Sotho"
-
-#~ msgid "Oriya"
-#~ msgstr "Oriya"
-
-#~ msgid "Persian"
-#~ msgstr "Persisk"
-
-#~ msgid "Polish"
-#~ msgstr "Polsk"
-
-#~ msgid "Portuguese"
-#~ msgstr "Portugisisk"
-
-#~ msgid "Portuguese(Brazilian)"
-#~ msgstr "Portugisisk (Brasiliensk)"
-
-#~ msgid "Punjabi"
-#~ msgstr "Punjabi"
-
-#~ msgid "Romanian"
-#~ msgstr "Rumensk"
-
-#~ msgid "Russian"
-#~ msgstr "Russisk"
-
-#~ msgid "Serbian"
-#~ msgstr "Serbisk"
-
-#~ msgid "Serbian(Latin)"
-#~ msgstr "Serbisk (Latin)"
-
-#~ msgid "Sinhala"
-#~ msgstr "Sinhala"
-
-#~ msgid "Slovak"
-#~ msgstr "Slovakisk"
-
-#~ msgid "Slovenian"
-#~ msgstr "Slovensk"
-
-#~ msgid "Spanish"
-#~ msgstr "Spansk"
-
-#~ msgid "Swedish"
-#~ msgstr "Svensk"
-
-#, fuzzy
-#~ msgid "Tajik"
-#~ msgstr "Tamil"
-
-#~ msgid "Tamil"
-#~ msgstr "Tamil"
-
-#~ msgid "Telugu"
-#~ msgstr "Telugu"
-
-#~ msgid "Turkish"
-#~ msgstr "Tyrkisk"
-
-#~ msgid "Ukrainian"
-#~ msgstr "Ukrainsk"
-
-#~ msgid "Vietnamese"
-#~ msgstr "Vietnamesisk"
-
-#~ msgid "Welsh"
-#~ msgstr "Walisisk"
-
-#~ msgid "Zulu"
-#~ msgstr "Zulu"
