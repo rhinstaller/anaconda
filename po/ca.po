@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-05 10:18-0400\n"
-"PO-Revision-Date: 2009-08-03 10:40+0200\n"
+"PO-Revision-Date: 2009-08-08 10:40+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -74,9 +74,8 @@ msgstr ""
 "gràfica. S'iniciarà en mode text."
 
 #: anaconda:459
-#, fuzzy
 msgid "Starting graphical installation."
-msgstr "S'esta iniciant la instal·lació gràfica..."
+msgstr "S'esta iniciant la instal·lació gràfica."
 
 #: anaconda:775
 msgid "Would you like to use VNC?"
@@ -97,15 +96,13 @@ msgid "Install class forcing text mode installation"
 msgstr "Degut al tipus d'instal.lació, es força el mode text"
 
 #: anaconda:821
-#, fuzzy
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
-"La instal·lació gràfica no està disponible. S'està iniciant en mode text."
+"La instal·lació gràfica no està disponible. S'està iniciant el mode text."
 
 #: anaconda:829
-#, fuzzy
 msgid "DISPLAY variable not set. Starting text mode."
-msgstr "No s'ha establert la variable DISPLAY, s'iniciarà el mode text."
+msgstr "No s'ha establert la variable DISPLAY. S'iniciarà el mode text."
 
 #: anaconda:997
 msgid "reipl configuration successful => reboot"
@@ -130,18 +127,16 @@ msgid "Copying File"
 msgstr "S'està copiant el fitxer"
 
 #: backend.py:168
-#, fuzzy
 msgid "Transferring install image to hard drive"
-msgstr "S'està transferint la imatge d'instal·lació al disc dur..."
+msgstr "S'està transferint la imatge d'instal·lació al disc dur"
 
 #: backend.py:178
-#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
 msgstr ""
 "S'ha produït un error en transferir la imatge d'instal·lació al disc dur. És "
-"possible que el disc estigui malmès."
+"possible que el disc estigui malmès o tingui mala qualitat."
 
 #: backend.py:182
 msgid ""
@@ -188,7 +183,6 @@ msgid "Warning"
 msgstr "Avís"
 
 #: bootloader.py:54
-#, fuzzy
 msgid ""
 "Filesystems have already been activated.  You cannot go back past this "
 "point.\n"
@@ -226,9 +220,8 @@ msgid "Bootloader"
 msgstr "Carregador de l'arrencada"
 
 #: bootloader.py:143
-#, fuzzy
 msgid "Installing bootloader."
-msgstr "S'està instal·lant el carregador de l'arrencada..."
+msgstr "S'està instal·lant el carregador de l'arrencada."
 
 #: bootloader.py:210
 msgid ""
@@ -237,7 +230,6 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:217
-#, fuzzy
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
@@ -250,19 +242,18 @@ msgid "Completed"
 msgstr "Completat"
 
 #: cmdline.py:63
-#, fuzzy
 msgid "In progress"
-msgstr "En progrés...   "
+msgstr "En progrés"
 
 #: cmdline.py:86 gui.py:1135 text.py:391
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
 "file:\n"
 "\n"
 "%s"
 msgstr ""
-"S'ha trobat el següent error en analitzar la configuració del kickstart:\n"
+"S'ha trobat el següent error en analitzar el fitxer de configuració del kickstart:\n"
 "\n"
 "%s"
 
@@ -271,6 +262,8 @@ msgid ""
 "Command line mode requires all choices to be specified in a kickstart "
 "configuration file."
 msgstr ""
+"El mode de línia d'ordres requereix que s'especifiquin totes les opcions "
+"en el fitxer de configuració del kikcstart."
 
 #: cmdline.py:114 cmdline.py:121
 msgid "Can't have a question in command line mode!"
@@ -294,16 +287,14 @@ msgid " against anaconda at %s"
 msgstr " a anaconda a %s"
 
 #: gui.py:106
-#, fuzzy
 msgid "An error occurred saving screenshots to disk."
-msgstr "S'ha produït un error en copiar la captura de pantalla."
+msgstr "S'ha produït un error en desar les captures de pantalla al disc."
 
 #: gui.py:117
 msgid "Screenshots Copied"
 msgstr "S'han copiat les captures de pantalla"
 
 #: gui.py:118
-#, fuzzy
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -311,7 +302,7 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
-"S'ha desat la captura de pantalla en el directori:\n"
+"S'han desat les captures de pantalla en el directori:\n"
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
@@ -344,7 +335,6 @@ msgid "Installation Key"
 msgstr "Clau de la instal·lació"
 
 #: gui.py:631 text.py:148
-#, fuzzy
 msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
@@ -419,12 +409,10 @@ msgid "_Retry"
 msgstr "_Reintenta"
 
 #: gui.py:1267
-#, fuzzy
 msgid "The installer will now exit."
-msgstr "L'instal·lador sortirà..."
+msgstr "L'instal·lador sortirà."
 
 #: gui.py:1270 storage/partitioning.py:256
-#, fuzzy
 msgid "The system will now reboot."
 msgstr "El sistema arrencarà de nou."
 
@@ -441,7 +429,6 @@ msgid "Exit installer"
 msgstr "Surt de l'instal·lador"
 
 #: gui.py:1343
-#, fuzzy
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Esteu segur que voleu sortir de la instal·lació?"
 
