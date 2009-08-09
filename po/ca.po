@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-05 10:18-0400\n"
-"PO-Revision-Date: 2009-08-08 10:40+0200\n"
+"PO-Revision-Date: 2009-08-09 10:40+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -228,6 +228,8 @@ msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
 msgstr ""
+"S'ha produït un error en instal·lar el carregador d'arrencada. El sistema "
+"potser no arrencarà."
 
 #: bootloader.py:217
 msgid ""
@@ -620,7 +622,7 @@ msgstr "El punt de muntatge /boot o / està a un disc que no coneixem"
 
 # FIXME (josep)
 #: kickstart.py:96
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the kickstart script at line %s.  You may examine "
 "the output in %s.  This is a fatal error and installation will be aborted.  "
@@ -628,7 +630,7 @@ msgid ""
 msgstr ""
 "S'ha produït un error en executar l'script del kickstart a la línia %s. En "
 "podeu examinar la sortida a %s. Aquest és un error greu i s'interromprà la "
-"instal·lació. Premeu «D'acord» per a arrencar de nou el sistema."
+"instal·lació. Premeu «D'acord» per a sortir de l'instal·lador."
 
 # FIXME (josep)
 #: kickstart.py:111 kickstart.py:113
@@ -646,7 +648,7 @@ msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "S'ha produït un error desconegut en processar %%ksappend línies: %s"
 
 #: kickstart.py:1181
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing thekickstart configuration "
 "file:\n"
@@ -658,22 +660,18 @@ msgstr ""
 "%s"
 
 #: kickstart.py:1242 livecd.py:223
-#, fuzzy
 msgid "Post-Installation"
-msgstr "Instal·lació posterior"
+msgstr "Post-instal·lació"
 
 #: kickstart.py:1243
-#, fuzzy
 msgid "Running post-installation scripts"
 msgstr "S'estan executant les seqüències posteriors a la instal·lació"
 
 #: kickstart.py:1259
-#, fuzzy
 msgid "Pre-Installation"
-msgstr "Instal·lació de paquets"
+msgstr "Pre-instal·lació"
 
 #: kickstart.py:1260
-#, fuzzy
 msgid "Running pre-installation scripts"
 msgstr "S'estan executant les seqüències prèvies a la instal·lació"
 
@@ -682,12 +680,12 @@ msgid "Missing Package"
 msgstr "Paquet absent"
 
 #: kickstart.py:1293
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
-"Heu indicat que s'havia d'instal·lar el paquet '%s'. Aquest paquet no "
+"Heu indicat que s'ha d'instal·lar el paquet '%s', però aquest paquet no "
 "existeix. Voleu continuar o anul·lar la instal·lació?"
 
 #: kickstart.py:1299 kickstart.py:1338
@@ -703,16 +701,16 @@ msgid "Missing Group"
 msgstr "Grup absent"
 
 #: kickstart.py:1331
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
-"Heu indicat que s'havia d'instal·lar el grup '%s'. Aquest grup no existeix. "
+"Heu indicat que s'ha d'instal·lar el grup '%s', però aquest grup no existeix. "
 "Voleu continuar o preferiu anul·lar la instal·lació?"
 
 #: kickstart.py:1437
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
 "anaconda cannot prompt for.  Please add the following sections and try "
@@ -754,13 +752,12 @@ msgstr ""
 "que ho reinstal·leu."
 
 #: livecd.py:224
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
 msgstr ""
 "S'estan fent els canvis de la post-instal·lació al sistema de fitxers. Això "
-"pot trigar uns minuts..."
+"pot trigar uns minuts."
 
 #: livecd.py:397
 #, python-format
@@ -799,7 +796,7 @@ msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
 msgstr ""
-"Les adreces IP han de contenir nombres entre el 0 i el 255, separats per "
+"Les adreces IP han de contenir nombres entre 0 i 255, separats per "
 "punts."
 
 #: network.py:183
@@ -887,7 +884,7 @@ msgstr ""
 
 #: packages.py:188
 msgid "_File Bug"
-msgstr ""
+msgstr "_Envia un error"
 
 #: packages.py:350
 msgid "Invalid Key"
@@ -1200,7 +1197,6 @@ msgid "First sector of boot partition"
 msgstr "Primer sector de la partició d'arrencada"
 
 #: platform.py:112
-#, fuzzy
 msgid "You have not created a bootable partition."
 msgstr "No heu creat una partició d'arrencada."
 
@@ -1230,37 +1226,34 @@ msgid "EFI System Partition"
 msgstr "Partició del sistema EFI"
 
 #: platform.py:218
-#, fuzzy
 msgid "You have not created a /boot/efi partition."
-msgstr "No heu creat una partició d'arrencada."
+msgstr "No heu creat una partició d'arrencada /boot/efi."
 
 #: platform.py:224
-#, fuzzy
 msgid "/boot is not on an ext2 filesystem."
-msgstr "Les particions d'arrencada no poden estar en un sistema de fitxers %s."
+msgstr "/boot no és en un sistema de fitxers ext2."
 
 #: platform.py:227
 msgid "/boot/efi is not EFI."
-msgstr ""
+msgstr "/boot/efi no és EFI."
 
 #: platform.py:265
 #, python-format
 msgid "%s must have a bsd disk label."
-msgstr ""
+msgstr "%s ha de tenir una etiqueta de disk bsd."
 
 #: platform.py:277
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
-msgstr ""
+msgstr "El disc %s necessita almenys 1MB d'espai lliure al començament."
 
 #: platform.py:322
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
 #: platform.py:334
-#, fuzzy
 msgid "The boot partition must be within the first 4MB of the disk."
-msgstr "Hi ha hagut un problema quan s'escrivia l'estat del sistema al disc."
+msgstr "La partició d'arrencada ha d'estar als primers 4MB del disc."
 
 #: platform.py:379 platform.py:382
 msgid "Apple Bootstrap"
@@ -1269,7 +1262,7 @@ msgstr "Bootstrap d'Apple"
 #: platform.py:397
 #, python-format
 msgid "%s must have a mac disk label."
-msgstr ""
+msgstr "%s ha de tenir una etiqueta de disc de mac."
 
 #: rescue.py:199
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1278,7 +1271,7 @@ msgstr ""
 
 #: rescue.py:213
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr "No s'ha pogut executar /bin/sh! No s'iniciarà la línia d'ordres"
+msgstr "No s'ha pogut executar /bin/sh. No s'iniciarà la línia d'ordres"
 
 #: rescue.py:232
 msgid "Setup Networking"
@@ -1408,7 +1401,7 @@ msgstr ""
 
 #: rescue.py:444
 msgid "You don't have any Linux partitions.  Rebooting.\n"
-msgstr ""
+msgstr "No teniu cap partició Linux. Es reiniciarà.\n"
 
 #: rescue.py:447
 msgid "Rescue Mode"
@@ -1746,12 +1739,11 @@ msgstr "%s KB"
 
 #: yuminstall.py:129
 msgid "Preparing to install"
-msgstr ""
+msgstr "S'està preparant la instal·lació"
 
 #: yuminstall.py:130
-#, fuzzy
 msgid "Preparing transaction from installation source"
-msgstr "S'està preparant la transacció de la font de la instal·lació..."
+msgstr "S'està preparant la transacció de la font de la instal·lació"
 
 #: yuminstall.py:158
 #, python-format
@@ -1763,10 +1755,9 @@ msgid "Finishing upgrade"
 msgstr "S'està finalitzant l'actualització"
 
 #: yuminstall.py:219
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while."
 msgstr ""
-"S'està finalitzant el procés d'actualització. Això pot trigar uns minuts..."
+"S'està finalitzant el procés d'actualització. Això pot trigar uns minuts."
 
 #: yuminstall.py:286 iw/task_gui.py:301
 msgid "Error Setting Up Repository"
@@ -1846,9 +1837,8 @@ msgid "Retrying"
 msgstr "S'està tornant a provar"
 
 #: yuminstall.py:735
-#, fuzzy
 msgid "Retrying download."
-msgstr "S'està provant a baixar de nou..."
+msgstr "S'està provant a baixar de nou."
 
 #: yuminstall.py:801
 #, python-format
@@ -1938,14 +1928,13 @@ msgstr ""
 "problema en la generació del vostre arbre d'instal·lació."
 
 #: yuminstall.py:1118
-#, fuzzy
 msgid "Retrieving installation information."
-msgstr "S'està recuperant la informació de la instal·lació..."
+msgstr "S'està recuperant la informació de la instal·lació."
 
 #: yuminstall.py:1120
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s."
-msgstr "S'està recuperant la informació de la instal·lació per a %s..."
+msgstr "S'està recuperant la informació de la instal·lació per a %s."
 
 #: yuminstall.py:1122
 msgid "Installation Progress"
@@ -2018,40 +2007,34 @@ msgid "Post Upgrade"
 msgstr "Configuració posterior"
 
 #: yuminstall.py:1574
-#, fuzzy
 msgid "Performing post-upgrade configuration"
-msgstr "S'està realitzant la configuració posterior a l'actualització..."
+msgstr "S'està realitzant la configuració posterior a l'actualització"
 
 #: yuminstall.py:1576
-#, fuzzy
 msgid "Post Installation"
 msgstr "Instal·lació posterior"
 
 #: yuminstall.py:1577
-#, fuzzy
 msgid "Performing post-installation configuration"
-msgstr "S'està realitzant la configuració posterior a la instal·lació..."
+msgstr "S'està realitzant la configuració posterior a la instal·lació"
 
 #: yuminstall.py:1803
-#, fuzzy
 msgid "Installation Starting"
 msgstr "S'està iniciant la instal·lació"
 
 #: yuminstall.py:1804
-#, fuzzy
 msgid "Starting installation process"
-msgstr "Progrés de la instal·lació"
+msgstr "S'està iniciant el procés d'instal·lació"
 
 #: yuminstall.py:1842
 msgid "Dependency Check"
-msgstr "Comprova les dependències"
+msgstr "Comprovació de les dependències"
 
 #: yuminstall.py:1843
-#, fuzzy
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 "S'estan comprovant les dependències dels paquets escollits per a la "
-"instal·lació..."
+"instal·lació"
 
 #: installclasses/fedora.py:39
 msgid "_Fedora"
@@ -2123,12 +2106,20 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"Voleu introduir ara un número d'instal·lació (o número de subscripció)? "
+"Això permet a l'instal·lador accedir components addicionals inclosos en la "
+"vostra subscripció. Si ignoreu aquest pas, podeu instal·lar manualment "
+"els components addicionals més tard.\n"
+"\n"
+"Veieu http://www.redhat.com/InstNum/ per a més informació."
 
 #: installclasses/rhel.py:79
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
+"Si no trobeu el número d'instal·lació, consulteu http://www.redhat.com/"
+"InstNum/"
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2189,12 +2180,11 @@ msgstr "Contrasenya feble"
 #: iw/account_gui.py:133
 #, python-format
 msgid "You have provided a weak password: %s"
-msgstr ""
+msgstr "La contrasenya que heu proporcionat és massa feble: %s"
 
 #: iw/account_gui.py:135
-#, fuzzy
 msgid "Use Anyway"
-msgstr "Nom d'usuari"
+msgstr "Fes-la servir igualment"
 
 #: iw/account_gui.py:143 textw/userauth_text.py:75
 msgid ""
