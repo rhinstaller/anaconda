@@ -10,9 +10,9 @@ def getDiskPart(dev, storage):
                 path.startswith('mapper/') or path.startswith('mmcblk') or
                 path.startswith('md')):
             if dev[-2] == 'p':
-                cut = -1
-            elif dev[-3] == 'p' and dev[-2] in string.digits:
                 cut = -2
+            elif dev[-3] == 'p' and dev[-2] in string.digits:
+                cut = -3
         else:
             if dev[-2] in string.digits:
                 cut = -2
@@ -21,15 +21,11 @@ def getDiskPart(dev, storage):
 
     name = dev[:cut]
 
-    # hack off the trailing 'p' from /dev/cciss/*, for example
-    if name[-1] == 'p':
-        for letter in name:
-            if letter not in string.letters and letter != "/":
-                name = name[:-1]
-                break
-
     if cut < 0:
-        partNum = int(dev[cut:]) - 1
+        part = dev[cut:]
+        if part[0] == 'p':
+            part = part[1:]
+        partNum = int(part) - 1
     else:
         partNum = None
 
