@@ -1036,7 +1036,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                                 "%s/var/cache/yum/%s" %(anaconda.rootPath, repo))
             except Exception, e:
                 log.debug("Error setting up media repository: %s" %(e,))
-        else:
+        elif os.path.exists(self.ayum.tree) and os.path.ismount(self.ayum.tree):
             isys.umount(self.ayum.tree)
 
         anaconda.backend.removeInstallImage()
