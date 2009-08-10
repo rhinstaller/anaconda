@@ -113,6 +113,9 @@ def copyUpdatedFiles(tag, updates, cwd):
             else:
                 sys.stdout.write("Including %s\n" % (file,))
                 shutil.copy2(file, updates)
+        else:
+            sys.stdout.write("Including %s\n" % (file,))
+            shutil.copy2(file, updates)
 
 def isysChanged(tag):
     lines = doGitDiff(tag, ['isys'])
