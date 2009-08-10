@@ -166,10 +166,11 @@ def main(argv):
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
     updates = cwd + '/updates'
     keep, compile, help, unknown = False, False, False, False
+    tag = None
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'kc?',
-                                   ['keep', 'compile', 'help'])
+        opts, args = getopt.getopt(sys.argv[1:], 't:kc?',
+                                   ['tag=', 'keep', 'compile', 'help'])
     except getopt.GetoptError:
         help = True
 
@@ -180,6 +181,8 @@ def main(argv):
             compile = True
         elif o in ('-?', '--help'):
             help = True
+        elif o in ('-t', '--tag'):
+            tag = a
         else:
             unknown = True
 
@@ -195,7 +198,8 @@ def main(argv):
         sys.stderr.write("You must be at the top level of the anaconda source tree.\n")
         sys.exit(1)
 
-    tag = getArchiveTag(configure, spec)
+    if not tag:
+        tag = getArchiveTag(configure, spec)
 
     if not os.path.isdir(updates):
         os.makedirs(updates)
