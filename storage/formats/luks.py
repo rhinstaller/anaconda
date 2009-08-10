@@ -24,6 +24,8 @@
 
 import os
 
+import volume_key
+
 from iutil import log_method_call
 from ..errors import *
 from ..devicelibs import crypto
@@ -60,6 +62,8 @@ class LUKS(DeviceFormat):
                 cipher -- cipher mode string
                 key_size -- key size in bits
                 exists -- indicates whether this is an existing format
+                escrow_cert -- certificate to use for key escrow
+                add_backup_passphrase -- generate a backup passphrase?
         """
         log_method_call(self, *args, **kwargs)
         DeviceFormat.__init__(self, *args, **kwargs)
@@ -76,6 +80,8 @@ class LUKS(DeviceFormat):
         # FIXME: these should both be lists, but managing them will be a pain
         self.__passphrase = kwargs.get("passphrase")
         self._key_file = kwargs.get("key_file")
+        self.escrow_cert = kwargs.get("escrow_cert")
+        self.add_backup_passphrase = kwargs.get("add_backup_passphrase", False)
 
         if not self.mapName and self.exists and self.uuid:
             self.mapName = "luks-%s" % self.uuid
@@ -238,6 +244,64 @@ class LUKS(DeviceFormat):
                              passphrase=self.__passphrase,
                              key_file=self._key_file,
                              del_passphrase=passphrase)
+
+    def _escrowVolumeIdent(self, vol):
+        """ Return an escrow packet filename prefix for a volume_key.Volume. """
+        label = vol.label
+        if label is not None:
+            label = label.replace("/", "_")
+        uuid = vol.uuid
+        if uuid is not None:
+            uuid = uuid.replace("/", "_")
+        # uuid is never None on LUKS volumes
+        if label is not None and uuid is not None:
+            volume_ident = "%s-%s" % (label, uuid)
+        elif uuid is not None:
+            volume_ident = uuid
+        elif label is not None:
+            volume_ident = label
+        else:
+            volume_ident = "_unknown"
+        return volume_ident
+
+    def escrow(self, directory, backupPassphrase):
+        log.debug("escrow: escrowVolume start for %s" % self.device)
+        vol = volume_key.Volume.open(self.device)
+        volume_ident = self._escrowVolumeIdent(vol)
+
+        ui = volume_key.UI()
+        # This callback is not expected to be used, let it always fail
+        ui.generic_cb = lambda unused_prompt, unused_echo: None
+        def known_passphrase_cb(unused_prompt, failed_attempts):
+            if failed_attempts == 0:
+                return self.__passphrase
+            return None
+        ui.passphrase_cb = known_passphrase_cb
+
+        log.debug("escrow: getting secret")
+        vol.get_secret(volume_key.SECRET_DEFAULT, ui)
+        log.debug("escrow: creating packet")
+        default_packet = vol.create_packet_assymetric_from_cert_data \
+            (volume_key.SECRET_DEFAULT, self.escrow_cert, ui)
+        log.debug("escrow: packet created")
+        with open("%s/%s-escrow" % (directory, volume_ident), "wb") as f:
+            f.write(default_packet)
+        log.debug("escrow: packet written")
+
+        if self.add_backup_passphrase:
+            log.debug("escrow: adding backup passphrase")
+            vol.add_secret(volume_key.SECRET_PASSPHRASE, backupPassphrase)
+            log.debug("escrow: creating backup packet")
+            backup_passphrase_packet = \
+                vol.create_packet_assymetric_from_cert_data \
+                (volume_key.SECRET_PASSPHRASE, self.escrow_cert, ui)
+            log.debug("escrow: backup packet created")
+            with open("%s/%s-escrow-backup-passphrase" %
+                      (directory, volume_ident), "wb") as f:
+                f.write(backup_passphrase_packet)
+            log.debug("escrow: backup packet written")
+
+        log.debug("escrow: escrowVolume done for %s" % repr(self.device))
 
 
 register_device_format(LUKS)

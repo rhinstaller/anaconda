@@ -29,6 +29,26 @@ from ..errors import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+# Keep the character set size a power of two to make sure all characters are
+# equally likely
+GENERATED_PASSPHRASE_CHARSET = ("0123456789"
+                                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                "abcdefghijklmnopqrstuvwxyz"
+                                "./")
+# 20 chars * 6 bits per char = 120 "bits of security"
+GENERATED_PASSPHRASE_LENGTH = 20
+
+def generateBackupPassphrase():
+    rnd = os.urandom(GENERATED_PASSPHRASE_LENGTH)
+    cs = GENERATED_PASSPHRASE_CHARSET
+    raw = "".join([cs[ord(c) % len(cs)] for c in rnd])
+
+    # Make the result easier to read
+    parts = []
+    for i in xrange(0, len(raw), 5):
+        parts.append(raw[i : i + 5])
+    return "-".join(parts)
+
 def askyes(question):
     return True
 

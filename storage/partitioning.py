@@ -65,9 +65,13 @@ def _createFreeSpacePartitions(anaconda):
     for disk in disks:
         if anaconda.id.storage.encryptedAutoPart:
             fmt_type = "luks"
+            fmt_args = {"escrow_cert": anaconda.id.storage.autoPartEscrowCert,
+                        "add_backup_passphrase": anaconda.id.storage.autoPartAddBackupPassphrase}
         else:
             fmt_type = "lvmpv"
+            fmt_args = {}
         part = anaconda.id.storage.newPartition(fmt_type=fmt_type,
+                                                fmt_args=fmt_args,
                                                 size=1,
                                                 grow=True,
                                                 disks=[disk])

@@ -33,8 +33,9 @@ from flags import flags
 from constants import *
 import sys
 import string
-import urlgrabber.grabber as grabber
+import urlgrabber
 import warnings
+import network
 import upgrade
 import pykickstart.commands as commands
 from storage.devices import *
@@ -131,6 +132,33 @@ class AnacondaKSPackages(Packages):
         self.seen = False
 
 
+def getEscrowCertificate(anaconda, url):
+    if not url:
+        return None
+
+    if url in anaconda.id.escrowCertificates:
+        return anaconda.id.escrowCertificates[url]
+
+    needs_net = not url.startswith("/") and not url.startswith("file:")
+    if needs_net and not network.hasActiveNetDev():
+        if not anaconda.intf.enableNetwork(anaconda):
+            anaconda.intf.messageWindow(_("No Network Available"),
+                                        _("Encryption key escrow requires "
+                                          "networking, but there was an error "
+                                          "enabling the network on your "
+                                          "system."), type="custom",
+                                        custom_icon="error",
+                                        custom_buttons=[_("_Exit installer")])
+            sys.exit(1)
+
+    log.info("escrow: downloading %s" % (url,))
+    f = urlgrabber.urlopen(url)
+    try:
+        anaconda.id.escrowCertificates[url] = f.read()
+    finally:
+        f.close()
+    return anaconda.id.escrowCertificates[url]
+
 ###
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
 ###
@@ -153,6 +181,10 @@ class AutoPart(commands.autopart.F12_AutoPart):
         if self.encrypted:
             self.handler.id.storage.encryptedAutoPart = True
             self.handler.id.storage.encryptionPassphrase = self.passphrase
+            self.handler.id.storage.autoPartEscrowCert = \
+                getEscrowCertificate(self.handler.anaconda, self.escrowcert)
+            self.handler.id.storage.autoPartAddBackupPassphrase = \
+                self.backuppassphrase
 
         self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
         return retval
@@ -459,15 +491,20 @@ class LogVol(commands.logvol.F12_LogVol):
             if lvd.passphrase and not storage.encryptionPassphrase:
                 storage.encryptionPassphrase = lvd.passphrase
 
+            cert = getEscrowCertificate(self.handler.anaconda, lvd.escrowcert)
             if lvd.preexist:
                 luksformat = format
-                device.format = getFormat("luks", passphrase=lvd.passphrase, device=device.path)
+                device.format = getFormat("luks", passphrase=lvd.passphrase, device=device.path,
+                                          escrow_cert=cert,
+                                          add_backup_passphrase=lvd.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      format=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
-                request.format = getFormat("luks", passphrase=lvd.passphrase)
+                request.format = getFormat("luks", passphrase=lvd.passphrase,
+                                           escrow_cert=cert,
+                                           add_backup_passphrase=lvd.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      format=luksformat,
                                      parents=request)
@@ -701,15 +738,20 @@ class Partition(commands.partition.F12_Partition):
             if pd.passphrase and not storage.encryptionPassphrase:
                storage.encryptionPassphrase = pd.passphrase
 
+            cert = getEscrowCertificate(self.handler.anaconda, pd.escrowcert)
             if pd.preexist:
                 luksformat = format
-                device.format = getFormat("luks", passphrase=pd.passphrase, device=device.path)
+                device.format = getFormat("luks", passphrase=pd.passphrase, device=device.path,
+                                          escrow_cert=cert,
+                                          add_backup_passphrase=pd.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      format=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
-                request.format = getFormat("luks", passphrase=pd.passphrase)
+                request.format = getFormat("luks", passphrase=pd.passphrase,
+                                           escrow_cert=cert,
+                                           add_backup_passphrase=pd.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      format=luksformat,
                                      parents=request)
@@ -837,15 +879,20 @@ class Raid(commands.raid.F12_Raid):
             if rd.passphrase and not storage.encryptionPassphrase:
                storage.encryptionPassphrase = rd.passphrase
 
+            cert = getEscrowCertificate(self.handler.anaconda, rd.escrowcert)
             if rd.preexist:
                 luksformat = format
-                device.format = getFormat("luks", passphrase=rd.passphrase, device=device.path)
+                device.format = getFormat("luks", passphrase=rd.passphrase, device=device.path,
+                                          escrow_cert=cert,
+                                          add_backup_passphrase=rd.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      format=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
-                request.format = getFormat("luks", passphrase=rd.passphrase)
+                request.format = getFormat("luks", passphrase=rd.passphrase,
+                                           escrow_cert=cert,
+                                           add_backup_passphrase=rd.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      format=luksformat,
                                      parents=request)

@@ -31,6 +31,7 @@ from constants import *
 import isys
 import kickstart
 import packages
+import storage
 
 from flags import flags
 log = logging.getLogger("anaconda")
@@ -102,6 +103,8 @@ class AnacondaBackend:
 
         for d in glob.glob("/tmp/DD-*"):
             shutil.copytree(d, "/root/" + os.path.basename(d))
+
+        storage.writeEscrowPackets(anaconda)
 
         sys.stdout.flush()
         if flags.setupFilesystems:

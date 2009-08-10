@@ -26,6 +26,7 @@ import stat
 import errno
 import sys
 
+import nss.nss
 import parted
 
 import isys
@@ -44,6 +45,7 @@ from formats import get_device_format_class
 from formats import get_default_filesystem_type
 from devicelibs.lvm import safeLvmName
 from devicelibs.dm import name_from_dm_node
+from devicelibs.crypto import generateBackupPassphrase
 from udev import *
 import iscsi
 import fcoe
@@ -164,6 +166,37 @@ def storageComplete(anaconda):
     if rc == 0:
         return DISPATCH_BACK
 
+def writeEscrowPackets(anaconda):
+    log.debug("escrow: writeEscrowPackets start")
+
+    wait_win = anaconda.intf.waitWindow(_("Running..."),
+                                        _("Storing encryption keys"))
+
+    nss.nss.nss_init_nodb() # Does nothing if NSS is already initialized
+
+    backupPassphrase = generateBackupPassphrase()
+    try:
+        for device in anaconda.id.storage.devices:
+            log.debug("escrow: device %s: %s" %
+                      (repr(device.path), repr(device.format.type)))
+            if (device.format.type == "luks" and
+                device.format.escrow_cert is not None):
+                device.format.escrow(anaconda.rootPath + "/root",
+                                     backupPassphrase)
+
+        wait_win.pop()
+    except (IOError, RuntimeError) as e:
+        wait_win.pop()
+        anaconda.intf.messageWindow(_("Error"),
+                                    _("Error storing an encryption key: "
+                                      "%s\n") % str(e), type="custom",
+                                    custom_icon="error",
+                                    custom_buttons=[_("_Exit installer")])
+        sys.exit(1)
+
+    log.debug("escrow: writeEscrowPackets done")
+
+
 def undoEncryption(storage):
     for device in storage.devicetree.getDevicesByType("luks/dm-crypt"):
         if device.exists:
@@ -196,6 +229,8 @@ class Storage(object):
         self.clearPartDisks = []
         self.encryptedAutoPart = False
         self.encryptionPassphrase = None
+        self.autoPartEscrowCert = None
+        self.autoPartAddBackupPassphrase = False
         self.encryptionRetrofit = False
         self.reinitializeDisks = False
         self.zeroMbr = None
@@ -567,7 +602,8 @@ class Storage(object):
         if kwargs.has_key("fmt_type"):
             kwargs["format"] = getFormat(kwargs.pop("fmt_type"),
                                          mountpoint=kwargs.pop("mountpoint",
-                                                               None))
+                                                               None),
+                                         **kwargs.pop("fmt_args", {}))
 
         if kwargs.has_key("disks"):
             parents = kwargs.pop("disks")

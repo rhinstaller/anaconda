@@ -353,6 +353,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # setup /etc/rpm/ for the post-install environment
         iutil.writeRpmPlatform(anaconda.rootPath)
 
+        storage.writeEscrowPackets(anaconda)
+
         # maybe heavy handed, but it'll do
         if os.path.exists(anaconda.rootPath + "/usr/bin/rhgb") or os.path.exists(anaconda.rootPath + "/usr/bin/plymouth"):
             anaconda.id.bootloader.args.append("rhgb quiet")
