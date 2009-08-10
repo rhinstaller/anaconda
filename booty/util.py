@@ -4,19 +4,20 @@ from flags import flags
 def getDiskPart(dev, storage):
     path = storage.devicetree.getDeviceByName(dev).path[5:]
     cut = len(dev)
-    if (path.startswith('rd/') or path.startswith('ida/') or
-            path.startswith('cciss/') or path.startswith('sx8/') or
-            path.startswith('mapper/') or path.startswith('mmcblk') or
-            path.startswith('md')):
-        if dev[-2] == 'p':
-            cut = -1
-        elif dev[-3] == 'p':
-            cut = -2
-    else:
-        if dev[-2] in string.digits:
-            cut = -2
-        elif dev[-1] in string.digits:
-            cut = -1
+    if dev[-1] in string.digits:
+        if (path.startswith('rd/') or path.startswith('ida/') or
+                path.startswith('cciss/') or path.startswith('sx8/') or
+                path.startswith('mapper/') or path.startswith('mmcblk') or
+                path.startswith('md')):
+            if dev[-2] == 'p':
+                cut = -1
+            elif dev[-3] == 'p' and dev[-2] in string.digits:
+                cut = -2
+        else:
+            if dev[-2] in string.digits:
+                cut = -2
+            else:
+                cut = -1
 
     name = dev[:cut]
 
