@@ -98,5 +98,10 @@ class DMRaidMember(DeviceFormat):
 if flags.cmdline.has_key("iswmd"):
     DMRaidMember._udevTypes.remove("isw_raid_member")
 
+# The anaconda cmdline has not been parsed yet when we're first imported,
+# so we can not use flags.dmraid here
+if flags.cmdline.has_key("nodmraid"):
+    DMRaidMember._udevTypes = []
+
 register_device_format(DMRaidMember)
 
