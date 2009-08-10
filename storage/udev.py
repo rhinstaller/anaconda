@@ -155,6 +155,8 @@ def udev_device_is_cdrom(info):
 
 def udev_device_is_disk(info):
     """ Return True is the device is a disk. """
+    if udev_device_is_cdrom(info):
+        return False
     has_range = os.path.exists("/sys/%s/range" % info['sysfs_path'])
     return info.get("DEVTYPE") == "disk" or has_range
 

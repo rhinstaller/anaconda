@@ -1780,7 +1780,8 @@ class DeviceTree(object):
         non_disk_devices = {}
         for d in devices:
             serial = udev_device_get_serial(d)
-            if not udev_device_is_disk(d):
+            if (not udev_device_is_disk(d)) or \
+                    (not d.has_key['ID_SERIAL_SHORT']):
                 non_disk_devices.setdefault(serial, [])
                 non_disk_devices[serial].append(d)
                 log.info("adding %s to non_disk_device list" % (d['name'],))
