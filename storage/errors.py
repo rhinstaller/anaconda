@@ -88,6 +88,12 @@ class PhysicalVolumeError(DeviceFormatError):
 class SwapSpaceError(DeviceFormatError):
     pass
 
+class DiskLabelError(DeviceFormatError):
+    pass
+
+class InvalidDiskLabelError(DiskLabelError):
+    pass
+
 # devicelibs
 class SwapError(StorageError):
     pass
