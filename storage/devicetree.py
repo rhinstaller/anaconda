@@ -1203,7 +1203,7 @@ class DeviceTree(object):
             log.debug("%s is a cdrom" % name)
             if device is None:
                 device = self.addUdevOpticalDevice(info)
-        elif udev_device_is_biosraid(info):
+        elif udev_device_is_biosraid(info) and udev_device_is_disk(info):
             # This is special handling to avoid the "unrecognized disklabel"
             # code since biosraid member disks won't have a disklabel. We
             # use a StorageDevice because DiskDevices need disklabels.
