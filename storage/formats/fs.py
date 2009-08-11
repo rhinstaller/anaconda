@@ -240,7 +240,7 @@ class FS(DeviceFormat):
         """
         size = self._size
 
-        if self.mountable and self.exists and not size:
+        if self.infofsProg and self.mountable and self.exists and not size:
             try:
                 values = []
                 argv = self._defaultInfoOptions + [ self.device ]
