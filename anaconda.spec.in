@@ -209,6 +209,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 10 2009 David Cantrell <dcantrell@redhat.com> - 12.12-1
+- Honor network config boot params for CD-booted ks installs (#433214)
+  (dcantrell)
+- Include ipcalc command in all initrd.img files, not just s390 (#516084)
+  (dcantrell)
+- Don't to unmount /mnt/source unless something's mounted there (#516304).
+  (clumens)
+- Honor nodmraid commandline option (#499733) (hdegoede)
+- Don't try to multipath CD devices. (#516362) (pjones)
+- booty: Do not strip the trailing p from a devicename like
+  mapper/isw_Vol0_tmp (hdegoede)
+- booty: isw_Vol0_Stripe is not a disk isw_Vol0_Stri with an e part
+  (#505205) (hdegoede)
+
 * Fri Aug 07 2009 Chris Lumens <clumens@redhat.com> - 12.11-1
 - upd-instroot: Inspect gtkrc for cursor theme (ajax)
 - Support NFS repos in kickstart (#495620, #507093). (clumens)
