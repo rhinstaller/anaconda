@@ -162,6 +162,17 @@ function startinetd()
     fi
 }
 
+# prints a canonocalized device bus ID for a given devno of any format
+function canonicalize_devno()
+{
+    case ${#1} in
+        3) echo "0.0.0${1}" ;;
+        4) echo "0.0.${1}" ;;
+        *) echo "${1}" ;;
+    esac
+    return 0
+}
+
 # read file from CMS and write it to /tmp
 function readcmsfile() # $1=dasdport $2=filename
 {
@@ -182,11 +193,7 @@ function readcmsfile() # $1=dasdport $2=filename
     sleep 1
     # precondition: dasd_eckd_mod driver incl. dependencies loaded,
     #               dasd_mod must be loaded without setting any DASD online
-    if [ ${#1} == 3 ]; then
-        dev="0.0.0${1}"
-    elif [ ${#1} == 4 ]; then
-        dev="0.0.${1}"
-    fi
+    dev=$(canonicalize_devno $1)
     if ! sysecho /sys/bus/ccw/devices/$dev/online 1; then
         echo $"DASD $dev could not be set online"
         return 1
@@ -200,8 +207,8 @@ function readcmsfile() # $1=dasdport $2=filename
         return 1
     fi
     udevadm settle
-    # consequences of no more module unload: loader/anaconda can no longer
-    # use DASD option to online DASDs and set other DASD parameters!
+    # consequences of no more module unload: loader can no longer
+    # use DASD module option to online DASDs and set other DASD parameters!
 }
 
 # adaption of the same function in init.c (udevd gets started later)
@@ -796,6 +803,13 @@ function rollback_config() {
     [ -z "$vswitch_was_set" ] && unset VSWITCH
     # prevent possible reuse of an old DEVICE on restarting dialog
     unset DEVICE
+    # set activated DASDs offline again
+    local dasd
+    while read dasd < /proc/dasd/devices; do
+        dasd=${dasd%%(*}
+        sysecho /sys/bus/ccw/devices/$dasd/online 0
+    done
+    udevadm settle
 }
 
 ### workflow helper functions
@@ -2445,10 +2459,31 @@ function parse_dasd() {
     local dasditem
     local allgood="yes"
     while read dasditem; do
+        unset range features range lo hi rangegood \
+            attrs devno lodevno hidevno devbusid sys
         case $dasditem in
-            autodetect|probeonly|nopav) continue ;;
+            autodetect)
+                [ -z "$handle" ] && continue
+                local cio_wc=$(wc -c /proc/cio_ignore)
+                read cio_wc_bytes cio_wc_filename cio_wc_foo <<< "$cio_wc"
+                if [ "$cio_wc_bytes" != "0" ]; then
+                    echo $"Note: There is a device blacklist active! Only activating visible DASDs."
+                fi
+                local sys
+                while read sys; do
+                    if ! sysecho $sys/online 1; then
+                        echo $"Could not set DASD ${sys##*/} online"
+                    fi
+                done < <(find /sys/bus/ccw/drivers/dasd-eckd/ -name "*.?.????" 2>/dev/null;\
+                    find /sys/bus/ccw/drivers/dasd-fba/ -name "*.?.????" 2>/dev/null)
+                ;;
+            probeonly|nopav|nofcx)
+                if [ -z "$handle" ]; then
+                    echo $"DASD option $dasditem not supported by installer"
+                fi
+                ;;
             "") continue ;; # empty range
-            *)  local range features
+            *)  local range features rangegood="yes"
                 IFS='('
                 read range features <<< "$dasditem"
                 unset IFS
@@ -2456,8 +2491,10 @@ function parse_dasd() {
                 local lo=${range%%-*}
                 [[ "$lo" =~ (^[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4}$)|(^[[:xdigit:]]{3,4}$) ]]
                 case $? in
-                    0)  ;; # string matched the pattern
+                    0)  # string matched the pattern
+                        lo=$(canonicalize_devno $lo) ;;
                     1)  # string did not match the pattern
+                        rangegood="no"
                         if [ -z "$handle" ]; then
                             echo $"Incorrect format for lower bound of DASD range $range: $lo"
                             allgood="no"
@@ -2470,8 +2507,16 @@ function parse_dasd() {
                     local hi=${range##*-}
                     [[ "$hi" =~ (^[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4}$)|(^[[:xdigit:]]{3,4}$) ]]
                     case $? in
-                        0)  ;; # string matched the pattern
+                        0)  # string matched the pattern
+                            hi=$(canonicalize_devno $hi)
+                            if [ "${lo%.*}" != "${hi%.*}" ]; then
+                                echo $"Prefixes of DASD range $range do not match: ${lo%.*} != ${hi%.*}"
+                                rangegood="no"
+                                allgood="no"
+                            fi
+                            ;;
                         1)  # string did not match the pattern
+                            rangegood="no"
                             if [ -z "$handle" ]; then
                                 echo $"Incorrect format for upper bound of DASD range $range: $hi"
                                 allgood="no"
@@ -2481,10 +2526,12 @@ function parse_dasd() {
                         *)  echo "l.$LINENO: unexpected return code of regex match operator =~, code needs to be fixed" 1>&2 ;;
                     esac
                 fi
-                if [ "$handle" = "yes" ]; then
+                if [ "$rangegood" = "yes" -a "$handle" = "yes" ]; then
                     if ! sysecho /proc/cio_ignore "free $range"; then
                         echo $"Could not free DASD device $range from device blacklist"
                         allgood="no"
+                    else
+                        udevadm settle
                     fi
                 fi
                 if [ "${features//*)/}" != "" ]; then
@@ -2493,26 +2540,58 @@ function parse_dasd() {
                         allgood="no"
                     fi
                 fi
-                [ -z "$features" ] && continue
-                features="${features%)}"
-                while read feature; do
-                    case $feature in
-                        ro|diag|erplog) continue ;;
-                        *)  if [ -z "$handle" ]; then
-                                echo $"Unknown DASD feature for device range $range: $feature"
-                                allgood="no"
-                            fi
-                            ;;
-                    esac
-                done < <(echo $features | sed 's/:/\n/g')
+                local attrs=""
+                if [ -n "$features" ]; then
+                    features="${features%)}"
+                    while read feature; do
+                        case $feature in
+                            ro) attrs=$attrs" readonly" ;;
+                            diag) attrs=$attrs" use_diag" ;;
+                            erplog|failfast) attrs=$attrs" "$feature ;;
+                            *) if [ -z "$handle" ]; then
+                                   echo $"Unknown DASD feature for device range $range: $feature"
+                                   allgood="no"
+                               fi
+                               ;;
+                        esac
+                    done < <(echo $features | sed 's/:/\n/g')
+                fi
+                [ "$rangegood" = "yes" ] || continue
+                [ "$handle" = "yes" ] || continue
+                # now apply $attrs and set DASDs $lo to $hi online
+                [ -z "$hi" ] && hi=$lo
+                local devno lodevno=$((0x${lo##*.})) hidevno=$((0x${hi##*.}))
+                for ((devno=$lodevno; $devno <= $hidevno; ++devno)); do
+                    local devbusid=$(printf "%s.%04x" ${lo%.*} $devno)
+                    local sys="/sys/bus/ccw/devices/"$devbusid
+                    for attr in $attrs; do
+                        if [ "$attr" = "use_diag" ]; then
+                            # diag discipline cannot be auto-loaded
+                            modprobe dasd_diag_mod
+                        fi
+                        if [ ! -f $sys/$attr ]; then
+                            echo $"DASD $devbusid does not provide attribute $attr"
+                            continue
+                        fi
+                        if ! sysecho $sys/$attr 1; then
+                            echo $"Could not set attribute $attr for DASD $devbusid"
+                        fi
+                    done
+                    if [ ! -f $sys/online ]; then
+                        echo $"DASD $devbusid not found"
+                        continue
+                    fi
+                    if ! sysecho $sys/online 1; then
+                        echo $"Could not set DASD $devbusid online"
+                    fi
+                done
                 ;;
         esac
     done < <(echo $DASD | sed 's/,/\n/g')
     if [ "$handle" = "yes" ]; then
         udevadm settle
-        # even though the device might now be online, some of its
-        # sysfs attributes might not yet be available
-        sleep 1
+        echo $"Activated DASDs:"
+        cat /proc/dasd/devices | sed -e 's/ at ([^)]*) is//' -e 's/ at/,/'
     fi
     if [ "$allgood" = "yes" ]; then
         return 0
@@ -2547,7 +2626,7 @@ function helptext_dasd() {
 }
 
 function exception_dasd() {
-    [ -z "$DASD" ] && break
+    [ -z "$DASD" ] && DASD="autodetect"
 }
 
 function do_dasd() {
@@ -2703,6 +2782,10 @@ function final_check() {
                 else
                     route -n
                 fi
+                ;;
+            d) # show active DASDs with some useful details
+                echo $"Activated DASDs:"
+                cat /proc/dasd/devices|sed -e 's/ at ([^)]*) is//' -e 's/ at/,/'
                 ;;
             r) break ;;
             s) echo $"Enter 'exit' at the shell prompt to get back to the installation dialog."
