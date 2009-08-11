@@ -2057,6 +2057,24 @@ function do_netmask() {
     # no handling/configuring of NETMASK yet, since more parameters needed
 }
 
+### NETWORK
+
+function do_network() {
+    echo
+    echo $"The NETWORK parameter isn't used anymore and will be ignored."
+    echo $" It is sufficient to specify IPADDR and NETMASK."
+    echo
+}
+
+### BROADCAST
+
+function do_broadcast() {
+    echo
+    echo $"The BROADCAST parameter isn't used anymore and will be ignored."
+    echo $" It is sufficient to specify IPADDR and NETMASK."
+    echo
+}
+
 ### NETMASK (IPv6)
 
 function syntax_check_prefix_v6() {
@@ -2860,6 +2878,10 @@ fi
 [ -n "$MMTU" ] && mmtu_was_set=$MMTU
 [ -n "$VSWITCH" ] && vswitch_was_set=$VSWITCH
 
+[ -n "$CHANDEV" ] && do_chandev
+[ -n "$NETWORK" ] && do_network
+[ -n "$BROADCAST" ] && do_broadcast
+
 # [ -z "${cardtype//OSD_*/}" ] can be used to check for real OSA
 
 # Check for missing parameters, prompt for them if necessary
@@ -2880,7 +2902,6 @@ while : ; do
     # precondition: driver (qeth/lcs/ctcm/netiucv) loaded incl. dependencies
     if [ "$NETTYPE" != "iucv" ]; then
         # all interface types except for iucv have ccw config
-        [ -n "$CHANDEV" ] && do_chandev
         do_subchannels
         if [ "$NETTYPE" = "qeth" ]; then
             [ -z "$reenter" -a -n "$RUNKS" -a -z "$PORTNAME" ] || \
