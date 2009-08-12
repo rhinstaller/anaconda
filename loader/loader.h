@@ -68,6 +68,7 @@
 #define LOADER_FLAGS_IS_KICKSTART       (((uint64_t) 1) << 35)
 #define LOADER_FLAGS_ALLOW_WIRELESS     (((uint64_t) 1) << 36)
 #define LOADER_FLAGS_HAVE_CMSCONF       (((uint64_t) 1) << 37)
+#define LOADER_FLAGS_NOKILL		(((uint64_t) 1) << 38)
 
 #define FL_TESTING(a)            ((a) & LOADER_FLAGS_TESTING)
 #define FL_TEXT(a)               ((a) & LOADER_FLAGS_TEXT)
@@ -103,6 +104,7 @@
 #define FL_IS_KICKSTART(a)       ((a) & LOADER_FLAGS_IS_KICKSTART)
 #define FL_ALLOW_WIRELESS(a)     ((a) & LOADER_FLAGS_ALLOW_WIRELESS)
 #define FL_HAVE_CMSCONF(a)       ((a) & LOADER_FLAGS_HAVE_CMSCONF)
+#define FL_NOKILL(a)		 ((a) & LOADER_FLAGS_NOKILL)
 
 void startNewt(void);
 void stopNewt(void);

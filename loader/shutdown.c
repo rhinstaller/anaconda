@@ -95,7 +95,7 @@ void shutDown(int doKill, reboot_action rebootAction) {
 	if (rebootAction == POWEROFF || rebootAction == REBOOT) {
 		performUnmounts(doKill);
 		performTerminations(doKill);
-		if (!doKill)
+		if (doKill)
 			performReboot(rebootAction);
 	}
 

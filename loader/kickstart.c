@@ -524,13 +524,15 @@ static void setSELinux(struct loaderData_s * loaderData, int argc,
 
 static void setPowerOff(struct loaderData_s * loaderData, int argc, 
                         char ** argv) {
-    flags |= LOADER_FLAGS_POWEROFF;
+    if (!FL_NOKILL(flags))
+        flags |= LOADER_FLAGS_POWEROFF;
     return;
 }
 
 static void setHalt(struct loaderData_s * loaderData, int argc, 
                     char ** argv) {
-    flags |= LOADER_FLAGS_HALT;
+    if (!FL_NOKILL(flags))
+        flags |= LOADER_FLAGS_HALT;
     return;
 }
 
@@ -560,12 +562,14 @@ static void setShutdown(struct loaderData_s * loaderData, int argc,
     }
 
 
-    if (poweroff) 
-        flags |= LOADER_FLAGS_POWEROFF;
-    if ((!poweroff && !reboot) || (halt))
+    if (FL_NOKILL(flags)) {
         flags |= LOADER_FLAGS_HALT;
-
-    return;
+    } else  {
+        if (poweroff)
+            flags |= LOADER_FLAGS_POWEROFF;
+        if ((!poweroff && !reboot) || (halt))
+            flags |= LOADER_FLAGS_HALT;
+    }
 }
 
 static void setMediaCheck(struct loaderData_s * loaderData, int argc, 
@@ -586,3 +590,5 @@ void runKickstart(struct loaderData_s * loaderData) {
         }
     }
 }
+
+/* vim:set sw=4 sts=4 et: */

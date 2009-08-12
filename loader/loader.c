@@ -902,6 +902,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_ASKNETWORK;
         else if (!strcasecmp(argv[i], "noshell"))
             flags |= LOADER_FLAGS_NOSHELL;
+        else if (!strcasecmp(argv[i], "nokill"))
+            flags |= LOADER_FLAGS_NOKILL;
         else if (!strcasecmp(argv[i], "mediacheck"))
             flags |= LOADER_FLAGS_MEDIACHECK;
         else if (!strcasecmp(argv[i], "allowwireless"))
