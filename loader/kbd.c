@@ -61,20 +61,6 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
 
     if (FL_SERIAL (flags) || FL_VIRTPCONSOLE(flags)) return LOADER_NOOP;
 
-#ifdef __sparc__
-    {
-        int fd;
-        
-	fd = open("/dev/kbd", O_RDWR);
-	if (fd < 0)
-	    kbdtype = KBDTYPE_PC; /* if PC keyboard, then there is no driver for /dev/kbd */
-	else {
-	    close(fd);
-	    kbdtype = KBDTYPE_SUN;
-	}
-    }
-#endif /* sparc */
-
     numLanguages = getLangInfo(&languages);
 
     lang = getenv("LANG");
@@ -91,12 +77,7 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
     }
 
     if (!defkbd)
-#ifdef __sparc__
-	if (kbdtype == KBDTYPE_SUN)
-	    defkbd = "sunkeymap";
-	else
-#endif /* sparc drain bamage */
-	    defkbd = "us";
+	defkbd = "us";
 
     f = gunzip_open("/etc/keymaps.gz");
     if (!f) {
@@ -167,10 +148,6 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
         gunzip_close(f);
 
     loaderData->kbd = strdup(infoTable[num].name);
-
-#ifdef __sparc__
-    if (kbdtypep) *kbdtypep = (kbdtype == KBDTYPE_SUN) ? "sun" : "pc";
-#endif
 
     return rc;
 }
