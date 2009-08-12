@@ -17,9 +17,57 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-SPARCMODS="openpromfs sermouse qlogicpti pluto fcal soc socal esp fc4 aic7xxx sym53c8xx qlogicisp mptbase mptscsih mptfc mptsas qla2xxx qla2100 qla2200 qla2300"
+# modules that are needed.  this is the generic "needed for every arch" stuff
+TFTPCOMMONMODS="nfs sunrpc lockd cramfs loop squashfs ipv6"
+TFTPUSBMODS="ohci-hcd uhci-hcd ehci-hcd hid mousedev usb-storage"
+TFTPFSMODS="ext2 ext3 ext4dev lock_nolock cifs"
+INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS $PCMCIASOCKMODS =scsi =net"
+TFTPINITRDMODS="$TFTPCOMMONMODS $TFTPUSBMODS $IDEMODS $SCSIMODS $TFTPFSMODS $LVMMODS $CRYPTOMODS"
+SPARCCOMMONMODS="openpromfs sermouse"
+SPARCSCSIMODS="qlogicpti esp sym53c8xx qlogicisp mptbase mptscsih mptfc mptsas qla2xxx pata_cmd64x pata_ali"
+SPARCNETMODS="cassini e1000 e1000e sunbmac sungem sunhme sunlance sunqe sunvnet tg3 tulip"
+SPARCMODS="$SPARCCOMMONMODS $SPARCSCSIMODS $SPARCNETMODS"
+
 TILO=$IMGPATH/usr/bin/tilo
 SILO=$IMGPATH/usr/sbin/silo
+
+# This is a disgusting hack. Unfortunately, it's the only way we can get files out of the tftpinitrd without worse hacks.
+
+makeproductfile() {
+    root=$1
+
+    rm -f $root/.buildstamp
+    echo $IMAGEUUID > $root/.buildstamp
+    echo $PRODUCT >> $root/.buildstamp
+    echo $VERSION >> $root/.buildstamp
+    if [ -n "$BUGURL" ]; then
+        echo $BUGURL >> $root/.buildstamp
+    fi
+    if [ "$AMITFTP" = "1" ]; then
+	rm -rf $root/modules/*/kernel/drivers/isdn/i4l/isdn.ko*
+	rm -rf $root/modules/*/kernel/drivers/isdn/isdnloop/isdnloop.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/common/ir-common.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/video/bt8xx/bttv.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/video/btcx-risc.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/video/v4l1-compat.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/video/videodev.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/video/videobuf-core.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/video/compat_ioctl32.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/video/videobuf-dma-sg.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/video/v4l2-common.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/video/tveeprom.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/common/ir-common.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/dvb/bt8xx/bt878.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/dvb/bt8xx/dst.ko*
+	rm -rf $root/modules/*/kernel/drivers/media/dvb/dvb-core/dvb-core.ko*
+	rm -rf $root/firmware/ql2100_fw.bin
+	rm -rf $root/firmware/ql2300_fw.bin
+	rm -rf $root/firmware/ql2322_fw.bin
+	rm -rf $root/firmware/ql2400_fw.bin
+	rm -rf $root/firmware/ql2400_fw.bin_mid
+    fi	
+}
+
 
 maketftp() {
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
@@ -68,10 +116,22 @@ makeBootImages() {
     echo "Building boot images for kernel $kernelvers.$KERNELARCH"
 
     echo "Building initrd.img"
+    
+    export AMITFTP=0
+
     makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
 	--initrdsize 8192 \
 	--loaderbin loader \
 	--modules "$INITRDMODS $SPARCMODS"
+    [ $? = 0 ] || exit 1
+    echo "Building special tftpinitrd.img"
+
+    export AMITFTP=1
+
+    makeinitrd --initrdto $TOPDESTPATH/images/tftpinitrd.img \
+	--initrdsize 8192 \
+	--loaderbin loader \
+	--modules "$TFTPINITRDMODS $SPARCMODS"
     [ $? = 0 ] || exit 1
     if [ -f $IMGPATH/usr/lib/anaconda-runtime/boot/second.b ]; then
 	echo "Building boot dir for silo"
@@ -84,8 +144,10 @@ makeBootImages() {
 
 	maketftp --kernel $MBD_BOOTTREE/vmlinuz \
 		 --imagename $TOPDESTPATH/images/tftp.img \
-		 --initrdfrom $TOPDESTPATH/images/initrd.img \
+		 --initrdfrom $TOPDESTPATH/images/tftpinitrd.img \
 		 --systemmap $MBD_BOOTTREE/System.map
+        echo "Deleting $TOPDESTPATH/images/tftpinitrd.img , we only want this for the tftp image creation"
+        # rm -rf $TOPDESTPATH/images/tftpinitrd.img
     else
 	echo "I can't find SILO in $IMGPATH/usr/lib/anaconda-runtime/boot ?!?"
 	exit 1
