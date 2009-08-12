@@ -157,7 +157,7 @@ die () {
 
 PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
-    btrfs-progs bzip2 bzip2-libs cairo cjkuni-uming-fonts
+    btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
     cryptsetup-luks db4 dbus dbus-python dejavu-sans-fonts
     dejavu-sans-mono-fonts device-mapper
@@ -362,6 +362,7 @@ etc/nsswitch.conf
 etc/pango
 etc/passwd
 etc/pcmcia
+etc/pki/tls/certs/ca-bundle.crt
 etc/prelink.conf
 etc/protocols
 etc/rc.d/init.d/functions
