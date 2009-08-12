@@ -921,6 +921,8 @@ elif [ ${BUILDARCH} = ppc64 ]; then
 elif [ ${BUILDARCH} = "x86_64" -o ${BUILDARCH} = "i386" ]; then
     source $TOPDIR/mk-images.x86
     source $TOPDIR/mk-images.efi
+elif [ ${BUILDARCH} = "sparc64" -o ${BUILDARCH} = "sparcv9" ]; then
+    source $TOPDIR/mk-images.sparc
 else
     source $TOPDIR/mk-images.${BUILDARCH}
 fi
@@ -942,6 +944,8 @@ elif [ "$BUILDARCH" = "x86_64" ]; then
 elif [ "$BUILDARCH" = "ia64" ]; then
     kerneltags="kernel"
     efiarch="ia64"
+elif [ "$BUILDARCH" = "sparcv9" -o "$BUILDARCH" = "sparc64" ]; then
+    arches="sparc64"
 fi
 
 foundakernel=""
