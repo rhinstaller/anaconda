@@ -201,6 +201,8 @@ if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES glibc.i386 openssl.i386"
 elif [ $ARCH = i586 ]; then
     PACKAGES="$PACKAGES glibc.i586 openssl.i586"
+elif [ $ARCH = sparc -o $ARCH = sparcv9 -o $ARCH = sparc64 ]; then
+    PACKAGES="$PACKAGES glibc.sparcv9 openssl.sparcv9"
 else
     PACKAGES="$PACKAGES glibc openssl"
 fi
