@@ -84,6 +84,7 @@ makeBootImages() {
 
 	maketftp --kernel $MBD_BOOTTREE/vmlinuz \
 		 --imagename $TOPDESTPATH/images/tftp.img \
+		 --initrdfrom $TOPDESTPATH/images/initrd.img \
 		 --systemmap $MBD_BOOTTREE/System.map
     else
 	echo "I can't find SILO in $IMGPATH/usr/lib/anaconda-runtime/boot ?!?"
