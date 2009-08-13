@@ -209,6 +209,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 12 2009 David Cantrell <dcantrell@redhat.com> - 12.14-1
+- Correctly inform the user once about obsolete parm/conf file options on
+  s390 (maier)
+- Handle activation of DASDs in linuxrc.s390 since loader no longer works
+  (maier)
+- make IPv4 configuration in linuxrc.s390 compatible with NM in loader
+  (maier)
+- suggest disabled X11-forwarding for ssh login in linuxrc.s390 (maier)
+- Fix an erroneous "!" in the test for doKill, and make reboot explicit.
+  (pjones)
+
 * Mon Aug 10 2009 David Cantrell <dcantrell@redhat.com> - 12.13-1
 - Fix syntax error in identifyMultipaths() (dcantrell)
 
