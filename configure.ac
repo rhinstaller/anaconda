@@ -28,6 +28,7 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_DEFINE_UNQUOTED([BUILD_DATE], ["`date +%m%d%Y`"], [Date of anaconda build])
+AM_SILENT_RULES([yes]) # make --enable-silent-rules the default.
 
 # Checks for programs.
 AC_PROG_AWK
