@@ -1461,7 +1461,7 @@ class DeviceTree(object):
 
             initlabel = False
             if not self.clearPartDisks or \
-                    rs.name in self.clearPartDisks:
+                    name in self.clearPartDisks:
                 initlabel = self.reinitializeDisks
                 for protected in self.protectedDevNames:
                     disk_name = re.sub(r'p\d+$', '', protected)
