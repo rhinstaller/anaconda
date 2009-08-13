@@ -209,6 +209,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 12 2009 David Cantrell <dcantrell@redhat.com> - 12.15-1
+- Make sure we have the ca cert to handle https repo connections. (517171)
+  (jkeating)
+
 * Wed Aug 12 2009 David Cantrell <dcantrell@redhat.com> - 12.14-1
 - Correctly inform the user once about obsolete parm/conf file options on
   s390 (maier)
