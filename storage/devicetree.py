@@ -1775,6 +1775,15 @@ class DeviceTree(object):
                 disk.format = format
 
     def identifyMultipaths(self, devices):
+        # this function does a couple of things
+        # 1) identifies multipath disks
+        # 2) sets their ID_FS_TYPE to multipath_member
+        # 3) removes the individual members of an mpath's partitions
+        # sample input with multipath pairs [sda,sdc] and [sdb,sdd]
+        # [sr0, sda, sda1, sdb, sda2, sdc, sdd, sdc1, sdc2, sde, sde1]
+        # sample output:
+        # [sr0, sda, sdb, sdc, sdd, sde, sde1]
+
         log.info("devices to scan for multipath: %s" % [d['name'] for d in devices])
         serials = {}
         non_disk_devices = {}
@@ -1813,10 +1822,19 @@ class DeviceTree(object):
                     del non_disk_devices[serial]
 
         partition_devices = []
-        for devices in non_disk_devices.values():
-            partition_devices += devices
+        for devs in non_disk_devices.values():
+            partition_devices += devs
 
-        return partition_devices + multipath_disks + singlepath_disks
+        # this is the list of devices we want to keep from the original
+        # device list, but we want to maintain its original order.
+        okdevs = singlepath_disks + multipath_disks + partition_devices
+        names = [d['name'] for d in okdevs]
+        retdevs = []
+        for dev in devices:
+            if dev['name'] in names:
+                retdevs.append(dev)
+        log.info("devices post multipath scan: %s" % [d['name'] for d in retdevs])
+        return retdevs
 
     def populate(self):
         """ Locate all storage devices. """
