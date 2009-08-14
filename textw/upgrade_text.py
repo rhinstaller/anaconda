@@ -31,7 +31,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):
       
-        migent = anaconda.id.storage.fsset.getMigratableEntries()
+        migent = anaconda.id.storage.fsset.migratableDevices
 
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
