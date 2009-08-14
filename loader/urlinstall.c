@@ -336,6 +336,38 @@ int getFileFromUrl(char * url, char * dest,
             abort();
         }
 
+        if (FL_KICKSTART_SEND_SERIAL(flags) && !access("/sbin/dmidecode", X_OK)) {
+            FILE *f;
+            char *tmpstr, sn[1024];
+            size_t len;
+
+            if ((f = popen("/sbin/dmidecode -s system-serial-number", "r")) == NULL) {
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
+
+            len = fread(sn, sizeof(char), 1023, f);
+            if (ferror(f)) {
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
+
+            sn[len] = '\0';
+            pclose(f);
+
+            if (asprintf(&tmpstr, "X-System-Serial-Number: %s\r\n", sn) == -1) {
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
+
+            if (!ehdrs) {
+                ehdrs = strdup(tmpstr);
+            } else {
+                ehdrs = (char *) realloc(ehdrs, strlen(ehdrs)+strlen(tmpstr)+1);
+                strcat(ehdrs, tmpstr);
+            }
+        }
+
         if (FL_KICKSTART_SEND_MAC(flags)) {
             /* find all ethernet devices and make a header entry for each one */
             int i;
