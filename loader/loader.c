@@ -1288,6 +1288,9 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
              * path that's at the end of it.
              */
             loaderData->inferredStage2 = 1;
+            skipMethodDialog = 1;
+        } else if (loaderData->stage2Data) {
+            skipMethodDialog = 1;
         }
     }
 
@@ -1352,7 +1355,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_METHOD: {
-                if (loaderData->method != -1 || loaderData->stage2Data)
+                if (loaderData->method != -1)
                     skipMethodDialog = 1;
                 else if (FL_CMDLINE(flags)) {
                     fprintf(stderr, "No method given for cmdline mode, aborting\n");
