@@ -230,6 +230,9 @@ AM_CONDITIONAL(IS_S390,
 AM_CONDITIONAL(IS_X86_64,
   [test x$s_arch == xx86_64])
 
+AM_CONDITIONAL(IS_SPARC,
+  [test x$s_arch == xsparc || test x$s_arch == xsparc64])
+
 AC_CONFIG_FILES([Makefile
                  bootdisk/Makefile
                  bootdisk/i386/Makefile
