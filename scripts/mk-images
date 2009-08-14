@@ -728,6 +728,7 @@ makeinitrd() {
 
     # Misc
     instbin $IMGPATH /usr/bin/awk $MBD_DIR /sbin/awk
+    instbin $IMGPATH /usr/bin/dmidecode $MBD_DIR /sbin/dmidecode
     instbin $IMGPATH /usr/bin/egrep $MBD_DIR /sbin/egrep
     instbin $IMGPATH /usr/bin/fgrep $MBD_DIR /sbin/fgrep
     instbin $IMGPATH /usr/bin/gawk $MBD_DIR /sbin/gawk
