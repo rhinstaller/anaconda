@@ -159,7 +159,7 @@ struct loaderData_s {
 };
 
 /* 64 bit platforms, definitions courtesy of glib */
-#if defined (__x86_64__) || defined(__ia64__) || defined(__alpha__) || defined(__powerpc64__) || defined(__sparc64__) || defined(__s390x__)
+#if defined (__x86_64__) || defined(__ia64__) || defined(__alpha__) || defined(__powerpc64__) || defined(__s390x__) || (defined(__sparc__) && defined(__arch64__))
 #define POINTER_TO_INT(p)  ((int) (long) (p))
 #define INT_TO_POINTER(i)  ((void *) (long) (i))
 #else
