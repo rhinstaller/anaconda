@@ -603,9 +603,19 @@ def doPartitioning(storage, exclusiveDisks=None):
     for disk in disks:
         extended = disk.format.extendedPartition
         if not extended:
+            # remove any obsolete extended partitions
+            for part in storage.partitions:
+                if part.disk == disk and part.isExtended:
+                    storage.devicetree._removeDevice(part, moddisk=False)
             continue
 
         extendedName = devicePathToName(extended.getDeviceNodeName())
+        # remove any obsolete extended partitions
+        for part in storage.partitions:
+            if part.disk == disk and part.isExtended and \
+               part.name != extendedName:
+                storage.devicetree._removeDevice(part, moddisk=False)
+
         device = storage.devicetree.getDeviceByName(extendedName)
         if device:
             if not device.exists:
@@ -620,7 +630,9 @@ def doPartitioning(storage, exclusiveDisks=None):
         device = PartitionDevice(extendedName, parents=disk)
         device.parents = [disk]
         device.partedPartition = extended
-        storage.createDevice(device)
+        # just add the device for now -- we'll handle actions at the last
+        # moment to simplify things
+        storage.devicetree._addDevice(device)
 
 def allocatePartitions(disks, partitions):
     """ Allocate partitions based on requested features.

@@ -676,6 +676,14 @@ class DeviceTree(object):
             log.debug("cmp: %d -- %s | %s" % (ret, a1, a2))
             return ret
 
+        # setup actions to create any extended partitions we added
+        for device in self.devices:
+            if isinstance(device, PartitionDevice) and \
+               device.isExtended and not device.exists:
+                # don't properly register the action since the device is
+                # already in the tree
+                self._actions.append(ActionCreateDevice(device))
+
         for action in self._actions:
             log.debug("action: %s" % action)
 
