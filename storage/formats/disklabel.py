@@ -27,6 +27,7 @@ from iutil import log_method_call
 import parted
 import platform
 from ..errors import *
+from ..udev import udev_settle
 from . import DeviceFormat, register_device_format
 
 import gettext
@@ -200,6 +201,8 @@ class DiskLabel(DeviceFormat):
             except parted.DiskException as msg:
                 log.warning(msg)
                 attempt += 1
+            else:
+                udev_settle()
 
         if keepTrying:
             raise DeviceError("cannot commit to disk after %d attempts" % (maxTries,))

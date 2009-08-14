@@ -1116,7 +1116,6 @@ class PartitionDevice(StorageDevice):
 
         self.disk.format.addPartition(self.partedPartition)
         self.disk.format.commit()
-        udev_settle(timeout=10)
 
         # Ensure old metadata which lived in freespace so did not get
         # explictly destroyed by a destroyformat action gets wiped
@@ -1162,7 +1161,6 @@ class PartitionDevice(StorageDevice):
                                             end=geometry.end)
 
             self.disk.format.commit()
-            self.notifyKernel()
 
     def destroy(self):
         """ Destroy the device. """

@@ -266,7 +266,6 @@ class ActionCreateFormat(DeviceAction):
                 self.device.setFlag(self.format.partedFlag)
                 self.device.disk.format.commit()
 
-        udev_settle()
         self.device.setup()
         self.device.format.create(intf=intf,
                                   device=self.device.path,
@@ -313,7 +312,6 @@ class ActionDestroyFormat(DeviceAction):
                 # unset partition flags and commit
                 self._device.unsetFlag(self.origFormat.partedFlag)
                 self._device.disk.format.commit()
-                udev_settle()
 
             # set up our copy of the original device stack since the
             # reference we got may have had any number of things changed
