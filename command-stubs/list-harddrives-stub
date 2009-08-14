@@ -24,7 +24,7 @@ import parted
 def main(argv):
     lst = set()
 
-    for dev in filter(lambda d: d.type <= parted.DEVICE_SX8, parted.getAllDevices()):
+    for dev in filter(lambda d: d.type != parted.DEVICE_DM, parted.getAllDevices()):
         disk = parted.Disk(dev)
 
         for part in disk.partitions:
