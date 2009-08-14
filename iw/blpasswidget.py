@@ -39,13 +39,10 @@ class BootloaderPasswordWidget:
             self.password = None
         
         vbox = gtk.VBox(False, 6)
-        
-        t = gtk.Tooltips()
-        t.enable()
 
         # password widgets + callback
         self.usePassCb = gtk.CheckButton(_("_Use a boot loader password"))
-        t.set_tip(self.usePassCb, _("A boot loader password prevents users from changing kernel options, increasing security."))
+        self.usePassCb.set_tooltip_text(_("A boot loader password prevents users from changing kernel options, increasing security."))
         self.passButton = gtk.Button("No password")
         if usePass:
             self.usePassCb.set_active(True)
