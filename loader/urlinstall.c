@@ -335,35 +335,35 @@ int getFileFromUrl(char * url, char * dest,
             logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
-    }
 
-    if (proto == URL_METHOD_HTTP && FL_KICKSTART_SEND_MAC(flags)) {
-        /* find all ethernet devices and make a header entry for each one */
-        int i;
-        char *dev, *mac, *tmpstr;
-        struct device **devices;
+        if (FL_KICKSTART_SEND_MAC(flags)) {
+            /* find all ethernet devices and make a header entry for each one */
+            int i;
+            char *dev, *mac, *tmpstr;
+            struct device **devices;
 
-        devices = getDevices(DEVICE_NETWORK);
-        for (i = 0; devices && devices[i]; i++) {
-            dev = devices[i]->device;
-            mac = iface_mac2str(dev);
+            devices = getDevices(DEVICE_NETWORK);
+            for (i = 0; devices && devices[i]; i++) {
+                dev = devices[i]->device;
+                mac = iface_mac2str(dev);
 
-            if (mac) {
-                if (asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",
-                             i, dev, mac) == -1) {
-                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                    abort();
+                if (mac) {
+                    if (asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",
+                                 i, dev, mac) == -1) {
+                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                        abort();
+                    }
+
+                    if (!ehdrs) {
+                        ehdrs = strdup(tmpstr);
+                    } else {
+                        ehdrs = (char *) realloc(ehdrs, strlen(ehdrs)+strlen(tmpstr)+1);
+                        strcat(ehdrs, tmpstr);
+                    }
+
+                    free(mac);
+                    free(tmpstr);
                 }
-
-                if (!ehdrs) {
-                    ehdrs = strdup(tmpstr);
-                } else {
-                    ehdrs = (char *) realloc(ehdrs, strlen(ehdrs)+strlen(tmpstr)+1);
-                    strcat(ehdrs, tmpstr);
-                }
-
-                free(mac);
-                free(tmpstr);
             }
         }
     }
