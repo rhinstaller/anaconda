@@ -951,6 +951,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
 #endif
         else if (!strcasecmp(argv[i], "kssendmac"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
+        else if (!strcasecmp(argv[i], "kssendsn"))
+            flags |= LOADER_FLAGS_KICKSTART_SEND_SERIAL;
         /* deprecated hardware bits */
         else if (!strcasecmp(argv[i], "nousbstorage"))
             mlAddBlacklist("usb-storage");
