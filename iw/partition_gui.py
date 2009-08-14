@@ -980,6 +980,8 @@ class PartitionWindow(InstallWindow):
             devices. This will need some work when that time comes.
         """
         device = self.tree.getCurrentDevice()
+        if not device:
+            return
         if device.format.type == "disklabel":
             if doDeleteDependentDevices(self.intf,
                                         self.storage,
