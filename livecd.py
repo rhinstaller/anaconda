@@ -257,7 +257,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
         # now create a tree so that we know what's mounted under where
         fsdict = {"/": []}
-        for entry in anaconda.id.storage.fsset.mountpoints.itervalues():
+        for mount in sorted(anaconda.id.storage.fsset.mountpoints.keys()):
+            entry = anaconda.id.storage.fsset.mountpoints[mount]
             tocopy = entry.format.mountpoint
             if tocopy.startswith("/mnt") or tocopy == "swap":
                 continue
