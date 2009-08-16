@@ -8,9 +8,9 @@
 # ----------------------------------------------------
 # device - [apparaat, partitie, opstelling (voor RAID)]
 # device -> zoveel mogelijk als het echte apparaat (bv schijf, kaart) vertalen,
-#               anders device laten, apparaat is lang niet altijd wenselijk (te veel variatie),
-#               partitie is in veel gevallen een onjuiste (namelijk te beperkte: partitie is de body van het
-#               device, maar niet het totale device zelf) vertaling.
+#           anders device laten, apparaat is lang niet altijd wenselijk (te veel variatie),
+#           partitie is in veel gevallen een onjuiste (namelijk te beperkte: partitie is de body van het
+#           device, maar niet het totale device zelf) vertaling.
 # alloceren - toewijzen
 # driver - stuurprogramma
 # root altijd met kleine letters schrijven (dus geen Root)
@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.nl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-05 10:18-0400\n"
-"PO-Revision-Date: 2009-08-08 11:25+0200\n"
+"PO-Revision-Date: 2009-08-16 10:38+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -132,21 +132,21 @@ msgid "Transferring install image to hard drive"
 msgstr "Het installatiebestand wordt nu naar de harde schijf overgezet..."
 
 #: backend.py:178
-#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
 msgstr ""
-"Tijdens het overzetten van het installatiebestand naar uw harde schijf is "
-"een fout opgetreden. Dit komt waarschijnlijk door slechte media."
+"Er is een fout opgetreden bij het overzetten van het installatiebestand naar "
+"uw harde schijf. Dit wordt vaak veroorzaakt door beschadigde of lage "
+"kwaliteit media."
 
 #: backend.py:182
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"Tijdens het overzetten van het installatiebestand naar uw harde schijf is "
-"een fout opgetreden. Waarschijnlijk is uw harde schijf vol."
+"Er is een fout opgetreden bij het overzetten van het installatiebestand naar "
+"uw harde schijf. Waarschijnlijk is uw harde schijf vol."
 
 #: backend.py:186 image.py:285 livecd.py:192 livecd.py:396
 #: partIntfHelpers.py:208 text.py:308 text.py:312 yuminstall.py:364
@@ -234,13 +234,12 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:217
-#, fuzzy
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
 msgstr ""
-"Op uw systeem werden geen kernel-pakketten geïnstalleerd.  De configuratie "
-"van uw bootloader zal niet worden veranderd."
+"Er zijn geen kernel-pakketten geïnstalleerd op het systeem. De bootloader-"
+"configuratie zal niet worden veranderd."
 
 #: cmdline.py:55
 msgid "Completed"
@@ -302,7 +301,6 @@ msgid "Screenshots Copied"
 msgstr "Schermafdrukken gekopieerd"
 
 #: gui.py:118
-#, fuzzy
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -314,7 +312,7 @@ msgstr ""
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"U kunt deze bekijken wanneer u opstart en zich aanmeldt als root."
+"U kunt deze bekijken wanneer u herstart en zich aanmeldt als root."
 
 #: gui.py:161
 msgid "Saving Screenshot"
@@ -417,9 +415,8 @@ msgid "_Retry"
 msgstr "Op_nieuw"
 
 #: gui.py:1267
-#, fuzzy
 msgid "The installer will now exit."
-msgstr "Het installatieprogramma zal nu afsluiten..."
+msgstr "Het installatieprogramma zal nu afsluiten."
 
 #: gui.py:1270 storage/partitioning.py:256
 msgid "The system will now reboot."
@@ -675,22 +672,18 @@ msgstr ""
 "%s"
 
 #: kickstart.py:1242 livecd.py:223
-#, fuzzy
 msgid "Post-Installation"
 msgstr "Post-installatie fase"
 
 #: kickstart.py:1243
-#, fuzzy
 msgid "Running post-installation scripts"
 msgstr "Uitvoeren van post-installatie scripts"
 
 #: kickstart.py:1259
-#, fuzzy
 msgid "Pre-Installation"
-msgstr "Pakketinstallatie"
+msgstr "Pre-installatie fase"
 
 #: kickstart.py:1260
-#, fuzzy
 msgid "Running pre-installation scripts"
 msgstr "Uitvoeren van pre-installatie scripts"
 
@@ -882,7 +875,7 @@ msgstr "Migratie mislukt"
 #: packages.py:166
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "Er was een fout bij het migreren van het bestandsysteem op device %s."
+msgstr "Er was een fout bij het migreren van het bestandssysteem op device %s."
 
 #: packages.py:174
 msgid "Formatting Failed"
@@ -903,7 +896,7 @@ msgstr "Er was een fout bij het activeren van uw opslagconfiguratie."
 
 #: packages.py:188
 msgid "_File Bug"
-msgstr ""
+msgstr "Bug _indienen"
 
 #: packages.py:350
 msgid "Invalid Key"
@@ -1430,7 +1423,7 @@ msgstr ""
 
 #: rescue.py:444
 msgid "You don't have any Linux partitions.  Rebooting.\n"
-msgstr ""
+msgstr "U hebt geen Linux partities. Systeem zal nu herstarten.\n"
 
 #: rescue.py:447
 msgid "Rescue Mode"
@@ -1442,7 +1435,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"U hebt geen Linux-partities. Druk op <Enter> om een shellprompt te krijgen. "
+"U hebt geen Linux partities. Druk op <Enter> om een shellprompt te krijgen. "
 "Het systeem zal automatisch herstarten als u de shell verlaat."
 
 #: rescue.py:461
@@ -1773,12 +1766,11 @@ msgstr "%s KB"
 
 #: yuminstall.py:129
 msgid "Preparing to install"
-msgstr ""
+msgstr "Installatie wordt voorbereid"
 
 #: yuminstall.py:130
-#, fuzzy
 msgid "Preparing transaction from installation source"
-msgstr "De transactie vanaf de installatiebron wordt nu voorbereid..."
+msgstr "De transactie vanaf de installatiebron wordt nu voorbereid"
 
 #: yuminstall.py:158
 #, python-format
@@ -1873,9 +1865,8 @@ msgid "Retrying"
 msgstr "Opnieuw proberen"
 
 #: yuminstall.py:735
-#, fuzzy
 msgid "Retrying download."
-msgstr "Opnieuw proberen te downloaden..."
+msgstr "Opnieuw proberen te downloaden."
 
 #: yuminstall.py:801
 #, python-format
@@ -2048,7 +2039,6 @@ msgid "Performing post-upgrade configuration"
 msgstr "Uitvoeren van post-upgrade configuratie..."
 
 #: yuminstall.py:1576
-#, fuzzy
 msgid "Post Installation"
 msgstr "Post-installatie fase"
 
@@ -2215,9 +2205,8 @@ msgid "You have provided a weak password: %s"
 msgstr "U hebt een zwak wachtwoord opgegeven: %s"
 
 #: iw/account_gui.py:135
-#, fuzzy
 msgid "Use Anyway"
-msgstr "Gebruikersnaam"
+msgstr "Toch gebruiken"
 
 # misschien 'gevraagde' beter weglaten voor duidelijkheid
 #: iw/account_gui.py:143 textw/userauth_text.py:75
@@ -2240,7 +2229,7 @@ msgstr ""
 # Misschien ook nog aanhalingstekens gebruiken?
 #: iw/autopart_type.py:123
 msgid "Resize FileSystem Error"
-msgstr "Fout bij aanpassen van de grootte van het bestandsysteem"
+msgstr "Fout bij aanpassen van de grootte van het bestandssysteem"
 
 #: iw/autopart_type.py:124 iw/autopart_type.py:133
 #, python-format
@@ -2249,7 +2238,7 @@ msgstr "%s: %s"
 
 #: iw/autopart_type.py:132
 msgid "Resize Device Error"
-msgstr "Fout bij aanpassen grootte device"
+msgstr "Fout bij aanpassen van de grootte van het device"
 
 #: iw/autopart_type.py:207
 msgid ""
@@ -2284,7 +2273,7 @@ msgstr "Bestaand Linux systeem vervangen"
 
 #: iw/autopart_type.py:526
 msgid "Shrink current system"
-msgstr "Verklein huidig systeem"
+msgstr "Huidig systeem verkleinen"
 
 #: iw/autopart_type.py:527 textw/partition_text.py:65
 msgid "Use free space"
@@ -2819,9 +2808,8 @@ msgid "Error Configuring Network"
 msgstr "Fout bij het configureren van het netwerk"
 
 #: iw/netconfig_dialog.py:240
-#, fuzzy
 msgid "Dynamic IP Address"
-msgstr "Dynamisch IP"
+msgstr "Dynamisch IP-adres"
 
 #: iw/netconfig_dialog.py:241
 #, fuzzy, python-format
@@ -4338,12 +4326,12 @@ msgstr "Het laden is reeds gedaan.  Shell wordt nu opgestart.\n"
 
 # vertaling correct?
 #: loader/loader.c:2230
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "Opstarten van anaconda %s, de %s herstelmodus - even geduld\n"
 
 #: loader/loader.c:2232
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "Opstarten van anaconda %s, het %s installatieprogramma - even geduld\n"
 
@@ -4581,9 +4569,9 @@ msgid "Flashing %s port lights for %d seconds."
 msgstr "Knipperen van %s LED-indicatoren gedurende %d seconden..."
 
 #: loader/net.c:2071 loader/net.c:2075
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
-msgstr "Wachten op NetworkManager om %s te configureren...\n"
+msgstr "Wachten op NetworkManager om %s te configureren.\n"
 
 #: loader/nfsinstall.c:68
 msgid "NFS server name:"
@@ -5137,16 +5125,16 @@ msgstr "attr dict dient een type te bevatten"
 
 #: storage/formats/fs.py:113
 msgid "filesystem configuration missing a type"
-msgstr "configuratie bestandsysteem mist een type"
+msgstr "bestandssysteemconfiguratie mist een type"
 
 #: storage/formats/fs.py:343
 msgid "Formatting"
 msgstr "Bezig met formatteren"
 
 #: storage/formats/fs.py:344
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s"
-msgstr "Maken van bestandsysteem op %s..."
+msgstr "Aanmaken van bestandssysteem op %s"
 
 #: storage/formats/fs.py:440
 msgid "Resizing"
@@ -5359,9 +5347,8 @@ msgid "Configuring Network Interfaces"
 msgstr "Configureren van netwerkinterfaces"
 
 #: textw/netconfig_text.py:266
-#, fuzzy
 msgid "Waiting for NetworkManager"
-msgstr "Wachten op NetworkManager..."
+msgstr "Wachten op NetworkManager"
 
 #: textw/netconfig_text.py:272
 msgid "Error configuring network device"
@@ -5814,7 +5801,7 @@ msgstr "Volume om grootte van aan te passen"
 
 #: ui/autopart.glade:430
 msgid "_Shrink"
-msgstr "_Krimpen"
+msgstr "_Verkleinen"
 
 #: ui/autopart.glade:475
 #, fuzzy
