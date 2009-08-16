@@ -22,6 +22,7 @@
 import string
 import os
 from constants import *
+from udev import udev_settle
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -116,18 +117,86 @@ class ZFCPDevice:
     def onlineDevice(self):
         online = "%s/%s/online" %(zfcpsysfs, self.devnum)
         portadd = "%s/%s/port_add" %(zfcpsysfs, self.devnum)
-        unitadd = "%s/%s/%s/unit_add" %(zfcpsysfs, self.devnum, self.wwpn)
+        portdir = "%s/%s/%s" %(zfcpsysfs, self.devnum, self.wwpn)
+        unitadd = "%s/unit_add" %(portdir)
+        unitdir = "%s/%s" %(portdir, self.fcplun)
+        failed = "%s/failed" %(unitdir)
 
         try:
-            if not os.path.exists(unitadd):
-                loggedWriteLineToFile(portadd, self.wwpn)
+            if not os.path.exists(online):
+                loggedWriteLineToFile("/proc/cio_ignore",
+                                      "free %s" %(self.devnum,))
+                udev_settle()
+        except IOError as e:
+            raise ValueError, _(
+                "Could not free zFCP device %s from device ignore list (%s)."
+                %(self.devnum, e))
 
-            loggedWriteLineToFile(unitadd, self.fcplun)
-            loggedWriteLineToFile(online, "1")
-        except Exception, e:
-            log.warn("error bringing zfcp device %s online: %s"
-                     %(self.devnum, e))
-            return False
+        if not os.path.exists(online):
+            raise ValueError, _(
+                "zFCP device %s not found, not even in device ignore list."
+                %(self.devnum,))
+
+        try:
+            f = open(online, "r")
+            devonline = f.readline().strip()
+            f.close()
+            if devonline != "1":
+                loggedWriteLineToFile(online, "1")
+            else:
+                log.info("zFCP device %s already online." %(self.devnum,))
+        except IOError as e:
+            raise ValueError, _(
+                "Could not set zFCP device %s online (%s)."
+                %(self.devnum, e))
+
+        if not os.path.exists(portdir):
+            if os.path.exists(portadd):
+                # older zfcp sysfs interface
+                try:
+                    loggedWriteLineToFile(portadd, self.wwpn)
+                    udev_settle()
+                except IOError as e:
+                    raise ValueError, _(
+                        "Could not add WWPN %s to zFCP device %s (%s)."
+                        %(self.wwpn, self.devnum, e))
+            else:
+                # newer zfcp sysfs interface with auto port scan
+                raise ValueError, _("WWPN %s not found at zFCP device %s."
+                                    %(self.wwpn, self.devnum))
+        else:
+            if os.path.exists(portadd):
+                # older zfcp sysfs interface
+                log.info("WWPN %s at zFCP device %s already there."
+                         %(self.wwpn, self.devnum))
+
+        if not os.path.exists(unitdir):
+            try:
+                loggedWriteLineToFile(unitadd, self.fcplun)
+                udev_settle()
+            except IOError as e:
+                raise ValueError, _(
+                    "Could not add LUN %s to WWPN %s on zFCP device %s (%s)."
+                    %(self.fcplun, self.wwpn, self.devnum, e))
+        else:
+            raise ValueError, _(
+                "LUN %s at WWPN %s on zFCP device %s already configured."
+                %(self.fcplun, self.wwpn, self.devnum))
+
+        fail = "0"
+        try:
+            f = open(failed, "r")
+            fail = f.readline().strip()
+            f.close()
+        except IOError as e:
+            raise ValueError, _(
+                "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
+                %(self.fcplun, self.wwpn, self.devnum, e))
+        if fail != "0":
+            self.offlineDevice()
+            raise ValueError, _(
+                "Failed LUN %s at WWPN %s on zFCP device %s removed again."
+                %(self.fcplun, self.wwpn, self.devnum))
 
         return True
 
