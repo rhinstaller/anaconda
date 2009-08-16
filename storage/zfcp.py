@@ -240,18 +240,64 @@ class ZFCPDevice:
 
     def offlineDevice(self):
         offline = "%s/%s/online" %(zfcpsysfs, self.devnum)
+        portadd = "%s/%s/port_add" %(zfcpsysfs, self.devnum)
         portremove = "%s/%s/port_remove" %(zfcpsysfs, self.devnum)
         unitremove = "%s/%s/%s/unit_remove" %(zfcpsysfs, self.devnum, self.wwpn)
+        portdir = "%s/%s/%s" %(zfcpsysfs, self.devnum, self.wwpn)
+        devdir = "%s/%s" %(zfcpsysfs, self.devnum)
 
         try:
             self.offlineSCSIDevice()
-            loggedWriteLineToFile(offline, "0")
+        except IOError as e:
+            raise ValueError, _(
+                "Could not correctly delete SCSI device of zFCP %s %s %s (%s)."
+                %(self.devnum, self.wwpn, self.fcplun, e))
+
+        try:
             loggedWriteLineToFile(unitremove, self.fcplun)
-            loggedWriteLineToFile(portremove, self.wwpn)
-        except Exception, e:
-            log.warn("error bringing zfcp device %s offline: %s"
-                     %(self.devnum, e))
-            return False
+        except IOError as e:
+            raise ValueError, _(
+                "Could not remove LUN %s at WWPN %s on zFCP device %s (%s)."
+                %(self.fcplun, self.wwpn, self.devnum, e))
+
+        if os.path.exists(portadd):
+            # only try to remove ports with older zfcp sysfs interface
+            for lun in os.listdir(portdir):
+                if lun.startswith("0x") and \
+                        os.path.isdir(os.path.join(portdir, lun)):
+                    log.info("Not removing WWPN %s at zFCP device %s since port still has other LUNs, e.g. %s."
+                             %(self.wwpn, self.devnum, lun))
+                    return True
+
+            try:
+                loggedWriteLineToFile(portremove, self.wwpn)
+            except IOError as e:
+                raise ValueError, _("Could not remove WWPN %s on zFCP device %s (%s)."
+                                    %(self.wwpn, self.devnum, e))
+
+        if os.path.exists(portadd):
+            # older zfcp sysfs interface
+            for port in os.listdir(devdir):
+                if port.startswith("0x") and \
+                        os.path.isdir(os.path.join(devdir, port)):
+                    log.info("Not setting zFCP device %s offline since it still has other ports, e.g. %s."
+                             %(self.devnum, port))
+                    return True
+        else:
+            # newer zfcp sysfs interface with auto port scan
+            import glob
+            luns = glob.glob("%s/0x????????????????/0x????????????????"
+                          %(devdir,))
+            if len(luns) != 0:
+                log.info("Not setting zFCP device %s offline since it still has other LUNs, e.g. %s."
+                         %(self.devnum, luns[0]))
+                return True
+
+        try:
+            loggedWriteLineToFile(offline, "0")
+        except IOError as e:
+            raise ValueError, _("Could not set zFCP device %s offline (%s)."
+                                %(self.devnum, e))
 
         return True
 
