@@ -190,6 +190,7 @@ class ZFCP:
     def __init__(self):
         self.fcpdevs = []
         self.hasReadConfig = False
+        self.down = True
 
     def readConfig(self):
         try:
@@ -234,6 +235,9 @@ class ZFCP:
             self.fcpdevs.append(d)
 
     def shutdown(self):
+        if self.down:
+            return
+        self.down = True
         if len(self.fcpdevs) == 0:
             return
         for d in self.fcpdevs:
@@ -243,9 +247,14 @@ class ZFCP:
                 log.warn(str(e))
 
     def startup(self):
+        if not self.down:
+            return
+        self.down = False
         if not self.hasReadConfig:
             self.readConfig()
             self.hasReadConfig = True
+            # readConfig calls addFCP which calls onlineDevice already
+            return
             
         if len(self.fcpdevs) == 0:
             return
