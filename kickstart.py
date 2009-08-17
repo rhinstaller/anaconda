@@ -1177,7 +1177,7 @@ def earlyCommandPass(anaconda, file):
     try:
         ksparser.readKickstart(file)
     except KickstartError, e:
-        print _("The following error was found while parsing the"
+        print _("The following error was found while parsing the "
                 "kickstart configuration file:\n\n%s") % e
         sys.exit(1)
 
