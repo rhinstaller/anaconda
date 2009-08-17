@@ -55,6 +55,34 @@ def getArchiveTag(configure, spec):
 
     return tag
 
+def getArchiveTagOffset(configure, spec, offset):
+    tag = getArchiveTag(configure, spec)
+
+    if not tag.count("-") >= 2:
+        return tag
+    ldash = tag.rfind("-")
+    bldash = tag[:ldash].rfind("-")
+    ver = tag[bldash+1:ldash]
+
+    if not ver.count(".") >= 1:
+        return tag
+    ver = ver[:ver.rfind(".")]
+
+    if not len(ver) > 0:
+        return tag
+    globstr = "refs/tags/" + tag[:bldash+1] + ver + ".*"
+    proc = subprocess.Popen(['git', 'for-each-ref', '--sort=taggerdate',
+                             '--format=%(tag)', globstr],
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE).communicate()
+    lines = proc[0].strip("\n").split('\n')
+    lines.reverse()
+
+    try:
+        return lines[offset]
+    except IndexError:
+        return tag
+
 def doGitDiff(tag, args=[]):
     proc = subprocess.Popen(['git', 'diff', '--stat', tag] + args,
                             stdout=subprocess.PIPE,
@@ -167,10 +195,12 @@ def main(argv):
     updates = cwd + '/updates'
     keep, compile, help, unknown = False, False, False, False
     tag = None
+    offset = 0
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 't:kc?',
-                                   ['tag=', 'keep', 'compile', 'help'])
+        opts, args = getopt.getopt(sys.argv[1:], 't:o:kc?',
+                                   ['tag=', 'offset=',
+                                    'keep', 'compile', 'help'])
     except getopt.GetoptError:
         help = True
 
@@ -183,6 +213,8 @@ def main(argv):
             help = True
         elif o in ('-t', '--tag'):
             tag = a
+        elif o in ('-o', '--offset'):
+            offset = int(a)
         else:
             unknown = True
 
@@ -199,7 +231,11 @@ def main(argv):
         sys.exit(1)
 
     if not tag:
-        tag = getArchiveTag(configure, spec)
+        if offset < 1:
+            tag = getArchiveTag(configure, spec)
+        else:
+            tag = getArchiveTagOffset(configure, spec, offset)
+        sys.stdout.write("Using tag: %s\n" % tag)
 
     if not os.path.isdir(updates):
         os.makedirs(updates)
