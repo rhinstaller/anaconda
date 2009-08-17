@@ -691,8 +691,8 @@ class DeviceTree(object):
 
         log.debug("resetting parted disks...")
         for device in self.devices:
-            if isinstance(device, DiskDevice):
-                device.resetPartedDisk()
+            if device.format.type == "disklabel":
+                device.format.resetPartedDisk()
 
         for action in self._actions:
             log.info("executing action: %s" % action)
@@ -737,11 +737,11 @@ class DeviceTree(object):
             # if this partition hasn't been allocated it could not have
             # a disk attribute
             if dev.partedPartition.type == parted.PARTITION_EXTENDED and \
-                    len(dev.disk.partedDisk.getLogicalPartitions()) > 0:
+                    len(dev.disk.format.logicalPartitions) > 0:
                 raise ValueError("Cannot remove extended partition %s.  "
                         "Logical partitions present." % dev.name)
 
-            dev.disk.partedDisk.removePartition(dev.partedPartition)
+            dev.disk.format.removePartition(dev.partedPartition)
 
             # adjust all other PartitionDevice instances belonging to the
             # same disk so the device name matches the potentially altered
@@ -1135,44 +1135,11 @@ class DeviceTree(object):
             diskType = DiskDevice
             log.debug("%s is a disk" % name)
 
-        if self.zeroMbr:
-            cb = lambda: True
-        else:
-            cb = lambda: questionInitializeDisk(self.intf, name)
-
-        # if the disk contains protected partitions we will
-        # not wipe the disklabel even if clearpart --initlabel
-        # was specified
-        if not self.clearPartDisks or name in self.clearPartDisks:
-            initlabel = self.reinitializeDisks
-            for protected in self.protectedDevNames:
-                _p = "/sys/%s/%s" % (sysfs_path, protected)
-                if os.path.exists(os.path.normpath(_p)):
-                    initlabel = False
-                    break
-        else:
-            initlabel = False
-
-        try:
-            device = diskType(name,
-                              major=udev_device_get_major(info),
-                              minor=udev_device_get_minor(info),
-                              sysfsPath=sysfs_path,
-                              initcb=cb, initlabel=initlabel, **kwargs)
-        except DeviceUserDeniedFormatError: #drive not initialized?
-            self.addIgnoredDisk(name)
-            return
-
+        device = diskType(name,
+                          major=udev_device_get_major(info),
+                          minor=udev_device_get_minor(info),
+                          sysfsPath=sysfs_path, **kwargs)
         self._addDevice(device)
-
-        # If this is a mac-formatted disk we just initialized, make sure the
-        # partition table partition gets added to the device tree.
-        if device.partedDisk and device.partedDisk.type == "mac" and len(device.partedDisk.partitions) == 1:
-            name = device.partedDisk.partitions[0].getDeviceNodeName()
-            if not self.getDeviceByName(name):
-                partDevice = PartitionDevice(name, exists=True, parents=[device])
-                self._addDevice(partDevice)
-
         return device
 
     def addUdevOpticalDevice(self, info):
@@ -1266,8 +1233,97 @@ class DeviceTree(object):
         if device and device.name in self.protectedDevNames:
             device.protected = True
 
+        # Now, if the device is a disk, see if there is a usable disklabel.
+        # If not, see if the user would like to create one.
+        # XXX this is the bit that forces disklabels on disks. Lame.
+        if isinstance(device, DiskDevice) or \
+           isinstance(device, DMRaidArrayDevice) or \
+           isinstance(device, MultipathDevice):
+            self.handleUdevDiskLabelFormat(info, device)
+            return
+
         # now handle the device's formatting
         self.handleUdevDeviceFormat(info, device)
+
+    def handleUdevDiskLabelFormat(self, info, device):
+        log_method_call(self, device=device.name)
+        if device.format.type == "disklabel":
+            # this device is already set up
+            log.debug("disklabel format on %s already set up" % device.name)
+            return
+
+        try:
+            device.setup()
+        except Exception as e:
+            log.debug("setup of %s failed: %s" % (device.name, e))
+            log.warning("aborting disklabel handler for %s" % device.name)
+            return
+
+        # if the disk contains protected partitions we will not wipe the
+        # disklabel even if clearpart --initlabel was specified
+        if not self.clearPartDisks or device.name in self.clearPartDisks:
+            initlabel = self.reinitializeDisks
+            sysfs_path = udev_device_get_sysfs_path(info)
+            for protected in self.protectedDevNames:
+                # check for protected partition
+                _p = "/sys/%s/%s" % (sysfs_path, protected)
+                if os.path.exists(os.path.normpath(_p)):
+                    initlabel = False
+                    break
+
+                # check for protected partition on a device-mapper disk
+                disk_name = re.sub(r'p\d+$', '', protected)
+                if disk_name != protected and disk_name == device.name:
+                    initlabel = False
+                    break
+        else:
+            initlabel = False
+
+
+        if self.zeroMbr:
+            initcb = lambda: True
+        else:
+            initcb = lambda: questionInitializeDisk(self.intf, device.name,
+                                                    device.description)
+
+        try:
+            format = getFormat("disklabel",
+                               device=device.path,
+                               exists=not initlabel)
+        except InvalidDiskLabelError:
+                # if we have a cb function use it. else we ignore the device.
+                if initcb is not None and initcb():
+                    format = getFormat("disklabel",
+                                       device=device.path,
+                                       exists=False)
+                else:
+                    self._removeDevice(device)
+                    if isinstance(device, DMRaidArrayDevice):
+                        # We should ignore the dmraid members as well
+                        self.addIgnoredDisk(device.raidSet.name)
+                    self.addIgnoredDisk(device.name)
+                    return
+        else:
+            if not format.exists:
+                # if we just initialized a disklabel we should schedule
+                # actions for destruction of the previous format and creation
+                # of the new one
+                self.registerAction(ActionDestroyFormat(device))
+                self.registerAction(ActionCreateFormat(device, format))
+
+                # If this is a mac-formatted disk we just initialized, make
+                # sure the partition table partition gets added to the device
+                # tree.
+                if device.format.partedDisk.type == "mac" and \
+                   len(device.format.partitions) == 1:
+                    name = device.format.partitions[0].getDeviceNodeName()
+                    if not self.getDeviceByName(name):
+                        partDevice = PartitionDevice(name, exists=True,
+                                                     parents=[device])
+                        self._addDevice(partDevice)
+
+            else:
+                device.format = format
 
     def handleUdevLUKSFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
@@ -1445,32 +1501,7 @@ class DeviceTree(object):
             mp.addParent(device)
         else:
             name = generateMultipathDeviceName()
-            devname = "/dev/mapper/%s" % (name,)
-
-            if self.zeroMbr:
-                cb = lambda: True
-            else:
-                desc = []
-                serialtmp = serial
-                while serialtmp:
-                    desc.append(serialtmp[:2])
-                    serialtmp = serialtmp[2:]
-                desc = "WWID %s" % (":".join(desc),)
-
-                cb = lambda: questionInitializeDisk(self.intf, devname, desc)
-
-            initlabel = False
-            if not self.clearPartDisks or \
-                    name in self.clearPartDisks:
-                initlabel = self.reinitializeDisks
-                for protected in self.protectedDevNames:
-                    disk_name = re.sub(r'p\d+$', '', protected)
-                    if disk_name != protected and \
-                            disk_name == name:
-                        initlabel = False
-                        break
-            mp = MultipathDevice(name, info, parents=[device], initcb=cb,
-                                 initlabel=initlabel)
+            mp = MultipathDevice(name, info, parents=[device])
             self.__multipaths[serial] = mp
 
     def handleUdevDMRaidMemberFormat(self, info, device):
@@ -1512,49 +1543,18 @@ class DeviceTree(object):
             else:
                 # Activate the Raid set.
                 rs.activate(mknod=True)
+                dm_array = DMRaidArrayDevice(rs.name,
+                                             raidSet=rs,
+                                             parents=[device])
 
-                # Create the DMRaidArray
-                if self.zeroMbr:
-                    cb = lambda: True
-                else:
-                    cb = lambda: questionInitializeDisk(self.intf,
-                                                        rs.name)
-
-                # Create the DMRaidArray
-                if not self.clearPartDisks or \
-                   rs.name in self.clearPartDisks:
-                    # if the disk contains protected partitions
-                    # we will not wipe the disklabel even if
-                    # clearpart --initlabel was specified
-                    initlabel = self.reinitializeDisks
-                    for protected in self.protectedDevNames:
-                        disk_name = re.sub(r'p\d+$', '', protected)
-                        if disk_name != protected and \
-                           disk_name == rs.name:
-                            initlabel = False
-                            break
-
-                try:
-                    dm_array = DMRaidArrayDevice(rs.name,
-                                                 raidSet=rs,
-                                                 parents=[device],
-                                                 initcb=cb,
-                                                 initlabel=initlabel)
-
-                    self._addDevice(dm_array)
-                    # Use the rs's object on the device.
-                    # pyblock can return the memebers of a set and the
-                    # device has the attribute to hold it.  But ATM we
-                    # are not really using it. Commenting this out until
-                    # we really need it.
-                    #device.format.raidmem = block.getMemFromRaidSet(dm_array,
-                    #        major=major, minor=minor, uuid=uuid, name=name)
-                except DeviceUserDeniedFormatError:
-                    # We should ignore the dmraid and its components
-                    self.addIgnoredDisk(rs.name)
-                    if _all_ignored(rss):
-                        self.addIgnoredDisk(device.name)
-                    rs.deactivate()
+                self._addDevice(dm_array)
+                # Use the rs's object on the device.
+                # pyblock can return the memebers of a set and the
+                # device has the attribute to hold it.  But ATM we
+                # are not really using it. Commenting this out until
+                # we really need it.
+                #device.format.raidmem = block.getMemFromRaidSet(dm_array,
+                #        major=major, minor=minor, uuid=uuid, name=name)
 
     def handleUdevDeviceFormat(self, info, device):
         log_method_call(self, name=getattr(device, "name", None))
@@ -1627,14 +1627,6 @@ class DeviceTree(object):
             log.debug("type '%s' on '%s' invalid, assuming no format" %
                       (format_type, name,))
             device.format = formats.DeviceFormat()
-            return
-
-        if getattr(device, "partedDisk", None):
-            # Any detected formatting is spurious. Ignore it.
-            # We don't want to try to remove it since that could wipe out
-            # valid data like the partition table or data in existing
-            # partitions.
-            device.format = None
             return
 
         if shouldClear(device, self.clearPartType,
@@ -1759,20 +1751,6 @@ class DeviceTree(object):
         # Address the inconsistencies present in the tree leaves.
         for leaf in self.leaves:
             leafInconsistencies(leaf)
-
-        # Automatically handle the cases where we find a format on a
-        # disk with partitions.  I trust that the partitions list
-        # avoids the ignored devices.
-        for part in self.getDevicesByInstance(PartitionDevice):
-            if part.parents[0].format.type is not None:
-                disk = part.parents[0]
-                format = formats.getFormat(None,
-                                           device=disk.path,
-                                           exists=True)
-                log.warning("Automatically corrected fomrat error on %s. "
-                        "Changed from %s to %s." %
-                        (disk.name, disk.format, format))
-                disk.format = format
 
     def identifyMultipaths(self, devices):
         # this function does a couple of things

@@ -258,7 +258,7 @@ class Alpha(Platform):
         if not disk:
             raise DeviceError("Boot partition has no disk")
 
-        disk = disk.partedDisk
+        disk = disk.format.partedDisk
 
         # Check that we're a BSD disk label
         if not disk.type == self.diskType.name:

@@ -236,9 +236,7 @@ class Device(object):
         """
         new = self.__class__.__new__(self.__class__)
         memo[id(self)] = new
-        shallow_copy_attrs = ('_partedDisk', '_partedDevice',
-                             '_partedPartition', '_origPartedDisk',
-                             '_raidSet')
+        shallow_copy_attrs = ('_partedDevice', '_partedPartition', '_raidSet')
         for (attr, value) in self.__dict__.items():
             if attr in shallow_copy_attrs:
                 setattr(new, attr, copy.copy(value))
@@ -451,9 +449,6 @@ class StorageDevice(Device):
 
         self.protected = False
 
-        # this may be handy for disk, dmraid, mpath, mdraid
-        self.diskLabel = None
-
         self.format = format
         self.fstabComment = ""
         self._targetSize = self._size
@@ -490,12 +485,12 @@ class StorageDevice(Device):
         s = Device.__str__(self)
         s += ("  uuid = %(uuid)s  format = %(format)r  size = %(size)s\n"
               "  major = %(major)s  minor = %(minor)r  exists = %(exists)s\n"
-              "  sysfs path = %(sysfs)s  label = %(diskLabel)s\n"
+              "  sysfs path = %(sysfs)s  partedDevice = %(partedDevice)r\n"
               "  target size = %(targetSize)s  path = %(path)s\n"
               "  format args = %(formatArgs)s" %
               {"uuid": self.uuid, "format": self.format, "size": self.size,
                "major": self.major, "minor": self.minor, "exists": self.exists,
-               "sysfs": self.sysfsPath, "diskLabel": self.diskLabel,
+               "sysfs": self.sysfsPath, "partedDevice": self.partedDevice,
                "targetSize": self.targetSize, "path": self.path,
                "formatArgs": self.formatArgs})
         return s
@@ -715,77 +710,18 @@ class DiskDevice(StorageDevice):
                 parents -- a list of required Device instances
                 removable -- whether or not this is a removable device
 
-                initcb -- the call back to be used when initiating disk.
-                initlabel -- whether to start with a fresh disklabel
-
 
             DiskDevices always exist.
         """
         StorageDevice.__init__(self, device, format=format, size=size,
                                major=major, minor=minor, exists=True,
                                sysfsPath=sysfsPath, parents=parents)
-        self._partedDisk = None
-        self._initlabel = initlabel
-        self._initcb = initcb
-
-        # We save the actual state of the disk here. Before the first
-        # modification (addPartition or removePartition) to the partition
-        # table we reset self.partedPartition to this state so we can
-        # perform the modifications one at a time.
-        if self.partedDisk:
-            self._origPartedDisk = self.partedDisk.duplicate()
-        else:
-            self._origPartedDisk = None
-
-
-    @property
-    def partedDisk(self):
-        if self._partedDisk:
-            return self._partedDisk
-
-        log.debug("looking up parted Device: %s" % self.path)
-
-        if self.partedDevice:
-            log.debug("creating parted Disk: %s" % self.path)
-            if self._initlabel:
-                self._partedDisk = self.freshPartedDisk()
-            else:
-                try:
-                    self._partedDisk = parted.Disk(device=self.partedDevice)
-                except _ped.DiskLabelException:
-                    # if we have a cb function use it. else an error.
-                    if self._initcb is not None and self._initcb():
-                        self._partedDisk = parted.freshDisk( \
-                                device=self.partedDevice, \
-                                ty = platform.getPlatform(None).diskType)
-                    else:
-                        raise DeviceUserDeniedFormatError("User prefered to not format.")
-
-                # When the device has no partition table but it has a FS, it
-                # will be created with label type loop.  Treat the same as if
-                # the device had no label (cause it really doesn't).
-                if self._partedDisk.type == "loop":
-                    if self._initcb is not None and self._initcb():
-                        self._partedDisk = parted.freshDisk( \
-                                device=self.partedDevice, \
-                                ty = platform.getPlatform(None).diskType)
-                    else:
-                        raise DeviceUserDeniedFormatError("User prefered to not format.")
-
-        return self._partedDisk
 
     def __str__(self):
         s = StorageDevice.__str__(self)
-        s += ("  removable = %(removable)s  partedDevice = %(partedDevice)r\n"
-              "  partedDisk = %(partedDisk)r" %
-              {"removable": self.removable, "partedDisk": self.partedDisk,
-               "partedDevice": self.partedDevice})
+        s += ("  removable = %(removable)s  partedDevice = %(partedDevice)r" %
+              {"removable": self.removable, "partedDevice": self.partedDevice})
         return s
-
-    def freshPartedDisk(self):
-        log_method_call(self, self.name)
-        labelType = platform.getPlatform(None).diskType
-        return parted.freshDisk(device=self.partedDevice, ty=labelType)
 
     @property
     def mediaPresent(self):
@@ -805,38 +741,6 @@ class DiskDevice(StorageDevice):
         return super(DiskDevice, self).size
     #size = property(StorageDevice._getSize)
 
-    def resetPartedDisk(self):
-        """ Reset parted.Disk to reflect the actual layout of the disk. """
-        log_method_call(self, self.name)
-        self._partedDisk = self._origPartedDisk
-
-    def removePartition(self, device):
-        log_method_call(self, self.name, part=device.name)
-        if not self.mediaPresent:
-            raise DeviceError("cannot remove partition from disk %s which has no media" % self.name, self.path)
-
-        partition = self.partedDisk.getPartitionByPath(device.path)
-        if partition:
-            self.partedDisk.removePartition(partition)
-
-    def addPartition(self, device):
-        log_method_call(self, self.name, part=device.name)
-        if not self.mediaPresent:
-            raise DeviceError("cannot add partition to disk with no media", self.path)
-
-        for part in self.partedDisk.partitions:
-            log.debug("disk %s: partition %s has geom %s" % (self.name,
-                                                             part.getDeviceNodeName(),
-                                                             part.geometry))
-
-        geometry = device.partedPartition.geometry
-        constraint = parted.Constraint(exactGeom=geometry)
-        partition = parted.Partition(disk=self.partedDisk,
-                                     type=device.partedPartition.type,
-                                     geometry=geometry)
-        self.partedDisk.addPartition(partition,
-                                     constraint=constraint)
-
     def probe(self):
         """ Probe for any missing information about this device.
 
@@ -844,38 +748,6 @@ class DiskDevice(StorageDevice):
             size, disklabel type, maybe even partition layout
         """
         log_method_call(self, self.name, size=self.size, partedDevice=self.partedDevice)
-        if not self.diskLabel:
-            log.debug("setting %s diskLabel to %s" % (self.name,
-                                                      self.partedDisk.type))
-            self.diskLabel = self.partedDisk.type
-
-    def commit(self, intf=None):
-        """ Commit changes to the device. """
-        log_method_call(self, self.name, status=self.status)
-        if not self.mediaPresent:
-            raise DeviceError("cannot commit to disk with no media", self.path)
-
-        self.setupParents()
-        self.setup()
-
-        # give committing 5 tries, failing that, raise an exception
-        attempt = 1
-        maxTries = 5
-        keepTrying = True
-
-        while keepTrying and (attempt <= maxTries):
-            try:
-                self.partedDisk.commit()
-                keepTrying = False
-            except parted.DiskException as msg:
-                log.warning(msg)
-                attempt += 1
-
-        if keepTrying:
-            raise DeviceError("cannot commit to disk after %d attempts" % (maxTries,), self.path)
-
-        # commit makes the kernel re-scan the partition table
-        udev_settle()
 
     def destroy(self):
         """ Destroy the device. """
@@ -883,12 +755,7 @@ class DiskDevice(StorageDevice):
         if not self.mediaPresent:
             raise DeviceError("cannot destroy disk with no media", self.path)
 
-        self.partedDisk.deleteAllPartitions()
-        # this is perhaps a separate operation (wiping the disklabel)
-        self.partedDisk.clobber()
-        self.partedDisk.commit()
         self.teardown()
-
 
     def setup(self, intf=None):
         """ Open, or set up, a device. """
@@ -978,8 +845,7 @@ class PartitionDevice(StorageDevice):
 
         if self.exists:
             log.debug("looking up parted Partition: %s" % self.path)
-            #self.partedPartition = parted.getPartitionByName(self.path)
-            self._partedPartition = self.disk.partedDisk.getPartitionByPath(self.path)
+            self._partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
             if not self._partedPartition:
                 raise DeviceError("cannot find parted partition instance", self.path)
 
@@ -1052,7 +918,7 @@ class PartitionDevice(StorageDevice):
             # change this partition's geometry in-memory so that other
             # partitioning operations can complete (e.g., autopart)
             self._targetSize = newsize
-            disk = self.disk.partedDisk
+            disk = self.disk.format.partedDisk
 
             # resize the partition's geometry in memory
             (constraint, geometry) = self._computeResize(self.partedPartition)
@@ -1248,14 +1114,15 @@ class PartitionDevice(StorageDevice):
         self.createParents()
         self.setupParents()
 
-        self.disk.addPartition(self)
-        self.disk.commit()
+        self.disk.format.addPartition(self.partedPartition)
+        self.disk.format.commit()
+        udev_settle(timeout=10)
 
         # Ensure old metadata which lived in freespace so did not get
         # explictly destroyed by a destroyformat action gets wiped
         DeviceFormat(device=self.path, exists=True).destroy()
 
-        self.partedPartition = self.disk.partedDisk.getPartitionByPath(self.path)
+        self.partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
 
         self.exists = True
         self.setup()
@@ -1285,15 +1152,16 @@ class PartitionDevice(StorageDevice):
             # partedDisk has been restored to _origPartedDisk, so
             # recalculate resize geometry because we may have new
             # partitions on the disk, which could change constraints
-            partition = self.disk.partedDisk.getPartitionByPath(self.path)
+            partedDisk = self.disk.format.partedDisk
+            partition = partedDisk.getPartitionByPath(self.path)
             (constraint, geometry) = self._computeResize(partition)
 
-            self.disk.partedDisk.setPartitionGeometry(partition=partition,
-                                                      constraint=constraint,
-                                                      start=geometry.start,
-                                                      end=geometry.end)
+            partedDisk.setPartitionGeometry(partition=partition,
+                                            constraint=constraint,
+                                            start=geometry.start,
+                                            end=geometry.end)
 
-            self.disk.commit()
+            self.disk.format.commit()
             self.notifyKernel()
 
     def destroy(self):
@@ -1309,8 +1177,9 @@ class PartitionDevice(StorageDevice):
             raise DeviceError("Cannot destroy non-leaf device", self.path)
 
         self.setupParents()
-        self.disk.removePartition(self)
-        self.disk.commit()
+        partition = self.disk.format.partedDisk.getPartitionByPath(self.path)
+        self.disk.format.removePartition(partition)
+        self.disk.format.commit()
 
         self.exists = False
 

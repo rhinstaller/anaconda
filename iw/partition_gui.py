@@ -797,16 +797,14 @@ class PartitionWindow(InstallWindow):
 	self.tree[drvparent]['Device'] = _("Hard Drives")
         for disk in disks:
             # add a disk stripe to the graph
-            stripe = self.diskStripeGraph.add(disk.name, disk.partedDisk)
+            stripe = self.diskStripeGraph.add(disk.name, disk.format.partedDisk)
 
             # add a parent node to the tree
             parent = self.tree.append(drvparent)
             self.tree[parent]['Device'] = "%s" % disk.path
             self.tree[parent]['PyObject'] = disk
-            (cylinders, heads, sectors) = disk.partedDisk.device.biosGeometry
-            sectorsPerCyl = heads * sectors
 
-            part = disk.partedDisk.getFirstPartition()
+            part = disk.format.firstPartition
             extendedParent = None
             while part:
                 if part.type & parted.PARTITION_METADATA:
@@ -982,7 +980,7 @@ class PartitionWindow(InstallWindow):
             devices. This will need some work when that time comes.
         """
         device = self.tree.getCurrentDevice()
-        if hasattr(device, "partedDisk"):
+        if device.format.type == "disklabel":
             if doDeleteDependentDevices(self.intf,
                                         self.storage,
                                         device):

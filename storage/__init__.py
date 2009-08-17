@@ -238,7 +238,7 @@ class Storage(object):
         else:
             if hasattr(boot, "bootable"):
                 boot.bootable = True
-                boot.disk.commit()
+                boot.disk.format.commit()
 
     @property
     def nextID(self):
@@ -697,7 +697,7 @@ class Storage(object):
     def extendedPartitionsSupported(self):
         """ Return whether any disks support extended partitions."""
         for disk in self.disks:
-            if disk.partedDisk.supportsFeature(parted.DISK_TYPE_EXTENDED):
+            if disk.format.partedDisk.supportsFeature(parted.DISK_TYPE_EXTENDED):
                 return True
         return False
 

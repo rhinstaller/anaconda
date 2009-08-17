@@ -48,8 +48,7 @@ def _createFreeSpacePartitions(anaconda):
            (disk.name not in anaconda.id.storage.clearPartDisks):
             continue
 
-        partedDisk = disk.partedDisk
-        part = disk.partedDisk.getFirstPartition()
+        part = disk.format.firstPartition
         while part:
             if not part.type & parted.PARTITION_FREESPACE:
                 part = part.nextPartition()
@@ -267,7 +266,7 @@ def shouldClear(part, clearPartType, clearPartDisks=None):
 
     # Never clear the special first partition on a Mac disk label, as that
     # holds the partition table itself.
-    if part.disk.partedDisk.type == "mac" and \
+    if part.disk.format.partedDisk.type == "mac" and \
        part.partedPartition.number == 1 and \
        part.partedPartition.name == "Apple":
         return False
@@ -354,8 +353,8 @@ def clearPartitions(storage):
 def removeEmptyExtendedPartitions(storage):
     for disk in storage.disks:
         log.debug("checking whether disk %s has an empty extended" % disk.name)
-        extended = disk.partedDisk.getExtendedPartition()
-        logical_parts = disk.partedDisk.getLogicalPartitions()
+        extended = disk.format.extendedPartition
+        logical_parts = disk.format.logicalPartitions
         log.debug("extended is %s ; logicals is %s" % (extended, [p.getDeviceNodeName() for p in logical_parts]))
         if extended and not logical_parts:
             log.debug("removing empty extended partition from %s" % disk.name)
@@ -602,7 +601,7 @@ def doPartitioning(storage, exclusiveDisks=None):
     # XXX hack -- if we created any extended partitions we need to add
     #             them to the tree now
     for disk in disks:
-        extended = disk.partedDisk.getExtendedPartition()
+        extended = disk.format.extendedPartition
         if not extended:
             continue
 
@@ -643,10 +642,10 @@ def allocatePartitions(disks, partitions):
     new_partitions.sort(cmp=partitionCompare)
 
     # XXX is this needed anymore?
-    partedDisks = {}
+    disklabels = {}
     for disk in disks:
-        if disk.path not in partedDisks.keys():
-            partedDisks[disk.path] = disk.partedDisk #.duplicate()
+        if disk.path not in disklabels.keys():
+            disklabels[disk.path] = disk.format
 
     # remove all newly added partitions from the disk
     log.debug("removing all non-preexisting from disk(s)")
@@ -655,24 +654,18 @@ def allocatePartitions(disks, partitions):
             if _part.isExtended:
                 # these get removed last
                 continue
-            #_part.disk.partedDisk.removePartition(_part.partedPartition)
-            partedDisk = partedDisks[_part.disk.partedDisk.device.path]
-            #log.debug("removing part %s (%s) from disk %s (%s)" %
-            #          (_part.partedPartition.path,
-            #           [p.path for p in _part.partedPartition.disk.partitions],
-            #           partedDisk.device.path,
-            #           [p.path for p in partedDisk.partitions]))
 
-            partedDisk.removePartition(_part.partedPartition)
+            disklabel = disklabels[_part.partedPartition.disk.device.path]
+            disklabel.partedDisk.removePartition(_part.partedPartition)
             _part.partedPartition = None
             _part.disk = None
 
             # remove empty extended so it doesn't interfere
-            extended = partedDisk.getExtendedPartition()
-            if extended and not partedDisk.getLogicalPartitions():
+            extended = disklabel.extendedPartition
+            if extended and not disklabel.logicalPartitions:
                 log.debug("removing empty extended partition")
                 #partedDisk.minimizeExtendedPartition()
-                partedDisk.removePartition(extended)
+                disklabel.partedDisk.removePartition(extended)
 
     for _part in new_partitions:
         if _part.partedPartition and _part.isExtended:
@@ -700,15 +693,15 @@ def allocatePartitions(disks, partitions):
         part_type = None
         # loop through disks
         for _disk in req_disks:
-            disk = partedDisks[_disk.path]
+            disklabel = disklabels[_disk.path]
             #for p in disk.partitions:
             #    log.debug("disk %s: part %s" % (disk.device.path, p.path))
-            sectorSize = disk.device.physicalSectorSize
+            sectorSize = disklabel.partedDevice.physicalSectorSize
             best = None
 
             log.debug("checking freespace on %s" % _disk.name)
 
-            new_part_type = getNextPartitionType(disk)
+            new_part_type = getNextPartitionType(disklabel.partedDisk)
             if new_part_type is None:
                 # can't allocate any more partitions on this disk
                 log.debug("no free partition slots on %s" % _disk.name)
@@ -724,7 +717,7 @@ def allocatePartitions(disks, partitions):
                     log.debug("no primary slots available on %s" % _disk.name)
                     continue
 
-            best = getBestFreeSpaceRegion(disk,
+            best = getBestFreeSpaceRegion(disklabel.partedDisk,
                                           new_part_type,
                                           _part.req_size,
                                           best_free=free,
@@ -734,9 +727,10 @@ def allocatePartitions(disks, partitions):
                new_part_type == parted.PARTITION_NORMAL:
                 # see if we can do better with a logical partition
                 log.debug("not enough free space for primary -- trying logical")
-                new_part_type = getNextPartitionType(disk, no_primary=True)
+                new_part_type = getNextPartitionType(disklabel.partedDisk,
+                                                     no_primary=True)
                 if new_part_type:
-                    best = getBestFreeSpaceRegion(disk,
+                    best = getBestFreeSpaceRegion(disklabel.partedDisk,
                                                   new_part_type,
                                                   _part.req_size,
                                                   best_free=free,
@@ -773,22 +767,23 @@ def allocatePartitions(disks, partitions):
             raise PartitioningError("not enough free space on disks")
 
         _disk = use_disk
-        disk = _disk.partedDisk
+        disklabel = _disk.format
 
         # create the extended partition if needed
         # TODO: move to a function (disk, free)
         if part_type == parted.PARTITION_EXTENDED:
             log.debug("creating extended partition")
-            geometry = parted.Geometry(device=disk.device,
+            geometry = parted.Geometry(device=disklabel.partedDevice,
                                        start=free.start,
                                        length=free.length,
                                        end=free.end)
-            extended = parted.Partition(disk=disk,
+            extended = parted.Partition(disk=disklabel.partedDisk,
                                         type=parted.PARTITION_EXTENDED,
                                         geometry=geometry)
-            constraint = parted.Constraint(device=disk.device)
+            constraint = parted.Constraint(device=disklabel.partedDevice)
             # FIXME: we should add this to the tree as well
-            disk.addPartition(extended, constraint)
+            disklabel.partedDisk.addPartition(partition=extended,
+                                              constraint=constraint)
 
             # end proposed function
 
@@ -797,7 +792,7 @@ def allocatePartitions(disks, partitions):
 
             # recalculate freespace
             log.debug("recalculating free space")
-            free = getBestFreeSpaceRegion(disk,
+            free = getBestFreeSpaceRegion(disklabel.partedDisk,
                                           part_type,
                                           _part.req_size,
                                           boot=_part.req_bootable)
@@ -807,31 +802,34 @@ def allocatePartitions(disks, partitions):
 
         # create minimum geometry for this request
         # req_size is in MB
-        sectors_per_track = disk.device.biosGeometry[2]
+        sectors_per_track = disklabel.partedDevice.biosGeometry[2]
         length = (_part.req_size * (1024 * 1024)) / sectorSize
-        new_geom = parted.Geometry(device=disk.device,
+        new_geom = parted.Geometry(device=disklabel.partedDevice,
                                    start=max(sectors_per_track, free.start),
                                    length=length)
 
         # create maximum and minimum geometries for constraint
         start = max(0 , free.start - 1)
-        max_geom = parted.Geometry(device=disk.device,
+        max_len = min(length + 1, disklabel.partedDevice.length - start)
+        min_len = length - 1
+        max_geom = parted.Geometry(device=disklabel.partedDevice,
                                    start=start,
-                                   length=min(length + 1, disk.device.length - start))
-        min_geom = parted.Geometry(device=disk.device,
+                                   length=max_len)
+        min_geom = parted.Geometry(device=disklabel.partedDevice,
                                    start=free.start + 1,
-                                   length=length-1)
+                                   length=min_len)
 
 
         # create the partition and add it to the disk
-        partition = parted.Partition(disk=disk,
+        partition = parted.Partition(disk=disklabel.partedDisk,
                                      type=part_type,
                                      geometry=new_geom)
         constraint = parted.Constraint(maxGeom=max_geom, minGeom=min_geom)
-        disk.addPartition(partition=partition,
-                          constraint=constraint)
+        disklabel.partedDisk.addPartition(partition=partition,
+                                          constraint=constraint)
         log.debug("created partition %s of %dMB and added it to %s" %
-                (partition.getDeviceNodeName(), partition.getSize(), disk))
+                (partition.getDeviceNodeName(), partition.getSize(),
+                 disklabel.partedDisk))
 
         # this one sets the name
         _part.partedPartition = partition
@@ -839,7 +837,7 @@ def allocatePartitions(disks, partitions):
 
         # parted modifies the partition in the process of adding it to
         # the disk, so we need to grab the latest version...
-        _part.partedPartition = disk.getPartitionByPath(_part.path)
+        _part.partedPartition = disklabel.partedDisk.getPartitionByPath(_part.path)
 
 def growPartitions(disks, partitions):
     """ Grow all growable partition requests.
@@ -883,12 +881,12 @@ def growPartitions(disks, partitions):
 
     for disk in disks:
         log.debug("growing requests on %s" % disk.name)
-        for p in disk.partedDisk.partitions:
+        for p in disk.format.partitions:
             log.debug("  %s: %s (%dMB)" % (disk.name, p.getDeviceNodeName(),
                                          p.getSize()))
-        sectorSize = disk.partedDisk.device.physicalSectorSize
+        sectorSize = disk.format.partedDevice.physicalSectorSize
         # get a list of free space regions on the disk
-        free = disk.partedDisk.getFreeSpaceRegions()
+        free = disk.format.partedDisk.getFreeSpaceRegions()
         if not free:
             log.debug("no free space on %s" % disk.name)
             continue
