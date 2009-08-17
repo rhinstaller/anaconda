@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-05 10:18-0400\n"
-"PO-Revision-Date: 2009-04-03 12:19+0100\n"
+"PO-Revision-Date: 2009-08-16 21:32-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -61,9 +61,8 @@ msgstr ""
 "текстуални режим."
 
 #: anaconda:459
-#, fuzzy
 msgid "Starting graphical installation."
-msgstr "Покрећем графичку инсталацију..."
+msgstr "Покрећем графичку инсталацију."
 
 #: anaconda:775
 msgid "Would you like to use VNC?"
@@ -84,14 +83,12 @@ msgid "Install class forcing text mode installation"
 msgstr "Класа инсталације намеће текстуални режим инсталације"
 
 #: anaconda:821
-#, fuzzy
 msgid "Graphical installation is not available. Starting text mode."
-msgstr "Графичка инсталација није доступна...  Покрећем текстуални режим."
+msgstr "Графичка инсталација није доступна. Покрећем текстуални режим."
 
 #: anaconda:829
-#, fuzzy
 msgid "DISPLAY variable not set. Starting text mode."
-msgstr "DISPLAY променљива није постављена. Покрећем текстуални режим!"
+msgstr "DISPLAY променљива није постављена. Покрећем текстуални режим."
 
 #: anaconda:997
 msgid "reipl configuration successful => reboot"
@@ -116,18 +113,16 @@ msgid "Copying File"
 msgstr "Умножавам датотеку"
 
 #: backend.py:168
-#, fuzzy
 msgid "Transferring install image to hard drive"
-msgstr "Пребацујем отисак инсталације на чврсти диск..."
+msgstr "Пребацујем отисак инсталације на чврсти диск"
 
 #: backend.py:178
-#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
 msgstr ""
 "Дошло је до грешке при пребацивању отиска инсталације на ваш чврсти диск.  "
-"Ово је вероватно због лошег медијума."
+"Ово је често изазвано оштећеним или медијумом ниског квалитета."
 
 #: backend.py:182
 msgid ""
@@ -174,14 +169,13 @@ msgid "Warning"
 msgstr "Упозорење"
 
 #: bootloader.py:54
-#, fuzzy
 msgid ""
 "Filesystems have already been activated.  You cannot go back past this "
 "point.\n"
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"Системи датотека су већ активирани. Не можете да се вратите назад иза ове "
+"Системи датотека су већ активирани.  Не можете да се вратите назад после ове "
 "тачке.\n"
 "\n"
 "Желите ли да наставите са инсталацијом?"
@@ -212,43 +206,42 @@ msgid "Bootloader"
 msgstr "Покретачки програм"
 
 #: bootloader.py:143
-#, fuzzy
 msgid "Installing bootloader."
-msgstr "Инсталирам покретачки програм..."
+msgstr "Инсталирам покретачки програм."
 
 #: bootloader.py:210
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
 msgstr ""
+"Дошло је до грешке при инсталацији покретачког програма.  Систем можда неће "
+"моћи да буде покренут."
 
 #: bootloader.py:217
-#, fuzzy
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
 msgstr ""
-"Ниједан пакет језгра није инсталиран на ваш систем.  Подешавање вашег "
-"покретачког програма неће бити промењено."
+"Ниједан пакет језгра није инсталиран на систем.  Подешавање покретачког "
+"програма неће бити промењено."
 
 #: cmdline.py:55
 msgid "Completed"
 msgstr "Завршено"
 
 #: cmdline.py:63
-#, fuzzy
 msgid "In progress"
-msgstr "У току...        "
+msgstr "У току"
 
 #: cmdline.py:86 gui.py:1135 text.py:391
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
 "file:\n"
 "\n"
 "%s"
 msgstr ""
-"Пронађена је следећа грешка при тумачењу kickstart подешавања:\n"
+"Пронађена је следећа грешка при тумачењу датотеке kickstart подешавања:\n"
 "\n"
 "%s"
 
@@ -257,6 +250,8 @@ msgid ""
 "Command line mode requires all choices to be specified in a kickstart "
 "configuration file."
 msgstr ""
+"Режим командне линије захтева да сви избори буду одређени у датотеци "
+"kickstart подешавања."
 
 #: cmdline.py:114 cmdline.py:121
 msgid "Can't have a question in command line mode!"
@@ -280,16 +275,14 @@ msgid " against anaconda at %s"
 msgstr " за anaconda-у код %s"
 
 #: gui.py:106
-#, fuzzy
 msgid "An error occurred saving screenshots to disk."
-msgstr "Дошло је до грешке при умножавању снимака екрана."
+msgstr "Дошло је до грешке при чувању снимака екрана на диск."
 
 #: gui.py:117
 msgid "Screenshots Copied"
 msgstr "Снимци екрана су умножени"
 
 #: gui.py:118
-#, fuzzy
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -330,7 +323,6 @@ msgid "Installation Key"
 msgstr "Инсталациони кључ"
 
 #: gui.py:631 text.py:148
-#, fuzzy
 msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
@@ -404,12 +396,10 @@ msgid "_Retry"
 msgstr "По_кушај поново"
 
 #: gui.py:1267
-#, fuzzy
 msgid "The installer will now exit."
-msgstr "Инсталатер сада излази..."
+msgstr "Инсталатер сада излази."
 
 #: gui.py:1270 storage/partitioning.py:256
-#, fuzzy
 msgid "The system will now reboot."
 msgstr "Систем ће сада бити поново покренут."
 
@@ -426,7 +416,6 @@ msgid "Exit installer"
 msgstr "Излаз из инсталатера"
 
 #: gui.py:1343
-#, fuzzy
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Да ли сте сигурни да желите да изађете из инсталације?"
 
@@ -612,15 +601,15 @@ msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "/boot или / тачка монтирања је на диску са који нам није познат"
 
 #: kickstart.py:96
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the kickstart script at line %s.  You may examine "
 "the output in %s.  This is a fatal error and installation will be aborted.  "
 "Press the OK button to exit the installer."
 msgstr ""
 "Дошло је до грешке при извршавању kickstart скрипте код реда %s.  Можете да "
-"испитате излаз у %s.  Ово је кобна грешка и инсталација ће бити обустављена. "
-"Притисните „У реду“ за излазак из инсталатера."
+"испитате излаз у %s.  Ово је кобна грешка и инсталација ће бити "
+"обустављена.  Притисните „У реду“ за излазак из инсталатера."
 
 #: kickstart.py:111 kickstart.py:113
 msgid "Scriptlet Failure"
@@ -637,34 +626,30 @@ msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Непозната грешка при обради %%ksappend редова: %s"
 
 #: kickstart.py:1181
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing thekickstart configuration "
 "file:\n"
 "\n"
 "%s"
 msgstr ""
-"Пронађена је следећа грешка при тумачењу kickstart подешавања:\n"
+"Пронађена је следећа грешка при тумачењу датотеке kickstart подешавања:\n"
 "\n"
 "%s"
 
 #: kickstart.py:1242 livecd.py:223
-#, fuzzy
 msgid "Post-Installation"
 msgstr "После инсталације"
 
 #: kickstart.py:1243
-#, fuzzy
 msgid "Running post-installation scripts"
-msgstr "Извршавам скрипте након инсталације"
+msgstr "Извршавам скрипте после инсталације"
 
 #: kickstart.py:1259
-#, fuzzy
 msgid "Pre-Installation"
-msgstr "Инсталација пакета"
+msgstr "Пре инсталације"
 
 #: kickstart.py:1260
-#, fuzzy
 msgid "Running pre-installation scripts"
 msgstr "Извршавам скрипте пре инсталације"
 
@@ -673,13 +658,13 @@ msgid "Missing Package"
 msgstr "Недостаје пакет"
 
 #: kickstart.py:1293
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 "Назначили сте да пакет „%s“ треба да буде инсталиран.  Овај пакет не "
-"постоји. Желите ли да наставите или прекинете инсталацију?"
+"постоји.  Желите ли да наставите или прекинете инсталацију?"
 
 #: kickstart.py:1299 kickstart.py:1338
 msgid "_Abort"
@@ -694,24 +679,24 @@ msgid "Missing Group"
 msgstr "Недостаје група"
 
 #: kickstart.py:1331
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 "Назначили сте да група „%s“ треба да буде инсталирана.  Ова група не "
-"постоји. Желите ли да наставите или прекинете инсталацију?"
+"постоји.  Желите ли да наставите или прекинете инсталацију?"
 
 #: kickstart.py:1437
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
 "anaconda cannot prompt for.  Please add the following sections and try "
 "again:\n"
 "%s"
 msgstr ""
-"Вашој kickstart датотеци недостају неопходни подаци за које anaconda не може "
-"да приупита.  Додајте следеће одељке и покушајте поново:\n"
+"Датотеци kickstart подешавања недостају неопходни подаци за које anaconda не "
+"може да приупита.  Додајте следеће одељке и покушајте поново:\n"
 "%s"
 
 #: livecd.py:110
@@ -744,13 +729,12 @@ msgstr ""
 "поновну инсталацију."
 
 #: livecd.py:224
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
 msgstr ""
-"Извршавам измене система датотека након инсталације.  Ово може да потраје "
-"неколико минута..."
+"Извршавам измене система датотека после инсталације.  Ово може да потраје "
+"неколико минута."
 
 #: livecd.py:397
 #, python-format
@@ -872,7 +856,7 @@ msgstr "Дошло је до грешке при активирању подеш
 
 #: packages.py:188
 msgid "_File Bug"
-msgstr ""
+msgstr "Под_несите извештај о грешци"
 
 #: packages.py:350
 msgid "Invalid Key"
@@ -1182,7 +1166,6 @@ msgid "First sector of boot partition"
 msgstr "Први сектор покретачке партиције"
 
 #: platform.py:112
-#, fuzzy
 msgid "You have not created a bootable partition."
 msgstr "Нисте направили покретачку партицију."
 
@@ -1212,37 +1195,34 @@ msgid "EFI System Partition"
 msgstr "EFI системска партиција"
 
 #: platform.py:218
-#, fuzzy
 msgid "You have not created a /boot/efi partition."
-msgstr "Нисте направили покретачку партицију."
+msgstr "Нисте направили /boot/efi партицију."
 
 #: platform.py:224
-#, fuzzy
 msgid "/boot is not on an ext2 filesystem."
-msgstr "Партиције за покретање не могу бити на %s систему датотека."
+msgstr "/boot није на систему датотека ext2."
 
 #: platform.py:227
 msgid "/boot/efi is not EFI."
-msgstr ""
+msgstr "/boot/efi није EFI."
 
 #: platform.py:265
 #, python-format
 msgid "%s must have a bsd disk label."
-msgstr ""
+msgstr "%s мора имати ознаку bsd диска."
 
 #: platform.py:277
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
-msgstr ""
+msgstr "Диск %s захтева најмање 1МБ слободног простора на почетку."
 
 #: platform.py:322
 msgid "PPC PReP Boot"
 msgstr "PPC PReP покретање"
 
 #: platform.py:334
-#, fuzzy
 msgid "The boot partition must be within the first 4MB of the disk."
-msgstr "Постоји проблем при уписивању стања система на диск."
+msgstr "Покретачка партиција мора бити унутар првих 4МБ диска."
 
 #: platform.py:379 platform.py:382
 msgid "Apple Bootstrap"
@@ -1251,7 +1231,7 @@ msgstr "Apple Bootstrap"
 #: platform.py:397
 #, python-format
 msgid "%s must have a mac disk label."
-msgstr ""
+msgstr "%s мора имати ознаку mac диска."
 
 #: rescue.py:199
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1390,7 +1370,7 @@ msgstr ""
 
 #: rescue.py:444
 msgid "You don't have any Linux partitions.  Rebooting.\n"
-msgstr ""
+msgstr "Немате ниједну Linux партицију.  Покрећем поново.\n"
 
 #: rescue.py:447
 msgid "Rescue Mode"
@@ -1726,12 +1706,11 @@ msgstr "%s КБ"
 
 #: yuminstall.py:129
 msgid "Preparing to install"
-msgstr ""
+msgstr "Припрема за инсталацију"
 
 #: yuminstall.py:130
-#, fuzzy
 msgid "Preparing transaction from installation source"
-msgstr "Припремам трансакцију са извора инсталације..."
+msgstr "Припремам трансакцију са извора инсталације"
 
 #: yuminstall.py:158
 #, python-format
@@ -1743,9 +1722,8 @@ msgid "Finishing upgrade"
 msgstr "Завршавам надградњу"
 
 #: yuminstall.py:219
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while."
-msgstr "Завршавам процес надградње.  Ово може да потраје неколико минута..."
+msgstr "Завршавам процес надградње.  Ово може да мало потраје."
 
 #: yuminstall.py:286 iw/task_gui.py:301
 msgid "Error Setting Up Repository"
@@ -1823,9 +1801,8 @@ msgid "Retrying"
 msgstr "Покушавам поново"
 
 #: yuminstall.py:735
-#, fuzzy
 msgid "Retrying download."
-msgstr "Поново покушавам преузимање..."
+msgstr "Поново покушавам преузимање."
 
 #: yuminstall.py:801
 #, python-format
@@ -1912,14 +1889,13 @@ msgstr ""
 "прављења стабла инсталације."
 
 #: yuminstall.py:1118
-#, fuzzy
 msgid "Retrieving installation information."
-msgstr "Прибављам податке о инсталацији..."
+msgstr "Прибављам податке о инсталацији."
 
 #: yuminstall.py:1120
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s."
-msgstr "Прибављам податке о инсталацији за %s..."
+msgstr "Прибављам податке о инсталацији за %s."
 
 #: yuminstall.py:1122
 msgid "Installation Progress"
@@ -1988,38 +1964,32 @@ msgid "Post Upgrade"
 msgstr "После надградње"
 
 #: yuminstall.py:1574
-#, fuzzy
 msgid "Performing post-upgrade configuration"
-msgstr "Вршим подешавања после надградње..."
+msgstr "Вршим подешавања после надградње"
 
 #: yuminstall.py:1576
-#, fuzzy
 msgid "Post Installation"
 msgstr "После инсталације"
 
 #: yuminstall.py:1577
-#, fuzzy
 msgid "Performing post-installation configuration"
-msgstr "Вршим подешавања после инсталације..."
+msgstr "Вршим подешавања после инсталације"
 
 #: yuminstall.py:1803
-#, fuzzy
 msgid "Installation Starting"
 msgstr "Инсталација почиње"
 
 #: yuminstall.py:1804
-#, fuzzy
 msgid "Starting installation process"
-msgstr "Напредовање инсталације"
+msgstr "Почињем поступак инсталације"
 
 #: yuminstall.py:1842
 msgid "Dependency Check"
 msgstr "Провера међузависности"
 
 #: yuminstall.py:1843
-#, fuzzy
 msgid "Checking dependencies in packages selected for installation"
-msgstr "Проверавам међузависности пакета изабраних за инсталацију..."
+msgstr "Проверавам међузависности пакета изабраних за инсталацију"
 
 #: installclasses/fedora.py:39
 msgid "_Fedora"
@@ -2090,12 +2060,20 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"Желите ли да сада унесете инсталациони број (некада зван и претплатнички "
+"број)?  Ова могућност даје инсталатеру приступ ма којим додатним деловима "
+"укљученим у вашу претплату.  Ако прескочите овај корак, додатни делови се "
+"могу ручно инсталирати касније.\n"
+"\n"
+"Погледајте http://www.redhat.com/InstNum/ за више информација."
 
 #: installclasses/rhel.py:79
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
+"Ако не можете да пронађете инсталациони број, погледајте http://www.redhat."
+"com/InstNum/"
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2156,12 +2134,11 @@ msgstr "Слаба лозинка"
 #: iw/account_gui.py:133
 #, python-format
 msgid "You have provided a weak password: %s"
-msgstr ""
+msgstr "Пружена је слаба лозинка: %s"
 
 #: iw/account_gui.py:135
-#, fuzzy
 msgid "Use Anyway"
-msgstr "Корисничко име"
+msgstr "Свеједно употреби"
 
 #: iw/account_gui.py:143 textw/userauth_text.py:75
 msgid ""
@@ -2594,6 +2571,9 @@ msgid ""
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
+"Логички дискови које сте подесили захтевају %d МБ, али група дискова има "
+"само %d МБ.  Или повећајте величину групе дискова или смањите величину "
+"логичких дискова."
 
 #: iw/lvm_dialog_gui.py:769
 msgid "No free slots"
@@ -2744,14 +2724,13 @@ msgid "Error Configuring Network"
 msgstr "Грешке при подешавању мреже"
 
 #: iw/netconfig_dialog.py:240
-#, fuzzy
 msgid "Dynamic IP Address"
-msgstr "Динамички IP"
+msgstr "Динамичка IP адреса"
 
 #: iw/netconfig_dialog.py:241
-#, fuzzy, python-format
+#, python-format
 msgid "Sending request for IP address information for %s"
-msgstr "Шаљем захтев за IP податке за %s..."
+msgstr "Шаљем захтев за подацима IP адресе за %s"
 
 #: iw/netconfig_dialog.py:256 iw/netconfig_dialog.py:259
 #: textw/netconfig_text.py:215 textw/netconfig_text.py:218
@@ -3070,7 +3049,7 @@ msgid "RAID Options"
 msgstr "RAID опције"
 
 #: iw/partition_gui.py:1225
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
 "device.  A RAID device can be configured to provide additional speed and "
@@ -3080,10 +3059,7 @@ msgstr ""
 "Софтверски RAID вам дозвољава да саставите више дискова у већи RAID уређај.  "
 "RAID уређај може бити подешен да пружи додатну брзину и поузданост у "
 "поређењу са употребом појединачног диска.  За више информација о употреби "
-"RAID уређаја молим посаветујте %s документацију.\n"
-"\n"
-"Тренутно имате %s софтверских RAID партиција слободних за употребу.\n"
-"\n"
+"RAID уређаја погледајте %s документацију."
 
 #: iw/partition_gui.py:1235
 msgid ""
@@ -3760,9 +3736,9 @@ msgid "Scanning"
 msgstr "Претражујем"
 
 #: loader/cdinstall.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation images on CD device %s\n"
-msgstr "Тражим инсталационе отиске на ЦД уређају %s"
+msgstr "Тражим инсталационе отиске на ЦД уређају %s\n"
 
 #: loader/cdinstall.c:341
 #, c-format
@@ -3807,9 +3783,8 @@ msgid "Loading"
 msgstr "Учитавам"
 
 #: loader/driverdisk.c:139
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Читам управљачку дискету..."
+msgstr "Читам управљачки диск"
 
 #: loader/driverdisk.c:238 loader/driverdisk.c:270
 msgid "Driver Disk Source"
@@ -4133,7 +4108,6 @@ msgid "Updates"
 msgstr "Ажурирања"
 
 #: loader/loader.c:526
-#, fuzzy
 msgid "Reading anaconda updates"
 msgstr "Читам anaconda-ина ажурирања"
 
@@ -4159,9 +4133,8 @@ msgid "Media Detected"
 msgstr "Пронађен медијум"
 
 #: loader/loader.c:1258
-#, fuzzy
 msgid "Found local installation media"
-msgstr "Пронађен локални медијум за инсталацију..."
+msgstr "Пронађен локални медијум за инсталацију"
 
 #: loader/loader.c:1374
 msgid "Rescue Method"
@@ -4230,14 +4203,14 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "покретач је већ извршен.  Покрећем љуску.\n"
 
 #: loader/loader.c:2230
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
-msgstr "Покрећем anaconda-у %s, режим спашавања за %s - молим сачекајте...\n"
+msgstr "Покрећем anaconda-у %s, режим спашавања за %s - молим сачекајте.\n"
 
 #: loader/loader.c:2232
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr "Покрећем anaconda-у %s, инсталатер %s система - молим сачекајте...\n"
+msgstr "Покрећем anaconda-у %s, инсталатер %s система - молим сачекајте.\n"
 
 #: loader/mediacheck.c:46
 #, c-format
@@ -4245,14 +4218,14 @@ msgid "Unable to find install image %s"
 msgstr "Не могу да преузмем отисак инсталације %s"
 
 #: loader/mediacheck.c:52
-#, fuzzy, c-format
+#, c-format
 msgid "Checking \"%s\"."
-msgstr "Проверавам „%s“..."
+msgstr "Проверавам „%s“."
 
 #: loader/mediacheck.c:54
-#, fuzzy, c-format
+#, c-format
 msgid "Checking media."
-msgstr "Проверавам медијуме..."
+msgstr "Проверавам медијуме."
 
 #: loader/mediacheck.c:86
 msgid ""
@@ -4463,14 +4436,14 @@ msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Морате унети број секунди као цео број између 1 и 30."
 
 #: loader/net.c:1903
-#, fuzzy, c-format
+#, c-format
 msgid "Flashing %s port lights for %d seconds."
-msgstr "Треперим %s лампице за порт %d секунди..."
+msgstr "Треперим %s лампице за порт %d секунди."
 
 #: loader/net.c:2071 loader/net.c:2075
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
-msgstr "Чекам да NetworkManager подеси %s...\n"
+msgstr "Чекам да NetworkManager подеси %s.\n"
 
 #: loader/nfsinstall.c:68
 msgid "NFS server name:"
@@ -4509,14 +4482,12 @@ msgid "Telnet"
 msgstr "Telnet"
 
 #: loader/telnetd.c:89
-#, fuzzy
 msgid "Waiting for telnet connection."
-msgstr "Чекам telnet везу..."
+msgstr "Чекам telnet везу."
 
 #: loader/telnetd.c:128
-#, fuzzy
 msgid "Running anaconda via telnet."
-msgstr "Покрећем anaconda-у кроз telnet..."
+msgstr "Покрећем anaconda-у кроз telnet."
 
 #: loader/urlinstall.c:84
 #, c-format
@@ -4577,9 +4548,9 @@ msgid "Loading SCSI driver"
 msgstr "Учитавам управљачки програм за SCSI"
 
 #: loader/windows.c:66
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver"
-msgstr "Читам %s управљачки програм..."
+msgstr "Читам %s управљачки програм"
 
 #: storage/__init__.py:85
 msgid "Unknown Device"
@@ -4648,9 +4619,8 @@ msgid "Finding Devices"
 msgstr "Проналазим уређаје"
 
 #: storage/__init__.py:273
-#, fuzzy
 msgid "Finding storage devices"
-msgstr "Проналазим складишне уређаје..."
+msgstr "Проналазим складишне уређаје"
 
 #: storage/__init__.py:511
 msgid "This partition is holding the data for the hard drive install."
@@ -4707,13 +4677,13 @@ msgstr ""
 "инсталацију."
 
 #: storage/__init__.py:828
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s MB which is lower than recommended for a "
 "normal %s install."
 msgstr ""
-"Ваша / партиција је мања од %s мегабајта, што је мање од препорученог за "
-"редовну %s инсталацију."
+"Ваша / партиција је мања од %s МБ, што је мање од препорученог за редовну %s "
+"инсталацију."
 
 #: storage/__init__.py:838
 #, python-format
@@ -4721,6 +4691,8 @@ msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr ""
+"Ваша / партиција не одговара живом отиску са кога вршите инсталацију.  Мора "
+"бити форматирана као %s."
 
 #: storage/__init__.py:845
 #, python-format
@@ -4747,13 +4719,12 @@ msgstr ""
 "радном стању."
 
 #: storage/__init__.py:882
-#, fuzzy
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
 msgstr ""
-"Нисте навели свап партицију.  Иако није строго неопходна у свим случајевима, "
-"значајно ће побољшати учинак већине инсталација."
+"Нисте навели свап партицију.  Због количине присутне меморије, свап "
+"партиција је неопходна да би се завршила инсталација."
 
 #: storage/__init__.py:887
 msgid ""
@@ -4768,11 +4739,13 @@ msgstr ""
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
+"Тачка монтирања није исправна.  Директоријум %s мора бити на систему "
+"датотека /."
 
 #: storage/__init__.py:898
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s must be on a linux file system."
-msgstr "„%s“ тачка монтирања је у употреби. Молим одаберите неку другу."
+msgstr "%s тачка монтирања мора бити на Linux систему датотека."
 
 #: storage/__init__.py:909
 msgid "No Drives Found"
@@ -4968,16 +4941,17 @@ msgstr ""
 "инсталације."
 
 #: storage/devicetree.py:142
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error processing drive %s %-0.fMB (%s).\n"
 "\n"
 "Maybe it needs to be reinitialized.  YOU WILL LOSE ALL DATA ON THIS DRIVE IF "
 "YOU REINITIALIZE IT!%s"
 msgstr ""
-"Грешка при обради диска %s.\n"
-"Можда га је потребно поново иницијализовати. ИЗГУБИЋЕТЕ СВЕ ПОДАТКЕ НА ОВОМ "
-"ДИСКУ!"
+"Грешка при обради диска %s %-0.fMB (%s).\n"
+"\n"
+"Можда га је потребно поново иницијализовати.  ИЗГУБИЋЕТЕ СВЕ ПОДАТКЕ НА ОВОМ "
+"ДИСКУ АКО ГА ПОНОВО ИНИЦИЈАЛИЗУЈЕТЕ!%s"
 
 #: storage/devicetree.py:148
 msgid "_Ignore drive"
@@ -4988,7 +4962,7 @@ msgid "_Re-initialize drive"
 msgstr "Поно_во иницијализуј диск"
 
 #: storage/devicetree.py:169
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error processing LVM.\n"
 "There is inconsistent LVM data on %s.  You can reinitialize all related PVs "
@@ -4996,24 +4970,21 @@ msgid ""
 "contents."
 msgstr ""
 "Грешка при LVM обради.\n"
-"Изгледа да постоје недоследни LVM подаци. (%s) сачињава(ју) %s. Можете "
-"поново иницијализовати све физичке дискове, што ће обрисати све LVM "
-"метаподатке. Или занемарити, што ће очувати садржај."
+"Изгледа да постоје недоследни LVM подаци на %s.  Можете поново "
+"иницијализовати све повезане физичке дискове (%s), што ће обрисати све LVM "
+"метаподатке, или занемарити, што ће очувати садржај."
 
 #: storage/devicetree.py:174
-#, fuzzy
 msgid "_Ignore"
-msgstr "Занемар_и све"
+msgstr "Занемар_и"
 
 #: storage/devicetree.py:175
-#, fuzzy
 msgid "_Re-initialize"
-msgstr "Поно_во иницијализуј диск"
+msgstr "Поно_во иницијализуј"
 
 #: storage/devicetree.py:1634 storage/devicetree.py:1683
-#, fuzzy
 msgid "This partition is part of an inconsistent LVM Volume Group."
-msgstr "Овај уређај је део LVM диск групе."
+msgstr "Ова партиција је део недоследне LVM диск групе."
 
 #: storage/formats/fs.py:66
 msgid "attr dict must include a type"
@@ -5028,27 +4999,27 @@ msgid "Formatting"
 msgstr "Форматирам"
 
 #: storage/formats/fs.py:344
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s"
-msgstr "Правим систем датотека на %s..."
+msgstr "Правим систем датотека на %s"
 
 #: storage/formats/fs.py:440
 msgid "Resizing"
 msgstr "Мењам величину"
 
 #: storage/formats/fs.py:441
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s"
-msgstr "Мењам величину система датотека на %s..."
+msgstr "Мењам величину система датотека на %s"
 
 #: storage/formats/fs.py:484
 msgid "Checking"
 msgstr "Проверавам"
 
 #: storage/formats/fs.py:485
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s"
-msgstr "Проверавам систем датотека /dev/%s..."
+msgstr "Проверавам систем датотека на %s"
 
 #: storage/iscsi.py:82 storage/iscsi.py:83
 msgid "Scanning iSCSI nodes"
@@ -5239,9 +5210,8 @@ msgid "Configuring Network Interfaces"
 msgstr "Подешавам мрежне спреге"
 
 #: textw/netconfig_text.py:266
-#, fuzzy
 msgid "Waiting for NetworkManager"
-msgstr "Чекам на NetworkManager-а..."
+msgstr "Чекам на NetworkManager-а"
 
 #: textw/netconfig_text.py:272
 msgid "Error configuring network device"
@@ -5257,7 +5227,6 @@ msgid "Partitioning Type"
 msgstr "Врста поделе диска"
 
 #: textw/partition_text.py:60
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
@@ -5265,8 +5234,7 @@ msgid ""
 msgstr ""
 "Инсталација захтева поделу вашег диска на партиције.  Подразумевани нацрт је "
 "прикладан за већину корисника.  Изаберите који простор треба употребити и "
-"које дискове треба употребити као циљ инсталације.  Можете такође изабрати "
-"да направите свој прилагођени нацрт."
+"које дискове треба употребити као циљ инсталације."
 
 #: textw/partition_text.py:80
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5300,25 +5268,24 @@ msgstr ""
 "свесветског порта (WWPN) и 64-битни FCP LUN за сваки уређај."
 
 #: textw/partition_text.py:223
-#, fuzzy
 msgid "Add FCoE SAN"
-msgstr "Додај _ZFCP LUN"
+msgstr "Додај FCoE SAN"
 
 #: textw/partition_text.py:224
 msgid ""
 "Enter the device name for the NIC which is connected to the FCoE SAN. For "
 "example \"eth0\"."
 msgstr ""
+"Унесите име уређаја за NIC која је повезана на FCoE SAN. На пример „eth0“."
 
 #: textw/partition_text.py:225
-#, fuzzy
 msgid "NIC device name"
-msgstr "Ниједан уређај није пронађен"
+msgstr "Име NIC уређаја"
 
 #: textw/partition_text.py:232
-#, fuzzy, python-format
+#, python-format
 msgid "%s is not a valid NIC device name."
-msgstr "%s није исправно име домаћина."
+msgstr "%s није исправно име NIC уређаја."
 
 #: textw/partition_text.py:248 ui/iscsi-config.glade:7
 msgid "Configure iSCSI Parameters"
@@ -5456,7 +5423,7 @@ msgid "The root password must be at least 6 characters long."
 msgstr "Root лозинка мора бити дуга најмање 6 знакова."
 
 #: textw/userauth_text.py:84
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have provided a weak password: %s\n"
 "\n"
@@ -5500,7 +5467,7 @@ msgstr "Chandev ред  "
 
 #: ui/GroupSelector.glade:8
 msgid "window1"
-msgstr ""
+msgstr "прозор1"
 
 #: ui/GroupSelector.glade:203
 msgid "_Optional packages"
@@ -5565,9 +5532,8 @@ msgid "Add _ZFCP LUN"
 msgstr "Додај _ZFCP LUN"
 
 #: ui/adddrive.glade:207
-#, fuzzy
 msgid "Add _FCoE SAN"
-msgstr "Додај _ZFCP LUN"
+msgstr "Додај _FCoE SAN"
 
 #: ui/adddrive.glade:228
 msgid "Disable _dmraid device"
@@ -5687,26 +5653,22 @@ msgid "Re_view and modify partitioning layout"
 msgstr "Прег_ледај и промени нацрт партиција"
 
 #: ui/autopart.glade:344
-#, fuzzy
 msgid "Volume to Shrink"
-msgstr "Диск за промену величине"
+msgstr "Диск за смањивање"
 
 #: ui/autopart.glade:430
 msgid "_Shrink"
-msgstr ""
+msgstr "_Смањи"
 
 #: ui/autopart.glade:475
-#, fuzzy
 msgid ""
 "Which partition would you like to shrink to make room for your installation?"
 msgstr ""
-"Којој партицији желите да измените величину ради ослобађања простора за "
-"инсталацију?"
+"Коју партицију желите да смањите ради ослобађања простора за инсталацију?"
 
 #: ui/autopart.glade:520
-#, fuzzy
 msgid "<b>Shrink _target (in MB):</b>"
-msgstr "<b>_Циљ промене величине (у МБ):</b>"
+msgstr "<b>_Циљ смањивања (у МБ):</b>"
 
 #: ui/blwhere.glade:8
 msgid "Boot loader device"
@@ -5817,9 +5779,8 @@ msgstr ""
 "поступка покретања система"
 
 #: ui/lukspassphrase.glade:368
-#, fuzzy
 msgid "label1"
-msgstr "Ознака"
+msgstr "ознака1"
 
 #: ui/netconfig.glade:109
 msgid "<b>_Interface:</b>"
@@ -5920,550 +5881,3 @@ msgstr "<b>WWPN:</b>"
 #: ui/zfcp-config.glade:212
 msgid "<b>FCP LUN:</b>"
 msgstr "<b>FCP LUN:</b>"
-
-#~ msgid "Fatal Error"
-#~ msgstr "Кобна грешка"
-
-#~ msgid ""
-#~ "You do not have enough RAM to install %s on this machine.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr ""
-#~ "Немате довољно RAM-а за инсталацију %s-а на овој машини.\n"
-#~ "\n"
-#~ "Притисните <return> за поновно покретање система.\n"
-
-#~ msgid ""
-#~ "Your bug could not be filed due to the following error when communicating "
-#~ "with bugzilla:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Грешка не може бити пријављена због следеће грешке у комуникацији са "
-#~ "бубаждајом:\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Your bug could not be filed due to bad information in the bug fields.  "
-#~ "This is most likely an error in anaconda:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Грешка не може бити пријављена због лоших података у пољу за грешку.  Ово "
-#~ "је највероватније грешка са anaconda-ом:\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "Unable To File Bug"
-#~ msgstr "Не могу да пријавим грешку"
-
-#~ msgid "Bug Filing Not Supported"
-#~ msgstr "Пријављивање грешака није подржано"
-
-#~ msgid ""
-#~ "Your distribution does not provide a supported bug filing system, so you "
-#~ "cannot save your exception this way."
-#~ msgstr ""
-#~ "Ваша дистрибуција не нуди подржани систем за пријаву грешака, тако да се "
-#~ "добијени изузетак не може сачувати на овај начин."
-
-#~ msgid "Invalid Bug Information"
-#~ msgstr "Неисправни подаци о грешци"
-
-#~ msgid ""
-#~ "Please provide a valid username, password, and short bug description."
-#~ msgstr "Пружите исправно корисничко име, лозинку, и кратак опис грешке."
-
-#~ msgid "Unable To Login"
-#~ msgstr "Не могу да се пријавим"
-
-#~ msgid ""
-#~ "There was an error logging into %s using the provided username and "
-#~ "password."
-#~ msgstr ""
-#~ "Дошло је до грешке приликом пријаве на %s користећи понуђено корисничко "
-#~ "име и лозинку."
-
-#~ msgid "Bug Created"
-#~ msgstr "Извештај о грешци је направљен"
-
-#~ msgid ""
-#~ "A new bug has been created with your traceback attached. Please add "
-#~ "additional information such as what you were doing when you encountered "
-#~ "the bug, screenshots, and whatever else is appropriate to the following "
-#~ "bug:\n"
-#~ "\n"
-#~ "%s/%s"
-#~ msgstr ""
-#~ "Нов извештај о грешци је направљен на основу приложеног повратног трага. "
-#~ "Додајте допунске податке попут шта сте радили када сте наишли на грешку, "
-#~ "снимке екрана, и све остало што је прикладно за следећу грешку:\n"
-#~ "\n"
-#~ "%s/%s"
-
-#~ msgid "Bug Updated"
-#~ msgstr "Грешка је ажурирана"
-
-#~ msgid ""
-#~ "A bug with your information already exists.  Your account has been added "
-#~ "to the CC list and your traceback added as a comment.  Please add "
-#~ "additional descriptive information to the following bug:\n"
-#~ "\n"
-#~ "%s/%s"
-#~ msgstr ""
-#~ "Извештај о грешци са вашим подацима већ постоји.  Ваш налог је додат у CC "
-#~ "списак и ваш повратни траг је додат као коментар.  Додајте допунске "
-#~ "описне податке следећој грешци:\n"
-#~ "\n"
-#~ "%s/%s"
-
-#~ msgid "Dump Written"
-#~ msgstr "Избачај је записан"
-
-#~ msgid ""
-#~ "Your system's state has been successfully written to the disk. The "
-#~ "installer will now exit."
-#~ msgstr ""
-#~ "Стање система је успешно записано на диск. Инсталатер ће сада завршити."
-
-#~ msgid "Dump Not Written"
-#~ msgstr "Избачај није записан"
-
-#~ msgid ""
-#~ "Cannot save a bug report since there is no active networking device "
-#~ "available."
-#~ msgstr ""
-#~ "Не могу да сачувам извештај о грешци јер не постоји доступан активни "
-#~ "мрежни уређај."
-
-#~ msgid ""
-#~ "Your system's state has been successfully written to the remote host.  "
-#~ "The installer will now exit."
-#~ msgstr ""
-#~ "Стање система је успешно сачувано код удаљеног домаћина.  Инсталатер ће "
-#~ "сада завршити."
-
-#~ msgid "There was a problem writing the system state to the remote host."
-#~ msgstr "Постоји проблем при уписивању стања система код удаљеног домаћина."
-
-#~ msgid "Bugzilla (%s)"
-#~ msgstr "Бубаждаја (%s)"
-
-#~ msgid "Debug"
-#~ msgstr "Пронађи грешку"
-
-#~ msgid "Exception Occurred"
-#~ msgstr "Дошло је до одступања"
-
-#~ msgid "Error: %s splits into %s but not like we expect"
-#~ msgstr "Грешка: %s се одваја у %s али не како смо очекивали"
-
-#~ msgid "Could not get information for mount point /boot or /"
-#~ msgstr "Не могу да прибавим податке за /boot или / тачку монтирања"
-
-#~ msgid "Running..."
-#~ msgstr "Извршавам..."
-
-#~ msgid "Doing post-installation"
-#~ msgstr "Радње након инсталације"
-
-#~ msgid "None"
-#~ msgstr "Нема"
-
-#~ msgid ""
-#~ "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-#~ "DASDs are not supported for usage during an install of %s.  If you wish "
-#~ "to use this disk for installation, it must be re-initialized causing the "
-#~ "loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to reformat this DASD using CDL format?"
-#~ msgstr ""
-#~ "%s уређај је LDL форматиран уместо CDL форматиран.  LDL форматирани DASD-"
-#~ "и нису подржани за употребу током %s инсталације.  Ако желите да "
-#~ "користите овај диск за инсталацију, он мора бити изнова иницијализован, "
-#~ "изазивајући тиме губитак СВИХ ПОДАТАКА на овом диску.\n"
-#~ "\n"
-#~ "Желите ли да изнова форматирате овај DASD користећи CDL формат?"
-
-#~ msgid ""
-#~ "/dev/%s currently has a %s partition layout.  To use this drive for the "
-#~ "installation of %s, it must be re-initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to re-initialize this drive?"
-#~ msgstr ""
-#~ "/dev/%s тренутно има %s распоред партиција.   Да бисте употребили овај "
-#~ "диск за %s инсталацију, он мора бити изнова иницијализован, изазивајући "
-#~ "тиме губитак СВИХ ПОДАТАКА на овом диску.\n"
-#~ "\n"
-#~ "Желите ли да поново иницијализујете овај диск?"
-
-#~ msgid "Initializing"
-#~ msgstr "Иницијализујем"
-
-#~ msgid "Please wait while formatting drive %s...\n"
-#~ msgstr "Молим чекајте док форматирам %s диск...\n"
-
-#~ msgid ""
-#~ "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-#~ "\n"
-#~ "To create new partitions it must be initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "Табела партиција на уређају %s (%s %-0.f МБ) је нечитљива.\n"
-#~ "\n"
-#~ "Да бисте направили нове партиције она мора бити иницијализована, што ће "
-#~ "проузроковати губитак СВИХ ПОДАТАКА на овом диску.\n"
-#~ "\n"
-#~ "Овај поступак ће поништити било које претходне изборе током инсталације о "
-#~ "занемаривању дискова.\n"
-#~ "\n"
-#~ "Да ли хоћете да иницијализујете овај диск, бришући СВЕ ПОДАТКЕ?"
-
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem "
-#~ "in the Linux kernel does not allow for more than 15 partitons at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "Диск /dev/%s има на себи више од 15 партиција.  SCSI подсистем Linux "
-#~ "језгра не дозвољава више од 15 партиција за сада.  Нећете моћи направити "
-#~ "измене у подели овог диска или користити партиције након /dev/%s15 у %s"
-
-#~ msgid "Save"
-#~ msgstr "Сачувај"
-
-#~ msgid "Save to local disk"
-#~ msgstr "Сачувај на локални диск"
-
-#~ msgid "Send to bugzilla (%s)"
-#~ msgstr "Пошаљи бубаждаји (%s)"
-
-#~ msgid "Send to remote server (scp)"
-#~ msgstr "Пошаљи удаљеном серверу (scp)"
-
-#~ msgid "Password"
-#~ msgstr "Лозинка"
-
-#~ msgid "Bug Description"
-#~ msgstr "Опис грешке"
-
-#~ msgid "Host (host:port)"
-#~ msgstr "Домаћин (домаћин:порт)"
-
-#~ msgid "Destination file"
-#~ msgstr "Циљна датотека"
-
-#~ msgid "The passphrase must be at least %d characters long."
-#~ msgstr "Лозинка мора имати најмање %d знакова."
-
-#~ msgid ""
-#~ "You have choosen the upgrade for %s architecture, but the installed "
-#~ "system is for %s architecture. \n"
-#~ "\n"
-#~ msgstr ""
-#~ "Изабрали сте надградњу за архитектуру %s, али је инсталирани систем за "
-#~ "архитектуру %s. \n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Would you like to upgrade  the installed system to the %s architecture?"
-#~ msgstr "Желите ли да надградите инсталирани систем на %s архитектуру?"
-
-#~ msgid "Giving up attempting to connect after %d tries!\n"
-#~ msgstr "Одустајем од покушавања повезивања после %d покушаја!\n"
-
-#~ msgid "%s Byte"
-#~ msgstr "%s бајт"
-
-#~ msgid "%s Bytes"
-#~ msgstr "%s бајтова"
-
-#~ msgid "Processing"
-#~ msgstr "Обрађујем"
-
-#~ msgid "%s of %s packages completed"
-#~ msgstr "%s од %s пакета завршено"
-
-#~ msgid "Starting install process.  This may take several minutes..."
-#~ msgstr ""
-#~ "Покрећем процес инсталације.  Ово може да потраје неколико минута..."
-
-#~ msgid "You cannot create more than %s logical volumes per volume group."
-#~ msgstr "Не можете да направите више од %s логичких дискова по диск групи."
-
-#~ msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-#~ msgstr "Диск %s (геом: %s/%s/%s) (модел: %s)"
-
-#~ msgid ""
-#~ "To install the full set of supported packages included in your "
-#~ "subscription, please enter your Installation Number"
-#~ msgstr ""
-#~ "Молим унесите инсталациони број за инсталацију пуног скупа подржаних "
-#~ "пакета који долазе са вашом претплатом."
-
-#~ msgid ""
-#~ "If you're unable to locate the Installation Number, consult http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "If you skip:\n"
-#~ "* You may not get access to the full set of packages included in your "
-#~ "subscription.\n"
-#~ "* It may result in an unsupported/uncertified installation of Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* You will not get software and security updates for packages not "
-#~ "included in your subscription."
-#~ msgstr ""
-#~ "Ако не можете да нађете инсталациони број, погледајте http://www.redhat."
-#~ "com/apps/support/in.html.\n"
-#~ "\n"
-#~ "Ако прескочите:\n"
-#~ "* Можда нећете имати приступ пуном скупу пакета који долазе са вашом "
-#~ "претплатом.\n"
-#~ "* Исход може бити неподржана/неоверена инсталација Red Hat Enterprise "
-#~ "Linux-а.\n"
-#~ "* Нећете добити софтверска и безбедносна ажурирања пакета за које нисте "
-#~ "претплаћени."
-
-#~ msgid "Filesystem error detected, cannot continue."
-#~ msgstr "Откривена је грешка код система датотека, не могу да наставим."
-
-#~ msgid "boot flag not available for this partition"
-#~ msgstr "покретачка ознака није доступна за ову партицију"
-
-#~ msgid "_Ignore drive(s)"
-#~ msgstr "Занемар_и диск(ове)"
-
-#~ msgid "_Re-initialize drive(s)"
-#~ msgstr "Поно_во иницијализуј диск(ове)"
-
-#~ msgid "Your system will now be rebooted."
-#~ msgstr "Ваш систем ће сада бити поново покренут."
-
-#~ msgid "Bug _description"
-#~ msgstr "_Опис грешке"
-
-#~ msgid "Destination _file"
-#~ msgstr "Одредишна _датотека"
-
-#~ msgid ""
-#~ "Local storage device\n"
-#~ "Local disk\n"
-#~ "Remote server (scp)"
-#~ msgstr ""
-#~ "Локални складишни уређај\n"
-#~ "Локални диск\n"
-#~ "Удаљени сервер (scp)"
-
-#~ msgid "Please choose a destination for saving your traceback."
-#~ msgstr "Одаберите одредиште за чување повратног трага."
-
-#~ msgid "Select A File"
-#~ msgstr "Изаберите датотеку"
-
-#~ msgid "_Host (host:port)"
-#~ msgstr "До_маћин (домаћин:порт)"
-
-#~ msgid "_Password"
-#~ msgstr "_Лозинка"
-
-#~ msgid "_User name"
-#~ msgstr "_Корисничко име"
-
-#~ msgid "Install"
-#~ msgstr "Инсталирај"
-
-#~ msgid "Install the live CD to your hard disk"
-#~ msgstr "Инсталирај живи ЦД на чврсти диск"
-
-#~ msgid "Install to Hard Drive"
-#~ msgstr "Инсталирај на чврсти диск"
-
-#~ msgid "Afrikaans"
-#~ msgstr "африкански"
-
-#~ msgid "Arabic"
-#~ msgstr "арапски"
-
-#~ msgid "Assamese"
-#~ msgstr "асамешки"
-
-#~ msgid "Bengali"
-#~ msgstr "бенгалски"
-
-#~ msgid "Bengali(India)"
-#~ msgstr "бенгалски(Индија)"
-
-#~ msgid "Bulgarian"
-#~ msgstr "бугарски"
-
-#~ msgid "Catalan"
-#~ msgstr "каталонски"
-
-#~ msgid "Chinese(Simplified)"
-#~ msgstr "кинески(поједностављени)"
-
-#~ msgid "Chinese(Traditional)"
-#~ msgstr "кинески(традиционални)"
-
-#~ msgid "Croatian"
-#~ msgstr "хрватски"
-
-#~ msgid "Czech"
-#~ msgstr "чешки"
-
-#~ msgid "Danish"
-#~ msgstr "дански"
-
-#~ msgid "Dutch"
-#~ msgstr "холандски"
-
-#~ msgid "English"
-#~ msgstr "енглески"
-
-#~ msgid "Estonian"
-#~ msgstr "естонски"
-
-#~ msgid "Finnish"
-#~ msgstr "фински"
-
-#~ msgid "French"
-#~ msgstr "француски"
-
-#~ msgid "German"
-#~ msgstr "немачки"
-
-#~ msgid "Greek"
-#~ msgstr "грчки"
-
-#~ msgid "Gujarati"
-#~ msgstr "гуџарати"
-
-#~ msgid "Hebrew"
-#~ msgstr "хебрејски"
-
-#~ msgid "Hindi"
-#~ msgstr "хинду"
-
-#~ msgid "Hungarian"
-#~ msgstr "мађарски"
-
-#~ msgid "Icelandic"
-#~ msgstr "исландски"
-
-#~ msgid "Iloko"
-#~ msgstr "илоко"
-
-#~ msgid "Indonesian"
-#~ msgstr "индонезијски"
-
-#~ msgid "Italian"
-#~ msgstr "италијански"
-
-#~ msgid "Japanese"
-#~ msgstr "јапански"
-
-#~ msgid "Kannada"
-#~ msgstr "канада"
-
-#~ msgid "Korean"
-#~ msgstr "корејски"
-
-#~ msgid "Macedonian"
-#~ msgstr "македонски"
-
-#~ msgid "Maithili"
-#~ msgstr "маитхили"
-
-#~ msgid "Malay"
-#~ msgstr "малајски"
-
-#~ msgid "Malayalam"
-#~ msgstr "малајалам"
-
-#~ msgid "Marathi"
-#~ msgstr "маратски"
-
-#~ msgid "Nepali"
-#~ msgstr "непалски"
-
-#~ msgid "Norwegian(Bokmål)"
-#~ msgstr "норвешки(букмол)"
-
-#~ msgid "Northern Sotho"
-#~ msgstr "северни сото"
-
-#~ msgid "Oriya"
-#~ msgstr "орија"
-
-#~ msgid "Persian"
-#~ msgstr "персијски"
-
-#~ msgid "Polish"
-#~ msgstr "пољски"
-
-#~ msgid "Portuguese"
-#~ msgstr "португалски"
-
-#~ msgid "Portuguese(Brazilian)"
-#~ msgstr "португалски(бразилски)"
-
-#~ msgid "Punjabi"
-#~ msgstr "панџаби"
-
-#~ msgid "Romanian"
-#~ msgstr "румунски"
-
-#~ msgid "Russian"
-#~ msgstr "руски"
-
-#~ msgid "Serbian"
-#~ msgstr "српски"
-
-#~ msgid "Serbian(Latin)"
-#~ msgstr "српски(латиница)"
-
-#~ msgid "Sinhala"
-#~ msgstr "синхала"
-
-#~ msgid "Slovak"
-#~ msgstr "словачки"
-
-#~ msgid "Slovenian"
-#~ msgstr "словеначки"
-
-#~ msgid "Spanish"
-#~ msgstr "шпански"
-
-#~ msgid "Swedish"
-#~ msgstr "шведски"
-
-#~ msgid "Tajik"
-#~ msgstr "таџикистански"
-
-#~ msgid "Tamil"
-#~ msgstr "тамилски"
-
-#~ msgid "Telugu"
-#~ msgstr "телугу"
-
-#~ msgid "Turkish"
-#~ msgstr "турски"
-
-#~ msgid "Ukrainian"
-#~ msgstr "украјински"
-
-#~ msgid "Vietnamese"
-#~ msgstr "вијетнамски"
-
-#~ msgid "Welsh"
-#~ msgstr "велшки"
-
-#~ msgid "Zulu"
-#~ msgstr "зулу"
