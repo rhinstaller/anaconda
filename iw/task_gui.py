@@ -168,10 +168,10 @@ class RepoEditor:
         except:
             return 0
 
-    def _enableRepo(self):
+    def _enableRepo(self, repo):
         try:
-            self.backend.ayum.repos.add(self.repo)
-            self.backend.ayum.repos.enableRepo(self.repo.id)
+            self.backend.ayum.repos.add(repo)
+            self.backend.ayum.repos.enableRepo(repo.id)
         except yum.Errors.DuplicateRepoError, e:
             self.intf.messageWindow(_("Error"),
                   _("The repository %s has already been added.  Please "
@@ -348,7 +348,19 @@ class RepoEditor:
             # attributes from the old one before deleting it.
             if self.repo:
                 newRepoObj = AnacondaYumRepo(self.repo.id)
+                removeOld = True
+            else:
+                newRepoObj = AnacondaYumRepo(reponame.replace(" ", ""))
+                removeOld = False
 
+            type = self.typeComboBox.get_active()
+            if not applyFuncs[type](newRepoObj) or not self._enableRepo(newRepoObj) or not \
+                   setupRepo(self.anaconda, newRepoObj):
+                newRepoObj.close()
+                self.anaconda.backend.ayum.repos.delete(newRepoObj.id)
+                continue
+
+            if removeOld:
                 try:
                     os.unlink("%s/cachecookie" % self.repo.cachedir)
                     os.unlink("%s/repomd.xml" % self.repo.cachedir)
@@ -359,21 +371,11 @@ class RepoEditor:
                 self.anaconda.backend.ayum.repos.delete(self.repo.id)
                 try:
                     shutil.rmtree(self.repo.cachedir)
-                except Exception, e:
-                    log.warning("error removing cachedir for %s: %s" %(self.repo,e))
+                except Exception as e:
+                    log.warning("error removing cachedir for %s: %s" %(self.repo, e))
                     pass
-            else:
-                newRepoObj = AnacondaYumRepo(reponame.replace(" ", ""))
 
             self.repo = newRepoObj
-
-            type = self.typeComboBox.get_active()
-            if not applyFuncs[type](self.repo) or not self._enableRepo() or not \
-                   setupRepo(self.anaconda, self.repo):
-                self.repo.close()
-                self.anaconda.backend.ayum.repos.delete(self.repo.id)
-                continue
-
             break
 
         self.dialog.hide()
