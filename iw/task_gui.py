@@ -71,6 +71,21 @@ def setupRepo(anaconda, repo):
 
     return True
 
+def setupBaseRepo(anaconda, methodstr):
+    anaconda.setMethodstr(methodstr)
+
+    try:
+        anaconda.backend.ayum.configBaseURL()
+    except SystemError as e:
+        anaconda.intf.messageWindow(_("Error Setting Up Repository"),
+            _("The following error occurred while setting up the "
+              "installation repository:\n\n%s\n\nPlease provide the "
+              "correct information for installing %s") % (e, productName))
+        return False
+
+    anaconda.backend.ayum.configBaseRepo(replace=True)
+    return True
+
 class RepoEditor:
     # Window-level callbacks
     def on_addRepoDialog_destroy(self, widget, *args):
@@ -260,10 +275,9 @@ class RepoEditor:
             repo.mirrorlist = None
 
         repo.name = self.nameEntry.get_text()
-        repo.basecachedir = self.backend.ayum.conf.cachedir
 
         if repo.name == "Installation Repo":
-            self.anaconda.setMethodstr(repourl)
+            return setupBaseRepo(self.anaconda, repourl)
 
         return True
 
@@ -276,10 +290,7 @@ class RepoEditor:
                                       "and try again."))
             return False
 
-        self.anaconda.setMethodstr("cdrom://%s:%s" % (cdr, self.anaconda.backend.ayum.tree))
-        self.anaconda.backend.ayum.configBaseURL()
-        self.anaconda.backend.ayum.configBaseRepo(replace=True)
-        return True
+        return setupBaseRepo(self.anaconda, "cdrom://%s:%s" % (cdr, self.anaconda.backend.ayum.tree))
 
     def _applyNfs(self, repo):
         server = self.nfsServerEntry.get_text()
@@ -293,19 +304,7 @@ class RepoEditor:
                                     _("Please enter an NFS server and path."))
             return False
 
-        self.anaconda.setMethodstr("nfs:%s:%s" % (server, path))
-
-        try:
-            self.anaconda.backend.ayum.configBaseURL()
-        except SystemError, e:
-            self.intf.messageWindow(_("Error Setting Up Repository"),
-                _("The following error occurred while setting up the "
-                  "installation repository:\n\n%s\n\nPlease provide the "
-                  "correct information for installing %s.") % (e, productName))
-            return False
-
-        self.anaconda.backend.ayum.configBaseRepo(replace=True)
-        return True
+        return setupBaseRepo(self.anaconda, "nfs:%s:%s" % (server, path))
 
     def _applyHd(self, repo):
         return True
