@@ -368,13 +368,10 @@ class RepoEditor:
             self.repo = newRepoObj
 
             type = self.typeComboBox.get_active()
-            if not applyFuncs[type](self.repo):
-                continue
-
-            if not self._enableRepo():
-                continue
-
-            if not setupRepo(self.anaconda, self.repo):
+            if not applyFuncs[type](self.repo) or not self._enableRepo() or not \
+                   setupRepo(self.anaconda, self.repo):
+                self.repo.close()
+                self.anaconda.backend.ayum.repos.delete(self.repo.id)
                 continue
 
             break
