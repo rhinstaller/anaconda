@@ -43,7 +43,7 @@ def setupRepo(anaconda, repo):
     try:
         anaconda.backend.doRepoSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         anaconda.backend.doSackSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
-        log.info("added repository %s with with source URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
+        log.info("added repository %s with source URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
         # FIXME: need a per-repo way of doing this; largely cut and paste
         # from yum right now
         if not repo.groups_added:
