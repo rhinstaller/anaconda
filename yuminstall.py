@@ -1813,6 +1813,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         for pkg in removed:
             f.write("-%s\n" % pkg)
 
+        f.write("%end")
+
     def writeConfiguration(self):
         return
 
