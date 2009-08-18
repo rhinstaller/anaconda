@@ -299,12 +299,29 @@ class RepoEditor:
         path = self.nfsPathEntry.get_text()
         path.strip()
 
+        repo.name = self.nameEntry.get_text()
+
         if not server or not path:
             self.intf.messageWindow(_("Error"),
                                     _("Please enter an NFS server and path."))
             return False
 
-        return setupBaseRepo(self.anaconda, "nfs:%s:%s" % (server, path))
+        if repo.name == "Installation Repo":
+            return setupBaseRepo(self.anaconda, "nfs:%s:%s" % (server, path))
+        else:
+            import tempfile
+            dest = tempfile.mkdtemp("", repo.name, "/mnt")
+
+            try:
+                isys.mount("%s:%s" % (server, path), dest, "nfs")
+            except Exception as e:
+                self.intf.messageWindow(_("Error Setting Up Repository"),
+                    _("The following error occurred while setting up the "
+                      "repository:\n\n%s") % e)
+                return False
+
+            repo.baseurl = "file://%s" % dest
+            return True
 
     def _applyHd(self, repo):
         return True
