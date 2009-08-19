@@ -209,6 +209,59 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 18 2009 David Cantrell <dcantrell@redhat.com> - 12.16-1
+- correctly deactivate zFCP LUN on s390 (maier)
+- correctly activate zFCP LUN on s390 (maier)
+- prevent getting started up or shutdown again while already in such state
+  (maier)
+- Remove unused reipl code in linuxrc.s390 (maier)
+- Fix copying of shutdown to initrd.img in mk-images for s390x (#517888)
+  (maier)
+- 64 bit sparc linux does not define __sparc64__ we need to use
+  "(defined(__sparc__) && defined(__arch64__))" fixes building 64 bit sparc
+  (dennis)
+- make tftp images as small as possible. we have a 10mb hardware limitation
+  on there size (dennis)
+- make sure we correctly make the sparc tftp image (dennis)
+- make sure we have glibc.sparcv9 installed in sparc installers not
+  glibc.sparcv9v (dennis)
+- add the sparc screen font (dennis)
+- add the files for sparc boot config setup configure.ac to define IS_SPARC
+  (dennis)
+-  add mk-images.sparc script (dennis)
+- add support for making sparc images (dennis)
+- sparc no longer needs and special keyboard handling.  it uses the standard
+  api's interfaces (dennis)
+- setup termcap for sparc (dennis)
+- Close %%packages with a %%end (#518063) (katzj)
+- Call udev_settle from DiskLabel.commit to ensure it happens. (dlehman)
+- Fix traceback in text mode upgrade. (#505435) (dlehman)
+- Don't traceback if Delete button is hit when no device is selected.
+  (dlehman)
+- Clean up management of extended partitions we create. (#497293) (dlehman)
+- Don't use StorageDevice for partitions w/ biosraid formatting. (#504002)
+  (dlehman)
+- Don't try to get the size of fstypes w/ no infofsProg defined. (dlehman)
+- Change all disklabel manipulations to use the DiskLabel format class.
+  (dlehman)
+- Create a DiskLabel format class for partition tables. (dlehman)
+- Add support for specifying a tag to makeupdates. (dlehman)
+- Include changed files from the top level in the updates. (dlehman)
+- If asked, put the system SN (as given by dmidecode) into an HTTP header.
+  (clumens)
+- Add dmidecode to the initrd. (clumens)
+- Add the kssendsn parameter and corresponding flag. (clumens)
+- Don't keep testing if we're doing URL_METHOD_HTTP. (clumens)
+- Later pyparted will define DEVICE_DM, so change the test to use it.
+  (clumens)
+- Use the new GTK Tooltip API (#517389). (clumens)
+- Fix a typo in a kickstart error string (#517760). (clumens)
+- Be sure we have a sorted list of mountpoints for live mangling (#504986)
+  (katzj)
+- Fix askmethod to work with stage= being specified (#516973) (katzj)
+- Fix ordering on device list returned from identifyMultipaths() (pjones)
+- Fix typo in mpath support. (pjones)
+
 * Wed Aug 12 2009 David Cantrell <dcantrell@redhat.com> - 12.15-1
 - Make sure we have the ca cert to handle https repo connections. (517171)
   (jkeating)
