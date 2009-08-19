@@ -99,7 +99,7 @@ class MainBootloaderWindow(InstallWindow):
 
             for disk in disks:
                 size = disk.size
-                m = disk.partedDisk.device.model
+                m = disk.description
 
                 i = model.append(None)
                 model[i] = ("%s %8.0f MB %s" %(disk.name, size, m),
