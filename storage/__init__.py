@@ -710,11 +710,11 @@ class Storage(object):
             if hn == 'localhost' or hn == 'localhost.localdomain':
                 vgtemplate = "VolGroup"
             elif hn.find('.') != -1:
-                hn = safeLvmName(hn)
-                vgtemplate = "vg_%s" % (hn.split('.')[0].lower(),)
+                template = "vg_%s" % (hn.split('.')[0].lower(),)
+                vgtemplate = safeLvmName(template)
             else:
-                hn = safeLvmName(hn)
-                vgtemplate = "vg_%s" % (hn.lower(),)
+                template = "vg_%s" % (hn.lower(),)
+                vgtemplate = safeLvmName(template)
         else:
             vgtemplate = "VolGroup"
 
@@ -743,8 +743,8 @@ class Storage(object):
             if mountpoint == '/':
                 lvtemplate = 'lv_root'
             else:
-                tmp = safeLvmName(mountpoint)
-                lvtemplate = "lv_%s" % (tmp,)
+                template = "lv_%s" % (mountpoint,)
+                lvtemplate = safeLvmName(template)
         else:
             if swap:
                 if len([s for s in self.swaps if s in vg.lvs]):

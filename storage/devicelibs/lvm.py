@@ -134,11 +134,18 @@ def getMaxLVSize():
     else:
         return (16*1024*1024) #Max is 16TiB
 
-def safeLvmName(name):
+# LVM sources set the maximum length limit on VG and LV names at 128.  Set
+# our default to 2 below that to account for 0 through 99 entries we may
+# make with this name as a prefix.  LVM doesn't seem to impose a limit of
+# 99, but we do in anaconda.
+def safeLvmName(name, maxlen=126):
     tmp = name.strip()
     tmp = tmp.replace("/", "_")
     tmp = re.sub("[^0-9a-zA-Z._]", "", tmp)
     tmp = tmp.lstrip("_")
+
+    if len(tmp) > maxlen:
+        tmp = tmp[:maxlen]
 
     return tmp
 
