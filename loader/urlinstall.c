@@ -314,9 +314,8 @@ int getFileFromUrl(char * url, char * dest,
     } else {
         *chptr = '\0';
         ui.address = strdup(host);
-        host = chptr;
-        *host = '/';
-        ui.prefix = strdup(host);
+        *chptr = '/';
+        ui.prefix = strdup(chptr);
     }
 
     if (password[0] != '\0')

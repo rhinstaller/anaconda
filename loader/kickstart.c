@@ -303,8 +303,10 @@ int getKickstartFromBlockDevice(char *device, char *path) {
 
 void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** login, char ** password, char * ip) {
     char *tmp;
+    char *hostsrc;
 
-    *host = strdup(ksSource);
+    hostsrc = strdup(ksSource);
+    *host = hostsrc;
     tmp = strchr(*host, '/');
 
     if (tmp) {
@@ -341,12 +343,16 @@ void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** log
 
         tmp = strchr(*login, ':');
         if (tmp != NULL) {
-            *password = tmp + 1;
+            *password = strdup(tmp + 1);
             *tmp = '\0';
         } else {
             *password = malloc(sizeof(char *));
             **password = '\0';
         }
+
+	*host = strdup(*host);
+	*login = strdup(*login);
+	free(hostsrc);
     } else {
         *login = malloc(sizeof(char *));
         **login = '\0';
