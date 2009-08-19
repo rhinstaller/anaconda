@@ -42,9 +42,7 @@ char *convertUIToURL(struct iurlinfo *ui);
 int setupRemote(struct iurlinfo * ui);
 int urlMainSetupPanel(struct iurlinfo * ui);
 int urlSecondarySetupPanel(struct iurlinfo * ui);
-int urlinstStartTransfer(struct iurlinfo * ui, char *path, char *extraHeaders,
-                         struct progressCBdata **data, long long *size);
-int urlinstFinishTransfer(struct iurlinfo * ui, int fd,
-                          struct progressCBdata **data);
+int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
+                    char **extraHeaders, char *dest);
 
 #endif

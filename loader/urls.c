@@ -160,100 +160,84 @@ char *convertUIToURL(struct iurlinfo *ui) {
     return url;
 }
 
-/* extraHeaders only applicable for http and used for pulling ks from http */
-/* see ftp.c:httpGetFileDesc() for details */
-/* set to NULL if not needed */
-int urlinstStartTransfer(struct iurlinfo * ui, char *path,
-                         char *extraHeaders, struct progressCBdata **data,
-                         long long *size) {
-    int fd, port;
-    int family = -1;
-    struct in_addr addr;
-    struct in6_addr addr6;
-    char *hostname, *portstr, *fileName;
-    struct hostent *host;
+/* This is just a wrapper around the windows.c progress callback that accepts
+ * the arguments libcurl provides.
+ */
+int progress_cb(void *data, double dltotal, double dlnow, double ultotal, double ulnow) {
+    struct progressCBdata *cb_data = (struct progressCBdata *) data;
 
-    logMessage(INFO, "transferring %s://%s%s to a fd",
-               ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
-               ui->address, path);
-
-    splitHostname(ui->address, &hostname, &portstr);
-    if (portstr == NULL) {
-        port = -1;
-    } else {
-        errno = 0;
-        port = strtol(portstr, NULL, 10);
-
-        if ((errno == ERANGE && (port == LONG_MIN || port == LONG_MAX)) ||
-            (errno != 0 && port == 0)) {
-            logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
-    }
-
-    if (inet_pton(AF_INET, hostname, &addr) >= 1)
-        family = AF_INET;
-    else if (inet_pton(AF_INET6, hostname, &addr6) >= 1)
-        family = AF_INET6;
-    else {
-        if ((host = gethostbyname(hostname)) == NULL) {
-            logMessage(ERROR, "cannot determine address family of %s: %s",
-                       hostname, hstrerror(h_errno));
-            return -1;
-        }
-        else
-            family = host->h_addrtype;
-    }
-
-    if (ui->protocol == URL_METHOD_FTP) {
-        ui->ftpPort = ftpOpen(hostname, family,
-                              ui->login ? ui->login : "anonymous", 
-                              ui->password ? ui->password : "rhinstall@", 
-                              port);
-        if (ui->ftpPort < 0) {
-            if (hostname) free(hostname);
-            return -2;
-        }
-
-        fd = ftpGetFileDesc(ui->ftpPort, addr6, family, path, size);
-        if (fd < 0) {
-            close(ui->ftpPort);
-            if (hostname) free(hostname);
-            return -1;
-        }
-    } else {
-        fd = httpGetFileDesc(hostname, port, path, extraHeaders, size);
-        if (fd < 0) {
-            if (portstr) free(portstr);
-            return -1;
-        }
-    }
-
-    fileName = strrchr(path, '/');
-
-    if (FL_CMDLINE(flags)) {
-        printf("%s %s...\n", _("Retrieving"), fileName+1);
-    } else if (*size) {
-        *data = winProgressBar(70, 5, _("Retrieving"), "%s %s...", _("Retrieving"),
-                               fileName+1);
-    } else {
-        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), fileName+1);
-    }
-
-    if (hostname) free(hostname);
-    return fd;
+    progressCallback(cb_data, dlnow, dltotal);
+    return 0;
 }
 
-int urlinstFinishTransfer(struct iurlinfo * ui, int fd, struct progressCBdata **data) {
-    if (*data) free(*data);
-    if (ui->protocol == URL_METHOD_FTP)
-        close(ui->ftpPort);
-    close(fd);
+int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
+                    char **extraHeaders, char *dest) {
+    struct progressCBdata *cb_data;
+    CURLcode status;
+    struct curl_slist *headers = NULL;
+    char *version;
+    char *url = convertUIToURL(ui);
+    FILE *f = NULL;
+
+    logMessage(INFO, "transferring %s", url);
+
+    f = fopen(dest, "w");
+
+    /* Clear out all the old settings, since libcurl preserves them for as
+     * long as you use the same handle and settings might have changed.
+     */
+    curl_easy_reset(loaderData->curl);
+
+    if (asprintf(&version, "anaconda/%s", VERSION) == -1) {
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+        abort();
+    }
+
+    curl_easy_setopt(loaderData->curl, CURLOPT_USERAGENT, version);
+    curl_easy_setopt(loaderData->curl, CURLOPT_URL, url);
+    curl_easy_setopt(loaderData->curl, CURLOPT_WRITEDATA, f);
+
+    if (extraHeaders) {
+        int i;
+        for (i = 0; extraHeaders[i] != NULL; i++) {
+            headers = curl_slist_append(headers, extraHeaders[i]);
+        }
+
+        curl_easy_setopt(loaderData->curl, CURLOPT_HTTPHEADER, headers);
+    }
+
+    /* Only set up the progress bar if we've got a UI to display it. */
+    if (FL_CMDLINE(flags)) {
+        printf("%s %s...\n", _("Retrieving"), ui->url);
+    } else {
+        char *filename;
+
+        filename = strrchr(ui->url, '/');
+        if (!filename)
+           filename = ui->url;
+
+        cb_data = winProgressBar(70, 5, _("Retrieving"), "%s %s...", _("Retrieving"), filename);
+
+        curl_easy_setopt(loaderData->curl, CURLOPT_NOPROGRESS, 0);
+        curl_easy_setopt(loaderData->curl, CURLOPT_PROGRESSFUNCTION, progress_cb);
+        curl_easy_setopt(loaderData->curl, CURLOPT_PROGRESSDATA, cb_data);
+    }
+
+    /* Finally, do the transfer. */
+    status = curl_easy_perform(loaderData->curl);
+    if (status)
+        logMessage(ERROR, "Error downloading %s: %s", ui->url, curl_easy_strerror(status));
 
     if (!FL_CMDLINE(flags))
-        newtPopWindow();
+       newtPopWindow();
 
-    return 0;
+    if (headers)
+        curl_slist_free_all(headers);
+
+    fclose(f);
+    free(version);
+
+    return status;
 }
 
 char * addrToIp(char * hostname) {
