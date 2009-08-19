@@ -390,6 +390,7 @@ sbin/clock
 sbin/consoletype
 sbin/cryptsetup
 sbin/debugfs
+sbin/debugreiserfs
 sbin/dhclient
 sbin/dhclient-script
 sbin/dhcp6c
@@ -425,6 +426,7 @@ sbin/mkfs.ext*
 sbin/mkfs.gfs2
 sbin/mkfs.jfs
 sbin/mkfs.msdos
+sbin/mkfs.reiserfs
 sbin/mkfs.vfat
 sbin/mkfs.xfs
 sbin/mkraid
@@ -438,6 +440,7 @@ sbin/pdisk
 sbin/probe
 sbin/reiserfsck
 sbin/reiserfstune
+sbin/resize_reiserfs
 sbin/resize2fs
 sbin/route
 sbin/setfiles

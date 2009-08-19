@@ -1065,6 +1065,43 @@ class JFS(FS):
 register_device_format(JFS)
 
 
+class ReiserFS(FS):
+    """ reiserfs filesystem """
+    _type = "reiserfs"
+    _mkfs = "mkreiserfs"
+    _resizefs = "resize_reiserfs"
+    _modules = ["reiserfs"]
+    _defaultFormatOptions = ["-f", "-f"]
+    _defaultLabelOptions = ["-l"]
+    _maxLabelChars = 16
+    _maxSize = 16 * 1024 * 1024
+    _formattable = True
+    _linuxNative = True
+    _supported = False
+    _dump = True
+    _check = True
+    _packages = ["reiserfs-utils"]
+    _infofs = "debugreiserfs"
+    _defaultInfoOptions = []
+    _existingSizeFields = ["Count of blocks on the device:", "Blocksize:"]
+
+    @property
+    def supported(self):
+        """ Is this filesystem a supported type? """
+        supported = self._supported
+        if flags.cmdline.has_key("reiserfs"):
+            supported = self.utilsAvailable
+
+        return supported
+
+    @property
+    def resizeArgs(self):
+        argv = ["-s", "%dM" % (self.targetSize,), self.device]
+        return argv
+
+register_device_format(ReiserFS)
+
+
 class XFS(FS):
     """ XFS filesystem """
     _type = "xfs"
