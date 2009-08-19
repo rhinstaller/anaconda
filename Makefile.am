@@ -136,10 +136,10 @@ install-buildrequires:
 updates:
 	@opts="-c" ; \
 	keep="$$(echo $(KEEP) | cut -c1 | tr [a-z] [A-Z])" ; \
-	if [ ! "$$keep" = "Y" ]; then \
-		opts="${opts} -k" ; \
-	fi
-	scripts/makeupdates ${opts}
+	if [ "$${keep}" = "Y" ]; then \
+		opts="$${opts} -k" ; \
+	fi ; \
+	scripts/makeupdates $${opts}
 
 # DEPRECATED TARGETS:
 archive-no-tag: dist
