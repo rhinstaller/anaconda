@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-08-17 20:07+0000\n"
-"PO-Revision-Date: 2009-08-17 22:37+0200\n"
+"POT-Creation-Date: 2009-08-19 19:33+0000\n"
+"PO-Revision-Date: 2009-08-19 23:39+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -43,13 +43,13 @@ msgstr "Naciśnij <enter>, aby uzyskać powłokę"
 #: ../loader/driverselect.c:205 ../loader/hdinstall.c:134
 #: ../loader/hdinstall.c:280 ../loader/hdinstall.c:343
 #: ../loader/hdinstall.c:375 ../loader/hdinstall.c:445
-#: ../loader/hdinstall.c:488 ../loader/hdinstall.c:501 ../loader/kbd.c:138
+#: ../loader/hdinstall.c:488 ../loader/hdinstall.c:501 ../loader/kbd.c:119
 #: ../loader/kickstart.c:132 ../loader/kickstart.c:142
 #: ../loader/kickstart.c:185 ../loader/kickstart.c:284
-#: ../loader/kickstart.c:375 ../loader/kickstart.c:556 ../loader/lang.c:115
+#: ../loader/kickstart.c:381 ../loader/kickstart.c:562 ../loader/lang.c:115
 #: ../loader/lang.c:379 ../loader/loader.c:403 ../loader/loader.c:439
 #: ../loader/loader.c:482 ../loader/loader.c:503 ../loader/loader.c:520
-#: ../loader/loader.c:557 ../loader/loader.c:1209 ../loader/loader.c:1387
+#: ../loader/loader.c:557 ../loader/loader.c:1211 ../loader/loader.c:1389
 #: ../loader/mediacheck.c:46 ../loader/mediacheck.c:85
 #: ../loader/mediacheck.c:92 ../loader/mediacheck.c:101 ../loader/method.c:279
 #: ../loader/method.c:353 ../loader/modules.c:335 ../loader/modules.c:347
@@ -58,8 +58,8 @@ msgstr "Naciśnij <enter>, aby uzyskać powłokę"
 #: ../loader/net.c:1892 ../loader/nfsinstall.c:91 ../loader/nfsinstall.c:248
 #: ../loader/nfsinstall.c:267 ../loader/nfsinstall.c:335
 #: ../loader/telnetd.c:92 ../loader/urlinstall.c:83 ../loader/urlinstall.c:107
-#: ../loader/urlinstall.c:175 ../loader/urlinstall.c:418
-#: ../loader/urlinstall.c:427 ../loader/urlinstall.c:436 ../loader/urls.c:292
+#: ../loader/urlinstall.c:175 ../loader/urlinstall.c:449
+#: ../loader/urlinstall.c:458 ../loader/urlinstall.c:467 ../loader/urls.c:292
 #: ../loader/urls.c:328 ../loader/urls.c:334 ../loader/urls.c:346
 #: ../textw/constants_text.py:44
 msgid "OK"
@@ -158,8 +158,8 @@ msgstr ""
 #: ../iw/autopart_type.py:388 ../iw/autopart_type.py:396
 #: ../iw/autopart_type.py:425 ../iw/osbootwidget.py:210
 #: ../iw/osbootwidget.py:219 ../iw/raid_dialog_gui.py:705
-#: ../iw/raid_dialog_gui.py:744 ../iw/task_gui.py:63 ../iw/task_gui.py:161
-#: ../iw/task_gui.py:292 ../iw/task_gui.py:414 ../loader/cdinstall.c:228
+#: ../iw/raid_dialog_gui.py:744 ../iw/task_gui.py:63 ../iw/task_gui.py:176
+#: ../iw/task_gui.py:305 ../iw/task_gui.py:429 ../loader/cdinstall.c:228
 #: ../loader/cdinstall.c:517 ../loader/driverdisk.c:98
 #: ../loader/driverdisk.c:305 ../loader/driverdisk.c:340
 #: ../loader/driverdisk.c:371 ../loader/driverdisk.c:379
@@ -167,7 +167,7 @@ msgstr ""
 #: ../loader/hdinstall.c:343 ../loader/hdinstall.c:445
 #: ../loader/hdinstall.c:488 ../loader/hdinstall.c:501
 #: ../loader/kickstart.c:284 ../loader/lang.c:115 ../loader/loader.c:403
-#: ../loader/loader.c:520 ../loader/loader.c:1209 ../loader/mediacheck.c:46
+#: ../loader/loader.c:520 ../loader/loader.c:1211 ../loader/mediacheck.c:46
 #: ../loader/mediacheck.c:85 ../loader/mediacheck.c:92 ../loader/method.c:279
 #: ../loader/method.c:353 ../loader/nfsinstall.c:248
 #: ../loader/nfsinstall.c:267 ../loader/telnetd.c:92 ../loader/urlinstall.c:83
@@ -384,7 +384,7 @@ msgstr ""
 #: ../gui.py:784 ../gui.py:1345 ../partIntfHelpers.py:153
 #: ../partIntfHelpers.py:310 ../text.py:99 ../text.py:100
 #: ../iw/account_gui.py:135 ../loader/dirbrowser.c:145
-#: ../loader/driverdisk.c:244 ../loader/kickstart.c:375 ../loader/loader.c:439
+#: ../loader/driverdisk.c:244 ../loader/kickstart.c:381 ../loader/loader.c:439
 #: ../loader/loader.c:557 ../textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Anuluj"
@@ -432,7 +432,7 @@ msgstr "_Ponów"
 msgid "The installer will now exit."
 msgstr "Instalator zakończy teraz pracę."
 
-#: ../gui.py:1270 ../storage/partitioning.py:256
+#: ../gui.py:1270 ../storage/partitioning.py:255
 msgid "The system will now reboot."
 msgstr "System zostanie teraz ponownie uruchomiony."
 
@@ -1780,11 +1780,11 @@ msgstr "Kończenie aktualizacji"
 msgid "Finishing upgrade process.  This may take a little while."
 msgstr "Kończenie procesu instalacji. Może to chwilę potrwać."
 
-#: ../yuminstall.py:287 ../iw/task_gui.py:301
+#: ../yuminstall.py:287 ../iw/task_gui.py:80 ../iw/task_gui.py:318
 msgid "Error Setting Up Repository"
 msgstr "Błąd podczas ustawiania repozytorium"
 
-#: ../yuminstall.py:288 ../iw/task_gui.py:302
+#: ../yuminstall.py:288
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -2030,19 +2030,19 @@ msgstr "Po instalacji"
 msgid "Performing post-installation configuration"
 msgstr "Wykonywanie konfiguracji systemu po instalacji"
 
-#: ../yuminstall.py:1824
+#: ../yuminstall.py:1826
 msgid "Installation Starting"
 msgstr "Rozpoczynanie instalacji"
 
-#: ../yuminstall.py:1825
+#: ../yuminstall.py:1827
 msgid "Starting installation process"
 msgstr "Uruchamianie procesu instalacji"
 
-#: ../yuminstall.py:1863
+#: ../yuminstall.py:1865
 msgid "Dependency Check"
 msgstr "Sprawdzanie zależności"
 
-#: ../yuminstall.py:1864
+#: ../yuminstall.py:1866
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Sprawdzanie zależności pakietów wybranych do instalacji"
 
@@ -2568,7 +2568,7 @@ msgid "Original File System Type:"
 msgstr "Pierwotny typ systemu plików:"
 
 #: ../iw/lvm_dialog_gui.py:466 ../iw/partition_gui.py:776
-#: ../iw/partition_gui.py:930 ../iw/raid_dialog_gui.py:393
+#: ../iw/partition_gui.py:928 ../iw/raid_dialog_gui.py:393
 msgid "Unknown"
 msgstr "Nieznany"
 
@@ -3052,20 +3052,20 @@ msgstr "Urządzenia RAID"
 msgid "Hard Drives"
 msgstr "Dyski twarde"
 
-#: ../iw/partition_gui.py:898
+#: ../iw/partition_gui.py:896
 msgid "Extended"
 msgstr "Rozszerzona"
 
-#: ../iw/partition_gui.py:900
+#: ../iw/partition_gui.py:898
 msgid "software RAID"
 msgstr "programowy RAID"
 
-#: ../iw/partition_gui.py:932
+#: ../iw/partition_gui.py:930
 msgid "Free"
 msgstr "Wolne"
 
-#: ../iw/partition_gui.py:1022 ../storage/partitioning.py:180
-#: ../storage/partitioning.py:220
+#: ../iw/partition_gui.py:1022 ../storage/partitioning.py:179
+#: ../storage/partitioning.py:219
 msgid "Error Partitioning"
 msgstr "Błąd podczas partycjonowania"
 
@@ -3453,65 +3453,91 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/task_gui.py:162
+#: ../iw/task_gui.py:81
+#, python-format
+msgid ""
+"The following error occurred while setting up the installation repository:\n"
+"\n"
+"%s\n"
+"\n"
+"Please provide the correct information for installing %s"
+msgstr ""
+"Następujący błąd wystąpił podczas ustawiania repozytorium instalacji:\n"
+"\n"
+"%s\n"
+"\n"
+"Podaj poprawne informacje, aby zainstalować %s"
+
+#: ../iw/task_gui.py:177
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr "Repozytorium %s zostało już dodane. Wybierz inną nazwę i URL."
 
-#: ../iw/task_gui.py:175
+#: ../iw/task_gui.py:190
 msgid "Edit Repository"
 msgstr "Edytuj repozytorium"
 
-#: ../iw/task_gui.py:238
+#: ../iw/task_gui.py:253
 msgid "Invalid Proxy URL"
 msgstr "Nieprawidłowy URL pośrednika"
 
-#: ../iw/task_gui.py:239
+#: ../iw/task_gui.py:254
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "Musisz podać URL HTTP, HTTPS lub FTP pośrednika."
 
-#: ../iw/task_gui.py:250 ../iw/task_gui.py:388
+#: ../iw/task_gui.py:265 ../iw/task_gui.py:403
 msgid "Invalid Repository URL"
 msgstr "Nieprawidłowy URL repozytorium"
 
-#: ../iw/task_gui.py:251 ../iw/task_gui.py:389
+#: ../iw/task_gui.py:266 ../iw/task_gui.py:404
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Musisz podać URL HTTP, HTTPS lub FTP repozytorium."
 
-#: ../iw/task_gui.py:273 ../iw/task_gui.py:398
+#: ../iw/task_gui.py:287 ../iw/task_gui.py:413
 msgid "No Media Found"
 msgstr "Nie znaleziono nośników"
 
-#: ../iw/task_gui.py:274 ../iw/task_gui.py:399
+#: ../iw/task_gui.py:288 ../iw/task_gui.py:414
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
 "Nie znaleziono nośnika instalacji. Włóż płytę do napędu i spróbuj ponownie."
 
-#: ../iw/task_gui.py:293 ../iw/task_gui.py:415
+#: ../iw/task_gui.py:306 ../iw/task_gui.py:430
 msgid "Please enter an NFS server and path."
 msgstr "Podaj serwer NFS i ścieżkę."
 
-#: ../iw/task_gui.py:325
+#: ../iw/task_gui.py:319
+#, python-format
+msgid ""
+"The following error occurred while setting up the repository:\n"
+"\n"
+"%s"
+msgstr ""
+"Następujący błąd wystąpił podczas ustawiania repozytorium:\n"
+"\n"
+"%s"
+
+#: ../iw/task_gui.py:341
 msgid "Invalid Repository Name"
 msgstr "Nieprawidłowa nazwa repozytorium"
 
-#: ../iw/task_gui.py:326
+#: ../iw/task_gui.py:342
 msgid "You must provide a repository name."
 msgstr "Musisz podać nazwę repozytorium."
 
-#: ../iw/task_gui.py:450 ../ui/addrepo.glade.h:3
+#: ../iw/task_gui.py:465 ../ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "Dodaj repozytorium"
 
-#: ../iw/task_gui.py:455
+#: ../iw/task_gui.py:470
 msgid "No Software Repos Enabled"
 msgstr "Brak włączonych repozytoriów oprogramowania"
 
-#: ../iw/task_gui.py:456
+#: ../iw/task_gui.py:471
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3845,8 +3871,8 @@ msgstr "Nie znaleziono płyty"
 #: ../loader/driverdisk.c:275 ../loader/driverdisk.c:359
 #: ../loader/driverselect.c:81 ../loader/driverselect.c:179
 #: ../loader/driverselect.c:205 ../loader/hdinstall.c:222
-#: ../loader/hdinstall.c:280 ../loader/kbd.c:138 ../loader/loader.c:483
-#: ../loader/loader.c:503 ../loader/loader.c:1387 ../loader/loader.c:1418
+#: ../loader/hdinstall.c:280 ../loader/kbd.c:119 ../loader/loader.c:483
+#: ../loader/loader.c:503 ../loader/loader.c:1389 ../loader/loader.c:1420
 #: ../loader/net.c:574 ../loader/net.c:945 ../loader/net.c:1858
 #: ../loader/net.c:1880 ../loader/nfsinstall.c:91 ../loader/urls.c:292
 #: ../storage/__init__.py:134 ../storage/devicetree.py:83
@@ -3963,10 +3989,10 @@ msgstr "Czy chcesz wczytać więcej dysków ze sterownikami?"
 #: ../loader/driverdisk.c:539 ../loader/driverdisk.c:576
 #: ../loader/hdinstall.c:375 ../loader/kickstart.c:132
 #: ../loader/kickstart.c:142 ../loader/kickstart.c:185
-#: ../loader/kickstart.c:556 ../loader/modules.c:335 ../loader/modules.c:347
+#: ../loader/kickstart.c:562 ../loader/modules.c:335 ../loader/modules.c:347
 #: ../loader/net.c:1579 ../loader/net.c:1600 ../loader/nfsinstall.c:335
-#: ../loader/urlinstall.c:418 ../loader/urlinstall.c:427
-#: ../loader/urlinstall.c:436
+#: ../loader/urlinstall.c:449 ../loader/urlinstall.c:458
+#: ../loader/urlinstall.c:467
 msgid "Kickstart Error"
 msgstr "Błąd kickstart"
 
@@ -4086,11 +4112,11 @@ msgstr "Nie można znaleźć pliku kickstart na dysku twardym."
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Nie można znaleźć dysku twardego odpowiadającego dyskowi %s w BIOS-ie"
 
-#: ../loader/kbd.c:136
+#: ../loader/kbd.c:117
 msgid "Keyboard Type"
 msgstr "Typ klawiatury"
 
-#: ../loader/kbd.c:137
+#: ../loader/kbd.c:118
 msgid "What type of keyboard do you have?"
 msgstr "Jakiego typu klawiatury używasz?"
 
@@ -4113,7 +4139,7 @@ msgstr "Błąd w %s w wierszu %d pliku konfiguracyjnego kickstart %s."
 msgid "Cannot find ks.cfg on removable media."
 msgstr "Nie można znaleźć ks.cfg na nośniku wymiennym."
 
-#: ../loader/kickstart.c:380
+#: ../loader/kickstart.c:386
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
@@ -4121,11 +4147,11 @@ msgstr ""
 "Nie można pobrać pliku kickstart. Zmodyfikuj poniższy parametr kickstart lub "
 "naciśnij Anuluj, aby kontynuować jako instalacja interaktywna."
 
-#: ../loader/kickstart.c:389
+#: ../loader/kickstart.c:395
 msgid "Error downloading kickstart file"
 msgstr "Błąd podczas pobierania pliku kickstart"
 
-#: ../loader/kickstart.c:557
+#: ../loader/kickstart.c:563
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Błędny argument polecenia shutdown metody kickstart %s: %s"
@@ -4211,49 +4237,49 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr "Błąd podczas pobierania obrazu aktualizacji"
 
-#: ../loader/loader.c:1202
+#: ../loader/loader.c:1204
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Masz za mało pamięci RAM, aby zainstalować system %s na tym komputerze."
 
-#: ../loader/loader.c:1259
+#: ../loader/loader.c:1261
 msgid "Media Detected"
 msgstr "Wykryte nośniki"
 
-#: ../loader/loader.c:1260
+#: ../loader/loader.c:1262
 msgid "Found local installation media"
 msgstr "Znaleziono lokalny nośnik instalacji"
 
-#: ../loader/loader.c:1379
+#: ../loader/loader.c:1381
 msgid "Rescue Method"
 msgstr "Metoda ratunku"
 
-#: ../loader/loader.c:1380
+#: ../loader/loader.c:1382
 msgid "Installation Method"
 msgstr "Metoda instalacji"
 
-#: ../loader/loader.c:1382
+#: ../loader/loader.c:1384
 msgid "What type of media contains the rescue image?"
 msgstr "Jakiego typu nośnik zawiera obraz ratunkowy?"
 
-#: ../loader/loader.c:1384
+#: ../loader/loader.c:1386
 msgid "What type of media contains the installation image?"
 msgstr "Jakiego typu nośnik zawiera obraz instalacji?"
 
-#: ../loader/loader.c:1417
+#: ../loader/loader.c:1419
 msgid "No driver found"
 msgstr "Nie znaleziono sterownika"
 
-#: ../loader/loader.c:1417
+#: ../loader/loader.c:1419
 msgid "Select driver"
 msgstr "Wybierz sterownik"
 
-#: ../loader/loader.c:1418
+#: ../loader/loader.c:1420
 msgid "Use a driver disk"
 msgstr "Użyj dysku ze sterownikami"
 
-#: ../loader/loader.c:1419
+#: ../loader/loader.c:1421
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4261,11 +4287,11 @@ msgstr ""
 "Nie można znaleźć żadnych urządzeń potrzebnych do tego typu instalacji. Czy "
 "chcesz ręcznie wybrać sterownik lub użyć dysku ze sterownikami?"
 
-#: ../loader/loader.c:1640
+#: ../loader/loader.c:1642
 msgid "The following devices have been found on your system."
 msgstr "W systemie zostały znalezione następujące urządzenia."
 
-#: ../loader/loader.c:1642
+#: ../loader/loader.c:1644
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -4273,30 +4299,30 @@ msgstr ""
 "Nie wczytano żadnych specjalnych sterowników dla systemu. Czy chcesz dodać "
 "jakieś teraz?"
 
-#: ../loader/loader.c:1646
+#: ../loader/loader.c:1648
 msgid "Devices"
 msgstr "Urządzenia"
 
-#: ../loader/loader.c:1647
+#: ../loader/loader.c:1649
 msgid "Done"
 msgstr "Zrobione"
 
-#: ../loader/loader.c:1648
+#: ../loader/loader.c:1650
 msgid "Add Device"
 msgstr "Dodaj urządzenie"
 
-#: ../loader/loader.c:1860
+#: ../loader/loader.c:1862
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "program wczytujący został już uruchomiony. Uruchamianie powłoki.\n"
 
-#: ../loader/loader.c:2238
+#: ../loader/loader.c:2240
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 "Uruchamianie anacondy %s, trybu ratunkowego systemu %s - proszę czekać.\n"
 
-#: ../loader/loader.c:2240
+#: ../loader/loader.c:2242
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "Uruchamianie anacondy %s, instalatora systemu %s - proszę czekać.\n"
@@ -4588,16 +4614,16 @@ msgstr "Nie można pobrać %s://%s%s."
 msgid "Unable to retrieve the install image."
 msgstr "Nie można pobrać obrazu instalacyjnego."
 
-#: ../loader/urlinstall.c:419
+#: ../loader/urlinstall.c:450
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Błędny argument polecenia URL metody kickstart %s: %s"
 
-#: ../loader/urlinstall.c:428
+#: ../loader/urlinstall.c:459
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Musisz podać argument --url metodzie URL kickstart."
 
-#: ../loader/urlinstall.c:437
+#: ../loader/urlinstall.c:468
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Nieznana metoda URL %s"
@@ -5158,7 +5184,7 @@ msgstr "Nie wykryto nowych węzłów iSCSI"
 msgid "Could not log in to any of the discovered nodes"
 msgstr "Nie można zalogować się do żadnego wykrytego węzła"
 
-#: ../storage/partitioning.py:181
+#: ../storage/partitioning.py:180
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
@@ -5166,11 +5192,11 @@ msgstr ""
 "Nie można znaleźć wystarczającej ilości wolnego miejsca na automatyczne "
 "partycjonowanie, użyj innej metody partycjonowania."
 
-#: ../storage/partitioning.py:205
+#: ../storage/partitioning.py:204
 msgid "Warnings During Automatic Partitioning"
 msgstr "Ostrzeżenia podczas automatycznego partycjonowania"
 
-#: ../storage/partitioning.py:207
+#: ../storage/partitioning.py:206
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5182,7 +5208,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../storage/partitioning.py:219 ../storage/partitioning.py:239
+#: ../storage/partitioning.py:218 ../storage/partitioning.py:238
 msgid ""
 "\n"
 "\n"
@@ -5192,7 +5218,7 @@ msgstr ""
 "\n"
 "Naciśnij \"OK\", aby zakończyć instalator."
 
-#: ../storage/partitioning.py:221
+#: ../storage/partitioning.py:220
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5203,7 +5229,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../storage/partitioning.py:241
+#: ../storage/partitioning.py:240
 msgid ""
 "\n"
 "\n"
@@ -5213,11 +5239,11 @@ msgstr ""
 "\n"
 "Naciśnij \"OK\", aby wybrać inną opcję partycjonowania."
 
-#: ../storage/partitioning.py:243
+#: ../storage/partitioning.py:242
 msgid "Automatic Partitioning Errors"
 msgstr "Błędy podczas automatycznego partycjonowania"
 
-#: ../storage/partitioning.py:244
+#: ../storage/partitioning.py:243
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5234,21 +5260,93 @@ msgstr ""
 "Sytuacja ta może mieć miejsce, gdy nie ma wystarczającej ilości wolnego "
 "miejsca na dyskach twardych dla instalacji. %s"
 
-#: ../storage/partitioning.py:255
+#: ../storage/partitioning.py:254
 msgid "Unrecoverable Error"
 msgstr "Nieodwracalny błąd"
 
-#: ../storage/zfcp.py:49
+#: ../storage/zfcp.py:50
 msgid "You have not specified a device number or the number is invalid"
 msgstr "Nie podano numeru urządzenia lub podany numer jest nieprawidłowy"
 
-#: ../storage/zfcp.py:51
+#: ../storage/zfcp.py:52
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "Nie podano nazwy World Wide Port lub podana nazwa jest nieprawidłowa."
 
-#: ../storage/zfcp.py:53
+#: ../storage/zfcp.py:54
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Nie podano FCP LUN lub podany numer jest nieprawidłowy."
+
+#: ../storage/zfcp.py:132
+#, python-format
+msgid "Could not free zFCP device %s from device ignore list (%s)."
+msgstr ""
+"Nie można zwolnić urządzenia zFCP %s z listy ignorowanych urządzeń (%s)."
+
+#: ../storage/zfcp.py:137
+#, python-format
+msgid "zFCP device %s not found, not even in device ignore list."
+msgstr ""
+"Nie znaleziono urządzenia zFCP %s, nawet na liście ignorowanych urządzeń."
+
+#: ../storage/zfcp.py:150
+#, python-format
+msgid "Could not set zFCP device %s online (%s)."
+msgstr "Błąd: nie można ustawić urządzenia zFCP %s w tryb online (%s)."
+
+#: ../storage/zfcp.py:161
+#, python-format
+msgid "Could not add WWPN %s to zFCP device %s (%s)."
+msgstr "Błąd: nie można dodać WWPN %s do urządzenia zFCP %s (%s)."
+
+#. newer zfcp sysfs interface with auto port scan
+#: ../storage/zfcp.py:165
+#, python-format
+msgid "WWPN %s not found at zFCP device %s."
+msgstr "Nie znaleziono WWPN %s na urządzeniu zFCP %s."
+
+#: ../storage/zfcp.py:179
+#, python-format
+msgid "Could not add LUN %s to WWPN %s on zFCP device %s (%s)."
+msgstr "Błąd: nie można dodać LUN %s do WWPN %s na urządzeniu zFCP %s (%s)."
+
+#: ../storage/zfcp.py:183
+#, python-format
+msgid "LUN %s at WWPN %s on zFCP device %s already configured."
+msgstr "LUN %s w WWPN %s na urządzeniu zFCP %s jest już skonfigurowane."
+
+#: ../storage/zfcp.py:193
+#, python-format
+msgid ""
+"Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
+msgstr ""
+"Nie można odczytać nieprawidłowego atrybutu LUN %s w WWPN %s na urządzeniu "
+"zFCP %s (%s)."
+
+#: ../storage/zfcp.py:198
+#, python-format
+msgid "Failed LUN %s at WWPN %s on zFCP device %s removed again."
+msgstr ""
+"Ponowne usunięcie LUN %s w WWPN %s na urządzeniu zFCP %s nie powiodło się."
+
+#: ../storage/zfcp.py:253
+#, python-format
+msgid "Could not correctly delete SCSI device of zFCP %s %s %s (%s)."
+msgstr "Nie można poprawnie usunąć urządzenia SCSI z zFCP %s %s %s (%s)."
+
+#: ../storage/zfcp.py:260
+#, python-format
+msgid "Could not remove LUN %s at WWPN %s on zFCP device %s (%s)."
+msgstr "Błąd: nie można usunąć LUN %s z WWPN %s na urządzeniu zFCP %s (%s)."
+
+#: ../storage/zfcp.py:275
+#, python-format
+msgid "Could not remove WWPN %s on zFCP device %s (%s)."
+msgstr "Błąd: nie można usunąć WWPN %s na urządzeniu zFCP %s (%s)."
+
+#: ../storage/zfcp.py:299
+#, python-format
+msgid "Could not set zFCP device %s offline (%s)."
+msgstr "Błąd: nie można ustawić urządzenia zFCP %s w tryb offline (%s)."
 
 #: ../textw/complete_text.py:32
 msgid "Reboot"
