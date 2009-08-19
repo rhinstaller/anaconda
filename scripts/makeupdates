@@ -198,6 +198,7 @@ def main(argv):
     updates = cwd + '/updates'
     keep, compile, help, unknown = False, False, False, False
     tag = None
+    opts = []
     offset = 0
 
     try:
