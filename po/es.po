@@ -16,8 +16,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-08-17 20:07+0000\n"
-"PO-Revision-Date: 2009-08-17 20:05-0300\n"
+"POT-Creation-Date: 2009-08-19 08:28+0000\n"
+"PO-Revision-Date: 2009-08-19 10:28-0300\n"
 "Last-Translator: Domingo Becker <domingobecker@gmail.com>\n"
 "Language-Team: Fedora Spanish <fedora-trans-es@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -117,7 +117,7 @@ msgstr "Presione <intro> para entrar a un shell"
 #: ../loader/hdinstall.c:445
 #: ../loader/hdinstall.c:488
 #: ../loader/hdinstall.c:501
-#: ../loader/kbd.c:138
+#: ../loader/kbd.c:119
 #: ../loader/kickstart.c:132
 #: ../loader/kickstart.c:142
 #: ../loader/kickstart.c:185
@@ -132,8 +132,8 @@ msgstr "Presione <intro> para entrar a un shell"
 #: ../loader/loader.c:503
 #: ../loader/loader.c:520
 #: ../loader/loader.c:557
-#: ../loader/loader.c:1209
-#: ../loader/loader.c:1387
+#: ../loader/loader.c:1211
+#: ../loader/loader.c:1389
 #: ../loader/mediacheck.c:46
 #: ../loader/mediacheck.c:85
 #: ../loader/mediacheck.c:92
@@ -157,9 +157,9 @@ msgstr "Presione <intro> para entrar a un shell"
 #: ../loader/urlinstall.c:83
 #: ../loader/urlinstall.c:107
 #: ../loader/urlinstall.c:175
-#: ../loader/urlinstall.c:418
-#: ../loader/urlinstall.c:427
-#: ../loader/urlinstall.c:436
+#: ../loader/urlinstall.c:450
+#: ../loader/urlinstall.c:459
+#: ../loader/urlinstall.c:468
 #: ../loader/urls.c:292
 #: ../loader/urls.c:328
 #: ../loader/urls.c:334
@@ -357,7 +357,7 @@ msgstr "Se ha producido un error al transferir la imagen de instalación a su di
 #: ../loader/lang.c:115
 #: ../loader/loader.c:403
 #: ../loader/loader.c:520
-#: ../loader/loader.c:1209
+#: ../loader/loader.c:1211
 #: ../loader/mediacheck.c:46
 #: ../loader/mediacheck.c:85
 #: ../loader/mediacheck.c:92
@@ -840,7 +840,7 @@ msgid "The installer will now exit."
 msgstr "Ahora finalizará la instalación."
 
 #: ../gui.py:1270
-#: ../storage/partitioning.py:256
+#: ../storage/partitioning.py:255
 msgid "The system will now reboot."
 msgstr "El sistema será reiniciado."
 
@@ -2829,28 +2829,28 @@ msgstr "Realizando configuración post-instalación"
 # ../gui.py:791
 # ../gui.py:791
 # ../gui.py:791
-#: ../yuminstall.py:1824
+#: ../yuminstall.py:1826
 msgid "Installation Starting"
 msgstr "Iniciando la instalación"
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
-#: ../yuminstall.py:1825
+#: ../yuminstall.py:1827
 msgid "Starting installation process"
 msgstr "Iniciando el proceso de instalación"
 
 # ../packages.py:153
 # ../packages.py:153
 # ../packages.py:154
-#: ../yuminstall.py:1863
+#: ../yuminstall.py:1865
 msgid "Dependency Check"
 msgstr "Comprobación de las dependencias"
 
 # ../packages.py:154
 # ../packages.py:154
 # ../packages.py:155
-#: ../yuminstall.py:1864
+#: ../yuminstall.py:1866
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Comprobando dependencias de los paquetes seleccionados para la instalación"
 
@@ -3468,7 +3468,7 @@ msgstr "Tipo de sistema de archivos original:"
 # ../iw/partition_gui.py:888
 #: ../iw/lvm_dialog_gui.py:466
 #: ../iw/partition_gui.py:776
-#: ../iw/partition_gui.py:930
+#: ../iw/partition_gui.py:928
 #: ../iw/raid_dialog_gui.py:393
 msgid "Unknown"
 msgstr "Desconocido"
@@ -4203,21 +4203,21 @@ msgstr "Discos duros"
 # ../iw/partition_gui.py:644 ../textw/partition_text.py:77
 # ../iw/partition_gui.py:644 ../textw/partition_text.py:77
 # ../iw/partition_gui.py:644 ../textw/partition_text.py:77
-#: ../iw/partition_gui.py:898
+#: ../iw/partition_gui.py:896
 msgid "Extended"
 msgstr "Extendida"
 
 # ../iw/partition_gui.py:646 ../textw/partition_text.py:79
 # ../iw/partition_gui.py:646 ../textw/partition_text.py:79
 # ../iw/partition_gui.py:646 ../textw/partition_text.py:79
-#: ../iw/partition_gui.py:900
+#: ../iw/partition_gui.py:898
 msgid "software RAID"
 msgstr "software RAID"
 
 # ../iw/partition_gui.py:666
 # ../iw/partition_gui.py:666
 # ../iw/partition_gui.py:666
-#: ../iw/partition_gui.py:932
+#: ../iw/partition_gui.py:930
 msgid "Free"
 msgstr "Libre"
 
@@ -4228,8 +4228,8 @@ msgstr "Libre"
 # ../autopart.py:910 ../iw/partition_gui.py:1275
 # ../textw/partition_text.py:163
 #: ../iw/partition_gui.py:1022
-#: ../storage/partitioning.py:180
-#: ../storage/partitioning.py:220
+#: ../storage/partitioning.py:179
+#: ../storage/partitioning.py:219
 msgid "Error Partitioning"
 msgstr "Error de particionamiento"
 
@@ -5212,11 +5212,11 @@ msgstr "Disco no Encontrado"
 #: ../loader/driverselect.c:205
 #: ../loader/hdinstall.c:222
 #: ../loader/hdinstall.c:280
-#: ../loader/kbd.c:138
+#: ../loader/kbd.c:119
 #: ../loader/loader.c:483
 #: ../loader/loader.c:503
-#: ../loader/loader.c:1387
-#: ../loader/loader.c:1418
+#: ../loader/loader.c:1389
+#: ../loader/loader.c:1420
 #: ../loader/net.c:574
 #: ../loader/net.c:945
 #: ../loader/net.c:1858
@@ -5385,9 +5385,9 @@ msgstr "¿Desea cargar más discos de controladores? "
 #: ../loader/net.c:1579
 #: ../loader/net.c:1600
 #: ../loader/nfsinstall.c:335
-#: ../loader/urlinstall.c:418
-#: ../loader/urlinstall.c:427
-#: ../loader/urlinstall.c:436
+#: ../loader/urlinstall.c:450
+#: ../loader/urlinstall.c:459
+#: ../loader/urlinstall.c:468
 msgid "Kickstart Error"
 msgstr "Error Kickstart"
 
@@ -5527,14 +5527,14 @@ msgstr "No se pudo encontrar el disco duro para el disco BIOS %s"
 # ../loader/lang.c:594
 # ../loader/lang.c:606
 # ../loader/lang.c:606
-#: ../loader/kbd.c:136
+#: ../loader/kbd.c:117
 msgid "Keyboard Type"
 msgstr "Tipo de teclado"
 
 # ../loader/lang.c:595
 # ../loader/lang.c:607
 # ../loader/lang.c:607
-#: ../loader/kbd.c:137
+#: ../loader/kbd.c:118
 msgid "What type of keyboard do you have?"
 msgstr "¿Qué tipo de teclado tiene?"
 
@@ -5705,7 +5705,7 @@ msgstr "Error al descargar la imagen de actualizaciones"
 # ../loader/loader.c:2524
 # ../loader/loader.c:2524
 # ../loader/loader.c:2524
-#: ../loader/loader.c:1202
+#: ../loader/loader.c:1204
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "No posee suficiente RAM para instalar %s en esta máquina."
@@ -5713,78 +5713,78 @@ msgstr "No posee suficiente RAM para instalar %s en esta máquina."
 # ../mouse.py:273 ../xserver.py:44
 # ../mouse.py:273 ../xserver.py:44
 # ../mouse.py:274 ../xserver.py:44
-#: ../loader/loader.c:1259
+#: ../loader/loader.c:1261
 msgid "Media Detected"
 msgstr "Media detectada"
 
-#: ../loader/loader.c:1260
+#: ../loader/loader.c:1262
 msgid "Found local installation media"
 msgstr "Se ha detectado contenido de instalación local"
 
 # ../loader/loader.c:1482
 # ../loader/loader.c:1482
 # ../loader/loader.c:1482
-#: ../loader/loader.c:1379
+#: ../loader/loader.c:1381
 msgid "Rescue Method"
 msgstr "Método de Rescate"
 
 # ../loader/loader.c:1483
 # ../loader/loader.c:1483
 # ../loader/loader.c:1483
-#: ../loader/loader.c:1380
+#: ../loader/loader.c:1382
 msgid "Installation Method"
 msgstr "Método de instalación"
 
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
-#: ../loader/loader.c:1382
+#: ../loader/loader.c:1384
 msgid "What type of media contains the rescue image?"
 msgstr "¿Qué tipo de dispositivo contiene la imagen de rescate?"
 
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
-#: ../loader/loader.c:1384
+#: ../loader/loader.c:1386
 msgid "What type of media contains the installation image?"
 msgstr "¿Qué tipo de dispositivo contiene la imagen de instalación?"
 
 # ../partitioning.py:1465
 # ../partitioning.py:1485
 # ../partitioning.py:1488
-#: ../loader/loader.c:1417
+#: ../loader/loader.c:1419
 msgid "No driver found"
 msgstr "No se encontró el driver"
 
 # ../iw/fdisk_gui.py:93
 # ../iw/fdisk_gui.py:93
 # ../iw/fdisk_gui.py:93
-#: ../loader/loader.c:1417
+#: ../loader/loader.c:1419
 msgid "Select driver"
 msgstr "Seleccione el controlador"
 
 # ../loader/devices.c:232
 # ../loader/devices.c:232
 # ../loader/devices.c:232
-#: ../loader/loader.c:1418
+#: ../loader/loader.c:1420
 msgid "Use a driver disk"
 msgstr "Use un disco de controladores"
 
-#: ../loader/loader.c:1419
+#: ../loader/loader.c:1421
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
 msgstr "No pudo encontrar ningún dispositivo del tipo requerido para esta instalación. Le gustaría seleccionar manualmente su controlador o usar un disco de controlador? "
 
 # ../loader/loader.c:371
 # ../loader/loader.c:371
 # ../loader/loader.c:371
-#: ../loader/loader.c:1640
+#: ../loader/loader.c:1642
 msgid "The following devices have been found on your system."
 msgstr "Se han encontrado los siguientes dispositivos en su sistema."
 
 # ../loader/loader.c:399
 # ../loader/loader.c:399
 # ../loader/loader.c:399
-#: ../loader/loader.c:1642
+#: ../loader/loader.c:1644
 msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
 msgstr "No se han cargado controladores de dispositivos para su sistema. ¿Desearía cargar alguno en este momento? "
 
@@ -5794,25 +5794,25 @@ msgstr "No se han cargado controladores de dispositivos para su sistema. ¿Desea
 # ../loader/loader.c:321 ../loader/loader.c:382 ../loader/loader.c:398
 # ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
 # ../loader/loader.c:321 ../loader/loader.c:382 ../loader/loader.c:398
-#: ../loader/loader.c:1646
+#: ../loader/loader.c:1648
 msgid "Devices"
 msgstr "Dispositivos"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: ../loader/loader.c:1647
+#: ../loader/loader.c:1649
 msgid "Done"
 msgstr "Hecho"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: ../loader/loader.c:1648
+#: ../loader/loader.c:1650
 msgid "Add Device"
 msgstr "Añadir dispositivo"
 
-#: ../loader/loader.c:1860
+#: ../loader/loader.c:1862
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ya se ejecutó el cargador. Arrancando el shell.\n"
@@ -5820,7 +5820,7 @@ msgstr "ya se ejecutó el cargador. Arrancando el shell.\n"
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
-#: ../loader/loader.c:2238
+#: ../loader/loader.c:2240
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "Ejecutando anaconda %s, el modo de rescate %s - por favor espere.\n"
@@ -5828,7 +5828,7 @@ msgstr "Ejecutando anaconda %s, el modo de rescate %s - por favor espere.\n"
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
-#: ../loader/loader.c:2240
+#: ../loader/loader.c:2242
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "Ejecutando anaconda %s - el instalador del sistema %s - por favor espere.\n"
@@ -6192,19 +6192,19 @@ msgstr "No se puede recuperar la imagen de instalación."
 # ../loader/net.c:723
 # ../loader/net.c:723
 # ../loader/net.c:723
-#: ../loader/urlinstall.c:419
+#: ../loader/urlinstall.c:451
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Argumento erróneo para el comando kickstart Url %s: %s"
 
-#: ../loader/urlinstall.c:428
+#: ../loader/urlinstall.c:460
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Debe suministrar un argumento  --url para el método Url kickstart."
 
 # ../textw/xconfig_text.py:564
 # ../textw/xconfig_text.py:576
 # ../textw/xconfig_text.py:576
-#: ../loader/urlinstall.c:437
+#: ../loader/urlinstall.c:469
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Método %s Url desconocido "
@@ -6847,21 +6847,21 @@ msgstr "No se descubrieron nodos iSCSI nuevos"
 msgid "Could not log in to any of the discovered nodes"
 msgstr "No se pudo ingresar a ninguno de los nodos descubiertos"
 
-#: ../storage/partitioning.py:181
+#: ../storage/partitioning.py:180
 msgid "Could not find enough free space for automatic partitioning, please use another partitioning method."
 msgstr "No se pudo encontrar espacio libre suficiente para el particionado automático, por favor, use otro método de particionado."
 
 # ../autopart.py:890
 # ../autopart.py:897
 # ../autopart.py:897
-#: ../storage/partitioning.py:205
+#: ../storage/partitioning.py:204
 msgid "Warnings During Automatic Partitioning"
 msgstr "Aviso durante la partición automática"
 
 # ../autopart.py:891
 # ../autopart.py:898
 # ../autopart.py:898
-#: ../storage/partitioning.py:207
+#: ../storage/partitioning.py:206
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -6876,8 +6876,8 @@ msgstr ""
 # ../autopart.py:847
 # ../autopart.py:854
 # ../autopart.py:854
-#: ../storage/partitioning.py:219
-#: ../storage/partitioning.py:239
+#: ../storage/partitioning.py:218
+#: ../storage/partitioning.py:238
 msgid ""
 "\n"
 "\n"
@@ -6890,7 +6890,7 @@ msgstr ""
 # ../autopart.py:904
 # ../autopart.py:911
 # ../autopart.py:911
-#: ../storage/partitioning.py:221
+#: ../storage/partitioning.py:220
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -6901,7 +6901,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../storage/partitioning.py:241
+#: ../storage/partitioning.py:240
 msgid ""
 "\n"
 "\n"
@@ -6914,11 +6914,11 @@ msgstr ""
 # ../iw/partition_gui.py:1578 ../textw/partition_text.py:1052
 # ../iw/partition_gui.py:1580 ../textw/partition_text.py:1052
 # ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
-#: ../storage/partitioning.py:243
+#: ../storage/partitioning.py:242
 msgid "Automatic Partitioning Errors"
 msgstr "Errores de Particionamiento Automático"
 
-#: ../storage/partitioning.py:244
+#: ../storage/partitioning.py:243
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -6933,21 +6933,87 @@ msgstr ""
 "\n"
 "Esto puede suceder cuando no hay suficiente espacio en su unidad(es) de disco duro para la instalación. %s"
 
-#: ../storage/partitioning.py:255
+#: ../storage/partitioning.py:254
 msgid "Unrecoverable Error"
 msgstr "Error irrecuperable"
 
-#: ../storage/zfcp.py:49
+#: ../storage/zfcp.py:50
 msgid "You have not specified a device number or the number is invalid"
 msgstr "No ha especificado un número de dispositivo o el número es inválido"
 
-#: ../storage/zfcp.py:51
+#: ../storage/zfcp.py:52
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "No ha especificado un nombre de puerto universal o el nombre es inválido."
 
-#: ../storage/zfcp.py:53
+#: ../storage/zfcp.py:54
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "No ha especificado un FCP LUN  o el número es inválido."
+
+#: ../storage/zfcp.py:132
+#, python-format
+msgid "Could not free zFCP device %s from device ignore list (%s)."
+msgstr "No se pudo liberar el dispositivo zFCP %s de la lista de dispositivos a ignorar (%s)."
+
+#: ../storage/zfcp.py:137
+#, python-format
+msgid "zFCP device %s not found, not even in device ignore list."
+msgstr "El dispositivo zFCP %s no fue encontrado, ni siquiera en la lista de dispositivos a ignorar."
+
+#: ../storage/zfcp.py:150
+#, python-format
+msgid "Could not set zFCP device %s online (%s)."
+msgstr "No se pudo poner al dispositivo zFCP %s en línea (%s)"
+
+#: ../storage/zfcp.py:161
+#, python-format
+msgid "Could not add WWPN %s to zFCP device %s (%s)."
+msgstr "No se pudo agregar el WWPN %s al dispositivo zFCP %s (%s)."
+
+#. newer zfcp sysfs interface with auto port scan
+#: ../storage/zfcp.py:165
+#, python-format
+msgid "WWPN %s not found at zFCP device %s."
+msgstr "El WWPN %s no fue encontrado en el dispositivo zFCP %s."
+
+#: ../storage/zfcp.py:179
+#, python-format
+msgid "Could not add LUN %s to WWPN %s on zFCP device %s (%s)."
+msgstr "No se pudo agregar el LUN %s al WWPN %s en el dispositivo zFCP %s (%s)."
+
+#: ../storage/zfcp.py:183
+#, python-format
+msgid "LUN %s at WWPN %s on zFCP device %s already configured."
+msgstr "El LUN %s en el WWPN %s el el dispositivo zFCP %s ya fue configurado."
+
+#: ../storage/zfcp.py:193
+#, python-format
+msgid "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
+msgstr "No se pudo leer atributo de fallo del LUN %s en WWPN %s en el dispositivo zFCP %s (%s)."
+
+#: ../storage/zfcp.py:198
+#, python-format
+msgid "Failed LUN %s at WWPN %s on zFCP device %s removed again."
+msgstr "Falló el LUN %s en WWPN %s en el dispositivo zFCP %s eliminado otra vez."
+
+#: ../storage/zfcp.py:253
+#, python-format
+msgid "Could not correctly delete SCSI device of zFCP %s %s %s (%s)."
+msgstr "No se pudo borrar el dispositivo SCSI del zFCP %s %s %s (%s)."
+
+#: ../storage/zfcp.py:260
+#, python-format
+msgid "Could not remove LUN %s at WWPN %s on zFCP device %s (%s)."
+msgstr "No se pudo borrar el LUN %s en el WWPN %s en el dispositivo zFCP %s (%s)."
+
+#: ../storage/zfcp.py:275
+#, python-format
+msgid "Could not remove WWPN %s on zFCP device %s (%s)."
+msgstr "No se pudo eliminar el WWPN %s en el dispositivo zFCP %s (%s)."
+
+#: ../storage/zfcp.py:299
+#, python-format
+msgid "Could not set zFCP device %s offline (%s)."
+msgstr "No se pudo sacar de línea al dispositivo zFCP %s (%s)."
 
 # ../iw/partition_gui.py:1516
 # ../iw/partition_gui.py:1518
