@@ -50,6 +50,91 @@
 /* boot flags */
 extern uint64_t flags;
 
+char **extraHeaders = NULL;
+
+static char **headers() {
+    int len = 2;
+
+    /* The list of HTTP headers is unlikely to change, unless a new ethernet
+     * device suddenly shows up since last time we downloaded a file.  So,
+     * cache the result here to save some time.
+     */
+    if (extraHeaders != NULL)
+        return extraHeaders;
+
+    if ((extraHeaders = realloc(extraHeaders, 2*sizeof(char *))) == NULL) {
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+        abort();
+    }
+
+    if (asprintf(&extraHeaders[0], "X-Anaconda-Architecture: %s", getProductArch()) == -1) {
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+        abort();
+    }
+    if (asprintf(&extraHeaders[1], "X-Anaconda-System-Release: %s", getProductName()) == -1) {
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+        abort();
+    }
+
+    if (FL_KICKSTART_SEND_MAC(flags)) {
+        /* find all ethernet devices and make a header entry for each one */
+        int i;
+        char *dev, *mac;
+        struct device **devices;
+
+        devices = getDevices(DEVICE_NETWORK);
+        for (i = 0; devices && devices[i]; i++) {
+            dev = devices[i]->device;
+            mac = iface_mac2str(dev);
+
+            if (mac) {
+                extraHeaders = realloc(extraHeaders, (len+1)*sizeof(char *));
+                if (asprintf(&extraHeaders[len], "X-RHN-Provisioning-MAC-%d: %s %s",
+                             i, dev, mac) == -1) {
+                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                    abort();
+                }
+
+                len++;
+                free(mac);
+            }
+        }
+    }
+
+    if (FL_KICKSTART_SEND_SERIAL(flags) && !access("/sbin/dmidecode", X_OK)) {
+        FILE *f;
+        char sn[1024];
+        size_t sn_len;
+
+        if ((f = popen("/sbin/dmidecode -s system-serial-number", "r")) == NULL) {
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+            abort();
+        }
+
+        sn_len = fread(sn, sizeof(char), 1023, f);
+        if (ferror(f)) {
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+            abort();
+        }
+
+        sn[sn_len] = '\0';
+        pclose(f);
+
+        extraHeaders = realloc(extraHeaders, (len+1)*sizeof(char *));
+
+        if (asprintf(&extraHeaders[len], "X-System-Serial-Number: %s", sn) == -1) {
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+            abort();
+        }
+
+        len++;
+    }
+
+    extraHeaders = realloc(extraHeaders, (len+1)*sizeof(char *));
+    extraHeaders[len] = NULL;
+    return extraHeaders;
+}
+
 static int loadSingleUrlImage(struct iurlinfo * ui, char *path,
                               char * dest, char * mntpoint, char * device,
                               int silentErrors) {
