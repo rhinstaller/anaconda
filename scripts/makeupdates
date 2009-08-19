@@ -187,6 +187,8 @@ def usage(cmd):
     sys.stdout.write("    -k, --keep       Do not delete updates subdirectory.\n")
     sys.stdout.write("    -c, --compile    Compile code if there are isys changes.\n")
     sys.stdout.write("    -h, --help       Display this help and exit.\n")
+    sys.stdout.write("    -t, --tag        Make image from TAG to HEAD.\n")
+    sys.stdout.write("    -o, --offset     Make image from (latest_tag - OFFSET) to HEAD.\n")
 
 def main(argv):
     prog = os.path.basename(sys.argv[0])
