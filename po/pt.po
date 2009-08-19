@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-19 08:28+0000\n"
-"PO-Revision-Date: 2009-08-19 16:16+0100\n"
+"PO-Revision-Date: 2009-08-19 23:18+0100\n"
 "Last-Translator: Rui Gouveia <rui.gouveia@globaltek.pt>\n"
 "Language-Team: pt <fedora-trans-pt@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1339,9 +1339,9 @@ msgid "/boot/efi is not EFI."
 msgstr "/boot/efi não é EFI."
 
 #: ../platform.py:265
-#, fuzzy, python-format
+#, python-format
 msgid "%s must have a bsd disk label."
-msgstr "Não inicializar a etiqueta do disco:"
+msgstr "%s tem de ter uma etiqueta de disco bsd."
 
 #: ../platform.py:277
 #, python-format
@@ -1362,9 +1362,9 @@ msgid "Apple Bootstrap"
 msgstr "Arranque Apple"
 
 #: ../platform.py:397
-#, fuzzy, python-format
+#, python-format
 msgid "%s must have a mac disk label."
-msgstr "Não inicializar a etiqueta do disco:"
+msgstr "%s tem de ter uma etiqueta de disco mac."
 
 #: ../rescue.py:199
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2001,14 +2001,13 @@ msgid "Unable to read group information from repositories.  This is a problem wi
 msgstr "Não é possível ler a informação dos grupos dos repositórios. Este é um problema com a geração da sua árvore de instalação."
 
 #: ../yuminstall.py:1138
-#, fuzzy
 msgid "Retrieving installation information."
-msgstr "A ler a informação de instalação..."
+msgstr "A obter informação de instalação."
 
 #: ../yuminstall.py:1140
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s."
-msgstr "A obter a informação de instalação do %s..."
+msgstr "A obter informação de instalação para %s."
 
 #: ../yuminstall.py:1142
 msgid "Installation Progress"
@@ -2059,18 +2058,16 @@ msgid "Post Upgrade"
 msgstr "Actualização Posterior"
 
 #: ../yuminstall.py:1595
-#, fuzzy
 msgid "Performing post-upgrade configuration"
-msgstr "A efectuar a configuração posterior da actualização..."
+msgstr "A efectuar configuração pós-actualização"
 
 #: ../yuminstall.py:1597
 msgid "Post Installation"
 msgstr "Pós Instalação"
 
 #: ../yuminstall.py:1598
-#, fuzzy
 msgid "Performing post-installation configuration"
-msgstr "A executar a configuração pós-instalação..."
+msgstr "A efectuar configuração pós-instalação"
 
 #: ../yuminstall.py:1826
 msgid "Installation Starting"
@@ -2216,9 +2213,9 @@ msgid "Weak Password"
 msgstr "Senha Fraca"
 
 #: ../iw/account_gui.py:133
-#, fuzzy, python-format
+#, python-format
 msgid "You have provided a weak password: %s"
-msgstr "_Recordar a senha até terminar a sessão"
+msgstr "Você inseriu uma senha fraca: %s"
 
 #: ../iw/account_gui.py:135
 msgid "Use Anyway"
@@ -4108,14 +4105,14 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "o carregador já foi executado.  A iniciar a linha de comandos.\n"
 
 #: ../loader/loader.c:2240
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
-msgstr "A executar o anaconda %s, no modo de recuperação do %s - aguarde por favor...\n"
+msgstr "A executar o anaconda %s, no modo de recuperação do %s - aguarde por favor.\n"
 
 #: ../loader/loader.c:2242
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr "A executar o anaconda %s, o programa de instalação do %s - aguarde por favor...\n"
+msgstr "A executar o anaconda %s, o programa de instalação do %s - aguarde por favor.\n"
 
 #: ../loader/mediacheck.c:46
 #, c-format
@@ -4949,14 +4946,14 @@ msgid "zFCP device %s not found, not even in device ignore list."
 msgstr "O dispositivo zFCP %s não foi encontrado, nem mesmo na lista de dispositivos a ignorar."
 
 #: ../storage/zfcp.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %s online (%s)."
-msgstr "Erro: Não foi possível definir %s como um dispositivo reIPL (%s)"
+msgstr "Não foi possível definir o dispositivo zFCP %s online (%s)."
 
 #: ../storage/zfcp.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add WWPN %s to zFCP device %s (%s)."
-msgstr "Erro: Não foi possível definir %s como um dispositivo reIPL (%s)"
+msgstr "Não foi possível adicionar WWPN %s ao dispositivo zFCP %s (%s)."
 
 #. newer zfcp sysfs interface with auto port scan
 #: ../storage/zfcp.py:165
@@ -4965,9 +4962,9 @@ msgid "WWPN %s not found at zFCP device %s."
 msgstr "WWPN %s não encontrado no dispositivo zFCP %s."
 
 #: ../storage/zfcp.py:179
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add LUN %s to WWPN %s on zFCP device %s (%s)."
-msgstr "Erro: Não foi possível definir %s como um dispositivo reIPL (%s)"
+msgstr "Não foi possível adicionar LUN %s ao WWPN %s no dispositivo zFCP %s (%s)."
 
 #: ../storage/zfcp.py:183
 #, python-format
@@ -4990,19 +4987,19 @@ msgid "Could not correctly delete SCSI device of zFCP %s %s %s (%s)."
 msgstr "Não foi possível remover correctamente o dispositivo SCSI do zFCP %s %s %s (%s)."
 
 #: ../storage/zfcp.py:260
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove LUN %s at WWPN %s on zFCP device %s (%s)."
-msgstr "Erro: Não foi possível definir %s como um dispositivo reIPL (%s)"
+msgstr "Não foi possível remover LUN %s ao WWPN %s no dispositivo zFCP %s (%s)."
 
 #: ../storage/zfcp.py:275
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove WWPN %s on zFCP device %s (%s)."
-msgstr "Erro: Não foi possível definir %s como um dispositivo reIPL (%s)"
+msgstr "Não foi possível remover WWPN %s no dispositivo zFCP %s (%s)."
 
 #: ../storage/zfcp.py:299
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %s offline (%s)."
-msgstr "Erro: Não foi possível definir %s como um dispositivo reIPL (%s)"
+msgstr "Não foi possível definir o dispositivo zFCP %s online (%s)."
 
 #: ../textw/complete_text.py:32
 msgid "Reboot"
