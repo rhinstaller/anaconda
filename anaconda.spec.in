@@ -12,6 +12,7 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # To generate Source0 do:
 # git clone http://git.fedorahosted.org/git/anaconda.git
 # git checkout -b archive-branch anaconda-%{version}-%{release}
+# ./autogen.sh
 # make dist
 Source0: %{name}-%{version}.tar.bz2
 
