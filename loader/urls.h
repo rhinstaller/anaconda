@@ -31,8 +31,6 @@ struct iurlinfo {
     char * login;
     char * password;
     char * prefix;
-    char * proxy;
-    char * proxyPort;
     int ftpPort;
 };
 
@@ -41,7 +39,6 @@ char *convertUIToURL(struct iurlinfo *ui);
 
 int setupRemote(struct iurlinfo * ui);
 int urlMainSetupPanel(struct iurlinfo * ui);
-int urlSecondarySetupPanel(struct iurlinfo * ui);
 int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
                     char **extraHeaders, char *dest);
 

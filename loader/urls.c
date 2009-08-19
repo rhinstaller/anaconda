@@ -197,6 +197,23 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
     curl_easy_setopt(loaderData->curl, CURLOPT_URL, url);
     curl_easy_setopt(loaderData->curl, CURLOPT_WRITEDATA, f);
 
+    /* If a proxy was provided, add the options for that now. */
+    if (loaderData->proxy && strcmp(loaderData->proxy, "")) {
+        curl_easy_setopt(loaderData->curl, CURLOPT_PROXY, loaderData->proxy);
+
+        if (loaderData->proxyPort && strcmp(loaderData->proxyPort, ""))
+            curl_easy_setopt(loaderData->curl, CURLOPT_PROXYPORT,
+                             strtol(loaderData->proxyPort, NULL, 10));
+
+        if (loaderData->proxyUser && strcmp(loaderData->proxyUser, ""))
+            curl_easy_setopt(loaderData->curl, CURLOPT_PROXYUSERNAME,
+                             loaderData->proxyUser);
+
+        if (loaderData->proxyPassword && strcmp(loaderData->proxyPassword, ""))
+            curl_easy_setopt(loaderData->curl, CURLOPT_PROXYPASSWORD,
+                             loaderData->proxyPassword);
+    }
+
     if (extraHeaders) {
         int i;
         for (i = 0; extraHeaders[i] != NULL; i++) {

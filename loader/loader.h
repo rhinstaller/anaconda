@@ -159,6 +159,14 @@ struct loaderData_s {
     int inferredStage2, invalidRepoParam;
 
     CURL *curl;
+
+    /* Proxy info needs to be in the loaderData so we can get these
+     * settings off the command line, too.
+     */
+    char *proxy;
+    char *proxyPort;
+    char *proxyUser;
+    char *proxyPassword;
 };
 
 /* 64 bit platforms, definitions courtesy of glib */
