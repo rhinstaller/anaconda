@@ -1291,6 +1291,8 @@ class InstallControlWindow:
         self.installFrame.add(new_screen)
         self.installFrame.show_all()
 
+        self.currentWindow.focus()
+
         self.handle = gobject.idle_add(self.handleRenderCallback)
 
         if self.reloadRcQueued:

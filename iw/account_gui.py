@@ -63,13 +63,8 @@ class AccountWindow (InstallWindow):
             self.pw.set_text(self.rootPassword['password'])
             self.confirm.set_text(self.rootPassword['password'])
 
-        # make sure pw has the focus when we enter the screen
-        vbox = self.xml.get_widget("account_box")
-        self.pw.connect("activate", lambda widget,
-                        vbox=vbox: vbox.emit("focus", gtk.DIR_TAB_FORWARD))
-        self.pw.connect("map-event", self.setFocus)
-
         # pressing Enter in confirm == clicking Next
+        vbox = self.xml.get_widget("account_box")
         self.confirm.connect("activate", lambda widget,
                              vbox=vbox: self.ics.setGrabNext(1))
 
@@ -78,7 +73,7 @@ class AccountWindow (InstallWindow):
 
         return self.align
 
-    def setFocus(self, area, data):
+    def focus(self):
         self.pw.grab_focus()
 
     def passwordError(self):

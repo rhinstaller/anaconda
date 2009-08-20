@@ -48,3 +48,6 @@ class InstallWindow:
 
     def fixUp (self):
         pass
+
+    def focus(self):
+        pass

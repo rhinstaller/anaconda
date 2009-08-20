@@ -42,16 +42,17 @@ class NetworkWindow(InstallWindow):
         self.icon = self.xml.get_widget("icon")
         self.hostnameEntry = self.xml.get_widget("hostnameEntry")
         self.hostnameEntry.set_text(self.hostname)
+
+        # pressing Enter in confirm == clicking Next
         self.hostnameEntry.connect("activate",
                                    lambda w: self.ics.setGrabNext(1))
-        self.hostnameEntry.connect("map-event", self.setFocus)
 
         # load the icon
         gui.readImageFromFile("network.png", image=self.icon)
 
         return self.align
 
-    def setFocus(self, area, data):
+    def focus(self):
         self.hostnameEntry.grab_focus()
 
     def hostnameError(self):
