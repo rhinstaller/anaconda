@@ -195,6 +195,7 @@ class Platform(object):
         return 0
 
 class EFI(Platform):
+    _bootFSType = "ext4"
     _diskType = parted.diskType["gpt"]
     _minBootPartSize = 50
     _maxBootPartSize = 256
@@ -436,6 +437,7 @@ class Sparc(Platform):
 
 class X86(EFI):
     _bootloaderPackage = "grub"
+    _bootFSType = "ext4"
     _supportsMdRaidBoot = True
 
     def __init__(self, anaconda):
