@@ -25,6 +25,7 @@ import copy
 
 from iutil import log_method_call
 import parted
+import _ped
 import platform
 from ..errors import *
 from ..udev import udev_settle
