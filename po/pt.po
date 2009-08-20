@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-08-19 08:28+0000\n"
-"PO-Revision-Date: 2009-08-19 23:18+0100\n"
-"Last-Translator: Rui Gouveia <rui.gouveia@globaltek.pt>\n"
+"POT-Creation-Date: 2009-08-20 08:32+0000\n"
+"PO-Revision-Date: 2009-08-20 11:48+0100\n"
+"Last-Translator: Sérgio Mesquita <sergiomesquita@cm-porto.pt>\n"
 "Language-Team: pt <fedora-trans-pt@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -136,8 +136,8 @@ msgstr "Carregue em <Enter> para obter uma consola"
 #: ../loader/kickstart.c:142
 #: ../loader/kickstart.c:185
 #: ../loader/kickstart.c:284
-#: ../loader/kickstart.c:375
-#: ../loader/kickstart.c:556
+#: ../loader/kickstart.c:381
+#: ../loader/kickstart.c:562
 #: ../loader/lang.c:115
 #: ../loader/lang.c:379
 #: ../loader/loader.c:403
@@ -171,9 +171,9 @@ msgstr "Carregue em <Enter> para obter uma consola"
 #: ../loader/urlinstall.c:83
 #: ../loader/urlinstall.c:107
 #: ../loader/urlinstall.c:175
-#: ../loader/urlinstall.c:450
-#: ../loader/urlinstall.c:459
-#: ../loader/urlinstall.c:468
+#: ../loader/urlinstall.c:449
+#: ../loader/urlinstall.c:458
+#: ../loader/urlinstall.c:467
 #: ../loader/urls.c:292
 #: ../loader/urls.c:328
 #: ../loader/urls.c:334
@@ -274,9 +274,9 @@ msgstr "Ocorreu um erro ao transferir a imagem de instalação para o seu disco 
 #: ../iw/raid_dialog_gui.py:705
 #: ../iw/raid_dialog_gui.py:744
 #: ../iw/task_gui.py:63
-#: ../iw/task_gui.py:161
-#: ../iw/task_gui.py:292
-#: ../iw/task_gui.py:414
+#: ../iw/task_gui.py:176
+#: ../iw/task_gui.py:305
+#: ../iw/task_gui.py:429
 #: ../loader/cdinstall.c:228
 #: ../loader/cdinstall.c:517
 #: ../loader/driverdisk.c:98
@@ -545,7 +545,7 @@ msgstr "O dispositivo %s está cifrado. Para poder aceder ao seu conteúdo duran
 #: ../iw/account_gui.py:135
 #: ../loader/dirbrowser.c:145
 #: ../loader/driverdisk.c:244
-#: ../loader/kickstart.c:375
+#: ../loader/kickstart.c:381
 #: ../loader/loader.c:439
 #: ../loader/loader.c:557
 #: ../textw/constants_text.py:48
@@ -1848,12 +1848,12 @@ msgid "Finishing upgrade process.  This may take a little while."
 msgstr "A terminar processo de actualização.  Isto pode demorar algum tempo."
 
 #: ../yuminstall.py:287
-#: ../iw/task_gui.py:301
+#: ../iw/task_gui.py:80
+#: ../iw/task_gui.py:318
 msgid "Error Setting Up Repository"
 msgstr "Erro ao Configurar o Repositório"
 
 #: ../yuminstall.py:288
-#: ../iw/task_gui.py:302
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -3374,66 +3374,92 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../iw/task_gui.py:162
+#: ../iw/task_gui.py:81
+#, python-format
+msgid ""
+"The following error occurred while setting up the installation repository:\n"
+"\n"
+"%s\n"
+"\n"
+"Please provide the correct information for installing %s"
+msgstr ""
+"Ocorreu o seguinte erro de configuração do repositório de instalação:\n"
+"\n"
+"%s\n"
+"\n"
+"Indique por favor a informação correcta para instalar o %s."
+
+#: ../iw/task_gui.py:177
 #, python-format
 msgid "The repository %s has already been added.  Please choose a different repository name and URL."
 msgstr "O repositório %s já foi adicionado. Por favor, seleccione um nome e um URL do repositório diferentes."
 
-#: ../iw/task_gui.py:175
+#: ../iw/task_gui.py:190
 msgid "Edit Repository"
 msgstr "Editar o Repositório"
 
-#: ../iw/task_gui.py:238
+#: ../iw/task_gui.py:253
 msgid "Invalid Proxy URL"
 msgstr "URL do 'Proxy' Inválido"
 
-#: ../iw/task_gui.py:239
+#: ../iw/task_gui.py:254
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "Terá de indicar um URL de um repositório em HTTP, HTTPS ou FTP."
 
-#: ../iw/task_gui.py:250
-#: ../iw/task_gui.py:388
+#: ../iw/task_gui.py:265
+#: ../iw/task_gui.py:403
 msgid "Invalid Repository URL"
 msgstr "URL do Repositório Inválido"
 
-#: ../iw/task_gui.py:251
-#: ../iw/task_gui.py:389
+#: ../iw/task_gui.py:266
+#: ../iw/task_gui.py:404
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Terá de indicar um URL de um repositório em HTTP, HTTPS ou FTP."
 
-#: ../iw/task_gui.py:273
-#: ../iw/task_gui.py:398
+#: ../iw/task_gui.py:287
+#: ../iw/task_gui.py:413
 msgid "No Media Found"
 msgstr "Nenhum Suporte Encontrado"
 
-#: ../iw/task_gui.py:274
-#: ../iw/task_gui.py:399
+#: ../iw/task_gui.py:288
+#: ../iw/task_gui.py:414
 msgid "No installation media was found. Please insert a disc into your drive and try again."
 msgstr "Não foi encontrado nenhum suporte de instalação. Introduza por favor um disco no seu leitor e tente de novo."
 
-#: ../iw/task_gui.py:293
-#: ../iw/task_gui.py:415
+#: ../iw/task_gui.py:306
+#: ../iw/task_gui.py:430
 msgid "Please enter an NFS server and path."
 msgstr "Por favor indique um servidor de NFS e a localização neste."
 
-#: ../iw/task_gui.py:325
+#: ../iw/task_gui.py:319
+#, python-format
+msgid ""
+"The following error occurred while setting up the repository:\n"
+"\n"
+"%s"
+msgstr ""
+"Ocorreu o seguinte erro de configuração do repositório:\n"
+"\n"
+"%s"
+
+#: ../iw/task_gui.py:341
 msgid "Invalid Repository Name"
 msgstr "Nome de Repositório Inválido"
 
-#: ../iw/task_gui.py:326
+#: ../iw/task_gui.py:342
 msgid "You must provide a repository name."
 msgstr "Tem que inserir um nome de repositório."
 
-#: ../iw/task_gui.py:450
+#: ../iw/task_gui.py:465
 #: ../ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "Adicionar um Repositório"
 
-#: ../iw/task_gui.py:455
+#: ../iw/task_gui.py:470
 msgid "No Software Repos Enabled"
 msgstr "Não Existem Repositórios de Software Activos"
 
-#: ../iw/task_gui.py:456
+#: ../iw/task_gui.py:471
 msgid "You must have at least one software repository enabled to continue installation."
 msgstr "Deve ter pelo menos um repositório de software activo para continuar com a instalação."
 
@@ -3828,15 +3854,15 @@ msgstr "Quer carregar mais algum disco com controladores?"
 #: ../loader/kickstart.c:132
 #: ../loader/kickstart.c:142
 #: ../loader/kickstart.c:185
-#: ../loader/kickstart.c:556
+#: ../loader/kickstart.c:562
 #: ../loader/modules.c:335
 #: ../loader/modules.c:347
 #: ../loader/net.c:1579
 #: ../loader/net.c:1600
 #: ../loader/nfsinstall.c:335
-#: ../loader/urlinstall.c:450
-#: ../loader/urlinstall.c:459
-#: ../loader/urlinstall.c:468
+#: ../loader/urlinstall.c:449
+#: ../loader/urlinstall.c:458
+#: ../loader/urlinstall.c:467
 msgid "Kickstart Error"
 msgstr "Erro do 'Kickstart'"
 
@@ -3952,15 +3978,15 @@ msgstr "Erro em %s na linha %d do ficheiro 'kickstart' %s."
 msgid "Cannot find ks.cfg on removable media."
 msgstr "Não foi possível encontrar o ficheiro 'ks.cfg' no dispositivo removível."
 
-#: ../loader/kickstart.c:380
+#: ../loader/kickstart.c:386
 msgid "Unable to download the kickstart file.  Please modify the kickstart parameter below or press Cancel to proceed as an interactive installation."
 msgstr "Não é possível obter o ficheiro de 'kickstart'. Modifique por favor o parâmetro de 'kickstart' em baixo ou carregue em Cancelar para prosseguir como uma instalação interactiva."
 
-#: ../loader/kickstart.c:389
+#: ../loader/kickstart.c:395
 msgid "Error downloading kickstart file"
 msgstr "Erro ao obter o ficheiro 'kickstart'"
 
-#: ../loader/kickstart.c:557
+#: ../loader/kickstart.c:563
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Argumento inválido para o método 'shutdown' do 'kickstart' %s: %s"
@@ -4371,16 +4397,16 @@ msgstr "Não foi possível obter o %s://%s%s."
 msgid "Unable to retrieve the install image."
 msgstr "Não foi possível obter a imagem de instalação."
 
-#: ../loader/urlinstall.c:451
+#: ../loader/urlinstall.c:450
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Argumento inválido para o método 'Url' do 'kickstart' %s: %s"
 
-#: ../loader/urlinstall.c:460
+#: ../loader/urlinstall.c:459
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Tem que indicar um parâmetro --url ao método 'Url' de 'kickstart'."
 
-#: ../loader/urlinstall.c:469
+#: ../loader/urlinstall.c:468
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Método da Url desconhecido %s"
@@ -4701,12 +4727,12 @@ msgstr ""
 "\n"
 "Carregue em <Enter> para sair do instalador."
 
-#: ../storage/devicelibs/lvm.py:312
+#: ../storage/devicelibs/lvm.py:319
 #, python-format
 msgid "vginfo failed for %s"
 msgstr "vginfo falhou para %s."
 
-#: ../storage/devicelibs/lvm.py:341
+#: ../storage/devicelibs/lvm.py:348
 #, python-format
 msgid "lvs failed for %s"
 msgstr "lvs falhou para %s"
