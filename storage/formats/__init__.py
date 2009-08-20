@@ -43,10 +43,11 @@ def register_device_format(fmt_class):
                                                            fmt_class._type))
 
 default_fstypes = ("ext4", "ext3", "ext2")
-default_boot_fstypes = ("ext4", "ext3", "ext2")
 def get_default_filesystem_type(boot=None):
+    import platform
+
     if boot:
-        fstypes = default_boot_fstypes
+        fstypes = [platform.getPlatform(None).bootFSType]
     else:
         fstypes = default_fstypes
 
