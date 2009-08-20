@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 # Set up a launcher on the desktop for the live installer if we're on
 # a live CD
 
