@@ -66,33 +66,6 @@ TREE_SPACING = 2
 MODE_ADD = 1
 MODE_EDIT = 2
 
-# XXXX temporary image data
-new_checkmark = "GdkP"
-new_checkmark = new_checkmark + "\0\0\2X"
-new_checkmark = new_checkmark + "\1\1\0\2"
-new_checkmark = new_checkmark + "\0\0\0""0"
-new_checkmark = new_checkmark + "\0\0\0\14"
-new_checkmark = new_checkmark + "\0\0\0\14" 
-new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0&\0\0\0\217\0\0\0""3\0\0\0\0\0"
-new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0,\0\0\0\252"
-new_checkmark = new_checkmark + "\0\0\0\254\0\0\0\1\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-new_checkmark = new_checkmark + "\0\0\0\0\0\0#\0\0\0\246\0\0\0\264\0\0\0\227\0\0\0\0\0\0\0\0\0\0\0\0\0"
-new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\6\0\0\0\221\0\0\0\264\0\0\0\264"
-new_checkmark = new_checkmark + "\0\0\0\214\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\21\0\0\0\0\0\0\0\0\0\0\0\0\0"
-new_checkmark = new_checkmark + "\0\0U\0\0\0\264\0\0\0\264\0\0\0\202\0\0\0\21\0\0\0\0\0\0\0\0\0\0\0\40"
-new_checkmark = new_checkmark + "\0\0\0\222\0\0\0\37\0\0\0\0\0\0\0\26\0\0\0\252\0\0\0\264\0\0\0\214\0"
-new_checkmark = new_checkmark + "\0\0\16\0\0\0\0\0\0\0\0\0\0\0\6\0\0\0u\0\0\0\264\0\0\0\240\0\0\0'\0\0"
-new_checkmark = new_checkmark + "\0l\0\0\0\264\0\0\0\254\0\0\0!\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\24\0\0\0"
-new_checkmark = new_checkmark + "\207\0\0\0\256\0\0\0\264\0\0\0\240\0\0\0\256\0\0\0\264\0\0\0d\0\0\0\0"
-new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\4\0\0\0;\0\0\0\233\0\0\0\263\0"
-new_checkmark = new_checkmark + "\0\0\264\0\0\0\252\0\0\0\20\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\15\0\0\0r\0\0\0\263\0\0\0i\0\0\0\0\0\0\0\0\0\0\0"
-new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0g\0\0"
-new_checkmark = new_checkmark + "\0\"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
-
-
 class DiskStripeSlice:
     def eventHandler(self, widget, event):
         if event.type == gtk.gdk.BUTTON_PRESS:
@@ -1425,8 +1398,8 @@ class PartitionWindow(InstallWindow):
 
         checkForSwapNoMatch(anaconda)
 
-	# load up checkmark
-	self.checkmark_pixbuf = gtk.gdk.pixbuf_new_from_inline(len(new_checkmark), new_checkmark, False)
+        # load up checkmark & lock
+        self.checkmark_pixbuf = gui.getPixbuf("checkMark.png")
         self.lock_pixbuf = gui.getPixbuf("gnome-lock.png")
 
         # operational buttons
