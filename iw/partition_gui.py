@@ -360,13 +360,11 @@ class DiskTreeModel(gtk.TreeStore):
     # format: column header, type, x alignment, hide?, visibleKey
     titles = ((N_("Device"), gobject.TYPE_STRING, 0.0, 0, 0),
               (N_("Label"), gobject.TYPE_STRING, 0.0, 1, 0),
+              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, 0),
               (N_("Mount Point"), gobject.TYPE_STRING, 0.0, 0, isLeaf),
               (N_("Type"), gobject.TYPE_STRING, 0.0, 0, 0),
-#              (N_("Format"), gobject.TYPE_BOOLEAN, 0.5, 0, isFormattable),
-#              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, isLeaf),
               (N_("Format"), gobject.TYPE_OBJECT, 0.5, 0, isFormattable),
-              (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, 0),
-	      ("", gobject.TYPE_STRING, 0.0, 0, 0),
+              ("", gobject.TYPE_STRING, 0.0, 0, 0),
               # the following must be the last two
               ("IsLeaf", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
               ("IsFormattable", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
