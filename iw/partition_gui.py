@@ -22,6 +22,7 @@
 
 import gobject
 import gtk
+import gtk.glade
 try:
     import gnomecanvas
 except ImportError:
@@ -31,7 +32,6 @@ import gui
 import parted
 import string
 import types
-from constants import *
 
 import storage
 from iw_gui import *
@@ -45,6 +45,7 @@ from partIntfHelpers import *
 from constants import *
 from partition_ui_helpers_gui import *
 from storage.partitioning import doPartitioning
+from storage.partitioning import hasFreeDiskSpace
 from storage.devicelibs import lvm
 from storage.devices import devicePathToName, PartitionDevice
 
@@ -505,7 +506,7 @@ class DiskTreeModel(gtk.TreeStore):
         if selection is not None:
             selection.unselect_all()
         gtk.TreeStore.clear(self)
-        
+
     def __getitem__(self, iter):
         if type(iter) == gtk.TreeIter:
             return DiskTreeModelHelper(self, self.titleSlot, iter)
@@ -969,7 +970,7 @@ class PartitionWindow(InstallWindow):
 
             self.diskStripeGraph.selectSlice(device)
 
-    def newCB(self, widget):
+    def makepartCB(self, widget):
         device = self.storage.newPartition(fmt_type=self.storage.defaultFSType,
                                            size=200)
         self.editPartition(device, isNew=1)
@@ -1000,7 +1001,178 @@ class PartitionWindow(InstallWindow):
                     device.vg._removeLogVol(device)
 
             self.refresh(justRedraw=justRedraw)
-                
+
+    def createCB(self, *args):
+        # First we must decide what parts of the create_storage_dialog
+        # we will activate.
+
+        # For the Partition checkboxes.
+        # If we see that there is free space in the "Hard Drive" list, then we
+        # must activate all the partition radio buttons (RAID partition,
+        # LVM partition and Standard partition).  We will have only one var to
+        # control all three activations (Since they all depend on the same
+        # thing)
+        activate_create_partition = False
+        free_part_available = hasFreeDiskSpace(self.storage)
+        if free_part_available:
+            activate_create_partition = True
+
+        # We activate the create Volume Group radio button if there is a free
+        # partition with a Physical Volume format.
+        activate_create_vg = False
+        if (lvm.has_lvm()
+                and getFormat("lvmpv").supported
+                and len(self.storage.unusedPVs()) > 0):
+            activate_create_vg = True
+
+        # We activate the create RAID dev if there are partitions that have
+        # raid format and are not related to any raid dev.
+        activate_create_raid_dev = False
+        availraidparts = len(self.storage.unusedMDMembers())
+        availminors = self.storage.unusedMDMinors
+        if (len(availminors) > 0
+                and getFormat("software RAID").supported
+                and availraidparts > 1):
+            activate_create_raid_dev = True
+
+        # FIXME: Why do I need availraidparts to clone?
+        activate_create_raid_clone = False
+        if (len(self.storage.disks) > 1
+                and availraidparts > 0):
+            activate_create_raid_clone = True
+
+        # Must check if all the possibilities are False.  In this case tell the
+        # user that he can't create anything and the reasons.
+        if (not activate_create_partition
+                and not activate_create_vg
+                and not activate_create_raid_dev
+                and not activate_create_raid_clone):
+            self.intf.messageWindow(_("Cannot perform any creation action"),
+                                    _("Follows an explination... "),
+                                    custom_icon="warning")
+            return
+
+        # GTK crap starts here.
+        create_storage_xml = gtk.glade.XML(
+                gui.findGladeFile("create-storage.glade"), domain="anaconda")
+        self.dialog = create_storage_xml.get_widget("create_storage_dialog")
+
+        # Activate the partition radio buttons if needed.
+        # sp_rb -> standard partition
+        sp_rb = create_storage_xml.get_widget("create_storage_rb_standard_part")
+        # lp_rb -> lvm partition (physical volume)
+        lp_rb = create_storage_xml.get_widget("create_storage_rb_lvm_part")
+        # rp_rb -> RAID partition
+        rp_rb = create_storage_xml.get_widget("create_storage_rb_raid_part")
+        if activate_create_partition:
+            sp_rb.set_sensitive(True)
+            lp_rb.set_sensitive(True)
+            rp_rb.set_sensitive(True)
+
+        # Activate the Volume Group radio buttons if needed.
+        # vg_rb -> Volume Group
+        vg_rb = create_storage_xml.get_widget("create_storage_rb_lvm_vg")
+        if activate_create_vg:
+            vg_rb.set_sensitive(True)
+
+        # Activate the RAID dev if needed.
+        # rd_rb -> RAID device
+        rd_rb = create_storage_xml.get_widget("create_storage_rb_raid_dev")
+        if activate_create_raid_dev:
+            rd_rb.set_sensitive(True)
+
+        # Activate RAID clone if needed.
+        # rc_rb -> RAID clone
+        rc_rb = create_storage_xml.get_widget("create_storage_rb_raid_clone")
+        if activate_create_raid_clone:
+            rc_rb.set_sensitive(True)
+
+        # Before drawing lets select the first radio button that is sensitive:
+        # How can I get sensitivity from gtk.radiobutton?
+        if activate_create_partition:
+            sp_rb.set_active(True)
+        elif activate_create_vg:
+            vg_rb.set_active(True)
+        elif activate_create_raid_dev:
+            rd_rb.set_active(True)
+        elif activate_create_raid_clone:
+            rc_rb.set_active(True)
+
+        gui.addFrame(self.dialog)
+        self.dialog.show_all()
+
+        # We loop in the self.dialog.run() only for the help screens.
+        # dialog_rc == 2 -> partition about
+        # dialog_rc == 3 -> raid about
+        # dialog_rc == 4 -> lvm about
+        while True:
+            dialog_rc = self.dialog.run()
+            if dialog_rc == 2 or dialog_rc == 3 or dialog_rc == 4:
+                # FIXME: Code to handle the About messages.
+                pass
+            else:
+                break
+
+        # If Cancel was pressed
+        if dialog_rc == 0:
+            self.dialog.destroy()
+            return
+
+        # If Create was pressed  Make sure we do a dialog.destroy before
+        # calling any other screen.  We don't want the create dialog to show
+        # in the back when we pop up other screens.
+        if dialog_rc != 1:
+            log.error("I received a dialog_rc != 1 (%d) witch should not "
+                    "happen" % rc)
+            self.dialog.destroy()
+            return
+
+        self.dialog.destroy()
+        if rp_rb.get_active():
+            member = self.storage.newPartition(fmt_type="software RAID",
+                                               size=200)
+            self.editPartition(member, isNew = 1, restrictfs=["mdmember"])
+            return
+
+        elif rc_rb.get_active():
+            cloneDialog = raid_dialog_gui.RaidCloneDialog(self.storage,
+                                                          self.intf,
+                                                          self.parent)
+            if cloneDialog is None:
+                self.intf.messageWindow(_("Couldn't Create Drive Clone Editor"),
+                                        _("The drive clone editor could not "
+                                          "be created for some reason."),
+                                        custom_icon="error")
+                return
+
+            if cloneDialog.run():
+                self.refresh()
+
+            cloneDialog.destroy()
+            return
+
+        elif rd_rb.get_active():
+            array = self.storage.newMDArray(fmt_type=self.storage.defaultFSType)
+            self.editRaidArray(array, isNew=1)
+            return
+
+        elif lp_rb.get_active():
+            member = self.storage.newPartition(fmt_type="physical volume (LVM)",
+                                               size=200)
+            self.editPartition(member, isNew = 1, restrictfs=["lvmpv"])
+            return
+
+        elif vg_rb.get_active():
+            tempvg = self.storage.newVG()
+            self.editLVMVolumeGroup(tempvg, isNew = 1)
+            return
+
+        elif sp_rb.get_active():
+            tempformat = self.storage.defaultFSType
+            device = self.storage.newPartition(fmt_type=tempformat, size=200)
+            self.editPartition(device, isNew=1)
+            return
+
     def resetCB(self, *args):
         if not confirmResetPartitionState(self.intf):
             return
@@ -1362,13 +1534,15 @@ class PartitionWindow(InstallWindow):
         buttonBox = gtk.HButtonBox()
         buttonBox.set_layout(gtk.BUTTONBOX_SPREAD)
 
-        ops = ((_("Ne_w"), self.newCB),
+        ops = ((_("_Create"), self.createCB),
                (_("_Edit"), self.editCB),
                (_("_Delete"), self.deleteCB),
-               (_("Re_set"), self.resetCB),
-               (_("R_AID"), self.makeraidCB),
-               (_("_LVM"), self.makeLvmCB))
-        
+               (_("Re_set"), self.resetCB))
+
+#               (_("_Partition"), self.makepartCB),
+#               (_("R_AID"), self.makeraidCB),
+#               (_("_LVM"), self.makeLvmCB))
+
         for label, cb in ops:
             button = gtk.Button(label)
             buttonBox.add (button)
