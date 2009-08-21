@@ -122,18 +122,16 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
     return (passphrase, isglobal)
 
 # Don't really know where to put this.
-def questionInitializeDisk(intf=None, name=None, description=None):
+def questionInitializeDisk(intf=None, path=None, description=None):
     retVal = False # The less destructive default
-    if not intf or not name:
+    if not intf or not path:
         pass
     else:
-        if not name.startswith('/dev/'):
-            devpath = '/dev/' + name
-        else:
-            devpath = name
+        if not path.startswith('/dev/'):
+            path = '/dev/' + path
 
-        dev = parted.getDevice(devpath)
-        bypath = deviceNameToDiskByPath(name)
+        dev = parted.getDevice(path)
+        bypath = deviceNameToDiskByPath(path)
         details = ""
 
         if description is None:
@@ -147,7 +145,7 @@ def questionInitializeDisk(intf=None, name=None, description=None):
                   "%s\n%-0.fMB\n%s\n\n"
                   "This device may need to be reinitialized.\n\n"
                   "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!%s")
-                % (name, dev.getSize(), description, details,),
+                % (path, dev.getSize(), description, details,),
                 type="custom",
                 custom_buttons = [ _("_Ignore drive"),
                                    _("_Re-initialize drive") ],
@@ -1291,7 +1289,7 @@ class DeviceTree(object):
         if self.zeroMbr:
             initcb = lambda: True
         else:
-            initcb = lambda: questionInitializeDisk(self.intf, device.name,
+            initcb = lambda: questionInitializeDisk(self.intf, device.path,
                                                     device.description)
 
         try:
