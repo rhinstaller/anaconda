@@ -1393,16 +1393,14 @@ class PartitionWindow(InstallWindow):
         self.anaconda = anaconda
         self.storage = anaconda.id.storage
         self.intf = anaconda.intf
-        
-	self.show_uneditable = 1
-
-        checkForSwapNoMatch(anaconda)
-
-        # load up checkmark & lock
+        self.show_uneditable = 1
         self.checkmark_pixbuf = gui.getPixbuf("checkMark.png")
         self.lock_pixbuf = gui.getPixbuf("gnome-lock.png")
 
-        # operational buttons
+        checkForSwapNoMatch(anaconda)
+
+        # Beginning of the GTK stuff.
+        # create the operational buttons
         buttonBox = gtk.HButtonBox()
         buttonBox.set_spacing(6)
         buttonBox.set_layout(gtk.BUTTONBOX_END)
@@ -1417,49 +1415,57 @@ class PartitionWindow(InstallWindow):
             buttonBox.add (button)
             button.connect ("clicked", cb)
 
+        # create the Hide checkbox
+        self.toggleViewButton = gtk.CheckButton(_("Hide RAID device/LVM Volume _Group members"))
+        self.toggleViewButton.set_active(not self.show_uneditable)
+        self.toggleViewButton.connect("toggled", self.viewButtonCB)
+
+        # Put the check box & the buttons in a horizontal box.
+        actionbox = gtk.HBox()
+        actionbox.pack_start(self.toggleViewButton)
+        actionbox.pack_start(buttonBox)
+        actionbox.set_spacing(6)
+
+        # Create the disk tree
         self.tree = DiskTreeModel()
         self.treeView = self.tree.getTreeView()
         self.treeView.connect('row-activated', self.treeActivateCB)
         self.treeViewSelection = self.treeView.get_selection()
         self.treeViewSelection.connect("changed", self.treeSelectCB)
-
-        # set up the canvas
         self.diskStripeGraph = DiskStripeGraph(self.tree, self.editCB)
-        
-        # do the initial population of the tree and the graph
         self.populate(initial = 1)
 
-	vpaned = gtk.VPaned()
-
+        # Create the top scroll window
         hadj = gtk.Adjustment(step_incr = 5.0)
         vadj = gtk.Adjustment(step_incr = 5.0)
-        sw = gtk.ScrolledWindow(hadjustment = hadj, vadjustment = vadj)
-        sw.add(self.diskStripeGraph.getCanvas())
-        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        sw.set_shadow_type(gtk.SHADOW_IN)
-            
-        frame = gtk.Frame()
-        frame.add(sw)
-	vpaned.add1(frame)
+        swt = gtk.ScrolledWindow(hadjustment = hadj, vadjustment = vadj)
+        swt.add(self.diskStripeGraph.getCanvas())
+        swt.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        swt.set_shadow_type(gtk.SHADOW_IN)
 
-        box = gtk.VBox(False, 5)
-        sw = gtk.ScrolledWindow()
-        sw.add(self.treeView)
-        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-	sw.set_shadow_type(gtk.SHADOW_IN)
-	
-        box.pack_start(sw, True)
+        # Add the top scroll window to a frame
+        tframe = gtk.Frame()
+        tframe.add(swt)
 
-	self.toggleViewButton = gtk.CheckButton(_("Hide RAID device/LVM Volume _Group members"))
-	self.toggleViewButton.set_active(not self.show_uneditable)
-	self.toggleViewButton.connect("toggled", self.viewButtonCB)
-	box.pack_start(self.toggleViewButton, False, False)
-        box.pack_start(buttonBox, False)
-        box.pack_start(gtk.HSeparator(), False)
+        # Create the bottom scroll window
+        swb = gtk.ScrolledWindow()
+        swb.add(self.treeView)
+        swb.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        swb.set_shadow_type(gtk.SHADOW_IN)
 
-	vpaned.add2(box)
+        # Create main vertical box and add everything.
+        MVbox = gtk.VBox(False, 5)
+        MVbox.pack_start(swt, True)
+        MVbox.pack_start(swb, True)
+        MVbox.pack_start(actionbox, False, False)
+        MVbox.pack_start(gtk.HSeparator(), False)
 
-	# XXX should probably be set according to height 
-	vpaned.set_position(175)
+        # Create Vpaned and add the top frame and main vertical box.
+        vpaned = gtk.VPaned()
+        vpaned.add1(tframe)
+        vpaned.add2(MVbox)
 
-	return vpaned
+        # XXX should probably be set according to height
+        vpaned.set_position(175)
+
+        return vpaned
