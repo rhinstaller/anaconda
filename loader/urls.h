@@ -22,22 +22,10 @@
 
 #include "windows.h"
 
-enum urlprotocol_t { URL_METHOD_FTP, URL_METHOD_HTTP };
-typedef enum urlprotocol_t urlprotocol;
-
 struct iurlinfo {
-    urlprotocol protocol;
-    char * address;
-    char * login;
-    char * password;
-    char * prefix;
-    int ftpPort;
+    char * url;
 };
 
-int convertURLToUI(char *url, struct iurlinfo *ui);
-char *convertUIToURL(struct iurlinfo *ui);
-
-int setupRemote(struct iurlinfo * ui);
 int urlMainSetupPanel(struct iurlinfo * ui);
 int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
                     char **extraHeaders, char *dest);

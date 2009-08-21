@@ -47,119 +47,6 @@
 /* boot flags */
 extern uint64_t flags;
 
-/* convert a url (ftp or http) to a ui */
-int convertURLToUI(char *url, struct iurlinfo *ui) {
-    char *chptr;
-
-    memset(ui, 0, sizeof(*ui));
-    
-    if (!strncmp("ftp://", url, 6)) {
-        ui->protocol = URL_METHOD_FTP;
-        url += 6;
-	
-        /* There could be a username/password on here */
-        if ((chptr = strchr(url, '@'))) {
-            if ((chptr = strchr(url, ':'))) {
-                *chptr = '\0';
-                ui->login = strdup(url);
-                url = chptr + 1;
-
-                chptr = strchr(url, '@');
-                *chptr = '\0';
-                ui->password = strdup(url);
-                url = chptr + 1;
-            } else {
-                chptr = strchr(url, '@');
-                *chptr = '\0';
-                ui->login = strdup(url);
-                url = chptr + 1;
-            }
-        }
-    } else if (!strncmp("http://", url, 7)) {
-        ui->protocol = URL_METHOD_HTTP;
-        url += 7;
-    } else {
-        logMessage(ERROR, "unknown url protocol '%s'", url);
-        return -1;
-    }
-    
-    /* url is left pointing at the hostname */
-    chptr = strchr(url, '/');
-    if (chptr != NULL) {
-        *chptr = '\0';
-        ui->address = strdup(url);
-        url = chptr;
-        *url = '/';
-        ui->prefix = strdup(url);
-    } else {
-       ui->address = strdup(url);
-       ui->prefix = strdup("/");
-    }
-    
-    logMessage(DEBUGLVL, "url address %s", ui->address);
-    logMessage(DEBUGLVL, "url prefix %s", ui->prefix);
-
-    return 0;
-}
-
-static char * getLoginName(char * login, struct iurlinfo *ui) {
-    int i;
-
-    i = 0;
-    /* password w/o login isn't useful */
-    if (ui->login && strlen(ui->login)) {
-	i += strlen(ui->login) + 5;
-	if (strlen(ui->password))
-	    i += 3*strlen(ui->password) + 5;
-
-	if (ui->login || ui->password) {
-	    login = malloc(i);
-	    strcpy(login, ui->login);
-	    if (ui->password) {
-		char * chptr;
-		char code[4];
-
-		strcat(login, ":");
-		for (chptr = ui->password; *chptr; chptr++) {
-		    sprintf(code, "%%%2x", *chptr);
-		    strcat(login, code);
-		}
-		strcat(login, "@");
-	    }
-	}
-    }
-
-    return login;
-}
-
-/* convert a UI to a URL, returns allocated string */
-char *convertUIToURL(struct iurlinfo *ui) {
-    char *login, *finalPrefix, *url, *p;
-
-    if (!strcmp(ui->prefix, "/"))
-	finalPrefix = "/.";
-    else
-	finalPrefix = ui->prefix;
-
-    login = "";
-    login = getLoginName(login, ui);
-
-    url = malloc(strlen(finalPrefix) + 25 + strlen(ui->address) + strlen(login));
-
-    /* sanitize url so we dont have problems like bug #101265 */
-    /* basically avoid duplicate /'s                          */
-    if (ui->protocol == URL_METHOD_HTTP) {
-        for (p=finalPrefix; *p == '/' && *(p+1) && *(p+1) == '/'; p++);
-        finalPrefix = p;
-    }
-
-    sprintf(url, "%s://%s%s%s", 
-	    ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
-	    login, ui->address, finalPrefix);
-
-    return url;
-}
-
 /* This is just a wrapper around the windows.c progress callback that accepts
  * the arguments libcurl provides.
  */
@@ -176,10 +63,9 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
     CURLcode status;
     struct curl_slist *headers = NULL;
     char *version;
-    char *url = convertUIToURL(ui);
     FILE *f = NULL;
 
-    logMessage(INFO, "transferring %s", url);
+    logMessage(INFO, "transferring %s", ui->url);
 
     f = fopen(dest, "w");
 
@@ -194,7 +80,7 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
     }
 
     curl_easy_setopt(loaderData->curl, CURLOPT_USERAGENT, version);
-    curl_easy_setopt(loaderData->curl, CURLOPT_URL, url);
+    curl_easy_setopt(loaderData->curl, CURLOPT_URL, ui->url);
     curl_easy_setopt(loaderData->curl, CURLOPT_WRITEDATA, f);
 
     /* If a proxy was provided, add the options for that now. */
@@ -283,12 +169,11 @@ int urlMainSetupPanel(struct iurlinfo * ui) {
     char * reflowedText = NULL;
     int width, height;
     newtGrid buttons, grid;
-    char * chptr;
     char * buf = NULL;
 
     /* Populate the UI with whatever initial value we've got. */
-    if (ui && ui->prefix)
-        url = convertUIToURL(ui);
+    if (ui && ui->url)
+        url = ui->url;
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
@@ -337,17 +222,9 @@ int urlMainSetupPanel(struct iurlinfo * ui) {
                 continue;
             }
 
-            /* Now split up the URL we were given into its components for
-             * ease of checking.
-             */
-            if (convertURLToUI(url, ui) == -1)
-                continue;
+            ui->url = strdup(url);
 
-            if (!addrToIp(ui->address)) {
-                newtWinMessage(_("Unknown Host"), _("OK"),
-                        _("%s is not a valid hostname."), ui->address);
-                continue;
-            }
+            /* FIXME:  add back in hostname checking */
         }
 
         break;
@@ -359,12 +236,6 @@ int urlMainSetupPanel(struct iurlinfo * ui) {
 
         return LOADER_BACK;
     }
-
-    /* Get rid of trailing /'s */
-    chptr = ui->prefix + strlen(ui->prefix) - 1;
-    while (chptr > ui->prefix && *chptr == '/') chptr--;
-    chptr++;
-    *chptr = '\0';
 
     newtFormDestroy(form);
     newtPopWindow();
