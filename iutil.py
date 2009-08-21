@@ -31,12 +31,39 @@ import subprocess
 from flags import flags
 from constants import *
 import re
+import threading
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
+
+#Python reimplementation of the shell tee process, so we can
+#feed the pipe output into two places at the same time
+class tee(threading.Thread):
+    def __init__(self, inputdesc, outputdesc, outputfile):
+        threading.Thread.__init__(self)
+        self.inputdesc = os.fdopen(inputdesc, "r")
+        self.outputdesc = outputdesc
+        if isinstance(outputfile, file):
+            self.file = outputfile
+        else:
+            self.file = open(outputfile, "a")
+        self.running = True
+
+    def run(self):
+        while self.running:
+            data = self.inputdesc.readline()
+            if data == "":
+                self.running = False
+            else:
+                self.file.write(data)
+                os.write(self.outputdesc, data)
+
+    def stop(self):
+        self.running = False
+        return self
 
 ## Run an external program and redirect the output to a file.
 # @param command The command to run.
@@ -54,14 +81,6 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 
         if not searchPath and not os.access (command, os.X_OK):
             raise RuntimeError, command + " can not be run"
-
-    def closefds ():
-        runningLog.close()
-        stdinclose()
-        stdoutclose()
-        stderrclose()
-
-    stdinclose = stdoutclose = stderrclose = lambda : None
 
     argv = list(argv)
     if isinstance(stdin, str):
@@ -94,36 +113,53 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     runningLog = open("/tmp/program.log", "a")
     runningLog.write("Running... %s\n" % ([command] + argv,))
 
+    #prepare os pipes for feeding tee proceses
+    pstdout, pstdin = os.pipe()
+    perrout, perrin = os.pipe()
+   
     env = os.environ.copy()
     env.update({"LC_ALL": "C"})
 
     try:
+        #prepare tee proceses
+        proc_std = tee(pstdout, stdout, runningLog)
+        proc_err = tee(perrout, stderr, runningLog)
+
+        #start monitoring the outputs
+        proc_std.start()
+        proc_err.start()
+
         proc = subprocess.Popen([command] + argv, stdin=stdin,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE,
+                                stdout=pstdin,
+                                stderr=perrin,
                                 preexec_fn=chroot, cwd=root,
                                 env=env)
 
-        while True:
-            (outStr, errStr) = proc.communicate()
-            if outStr:
-                os.write(stdout, outStr)
-                runningLog.write(outStr)
-            if errStr:
-                os.write(stderr, errStr)
-                runningLog.write(errStr)
+        proc.wait()
+        ret = proc.returncode
 
-            if proc.returncode is not None:
-                ret = proc.returncode
-                break
+        #close the input ends of pipes so we get EOF in the tee processes
+        os.close(pstdin)
+        os.close(perrin)
+
+        #wait for the output to be written and destroy them
+        proc_std.join()
+        del proc_std
+
+        proc_err.join()
+        del proc_err
+
     except OSError as e:
         errstr = "Error running %s: %s" % (command, e.strerror)
         log.error(errstr)
         runningLog.write(errstr)
-        closefds()
+        #close the input ends of pipes so we get EOF in the tee processes
+        os.close(pstdin)
+        os.close(perrin)
+        proc_std.join()
+        proc_err.join()
         raise RuntimeError, errstr
 
-    closefds()
     return ret
 
 ## Run an external program and capture standard out.
