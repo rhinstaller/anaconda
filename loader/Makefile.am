@@ -51,7 +51,7 @@ loader_SOURCES     = loader.c copy.c log.c moduleinfo.c loadermisc.c \
                      selinux.c mediacheck.c kickstart.c driverselect.c \
                      getparts.c dirbrowser.c fwloader.c ibft.c hardware.c \
                      method.c cdinstall.c hdinstall.c nfsinstall.c \
-                     urlinstall.c net.c urls.c ftp.c telnet.c telnetd.c
+                     urlinstall.c net.c urls.c telnet.c telnetd.c
 
 init_CFLAGS        = $(COMMON_CFLAGS)
 init_SOURCES       = init.c undomounts.c shutdown.c copy.c

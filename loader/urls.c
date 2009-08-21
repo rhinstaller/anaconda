@@ -35,7 +35,6 @@
 #include <netdb.h>
 #include <errno.h>
 
-#include "ftp.h"
 #include "lang.h"
 #include "loader.h"
 #include "loadermisc.h"
