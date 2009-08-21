@@ -40,9 +40,11 @@ endif
 COMMON_CFLAGS      = -DUSE_LOGDEV -DVERSION='"$(PACKAGE_VERSION)"'
 
 loader_CFLAGS      = $(COMMON_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
+                     $(LIBCURL_CFLAGS) \
                      -DINCLUDE_LOCAL -DINCLUDE_NETWORK
 loader_LDADD       = $(NEWT_LIBS) $(POPT_LIBS) $(LIBNL_LIBS) \
                      $(LIBNM_GLIB_LIBS) $(CHECKISOMD5_LIBS) \
+                     $(LIBCURL_LIBS) \
                      $(ISCSI_LIBS) $(top_srcdir)/isys/libisys.la
 loader_SOURCES     = loader.c copy.c log.c moduleinfo.c loadermisc.c \
                      modules.c windows.c lang.c kbd.c driverdisk.c \
