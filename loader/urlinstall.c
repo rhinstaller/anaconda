@@ -135,53 +135,32 @@ static char **headers() {
     return extraHeaders;
 }
 
-static int loadSingleUrlImage(struct iurlinfo * ui, char *path,
-                              char * dest, char * mntpoint, char * device,
-                              int silentErrors) {
-    int fd;
-    int rc = 0;
-    char *ehdrs = NULL;
-    long long size;
-    struct progressCBdata *data = NULL;
+static int loadSingleUrlImage(struct loaderData_s *loaderData, struct iurlinfo *ui,
+                              char *dest, char *mntpoint, char *device, int silentErrors) {
+    char **ehdrs = NULL;
+    int status;
 
-    if (ui->protocol == URL_METHOD_HTTP) {
-        char *arch = getProductArch();
-        char *name = getProductName();
+    if (!strncmp(ui->url, "http", 4))
+        ehdrs = headers();
 
-        if (asprintf(&ehdrs, "User-Agent: anaconda/%s\r\n"
-                             "X-Anaconda-Architecture: %s\r\n"
-                             "X-Anaconda-System-Release: %s\r\n",
-                     VERSION, arch, name) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
-    }
-
-    fd = urlinstStartTransfer(ui, path, ehdrs, &data, &size);
-
-    if (fd == -2) {
-        if (ehdrs) free (ehdrs);
-        return 2;
-    }
-    else if (fd < 0) {
+    status = urlinstTransfer(loaderData, ui, ehdrs, dest);
+    if (status) {
         if (!silentErrors) {
             newtWinMessage(_("Error"), _("OK"),
-                           _("Unable to retrieve %s://%s%s."),
-                           (ui->protocol == URL_METHOD_FTP ? "ftp" : "http"),
-                           ui->address, path);
+                           _("Unable to retrieve %s."), ui->url);
         }
 
-        if (ehdrs) free (ehdrs);
         return 2;
     }
 
     if (dest != NULL) {
-        rc = copyFileAndLoopbackMount(fd, dest, device, mntpoint,
-                                      progressCallback, data, size);
+        if (mountLoopback(dest, mntpoint, device)) {
+            logMessage(ERROR, "Error mounting %s on %s: %m", device, mntpoint);
+            return 1;
+        }
     }
 
-    urlinstFinishTransfer(ui, fd, &data);
-    return rc;
+    return 0;
 }
 
 static void copyWarnFn (char *msg) {
@@ -192,29 +171,31 @@ static void copyErrorFn (char *msg) {
    newtWinMessage(_("Error"), _("OK"), _(msg));
 }
 
-static int loadUrlImages(struct iurlinfo * ui) {
-    char *buf, *path, *dest, *slash;
+static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
+    char *oldUrl, *path, *dest, *slash;
     int rc;
 
+    oldUrl = strdup(ui->url);
+    free(ui->url);
+
     /* Figure out the path where updates.img and product.img files are
-     * kept.  Since ui->prefix points to a stage2 image file, we just need
+     * kept.  Since ui->url points to a stage2 image file, we just need
      * to trim off the file name and look in the same directory.
      */
-    if ((slash = strrchr(ui->prefix, '/')) == NULL)
+    if ((slash = strrchr(oldUrl, '/')) == NULL)
         return 0;
 
-    if ((path = strndup(ui->prefix, slash - ui->prefix)) == NULL)
-        path = ui->prefix;
+    if ((path = strndup(oldUrl, slash-oldUrl)) == NULL)
+        path = oldUrl;
 
     /* grab the updates.img before install.img so that we minimize our
      * ramdisk usage */
-    if (asprintf(&buf, "%s/%s", path, "updates.img") == -1) {
+    if (asprintf(&ui->url, "%s/%s", path, "updates.img") == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
-    if (!loadSingleUrlImage(ui, buf,
-                            "/tmp/updates-disk.img", "/tmp/update-disk",
+    if (!loadSingleUrlImage(loaderData, ui, "/tmp/updates-disk.img", "/tmp/update-disk",
                             "/dev/loop7", 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
                       copyErrorFn);
@@ -226,17 +207,16 @@ static int loadUrlImages(struct iurlinfo * ui) {
         unlink("/tmp/updates-disk.img");
     }
 
-    free(buf);
+    free(ui->url);
 
     /* grab the product.img before install.img so that we minimize our
      * ramdisk usage */
-    if (asprintf(&buf, "%s/%s", path, "product.img") == -1) {
+    if (asprintf(&ui->url, "%s/%s", path, "product.img") == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
-    if (!loadSingleUrlImage(ui, buf,
-                            "/tmp/product-disk.img", "/tmp/product-disk",
+    if (!loadSingleUrlImage(loaderData, ui, "/tmp/product-disk.img", "/tmp/product-disk",
                             "/dev/loop7", 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
                       copyErrorFn);
@@ -245,15 +225,17 @@ static int loadUrlImages(struct iurlinfo * ui) {
         unlink("/tmp/product-disk");
     }
 
-    free(buf);
+    free(ui->url);
+    ui->url = strdup(oldUrl);
 
     if (asprintf(&dest, "/tmp/install.img") == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
-    rc = loadSingleUrlImage(ui, ui->prefix, dest, "/mnt/runtime", "/dev/loop0", 0);
+    rc = loadSingleUrlImage(loaderData, ui, dest, "/mnt/runtime", "/dev/loop0", 0);
     free(dest);
+    free(oldUrl);
 
     if (rc) {
         if (rc != 2) 
@@ -268,7 +250,6 @@ static int loadUrlImages(struct iurlinfo * ui) {
 char *mountUrlImage(struct installMethod *method, char *location,
                     struct loaderData_s *loaderData) {
     struct iurlinfo ui;
-    char *url = NULL;
 
     enum { URL_STAGE_MAIN, URL_STAGE_FETCH,
            URL_STAGE_DONE } stage = URL_STAGE_MAIN;
@@ -284,10 +265,10 @@ char *mountUrlImage(struct installMethod *method, char *location,
                  * the UI.
                  */
                 if (loaderData->method == METHOD_URL && loaderData->stage2Data) {
-                    url = ((struct urlInstallData *) loaderData->stage2Data)->url;
-                    logMessage(INFO, "URL_STAGE_MAIN: url is %s", url);
+                    ui.url = ((struct urlInstallData *) loaderData->stage2Data)->url;
+                    logMessage(INFO, "URL_STAGE_MAIN: url is %s", ui.url);
 
-                    if (!url) {
+                    if (!ui.url) {
                         logMessage(ERROR, "missing URL specification");
                         loaderData->method = -1;
                         free(loaderData->stage2Data);
@@ -298,9 +279,6 @@ char *mountUrlImage(struct installMethod *method, char *location,
 
                         break;
                     }
-
-                    /* explode url into ui struct */
-                    convertURLToUI(url, &ui);
 
                     /* ks info was adequate, lets skip to fetching image */
                     stage = URL_STAGE_FETCH;
@@ -316,12 +294,12 @@ char *mountUrlImage(struct installMethod *method, char *location,
                     /* If the user-provided URL points at a repo instead of
                      * a stage2 image, fix it up now.
                      */
-                    substr = strstr(ui.prefix, ".img");
+                    substr = strstr(ui.url, ".img");
                     if (!substr || (substr && *(substr+4) != '\0')) {
-                        loaderData->instRepo = strdup(ui.prefix);
+                        loaderData->instRepo = strdup(ui.url);
 
-                        if (asprintf(&ui.prefix, "%s/images/install.img",
-                                     ui.prefix) == -1) {
+                        if (asprintf(&ui.url, "%s/images/install.img",
+                                     ui.url) == -1) {
                             logMessage(CRITICAL, "%s: %d: %m", __func__,
                                        __LINE__);
                             abort();
@@ -341,7 +319,7 @@ char *mountUrlImage(struct installMethod *method, char *location,
                     break;
                 }
 
-                if (loadUrlImages(&ui)) {
+                if (loadUrlImages(loaderData, &ui)) {
                     stage = URL_STAGE_MAIN;
 
                     if (loaderData->method >= 0)
@@ -361,22 +339,15 @@ char *mountUrlImage(struct installMethod *method, char *location,
         }
     }
 
-    url = convertUIToURL(&ui);
-    return url;
+    return ui.url;
 }
 
 int getFileFromUrl(char * url, char * dest, 
                    struct loaderData_s * loaderData) {
-    int retval = 0;
     struct iurlinfo ui;
-    enum urlprotocol_t proto = 
-        !strncmp(url, "ftp://", 6) ? URL_METHOD_FTP : URL_METHOD_HTTP;
-    char * host = NULL, * file = NULL, * chptr = NULL, *login = NULL, *password = NULL;
-    int fd, rc;
+    char **ehdrs = NULL;
+    int rc;
     iface_t iface;
-    char *ehdrs = NULL, *ip = NULL;
-    long long size;
-    struct progressCBdata *data = NULL;
 
     iface_init_iface_t(&iface);
 
@@ -386,131 +357,21 @@ int getFileFromUrl(char * url, char * dest,
     }
 
     memset(&ui, 0, sizeof(ui));
-    ui.protocol = proto;
+    ui.url = url;
 
-    getHostPathandLogin((proto == URL_METHOD_FTP ? url + 6 : url + 7),
-                   &host, &file, &login, &password, ip);
+    logMessage(INFO, "file location: %s", url);
 
-    logMessage(INFO, "file location: %s://%s%s", 
-               (proto == URL_METHOD_FTP ? "ftp" : "http"), host, file);
-
-    chptr = strchr(host, '/');
-    if (chptr == NULL) {
-        ui.address = strdup(host);
-        ui.prefix = strdup("/");
-    } else {
-        *chptr = '\0';
-        ui.address = strdup(host);
-        *chptr = '/';
-        ui.prefix = strdup(chptr);
+    if (!strncmp(url, "http", 4)) {
+        ehdrs = headers();
     }
 
-    if (password[0] != '\0')
-        ui.password = strdup (password);
-    if (login[0] != '\0')
-        ui.login = strdup (login);
-
-    if (proto == URL_METHOD_HTTP) {
-        char *arch = getProductArch();
-        char *name = getProductName();
-
-        if (asprintf(&ehdrs, "User-Agent: anaconda/%s\r\n"
-                             "X-Anaconda-Architecture: %s\r\n"
-                             "X-Anaconda-System-Release: %s\r\n",
-                     VERSION, arch, name) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
-
-        if (FL_KICKSTART_SEND_SERIAL(flags) && !access("/sbin/dmidecode", X_OK)) {
-            FILE *f;
-            char *tmpstr, sn[1024];
-            size_t len;
-
-            if ((f = popen("/sbin/dmidecode -s system-serial-number", "r")) == NULL) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
-            len = fread(sn, sizeof(char), 1023, f);
-            if (ferror(f)) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
-            sn[len] = '\0';
-            pclose(f);
-
-            if (asprintf(&tmpstr, "X-System-Serial-Number: %s\r\n", sn) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
-            if (!ehdrs) {
-                ehdrs = strdup(tmpstr);
-            } else {
-                ehdrs = (char *) realloc(ehdrs, strlen(ehdrs)+strlen(tmpstr)+1);
-                strcat(ehdrs, tmpstr);
-            }
-        }
-
-        if (FL_KICKSTART_SEND_MAC(flags)) {
-            /* find all ethernet devices and make a header entry for each one */
-            int i;
-            char *dev, *mac, *tmpstr;
-            struct device **devices;
-
-            devices = getDevices(DEVICE_NETWORK);
-            for (i = 0; devices && devices[i]; i++) {
-                dev = devices[i]->device;
-                mac = iface_mac2str(dev);
-
-                if (mac) {
-                    if (asprintf(&tmpstr, "X-RHN-Provisioning-MAC-%d: %s %s\r\n",
-                                 i, dev, mac) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
-
-                    if (!ehdrs) {
-                        ehdrs = strdup(tmpstr);
-                    } else {
-                        ehdrs = (char *) realloc(ehdrs, strlen(ehdrs)+strlen(tmpstr)+1);
-                        strcat(ehdrs, tmpstr);
-                    }
-
-                    free(mac);
-                    free(tmpstr);
-                }
-            }
-        }
-    }
-
-    fd = urlinstStartTransfer(&ui, file, ehdrs, &data, &size);
-    if (fd < 0) {
-        logMessage(ERROR, "failed to retrieve http://%s/%s%s", ui.address, ui.prefix, file);
-        retval = 1;
-        goto err;
-    }
-
-    rc = copyFileFd(fd, dest, progressCallback, data, size);
+    rc = urlinstTransfer(loaderData, &ui, ehdrs, dest);
     if (rc) {
-        unlink (dest);
-        logMessage(ERROR, "failed to copy file to %s", dest);
-        retval = 1;
-        goto err;
+        logMessage(ERROR, "failed to retrieve %s", ui.url);
+        return 1;
     }
 
-    urlinstFinishTransfer(&ui, fd, &data);
-
-err:
-    if (file) free(file);
-    if (ehdrs) free(ehdrs);
-    if (host) free(host);
-    if (login) free(login);
-    if (password) free(password);
-
-    return retval;
+    return 0;
 }
 
 /* pull kickstart configuration file via http */
