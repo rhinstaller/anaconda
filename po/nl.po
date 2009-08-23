@@ -19,14 +19,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.nl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-08-20 08:32+0000\n"
-"PO-Revision-Date: 2009-08-20 13:31+0200\n"
+"POT-Creation-Date: 2009-08-23 08:40+0000\n"
+"PO-Revision-Date: 2009-08-23 17:43+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../anaconda:374
 msgid "Press <enter> for a shell"
@@ -135,7 +135,7 @@ msgstr "Bestand wordt gekopieerd"
 
 #: ../backend.py:168
 msgid "Transferring install image to hard drive"
-msgstr "Het installatiebestand wordt nu naar de harde schijf overgezet..."
+msgstr "Het installatiebestand wordt nu naar de harde schijf overgezet"
 
 #: ../backend.py:178
 msgid ""
@@ -206,14 +206,14 @@ msgid ""
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"Uw bestandssystemen zijn reeds geactiveerd.  U kunt niet meer teruggaan "
-"voorbij dit punt.\n"
+"Bestandssystemen zijn reeds geactiveerd.  U kunt niet meer teruggaan voorbij "
+"dit punt.\n"
 "\n"
 "Wilt u doorgaan met de installatie?"
 
 # Grafische of Tekst installatie
 #: ../bootloader.py:58 ../gui.py:1093 ../gui.py:1140 ../gui.py:1268
-#: ../gui.py:1345 ../image.py:91 ../livecd.py:199 ../livecd.py:404
+#: ../gui.py:1347 ../image.py:91 ../livecd.py:199 ../livecd.py:404
 #: ../packages.py:126 ../packages.py:134 ../packages.py:142 ../packages.py:150
 #: ../packages.py:162 ../packages.py:171 ../packages.py:179 ../packages.py:188
 #: ../upgrade.py:57 ../upgrade.py:205 ../yuminstall.py:642
@@ -230,8 +230,8 @@ msgstr "Installatieprogramma _afsluiten"
 msgid "_Continue"
 msgstr "_Doorgaan"
 
-#: ../bootloader.py:114 ../platform.py:93 ../platform.py:319
-#: ../platform.py:376 ../platform.py:466
+#: ../bootloader.py:114 ../platform.py:93 ../platform.py:320
+#: ../platform.py:377 ../platform.py:468
 msgid "RAID Device"
 msgstr "RAID-opstelling"
 
@@ -247,7 +247,9 @@ msgstr "Installeren van bootloader."
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
-msgstr "Er trad een fout op bij het installeren van de bootloader. Het systeem zou wel eens niet kunnen opstarten zo."
+msgstr ""
+"Er is een fout opgetreden bij het installeren van de bootloader. Het systeem "
+"zou wel eens niet kunnen opstarten."
 
 #: ../bootloader.py:217
 msgid ""
@@ -273,7 +275,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"De volgende fout is opgetreden tijdens het verwerken van uw kickstart-"
+"De volgende fout is opgetreden tijdens het verwerken van de kickstart-"
 "configuratie:\n"
 "\n"
 "%s"
@@ -282,12 +284,14 @@ msgstr ""
 msgid ""
 "Command line mode requires all choices to be specified in a kickstart "
 "configuration file."
-msgstr "Commandolijn modus vereist dat alle keuzes in een kickstart configuratiebestand worden gespecificeerd."
+msgstr ""
+"Commandoregelmodus vereist dat alle keuzes in een kickstart-"
+"configuratiebestand worden gespecificeerd."
 
 # vraagteken of vraag
 #: ../cmdline.py:114 ../cmdline.py:121
 msgid "Can't have a question in command line mode!"
-msgstr "Vragen in command-line modus zijn niet mogelijk!"
+msgstr "Vragen in commandoregelmodus zijn niet mogelijk!"
 
 #: ../constants.py:74
 msgid ""
@@ -313,7 +317,9 @@ msgstr " voor het pakket anaconda op %s"
 
 #: ../gui.py:106
 msgid "An error occurred saving screenshots to disk."
-msgstr "Er is een fout opgetreden bij het wegschrijven van de schermafdrukken naar de schijf."
+msgstr ""
+"Er is een fout opgetreden bij het wegschrijven van de schermafdrukken naar "
+"de schijf."
 
 #: ../gui.py:117
 msgid "Screenshots Copied"
@@ -363,7 +369,7 @@ msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
 msgstr ""
-"Kies een wachtzin voor uw versleutelde apparaten. U zult om deze wachtzin "
+"Kies een wachtzin voor de versleutelde apparaten. U zult om deze wachtzin "
 "worden gevraagd tijdens het opstarten van het systeem."
 
 #: ../gui.py:650 ../gui.py:658 ../text.py:186 ../text.py:196
@@ -388,9 +394,9 @@ msgstr ""
 "Apparaat %s is versleuteld. Om de inhoud van het apparaat te benaderen "
 "tijdens de installatie moet u de wachtzin van het apparaat beneden invoeren."
 
-#: ../gui.py:784 ../gui.py:1345 ../partIntfHelpers.py:153
+#: ../gui.py:784 ../gui.py:1347 ../partIntfHelpers.py:153
 #: ../partIntfHelpers.py:310 ../text.py:99 ../text.py:100
-#: ../iw/account_gui.py:135 ../loader/dirbrowser.c:145
+#: ../iw/account_gui.py:130 ../loader/dirbrowser.c:145
 #: ../loader/driverdisk.c:244 ../loader/kickstart.c:381 ../loader/loader.c:439
 #: ../loader/loader.c:557 ../textw/constants_text.py:48
 msgid "Cancel"
@@ -454,25 +460,25 @@ msgstr "Bezig met afsluiten"
 
 # Grafische of Tekst installatie
 #. FIXME: translate the string
-#: ../gui.py:1342 ../livecd.py:115 ../text.py:266 ../upgrade.py:196
+#: ../gui.py:1344 ../livecd.py:115 ../text.py:266 ../upgrade.py:196
 msgid "Exit installer"
 msgstr "Installatieprogramma afsluiten"
 
-#: ../gui.py:1343
+#: ../gui.py:1345
 msgid "Are you sure you wish to exit the installer?"
-msgstr "Weet u zeker dat u de installatie wilt afsluiten?"
+msgstr "Weet u zeker dat u het installatieprogramma wilt afsluiten?"
 
 # Grafische of Tekst installatie
-#: ../gui.py:1352
+#: ../gui.py:1354
 #, python-format
 msgid "%s Installer"
 msgstr "%s Installatie"
 
-#: ../gui.py:1358
+#: ../gui.py:1360
 msgid "Unable to load title bar"
 msgstr "Titelbalk kon niet worden geladen"
 
-#: ../gui.py:1420
+#: ../gui.py:1422
 msgid "Install Window"
 msgstr "Installatievenster"
 
@@ -665,7 +671,7 @@ msgid ""
 "Press the OK button to exit the installer."
 msgstr ""
 "Er was een fout bij het uitvoeren van het kickstart-script op regel %s.  U "
-"kunt de uitvoer bekijken in %s.  Dit is een fatale fout en uw installatie "
+"kunt de uitvoer bekijken in %s.  Dit is een fatale fout en de installatie "
 "zal worden afgebroken.  Druk op OK om het installatieprogramma af te sluiten."
 
 #: ../kickstart.py:111 ../kickstart.py:113
@@ -709,7 +715,7 @@ msgid ""
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 "U hebt aangegeven dat het pakket '%s' moet worden geïnstalleerd.  Dit pakket "
-"bestaat niet. Wilt u doorgaan met uw installatie of wilt u afbreken?"
+"bestaat niet. Wilt u doorgaan met deze installatie of wilt u afbreken?"
 
 #: ../kickstart.py:1298 ../kickstart.py:1337
 msgid "_Abort"
@@ -730,7 +736,7 @@ msgid ""
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 "U hebt aangegeven dat de groep '%s' moet worden geïnstalleerd.  Deze groep "
-"bestaat niet. Wilt u doorgaan met uw installatie of wilt u afbreken?"
+"bestaat niet. Wilt u doorgaan met deze installatie of wilt u afbreken?"
 
 #: ../kickstart.py:1436
 #, python-format
@@ -740,8 +746,8 @@ msgid ""
 "again:\n"
 "%s"
 msgstr ""
-"Uw kickstart bestand ontbeert  noodzakelijke informatie waar anaconda niet "
-"om kan vragen.  Voeg de volgende secties alstublieft toe en probeer "
+"Het kickstart-configuratiebestand ontbeert noodzakelijke informatie waar "
+"anaconda niet om kan vragen.  Voeg de volgende secties toe en probeer "
 "opnieuw:\n"
 "%s"
 
@@ -1218,12 +1224,12 @@ msgstr ""
 "Weet u zeker dat u de partitietabel wilt herstellen naar de oorspronkelijke "
 "toestand?"
 
-#: ../platform.py:94 ../platform.py:97 ../platform.py:320 ../platform.py:377
-#: ../platform.py:467 ../platform.py:470
+#: ../platform.py:94 ../platform.py:97 ../platform.py:321 ../platform.py:378
+#: ../platform.py:469 ../platform.py:472
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../platform.py:96 ../platform.py:469
+#: ../platform.py:96 ../platform.py:471
 msgid "First sector of boot partition"
 msgstr "Eerste sector van de opstartpartitie"
 
@@ -1253,46 +1259,46 @@ msgstr "Opstartpartities mogen niet op een %s bestandssysteem staan."
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "Opstartpartities mogen niet op een versleuteld blokapparaat staan"
 
-#: ../platform.py:213
+#: ../platform.py:214
 msgid "EFI System Partition"
 msgstr "EFI-systeempartitie"
 
-#: ../platform.py:218
+#: ../platform.py:219
 msgid "You have not created a /boot/efi partition."
 msgstr "U hebt geen /boot/efi partitie aangemaakt."
 
-#: ../platform.py:224
+#: ../platform.py:225
 msgid "/boot is not on an ext2 filesystem."
 msgstr "/boot bevindt zich niet op een ext2 bestandssyteem."
 
-#: ../platform.py:227
+#: ../platform.py:228
 msgid "/boot/efi is not EFI."
 msgstr "/boot/efi is niet EFI."
 
-#: ../platform.py:265
+#: ../platform.py:266
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "%s moet een bsd schijflabel hebben."
 
-#: ../platform.py:277
+#: ../platform.py:278
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
-msgstr "De schijf %s moet aan het begin op zijn minst 1MB vrije ruimte hebben."
+msgstr "De schijf %s moet aan het begin tenminste 1MB vrije ruimte hebben."
 
-#: ../platform.py:322
+#: ../platform.py:323
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../platform.py:334
+#: ../platform.py:335
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr ""
-"De boot-partitie dient zich op de eerste 4MB van de schijf te bevinden."
+"De opstartpartitie dient zich op de eerste 4MB van de schijf te bevinden."
 
-#: ../platform.py:379 ../platform.py:382
+#: ../platform.py:380 ../platform.py:383
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../platform.py:397
+#: ../platform.py:398
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "%s moet een mac schijflabel hebben."
@@ -1806,7 +1812,7 @@ msgstr "Voltooien van het upgradeproces"
 
 #: ../yuminstall.py:220
 msgid "Finishing upgrade process.  This may take a little while."
-msgstr "Voltooien van het upgradeproces. Dit kan even duren..."
+msgstr "Voltooien van het upgradeproces. Dit kan even duren."
 
 #: ../yuminstall.py:287 ../iw/task_gui.py:80 ../iw/task_gui.py:318
 msgid "Error Setting Up Repository"
@@ -2058,7 +2064,7 @@ msgstr "Post-upgrade fase"
 
 #: ../yuminstall.py:1595
 msgid "Performing post-upgrade configuration"
-msgstr "Uitvoeren van post-upgrade configuratie..."
+msgstr "Uitvoeren van post-upgrade configuratie"
 
 #: ../yuminstall.py:1597
 msgid "Post Installation"
@@ -2066,7 +2072,7 @@ msgstr "Post-installatie fase"
 
 #: ../yuminstall.py:1598
 msgid "Performing post-installation configuration"
-msgstr "Uitvoeren van post-installatie configuratie..."
+msgstr "Uitvoeren van post-installatie configuratie"
 
 #: ../yuminstall.py:1826
 msgid "Installation Starting"
@@ -2074,7 +2080,7 @@ msgstr "Installatie gaat nu beginnen"
 
 #: ../yuminstall.py:1827
 msgid "Starting installation process"
-msgstr "Beginnen met installatieproces...."
+msgstr "Beginnen met installatieproces"
 
 #: ../yuminstall.py:1865
 msgid "Dependency Check"
@@ -2082,8 +2088,7 @@ msgstr "Controle van afhankelijkheden"
 
 #: ../yuminstall.py:1866
 msgid "Checking dependencies in packages selected for installation"
-msgstr ""
-"De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd..."
+msgstr "De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd"
 
 #: ../installclasses/fedora.py:39
 msgid "_Fedora"
@@ -2153,7 +2158,12 @@ msgid ""
 "additional components can be installed manually later.\n"
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
-msgstr "Wilt u nu een Installatie Nummer (soms een Subscription Number genoemd) invoeren? Dit maakt het voor de installer mogelijk extra componenten die eventueel bij uw aanmelding zijn verkregen te benaderen. Indien u deze stap overslaat kunt u additionele componenten later nog handmatig toevoegen.\n"
+msgstr ""
+"Wilt u nu een Installatie Nummer (soms een Subscription Number genoemd) "
+"invoeren? Dit maakt het voor het installatieprogramma mogelijk extra "
+"componenten die eventueel bij uw aanmelding zijn verkregen te benaderen. "
+"Indien u deze stap overslaat kunt u additionele componenten later nog "
+"handmatig toevoegen.\n"
 "\n"
 "Zie ook http://www.redhat.com/InstNum/"
 
@@ -2161,8 +2171,9 @@ msgstr "Wilt u nu een Installatie Nummer (soms een Subscription Number genoemd) 
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
-msgstr "Indien u het Installatie Nummer niet kunt vinden, raadpleeg dan  http://www.redhat.com/"
-"InstNum/."
+msgstr ""
+"Indien u het Installatie Nummer niet kunt vinden, raadpleeg dan  http://www."
+"redhat.com/InstNum/."
 
 #: ../iw/GroupSelector.py:147
 #, python-format
@@ -2192,16 +2203,16 @@ msgstr "Root-_wachtwoord:"
 msgid "_Confirm:"
 msgstr "_Bevestigen:"
 
-#: ../iw/account_gui.py:97
+#: ../iw/account_gui.py:92
 msgid "Caps Lock is on."
 msgstr "Caps Lock staat aan."
 
-#: ../iw/account_gui.py:107 ../iw/account_gui.py:115 ../iw/account_gui.py:122
-#: ../iw/account_gui.py:142 ../textw/userauth_text.py:74
+#: ../iw/account_gui.py:102 ../iw/account_gui.py:110 ../iw/account_gui.py:117
+#: ../iw/account_gui.py:137 ../textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr "Fout bij het wachtwoord"
 
-#: ../iw/account_gui.py:108
+#: ../iw/account_gui.py:103
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
@@ -2209,30 +2220,30 @@ msgstr ""
 "U moet uw root wachtwoord invoeren en bevestigen door het een tweede keer in "
 "te voeren om verder te gaan."
 
-#: ../iw/account_gui.py:116
+#: ../iw/account_gui.py:111
 msgid "The passwords you entered were different.  Please try again."
 msgstr ""
 "De wachtwoorden die u hebt ingevoerd zijn verschillend. Probeer het opnieuw."
 
-#: ../iw/account_gui.py:123
+#: ../iw/account_gui.py:118
 msgid "The root password must be at least six characters long."
 msgstr "Het root-wachtwoord moet tenminste 6 tekens lang zijn."
 
-#: ../iw/account_gui.py:132 ../textw/userauth_text.py:83
+#: ../iw/account_gui.py:127 ../textw/userauth_text.py:83
 msgid "Weak Password"
 msgstr "Zwak wachtwoord"
 
-#: ../iw/account_gui.py:133
+#: ../iw/account_gui.py:128
 #, python-format
 msgid "You have provided a weak password: %s"
 msgstr "U hebt een zwak wachtwoord opgegeven: %s"
 
-#: ../iw/account_gui.py:135
+#: ../iw/account_gui.py:130
 msgid "Use Anyway"
 msgstr "Toch gebruiken"
 
 # misschien 'gevraagde' beter weglaten voor duidelijkheid
-#: ../iw/account_gui.py:143 ../textw/userauth_text.py:75
+#: ../iw/account_gui.py:138 ../textw/userauth_text.py:75
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
@@ -2693,7 +2704,10 @@ msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
-msgstr "De Logische Volumes die u hebt geconfigureerd vereisen %d MB, maar de Volume Groep bezit slechts %d MB.  Maak of de Volume Groep groter of de Logische Volume(s) kleiner."
+msgstr ""
+"De Logische Volumes die u hebt geconfigureerd vereisen %d MB, maar de Volume "
+"Groep bezit slechts %d MB.  Maak of de Volume Groep groter of de Logische "
+"Volume(s) kleiner."
 
 #: ../iw/lvm_dialog_gui.py:769
 msgid "No free slots"
@@ -2853,7 +2867,7 @@ msgstr "Dynamisch IP-adres"
 #: ../iw/netconfig_dialog.py:241
 #, python-format
 msgid "Sending request for IP address information for %s"
-msgstr "Verzenden van IP-informatieverzoek voor %s..."
+msgstr "Verzenden van IP-adres informatieverzoek voor %s"
 
 #: ../iw/netconfig_dialog.py:256 ../iw/netconfig_dialog.py:259
 #: ../textw/netconfig_text.py:215 ../textw/netconfig_text.py:218
@@ -2883,15 +2897,15 @@ msgstr "Naamserver"
 msgid "Error configuring network device:"
 msgstr "Fout bij het configureren van netwerkapparaat:"
 
-#: ../iw/network_gui.py:66 ../iw/network_gui.py:72
+#: ../iw/network_gui.py:67 ../iw/network_gui.py:73
 msgid "Error with Hostname"
 msgstr "Fout met computernaam"
 
-#: ../iw/network_gui.py:67
+#: ../iw/network_gui.py:68
 msgid "You must enter a valid hostname for this computer."
 msgstr "U moet een geldige computernaam voor deze computer opgeven."
 
-#: ../iw/network_gui.py:73
+#: ../iw/network_gui.py:74
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -3610,7 +3624,7 @@ msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
 msgstr ""
-"U moet ten minste één software-repository aangezet hebben om verder te gaan "
+"U moet tenminste één software-repository aangezet hebben om verder te gaan "
 "met de installatie."
 
 #. self.c.setCallback(self.updateSysClock)
@@ -4418,7 +4432,7 @@ msgstr "Opstarten van anaconda %s, het %s installatieprogramma - even geduld\n"
 #: ../loader/mediacheck.c:46
 #, c-format
 msgid "Unable to find install image %s"
-msgstr "Kan installatie-image %s niet vinden"
+msgstr "Kan installatiebestand %s niet vinden"
 
 #: ../loader/mediacheck.c:52
 #, c-format
@@ -4645,7 +4659,7 @@ msgstr ""
 #: ../loader/net.c:1905
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
-msgstr "Knipperen van %s poortlichten gedurende %d seconden..."
+msgstr "Knipperen van %s poortlichten gedurende %d seconden."
 
 #: ../loader/net.c:2074 ../loader/net.c:2078
 #, c-format
@@ -4690,7 +4704,7 @@ msgstr "Telnet"
 
 #: ../loader/telnetd.c:89
 msgid "Waiting for telnet connection."
-msgstr "Wachten op telnetverbinding..."
+msgstr "Wachten op telnetverbinding."
 
 #: ../loader/telnetd.c:128
 msgid "Running anaconda via telnet."
@@ -4703,7 +4717,7 @@ msgstr "Niet in staat om %s://%s%s binnen te halen."
 
 #: ../loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
-msgstr "Niet in staat om het installatie-image binnen te halen."
+msgstr "Niet in staat om het installatiebestand binnen te halen."
 
 #: ../loader/urlinstall.c:450
 #, c-format
@@ -4827,7 +4841,7 @@ msgstr "Opsporen apparaten"
 
 #: ../storage/__init__.py:273
 msgid "Finding storage devices"
-msgstr "Opsporen opslagapparaten.."
+msgstr "Opsporen opslagapparaten"
 
 #: ../storage/__init__.py:511
 msgid "This partition is holding the data for the hard drive install."
@@ -4892,15 +4906,17 @@ msgid ""
 "Your / partition is less than %s MB which is lower than recommended for a "
 "normal %s install."
 msgstr ""
-"Uw / partitie is minder dan %s MB; wat kleiner is dan aanbevolen voor "
-"een normale %s installatie."
+"Uw / partitie is minder dan %s MB; wat kleiner is dan aanbevolen voor een "
+"normale %s installatie."
 
 #: ../storage/__init__.py:838
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
-msgstr "Uw / partitie komt niet overeen met het live image waarvan u installeert. Het moet geformateerd worden als %s."
+msgstr ""
+"Uw / partitie komt niet overeen met het live image waarvan u installeert. "
+"Het moet geformateerd worden als %s."
 
 #: ../storage/__init__.py:845
 #, python-format
@@ -4930,7 +4946,9 @@ msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
 msgstr ""
-"U hebt geen wisselgeheugenpartitie opgegeven.  Gezien de aanwezige hoeveelheid intern geheugen is een wisselgeheugenpartitie noodzakelijk voor een succesvolle installatie."
+"U hebt geen wisselgeheugenpartitie opgegeven.  Gezien de aanwezige "
+"hoeveelheid intern geheugen is een wisselgeheugenpartitie noodzakelijk voor "
+"een succesvolle installatie."
 
 #: ../storage/__init__.py:887
 msgid ""
@@ -4945,12 +4963,14 @@ msgstr ""
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr "Dit mountpunt is ongeldig.  De %s directorie moet liggen op het / bestandssysteem."
+msgstr ""
+"Dit mountpunt is ongeldig.  De %s directorie moet liggen op het / "
+"bestandssysteem."
 
 #: ../storage/__init__.py:898
 #, python-format
 msgid "The mount point %s must be on a linux file system."
-msgstr "Het koppelpunt \"%s\" dient zich op een linux bestandssysteem te bevinden"
+msgstr "Het koppelpunt %s dient zich op een linux bestandssysteem te bevinden."
 
 #: ../storage/__init__.py:909
 msgid "No Drives Found"
@@ -5165,12 +5185,10 @@ msgid ""
 msgstr ""
 "Fout bij verwerken van station:\n"
 "\n"
-"%s/n"
-"%-0.fMB\n"
+"%s/n%-0.fMB\n"
 "%s\n"
 "\n"
-" Misschien dient dit station te moeten worden "
-"gereïnitialiseerd.\n"
+" Misschien dient dit station te moeten worden gereïnitialiseerd.\n"
 "\n"
 "U ZULT DAN ALLE DATA OP DEZE SCHIJF GAAN VERLIEZEN! %s"
 
@@ -5191,9 +5209,9 @@ msgid ""
 "contents."
 msgstr ""
 "Fout in verwerken LVM.\n"
-"Lijkt er op dat er op %s inconsistente LVM data aanwezig is.  U "
-"kunt alle gerelateerde PVs (%s) reïnitialiseren, wat alle LVM metadata zal "
-"wissen. Of negeren, wat de inhoud zal behouden."
+"Lijkt er op dat er op %s inconsistente LVM data aanwezig is.  U kunt alle "
+"gerelateerde PVs (%s) reïnitialiseren, wat alle LVM metadata zal wissen. Of "
+"negeren, wat de inhoud zal behouden."
 
 #: ../storage/devicetree.py:178
 msgid "_Ignore"
@@ -5376,7 +5394,8 @@ msgstr "Kon apparaat zFCP %s niet van de apparaat-negeren-lijst krijgen (%s)."
 #: ../storage/zfcp.py:137
 #, python-format
 msgid "zFCP device %s not found, not even in device ignore list."
-msgstr "zFCD apparaat %s niet gevonden, zelfs niet op de apparaat-negeer-lijst."
+msgstr ""
+"zFCD apparaat %s niet gevonden, zelfs niet op de apparaat-negeer-lijst."
 
 #: ../storage/zfcp.py:150
 #, python-format
@@ -5408,7 +5427,9 @@ msgstr "LUN %s bij WWPN %s van apparaat zFCP %s is reeds geconfigureerd."
 #, python-format
 msgid ""
 "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
-msgstr "Kon mislukte attributie van LUN %s bij WWPN %s van apparaat zFCP %s niet lezen (%s)."
+msgstr ""
+"Kon mislukte attributie van LUN %s bij WWPN %s van apparaat zFCP %s niet "
+"lezen (%s)."
 
 #: ../storage/zfcp.py:198
 #, python-format
@@ -5568,7 +5589,9 @@ msgstr "FCoE SAN toevoegen"
 msgid ""
 "Enter the device name for the NIC which is connected to the FCoE SAN. For "
 "example \"eth0\"."
-msgstr "Geef een apparaatnaam aan de NIC die verbonden is aan de FCoE SAN. Bijvoorbeeld \"eth0\"."
+msgstr ""
+"Geef een apparaatnaam aan de NIC die verbonden is aan de FCoE SAN. "
+"Bijvoorbeeld \"eth0\"."
 
 #: ../textw/partition_text.py:225
 msgid "NIC device name"
@@ -5577,7 +5600,7 @@ msgstr "NIC-apparaatnaam"
 #: ../textw/partition_text.py:232
 #, python-format
 msgid "%s is not a valid NIC device name."
-msgstr "%s is geen geldige NIC apparaatnaam."
+msgstr "%s is geen geldige NIC-apparaatnaam."
 
 #: ../textw/partition_text.py:248 ../ui/iscsi-config.glade.h:7
 msgid "Configure iSCSI Parameters"
