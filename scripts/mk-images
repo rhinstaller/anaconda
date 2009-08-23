@@ -572,8 +572,12 @@ makeinitrd() {
         cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
         cp $IMGPATH/$LIBDIR/libwrap*.so* $MBD_DIR/$LIBDIR/
         ln -s /tmp $MBD_DIR/var/state/xkb
-        cp $IMGPATH/usr/bin/xauth $MBD_DIR/sbin/xauth
-        cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
+        instbin $IMGPATH /usr/bin/xauth $MBD_DIR /sbin/xauth
+        local cmsfsbin cmd
+        for cmsfsbin in /usr/sbin/cmsfs*; do
+            cmd="$(basename $cmsfsbin)"
+            instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
+        done
     fi
 
     if [ -n "$INITRDMODULES" ]; then
