@@ -26,6 +26,7 @@ import iutil
 import time
 import sys
 import os.path
+import shutil
 import string
 import selinux
 from flags import flags
