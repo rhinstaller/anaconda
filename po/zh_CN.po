@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-08-18 00:00+0000\n"
-"PO-Revision-Date: 2009-08-18 10:42+1000\n"
+"POT-Creation-Date: 2009-08-25 08:37+0000\n"
+"PO-Revision-Date: 2009-08-25 23:20+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,10 +48,10 @@ msgstr "按 <enter> 键执行一个 shell 命令"
 #: ../loader/driverselect.c:205 ../loader/hdinstall.c:134
 #: ../loader/hdinstall.c:280 ../loader/hdinstall.c:343
 #: ../loader/hdinstall.c:375 ../loader/hdinstall.c:445
-#: ../loader/hdinstall.c:488 ../loader/hdinstall.c:501 ../loader/kbd.c:138
+#: ../loader/hdinstall.c:488 ../loader/hdinstall.c:501 ../loader/kbd.c:119
 #: ../loader/kickstart.c:132 ../loader/kickstart.c:142
 #: ../loader/kickstart.c:185 ../loader/kickstart.c:284
-#: ../loader/kickstart.c:375 ../loader/kickstart.c:556 ../loader/lang.c:115
+#: ../loader/kickstart.c:381 ../loader/kickstart.c:562 ../loader/lang.c:115
 #: ../loader/lang.c:379 ../loader/loader.c:403 ../loader/loader.c:439
 #: ../loader/loader.c:482 ../loader/loader.c:503 ../loader/loader.c:520
 #: ../loader/loader.c:557 ../loader/loader.c:1211 ../loader/loader.c:1389
@@ -63,8 +63,8 @@ msgstr "按 <enter> 键执行一个 shell 命令"
 #: ../loader/net.c:1892 ../loader/nfsinstall.c:91 ../loader/nfsinstall.c:248
 #: ../loader/nfsinstall.c:267 ../loader/nfsinstall.c:335
 #: ../loader/telnetd.c:92 ../loader/urlinstall.c:83 ../loader/urlinstall.c:107
-#: ../loader/urlinstall.c:175 ../loader/urlinstall.c:450
-#: ../loader/urlinstall.c:459 ../loader/urlinstall.c:468 ../loader/urls.c:292
+#: ../loader/urlinstall.c:175 ../loader/urlinstall.c:449
+#: ../loader/urlinstall.c:458 ../loader/urlinstall.c:467 ../loader/urls.c:292
 #: ../loader/urls.c:328 ../loader/urls.c:334 ../loader/urls.c:346
 #: ../textw/constants_text.py:44
 msgid "OK"
@@ -156,8 +156,8 @@ msgstr "将安装映像传输到硬盘时出错，很可能是磁盘空间不够
 #: ../iw/autopart_type.py:388 ../iw/autopart_type.py:396
 #: ../iw/autopart_type.py:425 ../iw/osbootwidget.py:210
 #: ../iw/osbootwidget.py:219 ../iw/raid_dialog_gui.py:705
-#: ../iw/raid_dialog_gui.py:744 ../iw/task_gui.py:63 ../iw/task_gui.py:161
-#: ../iw/task_gui.py:292 ../iw/task_gui.py:414 ../loader/cdinstall.c:228
+#: ../iw/raid_dialog_gui.py:744 ../iw/task_gui.py:63 ../iw/task_gui.py:176
+#: ../iw/task_gui.py:305 ../iw/task_gui.py:429 ../loader/cdinstall.c:228
 #: ../loader/cdinstall.c:517 ../loader/driverdisk.c:98
 #: ../loader/driverdisk.c:305 ../loader/driverdisk.c:340
 #: ../loader/driverdisk.c:371 ../loader/driverdisk.c:379
@@ -180,7 +180,7 @@ msgid "Error"
 msgstr "错误"
 
 #: ../bootloader.py:53 ../bootloader.py:209 ../bootloader.py:216
-#: ../image.py:82 ../upgrade.py:250 ../yuminstall.py:1506
+#: ../image.py:82 ../upgrade.py:251 ../yuminstall.py:1506
 #: ../yuminstall.py:1542 ../iw/autopart_type.py:208 ../iw/blpasswidget.py:148
 #: ../iw/upgrade_swap_gui.py:192 ../iw/upgrade_swap_gui.py:200
 #: ../iw/upgrade_swap_gui.py:207 ../storage/devicetree.py:145
@@ -200,10 +200,10 @@ msgstr ""
 "您想继续安装吗？"
 
 #: ../bootloader.py:58 ../gui.py:1093 ../gui.py:1140 ../gui.py:1268
-#: ../gui.py:1345 ../image.py:91 ../livecd.py:199 ../livecd.py:404
+#: ../gui.py:1347 ../image.py:91 ../livecd.py:199 ../livecd.py:404
 #: ../packages.py:126 ../packages.py:134 ../packages.py:142 ../packages.py:150
 #: ../packages.py:162 ../packages.py:171 ../packages.py:179 ../packages.py:188
-#: ../upgrade.py:57 ../upgrade.py:205 ../yuminstall.py:642
+#: ../upgrade.py:58 ../upgrade.py:206 ../yuminstall.py:642
 #: ../yuminstall.py:827 ../yuminstall.py:907 ../yuminstall.py:913
 #: ../yuminstall.py:1072 ../yuminstall.py:1097 ../yuminstall.py:1155
 #: ../yuminstall.py:1320 ../yuminstall.py:1350 ../storage/__init__.py:89
@@ -212,13 +212,13 @@ msgid "_Exit installer"
 msgstr "(_E)退出安装程序"
 
 #: ../bootloader.py:58 ../image.py:92 ../image.py:248 ../kickstart.py:1300
-#: ../kickstart.py:1339 ../upgrade.py:57 ../yuminstall.py:1160
+#: ../kickstart.py:1339 ../upgrade.py:58 ../yuminstall.py:1160
 #: ../iw/partition_gui.py:1036 ../storage/__init__.py:1680
 msgid "_Continue"
 msgstr "继续(_C)"
 
-#: ../bootloader.py:114 ../platform.py:93 ../platform.py:319
-#: ../platform.py:376 ../platform.py:466
+#: ../bootloader.py:114 ../platform.py:93 ../platform.py:320
+#: ../platform.py:377 ../platform.py:468
 msgid "RAID Device"
 msgstr "RAID 设备"
 
@@ -363,10 +363,10 @@ msgid ""
 "installation you must enter the device's passphrase below."
 msgstr "设备 %s 是加密的。为了要在安装过程中访问设备的内容，您必须输入以下设备密码。"
 
-#: ../gui.py:784 ../gui.py:1345 ../partIntfHelpers.py:153
+#: ../gui.py:784 ../gui.py:1347 ../partIntfHelpers.py:153
 #: ../partIntfHelpers.py:310 ../text.py:99 ../text.py:100
-#: ../iw/account_gui.py:135 ../loader/dirbrowser.c:145
-#: ../loader/driverdisk.c:244 ../loader/kickstart.c:375 ../loader/loader.c:439
+#: ../iw/account_gui.py:130 ../loader/dirbrowser.c:145
+#: ../loader/driverdisk.c:244 ../loader/kickstart.c:381 ../loader/loader.c:439
 #: ../loader/loader.c:557 ../textw/constants_text.py:48
 msgid "Cancel"
 msgstr "取消"
@@ -426,24 +426,24 @@ msgid "Exiting"
 msgstr "退出中"
 
 #. FIXME: translate the string
-#: ../gui.py:1342 ../livecd.py:115 ../text.py:266 ../upgrade.py:196
+#: ../gui.py:1344 ../livecd.py:115 ../text.py:266 ../upgrade.py:197
 msgid "Exit installer"
 msgstr "退出安装程序"
 
-#: ../gui.py:1343
+#: ../gui.py:1345
 msgid "Are you sure you wish to exit the installer?"
 msgstr "您确定要退出安装程序吗?"
 
-#: ../gui.py:1352
+#: ../gui.py:1354
 #, python-format
 msgid "%s Installer"
 msgstr "%s 安装程序"
 
-#: ../gui.py:1358
+#: ../gui.py:1360
 msgid "Unable to load title bar"
 msgstr "无法载入标题栏"
 
-#: ../gui.py:1420
+#: ../gui.py:1422
 msgid "Install Window"
 msgstr "安装窗口"
 
@@ -473,8 +473,8 @@ msgid ""
 "there was a problem mounting a partition.  Click exit to abort the "
 "installation."
 msgstr ""
-"挂载源设备%s时出现了错误。这可能是由于您的 ISO 镜像在诸如 LVM 或者 RAID 这样的高层"
-"存储设备上，或者在分区挂载的时候产生了错误。点击退出来退出安装。"
+"挂载源设备%s时出现了错误。这可能是由于您的 ISO 镜像在诸如 LVM 或者 RAID 这样"
+"的高层存储设备上，或者在分区挂载的时候产生了错误。点击退出来退出安装。"
 
 #: ../image.py:185
 msgid "Missing ISO 9660 Image"
@@ -514,7 +514,7 @@ msgstr ""
 "导”。"
 
 #: ../image.py:248 ../livecd.py:403 ../packages.py:379 ../packages.py:430
-#: ../packages.py:433 ../upgrade.py:204 ../yuminstall.py:827
+#: ../packages.py:433 ../upgrade.py:205 ../yuminstall.py:827
 #: ../yuminstall.py:913 ../yuminstall.py:1350 ../yuminstall.py:1366
 msgid "_Back"
 msgstr "上一步(_B)"
@@ -1127,12 +1127,12 @@ msgstr "确认重设"
 msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "是否确定要将分区表还原至其最初状态？"
 
-#: ../platform.py:94 ../platform.py:97 ../platform.py:320 ../platform.py:377
-#: ../platform.py:467 ../platform.py:470
+#: ../platform.py:94 ../platform.py:97 ../platform.py:321 ../platform.py:378
+#: ../platform.py:469 ../platform.py:472
 msgid "Master Boot Record (MBR)"
 msgstr "主引导记录（MBR）"
 
-#: ../platform.py:96 ../platform.py:469
+#: ../platform.py:96 ../platform.py:471
 msgid "First sector of boot partition"
 msgstr "引导分区的第一个扇区"
 
@@ -1162,45 +1162,45 @@ msgstr "%s 文件系统中不能有可引导分区。"
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "加密的块设备中不能有可引导分区。"
 
-#: ../platform.py:213
+#: ../platform.py:214
 msgid "EFI System Partition"
 msgstr "EFI 系统分区"
 
-#: ../platform.py:218
+#: ../platform.py:219
 msgid "You have not created a /boot/efi partition."
 msgstr "您还没有创建 /boot/efi 分区。"
 
-#: ../platform.py:224
+#: ../platform.py:225
 msgid "/boot is not on an ext2 filesystem."
 msgstr "/boot 不在 ext2 文件系统中。"
 
-#: ../platform.py:227
+#: ../platform.py:228
 msgid "/boot/efi is not EFI."
 msgstr "/boot/efi 不是 EFI。"
 
-#: ../platform.py:265
+#: ../platform.py:266
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "%s 必须有一个 bsd 磁盘标签。"
 
-#: ../platform.py:277
+#: ../platform.py:278
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr "磁盘 %s 在起始处至少需要 1MB 可用空间。"
 
-#: ../platform.py:322
+#: ../platform.py:323
 msgid "PPC PReP Boot"
 msgstr "PPC PReP 引导"
 
-#: ../platform.py:334
+#: ../platform.py:335
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr "boot 分区必须位于该磁盘的第一个 4MB 中。"
 
-#: ../platform.py:379 ../platform.py:382
+#: ../platform.py:380 ../platform.py:383
 msgid "Apple Bootstrap"
 msgstr "Apple 自展程序"
 
-#: ../platform.py:397
+#: ../platform.py:398
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "%s 必须有一个 mac 磁盘标签。"
@@ -1413,11 +1413,11 @@ msgstr "已取消"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "无法从这里返回到上一步，您只能重试。"
 
-#: ../upgrade.py:50
+#: ../upgrade.py:51
 msgid "Proceed with upgrade?"
 msgstr "继续升级吗？"
 
-#: ../upgrade.py:51
+#: ../upgrade.py:52
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1426,15 +1426,15 @@ msgstr ""
 "您所选择要升级的 Linux 文件系统已经被挂载，过了该步骤便不能返回。\n"
 "\n"
 
-#: ../upgrade.py:55
+#: ../upgrade.py:56
 msgid "Would you like to continue with the upgrade?"
 msgstr "是否要继续升级？"
 
-#: ../upgrade.py:183
+#: ../upgrade.py:184
 msgid "Mount failed"
 msgstr "挂载失败"
 
-#: ../upgrade.py:184
+#: ../upgrade.py:185
 #, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
@@ -1445,21 +1445,21 @@ msgstr ""
 "级。\n"
 "%s"
 
-#: ../upgrade.py:192 ../upgrade.py:199
+#: ../upgrade.py:193 ../upgrade.py:200
 msgid "Upgrade root not found"
 msgstr "没有找到升级 root"
 
-#: ../upgrade.py:193
+#: ../upgrade.py:194
 msgid "The root for the previously installed system was not found."
 msgstr "未发现用于之前安装的系统的 root。"
 
-#: ../upgrade.py:200
+#: ../upgrade.py:201
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr "没有找到之前安装系统的 root。您可退出安装程序或者后退选择安装而不是升级。"
 
-#: ../upgrade.py:223
+#: ../upgrade.py:224
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1470,11 +1470,11 @@ msgstr ""
 "新开始升级。\n"
 "\n"
 
-#: ../upgrade.py:229
+#: ../upgrade.py:230
 msgid "Absolute Symlinks"
 msgstr "绝对符号链接"
 
-#: ../upgrade.py:240
+#: ../upgrade.py:241
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -1485,11 +1485,11 @@ msgstr ""
 "符号链接状态，然后重新开始升级。\n"
 "\n"
 
-#: ../upgrade.py:246
+#: ../upgrade.py:247
 msgid "Invalid Directories"
 msgstr "无效目录"
 
-#: ../upgrade.py:251
+#: ../upgrade.py:252
 #, python-format
 msgid "%s not found"
 msgstr "没有发现 %s"
@@ -1683,11 +1683,11 @@ msgstr "完成升级"
 msgid "Finishing upgrade process.  This may take a little while."
 msgstr "正在完成升级过程，可能会花几分钟时间。"
 
-#: ../yuminstall.py:287 ../iw/task_gui.py:301
+#: ../yuminstall.py:287 ../iw/task_gui.py:80 ../iw/task_gui.py:318
 msgid "Error Setting Up Repository"
 msgstr "设置存储库时出错"
 
-#: ../yuminstall.py:288 ../iw/task_gui.py:302
+#: ../yuminstall.py:288
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -1923,19 +1923,19 @@ msgstr "后安装"
 msgid "Performing post-installation configuration"
 msgstr "执行后安装配置"
 
-#: ../yuminstall.py:1824
+#: ../yuminstall.py:1826
 msgid "Installation Starting"
 msgstr "安装开始"
 
-#: ../yuminstall.py:1825
+#: ../yuminstall.py:1827
 msgid "Starting installation process"
 msgstr "启动安装过程"
 
-#: ../yuminstall.py:1863
+#: ../yuminstall.py:1865
 msgid "Dependency Check"
 msgstr "依赖关系检查"
 
-#: ../yuminstall.py:1864
+#: ../yuminstall.py:1866
 msgid "Checking dependencies in packages selected for installation"
 msgstr "检查为安装所选定软件包的相依性"
 
@@ -2007,7 +2007,8 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
-"您想现在输入安装号吗（有时称订阅号）？这个特性可让安装程序访问任意包含在您订阅中的附加组件。如果您跳过这一步，您可在稍后手动安装附加组件。\n"
+"您想现在输入安装号吗（有时称订阅号）？这个特性可让安装程序访问任意包含在您订"
+"阅中的附加组件。如果您跳过这一步，您可在稍后手动安装附加组件。\n"
 "\n"
 "详情请查看 http://www.redhat.com/InstNum/ for more information。"
 
@@ -2045,43 +2046,43 @@ msgstr "根密码（_P）："
 msgid "_Confirm:"
 msgstr "确认（_C）："
 
-#: ../iw/account_gui.py:97
+#: ../iw/account_gui.py:92
 msgid "Caps Lock is on."
 msgstr "大写锁定开。"
 
-#: ../iw/account_gui.py:107 ../iw/account_gui.py:115 ../iw/account_gui.py:122
-#: ../iw/account_gui.py:142 ../textw/userauth_text.py:74
+#: ../iw/account_gui.py:102 ../iw/account_gui.py:110 ../iw/account_gui.py:117
+#: ../iw/account_gui.py:137 ../textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr "密码错误"
 
-#: ../iw/account_gui.py:108
+#: ../iw/account_gui.py:103
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr "您必须输入根密码并再键入一次来确认以继续。"
 
-#: ../iw/account_gui.py:116
+#: ../iw/account_gui.py:111
 msgid "The passwords you entered were different.  Please try again."
 msgstr "输入的密码不匹配，请重新输入。"
 
-#: ../iw/account_gui.py:123
+#: ../iw/account_gui.py:118
 msgid "The root password must be at least six characters long."
 msgstr "根密码最少应包含六个字符。"
 
-#: ../iw/account_gui.py:132 ../textw/userauth_text.py:83
+#: ../iw/account_gui.py:127 ../textw/userauth_text.py:83
 msgid "Weak Password"
 msgstr "脆弱密码"
 
-#: ../iw/account_gui.py:133
+#: ../iw/account_gui.py:128
 #, python-format
 msgid "You have provided a weak password: %s"
 msgstr "您的密码不够安全：%s"
 
-#: ../iw/account_gui.py:135
+#: ../iw/account_gui.py:130
 msgid "Use Anyway"
 msgstr "无论如何都使用"
 
-#: ../iw/account_gui.py:143 ../textw/userauth_text.py:75
+#: ../iw/account_gui.py:138 ../textw/userauth_text.py:75
 msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "所要求的密码包含非 ASCII 字符，它们不允许被用在密码中。"
 
@@ -2684,15 +2685,15 @@ msgstr "名称服务器"
 msgid "Error configuring network device:"
 msgstr "配置网络界面时出错:"
 
-#: ../iw/network_gui.py:66 ../iw/network_gui.py:72
+#: ../iw/network_gui.py:67 ../iw/network_gui.py:73
 msgid "Error with Hostname"
 msgstr "主机名错误"
 
-#: ../iw/network_gui.py:67
+#: ../iw/network_gui.py:68
 msgid "You must enter a valid hostname for this computer."
 msgstr "您必须为这台计算机输入有效用户名。"
 
-#: ../iw/network_gui.py:73
+#: ../iw/network_gui.py:74
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -2976,7 +2977,10 @@ msgid ""
 "device.  A RAID device can be configured to provide additional speed and "
 "reliability compared to using an individual drive.  For more information on "
 "using RAID devices please consult the %s documentation."
-msgstr "软件 RAID 允许您将几个磁盘合并成一个较大的 RAID 设备。可将  RAID 设备配置为提供与使用独立驱动器媲美的额外的速度和可靠性。关于使用 RAID 设备的更多信息，请参考 %s 文档。"
+msgstr ""
+"软件 RAID 允许您将几个磁盘合并成一个较大的 RAID 设备。可将  RAID 设备配置为提"
+"供与使用独立驱动器媲美的额外的速度和可靠性。关于使用 RAID 设备的更多信息，请"
+"参考 %s 文档。"
 
 #: ../iw/partition_gui.py:1235
 msgid ""
@@ -3278,64 +3282,90 @@ msgstr ""
 "无法读取数据库的元数据。这可能是因为缺少 repodata 目录。请确定您已经正确建立"
 "了安装树。%s"
 
-#: ../iw/task_gui.py:162
+#: ../iw/task_gui.py:81
+#, python-format
+msgid ""
+"The following error occurred while setting up the installation repository:\n"
+"\n"
+"%s\n"
+"\n"
+"Please provide the correct information for installing %s"
+msgstr ""
+"设定安装存储库时发生了下列错误：\n"
+"\n"
+"%s\n"
+"\n"
+"请为安装 %s 提供正确的信息"
+
+#: ../iw/task_gui.py:177
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr "存储库 %s 已被使用，请另选一个存储库名和 URL。"
 
-#: ../iw/task_gui.py:175
+#: ../iw/task_gui.py:190
 msgid "Edit Repository"
 msgstr "编辑库"
 
-#: ../iw/task_gui.py:238
+#: ../iw/task_gui.py:253
 msgid "Invalid Proxy URL"
 msgstr "无效代理服务器 URL"
 
-#: ../iw/task_gui.py:239
+#: ../iw/task_gui.py:254
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "您必须为代理服务器提供一个 HTTP、HTTPS 或者或 FTP 链接（URL）。"
 
-#: ../iw/task_gui.py:250 ../iw/task_gui.py:388
+#: ../iw/task_gui.py:265 ../iw/task_gui.py:403
 msgid "Invalid Repository URL"
 msgstr "无效主机地址"
 
-#: ../iw/task_gui.py:251 ../iw/task_gui.py:389
+#: ../iw/task_gui.py:266 ../iw/task_gui.py:404
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "您必须为库提供一个 HTTP、HTTPS 或者或 FTP 链接（URL）。"
 
-#: ../iw/task_gui.py:273 ../iw/task_gui.py:398
+#: ../iw/task_gui.py:287 ../iw/task_gui.py:413
 msgid "No Media Found"
 msgstr "未找到介质"
 
-#: ../iw/task_gui.py:274 ../iw/task_gui.py:399
+#: ../iw/task_gui.py:288 ../iw/task_gui.py:414
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr "没有找到安装介质。请将磁盘插入您的驱动器中再试一次。"
 
-#: ../iw/task_gui.py:293 ../iw/task_gui.py:415
+#: ../iw/task_gui.py:306 ../iw/task_gui.py:430
 msgid "Please enter an NFS server and path."
 msgstr "请输入 NFS 服务器及路径。"
 
-#: ../iw/task_gui.py:325
+#: ../iw/task_gui.py:319
+#, python-format
+msgid ""
+"The following error occurred while setting up the repository:\n"
+"\n"
+"%s"
+msgstr ""
+"设置该存储库时出现以下错误：\n"
+"\n"
+"%s"
+
+#: ../iw/task_gui.py:341
 msgid "Invalid Repository Name"
 msgstr "无效主机名"
 
-#: ../iw/task_gui.py:326
+#: ../iw/task_gui.py:342
 msgid "You must provide a repository name."
 msgstr "您必须输入存储库名称。"
 
-#: ../iw/task_gui.py:450 ../ui/addrepo.glade.h:3
+#: ../iw/task_gui.py:465 ../ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "添加主机"
 
-#: ../iw/task_gui.py:455
+#: ../iw/task_gui.py:470
 msgid "No Software Repos Enabled"
 msgstr "没有启用软件存储库"
 
-#: ../iw/task_gui.py:456
+#: ../iw/task_gui.py:471
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3642,7 +3672,7 @@ msgstr "没找到光盘"
 #: ../loader/driverdisk.c:275 ../loader/driverdisk.c:359
 #: ../loader/driverselect.c:81 ../loader/driverselect.c:179
 #: ../loader/driverselect.c:205 ../loader/hdinstall.c:222
-#: ../loader/hdinstall.c:280 ../loader/kbd.c:138 ../loader/loader.c:483
+#: ../loader/hdinstall.c:280 ../loader/kbd.c:119 ../loader/loader.c:483
 #: ../loader/loader.c:503 ../loader/loader.c:1389 ../loader/loader.c:1420
 #: ../loader/net.c:574 ../loader/net.c:945 ../loader/net.c:1858
 #: ../loader/net.c:1880 ../loader/nfsinstall.c:91 ../loader/urls.c:292
@@ -3754,10 +3784,10 @@ msgstr "您想载入更多驱动程序盘吗？"
 #: ../loader/driverdisk.c:539 ../loader/driverdisk.c:576
 #: ../loader/hdinstall.c:375 ../loader/kickstart.c:132
 #: ../loader/kickstart.c:142 ../loader/kickstart.c:185
-#: ../loader/kickstart.c:556 ../loader/modules.c:335 ../loader/modules.c:347
+#: ../loader/kickstart.c:562 ../loader/modules.c:335 ../loader/modules.c:347
 #: ../loader/net.c:1579 ../loader/net.c:1600 ../loader/nfsinstall.c:335
-#: ../loader/urlinstall.c:450 ../loader/urlinstall.c:459
-#: ../loader/urlinstall.c:468
+#: ../loader/urlinstall.c:449 ../loader/urlinstall.c:458
+#: ../loader/urlinstall.c:467
 msgid "Kickstart Error"
 msgstr "Kickstart 错误"
 
@@ -3867,11 +3897,11 @@ msgstr "在硬盘驱动器上找不到 kickstart 文件。"
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "无法找到与 BIOS 对应的硬盘 %s"
 
-#: ../loader/kbd.c:136
+#: ../loader/kbd.c:117
 msgid "Keyboard Type"
 msgstr "键盘类型"
 
-#: ../loader/kbd.c:137
+#: ../loader/kbd.c:118
 msgid "What type of keyboard do you have?"
 msgstr "您使用哪一种类型的键盘？"
 
@@ -3894,7 +3924,7 @@ msgstr "%s 处出错，第 %d 行的 kickstart 文件 %s。"
 msgid "Cannot find ks.cfg on removable media."
 msgstr "无法在可移动介质中找到 ks.cfg。"
 
-#: ../loader/kickstart.c:380
+#: ../loader/kickstart.c:386
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
@@ -3902,11 +3932,11 @@ msgstr ""
 "无法下载kickstart文件。请使用交互式安装方法：修改下边的kickstart参数或者 点击"
 "Cancel。"
 
-#: ../loader/kickstart.c:389
+#: ../loader/kickstart.c:395
 msgid "Error downloading kickstart file"
 msgstr "下载点击开始文件时出错"
 
-#: ../loader/kickstart.c:557
+#: ../loader/kickstart.c:563
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "关闭 kickstart 方法命令 %s 的参数不对：%s"
@@ -4342,16 +4372,16 @@ msgstr "无法获取 %s://%s%s。"
 msgid "Unable to retrieve the install image."
 msgstr "无法获取安装映像。"
 
-#: ../loader/urlinstall.c:451
+#: ../loader/urlinstall.c:450
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "URL kickstart 方法命令 %s 的参数不对：%s"
 
-#: ../loader/urlinstall.c:460
+#: ../loader/urlinstall.c:459
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "必须给 URL kickstart 方法提供一个 --url 参数。"
 
-#: ../loader/urlinstall.c:469
+#: ../loader/urlinstall.c:468
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "未知 URL 方法 %s"
@@ -4719,12 +4749,12 @@ msgstr ""
 "\n"
 "请按 <Enter> 退出安装程序。"
 
-#: ../storage/devicelibs/lvm.py:312
+#: ../storage/devicelibs/lvm.py:319
 #, python-format
 msgid "vginfo failed for %s"
 msgstr "为 %s 查看 vginfo 失败"
 
-#: ../storage/devicelibs/lvm.py:341
+#: ../storage/devicelibs/lvm.py:348
 #, python-format
 msgid "lvs failed for %s"
 msgstr "为 %s 查看 lvs 失败"
@@ -4785,8 +4815,8 @@ msgid ""
 "contents."
 msgstr ""
 "执行 LVM 时出错。\n"
-"%s 中可能存在不一致的 LVM 数据。您可以重新初始化所有有关 PV（%s），这样就"
-"删除了所有 LVM 元数据。或者您可以忽略这个错误，这样将保留内容。"
+"%s 中可能存在不一致的 LVM 数据。您可以重新初始化所有有关 PV（%s），这样就删除"
+"了所有 LVM 元数据。或者您可以忽略这个错误，这样将保留内容。"
 
 #: ../storage/devicetree.py:178
 msgid "_Ignore"
@@ -4943,17 +4973,83 @@ msgstr ""
 msgid "Unrecoverable Error"
 msgstr "无法恢复的错误"
 
-#: ../storage/zfcp.py:49
+#: ../storage/zfcp.py:50
 msgid "You have not specified a device number or the number is invalid"
 msgstr "您没有指定设备号码或号码无效"
 
-#: ../storage/zfcp.py:51
+#: ../storage/zfcp.py:52
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "您没有指定全局端口号或号码无效。"
 
-#: ../storage/zfcp.py:53
+#: ../storage/zfcp.py:54
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "您没有指定 FCP LUN 或号码无效。"
+
+#: ../storage/zfcp.py:132
+#, python-format
+msgid "Could not free zFCP device %s from device ignore list (%s)."
+msgstr "无法从设备忽略列表（%s）中释放 zFCP 设备 %s。"
+
+#: ../storage/zfcp.py:137
+#, python-format
+msgid "zFCP device %s not found, not even in device ignore list."
+msgstr "没有找到 zFCP 设备 %s，即使在设备忽略列表中也没有。"
+
+#: ../storage/zfcp.py:150
+#, python-format
+msgid "Could not set zFCP device %s online (%s)."
+msgstr "无法将 zFCP 设备 %s 设为在线（%s）。"
+
+#: ../storage/zfcp.py:161
+#, python-format
+msgid "Could not add WWPN %s to zFCP device %s (%s)."
+msgstr "无法将 WWPN %s 添加到 zFCP 设备 %s（%s）中。"
+
+#. newer zfcp sysfs interface with auto port scan
+#: ../storage/zfcp.py:165
+#, python-format
+msgid "WWPN %s not found at zFCP device %s."
+msgstr "在 zFCP 设备 %s 中没有找到 WWPN %s。"
+
+#: ../storage/zfcp.py:179
+#, python-format
+msgid "Could not add LUN %s to WWPN %s on zFCP device %s (%s)."
+msgstr "无法在 zFCP 设备 %s（%s）中将 LUN %s 添加到 WWPN %s 中。"
+
+#: ../storage/zfcp.py:183
+#, python-format
+msgid "LUN %s at WWPN %s on zFCP device %s already configured."
+msgstr "已经在 zFCP 设备 %s 的 WWPN %s 中配置了 LUN %s。"
+
+#: ../storage/zfcp.py:193
+#, python-format
+msgid "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
+msgstr "无法在 zFCP 设备 %s（%s）中的 WWPN %s 中读取 LUN %s 失败的属性。"
+
+#: ../storage/zfcp.py:198
+#, python-format
+msgid "Failed LUN %s at WWPN %s on zFCP device %s removed again."
+msgstr "再次在 zFCP 设备 %s 的 WWPN %s 中删除失败的 LUN %s。"
+
+#: ../storage/zfcp.py:253
+#, python-format
+msgid "Could not correctly delete SCSI device of zFCP %s %s %s (%s)."
+msgstr "无法正确删除 zFCP %s %s %s（%s）的 SCSI 设备。"
+
+#: ../storage/zfcp.py:260
+#, python-format
+msgid "Could not remove LUN %s at WWPN %s on zFCP device %s (%s)."
+msgstr "无法在 zFCP 设备 %s（%s）的 WWPN %s 中删除 LUN %s。"
+
+#: ../storage/zfcp.py:275
+#, python-format
+msgid "Could not remove WWPN %s on zFCP device %s (%s)."
+msgstr "无法在 zFCP 设备 %s（%s）中删除 WWPN %s。"
+
+#: ../storage/zfcp.py:299
+#, python-format
+msgid "Could not set zFCP device %s offline (%s)."
+msgstr "无法将 zFCP 设备 %s 设定为离线（%s）。"
 
 #: ../textw/complete_text.py:32
 msgid "Reboot"
