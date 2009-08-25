@@ -222,6 +222,19 @@ class AnacondaCallback:
             else:
                 self.initWindow.pulse()
 
+        elif what in (rpm.RPMCALLBACK_CPIO_ERROR,
+                      rpm.RPMCALLBACK_UNPACK_ERROR):
+            (hdr, rpmloc) = h
+
+            self.messageWindow(_("Error Installing Package"),
+                _("A fatal error occurred when installing the %s "
+                  "package.  This could indicate errors when reading "
+                  "the installation media.  Installation cannot "
+                  "continue.") % hdr['name'],
+                type="custom", custom_icon="error",
+                custom_buttons=[_("_Exit installer")])
+            sys.exit(1)
+
         if self.initWindow is None:
             self.progress.processEvents()
 
