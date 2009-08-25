@@ -1610,7 +1610,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             w = anaconda.intf.waitWindow(_("Post Installation"),
                                     _("Performing post-installation configuration"))
 
-        if not iutil.isS390():
+        # Only add "rhgb quiet" on non-s390, non-serial installs
+        if iutil.isConsoleOnVirtualTerminal():
             if len(self.ayum.tsInfo.matchNaevr(name='rhgb')) > 0:
                 anaconda.id.bootloader.args.append("rhgb quiet")
             elif len(self.ayum.tsInfo.matchNaevr(name='plymouth')) > 0:
