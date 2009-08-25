@@ -1297,18 +1297,18 @@ class DeviceTree(object):
                                device=device.path,
                                exists=not initlabel)
         except InvalidDiskLabelError:
-                # if we have a cb function use it. else we ignore the device.
-                if initcb is not None and initcb():
-                    format = getFormat("disklabel",
-                                       device=device.path,
-                                       exists=False)
-                else:
-                    self._removeDevice(device)
-                    if isinstance(device, DMRaidArrayDevice):
-                        # We should ignore the dmraid members as well
-                        self.addIgnoredDisk(device.raidSet.name)
-                    self.addIgnoredDisk(device.name)
-                    return
+            # if we have a cb function use it. else we ignore the device.
+            if initcb is not None and initcb():
+                format = getFormat("disklabel",
+                                   device=device.path,
+                                   exists=False)
+            else:
+                self._removeDevice(device)
+                if isinstance(device, DMRaidArrayDevice):
+                    # We should ignore the dmraid members as well
+                    self.addIgnoredDisk(device.raidSet.name)
+                self.addIgnoredDisk(device.name)
+                return
         else:
             if not format.exists:
                 # if we just initialized a disklabel we should schedule
