@@ -380,13 +380,17 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         else:
             value = origrequest.size
 
-        reqlower = origrequest.minSize
+        reqlower = 1
         requpper = origrequest.maxSize
+
         if origfs.exists:
-            lower = reqlower
-        else:
-            lower = 1
-        adj = gtk.Adjustment(value = value, lower = lower,
+            reqlower = origrequest.minSize
+
+            geomsize = origrequest.partedPartition.geometry.getSize(unit="MB")
+            if (requpper != 0) and (requpper > geomsize):
+                requpper = geomsize
+
+        adj = gtk.Adjustment(value = value, lower = reqlower,
                              upper = requpper, step_incr = 1)
         resizesb = gtk.SpinButton(adj, digits = 0)
         resizesb.set_property('numeric', True)
