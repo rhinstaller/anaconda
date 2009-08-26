@@ -303,8 +303,16 @@ class bootloaderInfo:
         else:
             self.defaultDevice = "partition"
 
-    def makeInitrd(self, kernelTag):
-        return "/boot/initrd%s.img" % kernelTag
+    def makeInitrd(self, kernelTag, instRoot):
+        initrd = "initrd%s.img" % kernelTag
+        if os.access(instRoot + "/boot/" + initrd, os.R_OK):
+            return initrd
+
+        initrd = "initrd-generic%s.img" % kernelTag
+        if os.access(instRoot + "/boot/" + initrd, os.R_OK):
+            return initrd
+
+        return None
 
     def getBootloaderConfig(self, instRoot, bl, kernelList,
                             chainList, defaultDev):
@@ -353,13 +361,12 @@ class bootloaderInfo:
 
             sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
-            initrd = self.makeInitrd(kernelTag)
+            initrd = self.makeInitrd(kernelTag, instRoot)
 
             sl.addEntry("label", label)
-            if os.access (instRoot + initrd, os.R_OK):
-                sl.addEntry("initrd", "%sinitrd%s.img" %(self.kernelLocation,
-                                                         kernelTag))
-                
+            if initrd:
+                sl.addEntry("initrd", "%s%s" %(self.kernelLocation, initrd))
+
             sl.addEntry("read-only")
 
             append = "%s" %(self.args.get(),)

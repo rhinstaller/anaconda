@@ -111,9 +111,9 @@ class ppcBootloaderInfo(bootloaderInfo):
             f.write("\tlabel=%s\n" %(label,))
             f.write("\tread-only\n")
 
-            initrd = self.makeInitrd(kernelTag)
-            if os.access(instRoot + initrd, os.R_OK):
-                f.write("\tinitrd=%s/initrd%s.img\n" %(cfPath,kernelTag))
+            initrd = self.makeInitrd(kernelTag, instRoot)
+            if initrd:
+                f.write("\tinitrd=%s/%s\n" %(cfPath, initrd))
 
             append = "%s" %(self.args.get(),)
 

@@ -43,12 +43,11 @@ class s390BootloaderInfo(bootloaderInfo):
 
             sl = LiloConfigFile(imageType = "image", path = kernelFile)
 
-            initrd = self.makeInitrd(kernelTag)
+            initrd = self.makeInitrd(kernelTag, instRoot)
 
             sl.addEntry("label", label)
-            if os.access (instRoot + initrd, os.R_OK):
-                sl.addEntry("initrd",
-                            "%sinitrd%s.img" %(self.kernelLocation, kernelTag))
+            if initrd:
+                sl.addEntry("initrd", "%s%s" %(self.kernelLocation, initrd))
 
             sl.addEntry("read-only")
             sl.addEntry("root", rootDev.path)
@@ -138,12 +137,12 @@ class s390BootloaderInfo(bootloaderInfo):
             kernelTag = "-" + version
             kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
 
-            initrd = self.makeInitrd(kernelTag)
+            initrd = self.makeInitrd(kernelTag, instRoot)
             f.write('[%s]\n' % (label))
             f.write('\timage=%s\n' % (kernelFile))
-            if os.access (instRoot + initrd, os.R_OK):
-                f.write('\tramdisk=%sinitrd%s.img\n' %(self.kernelLocation,
-                                                     kernelTag))
+            if initrd:
+                f.write('\tramdisk=%s%s\n' %(self.kernelLocation, initrd))
+
             realroot = rootDev.fstabSpec
             f.write('\tparameters="root=%s' %(realroot,))
             if bl.args.get():

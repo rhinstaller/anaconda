@@ -33,9 +33,6 @@ class ia64BootloaderInfo(efiBootloaderInfo):
             return rc
         return self.addNewEfiEntry(instRoot)
 
-    def makeInitrd(self, kernelTag):
-        return "/boot/efi/EFI/redhat/initrd%s.img" % kernelTag
-
     def __init__(self, instData):
         efiBootloaderInfo.__init__(self, instData)
         self._configname = "elilo.conf"

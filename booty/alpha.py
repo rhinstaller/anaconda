@@ -82,9 +82,9 @@ class alphaBootloaderInfo(bootloaderInfo):
             f.write("%d:%d%s" %(lines, bpn, kernelFile))
 
             # See if we can come up with an initrd argument that exists
-            initrd = self.makeInitrd(kernelTag)
-            if os.path.isfile(instRoot + initrd):
-                f.write(" initrd=%sinitrd%s.img" %(kernelPath, kernelTag))
+            initrd = self.makeInitrd(kernelTag, instRoot)
+            if initrd:
+                f.write(" initrd=%s%s" %(kernelPath, initrd))
 
             realroot = rootDevice.fstabSpec
             f.write(" root=%s" %(realroot,))

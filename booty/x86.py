@@ -186,7 +186,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         
         f.write('#          root %s\n' % self.grubbyPartitionName(bootDevs[0]))
         f.write("#          kernel %svmlinuz-version ro root=%s\n" % (cfPath, rootDev.path))
-        f.write("#          initrd %sinitrd-version.img\n" % (cfPath))
+        f.write("#          initrd %sinitrd-[generic-]version.img\n" % (cfPath))
         f.write("#boot=/dev/%s\n" % (grubTarget))
 
         # get the default image to boot... we have to walk and find it
@@ -239,7 +239,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             kernelTag = "-" + version
             kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
 
-            initrd = self.makeInitrd(kernelTag)
+            initrd = self.makeInitrd(kernelTag, instRoot)
 
             f.write('title %s (%s)\n' % (longlabel, version))
             f.write('\troot %s\n' % self.grubbyPartitionName(bootDevs[0]))
@@ -270,16 +270,16 @@ class x86BootloaderInfo(efiBootloaderInfo):
                     f.write(' %s' % self.args.get())
                 f.write('\n')
 
-                if os.access (instRoot + initrd, os.R_OK):
-                    f.write('\tmodule %sinitrd%s.img\n' % (cfPath, kernelTag))
+                if initrd:
+                    f.write('\tmodule %s%s\n' % (cfPath, initrd))
             else: # normal kernel
                 f.write('\tkernel %s ro%s' % (kernelFile, realroot))
                 if self.args.get():
                     f.write(' %s' % self.args.get())
                 f.write('\n')
 
-                if os.access (instRoot + initrd, os.R_OK):
-                    f.write('\tinitrd %sinitrd%s.img\n' % (cfPath, kernelTag))
+                if initrd:
+                    f.write('\tinitrd %s%s\n' % (cfPath, initrd))
 
         for (label, longlabel, device) in chainList:
             if ((not longlabel) or (longlabel == "")):
