@@ -1387,10 +1387,12 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                                        "image?"),
                                      30, 10, 20, 6, installNames, &loaderData->method,
                                      _("OK"), _("Back"), NULL);
+                    if (rc == 2) {
+                        loaderData->method = -1;
+                    }
                 }
 
-                if (rc && (rc != 1) && (loaderData->method == -1)) {
-                    loaderData->method = -1;
+                if (rc && (rc != 1)) {
                     step = STEP_KBD;
                     dir = -1;
                 } else {
@@ -1504,6 +1506,10 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 rc = chooseNetworkInterface(loaderData);
                 if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                     ((dir == -1) && (rc == LOADER_NOOP))) {
+                    /* don't skip method dialog iff we don't have url from ks or boot params */
+                    if (!loaderData->stage2Data) {
+                        loaderData->method = -1;
+                    }
                     step = STEP_METHOD;
                     dir = -1;
                     break;
@@ -1555,11 +1561,16 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 free(ret);
                 ret = NULL;
 
-                if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
+                if ((rc == LOADER_BACK) ||
                     ((dir == -1) && (rc == LOADER_NOOP))) {
                     needsNetwork = 1;
                     step = STEP_IFACE;
                     dir = -1;
+                    break;
+                }
+                /* retry */
+                if (rc == LOADER_ERROR) {
+                    needsNetwork = 1;
                     break;
                 }
 

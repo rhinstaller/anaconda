@@ -522,7 +522,7 @@ int readNetConfig(char * device, iface_t * iface,
                              "interface."));
             iface->ipv4method = IPV4_UNUSED_METHOD;
             iface->ipv6method = IPV6_UNUSED_METHOD;
-            return LOADER_BACK;
+            return LOADER_ERROR;
         }
     }
 
