@@ -240,7 +240,7 @@ class NetworkConfigurator:
             w = gui.WaitWindow(_("Dynamic IP Address"),
                                _("Sending request for IP address information "
                                  "for %s") % (netdev.get('DEVICE'),))
-            haveNet = self.network.bringUp()
+            haveNet = self.network.bringUp(devices=[netdev])
             w.pop()
         else:
             netdev.set(('BOOTPROTO', 'static'))
@@ -305,7 +305,7 @@ class NetworkConfigurator:
                 return False
 
             try:
-                haveNet = self.network.bringUp()
+                haveNet = self.network.bringUp(devices=[netdev])
             except Exception, e:
                 import logging
                 log = logging.getLogger("anaconda")

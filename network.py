@@ -513,8 +513,12 @@ class Network:
 
         return False
 
-    def write(self, instPath='', anaconda=None):
-        if len(self.netdevices.values()) == 0:
+    def write(self, instPath='', anaconda=None, devices=None):
+
+        if devices is None:
+            devices = self.netdevices.values()
+
+        if len(devices) == 0:
             return
 
         sysconfig = "%s/etc/sysconfig" % (instPath,)
@@ -525,7 +529,7 @@ class Network:
             iutil.mkdirChain(netscripts)
 
         # /etc/sysconfig/network-scripts/ifcfg-*
-        for dev in self.netdevices.values():
+        for dev in devices:
             device = dev.get('DEVICE')
 
             cfgfile = "%s/ifcfg-%s" % (netscripts, device,)
@@ -757,8 +761,8 @@ class Network:
     # write out current configuration state and wait for NetworkManager
     # to bring the device up, watch NM state and return to the caller
     # once we have a state
-    def bringUp(self):
-        self.write()
+    def bringUp(self, devices=None):
+        self.write(devices=devices)
 
         bus = dbus.SystemBus()
         nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
