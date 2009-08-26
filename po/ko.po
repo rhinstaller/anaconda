@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-08-20 02:47+0000\n"
-"PO-Revision-Date: 2009-08-24 15:26+1000\n"
+"POT-Creation-Date: 2009-08-26 02:51+0000\n"
+"PO-Revision-Date: 2009-08-26 17:05+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,6 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -140,8 +141,8 @@ msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
 msgstr ""
-"설치 이미지를 하드 드라이브로 전송하는 도중 오류가 발생되었습니다. 손상되거나 품질이 낮은 미"
-"디어로 인한것 같습니다.  "
+"설치 이미지를 하드 드라이브로 전송하는 도중 오류가 발생되었습니다. 손상되거"
+"나 품질이 낮은 미디어로 인한것 같습니다.  "
 
 #: ../backend.py:182
 msgid ""
@@ -157,9 +158,9 @@ msgstr ""
 #. * them to manually load
 #: ../backend.py:186 ../image.py:285 ../livecd.py:192 ../livecd.py:397
 #: ../partIntfHelpers.py:208 ../text.py:308 ../text.py:312
-#: ../yuminstall.py:365 ../yuminstall.py:709 ../yuminstall.py:823
-#: ../yuminstall.py:1101 ../yuminstall.py:1167 ../yuminstall.py:1325
-#: ../yuminstall.py:1343 ../iw/autopart_type.py:99 ../iw/autopart_type.py:198
+#: ../yuminstall.py:378 ../yuminstall.py:722 ../yuminstall.py:836
+#: ../yuminstall.py:1114 ../yuminstall.py:1180 ../yuminstall.py:1338
+#: ../yuminstall.py:1356 ../iw/autopart_type.py:99 ../iw/autopart_type.py:198
 #: ../iw/autopart_type.py:318 ../iw/autopart_type.py:321
 #: ../iw/autopart_type.py:388 ../iw/autopart_type.py:396
 #: ../iw/autopart_type.py:425 ../iw/osbootwidget.py:210
@@ -188,8 +189,8 @@ msgid "Error"
 msgstr "오류"
 
 #: ../bootloader.py:53 ../bootloader.py:209 ../bootloader.py:216
-#: ../image.py:82 ../upgrade.py:250 ../yuminstall.py:1506
-#: ../yuminstall.py:1542 ../iw/autopart_type.py:208 ../iw/blpasswidget.py:148
+#: ../image.py:82 ../upgrade.py:251 ../yuminstall.py:1519
+#: ../yuminstall.py:1555 ../iw/autopart_type.py:208 ../iw/blpasswidget.py:148
 #: ../iw/upgrade_swap_gui.py:192 ../iw/upgrade_swap_gui.py:200
 #: ../iw/upgrade_swap_gui.py:207 ../storage/devicetree.py:145
 #: ../storage/devicetree.py:172 ../textw/upgrade_text.py:187
@@ -209,25 +210,25 @@ msgstr ""
 " 설치를 계속 진행하시겠습니까?  "
 
 #: ../bootloader.py:58 ../gui.py:1093 ../gui.py:1140 ../gui.py:1268
-#: ../gui.py:1345 ../image.py:91 ../livecd.py:199 ../livecd.py:404
+#: ../gui.py:1347 ../image.py:91 ../livecd.py:199 ../livecd.py:404
 #: ../packages.py:126 ../packages.py:134 ../packages.py:142 ../packages.py:150
 #: ../packages.py:162 ../packages.py:171 ../packages.py:179 ../packages.py:188
-#: ../upgrade.py:57 ../upgrade.py:205 ../yuminstall.py:642
-#: ../yuminstall.py:827 ../yuminstall.py:907 ../yuminstall.py:913
-#: ../yuminstall.py:1072 ../yuminstall.py:1097 ../yuminstall.py:1155
-#: ../yuminstall.py:1320 ../yuminstall.py:1350 ../storage/__init__.py:89
-#: ../storage/__init__.py:1679
+#: ../upgrade.py:58 ../upgrade.py:206 ../yuminstall.py:235
+#: ../yuminstall.py:655 ../yuminstall.py:840 ../yuminstall.py:920
+#: ../yuminstall.py:926 ../yuminstall.py:1085 ../yuminstall.py:1110
+#: ../yuminstall.py:1168 ../yuminstall.py:1333 ../yuminstall.py:1363
+#: ../storage/__init__.py:89 ../storage/__init__.py:1679
 msgid "_Exit installer"
 msgstr "설치 프로그램 종료(_E)"
 
 #: ../bootloader.py:58 ../image.py:92 ../image.py:248 ../kickstart.py:1300
-#: ../kickstart.py:1339 ../upgrade.py:57 ../yuminstall.py:1160
+#: ../kickstart.py:1339 ../upgrade.py:58 ../yuminstall.py:1173
 #: ../iw/partition_gui.py:1036 ../storage/__init__.py:1680
 msgid "_Continue"
 msgstr "계속 진행(_C)"
 
-#: ../bootloader.py:114 ../platform.py:93 ../platform.py:319
-#: ../platform.py:376 ../platform.py:466
+#: ../bootloader.py:114 ../platform.py:93 ../platform.py:320
+#: ../platform.py:377 ../platform.py:468
 msgid "RAID Device"
 msgstr "RAID 장치"
 
@@ -249,7 +250,9 @@ msgstr "부트로더를 설치하는 도중 오류가 발생했습니다. 시스
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
-msgstr "시스템에 아무런 커널 패키지도 설치되지 않았습니다.  부트로더 설정은 변경되지 않습니다.  "
+msgstr ""
+"시스템에 아무런 커널 패키지도 설치되지 않았습니다.  부트로더 설정은 변경되지 "
+"않습니다.  "
 
 #: ../cmdline.py:55
 msgid "Completed"
@@ -275,7 +278,9 @@ msgstr ""
 msgid ""
 "Command line mode requires all choices to be specified in a kickstart "
 "configuration file."
-msgstr "명령행 모드에서는 킥스타트 설정 파일에 모든 사항이 지정되어 있어야 합니다.    "
+msgstr ""
+"명령행 모드에서는 킥스타트 설정 파일에 모든 사항이 지정되어 있어야 합니"
+"다.    "
 
 #: ../cmdline.py:114 ../cmdline.py:121
 msgid "Can't have a question in command line mode!"
@@ -378,9 +383,9 @@ msgstr ""
 "%s 장치가 암호화되어 있습니다. 설치 도중 장치의 내용물에 액세스하려면 아래의 "
 "장치 암호문을 입력하셔야 합니다. "
 
-#: ../gui.py:784 ../gui.py:1345 ../partIntfHelpers.py:153
+#: ../gui.py:784 ../gui.py:1347 ../partIntfHelpers.py:153
 #: ../partIntfHelpers.py:310 ../text.py:99 ../text.py:100
-#: ../iw/account_gui.py:135 ../loader/dirbrowser.c:145
+#: ../iw/account_gui.py:130 ../loader/dirbrowser.c:145
 #: ../loader/driverdisk.c:244 ../loader/kickstart.c:381 ../loader/loader.c:439
 #: ../loader/loader.c:557 ../textw/constants_text.py:48
 msgid "Cancel"
@@ -420,8 +425,8 @@ msgid "_Exit"
 msgstr "종료(_E)"
 
 #: ../gui.py:1264 ../image.py:164 ../image.py:194 ../livecd.py:199
-#: ../yuminstall.py:701 ../yuminstall.py:1097 ../yuminstall.py:1155
-#: ../yuminstall.py:1320
+#: ../yuminstall.py:714 ../yuminstall.py:1110 ../yuminstall.py:1168
+#: ../yuminstall.py:1333
 msgid "_Retry"
 msgstr "재시도(_R)"
 
@@ -433,7 +438,7 @@ msgstr "설치 프로그램을 종료합니다. "
 msgid "The system will now reboot."
 msgstr "이제 시스템을 재부팅합니다. "
 
-#: ../gui.py:1271 ../image.py:248 ../packages.py:433 ../yuminstall.py:1366
+#: ../gui.py:1271 ../image.py:248 ../packages.py:433 ../yuminstall.py:1379
 msgid "_Reboot"
 msgstr "재부팅(_R)"
 
@@ -442,24 +447,24 @@ msgid "Exiting"
 msgstr "종료하는 중"
 
 #. FIXME: translate the string
-#: ../gui.py:1342 ../livecd.py:115 ../text.py:266 ../upgrade.py:196
+#: ../gui.py:1344 ../livecd.py:115 ../text.py:266 ../upgrade.py:197
 msgid "Exit installer"
 msgstr "설치 프로그램 종료"
 
-#: ../gui.py:1343
+#: ../gui.py:1345
 msgid "Are you sure you wish to exit the installer?"
 msgstr "정말로 설치 프로그램을 종료하시겠습니까?  "
 
-#: ../gui.py:1352
+#: ../gui.py:1354
 #, python-format
 msgid "%s Installer"
 msgstr "%s 설치 프로그램"
 
-#: ../gui.py:1358
+#: ../gui.py:1360
 msgid "Unable to load title bar"
 msgstr "제목 표시줄(title bar) 을 불러올 수 없습니다"
 
-#: ../gui.py:1420
+#: ../gui.py:1422
 msgid "Install Window"
 msgstr "설치 화면"
 
@@ -535,8 +540,8 @@ msgstr ""
 "하시려면 \"재부팅\"을 누르십시오."
 
 #: ../image.py:248 ../livecd.py:403 ../packages.py:379 ../packages.py:430
-#: ../packages.py:433 ../upgrade.py:204 ../yuminstall.py:827
-#: ../yuminstall.py:913 ../yuminstall.py:1350 ../yuminstall.py:1366
+#: ../packages.py:433 ../upgrade.py:205 ../yuminstall.py:840
+#: ../yuminstall.py:926 ../yuminstall.py:1363 ../yuminstall.py:1379
 msgid "_Back"
 msgstr "뒤로(_B)"
 
@@ -555,59 +560,59 @@ msgstr ""
 msgid "Install on System"
 msgstr "시스템에 설치"
 
-#: ../iutil.py:788
+#: ../iutil.py:824
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
 msgstr "오류: 오픈시 %s (%s: %s)에 reIPL 방식을 설정할 수 없습니다   "
 
-#: ../iutil.py:796
+#: ../iutil.py:832
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
 msgstr "오류: 작성시 %s (%s: %s)에 reIPL 방식을 설정할 수 없습니다  "
 
-#: ../iutil.py:803
+#: ../iutil.py:839
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
 msgstr "오류: 종료시, %s (%s: %s)에 reIPL 방식을 설정할 수 없습니다  "
 
-#: ../iutil.py:820
+#: ../iutil.py:856
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
 msgstr "오류: %s을(를) reIPL 장치 (%s)로서 설정할 수 없습니다 "
 
-#: ../iutil.py:829
+#: ../iutil.py:865
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr "오류: loadparm (%s)을 다시 설정할 수 없습니다  "
 
-#: ../iutil.py:838
+#: ../iutil.py:874
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr "경고: parm (%s)을 다시 설정할 수 없습니다  "
 
-#: ../iutil.py:848
+#: ../iutil.py:884
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr "종료 후, DASD 장치 %s에서 수동으로 IPL을 실행하여 설치를 계속 진행하십시오 "
 
-#: ../iutil.py:870
+#: ../iutil.py:906
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
 msgstr "오류: reIPL (%s)에 대해 FCP 속성 %s 읽는 중 "
 
-#: ../iutil.py:883
+#: ../iutil.py:919
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
 msgstr "오류: reIPL (%s)에 대한 FCP 속성 %s 작성 중 "
 
-#: ../iutil.py:896
+#: ../iutil.py:932
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
 msgstr "오류: reIPL (%s)에 대한 디폴트 FCP 속성 %s 작성 중 "
 
-#: ../iutil.py:906
+#: ../iutil.py:942
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
@@ -616,7 +621,7 @@ msgstr ""
 "종료 후, WWPN %(wwpn)s 및 LUN %(lun)s를 사용하여 FCP %(device)s에서 수동으로 "
 "IPL을 실행하여 설치를 계속 진행하십시오 "
 
-#: ../iutil.py:913
+#: ../iutil.py:949
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
@@ -624,11 +629,11 @@ msgstr ""
 "종료 후, 현재 /boot가 들어있는 장치에서 수동으로 IPL을 실행하여 설치를 계속 "
 "진행하십시오 "
 
-#: ../iutil.py:921
+#: ../iutil.py:957
 msgid "Error determining mount point type"
 msgstr "마운트 지점 유형을 결정하는데 오류 발생 "
 
-#: ../iutil.py:925
+#: ../iutil.py:961
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "마운트 지점 /boot 또는 / 는 익숙하지 않은 디스크에 있습니다   "
 
@@ -683,8 +688,8 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
-"설치해야 할 '%s'팩키지를 지정해 주십시오. 이 팩키지는 존재하지 않습니다. 설치를 계"
-"속 진행하시겠습니까 아니면 설치를 중단하시겠습니까? "
+"설치해야 할 '%s'팩키지를 지정해 주십시오. 이 팩키지는 존재하지 않습니다. 설치"
+"를 계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까? "
 
 #: ../kickstart.py:1298 ../kickstart.py:1337
 msgid "_Abort"
@@ -704,8 +709,8 @@ msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
-"설치해야 할 '%s'그룹을 지정해 주십시오. 이 그룹은 존재하지 않습니다. 설치를 계속 진"
-"행하시겠습니까 아니면 설치를 중단하시겠습니까? "
+"설치해야 할 '%s'그룹을 지정해 주십시오. 이 그룹은 존재하지 않습니다. 설치를 "
+"계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까? "
 
 #: ../kickstart.py:1436
 #, python-format
@@ -715,8 +720,8 @@ msgid ""
 "again:\n"
 "%s"
 msgstr ""
-"킥스타트 설정 파일에는 anaconda가 요청할 수 없는 필수 정보가 없습니다. 다음 섹션"
-"을 추가한 후 다시 시도해 주십시오:\n"
+"킥스타트 설정 파일에는 anaconda가 요청할 수 없는 필수 정보가 없습니다. 다음 "
+"섹션을 추가한 후 다시 시도해 주십시오:\n"
 "%s  "
 
 #: ../livecd.py:110
@@ -1180,12 +1185,12 @@ msgstr "재설정 확인"
 msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "정말로 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
-#: ../platform.py:94 ../platform.py:97 ../platform.py:320 ../platform.py:377
-#: ../platform.py:467 ../platform.py:470
+#: ../platform.py:94 ../platform.py:97 ../platform.py:321 ../platform.py:378
+#: ../platform.py:469 ../platform.py:472
 msgid "Master Boot Record (MBR)"
 msgstr "마스터 부트 레코드 (MBR)"
 
-#: ../platform.py:96 ../platform.py:469
+#: ../platform.py:96 ../platform.py:471
 msgid "First sector of boot partition"
 msgstr "부트 파티션의 첫번째 섹터"
 
@@ -1215,45 +1220,45 @@ msgstr "부트 파티션은 %s 파일 시스템에 지정하실 수 없습니다
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "부트 파티션은 암호화된 블록 장치에 지정하실 수 없습니다. "
 
-#: ../platform.py:213
+#: ../platform.py:214
 msgid "EFI System Partition"
 msgstr "EFI 시스템 파티션 "
 
-#: ../platform.py:218
+#: ../platform.py:219
 msgid "You have not created a /boot/efi partition."
 msgstr "/boot/efi 파티션을 생성하지 않으셨습니다.  "
 
-#: ../platform.py:224
+#: ../platform.py:225
 msgid "/boot is not on an ext2 filesystem."
 msgstr "/boot는 ext2 파일 시스템에 없습니다.   "
 
-#: ../platform.py:227
+#: ../platform.py:228
 msgid "/boot/efi is not EFI."
 msgstr "/boot/efi는 EFI가 아닙니다. "
 
-#: ../platform.py:265
+#: ../platform.py:266
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "%s에는 bsd 디스크 레이블이 있어야 합니다.   "
 
-#: ../platform.py:277
+#: ../platform.py:278
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr "%s 디스크는 시작시 최소 1MB의 여유 공간을 필요로 합니다.  "
 
-#: ../platform.py:322
+#: ../platform.py:323
 msgid "PPC PReP Boot"
 msgstr "PPC PReP 부트"
 
-#: ../platform.py:334
+#: ../platform.py:335
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr "부트 파티션은 디스크의 첫번째 4MB에 있어야 합니다.   "
 
-#: ../platform.py:379 ../platform.py:382
+#: ../platform.py:380 ../platform.py:383
 msgid "Apple Bootstrap"
 msgstr "Apple 부트스트랩"
 
-#: ../platform.py:397
+#: ../platform.py:398
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "%s에는 mac 디스크 레이블이 있어야 합니다. "
@@ -1284,7 +1289,7 @@ msgstr "예"
 msgid "No"
 msgstr "아니오"
 
-#: ../rescue.py:240 ../yuminstall.py:637 ../yuminstall.py:1067
+#: ../rescue.py:240 ../yuminstall.py:650 ../yuminstall.py:1080
 msgid "No Network Available"
 msgstr "사용 가능한 네트워크가 없음 "
 
@@ -1473,11 +1478,11 @@ msgstr "취소됨"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "이전 설정 화면으로 되돌아 갈 수 없습니다. 다시 한번 시도해 주십시오."
 
-#: ../upgrade.py:50
+#: ../upgrade.py:51
 msgid "Proceed with upgrade?"
 msgstr "업그레이드 설치 진행?"
 
-#: ../upgrade.py:51
+#: ../upgrade.py:52
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1487,15 +1492,15 @@ msgstr ""
 "다. 현재 이곳에서는 뒤로 되돌아 가실 수 없습니다. \n"
 "\n"
 
-#: ../upgrade.py:55
+#: ../upgrade.py:56
 msgid "Would you like to continue with the upgrade?"
 msgstr "업그레이드 설치를 하시겠습니까?"
 
-#: ../upgrade.py:183
+#: ../upgrade.py:184
 msgid "Mount failed"
 msgstr "마운트에 실패"
 
-#: ../upgrade.py:184
+#: ../upgrade.py:185
 #, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
@@ -1506,15 +1511,15 @@ msgstr ""
 "생했습니다. 이 문제를 해결하신 후에 다시 업그레이드 하시기 바랍니다.\n"
 "%s "
 
-#: ../upgrade.py:192 ../upgrade.py:199
+#: ../upgrade.py:193 ../upgrade.py:200
 msgid "Upgrade root not found"
 msgstr "업그레이드 root를 찾을 수 없음 "
 
-#: ../upgrade.py:193
+#: ../upgrade.py:194
 msgid "The root for the previously installed system was not found."
 msgstr "이전에 설치된 시스템에 대한 root를 찾을 수 없습니다.  "
 
-#: ../upgrade.py:200
+#: ../upgrade.py:201
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
@@ -1522,7 +1527,7 @@ msgstr ""
 "이전에 설치된 시스템의 root를 찾을 수 없습니다.  설치 프로그램을 종료하거나 "
 "업그레이드 대신 설치를 선택하기 위해 되돌아가기할 수 있습니다.         "
 
-#: ../upgrade.py:223
+#: ../upgrade.py:224
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1535,11 +1540,11 @@ msgstr ""
 "해 주시기 바랍니다.\n"
 "\n"
 
-#: ../upgrade.py:229
+#: ../upgrade.py:230
 msgid "Absolute Symlinks"
 msgstr "절대 심볼릭 링크"
 
-#: ../upgrade.py:240
+#: ../upgrade.py:241
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -1551,11 +1556,11 @@ msgstr ""
 "이드 설치를 다시 시작해 주시기 바랍니다.\n"
 "\n"
 
-#: ../upgrade.py:246
+#: ../upgrade.py:247
 msgid "Invalid Directories"
 msgstr "잘못된 디렉토리"
 
-#: ../upgrade.py:251
+#: ../upgrade.py:252
 #, python-format
 msgid "%s not found"
 msgstr "%s (을)를 찾을 수 없음"
@@ -1750,11 +1755,22 @@ msgstr "업그레이드 종료 중 "
 msgid "Finishing upgrade process.  This may take a little while."
 msgstr "업그레이드 절차를 종료하고 있습니다. 이는 몇 분 소요될 수 있습니다.  "
 
-#: ../yuminstall.py:287 ../iw/task_gui.py:80 ../iw/task_gui.py:318
+#: ../yuminstall.py:229
+msgid "Error Installing Package"
+msgstr "패키지 설치 도중 오류 발생 "
+
+#: ../yuminstall.py:230
+#, python-format
+msgid ""
+"A fatal error occurred when installing the %s package.  This could indicate "
+"errors when reading the installation media.  Installation cannot continue."
+msgstr "%s 패키지를 설치하는 도중 치명적인 오류가 발생했습니다.  설치 미디어를 읽을 때 오류가 발생하는 것 같습니다. 설치를 계속 진행할 수 없습니다.  "
+
+#: ../yuminstall.py:300 ../iw/task_gui.py:80 ../iw/task_gui.py:318
 msgid "Error Setting Up Repository"
 msgstr "리포지터리 설정 오류  "
 
-#: ../yuminstall.py:288
+#: ../yuminstall.py:301
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -1769,34 +1785,34 @@ msgstr ""
 "\n"
 "%s 설치를 위해 올바른 정보를 제공해 주시기 바랍니다.  "
 
-#: ../yuminstall.py:347
+#: ../yuminstall.py:360
 msgid "Change Disc"
 msgstr "디스크 교체"
 
-#: ../yuminstall.py:348
+#: ../yuminstall.py:361
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "계속 진행하시려면 %s 디스크 %d을(를) 넣어 주십시오."
 
-#: ../yuminstall.py:358
+#: ../yuminstall.py:371
 msgid "Wrong Disc"
 msgstr "부적절한 디스크"
 
-#: ../yuminstall.py:359
+#: ../yuminstall.py:372
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "올바른 %s 디스크가 아닙니다."
 
-#: ../yuminstall.py:366
+#: ../yuminstall.py:379
 msgid "Unable to access the disc."
 msgstr "디스크를 실행할 수 없습니다."
 
-#: ../yuminstall.py:525
+#: ../yuminstall.py:538
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "%r 리포지터리는 설정에서 이름이 생략되어 있습니다. id를 사용합니다 "
 
-#: ../yuminstall.py:638 ../yuminstall.py:1068
+#: ../yuminstall.py:651 ../yuminstall.py:1081
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -1804,15 +1820,15 @@ msgstr ""
 "일부 소프트웨어 리포지터리는 네트워크를 필요로하나 시스템에서 네트워크를 활성"
 "화하는 도중 오류가 발생했습니다.       "
 
-#: ../yuminstall.py:699 ../yuminstall.py:701
+#: ../yuminstall.py:712 ../yuminstall.py:714
 msgid "Re_boot"
 msgstr "재부팅(_B)"
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:712
 msgid "_Eject"
 msgstr "꺼내기(_E)"
 
-#: ../yuminstall.py:710
+#: ../yuminstall.py:723
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1828,61 +1844,61 @@ msgstr ""
 "시스템을 종료하시면, 시스템 상태가 불안정하게 되어 다시 설치하셔야 합니다.\n"
 "\n"
 
-#: ../yuminstall.py:758
+#: ../yuminstall.py:771
 msgid "Retrying"
 msgstr "다시 시도 "
 
-#: ../yuminstall.py:758
+#: ../yuminstall.py:771
 msgid "Retrying download."
 msgstr "다시 다운로드 중. "
 
-#: ../yuminstall.py:824
+#: ../yuminstall.py:837
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "다음과 같은 이유로 트랜젝션 실행 도중 오류가 발생했습니다: %s\n"
 
 #. FIXME: we need to actually look at these problems...
-#: ../yuminstall.py:859 ../yuminstall.py:860
+#: ../yuminstall.py:872 ../yuminstall.py:873
 msgid "file conflicts"
 msgstr "파일 충돌"
 
-#: ../yuminstall.py:861
+#: ../yuminstall.py:874
 msgid "older package(s)"
 msgstr "이전 팩키지"
 
-#: ../yuminstall.py:862
+#: ../yuminstall.py:875
 msgid "insufficient disk space"
 msgstr "디스크 공간 부족"
 
-#: ../yuminstall.py:863
+#: ../yuminstall.py:876
 msgid "insufficient disk inodes"
 msgstr "디스크 inode 부족"
 
-#: ../yuminstall.py:864
+#: ../yuminstall.py:877
 msgid "package conflicts"
 msgstr "팩키지 충돌"
 
-#: ../yuminstall.py:865
+#: ../yuminstall.py:878
 msgid "package already installed"
 msgstr "이미 팩키지가 설치됨 "
 
-#: ../yuminstall.py:866
+#: ../yuminstall.py:879
 msgid "required package"
 msgstr "필요한 팩키지"
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:880
 msgid "package for incorrect arch"
 msgstr "아키텍쳐가 잘못된 팩키지"
 
-#: ../yuminstall.py:868
+#: ../yuminstall.py:881
 msgid "package for incorrect os"
 msgstr "운영체제가 잘못된 팩키지"
 
-#: ../yuminstall.py:882
+#: ../yuminstall.py:895
 msgid "You need more space on the following file systems:\n"
 msgstr "다음의 파일 시스템에서 더 많은 공간이 필요합니다:\n"
 
-#: ../yuminstall.py:895
+#: ../yuminstall.py:908
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1891,18 +1907,18 @@ msgstr ""
 "설치된 패키지를 확인할 때 파일 충돌이 발생했습니다:\n"
 "%s\n"
 
-#: ../yuminstall.py:898
+#: ../yuminstall.py:911
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr "다음과 같은 이유로 트랜젝션 실행 중 오류가 발생했습니다: %s.\n"
 
-#: ../yuminstall.py:905 ../yuminstall.py:910
+#: ../yuminstall.py:918 ../yuminstall.py:923
 msgid "Error Running Transaction"
 msgstr "트랜잭션 실행 중 오류 "
 
-#: ../yuminstall.py:1102
+#: ../yuminstall.py:1115
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -1910,24 +1926,24 @@ msgstr ""
 "리포지터리에서 그룹 정보를 읽을 수 없습니다. 설치 트리의 생성에 문제가 있습니"
 "다."
 
-#: ../yuminstall.py:1138
+#: ../yuminstall.py:1151
 msgid "Retrieving installation information."
 msgstr "설치 정보를 검색하고 있습니다. "
 
-#: ../yuminstall.py:1140
+#: ../yuminstall.py:1153
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "%s에 대한 설치 정보를 검색하고 있습니다.  "
 
-#: ../yuminstall.py:1142
+#: ../yuminstall.py:1155
 msgid "Installation Progress"
 msgstr "설치 절차"
 
-#: ../yuminstall.py:1155 ../textw/constants_text.py:64
+#: ../yuminstall.py:1168 ../textw/constants_text.py:64
 msgid "Edit"
 msgstr "편집"
 
-#: ../yuminstall.py:1168 ../yuminstall.py:1326
+#: ../yuminstall.py:1181 ../yuminstall.py:1339
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1941,7 +1957,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:1344
+#: ../yuminstall.py:1357
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1951,15 +1967,15 @@ msgstr ""
 "선택하신 패키지를 설치하려면 %d MB의 여유 공간이 필요하나 충분한 공간이 없습"
 "니다. 다른 패키지로 바꾸거나 설치 프로그램을 종료하실 수 있습니다."
 
-#: ../yuminstall.py:1363
+#: ../yuminstall.py:1376
 msgid "Reboot?"
 msgstr "재부팅할까요?"
 
-#: ../yuminstall.py:1364
+#: ../yuminstall.py:1377
 msgid "The system will be rebooted now."
 msgstr "이제 시스템을 재부팅합니다."
 
-#: ../yuminstall.py:1507
+#: ../yuminstall.py:1520
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -1969,7 +1985,7 @@ msgstr ""
 "전으로 보입니다. 따라서 업그레이드를 제대로 실행할 수 없습니다. 그래도 업그레"
 "이드를 계속 진행하시겠습니까?"
 
-#: ../yuminstall.py:1543
+#: ../yuminstall.py:1556
 #, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
@@ -1980,35 +1996,35 @@ msgstr ""
 "일치하지 않는 %s 버전으로 나타나고 있습니다. 따라서 업그레이드를 제대로 실행"
 "할 수 없습니다. 그래도 업그레이드를 계속 진행하시겠습니까?  "
 
-#: ../yuminstall.py:1594
+#: ../yuminstall.py:1607
 msgid "Post Upgrade"
 msgstr "사후 업그레이드"
 
-#: ../yuminstall.py:1595
+#: ../yuminstall.py:1608
 msgid "Performing post-upgrade configuration"
 msgstr "사후 업그레이드 설정을 하고 있습니다 "
 
-#: ../yuminstall.py:1597
+#: ../yuminstall.py:1610
 msgid "Post Installation"
 msgstr "설치후 설정 "
 
-#: ../yuminstall.py:1598
+#: ../yuminstall.py:1611
 msgid "Performing post-installation configuration"
 msgstr "설치 후 설정을 하고 있습니다  "
 
-#: ../yuminstall.py:1826
+#: ../yuminstall.py:1840
 msgid "Installation Starting"
 msgstr "설치 시작 "
 
-#: ../yuminstall.py:1827
+#: ../yuminstall.py:1841
 msgid "Starting installation process"
 msgstr "설치 프로세스 시작하기 "
 
-#: ../yuminstall.py:1865
+#: ../yuminstall.py:1879
 msgid "Dependency Check"
 msgstr "의존성 검사"
 
-#: ../yuminstall.py:1866
+#: ../yuminstall.py:1880
 msgid "Checking dependencies in packages selected for installation"
 msgstr "설치될 패키지의 의존성을 검사하고 있습니다 "
 
@@ -2080,7 +2096,9 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
-"지금 설치 번호 (또는 서브스크립션 번호)를 입력하시겠습니까? 이는 설치 프로그램이 서브스크립션에 포함된 모든 추가 구성 요소를 액세스할 수 있게 합니다. 이 단계를 생략하실 경우, 나중에 추가 구성요소를 수동으로 설치하실 수 있습니다.\n"
+"지금 설치 번호 (또는 서브스크립션 번호)를 입력하시겠습니까? 이는 설치 프로그"
+"램이 서브스크립션에 포함된 모든 추가 구성 요소를 액세스할 수 있게 합니다. 이 "
+"단계를 생략하실 경우, 나중에 추가 구성요소를 수동으로 설치하실 수 있습니다.\n"
 "\n"
 "보다 자세한 내용은 http://www.redhat.com/InstNum/에서 참조하십시오.  "
 
@@ -2088,7 +2106,9 @@ msgstr ""
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
-msgstr "설치 번호를 입력하실 수 없을 경우, http://www.redhat.com/InstNum/을 참조하십시오.  "
+msgstr ""
+"설치 번호를 입력하실 수 없을 경우, http://www.redhat.com/InstNum/을 참조하십"
+"시오.  "
 
 #: ../iw/GroupSelector.py:147
 #, python-format
@@ -2118,43 +2138,43 @@ msgstr "Root 암호(_P):  "
 msgid "_Confirm:"
 msgstr "확인(_C):  "
 
-#: ../iw/account_gui.py:97
+#: ../iw/account_gui.py:92
 msgid "Caps Lock is on."
 msgstr "Caps Lock이 켜져있습니다. "
 
-#: ../iw/account_gui.py:107 ../iw/account_gui.py:115 ../iw/account_gui.py:122
-#: ../iw/account_gui.py:142 ../textw/userauth_text.py:74
+#: ../iw/account_gui.py:102 ../iw/account_gui.py:110 ../iw/account_gui.py:117
+#: ../iw/account_gui.py:137 ../textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr "암호에 오류 발생"
 
-#: ../iw/account_gui.py:108
+#: ../iw/account_gui.py:103
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr "루트(root) 암호를 입력하신 후 확인을 위해 다시 한번 입력해 주십시오."
 
-#: ../iw/account_gui.py:116
+#: ../iw/account_gui.py:111
 msgid "The passwords you entered were different.  Please try again."
 msgstr "입력하신 암호가 일치하지 않습니다.  다시 입력해 주십시오."
 
-#: ../iw/account_gui.py:123
+#: ../iw/account_gui.py:118
 msgid "The root password must be at least six characters long."
 msgstr "루트(root) 암호는 최소 6자 이상이 되어야 합니다."
 
-#: ../iw/account_gui.py:132 ../textw/userauth_text.py:83
+#: ../iw/account_gui.py:127 ../textw/userauth_text.py:83
 msgid "Weak Password"
 msgstr "알기 쉬운 암호   "
 
-#: ../iw/account_gui.py:133
+#: ../iw/account_gui.py:128
 #, python-format
 msgid "You have provided a weak password: %s"
 msgstr "암호가 잘못되었습니다: %s "
 
-#: ../iw/account_gui.py:135
+#: ../iw/account_gui.py:130
 msgid "Use Anyway"
 msgstr "어쨌든 사용  "
 
-#: ../iw/account_gui.py:143 ../textw/userauth_text.py:75
+#: ../iw/account_gui.py:138 ../textw/userauth_text.py:75
 msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "요청된 암호에는 암호로 사용할 수 없는 ASCII가 아닌 문자가 포함되어 있습니다."
 
@@ -2593,7 +2613,9 @@ msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
-msgstr "설정하신 논리 볼륨은 %d MB를 필요로 하지만, 볼륨 그룹에는 %d MB 밖에 없습니다. 볼륨 그룹을 늘리거나 또는 논리 볼륨을 줄이십시오.  "
+msgstr ""
+"설정하신 논리 볼륨은 %d MB를 필요로 하지만, 볼륨 그룹에는 %d MB 밖에 없습니"
+"다. 볼륨 그룹을 늘리거나 또는 논리 볼륨을 줄이십시오.  "
 
 #: ../iw/lvm_dialog_gui.py:769
 msgid "No free slots"
@@ -2780,15 +2802,15 @@ msgstr "네임서버"
 msgid "Error configuring network device:"
 msgstr "네트워크 장치를 설정하는 도중 오류 발생:"
 
-#: ../iw/network_gui.py:66 ../iw/network_gui.py:72
+#: ../iw/network_gui.py:67 ../iw/network_gui.py:73
 msgid "Error with Hostname"
 msgstr "호스트명 오류  "
 
-#: ../iw/network_gui.py:67
+#: ../iw/network_gui.py:68
 msgid "You must enter a valid hostname for this computer."
 msgstr "컴퓨터에 해당하는 유효한 호스트명을 입력하셔야 합니다. "
 
-#: ../iw/network_gui.py:73
+#: ../iw/network_gui.py:74
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -4721,7 +4743,9 @@ msgstr ""
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
-msgstr "/ 파티션이 설치하시려는 라이브 이미지와 일치하지 않습니다. 이는 %s 형식으로 되어 있어야 합니다.  "
+msgstr ""
+"/ 파티션이 설치하시려는 라이브 이미지와 일치하지 않습니다. 이는 %s 형식으로 "
+"되어 있어야 합니다.  "
 
 #: ../storage/__init__.py:845
 #, python-format
@@ -4750,7 +4774,9 @@ msgstr ""
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
-msgstr "스왑 파티션을 지정하지 않으셨습니다.  현재 메모리 양에 설치를 완료하기 위해서는 스왑 파티션이 필요합니다.  "
+msgstr ""
+"스왑 파티션을 지정하지 않으셨습니다.  현재 메모리 양에 설치를 완료하기 위해서"
+"는 스왑 파티션이 필요합니다.  "
 
 #: ../storage/__init__.py:887
 msgid ""
@@ -4763,7 +4789,9 @@ msgstr ""
 #: ../storage/__init__.py:894
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr "이 마운트 지점은 올바르지 않습니다. %s 디렉토리는 / 파일 시스템에 있어야 합니다.  "
+msgstr ""
+"이 마운트 지점은 올바르지 않습니다. %s 디렉토리는 / 파일 시스템에 있어야 합니"
+"다.  "
 
 #: ../storage/__init__.py:898
 #, python-format
@@ -5002,7 +5030,9 @@ msgid ""
 "contents."
 msgstr ""
 "LVM 프로세스 중 오류 발생.\n"
-"%s에 일관성없는 LVM 데이터가 존재하는 것 같습니다. 관련된 모든 PV (%s)를 다시 초기화할 수 있지만, 이 경우 모든 LVM 메타데이터가 손실될 수 있습니다. 무시할 경우, 컨텐츠를 보존하게 됩니다.        "
+"%s에 일관성없는 LVM 데이터가 존재하는 것 같습니다. 관련된 모든 PV (%s)를 다"
+"시 초기화할 수 있지만, 이 경우 모든 LVM 메타데이터가 손실될 수 있습니다. 무시"
+"할 경우, 컨텐츠를 보존하게 됩니다.        "
 
 #: ../storage/devicetree.py:178
 msgid "_Ignore"
@@ -5213,7 +5243,9 @@ msgstr "zFCP 장치 %s에서 WWPN %s에 LUN %s이(가) 이미 설정되어 있�
 #: ../storage/zfcp.py:193
 #, python-format
 msgid "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
-msgstr "zFCP 장치 %s (%s)에 있는 WWPN %s에서 LUN %s의 실패한 속성을 읽을 수 없습니다.     "
+msgstr ""
+"zFCP 장치 %s (%s)에 있는 WWPN %s에서 LUN %s의 실패한 속성을 읽을 수 없습니"
+"다.     "
 
 #: ../storage/zfcp.py:198
 #, python-format
