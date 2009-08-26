@@ -255,11 +255,10 @@ class Alpha(Platform):
     def checkBootRequest(self, req):
         errors = Platform.checkBootRequest(self, req)
 
-        disk = req.disk
-        if not disk:
-            raise DeviceError("Boot partition has no disk")
+        if not req or not req.disk:
+            return errors
 
-        disk = disk.format.partedDisk
+        disk = req.disk.format.partedDisk
 
         # Check that we're a BSD disk label
         if not disk.type == self.diskType.name:
@@ -329,7 +328,7 @@ class IPSeriesPPC(PPC):
 
         bootPart = getattr(req, "partedPartition", None)
         if not bootPart:
-            raise DeviceError("Boot partition has no partedPartition")
+            return errors
 
         if bootPart.geometry.end * bootPart.geometry.device.sectorSize / (1024.0 * 1024) > 4096:
             errors.append(_("The boot partition must be within the first 4MB of the disk."))
@@ -387,11 +386,10 @@ class NewWorldPPC(PPC):
     def checkBootRequest(self, req):
         errors = PPC.checkBootRequest(self, req)
 
-        disk = req.disk
-        if not disk:
-            raise DeviceError("Boot partition has no disk")
+        if not disk or not req.disk:
+            return errors
 
-        disk = disk.format.partedDisk
+        disk = req.disk.format.partedDisk
 
         # Check that we're a Mac disk label
         if not disk.type == self.diskType.name:
