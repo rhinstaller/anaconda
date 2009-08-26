@@ -268,6 +268,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                     fsdict[key].append(entry)
                     break
             fsdict[tocopy] = []
+        log.debug("mangling dict looks like %s" %(fsdict,))
 
         # and now let's do the real copies; and we don't want to copy /!
         copied = ["/"]
