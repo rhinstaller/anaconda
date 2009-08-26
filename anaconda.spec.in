@@ -210,6 +210,53 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 26 2009 Chris Lumens <clumens@redhat.com> - 12.17-1
+- dracut has initrd-generic-<version> instead of initrd-<version> (#519185)
+  (hdegoede)
+- Do not try to commit disks changes to the os while partitions are in use
+  (hdegoede)
+- disklabel.commit(): DeviceError -> DeviceFormatError (hdegoede)
+- A "partition" having no partedPartition shouldn't be a traceback
+  (#519128). (clumens)
+- Add some debugging code so we know what's going on for #504986 (katzj)
+- Fix going back in "Inst. Method" and "Configure TCP/IP" screens in stage 1
+  (#515450) (rvykydal)
+- Fix going back from stage1 nfs/url setup dialog. (rvykydal)
+- When bringing up network in UI, update only ifcfg file of selected device
+  (#507084). (rvykydal)
+- Update Optional packages button via popup menu too (#515912). (rvykydal)
+- Remove the firstadkit-plugin-grub from non-grub archs (msivak)
+- Use the path instead of the name for the questionInitialize function.
+  (#517926) (jgranado)
+- Only add "rhgb quiet" to boot args for non-serial installs (#506508,
+  #510523). (clumens)
+- On rpm unpack errors, display a fatal error message (#452724). (clumens)
+- Use tee thread to ensure line buffered output to screen and log file at
+  the same moment... (#506664) (msivak)
+- Ensure libraries are copied to initrd.img for xauth (#516369) (maier)
+- Import shutil for upgrades (#519011). (clumens)
+- Fix focus grabbing on both the password and hostname screens. (clumens)
+- x86 and EFI platforms can now have /boot on ext4. (clumens)
+- Use the Platform's idea of what filesystem /boot can be on. (clumens)
+- zz-liveinst.sh: Restore the #! line (ajax)
+- Import _ped so it can be used for _ped.DiskLabelException. (pjones)
+- Make sure LV and VG names fit within LVM limits (#517483) (dcantrell)
+- Fix updates target to honor KEEP variable correctly. (dcantrell)
+- Add support for the reiserfs filesystem (#504401) (dcantrell)
+- Update instructions on how to generate source archive. (dcantrell)
+- Use disk.description instead of trying to access parted attrs. (#518212)
+  (dlehman)
+- Fix disk.partedDisk -> disk.format.partedDisk. (dlehman)
+- Fix a stupid typo in the logging. (clumens)
+- If modifying a repo fails, do not delete it (#516053). (clumens)
+- If repo setup fails, also make sure to delete it from yum. (clumens)
+- Allow configuring additional NFS repositories, not just the base. (clumens)
+- Consolidate "base repo" setup into an extra function. (clumens)
+- Allocate memory for login and password and do not meddle with host pointer
+  so we can correctly free it (#483818) (msivak)
+- Run make in silent mode by default. (jgranado)
+- Allow creation of an updates image from a tag offset. (jgranado)
+
 * Tue Aug 18 2009 David Cantrell <dcantrell@redhat.com> - 12.16-1
 - correctly deactivate zFCP LUN on s390 (maier)
 - correctly activate zFCP LUN on s390 (maier)
