@@ -520,7 +520,7 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src) {
             logMessage(ERROR, "unable to retrieve driver disk: %s", src);
             return;
         }
-    } else if (!strncmp(src, "ftp://", 6) || !strncmp(src, "http://", 7)) {
+    } else if (!strncmp(src, "ftp://", 6) || !strncmp(src, "http", 4)) {
         unlinkf = 1;
         if (getFileFromUrl(src, "/tmp/dd.img", loaderData)) {
             logMessage(ERROR, "unable to retrieve driver disk: %s", src);

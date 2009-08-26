@@ -429,7 +429,7 @@ class AnacondaYum(YumSorter):
 
                 self._switchImage(1)
                 self.mediagrabber = self.mediaHandler
-            elif m.startswith("http:") or m.startswith("ftp:"):
+            elif m.startswith("http") or m.startswith("ftp:"):
                 self._baseRepoURL = m
             elif m.startswith("nfs:"):
                 if not network.hasActiveNetDev():

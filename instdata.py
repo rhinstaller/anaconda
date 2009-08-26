@@ -239,7 +239,7 @@ class InstallData:
                 else:
                     (server, dir) = string.split(m[4:], ":")
                     f.write("nfs --server=%s --dir=%s\n" % (server, dir))
-            elif m.startswith("ftp://") or m.startswith("http://"):
+            elif m.startswith("ftp://") or m.startswith("http"):
                 f.write("url --url=%s\n" % urllib.unquote(m))
 
         self.instLanguage.writeKS(f)

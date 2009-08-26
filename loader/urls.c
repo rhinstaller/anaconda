@@ -286,7 +286,7 @@ int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
                 continue;
             }
 
-            if (!strstr(url, "http://") && !strstr(url, "ftp://")) {
+            if (strncmp(url, "http", 4) && strncmp(url, "ftp://", 6)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("URL must be either an ftp or http URL"));
                 continue;

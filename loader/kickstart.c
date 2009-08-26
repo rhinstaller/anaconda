@@ -355,7 +355,7 @@ int isKickstartFileRemote(char *ksFile) {
         location = ksFile + 3;
     }
 
-    if (!strncmp(location, "http://", 7) ||
+    if (!strncmp(location, "http", 4) ||
         !strncmp(location, "ftp://", 6) ||
         !strncmp(location, "nfs:", 4)) {
         return 1;
@@ -378,7 +378,7 @@ void getKickstartFile(struct loaderData_s *loaderData) {
         if (!strncmp(c, "ks", 2)) {
             rc = kickstartFromNfs(NULL, loaderData);
             loaderData->ksFile = strdup("/tmp/ks.cfg");
-        } else if (!strncmp(c, "http://", 7) || !strncmp(c, "ftp://", 6)) {
+        } else if (!strncmp(c, "http", 4) || !strncmp(c, "ftp://", 6)) {
             rc = kickstartFromUrl(c, loaderData);
             loaderData->ksFile = strdup("/tmp/ks.cfg");
         } else if (!strncmp(c, "nfs:", 4)) {

@@ -409,7 +409,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     }
 
     /* determine install type */
-    if (strstr(url, "http://") || strstr(url, "ftp://"))
+    if (!strncmp(url, "http", 4) || !strncmp(url, "ftp://", 6))
 	loaderData->method = METHOD_URL;
     else {
         newtWinMessage(_("Kickstart Error"), _("OK"),

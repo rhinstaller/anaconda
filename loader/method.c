@@ -512,7 +512,7 @@ void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
             else
                 ((struct nfsInstallData *)ld->stage2Data)->directory = NULL;
         } else if (!strncmp(arg, "ftp:", 4) || 
-                   !strncmp(arg, "http:", 5)) {
+                   !strncmp(arg, "http", 4)) {
             ld->method = METHOD_URL;
             ld->stage2Data = calloc(sizeof(struct urlInstallData *), 1);
             ((struct urlInstallData *)ld->stage2Data)->url = strdup(arg);
