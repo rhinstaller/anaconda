@@ -221,11 +221,11 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="$PACKAGES s390utils binutils libgcc tcp_wrappers
-              sed net-tools openssh openssh-server coreutils
-              login initscripts portmap pam
-              login mount modutils s390utils-cmsfs
-              strace xorg-x11-xauth xorg-x11-libs"
+    PACKAGES="bind-utils binutils coreutils findutils gzip initscripts
+              iputils less libgcc login lsscsi modutils mount net-tools
+              openssh openssh-clients openssh-server pam portmap s390utils
+              s390utils-base s390utils-cmsfs sed strace tar tcp_wrappers
+              xorg-x11-libs xorg-x11-xauth"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
@@ -663,6 +663,68 @@ EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     cat >> $KEEPFILE <<EOF
+bin/basename
+bin/cat
+bin/chmod
+bin/chown
+bin/cp
+bin/cut
+bin/date
+bin/dmesg
+bin/echo
+bin/find
+bin/gzip
+bin/login
+bin/ls
+bin/mknod
+bin/ping
+bin/ping6
+bin/ps
+bin/sort
+bin/tar
+bin/uname
+bin/vi
+etc/pam.d/other
+etc/pam.d/sshd
+etc/security/limits.conf
+etc/security/pam_env.conf
+$LIBDIR/libwrap*.so*
+$LIBDIR/security/pam_*
+lib/modules/ibm
+lib/security
+sbin/arp
+sbin/cmsfscat
+sbin/cmsfslst
+sbin/dasdfmt
+sbin/dasdinfo
+sbin/dasdview
+sbin/fdasd
+sbin/lschp
+sbin/lscss
+sbin/lsdasd
+sbin/lsqeth
+sbin/lsreipl
+sbin/lszfcp
+sbin/portmap
+sbin/qetharp*
+sbin/qethconf
+sbin/sysctl
+usr/bin/dirname
+usr/bin/expr
+usr/bin/getopt
+usr/bin/head
+usr/bin/ldd
+usr/bin/less
+usr/bin/lsscsi
+usr/bin/nslookup
+usr/bin/printf
+usr/bin/scp
+usr/bin/strace
+usr/bin/tr
+usr/bin/wc
+usr/bin/xauth
+usr/sbin/glibc_post_upgrade
+usr/sbin/sshd
 usr/share/terminfo/a/ansi
 usr/share/terminfo/d/dumb
 usr/share/terminfo/k/kterm
@@ -672,25 +734,6 @@ usr/share/terminfo/v/vt320
 usr/share/terminfo/v/vt320-w
 usr/share/terminfo/x/xterm
 usr/share/terminfo/x/xterm-color
-usr/bin/strace
-usr/bin/ldd
-usr/sbin/sshd
-usr/sbin/glibc_post_upgrade
-sbin/cmsfslst
-sbin/cmsfscat
-sbin/portmap
-sbin/fdasd
-sbin/dasdfmt
-bin/login
-lib/modules/ibm
-etc/pam.d/sshd
-etc/pam.d/other
-etc/security/limits.conf
-etc/security/pam_env.conf
-lib/security
-$LIBDIR/security/pam_*
-$LIBDIR/libwrap*.so*
-usr/bin/xauth
 EOF
 fi
 

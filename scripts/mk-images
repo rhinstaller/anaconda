@@ -583,6 +583,29 @@ makeinitrd() {
             cmd="$(basename $cmsfsbin)"
             instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
         done
+
+        # required for lsznet
+        instbin $IMGPATH /usr/bin/sort $MBD_DIR /sbin/sort
+
+        # required for lsznet and linuxrc.s390
+        instbin $IMGPATH /usr/bin/uname $MBD_DIR /sbin/uname
+        instbin $IMGPATH /usr/bin/find $MBD_DIR /sbin/find
+
+        # required for linuxrc.s390
+        for cmd in ping ping6 cat head tr wc echo printf cut mknod ; do
+            instbin $IMGPATH /usr/bin/$cmd $MBD_DIR /sbin/$cmd
+        done
+        instbin $IMGPATH /usr/sbin/sysctl $MBD_DIR /sbin/sysctl
+
+        # usability and problem determination
+        for cmd in cp chown chmod date dmesg ps ls less vi gzip tar scp \
+                   ldd nslookup expr getopt basename dirname lsscsi ; do
+            instbin $IMGPATH /usr/bin/$cmd $MBD_DIR /sbin/$cmd
+        done
+        for cmd in arp qetharp qetharp-2.6 qethconf lsqeth lscss lschp \
+                   lsreipl lsdasd dasdview dasdinfo lszfcp ; do
+            instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
+        done
     fi
 
     if [ -n "$INITRDMODULES" ]; then
