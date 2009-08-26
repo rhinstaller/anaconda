@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-08-19 19:33+0000\n"
-"PO-Revision-Date: 2009-08-20 00:30+0200\n"
+"POT-Creation-Date: 2009-08-26 02:51+0000\n"
+"PO-Revision-Date: 2009-08-26 09:15+0200\n"
 "Last-Translator: Kris Thomsen <lakristho@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -145,9 +145,9 @@ msgstr ""
 #. * them to manually load
 #: ../backend.py:186 ../image.py:285 ../livecd.py:192 ../livecd.py:397
 #: ../partIntfHelpers.py:208 ../text.py:308 ../text.py:312
-#: ../yuminstall.py:365 ../yuminstall.py:709 ../yuminstall.py:823
-#: ../yuminstall.py:1101 ../yuminstall.py:1167 ../yuminstall.py:1325
-#: ../yuminstall.py:1343 ../iw/autopart_type.py:99 ../iw/autopart_type.py:198
+#: ../yuminstall.py:378 ../yuminstall.py:722 ../yuminstall.py:836
+#: ../yuminstall.py:1114 ../yuminstall.py:1180 ../yuminstall.py:1338
+#: ../yuminstall.py:1356 ../iw/autopart_type.py:99 ../iw/autopart_type.py:198
 #: ../iw/autopart_type.py:318 ../iw/autopart_type.py:321
 #: ../iw/autopart_type.py:388 ../iw/autopart_type.py:396
 #: ../iw/autopart_type.py:425 ../iw/osbootwidget.py:210
@@ -176,8 +176,8 @@ msgid "Error"
 msgstr "Fejl"
 
 #: ../bootloader.py:53 ../bootloader.py:209 ../bootloader.py:216
-#: ../image.py:82 ../upgrade.py:250 ../yuminstall.py:1506
-#: ../yuminstall.py:1542 ../iw/autopart_type.py:208 ../iw/blpasswidget.py:148
+#: ../image.py:82 ../upgrade.py:251 ../yuminstall.py:1519
+#: ../yuminstall.py:1555 ../iw/autopart_type.py:208 ../iw/blpasswidget.py:148
 #: ../iw/upgrade_swap_gui.py:192 ../iw/upgrade_swap_gui.py:200
 #: ../iw/upgrade_swap_gui.py:207 ../storage/devicetree.py:145
 #: ../storage/devicetree.py:172 ../textw/upgrade_text.py:187
@@ -197,25 +197,25 @@ msgstr ""
 "Vil du fortsætte med installationen?"
 
 #: ../bootloader.py:58 ../gui.py:1093 ../gui.py:1140 ../gui.py:1268
-#: ../gui.py:1345 ../image.py:91 ../livecd.py:199 ../livecd.py:404
+#: ../gui.py:1347 ../image.py:91 ../livecd.py:199 ../livecd.py:404
 #: ../packages.py:126 ../packages.py:134 ../packages.py:142 ../packages.py:150
 #: ../packages.py:162 ../packages.py:171 ../packages.py:179 ../packages.py:188
-#: ../upgrade.py:57 ../upgrade.py:205 ../yuminstall.py:642
-#: ../yuminstall.py:827 ../yuminstall.py:907 ../yuminstall.py:913
-#: ../yuminstall.py:1072 ../yuminstall.py:1097 ../yuminstall.py:1155
-#: ../yuminstall.py:1320 ../yuminstall.py:1350 ../storage/__init__.py:89
-#: ../storage/__init__.py:1679
+#: ../upgrade.py:58 ../upgrade.py:206 ../yuminstall.py:235
+#: ../yuminstall.py:655 ../yuminstall.py:840 ../yuminstall.py:920
+#: ../yuminstall.py:926 ../yuminstall.py:1085 ../yuminstall.py:1110
+#: ../yuminstall.py:1168 ../yuminstall.py:1333 ../yuminstall.py:1363
+#: ../storage/__init__.py:89 ../storage/__init__.py:1679
 msgid "_Exit installer"
 msgstr "_Afslut installationsprogram"
 
 #: ../bootloader.py:58 ../image.py:92 ../image.py:248 ../kickstart.py:1300
-#: ../kickstart.py:1339 ../upgrade.py:57 ../yuminstall.py:1160
+#: ../kickstart.py:1339 ../upgrade.py:58 ../yuminstall.py:1173
 #: ../iw/partition_gui.py:1036 ../storage/__init__.py:1680
 msgid "_Continue"
 msgstr "_Fortsæt"
 
-#: ../bootloader.py:114 ../platform.py:93 ../platform.py:319
-#: ../platform.py:376 ../platform.py:466
+#: ../bootloader.py:114 ../platform.py:93 ../platform.py:320
+#: ../platform.py:377 ../platform.py:468
 msgid "RAID Device"
 msgstr "RAID-enhed"
 
@@ -374,9 +374,9 @@ msgstr ""
 "Enheden %s er krypteret. For at få adgang til enhedens indhold under "
 "installationen skal du indtaste enhedens adgangskoden nedenfor."
 
-#: ../gui.py:784 ../gui.py:1345 ../partIntfHelpers.py:153
+#: ../gui.py:784 ../gui.py:1347 ../partIntfHelpers.py:153
 #: ../partIntfHelpers.py:310 ../text.py:99 ../text.py:100
-#: ../iw/account_gui.py:135 ../loader/dirbrowser.c:145
+#: ../iw/account_gui.py:130 ../loader/dirbrowser.c:145
 #: ../loader/driverdisk.c:244 ../loader/kickstart.c:381 ../loader/loader.c:439
 #: ../loader/loader.c:557 ../textw/constants_text.py:48
 msgid "Cancel"
@@ -417,8 +417,8 @@ msgid "_Exit"
 msgstr "_Afslut"
 
 #: ../gui.py:1264 ../image.py:164 ../image.py:194 ../livecd.py:199
-#: ../yuminstall.py:701 ../yuminstall.py:1097 ../yuminstall.py:1155
-#: ../yuminstall.py:1320
+#: ../yuminstall.py:714 ../yuminstall.py:1110 ../yuminstall.py:1168
+#: ../yuminstall.py:1333
 msgid "_Retry"
 msgstr "_Prøv igen"
 
@@ -430,7 +430,7 @@ msgstr "Installationsprogrammet vil afslutte nu."
 msgid "The system will now reboot."
 msgstr "Systemet vil nu genstarte."
 
-#: ../gui.py:1271 ../image.py:248 ../packages.py:433 ../yuminstall.py:1366
+#: ../gui.py:1271 ../image.py:248 ../packages.py:433 ../yuminstall.py:1379
 msgid "_Reboot"
 msgstr "_Genstart"
 
@@ -439,24 +439,24 @@ msgid "Exiting"
 msgstr "Afslutter"
 
 #. FIXME: translate the string
-#: ../gui.py:1342 ../livecd.py:115 ../text.py:266 ../upgrade.py:196
+#: ../gui.py:1344 ../livecd.py:115 ../text.py:266 ../upgrade.py:197
 msgid "Exit installer"
 msgstr "Afslut installationsprogram"
 
-#: ../gui.py:1343
+#: ../gui.py:1345
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Er du sikker på at du vil afslutte installationsprogrammet?"
 
-#: ../gui.py:1352
+#: ../gui.py:1354
 #, python-format
 msgid "%s Installer"
 msgstr "Installationsprogrammet for %s"
 
-#: ../gui.py:1358
+#: ../gui.py:1360
 msgid "Unable to load title bar"
 msgstr "Kunne ikke indlæse titellinjen"
 
-#: ../gui.py:1420
+#: ../gui.py:1422
 msgid "Install Window"
 msgstr "Installationsvindue"
 
@@ -533,8 +533,8 @@ msgstr ""
 "installationen og afslutte, bør du vælge \"Genstart\"."
 
 #: ../image.py:248 ../livecd.py:403 ../packages.py:379 ../packages.py:430
-#: ../packages.py:433 ../upgrade.py:204 ../yuminstall.py:827
-#: ../yuminstall.py:913 ../yuminstall.py:1350 ../yuminstall.py:1366
+#: ../packages.py:433 ../upgrade.py:205 ../yuminstall.py:840
+#: ../yuminstall.py:926 ../yuminstall.py:1363 ../yuminstall.py:1379
 msgid "_Back"
 msgstr "_Tilbage"
 
@@ -553,37 +553,37 @@ msgstr ""
 msgid "Install on System"
 msgstr "Installér på system"
 
-#: ../iutil.py:788
+#: ../iutil.py:824
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
 msgstr "Fejl: Ved åbning, kan ikke sætte reIPL-metode til %s (%s: %s)"
 
-#: ../iutil.py:796
+#: ../iutil.py:832
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
 msgstr "Fejl: Ved skrivning, kan ikke sætte reIPL-metode til %s (%s: %s)"
 
-#: ../iutil.py:803
+#: ../iutil.py:839
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
 msgstr "Fejl: Ved lukning, kan ikke sætte reIPL-metode til %s (%s: %s)"
 
-#: ../iutil.py:820
+#: ../iutil.py:856
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
 msgstr "Fejl: Kunne ikke sætte %s som reIPL-enhed (%s)"
 
-#: ../iutil.py:829
+#: ../iutil.py:865
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr "Fejl: Kunne ikke nulstille loadparm (%s)"
 
-#: ../iutil.py:838
+#: ../iutil.py:874
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr "Advarsel: Kunne ikke nulstille parm (%s)"
 
-#: ../iutil.py:848
+#: ../iutil.py:884
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
@@ -592,22 +592,22 @@ msgstr ""
 "Efter nedlukning, skal du venligst udføre en manuel IPL fra DASD-enhed %s "
 "for at fortsætte installationen"
 
-#: ../iutil.py:870
+#: ../iutil.py:906
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
 msgstr "Fejl: læser FCP-indstilling %s til reIPL (%s)"
 
-#: ../iutil.py:883
+#: ../iutil.py:919
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
 msgstr "Fejl skriver FCP-indstilling %s til reIPL (%s)"
 
-#: ../iutil.py:896
+#: ../iutil.py:932
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
 msgstr "Fejl: skriver standard FCP-indstilling %s til reIPL (%s)"
 
-#: ../iutil.py:906
+#: ../iutil.py:942
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
@@ -616,7 +616,7 @@ msgstr ""
 "Efter nedlukning, skal du venligst udføre en manuel IPL fra FCP %(device)s "
 "med WWPN %(wwpn)s og LUN %(lun)s for at fortsætte installationen"
 
-#: ../iutil.py:913
+#: ../iutil.py:949
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
@@ -624,11 +624,11 @@ msgstr ""
 "Efter nedlukning, skal du venligst udføre en manuel IPL fra enheden, som nu "
 "indeholder /boot for at fortsætte installationen"
 
-#: ../iutil.py:921
+#: ../iutil.py:957
 msgid "Error determining mount point type"
 msgstr "Fejl ved bestemmelse af type på monteringspunkt"
 
-#: ../iutil.py:925
+#: ../iutil.py:961
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "Monteringspunktet /boot eller / er på en disk, som vi ikke kender"
 
@@ -1191,12 +1191,12 @@ msgstr ""
 "Er du sikker på at du vil nulstille partitionstabellen til dens oprindelige "
 "tilstand?"
 
-#: ../platform.py:94 ../platform.py:97 ../platform.py:320 ../platform.py:377
-#: ../platform.py:467 ../platform.py:470
+#: ../platform.py:94 ../platform.py:97 ../platform.py:321 ../platform.py:378
+#: ../platform.py:469 ../platform.py:472
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../platform.py:96 ../platform.py:469
+#: ../platform.py:96 ../platform.py:471
 msgid "First sector of boot partition"
 msgstr "Første sektor på opstartspartitionen"
 
@@ -1226,45 +1226,45 @@ msgstr "Opstartspartitioner kan ikke ligge på et %s filsystem."
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "Opstartspartitioner kan ikke ligge på en krypteret blokenhed"
 
-#: ../platform.py:213
+#: ../platform.py:214
 msgid "EFI System Partition"
 msgstr "EFI systempartition"
 
-#: ../platform.py:218
+#: ../platform.py:219
 msgid "You have not created a /boot/efi partition."
 msgstr "Du har ikke oprettet en /boot/efi-partition."
 
-#: ../platform.py:224
+#: ../platform.py:225
 msgid "/boot is not on an ext2 filesystem."
 msgstr "/boot er ikke på et ext2-filsystem."
 
-#: ../platform.py:227
+#: ../platform.py:228
 msgid "/boot/efi is not EFI."
 msgstr "/boot/efi er ikke EFI."
 
-#: ../platform.py:265
+#: ../platform.py:266
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "%s skal have en bsd-disketiket."
 
-#: ../platform.py:277
+#: ../platform.py:278
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr "Disken %s kræver mindst 1MB fri plads på diskens begyndelse."
 
-#: ../platform.py:322
+#: ../platform.py:323
 msgid "PPC PReP Boot"
 msgstr "PPC PReP-opstart"
 
-#: ../platform.py:334
+#: ../platform.py:335
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr "Opstartspartitionen skal være indenfor de første 4 MB af disken."
 
-#: ../platform.py:379 ../platform.py:382
+#: ../platform.py:380 ../platform.py:383
 msgid "Apple Bootstrap"
 msgstr "Apple-bootstrap"
 
-#: ../platform.py:397
+#: ../platform.py:398
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "%s skal have en Mac-disketiket."
@@ -1295,7 +1295,7 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nej"
 
-#: ../rescue.py:240 ../yuminstall.py:637 ../yuminstall.py:1067
+#: ../rescue.py:240 ../yuminstall.py:650 ../yuminstall.py:1080
 msgid "No Network Available"
 msgstr "Intet netværk tilgængeligt"
 
@@ -1488,11 +1488,11 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jeg kan ikke gå til forrige trin herfra. Du bliver nødt til at prøve igen."
 
-#: ../upgrade.py:50
+#: ../upgrade.py:51
 msgid "Proceed with upgrade?"
 msgstr "Vil du fortsætte opgraderingen?"
 
-#: ../upgrade.py:51
+#: ../upgrade.py:52
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1502,15 +1502,15 @@ msgstr ""
 "allerede monteret. Du kan ikke gå tilbage, til før dette punkt. \n"
 "\n"
 
-#: ../upgrade.py:55
+#: ../upgrade.py:56
 msgid "Would you like to continue with the upgrade?"
 msgstr "Vil du fortsætte med opgraderingen?"
 
-#: ../upgrade.py:183
+#: ../upgrade.py:184
 msgid "Mount failed"
 msgstr "Montering fejlede"
 
-#: ../upgrade.py:184
+#: ../upgrade.py:185
 #, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
@@ -1521,15 +1521,15 @@ msgstr ""
 "venligst problemet og prøv at opgradere igen.\n"
 "%s"
 
-#: ../upgrade.py:192 ../upgrade.py:199
+#: ../upgrade.py:193 ../upgrade.py:200
 msgid "Upgrade root not found"
 msgstr "Opgraderingsrod ikke fundet"
 
-#: ../upgrade.py:193
+#: ../upgrade.py:194
 msgid "The root for the previously installed system was not found."
 msgstr "Roden til det tidligere installerede system blev ikke fundet."
 
-#: ../upgrade.py:200
+#: ../upgrade.py:201
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
@@ -1538,7 +1538,7 @@ msgstr ""
 "installationsprogrammet og gå tilbage for at vælge installation istedet for "
 "opgradering."
 
-#: ../upgrade.py:223
+#: ../upgrade.py:224
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1550,11 +1550,11 @@ msgstr ""
 "henvisninger og genstart opgraderingen.\n"
 "\n"
 
-#: ../upgrade.py:229
+#: ../upgrade.py:230
 msgid "Absolute Symlinks"
 msgstr "Absolutte symhenvisninger"
 
-#: ../upgrade.py:240
+#: ../upgrade.py:241
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -1567,11 +1567,11 @@ msgstr ""
 "opgraderingen.\n"
 "\n"
 
-#: ../upgrade.py:246
+#: ../upgrade.py:247
 msgid "Invalid Directories"
 msgstr "Ugyldige kataloger"
 
-#: ../upgrade.py:251
+#: ../upgrade.py:252
 #, python-format
 msgid "%s not found"
 msgstr "%s ikke fundet"
@@ -1769,11 +1769,24 @@ msgstr "Afslutter opgradering"
 msgid "Finishing upgrade process.  This may take a little while."
 msgstr "Afslutter opgraderingsproces.  Dette kan tage et lille stykke tid."
 
-#: ../yuminstall.py:287 ../iw/task_gui.py:80 ../iw/task_gui.py:318
+#: ../yuminstall.py:229
+msgid "Error Installing Package"
+msgstr "Kunne ikke installere pakke"
+
+#: ../yuminstall.py:230
+#, python-format
+msgid ""
+"A fatal error occurred when installing the %s package.  This could indicate "
+"errors when reading the installation media.  Installation cannot continue."
+msgstr ""
+"En fatal fejl opstod under installationen af %s-pakken.  Dette kunne tyde på "
+"fejl under læsning af installationsmediet.  Installationen kan ikke fortsætte."
+
+#: ../yuminstall.py:300 ../iw/task_gui.py:80 ../iw/task_gui.py:318
 msgid "Error Setting Up Repository"
 msgstr "Kunne ikke indstille pakkearkiv"
 
-#: ../yuminstall.py:288
+#: ../yuminstall.py:301
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -1788,34 +1801,34 @@ msgstr ""
 "\n"
 "Angiv venligst de rigtige informationer for at installere %s."
 
-#: ../yuminstall.py:347
+#: ../yuminstall.py:360
 msgid "Change Disc"
 msgstr "Skift disk"
 
-#: ../yuminstall.py:348
+#: ../yuminstall.py:361
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Indsæt venligst %s disk %d for at fortsætte."
 
-#: ../yuminstall.py:358
+#: ../yuminstall.py:371
 msgid "Wrong Disc"
 msgstr "Forkert disk"
 
-#: ../yuminstall.py:359
+#: ../yuminstall.py:372
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Dette er ikke den korrekte %s-disk."
 
-#: ../yuminstall.py:366
+#: ../yuminstall.py:379
 msgid "Unable to access the disc."
 msgstr "Kan ikke tilgå disken."
 
-#: ../yuminstall.py:525
+#: ../yuminstall.py:538
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Pakkearkiv %r mangler navn i konfigurationen, bruger id"
 
-#: ../yuminstall.py:638 ../yuminstall.py:1068
+#: ../yuminstall.py:651 ../yuminstall.py:1081
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -1823,15 +1836,15 @@ msgstr ""
 "Nogen af dine pakkearkiver kræver netværksforbindelse, men der opstod en "
 "fejl ved aktivering af netværket på dit system."
 
-#: ../yuminstall.py:699 ../yuminstall.py:701
+#: ../yuminstall.py:712 ../yuminstall.py:714
 msgid "Re_boot"
 msgstr "_Genstart"
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:712
 msgid "_Eject"
 msgstr "_Skub ud"
 
-#: ../yuminstall.py:710
+#: ../yuminstall.py:723
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1848,15 +1861,15 @@ msgstr ""
 "sandsynligvis vil kræve geninstallation.\n"
 "\n"
 
-#: ../yuminstall.py:758
+#: ../yuminstall.py:771
 msgid "Retrying"
 msgstr "Forsøger igen"
 
-#: ../yuminstall.py:758
+#: ../yuminstall.py:771
 msgid "Retrying download."
 msgstr "Forsøger at hente igen."
 
-#: ../yuminstall.py:824
+#: ../yuminstall.py:837
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
@@ -1864,47 +1877,47 @@ msgstr ""
 "Der opstod en fejl ved kørsel af din overførsel af følgende årsag: %s\n"
 
 #. FIXME: we need to actually look at these problems...
-#: ../yuminstall.py:859 ../yuminstall.py:860
+#: ../yuminstall.py:872 ../yuminstall.py:873
 msgid "file conflicts"
 msgstr "filkonflikter"
 
-#: ../yuminstall.py:861
+#: ../yuminstall.py:874
 msgid "older package(s)"
 msgstr "ældre pakke(r)"
 
-#: ../yuminstall.py:862
+#: ../yuminstall.py:875
 msgid "insufficient disk space"
 msgstr "ikke tilstrækkeligt diskplads"
 
-#: ../yuminstall.py:863
+#: ../yuminstall.py:876
 msgid "insufficient disk inodes"
 msgstr "ikke tilstrækkeligt diskinoder"
 
-#: ../yuminstall.py:864
+#: ../yuminstall.py:877
 msgid "package conflicts"
 msgstr "pakkekonflikter"
 
-#: ../yuminstall.py:865
+#: ../yuminstall.py:878
 msgid "package already installed"
 msgstr "pakke er allerede installeret"
 
-#: ../yuminstall.py:866
+#: ../yuminstall.py:879
 msgid "required package"
 msgstr "nødvendig pakke"
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:880
 msgid "package for incorrect arch"
 msgstr "pakke til forkert arkitektur"
 
-#: ../yuminstall.py:868
+#: ../yuminstall.py:881
 msgid "package for incorrect os"
 msgstr "pakke til forkert operativsystem"
 
-#: ../yuminstall.py:882
+#: ../yuminstall.py:895
 msgid "You need more space on the following file systems:\n"
 msgstr "Du har brug for mere plads på følgende filsystem:\n"
 
-#: ../yuminstall.py:895
+#: ../yuminstall.py:908
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1913,7 +1926,7 @@ msgstr ""
 "Der er filkonflikter under kontrol af hvilke pakker der skal installeres:\n"
 "%s\n"
 
-#: ../yuminstall.py:898
+#: ../yuminstall.py:911
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
@@ -1921,11 +1934,11 @@ msgid ""
 msgstr ""
 "Der opstod en fejl ved kørsel af din overførsel af følgende årsag(er): %s.\n"
 
-#: ../yuminstall.py:905 ../yuminstall.py:910
+#: ../yuminstall.py:918 ../yuminstall.py:923
 msgid "Error Running Transaction"
 msgstr "Fejl ved kørsel af overførsel"
 
-#: ../yuminstall.py:1102
+#: ../yuminstall.py:1115
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -1933,24 +1946,24 @@ msgstr ""
 "Kan ikke læse gruppeinformation fra pakkearkiver.  Dette er et problem med "
 "oprettelsen af dit installationstræ."
 
-#: ../yuminstall.py:1138
+#: ../yuminstall.py:1151
 msgid "Retrieving installation information."
 msgstr "Modtager installationsinformation."
 
-#: ../yuminstall.py:1140
+#: ../yuminstall.py:1153
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Modtager installationsinformation til %s."
 
-#: ../yuminstall.py:1142
+#: ../yuminstall.py:1155
 msgid "Installation Progress"
 msgstr "Installationsfremskridt"
 
-#: ../yuminstall.py:1155 ../textw/constants_text.py:64
+#: ../yuminstall.py:1168 ../textw/constants_text.py:64
 msgid "Edit"
 msgstr "Redigér"
 
-#: ../yuminstall.py:1168 ../yuminstall.py:1326
+#: ../yuminstall.py:1181 ../yuminstall.py:1339
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1965,7 +1978,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:1344
+#: ../yuminstall.py:1357
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1976,15 +1989,15 @@ msgstr ""
 "har ikke nok fri plads. Du kan ændre dine valg eller afslutte "
 "installationsprogrammet."
 
-#: ../yuminstall.py:1363
+#: ../yuminstall.py:1376
 msgid "Reboot?"
 msgstr "Genstart?"
 
-#: ../yuminstall.py:1364
+#: ../yuminstall.py:1377
 msgid "The system will be rebooted now."
 msgstr "Systemet vil nu blive genstartet."
 
-#: ../yuminstall.py:1507
+#: ../yuminstall.py:1520
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -1994,7 +2007,7 @@ msgstr ""
 "opgradere til denne version af %s. Er du sikker på at du vil fortsætte "
 "opgraderingen?"
 
-#: ../yuminstall.py:1543
+#: ../yuminstall.py:1556
 #, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
@@ -2006,35 +2019,35 @@ msgstr ""
 "Dette kan højst sandsynligt ikke lade sig gøre. Er du sikker på, at du vil "
 "fortsætte installationsprocessen?"
 
-#: ../yuminstall.py:1594
+#: ../yuminstall.py:1607
 msgid "Post Upgrade"
 msgstr "Efteropgradering"
 
-#: ../yuminstall.py:1595
+#: ../yuminstall.py:1608
 msgid "Performing post-upgrade configuration"
 msgstr "Udfører konfiguration af efteropgradering"
 
-#: ../yuminstall.py:1597
+#: ../yuminstall.py:1610
 msgid "Post Installation"
 msgstr "Efterinstallation"
 
-#: ../yuminstall.py:1598
+#: ../yuminstall.py:1611
 msgid "Performing post-installation configuration"
 msgstr "Udfører konfiguration af efterinstallation"
 
-#: ../yuminstall.py:1826
+#: ../yuminstall.py:1840
 msgid "Installation Starting"
 msgstr "Installation starter"
 
-#: ../yuminstall.py:1827
+#: ../yuminstall.py:1841
 msgid "Starting installation process"
 msgstr "Starter installationsproces"
 
-#: ../yuminstall.py:1865
+#: ../yuminstall.py:1879
 msgid "Dependency Check"
 msgstr "Afhængighedskontrol"
 
-#: ../yuminstall.py:1866
+#: ../yuminstall.py:1880
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Kontrollerer afhængigheder i pakker, som er valgt til installation"
 
@@ -2150,16 +2163,16 @@ msgstr "Administrator-_adgangskode:"
 msgid "_Confirm:"
 msgstr "_Bekræft:"
 
-#: ../iw/account_gui.py:97
+#: ../iw/account_gui.py:92
 msgid "Caps Lock is on."
 msgstr "Caps lock er slået til."
 
-#: ../iw/account_gui.py:107 ../iw/account_gui.py:115 ../iw/account_gui.py:122
-#: ../iw/account_gui.py:142 ../textw/userauth_text.py:74
+#: ../iw/account_gui.py:102 ../iw/account_gui.py:110 ../iw/account_gui.py:117
+#: ../iw/account_gui.py:137 ../textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr "Fejl med adgangskode"
 
-#: ../iw/account_gui.py:108
+#: ../iw/account_gui.py:103
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
@@ -2167,28 +2180,28 @@ msgstr ""
 "Du skal indtaste din administrator-adgangskode og bekræfte den ved at "
 "indtaste den, endnu en gang, for at fortsætte."
 
-#: ../iw/account_gui.py:116
+#: ../iw/account_gui.py:111
 msgid "The passwords you entered were different.  Please try again."
 msgstr "Adgangskoderne du indtastede var forskellige. Prøv igen."
 
-#: ../iw/account_gui.py:123
+#: ../iw/account_gui.py:118
 msgid "The root password must be at least six characters long."
 msgstr "Administrator-adgangskoden skal være på mindst seks tegn."
 
-#: ../iw/account_gui.py:132 ../textw/userauth_text.py:83
+#: ../iw/account_gui.py:127 ../textw/userauth_text.py:83
 msgid "Weak Password"
 msgstr "Svag adgangskode"
 
-#: ../iw/account_gui.py:133
+#: ../iw/account_gui.py:128
 #, python-format
 msgid "You have provided a weak password: %s"
 msgstr "Du har angivet en svag adgangskode: %s"
 
-#: ../iw/account_gui.py:135
+#: ../iw/account_gui.py:130
 msgid "Use Anyway"
 msgstr "Brug alligevel"
 
-#: ../iw/account_gui.py:143 ../textw/userauth_text.py:75
+#: ../iw/account_gui.py:138 ../textw/userauth_text.py:75
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
@@ -2829,15 +2842,15 @@ msgstr "Navneserver"
 msgid "Error configuring network device:"
 msgstr "Fejl ved konfigurering af netværksenhed:"
 
-#: ../iw/network_gui.py:66 ../iw/network_gui.py:72
+#: ../iw/network_gui.py:67 ../iw/network_gui.py:73
 msgid "Error with Hostname"
 msgstr "Fejl med værtsnavn"
 
-#: ../iw/network_gui.py:67
+#: ../iw/network_gui.py:68
 msgid "You must enter a valid hostname for this computer."
 msgstr "Du skal indtaste et gyldigt værtsnavn for denne computer."
 
-#: ../iw/network_gui.py:73
+#: ../iw/network_gui.py:74
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -5032,12 +5045,12 @@ msgstr ""
 "\n"
 "Tryk på <Enter> for at afslutte installationsprogrammet."
 
-#: ../storage/devicelibs/lvm.py:312
+#: ../storage/devicelibs/lvm.py:319
 #, python-format
 msgid "vginfo failed for %s"
 msgstr "vginfo fejlede for %s"
 
-#: ../storage/devicelibs/lvm.py:341
+#: ../storage/devicelibs/lvm.py:348
 #, python-format
 msgid "lvs failed for %s"
 msgstr "lvs fejlede for %s"
@@ -5316,7 +5329,8 @@ msgstr "LUN %s på WWPN %s på zFCP-enhed %s er allerede konfigureret."
 msgid ""
 "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
 msgstr ""
-"Kunne ikke læse mislykket attribut af LUN %s på WWPN %s på zFCP-enhed %s (%s)."
+"Kunne ikke læse mislykket attribut af LUN %s på WWPN %s på zFCP-enhed %s (%"
+"s)."
 
 #: ../storage/zfcp.py:198
 #, python-format
