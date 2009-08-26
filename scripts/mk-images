@@ -408,6 +408,11 @@ instbin() {
 setupShellEnvironment() {
     echo "tcp     6       TCP" > $MBD_DIR/etc/protocols
 
+    cat > $MBD_DIR/etc/shadow << EOF
+root::14438:0:99999:7:::
+EOF
+    chmod 0400 $MBD_DIR/etc/shadow
+
     # PAM configuration
     for i in pam_limits.so pam_env.so pam_unix.so pam_deny.so; do
         cp -f $IMGPATH/$LIBDIR/security/$i $MBD_DIR/$LIBDIR/security
