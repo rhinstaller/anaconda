@@ -206,7 +206,7 @@ class DiskLabel(DeviceFormat):
                 udev_settle()
 
         if keepTrying:
-            raise DeviceError("cannot commit to disk after %d attempts" % (maxTries,))
+            raise DeviceFormatError("cannot commit to disk after %d attempts" % (maxTries,), )
 
     def addPartition(self, *args, **kwargs):
         partition = kwargs.get("partition", None)
