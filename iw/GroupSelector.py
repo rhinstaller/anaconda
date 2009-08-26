@@ -528,7 +528,7 @@ class GroupSelector:
 
         (model, paths) = selection.get_selected_rows()
         for p in paths:
-            self._groupToggled(model, p, True, False)
+            self._groupToggled(model, p, True, updateText=(len(paths) == 1))
 
     def _groupDeselect(self, *args):
         selection = self.xml.get_widget("groupList").get_selection()
@@ -537,7 +537,7 @@ class GroupSelector:
 
         (model, paths) = selection.get_selected_rows()
         for p in paths:
-            self._groupToggled(model, p, False, False)
+            self._groupToggled(model, p, False, updateText=(len(paths) == 1))
 
     def _selectAllPackages(self, *args):
         selection = self.xml.get_widget("groupList").get_selection()
