@@ -242,10 +242,11 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump libidn
                 modutils mtools mt-st mtr net-tools smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
                 device-mapper device-mapper-libs dmraid ntfsprogs samba-client
-		firstaidkit firstaidkit-plugin-all dialog"
+		firstaidkit dialog firstaidkit-plugin-passwd firstaidkit-plugin-xserver
+		firstaidkit-gui firstaidkit-plugin-mdadm-conf firstaidkit-plugin-key-recovery"
 
 if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
-    PACKAGESRESCUE="$PACKAGESRESCUE gpart grub"
+  PACKAGESRESCUE="$PACKAGESRESCUE gpart grub firstaidkit-plugin-grub"
 fi
 
 #
