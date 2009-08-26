@@ -208,6 +208,13 @@ class DiskLabel(DeviceFormat):
         if keepTrying:
             raise DeviceFormatError("cannot commit to disk after %d attempts" % (maxTries,), )
 
+    def commitToDisk(self):
+        """ Commit the current partition table to disk. """
+        try:
+            self.partedDisk.commitToDevice()
+        except parted.DiskException as msg:
+            raise DeviceFormatError(msg)
+
     def addPartition(self, *args, **kwargs):
         partition = kwargs.get("partition", None)
         if not partition:

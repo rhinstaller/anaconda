@@ -238,7 +238,7 @@ class Storage(object):
         else:
             if hasattr(boot, "bootable"):
                 boot.bootable = True
-                boot.disk.format.commit()
+                boot.disk.format.commitToDisk()
 
     @property
     def nextID(self):
