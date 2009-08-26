@@ -161,18 +161,45 @@ char * addrToIp(char * hostname) {
         return NULL;
 }
 
-int urlMainSetupPanel(struct iurlinfo * ui) {
-    newtComponent form, okay, cancel, urlEntry;
+static void setProxySensitivity(newtComponent co, void *dptr) {
+    int i;
+
+    /* It's 4 because there are four entry boxes in the proxy grid.  Lame. */
+    for (i = 0; i < 4; i++) {
+        newtEntrySetFlags(*((newtComponent *) dptr), NEWT_FLAG_DISABLED,
+                          NEWT_FLAGS_TOGGLE);
+        dptr += sizeof(newtComponent);
+    }
+
+    return;
+}
+
+int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
+    newtComponent form, okay, cancel, urlEntry, proxyCheckbox;
+    newtComponent proxyEntries[4];
     newtComponent answer, text;
-    char *url = "";
+    char enableProxy;
+    char *url = "", *proxy = "", *proxyPort = "", *proxyUser = "", *proxyPassword = "";
     char * reflowedText = NULL;
     int width, height;
-    newtGrid buttons, grid;
+    newtGrid buttons, grid, proxyGrid;
     char * buf = NULL;
 
     /* Populate the UI with whatever initial value we've got. */
     if (ui && ui->url)
         url = ui->url;
+
+    if (loaderData->proxy)
+        proxy = loaderData->proxy;
+
+    if (loaderData->proxyPort)
+        proxyPort = loaderData->proxyPort;
+
+    if (loaderData->proxyUser)
+        proxyUser = loaderData->proxyUser;
+
+    if (loaderData->proxyPassword)
+        proxyPassword = loaderData->proxyPassword;
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
@@ -193,12 +220,56 @@ int urlMainSetupPanel(struct iurlinfo * ui) {
     urlEntry = newtEntry(22, 8, url, 60, (const char **) &url,
                          NEWT_ENTRY_SCROLL);
 
-    grid = newtCreateGrid(1, 3);
+    /* If we've been provided with proxy settings already, enable the proxy
+     * grid.  This will make sure all the fields get filled in, too.
+     */
+    enableProxy = loaderData->proxy != NULL && strcmp("", loaderData->proxy) ? '*' : ' ';
+
+    proxyCheckbox = newtCheckbox(-1, -1, _("Enable HTTP proxy"), enableProxy,
+                                 NULL, &enableProxy);
+    newtComponentAddCallback(proxyCheckbox, setProxySensitivity, &proxyEntries);
+
+    proxyEntries[0] = newtEntry(-1, -1, proxy, 35, (const char **) &proxy, NEWT_FLAG_SCROLL);
+    proxyEntries[1] = newtEntry(-1, -1, proxyPort, 5, (const char **) &proxyPort, 0);
+    proxyEntries[2] = newtEntry(-1, -1, proxyUser, 15, (const char **) &proxyUser, NEWT_FLAG_SCROLL);
+    proxyEntries[3] = newtEntry(-1, -1, proxyPassword, 15, (const char **) &proxyPassword, NEWT_FLAG_SCROLL|NEWT_FLAG_PASSWORD);
+
+    /* Set the initial proxy grid sensitivity to match. */
+    if (enableProxy == ' ')
+        setProxySensitivity(proxyCheckbox, proxyEntries);
+
+    proxyGrid = newtCreateGrid(4, 2);
+    newtGridSetField(proxyGrid, 0, 0, NEWT_GRID_COMPONENT,
+                     newtLabel(-1, -1, _("Proxy URL")),
+                     0, 0, 0, 0, 0, NEWT_ANCHOR_LEFT);
+    newtGridSetField(proxyGrid, 1, 0, NEWT_GRID_COMPONENT, proxyEntries[0],
+                     0, 0, 0, 0, 0, NEWT_ANCHOR_LEFT);
+    newtGridSetField(proxyGrid, 2, 0, NEWT_GRID_COMPONENT,
+                     newtLabel(-1, -1, _("Port")),
+                     0, 0, 0, 0, 0, NEWT_ANCHOR_LEFT);
+    newtGridSetField(proxyGrid, 3, 0, NEWT_GRID_COMPONENT, proxyEntries[1],
+                     0, 0, 0, 0, 0, NEWT_ANCHOR_LEFT);
+    newtGridSetField(proxyGrid, 0, 1, NEWT_GRID_COMPONENT,
+                     newtLabel(-1, -1, _("Username")),
+                     0, 0, 0, 1, 0, NEWT_ANCHOR_LEFT);
+    newtGridSetField(proxyGrid, 1, 1, NEWT_GRID_COMPONENT, proxyEntries[2],
+                     0, 0, 0, 1, 0, NEWT_ANCHOR_LEFT);
+    newtGridSetField(proxyGrid, 2, 1, NEWT_GRID_COMPONENT,
+                     newtLabel(-1, -1, _("Password")),
+                     0, 0, 0, 1, 0, NEWT_ANCHOR_LEFT);
+    newtGridSetField(proxyGrid, 3, 1, NEWT_GRID_COMPONENT, proxyEntries[3],
+                     0, 0, 0, 1, 0, NEWT_ANCHOR_LEFT);
+
+    grid = newtCreateGrid(1, 5);
     newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
                      0, 0, 0, 1, 0, 0);
     newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, urlEntry,
                      0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, buttons,
+    newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, proxyCheckbox,
+                     0, 0, 0, 1, 0, NEWT_ANCHOR_LEFT);
+    newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, proxyGrid,
+                     0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
+    newtGridSetField(grid, 0, 4, NEWT_GRID_SUBGRID, buttons,
                      0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
 
     form = newtForm(NULL, NULL, 0);
@@ -222,6 +293,18 @@ int urlMainSetupPanel(struct iurlinfo * ui) {
             }
 
             ui->url = strdup(url);
+
+            if (enableProxy == '*') {
+               loaderData->proxy = strdup(proxy);
+               loaderData->proxyPort = strdup(proxyPort);
+               loaderData->proxyUser = strdup(proxyUser);
+               loaderData->proxyPassword = strdup(proxyPassword);
+            } else {
+               loaderData->proxy = "";
+               loaderData->proxyPort = "";
+               loaderData->proxyUser = "";
+               loaderData->proxyPassword = "";
+            }
 
             /* FIXME:  add back in hostname checking */
         }

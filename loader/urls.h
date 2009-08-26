@@ -20,13 +20,14 @@
 #ifndef H_LOADER_URLS
 #define H_LOADER_URLS
 
+#include "loader.h"
 #include "windows.h"
 
 struct iurlinfo {
     char * url;
 };
 
-int urlMainSetupPanel(struct iurlinfo * ui);
+int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui);
 int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
                     char **extraHeaders, char *dest);
 

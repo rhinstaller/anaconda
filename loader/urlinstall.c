@@ -286,7 +286,7 @@ char *mountUrlImage(struct installMethod *method, char *location,
                 } else {
                     char *substr;
 
-                    if (urlMainSetupPanel(&ui)) {
+                    if (urlMainSetupPanel(loaderData, &ui)) {
                         loaderData->stage2Data = NULL;
                         return NULL;
                     }
