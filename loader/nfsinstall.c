@@ -159,8 +159,10 @@ char * mountNfsImage(struct installMethod * method,
             } else {
                 char *substr, *tmp;
 
-                if (nfsGetSetup(&host, &directory) == LOADER_BACK)
+                if (nfsGetSetup(&host, &directory) == LOADER_BACK) {
+                    loaderData->stage2Data = NULL;
                     return NULL;
+                }
 
                 /* If the user-provided URL points at a repo instead of a
                  * stage2 image, fix that up now.

@@ -223,8 +223,10 @@ char *mountUrlImage(struct installMethod *method, char *location,
                 } else {
                     char *substr;
 
-                    if (urlMainSetupPanel(&ui))
+                    if (urlMainSetupPanel(&ui)) {
+                        loaderData->stage2Data = NULL;
                         return NULL;
+                    }
 
                     /* If the user-provided URL points at a repo instead of
                      * a stage2 image, fix it up now.
