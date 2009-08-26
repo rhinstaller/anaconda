@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-08-19 14:35+0000\n"
-"PO-Revision-Date: 2009-08-19 14:29-0300\n"
+"POT-Creation-Date: 2009-08-26 02:51+0000\n"
+"PO-Revision-Date: 2009-08-26 00:05-0300\n"
 "Last-Translator: Igor Pires Soares <igor@projetofedora.org>\n"
 "Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -192,13 +192,13 @@ msgstr "Ocorreu um erro ao transferir a imagem de instalação para o seu disco 
 #: ../partIntfHelpers.py:208
 #: ../text.py:308
 #: ../text.py:312
-#: ../yuminstall.py:365
-#: ../yuminstall.py:709
-#: ../yuminstall.py:823
-#: ../yuminstall.py:1101
-#: ../yuminstall.py:1167
-#: ../yuminstall.py:1325
-#: ../yuminstall.py:1343
+#: ../yuminstall.py:378
+#: ../yuminstall.py:722
+#: ../yuminstall.py:836
+#: ../yuminstall.py:1114
+#: ../yuminstall.py:1180
+#: ../yuminstall.py:1338
+#: ../yuminstall.py:1356
 #: ../iw/autopart_type.py:99
 #: ../iw/autopart_type.py:198
 #: ../iw/autopart_type.py:318
@@ -262,9 +262,9 @@ msgstr "Erro"
 #: ../bootloader.py:209
 #: ../bootloader.py:216
 #: ../image.py:82
-#: ../upgrade.py:250
-#: ../yuminstall.py:1506
-#: ../yuminstall.py:1542
+#: ../upgrade.py:251
+#: ../yuminstall.py:1519
+#: ../yuminstall.py:1555
 #: ../iw/autopart_type.py:208
 #: ../iw/blpasswidget.py:148
 #: ../iw/upgrade_swap_gui.py:192
@@ -290,7 +290,7 @@ msgstr ""
 #: ../gui.py:1093
 #: ../gui.py:1140
 #: ../gui.py:1268
-#: ../gui.py:1345
+#: ../gui.py:1347
 #: ../image.py:91
 #: ../livecd.py:199
 #: ../livecd.py:404
@@ -302,17 +302,18 @@ msgstr ""
 #: ../packages.py:171
 #: ../packages.py:179
 #: ../packages.py:188
-#: ../upgrade.py:57
-#: ../upgrade.py:205
-#: ../yuminstall.py:642
-#: ../yuminstall.py:827
-#: ../yuminstall.py:907
-#: ../yuminstall.py:913
-#: ../yuminstall.py:1072
-#: ../yuminstall.py:1097
-#: ../yuminstall.py:1155
-#: ../yuminstall.py:1320
-#: ../yuminstall.py:1350
+#: ../upgrade.py:58
+#: ../upgrade.py:206
+#: ../yuminstall.py:235
+#: ../yuminstall.py:655
+#: ../yuminstall.py:840
+#: ../yuminstall.py:920
+#: ../yuminstall.py:926
+#: ../yuminstall.py:1085
+#: ../yuminstall.py:1110
+#: ../yuminstall.py:1168
+#: ../yuminstall.py:1333
+#: ../yuminstall.py:1363
 #: ../storage/__init__.py:89
 #: ../storage/__init__.py:1679
 msgid "_Exit installer"
@@ -323,8 +324,8 @@ msgstr "_Sair do instalador"
 #: ../image.py:248
 #: ../kickstart.py:1300
 #: ../kickstart.py:1339
-#: ../upgrade.py:57
-#: ../yuminstall.py:1160
+#: ../upgrade.py:58
+#: ../yuminstall.py:1173
 #: ../iw/partition_gui.py:1036
 #: ../storage/__init__.py:1680
 msgid "_Continue"
@@ -332,9 +333,9 @@ msgstr "_Continuar"
 
 #: ../bootloader.py:114
 #: ../platform.py:93
-#: ../platform.py:319
-#: ../platform.py:376
-#: ../platform.py:466
+#: ../platform.py:320
+#: ../platform.py:377
+#: ../platform.py:468
 msgid "RAID Device"
 msgstr "Dispositivo RAID"
 
@@ -474,12 +475,12 @@ msgid "Device %s is encrypted. In order to access the device's contents during i
 msgstr "O dispositivo %s está criptografado. Para acessar o conteúdo dele durante a instalação você deve inserir abaixo a frase-senha do dispositivo."
 
 #: ../gui.py:784
-#: ../gui.py:1345
+#: ../gui.py:1347
 #: ../partIntfHelpers.py:153
 #: ../partIntfHelpers.py:310
 #: ../text.py:99
 #: ../text.py:100
-#: ../iw/account_gui.py:135
+#: ../iw/account_gui.py:130
 #: ../loader/dirbrowser.c:145
 #: ../loader/driverdisk.c:244
 #: ../loader/kickstart.c:381
@@ -535,10 +536,10 @@ msgstr "_Sair"
 #: ../image.py:164
 #: ../image.py:194
 #: ../livecd.py:199
-#: ../yuminstall.py:701
-#: ../yuminstall.py:1097
-#: ../yuminstall.py:1155
-#: ../yuminstall.py:1320
+#: ../yuminstall.py:714
+#: ../yuminstall.py:1110
+#: ../yuminstall.py:1168
+#: ../yuminstall.py:1333
 msgid "_Retry"
 msgstr "_Repetir"
 
@@ -554,7 +555,7 @@ msgstr "O sistema será reinicializado agora."
 #: ../gui.py:1271
 #: ../image.py:248
 #: ../packages.py:433
-#: ../yuminstall.py:1366
+#: ../yuminstall.py:1379
 msgid "_Reboot"
 msgstr "_Reinicializar"
 
@@ -563,27 +564,27 @@ msgid "Exiting"
 msgstr "Saindo"
 
 #. FIXME: translate the string
-#: ../gui.py:1342
+#: ../gui.py:1344
 #: ../livecd.py:115
 #: ../text.py:266
-#: ../upgrade.py:196
+#: ../upgrade.py:197
 msgid "Exit installer"
 msgstr "Sair do instalador"
 
-#: ../gui.py:1343
+#: ../gui.py:1345
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Você realmente deseja sair do instalador?"
 
-#: ../gui.py:1352
+#: ../gui.py:1354
 #, python-format
 msgid "%s Installer"
 msgstr "Instalador %s"
 
-#: ../gui.py:1358
+#: ../gui.py:1360
 msgid "Unable to load title bar"
 msgstr "Não foi possível carregar a barra de título"
 
-#: ../gui.py:1420
+#: ../gui.py:1422
 msgid "Install Window"
 msgstr "Janela de instalação"
 
@@ -644,11 +645,11 @@ msgstr ""
 #: ../packages.py:379
 #: ../packages.py:430
 #: ../packages.py:433
-#: ../upgrade.py:204
-#: ../yuminstall.py:827
-#: ../yuminstall.py:913
-#: ../yuminstall.py:1350
-#: ../yuminstall.py:1366
+#: ../upgrade.py:205
+#: ../yuminstall.py:840
+#: ../yuminstall.py:926
+#: ../yuminstall.py:1363
+#: ../yuminstall.py:1379
 msgid "_Back"
 msgstr "_Voltar"
 
@@ -663,70 +664,70 @@ msgstr "Ocorreu um erro ao desmontar o disco. Por favor, certifique-se de que vo
 msgid "Install on System"
 msgstr "Instalar no sistema"
 
-#: ../iutil.py:788
+#: ../iutil.py:824
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
 msgstr "Erro: Não é possível definir o método reIPL para %s (%s: %s) ao abrir"
 
-#: ../iutil.py:796
+#: ../iutil.py:832
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
 msgstr "Erro: Não é possível definir o método reIPL para %s (%s: %s) ao gravar"
 
-#: ../iutil.py:803
+#: ../iutil.py:839
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
 msgstr "Erro: Não é possível definir o método reIPL para %s (%s: %s) ao fechar"
 
-#: ../iutil.py:820
+#: ../iutil.py:856
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
 msgstr "Erro: Não é possível definir %s como um dispositivo reIPL (%s)"
 
-#: ../iutil.py:829
+#: ../iutil.py:865
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr "Erro: não foi possível restaurar o loadparm (%s)"
 
-#: ../iutil.py:838
+#: ../iutil.py:874
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr "Aviso: Não foi possível restaurar o parm (%s)"
 
-#: ../iutil.py:848
+#: ../iutil.py:884
 #, python-format
 msgid "After shutdown, please perform a manual IPL from DASD device %s to continue installation"
 msgstr "Após o desligamento, por favor realize um IPL manual do dispositivo DASD %s para continuar a instalação"
 
-#: ../iutil.py:870
+#: ../iutil.py:906
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
 msgstr "Erro: lendo a propriedade FCP %s para o reIPL (%s)"
 
-#: ../iutil.py:883
+#: ../iutil.py:919
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
 msgstr "Erro: gravando a propriedade FCP %s para o reIPL (%s)"
 
-#: ../iutil.py:896
+#: ../iutil.py:932
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
 msgstr "Erro: gravando a propriedade FCP padrão %s para o reIPL (%s)"
 
-#: ../iutil.py:906
+#: ../iutil.py:942
 #, python-format
 msgid "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %(wwpn)s and LUN %(lun)s to continue installation"
 msgstr "Após o desligamento, por favor realize um IPL manual do FCP %(device)s com o WWPN %(wwpn)s e LUN %(lun)s para continuar a instalação"
 
-#: ../iutil.py:913
+#: ../iutil.py:949
 msgid "After shutdown, please perform a manual IPL from the device now containing /boot to continue installation"
 msgstr "Após o desligamento, por favor realize um IPL manual do dispositivo que agora contém o /boot, para dar continuidade à instalação"
 
-#: ../iutil.py:921
+#: ../iutil.py:957
 msgid "Error determining mount point type"
 msgstr "Erro ao determinar o tipo do ponto de montagem"
 
-#: ../iutil.py:925
+#: ../iutil.py:961
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "O ponto de montagem /boot ou / está em um disco com o qual não estamos familiarizados"
 
@@ -1218,15 +1219,15 @@ msgstr "Tem certeza que deseja restaurar a tabela de partições para o estado o
 
 #: ../platform.py:94
 #: ../platform.py:97
-#: ../platform.py:320
-#: ../platform.py:377
-#: ../platform.py:467
-#: ../platform.py:470
+#: ../platform.py:321
+#: ../platform.py:378
+#: ../platform.py:469
+#: ../platform.py:472
 msgid "Master Boot Record (MBR)"
 msgstr "Registro Mestre de Inicialização (MBR)"
 
 #: ../platform.py:96
-#: ../platform.py:469
+#: ../platform.py:471
 msgid "First sector of boot partition"
 msgstr "Primeiro setor da partição de inicialização"
 
@@ -1258,46 +1259,46 @@ msgstr "Partições de inicialização não podem estar em um sistema de arquivo
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr "Partições de inicialização não podem estar em um dispositivo de bloco criptografado."
 
-#: ../platform.py:213
+#: ../platform.py:214
 msgid "EFI System Partition"
 msgstr "Partição de sistema EFI"
 
-#: ../platform.py:218
+#: ../platform.py:219
 msgid "You have not created a /boot/efi partition."
 msgstr "Você não criou uma partição /boot/efi."
 
-#: ../platform.py:224
+#: ../platform.py:225
 msgid "/boot is not on an ext2 filesystem."
 msgstr "A /boot não está em um sistema de arquivos ext2."
 
-#: ../platform.py:227
+#: ../platform.py:228
 msgid "/boot/efi is not EFI."
 msgstr "O /boot/efi não é EFI."
 
-#: ../platform.py:265
+#: ../platform.py:266
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "%s deve ter um rótulo de disco bsd."
 
-#: ../platform.py:277
+#: ../platform.py:278
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr "O disco %s requer pelo menos 1MB de espaço livre no início."
 
-#: ../platform.py:322
+#: ../platform.py:323
 msgid "PPC PReP Boot"
 msgstr "Inicialização PPC PReP"
 
-#: ../platform.py:334
+#: ../platform.py:335
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr "A partição de inicialização deve estar dentro dos primeiros 4MB do disco."
 
-#: ../platform.py:379
-#: ../platform.py:382
+#: ../platform.py:380
+#: ../platform.py:383
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../platform.py:397
+#: ../platform.py:398
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "%s deve ter um rótulo de disco mac."
@@ -1335,8 +1336,8 @@ msgid "No"
 msgstr "Não"
 
 #: ../rescue.py:240
-#: ../yuminstall.py:637
-#: ../yuminstall.py:1067
+#: ../yuminstall.py:650
+#: ../yuminstall.py:1080
 msgid "No Network Available"
 msgstr "Nenhuma rede disponível"
 
@@ -1516,11 +1517,11 @@ msgstr "Cancelado"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Não é possível retornar ao passo anterior a partir daqui. Você terá que tentar novamente."
 
-#: ../upgrade.py:50
+#: ../upgrade.py:51
 msgid "Proceed with upgrade?"
 msgstr "Continuar com a atualização?"
 
-#: ../upgrade.py:51
+#: ../upgrade.py:52
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have already been mounted. You cannot go back past this point. \n"
 "\n"
@@ -1528,15 +1529,15 @@ msgstr ""
 "Os sistemas de arquivos da instalação do Linux que você escolheu atualizar já foram montados. Não é possível voltar a partir deste ponto. \n"
 "\n"
 
-#: ../upgrade.py:55
+#: ../upgrade.py:56
 msgid "Would you like to continue with the upgrade?"
 msgstr "Você deseja continuar com a atualização?"
 
-#: ../upgrade.py:183
+#: ../upgrade.py:184
 msgid "Mount failed"
 msgstr "Falha na montagem"
 
-#: ../upgrade.py:184
+#: ../upgrade.py:185
 #, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/fstab.  Please fix this problem and try to upgrade again.\n"
@@ -1545,20 +1546,20 @@ msgstr ""
 "O erro seguinte ocorreu ao tentar montar os sistemas de arquivos listados no /etc/fstab. Por favor, corrija este problema e tente atualizar novamente.\n"
 "%s"
 
-#: ../upgrade.py:192
-#: ../upgrade.py:199
+#: ../upgrade.py:193
+#: ../upgrade.py:200
 msgid "Upgrade root not found"
 msgstr "Raiz de atualização não localizada"
 
-#: ../upgrade.py:193
+#: ../upgrade.py:194
 msgid "The root for the previously installed system was not found."
 msgstr "A raiz do sistema instalado anteriormente não foi localizada."
 
-#: ../upgrade.py:200
+#: ../upgrade.py:201
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
 msgstr "A raiz do sistema instalado previamente não foi localizada. Você pode sair do instalador ou voltar e escolher uma instalação ao invés de uma atualização."
 
-#: ../upgrade.py:223
+#: ../upgrade.py:224
 msgid ""
 "The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n"
 "\n"
@@ -1566,11 +1567,11 @@ msgstr ""
 "Os seguintes arquivos são links simbólicos absolutos, os quais nós não suportamos durante uma atualização. Por favor, altere-os para links simbólicos relativos e reinicie a atualização.\n"
 "\n"
 
-#: ../upgrade.py:229
+#: ../upgrade.py:230
 msgid "Absolute Symlinks"
 msgstr "Links simbólicos absolutos"
 
-#: ../upgrade.py:240
+#: ../upgrade.py:241
 msgid ""
 "The following are directories which should instead be symbolic links, which will cause problems with the upgrade.  Please return them to their original state as symbolic links and restart the upgrade.\n"
 "\n"
@@ -1578,11 +1579,11 @@ msgstr ""
 "Os diretórios listados a seguir deveriam ser links simbólicos, o que poderá ocasionar problemas na atualização. Por favor, retorne-os ao seu estado original como links simbólicos e reinicie a atualização.\n"
 "\n"
 
-#: ../upgrade.py:246
+#: ../upgrade.py:247
 msgid "Invalid Directories"
 msgstr "Diretórios inválidos"
 
-#: ../upgrade.py:251
+#: ../upgrade.py:252
 #, python-format
 msgid "%s not found"
 msgstr "%s não encontrado"
@@ -1783,13 +1784,22 @@ msgstr "Finalizando a atualização"
 msgid "Finishing upgrade process.  This may take a little while."
 msgstr "Finalizando o processo de atualização. Isso poderá demorar um pouco."
 
-#: ../yuminstall.py:287
+#: ../yuminstall.py:229
+msgid "Error Installing Package"
+msgstr "Erro ao instalar pacote"
+
+#: ../yuminstall.py:230
+#, python-format
+msgid "A fatal error occurred when installing the %s package.  This could indicate errors when reading the installation media.  Installation cannot continue."
+msgstr "Ocorreu um erro fatal ao instalar o pacote %s. Isto pode indicar erros na leitura da mídia de instalação. A instalação não pode continuar."
+
+#: ../yuminstall.py:300
 #: ../iw/task_gui.py:80
 #: ../iw/task_gui.py:318
 msgid "Error Setting Up Repository"
 msgstr "Erro ao configurar o repositório"
 
-#: ../yuminstall.py:288
+#: ../yuminstall.py:301
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -1804,48 +1814,48 @@ msgstr ""
 "\n"
 "Por favor, forneça as informações corretas para a instalação do %s."
 
-#: ../yuminstall.py:347
+#: ../yuminstall.py:360
 msgid "Change Disc"
 msgstr "Trocar disco"
 
-#: ../yuminstall.py:348
+#: ../yuminstall.py:361
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Para continuar a instalação do %s, insira o disco %d."
 
-#: ../yuminstall.py:358
+#: ../yuminstall.py:371
 msgid "Wrong Disc"
 msgstr "Disco errado"
 
-#: ../yuminstall.py:359
+#: ../yuminstall.py:372
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Este não é o disco correto do %s."
 
-#: ../yuminstall.py:366
+#: ../yuminstall.py:379
 msgid "Unable to access the disc."
 msgstr "Não foi possível acessar o disco."
 
-#: ../yuminstall.py:525
+#: ../yuminstall.py:538
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "O repositório %r está sem nome na configuração, usando o id"
 
-#: ../yuminstall.py:638
-#: ../yuminstall.py:1068
+#: ../yuminstall.py:651
+#: ../yuminstall.py:1081
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
 msgstr "Alguns dos seus repositórios de programas necessitam da rede, mas houve um erro ao habilitá-la no seu sistema."
 
-#: ../yuminstall.py:699
-#: ../yuminstall.py:701
+#: ../yuminstall.py:712
+#: ../yuminstall.py:714
 msgid "Re_boot"
 msgstr "Re_inicializar"
 
-#: ../yuminstall.py:699
+#: ../yuminstall.py:712
 msgid "_Eject"
 msgstr "_Ejetar"
 
-#: ../yuminstall.py:710
+#: ../yuminstall.py:723
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt package or corrupt media.  Please verify your installation source.\n"
@@ -1858,62 +1868,62 @@ msgstr ""
 "Se você sair, o seu sistema será deixado em um estado inconsistente, o que provavelmente exigirá uma reinstalação.\n"
 "\n"
 
-#: ../yuminstall.py:758
+#: ../yuminstall.py:771
 msgid "Retrying"
 msgstr "Repetindo"
 
-#: ../yuminstall.py:758
+#: ../yuminstall.py:771
 msgid "Retrying download."
 msgstr "Tentando baixar novamente."
 
-#: ../yuminstall.py:824
+#: ../yuminstall.py:837
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "Houve um erro ao executar a sua transação, pelo seguinte motivo: %s\n"
 
 #. FIXME: we need to actually look at these problems...
-#: ../yuminstall.py:859
-#: ../yuminstall.py:860
+#: ../yuminstall.py:872
+#: ../yuminstall.py:873
 msgid "file conflicts"
 msgstr "conflitos de arquivos"
 
-#: ../yuminstall.py:861
+#: ../yuminstall.py:874
 msgid "older package(s)"
 msgstr "pacote(s) antigo(s)"
 
-#: ../yuminstall.py:862
+#: ../yuminstall.py:875
 msgid "insufficient disk space"
 msgstr "espaço em disco insuficiente"
 
-#: ../yuminstall.py:863
+#: ../yuminstall.py:876
 msgid "insufficient disk inodes"
 msgstr "inodes do disco insuficientes"
 
-#: ../yuminstall.py:864
+#: ../yuminstall.py:877
 msgid "package conflicts"
 msgstr "conflitos de pacotes"
 
-#: ../yuminstall.py:865
+#: ../yuminstall.py:878
 msgid "package already installed"
 msgstr "pacote já instalado"
 
-#: ../yuminstall.py:866
+#: ../yuminstall.py:879
 msgid "required package"
 msgstr "pacote exigido"
 
-#: ../yuminstall.py:867
+#: ../yuminstall.py:880
 msgid "package for incorrect arch"
 msgstr "pacote para arquitetura incorreta"
 
-#: ../yuminstall.py:868
+#: ../yuminstall.py:881
 msgid "package for incorrect os"
 msgstr "pacote para o SO incorreto"
 
-#: ../yuminstall.py:882
+#: ../yuminstall.py:895
 msgid "You need more space on the following file systems:\n"
 msgstr "Você precisa de mais espaço nos seguintes sistemas de arquivos:\n"
 
-#: ../yuminstall.py:895
+#: ../yuminstall.py:908
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1922,40 +1932,40 @@ msgstr ""
 "Houve conflitos de arquivos na verificação dos pacotes a serem instalados:\n"
 "%s\n"
 
-#: ../yuminstall.py:898
+#: ../yuminstall.py:911
 #, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
 msgstr "Houve um erro ao executar a sua transação, pelo(s) seguinte(s) motivo(s): %s.\n"
 
-#: ../yuminstall.py:905
-#: ../yuminstall.py:910
+#: ../yuminstall.py:918
+#: ../yuminstall.py:923
 msgid "Error Running Transaction"
 msgstr "Erro ao executar transação"
 
-#: ../yuminstall.py:1102
+#: ../yuminstall.py:1115
 msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
 msgstr "Não foi possível ler as informações dos grupos a partir dos repositórios. Isso é um problema na criação da sua árvore de instalação."
 
-#: ../yuminstall.py:1138
+#: ../yuminstall.py:1151
 msgid "Retrieving installation information."
 msgstr "Recuperando informações da instalação."
 
-#: ../yuminstall.py:1140
+#: ../yuminstall.py:1153
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Recuperando informações da instalação para o %s."
 
-#: ../yuminstall.py:1142
+#: ../yuminstall.py:1155
 msgid "Installation Progress"
 msgstr "Progresso da instalação"
 
-#: ../yuminstall.py:1155
+#: ../yuminstall.py:1168
 #: ../textw/constants_text.py:64
 msgid "Edit"
 msgstr "Editar"
 
-#: ../yuminstall.py:1168
-#: ../yuminstall.py:1326
+#: ../yuminstall.py:1181
+#: ../yuminstall.py:1339
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.\n"
@@ -1966,58 +1976,58 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../yuminstall.py:1344
+#: ../yuminstall.py:1357
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
 msgstr "A sua seleção de pacotes requer %d MB de espaço livre para a instalação, mas você não tem o suficiente disponível. Você pode mudar a sua seleção ou sair do instalador."
 
-#: ../yuminstall.py:1363
+#: ../yuminstall.py:1376
 msgid "Reboot?"
 msgstr "Reinicializar?"
 
-#: ../yuminstall.py:1364
+#: ../yuminstall.py:1377
 msgid "The system will be rebooted now."
 msgstr "O sistema será reinicializado agora."
 
-#: ../yuminstall.py:1507
+#: ../yuminstall.py:1520
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr "Aparentemente você está conduzindo a sua atualização a partir de um sistema muito antigo para esta versão do %s. Tem certeza de que deseja continuar o processo de atualização?"
 
-#: ../yuminstall.py:1543
+#: ../yuminstall.py:1556
 #, python-format
 msgid "The arch of the release of %s you are upgrading to appears to be %s which does not match your previously installed arch of %s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr "A arquitetura da versão do %s que você está atualizando parece ser a %s, a qual não corresponde à sua arquitetura previamente instalada do %s. É provável que isso não seja bem sucedido. Você tem certeza de que deseja continuar o processo de atualização?"
 
-#: ../yuminstall.py:1594
+#: ../yuminstall.py:1607
 msgid "Post Upgrade"
 msgstr "Pós-atualização"
 
-#: ../yuminstall.py:1595
+#: ../yuminstall.py:1608
 msgid "Performing post-upgrade configuration"
 msgstr "Executando configuração de pós-atualização"
 
-#: ../yuminstall.py:1597
+#: ../yuminstall.py:1610
 msgid "Post Installation"
 msgstr "Pós-instalação"
 
-#: ../yuminstall.py:1598
+#: ../yuminstall.py:1611
 msgid "Performing post-installation configuration"
 msgstr "Executando configuração de pós-instalação."
 
-#: ../yuminstall.py:1826
+#: ../yuminstall.py:1840
 msgid "Installation Starting"
 msgstr "Iniciando instalação"
 
-#: ../yuminstall.py:1827
+#: ../yuminstall.py:1841
 msgid "Starting installation process"
 msgstr "Iniciando o processo de instalação"
 
-#: ../yuminstall.py:1865
+#: ../yuminstall.py:1879
 msgid "Dependency Check"
 msgstr "Verificação de dependências"
 
-#: ../yuminstall.py:1866
+#: ../yuminstall.py:1880
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Verificando dependências dos pacotes selecionados para instalação"
 
@@ -2119,45 +2129,45 @@ msgstr "_Senha de root:"
 msgid "_Confirm:"
 msgstr "_Confirmar:"
 
-#: ../iw/account_gui.py:97
+#: ../iw/account_gui.py:92
 msgid "Caps Lock is on."
 msgstr "A tecla Caps Lock está ativada."
 
-#: ../iw/account_gui.py:107
-#: ../iw/account_gui.py:115
-#: ../iw/account_gui.py:122
-#: ../iw/account_gui.py:142
+#: ../iw/account_gui.py:102
+#: ../iw/account_gui.py:110
+#: ../iw/account_gui.py:117
+#: ../iw/account_gui.py:137
 #: ../textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr "Erro na senha"
 
-#: ../iw/account_gui.py:108
+#: ../iw/account_gui.py:103
 msgid "You must enter your root password and confirm it by typing it a second time to continue."
 msgstr "Você deve inserir e confirmar a sua senha root digitando-a uma segunda vez para continuar."
 
-#: ../iw/account_gui.py:116
+#: ../iw/account_gui.py:111
 msgid "The passwords you entered were different.  Please try again."
 msgstr "As senhas digitadas são diferentes. Por favor, tente novamente."
 
-#: ../iw/account_gui.py:123
+#: ../iw/account_gui.py:118
 msgid "The root password must be at least six characters long."
 msgstr "A senha root deve ter pelo menos 6 caracteres."
 
-#: ../iw/account_gui.py:132
+#: ../iw/account_gui.py:127
 #: ../textw/userauth_text.py:83
 msgid "Weak Password"
 msgstr "Senha fraca"
 
-#: ../iw/account_gui.py:133
+#: ../iw/account_gui.py:128
 #, python-format
 msgid "You have provided a weak password: %s"
 msgstr "Você forneceu uma senha fraca: %s"
 
-#: ../iw/account_gui.py:135
+#: ../iw/account_gui.py:130
 msgid "Use Anyway"
 msgstr "Usar mesmo assim"
 
-#: ../iw/account_gui.py:143
+#: ../iw/account_gui.py:138
 #: ../textw/userauth_text.py:75
 msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "A senha requisitada contém caracteres não-ASCII, que não são permitidos para uso em senhas."
@@ -2745,16 +2755,16 @@ msgstr "Servidor de nomes"
 msgid "Error configuring network device:"
 msgstr "Ocorreu um erro ao configurar o dispositivo de rede:"
 
-#: ../iw/network_gui.py:66
-#: ../iw/network_gui.py:72
+#: ../iw/network_gui.py:67
+#: ../iw/network_gui.py:73
 msgid "Error with Hostname"
 msgstr "Erro no nome de máquina"
 
-#: ../iw/network_gui.py:67
+#: ../iw/network_gui.py:68
 msgid "You must enter a valid hostname for this computer."
 msgstr "Você deve digitar um nome de máquina válido para este computador."
 
-#: ../iw/network_gui.py:73
+#: ../iw/network_gui.py:74
 #, python-format
 msgid ""
 "The hostname \"%s\" is not valid for the following reason:\n"
@@ -4665,12 +4675,12 @@ msgstr ""
 "\n"
 "Pressione <Enter> para sair do instalador."
 
-#: ../storage/devicelibs/lvm.py:312
+#: ../storage/devicelibs/lvm.py:319
 #, python-format
 msgid "vginfo failed for %s"
 msgstr "vginfo falhou para %s"
 
-#: ../storage/devicelibs/lvm.py:341
+#: ../storage/devicelibs/lvm.py:348
 #, python-format
 msgid "lvs failed for %s"
 msgstr "lvs falhou para %s"
