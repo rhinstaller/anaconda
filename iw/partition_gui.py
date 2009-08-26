@@ -1243,8 +1243,8 @@ class PartitionWindow(InstallWindow):
         device = self.tree.getCurrentDevice()
         if not device:
             self.intf.messageWindow(_("Unable To Edit"),
-                               _("You must select a device to edit"),
-                               custom_icon="error")
+                                    _("You must select a device to edit"),
+                                    custom_icon="error")
             return
 
         reason = self.storage.deviceImmutable(device, ignoreProtected=True)
