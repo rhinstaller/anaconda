@@ -108,6 +108,40 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr) {
     return 0;
 }
 
+static void getHostAndPath(char *ksSource, char **host, char **file, char *ip) {
+    char *tmp;
+    char *hostsrc;
+
+    hostsrc = strdup(ksSource);
+    *host = hostsrc;
+    tmp = strchr(*host, '/');
+
+    if (tmp) {
+       *file = strdup(tmp);
+       *tmp = '\0';
+    }
+    else {
+        *file = malloc(sizeof(char *));
+        **file = '\0';
+    }
+
+    logMessage(DEBUGLVL, "getHostAndPath host: |%s|", *host);
+    logMessage(DEBUGLVL, "getHostAndPath file(1): |%s|", *file);
+
+    /* if the filename ends with / or is null, use default kickstart
+     * name of IP_ADDRESS-kickstart appended to *file
+     */
+    if ((*file) && (((*file)[strlen(*file) - 1] == '/') ||
+                    ((*file)[strlen(*file) - 1] == '\0'))) {
+        if (asprintf(file, "%s%s-kickstart", *file, ip) == -1) {
+            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+            abort();
+        }
+
+        logMessage(DEBUGLVL, "getHostAndPath file(2): |%s|", *file);
+    }
+}
+
 char * mountNfsImage(struct installMethod * method,
                      char * location, struct loaderData_s * loaderData) {
     char * host = NULL;
@@ -481,7 +515,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     }
 
     logMessage(INFO, "url is %s", url);
-    getHostandPath(url, &host, &path, ip);
+    getHostAndPath(url, &host, &path, ip);
 
     opts = strchr(host, ':');
     if (opts && (strlen(opts) > 1)) {
