@@ -1100,6 +1100,12 @@ class DeviceTree(object):
                 log.error("failure scanning device %s" % disk_name)
                 return
 
+        # Check that the disk has partitions. If it does not, we must have
+        # reinitialized the disklabel.
+        if not getattr(disk.format, "partitions", None):
+            log.debug("ignoring partition %s" % name)
+            return
+
         try:
             device = PartitionDevice(name, sysfsPath=sysfs_path,
                                      major=udev_device_get_major(info),
