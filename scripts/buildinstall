@@ -32,6 +32,7 @@ usage() {
     exit 1
 }
 
+CWD="$(pwd)"
 PRODUCTPATH="anaconda"
 
 while [ $# -gt 0 ]; do
@@ -43,6 +44,10 @@ while [ $# -gt 0 ]; do
         ;;
         --debug)
             DEBUGSTR="--debug"
+            shift
+        ;;
+        --localscripts)
+            LOCALSCRIPTS="yes"
             shift
         ;;
 
@@ -177,37 +182,45 @@ done
 
 echo "Running buildinstall..."
 
-pushd $BUILDINSTDIR
-BUILDARCH=`repoquery -c $yumconf --qf "%{ARCH}\n" anaconda`
-# This is a crappy implementation but x86 is the only place we currently see
-# BUILDARCH != BASEARCH (e.g. i586 != i386) so it'll suffice.
-BASEARCH=`echo $BUILDARCH | sed -e 's/i.86/i386/'`
-yumdownloader -c $yumconf anaconda || exit 1
-rpm2cpio anaconda*rpm | cpio --quiet -iumd './usr*'
-rm -f anaconda*rpm
-popd
+if [ "$LOCALSCRIPTS" = "yes" ]; then
+    UPD_INSTROOT="$CWD/upd-instroot"
+    MK_IMAGES="$CWD/mk-images"
+    MK_TREEINFO="$CWD/maketreeinfo.py"
+    MK_STAMP="$CWD/makestamp.py"
+    BUILDINSTALL="$CWD/buildinstall"
+else
+    pushd $BUILDINSTDIR
+    BUILDARCH=`repoquery -c $yumconf --qf "%{ARCH}\n" anaconda`
+    # This is a crappy implementation but x86 is the only place we currently see
+    # BUILDARCH != BASEARCH (e.g. i586 != i386) so it'll suffice.
+    BASEARCH=`echo $BUILDARCH | sed -e 's/i.86/i386/'`
+    yumdownloader -c $yumconf anaconda || exit 1
+    rpm2cpio anaconda*rpm | cpio --quiet -iumd './usr*'
+    rm -f anaconda*rpm
+    popd
 
-UPD_INSTROOT=./upd-instroot
-MK_IMAGES=./mk-images
-MK_TREEINFO=./maketreeinfo.py
-MK_STAMP=./makestamp.py
-BUILDINSTALL=./buildinstall
+    UPD_INSTROOT=./upd-instroot
+    MK_IMAGES=./mk-images
+    MK_TREEINFO=./maketreeinfo.py
+    MK_STAMP=./makestamp.py
+    BUILDINSTALL=./buildinstall
 
-for f in $UPD_INSTROOT $MK_IMAGES $MK_STAMP $MK_TREEINFO $BUILDINSTALL; do
-    if [ -n "$UPDATES" -a -f $UPDATES/usr/lib/anaconda-runtime/$f ]; then
-        cp -a $UPDATES/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
-    elif [ ! -f $f ]; then
-        cp -a $BUILDINSTDIR/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
-    else
-        cp -a $f* $BUILDINSTDIR/
-    fi
-done
+    for f in $UPD_INSTROOT $MK_IMAGES $MK_STAMP $MK_TREEINFO $BUILDINSTALL; do
+        if [ -n "$UPDATES" -a -f $UPDATES/usr/lib/anaconda-runtime/$f ]; then
+            cp -a $UPDATES/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
+        elif [ ! -f $f ]; then
+            cp -a $BUILDINSTDIR/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
+        else
+            cp -a $f* $BUILDINSTDIR/
+        fi
+    done
 
-UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
-MK_IMAGES=$BUILDINSTDIR/mk-images
-MK_TREEINFO=$BUILDINSTDIR/maketreeinfo.py
-MK_STAMP=$BUILDINSTDIR/makestamp.py
-BUILDINSTALL=$BUILDINSTDIR/buildinstall
+    UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
+    MK_IMAGES=$BUILDINSTDIR/mk-images
+    MK_TREEINFO=$BUILDINSTDIR/maketreeinfo.py
+    MK_STAMP=$BUILDINSTDIR/makestamp.py
+    BUILDINSTALL=$BUILDINSTDIR/buildinstall
+fi
 
 if [ -n "$UPDATES" ]; then UPDATES="--updates $UPDATES"; fi
 
