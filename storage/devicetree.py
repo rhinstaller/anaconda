@@ -1309,27 +1309,27 @@ class DeviceTree(object):
                     self.addIgnoredDisk(device.raidSet.name)
                 self.addIgnoredDisk(device.name)
                 return
+
+        if not format.exists:
+            # if we just initialized a disklabel we should schedule
+            # actions for destruction of the previous format and creation
+            # of the new one
+            self.registerAction(ActionDestroyFormat(device))
+            self.registerAction(ActionCreateFormat(device, format))
+
+            # If this is a mac-formatted disk we just initialized, make
+            # sure the partition table partition gets added to the device
+            # tree.
+            if device.format.partedDisk.type == "mac" and \
+               len(device.format.partitions) == 1:
+                name = device.format.partitions[0].getDeviceNodeName()
+                if not self.getDeviceByName(name):
+                    partDevice = PartitionDevice(name, exists=True,
+                                                 parents=[device])
+                    self._addDevice(partDevice)
+
         else:
-            if not format.exists:
-                # if we just initialized a disklabel we should schedule
-                # actions for destruction of the previous format and creation
-                # of the new one
-                self.registerAction(ActionDestroyFormat(device))
-                self.registerAction(ActionCreateFormat(device, format))
-
-                # If this is a mac-formatted disk we just initialized, make
-                # sure the partition table partition gets added to the device
-                # tree.
-                if device.format.partedDisk.type == "mac" and \
-                   len(device.format.partitions) == 1:
-                    name = device.format.partitions[0].getDeviceNodeName()
-                    if not self.getDeviceByName(name):
-                        partDevice = PartitionDevice(name, exists=True,
-                                                     parents=[device])
-                        self._addDevice(partDevice)
-
-            else:
-                device.format = format
+            device.format = format
 
     def handleUdevLUKSFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
