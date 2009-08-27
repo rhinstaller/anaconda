@@ -35,6 +35,8 @@ log = logging.getLogger("anaconda")
 def expandLangs(astring):
     langs = [astring]
     charset = None
+    base = None
+
     # remove charset ...
     if '.' in astring:
 	langs.append(string.split(astring, '.')[0])
@@ -42,10 +44,15 @@ def expandLangs(astring):
     if '@' in astring:
         charset = string.split(astring, '@')[1]
 
-    # also add 2 character language code ...
-    if len(astring) > 2:
-        if charset: langs.append("%s@%s" %(astring[:2], charset))
-	langs.append(astring[:2])
+    if '_' in astring:
+        base = string.split(astring, '_')[0]
+
+        if charset:
+            langs.append("%s@%s" % (base, charset))
+
+        langs.append(base)
+    else:
+        langs.append(astring[:2])
 
     return langs
 
