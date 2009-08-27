@@ -970,6 +970,16 @@ class PartitionDevice(StorageDevice):
                 self.partType & parted.PARTITION_PROTECTED)
 
     def _getPartedPartition(self):
+        if not self.exists:
+            return self._partedPartition
+
+        partitionDisk = self._partedPartition.disk.getPedDisk()
+        disklabelDisk = self.disk.format.partedDisk.getPedDisk()
+        if partitionDisk is not disklabelDisk:
+            # The disklabel's parted disk has been reset, reget our partition
+            log.debug("regetting partedPartition for %s because of PartedDisk reset" % self.path)
+            self._partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
+
         return self._partedPartition
 
     def _setPartedPartition(self, partition):
@@ -1175,8 +1185,7 @@ class PartitionDevice(StorageDevice):
             raise DeviceError("Cannot destroy non-leaf device", self.path)
 
         self.setupParents()
-        partition = self.disk.format.partedDisk.getPartitionByPath(self.path)
-        self.disk.format.removePartition(partition)
+        self.disk.format.removePartition(self.partedPartition)
         self.disk.format.commit()
 
         self.exists = False

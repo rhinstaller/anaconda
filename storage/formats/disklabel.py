@@ -233,8 +233,7 @@ class DiskLabel(DeviceFormat):
                                      constraint=constraint)
 
     def removePartition(self, partition):
-        rempart = self.partedDisk.getPartitionByPath(partition.path)
-        self.partedDisk.removePartition(rempart)
+        self.partedDisk.removePartition(partition)
 
     @property
     def extendedPartition(self):
