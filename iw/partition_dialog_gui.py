@@ -277,6 +277,9 @@ class PartitionEditor:
 
                         if usedev.format.mountable:
                             usedev.format.mountpoint = mountpoint
+                elif self.origrequest.protected and usedev.format.mountable:
+                    # users can set a mountpoint for protected partitions
+                    usedev.format.mountpoint = mountpoint
 
                 request.weight = self.anaconda.platform.weight(mountpoint=mountpoint,
                                                                fstype=request.format.type)
