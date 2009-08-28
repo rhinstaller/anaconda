@@ -176,11 +176,19 @@ def doAutoPartition(anaconda):
         (disks, devs) = _createFreeSpacePartitions(anaconda)
 
         if disks == []:
-            anaconda.intf.messageWindow(_("Error Partitioning"),
-                                        _("Could not find enough free space "
-                                          "for automatic partitioning, please "
-                                          "use another partitioning method."),
+            if anaconda.isKickstart:
+                msg = _("Could not find enough free space for automatic "
+                        "partitioning.  Press 'OK' to exit the installer.")
+            else:
+                msg = _("Could not find enough free space for automatic "
+                        "partitioning, please use another partitioning method.")
+
+            anaconda.intf.messageWindow(_("Error Partitioning"), msg,
                                         custom_icon='error')
+
+            if anaconda.isKickstart:
+                sys.exit(0)
+
             anaconda.id.storage.reset()
             return DISPATCH_BACK
 
