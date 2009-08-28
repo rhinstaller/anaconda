@@ -234,7 +234,9 @@ class RaidEditor:
                     format = fmt_class(mountpoint=mountpoint)
                     if self.fsoptionsDict.has_key("lukscb") and \
                        self.fsoptionsDict["lukscb"].get_active() and \
-                       self.origrequest.format.type != "luks":
+                       (self.origrequest.format.type != "luks" or
+                        (self.origrequest.format.exists and
+                         not self.origrequest.format.hasKey)):
                         luksdev = LUKSDevice("luks-%s" % self.origrequest.name,
                                              format=format,
                                              parents=self.origrequest)

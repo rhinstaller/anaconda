@@ -215,7 +215,10 @@ class PartitionEditor:
                 # preexisting partition
                 request = self.origrequest
                 if request.format.type == "luks":
-                    usedev = self.storage.devicetree.getChildren(request)[0]
+                    try:
+                        usedev = self.storage.devicetree.getChildren(request)[0]
+                    except IndexError:
+                        usedev = request
                 else:
                     usedev = request
 
@@ -235,7 +238,9 @@ class PartitionEditor:
                         luksdev = None
                         if self.fsoptionsDict.has_key("lukscb") and \
                            self.fsoptionsDict["lukscb"].get_active() and \
-                           request.format.type != "luks":
+                           (request.format.type != "luks" or
+                            (request.format.exists and
+                             not request.format.hasKey)):
                             luksdev = LUKSDevice("luks%d" % self.storage.nextID,
                                                  format=format,
                                                  parents=request)
