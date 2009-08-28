@@ -230,8 +230,6 @@ class PartitionEditor:
                         # carry over exists, migrate, size, and device
                         # necessary for partition editor UI
                         format = fmt_class(mountpoint=mountpoint,
-                                           exists=origformat.exists,
-                                           size=getattr(origformat, "size", None),
                                            device=usedev.path)
 
                         luksdev = None

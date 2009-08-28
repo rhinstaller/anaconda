@@ -255,15 +255,6 @@ def formatMigrateOptionCB(widget, data):
     (combowidget, mntptcombo, fs, lukscb, othercombo, othercb, flag) = data
     combowidget.set_sensitive(widget.get_active())
 
-    if flag == FLAG_FORMAT:
-        fs.exists = not widget.get_active()
-
-        if fs.migratable and fs.exists:
-            fs.migrate = False
-    elif flag == FLAG_MIGRATE:
-        fs.exists = True
-        fs.migrate = widget.get_active()
-
     if othercb is not None:
         othercb.set_sensitive(not widget.get_active())
         othercb.set_active(False)
