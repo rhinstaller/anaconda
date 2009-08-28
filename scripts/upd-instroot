@@ -221,11 +221,11 @@ if [ $ARCH = ia64 ]; then
 fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
-    PACKAGES="bind-utils binutils coreutils findutils gzip initscripts
-              iputils less libgcc login lsscsi modutils mount net-tools
-              openssh openssh-clients openssh-server pam portmap s390utils
-              s390utils-base s390utils-cmsfs sed strace tar tcp_wrappers
-              xorg-x11-libs xorg-x11-xauth"
+    PACKAGES="$PACKAGES bind-utils binutils coreutils findutils gzip
+              initscripts iputils less libgcc login lsscsi modutils mount
+              net-tools openssh openssh-clients openssh-server pam portmap
+              s390utils sed strace tar tcp_wrappers xorg-x11-libs
+              xorg-x11-xauth"
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
@@ -706,7 +706,8 @@ sbin/lsqeth
 sbin/lsreipl
 sbin/lszfcp
 sbin/portmap
-sbin/qetharp*
+sbin/qetharp
+sbin/qetharp-2.6
 sbin/qethconf
 sbin/sysctl
 usr/bin/dirname
