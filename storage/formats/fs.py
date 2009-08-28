@@ -855,9 +855,10 @@ class Ext2FS(FS):
             return
 
         try:
-            rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
+            rc = iutil.execWithRedirect("tune2fs",
                                         ["-c0", "-i0",
                                          "-ouser_xattr,acl", self.device],
+                                        searchPath = True,
                                         stdout = "/dev/tty5",
                                         stderr = "/dev/tty5")
         except Exception as e:
