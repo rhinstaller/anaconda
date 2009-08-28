@@ -68,8 +68,12 @@ PYCHECKERPATH = isys:textw:iw:installclasses:/usr/share/system-config-date
 PYCHECKEROPTS = -F pycheckrc-for-anaconda
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
+sed_verbose = $(sed_verbose_$(V))
+sed_verbose_ = $(sed_verbose_$(AM_DEFAULT_VERBOSITY))
+sed_verbose_0 = @echo "  SED    "$@;
+
 $(PACKAGE_NAME).spec: $(PACKAGE_NAME).spec.in
-	sed -e 's/#VERSION#/$(PACKAGE_VERSION)/' < $< > $@
+	$(sed_verbose)sed -e 's/#VERSION#/$(PACKAGE_VERSION)/' < $< > $@
 
 lang-names: lang-table
 	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names

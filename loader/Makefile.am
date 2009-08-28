@@ -70,11 +70,31 @@ CLEANFILES = keymaps-override-$(ARCH) ctype.c tr/*.tr
 
 MAINTAINERCLEANFILES = Makefile.in
 
+sed_verbose = $(sed_verbose_$(V))
+sed_verbose_ = $(sed_verbose_$(AM_DEFAULT_VERBOSITY))
+sed_verbose_0 = @echo "  SED    "$@;
+
+cp_verbose = $(cp_verbose_$(V))
+cp_verbose_ = $(cp_verbose_$(AM_DEFAULT_VERBOSITY))
+cp_verbose_0 = @echo "  CP     "$@;
+
+mkctype_verbose = $(mkctype_verbose_$(V))
+mkctype_verbose_ = $(mkctype_verbose_$(AM_DEFAULT_VERBOSITY))
+mkctype_verbose_0 = @echo "  MAKE   "$@;
+
+msgmerge_verbose = $(msgmerge_verbose_$(V))
+msgmerge_verbose_ = $(msgmerge_verbose_$(AM_DEFAULT_VERBOSITY))
+msgmerge_verbose_0 = echo "  MERGE  "$${lang}.po;
+
+xgettext_verbose = $(xgettext_verbose_$(V))
+xgettext_verbose_ = $(xgettext_verbose_$(AM_DEFAULT_VERBOSITY))
+xgettext_verbose_0 = @echo "  GETTXT "$@;
+
 keymaps-override-$(ARCH): keymaps-$(ARCH)
-	cp -p $< $@
+	$(cp_verbose)cp -p $< $@
 
 ctype.c: mkctype
-	./mkctype > ctype.c
+	$(mkctype_verbose)./mkctype > ctype.c
 
 loader.tr: $(top_srcdir)/lang-table loader.po
 	@LANGS="`cut -f 2 $(top_srcdir)/lang-table | egrep -v '(^en$$)'`" ; \
@@ -82,11 +102,11 @@ loader.tr: $(top_srcdir)/lang-table loader.po
 		mkdir -p tr ; \
 	fi ; \
 	for lang in $$LANGS ; do \
-		msgmerge -q $(top_srcdir)/po/$$lang.po loader.po | msgconv -t utf-8 | ./simplemot > tr/$$lang.tr ; \
+		$(msgmerge_verbose)msgmerge -q $(top_srcdir)/po/$$lang.po loader.po | msgconv -t utf-8 | ./simplemot > tr/$$lang.tr ; \
 	done ; \
 	(cd tr ; ls -1 *.tr | cpio --quiet -Hcrc -o | gzip -9) > $@
 
 loader.po:
-	xgettext --default-domain=loader --add-comments \
+	$(xgettext_verbose)xgettext --default-domain=loader --add-comments \
 		--keyword=_ --keyword=N_ *.c
-	sed -i 's/charset=CHARSET/charset=UTF-8/' $@
+	$(sed_verbose)sed -i 's/charset=CHARSET/charset=UTF-8/' $@
