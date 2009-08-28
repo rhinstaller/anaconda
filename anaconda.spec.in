@@ -210,6 +210,36 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Aug 28 2009 David Cantrell <dcantrell@redhat.com> - 12.18-1
+- Append s390x packages to PACKAGES list, exclude /sbin/qetharp-2.4
+  (dcantrell)
+- On kickstart installs, you can't select a different parttype
+  (#519137, #520058). (clumens)
+- Don't try to create a primary partition if all slots are taken. (#519784)
+  (dlehman)
+- Fix handling of locked preexisting LUKS devices. (#502310) (dlehman)
+- Fix up handling of preexisting partitions. (dlehman)
+- Pick up mountpoint set for protected partitions. (#498591) (dlehman)
+- Ignore partitions belonging to disks we've reinitialized. (dlehman)
+- Handle newly initialized disklabels whether via ks or prompt. (#519235)
+  (dlehman)
+- Fix some indentation in the disklabel initialization block. (dlehman)
+- Use commitToDisk() instead of commit() when only changing flags (hdegoede)
+- Update PartitionDevice's partedPartition when the PartedDisks get reset
+  (hdegoede)
+- Add --localscripts option to buildinstall. (dcantrell)
+- Add missing dependencies for linuxrc.s390 and lsznet in mk-images
+  (dcantrell)
+- Re-enable login of root user in initrd.img (dcantrell)
+- Less log clutter with fixing ld64.so.1 symlink in instbin on s390x
+  (dcantrell)
+- Fix typo in get_dso_deps() for searching /lib on s390x (dcantrell)
+- Add hfsplus and netconsole kernel modules (#519756, #519785). (clumens)
+- Adapt expandLangs to work with three character base lang names (#517770).
+  (clumens)
+- Prevent resizes that would go past the end of the disk (#495520)
+  (dcantrell)
+
 * Wed Aug 26 2009 Chris Lumens <clumens@redhat.com> - 12.17-1
 - dracut has initrd-generic-<version> instead of initrd-<version> (#519185)
   (hdegoede)
