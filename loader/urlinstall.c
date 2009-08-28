@@ -249,6 +249,7 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
 
 char *mountUrlImage(struct installMethod *method, char *location,
                     struct loaderData_s *loaderData) {
+    urlInstallData *stage2Data = (urlInstallData *) loaderData->stage2Data;
     struct iurlinfo ui;
 
     enum { URL_STAGE_MAIN, URL_STAGE_FETCH,
@@ -264,8 +265,8 @@ char *mountUrlImage(struct installMethod *method, char *location,
                  * could also have come from kickstart.  Else, we need to show
                  * the UI.
                  */
-                if (loaderData->method == METHOD_URL && loaderData->stage2Data) {
-                    ui.url = ((struct urlInstallData *) loaderData->stage2Data)->url;
+                if (loaderData->method == METHOD_URL && stage2Data) {
+                    ui.url = strdup(stage2Data->url);
                     logMessage(INFO, "URL_STAGE_MAIN: url is %s", ui.url);
 
                     if (!ui.url) {
@@ -383,10 +384,12 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 		    char ** argv) {
 
     char *url = NULL, *substr = NULL;
+    char *proxy = NULL;
     poptContext optCon;
     int rc;
     struct poptOption ksUrlOptions[] = {
         { "url", '\0', POPT_ARG_STRING, &url, 0, NULL, NULL },
+        { "proxy", '\0', POPT_ARG_STRING, &proxy, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
 
@@ -421,12 +424,14 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     if (!substr || (substr && *(substr+4) != '\0')) {
         loaderData->instRepo = strdup(url);
     } else {
-        if ((loaderData->stage2Data = calloc(sizeof(struct urlInstallData *), 1)) == NULL)
+        if ((loaderData->stage2Data = calloc(sizeof(urlInstallData *), 1)) == NULL)
             return;
 
-        ((struct urlInstallData *)loaderData->stage2Data)->url = url;
+        ((urlInstallData *)loaderData->stage2Data)->url = url;
     }
 
+    splitProxyParam(proxy, &loaderData->proxyUser, &loaderData->proxyPassword,
+                    &loaderData->proxy, &loaderData->proxyPort);
     logMessage(INFO, "results of url ks, url %s", url);
 }
 

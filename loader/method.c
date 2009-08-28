@@ -515,7 +515,7 @@ void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
                    !strncmp(arg, "http", 4)) {
             ld->method = METHOD_URL;
             ld->stage2Data = calloc(sizeof(struct urlInstallData *), 1);
-            ((struct urlInstallData *)ld->stage2Data)->url = strdup(arg);
+            ((urlInstallData *)ld->stage2Data)->url = strdup(arg);
         } else if (!strncmp(arg, "cdrom:", 6)) {
             ld->method = METHOD_CDROM;
         } else if (!strncmp(arg, "harddrive:", 10) ||

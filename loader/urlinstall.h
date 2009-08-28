@@ -21,11 +21,9 @@
 #define URLINSTALL_H
 
 #include "method.h"
+#include "urls.h"
 
-struct urlInstallData {
-    char * url;
-};
-
+typedef struct iurlinfo urlInstallData;
 
 void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 		     char ** argv);
