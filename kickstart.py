@@ -349,7 +349,8 @@ class Keyboard(commands.keyboard.FC3_Keyboard):
 class Lang(commands.lang.FC3_Lang):
     def parse(self, args):
         retval = commands.lang.FC3_Lang.parse(self, args)
-        self.handler.id.instLanguage.setRuntimeLanguage(self.lang)
+        self.handler.id.instLanguage.instLang = self.lang
+        self.handler.id.instLanguage.systemLang = self.lang
         self.handler.skipSteps.append("language")
         return retval
 

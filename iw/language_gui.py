@@ -43,13 +43,13 @@ class LanguageWindow (InstallWindow):
             raise StayOnScreen
 
 	choice = self.listStore.get_value(iter, 1)
-        self.lang = self.instLang.getNickByName(choice)
+        self.lang = self.instLang.getLangByName(choice)
 
         if self.lang in self.instLang.getCurrentLangSearchList():
             return None
 
-	self.instLang.setRuntimeLanguage(self.lang)
-	self.instLang.setDefault(self.lang)
+        self.instLang.instLang = self.lang
+        self.instLang.systemLang = self.lang
         anaconda.id.timezone.setTimezoneInfo(anaconda.id.instLanguage.getDefaultTimeZone())
 	self.ics.getICW().setLanguage()
 
@@ -92,7 +92,7 @@ class LanguageWindow (InstallWindow):
 
         for locale in self.instLang.available():
             iter = self.listStore.append()
-            nick = self.instLang.getNickByName(locale)
+            nick = self.instLang.getLangByName(locale)
             lang = '%s (<span lang="%s">%s</span>)' % (
                 _(locale), "%s" % (nick.split('.')[0],),
                 self.instLang.getNativeLangName(locale))
@@ -107,7 +107,7 @@ class LanguageWindow (InstallWindow):
         self.listView.append_column(col)
         self.listView.set_property("headers-visible", False)
 
-        current = self.instLang.getLangNameByNick(self.instLang.getCurrent())
+        current = self.instLang.getLangName(self.instLang.instLang)
         iter = self.listStore.get_iter_first()
         while iter:
             if self.listStore.get_value(iter, 1) == current:

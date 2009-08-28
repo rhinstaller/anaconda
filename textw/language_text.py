@@ -34,14 +34,14 @@ class LanguageWindow:
         languages = id.instLanguage.available ()
         languages.sort()
 
-        current = id.instLanguage.getCurrent()
+        current = id.instLanguage.instLang
 
         height = min((8, len(languages)))
 	buttons = [TEXT_OK_BUTTON, TEXT_BACK_BUTTON]
 
         translated = []
         for lang in languages:
-            translated.append ((_(lang), id.instLanguage.getNickByName(lang)))
+            translated.append ((_(lang), id.instLanguage.getLangByName(lang)))
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
@@ -57,12 +57,13 @@ class LanguageWindow:
                                "%s display is unavailable in text mode.  The "
                                "installation will continue in English." % (choice,),
                                buttons=[TEXT_OK_BUTTON])
-            id.instLanguage.setRuntimeDefaults(choice)
+            id.instLanguage.instLang = choice
+            id.instLanguage.systemLang = choice
             id.timezone.setTimezoneInfo(id.instLanguage.getDefaultTimeZone())
             return INSTALL_OK
 
-	id.instLanguage.setRuntimeLanguage(choice)
-	id.instLanguage.setDefault(choice)
+        id.instLanguage.instLang = choice
+        id.instLanguage.systemLang = choice
         id.timezone.setTimezoneInfo(id.instLanguage.getDefaultTimeZone())
 
 	anaconda.intf.drawFrame()

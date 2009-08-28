@@ -3,7 +3,7 @@
 #              installer runtime language choice and installed system
 #              language support.
 #
-# Copyright (C) 2001, 2002, 2003, 2004, 2005  Red Hat, Inc.
+# Copyright (C) 2001, 2002, 2003, 2004, 2005, 2009  Red Hat, Inc.
 # All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -39,7 +39,7 @@ def expandLangs(astring):
 
     # remove charset ...
     if '.' in astring:
-	langs.append(string.split(astring, '.')[0])
+        langs.append(string.split(astring, '.')[0])
 
     if '@' in astring:
         charset = string.split(astring, '@')[1]
@@ -56,19 +56,91 @@ def expandLangs(astring):
 
     return langs
 
-class Language:
-    def __init__ (self, display_mode = "g"):
-        self.info = {}
-        self.default = None
-        self.nativeLangNames = {}
-        self.localeInfo = {}
-        self.displayMode = display_mode
-        self.targetLang = None
+class Language(object):
+    def _setInstLang(self, value):
+        # Always store in its full form so we know what we're comparing with.
+        try:
+            self._instLang = self._canonLang(value)
+        except ValueError:
+            # If the language isn't listed in lang-table, we won't know what
+            # keyboard/font/etc. to use.  However, we can still set the $LANG
+            # to that and make sure it works in the installed system.
+            self._instLang = value
 
-        if os.environ.has_key("LANG"):
-            self.current = self.fixLang(os.environ["LANG"])
+        # If we're running in text mode, value may not be a supported language
+        # to display.  We need to default to en_US.UTF-8 for now.
+        if self.displayMode == 't':
+            for (lang, info) in self.localeInfo.iteritems():
+                # If there's no font, it's not a supported language.
+                if lang == self._instLang and info[2] == "none":
+                    self._instLang = self._default
+                    break
+
+        # Now set some things to make sure the language setting takes effect
+        # right now.
+        os.environ["LANG"] = self._instLang
+        os.environ["LC_NUMERIC"] = "C"
+
+        try:
+            locale.setlocale(locale.LC_ALL, "")
+        except locale.Error:
+            pass
+
+        # XXX: oh ick.  this is the sort of thing which you should never do...
+        # but we switch languages at runtime and thus need to invalidate
+        # the set of languages/mofiles which gettext knows about
+        gettext._translations = {}
+
+    def _getInstLang(self):
+        # If we were given a language that's not in lang-table, lie and say
+        # we're using the default.  This prevents us from having to check all
+        # over the place.  Unfortunately, it also means anaconda will be
+        # running with the wrong font and keyboard in these cases.
+        if self._instLang in self.localeInfo.keys():
+            return self._instLang
         else:
-            self.current = "en_US.UTF-8"
+            return self._default
+
+    # The language being displayed while anaconda is running.
+    instLang = property(lambda s: s._getInstLang(), lambda s, v: s._setInstLang(v))
+
+    def _setSystemLang(self, value):
+        # Always store in its full form so we know what we're comparing with.
+        try:
+            self._systemLang = self._canonLang(value)
+        except ValueError:
+            # If the language isn't listed in lang-table, we won't know what
+            # keyboard/font/etc. to use.  However, we can still set the $LANG
+            # to that and make sure it works in the installed system.
+            self._systemLang = value
+
+        # Now set a bunch of other things that'll get written to
+        # /etc/sysconfig/i18n on the installed system.
+        self.info["LANG"] = self._systemLang
+
+        if not self.localeInfo.has_key(self._systemLang):
+            return
+
+        if self.localeInfo[self._systemLang][2] == "none":
+            self.info["SYSFONT"] = None
+        else:
+            self.info["SYSFONT"] = self.localeInfo[self._systemLang][2]
+
+        # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
+        if self._systemLang == "zh_CN.GB18030":
+            self.info["LANGUAGE"] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"
+
+    # The language to use on the installed system.  This can differ from the
+    # language being used during anaconda.  For instance, text installs cannot
+    # display all languages (CJK, Indic, etc.).
+    systemLang = property(lambda s: s._systemLang, lambda s, v: s._setSystemLang(v))
+
+    def __init__ (self, display_mode = 'g'):
+        self._default = "en_US.UTF-8"
+        self.displayMode = display_mode
+        self.info = {}
+        self.localeInfo = {}
+        self.nativeLangNames = {}
 
         # English name -> native name mapping
         search = ('lang-names', '/usr/lib/anaconda/lang-names')
@@ -82,174 +154,103 @@ class Language:
 
                 f.close()
                 break
-        
+
         # nick -> (name, short name, font, keyboard, timezone) mapping
         search = ('lang-table', '/tmp/updates/lang-table', '/etc/lang-table',
                   '/usr/lib/anaconda/lang-table')
         for path in search:
             if os.access(path, os.R_OK):
                 f = open(path, "r")
+                for line in f.readlines():
+                    string.strip(line)
+                    l = string.split(line, '\t')
+
+                    # throw out invalid lines
+                    if len(l) < 6:
+                        continue
+
+                    self.localeInfo[l[3]] = (l[0], l[1], l[2], l[4], string.strip(l[5]))
+
+                f.close()
                 break
 
-        for line in f.readlines():
-            string.strip(line)
-            l = string.split(line, '\t')
-
-            # throw out invalid lines
-            if len(l) < 6:
-                continue
-
-            self.localeInfo[l[3]] = (l[0], l[1], l[2], l[4], string.strip(l[5]))
-
-        f.close()
-
         # Hard code this to prevent errors in the build environment.
-        self.localeInfo['C'] = self.localeInfo['en_US.UTF-8']
+        self.localeInfo['C'] = self.localeInfo[self._default]
 
-        # Set the language for anaconda to be using based on current $LANG.
-        self.setRuntimeLanguage(self.fixLang(self.current))
-        self.setDefault(self.fixLang(self.current))
+        # instLang must be set after localeInfo is populated, in case the
+        # current setting is unsupported by anaconda..
+        self.instLang = os.environ.get("LANG", self._default)
+        self.systemLang = os.environ.get("LANG", self._default)
 
-    # Convert what might be a shortened form of a language's nick (en or
-    # en_US, for example) into the full version (en_US.UTF-8).  If we
-    # don't find it, return our default of en_US.UTF-8.
-    def canonLangNick (self, nick):
+    def _canonLang(self, lang):
+        """Convert the shortened form of a language name into the full
+           version.  If it's not found, raise ValueError.
+
+           Example:  fr    -> fr_FR.UTF-8
+                     fr_FR -> fr_FR.UTF-8
+                     fr_CA -> ValueError
+        """
         for key in self.localeInfo.keys():
-            if nick in expandLangs(key):
+            if lang in expandLangs(key):
                 return key
 
-        return 'en_US.UTF-8'
+        raise ValueError
 
-    def getNickByName (self, name):
-        for k in self.localeInfo.keys():
-            row = self.localeInfo[k]
-            if row[0] == name:
-                return k
-
-    def fixLang(self, langToFix):
-        ret = None
-
-        if self.displayMode == "t":
-            for lang in self.localeInfo.keys():
-                if lang == langToFix:
-                    (a, b, font, c, d) = self.localeInfo[lang]
-                    if font == "none":
-                        ret = "en_US.UTF-8"
-                        self.targetLang = lang
-
-        if ret is None:
-            ret = langToFix
-
-        return ret
-
-    def getNativeLangName(self, lang):
-        return self.nativeLangNames[lang]
-
-    def getLangNameByNick(self, nick):
-        return self.localeInfo[self.canonLangNick(nick)][0]
-
-    def getFontFile (self, nick):
-	# Note: in /etc/fonts.cgz fonts are named by the map
-	# name as that's unique, font names are not
-        font = self.localeInfo[self.canonLangNick(nick)][2]
-        return font
-
-    def getDefaultKeyboard(self):
-        return self.localeInfo[self.canonLangNick(self.getCurrent())][3]
-
-    def getDefaultTimeZone(self):
-        return self.localeInfo[self.canonLangNick(self.getCurrent())][4]
-
-    def available (self):
+    def available(self):
         return self.nativeLangNames.keys()
-
-    def getCurrentLangSearchList(self):
-	return expandLangs(self.getCurrent()) + ['C']
-
-    def getCurrent(self):
-	if self.targetLang is not None:
-	    return self.targetLang
-	else:
-	    return self.current
-
-    def getDefault(self):
-        if self.default:
-            return self.default
-        elif self.current:
-            nick = self.getNickByName (self.current)
-
-            return nick
-        else:
-            return 'en_US.UTF-8'
-
-    def setDefault(self, nick):
-	self.default = nick
-
-	dispLang = self.fixLang(self.canonLangNick(nick))
-	self.info['LANG'] = dispLang
-
-        if self.localeInfo[dispLang][2] == "none":
-            self.info['SYSFONT'] = None
-        else:
-            self.info['SYSFONT'] = self.localeInfo[dispLang][2]
-
-        # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
-	if nick == "zh_CN.GB18030":
-	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
-
-    def setRuntimeDefaults(self, nick):
-        canonNick = self.fixLang(self.canonLangNick(nick))
-        self.current = canonNick
-
-    def setRuntimeLanguage(self, nick):
-        canonNick = self.canonLangNick(nick)
-
-        # Allow specifying languages in kickstart that aren't in lang-table,
-        # but are still valid settings.
-        if not canonNick.startswith(nick):
-            self.targetLang = nick
-        else:
-            self.targetLang = None
-
-        self.setRuntimeDefaults(nick)
-
-        os.environ["LANG"] = self.fixLang(canonNick)
-        os.environ["LC_NUMERIC"] = 'C'
-
-        try:
-            locale.setlocale(locale.LC_ALL, "")
-        except locale.Error:
-            pass
-
-        # XXX: oh ick.  this is the sort of thing which you should never do...
-        # but we switch languages at runtime and thus need to invalidate
-        # the set of languages/mofiles which gettext knows about
-        gettext._translations = {}
-
-    def write(self, instPath):
-	f = open(instPath + "/etc/sysconfig/i18n", "w")
-        for key in self.info.keys():
-            if self.info[key] != None:
-                if key == "LANG" and self.targetLang is not None:
-                    f.write("%s=\"%s\"\n" % (key, self.targetLang))
-                else:
-                    f.write("%s=\"%s\"\n" % (key, self.info[key]))
-	f.close()
-
-    def writeKS(self, f):
-        if self.targetLang is not None:
-	    f.write("lang %s\n" % self.targetLang)
-        else:
-	    f.write("lang %s\n" % self.info['LANG'])
 
     def dracutSetupString(self):
         args=""
 
-        for key in self.info.keys():
-            if self.info[key] != None:
-                if key == "LANG" and self.targetLang is not None:
-                    args += " %s=%s" % (key, self.targetLang)
-                else:
-                    args += " %s=%s" % (key, self.info[key])
+        for (key, val) in self.info.iteritems():
+            if val != None:
+                args += "%s=%s" % (key, val)
 
         return args
+
+    def getCurrentLangSearchList(self):
+        return expandLangs(self.systemLang) + ['C']
+
+    def getDefaultKeyboard(self):
+        return self.localeInfo[self.systemLang][3]
+
+    def getDefaultTimeZone(self):
+        return self.localeInfo[self.systemLang][4]
+
+    def getFontFile(self, lang):
+        # Note: in /etc/fonts.cgz fonts are named by the map
+        # name as that's unique, font names are not
+        try:
+            l = self._canonLang(lang)
+        except ValueError:
+            l = self._default
+
+        return self.localeInfo[l][2]
+
+    def getLangName(self, lang):
+        try:
+            l = self._canonLang(lang)
+        except ValueError:
+            l = self._default
+
+        return self.localeInfo[l][0]
+
+    def getLangByName(self, name):
+        for (key, val) in self.localeInfo.iteritems():
+            if val[0] == name:
+                return key
+
+    def getNativeLangName(self, lang):
+        return self.nativeLangNames[lang]
+
+    def write(self, instPath):
+        f = open(instPath + "/etc/sysconfig/i18n", "w")
+
+        for (key, val) in self.info.iteritems():
+            if val != None:
+                f.write("%s=\"%s\"\n" % (key, val))
+
+        f.close()
+
+    def writeKS(self, f):
+        f.write("lang %s\n" % self.info['LANG'])

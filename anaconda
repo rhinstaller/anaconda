@@ -933,8 +933,8 @@ if __name__ == "__main__":
         # this is lame, but make things match what we expect (#443408)
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
         anaconda.dispatch.skipStep("language", permanent = 1)
-        anaconda.id.instLanguage.setRuntimeLanguage(opts.lang)
-        anaconda.id.instLanguage.setDefault(opts.lang)
+        anaconda.id.instLanguage.instLang = opts.lang
+        anaconda.id.instLanguage.systemLang = opts.lang
         anaconda.id.timezone.setTimezoneInfo(anaconda.id.instLanguage.getDefaultTimeZone())
 
     if opts.keymap:
