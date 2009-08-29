@@ -1,0 +1,8 @@
+$(top_builddir)/lang-table.h: $(top_srcdir)/lang-table
+	@rm -f $(top_builddir)/lang-table.h
+	@cat $(top_srcdir)/lang-table | cut -f 1 | while read lang ; do \
+		echo "char *s = N_(\"$${lang}\")" >> $(top_builddir)/lang-table.h ; \
+	done
+
+mostlyclean-lang-table:
+	rm -f $(top_builddir)/lang-table.h

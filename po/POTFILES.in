@@ -100,21 +100,25 @@ textw/welcome_text.py
 textw/zipl_text.py
 
 # liveinst source files
-liveinst/liveinst.desktop.in
+liveinst/liveinst.desktop.in.h
 
 # Glade definition files
-ui/GroupSelector.glade
-ui/account.glade
-ui/adddrive.glade
-ui/addrepo.glade
-ui/anaconda.glade
-ui/autopart.glade
-ui/blwhere.glade
-ui/detailed-dialog.glade
-ui/instkey.glade
-ui/iscsi-config.glade
-ui/lukspassphrase.glade
-ui/netconfig.glade
-ui/network.glade
-ui/tasksel.glade
-ui/zfcp-config.glade
+ui/GroupSelector.glade.h
+ui/account.glade.h
+ui/adddrive.glade.h
+ui/addrepo.glade.h
+ui/anaconda.glade.h
+ui/autopart.glade.h
+ui/blwhere.glade.h
+ui/detailed-dialog.glade.h
+ui/fcoe-config.glade.h
+ui/instkey.glade.h
+ui/iscsi-config.glade.h
+ui/lukspassphrase.glade.h
+ui/netconfig.glade.h
+ui/network.glade.h
+ui/tasksel.glade.h
+ui/zfcp-config.glade.h
+
+# lang-table
+lang-table.h

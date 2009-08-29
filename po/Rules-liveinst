@@ -1,0 +1,11 @@
+LIVEINST_SRCS = $(top_srcdir)/liveinst/liveinst.desktop.in
+LIVEINST_HDRS = $(top_builddir)/liveinst/liveinst.desktop.in.h
+
+%.desktop.in.h: %.desktop.in
+	@cd $(top_builddir)/liveinst ; \
+	intltool-extract -q --type=gettext/keys -l $< ; \
+	mv tmp/*h . ; \
+	rmdir tmp
+
+mostlyclean-glade:
+	rm -f $(LIVEINST_HDRS)

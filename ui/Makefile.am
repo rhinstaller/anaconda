@@ -21,3 +21,5 @@ uidir = $(datadir)/$(PACKAGE_NAME)/ui
 dist_ui_DATA = *.glade
 
 MAINTAINERCLEANFILES = Makefile.in
+
+CLEANFILES = *.h

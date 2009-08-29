@@ -31,7 +31,7 @@ endif
 
 EXTRA_DIST = README liveinst.desktop.in
 
-CLEANFILES = liveinst.desktop
+CLEANFILES = liveinst.desktop *.h
 
 MAINTAINERCLEANFILES = Makefile.in
 

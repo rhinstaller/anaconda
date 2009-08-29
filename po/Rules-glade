@@ -1,0 +1,11 @@
+UI_SRCS = $(wildcard $(top_srcdir)/ui/*.glade)
+UI_HDRS = $(UI_SRCS:.glade=.glade.h)
+
+%.glade.h: %.glade
+	@cd $(top_builddir)/ui ; \
+	intltool-extract -q --type=gettext/glade -l $< ; \
+	mv tmp/*h . ; \
+	rmdir tmp
+
+mostlyclean-glade:
+	rm -f $(UI_HDRS)

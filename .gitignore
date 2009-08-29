@@ -28,7 +28,9 @@ configure
 depcomp
 install-sh
 lang-names
+lang-table.h
 libtool
+liveinst/*.desktop.in.h
 loader/dirbrowser
 loader/keymaps-override-*
 ltmain.sh
@@ -51,5 +53,6 @@ po/stamp-po
 py-compile
 stamp-h1
 tags
+ui/*.glade.h
 xutils.la
 xutils_la-xutils.lo
