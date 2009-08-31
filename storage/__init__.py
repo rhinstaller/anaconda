@@ -1490,7 +1490,11 @@ class FSSet(object):
                     continue
 
                 if device not in self.devicetree.devices:
-                    self.devicetree._addDevice(device)
+                    try:
+                        self.devicetree._addDevice(device)
+                    except ValueError:
+                        # just write duplicates back out post-install
+                        self.preserveLines.append(line)
 
     def fsFreeSpace(self, chroot='/'):
         space = []
