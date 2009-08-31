@@ -1849,7 +1849,9 @@ class FSSet(object):
 #
 """ % time.asctime()
 
-        devices = self.mountpoints.values() + self.swapDevices
+        devices = sorted(key=lambda d: d.format.mountpoint,
+                         self.mountpoints.values())
+        devices += self.swapDevices
         devices.extend([self.devshm, self.devpts, self.sysfs, self.proc])
         netdevs = self.devicetree.getDevicesByInstance(NetworkStorageDevice)
         for device in devices:
