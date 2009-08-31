@@ -1845,7 +1845,7 @@ class FSSet(object):
 # Created by anaconda on %s
 #
 # Accessible filesystems, by reference, are maintained under '/dev/disk'
-# See man pages fstab(5), findfs(8), mount(8) and/or vol_id(8) for more info
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
 #
 """ % time.asctime()
 
