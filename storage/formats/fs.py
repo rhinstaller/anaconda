@@ -57,23 +57,6 @@ def get_kernel_filesystems():
 global kernel_filesystems
 kernel_filesystems = get_kernel_filesystems()
 
-def fsFromConfig(attrs, *args, **kwargs):
-    """ Create an FS instance based on a set of attributes, passing on
-        constructor arguments.
-    """
-    # XXX NOTUSED
-    if not attrs.has_key("type"):
-        raise ValueError, _("attr dict must include a type")
-
-    fs = FS(*args, **kwargs)
-    for (attr, value) in attrs.items():
-        setattr(fs, "_%s" % attr, value)
-
-    if attrs["type"] in nodev_filesystems:
-        setattr(fs, "_nodev", True)
-
-    return fs
-
 def fsConfigFromFile(config_file):
     """ Generate a set of attribute name/value pairs with which a
         filesystem type can be defined.
