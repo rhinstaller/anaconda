@@ -381,14 +381,14 @@ class PartitionTypeWindow(InstallWindow):
             rc = dialog.run()
 
             if rc == gtk.RESPONSE_CANCEL:
-                break;
+                break
 
             iter = combo.get_active_iter()
             if iter is None:
                 self.intf.messageWindow(_("Error"),
                                         "Must select a NIC to use.",
                                         type="warning", custom_icon="error")
-                continue;
+                continue
 
             try:
                 self.storage.fcoe.addSan(store.get_value(iter, 1), self.intf)
