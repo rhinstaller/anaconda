@@ -730,7 +730,8 @@ def allocatePartitions(disks, partitions):
                 continue
 
             if _part.req_primary and new_part_type != parted.PARTITION_NORMAL:
-                if disk.primaryPartitionCount < disk.maxPrimaryPartitionCount:
+                if (disklabel.partedDisk.primaryPartitionCount <
+                    disklabel.partedDisk.maxPrimaryPartitionCount):
                     # don't fail to create a primary if there are only three
                     # primary partitions on the disk (#505269)
                     new_part_type = parted.PARTITION_NORMAL
