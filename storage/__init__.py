@@ -468,7 +468,7 @@ class Storage(object):
         """
         # When a usb is connected from before the start of the installation,
         # it is not correctly detected.
-        udev.udev_trigger(subsystem="block")
+        udev_trigger(subsystem="block")
         self.reset()
 
         dests = []
