@@ -184,7 +184,7 @@ class DiskLabel(DeviceFormat):
         if not os.access(self.device, os.W_OK):
             raise DeviceFormatError("device path does not exist")
 
-        self.partedDisk.clobber()
+        self.partedDevice.clobber()
         self.commit()
         self.exists = False
 
