@@ -52,7 +52,7 @@ def udev_resolve_devspec(devspec):
 
     del _devices
     if ret:
-        return udev_device_get_name(dev)
+        return udev_device_get_name(ret)
 
 def udev_get_block_devices():
     udev_settle(timeout=30)
