@@ -210,6 +210,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Sep 01 2009 Chris Lumens <clumens@redhat.com> - 12.19-1
+- NetworkManager changed *again*, use libnm-glib.pc now. (dcantrell)
+- Save duplicates from /etc/fstab and don't traceback (#517498). (clumens)
+- Update fstab header to reference blkid instead of vol_id. (dlehman)
+- Sort fstab entries by mountpoint. (#498354) (dlehman)
+- Don't hardcode path to tune2fs. (dlehman)
+
 * Fri Aug 28 2009 David Cantrell <dcantrell@redhat.com> - 12.18-1
 - Append s390x packages to PACKAGES list, exclude /sbin/qetharp-2.4
   (dcantrell)
