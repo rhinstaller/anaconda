@@ -249,10 +249,34 @@ class DiskStripeGraph:
         self.tree = tree
         self.editCB = editCB
         self.next_ypos = 0.0
+        self.currentShown = None
 
     def __del__(self):
         self.shutDown()
-        
+
+    def getDisplayed(self):
+        return self.currentShown
+
+    def setDisplayed(self, disk):
+        self.shutDown()
+        self.display(disk)
+        self.currentShown = disk
+
+    def display(self, disk):
+        stripe = self.add(disk.name, disk.format.partedDisk)
+        part = disk.format.firstPartition
+        while part:
+            if part.type & parted.PARTITION_METADATA \
+                    or part.getSize(unit="MB") <= 1.0:
+                part = part.nextPartition()
+                continue
+
+            stripe.add(part)
+            part = part.nextPartition()
+
+        # Trying to center the picture.
+        apply(self.canvas.set_scroll_region, self.canvas.root().get_bounds())
+
     def shutDown(self):
         # remove any circular references so we can clean up
         while self.diskStripes:
@@ -677,7 +701,7 @@ class PartitionWindow(InstallWindow):
 		    iter = self.tree.append(vgparent)
 		    self.tree[iter]['Device'] = lv.lvname
 		    if format.mountable and format.mountpoint:
-			self.tree[iter]['Mount Point'] = format.mountpoint
+                            self.tree[iter]['Mount Point'] = format.mountpoint
 		    else:
 			self.tree[iter]['Mount Point'] = ""
 		    self.tree[iter]['Size (MB)'] = "%Ld" % lv.size
@@ -768,8 +792,8 @@ class PartitionWindow(InstallWindow):
 	drvparent = self.tree.append(None)
 	self.tree[drvparent]['Device'] = _("Hard Drives")
         for disk in disks:
-            # add a disk stripe to the graph
-            stripe = self.diskStripeGraph.add(disk.name, disk.format.partedDisk)
+            if not self.diskStripeGraph.getDisplayed():
+                self.diskStripeGraph.setDisplayed(disk)
 
             # add a parent node to the tree
             parent = self.tree.append(drvparent)
@@ -794,13 +818,6 @@ class PartitionWindow(InstallWindow):
                     if not part.active or not device.bootable:
                         part = part.nextPartition()
                         continue
-
-                # If this is a freespace "partition", there's no device so
-                # don't add it.
-                if device:
-                    stripe.add(device)
-                else:
-                    stripe.add(part)
 
                 if device and device.isExtended:
                     if extendedParent:
@@ -921,8 +938,6 @@ class PartitionWindow(InstallWindow):
 
                 part = part.nextPartition()
 
-        canvas = self.diskStripeGraph.getCanvas()
-        apply(canvas.set_scroll_region, canvas.root().get_bounds())
         self.treeView.expand_all()
 
     def treeActivateCB(self, view, path, col):
@@ -934,12 +949,21 @@ class PartitionWindow(InstallWindow):
         model, iter = selection.get_selected()
         if not iter:
             return
-        device = model[iter]['PyObject']
-        if device:
-            if not isinstance(device, PartitionDevice):
-                return
 
+        device = model[iter]['PyObject']
+        if not device:
+            return
+
+        # See if we need to change what is in the canvas.
+        displayed = self.diskStripeGraph.getDisplayed()
+        if isinstance(device, storage.DiskDevice) and device != displayed:
+            self.diskStripeGraph.setDisplayed(device)
+
+        elif isinstance(device, storage.PartitionDevice) \
+                and device.parents[0] != displayed:
+            self.diskStripeGraph.setDisplayed(device.parents[0])
             self.diskStripeGraph.selectSlice(device)
+
 
     def deleteCB(self, widget):
         """ Right now we can say that if the device is partitioned we
@@ -1426,7 +1450,7 @@ class PartitionWindow(InstallWindow):
         actionbox.pack_start(buttonBox)
         actionbox.set_spacing(6)
 
-        # Create the disk tree
+        # Create the disk tree (Fills the tree and the Bar View)
         self.tree = DiskTreeModel()
         self.treeView = self.tree.getTreeView()
         self.treeView.connect('row-activated', self.treeActivateCB)
@@ -1436,16 +1460,13 @@ class PartitionWindow(InstallWindow):
         self.populate(initial = 1)
 
         # Create the top scroll window
+        # We don't actually need a *scroll* window but nuthing else worked.
         hadj = gtk.Adjustment(step_incr = 5.0)
         vadj = gtk.Adjustment(step_incr = 5.0)
         swt = gtk.ScrolledWindow(hadjustment = hadj, vadjustment = vadj)
         swt.add(self.diskStripeGraph.getCanvas())
         swt.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         swt.set_shadow_type(gtk.SHADOW_IN)
-
-        # Add the top scroll window to a frame
-        tframe = gtk.Frame()
-        tframe.add(swt)
 
         # Create the bottom scroll window
         swb = gtk.ScrolledWindow()
@@ -1455,17 +1476,9 @@ class PartitionWindow(InstallWindow):
 
         # Create main vertical box and add everything.
         MVbox = gtk.VBox(False, 5)
-        MVbox.pack_start(swt, True)
+        MVbox.pack_start(swt, False, False)
         MVbox.pack_start(swb, True)
         MVbox.pack_start(actionbox, False, False)
         MVbox.pack_start(gtk.HSeparator(), False)
 
-        # Create Vpaned and add the top frame and main vertical box.
-        vpaned = gtk.VPaned()
-        vpaned.add1(tframe)
-        vpaned.add2(MVbox)
-
-        # XXX should probably be set according to height
-        vpaned.set_position(175)
-
-        return vpaned
+        return MVbox
