@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-09-01 08:33+0000\n"
-"PO-Revision-Date: 2009-09-01 15:18+0100\n"
+"PO-Revision-Date: 2009-09-01 15:34+0100\n"
 "Last-Translator: Dušan Hokův <dusan@mirc.cz>\n"
 "Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1442,7 +1442,7 @@ msgstr ""
 
 #: ../rescue.py:444
 msgid "You don't have any Linux partitions.  Rebooting.\n"
-msgstr ""
+msgstr "Nejsou žádné Linuxové oddíly. Rebootuji.\n"
 
 #: ../rescue.py:447
 msgid "Rescue Mode"
@@ -2175,7 +2175,7 @@ msgstr "Slabé heslo"
 #: ../iw/account_gui.py:128
 #, python-format
 msgid "You have provided a weak password: %s"
-msgstr ""
+msgstr "Zadali jste slabé heslo: %s"
 
 #: ../iw/account_gui.py:130
 #, fuzzy
@@ -2204,7 +2204,7 @@ msgstr "%s: %s"
 
 #: ../iw/autopart_type.py:132
 msgid "Resize Device Error"
-msgstr ""
+msgstr "Chyba změny velikosti zařízení"
 
 #: ../iw/autopart_type.py:207
 msgid "Do you really want to boot from a disk which is not used for installation?"
@@ -2225,7 +2225,7 @@ msgstr "Chyba v datech"
 #: ../iw/autopart_type.py:469
 #: ../iw/autopart_type.py:470
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Znovu prohlížím disky"
 
 #: ../iw/autopart_type.py:524
 #: ../textw/partition_text.py:63
@@ -2236,7 +2236,7 @@ msgstr "_Ignorovat disk"
 #: ../iw/autopart_type.py:525
 #: ../textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Nahradit existující Linuxový systém"
 
 #: ../iw/autopart_type.py:526
 #, fuzzy
@@ -2332,7 +2332,7 @@ msgstr ""
 #: ../iw/congrats_gui.py:77
 #: ../textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Vypnout"
 
 #: ../iw/congrats_gui.py:79
 #: ../textw/complete_text.py:44
@@ -3579,7 +3579,7 @@ msgstr "Na vybraném zařízení není dostatek volného místa pro odkládací 
 #: ../iw/welcome_gui.py:56
 #: ../textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Je třeba síťová instalace"
 
 #: ../iw/welcome_gui.py:57
 #: ../textw/welcome_text.py:37
