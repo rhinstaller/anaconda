@@ -76,13 +76,14 @@ class DMRaidMember(DeviceFormat):
         # Initialize the attribute that will hold the block object.
         self._raidmem = None
 
-    @property
-    def raidmem(self):
+    def _getRaidmem(self):
         return self._raidmem
 
-    @raidmem.setter
-    def raidmem(self, raidmem):
+    def _setRaidmem(self, raidmem):
         self._raidmem = raidmem
+
+    raidmem = property(lambda d: d._getRaidmem(),
+                       lambda d,r: d._setRaidmem(r))
 
     def create(self, *args, **kwargs):
         log_method_call(self, device=self.device,

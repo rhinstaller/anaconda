@@ -66,13 +66,14 @@ class MultipathMember(DeviceFormat):
         # Initialize the attribute that will hold the block object.
         self._member = None
 
-    @property
-    def member(self):
+    def _getMember(self):
         return self._member
 
-    @member.setter
-    def member(self, member):
+    def _setMember(self, member):
         self._member = member
+
+    member = property(lambda s: s._getMember(),
+                      lambda s,m: s._setMember(m))
 
     def create(self, *args, **kwargs):
         log_method_call(self, device=self.device,
