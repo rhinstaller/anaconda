@@ -2265,7 +2265,7 @@ class MDRaidArrayDevice(StorageDevice):
                 spares = self.totalDevices - self.memberDevices
             else:
                 spares = self.memberDevices
-                self.totalDevices = self.memberDevices
+                self._totalDevices = self.memberDevices
         return spares
 
     def _setSpares(self, spares):
