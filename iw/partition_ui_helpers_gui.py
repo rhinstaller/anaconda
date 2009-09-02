@@ -377,9 +377,10 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         if origfs.exists:
             reqlower = origrequest.minSize
 
-            geomsize = origrequest.partedPartition.geometry.getSize(unit="MB")
-            if (requpper != 0) and (requpper > geomsize):
-                requpper = geomsize
+            if origrequest.type == "partition":
+                geomsize = origrequest.partedPartition.geometry.getSize(unit="MB")
+                if (geomsize != 0) and (requpper > geomsize):
+                    requpper = geomsize
 
         adj = gtk.Adjustment(value = value, lower = reqlower,
                              upper = requpper, step_incr = 1)
