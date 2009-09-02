@@ -350,18 +350,11 @@ class Device(object):
     def packages(self):
         """ List of packages required to manage devices of this type.
 
-            This list includes the packages required by this device's
-            format type as well those required by all of its parent 
-            devices.
+            This list includes the packages required by its parent devices.
         """
         packages = self._packages
-        packages.extend(self.format.packages)
         for parent in self.parents:
             for package in parent.packages:
-                if package not in packages:
-                    packages.append(package)
-
-            for package in parent.format.packages:
                 if package not in packages:
                     packages.append(package)
 
@@ -454,6 +447,23 @@ class StorageDevice(Device):
         self._targetSize = self._size
 
         self._partedDevice = None
+
+    @property
+    def packages(self):
+        """ List of packages required to manage devices of this type.
+
+            This list includes the packages required by this device's
+            format type as well those required by all of its parent 
+            devices.
+        """
+        packages = super(StorageDevice, self).packages
+        packages.extend(self.format.packages)
+        for parent in self.parents:
+            for package in parent.format.packages:
+                if package not in packages:
+                    packages.append(package)
+
+        return packages
 
     @property
     def partedDevice(self):
