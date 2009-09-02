@@ -224,7 +224,7 @@ class Storage(object):
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi)
-        self.fsset = FSSet(self.devicetree)
+        self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
 
     def doIt(self):
         self.devicetree.processActions()
@@ -291,7 +291,7 @@ class Storage(object):
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi)
         self.devicetree.populate()
-        self.fsset = FSSet(self.devicetree)
+        self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
         self.anaconda.id.rootParts = None
         self.anaconda.id.upgradeRoot = None
         w.pop()
@@ -1267,8 +1267,9 @@ def get_containing_device(path, devicetree):
 
 class FSSet(object):
     """ A class to represent a set of filesystems. """
-    def __init__(self, devicetree):
+    def __init__(self, devicetree, rootpath):
         self.devicetree = devicetree
+        self.rootpath = rootpath
         self.cryptTab = None
         self.blkidTab = None
         self.origFStab = None
