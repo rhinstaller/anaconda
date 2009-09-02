@@ -1796,6 +1796,20 @@ class DeviceTree(object):
                 log.info("adding %s to singlepath_disks" % (disks[0]['name'],))
                 singlepath_disks.append(disks[0])
             else:
+                # some usb cardreaders use multiple lun's (for different slots)
+                # and report a fake disk serial which is the same for all the
+                # lun's (#517603)
+                all_usb = True
+                for d in disks:
+                    if d.get("ID_USB_DRIVER") != "usb-storage":
+                        all_usb = False
+                        break
+                if all_usb:
+                    log.info("adding multi lun usb mass storage device to singlepath_disks: %s" %
+                             [disk['name'] for disk in disks])
+                    singlepath_disks.extend(disks)
+                    continue
+
                 multipath_members = {}
                 for d in disks:
                     log.info("adding %s to multipath_disks" % (d['name'],))
