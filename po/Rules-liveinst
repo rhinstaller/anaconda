@@ -7,5 +7,5 @@ LIVEINST_HDRS = $(top_builddir)/liveinst/liveinst.desktop.in.h
 	mv tmp/*h . ; \
 	rmdir tmp
 
-mostlyclean-glade:
+mostlyclean-liveinst:
 	rm -f $(LIVEINST_HDRS)
