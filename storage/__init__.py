@@ -1763,13 +1763,18 @@ class FSSet(object):
 
     @property
     def rootDevice(self):
+        rootpath = self.rootpath
+
+        if not rootpath:
+            rootpath = "/"
+
         for device in self.devices:
             try:
                 mountpoint = device.format.mountpoint
             except AttributeError:
                 mountpoint = None
 
-            if mountpoint == "/":
+            if mountpoint == rootpath:
                 return device
 
     @property
