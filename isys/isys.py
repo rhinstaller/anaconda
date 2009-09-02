@@ -716,6 +716,9 @@ def isPaeAvailable():
 def getLinkStatus(dev):
     return _isys.getLinkStatus(dev)
 
+def getAnacondaVersion():
+    return _isys.getAnacondaVersion()
+
 auditDaemon = _isys.auditdaemon
 
 handleSegv = _isys.handleSegv

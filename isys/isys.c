@@ -128,6 +128,7 @@ static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
 static PyObject * doGetBlkidData(PyObject * s, PyObject * args);
 static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
 static PyObject * doGetLinkStatus(PyObject * s, PyObject * args);
+static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -172,6 +173,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getblkid", (PyCFunction) doGetBlkidData, METH_VARARGS, NULL },
     { "isCapsLockEnabled", (PyCFunction) doIsCapsLockEnabled, METH_VARARGS, NULL },
     { "getLinkStatus", (PyCFunction) doGetLinkStatus, METH_VARARGS, NULL },
+    { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -870,6 +872,10 @@ static PyObject * doGetLinkStatus(PyObject * s, PyObject * args) {
     }
 
     return PyBool_FromLong(0);
+}
+
+static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args) {
+    return Py_BuildValue("s", VERSION);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

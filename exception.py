@@ -90,7 +90,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
         os.kill(os.getpid(), signal.SIGKILL)
 
 def initExceptionHandling(anaconda):
-    conf = Config(programName="anaconda", programVersion=os.environ["ANACONDAVERSION"],
+    conf = Config(programName="anaconda",
+                  programVersion=isys.getAnacondaVersion(),
                   bugFiler=anaconda.id.instClass.bugFiler,
                   attrSkipList=[ "anaconda.backend.ayum",
                                  "anaconda.backend.dlpkgs",

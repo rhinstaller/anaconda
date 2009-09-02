@@ -2234,7 +2234,6 @@ int main(int argc, char ** argv) {
         printf(fmt, VERSION, getProductName());
 
         if (!(pid = fork())) {
-            setenv("ANACONDAVERSION", VERSION, 1);
             if (execv(anacondaArgs[0], anacondaArgs) == -1) {
                fprintf(stderr,"exec of anaconda failed: %m\n");
                exit(1);
