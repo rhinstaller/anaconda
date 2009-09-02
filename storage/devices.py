@@ -476,7 +476,7 @@ class StorageDevice(Device):
             # to find a device.
             try:
                 self._partedDevice = parted.Device(path=self.path)
-            except _ped.DeviceException:
+            except _ped.IOException:
                 pass
 
         return self._partedDevice

@@ -63,7 +63,7 @@ class DiskLabel(DeviceFormat):
         self._partedDisk = None
         self._origPartedDisk = None
 
-        if self.device:
+        if self.partedDevice:
             # set up the parted objects and raise exception on failure
             self._origPartedDisk = self.partedDisk.duplicate()
 
@@ -119,7 +119,14 @@ class DiskLabel(DeviceFormat):
     def partedDevice(self):
         if not self._partedDevice and self.device and \
            os.path.exists(self.device):
-            self._partedDevice = parted.Device(path=self.device)
+            # We aren't guaranteed to be able to get a device.  In
+            # particular, built-in USB flash readers show up as devices but
+            # do not always have any media present, so parted won't be able
+            # to find a device.
+            try:
+                 self._partedDevice = parted.Device(path=self.device)
+            except _ped.IOException:
+                 pass
 
         return self._partedDevice
 
