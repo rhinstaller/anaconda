@@ -298,7 +298,7 @@ class Device(object):
         log.info("NOTE: recursive device creation disabled")
         for parent in self.parents:
             if not parent.exists:
-                raise DeviceError("parent device does not exist", self.path)
+                raise DeviceError("parent device does not exist", self.name)
             #parent.create()
 
     def dependsOn(self, dep):
@@ -553,7 +553,7 @@ class StorageDevice(Device):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         self.setupParents()
         for parent in self.parents:
@@ -563,7 +563,7 @@ class StorageDevice(Device):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists and not recursive:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status and self.format.exists:
             self.format.teardown()
@@ -590,7 +590,7 @@ class StorageDevice(Device):
         """ Set the device's size to a new value. """
         if newsize > self.maxSize:
             raise DeviceError("device cannot be larger than %s MB" %
-                              (self.maxSize(),), self.path)
+                              (self.maxSize(),), self.name)
         self._size = newsize
 
     size = property(lambda x: x._getSize(),
@@ -643,7 +643,7 @@ class StorageDevice(Device):
                         current=getattr(self._format, "type", None))
         if self._format and self._format.status:
             # FIXME: self.format.status doesn't mean much
-            raise DeviceError("cannot replace active format", self.path)
+            raise DeviceError("cannot replace active format", self.name)
 
         self._format = format
 
@@ -658,7 +658,7 @@ class StorageDevice(Device):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
-            raise DeviceError("device has already been created", self.path)
+            raise DeviceError("device has already been created", self.name)
 
         self.createParents()
         self.setupParents()
@@ -669,10 +669,10 @@ class StorageDevice(Device):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if not self.isleaf:
-            raise DeviceError("Cannot destroy non-leaf device", self.path)
+            raise DeviceError("Cannot destroy non-leaf device", self.name)
 
         self.exists = False
         # we already did this in DeviceTree._removeDevice
@@ -753,7 +753,7 @@ class DiskDevice(StorageDevice):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         if not self.mediaPresent:
-            raise DeviceError("cannot destroy disk with no media", self.path)
+            raise DeviceError("cannot destroy disk with no media", self.name)
 
         self.teardown()
 
@@ -761,7 +761,7 @@ class DiskDevice(StorageDevice):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, status=self.status)
         if not os.path.exists(self.path):
-            raise DeviceError("device does not exist", self.path)
+            raise DeviceError("device does not exist", self.name)
 
 
 class PartitionDevice(StorageDevice):
@@ -847,7 +847,7 @@ class PartitionDevice(StorageDevice):
             log.debug("looking up parted Partition: %s" % self.path)
             self._partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
             if not self._partedPartition:
-                raise DeviceError("cannot find parted partition instance", self.path)
+                raise DeviceError("cannot find parted partition instance", self.name)
 
             # collect information about the partition from parted
             self.probe()
@@ -1055,7 +1055,7 @@ class PartitionDevice(StorageDevice):
                 else:
                     self.unsetFlag(parted.PARTITION_BOOT)
             else:
-                raise DeviceError("boot flag not available for this partition", self.path)
+                raise DeviceError("boot flag not available for this partition", self.name)
 
             self._bootable = bootable
         else:
@@ -1119,7 +1119,7 @@ class PartitionDevice(StorageDevice):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
-            raise DeviceError("device already exists", self.path)
+            raise DeviceError("device already exists", self.name)
 
         self.createParents()
         self.setupParents()
@@ -1176,13 +1176,13 @@ class PartitionDevice(StorageDevice):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if not self.sysfsPath:
             return
 
         if not self.isleaf:
-            raise DeviceError("Cannot destroy non-leaf device", self.path)
+            raise DeviceError("Cannot destroy non-leaf device", self.name)
 
         self.setupParents()
         self.disk.format.removePartition(self.partedPartition)
@@ -1209,7 +1209,7 @@ class PartitionDevice(StorageDevice):
         log_method_call(self, self.name,
                         status=self.status, size=self._size, newsize=newsize)
         if not self.exists:
-            raise DeviceError("device does not exist", self.path)
+            raise DeviceError("device does not exist", self.name)
 
         if newsize > self.disk.size:
             raise ValueError("partition size would exceed disk size")
@@ -1309,7 +1309,7 @@ class DMDevice(StorageDevice):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status:
             dm_node = self.getDMNode()
@@ -1325,7 +1325,7 @@ class DMDevice(StorageDevice):
         """ Return the dm-X (eg: dm-0) device node for this device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         return dm.dm_node_from_name(self.name)
 
@@ -1333,7 +1333,7 @@ class DMDevice(StorageDevice):
         """ Set the device's map name. """
         log_method_call(self, self.name, status=self.status)
         if self.status:
-            raise DeviceError("cannot rename active device", self.path)
+            raise DeviceError("cannot rename active device", self.name)
 
         self._name = name
         #self.sysfsPath = "/dev/disk/by-id/dm-name-%s" % self.name
@@ -1410,7 +1410,7 @@ class LUKSDevice(DMCryptDevice):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
-            raise DeviceError("device already exists", self.path)
+            raise DeviceError("device already exists", self.name)
 
         self.createParents()
         self.setupParents()
@@ -1425,7 +1425,7 @@ class LUKSDevice(DMCryptDevice):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         self.slave.setup()
         self.slave.format.setup()
@@ -1438,7 +1438,7 @@ class LUKSDevice(DMCryptDevice):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists and not recursive:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status and self.format.exists:
             self.format.teardown()
@@ -1565,7 +1565,7 @@ class LVMVolumeGroupDevice(DMDevice):
         """ Probe for any information about this device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
     @property
     def path(self):
@@ -1578,7 +1578,7 @@ class LVMVolumeGroupDevice(DMDevice):
         # Thank you lvm for this lovely hack.
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         return dm.dm_node_from_name(self.name.replace("-","--"))
 
@@ -1615,7 +1615,7 @@ class LVMVolumeGroupDevice(DMDevice):
                         device=device.name,
                         status=self.status)
         if not self.exists:
-            raise DeviceError("device does not exist", self.path)
+            raise DeviceError("device does not exist", self.name)
 
         if not isinstance(device.format, self.pvClass):
             raise ValueError("addDevice requires a PV arg")
@@ -1657,13 +1657,13 @@ class LVMVolumeGroupDevice(DMDevice):
         """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status:
             return
 
         if len(self.parents) < self.pvCount:
-            raise DeviceError("cannot activate VG with missing PV(s)", self.path)
+            raise DeviceError("cannot activate VG with missing PV(s)", self.name)
 
         self.setupParents()
 
@@ -1671,7 +1671,7 @@ class LVMVolumeGroupDevice(DMDevice):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists and not recursive:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status:
             lvm.vgdeactivate(self.name)
@@ -1683,7 +1683,7 @@ class LVMVolumeGroupDevice(DMDevice):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
-            raise DeviceError("device already exists", self.path)
+            raise DeviceError("device already exists", self.name)
 
         pv_list = []
         #for pv in self.parents:
@@ -1705,7 +1705,7 @@ class LVMVolumeGroupDevice(DMDevice):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         # set up the pvs since lvm needs access to them to do the vgremove
         self.setupParents()
@@ -1715,7 +1715,7 @@ class LVMVolumeGroupDevice(DMDevice):
             lvm.vgreduce(self.name, [], rm=True)
             lvm.vgremove(self.name)
         except lvm.LVMError:
-            raise DeviceError("Could not completely remove VG", self.path)
+            raise DeviceError("Could not completely remove VG", self.name)
         finally:
             self.notifyKernel()
             self.exists = False
@@ -1724,7 +1724,7 @@ class LVMVolumeGroupDevice(DMDevice):
         """ Remove the listed PVs from the VG. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         lvm.vgreduce(self.name, pv_list)
         # XXX do we need to notify the kernel?
@@ -1739,7 +1739,7 @@ class LVMVolumeGroupDevice(DMDevice):
         if not lv.exists and \
            not [pv for pv in self.pvs if getattr(pv, "req_grow", None)] and \
            lv.size > self.freeSpace:
-            raise DeviceError("new lv is too large to fit in free space", self.path)
+            raise DeviceError("new lv is too large to fit in free space", self.name)
 
         self._lvs.append(lv)
 
@@ -1757,7 +1757,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
         # for the time being we will not allow vgextend
         if self.exists:
-            raise DeviceError("cannot add pv to existing vg", self.path)
+            raise DeviceError("cannot add pv to existing vg", self.name)
 
         self.parents.append(pv)
         pv.addChild()
@@ -1769,7 +1769,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
         # for the time being we will not allow vgreduce
         if self.exists:
-            raise DeviceError("cannot remove pv from existing vg", self.path)
+            raise DeviceError("cannot remove pv from existing vg", self.name)
 
         self.parents.remove(pv)
         pv.removeChild()
@@ -1982,7 +1982,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         # Thank you lvm for this lovely hack.
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         return dm.dm_node_from_name("%s-%s" % (self.vg.name.replace("-","--"), \
                 self._name.replace("-","--")))
@@ -2022,7 +2022,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status:
             return
@@ -2038,7 +2038,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists and not recursive:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status and self.format.exists:
             self.format.teardown()
@@ -2060,7 +2060,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
-            raise DeviceError("device already exists", self.path)
+            raise DeviceError("device already exists", self.name)
 
         self.createParents()
         self.setupParents()
@@ -2075,7 +2075,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         self.teardown()
         # set up the vg's pvs so lvm can remove the lv
@@ -2087,7 +2087,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         # XXX resize format probably, right?
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         # Setup VG parents (in case they are dmraid partitions for example)
         self.vg.setupParents()
@@ -2153,7 +2153,7 @@ class MDRaidArrayDevice(StorageDevice):
 
         self.formatClass = get_device_format_class("mdmember")
         if not self.formatClass:
-            raise DeviceError("cannot find class for 'mdmember'", self.path)
+            raise DeviceError("cannot find class for 'mdmember'", self.name)
 
         if self.exists and self.uuid:
             # this is a hack to work around mdadm's insistence on giving
@@ -2231,7 +2231,7 @@ class MDRaidArrayDevice(StorageDevice):
     def mdadmConfEntry(self):
         """ This array's mdadm.conf entry. """
         if self.level is None or self.memberDevices is None or not self.uuid:
-            raise DeviceError("array is not fully defined", self.path)
+            raise DeviceError("array is not fully defined", self.name)
 
         fmt = "ARRAY %s level=raid%d num-devices=%d UUID=%s\n"
         return fmt % (self.path, self.level, self.memberDevices, self.uuid)
@@ -2283,7 +2283,7 @@ class MDRaidArrayDevice(StorageDevice):
         """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         try:
             self.devices[0].setup()
@@ -2302,7 +2302,7 @@ class MDRaidArrayDevice(StorageDevice):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status:
             self.sysfsPath = "/devices/virtual/block/%s" % self.name
@@ -2320,7 +2320,7 @@ class MDRaidArrayDevice(StorageDevice):
                         device=device.name,
                         status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if not isinstance(device.format, self.formatClass):
             raise ValueError("invalid device format for mdraid member")
@@ -2408,7 +2408,7 @@ class MDRaidArrayDevice(StorageDevice):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status:
             return
@@ -2433,7 +2433,7 @@ class MDRaidArrayDevice(StorageDevice):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists and not recursive:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status and self.format.exists:
             self.format.teardown()
@@ -2452,7 +2452,7 @@ class MDRaidArrayDevice(StorageDevice):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
-            raise DeviceError("device already exists", self.path)
+            raise DeviceError("device already exists", self.name)
 
         disks = [disk.path for disk in self.devices]
         self.createParents()
@@ -2487,7 +2487,7 @@ class MDRaidArrayDevice(StorageDevice):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         self.teardown()
 
@@ -2551,7 +2551,7 @@ class DMRaidArrayDevice(DiskDevice):
         log_method_call(self, self.name, device=device.name, status=self.status)
 
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if not isinstance(device.format, self.formatClass):
             raise ValueError("invalid device format for dmraid member")
@@ -2576,7 +2576,7 @@ class DMRaidArrayDevice(DiskDevice):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.status:
             dm_node = dm.dm_node_from_name(self.name)
@@ -2589,7 +2589,7 @@ class DMRaidArrayDevice(DiskDevice):
         """ Close, or tear down, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         if self.format.exists:
             self.format.teardown()
@@ -2602,7 +2602,7 @@ class DMRaidArrayDevice(DiskDevice):
         """ Open, or set up, a device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         # This call already checks if the set is active.
         self._raidSet.activate(mknod=True)
@@ -2833,7 +2833,7 @@ class FileDevice(StorageDevice):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
-            raise DeviceError("device already exists", self.path)
+            raise DeviceError("device already exists", self.name)
 
         # this only checks that parents exist
         self.createParents()
@@ -2842,7 +2842,7 @@ class FileDevice(StorageDevice):
         try:
             fd = os.open(self.path, os.O_RDWR)
         except OSError as e:
-            raise DeviceError(e, self.path)
+            raise DeviceError(e, self.name)
 
         try:
             buf = '\0' * 1024 * 1024 * self.size
@@ -2858,7 +2858,7 @@ class FileDevice(StorageDevice):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         os.unlink(self.path)
         self.exists = False
@@ -2875,14 +2875,14 @@ class DirectoryDevice(FileDevice):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
         if self.exists:
-            raise DeviceError("device already exists", self.path)
+            raise DeviceError("device already exists", self.name)
 
         self.createParents()
         self.setupParents()
         try:
             iutil.mkdirChain(self.path)
         except Exception, e:
-            raise DeviceError(e, self.path)
+            raise DeviceError(e, self.name)
 
         self.exists = True
 
@@ -2890,7 +2890,7 @@ class DirectoryDevice(FileDevice):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         os.unlink(self.path)
         self.exists = False
@@ -2958,7 +2958,7 @@ class OpticalDevice(StorageDevice):
         """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         try:
             fd = os.open(self.path, os.O_RDONLY)
@@ -2978,7 +2978,7 @@ class OpticalDevice(StorageDevice):
 
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
-            raise DeviceError("device has not been created", self.path)
+            raise DeviceError("device has not been created", self.name)
 
         #try to umount and close device before ejecting
         self.teardown()

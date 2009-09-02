@@ -1580,20 +1580,20 @@ class FSSet(object):
 
                     anaconda.intf.messageWindow(_("Error"), msg)
                 sys.exit(0)
-            except DeviceError as (msg, path):
+            except DeviceError as (msg, name):
                 if anaconda.intf:
                     if upgrading:
                         err = _("Error enabling swap device %s: %s\n\n"
                                 "The /etc/fstab on your upgrade partition "
                                 "does not reference a valid swap "
                                 "device.\n\nPress OK to exit the "
-                                "installer") % (path, msg)
+                                "installer") % (name, msg)
                     else:
                         err = _("Error enabling swap device %s: %s\n\n"
                                 "This most likely means this swap "
                                 "device has not been initialized.\n\n"
                                 "Press OK to exit the installer.") % \
-                              (path, msg)
+                              (name, msg)
                     anaconda.intf.messageWindow(_("Error"), err)
                 sys.exit(0)
 
