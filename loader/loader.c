@@ -858,6 +858,21 @@ static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
 }
 #endif
 
+static long argToLong(char *arg, int offset) {
+    long retval;
+
+    errno = 0;
+
+    retval = strtol(arg+offset, NULL, 10);
+    if ((errno == ERANGE && (retval == LONG_MIN || retval == LONG_MAX)) ||
+        (errno != 0 && retval == 0)) {
+        logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
+        abort();
+    }
+
+    return retval;
+}
+
 /* parses /proc/cmdline for any arguments which are important to us.  
  * NOTE: in test mode, can specify a cmdline with --cmdline
  */
@@ -1049,52 +1064,16 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->ethtool = strdup(argv[i] + 8);
         else if (!strncasecmp(argv[i], "essid=", 6))
             loaderData->essid = strdup(argv[i] + 6);
-        else if (!strncasecmp(argv[i], "mtu=", 4)) {
-            errno = 0;
-            loaderData->mtu = strtol(argv[i] + 4, NULL, 10);
-
-            if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
-                                     loaderData->mtu == LONG_MAX)) ||
-                (errno != 0 && loaderData->mtu == 0)) {
-                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-        }
+        else if (!strncasecmp(argv[i], "mtu=", 4))
+            loaderData->mtu = argToLong(argv[i], 4);
         else if (!strncasecmp(argv[i], "wepkey=", 7))
             loaderData->wepkey = strdup(argv[i] + 7);
-        else if (!strncasecmp(argv[i], "linksleep=", 10)) {
-            errno = 0;
-            num_link_checks = strtol(argv[i] + 10, NULL, 10);
-
-            if ((errno == ERANGE && (num_link_checks == LONG_MIN ||
-                                     num_link_checks == LONG_MAX)) ||
-                (errno != 0 && num_link_checks == 0)) {
-                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-        }
-        else if (!strncasecmp(argv[i], "nicdelay=", 9)) {
-            errno = 0;
-            post_link_sleep = strtol(argv[i] + 9, NULL, 10);
-
-            if ((errno == ERANGE && (post_link_sleep == LONG_MIN ||
-                                     post_link_sleep == LONG_MAX)) ||
-                (errno != 0 && post_link_sleep == 0)) {
-                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-        }
-        else if (!strncasecmp(argv[i], "dhcptimeout=", 12)) {
-            errno = 0;
-            loaderData->dhcpTimeout = strtol(argv[i] + 12, NULL, 10);
-
-            if ((errno == ERANGE && (loaderData->dhcpTimeout == LONG_MIN ||
-                                     loaderData->dhcpTimeout == LONG_MAX)) ||
-                (errno != 0 && loaderData->dhcpTimeout == 0)) {
-                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-        }
+        else if (!strncasecmp(argv[i], "linksleep=", 10))
+            num_link_checks = argToLong(argv[i], 10);
+        else if (!strncasecmp(argv[i], "nicdelay=", 9))
+            post_link_sleep = argToLong(argv[i], 9);
+        else if (!strncasecmp(argv[i], "dhcptimeout=", 12))
+            loaderData->dhcpTimeout = argToLong(argv[i], 12);
         else if (!strncasecmp(argv[i], "selinux=0", 9))
             flags &= ~LOADER_FLAGS_SELINUX;
         else if (!strncasecmp(argv[i], "selinux", 7))
