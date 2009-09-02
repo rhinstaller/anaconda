@@ -8,7 +8,7 @@ class sparcBootloaderInfo(bootloaderInfo):
                 chainList, defaultDev, justConfigFile):
 
         try:
-            bootDev = self.storage.fsset.mountpoints["/boot"]
+            bootDev = self.storage.mountpoints["/boot"]
 
             mf = '/silo.message'
             cf = "/boot/silo.conf"
@@ -17,7 +17,7 @@ class sparcBootloaderInfo(bootloaderInfo):
             if not os.path.isdir(instRoot + "/boot"):
                 os.mkdir(instRoot + "/boot")
         except KeyError:
-            bootDev = self.storage.fsset.rootDevice
+            bootDev = self.storage.rootDevice
 
             cf = "/etc/silo.conf"
             mfdir = '/etc'
@@ -46,7 +46,7 @@ class sparcBootloaderInfo(bootloaderInfo):
         f.write("default=%s\n" % (kernelList[0][0],))
         f.write("\n")
 
-        rootDev = self.storage.fsset.rootDevice
+        rootDev = self.storage.rootDevice
 
         for (label, longlabel, version) in kernelList:
             kernelTag = "-" + version

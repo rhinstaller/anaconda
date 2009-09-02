@@ -26,10 +26,10 @@ class ppcBootloaderInfo(bootloaderInfo):
             # Try to get a boot device; bplan OF understands ext3
             if machine == 'Pegasos' or machine == 'Efika':
                 try:
-                    device = self.storage.fsset.mountpoints["/boot"]
+                    device = self.storage.mountpoints["/boot"]
                 except KeyError:
                     # Try / if we don't have this we're not going to work
-                    device = self.storage.fsset.rootDevice
+                    device = self.storage.rootDevice
 
                 retval.append(device.path)
             else:
@@ -45,14 +45,14 @@ class ppcBootloaderInfo(bootloaderInfo):
         yabootTarget = string.join(self.getBootDevs(bl))
 
         try:
-            bootDev = self.storage.fsset.mountpoints["/boot"]
+            bootDev = self.storage.mountpoints["/boot"]
 
             cf = "/boot/etc/yaboot.conf"
             cfPath = ""
             if not os.path.isdir(instRoot + "/boot/etc"):
                 os.mkdir(instRoot + "/boot/etc")
         except KeyError:
-            bootDev = self.storage.fsset.rootDevice
+            bootDev = self.storage.rootDevice
 
             cfPath = "/boot"
             cf = "/etc/yaboot.conf"
@@ -101,7 +101,7 @@ class ppcBootloaderInfo(bootloaderInfo):
 
         f.write("\n")
 
-        rootDev = self.storage.fsset.rootDevice
+        rootDev = self.storage.rootDevice
 
         for (label, longlabel, version) in kernelList:
             kernelTag = "-" + version

@@ -88,7 +88,7 @@ class KernelArguments:
 
     def get(self):
         args = self.args
-        root = self.id.storage.fsset.rootDevice
+        root = self.id.storage.rootDevice
         for d in self.id.storage.devices:
             if root.dependsOn(d):
                 dracutSetupString = d.dracutSetupString()
@@ -210,7 +210,7 @@ class BootImages:
                     self.images[dev.name] = (None, None, type)
 
         if not self.images.has_key(self.default):
-            self.default = storage.fsset.rootDevice.name
+            self.default = storage.rootDevice.name
             (label, longlabel, type) = self.images[self.default]
             if not label:
                 self.images[self.default] = ("linux", productName, type)
@@ -249,7 +249,7 @@ class BootImages:
                 # questionable for same reason as above, but on mac this time
                 retval.append((part, type))
 
-        rootDevice = storage.fsset.rootDevice
+        rootDevice = storage.rootDevice
 
         if not rootDevice or not rootDevice.format:
             raise ValueError, ("Trying to pick boot devices but do not have a "
@@ -343,7 +343,7 @@ class bootloaderInfo:
         lilo.addEntry("prompt", replace = 0)
         lilo.addEntry("timeout", self.timeout or "20", replace = 0)
 
-        rootDev = self.storage.fsset.rootDevice
+        rootDev = self.storage.rootDevice
 
         if rootDev.name == defaultDev.name:
             lilo.addEntry("default", kernelList[0][0])
@@ -590,7 +590,7 @@ class efiBootloaderInfo(bootloaderInfo):
 
     def addNewEfiEntry(self, instRoot):
         try:
-            bootdev = self.storage.fsset.mountpoints["/boot/efi"].name
+            bootdev = self.storage.mountpoints["/boot/efi"].name
         except:
             bootdev = "sda1"
 

@@ -94,7 +94,7 @@ def turnOnFilesystems(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         if not anaconda.id.upgrade:
             log.info("unmounting filesystems")
-            anaconda.id.storage.fsset.umountFilesystems(anaconda.rootPath)
+            anaconda.id.storage.umountFilesystems()
         return DISPATCH_NOOP
 
     if flags.setupFilesystems:
@@ -109,7 +109,7 @@ def turnOnFilesystems(anaconda):
 
         upgrade_migrate = False
         if anaconda.id.upgrade:
-            for d in anaconda.id.storage.fsset.migratableDevices:
+            for d in anaconda.id.storage.migratableDevices:
                 if d.format.migrate:
                     upgrade_migrate = True
 
@@ -193,11 +193,10 @@ def turnOnFilesystems(anaconda):
                 sys.exit(1)
 
         if not anaconda.id.upgrade:
-            anaconda.id.storage.fsset.turnOnSwap(anaconda)
-            anaconda.id.storage.fsset.mountFilesystems(anaconda,
-                                                       raiseErrors=False,
-                                                       readOnly=False,
-                                                       skipRoot=anaconda.backend.skipFormatRoot)
+            anaconda.id.storage.turnOnSwap()
+            anaconda.id.storage.mountFilesystems(raiseErrors=False,
+                                                 readOnly=False,
+                                                 skipRoot=anaconda.backend.skipFormatRoot)
         else:
             if upgrade_migrate:
                 # we should write out a new fstab with the migrated fstype

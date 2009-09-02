@@ -127,7 +127,7 @@ class Platform(object):
             errors.append(_("Bootable partitions cannot be on an %s filesystem.") % req.format.name)
 
         # vfat /boot is insane.
-        if req == self.anaconda.id.storage.fsset.rootDevice and req.format.type == "vfat":
+        if req == self.anaconda.id.storage.rootDevice and req.format.type == "vfat":
             errors.append(_("Bootable partitions cannot be on an %s filesystem.") % req.format.type)
 
         if req.type == "luks/dm-crypt":

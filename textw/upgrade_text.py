@@ -31,7 +31,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):
       
-        migent = anaconda.id.storage.fsset.migratableDevices
+        migent = anaconda.id.storage.migratableDevices
 
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
@@ -190,7 +190,7 @@ class UpgradeSwapWindow:
 		else:
 		    screen.popWindow()
                     if flags.setupFilesystems:
-                        anaconda.id.storage.fsset.createSwapFile(anaconda.rootPath, dev, val)
+                        anaconda.id.storage.createSwapFile(dev, val)
                     anaconda.dispatch.skipStep("addswap", 1)
 		    return INSTALL_OK
 

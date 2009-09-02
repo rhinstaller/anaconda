@@ -66,7 +66,7 @@ class UpgradeSwapWindow (InstallWindow):
 
         else:
             if flags.setupFilesystems:
-                self.fsset.createSwapFile(self.instPath, dev, val)
+                self.storage.createSwapFile(dev, val)
             self.dispatch.skipStep("addswap", 1)
                 
         return None
@@ -79,8 +79,7 @@ class UpgradeSwapWindow (InstallWindow):
     
     def getScreen (self, anaconda):
         self.neededSwap = 0
-        self.fsset = anaconda.id.storage.fsset
-        self.instPath = anaconda.rootPath
+        self.storage = anaconda.id.storage
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
         

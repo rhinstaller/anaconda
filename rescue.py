@@ -117,7 +117,7 @@ class RescueInterface:
 # XXX grub-install is stupid and uses df output to figure out
 # things when installing grub.  make /etc/mtab be at least
 # moderately useful.  
-def makeMtab(instPath, fsset):
+def makeMtab(instPath, storage):
     try:
         f = open(instPath + "/etc/mtab", "w+")
     except IOError, e:
@@ -125,7 +125,7 @@ def makeMtab(instPath, fsset):
         return
 
     try:
-        f.write(fsset.mtab())
+        f.write(storage.mtab)
     finally:
         f.close()
 
@@ -366,7 +366,7 @@ def runRescue(anaconda, instClass):
                 # now turn on swap
                 if not readOnly:
                     try:
-                        anaconda.id.storage.fsset.turnOnSwap(anaconda)
+                        anaconda.id.storage.turnOnSwap()
                     except:
                         log.error("Error enabling swap")
 
@@ -453,7 +453,7 @@ def runRescue(anaconda, instClass):
     msgStr = ""
 
     if rootmounted and not readOnly:
-        makeMtab(anaconda.rootPath, anaconda.id.storage.fsset)
+        makeMtab(anaconda.rootPath, anaconda.id.storage)
         try:
             makeResolvConf(anaconda.rootPath)
         except Exception, e:

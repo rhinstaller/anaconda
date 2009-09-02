@@ -436,7 +436,7 @@ class LogVol(commands.logvol.F9_LogVol):
             # old one.
             try:
                 if lvd.mountpoint:
-                    device = storage.fsset.mountpoints[lvd.mountpoint]
+                    device = storage.mountpoints[lvd.mountpoint]
                     storage.destroyDevice(device)
             except KeyError:
                 pass
@@ -684,7 +684,7 @@ class Partition(commands.partition.F11_Partition):
             # old one.
             try:
                 if pd.mountpoint:
-                    device = storage.fsset.mountpoints[pd.mountpoint]
+                    device = storage.mountpoints[pd.mountpoint]
                     storage.destroyDevice(device)
             except KeyError:
                 pass
@@ -820,7 +820,7 @@ class Raid(commands.raid.F9_Raid):
             # old one.
             try:
                 if rd.mountpoint:
-                    device = storage.fsset.mountpoints[rd.mountpoint]
+                    device = storage.mountpoints[rd.mountpoint]
                     storage.destroyDevice(device)
             except KeyError:
                 pass

@@ -361,7 +361,7 @@ class OSBootWidget:
                 continue
 
 	    isRoot = 0
-            rootDev = self.storage.fsset.rootDevice
+            rootDev = self.storage.rootDevice
             if rootDev and rootDev.name == dev:
 		isRoot = 1
 

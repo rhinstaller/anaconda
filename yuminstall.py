@@ -819,7 +819,7 @@ class AnacondaYum(YumSorter):
         if len(mkeys) > 1:
             stage2img = "%s/images/install.img" % self.tree
             if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img):
-                self.anaconda.id.storage.fsset.umountFilesystems(self.anaconda.rootPath)
+                self.anaconda.id.storage.umountFilesystems()
                 return DISPATCH_BACK
 
         for i in mkeys:
@@ -1350,7 +1350,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
             if not anaconda.id.getUpgrade():
-                largePart = anaconda.id.storage.fsset.mountpoints.get("/usr", anaconda.id.storage.fsset.rootDevice)
+                largePart = anaconda.id.storage.mountpoints.get("/usr", anaconda.id.storage.rootDevice)
 
                 if largePart and largePart.size < self.totalSize / 1024:
                     rc = anaconda.intf.messageWindow(_("Error"),
@@ -1488,7 +1488,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
-        f.write(anaconda.id.storage.fsset.mtab())
+        f.write(anaconda.id.storage.mtab)
         f.close()
 
     def checkSupportedUpgrade(self, anaconda):

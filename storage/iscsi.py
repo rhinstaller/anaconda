@@ -264,7 +264,7 @@ class iscsi(object):
             return
 
         if not flags.test:
-            root = anaconda.id.storage.fsset.rootDevice
+            root = anaconda.id.storage.rootDevice
 
             # set iscsi nodes to autostart
             for node in self.nodes:

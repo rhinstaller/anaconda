@@ -25,7 +25,7 @@ class s390BootloaderInfo(bootloaderInfo):
             if not os.access(instRoot + sl.getPath(), os.R_OK):
                 lilo.delImage(label)
 
-        rootDev = self.storage.fsset.rootDevice
+        rootDev = self.storage.rootDevice
 
         if rootDev.name == defaultDev.name:
             lilo.addEntry("default", kernelList[0][0])
@@ -117,7 +117,7 @@ class s390BootloaderInfo(bootloaderInfo):
     
     def writeZipl(self, instRoot, bl, kernelList, chainList,
                   defaultDev, justConfigFile):
-        rootDev = self.storage.fsset.rootDevice
+        rootDev = self.storage.rootDevice
         
         cf = '/etc/zipl.conf'
         self.perms = 0600

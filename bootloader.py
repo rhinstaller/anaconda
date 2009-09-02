@@ -145,7 +145,7 @@ def writeBootloader(anaconda):
     kernelList = []
     otherList = []
     # getDefault needs to return a device, but that's too invasive for now.
-    rootDev = anaconda.id.storage.fsset.rootDevice
+    rootDev = anaconda.id.storage.rootDevice
 
     if not anaconda.id.bootloader.images.getDefault():
         defaultDev = None

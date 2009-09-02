@@ -18,9 +18,9 @@ class alphaBootloaderInfo(bootloaderInfo):
 
     def writeAboot(self, instRoot, bl, kernelList,
                    chainList, defaultDev, justConfig):
-        rootDevice = self.storage.fsset.rootDevice
+        rootDevice = self.storage.rootDevice
         try:
-            bootDevice = self.storage.fsset.mountpoints["/boot"]
+            bootDevice = self.storage.mountpoints["/boot"]
         except KeyError:
             bootDevice = rootDevice
 

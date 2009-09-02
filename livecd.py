@@ -151,8 +151,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def postAction(self, anaconda):
         self._unmountNonFstabDirs(anaconda)
         try:
-            anaconda.id.storage.fsset.umountFilesystems(anaconda.rootPath,
-                                                        swapoff = False)
+            anaconda.id.storage.umountFilesystems(swapoff = False)
             os.rmdir(anaconda.rootPath)
         except Exception, e:
             log.error("Unable to unmount filesystems: %s" % e) 
@@ -161,8 +160,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         if anaconda.dir == DISPATCH_BACK:
             self._unmountNonFstabDirs(anaconda)
             return
-        anaconda.id.storage.fsset.umountFilesystems(anaconda.rootPath,
-                                                    swapoff = False)
+        anaconda.id.storage.umountFilesystems(swapoff = False)
 
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
@@ -177,7 +175,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         osimg = self._getLiveBlockDevice() # the real image
         osfd = os.open(osimg, os.O_RDONLY)
 
-        rootDevice = anaconda.id.storage.fsset.rootDevice
+        rootDevice = anaconda.id.storage.rootDevice
         rootDevice.setup()
         rootfd = os.open(rootDevice.path, os.O_WRONLY)
 
@@ -227,10 +225,10 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         self._resizeRootfs(anaconda, wait)
 
         # remount filesystems
-        anaconda.id.storage.fsset.mountFilesystems(anaconda)
+        anaconda.id.storage.mountFilesystems()
 
         # restore the label of / to what we think it is
-        rootDevice = anaconda.id.storage.fsset.rootDevice
+        rootDevice = anaconda.id.storage.rootDevice
         rootDevice.setup()
         # ensure we have a random UUID on the rootfs
         # FIXME: this should be abstracted per filesystem type
@@ -257,8 +255,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
         # now create a tree so that we know what's mounted under where
         fsdict = {"/": []}
-        for mount in sorted(anaconda.id.storage.fsset.mountpoints.keys()):
-            entry = anaconda.id.storage.fsset.mountpoints[mount]
+        for mount in sorted(anaconda.id.storage.mountpoints.keys()):
+            entry = anaconda.id.storage.mountpoints[mount]
             tocopy = entry.format.mountpoint
             if tocopy.startswith("/mnt") or tocopy == "swap":
                 continue
@@ -277,7 +275,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                 continue
             copied.append(tocopy)
             copied.extend(map(lambda x: x.format.mountpoint, fsdict[tocopy]))
-            entry = anaconda.id.storage.fsset.mountpoints[tocopy]
+            entry = anaconda.id.storage.mountpoints[tocopy]
 
             # FIXME: all calls to wait.refresh() are kind of a hack... we
             # should do better about not doing blocking things in the
@@ -321,7 +319,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
     def _resizeRootfs(self, anaconda, win = None):
         log.info("going to do resize")
-        rootDevice = anaconda.id.storage.fsset.rootDevice
+        rootDevice = anaconda.id.storage.rootDevice
 
         # FIXME: we'd like to have progress here to give an idea of
         # how long it will take.  or at least, to give an indefinite
@@ -364,7 +362,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # now write out the "real" fstab and mtab
         anaconda.id.storage.write(anaconda.rootPath)
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
-        f.write(anaconda.id.storage.fsset.mtab())
+        f.write(anaconda.id.storage.mtab)
         f.close()        
         
         # copy over the modprobe.conf
@@ -393,7 +391,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # FIXME: really, this should be in the general sanity checking, but
         # trying to weave that in is a little tricky at present.
         ossize = self._getLiveSizeMB()
-        slash = anaconda.id.storage.fsset.rootDevice
+        slash = anaconda.id.storage.rootDevice
         if slash.size < ossize:
             rc = anaconda.intf.messageWindow(_("Error"),
                                         _("The root filesystem you created is "

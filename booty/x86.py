@@ -134,7 +134,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
     def writeGrub(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfigFile):
 
-        rootDev = self.storage.fsset.rootDevice
+        rootDev = self.storage.rootDevice
 
         # XXX old config file should be read here for upgrade
 
@@ -166,7 +166,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 "after making changes to this file\n")
 
         try:
-            bootDev = self.storage.fsset.mountpoints["/boot"]
+            bootDev = self.storage.mountpoints["/boot"]
             grubPath = "/grub"
             cfPath = "/"
             f.write("# NOTICE:  You have a /boot partition.  This means "
@@ -174,7 +174,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write("#          all kernel and initrd paths are relative "
                     "to /boot/, eg.\n")
         except KeyError:
-            bootDev = self.storage.fsset.rootDevice
+            bootDev = self.storage.rootDevice
             grubPath = "/boot/grub"
             cfPath = "/boot/"
             f.write("# NOTICE:  You do not have a /boot partition.  "
@@ -482,11 +482,11 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # so we have to do shenanigans to get updated grub installed...
         # steal some more code above
         try:
-            bootDev = self.storage.fsset.mountpoints["/boot"].name
+            bootDev = self.storage.mountpoints["/boot"].name
             grubPath = "/grub"
             cfPath = "/"
         except KeyError:
-            bootDev = self.storage.fsset.rootDevice.name
+            bootDev = self.storage.rootDevice.name
             grubPath = "/boot/grub"
             cfPath = "/boot/"
 

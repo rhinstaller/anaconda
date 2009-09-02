@@ -586,7 +586,7 @@ class Network:
             # installation when / is on a network backed device.
             if anaconda is not None:
                 import storage
-                rootdev = anaconda.id.storage.fsset.rootDevice
+                rootdev = anaconda.id.storage.rootDevice
                 # FIXME: use device.host_address to only add "NM_CONTROLLED=no"
                 # for interfaces actually used enroute to the device
                 for d in anaconda.id.storage.devices:

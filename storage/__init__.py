@@ -805,7 +805,7 @@ class Storage(object):
         mustbeonlinuxfs = ['/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib']
         mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc']
 
-        filesystems = self.fsset.mountpoints
+        filesystems = self.mountpoints
         root = self.fsset.rootDevice
         swaps = self.fsset.swapDevices
         try:
@@ -988,6 +988,45 @@ class Storage(object):
         self.fcoe.writeKS(f)
         self.zfcp.writeKS(f)
 
+    def turnOnSwap(self, upgrading=None):
+        self.fsset.turnOnSwap(self.anaconda, upgrading=upgrading)
+
+    def mountFilesystems(self, raiseErrors=None, readOnly=None, skipRoot=False):
+        self.fsset.mountFilesystems(self.anaconda, raiseErrors=raiseErrors,
+                                    readOnly=readOnly, skipRoot=skipRoot)
+
+    def umountFilesystems(self, ignoreErrors=True, swapoff=True):
+        self.fsset.umountFilesystems(ignoreErrors=ignoreErrors, swapoff=swapoff)
+
+    def parseFSTab(self):
+        self.fsset.parseFSTab()
+
+    def mkDevRoot(self):
+        self.fsset.mkDevRoot()
+
+    def createSwapFile(self, device, size):
+        self.fsset.createSwapFile(device, size)
+
+    @property
+    def fsFreeSpace(self):
+        return self.fsset.fsFreeSpace()
+
+    @property
+    def mtab(self):
+        return self.fsset.mtab()
+
+    @property
+    def mountpoints(self):
+        return self.fsset.mountpoints
+
+    @property
+    def migratableDevices(self):
+        return self.fsset.migratableDevices
+
+    @property
+    def rootDevice(self):
+        return self.fsset.rootDevice
+
 
 def getReleaseString(mountpoint):
     relName = None
@@ -1079,7 +1118,7 @@ def mountExistingSystem(anaconda, rootEnt,
                                 mountpoint="/",
                                 options=readOnly)
 
-    fsset.parseFSTab(chroot=rootPath)
+    fsset.parseFSTab()
 
     # check for dirty filesystems
     dirtyDevs = []
@@ -1415,7 +1454,7 @@ class FSSet(object):
 
         return device
 
-    def parseFSTab(self, chroot=""):
+    def parseFSTab(self, chroot=None):
         """ parse /etc/fstab
 
             preconditions:
@@ -1429,7 +1468,7 @@ class FSSet(object):
                 loop mounts?
         """
         if not chroot or not os.path.isdir(chroot):
-            chroot = ""
+            chroot = self.rootpath
 
         path = "%s/etc/fstab" % chroot
         if not os.access(path, os.R_OK):
@@ -1497,7 +1536,10 @@ class FSSet(object):
                         # just write duplicates back out post-install
                         self.preserveLines.append(line)
 
-    def fsFreeSpace(self, chroot='/'):
+    def fsFreeSpace(self, chroot=None):
+        if not chroot:
+            chroot = self.rootpath
+
         space = []
         for device in self.devices:
             if not device.format.mountable or \
@@ -1708,7 +1750,7 @@ class FSSet(object):
 
         self.active = True
 
-    def umountFilesystems(self, instPath, ignoreErrors=True, swapoff=True):
+    def umountFilesystems(self, ignoreErrors=True, swapoff=True):
         devices = self.mountpoints.values() + self.swapDevices
         devices.extend([self.dev, self.devshm, self.devpts, self.sysfs, self.proc])
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
@@ -1723,8 +1765,11 @@ class FSSet(object):
 
         self.active = False
 
-    def createSwapFile(self, rootPath, device, size):
+    def createSwapFile(self, device, size, rootPath=None):
         """ Create and activate a swap file under rootPath. """
+        if not rootPath:
+            rootPath = self.rootpath
+
         filename = "/SWAP"
         count = 0
         basedir = os.path.normpath("%s/%s" % (rootPath,
@@ -1746,7 +1791,10 @@ class FSSet(object):
         # nasty, nasty
         self.devicetree._addDevice(dev)
 
-    def mkDevRoot(self, instPath):
+    def mkDevRoot(self, instPath=None):
+        if not instPath:
+            instPath = self.rootpath
+
         root = self.rootDevice
         dev = "%s/%s" % (instPath, root.path)
         if not os.path.exists("%s/dev/root" %(instPath,)) and os.path.exists(dev):
@@ -1783,7 +1831,10 @@ class FSSet(object):
 
         return migratable
 
-    def write(self, instPath):
+    def write(self, instPath=None):
+        if not instPath:
+            instPath = self.rootpath
+
         """ write out all config files based on the set of filesystems """
         # /etc/fstab
         fstab_path = os.path.normpath("%s/etc/fstab" % instPath)

@@ -47,7 +47,7 @@ def doMethodComplete(anaconda):
         dev.eject()
 
     mtab = "/dev/root / ext3 ro 0 0\n"
-    rootDevice = anaconda.id.storage.fsset.rootDevice
+    rootDevice = anaconda.id.storage.rootDevice
     if rootDevice:
         mtab = "/dev/root / %s ro 0 0\n" % rootDevice.format.type
 

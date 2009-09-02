@@ -86,7 +86,7 @@ class AnacondaBackend:
         # the initrd might need iscsi-initiator-utils, and chances are
         # it was not installed yet the first time mkinitrd was run, as
         # mkinitrd does not require it.
-        root = anaconda.id.storage.fsset.rootDevice
+        root = anaconda.id.storage.rootDevice
         disks = anaconda.id.storage.devicetree.getDevicesByType("iscsi")
         for disk in disks:
             if root.dependsOn(disk):
@@ -159,7 +159,7 @@ class AnacondaBackend:
         if not anaconda.mediaDevice or not os.path.exists(installimg):
             return
 
-        free = anaconda.id.storage.fsset.fsFreeSpace(anaconda.rootPath)
+        free = anaconda.id.storage.fsFreeSpace
         self._loopbackFile = "%s%s/rhinstall-install.img" % (anaconda.rootPath,
                                                              free[0][0])
 
