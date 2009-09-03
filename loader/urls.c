@@ -1,7 +1,7 @@
 /*
  * urls.c - url handling code
  *
- * Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002  Red Hat, Inc.
+ * Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2009  Red Hat, Inc.
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -21,6 +21,7 @@
  *            Matt Wilson <msw@redhat.com>
  *            Michael Fulbright <msf@redhat.com>
  *            Jeremy Katz <katzj@redhat.com>
+ *            Chris Lumens <clumens@redhat.com>
  */
 
 #include <arpa/inet.h>
@@ -28,9 +29,11 @@
 #include <fcntl.h>
 #include <netinet/in.h>
 #include <newt.h>
+#include <regex.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <netdb.h>
 #include <errno.h>
@@ -43,6 +46,8 @@
 #include "windows.h"
 #include "net.h"
 
+#define NMATCH 10
+
 /* boot flags */
 extern uint64_t flags;
 
@@ -54,6 +59,45 @@ int progress_cb(void *data, double dltotal, double dlnow, double ultotal, double
 
     progressCallback(cb_data, dlnow, dltotal);
     return 0;
+}
+
+int splitProxyParam(char *param, char **user, char **password, char **host,
+                    char **port) {
+    /* proxy=[protocol://][username[:password]@]host[:port] */
+    char *pattern = "([[:alpha:]]+://)?(([[:alnum:]]+)(:[^:@]+)?@)?([^:]+)(:[[:digit:]]+)?(/.*)?";
+    regex_t re;
+    regmatch_t pmatch[NMATCH];
+
+    if (regcomp(&re, pattern, REG_EXTENDED)) {
+        return 0;
+    }
+
+    if (regexec(&re, param, NMATCH, pmatch, 0) == REG_NOMATCH) {
+        regfree(&re);
+        return 0;
+    }
+
+    /* Match 0 is always the whole string (assuming regexec matched anything)
+     * so skip it.  Then, these indices are just the number of the starting
+     * paren in pattern above.  Make sure to change these whenever changing
+     * the pattern.
+     */
+    if (pmatch[3].rm_so != -1)
+        *user = strndup(param+pmatch[3].rm_so, pmatch[3].rm_eo-pmatch[3].rm_so);
+
+    /* Skip the leading colon. */
+    if (pmatch[4].rm_so != -1)
+        *password = strndup(param+pmatch[4].rm_so+1, pmatch[4].rm_eo-pmatch[4].rm_so-1);
+
+    if (pmatch[5].rm_so != -1)
+        *host = strndup(param+pmatch[5].rm_so, pmatch[5].rm_eo-pmatch[5].rm_so);
+
+    /* Skip the leading colon. */
+    if (pmatch[6].rm_so != -1)
+        *port = strndup(param+pmatch[6].rm_so+1, pmatch[6].rm_eo-pmatch[6].rm_so-1);
+
+    regfree(&re);
+    return 1;
 }
 
 int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,

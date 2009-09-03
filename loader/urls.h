@@ -27,6 +27,8 @@ struct iurlinfo {
     char * url;
 };
 
+int splitProxyParam(char *param, char **user, char **password, char **host,
+                    char **port);
 int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui);
 int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
                     char **extraHeaders, char *dest);
