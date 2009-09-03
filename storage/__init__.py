@@ -1763,19 +1763,15 @@ class FSSet(object):
 
     @property
     def rootDevice(self):
-        rootpath = self.rootpath
+        for path in ["/", self.rootpath]:
+            for device in self.devices:
+                try:
+                    mountpoint = device.format.mountpoint
+                except AttributeError:
+                    mountpoint = None
 
-        if not rootpath:
-            rootpath = "/"
-
-        for device in self.devices:
-            try:
-                mountpoint = device.format.mountpoint
-            except AttributeError:
-                mountpoint = None
-
-            if mountpoint == rootpath:
-                return device
+                if mountpoint == path:
+                    return device
 
     @property
     def migratableDevices(self):
