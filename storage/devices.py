@@ -2304,10 +2304,6 @@ class MDRaidArrayDevice(StorageDevice):
         if self.level is None:
             self.level = mdraid.raidLevel(info['level'])
 
-    @property
-    def fstabSpec(self):
-        return self.path
-
     def updateSysfsPath(self):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
