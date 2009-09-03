@@ -1031,6 +1031,15 @@ plugins=1
 reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d
 """ % (anaconda.rootPath)
 
+        if anaconda.proxy:
+            buf += "proxy=%s\n" % anaconda.proxy
+
+            if anaconda.proxyUsername:
+                buf += "proxy_username=%s\n" % anaconda.proxyUsername
+
+            if anaconda.proxyPassword:
+                buf += "proxy_password=%s\n" % anaconda.proxyPassword
+
         fd = open("/tmp/anaconda-yum.conf", "w")
         fd.write(buf)
         fd.close()

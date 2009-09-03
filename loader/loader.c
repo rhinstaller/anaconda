@@ -2236,6 +2236,38 @@ int main(int argc, char ** argv) {
                 *argptr++ = "@/tmp/ftp-repo";
             }
         }
+
+        if (loaderData.proxy && strcmp("", loaderData.proxy)) {
+            char *tmp = NULL;
+            *argptr++ = "--proxy";
+
+            tmp = strdup(loaderData.proxy);
+            if (loaderData.proxyPort) {
+                tmp = realloc(tmp, strlen(tmp)+strlen(loaderData.proxyPort)+2);
+                tmp = strcat(tmp, ":");
+                tmp = strcat(tmp, loaderData.proxyPort);
+            }
+
+            *argptr++ = tmp;
+
+            if (loaderData.proxyUser) {
+                int fd, ret;
+
+                fd = open("/tmp/proxy", O_CREAT|O_TRUNC|O_RDWR, 0600);
+                ret = write(fd, loaderData.proxyUser, strlen(loaderData.proxyUser));
+                ret = write(fd, "\r\n", 2);
+
+                if (loaderData.proxyPassword) {
+                    ret = write(fd, loaderData.proxyPassword, strlen(loaderData.proxyPassword));
+                    ret = write(fd, "\r\n", 2);
+                }
+
+                close(fd);
+
+                *argptr++ = "--proxyAuth";
+                *argptr++ = "/tmp/proxy";
+            }
+        }
     }
     
     *argptr = NULL;

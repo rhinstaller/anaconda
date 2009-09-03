@@ -193,6 +193,8 @@ def parseOptions():
     # Network
     op.add_option("--noipv4", action="store_true", default=False)
     op.add_option("--noipv6", action="store_true", default=False)
+    op.add_option("--proxy")
+    op.add_option("--proxyAuth")
 
     # Method of operation
     op.add_option("--autostep", action="store_true", default=False)
@@ -425,6 +427,9 @@ class Anaconda:
         self.platform = None
         self.canReIPL = False
         self.reIPLMessage = None
+        self.proxy = None
+        self.proxyUsername = None
+        self.proxyPassword = None
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
@@ -619,6 +624,18 @@ if __name__ == "__main__":
 
     if opts.noipv6:
         flags.useIPv6 = False
+
+    if opts.proxy:
+        anaconda.proxy = opts.proxy
+
+        if opts.proxyAuth:
+            filename = opts.proxyAuth
+            ret = open(filename, "r").readlines()
+            os.unlink(filename)
+
+            anaconda.proxyUsername = ret[0].rstrip()
+            if len(ret) == 2:
+                anaconda.proxyPassword = ret[1].rstrip()
 
     if opts.updateSrc:
         anaconda.updateSrc = opts.updateSrc
