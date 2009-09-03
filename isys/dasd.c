@@ -35,9 +35,8 @@
 #define u16 __u16
 #define u32 __u32
 #define u64 __u64
-#include <asm/vtoc.h>
+#include <s390utils/vtoc.h>
 #include <asm/dasd.h>
-typedef struct vtoc_volume_label volume_label_t;
 #endif
 
 #if defined(__s390__) || defined(__s390x__)

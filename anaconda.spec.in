@@ -79,6 +79,9 @@ BuildRequires: dbus-devel >= %{dbusver}
 BuildRequires: desktop-file-utils
 %endif
 BuildRequires: iscsi-initiator-utils-devel >= %{iscsiver}
+%ifarch s390 s390x
+BuildRequires: s390utils-devel
+%endif
 
 Requires: policycoreutils
 Requires: rpm-python >= %{rpmpythonver}
