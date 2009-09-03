@@ -210,6 +210,42 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Sep 02 2009 David Cantrell <dcantrell@redhat.com> - 12.20-1
+- Rename mostlyclean-glade to mostlyclean-liveinst. (dcantrell)
+- Handle rootPath referencing a chroot value or actual path (#519665)
+  (dcantrell)
+- We convert cmdline args to longs in several places, so reduce to a
+  function. (clumens)
+- Support rootpath overrides in fsset.rootDevice (#519665) (dcantrell)
+- Pass anaconda.rootPath to FSSet() (dcantrell)
+- Include ui, liveinst, and lang-table strings in po updates (#515411)
+  (dcantrell)
+- Add some silent make support for sed, mkctype, and other commands.
+  (dcantrell)
+- Recheck if a partition should be ignored after getting its disk (#518971)
+  (hdegoede)
+- Fix traceback when editing a pre-existing logical volume (hdegoede)
+- Do not traceback on an usb cardreader with no card present (hdegoede)
+- Don't identify multi lun usb card readers as multipath (#517603) (hdegoede)
+- Device class does not have a format member (hdegoede)
+- Device class does not have a path member (hdegoede)
+- Simplify language.py to two basic settings, and a lot of support
+  (#517569). (clumens)
+- clobber is a method of PartedDevice not PartedDisk (hdegoede)
+- Remove unused fsFromConfig method (hdegoede)
+- allocatePartitions: PartitionCount is a member of PartedDisk not
+  DiskDevice (hdegoede)
+- New version. (clumens)
+- Fix storage/__init__.py:1857: non-keyword arg after keyword arg (hdegoede)
+- Remove a bunch of unnecessary semicolons (hdegoede)
+- pylint does not like )
+- Fix 55:udev_resolve_devspec: Using possibly undefined loop variable 'dev'
+  (hdegoede)
+- MDRaidArrayDevice.totalDevices is a read only property so don't write it
+  (hdegoede)
+- storage/__init__.py:471:Storage.exceptionDisks: Undefined variable 'udev'
+  (hdegoede)
+
 * Tue Sep 01 2009 Chris Lumens <clumens@redhat.com> - 12.19-1
 - NetworkManager changed *again*, use libnm-glib.pc now. (dcantrell)
 - Save duplicates from /etc/fstab and don't traceback (#517498). (clumens)
