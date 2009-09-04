@@ -132,10 +132,14 @@ class SwapSpace(DeviceFormat):
         """ Create the device. """
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
-        if self.exists:
+        force = kwargs.get("force")
+
+        if not force and self.exists:
             raise SwapSpaceError("format already exists")
 
-        if self.status:
+        if force:
+            self.teardown()
+        elif self.status:
             raise SwapSpaceError("device exists and is active")
 
         DeviceFormat.create(self, *args, **kwargs)
