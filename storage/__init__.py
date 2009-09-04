@@ -1648,8 +1648,8 @@ class FSSet(object):
                                     "to format all swap devices.") \
                                   % device.path
 
-                        anaconda.intf.messageWindow(_("Error"), msg)
-                    sys.exit(0)
+                        if swapErrorDialog(msg, device):
+                            continue
                 except DeviceError as (msg, name):
                     if anaconda.intf:
                         if upgrading:
