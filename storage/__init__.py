@@ -1585,6 +1585,9 @@ class FSSet(object):
 
     def turnOnSwap(self, anaconda, upgrading=None):
         def swapErrorDialog(msg, device):
+            if not anaconda.intf:
+                sys.exit(0)
+
             buttons = [_("Skip"), _("Format"), _("_Exit")]
             ret = anaconda.intf.messageWindow(_("Error"), msg, type="custom",
                                               custom_buttons=buttons,
@@ -1618,38 +1621,36 @@ class FSSet(object):
                     device.setup()
                     device.format.setup()
                 except OldSwapError:
-                    if anaconda.intf:
+                    msg = _("The swap device:\n\n     %s\n\n"
+                            "is an old-style Linux swap partition.  If "
+                            "you want to use this device for swap space, "
+                            "you must reformat as a new-style Linux swap "
+                            "partition.") \
+                          % device.path
+
+                    if swapErrorDialog(msg, device):
+                        continue
+                except SuspendError:
+                    if upgrading:
                         msg = _("The swap device:\n\n     %s\n\n"
-                                "is an old-style Linux swap partition.  If "
-                                "you want to use this device for swap space, "
-                                "you must reformat as a new-style Linux swap "
-                                "partition.") \
+                                "in your /etc/fstab file is currently in "
+                                "use as a software suspend device, "
+                                "which means your system is hibernating. "
+                                "To perform an upgrade, please shut down "
+                                "your system rather than hibernating it.") \
+                              % device.path
+                    else:
+                        msg = _("The swap device:\n\n     %s\n\n"
+                                "in your /etc/fstab file is currently in "
+                                "use as a software suspend device, "
+                                "which means your system is hibernating. "
+                                "If you are performing a new install, "
+                                "make sure the installer is set "
+                                "to format all swap devices.") \
                               % device.path
 
-                        if swapErrorDialog(msg, device):
-                            continue
-                except SuspendError:
-                    if anaconda.intf:
-                        if upgrading:
-                            msg = _("The swap device:\n\n     %s\n\n"
-                                    "in your /etc/fstab file is currently in "
-                                    "use as a software suspend device, "
-                                    "which means your system is hibernating. "
-                                    "To perform an upgrade, please shut down "
-                                    "your system rather than hibernating it.") \
-                                  % device.path
-                        else:
-                            msg = _("The swap device:\n\n     %s\n\n"
-                                    "in your /etc/fstab file is currently in "
-                                    "use as a software suspend device, "
-                                    "which means your system is hibernating. "
-                                    "If you are performing a new install, "
-                                    "make sure the installer is set "
-                                    "to format all swap devices.") \
-                                  % device.path
-
-                        if swapErrorDialog(msg, device):
-                            continue
+                    if swapErrorDialog(msg, device):
+                        continue
                 except DeviceError as (msg, name):
                     if anaconda.intf:
                         if upgrading:
