@@ -388,7 +388,7 @@ class DiskTreeModel(gtk.TreeStore):
             elif (kind == gobject.TYPE_STRING or
                   kind == gobject.TYPE_INT):
                 renderer = gtk.CellRendererText()
-		propertyMapping = {'text': i}
+                propertyMapping = {'markup': i}
 
             # wire in the cells that we want only visible on leaf nodes to
             # the special leaf node column.
@@ -772,11 +772,12 @@ class PartitionWindow(InstallWindow):
                     ptype = _("Unknown")
                     self.tree[iter]['IsFormattable'] = False
 
-		if array.minor is not None:
-		    device = "%s" % array.path
-		else:
-		    device = "Auto"
-		    
+                if array.minor is not None:
+                    device = "%s <span size=\"small\" color=\"gray\">(%s)</span>" \
+                            % (array.name, array.path)
+                else:
+                    device = "Auto"
+
                 self.tree[iter]['IsLeaf'] = True
                 self.tree[iter]['Device'] = device
                 if array.format.exists and getattr(format, "label", None):
@@ -797,7 +798,16 @@ class PartitionWindow(InstallWindow):
 
             # add a parent node to the tree
             parent = self.tree.append(drvparent)
-            self.tree[parent]['Device'] = "%s" % disk.path
+
+            # Insert a '\n' when device string is too long.  Usually when it
+            # contains '/dev/mapper'.  First column should be around 20 chars.
+            if len(disk.name) + len(disk.path) > 20:
+                separator = "\n"
+            else:
+                separator= " "
+            self.tree[parent]['Device'] = \
+                    "%s%s<span size=\"small\" color=\"gray\">(%s)</span>" \
+                    % (disk.name, separator, disk.path)
             self.tree[parent]['PyObject'] = disk
 
             part = disk.format.firstPartition
@@ -916,11 +926,11 @@ class PartitionWindow(InstallWindow):
                     else:
                         ptype = _("Unknown")
                 if part.type & parted.PARTITION_FREESPACE:
-                    devname = _("Free")
+                    devstring = _("Free")
                     ptype = ""
                 else:
-                    devname = "%s" % device.path
-                self.tree[iter]['Device'] = devname
+                    devstring = device.name
+                self.tree[iter]['Device'] = devstring
                 if format and format.exists and \
                    getattr(format, "label", None):
                     self.tree[iter]['Label'] = "%s" % format.label
