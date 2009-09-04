@@ -111,7 +111,7 @@ def copyUpdatedFiles(tag, updates, cwd):
         fields = line.split()
         file = fields[0]
 
-        if file.endswith('.spec.in') or file.startswith('Makefile') or \
+        if file.endswith('.spec.in') or (file.find('Makefile') != -1) or \
            file.endswith('.c') or file.endswith('.h') or \
            file.endswith('.sh') or file == 'configure.ac':
             continue
@@ -136,7 +136,8 @@ def copyUpdatedFiles(tag, updates, cwd):
                  subdir =='scripts' or subdir == 'command-stubs' or \
                  subdir == 'tests' or subdir == 'bootdisk' or \
                  subdir == 'docs' or subdir == 'fonts' or \
-                 subdir == 'utils' or subdir == 'gptsync':
+                 subdir == 'utils' or subdir == 'gptsync' or \
+                 subdir == 'liveinst':
                 continue
             else:
                 sys.stdout.write("Including %s\n" % (file,))
