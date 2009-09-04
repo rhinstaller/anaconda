@@ -58,84 +58,75 @@ log = logging.getLogger("anaconda")
 
 STRIPE_HEIGHT = 35.0
 LOGICAL_INSET = 3.0
-CANVAS_WIDTH_800 = 490
-CANVAS_WIDTH_640 = 390
-CANVAS_HEIGHT = 200
 TREE_SPACING = 2
+
+# XXX hack but will work for now
+if gtk.gdk.screen_width() > 640:
+    CANVAS_WIDTH = 490
+else:
+    CANVAS_WIDTH = 390
+CANVAS_HEIGHT = 200
 
 MODE_ADD = 1
 MODE_EDIT = 2
 
-class DiskStripeSlice:
+class Slice:
+    """Class representing a slice of a stripe.
+
+    parent -- the stripe that the slice belongs too.
+    text -- what will appear in the slice
+    type -- either SLICE or SUBSLICE
+    xoffset -- start percentage
+    xlength -- a length percentage
+    dcCB -- function that is called on a double click.
+    cCB -- function that is called when one click (selected)
+    sel_col -- color when selected
+    unsel_col -- color when unselected
+    obj -- some python object that is related to this slice.
+    selected -- initial state of slice.
+    """
+    SLICE = 0
+    SUBSLICE = 1
+    CONTAINERSLICE = 2
+
+    def __init__(self, parent, text, type, xoffset, xlength, dcCB=lambda: None,
+            cCB=lambda: None, sel_col="cornsilk1", unsel_col="white",
+            obj = None, selected = False):
+        self.text = text
+        self.type = type
+        self.xoffset = xoffset
+        self.xlength = xlength
+        self.parent = parent
+        self.dcCB = dcCB
+        self.cCB = cCB
+        self.sel_col = sel_col
+        self.unsel_col = unsel_col
+        self.obj = obj
+        self.selected = selected
+
     def eventHandler(self, widget, event):
         if event.type == gtk.gdk.BUTTON_PRESS:
             if event.button == 1:
-                self.parent.selectSlice(self.partition, 1)
+                self.select()
+                self.cCB()
         elif event.type == gtk.gdk._2BUTTON_PRESS:
-            self.editCB()
-                
+            #self.select()
+            self.dcCB()
+
         return True
 
-    def shutDown(self):
-        self.parent = None
-        if self.group:
-            self.group.destroy()
-            self.group = None
-        del self.partedPartition
-        del self.partition
+    def putOnCanvas(self):
+        pgroup = self.parent.getGroup()
+        self.group = pgroup.add(gnomecanvas.CanvasGroup)
+        self.box = self.group.add(gnomecanvas.CanvasRect)
+        self.group.connect("event", self.eventHandler)
+        canvas_text = self.group.add(gnomecanvas.CanvasText,
+                                    font="sans", size_points=8)
 
-    def select(self):
-        if self.partedPartition.type != parted.PARTITION_EXTENDED:
-            self.group.raise_to_top()
-        self.box.set(outline_color="red")
-        self.box.set(fill_color=self.selectColor())
+        xoffset = self.xoffset * CANVAS_WIDTH
+        xlength = self.xlength * CANVAS_WIDTH
 
-    def deselect(self):
-        self.box.set(outline_color="black", fill_color=self.fillColor())
-
-    def getPartition(self):
-        return self.partition
-
-    def fillColor(self):
-        if self.partedPartition.type & parted.PARTITION_FREESPACE:
-            return "grey88"
-        return "white"
-
-    def selectColor(self):
-        if self.partedPartition.type & parted.PARTITION_FREESPACE:
-            return "cornsilk2"
-        return "cornsilk1"
-
-    def sliceText(self):
-        if self.partedPartition.type & parted.PARTITION_EXTENDED:
-            return ""
-        if self.partedPartition.type & parted.PARTITION_FREESPACE:
-            rc = "Free\n"
-        else:
-            rc = "%s\n" % (self.partedPartition.getDeviceNodeName().split("/")[-1],)
-        rc = rc + "%Ld MB" % (self.partedPartition.getSize(unit="MB"),)
-        return rc
-
-    def update(self):
-        disk = self.parent.getDisk()
-        (cylinders, heads, sectors) = disk.device.biosGeometry
-        totalSectors = float(heads * sectors * cylinders)
-
-        # XXX hack but will work for now
-        if gtk.gdk.screen_width() > 640:
-            width = CANVAS_WIDTH_800
-        else:
-            width = CANVAS_WIDTH_640
-
-        # If it's a very, very small partition then there's no point in trying
-        # cut off a piece of the parent disk's stripe for it.
-        if totalSectors == 0:
-            return
-
-        xoffset = self.partedPartition.geometry.start / totalSectors * width
-        xlength = self.partedPartition.geometry.length / totalSectors * width
-
-        if self.partedPartition.type & parted.PARTITION_LOGICAL:
+        if self.type == Slice.SUBSLICE:
             yoffset = 0.0 + LOGICAL_INSET
             yheight = STRIPE_HEIGHT - (LOGICAL_INSET * 2)
             texty = 0.0
@@ -143,192 +134,257 @@ class DiskStripeSlice:
             yoffset = 0.0
             yheight = STRIPE_HEIGHT
             texty = LOGICAL_INSET
+
+        if self.selected:
+            fill_color = self.sel_col
+        else:
+            fill_color = self.unsel_col
+
         self.group.set(x=xoffset, y=yoffset)
         self.box.set(x1=0.0, y1=0.0, x2=xlength,
-                     y2=yheight, fill_color=self.fillColor(),
+                     y2=yheight, fill_color=fill_color,
                      outline_color='black', width_units=1.0)
-        self.text.set(x=2.0, y=texty + 2.0, text=self.sliceText(),
-                      fill_color='black',
-                      anchor=gtk.ANCHOR_NW, clip=True,
-                      clip_width=xlength-1, clip_height=yheight-1)
-       
-    def __init__(self, parent, partition, treeView, editCB):
-        self.text = None
-        self.partition = partition
-        self.parent = parent
-        self.treeView = treeView
-        self.editCB = editCB
-        pgroup = parent.getGroup()
-
-        # Slices representing freespace are passed a pyparted object as
-        # partition, not an anaconda storage object.  Therefore, they do
-        # not have a partedPartition attribute.
-        if self.partition and hasattr(self.partition, "partedPartition"):
-            self.partedPartition = self.partition.partedPartition
-        else:
-            self.partedPartition = self.partition
-
-        self.group = pgroup.add(gnomecanvas.CanvasGroup)
-        self.box = self.group.add(gnomecanvas.CanvasRect)
-        self.group.connect("event", self.eventHandler)
-        self.text = self.group.add(gnomecanvas.CanvasText,
-                                    font="sans", size_points=8)
-        self.update()
-
-class DiskStripe:
-    def __init__(self, drive, disk, group, tree, editCB):
-        self.disk = disk
-        self.group = group
-        self.tree = tree
-        self.drive = drive
-        self.slices = []
-        self.hash = {}
-        self.editCB = editCB
-        self.selected = None
-
-        # XXX hack but will work for now
-        if gtk.gdk.screen_width() > 640:
-            width = CANVAS_WIDTH_800
-        else:
-            width = CANVAS_WIDTH_640
-        
-        group.add(gnomecanvas.CanvasRect, x1=0.0, y1=10.0, x2=width,
-                  y2=STRIPE_HEIGHT, fill_color='green',
-                  outline_color='grey71', width_units=1.0)
-        group.lower_to_bottom()
+        canvas_text.set(x=2.0, y=texty + 2.0, text=self.text,
+                            fill_color='black',
+                            anchor=gtk.ANCHOR_NW, clip=True,
+                            clip_width=xlength-1, clip_height=yheight-1)
 
     def shutDown(self):
-        while self.slices:
-            slice = self.slices.pop()
-            slice.shutDown()
+        self.parent = None
         if self.group:
             self.group.destroy()
             self.group = None
-        del self.disk
 
-    def holds(self, partition):
-        return self.hash.has_key(partition)
+    def select(self):
+        for slice in self.parent.slices:
+            slice.deselect()
+        self.selected = True
 
-    def getSlice(self, partition):
-        return self.hash[partition]
-   
-    def getDisk(self):
-        return self.disk
+        if self.group and self.box:
+            if self.type != Slice.CONTAINERSLICE:
+                self.group.raise_to_top()
+            self.box.set(outline_color="red")
+            self.box.set(fill_color=self.sel_col)
 
-    def getDrive(self):
-        return self.drive
+    def deselect(self):
+        self.selected = False
+        if self.box:
+            self.box.set(outline_color="black", fill_color=self.unsel_col)
+
+class Stripe:
+    """
+    canvas -- the canvas where everything goes
+    text -- the text that will appear on top of the stripe
+    yoff -- its the position in the y axis where this stripe should be drawn
+    dcCB -- function that should be called on a double click
+    obj -- some python object that is related to this stripe
+
+    """
+    def __init__(self, canvas, text, dcCB, obj = None):
+        self.canvas_text = None
+        self.canvas = canvas
+        self.text = text
+        self.group = None
+        self._slices = []
+        self.dcCB = dcCB
+        self.selected = None
+        self.obj = obj
+
+    def putOnCanvas(self, yoff):
+        """
+        returns the yposition after drawhing this stripe.
+
+        """
+        # We set the text for the stripe.
+        self.canvas_text = self.canvas.root().add(gnomecanvas.CanvasText,
+                x=0.0, y=yoff, font="sans", size_points=9)
+        self.canvas_text.set(text=self.text, fill_color='black',
+                anchor=gtk.ANCHOR_NW, weight=pango.WEIGHT_BOLD)
+
+        (xxx1, yyy1, xxx2, yyy2) =  self.canvas_text.get_bounds()
+        textheight = yyy2 - yyy1 + 2
+        self.group = self.canvas.root().add(gnomecanvas.CanvasGroup,
+                                       x=0, y=yoff+textheight)
+
+        self.group.add(gnomecanvas.CanvasRect, x1=0.0, y1=0.0, x2=CANVAS_WIDTH,
+                  y2=STRIPE_HEIGHT, fill_color='green',
+                  outline_color='grey71', width_units=1.0)
+        self.group.lower_to_bottom()
+
+        # We paint all the container slices first.  So the contained slices
+        # actually show up.
+        for slice in [s for s in self.slices if s.type == Slice.CONTAINERSLICE]:
+            slice.putOnCanvas()
+        # After painting the containers we paint the rest.
+        for slice in [s for s in self.slices if s.type != Slice.CONTAINERSLICE]:
+            slice.putOnCanvas()
+
+        # 10 is a separator space.
+        return yoff + STRIPE_HEIGHT+textheight+10
+
+    def shutDown(self):
+        for slice in self.slices:
+            slice.shutDown()
+        self._slices = []
+
+        if self.canvas_text:
+            self.canvas_text.destroy()
+
+        if self.group:
+            self.group.destroy()
+            self.group = None
 
     def getGroup(self):
         return self.group
 
-    def selectSlice(self, partition, updateTree=0):
-        self.deselect()
-        slice = self.hash[partition]
-        slice.select()
+    @property
+    def slices(self):
+        return self._slices
 
-        # update selection of the tree
-        if updateTree:
-            self.tree.selectPartition(partition)
-        self.selected = slice
+    def addSlice(self, new_slice):
+        # check to see if they overlap.
+        for slice in self.slices:
+            # Container slices and subslices can overlap.
+            if new_slice.type+slice.type == Slice.CONTAINERSLICE+Slice.SUBSLICE:
+                continue
 
-    def deselect(self):
-        if self.selected:
-            self.selected.deselect()
-        self.selected = None
-    
-    def add(self, partition):
-        stripe = DiskStripeSlice(self, partition, self.tree, self.editCB)
-        self.slices.append(stripe)
-        self.hash[partition] = stripe
+            if new_slice.xoffset > slice.xoffset \
+                    and new_slice.xoffset < slice.xoffset + slice.xlength:
+                # there is a colission, we cannot add.
+                return
 
-class DiskStripeGraph:
+        self._slices.append(new_slice)
+
+class StripeGraph:
+    """ This class will only handle one stripe."""
+
     def __init__(self, tree, editCB):
         self.canvas = gnomecanvas.Canvas()
-        self.diskStripes = []
-        self.textlabels = []
+        self.stripe = None
         self.tree = tree
         self.editCB = editCB
         self.next_ypos = 0.0
-        self.currentShown = None
 
     def __del__(self):
         self.shutDown()
 
-    def getDisplayed(self):
-        return self.currentShown
-
-    def setDisplayed(self, disk):
-        self.shutDown()
-        self.display(disk)
-        self.currentShown = disk
-
-    def display(self, disk):
-        stripe = self.add(disk, disk.format.partedDisk)
-        part = disk.format.firstPartition
-        while part:
-            if part.type & parted.PARTITION_METADATA \
-                    or part.getSize(unit="MB") <= 1.0:
-                part = part.nextPartition()
-                continue
-
-            stripe.add(part)
-            part = part.nextPartition()
-
-        # Trying to center the picture.
-        apply(self.canvas.set_scroll_region, self.canvas.root().get_bounds())
-
     def shutDown(self):
-        # remove any circular references so we can clean up
-        while self.diskStripes:
-            stripe = self.diskStripes.pop()
-            stripe.shutDown()
-
-        while self.textlabels:
-            lab = self.textlabels.pop()
-            lab.destroy()
+        if self.stripe:
+            self.stripe.shutDown()
+            self.stripe = None
 
         self.next_ypos = 0.0
 
     def getCanvas(self):
         return self.canvas
 
-    def selectSlice(self, partition):
-        for stripe in self.diskStripes:
-            stripe.deselect()
-            if stripe.holds(partition):
-                stripe.selectSlice(partition)
+    def setDisplayed(self, obj):
+        # Check to see if we already have the correct obj displayed.
+        if self.getDisplayed() and self.getDisplayed().obj == obj:
+            return
 
-    def getSlice(self, partition):
-        for stripe in self.diskStripes:
-            if stripe.holds(partition):
-                return stripe.getSlice(partition)
+        if self.stripe:
+            self.stripe.shutDown()
 
-    def getDisk(self, partition):
-        for stripe in self.diskStripes:
-            if stripe.holds(partition):
-                return stripe.getDisk()
+        self.stripe = self._createStripe(obj)
+        self.stripe.putOnCanvas(0)
 
-    def add(self, drive, disk):
-        yoff = self.next_ypos
-        text = self.canvas.root().add(gnomecanvas.CanvasText,
-                                      x=0.0, y=yoff,
-                                      font="sans",
-                                      size_points=9)
-        drivetext = _("Drive %s (%-0.f MB) "
-                     "(Model: %s)") % (drive.path,
-                                       disk.device.getSize(unit="MB"),
-                                       disk.device.model)
+        # Trying to center the picture.
+        apply(self.canvas.set_scroll_region, self.canvas.root().get_bounds())
 
-        text.set(text=drivetext, fill_color='black', anchor=gtk.ANCHOR_NW,
-                 weight=pango.WEIGHT_BOLD)
-        (xxx1, yyy1, xxx2, yyy2) =  text.get_bounds()
-        textheight = yyy2 - yyy1 + 2
-        self.textlabels.append(text)
-        group = self.canvas.root().add(gnomecanvas.CanvasGroup,
-                                       x=0, y=yoff+textheight)
-        stripe = DiskStripe(drive.name, disk, group, self.tree, self.editCB)
-        self.diskStripes.append(stripe)
-        self.next_ypos = self.next_ypos + STRIPE_HEIGHT+textheight+10
+    def getDisplayed(self):
+        return self.stripe
+
+    def selectSliceFromObj(self, obj):
+        """Search for obj in the slices """
+        stripe = self.getDisplayed()
+        if not stripe:
+            return
+
+        for slice in stripe.slices:
+            # There is a part object in each slice.
+            if not slice.obj:
+                continue
+
+            if obj == slice.obj and not slice.selected:
+                slice.select()
+                break
+
+    def _createStripe(self, obj):
+        #This method needs to be overridden
+        pass
+
+
+class DiskStripeGraph(StripeGraph):
+    def __init__(self, tree, editCB, storage, drive = None):
+        StripeGraph.__init__(self, tree, editCB)
+        self.storage = storage
+       # Define the default colors per partition type.
+        self.part_type_colors = \
+                {"sel_logical": "cornsilk1", "unsel_logical": "white",
+                 "sel_extended": "cornsilk1", "unsel_extended": "white",
+                 "sel_normal": "cornsilk1", "unsel_normal": "white",
+                 "sel_freespace": "grey88", "unsel_freespace": "grey88"}
+        if drive:
+            self.setDisplayed(drive)
+
+    def _createStripe(self, drive):
+        # Create the stripe
+        drivetext = _("Drive %s (%-0.f MB) (Model: %s)") % (drive.path,
+                drive.size, drive.model)
+        stripe = Stripe(self.canvas, drivetext, self.editCB, obj = drive)
+
+        # Create the slices.
+        for part in drive.format.partedDisk.getFreeSpacePartitions() \
+                + [d for d in drive.format.partitions]:
+            if part.getSize(unit="MB") <= 1.0:
+                continue
+
+            if part.type == parted.PARTITION_LOGICAL:
+                partstr = part.path
+                stype = Slice.SUBSLICE
+                unsel_col = self.part_type_colors["unsel_logical"]
+                sel_col = self.part_type_colors["sel_logical"]
+            elif part.type == parted.PARTITION_FREESPACE:
+                partstr = _("Free")
+                stype = Slice.SLICE
+                unsel_col = self.part_type_colors["unsel_freespace"]
+                sel_col = self.part_type_colors["sel_freespace"]
+            elif part.type == parted.PARTITION_EXTENDED:
+                partstr = ""
+                stype = Slice.CONTAINERSLICE
+                unsel_col = self.part_type_colors["unsel_extended"]
+                sel_col = self.part_type_colors["sel_extended"]
+            elif part.type == parted.PARTITION_NORMAL:
+                partstr = part.path
+                stype = Slice.SLICE
+                unsel_col = self.part_type_colors["unsel_normal"]
+                sel_col = self.part_type_colors["sel_normal"]
+            else:
+                # We don't really want to draw anything in this case.
+                continue
+
+            # Create the start and length for the slice.
+            xoffset = (float(part.geometry.start)
+                        / float(drive.partedDevice.length))
+            xlength = (float(part.geometry.length)
+                        / float(drive.partedDevice.length))
+
+            # We need to use the self.storage objects not the partedDisk ones.
+            # The free space has not storage object.
+            if part.type != parted.PARTITION_FREESPACE:
+                partName = devicePathToName(part.getDeviceNodeName())
+                o_part = self.storage.devicetree.getDeviceByName(partName)
+                dcCB = self.editCB
+            else:
+                o_part = part
+                dcCB = lambda: None
+
+            slice = Slice(stripe, partstr, stype, xoffset, xlength,
+                    dcCB = dcCB, sel_col = sel_col,
+                    unsel_col = unsel_col, obj = o_part)
+            stripe.addSlice(slice)
+
         return stripe
 
 class DiskTreeModelHelper:
@@ -965,15 +1021,18 @@ class PartitionWindow(InstallWindow):
             return
 
         # See if we need to change what is in the canvas.
-        displayed = self.diskStripeGraph.getDisplayed()
-        if isinstance(device, storage.DiskDevice) and device != displayed:
+        if isinstance(device, storage.DiskDevice):
             self.diskStripeGraph.setDisplayed(device)
 
-        elif isinstance(device, storage.PartitionDevice) \
-                and device.parents[0] != displayed:
+        elif  isinstance(device, storage.PartitionDevice):
             self.diskStripeGraph.setDisplayed(device.parents[0])
-            self.diskStripeGraph.selectSlice(device)
+            self.diskStripeGraph.selectSliceFromObj(device)
 
+        elif device == None: # User clicks on a "Free" row.
+            iparent = model.iter_parent(iter)
+            parent = self.tree[iparent]["PyObject"]
+            if isinstance(parent, storage.DiskDevice):
+                self.diskStripeGraph.setDisplayed(parent)
 
     def deleteCB(self, widget):
         """ Right now we can say that if the device is partitioned we
@@ -1466,7 +1525,8 @@ class PartitionWindow(InstallWindow):
         self.treeView.connect('row-activated', self.treeActivateCB)
         self.treeViewSelection = self.treeView.get_selection()
         self.treeViewSelection.connect("changed", self.treeSelectCB)
-        self.diskStripeGraph = DiskStripeGraph(self.tree, self.editCB)
+        self.diskStripeGraph = DiskStripeGraph(self.tree, self.editCB,
+                                                storage = self.storage)
         self.populate(initial = 1)
 
         # Create the top scroll window
