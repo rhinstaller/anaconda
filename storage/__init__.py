@@ -1584,6 +1584,21 @@ class FSSet(object):
         return mtab
 
     def turnOnSwap(self, anaconda, upgrading=None):
+        def swapErrorDialog(msg, device):
+            buttons = [_("Skip"), _("Format"), _("_Exit")]
+            ret = anaconda.intf.messageWindow(_("Error"), msg, type="custom",
+                                              custom_buttons=buttons,
+                                              custom_icon="warning")
+
+            if ret == 0:
+                self.devicetree._removeDevice(device)
+                return False
+            elif ret == 1:
+                device.format.create(force=True)
+                return True
+            else:
+                sys.exit(0)
+
         for device in self.swapDevices:
             if isinstance(device, FileDevice):
                 # set up FileDevices' parents now that they are accessible
@@ -1598,47 +1613,61 @@ class FSSet(object):
                 else:
                     device.parents = [parent]
 
-            try:
-                device.setup()
-                device.format.setup()
-            except SuspendError:
-                if anaconda.intf:
-                    if upgrading:
+            while True:
+                try:
+                    device.setup()
+                    device.format.setup()
+                except OldSwapError:
+                    if anaconda.intf:
                         msg = _("The swap device:\n\n     %s\n\n"
-                                "in your /etc/fstab file is currently in "
-                                "use as a software suspend device, "
-                                "which means your system is hibernating. "
-                                "To perform an upgrade, please shut down "
-                                "your system rather than hibernating it.") \
-                              % device.path
-                    else:
-                        msg = _("The swap device:\n\n     %s\n\n"
-                                "in your /etc/fstab file is currently in "
-                                "use as a software suspend device, "
-                                "which means your system is hibernating. "
-                                "If you are performing a new install, "
-                                "make sure the installer is set "
-                                "to format all swap devices.") \
+                                "is an old-style Linux swap partition.  If "
+                                "you want to use this device for swap space, "
+                                "you must reformat as a new-style Linux swap "
+                                "partition.") \
                               % device.path
 
-                    anaconda.intf.messageWindow(_("Error"), msg)
-                sys.exit(0)
-            except DeviceError as (msg, name):
-                if anaconda.intf:
-                    if upgrading:
-                        err = _("Error enabling swap device %s: %s\n\n"
-                                "The /etc/fstab on your upgrade partition "
-                                "does not reference a valid swap "
-                                "device.\n\nPress OK to exit the "
-                                "installer") % (name, msg)
-                    else:
-                        err = _("Error enabling swap device %s: %s\n\n"
-                                "This most likely means this swap "
-                                "device has not been initialized.\n\n"
-                                "Press OK to exit the installer.") % \
-                              (name, msg)
-                    anaconda.intf.messageWindow(_("Error"), err)
-                sys.exit(0)
+                        if swapErrorDialog(msg, device):
+                            continue
+                except SuspendError:
+                    if anaconda.intf:
+                        if upgrading:
+                            msg = _("The swap device:\n\n     %s\n\n"
+                                    "in your /etc/fstab file is currently in "
+                                    "use as a software suspend device, "
+                                    "which means your system is hibernating. "
+                                    "To perform an upgrade, please shut down "
+                                    "your system rather than hibernating it.") \
+                                  % device.path
+                        else:
+                            msg = _("The swap device:\n\n     %s\n\n"
+                                    "in your /etc/fstab file is currently in "
+                                    "use as a software suspend device, "
+                                    "which means your system is hibernating. "
+                                    "If you are performing a new install, "
+                                    "make sure the installer is set "
+                                    "to format all swap devices.") \
+                                  % device.path
+
+                        anaconda.intf.messageWindow(_("Error"), msg)
+                    sys.exit(0)
+                except DeviceError as (msg, name):
+                    if anaconda.intf:
+                        if upgrading:
+                            err = _("Error enabling swap device %s: %s\n\n"
+                                    "The /etc/fstab on your upgrade partition "
+                                    "does not reference a valid swap "
+                                    "device.\n\nPress OK to exit the "
+                                    "installer") % (name, msg)
+                        else:
+                            err = _("Error enabling swap device %s: %s\n\n"
+                                    "This most likely means this swap "
+                                    "device has not been initialized.\n\n"
+                                    "Press OK to exit the installer.") % \
+                                  (name, msg)
+                        anaconda.intf.messageWindow(_("Error"), err)
+                    sys.exit(0)
+
+                break
 
     def mountFilesystems(self, anaconda, raiseErrors=None, readOnly=None,
                          skipRoot=False):
