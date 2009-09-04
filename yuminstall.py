@@ -31,6 +31,7 @@ import locale
 import glob
 import tempfile
 import itertools
+import re
 
 import rpm
 import rpmUtils
@@ -644,6 +645,9 @@ class AnacondaYum(YumSorter):
                 extraRepos.append(repo)
 
         if self.anaconda.isKickstart:
+            # This is the same pattern as from loader/urls.c:splitProxyParam.
+            pattern = re.compile("([[:alpha:]]+://)?(([[:alnum:]]+)(:[^:@]+)?@)?([^:]+)(:[[:digit:]]+)?(/.*)?")
+
             for ksrepo in self.anaconda.id.ksdata.repo.repoList:
                 # yum doesn't understand nfs:// and doesn't want to.  We need
                 # to first do the mount, then translate it into a file:// that
@@ -684,6 +688,25 @@ class AnacondaYum(YumSorter):
 
                 if ksrepo.includepkgs:
                     repo.include = ksrepo.includepkgs
+
+                if ksrepo.proxy:
+                    m = pattern.match(ksrepo.proxy)
+
+                    if m and m.group(3):
+                        # If both a host and port was found, just paste them
+                        # together using the colon at the beginning of the port
+                        # match as a separator.  Otherwise, just use the host.
+                        if m.group(4):
+                            repo.proxy = m.group(3) + m.group(4)
+                        else:
+                            reop.proxy = m.group(3)
+
+                    if m and m.group(5):
+                        repo.proxy_username = m.group(5)
+
+                    if m and m.group(6):
+                        # Skip the leading colon.
+                        repo.proxy_password = m.group(6)[1:]
 
                 repo.enable()
                 extraRepos.append(repo)
@@ -1524,7 +1547,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
     def _checkUpgradeArch(self, anaconda):
         def compareArch(a, b):
-            import re
             if re.match("i.86", a) and re.match("i.86", b):
                 return True
             else:
