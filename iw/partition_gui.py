@@ -263,7 +263,7 @@ class DiskStripeGraph:
         self.currentShown = disk
 
     def display(self, disk):
-        stripe = self.add(disk.name, disk.format.partedDisk)
+        stripe = self.add(disk, disk.format.partedDisk)
         part = disk.format.firstPartition
         while part:
             if part.type & parted.PARTITION_METADATA \
@@ -315,7 +315,7 @@ class DiskStripeGraph:
                                       font="sans",
                                       size_points=9)
         drivetext = _("Drive %s (%-0.f MB) "
-                     "(Model: %s)") % ('/dev/' + drive,
+                     "(Model: %s)") % (drive.path,
                                        disk.device.getSize(unit="MB"),
                                        disk.device.model)
 
@@ -326,7 +326,7 @@ class DiskStripeGraph:
         self.textlabels.append(text)
         group = self.canvas.root().add(gnomecanvas.CanvasGroup,
                                        x=0, y=yoff+textheight)
-        stripe = DiskStripe(drive, disk, group, self.tree, self.editCB)
+        stripe = DiskStripe(drive.name, disk, group, self.tree, self.editCB)
         self.diskStripes.append(stripe)
         self.next_ypos = self.next_ypos + STRIPE_HEIGHT+textheight+10
         return stripe
