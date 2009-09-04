@@ -104,6 +104,9 @@ class SuspendError(SwapError):
 class OldSwapError(SwapError):
     pass
 
+class UnknownSwapError(SwapError):
+    pass
+
 class MDRaidError(StorageError):
     pass
 

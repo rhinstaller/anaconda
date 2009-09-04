@@ -48,6 +48,8 @@ def mkswap(device, label=''):
 def swapon(device, priority=None):
     pagesize = resource.getpagesize()
     buf = None
+    sig = None
+
     if pagesize > 2048:
         num = pagesize
     else:
@@ -70,6 +72,9 @@ def swapon(device, priority=None):
             raise OldSwapError
         if sig == 'S1SUSPEND\x00' or sig == 'S2SUSPEND\x00':
             raise SuspendError
+
+    if sig != 'SWAPSPACE2':
+        raise UnknownSwapError
 
     argv = []
     if isinstance(priority, int) and 0 <= priority <= 32767:
