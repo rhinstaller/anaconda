@@ -25,12 +25,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void die(char * mess) {
-    perror(mess);
-    exit(1);
-}
-
-#define MAXFONTSIZE	65536
+#define MAXFONTSIZE 65536
 
 int main(void) {
     unsigned char buf[MAXFONTSIZE];
@@ -38,10 +33,12 @@ int main(void) {
     unsigned short map[E_TABSZ];
     struct unipair descs[2048];
     struct unimapdesc d;
-    int fd, i;
+    int fd;
 
-    if ((fd = open("/dev/tty0", O_RDONLY)) < 0)
-	die("open");
+    if ((fd = open("/dev/tty0", O_RDONLY)) < 0) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
 
     cfo.op = KD_FONT_OP_GET;
     cfo.flags = 0;
@@ -49,21 +46,52 @@ int main(void) {
     cfo.height = 16;
     cfo.charcount = 512;
     cfo.data = buf;
-    if (ioctl(fd, KDFONTOP, &cfo))
-	die("KDFONTOP KD_FONT_OP_GET"); 
+    if (ioctl(fd, KDFONTOP, &cfo)) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
 
-    if (ioctl(fd, GIO_UNISCRNMAP, map))
-	die("GIO_UNISCRNMAP");
+    if (ioctl(fd, GIO_UNISCRNMAP, map)) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
 
     d.entry_ct = 2048;
     d.entries = descs;
-    if (ioctl(fd, GIO_UNIMAP, &d))
-    	die("GIO_UNIMAP");
+    if (ioctl(fd, GIO_UNIMAP, &d)) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
 
-    i = write(1, &cfo, sizeof(cfo));
-    i = write(1, buf, sizeof(buf));
-    i = write(1, map, sizeof(map));
-    i = write(1, &d.entry_ct, sizeof(d.entry_ct));
-    i = write(1, descs, d.entry_ct * sizeof(descs[0]));
+    if (write(1, &cfo, sizeof(cfo)) == -1) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
+
+    if (write(1, &cfo, sizeof(cfo)) == -1) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
+
+    if (write(1, buf, sizeof(buf)) == -1) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
+
+    if (write(1, map, sizeof(map)) == -1) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
+
+    if (write(1, &d.entry_ct, sizeof(d.entry_ct)) == -1) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
+
+    if (write(1, descs, d.entry_ct * sizeof(descs[0])) == -1) {
+        fprintf(stderr, "%s: %m", __func__);
+        return EXIT_FAILURE;
+    }
+
     return 0;
 }
