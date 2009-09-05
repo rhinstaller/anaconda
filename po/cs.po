@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-09-01 08:33+0000\n"
-"PO-Revision-Date: 2009-09-05 08:54+0100\n"
+"PO-Revision-Date: 2009-09-05 09:04+0100\n"
 "Last-Translator: Dusan Hokuv <dusan@mirc.cz>\n"
 "Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr "Chcete použít VNC?"
 
 #: ../anaconda:776
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
-msgstr ""
+msgstr "Textový mód poskytuje omezené instalační možnosti.  Neumožnuje vlastní rozložení oddílů na disku nebo výběry balíčků.  Chcete raději použít VNC mód?"
 
 #: ../anaconda:802
 msgid "Install class forcing text mode installation"
@@ -689,7 +689,7 @@ msgstr ""
 #: ../iutil.py:874
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "Varování: Nelze resetovat parm (%s)"
 
 #: ../iutil.py:884
 #, python-format
@@ -750,22 +750,18 @@ msgstr "Neznámá chyba při zpracovávání řádků %%ksappend: %s"
 
 #: ../kickstart.py:1241
 #: ../livecd.py:223
-#, fuzzy
 msgid "Post-Installation"
 msgstr "Po instalaci"
 
 #: ../kickstart.py:1242
-#, fuzzy
 msgid "Running post-installation scripts"
 msgstr "Spouštím poinstalační skripty"
 
 #: ../kickstart.py:1258
-#, fuzzy
 msgid "Pre-Installation"
-msgstr "Instalace balíčků"
+msgstr "Před instalací"
 
 #: ../kickstart.py:1259
-#, fuzzy
 msgid "Running pre-installation scripts"
 msgstr "Spouštím předinstalační skripty"
 
@@ -889,7 +885,7 @@ msgstr "Při změně velikosti zařízení %s došlo k chybě."
 
 #: ../packages.py:137
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Odebrání zařízení selhalo"
 
 #: ../packages.py:138
 #, fuzzy, python-format
@@ -898,7 +894,7 @@ msgstr "Při změně velikosti zařízení %s došlo k chybě."
 
 #: ../packages.py:145
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Nastavení zařízení selhalo"
 
 #: ../packages.py:146
 #, fuzzy, python-format
@@ -935,7 +931,7 @@ msgstr "Při změně velikosti zařízení %s došlo k chybě."
 #. catch-all
 #: ../packages.py:183
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "Aktivace úložiště selhala"
 
 #: ../packages.py:184
 #, fuzzy
@@ -1203,15 +1199,15 @@ msgid "You are about to delete a RAID device."
 msgstr "Chcete odstranit RAID zařízení."
 
 #: ../partIntfHelpers.py:302
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "Chcete odstranit oddíl /dev/%s."
+msgstr "Chcete odstranit oddíl %s."
 
 #. we may want something a little bit prettier than device.type
 #: ../partIntfHelpers.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "Chcete odstranit oddíl /dev/%s."
+msgstr "Chcete smazat %s %s"
 
 #: ../partIntfHelpers.py:317
 msgid "Confirm Reset"
@@ -1236,9 +1232,8 @@ msgid "First sector of boot partition"
 msgstr "První sektor zaváděcího oddílu"
 
 #: ../platform.py:112
-#, fuzzy
 msgid "You have not created a bootable partition."
-msgstr "Musíte vytvořit zaváděcí oddíl PPC PReP."
+msgstr "Nemáte vytvořen zaváděcí oddíl."
 
 #: ../platform.py:115
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1274,9 +1269,8 @@ msgid "You have not created a /boot/efi partition."
 msgstr "Musíte vytvořit zaváděcí oddíl PPC PReP."
 
 #: ../platform.py:225
-#, fuzzy
 msgid "/boot is not on an ext2 filesystem."
-msgstr "Oddíl pro zavádění systému nemůže být na systému souborů %s."
+msgstr "/boot není na systému souborů ext2."
 
 #: ../platform.py:228
 msgid "/boot/efi is not EFI."
@@ -1290,7 +1284,7 @@ msgstr "%s musí mít bsd disk label."
 #: ../platform.py:277
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
-msgstr ""
+msgstr "Disk %s musí mít alespoň 1MB volného místa na začátku."
 
 #: ../platform.py:322
 msgid "PPC PReP Boot"
@@ -1309,7 +1303,7 @@ msgstr "Apple zavaděč"
 #: ../platform.py:396
 #, python-format
 msgid "%s must have a mac disk label."
-msgstr ""
+msgstr "%s musí mít mac disk label."
 
 #: ../rescue.py:199
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1561,7 +1555,7 @@ msgstr "Aktualizace zavaděče systému"
 
 #: ../upgrade.py:194
 msgid "The root for the previously installed system was not found."
-msgstr ""
+msgstr "Kořen předchozího instalovaného systému nebyl nalezen."
 
 #: ../upgrade.py:201
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
@@ -1853,7 +1847,7 @@ msgstr "Repozitář %r v nastavení nemá název, používám id"
 #: ../yuminstall.py:651
 #: ../yuminstall.py:1081
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
-msgstr ""
+msgstr "Některé repozitáře softwaru vyžadují síť, ale objevila se chyba při nastavení sítě ve vašem systému."
 
 #: ../yuminstall.py:712
 #: ../yuminstall.py:714
@@ -2178,9 +2172,8 @@ msgid "You have provided a weak password: %s"
 msgstr "Zadali jste slabé heslo: %s"
 
 #: ../iw/account_gui.py:130
-#, fuzzy
 msgid "Use Anyway"
-msgstr "Uživatelské jméno"
+msgstr "Přesto použít"
 
 #: ../iw/account_gui.py:138
 #: ../textw/userauth_text.py:75
@@ -2320,14 +2313,13 @@ msgstr "Gratulujeme"
 
 #: ../iw/congrats_gui.py:74
 #: ../textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "Blahopřejeme, vaše instalace %s je dokončena.\n"
 "\n"
-"%s%s"
 
 #: ../iw/congrats_gui.py:77
 #: ../textw/complete_text.py:42
@@ -2336,19 +2328,13 @@ msgstr "Vypnout"
 
 #: ../iw/congrats_gui.py:79
 #: ../textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr ""
-"Pro používání nainstalovaného systému systém prosím restartujte.\n"
-"\n"
+msgstr "Pro používání nainstalovaného systému prosím restartujte.\n"
 
 #: ../iw/congrats_gui.py:81
 #: ../textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr ""
-"Pro používání nainstalovaného systému systém prosím restartujte.\n"
-"\n"
+msgstr "Pro používání nainstalovaného systému prosím restartujte.\n"
 
 #: ../iw/congrats_gui.py:86
 #: ../textw/complete_text.py:51
@@ -2727,9 +2713,8 @@ msgid "An error occurred trying to bring up the %s network interface."
 msgstr "Při kopírování snímků obrazovky došlo k chybě."
 
 #: ../iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "Chyba při konfigurování síťového rozhraní"
+msgstr "Chyba při konfiguraci sítě"
 
 #: ../iw/netconfig_dialog.py:240
 msgid "Dynamic IP Address"
@@ -3166,9 +3151,9 @@ msgid "Make RAID Device"
 msgstr "Vytvořit RAID zařízení"
 
 #: ../iw/raid_dialog_gui.py:336
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Upravit RAID zařízení"
+msgstr "Upravit RAID zařízení: %s"
 
 #: ../iw/raid_dialog_gui.py:338
 msgid "Edit RAID Device"
@@ -4023,9 +4008,8 @@ msgid "Updates"
 msgstr "Aktualizace"
 
 #: ../loader/loader.c:526
-#, fuzzy
 msgid "Reading anaconda updates"
-msgstr "Čtu aktualizace anacondy..."
+msgstr "Čtu aktualizace anacondy"
 
 #: ../loader/loader.c:562
 msgid "Unable to download the updates image.  Please modify the updates location below or press Cancel to proceed without updates.."
@@ -4045,9 +4029,8 @@ msgid "Media Detected"
 msgstr "Detekováno médium"
 
 #: ../loader/loader.c:1262
-#, fuzzy
 msgid "Found local installation media"
-msgstr "Detekováno místní instalační médium..."
+msgstr "Nalezeno místní instalační médium"
 
 #: ../loader/loader.c:1381
 msgid "Rescue Method"
@@ -4455,9 +4438,8 @@ msgid "You specified block device encryption should be enabled, but you have not
 msgstr "Zadali jste, že se má povolit šifrování blokového zařízení, ale nezadali jste heslo. Pokud se nevrátíte a nezadáte heslo, šifrování blokového zařízení bude vypnuto."
 
 #: ../storage/__init__.py:150
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "Zapisuji oddíly na disk"
+msgstr "Zapisuji konfiguraci úložiště na disk"
 
 #: ../storage/__init__.py:151
 msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost."
@@ -4472,14 +4454,12 @@ msgid "_Write changes to disk"
 msgstr "Za_psat změny na disk"
 
 #: ../storage/__init__.py:272
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Chybí zařízení"
+msgstr "Hledám zařízení"
 
 #: ../storage/__init__.py:273
-#, fuzzy
 msgid "Finding storage devices"
-msgstr "Chybí zařízení"
+msgstr "Hledám úložná zařízení"
 
 #: ../storage/__init__.py:511
 msgid "This partition is holding the data for the hard drive install."
@@ -4492,22 +4472,20 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Nelze odstranit oddíl DASD formátovaného LDL."
 
 #: ../storage/__init__.py:522
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Oddíl je část RAID zařízení /dev/md%s."
+msgstr "Toto zařízení je část RAID zařízení %s."
 
 #: ../storage/__init__.py:525
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Oddíl je část RAID zařízení."
+msgstr "Toto zařízení je část RAID zařízení."
 
 #: ../storage/__init__.py:530
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "Oddíl je část LVM skupiny svazků (VG) '%s'."
 
 #: ../storage/__init__.py:533
-#, fuzzy
 msgid "This device is part of a LVM volume group."
 msgstr "Oddíl je část LVM skupiny svazků (VG)."
 
@@ -4516,6 +4494,8 @@ msgid ""
 "This device is an extended partition which contains logical partitions that cannot be deleted:\n"
 "\n"
 msgstr ""
+"Toto zařízení je rozšířený oddíl obsahující logické oddíly, které nemohou být smazány:\n"
+"\n"
 
 #: ../storage/__init__.py:817
 #, python-format
@@ -4528,9 +4508,9 @@ msgid "Your root partition is less than 250 megabytes which is usually too small
 msgstr "Kořenový oddíl je menší než 250 MB, což je obvykle příliš málo pro instalaci distribuce %s."
 
 #: ../storage/__init__.py:828
-#, fuzzy, python-format
+#, python-format
 msgid "Your / partition is less than %s MB which is lower than recommended for a normal %s install."
-msgstr "Oddíl %s je menší než %s MB, což je méně než je doporučená velikost pro obvyklou instalaci distribuce %s."
+msgstr "Oddíl / je menší než %s MB, což je méně než je doporučená velikost pro obvyklou instalaci distribuce %s."
 
 #: ../storage/__init__.py:838
 #, python-format
@@ -4551,9 +4531,8 @@ msgid "Installing on a FireWire device.  This may or may not produce a working s
 msgstr "Instalace na FireWire zařízení. To může (ale nemusí) vést k vytvoření funkčního systému. "
 
 #: ../storage/__init__.py:882
-#, fuzzy
 msgid "You have not specified a swap partition.  Due to the amount of memory present, a swap partition is required to complete installation."
-msgstr "Neurčili jste odkládací oddíl (swap). Přesto, že to není není nezbytně nutné, jeho použití ve většině případů výrazně zvýší výkonnost systému."
+msgstr "Neurčili jste odkládací oddíl (swap). Kvůli malé paměti je potřeba swapovací oddíl pro dokončení instalace."
 
 #: ../storage/__init__.py:887
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
@@ -4565,9 +4544,9 @@ msgid "This mount point is invalid.  The %s directory must be on the / file syst
 msgstr ""
 
 #: ../storage/__init__.py:898
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s must be on a linux file system."
-msgstr "Místo připojení \"%s\" je již používáno. Zadejte jiné."
+msgstr "Místo připojení %s musí být linuxový systém souborů."
 
 #: ../storage/__init__.py:909
 msgid "No Drives Found"
@@ -4772,9 +4751,8 @@ msgstr "_Reinicializovat"
 
 #: ../storage/devicetree.py:1707
 #: ../storage/devicetree.py:1756
-#, fuzzy
 msgid "This partition is part of an inconsistent LVM Volume Group."
-msgstr "Oddíl je část LVM skupiny svazků (VG)."
+msgstr "Oddíl je část nekonzistentní LVM skupiny svazků (VG)."
 
 #: ../storage/formats/fs.py:66
 msgid "attr dict must include a type"
@@ -4789,27 +4767,27 @@ msgid "Formatting"
 msgstr "Formátování"
 
 #: ../storage/formats/fs.py:344
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s"
-msgstr "Kontroluji systém souborů na %s..."
+msgstr "Vytvářím systém souborů na %s"
 
 #: ../storage/formats/fs.py:440
 msgid "Resizing"
 msgstr "Měním velikost"
 
 #: ../storage/formats/fs.py:441
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s"
-msgstr "Měním velikost systému souborů na %s..."
+msgstr "Měním velikost systému souborů na %s"
 
 #: ../storage/formats/fs.py:484
 msgid "Checking"
 msgstr "Kontroluji"
 
 #: ../storage/formats/fs.py:485
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s"
-msgstr "Kontroluji systém souborů na %s..."
+msgstr "Kontroluji systém souborů na %s"
 
 #: ../storage/iscsi.py:82
 #: ../storage/iscsi.py:83
@@ -5068,7 +5046,6 @@ msgid "Configuring Network Interfaces"
 msgstr "Nastavuji síťové rozhraní"
 
 #: ../textw/netconfig_text.py:274
-#, fuzzy
 msgid "Waiting for NetworkManager"
 msgstr "Čekám na NetworkManager..."
 
@@ -5401,9 +5378,8 @@ msgid "Please provide the configuration information for this software repository
 msgstr "Zadejte prosím informace o nastavení tohto repozitáře software."
 
 #: ../ui/addrepo.glade.h:10
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Počítač (počítač:port)"
+msgstr "Proxy U_RL (počítač:port)"
 
 #: ../ui/addrepo.glade.h:11
 msgid "Proxy pass_word"
@@ -5454,12 +5430,10 @@ msgid "_Next"
 msgstr "_Další"
 
 #: ../ui/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Shrink _target (in MB):</b>"
-msgstr "<b>Změnit velikost _cíle:</b>"
+msgstr "<b>Zmenšit velikost _cíle (v MB):</b>"
 
 #: ../ui/autopart.glade.h:2
-#, fuzzy
 msgid "Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target. You can also choose to create your own custom layout."
 msgstr "Před instalací je potřeba rozdělit disk na oddíly a určit, kam se bude instalovat. Automatické rozdělení vytvoří implicitní rozdělení, které bude ve většině případů vyhovovat. Můžete také vytvořit oddíly ručně a sami určit, kam budou připojeny."
 
@@ -5469,16 +5443,15 @@ msgstr "Pro_hlédnout a upravit rozložení oddílů"
 
 #: ../ui/autopart.glade.h:4
 msgid "Volume to Shrink"
-msgstr ""
+msgstr "Svazek ke zmenšení"
 
 #: ../ui/autopart.glade.h:5
 msgid "What drive would you like to _boot this installation from?"
 msgstr "Z _kterého zařízení chcete zavádět tuto instalaci?"
 
 #: ../ui/autopart.glade.h:6
-#, fuzzy
 msgid "Which partition would you like to shrink to make room for your installation?"
-msgstr "Kterému oddílu chcete změnit velikost, abyste pro instalaci udělali místo?"
+msgstr "Který oddíl chcete zmenšit, abyste pro instalaci udělali místo?"
 
 #: ../ui/autopart.glade.h:7
 msgid "_Advanced storage configuration"
@@ -5494,7 +5467,7 @@ msgstr "_Vybrat disk(y), které budou použity pro instalaci:"
 
 #: ../ui/autopart.glade.h:10
 msgid "_Shrink"
-msgstr ""
+msgstr "_Zmenšit"
 
 #: ../ui/blwhere.glade.h:1
 msgid "/boot"
