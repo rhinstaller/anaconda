@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.nl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-29 19:50+0000\n"
-"PO-Revision-Date: 2009-08-30 10:15+0200\n"
+"PO-Revision-Date: 2009-09-06 14:44+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1570,7 +1570,7 @@ msgstr "Upgrade root niet gevonden"
 
 #: ../upgrade.py:194
 msgid "The root for the previously installed system was not found."
-msgstr "De root voor het eerder geinstalleerde systeem is niet gevonden."
+msgstr "De root voor het eerder geïnstalleerde systeem is niet gevonden."
 
 #: ../upgrade.py:201
 msgid ""
@@ -2174,7 +2174,7 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
-"Wilt u nu een Installatie Nummer (soms een Subscription Number genoemd) "
+"Wilt u nu een installatienummer (soms een Subscription Number genoemd) "
 "invoeren? Dit maakt het voor het installatieprogramma mogelijk extra "
 "componenten die eventueel bij uw aanmelding zijn verkregen te benaderen. "
 "Indien u deze stap overslaat kunt u additionele componenten later nog "
@@ -2187,7 +2187,7 @@ msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
-"Indien u het Installatie Nummer niet kunt vinden, raadpleeg dan  http://www."
+"Indien u het installatienummer niet kunt vinden, raadpleeg dan http://www."
 "redhat.com/InstNum/."
 
 #: ../iw/GroupSelector.py:147
@@ -4931,7 +4931,7 @@ msgid ""
 "It must be formatted as %s."
 msgstr ""
 "Uw / partitie komt niet overeen met het live image waarvan u installeert. "
-"Het moet geformateerd worden als %s."
+"Het moet geformatteerd worden als %s."
 
 #: ../storage/__init__.py:845
 #, python-format
@@ -5316,8 +5316,7 @@ msgid ""
 "exit the installer."
 msgstr ""
 "Kon niet genoeg vrije ruimte ontdekken om automatisch te partitioneren. Druk "
-"op 'OK' om het \n"
-"installatieprogramma af te sluiten."
+"op 'OK' om het installatieprogramma af te sluiten."
 
 #: ../storage/partitioning.py:183
 msgid ""
@@ -5325,8 +5324,7 @@ msgid ""
 "another partitioning method."
 msgstr ""
 "Kon niet genoeg vrije ruimte ontdekken om automatisch te partitioneren, "
-"gebruik een andere \n"
-"partitioneringsmethode."
+"gebruik een andere partitioneringsmethode."
 
 #: ../storage/partitioning.py:212
 msgid "Warnings During Automatic Partitioning"
@@ -5441,7 +5439,7 @@ msgstr "WWPN %s niet gevonden bij zFCP apparaat %s."
 #: ../storage/zfcp.py:179
 #, python-format
 msgid "Could not add LUN %s to WWPN %s on zFCP device %s (%s)."
-msgstr "Kon·aan·WWPN %s van apparaat·zFDC·%s·geen·LUN %s·toevoegen·(%s)."
+msgstr "Kon aan WWPN %s van apparaat zFDC %s geen LUN %s toevoegen (%s)."
 
 #: ../storage/zfcp.py:183
 #, python-format
@@ -5453,8 +5451,8 @@ msgstr "LUN %s bij WWPN %s van apparaat zFCP %s is reeds geconfigureerd."
 msgid ""
 "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
 msgstr ""
-"Kon mislukte attributie van LUN %s bij WWPN %s van apparaat zFCP %s niet "
-"lezen (%s)."
+"Kon mislukt attribuut van LUN %s bij WWPN %s van apparaat zFCP %s niet lezen "
+"(%s)."
 
 #: ../storage/zfcp.py:198
 #, python-format
@@ -5464,22 +5462,22 @@ msgstr "Mislukte LUN %s bij WWPN %s van apparaat zFCP %s weer verwijderd"
 #: ../storage/zfcp.py:253
 #, python-format
 msgid "Could not correctly delete SCSI device of zFCP %s %s %s (%s)."
-msgstr "Kon niet SCSI apparaat van zFCP·%s·%s·%s·correct verwijderen (%s)."
+msgstr "Kon SCSI apparaat van zFCP %s %s %s niet correct verwijderen (%s)."
 
 #: ../storage/zfcp.py:260
 #, python-format
 msgid "Could not remove LUN %s at WWPN %s on zFCP device %s (%s)."
-msgstr "Kon bij WWPN·%s·van·apparaat zFDC %s niet LUN·%s weghalen (%s)."
+msgstr "Kon bij WWPN %s van apparaat zFDC %s niet LUN %s weghalen (%s)."
 
 #: ../storage/zfcp.py:275
 #, python-format
 msgid "Could not remove WWPN %s on zFCP device %s (%s)."
-msgstr "Kon WWPN·%s·van·apparaat zFDC %s niet weghalen (%s)."
+msgstr "Kon WWPN %s van apparaat zFDC %s niet weghalen (%s)."
 
 #: ../storage/zfcp.py:299
 #, python-format
 msgid "Could not set zFCP device %s offline (%s)."
-msgstr "Kon apparaat zFCO %s niet offline krijgen (%s)."
+msgstr "Kon apparaat zFCP %s niet offline krijgen (%s)."
 
 #: ../textw/complete_text.py:32
 msgid "Reboot"
