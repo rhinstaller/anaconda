@@ -204,7 +204,7 @@ class Language(object):
 
         for (key, val) in self.info.iteritems():
             if val != None:
-                args += "%s=%s" % (key, val)
+                args += " %s=%s" % (key, val)
 
         return args
 
