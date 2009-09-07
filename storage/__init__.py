@@ -1651,6 +1651,15 @@ class FSSet(object):
 
                     if swapErrorDialog(msg, device):
                         continue
+                except UnknownSwapError:
+                    msg = _("The swap device:\n\n     %s\n\n"
+                            "does not contain a support swap volume.  In "
+                            "order to continue installation, you will need "
+                            "to format the device or skip it.") \
+                          % device.path
+
+                    if swapErrorDialog(msg, device):
+                        continue
                 except DeviceError as (msg, name):
                     if anaconda.intf:
                         if upgrading:
