@@ -1156,8 +1156,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 if anaconda.isKickstart:
                     buttons.append(_("_Continue"))
 
-                waitwin.pop()
-
                 if not fatalerrors:
                     raise RepoError, e
 
@@ -1174,6 +1172,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 elif rc == 1:
                     # edit
                     anaconda.intf.editRepoWindow(repo)
+                    break
                 elif rc == 2:
                     # retry, but only if button is present
                     continue
