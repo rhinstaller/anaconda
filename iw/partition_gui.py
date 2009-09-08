@@ -928,6 +928,7 @@ class PartitionWindow(InstallWindow):
                         ptype = _("Unknown")
                 if part.type & parted.PARTITION_FREESPACE:
                     devname = _("Free")
+                    ptype = ""
                 else:
                     devname = "%s" % device.path
                 self.tree[iter]['Device'] = devname
