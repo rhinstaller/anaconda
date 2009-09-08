@@ -151,6 +151,8 @@ class RepoEditor:
         self.partitionComboBox = self.dxml.get_widget("partitionComboBox")
         self.directoryChooser = self.dxml.get_widget("directoryChooserButton")
 
+        self.dialog.set_title(_("Edit Repository"))
+
         # Remove these until they are actually implemented
         self.typeComboBox.remove_text(3)
 
@@ -187,7 +189,6 @@ class RepoEditor:
                                  url.startswith("ftp://"))
 
     def createDialog(self):
-        self.dialog.set_title(_("Edit Repository"))
 
         if self.repo:
             self.nameEntry.set_text(self.repo.name)
@@ -459,9 +460,6 @@ class RepoMethodstrEditor(RepoEditor):
 class RepoCreator(RepoEditor):
     def __init__(self, anaconda):
         RepoEditor.__init__(self, anaconda, None)
-
-    def createDialog(self):
-        RepoEditor.createDialog(self)
         self.dialog.set_title(_("Add Repository"))
 
 class TaskWindow(InstallWindow):
