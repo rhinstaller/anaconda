@@ -510,6 +510,8 @@ class TaskWindow(InstallWindow):
         dialog.createDialog()
         dialog.run()
 
+        model.set_value(iter, 0, dialog.repo.isEnabled())
+        model.set_value(iter, 1, dialog.repo.name)
         model.set_value(iter, 2, dialog.repo)
 
     def _addRepo(self, *args):
