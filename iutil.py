@@ -323,8 +323,6 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
     except OSError as e:
         log.critical("exception from waitpid: %s %s" %(e.errno, e.strerror))
 
-    progress and progress.pop()
-
     closefds()
     # *shrug*  no clue why this would happen, but hope that things are fine
     if status is None:
