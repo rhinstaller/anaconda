@@ -1033,23 +1033,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         fd.close()
 
     def complete(self, anaconda):
-        if anaconda.mediaDevice:
-            try:
-                shutil.copyfile("%s/media.repo" % self.ayum.tree,
-                                "%s/etc/yum.repos.d/%s-install-media.repo" %(anaconda.rootPath, productName))
-            except Exception, e:
-                log.debug("Error copying media.repo: %s" %(e,))
-
-            try:
-                i = iniparse.ConfigParser()
-                i.read("%s/media.repo" % self.ayum.tree)
-                repo = i.sections()[0]
-                del i
-                shutil.copytree("%s/repodata" % self.ayum.tree,
-                                "%s/var/cache/yum/%s" %(anaconda.rootPath, repo))
-            except Exception, e:
-                log.debug("Error setting up media repository: %s" %(e,))
-        elif os.path.exists(self.ayum.tree) and os.path.ismount(self.ayum.tree):
+        if not anaconda.mediaDevice and os.path.ismount(self.ayum.tree):
             isys.umount(self.ayum.tree)
 
         anaconda.backend.removeInstallImage()
