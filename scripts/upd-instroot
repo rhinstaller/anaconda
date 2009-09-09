@@ -159,7 +159,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
     btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
-    cryptsetup-luks db4 dbus dbus-python dejavu-sans-fonts
+    cryptsetup-luks cyrus-sasl-lib db4 dbus dbus-python dejavu-sans-fonts
     dejavu-sans-mono-fonts device-mapper
     device-mapper-libs dhclient dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme ethtool
@@ -171,18 +171,17 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
     libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
     libXxf86misc libacl libart_lgpl libattr libbdevid libbdevid-python
-    libbonobo libfontenc libgcc
+    libbonobo libcurl libfontenc libidn libgcc
     libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libnl
     libpng libselinux libselinux-python libsemanage
-    libsemanage-python libsepol libstdc++ libthai libuser
+    libsemanage-python libsepol libssh2 libstdc++ libthai libuser
     libuser-python libvolume_id libxcb libxkbfile libxml2 lklug-fonts 
     lohit-assamese-fonts lohit-bengali-fonts lohit-gujarati-fonts lohit-hindi-fonts
     lohit-kashmiri-fonts lohit-kannada-fonts lohit-maithili-fonts lohit-marathi-fonts
     lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
     lohit-telugu-fonts lvm2 madan-fonts mdadm
     mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
-    newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
-    policycoreutils polkit popt prelink procps pycairo pygobject2 pygtk2
+    newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g openldap pam pango parted pciutils pcre
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
     python-libs python-nss python-pyblock python-sqlite
     python-urlgrabber python-volume_key pyxf86config readline redhat-artwork
@@ -237,7 +236,7 @@ fi
 #
 # these packages are combined with the PACKAGES for big stage 2
 #
-PACKAGESRESCUE="bzip2 bzip2-libs dump libidn
+PACKAGESRESCUE="bzip2 bzip2-libs dump
                 findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
