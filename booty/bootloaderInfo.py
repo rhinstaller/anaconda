@@ -308,7 +308,7 @@ class bootloaderInfo:
         if os.access(instRoot + "/boot/" + initrd, os.R_OK):
             return initrd
 
-        initrd = "initrd-generic%s.img" % kernelTag
+        initrd = "initramfs%s.img" % kernelTag
         if os.access(instRoot + "/boot/" + initrd, os.R_OK):
             return initrd
 
