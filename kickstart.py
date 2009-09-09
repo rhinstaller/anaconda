@@ -38,7 +38,7 @@ import warnings
 import upgrade
 import pykickstart.commands as commands
 from storage.devices import *
-import zonetab
+from scdate.core import zonetab
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.parser import *

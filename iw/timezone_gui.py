@@ -23,7 +23,7 @@ import gtk
 import gtk.glade
 import gtk.gdk
 import gobject
-import zonetab
+from scdate.core import zonetab
 import pango
 import sys
 

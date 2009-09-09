@@ -25,6 +25,7 @@ from time import *
 from snack import *
 from constants_text import *
 from bootloader import hasWindows
+from scdate.core import zonetab
 
 from constants import *
 import gettext
@@ -35,8 +36,6 @@ sys.path.append("/usr/share/system-config-date")
 class TimezoneWindow:
 
     def getTimezoneList(self):
-        import zonetab
-
         zt = zonetab.ZoneTab()
         zoneList = [ x.tz for x in zt.getEntries() ]
         zoneList.sort()
