@@ -797,14 +797,13 @@ class PartitionWindow(InstallWindow):
             if rc != 1:
                 raise gui.StayOnScreen
 
-        
-        self.diskStripeGraph.shutDown()
+        self.stripeGraph.shutDown()
         self.tree.clear()
         del self.parent
         return None
 
     def getPrev(self):
-        self.diskStripeGraph.shutDown()
+        self.stripeGraph.shutDown()
         self.storage.clearPartType = None
         self.storage.reset()
         self.tree.clear()
@@ -937,9 +936,6 @@ class PartitionWindow(InstallWindow):
 	drvparent = self.tree.append(None)
 	self.tree[drvparent]['Device'] = _("Hard Drives")
         for disk in disks:
-            if not self.diskStripeGraph.getDisplayed():
-                self.diskStripeGraph.setDisplayed(disk)
-
             # add a parent node to the tree
             parent = self.tree.append(drvparent)
 
@@ -1105,22 +1101,58 @@ class PartitionWindow(InstallWindow):
             return
 
         device = model[iter]['PyObject']
+
+        # See if we need to change what is in the canvas. In all possibilities
+        # we must make sure we have the correct StripeGraph class.
         if not device:
-            return
-
-        # See if we need to change what is in the canvas.
-        if isinstance(device, storage.DiskDevice):
-            self.diskStripeGraph.setDisplayed(device)
-
-        elif  isinstance(device, storage.PartitionDevice):
-            self.diskStripeGraph.setDisplayed(device.parents[0])
-            self.diskStripeGraph.selectSliceFromObj(device)
-
-        elif device == None: # User clicks on a "Free" row.
             iparent = model.iter_parent(iter)
+            if not iparent:
+                # This is a root row.
+                return
+
+            # This is free space.  Only Disks have "Free" space.
             parent = self.tree[iparent]["PyObject"]
             if isinstance(parent, storage.DiskDevice):
-                self.diskStripeGraph.setDisplayed(parent)
+                if not isinstance(self.stripeGraph, DiskStripeGraph):
+                    self.stripeGraph.shutDown()
+                    self.stripeGraph = DiskStripeGraph(self.tree, self.editCB, self.storage, parent)
+                self.stripeGraph.setDisplayed(parent)
+
+        elif isinstance(device, storage.DiskDevice):
+            if not isinstance(self.stripeGraph, DiskStripeGraph):
+                self.stripeGraph.shutDown()
+                self.stripeGraph = DiskStripeGraph(self.tree, self.editCB, self.storage, device)
+            self.stripeGraph.setDisplayed(device)
+
+        elif isinstance(device, storage.PartitionDevice):
+            if not isinstance(self.stripeGraph, DiskStripeGraph):
+                self.stripeGraph.shutDown()
+                self.stripeGraph = DiskStripeGraph(self.tree, self.editCB, self.storage, device.parents[0])
+            self.stripeGraph.setDisplayed(device.parents[0])
+            self.stripeGraph.selectSliceFromObj(device)
+
+        elif isinstance(device, storage.LVMVolumeGroupDevice):
+            if not isinstance(self.stripeGraph, LVMStripeGraph):
+                self.stripeGraph.shutDown()
+                self.stripeGraph = LVMStripeGraph(self.tree, self.editCB, self.storage, device)
+            self.stripeGraph.setDisplayed(device)
+
+        elif isinstance(device, storage.LVMLogicalVolumeDevice):
+            if not isinstance(self.stripeGraph, LVMStripeGraph):
+                self.stripeGraph.shutDown()
+                self.stripeGraph = LVMStripeGraph(self.tree, self.editCB, self.storage, device.vg)
+            self.stripeGraph.setDisplayed(device.vg)
+            self.stripeGraph.selectSliceFromObj(device)
+
+        elif isinstance(device, storage.MDRaidArrayDevice):
+            if not isinstance(self.stripeGraph, MDRaidArrayStripeGraph):
+                self.stripeGraph.shutDown()
+                self.stripeGraph = MDRaidArrayStripeGraph(self.tree, self.editCB, self.storage, device)
+            self.stripeGraph.setDisplayed(device)
+
+        else:
+            # Don't really want to do anything in this case.
+            return
 
     def deleteCB(self, widget):
         """ Right now we can say that if the device is partitioned we
@@ -1365,15 +1397,15 @@ class PartitionWindow(InstallWindow):
     def resetCB(self, *args):
         if not confirmResetPartitionState(self.intf):
             return
-        
-        self.diskStripeGraph.shutDown()
+
+        self.stripeGraph.shutDown()
         self.storage.reset()
         self.tree.clear()
         self.populate()
 
     def refresh(self, justRedraw=None):
         log.debug("refresh: justRedraw=%s" % justRedraw)
-        self.diskStripeGraph.shutDown()
+        self.stripeGraph.shutDown()
         self.tree.clear()
 
         if justRedraw:
@@ -1565,10 +1597,10 @@ class PartitionWindow(InstallWindow):
         vgeditor.destroy()
 
     def viewButtonCB(self, widget):
-	self.show_uneditable = not widget.get_active()
-        self.diskStripeGraph.shutDown()
-	self.tree.clear()
-	self.populate()
+        self.show_uneditable = not widget.get_active()
+        self.stripeGraph.shutDown()
+        self.tree.clear()
+        self.populate()
 
     def getScreen(self, anaconda):
         self.anaconda = anaconda
@@ -1613,8 +1645,7 @@ class PartitionWindow(InstallWindow):
         self.treeView.connect('row-activated', self.treeActivateCB)
         self.treeViewSelection = self.treeView.get_selection()
         self.treeViewSelection.connect("changed", self.treeSelectCB)
-        self.diskStripeGraph = DiskStripeGraph(self.tree, self.editCB,
-                                                storage = self.storage)
+        self.stripeGraph = StripeGraph(self.tree, self.editCB)
         self.populate(initial = 1)
 
         # Create the top scroll window
@@ -1622,7 +1653,7 @@ class PartitionWindow(InstallWindow):
         hadj = gtk.Adjustment(step_incr = 5.0)
         vadj = gtk.Adjustment(step_incr = 5.0)
         swt = gtk.ScrolledWindow(hadjustment = hadj, vadjustment = vadj)
-        swt.add(self.diskStripeGraph.getCanvas())
+        swt.add(self.stripeGraph.getCanvas())
         swt.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         swt.set_shadow_type(gtk.SHADOW_IN)
 
