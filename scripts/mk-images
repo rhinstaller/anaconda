@@ -592,7 +592,7 @@ makeinitrd() {
         instbin $IMGPATH /usr/bin/find $MBD_DIR /sbin/find
 
         # required for linuxrc.s390
-        for cmd in ping ping6 cat head tr wc echo printf cut mknod ; do
+        for cmd in cmsfscat ping ping6 cat head tr wc echo printf cut mknod ; do
             instbin $IMGPATH /usr/bin/$cmd $MBD_DIR /sbin/$cmd
         done
         instbin $IMGPATH /usr/sbin/sysctl $MBD_DIR /sbin/sysctl
