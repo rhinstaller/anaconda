@@ -1273,6 +1273,12 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
         } else if (loaderData->stage2Data) {
             skipMethodDialog = 1;
         }
+    } else {
+        /* Needed because they have already been set when parsing cmdline.
+         * (Leaks a little.)
+         */
+        loaderData->method = -1;
+        loaderData->stage2Data = NULL;
     }
 
     i = 0;
