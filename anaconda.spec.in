@@ -214,6 +214,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Sep 09 2009 David Cantrell <dcantrell@redhat.com> - 12.23-1
+- initrd-generic.img -> initramfs.img (hdegoede)
+
 * Wed Sep 09 2009 David Cantrell <dcantrell@redhat.com> - 12.22-1
 - No longer require xfsdump, since anaconda doesn't use it anywhere
   (#522180). (clumens)
