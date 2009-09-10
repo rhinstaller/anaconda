@@ -387,6 +387,94 @@ class DiskStripeGraph(StripeGraph):
 
         return stripe
 
+class LVMStripeGraph(StripeGraph):
+    def __init__(self, tree, editCB, storage, vg = None):
+        StripeGraph.__init__(self, tree, editCB)
+        self.storage = storage
+       # Define the default colors per partition type.
+        self.part_type_colors = \
+                {"sel_lv": "cornsilk1", "unsel_lv": "white",
+                 "sel_freespace": "grey88", "unsel_freespace": "grey88"}
+        if vg:
+            self.setDisplayed(vg)
+
+    def _createStripe(self, vg):
+        # Create the stripe
+        vgtext = _("LVM Volume Group %s (%-0.f MB)") % (vg.name, vg.size)
+        stripe = Stripe(self.canvas, vgtext, self.editCB, obj = vg)
+
+        # Create the slices.
+        # Since se don't have a start and length like in the partitions, we
+        # put all the LVs next to each other and put the free space at the end.
+        curr_offset = float(0)
+        for lv in vg.lvs:
+            lvstr = lv.name
+            stype = Slice.SLICE
+            sel_col = self.part_type_colors["sel_lv"]
+            unsel_col = self.part_type_colors["unsel_lv"]
+
+            #xoffset = float(curr_offset) / float(vg.size)
+            xoffset = curr_offset
+            xlength = float(lv.size) / float(vg.size)
+
+            dcCB = self.editCB
+
+            slice = Slice(stripe, lvstr, stype, xoffset, xlength,
+                    dcCB = dcCB, sel_col = sel_col,
+                    unsel_col = unsel_col, obj = lv)
+            stripe.addSlice(slice)
+
+            curr_offset += xlength
+
+        # We add the free space if there is any space left.
+        if curr_offset < 1:
+            freestr = _("Free")
+            stype = Slice.SLICE
+            sel_col = self.part_type_colors["sel_freespace"]
+            unsel_col = self.part_type_colors["unsel_freespace"]
+
+            xoffset = curr_offset
+            xlength = float(1 - curr_offset)
+
+            # We append no object.
+            slice = Slice(stripe, freestr, stype, xoffset, xlength,
+                    sel_col = sel_col, unsel_col = unsel_col)
+
+            stripe.addSlice(slice)
+
+        return stripe
+
+class MDRaidArrayStripeGraph(StripeGraph):
+    def __init__(self, tree, editCB, storage, md = None):
+        StripeGraph.__init__(self, tree, editCB)
+        self.storage = storage
+        self.part_type_colors = \
+                {"sel_md": "cornsilk1", "unsel_md": "white"}
+        if md:
+            self.setDisplayed(md)
+
+    def _createStripe(self, md):
+        mdtext = _("MD RAID ARRAY %s (%-0.f MB)") % (md.path, md.size)
+        stripe = Stripe(self.canvas, mdtext, self.editCB, obj = md)
+
+        # Since we can't really create subslices with md devices we will only
+        # show the md device size in the bar.
+        mdstr = md.path
+        stype = Slice.SLICE
+        sel_col = self.part_type_colors["sel_md"]
+        unsel_col = self.part_type_colors["unsel_md"]
+        xoffset = 0
+        xlength = 1
+        dcCB = self.editCB
+
+        slice = Slice(stripe, mdstr, stype, xoffset, xlength,
+                dcCB = dcCB, sel_col = sel_col,
+                unsel_col = unsel_col, obj = md)
+        stripe.addSlice(slice)
+
+        return stripe
+
+
 class DiskTreeModelHelper:
     def __init__(self, model, columns, iter):
         self.model = model
