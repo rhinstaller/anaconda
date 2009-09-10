@@ -1568,6 +1568,13 @@ class DeviceTree(object):
                                              parents=[device])
 
                 self._addDevice(dm_array)
+
+                # Get the DMRaidArrayDevice a DiskLabel format *now*, in case
+                # its partitions get scanned before it does.
+                dm_array.updateSysfsPath()
+                dm_array_info = udev_get_block_device(dm_array.sysfsPath)
+                self.handleUdevDiskLabelFormat(dm_array_info, dm_array)
+
                 # Use the rs's object on the device.
                 # pyblock can return the memebers of a set and the
                 # device has the attribute to hold it.  But ATM we
