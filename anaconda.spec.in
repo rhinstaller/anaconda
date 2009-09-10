@@ -214,6 +214,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Sep 10 2009 Chris Lumens <clumens@redhat.com> - 12.24-1
+- dmidecode is in /usr/sbin, not /usr/bin. (clumens)
+- Add cmsfscat to the initrd on s390 as well (#522535). (clumens)
+- Fix the gawk/awk symlink mess in the initrd (#522535). (clumens)
+- No longer use /usr/bin/env (#521337). (clumens)
+- It's controlunits, not controlunits.sh. (clumens)
+- Get DMRaidArrayDevice's a DiskLabel format when they are added to the tree
+  (hdegoede)
+- Fix askmethod + stage2= (#516973, #519288, #518194) (rvykydal)
+
 * Wed Sep 09 2009 David Cantrell <dcantrell@redhat.com> - 12.23-1
 - initrd-generic.img -> initramfs.img (hdegoede)
 
