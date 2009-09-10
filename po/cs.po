@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-09-01 08:33+0000\n"
-"PO-Revision-Date: 2009-09-09 11:26+0100\n"
+"PO-Revision-Date: 2009-09-10 07:20+0100\n"
 "Last-Translator: Dušan Hokův <dusan@mirc.cz>\n"
 "Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -139,11 +139,11 @@ msgstr "Proměnná prostředí DISPLAY není nastavena. Spouštím textový rež
 
 #: ../anaconda:997
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "reipl konfigurace úspěšná => reboot"
 
 #: ../anaconda:1000
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "reipl konfigurace selhala => halt"
 
 #: ../backend.py:145
 #, python-format
@@ -339,7 +339,7 @@ msgstr "Instaluji zavaděč systému."
 
 #: ../bootloader.py:210
 msgid "There was an error installing the bootloader.  The system may not be bootable."
-msgstr ""
+msgstr "Při instalaci zavaděče se vyskytla chyba. Systém pravděpodobně nebude bootovat."
 
 #: ../bootloader.py:217
 msgid "No kernel packages were installed on the system.  Bootloader configuration will not be changed."
@@ -369,7 +369,7 @@ msgstr ""
 
 #: ../cmdline.py:98
 msgid "Command line mode requires all choices to be specified in a kickstart configuration file."
-msgstr ""
+msgstr "Mód s příkazovou řádkou vyžaduje určení všech věcí v konfiguračním souboru kickstartu."
 
 #: ../cmdline.py:114
 #: ../cmdline.py:121
@@ -715,7 +715,7 @@ msgstr ""
 
 #: ../iutil.py:957
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "Chyba zjištění typu bodu připojení"
 
 #: ../iutil.py:961
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
@@ -862,7 +862,7 @@ msgid "Device Resize Failed"
 msgstr "Změna velikosti zařízení selhala"
 
 #: ../packages.py:122
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
 msgstr "Při změně velikosti zařízení %s došlo k chybě."
 
@@ -871,54 +871,54 @@ msgid "Device Creation Failed"
 msgstr "Vytvoření zařízení selhalo"
 
 #: ../packages.py:130
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "Při změně velikosti zařízení %s došlo k chybě."
+msgstr "Při vytváření zařízení %s došlo k chybě."
 
 #: ../packages.py:137
 msgid "Device Removal Failed"
 msgstr "Odebrání zařízení selhalo"
 
 #: ../packages.py:138
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "Při změně velikosti zařízení %s došlo k chybě."
+msgstr "Při odebírání zařízení %s došlo k chybě."
 
 #: ../packages.py:145
 msgid "Device Setup Failed"
 msgstr "Nastavení zařízení selhalo"
 
 #: ../packages.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "Při změně velikosti zařízení %s došlo k chybě."
+msgstr "Při nastavování zařízení %s došlo k chybě."
 
 #: ../packages.py:157
 msgid "Resizing Failed"
 msgstr "Změna velikosti selhala"
 
 #: ../packages.py:158
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr "Při změně velikosti zařízení %s došlo k chybě."
+msgstr "Při změně velikosti zařízení %s se vyskytla chyba."
 
 #: ../packages.py:165
 msgid "Migration Failed"
 msgstr "Migrace selhala"
 
 #: ../packages.py:166
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "Při změně velikosti zařízení %s došlo k chybě."
+msgstr "Při migraci souborového systému na zařízení %s došlo k chybě."
 
 #: ../packages.py:174
 msgid "Formatting Failed"
 msgstr "Formátování selhalo"
 
 #: ../packages.py:175
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "Při změně velikosti zařízení %s došlo k chybě."
+msgstr "Při formátování zařízení %s došlo k chybě."
 
 #. catch-all
 #: ../packages.py:183
@@ -926,16 +926,12 @@ msgid "Storage Activation Failed"
 msgstr "Aktivace úložiště selhala"
 
 #: ../packages.py:184
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"Při zpracovávání kickstart souboru byla nalezena následující chyba:\n"
-"\n"
-"%s"
+msgstr "Při aktivaci konfigurace vašeho úložiště se vyskytla chyba."
 
 #: ../packages.py:188
 msgid "_File Bug"
-msgstr ""
+msgstr "Bug _Souboru"
 
 #: ../packages.py:350
 msgid "Invalid Key"
@@ -1058,9 +1054,9 @@ msgid "Confirm Delete"
 msgstr "Potvrdit odstranění"
 
 #: ../partIntfHelpers.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Odstranění všech oddílů na zařízení /dev/%s."
+msgstr "Rozhodujete o odstranění všech oddílů na zařízení '%s'."
 
 #: ../partIntfHelpers.py:153
 #: ../partIntfHelpers.py:310
@@ -1380,9 +1376,8 @@ msgid "System to Rescue"
 msgstr "Opravit systém"
 
 #: ../rescue.py:322
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "Který oddíl obsahuje kořenový systém souborů nainstalovaného systému?"
+msgstr "Které zařízení obsahuje kořenový oddíl nainstalovaného systému?"
 
 #: ../rescue.py:324
 #: ../rescue.py:328
@@ -1758,9 +1753,8 @@ msgid "Preparing to install"
 msgstr "Příprava na instalaci"
 
 #: ../yuminstall.py:131
-#, fuzzy
 msgid "Preparing transaction from installation source"
-msgstr "Připravuje se transakce z instalačního zdroje..."
+msgstr "Připravuje se transakce z instalačního zdroje."
 
 #: ../yuminstall.py:159
 #, python-format
@@ -1772,9 +1766,8 @@ msgid "Finishing upgrade"
 msgstr "Dokončuji aktualizaci"
 
 #: ../yuminstall.py:220
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while."
-msgstr "Ukončuji proces aktualizace. Může to chvíli trvat..."
+msgstr "Ukončuji proces aktualizace. Může to chvíli trvat."
 
 #: ../yuminstall.py:229
 msgid "Error Installing Package"
@@ -1783,7 +1776,7 @@ msgstr "Chyba při instalaci balíku"
 #: ../yuminstall.py:230
 #, python-format
 msgid "A fatal error occurred when installing the %s package.  This could indicate errors when reading the installation media.  Installation cannot continue."
-msgstr ""
+msgstr "Vyskytla se kritická chyba při instalaci balíku %s.  To může být způsobeno chybami při čtení z instalačního média.  Installace nemůže pokračovat."
 
 #: ../yuminstall.py:300
 #: ../iw/task_gui.py:80
@@ -1865,9 +1858,8 @@ msgid "Retrying"
 msgstr "Zkouším to znovu"
 
 #: ../yuminstall.py:771
-#, fuzzy
 msgid "Retrying download."
-msgstr "Pokouším se stáhnout znovu..."
+msgstr "Opakuji stažení."
 
 #: ../yuminstall.py:837
 #, python-format
@@ -1940,14 +1932,13 @@ msgid "Unable to read group information from repositories.  This is a problem wi
 msgstr "Ze zadaných repozitářů nelze přečíst informace o skupinách. Při generování vašeho instalačního stromu došlo k chybě."
 
 #: ../yuminstall.py:1151
-#, fuzzy
 msgid "Retrieving installation information."
-msgstr "Načítám informace o instalaci..."
+msgstr "Načítám informace o instalaci."
 
 #: ../yuminstall.py:1153
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s."
-msgstr "Načítám informace o instalaci pro %s..."
+msgstr "Načítám informace o instalaci pro %s."
 
 #: ../yuminstall.py:1155
 msgid "Installation Progress"
@@ -1998,38 +1989,32 @@ msgid "Post Upgrade"
 msgstr "Dokončení Upgrade"
 
 #: ../yuminstall.py:1608
-#, fuzzy
 msgid "Performing post-upgrade configuration"
-msgstr "Zapisuji nastavení po aktualizaci..."
+msgstr "Zapisuje se nastavení po aktualizaci"
 
 #: ../yuminstall.py:1610
-#, fuzzy
 msgid "Post Installation"
 msgstr "Po instalaci"
 
 #: ../yuminstall.py:1611
-#, fuzzy
 msgid "Performing post-installation configuration"
-msgstr "Zapisuji nastavení po instalaci..."
+msgstr "Zapisuje se nastavení po instalaci"
 
 #: ../yuminstall.py:1840
-#, fuzzy
 msgid "Installation Starting"
 msgstr "Start instalace"
 
 #: ../yuminstall.py:1841
-#, fuzzy
 msgid "Starting installation process"
-msgstr "Postup instalace"
+msgstr "Zahajuje se instalační proces"
 
 #: ../yuminstall.py:1879
 msgid "Dependency Check"
 msgstr "Kontrola závislostí"
 
 #: ../yuminstall.py:1880
-#, fuzzy
 msgid "Checking dependencies in packages selected for installation"
-msgstr "Řeším závislosti mezi balíčky vybranými pro instalaci..."
+msgstr "Kontroluji závislosti mezi balíčky vybranými pro instalaci"
 
 #: ../installclasses/fedora.py:39
 msgid "_Fedora"
@@ -2174,9 +2159,8 @@ msgid "No partitions are available to resize.  Only physical partitions with spe
 msgstr "Pro změnu velikosti není k dispozici žádný oddíl.  Lze změnit velikost jen fyzických oddílů s konkrétními systémy souborů."
 
 #: ../iw/autopart_type.py:123
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Měním velikost systému souborů na %s..."
+msgstr "Chyba změny velikosti souborového systému"
 
 #: ../iw/autopart_type.py:124
 #: ../iw/autopart_type.py:133
@@ -2211,9 +2195,8 @@ msgstr "Znovu prohlížím disky"
 
 #: ../iw/autopart_type.py:524
 #: ../textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "_Ignorovat disk"
+msgstr "Použít celý disk"
 
 #: ../iw/autopart_type.py:525
 #: ../textw/partition_text.py:64
@@ -2221,9 +2204,8 @@ msgid "Replace existing Linux system"
 msgstr "Nahradit existující Linuxový systém"
 
 #: ../iw/autopart_type.py:526
-#, fuzzy
 msgid "Shrink current system"
-msgstr "_Šifrovat systém"
+msgstr "Zmenšit současný systém"
 
 #: ../iw/autopart_type.py:527
 #: ../textw/partition_text.py:65
@@ -2710,9 +2692,9 @@ msgid "Dynamic IP Address"
 msgstr "Dynamická IP adresa"
 
 #: ../iw/netconfig_dialog.py:241
-#, fuzzy, python-format
+#, python-format
 msgid "Sending request for IP address information for %s"
-msgstr "Odesílám požadavek o informace IP pro %s..."
+msgstr "Odesílám požadavek o informace IP pro %s"
 
 #: ../iw/netconfig_dialog.py:256
 #: ../iw/netconfig_dialog.py:259
@@ -3221,12 +3203,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Vyberte cílové disky pro klonování."
 
 #: ../iw/raid_dialog_gui.py:629
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "Zdrojový disk /dev/%s nemůže být zvolen také jako cílový disk."
+msgstr "Zdrojový disk %s nemůže být zvolen také jako cílový disk."
 
 #: ../iw/raid_dialog_gui.py:645
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the following reason:\n"
 "\n"
@@ -3234,7 +3216,7 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Na cílovém disku /dev/%s je oddíl, který nelze odstranit z následujícího důvodu:\n"
+"Na cílovém disku %s je oddíl, který nelze odstranit z následujícího důvodu:\n"
 "\n"
 "\"%s\"\n"
 "\n"
@@ -3246,12 +3228,12 @@ msgstr "Zvolte zdrojový disk."
 
 #. now give them last chance to bail
 #: ../iw/raid_dialog_gui.py:728
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Disk /dev/%s bude nyní naklonován na následující disky:\n"
+"Disk %s bude nyní naklonován na následující disky:\n"
 "\n"
 
 #: ../iw/raid_dialog_gui.py:733
@@ -3318,7 +3300,7 @@ msgstr ""
 "%s"
 
 #: ../iw/task_gui.py:81
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -3330,7 +3312,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Zadejte prosím správné informace pro instalaci %s."
+"Zadejte prosím správné informace pro instalaci %s"
 
 #: ../iw/task_gui.py:177
 #, python-format
@@ -3375,13 +3357,13 @@ msgid "Please enter an NFS server and path."
 msgstr "Zadejte prosím vložte NFS server a cestu."
 
 #: ../iw/task_gui.py:319
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
 "\n"
 "%s"
 msgstr ""
-"Při zpracovávání kickstart souboru byla nalezena následující chyba:\n"
+"Při nastavování repozitáře se vyskytla následující chyba:\n"
 "\n"
 "%s"
 
@@ -3654,9 +3636,9 @@ msgid "Scanning"
 msgstr "Hledám"
 
 #: ../loader/cdinstall.c:339
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation images on CD device %s\n"
-msgstr "Hledám instalační obrazy na zařízení CD %s"
+msgstr "Hledám instalační obrazy na zařízení CD %s\n"
 
 #: ../loader/cdinstall.c:341
 #, c-format
@@ -3713,9 +3695,8 @@ msgid "Loading"
 msgstr "Načítání"
 
 #: ../loader/driverdisk.c:139
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Načítám ovladače..."
+msgstr "Načítám ovladače z driver disku"
 
 #: ../loader/driverdisk.c:238
 #: ../loader/driverdisk.c:270
@@ -4075,14 +4056,14 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "loader již byl spuštěn. Spouštím shell.\n"
 
 #: ../loader/loader.c:2251
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
-msgstr "Spouštím anacondu %s, záchranný režim systému %s - čekejte prosím...\n"
+msgstr "Spouštím anacondu %s, záchranný režim systému %s - čekejte prosím.\n"
 
 #: ../loader/loader.c:2253
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr "Spouštím anacondu %s, instalační program systému %s - čekejte prosím...\n"
+msgstr "Spouštím anacondu %s, instalační program systému %s - čekejte prosím.\n"
 
 #: ../loader/mediacheck.c:46
 #, c-format
@@ -4565,7 +4546,7 @@ msgstr ""
 "%s"
 
 #: ../storage/__init__.py:1564
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4575,12 +4556,12 @@ msgid ""
 msgstr ""
 "Odkládací (swap) zařízení:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
 "v /etc/fstab je právě používáno jako oddíl pro uspání počítače (software suspend), což znamená, že je systém uspán (hibernován). Před provedením aktualizace systém raději úplně vypněte a nepoužívejte přitom režim spánku."
 
 #: ../storage/__init__.py:1572
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4590,12 +4571,12 @@ msgid ""
 msgstr ""
 "Odkládací (swap) zařízení:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
 "v /etc/fstab je právě používáno jako oddíl pro uspání počítače (software suspend), což znamená, že je systém uspán (hibernován). Před spuštěním nové instalace se ujistěte, že instalátor všechny odkládací oddíly naformátuje."
 
 #: ../storage/__init__.py:1586
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4610,7 +4591,7 @@ msgstr ""
 "Ukončete instalaci stisknutím OK."
 
 #: ../storage/__init__.py:1592
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4741,11 +4722,11 @@ msgstr "Oddíl je část nekonzistentní LVM skupiny svazků (VG)."
 
 #: ../storage/formats/fs.py:66
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "atribut dict musí obsahovat typ"
 
 #: ../storage/formats/fs.py:113
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "u konfigurace systému souborů chybí typ"
 
 #: ../storage/formats/fs.py:343
 msgid "Formatting"
@@ -4776,9 +4757,8 @@ msgstr "Kontroluji systém souborů na %s"
 
 #: ../storage/iscsi.py:82
 #: ../storage/iscsi.py:83
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "Zavádím SCSI ovladač"
+msgstr "Hledám iSCSI nody"
 
 #: ../storage/iscsi.py:160
 #: ../storage/iscsi.py:161
@@ -4790,26 +4770,25 @@ msgid "iSCSI not available"
 msgstr "iSCSI není k dispozici"
 
 #: ../storage/iscsi.py:199
-#, fuzzy
 msgid "No initiator name set"
-msgstr "Název iSCSI iniciátoru"
+msgstr "Nebylo zadáno jméno iniciátoru"
 
 #: ../storage/iscsi.py:213
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "Nenalezeny žádné iSCSI nody"
 
 #: ../storage/iscsi.py:216
 #: ../storage/iscsi.py:217
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "Přihlašuji se k iSCSI nodům"
 
 #: ../storage/iscsi.py:239
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Nenalezeny žádné nové iSCSI nody"
 
 #: ../storage/iscsi.py:242
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "Nelze se přihlásit k žádnému nalezenému nodu"
 
 #: ../storage/partitioning.py:180
 msgid "Could not find enough free space for automatic partitioning.  Press 'OK' to exit the installer."
@@ -4904,68 +4883,68 @@ msgstr "Neurčili jste FCP LUN nebo číslo není platné."
 #: ../storage/zfcp.py:132
 #, python-format
 msgid "Could not free zFCP device %s from device ignore list (%s)."
-msgstr ""
+msgstr "Nelze uvolnit zFCP zařízení %s ze seznamu ignorovaných zařízení (%s)."
 
 #: ../storage/zfcp.py:137
 #, python-format
 msgid "zFCP device %s not found, not even in device ignore list."
-msgstr ""
+msgstr "zFCP zařízení %s nenalezeno, dokonce ani v seznamu ingnorovaných zařízení."
 
 #: ../storage/zfcp.py:150
 #, python-format
 msgid "Could not set zFCP device %s online (%s)."
-msgstr ""
+msgstr "Nelze nastavit zFCP zařízení %s online (%s)."
 
 #: ../storage/zfcp.py:161
 #, python-format
 msgid "Could not add WWPN %s to zFCP device %s (%s)."
-msgstr ""
+msgstr "Nelze přidat WWPN %s k zFCP zařízení %s (%s)."
 
 #. newer zfcp sysfs interface with auto port scan
 #: ../storage/zfcp.py:165
 #, python-format
 msgid "WWPN %s not found at zFCP device %s."
-msgstr ""
+msgstr "WWPN %s nenalezeno na zFCP zařízení %s."
 
 #: ../storage/zfcp.py:179
 #, python-format
 msgid "Could not add LUN %s to WWPN %s on zFCP device %s (%s)."
-msgstr ""
+msgstr "Nelze přidat LUN %s k WWPN %s na zFCP zařízení %s (%s)."
 
 #: ../storage/zfcp.py:183
 #, python-format
 msgid "LUN %s at WWPN %s on zFCP device %s already configured."
-msgstr ""
+msgstr "LUN %s na WWPN %s na zFCP zařízení %s je již nakonfigurován."
 
 #: ../storage/zfcp.py:193
 #, python-format
 msgid "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
-msgstr ""
+msgstr "Nelze číst selhaný atribut LUN %s na WWPN %s na zFCP zařízení %s (%s)."
 
 #: ../storage/zfcp.py:198
 #, python-format
 msgid "Failed LUN %s at WWPN %s on zFCP device %s removed again."
-msgstr ""
+msgstr "Selhalo LUN %s z WWPN %s na zFCP zařízení %s odebráno znovu."
 
 #: ../storage/zfcp.py:253
 #, python-format
 msgid "Could not correctly delete SCSI device of zFCP %s %s %s (%s)."
-msgstr ""
+msgstr "Nelze korektně smazat SCSI zařzení z zFCP %s %s %s (%s)."
 
 #: ../storage/zfcp.py:260
 #, python-format
 msgid "Could not remove LUN %s at WWPN %s on zFCP device %s (%s)."
-msgstr ""
+msgstr "Nelze odebrat LUN %s z WWPN %s na zFCP zařízení %s (%s)."
 
 #: ../storage/zfcp.py:275
 #, python-format
 msgid "Could not remove WWPN %s on zFCP device %s (%s)."
-msgstr ""
+msgstr "Nelze odebrat WWPN %s na zFCP zařízení %s (%s)."
 
 #: ../storage/zfcp.py:299
 #, python-format
 msgid "Could not set zFCP device %s offline (%s)."
-msgstr ""
+msgstr "Nelze nastavit zFCP zařízení %s offline (%s)."
 
 #: ../textw/complete_text.py:32
 msgid "Reboot"
@@ -5039,16 +5018,15 @@ msgid "Error configuring network device"
 msgstr "Chyba při konfigurování síťového rozhraní"
 
 #: ../textw/netconfig_text.py:280
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Chyba nastavování síťového zařízení: "
+msgstr "Chyba nastavování síťového zařízení %s"
 
 #: ../textw/partition_text.py:58
 msgid "Partitioning Type"
 msgstr "Typ tabulky oddílů"
 
 #: ../textw/partition_text.py:60
-#, fuzzy
 msgid "Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target."
 msgstr "Před instalací je potřeba rozdělit disk na oddíly a určit, kam se bude instalovat. Automatické rozdělení vytvoří implicitní rozdělení, které bude ve většině případů vyhovovat. Můžete také vytvořit oddíly ručně a sami určit, kam budou připojeny."
 
@@ -5080,23 +5058,21 @@ msgid "zSeries machines can access industry-standard SCSI devices via Fibre Chan
 msgstr "Počítače zSeries mohou používat standardní zařízení SCSI přes Fibre Channel (FCP). Pro každé zařízení musíte zadat tyto parametry: 16 bitové číslo zařízení, 64 bitové World Wide Port Name (WWPN) a 64 bitové FCP LUN."
 
 #: ../textw/partition_text.py:223
-#, fuzzy
 msgid "Add FCoE SAN"
-msgstr "Přidat _ZFCP LUN"
+msgstr "Přidat FCoE SAN"
 
 #: ../textw/partition_text.py:224
 msgid "Enter the device name for the NIC which is connected to the FCoE SAN. For example \"eth0\"."
-msgstr ""
+msgstr "Zadejte název síťové karty, která je připojena k FCoE SAN. Například \"eth0\"."
 
 #: ../textw/partition_text.py:225
-#, fuzzy
 msgid "NIC device name"
-msgstr "Nenalezeno žádné zařízení"
+msgstr "Název síťového zařízení"
 
 #: ../textw/partition_text.py:232
-#, fuzzy, python-format
+#, python-format
 msgid "%s is not a valid NIC device name."
-msgstr "%s není platné jméno počítače."
+msgstr "%s není platné jméno síťového zařízení."
 
 #: ../textw/partition_text.py:248
 #: ../ui/iscsi-config.glade.h:7
@@ -5224,7 +5200,7 @@ msgid "The root password must be at least 6 characters long."
 msgstr "Heslo pro uživatele root musí obsahovat nejméně 6 znaků."
 
 #: ../textw/userauth_text.py:84
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have provided a weak password: %s\n"
 "\n"
@@ -5314,9 +5290,8 @@ msgid "The root account is used for administering the system.  Enter a password 
 msgstr "Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
 
 #: ../ui/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _FCoE SAN"
-msgstr "Přidat _ZFCP LUN"
+msgstr "Přidat _FCoE SAN"
 
 #: ../ui/adddrive.glade.h:2
 msgid "Add _ZFCP LUN"
