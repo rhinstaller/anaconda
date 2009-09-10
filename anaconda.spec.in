@@ -214,6 +214,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Sep 09 2009 David Cantrell <dcantrell@redhat.com> - 12.22-1
+- No longer require xfsdump, since anaconda doesn't use it anywhere
+  (#522180). (clumens)
+- The zonetab module has moved (#521986). (clumens)
+- No longer copy over the CD/DVD repodata or repo config file (#521358).
+  (clumens)
+- language dracut kernel cmdline should be space seperated (#521113)
+  (hdegoede)
+
 * Mon Sep 07 2009 David Cantrell <dcantrell@redhat.com> - 12.21-1
 - Require python-meh (#521661) (dcantrell)
 - Handle UnknownSwapError when turning on existing swap volumes. (dcantrell)
