@@ -1015,7 +1015,7 @@ if [ -f $DEST/bin/bash ]; then
 fi
 
 if [ -f $DEST/bin/gawk ]; then
-    ln -sf awk $DEST/bin/gawk
+    ln -sf $DEST/bin/gawk awk
 fi
 
 [ -d $DEST/bin ] || die "ERROR: directory missing: $DEST/bin"
