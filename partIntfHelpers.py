@@ -144,7 +144,11 @@ def doDeleteDevice(intf, storage, device, confirm=1, quiet=0):
     return True
 
 def doDeleteDependentDevices(intf, storage, device, confirm=1, quiet=0):
-    """ Remove all devices/partitions currently on device """
+    """ Remove all devices/partitions currently on device.
+
+            device -- a partitioned device such as a disk
+
+     """
     if confirm:
 	rc = intf.messageWindow(_("Confirm Delete"),
 				_("You are about to delete all partitions on "
@@ -155,20 +159,31 @@ def doDeleteDependentDevices(intf, storage, device, confirm=1, quiet=0):
 	if not rc:
 	    return False
 
-    deps = storage.deviceDeps(device)
-    if not deps:
-        # nothing to do
+    immutable = []
+    partitions = [p for p in storage.partitions if p.disk == device]
+    if not partitions:
         return False
 
-    immutable = []
-    while deps:
-        leaves = [d for d in deps if d.isleaf]
-        for leaf in leaves:
-            if storage.deviceImmutable(leaf):
-                immutable.append(leaf.path)
-            else:
-                storage.destroyDevice(leaf)
-            deps.remove(leaf)
+    partitions.sort(key=lambda p: p.partedPartition.number, reverse=True)
+    for p in partitions:
+        deps = storage.deviceDeps(p)
+        clean = True    # true if part and its deps were removed
+        while deps:
+            leaves = [d for d in deps if d.isleaf]
+            for leaf in leaves:
+                if storage.deviceImmutable(leaf):
+                    immutable.append(leaf.path)
+                    clean = False
+                else:
+                    storage.destroyDevice(leaf)
+                deps.remove(leaf)
+
+        if storage.deviceImmutable(p):
+            immutable.append(p.path)
+            clean = False
+
+        if clean:
+            storage.destroyDevice(p)
 
     if immutable and not quiet:
         remaining = "\t" + "\n\t".join(immutable) + "\n"

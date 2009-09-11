@@ -324,8 +324,11 @@ def clearPartitions(storage):
 
     # we are only interested in partitions that physically exist
     partitions = [p for p in storage.partitions if p.exists]
-    disks = []  # a list of disks from which we've removed partitions
-    clearparts = [] # list of partitions we'll remove
+    # Sort partitions by descending partition number to minimize confusing
+    # things like multiple "destroy sda5" actions due to parted renumbering
+    # partitions. This can still happen through the UI but it makes sense to
+    # avoid it where possible.
+    partitions.sort(key=lambda p: p.partedPartition.number, reverse=True)
     for part in partitions:
         log.debug("clearpart: looking at %s" % part.name)
         if not shouldClear(part, storage.clearPartType, storage.clearPartDisks):
@@ -345,13 +348,6 @@ def clearPartitions(storage):
                 devices.remove(leaf)
 
         log.debug("partitions: %s" % [p.getDeviceNodeName() for p in part.partedPartition.disk.partitions])
-        disk_name = os.path.basename(part.partedPartition.disk.device.path)
-        if disk_name not in disks:
-            disks.append(disk_name)
-
-        clearparts.append(part)
-
-    for part in clearparts:
         storage.destroyDevice(part)
 
     # now remove any empty extended partitions
