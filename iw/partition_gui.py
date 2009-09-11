@@ -258,8 +258,8 @@ class Stripe:
 class StripeGraph:
     """ This class will only handle one stripe."""
 
+    __canvas = None
     def __init__(self, tree, editCB):
-        self.canvas = gnomecanvas.Canvas()
         self.stripe = None
         self.tree = tree
         self.editCB = editCB
@@ -275,8 +275,11 @@ class StripeGraph:
 
         self.next_ypos = 0.0
 
-    def getCanvas(self):
-        return self.canvas
+    @classmethod
+    def getCanvas(cls):
+        if not StripeGraph.__canvas:
+            StripeGraph.__canvas = gnomecanvas.Canvas()
+        return StripeGraph.__canvas
 
     def setDisplayed(self, obj):
         # Check to see if we already have the correct obj displayed.
@@ -290,7 +293,7 @@ class StripeGraph:
         self.stripe.putOnCanvas(0)
 
         # Trying to center the picture.
-        apply(self.canvas.set_scroll_region, self.canvas.root().get_bounds())
+        apply(self.getCanvas().set_scroll_region, self.getCanvas().root().get_bounds())
 
     def getDisplayed(self):
         return self.stripe
@@ -332,7 +335,7 @@ class DiskStripeGraph(StripeGraph):
         # Create the stripe
         drivetext = _("Drive %s (%-0.f MB) (Model: %s)") % (drive.path,
                 drive.size, drive.model)
-        stripe = Stripe(self.canvas, drivetext, self.editCB, obj = drive)
+        stripe = Stripe(self.getCanvas(), drivetext, self.editCB, obj = drive)
 
         # Create the slices.
         for part in drive.format.partedDisk.getFreeSpacePartitions() \
@@ -401,7 +404,7 @@ class LVMStripeGraph(StripeGraph):
     def _createStripe(self, vg):
         # Create the stripe
         vgtext = _("LVM Volume Group %s (%-0.f MB)") % (vg.name, vg.size)
-        stripe = Stripe(self.canvas, vgtext, self.editCB, obj = vg)
+        stripe = Stripe(self.getCanvas(), vgtext, self.editCB, obj = vg)
 
         # Create the slices.
         # Since se don't have a start and length like in the partitions, we
@@ -455,7 +458,7 @@ class MDRaidArrayStripeGraph(StripeGraph):
 
     def _createStripe(self, md):
         mdtext = _("MD RAID ARRAY %s (%-0.f MB)") % (md.path, md.size)
-        stripe = Stripe(self.canvas, mdtext, self.editCB, obj = md)
+        stripe = Stripe(self.getCanvas(), mdtext, self.editCB, obj = md)
 
         # Since we can't really create subslices with md devices we will only
         # show the md device size in the bar.
