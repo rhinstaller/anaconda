@@ -175,19 +175,20 @@ class DeviceAction(object):
     def isFormat(self):
         return self.obj == ACTION_OBJECT_FORMAT
 
+    @property
+    def format(self):
+        return self.device.format
+
     def __str__(self):
         s = "%s %s" % (action_strings[self.type], object_strings[self.obj])
         if self.isResize():
             s += " (%s)" % resize_strings[self.dir]
         if self.isFormat():
-            if self.device.format:
-                fmt_type = self.device.format.type
-            else:
-                fmt_type = None
-            s += " %s on" % fmt_type
+            s += " %s on" % self.format.type
         if self.isMigrate():
-            pass
-        s += " %s (%s)" % (self.device.name, self.device.type)
+            s += " to %s" % self.format.migrationTarget
+        s += " %s %s (id %d)" % (self.device.type, self.device.name,
+                                 self.device.id)
         return s
 
 class ActionCreateDevice(DeviceAction):
@@ -278,10 +279,6 @@ class ActionCreateFormat(DeviceAction):
 
     def cancel(self):
         self.device.format = self.origFormat
-
-    @property
-    def format(self):
-        return self.device.format
 
 
 class ActionDestroyFormat(DeviceAction):
