@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-09-01 08:33+0000\n"
-"PO-Revision-Date: 2009-09-10 07:20+0100\n"
+"PO-Revision-Date: 2009-09-11 09:50+0100\n"
 "Last-Translator: Dušan Hokův <dusan@mirc.cz>\n"
 "Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -657,27 +657,27 @@ msgstr "Typ instalace"
 #: ../iutil.py:824
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Chyba: Při otevření, nelze nastavit reIPL metodu na %s (%s: %s)"
 
 #: ../iutil.py:832
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Chyba: Při zápisu, nelze nastavit reIPL metodu na %s (%s: %s)"
 
 #: ../iutil.py:839
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Chyba: Při zavření, nelze nastavit reIPL metodu na %s (%s: %s)"
 
 #: ../iutil.py:856
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "Chyba: Nemohu nsatavit %s jako reIPL zařízení (%s)"
 
 #: ../iutil.py:865
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "Chyba: Nemohu resetovat loadparm (%s)"
 
 #: ../iutil.py:874
 #, python-format
@@ -687,31 +687,31 @@ msgstr "Varování: Nelze resetovat parm (%s)"
 #: ../iutil.py:884
 #, python-format
 msgid "After shutdown, please perform a manual IPL from DASD device %s to continue installation"
-msgstr ""
+msgstr "Po vypnutí prosím proveďte ručně IPL z DASD zařízení %s pro pokračování instalace"
 
 #: ../iutil.py:906
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Chyba: čtení FCP vlastnosti %s pro reIPL (%s)"
 
 #: ../iutil.py:919
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Chyba: zápis FCP vlastnosti %s pro reIPL (%s)"
 
 #: ../iutil.py:932
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Chyba: zápis výchozí FCP vlastnosti %s pro reIPL (%s)"
 
 #: ../iutil.py:942
 #, python-format
 msgid "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %(wwpn)s and LUN %(lun)s to continue installation"
-msgstr ""
+msgstr "PO vypnutí prosím proveďte ruční IPL z FCP %(device)s s WWPN %(wwpn)s a LUN %(lun)s pro pokračování instalace"
 
 #: ../iutil.py:949
 msgid "After shutdown, please perform a manual IPL from the device now containing /boot to continue installation"
-msgstr ""
+msgstr "Po vypnutí prosím proveďte ruční IPL ze zařízení, které nyní obsahuje /boot pro pokračování instalace"
 
 #: ../iutil.py:957
 msgid "Error determining mount point type"
@@ -719,7 +719,7 @@ msgstr "Chyba zjištění typu bodu připojení"
 
 #: ../iutil.py:961
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "Bod připojení /boot nebo / je na disku, který nebyl rozpoznán"
 
 #: ../kickstart.py:96
 #, python-format
@@ -792,6 +792,8 @@ msgid ""
 "The kickstart configuration file is missing required information that anaconda cannot prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"V konfiguračním souboru kickstartu chybí požadované informace, na které se anaconda nemůže zeptat.  Prosím přidejte následující sekce a zkuste to znovu:\n"
+"%s"
 
 #: ../livecd.py:110
 msgid "Unable to find image"
@@ -1278,9 +1280,8 @@ msgid "PPC PReP Boot"
 msgstr "PPC PReP zavaděč"
 
 #: ../platform.py:334
-#, fuzzy
 msgid "The boot partition must be within the first 4MB of the disk."
-msgstr "Při zápisu stavu systému na disk došlo k chybě."
+msgstr "Boot oddíl musí být v prvních 4MB disku."
 
 #: ../platform.py:379
 #: ../platform.py:382
@@ -1527,11 +1528,13 @@ msgid "Mount failed"
 msgstr "Připojení selhalo"
 
 #: ../upgrade.py:185
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
-msgstr "Jeden nebo více systémů souborů zapsaných v /etc/fstab nemohou být připojeny. Odstraňte problém a spusťte aktualizaci znovu."
+msgstr ""
+"Následující chyba se vyskytla při připojování soubourových systémů zapsaných v /etc/fstab. Odstraňte problém a spusťte aktualizaci znovu.\n"
+"%s"
 
 #: ../upgrade.py:193
 #: ../upgrade.py:200
@@ -1544,7 +1547,7 @@ msgstr "Kořen předchozího instalovaného systému nebyl nalezen."
 
 #: ../upgrade.py:201
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
-msgstr ""
+msgstr "Kořenový adresář předchozího nainstalovaného systému nebyl nalezen. Můžete ukončit instalátor, nebo se vrátit zpět a vybrat instalaci místo aktualizace."
 
 #: ../upgrade.py:224
 msgid ""
@@ -2078,10 +2081,13 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"Chcete zadat nyní instalační číslo (někdy se nazývá Subscription Number)? Tato vlastnost umožní instalátoru přístup k různým extra komponentám obsaženým ve vaší subscription.  Pokud přeskočíte tento krok, dodatečné komponenty mohou být instalovány ručně později.\n"
+"\n"
+"Navštivte http://www.redhat.com/InstNum/ pro více informací."
 
 #: ../installclasses/rhel.py:79
 msgid "If you cannot locate the Installation Number, consult http://www.redhat.com/InstNum/"
-msgstr ""
+msgstr "Pokud nemůžete nalézt instalační číslo, navštivte http://www.redhat.com/InstNum/"
 
 #: ../iw/GroupSelector.py:147
 #, python-format
@@ -2310,7 +2316,7 @@ msgstr "Pro používání nainstalovaného systému prosím restartujte.\n"
 #: ../iw/congrats_gui.py:86
 #: ../textw/complete_text.py:51
 msgid "Note that updates may be available to ensure the proper functioning of your system and installation of these updates is recommended after the reboot."
-msgstr ""
+msgstr "Jenom připomínám, že po rebootu mohou být dostupné aktualizace, které zlepší funkcionalitu systému, proto aktualizování vřele doporučuji."
 
 #: ../iw/congrats_gui.py:90
 #: ../textw/complete_text.py:55
@@ -2320,6 +2326,9 @@ msgid ""
 "\n"
 "Please reboot to use the installed system.  Note that updates may be available to ensure the proper functioning of your system and installation of these updates is recommended after the reboot."
 msgstr ""
+"Blahopřeji, vaše %s instalace je dokončena.\n"
+"\n"
+"Prosím rebootujte k používání nainstalováného systému.  Připomínám, že mohou být dostupné aktualizace pro zlepšení funkcionality vašeho systému a proto doporučuji aktualizovat po rebootu."
 
 #: ../iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2538,7 +2547,7 @@ msgstr "Požadovaná velikost (%10.2f MB) je větší, než maximální velikost
 #: ../iw/lvm_dialog_gui.py:683
 #, python-format
 msgid "The logical volumes you have configured require %d MB, but the volume group only has %d MB.  Please either make the volume group larger or make the logical volume(s) smaller."
-msgstr ""
+msgstr "Logické svazky, které jste nakonfigurovali vžadují %d MB, ale skupina svazků(VG) má pouze %d MB.  Prosím buď nastavte skupinu svazků větší, nebo zmenšete logické svazky."
 
 #: ../iw/lvm_dialog_gui.py:770
 msgid "No free slots"
@@ -2679,9 +2688,9 @@ msgid "A value is required for the field %s."
 msgstr "V poli %s je nutné vyplnit hodnotu."
 
 #: ../iw/netconfig_dialog.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Při kopírování snímků obrazovky došlo k chybě."
+msgstr "Při nahazování síťového zařízení %s došlo k chybě."
 
 #: ../iw/netconfig_dialog.py:214
 msgid "Error Configuring Network"
@@ -3536,7 +3545,7 @@ msgstr "Je třeba síťová instalace"
 #: ../iw/welcome_gui.py:57
 #: ../textw/welcome_text.py:37
 msgid "Your installation source is set to a network location, but no netork devices were found on your system.  To avoid a network installation, boot with the full DVD, full CD set, or do not pass a repo= parameter that specifies a network source."
-msgstr ""
+msgstr "Váš instalační zdroj je nastaven na síťové umístění, ale ve vašem systému nebyla nalezena síťová zařízení.  Abyste předešli instalaci ze sítě, nabootujte z DVD, kompletní sady CD nebo nenastavujte repo= parametr, který určuje síťový zdroj."
 
 #: ../iw/welcome_gui.py:67
 msgid "E_xit Installer"
@@ -4391,9 +4400,8 @@ msgid "Installation cannot continue."
 msgstr "Instalace nemůže pokračovat."
 
 #: ../storage/__init__.py:98
-#, fuzzy
 msgid "The storage configuration you have chosen has already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
-msgstr "Změny v oddílech byly zapsány. Nní možné se již vrátit zpět na úpravu oddílů. Chcete pokračovat v instalaci?"
+msgstr "Změny v úložišti, které jste zvolili, byly zapsány. Není možné se již vrátit zpět na úpravu oddílů. Chcete pokračovat v instalaci?"
 
 #: ../storage/__init__.py:126
 msgid "Encrypt device?"
@@ -4481,7 +4489,7 @@ msgstr "Oddíl / je menší než %s MB, což je méně než je doporučená veli
 #: ../storage/__init__.py:838
 #, python-format
 msgid "Your / partition does not match the the live image you are installing from.  It must be formatted as %s."
-msgstr ""
+msgstr "Váš oddíl / neodpovídá live image, ze které instalujete.  Musí být naformátován jako %s."
 
 #: ../storage/__init__.py:845
 #, python-format
@@ -4507,7 +4515,7 @@ msgstr "Neurčili jste odkládací oddíl (swap). Přesto, že to není není ne
 #: ../storage/__init__.py:894
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
+msgstr "Tento bod připojení je neplatný.  Adresář %s musí být v / souborového systému."
 
 #: ../storage/__init__.py:898
 #, python-format
@@ -4643,13 +4651,13 @@ msgid "An error occurred mounting device %s as %s.  You may continue installatio
 msgstr "V pokusu o připojení zařízení %s jako %s došlo k chybě. Můžete pokračovat v instalaci, mohou však nastat problémy."
 
 #: ../storage/__init__.py:1696
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Při pokusu o vytvoření %s došlo k chybě: %s. Chyba je závažná a instalace nemůže pokračovat.\n"
+"Při pokusu o připojení zařízení %s jako %s: %s nastala chyba. Chyba je závažná a instalace nemůže pokračovat.\n"
 "\n"
 "Stiskněte <Enter> pro ukončení instalace."
 
@@ -4691,6 +4699,15 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!%s"
 msgstr ""
+"Chyba zpracování disku:\n"
+"\n"
+"%s\n"
+"%-0.fMB\n"
+"%s\n"
+"\n"
+"Toto zařízení by mělo být reinicializováno.\n"
+"\n"
+"REINICIALIZACE ZPŮSOBÍ, ŽE VŠECHNA DATA BUDOU ZTRACENA!%s"
 
 #: ../storage/devicetree.py:150
 msgid "_Ignore drive"
@@ -4706,6 +4723,8 @@ msgid ""
 "Error processing LVM.\n"
 "There is inconsistent LVM data on %s.  You can reinitialize all related PVs (%s) which will erase the LVM metadata, or ignore which will preserve the contents."
 msgstr ""
+"Chyba zpracování LVM.\n"
+"Na %s jsou nekonzistentní LVM data.  Můžete reinicializovat všechny související PV (%s), která smažou LVM metadata, nebo ignorovat, což ochrání obsah."
 
 #: ../storage/devicetree.py:176
 msgid "_Ignore"
@@ -4792,11 +4811,11 @@ msgstr "Nelze se přihlásit k žádnému nalezenému nodu"
 
 #: ../storage/partitioning.py:180
 msgid "Could not find enough free space for automatic partitioning.  Press 'OK' to exit the installer."
-msgstr ""
+msgstr "Nemohu nalézt dotatek volného místa pro automatické rozdělení disku. Stiskněte 'OK' pro ukončení instalátoru."
 
 #: ../storage/partitioning.py:183
 msgid "Could not find enough free space for automatic partitioning, please use another partitioning method."
-msgstr ""
+msgstr "Nemohu nalézt dotatek volného místa pro automatické rozdělení disku, prosím použijte jiný způsob rozdělení disku."
 
 #: ../storage/partitioning.py:212
 msgid "Warnings During Automatic Partitioning"
