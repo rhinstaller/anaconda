@@ -1692,9 +1692,7 @@ class DeviceTree(object):
                 parent.format.destroy()
 
                 # Give the vg the a default format
-                kwargs = {"uuid": parent.uuid,
-                          "label": parent.diskLabel,
-                          "device": parent.path,
+                kwargs = {"device": parent.path,
                           "exists": parent.exists}
                 parent.format = formats.getFormat(*[""], **kwargs)
 
