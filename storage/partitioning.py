@@ -658,8 +658,9 @@ def allocatePartitions(disks, partitions):
         The PartitionDevice instances will have their name and parents
         attributes set once they have been allocated.
     """
-    log.debug("allocatePartitions: disks=%s ; partitions=%s" % (disks,
-                                                                partitions))
+    log.debug("allocatePartitions: disks=%s ; partitions=%s" %
+                ([d.name for d in disks],
+                 ["%s(id %d)" % (p.name, p.id) for p in partitions]))
     new_partitions = [p for p in partitions if not p.exists]
     new_partitions.sort(cmp=partitionCompare)
 
@@ -706,10 +707,12 @@ def allocatePartitions(disks, partitions):
             # no disks specified means any disk will do
             req_disks = disks
 
-        log.debug("allocating partition: %s ; disks: %s ; boot: %s ; "
-                  "primary: %s ; size: %dMB ; grow: %s ; max_size: %s" %
-                  (_part.name, req_disks, _part.req_bootable, _part.req_primary,
-                   _part.req_size, _part.req_grow, _part.req_max_size))
+        log.debug("allocating partition: %s ; id: %d ; disks: %s ;\n"
+                  "boot: %s ; primary: %s ; size: %dMB ; grow: %s ; "
+                  "max_size: %s" % (_part.name, _part.id, req_disks,
+                                    _part.req_bootable, _part.req_primary,
+                                    _part.req_size, _part.req_grow,
+                                    _part.req_max_size))
         free = None
         use_disk = None
         part_type = None
@@ -892,7 +895,8 @@ def growPartitions(disks, partitions):
                           instances)
     """
     log.debug("growPartitions: disks=%s, partitions=%s" %
-            ([d.name for d in disks], [p.name for p in partitions]))
+            ([d.name for d in disks],
+             ["%s(id %d)" % (p.name, p.id) for p in partitions]))
     all_growable = [p for p in partitions if p.req_grow]
     if not all_growable:
         return
@@ -900,7 +904,8 @@ def growPartitions(disks, partitions):
     # sort requests by base size in decreasing order
     all_growable.sort(key=lambda p: p.req_size, reverse=True)
 
-    log.debug("growable requests are %s" % [p.name for p in all_growable])
+    log.debug("growable requests are %s" %
+                ["%s(id %d)" % (p.name, p.id) for p in all_growable])
 
     for disk in disks:
         log.debug("growing requests on %s" % disk.name)

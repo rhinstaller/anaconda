@@ -722,8 +722,9 @@ class DeviceTree(object):
                 raise DeviceTreeError("parent device not in tree")
 
         self._devices.append(newdev)
-        log.debug("added %s (%s) to device tree" % (newdev.name,
-                                                    newdev.type))
+        log.debug("added %s %s (id %d) to device tree" % (newdev.type,
+                                                          newdev.name,
+                                                          newdev.id))
 
     def _removeDevice(self, dev, force=None, moddisk=True):
         """ Remove a device from the tree.
@@ -758,8 +759,9 @@ class DeviceTree(object):
                     device.updateName()
 
         self._devices.remove(dev)
-        log.debug("removed %s (%s) from device tree" % (dev.name,
-                                                        dev.type))
+        log.debug("removed %s %s (id %d) from device tree" % (dev.type,
+                                                              dev.name,
+                                                              dev.id))
 
         for parent in dev.parents:
             # Will this cause issues with garbage collection?
