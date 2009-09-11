@@ -703,7 +703,7 @@ class DiskDevice(StorageDevice):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None, sysfsPath='', \
-                 parents=None, initcb=None, initlabel=None):
+                 parents=None):
         """ Create a DiskDevice instance.
 
             Arguments:
@@ -2510,7 +2510,7 @@ class DMRaidArrayDevice(DiskDevice):
 
     def __init__(self, name, raidSet=None, format=None,
                  size=None, major=None, minor=None, parents=None,
-                 sysfsPath='', initcb=None, initlabel=None):
+                 sysfsPath=''):
         """ Create a DMRaidArrayDevice instance.
 
             Arguments:
@@ -2524,9 +2524,6 @@ class DMRaidArrayDevice(DiskDevice):
                 sysfsPath -- sysfs device path
                 size -- the device's size
                 format -- a DeviceFormat instance
-
-                initcb -- the call back to be used when initiating disk.
-                initlabel -- whether to start with a fresh disklabel
         """
         if isinstance(parents, list):
             for parent in parents:
@@ -2534,8 +2531,7 @@ class DMRaidArrayDevice(DiskDevice):
                     raise ValueError("parent devices must contain dmraidmember format")
         DiskDevice.__init__(self, name, format=format, size=size,
                             major=major, minor=minor, parents=parents,
-                            sysfsPath=sysfsPath, initcb=initcb,
-                            initlabel=initlabel)
+                            sysfsPath=sysfsPath)
 
         self.formatClass = get_device_format_class("dmraidmember")
         if not self.formatClass:
@@ -2639,8 +2635,7 @@ class MultipathDevice(DiskDevice):
     _devDir = "/dev/mapper"
 
     def __init__(self, name, info, format=None, size=None,
-                 parents=None, sysfsPath='', initcb=None,
-                 initlabel=None):
+                 parents=None, sysfsPath=''):
         """ Create a MultipathDevice instance.
 
             Arguments:
@@ -2654,8 +2649,6 @@ class MultipathDevice(DiskDevice):
                 size -- the device's size
                 format -- a DeviceFormat instance
                 parents -- a list of the backing devices (Device instances)
-                initcb -- the call back to be used when initiating disk.
-                initlabel -- whether to start with a fresh disklabel
         """
 
         self._info = info
@@ -2663,8 +2656,7 @@ class MultipathDevice(DiskDevice):
         self._pyBlockMultiPath = None
         self.setupIdentity()
         DiskDevice.__init__(self, name, format=format, size=size,
-                          parents=parents, sysfsPath=sysfsPath,
-                          initcb=initcb, initlabel=initlabel)
+                          parents=parents, sysfsPath=sysfsPath)
 
     def setupIdentity(self):
         """ Adds identifying remarks to MultipathDevice object.
