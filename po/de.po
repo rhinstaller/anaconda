@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-30 14:48+0000\n"
-"PO-Revision-Date: 2009-08-30 17:22+0200\n"
+"PO-Revision-Date: 2009-09-11 16:11+0200\n"
 "Last-Translator: Hedda Peters <hpeters@redhat.com>\n"
 "Language-Team:  <>\n"
 "MIME-Version: 1.0\n"
@@ -5500,9 +5500,9 @@ msgid "WWPN %s not found at zFCP device %s."
 msgstr ""
 
 #: ../storage/zfcp.py:179
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add LUN %s to WWPN %s on zFCP device %s (%s)."
-msgstr "Fehler: %s konnte nicht als reIPL-Gerät (%s) gesetzt werden"
+msgstr "Konnte LUN %s nicht zu WWPN %s am zFCP Gerät %s (%s) hinzufügen."
 
 #: ../storage/zfcp.py:183
 #, python-format
