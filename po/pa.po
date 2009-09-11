@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.pa\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-05 10:18-0400\n"
-"PO-Revision-Date: 2009-09-03 15:42+0530\n"
+"PO-Revision-Date: 2009-09-11 15:49+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <Punjabi-users@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -92,11 +92,11 @@ msgstr "DISPLAY ਵੇਰੀਏਬਲ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਟ
 
 #: anaconda:997
 msgid "reipl configuration successful => reboot"
-msgstr "reipl configuration successful => reboot"
+msgstr "reipl ਸੰਰਚਨਾ ਸਫਲ ਹੋਈ => ਮੁੜ-ਚਾਲੂ"
 
 #: anaconda:1000
 msgid "reipl configuration failed => halt"
-msgstr "reipl configuration failed => halt"
+msgstr "reipl ਸੰਰਚਨਾ ਫੇਲ ਹੋਈ => ਹਾਲਟ"
 
 #: backend.py:145
 #, python-format
@@ -291,7 +291,7 @@ msgstr ""
 
 #: gui.py:161
 msgid "Saving Screenshot"
-msgstr "ਸਕਰੀਨ-ਸ਼ਾਟ ਸੰਭਾਲਿਆ ਜਾ ਰਿਹਾ ਹੈ"
+msgstr "ਸਕਰੀਨ-ਸ਼ਾਟ ਸੰਭਾਲ ਰਿਹਾ ਹੈ"
 
 #: gui.py:162
 #, python-format
@@ -664,7 +664,7 @@ msgstr "ਸਭ ਅਣਡਿੱਠੇ(_I)"
 
 #: kickstart.py:1330
 msgid "Missing Group"
-msgstr "ਗੁੰਮ ਗਰੁੱਪ"
+msgstr "ਗੈਰ-ਮੌਜੂਦ ਗਰੁੱਪ"
 
 #: kickstart.py:1331
 #, python-format
@@ -1123,7 +1123,7 @@ msgstr "ਤੁਸੀਂ %s %s ਨੂੰ ਹਟਾਉਣ ਲਈ ਲਗਭਗ ਤ�
 
 #: partIntfHelpers.py:317
 msgid "Confirm Reset"
-msgstr "ਮੁੜ-ਸੈੱਟ ਪੁਸ਼ਟੀ"
+msgstr "ਰੀਸੈੱਟ ਪੁਸ਼ਟੀ"
 
 #: partIntfHelpers.py:318
 msgid "Are you sure you want to reset the partition table to its original state?"
@@ -1161,7 +1161,7 @@ msgstr "ਬੂਟ-ਹੋਣ-ਯੋਗ ਪਾਰਟੀਸ਼ਨ %s ਫਾਇਲ �
 
 #: platform.py:135 platform.py:140
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "ਬੂਟ-ਹੋਣ-ਯੋਗ ਪਾਰਟੀਸ਼ਨ ਇੰਕ੍ਰਿਪਟਡ ਬਲਾਕ ਵਾਲੇ ਜੰਤਰ ਤੇ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।"
+msgstr "ਬੂਟ-ਹੋਣ-ਯੋਗ ਪਾਰਟੀਸ਼ਨ ਇਨਕ੍ਰਿਪਟਡ ਬਲਾਕ ਵਾਲੇ ਜੰਤਰ ਤੇ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।"
 
 #: platform.py:213
 msgid "EFI System Partition"
@@ -1499,7 +1499,7 @@ msgstr "%s ਨਹੀ ਲੱਭਾ"
 #: vnc.py:137
 #, python-format
 msgid "%s %s installation on host %s"
-msgstr "ਹੋਸਟ %s 'ਤੇ %s %s ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ"
+msgstr "%s %s ਇੰਸਟਾਲੇਸ਼ਨ ਹੋਸਟ %s 'ਤੇ"
 
 #: vnc.py:139
 #, python-format
@@ -1509,7 +1509,7 @@ msgstr "%s %s ਇੰਸਟਾਲੇਸ਼ਨ"
 #: vnc.py:166
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr "ਹੋਸਟ %s 'ਤੇ VNC ਕਲਾਂਈਟ ਨਾਲ ਜੁਡ਼ਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ..."
+msgstr "ਹੋਸਟ %s 'ਤੇ vnc ਕਲਾਂਈਟ ਨਾਲ ਜੁਡ਼ਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ..."
 
 #: vnc.py:180
 msgid "Connected!"
@@ -2037,7 +2037,7 @@ msgstr "%s ਵਿਚਲੇ ਪੈਕੇਜ"
 #: iw/GroupSelector.py:424
 #, python-format
 msgid "Optional packages selected: %d of %d"
-msgstr "ਚੋਣਵੇਂ ਪੈਕੇਜ ਚੁਣੇ ਗਏ ਹਨ: %d, %d ਦਾ"
+msgstr "%d ਪੈਕੇਜ %d ਵਿੱਚੋਂ: ਚੁਣੇ ਗਏ ਚੋਣਵੇਂ ਪੈਕੇਜ"
 
 #: iw/GroupSelector.py:425
 #, python-format
@@ -2070,7 +2070,7 @@ msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
-"ਤੁਹਾਨੂੰ ਜਾਰੀ ਰਹਿਣ ਲਈ root ਲਈ ਪਾਸਵਰਡ ਦੇਣਾ ਪਵੇਗਾ ਅਤੇ ਫਿਰ ਮੁਡ਼ ਲਿਖ ਕੇ ਇਸ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨੀ "
+"ਤੁਹਾਨੂੰ ਜਾਰੀ ਰਹਿਣ ਵਾਸਤੇ root ਲਈ ਪਾਸਵਰਡ ਦੇਣਾ ਪਵੇਗਾ ਅਤੇ ਫਿਰ ਮੁਡ਼ ਲਿਖ ਕੇ ਇਸ ਦੀ ਪੁਸ਼ਟੀ ਕਰਨੀ "
 "ਪਵੇਗੀ।"
 
 #: iw/account_gui.py:116
@@ -5596,13 +5596,13 @@ msgstr "<b>ਉਲਟਾ CHAP ਪਾਸਵਰਡ(_a):</b>"
 
 #: ui/lukspassphrase.glade:8
 msgid "Enter passphrase for encrypted partition"
-msgstr "ਇੰਕ੍ਰਿਪਟਡ ਪਾਰਟੀਸ਼ਨ ਲਈ ਪ੍ਹੈਰਾ ਦਿਓ"
+msgstr "ਇਨਕ੍ਰਿਪਟਡ ਪਾਰਟੀਸ਼ਨ ਲਈ ਪ੍ਹੈਰਾ ਦਿਓ"
 
 #: ui/lukspassphrase.glade:100
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr "ਇਸ ਇੰਕ੍ਰਿਪਟਡ ਪਾਰਟੀਸ਼ਨ ਲਈ ਪ੍ਹੈਰਾ ਚੁਣੋ। ਤੁਹਾਨੂੰ ਸਿਸਟਮ ਬੂਟ ਹੋਣ ਸਮੇਂ ਪ੍ਹੈਰਾ ਪੁੱਛਿਆ ਜਾਵੇਗਾ।"
+msgstr "ਇਸ ਇਨਕ੍ਰਿਪਟਡ ਪਾਰਟੀਸ਼ਨ ਲਈ ਪ੍ਹੈਰਾ ਚੁਣੋ। ਤੁਹਾਨੂੰ ਸਿਸਟਮ ਬੂਟ ਹੋਣ ਸਮੇਂ ਪ੍ਹੈਰਾ ਪੁੱਛਿਆ ਜਾਵੇਗਾ।"
 
 #: ui/lukspassphrase.glade:141
 msgid "Enter passphrase:"
@@ -5616,7 +5616,7 @@ msgstr "ਪ੍ਹੈਰਾ ਪੁਸ਼ਟੀ:"
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr "ਸਭ ਇੰਕ੍ਰਿਪਟਡ ਜੰਤਰਾਂ ਲਈ ਇਹ ਪਾਸਵਰਡ ਵਰਤੋਂ ਤਾਂ ਜੋ ਬੂਟ ਕਾਰਜ ਹੋ ਸਕੇ"
+msgstr "ਸਭ ਇਨਕ੍ਰਿਪਟਡ ਜੰਤਰਾਂ ਲਈ ਇਹ ਪਾਸਵਰਡ ਵਰਤੋਂ ਤਾਂ ਜੋ ਬੂਟ ਕਾਰਜ ਹੋ ਸਕੇ"
 
 #: ui/lukspassphrase.glade:368
 msgid "label1"
