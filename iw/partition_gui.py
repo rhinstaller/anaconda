@@ -90,7 +90,7 @@ class Slice:
     CONTAINERSLICE = 2
 
     def __init__(self, parent, text, type, xoffset, xlength, dcCB=lambda: None,
-            cCB=lambda: None, sel_col="cornsilk1", unsel_col="white",
+            cCB=lambda x: None, sel_col="cornsilk1", unsel_col="white",
             obj = None, selected = False):
         self.text = text
         self.type = type
@@ -108,7 +108,7 @@ class Slice:
         if event.type == gtk.gdk.BUTTON_PRESS:
             if event.button == 1:
                 self.select()
-                self.cCB()
+                self.cCB(self.obj)
         elif event.type == gtk.gdk._2BUTTON_PRESS:
             #self.select()
             self.dcCB()
@@ -379,12 +379,14 @@ class DiskStripeGraph(StripeGraph):
                 partName = devicePathToName(part.getDeviceNodeName())
                 o_part = self.storage.devicetree.getDeviceByName(partName)
                 dcCB = self.editCB
+                cCB = self.tree.selectRowFromObj
             else:
                 o_part = part
                 dcCB = lambda: None
+                cCB = lambda x: None
 
             slice = Slice(stripe, partstr, stype, xoffset, xlength,
-                    dcCB = dcCB, sel_col = sel_col,
+                    dcCB = dcCB, cCB = cCB, sel_col = sel_col,
                     unsel_col = unsel_col, obj = o_part)
             stripe.addSlice(slice)
 
@@ -421,9 +423,10 @@ class LVMStripeGraph(StripeGraph):
             xlength = float(lv.size) / float(vg.size)
 
             dcCB = self.editCB
+            cCB = self.tree.selectRowFromObj
 
             slice = Slice(stripe, lvstr, stype, xoffset, xlength,
-                    dcCB = dcCB, sel_col = sel_col,
+                    dcCB = dcCB, cCB = cCB, sel_col = sel_col,
                     unsel_col = unsel_col, obj = lv)
             stripe.addSlice(slice)
 
@@ -469,9 +472,10 @@ class MDRaidArrayStripeGraph(StripeGraph):
         xoffset = 0
         xlength = 1
         dcCB = self.editCB
+        cCB = self.tree.selectRowFromObj
 
         slice = Slice(stripe, mdstr, stype, xoffset, xlength,
-                dcCB = dcCB, sel_col = sel_col,
+                dcCB = dcCB, cCB = cCB, sel_col = sel_col,
                 unsel_col = unsel_col, obj = md)
         stripe.addSlice(slice)
 
@@ -572,55 +576,50 @@ class DiskTreeModel(gtk.TreeStore):
     def appendToHiddenPartitionsList(self, member):
 	self.hiddenPartitions.append(member)
 
-    def selectPartition(self, partition):
-	# if we've hidden this partition in the tree view just return
-	if partition in self.hiddenPartitions:
-	    return
-	
-        pyobject = self.titleSlot['PyObject']
-        iter = self.get_iter_first()
-	parentstack = [None,]
-	parent = None
-        # iterate over the list, looking for the current mouse selection
+    def selectRowFromObj(self, obj, iter=None):
+        """Find the row in the tree containing obj and select it.
+
+        obj -- the object that we are searching
+        iter -- an iter from the tree. If None, get the first one.
+
+        Returns the iter where obj was found.  None otherwise.
+        """
+        retval = None
+        r_obj = None
+        #FIXME: watch out for hidden rows.
+
+        if not iter:
+            iter = self.get_iter_first()
+
         while iter:
-            try:
-                rowpart = self.get_value(iter, pyobject)
-            except SystemError:
-                rowpart = None
-            if rowpart == partition:
-                path = self.get_path(parent)
-                self.view.expand_row(path, True)
+            # r_obj -> (row object)
+            r_obj = self[iter]["PyObject"]
+
+            if obj and r_obj == obj:
+                # We have fond our object, select this row and break.
                 selection = self.view.get_selection()
                 if selection is not None:
                     selection.unselect_all()
                     selection.select_iter(iter)
+
+                # Make sure the tree view shows what we have selected.
                 path = self.get_path(iter)
                 col = self.view.get_column(0)
                 self.view.set_cursor(path, col, False)
                 self.view.scroll_to_cell(path, col, True, 0.5, 0.5)
-                return
-            # if this is a parent node, and it didn't point to the partition
-            # we're looking for, get the first child and iter over them
-            elif self.iter_has_child(iter):
-                parent = iter
-                parentstack.append(iter)
-                iter = self.iter_children(iter)
-                continue
-            # get the next row.
+                retval = iter
+                break
+
+            if self.iter_has_child(iter):
+                # Call recursively if row has children.
+                rv = self.selectRowFromObj(obj, iter=self.iter_children(iter))
+                if rv != None:
+                    retval = rv
+                    break
+
             iter = self.iter_next(iter)
-            # if there isn't a next row and we had a parent, go to the next
-            # node after our parent
-            while not iter and parent:
-                # pop last parent off of parentstack and resume search at next
-                # node after the last parent... and don't forget to update the
-                # variable "parent" to its new value
-                if len(parentstack) > 0:
-                    iter = self.iter_next(parentstack.pop())
-                    parent = parentstack[-1]
-                else:
-                    # we've fallen off the end of the model, and we have
-                    # not found the partition
-                    raise RuntimeError, "could not find partition"
+
+        return iter
 
     def getCurrentDevice(self):
         """ Return the device representing the current selection """
