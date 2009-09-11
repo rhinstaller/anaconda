@@ -655,7 +655,7 @@ class AnacondaYum(YumSorter):
                             custom_buttons=[_("_Exit installer")])
                         sys.exit(1)
 
-                    dest = tempfile.mkdtemp("", ksrepo.name, "/mnt")
+                    dest = tempfile.mkdtemp("", ksrepo.name.replace(" ", ""), "/mnt")
 
                     try:
                         isys.mount(ksrepo.baseurl[6:], dest, "nfs")

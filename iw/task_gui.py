@@ -311,7 +311,7 @@ class RepoEditor:
             return setupBaseRepo(self.anaconda, "nfs:%s:%s" % (server, path))
         else:
             import tempfile
-            dest = tempfile.mkdtemp("", repo.name, "/mnt")
+            dest = tempfile.mkdtemp("", repo.name.replace(" ", ""), "/mnt")
 
             try:
                 isys.mount("%s:%s" % (server, path), dest, "nfs")
