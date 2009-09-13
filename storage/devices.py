@@ -2938,6 +2938,9 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
         NetworkStorageDevice.__init__(self, nic=self.nic)
         log.debug("created new fcoe disk %s @ %s" % (device, self.nic))
 
+    def dracutSetupString(self):
+        return "netroot=fcoe:%s:nodcb" % self.nic
+
 
 class OpticalDevice(StorageDevice):
     """ An optical drive, eg: cdrom, dvd+r, &c.
