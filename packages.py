@@ -328,7 +328,7 @@ def rpmKernelVersionList(rootPath = "/"):
 def recreateInitrd (kernelTag, instRoot):
     log.info("recreating initrd for %s" % (kernelTag,))
     iutil.execWithRedirect("/sbin/new-kernel-pkg",
-                           [ "--mkinitrd", "--depmod", "--install", kernelTag ],
+                           [ "--mkinitrd", "--dracut", "--depmod", "--install", kernelTag ],
                            stdout = "/dev/null", stderr = "/dev/null",
                            searchPath = 1, root = instRoot)
 
