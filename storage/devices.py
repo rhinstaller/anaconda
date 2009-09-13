@@ -2897,7 +2897,7 @@ class DirectoryDevice(FileDevice):
 class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An iSCSI disk. """
     _type = "iscsi"
-    _packages = ["iscsi-initiator-utils"]
+    _packages = ["iscsi-initiator-utils", "dracut-network"]
 
     def __init__(self, device, **kwargs):
         self.node = kwargs.pop("node")
@@ -2929,7 +2929,7 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
 class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An FCoE disk. """
     _type = "fcoe"
-    _packages = ["fcoe-utils"]
+    _packages = ["fcoe-utils", "dracut-network"]
 
     def __init__(self, device, **kwargs):
         self.nic = kwargs.pop("nic")
@@ -3035,6 +3035,7 @@ class DASDDevice(DiskDevice):
 class NFSDevice(StorageDevice, NetworkStorageDevice):
     """ An NFS device """
     _type = "nfs"
+    _packages = ["dracut-network"]
 
     def __init__(self, device, format=None, parents=None):
         # we could make host/ip, path, &c but will anything use it?
