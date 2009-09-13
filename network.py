@@ -587,7 +587,7 @@ class Network:
             if anaconda is not None:
                 import storage
                 rootdev = anaconda.id.storage.rootDevice
-                # FIXME: use device.host_address to only add "NM_CONTROLLED=no"
+                # FIXME: use d.host_address to only add "NM_CONTROLLED=no"
                 # for interfaces actually used enroute to the device
                 for d in anaconda.id.storage.devices:
                     if isinstance(d, storage.devices.NetworkStorageDevice) and\
@@ -785,39 +785,56 @@ class Network:
         return False
 
     # get a kernel cmdline string for dracut needed for access to host host
-    def dracutSetupString(self, host):
-        if not host:
-            return ""
+    def dracutSetupString(self, networkStorageDevice):
+        netargs=""
 
-        # First of all find out which interface leads to host
-        route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
-        if not route:
-            log.error("Could net get interface for route to %s" % host)
-            return ""
-
-        routeInfo = route.split()
-        if routeInfo[0] != host or len(routeInfo) < 5:
-            log.error('Unexpected "ip route get to %s" reply: %s' %
-                      (host, routeInfo))
-            return ""
-
-        if routeInfo[2] not in self.netdevices.keys():
-            log.error('Unknown network interface: %s' % routeInfo[2])
-            return ""
-
-        dev = self.netdevices[routeInfo[2]]
-        if dev.get('bootproto').lower() == 'dhcp':
-            return "ip=%s:dhcp" % routeInfo[2]
-
-        if dev.get('GATEWAY'):
-            gateway = dev.get('GATEWAY')
+        if networkStorageDevice.nic:
+            # Storage bound to a specific nic (ie FCoE)
+            nic = networkStorageDevice.nic
         else:
-            gateway = ""
+            # Storage bound through ip, find out which interface leads to host
+            host = networkStorageDevice.host_address
+            route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
+            if not route:
+                log.error("Could net get interface for route to %s" % host)
+                return ""
 
-        if self.hostname:
-            hostname = self.hostname
-        else:
-            hostname = ""
+            routeInfo = route.split()
+            if routeInfo[0] != host or len(routeInfo) < 5:
+                log.error('Unexpected "ip route get to %s" reply: %s' %
+                          (host, routeInfo))
+                return ""
 
-        return "ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'), gateway,
-               dev.get('netmask'), hostname, routeInfo[2])
+            nic = routeInfo[2]
+
+        if nic not in self.netdevices.keys():
+            log.error('Unknown network interface: %s' % nic)
+            return ""
+
+        dev = self.netdevices[nic]
+
+        if networkStorageDevice.host_address:
+            if dev.get('bootproto').lower() == 'dhcp':
+                netargs += "ip=%s:dhcp" % nic
+            else:
+                if dev.get('GATEWAY'):
+                    gateway = dev.get('GATEWAY')
+                else:
+                    gateway = ""
+
+                if self.hostname:
+                    hostname = self.hostname
+                else:
+                    hostname = ""
+
+                netargs += "ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
+                           gateway, dev.get('netmask'), hostname, nic)
+
+        hwaddr = dev.get("HWADDR")
+        if hwaddr:
+            if netargs != "":
+                netargs += " "
+
+            netargs += "ifname=%s:%s" % (nic, hwaddr.lower())
+
+        return netargs

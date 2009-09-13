@@ -97,7 +97,7 @@ class KernelArguments:
                 import storage
                 if isinstance(d, storage.devices.NetworkStorageDevice):
                     args += " "
-                    args += self.id.network.dracutSetupString(d.host_address)
+                    args += self.id.network.dracutSetupString(d)
 
         args += self.id.instLanguage.dracutSetupString()
         args += self.id.keyboard.dracutSetupString()
