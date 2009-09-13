@@ -99,7 +99,8 @@ class MDRaidMember(DeviceFormat):
 # nodmraid -> Wether to use BIOS RAID or not
 # Note the anaconda cmdline has not been parsed yet when we're first imported,
 # so we can not use flags.dmraid here
-if flags.cmdline.has_key("iswmd") and not flags.cmdline.has_key("nodmraid"):
+if not flags.cmdline.has_key("noiswmd") and \
+   not flags.cmdline.has_key("nodmraid"):
     MDRaidMember._udevTypes.append("isw_raid_member")
 
 register_device_format(MDRaidMember)

@@ -96,7 +96,7 @@ class DMRaidMember(DeviceFormat):
         raise DMRaidMemberError("destruction of dmraid members is non-sense")
 
 
-if flags.cmdline.has_key("iswmd"):
+if not flags.cmdline.has_key("noiswmd"):
     DMRaidMember._udevTypes.remove("isw_raid_member")
 
 # The anaconda cmdline has not been parsed yet when we're first imported,

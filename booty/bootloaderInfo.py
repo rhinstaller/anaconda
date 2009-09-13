@@ -147,7 +147,8 @@ class KernelArguments:
 
         # look for kernel arguments we know should be preserved and add them
         ourargs = ["speakup_synth", "apic", "noapic", "apm", "ide", "noht",
-                   "acpi", "video", "pci", "nodmraid", "nompath", "nomodeset"]
+                   "acpi", "video", "pci", "nodmraid", "nompath", "nomodeset",
+                   "noiswmd"]
         for arg in ourargs:
             if not flags.cmdline.has_key(arg):
                 continue
