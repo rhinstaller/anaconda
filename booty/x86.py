@@ -43,7 +43,8 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # Accepted values for "device" are raid1 md devices (i.e. "md0"),
         # physical disks ("hda"), and real partitions on physical disks
         # ("hda1").  Volume groups/logical volumes are not accepted.
-        path = self.storage.devicetree.getDeviceByName(device).path[5:]
+        dev = self.storage.devicetree.getDeviceByName(device)
+        path = dev.path[5:]
 
         if device in map (lambda x: x.name, self.storage.lvs + self.storage.vgs):
             return []
@@ -51,16 +52,12 @@ class x86BootloaderInfo(efiBootloaderInfo):
         if path.startswith("mapper/luks-"):
             return []
 
-
-        if path.startswith('md'):
-            if flags.cmdline.has_key("iswmd"):
-                return [device]
-            else:
-                bootable = 0
-                parts = checkbootloader.getRaidDisks(device, self.storage,
-                                                 raidLevel=1, stripPart=0)
-                parts.sort()
-                return parts
+        if dev.type == "mdarray":
+            bootable = 0
+            parts = checkbootloader.getRaidDisks(device, self.storage,
+                                             raidLevel=1, stripPart=0)
+            parts.sort()
+            return parts
 
         return [device]
 
@@ -145,18 +142,12 @@ class x86BootloaderInfo(efiBootloaderInfo):
             os.rename(cf, cf + '.rpmsave')
 
         grubTarget = bl.getDevice()
-        path = self.storage.devicetree.getDeviceByName(grubTarget).path[5:]
-        target = "mbr"
-        if (path.startswith('rd/') or path.startswith('ida/') or
-                path.startswith('cciss/') or
-                path.startswith('sx8/') or
-                path.startswith('mapper/')):
-            if grubTarget[-1].isdigit():
-                if grubTarget[-2] == 'p' or \
-                        (grubTarget[-2].isdigit() and grubTarget[-3] == 'p'):
-                    target = "partition"
-        elif grubTarget[-1].isdigit() and not path.startswith('md'):
+        targetDevice = self.storage.devicetree.getDeviceByName(grubTarget)
+        path = targetDevice.path[5:]
+        if targetDevice.type == "partition" or targetDevice.type == "mdarray":
             target = "partition"
+        else:
+            target = "mbr"
 
         f = open(cf, "w+")
 
@@ -335,10 +326,9 @@ class x86BootloaderInfo(efiBootloaderInfo):
         for drive in devs:
             # XXX hack city.  If they're not the sort of thing that'll
             # be in the device map, they shouldn't still be in the list.
-            path = self.storage.devicetree.getDeviceByName(drive).path
-            if ((drive.startswith('md') and flags.cmdline.has_key("iswmd")) or
-                not drive.startswith('md')):
-                    f.write("(%s)     %s\n" % (self.grubbyDiskName(drive), path))
+            dev = self.storage.devicetree.getDeviceByName(drive)
+            if not dev.type == "mdarray":
+                f.write("(%s)     %s\n" % (self.grubbyDiskName(drive), dev.path))
         f.close()
 
         sysconf = '/etc/sysconfig/grub'
