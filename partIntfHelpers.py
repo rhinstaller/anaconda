@@ -143,7 +143,7 @@ def doDeleteDevice(intf, storage, device, confirm=1, quiet=0):
     storage.destroyDevice(device)
     return True
 
-def doDeleteDependentDevices(intf, storage, device, confirm=1, quiet=0):
+def doClearPartitionedDevice(intf, storage, device, confirm=1, quiet=0):
     """ Remove all devices/partitions currently on device.
 
             device -- a partitioned device such as a disk

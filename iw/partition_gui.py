@@ -983,7 +983,7 @@ class PartitionWindow(InstallWindow):
         if not device:
             return
         if device.format.type == "disklabel":
-            if doDeleteDependentDevices(self.intf,
+            if doClearPartitionedDevice(self.intf,
                                         self.storage,
                                         device):
                 self.refresh()

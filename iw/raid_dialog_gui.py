@@ -667,7 +667,7 @@ class RaidCloneDialog:
 	# now try to clear the target drives
 	for devname in self.targetDrives:
             device = self.storage.devicetree.getDeviceByName(devname)
-            doDeleteDependentDevices(self.intf, self.storage,
+            doClearPartitionedDevice(self.intf, self.storage,
 				     device, confirm=0, quiet=1)
 
 	# now clone!
