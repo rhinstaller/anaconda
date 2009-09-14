@@ -2442,9 +2442,14 @@ class MDRaidArrayDevice(StorageDevice):
             member.setup()
             disks.append(member.path)
 
+        update_super_minor = True
+        if self.type == "mdcontainer" or self.devices[0].type == "mdcontainer":
+            update_super_minor = False
+
         mdraid.mdactivate(self.path,
                           members=disks,
                           super_minor=self.minor,
+                          update_super_minor=update_super_minor,
                           uuid=self.uuid)
 
         udev_settle()

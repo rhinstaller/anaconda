@@ -164,7 +164,8 @@ def mdadd(device, no_degraded=False):
     if rc:
         raise MDRaidError("mdadd failed for %s" % device)
 
-def mdactivate(device, members=[], super_minor=None, uuid=None):
+def mdactivate(device, members=[], super_minor=None, update_super_minor=False,
+               uuid=None):
     if super_minor is None and not uuid:
         raise ValueError("mdactivate requires either a uuid or a super-minor")
     
@@ -175,13 +176,17 @@ def mdactivate(device, members=[], super_minor=None, uuid=None):
     else:
         identifier = ""
 
+    if update_super_minor:
+        extra_args = ["--update=super-minor"]
+    else:
+        extra_args = [ ]
+
     rc = iutil.execWithRedirect("mdadm",
                                 ["--assemble",
                                  device,
                                  identifier,
                                  "--run",
-                                 "--auto=md",
-                                 "--update=super-minor"] + members,
+                                 "--auto=md"] + extra_args + members,
                                 stderr = "/dev/tty5",
                                 stdout = "/dev/tty5",
                                 searchPath=1)
