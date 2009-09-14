@@ -56,14 +56,12 @@ msgstr ""
 "Встановлення продовжуватиметься у текстовому режимі."
 
 #: anaconda:459
-#, fuzzy
 msgid "Starting graphical installation."
-msgstr "Запускається графічне встановлення..."
+msgstr "Запускається графічне встановлення."
 
 #: anaconda:775
-#, fuzzy
 msgid "Would you like to use VNC?"
-msgstr "Що б ви хотіли зробити?"
+msgstr "Хочете використати VNC?"
 
 #: anaconda:776
 msgid ""
@@ -71,28 +69,29 @@ msgid ""
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
+"Текстовий режим надає обмежений набір можливостей. Він не "
+"дозволяє створювати власну розмітку диску або зробити вибір набору "
+"пакетів. Використовувати режим VNC натомість?"
 
 #: anaconda:802
 msgid "Install class forcing text mode installation"
 msgstr "Перехід до встановлення у текстовому режимі"
 
 #: anaconda:821
-#, fuzzy
 msgid "Graphical installation is not available. Starting text mode."
-msgstr "Графічне встановлення неможливе... Запускається текстове встановлення."
+msgstr "Графічне встановлення неможливе. Запускається текстовий режим."
 
 #: anaconda:829
-#, fuzzy
 msgid "DISPLAY variable not set. Starting text mode."
-msgstr "Змінна DISPLAY не встановлена. Запускається текстове встановлення!"
+msgstr "Змінна DISPLAY не встановлена. Запускається текстовий режим."
 
 #: anaconda:997
 msgid "reipl configuration successful => reboot"
-msgstr ""
+msgstr "налаштовування reipl пройшло вдало => перезавантаження"
 
 #: anaconda:1000
 msgid "reipl configuration failed => halt"
-msgstr ""
+msgstr "налаштовування reipl не вдається => зупинка"
 
 #: backend.py:145
 #, python-format
@@ -109,18 +108,16 @@ msgid "Copying File"
 msgstr "Копіювання файлу"
 
 #: backend.py:168
-#, fuzzy
 msgid "Transferring install image to hard drive"
-msgstr "Перенесення образу встановлення на жорсткий диск..."
+msgstr "Перенесення образу встановлення на жорсткий диск"
 
 #: backend.py:178
-#, fuzzy
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
 msgstr ""
 "Помилка при перенесенні образу встановлення на жорсткий диск комп'ютера. "
-"Можливо не вистачає дискового простору."
+"Ймовірно через зіпсований носій."
 
 #: backend.py:182
 msgid ""
@@ -167,7 +164,6 @@ msgid "Warning"
 msgstr "Увага"
 
 #: bootloader.py:54
-#, fuzzy
 msgid ""
 "Filesystems have already been activated.  You cannot go back past this "
 "point.\n"
@@ -175,7 +171,7 @@ msgid ""
 "Would you like to continue with the installation?"
 msgstr ""
 "Вибрані вами параметри розподілу вже активовані. Ви не зможете повернутися "
-"до екрану редагування диску. Продовжити процес встановлення?"
+"назад. Продовжити процес встановлення?"
 
 #: bootloader.py:58 gui.py:1093 gui.py:1140 gui.py:1268 gui.py:1345
 #: image.py:91 livecd.py:199 livecd.py:403 packages.py:126 packages.py:134
@@ -203,43 +199,42 @@ msgid "Bootloader"
 msgstr "Завантажувач"
 
 #: bootloader.py:143
-#, fuzzy
 msgid "Installing bootloader."
-msgstr "Встановлення завантажувача..."
+msgstr "Встановлення завантажувача."
 
 #: bootloader.py:210
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
 msgstr ""
+"Помилка при встановленні завантажувача. Можливо, виникнуть проблеми при завантаженні "
+"системи."
 
 #: bootloader.py:217
-#, fuzzy
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
 msgstr ""
-"У вашій системі не встановлений жоден пакет з ядром Linux. Конфігурація "
-"завантажувача не буде змінена."
+"У вашій системі не встановлено жодного пакету з ядром. Конфігурацію завантажувача "
+"не буде змінено."
 
 #: cmdline.py:55
 msgid "Completed"
 msgstr "Завершено"
 
 #: cmdline.py:63
-#, fuzzy
 msgid "In progress"
-msgstr "Триває обробка... "
+msgstr "Триває обробка"
 
 #: cmdline.py:86 gui.py:1135 text.py:391
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
 "file:\n"
 "\n"
 "%s"
 msgstr ""
-"При аналізі kickstart-файлу виявлено наступну помилку:\n"
+"При аналізі конфігурації kickstart-файлу виявлено наступну помилку:\n"
 "\n"
 "%s"
 
@@ -248,41 +243,40 @@ msgid ""
 "Command line mode requires all choices to be specified in a kickstart "
 "configuration file."
 msgstr ""
+"При встановленні у режимі командного рядка всі відповіді на питання програми "
+"встановлення треба вказувати у файлі конфігурації кікстарту."
 
 #: cmdline.py:114 cmdline.py:121
 msgid "Can't have a question in command line mode!"
 msgstr "У режимі командного рядка питання не підтримуються!"
 
 #: constants.py:74
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
 "Виникла необроблена виключна ситуація.  Можливо, це помилка в програмі. Будь "
 "ласка, збережіть повний текст цього виключення та складіть докладний звіт "
-"про помилку в anaconda на %s"
+"про помилку"
 
 #: constants.py:80
 msgid " with the provider of this software."
-msgstr ""
+msgstr " виробнику цієї програми."
 
 #: constants.py:84
-#, fuzzy, python-format
+#, python-format
 msgid " against anaconda at %s"
-msgstr "Зчитування оновлень anaconda..."
+msgstr " стосовно anaconda на %s"
 
 #: gui.py:106
-#, fuzzy
 msgid "An error occurred saving screenshots to disk."
-msgstr "Помилка при копіюванні знімків екрану."
+msgstr "Помилка при збереженні знімків екрану."
 
 #: gui.py:117
 msgid "Screenshots Copied"
 msgstr "Знімки екрану скопійовані"
 
 #: gui.py:118
-#, fuzzy
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -307,7 +301,7 @@ msgstr "Знімок екрану з назвою '%s' збережено."
 
 #: gui.py:165
 msgid "Error Saving Screenshot"
-msgstr "Помилка збереження знімку екрану"
+msgstr "Помилка при збереженні знімку екрану"
 
 #: gui.py:166
 msgid ""
@@ -326,21 +320,20 @@ msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
 msgstr ""
+"Виберіть пароль для зашифрованих пристроїв. Пароль буде запитуватись при "
+"кожному завантаженні системи."
 
 #: gui.py:650 gui.py:658 text.py:186 text.py:196
-#, fuzzy
 msgid "Error with passphrase"
 msgstr "Помилка пароля"
 
 #: gui.py:651 text.py:187
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "Введені паролі не співпадають. Спробуйте знову."
+msgstr "Введені паролі не збігаються. Спробуйте знову."
 
 #: gui.py:659
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "Пароль має складатися принаймні з 6 символів."
+msgstr "Пароль має складатися принаймні з 8 символів."
 
 #: gui.py:693 text.py:224
 #, python-format
@@ -348,6 +341,8 @@ msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
+"Пристрій %s зашифровано. Щоб отримати доступ до змісту пристрою у "
+"процесі встановлення, треба ввести пароль."
 
 #: gui.py:784 gui.py:1345 partIntfHelpers.py:153 partIntfHelpers.py:310
 #: text.py:99 text.py:100 iw/account_gui.py:135 loader/dirbrowser.c:145
@@ -394,12 +389,10 @@ msgid "_Retry"
 msgstr "_Повторити"
 
 #: gui.py:1267
-#, fuzzy
 msgid "The installer will now exit."
-msgstr "Програма встановлення завершується..."
+msgstr "Програма встановлення завершує роботу."
 
 #: gui.py:1270 storage/partitioning.py:256
-#, fuzzy
 msgid "The system will now reboot."
 msgstr "Зараз систему буде перезавантажено."
 
@@ -416,9 +409,8 @@ msgid "Exit installer"
 msgstr "Перервати встановлення"
 
 #: gui.py:1343
-#, fuzzy
 msgid "Are you sure you wish to exit the installer?"
-msgstr "Ви справді бажаєте видалити логічний том \"%s\"?"
+msgstr "Дійсно бажаєте перервати встановлення ?"
 
 #: gui.py:1352
 #, python-format
@@ -470,7 +462,7 @@ msgid "Missing ISO 9660 Image"
 msgstr "Відсутній образ ISO 9660"
 
 #: image.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
 "drive.\n"
@@ -478,7 +470,7 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"Програма встановлення намагалась підключити образ #%s, але він не знайдений "
+"Програма встановлення намагалась підключити образ #%s, але його не знайдено "
 "на жорсткому диску.\n"
 "\n"
 "Скопіюйте цей образ на накопичувач та натисніть \"Повторити\". Щоб перервати "
@@ -489,7 +481,7 @@ msgid "Required Install Media"
 msgstr "Потрібний носій встановлення"
 
 #: image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %s %s "
 "discs:\n"
@@ -498,7 +490,7 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Для встановлення обраних пакетів потрібні наступні диски:\n"
+"Для встановлення обраних пакетів потрібні наступні диски %s %s:\n"
 "\n"
 "%s\n"
 "Перед продовженням встановлення переконайтесь, що у вас є всі перелічені "
@@ -527,32 +519,32 @@ msgstr "Встановлення системи"
 #: iutil.py:755
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Помилка: При операції відкриття не вдається визначити метод reIPL як %s (%s: %s)"
 
 #: iutil.py:763
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Помилка: При операції запису не вдається визначити метод reIPL як %s (%s: %s)"
 
 #: iutil.py:770
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
-msgstr ""
+msgstr "Помилка: При операції закриття не вдається визначити метод reIPL як %s (%s: %s)"
 
 #: iutil.py:787
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr ""
+msgstr "Помилка: Не вдається задати %s у якості пристрою reIPL (%s)"
 
 #: iutil.py:796
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
-msgstr ""
+msgstr "Помилка: Не вдається скинути loadparm (%s)"
 
 #: iutil.py:805
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr ""
+msgstr "Увага: Не вдається скинути parm (%s)"
 
 #: iutil.py:815
 #, python-format
@@ -560,21 +552,23 @@ msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
+"Після вимикання виконайте завантаження IPL вручну з DASD-пристрою %s для "
+"продовження установки"
 
 #: iutil.py:837
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Помилка: Читання властивостей FCP %s для reIPL (%s)"
 
 #: iutil.py:850
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Помилка: Запис властивостей FCP %s для reIPL (%s)"
 
 #: iutil.py:863
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
-msgstr ""
+msgstr "Помилка: Запис стандартної властивості FCP %s для reIPL (%s)"
 
 #: iutil.py:873
 #, python-format
@@ -582,85 +576,85 @@ msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
+"Після вимикання виконайте завантаження IPL вручну з FCP %(device)s з WWPN %"
+"(wwpn)s та LUN %(lun)s для продовження встановлення "
 
 #: iutil.py:880
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
+"Після вимикання виконайте завантаження IPL вручну з пристрою, який тепер "
+"містить /boot, для продовження встановлення"
 
 #: iutil.py:888
 msgid "Error determining mount point type"
-msgstr ""
+msgstr "Помилка при визначенні типу точки монтування"
 
 #: iutil.py:892
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
+"Точку монтування /boot або / розташовано на диску, з яким немає "
+"можливості працювати"
 
 #: kickstart.py:96
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the kickstart script at line %s.  You may examine "
 "the output in %s.  This is a fatal error and installation will be aborted.  "
 "Press the OK button to exit the installer."
 msgstr ""
-"Помилка при виконанні сценарію. Можете переглянути вивід %s. Це серйозна "
-"проблема, тому продовження процесу встановлення неможливе.\n"
-"\n"
-"Натисніть Гаразд для переривання встановлення."
+"Помилка при виконанні сценарію kickstart у рядку %s. Можете переглянути вивід у рядку %s. Це серйозна "
+"проблема, тому продовження процесу встановлення неможливе. Натисніть Гаразд для переривання встановлення."
 
 #: kickstart.py:111 kickstart.py:113
 msgid "Scriptlet Failure"
 msgstr "Помилка виконання сценарію"
 
 #: kickstart.py:1167
-#, fuzzy, python-format
+#, python-format
 msgid "Error processing %%ksappend lines: %s"
-msgstr "Помилка відкривання файлу: %s: %s"
+msgstr "Помилка обробки рядкі %%ksappend: %s"
 
 #: kickstart.py:1170
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "Невідома помилка при обробці рядків %%ksappend: %s"
 
 #: kickstart.py:1181
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing thekickstart configuration "
 "file:\n"
 "\n"
 "%s"
 msgstr ""
-"При аналізі kickstart-файлу виявлено наступну помилку:\n"
+"При аналізі конфігурації kickstart-файлу виявлено наступну помилку:\n"
 "\n"
 "%s"
 
 #: kickstart.py:1242 livecd.py:223
-#, fuzzy
 msgid "Post-Installation"
 msgstr "Налаштовування після встановлення"
 
 #: kickstart.py:1243
-#, fuzzy
 msgid "Running post-installation scripts"
-msgstr "Запуск пост-встановлювальних сценаріїв"
+msgstr "Запуск сценаріїв після встановлення"
 
 #: kickstart.py:1259
-#, fuzzy
 msgid "Pre-Installation"
-msgstr "Установка пакетів"
+msgstr "Налаштовування перед встановленням"
 
 #: kickstart.py:1260
-#, fuzzy
 msgid "Running pre-installation scripts"
-msgstr "Запуск пред-встановлювальних сценаріїв"
+msgstr "Запуск сценаріїв перед встановленням"
 
 #: kickstart.py:1292
 msgid "Missing Package"
 msgstr "Відсутній пакет"
 
 #: kickstart.py:1293
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
@@ -673,16 +667,15 @@ msgid "_Abort"
 msgstr "_Перервати"
 
 #: kickstart.py:1300 kickstart.py:1339
-#, fuzzy
 msgid "_Ignore All"
-msgstr "Ігнорувати"
+msgstr "_Ігнорувати все"
 
 #: kickstart.py:1330
 msgid "Missing Group"
 msgstr "Відсутня група"
 
 #: kickstart.py:1331
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
@@ -698,6 +691,10 @@ msgid ""
 "again:\n"
 "%s"
 msgstr ""
+"У файлі конфігурації kickstart відсутня потрібна інформація, яку "
+"Anaconda не може запитати інтерактивно. Додайте у файл наступні секції та "
+"повторіть спробу:\n"
+"%s"
 
 #: livecd.py:110
 msgid "Unable to find image"
@@ -714,7 +711,6 @@ msgid "Copying live image to hard drive."
 msgstr "Перенесення образу live встановлення на жорсткий диск."
 
 #: livecd.py:193
-#, fuzzy
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -722,22 +718,18 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Не вдається відкрити файл %s. Можлива причина - відсутній файл або "
-"пошкоджений пакет. Перевірте, що дерево встановлення містить усі необхідні "
-"пакети. \n"
+"Помилка при встановленні Live-образу на жорсткий диск. Можлива причина - пошкоджений носій. Перевірте цілісність носія встановлення.\n"
 "\n"
 "При перезавантаженні система залишиться у нестабільному стані, та ймовірно "
-"знадобиться перевстановлення.\n"
-"\n"
+"знадобиться перевстановлення."
 
 #: livecd.py:224
-#, fuzzy
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
 msgstr ""
 "Виконання завершальних операцій з файловою системою. Це може зайняти "
-"декілька хвилин..."
+"декілька хвилин."
 
 #: livecd.py:397
 #, python-format
@@ -745,27 +737,25 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
+"Створена коренева файлова система надто мала для розміщення Live-"
+"образу (потрібно %.2f Мбайт)."
 
 #: network.py:56
-#, fuzzy
 msgid "Hostname must be 255 or fewer characters in length."
-msgstr "Довжина назви комп'ютера не повинна перевищувати 64 символи."
+msgstr "Довжина назви комп'ютера не повинна перевищувати 255 символів."
 
 #: network.py:62
-#, fuzzy
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr ""
-"Назва комп'ютера повинна починатись з символів в діапазоні 'a-z' або 'A-Z'"
+"Назва комп'ютера повинна починатись з символів в діапазоні 'a-z', 'A-Z' або 0-9 "
 
 #: network.py:67
-#, fuzzy
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
-"Назва комп'ютера повинна містити символи в діапазоні 'a-z' або 'A-Z', '-', "
-"чи '.'"
+"Назва комп'ютера повинна містити символи в діапазоні a-z, 0-9, A-Z, дефіс або точку."
 
 #: network.py:176
 msgid "IP address is missing."
@@ -788,88 +778,79 @@ msgid "'%s' is an invalid IP address."
 msgstr "%s не є припустимою адресою IP."
 
 #: packages.py:121
-#, fuzzy
 msgid "Device Resize Failed"
-msgstr "Отримання"
+msgstr "Помилка при операції зміни розміру пристрою"
 
 #: packages.py:122
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while resizing device %s."
-msgstr "Помилка клонування: помилка при очищенні цільових дисків."
+msgstr "Помилка при зміні розміру пристрою %s."
 
 #: packages.py:129
-#, fuzzy
 msgid "Device Creation Failed"
-msgstr "Помилка підключення"
+msgstr "Помилка при створенні пристрою"
 
 #: packages.py:130
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while creating device %s."
-msgstr "Помилка клонування: помилка при очищенні цільових дисків."
+msgstr "Помилка при створенні пристрою %s."
 
 #: packages.py:137
 msgid "Device Removal Failed"
-msgstr ""
+msgstr "Помилка операції видалення пристрою"
 
 #: packages.py:138
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "Помилка клонування: помилка при очищенні цільових дисків."
+msgstr "Помилка при видаленні пристрою %s."
 
 #: packages.py:145
 msgid "Device Setup Failed"
-msgstr ""
+msgstr "Помилка операції налаштовування пристрою"
 
 #: packages.py:146
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while setting up device %s."
-msgstr "Помилка клонування: помилка при очищенні цільових дисків."
+msgstr "Помилка при налаштовуванні пристрою %s."
 
 #: packages.py:157
-#, fuzzy
 msgid "Resizing Failed"
-msgstr "Отримання"
+msgstr "Помилка при зміні розміру"
 
 #: packages.py:158
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr "Помилка клонування: помилка при очищенні цільових дисків."
+msgstr "Помилка при зміні розміру пристрою %s."
 
 #: packages.py:165
-#, fuzzy
 msgid "Migration Failed"
-msgstr "Помилка підключення"
+msgstr "Помилка при міграції"
 
 #: packages.py:166
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "Помилка клонування: помилка при очищенні цільових дисків."
+msgstr "Помилка при міграції файлової системи на пристрої %s."
 
 #: packages.py:174
-#, fuzzy
 msgid "Formatting Failed"
-msgstr "Форматування"
+msgstr "Помилка при форматуванні"
 
 #: packages.py:175
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while formatting device %s."
-msgstr "Помилка клонування: помилка при очищенні цільових дисків."
+msgstr "Помилка при форматуванні пристрою %s."
 
 #: packages.py:183
 msgid "Storage Activation Failed"
-msgstr ""
+msgstr "Помилка операції активації сховища"
 
 #: packages.py:184
-#, fuzzy
 msgid "An error was encountered while activating your storage configuration."
-msgstr ""
-"При аналізі kickstart-файлу виявлено наступну помилку:\n"
-"\n"
-"%s"
+msgstr "Помилка при при активації параметрів вашого сховища."
 
 #: packages.py:188
 msgid "_File Bug"
-msgstr ""
+msgstr "Надіслати _звіт про помилку"
 
 #: packages.py:350
 msgid "Invalid Key"
@@ -1000,9 +981,9 @@ msgid "Confirm Delete"
 msgstr "Підтвердження видалення"
 
 #: partIntfHelpers.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Ви збираєтесь видалити всі розділи на пристрої '/dev/%s'."
+msgstr "Ви збираєтесь видалити всі розділи на пристрої '%s'."
 
 #: partIntfHelpers.py:153 partIntfHelpers.py:310 iw/lvm_dialog_gui.py:815
 #: iw/lvm_dialog_gui.py:1348 iw/osbootwidget.py:103 iw/partition_gui.py:1336
@@ -1029,14 +1010,14 @@ msgid "Format as Swap?"
 msgstr "Форматувати як swap?"
 
 #: partIntfHelpers.py:192
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s має тип розділу 0x82 (Linux swap), але він не форматований як розділ "
+"%s має тип розділу 0x82 (Linux swap), але він не форматований як розділ "
 "Linux swap.\n"
 "\n"
 "Форматувати цей розділ як розділ підкачки?"
@@ -1047,7 +1028,6 @@ msgid "You need to select at least one hard drive to install %s."
 msgstr "Необхідно вибрати хоча б один жорсткий диск для встановлення %s."
 
 #: partIntfHelpers.py:212
-#, fuzzy
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1151,14 +1131,14 @@ msgid "You are about to delete a RAID device."
 msgstr "Ви збираєтесь видалити пристрій RAID."
 
 #: partIntfHelpers.py:302
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s partition."
-msgstr "Ви збираєтесь видалити розділ /dev/%s."
+msgstr "Ви збираєтесь видалити розділ %s."
 
 #: partIntfHelpers.py:306
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %s %s"
-msgstr "Ви збираєтесь видалити розділ /dev/%s."
+msgstr "Ви збираєтесь видалити розділ %s %s"
 
 #: partIntfHelpers.py:317
 msgid "Confirm Reset"
@@ -1179,9 +1159,8 @@ msgid "First sector of boot partition"
 msgstr "Перший сектор завантажувального розділу"
 
 #: platform.py:112
-#, fuzzy
 msgid "You have not created a bootable partition."
-msgstr "Необхідно створити завантажувальний розділ PPC PReP."
+msgstr "Необхідно створити завантажувальний розділ."
 
 #: platform.py:115
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1192,57 +1171,51 @@ msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Завантажувальні розділи на логічних томах не допускаються."
 
 #: platform.py:123
-#, fuzzy
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr "Завантажувальні розділи можливі лише на RAID1 пристроях."
+msgstr "Завантажувальні розділи не можуть розташовуватись на пристроях RAID."
 
 #: platform.py:127 platform.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "Завантажувальні розділи на логічних томах не допускаються."
+msgstr "Завантажувальні розділи не можуть знаходитись у файловій системі %s."
 
 #: platform.py:135 platform.py:140
-#, fuzzy
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Завантажувальні розділи на логічних томах не допускаються."
+msgstr "Завантажувальні розділи не можуть знаходитися на зашифрованих блочних пристроях."
 
 #: platform.py:213
-#, fuzzy
 msgid "EFI System Partition"
-msgstr "Правка розділу"
+msgstr "Системний розділ EFI"
 
 #: platform.py:218
-#, fuzzy
 msgid "You have not created a /boot/efi partition."
-msgstr "Необхідно створити завантажувальний розділ PPC PReP."
+msgstr "Ви не створити розділ /boot/efi."
 
 #: platform.py:224
-#, fuzzy
 msgid "/boot is not on an ext2 filesystem."
-msgstr "Завантажувальні розділи на логічних томах не допускаються."
+msgstr "Розділ /boot не розташований у файловій системі ext2."
 
 #: platform.py:227
 msgid "/boot/efi is not EFI."
-msgstr ""
+msgstr "/boot/efi не є розділом EFI."
 
 #: platform.py:265
 #, python-format
 msgid "%s must have a bsd disk label."
-msgstr ""
+msgstr "%s має бути позначкою диску bsd."
 
 #: platform.py:277
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
-msgstr ""
+msgstr "Початково потрібно принаймні 1 Мб вільного простору на диску %s."
 
 #: platform.py:322
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
 #: platform.py:334
-#, fuzzy
 msgid "The boot partition must be within the first 4MB of the disk."
-msgstr "Не вдається записати стан системи на дискету."
+msgstr "Завантажувальний розділ має розташовуватися у межах перших 4 Мбайт диску."
 
 #: platform.py:379 platform.py:382
 msgid "Apple Bootstrap"
@@ -1251,7 +1224,7 @@ msgstr "Apple Bootstrap"
 #: platform.py:397
 #, python-format
 msgid "%s must have a mac disk label."
-msgstr ""
+msgstr "%s має бути міткою диску mac."
 
 #: rescue.py:199
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1261,7 +1234,7 @@ msgstr ""
 
 #: rescue.py:213
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
-msgstr ""
+msgstr "Не вдається знайти /bin/sh для запуску! Оболонку не буде запущено."
 
 #: rescue.py:232
 msgid "Setup Networking"
@@ -1282,15 +1255,16 @@ msgid "No"
 msgstr "Ні"
 
 #: rescue.py:240 yuminstall.py:1047
-#, fuzzy
 msgid "No Network Available"
-msgstr "Мережні пристрої"
+msgstr "Мережа недоступна"
 
 #: rescue.py:241
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
 msgstr ""
+"Неможливо активувати мережні пристрої. Мережне оточення не буде "
+"доступне у режимі відновлення."
 
 #: rescue.py:276 rescue.py:345 rescue.py:356 rescue.py:434
 msgid "Rescue"
@@ -1334,10 +1308,8 @@ msgid "System to Rescue"
 msgstr "Система відновлення"
 
 #: rescue.py:322
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr ""
-"На якому розділі міститься коренева файлова система вашого встановлення?"
+msgstr "Вкажіть пристрій, на якому міститься коренева файлова система"
 
 #: rescue.py:324 rescue.py:328 text.py:515 text.py:517
 msgid "Exit"
@@ -1392,7 +1364,7 @@ msgstr ""
 
 #: rescue.py:444
 msgid "You don't have any Linux partitions.  Rebooting.\n"
-msgstr ""
+msgstr "У системі немає розділів Linux. Буде виконано перезавантаження.\n"
 
 #: rescue.py:447
 msgid "Rescue Mode"
@@ -1413,24 +1385,23 @@ msgstr "Систему підключено у каталог %s."
 
 #: text.py:153
 msgid "Passphrase for encrypted device"
-msgstr ""
+msgstr "Пароль для зашифрованого пристрою"
 
 #: text.py:166
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr ""
+msgstr "Використовуйте цей пароль для усіх існуючих шифрованих пристроїв."
 
 #: text.py:231 ui/lukspassphrase.glade:275
 msgid "Passphrase"
-msgstr ""
+msgstr "Пароль"
 
 #: text.py:239 ui/lukspassphrase.glade:421
 msgid "This is a global passphrase"
-msgstr ""
+msgstr "Це глобальний пароль"
 
 #: text.py:309 text.py:313
-#, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "Графічне встановлення неможливе... Запускається текстове встановлення."
+msgstr "Зміна репозиторію неможлива у текстовому режимі."
 
 #: text.py:353
 #, python-format
@@ -1443,9 +1414,9 @@ msgid "Skip entering %(instkey)s"
 msgstr "Пропустити введення %(instkey)s"
 
 #: text.py:420 loader/lang.c:63 loader/loader.c:215
-#, fuzzy, c-format, python-format
+#, c-format, python-format
 msgid "Welcome to %s for %s"
-msgstr "Ласкаво просимо до %s"
+msgstr "Ласкаво просимо до %s для %s"
 
 #: text.py:422
 #, python-format
@@ -1495,7 +1466,7 @@ msgid "Mount failed"
 msgstr "Помилка підключення"
 
 #: upgrade.py:184
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/"
 "fstab.  Please fix this problem and try to upgrade again.\n"
@@ -1503,18 +1474,21 @@ msgid ""
 msgstr ""
 "Одна чи більше файлова система, з перелічених у файлі /etc/fstab вашої "
 "системи Linux, не може бути підключена. Усуньте цю проблему та повторіть "
-"спробу оновлення."
+"спробу оновлення.\n"
+"%s"
 
 #: upgrade.py:191
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "Початок поновлення"
+msgstr "Не виявлено кореневий каталог для початку оновлення"
 
 #: upgrade.py:192
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
+"Кореневий каталог від попереднього встановлення системи не виявлено. Ви можете "
+"вийти з програми встановлення або повернуться назад та вибрати встановлення замість "
+"оновлення."
 
 #: upgrade.py:215
 msgid ""
@@ -1603,9 +1577,15 @@ msgid ""
 "to the vncviewer is unsuccessful\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Ви обрали підключення до прпрослуховуючого vncviewer. \n"
+"Для цього немає потреби вказувати пароль.\n"
+"Якщо ви вкажете пароль, він буде використовуватись\n"
+"у випадку помилки при спробі підключення до vncviewer.\n"
+"\n"
 
 #: vnc.py:248
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -1618,7 +1598,7 @@ msgstr ""
 "\n"
 "Увага!!! Сервер VNC запущений БЕЗ ПАРОЛЮ!\n"
 "Якщо хочете забезпечити безпеку серверу, використовуйте\n"
-"параметр завантаження  vncpassword=<password>.\n"
+"параметр завантаження vncpassword=<password>.\n"
 "\n"
 
 #: vnc.py:252
@@ -1628,15 +1608,22 @@ msgid ""
 "You chose to execute vnc with a password. \n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"Ви обрали запуск VNC з паролем.\n"
+"\n"
 
 #: vnc.py:254
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "Невідома помилка"
+msgstr ""
+"\n"
+"\n"
+"Невідома помилка. Зупинка роботи.\n"
+"\n"
 
 #: vnc.py:276 vnc.py:369
 msgid "VNC Configuration"
@@ -1666,11 +1653,11 @@ msgstr "Пароль (підтвердження):"
 
 #: vnc.py:308 vnc.py:407 textw/userauth_text.py:70
 msgid "Password Mismatch"
-msgstr "Паролі не співпадають"
+msgstr "Паролі не збігаються"
 
 #: vnc.py:309 vnc.py:408 textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
-msgstr "Введені Вами паролі не співпадають. Повторіть спробу."
+msgstr "Введені Вами паролі не збігаються. Повторіть спробу."
 
 #: vnc.py:314 vnc.py:413 textw/userauth_text.py:66
 msgid "Password Length"
@@ -1715,12 +1702,11 @@ msgstr "%s кБ"
 
 #: yuminstall.py:129
 msgid "Preparing to install"
-msgstr ""
+msgstr "Підготовка до встановлення"
 
 #: yuminstall.py:130
-#, fuzzy
 msgid "Preparing transaction from installation source"
-msgstr "Підготовка транзакції з джерела встановлення... "
+msgstr "Підготовка транзакції з джерела встановлення"
 
 #: yuminstall.py:158
 #, python-format
@@ -1728,22 +1714,19 @@ msgid "<b>Installing %s</b> (%s)\n"
 msgstr "<b>Встановлення %s</b> (%s)\n"
 
 #: yuminstall.py:218
-#, fuzzy
 msgid "Finishing upgrade"
 msgstr "Завершення процесу оновлення"
 
 #: yuminstall.py:219
-#, fuzzy
 msgid "Finishing upgrade process.  This may take a little while."
-msgstr "Запускається процес оновлення. Це може зайняти декілька хвилин..."
+msgstr "Запускається процес оновлення. Це може зайняти декілька хвилин."
 
 #: yuminstall.py:286 iw/task_gui.py:301
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "Додати репозиторій"
+msgstr "Помилка при налаштовуванні репозиторію"
 
 #: yuminstall.py:287 iw/task_gui.py:302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -1751,11 +1734,11 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %s."
 msgstr ""
-"Вибраний варіант розподілу призвів до виникнення помилок:\n"
+"Помилка при налаштовуванні репозиторію встановлення:\n"
 "\n"
 "%s\n"
 "\n"
-"Натисніть \"Гаразд\" для переривання встановлення."
+"Вкажіть коректну інформацію для встановлення %s."
 
 #: yuminstall.py:346
 msgid "Change Disc"
@@ -1783,18 +1766,19 @@ msgstr "Не вдається отримати доступ до диску."
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
+"У конфігурації відсутня назва репозиторію %r. Замість імені буде "
+"використовуватися ідентифікатор."
 
 #: yuminstall.py:676 yuminstall.py:678
 msgid "Re_boot"
 msgstr "_Перезавантаження"
 
 #: yuminstall.py:676
-#, fuzzy
 msgid "_Eject"
-msgstr "Витягти диск"
+msgstr "Ви_тягнути носій"
 
 #: yuminstall.py:687
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
 "package or corrupt media.  Please verify your installation source.\n"
@@ -1812,20 +1796,18 @@ msgstr ""
 "\n"
 
 #: yuminstall.py:735
-#, fuzzy
 msgid "Retrying"
-msgstr "Отримання"
+msgstr "Повторна спроба"
 
 #: yuminstall.py:735
-#, fuzzy
 msgid "Retrying download."
-msgstr "Отримання"
+msgstr "Повторна спроба завантаження."
 
 #: yuminstall.py:801
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
-msgstr "При виконанні вашої транзакції виникла помилка з наступних причин: %s"
+msgstr "При виконанні вашої транзакції виникла помилка з наступних причин: %s\n"
 
 #: yuminstall.py:836 yuminstall.py:837
 msgid "file conflicts"
@@ -1868,29 +1850,32 @@ msgid "You need more space on the following file systems:\n"
 msgstr "Потрібно більше місця на наступних файлових системах:\n"
 
 #: yuminstall.py:872
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
-msgstr "Носій якого типу містить пакети для встановлення?"
+msgstr ""
+"При перевірці пакетів для встановлення виявлено конфлікти файлів:\n"
+"%s\n"
 
 #: yuminstall.py:875
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
-msgstr "При виконанні вашої транзакції виникла помилка з наступних причин: %s"
+msgstr "При виконанні транзакції виникла помилка з наступних причин: %s\n"
 
 #: yuminstall.py:882 yuminstall.py:887
-#, fuzzy
 msgid "Error Running Transaction"
-msgstr "Помилка запуску транзакції"
+msgstr "Помилка при виконанні транзакції"
 
 #: yuminstall.py:1048
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
+"Деякі репозиторії вимагають наявності підключення до мережі, але виникла "
+"помилка при її налаштуванні для Вашої системи."
 
 #: yuminstall.py:1082
 msgid ""
@@ -1901,12 +1886,11 @@ msgstr ""
 "стосується генерування дерева встановлення."
 
 #: yuminstall.py:1118
-#, fuzzy
 msgid "Retrieving installation information."
-msgstr "Читання інформації встановлення..."
+msgstr "Отримання інформації встановлення."
 
 #: yuminstall.py:1120
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Отримання інформації встановлення для %s..."
 
@@ -1919,7 +1903,7 @@ msgid "Edit"
 msgstr "Правка"
 
 #: yuminstall.py:1148 yuminstall.py:1305
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
 "directory.  Please ensure that your install tree has been correctly "
@@ -1929,7 +1913,9 @@ msgid ""
 msgstr ""
 "Не вдається прочитати метадані пакету. Можлива причина - відсутність "
 "каталогу repodata. Переконайтесь, що ваше дерево встановлення сформовано "
-"правильно. %s"
+"правильно.\n"
+"\n"
+"%s"
 
 #: yuminstall.py:1323
 #, python-format
@@ -1960,52 +1946,47 @@ msgstr ""
 "оновленою до цієї версії %s. Ви дійсно бажаєте продовжити оновлення?"
 
 #: yuminstall.py:1522
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Схоже, ви оновлюєте систему, яка занадто застара для того, щоб бути "
-"оновленою до цієї версії %s. Ви дійсно бажаєте продовжити оновлення?"
+"Ви оновлюєте систему до версії %s для архітектури %s, яка не "
+"відповідає встановленій архітектурі %s. Ви справді хочете "
+"продовжити оновлення?"
 
 #: yuminstall.py:1573
 msgid "Post Upgrade"
 msgstr "Після оновлення"
 
 #: yuminstall.py:1574
-#, fuzzy
 msgid "Performing post-upgrade configuration"
-msgstr "Виконується налаштовування після встановлення..."
+msgstr "Виконується налаштовування після оновлення"
 
 #: yuminstall.py:1576
-#, fuzzy
 msgid "Post Installation"
 msgstr "Налаштовування після встановлення"
 
 #: yuminstall.py:1577
-#, fuzzy
 msgid "Performing post-installation configuration"
-msgstr "Виконується налаштовування після встановлення..."
+msgstr "Виконується налаштовування після встановлення"
 
 #: yuminstall.py:1803
-#, fuzzy
 msgid "Installation Starting"
 msgstr "Запуск встановлення"
 
 #: yuminstall.py:1804
-#, fuzzy
 msgid "Starting installation process"
-msgstr "Процес встановлення"
+msgstr "Запуск процесу встановлення"
 
 #: yuminstall.py:1842
 msgid "Dependency Check"
 msgstr "Перевірка залежностей"
 
 #: yuminstall.py:1843
-#, fuzzy
 msgid "Checking dependencies in packages selected for installation"
-msgstr "Перевірка залежностей вибраних для встановлення пакетів..."
+msgstr "Перевірка залежностей вибраних для встановлення пакетів"
 
 #: installclasses/fedora.py:39
 msgid "_Fedora"
@@ -2032,7 +2013,6 @@ msgid "Software Development"
 msgstr "Розробка програм"
 
 #: installclasses/fedora.py:51
-#, fuzzy
 msgid "Web Server"
 msgstr "Веб-сервер"
 
@@ -2077,46 +2057,51 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
+"Ви хочете ввести код встановлення (також відомий як номер передплати)? Це "
+"дозволить програмі встановлення отримати доступ до додаткових компонент, що входять "
+"до складу передплати. Якщо ви хочете пропустити цей крок, додаткові "
+"компоненти можуть бути встановлені вручну пізніше.\n"
+"\n"
+"Докладнішу інформацію можна знайти тет: http://www.redhat.com/InstNum/"
 
 #: installclasses/rhel.py:79
 msgid ""
 "If you cannot locate the Installation Number, consult http://www.redhat.com/"
 "InstNum/"
 msgstr ""
+"Якщо Вы не можете знайти код встановлення, відвідайте http://www.redhat.com/"
+"InstNum/"
 
 #: iw/GroupSelector.py:147
-#, fuzzy, python-format
+#, python-format
 msgid "Packages in %s"
-msgstr "Вибір пакетів"
+msgstr "Пакети у %s"
 
 #: iw/GroupSelector.py:424
-#, fuzzy, python-format
+#, python-format
 msgid "Optional packages selected: %d of %d"
-msgstr "Додаткових пакетів немає"
+msgstr "Вибрані додаткові пакети: %d з %d"
 
 #: iw/GroupSelector.py:425
 #, python-format
 msgid "<i>%s</i>"
-msgstr ""
+msgstr "<i>%s</i>"
 
 #: iw/GroupSelector.py:485
 msgid "Uncategorized"
 msgstr "Поза категоріями"
 
 #: iw/account_gui.py:52
-#, fuzzy
 msgid "Root _Password:"
-msgstr "_Пароль користувача root: "
+msgstr "_Пароль користувача root:"
 
 #: iw/account_gui.py:54
-#, fuzzy
 msgid "_Confirm:"
-msgstr "Під_твердження: "
+msgstr "Під_твердження:"
 
 #: iw/account_gui.py:97
-#, fuzzy
 msgid "Caps Lock is on."
-msgstr "<b>Увімкнено Caps Lock.</b>"
+msgstr "Увімкнено Caps Lock."
 
 #: iw/account_gui.py:107 iw/account_gui.py:115 iw/account_gui.py:122
 #: iw/account_gui.py:142 textw/userauth_text.py:74
@@ -2133,26 +2118,24 @@ msgstr ""
 
 #: iw/account_gui.py:116
 msgid "The passwords you entered were different.  Please try again."
-msgstr "Введені паролі не співпадають. Спробуйте знову."
+msgstr "Введені паролі не збігаються. Спробуйте знову."
 
 #: iw/account_gui.py:123
 msgid "The root password must be at least six characters long."
 msgstr "Пароль користувача root повинен містити принаймні 6 символів."
 
 #: iw/account_gui.py:132 textw/userauth_text.py:83
-#, fuzzy
 msgid "Weak Password"
-msgstr "Пароль"
+msgstr "Слабкий пароль"
 
 #: iw/account_gui.py:133
 #, python-format
 msgid "You have provided a weak password: %s"
-msgstr ""
+msgstr "Вказано слабкий пароль: %s"
 
 #: iw/account_gui.py:135
-#, fuzzy
 msgid "Use Anyway"
-msgstr "Назва ідентифікатора"
+msgstr "Використовувати попри все"
 
 #: iw/account_gui.py:143 textw/userauth_text.py:75
 msgid ""
@@ -2166,25 +2149,27 @@ msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
 msgstr ""
+"Немає розділів, розмір яких можна змінити. Лише фізичні розділи з "
+"деякими типами файлових систем можуть бути змінені."
 
 #: iw/autopart_type.py:123
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "Форматування файлової системи %s..."
+msgstr "Помилка при зміні розміру ФС"
 
 #: iw/autopart_type.py:124 iw/autopart_type.py:133
-#, fuzzy, python-format
+#, python-format
 msgid "%s: %s"
-msgstr "%s, %s"
+msgstr "%s: %s"
 
 #: iw/autopart_type.py:132
 msgid "Resize Device Error"
-msgstr ""
+msgstr "Помилка при зміні розміру пристрою"
 
 #: iw/autopart_type.py:207
 msgid ""
 "Do you really want to boot from a disk which is not used for installation?"
 msgstr ""
+"Дійсно завантажитися з диску, який не використовується для встановлення?"
 
 #: iw/autopart_type.py:284
 msgid "Invalid Initiator Name"
@@ -2200,26 +2185,23 @@ msgstr "Помилка у даних"
 
 #: iw/autopart_type.py:469 iw/autopart_type.py:470
 msgid "Rescanning disks"
-msgstr ""
+msgstr "Повторне сканування дисків"
 
 #: iw/autopart_type.py:524 textw/partition_text.py:63
-#, fuzzy
 msgid "Use entire drive"
-msgstr "_Ігнорувати пристрій"
+msgstr "Використовувати весь диск"
 
 #: iw/autopart_type.py:525 textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr ""
+msgstr "Замінити існуючу систему Linux"
 
 #: iw/autopart_type.py:526
-#, fuzzy
 msgid "Shrink current system"
-msgstr "Ключ шифрування"
+msgstr "Стиснути існуючу систему"
 
 #: iw/autopart_type.py:527 textw/partition_text.py:65
-#, fuzzy
 msgid "Use free space"
-msgstr "Недостатньо вільного простору"
+msgstr "Використовувати вільний простір"
 
 #: iw/autopart_type.py:528
 msgid "Create custom layout"
@@ -2230,13 +2212,12 @@ msgid "_Use a boot loader password"
 msgstr "_Встановити пароль завантажувача"
 
 #: iw/blpasswidget.py:48
-#, fuzzy
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
 msgstr ""
 "Пароль початкового завантажувача захищає від передавання користувачами "
-"параметрів ядру. Для підвищеної безпеки, рекомендується встановити пароль."
+"параметрів ядру., і підвищує рівень безпеки."
 
 #: iw/blpasswidget.py:79
 msgid "Change _password"
@@ -2289,48 +2270,49 @@ msgstr "Параметри завантажувача"
 
 #: iw/bootloader_main_gui.py:179 iw/bootloader_main_gui.py:184
 #: iw/bootloader_main_gui.py:221
-#, fuzzy, python-format
+#, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "Встановлення завантажувача..."
+msgstr "_Встановити завантажувач у /dev/%s."
 
 #: iw/bootloader_main_gui.py:227
-#, fuzzy
 msgid "_Change device"
-msgstr "Змінити диск"
+msgstr "_Змінити диск"
 
 #: iw/congrats_gui.py:33
 msgid "Congratulations"
 msgstr "Вітаємо"
 
 #: iw/congrats_gui.py:74 textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "Вітаємо, встановлення %s завершено.\n"
 "\n"
-"%s%s"
 
 #: iw/congrats_gui.py:77 textw/complete_text.py:42
 msgid "Shutdown"
-msgstr ""
+msgstr "Вимикання"
 
 #: iw/congrats_gui.py:79 textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr "підключіться до %s, щоб розпочати встановлення..."
+msgstr ""
+"Щоб почати використання встановленої системи, вимкніть її.\n"
+"\n"
 
 #: iw/congrats_gui.py:81 textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr "підключіться до %s, щоб розпочати встановлення..."
+msgstr "Щоб почати використовувати встановлену систему, перезавантажтесь.\n"
 
 #: iw/congrats_gui.py:86 textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
 msgstr ""
+"Зверніть увагу, що вже можуть бути доступні оновлення, які потрібні для "
+"коректної роботи Вашої системи. Рекомендується встановити ці оновлення "
+"після перезавантаження."
 
 #: iw/congrats_gui.py:90 textw/complete_text.py:55
 #, python-format
@@ -2341,10 +2323,16 @@ msgid ""
 "available to ensure the proper functioning of your system and installation "
 "of these updates is recommended after the reboot."
 msgstr ""
+"Вітаємо, встановлення %s завершено.\n"
+"\n"
+"Перезавантажте систему, щоб почати її використовувати. Зверніть увагу, що вже можуть бути доступні оновлення, які потрібні для "
+"коректної роботи Вашої системи. Рекомендується встановити ці оновлення "
+"після перезавантаження."
+
 
 #: iw/examine_gui.py:37
 msgid "Upgrade Examine"
-msgstr "Оновлення перевіряє"
+msgstr "Перевірка можливості оновлення"
 
 #: iw/examine_gui.py:59
 #, python-format
@@ -2374,7 +2362,7 @@ msgstr ""
 
 #: iw/examine_gui.py:123
 msgid "The following installed system will be upgraded:"
-msgstr "Наступна встановлена система буде оновлена:"
+msgstr "Наступну встановлену систему буде оновлено:"
 
 #: iw/examine_gui.py:136
 msgid "Unknown Linux system"
@@ -2505,9 +2493,8 @@ msgstr "(Макс. розмір %s MB)"
 
 #: iw/lvm_dialog_gui.py:453 iw/partition_dialog_gui.py:463
 #: iw/partition_ui_helpers_gui.py:338 iw/raid_dialog_gui.py:350
-#, fuzzy
 msgid "_Encrypt"
-msgstr "Ключ шифрування"
+msgstr "_Шифрування"
 
 #: iw/lvm_dialog_gui.py:462 iw/raid_dialog_gui.py:388
 msgid "Original File System Type:"
@@ -2584,6 +2571,9 @@ msgid ""
 "only has %d MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
+"Логічним томам, які ви налаштували, потрібно %d Мбайт простору, "
+"але у групі томів доступно всього %d Мбайт. Або збільште розмір групи "
+"томів, або зменште розмір окремих логічних томів."
 
 #: iw/lvm_dialog_gui.py:769
 msgid "No free slots"
@@ -2702,9 +2692,8 @@ msgid "_Edit"
 msgstr "_Правка"
 
 #: iw/lvm_dialog_gui.py:1360
-#, fuzzy
 msgid "_Logical Volumes"
-msgstr "Логічні томи"
+msgstr "_Логічні томи"
 
 #: iw/netconfig_dialog.py:192 textw/netconfig_text.py:36
 #, python-format
@@ -2726,24 +2715,22 @@ msgid "A value is required for the field %s."
 msgstr "Необхідно вказати значення поля %s."
 
 #: iw/netconfig_dialog.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Помилка при копіюванні знімків екрану."
+msgstr "Помилка при вмиканні мережного інтерфейсу %s."
 
 #: iw/netconfig_dialog.py:214
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "Помилка при налаштовуванні мережного інтерфейсу"
+msgstr "Помилка при налаштовуванні мережі"
 
 #: iw/netconfig_dialog.py:240
-#, fuzzy
 msgid "Dynamic IP Address"
 msgstr "Динамічний IP"
 
 #: iw/netconfig_dialog.py:241
-#, fuzzy, python-format
+#, python-format
 msgid "Sending request for IP address information for %s"
-msgstr "Надсилається запит конфігурації IP для %s..."
+msgstr "Надсилається запит IP-адреси для %s"
 
 #: iw/netconfig_dialog.py:256 iw/netconfig_dialog.py:259
 #: textw/netconfig_text.py:215 textw/netconfig_text.py:218
@@ -2774,14 +2761,12 @@ msgid "Error configuring network device:"
 msgstr "Помилка при налаштовуванні мережного інтерфейсу:"
 
 #: iw/network_gui.py:66 iw/network_gui.py:72
-#, fuzzy
 msgid "Error with Hostname"
-msgstr "Помилка у даних"
+msgstr "Помилка у назву вузла"
 
 #: iw/network_gui.py:67
-#, fuzzy
 msgid "You must enter a valid hostname for this computer."
-msgstr "Ви маєте ввести назву сервера."
+msgstr "Треба вказати коректну назву вузла для цього комп'ютера."
 
 #: iw/network_gui.py:73
 #, python-format
@@ -2795,9 +2780,8 @@ msgstr ""
 "%s"
 
 #: iw/osbootwidget.py:50
-#, fuzzy
 msgid "Boot loader operating system list"
-msgstr "Пароль завантажувача занадто короткий"
+msgstr "Список операційних систем завантажувача"
 
 #: iw/osbootwidget.py:66
 msgid "Default"
@@ -2820,7 +2804,7 @@ msgid ""
 "Enter a label for the boot loader menu to display. The device (or hard drive "
 "and partition number) is the device from which it boots."
 msgstr ""
-"Введіть позначку, яка відображатиметься в меню початкового завантажувача. "
+"Введіть позначку, яку буде показано в меню початкового завантажувача. "
 "Пристрій (жорсткий диск або номер розділу) - це пристрій, з якого буде "
 "завантажуватись система."
 
@@ -2894,9 +2878,9 @@ msgid "Add Partition"
 msgstr "Додавання розділу"
 
 #: iw/partition_dialog_gui.py:328
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: %s"
-msgstr "Правка розділу: /dev/%s"
+msgstr "Правка розділу: %s"
 
 #: iw/partition_dialog_gui.py:365
 msgid "File System _Type:"
@@ -3019,22 +3003,22 @@ msgstr "Увага: %s."
 
 #: iw/partition_gui.py:1062 iw/partition_gui.py:1069
 msgid "Unable To Edit"
-msgstr "Правка неможлива"
+msgstr "Зміна неможлива"
 
 #: iw/partition_gui.py:1063
-#, fuzzy
 msgid "You must select a device to edit"
-msgstr "Необхідно вказати розділ для правки"
+msgstr "Необхідно вказати розділ для зміни"
 
 #: iw/partition_gui.py:1070
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot edit this device:\n"
 "\n"
 "%s"
 msgstr ""
-"Не вдається змінити цей розділ:\n"
+"Не вдається змінити цей пристрій:\n"
 "\n"
+"%s"
 
 #: iw/partition_gui.py:1177 iw/partition_gui.py:1189
 msgid "Not supported"
@@ -3065,7 +3049,7 @@ msgid "RAID Options"
 msgstr "Параметри RAID"
 
 #: iw/partition_gui.py:1225
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
 "device.  A RAID device can be configured to provide additional speed and "
@@ -3074,11 +3058,8 @@ msgid ""
 msgstr ""
 "Програмний RAID дозволяє об'єднувати декілька дисків у один великий пристрій "
 "RAID. Пристрій RAID може мати більшу швидкодію та надійність у порівнянні з "
-"окремим пристроєм. Додаткову інформацію про пристрої RAID дивіться у "
-"документації з %s.\n"
-"\n"
-"Зараз у вас готові до використання %s розділів RAID.\n"
-"\n"
+"окремим диском. Додаткову інформацію про пристрої RAID дивіться у "
+"документації з %s."
 
 #: iw/partition_gui.py:1235
 msgid ""
@@ -3144,19 +3125,16 @@ msgid "<Not Applicable>"
 msgstr "<Не підходить>"
 
 #: iw/partition_ui_helpers_gui.py:319
-#, fuzzy
 msgid "_Format as:"
-msgstr "Форматувати як:"
+msgstr "_Форматувати як:"
 
 #: iw/partition_ui_helpers_gui.py:341
-#, fuzzy
 msgid "Mi_grate filesystem to:"
-msgstr "Перетворення файлових систем"
+msgstr "_Перетворити файлову систему на:"
 
 #: iw/partition_ui_helpers_gui.py:371
-#, fuzzy
 msgid "_Resize"
-msgstr "_Незмінний розмір"
+msgstr "_Змінити розмір"
 
 #: iw/partition_ui_helpers_gui.py:435
 #, python-format
@@ -3189,9 +3167,9 @@ msgid "Make RAID Device"
 msgstr "Створення пристрою RAID"
 
 #: iw/raid_dialog_gui.py:334
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Правка пристрою RAID"
+msgstr "Правка пристрою RAID: %s"
 
 #: iw/raid_dialog_gui.py:336
 msgid "Edit RAID Device"
@@ -3242,7 +3220,7 @@ msgstr ""
 "Перед клонуванням, ці розділи необхідно видалити. "
 
 #: iw/raid_dialog_gui.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
 "the drive %s.\n"
@@ -3277,12 +3255,12 @@ msgid "Please select the target drives for the clone operation."
 msgstr "Вкажіть цільові пристрої для операції клонування."
 
 #: iw/raid_dialog_gui.py:627
-#, fuzzy, python-format
+#, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "Диск-джерело /dev/%s не можна вибирати у якості цільового диску."
+msgstr "Диск-джерело %s не можна вибирати у якості цільового диску."
 
 #: iw/raid_dialog_gui.py:643
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3291,7 +3269,7 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Цільовий диск /dev/%s містить розділ, який не можна видалити через наступні "
+"Цільовий диск %s містить розділ, який не можна видалити через наступні "
 "причини:\n"
 "\n"
 "\"%s\"\n"
@@ -3303,12 +3281,12 @@ msgid "Please select a source drive."
 msgstr "Вкажіть вихідний диск."
 
 #: iw/raid_dialog_gui.py:726
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Диск /dev/%s буде клонований на наступні пристрої:\n"
+"Диск %s буде клонований на наступні пристрої:\n"
 "\n"
 
 #: iw/raid_dialog_gui.py:731
@@ -3395,44 +3373,38 @@ msgid ""
 msgstr "Репозиторій \"%s\" вже доданий, вкажіть іншу назву репозиторію та URL."
 
 #: iw/task_gui.py:175
-#, fuzzy
 msgid "Edit Repository"
-msgstr "Додати репозиторій"
+msgstr "Змінити репозиторій"
 
 #: iw/task_gui.py:238
-#, fuzzy
 msgid "Invalid Proxy URL"
-msgstr "Неправильний URL сховища"
+msgstr "Неправильний URL-проксі"
 
 #: iw/task_gui.py:239
-#, fuzzy
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "Слід вказати HTTP чи FTP URL цього сховища."
+msgstr "Слід вказати HTTP, HTTPS чи FTP URL цього проксі."
 
 #: iw/task_gui.py:250 iw/task_gui.py:388
 msgid "Invalid Repository URL"
 msgstr "Неправильний URL сховища"
 
 #: iw/task_gui.py:251 iw/task_gui.py:389
-#, fuzzy
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "Слід вказати HTTP чи FTP URL цього сховища."
+msgstr "Слід вказати HTTP, HTTPS чи FTP URL цього репозиторію."
 
 #: iw/task_gui.py:273 iw/task_gui.py:398
-#, fuzzy
 msgid "No Media Found"
-msgstr "Диски не знайдено"
+msgstr "Носії не знайдено"
 
 #: iw/task_gui.py:274 iw/task_gui.py:399
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
-msgstr ""
+msgstr "Не знайдено носій встановлення. Вставте диск та повторіть спробу."
 
 #: iw/task_gui.py:293 iw/task_gui.py:415
-#, fuzzy
 msgid "Please enter an NFS server and path."
-msgstr "Введіть назву групи томів."
+msgstr "Вкажіть сервер NFS та шлях."
 
 #: iw/task_gui.py:325
 msgid "Invalid Repository Name"
@@ -3448,14 +3420,14 @@ msgstr "Додати репозиторій"
 
 #: iw/task_gui.py:455
 msgid "No Software Repos Enabled"
-msgstr ""
+msgstr "Не додано репозиторії програмного забезпечення"
 
 #: iw/task_gui.py:456
-#, fuzzy
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr "Ці помилки повинні бути виправлені перед продовженням встановлення %s."
+msgstr ""
+"Для продовження встановлення треба, щоб був активний принаймні один репозиторій."
 
 #: iw/timezone_gui.py:63 textw/timezone_text.py:96
 msgid "Time Zone Selection"
@@ -3532,7 +3504,7 @@ msgid "Migrate File Systems"
 msgstr "Перетворення файлових систем"
 
 #: iw/upgrade_migratefs_gui.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -3540,9 +3512,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Ця версія %s підтримує журнальну файлову систему ext3.  Вона має декілька "
-"переваг над файловою системою ext2, яка була традиційною у попередніх "
-"версіях %s. Є можливість перетворити розділи ext2 на ext3 без втрати даних.\n"
+"Ця версія %s підтримує оновлену файлову систему, яка має декілька "
+"переваг над файловою системою, яка була традиційною у попередніх "
+"версіях %s. Є можливість перетворити існуючі розділи без втрати даних.\n"
 "\n"
 "Які з цих розділів ви бажаєте перетворити?"
 
@@ -3627,7 +3599,7 @@ msgstr "На пристрої, який ви вибрали для розділ�
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
 msgid "Network Install Required"
-msgstr ""
+msgstr "Потрібне встановлення з мережі"
 
 #: iw/welcome_gui.py:57 textw/welcome_text.py:37
 msgid ""
@@ -3636,11 +3608,14 @@ msgid ""
 "full DVD, full CD set, or do not pass a repo= parameter that specifies a "
 "network source."
 msgstr ""
+"Джерело встановлення вказує на мережний ресурс, але у системі не виявлено "
+"жодної мережної карти. Щоб скасувати встановлення з мережі, завантажте "
+"систему з DVD, повного набору CD-дисків або не вказуйте параметр repo=, "
+"що вказує на мережний ресурс."
 
 #: iw/welcome_gui.py:67
-#, fuzzy
 msgid "E_xit Installer"
-msgstr "Перервати встановлення"
+msgstr "Пе_рервати встановлення"
 
 #: iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -3747,19 +3722,18 @@ msgstr ""
 "Натисніть %s, щоб пропустити перевірку носія та запустити встановлення."
 
 #: loader/cdinstall.c:339
-#, fuzzy
 msgid "Scanning"
-msgstr "Увага"
+msgstr "Виконується перевірка"
 
 #: loader/cdinstall.c:339
 #, c-format
 msgid "Looking for installation images on CD device %s\n"
-msgstr ""
+msgstr "Виконується пошук образів встановлення на пристрої %s\n"
 
 #: loader/cdinstall.c:341
 #, c-format
 msgid "Looking for installation images on CD device %s"
-msgstr ""
+msgstr "Виконується пошук образів встановлення на пристрої %s"
 
 #: loader/cdinstall.c:442
 #, c-format
@@ -3790,18 +3764,17 @@ msgid "Cannot find kickstart file on CDROM."
 msgstr "Не вдається знайти kickstart файл на CDROM."
 
 #: loader/copy.c:51 loader/method.c:280
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %m"
-msgstr "Не вдається прочитати каталог %s: %s"
+msgstr "Не вдається прочитати каталог %s: %m"
 
 #: loader/driverdisk.c:139
 msgid "Loading"
 msgstr "Завантаження"
 
 #: loader/driverdisk.c:139
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Зчитується диск драйверів..."
+msgstr "Зчитується диск з драйверами"
 
 #: loader/driverdisk.c:238 loader/driverdisk.c:270
 msgid "Driver Disk Source"
@@ -3961,13 +3934,12 @@ msgid "Select Device Driver to Load"
 msgstr "Виберіть драйвер пристрою"
 
 #: loader/hdinstall.c:135
-#, fuzzy
 msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"Помилка читання програми встановлення з образів ISO. Перевірте ваші образи "
-"ISO та спробуйте ще раз."
+"Не знайдено образ встановлення на жорсткому диску. Перевірте образи та спробуйте "
+"ще раз."
 
 #: loader/hdinstall.c:223
 msgid ""
@@ -3978,18 +3950,17 @@ msgstr ""
 "додаткові пристрої?"
 
 #: loader/hdinstall.c:237
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
 "for %s?  If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Вкажіть розділ та каталог на цьому розділі, які містять образи CD (iso9660) "
+"Вкажіть розділ та каталог на цьому розділі, які містять образи встановлення "
 "для %s. Якщо необхідний диск відсутній у списку, натисніть F2 для "
 "налаштовування додаткових пристроїв."
 
 #: loader/hdinstall.c:264
-#, fuzzy
 msgid "Directory holding image:"
 msgstr "Каталог, що містить образи:"
 
@@ -3998,9 +3969,9 @@ msgid "Select Partition"
 msgstr "Вибір розділу"
 
 #: loader/hdinstall.c:344
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "Пристрій %s не містить образи %s CDROM."
+msgstr "Пристрій %s не містить образи встановлення."
 
 #: loader/hdinstall.c:376
 #, c-format
@@ -4025,14 +3996,14 @@ msgid "What type of keyboard do you have?"
 msgstr "Вкажіть тип клавіатури"
 
 #: loader/kickstart.c:133
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Помилка відкривання файлу: %s: %s"
+msgstr "Помилка при відкриванні файлу kickstart: %s: %m"
 
 #: loader/kickstart.c:143
-#, fuzzy, c-format
+#, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Помилка читання вмісту kickstart файлу %s: %s"
+msgstr "Помилка при читанні вмісту файлу kickstart %s: %m"
 
 #: loader/kickstart.c:186
 #, c-format
@@ -4040,9 +4011,8 @@ msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Помилка в %s в рядку %d файлу kickstart %s."
 
 #: loader/kickstart.c:285
-#, fuzzy
 msgid "Cannot find ks.cfg on removable media."
-msgstr "Не вдається знайти ks.cfg на завантажувальній дискеті."
+msgstr "Не вдається знайти ks.cfg на зйомному носії."
 
 #: loader/kickstart.c:380
 msgid ""
@@ -4062,9 +4032,9 @@ msgid "Bad argument to shutdown kickstart method command %s: %s"
 msgstr "Неприпустимий аргумент команди kickstart для вимкнення %s: %s"
 
 #: loader/lang.c:64
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s for %s - Rescue Mode"
-msgstr "Ласкаво просимо до %s - режим відновлення"
+msgstr "Ласкаво просимо до %s для %s - режим відновлення"
 
 #: loader/lang.c:65 loader/loader.c:226
 msgid ""
@@ -4101,7 +4071,6 @@ msgstr ""
 "диску оновлень. Який пристрій використовувати?"
 
 #: loader/loader.c:479
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
@@ -4110,10 +4079,10 @@ msgstr ""
 "Який розділ використовувати?"
 
 #: loader/loader.c:497
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr ""
-"Вставте диск оновлень у /dev/%s та натисніть \"Гаразд\" для продовження."
+"Вставте диск оновлень у %s та натисніть \"Гаразд\" для продовження."
 
 #: loader/loader.c:503
 msgid "Updates Disk"
@@ -4128,23 +4097,20 @@ msgid "Updates"
 msgstr "Оновлення"
 
 #: loader/loader.c:526
-#, fuzzy
 msgid "Reading anaconda updates"
-msgstr "Зчитування оновлень anaconda..."
+msgstr "Зчитування оновлень anaconda"
 
 #: loader/loader.c:562
-#, fuzzy
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
-"Неможливо завантажити файл kickstart. Змініть параметр kickstart чи "
-"натисніть Скасувати для продовження в інтерактивному режимі."
+"Неможливо завантажити образ з оновленнями. Вкажіть інше розташування "
+"оновлень або натисніть «Скасувати» для продовження без встановлення оновлень."
 
 #: loader/loader.c:571
-#, fuzzy
 msgid "Error downloading updates image"
-msgstr "Помилка відкривання файлу kickstart"
+msgstr "Помилка при завантаженні образу оновлень"
 
 #: loader/loader.c:1200
 #, c-format
@@ -4156,9 +4122,8 @@ msgid "Media Detected"
 msgstr "Знайдено носій"
 
 #: loader/loader.c:1258
-#, fuzzy
 msgid "Found local installation media"
-msgstr "Знайдено локальний носій встановлення..."
+msgstr "Знайдено локальний носій встановлення"
 
 #: loader/loader.c:1374
 msgid "Rescue Method"
@@ -4173,7 +4138,6 @@ msgid "What type of media contains the rescue image?"
 msgstr "Який носій містить образ відновлення?"
 
 #: loader/loader.c:1379
-#, fuzzy
 msgid "What type of media contains the installation image?"
 msgstr "Який носій містить образ відновлення?"
 
@@ -4227,16 +4191,16 @@ msgid "loader has already been run.  Starting shell.\n"
 msgstr "Завантажувач вже виконується. Запускається оболонка.\n"
 
 #: loader/loader.c:2230
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
-"Запускається anaconda, режим відновлення %s - зачекайте, будь ласка...\n"
+"Запускається anaconda %s, режим відновлення %s - зачекайте, будь ласка.\n"
 
 #: loader/loader.c:2232
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
-"Запускається anaconda, програма встановлення %s - зачекайте, будь ласка...\n"
+"Запускається anaconda %s, програма встановлення %s - зачекайте, будь ласка.\n"
 
 #: loader/mediacheck.c:46
 #, c-format
@@ -4244,14 +4208,14 @@ msgid "Unable to find install image %s"
 msgstr "Не вдається знайти образ встановлення %s"
 
 #: loader/mediacheck.c:52
-#, fuzzy, c-format
+#, c-format
 msgid "Checking \"%s\"."
-msgstr "Перевіряється \"%s\"..."
+msgstr "Перевіряється \"%s\"."
 
 #: loader/mediacheck.c:54
-#, fuzzy, c-format
+#, c-format
 msgid "Checking media."
-msgstr "Перевіряється носій..."
+msgstr "Перевіряється носій."
 
 #: loader/mediacheck.c:86
 msgid ""
@@ -4274,7 +4238,7 @@ msgstr ""
 
 #: loader/mediacheck.c:101
 msgid "Success"
-msgstr ""
+msgstr "Успішно"
 
 #: loader/mediacheck.c:102
 msgid ""
@@ -4282,6 +4246,9 @@ msgid ""
 "to install from this media.  Note that not all media/drive errors can be "
 "detected by the media check."
 msgstr ""
+"Перевірку образу завершено успішно. Цей образ можна використовувати для "
+"встановлення. Проте, варто зауважити, що всі можливі помилки можуть бути "
+"виявлені цією версією."
 
 #: loader/method.c:323
 #, c-format
@@ -4304,9 +4271,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "Неправильний аргумент для команди kickstart-методу встановлення %s: %s"
 
 #: loader/modules.c:348
-#, fuzzy
 msgid "A module name must be specified for the kickstart device command."
-msgstr "Команді kickstart потрібно передати тип модуля та його назву."
+msgstr "Команді пристрою kickstart потрібно передати тип модуля та його назву."
 
 #: loader/net.c:111
 msgid "Invalid Prefix"
@@ -4416,9 +4382,8 @@ msgid "Bad bootproto %s specified in network command"
 msgstr "В мережній команді неправильно вказано bootproto %s"
 
 #: loader/net.c:1676
-#, fuzzy
 msgid "Seconds:"
-msgstr "Вторинний DNS:"
+msgstr "Секунди:"
 
 #: loader/net.c:1851
 msgid "Networking Device"
@@ -4434,40 +4399,41 @@ msgstr ""
 
 #: loader/net.c:1856
 msgid "Identify"
-msgstr ""
+msgstr "Ідентифікація"
 
 #: loader/net.c:1865
 msgid "You can identify the physical port for"
-msgstr ""
+msgstr "Можна ідентифікувати фізичний порт для "
 
 #: loader/net.c:1867
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
+"за допомогою блимання світлового індикатора протягом вказаного проміжку"
+"часу. Введіть число у діапазоні 1-30, яку визначить інтервал у секундах."
 
 #: loader/net.c:1877
 msgid "Identify NIC"
-msgstr ""
+msgstr "Визначення NIC"
 
 #: loader/net.c:1890
-#, fuzzy
 msgid "Invalid Duration"
-msgstr "Неприпустима інформація про IP"
+msgstr "Неприпустиме значення тривалості"
 
 #: loader/net.c:1891
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "Час треба вказати у діапазоні від 1 до 30 секунд."
 
 #: loader/net.c:1903
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
-msgstr ""
+msgstr "Світлові індикатори порту %s блимають протягом %d секунд."
 
 #: loader/net.c:2071 loader/net.c:2075
-#, fuzzy, c-format
+#, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
-msgstr "Очікується з'єднання telnet..."
+msgstr "Очікується налаштовування %s за допомогою NetworkManager.\n"
 
 #: loader/nfsinstall.c:68
 msgid "NFS server name:"
@@ -4481,7 +4447,7 @@ msgstr "Каталог %s:"
 #: loader/nfsinstall.c:83
 #, c-format
 msgid "Please enter the server name and path to your %s installation image."
-msgstr ""
+msgstr "Введіть ім'я сервера та шлях до образу встановлення %s."
 
 #: loader/nfsinstall.c:90
 msgid "NFS Setup"
@@ -4492,9 +4458,9 @@ msgid "That directory could not be mounted from the server."
 msgstr "Цей каталог не може бути підключений з сервера."
 
 #: loader/nfsinstall.c:260
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation image."
-msgstr "Цей каталог не містить дерево встановлення %s."
+msgstr "Цей каталог не містить образ встановлення %s."
 
 #: loader/nfsinstall.c:336
 #, c-format
@@ -4506,19 +4472,17 @@ msgid "Telnet"
 msgstr "Telnet"
 
 #: loader/telnetd.c:89
-#, fuzzy
 msgid "Waiting for telnet connection."
-msgstr "Очікується з'єднання telnet..."
+msgstr "Очікується з'єднання telnet"
 
 #: loader/telnetd.c:128
-#, fuzzy
 msgid "Running anaconda via telnet."
-msgstr "anaconda запускається по telnet..."
+msgstr "anaconda запускається через telnet"
 
 #: loader/urlinstall.c:84
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s%s."
-msgstr "Не вдається отримати %s://%s/%s/%s."
+msgstr "Не вдається отримати %s://%s%s."
 
 #: loader/urlinstall.c:176
 msgid "Unable to retrieve the install image."
@@ -4546,21 +4510,19 @@ msgstr "Отримання"
 #, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
-msgstr ""
+msgstr "Введіть URL образу встановлення %s на сервері."
 
 #: loader/urls.c:321
-#, fuzzy
 msgid "URL Setup"
-msgstr "Налаштовування NFS"
+msgstr "Налаштовування URL"
 
 #: loader/urls.c:329
-#, fuzzy
 msgid "You must enter a URL."
-msgstr "Ви маєте ввести каталог."
+msgstr "Потрібно вказати URL."
 
 #: loader/urls.c:335
 msgid "URL must be either an ftp or http URL"
-msgstr ""
+msgstr "URL-посилання має містить адресу FTP чи HTTP."
 
 #: loader/urls.c:346
 msgid "Unknown Host"
@@ -4576,42 +4538,39 @@ msgid "Loading SCSI driver"
 msgstr "Завантаження SCSI драйвера"
 
 #: loader/windows.c:66
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver"
-msgstr "Завантажується драйвер %s..."
+msgstr "Завантажується драйвер %s"
 
 #: storage/__init__.py:85
-#, fuzzy
 msgid "Unknown Device"
-msgstr "Невідомий пристрій Ethernet"
+msgstr "Невідомий пристрій"
 
 #: storage/__init__.py:86
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installation source given by device %s could not be found.  Please check "
 "your parameters and try again."
 msgstr ""
-"Помилка читання програми встановлення з образів ISO. Перевірте ваші образи "
-"ISO та спробуйте ще раз."
+"Вказане пристроєм %s джерело встановлення не знайдено. Перевірте параметри та "
+"спробуйте знову."
 
 #: storage/__init__.py:97
 msgid "Installation cannot continue."
 msgstr "Продовження встановлення неможливе."
 
 #: storage/__init__.py:98
-#, fuzzy
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"Вибрані вами параметри розподілу вже активовані. Ви не зможете повернутися "
+"Вибрану конфігурацію сховища вже активовано. Ви не зможете повернутися "
 "до екрану редагування диску. Продовжити процес встановлення?"
 
 #: storage/__init__.py:126
-#, fuzzy
 msgid "Encrypt device?"
-msgstr "Ключ шифрування"
+msgstr "Зашифрувати пристрій?"
 
 #: storage/__init__.py:127
 msgid ""
@@ -4619,36 +4578,37 @@ msgid ""
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
+"Ви увімкнули шифрування блочного пристрою, але не вказали пароль. Поверніться "
+"до попереднього етапу та вкажіть пароль, у іншому випадку шифрування буде "
+"вимкнено."
 
 #: storage/__init__.py:150
-#, fuzzy
 msgid "Writing storage configuration to disk"
-msgstr "_Перетворити розділ на:"
+msgstr "Виконується запис інформації про сховище на диск"
 
 #: storage/__init__.py:151
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
+"Обрані параметри розподілу на розділи будуть записані на диск. Всі "
+"дані у видалених та переформатованих розділах буде втрачено."
 
 #: storage/__init__.py:156
-#, fuzzy
 msgid "Go _back"
-msgstr "_Назад"
+msgstr "_Повернутися"
 
 #: storage/__init__.py:157
 msgid "_Write changes to disk"
-msgstr ""
+msgstr "_Записати зміни на диск"
 
 #: storage/__init__.py:272
-#, fuzzy
 msgid "Finding Devices"
-msgstr "Відсутній пакет"
+msgstr "Пошук пристроїв"
 
 #: storage/__init__.py:273
-#, fuzzy
 msgid "Finding storage devices"
-msgstr "Завершення процесу оновлення"
+msgstr "Пошук пристроїв збереження"
 
 #: storage/__init__.py:511
 msgid "This partition is holding the data for the hard drive install."
@@ -4659,24 +4619,22 @@ msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Неможливо видалити DASD, відформатований як LDL"
 
 #: storage/__init__.py:522
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the RAID device %s."
-msgstr "Цей розділ є частиною пристрою RAID /dev/md%s."
+msgstr "Цей пристрій є частиною пристрою RAID %s."
 
 #: storage/__init__.py:525
-#, fuzzy
 msgid "This device is part of a RAID device."
-msgstr "Цей розділ є частиною пристрою RAID."
+msgstr "Цей пристрій є частиною пристрою RAID."
 
 #: storage/__init__.py:530
-#, fuzzy, python-format
+#, python-format
 msgid "This device is part of the LVM volume group '%s'."
-msgstr "Цей розділ є частиною пристрою групи томів LVM '%s'."
+msgstr "Цей пристрій є частиною групи томів LVM '%s'."
 
 #: storage/__init__.py:533
-#, fuzzy
 msgid "This device is part of a LVM volume group."
-msgstr "Цей розділ є частиною пристрою групи томів LVM."
+msgstr "Цей пристрій є частиною групи томів LVM."
 
 #: storage/__init__.py:549
 msgid ""
@@ -4684,6 +4642,9 @@ msgid ""
 "cannot be deleted:\n"
 "\n"
 msgstr ""
+"Цей розділ є розширенням та містить логічні розділи, які "
+"неможливо видалити:\n"
+"\n"
 
 #: storage/__init__.py:817
 #, python-format
@@ -4704,12 +4665,12 @@ msgstr ""
 "встановлення %s."
 
 #: storage/__init__.py:828
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %s MB which is lower than recommended for a "
 "normal %s install."
 msgstr ""
-"Розмір розділу %s менший ніж %s мегабайтів, що менше ніж рекомендовано для "
+"Розмір розділу / менший ніж %s мегабайтів, що менше ніж рекомендовано для "
 "нормального встановлення %s."
 
 #: storage/__init__.py:838
@@ -4718,6 +4679,8 @@ msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr ""
+"Розділ / не відповідає образу, з якого здійснюється встановлення. Його "
+"треба відформатувати як %s."
 
 #: storage/__init__.py:845
 #, python-format
@@ -4744,13 +4707,12 @@ msgstr ""
 "непрацездатної системи."
 
 #: storage/__init__.py:882
-#, fuzzy
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
 msgstr ""
-"Ви не вказали розділ підкачки.  Хоча він не є обов'язковим для роботи, він "
-"може суттєво поліпшити швидкодію системи."
+"Ви не вказали розділ підкачки. З урахуванням доступної у системі пам'яті, розділ "
+"«swap» є необхідним для завершення встановлення.."
 
 #: storage/__init__.py:887
 msgid ""
@@ -4765,11 +4727,13 @@ msgstr ""
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
+"Неправильна точка монтування. Каталог %s має розташовуватись у файловій "
+"системі /."
 
 #: storage/__init__.py:898
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s must be on a linux file system."
-msgstr "Точка монтування \"%s\" вже використовується, виберіть іншу."
+msgstr "Точка монтування \"%s\" має розташовуватись у файловій системі Linux. "
 
 #: storage/__init__.py:909
 msgid "No Drives Found"
@@ -4812,7 +4776,7 @@ msgstr ""
 "%s"
 
 #: storage/__init__.py:1560
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4824,7 +4788,7 @@ msgid ""
 msgstr ""
 "Пристрій підкачки:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
 "з файлу /etc/fstab наразі використовується як розділ для призупинення роботи "
 "системи, це означає, що ваша система знаходиться у \"режим сну\". Щоб "
@@ -4832,7 +4796,7 @@ msgstr ""
 "\"режим сну\"."
 
 #: storage/__init__.py:1568
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4844,7 +4808,7 @@ msgid ""
 msgstr ""
 "Пристрій підкачки:\n"
 "\n"
-"     /dev/%s\n"
+"     %s\n"
 "\n"
 "з файлу /etc/fstab наразі використовується як розділ для призупинення "
 "системи, це означає, що ваша система знаходиться у \"режимі сну\". Якщо ви "
@@ -4852,7 +4816,7 @@ msgstr ""
 "розділів підкачки."
 
 #: storage/__init__.py:1582
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4869,7 +4833,7 @@ msgstr ""
 "Натисніть \"Гаразд\" переривання встановлення."
 
 #: storage/__init__.py:1588
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -4927,14 +4891,14 @@ msgstr ""
 "але можуть виникати проблеми."
 
 #: storage/__init__.py:1692
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
 "the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Помилка при спробі створити %s: %s. Це серйозна проблема,тому продовження "
+"Помилка при спробі підключення пристрою %s як %s: %s. Це серйозна проблема,тому продовження "
 "процесу встановлення неможливе.\n"
 "\n"
 "Натисніть <Enter> для переривання встановлення."
@@ -4942,17 +4906,16 @@ msgstr ""
 #: storage/devicelibs/lvm.py:312
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "помилка виклику vginfo для %s"
 
 #: storage/devicelibs/lvm.py:341
 #, python-format
 msgid "lvs failed for %s"
-msgstr ""
+msgstr "помилка виклику lvs для %s"
 
 #: storage/devicetree.py:91
-#, fuzzy
 msgid "Confirm"
-msgstr "Підтвердження:"
+msgstr "Підтвердження"
 
 #: storage/devicetree.py:92
 #, python-format
@@ -4962,6 +4925,9 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
+"Дійсно пропустити ввід паролю для пристрою %s?\n"
+"\n"
+"Якщо ви пропустите цей крок, зміст пристрою буде недоступний при встановленні."
 
 #: storage/devicetree.py:142
 #, python-format
@@ -4971,6 +4937,9 @@ msgid ""
 "Maybe it needs to be reinitialized.  YOU WILL LOSE ALL DATA ON THIS DRIVE IF "
 "YOU REINITIALIZE IT!%s"
 msgstr ""
+"Помилка при обробці пристрою %s %-0.fМБ (%s).\n"
+"\n"
+"Ймовірно його треба ініціалізувати.  ПРИ ІНІЦІАЛІЗАЦІЇ БУДУТЬ ВТРАЧЕНІ ВСІ ДАНІ НА НЬОМУ!%s"
 
 #: storage/devicetree.py:148
 msgid "_Ignore drive"
@@ -4988,99 +4957,96 @@ msgid ""
 "(%s) which will erase the LVM metadata, or ignore which will preserve the "
 "contents."
 msgstr ""
+"Помилка при обробці LVM.\n"
+"Дані LVM на %s не узгоджені. Ви можете повторно ініціалізувати всі "
+"відповідні фізичні томи (%s), таким чином видаляючи метадані LVM, чбо "
+"пропустити цей крок  і зберегти старий зміст."
 
 #: storage/devicetree.py:174
-#, fuzzy
 msgid "_Ignore"
-msgstr "Ігнорувати"
+msgstr "_Ігнорувати"
 
 #: storage/devicetree.py:175
-#, fuzzy
 msgid "_Re-initialize"
 msgstr "_Переініціалізувати диск"
 
 #: storage/devicetree.py:1634 storage/devicetree.py:1683
-#, fuzzy
 msgid "This partition is part of an inconsistent LVM Volume Group."
-msgstr "Цей розділ є частиною пристрою групи томів LVM."
+msgstr "Цей розділ є частиною неузгодженої групи томів LVM."
 
 #: storage/formats/fs.py:66
 msgid "attr dict must include a type"
-msgstr ""
+msgstr "словник attr має включати тип"
 
 #: storage/formats/fs.py:113
 msgid "filesystem configuration missing a type"
-msgstr ""
+msgstr "у описі файлової системи відсутнє поле тип"
 
 #: storage/formats/fs.py:343
 msgid "Formatting"
 msgstr "Форматування"
 
 #: storage/formats/fs.py:344
-#, fuzzy, python-format
+#, python-format
 msgid "Creating filesystem on %s"
-msgstr "Пошук дефектних блоків на /dev/%s..."
+msgstr "Створення файлової системи на %s"
 
 #: storage/formats/fs.py:440
-#, fuzzy
 msgid "Resizing"
-msgstr "Отримання"
+msgstr "Зміна розміру"
 
 #: storage/formats/fs.py:441
-#, fuzzy, python-format
+#, python-format
 msgid "Resizing filesystem on %s"
-msgstr "Форматування файлової системи %s..."
+msgstr "Зміна розміру файлової системи на %s"
 
 #: storage/formats/fs.py:484
-#, fuzzy
 msgid "Checking"
-msgstr "Перевіряється \"%s\"..."
+msgstr "Перевірка"
 
 #: storage/formats/fs.py:485
-#, fuzzy, python-format
+#, python-format
 msgid "Checking filesystem on %s"
-msgstr "Пошук дефектних блоків на /dev/%s..."
+msgstr "Перевірка файлової системи на %s"
 
 #: storage/iscsi.py:82 storage/iscsi.py:83
-#, fuzzy
 msgid "Scanning iSCSI nodes"
-msgstr "Завантаження SCSI драйвера"
+msgstr "Сканування вузлів SCSI"
 
 #: storage/iscsi.py:160 storage/iscsi.py:161
 msgid "Initializing iSCSI initiator"
 msgstr "Ініціалізується ініціатор iSCSI"
 
 #: storage/iscsi.py:197
-#, fuzzy
 msgid "iSCSI not available"
-msgstr "Довідка недоступна"
+msgstr "iSCSI не доступний"
 
 #: storage/iscsi.py:199
-#, fuzzy
 msgid "No initiator name set"
-msgstr "Назва ініціатора iSCSI"
+msgstr "Не вказано назву ініціатора iSCSI"
 
 #: storage/iscsi.py:213
 msgid "No iSCSI nodes discovered"
-msgstr ""
+msgstr "Не виявлено вузлів iSCSI"
 
 #: storage/iscsi.py:216 storage/iscsi.py:217
 msgid "Logging in to iSCSI nodes"
-msgstr ""
+msgstr "Реєстрація на вузлі iSCSI"
 
 #: storage/iscsi.py:239
 msgid "No new iSCSI nodes discovered"
-msgstr ""
+msgstr "Не виявлено нових вузлів iSCSI"
 
 #: storage/iscsi.py:242
 msgid "Could not log in to any of the discovered nodes"
-msgstr ""
+msgstr "Не вдається зареєструватися на жодному з виявлених вузлів"
 
 #: storage/partitioning.py:181
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
+"Недостатньо вільного місця для автоматичного розподілу. Виберіть інший спосіб розподілу диску."
 
 #: storage/partitioning.py:205
 msgid "Warnings During Automatic Partitioning"
@@ -5186,9 +5152,9 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Вкажіть модель клавіатури, підключеної до цього комп'ютера"
 
 #: textw/netconfig_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s"
-msgstr "Необхідно вказати значення поля %s."
+msgstr "Необхідно вказати значення поля %s"
 
 #: textw/netconfig_text.py:86 ui/netconfig.glade:8
 msgid "Enable network interface"
@@ -5203,53 +5169,45 @@ msgstr ""
 "Налаштуйте мережний інтерфейс."
 
 #: textw/netconfig_text.py:128
-#, fuzzy
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "_Динамічне налаштовування IP (DHCP)"
+msgstr "Динамічне налаштовування IP (DHCP)"
 
 #: textw/netconfig_text.py:138
-#, fuzzy
 msgid "IPv4 Address:"
 msgstr "Адреса IPv4:"
 
 #: textw/netconfig_text.py:161
-#, fuzzy
 msgid "Nameserver:"
-msgstr "DNS сервер"
+msgstr "DNS сервер:"
 
 #: textw/netconfig_text.py:191
-#, fuzzy
 msgid "Missing Device"
-msgstr "Відсутній пакет"
+msgstr "Відсутній пристрій"
 
 #: textw/netconfig_text.py:192
-#, fuzzy
 msgid "You must select a network device"
-msgstr "Необхідно вказати розділ для правки"
+msgstr "Необхідно вказати мережний пристрій"
 
 #: textw/netconfig_text.py:243
-#, fuzzy
 msgid "IPv4 Network Mask "
 msgstr "Маска мережі IPv4"
 
 #: textw/netconfig_text.py:266
-#, fuzzy
 msgid "Configuring Network Interfaces"
-msgstr "Налаштувати мережний інтерфейс"
+msgstr "Налаштовування мережних інтерфейсів"
 
 #: textw/netconfig_text.py:266
-#, fuzzy
 msgid "Waiting for NetworkManager"
-msgstr "Очікується з'єднання telnet..."
+msgstr "Очікується NetworkManager"
 
 #: textw/netconfig_text.py:272
 msgid "Error configuring network device"
 msgstr "Помилка при налаштовуванні мережного інтерфейсу"
 
 #: textw/netconfig_text.py:272
-#, fuzzy, python-format
+#, python-format
 msgid "Error configuring network device %s"
-msgstr "Помилка при налаштовуванні мережного інтерфейсу:"
+msgstr "Помилка при налаштовуванні мережного інтерфейсу %s"
 
 #: textw/partition_text.py:58
 msgid "Partitioning Type"
@@ -5257,14 +5215,13 @@ msgstr "Тип розподілу"
 
 #
 #: textw/partition_text.py:60
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
 "use as the install target."
 msgstr ""
 "Для встановлення потрібні розділи на жорсткому диску. Типовий розподіл є "
-"оптимальним для більшості користувачів. Проте, ви можете створити розділи "
+"оптимальним для більшості користувачів. Вкажіть, простір на яких дисках використовувати для встановлення."
 "вручну."
 
 #: textw/partition_text.py:80
@@ -5299,25 +5256,23 @@ msgstr ""
 "пристрою, 64-бітний World Wide Port Number (WWPN) та 64-бітний FCP LUN."
 
 #: textw/partition_text.py:223
-#, fuzzy
 msgid "Add FCoE SAN"
-msgstr "Додати _ZFCP LUN"
+msgstr "Додати FCoE SAN"
 
 #: textw/partition_text.py:224
 msgid ""
 "Enter the device name for the NIC which is connected to the FCoE SAN. For "
 "example \"eth0\"."
-msgstr ""
+msgstr "Вкажіть назву мережного адаптера, який приєднаний до FCoE SAN. Приклад: eth0."
 
 #: textw/partition_text.py:225
-#, fuzzy
 msgid "NIC device name"
-msgstr "Драйвери не знайдено"
+msgstr "Назва мережного пристрою"
 
 #: textw/partition_text.py:232
-#, fuzzy, python-format
+#, python-format
 msgid "%s is not a valid NIC device name."
-msgstr "%s не є припустимою назвою сервера."
+msgstr "%s не є припустимою назвою мережного адаптера."
 
 #: textw/partition_text.py:248 ui/iscsi-config.glade:7
 msgid "Configure iSCSI Parameters"
@@ -5340,22 +5295,20 @@ msgid "iSCSI Initiator Name"
 msgstr "Назва ініціатора iSCSI"
 
 #: textw/partition_text.py:252
-#, fuzzy
 msgid "CHAP username"
-msgstr "Назва сервера FTP:"
+msgstr "Ім'я користувача CHAP"
 
 #: textw/partition_text.py:253
-#, fuzzy
 msgid "CHAP password"
-msgstr "Пароль"
+msgstr "Пароль CHAP"
 
 #: textw/partition_text.py:254
 msgid "Reverse CHAP username"
-msgstr ""
+msgstr "Зворотне ім'я користувача CHAP"
 
 #: textw/partition_text.py:255
 msgid "Reverse CHAP password"
-msgstr ""
+msgstr "Зворотний пароль CHAP"
 
 #: textw/progress_text.py:46
 msgid "Package Installation"
@@ -5382,7 +5335,7 @@ msgid "Create new boot loader configuration"
 msgstr "Створити нову конфігурацію завантажувача"
 
 #: textw/upgrade_text.py:38
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %s supports the an updated file system, which has several "
 "benefits over the file system traditionally shipped in %s.  This "
@@ -5390,9 +5343,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Ця версія %s підтримує журнальну файлову систему ext3.  Вона має декілька "
-"переваг над файловою системою ext2, яка була традиційною у попередніх "
-"версіях %s. Є можливість перетворити розділи ext2 на ext3 без втрати даних.\n"
+"Ця версія %s підтримує журнальну файлову систему, яка має декілька "
+"переваг над файловою системою, яка була традиційною у попередніх "
+"версіях %s. Є можливість перетворити розділи існуючі розділи без втрати даних.\n"
 "\n"
 "Які з цих розділів ви бажаєте перетворити?"
 
@@ -5445,26 +5398,27 @@ msgid "Root Password"
 msgstr "Пароль користувача root"
 
 #: textw/userauth_text.py:33
-#, fuzzy
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
 msgstr ""
 "Оберіть пароль користувача root. Ви маєте ввести його двічі, щоб виключити "
-"помилку при вводі. Пам'ятайте, що пароль користувача root - критичний для "
-"безпеки системи!"
+"помилку при вводі."
 
 #: textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
 msgstr "Пароль користувача root має складатися принаймні з 6 символів."
 
 #: textw/userauth_text.py:84
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have provided a weak password: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "Продовжити оновлення?"
+msgstr ""
+"Вказано слабкий пароль: %s\n"
+"\n"
+"Продовжити роботу з цим паролем?"
 
 #: textw/welcome_text.py:29
 #, python-format
@@ -5500,16 +5454,15 @@ msgstr "Рядок Chandev"
 
 #: ui/GroupSelector.glade:8
 msgid "window1"
-msgstr ""
+msgstr "window1"
 
 #: ui/GroupSelector.glade:203
-#, fuzzy
 msgid "_Optional packages"
-msgstr "Додаткових пакетів немає"
+msgstr "_Додаткові пакети"
 
 #: ui/GroupSelector.glade:233
 msgid "dialog1"
-msgstr ""
+msgstr "dialog1"
 
 #: ui/GroupSelector.glade:293
 msgid ""
@@ -5517,26 +5470,25 @@ msgid ""
 "but may provide additional functionality.  Please choose the packages which "
 "you would like to have installed."
 msgstr ""
+"Встановлення усіх пакетів, що пов'язані з цією групою, не є обов'язковим. "
+"Проте, вони можуть забезпечити додаткову функціональність. Виберіть "
+"пакети, які хочете встановити."
 
 #: ui/GroupSelector.glade:360
-#, fuzzy
 msgid "_Select"
-msgstr "В_идалити"
+msgstr "Виді_лити"
 
 #: ui/GroupSelector.glade:369
-#, fuzzy
 msgid "_Select all optional packages"
-msgstr "Додаткових пакетів немає"
+msgstr "Виді_лити всі додаткові пакети"
 
 #: ui/GroupSelector.glade:378
-#, fuzzy
 msgid "_Deselect"
-msgstr "В_идалити"
+msgstr "_Скасувати вибір"
 
 #: ui/GroupSelector.glade:387
-#, fuzzy
 msgid "_Deselect all optional packages"
-msgstr "Встановлення пакетів"
+msgstr "_Скасувати вибір усіх додаткових пакетів"
 
 #: ui/account.glade:78
 msgid ""
@@ -5547,9 +5499,8 @@ msgstr ""
 "системи. Введіть пароль користувача root."
 
 #: ui/account.glade:134
-#, fuzzy
 msgid "Root Password:"
-msgstr "Пароль користувача root"
+msgstr "Пароль root:"
 
 #: ui/account.glade:162
 msgid "Confirm:"
@@ -5568,30 +5519,25 @@ msgid "Add _ZFCP LUN"
 msgstr "Додати _ZFCP LUN"
 
 #: ui/adddrive.glade:207
-#, fuzzy
 msgid "Add _FCoE SAN"
-msgstr "Додати _ZFCP LUN"
+msgstr "Додати _FCoE SAN"
 
 #: ui/adddrive.glade:228
 msgid "Disable _dmraid device"
 msgstr "_Вимкнути пристрій dmraid"
 
 #: ui/addrepo.glade:82
-#, fuzzy
 msgid ""
 "Please provide the configuration information for this software repository."
-msgstr ""
-"Вкажіть адресу, звідки можна виконати встановлення додаткового програмного "
-"забезпечення. Має бути коректним репозиторієм для %s."
+msgstr "Вкажіть параметри для цього репозиторію з програмами."
 
 #: ui/addrepo.glade:116
 msgid "<b>Repository _name:</b>"
 msgstr "<b>_Назва репозиторію:</b>"
 
 #: ui/addrepo.glade:166
-#, fuzzy
 msgid "<b>Repository _type:</b>"
-msgstr "<b>_Назва репозиторію:</b>"
+msgstr "<b>_Тип репозиторію:</b>"
 
 #: ui/addrepo.glade:194
 msgid ""
@@ -5600,64 +5546,58 @@ msgid ""
 "NFS\n"
 "Hard Drive"
 msgstr ""
+"HTTP/FTP\n"
+"CD/DVD\n"
+"NFS\n"
+"Жорсткий диск"
 
 #: ui/addrepo.glade:243
-#, fuzzy
 msgid "Repository _URL"
-msgstr "<b>_URL сховища:</b>"
+msgstr "_URL репозиторію"
 
 #: ui/addrepo.glade:296
 msgid "URL is a _mirror list"
-msgstr ""
+msgstr "URL містить список _дзеркал"
 
 #: ui/addrepo.glade:316
-#, fuzzy
 msgid "Configure _proxy"
-msgstr "Налаштовування TCP/IP"
+msgstr "Налаштовування _проксі"
 
 #: ui/addrepo.glade:344
-#, fuzzy
 msgid "Proxy U_RL (host:port)"
-msgstr "Неправильний URL сховища"
+msgstr "_Адреса проксі (вузол:порт)"
 
 #: ui/addrepo.glade:373
-#, fuzzy
 msgid "Proxy u_sername"
-msgstr "Назва сервера FTP:"
+msgstr "_Назва сервера проксі"
 
 #: ui/addrepo.glade:402
-#, fuzzy
 msgid "Proxy pass_word"
-msgstr "Без паролю"
+msgstr "_Пароль проксі"
 
 #: ui/addrepo.glade:640
-#, fuzzy
 msgid "_Server"
-msgstr "Сервер назв:"
+msgstr "_Сервер"
 
 #: ui/addrepo.glade:669
 msgid "_Path"
-msgstr ""
+msgstr "_Шлях"
 
 #: ui/addrepo.glade:698
-#, fuzzy
 msgid "_Options"
-msgstr "Параметри RAID"
+msgstr "_Параметри"
 
 #: ui/addrepo.glade:855
-#, fuzzy
 msgid "_Partition"
-msgstr "Розділ"
+msgstr "_Розділ"
 
 #: ui/addrepo.glade:883
-#, fuzzy
 msgid "_Directory"
-msgstr "Каталог NFS"
+msgstr "_Каталог"
 
 #: ui/addrepo.glade:926
-#, fuzzy
 msgid "Select A Directory"
-msgstr "Виберіть драйвер"
+msgstr "Виберіть каталог"
 
 #: ui/anaconda.glade:253
 msgid "_Next"
@@ -5669,7 +5609,6 @@ msgstr "_Перезавантаження"
 
 #
 #: ui/autopart.glade:33
-#, fuzzy
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
@@ -5677,13 +5616,12 @@ msgid ""
 "layout."
 msgstr ""
 "Для встановлення потрібні розділи на жорсткому диску. Типовий розподіл є "
-"оптимальним для більшості користувачів. Проте, ви можете створити розділи "
+"оптимальним для більшості користувачів. Вкажіть, який простір на дисках використовувати для встановлення. Ви, також, можете створити розділи "
 "вручну."
 
 #: ui/autopart.glade:86
-#, fuzzy
 msgid "_Encrypt system"
-msgstr "Ключ шифрування"
+msgstr "За_шифрувати систему"
 
 #: ui/autopart.glade:103
 msgid "_Select the drive(s) to use for this installation."
@@ -5694,9 +5632,8 @@ msgid "_Advanced storage configuration"
 msgstr "_Додаткові параметри накопичувачів"
 
 #: ui/autopart.glade:271
-#, fuzzy
 msgid "What drive would you like to _boot this installation from?"
-msgstr "З якого диску ви хочете запустити встановлення?"
+msgstr "З якого _диску запустити встановлення?"
 
 #: ui/autopart.glade:323
 msgid "Re_view and modify partitioning layout"
@@ -5704,72 +5641,65 @@ msgstr "_Перегляд та зміна розподілу розділів"
 
 #: ui/autopart.glade:344
 msgid "Volume to Shrink"
-msgstr ""
+msgstr "Зменшити том"
 
 #: ui/autopart.glade:430
 msgid "_Shrink"
-msgstr ""
+msgstr "З_меншити"
 
 #: ui/autopart.glade:475
-#, fuzzy
 msgid ""
 "Which partition would you like to shrink to make room for your installation?"
 msgstr ""
-"На якому розділі міститься коренева файлова система вашого встановлення?"
+"Вкажіть розділ, розмір якого хочете зменшити, щоб звільнити місце для встановлення."
 
 #: ui/autopart.glade:520
-#, fuzzy
 msgid "<b>Shrink _target (in MB):</b>"
-msgstr "<b>_Назва репозиторію:</b>"
+msgstr "<b>Зменшити _ціль (в Мбайт):</b>"
 
 #: ui/blwhere.glade:8
-#, fuzzy
 msgid "Boot loader device"
 msgstr "Завантажувач"
 
 #: ui/blwhere.glade:77
-#, fuzzy
 msgid "Where would you like to install the boot loader for your system?"
 msgstr "Куди ви бажаєте встановити завантажувач?"
 
 #: ui/blwhere.glade:102
 msgid "MBR"
-msgstr ""
+msgstr "MBR"
 
 #: ui/blwhere.glade:120
-#, fuzzy
 msgid "/boot"
-msgstr "Перезавантаження"
+msgstr "/boot"
 
 #: ui/blwhere.glade:167
 msgid "First BIOS drive:"
-msgstr ""
+msgstr "Перший пристрій BIOS:"
 
 #: ui/blwhere.glade:194
 msgid "Second BIOS drive:"
-msgstr ""
+msgstr "Другий пристрій BIOS:"
 
 #: ui/blwhere.glade:221
 msgid "Third BIOS drive:"
-msgstr ""
+msgstr "Третій пристрій BIOS:"
 
 #: ui/blwhere.glade:248
 msgid "Fourth BIOS drive:"
-msgstr ""
+msgstr "Четвертий пристрій BIOS:"
 
 #: ui/blwhere.glade:341
-#, fuzzy
 msgid "BIOS Drive Order"
-msgstr "Зміна порядку дисків"
+msgstr "Порядок дисків BIOS"
 
 #: ui/detailed-dialog.glade:63
-#, fuzzy
 msgid "Info"
-msgstr "Ігнорувати"
+msgstr "Інфо"
 
 #: ui/detailed-dialog.glade:133
 msgid "_Details"
-msgstr ""
+msgstr "_Подробиці"
 
 #: ui/instkey.glade:58
 msgid "Please enter your %(instkey)s."
@@ -5792,54 +5722,51 @@ msgid "<b>iSCSI Initiator _Name:</b>"
 msgstr "<b>_Назва ініціатора iSCSI:</b>"
 
 #: ui/iscsi-config.glade:278
-#, fuzzy
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>_Ім'я користувача:</b>"
+msgstr "<b>_Ім'я користувача CHAP:</b>"
 
 #: ui/iscsi-config.glade:330
-#, fuzzy
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>_Пароль:</b>"
+msgstr "<b>_Пароль CHAP:</b>"
 
 #: ui/iscsi-config.glade:382
-#, fuzzy
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>_Ім'я користувача:</b>"
+msgstr "<b>Зворотне і_м'я користувача CHAP:</b>"
 
 #: ui/iscsi-config.glade:434
-#, fuzzy
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>_Пароль:</b>"
+msgstr "<b>Зворотний па_роль CHAP:</b>"
 
 #: ui/lukspassphrase.glade:8
 msgid "Enter passphrase for encrypted partition"
-msgstr ""
+msgstr "Введіть пароль для зашифрованого розділу"
 
 #: ui/lukspassphrase.glade:100
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
+"Вкажіть пароль для зашифрованого розділу. Пароль буде запитуватись щоразу при завантаженні системи."
 
 #: ui/lukspassphrase.glade:141
 msgid "Enter passphrase:"
-msgstr ""
+msgstr "Введіть пароль:"
 
 #: ui/lukspassphrase.glade:169
-#, fuzzy
 msgid "Confirm passphrase:"
-msgstr "Підтвердження відновлення"
+msgstr "Підтвердить пароль:"
 
 #: ui/lukspassphrase.glade:248
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
+"Використовуйте цей пароль для всіх зашифрованих пристроїв, щоб полегшити "
+"процес завантаження"
 
 #: ui/lukspassphrase.glade:368
-#, fuzzy
 msgid "label1"
-msgstr "Позначка"
+msgstr "label1"
 
 #: ui/netconfig.glade:109
 msgid "<b>_Interface:</b>"
@@ -5878,11 +5805,12 @@ msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
 msgstr ""
+"Вкажіть для цього комп'ютера назву вузла, яка буде використовуватись для його "
+"ідентіфикації у мережі."
 
 #: ui/network.glade:134
-#, fuzzy
 msgid "Hostname:"
-msgstr "Назва комп'ютера"
+msgstr "Назва вузла:"
 
 #: ui/tasksel.glade:35
 msgid ""
@@ -5922,9 +5850,8 @@ msgid "_Add additional software repositories"
 msgstr "_Додати додаткові репозиторії"
 
 #: ui/tasksel.glade:378
-#, fuzzy
 msgid "_Modify repository"
-msgstr "_Додати репозиторій"
+msgstr "_Змінити репозиторій"
 
 #: ui/zfcp-config.glade:7
 msgid "Add FCP device"
@@ -5942,437 +5869,3 @@ msgstr "<b>WWPN:</b>"
 msgid "<b>FCP LUN:</b>"
 msgstr "<b>FCP LUN:</b>"
 
-#, fuzzy
-#~ msgid "Fatal Error"
-#~ msgstr "Помилка"
-
-#, fuzzy
-#~ msgid ""
-#~ "You do not have enough RAM to install %s on this machine.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr "Недостатньо оперативної пам'яті для встановлення %s на цій машині."
-
-#, fuzzy
-#~ msgid "Unable To File Bug"
-#~ msgstr "Не вдається видалити"
-
-#, fuzzy
-#~ msgid "Bug Filing Not Supported"
-#~ msgstr "Не підтримується"
-
-#, fuzzy
-#~ msgid "Invalid Bug Information"
-#~ msgstr "Неприпустима інформація про IP"
-
-#, fuzzy
-#~ msgid "Unable To Login"
-#~ msgstr "Правка неможлива"
-
-#, fuzzy
-#~ msgid "Bug Updated"
-#~ msgstr "Оновлення"
-
-#~ msgid "Dump Written"
-#~ msgstr "Дамп записано"
-
-#, fuzzy
-#~ msgid ""
-#~ "Your system's state has been successfully written to the disk. The "
-#~ "installer will now exit."
-#~ msgstr ""
-#~ "Стан вашої системи було успішно записано на дискету. Систему буде "
-#~ "перезавантажено."
-
-#~ msgid "Dump Not Written"
-#~ msgstr "Дамп не записано"
-
-#~ msgid ""
-#~ "Your system's state has been successfully written to the remote host.  "
-#~ "The installer will now exit."
-#~ msgstr ""
-#~ "Стан вашої системи успішно збережено на віддалений вузол. Систему буде "
-#~ "перезавантажено."
-
-#~ msgid "There was a problem writing the system state to the remote host."
-#~ msgstr "Помилка при записі стану системи на віддалений вузол."
-
-#~ msgid "Debug"
-#~ msgstr "Налагодження"
-
-#~ msgid "Exception Occurred"
-#~ msgstr "Виникла виключна ситуація"
-
-#~ msgid "Running..."
-#~ msgstr "Виконання..."
-
-#~ msgid "Doing post-installation"
-#~ msgstr "Завершення встановлення"
-
-#~ msgid "None"
-#~ msgstr "Немає"
-
-#~ msgid ""
-#~ "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-#~ "DASDs are not supported for usage during an install of %s.  If you wish "
-#~ "to use this disk for installation, it must be re-initialized causing the "
-#~ "loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to reformat this DASD using CDL format?"
-#~ msgstr ""
-#~ "Пристрій %s форматований як LDL а не як CDL. DASD форматовані як LDL не "
-#~ "підтримуються програмою встановлення %s. Якщо ви бажаєте використовувати "
-#~ "цей диск для встановлення, необхідно пере-ініціалізувати його, що "
-#~ "призведе до втрати ВСІХ ДАНИХ на цьому пристрої.\n"
-#~ "\n"
-#~ "Переформатувати DASD використовуючи CDL формат?"
-
-#~ msgid ""
-#~ "/dev/%s currently has a %s partition layout.  To use this drive for the "
-#~ "installation of %s, it must be re-initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to re-initialize this drive?"
-#~ msgstr ""
-#~ "Пристрій /dev/%s вже має таблицю розділів типу %s. Щоб використати цей "
-#~ "пристрій для встановлення %s, його потрібно повторно ініціалізувати, що "
-#~ "призведе до втрати ВСІХ ДАНИХ на цьому пристрої.\n"
-#~ "\n"
-#~ "Ініціалізувати цей пристрій?"
-
-#~ msgid "Initializing"
-#~ msgstr "Ініціалізація"
-
-#~ msgid "Please wait while formatting drive %s...\n"
-#~ msgstr "Будь ласка, зачекайте поки триває форматування пристрою %s...\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-#~ "\n"
-#~ "To create new partitions it must be initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "Таблицю розділів на пристрої %s (%s) неможливо прочитати. Для створення "
-#~ "нових розділів пристрій треба ініціалізувати, що призведе до втрати ВСІХ "
-#~ "ДАНИХ на цьому пристрої.\n"
-#~ "\n"
-#~ "Ця операція відмінить зроблений раніше вибір ігнорованих дисків.\n"
-#~ "\n"
-#~ "Ви дійсно хочете ініціалізувати цей пристрій з видаленням УСІХ ДАНИХ?"
-
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem "
-#~ "in the Linux kernel does not allow for more than 15 partitons at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "Пристрій /dev/%s містить більше ніж 15 розділів.  Підсистема SCSI ядра "
-#~ "Linux наразі не дозволяє працювати більш ніж з 15 розділами.  Ви не "
-#~ "зможете змінити конфігурацію цього диску та не зможете працювати з "
-#~ "розділами вище /dev/%s15 на %s"
-
-#~ msgid "Save"
-#~ msgstr "Зберегти"
-
-#, fuzzy
-#~ msgid "Save to local disk"
-#~ msgstr "З_берегти на дискету"
-
-#~ msgid "Password"
-#~ msgstr "Пароль"
-
-#, fuzzy
-#~ msgid "Destination file"
-#~ msgstr "Помилка підключення"
-
-#, fuzzy
-#~ msgid "The passphrase must be at least %d characters long."
-#~ msgstr "Пароль має складатися принаймні з 6 символів."
-
-#, fuzzy
-#~ msgid ""
-#~ "Would you like to upgrade  the installed system to the %s architecture?"
-#~ msgstr "Як ви бажаєте підготувати файлову систему на цьому розділі?"
-
-#, fuzzy
-#~ msgid "Giving up attempting to connect after %d tries!\n"
-#~ msgstr "Припинено намагання з'єднатись після 50 невдалих спроб!\n"
-
-#~ msgid "%s Byte"
-#~ msgstr "%s байт"
-
-#~ msgid "%s Bytes"
-#~ msgstr "%s байт"
-
-#~ msgid "Processing"
-#~ msgstr "Обробка"
-
-#~ msgid "%s of %s packages completed"
-#~ msgstr "%s з %s пакетів завершені"
-
-#~ msgid "Starting install process.  This may take several minutes..."
-#~ msgstr ""
-#~ "Запускається процес встановлення. Це може зайняти декілька хвилин..."
-
-#~ msgid "You cannot create more than %s logical volumes per volume group."
-#~ msgstr "Ви не можете створювати більше ніж %s логічних томів у групі томів."
-
-#~ msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-#~ msgstr "Пристрій %s (Геом: %s/%s/%s) (Модель: %s)"
-
-#~ msgid ""
-#~ "To install the full set of supported packages included in your "
-#~ "subscription, please enter your Installation Number"
-#~ msgstr ""
-#~ "Щоб встановити повний набір пакетів вашої передплати, введіть Номер "
-#~ "встановлення"
-
-#~ msgid ""
-#~ "If you're unable to locate the Installation Number, consult http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "If you skip:\n"
-#~ "* You may not get access to the full set of packages included in your "
-#~ "subscription.\n"
-#~ "* It may result in an unsupported/uncertified installation of Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* You will not get software and security updates for packages not "
-#~ "included in your subscription."
-#~ msgstr ""
-#~ "Якщо ви не можете найти Номер встановлення, проконсультуйтесь з http://"
-#~ "www.redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "Якщо пропустити цей крок:\n"
-#~ "* Ви не зможете отримати доступ до повного набору пакетів вашої "
-#~ "передплати.\n"
-#~ "* Встановлення Red Hat Enterprise Linux буде не підтримуваним/не "
-#~ "сертифікованим.\n"
-#~ "* Ви не отримаєте оновлень пакетів, не включених у вашу передплату."
-
-#, fuzzy
-#~ msgid "boot flag not available for this partition"
-#~ msgstr ""
-#~ "Не вдається видалити цей розділ:\n"
-#~ "\n"
-
-#, fuzzy
-#~ msgid "_Ignore drive(s)"
-#~ msgstr "_Ігнорувати пристрій"
-
-#, fuzzy
-#~ msgid "_Re-initialize drive(s)"
-#~ msgstr "_Переініціалізувати диск"
-
-#~ msgid "Your system will now be rebooted."
-#~ msgstr "Вашу систему зараз буде перезавантажено."
-
-#, fuzzy
-#~ msgid "Select A File"
-#~ msgstr "Виберіть драйвер"
-
-#, fuzzy
-#~ msgid "_Password"
-#~ msgstr "_Пароль:"
-
-#, fuzzy
-#~ msgid "_User name"
-#~ msgstr "Назва ідентифікатора"
-
-#~ msgid "Install"
-#~ msgstr "Встановити"
-
-#~ msgid "Install the live CD to your hard disk"
-#~ msgstr "Встановити з Live CD на жорсткий диск"
-
-#~ msgid "Install to Hard Drive"
-#~ msgstr "Встановити на жорсткий диск"
-
-#~ msgid "Afrikaans"
-#~ msgstr "Африканс"
-
-#~ msgid "Arabic"
-#~ msgstr "Арабська"
-
-#~ msgid "Assamese"
-#~ msgstr "Ассамська"
-
-#~ msgid "Bengali"
-#~ msgstr "Бенгальська"
-
-#~ msgid "Bengali(India)"
-#~ msgstr "Бенгальська(Індія)"
-
-#~ msgid "Bulgarian"
-#~ msgstr "Болгарська"
-
-#~ msgid "Catalan"
-#~ msgstr "Каталонська"
-
-#~ msgid "Chinese(Simplified)"
-#~ msgstr "Китайська(Спрощена)"
-
-#~ msgid "Chinese(Traditional)"
-#~ msgstr "Китайська(традиційна)"
-
-#~ msgid "Croatian"
-#~ msgstr "Хорватська"
-
-#~ msgid "Czech"
-#~ msgstr "Чеська"
-
-#~ msgid "Danish"
-#~ msgstr "Датська"
-
-#~ msgid "Dutch"
-#~ msgstr "Голландська"
-
-#~ msgid "English"
-#~ msgstr "Англійська"
-
-#~ msgid "Estonian"
-#~ msgstr "Естонська"
-
-#~ msgid "Finnish"
-#~ msgstr "Фінська"
-
-#~ msgid "French"
-#~ msgstr "Французька"
-
-#~ msgid "German"
-#~ msgstr "Німецька"
-
-#~ msgid "Greek"
-#~ msgstr "Грецька"
-
-#~ msgid "Gujarati"
-#~ msgstr "Гуяраті"
-
-#~ msgid "Hindi"
-#~ msgstr "Хінді"
-
-#~ msgid "Hungarian"
-#~ msgstr "Угорська"
-
-#~ msgid "Icelandic"
-#~ msgstr "Ісландська"
-
-#~ msgid "Iloko"
-#~ msgstr "Ілокійська"
-
-#~ msgid "Indonesian"
-#~ msgstr "Індонезійська"
-
-#~ msgid "Italian"
-#~ msgstr "Італійська"
-
-#~ msgid "Japanese"
-#~ msgstr "Японська"
-
-#~ msgid "Kannada"
-#~ msgstr "Каннада"
-
-#~ msgid "Korean"
-#~ msgstr "Корейська"
-
-#~ msgid "Macedonian"
-#~ msgstr "Македонська"
-
-#, fuzzy
-#~ msgid "Maithili"
-#~ msgstr "Мараті"
-
-#~ msgid "Malay"
-#~ msgstr "Малайська"
-
-#~ msgid "Malayalam"
-#~ msgstr "Малаялам"
-
-#~ msgid "Marathi"
-#~ msgstr "Мараті"
-
-#, fuzzy
-#~ msgid "Nepali"
-#~ msgstr "Бенгальська"
-
-#, fuzzy
-#~ msgid "Norwegian(Bokmål)"
-#~ msgstr "Норвезька"
-
-#~ msgid "Northern Sotho"
-#~ msgstr "Північний Сото"
-
-#~ msgid "Oriya"
-#~ msgstr "Орія"
-
-#~ msgid "Persian"
-#~ msgstr "Персидська"
-
-#~ msgid "Polish"
-#~ msgstr "Польська"
-
-#~ msgid "Portuguese"
-#~ msgstr "Португальська"
-
-#~ msgid "Portuguese(Brazilian)"
-#~ msgstr "Португальська(Бразильська)"
-
-#~ msgid "Punjabi"
-#~ msgstr "Панджабська"
-
-#~ msgid "Romanian"
-#~ msgstr "Румунська"
-
-#~ msgid "Russian"
-#~ msgstr "Російська"
-
-#~ msgid "Serbian"
-#~ msgstr "Сербська"
-
-#~ msgid "Serbian(Latin)"
-#~ msgstr "Сербська(Латина)"
-
-#~ msgid "Sinhala"
-#~ msgstr "Сенегальська"
-
-#~ msgid "Slovak"
-#~ msgstr "Словацька"
-
-#~ msgid "Slovenian"
-#~ msgstr "Словенська"
-
-#~ msgid "Spanish"
-#~ msgstr "Іспанська"
-
-#~ msgid "Swedish"
-#~ msgstr "Шведська"
-
-#, fuzzy
-#~ msgid "Tajik"
-#~ msgstr "Тамільська"
-
-#~ msgid "Tamil"
-#~ msgstr "Тамільська"
-
-#~ msgid "Telugu"
-#~ msgstr "Телугу"
-
-#~ msgid "Turkish"
-#~ msgstr "Турецька"
-
-#~ msgid "Ukrainian"
-#~ msgstr "Українська"
-
-#~ msgid "Vietnamese"
-#~ msgstr "В'єтнамська"
-
-#~ msgid "Welsh"
-#~ msgstr "Уельська"
-
-#~ msgid "Zulu"
-#~ msgstr "Зулу"
