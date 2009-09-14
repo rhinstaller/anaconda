@@ -171,22 +171,36 @@ def doClearPartitionedDevice(intf, storage, device, confirm=1, quiet=0):
         while deps:
             leaves = [d for d in deps if d.isleaf]
             for leaf in leaves:
+                if leaf in immutable:
+                    # this device was removed from deps at the same time it
+                    # was added to immutable, so it won't appear in leaves
+                    # in the next iteration
+                    continue
+
                 if storage.deviceImmutable(leaf):
-                    immutable.append(leaf.path)
+                    immutable.append(leaf)
+                    for dep in [d for d in deps if d != leaf]:
+                        # mark devices this device depends on as immutable
+                        # to prevent getting stuck with non-leaf deps
+                        # protected by immutable leaf devices
+                        if leaf.dependsOn(dep):
+                            deps.remove(dep)
+                            if dep not in immutable:
+                                immutable.append(dep)
                     clean = False
                 else:
                     storage.destroyDevice(leaf)
                 deps.remove(leaf)
 
         if storage.deviceImmutable(p):
-            immutable.append(p.path)
+            immutable.append(p)
             clean = False
 
         if clean:
             storage.destroyDevice(p)
 
     if immutable and not quiet:
-        remaining = "\t" + "\n\t".join(immutable) + "\n"
+        remaining = "\t" + "\n\t".join(p.path for p in immutable) + "\n"
         intf.messageWindow(_("Notice"),
                            _("The following partitions were not deleted "
                              "because they are in use:\n\n%s") % remaining,
