@@ -2112,12 +2112,12 @@ class LVMLogicalVolumeDevice(DMDevice):
 class MDRaidArrayDevice(StorageDevice):
     """ An mdraid (Linux RAID) device.
 
-        Since this is derived from StorageDevice, not PartitionDevice, it
-        can be used to represent a partitionable device.
+        Since this is derived from StorageDevice, not DiskDevice, it
+        can NOT be used to represent a partitionable device.
     """
     _type = "mdarray"
 
-    def __init__(self, name, level=None, minor=None, size=None,
+    def __init__(self, name, level=None, major=None, minor=None, size=None,
                  memberDevices=None, totalDevices=None, bitmap=False,
                  uuid=None, format=None, exists=None,
                  parents=None, sysfsPath=''):
@@ -2140,7 +2140,7 @@ class MDRaidArrayDevice(StorageDevice):
                 exists -- indicates whether this is an existing device
         """
         StorageDevice.__init__(self, name, format=format, exists=exists,
-                               minor=minor, size=size,
+                               major=major, minor=minor, size=size,
                                parents=parents, sysfsPath=sysfsPath)
 
         self.level = level
@@ -2156,6 +2156,10 @@ class MDRaidArrayDevice(StorageDevice):
         self.chunkSize = 64.0 / 1024.0          # chunk size in MB
         self.superBlockSize = 128.0 / 1024.0    # superblock size in MB
 
+        # For container members probe size now, as we cannot determine it
+        # when teared down.
+        if self.parents and self.parents[0].type == "mdcontainer":
+            self._size = self.currentSize
 
         # FIXME: Bitmap is more complicated than this.
         # It can be internal or external. External requires a filename.
@@ -2183,6 +2187,11 @@ class MDRaidArrayDevice(StorageDevice):
     def size(self):
         if not self.devices:
             return 0
+
+        # For container members return probed size, as we cannot determine it
+        # when teared down.
+        if self.devices[0].type == "mdcontainer":
+            return self._size
 
         size = 0
         smallestMemberSize = self.smallestMember.size - self.superBlockSize
@@ -2242,6 +2251,10 @@ class MDRaidArrayDevice(StorageDevice):
         """ This array's mdadm.conf entry. """
         if self.level is None or self.memberDevices is None or not self.uuid:
             raise DeviceError("array is not fully defined", self.name)
+
+        if self.type == "mdcontainer":
+            fmt = "ARRAY %s num-devices=%d UUID=%s\n"
+            return fmt % (self.path, self.memberDevices, self.uuid)
 
         fmt = "ARRAY %s level=raid%d num-devices=%d UUID=%s\n"
         return fmt % (self.path, self.level, self.memberDevices, self.uuid)
@@ -2345,6 +2358,8 @@ class MDRaidArrayDevice(StorageDevice):
         udev_settle(timeout=10)
         try:
             mdraid.mdadd(device.path, len(self.devices) < self.memberDevices)
+            # mdadd causes udev events
+            udev_settle(timeout=10)
         except MDRaidError as e:
             log.warning("failed to add member %s to md array %s: %s"
                         % (device.path, self.path, e))
@@ -2387,7 +2402,10 @@ class MDRaidArrayDevice(StorageDevice):
         if os.access(state_file, os.R_OK):
             state = open(state_file).read().strip()
             log.debug("%s state is %s" % (self.name, state))
-            if state in ("clean", "active", "active-idle"):
+            if state in ("clean", "active", "active-idle", "readonly", "read-auto"):
+                status = True
+            # mdcontainers have state inactive when started (clear if stopped)
+            if self._type == "mdcontainer" and state == "inactive":
                 status = True
 
         return status
@@ -2501,6 +2519,23 @@ class MDRaidArrayDevice(StorageDevice):
         # real work, but it isn't our place to do it from here.
         self.exists = False
 
+
+class PartitionableMDRaidArrayDevice(MDRaidArrayDevice, DiskDevice):
+    """ A partitionable mdraid (Linux RAID) device.
+
+        Since this is derived from DiskDevice, not StorageDevice, it
+        can be used to represent a partitionable device.
+    """
+    _type = "partitionable mdarray"
+
+    @property
+    def mediaPresent(self):
+        # Even if stopped/deactivated we still want to show up in storage.disks
+        return True
+
+    @property
+    def model(self):
+        return "RAID%d Array" % self.level
 
 class DMRaidArrayDevice(DiskDevice):
     """ A dmraid (device-mapper RAID) device """

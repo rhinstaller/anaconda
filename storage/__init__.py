@@ -1954,6 +1954,8 @@ class FSSet(object):
     def mdadmConf(self):
         """ Return the contents of mdadm.conf. """
         arrays = self.devicetree.getDevicesByType("mdarray")
+        arrays.extend(self.devicetree.getDevicesByType("partitionable mdarray"))
+        arrays.extend(self.devicetree.getDevicesByType("mdcontainer"))
         conf = "# mdadm.conf written out by anaconda\n"
         conf += "MAILADDR root\n"
         devices = self.mountpoints.values() + self.swapDevices

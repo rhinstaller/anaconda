@@ -186,6 +186,9 @@ def udev_device_get_md_devices(info):
 def udev_device_get_md_uuid(info):
     return info["MD_UUID"]
 
+def udev_device_get_md_container(info):
+    return info.get("MD_CONTAINER")
+
 def udev_device_get_vg_name(info):
     return info['LVM2_VG_NAME']
 

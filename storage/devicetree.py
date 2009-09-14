@@ -1154,6 +1154,15 @@ class DeviceTree(object):
             kwargs["nic"]        = udev_device_get_fcoe_nic(info)
             kwargs["identifier"] = udev_device_get_fcoe_identifier(info)
             log.debug("%s is an fcoe disk" % name)
+        elif udev_device_get_md_container(info):
+            diskType = PartitionableMDRaidArrayDevice
+            parentName = devicePathToName(udev_device_get_md_container(info))
+            kwargs["parents"] = [ self.getDeviceByName(parentName) ]
+            kwargs["level"]  = udev_device_get_md_level(info)
+            kwargs["memberDevices"] = int(udev_device_get_md_devices(info))
+            # This needs bug #523314 fixed
+            kwargs["uuid"] = udev_device_get_md_uuid(info)
+            kwargs["exists"]  = True
         else:
             diskType = DiskDevice
             log.debug("%s is a disk" % name)
@@ -1259,9 +1268,7 @@ class DeviceTree(object):
         # Now, if the device is a disk, see if there is a usable disklabel.
         # If not, see if the user would like to create one.
         # XXX this is the bit that forces disklabels on disks. Lame.
-        if isinstance(device, DiskDevice) or \
-           isinstance(device, DMRaidArrayDevice) or \
-           isinstance(device, MultipathDevice):
+        if isinstance(device, DiskDevice):
             self.handleUdevDiskLabelFormat(info, device)
             return
 
@@ -1918,7 +1925,7 @@ class DeviceTree(object):
         for device in self.leaves:
             try:
                 device.teardown(recursive=True)
-            except (DeviceError, DeviceFormatError, LVMError) as e:
+            except (DeviceError, DeviceFormatError, LVMError, MDRaidError) as e:
                 log.info("teardown of %s failed: %s" % (device.name, e))
 
     def setupAll(self):
