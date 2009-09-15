@@ -94,6 +94,9 @@ class DiskLabelError(DeviceFormatError):
 class InvalidDiskLabelError(DiskLabelError):
     pass
 
+class DiskLabelCommitError(DiskLabelError):
+    pass
+
 # devicelibs
 class SwapError(StorageError):
     pass

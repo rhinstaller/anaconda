@@ -200,7 +200,7 @@ class DiskLabel(DeviceFormat):
         try:
             self.partedDisk.commit()
         except parted.DiskException as msg:
-            raise DeviceFormatError(msg)
+            raise DiskLabelCommitError(msg)
         else:
             udev_settle()
 
@@ -209,7 +209,7 @@ class DiskLabel(DeviceFormat):
         try:
             self.partedDisk.commitToDevice()
         except parted.DiskException as msg:
-            raise DeviceFormatError(msg)
+            raise DiskLabelCommitError(msg)
 
     def addPartition(self, *args, **kwargs):
         partition = kwargs.get("partition", None)
