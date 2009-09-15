@@ -26,16 +26,11 @@ import math
 from constants import *
 import gui
 from partition_ui_helpers_gui import *
-from netconfig_dialog import NetworkConfigurator
+from pixmapRadioButtonGroup_gui import pixmapRadioButtonGroup
 
 from iw_gui import *
 from flags import flags
-import network
-from storage import iscsi
-from storage import fcoe
 from storage.deviceaction import *
-from storage.partitioning import shouldClear
-import isys
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -152,16 +147,15 @@ class PartitionTypeWindow(InstallWindow):
     def getNext(self):
         if self.storage.checkNoDisks():
             raise gui.StayOnScreen
-        
-        active = self.combo.get_active_iter()
-        val = self.combo.get_model().get_value(active, 1)
 
-        if val == -1:
+        if self.buttonGroup.getCurrent() == "custom":
             self.dispatch.skipStep("autopartitionexecute", skip = 1)
             self.dispatch.skipStep("partition", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 0)
+
+            self.storage.clearPartType = CLEARPART_TYPE_NONE
         else:
-            if val == -2:
+            if self.buttonGroup.getCurrent() == "shrink":
                 (rc, actions) = whichToShrink(self.storage, self.intf)
                 if rc == gtk.RESPONSE_OK:
                     for action in actions:
@@ -170,63 +164,26 @@ class PartitionTypeWindow(InstallWindow):
                     raise gui.StayOnScreen
 
                 # we're not going to delete any partitions in the resize case
-                val = CLEARPART_TYPE_NONE
+                self.storage.clearPartType = CLEARPART_TYPE_NONE
+            elif self.buttonGroup.getCurrent() == "all":
+                self.storage.clearPartType = CLEARPART_TYPE_ALL
+            elif self.buttonGroup.getCurrent() == "replace":
+                self.storage.clearPartType = CLEARPART_TYPE_LINUX
+            elif self.buttonGroup.getCurrent() == "freespace":
+                self.storage.clearPartType = CLEARPART_TYPE_NONE
 
             self.dispatch.skipStep("autopartitionexecute", skip = 0)
 
-            if self.xml.get_widget("encryptButton").get_active():
+            if self.encryptButton.get_active():
                 self.storage.encryptedAutoPart = True
             else:
                 self.storage.encryptionPassphrase = ""
                 self.storage.retrofitPassphrase = False
                 self.storage.encryptedAutoPart = False
-            
+
             self.storage.doAutoPart = True
-            self.storage.clearPartType = val
 
-            allowdrives = []
-            model = self.drivelist.get_model()
-            for row in model:
-                if row[0]:
-                    allowdrives.append(row[1])
-
-            if len(allowdrives) < 1:
-                mustHaveSelectedDrive(self.intf)
-                raise gui.StayOnScreen
-
-            self.storage.clearPartDisks = allowdrives
-
-            # pop the boot device to be first in the drive list
-            defiter = self.bootcombo.get_active_iter()
-            if defiter is None:
-                self.intf.messageWindow(_("Error"),
-                                        "Must select a drive to use as "
-                                        "the bootable device.",
-                                        type="warning", custom_icon="error")
-                raise gui.StayOnScreen
-            
-            defboot = self.bootcombo.get_model().get_value(defiter, 1)
-           
-            if not defboot in allowdrives:
-                msg = _("Do you really want to boot from a disk which is not used for installation?")
-                rc = self.intf.messageWindow(_("Warning"), msg, type="yesno", default="no", custom_icon ="warning")
-                if not rc:
-                    raise gui.StayOnScreen
-            
-            # our list of bootloader drives may contain some drives not in
-            # the bootloader's list because of unpartitioned drives that
-            # were selected for clearing and will therefore be partitioned
-            # by the time we install the bootloader
-            for drive in self.bl_drivelist:
-                if drive.name not in self.anaconda.id.bootloader.drivelist:
-                    self.anaconda.id.bootloader.drivelist.append(drive.name)
-            self.anaconda.id.bootloader.drivelist.sort(isys.compareDrives)
-
-            # put the chosen boot device at the front of the list
-            self.anaconda.id.bootloader.drivelist.remove(defboot)
-            self.anaconda.id.bootloader.drivelist.insert(0, defboot)            
-
-            if self.xml.get_widget("reviewButton").get_active():
+            if self.reviewButton.get_active():
                 self.dispatch.skipStep("partition", skip = 0)
                 self.dispatch.skipStep("bootloader", skip = 0)
             else:
@@ -236,346 +193,21 @@ class PartitionTypeWindow(InstallWindow):
 
         return None
 
-    def comboChanged(self, *args):
-        active = self.combo.get_active_iter()
-        val = self.combo.get_model().get_value(active, 1)
-        self.review = self.xml.get_widget("reviewButton").get_active()
+    def typeChanged(self, *args):
+        if self.buttonGroup.getCurrent() == "custom":
+            if not self.prevrev:
+                self.prevrev = self.reviewButton.get_active()
 
-        # -1 is the combo box choice for 'create custom layout'
-        if val == -1:
-            if self.prevrev == None:
-               self.prevrev = self.xml.get_widget("reviewButton").get_active()
-
-            self.xml.get_widget("reviewButton").set_active(True)
-            self.xml.get_widget("reviewButton").set_sensitive(False)
-            self.xml.get_widget("driveScroll").set_sensitive(False)
-            self.xml.get_widget("bootDriveCombo").set_sensitive(False)
-            self.xml.get_widget("encryptButton").set_sensitive(False)
+            self.reviewButton.set_active(True)
+            self.reviewButton.set_sensitive(False)
+            self.encryptButton.set_sensitive(False)
         else:
-            if self.prevrev == None:
-               self.xml.get_widget("reviewButton").set_active(self.review)
-            else:
-               self.xml.get_widget("reviewButton").set_active(self.prevrev)
-               self.prevrev = None
+            if self.prevrev:
+                self.reviewButton.set_active(self.prevrev)
+                self.prevrev = None
 
-            self.xml.get_widget("reviewButton").set_sensitive(True)
-            self.xml.get_widget("driveScroll").set_sensitive(True)
-            self.xml.get_widget("bootDriveCombo").set_sensitive(True)
-            self.xml.get_widget("encryptButton").set_sensitive(True)
-
-        self.updateDriveLists()
-
-    def updateDriveLists(self):
-        active = self.combo.get_active_iter()
-        clearpart = self.combo.get_model().get_value(active, 1)
-
-        # modify self.bootcombo and self.drivelist to reflect the current
-        # projected set of partitioned disks
-        disallowed = [self.anaconda.updateSrc]
-        disks = self.storage.disks
-        partitioned = self.storage.partitioned
-        if clearpart not in [CLEARPART_TYPE_ALL, -1]:
-            # only disks that are already partitioned or whose whole-disk
-            # formatting is "linux native" should be allowed
-            for disk in disks:
-                if disk not in partitioned and not shouldClear(disk, clearpart):
-                    disallowed.append(disk.name)
-        else:
-            # for CLEARPART_TYPE_ALL and custom layouts all disks should be
-            # allowed since we'll put a disklabel on any unlabeled disks we
-            # clear
-            disks = self.storage.disks
-
-        createAllowedDrivesStore(self.storage.disks,
-                                 self.storage.clearPartDisks,
-                                 self.drivelist,
-                                 disallowDrives=disallowed)
-
-        # Figure out which disks are selected for populating the bootloader
-        # combo. Also deselect unsuitable disks and ensure they cannot be
-        # selected.
-        selections = {}
-        row_iter = iter(self.drivelist.get_model())
-        for row in row_iter:
-            (selected, drive, size, desc, sensitive) = tuple(row)
-            selections[drive] = selected
-
-            if self.drivelist.sensitivity_col is not None:
-                row[self.drivelist.sensitivity_col] = drive not in disallowed
-
-            if drive in disallowed:
-                row[0] = False
-
-        # bootloader is unusual in that we only want to look at disks that
-        # have disklabels -- no partitioned md or unpartitioned disks
-        self.bl_drivelist = []
-        for disk in self.storage.disks:
-            if selections[disk.name] and disk.name not in disallowed:
-                self.bl_drivelist.append(disk)
-        self.bl_drivelist.sort(cmp=isys.compareDrives, key=lambda d: d.name)
-        self._fillBootStore()
-
-    def addIscsiDrive(self):
-        if not network.hasActiveNetDev():
-            net = NetworkConfigurator(self.anaconda.id.network)
-            ret = net.run()
-            net.destroy()
-            if ret != gtk.RESPONSE_OK:
-                return ret
-
-        (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade",
-                                            "iscsiDialog")
-        gui.addFrame(dialog)
-        dialog.show_all()
-        sg = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
-        map(lambda x: sg.add_widget(dxml.get_widget(x)),
-            ("iscsiAddrEntry", "iscsiInitiatorEntry", "userEntry", "passEntry",
-             "userinEntry", "passinEntry"))
-
-        # get the initiator name if it exists and don't allow changing
-        # once set
-        e = dxml.get_widget("iscsiInitiatorEntry")
-        e.set_text(self.storage.iscsi.initiator)
-        if self.storage.iscsi.initiatorSet: # this is uglyyyy....
-            e.set_sensitive(False)
-
-        while 1:
-            rc = dialog.run()
-            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
-                break
-
-            initiator = dxml.get_widget("iscsiInitiatorEntry").get_text()
-            initiator.strip()
-            if len(initiator) == 0:
-                self.intf.messageWindow(_("Invalid Initiator Name"),
-                                        _("You must provide an initiator name."),
-                                        custom_icon="error")
-                continue
-
-            self.storage.iscsi.initiator = initiator
-
-            target = dxml.get_widget("iscsiAddrEntry").get_text().strip()
-            user = dxml.get_widget("userEntry").get_text().strip()
-            pw = dxml.get_widget("passEntry").get_text().strip()
-            user_in = dxml.get_widget("userinEntry").get_text().strip()
-            pw_in = dxml.get_widget("passinEntry").get_text().strip()
-
-            err = None
-            try:
-                count = len(target.split(":"))
-                idx = target.rfind("]:")
-                # Check for IPV6 [IPV6-ip]:port
-                if idx != -1:
-                    ip = target[1:idx]
-                    port = target[idx+2:]
-                # Check for IPV4 aaa.bbb.ccc.ddd:port
-                elif count == 2:
-                    idx = target.rfind(":")
-                    ip = target[:idx]
-                    port = target[idx+1:]
-                else:
-                    ip = target
-                    port = "3260"
-                network.sanityCheckIPString(ip)
-            except network.IPMissing, msg:
-                err = msg
-            except network.IPError, msg:
-                err = msg
-            if err:
-                self.intf.messageWindow(_("Error"), str(err),
-                                        custom_icon="error")
-                continue
-
-            try:
-                self.storage.iscsi.addTarget(ip, port, user, pw,
-                                             user_in, pw_in, self.intf)
-            except ValueError, e:
-                self.intf.messageWindow(_("Error"), str(e),
-                                        custom_icon="error")
-                continue
-            except IOError, e:
-                self.intf.messageWindow(_("Error"), str(e),
-                                        custom_icon="error")
-                rc = gtk.RESPONSE_CANCEL
-            break
-
-        dialog.destroy()
-        return rc
-
-
-    def addFcoeDrive(self):
-        (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade",
-                                            "fcoeDialog")
-        combo = dxml.get_widget("fcoeNicCombo")
-        dcb_cb = dxml.get_widget("dcbCheckbutton")
-
-        # Populate the combo
-        cell = gtk.CellRendererText()
-        combo.pack_start(cell, True)
-        combo.set_attributes(cell, text = 0)
-        cell.set_property("wrap-width", 525)
-        combo.set_size_request(480, -1)
-        store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
-        combo.set_model(store)
-
-        netdevs = self.anaconda.id.network.available()
-        keys = netdevs.keys()
-        keys.sort()
-        selected_interface = None
-        for dev in keys:
-            # Skip NIC's which are connected (iow in use for a net install)
-            if dev in network.getActiveNetDevs():
-                continue
-
-            i = store.append(None)
-
-            desc = netdevs[dev].get("DESC")
-            if desc:
-                desc = "%s - %s" %(dev, desc)
-            else:
-                desc = "%s" %(dev,)
-
-            mac = netdevs[dev].get("HWADDR")
-            if mac:
-                desc = "%s - %s" %(desc, mac)
-
-            if selected_interface is None:
-                selected_interface = i
-
-            store[i] = (desc, dev)
-
-        if selected_interface:
-            combo.set_active_iter(selected_interface)
-        else:
-            combo.set_active(0)
-
-        # Show the dialog
-        gui.addFrame(dialog)
-        dialog.show_all()
-        sg = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
-        sg.add_widget(dxml.get_widget("fcoeNicCombo"))
-
-        while 1:
-            rc = dialog.run()
-
-            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
-                break
-
-            iter = combo.get_active_iter()
-            if iter is None:
-                self.intf.messageWindow(_("Error"),
-                                        "Must select a NIC to use.",
-                                        type="warning", custom_icon="error")
-                continue
-
-            try:
-                self.storage.fcoe.addSan(nic=store.get_value(iter, 1),
-                                         dcb=dcb_cb.get_active(),
-                                         intf=self.intf)
-            except IOError, e:
-                self.intf.messageWindow(_("Error"), str(e),
-                                        custom_icon="error")
-                rc = gtk.RESPONSE_CANCEL
-
-            break
-
-        dialog.destroy()
-        return rc
-
-    def addZfcpDrive(self):
-        (dxml, dialog) = gui.getGladeWidget("zfcp-config.glade",
-                                            "zfcpDialog")
-        gui.addFrame(dialog)
-        dialog.show_all()
-        sg = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
-        map(lambda x: sg.add_widget(dxml.get_widget(x)),
-            ("devnumEntry", "wwpnEntry", "fcplunEntry"))
-
-        while 1:
-            rc = dialog.run()
-            if rc != gtk.RESPONSE_APPLY:
-                break
-
-            devnum = dxml.get_widget("devnumEntry").get_text().strip()
-            wwpn = dxml.get_widget("wwpnEntry").get_text().strip()
-            fcplun = dxml.get_widget("fcplunEntry").get_text().strip()
-
-            try:
-                self.storage.zfcp.addFCP(devnum, wwpn, fcplun)
-            except ValueError, e:
-                self.intf.messageWindow(_("Error"), str(e),
-                                        custom_icon="error")
-                continue
-            break
-
-        dialog.destroy()
-        return rc
-        
-
-    def addDrive(self, button):
-        (dxml, dialog) = gui.getGladeWidget("adddrive.glade", "addDriveDialog")
-        gui.addFrame(dialog)
-        dialog.show_all()
-        if not iutil.isS390():
-            dxml.get_widget("zfcpRadio").hide()
-            dxml.get_widget("zfcpRadio").set_group(None)
-
-        if not iscsi.has_iscsi():
-            dxml.get_widget("iscsiRadio").set_sensitive(False)
-            dxml.get_widget("iscsiRadio").set_active(False)
-
-        if not fcoe.has_fcoe():
-            dxml.get_widget("fcoeRadio").set_sensitive(False)
-            dxml.get_widget("fcoeRadio").set_active(False)
-
-        #figure out what advanced devices we have available and set sensible default
-        group = dxml.get_widget("iscsiRadio").get_group()
-        for button in group:
-            if button is not None and button.get_property("sensitive"):
-                button.set_active(True)
-                break
-        
-        rc = dialog.run()
-        dialog.hide()
-        if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
-            return
-        if dxml.get_widget("iscsiRadio").get_active() and iscsi.has_iscsi():
-            rc = self.addIscsiDrive()
-        elif dxml.get_widget("fcoeRadio").get_active() and fcoe.has_fcoe():
-            rc = self.addFcoeDrive()
-        elif dxml.get_widget("zfcpRadio") is not None and dxml.get_widget("zfcpRadio").get_active():
-            rc = self.addZfcpDrive()
-        dialog.destroy()
-
-        if rc not in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
-            w = self.intf.waitWindow(_("Rescanning disks"),
-                                     _("Rescanning disks"))
-            self.storage.reset()
-            self.updateDriveLists()
-            w.pop()
-
-    def _fillBootStore(self):
-        # this isn't strictly necessary, but it can't hurt -- especially if
-        # the user has added drives via iscsi or fcoe or similar
-        self.anaconda.id.bootloader.updateDriveList()
-
-        bootstore = self.bootcombo.get_model()
-        bootstore.clear()
-        if len(self.bl_drivelist) > 0:
-            defaultBoot = self.bl_drivelist[0].name
-        else:
-            defaultBoot = None
-
-        for disk in self.bl_drivelist:
-            dispstr = "%s %8.0f MB %s" %(disk.name, disk.size, disk.description)
-            i = bootstore.append(None)
-            bootstore[i] = (dispstr, disk.name)
-            if disk.name == defaultBoot:
-                self.bootcombo.set_active_iter(i)
-
-        if len(bootstore) <= 1:
-            self.bootcombo.set_sensitive(False)
-
+            self.reviewButton.set_sensitive(True)
+            self.encryptButton.set_sensitive(True)
 
     def getScreen(self, anaconda):
         self.anaconda = anaconda
@@ -583,87 +215,70 @@ class PartitionTypeWindow(InstallWindow):
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
 
-        (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeBox")
-
-        # make some labels bold...
-        map(lambda l: l and l.set_markup("<b>%s</b>" %(l.get_text(),)),
-            map(lambda x: self.xml.get_widget(x),("selectLabel", "bootLabel")))
-
-        gui.widgetExpander(self.xml.get_widget("mainlabel"))
-
-        self.combo = self.xml.get_widget("partitionTypeCombo")
-        gui.widgetExpander(self.combo)
-        cell = gtk.CellRendererText()
-        self.combo.pack_start(cell, True)
-        self.combo.set_attributes(cell, text = 0)
-        cell.set_property("wrap-width", 495)
-        self.combo.set_size_request(500, -1)
-
-        store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_INT)
-        self.combo.set_model(store)
-        opts = ((_("Use entire drive"), CLEARPART_TYPE_ALL),
-                (_("Replace existing Linux system"), CLEARPART_TYPE_LINUX),
-                (_("Shrink current system"), -2),
-                (_("Use free space"), CLEARPART_TYPE_NONE),
-                (_("Create custom layout"), -1))
-
-        # if not set in ks, use UI default
-        if self.storage.clearPartType is None:
-            preselected = CLEARPART_TYPE_LINUX
-        else:
-            preselected = self.storage.clearPartType 
-
-        for (txt, val) in opts:
-            iter = store.append(None)
-            store[iter] = (txt, val)
-            if val == preselected:
-                self.combo.set_active_iter(iter)
-
-        if ((self.combo.get_active() == -1) or
-            self.dispatch.stepInSkipList("autopartitionexecute")):
-            self.combo.set_active(len(opts) - 1) # yeah, it's a hack
-
-        self.drivelist = createAllowedDrivesList(self.storage.disks,
-                                                 self.storage.clearPartDisks,
-                                                 disallowDrives=[self.anaconda.updateSrc])
-        self.drivelist.set_size_request(375, 80)
-
-        self.xml.get_widget("driveScroll").add(self.drivelist)
-
-        self.bootcombo = self.xml.get_widget("bootDriveCombo")
-        thecell = gtk.CellRendererText()
-        self.bootcombo.pack_start(thecell, True)
-
-        bootstore = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
-        self.bootcombo.set_model(bootstore)
-        self.updateDriveLists()
+        (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeTable")
+        self.encryptButton = self.xml.get_widget("encryptButton")
+        self.reviewButton = self.xml.get_widget("reviewButton")
+        self.table = self.xml.get_widget("parttypeTable")
 
         self.prevrev = None
-        self.review = not self.dispatch.stepInSkipList("partition")
-        self.xml.get_widget("reviewButton").set_active(self.review)
+        self.reviewButton.set_active(not self.dispatch.stepInSkipList("partition"))
+        self.encryptButton.set_active(self.storage.encryptedAutoPart)
 
-        self.xml.get_widget("encryptButton").set_active(self.storage.encryptedAutoPart)
+        self.buttonGroup = pixmapRadioButtonGroup()
+        self.buttonGroup.addEntry("all", _("Use All Space"),
+                                  pixmap=gui.readImageFromFile("partscheme-all.png"),
+                                  descr=_("Removes all partitions on the selected "
+                                          "device(s).  This includes partitions "
+                                          "created by other operating systems.\n\n"
+                                          "<b>Tip:</b> This option will remove "
+                                          "data from the selected device(s).  Make "
+                                          "sure you have backups."))
+        self.buttonGroup.addEntry("replace", _("Replace Existing Linux System(s)"),
+                                  pixmap=gui.readImageFromFile("partscheme-replace.png"),
+                                  descr=_("Removes only Linux partitions (created from "
+                                          "a previous Linux installation).  This does "
+                                          "not remove other partitions you may have "
+                                          "on your storage device(s) (such as VFAT or "
+                                          "FAT32).\n\n"
+                                          "<b>Tip:</b> This option will remove "
+                                          "data from the selected device(s).  Make "
+                                          "sure you have backups."))
+        self.buttonGroup.addEntry("shrink", _("Shrink Current System"),
+                                  pixmap=gui.readImageFromFile("partscheme-shrink.png"),
+                                  descr=_("Shrinks existing partitions to create free "
+                                          "space for the default layout."))
+        self.buttonGroup.addEntry("freespace", _("Use Free Space"),
+                                  pixmap=gui.readImageFromFile("partscheme-freespace.png"),
+                                  descr=_("Retains your current data and partitions and "
+                                          "uses only the unpartitioned space on the "
+                                          "selected device(s), assuming you have enough "
+                                          "free space available."))
+        self.buttonGroup.addEntry("custom", _("Create Custom Layout"),
+                                  pixmap=gui.readImageFromFile("partscheme-custom.png"),
+                                  descr=_("Manually create your own custom layout on "
+                                          "the selected device(s) using our partitioning "
+                                          "tool."))
 
-        active = self.combo.get_active_iter()
-        val = self.combo.get_model().get_value(active, 1)
+        self.buttonGroup.setToggleCallback(self.typeChanged)
 
-        # -1 is the combo box choice for 'create custom layout'
-        if val == -1:
+        widget = self.buttonGroup.render()
+        self.table.attach(widget, 0, 1, 1, 2)
+
+        # if not set in ks, use UI default
+        if self.storage.clearPartType is None or self.storage.clearPartType == CLEARPART_TYPE_LINUX:
+            self.buttonGroup.setCurrent("replace")
+        elif self.storage.clearPartType == CLEARPART_TYPE_NONE:
+            self.buttonGroup.setCurrent("freespace")
+        elif self.storage.clearPartType == CLEARPART_TYPE_ALL:
+            self.buttonGroup.setCurrent("all")
+
+        if self.buttonGroup.getCurrent() == "custom":
             # make sure reviewButton is active and not sensitive
             if self.prevrev == None:
-               self.prevrev = self.xml.get_widget("reviewButton").get_active()
+                self.prevrev = self.reviewButton.get_active()
 
-            self.xml.get_widget("reviewButton").set_active(True)
-            self.xml.get_widget("reviewButton").set_sensitive(False)
+            self.reviewButton.set_active(True)
+            self.reviewButton.set_sensitive(False)
+            self.encryptButton.set_sensitive(False)
 
-            self.xml.get_widget("driveScroll").set_sensitive(False)
-            self.xml.get_widget("bootDriveCombo").set_sensitive(False)
-            self.xml.get_widget("encryptButton").set_sensitive(False)
-
-        if not iutil.isS390() and not iscsi.has_iscsi() and not fcoe.has_fcoe():
-            self.xml.get_widget("addButton").set_sensitive(False)
-
-        sigs = { "on_partitionTypeCombo_changed": self.comboChanged,
-                 "on_addButton_clicked": self.addDrive }
-        self.xml.signal_autoconnect(sigs)
         return vbox
