@@ -849,6 +849,7 @@ class PartitionDevice(StorageDevice):
         self._partType = None
         self.partedFlags = {}
         self._partedPartition = None
+        self._origPath = None
 
         # FIXME: Validate size, but only if this is a new partition.
         #        For existing partitions we will get the size from
@@ -860,6 +861,7 @@ class PartitionDevice(StorageDevice):
             if not self._partedPartition:
                 raise DeviceError("cannot find parted partition instance", self.name)
 
+            self._origPath = self.path
             # collect information about the partition from parted
             self.probe()
             if self.getFlag(parted.PARTITION_PREP):
@@ -988,8 +990,8 @@ class PartitionDevice(StorageDevice):
         disklabelDisk = self.disk.format.partedDisk.getPedDisk()
         if partitionDisk is not disklabelDisk:
             # The disklabel's parted disk has been reset, reget our partition
-            log.debug("regetting partedPartition for %s because of PartedDisk reset" % self.path)
-            self._partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
+            log.debug("regetting partedPartition %s for %s because of PartedDisk reset" % (self._origPath, self.path))
+            self._setPartedPartition(self.disk.format.partedDisk.getPartitionByPath(self._origPath))
 
         return self._partedPartition
 
