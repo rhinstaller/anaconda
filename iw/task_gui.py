@@ -333,7 +333,7 @@ class RepoEditor:
 
         while True:
             rc = self.dialog.run()
-            if rc == gtk.RESPONSE_CANCEL:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 break
 
             reponame = self.nameEntry.get_text()
@@ -442,7 +442,7 @@ class RepoMethodstrEditor(RepoEditor):
 
         while True:
             rc = self.dialog.run()
-            if rc == gtk.RESPONSE_CANCEL:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 rc = None
                 break
 
@@ -515,7 +515,7 @@ class TaskWindow(InstallWindow):
     def _addRepo(self, *args):
         dialog = RepoCreator(self.anaconda)
         dialog.createDialog()
-        if dialog.run() == gtk.RESPONSE_CANCEL:
+        if dialog.run() in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
             return gtk.RESPONSE_CANCEL
 
         if dialog.repo.needsNetwork() and not network.hasActiveNetDev():

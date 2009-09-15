@@ -143,7 +143,7 @@ class MainBootloaderWindow(InstallWindow):
 
         while 1:
             rc = dialog.run()
-            if rc == gtk.RESPONSE_CANCEL:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 break
 
             # set the boot device based on what they chose

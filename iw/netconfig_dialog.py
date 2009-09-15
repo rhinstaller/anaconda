@@ -172,7 +172,7 @@ class NetworkConfigurator:
         self.window.show()
         while True:
             rc = self.window.run()
-            if rc == gtk.RESPONSE_CANCEL:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 self._cancel()
                 break
             if self._ok():

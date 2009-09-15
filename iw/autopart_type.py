@@ -275,7 +275,7 @@ class PartitionTypeWindow(InstallWindow):
 
         while 1:
             rc = dialog.run()
-            if rc == gtk.RESPONSE_CANCEL:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 break
 
             initiator = dxml.get_widget("iscsiInitiatorEntry").get_text()
@@ -380,7 +380,7 @@ class PartitionTypeWindow(InstallWindow):
         while 1:
             rc = dialog.run()
 
-            if rc == gtk.RESPONSE_CANCEL:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 break
 
             iter = combo.get_active_iter()
@@ -455,7 +455,7 @@ class PartitionTypeWindow(InstallWindow):
         
         rc = dialog.run()
         dialog.hide()
-        if rc == gtk.RESPONSE_CANCEL:
+        if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
             return
         if dxml.get_widget("iscsiRadio").get_active() and iscsi.has_iscsi():
             rc = self.addIscsiDrive()
@@ -465,7 +465,7 @@ class PartitionTypeWindow(InstallWindow):
             rc = self.addZfcpDrive()
         dialog.destroy()
 
-        if rc != gtk.RESPONSE_CANCEL:
+        if rc not in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
             w = self.intf.waitWindow(_("Rescanning disks"),
                                      _("Rescanning disks"))
             self.storage.reset()
