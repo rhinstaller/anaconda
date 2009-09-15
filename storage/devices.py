@@ -1316,6 +1316,16 @@ class DMDevice(StorageDevice):
         """ Return the device specifier for use in /etc/fstab. """
         return self.path
 
+    @property
+    def status(self):
+        _status = False
+        for map in block.dm.maps():
+            if map.name == self.name:
+                _status = map.live_table and not map.suspended
+                break
+
+        return _status
+
     def updateSysfsPath(self):
         """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
@@ -2012,22 +2022,6 @@ class LVMLogicalVolumeDevice(DMDevice):
     def complete(self):
         """ Test if vg exits and if it has all pvs. """
         return self.vg.complete
-
-    @property
-    def status(self):
-        """ True if the LV is active, False otherwise. """
-        try:
-            lvstatus = lvm.lvs(self.vg.name)
-        except lvm.LVMError:
-            return False
-
-        try:
-            if lvstatus[self._name]['attr'].find('a') == -1:
-                return False
-            else:
-                return True
-        except KeyError:
-            return False
 
     def setup(self, intf=None):
         """ Open, or set up, a device. """
