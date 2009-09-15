@@ -768,6 +768,7 @@ makeinitrd() {
     instbin $IMGPATH /usr/bin/grep $MBD_DIR /sbin/grep
     instbin $IMGPATH /usr/bin/kill $MBD_DIR /sbin/kill
     instbin $IMGPATH /usr/bin/ln $MBD_DIR /sbin/ln
+    instbin $IMGPATH /usr/sbin/load_policy $MBD_DIR /sbin/load_policy
     instbin $IMGPATH /usr/bin/mkdir $MBD_DIR /sbin/mkdir
     instbin $IMGPATH /usr/bin/readlink $MBD_DIR /sbin/readlink
     instbin $IMGPATH /usr/bin/rm $MBD_DIR /sbin/rm
