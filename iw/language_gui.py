@@ -72,7 +72,7 @@ class LanguageWindow (InstallWindow):
         mainBox = gtk.VBox (False, 10)
 
         hbox = gtk.HBox(False, 5)
-        pix = gui.readImageFromFile ("gnome-globe.png")
+        pix = gui.readImageFromFile ("config-language.png")
         if pix:
             a = gtk.Alignment ()
             a.add (pix)
