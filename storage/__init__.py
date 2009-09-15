@@ -350,7 +350,10 @@ class Storage(object):
         """
         disks = []
         for device in self.devicetree.devices:
-            if isinstance(device, DiskDevice) and device.mediaPresent:
+            if isinstance(device, DiskDevice):
+                if not device.mediaPresent:
+                    log.info("Skipping disk: %s: No media present" % device.name)
+                    continue
                 disks.append(device)
         disks.sort(key=lambda d: d.name)
         return disks
