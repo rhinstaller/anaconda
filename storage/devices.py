@@ -96,6 +96,7 @@
 import os
 import math
 import copy
+import time
 
 # device backend modules
 from devicelibs import mdraid
@@ -2472,7 +2473,18 @@ class MDRaidArrayDevice(StorageDevice):
         # file exists, we want to deactivate it. mdraid has too many
         # states.
         if self.exists and os.path.exists(self.path):
-            mdraid.mddeactivate(self.path)
+            try:
+                mdraid.mddeactivate(self.path)
+            except MDRaidError:
+                # Sometimes mdadm --stop reports failure, but the array stops
+                # after a while never the less, this happens with container
+                # members, see bug rh523334
+                if self.devices[0].type == "mdcontainer":
+                    time.sleep(1)
+                    if self.status:
+                        raise
+                else:
+                    raise
 
         if recursive:
             self.teardownParents(recursive=recursive)
