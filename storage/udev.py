@@ -97,7 +97,7 @@ def udev_enumerate_block_devices():
 def udev_get_block_device(sysfs_path):
     dev = udev_get_device(sysfs_path)
     if not dev or not dev.has_key("name"):
-        return {"name": None, "symlinks": []}
+        return None
     else:
         return dev
 
