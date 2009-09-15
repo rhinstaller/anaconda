@@ -719,7 +719,14 @@ class DeviceTree(object):
         for action in self._actions:
             log.info("executing action: %s" % action)
             if not dryRun:
-                action.execute(intf=self.intf)
+                try:
+                    action.execute(intf=self.intf)
+                except DiskLabelCommitError:
+                    # it's likely that a previous format destroy action
+                    # triggered setup of an lvm or md device.
+                    self.teardownAll()
+                    action.execute(intf=self.intf)
+
                 udev_settle(timeout=10)
                 for device in self._devices:
                     # make sure we catch any renumbering parted does
