@@ -191,9 +191,10 @@ if [ "$LOCALSCRIPTS" = "yes" ]; then
 else
     pushd $BUILDINSTDIR
     BUILDARCH=`repoquery -c $yumconf --qf "%{ARCH}\n" anaconda`
-    # This is a crappy implementation but x86 is the only place we currently see
-    # BUILDARCH != BASEARCH (e.g. i586 != i386) so it'll suffice.
-    BASEARCH=`echo $BUILDARCH | sed -e 's/i.86/i386/'`
+    # lets use rpmutils to make sure we have the canonical basearch
+    # BUILDARCH != BASEARCH (e.g. i586 != i386, sparcv9 != sparc)
+    BASEARCH=`python -c "import rpmUtils.arch; \
+      print rpmUtils.arch.getBaseArch(myarch=rpmUtils.arch.getCanonArch(skipRpmPlatform = True));"`
     yumdownloader -c $yumconf anaconda || exit 1
     rpm2cpio anaconda*rpm | cpio --quiet -iumd './usr*'
     rm -f anaconda*rpm
