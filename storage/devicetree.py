@@ -675,8 +675,28 @@ class DeviceTree(object):
             log.debug("cmp: %d -- %s | %s" % (ret, a1, a2))
             return ret
 
-        # setup actions to create any extended partitions we added
+        log.debug("resetting parted disks...")
         for device in self.devices:
+            if device.format.type == "disklabel":
+                device.format.resetPartedDisk()
+
+        # reget parted.Partition for remaining preexisting devices
+        for device in self.devices:
+            if isinstance(device, PartitionDevice):
+                p = device.partedPartition
+
+        # reget parted.Partition for existing devices we're removing
+        for action in self._actions:
+            if isinstance(action.device, PartitionDevice):
+                p = action.device.partedPartition
+
+        # setup actions to create any extended partitions we added
+        #
+        # XXX At this point there can be duplicate partition paths in the
+        #     tree (eg: non-existent sda6 and previous sda6 that will become
+        #     sda5 in the course of partitioning), so we access the list
+        #     directly here.
+        for device in self._devices:
             if isinstance(device, PartitionDevice) and \
                device.isExtended and not device.exists:
                 # don't properly register the action since the device is
@@ -696,16 +716,16 @@ class DeviceTree(object):
         for action in self._actions:
             log.debug("action: %s" % action)
 
-        log.debug("resetting parted disks...")
-        for device in self.devices:
-            if device.format.type == "disklabel":
-                device.format.resetPartedDisk()
-
         for action in self._actions:
             log.info("executing action: %s" % action)
             if not dryRun:
                 action.execute(intf=self.intf)
                 udev_settle(timeout=10)
+                for device in self._devices:
+                    # make sure we catch any renumbering parted does
+                    if device.exists and isinstance(device, PartitionDevice):
+                        device.updateName()
+                        device.format.device = device.path
 
     def _addDevice(self, newdev):
         """ Add a device to the tree.
