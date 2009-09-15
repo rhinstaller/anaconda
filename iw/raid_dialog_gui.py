@@ -781,8 +781,8 @@ class RaidCloneDialog:
 	self.parent = parent
 
 	self.dialog = None
-	self.dialog = gtk.Dialog(_("Make RAID Device"), self.parent)
-        self.dialog.set_size_request(500, 400)
+	self.dialog = gtk.Dialog(_("Clone Drive Tool"), self.parent)
+        self.dialog.set_default_size(500, 200)
 	gui.addFrame(self.dialog)
 	self.dialog.add_button('gtk-cancel', 2)
 	self.dialog.add_button('gtk-ok', 1)
@@ -790,23 +790,13 @@ class RaidCloneDialog:
 
         # present list of drives as source
         vbox = gtk.VBox()
+        clnmessage = _("This tool clones the layout from a partitioned source "
+                        "onto other similar sized drives. The source must have "
+                        "partitions which are restricted to that drive and must "
+                        "ONLY contain unused software RAID partitions.  "
+                        "EVERYTHING on the target drive(s) will be destroyed.\n")
 
-        lbl = gui.WrappingLabel(_("Clone Drive Tool\n\n"
-                                  "This tool allows you to significantly "
-                                  "reduce the amount of effort required "
-                                  "to setup RAID arrays.  This tool "
-                                  "uses a source drive which has been "
-                                  "prepared with the desired partitioning "
-                                  "layout, and clones this layout onto other "
-                                  "similar sized drives.  Then a RAID device "
-                                  "can be created.\n\n"
-                                  "NOTE: The source drive must have "
-                                  "partitions which are restricted to be on "
-                                  "that drive only, and can only contain "
-                                  "unused software RAID partitions.  Other "
-                                  "partition types are not allowed.\n\n"
-                                  "EVERYTHING on the target drive(s) will be "
-                                  "destroyed by this process."))
+        lbl = gui.WrappingLabel(clnmessage)
         vbox.pack_start(lbl)
                                   
         box = gtk.HBox()
@@ -817,7 +807,7 @@ class RaidCloneDialog:
         (sw, self.sourceView) = self.createDriveList(storage.disks)
         selection = self.sourceView.get_selection()
         selection.set_mode(gtk.SELECTION_SINGLE)
-        box.pack_start(sw)
+        box.pack_start(sw, padding=5)
 
         lbl = gtk.Label(_("Target Drive(s):"))
         lbl.set_alignment(0.0, 0.0)
@@ -825,7 +815,7 @@ class RaidCloneDialog:
         (sw, self.targetView) = self.createDriveList(storage.disks)
         selection = self.targetView.get_selection()
         selection.set_mode(gtk.SELECTION_MULTIPLE)
-        box.pack_start(sw)
+        box.pack_start(sw, padding=5)
 
         frame = gtk.Frame(_("Drives"))
         frame.add(box)
