@@ -21,8 +21,6 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
-import copy
-
 from udev import *
 
 from devices import StorageDevice, PartitionDevice
@@ -291,12 +289,7 @@ class ActionDestroyFormat(DeviceAction):
 
     def __init__(self, device):
         DeviceAction.__init__(self, device)
-        # Save a deep copy of the device stack this format occupies.
-        # This is necessary since the stack of devices and formats
-        # required to get to this format may get yanked out from under
-        # us between now and execute.
-        self._device = copy.deepcopy(device)
-        self.origFormat = self._device.format
+        self.origFormat = self.device.format
         if device.format.exists:
             device.format.teardown()
         self.device.format = None
@@ -304,20 +297,16 @@ class ActionDestroyFormat(DeviceAction):
     def execute(self, intf=None):
         """ wipe the filesystem signature from the device """
         if self.origFormat:
-            if isinstance(self._device, PartitionDevice) and \
+            if isinstance(self.device, PartitionDevice) and \
                self.origFormat.partedFlag is not None:
                 # unset partition flags and commit
-                self._device.unsetFlag(self.origFormat.partedFlag)
-                self._device.disk.format.commitToDisk()
+                self.device.unsetFlag(self.origFormat.partedFlag)
+                self.device.disk.format.commitToDisk()
 
-            # set up our copy of the original device stack since the
-            # reference we got may have had any number of things changed
-            # since then (most notably, formats removed by this very
-            # class' constructor)
-            self._device.setup()
+            self.device.setup()
             self.origFormat.destroy()
             udev_settle()
-            self._device.teardown()
+            self.device.teardown()
 
     def cancel(self):
         self.device.format = self.origFormat
