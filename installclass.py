@@ -51,7 +51,6 @@ class BaseInstallClass(object):
     showLoginChoice = 0
     _description = ""
     _descriptionFields = ()
-    regkeydesc = None
     name = "base"
     pkgstext = ""
     # default to showing the upgrade option
@@ -75,14 +74,6 @@ class BaseInstallClass(object):
 
     # we can use a different install data class
     installDataClass = InstallData
-
-    # install key related bits
-    skipkeytext = None
-    instkeyname = None
-    allowinstkeyskip = True
-    instkeydesc = None
-    installkey = None
-    skipkey = False
 
     def _get_description(self):
         return _(self._description) % self._descriptionFields
@@ -128,7 +119,6 @@ class BaseInstallClass(object):
                  "dopostaction",
                  "postscripts",
 		 "writeksconfig",
-                 "writeregkey",
                  "methodcomplete",
                  "copylogs",
                  "setfilecon",
@@ -173,9 +163,6 @@ class BaseInstallClass(object):
             uri = [uri,]
 
         return {'base': uri}
-
-    def handleRegKey(self, key, intf):
-        pass
 
     def setPackageSelection(self, anaconda):
 	pass

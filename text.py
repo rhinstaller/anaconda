@@ -341,52 +341,6 @@ class InstallInterface:
         ret = w.run()
         return ret != INSTALL_BACK
 
-    def getInstallKey(self, key = ""):
-        ic = self.anaconda.id.instClass
-        keyname = _(ic.instkeyname)
-        if keyname is None:
-            keyname = _("Installation Key")
-
-        g = GridFormHelp(self.screen, keyname, "instkey", 1, 6)
-
-        txt = TextboxReflowed(65, ic.instkeydesc or
-                              _("Please enter your %(instkey)s") %
-                              {"instkey": keyname,})
-        g.add(txt, 0, 0, (0,0,0,1))
-
-
-        radio = RadioGroup()
-        keyradio = radio.add(keyname, "key", int(not self.anaconda.id.instClass.skipkey))
-        keyentry = Entry(24)
-        keyentry.set(key)
-
-        sg = Grid(3, 1)
-        sg.setField(keyradio, 0, 0)
-        sg.setField(Label("      "), 1, 0)
-        sg.setField(keyentry, 2, 0, (1,0,0,0))
-        g.add(sg, 0, 1)
-
-        if ic.allowinstkeyskip:
-            skipradio = radio.add(_("Skip entering %(instkey)s") %
-                                  {"instkey": keyname}, "skip", 
-                                  int(self.anaconda.id.instClass.skipkey))
-            g.add(skipradio, 0, 2)
-
-        bb = ButtonBar(self.screen, [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ])
-        g.add(bb, 0, 5, (0,1,0,0))
-        rc = g.run()
-        res = bb.buttonPressed(rc)
-        if res == TEXT_BACK_CHECK:
-            self.screen.popWindow()
-            return None
-        if radio.getSelection() == "skip":
-            self.screen.popWindow()            
-            return SKIP_KEY
-        key = keyentry.value()
-        self.screen.popWindow()
-        return key
-        
-
     def kickstartErrorWindow(self, text):
         s = _("The following error was found while parsing the "
               "kickstart configuration file:\n\n%s") %(text,)

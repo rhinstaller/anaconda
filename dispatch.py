@@ -30,8 +30,6 @@ from packages import firstbootConfiguration
 from packages import betaNagScreen
 from packages import setupTimezone
 from packages import setFileCons
-from packages import regKeyScreen
-from packages import writeRegKey
 from storage import storageInitialize
 from storage import storageComplete
 from storage.partitioning import doAutoPartition
@@ -71,7 +69,6 @@ installSteps = [
     ("language", ),
     ("keyboard", ),
     ("betanag", betaNagScreen, ),
-    ("regkey", regKeyScreen, ),
     ("storageinit", storageInitialize, ),
     ("findrootparts", findRootParts, ),
     ("findinstall", ),
@@ -107,7 +104,6 @@ installSteps = [
     ("firstboot", firstbootConfiguration, ),
     ("instbootloader", writeBootloader, ),
     ("writeksconfig", writeKSConfiguration, ),
-    ("writeregkey", writeRegKey, ),
     ("setfilecon", setFileCons, ),
     ("copylogs", copyAnacondaLogs, ),
     ("methodcomplete", doMethodComplete, ),

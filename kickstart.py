@@ -1432,7 +1432,6 @@ def setSteps(anaconda):
 
     dispatch.skipStep("bootdisk")
     dispatch.skipStep("betanag")
-    dispatch.skipStep("regkey")
     dispatch.skipStep("installtype")
     dispatch.skipStep("network")
 

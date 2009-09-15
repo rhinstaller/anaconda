@@ -1097,16 +1097,6 @@ class InstallInterface:
                             custom_buttons=[_("_Exit installer")]).getrc()
         return rc
 
-    def getInstallKey(self, key = ""):
-        d = InstallKeyWindow(self.anaconda, key)
-        rc = d.run()
-        if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
-            ret = None
-        else:
-            ret = d.get_key()
-        d.destroy()
-        return ret
-
     def getLuksPassphrase(self, passphrase = "", preexist = False):
         if self.icw:
             parent = self.icw.window

@@ -215,11 +215,6 @@ class InstallData:
         else:
             f.write("install\n");
 
-        if self.instClass.skipkey:
-            f.write("key --skip\n")
-        elif self.instClass.installkey:
-            f.write("key %s\n" %(self.instClass.installkey,))
-
         m = None
 
         if self.anaconda.methodstr:
