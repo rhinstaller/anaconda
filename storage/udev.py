@@ -60,6 +60,16 @@ def udev_get_block_devices():
     for path in udev_enumerate_block_devices():
         entry = udev_get_block_device(path)
         if entry:
+            if entry["name"].startswith("md"):
+                # mdraid is really braindead, when a device is stopped
+                # it is no longer usefull in anyway (and we should not
+                # probe it) yet it still sticks around, see bug rh523387
+                state = None
+                state_file = "/sys/%s/md/array_state" % entry["sysfs_path"]
+                if os.access(state_file, os.R_OK):
+                    state = open(state_file).read().strip()
+                if state == "clear":
+                    continue
             entries.append(entry)
     return entries
 
