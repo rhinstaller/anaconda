@@ -102,10 +102,14 @@ class KernelArguments:
         args += self.id.instLanguage.dracutSetupString()
         args += self.id.keyboard.dracutSetupString()
 
-        return args
+        if args and self.appendArgs:
+            args += " "
+
+        return args + self.appendArgs
 
     def set(self, args):
         self.args = args
+        self.appendArgs = ""
 
     def chandevget(self):
         return self.cargs
@@ -114,13 +118,16 @@ class KernelArguments:
         self.cargs = args
 
     def append(self, args):
-        if self.args:
-            # don't duplicate the addition of an argument (#128492)
-            if self.args.find(args) != -1:
-                return
-            self.args = self.args + " "
-        self.args = self.args + "%s" % (args,)
-        
+        # don't duplicate the addition of an argument (#128492)
+        if self.args.find(args) != -1:
+            return
+        if self.appendArgs.find(args) != -1:
+            return
+
+        if self.appendArgs:
+            self.appendArgs += " "
+
+        self.appendArgs += args
 
     def __init__(self, instData):
         newArgs = []
@@ -160,6 +167,7 @@ class KernelArguments:
                 newArgs.append(arg)
 
         self.args = " ".join(newArgs)
+        self.appendArgs = ""
         self.id = instData
 
 
