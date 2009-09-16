@@ -1041,7 +1041,7 @@ for brokenlink in $(find $DEST/usr/{bin,sbin} -follow -lname '*') ; do
 done
 
 # copy bootloader files for sparc
-if [ $ARCH = sparc ]; then
+if [ $ARCH = sparc -o $ARCH = sparcv9 -o $ARCH = sparc64 ]; then
     mkdir -p $DEST/usr/lib/anaconda-runtime/boot
     [ -d $DEST/boot ] || die "ERROR: directory missing: $DEST/boot"
     (cd $DEST/boot; find -name "*.b") | (cd $DEST/boot; /bin/cpio --quiet -pdmu $DEST/usr/lib/anaconda-runtime/boot)
