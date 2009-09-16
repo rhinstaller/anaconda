@@ -1927,7 +1927,11 @@ int main(int argc, char ** argv) {
     if (isVioConsole())
         setenv("TERM", "vt100", 1);
 
-    mlLoadModuleSet("cramfs:floppy:edd:pcspkr:squashfs:iscsi_tcp:iscsi_ibft");
+    mlLoadModuleSet("cramfs:squashfs:iscsi_tcp");
+
+#if !defined(__s390__) && !defined(__s390x__)
+    mlLoadModuleSet("floppy:edd:pcspkr:iscsi_ibft");
+#endif
 
 #ifdef ENABLE_IPV6
     if (!FL_NOIPV6(flags))
