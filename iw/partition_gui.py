@@ -259,10 +259,8 @@ class StripeGraph:
     """ This class will only handle one stripe."""
 
     __canvas = None
-    def __init__(self, tree, editCB):
+    def __init__(self):
         self.stripe = None
-        self.tree = tree
-        self.editCB = editCB
         self.next_ypos = 0.0
 
     def __del__(self):
@@ -320,8 +318,10 @@ class StripeGraph:
 
 class DiskStripeGraph(StripeGraph):
     def __init__(self, tree, editCB, storage, drive = None):
-        StripeGraph.__init__(self, tree, editCB)
+        StripeGraph.__init__(self)
         self.storage = storage
+        self.tree = tree
+        self.editCB = editCB
        # Define the default colors per partition type.
         self.part_type_colors = \
                 {"sel_logical": "cornsilk1", "unsel_logical": "white",
@@ -431,8 +431,10 @@ class DiskStripeGraph(StripeGraph):
 
 class LVMStripeGraph(StripeGraph):
     def __init__(self, tree, editCB, storage, vg = None):
-        StripeGraph.__init__(self, tree, editCB)
+        StripeGraph.__init__(self)
         self.storage = storage
+        self.tree = tree
+        self.editCB = editCB
        # Define the default colors per partition type.
         self.part_type_colors = \
                 {"sel_lv": "cornsilk1", "unsel_lv": "white",
@@ -492,8 +494,10 @@ class LVMStripeGraph(StripeGraph):
 
 class MDRaidArrayStripeGraph(StripeGraph):
     def __init__(self, tree, editCB, storage, md = None):
-        StripeGraph.__init__(self, tree, editCB)
+        StripeGraph.__init__(self)
         self.storage = storage
+        self.tree = tree
+        self.editCB = editCB
         self.part_type_colors = \
                 {"sel_md": "cornsilk1", "unsel_md": "white"}
         if md:
@@ -520,7 +524,6 @@ class MDRaidArrayStripeGraph(StripeGraph):
         stripe.addSlice(slice)
 
         return stripe
-
 
 class DiskTreeModelHelper:
     def __init__(self, model, columns, iter):
@@ -1687,7 +1690,7 @@ class PartitionWindow(InstallWindow):
         self.treeView.connect('row-activated', self.treeActivateCB)
         self.treeViewSelection = self.treeView.get_selection()
         self.treeViewSelection.connect("changed", self.treeSelectCB)
-        self.stripeGraph = StripeGraph(self.tree, self.editCB)
+        self.stripeGraph = StripeGraph()
         self.populate(initial = 1)
 
         # Create the top scroll window
