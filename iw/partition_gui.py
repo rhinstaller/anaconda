@@ -359,7 +359,7 @@ class DiskStripeGraph(StripeGraph):
                         / float(drive.partedDevice.length))
 
             if part.type == parted.PARTITION_LOGICAL:
-                partstr = "%s\n%s MB" % (part.path, part.getSize())
+                partstr = "%s\n%.0f MB" % (part.path, float(part.getSize()))
                 stype = Slice.SUBSLICE
                 unsel_col = self.part_type_colors["unsel_logical"]
                 sel_col = self.part_type_colors["sel_logical"]
@@ -371,7 +371,7 @@ class DiskStripeGraph(StripeGraph):
                     last_logical_offset = xoffset + xlength
 
             elif part.type == parted.PARTITION_FREESPACE:
-                partstr = "%s\n%s MB" % (_("Free"), part.getSize())
+                partstr = "%s\n%.0f MB" % (_("Free"), float(part.getSize()))
                 stype = Slice.SLICE
                 unsel_col = self.part_type_colors["unsel_freespace"]
                 sel_col = self.part_type_colors["sel_freespace"]
@@ -386,7 +386,7 @@ class DiskStripeGraph(StripeGraph):
                 last_extended_offset = xoffset + xlength
 
             elif part.type == parted.PARTITION_NORMAL:
-                partstr = "%s\n%s MB" % (part.path, part.getSize())
+                partstr = "%s\n%.0f MB" % (part.path, float(part.getSize()))
                 stype = Slice.SLICE
                 unsel_col = self.part_type_colors["unsel_normal"]
                 sel_col = self.part_type_colors["sel_normal"]
@@ -421,7 +421,7 @@ class DiskStripeGraph(StripeGraph):
             sel_col = self.part_type_colors["sel_freespace"]
             xoffset = last_logical_offset
             xlength = last_extended_offset - last_logical_offset
-            slcstr = "%s\n%s MB" % (_("Free"), drive.size * xlength)
+            slcstr = "%s\n%.0f MB" % (_("Free"), float(drive.size * xlength))
 
             slice = Slice(stripe, slcstr, stype, xoffset, xlength,
                     sel_col=sel_col, unsel_col=unsel_col)
@@ -450,7 +450,7 @@ class LVMStripeGraph(StripeGraph):
         # put all the LVs next to each other and put the free space at the end.
         curr_offset = float(0)
         for lv in vg.lvs:
-            lvstr = "%s\n%s MB" % (lv.name, lv.size)
+            lvstr = "%s\n%.0f MB" % (lv.name, float(lv.size))
             stype = Slice.SLICE
             sel_col = self.part_type_colors["sel_lv"]
             unsel_col = self.part_type_colors["unsel_lv"]
@@ -480,7 +480,7 @@ class LVMStripeGraph(StripeGraph):
             xlength = float(1 - curr_offset)
 
             # with the xlength we give an approximate size
-            freestr = "%s\n%s MB" % (_("Free"), vg.size*xlength)
+            freestr = "%s\n%.0f MB" % (_("Free"), float(vg.size*xlength))
 
             # We append no object.
             slice = Slice(stripe, freestr, stype, xoffset, xlength,
@@ -505,7 +505,7 @@ class MDRaidArrayStripeGraph(StripeGraph):
 
         # Since we can't really create subslices with md devices we will only
         # show the md device size in the bar.
-        mdstr = "%s\n%s MB" % (md.path, md.size)
+        mdstr = "%s\n%.0f MB" % (md.path, float(md.size))
         stype = Slice.SLICE
         sel_col = self.part_type_colors["sel_md"]
         unsel_col = self.part_type_colors["unsel_md"]
