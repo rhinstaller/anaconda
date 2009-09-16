@@ -27,14 +27,15 @@
 # Dominik Sandjaja <dominiksandjaja@fedoraproject.org>, 2008,2009.
 # Daniela Kugelmann <dkugelma@redhat.com >, 2008.
 # Christof Kälin <christof.kaelin@gmail.com>, 2009.
+# Jens Maucher <jensm@fedoraproject.org>, 2009
 # Hedda Peters <hpeters@redhat.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-08-30 14:48+0000\n"
-"PO-Revision-Date: 2009-09-11 16:11+0200\n"
-"Last-Translator: Hedda Peters <hpeters@redhat.com>\n"
+"PO-Revision-Date: 2009-09-16 17:29+0200\n"
+"Last-Translator: Jens Maucher <jensm@fedoraproject.org>\n"
 "Language-Team:  <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -5477,27 +5478,31 @@ msgstr "Sie haben keine FCP LUN oder eine ungültige Nummer angegeben."
 #, python-format
 msgid "Could not free zFCP device %s from device ignore list (%s)."
 msgstr ""
+"Konnte das zFCP Gerät %s von der Liste der zu ignorierenden Geräte (%s) "
+"nicht freigeben."
 
 #: ../storage/zfcp.py:137
 #, python-format
 msgid "zFCP device %s not found, not even in device ignore list."
 msgstr ""
+"zFCP Gerät %s nicht gefunden, auch nicht in der Liste der zu ignorierenden "
+"Geräte."
 
 #: ../storage/zfcp.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %s online (%s)."
-msgstr "Fehler: %s konnte nicht als reIPL-Gerät (%s) gesetzt werden"
+msgstr "Konnte das zFCP Gerät %s nicht anmelden (%s)."
 
 #: ../storage/zfcp.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add WWPN %s to zFCP device %s (%s)."
-msgstr "Fehler: %s konnte nicht als reIPL-Gerät (%s) gesetzt werden"
+msgstr "Konnte WWPN %s nicht zum zFCP Gerät %s (%s) hinzufügen."
 
 #. newer zfcp sysfs interface with auto port scan
 #: ../storage/zfcp.py:165
 #, python-format
 msgid "WWPN %s not found at zFCP device %s."
-msgstr ""
+msgstr "WWPN %s wurde am zFCP Gerät %s nicht gefunden."
 
 #: ../storage/zfcp.py:179
 #, python-format
@@ -5507,38 +5512,41 @@ msgstr "Konnte LUN %s nicht zu WWPN %s am zFCP Gerät %s (%s) hinzufügen."
 #: ../storage/zfcp.py:183
 #, python-format
 msgid "LUN %s at WWPN %s on zFCP device %s already configured."
-msgstr ""
+msgstr "LUN %s von WWPN %s am zFCP Geräte %s bereits konfiguriert."
 
 #: ../storage/zfcp.py:193
 #, python-format
 msgid ""
 "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
 msgstr ""
+"Konnte die Attribute von LUN %s an WWPN %s vom zFCP Gerät %s (%s) nicht "
+"lesen."
 
 #: ../storage/zfcp.py:198
 #, python-format
 msgid "Failed LUN %s at WWPN %s on zFCP device %s removed again."
 msgstr ""
+"Fehlerhaftes LUN %s an WWPN %s vom zFCP Gerät %s wurde wieder entfernt."
 
 #: ../storage/zfcp.py:253
 #, python-format
 msgid "Could not correctly delete SCSI device of zFCP %s %s %s (%s)."
-msgstr ""
+msgstr "Konnte das SCSI Gerät von zFCP %s %s %s (%s) nicht richtig löschen."
 
 #: ../storage/zfcp.py:260
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove LUN %s at WWPN %s on zFCP device %s (%s)."
-msgstr "Fehler: %s konnte nicht als reIPL-Gerät (%s) gesetzt werden"
+msgstr "Konnte LUN %s an WWPN %s auf dem zFCP Gerät %s (%s) nicht entfernen."
 
 #: ../storage/zfcp.py:275
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove WWPN %s on zFCP device %s (%s)."
-msgstr "Fehler: %s konnte nicht als reIPL-Gerät (%s) gesetzt werden"
+msgstr "Konnte WWPN %s am zFCP Gerät %s (%s) nicht entfernen."
 
 #: ../storage/zfcp.py:299
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %s offline (%s)."
-msgstr "Fehler: %s konnte nicht als reIPL-Gerät (%s) gesetzt werden"
+msgstr "Konnte das zFCP Gerät %s nicht abmelden (%s)."
 
 #: ../textw/complete_text.py:32
 msgid "Reboot"
@@ -6083,7 +6091,7 @@ msgstr "Wählen _Sie das/die für die Installation zu verwendenden Laufwerk(e)."
 
 #: ../ui/autopart.glade.h:10
 msgid "_Shrink"
-msgstr ""
+msgstr "_Verkleinern"
 
 #: ../ui/blwhere.glade.h:1
 msgid "/boot"
