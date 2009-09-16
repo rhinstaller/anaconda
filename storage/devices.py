@@ -2247,9 +2247,10 @@ class MDRaidArrayDevice(StorageDevice):
         if self.level is None or self.memberDevices is None or not self.uuid:
             raise DeviceError("array is not fully defined", self.name)
 
-        if self.type == "mdcontainer":
-            fmt = "ARRAY %s num-devices=%d UUID=%s\n"
-            return fmt % (self.path, self.memberDevices, self.uuid)
+        # containers and the sets within must only have a UUID= parameter
+        if self.type == "mdcontainer" or self.devices[0].type == "mdcontainer":
+            fmt = "ARRAY %s UUID=%s\n"
+            return fmt % (self.path, self.uuid)
 
         fmt = "ARRAY %s level=raid%d num-devices=%d UUID=%s\n"
         return fmt % (self.path, self.level, self.memberDevices, self.uuid)
