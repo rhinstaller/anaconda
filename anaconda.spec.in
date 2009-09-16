@@ -115,9 +115,7 @@ Requires: python-cryptsetup >= %{pythoncryptsetupver}
 Requires: mdadm
 Requires: lvm2
 Requires: util-linux-ng >= 2.15.1
-%ifnarch s390 s390x ppc64
 Requires: system-config-keyboard >= 1.3.0-3
-%endif
 Requires: hal, dbus-python
 Requires: cracklib-python
 Requires: python-bugzilla
