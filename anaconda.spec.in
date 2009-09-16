@@ -214,6 +214,54 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Sep 15 2009 David Cantrell <dcantrell@redhat.com> - 12.25-1
+- Use pyblock for device-mapper devices' status. (dlehman)
+- load_policy has moved from /usr/sbin to /sbin (#523506). (clumens)
+- Collect all modules from modules.{ccwmap|networking} on s390x (#522519)
+  (dcantrell)
+- Copy cmsfscat from /usr/sbin, not /usr/bin. (dcantrell)
+- Remove duplicate search_cu() in linuxrc.s390 (dcantrell)
+- Try harder to stop mdraid arrays (hdegoede)
+- Log when we are skipping disks without media (hdegoede)
+- Don't scan stopped md devices (hdegoede)
+- Make udev_get_block_device() return None on failure (hdegoede)
+- Do not pass --update=super-minor to mdadm for containers and sets there in
+  (hdegoede)
+- Write mdadm.conf lines for mdraid container formats (imsm) (hdegoede)
+- Really put appended kernel cmdline arguments at the end (hdegoede)
+- Install dracut-network when using network storage (hdegoede)
+- Make recreateInitrd() generate a dracut initrd (hdegoede)
+- Use type of device rather than name in booty target selection. (hdegoede)
+- write netroot=fcoe:... to kernel cmdline in grub.conf for dracut (hdegoede)
+- write ifname=eth#:MAC to kernel cmdline in grub.conf for dracut (hdegoede)
+- write iscsi initiator name to kernel cmdline in grub.conf for dracut
+  (hdegoede)
+- Make iswmd the default (hdegoede)
+- Use new icons in anaconda so we don't look so dated (#515601). (clumens)
+- Prevent infinite loop in doClearPartitionedDevice. (dlehman)
+- Rename doDeleteDependentDevices to doClearPartitionedDevice for clarity.
+  (dlehman)
+- Handle Esc keypress in dialogs as Cancel (#520110). (rvykydal)
+- Don't use baseurl containing space in yum repo object (#516042). (rvykydal)
+- Add escrow support (mitr)
+- Add python-{nss,volume_key} to stage2, volume_key to rescue (mitr)
+- Update for pykickstart with escrow support (mitr)
+- Fix --encrypted when creating volumes in kickstart (mitr)
+- Remove the "Remove dmraid Device" button, which isn't even hooked up.
+  (clumens)
+- Require the right version of system-config-date (#523107). (clumens)
+- Fix setting of "Add repository" dialog title. (rvykydal)
+- Update state and name of repository in list after editing. (rvykydal)
+- Fix busy cursor in repo editing (#518529) (rvykydal)
+- Fix busy cursor stack popping when creating formats (#518529). (rvykydal)
+- Remove partitions in reverse order when clearing disks. (dlehman)
+- Improve the info provided to DeviceAction.__str__. (dlehman)
+- Include device id in log lines since partitions can get renumbered.
+  (dlehman)
+- Don't try to preserve old format attrs when reinitializing pvs. (dlehman)
+- remove the no longer used initcb and initlabel DiskDevice.__init__
+  arguments (hdegoede)
+
 * Thu Sep 10 2009 Chris Lumens <clumens@redhat.com> - 12.24-1
 - dmidecode is in /usr/sbin, not /usr/bin. (clumens)
 - Add cmsfscat to the initrd on s390 as well (#522535). (clumens)
