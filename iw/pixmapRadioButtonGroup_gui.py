@@ -55,7 +55,7 @@ class pixmapRadioButtonGroup:
                                                                description))
 	    label.set_line_wrap(True)
 	    if  gtk.gdk.screen_width() > 640:
-		wraplen = 350
+		wraplen = 600
 	    else:
 		wraplen = 250
 		
@@ -127,7 +127,7 @@ class pixmapRadioButtonGroup:
 	radioGroup = None
 	buttons = []
 	for item in self.entries:
-	    box = gtk.VBox (False, 9)
+	    box = gtk.VBox (False, 6)
 	    name = item["name"]
 	    label = item["label"]
 	    pixmap = item["pixmap"]
@@ -140,11 +140,11 @@ class pixmapRadioButtonGroup:
 	    self.topLevelButtonList.append((radioGroup, box, buttons))
 	    radioGroup.connect("toggled", self.toggled)
 
-	finalVBox = gtk.VBox(False, 18)
+	finalVBox = gtk.VBox(False, 6)
 	finalVBox.set_border_width (5)
 
 	for (button, box, buttons) in self.topLevelButtonList:
-	    vbox = gtk.VBox (False, 9)
+	    vbox = gtk.VBox (False, 6)
 	    finalVBox.pack_start(vbox, False, False)
 	    vbox.pack_start (button, False, False)
 	    
