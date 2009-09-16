@@ -333,7 +333,17 @@ class IPSeriesPPC(PPC):
         if bootPart.geometry.end * bootPart.geometry.device.sectorSize / (1024.0 * 1024) > 4096:
             errors.append(_("The boot partition must be within the first 4MB of the disk."))
 
-        return errors
+        # All of the above just checks the PPC PReP boot partitions.  We still
+        # need to make sure that whatever /boot is on also meets these criteria.
+        if req == self.bootDevice():
+            try:
+                req = self.anaconda.id.storage.mountpoints["/boot"]
+            except KeyError:
+                req = self.anaconda.id.storage.rootDevice
+
+            return errors + self.checkBootRequest(req)
+        else:
+            return errors
 
     def setDefaultPartitioning(self):
         ret = PPC.setDefaultPartitioning(self)
@@ -395,7 +405,17 @@ class NewWorldPPC(PPC):
         if not disk.type == self.diskType.name:
             errors.append(_("%s must have a mac disk label.") % req.disk.name)
 
-        return errors
+        # All of the above just checks the appleboot partitions.  We still
+        # need to make sure that whatever /boot is on also meets these criteria.
+        if req == self.bootDevice():
+            try:
+                req = self.anaconda.id.storage.mountpoints["/boot"]
+            except KeyError:
+                req = self.anaconda.id.storage.rootDevice
+
+            return errors + self.checkBootRequest(req)
+        else:
+            return errors
 
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
