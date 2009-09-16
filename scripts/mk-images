@@ -978,7 +978,7 @@ elif [ "$BUILDARCH" = "x86_64" ]; then
 elif [ "$BUILDARCH" = "ia64" ]; then
     kerneltags="kernel"
     efiarch="ia64"
-elif [ "$BUILDARCH" = "sparcv9" -o "$BUILDARCH" = "sparc64" ]; then
+elif [ "$BUILDARCH" = "sparc" -o "$BUILDARCH" = "sparcv9" -o "$BUILDARCH" = "sparc64" ]; then
     arches="sparc64"
 fi
 
