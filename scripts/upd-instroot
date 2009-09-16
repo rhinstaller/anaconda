@@ -252,7 +252,7 @@ fi
 #
 # add bootloader for particular arch
 #
-if [ $ARCH = sparc ]; then
+if [ $ARCH = sparc -o $ARCH = sparcv9 -o $ARCH = sparc64 ]; then
     PACKAGES="$PACKAGES tilo silo"
 fi
 
