@@ -115,17 +115,21 @@ static void addOption(const char *module, const char *option) {
         found = 1;
         break;
     }
-    if (found == 0) {
+
+    if (found) {
+        modopts[i].options = realloc(modopts[i].options,
+                                     sizeof(modopts[i].options) *
+                                     (modopts[i].numopts + 1));
+        modopts[i].options[modopts[i].numopts - 1] = strdup(option);
+        modopts[i].options[modopts[i].numopts] = NULL;
+    } else {
         modopts = realloc(modopts, sizeof(*modopts) * (nummodopts + 1));
         modopts[nummodopts].name = strdup(module);
         modopts[nummodopts].numopts = 1;
         modopts[nummodopts++].options = NULL;
     }
-    modopts[i].options = realloc(modopts[i].options,
-                                sizeof(modopts[i].options) *
-                                (modopts[i].numopts + 1));
-    modopts[i].options[modopts[i].numopts - 1] = strdup(option);
-    modopts[i].options[modopts[i].numopts] = NULL;
+
+    return;
 }
 
 static int isValidModule(char *module) {
