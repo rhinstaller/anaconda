@@ -560,9 +560,9 @@ makeinitrd() {
     mkdir -p $MBD_DIR/etc/NetworkManager/dispatcher.d
     mkdir -p $MBD_DIR/$LIBDIR/dbus-1
     mkdir -p $MBD_DIR/etc/sysconfig/network-scripts
-    mkdir -p $MBD_DIR/usr/share/PolicyKit/policy
-    mkdir -p $MBD_DIR/etc/PolicyKit
-    mkdir -p $MBD_DIR/var/lib/misc
+    mkdir -p $MBD_DIR/usr/share/polkit-1/actions
+    mkdir -p $MBD_DIR/etc/polkit-1/localauthority.conf.d
+    mkdir -p $MBD_DIR/etc/polkit-1/nullbackend.conf.d
     mkdir -p $MBD_DIR/etc/hal/fdi
     mkdir -p $MBD_DIR/usr/share/hal/fdi
     mkdir -p $MBD_DIR/usr/share/hwdata
@@ -708,17 +708,16 @@ makeinitrd() {
     cp -a $IMGPATH/etc/dbus-1/system.d/hal.conf $MBD_DIR/etc/dbus-1/system.d
 
     # PolicyKit
-    ( cd $IMGPATH/etc/PolicyKit
-      cp -a PolicyKit.conf $MBD_DIR/etc/PolicyKit
+    ( cd $IMGPATH/etc/polkit-1
+      cp -a localauthority.conf.d/50-localauthority.conf $MBD_DIR/etc/polkit-1/localauthority.conf.d
+      cp -a localauthority.conf.d/60-desktop-policy.conf $MBD_DIR/etc/polkit-1/localauthority.conf.d
+      cp -a nullbackend.conf.d/50-nullbackend.conf $MBD_DIR/etc/polkit-1/nullbackend.conf.d
     )
     ( cd $IMGPATH/usr/share/dbus-1/system-services
-      cp -a org.freedesktop.PolicyKit.service $MBD_DIR/usr/share/dbus-1/system-services
+      cp -a org.freedesktop.PolicyKit1.service $MBD_DIR/usr/share/dbus-1/system-services
     )
-    ( cd $IMGPATH/usr/share/PolicyKit/policy
-      cp -a org.freedesktop.policykit.policy $MBD_DIR/usr/share/PolicyKit/policy
-    )
-    ( cd $IMGPATH/var/lib/misc
-      cp -a PolicyKit.reload $MBD_DIR/var/lib/misc
+    ( cd $IMGPATH/usr/share/polkit/actions
+      cp -a org.freedesktop.policykit.policy $MBD_DIR/usr/share/polkit-1/actions
     )
 
     # dbus

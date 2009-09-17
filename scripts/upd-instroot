@@ -155,7 +155,7 @@ die () {
     exit 1
 }
 
-PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
+PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
     btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
@@ -182,7 +182,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 PolicyKit acl anaconda
     lohit-telugu-fonts lvm2 madan-fonts mdadm
     mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
     newt newt-python nfs-utils nspr nss ntfs-3g pam pango parted pciutils pcre
-    policycoreutils popt prelink procps pycairo pygobject2 pygtk2
+    policycoreutils polkit popt prelink procps pycairo pygobject2 pygtk2
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
     python-libs python-nss python-pyblock python-sqlite
     python-urlgrabber python-volume_key pyxf86config readline redhat-artwork
@@ -347,7 +347,6 @@ boot/efika.forth
 boot/memtest86*
 etc/NetworkManager/nm-system-settings.conf
 etc/NetworkManager/dispatcher.d
-etc/PolicyKit/*
 etc/dbus-1/*
 etc/dbus-1/system.d/*
 etc/fb.modes
@@ -366,6 +365,8 @@ etc/pango
 etc/passwd
 etc/pcmcia
 etc/pki/tls/certs/ca-bundle.crt
+etc/polkit-1/localauthority.conf.d/*
+etc/polkit-1/nullbackend.conf.d/*
 etc/prelink.conf
 etc/protocols
 etc/rc.d/init.d/functions
@@ -574,7 +575,7 @@ usr/sbin/xfs_check
 usr/sbin/xfs_copy
 usr/sbin/xfs_db
 usr/sbin/ybin
-usr/share/PolicyKit/policy/*
+usr/share/polkit-1/actions/*
 usr/share/X11/XKeysymDB
 usr/share/X11/fonts/TTF/GohaTibebZemen.ttf
 usr/share/X11/fonts/misc/6x13*
@@ -653,11 +654,9 @@ usr/share/xorg/vesamodes
 usr/share/zenity
 usr/share/zoneinfo
 var/cache/hald
-var/lib/PolicyKit*
+var/lib/polkit-1
 var/lib/dbus
 var/lib/hal
-var/lib/misc/PolicyKit*
-var/run/PolicyKit
 var/run/dbus
 EOF
 
