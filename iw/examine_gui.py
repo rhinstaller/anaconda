@@ -32,7 +32,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 UPGRADE_STR = "upgrade"
 REINSTALL_STR = "reinstall"
 
-class UpgradeExamineWindow (InstallWindow):		
+class UpgradeExamineWindow (InstallWindow):
 
     windowTitle = N_("Upgrade Examine")
 
@@ -55,20 +55,20 @@ class UpgradeExamineWindow (InstallWindow):
 
     def createUpgradeOption(self):
 	r = pixmapRadioButtonGroup()
-	r.addEntry(REINSTALL_STR,
-                   _("_Install %s") %(productName,),
+	r.addEntry(REINSTALL_STR, _("Fresh Installation"),
 		   pixmap=gui.readImageFromFile("install.png"),
-		   descr=_("Choose this option to freshly install your system. "                           "Existing software and data may be overwritten "
-			   "depending on your configuration choices."))        
-        
-	r.addEntry(UPGRADE_STR,
-                   _("_Upgrade an existing installation"),
+                   descr=_("Choose this option to install a fresh copy of %s "
+                           "on your system.  Existing software and data may "
+                           "be overwritten depending on your configuration "
+                           "choices.") % productName)
+
+	r.addEntry(UPGRADE_STR, _("Upgrade an Existing Installation"),
 		   pixmap=gui.readImageFromFile("upgrade.png"),
-		   descr=_("Choose this option if you would like "
-                           "to upgrade your existing %s system.  "
-                           "This option preserves the "
-                           "existing data on your drives.") %(productName,))
-        
+                   descr=_("Choose this option if you would like to upgrade "
+                           "your existing %s system.  This option will "
+                           "preserve the existing data on your storage "
+                           "device(s).") % productName)
+
 	return r
 
     def upgradeOptionsSetSensitivity(self, state):
@@ -97,10 +97,16 @@ class UpgradeExamineWindow (InstallWindow):
                                                                    flags.cmdline.has_key("upgradeany"))
             upgrade.setUpgradeRoot(self.anaconda)
 
-        self.parts = self.anaconda.id.rootParts 
+        self.parts = self.anaconda.id.rootParts
 
-        vbox = gtk.VBox (False, 10)
+        vbox = gtk.VBox (False, 12)
 	vbox.set_border_width (8)
+
+        introLabel = gtk.Label(_("At least one existing installation has been "
+                                 "detected on your system.  What would you "
+                                 "like to do?"))
+        introLabel.set_alignment(0, 0)
+        vbox.pack_start(introLabel, False, False)
 
 	r = self.createUpgradeOption()
         self.r = r
@@ -112,17 +118,13 @@ class UpgradeExamineWindow (InstallWindow):
 	    self.r.setCurrent(REINSTALL_STR)
 
 	self.r.setToggleCallback(self.optionToggled)
-	box = gtk.VBox (False)
-        box.pack_start(b, False)
-
-        vbox.pack_start (box, False)
+        vbox.pack_start(b, False)
         self.root = self.parts[0]
 
-	# hack hack hackity hack
-	upboxtmp = gtk.VBox(False, 5)
-	uplabelstr = _("The following installed system will be upgraded:")
+	uplabelstr = _("<b>Which %s installation would you like to upgrade?</b>") % productName
 	self.uplabel = gtk.Label(uplabelstr)
-	self.uplabel.set_alignment(0.0, 0.0)
+        self.uplabel.set_use_markup(True)
+        self.uplabel.set_alignment(0, 0)
         model = gtk.ListStore(str)
 	self.upgradecombo = gtk.ComboBox(model)
 
@@ -134,26 +136,15 @@ class UpgradeExamineWindow (InstallWindow):
             iter = model.append()
 	    if (desc is None) or len(desc) < 1:
 		desc = _("Unknown Linux system")
-            model[iter][0] = "<small>%s (%s)</small>" %(desc, dev.path)
+            model[iter][0] = "<small>%s <i>(installed on %s)</i></small>" %(desc, dev.path)
 
-	upboxtmp.pack_start(self.uplabel)
-
-	# more indentation
-	box1 = gtk.HBox(False)
-	crackhbox = gtk.HBox(False)
-	crackhbox.set_size_request(35, -1)
-	box1.pack_start(crackhbox, False, False)
-	box1.pack_start(self.upgradecombo, False, False)
-	upboxtmp.pack_start(box1, False, False)
-
-	# hack indent it
-	upbox = gtk.HBox(False)
-
-#	upbox.pack_start(upboxtmp, True, True)
-	upbox.pack_start(upboxtmp, False, False)
-
-	# all done phew
-	r.packWidgetInEntry(UPGRADE_STR, upbox)
+	# hack hack hackity hack
+        alignment = gtk.Alignment(xalign=0.25)
+        alignmentBox = gtk.VBox(False, 6)
+        alignmentBox.pack_start(self.uplabel, False, False)
+        alignmentBox.pack_start(self.upgradecombo, False, False)
+        alignment.add(alignmentBox)
+        vbox.pack_start(alignment, True, True)
 
 	# set default
 	idx = 0
