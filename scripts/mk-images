@@ -739,7 +739,6 @@ makeinitrd() {
 
     # NetworkManager
     instbin $IMGPATH /usr/sbin/NetworkManager $MBD_DIR /usr/sbin/NetworkManager
-    instbin $IMGPATH /usr/sbin/nm-system-settings $MBD_DIR /usr/sbin/nm-system-settings
     cp -a $IMGPATH/etc/dbus-1/system.d/nm-*.conf $MBD_DIR/etc/dbus-1/system.d
     cp -a $IMGPATH/etc/dbus-1/system.d/NetworkManager.conf $MBD_DIR/etc/dbus-1/system.d
     cp -a $IMGPATH/etc/NetworkManager/nm-system-settings.conf $MBD_DIR/etc/NetworkManager
