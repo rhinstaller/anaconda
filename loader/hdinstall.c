@@ -223,13 +223,12 @@ char * mountHardDrive(struct installMethod * method,
                                _("You don't seem to have any hard drives on "
                                  "your system! Would you like to configure "
                                  "additional devices?"));
-            if (rc == 2)
+            if (rc == 2) {
+                loaderData->stage2Data = NULL;
                 return NULL;
+            }
 
             rc = loadDriverFromMedia(DEVICE_DISK, loaderData, 0, 0);
-            if (rc == LOADER_BACK)
-                return NULL;
-
             continue;
         }
 
@@ -314,12 +313,10 @@ char * mountHardDrive(struct installMethod * method,
         newtPopWindow();
 
         if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
+            loaderData->stage2Data = NULL;
             return NULL;
         } else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
             rc = loadDriverFromMedia(DEVICE_DISK, loaderData, 0, 0);
-            if (rc == LOADER_BACK)
-                return NULL;
-
             continue;
         }
 
