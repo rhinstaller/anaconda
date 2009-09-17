@@ -752,7 +752,6 @@ makeinitrd() {
       done
     )
     ( cd $IMGPATH/usr/share/dbus-1/system-services
-      cp -a org.freedesktop.NetworkManagerSystemSettings.service $MBD_DIR/usr/share/dbus-1/system-services
       cp -a org.freedesktop.nm_dispatcher.service $MBD_DIR/usr/share/dbus-1/system-services
     )
 
