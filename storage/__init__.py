@@ -1959,6 +1959,13 @@ class FSSet(object):
         arrays = self.devicetree.getDevicesByType("mdarray")
         arrays.extend(self.devicetree.getDevicesByType("partitionable mdarray"))
         arrays.extend(self.devicetree.getDevicesByType("mdcontainer"))
+        # Sort it, this not only looks nicer, but this will also put
+        # containers (which get md0, md1, etc.) before their members
+        # (which get md127, md126, etc.). and lame as it is mdadm will not
+        # assemble the whole stack in one go unless listed in the proper order
+        # in mdadm.conf
+        arrays.sort(key=lambda d: d.path)
+
         conf = "# mdadm.conf written out by anaconda\n"
         conf += "MAILADDR root\n"
         devices = self.mountpoints.values() + self.swapDevices
