@@ -82,6 +82,8 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         if not searchPath and not os.access (command, os.X_OK):
             raise RuntimeError, command + " can not be run"
 
+    stdinclose = stdoutclose = stderrclose = lambda : None
+
     argv = list(argv)
     if isinstance(stdin, str):
         if os.access(stdin, os.R_OK):
@@ -149,6 +151,9 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         proc_err.join()
         del proc_err
 
+        stdinclose()
+        stdoutclose()
+        stderrclose()
     except OSError as e:
         errstr = "Error running %s: %s" % (command, e.strerror)
         log.error(errstr)
@@ -158,6 +163,10 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
         os.close(perrin)
         proc_std.join()
         proc_err.join()
+
+        stdinclose()
+        stdoutclose()
+        stderrclose()
         raise RuntimeError, errstr
 
     return ret
