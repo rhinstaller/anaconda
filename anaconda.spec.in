@@ -215,6 +215,35 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Sep 17 2009 David Cantrell <dcantrell@redhat.com> - 12.26-1
+- NetworkManagerSystemSettings.service no longer exists. (jkeating)
+- udevsettle is no longer used (udevadm settle is called instead) so don't
+  put it in images. (jkeating)
+- nm-system-settings is no longer shipped. (jkeating)
+- Port from PolicyKit to polkit (jkeating)
+- Keep po/anaconda.pot in the source tree (#522072) (dcantrell)
+- Do not show Unknown as filesystem type for free space. (dcantrell)
+- Catch failures from write(2) in utils/snarffont.c (dcantrell)
+- Don't leak fds (#520154) (jgranado)
+- Initialize the opts variable. (jgranado)
+- Add the help messages for the new options of makeupdates script. (jgranado)
+- Revert "The Madan font should no longer be used (apparently).  (#523906)."
+  (clumens)
+- Fix going back from hd install UI when stage2 is given as boot param
+  (#519206). (rvykydal)
+- The Madan font should no longer be used (apparently).  (#523906). (clumens)
+- Update the pykickstart requirement to reflect the escrow stuff. (clumens)
+- add requires for sparc arches on elftoaout and piggyback we need them to
+  make the tftp image (dennis)
+- copy the sparc boot loader on all sparc arches (dennis)
+- make sure we include sparc boot loaders on all sparc arches (dennis)
+- make sure we get the sparc64 kernel on sparc (dennis)
+- Check whatever contains /boot on PPC as well as the bootable part
+  (#523747). (clumens)
+- make a call to rpmutils to get the basearch works on all arches that dont
+  have anaconda built on the basearch (dennis)
+- s-c-keyboard is now provided on all architectures (#523445). (clumens)
+
 * Tue Sep 15 2009 David Cantrell <dcantrell@redhat.com> - 12.25-1
 - Use pyblock for device-mapper devices' status. (dlehman)
 - load_policy has moved from /usr/sbin to /sbin (#523506). (clumens)
