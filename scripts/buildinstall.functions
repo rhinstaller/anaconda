@@ -15,16 +15,18 @@ get_dso_deps() {
 
     # this is a hack, but the only better way requires binutils or elfutils
     # be installed.  i.e., we need readelf to find the interpretter.
-    $LDSO --verify $bin >/dev/null 2>&1
-    case $? in
-      [02]) ;;
-        *) unset LDSO ;;
-    esac
+    if [ -n "$LDSO" ]; then
+        $LDSO --verify $root/$bin >/dev/null 2>&1
+        case $? in
+          [02]) ;;
+            *) unset LDSO ;;
+        esac
+    fi
     if [ -z "$LDSO" ]; then
         for ldso in $root/$LDSODIR/ld*.so* ; do
             [ -L $ldso ] && continue
             [ -x $ldso ] || continue
-            $ldso --verify $bin >/dev/null 2>&1
+            $ldso --verify $root/$bin >/dev/null 2>&1
             case $? in
                 [02]) LDSO=$(echo $ldso |sed -e "s,$root,,") ; break ;;
             esac
