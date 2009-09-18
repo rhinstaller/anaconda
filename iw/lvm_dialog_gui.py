@@ -47,7 +47,11 @@ class VolumeGroupEditor:
                                   parents=pvs, peSize=self.peSize)
         for lv in self.lvs.values():
             LVMLogicalVolumeDevice(lv['name'], vg, format=lv['format'],
-                                   size=lv['size'], exists=lv['exists'])
+                                   size=lv['size'], exists=lv['exists'],
+                                   stripes=lv['stripes'],
+                                   logSize=lv['logSize'],
+                                   snapshotSpace=lv['snapshotSpace'])
+
         return vg
 
     def numAvailableLVSlots(self):
@@ -98,24 +102,23 @@ class VolumeGroupEditor:
     def reclampLV(self, newpe):
         """ given a new pe value, set logical volume sizes accordingly
 
-        newpe - (int) new value of PE, in KB
+        newpe - (int) new value of PE, in MB
         """
 
         pvlist = self.getSelectedPhysicalVolumes()
         availSpaceMB = self.computeVGSize(pvlist, newpe)
 
-	# see if total space is enough
-        oldused = 0
+        # see if total space is enough
         used = 0
-	resize = 0
+        resize = False
         for lv in self.lvs.values():
-            osize = lv['size']
-            oldused = oldused + osize
-            nsize = lvm.clampSize(osize, newpe, roundup=1)
-	    if nsize != osize:
-		resize = 1
-		
-            used = used + nsize
+            # total space required by an lv may be greater than lv size.
+            vg_space = lv['size'] * lv['stripes'] + lv['logSize'] \
+                        + lv['snapshotSpace']
+            clamped_vg_space = lvm.clampSize(vg_space, newpe, roundup=1)
+            used += clamped_vg_space
+            if lv['size'] != lvm.clampSize(lv['size'], newpe, roundup=1):
+                resize = True
 
         if used > availSpaceMB:
             self.intf.messageWindow(_("Not enough space"),
@@ -446,8 +449,10 @@ class VolumeGroupEditor:
             lvsizeentry.set_text("%Ld" % lv['size'])
 
             # Maximum size label
+            max_grow = tempvg.freeSpace / lv['stripes']
             maxsizelabel = createAlignedLabel(_("(Max size is %s MB)") %
-                    min(lvm.getMaxLVSize(), lv['size'] + tempvg.freeSpace))
+                                              min(lvm.getMaxLVSize(),
+                                                  lv['size'] + max_grow))
 
             # Encrypt Check Box button.
             self.lukscb = gtk.CheckButton(_("_Encrypt"))
@@ -746,6 +751,9 @@ class VolumeGroupEditor:
         self.lvs[templv.lvname] = {'name': templv.lvname,
                                    'size': templv.size,
                                    'format': templv.format,
+                                   'stripes': templv.stripes,
+                                   'logSize': templv.logSize,
+                                   'snapshotSpace': templv.snapshotSpace,
                                    'exists': templv.exists}
         if self.lvs.has_key(origname) and origname != templv.lvname:
             del self.lvs[origname]
@@ -793,6 +801,9 @@ class VolumeGroupEditor:
         self.lvs[name] = {'name': name,
                           'size': free,
                           'format': getFormat(self.storage.defaultFSType),
+                          'stripes': 1,
+                          'logSize': 0,
+                          'snapshotSpace': 0,
                           'exists': False}
         self.editLogicalVolume(self.lvs[name], isNew = 1)
         return
@@ -855,13 +866,6 @@ class VolumeGroupEditor:
 
         log.info("computeVGSize: vgsize is %s" % (availSpaceMB,))
 	return availSpaceMB
-
-    def computeLVSpaceNeeded(self, logreqs):
-	neededSpaceMB = 0
-	for lv in logreqs:
-	    neededSpaceMB = neededSpaceMB + lv.size
-
-	return neededSpaceMB
 
     def updateLogVolStore(self):
         self.logvolstore.clear()
@@ -1165,6 +1169,9 @@ class VolumeGroupEditor:
             self.lvs[lv.lvname] = {"name": lv.lvname,
                                    "size": lv.size,
                                    "format": copy.copy(lv.format),
+                                   "stripes": lv.stripes,
+                                   "logSize": lv.logSize,
+                                   "snapshotSpace": lv.snapshotSpace,
                                    "exists": lv.exists}
 
             if lv.format.type == "luks":
