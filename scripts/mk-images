@@ -408,9 +408,13 @@ instbin() {
 setupShellEnvironment() {
     echo "tcp     6       TCP" > $MBD_DIR/etc/protocols
 
-    cat > $MBD_DIR/etc/shadow << EOF
-root::14438:0:99999:7:::
-EOF
+    # enable root shell logins
+    echo "root::14438:0:99999:7:::" >> $MBD_DIR/etc/shadow
+
+    # enable 'install' account that starts anaconda on login
+    echo "install:x:0:0:root:/root:/sbin/loader" >> $MBD_DIR/etc/passwd
+    echo "install::14438:0:99999:7:::" >> $MBD_DIR/etc/shadow
+
     chmod 0400 $MBD_DIR/etc/shadow
 
     # PAM configuration
