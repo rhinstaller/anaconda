@@ -349,6 +349,22 @@ def lvs(vg_name):
 
     return lvs
 
+def lvorigin(vg_name, lv_name):
+    args = ["lvs", "--noheadings", "-o", "origin"] + \
+            config_args + \
+            ["%s/%s" % (vg_name, lv_name)]
+
+    buf = iutil.execWithCapture("lvm",
+                                args,
+                                stderr="/dev/tty5")
+
+    try:
+        origin = buf.splitlines()[0].strip()
+    except IndexError:
+        origin = ''
+
+    return origin
+
 def lvcreate(vg_name, lv_name, size):
     args = ["lvcreate"] + \
             ["-L", "%dm" % size] + \
