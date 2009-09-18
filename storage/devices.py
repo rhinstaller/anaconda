@@ -725,7 +725,7 @@ class DiskDevice(StorageDevice):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None, sysfsPath='', \
-                 parents=None):
+                 parents=None, serial=None):
         """ Create a DiskDevice instance.
 
             Arguments:
@@ -741,13 +741,15 @@ class DiskDevice(StorageDevice):
                 format -- a DeviceFormat instance
                 parents -- a list of required Device instances
                 removable -- whether or not this is a removable device
+                serial -- the ID_SERIAL_SHORT for this device
 
 
             DiskDevices always exist.
         """
         StorageDevice.__init__(self, device, format=format, size=size,
                                major=major, minor=minor, exists=True,
-                               sysfsPath=sysfsPath, parents=parents)
+                               sysfsPath=sysfsPath, parents=parents,
+                               serial=serial)
 
     def __str__(self):
         s = StorageDevice.__str__(self)

@@ -1216,7 +1216,7 @@ class DeviceTree(object):
             diskType = DiskDevice
             log.debug("%s is a disk" % name)
 
-        device = diskType(name,
+        device = diskType(name, serial=serial,
                           major=udev_device_get_major(info),
                           minor=udev_device_get_minor(info),
                           sysfsPath=sysfs_path, **kwargs)
