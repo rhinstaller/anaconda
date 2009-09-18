@@ -32,6 +32,7 @@ from pykickstart.constants import *
 import formats
 import devicelibs.mdraid
 import devicelibs.dm
+import devicelibs.lvm
 from udev import *
 from iutil import log_method_call
 
@@ -1434,6 +1435,7 @@ class DeviceTree(object):
                 lv_names = udev_device_get_lv_names(info)
                 lv_uuids = udev_device_get_lv_uuids(info)
                 lv_sizes = udev_device_get_lv_sizes(info)
+                lv_attr = udev_device_get_lv_attr(info)
             except KeyError as e:
                 log.warning("invalid data for %s: %s" % (device.name, e))
                 return
@@ -1442,9 +1444,51 @@ class DeviceTree(object):
                 log.debug("no LVs listed for VG %s" % device.name)
                 return
 
-            lvs = []
-            for (index, lv_name) in enumerate(lv_names):
+            # make a list of indices with snapshots at the end
+            indices = range(len(lv_names))
+            indices.sort(key=lambda i: lv_attr[i][0] in 'Ss')
+            for index in indices:
+                lv_name = lv_names[index]
                 name = "%s-%s" % (vg_name, lv_name)
+                if lv_attr[index][0] in 'Ss':
+                    log.debug("found lvm snapshot volume '%s'" % name)
+                    origin_name = devicelibs.lvm.lvorigin(vg_name, lv_name)
+                    if not origin_name:
+                        log.error("lvm snapshot '%s-%s' has unknown origin"
+                                    % (vg_name, lv_name))
+                        continue
+
+                    origin = self.getDeviceByName("%s-%s" % (vg_name,
+                                                             origin_name))
+                    if not origin:
+                        log.warning("snapshot lv '%s' origin lv '%s-%s' "
+                                    "not found" % (name,
+                                                   vg_name, origin_name))
+                        continue
+
+                    log.debug("adding %dMB to %s snapshot total"
+                                % (lv_sizes[index], origin.name))
+                    origin.snapshotSpace += lv_sizes[index]
+                    continue
+                elif lv_attr[index][0] in 'Iil':
+                    # skip mirror images and log volumes
+                    continue
+
+                log_size = 0
+                if lv_attr[index][0] in 'Mm':
+                    stripes = 0
+                    # identify mirror stripes/copies and mirror logs
+                    for (j, _lvname) in enumerate(lv_names):
+                        if lv_attr[j][0] not in 'Iil':
+                            continue
+
+                        if _lvname == "[%s_mlog]" % lv_name:
+                            log_size = lv_sizes[j]
+                        elif _lvname.startswith("[%s_mimage_" % lv_name):
+                            stripes += 1
+                else:
+                    stripes = 1
+
                 lv_dev = self.getDeviceByName(name)
                 if lv_dev is None:
                     lv_uuid = lv_uuids[index]
@@ -1453,6 +1497,8 @@ class DeviceTree(object):
                                                        vg_device,
                                                        uuid=lv_uuid,
                                                        size=lv_size,
+                                                       stripes=stripes,
+                                                       logSize=log_size,
                                                        exists=True)
                     self._addDevice(lv_device)
 
