@@ -1927,7 +1927,8 @@ class FSSet(object):
         # /etc/mdadm.conf
         mdadm_path = os.path.normpath("%s/etc/mdadm.conf" % instPath)
         mdadm_conf = self.mdadmConf()
-        open(mdadm_path, "w").write(mdadm_conf)
+        if mdadm_conf:
+            open(mdadm_path, "w").write(mdadm_conf)
 
     def crypttab(self):
         # if we are upgrading, do we want to update crypttab?
@@ -1956,6 +1957,7 @@ class FSSet(object):
 
     def mdadmConf(self):
         """ Return the contents of mdadm.conf. """
+        retval = None
         arrays = self.devicetree.getDevicesByType("mdarray")
         arrays.extend(self.devicetree.getDevicesByType("partitionable mdarray"))
         arrays.extend(self.devicetree.getDevicesByType("mdcontainer"))
@@ -1978,8 +1980,9 @@ class FSSet(object):
 
             if writeConf:
                 conf += array.mdadmConfEntry
+                retval = conf
 
-        return conf
+        return retval
 
     def fstab (self):
         format = "%-23s %-23s %-7s %-15s %d %d\n"
