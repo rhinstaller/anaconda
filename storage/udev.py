@@ -261,6 +261,14 @@ def udev_device_get_lv_sizes(info):
 
     return [float(s) / 1024 for s in sizes]
 
+def udev_device_get_lv_attr(info):
+    attr = info['LVM2_LV_ATTR']
+    if not attr:
+        attr = []
+    elif not isinstance(attr, list):
+        attr = [attr]
+    return attr
+
 def udev_device_is_biosraid(info):
     # Note that this function does *not* identify raid sets.
     # Tests to see if device is parto of a dmraid set.
