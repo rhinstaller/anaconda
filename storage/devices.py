@@ -1839,8 +1839,8 @@ class LVMVolumeGroupDevice(DMDevice):
         size = self.size
         log.debug("%s size is %dMB" % (self.name, size))
         for lv in self.lvs:
-            log.debug("lv %s (%s) uses %dMB" % (lv.name, lv, lv.size))
-            used += self.align(lv.size, roundup=True)
+            log.debug("lv %s uses %dMB" % (lv.name, lv.vgSpaceUsed))
+            used += self.align(lv.vgSpaceUsed, roundup=True)
 
         free = self.size - used
         log.debug("vg %s has %dMB free" % (self.name, free))
@@ -1890,6 +1890,7 @@ class LVMLogicalVolumeDevice(DMDevice):
     _resizable = True
 
     def __init__(self, name, vgdev, size=None, uuid=None,
+                 stripes=1, logSize=0, snapshotSpace=0,
                  format=None, exists=None, sysfsPath='',
                  grow=None, maxsize=None, percent=None):
         """ Create a LVMLogicalVolumeDevice instance.
@@ -1903,6 +1904,9 @@ class LVMLogicalVolumeDevice(DMDevice):
 
                 size -- the device's size (in MB)
                 uuid -- the device's UUID
+                stripes -- number of copies in the vg (>1 for mirrored lvs)
+                logSize -- size of log volume (for mirrored lvs)
+                snapshotSpace -- sum of sizes of snapshots of this lv
                 sysfsPath -- sysfs device path
                 format -- a DeviceFormat instance
                 exists -- indicates whether this is an existing device
@@ -1926,6 +1930,9 @@ class LVMLogicalVolumeDevice(DMDevice):
                           exists=exists)
 
         self.uuid = uuid
+        self.snapshotSpace = snapshotSpace
+        self.stripes = stripes
+        self.logSize = logSize
 
         self.req_grow = None
         self.req_max_size = 0
@@ -1944,8 +1951,13 @@ class LVMLogicalVolumeDevice(DMDevice):
 
     def __str__(self):
         s = DMDevice.__str__(self)
-        s += ("  VG device = %(vgdev)r  percent = %(percent)s" %
-              {"vgdev": self.vg, "percent": self.req_percent})
+        s += ("  VG device = %(vgdev)r  percent = %(percent)s\n"
+              "  mirrored = %(mirrored)s stripes = %(stripes)d"
+              "  snapshot total =  %(snapshots)dMB\n"
+              "  VG space used = %(vgspace)dMB" %
+              {"vgdev": self.vg, "percent": self.req_percent,
+               "mirrored": self.mirrored, "stripes": self.stripes,
+               "snapshots": self.snapshotSpace, "vgspace": self.vgSpaceUsed })
         return s
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
@@ -1974,6 +1986,10 @@ class LVMLogicalVolumeDevice(DMDevice):
         if s:
             f.write(" %s" % s)
 
+    @property
+    def mirrored(self):
+        return self.stripes > 1
+
     def _setSize(self, size):
         size = self.vg.align(numeric_type(size))
         log.debug("trying to set lv %s size to %dMB" % (self.name, size))
@@ -1985,6 +2001,10 @@ class LVMLogicalVolumeDevice(DMDevice):
             raise ValueError("not enough free space in volume group")
 
     size = property(StorageDevice._getSize, _setSize)
+
+    @property
+    def vgSpaceUsed(self):
+        return self.size * self.stripes + self.logSize + self.snapshotSpace
 
     @property
     def vg(self):
