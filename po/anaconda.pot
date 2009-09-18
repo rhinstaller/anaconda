@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.25\n"
+"Project-Id-Version: anaconda 12.26\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-09-16 14:10-1000\n"
+"POT-Creation-Date: 2009-09-17 14:51-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,9 +28,9 @@ msgstr ""
 #: loader/driverdisk.c:305 loader/driverdisk.c:340 loader/driverdisk.c:359
 #: loader/driverdisk.c:371 loader/driverdisk.c:379 loader/driverdisk.c:539
 #: loader/driverdisk.c:576 loader/driverselect.c:81 loader/driverselect.c:205
-#: loader/hdinstall.c:134 loader/hdinstall.c:280 loader/hdinstall.c:343
-#: loader/hdinstall.c:375 loader/hdinstall.c:445 loader/hdinstall.c:488
-#: loader/hdinstall.c:501 loader/kbd.c:119 loader/kickstart.c:132
+#: loader/hdinstall.c:134 loader/hdinstall.c:279 loader/hdinstall.c:340
+#: loader/hdinstall.c:372 loader/hdinstall.c:442 loader/hdinstall.c:485
+#: loader/hdinstall.c:498 loader/kbd.c:119 loader/kickstart.c:132
 #: loader/kickstart.c:142 loader/kickstart.c:185 loader/kickstart.c:284
 #: loader/kickstart.c:381 loader/kickstart.c:562 loader/lang.c:115
 #: loader/lang.c:379 loader/loader.c:403 loader/loader.c:439
@@ -131,8 +131,8 @@ msgstr ""
 #: iw/task_gui.py:306 iw/task_gui.py:430 loader/cdinstall.c:228
 #: loader/cdinstall.c:517 loader/driverdisk.c:98 loader/driverdisk.c:305
 #: loader/driverdisk.c:340 loader/driverdisk.c:371 loader/driverdisk.c:379
-#: loader/driverdisk.c:443 loader/hdinstall.c:134 loader/hdinstall.c:343
-#: loader/hdinstall.c:445 loader/hdinstall.c:488 loader/hdinstall.c:501
+#: loader/driverdisk.c:443 loader/hdinstall.c:134 loader/hdinstall.c:340
+#: loader/hdinstall.c:442 loader/hdinstall.c:485 loader/hdinstall.c:498
 #: loader/kickstart.c:284 loader/lang.c:115 loader/loader.c:403
 #: loader/loader.c:520 loader/loader.c:1190 loader/mediacheck.c:46
 #: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/method.c:279
@@ -460,76 +460,76 @@ msgstr ""
 msgid "Install on System"
 msgstr ""
 
-#: iutil.py:822
+#: iutil.py:831
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
 
-#: iutil.py:830
+#: iutil.py:839
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
 
-#: iutil.py:837
+#: iutil.py:846
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
 
-#: iutil.py:854
+#: iutil.py:863
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
 msgstr ""
 
-#: iutil.py:863
+#: iutil.py:872
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr ""
 
-#: iutil.py:872
+#: iutil.py:881
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr ""
 
-#: iutil.py:882
+#: iutil.py:891
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
 
-#: iutil.py:904
+#: iutil.py:913
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
 msgstr ""
 
-#: iutil.py:917
+#: iutil.py:926
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
 msgstr ""
 
-#: iutil.py:930
+#: iutil.py:939
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
 msgstr ""
 
-#: iutil.py:940
+#: iutil.py:949
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 
-#: iutil.py:947
+#: iutil.py:956
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
 
-#: iutil.py:955
+#: iutil.py:964
 msgid "Error determining mount point type"
 msgstr ""
 
-#: iutil.py:959
+#: iutil.py:968
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
 
@@ -3332,7 +3332,7 @@ msgstr ""
 
 #: loader/cdinstall.c:452 loader/driverdisk.c:244 loader/driverdisk.c:275
 #: loader/driverdisk.c:359 loader/driverselect.c:81 loader/driverselect.c:179
-#: loader/driverselect.c:205 loader/hdinstall.c:222 loader/hdinstall.c:280
+#: loader/driverselect.c:205 loader/hdinstall.c:222 loader/hdinstall.c:279
 #: loader/kbd.c:119 loader/loader.c:483 loader/loader.c:503
 #: loader/loader.c:1374 loader/loader.c:1407 loader/net.c:574 loader/net.c:945
 #: loader/net.c:1858 loader/net.c:1880 loader/nfsinstall.c:91
@@ -3439,7 +3439,7 @@ msgstr ""
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: loader/driverdisk.c:539 loader/driverdisk.c:576 loader/hdinstall.c:375
+#: loader/driverdisk.c:539 loader/driverdisk.c:576 loader/hdinstall.c:372
 #: loader/kickstart.c:132 loader/kickstart.c:142 loader/kickstart.c:185
 #: loader/kickstart.c:562 loader/modules.c:335 loader/modules.c:347
 #: loader/net.c:1579 loader/net.c:1600 loader/nfsinstall.c:337
@@ -3511,7 +3511,7 @@ msgid ""
 "configure additional devices?"
 msgstr ""
 
-#: loader/hdinstall.c:237
+#: loader/hdinstall.c:236
 #, c-format
 msgid ""
 "What partition and directory on that partition holds the installation image "
@@ -3519,29 +3519,29 @@ msgid ""
 "to configure additional devices."
 msgstr ""
 
-#: loader/hdinstall.c:264
+#: loader/hdinstall.c:263
 msgid "Directory holding image:"
 msgstr ""
 
-#: loader/hdinstall.c:292
+#: loader/hdinstall.c:291
 msgid "Select Partition"
 msgstr ""
 
-#: loader/hdinstall.c:344
+#: loader/hdinstall.c:341
 #, c-format
 msgid "Device %s does not appear to contain an installation image."
 msgstr ""
 
-#: loader/hdinstall.c:376
+#: loader/hdinstall.c:373
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr ""
 
-#: loader/hdinstall.c:446 loader/hdinstall.c:502
+#: loader/hdinstall.c:443 loader/hdinstall.c:499
 msgid "Cannot find kickstart file on hard drive."
 msgstr ""
 
-#: loader/hdinstall.c:489
+#: loader/hdinstall.c:486
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr ""
