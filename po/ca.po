@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-09-17 14:51-1000\n"
-"PO-Revision-Date: 2009-09-18 10:40+0200\n"
+"PO-Revision-Date: 2009-09-19 10:40+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -649,8 +649,8 @@ msgid ""
 "Encryption key escrow requires networking, but there was an error enabling "
 "the network on your system."
 msgstr ""
-"Cal disposar de xarxa per a la clau de xifratge de custòdia, però s'ha produït "
-"un error en habilitar-la en el vostre sistema."
+"Cal disposar de xarxa per a la clau de xifratge de custòdia, però s'ha "
+"produït un error en habilitar-la en el vostre sistema."
 
 #: kickstart.py:1214
 #, python-format
@@ -2255,7 +2255,7 @@ msgstr "Reescaneig de discs"
 
 #: iw/autopart_type.py:524 textw/partition_text.py:63
 msgid "Use entire drive"
-msgstr "Emprat tota la unitat"
+msgstr "Empra tota la unitat"
 
 #: iw/autopart_type.py:525 textw/partition_text.py:64
 msgid "Replace existing Linux system"
@@ -2263,7 +2263,7 @@ msgstr "Reemplaça el sistema Linux existent"
 
 #: iw/autopart_type.py:526
 msgid "Shrink current system"
-msgstr "Encongei el sistema actual"
+msgstr "Encongeix el sistema actual"
 
 #: iw/autopart_type.py:527 textw/partition_text.py:65
 msgid "Use free space"
@@ -4814,8 +4814,8 @@ msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr ""
-"La vostra partició / no concorda amb la imatge autònoma des d'on esteu instal·lant. "
-"S'ha de formatar com a %s."
+"La vostra partició / no concorda amb la imatge autònoma des d'on esteu "
+"instal·lant. S'ha de formatar com a %s."
 
 #: storage/__init__.py:884
 #, python-format
@@ -4925,8 +4925,9 @@ msgstr ""
 "\n"
 "     %s\n"
 "\n"
-"és una partició d'intercanvi antiga del Linux. Si voleu usar aquest dispositiu per "
-"a l'espai d'intercanvi, heu de formatar-ho com a una partició d'intercanvi recent del Linux." 
+"és una partició d'intercanvi antiga del Linux. Si voleu usar aquest "
+"dispositiu per a l'espai d'intercanvi, heu de formatar-ho com a una partició "
+"d'intercanvi recent del Linux."
 
 #: storage/__init__.py:1674
 #, python-format
@@ -5225,8 +5226,8 @@ msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
-"No s'ha trobat prou espai lliure per al particionat automàtic. Premeu «D'acord» "
-"per sortir de l'instal·lador."
+"No s'ha trobat prou espai lliure per al particionat automàtic. Premeu "
+"«D'acord» per sortir de l'instal·lador."
 
 #: storage/partitioning.py:187
 msgid ""
@@ -5989,8 +5990,7 @@ msgstr "NIC"
 msgid ""
 "Please select the network interface which is connected to\n"
 "your FCoE switch."
-msgstr ""
-"Seleccioneu la interfície de xarxa connectada al vostre switch FCoE."
+msgstr "Seleccioneu la interfície de xarxa connectada al vostre switch FCoE."
 
 #: ui/fcoe-config.glade.h:5
 msgid "_Add FCoE Disk(s)"
