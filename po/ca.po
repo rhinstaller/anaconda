@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-09-17 14:51-1000\n"
-"PO-Revision-Date: 2009-09-19 10:40+0200\n"
+"PO-Revision-Date: 2009-09-20 10:40+0200\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -733,7 +733,7 @@ msgstr "No s'ha pogut trobar la imatge"
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
-"La ubicació especificada no és un CD autònom vàlid de %s per a emprar com a "
+"La ubicació especificada no és un CD autònom vàlid de %s per a utilitzar com a "
 "instal·lador."
 
 #: livecd.py:172
@@ -1073,7 +1073,7 @@ msgid ""
 "contains files that you need to keep, such as home directories, then "
 "continue without formatting this partition."
 msgstr ""
-"Heu escollit emprar una partició existent per a la instal·lació sense "
+"Heu escollit utilitzar una partició existent per a la instal·lació sense "
 "formatar-la. Us recomanem que formateu aquesta partició per assegurar que "
 "fitxers d'anteriors sistemes operatius instal·lats no causen problemes amb "
 "aquesta instal·lació Linux. De tota manera, si aquesta partició conté "
@@ -2255,7 +2255,7 @@ msgstr "Reescaneig de discs"
 
 #: iw/autopart_type.py:524 textw/partition_text.py:63
 msgid "Use entire drive"
-msgstr "Empra tota la unitat"
+msgstr "Utilitza tota la unitat"
 
 #: iw/autopart_type.py:525 textw/partition_text.py:64
 msgid "Replace existing Linux system"
@@ -2722,7 +2722,7 @@ msgstr "Extensió _física:"
 
 #: iw/lvm_dialog_gui.py:1244
 msgid "Physical Volumes to _Use:"
-msgstr "Volums físics a empr_ar:"
+msgstr "Volums físics a utilitz_ar:"
 
 #: iw/lvm_dialog_gui.py:1250
 msgid "Used Space:"
@@ -3129,7 +3129,7 @@ msgid ""
 msgstr ""
 "Un RAID de programari us permet combinar múltiples discos en un únic "
 "dispositiu RAID més gran. Es pot configurar un dispositiu RAID per obtenir "
-"velocitat i robustesa addicionals, en comparació amb emprar només una "
+"velocitat i robustesa addicionals, en comparació amb utilitzar només una "
 "unitat. Consulteu la documentació de %s per obtenir més informació quant a "
 "l'ús de dispositius RAID."
 
@@ -3758,7 +3758,7 @@ msgstr ""
 "La partició arrel serà la que hagueu seleccionat anteriorment en la "
 "configuració de les particions.\n"
 "\n"
-"El nucli que s'emprarà per iniciar l'ordinador serà el que instal·leu per "
+"El nucli utilitzat per iniciar l'ordinador serà el que instal·leu per "
 "defecte.\n"
 "\n"
 "Després de la instal·lació, podeu fer els canvis corresponents en el fitxer "
@@ -3772,7 +3772,7 @@ msgstr "Paràmetres del nucli"
 
 #: iw/zipl_gui.py:93 iw/zipl_gui.py:96
 msgid "Chandev Parameters"
-msgstr "Paràmetres chandev"
+msgstr "Paràmetres del chandev"
 
 #: loader/cdinstall.c:185 loader/cdinstall.c:206 loader/mediacheck.c:60
 msgid "Media Check"
