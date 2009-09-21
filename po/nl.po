@@ -16,15 +16,14 @@
 # driver - stuurprogramma
 # root altijd met kleine letters schrijven (dus geen Root)
 #
-# Geert Warrink <geert.warrink@onsnet.nu>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.nl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-09-17 14:51-1000\n"
-"PO-Revision-Date: 2009-09-18 16:42+0200\n"
-"Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
-"Language-Team: nl <nl@li.org>\n"
+"PO-Revision-Date: 2009-09-21 11:35+0200\n"
+"Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
+"Language-Team: Dutch <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding:  \n"
@@ -661,8 +660,8 @@ msgid ""
 "Encryption key escrow requires networking, but there was an error enabling "
 "the network on your system."
 msgstr ""
-"Versleutelings sleutel borging vereist een netwerk, maar er trad een fout op "
-"bij het aanzetten van het netwerk op je systeem."
+"Encryptiesleutel borging vereist een netwerk, maar er trad een fout op bij "
+"het aanzetten van het netwerk op uw systeem."
 
 #: kickstart.py:1214
 #, python-format
@@ -4792,12 +4791,12 @@ msgstr "Uitvoeren..."
 
 #: storage/__init__.py:173
 msgid "Storing encryption keys"
-msgstr "Versleutelings sleutels opslaan"
+msgstr "Encryptiesleutels opslaan"
 
 #: storage/__init__.py:191
 #, python-format
 msgid "Error storing an encryption key: %s\n"
-msgstr "Fout bij het opslaan van een versleutelings sleutel: %s\n"
+msgstr "Fout bij het opslaan van een encryptiesleutel: %s\n"
 
 #: storage/__init__.py:307
 msgid "Finding Devices"
@@ -4984,13 +4983,13 @@ msgid ""
 "is an old-style Linux swap partition.  If you want to use this device for "
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
-"Het swap apparaat:\n"
+"Het swapdevice:\n"
 "\n"
 "     %s\n"
 "\n"
-"is een Linux swap partitie volgens de oude stijl.  Als je dit apparaat als "
-"swap ruimte wilt gebruiken, moet je het opnieuw formatteren als een Linux "
-"swap partitie volgens de nieuwe stijl."
+"is een Linux swap partitie volgens de oude stijl.  Als u dit device als swap "
+"ruimte wilt gebruiken, moet u het opnieuw formatteren als een Linux swap "
+"partitie volgens de nieuwe stijl."
 
 #: storage/__init__.py:1674
 #, python-format
@@ -5042,12 +5041,12 @@ msgid ""
 "does not contain a support swap volume.  In order to continue installation, "
 "you will need to format the device or skip it."
 msgstr ""
-"Het swap apparaat:\n"
+"Het swapdevice:\n"
 "\n"
 "     %s\n"
 "\n"
 "bevat geen ondersteunde swap volume.  Om verder te gaan met de installatie, "
-"moet je het apparaat formatteren of het overslaan."
+"moet u het apparaat formatteren of het overslaan."
 
 #: storage/__init__.py:1705
 #, python-format
@@ -6050,8 +6049,8 @@ msgid ""
 "Please select the network interface which is connected to\n"
 "your FCoE switch."
 msgstr ""
-"Selecteer a.u.b. de netwerk interface welke verbonden is met\n"
-"jo FCoE schakelaar."
+"Selecteer de netwerkinterface die aangesloten is op uw\n"
+"FCoE-switch."
 
 #: ui/fcoe-config.glade.h:5
 msgid "_Add FCoE Disk(s)"
