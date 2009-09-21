@@ -119,6 +119,7 @@ Requires: system-config-keyboard >= 1.3.0-3
 Requires: hal, dbus-python
 Requires: cracklib-python
 Requires: python-bugzilla
+Requires: python-nss
 %ifarch %livearches
 Requires: usermode
 Requires: zenity
