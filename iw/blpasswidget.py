@@ -132,7 +132,7 @@ class BootloaderPasswordWidget:
 
         while 1:
             rc = dialog.run()
-            if rc == 2:
+            if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
                 break
 
             if pwEntry.get_text() != confirmEntry.get_text():

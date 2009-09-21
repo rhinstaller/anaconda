@@ -556,7 +556,7 @@ class VolumeGroupEditor:
 
         while 1:
             rc = dialog.run()
-            if rc == 2:
+            if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
                 if isNew:
                     del self.lvs[lv['name']]
                 dialog.destroy()
@@ -914,7 +914,7 @@ class VolumeGroupEditor:
 	while 1:
 	    rc = self.dialog.run()
 
-	    if rc == 2:
+	    if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
 		self.destroy()
 		return []
 

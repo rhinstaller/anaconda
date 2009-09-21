@@ -107,7 +107,7 @@ class PartitionEditor:
             luksdev = None
 	    
             # user hit cancel, do nothing
-            if rc == 2:
+            if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
                 self.destroy()
                 return []
 

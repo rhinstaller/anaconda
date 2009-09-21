@@ -1279,7 +1279,7 @@ class PartitionWindow(InstallWindow):
 	dialog.show_all()
 	rc = dialog.run()
 	dialog.destroy()
-	if rc == 2:
+	if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
 	    return
 
 	# see which option they choose

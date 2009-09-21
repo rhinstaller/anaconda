@@ -196,7 +196,7 @@ class OSBootWidget:
             rc = dialog.run()
 
             # cancel
-            if rc == 2:
+            if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
                 break
 
             label = labelEntry.get_text()
