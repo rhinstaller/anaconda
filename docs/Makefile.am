@@ -19,14 +19,11 @@
 
 EXTRA_DIST = install-methods.txt mediacheck.txt anaconda-release-notes.txt \
              lvm_sanity_checks.txt rescue-mode api.cfg making-screenshots \
-             threads.txt command-line.txt kickstart-docs.txt gettext.txt
+             threads.txt command-line.txt gettext.txt
 
 CLEANFILES = api *.xml
 
-MAINTAINERCLEANFILES = Makefile.in command-line.txt kickstart-docs.txt
+MAINTAINERCLEANFILES = Makefile.in command-line.txt
 
 command-line.txt:
 	curl -A "anaconda-build" -o command-line.txt "http://fedoraproject.org/w/index.php?title=Anaconda_Boot_Options&action=raw"
-
-kickstart-docs.txt:
-	curl -A "anaconda-build" -o kickstart-docs.txt "http://fedoraproject.org/w/index.php?title=Anaconda/Kickstart&action=raw"
