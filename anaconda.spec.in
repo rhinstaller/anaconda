@@ -215,6 +215,41 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Sep 21 2009 David Cantrell <dcantrell@redhat.com> - 12.27-1
+- Require at least system-config-keyboard 1.3.1 or higher. (dcantrell)
+- Fixes for rhel installclass. (dcantrell)
+- Start with all modules from kernel/drivers/s390 on s390x (#524566)
+  (dcantrell)
+- Do not require dhcpv6-client, package is now obsolete. (dcantrell)
+- Take into account snapshots and mirrored volumes in lvm dialogs. (dlehman)
+- Add handling for snapshot and mirrored logical volumes to DeviceTree.
+  (dlehman)
+- Add attrs to LVMLogicalVolumeDevice class for snapshots and mirrored lvs.
+  (dlehman)
+- Add function lvorigin to determine the name of a snapshot's origin lv.
+  (dlehman)
+- Add function udev_device_get_lv_attr to retrieve lv attribute strings.
+  (dlehman)
+- Include hidden volumes and lv attributes in udev db. (dlehman)
+- Add 'install' user to start anaconda on s390x. (dcantrell)
+- Set a default shell prompt for s390x installs. (dcantrell)
+- Do not assume we found a module in addOption() in loader/modules.c
+  (dcantrell)
+- Do not try to load floppy, edd, pcspkr, or iscsi_ibft on s390x. (dcantrell)
+- Handle Esc keypress in (some more) dialogs as Cancel - (#520110).
+  (rvykydal)
+- All the nss libraries have moved from /lib to /usr/lib (#524410). (clumens)
+- Add python-nss as a requirement (#524307, #524313). (clumens)
+- Call $LDSO --verify for the binary file -inside- the chroot. This fixes
+  building x86 boot images on a x86_64 host system. (thomas.jarosch)
+- Just grab everything in a /usr/share/fonts/lohit* directory (#523906).
+  (clumens)
+- Don't write an empty mdadm.conf (hdegoede)
+- Write mdraid arrays to mdadm.conf in sorted order (hdegoede)
+- containers and their sets must only have a UUID= parameter in mdamd.conf
+  (hdegoede)
+- Updated anaconda.pot file. (dcantrell)
+
 * Thu Sep 17 2009 David Cantrell <dcantrell@redhat.com> - 12.26-1
 - NetworkManagerSystemSettings.service no longer exists. (jkeating)
 - udevsettle is no longer used (udevadm settle is called instead) so don't
