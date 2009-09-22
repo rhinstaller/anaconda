@@ -37,9 +37,9 @@ import storage
 from iw_gui import *
 from flags import flags
 
-import lvm_dialog_gui
-import raid_dialog_gui
-import partition_dialog_gui
+import lvm_dialog_gui as l_d_g
+import raid_dialog_gui as r_d_g
+import partition_dialog_gui as p_d_g
 
 from partIntfHelpers import *
 from constants import *
@@ -1397,13 +1397,13 @@ class PartitionWindow(InstallWindow):
         if rp_rb.get_active():
             member = self.storage.newPartition(fmt_type="software RAID",
                                                size=200)
-            self.editPartition(member, isNew = 1, restrictfs=["mdmember"])
+            self.editPartition(member, isNew = True, restrictfs=["mdmember"])
             return
 
         elif rc_rb.get_active():
-            cloneDialog = raid_dialog_gui.RaidCloneDialog(self.storage,
-                                                          self.intf,
-                                                          self.parent)
+            # r_d_g -> raid_dialog_gui
+            cloneDialog = r_d_g.RaidCloneDialog(self.storage, self.intf,
+                    self.parent)
             if cloneDialog is None:
                 self.intf.messageWindow(_("Couldn't Create Drive Clone Editor"),
                                         _("The drive clone editor could not "
@@ -1419,24 +1419,24 @@ class PartitionWindow(InstallWindow):
 
         elif rd_rb.get_active():
             array = self.storage.newMDArray(fmt_type=self.storage.defaultFSType)
-            self.editRaidArray(array, isNew=1)
+            self.editRaidArray(array, isNew = True)
             return
 
         elif lp_rb.get_active():
             member = self.storage.newPartition(fmt_type="physical volume (LVM)",
                                                size=200)
-            self.editPartition(member, isNew = 1, restrictfs=["lvmpv"])
+            self.editPartition(member, isNew = True, restrictfs=["lvmpv"])
             return
 
         elif vg_rb.get_active():
             tempvg = self.storage.newVG()
-            self.editLVMVolumeGroup(tempvg, isNew = 1)
+            self.editLVMVolumeGroup(tempvg, isNew = True)
             return
 
         elif sp_rb.get_active():
             tempformat = self.storage.defaultFSType
             device = self.storage.newPartition(fmt_type=tempformat, size=200)
-            self.editPartition(device, isNew=1)
+            self.editPartition(device, isNew = True)
             return
 
     def resetCB(self, *args):
@@ -1523,15 +1523,13 @@ class PartitionWindow(InstallWindow):
             self.editPartition(device)
 
     # isNew implies that this request has never been successfully used before
-    def editRaidArray(self, raiddev, isNew = 0):
-	raideditor = raid_dialog_gui.RaidEditor(self.storage,
-						self.intf,
-						self.parent,
-                                                raiddev,
-						isNew)
-	
-	while 1:
-	    actions = raideditor.run()
+    def editRaidArray(self, raiddev, isNew = False):
+        # r_d_g -> raid_dialog_gui
+        raideditor = r_d_g.RaidEditor(self.storage, self.intf, self.parent,
+                raiddev, isNew)
+
+        while True:
+            actions = raideditor.run()
 
             for action in actions:
                 # FIXME: this needs to handle exceptions
@@ -1551,15 +1549,13 @@ class PartitionWindow(InstallWindow):
 	raideditor.destroy()		
 
 
-    def editPartition(self, device, isNew = 0, restrictfs = None):
-	parteditor = partition_dialog_gui.PartitionEditor(self.anaconda,
-							  self.parent,
-							  device,
-							  isNew = isNew,
-                                                          restrictfs = restrictfs)
+    def editPartition(self, device, isNew = False, restrictfs = None):
+        # p_d_g -> partition_dialog_gui
+        parteditor = p_d_g.PartitionEditor(self.anaconda, self.parent, device,
+                isNew = isNew, restrictfs = restrictfs)
 
-	while 1:
-	    actions = parteditor.run()
+        while True:
+            actions = parteditor.run()
 
             for action in actions:
                 # XXX we should handle exceptions here
@@ -1582,17 +1578,13 @@ class PartitionWindow(InstallWindow):
 	parteditor.destroy()
 	return 1
 
-    def editLVMVolumeGroup(self, device, isNew = 0):
-        # we don't really need to pass in self.storage if we're passing
-        # self.anaconda already
-        vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.anaconda,
-                                                    self.intf,
-                                                    self.parent,
-                                                    device,
-                                                    isNew)
-	
-	while True:
-	    actions = vgeditor.run()
+    def editLVMVolumeGroup(self, device, isNew = False):
+        # l_d_g -> lvm_dialog_gui
+        vgeditor = l_d_g.VolumeGroupEditor(self.anaconda, self.intf, self.parent,
+                device, isNew)
+
+        while True:
+            actions = vgeditor.run()
 
             for action in actions:
                 # FIXME: handle exceptions
@@ -1613,11 +1605,10 @@ class PartitionWindow(InstallWindow):
 	vgeditor.destroy()
 
     def editLVMLogicalVolume (self, device):
-        vgeditor = lvm_dialog_gui.VolumeGroupEditor(self.anaconda,
-                                                    self.intf,
-                                                    self.parent,
-                                                    device.vg,
-                                                    isNew = False)
+        # l_d_g -> lvm_dialog_gui
+        vgeditor = l_d_g.VolumeGroupEditor(self.anaconda, self.intf, self.parent,
+                device.vg, isNew = False)
+
         while True:
             lv = vgeditor.lvs[device.lvname]
             vgeditor.editLogicalVolume(lv)
