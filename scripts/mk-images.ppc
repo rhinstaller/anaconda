@@ -48,11 +48,11 @@ __EOT__
 		rm -f $TOPDESTPATH/ppc/ppc64/zImage.lds
 		popd
         echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
-	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/lib/kernel-wrapper/wrapper.a ]; then
+	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/lib64/kernel-wrapper/wrapper.a ]; then
 		mkdir -p $TOPDESTPATH/images/netboot
 		$IMGPATH/usr/sbin/wrapper -o $TOPDESTPATH/images/netboot/ppc64.img	\
 					  -i $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz	\
-					  -D $IMGPATH/usr/lib/kernel-wrapper		\
+					  -D $IMGPATH/usr/lib64/kernel-wrapper		\
 					     $TOPDESTPATH/ppc/ppc64/vmlinuz
 		rmdir $TOPDESTPATH/images/netboot || :
 		echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo

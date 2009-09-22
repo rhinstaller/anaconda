@@ -229,7 +229,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
 fi
 
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
-    PACKAGES="$PACKAGES pcmciautils pdisk yaboot hfsutils"
+    PACKAGES="$PACKAGES pcmciautils pdisk yaboot hfsutils kernel-bootwrapper"
 fi
 
 #
@@ -463,6 +463,7 @@ usr/$LIBDIR/gtk-2.0/*/loaders/*la*
 usr/$LIBDIR/gtk-2.0/*/loaders/*png*
 usr/$LIBDIR/gtk-2.0/*/loaders/*xpm*
 usr/$LIBDIR/gtk-2.0/immodules
+usr/$LIBDIR/kernel-wrapper/*
 usr/$LIBDIR/hal
 usr/$LIBDIR/libuser/*
 usr/$LIBDIR/pango
