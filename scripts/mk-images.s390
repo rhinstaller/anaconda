@@ -17,6 +17,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+getAllS390ModuleNames() {
+    s390dir="${KERNELROOT}/lib/modules/${version}/kernel/drivers/s390"
+    if [ -d "${s390dir}" ]; then
+        find ${s390dir} -type f -name "*.ko" | while read line ; do
+            echo "$(basename ${line} .ko)"
+        done | sort | uniq | tr '\n' ' '
+    fi
+}
+
 collectModuleNames() {
     grep -v "^#" ${KERNELROOT}/lib/modules/${version}/modules.${1} | \
         cut -d ' ' -f 1 | sort | uniq | \
@@ -63,10 +72,11 @@ expandModuleDeps() {
     rm -f "${DEPSFILE}"
 }
 
+S390BASEMODS="$(getAllS390ModuleNames)"
 S390CCWMODS="$(collectModuleNames ccwmap)"
+S390BLOCKMODS="$(collectModuleNames block)"
 S390NETMODS="$(collectModuleNames networking)"
-S390EXTRAMODS="dasd_diag_mod smsgiucv"
-S390MODS="$(expandModuleDeps $S390CCWMODS $S390NETMODS $S390EXTRAMODS)"
+S390MODS="$(expandModuleDeps $S390BASEMODS $S390CCWMODS $S390BLOCKMODS $S390NETMODS)"
 
 makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
