@@ -912,6 +912,12 @@ class DeviceTree(object):
         if name in self._ignoredDisks:
             return True
 
+        if udev_device_is_disk(info) and not udev_device_is_md(info) and \
+           not udev_device_is_dm(info):
+            if self.exclusiveDisks and name not in self.exclusiveDisks:
+                self.addIgnoredDisk(name)
+                return True
+
         for ignored in self._ignoredDisks:
             if ignored == os.path.basename(os.path.dirname(sysfs_path)):
                 # this is a partition on a disk in the ignore list
