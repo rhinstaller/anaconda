@@ -1169,6 +1169,12 @@ class DeviceTree(object):
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
         serial = udev_device_get_serial(info)
+
+        # udev doesn't always provide a vendor.
+        vendor = udev_device_get_vendor(info)
+        if not vendor:
+            vendor = ""
+
         device = None
 
         kwargs = {}
@@ -1216,7 +1222,7 @@ class DeviceTree(object):
             diskType = DiskDevice
             log.debug("%s is a disk" % name)
 
-        device = diskType(name, serial=serial,
+        device = diskType(name, serial=serial, vendor=vendor,
                           major=udev_device_get_major(info),
                           minor=udev_device_get_minor(info),
                           sysfsPath=sysfs_path, **kwargs)
