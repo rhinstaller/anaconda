@@ -425,11 +425,13 @@ sbin/mkfs.msdos
 sbin/mkfs.reiserfs
 sbin/mkfs.vfat
 sbin/mkfs.xfs
+sbin/mkofboot
 sbin/mkraid
 sbin/mkreiserfs
 sbin/mkswap
 sbin/mount.nfs*
 sbin/mount.ntfs*
+sbin/ofpath
 sbin/parted
 sbin/pcmcia-socket-startup
 sbin/pdisk
@@ -449,6 +451,7 @@ sbin/udev*
 sbin/umount.nfs*
 sbin/xfs_repair
 sbin/xfsrestore
+sbin/ybin
 usr/$LIBDIR/NetworkManager
 usr/$LIBDIR/dri
 usr/$LIBDIR/gconv
@@ -560,8 +563,6 @@ usr/sbin/genhomedircon
 usr/sbin/gptsync
 usr/sbin/hald
 usr/sbin/lvm
-usr/sbin/mkofboot
-usr/sbin/ofpath
 usr/sbin/prelink
 usr/sbin/semodule
 usr/sbin/showpart
@@ -573,7 +574,6 @@ usr/sbin/xfs_admin
 usr/sbin/xfs_check
 usr/sbin/xfs_copy
 usr/sbin/xfs_db
-usr/sbin/ybin
 usr/share/polkit-1/actions/*
 usr/share/X11/XKeysymDB
 usr/share/X11/fonts/TTF/GohaTibebZemen.ttf
