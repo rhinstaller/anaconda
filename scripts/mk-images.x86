@@ -171,10 +171,10 @@ doPostImages() {
             echo "No efiboot.img found, making BIOS-only boot.iso"
         fi
         BIOSARGS="-b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table"
-        mkisocmd="mkisofs -v -o $TOPDESTPATH/images/$BOOTISO $BIOSARGS $EFIARGS -R -J -V "$CDLABEL" -T -graft-points isolinux=$TOPDESTPATH/isolinux images=$TOPDESTPATH/images $EFIGRAFT"
+        mkisocmd="mkisofs -v -o $TOPDESTPATH/images/$BOOTISO $BIOSARGS $EFIARGS -R -J -V '$CDLABEL' -T -graft-points isolinux=$TOPDESTPATH/isolinux images=$TOPDESTPATH/images $EFIGRAFT"
         echo $PWD:\$ $mkisocmd
-	$mkisocmd
-	if [ -x /usr/bin/isohybrid ]; then
+        eval $mkisocmd
+        if [ -x /usr/bin/isohybrid ]; then
             isohybrid $TOPDESTPATH/images/$BOOTISO || echo "Unable to make hybrid boot.iso"
         fi
     fi
