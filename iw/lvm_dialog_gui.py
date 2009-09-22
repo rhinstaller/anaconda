@@ -617,7 +617,7 @@ class VolumeGroupEditor:
             # these may not have been put in master list of requests
             # yet if we have not hit 'OK' for the volume group creation
             if fmt_class().mountable and mountpoint:
-                used = 0
+                used = False
                 curmntpt = getattr(format, "mountpoint", None)
 
                 for _lv in self.lvs.values():
@@ -631,8 +631,18 @@ class VolumeGroupEditor:
                         continue
 
                     if _format.mountpoint == mountpoint:
-                        used = 1
+                        used = True
                         break
+
+                if not used:
+                    # we checked this VG's LVs above; now check the rest of
+                    # the devices in the tree
+                    mountdevs = self.lvs.values()
+                    for (mp,d) in self.storage.mountpoints.iteritems():
+                        if (d.type != "lvmlv" or d.vg.id != self.vg.id) and \
+                           mp == mountpoint:
+                            used = True
+                            break
 
                 if used:
                     self.intf.messageWindow(_("Mount point in use"),

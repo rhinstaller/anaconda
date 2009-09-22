@@ -111,12 +111,27 @@ class PartitionEditor:
                 self.destroy()
                 return []
 
+            mountpoint = self.mountCombo.get_children()[0].get_text()
+            if mountpoint:
+                used = False
+                for (mp, dev) in self.storage.mountpoints.iteritems():
+                    if mp == mountpoint and dev.id != self.origrequest.id:
+                        used = True
+                        break
+
+                if used:
+                    self.intf.messageWindow(_("Mount point in use"),
+                                            _("The mount point \"%s\" is in "
+                                              "use. Please pick another.") %
+                                            (mountpoint,),
+                                            custom_icon="error")
+                    continue
+
             if not self.origrequest.exists:
                 # read out UI into a partition specification
                 fmt_class = self.newfstypeCombo.get_active_value()
                 # there's nothing about origrequest we care about
                 #request = copy.copy(self.origrequest)
-                mountpoint = self.mountCombo.get_children()[0].get_text()
 
                 if self.primonlycheckbutton.get_active():
                     primary = True
@@ -223,7 +238,6 @@ class PartitionEditor:
                     usedev = request
 
                 origformat = usedev.format
-                mountpoint = self.mountCombo.get_children()[0].get_text()
                 devicetree = self.anaconda.id.storage.devicetree
 
                 if self.fsoptionsDict.has_key("formatcb"):

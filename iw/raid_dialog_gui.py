@@ -166,6 +166,20 @@ class RaidEditor:
                 continue
 
             mountpoint = self.mountCombo.get_children()[0].get_text()
+            if mountpoint:
+                used = False
+                for (mp, dev) in self.storage.mountpoints.iteritems():
+                    if mp == mountpoint and dev.id != self.origrequest.id:
+                        used = True
+                        break
+
+                if used:
+                    self.intf.messageWindow(_("Mount point in use"),
+                                            _("The mount point \"%s\" is in "
+                                              "use. Please pick another.") %
+                                            (mountpoint,),
+                                            custom_icon="error")
+                    continue
 
             if not self.origrequest.exists:
                 # new device
