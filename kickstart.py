@@ -578,6 +578,15 @@ class Network(commands.network.F8_Network):
         if nd.gateway != "":
             self.handler.id.network.setGateway(nd.gateway, device)
 
+        needs_net = (self.handler.anaconda.methodstr and
+                     (self.handler.anaconda.methodstr.startswith("http:") or
+                      self.handler.anaconda.methodstr.startswith("ftp:") or
+                      self.handler.anaconda.methodstr.startswith("nfs:")))
+        if needs_net and not network.hasActiveNetDev():
+            log.info("Bringing up network in stage2 kickstart ...")
+            rc = self.handler.anaconda.id.network.bringUp()
+            log.info("Network setup %s" % (rc and 'succeeded' or 'failed',))
+
         return nd
 
 class MultiPath(commands.multipath.FC6_MultiPath):
