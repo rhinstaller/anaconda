@@ -28,7 +28,7 @@ die() {
 }
 
 usage() {
-    echo "Usage: buildinstall --version <version> --product <product> --release <comment> [--output outputdir] [--discs <discstring>] <root>" >&2
+    echo "Usage: buildinstall --version <version> --brand <brand> --product <product> --release <comment> [--output outputdir] [--discs <discstring>] <root>" >&2
     exit 1
 }
 
@@ -62,6 +62,10 @@ while [ $# -gt 0 ]; do
         ;;
         --product)
             PRODUCTSTR=$2
+            shift; shift
+        ;;
+        --brand)
+            BRANDSTR=$2
             shift; shift
         ;;
         --variant)
@@ -130,8 +134,10 @@ if [ ! -d "$OUTPUT" ]; then
 fi
 
 # The first -release and -logos package we are going to look for is the lowercase
-# equivalent of the PRODUCTSTR
-export brandpkgname="`echo $PRODUCTSTR | tr '[:upper:]' '[:lower:]'`"
+if [ -z "$BRANDSTR" ]; then
+    BRANDSTR="`echo $PRODUCTSTR | tr '[:upper:]' '[:lower:]'`"
+fi
+export brandpkgname="$BRANDSTR"
 
 BUILDINSTDIR=$(mktemp -d ${TMPDIR:-/tmp}/buildinstall.tree.XXXXXX)
 TREEDIR=$(mktemp -d ${TMPDIR:-/tmp}/treedir.XXXXXX)
@@ -233,9 +239,9 @@ echo "Writing .treeinfo file..."
 $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$VERSION --arch=$BASEARCH --outfile=$OUTPUT/.treeinfo
 
 # FIXME: need to update mk-images to take the yumconf
-MKIMGCMD="$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf"
-echo "Making images: $PWD\$ $MKIMGCMD"
-$MKIMGCMD || die "image creation failed"
+echo "Making images: $PWD"
+echo $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf
+$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BASEARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
