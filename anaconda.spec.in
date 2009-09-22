@@ -139,7 +139,6 @@ Requires: isomd5sum
 Requires: yum-utils >= %{yumutilsver}
 Requires: NetworkManager >= %{nmver}
 Requires: dhclient
-Requires: dhcpv6-client
 Requires: anaconda-yum-plugins
 Requires: libselinux-python >= %{libselinuxver}
 %ifarch %{sparc}
