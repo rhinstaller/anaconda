@@ -84,16 +84,15 @@ class InstallClass(BaseInstallClass):
                              product.productVersion, product.productName)
 
     def setInstallData(self, anaconda):
-	BaseInstallClass.setInstallData(self, anaconda)
-        BaseInstallClass.setDefaultPartitioning(self, 
+        BaseInstallClass.setInstallData(self, anaconda)
+        BaseInstallClass.setDefaultPartitioning(self,
                                                 anaconda.id.storage,
                                                 anaconda.platform)
 
     def setSteps(self, anaconda):
-        dispatch = anaconda.dispatch
-	BaseInstallClass.setSteps(self, dispatch);
-	dispatch.skipStep("partition")
-	dispatch.skipStep("regkey", skip = 0)        
+        BaseInstallClass.setSteps(self, anaconda)
+        anaconda.dispatch.skipStep("partition")
+        anaconda.dispatch.skipStep("regkey", skip = 0)
 
     # for rhel, we're putting the metadata under productpath
     def getPackagePaths(self, uri):
@@ -176,6 +175,9 @@ class InstallClass(BaseInstallClass):
         return yuminstall.YumBackend
 
     def productMatches(self, oldprod):
+        if oldprod is None:
+            return False
+
         if oldprod.startswith(productName):
             return True
 
