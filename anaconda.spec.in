@@ -214,6 +214,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Sep 22 2009 David Cantrell <dcantrell@redhat.com> - 12.29-1
+- Updated po/anaconda.pot (dcantrell)
+- Remove ui/instkey.glade.h from po/POTFILES.in (dcantrell)
+
 * Tue Sep 22 2009 David Cantrell <dcantrell@redhat.com> - 12.28-1
 - Preserve whitespace in $CDLABEL in mk-images.x86 (dcantrell)
 - Modify rhel.py installclass for current RHEL development efforts.
