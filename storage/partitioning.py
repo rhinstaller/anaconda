@@ -451,12 +451,13 @@ def getNextPartitionType(disk, no_primary=None):
     if primary_count >= disk.maxPrimaryPartitionCount - 1:
         if extended and logical_count < max_logicals:
             part_type = parted.PARTITION_LOGICAL
-        elif not extended and supports_extended:
-            # last chance to create an extended partition
-            part_type = parted.PARTITION_EXTENDED
-        elif primary_count < disk.maxPrimaryPartitionCount and not no_primary:
-            # it's either a primary or nothing
-            part_type = parted.PARTITION_NORMAL
+        elif primary_count < disk.maxPrimaryPartitionCount:
+            if not extended and supports_extended:
+                # last chance to create an extended partition
+                part_type = parted.PARTITION_EXTENDED
+            elif not no_primary:
+                # it's either a primary or nothing
+                part_type = parted.PARTITION_NORMAL
     elif no_primary and extended and logical_count < max_logicals:
         # create a logical even though we could presumably create a
         # primary instead
