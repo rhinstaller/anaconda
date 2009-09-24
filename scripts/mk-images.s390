@@ -23,60 +23,13 @@ getAllS390ModuleNames() {
         find ${s390dir} -type f -name "*.ko" | while read line ; do
             echo "$(basename ${line} .ko)"
         done | sort | uniq | tr '\n' ' '
+    else
+        echo "*** ERROR: ${s390dir} is missing, this tree probably won't have a working initrd.img" >&2
     fi
 }
 
-collectModuleNames() {
-    grep -v "^#" ${KERNELROOT}/lib/modules/${version}/modules.${1} | \
-        cut -d ' ' -f 1 | sort | uniq | \
-        sed -e 's|\.ko$||g' | \
-        tr '\n' ' '
-}
-
-expandModuleDeps() {
-    MODS="$*"
-    DEPS=
-
-    DEPSFILE="$(mktemp ${TMPDIR:-/tmp}/moduledeps.XXXXXX)"
-    echo "${MODS}" | tr ' ' '\n' > "${DEPSFILE}"
-
-    cd ${KERNELROOT}
-
-    while [ true ]; do
-        beforeCount="$(wc -l "${DEPSFILE}" | cut -d ' ' -f 1)"
-
-        while read module ; do
-            modulePath="$(find ${KERNELROOT}/lib/modules/${version} -name "${module}.ko")"
-            if [ -z "${modulePath}" ]; then
-                echo "ERROR: Missing ${module}.ko on s390" >&2
-                continue
-            fi
-
-            deps="$(modinfo -F depends ${modulePath})"
-
-            if [ ! -z "${deps}" ]; then
-                echo "${deps}" | tr ',' '\n' >> ${DEPSFILE}
-            fi
-        done < "${DEPSFILE}"
-
-        sort "${DEPSFILE}" | uniq > "${DEPSFILE}.new"
-        mv "${DEPSFILE}.new" "${DEPSFILE}"
-        afterCount="$(wc -l "${DEPSFILE}" | cut -d ' ' -f 1)"
-
-        if [ ${beforeCount} -eq ${afterCount} ]; then
-            break
-        fi
-    done
-
-    cat "${DEPSFILE}" | tr '\n' ' '
-    rm -f "${DEPSFILE}"
-}
-
 S390BASEMODS="$(getAllS390ModuleNames)"
-S390CCWMODS="$(collectModuleNames ccwmap)"
-S390BLOCKMODS="$(collectModuleNames block)"
-S390NETMODS="$(collectModuleNames networking)"
-S390MODS="$(expandModuleDeps $S390BASEMODS $S390CCWMODS $S390BLOCKMODS $S390NETMODS)"
+S390MODS="$S390BASEMODS libiscsi_tcp"
 
 makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
