@@ -66,6 +66,10 @@ class InstallClass(BaseInstallClass):
                                                 anaconda.id.storage,
                                                 anaconda.platform)
 
+    def setGroupSelection(self, anaconda):
+        BaseInstallClass.setGroupSelection(self, anaconda)
+        map(lambda x: anaconda.backend.selectGroup(x), ["core"])
+
     def setSteps(self, anaconda):
 	BaseInstallClass.setSteps(self, anaconda);
 	anaconda.dispatch.skipStep("partition")
