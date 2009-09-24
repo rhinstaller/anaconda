@@ -583,7 +583,7 @@ makeinitrd() {
         ln -s /tmp $MBD_DIR/var/state/xkb
         instbin $IMGPATH /usr/bin/xauth $MBD_DIR /sbin/xauth
         local cmsfsbin cmd
-        for cmsfsbin in /usr/sbin/cmsfs*; do
+        for cmsfsbin in $IMGPATH/usr/sbin/cmsfs*; do
             cmd="$(basename $cmsfsbin)"
             instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
         done
