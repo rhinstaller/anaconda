@@ -1135,8 +1135,11 @@ class PartitionWindow(InstallWindow):
         self.messageGraph.display()
 
     def treeActivateCB(self, view, path, col):
-        if isinstance(self.tree.getCurrentDevice(),
-                      storage.devices.PartitionDevice):
+        curr_dev = self.tree.getCurrentDevice()
+        if isinstance(curr_dev, storage.PartitionDevice) \
+                or isinstance(curr_dev, storage.LVMLogicalVolumeDevice) \
+                or isinstance(curr_dev, storage.LVMVolumeGroupDevice) \
+                or isinstance(curr_dev, storage.MDRaidArrayDevice):
             self.editCB()
 
     def treeSelectCB(self, selection, *args):
