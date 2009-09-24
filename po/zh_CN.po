@@ -1,12 +1,3 @@
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
 # translation of zh_CN.po to Simplified Chinese
 # Simplified Chinese Verstion of anaconda file
 # Copyright (C) 2002, Red Hat, Inc.
@@ -110,8 +101,8 @@ msgstr "您想使用 VNC 吗？"
 
 #: ../anaconda:773
 msgid ""
-"The VNC mode installation offers more functionality than the text mode, would "
-"you like to use it instead?"
+"The VNC mode installation offers more functionality than the text mode, "
+"would you like to use it instead?"
 msgstr "VNC 模式安装提供比文本模式更多的功能，您想要使用它来安装吗？"
 
 #: ../anaconda:812
@@ -186,7 +177,8 @@ msgstr "引导分区在磁盘上的位置不够靠前。OpenFirmware 无法引�
 
 #: ../autopart.py:1033
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
 msgstr "引导分区 %s 可能没有满足您的体系的引导制约参数。"
 
 #: ../autopart.py:1059
@@ -907,7 +899,8 @@ msgstr "保存屏幕快照时出错"
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr "保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
+msgstr ""
+"保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
 
 #: ../gui.py:230 ../text.py:562
 msgid "Fix"
@@ -954,7 +947,8 @@ msgstr "安装方法"
 msgid ""
 "Choose a passphrase for your encrypted devices. You will be prompted for the "
 "passphrase during system boot."
-msgstr "请为您的加密设备选择密码短语。会在系统引导的过程中提示您输入这个密码短语。"
+msgstr ""
+"请为您的加密设备选择密码短语。会在系统引导的过程中提示您输入这个密码短语。"
 
 #: ../gui.py:680 ../gui.py:688 ../text.py:263 ../text.py:273
 msgid "Error with passphrase"
@@ -973,7 +967,9 @@ msgstr "密码至少应包含八个字符。"
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
-msgstr "设备 %s 是加密的。要在安装过程中访问设备的内容，您必须在下面输入该设备的密码短语。"
+msgstr ""
+"设备 %s 是加密的。要在安装过程中访问设备的内容，您必须在下面输入该设备的密码"
+"短语。"
 
 #: ../gui.py:893 tmp/anaconda.glade.h:2
 msgid "_Debug"
@@ -1239,7 +1235,8 @@ msgstr "缺少软件包组"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr "您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
+msgstr ""
+"您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
 
 #: ../network.py:51
 msgid "Hostname must be 64 or less characters in length."
@@ -1340,7 +1337,8 @@ msgstr "错误 - 卷组名 %s 无效。"
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
+msgstr ""
+"错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1359,7 +1357,8 @@ msgstr "错误 - 逻辑卷名称 %s 无效。"
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr "错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
+msgstr ""
+"错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
 
 #: ../partIntfHelpers.py:95
 #, python-format
@@ -1616,12 +1615,14 @@ msgid "Confirm Reset"
 msgstr "确认重设"
 
 #: ../partIntfHelpers.py:538
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "是否确定要将分区表还原至其最初状态？"
 
 #: ../partRequests.py:263
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "该挂载点无效，%s 目录必须位于 / 文件系统上。"
 
 #: ../partRequests.py:266
@@ -1629,7 +1630,8 @@ msgstr "该挂载点无效，%s 目录必须位于 / 文件系统上。"
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr "挂载点 %s 无法被使用。它必须是符号链接才能使系统正确运行。请另选一个挂载点。"
+msgstr ""
+"挂载点 %s 无法被使用。它必须是符号链接才能使系统正确运行。请另选一个挂载点。"
 
 #: ../partRequests.py:273
 msgid "This mount point must be on a linux file system."
@@ -1687,7 +1689,8 @@ msgstr "%s 类型的 RAID 设备至少需要 %s 个成员。"
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
-msgstr "该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
+msgstr ""
+"该 RAID 设备至多可有 %s 个备件。要增加备件，您需要增加 RAID 设备的成员。"
 
 #: ../partRequests.py:1013
 msgid ""
@@ -1778,8 +1781,7 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 "无法读取设备 %s 中的分区表（%s %-0.f MB）。\n"
-"创建新分区时必须对其执行初始化，从而会导致"
-"该驱动器中的所有数据丢失。\n"
+"创建新分区时必须对其执行初始化，从而会导致该驱动器中的所有数据丢失。\n"
 "\n"
 "该操作会覆盖所有之前关于要忽略的驱动器的安装选择。\n"
 "\n"
@@ -1792,7 +1794,10 @@ msgid ""
 "the Linux kernel does not allow for more than 15 partitons at this time.  "
 "You will not be able to make changes to the partitioning of this disk or use "
 "any partitions beyond /dev/%s15 in %s"
-msgstr "驱动器 /dev/%s 中有超过 15 个分区。Linux 内核中的 SCSI 子系统不允许同时有 15 个以上的分区。您将需要更改这个磁盘中的分区，或者使用 %s 中任何小于 /dev/%s15 的分区。"
+msgstr ""
+"驱动器 /dev/%s 中有超过 15 个分区。Linux 内核中的 SCSI 子系统不允许同时有 15 "
+"个以上的分区。您将需要更改这个磁盘中的分区，或者使用 %s 中任何小于 /dev/%s15 "
+"的分区。"
 
 #: ../partedUtils.py:1373
 msgid "No Drives Found"
@@ -1826,7 +1831,9 @@ msgid ""
 "You specified block device encryption should be enabled, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
-msgstr "应启用您指定的块设备加密法，但您还没有提供密码短语。如果您不返回并提供密码短语，则会禁用块设备加密法。"
+msgstr ""
+"应启用您指定的块设备加密法，但您还没有提供密码短语。如果您不返回并提供密码短"
+"语，则会禁用块设备加密法。"
 
 #: ../partitioning.py:114 ../partitions.py:126 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:28 ../textw/confirm_text.py:54
@@ -1894,7 +1901,8 @@ msgid ""
 msgstr "您的根分区小于 250 MB，这个空间通常太小，不足以安装 %s。"
 
 #: ../partitions.py:1067 ../partitions.py:1090
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "您必须创建一个 FAT 类型的 /boot/efl 分区，大小为 50MB。"
 
 #: ../partitions.py:1078
@@ -1907,7 +1915,8 @@ msgstr "您的引导区不是最初的四个分区之一，因此无法引导驱
 msgid ""
 "Your boot partition is on a disk using the GPT partitioning scheme but this "
 "machine cannot boot using GPT."
-msgstr "您的引导分区位于一个使用 GPT 分区方案的磁盘中，但这台机器不能使用 GPT 引导。"
+msgstr ""
+"您的引导分区位于一个使用 GPT 分区方案的磁盘中，但这台机器不能使用 GPT 引导。"
 
 #: ../partitions.py:1110
 msgid "You must create an Apple Bootstrap partition."
@@ -1925,7 +1934,8 @@ msgid ""
 msgstr "您的 %s 分区小于 %s MB，小于正常安装 %s 的建议值。"
 
 #: ../partitions.py:1185
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr "正在一个 USB 设备上安装。不能保证可以成功安装。"
 
 #: ../partitions.py:1188
@@ -2186,7 +2196,8 @@ msgid "Welcome to %s"
 msgstr "欢迎使用 %s"
 
 #: ../text.py:597
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "<F1>求助 | <Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕"
 
 #: ../text.py:599
@@ -2216,7 +2227,8 @@ msgstr "是否要继续升级？"
 msgid ""
 "Anaconda did not find any partitions that are valid upgrade candidates.  "
 "Note that upgrades between major releases is not supported."
-msgstr "Anaconda 没有找到任何有效升级候选分区。请注意：不支持重要发行本之间的升级。"
+msgstr ""
+"Anaconda 没有找到任何有效升级候选分区。请注意：不支持重要发行本之间的升级。"
 
 #: ../upgrade.py:120
 msgid "No valid upgrade partition"
@@ -2273,14 +2285,16 @@ msgstr "挂载失败"
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr "在 /etc/fstab 中列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
+msgstr ""
+"在 /etc/fstab 中列出的文件系统中至少有一个无法挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:368
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
-msgstr "/etc/fstab 中列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
+msgstr ""
+"/etc/fstab 中列出的文件系统间发生矛盾而无法被挂载，请解决这一问题后再升级。"
 
 #: ../upgrade.py:385
 msgid ""
@@ -2515,7 +2529,8 @@ msgid ""
 "likely require reinstallation.\n"
 "\n"
 msgstr ""
-"无法打开文件 %s。这是由于缺少文件、坏软件包或者介质造成的。请确任您的安装源。\n"
+"无法打开文件 %s。这是由于缺少文件、坏软件包或者介质造成的。请确任您的安装"
+"源。\n"
 "\n"
 "如果您退出，您的系统将会处于不同一的状态，很可能需要重新安装。\n"
 "\n"
@@ -2571,7 +2586,8 @@ msgstr "错误运行记录"
 
 #: ../yuminstall.py:760
 #, python-format
-msgid "There was an error running your transaction, for the following reason(s): %s"
+msgid ""
+"There was an error running your transaction, for the following reason(s): %s"
 msgstr "出现错误，原因如下：%s"
 
 #: ../yuminstall.py:895
@@ -3007,7 +3023,8 @@ msgstr "安装 %s(_I)"
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr "选择该选项来重新安装系统。根据您的配置选择而定，现存软件和数据可能会被覆盖。"
+msgstr ""
+"选择该选项来重新安装系统。根据您的配置选择而定，现存软件和数据可能会被覆盖。"
 
 #: ../iw/examine_gui.py:65
 msgid "_Upgrade an existing installation"
@@ -3018,7 +3035,8 @@ msgstr "升级现有安装(_U)"
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr "如果您想升级现有的 %s 系统，选择该选项。该选项会保留您的驱动器上的数据。"
+msgstr ""
+"如果您想升级现有的 %s 系统，选择该选项。该选项会保留您的驱动器上的数据。"
 
 #: ../iw/examine_gui.py:114 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3800,12 +3818,14 @@ msgid "Partitioning"
 msgstr "分区"
 
 #: ../iw/partition_gui.py:638
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "您所申请的分区方案存在下列严重错误。"
 
 #: ../iw/partition_gui.py:641
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr "在继续安装 %s 之前，您一定要首先更正这些错误。"
 
 #: ../iw/partition_gui.py:647
@@ -4344,7 +4364,8 @@ msgstr "这将会更新您目前的引导装载程序。"
 
 #: ../iw/upgrade_bootloader_gui.py:70 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "安装程序检测到 %s 引导装载程序目前安装在 %s 上。"
 
 #: ../iw/upgrade_bootloader_gui.py:74
@@ -4466,14 +4487,16 @@ msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
-msgstr "强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
+msgstr ""
+"强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
 
 #: ../iw/upgrade_swap_gui.py:197 ../textw/upgrade_text.py:182
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "交换文件的大小必须在 1MB 到 2000MB 之间。"
 
 #: ../iw/upgrade_swap_gui.py:204 ../textw/upgrade_text.py:177
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "您所选的交换分区在该设备上空间不够。"
 
 #: ../iw/zipl_gui.py:28
@@ -4607,8 +4630,10 @@ msgstr ""
 "一个分区使用的标签。"
 
 #: ../textw/bootloader_text.py:291
-msgid " <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
-msgstr " <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F4> 删除  | <F12> 下一屏幕>"
+msgid ""
+" <Space> select | <F2> select default | <F4> delete | <F12> next screen>"
+msgstr ""
+" <Space> 选择按钮 | <F2> 选择默认的引导项目 | <F4> 删除  | <F12> 下一屏幕>"
 
 #: ../textw/bootloader_text.py:387
 msgid ""
@@ -4729,7 +4754,8 @@ msgid "Please select the package groups you would like to have installed."
 msgstr "请选择您想安装的软件包"
 
 #: ../textw/grpselect_text.py:105
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> 选择   |   <F2> 软件包组详情   |   <F12> 下一屏幕"
 
 #: ../textw/grpselect_text.py:117
@@ -4785,7 +4811,9 @@ msgstr "前缀需要的整数"
 msgid ""
 "You must enter a valid integer for the %s.  For IPv4, the value can be "
 "between 0 and 32.  For IPv6 it can be between 0 and 128."
-msgstr "您必须为 %s 输入一个有效的整数。对 IPv4 来说，该数值可在 0 到 32 之间。对 IPv6，该数值在 0 到 128 之间。"
+msgstr ""
+"您必须为 %s 输入一个有效的整数。对 IPv4 来说，该数值可在 0 到 32 之间。对 "
+"IPv6，该数值在 0 到 128 之间。"
 
 #: ../textw/network_text.py:82 tmp/netpostconfig.glade.h:16
 msgid "Prefix (Netmask)"
@@ -4898,7 +4926,9 @@ msgid ""
 "device name.  Unconfigured interfaces are shown as UNCONFIGURED.  To "
 "configure an interface, highlight it and choose Edit.  When you are "
 "finished, press OK to continue."
-msgstr "每个接口的当前配置设定都列在设备名称旁边。未配置的接口显示为 UNCONFIGURED。要配置某个接口，请突出该接口并选择编辑。完成后，请按确定继续。"
+msgstr ""
+"每个接口的当前配置设定都列在设备名称旁边。未配置的接口显示为 UNCONFIGURED。要"
+"配置某个接口，请突出该接口并选择编辑。完成后，请按确定继续。"
 
 #: ../textw/network_text.py:578 ../textw/network_text.py:657
 msgid "Active on boot"
@@ -4978,9 +5008,9 @@ msgid ""
 "hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"如果您的系统是一个大型网络的一部分，其主机名由 DHCP 来分派，则请选择通过 DHCP 自"
-"动配置。否则，选择手动配置，并为您的系统输入一个主机名。如果您不这么做，您的"
-"系统就会被称为“localhost”。"
+"如果您的系统是一个大型网络的一部分，其主机名由 DHCP 来分派，则请选择通过 "
+"DHCP 自动配置。否则，选择手动配置，并为您的系统输入一个主机名。如果您不这么"
+"做，您的系统就会被称为“localhost”。"
 
 #: ../textw/network_text.py:846 ../textw/network_text.py:852
 msgid "Invalid Hostname"
@@ -5227,8 +5257,10 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1456
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"   F1-帮助       F2-新建      F3-编辑   F4-删除    F5-重设    F12-确定    "
 
 #: ../textw/partition_text.py:1485
 msgid "No Root Partition"
@@ -5296,7 +5328,8 @@ msgstr "配置iSCSI参数"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr "使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
+msgstr ""
+"使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
 
 #: ../textw/partition_text.py:1734
 msgid "Username is required when password is present."
@@ -5608,7 +5641,8 @@ msgid ""
 "\n"
 "See http://www.redhat.com/InstNum/ for more information."
 msgstr ""
-"您现在要输入安装号（有时也称订阅号码）吗？这个特性可让安装程序访问所有您订阅中包含的附加组件。如果您跳过这一步，可在之后手动安装附加组件。\n"
+"您现在要输入安装号（有时也称订阅号码）吗？这个特性可让安装程序访问所有您订阅"
+"中包含的附加组件。如果您跳过这一步，可在之后手动安装附加组件。\n"
 "\n"
 "详情请查看 http://www.redhat.com/InstNum/。"
 
@@ -5683,7 +5717,8 @@ msgstr "弹出光盘"
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
-msgstr "选择“%s”来测试当前驱动器内的光盘，或“%s”来弹出光盘，然后另插一张来测试。"
+msgstr ""
+"选择“%s”来测试当前驱动器内的光盘，或“%s”来弹出光盘，然后另插一张来测试。"
 
 #: ../loader2/cdinstall.c:114
 #, c-format
@@ -5702,7 +5737,8 @@ msgstr ""
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr "在您所有光盘驱动器中均无法找到 %s 光盘。请插入 %s 光盘，然后按 %s 来重试。"
+msgstr ""
+"在您所有光盘驱动器中均无法找到 %s 光盘。请插入 %s 光盘，然后按 %s 来重试。"
 
 #: ../loader2/cdinstall.c:258
 msgid "CD Found"
@@ -6017,7 +6053,8 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "欢迎使用 %s - 援救模式"
 
 #: ../loader2/lang.c:57 ../loader2/loader.c:159
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "<Tab>/<Alt-Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕 "
 
 #: ../loader2/lang.c:366
@@ -6252,7 +6289,8 @@ msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "设备 kickstart 方法命令 %s 的参数不对：%s"
 
 #: ../loader2/modules.c:1077
-msgid "Both module type and name must be specified for the kickstart device command."
+msgid ""
+"Both module type and name must be specified for the kickstart device command."
 msgstr "必须为 kickstart 设备命令指定模块类型和名称。"
 
 #: ../loader2/net.c:69
@@ -6383,7 +6421,8 @@ msgid "Missing Information"
 msgstr "缺少信息"
 
 #: ../loader2/net.c:1347
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "必须输入有效的 IPv4 地址和子网掩码或CIDR代码。"
 
 #: ../loader2/net.c:1353
@@ -6430,7 +6469,9 @@ msgstr "您可设备物理端口"
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr "通过闪烁一定秒数的 LED 灯。请输入一个 1 到 30 之间的数字来设定闪烁 LDE 端口灯的时间。"
+msgstr ""
+"通过闪烁一定秒数的 LED 灯。请输入一个 1 到 30 之间的数字来设定闪烁 LDE 端口灯"
+"的时间。"
 
 #: ../loader2/net.c:2309
 msgid "Identify NIC"
@@ -6637,7 +6678,7 @@ msgstr "请指定安装附加软件的位置。注意您必须提供一个有效
 
 #: tmp/addrepo.glade.h:6
 msgid "_Add repository"
-msgstr "（_A）添加主机"
+msgstr "添加主机(_A)"
 
 #: tmp/anaconda.glade.h:1
 msgid "Reboo_t"
@@ -6670,7 +6711,7 @@ msgstr "检验和修改分区方案(_v)"
 
 #: tmp/autopart.glade.h:4
 msgid "_Advanced storage configuration"
-msgstr "（_A）高级存储配置"
+msgstr "高级存储配置(_A)"
 
 #: tmp/autopart.glade.h:5
 msgid "_Select the drive(s) to use for this installation."
@@ -7067,7 +7108,8 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "东部时间 - 密执安 - 多数地区"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "东部时间 - 安大略 & 魁北克 - 不使用 DST 1967-1973 的地区"
 
 #. generated from zone.tab
@@ -7112,7 +7154,7 @@ msgstr "夏威夷"
 
 #. generated from zone.tab
 msgid "Heilongjiang (except Mohe), Jilin"
-msgstr "黑龙江（不包括沙河）、吉林"
+msgstr "黑龙江（不包括漠河）、吉林"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -7138,10 +7180,9 @@ msgstr "库赛埃"
 msgid "Kwajalein"
 msgstr "卡瓦加兰"
 
-#  generated from zone.tab
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr "La Rioja (LR)"
+msgstr "拉里欧哈省（LR）"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -7193,7 +7234,7 @@ msgstr "莫斯科+00 - 俄罗斯西部"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Samara, Udmurtia"
-msgstr "莫斯科+01 - Samara, Udmurtia"
+msgstr "莫斯科+01 - 乌德穆尔特共和国萨马拉州"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7201,7 +7242,7 @@ msgstr "莫斯科+02 - 乌拉尔"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr "莫斯科+03 - 诺夫哥罗德"
+msgstr "莫斯科+03 - 新西伯利亚"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
@@ -7248,7 +7289,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "山区标准时间 - 亚利桑那"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "山区标准时间 - 道森溪 & 圣约翰堡，英属哥伦比亚"
 
 #. generated from zone.tab
@@ -7289,7 +7331,7 @@ msgstr "山区时间 - 西北地区西部"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Nunavut"
-msgstr "中部时间 - 努勒维特地区西部"
+msgstr "山区时间 - 努勒维特地区西部"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
@@ -7357,7 +7399,7 @@ msgstr "契兹劳达 (基兹劳达，基兹尔奥达)"
 
 #. generated from zone.tab
 msgid "Rondonia"
-msgstr "朗多尼亚"
+msgstr "朗多尼亚州"
 
 #. generated from zone.tab
 msgid "Roraima"
@@ -7379,20 +7421,17 @@ msgstr "巴西南部和东南部 (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 msgid "Sabah & Sarawak"
 msgstr "萨巴和砂拉越"
 
-#  generated from zone.tab
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr "San Juan (SJ)"
+msgstr "圣胡安（SJ）"
 
-#  generated from zone.tab
 #. generated from zone.tab
 msgid "San Luis (SL)"
-msgstr "San Luis (SL)"
+msgstr "圣路易（SL）"
 
-#  generated from zone.tab
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr "Santa Cruz (SC)"
+msgstr "圣塔克鲁斯（SC）"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -7425,7 +7464,7 @@ msgstr "图勒（皮图非克）"
 #  generated from zone.tab
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr "Tierra del Fuego (TF)"
+msgstr "火地岛（TF）"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -7438,7 +7477,7 @@ msgstr "特鲁克 (楚克岛)和雅浦岛"
 #  generated from zone.tab
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr "Tucuman (TM)"
+msgstr "土库曼省（TM）"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -7561,7 +7600,6 @@ msgstr "孟加拉语"
 msgid "Bengali(India)"
 msgstr "孟加拉语(印度)"
 
-#  generated from lang-table
 #. generated from lang-table
 msgid "Bulgarian"
 msgstr "保加利亚语"
@@ -7620,11 +7658,11 @@ msgstr "希腊语"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr "古吉拉特语"
+msgstr "<印> 古吉拉特语"
 
 #. generated from lang-table
 msgid "Hindi"
-msgstr "印地语"
+msgstr "<印> 印地语"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -7648,7 +7686,7 @@ msgstr "日语"
 
 #. generated from lang-table
 msgid "Kannada"
-msgstr "<印> 埃纳德语"
+msgstr "<印> 坎纳德语"
 
 #. generated from lang-table
 msgid "Korean"
@@ -7682,7 +7720,6 @@ msgstr "北索托语"
 msgid "Oriya"
 msgstr "奥里雅语"
 
-#  generated from lang-table
 #. generated from lang-table
 msgid "Polish"
 msgstr "波兰语"
@@ -7713,7 +7750,7 @@ msgstr "塞尔维亚语（拉丁语）"
 
 #. generated from lang-table
 msgid "Sinhala"
-msgstr "Sinhala"
+msgstr "僧伽罗语"
 
 #. generated from lang-table
 msgid "Slovak"
@@ -7737,7 +7774,7 @@ msgstr "泰米尔语"
 
 #. generated from lang-table
 msgid "Telugu"
-msgstr "Telugu"
+msgstr "<印> 泰卢固语"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7758,4 +7795,3 @@ msgstr "威尔士语"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "祖鲁语"
-
