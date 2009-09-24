@@ -637,12 +637,6 @@ class DiskTreeModel(gtk.TreeStore):
     def getTreeView(self):
         return self.view
 
-    def clearHiddenPartitionsList(self):
-	self.hiddenPartitions = []
-
-    def appendToHiddenPartitionsList(self, member):
-	self.hiddenPartitions.append(member)
-
     def selectRowFromObj(self, obj, iter=None):
         """Find the row in the tree containing obj and select it.
 
@@ -705,9 +699,6 @@ class DiskTreeModel(gtk.TreeStore):
 
     def resetSelection(self):
         pass
-##         selection = self.view.get_selection()
-##         selection.set_mode(gtk.SELECTION_SINGLE)
-##         selection.set_mode(gtk.SELECTION_BROWSE)
 
     def clear(self):
         selection = self.view.get_selection()
@@ -882,9 +873,7 @@ class PartitionWindow(InstallWindow):
     def populate(self, initial = 0):
         self.tree.resetSelection()
 
-	self.tree.clearHiddenPartitionsList()
-
-	# first do LVM
+        # first do LVM
         vgs = self.storage.vgs
         if vgs:
 	    lvmparent = self.tree.append(None)
@@ -956,13 +945,10 @@ class PartitionWindow(InstallWindow):
                         if _vg.dependsOn(array):
                             vg = _vg
                             break
-                    if vg and self.show_uneditable:
+                    if vg:
                         mntpt = vg.name
-                    elif vg:
-                        self.tree.appendToHiddenPartitionsList(array.path)
-                        continue
-		    else:
-			mntpt = ""
+                    else:
+                        mntpt = ""
                 elif format.mountable and format.mountpoint:
                     mntpt = format.mountpoint
 
@@ -1079,16 +1065,10 @@ class PartitionWindow(InstallWindow):
                         if _vg.dependsOn(part):
                             vg = _vg
                             break
-		    if vg and vg.name:
-			if self.show_uneditable:
-			    self.tree[iter]['Mount Point'] = vg.name
-			else:
-			    self.tree.appendToHiddenPartitionsList(part)
-			    self.tree.remove(iter)
-                            part = part.nextPartition()
-			    continue
-		    else:
-			self.tree[iter]['Mount Point'] = ""
+                    if vg and vg.name:
+                        self.tree[iter]['Mount Point'] = vg.name
+                    else:
+                        self.tree[iter]['Mount Point'] = ""
 
                 if device and device.format and \
                    device.format.type == "luks" and \
@@ -1110,19 +1090,13 @@ class PartitionWindow(InstallWindow):
                         if _array.dependsOn(device):
                             array = _array
                             break
-		    if array:
-			if self.show_uneditable:
-                            if array.minor is not None:
-                                mddevice = "%s" % array.path
-                            else:
-                                mddevice = "Auto"
-				mddevice = "Auto"
-			    self.tree[iter]['Mount Point'] = mddevice
-			else:
-			    self.tree.appendToHiddenPartitionsList(part)
-			    self.tree.remove(iter)
-			    part = part.nextPartition()
-			    continue
+                    if array:
+                        if array.minor is not None:
+                            mddevice = "%s" % array.path
+                        else:
+                            mddevice = "Auto"
+                        self.tree[iter]['Mount Point'] = mddevice
+
 		    else:
 			self.tree[iter]['Mount Point'] = ""
 
@@ -1661,17 +1635,10 @@ class PartitionWindow(InstallWindow):
 
         vgeditor.destroy()
 
-    def viewButtonCB(self, widget):
-        self.show_uneditable = not widget.get_active()
-        self.stripeGraph.shutDown()
-        self.tree.clear()
-        self.populate()
-
     def getScreen(self, anaconda):
         self.anaconda = anaconda
         self.storage = anaconda.id.storage
         self.intf = anaconda.intf
-        self.show_uneditable = 1
         self.checkmark_pixbuf = gui.getPixbuf("checkMark.png")
         self.lock_pixbuf = gui.getPixbuf("gnome-lock.png")
 
@@ -1692,17 +1659,6 @@ class PartitionWindow(InstallWindow):
             button = gtk.Button(label)
             buttonBox.add (button)
             button.connect ("clicked", cb)
-
-        # create the Hide checkbox
-        self.toggleViewButton = gtk.CheckButton(_("Hide RAID device/LVM Volume _Group members"))
-        self.toggleViewButton.set_active(not self.show_uneditable)
-        self.toggleViewButton.connect("toggled", self.viewButtonCB)
-
-        # Put the check box & the buttons in a horizontal box.
-        actionbox = gtk.HBox()
-        actionbox.pack_start(self.toggleViewButton)
-        actionbox.pack_start(buttonBox)
-        actionbox.set_spacing(6)
 
         # Create the disk tree (Fills the tree and the Bar View)
         self.tree = DiskTreeModel()
@@ -1734,7 +1690,7 @@ class PartitionWindow(InstallWindow):
         MVbox = gtk.VBox(False, 5)
         MVbox.pack_start(swt, False, False)
         MVbox.pack_start(swb, True)
-        MVbox.pack_start(actionbox, False, False)
+        MVbox.pack_start(buttonBox, False, False)
         MVbox.pack_start(gtk.HSeparator(), False)
 
         return MVbox
