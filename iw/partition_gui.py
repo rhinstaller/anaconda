@@ -525,6 +525,30 @@ class MDRaidArrayStripeGraph(StripeGraph):
 
         return stripe
 
+class MessageGraph:
+    def __init__(self, canvas, message):
+        self.canvas = canvas
+        self.message = message
+        self.canvas_text = None
+
+    def display(self):
+        if self.canvas_text != None:
+            # This means that its already displayed.
+            return
+
+        self.canvas_text = self.canvas.root().add(gnomecanvas.CanvasText,
+                x=0.0, y=20, font="sans", size_points=16)
+        self.canvas_text.set(text=self.message, fill_color='black',
+                anchor=gtk.ANCHOR_CENTER, weight=pango.WEIGHT_BOLD)
+
+        # Trying to center the picture.
+        apply(self.canvas.set_scroll_region, self.canvas.root().get_bounds())
+
+    def destroy(self):
+        if self.canvas_text:
+            self.canvas_text.destroy()
+            self.canvas_text = None
+
 class DiskTreeModelHelper:
     def __init__(self, model, columns, iter):
         self.model = model
@@ -1134,6 +1158,7 @@ class PartitionWindow(InstallWindow):
                 part = part.nextPartition()
 
         self.treeView.expand_all()
+        self.messageGraph.display()
 
     def treeActivateCB(self, view, path, col):
         if isinstance(self.tree.getCurrentDevice(),
@@ -1144,17 +1169,21 @@ class PartitionWindow(InstallWindow):
         model, iter = selection.get_selected()
         if not iter:
             return
+        iparent = model.iter_parent(iter)
+        if not iparent:
+            # This is a root row.
+            return
+
+        # We destroy the message first.  We will make sure to repaint it later
+        # if no stipe is displayed.  Can't destroy it at the end of this func
+        # because it uncenters the created stripe, if any.
+        self.messageGraph.destroy()
 
         device = model[iter]['PyObject']
 
         # See if we need to change what is in the canvas. In all possibilities
         # we must make sure we have the correct StripeGraph class.
         if not device:
-            iparent = model.iter_parent(iter)
-            if not iparent:
-                # This is a root row.
-                return
-
             # This is free space.  Only Disks have "Free" space.
             parent = self.tree[iparent]["PyObject"]
             if isinstance(parent, storage.DiskDevice):
@@ -1195,9 +1224,9 @@ class PartitionWindow(InstallWindow):
                 self.stripeGraph = MDRaidArrayStripeGraph(self.tree, self.editCB, self.storage, device)
             self.stripeGraph.setDisplayed(device)
 
-        else:
-            # Don't really want to do anything in this case.
-            return
+        # Make sure we put the info message
+        if self.stripeGraph.getDisplayed() == None:
+            self.messageGraph.display()
 
     def deleteCB(self, widget):
         """ Right now we can say that if the device is partitioned we
@@ -1682,6 +1711,8 @@ class PartitionWindow(InstallWindow):
         self.treeViewSelection = self.treeView.get_selection()
         self.treeViewSelection.connect("changed", self.treeSelectCB)
         self.stripeGraph = StripeGraph()
+        self.messageGraph = MessageGraph(self.stripeGraph.getCanvas(),
+                _("Please Select A Device"))
         self.populate(initial = 1)
 
         # Create the top scroll window
