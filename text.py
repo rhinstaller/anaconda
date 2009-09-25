@@ -356,9 +356,10 @@ class InstallInterface:
         exnWin = MainExceptionWindow(shortText, longTextFile, screen=self.screen)
         return exnWin
 
-    def saveExceptionWindow(self, longTextFile):
+    def saveExceptionWindow(self, longTextFile, desc="", *args, **kwargs):
         from meh.ui.text import SaveExceptionWindow
-        win = SaveExceptionWindow (self.anaconda, longTextFile, screen=self.screen)
+        win = SaveExceptionWindow (longTextFile, desc=desc, screen=self.screen,
+                                   *args, **kwargs)
         return win
 
     def waitWindow(self, title, text):

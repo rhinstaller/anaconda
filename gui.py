@@ -1080,9 +1080,9 @@ class InstallInterface:
         addFrame(win.dialog)
         return win
 
-    def saveExceptionWindow(self, longTextFile):
+    def saveExceptionWindow(self, longTextFile, desc="", *args, **kwargs):
         from meh.ui.gui import SaveExceptionWindow
-        win = SaveExceptionWindow (self.anaconda, longTextFile)
+        win = SaveExceptionWindow (longTextFile, desc=desc, *args, **kwargs)
         addFrame(win.dialog)
         return win
 
