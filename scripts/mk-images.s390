@@ -28,14 +28,11 @@ getAllS390ModuleNames() {
     fi
 }
 
-S390BASEMODS="$(getAllS390ModuleNames)"
-S390MODS="$S390BASEMODS libiscsi_tcp"
-
 makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
 	    --initrdsize 20000 \
 	    --loaderbin loader \
-	    --modules "$INITRDMODS $S390MODS"
+	    --modules "$INITRDMODS $(getAllS390ModuleNames)"
 	sz=$(ls -l $TOPDESTPATH/images/initrd.img | awk '{print $5}')
 	$GENINITRDSZ $sz $TOPDESTPATH/images/initrd.size
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
