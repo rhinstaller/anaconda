@@ -1148,13 +1148,20 @@ class PartitionWindow(InstallWindow):
         self.deleteButton.set_sensitive(False)
         self.editButton.set_sensitive(False)
 
+        # I have no idea why this iter might be None.  Its best to return
+        # without any action.
         model, iter = selection.get_selected()
         if not iter:
             return
+
+        # If we return because there is no parent, make sure we show the user
+        # the infoGraph and no stripeGraph.  The 'create' and 'delete' buttons
+        # will be deactivated.
         iparent = model.iter_parent(iter)
         if not iparent:
-            # This is a root row.
-            return
+            self.stripeGraph.shutDown()
+            self.messageGraph.display()
+            return # This is a root row.
 
         # We destroy the message first.  We will make sure to repaint it later
         # if no stipe is displayed.  Can't destroy it at the end of this func
