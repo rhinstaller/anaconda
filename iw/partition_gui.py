@@ -1143,6 +1143,11 @@ class PartitionWindow(InstallWindow):
             self.editCB()
 
     def treeSelectCB(self, selection, *args):
+        # The edit and create buttons will be enabled if the user has chosen
+        # something editable and/or deletable.
+        self.deleteButton.set_sensitive(False)
+        self.editButton.set_sensitive(False)
+
         model, iter = selection.get_selected()
         if not iter:
             return
@@ -1174,6 +1179,8 @@ class PartitionWindow(InstallWindow):
                 self.stripeGraph.shutDown()
                 self.stripeGraph = DiskStripeGraph(self.tree, self.editCB, self.storage, device)
             self.stripeGraph.setDisplayed(device)
+            # this is deletable but not editable.
+            self.deleteButton.set_sensitive(True)
 
         elif isinstance(device, storage.PartitionDevice):
             if not isinstance(self.stripeGraph, DiskStripeGraph):
@@ -1181,12 +1188,16 @@ class PartitionWindow(InstallWindow):
                 self.stripeGraph = DiskStripeGraph(self.tree, self.editCB, self.storage, device.parents[0])
             self.stripeGraph.setDisplayed(device.parents[0])
             self.stripeGraph.selectSliceFromObj(device)
+            self.deleteButton.set_sensitive(True)
+            self.editButton.set_sensitive(True)
 
         elif isinstance(device, storage.LVMVolumeGroupDevice):
             if not isinstance(self.stripeGraph, LVMStripeGraph):
                 self.stripeGraph.shutDown()
                 self.stripeGraph = LVMStripeGraph(self.tree, self.editCB, self.storage, device)
             self.stripeGraph.setDisplayed(device)
+            self.deleteButton.set_sensitive(True)
+            self.editButton.set_sensitive(True)
 
         elif isinstance(device, storage.LVMLogicalVolumeDevice):
             if not isinstance(self.stripeGraph, LVMStripeGraph):
@@ -1194,16 +1205,24 @@ class PartitionWindow(InstallWindow):
                 self.stripeGraph = LVMStripeGraph(self.tree, self.editCB, self.storage, device.vg)
             self.stripeGraph.setDisplayed(device.vg)
             self.stripeGraph.selectSliceFromObj(device)
+            self.deleteButton.set_sensitive(True)
+            self.editButton.set_sensitive(True)
 
         elif isinstance(device, storage.MDRaidArrayDevice):
             if not isinstance(self.stripeGraph, MDRaidArrayStripeGraph):
                 self.stripeGraph.shutDown()
                 self.stripeGraph = MDRaidArrayStripeGraph(self.tree, self.editCB, self.storage, device)
             self.stripeGraph.setDisplayed(device)
+            self.deleteButton.set_sensitive(True)
+            self.editButton.set_sensitive(True)
 
-        # Make sure we put the info message
-        if self.stripeGraph.getDisplayed() == None:
+        else:
+            # This means that the user selected something that is not showable
+            # in the bar view.  Just show the information message.
+            self.stripeGraph.shutDown()
             self.messageGraph.display()
+            self.deleteButton.set_sensitive(False)
+            self.editButton.set_sensitive(False)
 
     def deleteCB(self, widget):
         """ Right now we can say that if the device is partitioned we
@@ -1212,8 +1231,6 @@ class PartitionWindow(InstallWindow):
             devices. This will need some work when that time comes.
         """
         device = self.tree.getCurrentDevice()
-        if not device:
-            return
         if device.format.type == "disklabel":
             if doClearPartitionedDevice(self.intf,
                                         self.storage,
@@ -1505,12 +1522,6 @@ class PartitionWindow(InstallWindow):
 
     def editCB(self, *args):
         device = self.tree.getCurrentDevice()
-        if not device:
-            self.intf.messageWindow(_("Unable To Edit"),
-                                    _("You must select a device to edit"),
-                                    custom_icon="error")
-            return
-
         reason = self.storage.deviceImmutable(device, ignoreProtected=True)
         if reason:
             self.intf.messageWindow(_("Unable To Edit"),
@@ -1662,6 +1673,14 @@ class PartitionWindow(InstallWindow):
             button = gtk.Button(label)
             buttonBox.add (button)
             button.connect ("clicked", cb)
+
+            # We need these to control their sensitivity.
+            if label == _("_Edit"):
+                self.editButton = button
+                self.editButton.set_sensitive(False)
+            elif label == _("_Delete"):
+                self.deleteButton = button
+                self.deleteButton.set_sensitive(False)
 
         # Create the disk tree (Fills the tree and the Bar View)
         self.tree = DiskTreeModel()
