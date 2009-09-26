@@ -130,6 +130,7 @@ bumpver:
 	(head -n $$cl anaconda.spec.in ; echo "$$DATELINE" ; cat newspeclog ; echo ""; cat speclog) > anaconda.spec.in.new ; \
 	mv anaconda.spec.in.new anaconda.spec.in ; rm -f speclog ; rm -f newspeclog ; \
 	sed -i "s/AC_INIT(\[$(PACKAGE_NAME)\], \[$(PACKAGE_VERSION)\], \[$(PACKAGE_BUGREPORT\])/AC_INIT(\[$(PACKAGE_NAME)\], \[$$NEWVERSION\], \[$(PACKAGE_BUGREPORT\])/" configure.ac
+	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 install-buildrequires:
 	yum install $$(grep BuildRequires: anaconda.spec.in | cut -d ' ' -f 2)
