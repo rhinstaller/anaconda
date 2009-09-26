@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.28\n"
+"Project-Id-Version: anaconda 12.31\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-09-22 16:58-1000\n"
+"POT-Creation-Date: 2009-09-25 17:31-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,7 +21,7 @@ msgid "Press <enter> for a shell"
 msgstr ""
 
 #: anaconda:389 rescue.py:324 rescue.py:350 rescue.py:363 rescue.py:439
-#: rescue.py:451 text.py:499 loader/cdinstall.c:228 loader/cdinstall.c:232
+#: rescue.py:451 text.py:500 loader/cdinstall.c:228 loader/cdinstall.c:232
 #: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:445
 #: loader/cdinstall.c:452 loader/cdinstall.c:517 loader/dirbrowser.c:145
 #: loader/driverdisk.c:98 loader/driverdisk.c:243 loader/driverdisk.c:274
@@ -229,7 +229,7 @@ msgid ""
 "configuration file."
 msgstr ""
 
-#: cmdline.py:114 cmdline.py:121
+#: cmdline.py:114 cmdline.py:121 cmdline.py:128
 msgid "Can't have a question in command line mode!"
 msgstr ""
 
@@ -332,11 +332,11 @@ msgstr ""
 msgid "default:LTR"
 msgstr ""
 
-#: gui.py:1251 text.py:464
+#: gui.py:1251 text.py:465
 msgid "Error!"
 msgstr ""
 
-#: gui.py:1252 text.py:465
+#: gui.py:1252 text.py:466
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -1149,7 +1149,7 @@ msgstr ""
 msgid "Which device holds the root partition of your installation?"
 msgstr ""
 
-#: rescue.py:324 rescue.py:328 text.py:469 text.py:471
+#: rescue.py:324 rescue.py:328 text.py:470 text.py:472
 msgid "Exit"
 msgstr ""
 
@@ -1222,32 +1222,32 @@ msgstr ""
 msgid "Repository editing is not available in text mode."
 msgstr ""
 
-#: text.py:374 loader/lang.c:63 loader/loader.c:215
+#: text.py:375 loader/lang.c:63 loader/loader.c:215
 #, c-format, python-format
 msgid "Welcome to %s for %s"
 msgstr ""
 
-#: text.py:376
+#: text.py:377
 #, python-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: text.py:378
+#: text.py:379
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: text.py:469 loader/net.c:111 loader/net.c:464 loader/net.c:520
+#: text.py:470 loader/net.c:111 loader/net.c:464 loader/net.c:520
 #: loader/net.c:663 loader/net.c:671 loader/net.c:1094 loader/net.c:1101
 msgid "Retry"
 msgstr ""
 
-#: text.py:495
+#: text.py:496
 msgid "Cancelled"
 msgstr ""
 
-#: text.py:496
+#: text.py:497
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 

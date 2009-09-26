@@ -215,6 +215,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Sep 25 2009 David Cantrell <dcantrell@redhat.com> - 12.31-1
+- Move S390MODS to inside makeBootImages(), remove libiscsi_tcp. (dcantrell)
+- Require the latest and greatest python-meh. (clumens)
+- Add a stub enableNetwork method for cmdline mode (#525779). (clumens)
+- Adapt to python-meh passing a bug description around. (clumens)
+- Return None for next part type if all primary slots full. (#524859)
+  (dlehman)
+- Make sure the Minimal group is selected by default on RHEL installs
+  (#524561). (clumens)
+
 * Thu Sep 24 2009 Chris Lumens <clumens@redhat.com> - 12.30-1
 - Simplify s390x module list generation. (dcantrell)
 - Read cmsfs* commands from $IMGPATH/usr/sbin in mk-images (dcantrell)
