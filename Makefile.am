@@ -95,6 +95,8 @@ archive:
 	$(MAKE) tag
 	$(MAKE) dist
 
+release: archive
+
 src: archive
 	@rpmbuild -ts --nodeps $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.bz2 || exit 1
 	@rm -f $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.bz2
