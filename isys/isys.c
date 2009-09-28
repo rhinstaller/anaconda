@@ -95,13 +95,11 @@ static PyObject * doSwapoff(PyObject * s, PyObject * args);
 static PyObject * doLoSetup(PyObject * s, PyObject * args);
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
 static PyObject * doLoChangeFd(PyObject * s, PyObject * args);
-static PyObject * doDdFile(PyObject * s, PyObject * args);
 static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
-static PyObject * doClobberExt2 (PyObject * s, PyObject * args);
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doExt2HasJournal(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
@@ -110,7 +108,6 @@ static PyObject * doisPseudoTTY(PyObject * s, PyObject * args);
 static PyObject * doisVioConsole(PyObject * s);
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
-static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
@@ -134,14 +131,12 @@ static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
     { "e2dirty", (PyCFunction) doExt2Dirty, METH_VARARGS, NULL },
     { "e2hasjournal", (PyCFunction) doExt2HasJournal, METH_VARARGS, NULL },
-    { "e2fsclobber", (PyCFunction) doClobberExt2, METH_VARARGS, NULL },
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
     { "wiperaidsb", (PyCFunction) doWipeRaidSuperblock, METH_VARARGS, NULL },
     { "getraidchunk", (PyCFunction) doGetRaidChunkSize, METH_VARARGS, NULL },
     { "lochangefd", (PyCFunction) doLoChangeFd, METH_VARARGS, NULL },
     { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
-    { "ddfile", (PyCFunction) doDdFile, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
@@ -155,7 +150,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "isVioConsole", (PyCFunction) doisVioConsole, METH_NOARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
-    { "fbinfo", (PyCFunction) getFramebufferInfo, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
@@ -176,33 +170,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
-
-static PyObject * doDdFile(PyObject * s, PyObject * args) {
-    int fd;
-    int megs;
-    char * ptr;
-    int i;
-
-    if (!PyArg_ParseTuple(args, "ii", &fd, &megs)) return NULL;
-
-    ptr = calloc(1024 * 256, 1);
-
-    while (megs--) {
-	for (i = 0; i < 4; i++) {
-	    if (write(fd, ptr, 1024 * 256) != 1024 * 256) {
-		PyErr_SetFromErrno(PyExc_SystemError);
-		free(ptr);
-		return NULL;
-	    }
-	    sync();
-	}
-    }
-
-    free(ptr);
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
 
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args) {
     int loopfd;
@@ -528,34 +495,6 @@ static PyObject * doLoadKeymap (PyObject * s, PyObject * args) {
     return Py_None;
 }
 
-static PyObject * doClobberExt2 (PyObject * s, PyObject * args) {
-    char * device;
-    ext2_filsys fsys;
-    struct ext2_super_block sb;
-    int rc;
-
-    if (!PyArg_ParseTuple(args, "s", &device)) return NULL;
-
-    rc = ext2fs_open(device, EXT2_FLAG_FORCE, 0, 0, unix_io_manager, &fsys);
-
-    if (rc) {
-	Py_INCREF(Py_None);
-	return Py_None;
-    }
-
-    memset(&sb, 0, sizeof(struct ext2_super_block));
-    rc = ext2fs_initialize (device, 0, &sb, unix_io_manager, &fsys);
-    if (rc) {
-	Py_INCREF(Py_None);
-	return Py_None;
-    }
-
-    ext2fs_close(fsys);
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
 static PyObject * doExt2Dirty(PyObject * s, PyObject * args) {
     char * device;
     ext2_filsys fsys;
@@ -662,27 +601,6 @@ static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
     rc = fileIsIso(fn);
     
     return Py_BuildValue("i", rc);
-}
-
-static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
-    int fd;
-    struct fb_var_screeninfo fb;
-
-    fd = open("/dev/fb0", O_RDONLY);
-    if (fd == -1) {
-	Py_INCREF(Py_None);
-	return Py_None;
-    }
-
-    if (ioctl(fd, FBIOGET_VSCREENINFO, &fb)) {
-	close(fd);
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    close(fd);
-
-    return Py_BuildValue("(iii)", fb.xres, fb.yres, fb.bits_per_pixel);
 }
 
 #ifdef USESELINUX

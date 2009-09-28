@@ -107,27 +107,6 @@ def unlosetup(device):
     finally:
         os.close(loop)
 
-def ddfile(file, megs, pw = None):
-    buf = '\x00' * (1024 * 256)
-
-    fd = os.open(file, os.O_RDWR | os.O_CREAT)
-
-    total = megs * 4	    # we write out 1/4 of a meg each time through
-
-    if pw:
-	(fn, title, text) = pw
-	win = fn(title, text, total - 1)
-
-    for n in range(total):
-	os.write(fd, buf)
-	if pw:
-	    win.set(n)
-
-    if pw:
-	win.pop()
-
-    os.close(fd)
-
 ## Mount a filesystem, similar to the mount system call.
 # @param device The device to mount.  If bindMount is True, this should be an
 #               already mounted directory.  Otherwise, it should be a device
@@ -279,25 +258,6 @@ def getDasdState(dev):
 
     return 0
 
-## Calculate the broadcast address of a network.
-# @param ip An IPv4 address as a string.
-# @param nm A corresponding netmask as a string.
-# @return A tuple of network address and broadcast address strings.
-def inet_calcNetBroad (ip, nm):
-    (ipaddr,) = struct.unpack('I', socket.inet_pton(socket.AF_INET, ip))
-    ipaddr = socket.ntohl(ipaddr)
-
-    (nmaddr,) = struct.unpack('I', socket.inet_pton(socket.AF_INET, nm))
-    nmaddr = socket.ntohl(nmaddr)
-
-    netaddr = ipaddr & nmaddr
-    bcaddr = netaddr | (~nmaddr)
-
-    nw = socket.inet_ntop(socket.AF_INET, struct.pack('!I', netaddr))
-    bc = socket.inet_ntop(socket.AF_INET, struct.pack('!I', bcaddr))
-
-    return (nw, bc)
-
 def doProbeBiosDisks():
     if not iutil.isX86():
         return None
@@ -377,20 +337,6 @@ def compareDrives(first, second):
 
     return 0
 
-def compareNetDevices(first, second):
-    try:
-        trimmed_first = float(first.lstrip(string.letters))
-        trimmed_second = float(second.lstrip(string.letters))
-    except:
-        return 0
-
-    if trimmed_first < trimmed_second:
-        return -1
-    elif trimmed_first > trimmed_second:
-        return 1
-    else:
-        return 0
-
 def resetResolv():
     return _isys.resetresolv()
 
@@ -438,9 +384,6 @@ def readFSType(device):
     elif fstype == "lvm2pv":
         return "physical volume (LVM)"
     return fstype
-
-def ext2Clobber(device):
-    _isys.e2fsclobber(device)
 
 def ext2IsDirty(device):
     label = _isys.e2dirty(device)
@@ -495,9 +438,6 @@ def sync ():
 # @return True if ISO image, False otherwise.
 def isIsoImage(file):
     return _isys.isisoimage(file)
-
-def fbinfo():
-    return _isys.fbinfo()
 
 # Return number of network devices
 def getNetworkDeviceCount():
