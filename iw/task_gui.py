@@ -170,10 +170,9 @@ class RepoEditor:
         except:
             return 0
 
-    def _enableRepo(self, repo):
+    def _addAndEnableRepo(self, repo):
         try:
             self.backend.ayum.repos.add(repo)
-            self.backend.ayum.repos.enableRepo(repo.id)
         except yum.Errors.DuplicateRepoError, e:
             self.intf.messageWindow(_("Error"),
                   _("The repository %s has already been added.  Please "
@@ -181,6 +180,7 @@ class RepoEditor:
                     "URL.") % self.repo.name, type="ok", custom_icon="error")
             return False
 
+        repo.enable()
         return True
 
     def _validURL(self, url):
@@ -355,7 +355,7 @@ class RepoEditor:
                 removeOld = False
 
             type = self.typeComboBox.get_active()
-            if not applyFuncs[type](newRepoObj) or not self._enableRepo(newRepoObj) or not \
+            if not applyFuncs[type](newRepoObj) or not self._addAndEnableRepo(newRepoObj) or not \
                    setupRepo(self.anaconda, newRepoObj):
                 newRepoObj.close()
                 self.anaconda.backend.ayum.repos.delete(newRepoObj.id)
