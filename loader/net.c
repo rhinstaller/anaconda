@@ -1697,7 +1697,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     devices = alloca((i + 1) * sizeof(*devices));
     deviceNames = alloca((i + 1) * sizeof(*devices));
     if (loaderData->netDev && (loaderData->netDev_set) == 1) {
-        if ((loaderData->bootIf && (loaderData->bootIf_set) == 1) && !strcasecmp(loaderData->netDev, "bootif")) {
+        if ((loaderData->bootIf && (loaderData->bootIf_set) == 1) &&
+            !strcasecmp(loaderData->netDev, "bootif")) {
             ksMacAddr = strdup(loaderData->bootIf);
         } else {
             ksMacAddr = strdup(loaderData->netDev);
@@ -1711,13 +1712,15 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
             continue;
 
         if (devs[i]->description) {
-                deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
-                                          strlen(devs[i]->description) + 4);
-                sprintf(deviceNames[deviceNums],"%s - %.50s",
-                        devs[i]->device, devs[i]->description);
-                if (strlen(deviceNames[deviceNums]) > max)
-                        max = strlen(deviceNames[deviceNums]);
-                devices[deviceNums] = devs[i]->device;
+            deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
+                                      strlen(devs[i]->description) + 4);
+            sprintf(deviceNames[deviceNums],"%s - %.50s",
+                    devs[i]->device, devs[i]->description);
+
+            if (strlen(deviceNames[deviceNums]) > max)
+                max = strlen(deviceNames[deviceNums]);
+
+            devices[deviceNums] = devs[i]->device;
         } else {
             devices[deviceNums] = devs[i]->device;
             deviceNames[deviceNums] = devs[i]->device;
@@ -1732,8 +1735,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                 foundDev = 1;
             } else if (ksMacAddr != NULL) {
                 /* maybe it's a mac address */
-                char *devmacaddr = NULL;
-                devmacaddr = iface_mac2str(devs[i]->device);
+                char *devmacaddr = iface_mac2str(devs[i]->device);
+
                 if ((devmacaddr != NULL) && !strcmp(ksMacAddr, devmacaddr)) {
                     foundDev = 1;
                     free(loaderData->netDev);
@@ -1748,6 +1751,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
             }
         }
     }
+
     if (ksMacAddr)
         free(ksMacAddr);
     if (foundDev == 1)
@@ -1772,61 +1776,68 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         return LOADER_NOOP;
     }
 
-    while((loaderData->netDev && (loaderData->netDev_set == 1)) &&
-	    !strcmp(loaderData->netDev, "ibft")){
-	char *devmacaddr = NULL;
-	char *ibftmacaddr = "";
+    while ((loaderData->netDev && (loaderData->netDev_set == 1)) &&
+           !strcmp(loaderData->netDev, "ibft")) {
+        char *devmacaddr = NULL;
+        char *ibftmacaddr = "";
 
-	/* get MAC from the iBFT table */
-	if(!(ibftmacaddr = ibft_iface_mac())){ /* iBFT not present or error */
-	    lookForLink = 0;
-	    break;
-	}
+        /* get MAC from the iBFT table */
+        if (!(ibftmacaddr = ibft_iface_mac())) { /* iBFT not present or error */
+            lookForLink = 0;
+            break;
+        }
 
-	logMessage(INFO, "looking for iBFT configured device %s with link", ibftmacaddr);
-	lookForLink = 0;
+        logMessage(INFO, "looking for iBFT configured device %s with link",
+                   ibftmacaddr);
+        lookForLink = 0;
 
-	for (i = 0; devs[i]; i++) {
-	    if (!devs[i]->device)
-		continue;
-	    devmacaddr = iface_mac2str(devs[i]->device);
-	    if(!strcasecmp(devmacaddr, ibftmacaddr)){
-		logMessage(INFO, "%s has the right MAC (%s), checking for link", devmacaddr, devices[i]);
-		free(devmacaddr);
-		if(get_link_status(devices[i]) == 1){
-		    lookForLink = 0;
-		    loaderData->netDev = devices[i];
-		    logMessage(INFO, "%s has link, using it", devices[i]);
+        for (i = 0; devs[i]; i++) {
+            if (!devs[i]->device)
+                continue;
 
-		    /* set the IP method to ibft if not requested differently */
-		    if(loaderData->ipv4 == NULL){
-			loaderData->ipv4 = strdup("ibft");
-			logMessage(INFO, "%s will be configured using iBFT values", devices[i]);
-		    }
-		    return LOADER_NOOP;
-		}
-		else{
-		    logMessage(INFO, "%s has no link, skipping it", devices[i]);
-		}
+            devmacaddr = iface_mac2str(devs[i]->device);
 
-		break;
-	    }
-	    else{
-		free(devmacaddr);
-	    }
-	}
+            if(!strcasecmp(devmacaddr, ibftmacaddr)){
+                logMessage(INFO,
+                           "%s has the right MAC (%s), checking for link",
+                           devmacaddr, devices[i]);
+                free(devmacaddr);
 
-	break;
+                if (get_link_status(devices[i]) == 1) {
+                    lookForLink = 0;
+                    loaderData->netDev = devices[i];
+                    logMessage(INFO, "%s has link, using it", devices[i]);
+
+                    /* set the IP method to ibft if not requested differently */
+                    if (loaderData->ipv4 == NULL) {
+                        loaderData->ipv4 = strdup("ibft");
+                        logMessage(INFO,
+                                   "%s will be configured using iBFT values",
+                                   devices[i]);
+                    }
+
+                    return LOADER_NOOP;
+                } else {
+                    logMessage(INFO, "%s has no link, skipping it", devices[i]);
+                }
+
+                break;
+            } else {
+                free(devmacaddr);
+            }
+        }
+
+        break;
     }
-
 
     if ((loaderData->netDev && (loaderData->netDev_set == 1)) &&
         !strcmp(loaderData->netDev, "link")) {
-	lookForLink = 1;
+        lookForLink = 1;
     }
 
-    if(lookForLink){
+    if (lookForLink) {
         logMessage(INFO, "looking for first netDev with link");
+
         for (rc = 0; rc < 5; rc++) {
             for (i = 0; i < deviceNums; i++) {
                 if (get_link_status(devices[i]) == 1) {
@@ -1835,9 +1846,12 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                     return LOADER_NOOP;
                 }
             }
+
             sleep(1);
         }
-        logMessage(WARNING, "wanted netdev with link, but none present.  prompting");
+
+        logMessage(WARNING,
+                   "wanted netdev with link, but none present.  prompting");
     }
 
     if (FL_CMDLINE(flags)) {
