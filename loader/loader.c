@@ -1106,7 +1106,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
 
                 /* vnc implies graphical */
                 if (!strncasecmp(argv[i], "vnc", 3)) {
-                    logMessage(INFO, "vnc forced cmdline mode from cmdline");
+                    logMessage(INFO, "vnc forced graphical mode from cmdline");
                     flags |= LOADER_FLAGS_GRAPHICAL;
                 }
 
@@ -1117,7 +1117,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                 if (!strncasecmp(argv[i], "syslog", 6) ||
                     !strncasecmp(argv[i], "vnc", 3) ||
                     isKickstartFileRemote(loaderData->ksFile)) {
-                    logMessage(INFO, "early networking required for syslog");
+                    logMessage(INFO, "early networking required for %s",
+                               argv[i]);
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
 
