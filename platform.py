@@ -330,12 +330,13 @@ class IPSeriesPPC(PPC):
         if not bootPart:
             return errors
 
-        if bootPart.geometry.end * bootPart.geometry.device.sectorSize / (1024.0 * 1024) > 4096:
-            errors.append(_("The boot partition must be within the first 4MB of the disk."))
-
         # All of the above just checks the PPC PReP boot partitions.  We still
         # need to make sure that whatever /boot is on also meets these criteria.
         if req == self.bootDevice():
+            # However, this check only applies to prepboot.
+            if bootPart.geometry.end * bootPart.geometry.device.sectorSize / (1024.0 * 1024) > 4096:
+                errors.append(_("The boot partition must be within the first 4MB of the disk."))
+
             try:
                 req = self.anaconda.id.storage.mountpoints["/boot"]
             except KeyError:
