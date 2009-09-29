@@ -461,6 +461,14 @@ int readNetConfig(char * device, iface_t * iface,
         newtPopWindow();
 
         if (i > 0) {
+            if (FL_CMDLINE(flags)) {
+                fprintf(stderr, _("There was an error configuring your network "
+                                  "interface."));
+                fprintf(stderr, _("\nThis cannot be corrected in cmdline mode.\n"
+                                  "Halting.\n"));
+                exit(1);
+            }
+
             newtWinMessage(_("Network Error"), _("Retry"),
                            _("There was an error configuring your network "
                              "interface."));
