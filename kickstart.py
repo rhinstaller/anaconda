@@ -230,7 +230,7 @@ class Bootloader(commands.bootloader.F12_Bootloader):
             self.handler.showSteps.append("bootloader")
 
             if self.appendLine:
-                self.handler.id.bootloader.args.set(self.appendLine)
+                self.handler.id.bootloader.args.append(self.appendLine)
 
             if self.password:
                 self.handler.id.bootloader.setPassword(self.password, isCrypted = 0)
