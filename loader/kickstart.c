@@ -318,8 +318,8 @@ void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** log
         **file = '\0';
     }
 
-    logMessage(DEBUGLVL, "getHostandPath host: |%s|", *host);
-    logMessage(DEBUGLVL, "getHostandPath file(1): |%s|", *file);
+    logMessage(DEBUGLVL, "%s host = %s", __func__, *host);
+    logMessage(DEBUGLVL, "%s (line %d) file = %s", __func__, __LINE__, *file);
 
     /* if the filename ends with / or is null, use default kickstart
      * name of IP_ADDRESS-kickstart appended to *file
@@ -331,7 +331,8 @@ void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** log
             abort();
         }
 
-        logMessage(DEBUGLVL, "getHostandPath file(2): |%s|", *file);
+        logMessage(DEBUGLVL, "%s (line %d) file = %s", __func__, __LINE__,
+                   *file);
     }
 
     /* Do we have a password? */
