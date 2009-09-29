@@ -273,6 +273,7 @@ class Storage(object):
         else:
             if hasattr(boot, "bootable"):
                 boot.bootable = True
+                boot.disk.setup()
                 boot.disk.format.commitToDisk()
 
     @property
