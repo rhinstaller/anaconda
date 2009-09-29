@@ -43,7 +43,7 @@ def setupRepo(anaconda, repo):
     try:
         anaconda.backend.doRepoSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         anaconda.backend.doSackSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
-        log.info("added repository %s with source URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
+        log.info("added (UI) repository %s with source URL %s, id:%s" % (repo.name, repo.mirrorlist or repo.baseurl, repo.id))
         # FIXME: need a per-repo way of doing this; largely cut and paste
         # from yum right now
         if not repo.groups_added:
@@ -370,6 +370,8 @@ class RepoEditor:
 
                 self.repo.close()
                 self.anaconda.backend.ayum.repos.delete(self.repo.id)
+                log.info("deleted (UI) repository %s with source URL %s, id:%s"
+                         % (self.repo.name, self.repo.mirrorlist or self.repo.baseurl, self.repo.id))
                 try:
                     shutil.rmtree(self.repo.cachedir)
                 except Exception as e:
