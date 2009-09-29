@@ -57,14 +57,21 @@ class DataComboBox(gtk.ComboBox):
         return self.get_stored_data(row, col = 0)
 
     def set_active_text(self, t):
+        """set_active_text(string) ->  Sets the active row to whereever t is.
+           returns True if set_active is run, False otherwise.
+        """
+        retval = False
         n = 0
         i = self.store.get_iter(n)
         while i is not None:
             if self.store.get_value(i, 0) == t:
                 self.set_active(n)
+                retval = True
                 break
             i = self.store.iter_next(i)
             n += 1
+
+        return retval
 
     def clear(self):
         self.store.clear()

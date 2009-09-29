@@ -37,6 +37,7 @@ import storage
 from iw_gui import *
 from flags import flags
 
+import datacombo
 import lvm_dialog_gui as l_d_g
 import raid_dialog_gui as r_d_g
 import partition_dialog_gui as p_d_g
@@ -1312,6 +1313,16 @@ class PartitionWindow(InstallWindow):
                         custom_icon="warning")
             return
 
+        # We will activate the create lv button when we have a VG to put the
+        # LVs on.
+        activate_create_lv = False
+        vgs_with_free_space = []
+        for vg in self.storage.vgs:
+            if vg.freeSpace > 0:
+                vgs_with_free_space.append(vg)
+        if len(vgs_with_free_space) > 0:
+            activate_create_lv = True
+
         # GTK crap starts here.
         create_storage_xml = gtk.glade.XML(
                 gui.findGladeFile("create-storage.glade"), domain="anaconda")
@@ -1334,6 +1345,43 @@ class PartitionWindow(InstallWindow):
         vg_rb = create_storage_xml.get_widget("create_storage_rb_lvm_vg")
         if activate_create_vg:
             vg_rb.set_sensitive(True)
+
+        # Activate the Logical Volume radio button if needed.
+        # We must also take care to control the combo box.
+        lv_rb = create_storage_xml.get_widget("create_storage_rb_lvm_lv")
+        if activate_create_lv:
+            # The combobox will be visible if the radio button is active.
+            # The combobox will be sensitive when the radio button is active.
+            def toggle_vg_cb_CB(button, vg_cb, selected_dev):
+                if button.get_active():
+                    vg_cb.set_sensitive(True)
+
+                    # We set the VG to whatever the user has chosen in the tree
+                    # view. We will fall back on the first item on the list if
+                    # there is no chosen VG.
+                    if selected_dev and selected_dev.name \
+                            and vg_cb.set_active_text(selected_dev.name):
+                        # if set_active is True, we don't need to do anything else
+                        pass
+                    else:
+                        vg_cb.set_active_text(vgs_with_free_space[0].name)
+
+                else:
+                    vg_cb.set_sensitive(False)
+
+            vg_cb_st = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
+            vg_cb = datacombo.DataComboBox(store = vg_cb_st)
+            vg_cb.set_sensitive(False)
+
+            for vg in vgs_with_free_space:
+                # FIXME: the name length might be a problem.
+                vg_cb.append(vg.name, vg)
+            lv_hb = create_storage_xml.get_widget("create_storage_hb_lvm_lv")
+            lv_hb.pack_start(vg_cb)
+
+            lv_rb.set_sensitive(True)
+            selected_dev = self.tree.getCurrentDevice()
+            lv_rb.connect("toggled", toggle_vg_cb_CB, vg_cb, selected_dev)
 
         # Activate the RAID dev if needed.
         # rd_rb -> RAID device
@@ -1463,6 +1511,11 @@ class PartitionWindow(InstallWindow):
             self.editLVMVolumeGroup(tempvg, isNew = True)
             return
 
+        elif lv_rb.get_active():
+            selected_vg = vg_cb.get_active_value()
+            self.editLVMLogicalVolume(vg = selected_vg)
+            return
+
         elif sp_rb.get_active():
             tempformat = self.storage.defaultFSType
             device = self.storage.newPartition(fmt_type=tempformat, size=200)
@@ -1542,7 +1595,7 @@ class PartitionWindow(InstallWindow):
         elif device.type == "lvmvg":
             self.editLVMVolumeGroup(device)
         elif device.type == "lvmlv":
-            self.editLVMLogicalVolume(device)
+            self.editLVMLogicalVolume(lv = device)
         elif isinstance(device, storage.devices.PartitionDevice):
             self.editPartition(device)
 
@@ -1628,14 +1681,46 @@ class PartitionWindow(InstallWindow):
 
 	vgeditor.destroy()
 
-    def editLVMLogicalVolume (self, device):
-        # l_d_g -> lvm_dialog_gui
-        vgeditor = l_d_g.VolumeGroupEditor(self.anaconda, self.intf, self.parent,
-                device.vg, isNew = False)
+    def editLVMLogicalVolume (self, lv = None, vg = None):
+        """Will be consistent with the state of things and use this funciton
+        for creating and editing LVs.
+
+        lv -- the logical volume to edit.  If this is set there is no need
+              for the other two arguments.
+        vg -- the volume group where the new lv is going to be created. This
+              will only be relevant when we are createing an LV.
+        """
+
+        if lv != None:
+            # l_d_g -> lvm_dialog_gui
+            vgeditor = l_d_g.VolumeGroupEditor(self.anaconda, self.intf, self.parent,
+                    lv.vg, isNew = False)
+            lv = vgeditor.lvs[lv.lvname]
+            isNew = False
+
+        elif vg != None:
+            # l_d_g -> lvm_dialog_gui
+            vgeditor = l_d_g.VolumeGroupEditor(self.anaconda, self.intf, self.parent,
+                    vg, isNew = False)
+            tempvg = vgeditor.getTempVG()
+            name = self.storage.createSuggestedLVName(tempvg)
+            vgeditor.lvs[name] = {'name': name,
+                              'size': vg.freeSpace,
+                              'format': getFormat(self.storage.defaultFSType),
+                              'stripes': 1,
+                              'logSize': 0,
+                              'snapshotSpace': 0,
+                              'exists': False}
+            lv = vgeditor.lvs[name]
+            isNew = True
+
+        else:
+            # This is non-sense.
+            return
+
 
         while True:
-            lv = vgeditor.lvs[device.lvname]
-            vgeditor.editLogicalVolume(lv)
+            vgeditor.editLogicalVolume(lv, isNew = isNew)
             actions = vgeditor.convertToActions();
 
             for action in actions:

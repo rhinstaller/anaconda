@@ -290,14 +290,25 @@
                 <property name="visible">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <widget class="GtkRadioButton" id="create_storage_rb_lvm_lv">
-                    <property name="label" translatable="yes">LVM Logical Volume</property>
+                  <widget class="GtkHBox" id="create_storage_hb_lvm_lv">
                     <property name="visible">True</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">create_storage_rb_standard_part</property>
+                    <child>
+                      <widget class="GtkRadioButton" id="create_storage_rb_lvm_lv">
+                        <property name="label" translatable="yes">LVM Logical Volume</property>
+                        <property name="visible">True</property>
+                        <property name="sensitive">False</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="draw_indicator">True</property>
+                        <property name="group">create_storage_rb_standard_part</property>
+                      </widget>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </widget>
                   <packing>
                     <property name="position">0</property>
