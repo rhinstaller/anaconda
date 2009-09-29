@@ -101,7 +101,7 @@ class InstallClass(BaseInstallClass):
 
     def setGroupSelection(self, anaconda):
         BaseInstallClass.setGroupSelection(self, anaconda)
-        map(lambda x: anaconda.backend.selectGroup(x), ["minimal"])
+        map(lambda x: anaconda.backend.selectGroup(x), ["core"])
 
     def setSteps(self, anaconda):
         BaseInstallClass.setSteps(self, anaconda)
