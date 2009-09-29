@@ -350,7 +350,10 @@ class RepoEditor:
             # sure that if we're just editing the repo, we grab all the
             # attributes from the old one before deleting it.
             if self.repo:
-                newRepoObj = AnacondaYumRepo(self.repo.id)
+                # use temporary id so that we don't get Duplicate Repo error
+                # when adding
+                newRepoObj = AnacondaYumRepo("UIedited_%s" %
+                                             self.anaconda.backend.ayum.repoIDcounter.next())
                 removeOld = True
             else:
                 newRepoObj = AnacondaYumRepo(reponame.replace(" ", ""))

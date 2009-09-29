@@ -30,6 +30,7 @@ import types
 import locale
 import glob
 import tempfile
+import itertools
 
 import rpm
 import rpmUtils
@@ -275,6 +276,8 @@ class AnacondaYum(YumSorter):
         YumSorter.__init__(self)
         self.anaconda = anaconda
         self._timestamp = None
+
+        self.repoIDcounter = itertools.count()
 
         # Only needed for hard drive and nfsiso installs.
         self._discImages = {}
