@@ -463,9 +463,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     }
 
     /* determine install type */
-    if (strstr(url, "http://") || strstr(url, "ftp://"))
-	loaderData->method = METHOD_URL;
-    else {
+    if (!strstr(url, "http://") && !strstr(url, "ftp://")) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Unknown Url method %s"), url);
         return;
@@ -479,6 +477,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
             return;
 
         ((struct urlInstallData *)loaderData->stage2Data)->url = url;
+        loaderData->method = METHOD_URL;
     }
 
     logMessage(INFO, "results of url ks, url %s", url);
