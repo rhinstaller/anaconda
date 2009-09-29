@@ -286,6 +286,7 @@ class IA64(EFI):
 
 class PPC(Platform):
     _bootloaderPackage = "yaboot"
+    _bootFSType = "ext4"
     _ppcMachine = iutil.getPPCMachine()
     _supportsMdRaidBoot = True
 
