@@ -66,6 +66,8 @@ def setupRepo(anaconda, repo):
                 "Please ensure that your repository has been "
                 "correctly generated.\n\n%s" % str(e)),
                                 type="ok", custom_icon="error")
+        repo.disable()
+        repo.close()
         anaconda.backend.ayum.repos.delete(repo.id)
         return False
 
@@ -368,6 +370,7 @@ class RepoEditor:
                 except:
                     pass
 
+                self.repo.disable()
                 self.repo.close()
                 self.anaconda.backend.ayum.repos.delete(self.repo.id)
                 log.info("deleted (UI) repository %s with source URL %s, id:%s"
