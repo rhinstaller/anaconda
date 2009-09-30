@@ -759,6 +759,10 @@ makeinitrd() {
       cp -a org.freedesktop.nm_dispatcher.service $MBD_DIR/usr/share/dbus-1/system-services
     )
 
+    # mdadm
+    instbin $IMGPATH /usr/sbin/mdadm $MBD_DIR /sbin/mdadm
+    instbin $IMGPATH /usr/sbin/mdmon $MBD_DIR /sbin/mdmon
+
     # Misc
     instbin $IMGPATH /usr/sbin/dmidecode $MBD_DIR /sbin/dmidecode
     instbin $IMGPATH /usr/bin/egrep $MBD_DIR /sbin/egrep

@@ -58,6 +58,8 @@ static void performTerminations(int doKill) {
 }
 
 static void performUnmounts(int doKill) {
+	int ignore;
+
 	if (testing || !doKill)
 		return;
 
@@ -66,6 +68,9 @@ static void performUnmounts(int doKill) {
 
 	printf("unmounting filesystems...\n"); 
 	unmountFilesystems();
+
+	printf("waiting for mdraid sets to become clean...\n"); 
+	ignore = system("/sbin/mdadm --wait-clean --scan");
 }
 
 static void performReboot(reboot_action rebootAction) {
