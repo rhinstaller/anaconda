@@ -130,6 +130,20 @@ int get_link_status(char * devname) {
         return -1;
     }
 
+    /* make sure interface is up and activated */
+    memset(&ifr, 0, sizeof(ifr));
+    strcpy(ifr.ifr_name, devname);
+
+    if (ioctl(sock, SIOCGIFFLAGS, &ifr) < 0) {
+        return -1;
+    }
+
+    ifr.ifr_flags |= (IFF_UP | IFF_RUNNING);
+
+    if (ioctl(sock, SIOCSIFFLAGS, &ifr) < 0) {
+        return -1;
+    }
+
     /* Setup our control structures. */
     memset(&ifr, 0, sizeof(ifr));
     strcpy(ifr.ifr_name, devname);
