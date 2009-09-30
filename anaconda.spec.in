@@ -215,6 +215,33 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Sep 29 2009 David Cantrell <dcantrell@redhat.com> - 12.32-1
+- Improve loader messages in parseCmdLineFlags when passing vnc (#526350).
+  (maier)
+- Update po/anaconda.pot during a 'bumpver' run. (dcantrell)
+- Add 'make release' as a synonym for 'make archive'. (dcantrell)
+- Whitespace cleanup in loader/net.c. (dcantrell)
+- Clean up getHostandPath() debugging messages for host & file. (dcantrell)
+- Need an extra  on the PS1 line in /.profile (dcantrell)
+- Korean font package name changed (#525597) (dcantrell)
+- We can't prompt for new network info in cmdline mode (#526262). (clumens)
+- yaboot supports /boot on ext4 (#526219). (clumens)
+- bootloader --append= should append, not set the args list (#524004).
+  (clumens)
+- Don't check if /boot is under the 4MB mark on i/p Series (#526200).
+  (clumens)
+- "minimal" has been renamed to "core" (#526191). (clumens)
+- Remove some unused isys methods. (clumens)
+- Make sure the disk holding /boot is setup before setting boot flag
+  (#526063) (hdegoede)
+- Use temporary repo id for edited object to prevent Duplicate Repo error
+  (#524599). (rvykydal)
+- Do not delete repo twice or when it had not been added actually (#524599).
+  (rvykydal)
+- Disable repo before deleting it (#524599). (rvykydal)
+- Log more, repo editing UI. (rvykydal)
+- Make _enableRepo a little more readable. (rvykydal)
+
 * Fri Sep 25 2009 David Cantrell <dcantrell@redhat.com> - 12.31-1
 - Move S390MODS to inside makeBootImages(), remove libiscsi_tcp. (dcantrell)
 - Require the latest and greatest python-meh. (clumens)
