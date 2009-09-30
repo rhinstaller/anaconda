@@ -1272,6 +1272,10 @@ class DeviceTree(object):
         if device and device.name in self.protectedDevNames:
             device.protected = True
 
+        # Don't try to do format handling on drives without media
+        if device and not device.mediaPresent:
+            return
+
         # Now, if the device is a disk, see if there is a usable disklabel.
         # If not, see if the user would like to create one.
         # XXX this is the bit that forces disklabels on disks. Lame.
