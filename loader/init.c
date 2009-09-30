@@ -386,6 +386,11 @@ static void createDevices(void) {
             fprintf(stderr, "Unable to create device %s: %m\n", devname);
     }
 
+    /* Hurray for hacks, this stops /lib/udev/rules.d/65-md-incremental.rules
+       from medling with mdraid sets. */
+    i = creat("/dev/.in_sysinit", 0644);
+    close(i);
+
     /* Restore umask for minimal side affects */
     umask(previous_umask); 
 }

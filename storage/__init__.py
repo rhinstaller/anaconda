@@ -65,6 +65,10 @@ def storageInitialize(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
 
+    # touch /dev/.in_sysinit so that /lib/udev/rules.d/65-md-incremental.rules
+    # does not mess with any mdraid sets
+    open("/dev/.in_sysinit", "w")
+
     # XXX I don't understand why I have to do this
     udev_trigger(subsystem="block")
 
