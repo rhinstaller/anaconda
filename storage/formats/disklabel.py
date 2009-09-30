@@ -197,23 +197,12 @@ class DiskLabel(DeviceFormat):
 
     def commit(self):
         """ Commit the current partition table to disk and notify the OS. """
-        # give committing 5 tries, failing that, raise an exception
-        attempt = 1
-        maxTries = 5
-        keepTrying = True
-
-        while keepTrying and (attempt <= maxTries):
-            try:
-                self.partedDisk.commit()
-                keepTrying = False
-            except parted.DiskException as msg:
-                log.warning(msg)
-                attempt += 1
-            else:
-                udev_settle()
-
-        if keepTrying:
-            raise DeviceFormatError("cannot commit to disk after %d attempts" % (maxTries,), )
+        try:
+            self.partedDisk.commit()
+        except parted.DiskException as msg:
+            raise DeviceFormatError(msg)
+        else:
+            udev_settle()
 
     def commitToDisk(self):
         """ Commit the current partition table to disk. """
