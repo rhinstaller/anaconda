@@ -1190,12 +1190,18 @@ class PartitionWindow(InstallWindow):
         # See if we need to change what is in the canvas. In all possibilities
         # we must make sure we have the correct StripeGraph class.
         if not device:
-            # This is free space.  Only Disks have "Free" space.
+            # This is free space.
             parent = self.tree[iparent]["PyObject"]
             if isinstance(parent, storage.DiskDevice):
                 if not isinstance(self.stripeGraph, DiskStripeGraph):
                     self.stripeGraph.shutDown()
                     self.stripeGraph = DiskStripeGraph(self.tree, self.editCB, self.storage, parent)
+                self.stripeGraph.setDisplayed(parent)
+
+            elif isinstance(parent, storage.LVMVolumeGroupDevice):
+                if not isinstance(self.stripeGraph, LVMStripeGraph):
+                    self.stripeGraph.shutDown()
+                    self.stripeGraph = LVMStripeGraph(self.tree, self.editCB, self.storage, parent)
                 self.stripeGraph.setDisplayed(parent)
 
         elif isinstance(device, storage.DiskDevice):
