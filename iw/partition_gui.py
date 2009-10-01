@@ -1166,6 +1166,27 @@ class PartitionWindow(InstallWindow):
                 or isinstance(curr_dev, storage.MDRaidArrayDevice):
             self.editCB()
 
+        elif curr_dev == None:
+            # Its probably a free space
+            iparent = self.tree.getCurrentDeviceParent()
+            if iparent == None:
+                # it was not free space, it is a root row.
+                return
+
+            # We execute a create function given the type of parent that was
+            # found.
+            # FIXME: This code might repeat itself.  might be a good idea to
+            # put it in a function.
+            curr_parent = self.tree[iparent]["PyObject"]
+            if isinstance(curr_parent, storage.DiskDevice):
+                tempformat = self.storage.defaultFSType
+                device = self.storage.newPartition(fmt_type=tempformat, size=200)
+                self.editPartition(device, isNew = True)
+
+            elif isinstance(curr_parent, storage.LVMVolumeGroupDevice):
+                self.editLVMLogicalVolume(vg = curr_parent)
+                return
+
     def treeSelectCB(self, selection, *args):
         # The edit and create buttons will be enabled if the user has chosen
         # something editable and/or deletable.
