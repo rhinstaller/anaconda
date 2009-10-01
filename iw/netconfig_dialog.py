@@ -190,7 +190,8 @@ class NetworkConfigurator:
         d = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR,
                               gtk.BUTTONS_OK,
                                 _("An error occurred converting the value "
-                                  "entered for \"%s\":\n%s") %(field, errmsg))
+                                  "entered for \"%(field)s\":\n%(errmsg)s")
+                                % {'field': field, 'errmsg': errmsg})
         d.set_title(_("Error With Data"))
         d.set_position(gtk.WIN_POS_CENTER)
         gui.addFrame(d)

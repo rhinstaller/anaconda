@@ -66,13 +66,13 @@ class UpgradeMigrateFSWindow (InstallWindow):
         box = gtk.VBox (False, 5)
         box.set_border_width (5)
 
-	text = (_("This release of %s supports "
+	text = (_("This release of %(productName)s supports "
                  "an updated file system, which has several "
                  "benefits over the file system traditionally shipped "
-                 "in %s.  This installation program can migrate "
+                 "in %(productName)s.  This installation program can migrate "
                  "formatted partitions without data loss.\n\n"
                  "Which of these partitions would you like to migrate?") %
-                  (productName, productName))
+                  {'productName': productName})
         
 	label = gtk.Label (text)
         label.set_alignment (0.5, 0.0)

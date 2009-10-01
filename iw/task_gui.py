@@ -81,8 +81,9 @@ def setupBaseRepo(anaconda, methodstr):
     except SystemError as e:
         anaconda.intf.messageWindow(_("Error Setting Up Repository"),
             _("The following error occurred while setting up the "
-              "installation repository:\n\n%s\n\nPlease provide the "
-              "correct information for installing %s") % (e, productName))
+              "installation repository:\n\n%(e)s\n\nPlease provide the "
+              "correct information for installing %(productName)s")
+            % {'e': e, 'productName': productName})
         return False
 
     anaconda.backend.ayum.configBaseRepo(replace=True)

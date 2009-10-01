@@ -95,10 +95,11 @@ class AnacondaKSScript(Script):
                 if intf != None:
                     err = None
                     msg = _("There was an error running the kickstart "
-                            "script at line %s.  You may examine the "
-                            "output in %s.  This is a fatal error and "
+                            "script at line %(lineno)s.  You may examine the "
+                            "output in %(msgs)s.  This is a fatal error and "
                             "installation will be aborted.  Press the "
-                            "OK button to exit the installer.") % (self.lineno, messages)
+                            "OK button to exit the installer.") \
+                          % {'lineno': self.lineno, 'msgs': messages}
 
                     if self.logfile is not None and os.path.isfile(messages):
                         try:

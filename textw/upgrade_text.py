@@ -35,13 +35,13 @@ class UpgradeMigrateFSWindow:
 
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
-	text = (_("This release of %s supports "
+	text = (_("This release of %(productName)s supports "
                  "the an updated file system, which has several "
                  "benefits over the file system traditionally shipped "
-                 "in %s.  This installation program can migrate "
+                 "in %(productName)s.  This installation program can migrate "
                  "formatted partitions without data loss.\n\n"
                  "Which of these partitions would you like to migrate?") %
-                  (productName, productName))
+                  {'productName': productName})
 
 	tb = TextboxReflowed(60, text)
 	g.add(tb, 0, 0, anchorLeft = 1, padding = (0, 0, 0, 1))

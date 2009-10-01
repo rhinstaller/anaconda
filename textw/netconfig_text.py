@@ -34,7 +34,9 @@ class NetworkConfiguratorText:
     def _handleIPError(self, field, errmsg):
         self.anaconda.intf.messageWindow(_("Error With Data"),
                                          _("An error occurred converting the "
-                                           "value entered for \"%s\":\n%s") % (field, errmsg))
+                                           "value entered for "
+                                           "\"%(field)s\":\n%(errmsg)s") \
+                                         % {'field': field, 'errmsg': errmsg})
 
     def _handleIPMissing(self, field):
         self.anaconda.intf.messageWindow(_("Error With Data"),

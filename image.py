@@ -240,10 +240,13 @@ def presentRequiredMediaMessage(anaconda):
 
     return anaconda.intf.messageWindow(_("Required Install Media"),
                _("The software you have selected to install will require the "
-                 "following %s %s discs:\n\n%s\nPlease have these ready "
+                 "following %(productName)s %(productVersion)s "
+                 "discs:\n\n%(reqcdstr)s\nPlease have these ready "
                  "before proceeding with the installation.  If you need to "
                  "abort the installation and exit please select "
-                 "\"Reboot\".") % (product.productName, product.productVersion, reqcdstr),
+                 "\"Reboot\".") % {'productName': product.productName,
+                                   'productVersion': product.productVersion,
+                                   'reqcdstr': reqcdstr},
                  type="custom", custom_icon="warning",
                  custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
 

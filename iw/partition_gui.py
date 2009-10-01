@@ -334,8 +334,10 @@ class DiskStripeGraph(StripeGraph):
 
     def _createStripe(self, drive):
         # Create the stripe
-        drivetext = _("Drive %s (%-0.f MB) (Model: %s)") % (drive.path,
-                drive.size, drive.model)
+        drivetext = _("Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)") \
+                    % {'drive': drive.path,
+                       'size': drive.size,
+                       'model': drive.model}
         stripe = Stripe(self.getCanvas(), drivetext, self.editCB, obj = drive)
 
         # Free Extended Calculation

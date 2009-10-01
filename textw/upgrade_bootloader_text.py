@@ -118,9 +118,10 @@ class UpgradeBootloaderWindow:
             self.update_radio.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
         else:
             t = TextboxReflowed(53,
-                                _("The installer has detected the %s boot "
-                                  "loader currently installed on %s.")
-                                % (self.type, self.bootDev))
+                                _("The installer has detected the %(type)s "
+                                  "boot loader currently installed on "
+                                  "%(bootDev)s.")
+                                % {'type': self.type, 'bootDev': self.bootDev})
 
             self.update_radio = blradio.add(_("Update boot loader configuration"),
                                             "update", update)

@@ -354,12 +354,12 @@ def runRescue(anaconda, instClass):
                     log.info("System has been mounted under: %s" % anaconda.rootPath)
                 else:
                     ButtonChoiceWindow(screen, _("Rescue"),
-                       _("Your system has been mounted under %s.\n\n"
+                       _("Your system has been mounted under %(rootPath)s.\n\n"
                          "Press <return> to get a shell. If you would like to "
                          "make your system the root environment, run the command:\n\n"
-                         "\tchroot %s\n\nThe system will reboot "
+                         "\tchroot %(rootPath)s\n\nThe system will reboot "
                          "automatically when you exit from the shell.") %
-                                       (anaconda.rootPath, anaconda.rootPath),
+                                       {'rootPath': anaconda.rootPath},
                                        [_("OK")] )
                 rootmounted = 1
 

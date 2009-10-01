@@ -170,9 +170,11 @@ class VolumeGroupEditor:
             self.intf.messageWindow(_("Not enough space"),
                                     _("The physical extent size cannot be "
                                       "changed because the value selected "
-				      "(%10.2f MB) is larger than the smallest "
-				      "physical volume (%10.2f MB) in the "
-				      "volume group.") % (curpe, maxpvsize),
+				      "(%(curpe)10.2f MB) is larger than the "
+				      "smallest physical volume "
+				      "(%(maxpvsize)10.2f MB) in the volume "
+				      "group.") % {'curpe': curpe,
+				                   'maxpvsize': maxpvsize},
                                       custom_icon="error")
 	    widget.set_active(lastidx)
             return 0
@@ -182,12 +184,12 @@ class VolumeGroupEditor:
             self.intf.messageWindow(_("Not enough space"),
                                     _("The physical extent size cannot be "
                                       "changed because the value selected "
-				      "(%10.2f MB) is too large compared "
-                                      "to the size of the "
+				      "(%(curpe)10.2f MB) is too large "
+				      "compared to the size of the "
 				      "smallest physical volume "
-				      "(%10.2f MB) in the "
-				      "volume group.") % (curpe,
-                                                          maxpvsize),
+				      "(%(maxpvsize)10.2f MB) in the "
+				      "volume group.")
+				    % {'curpe': curpe, 'maxpvsize': maxpvsize},
                                     custom_icon="error")
 	    widget.set_active(lastidx)
             return 0
@@ -676,13 +678,14 @@ class VolumeGroupEditor:
             if size > maxlv:
                 self.intf.messageWindow(_("Not enough space"),
                                         _("The current requested size "
-                                          "(%10.2f MB) is larger than the maximum "
-                                          "logical volume size (%10.2f MB). "
+                                          "(%(size)10.2f MB) is larger than "
+                                          "the maximum logical volume size "
+                                          "(%(maxlv)10.2f MB). "
                                           "To increase this limit you can "
                                           "create more Physical Volumes from "
                                           "unpartitioned disk space and "
                                           "add them to this Volume Group.")
-                                          %(size, maxlv),
+                                          % {'size': size, 'maxlv': maxlv},
                                         custom_icon="error")
                 continue
 
@@ -696,11 +699,14 @@ class VolumeGroupEditor:
                 except ValueError:
                     self.intf.messageWindow(_("Not enough space"),
                                             _("The logical volumes you have "
-                                              "configured require %d MB, but the "
-                                              "volume group only has %d MB.  Please "
-                                              "either make the volume group larger "
-                                              "or make the logical volume(s) smaller.")
-                                              % (size, tempvg.size),
+                                              "configured require %(size)d MB,"
+                                              " but the volume group only has "
+                                              "%(tempvgsize)d MB.  Please "
+                                              "either make the volume group "
+                                              "larger or make the logical "
+                                              "volume(s) smaller.")
+                                              % {'size': size,
+                                                 'tempvgsize': tempvg.size},
                                             custom_icon="error")
                     continue
 

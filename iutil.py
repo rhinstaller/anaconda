@@ -828,7 +828,10 @@ def writeReiplMethod(reipl_path, reipl_type):
     try:
         f = open(filename, "w")
     except Exception, e:
-        message = _("Error: On open, cannot set reIPL method to %s (%s: %s)" % (reipl_type,filename,e,))
+        message = _("Error: On open, cannot set reIPL method to %(reipl_type)s "
+                    "(%(filename)s: %(e)s)" % {'reipl_type': reipl_type,
+                                               'filename': filename,
+                                               'e': e})
         log.warning(message)
         raise Exception (message)
 
@@ -836,14 +839,18 @@ def writeReiplMethod(reipl_path, reipl_type):
         f.write(reipl_type)
         f.flush()
     except Exception, e:
-        message = _("Error: On write, cannot set reIPL method to %s (%s: %s)" % (reipl_type,filename,e,))
+        message = _("Error: On write, cannot set reIPL method to "
+                    "%(reipl_type)s (%(filename)s: %(e)s)" \
+                  % {'reipl_type': reipl_type, 'filename': filename, 'e': e})
         log.warning(message)
         raise Exception (message)
 
     try:
         f.close()
     except Exception, e:
-        message = _("Error: On close, cannot set reIPL method to %s (%s: %s)" % (reipl_type,filename,e,))
+        message = _("Error: On close, cannot set reIPL method to "
+                    "%(reipl_type)s (%(filename)s: %(e)s)" \
+                  % {'reipl_type': reipl_type, 'filename': filename, 'e': e})
         log.warning(message)
         raise Exception (message)
 
@@ -860,7 +867,8 @@ def reIPLonCCW(iplsubdev, reipl_path):
             f.write(device)
             f.close()
         except Exception, e:
-            message = _("Error: Could not set %s as reIPL device (%s)" % (device,e,))
+            message = _("Error: Could not set %(device)s as reIPL device "
+                        "(%(e)s)" % {'device': device, 'e': e})
             log.warning(message)
             raise Exception (message)
 
@@ -910,7 +918,9 @@ def reIPLonFCP(iplsubdev, reipl_path):
                 fcpvalue[reipl_property] = value
                 f.close()
             except Exception, e:
-                message = _("Error: reading FCP property %s for reIPL (%s)" % (syspath_property,e,))
+                message = _("Error: reading FCP property %(syspath_property)s "
+                            "for reIPL (%(e)s)" \
+                          % {'syspath_property': syspath_property, 'e': e})
                 log.warning(message)
                 raise Exception (message)
 
@@ -923,7 +933,9 @@ def reIPLonFCP(iplsubdev, reipl_path):
                 f.write(fcpvalue[reipl_property])
                 f.close()
             except Exception, e:
-                message = _("Error: writing FCP property %s for reIPL (%s)" % (reipl_property,e,))
+                message = _("Error: writing FCP property %(reipl_property)s "
+                            "for reIPL (%(e)s)" \
+                          % {'reipl_property': reipl_property, 'e': e})
                 log.warning(message)
                 raise Exception (message)
 
@@ -936,7 +948,9 @@ def reIPLonFCP(iplsubdev, reipl_path):
                 f.write (default_value)
                 f.close()
             except Exception, e:
-                message = _("Error: writing default FCP property %s for reIPL (%s)" % (reipl_property,e,))
+                message = _("Error: writing default FCP property "
+                            "%(reipl_property)s for reIPL (%(e)s)" \
+                          % {'reipl_property': reipl_property, 'e': e})
                 log.warning(message)
                 raise Exception (message)
 

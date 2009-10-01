@@ -372,7 +372,7 @@ class InstallInterface:
     def drawFrame(self):
         self.screen.drawRootText (0, 0, self.screen.width * " ")
         if productArch:
-          self.screen.drawRootText (0, 0, _("Welcome to %s for %s") % (productName, productArch,))
+          self.screen.drawRootText (0, 0, _("Welcome to %(productName)s for %(productArch)s") % {'productName': productName, 'productArch': productArch})
         else:
           self.screen.drawRootText (0, 0, _("Welcome to %s") % productName)
 

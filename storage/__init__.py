@@ -869,11 +869,11 @@ class Storage(object):
 
         if (root and
             root.size < self.anaconda.backend.getMinimumSizeMB("/")):
-            errors.append(_("Your / partition is less than %s "
+            errors.append(_("Your / partition is less than %(min)s "
                             "MB which is lower than recommended "
-                            "for a normal %s install.")
-                          %(self.anaconda.backend.getMinimumSizeMB("/"),
-                            productName))
+                            "for a normal %(productName)s install.")
+                          % {'min': self.anaconda.backend.getMinimumSizeMB("/"),
+                             'productName': productName})
 
         # livecds have to have the rootfs type match up
         if (root and
@@ -886,10 +886,12 @@ class Storage(object):
 
         for (mount, size) in checkSizes:
             if mount in filesystems and filesystems[mount].size < size:
-                warnings.append(_("Your %s partition is less than %s "
-                                  "megabytes which is lower than recommended "
-                                  "for a normal %s install.")
-                                %(mount, size, productName))
+                warnings.append(_("Your %(mount)s partition is less than "
+                                  "%(size)s megabytes which is lower than "
+                                  "recommended for a normal %(productName)s "
+                                  "install.")
+                                % {'mount': mount, 'size': size,
+                                   'productName': productName})
 
         usb_disks = []
         firewire_disks = []
@@ -1707,17 +1709,19 @@ class FSSet(object):
                 except DeviceError as (msg, name):
                     if anaconda.intf:
                         if upgrading:
-                            err = _("Error enabling swap device %s: %s\n\n"
+                            err = _("Error enabling swap device %(name)s: "
+                                    "%(msg)s\n\n"
                                     "The /etc/fstab on your upgrade partition "
                                     "does not reference a valid swap "
                                     "device.\n\nPress OK to exit the "
-                                    "installer") % (name, msg)
+                                    "installer") % {'name': name, 'msg': msg}
                         else:
-                            err = _("Error enabling swap device %s: %s\n\n"
+                            err = _("Error enabling swap device %(name)s: "
+                                    "%(msg)s\n\n"
                                     "This most likely means this swap "
                                     "device has not been initialized.\n\n"
                                     "Press OK to exit the installer.") % \
-                                  (name, msg)
+                                  {'name': name, 'msg': msg}
                         anaconda.intf.messageWindow(_("Error"), err)
                     sys.exit(0)
 
@@ -1783,27 +1787,30 @@ class FSSet(object):
                                              "installer.")
                                            % (device.format.mountpoint,))
                     else:
+                        na = {'mountpoint': device.format.mountpoint,
+                              'msg': e.strerror}
                         intf.messageWindow(_("Invalid mount point"),
                                            _("An error occurred when trying "
-                                             "to create %s: %s.  This is "
+                                             "to create %(mountpoint)s: "
+                                             "%(msg)s.  This is "
                                              "a fatal error and the install "
                                              "cannot continue.\n\n"
                                              "Press <Enter> to exit the "
-                                             "installer.")
-                                            % (device.format.mountpoint, e.strerror))
+                                             "installer.") % na)
                 log.error("OSError: (%d) %s" % (e.errno, e.strerror))
                 sys.exit(0)
             except SystemError as (num, msg):
                 if raiseErrors:
                     raise
                 if intf and not device.format.linuxNative:
+                    na = {'path': device.path,
+                          'mountpoint': device.format.mountpoint}
                     ret = intf.messageWindow(_("Unable to mount filesystem"),
                                              _("An error occurred mounting "
-                                             "device %s as %s.  You may "
+                                             "device %(path)s as "
+                                             "%(mountpoint)s.  You may "
                                              "continue installation, but "
-                                             "there may be problems.") %
-                                             (device.path,
-                                              device.format.mountpoint),
+                                             "there may be problems.") % na,
                                              type="custom",
                                              custom_icon="warning",
                                              custom_buttons=[_("_Exit installer"),
@@ -1818,16 +1825,17 @@ class FSSet(object):
                 sys.exit(0)
             except FSError as msg:
                 if intf:
+                    na = {'path': device.path,
+                          'mountpoint': device.format.mountpoint,
+                          'msg': msg}
                     intf.messageWindow(_("Unable to mount filesystem"),
                                        _("An error occurred mounting "
-                                         "device %s as %s: %s. This is "
+                                         "device %(path)s as %(mountpoint)s: "
+                                         "%(msg)s. This is "
                                          "a fatal error and the install "
                                          "cannot continue.\n\n"
                                          "Press <Enter> to exit the "
-                                         "installer.")
-                                        % (device.path,
-                                           device.format.mountpoint,
-                                           msg))
+                                         "installer.") % na)
                 log.error("FSError: %s" % msg)
                 sys.exit(0)
 

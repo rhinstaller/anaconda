@@ -260,8 +260,10 @@ def partitionSanityErrors(intf, errors):
                                   "scheme. "
                                   "These errors must be corrected prior "
                                   "to continuing with your install of "
-                                  "%s.\n\n%s") %(productName, errorstr),
-				custom_icon="error")
+                                  "%(productName)s.\n\n%(errorstr)s") \
+                                % {'productName': productName,
+                                   'errorstr': errorstr},
+                                custom_icon="error")
     return rc
 
 def partitionSanityWarnings(intf, warnings):
@@ -332,8 +334,8 @@ def confirmDelete(intf, device):
                   % device.path)
     else:
         # we may want something a little bit prettier than device.type
-        errmsg = (_("You are about to delete the %s %s") % (device.type,
-                                                            device.name))
+        errmsg = (_("You are about to delete the %(type)s %(name)s") \
+                  % {'type': device.type, 'name': device.name})
 
     rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="custom",
 				custom_buttons=[_("Cancel"), _("_Delete")],

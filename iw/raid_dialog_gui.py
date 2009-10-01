@@ -656,14 +656,14 @@ class RaidCloneDialog:
                 rc = self.storage.deviceImmutable(req)
                 if rc:
                     self.intf.messageWindow(_("Target Drive Error"),
-                                            _("The target drive %s "
+                                            _("The target drive %(path)s "
                                               "has a partition which cannot "
                                               "be removed for the following "
-                                              "reason:\n\n\"%s\"\n\n"
+                                              "reason:\n\n\"%(rc)s\"\n\n"
                                               "You must remove this partition "
                                               "before "
                                               "this drive can be a target.") %
-                                            (targetDev.path, rc),
+                                            {'path': targetDev.path, 'rc': rc},
                                             custom_icon="error")
                     return 1
 

@@ -230,7 +230,8 @@ def doAutoPartition(anaconda):
             extra = _("\n\nPress 'OK' to exit the installer.")
         anaconda.intf.messageWindow(_("Error Partitioning"),
                _("Could not allocate requested partitions: \n\n"
-                 "%s.%s") % (msg, extra), custom_icon='error')
+                 "%(msg)s.%(extra)s") % {'msg': msg, 'extra': extra},
+               custom_icon='error')
 
         if anaconda.isKickstart:
             sys.exit(0)
@@ -253,11 +254,11 @@ def doAutoPartition(anaconda):
 
         anaconda.intf.messageWindow(_("Automatic Partitioning Errors"),
                            _("The following errors occurred with your "
-                             "partitioning:\n\n%s\n\n"
+                             "partitioning:\n\n%(errortxt)s\n\n"
                              "This can happen if there is not enough "
                              "space on your hard drive(s) for the "
-                             "installation. %s")
-                           % (errortxt, extra),
+                             "installation. %(extra)s")
+                           % {'errortxt': errortxt, 'extra': extra},
                            custom_icon='error')
         #
         # XXX if in kickstart we reboot

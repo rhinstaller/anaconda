@@ -143,10 +143,11 @@ def questionInitializeDisk(intf=None, path=None, description=None):
 
         rc = intf.messageWindow(_("Warning"),
                 _("Error processing drive:\n\n"
-                  "%s\n%-0.fMB\n%s\n\n"
+                  "%(path)s\n%(size)-0.fMB\n%(description)s\n\n"
                   "This device may need to be reinitialized.\n\n"
-                  "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!%s")
-                % (path, dev.getSize(), description, details,),
+                  "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!%(details)s")
+                % {'path': path, 'size': dev.getSize(),
+                   'description': description, 'details': details},
                 type="custom",
                 custom_buttons = [ _("_Ignore drive"),
                                    _("_Re-initialize drive") ],
@@ -167,12 +168,13 @@ def questionReinitILVM(intf=None, pv_names=None, lv_name=None, vg_name=None):
         elif lv_name is not None:
             message = "Logical Volume %s" % lv_name
 
-
+        na = {'msg': message, 'pvs': ", ".join(pv_names)}
         rc = intf.messageWindow(_("Warning"),
                   _("Error processing LVM.\n"
-                    "There is inconsistent LVM data on %s.  You can reinitialize "
-                    "all related PVs (%s) which will erase the LVM metadata, or "
-                    "ignore which will preserve the contents." % (message, ", ".join(pv_names))),
+                    "There is inconsistent LVM data on %(msg)s.  You can "
+                    "reinitialize all related PVs (%(pvs)s) which will erase "
+                    "the LVM metadata, or ignore which will preserve the "
+                    "contents.") % na,
                 type="custom",
                 custom_buttons = [ _("_Ignore"),
                                    _("_Re-initialize") ],

@@ -158,7 +158,8 @@ class AnacondaCallback:
             repo = self.repos.getRepo(po.repoid)
 
             pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.arch)
-            s = to_unicode(_("<b>Installing %s</b> (%s)\n")) %(pkgStr, size_string(hdr['size']))
+            s = to_unicode(_("<b>Installing %(pkgStr)s</b> (%(size)s)\n")) \
+                    % {'pkgStr': pkgStr, 'size': size_string(hdr['size'])}
             summary = to_unicode(gettext.ldgettext("redhat-dist", hdr['summary'] or ""))
             s += summary.strip()
             self.progress.set_label(s)
@@ -206,10 +207,13 @@ class AnacondaCallback:
             self.doneFiles += len(hdr[rpm.RPMTAG_BASENAMES])
 
             if self.donepkgs <= self.numpkgs:
-                self.progress.set_text(P_("Packages completed: %d of %d",
-                                          "Packages completed: %d of %d",
+                self.progress.set_text(N_("Packages completed: "
+                                          "%(donepkgs)d of %(numpkgs)d",
+                                          "Packages completed: "
+                                          "%(donepkgs)d of %(numpkgs)d",
                                           self.numpkgs)
-                                       % (self.donepkgs, self.numpkgs,))
+                                       % {'donepkgs': self.donepkgs,
+                                          'numpkgs': self.numpkgs})
             self.progress.set_fraction(float(self.doneSize / self.totalSize))
             self.progress.processEvents()
 
@@ -303,8 +307,9 @@ class AnacondaYum(YumSorter):
             except SystemError, e:
                 self.anaconda.intf.messageWindow(_("Error Setting Up Repository"),
                     _("The following error occurred while setting up the "
-                      "installation repository:\n\n%s\n\nPlease provide the "
-                      "correct information for installing %s.") % (e, productName))
+                      "installation repository:\n\n%(e)s\n\nPlease provide the "
+                      "correct information for installing %(productName)s.")
+                    % {'e': e, 'productName': productName})
 
                 self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow()
 
@@ -362,8 +367,8 @@ class AnacondaYum(YumSorter):
                 self.anaconda.intf.beep()
 
             self.anaconda.intf.messageWindow(_("Change Disc"),
-                _("Please insert %s disc %d to continue.") % (productName,
-                                                              discnum))
+                _("Please insert %(productName)s disc %(discnum)d to continue.")
+                % {'productName': productName, 'discnum': discnum})
 
             try:
                 dev.format.mount()
@@ -1570,14 +1575,16 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             log.info("po.arch is arch: %s" %(po.arch,))
             if not compareArch(po.arch, myarch):
                 rc = anaconda.intf.messageWindow(_("Warning"),
-                                        _("The arch of the release of %s you "
-                                          "are upgrading to appears to be %s "
-                                          "which does not match your previously "
-                                          "installed arch of %s.  This is likely "
-                                          "to not succeed.  Are you sure you "
-                                          "wish to continue the upgrade process?")
-                                        %(productName, myarch, po.arch),
-                                        type="yesno")
+                         _("The arch of the release of %(productName)s you "
+                           "are upgrading to appears to be %(myarch)s which "
+                           "does not match your previously installed arch of "
+                           "%(arch)s.  This is likely to not succeed.  Are "
+                           "you sure you wish to continue the upgrade "
+                           "process?")
+                         % {'productName': productName,
+                            'myarch': myarch,
+                            'arch': po.arch},
+                         type="yesno")
                 if rc == 0:
                     iutil.resetRpmDb(anaconda.rootPath)
                     sys.exit(0)

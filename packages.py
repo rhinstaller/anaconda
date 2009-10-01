@@ -345,7 +345,7 @@ def betaNagScreen(anaconda):
     while 1:
 	rc = anaconda.intf.messageWindow( _("Warning! This is pre-release software!"),
 				 _("Thank you for downloading this "
-				   "pre-release of %s.\n\n"
+				   "pre-release of %(productName)s.\n\n"
 				   "This is not a final "
 				   "release and is not intended for use "
 				   "on production systems.  The purpose of "
@@ -353,9 +353,11 @@ def betaNagScreen(anaconda):
 				   "from testers, and it is not suitable "
 				   "for day to day usage.\n\n"
 				   "To report feedback, please visit:\n\n"
-				   "   %s\n\n"
-				   "and file a report against '%s'.\n")
-                                   %(productName, bugzillaUrl, fileagainst),
+				   "   %(bugzillaUrl)s\n\n"
+				   "and file a report against '%(fileagainst)s'.\n")
+				 % {'productName': productName,
+				    'bugzillaUrl': bugzillaUrl,
+				    'fileagainst': fileagainst},
 				   type="custom", custom_icon="warning",
 				   custom_buttons=[_("_Exit"), _("_Install anyway")])
 

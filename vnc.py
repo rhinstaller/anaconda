@@ -134,9 +134,15 @@ class VncServer:
 
         # figure out product info
         if self.name is not None:
-            self.desktop = _("%s %s installation on host %s") % (product.productName, product.productVersion, self.name)
+            self.desktop = _("%(productName)s %(productVersion)s installation "
+                             "on host %(name)s") \
+                           % {'productName': product.productName,
+                              'productVersion': product.productVersion,
+                              'name': self.name}
         else:
-            self.desktop = _("%s %s installation") % (product.productName, product.productVersion)
+            self.desktop = _("%(productName)s %(productVersion)s installation")\
+                           % {'productName': product.productName,
+                              'productVersion': product.productVersion}
 
     def setVNCParam(self, param, value):
         """Set a parameter in the Xvnc server. 

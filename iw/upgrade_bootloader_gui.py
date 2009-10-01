@@ -135,9 +135,9 @@ class UpgradeBootloaderWindow (InstallWindow):
             self.update_label.set_sensitive(False)
             update = 0
         else:
-            current = _("The installer has detected the %s boot loader "
-                        "currently installed on %s.") % (self.type,
-                                                         self.bootDev)
+            current = _("The installer has detected the %(type)s boot loader "
+                        "currently installed on %(bootDev)s.") \
+                      % {'type': self.type, 'bootDev': self.bootDev}
             self.update_label = gtk.Label("%s  %s" % (updatestr,
                                          _("This is the recommended option.")))
             self.update_radio.set_active(False)

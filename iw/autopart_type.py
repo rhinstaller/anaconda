@@ -121,8 +121,9 @@ def whichToShrink(storage, intf):
             actions.append(ActionResizeFormat(request, newSize))
         except ValueError as e:
             intf.messageWindow(_("Resize FileSystem Error"),
-                               _("%s: %s") % (request.format.device,
-                                              e.message,),
+                               _("%(device)s: %(msg)s")
+                                 % {'device': request.format.device,
+                                    'msg': e.message},
                                type="warning", custom_icon="error")
             continue
 
@@ -130,7 +131,8 @@ def whichToShrink(storage, intf):
             actions.append(ActionResizeDevice(request, newSize))
         except ValueError as e:
             intf.messageWindow(_("Resize Device Error"),
-                               _("%s: %s") % (request.name, e.message,),
+                               _("%(name)s: %(msg)s")
+                                 % {'name': request.name, 'msg': e.message},
                                type="warning", custom_icon="error")
             continue
 

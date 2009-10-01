@@ -71,9 +71,11 @@ class NetworkWindow(InstallWindow):
 
         if herrors is not None:
             self.intf.messageWindow(_("Error with Hostname"),
-                                    _("The hostname \"%s\" is not valid for the "
-                                      "following reason:\n\n%s")
-                                    % (hostname, herrors,),
+                                    _("The hostname \"%(hostname)s\" is not "
+                                      "valid for the following reason:\n\n"
+                                      "%(herrors)s")
+                                    % {'hostname': hostname,
+                                       'herrors': herrors},
                                     custom_icon="error")
             self.hostnameError()
 
