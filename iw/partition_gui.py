@@ -901,26 +901,30 @@ class PartitionWindow(InstallWindow):
                             format = dm_dev.format
                     else:
                         format = lv.format
-		    iter = self.tree.append(vgparent)
-		    self.tree[iter]['Device'] = lv.lvname
-		    if format.mountable and format.mountpoint:
-                            self.tree[iter]['Mount Point'] = format.mountpoint
-		    else:
-			self.tree[iter]['Mount Point'] = ""
-		    self.tree[iter]['Size (MB)'] = "%Ld" % lv.size
-		    self.tree[iter]['PyObject'] = lv
-		
+
+                    # icon for the format column
                     if lv.format.type == "luks" and not lv.format.exists:
                         # we're creating the LUKS header
-			self.tree[iter]['Format'] = self.lock_pixbuf
+                        format_icon = self.lock_pixbuf
                     elif not format.exists:
                         # we're creating a format on the device
-			self.tree[iter]['Format'] = self.checkmark_pixbuf
+                        format_icon = self.checkmark_pixbuf
+
+                    # mount point string
+                    if format.mountable and format.mountpoint:
+                        mnt_str = format.mountpoint
+                    else:
+                        mnt_str = ""
+
+                    iter = self.tree.append(vgparent)
+                    self.tree[iter]['Device'] = lv.lvname
+                    self.tree[iter]['Size (MB)'] = "%Ld" % lv.size
+                    self.tree[iter]['PyObject'] = lv
                     self.tree[iter]['IsFormattable'] = format.formattable
-		    self.tree[iter]['IsLeaf'] = True
-		    self.tree[iter]['Type'] = format.name
-		    #self.tree[iter]['Start'] = ""
-		    #self.tree[iter]['End'] = ""
+                    self.tree[iter]['Format'] = format_icon
+                    self.tree[iter]['Mount Point'] = mnt_str
+                    self.tree[iter]['IsLeaf'] = True
+                    self.tree[iter]['Type'] = format.name
 
         # handle RAID next
         mdarrays = self.storage.mdarrays
