@@ -686,19 +686,26 @@ class DiskTreeModel(gtk.TreeStore):
         return iter
 
     def getCurrentDevice(self):
-        """ Return the device representing the current selection """
+        """ Return the device representing the current selection,
+            None otherwise.
+        """
         selection = self.view.get_selection()
         model, iter = selection.get_selected()
         if not iter:
             return None
 
-        pyobject = self.titleSlot['PyObject']
-	try:
-            val = self.get_value(iter, pyobject)
-        except Exception:
-            val = None
+        return model[iter]['PyObject']
 
-        return val
+    def getCurrentDeviceParent(self):
+        """ Return the parent of the selected row.  Returns an iter.
+            None if there is no parent.
+        """
+        selection = self.view.get_selection()
+        model, iter = selection.get_selected()
+        if not iter:
+            return None
+
+        return model.iter_parent(iter)
 
     def resetSelection(self):
         pass
