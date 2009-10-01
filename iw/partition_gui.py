@@ -1019,8 +1019,9 @@ class PartitionWindow(InstallWindow):
                     log.debug("can't find partition %s in device"
                                        " tree" % partName)
 
-                # ignore the tiny < 1 MB partitions (#119479)
-                if part.getSize(unit="MB") <= 1.0:
+                # ignore the tiny < 1 MB free space partitions (#119479)
+                if part.getSize(unit="MB") <= 1.0 and \
+                   part.type & parted.PARTITION_FREESPACE:
                     if not part.active or not device.bootable:
                         part = part.nextPartition()
                         continue
