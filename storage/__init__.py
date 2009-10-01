@@ -1697,7 +1697,7 @@ class FSSet(object):
                         continue
                 except UnknownSwapError:
                     msg = _("The swap device:\n\n     %s\n\n"
-                            "does not contain a support swap volume.  In "
+                            "does not contain a supported swap volume.  In "
                             "order to continue installation, you will need "
                             "to format the device or skip it.") \
                           % device.path
