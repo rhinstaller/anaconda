@@ -119,6 +119,21 @@ def get_raid_max_spares(raidlevel, nummembers):
 
     raise ValueError, "invalid raid level %d" % raidlevel
 
+def mdadm(args):
+    rc = iutil.execWithRedirect("mdadm", args,
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
+                                searchPath=1)
+    if not rc:
+        return
+
+    try:
+        msg = open("/tmp/program.log").readlines()[-1].strip()
+    except Exception:
+        msg = ""
+
+    raise MDRaidError(msg)
+
 def mdcreate(device, level, disks, spares=0):
     argv = ["--create", device, "--run", "--level=%s" % level]
     raid_devs = len(disks) - spares
@@ -127,27 +142,18 @@ def mdcreate(device, level, disks, spares=0):
         argv.append("--spare-devices=%d" % spares)
     argv.extend(disks)
     
-    rc = iutil.execWithRedirect("mdadm",
-                                argv,
-                                stderr = "/dev/tty5",
-                                stdout = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise MDRaidError("mdcreate failed for %s" % device)
-
-    # mdadm insists on starting the new array, so we have to stop it here
-    #self.mddeactivate(device)
+    try:
+        mdadm(argv)
+    except MDRaidError as msg:
+        raise MDRaidError("mdcreate failed for %s: %s" % (device, msg))
 
 def mddestroy(device):
-    rc = iutil.execWithRedirect("mdadm",
-                                ["--zero-superblock", device],
-                                stderr = "/dev/tty5",
-                                stdout = "/dev/tty5",
-                                searchPath=1)
+    args = ["--zero-superblock", device]
 
-    if rc:
-        raise MDRaidError("mddestroy failed for %s" % device)
+    try:
+        mdadm(args)
+    except MDRaidError as msg:
+        raise MDRaidError("mddestroy failed for %s: %s" % (device, msg))
 
 def mdadd(device, no_degraded=False):
     args = ["--incremental", "--quiet"]
@@ -155,14 +161,10 @@ def mdadd(device, no_degraded=False):
         args.append("--no-degraded")
     args.append(device)
 
-    rc = iutil.execWithRedirect("mdadm",
-                                args,
-                                stderr = "/dev/tty5",
-                                stdout = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise MDRaidError("mdadd failed for %s" % device)
+    try:
+        mdadm(args)
+    except MDRaidError as msg:
+        raise MDRaidError("mdadd failed for %s: %s" % (device, msg))
 
 def mdactivate(device, members=[], super_minor=None, update_super_minor=False,
                uuid=None):
@@ -181,29 +183,22 @@ def mdactivate(device, members=[], super_minor=None, update_super_minor=False,
     else:
         extra_args = [ ]
 
-    rc = iutil.execWithRedirect("mdadm",
-                                ["--assemble",
-                                 device,
-                                 identifier,
-                                 "--run",
-                                 "--auto=md"] + extra_args + members,
-                                stderr = "/dev/tty5",
-                                stdout = "/dev/tty5",
-                                searchPath=1)
+    args = ["--assemble", device, identifier, "--run", "--auto=md"]
+    args += extra_args
+    args += members
 
-    if rc:
-        raise MDRaidError("mdactivate failed for %s" % device)
-
+    try:
+        mdadm(args)
+    except MDRaidError as msg:
+        raise MDRaidError("mdactivate failed for %s: %s" % (device, msg))
 
 def mddeactivate(device):
-    rc = iutil.execWithRedirect("mdadm",
-                                ["--stop", device],
-                                stderr = "/dev/tty5",
-                                stdout = "/dev/tty5",
-                                searchPath=1)
+    args = ["--stop", device]
 
-    if rc:
-        raise MDRaidError("mddeactivate failed for %s" % device)
+    try:
+        mdadm(args)
+    except MDRaidError as msg:
+        raise MDRaidError("mddeactivate failed for %s: %s" % (device, msg))
 
 def mdexamine(device):
     vars = iutil.execWithCapture("mdadm",

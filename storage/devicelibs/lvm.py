@@ -157,17 +157,30 @@ def clampSize(size, pesize, roundup=None):
 
     return long(round(float(size)/float(pesize)) * pesize)
 
+def lvm(args):
+    rc = iutil.execWithRedirect("lvm", args,
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5",
+                                searchPath=1)
+    if not rc:
+        return
+
+    try:
+        msg = open("/tmp/program.log").readlines()[-1].strip()
+    except Exception:
+        msg = ""
+
+    raise LVMError(msg)
+
 def pvcreate(device):
     args = ["pvcreate"] + \
             config_args + \
             [device]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-    if rc:
-        raise LVMError("pvcreate failed for %s" % device)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("pvcreate failed for %s: %s" % (device, msg))
 
 def pvresize(device, size):
     args = ["pvresize"] + \
@@ -175,24 +188,20 @@ def pvresize(device, size):
             config_args + \
             [device]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-    if rc:
-        raise LVMError("pvresize failed for %s" % device)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("pvresize failed for %s: %s" % (device, msg))
 
 def pvremove(device):
     args = ["pvremove"] + \
             config_args + \
             [device]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-    if rc:
-        raise LVMError("pvremove failed for %s" % device)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("pvremove failed for %s: %s" % (device, msg))
 
 def pvinfo(device):
     """
@@ -237,51 +246,40 @@ def vgcreate(vg_name, pv_list, pe_size):
     argv.append(vg_name)
     argv.extend(pv_list)
 
-    rc = iutil.execWithRedirect("lvm", argv,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise LVMError("vgcreate failed for %s" % vg_name)
+    try:
+        lvm(argv)
+    except LVMError as msg:
+        raise LVMError("vgcreate failed for %s: %s" % (vg_name, msg))
 
 def vgremove(vg_name):
     args = ["vgremove"] + \
             config_args +\
             [vg_name]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise LVMError("vgremove failed for %s" % vg_name)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("vgremove failed for %s: %s" % (vg_name, msg))
 
 def vgactivate(vg_name):
     args = ["vgchange", "-a", "y"] + \
             config_args + \
             [vg_name]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-    if rc:
-        raise LVMError("vgactivate failed for %s" % vg_name)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("vgactivate failed for %s: %s" % (vg_name, msg))
 
 def vgdeactivate(vg_name):
     args = ["vgchange", "-a", "n"] + \
             config_args + \
             [vg_name]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise LVMError("vgdeactivate failed for %s" % vg_name)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("vgdeactivate failed for %s: %s" % (vg_name, msg))
 
 def vgreduce(vg_name, pv_list, rm=False):
     """ Reduce a VG.
@@ -296,13 +294,10 @@ def vgreduce(vg_name, pv_list, rm=False):
     else:
         args.extend([vg_name] + pv_list)
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise LVMError("vgreduce failed for %s" % vg_name)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("vgreduce failed for %s: %s" % (vg_name, msg))
 
 def vginfo(vg_name):
     args = ["vgs", "--noheadings", "--nosuffix"] + \
@@ -372,26 +367,20 @@ def lvcreate(vg_name, lv_name, size):
             config_args + \
             [vg_name]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise LVMError("lvcreate failed for %s/%s" % (vg_name, lv_name))
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("lvcreate failed for %s/%s: %s" % (vg_name, lv_name, msg))
 
 def lvremove(vg_name, lv_name):
     args = ["lvremove"] + \
             config_args + \
             ["%s/%s" % (vg_name, lv_name)]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise LVMError("lvremove failed for %s" % lv_name)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("lvremove failed for %s: %s" % (lv_name, msg))
 
 def lvresize(vg_name, lv_name, size):
     args = ["lvresize"] + \
@@ -399,13 +388,10 @@ def lvresize(vg_name, lv_name, size):
             config_args + \
             ["%s/%s" % (vg_name, lv_name)]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise LVMError("lvresize failed for %s" % lv_name)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("lvresize failed for %s: %s" % (lv_name, msg))
 
 def lvactivate(vg_name, lv_name):
     # see if lvchange accepts paths of the form 'mapper/$vg-$lv'
@@ -413,23 +399,18 @@ def lvactivate(vg_name, lv_name):
             config_args + \
             ["%s/%s" % (vg_name, lv_name)]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-    if rc:
-        raise LVMError("lvactivate failed for %s" % lv_name)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("lvactivate failed for %s: %s" % (lv_name, msg))
 
 def lvdeactivate(vg_name, lv_name):
     args = ["lvchange", "-a", "n"] + \
             config_args + \
             ["%s/%s" % (vg_name, lv_name)]
 
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
-
-    if rc:
-        raise LVMError("lvdeactivate failed for %s" % lv_name)
+    try:
+        lvm(args)
+    except LVMError as msg:
+        raise LVMError("lvdeactivate failed for %s: %s" % (lv_name, msg))
 
