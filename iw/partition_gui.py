@@ -882,13 +882,12 @@ class PartitionWindow(InstallWindow):
 	    lvmparent = self.tree.append(None)
 	    self.tree[lvmparent]['Device'] = _("LVM Volume Groups")
             for vg in vgs:
-		rsize = vg.size
 
                 vgparent = self.tree.append(lvmparent)
 		self.tree[vgparent]['Device'] = "%s" % vg.name
                 self.tree[vgparent]['Label'] = ""
 		self.tree[vgparent]['Mount Point'] = ""
-		self.tree[vgparent]['Size (MB)'] = "%Ld" % (rsize,)
+		self.tree[vgparent]['Size (MB)'] = "%Ld" % (vg.size,)
                 self.tree[vgparent]['PyObject'] = vg
 		for lv in vg.lvs:
                     if lv.format.type == "luks":
