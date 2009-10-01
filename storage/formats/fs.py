@@ -342,9 +342,12 @@ class FS(DeviceFormat):
 
         if rc:
             raise FormatCreateError("format failed: %s" % rc, self.device)
-                                                                  
+
         self.exists = True
         self.notifyKernel()
+
+        if self.label:
+            self.writeLabel(self.label)
 
     def doMigrate(self, intf=None):
         if not self.exists:
@@ -1054,6 +1057,7 @@ class ReiserFS(FS):
     _type = "reiserfs"
     _mkfs = "mkreiserfs"
     _resizefs = "resize_reiserfs"
+    _labelfs = "reiserfstune"
     _modules = ["reiserfs"]
     _defaultFormatOptions = ["-f", "-f"]
     _defaultLabelOptions = ["-l"]
