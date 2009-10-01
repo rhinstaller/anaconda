@@ -1195,19 +1195,22 @@ class PartitionWindow(InstallWindow):
             if isinstance(parent, storage.DiskDevice):
                 if not isinstance(self.stripeGraph, DiskStripeGraph):
                     self.stripeGraph.shutDown()
-                    self.stripeGraph = DiskStripeGraph(self.tree, self.editCB, self.storage, parent)
+                    self.stripeGraph = DiskStripeGraph(self.tree, self.editCB,
+                            self.storage, parent)
                 self.stripeGraph.setDisplayed(parent)
 
             elif isinstance(parent, storage.LVMVolumeGroupDevice):
                 if not isinstance(self.stripeGraph, LVMStripeGraph):
                     self.stripeGraph.shutDown()
-                    self.stripeGraph = LVMStripeGraph(self.tree, self.editCB, self.storage, parent)
+                    self.stripeGraph = LVMStripeGraph(self.tree, self.editCB,
+                            self.storage, parent)
                 self.stripeGraph.setDisplayed(parent)
 
         elif isinstance(device, storage.DiskDevice):
             if not isinstance(self.stripeGraph, DiskStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = DiskStripeGraph(self.tree, self.editCB, self.storage, device)
+                self.stripeGraph = DiskStripeGraph(self.tree, self.editCB,
+                        self.storage, device)
             self.stripeGraph.setDisplayed(device)
             # this is deletable but not editable.
             self.deleteButton.set_sensitive(True)
@@ -1215,7 +1218,8 @@ class PartitionWindow(InstallWindow):
         elif isinstance(device, storage.PartitionDevice):
             if not isinstance(self.stripeGraph, DiskStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = DiskStripeGraph(self.tree, self.editCB, self.storage, device.parents[0])
+                self.stripeGraph = DiskStripeGraph(self.tree, self.editCB,
+                        self.storage, device.parents[0])
             self.stripeGraph.setDisplayed(device.parents[0])
             self.stripeGraph.selectSliceFromObj(device)
             self.deleteButton.set_sensitive(True)
@@ -1224,7 +1228,8 @@ class PartitionWindow(InstallWindow):
         elif isinstance(device, storage.LVMVolumeGroupDevice):
             if not isinstance(self.stripeGraph, LVMStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = LVMStripeGraph(self.tree, self.editCB, self.storage, device)
+                self.stripeGraph = LVMStripeGraph(self.tree, self.editCB,
+                        self.storage, device)
             self.stripeGraph.setDisplayed(device)
             self.deleteButton.set_sensitive(True)
             self.editButton.set_sensitive(True)
@@ -1232,7 +1237,8 @@ class PartitionWindow(InstallWindow):
         elif isinstance(device, storage.LVMLogicalVolumeDevice):
             if not isinstance(self.stripeGraph, LVMStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = LVMStripeGraph(self.tree, self.editCB, self.storage, device.vg)
+                self.stripeGraph = LVMStripeGraph(self.tree, self.editCB,
+                        self.storage, device.vg)
             self.stripeGraph.setDisplayed(device.vg)
             self.stripeGraph.selectSliceFromObj(device)
             self.deleteButton.set_sensitive(True)
@@ -1241,7 +1247,8 @@ class PartitionWindow(InstallWindow):
         elif isinstance(device, storage.MDRaidArrayDevice):
             if not isinstance(self.stripeGraph, MDRaidArrayStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = MDRaidArrayStripeGraph(self.tree, self.editCB, self.storage, device)
+                self.stripeGraph = MDRaidArrayStripeGraph(self.tree, self.editCB,
+                        self.storage, device)
             self.stripeGraph.setDisplayed(device)
             self.deleteButton.set_sensitive(True)
             self.editButton.set_sensitive(True)
