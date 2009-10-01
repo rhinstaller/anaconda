@@ -84,7 +84,7 @@ def getArchiveTagOffset(configure, spec, offset):
         return tag
 
 def doGitDiff(tag, args=[]):
-    proc = subprocess.Popen(['git', 'diff', '--stat', tag] + args,
+    proc = subprocess.Popen(['git', 'diff', '--name-status', tag] + args,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE).communicate()
 
@@ -105,11 +105,16 @@ def copyUpdatedFiles(tag, updates, cwd):
 
     lines = doGitDiff(tag)
     for line in lines:
-        if line.find(' | ') == -1:
+        fields = line.split()
+
+        if len(fields) < 2:
             continue
 
-        fields = line.split()
-        file = fields[0]
+        status = fields[0]
+        file = fields[1]
+
+        if status == "D":
+            continue
 
         if file.endswith('.spec.in') or (file.find('Makefile') != -1) or \
            file.endswith('.c') or file.endswith('.h') or \
@@ -150,11 +155,16 @@ def isysChanged(tag):
     lines = doGitDiff(tag, ['isys'])
 
     for line in lines:
-        if line.find(' | ') == -1:
+        fields = line.split()
+
+        if len(fields) < 2:
             continue
 
-        fields = line.split()
-        file = fields[0]
+        status = fields[0]
+        file = fields[1]
+
+        if status == "D":
+            continue
 
         if file.startswith('Makefile') or file.endswith('.h') or \
            file.endswith('.c'):
