@@ -318,11 +318,20 @@ class StripeGraph:
 
 
 class DiskStripeGraph(StripeGraph):
-    def __init__(self, tree, editCB, storage, drive = None):
+    """Handles the creation of a bar view for the 'normal' devies.
+
+    storage -- the storage object
+
+    cCB -- call back function used when the user clicks on a slice. This function
+           is passed a device object when its executed.
+    dcCB -- call back function used when the user double clicks on a slice.
+    drive -- drive to display
+    """
+    def __init__(self, storage, drive=None, cCB=lambda x:None, dcCB=lambda:None):
         StripeGraph.__init__(self)
         self.storage = storage
-        self.tree = tree
-        self.editCB = editCB
+        self.cCB = cCB
+        self.dcCB = dcCB
        # Define the default colors per partition type.
         self.part_type_colors = \
                 {"sel_logical": "cornsilk1", "unsel_logical": "white",
@@ -338,7 +347,7 @@ class DiskStripeGraph(StripeGraph):
                     % {'drive': drive.path,
                        'size': drive.size,
                        'model': drive.model}
-        stripe = Stripe(self.getCanvas(), drivetext, self.editCB, obj = drive)
+        stripe = Stripe(self.getCanvas(), drivetext, self.dcCB, obj = drive)
 
         # Free Extended Calculation
         # Free slice/partition in the extended partition "free space".  If there
@@ -403,8 +412,8 @@ class DiskStripeGraph(StripeGraph):
             if part.type != parted.PARTITION_FREESPACE:
                 partName = devicePathToName(part.getDeviceNodeName())
                 o_part = self.storage.devicetree.getDeviceByName(partName)
-                dcCB = self.editCB
-                cCB = self.tree.selectRowFromObj
+                dcCB = self.dcCB
+                cCB = self.cCB
             else:
                 o_part = part
                 dcCB = lambda: None
@@ -433,11 +442,19 @@ class DiskStripeGraph(StripeGraph):
         return stripe
 
 class LVMStripeGraph(StripeGraph):
-    def __init__(self, tree, editCB, storage, vg = None):
+    """
+    storage -- the storage object
+
+    cCB -- call back function used when the user clicks on a slice. This function
+           is passed a device object when its executed.
+    dcCB -- call back function used when the user double clicks on a slice.
+    vg -- volume group to display
+    """
+    def __init__(self, storage, vg=None, cCB=lambda x:None, dcCB=lambda:None):
         StripeGraph.__init__(self)
         self.storage = storage
-        self.tree = tree
-        self.editCB = editCB
+        self.cCB = cCB
+        self.dcCB = dcCB
        # Define the default colors per partition type.
         self.part_type_colors = \
                 {"sel_lv": "cornsilk1", "unsel_lv": "white",
@@ -448,7 +465,7 @@ class LVMStripeGraph(StripeGraph):
     def _createStripe(self, vg):
         # Create the stripe
         vgtext = _("LVM Volume Group %s (%-0.f MB)") % (vg.name, vg.size)
-        stripe = Stripe(self.getCanvas(), vgtext, self.editCB, obj = vg)
+        stripe = Stripe(self.getCanvas(), vgtext, self.dcCB, obj = vg)
 
         # Create the slices.
         # Since se don't have a start and length like in the partitions, we
@@ -464,11 +481,8 @@ class LVMStripeGraph(StripeGraph):
             xoffset = curr_offset
             xlength = float(lv.size) / float(vg.size)
 
-            dcCB = self.editCB
-            cCB = self.tree.selectRowFromObj
-
             slice = Slice(stripe, lvstr, stype, xoffset, xlength,
-                    dcCB = dcCB, cCB = cCB, sel_col = sel_col,
+                    dcCB = self.dcCB, cCB = self.cCB, sel_col = sel_col,
                     unsel_col = unsel_col, obj = lv)
             stripe.addSlice(slice)
 
@@ -496,11 +510,19 @@ class LVMStripeGraph(StripeGraph):
         return stripe
 
 class MDRaidArrayStripeGraph(StripeGraph):
-    def __init__(self, tree, editCB, storage, md = None):
+    """
+    storage -- the storage object
+
+    cCB -- call back function used when the user clicks on a slice. This function
+           is passed a device object when its executed.
+    dcCB -- call back function used when the user double clicks on a slice.
+    md -- RAID device to display.
+    """
+    def __init__(self, storage, md=None, cCB=lambda x:None, dcCB=lambda:None):
         StripeGraph.__init__(self)
         self.storage = storage
-        self.tree = tree
-        self.editCB = editCB
+        self.cCB = cCB
+        self.dcCB = dcCB
         self.part_type_colors = \
                 {"sel_md": "cornsilk1", "unsel_md": "white"}
         if md:
@@ -508,7 +530,7 @@ class MDRaidArrayStripeGraph(StripeGraph):
 
     def _createStripe(self, md):
         mdtext = _("MD RAID ARRAY %s (%-0.f MB)") % (md.path, md.size)
-        stripe = Stripe(self.getCanvas(), mdtext, self.editCB, obj = md)
+        stripe = Stripe(self.getCanvas(), mdtext, self.dcCB, obj = md)
 
         # Since we can't really create subslices with md devices we will only
         # show the md device size in the bar.
@@ -518,11 +540,9 @@ class MDRaidArrayStripeGraph(StripeGraph):
         unsel_col = self.part_type_colors["unsel_md"]
         xoffset = 0
         xlength = 1
-        dcCB = self.editCB
-        cCB = self.tree.selectRowFromObj
 
         slice = Slice(stripe, mdstr, stype, xoffset, xlength,
-                dcCB = dcCB, cCB = cCB, sel_col = sel_col,
+                dcCB = self.dcCB, cCB = self.cCB, sel_col = sel_col,
                 unsel_col = unsel_col, obj = md)
         stripe.addSlice(slice)
 
@@ -1223,22 +1243,24 @@ class PartitionWindow(InstallWindow):
             if isinstance(parent, storage.DiskDevice):
                 if not isinstance(self.stripeGraph, DiskStripeGraph):
                     self.stripeGraph.shutDown()
-                    self.stripeGraph = DiskStripeGraph(self.tree, self.editCB,
-                            self.storage, parent)
+                    self.stripeGraph = DiskStripeGraph(self.storage,
+                            drive = parent, cCB = self.tree.selectRowFromObj,
+                            dcCB = self.editCB)
                 self.stripeGraph.setDisplayed(parent)
 
             elif isinstance(parent, storage.LVMVolumeGroupDevice):
                 if not isinstance(self.stripeGraph, LVMStripeGraph):
                     self.stripeGraph.shutDown()
-                    self.stripeGraph = LVMStripeGraph(self.tree, self.editCB,
-                            self.storage, parent)
+                    self.stripeGraph = LVMStripeGraph(self.storage,
+                            vg = parent, cCB = self.tree.selectRowFromObj,
+                            dcCB = self.editCB)
                 self.stripeGraph.setDisplayed(parent)
 
         elif isinstance(device, storage.DiskDevice):
             if not isinstance(self.stripeGraph, DiskStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = DiskStripeGraph(self.tree, self.editCB,
-                        self.storage, device)
+                self.stripeGraph = DiskStripeGraph(self.storage, drive = device,
+                        cCB = self.tree.selectRowFromObj, dcCB = self.editCB)
             self.stripeGraph.setDisplayed(device)
             # this is deletable but not editable.
             self.deleteButton.set_sensitive(True)
@@ -1246,8 +1268,9 @@ class PartitionWindow(InstallWindow):
         elif isinstance(device, storage.PartitionDevice):
             if not isinstance(self.stripeGraph, DiskStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = DiskStripeGraph(self.tree, self.editCB,
-                        self.storage, device.parents[0])
+                self.stripeGraph = DiskStripeGraph(self.storage,
+                        drive = device.parents[0], cCB = self.tree.selectRowFromObj,
+                        dcCB = self.editCB)
             self.stripeGraph.setDisplayed(device.parents[0])
             self.stripeGraph.selectSliceFromObj(device)
             self.deleteButton.set_sensitive(True)
@@ -1256,8 +1279,8 @@ class PartitionWindow(InstallWindow):
         elif isinstance(device, storage.LVMVolumeGroupDevice):
             if not isinstance(self.stripeGraph, LVMStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = LVMStripeGraph(self.tree, self.editCB,
-                        self.storage, device)
+                self.stripeGraph = LVMStripeGraph(self.storage, vg = device,
+                        cCB = self.tree.selectRowFromObj, dcCB = self.editCB)
             self.stripeGraph.setDisplayed(device)
             self.deleteButton.set_sensitive(True)
             self.editButton.set_sensitive(True)
@@ -1265,8 +1288,8 @@ class PartitionWindow(InstallWindow):
         elif isinstance(device, storage.LVMLogicalVolumeDevice):
             if not isinstance(self.stripeGraph, LVMStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = LVMStripeGraph(self.tree, self.editCB,
-                        self.storage, device.vg)
+                self.stripeGraph = LVMStripeGraph(self.storage, vg = device.vg,
+                        cCB = self.tree.selectRowFromObj, dcCB = self.editCB)
             self.stripeGraph.setDisplayed(device.vg)
             self.stripeGraph.selectSliceFromObj(device)
             self.deleteButton.set_sensitive(True)
@@ -1275,8 +1298,8 @@ class PartitionWindow(InstallWindow):
         elif isinstance(device, storage.MDRaidArrayDevice):
             if not isinstance(self.stripeGraph, MDRaidArrayStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = MDRaidArrayStripeGraph(self.tree, self.editCB,
-                        self.storage, device)
+                self.stripeGraph = MDRaidArrayStripeGraph(self.storage, md = device,
+                        cCB = self.tree.selectRowFromObj, dcCB = self.editCB)
             self.stripeGraph.setDisplayed(device)
             self.deleteButton.set_sensitive(True)
             self.editButton.set_sensitive(True)
