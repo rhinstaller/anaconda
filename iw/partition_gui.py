@@ -256,6 +256,12 @@ class Stripe:
 
         self._slices.append(new_slice)
 
+    def getSelectedSlice(self):
+        for slice in self.slices:
+            if slice.selected:
+                return slice
+        return None
+
 class StripeGraph:
     """ This class will only handle one stripe."""
 
@@ -315,6 +321,9 @@ class StripeGraph:
     def _createStripe(self, obj):
         #This method needs to be overridden
         pass
+
+    def getSelectedSlice(self):
+        return self.stripe.getSelectedSlice()
 
 
 class DiskStripeGraph(StripeGraph):
@@ -412,15 +421,11 @@ class DiskStripeGraph(StripeGraph):
             if part.type != parted.PARTITION_FREESPACE:
                 partName = devicePathToName(part.getDeviceNodeName())
                 o_part = self.storage.devicetree.getDeviceByName(partName)
-                dcCB = self.dcCB
-                cCB = self.cCB
             else:
-                o_part = part
-                dcCB = lambda: None
-                cCB = lambda x: None
+                o_part = None
 
             slice = Slice(stripe, partstr, stype, xoffset, xlength,
-                    dcCB = dcCB, cCB = cCB, sel_col = sel_col,
+                    dcCB = self.dcCB, cCB = self.cCB, sel_col = sel_col,
                     unsel_col = unsel_col, obj = o_part)
             stripe.addSlice(slice)
 
@@ -436,7 +441,8 @@ class DiskStripeGraph(StripeGraph):
             slcstr = "%s\n%.0f MB" % (_("Free"), float(drive.size * xlength))
 
             slice = Slice(stripe, slcstr, stype, xoffset, xlength,
-                    sel_col=sel_col, unsel_col=unsel_col)
+                    dcCB = self.dcCB, cCB = self.cCB, sel_col=sel_col,
+                    unsel_col=unsel_col)
             stripe.addSlice(slice)
 
         return stripe
@@ -503,7 +509,8 @@ class LVMStripeGraph(StripeGraph):
 
             # We append no object.
             slice = Slice(stripe, freestr, stype, xoffset, xlength,
-                    sel_col = sel_col, unsel_col = unsel_col)
+                    dcCB = self.dcCB, cCB = self.cCB, sel_col = sel_col,
+                    unsel_col = unsel_col)
 
             stripe.addSlice(slice)
 
@@ -1178,7 +1185,45 @@ class PartitionWindow(InstallWindow):
         self.treeView.expand_all()
         self.messageGraph.display()
 
-    def treeActivateCB(self, view, path, col):
+    def barviewActivateCB(self):
+        """ Should be called when we double click on a slice"""
+        # This is a bit of a hack to make the double click on free space work.
+        # This function is useful when the selected slice is a free space,
+        # in any other case it calls self.treeActiveCB.
+
+        # We first see if the double click was from a free space or from another
+        # slice.
+        sel_slice = self.stripeGraph.getSelectedSlice()
+
+        if sel_slice == None:
+            # This really should not happen. Do nothing.
+            return
+
+        # The selected slice is a free slice if the object contained in it is
+        # None.
+        if sel_slice.obj != None:
+            # This is not a free slice, we should call treeActivateCB
+            return self.treeActivateCB()
+        else:
+            # Display a create window according to the stripe object.
+            # Get the device from the stripe.obj
+            disp_stripe = self.stripeGraph.getDisplayed()
+            if disp_stripe == None:
+                # this should not happen
+                return
+
+            # Display a create dialog.
+            stripe_dev = disp_stripe.obj
+            if isinstance(stripe_dev, storage.DiskDevice):
+                tempformat = self.storage.defaultFSType
+                device = self.storage.newPartition(fmt_type=tempformat, size=200)
+                self.editPartition(device, isNew = True)
+
+            elif isinstance(stripe_dev, storage.LVMVolumeGroupDevice):
+                self.editLVMLogicalVolume(vg = stripe_dev)
+                return
+
+    def treeActivateCB(self, *args):
         curr_dev = self.tree.getCurrentDevice()
         if isinstance(curr_dev, storage.PartitionDevice) \
                 or isinstance(curr_dev, storage.LVMLogicalVolumeDevice) \
@@ -1245,7 +1290,7 @@ class PartitionWindow(InstallWindow):
                     self.stripeGraph.shutDown()
                     self.stripeGraph = DiskStripeGraph(self.storage,
                             drive = parent, cCB = self.tree.selectRowFromObj,
-                            dcCB = self.editCB)
+                            dcCB = self.barviewActivateCB)
                 self.stripeGraph.setDisplayed(parent)
 
             elif isinstance(parent, storage.LVMVolumeGroupDevice):
@@ -1253,14 +1298,16 @@ class PartitionWindow(InstallWindow):
                     self.stripeGraph.shutDown()
                     self.stripeGraph = LVMStripeGraph(self.storage,
                             vg = parent, cCB = self.tree.selectRowFromObj,
-                            dcCB = self.editCB)
+                            dcCB = self.barviewActivateCB)
                 self.stripeGraph.setDisplayed(parent)
 
         elif isinstance(device, storage.DiskDevice):
             if not isinstance(self.stripeGraph, DiskStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = DiskStripeGraph(self.storage, drive = device,
-                        cCB = self.tree.selectRowFromObj, dcCB = self.editCB)
+                self.stripeGraph = DiskStripeGraph(self.storage,
+                        drive = device,
+                        cCB = self.tree.selectRowFromObj,
+                        dcCB = self.barviewActivateCB)
             self.stripeGraph.setDisplayed(device)
             # this is deletable but not editable.
             self.deleteButton.set_sensitive(True)
@@ -1269,8 +1316,9 @@ class PartitionWindow(InstallWindow):
             if not isinstance(self.stripeGraph, DiskStripeGraph):
                 self.stripeGraph.shutDown()
                 self.stripeGraph = DiskStripeGraph(self.storage,
-                        drive = device.parents[0], cCB = self.tree.selectRowFromObj,
-                        dcCB = self.editCB)
+                        drive = device.parents[0],
+                        cCB = self.tree.selectRowFromObj,
+                        dcCB = self.barviewActivateCB)
             self.stripeGraph.setDisplayed(device.parents[0])
             self.stripeGraph.selectSliceFromObj(device)
             self.deleteButton.set_sensitive(True)
@@ -1280,7 +1328,8 @@ class PartitionWindow(InstallWindow):
             if not isinstance(self.stripeGraph, LVMStripeGraph):
                 self.stripeGraph.shutDown()
                 self.stripeGraph = LVMStripeGraph(self.storage, vg = device,
-                        cCB = self.tree.selectRowFromObj, dcCB = self.editCB)
+                        cCB = self.tree.selectRowFromObj,
+                        dcCB = self.barviewActivateCB)
             self.stripeGraph.setDisplayed(device)
             self.deleteButton.set_sensitive(True)
             self.editButton.set_sensitive(True)
@@ -1289,7 +1338,8 @@ class PartitionWindow(InstallWindow):
             if not isinstance(self.stripeGraph, LVMStripeGraph):
                 self.stripeGraph.shutDown()
                 self.stripeGraph = LVMStripeGraph(self.storage, vg = device.vg,
-                        cCB = self.tree.selectRowFromObj, dcCB = self.editCB)
+                        cCB = self.tree.selectRowFromObj,
+                        dcCB = self.barviewActivateCB)
             self.stripeGraph.setDisplayed(device.vg)
             self.stripeGraph.selectSliceFromObj(device)
             self.deleteButton.set_sensitive(True)
@@ -1298,8 +1348,10 @@ class PartitionWindow(InstallWindow):
         elif isinstance(device, storage.MDRaidArrayDevice):
             if not isinstance(self.stripeGraph, MDRaidArrayStripeGraph):
                 self.stripeGraph.shutDown()
-                self.stripeGraph = MDRaidArrayStripeGraph(self.storage, md = device,
-                        cCB = self.tree.selectRowFromObj, dcCB = self.editCB)
+                self.stripeGraph = MDRaidArrayStripeGraph(self.storage,
+                        md = device,
+                        cCB = self.tree.selectRowFromObj,
+                        dcCB = self.barviewActivateCB)
             self.stripeGraph.setDisplayed(device)
             self.deleteButton.set_sensitive(True)
             self.editButton.set_sensitive(True)
