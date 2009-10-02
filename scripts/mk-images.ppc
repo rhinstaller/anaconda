@@ -91,6 +91,7 @@ __EOT__
 		popd
         echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
 	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/lib/kernel-wrapper/wrapper.a ]; then
+		mkdir -p $TOPDESTPATH/images/netboot
 		$IMGPATH/usr/sbin/wrapper -o $TOPDESTPATH/images/netboot/ppc32.img	\
 					  -i $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz	\
 					  -D $IMGPATH/usr/lib/kernel-wrapper		\
