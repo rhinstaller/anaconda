@@ -47,7 +47,9 @@ __EOT__
 		rmdir $TOPDESTPATH/images/netboot || :
 		rm -f $TOPDESTPATH/ppc/ppc64/zImage.lds
 		popd
-        echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
+	if [ -f $TOPDESTPATH/images/netboot/ppc64.img ]; then
+		echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
+	fi
 	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/lib64/kernel-wrapper/wrapper.a ]; then
 		mkdir -p $TOPDESTPATH/images/netboot
 		$IMGPATH/usr/sbin/wrapper -o $TOPDESTPATH/images/netboot/ppc64.img	\
@@ -55,7 +57,9 @@ __EOT__
 					  -D $IMGPATH/usr/lib64/kernel-wrapper		\
 					     $TOPDESTPATH/ppc/ppc64/vmlinuz
 		rmdir $TOPDESTPATH/images/netboot || :
-		echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
+		if [ -f $TOPDESTPATH/images/netboot/ppc64.img ]; then
+			echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
+		fi
 	fi
 
     echo >> $TOPDESTPATH/.treeinfo
@@ -89,7 +93,9 @@ __EOT__
 		rmdir $TOPDESTPATH/images/netboot || :
 		rm -f $TOPDESTPATH/ppc/ppc32/zImage.lds
 		popd
-        echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
+	if [ -f $TOPDESTPATH/images/netboot/ppc32.img ]; then
+		echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
+	fi
 	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/lib/kernel-wrapper/wrapper.a ]; then
 		mkdir -p $TOPDESTPATH/images/netboot
 		$IMGPATH/usr/sbin/wrapper -o $TOPDESTPATH/images/netboot/ppc32.img	\
@@ -98,7 +104,9 @@ __EOT__
 					     $TOPDESTPATH/ppc/ppc32/vmlinuz
 		rmdir $TOPDESTPATH/images/netboot || :
 		popd
-		echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
+		if [ -f $TOPDESTPATH/images/netboot/ppc32.img ]; then
+			echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
+		fi
 	fi
     echo >> $TOPDESTPATH/.treeinfo
 
