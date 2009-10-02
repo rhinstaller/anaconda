@@ -1327,7 +1327,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     # installed (they could have been removed in kickstart).  So we'll force
     # it.
     def selectAnacondaNeeds(self):
-        for pkg in ['authconfig', 'chkconfig', 'mkinitrd', 'system-config-firewall-tui']:
+        for pkg in ['authconfig', 'chkconfig', 'system-config-firewall-tui']:
             self.selectPackage(pkg)
 
     def doPostSelection(self, anaconda):
