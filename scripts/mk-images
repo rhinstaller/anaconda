@@ -780,6 +780,7 @@ makeinitrd() {
     instbin $IMGPATH /usr/bin/sed $MBD_DIR /sbin/sed
     instbin $IMGPATH /usr/bin/sleep $MBD_DIR /sbin/sleep
     instbin $IMGPATH /usr/bin/touch $MBD_DIR /sbin/touch
+    instbin $IMGPATH /usr/bin/wget $MBD_DIR /sbin/wget
 
     # Indirect dependencies
     install -m 755 $IMGPATH/$LIBDIR/libfreebl3.so $MBD_DIR/$LIBDIR/

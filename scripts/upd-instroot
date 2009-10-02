@@ -191,7 +191,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
     tzdata udev un-core-dotum-fonts urw-fonts util-linux-ng tigervnc-server
     tigervnc-server-module vlgothic-fonts vim-minimal
-    wpa_supplicant xkeyboard-config xfsprogs xorg-x11-xauth
+    wget wpa_supplicant xkeyboard-config xfsprogs xorg-x11-xauth
     xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
     xorg-x11-fonts-misc xorg-x11-server-utils
     xorg-x11-server-Xorg xorg-x11-xkb-utils xorg-x11-xfs yum
@@ -523,6 +523,7 @@ usr/bin/udev*
 usr/bin/uniq
 usr/bin/vncconfig
 usr/bin/vncpasswd
+usr/bin/wget
 usr/bin/xkbcomp
 usr/bin/xrandr
 usr/bin/zenity
