@@ -27,6 +27,7 @@
         - migration
         - bug 472127: allow creation of tmpfs filesystems (/tmp, /var/tmp, &c)
 """
+import math
 import os
 import tempfile
 import isys
@@ -262,7 +263,7 @@ class FS(DeviceFormat):
                     size *= value
 
                 # report current size as megabytes
-                size = size / 1024.0 / 1024.0
+                size = math.floor(size / 1024.0 / 1024.0)
             except Exception as e:
                 log.error("failed to obtain size of filesystem on %s: %s"
                           % (self.device, e))
