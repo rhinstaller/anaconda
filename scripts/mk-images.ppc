@@ -103,7 +103,6 @@ __EOT__
 					  -D $IMGPATH/usr/lib/kernel-wrapper		\
 					     $TOPDESTPATH/ppc/ppc32/vmlinuz
 		rmdir $TOPDESTPATH/images/netboot || :
-		popd
 		if [ -f $TOPDESTPATH/images/netboot/ppc32.img ]; then
 			echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
 		fi
