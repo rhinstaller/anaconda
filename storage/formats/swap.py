@@ -149,6 +149,9 @@ class SwapSpace(DeviceFormat):
     def writeKS(self, f):
         f.write("swap")
 
+        if self.label:
+            f.write(" --label=\"%s\"" % self.label)
+
 
 register_device_format(SwapSpace)
 

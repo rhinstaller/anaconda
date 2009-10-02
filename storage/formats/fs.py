@@ -798,6 +798,9 @@ class FS(DeviceFormat):
     def writeKS(self, f):
         f.write("%s --fstype=%s" % (self.mountpoint, self.type))
 
+        if self.label:
+            f.write(" --label=\"%s\"" % self.label)
+
 
 class Ext2FS(FS):
     """ ext2 filesystem. """
