@@ -398,7 +398,7 @@ class NewWorldPPC(PPC):
     def checkBootRequest(self, req):
         errors = PPC.checkBootRequest(self, req)
 
-        if not disk or not req.disk:
+        if not req or not req.disk:
             return errors
 
         disk = req.disk.format.partedDisk
