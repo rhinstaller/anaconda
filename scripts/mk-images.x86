@@ -116,7 +116,7 @@ makeBootImages() {
 	mv $MBD_BOOTTREE/syslinux.cfg $MBD_BOOTTREE/isolinux.cfg
 
 	# set up the label for finding stage2 with a hybrid iso
-	sed -i "s/initrd=initrd.img/initrd=initrd.img stage2=hd:LABEL=$CDLABEL/" $MBD_BOOTTREE/isolinux.cfg
+	sed -i "s/initrd=initrd.img/initrd=initrd.img stage2=hd:LABEL=\"$CDLABEL\"/" $MBD_BOOTTREE/isolinux.cfg
 
 	# copy in memtest if present
 	if [ -f $IMGPATH/usr/lib/anaconda-runtime/boot/memtest* ]; then
