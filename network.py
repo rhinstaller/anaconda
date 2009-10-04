@@ -366,7 +366,7 @@ class Network:
                 if line.startswith('#') or line == '':
                     continue
 
-                var = string.splitfields(line, '=')
+                var = string.splitfields(line, '=', 1)
                 if len(var) == 2:
                     var[1] = var[1].replace('"', '')
                     contents[var[0]] = string.strip(var[1])
