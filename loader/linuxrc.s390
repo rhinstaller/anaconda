@@ -3112,12 +3112,17 @@ fi
 [ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> $IFCFGFILE
 [ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> $IFCFGFILE
 [ "$CTCPROT" != "" ] && echo "CTCPROT=$CTCPROT" >> $IFCFGFILE
-[ "$LAYER2" != "" ] && echo "LAYER2=$LAYER2" >> $IFCFGFILE
 [ "$MACADDR" != "" ] && echo "MACADDR=$MACADDR" >> $IFCFGFILE
-[ "$PORTNO" != "" ] && echo "PORTNO=$PORTNO" >> $IFCFGFILE
-# also needs support in stage2 (loader.c,(net.c)) to make PORTNO persistent,
-# i.e. OPTION="portno=1" in /etc/sysconfig/network-scripts/ifcfg-<netdevname>
-# (see loader of RHEL 5.3)
+optstr=""
+for option in LAYER2 PORTNO; do
+    [ -z "${!option}" ] && continue
+    [ -n "$optstr" ] && optstr=${optstr}" "
+    optstr=${optstr}$(echo ${option} | tr [[:upper:]] [[:lower:]])"="${!option}
+done
+# write single quotes since network.py removes double quotes but we need quotes
+echo "OPTIONS='$optstr'" >> $IFCFGFILE
+unset option
+unset optstr
 
 if [ -z "$testing" ]; then
 
