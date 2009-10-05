@@ -50,11 +50,11 @@ __EOT__
 	if [ -f $TOPDESTPATH/images/netboot/ppc64.img ]; then
 		echo "zimage = images/netboot/ppc64.img" >> $TOPDESTPATH/.treeinfo
 	fi
-	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/lib64/kernel-wrapper/wrapper.a ]; then
+	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/$LIBDIR/kernel-wrapper/wrapper.a ]; then
 		mkdir -p $TOPDESTPATH/images/netboot
 		$IMGPATH/usr/sbin/wrapper -o $TOPDESTPATH/images/netboot/ppc64.img	\
 					  -i $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz	\
-					  -D $IMGPATH/usr/lib64/kernel-wrapper		\
+					  -D $IMGPATH/usr/$LIBDIR/kernel-wrapper		\
 					     $TOPDESTPATH/ppc/ppc64/vmlinuz
 		rmdir $TOPDESTPATH/images/netboot || :
 		if [ -f $TOPDESTPATH/images/netboot/ppc64.img ]; then
@@ -96,11 +96,11 @@ __EOT__
 	if [ -f $TOPDESTPATH/images/netboot/ppc32.img ]; then
 		echo "zimage = images/netboot/ppc32.img" >> $TOPDESTPATH/.treeinfo
 	fi
-	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/lib/kernel-wrapper/wrapper.a ]; then
+	elif [ -x $IMGPATH/usr/sbin/wrapper -a -r $IMGPATH/usr/$LIBDIR/kernel-wrapper/wrapper.a ]; then
 		mkdir -p $TOPDESTPATH/images/netboot
 		$IMGPATH/usr/sbin/wrapper -o $TOPDESTPATH/images/netboot/ppc32.img	\
 					  -i $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz	\
-					  -D $IMGPATH/usr/lib/kernel-wrapper		\
+					  -D $IMGPATH/usr/$LIBDIR/kernel-wrapper		\
 					     $TOPDESTPATH/ppc/ppc32/vmlinuz
 		rmdir $TOPDESTPATH/images/netboot || :
 		if [ -f $TOPDESTPATH/images/netboot/ppc32.img ]; then
