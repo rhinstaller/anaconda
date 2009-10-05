@@ -216,6 +216,97 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 05 2009 David Cantrell <dcantrell@redhat.com> - 13.0-1
+- Remove an errant popd. Probably cut/paste error. (jkeating)
+- Only add the .img file to .treeinfo if it exists. (jkeating)
+- Make the netboot dir before trying to use it (jkeating)
+- Only write network --netmask if one has been defined (#527083). (clumens)
+- Add --label to anaconda-ks.cfg if needed (#526223). (clumens)
+- Fix existing size calculation for NTFS (#520627) (dcantrell)
+- Write label to filesystem if we have one set (#526226, #526242) (dcantrell)
+- Add wget to the initrd, which is required for rhts. (clumens)
+- Fix the check for no /boot request on PPC yet again (#526843). (clumens)
+- Surround the stage2= parameter in quotes for RHEL (#526863). (clumens)
+- Correct makeupdates script to work with deleted files. (jgranado)
+- Stop dragging mkinitrd into the install (hdegoede)
+- Add --keyword=P_ to xgettext command arguments. (dcantrell)
+- Use named parameters for translatable strings with multiple params.
+  (dcantrell)
+- Change 'support' to 'supported' in UnknownSwapError dialog (#526549)
+  (dcantrell)
+- Force interface up before checking link status (#525071). (dcantrell)
+- Only ignore partitions <1MB that are freespace. (#526445) (dlehman)
+- Try to include error messages in lvm/mdadm exceptions. (dlehman)
+- Add the create LV option. (jgranado)
+- Give the proper orientation to the gtk objects. (jgranado)
+- Show the information message when user hits a non-bar element. (jgranado)
+- Control the sensitivity of the "delete" and "create" buttons (jgranado)
+- Respond to double click on a VG, LV and RAID device. (jgranado)
+- Remove the "Hide RAID/LVM" checkbox. (jgranado)
+- Display a message in the bar view when user has no selected items.
+  (jgranado)
+- Cosmetic changes. (jgranado)
+- The StripeGraph class does not need tree nor editCB (jgranado)
+- Restrain from outputing any digits after the decimal point. (jgranado)
+- Add a slice when the extended partition contains "free space" (jgranado)
+- Reduce message size in clone screen. (jgranado)
+- Add Slice size to the bar view (jgranado)
+- Select the device in the treeview when its selected in the barview.
+  (jgranado)
+- Make canvas a class method. (jgranado)
+- Incorporate all the Graph types in the custom screen. (jgranado)
+- Add the Volume Group and md RAID array Graph classes (jgranado)
+- Make the Bar View Code generic. (jgranado)
+- Pass the device instead of the name to the add funciton. (jgranado)
+- Display the device path with a smaller font and different color. (jgranado)
+- Display bar view for the selected device only. (jgranado)
+- Fix indentation in editCB (jgranado)
+- Organize the creation of the custom screen into sections. (jgranado)
+- Use a checkmark from a PNG image instead of a string. (jgranado)
+- Put the size after the device name in the storage tree. (jgranado)
+- Add the warning message for an invalid create. (jgranado)
+- Reorganize the Customization screen a little. (jgranado)
+- Remove unneeded functions & add the about messages for LVM and RAID.
+  (jgranado)
+- Have an intermediary screen for the "Create" action. (jgranado)
+- New screen for "Create" action. (jgranado)
+- New function to tell us if there is free space for a new partition.
+  (jgranado)
+- Edit LVM LV when user has a LV selected. (jgranado)
+- Don't fail to commit partitions due to active lvm/md. (dlehman)
+- Create and use DiskLabelCommitError for failure to commit. (dlehman)
+- Work around partition renumbering in processActions. (dlehman)
+- Re-get preexisting partitions using their original path. (dlehman)
+- Don't store a copy of ActionDestroyFormat's device attr. (dlehman)
+- Don't retry commiting partition table to disk (hdegoede)
+- Stop /lib/udev/rules.d/65-md-incremental.rules from messing with mdraid
+  sets (hdegoede)
+- Don't try to do format handling on drives without media (#523467)
+  (hdegoede)
+- Wait for mdraid arrays to become clean before reboot / halt (hdegoede)
+- Add repo --proxy= support to kickstart. (clumens)
+- Pass the proxy config information to stage2. (clumens)
+- Add support for proxies to the command line. (clumens)
+- Add proxy support to kickstart in the loader. (clumens)
+- Add a function to split up a proxy parameter into its parts. (clumens)
+- libcurl supports https in addition to http, so change our tests. (clumens)
+- getHostAndPath is only used by the nfs code, so move it. (clumens)
+- Add initial loader UI support for proxies (#125917, #484788, #499085).
+  (clumens)
+- We no longer need our own FTP/HTTP protocol support code. (clumens)
+- Get rid of the convertURL/UI functions, make iurlinfo just store a string.
+  (clumens)
+- Convert urlinstall.c to using the new urlinstTransfer function. (clumens)
+- Add proxy support to urlinstTransfer by setting more curl options.
+  (clumens)
+- Add the urlinstTransfer function, which replaces urlinst*Transfer.
+  (clumens)
+- Add a function to construct an array of HTTP headers and cache the result.
+  (clumens)
+- Add a CURL instance to the loader data. (clumens)
+- Add checks for libcurl into the makefile process. (clumens)
+- Add the packages needed to support libcurl. (clumens)
+
 * Tue Sep 29 2009 David Cantrell <dcantrell@redhat.com> - 12.32-1
 - Improve loader messages in parseCmdLineFlags when passing vnc (#526350).
   (maier)
