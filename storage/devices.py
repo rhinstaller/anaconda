@@ -2684,6 +2684,11 @@ class DMRaidArrayDevice(DiskDevice):
         # information about it
         self._size = self.currentSize
 
+    @property
+    def mediaPresent(self):
+        # Even if teared down we still want to show up in storage.disks
+        return True
+
 class _MultipathDeviceNameGenerator:
     def __init__(self):
         self.number = 0
