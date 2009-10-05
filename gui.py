@@ -67,6 +67,7 @@ stepToClass = {
     "zfcpconfig" : ("zfcp_gui", "ZFCPWindow"),
     "partition" : ("partition_gui", "PartitionWindow"),
     "parttype" : ("autopart_type", "PartitionTypeWindow"),
+    "cleardiskssel": ("cleardisks_gui", "ClearDisksWindow"),
     "findinstall" : ("examine_gui", "UpgradeExamineWindow"),
     "addswap" : ("upgrade_swap_gui", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),

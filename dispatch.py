@@ -78,6 +78,7 @@ installSteps = [
     ("accounts", ),
     ("setuptime", setupTimezone, ),
     ("parttype", ),
+    ("cleardiskssel", ),
     ("autopartitionexecute", doAutoPartition, ),
     ("partition", ),
     ("upgrademount", upgradeMountFilesystems, ),

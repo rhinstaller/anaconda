@@ -266,6 +266,7 @@ def setSteps(anaconda):
                 "keyboard",
                 "welcome",
                 "filter",
+                "cleardisksel",
                 "installtype",
                 "storageinit",
                 "findrootparts",

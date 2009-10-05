@@ -94,6 +94,7 @@ class BaseInstallClass(object):
                  "findrootparts",
 		 "betanag",
 		 "installtype",
+                 "cleardiskssel",
                  "parttype",
                  "autopartitionexecute",
                  "partition",
