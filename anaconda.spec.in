@@ -215,6 +215,23 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 05 2009 David Cantrell <dcantrell@redhat.com> - 12.33-1
+- Remove an errant popd. Probably cut/paste error. (jkeating)
+- Only add the .img file to .treeinfo if it exists. (jkeating)
+- Make the netboot dir before trying to use it (jkeating)
+- Fix existing size calculation for NTFS (#520627) (dcantrell)
+- Write label to filesystem if we have one set (#526226, #526242) (dcantrell)
+- Add wget to the initrd, which is required for rhts. (clumens)
+- Fix the check for no /boot request on PPC yet again (#526843). (clumens)
+- Surround the stage2= parameter in quotes for RHEL (#526863). (clumens)
+- Stop dragging mkinitrd into the install (hdegoede)
+- Force interface up before checking link status (#525071). (dcantrell)
+- Don't try to do format handling on drives without media (#523467)
+  (hdegoede)
+- Wait for mdraid arrays to become clean before reboot / halt (hdegoede)
+- Stop /lib/udev/rules.d/65-md-incremental.rules from messing with mdraid
+  sets (hdegoede)
+
 * Tue Sep 29 2009 David Cantrell <dcantrell@redhat.com> - 12.32-1
 - Improve loader messages in parseCmdLineFlags when passing vnc (#526350).
   (maier)
