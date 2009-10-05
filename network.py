@@ -480,8 +480,10 @@ class Network:
                             self.hostname != "localhost.localdomain"):
                             f.write(" --hostname %s" % self.hostname)
                 else:
-                    f.write(" --bootproto static --ip %s --netmask %s" % 
-                       (dev.get('ipaddr'), dev.get('netmask')))
+                    f.write(" --bootproto static --ip %s" % dev.get('ipaddr'))
+
+                    if dev.get('netmask'):
+                        f.write(" --netmask %s" % dev.get('netmask'))
 
                     if dev.get('GATEWAY'):
                         f.write(" --gateway %s" % (dev.get('GATEWAY'),))
