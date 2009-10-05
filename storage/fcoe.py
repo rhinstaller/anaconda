@@ -75,6 +75,10 @@ class fcoe(object):
 
         log.info("Activating FCoE SAN attached to %s" % nic)
 
+        iutil.execWithRedirect("ip", [ "link", "set", nic, "up" ],
+                               stdout = "/dev/tty5", stderr="/dev/tty5",
+                               searchPath = 1)
+
         f = open("/sys/module/fcoe/parameters/create", "w")
         f.write(nic)
         f.close()
