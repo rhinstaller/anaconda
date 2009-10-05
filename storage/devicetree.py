@@ -1664,6 +1664,10 @@ class DeviceTree(object):
 
                 self._addDevice(dm_array)
 
+                # Wait for udev to scan the just created nodes, to avoid a race
+                # with the udev_get_block_device() call below.
+                udev_settle()
+
                 # Get the DMRaidArrayDevice a DiskLabel format *now*, in case
                 # its partitions get scanned before it does.
                 dm_array.updateSysfsPath()
