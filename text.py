@@ -549,6 +549,7 @@ class InstallInterface:
         self.screen.finish()
 
     def setSteps(self, anaconda):
+        anaconda.dispatch.skipStep("filter")
         anaconda.dispatch.skipStep("basepkgsel")
         anaconda.dispatch.skipStep("group-selection")
 

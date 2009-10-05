@@ -348,6 +348,7 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def execute(self, anaconda):
         anaconda.id.storage.ignoredDisks = self.ignoredisk
         anaconda.id.storage.exclusiveDisks = self.onlyuse
+        self.handler.skipSteps.extend(["filter"])
 
 class IscsiData(commands.iscsi.F10_IscsiData):
     def execute(self, anaconda):
@@ -1434,6 +1435,7 @@ def setSteps(anaconda):
     # out if we don't.
     if anaconda.id.displayMode == "t":
         missingSteps = [("bootloader", "Bootloader configuration"),
+                        ("filter", "Disks to use in installation"),
                         ("group-selection", "Package selection")]
         errors = []
 

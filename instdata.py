@@ -296,4 +296,6 @@ class InstallData:
         self.isHeadless = 0
         self.extraModules = extraModules
 
+        self.simpleFilter = True
+
         self.reset()

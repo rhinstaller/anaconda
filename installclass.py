@@ -89,6 +89,7 @@ class BaseInstallClass(object):
 		 "language",
 		 "keyboard",
 		 "welcome",
+                 "filter",
                  "storageinit",
                  "findrootparts",
 		 "betanag",
