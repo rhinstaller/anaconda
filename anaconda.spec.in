@@ -215,6 +215,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 06 2009 David Cantrell <dcantrell@redhat.com> - 12.34-1
+- Tell udev to ignore temporary cryptsetup devices. (#526699) (dlehman)
+- Use $LIBDIR to find the boot-wrapper file. (jkeating)
+- Have redhat.exec reference generic.prm, not redhat.parm (dcantrell)
+- Bring back cio_ignore=all, !0.0.0009 for generic.prm on s390x (#463544)
+  (dcantrell)
+- Take 70-persistent-net.rules generated at installation (#526322)
+  (dcantrell)
+- formatByDefault: Don't traceback when mountpoint is None (#522609)
+  (hdegoede)
+- Don't warn /usr should be formatted when "Format as:" is already selected
+  (hdegoede)
+- Bring up network interface before trying to use it for FCoE (hdegoede)
+- DMRaidArray: Don't report no media present when in teared down state
+  (hdegoede)
+- Wait for udev to settle before trying to find dmraid sets in udev DB
+  (hdegoede)
+
 * Mon Oct 05 2009 David Cantrell <dcantrell@redhat.com> - 12.33-1
 - Remove an errant popd. Probably cut/paste error. (jkeating)
 - Only add the .img file to .treeinfo if it exists. (jkeating)
