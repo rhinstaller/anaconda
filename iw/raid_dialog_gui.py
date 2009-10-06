@@ -285,7 +285,7 @@ class RaidEditor:
                         usedev = self.origrequest
                     migrate = True
 
-                if self.origrequest.format.exists and \
+                if self.origrequest.format.exists and not format and \
                    self.storage.formatByDefault(self.origrequest):
                     if not queryNoFormatPreExisting(self.intf):
 		        continue
