@@ -722,6 +722,9 @@ class Storage(object):
             return False
 
         if device.format.mountable:
+            if not device.format.mountpoint:
+                return False
+
             if device.format.mountpoint == "/" or \
                device.format.mountpoint in formatlist:
                 return True
