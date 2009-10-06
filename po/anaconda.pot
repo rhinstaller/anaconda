@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 13.0\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-10-05 12:04-1000\n"
+"POT-Creation-Date: 2009-10-06 09:42-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,7 +139,7 @@ msgstr ""
 #: loader/method.c:353 loader/nfsinstall.c:284 loader/nfsinstall.c:303
 #: loader/telnetd.c:92 loader/urlinstall.c:149 loader/urlinstall.c:171
 #: loader/urlinstall.c:242 loader/urls.c:328 loader/urls.c:334
-#: storage/__init__.py:194 storage/__init__.py:1638 storage/__init__.py:1725
+#: storage/__init__.py:194 storage/__init__.py:1641 storage/__init__.py:1728
 #: textw/netconfig_text.py:282 textw/partition_text.py:186
 #: textw/partition_text.py:192 textw/partition_text.py:198
 #: textw/partition_text.py:231 textw/partition_text.py:241
@@ -171,13 +171,13 @@ msgstr ""
 #: upgrade.py:206 yuminstall.py:241 yuminstall.py:667 yuminstall.py:871
 #: yuminstall.py:951 yuminstall.py:957 yuminstall.py:1109 yuminstall.py:1134
 #: yuminstall.py:1192 yuminstall.py:1356 yuminstall.py:1386
-#: storage/__init__.py:95 storage/__init__.py:198 storage/__init__.py:1816
+#: storage/__init__.py:95 storage/__init__.py:198 storage/__init__.py:1819
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:58 image.py:92 image.py:251 kickstart.py:1358
-#: kickstart.py:1397 upgrade.py:58 yuminstall.py:1197 iw/partition_gui.py:1563
-#: storage/__init__.py:1817
+#: kickstart.py:1397 upgrade.py:58 yuminstall.py:1197 iw/partition_gui.py:1692
+#: storage/__init__.py:1820
 msgid "_Continue"
 msgstr ""
 
@@ -345,7 +345,7 @@ msgid ""
 msgstr ""
 
 #: gui.py:1257 image.py:164 image.py:194 packages.py:362 packages.py:367
-#: storage/__init__.py:1637
+#: storage/__init__.py:1640
 msgid "_Exit"
 msgstr ""
 
@@ -871,8 +871,8 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr ""
 
 #: partIntfHelpers.py:157 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:843
-#: iw/lvm_dialog_gui.py:1376 iw/osbootwidget.py:103 iw/partition_gui.py:1764
-#: iw/partition_gui.py:1776
+#: iw/lvm_dialog_gui.py:1376 iw/osbootwidget.py:103 iw/partition_gui.py:1893
+#: iw/partition_gui.py:1905
 msgid "_Delete"
 msgstr ""
 
@@ -920,7 +920,7 @@ msgstr ""
 msgid "Format?"
 msgstr ""
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1561
+#: partIntfHelpers.py:249 iw/partition_gui.py:1690
 msgid "_Modify Partition"
 msgstr ""
 
@@ -956,7 +956,7 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: partIntfHelpers.py:289 iw/partition_gui.py:842
+#: partIntfHelpers.py:289 iw/partition_gui.py:876
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1135,7 +1135,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue.py:287 iw/partition_gui.py:746 loader/cdinstall.c:206
+#: rescue.py:287 iw/partition_gui.py:780 loader/cdinstall.c:206
 #: loader/cdinstall.c:214 loader/driverdisk.c:444 storage/__init__.py:140
 #: storage/devicetree.py:84
 msgid "Continue"
@@ -1146,7 +1146,7 @@ msgid "Read-Only"
 msgstr ""
 
 #: rescue.py:287 rescue.py:289 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:326 storage/__init__.py:1637 textw/upgrade_text.py:133
+#: loader/method.c:326 storage/__init__.py:1640 textw/upgrade_text.py:133
 msgid "Skip"
 msgstr ""
 
@@ -2186,7 +2186,7 @@ msgstr ""
 msgid "Original File System Type:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:473 iw/partition_gui.py:973 iw/partition_gui.py:1114
+#: iw/lvm_dialog_gui.py:473 iw/partition_gui.py:1020 iw/partition_gui.py:1161
 #: iw/raid_dialog_gui.py:409
 msgid "Unknown"
 msgstr ""
@@ -2354,12 +2354,12 @@ msgstr ""
 msgid "Logical Volume Name"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1353 iw/partition_gui.py:582
+#: iw/lvm_dialog_gui.py:1353 iw/partition_gui.py:609
 #: iw/upgrade_swap_gui.py:139 textw/upgrade_text.py:118
 msgid "Mount Point"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1356 iw/partition_gui.py:581
+#: iw/lvm_dialog_gui.py:1356 iw/partition_gui.py:608
 msgid "Size (MB)"
 msgstr ""
 
@@ -2367,8 +2367,8 @@ msgstr ""
 msgid "_Add"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1373 iw/osbootwidget.py:99 iw/partition_gui.py:1763
-#: iw/partition_gui.py:1773
+#: iw/lvm_dialog_gui.py:1373 iw/osbootwidget.py:99 iw/partition_gui.py:1892
+#: iw/partition_gui.py:1902
 msgid "_Edit"
 msgstr ""
 
@@ -2463,11 +2463,11 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: iw/osbootwidget.py:66 iw/partition_gui.py:580
+#: iw/osbootwidget.py:66 iw/partition_gui.py:607
 msgid "Label"
 msgstr ""
 
-#: iw/osbootwidget.py:66 iw/partition_gui.py:579
+#: iw/osbootwidget.py:66 iw/partition_gui.py:606
 msgid "Device"
 msgstr ""
 
@@ -2565,110 +2565,110 @@ msgstr ""
 msgid "Force to be a _primary partition"
 msgstr ""
 
-#: iw/partition_gui.py:337
+#: iw/partition_gui.py:355
 #, python-format
 msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
 msgstr ""
 
-#: iw/partition_gui.py:377 iw/partition_gui.py:427 iw/partition_gui.py:488
-#: iw/partition_gui.py:1116
+#: iw/partition_gui.py:395 iw/partition_gui.py:441 iw/partition_gui.py:508
+#: iw/partition_gui.py:966 iw/partition_gui.py:1163
 msgid "Free"
 msgstr ""
 
-#: iw/partition_gui.py:450
+#: iw/partition_gui.py:473
 #, python-format
 msgid "LVM Volume Group %s (%-0.f MB)"
 msgstr ""
 
-#: iw/partition_gui.py:510
+#: iw/partition_gui.py:539
 #, python-format
 msgid "MD RAID ARRAY %s (%-0.f MB)"
 msgstr ""
 
-#: iw/partition_gui.py:583
+#: iw/partition_gui.py:610
 msgid "Type"
 msgstr ""
 
-#: iw/partition_gui.py:584 storage/__init__.py:1637
+#: iw/partition_gui.py:611 storage/__init__.py:1640
 msgid "Format"
 msgstr ""
 
-#: iw/partition_gui.py:621
+#: iw/partition_gui.py:648
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
 
-#: iw/partition_gui.py:623
+#: iw/partition_gui.py:650
 msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
 
-#: iw/partition_gui.py:721
+#: iw/partition_gui.py:755
 msgid "Partitioning"
 msgstr ""
 
-#: iw/partition_gui.py:811
+#: iw/partition_gui.py:845
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
-#: iw/partition_gui.py:813
+#: iw/partition_gui.py:847
 #, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
 
-#: iw/partition_gui.py:819
+#: iw/partition_gui.py:853
 msgid "Partitioning Errors"
 msgstr ""
 
-#: iw/partition_gui.py:826
+#: iw/partition_gui.py:860
 msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
-#: iw/partition_gui.py:828
+#: iw/partition_gui.py:862
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: iw/partition_gui.py:833
+#: iw/partition_gui.py:867
 msgid "Partitioning Warnings"
 msgstr ""
 
-#: iw/partition_gui.py:854
+#: iw/partition_gui.py:888
 msgid "Format Warnings"
 msgstr ""
 
-#: iw/partition_gui.py:859
+#: iw/partition_gui.py:893
 msgid "_Format"
 msgstr ""
 
-#: iw/partition_gui.py:883
+#: iw/partition_gui.py:917
 msgid "LVM Volume Groups"
 msgstr ""
 
-#: iw/partition_gui.py:930
+#: iw/partition_gui.py:977
 msgid "RAID Devices"
 msgstr ""
 
-#: iw/partition_gui.py:995 loader/hdinstall.c:222
+#: iw/partition_gui.py:1042 loader/hdinstall.c:222
 msgid "Hard Drives"
 msgstr ""
 
-#: iw/partition_gui.py:1088
+#: iw/partition_gui.py:1135
 msgid "Extended"
 msgstr ""
 
-#: iw/partition_gui.py:1090
+#: iw/partition_gui.py:1137
 msgid "software RAID"
 msgstr ""
 
-#: iw/partition_gui.py:1309
+#: iw/partition_gui.py:1438
 msgid "Cannot perform any creation action"
 msgstr ""
 
-#: iw/partition_gui.py:1310
+#: iw/partition_gui.py:1439
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -2678,7 +2678,7 @@ msgid ""
 "* At least one Volume Group with free space."
 msgstr ""
 
-#: iw/partition_gui.py:1418
+#: iw/partition_gui.py:1547
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -2687,7 +2687,7 @@ msgid ""
 "using RAID devices please consult the %s documentation.\n"
 msgstr ""
 
-#: iw/partition_gui.py:1424
+#: iw/partition_gui.py:1553
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -2695,16 +2695,16 @@ msgid ""
 "\n"
 msgstr ""
 
-#: iw/partition_gui.py:1428
+#: iw/partition_gui.py:1557
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgstr ""
 
-#: iw/partition_gui.py:1432
+#: iw/partition_gui.py:1561
 msgid "About RAID"
 msgstr ""
 
-#: iw/partition_gui.py:1438
+#: iw/partition_gui.py:1567
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
@@ -2715,7 +2715,7 @@ msgid ""
 "using LVM please consult the %s documentation\n"
 msgstr ""
 
-#: iw/partition_gui.py:1446
+#: iw/partition_gui.py:1575
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create a LV you need a VG "
@@ -2723,47 +2723,47 @@ msgid ""
 "\n"
 msgstr ""
 
-#: iw/partition_gui.py:1450
+#: iw/partition_gui.py:1579
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgstr ""
 
-#: iw/partition_gui.py:1454
+#: iw/partition_gui.py:1583
 msgid "You currently have free space to create PVs."
 msgstr ""
 
-#: iw/partition_gui.py:1457
+#: iw/partition_gui.py:1586
 msgid "About LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1489
+#: iw/partition_gui.py:1618
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: iw/partition_gui.py:1490
+#: iw/partition_gui.py:1619
 msgid "The drive clone editor could not be created for some reason."
 msgstr ""
 
-#: iw/partition_gui.py:1549 storage/partitioning.py:190
+#: iw/partition_gui.py:1678 storage/partitioning.py:190
 #: storage/partitioning.py:231
 msgid "Error Partitioning"
 msgstr ""
 
-#: iw/partition_gui.py:1550
+#: iw/partition_gui.py:1679
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1559
+#: iw/partition_gui.py:1688
 #, python-format
 msgid "Warning: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1590
+#: iw/partition_gui.py:1719
 msgid "Unable To Edit"
 msgstr ""
 
-#: iw/partition_gui.py:1591
+#: iw/partition_gui.py:1720
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -2771,15 +2771,15 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/partition_gui.py:1762
+#: iw/partition_gui.py:1891
 msgid "_Create"
 msgstr ""
 
-#: iw/partition_gui.py:1765
+#: iw/partition_gui.py:1894
 msgid "Re_set"
 msgstr ""
 
-#: iw/partition_gui.py:1788
+#: iw/partition_gui.py:1917
 msgid "Please Select A Device"
 msgstr ""
 
@@ -4190,90 +4190,90 @@ msgid ""
 "\n"
 msgstr ""
 
-#: storage/__init__.py:861
+#: storage/__init__.py:864
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 
-#: storage/__init__.py:866
+#: storage/__init__.py:869
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 
-#: storage/__init__.py:872
+#: storage/__init__.py:875
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s install."
 msgstr ""
 
-#: storage/__init__.py:882
+#: storage/__init__.py:885
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr ""
 
-#: storage/__init__.py:889
+#: storage/__init__.py:892
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
 
-#: storage/__init__.py:918
+#: storage/__init__.py:921
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: storage/__init__.py:921
+#: storage/__init__.py:924
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
-#: storage/__init__.py:928
+#: storage/__init__.py:931
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
 msgstr ""
 
-#: storage/__init__.py:933
+#: storage/__init__.py:936
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: storage/__init__.py:940
+#: storage/__init__.py:943
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
-#: storage/__init__.py:944
+#: storage/__init__.py:947
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr ""
 
-#: storage/__init__.py:955
+#: storage/__init__.py:958
 msgid "No Drives Found"
 msgstr ""
 
-#: storage/__init__.py:956
+#: storage/__init__.py:959
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: storage/__init__.py:1188 storage/__init__.py:1197
+#: storage/__init__.py:1191 storage/__init__.py:1200
 msgid "Dirty File Systems"
 msgstr ""
 
-#: storage/__init__.py:1189
+#: storage/__init__.py:1192
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4282,7 +4282,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:1198
+#: storage/__init__.py:1201
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4290,7 +4290,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:1670
+#: storage/__init__.py:1673
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4301,7 +4301,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: storage/__init__.py:1681
+#: storage/__init__.py:1684
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4313,7 +4313,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: storage/__init__.py:1689
+#: storage/__init__.py:1692
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4325,7 +4325,7 @@ msgid ""
 "make sure the installer is set to format all swap devices."
 msgstr ""
 
-#: storage/__init__.py:1701
+#: storage/__init__.py:1704
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4336,7 +4336,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: storage/__init__.py:1712
+#: storage/__init__.py:1715
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4347,7 +4347,7 @@ msgid ""
 "Press OK to exit the installer"
 msgstr ""
 
-#: storage/__init__.py:1719
+#: storage/__init__.py:1722
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4357,11 +4357,11 @@ msgid ""
 "Press OK to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1780 storage/__init__.py:1792
+#: storage/__init__.py:1783 storage/__init__.py:1795
 msgid "Invalid mount point"
 msgstr ""
 
-#: storage/__init__.py:1781
+#: storage/__init__.py:1784
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4370,7 +4370,7 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1793
+#: storage/__init__.py:1796
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -4379,18 +4379,18 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1808 storage/__init__.py:1831
+#: storage/__init__.py:1811 storage/__init__.py:1834
 msgid "Unable to mount filesystem"
 msgstr ""
 
-#: storage/__init__.py:1809
+#: storage/__init__.py:1812
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
 
-#: storage/__init__.py:1832
+#: storage/__init__.py:1835
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -4461,7 +4461,7 @@ msgstr ""
 msgid "_Re-initialize"
 msgstr ""
 
-#: storage/devicetree.py:1815 storage/devicetree.py:1864
+#: storage/devicetree.py:1819 storage/devicetree.py:1868
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

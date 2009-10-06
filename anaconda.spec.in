@@ -216,6 +216,34 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 06 2009 David Cantrell <dcantrell@redhat.com> - 13.1-1
+- Tell udev to ignore temporary cryptsetup devices. (#526699) (dlehman)
+- Have redhat.exec reference generic.prm, not redhat.parm (dcantrell)
+- Bring back cio_ignore=all, !0.0.0009 for generic.prm on s390x (#463544)
+  (dcantrell)
+- Take 70-persistent-net.rules generated at installation (#526322)
+  (dcantrell)
+- Use $LIBDIR to find the boot-wrapper file. (jkeating)
+- formatByDefault: Don't traceback when mountpoint is None (#522609)
+  (hdegoede)
+- Don't warn /usr should be formatted when "Format as:" is already selected
+  (hdegoede)
+- Bring up network interface before trying to use it for FCoE (hdegoede)
+- DMRaidArray: Don't report no media present when in teared down state
+  (hdegoede)
+- Wait for udev to settle before trying to find dmraid sets in udev DB
+  (hdegoede)
+- Implement the double click for free space on the bar view (jgranado)
+- Pass only cCB and dcCB to the StripeGraph classes. (jgranado)
+- React to a double click on a "free row" in the tree view. (jgranado)
+- Create getCurrentDeviceParent function. (jgranado)
+- Make sure we don't exceed the 80 character threshold (jgranado)
+- Display an LVM graph on the bar view when we click on the VG's free space
+  (jgranado)
+- Add a free row in the LVM tree view when necessary. (jgranado)
+- Reorganize the tree view related to lvm. (jgranado)
+- Remove unneeded variable (jgranado)
+
 * Mon Oct 05 2009 David Cantrell <dcantrell@redhat.com> - 13.0-1
 - Remove an errant popd. Probably cut/paste error. (jkeating)
 - Only add the .img file to .treeinfo if it exists. (jkeating)
