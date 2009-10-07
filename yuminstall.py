@@ -291,24 +291,6 @@ class AnacondaYum(YumSorter):
         # where Packages/ is located.
         self.tree = "/mnt/source"
 
-        # yum doesn't understand all our method URLs, so use this for all
-        # except FTP and HTTP installs.
-        self._baseRepoURL = "file://%s" % self.tree
-
-        while True:
-            try:
-                self.configBaseURL()
-                break
-            except SystemError, e:
-                self.anaconda.intf.messageWindow(_("Error Setting Up Repository"),
-                    _("The following error occurred while setting up the "
-                      "installation repository:\n\n%s\n\nPlease provide the "
-                      "correct information for installing %s.") % (e, productName))
-
-                self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow()
-
-        self.doConfigSetup(root=anaconda.rootPath)
-        self.conf.installonlypkgs = []
         self.macros = {}
 
         if flags.selinux:
@@ -325,6 +307,26 @@ class AnacondaYum(YumSorter):
 
         self.updates = []
         self.localPackages = []
+
+    def setup(self):
+        # yum doesn't understand all our method URLs, so use this for all
+        # except FTP and HTTP installs.
+        self._baseRepoURL = "file://%s" % self.tree
+
+        while True:
+            try:
+                self.configBaseURL()
+                break
+            except SystemError, e:
+                self.anaconda.intf.messageWindow(_("Error Setting Up Repository"),
+                    _("The following error occurred while setting up the "
+                      "installation repository:\n\n%s\n\nPlease provide the "
+                      "correct information for installing %s.") % (e, productName))
+
+                self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow()
+
+        self.doConfigSetup(root=self.anaconda.rootPath)
+        self.conf.installonlypkgs = []
 
     def _switchCD(self, discnum):
         if os.access("%s/.discinfo" % self.tree, os.R_OK):
@@ -1055,6 +1057,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         iutil.writeRpmPlatform()
         self.ayum = AnacondaYum(anaconda)
+        self.ayum.setup()
 
         self.ayum.doMacros()
 
