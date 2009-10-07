@@ -171,6 +171,12 @@ def storageComplete(anaconda):
         return DISPATCH_BACK
 
 def writeEscrowPackets(anaconda):
+    escrowDevices = map(lambda d: d.format.type == "luks" and d.format.escrow_cert,
+                        anaconda.id.storage.devices)
+
+    if not escrowDevices:
+        return
+
     log.debug("escrow: writeEscrowPackets start")
 
     wait_win = anaconda.intf.waitWindow(_("Running..."),
@@ -180,13 +186,11 @@ def writeEscrowPackets(anaconda):
 
     backupPassphrase = generateBackupPassphrase()
     try:
-        for device in anaconda.id.storage.devices:
+        for device in escrowDevices:
             log.debug("escrow: device %s: %s" %
                       (repr(device.path), repr(device.format.type)))
-            if (device.format.type == "luks" and
-                device.format.escrow_cert is not None):
-                device.format.escrow(anaconda.rootPath + "/root",
-                                     backupPassphrase)
+            device.format.escrow(anaconda.rootPath + "/root",
+                                 backupPassphrase)
 
         wait_win.pop()
     except (IOError, RuntimeError) as e:
