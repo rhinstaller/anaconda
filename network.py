@@ -730,7 +730,7 @@ class Network:
             if not os.path.isdir("%s/etc/udev/rules.d" %(instPath,)):
                 iutil.mkdirChain("%s/etc/udev/rules.d" %(instPath,))
 
-            if os.path.isfile(rules):
+            if os.path.isfile(rules) and rules != destRules:
                 shutil.copy(rules, destRules)
             else:
                 f = open(destRules, "w")
