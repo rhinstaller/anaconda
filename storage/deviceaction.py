@@ -260,12 +260,13 @@ class ActionCreateFormat(DeviceAction):
             self.origFormat = getFormat(None)
 
     def execute(self, intf=None):
+        self.device.setup()
+
         if isinstance(self.device, PartitionDevice):
             if self.format.partedFlag is not None:
                 self.device.setFlag(self.format.partedFlag)
                 self.device.disk.format.commitToDisk()
 
-        self.device.setup()
         self.device.format.create(intf=intf,
                                   device=self.device.path,
                                   options=self.device.formatArgs)
@@ -297,13 +298,14 @@ class ActionDestroyFormat(DeviceAction):
     def execute(self, intf=None):
         """ wipe the filesystem signature from the device """
         if self.origFormat:
+            self.device.setup()
+
             if isinstance(self.device, PartitionDevice) and \
                self.origFormat.partedFlag is not None:
                 # unset partition flags and commit
                 self.device.unsetFlag(self.origFormat.partedFlag)
                 self.device.disk.format.commitToDisk()
 
-            self.device.setup()
             self.origFormat.destroy()
             udev_settle()
             self.device.teardown()
