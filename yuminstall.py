@@ -296,6 +296,24 @@ class AnacondaYum(YumSorter):
         # where Packages/ is located.
         self.tree = "/mnt/source"
 
+        self.macros = {}
+
+        if flags.selinux:
+            for directory in ("/tmp/updates",
+                        "/etc/selinux/targeted/contexts/files",
+                        "/etc/security/selinux/src/policy/file_contexts",
+                        "/etc/security/selinux"):
+                fn = "%s/file_contexts" %(directory,)
+                if os.access(fn, os.R_OK):
+                    break
+            self.macros["__file_context_path"] = fn
+        else:
+            self.macros["__file_context_path"]  = "%{nil}"
+
+        self.updates = []
+        self.localPackages = []
+
+    def setup(self):
         # yum doesn't understand all our method URLs, so use this for all
         # except FTP and HTTP installs.
         self._baseRepoURL = "file://%s" % self.tree
@@ -313,24 +331,8 @@ class AnacondaYum(YumSorter):
 
                 self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow()
 
-        self.doConfigSetup(root=anaconda.rootPath)
+        self.doConfigSetup(root=self.anaconda.rootPath)
         self.conf.installonlypkgs = []
-        self.macros = {}
-
-        if flags.selinux:
-            for directory in ("/tmp/updates",
-                        "/etc/selinux/targeted/contexts/files",
-                        "/etc/security/selinux/src/policy/file_contexts",
-                        "/etc/security/selinux"):
-                fn = "%s/file_contexts" %(directory,)
-                if os.access(fn, os.R_OK):
-                    break
-            self.macros["__file_context_path"] = fn
-        else:
-            self.macros["__file_context_path"]  = "%{nil}"
-
-        self.updates = []
-        self.localPackages = []
 
     def _switchCD(self, discnum):
         if os.access("%s/.discinfo" % self.tree, os.R_OK):
@@ -1092,6 +1094,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         iutil.writeRpmPlatform()
         self.ayum = AnacondaYum(anaconda)
+        self.ayum.setup()
 
         self.ayum.doMacros()
 
