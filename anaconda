@@ -82,19 +82,6 @@ def doStartupX11Actions(runres="800x600"):
 	miniwm_pid = None
 	log.error("Unable to start mini-wm")
 
-    # cant do this if miniwm didnt run because otherwise when
-    # we open and close an X connection in the xutils calls
-    # the X server will exit since this is the first X
-    # connection (if miniwm isnt running)
-    if miniwm_pid is not None and not flags.usevnc:
-        try:
-            iutil.execWithRedirect("xrandr", ["-s", runres, "--dpi", "96"],
-				   searchPath=1, stdout="/dev/tty5",
-				   stderr="/dev/tty5")
-        except Exception, e:
-            log.error("Exception when running xrandr: %s" % str(e))
-
-
     if miniwm_pid is not None:
 	import xutils
 	import gtk
