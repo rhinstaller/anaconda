@@ -111,7 +111,10 @@ api:
 	doxygen docs/api.cfg
 
 rpmlog:
-	@git log --pretty="format:- %s (%ae)" $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE).. | sed -e 's/@.*)/)/' | sed -e 's/%/%%/g'
+	@git log --pretty="format:- %s (%ae)" \
+		$(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE).. | \
+		sed -e 's/@.*)/)/' | sed -e 's/%/%%/g' | \
+		grep -v "- Sending translation for "
 	@echo
 
 bumpver:
