@@ -237,9 +237,12 @@ class Device(object):
         """
         new = self.__class__.__new__(self.__class__)
         memo[id(self)] = new
-        shallow_copy_attrs = ('_partedDevice', '_partedPartition', '_raidSet')
+        dont_copy_attrs = ('_raidSet',)
+        shallow_copy_attrs = ('_partedDevice', '_partedPartition')
         for (attr, value) in self.__dict__.items():
-            if attr in shallow_copy_attrs:
+            if attr in dont_copy_attrs:
+                setattr(new, attr, value)
+            elif attr in shallow_copy_attrs:
                 setattr(new, attr, copy.copy(value))
             else:
                 setattr(new, attr, copy.deepcopy(value, memo))
