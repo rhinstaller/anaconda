@@ -423,6 +423,10 @@ class RepoMethodstrEditor(RepoEditor):
                                       "and try again."))
             return False
 
+        self.anaconda.backend.ayum.mediagrabber = self.anaconda.backend.ayum.mediaHandler
+        self.anaconda.backend.ayum.anaconda.mediaDevice = cdr
+        self.anaconda.backend.ayum.currentMedia = 1
+        log.info("found installation media on %s" % cdr)
         return "cdrom://%s:%s" % (cdr, self.anaconda.backend.ayum.tree)
 
     def _applyNfs(self):
