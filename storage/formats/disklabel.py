@@ -125,7 +125,7 @@ class DiskLabel(DeviceFormat):
             # to find a device.
             try:
                  self._partedDevice = parted.Device(path=self.device)
-            except _ped.IOException:
+            except (_ped.IOException, _ped.DeviceException):
                  pass
 
         return self._partedDevice
