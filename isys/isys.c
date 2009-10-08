@@ -769,6 +769,7 @@ static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args) {
         return NULL;
     }
 
+    memset(&state, 0, sizeof(state));
     XkbGetState(d, XkbUseCoreKbd, &state);
 
     if (XCloseDisplay(d)) {
