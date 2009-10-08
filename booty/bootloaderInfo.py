@@ -142,8 +142,6 @@ class KernelArguments:
                     vname = vname.strip()
                     vparm = vparm.replace('"','')
                     vparm = vparm.strip()
-                    if vname == "DASD":
-                        newArgs.append("dasd=" + vparm)
                     if vname == "CHANDEV":
                         self.cargs.append(vparm)
                     if vname == "QETHPARM":
