@@ -154,10 +154,18 @@ def deviceNameToDiskByPath(deviceName=None):
     if not os.path.isdir(bypath):
         return ""
 
+    deviceName = os.path.basename(deviceName)
+
     for path in os.listdir(bypath):
-        target = os.path.basename(os.readlink(bypath + '/' + path))
+        entry = bypath + '/' + path
+
+        if os.path.islink(entry):
+            target = os.path.basename(os.readlink(entry))
+        else:
+            target = os.path.basename(entry)
+
         if target == deviceName:
-            return path
+            return entry
 
     return ""
 
