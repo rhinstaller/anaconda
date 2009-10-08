@@ -274,6 +274,9 @@ class ActionCreateFormat(DeviceAction):
             if self.format.partedFlag is not None:
                 self.device.setFlag(self.format.partedFlag)
 
+            if self.format.partedSystem is not None:
+                self.device.partedPartition.system = self.format.partedSystem
+
             self.device.disk.format.commitToDisk()
 
         self.device.format.create(intf=intf,

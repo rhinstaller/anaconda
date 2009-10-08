@@ -139,6 +139,7 @@ class DeviceFormat(object):
     _name = "Unknown"
     _udevTypes = []
     partedFlag = None
+    partedSystem = None
     _formattable = False                # can be formatted
     _supported = False                  # is supported
     _linuxNative = False                # for clearpart
