@@ -132,7 +132,7 @@ def questionInitializeDisk(intf=None, path=None, description=None):
             path = '/dev/' + path
 
         dev = parted.getDevice(path)
-        bypath = deviceNameToDiskByPath(path)
+        bypath = os.path.basename(deviceNameToDiskByPath(path))
         details = ""
 
         if description is None:
