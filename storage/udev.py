@@ -157,6 +157,14 @@ def udev_device_is_md(info):
     return info.has_key("MD_DEVNAME") and \
            info.has_key("MD_METADATA")
 
+def udev_device_is_dasd(info):
+    """ Return True if the device is a dasd device. """
+    devname = info.get("DEVNAME")
+    if devname:
+        return devname.startswith("dasd")
+    else:
+        return False
+
 def udev_device_is_cdrom(info):
     """ Return True if the device is an optical drive. """
     # FIXME: how can we differentiate USB drives from CD-ROM drives?
