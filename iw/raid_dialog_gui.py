@@ -169,7 +169,10 @@ class RaidEditor:
             if mountpoint:
                 used = False
                 for (mp, dev) in self.storage.mountpoints.iteritems():
-                    if mp == mountpoint and dev.id != self.origrequest.id:
+                    if mp == mountpoint and \
+                       dev.id != self.origrequest.id and \
+                       not (self.origrequest.format.type == "luks" and
+                            self.origrequest in dev.parents):
                         used = True
                         break
 
