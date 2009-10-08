@@ -1170,6 +1170,9 @@ class DeviceTree(object):
             # This needs bug #523314 fixed
             kwargs["uuid"] = udev_device_get_md_uuid(info)
             kwargs["exists"]  = True
+        elif udev_device_is_dasd(info):
+            diskType = DASDDevice
+            log.debug("%s is a dasd device" % name)
         else:
             diskType = DiskDevice
             log.debug("%s is a disk" % name)
