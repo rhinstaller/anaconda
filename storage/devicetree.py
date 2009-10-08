@@ -1003,21 +1003,11 @@ class DeviceTree(object):
                 if udev_device_is_multipath_partition(info, self):
                     diskname = udev_device_get_multipath_partition_disk(info)
                     disk = self.getDeviceByName(diskname)
-                    device = PartitionDevice(name, sysfsPath=sysfs_path,
-                                             major=udev_device_get_major(info),
-                                             minor=udev_device_get_minor(info),
-                                             exists=True, parents=[disk])
+                    return self.addUdevPartitionDevice(info, disk=disk)
                 elif udev_device_is_dmraid_partition(info, self):
                     diskname = udev_device_get_dmraid_partition_disk(info)
                     disk = self.getDeviceByName(diskname)
-                    device = PartitionDevice(name, sysfsPath=sysfs_path,
-                                             major=udev_device_get_major(info),
-                                             minor=udev_device_get_minor(info),
-                                             exists=True, parents=[disk])
-                if not device is None:
-                    # DWL FIXME: call self.addUdevPartitionDevice here instead
-                    self._addDevice(device)
-
+                    return self.addUdevPartitionDevice(info, disk=disk)
 
             # if we get here, we found all of the slave devices and
             # something must be wrong -- if all of the slaves are in
@@ -1085,16 +1075,17 @@ class DeviceTree(object):
 
         return device
 
-    def addUdevPartitionDevice(self, info):
+    def addUdevPartitionDevice(self, info, disk=None):
         name = udev_device_get_name(info)
         log_method_call(self, name=name)
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
         device = None
 
-        disk_name = os.path.basename(os.path.dirname(sysfs_path))
-        disk_name = disk_name.replace('!','/')
-        disk = self.getDeviceByName(disk_name)
+        if disk is None:
+            disk_name = os.path.basename(os.path.dirname(sysfs_path))
+            disk_name = disk_name.replace('!','/')
+            disk = self.getDeviceByName(disk_name)
 
         if disk is None:
             # create a device instance for the disk
