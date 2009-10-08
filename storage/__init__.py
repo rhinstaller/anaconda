@@ -171,8 +171,9 @@ def storageComplete(anaconda):
         return DISPATCH_BACK
 
 def writeEscrowPackets(anaconda):
-    escrowDevices = map(lambda d: d.format.type == "luks" and d.format.escrow_cert,
-                        anaconda.id.storage.devices)
+    escrowDevices = filter(lambda d: d.format.type == "luks" and \
+                                     d.format.escrow_cert,
+                           anaconda.id.storage.devices)
 
     if not escrowDevices:
         return
