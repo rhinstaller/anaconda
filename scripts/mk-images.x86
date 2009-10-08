@@ -177,5 +177,6 @@ doPostImages() {
         if [ -x /usr/bin/isohybrid ]; then
             isohybrid $TOPDESTPATH/images/$BOOTISO || echo "Unable to make hybrid boot.iso"
         fi
+	implantisomd5 $TOPDESTPATH/images/$BOOTISO
     fi
 }
