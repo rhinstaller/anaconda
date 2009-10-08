@@ -215,6 +215,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Oct 08 2009 Radek Vykydal <rvykydal@redhat.com> - 12.35-1
+- Override fstabSpec in PartitionDevice for by-path DASD (#526364). (dcantrell)
+- Create DASDDevice objects for DASD devices when building devicetree. 
+  (dcantrell)
+- Add udev_device_is_dasd() to detect DASD devices. (dcantrell)
+- Change existing call to deviceNameToDiskByPath(). (dcantrell)
+- Make storage.devices.deviceNameToDiskByPath() more robust. (dcantrell)
+- Do not copy over 70-persistent.rules if instPath is '' (#527707) (dcantrell)
+- Filter out 'Sending translation for' log messages in bumpver. (dcantrell)
+- Don't copy _raidSet, but merely pass around a reference (hdegoede)
+- Action...Format setup device before modifying the partition table (hdegoede)
+- map() -> filter() in storage.writeEscrowPackets() (dcantrell)
+- Only initialize escrow packet code if there's devices that need it (#527668).
+  (clumens)
+- Stop trying to run xrandr (#527678). (clumens)
+- On lookup of a PartedDevice also check for _ped.DeviceException (#527699)
+  (hdegoede)
+- Set related ayum attributes if media is found when editing methodstr
+  (#515441). (rvykydal)
+- In repo editing UI do not use object we are creating (#515441). (rvykydal)
+
 * Tue Oct 06 2009 David Cantrell <dcantrell@redhat.com> - 12.34-1
 - Tell udev to ignore temporary cryptsetup devices. (#526699) (dlehman)
 - Use $LIBDIR to find the boot-wrapper file. (jkeating)
