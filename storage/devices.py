@@ -991,6 +991,15 @@ class PartitionDevice(StorageDevice):
         return (self.partType is not None and
                 self.partType & parted.PARTITION_PROTECTED)
 
+    @property
+    def fstabSpec(self):
+        spec = self.path
+        if self.disk and self.disk.type == 'dasd':
+            spec = deviceNameToDiskByPath(self.path)
+        elif self.format and self.format.uuid:
+            spec = "UUID=%s" % self.format.uuid
+        return spec
+
     def _getPartedPartition(self):
         if not self.exists:
             return self._partedPartition
