@@ -28,6 +28,7 @@ from udev import *
 from devices import StorageDevice, PartitionDevice
 from formats import getFormat
 from errors import *
+from parted import partitionFlag, PARTITION_BOOT, PARTITION_LBA
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -265,9 +266,17 @@ class ActionCreateFormat(DeviceAction):
         self.device.setup()
 
         if isinstance(self.device, PartitionDevice):
+            # Flags which are truely flags, not types, so we shouldn't reset
+            reallyFlags = [ PARTITION_BOOT, PARTITION_LBA ]
+            for flag in partitionFlag.keys():
+                if flag in reallyFlags or flag == self.format.partedFlag:
+                    continue
+                self.device.unsetFlag(flag)
+
             if self.format.partedFlag is not None:
                 self.device.setFlag(self.format.partedFlag)
-                self.device.disk.format.commitToDisk()
+
+            self.device.disk.format.commitToDisk()
 
         self.device.format.create(intf=intf,
                                   device=self.device.path,
@@ -310,13 +319,6 @@ class ActionDestroyFormat(DeviceAction):
             # since then (most notably, formats removed by this very
             # class' constructor)
             self._device.setup()
-
-            if isinstance(self._device, PartitionDevice) and \
-               self.origFormat.partedFlag is not None:
-                # unset partition flags and commit
-                self._device.unsetFlag(self.origFormat.partedFlag)
-                self._device.disk.format.commitToDisk()
-
             self.origFormat.destroy()
             udev_settle()
             self._device.teardown()
