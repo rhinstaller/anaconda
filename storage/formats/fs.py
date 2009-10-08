@@ -36,6 +36,7 @@ from ..errors import *
 from . import DeviceFormat, register_device_format
 import iutil
 from flags import flags
+from parted import fileSystemType
 
 # is this nasty?
 log_method_call = iutil.log_method_call
@@ -827,6 +828,7 @@ class Ext2FS(FS):
     _infofs = "dumpe2fs"
     _defaultInfoOptions = ["-h"]
     _existingSizeFields = ["Block count:", "Block size:"]
+    partedSystem = fileSystemType["ext2"]
 
     def doMigrate(self, intf=None):
         FS.doMigrate(self, intf=intf)
@@ -897,6 +899,7 @@ class Ext3FS(Ext2FS):
     _migrationTarget = "ext4"
     _modules = ["ext3"]
     _defaultMigrateOptions = ["-O", "extents"]
+    partedSystem = fileSystemType["ext3"]
 
     def _isMigratable(self):
         """ Can filesystems of this type be migrated? """
@@ -914,6 +917,7 @@ class Ext4FS(Ext3FS):
     _defaultFormatOptions = ["-t", "ext4"]
     _migratable = False
     _modules = ["ext4"]
+    partedSystem = fileSystemType["ext4"]
 
 register_device_format(Ext4FS)
 
@@ -930,6 +934,8 @@ class FATFS(FS):
     _maxSize = 1024 * 1024
     _packages = [ "dosfstools" ]
     _defaultMountOptions = ["umask=0077", "shortname=winnt"]
+    # FIXME this should be fat32 in some cases
+    partedSystem = fileSystemType["fat16"]
 
 register_device_format(FATFS)
 
@@ -969,6 +975,9 @@ class BTRFS(FS):
     _check = True
     _packages = ["btrfs-progs"]
     _maxSize = 16 * 1024 * 1024
+    # FIXME parted needs to be thaught about btrfs so that we can set the
+    # partition table type correctly for btrfs partitions
+    # partedSystem = fileSystemType["btrfs"]
 
     def _getFormatOptions(self, options=None):
         argv = []
@@ -1009,6 +1018,9 @@ class GFS2(FS):
     _dump = True
     _check = True
     _packages = ["gfs2-utils"]
+    # FIXME parted needs to be thaught about btrfs so that we can set the
+    # partition table type correctly for btrfs partitions
+    # partedSystem = fileSystemType["gfs2"]
 
     @property
     def supported(self):
@@ -1040,6 +1052,7 @@ class JFS(FS):
     _infofs = "jfs_tune"
     _defaultInfoOptions = ["-l"]
     _existingSizeFields = ["Aggregate block size:", "Aggregate size:"]
+    partedSystem = fileSystemType["jfs"]
 
     @property
     def supported(self):
@@ -1073,6 +1086,7 @@ class ReiserFS(FS):
     _infofs = "debugreiserfs"
     _defaultInfoOptions = []
     _existingSizeFields = ["Count of blocks on the device:", "Blocksize:"]
+    partedSystem = fileSystemType["reiserfs"]
 
     @property
     def supported(self):
@@ -1111,6 +1125,7 @@ class XFS(FS):
     _defaultInfoOptions = ["-c", "\"sb 0\"", "-c", "\"p dblocks\"",
                            "-c", "\"p blocksize\""]
     _existingSizeFields = ["dblocks =", "blocksize ="]
+    partedSystem = fileSystemType["xfs"]
 
 register_device_format(XFS)
 
@@ -1120,6 +1135,7 @@ class HFS(FS):
     _mkfs = "hformat"
     _modules = ["hfs"]
     _formattable = True
+    partedSystem = fileSystemType["hfs"]
 
 register_device_format(HFS)
 
@@ -1149,6 +1165,7 @@ class HFSPlus(FS):
     _type = "hfs+"
     _modules = ["hfsplus"]
     _udevTypes = ["hfsplus"]
+    partedSystem = fileSystemType["hfs+"]
 
 register_device_format(HFSPlus)
 
@@ -1167,6 +1184,7 @@ class NTFS(FS):
     _infofs = "ntfsinfo"
     _defaultInfoOptions = ["-m"]
     _existingSizeFields = ["Cluster Size:", "Volume Size in Clusters:"]
+    partedSystem = fileSystemType["ntfs"]
 
     @property
     def minSize(self):
