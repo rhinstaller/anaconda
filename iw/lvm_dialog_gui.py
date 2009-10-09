@@ -639,10 +639,11 @@ class VolumeGroupEditor:
                     # the devices in the tree
                     mountdevs = self.lvs.values()
                     full_name = "%s-%s" % (self.vg.name, lv['name'])
-                    for (mp,d) in self.storage.mountpoints.iteritems():
-                        if (d.type != "lvmlv" or d.vg.id != self.vg.id) and \
+                    for (mp,dev) in self.storage.mountpoints.iteritems():
+                        if (dev.type != "lvmlv" or
+                            dev.vg.id != self.vg.id) and \
                            mp == mountpoint and \
-                           not (isinstance(d, LUKSDevice) and
+                           not (isinstance(dev, LUKSDevice) and
                                 full_name in [d.name for d in dev.parents]):
                             used = True
                             break
