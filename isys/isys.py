@@ -516,8 +516,13 @@ def getMacAddress(dev):
     if device_props_iface is None:
         return None
 
-    device_macaddr = device_props_iface.Get(NM_MANAGER_IFACE, "HwAddress")
-    return device_macaddr.upper()
+    device_macaddr = None
+    try:
+        device_macaddr = device_props_iface.Get(NM_MANAGER_IFACE, "HwAddress").upper()
+    except dbus.exceptions.DBusException as e:
+        if e.get_dbus_name() != 'org.freedesktop.DBus.Error.InvalidArgs':
+            raise
+    return device_macaddr
 
 # Get a description string for a network device (e.g., eth0)
 def getNetDevDesc(dev):
