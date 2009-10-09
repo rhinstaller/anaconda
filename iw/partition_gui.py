@@ -31,6 +31,7 @@ import gui
 import parted
 import string
 import types
+import copy
 from constants import *
 
 import storage
@@ -1118,8 +1119,9 @@ class PartitionWindow(InstallWindow):
 							  isNew = isNew,
                                                           restrictfs = restrictfs)
 
-	while 1:
-	    actions = parteditor.run()
+        while 1:
+            orig_device = copy.copy(device)
+            actions = parteditor.run()
 
             for action in actions:
                 # XXX we should handle exceptions here
@@ -1131,6 +1133,15 @@ class PartitionWindow(InstallWindow):
                 actions.reverse()
                 for action in actions:
                     self.anaconda.id.storage.devicetree.cancelAction(action)
+
+                # hack
+                if not isNew:
+                    device.req_size = orig_device.req_size
+                    device.req_base_size = orig_device.req_base_size
+                    device.req_grow = orig_device.req_grow
+                    device.req_max_size = orig_device.req_max_size
+                    device.req_primary = orig_device.req_primary
+                    device.req_disks = orig_device.req_disks
 
                 if self.refresh():
                     # this worked before and doesn't now...
