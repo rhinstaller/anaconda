@@ -2807,6 +2807,19 @@ class MultipathDevice(DiskDevice):
         self._isUp = False
         self._pyBlockMultiPath = None
 
+    def updateSysfsPath(self):
+        """ Update this device's sysfs path. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created", self.name)
+
+        if self.status:
+            dm_node = self.getDMNode()
+            path = os.path.join("/sys", self.sysfsBlockDir, dm_node)
+            self.sysfsPath = os.path.realpath(path)[4:]
+        else:
+            self.sysfsPath = ''
+
 class NoDevice(StorageDevice):
     """ A nodev device for nodev filesystems like tmpfs. """
     _type = "nodev"
