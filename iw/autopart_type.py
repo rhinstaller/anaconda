@@ -297,10 +297,17 @@ class PartitionTypeWindow(InstallWindow):
 
             err = None
             try:
-                idx = target.rfind(":")
+                count = len(target.split(":"))
+                idx = target.rfind("]:")
+                # Check for IPV6 [IPV6-ip]:port
                 if idx != -1:
+                    ip = target[1:idx]
+                    port = target[idx+2:]
+                # Check for IPV4 aaa.bbb.ccc.ddd:port
+                elif count == 2:
+                    idx = target.rfind(":")
                     ip = target[:idx]
-                    port = target[idx:]
+                    port = target[idx+1:]
                 else:
                     ip = target
                     port = "3260"
