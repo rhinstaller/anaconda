@@ -99,34 +99,106 @@ class x86BootloaderInfo(efiBootloaderInfo):
             if rc:
                 return rc
 
-    def installGrub(self, instRoot, bootDevs, grubTarget, grubPath,
+    def matchingBootTargets(self, stage1Devs, bootDevs):
+        matches = []
+        for stage1Dev in stage1Devs:
+            for mdBootPart in bootDevs:
+                if getDiskPart(stage1Dev, self.storage)[0] == getDiskPart(mdBootPart, self.storage)[0]:
+                    matches.append((stage1Dev, mdBootPart))
+        return matches
+
+    def addMemberMbrs(self, matches, bootDevs):
+        updatedMatches = list(matches)
+        bootDevsHavingStage1Dev = [match[1] for match in matches]
+        for mdBootPart in bootDevs:
+            if mdBootPart not in bootDevsHavingStage1Dev:
+               updatedMatches.append((getDiskPart(mdBootPart, self.storage)[0], mdBootPart))
+        return updatedMatches
+
+    def installGrub(self, instRoot, bootDev, grubTarget, grubPath,
                     target, cfPath):
         if iutil.isEfi():
-            return efiBootloaderInfo.installGrub(self, instRoot, bootDevs, grubTarget,
+            return efiBootloaderInfo.installGrub(self, instRoot, bootDev, grubTarget,
                                                  grubPath, target, cfPath)
 
         args = "--stage2=/boot/grub/stage2 "
 
-        for bootDev in bootDevs:
-            cmds = []
-            gtPart = self.getMatchingPart(bootDev, grubTarget)
-            gtDisk = self.grubbyPartitionName(getDiskPart(gtPart, self.storage)[0])
-            bPart = self.grubbyPartitionName(bootDev)
-            cmd = "root %s\n" % (bPart,)
+        stage1Devs = self.getPhysicalDevices(grubTarget)
+        bootDevs = self.getPhysicalDevices(bootDev.name)
 
-            stage1Target = gtDisk
-            if target == "partition":
-                stage1Target = self.grubbyPartitionName(gtPart)
+        installs = [(None,
+                     self.grubbyPartitionName(stage1Devs[0]),
+                     self.grubbyPartitionName(bootDevs[0]))]
 
+        if bootDev.type == "mdarray":
+
+            matches = self.matchingBootTargets(stage1Devs, bootDevs)
+
+            # If the stage1 target disk contains member of boot raid array (mbr
+            # case) or stage1 target partition is member of boot raid array
+            # (partition case)
+            if matches:
+                # 1) install stage1 on target disk/partiton
+                stage1Dev, mdMemberBootPart = matches[0]
+                installs = [(None,
+                             self.grubbyPartitionName(stage1Dev),
+                             self.grubbyPartitionName(mdMemberBootPart))]
+                firstMdMemberDiskGrubbyName = self.grubbyDiskName(getDiskPart(mdMemberBootPart, self.storage)[0])
+
+                # 2) and install stage1 on other members' disks/partitions too
+                # NOTES:
+                # - the goal is to be able to boot after a members' disk removal
+                # - so we have to use grub device names as if after removal
+                #   (i.e. the same disk name (e.g. (hd0)) for both member disks)
+                # - if member partitions have different numbers only removal of
+                #   specific one of members will work because stage2 containing
+                #   reference to config file is shared and therefore can contain
+                #   only one value
+
+                # if target is mbr, we want to install also to mbr of other
+                # members, so extend the matching list
+                matches = self.addMemberMbrs(matches, bootDevs)
+                for stage1Target, mdMemberBootPart in matches[1:]:
+                    # prepare special device mapping corresponding to member removal
+                    mdMemberBootDisk = getDiskPart(mdMemberBootPart, self.storage)[0]
+                    # It can happen due to ks --driveorder option, but is it ok?
+                    if not mdMemberBootDisk in self.drivelist:
+                        continue
+                    mdRaidDeviceRemap = (firstMdMemberDiskGrubbyName,
+                                         mdMemberBootDisk)
+
+                    stage1TargetGrubbyName = self.grubbyPartitionName(stage1Target)
+                    rootPartGrubbyName = self.grubbyPartitionName(mdMemberBootPart)
+
+                    # now replace grub disk name part according to special device
+                    # mapping
+                    old = self.grubbyDiskName(mdMemberBootDisk).strip('() ')
+                    new = firstMdMemberDiskGrubbyName.strip('() ')
+                    rootPartGrubbyName = rootPartGrubbyName.replace(old, new)
+                    stage1TargetGrubbyName = stage1TargetGrubbyName.replace(old, new)
+
+                    installs.append((mdRaidDeviceRemap,
+                                     stage1TargetGrubbyName,
+                                     rootPartGrubbyName))
+
+                # This is needed for case when /boot member partitions have
+                # different numbers. Shared stage2 can contain only one reference
+                # to grub.conf file, so let's ensure that it is reference to partition
+                # on disk which we will boot from - that is, install grub to
+                # this disk as last so that its reference is not overwritten.
+                installs.reverse()
+
+        cmds = []
+        for mdRaidDeviceRemap, stage1Target, rootPart in installs:
+            if mdRaidDeviceRemap:
+                cmd = "device (%s) /dev/%s\n" % tuple(mdRaidDeviceRemap)
+            else:
+                cmd = ''
+            cmd += "root %s\n" % (rootPart,)
             cmd += "install %s%s/stage1 d %s %s/stage2 p %s%s/grub.conf" % \
-                (args, grubPath, stage1Target, grubPath, bPart, grubPath)
+                (args, grubPath, stage1Target, grubPath, rootPart, grubPath)
             cmds.append(cmd)
-
-            rc = self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
-            if rc:
-                return rc
-
-        return 0
+        return self.runGrubInstall(instRoot, bootDev.name, cmds, cfPath)
 
     def writeGrub(self, instRoot, bl, kernelList, chainList,
             defaultDev, justConfigFile):
@@ -165,7 +237,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write("#          all kernel and initrd paths are relative "
                     "to /boot/, eg.\n")
         except KeyError:
-            bootDev = self.storage.rootDevice
+            bootDev = rootDev
             grubPath = "/boot/grub"
             cfPath = "/boot/"
             f.write("# NOTICE:  You do not have a /boot partition.  "
@@ -347,19 +419,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
         f.close()
             
         if not justConfigFile:
-            return self.installGrub(instRoot, bootDevs, grubTarget, grubPath,
-                                    target, cfPath)
+            return self.installGrub(instRoot, bootDev, grubTarget, grubPath,
+                             target, cfPath)
 
         return 0
-
-    def getMatchingPart(self, bootDev, target):
-        bootName, bootPartNum = getDiskPart(bootDev, self.storage)
-        devices = self.getPhysicalDevices(target)
-        for device in devices:
-            name, partNum = getDiskPart(device, self.storage)
-            if name == bootName:
-                return device
-        return devices[0]
 
     def grubbyDiskName(self, name):
         return "hd%d" % self.drivelist.index(name)

@@ -628,7 +628,7 @@ class efiBootloaderInfo(bootloaderInfo):
                                     stderr = "/dev/tty5")
         return rc
 
-    def installGrub(self, instRoot, bootDevs, grubTarget, grubPath,
+    def installGrub(self, instRoot, bootDev, grubTarget, grubPath,
                     target, cfPath):
         if not iutil.isEfi():
             raise EnvironmentError
