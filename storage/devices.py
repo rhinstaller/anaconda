@@ -2822,6 +2822,14 @@ class MultipathDevice(DiskDevice):
         else:
             self.sysfsPath = ''
 
+    def getDMNode(self):
+        """ Return the dm-X (eg: dm-0) device node for this device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created", self.name)
+
+        return dm.dm_node_from_name(self.name)
+
 class NoDevice(StorageDevice):
     """ A nodev device for nodev filesystems like tmpfs. """
     _type = "nodev"
