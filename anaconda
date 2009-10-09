@@ -774,6 +774,11 @@ if __name__ == "__main__":
     #
     if not opts.display_mode:
         opts.display_mode = 'g'
+    
+    # disable VNC over text question when not enough memory is available
+    if iutil.memInstalled() < isys.MIN_GUI_RAM:
+        flags.vncquestion = False
+
 
     if opts.display_mode == 't' and flags.vncquestion: #we prefer vnc over text mode, so ask about that
         title = _("Would you like to use VNC?")
