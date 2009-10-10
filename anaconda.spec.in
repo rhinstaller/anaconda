@@ -216,6 +216,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Oct 09 2009 David Cantrell <dcantrell@redhat.com> - 13.3-1
+- Reset PartitionDevice attributes after failed edit. (#498026) (dlehman)
+- Add MultipathDevice.getDMNode(), because .updateSysfsPath() needs it.
+  (pjones)
+- Add MultipathDevice.updateSysfsPath() (pjones)
+- Run implantisomd5 on boot.iso on x86. (bz#526902) (pjones)
+- Consider encryption when checking for duplicate mountpoint. (#526697)
+  (dlehman)
+- Fix grub stage1 installation for /boot on md raid1. (rvykydal)
+- Do not show the VNC-over-text question, when there is not enough memory
+  for GUI (#527979) (msivak)
+- Fix filtering out of 'Sending translation for' log messages in bumpver.
+  (rvykydal)
+- Use addUdevPartitionDevice() for adding dmraid / multipath partitions
+  (#527785) (hdegoede)
+- Set partedPartition system to the correct FS when creating an FS (hdegoede)
+- Reset parted flags in createFormat not destroyFormat (hdegoede)
+- Default to mbr bootloader target for mdraid 1 boot device too (#526822).
+  (rvykydal)
+- Clear out state before calling XkbGetState. (clumens)
+
 * Thu Oct 08 2009 Radek Vykydal <rvykydal@redhat.com> - 13.2-1
 - Override fstabSpec in PartitionDevice for by-path DASD (#526364). (dcantrell)
 - Create DASDDevice objects for DASD devices when building devicetree.
