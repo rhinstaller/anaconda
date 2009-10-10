@@ -215,6 +215,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Oct 09 2009 David Cantrell <dcantrell@redhat.com> - 12.36-1
+- Reset PartitionDevice attributes after failed edit. (#498026) (dlehman)
+- Fix cut/paste error in commit 299519d4a0693330ff6a50f3111d61feefabb0da.
+  (dlehman)
+- Consider encryption when checking for duplicate mountpoint. (#526697)
+  (dlehman)
+- Fix filtering out of 'Sending translation for' log messages in bumpver.
+  (rvykydal)
+- Use addUdevPartitionDevice() for adding dmraid / multipath partitions
+  (#527785) (hdegoede)
+- Set partedPartition system to the correct FS when creating an FS (hdegoede)
+- Reset parted flags in createFormat not destroyFormat (hdegoede)
+- Default to mbr bootloader target for mdraid 1 boot device too (#526822).
+  (rvykydal)
+- Clear out state before calling XkbGetState. (clumens)
+
 * Thu Oct 08 2009 Radek Vykydal <rvykydal@redhat.com> - 12.35-1
 - Override fstabSpec in PartitionDevice for by-path DASD (#526364). (dcantrell)
 - Create DASDDevice objects for DASD devices when building devicetree. 

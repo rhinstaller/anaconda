@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.34\n"
+"Project-Id-Version: anaconda 12.35\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-10-08 04:48-0400\n"
+"POT-Creation-Date: 2009-10-09 14:42-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,8 +126,8 @@ msgstr ""
 #: yuminstall.py:1327 yuminstall.py:1345 iw/autopart_type.py:99
 #: iw/autopart_type.py:198 iw/autopart_type.py:318 iw/autopart_type.py:321
 #: iw/autopart_type.py:388 iw/autopart_type.py:396 iw/autopart_type.py:425
-#: iw/osbootwidget.py:210 iw/osbootwidget.py:219 iw/raid_dialog_gui.py:721
-#: iw/raid_dialog_gui.py:760 iw/task_gui.py:63 iw/task_gui.py:179
+#: iw/osbootwidget.py:210 iw/osbootwidget.py:219 iw/raid_dialog_gui.py:724
+#: iw/raid_dialog_gui.py:763 iw/task_gui.py:63 iw/task_gui.py:179
 #: iw/task_gui.py:308 iw/task_gui.py:440 loader/cdinstall.c:228
 #: loader/cdinstall.c:517 loader/driverdisk.c:98 loader/driverdisk.c:305
 #: loader/driverdisk.c:340 loader/driverdisk.c:371 loader/driverdisk.c:379
@@ -147,7 +147,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: bootloader.py:53 bootloader.py:209 bootloader.py:216 image.py:82
+#: bootloader.py:53 bootloader.py:208 bootloader.py:215 image.py:82
 #: upgrade.py:251 yuminstall.py:1508 yuminstall.py:1544
 #: iw/autopart_type.py:208 iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:191
 #: iw/upgrade_swap_gui.py:199 iw/upgrade_swap_gui.py:206
@@ -176,31 +176,26 @@ msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:58 image.py:92 image.py:248 kickstart.py:1357
-#: kickstart.py:1396 upgrade.py:58 yuminstall.py:1163 iw/partition_gui.py:1037
+#: kickstart.py:1396 upgrade.py:58 yuminstall.py:1163 iw/partition_gui.py:1038
 #: storage/__init__.py:1818
 msgid "_Continue"
 msgstr ""
 
-#: bootloader.py:114 platform.py:93 platform.py:320 platform.py:388
-#: platform.py:488
-msgid "RAID Device"
-msgstr ""
-
-#: bootloader.py:143
+#: bootloader.py:142
 msgid "Bootloader"
 msgstr ""
 
-#: bootloader.py:143
+#: bootloader.py:142
 msgid "Installing bootloader."
 msgstr ""
 
-#: bootloader.py:210
+#: bootloader.py:209
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
 msgstr ""
 
-#: bootloader.py:217
+#: bootloader.py:216
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
@@ -854,7 +849,7 @@ msgstr ""
 msgid "You must first select a partition to delete."
 msgstr ""
 
-#: partIntfHelpers.py:153 partIntfHelpers.py:338 iw/lvm_dialog_gui.py:834
+#: partIntfHelpers.py:153 partIntfHelpers.py:338 iw/lvm_dialog_gui.py:838
 msgid "Confirm Delete"
 msgstr ""
 
@@ -863,8 +858,8 @@ msgstr ""
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr ""
 
-#: partIntfHelpers.py:157 partIntfHelpers.py:339 iw/lvm_dialog_gui.py:837
-#: iw/lvm_dialog_gui.py:1366 iw/osbootwidget.py:103 iw/partition_gui.py:1337
+#: partIntfHelpers.py:157 partIntfHelpers.py:339 iw/lvm_dialog_gui.py:841
+#: iw/lvm_dialog_gui.py:1370 iw/osbootwidget.py:103 iw/partition_gui.py:1348
 msgid "_Delete"
 msgstr ""
 
@@ -912,7 +907,7 @@ msgstr ""
 msgid "Format?"
 msgstr ""
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1035
+#: partIntfHelpers.py:249 iw/partition_gui.py:1036
 msgid "_Modify Partition"
 msgstr ""
 
@@ -947,7 +942,7 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: partIntfHelpers.py:287 iw/partition_gui.py:639
+#: partIntfHelpers.py:287 iw/partition_gui.py:640
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -997,6 +992,10 @@ msgstr ""
 #: partIntfHelpers.py:347
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
+msgstr ""
+
+#: platform.py:93 platform.py:320 platform.py:388 platform.py:488
+msgid "RAID Device"
 msgstr ""
 
 #: platform.py:94 platform.py:97 platform.py:321 platform.py:389
@@ -1126,7 +1125,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue.py:287 iw/partition_gui.py:543 loader/cdinstall.c:206
+#: rescue.py:287 iw/partition_gui.py:544 loader/cdinstall.c:206
 #: loader/cdinstall.c:214 loader/driverdisk.c:444 storage/__init__.py:140
 #: storage/devicetree.py:84
 msgid "Continue"
@@ -2047,8 +2046,8 @@ msgid "What language would you like to use during the installation process?"
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:124 iw/lvm_dialog_gui.py:170 iw/lvm_dialog_gui.py:182
-#: iw/lvm_dialog_gui.py:221 iw/lvm_dialog_gui.py:298 iw/lvm_dialog_gui.py:677
-#: iw/lvm_dialog_gui.py:697
+#: iw/lvm_dialog_gui.py:221 iw/lvm_dialog_gui.py:298 iw/lvm_dialog_gui.py:681
+#: iw/lvm_dialog_gui.py:701
 msgid "Not enough space"
 msgstr ""
 
@@ -2125,7 +2124,7 @@ msgstr ""
 msgid "Edit Logical Volume: %s"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:431 iw/raid_dialog_gui.py:394
+#: iw/lvm_dialog_gui.py:431 iw/raid_dialog_gui.py:397
 msgid "_File System Type:"
 msgstr ""
 
@@ -2133,7 +2132,7 @@ msgstr ""
 msgid "_Logical Volume Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:446 iw/partition_dialog_gui.py:431
+#: iw/lvm_dialog_gui.py:446 iw/partition_dialog_gui.py:434
 msgid "_Size (MB):"
 msgstr ""
 
@@ -2142,22 +2141,22 @@ msgstr ""
 msgid "(Max size is %s MB)"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:458 iw/partition_dialog_gui.py:483
-#: iw/partition_ui_helpers_gui.py:329 iw/raid_dialog_gui.py:366
+#: iw/lvm_dialog_gui.py:458 iw/partition_dialog_gui.py:486
+#: iw/partition_ui_helpers_gui.py:329 iw/raid_dialog_gui.py:369
 msgid "_Encrypt"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:467 iw/raid_dialog_gui.py:404
+#: iw/lvm_dialog_gui.py:467 iw/raid_dialog_gui.py:407
 msgid "Original File System Type:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:471 iw/partition_gui.py:776 iw/partition_gui.py:928
-#: iw/raid_dialog_gui.py:409
+#: iw/lvm_dialog_gui.py:471 iw/partition_gui.py:777 iw/partition_gui.py:929
+#: iw/raid_dialog_gui.py:412
 msgid "Unknown"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:475 iw/partition_dialog_gui.py:421
-#: iw/raid_dialog_gui.py:415
+#: iw/lvm_dialog_gui.py:475 iw/partition_dialog_gui.py:424
+#: iw/raid_dialog_gui.py:418
 msgid "Original File System Label:"
 msgstr ""
 
@@ -2169,8 +2168,8 @@ msgstr ""
 msgid "Size (MB):"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:511 iw/partition_dialog_gui.py:376
-#: iw/raid_dialog_gui.py:385
+#: iw/lvm_dialog_gui.py:511 iw/partition_dialog_gui.py:379
+#: iw/raid_dialog_gui.py:388
 msgid "_Mount Point:"
 msgstr ""
 
@@ -2187,26 +2186,26 @@ msgstr ""
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:648 iw/partition_dialog_gui.py:123
-#: iw/raid_dialog_gui.py:177
+#: iw/lvm_dialog_gui.py:652 iw/partition_dialog_gui.py:126
+#: iw/raid_dialog_gui.py:180
 msgid "Mount point in use"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:649 iw/partition_dialog_gui.py:124
-#: iw/raid_dialog_gui.py:178
+#: iw/lvm_dialog_gui.py:653 iw/partition_dialog_gui.py:127
+#: iw/raid_dialog_gui.py:181
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:664
+#: iw/lvm_dialog_gui.py:668
 msgid "Illegal size"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:665
+#: iw/lvm_dialog_gui.py:669
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:678
+#: iw/lvm_dialog_gui.py:682
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
@@ -2214,7 +2213,7 @@ msgid ""
 "Volumes from unpartitioned disk space and add them to this Volume Group."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:698
+#: iw/lvm_dialog_gui.py:702
 #, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
@@ -2222,44 +2221,44 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:788
+#: iw/lvm_dialog_gui.py:792
 msgid "No free slots"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:799
+#: iw/lvm_dialog_gui.py:803
 msgid "No free space"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:800
+#: iw/lvm_dialog_gui.py:804
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:835
+#: iw/lvm_dialog_gui.py:839
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:941
+#: iw/lvm_dialog_gui.py:945
 msgid "Invalid Volume Group Name"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:950
+#: iw/lvm_dialog_gui.py:954
 msgid "Name in use"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:951
+#: iw/lvm_dialog_gui.py:955
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1197
+#: iw/lvm_dialog_gui.py:1201
 msgid "Not enough physical volumes"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1198
+#: iw/lvm_dialog_gui.py:1202
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2268,69 +2267,69 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1209
+#: iw/lvm_dialog_gui.py:1213
 msgid "Make LVM Volume Group"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1212
+#: iw/lvm_dialog_gui.py:1216
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1214
+#: iw/lvm_dialog_gui.py:1218
 msgid "Edit LVM Volume Group"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1230
+#: iw/lvm_dialog_gui.py:1234
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1238
+#: iw/lvm_dialog_gui.py:1242
 msgid "Volume Group Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1246
+#: iw/lvm_dialog_gui.py:1250
 msgid "_Physical Extent:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1261
+#: iw/lvm_dialog_gui.py:1265
 msgid "Physical Volumes to _Use:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1267
+#: iw/lvm_dialog_gui.py:1271
 msgid "Used Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1284
+#: iw/lvm_dialog_gui.py:1288
 msgid "Free Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1302
+#: iw/lvm_dialog_gui.py:1306
 msgid "Total Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1340
+#: iw/lvm_dialog_gui.py:1344
 msgid "Logical Volume Name"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1343 iw/partition_gui.py:362
+#: iw/lvm_dialog_gui.py:1347 iw/partition_gui.py:363
 #: iw/upgrade_swap_gui.py:139 textw/upgrade_text.py:118
 msgid "Mount Point"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1346 iw/partition_gui.py:367
+#: iw/lvm_dialog_gui.py:1350 iw/partition_gui.py:368
 msgid "Size (MB)"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1360 iw/osbootwidget.py:95
+#: iw/lvm_dialog_gui.py:1364 iw/osbootwidget.py:95
 msgid "_Add"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1363 iw/osbootwidget.py:99 iw/partition_gui.py:1336
+#: iw/lvm_dialog_gui.py:1367 iw/osbootwidget.py:99 iw/partition_gui.py:1347
 msgid "_Edit"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1378
+#: iw/lvm_dialog_gui.py:1382
 msgid "_Logical Volumes"
 msgstr ""
 
@@ -2421,11 +2420,11 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: iw/osbootwidget.py:66 iw/partition_gui.py:361
+#: iw/osbootwidget.py:66 iw/partition_gui.py:362
 msgid "Label"
 msgstr ""
 
-#: iw/osbootwidget.py:66 iw/partition_gui.py:360
+#: iw/osbootwidget.py:66 iw/partition_gui.py:361
 msgid "Device"
 msgstr ""
 
@@ -2502,139 +2501,139 @@ msgstr ""
 msgid "Fill to maximum _allowable size"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:346
+#: iw/partition_dialog_gui.py:349
 msgid "Add Partition"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:348
+#: iw/partition_dialog_gui.py:351
 #, python-format
 msgid "Edit Partition: %s"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:385
+#: iw/partition_dialog_gui.py:388
 msgid "File System _Type:"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:401
+#: iw/partition_dialog_gui.py:404
 msgid "Allowable _Drives:"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:470
+#: iw/partition_dialog_gui.py:473
 msgid "Force to be a _primary partition"
 msgstr ""
 
-#: iw/partition_gui.py:319
+#: iw/partition_gui.py:320
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr ""
 
-#: iw/partition_gui.py:363
+#: iw/partition_gui.py:364
 msgid "Type"
 msgstr ""
 
-#: iw/partition_gui.py:366 storage/__init__.py:1643
+#: iw/partition_gui.py:367 storage/__init__.py:1643
 msgid "Format"
 msgstr ""
 
-#: iw/partition_gui.py:404
+#: iw/partition_gui.py:405
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr ""
 
-#: iw/partition_gui.py:406
+#: iw/partition_gui.py:407
 msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
 
-#: iw/partition_gui.py:518
+#: iw/partition_gui.py:519
 msgid "Partitioning"
 msgstr ""
 
-#: iw/partition_gui.py:608
+#: iw/partition_gui.py:609
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 
-#: iw/partition_gui.py:610
+#: iw/partition_gui.py:611
 #, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr ""
 
-#: iw/partition_gui.py:616
+#: iw/partition_gui.py:617
 msgid "Partitioning Errors"
 msgstr ""
 
-#: iw/partition_gui.py:623
+#: iw/partition_gui.py:624
 msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 
-#: iw/partition_gui.py:625
+#: iw/partition_gui.py:626
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: iw/partition_gui.py:630
+#: iw/partition_gui.py:631
 msgid "Partitioning Warnings"
 msgstr ""
 
-#: iw/partition_gui.py:651
+#: iw/partition_gui.py:652
 msgid "Format Warnings"
 msgstr ""
 
-#: iw/partition_gui.py:656
+#: iw/partition_gui.py:657
 msgid "_Format"
 msgstr ""
 
-#: iw/partition_gui.py:683
+#: iw/partition_gui.py:684
 msgid "LVM Volume Groups"
 msgstr ""
 
-#: iw/partition_gui.py:730
+#: iw/partition_gui.py:731
 msgid "RAID Devices"
 msgstr ""
 
-#: iw/partition_gui.py:797 loader/hdinstall.c:222
+#: iw/partition_gui.py:798 loader/hdinstall.c:222
 msgid "Hard Drives"
 msgstr ""
 
-#: iw/partition_gui.py:896
+#: iw/partition_gui.py:897
 msgid "Extended"
 msgstr ""
 
-#: iw/partition_gui.py:898
+#: iw/partition_gui.py:899
 msgid "software RAID"
 msgstr ""
 
-#: iw/partition_gui.py:930
+#: iw/partition_gui.py:931
 msgid "Free"
 msgstr ""
 
-#: iw/partition_gui.py:1023 storage/partitioning.py:190
+#: iw/partition_gui.py:1024 storage/partitioning.py:190
 #: storage/partitioning.py:231
 msgid "Error Partitioning"
 msgstr ""
 
-#: iw/partition_gui.py:1024
+#: iw/partition_gui.py:1025
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1033
+#: iw/partition_gui.py:1034
 #, python-format
 msgid "Warning: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1063 iw/partition_gui.py:1070
+#: iw/partition_gui.py:1064 iw/partition_gui.py:1071
 msgid "Unable To Edit"
 msgstr ""
 
-#: iw/partition_gui.py:1064
+#: iw/partition_gui.py:1065
 msgid "You must select a device to edit"
 msgstr ""
 
-#: iw/partition_gui.py:1071
+#: iw/partition_gui.py:1072
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -2642,33 +2641,33 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/partition_gui.py:1178 iw/partition_gui.py:1190
+#: iw/partition_gui.py:1189 iw/partition_gui.py:1201
 msgid "Not supported"
 msgstr ""
 
-#: iw/partition_gui.py:1179
+#: iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
 msgstr ""
 
-#: iw/partition_gui.py:1191
+#: iw/partition_gui.py:1202
 msgid "Software RAID is NOT supported on this platform."
 msgstr ""
 
-#: iw/partition_gui.py:1198
+#: iw/partition_gui.py:1209
 msgid "No RAID minor device numbers available"
 msgstr ""
 
-#: iw/partition_gui.py:1199
+#: iw/partition_gui.py:1210
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
 
-#: iw/partition_gui.py:1211
+#: iw/partition_gui.py:1222
 msgid "RAID Options"
 msgstr ""
 
-#: iw/partition_gui.py:1226
+#: iw/partition_gui.py:1237
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -2677,7 +2676,7 @@ msgid ""
 "using RAID devices please consult the %s documentation."
 msgstr ""
 
-#: iw/partition_gui.py:1236
+#: iw/partition_gui.py:1247
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -2685,49 +2684,49 @@ msgid ""
 "\n"
 msgstr ""
 
-#: iw/partition_gui.py:1242
+#: iw/partition_gui.py:1253
 msgid "What do you want to do now?"
 msgstr ""
 
-#: iw/partition_gui.py:1251
+#: iw/partition_gui.py:1262
 msgid "Create a software RAID _partition."
 msgstr ""
 
-#: iw/partition_gui.py:1254
+#: iw/partition_gui.py:1265
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr ""
 
-#: iw/partition_gui.py:1258
+#: iw/partition_gui.py:1269
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 
-#: iw/partition_gui.py:1300
+#: iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: iw/partition_gui.py:1301
+#: iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
 msgstr ""
 
-#: iw/partition_gui.py:1335
+#: iw/partition_gui.py:1346
 msgid "Ne_w"
 msgstr ""
 
-#: iw/partition_gui.py:1338
+#: iw/partition_gui.py:1349
 msgid "Re_set"
 msgstr ""
 
-#: iw/partition_gui.py:1339
+#: iw/partition_gui.py:1350
 msgid "R_AID"
 msgstr ""
 
-#: iw/partition_gui.py:1340
+#: iw/partition_gui.py:1351
 msgid "_LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1381
+#: iw/partition_gui.py:1392
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
@@ -2759,7 +2758,7 @@ msgstr ""
 msgid "Installing Packages"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:333
+#: iw/raid_dialog_gui.py:336
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -2768,51 +2767,51 @@ msgid ""
 "select the \"RAID\" option again."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:347 iw/raid_dialog_gui.py:784
+#: iw/raid_dialog_gui.py:350 iw/raid_dialog_gui.py:787
 msgid "Make RAID Device"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:350
+#: iw/raid_dialog_gui.py:353
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:352
+#: iw/raid_dialog_gui.py:355
 msgid "Edit RAID Device"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:423
+#: iw/raid_dialog_gui.py:426
 msgid "RAID _Device:"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:441
+#: iw/raid_dialog_gui.py:444
 msgid "RAID _Level:"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:483
+#: iw/raid_dialog_gui.py:486
 msgid "_RAID Members:"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:500
+#: iw/raid_dialog_gui.py:503
 msgid "Number of _spares:"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:510
+#: iw/raid_dialog_gui.py:513
 msgid "_Format partition?"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:584
+#: iw/raid_dialog_gui.py:587
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:588 iw/raid_dialog_gui.py:594
-#: iw/raid_dialog_gui.py:608 iw/raid_dialog_gui.py:621
+#: iw/raid_dialog_gui.py:591 iw/raid_dialog_gui.py:597
+#: iw/raid_dialog_gui.py:611 iw/raid_dialog_gui.py:624
 msgid "Source Drive Error"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:595
+#: iw/raid_dialog_gui.py:598
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -2820,7 +2819,7 @@ msgid ""
 "You must remove these partitions before this drive can be cloned. "
 msgstr ""
 
-#: iw/raid_dialog_gui.py:609
+#: iw/raid_dialog_gui.py:612
 #, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
@@ -2830,7 +2829,7 @@ msgid ""
 "drive can be cloned. "
 msgstr ""
 
-#: iw/raid_dialog_gui.py:622
+#: iw/raid_dialog_gui.py:625
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -2838,21 +2837,21 @@ msgid ""
 "You must remove these partitions before this drive can be cloned."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:636 iw/raid_dialog_gui.py:642
-#: iw/raid_dialog_gui.py:658
+#: iw/raid_dialog_gui.py:639 iw/raid_dialog_gui.py:645
+#: iw/raid_dialog_gui.py:661
 msgid "Target Drive Error"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:637
+#: iw/raid_dialog_gui.py:640
 msgid "Please select the target drives for the clone operation."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:643
+#: iw/raid_dialog_gui.py:646
 #, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:659
+#: iw/raid_dialog_gui.py:662
 #, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
@@ -2863,37 +2862,37 @@ msgid ""
 "You must remove this partition before this drive can be a target."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:722
+#: iw/raid_dialog_gui.py:725
 msgid "Please select a source drive."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:742
+#: iw/raid_dialog_gui.py:745
 #, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:747
+#: iw/raid_dialog_gui.py:750
 msgid ""
 "\n"
 "\n"
 "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:750
+#: iw/raid_dialog_gui.py:753
 msgid "Final Warning"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:752
+#: iw/raid_dialog_gui.py:755
 msgid "Clone Drives"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:761
+#: iw/raid_dialog_gui.py:764
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:794
+#: iw/raid_dialog_gui.py:797
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -2909,15 +2908,15 @@ msgid ""
 "EVERYTHING on the target drive(s) will be destroyed by this process."
 msgstr ""
 
-#: iw/raid_dialog_gui.py:814
+#: iw/raid_dialog_gui.py:817
 msgid "Source Drive:"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:822
+#: iw/raid_dialog_gui.py:825
 msgid "Target Drive(s):"
 msgstr ""
 
-#: iw/raid_dialog_gui.py:830
+#: iw/raid_dialog_gui.py:833
 msgid "Drives"
 msgstr ""
 
@@ -4395,37 +4394,37 @@ msgstr ""
 msgid "_Re-initialize"
 msgstr ""
 
-#: storage/devicetree.py:1793 storage/devicetree.py:1842
+#: storage/devicetree.py:1784 storage/devicetree.py:1833
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
-#: storage/formats/fs.py:97
+#: storage/formats/fs.py:98
 msgid "filesystem configuration missing a type"
 msgstr ""
 
-#: storage/formats/fs.py:327
+#: storage/formats/fs.py:328
 msgid "Formatting"
 msgstr ""
 
-#: storage/formats/fs.py:328
+#: storage/formats/fs.py:329
 #, python-format
 msgid "Creating filesystem on %s"
 msgstr ""
 
-#: storage/formats/fs.py:427
+#: storage/formats/fs.py:428
 msgid "Resizing"
 msgstr ""
 
-#: storage/formats/fs.py:428
+#: storage/formats/fs.py:429
 #, python-format
 msgid "Resizing filesystem on %s"
 msgstr ""
 
-#: storage/formats/fs.py:471
+#: storage/formats/fs.py:472
 msgid "Checking"
 msgstr ""
 
-#: storage/formats/fs.py:472
+#: storage/formats/fs.py:473
 #, python-format
 msgid "Checking filesystem on %s"
 msgstr ""
