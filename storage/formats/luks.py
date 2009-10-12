@@ -24,7 +24,10 @@
 
 import os
 
-import volume_key
+try:
+    import volume_key
+except ImportError:
+    volume_key = None
 
 from iutil import log_method_call
 from ..errors import *
@@ -266,6 +269,9 @@ class LUKS(DeviceFormat):
 
     def escrow(self, directory, backupPassphrase):
         log.debug("escrow: escrowVolume start for %s" % self.device)
+        if volume_key is None:
+            raise LUKSError("Missing key escrow support libraries")
+
         vol = volume_key.Volume.open(self.device)
         volume_ident = self._escrowVolumeIdent(vol)
 
