@@ -46,6 +46,7 @@ from formats import get_default_filesystem_type
 from devicelibs.lvm import safeLvmName
 from devicelibs.dm import name_from_dm_node
 from devicelibs.crypto import generateBackupPassphrase
+from devicelibs.mpath import MultipathConfigWriter
 from udev import *
 import iscsi
 import fcoe
@@ -1951,6 +1952,11 @@ class FSSet(object):
         if mdadm_conf:
             open(mdadm_path, "w").write(mdadm_conf)
 
+        multipath_path = os.path.normpath("%s/etc/multipath.conf" % instPath)
+        multipath_conf = self.multipathConf()
+        if multipath_conf:
+            open(multipath_path, "w").write(multipath_conf)
+
     def crypttab(self):
         # if we are upgrading, do we want to update crypttab?
         # gut reaction says no, but plymouth needs the names to be very
@@ -2004,6 +2010,17 @@ class FSSet(object):
                 retval = conf
 
         return retval
+
+    def multipathConf(self):
+        """ Return the contents of multipath.conf. """
+        mpaths = self.devicetree.getDevicesByType("dm-multipath")
+        if not mpaths:
+            return None
+        mpaths.sort(key=lambda d: d.name)
+        config = MultipathConfigWriter()
+        for mpath in mpaths:
+            config.addMultipathDevice(mpath)
+        return config.write()
 
     def fstab (self):
         format = "%-23s %-23s %-7s %-15s %d %d\n"
