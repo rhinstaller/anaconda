@@ -202,7 +202,7 @@ def runShell(screen = None, msg=""):
 
     proc = None
 
-    if os.path.exists("/usr/bin/firstaidkit-qs") and os.path.exists("/usr/bin/dialog"):
+    if os.path.exists("/usr/bin/firstaidkit-qs"):
         proc = subprocess.Popen(["/usr/bin/firstaidkit-qs"])
         proc.wait()
     
