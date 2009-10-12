@@ -67,7 +67,7 @@ class TimezoneWindow:
 	timezones = self.getTimezoneList()
 	(default, asUtc) = anaconda.id.timezone.getTimezoneInfo()
         if not default:
-	    default = anaconda.id.instLanguage.getDefaultTimeZone()
+	    default = anaconda.id.instLanguage.getDefaultTimeZone(anaconda.rootPath)
 
 	bb = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 	t = TextboxReflowed(30, 

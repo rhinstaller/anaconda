@@ -26,6 +26,7 @@ import locale
 
 import gettext
 from simpleconfig import SimpleConfigFile
+import system_config_keyboard.keyboard as keyboard
 
 import logging
 log = logging.getLogger("anaconda")
@@ -211,11 +212,34 @@ class Language(object):
     def getCurrentLangSearchList(self):
         return expandLangs(self.systemLang) + ['C']
 
-    def getDefaultKeyboard(self):
-        return self.localeInfo[self.systemLang][3]
+    def getDefaultKeyboard(self, instPath):
+        try:
+            return self.localeInfo[self.systemLang][3]
+        except KeyError:
+            try:
+                kbd = keyboard.Keyboard()
+                kbd.read(instPath)
+                return kbd.get()
+            except:
+                return self.localeInfo[self._default][3]
 
-    def getDefaultTimeZone(self):
-        return self.localeInfo[self.systemLang][4]
+    def getDefaultTimeZone(self, instPath):
+        try:
+            return self.localeInfo[self.systemLang][4]
+        except KeyError:
+            # If doing an upgrade and the system language is something not
+            # recognized by anaconda, we should try to see if we can figure
+            # it out from the running system.
+            if os.path.exists(instPath + "/etc/sysconfig/clock"):
+                cfg = SimpleConfigFile()
+                cfg.read(instPath + "/etc/sysconfig/clock")
+
+                try:
+                    return cfg.get("ZONE")
+                except:
+                    return self.localeInfo[self._default][4]
+            else:
+                return self.localeInfo[self._default][4]
 
     def getFontFile(self, lang):
         # Note: in /etc/fonts.cgz fonts are named by the map

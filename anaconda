@@ -922,7 +922,7 @@ if __name__ == "__main__":
         anaconda.dispatch.skipStep("language", permanent = 1)
         anaconda.id.instLanguage.instLang = opts.lang
         anaconda.id.instLanguage.systemLang = opts.lang
-        anaconda.id.timezone.setTimezoneInfo(anaconda.id.instLanguage.getDefaultTimeZone())
+        anaconda.id.timezone.setTimezoneInfo(anaconda.id.instLanguage.getDefaultTimeZone(anaconda.rootPath))
 
     if opts.keymap:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
