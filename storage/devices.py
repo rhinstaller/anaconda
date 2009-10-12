@@ -3163,6 +3163,31 @@ class DASDDevice(DiskDevice):
         self.opts = kwargs.get('opts')
         DiskDevice.__init__(self, device, kwargs)
 
+    def dracutSetupString(self):
+        arg = "rd_DASD=%s" % (self.busid,)
+
+        # XXX: Temporary parameter until dracut gets a new rd_DASD option.
+        # Using the old dasd= kernel parameter syntax for now.  When dracut
+        # is fixed up, we can use these lines instead:
+        #
+        #for opt in self.opts.keys():
+        #    arg += ",%s=%s" % (opt, self.opts[opt],)
+
+        flags = []
+        for opt in self.opts.keys():
+            if self.opts[opt] == "1":
+                if opt == "readonly":
+                    flags.append("ro")
+                elif opt == "use_diag":
+                    flags.append("diag")
+                else:
+                    flags.append(opt)
+
+        if len(flags):
+            arg += "(" + ":".join(flags) + ")"
+
+        return arg
+
 
 class NFSDevice(StorageDevice, NetworkStorageDevice):
     """ An NFS device """
