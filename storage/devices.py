@@ -2773,7 +2773,8 @@ class MultipathDevice(DiskDevice):
         
             May be overridden by a sub-class for e.g. RDAC handling.
         """
-        self._serial = self._info['ID_SERIAL_SHORT']
+        self._serial_short = self._info['ID_SERIAL_SHORT']
+        self._serial = self._info['ID_SERIAL']
 
     @property
     def identity(self):
@@ -2791,7 +2792,7 @@ class MultipathDevice(DiskDevice):
 
     @property
     def wwid(self):
-        serial = self.identity
+        serial = self._serial_short
         ret = []
         while serial:
             ret.append(serial[:2])
