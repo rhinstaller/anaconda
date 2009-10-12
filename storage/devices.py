@@ -3156,11 +3156,10 @@ class DASDDevice(DiskDevice):
     """ A mainframe DASD. """
     _type = "dasd"
 
-    def __init__(self, device, size=None, major=None, minor=None,
-                 parents=None, sysfsPath=''):
-        DiskDevice.__init__(self, device, size=size,
-                            major=major, minor=minor,
-                            parents=parents, sysfsPath=sysfsPath)
+    def __init__(self, device, **kwargs):
+        self.busid = kwargs.get('busid')
+        self.opts = kwargs.get('opts')
+        DiskDevice.__init__(self, device, kwargs)
 
 
 class NFSDevice(StorageDevice, NetworkStorageDevice):

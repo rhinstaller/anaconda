@@ -1163,6 +1163,12 @@ class DeviceTree(object):
             kwargs["exists"]  = True
         elif udev_device_is_dasd(info):
             diskType = DASDDevice
+            kwargs["busid"] = udev_device_get_dasd_bus_id(info)
+            kwargs["opts"] = {}
+
+            for attr in ['readonly', 'use_diag', 'erplog', 'failfast']:
+                kwargs["opts"][attr] = udev_device_get_dasd_flag(info, attr)
+
             log.debug("%s is a dasd device" % name)
         elif udev_device_is_zfcp(info):
             diskType = ZFCPDiskDevice

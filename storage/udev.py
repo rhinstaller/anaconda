@@ -207,6 +207,21 @@ def udev_device_get_zfcp_attribute(info, attr=None):
 
     return open(attribute, "r").read().strip()
 
+def udev_device_get_dasd_bus_id(info):
+    """ Return the CCW bus ID of the dasd device. """
+    return info.get("sysfs_path").split("/")[-3]
+
+def udev_device_get_dasd_flag(info, flag=None):
+    """ Return the specified flag for the dasd device. """
+    if flag is None:
+        return None
+
+    path = "/sys" + info.get("sysfs_path") + "/device/" + flag
+    if not os.path.isfile(path):
+        return None
+
+    return open(path, 'r').read().strip()
+
 def udev_device_is_cdrom(info):
     """ Return True if the device is an optical drive. """
     # FIXME: how can we differentiate USB drives from CD-ROM drives?
