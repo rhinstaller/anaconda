@@ -256,6 +256,8 @@ function init_main() {
         udevd --daemon
         # debug: udevadm control --log-priority=debug
 
+        udevadm control --env=ANACONDA=1
+
         mount -t devpts /dev/pts /dev/pts
         mount -t sysfs none /sys
 

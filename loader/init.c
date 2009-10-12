@@ -529,6 +529,8 @@ int main(int argc, char **argv) {
 	    execl("/sbin/udevd", "/sbin/udevd","--daemon",NULL);
 	    exit(1);
 	}
+
+        execl("/sbin/udevadm", "udevadm", "control", "--env=ANACONDA=1", NULL);
     }
     printf("done\n");
 
