@@ -215,6 +215,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 12 2009 David Cantrell <dcantrell@redhat.com> - 12.37-1
+- Missing volume_key shouldn't break LUKS support completely. (#526899)
+  (dlehman)
+- Write multipathd.conf in anaconda so that dracut can find it. (pjones)
+- Add MultipathDevice.getDMNode(), because .updateSysfsPath() needs it.
+  (pjones)
+- Add MultipathDevice.updateSysfsPath() (pjones)
+- Fix a segfault when stage2= boot parameter and kickstart url method is
+  used (#524417). (rvykydal)
+- Fix parsing of optional portnr in iscsi target IP (#525118) (hdegoede)
+
 * Fri Oct 09 2009 David Cantrell <dcantrell@redhat.com> - 12.36-1
 - Reset PartitionDevice attributes after failed edit. (#498026) (dlehman)
 - Fix cut/paste error in commit 299519d4a0693330ff6a50f3111d61feefabb0da.
