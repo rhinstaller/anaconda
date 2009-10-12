@@ -412,9 +412,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     }
 
     /* determine install type */
-    if (!strncmp(url, "http", 4) || !strncmp(url, "ftp://", 6))
-	loaderData->method = METHOD_URL;
-    else {
+    if (strncmp(url, "http", 4) && strncmp(url, "ftp://", 6)) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Unknown Url method %s"), url);
         return;
@@ -428,6 +426,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
             return;
 
         ((urlInstallData *)loaderData->stage2Data)->url = url;
+        loaderData->method = METHOD_URL;
     }
 
     splitProxyParam(proxy, &loaderData->proxyUser, &loaderData->proxyPassword,
