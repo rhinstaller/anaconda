@@ -115,7 +115,6 @@ rpmlog:
 		$(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE).. | \
 		sed -e 's/@.*)/)/' | sed -e 's/%/%%/g' | \
 		grep -v -- "- Sending translation for "
-	@echo
 
 bumpver:
 	@NEWSUBVER=$$((`echo $(PACKAGE_VERSION) |cut -d . -f 2` + 1)) ; \
