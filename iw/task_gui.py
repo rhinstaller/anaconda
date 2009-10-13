@@ -488,15 +488,12 @@ class TaskWindow(InstallWindow):
             self.dispatch.skipStep("group-selection", skip = 1)
 
         tasks = self.xml.get_widget("taskList").get_model()
-        for (cb, task, grps) in tasks:
-            # we just set things as default or not; group selection
-            # happens after this screen.
-            if cb:
-                map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
-                                      "default", True), grps)
-            else:
-                map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
-                                      "default", False), grps)
+        for (cb, task, grps) in filter(lambda x: not x[0], tasks):
+            map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
+                                  "default", False), grps)
+        for (cb, task, grps) in filter(lambda x: x[0], tasks):
+            map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
+                                  "default", True), grps)
 
     def _editRepo(self, *args):
         repo = None
