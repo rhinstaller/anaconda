@@ -257,7 +257,7 @@ class Bootloader(commands.bootloader.F12_Bootloader):
                         log.warning("requested drive %s in boot drive order "
                                     "doesn't exist" %(drive,))
 
-                self.handler.id.bootloader.drivelist = new
+                self.handler.id.bootloader.updateDriveList(new)
 
         self.handler.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
         return retval
