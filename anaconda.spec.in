@@ -216,6 +216,29 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 13 2009 David Cantrell <dcantrell@redhat.com> - 13.5-1
+- Remove extra echo in 'make rpmlog'. (dcantrell)
+- Do not traceback if network device doesn't have HwAddress property
+  (#506013). (rvykydal)
+- Fix liveinst to (1) not unmount /dev/pts, (2) unmount in order (509632).
+  (clumens)
+- Do not read DASD data from /tmp/install.cfg in booty (#526354). (dcantrell)
+- Merge branch 'master' of ssh://git.fedoraproject.org/git/anaconda (notting)
+- Support upgrading when the language isn't in lang-table (#528317).
+  (clumens)
+- Fix task selection when tasks contain the same group. (#528193) (notting)
+- Update drivelist with bootloader --driveorder ks option instead of
+  replacing it (#506073). (rvykydal)
+- Use ID_SERIAL to write multipath.conf, but ID_SERIAL_SHORT for UI. (pjones)
+- Don't run 70-anaconda.rules on an installed system (#527781). (clumens)
+- Handle Installation Repo (base repo) as any other in repo edit UI.
+  (rvykydal)
+- Fix methodstr editing dialog. (rvykydal)
+- Store methodstr url of repo (#502208, #526022). (rvykydal)
+- Show user of which repository he edits the url (methodstr editing).
+  (rvykydal)
+- Don't traceback with malformed repo= nfs: parameter. (rvykydal)
+
 * Mon Oct 12 2009 David Cantrell <dcantrell@redhat.com> - 13.4-1
 - Missing volume_key shouldn't break LUKS support completely. (#526899)
   (dlehman)
