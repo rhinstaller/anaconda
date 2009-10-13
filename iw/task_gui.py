@@ -401,8 +401,7 @@ class RepoMethodstrEditor(RepoEditor):
 
         # Hide a bunch of stuff that doesn't apply when we're just prompting
         # for enough information to form a methodstr.
-        self.dxml.get_widget("nameLabel").hide()
-        self.nameEntry.hide()
+        self.nameEntry.set_sensitive(False)
         self.mirrorlistCheckbox.hide()
         self.proxyCheckbox.hide()
         self.proxyTable.hide()
