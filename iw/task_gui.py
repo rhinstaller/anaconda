@@ -73,22 +73,6 @@ def setupRepo(anaconda, repo):
 
     return True
 
-def setupBaseRepo(anaconda, methodstr):
-    anaconda.setMethodstr(methodstr)
-
-    try:
-        anaconda.backend.ayum.configBaseURL()
-    except SystemError as e:
-        anaconda.intf.messageWindow(_("Error Setting Up Repository"),
-            _("The following error occurred while setting up the "
-              "installation repository:\n\n%(e)s\n\nPlease provide the "
-              "correct information for installing %(productName)s")
-            % {'e': e, 'productName': productName})
-        return False
-
-    anaconda.backend.ayum.configBaseRepo(replace=True)
-    return True
-
 class RepoEditor:
     # Window-level callbacks
     def on_addRepoDialog_destroy(self, widget, *args):
@@ -285,13 +269,12 @@ class RepoEditor:
 
         repo.name = self.nameEntry.get_text()
 
-        if repo.name == "Installation Repo":
-            return setupBaseRepo(self.anaconda, repourl)
-
         return True
 
     def _applyMedia(self, repo):
-        cdr = scanForMedia(self.anaconda.backend.ayum.tree, self.anaconda.id.storage)
+        # FIXME works only if storage has detected format of cdrom drive
+        ayum = self.anaconda.backend.ayum
+        cdr = scanForMedia(ayum.tree, self.anaconda.id.storage)
         if not cdr:
             self.intf.messageWindow(_("No Media Found"),
                                     _("No installation media was found. "
@@ -299,7 +282,17 @@ class RepoEditor:
                                       "and try again."))
             return False
 
-        return setupBaseRepo(self.anaconda, "cdrom://%s:%s" % (cdr, self.anaconda.backend.ayum.tree))
+        log.info("found installation media on %s" % cdr)
+        repo.name = self.nameEntry.get_text()
+        repo.anacondaBaseURLs = ["cdrom://%s:%s" % (cdr, self.anaconda.backend.ayum.tree)]
+        repo.baseurl = "file://%s" % ayum.tree
+        ayum.mediagrabber = ayum.mediaHandler
+        self.anaconda.mediaDevice = cdr
+        ayum.currentMedia = 1
+        repo.mediaid = getMediaId(ayum.tree)
+        log.info("set mediaid of repo %s to: %s" % (repo.name, repo.mediaid))
+
+        return True
 
     def _applyNfs(self, repo):
         server = self.nfsServerEntry.get_text()
@@ -315,23 +308,20 @@ class RepoEditor:
                                     _("Please enter an NFS server and path."))
             return False
 
-        if repo.name == "Installation Repo":
-            return setupBaseRepo(self.anaconda, "nfs:%s:%s" % (server, path))
-        else:
-            import tempfile
-            dest = tempfile.mkdtemp("", repo.name.replace(" ", ""), "/mnt")
+        import tempfile
+        dest = tempfile.mkdtemp("", repo.name.replace(" ", ""), "/mnt")
 
-            try:
-                isys.mount("%s:%s" % (server, path), dest, "nfs")
-            except Exception as e:
-                self.intf.messageWindow(_("Error Setting Up Repository"),
-                    _("The following error occurred while setting up the "
-                      "repository:\n\n%s") % e)
-                return False
+        try:
+            isys.mount("%s:%s" % (server, path), dest, "nfs")
+        except Exception as e:
+            self.intf.messageWindow(_("Error Setting Up Repository"),
+                _("The following error occurred while setting up the "
+                  "repository:\n\n%s") % e)
+            return False
 
-            repo.baseurl = "file://%s" % dest
-            repo.anacondaBaseURLs = ["nfs:%s:%s" % (server,path)]
-            return True
+        repo.baseurl = "file://%s" % dest
+        repo.anacondaBaseURLs = ["nfs:%s:%s" % (server,path)]
+        return True
 
     def _applyHd(self, repo):
         return True
@@ -361,6 +351,7 @@ class RepoEditor:
                 # when adding
                 newRepoObj = AnacondaYumRepo("UIedited_%s" %
                                              self.anaconda.backend.ayum.repoIDcounter.next())
+                newRepoObj.cost = self.repo.cost
                 removeOld = True
             else:
                 newRepoObj = AnacondaYumRepo(reponame.replace(" ", ""))
