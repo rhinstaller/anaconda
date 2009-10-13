@@ -65,7 +65,7 @@ class InstallData:
         self.firewall = firewall.Firewall()
         self.security = security.Security()
         self.timezone = timezone.Timezone()
-        self.timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone())
+        self.timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone(self.anaconda.rootPath))
         self.users = None
         self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
         self.auth = "--enableshadow --passalgo=sha512 --enablefingerprint"

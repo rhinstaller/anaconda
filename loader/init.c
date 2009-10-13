@@ -530,7 +530,9 @@ int main(int argc, char **argv) {
 	    exit(1);
 	}
 
+        /*
         execl("/sbin/udevadm", "udevadm", "control", "--env=ANACONDA=1", NULL);
+        */
     }
     printf("done\n");
 
