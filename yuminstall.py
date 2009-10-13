@@ -243,6 +243,7 @@ class AnacondaYumRepo(YumRepository):
     def __init__(self, *args, **kwargs):
         YumRepository.__init__(self, *args, **kwargs)
         self.enablegroups = True
+        self._anacondaBaseURLs = []
 
     def needsNetwork(self):
         def _isURL(s):
@@ -266,6 +267,16 @@ class AnacondaYumRepo(YumRepository):
                     shutil.rmtree("%s/headers" % cachedir)
                 if os.path.exists("%s/packages" % cachedir):
                     shutil.rmtree("%s/packages" % cachedir)
+
+    # needed to store nfs: repo url that yum doesn't know
+    def _getAnacondaBaseURLs(self):
+        return self._anacondaBaseURLs or self.baseurl or [self.mirrorlist]
+
+    def _setAnacondaBaseURLs(self, value):
+        self._anacondaBaseURLs = value
+
+    anacondaBaseURLs = property(_getAnacondaBaseURLs, _setAnacondaBaseURLs,
+                                doc="Extends AnacondaYum.baseurl to store non-yum urls:")
 
 class YumSorter(yum.YumBase):
     def _transactionDataFactory(self):
@@ -476,6 +487,9 @@ class AnacondaYum(YumSorter):
             return
 
         # add default repos
+        anacondabaseurl = (self.anaconda.methodstr or
+                           "cdrom:%s" % (self.anaconda.mediaDevice))
+        anacondabasepaths = self.anaconda.id.instClass.getPackagePaths(anacondabaseurl)
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self._baseRepoURL).items():
             rid = name.replace(" ", "")
 
@@ -483,6 +497,7 @@ class AnacondaYum(YumSorter):
                 try:
                     repo = self.repos.getRepo("anaconda-%s-%s" % (rid, productStamp))
                     repo.baseurl = uri
+                    repo.anacondaBaseURLs = anacondabasepaths[name]
                 except RepoError:
                     replace = False
 
@@ -490,6 +505,7 @@ class AnacondaYum(YumSorter):
             if not replace:
                 repo = AnacondaYumRepo("anaconda-%s-%s" % (rid, productStamp))
                 repo.baseurl = uri
+                repo.anacondaBaseURLs = anacondabasepaths[name]
 
             repo.name = name
             repo.cost = 100
@@ -650,6 +666,7 @@ class AnacondaYum(YumSorter):
                 # yum doesn't understand nfs:// and doesn't want to.  We need
                 # to first do the mount, then translate it into a file:// that
                 # yum does understand.
+                anacondaBaseURLs = []
                 if ksrepo.baseurl and ksrepo.baseurl.startswith("nfs://"):
                     if not network.hasActiveNetDev() and not self.anaconda.intf.enableNetwork():
                         self.anaconda.intf.messageWindow(_("No Network Available"),
@@ -667,6 +684,7 @@ class AnacondaYum(YumSorter):
                     except Exception as e:
                         log.error("error mounting NFS repo: %s" % e)
 
+                    anacondaBaseURLs = [ksrepo.baseurl]
                     ksrepo.baseurl = "file://%s" % dest
 
                 repo = AnacondaYumRepo(ksrepo.name)
@@ -677,6 +695,7 @@ class AnacondaYum(YumSorter):
                     repo.baseurl = []
                 else:
                     repo.baseurl = [ ksrepo.baseurl ]
+                repo.anacondaBaseURLs = anacondaBaseURLs
 
                 if ksrepo.cost:
                     repo.cost = ksrepo.cost

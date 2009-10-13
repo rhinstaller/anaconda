@@ -194,17 +194,18 @@ class RepoEditor:
 
         if self.repo:
             self.nameEntry.set_text(self.repo.name)
-            self.typeComboBox.set_active(self._methodToIndex(self.anaconda.methodstr))
+            if self.repo.anacondaBaseURLs:
+                url = self.repo.anacondaBaseURLs[0]
+            else:
+                url = ''
+            self.typeComboBox.set_active(self._methodToIndex(url))
 
-            if not self.anaconda.methodstr or self.anaconda.methodstr.startswith("http") or self.anaconda.methodstr.startswith("ftp"):
+            if not url or url.startswith("http") or url.startswith("ftp"):
                 if self.repo.mirrorlist:
                     self.baseurlEntry.set_text(self.repo.mirrorlist)
                     self.mirrorlistCheckbox.set_active(True)
                 else:
-                    if self.repo.baseurl:
-                        self.baseurlEntry.set_text(self.repo.baseurl[0])
-                    else:
-                        self.baseurlEntry.set_text("")
+                    self.baseurlEntry.set_text(url)
 
                     self.mirrorlistCheckbox.set_active(False)
 
@@ -217,18 +218,18 @@ class RepoEditor:
                 else:
                     self.proxyCheckbox.set_active(False)
                     self.proxyTable.set_sensitive(False)
-            elif self.anaconda.methodstr.startswith("nfs:"):
-                method_server_dir = self.anaconda.methodstr.split(":")
+            elif url.startswith("nfs"):
+                method_server_dir = url.split(":")
                 try:
                     self.nfsServerEntry.set_text(method_server_dir[1])
                     self.nfsPathEntry.set_text(method_server_dir[2])
                 except IndexError:
                     pass
                 self.nfsOptionsEntry.set_text("")
-            elif self.anaconda.methodstr.startswith("cdrom:"):
+            elif url.startswith("cdrom:"):
                 pass
-            elif self.anaconda.methodstr.startswith("hd:"):
-                m = self.anaconda.methodstr[3:]
+            elif url.startswith("hd:"):
+                m = url[3:]
                 if m.count(":") == 1:
                     (device, path) = m.split(":")
                     fstype = "auto"
@@ -279,6 +280,7 @@ class RepoEditor:
         else:
             repo.baseurl = [repourl]
             repo.mirrorlist = None
+        repo.anacondaBaseURLs = repo.baseurl
 
         repo.name = self.nameEntry.get_text()
 
@@ -327,6 +329,7 @@ class RepoEditor:
                 return False
 
             repo.baseurl = "file://%s" % dest
+            repo.anacondaBaseURLs = ["nfs:%s:%s" % (server,path)]
             return True
 
     def _applyHd(self, repo):
