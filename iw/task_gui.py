@@ -395,8 +395,13 @@ class RepoEditor:
         return rc
 
 class RepoMethodstrEditor(RepoEditor):
-    def __init__(self, anaconda):
-        RepoEditor.__init__(self, anaconda, None)
+    def __init__(self, anaconda, methodstr):
+        # Create temporary repo to store methodstr needed for
+        # createDialog parent method.
+        temprepo = AnacondaYumRepo("UITmpMethodstrRepo")
+        temprepo.name = "Installation Repo"
+        temprepo.anacondaBaseURLs = [methodstr]
+        RepoEditor.__init__(self, anaconda, temprepo)
 
     def createDialog(self):
         RepoEditor.createDialog(self)
