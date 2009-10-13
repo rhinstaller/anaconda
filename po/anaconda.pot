@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.36\n"
+"Project-Id-Version: anaconda 12.37\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-10-12 12:30-1000\n"
+"POT-Creation-Date: 2009-10-13 12:05-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,14 +121,14 @@ msgid ""
 msgstr ""
 
 #: backend.py:189 image.py:285 livecd.py:190 livecd.py:398
-#: partIntfHelpers.py:237 text.py:308 text.py:312 yuminstall.py:383
-#: yuminstall.py:727 yuminstall.py:841 yuminstall.py:1104 yuminstall.py:1168
-#: yuminstall.py:1327 yuminstall.py:1345 iw/autopart_type.py:99
+#: partIntfHelpers.py:237 text.py:308 text.py:312 yuminstall.py:394
+#: yuminstall.py:734 yuminstall.py:848 yuminstall.py:1111 yuminstall.py:1175
+#: yuminstall.py:1334 yuminstall.py:1352 iw/autopart_type.py:99
 #: iw/autopart_type.py:198 iw/autopart_type.py:325 iw/autopart_type.py:328
 #: iw/autopart_type.py:395 iw/autopart_type.py:403 iw/autopart_type.py:432
 #: iw/osbootwidget.py:210 iw/osbootwidget.py:219 iw/raid_dialog_gui.py:724
-#: iw/raid_dialog_gui.py:763 iw/task_gui.py:63 iw/task_gui.py:179
-#: iw/task_gui.py:308 iw/task_gui.py:440 loader/cdinstall.c:228
+#: iw/raid_dialog_gui.py:763 iw/task_gui.py:63 iw/task_gui.py:164
+#: iw/task_gui.py:307 iw/task_gui.py:442 loader/cdinstall.c:228
 #: loader/cdinstall.c:517 loader/driverdisk.c:98 loader/driverdisk.c:305
 #: loader/driverdisk.c:340 loader/driverdisk.c:371 loader/driverdisk.c:379
 #: loader/driverdisk.c:443 loader/hdinstall.c:134 loader/hdinstall.c:340
@@ -148,7 +148,7 @@ msgid "Error"
 msgstr ""
 
 #: bootloader.py:53 bootloader.py:208 bootloader.py:215 image.py:82
-#: upgrade.py:251 yuminstall.py:1508 yuminstall.py:1544
+#: upgrade.py:251 yuminstall.py:1515 yuminstall.py:1551
 #: iw/autopart_type.py:208 iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:191
 #: iw/upgrade_swap_gui.py:199 iw/upgrade_swap_gui.py:206
 #: storage/devicetree.py:144 storage/devicetree.py:171
@@ -168,15 +168,15 @@ msgstr ""
 #: image.py:91 kickstart.py:151 livecd.py:197 livecd.py:405 packages.py:119
 #: packages.py:127 packages.py:135 packages.py:143 packages.py:155
 #: packages.py:164 packages.py:172 packages.py:181 upgrade.py:58
-#: upgrade.py:206 yuminstall.py:236 yuminstall.py:660 yuminstall.py:845
-#: yuminstall.py:925 yuminstall.py:931 yuminstall.py:1075 yuminstall.py:1100
-#: yuminstall.py:1158 yuminstall.py:1322 yuminstall.py:1352
+#: upgrade.py:206 yuminstall.py:236 yuminstall.py:665 yuminstall.py:852
+#: yuminstall.py:932 yuminstall.py:938 yuminstall.py:1082 yuminstall.py:1107
+#: yuminstall.py:1165 yuminstall.py:1329 yuminstall.py:1359
 #: storage/__init__.py:96 storage/__init__.py:204 storage/__init__.py:1818
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:58 image.py:92 image.py:248 kickstart.py:1357
-#: kickstart.py:1396 upgrade.py:58 yuminstall.py:1163 iw/partition_gui.py:1038
+#: kickstart.py:1396 upgrade.py:58 yuminstall.py:1170 iw/partition_gui.py:1038
 #: storage/__init__.py:1819
 msgid "_Continue"
 msgstr ""
@@ -344,8 +344,8 @@ msgstr ""
 msgid "_Exit"
 msgstr ""
 
-#: gui.py:1258 image.py:164 image.py:194 livecd.py:197 yuminstall.py:719
-#: yuminstall.py:1100 yuminstall.py:1158 yuminstall.py:1322
+#: gui.py:1258 image.py:164 image.py:194 livecd.py:197 yuminstall.py:726
+#: yuminstall.py:1107 yuminstall.py:1165 yuminstall.py:1329
 msgid "_Retry"
 msgstr ""
 
@@ -357,7 +357,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1265 image.py:248 packages.py:368 yuminstall.py:1368
+#: gui.py:1265 image.py:248 packages.py:368 yuminstall.py:1375
 msgid "_Reboot"
 msgstr ""
 
@@ -439,7 +439,7 @@ msgid ""
 msgstr ""
 
 #: image.py:248 livecd.py:404 packages.py:365 packages.py:368 upgrade.py:205
-#: yuminstall.py:845 yuminstall.py:931 yuminstall.py:1352 yuminstall.py:1368
+#: yuminstall.py:852 yuminstall.py:938 yuminstall.py:1359 yuminstall.py:1375
 msgid "_Back"
 msgstr ""
 
@@ -539,7 +539,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: kickstart.py:145 rescue.py:240 yuminstall.py:655 yuminstall.py:1070
+#: kickstart.py:145 rescue.py:240 yuminstall.py:660 yuminstall.py:1077
 msgid "No Network Available"
 msgstr ""
 
@@ -1497,11 +1497,11 @@ msgid ""
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
 
-#: yuminstall.py:321 iw/task_gui.py:82 iw/task_gui.py:321
+#: yuminstall.py:332 iw/task_gui.py:317
 msgid "Error Setting Up Repository"
 msgstr ""
 
-#: yuminstall.py:322
+#: yuminstall.py:333
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -1511,48 +1511,48 @@ msgid ""
 "Please provide the correct information for installing %s."
 msgstr ""
 
-#: yuminstall.py:365
-msgid "Change Disc"
-msgstr ""
-
-#: yuminstall.py:366
-#, python-format
-msgid "Please insert %s disc %d to continue."
-msgstr ""
-
 #: yuminstall.py:376
-msgid "Wrong Disc"
+msgid "Change Disc"
 msgstr ""
 
 #: yuminstall.py:377
 #, python-format
+msgid "Please insert %s disc %d to continue."
+msgstr ""
+
+#: yuminstall.py:387
+msgid "Wrong Disc"
+msgstr ""
+
+#: yuminstall.py:388
+#, python-format
 msgid "That's not the correct %s disc."
 msgstr ""
 
-#: yuminstall.py:384
+#: yuminstall.py:395
 msgid "Unable to access the disc."
 msgstr ""
 
-#: yuminstall.py:543
+#: yuminstall.py:547
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
-#: yuminstall.py:656 yuminstall.py:1071
+#: yuminstall.py:661 yuminstall.py:1078
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
 
-#: yuminstall.py:717 yuminstall.py:719
+#: yuminstall.py:724 yuminstall.py:726
 msgid "Re_boot"
 msgstr ""
 
-#: yuminstall.py:717
+#: yuminstall.py:724
 msgid "_Eject"
 msgstr ""
 
-#: yuminstall.py:728
+#: yuminstall.py:735
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1563,102 +1563,102 @@ msgid ""
 "\n"
 msgstr ""
 
-#: yuminstall.py:776
+#: yuminstall.py:783
 msgid "Retrying"
 msgstr ""
 
-#: yuminstall.py:776
+#: yuminstall.py:783
 msgid "Retrying download."
 msgstr ""
 
-#: yuminstall.py:842
+#: yuminstall.py:849
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 
-#: yuminstall.py:877 yuminstall.py:878
+#: yuminstall.py:884 yuminstall.py:885
 msgid "file conflicts"
 msgstr ""
 
-#: yuminstall.py:879
+#: yuminstall.py:886
 msgid "older package(s)"
 msgstr ""
 
-#: yuminstall.py:880
+#: yuminstall.py:887
 msgid "insufficient disk space"
 msgstr ""
 
-#: yuminstall.py:881
+#: yuminstall.py:888
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: yuminstall.py:882
+#: yuminstall.py:889
 msgid "package conflicts"
 msgstr ""
 
-#: yuminstall.py:883
+#: yuminstall.py:890
 msgid "package already installed"
 msgstr ""
 
-#: yuminstall.py:884
+#: yuminstall.py:891
 msgid "required package"
 msgstr ""
 
-#: yuminstall.py:885
+#: yuminstall.py:892
 msgid "package for incorrect arch"
 msgstr ""
 
-#: yuminstall.py:886
+#: yuminstall.py:893
 msgid "package for incorrect os"
 msgstr ""
 
-#: yuminstall.py:900
+#: yuminstall.py:907
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: yuminstall.py:913
+#: yuminstall.py:920
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
 
-#: yuminstall.py:916
+#: yuminstall.py:923
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr ""
 
-#: yuminstall.py:923 yuminstall.py:928
+#: yuminstall.py:930 yuminstall.py:935
 msgid "Error Running Transaction"
 msgstr ""
 
-#: yuminstall.py:1105
+#: yuminstall.py:1112
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: yuminstall.py:1141
+#: yuminstall.py:1148
 msgid "Retrieving installation information."
 msgstr ""
 
-#: yuminstall.py:1143
+#: yuminstall.py:1150
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: yuminstall.py:1145
+#: yuminstall.py:1152
 msgid "Installation Progress"
 msgstr ""
 
-#: yuminstall.py:1158 textw/constants_text.py:64
+#: yuminstall.py:1165 textw/constants_text.py:64
 msgid "Edit"
 msgstr ""
 
-#: yuminstall.py:1169 yuminstall.py:1328
+#: yuminstall.py:1176 yuminstall.py:1335
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1668,7 +1668,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: yuminstall.py:1346
+#: yuminstall.py:1353
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1676,22 +1676,22 @@ msgid ""
 "installer."
 msgstr ""
 
-#: yuminstall.py:1365
+#: yuminstall.py:1372
 msgid "Reboot?"
 msgstr ""
 
-#: yuminstall.py:1366
+#: yuminstall.py:1373
 msgid "The system will be rebooted now."
 msgstr ""
 
-#: yuminstall.py:1509
+#: yuminstall.py:1516
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1545
+#: yuminstall.py:1552
 #, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
@@ -1699,35 +1699,35 @@ msgid ""
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1596
+#: yuminstall.py:1603
 msgid "Post Upgrade"
 msgstr ""
 
-#: yuminstall.py:1597
+#: yuminstall.py:1604
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: yuminstall.py:1599
+#: yuminstall.py:1606
 msgid "Post Installation"
 msgstr ""
 
-#: yuminstall.py:1600
+#: yuminstall.py:1607
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:1829
+#: yuminstall.py:1836
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:1830
+#: yuminstall.py:1837
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:1868
+#: yuminstall.py:1875
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:1869
+#: yuminstall.py:1876
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
@@ -2930,58 +2930,48 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/task_gui.py:83
-#, python-format
-msgid ""
-"The following error occurred while setting up the installation repository:\n"
-"\n"
-"%s\n"
-"\n"
-"Please provide the correct information for installing %s"
-msgstr ""
-
-#: iw/task_gui.py:156
+#: iw/task_gui.py:141
 msgid "Edit Repository"
 msgstr ""
 
-#: iw/task_gui.py:180
+#: iw/task_gui.py:165
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
 
-#: iw/task_gui.py:256
+#: iw/task_gui.py:245
 msgid "Invalid Proxy URL"
 msgstr ""
 
-#: iw/task_gui.py:257
+#: iw/task_gui.py:246
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr ""
 
-#: iw/task_gui.py:268 iw/task_gui.py:410
+#: iw/task_gui.py:257 iw/task_gui.py:412
 msgid "Invalid Repository URL"
 msgstr ""
 
-#: iw/task_gui.py:269 iw/task_gui.py:411
+#: iw/task_gui.py:258 iw/task_gui.py:413
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr ""
 
-#: iw/task_gui.py:290 iw/task_gui.py:420
+#: iw/task_gui.py:279 iw/task_gui.py:422
 msgid "No Media Found"
 msgstr ""
 
-#: iw/task_gui.py:291 iw/task_gui.py:421
+#: iw/task_gui.py:280 iw/task_gui.py:423
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
 
-#: iw/task_gui.py:309 iw/task_gui.py:441
+#: iw/task_gui.py:308 iw/task_gui.py:443
 msgid "Please enter an NFS server and path."
 msgstr ""
 
-#: iw/task_gui.py:322
+#: iw/task_gui.py:318
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -2989,23 +2979,23 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/task_gui.py:344
+#: iw/task_gui.py:341
 msgid "Invalid Repository Name"
 msgstr ""
 
-#: iw/task_gui.py:345
+#: iw/task_gui.py:342
 msgid "You must provide a repository name."
 msgstr ""
 
-#: iw/task_gui.py:473 ui/addrepo.glade.h:3
+#: iw/task_gui.py:475 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr ""
 
-#: iw/task_gui.py:478
+#: iw/task_gui.py:480
 msgid "No Software Repos Enabled"
 msgstr ""
 
-#: iw/task_gui.py:479
+#: iw/task_gui.py:481
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
