@@ -217,10 +217,13 @@ class RepoEditor:
                 else:
                     self.proxyCheckbox.set_active(False)
                     self.proxyTable.set_sensitive(False)
-            elif self.anaconda.methodstr.startswith("nfs"):
-                (method, server, dir) = self.anaconda.methodstr.split(":")
-                self.nfsServerEntry.set_text(server)
-                self.nfsPathEntry.set_text(dir)
+            elif self.anaconda.methodstr.startswith("nfs:"):
+                method_server_dir = self.anaconda.methodstr.split(":")
+                try:
+                    self.nfsServerEntry.set_text(method_server_dir[1])
+                    self.nfsPathEntry.set_text(method_server_dir[2])
+                except IndexError:
+                    pass
                 self.nfsOptionsEntry.set_text("")
             elif self.anaconda.methodstr.startswith("cdrom:"):
                 pass
