@@ -480,7 +480,7 @@ class AnacondaYum(YumSorter):
                 # default to using whatever's enabled in /etc/yum.repos.d/
                 self._baseRepoURL = None
 
-    def configBaseRepo(self, root='/', replace=False):
+    def configBaseRepo(self, root='/'):
         # Create the "base" repo object, assuming there is one.  Otherwise we
         # just skip all this and use the defaults from /etc/yum.repos.d.
         if not self._baseRepoURL:
@@ -493,19 +493,9 @@ class AnacondaYum(YumSorter):
         for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self._baseRepoURL).items():
             rid = name.replace(" ", "")
 
-            if replace:
-                try:
-                    repo = self.repos.getRepo("anaconda-%s-%s" % (rid, productStamp))
-                    repo.baseurl = uri
-                    repo.anacondaBaseURLs = anacondabasepaths[name]
-                except RepoError:
-                    replace = False
-
-            # If there was an error finding the "base" repo, create a new one now.
-            if not replace:
-                repo = AnacondaYumRepo("anaconda-%s-%s" % (rid, productStamp))
-                repo.baseurl = uri
-                repo.anacondaBaseURLs = anacondabasepaths[name]
+            repo = AnacondaYumRepo("anaconda-%s-%s" % (rid, productStamp))
+            repo.baseurl = uri
+            repo.anacondaBaseURLs = anacondabasepaths[name]
 
             repo.name = name
             repo.cost = 100
@@ -515,9 +505,7 @@ class AnacondaYum(YumSorter):
                 log.info("set mediaid of repo %s to: %s" % (rid, repo.mediaid))
 
             repo.enable()
-
-            if not replace:
-                self.repos.add(repo)
+            self.repos.add(repo)
 
     def mediaHandler(self, *args, **kwargs):
         mediaid = kwargs["mediaid"]
