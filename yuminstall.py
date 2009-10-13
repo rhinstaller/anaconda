@@ -340,7 +340,7 @@ class AnacondaYum(YumSorter):
                       "correct information for installing %(productName)s.")
                     % {'e': e, 'productName': productName})
 
-                self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow()
+                self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow(self.anaconda.methodstr or "cdrom:")
 
         self.doConfigSetup(root=self.anaconda.rootPath)
         self.conf.installonlypkgs = []

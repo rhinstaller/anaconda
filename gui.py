@@ -1048,9 +1048,9 @@ class InstallInterface:
         dialog.createDialog()
         dialog.run()
 
-    def methodstrRepoWindow(self):
+    def methodstrRepoWindow(self, methodstr):
         from task_gui import RepoMethodstrEditor
-        dialog = RepoMethodstrEditor(self.anaconda)
+        dialog = RepoMethodstrEditor(self.anaconda, methodstr)
         dialog.createDialog()
         return dialog.run()
 
