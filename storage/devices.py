@@ -3133,22 +3133,23 @@ class ZFCPDiskDevice(DiskDevice):
     """ A mainframe ZFCP disk. """
     _type = "zfcp"
 
-    def __init__(self, name, size=None, major=None, minor=None,
-                 devnum=None, wwpn=None, fcplun=None,
-                 parents=None, sysfsPath=''):
-        self.devnum = devnum
-        self.wwpn = wwpn
-        self.fcplun = fcplun
-        name = "zfcp://%s/%s/%s" % (self.devnum, self.wwpn, self.fcplun)
-        DiskDevice.__init__(self, name, size=size,
-                            major=major, minor=minor,
-                            parents=parents, sysfsPath=sysfsPath)
+    def __init__(self, name, **kwargs):
+        self.hba_id = kwargs.get("hba_id")
+        self.wwpn = kwargs.get("wwpn")
+        self.fcp_lun = kwargs.get("fcp_lun")
+        name = "zfcp://%s/%s/%s" % (self.hba_id, self.wwpn, self.fcplun,)
+        DiskDevice.__init__(self, name, **kwargs)
 
     def __str__(self):
         s = DiskDevice.__str__(self)
-        s += ("  devnum = %(devnum)s  wwpn = %(wwpn)s  fcplun = %(fcplun)s" %
-              {"devnum": self.devnum, "wwpn": self.wwpn, "fcplun": self.fcplun})
+        s += ("  hba_id = %(hba_id)s  wwpn = %(wwpn)s  fcp_lun = %(fcp_lun)s" %
+              {"hba_id": self.hba_id,
+               "wwpn": self.wwpn,
+               "fcp_lun": self.fcp_lun})
         return s
+
+    def dracutSetupString(self):
+        return "rd_ZFCP=%s,%s,%s" % (self.hba_id, self.wwpn, self.fcp_lun,)
 
 
 class DASDDevice(DiskDevice):

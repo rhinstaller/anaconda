@@ -1164,6 +1164,13 @@ class DeviceTree(object):
         elif udev_device_is_dasd(info):
             diskType = DASDDevice
             log.debug("%s is a dasd device" % name)
+        elif udev_device_is_zfcp(info):
+            diskType = ZFCPDiskDevice
+
+            for attr in ['hba_id', 'wwpn', 'fcp_lun']:
+                kwargs[attr] = udev_device_get_zfcp_attribute(info, attr=attr)
+
+            log.debug("%s is a zfcp device" % name)
         else:
             diskType = DiskDevice
             log.debug("%s is a disk" % name)

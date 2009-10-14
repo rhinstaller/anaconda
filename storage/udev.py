@@ -165,6 +165,48 @@ def udev_device_is_dasd(info):
     else:
         return False
 
+def udev_device_is_zfcp(info):
+    """ Return True if the device is a zfcp device. """
+    if info.get("DEVTYPE") != "disk":
+        return False
+
+    subsystem = "/sys" + info.get("sysfs_path")
+
+    while True:
+        topdir = os.path.realpath(os.path.dirname(subsystem))
+        driver = "%s/driver" % (topdir,)
+
+        if os.path.islink(driver):
+            subsystemname = os.path.basename(os.readlink(subsystem))
+            drivername = os.path.basename(os.readlink(driver))
+
+            if subsystemname == 'ccw' and drivername == 'zfcp':
+                return True
+
+        newsubsystem = os.path.dirname(topdir)
+
+        if newsubsystem == topdir:
+            break
+
+        subsystem = newsubsystem + "/subsystem"
+
+    return False
+
+def udev_device_get_zfcp_attribute(info, attr=None):
+    """ Return the value of the specified attribute of the zfcp device. """
+    if not attr:
+        log.debug("udev_device_get_zfcp_attribute() called with attr=None")
+        return None
+
+    attribute = "/sys%s/devices/%s" % (info.get("sysfs_path"), attr,)
+    attribute = os.path.realpath(attribute)
+
+    if not os.path.isfile(attribute):
+        log.warning("%s is not a valid zfcp attribute" % (attribute,))
+        return None
+
+    return open(attribute, "r").read().strip()
+
 def udev_device_is_cdrom(info):
     """ Return True if the device is an optical drive. """
     # FIXME: how can we differentiate USB drives from CD-ROM drives?
