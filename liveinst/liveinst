@@ -66,6 +66,19 @@ done
 
 /sbin/swapoff -a
 /sbin/lvm vgchange -an --ignorelockingfailure
+for i in /dev/md*; do
+    if [ ! -b $i ]; then
+        continue
+    fi
+
+    case "$i" in
+        /dev/md*p*)
+            ;;
+        *)
+            mdadm --stop $i >/dev/null 2>&1
+            ;;
+    esac
+done
 
 if [ -x /usr/bin/devkit-disks ]; then
     /usr/bin/devkit-disks --inhibit -- /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA $*"
