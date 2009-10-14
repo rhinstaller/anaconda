@@ -21,7 +21,7 @@
 #
 
 from iutil import log_method_call, numeric_type
-from parted import PARTITION_SWAP
+from parted import PARTITION_SWAP, fileSystemType
 from ..errors import *
 from ..devicelibs import swap
 from . import DeviceFormat, register_device_format
@@ -39,6 +39,7 @@ class SwapSpace(DeviceFormat):
     _name = None
     _udevTypes = ["swap"]
     partedFlag = PARTITION_SWAP
+    partedSystem = fileSystemType["linux-swap(v1)"]
     _formattable = True                # can be formatted
     _supported = True                  # is supported
     _linuxNative = True                # for clearpart
