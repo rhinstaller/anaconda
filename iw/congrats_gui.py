@@ -45,7 +45,7 @@ class CongratulationWindow (InstallWindow):
         # this mucks around a bit, but it's the weird case and it's
         # better than adding a lot of complication to the normal
 	ics.cw.mainxml.get_widget("nextButton").hide()
-        if os.path.exists("/dev/live-osimg"):
+        if os.path.exists(os.environ.get("LIVE_BLOCK", "/dev/mapper/live-osimg-min")):
             ics.cw.mainxml.get_widget("closeButton").show()
             ics.cw.mainxml.get_widget("closeButton").grab_focus()
         else:
