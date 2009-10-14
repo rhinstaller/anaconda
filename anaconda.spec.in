@@ -218,6 +218,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 13 2009 David Cantrell <dcantrell@redhat.com> - 13.6-1
+- BR system-config-keyboard (dcantrell)
+
 * Tue Oct 13 2009 David Cantrell <dcantrell@redhat.com> - 13.5-1
 - Remove extra echo in 'make rpmlog'. (dcantrell)
 - Do not traceback if network device doesn't have HwAddress property
