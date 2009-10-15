@@ -681,7 +681,9 @@ class AnacondaYum(YumSorter):
                     except Exception as e:
                         log.error("error mounting NFS repo: %s" % e)
 
-                    anacondaBaseURLs = [ksrepo.baseurl]
+                    # Get rid of two slashes in nfs:// prefix, boot repo param
+                    # doesn't use them.
+                    anacondaBaseURLs = ["nfs:" + ksrepo.baseurl[6:]]
                     ksrepo.baseurl = "file://%s" % dest
 
                 repo = AnacondaYumRepo(ksrepo.name)
