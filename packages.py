@@ -106,77 +106,62 @@ def turnOnFilesystems(anaconda):
                 if d.format.migrate:
                     upgrade_migrate = True
 
+        title = None
+        message = None
+        details = None
+
         try:
             anaconda.id.storage.doIt()
         except DeviceResizeError as (msg, device):
             # XXX does this make any sense? do we support resize of
             #     devices other than partitions?
-            anaconda.intf.detailedMessageWindow(_("Device Resize Failed"),
-                                _("An error was encountered while "
-                                  "resizing device %s.") % (device,),
-                                msg,
-                                type = "custom",
-                                custom_buttons = [_("_Exit installer")])
-            sys.exit(1)
+            title = _("Device Resize Failed")
+            message = _("An error was encountered while "
+                        "resizing device %s.") % (device,)
+            details = msg
         except DeviceCreateError as (msg, device):
-            anaconda.intf.detailedMessageWindow(_("Device Creation Failed"),
-                                _("An error was encountered while "
-                                  "creating device %s.") % (device,),
-                                msg,
-                                type = "custom",
-                                custom_buttons = [_("_Exit installer")])
-            sys.exit(1)
+            title = _("Device Creation Failed")
+            message = _("An error was encountered while "
+                        "creating device %s.") % (device,)
+            details = msg
         except DeviceDestroyError as (msg, device):
-            anaconda.intf.detailedMessageWindow(_("Device Removal Failed"),
-                                _("An error was encountered while "
-                                  "removing device %s.") % (device,),
-                                msg,
-                                type = "custom",
-                                custom_buttons = [_("_Exit installer")])
-            sys.exit(1)
+            title = _("Device Removal Failed")
+            message = _("An error was encountered while "
+                        "removing device %s.") % (device,)
+            details = msg
         except DeviceError as (msg, device):
-            anaconda.intf.detailedMessageWindow(_("Device Setup Failed"),
-                                _("An error was encountered while "
-                                  "setting up device %s.") % (device,),
-                                msg,
-                                type = "custom",
-                                custom_buttons = [_("_Exit installer")])
-            sys.exit(1)
+            title = _("Device Setup Failed")
+            message = _("An error was encountered while "
+                        "setting up device %s.") % (device,)
+            details = msg
         except FSResizeError as (msg, device):
+            title = _("Resizing Failed")
+            message = _("There was an error encountered while "
+                        "resizing the device %s.") % (device,)
+
             if os.path.exists("/tmp/resize.out"):
                 details = open("/tmp/resize.out", "r").read()
             else:
                 details = "%s" %(msg,)
-            anaconda.intf.detailedMessageWindow(_("Resizing Failed"),
-                                _("There was an error encountered while "
-                                "resizing the device %s.") %(device,),
-                                details,
-                                type = "custom",
-                                custom_buttons = [_("_Exit installer")])
-            sys.exit(1)
         except FSMigrateError as (msg, device):
-            anaconda.intf.detailedMessageWindow(_("Migration Failed"),
-                                _("An error was encountered while "
-                                  "migrating filesystem on device %s.")
-                                % (device,),
-                                msg,
-                                type = "custom",
-                                custom_buttons = [_("_Exit installer")])
-            sys.exit(1)
+            title = _("Migration Failed")
+            message = _("An error was encountered while "
+                        "migrating filesystem on device %s.") % (device,)
+            details = msg
         except FormatCreateError as (msg, device):
-            anaconda.intf.detailedMessageWindow(_("Formatting Failed"),
-                                _("An error was encountered while "
-                                  "formatting device %s.") % (device,),
-                                msg,
-                                type = "custom",
-                                custom_buttons = [_("_Exit installer")])
-            sys.exit(1)
+            title = _("Formatting Failed")
+            message = _("An error was encountered while "
+                        "formatting device %s.") % (device,)
+            details = msg
         except Exception as msg:
             # catch-all
-            rc = anaconda.intf.detailedMessageWindow(_("Storage Activation Failed"),
-                                _("An error was encountered while "
-                                  "activating your storage configuration."),
-                                msg,
+            title = _("Storage Activation Failed")
+            message = _("An error was encountered while "
+                        "activating your storage configuration.")
+            details = msg
+
+        if title:
+            rc = anaconda.intf.detailedMessageWindow(title, message, details,
                                 type = "custom",
                                 custom_buttons = [_("_File Bug"), _("_Exit installer")])
 
