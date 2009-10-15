@@ -174,4 +174,5 @@ class s390BootloaderInfo(bootloaderInfo):
         bootloaderInfo.__init__(self, instData)
         self.useZiplVal = 1      # only used on s390
         self.kernelLocation = "/boot/"
-        self.configfile = "/etc/zipl.conf"
+        self._configdir = "/etc"
+        self._configname = "zipl.conf"

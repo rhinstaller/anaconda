@@ -266,7 +266,7 @@ class BootImages:
         retval.sort()
         return retval
 
-class bootloaderInfo:
+class bootloaderInfo(object):
     def getConfigFileName(self):
         if not self._configname:
             raise NotImplementedError

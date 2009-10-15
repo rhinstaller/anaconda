@@ -145,7 +145,8 @@ class alphaBootloaderInfo(bootloaderInfo):
     def __init__(self, instData):
         bootloaderInfo.__init__(self, instData)
         self.useGrubVal = 0
-        self.configfile = "/etc/aboot.conf"
+        self._configdir = "/etc"
+        self._configname = "aboot.conf"
         # self.kernelLocation is already set to what we need.
         self.password = None
         self.pure = None

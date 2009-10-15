@@ -178,4 +178,5 @@ class ppcBootloaderInfo(bootloaderInfo):
         bootloaderInfo.__init__(self, instData)
         self.useYabootVal = 1
         self.kernelLocation = "/boot"
-        self.configfile = "/etc/yaboot.conf"
+        self._configdir = "/etc"
+        self._configname = "yaboot.conf"
