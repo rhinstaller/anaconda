@@ -107,6 +107,9 @@ class InstallInterface:
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_buttons=None,
                               custom_icon=None):
+        if longText:
+            text += "\n\n%s" % longText
+
         self.messageWindow(title, text, type=type, default=default,
                            custom_buttons=custom_buttons, custom_icon=custom_icon)
 
