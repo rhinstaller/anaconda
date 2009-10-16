@@ -115,11 +115,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
                updatedMatches.append((getDiskPart(mdBootPart, self.storage)[0], mdBootPart))
         return updatedMatches
 
-    def installGrub(self, instRoot, bootDev, grubTarget, grubPath,
-                    target, cfPath):
+    def installGrub(self, instRoot, bootDev, grubTarget, grubPath, cfPath):
         if iutil.isEfi():
             return efiBootloaderInfo.installGrub(self, instRoot, bootDev, grubTarget,
-                                                 grubPath, target, cfPath)
+                                                 grubPath, cfPath)
 
         args = "--stage2=/boot/grub/stage2 "
 
@@ -214,12 +213,6 @@ class x86BootloaderInfo(efiBootloaderInfo):
             os.rename(cf, cf + '.rpmsave')
 
         grubTarget = bl.getDevice()
-        targetDevice = self.storage.devicetree.getDeviceByName(grubTarget)
-        path = targetDevice.path[5:]
-        if targetDevice.type == "partition" or targetDevice.type == "mdarray":
-            target = "partition"
-        else:
-            target = "mbr"
 
         f = open(cf, "w+")
 
@@ -419,8 +412,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         f.close()
             
         if not justConfigFile:
-            return self.installGrub(instRoot, bootDev, grubTarget, grubPath,
-                             target, cfPath)
+            return self.installGrub(instRoot, bootDev, grubTarget, grubPath, cfPath)
 
         return 0
 
