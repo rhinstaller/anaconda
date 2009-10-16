@@ -126,8 +126,7 @@ def writeBootloader(anaconda):
     if anaconda.id.bootloader.defaultDevice == -1:
         return
 
-    # now make the upgrade stuff work for kickstart too. ick.
-    if anaconda.isKickstart and anaconda.id.bootloader.doUpgradeOnly:
+    if anaconda.id.bootloader.doUpgradeOnly:
         (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
         
         anaconda.id.bootloader.doUpgradeonly = 1

@@ -495,30 +495,13 @@ class x86BootloaderInfo(efiBootloaderInfo):
         if justConfigFile:
             return ""
 
-        theDev = None
-        for (fn, stanza) in [ ("/etc/sysconfig/grub", "boot="),
-                              ("/boot/grub/grub.conf", "#boot=") ]:
-            try:
-                f = open(instRoot + fn, "r")
-            except:
-                continue
-        
-            # the following bits of code are straight from checkbootloader.py
-            lines = f.readlines()
-            f.close()
-            for line in lines:
-                if line.startswith(stanza):
-                    theDev = checkbootloader.getBootDevString(line)
-                    break
-            if theDev is not None:
-                break
+        grubTarget = bl.getDevice()
             
-        if theDev is None:
-            # we could find the dev before, but can't now...  cry about it
+        if grubTarget is None:
             return ""
 
         # migrate info to /etc/sysconfig/grub
-        self.writeSysconfig(instRoot, theDev)
+        self.writeSysconfig(instRoot, grubTarget)
 
         # update device.map
         self.updateDeviceMap(instRoot)
@@ -535,7 +518,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             grubPath = "/boot/grub"
             cfPath = "/boot/"
 
-        return self.installGrub(instRoot, bootDev, theDev, grubPath, cfPath)
+        return self.installGrub(instRoot, bootDev, grubTarget, grubPath, cfPath)
 
     def writeSysconfig(self, instRoot, installDev):
         sysconf = '/etc/sysconfig/grub'
