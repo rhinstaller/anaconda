@@ -125,6 +125,7 @@ int num_link_checks = 5;
 int post_link_sleep = 0;
 
 static pid_t init_pid = 1;
+static int init_sig = SIGUSR1; /* default to shutdown=halt */
 
 static struct installMethod installMethods[] = {
     { N_("Local CD/DVD"), 0, DEVICE_CDROM, mountCdromImage },
@@ -1735,8 +1736,8 @@ void loaderSegvHandler(int signum) {
 }
 
 void loaderUsrXHandler(int signum) {
-    logMessage(INFO, "Sending signal %d to process %d\n", signum, init_pid);
-    kill(init_pid, signum);
+    logMessage(INFO, "Remembering signal %d\n", signum);
+    init_sig = signum;
 }
 
 static int anaconda_trace_init(void) {
@@ -2314,6 +2315,12 @@ int main(int argc, char ** argv) {
         }
 
         stop_fw_loader(&loaderData);
+#if defined(__s390__) || defined(__s390x__)
+        /* at the latest possibility signal init=linuxrc.s390 to reboot/halt */
+        logMessage(INFO, "Sending signal %d to process %d\n",
+                   init_sig, init_pid);
+        kill(init_pid, init_sig);
+#endif
         return rc;
     }
 #if 0

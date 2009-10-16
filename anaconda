@@ -1000,11 +1000,3 @@ if __name__ == "__main__":
             drive.eject()
 
     del anaconda.intf
-
-    if iutil.isS390():
-        if anaconda.canReIPL:
-            log.info(_("reipl configuration successful => reboot"))
-            os.kill(os.getppid(), signal.SIGUSR2)
-        else:
-            log.info(_("reipl configuration failed => halt"))
-            os.kill(os.getppid(), signal.SIGUSR1)
