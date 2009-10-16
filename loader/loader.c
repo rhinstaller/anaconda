@@ -1891,8 +1891,8 @@ int main(int argc, char ** argv) {
     flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
 
     /* JKFIXME: I do NOT like this... it also looks kind of bogus */
-#if defined(__s390__) && !defined(__s390x__)
-    flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
+#if defined(__s390__) || defined(__s390x__)
+    flags |= LOADER_FLAGS_NOSHELL;
 #endif
 
     openLog(FL_TESTING(flags));
