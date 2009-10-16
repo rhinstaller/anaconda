@@ -108,26 +108,42 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr) {
     return 0;
 }
 
-static void getHostAndPath(char *ksSource, char **host, char **file, char *ip) {
+void parseNfsHostPathOpts(char *url, char **host, char **path, char **opts) {
     char *tmp;
     char *hostsrc;
 
-    hostsrc = strdup(ksSource);
+    logMessage(DEBUGLVL, "parseNfsHostPathOpts url: |%s|", url);
+
+    hostsrc = strdup(url);
     *host = hostsrc;
-    tmp = strchr(*host, '/');
+    tmp = strchr(*host, ':');
 
     if (tmp) {
-       *file = strdup(tmp);
+       *path = strdup(tmp + 1);
        *tmp = '\0';
     }
     else {
-        *file = malloc(sizeof(char *));
-        **file = '\0';
+        *path = malloc(sizeof(char *));
+        **path = '\0';
     }
 
-    logMessage(DEBUGLVL, "getHostAndPath host: |%s|", *host);
-    logMessage(DEBUGLVL, "getHostAndPath file(1): |%s|", *file);
+    tmp = strchr(*path, ':');
+    if (tmp && (strlen(tmp) > 1)) {
+	char * c = tmp;
+        *opts = *host;
+        *host = *path;
+	*path = strdup(c + 1);
+	*c = '\0';
+    } else {
+	*opts = NULL;
+    }
 
+    logMessage(DEBUGLVL, "parseNfsHostPathOpts host: |%s|", *host);
+    logMessage(DEBUGLVL, "parseNfsHostPathOpts path: |%s|", *path);
+    logMessage(DEBUGLVL, "parseNfsHostPathOpts opts: |%s|", *opts);
+}
+
+static void addDefaultKickstartFile(char **file, char *ip) {
     /* if the filename ends with / or is null, use default kickstart
      * name of IP_ADDRESS-kickstart appended to *file
      */
@@ -138,7 +154,7 @@ static void getHostAndPath(char *ksSource, char **host, char **file, char *ip) {
             abort();
         }
 
-        logMessage(DEBUGLVL, "getHostAndPath file(2): |%s|", *file);
+        logMessage(DEBUGLVL, "addDefaultKickstartFile file: |%s|", *file);
     }
 }
 
@@ -515,17 +531,9 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     }
 
     logMessage(INFO, "url is %s", url);
-    getHostAndPath(url, &host, &path, ip);
 
-    opts = strchr(host, ':');
-    if (opts && (strlen(opts) > 1)) {
-        char * c = opts;
-        opts = host;
-        host = c + 1;
-        *c = '\0';
-    } else {
-        opts = NULL;
-    }
+    parseNfsHostPathOpts(url, &host, &path, &opts);
+    addDefaultKickstartFile(&path, ip);
 
     /* nfs has to be a little bit different... split off the last part as
      * the file and then concatenate host + dir path */
@@ -537,12 +545,12 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         chk = host + strlen(host)-1;
 
         if (*chk == '/' || *path == '/') {
-            if (asprintf(&host, "%s%s", host, path) == -1) {
+            if (asprintf(&host, "%s:%s", host, path) == -1) {
                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
         } else {
-            if (asprintf(&host, "%s/%s", host, path) == -1) {
+            if (asprintf(&host, "%s:/%s", host, path) == -1) {
                 logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
                 abort();
             }
