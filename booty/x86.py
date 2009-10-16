@@ -527,56 +527,15 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # so we have to do shenanigans to get updated grub installed...
         # steal some more code above
         try:
-            bootDev = self.storage.mountpoints["/boot"].name
+            bootDev = self.storage.mountpoints["/boot"]
             grubPath = "/grub"
             cfPath = "/"
         except KeyError:
-            bootDev = self.storage.rootDevice.name
+            bootDev = self.storage.rootDevice
             grubPath = "/boot/grub"
             cfPath = "/boot/"
 
-        masterBootDev = bootDev
-        if masterBootDev[0:2] == 'md':
-            rootDevs = checkbootloader.getRaidDisks(masterBootDev,
-                            self.storage, raidLevel=1, stripPart=0)
-        else:
-            rootDevs = [masterBootDev]
-
-        if theDev[5:7] == 'md':
-            stage1Devs = checkbootloader.getRaidDisks(theDev[5:], self.storage,
-                              raidLevel=1)
-        else:
-            stage1Devs = [theDev[5:]]
-
-        cmds = []
-        for stage1Dev in stage1Devs:
-            # cross fingers; if we can't find a root device on the same
-            # hardware as this boot device, we just blindly hope the first
-            # thing in the list works.
-
-            grubbyStage1Dev = self.grubbyPartitionName(stage1Dev)
-
-            grubbyRootPart = self.grubbyPartitionName(rootDevs[0])
-
-            for rootDev in rootDevs:
-                testGrubbyRootDev = getDiskPart(rootDev, self.storage)[0]
-                testGrubbyRootDev = self.grubbyPartitionName(testGrubbyRootDev)
-
-                if grubbyStage1Dev == testGrubbyRootDev:
-                    grubbyRootPart = self.grubbyPartitionName(rootDev)
-                    break
-                    
-            args = "--stage2=/boot/grub/stage2 "
-            cmd ="root %s\n" % (grubbyRootPart,)
-            cmd += "install %s%s/stage1 d %s %s/stage2 p %s%s/grub.conf" \
-                % (args, grubPath, grubbyStage1Dev, grubPath, grubbyRootPart,
-                   grubPath)
-            cmds.append(cmd)
-        
-        if not justConfigFile:
-            return self.runGrubInstall(instRoot, bootDev, cmds, cfPath)
- 
-        return 0
+        return self.installGrub(instRoot, bootDev, theDev, grubPath, cfPath)
 
     def writeSysconfig(self, instRoot, installDev):
         sysconf = '/etc/sysconfig/grub'
