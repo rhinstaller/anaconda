@@ -29,6 +29,8 @@ import string
 from flags import flags
 from constants import *
 from storage.devices import devicePathToName
+from storage import getReleaseString
+from booty.util import getDiskPart
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -115,6 +117,22 @@ def bootloaderSetupChoices(anaconda):
     elif choices and choices.has_key("boot"):
         anaconda.id.bootloader.setDevice(choices["boot"][0])
 
+def fixedMdraidGrubTarget(anaconda, grubTarget):
+    # handle change made in F12 - before F12 mdX used to mean installation
+    # into mbrs of mdX members' disks
+    fixedGrubTarget = grubTarget
+    (product, version) = getReleaseString(anaconda.rootPath)
+    try:
+        if float(version) < 12:
+            stage1Devs = anaconda.id.bootloader.getPhysicalDevices(grubTarget)
+            fixedGrubTarget = getDiskPart(stage1Devs[0], anaconda.id.storage)[0]
+            log.info("Mdraid grub upgrade: %s -> %s" % (grubTarget,
+                                                       fixedGrubTarget))
+    except ValueError:
+        log.warning("Can't decide mdraid grub upgrade fix, product: %s, version: %s" % (product, version))
+
+    return fixedGrubTarget
+
 def writeBootloader(anaconda):
     def dosync():
         isys.sync()
@@ -131,6 +149,9 @@ def writeBootloader(anaconda):
         
         anaconda.id.bootloader.doUpgradeonly = 1
         if bootType == "GRUB":
+            if theDev.startswith('/dev/md'):
+                theDev = fixedMdraidGrubTarget(anaconda,
+                                               devicePathToName(theDev))
             anaconda.id.bootloader.useGrubVal = 1
             anaconda.id.bootloader.setDevice(devicePathToName(theDev))
         else:
