@@ -125,12 +125,17 @@ void shutDown(int doKill, reboot_action rebootAction) {
 #ifdef AS_SHUTDOWN
 int main(int argc, char ** argv) {
     int fd;
-    int doReboot = 0;
+    reboot_action rebootAction = HALT;
+    int doKill = 1;
     int i = 1;
 
     while (i < argc) {
       if (!strncmp("-r", argv[i], 2))
-	doReboot = 1;
+        rebootAction = REBOOT;
+      else if (!strncmp("--nokill", argv[i], 8))
+        doKill = 0;
+      else if (!strncmp("-P", argv[i], 2))
+        rebootAction = POWEROFF;
       i++;
     }
 
@@ -148,7 +153,7 @@ int main(int argc, char ** argv) {
     dup2(fd, 2);
     close(fd);
 
-    shutDown(0, doReboot ? REBOOT : HALT);
+    shutDown(doKill, rebootAction);
     return 0;
 }
 #endif
