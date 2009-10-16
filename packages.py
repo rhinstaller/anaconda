@@ -371,11 +371,7 @@ def doReIPL(anaconda):
 
     messageInfo = iutil.reIPL(anaconda, os.getppid())
 
-    if messageInfo is None:
-        anaconda.canReIPL = True
-    else:
-        anaconda.canReIPL = False
-
+    if messageInfo:
         (errorMessage, rebootInstr) = messageInfo
 
         # errorMessage intentionally not shown in UI

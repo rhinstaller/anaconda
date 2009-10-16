@@ -952,6 +952,16 @@ def reIPLonFCP(iplsubdev, reipl_path):
     return None
 
 
+def reIPLtrigger(anaconda):
+    if not isS390():
+        return
+    if anaconda.canReIPL:
+        log.info("reipl configuration successful => reboot")
+        os.kill(os.getppid(), signal.SIGUSR2)
+    else:
+        log.info("reipl configuration failed => halt")
+        os.kill(os.getppid(), signal.SIGUSR1)
+
 def reIPL(anaconda, loader_pid):
     instruction = _("After shutdown, please perform a manual IPL from the device "
                     "now containing /boot to continue installation")
@@ -970,6 +980,13 @@ def reIPL(anaconda, loader_pid):
         message = reIPLonCCW(ipldev, reipl_path)
     elif ipldev.startswith("sd"):
         message = reIPLonFCP(ipldev, reipl_path)
+
+    if message is None:
+        anaconda.canReIPL = True
+    else:
+        anaconda.canReIPL = False
+
+    reIPLtrigger(anaconda)
 
     # the final return is either None if reipl configuration worked (=> reboot),
     # or a two-item list with errorMessage and rebootInstr (=> shutdown)
