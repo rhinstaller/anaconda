@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.28\n"
+"Project-Id-Version: anaconda 12.37\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-09-29 14:51-1000\n"
-"PO-Revision-Date: 2009-09-30 23:28+0100\n"
+"POT-Creation-Date: 2009-10-13 12:05-1000\n"
+"PO-Revision-Date: 2009-10-17 20:05-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
-#: anaconda:374
+#: anaconda:361
 msgid "Press <enter> for a shell"
 msgstr "Притисните <enter> за љуску"
 
-#: anaconda:389 rescue.py:324 rescue.py:350 rescue.py:363 rescue.py:439
+#: anaconda:376 rescue.py:324 rescue.py:350 rescue.py:363 rescue.py:439
 #: rescue.py:451 text.py:500 loader/cdinstall.c:228 loader/cdinstall.c:232
 #: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:445
 #: loader/cdinstall.c:452 loader/cdinstall.c:517 loader/dirbrowser.c:145
@@ -46,13 +46,13 @@ msgstr "Притисните <enter> за љуску"
 #: loader/net.c:1914 loader/nfsinstall.c:91 loader/nfsinstall.c:250
 #: loader/nfsinstall.c:269 loader/nfsinstall.c:337 loader/telnetd.c:92
 #: loader/urlinstall.c:83 loader/urlinstall.c:107 loader/urlinstall.c:175
-#: loader/urlinstall.c:451 loader/urlinstall.c:460 loader/urlinstall.c:469
+#: loader/urlinstall.c:451 loader/urlinstall.c:460 loader/urlinstall.c:467
 #: loader/urls.c:292 loader/urls.c:328 loader/urls.c:334 loader/urls.c:346
 #: textw/constants_text.py:44
 msgid "OK"
 msgstr "У реду"
 
-#: anaconda:396
+#: anaconda:383
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -60,15 +60,15 @@ msgstr ""
 "Немате довољно RAM-а за коришћење графичког инсталатера.  Покрећем "
 "текстуални режим."
 
-#: anaconda:459
+#: anaconda:446
 msgid "Starting graphical installation."
 msgstr "Покрећем графичку инсталацију."
 
-#: anaconda:775
+#: anaconda:762
 msgid "Would you like to use VNC?"
 msgstr "Желите ли да користите VNC?"
 
-#: anaconda:776
+#: anaconda:763
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -78,23 +78,23 @@ msgstr ""
 "вам да одредите свој нацрт поделе диска нити избор пакета.  Да ли бисте "
 "желели да уместо употребите VNC режим?"
 
-#: anaconda:802
+#: anaconda:789
 msgid "Install class forcing text mode installation"
 msgstr "Класа инсталације намеће текстуални режим инсталације"
 
-#: anaconda:821
+#: anaconda:808
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Графичка инсталација није доступна. Покрећем текстуални режим."
 
-#: anaconda:829
+#: anaconda:816
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY променљива није постављена. Покрећем текстуални режим."
 
-#: anaconda:997
+#: anaconda:984
 msgid "reipl configuration successful => reboot"
 msgstr "reipl подешавање је успело => покрећем поново"
 
-#: anaconda:1000
+#: anaconda:987
 msgid "reipl configuration failed => halt"
 msgstr "reipl подешавање није успело => обустављам"
 
@@ -133,14 +133,14 @@ msgstr ""
 "Вероватно вам је понестало простора на диску."
 
 #: backend.py:189 image.py:285 livecd.py:190 livecd.py:398
-#: partIntfHelpers.py:237 text.py:308 text.py:312 yuminstall.py:381
-#: yuminstall.py:725 yuminstall.py:839 yuminstall.py:1101 yuminstall.py:1165
-#: yuminstall.py:1324 yuminstall.py:1342 iw/autopart_type.py:99
-#: iw/autopart_type.py:198 iw/autopart_type.py:318 iw/autopart_type.py:321
-#: iw/autopart_type.py:388 iw/autopart_type.py:396 iw/autopart_type.py:425
-#: iw/osbootwidget.py:210 iw/osbootwidget.py:219 iw/raid_dialog_gui.py:721
-#: iw/raid_dialog_gui.py:760 iw/task_gui.py:63 iw/task_gui.py:179
-#: iw/task_gui.py:308 iw/task_gui.py:436 loader/cdinstall.c:228
+#: partIntfHelpers.py:237 text.py:308 text.py:312 yuminstall.py:394
+#: yuminstall.py:734 yuminstall.py:848 yuminstall.py:1111 yuminstall.py:1175
+#: yuminstall.py:1334 yuminstall.py:1352 iw/autopart_type.py:99
+#: iw/autopart_type.py:198 iw/autopart_type.py:325 iw/autopart_type.py:328
+#: iw/autopart_type.py:395 iw/autopart_type.py:403 iw/autopart_type.py:432
+#: iw/osbootwidget.py:210 iw/osbootwidget.py:219 iw/raid_dialog_gui.py:724
+#: iw/raid_dialog_gui.py:763 iw/task_gui.py:63 iw/task_gui.py:164
+#: iw/task_gui.py:307 iw/task_gui.py:442 loader/cdinstall.c:228
 #: loader/cdinstall.c:517 loader/driverdisk.c:98 loader/driverdisk.c:305
 #: loader/driverdisk.c:340 loader/driverdisk.c:371 loader/driverdisk.c:379
 #: loader/driverdisk.c:443 loader/hdinstall.c:134 loader/hdinstall.c:340
@@ -151,7 +151,7 @@ msgstr ""
 #: loader/method.c:353 loader/nfsinstall.c:250 loader/nfsinstall.c:269
 #: loader/telnetd.c:92 loader/urlinstall.c:83 loader/urlinstall.c:107
 #: loader/urlinstall.c:175 loader/urls.c:328 loader/urls.c:334
-#: storage/__init__.py:190 storage/__init__.py:1632 storage/__init__.py:1717
+#: storage/__init__.py:200 storage/__init__.py:1645 storage/__init__.py:1730
 #: textw/netconfig_text.py:280 textw/partition_text.py:186
 #: textw/partition_text.py:192 textw/partition_text.py:198
 #: textw/partition_text.py:231 textw/partition_text.py:241
@@ -159,8 +159,8 @@ msgstr ""
 msgid "Error"
 msgstr "Грешка"
 
-#: bootloader.py:53 bootloader.py:209 bootloader.py:216 image.py:82
-#: upgrade.py:251 yuminstall.py:1505 yuminstall.py:1541
+#: bootloader.py:53 bootloader.py:208 bootloader.py:215 image.py:82
+#: upgrade.py:251 yuminstall.py:1515 yuminstall.py:1551
 #: iw/autopart_type.py:208 iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:191
 #: iw/upgrade_swap_gui.py:199 iw/upgrade_swap_gui.py:206
 #: storage/devicetree.py:144 storage/devicetree.py:171
@@ -184,33 +184,28 @@ msgstr ""
 #: image.py:91 kickstart.py:151 livecd.py:197 livecd.py:405 packages.py:119
 #: packages.py:127 packages.py:135 packages.py:143 packages.py:155
 #: packages.py:164 packages.py:172 packages.py:181 upgrade.py:58
-#: upgrade.py:206 yuminstall.py:236 yuminstall.py:658 yuminstall.py:843
-#: yuminstall.py:923 yuminstall.py:929 yuminstall.py:1072 yuminstall.py:1097
-#: yuminstall.py:1155 yuminstall.py:1319 yuminstall.py:1349
-#: storage/__init__.py:91 storage/__init__.py:194 storage/__init__.py:1805
+#: upgrade.py:206 yuminstall.py:236 yuminstall.py:665 yuminstall.py:852
+#: yuminstall.py:932 yuminstall.py:938 yuminstall.py:1082 yuminstall.py:1107
+#: yuminstall.py:1165 yuminstall.py:1329 yuminstall.py:1359
+#: storage/__init__.py:96 storage/__init__.py:204 storage/__init__.py:1818
 msgid "_Exit installer"
 msgstr "_Излаз из инсталатера"
 
 #: bootloader.py:58 image.py:92 image.py:248 kickstart.py:1357
-#: kickstart.py:1396 upgrade.py:58 yuminstall.py:1160 iw/partition_gui.py:1037
-#: storage/__init__.py:1806
+#: kickstart.py:1396 upgrade.py:58 yuminstall.py:1170 iw/partition_gui.py:1038
+#: storage/__init__.py:1819
 msgid "_Continue"
 msgstr "На_стави"
 
-#: bootloader.py:114 platform.py:93 platform.py:320 platform.py:388
-#: platform.py:488
-msgid "RAID Device"
-msgstr "RAID уређај"
-
-#: bootloader.py:143
+#: bootloader.py:142
 msgid "Bootloader"
 msgstr "Покретачки програм"
 
-#: bootloader.py:143
+#: bootloader.py:142
 msgid "Installing bootloader."
 msgstr "Инсталирам покретачки програм."
 
-#: bootloader.py:210
+#: bootloader.py:209
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
@@ -218,7 +213,7 @@ msgstr ""
 "Дошло је до грешке при инсталацији покретачког програма.  Систем можда неће "
 "моћи да буде покренут."
 
-#: bootloader.py:217
+#: bootloader.py:216
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
@@ -388,12 +383,12 @@ msgstr ""
 "className = %s"
 
 #: gui.py:1257 image.py:164 image.py:194 packages.py:360 packages.py:365
-#: storage/__init__.py:1631
+#: storage/__init__.py:1644
 msgid "_Exit"
 msgstr "_Изађи"
 
-#: gui.py:1258 image.py:164 image.py:194 livecd.py:197 yuminstall.py:717
-#: yuminstall.py:1097 yuminstall.py:1155 yuminstall.py:1319
+#: gui.py:1258 image.py:164 image.py:194 livecd.py:197 yuminstall.py:726
+#: yuminstall.py:1107 yuminstall.py:1165 yuminstall.py:1329
 msgid "_Retry"
 msgstr "По_кушај поново"
 
@@ -405,7 +400,7 @@ msgstr "Инсталатер сада излази."
 msgid "The system will now reboot."
 msgstr "Систем ће сада бити поново покренут."
 
-#: gui.py:1265 image.py:248 packages.py:368 yuminstall.py:1365
+#: gui.py:1265 image.py:248 packages.py:368 yuminstall.py:1375
 msgid "_Reboot"
 msgstr "По_крени поново"
 
@@ -506,7 +501,7 @@ msgstr ""
 "од инсталације и изађете, одаберите „Покрени поново“."
 
 #: image.py:248 livecd.py:404 packages.py:365 packages.py:368 upgrade.py:205
-#: yuminstall.py:843 yuminstall.py:929 yuminstall.py:1349 yuminstall.py:1365
+#: yuminstall.py:852 yuminstall.py:938 yuminstall.py:1359 yuminstall.py:1375
 msgid "_Back"
 msgstr "На_зад"
 
@@ -616,7 +611,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Неуспех скриптице"
 
-#: kickstart.py:145 rescue.py:240 yuminstall.py:653 yuminstall.py:1067
+#: kickstart.py:145 rescue.py:240 yuminstall.py:660 yuminstall.py:1077
 msgid "No Network Available"
 msgstr "Нема доступне мреже"
 
@@ -966,7 +961,7 @@ msgstr "Не могу да обришем"
 msgid "You must first select a partition to delete."
 msgstr "Морате прво да изаберете партицију за брисање"
 
-#: partIntfHelpers.py:153 partIntfHelpers.py:338 iw/lvm_dialog_gui.py:834
+#: partIntfHelpers.py:153 partIntfHelpers.py:338 iw/lvm_dialog_gui.py:838
 msgid "Confirm Delete"
 msgstr "Потврдите брисање"
 
@@ -975,8 +970,8 @@ msgstr "Потврдите брисање"
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr "Спремате се да обришете све партиције на уређају „%s“."
 
-#: partIntfHelpers.py:157 partIntfHelpers.py:339 iw/lvm_dialog_gui.py:837
-#: iw/lvm_dialog_gui.py:1366 iw/osbootwidget.py:103 iw/partition_gui.py:1337
+#: partIntfHelpers.py:157 partIntfHelpers.py:339 iw/lvm_dialog_gui.py:841
+#: iw/lvm_dialog_gui.py:1370 iw/osbootwidget.py:103 iw/partition_gui.py:1348
 msgid "_Delete"
 msgstr "О_бриши"
 
@@ -1037,7 +1032,7 @@ msgstr ""
 msgid "Format?"
 msgstr "Форматирати?"
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1035
+#: partIntfHelpers.py:249 iw/partition_gui.py:1036
 msgid "_Modify Partition"
 msgstr "Из_мени партицију"
 
@@ -1081,7 +1076,7 @@ msgstr ""
 "\n"
 "Желите ли да наставите са вашим захтеваним нацртом поделе диска?"
 
-#: partIntfHelpers.py:287 iw/partition_gui.py:639
+#: partIntfHelpers.py:287 iw/partition_gui.py:640
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1139,6 +1134,10 @@ msgstr "Потврдите повраћај"
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "Сигурно желите да повратите табелу партиција у њено првобитно стање?"
+
+#: platform.py:93 platform.py:320 platform.py:388 platform.py:488
+msgid "RAID Device"
+msgstr "RAID уређај"
 
 #: platform.py:94 platform.py:97 platform.py:321 platform.py:389
 #: platform.py:489 platform.py:492
@@ -1254,7 +1253,7 @@ msgstr ""
 
 #: rescue.py:276 rescue.py:345 rescue.py:356 rescue.py:434
 msgid "Rescue"
-msgstr "Спас_и"
+msgstr "Спаси"
 
 #: rescue.py:277
 #, python-format
@@ -1279,8 +1278,8 @@ msgstr ""
 "овај корак ће бити прескочен ићи ћете право у командну љуску.\n"
 "\n"
 
-#: rescue.py:287 iw/partition_gui.py:543 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:444 storage/__init__.py:136
+#: rescue.py:287 iw/partition_gui.py:544 loader/cdinstall.c:206
+#: loader/cdinstall.c:214 loader/driverdisk.c:444 storage/__init__.py:141
 #: storage/devicetree.py:84
 msgid "Continue"
 msgstr "Настави"
@@ -1290,7 +1289,7 @@ msgid "Read-Only"
 msgstr "Само за читање"
 
 #: rescue.py:287 rescue.py:289 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:326 storage/__init__.py:1631 textw/upgrade_text.py:133
+#: loader/method.c:326 storage/__init__.py:1644 textw/upgrade_text.py:133
 msgid "Skip"
 msgstr "Прескочи"
 
@@ -1717,11 +1716,11 @@ msgstr ""
 "Дошло је до кобне грешке при инсталацији пакета %s.  Ово може да указује на "
 "грешке при читању инсталационог медијума.  Инсталација се не може наставити."
 
-#: yuminstall.py:303 iw/task_gui.py:82 iw/task_gui.py:321
+#: yuminstall.py:332 iw/task_gui.py:317
 msgid "Error Setting Up Repository"
 msgstr "Грешка при постављању ризнице"
 
-#: yuminstall.py:304
+#: yuminstall.py:333
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -1736,34 +1735,34 @@ msgstr ""
 "\n"
 "Пружите исправне податке за %s инсталацију."
 
-#: yuminstall.py:363
+#: yuminstall.py:376
 msgid "Change Disc"
 msgstr "Промени диск"
 
-#: yuminstall.py:364
+#: yuminstall.py:377
 #, python-format
 msgid "Please insert %s disc %d to continue."
 msgstr "Молим уметните %s диск %d за наставак."
 
-#: yuminstall.py:374
+#: yuminstall.py:387
 msgid "Wrong Disc"
 msgstr "Погрешан диск"
 
-#: yuminstall.py:375
+#: yuminstall.py:388
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "То није исправан %s диск."
 
-#: yuminstall.py:382
+#: yuminstall.py:395
 msgid "Unable to access the disc."
 msgstr "Не могу да приступим диску."
 
-#: yuminstall.py:541
+#: yuminstall.py:547
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Ризници %r недостаје назив у подешавањима, користим id"
 
-#: yuminstall.py:654 yuminstall.py:1068
+#: yuminstall.py:661 yuminstall.py:1078
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -1771,15 +1770,15 @@ msgstr ""
 "Неке од ваших ризница софтвера захтевају умрежавање, али је дошло до грешке "
 "при укључивању мреже на систему."
 
-#: yuminstall.py:715 yuminstall.py:717
+#: yuminstall.py:724 yuminstall.py:726
 msgid "Re_boot"
-msgstr "Поново по_крени"
+msgstr "По_крени поново"
 
-#: yuminstall.py:715
+#: yuminstall.py:724
 msgid "_Eject"
 msgstr "_Избаци"
 
-#: yuminstall.py:726
+#: yuminstall.py:735
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1796,62 +1795,62 @@ msgstr ""
 "захтевати поновну инсталацију.\n"
 "\n"
 
-#: yuminstall.py:774
+#: yuminstall.py:783
 msgid "Retrying"
 msgstr "Покушавам поново"
 
-#: yuminstall.py:774
+#: yuminstall.py:783
 msgid "Retrying download."
 msgstr "Поново покушавам преузимање."
 
-#: yuminstall.py:840
+#: yuminstall.py:849
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 "Дошло је до грешке при извршавању ваше трансакције из следећег разлога: %s\n"
 
-#: yuminstall.py:875 yuminstall.py:876
+#: yuminstall.py:884 yuminstall.py:885
 msgid "file conflicts"
 msgstr "сукоби датотека"
 
-#: yuminstall.py:877
+#: yuminstall.py:886
 msgid "older package(s)"
 msgstr "старији пакет(и)"
 
-#: yuminstall.py:878
+#: yuminstall.py:887
 msgid "insufficient disk space"
 msgstr "недовољно простора на диску"
 
-#: yuminstall.py:879
+#: yuminstall.py:888
 msgid "insufficient disk inodes"
 msgstr "недовољно и-чворова на диску"
 
-#: yuminstall.py:880
+#: yuminstall.py:889
 msgid "package conflicts"
 msgstr "сукоби пакета"
 
-#: yuminstall.py:881
+#: yuminstall.py:890
 msgid "package already installed"
 msgstr "пакет је већ инсталиран"
 
-#: yuminstall.py:882
+#: yuminstall.py:891
 msgid "required package"
 msgstr "неопходан пакет"
 
-#: yuminstall.py:883
+#: yuminstall.py:892
 msgid "package for incorrect arch"
 msgstr "пакет за погрешну архитектуру"
 
-#: yuminstall.py:884
+#: yuminstall.py:893
 msgid "package for incorrect os"
 msgstr "пакет за погрешан ос"
 
-#: yuminstall.py:898
+#: yuminstall.py:907
 msgid "You need more space on the following file systems:\n"
 msgstr "Потребно вам је више простора на следећим системима датотека:\n"
 
-#: yuminstall.py:911
+#: yuminstall.py:920
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1860,7 +1859,7 @@ msgstr ""
 "Дошло је до сукоба датотека при провери пакета за инсталацију:\n"
 "%s\n"
 
-#: yuminstall.py:914
+#: yuminstall.py:923
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
@@ -1868,11 +1867,11 @@ msgid ""
 msgstr ""
 "Дошло је до грешке при извршавању ваше трансакције из следећих разлога: %s.\n"
 
-#: yuminstall.py:921 yuminstall.py:926
+#: yuminstall.py:930 yuminstall.py:935
 msgid "Error Running Transaction"
 msgstr "Грешка при извршавању трансакције"
 
-#: yuminstall.py:1102
+#: yuminstall.py:1112
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -1880,24 +1879,24 @@ msgstr ""
 "Не могу да прочитам податке о групама из ризница.  Ово је проблем код "
 "прављења стабла инсталације."
 
-#: yuminstall.py:1138
+#: yuminstall.py:1148
 msgid "Retrieving installation information."
 msgstr "Прибављам податке о инсталацији."
 
-#: yuminstall.py:1140
+#: yuminstall.py:1150
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Прибављам податке о инсталацији за %s."
 
-#: yuminstall.py:1142
+#: yuminstall.py:1152
 msgid "Installation Progress"
 msgstr "Напредовање инсталације"
 
-#: yuminstall.py:1155 textw/constants_text.py:64
+#: yuminstall.py:1165 textw/constants_text.py:64
 msgid "Edit"
 msgstr "Уреди"
 
-#: yuminstall.py:1166 yuminstall.py:1325
+#: yuminstall.py:1176 yuminstall.py:1335
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1912,7 +1911,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1343
+#: yuminstall.py:1353
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1923,15 +1922,15 @@ msgstr ""
 "довољно на располагању.  Можете да измените изборе или да изађете из "
 "инсталатера."
 
-#: yuminstall.py:1362
+#: yuminstall.py:1372
 msgid "Reboot?"
 msgstr "Поновно покретање?"
 
-#: yuminstall.py:1363
+#: yuminstall.py:1373
 msgid "The system will be rebooted now."
 msgstr "Систем ће сада бити поново покренут."
 
-#: yuminstall.py:1506
+#: yuminstall.py:1516
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -1940,7 +1939,7 @@ msgstr ""
 "Изгледа да се надграђујете са система који је престар за надградњу на ову %s "
 "верзију.  Да ли сигурно хоћете да наставите процес надградње?"
 
-#: yuminstall.py:1542
+#: yuminstall.py:1552
 #, python-format
 msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
@@ -1951,35 +1950,35 @@ msgstr ""
 "одговара претходно инсталираној архитектури %s.  Ово вероватно неће успети.  "
 "Да ли сигурно желите да наставите процес надградње?"
 
-#: yuminstall.py:1593
+#: yuminstall.py:1603
 msgid "Post Upgrade"
 msgstr "После надградње"
 
-#: yuminstall.py:1594
+#: yuminstall.py:1604
 msgid "Performing post-upgrade configuration"
 msgstr "Вршим подешавања после надградње"
 
-#: yuminstall.py:1596
+#: yuminstall.py:1606
 msgid "Post Installation"
 msgstr "После инсталације"
 
-#: yuminstall.py:1597
+#: yuminstall.py:1607
 msgid "Performing post-installation configuration"
 msgstr "Вршим подешавања после инсталације"
 
-#: yuminstall.py:1826
+#: yuminstall.py:1836
 msgid "Installation Starting"
 msgstr "Инсталација почиње"
 
-#: yuminstall.py:1827
+#: yuminstall.py:1837
 msgid "Starting installation process"
 msgstr "Почињем поступак инсталације"
 
-#: yuminstall.py:1865
+#: yuminstall.py:1875
 msgid "Dependency Check"
 msgstr "Провера међузависности"
 
-#: yuminstall.py:1866
+#: yuminstall.py:1876
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Проверавам међузависности пакета изабраних за инсталацију"
 
@@ -2137,31 +2136,31 @@ msgstr "Неисправно име зачетника:"
 msgid "You must provide an initiator name."
 msgstr "Морате навести име зачетника."
 
-#: iw/autopart_type.py:311
+#: iw/autopart_type.py:318
 msgid "Error with Data"
 msgstr "Грешка са подацима"
 
-#: iw/autopart_type.py:469 iw/autopart_type.py:470
+#: iw/autopart_type.py:476 iw/autopart_type.py:477
 msgid "Rescanning disks"
 msgstr "Претражујем дискове поново"
 
-#: iw/autopart_type.py:524 textw/partition_text.py:63
+#: iw/autopart_type.py:531 textw/partition_text.py:63
 msgid "Use entire drive"
 msgstr "Употреби цео диск"
 
-#: iw/autopart_type.py:525 textw/partition_text.py:64
+#: iw/autopart_type.py:532 textw/partition_text.py:64
 msgid "Replace existing Linux system"
 msgstr "Замени постојећи Linux систем"
 
-#: iw/autopart_type.py:526
+#: iw/autopart_type.py:533
 msgid "Shrink current system"
 msgstr "Смањи текући систем"
 
-#: iw/autopart_type.py:527 textw/partition_text.py:65
+#: iw/autopart_type.py:534 textw/partition_text.py:65
 msgid "Use free space"
 msgstr "Употреби слободан простор"
 
-#: iw/autopart_type.py:528
+#: iw/autopart_type.py:535
 msgid "Create custom layout"
 msgstr "Направи прилагођени нацрт"
 
@@ -2331,8 +2330,8 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Који језик бисте желели да користите током процеса инсталације?"
 
 #: iw/lvm_dialog_gui.py:124 iw/lvm_dialog_gui.py:170 iw/lvm_dialog_gui.py:182
-#: iw/lvm_dialog_gui.py:221 iw/lvm_dialog_gui.py:298 iw/lvm_dialog_gui.py:677
-#: iw/lvm_dialog_gui.py:697
+#: iw/lvm_dialog_gui.py:221 iw/lvm_dialog_gui.py:298 iw/lvm_dialog_gui.py:681
+#: iw/lvm_dialog_gui.py:701
 msgid "Not enough space"
 msgstr "Нема довољно простора"
 
@@ -2429,7 +2428,7 @@ msgstr "Направи логички диск"
 msgid "Edit Logical Volume: %s"
 msgstr "Уреди логички диск: %s"
 
-#: iw/lvm_dialog_gui.py:431 iw/raid_dialog_gui.py:394
+#: iw/lvm_dialog_gui.py:431 iw/raid_dialog_gui.py:397
 msgid "_File System Type:"
 msgstr "Врста система да_тотека:"
 
@@ -2437,7 +2436,7 @@ msgstr "Врста система да_тотека:"
 msgid "_Logical Volume Name:"
 msgstr "Име _логичког диска:"
 
-#: iw/lvm_dialog_gui.py:446 iw/partition_dialog_gui.py:431
+#: iw/lvm_dialog_gui.py:446 iw/partition_dialog_gui.py:434
 msgid "_Size (MB):"
 msgstr "_Величина (МБ):"
 
@@ -2446,22 +2445,22 @@ msgstr "_Величина (МБ):"
 msgid "(Max size is %s MB)"
 msgstr "(Макс. величина је %s МБ)"
 
-#: iw/lvm_dialog_gui.py:458 iw/partition_dialog_gui.py:483
-#: iw/partition_ui_helpers_gui.py:329 iw/raid_dialog_gui.py:366
+#: iw/lvm_dialog_gui.py:458 iw/partition_dialog_gui.py:486
+#: iw/partition_ui_helpers_gui.py:329 iw/raid_dialog_gui.py:369
 msgid "_Encrypt"
 msgstr "Шиф_руј"
 
-#: iw/lvm_dialog_gui.py:467 iw/raid_dialog_gui.py:404
+#: iw/lvm_dialog_gui.py:467 iw/raid_dialog_gui.py:407
 msgid "Original File System Type:"
 msgstr "Почетна врста система датотека:"
 
-#: iw/lvm_dialog_gui.py:471 iw/partition_gui.py:776 iw/partition_gui.py:928
-#: iw/raid_dialog_gui.py:409
+#: iw/lvm_dialog_gui.py:471 iw/partition_gui.py:777 iw/partition_gui.py:929
+#: iw/raid_dialog_gui.py:412
 msgid "Unknown"
 msgstr "Непознато"
 
-#: iw/lvm_dialog_gui.py:475 iw/partition_dialog_gui.py:421
-#: iw/raid_dialog_gui.py:415
+#: iw/lvm_dialog_gui.py:475 iw/partition_dialog_gui.py:424
+#: iw/raid_dialog_gui.py:418
 msgid "Original File System Label:"
 msgstr "Почетна ознака система датотека:"
 
@@ -2473,8 +2472,8 @@ msgstr "Име логичког диска:"
 msgid "Size (MB):"
 msgstr "Величина (МБ):"
 
-#: iw/lvm_dialog_gui.py:511 iw/partition_dialog_gui.py:376
-#: iw/raid_dialog_gui.py:385
+#: iw/lvm_dialog_gui.py:511 iw/partition_dialog_gui.py:379
+#: iw/raid_dialog_gui.py:388
 msgid "_Mount Point:"
 msgstr "Тачка _монтирања:"
 
@@ -2491,26 +2490,26 @@ msgstr "Неважеће име за логички диск"
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Име „%s“ логичког диска је већ у употреби. Молим одаберите неко друго."
 
-#: iw/lvm_dialog_gui.py:648 iw/partition_dialog_gui.py:123
-#: iw/raid_dialog_gui.py:177
+#: iw/lvm_dialog_gui.py:652 iw/partition_dialog_gui.py:126
+#: iw/raid_dialog_gui.py:180
 msgid "Mount point in use"
 msgstr "Тачка монтирања у употреби"
 
-#: iw/lvm_dialog_gui.py:649 iw/partition_dialog_gui.py:124
-#: iw/raid_dialog_gui.py:178
+#: iw/lvm_dialog_gui.py:653 iw/partition_dialog_gui.py:127
+#: iw/raid_dialog_gui.py:181
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "„%s“ тачка монтирања је у употреби. Молим одаберите неку другу."
 
-#: iw/lvm_dialog_gui.py:664
+#: iw/lvm_dialog_gui.py:668
 msgid "Illegal size"
 msgstr "Неисправна величина"
 
-#: iw/lvm_dialog_gui.py:665
+#: iw/lvm_dialog_gui.py:669
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Унета захтевана величина није исправан број већи од 0."
 
-#: iw/lvm_dialog_gui.py:678
+#: iw/lvm_dialog_gui.py:682
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the maximum logical "
@@ -2522,7 +2521,7 @@ msgstr ""
 "додатне физичке дискове из неподељеног простора на диску и додате их овој "
 "диск групи."
 
-#: iw/lvm_dialog_gui.py:698
+#: iw/lvm_dialog_gui.py:702
 #, python-format
 msgid ""
 "The logical volumes you have configured require %d MB, but the volume group "
@@ -2533,15 +2532,15 @@ msgstr ""
 "само %d МБ.  Или повећајте величину групе дискова или смањите величину "
 "логичких дискова."
 
-#: iw/lvm_dialog_gui.py:788
+#: iw/lvm_dialog_gui.py:792
 msgid "No free slots"
 msgstr "Нема слободних места"
 
-#: iw/lvm_dialog_gui.py:799
+#: iw/lvm_dialog_gui.py:803
 msgid "No free space"
 msgstr "Нема слободног простора"
 
-#: iw/lvm_dialog_gui.py:800
+#: iw/lvm_dialog_gui.py:804
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -2551,29 +2550,29 @@ msgstr ""
 "бисте додали логички диск, мораћете да смањите величину једног или више "
 "тренутно постојећих логичких дискова."
 
-#: iw/lvm_dialog_gui.py:835
+#: iw/lvm_dialog_gui.py:839
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Сигурно желите да обришете „%s“ логички диск?"
 
-#: iw/lvm_dialog_gui.py:941
+#: iw/lvm_dialog_gui.py:945
 msgid "Invalid Volume Group Name"
 msgstr "Неважеће име диск групе"
 
-#: iw/lvm_dialog_gui.py:950
+#: iw/lvm_dialog_gui.py:954
 msgid "Name in use"
 msgstr "Име је у употреби"
 
-#: iw/lvm_dialog_gui.py:951
+#: iw/lvm_dialog_gui.py:955
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Име „%s“ диск групе је већ у употреби. Молим одаберите неко друго."
 
-#: iw/lvm_dialog_gui.py:1197
+#: iw/lvm_dialog_gui.py:1201
 msgid "Not enough physical volumes"
 msgstr "Нема довољно физичких дискова"
 
-#: iw/lvm_dialog_gui.py:1198
+#: iw/lvm_dialog_gui.py:1202
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2587,69 +2586,69 @@ msgstr ""
 "Направите партицију или RAID низ врсте „физички диск (LVM)“ и онда изаберите "
 "поново „LVM“ опцију."
 
-#: iw/lvm_dialog_gui.py:1209
+#: iw/lvm_dialog_gui.py:1213
 msgid "Make LVM Volume Group"
 msgstr "Направи LVM диск групу"
 
-#: iw/lvm_dialog_gui.py:1212
+#: iw/lvm_dialog_gui.py:1216
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Уреди LVM диск групу: %s"
 
-#: iw/lvm_dialog_gui.py:1214
+#: iw/lvm_dialog_gui.py:1218
 msgid "Edit LVM Volume Group"
 msgstr "Уреди LVM диск групу"
 
-#: iw/lvm_dialog_gui.py:1230
+#: iw/lvm_dialog_gui.py:1234
 msgid "_Volume Group Name:"
 msgstr "Име _диск групе:"
 
-#: iw/lvm_dialog_gui.py:1238
+#: iw/lvm_dialog_gui.py:1242
 msgid "Volume Group Name:"
 msgstr "Име диск групе:"
 
-#: iw/lvm_dialog_gui.py:1246
+#: iw/lvm_dialog_gui.py:1250
 msgid "_Physical Extent:"
 msgstr "_Физички опсег:"
 
-#: iw/lvm_dialog_gui.py:1261
+#: iw/lvm_dialog_gui.py:1265
 msgid "Physical Volumes to _Use:"
 msgstr "_Користи физичке дискове:"
 
-#: iw/lvm_dialog_gui.py:1267
+#: iw/lvm_dialog_gui.py:1271
 msgid "Used Space:"
 msgstr "Искоришћен простор:"
 
-#: iw/lvm_dialog_gui.py:1284
+#: iw/lvm_dialog_gui.py:1288
 msgid "Free Space:"
 msgstr "Слободан простор:"
 
-#: iw/lvm_dialog_gui.py:1302
+#: iw/lvm_dialog_gui.py:1306
 msgid "Total Space:"
 msgstr "Укупан простор:"
 
-#: iw/lvm_dialog_gui.py:1340
+#: iw/lvm_dialog_gui.py:1344
 msgid "Logical Volume Name"
 msgstr "Име логичког диска"
 
-#: iw/lvm_dialog_gui.py:1343 iw/partition_gui.py:362
+#: iw/lvm_dialog_gui.py:1347 iw/partition_gui.py:363
 #: iw/upgrade_swap_gui.py:139 textw/upgrade_text.py:118
 msgid "Mount Point"
 msgstr "Тачка монтирања"
 
-#: iw/lvm_dialog_gui.py:1346 iw/partition_gui.py:367
+#: iw/lvm_dialog_gui.py:1350 iw/partition_gui.py:368
 msgid "Size (MB)"
 msgstr "Величина (МБ)"
 
-#: iw/lvm_dialog_gui.py:1360 iw/osbootwidget.py:95
+#: iw/lvm_dialog_gui.py:1364 iw/osbootwidget.py:95
 msgid "_Add"
 msgstr "Д_одај"
 
-#: iw/lvm_dialog_gui.py:1363 iw/osbootwidget.py:99 iw/partition_gui.py:1336
+#: iw/lvm_dialog_gui.py:1367 iw/osbootwidget.py:99 iw/partition_gui.py:1347
 msgid "_Edit"
 msgstr "_Уреди"
 
-#: iw/lvm_dialog_gui.py:1378
+#: iw/lvm_dialog_gui.py:1382
 msgid "_Logical Volumes"
 msgstr "_Логички дискови"
 
@@ -2745,11 +2744,11 @@ msgstr "Списак оперативних система покретачко�
 msgid "Default"
 msgstr "Подразумеван"
 
-#: iw/osbootwidget.py:66 iw/partition_gui.py:361
+#: iw/osbootwidget.py:66 iw/partition_gui.py:362
 msgid "Label"
 msgstr "Ознака"
 
-#: iw/osbootwidget.py:66 iw/partition_gui.py:360
+#: iw/osbootwidget.py:66 iw/partition_gui.py:361
 msgid "Device"
 msgstr "Уређај"
 
@@ -2830,41 +2829,41 @@ msgstr "Попуни сав простор д_о (МБ):"
 msgid "Fill to maximum _allowable size"
 msgstr "Попуни до највеће д_опуштене величине"
 
-#: iw/partition_dialog_gui.py:346
+#: iw/partition_dialog_gui.py:349
 msgid "Add Partition"
 msgstr "Додај партицију"
 
-#: iw/partition_dialog_gui.py:348
+#: iw/partition_dialog_gui.py:351
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "Уреди партицију: %s"
 
-#: iw/partition_dialog_gui.py:385
+#: iw/partition_dialog_gui.py:388
 msgid "File System _Type:"
 msgstr "_Врста система датотека"
 
-#: iw/partition_dialog_gui.py:401
+#: iw/partition_dialog_gui.py:404
 msgid "Allowable _Drives:"
 msgstr "Дозвољени _дискови:"
 
-#: iw/partition_dialog_gui.py:470
+#: iw/partition_dialog_gui.py:473
 msgid "Force to be a _primary partition"
 msgstr "Наметни да партиција буде _основна"
 
-#: iw/partition_gui.py:319
+#: iw/partition_gui.py:320
 #, python-format
 msgid "Drive %s (%-0.f MB) (Model: %s)"
 msgstr "Диск %s (%-0.f МБ) (модел: %s)"
 
-#: iw/partition_gui.py:363
+#: iw/partition_gui.py:364
 msgid "Type"
 msgstr "Врста"
 
-#: iw/partition_gui.py:366 storage/__init__.py:1631
+#: iw/partition_gui.py:367 storage/__init__.py:1644
 msgid "Format"
 msgstr "Форматирај"
 
-#: iw/partition_gui.py:404
+#: iw/partition_gui.py:405
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -2872,7 +2871,7 @@ msgstr ""
 "Тачка монтирања/\n"
 "RAID/диск"
 
-#: iw/partition_gui.py:406
+#: iw/partition_gui.py:407
 msgid ""
 "Size\n"
 "(MB)"
@@ -2880,94 +2879,94 @@ msgstr ""
 "Величина\n"
 "(МБ)"
 
-#: iw/partition_gui.py:518
+#: iw/partition_gui.py:519
 msgid "Partitioning"
 msgstr "Подела диска"
 
-#: iw/partition_gui.py:608
+#: iw/partition_gui.py:609
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 "Нацрт поделе диска који сте затражили је изазвао следеће пресудне грешке."
 
-#: iw/partition_gui.py:610
+#: iw/partition_gui.py:611
 #, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
 msgstr "Морате исправити ове грешке пре него што наставите %s инсталацију."
 
-#: iw/partition_gui.py:616
+#: iw/partition_gui.py:617
 msgid "Partitioning Errors"
 msgstr "Грешке при подели диска"
 
-#: iw/partition_gui.py:623
+#: iw/partition_gui.py:624
 msgid "The partitioning scheme you requested generated the following warnings."
 msgstr "Нацрт поделе диска који сте затражили је произвео следећа упозорења."
 
-#: iw/partition_gui.py:625
+#: iw/partition_gui.py:626
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Желите ли да наставите са вашим захтеваним нацртом поделе диска?"
 
-#: iw/partition_gui.py:630
+#: iw/partition_gui.py:631
 msgid "Partitioning Warnings"
 msgstr "Упозорења при подели диска"
 
-#: iw/partition_gui.py:651
+#: iw/partition_gui.py:652
 msgid "Format Warnings"
 msgstr "Упозорења при форматирању"
 
-#: iw/partition_gui.py:656
+#: iw/partition_gui.py:657
 msgid "_Format"
 msgstr "_Форматирај"
 
-#: iw/partition_gui.py:683
+#: iw/partition_gui.py:684
 msgid "LVM Volume Groups"
 msgstr "LVM диск групе"
 
-#: iw/partition_gui.py:730
+#: iw/partition_gui.py:731
 msgid "RAID Devices"
 msgstr "RAID уређаји"
 
-#: iw/partition_gui.py:797 loader/hdinstall.c:222
+#: iw/partition_gui.py:798 loader/hdinstall.c:222
 msgid "Hard Drives"
 msgstr "Чврсти дискови"
 
-#: iw/partition_gui.py:896
+#: iw/partition_gui.py:897
 msgid "Extended"
 msgstr "Проширено"
 
-#: iw/partition_gui.py:898
+#: iw/partition_gui.py:899
 msgid "software RAID"
 msgstr "софтверски RAID"
 
-#: iw/partition_gui.py:930
+#: iw/partition_gui.py:931
 msgid "Free"
 msgstr "Слободно"
 
-#: iw/partition_gui.py:1023 storage/partitioning.py:190
+#: iw/partition_gui.py:1024 storage/partitioning.py:190
 #: storage/partitioning.py:231
 msgid "Error Partitioning"
 msgstr "Грешка при подели диска"
 
-#: iw/partition_gui.py:1024
+#: iw/partition_gui.py:1025
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Не могу да заузмем захтеване партиције: %s."
 
-#: iw/partition_gui.py:1033
+#: iw/partition_gui.py:1034
 #, python-format
 msgid "Warning: %s."
 msgstr "Упозорење: %s."
 
-#: iw/partition_gui.py:1063 iw/partition_gui.py:1070
+#: iw/partition_gui.py:1064 iw/partition_gui.py:1071
 msgid "Unable To Edit"
 msgstr "Не могу да уредим"
 
-#: iw/partition_gui.py:1064
+#: iw/partition_gui.py:1065
 msgid "You must select a device to edit"
 msgstr "Морате да изаберете уређај за уређивање"
 
-#: iw/partition_gui.py:1071
+#: iw/partition_gui.py:1072
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -2978,23 +2977,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/partition_gui.py:1178 iw/partition_gui.py:1190
+#: iw/partition_gui.py:1189 iw/partition_gui.py:1201
 msgid "Not supported"
 msgstr "Није подржано"
 
-#: iw/partition_gui.py:1179
+#: iw/partition_gui.py:1190
 msgid "LVM is NOT supported on this platform."
 msgstr "LVM НИЈЕ подржан на овој платформи."
 
-#: iw/partition_gui.py:1191
+#: iw/partition_gui.py:1202
 msgid "Software RAID is NOT supported on this platform."
 msgstr "Софтверски RAID НИЈЕ подржан на овој платформи."
 
-#: iw/partition_gui.py:1198
+#: iw/partition_gui.py:1209
 msgid "No RAID minor device numbers available"
 msgstr "Нема доступних подређених бројева RAID уређаја"
 
-#: iw/partition_gui.py:1199
+#: iw/partition_gui.py:1210
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
@@ -3002,11 +3001,11 @@ msgstr ""
 "Софтверски RAID уређај не може да буде направљен јер су сви доступни "
 "подређени бројеви RAID уређаја употребљени."
 
-#: iw/partition_gui.py:1211
+#: iw/partition_gui.py:1222
 msgid "RAID Options"
 msgstr "RAID опције"
 
-#: iw/partition_gui.py:1226
+#: iw/partition_gui.py:1237
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3019,7 +3018,7 @@ msgstr ""
 "поређењу са употребом појединачног диска.  За више информација о употреби "
 "RAID уређаја погледајте %s документацију."
 
-#: iw/partition_gui.py:1236
+#: iw/partition_gui.py:1247
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -3031,49 +3030,49 @@ msgstr ""
 "форматирати и монтирати.\n"
 "\n"
 
-#: iw/partition_gui.py:1242
+#: iw/partition_gui.py:1253
 msgid "What do you want to do now?"
 msgstr "Шта сада желите да урадите?"
 
-#: iw/partition_gui.py:1251
+#: iw/partition_gui.py:1262
 msgid "Create a software RAID _partition."
 msgstr "Направи софтверску RAID па_ртицију."
 
-#: iw/partition_gui.py:1254
+#: iw/partition_gui.py:1265
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "Направи RAID _уређај [подразумевано=/dev/md%s]."
 
-#: iw/partition_gui.py:1258
+#: iw/partition_gui.py:1269
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "Клонирај _диск за прављење RAID уређаја [подразумевано=/dev/md%s]."
 
-#: iw/partition_gui.py:1300
+#: iw/partition_gui.py:1311
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "Не могу да направим уређивач клонирања диска"
 
-#: iw/partition_gui.py:1301
+#: iw/partition_gui.py:1312
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Из неког разлога уређивач клонирања диска није могао бити направљен."
 
-#: iw/partition_gui.py:1335
+#: iw/partition_gui.py:1346
 msgid "Ne_w"
 msgstr "Но_во"
 
-#: iw/partition_gui.py:1338
+#: iw/partition_gui.py:1349
 msgid "Re_set"
 msgstr "Пониш_ти"
 
-#: iw/partition_gui.py:1339
+#: iw/partition_gui.py:1350
 msgid "R_AID"
 msgstr "R_AID"
 
-#: iw/partition_gui.py:1340
+#: iw/partition_gui.py:1351
 msgid "_LVM"
 msgstr "LV_M"
 
-#: iw/partition_gui.py:1381
+#: iw/partition_gui.py:1392
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Сакриј чланове RAID уређаја/LVM диск _групе"
 
@@ -3107,7 +3106,7 @@ msgstr ""
 msgid "Installing Packages"
 msgstr "Инсталирам пакете"
 
-#: iw/raid_dialog_gui.py:333
+#: iw/raid_dialog_gui.py:336
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -3121,40 +3120,40 @@ msgstr ""
 "Прво направите најмање две партиције врсте „софтверски RAID“, и онда "
 "изаберите поново „RAID“ опцију."
 
-#: iw/raid_dialog_gui.py:347 iw/raid_dialog_gui.py:784
+#: iw/raid_dialog_gui.py:350 iw/raid_dialog_gui.py:787
 msgid "Make RAID Device"
 msgstr "Направи RAID уређај"
 
-#: iw/raid_dialog_gui.py:350
+#: iw/raid_dialog_gui.py:353
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr "Уреди RAID уређај: %s"
 
-#: iw/raid_dialog_gui.py:352
+#: iw/raid_dialog_gui.py:355
 msgid "Edit RAID Device"
 msgstr "Уреди RAID уређај"
 
-#: iw/raid_dialog_gui.py:423
+#: iw/raid_dialog_gui.py:426
 msgid "RAID _Device:"
 msgstr "RAID _уређај:"
 
-#: iw/raid_dialog_gui.py:441
+#: iw/raid_dialog_gui.py:444
 msgid "RAID _Level:"
 msgstr "RAID н_иво:"
 
-#: iw/raid_dialog_gui.py:483
+#: iw/raid_dialog_gui.py:486
 msgid "_RAID Members:"
 msgstr "R_AID чланови:"
 
-#: iw/raid_dialog_gui.py:500
+#: iw/raid_dialog_gui.py:503
 msgid "Number of _spares:"
 msgstr "Број _резерви:"
 
-#: iw/raid_dialog_gui.py:510
+#: iw/raid_dialog_gui.py:513
 msgid "_Format partition?"
 msgstr "_Форматирање партиције?"
 
-#: iw/raid_dialog_gui.py:584
+#: iw/raid_dialog_gui.py:587
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -3163,12 +3162,12 @@ msgstr ""
 "партиције врсте „софтверски RAID“ на овом диску пре него што он може бити "
 "клониран."
 
-#: iw/raid_dialog_gui.py:588 iw/raid_dialog_gui.py:594
-#: iw/raid_dialog_gui.py:608 iw/raid_dialog_gui.py:621
+#: iw/raid_dialog_gui.py:591 iw/raid_dialog_gui.py:597
+#: iw/raid_dialog_gui.py:611 iw/raid_dialog_gui.py:624
 msgid "Source Drive Error"
 msgstr "Грешка на изворном диску"
 
-#: iw/raid_dialog_gui.py:595
+#: iw/raid_dialog_gui.py:598
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -3180,7 +3179,7 @@ msgstr ""
 "\n"
 "Морате уклонити ове партиције пре него што овај диск може да се клонира."
 
-#: iw/raid_dialog_gui.py:609
+#: iw/raid_dialog_gui.py:612
 #, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
@@ -3194,7 +3193,7 @@ msgstr ""
 "Морате уклонити ове партиције или их ограничити на овај диск пре него што "
 "овај диск може да се клонира. "
 
-#: iw/raid_dialog_gui.py:622
+#: iw/raid_dialog_gui.py:625
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -3206,21 +3205,21 @@ msgstr ""
 "\n"
 "Морате уклонити ове партиције пре него што овај диск може да се клонира."
 
-#: iw/raid_dialog_gui.py:636 iw/raid_dialog_gui.py:642
-#: iw/raid_dialog_gui.py:658
+#: iw/raid_dialog_gui.py:639 iw/raid_dialog_gui.py:645
+#: iw/raid_dialog_gui.py:661
 msgid "Target Drive Error"
 msgstr "Грешка на циљном диску"
 
-#: iw/raid_dialog_gui.py:637
+#: iw/raid_dialog_gui.py:640
 msgid "Please select the target drives for the clone operation."
 msgstr "Молим изаберите циљне дискове за поступак клонирања."
 
-#: iw/raid_dialog_gui.py:643
+#: iw/raid_dialog_gui.py:646
 #, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
 msgstr "Изворни диск %s не може да буде такође изабран као и циљни диск."
 
-#: iw/raid_dialog_gui.py:659
+#: iw/raid_dialog_gui.py:662
 #, python-format
 msgid ""
 "The target drive %s has a partition which cannot be removed for the "
@@ -3237,11 +3236,11 @@ msgstr ""
 "\n"
 "Морате уклонити ове партиције пре него што овај диск може постати циљни."
 
-#: iw/raid_dialog_gui.py:722
+#: iw/raid_dialog_gui.py:725
 msgid "Please select a source drive."
 msgstr "Молим изаберите циљни диск."
 
-#: iw/raid_dialog_gui.py:742
+#: iw/raid_dialog_gui.py:745
 #, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
@@ -3250,7 +3249,7 @@ msgstr ""
 "Диск %s ће сада бити клониран на следеће дискове:\n"
 "\n"
 
-#: iw/raid_dialog_gui.py:747
+#: iw/raid_dialog_gui.py:750
 msgid ""
 "\n"
 "\n"
@@ -3260,19 +3259,19 @@ msgstr ""
 "\n"
 "УПОЗОРЕЊЕ! СВИ ПОДАЦИ НА ЦИЉНОМ ДИСКУ ЋЕ БИТИ УНИШТЕНИ."
 
-#: iw/raid_dialog_gui.py:750
+#: iw/raid_dialog_gui.py:753
 msgid "Final Warning"
 msgstr "Последње упозорење"
 
-#: iw/raid_dialog_gui.py:752
+#: iw/raid_dialog_gui.py:755
 msgid "Clone Drives"
 msgstr "Клонирај дискове"
 
-#: iw/raid_dialog_gui.py:761
+#: iw/raid_dialog_gui.py:764
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "Дошло је до грешке при брисању циљног диска.  Клонирање није успело."
 
-#: iw/raid_dialog_gui.py:794
+#: iw/raid_dialog_gui.py:797
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -3300,15 +3299,15 @@ msgstr ""
 "\n"
 "СВЕ ће на циљним дисковима бити уништено овим поступком."
 
-#: iw/raid_dialog_gui.py:814
+#: iw/raid_dialog_gui.py:817
 msgid "Source Drive:"
 msgstr "Изворни диск:"
 
-#: iw/raid_dialog_gui.py:822
+#: iw/raid_dialog_gui.py:825
 msgid "Target Drive(s):"
 msgstr "Циљни диск(ови):"
 
-#: iw/raid_dialog_gui.py:830
+#: iw/raid_dialog_gui.py:833
 msgid "Drives"
 msgstr "Дискови"
 
@@ -3327,53 +3326,38 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:83
-#, python-format
-msgid ""
-"The following error occurred while setting up the installation repository:\n"
-"\n"
-"%s\n"
-"\n"
-"Please provide the correct information for installing %s"
-msgstr ""
-"Дошло је до следеће грешке при постављању ризнице за инсталацију:\n"
-"\n"
-"%s\n"
-"\n"
-"Пружите исправне податке за %s инсталацију."
-
-#: iw/task_gui.py:156
+#: iw/task_gui.py:141
 msgid "Edit Repository"
 msgstr "Уреди ризницу"
 
-#: iw/task_gui.py:180
+#: iw/task_gui.py:165
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr "Ризница %s је већ додата.  Молим изаберите друго име и УРЛ ризнице."
 
-#: iw/task_gui.py:256
+#: iw/task_gui.py:245
 msgid "Invalid Proxy URL"
 msgstr "Неисправан УРЛ проксија"
 
-#: iw/task_gui.py:257
+#: iw/task_gui.py:246
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "Морате навести HTTP, HTTPS или FTP УРЛ до проксија."
 
-#: iw/task_gui.py:268 iw/task_gui.py:410
+#: iw/task_gui.py:257 iw/task_gui.py:412
 msgid "Invalid Repository URL"
 msgstr "Неисправан УРЛ ризнице"
 
-#: iw/task_gui.py:269 iw/task_gui.py:411
+#: iw/task_gui.py:258 iw/task_gui.py:413
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Морате навести HTTP, HTTPS или FTP УРЛ до ризнице."
 
-#: iw/task_gui.py:290 iw/task_gui.py:420
+#: iw/task_gui.py:279 iw/task_gui.py:422
 msgid "No Media Found"
 msgstr "Ниједан медијум није пронађен"
 
-#: iw/task_gui.py:291 iw/task_gui.py:421
+#: iw/task_gui.py:280 iw/task_gui.py:423
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
@@ -3381,11 +3365,11 @@ msgstr ""
 "Није пронађен ниједан медијум са инсталацијом. Убаците диск у уређај и "
 "покушајте поново."
 
-#: iw/task_gui.py:309 iw/task_gui.py:437
+#: iw/task_gui.py:308 iw/task_gui.py:443
 msgid "Please enter an NFS server and path."
 msgstr "Унесите NFS сервер и путању."
 
-#: iw/task_gui.py:322
+#: iw/task_gui.py:318
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3396,23 +3380,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:344
+#: iw/task_gui.py:341
 msgid "Invalid Repository Name"
 msgstr "Неисправно име ризнице"
 
-#: iw/task_gui.py:345
+#: iw/task_gui.py:342
 msgid "You must provide a repository name."
 msgstr "Морате навести име ризнице."
 
-#: iw/task_gui.py:469 ui/addrepo.glade.h:3
+#: iw/task_gui.py:475 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "Додај ризницу"
 
-#: iw/task_gui.py:474
+#: iw/task_gui.py:480
 msgid "No Software Repos Enabled"
 msgstr "Нема укључених ризница софтвера"
 
-#: iw/task_gui.py:475
+#: iw/task_gui.py:481
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3748,7 +3732,7 @@ msgstr "Диск није пронађен"
 #: loader/kbd.c:119 loader/loader.c:483 loader/loader.c:503
 #: loader/loader.c:1375 loader/loader.c:1408 loader/net.c:582 loader/net.c:953
 #: loader/net.c:1880 loader/net.c:1902 loader/nfsinstall.c:91
-#: loader/urls.c:292 storage/__init__.py:136 storage/devicetree.py:84
+#: loader/urls.c:292 storage/__init__.py:141 storage/devicetree.py:84
 #: textw/constants_text.py:52
 msgid "Back"
 msgstr "Назад"
@@ -3863,7 +3847,7 @@ msgstr "Желите ли да учитате још неке управљачк
 #: loader/kickstart.c:132 loader/kickstart.c:142 loader/kickstart.c:185
 #: loader/kickstart.c:563 loader/modules.c:339 loader/modules.c:351
 #: loader/net.c:1587 loader/net.c:1608 loader/nfsinstall.c:337
-#: loader/urlinstall.c:451 loader/urlinstall.c:460 loader/urlinstall.c:469
+#: loader/urlinstall.c:451 loader/urlinstall.c:460 loader/urlinstall.c:467
 msgid "Kickstart Error"
 msgstr "Kickstart грешка"
 
@@ -4502,7 +4486,7 @@ msgstr "Лош аргумент за команду Урл kickstart метод�
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Морате навести --url аргумент за Урл kickstart методу."
 
-#: loader/urlinstall.c:470
+#: loader/urlinstall.c:468
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Непознат Урл метод %s"
@@ -4547,11 +4531,11 @@ msgstr "Учитавам управљачки програм за SCSI"
 msgid "Loading %s driver"
 msgstr "Читам %s управљачки програм"
 
-#: storage/__init__.py:87
+#: storage/__init__.py:92
 msgid "Unknown Device"
 msgstr "Непознат уређај"
 
-#: storage/__init__.py:88
+#: storage/__init__.py:93
 #, python-format
 msgid ""
 "The installation source given by device %s could not be found.  Please check "
@@ -4560,11 +4544,11 @@ msgstr ""
 "Извор инсталације који је задат уређајем %s није могао бити пронађен.  Молим "
 "проверите ваше параметре и покушајте поново."
 
-#: storage/__init__.py:99
+#: storage/__init__.py:104
 msgid "Installation cannot continue."
 msgstr "Инсталација се не може наставити."
 
-#: storage/__init__.py:100
+#: storage/__init__.py:105
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -4574,11 +4558,11 @@ msgstr ""
 "се вратите на екран за уређивање диска. Желите ли да наставите са процесом "
 "инсталације?"
 
-#: storage/__init__.py:128
+#: storage/__init__.py:133
 msgid "Encrypt device?"
 msgstr "Шифровати уређај?"
 
-#: storage/__init__.py:129
+#: storage/__init__.py:134
 msgid ""
 "You specified block device encryption should be enabled, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
@@ -4588,11 +4572,11 @@ msgstr ""
 "доставили лозинку. Уколико се не вратите натраг и понудите лозинку, "
 "шифровање блок уређаја%s ће бити искључено."
 
-#: storage/__init__.py:152
+#: storage/__init__.py:157
 msgid "Writing storage configuration to disk"
 msgstr "Уписујем подешавања складишта на диск"
 
-#: storage/__init__.py:153
+#: storage/__init__.py:158
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -4601,62 +4585,62 @@ msgstr ""
 "који подаци на обрисаним или поново форматираним партицијама ће бити "
 "изгубљени."
 
-#: storage/__init__.py:158
+#: storage/__init__.py:163
 msgid "Go _back"
 msgstr "Иди на_зад"
 
-#: storage/__init__.py:159
+#: storage/__init__.py:164
 msgid "_Write changes to disk"
 msgstr "У_пиши измене на диск"
 
-#: storage/__init__.py:172
+#: storage/__init__.py:184
 msgid "Running..."
 msgstr "Извршавам..."
 
-#: storage/__init__.py:173
+#: storage/__init__.py:185
 msgid "Storing encryption keys"
 msgstr "Складиштење кључева за шифровање"
 
-#: storage/__init__.py:191
+#: storage/__init__.py:201
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "Грешка при складиштењу кључа за шифровање: %s\n"
 
-#: storage/__init__.py:308
+#: storage/__init__.py:318
 msgid "Finding Devices"
 msgstr "Проналазим уређаје"
 
-#: storage/__init__.py:309
+#: storage/__init__.py:319
 msgid "Finding storage devices"
 msgstr "Проналазим складишне уређаје"
 
-#: storage/__init__.py:550
+#: storage/__init__.py:560
 msgid "This partition is holding the data for the hard drive install."
 msgstr "Ова партиција садржи податке за инсталацију са чврстог диска."
 
-#: storage/__init__.py:555
+#: storage/__init__.py:565
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Не можете обрисати партицију LDL форматираног DASD-а."
 
-#: storage/__init__.py:561
+#: storage/__init__.py:571
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "Овај уређај је део RAID уређаја %s."
 
-#: storage/__init__.py:564
+#: storage/__init__.py:574
 msgid "This device is part of a RAID device."
 msgstr "Овај уређај је део RAID уређаја."
 
-#: storage/__init__.py:569
+#: storage/__init__.py:579
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "Овај уређај је део LVM диск групе „%s“."
 
-#: storage/__init__.py:572
+#: storage/__init__.py:582
 msgid "This device is part of a LVM volume group."
 msgstr "Овај уређај је део LVM диск групе."
 
-#: storage/__init__.py:588
+#: storage/__init__.py:598
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -4666,7 +4650,7 @@ msgstr ""
 "могу брисати:\n"
 "\n"
 
-#: storage/__init__.py:857
+#: storage/__init__.py:870
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -4675,7 +4659,7 @@ msgstr ""
 "Нисте дефинисали корену партицију (/), која је неопходна за наставак %s "
 "инсталације."
 
-#: storage/__init__.py:862
+#: storage/__init__.py:875
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -4684,7 +4668,7 @@ msgstr ""
 "Ваша корена партиција је мања од 250 мегабајта, што је обично премало за %s "
 "инсталацију."
 
-#: storage/__init__.py:868
+#: storage/__init__.py:881
 #, python-format
 msgid ""
 "Your / partition is less than %s MB which is lower than recommended for a "
@@ -4693,7 +4677,7 @@ msgstr ""
 "Ваша / партиција је мања од %s МБ, што је мање од препорученог за редовну %s "
 "инсталацију."
 
-#: storage/__init__.py:878
+#: storage/__init__.py:891
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -4702,7 +4686,7 @@ msgstr ""
 "Ваша / партиција не одговара живом отиску са кога вршите инсталацију.  Мора "
 "бити форматирана као %s."
 
-#: storage/__init__.py:885
+#: storage/__init__.py:898
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -4711,14 +4695,14 @@ msgstr ""
 "Ваша %s партиција је мања од %s мегабајта, што је мање него препоручљиво за "
 "редовну %s инсталацију."
 
-#: storage/__init__.py:912
+#: storage/__init__.py:925
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Инсталација на USB уређај.  Ово може али не мора да произведе систем у "
 "радном стању."
 
-#: storage/__init__.py:915
+#: storage/__init__.py:928
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -4726,7 +4710,7 @@ msgstr ""
 "Инсталација на FireWire уређај.  Ово може али не мора да произведе систем у "
 "радном стању."
 
-#: storage/__init__.py:922
+#: storage/__init__.py:935
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
@@ -4734,7 +4718,7 @@ msgstr ""
 "Нисте навели свап партицију.  Због количине присутне меморије, свап "
 "партиција је неопходна да би се завршила инсталација."
 
-#: storage/__init__.py:927
+#: storage/__init__.py:940
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -4742,7 +4726,7 @@ msgstr ""
 "Нисте навели свап партицију.  Иако није строго неопходна у свим случајевима, "
 "значајно ће побољшати учинак већине инсталација."
 
-#: storage/__init__.py:934
+#: storage/__init__.py:947
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
@@ -4750,16 +4734,16 @@ msgstr ""
 "Тачка монтирања није исправна.  Директоријум %s мора бити на систему "
 "датотека /."
 
-#: storage/__init__.py:938
+#: storage/__init__.py:951
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "%s тачка монтирања мора бити на Linux систему датотека."
 
-#: storage/__init__.py:949
+#: storage/__init__.py:962
 msgid "No Drives Found"
 msgstr "Ниједан диск није пронађен"
 
-#: storage/__init__.py:950
+#: storage/__init__.py:963
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -4768,11 +4752,11 @@ msgstr ""
 "направити нови системи датотека. Проверите ваш хардвер да бисте утврдили "
 "узрок овог проблема."
 
-#: storage/__init__.py:1182 storage/__init__.py:1191
+#: storage/__init__.py:1195 storage/__init__.py:1204
 msgid "Dirty File Systems"
 msgstr "Загађени системи датотека"
 
-#: storage/__init__.py:1183
+#: storage/__init__.py:1196
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4785,7 +4769,7 @@ msgstr ""
 "угасите за надградњу.\n"
 "%s"
 
-#: storage/__init__.py:1192
+#: storage/__init__.py:1205
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4796,7 +4780,7 @@ msgstr ""
 "Да ли хоћете свеједно да их монтирате?\n"
 "%s"
 
-#: storage/__init__.py:1664
+#: storage/__init__.py:1677
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4814,7 +4798,7 @@ msgstr ""
 "као простор за свап, морате га преформатирати као Linux свап партицију у "
 "новом стилу."
 
-#: storage/__init__.py:1675
+#: storage/__init__.py:1688
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4833,7 +4817,7 @@ msgstr ""
 "прекид, што значи да се ваш систем успављује. Да бисте обавили надградњу, "
 "угасите систем уместо да га успављујете."
 
-#: storage/__init__.py:1683
+#: storage/__init__.py:1696
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4852,7 +4836,7 @@ msgstr ""
 "прекид, што значи да се систем успављује. Ако вршите нову инсталацију, "
 "потврдите да је инсталатер подешен за форматирање свих свап партиција."
 
-#: storage/__init__.py:1695
+#: storage/__init__.py:1708
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4869,7 +4853,7 @@ msgstr ""
 "не садржи подржани свап диск.  Да бисте наставили инсталацију, морате "
 "форматирати уређај или га прескочити."
 
-#: storage/__init__.py:1706
+#: storage/__init__.py:1719
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -4885,7 +4869,7 @@ msgstr ""
 "\n"
 "Притисните „У реду“ за излазак из инсталатера."
 
-#: storage/__init__.py:1712
+#: storage/__init__.py:1725
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -4900,11 +4884,11 @@ msgstr ""
 "\n"
 "Притисните „У реду“ за излазак из инсталатера."
 
-#: storage/__init__.py:1772 storage/__init__.py:1782
+#: storage/__init__.py:1785 storage/__init__.py:1795
 msgid "Invalid mount point"
 msgstr "Неисправна тачка монтирања"
 
-#: storage/__init__.py:1773
+#: storage/__init__.py:1786
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4917,7 +4901,7 @@ msgstr ""
 "\n"
 "Притисните <Enter> за излазак из инсталатера."
 
-#: storage/__init__.py:1783
+#: storage/__init__.py:1796
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -4930,11 +4914,11 @@ msgstr ""
 "\n"
 "Притисните <Enter> за излазак из инсталатера."
 
-#: storage/__init__.py:1796 storage/__init__.py:1817
+#: storage/__init__.py:1809 storage/__init__.py:1830
 msgid "Unable to mount filesystem"
 msgstr "Не могу да монтирам систем датотека"
 
-#: storage/__init__.py:1797
+#: storage/__init__.py:1810
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
@@ -4943,7 +4927,7 @@ msgstr ""
 "Дошло је до грешке приликом монтирања уређаја %s као %s.  Можете да "
 "наставите инсталацију, али су могући проблеми."
 
-#: storage/__init__.py:1818
+#: storage/__init__.py:1831
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
@@ -5035,37 +5019,37 @@ msgstr "Занемар_и"
 msgid "_Re-initialize"
 msgstr "Поно_во иницијализуј"
 
-#: storage/devicetree.py:1782 storage/devicetree.py:1831
+#: storage/devicetree.py:1784 storage/devicetree.py:1833
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Ова партиција је део недоследне LVM диск групе."
 
-#: storage/formats/fs.py:96
+#: storage/formats/fs.py:98
 msgid "filesystem configuration missing a type"
 msgstr "подешавању система датотека недостаје врста"
 
-#: storage/formats/fs.py:326
+#: storage/formats/fs.py:328
 msgid "Formatting"
 msgstr "Форматирам"
 
-#: storage/formats/fs.py:327
+#: storage/formats/fs.py:329
 #, python-format
 msgid "Creating filesystem on %s"
 msgstr "Правим систем датотека на %s"
 
-#: storage/formats/fs.py:423
+#: storage/formats/fs.py:428
 msgid "Resizing"
 msgstr "Мењам величину"
 
-#: storage/formats/fs.py:424
+#: storage/formats/fs.py:429
 #, python-format
 msgid "Resizing filesystem on %s"
 msgstr "Мењам величину система датотека на %s"
 
-#: storage/formats/fs.py:467
+#: storage/formats/fs.py:472
 msgid "Checking"
 msgstr "Проверавам"
 
-#: storage/formats/fs.py:468
+#: storage/formats/fs.py:473
 #, python-format
 msgid "Checking filesystem on %s"
 msgstr "Проверавам систем датотека на %s"
@@ -5272,7 +5256,7 @@ msgstr "Не могу да поставим zFCP уређај %s ван везе
 
 #: textw/complete_text.py:32
 msgid "Reboot"
-msgstr "По_крени поново"
+msgstr "Покрени поново"
 
 #: textw/complete_text.py:34
 msgid "<Enter> to exit"
@@ -6264,3 +6248,17 @@ msgstr "велшки"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "зулу"
+
+#~ msgid ""
+#~ "The following error occurred while setting up the installation "
+#~ "repository:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Please provide the correct information for installing %s"
+#~ msgstr ""
+#~ "Дошло је до следеће грешке при постављању ризнице за инсталацију:\n"
+#~ "\n"
+#~ "%s\n"
+#~ "\n"
+#~ "Пружите исправне податке за %s инсталацију."
