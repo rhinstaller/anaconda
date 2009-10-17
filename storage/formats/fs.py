@@ -110,6 +110,7 @@ class FS(DeviceFormat):
     _resizefs = ""                       # resize utility
     _labelfs = ""                        # labeling utility
     _fsck = ""                           # fs check utility
+    _fsckErrors = {}                     # fs check command error codes & msgs
     _migratefs = ""                      # fs migration utility
     _infofs = ""                         # fs info utility
     _defaultFormatOptions = []           # default options passed to mkfs
@@ -457,6 +458,12 @@ class FS(DeviceFormat):
         argv.append(self.device)
         return argv
 
+    def _fsckFailed(self, rc):
+        return False
+
+    def _fsckErrorMessage(self, rc):
+        return _("Unknown return code: %d.") % (rc,)
+
     def doCheck(self, intf=None):
         if not self.exists:
             raise FSError("filesystem has not been created")
@@ -486,8 +493,27 @@ class FS(DeviceFormat):
             if w:
                 w.pop()
 
-        if rc >= 4:
-            raise FSError("filesystem check failed: %s" % rc)
+        if self._fsckFailed(rc):
+            hdr = _("%(type)s filesystem check failure on %(device)s: ") % \
+                   (self.type, self.device,)
+
+            msg = self._fsckErrorMessage(rc)
+
+            if intf:
+                help = _("Errors like this usually mean there is a problem "
+                         "with the filesystem that will require user "
+                         "interaction to repair.  Before restarting "
+                         "installation, reboot to rescue mode or another "
+                         "system that allows you to repair the filesystem "
+                         "interactively.  Restart installation after you "
+                         "have corrected the problems on the filesystem.")
+
+                self.intf.messageWindow(_("Unrecoverable Error"),
+                                        hdr + "\n\n" + msg + "\n\n" + help,
+                                        custom_icon='error')
+                sys.exit(0)
+            else:
+                raise FSError(hdr + msg)
 
     def loadModule(self):
         """Load whatever kernel module is required to support this filesystem."""
@@ -811,6 +837,11 @@ class Ext2FS(FS):
     _resizefs = "resize2fs"
     _labelfs = "e2label"
     _fsck = "e2fsck"
+    _fsckErrors = {4: _("File system errors left uncorrected."),
+                   8: _("Operational error."),
+                   16: _("Usage or syntax error."),
+                   32: _("e2fsck cancelled by user request."),
+                   128: _("Shared library error.")}
     _packages = ["e2fsprogs"]
     _formattable = True
     _supported = True
@@ -832,6 +863,21 @@ class Ext2FS(FS):
     _defaultInfoOptions = ["-h"]
     _existingSizeFields = ["Block count:", "Block size:"]
     partedSystem = fileSystemType["ext2"]
+
+    def _fsckFailed(self, rc):
+        for errorCode in self._fsckErrors.keys():
+            if rc & errorCode:
+                return True
+        return False
+
+    def _fsckErrorMessage(self, rc):
+        msg = ''
+
+        for errorCode in self._fsckErrors.keys():
+            if rc & errorCode:
+                msg += "\n" + self._fsckErrors[errorCode]
+
+        return msg.strip()
 
     def doMigrate(self, intf=None):
         FS.doMigrate(self, intf=intf)
@@ -932,6 +978,9 @@ class FATFS(FS):
     _modules = ["vfat"]
     _labelfs = "dosfslabel"
     _fsck = "dosfsck"
+    _fsckErrors = {1: _("Recoverable errors have been detected or dosfsck has "
+                        "discovered an internal inconsistency."),
+                   2: _("Usage error.")}
     _supported = True
     _formattable = True
     _maxSize = 1024 * 1024
@@ -939,6 +988,14 @@ class FATFS(FS):
     _defaultMountOptions = ["umask=0077", "shortname=winnt"]
     # FIXME this should be fat32 in some cases
     partedSystem = fileSystemType["fat16"]
+
+    def _fsckFailed(self, rc):
+        if rc >= 1:
+            return True
+        return False
+
+    def _fsckErrorMessage(self, rc):
+        return self._fsckErrors[rc]
 
 register_device_format(FATFS)
 
@@ -1188,6 +1245,11 @@ class NTFS(FS):
     _defaultInfoOptions = ["-m"]
     _existingSizeFields = ["Cluster Size:", "Volume Size in Clusters:"]
     partedSystem = fileSystemType["ntfs"]
+
+    def _fsckFailed(self, rc):
+        if rc != 0:
+            return True
+        return False
 
     @property
     def minSize(self):
