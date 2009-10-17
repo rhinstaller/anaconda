@@ -207,7 +207,7 @@ class AnacondaCallback:
             self.doneFiles += len(hdr[rpm.RPMTAG_BASENAMES])
 
             if self.donepkgs <= self.numpkgs:
-                self.progress.set_text(N_("Packages completed: "
+                self.progress.set_text(P_("Packages completed: "
                                           "%(donepkgs)d of %(numpkgs)d",
                                           "Packages completed: "
                                           "%(donepkgs)d of %(numpkgs)d",
