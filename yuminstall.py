@@ -1606,15 +1606,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             w = anaconda.intf.waitWindow(_("Post Installation"),
                                     _("Performing post-installation configuration"))
 
-        # Only add "rhgb quiet" on non-s390, non-serial installs
-        if iutil.isConsoleOnVirtualTerminal():
-            if len(self.ayum.tsInfo.matchNaevr(name='rhgb')) > 0:
-                anaconda.id.bootloader.args.append("rhgb quiet")
-            elif len(self.ayum.tsInfo.matchNaevr(name='plymouth')) > 0:
-                anaconda.id.bootloader.args.append("rhgb quiet")
-
-        if self.ayum.tsInfo.getProvides("service(graphical-login)") != {} and anaconda.id.displayMode == 'g' and not flags.usevnc:
-            anaconda.id.desktop.setDefaultRunLevel(5)
+        packages.rpmSetupGraphicalSystem(anaconda)
 
         for repo in self.ayum.repos.listEnabled():
             repo.dirCleanup()

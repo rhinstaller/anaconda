@@ -348,6 +348,8 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             rc = proc.poll()
 
     def doPostInstall(self, anaconda):
+        import rpm
+
         self._doFilesystemMangling(anaconda)
 
         # setup /etc/rpm/ for the post-install environment
@@ -355,11 +357,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
         storage.writeEscrowPackets(anaconda)
 
-        # maybe heavy handed, but it'll do
-        if os.path.exists(anaconda.rootPath + "/usr/bin/rhgb") or os.path.exists(anaconda.rootPath + "/usr/bin/plymouth"):
-            anaconda.id.bootloader.args.append("rhgb quiet")
-        if os.path.exists(anaconda.rootPath + "/usr/sbin/gdm") or os.path.exists(anaconda.rootPath + "/usr/bin/kdm"):
-            anaconda.id.desktop.setDefaultRunLevel(5)
+        packages.rpmSetupGraphicalSystem(anaconda)
 
         # now write out the "real" fstab and mtab
         anaconda.id.storage.write(anaconda.rootPath)

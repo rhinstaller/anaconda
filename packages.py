@@ -317,6 +317,22 @@ def rpmKernelVersionList(rootPath = "/"):
 
     return versions
 
+def rpmSetupGraphicalSystem(anaconda):
+    import rpm
+
+    iutil.resetRpmDb(anaconda.rootPath)
+    ts = rpm.TransactionSet(anaconda.rootPath)
+
+    # Only add "rhgb quiet" on non-s390, non-serial installs
+    if iutil.isConsoleOnVirtualTerminal() and \
+       ts.dbMatch('provides', 'rhgb').count() or \
+       ts.dbMatch('provides', 'plymouth').count():
+        anaconda.id.bootloader.args.append("rhgb quiet")
+
+    if ts.dbMatch('provides', 'service(graphical-login)').count() and \
+       anaconda.id.displayMode == 'g' and not flags.usevnc:
+        anaconda.id.desktop.setDefaultRunLevel(5)
+
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):
     log.info("recreating initrd for %s" % (kernelTag,))
