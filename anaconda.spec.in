@@ -215,6 +215,28 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 20 2009 David Cantrell <dcantrell@redhat.com> - 12.38.1-1
+- Handle more than x.y version numbers in 'make bumpver'. (dcantrell)
+- Add '.0' to the version since we branched from f12-branch. (dcantrell)
+- Reintegrate reipl to trigger reboot/halt on s390x correctly. (#528380) 
+  (maier)
+- Make LOADER_FLAGS_NOSHELL default also for s390x not just s390 (#527063) 
+  (maier)
+- Adapt standalone shutdown to nokill changes so s390x can use it. (#528380) 
+  (maier)
+- Add dracutSetupData() method to DASDDevice (#526354). (dcantrell)
+- Collect DASD kernel parameter information during device tree scan 
+  (#526354). (dcantrell)
+- Add dracutSetupString() method to ZFCPDiskDevice (#526354). (dcantrell)
+- Add a "File Bug" button to all possibilitys in turnOnFilesystems 
+  (#528006). (clumens)
+- For cmdline mode, add the long text to what messageWindow will print 
+  (#528006). (clumens)
+- Write LAYER2 and PORTNO correctly as parts of OPTIONS to ifcfg for s390x 
+  (maier)
+- liveinst: deactivate mdraid arrays before running liveinst (#528235) 
+  (hdegoede)
+
 * Tue Oct 13 2009 David Cantrell <dcantrell@redhat.com> - 12.38-1
 - Remove extra echo in 'make rpmlog'. (dcantrell)
 - Do not traceback if network device doesn't have HwAddress property

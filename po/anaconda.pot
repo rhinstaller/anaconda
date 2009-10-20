@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.37\n"
+"Project-Id-Version: anaconda 12.38.0\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-10-13 12:05-1000\n"
+"POT-Creation-Date: 2009-10-20 11:46-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,9 +33,9 @@ msgstr ""
 #: loader/hdinstall.c:498 loader/kbd.c:119 loader/kickstart.c:132
 #: loader/kickstart.c:142 loader/kickstart.c:185 loader/kickstart.c:284
 #: loader/kickstart.c:382 loader/kickstart.c:563 loader/lang.c:115
-#: loader/lang.c:379 loader/loader.c:403 loader/loader.c:439
-#: loader/loader.c:482 loader/loader.c:503 loader/loader.c:520
-#: loader/loader.c:557 loader/loader.c:1191 loader/loader.c:1375
+#: loader/lang.c:379 loader/loader.c:404 loader/loader.c:440
+#: loader/loader.c:483 loader/loader.c:504 loader/loader.c:521
+#: loader/loader.c:558 loader/loader.c:1192 loader/loader.c:1376
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:101 loader/method.c:279 loader/method.c:353
 #: loader/modules.c:339 loader/modules.c:351 loader/net.c:582 loader/net.c:953
@@ -82,14 +82,6 @@ msgstr ""
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:984
-msgid "reipl configuration successful => reboot"
-msgstr ""
-
-#: anaconda:987
-msgid "reipl configuration failed => halt"
-msgstr ""
-
 #: backend.py:148
 #, python-format
 msgid "Upgrading %s\n"
@@ -133,8 +125,8 @@ msgstr ""
 #: loader/driverdisk.c:340 loader/driverdisk.c:371 loader/driverdisk.c:379
 #: loader/driverdisk.c:443 loader/hdinstall.c:134 loader/hdinstall.c:340
 #: loader/hdinstall.c:442 loader/hdinstall.c:485 loader/hdinstall.c:498
-#: loader/kickstart.c:284 loader/lang.c:115 loader/loader.c:403
-#: loader/loader.c:520 loader/loader.c:1191 loader/mediacheck.c:46
+#: loader/kickstart.c:284 loader/lang.c:115 loader/loader.c:404
+#: loader/loader.c:521 loader/loader.c:1192 loader/mediacheck.c:46
 #: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/method.c:279
 #: loader/method.c:353 loader/nfsinstall.c:250 loader/nfsinstall.c:269
 #: loader/telnetd.c:92 loader/urlinstall.c:83 loader/urlinstall.c:107
@@ -165,12 +157,10 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:58 gui.py:1097 gui.py:1134 gui.py:1262 gui.py:1341
-#: image.py:91 kickstart.py:151 livecd.py:197 livecd.py:405 packages.py:119
-#: packages.py:127 packages.py:135 packages.py:143 packages.py:155
-#: packages.py:164 packages.py:172 packages.py:181 upgrade.py:58
-#: upgrade.py:206 yuminstall.py:236 yuminstall.py:665 yuminstall.py:852
-#: yuminstall.py:932 yuminstall.py:938 yuminstall.py:1082 yuminstall.py:1107
-#: yuminstall.py:1165 yuminstall.py:1329 yuminstall.py:1359
+#: image.py:91 kickstart.py:151 livecd.py:197 livecd.py:405 packages.py:166
+#: upgrade.py:58 upgrade.py:206 yuminstall.py:236 yuminstall.py:665
+#: yuminstall.py:852 yuminstall.py:932 yuminstall.py:938 yuminstall.py:1082
+#: yuminstall.py:1107 yuminstall.py:1165 yuminstall.py:1329 yuminstall.py:1359
 #: storage/__init__.py:96 storage/__init__.py:204 storage/__init__.py:1818
 msgid "_Exit installer"
 msgstr ""
@@ -224,7 +214,7 @@ msgid ""
 "configuration file."
 msgstr ""
 
-#: cmdline.py:114 cmdline.py:121 cmdline.py:128
+#: cmdline.py:117 cmdline.py:124 cmdline.py:131
 msgid "Can't have a question in command line mode!"
 msgstr ""
 
@@ -310,8 +300,8 @@ msgstr ""
 
 #: gui.py:784 gui.py:1341 partIntfHelpers.py:157 partIntfHelpers.py:339
 #: text.py:99 text.py:100 iw/account_gui.py:130 loader/dirbrowser.c:145
-#: loader/driverdisk.c:244 loader/kickstart.c:382 loader/loader.c:439
-#: loader/loader.c:557 textw/constants_text.py:48
+#: loader/driverdisk.c:244 loader/kickstart.c:382 loader/loader.c:440
+#: loader/loader.c:558 textw/constants_text.py:48
 msgid "Cancel"
 msgstr ""
 
@@ -339,7 +329,7 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: gui.py:1257 image.py:164 image.py:194 packages.py:360 packages.py:365
+#: gui.py:1257 image.py:164 image.py:194 packages.py:345 packages.py:350
 #: storage/__init__.py:1644
 msgid "_Exit"
 msgstr ""
@@ -357,7 +347,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1265 image.py:248 packages.py:368 yuminstall.py:1375
+#: gui.py:1265 image.py:248 packages.py:353 yuminstall.py:1375
 msgid "_Reboot"
 msgstr ""
 
@@ -438,7 +428,7 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 
-#: image.py:248 livecd.py:404 packages.py:365 packages.py:368 upgrade.py:205
+#: image.py:248 livecd.py:404 packages.py:350 packages.py:353 upgrade.py:205
 #: yuminstall.py:852 yuminstall.py:938 yuminstall.py:1359 yuminstall.py:1375
 msgid "_Back"
 msgstr ""
@@ -513,17 +503,17 @@ msgid ""
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 
-#: iutil.py:956
+#: iutil.py:966
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
 
-#: iutil.py:964
+#: iutil.py:974
 msgid "Error determining mount point type"
 msgstr ""
 
-#: iutil.py:968
+#: iutil.py:978
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
 
@@ -685,86 +675,86 @@ msgstr ""
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: packages.py:114
+#: packages.py:118
 msgid "Device Resize Failed"
 msgstr ""
 
-#: packages.py:115
+#: packages.py:119
 #, python-format
 msgid "An error was encountered while resizing device %s."
 msgstr ""
 
-#: packages.py:122
+#: packages.py:123
 msgid "Device Creation Failed"
 msgstr ""
 
-#: packages.py:123
+#: packages.py:124
 #, python-format
 msgid "An error was encountered while creating device %s."
 msgstr ""
 
-#: packages.py:130
+#: packages.py:128
 msgid "Device Removal Failed"
 msgstr ""
 
-#: packages.py:131
+#: packages.py:129
 #, python-format
 msgid "An error was encountered while removing device %s."
 msgstr ""
 
-#: packages.py:138
+#: packages.py:133
 msgid "Device Setup Failed"
 msgstr ""
 
-#: packages.py:139
+#: packages.py:134
 #, python-format
 msgid "An error was encountered while setting up device %s."
 msgstr ""
 
-#: packages.py:150
+#: packages.py:138
 msgid "Resizing Failed"
 msgstr ""
 
-#: packages.py:151
+#: packages.py:139
 #, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr ""
 
-#: packages.py:158
+#: packages.py:147
 msgid "Migration Failed"
 msgstr ""
 
-#: packages.py:159
+#: packages.py:148
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
 msgstr ""
 
-#: packages.py:167
+#: packages.py:152
 msgid "Formatting Failed"
 msgstr ""
 
-#: packages.py:168
+#: packages.py:153
 #, python-format
 msgid "An error was encountered while formatting device %s."
 msgstr ""
 
-#: packages.py:176
+#: packages.py:158
 msgid "Storage Activation Failed"
 msgstr ""
 
-#: packages.py:177
+#: packages.py:159
 msgid "An error was encountered while activating your storage configuration."
 msgstr ""
 
-#: packages.py:181
+#: packages.py:166
 msgid "_File Bug"
 msgstr ""
 
-#: packages.py:346 packages.py:369
+#: packages.py:331 packages.py:354
 msgid "Warning! This is pre-release software!"
 msgstr ""
 
-#: packages.py:347
+#: packages.py:332
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -780,15 +770,15 @@ msgid ""
 "and file a report against '%s'.\n"
 msgstr ""
 
-#: packages.py:360
+#: packages.py:345
 msgid "_Install anyway"
 msgstr ""
 
-#: packages.py:364
+#: packages.py:349
 msgid "The installer will now exit..."
 msgstr ""
 
-#: packages.py:367
+#: packages.py:352
 msgid "Your system will now be rebooted..."
 msgstr ""
 
@@ -1221,7 +1211,7 @@ msgstr ""
 msgid "Repository editing is not available in text mode."
 msgstr ""
 
-#: text.py:375 loader/lang.c:63 loader/loader.c:215
+#: text.py:375 loader/lang.c:63 loader/loader.c:216
 #, c-format, python-format
 msgid "Welcome to %s for %s"
 msgstr ""
@@ -3270,8 +3260,8 @@ msgstr ""
 #: loader/cdinstall.c:452 loader/driverdisk.c:244 loader/driverdisk.c:275
 #: loader/driverdisk.c:359 loader/driverselect.c:81 loader/driverselect.c:179
 #: loader/driverselect.c:205 loader/hdinstall.c:222 loader/hdinstall.c:279
-#: loader/kbd.c:119 loader/loader.c:483 loader/loader.c:503
-#: loader/loader.c:1375 loader/loader.c:1408 loader/net.c:582 loader/net.c:953
+#: loader/kbd.c:119 loader/loader.c:484 loader/loader.c:504
+#: loader/loader.c:1376 loader/loader.c:1409 loader/net.c:582 loader/net.c:953
 #: loader/net.c:1880 loader/net.c:1902 loader/nfsinstall.c:91
 #: loader/urls.c:292 storage/__init__.py:141 storage/devicetree.py:84
 #: textw/constants_text.py:52
@@ -3530,7 +3520,7 @@ msgstr ""
 msgid "Welcome to %s for %s - Rescue Mode"
 msgstr ""
 
-#: loader/lang.c:65 loader/loader.c:226
+#: loader/lang.c:65 loader/loader.c:227
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -3539,145 +3529,145 @@ msgstr ""
 msgid "Choose a Language"
 msgstr ""
 
-#: loader/loader.c:127
+#: loader/loader.c:128
 msgid "Local CD/DVD"
 msgstr ""
 
-#: loader/loader.c:128
+#: loader/loader.c:129
 msgid "Hard drive"
 msgstr ""
 
-#: loader/loader.c:129
+#: loader/loader.c:130
 msgid "NFS directory"
 msgstr ""
 
-#: loader/loader.c:434 loader/loader.c:478
+#: loader/loader.c:435 loader/loader.c:479
 msgid "Update Disk Source"
 msgstr ""
 
-#: loader/loader.c:435
+#: loader/loader.c:436
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: loader/loader.c:479
+#: loader/loader.c:480
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
 
-#: loader/loader.c:497
+#: loader/loader.c:498
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr ""
 
-#: loader/loader.c:503
+#: loader/loader.c:504
 msgid "Updates Disk"
 msgstr ""
 
-#: loader/loader.c:521
+#: loader/loader.c:522
 msgid "Failed to mount updates disk"
 msgstr ""
 
-#: loader/loader.c:526
+#: loader/loader.c:527
 msgid "Updates"
 msgstr ""
 
-#: loader/loader.c:526
+#: loader/loader.c:527
 msgid "Reading anaconda updates"
 msgstr ""
 
-#: loader/loader.c:562
+#: loader/loader.c:563
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
 
-#: loader/loader.c:571
+#: loader/loader.c:572
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1184
+#: loader/loader.c:1185
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: loader/loader.c:1241
+#: loader/loader.c:1242
 msgid "Media Detected"
 msgstr ""
 
-#: loader/loader.c:1242
+#: loader/loader.c:1243
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1367
+#: loader/loader.c:1368
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1368
+#: loader/loader.c:1369
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1370
+#: loader/loader.c:1371
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1372
+#: loader/loader.c:1373
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1407
+#: loader/loader.c:1408
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1407
+#: loader/loader.c:1408
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1408
+#: loader/loader.c:1409
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1409
+#: loader/loader.c:1410
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1639
+#: loader/loader.c:1640
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1641
+#: loader/loader.c:1642
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1645
+#: loader/loader.c:1646
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1646
+#: loader/loader.c:1647
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1647
+#: loader/loader.c:1648
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1859
+#: loader/loader.c:1860
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2241
+#: loader/loader.c:2242
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2243
+#: loader/loader.c:2244
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4384,7 +4374,7 @@ msgstr ""
 msgid "_Re-initialize"
 msgstr ""
 
-#: storage/devicetree.py:1784 storage/devicetree.py:1833
+#: storage/devicetree.py:1797 storage/devicetree.py:1846
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
