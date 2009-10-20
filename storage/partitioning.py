@@ -449,25 +449,31 @@ def getNextPartitionType(disk, no_primary=None):
     max_logicals = disk.getMaxLogicalPartitions()
     primary_count = disk.primaryPartitionCount
 
-    if primary_count >= disk.maxPrimaryPartitionCount - 1:
-        if extended and logical_count < max_logicals:
-            part_type = parted.PARTITION_LOGICAL
-        elif primary_count < disk.maxPrimaryPartitionCount:
+    if primary_count < disk.maxPrimaryPartitionCount:
+        if primary_count == disk.maxPrimaryPartitionCount - 1:
+            # can we make an extended partition? now's our chance.
             if not extended and supports_extended:
-                # last chance to create an extended partition
                 part_type = parted.PARTITION_EXTENDED
-            elif not no_primary:
-                # it's either a primary or nothing
+            elif not extended:
+                # extended partitions not supported. primary or nothing.
+                if not no_primary:
+                    part_type = parted.PARTITION_NORMAL
+            else:
+                # there is an extended and a free primary
+                if not no_primary:
+                    part_type = parted.PARTITION_NORMAL
+                elif logical_count < max_logical:
+                    # we have an extended with logical slots, so use one.
+                    part_type = parted.PARTITION_LOGICAL
+        else:
+            # there are two or more primary slots left. use one unless we're
+            # not supposed to make primaries.
+            if not no_primary:
                 part_type = parted.PARTITION_NORMAL
-    elif no_primary and extended and logical_count < max_logicals:
-        # create a logical even though we could presumably create a
-        # primary instead
+            elif extended and logical_count < max_logicals:
+                part_type = parted.PARTITION_LOGICAL
+    elif extended and logical_count < max_logicals:
         part_type = parted.PARTITION_LOGICAL
-    elif not no_primary:
-        # XXX there is a possiblity that the only remaining free space on
-        #     the disk lies within the extended partition, but we will
-        #     try to create a primary first
-        part_type = parted.PARTITION_NORMAL
 
     return part_type
 
