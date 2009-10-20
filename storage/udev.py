@@ -21,7 +21,6 @@
 #
 
 import os
-import stat
 
 import iutil
 from errors import *
@@ -77,17 +76,6 @@ def __is_blacklisted_blockdev(dev_name):
     """Is this a blockdev we never want for an install?"""
     if dev_name.startswith("loop") or dev_name.startswith("ram") or dev_name.startswith("fd"):
         return True
-    # FIXME: the backing dev for the live image can't be used as an
-    # install target.  note that this is a little bit of a hack 
-    # since we're assuming that /dev/live will exist
-    if os.path.exists("/dev/live") and \
-            stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
-        livetarget = os.path.realpath("/dev/live")
-        if livetarget.startswith("/dev"):
-            livetarget = livetarget[5:]
-        if livetarget.startswith(dev_name):
-            log.info("%s looks to be the live device; ignoring" % (dev_name,))
-            return True
 
     if os.path.exists("/sys/class/block/%s/device/model" %(dev_name,)):
         model = open("/sys/class/block/%s/device/model" %(dev_name,)).read()

@@ -21,6 +21,7 @@
 #
 
 import os
+import stat
 import block
 import re
 
@@ -1929,6 +1930,16 @@ class DeviceTree(object):
             name = udev_resolve_devspec(spec)
             if name:
                 self.protectedDevNames.append(name)
+
+        # FIXME: the backing dev for the live image can't be used as an
+        # install target.  note that this is a little bit of a hack
+        # since we're assuming that /dev/live will exist
+        if os.path.exists("/dev/live") and \
+           stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
+            livetarget = devicePathToName(os.path.realpath("/dev/live"))
+            log.info("%s looks to be the live device; marking as protected"
+                     % (livetarget,))
+            self.protectedDevNames.append(livetarget)
 
         # each iteration scans any devices that have appeared since the
         # previous iteration
