@@ -117,8 +117,10 @@ rpmlog:
 		grep -v -- "- Sending translation for "
 
 bumpver:
-	@NEWSUBVER=$$((`echo $(PACKAGE_VERSION) |cut -d . -f 2` + 1)) ; \
-	NEWVERSION=`echo $(PACKAGE_VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
+	@LAST=$$(echo $(PACKAGE_VERSION) | grep "\." -o | wc -l) ; \
+	FIELD=$$(($${LAST} + 1)) ; \
+	NEWSUBVER=$$((`echo $(PACKAGE_VERSION) | cut -d . -f $${FIELD}` + 1)) ; \
+	NEWVERSION="`echo $(PACKAGE_VERSION) | cut -d . -f 1-$${LAST}`.$$NEWSUBVER" ; \
 	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
 	cl=`grep -n %changelog anaconda.spec.in |cut -d : -f 1` ; \
 	tail --lines=+$$(($$cl + 1)) anaconda.spec.in > speclog ; \
