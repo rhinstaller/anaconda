@@ -113,7 +113,7 @@ class TimezoneWindow(InstallWindow):
 class AnacondaTZMap(TimezoneMap):
     def __init__(self, zonetab, default, map="", viewportWidth=480):
         TimezoneMap.__init__(self, zonetab, default, map=map, viewportWidth=viewportWidth)
-        self.columns = Enum("TRANSLATED", "TZ", "ENTRY")
+        self.columns = Enum("TZ", "ENTRY", "TZSORT")
 
     def status_bar_init(self):
         self.status = None
@@ -135,12 +135,12 @@ class AnacondaTZMap(TimezoneMap):
                     # York as the default.
                     self.fallbackEntry = entry
 
-            iter = self.tzStore.insert_after(iter, [gettext.ldgettext("system-config-date", entry.tz), entry.tz, entry])
+            iter = self.tzStore.insert_after(iter, [gettext.ldgettext("system-config-date", entry.tz), entry, entry.tz])
 
     def timezone_list_init (self, default):
         self.hbox = gtk.HBox()
-        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING,
-                                     gobject.TYPE_PYOBJECT)
+        self.tzStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT,
+                                     gobject.TYPE_STRING)
 
         root = self.canvas.root()
 
@@ -149,11 +149,11 @@ class AnacondaTZMap(TimezoneMap):
         # Add the ListStore to the sorted model after the list has been
         # populated, since otherwise we end up resorting on every addition.
         self.tzSorted = gtk.TreeModelSort(self.tzStore)
-        self.tzSorted.set_sort_column_id(0, gtk.SORT_ASCENDING)
+        self.tzSorted.set_sort_column_id(self.columns.TZSORT, gtk.SORT_ASCENDING)
         self.tzCombo = gtk.ComboBox(model=self.tzSorted)
         cell = gtk.CellRendererText()
         self.tzCombo.pack_start(cell, True)
-        self.tzCombo.add_attribute(cell, 'text', 0)
+        self.tzCombo.add_attribute(cell, 'text', self.columns.TZ)
         self.tzCombo.connect("changed", self.selectionChanged)
         self.hbox.pack_start(self.tzCombo, False, False)
 
@@ -163,7 +163,7 @@ class AnacondaTZMap(TimezoneMap):
         iter = widget.get_active_iter()
         if iter is None:
             return
-        entry = widget.get_model().get_value(iter, self.columns.ENTRY)
+        entry = widget.get_model().get_value(iter, 1)
         if entry:
             self.setCurrent (entry, skipList=1)
             if entry.long != None and entry.lat != None:
@@ -172,10 +172,12 @@ class AnacondaTZMap(TimezoneMap):
     def updateTimezoneList(self):
         # Find the currently selected item in the combo box and update both
         # the combo and the comment label.
-        iter = self.tzCombo.get_model().get_iter_first()
+        model = self.tzCombo.get_model()
+
+        iter = model.get_iter_first()
         while iter:
-            if self.tzCombo.get_model().get_value(iter, 1) == self.currentEntry.tz:
+            if model.get_value(iter, 2) == self.currentEntry.tz:
                 self.tzCombo.set_active_iter(iter)
                 break
 
-            iter = self.tzCombo.get_model().iter_next(iter)
+            iter = model.iter_next(iter)
