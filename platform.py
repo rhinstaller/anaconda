@@ -38,7 +38,7 @@ class Platform(object):
        during installation.  The intent is to eventually encapsulate all the
        architecture quirks in one place to avoid lots of platform checks
        throughout anaconda."""
-    _bootFSType = "ext3"
+    _bootFSTypes = ["ext3"]
     _diskType = parted.diskType["msdos"]
     _isEfi = iutil.isEfi()
     _minimumSector = 0
@@ -71,9 +71,14 @@ class Platform(object):
         return mntDict.get("/boot", mntDict.get("/"))
 
     @property
-    def bootFSType(self):
+    def defaultBootFSType(self):
         """Return the default filesystem type for the boot partition."""
-        return self._bootFSType
+        return self._bootFSTypes[0]
+
+    @property
+    def bootFSTypes(self):
+        """Return a list of all valid filesystem types for the boot partition."""
+        return self._bootFSTypes
 
     def bootloaderChoices(self, bl):
         """Return the default list of places to install the bootloader.
@@ -118,12 +123,9 @@ class Platform(object):
         if req.type == "mdarray" and not self.supportsMdRaidBoot:
             errors.append(_("Bootable partitions cannot be on a RAID device."))
 
-        # Lots of filesystems types don't support /boot.
-        if not req.format.bootable:
-            errors.append(_("Bootable partitions cannot be on an %s filesystem.") % req.format.name)
-
-        # vfat /boot is insane.
-        if req == self.anaconda.id.storage.rootDevice and req.format.type == "vfat":
+        # Make sure /boot is on a supported FS type.  This prevents crazy
+        # things like boot on vfat.
+        if not req.format.bootable or not req.format.type in self.bootFSTypes:
             errors.append(_("Bootable partitions cannot be on an %s filesystem.") % req.format.type)
 
         if req.type == "luks/dm-crypt":
@@ -162,7 +164,7 @@ class Platform(object):
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
-        return [PartSpec(mountpoint="/boot", fstype=self.bootFSType, size=200,
+        return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=200,
                          weight=self.weight(mountpoint="/boot"))]
 
     @property
@@ -195,7 +197,7 @@ class Platform(object):
         return 0
 
 class EFI(Platform):
-    _bootFSType = "ext4"
+    _bootFSTypes = ["ext4", "ext3", "ext2"]
     _diskType = parted.diskType["gpt"]
     _minBootPartSize = 50
     _maxBootPartSize = 256
@@ -285,7 +287,7 @@ class IA64(EFI):
         EFI.__init__(self, anaconda)
 
 class PPC(Platform):
-    _bootFSType = "ext4"
+    _bootFSTypes = ["ext4", "ext3", "ext2"]
     _packages = ["yaboot"]
     _ppcMachine = iutil.getPPCMachine()
     _supportsMdRaidBoot = True
@@ -456,7 +458,7 @@ class Sparc(Platform):
         return start+1
 
 class X86(EFI):
-    _bootFSType = "ext4"
+    _bootFSTypes = ["ext4", "ext3", "ext2"]
     _packages = ["grub"]
     _supportsMdRaidBoot = True
 

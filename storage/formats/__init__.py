@@ -47,7 +47,7 @@ def get_default_filesystem_type(boot=None):
     import platform
 
     if boot:
-        fstypes = [platform.getPlatform(None).bootFSType]
+        fstypes = [platform.getPlatform(None).defaultBootFSType]
     else:
         fstypes = default_fstypes
 
