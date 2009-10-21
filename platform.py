@@ -222,10 +222,7 @@ class EFI(Platform):
 
         errors = Platform.checkBootRequest(self, req)
 
-        if req.format.mountpoint == "/boot":
-            if not req.format.type.startswith("ext"):
-                errors.append(_("/boot is not on an ext2 filesystem."))
-        elif req.format.mountpoint == "/boot/efi":
+        if req.format.mountpoint == "/boot/efi":
             if req.format.type != "efi":
                 errors.append(_("/boot/efi is not EFI."))
 
