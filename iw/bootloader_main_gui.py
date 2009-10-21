@@ -87,7 +87,7 @@ class MainBootloaderWindow(InstallWindow):
 
             first = combo.get_model()[iter][1]
             desc = choices["mbr"][1]
-            dxml.get_widget("mbrRadio").set_label("%s - /dev/%s" %(desc, first))
+            dxml.get_widget("mbrRadio").set_label("%s - /dev/%s" %(_(desc), first))
             dxml.get_widget("mbrRadio").set_data("bootDevice", first)
 
         def __genStore(combo, disks, active):
@@ -121,7 +121,7 @@ class MainBootloaderWindow(InstallWindow):
                 continue
             (device, desc) = choices[t]
             w = dxml.get_widget("%sRadio" %(t,))
-            w.set_label("%s - /dev/%s" %(desc, device))
+            w.set_label("%s - /dev/%s" %(_(desc), device))
             w.show()
             if self.bldev == device:
                 w.set_active(True)
