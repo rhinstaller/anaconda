@@ -237,6 +237,15 @@ update-desktop-database &> /dev/null || :
 - liveinst: deactivate mdraid arrays before running liveinst (#528235) 
   (hdegoede)
 
+* Tue Oct 20 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.38-1.3
+- clean up references to kernelxen
+
+* Tue Oct 20 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.38-1.2
+- refactored anaconda-i686.patch
+
+* Tue Oct 13 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.38-1.1
+- Rebuild for RHEL 6
+
 * Tue Oct 13 2009 David Cantrell <dcantrell@redhat.com> - 12.38-1
 - Remove extra echo in 'make rpmlog'. (dcantrell)
 - Do not traceback if network device doesn't have HwAddress property
@@ -366,6 +375,17 @@ update-desktop-database &> /dev/null || :
 - Log more, repo editing UI. (rvykydal)
 - Make _enableRepo a little more readable. (rvykydal)
 
+* Tue Sep 29 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.31-1.3
+- patch to select the group named 'core'
+- related: rhbz#523470
+
+* Tue Sep 29 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.31-1.2
+- temporary patch to adjust for older load_policy paths
+- related: rhbz#525985
+
+* Mon Sep 28 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.31-1.1
+- Rebuild for RHEL 6
+
 * Fri Sep 25 2009 David Cantrell <dcantrell@redhat.com> - 12.31-1
 - Move S390MODS to inside makeBootImages(), remove libiscsi_tcp. (dcantrell)
 - Require the latest and greatest python-meh. (clumens)
@@ -375,6 +395,10 @@ update-desktop-database &> /dev/null || :
   (dlehman)
 - Make sure the Minimal group is selected by default on RHEL installs
   (#524561). (clumens)
+
+* Thu Sep 24 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.30-1.2
+- nss patch
+- Resolves rhbz#525061
 
 * Thu Sep 24 2009 Chris Lumens <clumens@redhat.com> - 12.30-1
 - Simplify s390x module list generation. (dcantrell)
