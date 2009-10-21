@@ -743,7 +743,7 @@ def getArch():
     elif isX86(bits=64):
         return 'x86_64'
     elif isPPC():
-        return 'ppc'
+        return 'ppc64'
     elif isAlpha():
         return 'alpha'
     elif isSparc():
