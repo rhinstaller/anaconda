@@ -39,10 +39,10 @@ class Platform(object):
        architecture quirks in one place to avoid lots of platform checks
        throughout anaconda."""
     _bootFSType = "ext3"
-    _bootloaderPackage = None
     _diskType = parted.diskType["msdos"]
     _isEfi = iutil.isEfi()
     _minimumSector = 0
+    _packages = []
     _supportsMdRaidBoot = False
     _minBootPartSize = 50
     _maxBootPartSize = 0
@@ -97,10 +97,6 @@ class Platform(object):
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
 
         return ret
-
-    @property
-    def bootloaderPackage(self):
-        return self._bootloaderPackage
 
     def checkBootRequest(self, req):
         """Perform an architecture-specific check on the boot device.  Not all
@@ -159,6 +155,10 @@ class Platform(object):
     def minimumSector(self, disk):
         """Return the minimum starting sector for the provided disk."""
         return self._minimumSector
+
+    @property
+    def packages (self):
+        return self._packages
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
@@ -279,14 +279,14 @@ class Alpha(Platform):
         return errors
 
 class IA64(EFI):
-    _bootloaderPackage = "elilo"
+    _packages = ["elilo"]
 
     def __init__(self, anaconda):
         EFI.__init__(self, anaconda)
 
 class PPC(Platform):
-    _bootloaderPackage = "yaboot"
     _bootFSType = "ext4"
+    _packages = ["yaboot"]
     _ppcMachine = iutil.getPPCMachine()
     _supportsMdRaidBoot = True
 
@@ -440,7 +440,7 @@ class PS3(PPC):
         PPC.__init__(self, anaconda)
 
 class S390(Platform):
-    _bootloaderPackage = "s390utils"
+    _packages = ["s390utils"]
 
     def __init__(self, anaconda):
         Platform.__init__(self, anaconda)
@@ -456,8 +456,8 @@ class Sparc(Platform):
         return start+1
 
 class X86(EFI):
-    _bootloaderPackage = "grub"
     _bootFSType = "ext4"
+    _packages = ["grub"]
     _supportsMdRaidBoot = True
 
     def __init__(self, anaconda):
