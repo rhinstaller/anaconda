@@ -1169,6 +1169,7 @@ class DeviceTree(object):
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
         serial = udev_device_get_serial(info)
+        bus = udev_device_get_bus(info)
 
         # udev doesn't always provide a vendor.
         vendor = udev_device_get_vendor(info)
@@ -1225,7 +1226,7 @@ class DeviceTree(object):
         device = diskType(name, serial=serial, vendor=vendor,
                           major=udev_device_get_major(info),
                           minor=udev_device_get_minor(info),
-                          sysfsPath=sysfs_path, **kwargs)
+                          sysfsPath=sysfs_path, bus=bus, **kwargs)
         self._addDevice(device)
         return device
 

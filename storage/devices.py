@@ -425,7 +425,7 @@ class StorageDevice(Device):
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None,
                  sysfsPath='', parents=None, exists=None, serial=None,
-                 vendor=""):
+                 vendor="", bus=""):
         """ Create a StorageDevice instance.
 
             Arguments:
@@ -457,6 +457,7 @@ class StorageDevice(Device):
         self.exists = exists
         self.serial = serial
         self.vendor = vendor
+        self.bus = bus
 
         self.protected = False
 
@@ -727,7 +728,7 @@ class DiskDevice(StorageDevice):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None, sysfsPath='',
-                 parents=None, serial=None, vendor=""):
+                 parents=None, serial=None, vendor="", bus=""):
         """ Create a DiskDevice instance.
 
             Arguments:
@@ -745,6 +746,7 @@ class DiskDevice(StorageDevice):
                 removable -- whether or not this is a removable device
                 serial -- the ID_SERIAL_SHORT for this device
                 vendor -- the manufacturer of this Device
+                bus -- the interconnect this device uses
 
 
             DiskDevices always exist.
@@ -752,7 +754,7 @@ class DiskDevice(StorageDevice):
         StorageDevice.__init__(self, device, format=format, size=size,
                                major=major, minor=minor, exists=True,
                                sysfsPath=sysfsPath, parents=parents,
-                               serial=serial, vendor=vendor)
+                               serial=serial, vendor=vendor, bus=bus)
 
     def __str__(self):
         s = StorageDevice.__str__(self)

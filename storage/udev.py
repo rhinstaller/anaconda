@@ -258,6 +258,10 @@ def udev_device_get_vendor(udev_info):
     """ Get the vendor of the device as reported by udev. """
     return udev_info.get("ID_VENDOR_FROM_DATABASE", udev_info.get("ID_VENDOR"))
 
+def udev_device_get_bus(udev_info):
+    """ Get the bus a device is connected to the system by. """
+    return udev_info.get("ID_BUS").upper()
+
 def udev_device_get_sysfs_path(info):
     return info['sysfs_path']
 
