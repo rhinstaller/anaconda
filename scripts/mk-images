@@ -406,7 +406,9 @@ instbin() {
 }
 
 setupShellEnvironment() {
-    echo "tcp     6       TCP" > $MBD_DIR/etc/protocols
+    cp -f $IMGPATH/etc/protocols $MBD_DIR/etc/protocols
+    echo "sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin" \
+    	>> $MBD_DIR/etc/passwd
 
     # enable root shell logins
     echo "root::14438:0:99999:7:::" >> $MBD_DIR/etc/shadow
@@ -439,26 +441,29 @@ EOF
 
     cp -f $IMGPATH/etc/security/{limits.conf,pam_env.conf} $MBD_DIR/etc/security/
 
-    # key generation takes ages on s390, you really don't want this for every
-    # installation attempt. These are NOT the keys of the installed system!
     mkdir -m 0700 -p $MBD_DIR/etc/ssh
-    echo -n "Generating SSH1 RSA host key: "
-    /usr/bin/ssh-keygen -q -t rsa1 -f $MBD_DIR/etc/ssh/ssh_host_key \
-                        -C '' -N '' >&/dev/null
-    echo
-    echo -n "Generating SSH2 RSA host key: "
-    /usr/bin/ssh-keygen -q -t rsa -f $MBD_DIR/etc/ssh/ssh_host_rsa_key \
-                        -C '' -N '' >&/dev/null
-    echo
-    echo -n "Generating SSH2 DSA host key: "
-    /usr/bin/ssh-keygen -q -t dsa -f $MBD_DIR/etc/ssh/ssh_host_dsa_key \
-                        -C '' -N '' >&/dev/null
-    echo
-    (cd $MBD_DIR/etc/ssh; \
-        chmod 600 ssh_host_key ssh_host_rsa_key ssh_host_dsa_key; \
-        chmod 644 ssh_host_key.pub ssh_host_rsa_key.pub ssh_host_dsa_key.pub; )
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+        # key generation takes ages on s390, you really don't want this
+        # for every installation attempt. These are NOT the keys of the
+        # installed system!
+        echo -n "Generating SSH1 RSA host key: "
+        /usr/bin/ssh-keygen -q -t rsa1 -f $MBD_DIR/etc/ssh/ssh_host_key \
+                            -C '' -N '' >&/dev/null
+        echo
+        echo -n "Generating SSH2 RSA host key: "
+        /usr/bin/ssh-keygen -q -t rsa -f $MBD_DIR/etc/ssh/ssh_host_rsa_key \
+                            -C '' -N '' >&/dev/null
+        echo
+        echo -n "Generating SSH2 DSA host key: "
+        /usr/bin/ssh-keygen -q -t dsa -f $MBD_DIR/etc/ssh/ssh_host_dsa_key \
+                            -C '' -N '' >&/dev/null
+        echo
+        (cd $MBD_DIR/etc/ssh; \
+         chmod 600 ssh_host_key ssh_host_rsa_key ssh_host_dsa_key; \
+         chmod 644 ssh_host_key.pub ssh_host_rsa_key.pub ssh_host_dsa_key.pub; )
+    fi
 
-    cat > $MBD_DIR/etc/ssh/sshd_config <<EOF
+    cat > $MBD_DIR/etc/ssh/sshd_config.anaconda <<EOF
 Port 22
 HostKey /etc/ssh/ssh_host_key
 HostKey /etc/ssh/ssh_host_rsa_key
@@ -477,11 +482,13 @@ PasswordAuthentication yes
 PermitEmptyPasswords yes
 PermitUserEnvironment yes
 EOF
-    chmod 600 $MBD_DIR/etc/ssh/sshd_config
+    chmod 600 $MBD_DIR/etc/ssh/sshd_config.anaconda
 
     # copy in the binaries
-    instbin $IMGPATH /usr/bin/login $MBD_DIR /sbin/login
+    instbin $IMGPATH /sbin/nologin $MBD_DIR /sbin/nologin
+    instbin $IMGPATH /bin/login $MBD_DIR /sbin/login
     instbin $IMGPATH /usr/sbin/sshd $MBD_DIR /sbin/sshd
+    instbin $IMGPATH /usr/bin/ssh-keygen $MBD_DIR /sbin/ssh-keygen
 }
 
 
@@ -573,13 +580,19 @@ makeinitrd() {
     mkdir -p $MBD_DIR/etc/rc.d/init.d
     mkdir -p $MBD_DIR/usr/sbin
     mkdir -p $MBD_DIR/var/run/wpa_supplicant
+    mkdir -m 111 -p $MBD_DIR/var/empty/sshd
+    mkdir -p $MBD_DIR/etc/{pam.d,security}
+    mkdir -p $MBD_DIR/$LIBDIR/security
+
+    for x in $IMGPATH/$LIBDIR/security/* ; do
+	y=$(basename $x)
+        instbin $IMGPATH $LIBDIR/security/$y $MBD_DIR $LIBDIR/security/$y
+    done
+
+    cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
+    cp $IMGPATH/$LIBDIR/libwrap*.so* $MBD_DIR/$LIBDIR/
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-        mkdir -m 111 -p $MBD_DIR/var/empty/sshd
-        mkdir -p $MBD_DIR/etc/{pam.d,security}
-        mkdir -p $MBD_DIR/$LIBDIR/security
-        cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
-        cp $IMGPATH/$LIBDIR/libwrap*.so* $MBD_DIR/$LIBDIR/
         ln -s /tmp $MBD_DIR/var/state/xkb
         instbin $IMGPATH /usr/bin/xauth $MBD_DIR /sbin/xauth
         local cmsfsbin cmd
@@ -821,10 +834,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/lib
     ln -s ../../tmp $MBD_DIR/var/lib/xkb
 
-    # s390/s390x need sshd setup
-    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-        setupShellEnvironment
-    fi
+    setupShellEnvironment
 
 cat > $MBD_DIR/.profile <<EOF
 PS1="[anaconda \u@\h \W]\\\\$ "

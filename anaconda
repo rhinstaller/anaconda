@@ -396,6 +396,30 @@ def setupGraphicalLinks():
         except:
 	    pass
 
+def createSshKey(algorithm, keyfile):
+    path = '/etc/ssh/%s' % (keyfile,)
+    argv = ['-q','-t',algorithm,'-f',path,'-C','','-N','']
+    iutil.execWithRedirect('ssh-keygen', argv, searchPath=1)
+
+def startSsh():
+    if not flags.sshd:
+        return   
+    if iutil.isS390():
+        return
+
+    childpid = os.fork()
+    if not childpid:
+        ssh_keys = {
+            'rsa1':'ssh_host_key',
+            'rsa':'ssh_host_rsa_key',
+            'dsa':'ssh_host_dsa_key',
+            }
+        for (algorithm, keyfile) in ssh_keys.items():
+            createSshKey(algorithm, keyfile)
+        args = ["/sbin/sshd", "-f", "/etc/ssh/sshd_config.anaconda"]
+        os.execv("/sbin/sshd", args)
+        sys.exit(1)
+
 class Anaconda:
     def __init__(self):
         self.intf = None
@@ -572,6 +596,8 @@ if __name__ == "__main__":
         logger.addFileHandler ("/dev/tty3", log)
 
     warnings.showwarning = AnacondaShowWarning
+
+    startSsh()
 
     setupTranslations()
 

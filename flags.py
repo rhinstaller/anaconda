@@ -86,17 +86,19 @@ class Flags:
         self.__dict__['flags']['cmdline'] = self.createCmdlineDict()
         self.__dict__['flags']['useIPv4'] = True
         self.__dict__['flags']['useIPv6'] = True
+        self.__dict__['flags']['sshd'] = 1
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
         # do things like bogl on them.  this preserves what that
         # device is
         self.__dict__['flags']['virtpconsole'] = None
 
-        if self.__dict__['flags']['cmdline'].has_key("selinux"):
-            if self.__dict__['flags']['cmdline']["selinux"]:
-                self.__dict__['flags']['selinux'] = 1
-            else:
-                self.__dict__['flags']['selinux'] = 0
+        for x in ['selinux','sshd']:
+            if self.__dict__['flags']['cmdline'].has_key(x):
+                if self.__dict__['flags']['cmdline'][x]:
+                    self.__dict__['flags'][x] = 1
+                else:
+                    self.__dict__['flags'][x] = 0
 
         if self.__dict__['flags']['cmdline'].has_key("debug"):
             self.__dict__['flags']['debug'] = self.__dict__['flags']['cmdline']['debug']

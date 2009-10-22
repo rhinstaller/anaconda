@@ -126,7 +126,7 @@ function startinetd()
         echo >> /etc/motd
     fi # testing
 
-    /sbin/sshd
+    /sbin/sshd -f /etc/sshd_config.anaconda
     if [ -z "$RUNKS" ]; then
         echo
         echo $"Connect now to $IPADDR and log in as user install to start the installation."

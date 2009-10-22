@@ -181,7 +181,9 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
     lohit-telugu-fonts lvm2 madan-fonts mdadm
     mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
-    newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g openldap pam pango parted pciutils pcre
+    newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g
+    openldap openssh openssh-server
+    pam pango parted pciutils pcre
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
     python-libs python-nss python-pyblock python-sqlite
     python-urlgrabber python-volume_key pyxf86config readline redhat-artwork
@@ -222,7 +224,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES bind-utils binutils coreutils findutils gzip
               initscripts iputils less libgcc login lsscsi modutils mount
-              net-tools openssh openssh-clients openssh-server pam portmap
+              net-tools openssh-clients pam portmap
               s390utils sed strace tar tcp_wrappers xorg-x11-libs
               xorg-x11-xauth"
 fi
@@ -283,6 +285,8 @@ $LIBDIR/bdevid
 $LIBDIR/dbus-1
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
+$LIBDIR/libwrap*.so*
+$LIBDIR/security/pam_*
 bin/arch
 bin/basename
 bin/bash
@@ -310,6 +314,7 @@ bin/hostname
 bin/ipcalc
 bin/kill
 bin/ln
+bin/login
 bin/ls
 bin/mkdir
 bin/mknod
@@ -353,6 +358,8 @@ etc/iscsid.conf
 etc/man.config
 etc/mke2fs.conf
 etc/nsswitch.conf
+etc/pam.d/other
+etc/pam.d/sshd
 etc/pango
 etc/passwd
 etc/pcmcia
@@ -363,6 +370,8 @@ etc/prelink.conf
 etc/protocols
 etc/rc.d/init.d/functions
 etc/rpm/macros.prelink
+etc/security/limits.conf
+etc/security/pam_env.conf
 etc/selinux/targeted
 etc/services
 etc/shells
@@ -430,6 +439,7 @@ sbin/mkreiserfs
 sbin/mkswap
 sbin/mount.nfs*
 sbin/mount.ntfs*
+sbin/nologin
 sbin/ofpath
 sbin/parted
 sbin/pcmcia-socket-startup
@@ -511,6 +521,7 @@ usr/bin/reduce-font
 usr/bin/setxkbmap
 usr/bin/sha1sum
 usr/bin/split
+usr/bin/ssh-keygen
 usr/bin/syslinux
 usr/bin/tac
 usr/bin/tail
@@ -567,6 +578,7 @@ usr/sbin/prelink
 usr/sbin/semodule
 usr/sbin/showpart
 usr/sbin/smartctl
+usr/sbin/sshd
 usr/sbin/wpa_passphrase
 usr/sbin/wpa_supplicant
 usr/sbin/wrapper
@@ -660,7 +672,6 @@ bin/dmesg
 bin/echo
 bin/find
 bin/gzip
-bin/login
 bin/ls
 bin/mknod
 bin/ping
@@ -670,12 +681,6 @@ bin/sort
 bin/tar
 bin/uname
 bin/vi
-etc/pam.d/other
-etc/pam.d/sshd
-etc/security/limits.conf
-etc/security/pam_env.conf
-$LIBDIR/libwrap*.so*
-$LIBDIR/security/pam_*
 lib/modules/ibm
 lib/security
 sbin/arp
@@ -711,7 +716,6 @@ usr/bin/tr
 usr/bin/wc
 usr/bin/xauth
 usr/sbin/glibc_post_upgrade
-usr/sbin/sshd
 usr/share/terminfo/a/ansi
 usr/share/terminfo/d/dumb
 usr/share/terminfo/k/kterm
