@@ -51,6 +51,7 @@ from udev import *
 import iscsi
 import fcoe
 import zfcp
+import dasd
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -252,6 +253,7 @@ class Storage(object):
         self.iscsi = iscsi.iscsi()
         self.fcoe = fcoe.fcoe()
         self.zfcp = zfcp.ZFCP()
+        self.dasd = dasd.DASD()
 
         self._nextID = 0
         self.defaultFSType = get_default_filesystem_type()
@@ -320,6 +322,7 @@ class Storage(object):
         self.iscsi.startup(self.anaconda.intf)
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup()
+        self.dasd.startup(self.anaconda.intf)
         if self.anaconda.id.getUpgrade():
             clearPartType = CLEARPART_TYPE_NONE
         else:
