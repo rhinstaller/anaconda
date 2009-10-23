@@ -186,7 +186,7 @@ def udev_device_get_zfcp_attribute(info, attr=None):
         log.debug("udev_device_get_zfcp_attribute() called with attr=None")
         return None
 
-    attribute = "/sys%s/devices/%s" % (info.get("sysfs_path"), attr,)
+    attribute = "/sys%s/device/%s" % (info.get("sysfs_path"), attr,)
     attribute = os.path.realpath(attribute)
 
     if not os.path.isfile(attribute):
