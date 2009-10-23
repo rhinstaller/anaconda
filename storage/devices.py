@@ -3133,12 +3133,11 @@ class ZFCPDiskDevice(DiskDevice):
     """ A mainframe ZFCP disk. """
     _type = "zfcp"
 
-    def __init__(self, name, **kwargs):
-        self.hba_id = kwargs.get("hba_id")
-        self.wwpn = kwargs.get("wwpn")
-        self.fcp_lun = kwargs.get("fcp_lun")
-        name = "zfcp://%s/%s/%s" % (self.hba_id, self.wwpn, self.fcplun,)
-        DiskDevice.__init__(self, name, **kwargs)
+    def __init__(self, device, **kwargs):
+        self.hba_id = kwargs.pop("hba_id")
+        self.wwpn = kwargs.pop("wwpn")
+        self.fcp_lun = kwargs.pop("fcp_lun")
+        DiskDevice.__init__(self, device, **kwargs)
 
     def __str__(self):
         s = DiskDevice.__str__(self)
@@ -3157,9 +3156,9 @@ class DASDDevice(DiskDevice):
     _type = "dasd"
 
     def __init__(self, device, **kwargs):
-        self.busid = kwargs.get('busid')
-        self.opts = kwargs.get('opts')
-        DiskDevice.__init__(self, device, kwargs)
+        self.busid = kwargs.pop('busid')
+        self.opts = kwargs.pop('opts')
+        DiskDevice.__init__(self, device, **kwargs)
 
     def dracutSetupString(self):
         arg = "rd_DASD=%s" % (self.busid,)
