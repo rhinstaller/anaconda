@@ -242,8 +242,9 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     closefds()
     return rc
 
-def execWithPulseProgress(command, argv, stdin = None, stdout = None,
-                          stderr = None, progress = None, root = '/'):
+def execWithCallback(command, argv, stdin = None, stdout = None,
+                     stderr = None, callback = None, callback_data = None,
+                     root = '/'):
     def chroot():
         os.chroot(root)
 
@@ -311,7 +312,8 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
 
         os.write(stdout, s)
         runningLog.write(s)
-        if progress: progress.pulse()
+        if callback:
+            callback(s, callback_data=callback_data)
 
         # break out early if the sub-process changes status.
         # no need to flush the stream if the process has exited
@@ -341,6 +343,16 @@ def execWithPulseProgress(command, argv, stdin = None, stdout = None,
         return os.WEXITSTATUS(status)
 
     return 1
+
+def _pulseProgressCallback(data, callback_data=None):
+    if callback_data:
+        callback_data.pulse()
+
+def execWithPulseProgress(command, argv, stdin = None, stdout = None,
+                          stderr = None, progress = None, root = '/'):
+    execWithCallback(command, argv, stdin=stdin, stdout=stdout,
+                     stderr=stderr, callback=_pulseProgressCallback,
+                     callback_data=progress, root=root)
 
 ## Run a shell.
 def execConsole():
