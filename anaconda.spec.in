@@ -215,6 +215,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Oct 23 2009 Peter Jones <pjones@redhat.com> - #VERSION#-1
+- More udev fixups for device-mapper and cryptsetup temp devices. (dlehman)
+  (#526699)
+- Use rpm to determine how to set bootloader args and default runlevel
+  (clumens) (#527520)
+- Handle more than x.y version numbers in 'make bumpver'. (dcantrell)
+- Mark live device as protected instead of ignoring it. (dlehman) (#517260)
+- Don't force logical with a free primary slot and an extended. (dlehman)
+  (#527952)
+- Write LAYER2 and PORTNO correctly as parts of OPTIONS to ifcfg for s390x
+  (Steffen Maier)
+- liveinst: deactivate mdraid arrays before running liveinst (hansg)
+  (#528235)
+
 * Tue Oct 13 2009 David Cantrell <dcantrell@redhat.com> - 12.38-1
 - Remove extra echo in 'make rpmlog'. (dcantrell)
 - Do not traceback if network device doesn't have HwAddress property
