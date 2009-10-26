@@ -461,7 +461,7 @@ def getNextPartitionType(disk, no_primary=None):
                 # there is an extended and a free primary
                 if not no_primary:
                     part_type = parted.PARTITION_NORMAL
-                elif logical_count < max_logical:
+                elif logical_count < max_logicals:
                     # we have an extended with logical slots, so use one.
                     part_type = parted.PARTITION_LOGICAL
         else:
