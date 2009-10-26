@@ -38,17 +38,30 @@ class InstallClass(BaseInstallClass):
     id = "fedora"
     name = N_("_Fedora")
     _description = N_("The default installation of %s includes a set of "
-                    "software applicable for general internet usage. "
-                    "What additional tasks would you like your system "
-                    "to include support for?") 
+                      "software applicable for general internet usage. "
+                      "You can optionally select a different set of software "
+                      "now.")
     _descriptionFields = (productName,)
     sortPriority = 10000
     if productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
-    tasks = [(N_("Office and Productivity"), ["graphics", "office"]),
-             (N_("Software Development"), ["development-libs", "development-tools", "gnome-software-development", "x-software-development"],),
-             (N_("Web Server"), ["web-server"])]
+    tasks = [(N_("Graphical Desktop"),
+              ["admin-tools", "base", "base-x", "core", "editors", "fonts",
+               "games", "gnome-desktop", "graphical-internet", "graphics",
+               "hardware-support", "input-methods", "java", "office",
+               "printing", "sound-and-video", "text-internet"]),
+             (N_("Software Development"),
+              ["base", "base-x", "core", "development-libs",
+               "development-tools", "editors", "fonts", "gnome-desktop",
+               "gnome-software-development", "graphical-internet", "graphics",
+               "hardware-support", "input-methods", "java", "text-internet",
+               "x-software-development"]),
+             (N_("Web Server"),
+              ["admin-tools", "base", "base-x", "core", "editors",
+               "gnome-desktop", "graphical-internet", "hardware-support",
+               "java", "text-internet", "web-server"]),
+             (N_("Minimal"), ["core"])]
 
     bugFiler = BugzillaFiler("https://bugzilla.redhat.com/xmlrpc.cgi",
                              "https://bugzilla.redhat.com/",

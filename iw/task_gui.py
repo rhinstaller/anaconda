@@ -534,10 +534,13 @@ class TaskWindow(InstallWindow):
         s = self.xml.get_widget("repoList").get_model()
         s.append([dialog.repo.isEnabled(), dialog.repo.name, dialog.repo])
 
-    def _taskToggled(self, button, row, store):
-        i = store.get_iter(int(row))
-        val = store.get_value(i, 0)
-        store.set_value(i, 0, not val)
+    def _taskToggled(self, button, path, store):
+        # First, untoggle everything in the store.
+        for row in store:
+            row[0] = False
+
+        # Then, enable the one that was clicked.
+        store[path][0] = True
 
     def _anyRepoEnabled(self):
         model = self.rs.get_model()
@@ -580,18 +583,27 @@ class TaskWindow(InstallWindow):
         tl.set_model(store)
 
         cbr = gtk.CellRendererToggle()
-        col = gtk.TreeViewColumn('', cbr, active = 0)
+        cbr.set_radio(True)
         cbr.connect("toggled", self._taskToggled, store)
+
+        col = gtk.TreeViewColumn('', cbr, active = 0)
         tl.append_column(col)
 
         col = gtk.TreeViewColumn('Text', gtk.CellRendererText(), text = 1)
         col.set_clickable(False)
         tl.append_column(col)
 
+        anyEnabled = False
+
         for (txt, grps) in self.tasks:
             if not self.backend.groupListExists(grps):
                 continue
-            store.append([self.backend.groupListDefault(grps), _(txt), grps])
+
+            enabled = self.backend.groupListDefault(grps)
+            store.append([not anyEnabled and enabled, _(txt), grps])
+
+            if enabled:
+                anyEnabled = True
 
         return tl
 

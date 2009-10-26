@@ -39,14 +39,15 @@ class InstallClass(BaseInstallClass):
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
     _description = N_("The default installation of %s is a minimal install. "
-                     "What additional tasks would you like your system "
-                     "to include support for?")
+                      "You can optionally select a different set of software "
+                      "now.")
     _descriptionFields = (productName,)
     sortPriority = 10000
     if not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
-    tasks = [(N_("Desktop"),
+    tasks = [(N_("Minimal"), ["core"]),
+             (N_("Desktop"),
               ["backup-client", "base", "compat-libraries", "console-internet",
                "debugging", "directory-client", "firmware", "fonts",
                "legacy-unix", "core", "network-file-system-client",
