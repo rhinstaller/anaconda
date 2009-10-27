@@ -92,7 +92,7 @@ class DiskLabel(DeviceFormat):
     def freshPartedDisk(self):
         """ Return a new, empty parted.Disk instance for this device. """
         log_method_call(self, device=self.device)
-        labelType = platform.getPlatform(None).diskType
+        labelType = platform.getPlatform(None).diskLabelType
         return parted.freshDisk(device=self.partedDevice, ty=labelType)
 
     @property

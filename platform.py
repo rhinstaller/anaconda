@@ -40,7 +40,7 @@ class Platform(object):
        throughout anaconda."""
     _bootFSType = "ext3"
     _bootloaderPackage = None
-    _diskType = parted.diskType["msdos"]
+    _diskLabelType = parted.diskType["msdos"]
     _isEfi = iutil.isEfi()
     _minimumSector = 0
     _supportsMdRaidBoot = False
@@ -142,14 +142,14 @@ class Platform(object):
         return errors
 
     @property
-    def diskType(self):
+    def diskLabelType(self):
         """Return the disk label type as a parted.DiskType."""
-        return self._diskType
+        return self._diskLabelType
 
-    @diskType.setter
-    def diskType(self, value):
+    @diskLabelType.setter
+    def diskLabelType(self, value):
         """Sets the disk label type."""
-        self._diskType = value
+        self._diskLabelType = value
 
     @property
     def isEfi(self):
@@ -196,7 +196,7 @@ class Platform(object):
 
 class EFI(Platform):
     _bootFSType = "ext4"
-    _diskType = parted.diskType["gpt"]
+    _diskLabelType = parted.diskType["gpt"]
     _minBootPartSize = 50
     _maxBootPartSize = 256
 
@@ -250,7 +250,7 @@ class EFI(Platform):
             return 0
 
 class Alpha(Platform):
-    _diskType = parted.diskType["bsd"]
+    _diskLabelType = parted.diskType["bsd"]
 
     def checkBootRequest(self, req):
         errors = Platform.checkBootRequest(self, req)
@@ -261,7 +261,7 @@ class Alpha(Platform):
         disk = req.disk.format.partedDisk
 
         # Check that we're a BSD disk label
-        if not disk.type == self.diskType.name:
+        if not disk.type == self.diskLabelType.name:
             errors.append(_("%s must have a bsd disk label.") % req.disk.name)
 
         # The first free space should start at the beginning of the drive and
@@ -362,7 +362,7 @@ class IPSeriesPPC(PPC):
             return 0
 
 class NewWorldPPC(PPC):
-    _diskType = parted.diskType["mac"]
+    _diskLabelType = parted.diskType["mac"]
     _minBootPartSize = (800.00 / 1024.00)
     _maxBootPartSize = 1
 
@@ -404,7 +404,7 @@ class NewWorldPPC(PPC):
         disk = req.disk.format.partedDisk
 
         # Check that we're a Mac disk label
-        if not disk.type == self.diskType.name:
+        if not disk.type == self.diskLabelType.name:
             errors.append(_("%s must have a mac disk label.") % req.disk.name)
 
         # All of the above just checks the appleboot partitions.  We still
@@ -434,7 +434,7 @@ class NewWorldPPC(PPC):
             return 0
 
 class PS3(PPC):
-    _diskType = parted.diskType["msdos"]
+    _diskLabelType = parted.diskType["msdos"]
 
     def __init__(self, anaconda):
         PPC.__init__(self, anaconda)
@@ -446,7 +446,7 @@ class S390(Platform):
         Platform.__init__(self, anaconda)
 
 class Sparc(Platform):
-    _diskType = parted.diskType["sun"]
+    _diskLabelType = parted.diskType["sun"]
 
     @property
     def minimumSector(self, disk):
@@ -464,9 +464,9 @@ class X86(EFI):
         EFI.__init__(self, anaconda)
 
         if self.isEfi:
-            self.diskType = parted.diskType["gpt"]
+            self.diskLabelType = parted.diskType["gpt"]
         else:
-            self.diskType = parted.diskType["msdos"]
+            self.diskLabelType = parted.diskType["msdos"]
 
     def bootDevice(self):
         if self.isEfi:
