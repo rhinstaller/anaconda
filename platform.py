@@ -141,15 +141,12 @@ class Platform(object):
 
         return errors
 
-    @property
-    def diskLabelType(self):
+    def diskLabelType(self, deviceType):
         """Return the disk label type as a parted.DiskType."""
-        return self._diskLabelType
+        if deviceType == parted.DEVICE_DASD:
+            return parted.diskType["dasd"]
 
-    @diskLabelType.setter
-    def diskLabelType(self, value):
-        """Sets the disk label type."""
-        self._diskLabelType = value
+        return self._diskLabelType
 
     @property
     def isEfi(self):
