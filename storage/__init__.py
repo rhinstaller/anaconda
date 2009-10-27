@@ -800,7 +800,11 @@ class Storage(object):
             if mountpoint == '/':
                 lvtemplate = 'lv_root'
             else:
-                template = "lv_%s" % (mountpoint,)
+                if mountpoint.startswith("/"):
+                    template = "lv_%s" % mountpoint[1:]
+                else:
+                    template = "lv_%s" % (mountpoint,)
+
                 lvtemplate = safeLvmName(template)
         else:
             if swap:
