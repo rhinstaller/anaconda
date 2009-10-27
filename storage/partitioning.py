@@ -851,7 +851,11 @@ def allocatePartitions(disks, partitions):
         partition = parted.Partition(disk=disklabel.partedDisk,
                                      type=part_type,
                                      geometry=new_geom)
-        constraint = parted.Constraint(maxGeom=max_geom, minGeom=min_geom)
+        # DASD disklabels do not allow sector exact partitioning (#527104)
+        if _disk.type != 'dasd':
+            constraint = parted.Constraint(maxGeom=max_geom, minGeom=min_geom)
+        else:
+            constraint = disklabel.partedDevice.getConstraint()
         disklabel.partedDisk.addPartition(partition=partition,
                                           constraint=constraint)
         log.debug("created partition %s of %dMB and added it to %s" %
