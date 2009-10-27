@@ -67,9 +67,6 @@ class PartitionEditor:
 				    upper = MAX_PART_SIZE, step_incr = 1)
 	fillmaxszsb = gtk.SpinButton(maxsizeAdj, digits = 0)
 	fillmaxszsb.set_property('numeric', True)
-	fillmaxszhbox = gtk.HBox()
-	fillmaxszhbox.pack_start(fillmaxszrb)
-	fillmaxszhbox.pack_start(fillmaxszsb)
 	fillunlimrb = gtk.RadioButton(group=fixedrb,
 				     label=_("Fill to maximum _allowable "
 					     "size"))
@@ -89,7 +86,8 @@ class PartitionEditor:
 	    fixedrb.set_active(1)
 
 	sizeoptiontable.attach(fixedrb, 0, 1, 0, 1)
-	sizeoptiontable.attach(fillmaxszhbox, 0, 1, 1, 2)
+	sizeoptiontable.attach(fillmaxszrb, 0, 1, 1, 2)
+	sizeoptiontable.attach(fillmaxszsb, 1, 2, 1, 2)
 	sizeoptiontable.attach(fillunlimrb, 0, 1, 2, 3)
 
 	frame.add(sizeoptiontable)
