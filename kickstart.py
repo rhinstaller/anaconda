@@ -749,7 +749,7 @@ class Partition(commands.partition.F12_Partition):
                storage.encryptionPassphrase = pd.passphrase
 
             cert = getEscrowCertificate(self.handler.anaconda, pd.escrowcert)
-            if pd.preexist:
+            if pd.onPart:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=pd.passphrase, device=device.path,
                                           escrow_cert=cert,
