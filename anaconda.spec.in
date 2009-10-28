@@ -217,6 +217,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Oct 28 2009 David Cantrell <dcantrell@redhat.com> - 12.41-1
+- BR system-config-keyboard (dcantrell)
+
 * Wed Oct 28 2009 Chris Lumens <clumens@redhat.com> - 12.40-1
 - preexist -> onPart (#531407). (clumens)
 - Support upgrading when the language isn't in lang-table (#528317).
