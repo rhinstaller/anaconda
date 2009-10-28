@@ -48,7 +48,7 @@ class DASD:
         self._maxFormatJobs = 0
         self.started = False
 
-    def startup(self, intf=None):
+    def startup(self, *args, **kwargs):
         """ Look for any unformatted DASDs in the system and offer the user
             the option for format them with dasdfmt or exit the installer.
         """
@@ -59,6 +59,9 @@ class DASD:
 
         if not iutil.isS390():
             return
+
+        intf = kwargs.get("intf")
+        zeroMbr = kwargs.get("zeroMbr")
 
         log.info("Checking for unformatted DASD devices:")
 
@@ -82,12 +85,20 @@ class DASD:
             log.info("    no unformatted DASD devices found")
             return
 
+        askUser = True
+
+        if zeroMbr:
+            askUser = False
+        elif not intf and not zeroMbr:
+            log.info("    non-interactive kickstart install without zerombr "
+                     "command, unable to run dasdfmt, exiting installer")
+            sys.exit(0)
+
         tmplist = map(lambda s: "/dev/" + s, self._dasdlist)
         self._dasdlist = map(lambda s: deviceNameToDiskByPath(s), tmplist)
+        c = len(self._dasdlist)
 
-        if intf:
-            c = len(self._dasdlist)
-
+        if intf and askUser:
             title = P_("Unformatted DASD Device Found",
                        "Unformatted DASD Devices Found", c)
             msg = P_("Format uninitialized DASD device?\n\n"
@@ -109,9 +120,9 @@ class DASD:
             icon = "/usr/share/icons/gnome/32x32/status/dialog-error.png"
             buttons = [_("_Format"), _("_Exit installer")]
             rc = intf.detailedMessageWindow(title, msg, devs.strip(),
-                                            type="custom",
-                                            custom_icon=icon,
-                                            custom_buttons=buttons)
+                                                 type="custom",
+                                                 custom_icon=icon,
+                                                 custom_buttons=buttons)
             if rc == 1:
                 sys.exit(0)
 
