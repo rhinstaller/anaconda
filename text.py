@@ -301,8 +301,50 @@ class InstallInterface:
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_icon=None,
                               custom_buttons=[]):
-        return self.messageWindow(title, text, type, default, custom_icon,
-                                  custom_buttons)
+        # list box text will be longText split on newlines
+        items = longText
+        if longText:
+            items = filter(lambda s: s, longText.split('\n'))
+
+        if type == "ok":
+            ListboxChoiceWindow(self.screen, title, text, items,
+                                buttons=[TEXT_OK_BUTTON], width=60,
+                                scroll=1, default=default)
+        elif type == "yesno":
+            if default and default == "no":
+                btnlist = [TEXT_NO_BUTTON, TEXT_YES_BUTTON]
+            else:
+                btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
+
+            (button, entry) = ListboxChoiceWindow(self.screen, title, text,
+                                                  items, buttons=btnlist,
+                                                  width=60, scroll=1,
+                                                  default=default)
+
+            if button == "yes":
+                return 1
+            else:
+                return 0
+        elif type == "custom":
+            tmpbut = []
+            idx = 0
+
+            for but in custom_buttons:
+                tmpbut.append(string.replace(but,"_",""))
+
+            (button, entry) = ListboxChoiceWindow(self.screen, title, text,
+                                                  items, buttons=tmpbut,
+                                                  scroll=1, default=default)
+
+            for b in tmpbut:
+                if string.lower(b) == button:
+                    return idx
+                idx += 1
+
+            return 0
+        else:
+            return self.messageWindow(title, text, type, default, custom_icon,
+                                      custom_buttons)
 
     def createRepoWindow(self):
         self.messageWindow(_("Error"),
