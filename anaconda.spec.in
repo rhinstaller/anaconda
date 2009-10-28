@@ -215,6 +215,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Oct 28 2009 Chris Lumens <clumens@redhat.com> - 12.40-1
+- preexist -> onPart (#531407). (clumens)
+- Support upgrading when the language isn't in lang-table (#528317).
+  (clumens)
+- max_logical -> max_logicals (#530786). (clumens)
+- We moved from dialog to newt.. (#528497) (msivak)
+
 * Fri Oct 23 2009 Peter Jones <pjones@redhat.com> - #VERSION#-1
 - More udev fixups for device-mapper and cryptsetup temp devices. (dlehman)
   (#526699)

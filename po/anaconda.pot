@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.37\n"
+"Project-Id-Version: anaconda 12.39\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-10-13 12:05-1000\n"
+"POT-Creation-Date: 2009-10-28 16:57-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,7 +120,7 @@ msgid ""
 "probably out of disk space."
 msgstr ""
 
-#: backend.py:189 image.py:285 livecd.py:190 livecd.py:398
+#: backend.py:189 image.py:285 livecd.py:190 livecd.py:396
 #: partIntfHelpers.py:237 text.py:308 text.py:312 yuminstall.py:394
 #: yuminstall.py:734 yuminstall.py:848 yuminstall.py:1111 yuminstall.py:1175
 #: yuminstall.py:1334 yuminstall.py:1352 iw/autopart_type.py:99
@@ -151,7 +151,7 @@ msgstr ""
 #: upgrade.py:251 yuminstall.py:1515 yuminstall.py:1551
 #: iw/autopart_type.py:208 iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:191
 #: iw/upgrade_swap_gui.py:199 iw/upgrade_swap_gui.py:206
-#: storage/devicetree.py:144 storage/devicetree.py:171
+#: storage/devicetree.py:145 storage/devicetree.py:172
 #: textw/upgrade_text.py:187
 msgid "Warning"
 msgstr ""
@@ -165,7 +165,7 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:58 gui.py:1097 gui.py:1134 gui.py:1262 gui.py:1341
-#: image.py:91 kickstart.py:151 livecd.py:197 livecd.py:405 packages.py:119
+#: image.py:91 kickstart.py:151 livecd.py:197 livecd.py:403 packages.py:119
 #: packages.py:127 packages.py:135 packages.py:143 packages.py:155
 #: packages.py:164 packages.py:172 packages.py:181 upgrade.py:58
 #: upgrade.py:206 yuminstall.py:236 yuminstall.py:665 yuminstall.py:852
@@ -339,7 +339,7 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: gui.py:1257 image.py:164 image.py:194 packages.py:360 packages.py:365
+#: gui.py:1257 image.py:164 image.py:194 packages.py:376 packages.py:381
 #: storage/__init__.py:1644
 msgid "_Exit"
 msgstr ""
@@ -357,7 +357,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1265 image.py:248 packages.py:368 yuminstall.py:1375
+#: gui.py:1265 image.py:248 packages.py:384 yuminstall.py:1375
 msgid "_Reboot"
 msgstr ""
 
@@ -438,7 +438,7 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 
-#: image.py:248 livecd.py:404 packages.py:365 packages.py:368 upgrade.py:205
+#: image.py:248 livecd.py:402 packages.py:381 packages.py:384 upgrade.py:205
 #: yuminstall.py:852 yuminstall.py:938 yuminstall.py:1359 yuminstall.py:1375
 msgid "_Back"
 msgstr ""
@@ -643,7 +643,7 @@ msgid ""
 "minutes."
 msgstr ""
 
-#: livecd.py:399
+#: livecd.py:397
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
@@ -760,11 +760,11 @@ msgstr ""
 msgid "_File Bug"
 msgstr ""
 
-#: packages.py:346 packages.py:369
+#: packages.py:362 packages.py:385
 msgid "Warning! This is pre-release software!"
 msgstr ""
 
-#: packages.py:347
+#: packages.py:363
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -780,15 +780,15 @@ msgid ""
 "and file a report against '%s'.\n"
 msgstr ""
 
-#: packages.py:360
+#: packages.py:376
 msgid "_Install anyway"
 msgstr ""
 
-#: packages.py:364
+#: packages.py:380
 msgid "The installer will now exit..."
 msgstr ""
 
-#: packages.py:367
+#: packages.py:383
 msgid "Your system will now be rebooted..."
 msgstr ""
 
@@ -1127,7 +1127,7 @@ msgstr ""
 
 #: rescue.py:287 iw/partition_gui.py:544 loader/cdinstall.c:206
 #: loader/cdinstall.c:214 loader/driverdisk.c:444 storage/__init__.py:141
-#: storage/devicetree.py:84
+#: storage/devicetree.py:85
 msgid "Continue"
 msgstr ""
 
@@ -1715,19 +1715,19 @@ msgstr ""
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:1836
+#: yuminstall.py:1828
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:1837
+#: yuminstall.py:1829
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:1875
+#: yuminstall.py:1867
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:1876
+#: yuminstall.py:1868
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
@@ -3273,7 +3273,7 @@ msgstr ""
 #: loader/kbd.c:119 loader/loader.c:483 loader/loader.c:503
 #: loader/loader.c:1375 loader/loader.c:1408 loader/net.c:582 loader/net.c:953
 #: loader/net.c:1880 loader/net.c:1902 loader/nfsinstall.c:91
-#: loader/urls.c:292 storage/__init__.py:141 storage/devicetree.py:84
+#: loader/urls.c:292 storage/__init__.py:141 storage/devicetree.py:85
 #: textw/constants_text.py:52
 msgid "Back"
 msgstr ""
@@ -4332,11 +4332,11 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devicetree.py:93
+#: storage/devicetree.py:94
 msgid "Confirm"
 msgstr ""
 
-#: storage/devicetree.py:94
+#: storage/devicetree.py:95
 #, python-format
 msgid ""
 "Are you sure you want to skip entering a passphrase for device %s?\n"
@@ -4345,7 +4345,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:145
+#: storage/devicetree.py:146
 #, python-format
 msgid ""
 "Error processing drive:\n"
@@ -4359,15 +4359,15 @@ msgid ""
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!%s"
 msgstr ""
 
-#: storage/devicetree.py:151
+#: storage/devicetree.py:152
 msgid "_Ignore drive"
 msgstr ""
 
-#: storage/devicetree.py:152
+#: storage/devicetree.py:153
 msgid "_Re-initialize drive"
 msgstr ""
 
-#: storage/devicetree.py:172
+#: storage/devicetree.py:173
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -4376,15 +4376,15 @@ msgid ""
 "contents."
 msgstr ""
 
-#: storage/devicetree.py:177
+#: storage/devicetree.py:178
 msgid "_Ignore"
 msgstr ""
 
-#: storage/devicetree.py:178
+#: storage/devicetree.py:179
 msgid "_Re-initialize"
 msgstr ""
 
-#: storage/devicetree.py:1784 storage/devicetree.py:1833
+#: storage/devicetree.py:1785 storage/devicetree.py:1834
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
