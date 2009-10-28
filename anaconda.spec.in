@@ -215,6 +215,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Oct 28 2009 Chris Lumens <clumens@redhat.com> - 12.38.2-1
+- Find and format any unformatted DASD devices (#528386). (dcantrell)
+- Improve detailedMessageWindow() in text.py. (dcantrell)
+- Create execWithCallback() function in iutil. (dcantrell)
+- When doing initlabel on a dasd disk create a dasd disklabel (#531209)
+  (hdegoede)
+- Rename platform.diskType to platform.diskLabelType (hdegoede)
+- DASD disklabels do not allow sector exact partitioning (#527104) (hdegoede)
+- Fix DASD and zFCP device discovery (#530287). (dcantrell)
+- Pull nss libs from $LIBDIR rather than /usr/$LIBDIR. (dcantrell)
+- iutil.isPPC() should return 'ppc64' for RHEL-6. (dcantrell)
+- /sbin/load_policy -> /usr/sbin/load_policy (dcantrell)
+- RHEL-6 has system-config-firewall base. (dcantrell)
+- Inherit RHEL-6 branch changelog entries from dist-cvs. (dcantrell)
+- Fix translations of timezones in the UI (#530014). (clumens)
+- Bootloader choice strings were marked with N_, but never translated
+  (#530017). (clumens)
+
 * Tue Oct 20 2009 David Cantrell <dcantrell@redhat.com> - 12.38.1-1
 - Handle more than x.y version numbers in 'make bumpver'. (dcantrell)
 - Add '.0' to the version since we branched from f12-branch. (dcantrell)
