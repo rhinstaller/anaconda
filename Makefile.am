@@ -94,6 +94,8 @@ scratch:
 archive:
 	$(MAKE) tag
 	$(MAKE) dist
+	git checkout -- po/$(PACKAGE_NAME).pot
+	( cd po ; for f in *.po ; do git checkout -- $$f 2>/dev/null ; done )
 
 release: archive
 
