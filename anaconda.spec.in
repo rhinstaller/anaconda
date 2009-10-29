@@ -218,6 +218,79 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Oct 29 2009 Chris Lumens <clumens@redhat.com> - 13.7-1
+- TypeError: '_ped.DiskType' object is not callable (#531730) (hdegoede)
+- Fix upgrade of GRUB with md raid boot for versions F11 and earlier.
+  (rvykydal)
+- Remove another code duplication in grub upgrade code. (rvykydal)
+- Remove code duplication, use fixed code from writeGrub. (rvykydal)
+- Remove target parameter from grub installation code - it is no more
+  needed. (rvykydal)
+- Remove support for IUCV networking devices on s390. (#531494) (dcantrell)
+- Find and format any unformatted DASD devices (#528386). (dcantrell)
+- Improve detailedMessageWindow() in text.py. (dcantrell)
+- Create execWithCallback() function in iutil. (dcantrell)
+- preexist -> onPart (#531407). (clumens)
+- Add sshd support for non-s390 platforms. (pjones)
+- When doing initlabel on a dasd disk create a dasd disklabel (#531209)
+  (hdegoede)
+- Rename platform.diskType to platform.diskLabelType (hdegoede)
+- Fix arrow key cycling in the Edit Partition dialog (#519641). (clumens)
+- Provide a single checkbox for a minimal install (#523839). (clumens)
+- Fix DASD and zFCP device discovery (#530287). (dcantrell)
+- Clarify the shrink target message (#530789). (clumens)
+- Re-enable running udevadm. (clumens)
+- max_logical -> max_logicals (#530786). (clumens)
+- Filter out device-mapper devices when doing a udev_trigger. (dlehman)
+- Expand udev_trigger to allow attr filtering and action specification.
+  (dlehman)
+- More udev fixups for device-mapper and cryptsetup temp devices. (#526699)
+  (dlehman)
+- Add the bcm5974 kernel module needed for some touchpads (#474225).
+  (clumens)
+- /boot is already being checked by the superclass, so don't check again.
+  (clumens)
+- Allow /boot to be on a variety of filesystems during kickstart (#529846).
+  (clumens)
+- Platform.bootloaderPackage -> Platform.packages (clumens)
+- Bootloader choice strings were marked with N_, but never translated
+  (#530017). (clumens)
+- Handle more than x.y version numbers in 'make bumpver'. (dcantrell)
+- Mark live device as protected instead of ignoring it. (#517260) (dlehman)
+- Don't force logical with a free primary slot and an extended. (#527952)
+  (dlehman)
+- Use rpm to determine how to set bootloader args and default runlevel
+  (#527520). (clumens)
+- Improve message given to user for fsck failures (#527626). (dcantrell)
+- 'Packages completed' string should use P_() instead of N_(). (dcantrell)
+- Reintegrate reipl to trigger reboot/halt on s390x correctly. (#528380)
+  (maier)
+- Put the icon back on the Back button on livecd installs (#526925).
+  (clumens)
+- Make LOADER_FLAGS_NOSHELL default also for s390x not just s390 (#527063)
+  (maier)
+- Adapt standalone shutdown to nokill changes so s390x can use it. (#528380)
+  (maier)
+- Add dracutSetupData() method to DASDDevice (#526354). (dcantrell)
+- Collect DASD kernel parameter information during device tree scan
+  (#526354). (dcantrell)
+- Add dracutSetupString() method to ZFCPDiskDevice (#526354). (dcantrell)
+- Write LAYER2 and PORTNO correctly as parts of OPTIONS to ifcfg for s390x
+  (maier)
+- Don't set unnecessary multipath defaults. (pjones)
+- Add a "File Bug" button to all possibilitys in turnOnFilesystems
+  (#528006). (clumens)
+- For cmdline mode, add the long text to what messageWindow will print
+  (#528006). (clumens)
+- Use /dev/mapper/live-osimg-min instead of the old device node name
+  (#526789). (clumens)
+- Remove double slash from nfs:// ks repo value for use in UI. (rvykydal)
+- Make bootLoaderInfo new-style class, so that its properties work
+  correctly. (rvykydal)
+- liveinst: deactivate mdraid arrays before running liveinst (#528235)
+  (hdegoede)
+- Set parted filesystemtype for swap partitions (hdegoede)
+
 * Tue Oct 13 2009 David Cantrell <dcantrell@redhat.com> - 13.6-1
 - BR system-config-keyboard (dcantrell)
 
