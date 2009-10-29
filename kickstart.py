@@ -1016,7 +1016,8 @@ class XConfig(commands.xconfig.F10_XConfig):
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def parse(self, args):
         retval = commands.zerombr.FC3_ZeroMbr.parse(self, args)
-        self.handler.id.storage.zeroMbr = 1
+        if self.handler.id and self.handler.id.storage:
+            self.handler.id.storage.zeroMbr = 1
         return retval
 
 class ZFCP(commands.zfcp.FC3_ZFCP):
@@ -1126,7 +1127,8 @@ class EarlyKSHandler(superclass):
         self.id = self.anaconda.id
 
         self.maskAllExcept(["vnc", "displaymode", "text", "cmdline",
-                            "graphical", "rescue", "ignoredisk", "clearpart"])
+                            "graphical", "rescue", "ignoredisk", "clearpart",
+                            "zerombr"])
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
@@ -1248,6 +1250,7 @@ def fullCommandPass(anaconda, file, earlyKS):
     # which disks to avoid, and we only get that information from the earlier
     # processing of the kickstart file.
     import storage
+    anaconda.id.storage.zeroMbr = earlyKS.zerombr.zerombr
     anaconda.id.storage.ignoredDisks = earlyKS.ignoredisk.ignoredisk
     anaconda.id.storage.exclusiveDisks = earlyKS.ignoredisk.onlyuse
 
