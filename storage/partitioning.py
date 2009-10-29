@@ -575,6 +575,26 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
 
     return best_free
 
+def sectorsToSize(sectors, sectorSize):
+    """ Convert length in sectors to size in MB.
+
+        Arguments:
+
+            sectors     -   sector count
+            sectorSize  -   sector size for the device, in bytes
+    """
+    return (sectors * sectorSize) / (1024.0 * 1024.0)
+
+def sizeToSectors(size, sectorSize):
+    """ Convert size in MB to length in sectors.
+
+        Arguments:
+
+            size        -   size in MB
+            sectorSize  -   sector size for the device, in bytes
+    """
+    return (size * 1024.0 * 1024.0) / sectorSize
+
 def doPartitioning(storage, exclusiveDisks=None):
     """ Allocate and grow partitions.
 
@@ -861,7 +881,7 @@ def allocatePartitions(disks, partitions):
         # create minimum geometry for this request
         # req_size is in MB
         sectors_per_track = disklabel.partedDevice.biosGeometry[2]
-        length = (_part.req_size * (1024 * 1024)) / sectorSize
+        length = sizeToSectors(_part.req_size, sectorSize)
         new_geom = parted.Geometry(device=disklabel.partedDevice,
                                    start=max(sectors_per_track, free.start),
                                    length=length)
@@ -987,9 +1007,9 @@ def growPartitions(disks, partitions):
             limited[id(part)] = False
 
             if part.req_max_size:
-                req_max_sect = (part.req_max_size * (1024 * 1024)) / sectorSize
+                req_max_sect = sizeToSectors(part.req_max_size, sectorSize)
                 if req_max_sect < max_sectors:
-                    mb = ((max_sectors - req_max_sect) * sectorSize) / (1024*1024)
+                    mb = sectorsToSize(max_sectors - req_max_sect, sectorSize)
 
                     log.debug("adding %dMB to leftovers from %s"
                                 % (mb, part.name))
@@ -1009,7 +1029,7 @@ def growPartitions(disks, partitions):
                 leftover_share = float(req_sectors) / float(unlimited_total)
                 max_grow += leftover_share * leftover
             max_sectors = req_sectors + max_grow
-            max_mb = (max_sectors * sectorSize) / (1024 * 1024)
+            max_mb = sectorsToSize(max_sectors, sectorSize)
 
             log.debug("%s: base_size=%dMB, max_size=%sMB" %
                     (part.name, part.req_base_size,  part.req_max_size))
@@ -1023,8 +1043,7 @@ def growPartitions(disks, partitions):
             # don't grow beyond the request's maximum size
             if part.req_max_size:
                 log.debug("max_size: %dMB" % part.req_max_size)
-                # FIXME: round down to nearest cylinder boundary
-                req_max_sect = (part.req_max_size * (1024 * 1024)) / sectorSize
+                req_max_sect = sizeToSectors(part.req_max_size, sectorSize)
                 if req_max_sect < max_sectors:
                     max_grow -= (max_sectors - req_max_sect)
                     max_sectors = req_sectors + max_grow
@@ -1032,8 +1051,7 @@ def growPartitions(disks, partitions):
             # don't grow beyond the resident filesystem's max size
             if part.format.maxSize > 0:
                 log.debug("format maxsize: %dMB" % part.format.maxSize)
-                # FIXME: round down to nearest cylinder boundary
-                fs_max_sect = (part.format.maxSize * (1024 * 1024)) / sectorSize
+                fs_max_sect = sizeToSectors(part.format.maxSize, sectorSize)
                 if fs_max_sect < max_sectors:
                     max_grow -= (max_sectors - fs_max_sect)
                     max_sectors = req_sectors + max_grow
@@ -1042,7 +1060,6 @@ def growPartitions(disks, partitions):
             if free[0].length < max_grow:
                 log.debug("largest free region: %d sectors (%dMB)" %
                         (free[0].length, free[0].getSize()))
-                # FIXME: round down to nearest cylinder boundary
                 max_grow = free[0].length
                 max_sectors = req_sectors + max_grow
 
@@ -1052,7 +1069,7 @@ def growPartitions(disks, partitions):
             # We could call allocatePartitions after modifying this
             # request and saving the original value of part.req_size,
             # or we could try to use disk.maximizePartition().
-            max_size = (max_sectors * sectorSize) / (1024 * 1024)
+            max_size = sectorsToSize(max_sectors, sectorSize)
             orig_size = part.req_size
             # try the max size to begin with
             log.debug("attempting to allocate maximum size: %dMB" % max_size)
@@ -1076,7 +1093,7 @@ def growPartitions(disks, partitions):
                 last_size = part.req_size
                 increment /= 2
                 req_sectors = op_func(req_sectors, increment)
-                part.req_size = (req_sectors * sectorSize) / (1024 * 1024)
+                part.req_size = sectorsToSize(req_sectors, sectorSize)
                 log.debug("attempting size=%dMB" % part.req_size)
                 count += 1
                 try:
