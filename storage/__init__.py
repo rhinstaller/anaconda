@@ -71,8 +71,9 @@ def storageInitialize(anaconda):
     # does not mess with any mdraid sets
     open("/dev/.in_sysinit", "w")
 
-    # XXX I don't understand why I have to do this
-    udev_trigger(subsystem="block", attr_nomatch="dm/name")
+    # XXX I don't understand why I have to do this, but this is needed to
+    #     populate the udev db
+    udev_trigger(subsystem="block", action="change")
 
     # Set up the protected partitions list now.
     if os.path.exists("/dev/live") and \
@@ -520,7 +521,7 @@ class Storage(object):
         """
         # When a usb is connected from before the start of the installation,
         # it is not correctly detected.
-        udev_trigger(subsystem="block", attr_nomatch="dm/name")
+        udev_trigger(subsystem="block", action="change")
         self.reset()
 
         dests = []
