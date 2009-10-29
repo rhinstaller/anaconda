@@ -645,6 +645,10 @@ def doPartitioning(storage, exclusiveDisks=None):
     if bootDev:
         bootDev.req_bootable = True
 
+    # turn off cylinder alignment
+    if parted.isAlignToCylinders():
+        parted.toggleAlignToCylinders()
+
     # FIXME: make sure non-existent partitions have empty parents list
     allocatePartitions(disks, partitions)
     growPartitions(disks, partitions)
@@ -886,23 +890,11 @@ def allocatePartitions(disks, partitions):
                                    start=max(sectors_per_track, free.start),
                                    length=length)
 
-        # create maximum and minimum geometries for constraint
-        start = max(0 , free.start - 1)
-        max_len = min(length + 1, disklabel.partedDevice.length - start)
-        min_len = length - 1
-        max_geom = parted.Geometry(device=disklabel.partedDevice,
-                                   start=start,
-                                   length=max_len)
-        min_geom = parted.Geometry(device=disklabel.partedDevice,
-                                   start=free.start + 1,
-                                   length=min_len)
-
-
         # create the partition and add it to the disk
         partition = parted.Partition(disk=disklabel.partedDisk,
                                      type=part_type,
                                      geometry=new_geom)
-        constraint = parted.Constraint(maxGeom=max_geom, minGeom=min_geom)
+        constraint = parted.Constraint(exactGeom=new_geom)
         disklabel.partedDisk.addPartition(partition=partition,
                                           constraint=constraint)
         log.debug("created partition %s of %dMB and added it to %s" %
