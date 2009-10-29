@@ -595,6 +595,40 @@ def sizeToSectors(size, sectorSize):
     """
     return (size * 1024.0 * 1024.0) / sectorSize
 
+def removeNewPartitions(disks, partitions):
+    """ Remove newly added input partitions from input disks.
+
+        Arguments:
+
+            disks -- list of StorageDevice instances with DiskLabel format
+            partitions -- list of PartitionDevice instances
+
+    """
+    log.debug("removing all non-preexisting partitions %s from disk(s) %s"
+                % (["%s(id %d)" % (p.name, p.id) for p in partitions
+                                                    if not p.exists],
+                   [d.name for d in disks]))
+    for part in partitions:
+        if part.partedPartition and part.disk in disks:
+            if part.exists:
+                # we're only removing partitions that don't physically exist
+                continue
+
+            if part.isExtended:
+                # these get removed last
+                continue
+
+            part.disk.format.partedDisk.removePartition(part.partedPartition)
+            part.partedPartition = None
+            part.disk = None
+
+    for disk in disks:
+        # remove empty extended so it doesn't interfere
+        extended = disk.format.extendedPartition
+        if extended and not disk.format.logicalPartitions:
+            log.debug("removing empty extended partition from %s" % disk.name)
+            disk.format.partedDisk.removePartition(extended)
+
 def doPartitioning(storage, exclusiveDisks=None):
     """ Allocate and grow partitions.
 
@@ -723,25 +757,7 @@ def allocatePartitions(disks, partitions):
         if disk.path not in disklabels.keys():
             disklabels[disk.path] = disk.format
 
-    # remove all newly added partitions from the disk
-    log.debug("removing all non-preexisting from disk(s)")
-    for _part in new_partitions:
-        if _part.partedPartition:
-            if _part.isExtended:
-                # these get removed last
-                continue
-
-            disklabel = disklabels[_part.partedPartition.disk.device.path]
-            disklabel.partedDisk.removePartition(_part.partedPartition)
-            _part.partedPartition = None
-            _part.disk = None
-
-            # remove empty extended so it doesn't interfere
-            extended = disklabel.extendedPartition
-            if extended and not disklabel.logicalPartitions:
-                log.debug("removing empty extended partition")
-                #partedDisk.minimizeExtendedPartition()
-                disklabel.partedDisk.removePartition(extended)
+    removeNewPartitions(disks, new_partitions)
 
     for _part in new_partitions:
         if _part.partedPartition and _part.isExtended:
