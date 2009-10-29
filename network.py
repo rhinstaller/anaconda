@@ -125,7 +125,7 @@ def getDefaultHostname(anaconda):
 
 # return if the device is of a type that requires a ptpaddr to be specified
 def isPtpDev(devname):
-    if (devname.startswith("ctc") or devname.startswith("iucv")):
+    if devname.startswith("ctc"):
         return True
     return False
 
@@ -261,8 +261,6 @@ class NetworkDevice(SimpleConfigFile):
         self.info = { "DEVICE" : dev }
         if dev.startswith('ctc'):
             self.info["TYPE"] = "CTC"
-        elif dev.startswith('iucv'):
-            self.info["TYPE"] = "IUCV"
 
 class Network:
     def __init__(self):

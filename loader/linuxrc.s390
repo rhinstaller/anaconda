@@ -38,7 +38,6 @@
 # TODOs:
 # - make sure driver modules get loaded automatically
 # - udev rule for lcs/ctcm vs. cu3088
-# - make sure netiucv gets loaded even without udev events since on no bus
 
 # debug: set -x
 
@@ -552,7 +551,6 @@ function ipv6_capable() {
 }
 
 # sets device online _and_ retrieves DEVICE at the same time
-# iucv cannot be set online since it's not based on ccw(group)
 function set_device_online() {
     echo $"Activating network device..."
     local sysnettype
@@ -670,9 +668,7 @@ function syntax_check_domainname() {
 }
 
 function modprobe_alias() {
-    if [ ":$NETTYPE" = ":iucv" ]; then
-        echo "alias $DEVICE netiucv" >> /tmp/modprobe.conf
-    elif [ ":$NETTYPE" = ":ctc" ]; then
+    if [ ":$NETTYPE" = ":ctc" ]; then
         echo "alias $DEVICE ctcm" >> /tmp/modprobe.conf
     else
         echo "alias $DEVICE $NETTYPE" >> /tmp/modprobe.conf
@@ -752,28 +748,19 @@ function rollback_config() {
     [ -n "$DEVICE" ] && tv ip -6 route flush default dev $DEVICE
     # address flush seems to be effective for all address families
     [ -n "$DEVICE" ] && ip address flush dev $DEVICE
-    # iucv device needs to be down before removal
-    [ -n "$DEVICE" ] && ip link set down $DEVICE &> /dev/null
     if [ -n "$NETTYPE" ]; then
-        if [ "$NETTYPE" = "iucv" ]; then
-            if [ -n "$DEVICE" ]; then
-                sysecho /sys/bus/iucv/drivers/netiucv/remove $DEVICE
-                udevadm settle
-            fi
-        else # "$NETTYPE" != "iucv"
-            if [ -n "$SCH_R_DEVBUSID" ]; then
-                local sysnettype
-                case "${NETTYPE}" in
-                    qeth) sysnettype=${NETTYPE} ;;
-                    lcs|ctc) sysnettype=cu3088 ;;
-                esac
-                [ -f /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online ] && \
-                    sysecho /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online "0"
-                udevadm settle
-                [ -f /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/ungroup ] && \
-                    sysecho /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/ungroup "1"
-                udevadm settle
-            fi
+        if [ -n "$SCH_R_DEVBUSID" ]; then
+            local sysnettype
+            case "${NETTYPE}" in
+                qeth) sysnettype=${NETTYPE} ;;
+                lcs|ctc) sysnettype=cu3088 ;;
+            esac
+            [ -f /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online ] && \
+                sysecho /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online "0"
+            udevadm settle
+            [ -f /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/ungroup ] && \
+                sysecho /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/ungroup "1"
+            udevadm settle
         fi
     fi
     [ -z "$mtu_was_set" ] && unset MTU
@@ -982,15 +969,11 @@ function ask() {
 ### NETTYPE
 
 function syntax_check_nettype() {
-    # - NETTYPE \in {qeth,lcs,ctc,iucv}
-    [[ "$NETTYPE" =~ (^qeth$)|(^lcs$)|(^ctc$)|(^iucv$) ]]
+    # - NETTYPE \in {qeth,lcs,ctc}
+    [[ "$NETTYPE" =~ (^qeth$)|(^lcs$)|(^ctc$) ]]
     case $? in
         0)
             # string matched the pattern
-            if [ "$NETTYPE" = "iucv" ] && ! isVM; then
-                echo $"IUCV network type is only available under z/VM (NETTYPE)."
-                return 1
-            fi
             return 0
             ;;
         1)
@@ -1012,11 +995,7 @@ function question_prefix_nettype() {
 }
 
 function question_choices_nettype() {
-    if isVM; then
-        echo $" (qeth, lcs, ctc, iucv, ? for help). Default is qeth:"
-    else
-        echo $" (qeth, lcs, ctc, ? for help). Default is qeth:"
-    fi
+    echo $" (qeth, lcs, ctc, ? for help). Default is qeth:"
 }
 
 function helptext_nettype() {
@@ -1029,7 +1008,6 @@ function helptext_nettype() {
     echo $"        OSA-Express High Speed Token Ring in non-QDIO mode and Gigabit Ethernet"
     echo $"        in non-QDIO mode."
     echo $"  ctc:  Deprecated, useful for migration."
-    isVM && echo $"  iucv: Deprecated, useful for migration."
 }
 
 function exception_nettype() {
@@ -1779,92 +1757,6 @@ function do_lcs_portno() {
         -h helptext_lcs_portno -s syntax_check_lcs_portno -c handle_lcs_portno
 }
 
-### PEERID
-
-function syntax_check_peerid() {
-    if [ "${#PEERID}" -lt 0 -o "${#PEERID}" -gt 8 ]; then
-        echo $"Incorrect string length [0..8] for IUCV connection to peer (PEERID): $PEERID"
-        return 1
-    fi
-    PEERID=$(echo $PEERID | tr '[:lower:]' '[:upper:]')
-    [[ "$PEERID" =~ ^[[:alnum:]$]{0,8}$ ]]
-    case $? in
-        0)
-            # string matched the pattern
-            return 0
-            ;;
-        1)
-            # string did not match the pattern
-            ;;
-        2)
-            echo "l.$LINENO: syntax error in regex of match operator =~, code needs to be fixed" 1>&2
-            ;;
-        *)
-            echo "l.$LINENO: unexpected return code of regex match operator =~, code needs to be fixed" 1>&2
-            ;;
-    esac
-    echo $"Incorrect format for IUCV connection to peer (PEERID): $PEERID"
-    return 1
-}
-
-function handle_peerid() {
-    if ! sysecho /sys/bus/iucv/drivers/netiucv/connection "$PEERID"; then
-        echo $"Could not create new IUCV connection to peer $PEERID"
-        return 1
-    fi
-    udevadm settle
-    # find netiucv with proper guest user ID in
-    # /sys/bus/iucv/drivers/netiucv/netiucv[0-9]+/user
-    local userpath
-    while read userpath; do
-        local user
-        read user < $userpath
-        [ "$user" = "$PEERID" ] && break
-    done < <(ls -1 /sys/devices/iucv/netiucv[0-9]*/user 2> /dev/null)
-    if [ "$user" != "$PEERID" ]; then
-        echo $"Could not find configured connection to peer $PEERID"
-        return 1
-    fi
-    local netiucv=${userpath%%/user}
-    netiucv=${netiucv##*/}
-    if [ "$netiucv" = "" ]; then
-        echo $"Could not get netiucv instance for peer $PEERID"
-        return 1
-    fi
-    if [ ! -h /sys/devices/iucv/${netiucv}/net:* ]; then
-        echo $"Device $netiucv does not have required sysfs attribute 'net:*'"
-        return 1
-    fi
-    DEVICE=$(echo /sys/devices/iucv/${netiucv}/net:*)
-    DEVICE=${DEVICE//*:/}
-    if [ "$DEVICE" = "" ]; then
-        echo $"Could not get device name for $netiucv"
-        return 1
-    fi
-    return 0
-}
-
-function question_prefix_peerid() {
-    echo -n $"Peer ID of the VM guest to connect to"
-}
-
-function question_choices_peerid() {
-    echo $" (0..8 characters or ? for help):"
-}
-
-function helptext_peerid() {
-    echo $" Help text for the peer ID of the VM guest you want to connect to:"
-    echo $"  User ID of a VM guest you want to connect to."
-    echo $"  0..8 alphabetic/numeric characters or dollar-signs '$'."
-    echo $"  Your input will be converted to uppercase."
-}
-
-function do_peerid() {
-    ask PEERID \
-        question_prefix_peerid question_choices_peerid \
-        -h helptext_peerid -s syntax_check_peerid -c handle_peerid
-}
-
 ### HOSTNAME
 
 function syntax_check_hostname() {
@@ -2272,7 +2164,7 @@ function question_choices_ptp_gateway() {
 
 function helptext_ptp_gateway() {
     echo $" Help text for point-to-point partner:"
-    echo $"  IPv4 address of your CTC / ESCON / IUCV point-to-point partner."
+    echo $"  IPv4 address of your CTC or ESCON point-to-point partner."
 }
 
 function finish_ptp_gateway() {
@@ -2877,52 +2769,48 @@ while : ; do
         echo $"* NOTE: To enter default or empty values press enter twice. *"
     fi
     do_nettype
-    # precondition: driver (qeth/lcs/ctcm/netiucv) loaded incl. dependencies
-    if [ "$NETTYPE" != "iucv" ]; then
-        # all interface types except for iucv have ccw config
-        do_subchannels
-        if [ "$NETTYPE" = "qeth" ]; then
-            [ -z "$reenter" -a -n "$RUNKS" -a -z "$PORTNAME" ] || \
-                [ -n "${cardtype//OSD_*/}" ] || do_portname
-            # See also https://bugzilla.redhat.com/show_bug.cgi?id=439461
-            #
-            # If running in kickstart mode (unattended), we assume no
-            # interaction and the user won't get asked for PORTNO.
-            # Otherwise the user will be asked for PORTNO.
-            # If the user specified PORTNO in parm/conf file, PORTNO gets
-            # respected (or the user will be asked if it was wrong).
-            if [ -f /sys/devices/qeth/$SCH_R_DEVBUSID/portno ]; then
-                # driver support exists since RHEL5.2
-                [ -z "$reenter" -a -n "$RUNKS" -a -z "$PORTNO" ] || \
-                    [ -n "${cardtype//OSD_*/}" ] || do_portno
-            fi
-            do_layer2
-            # set device online to know the device name
-            # and to know if it's OSD/HiperSockets/GuestLAN BUT do not
-            # try to ifconfig the device up since that requires
-            # setting the mac address before (if applicable).
-            set_device_online || workflow_item_menu noredo
-            # MAC address handling is not part of
-            # https://bugzilla.redhat.com/show_bug.cgi?id=233376
-            # Instead the additions come from
-            # https://bugzilla.redhat.com/show_bug.cgi?id=248049
-            # The new parms VSWITCH and MACADDR are described in
-            # the RHEL 5.1 release notes.
-            if isLayer2; then
-                if [ -z "$VSWITCH" -o "$VSWITCH" == 0 ]; then
-                    do_macaddr
-                fi
-            fi
-        elif [ "$NETTYPE" = "ctc" ]; then
-            [ -z "$reenter" -a -n "$RUNKS" -a -z "$CTCPROT" ] || do_ctcprot
-            set_device_online || workflow_item_menu noredo
-        elif [ "$NETTYPE" = "lcs" ]; then
-            [ -n "$RUNKS" -a -z "$PORTNAME" ] && PORTNAME=0
-            do_lcs_portno
-            set_device_online || workflow_item_menu noredo
+
+    # precondition: driver (qeth/lcs/ctcm) loaded incl. dependencies
+    do_subchannels
+    if [ "$NETTYPE" = "qeth" ]; then
+        [ -z "$reenter" -a -n "$RUNKS" -a -z "$PORTNAME" ] || \
+            [ -n "${cardtype//OSD_*/}" ] || do_portname
+        # See also https://bugzilla.redhat.com/show_bug.cgi?id=439461
+        #
+        # If running in kickstart mode (unattended), we assume no
+        # interaction and the user won't get asked for PORTNO.
+        # Otherwise the user will be asked for PORTNO.
+        # If the user specified PORTNO in parm/conf file, PORTNO gets
+        # respected (or the user will be asked if it was wrong).
+        if [ -f /sys/devices/qeth/$SCH_R_DEVBUSID/portno ]; then
+            # driver support exists since RHEL5.2
+            [ -z "$reenter" -a -n "$RUNKS" -a -z "$PORTNO" ] || \
+                [ -n "${cardtype//OSD_*/}" ] || do_portno
         fi
-    else # iucv
-        do_peerid
+        do_layer2
+        # set device online to know the device name
+        # and to know if it's OSD/HiperSockets/GuestLAN BUT do not
+        # try to ifconfig the device up since that requires
+        # setting the mac address before (if applicable).
+        set_device_online || workflow_item_menu noredo
+        # MAC address handling is not part of
+        # https://bugzilla.redhat.com/show_bug.cgi?id=233376
+        # Instead the additions come from
+        # https://bugzilla.redhat.com/show_bug.cgi?id=248049
+        # The new parms VSWITCH and MACADDR are described in
+        # the RHEL 5.1 release notes.
+        if isLayer2; then
+            if [ -z "$VSWITCH" -o "$VSWITCH" == 0 ]; then
+                do_macaddr
+            fi
+        fi
+    elif [ "$NETTYPE" = "ctc" ]; then
+        [ -z "$reenter" -a -n "$RUNKS" -a -z "$CTCPROT" ] || do_ctcprot
+        set_device_online || workflow_item_menu noredo
+    elif [ "$NETTYPE" = "lcs" ]; then
+        [ -n "$RUNKS" -a -z "$PORTNAME" ] && PORTNAME=0
+        do_lcs_portno
+        set_device_online || workflow_item_menu noredo
     fi
 
     # device needs to be up before configuring with ifconfig/ip in
@@ -2953,7 +2841,7 @@ while : ; do
             handle_mtu
             configure_ipv4_address || workflow_item_menu noredo
             do_gateway
-        else  # ctc0, iucv0
+        else  # ctc0
             if [ -z "$NETMASK" ]; then
                 # If the user did not supply netmask, we add the right one.
                 # Netmask MUST be present,
