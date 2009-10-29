@@ -575,6 +575,16 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
 
     return best_free
 
+def getDiskAlignment(disk):
+    """ Return a minimal alignment for the specified disk.
+
+        Arguments:
+
+            disk -- a parted.Disk instance
+
+    """
+    return parted.Alignment(offset=0, grainSize=1)
+
 def sectorsToSize(sectors, sectorSize):
     """ Convert length in sectors to size in MB.
 
@@ -644,12 +654,21 @@ def addPartition(disk, free, part_type, size):
         Return value is a parted.Partition instance.
 
     """
+    _a = getDiskAlignment(disk)
+    start = free.start
+    if not _a.isAligned(free, start):
+        start = _a.alignNearest(free, start)
+        log.debug("adjusted start sector from %d to %d" % (free.start, start))
+
     if part_type == parted.PARTITION_EXTENDED:
         end = free.end
     else:
         # size is in MB
         length = sizeToSectors(size, disk.device.physicalSectorSize)
         end = start + length
+        if not _a.isAligned(free, end):
+            end = _a.alignNearest(free, end)
+            log.debug("adjusted length from %d to %d" % (length, end - start))
 
     new_geom = parted.Geometry(device=disk.device,
                                start=start,
