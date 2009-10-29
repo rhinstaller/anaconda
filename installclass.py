@@ -178,7 +178,10 @@ class BaseInstallClass(object):
 
     def setDefaultPartitioning(self, storage, platform):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
-                                 size=1024, grow=True, asVol=True)]
+                                 size=1024, maxSize=50*1024, grow=True,
+                                 asVol=True),
+                        PartSpec(mountpoint="/home", fstype=storage.defaultFSType,
+                                 size=100, grow=True, asVol=True, requiredSpace=50*1024)]
 
         bootreq = platform.setDefaultPartitioning()
         if bootreq:
