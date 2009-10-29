@@ -764,7 +764,7 @@ def doPartitioning(storage, exclusiveDisks=None):
 
     removeNewPartitions(disks, partitions)
     free = getFreeRegions(disks)
-    allocatePartitions(disks, partitions)
+    allocatePartitions(disks, partitions, free)
     growPartitions(disks, partitions, free)
 
     # The number and thus the name of partitions may have changed now,
@@ -812,7 +812,7 @@ def doPartitioning(storage, exclusiveDisks=None):
         # moment to simplify things
         storage.devicetree._addDevice(device)
 
-def allocatePartitions(disks, partitions):
+def allocatePartitions(disks, partitions, freespace):
     """ Allocate partitions based on requested features.
 
         Non-existing partitions are sorted according to their requested
@@ -829,14 +829,17 @@ def allocatePartitions(disks, partitions):
     log.debug("allocatePartitions: disks=%s ; partitions=%s" %
                 ([d.name for d in disks],
                  ["%s(id %d)" % (p.name, p.id) for p in partitions]))
+
     new_partitions = [p for p in partitions if not p.exists]
     new_partitions.sort(cmp=partitionCompare)
 
-    # XXX is this needed anymore?
-    disklabels = {}
+    # the following dicts all use device path strings as keys
+    disklabels = {}     # DiskLabel instances for each disk
+    all_disks = {}      # StorageDevice for each disk
     for disk in disks:
         if disk.path not in disklabels.keys():
             disklabels[disk.path] = disk.format
+            all_disks[disk.path] = disk
 
     removeNewPartitions(disks, new_partitions)
 
@@ -866,13 +869,20 @@ def allocatePartitions(disks, partitions):
         free = None
         use_disk = None
         part_type = None
+        growth = 0
         # loop through disks
         for _disk in req_disks:
             disklabel = disklabels[_disk.path]
-            #for p in disk.partitions:
-            #    log.debug("disk %s: part %s" % (disk.device.path, p.path))
             sectorSize = disklabel.partedDevice.physicalSectorSize
             best = None
+            current_free = free
+
+            # for growable requests, we don't want to pass the current free
+            # geometry to getBestFreeRegion -- this allows us to try the
+            # best region from each disk and choose one based on the total
+            # growth it allows
+            if _part.req_grow:
+                current_free = None
 
             log.debug("checking freespace on %s" % _disk.name)
 
@@ -896,7 +906,7 @@ def allocatePartitions(disks, partitions):
             best = getBestFreeSpaceRegion(disklabel.partedDisk,
                                           new_part_type,
                                           _part.req_size,
-                                          best_free=free,
+                                          best_free=current_free,
                                           boot=_part.req_bootable,
                                           grow=_part.req_grow)
 
@@ -910,22 +920,92 @@ def allocatePartitions(disks, partitions):
                     best = getBestFreeSpaceRegion(disklabel.partedDisk,
                                                   new_part_type,
                                                   _part.req_size,
-                                                  best_free=free,
+                                                  best_free=current_free,
                                                   boot=_part.req_bootable,
                                                   grow=_part.req_grow)
 
             if best and free != best:
-                # now we know we are choosing a new free space,
-                # so update the disk and part type
-                log.debug("updating use_disk to %s (%s), type: %s"
-                            % (_disk, _disk.name, new_part_type))
-                part_type = new_part_type
-                use_disk = _disk
-                log.debug("new free: %s (%d-%d / %dMB)" % (best,
-                                                           best.start,
-                                                           best.end,
-                                                           best.getSize()))
-                free = best
+                update = True
+                if _part.req_grow:
+                    log.debug("evaluating growth potential for new layout")
+                    new_growth = 0
+                    for disk_path in disklabels.keys():
+                        log.debug("calculating growth for disk %s" % disk_path)
+                        # Now we check, for growable requests, which of the two
+                        # free regions will allow for more growth.
+
+                        # set up chunks representing the disks' layouts
+                        temp_parts = []
+                        for _p in new_partitions[:new_partitions.index(_part)]:
+                            if _p.disk.path == disk_path:
+                                temp_parts.append(_p)
+
+                        # add the current request to the temp disk to set up
+                        # its partedPartition attribute with a base geometry
+                        if disk_path == _disk.path:
+                            temp_part = addPartition(disklabel.partedDisk,
+                                                     best,
+                                                     new_part_type,
+                                                     _part.req_size)
+                            _part.partedPartition = temp_part
+                            _part.disk = _disk
+                            temp_parts.append(_part)
+
+                        chunks = getDiskChunks(all_disks[disk_path],
+                                               temp_parts, freespace)
+
+                        # grow all growable requests
+                        disk_growth = 0
+                        disk_sector_size = disklabels[disk_path].partedDevice.physicalSectorSize
+                        for chunk in chunks:
+                            chunk.growRequests()
+                            # record the growth for this layout
+                            new_growth += chunk.growth
+                            disk_growth += chunk.growth
+                            for req in chunk.requests:
+                                log.debug("request %d (%s) growth: %d (%dMB) "
+                                          "size: %dMB" %
+                                          (req.partition.id,
+                                           req.partition.name,
+                                           req.growth,
+                                           sectorsToSize(req.growth,
+                                                         disk_sector_size),
+                                           sectorsToSize(req.growth + req.base,
+                                                         disk_sector_size)))
+                        log.debug("disk %s growth: %d (%dMB)" %
+                                        (disk_path, disk_growth,
+                                         sectorsToSize(disk_growth,
+                                                       disk_sector_size)))
+
+                    disklabel.partedDisk.removePartition(temp_part)
+                    _part.partedPartition = None
+                    _part.disk = None
+
+                    log.debug("total growth: %d sectors" % new_growth)
+
+                    # update the chosen free region unless the previous
+                    # choice yielded greater total growth
+                    if new_growth < growth:
+                        log.debug("keeping old free: %d < %d" % (new_growth,
+                                                                 growth))
+                        update = False
+                    else:
+                        growth = new_growth
+
+                if update:
+                    # now we know we are choosing a new free space,
+                    # so update the disk and part type
+                    log.debug("updating use_disk to %s (%s), type: %s"
+                                % (_disk, _disk.name, new_part_type))
+                    part_type = new_part_type
+                    use_disk = _disk
+                    log.debug("new free: %s (%d-%d / %dMB)" % (best,
+                                                               best.start,
+                                                               best.end,
+                                                               best.getSize()))
+                    log.debug("new free allows for %d sectors of growth" %
+                                growth)
+                    free = best
 
             # For platforms with a fake boot partition (like Apple Bootstrap or
             # PReP) and multiple disks, we need to ensure the /boot partition
