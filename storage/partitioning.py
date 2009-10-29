@@ -402,11 +402,11 @@ def partitionCompare(part1, part2):
     # primary-only to the front of the list
     ret -= cmp(part1.req_primary, part2.req_primary) * 200
 
-    # larger requests go to the front of the list
-    ret -= cmp(part1.req_base_size, part2.req_base_size) * 100
-
     # fixed size requests to the front
-    ret += cmp(part1.req_grow, part2.req_grow) * 50
+    ret += cmp(part1.req_grow, part2.req_grow) * 100
+
+    # larger requests go to the front of the list
+    ret -= cmp(part1.req_base_size, part2.req_base_size) * 50
 
     # potentially larger growable requests go to the front
     if part1.req_grow and part2.req_grow:
@@ -416,6 +416,11 @@ def partitionCompare(part1, part2):
             ret += 25
         else:
             ret -= cmp(part1.req_max_size, part2.req_max_size) * 25
+
+    # give a little bump based on mountpoint
+    if hasattr(part1.format, "mountpoint") and \
+       hasattr(part2.format, "mountpoint"):
+        ret -= cmp(part1.format.mountpoint, part2.format.mountpoint) * 10
 
     if ret > 0:
         ret = 1
