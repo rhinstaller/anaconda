@@ -124,6 +124,7 @@ class DASD:
                                                  custom_icon=icon,
                                                  custom_buttons=buttons)
             if rc == 1:
+                log.info("    not running dasdfmt, exiting installer")
                 sys.exit(0)
 
         argv = ["-y", "-P", "-d", "cdl", "-b", "4096"]
