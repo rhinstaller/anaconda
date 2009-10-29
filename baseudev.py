@@ -127,12 +127,9 @@ def udev_settle(timeout=None):
 
     iutil.execWithRedirect("udevadm", argv, stderr="/dev/null", searchPath=1)
 
-def udev_trigger(subsystem=None, action="add", attr_nomatch=None):
+def udev_trigger(subsystem=None, action="add"):
     argv = ["trigger", "--action=%s" % action]
     if subsystem:
         argv.append("--subsystem-match=%s" % subsystem)
-
-    if attr_nomatch:
-        argv.append("--attr-nomatch=%s" % attr_nomatch)
 
     iutil.execWithRedirect("udevadm", argv, stderr="/dev/null", searchPath=1)
