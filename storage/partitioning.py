@@ -129,6 +129,8 @@ def _scheduleLVs(anaconda, devs):
     vg = anaconda.id.storage.newVG(pvs=pvs)
     anaconda.id.storage.createDevice(vg)
 
+    initialVGSize = vg.size
+
     #
     # Convert storage.autoPartitionRequests into Device instances and
     # schedule them for creation.
@@ -136,6 +138,9 @@ def _scheduleLVs(anaconda, devs):
     # Second pass, for LVs only.
     for request in anaconda.id.storage.autoPartitionRequests:
         if not request.asVol:
+            continue
+
+        if request.requiredSpace and request.requiredSpace > initialVGSize:
             continue
 
         if request.fstype is None:
