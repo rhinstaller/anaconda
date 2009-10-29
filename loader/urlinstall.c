@@ -429,8 +429,12 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
         loaderData->method = METHOD_URL;
     }
 
-    splitProxyParam(proxy, &loaderData->proxyUser, &loaderData->proxyPassword,
-                    &loaderData->proxy, &loaderData->proxyPort);
+    if (proxy) {
+        splitProxyParam(proxy, &loaderData->proxyUser,
+			       &loaderData->proxyPassword,
+			       &loaderData->proxy,
+			       &loaderData->proxyPort);
+    }
     logMessage(INFO, "results of url ks, url %s", url);
 }
 
