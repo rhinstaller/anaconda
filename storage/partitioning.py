@@ -22,7 +22,7 @@
 
 import sys
 import os
-from operator import add, sub
+from operator import add, sub, gt, lt
 
 import parted
 from pykickstart.constants import *
@@ -488,7 +488,7 @@ def getNextPartitionType(disk, no_primary=None):
     return part_type
 
 def getBestFreeSpaceRegion(disk, part_type, req_size,
-                           boot=None, best_free=None):
+                           boot=None, best_free=None, grow=None):
     """ Return the "best" free region on the specified disk.
 
         For non-boot partitions, we return the largest free region on the
@@ -515,11 +515,14 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
             boot -- indicates whether this will be a bootable partition
                     (boolean)
             best_free -- current best free region for this partition
+            grow -- indicates whether this is a growable request
 
     """
-    log.debug("getBestFreeSpaceRegion: disk=%s part_type=%d req_size=%dMB boot=%s best=%s" %
-            (disk.device.path, part_type, req_size, boot, best_free))
+    log.debug("getBestFreeSpaceRegion: disk=%s part_type=%d req_size=%dMB "
+              "boot=%s best=%s grow=%s" %
+              (disk.device.path, part_type, req_size, boot, best_free, grow))
     extended = disk.getExtendedPartition()
+
     for _range in disk.getFreeSpaceRegions():
         if extended:
             # find out if there is any overlap between this region and the
@@ -552,8 +555,16 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
                                                           free_geom.getSize()))
         free_size = free_geom.getSize()
 
+        # For boot partitions, we want the first suitable region we find.
+        # For growable or extended partitions, we want the largest possible
+        # free region.
+        # For all others, we want the smallest suitable free region.
+        if grow or part_type == parted.PARTITION_EXTENDED:
+            op = gt
+        else:
+            op = lt
         if req_size <= free_size:
-            if not best_free or free_geom.length > best_free.length:
+            if not best_free or op(free_geom.length, best_free.length):
                 best_free = free_geom
 
                 if boot:
@@ -765,7 +776,8 @@ def allocatePartitions(disks, partitions):
                                           new_part_type,
                                           _part.req_size,
                                           best_free=free,
-                                          boot=_part.req_bootable)
+                                          boot=_part.req_bootable,
+                                          grow=_part.req_grow)
 
             if best == free and not _part.req_primary and \
                new_part_type == parted.PARTITION_NORMAL:
@@ -778,7 +790,8 @@ def allocatePartitions(disks, partitions):
                                                   new_part_type,
                                                   _part.req_size,
                                                   best_free=free,
-                                                  boot=_part.req_bootable)
+                                                  boot=_part.req_bootable,
+                                                  grow=_part.req_grow)
 
             if best and free != best:
                 # now we know we are choosing a new free space,
@@ -839,7 +852,8 @@ def allocatePartitions(disks, partitions):
             free = getBestFreeSpaceRegion(disklabel.partedDisk,
                                           part_type,
                                           _part.req_size,
-                                          boot=_part.req_bootable)
+                                          boot=_part.req_bootable,
+                                          grow=_part.req_grow)
             if not free:
                 raise PartitioningError("not enough free space after "
                                         "creating extended partition")
