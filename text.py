@@ -301,43 +301,43 @@ class InstallInterface:
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_icon=None,
                               custom_buttons=[]):
-        # list box text will be longText split on newlines
-        items = longText
-        if longText:
-            items = filter(lambda s: s, longText.split('\n'))
+        t = TextboxReflowed(60, text, maxHeight=8)
+        lt = Textbox(60, 6, longText, scroll=1, wrap=1)
+        g = GridFormHelp(self.screen, title, help, 1, 3)
+        g.add(t, 0, 0)
+        g.add(lt, 0, 1, padding = (0, 1, 0, 1))
 
         if type == "ok":
-            ListboxChoiceWindow(self.screen, title, text, items,
-                                buttons=[TEXT_OK_BUTTON], width=60,
-                                scroll=1, default=default)
+            bb = ButtonBar(self.screen, [TEXT_OK_BUTTON])
+            g.add(bb, 0, 2, growx = 1)
+            return bb.buttonPressed(g.runOnce(None, None))
         elif type == "yesno":
             if default and default == "no":
-                btnlist = [TEXT_NO_BUTTON, TEXT_YES_BUTTON]
+                buttons = [TEXT_NO_BUTTON, TEXT_YES_BUTTON]
             else:
-                btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
+                buttons = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
 
-            (button, entry) = ListboxChoiceWindow(self.screen, title, text,
-                                                  items, buttons=btnlist,
-                                                  width=60, scroll=1,
-                                                  default=default)
+            bb = ButtonBar(self.screen, buttons)
+            g.add(bb, 0, 2, growx = 1)
+            rc = bb.buttonPressed(g.runOnce(None, None))
 
-            if button == "yes":
+            if rc == "yes":
                 return 1
             else:
                 return 0
         elif type == "custom":
-            tmpbut = []
+            buttons = []
             idx = 0
 
-            for but in custom_buttons:
-                tmpbut.append(string.replace(but,"_",""))
+            for button in custom_buttons:
+                buttons.append(string.replace(button, "_", ""))
 
-            (button, entry) = ListboxChoiceWindow(self.screen, title, text,
-                                                  items, buttons=tmpbut,
-                                                  scroll=1, default=default)
+            bb = ButtonBar(self.screen, buttons)
+            g.add(bb, 0, 2, growx = 1)
+            rc = bb.buttonPressed(g.runOnce(None, None))
 
-            for b in tmpbut:
-                if string.lower(b) == button:
+            for b in buttons:
+                if string.lower(b) == rc:
                     return idx
                 idx += 1
 
