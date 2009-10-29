@@ -629,6 +629,40 @@ def removeNewPartitions(disks, partitions):
             log.debug("removing empty extended partition from %s" % disk.name)
             disk.format.partedDisk.removePartition(extended)
 
+def addPartition(disk, free, part_type, size):
+    """ Return new partition after adding it to the specified disk.
+
+        Arguments:
+
+            disk -- disk to add partition to (parted.Disk instance)
+            free -- where to add the partition (parted.Geometry instance)
+            part_type -- partition type (parted.PARTITION_* constant)
+            size -- size (in MB) of the new partition
+
+        The new partition will be aligned.
+
+        Return value is a parted.Partition instance.
+
+    """
+    if part_type == parted.PARTITION_EXTENDED:
+        end = free.end
+    else:
+        # size is in MB
+        length = sizeToSectors(size, disk.device.physicalSectorSize)
+        end = start + length
+
+    new_geom = parted.Geometry(device=disk.device,
+                               start=start,
+                               end=end)
+
+    # create the partition and add it to the disk
+    partition = parted.Partition(disk=disk,
+                                 type=part_type,
+                                 geometry=new_geom)
+    constraint = parted.Constraint(exactGeom=new_geom)
+    disk.addPartition(partition=partition, constraint=constraint)
+    return partition
+
 def doPartitioning(storage, exclusiveDisks=None):
     """ Allocate and grow partitions.
 
@@ -870,19 +904,7 @@ def allocatePartitions(disks, partitions):
         # TODO: move to a function (disk, free)
         if part_type == parted.PARTITION_EXTENDED:
             log.debug("creating extended partition")
-            geometry = parted.Geometry(device=disklabel.partedDevice,
-                                       start=free.start,
-                                       length=free.length,
-                                       end=free.end)
-            extended = parted.Partition(disk=disklabel.partedDisk,
-                                        type=parted.PARTITION_EXTENDED,
-                                        geometry=geometry)
-            constraint = parted.Constraint(device=disklabel.partedDevice)
-            # FIXME: we should add this to the tree as well
-            disklabel.partedDisk.addPartition(partition=extended,
-                                              constraint=constraint)
-
-            # end proposed function
+            addPartition(disklabel.partedDisk, free, part_type, None)
 
             # now the extended partition exists, so set type to logical
             part_type = parted.PARTITION_LOGICAL
@@ -898,24 +920,11 @@ def allocatePartitions(disks, partitions):
                 raise PartitioningError("not enough free space after "
                                         "creating extended partition")
 
-        # create minimum geometry for this request
-        # req_size is in MB
-        sectors_per_track = disklabel.partedDevice.biosGeometry[2]
-        length = sizeToSectors(_part.req_size, sectorSize)
-        new_geom = parted.Geometry(device=disklabel.partedDevice,
-                                   start=max(sectors_per_track, free.start),
-                                   length=length)
-
-        # create the partition and add it to the disk
-        partition = parted.Partition(disk=disklabel.partedDisk,
-                                     type=part_type,
-                                     geometry=new_geom)
-        constraint = parted.Constraint(exactGeom=new_geom)
-        disklabel.partedDisk.addPartition(partition=partition,
-                                          constraint=constraint)
+        partition = addPartition(disklabel.partedDisk, free,
+                                 part_type, _part.req_size)
         log.debug("created partition %s of %dMB and added it to %s" %
                 (partition.getDeviceNodeName(), partition.getSize(),
-                 disklabel.partedDisk))
+                 disklabel.device))
 
         # this one sets the name
         _part.partedPartition = partition
