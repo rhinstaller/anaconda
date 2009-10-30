@@ -243,8 +243,8 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     return rc
 
 def execWithCallback(command, argv, stdin = None, stdout = None,
-                     stderr = None, callback = None, callback_data = None,
-                     root = '/'):
+                     stderr = None, echo = True, callback = None,
+                     callback_data = None, root = '/'):
     def chroot():
         os.chroot(root)
 
@@ -310,8 +310,11 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
             if e.errno != 4:
                 raise IOError, e.args
 
-        os.write(stdout, s)
+        if echo:
+            os.write(stdout, s)
+
         runningLog.write(s)
+
         if callback:
             callback(s, callback_data=callback_data)
 
@@ -349,9 +352,10 @@ def _pulseProgressCallback(data, callback_data=None):
         callback_data.pulse()
 
 def execWithPulseProgress(command, argv, stdin = None, stdout = None,
-                          stderr = None, progress = None, root = '/'):
+                          stderr = None, echo = True, progress = None,
+                          root = '/'):
     execWithCallback(command, argv, stdin=stdin, stdout=stdout,
-                     stderr=stderr, callback=_pulseProgressCallback,
+                     stderr=stderr, echo=echo, callback=_pulseProgressCallback,
                      callback_data=progress, root=root)
 
 ## Run a shell.

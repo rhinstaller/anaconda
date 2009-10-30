@@ -140,7 +140,7 @@ class DASD:
                 iutil.execWithCallback("/sbin/dasdfmt", argv + [dasd],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        callback=self._updateProgressWindow,
-                                       callback_data=pw)
+                                       callback_data=pw, echo=False)
 
             pw.pop()
         else:
