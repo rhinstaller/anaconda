@@ -119,7 +119,7 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
     }
 
     programLogFD = open("/tmp/program.log",
-                        O_APPEND|O_CREAT, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
+                        O_APPEND|O_CREAT|O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 
     if (pipe(pipefd))
         return IMOUNT_ERR_ERRNO;
