@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.38.1\n"
+"Project-Id-Version: anaconda 12.38.2\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-10-28 16:47-0400\n"
+"POT-Creation-Date: 2009-10-30 16:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,8 +165,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:58 image.py:92 image.py:248 kickstart.py:1357
-#: kickstart.py:1396 upgrade.py:58 yuminstall.py:1170 iw/partition_gui.py:1038
+#: bootloader.py:58 image.py:92 image.py:248 kickstart.py:1360
+#: kickstart.py:1399 upgrade.py:58 yuminstall.py:1170 iw/partition_gui.py:1038
 #: storage/__init__.py:1822
 msgid "_Continue"
 msgstr ""
@@ -199,7 +199,7 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:86 gui.py:1129 kickstart.py:1237 text.py:387
+#: cmdline.py:86 gui.py:1129 kickstart.py:1239 text.py:387
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -539,63 +539,63 @@ msgid ""
 "the network on your system."
 msgstr ""
 
-#: kickstart.py:1223
+#: kickstart.py:1225
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1226
+#: kickstart.py:1228
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1298 livecd.py:221
+#: kickstart.py:1301 livecd.py:221
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1299
+#: kickstart.py:1302
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1315
+#: kickstart.py:1318
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1316
+#: kickstart.py:1319
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1348
+#: kickstart.py:1351
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1349
+#: kickstart.py:1352
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1355 kickstart.py:1394
+#: kickstart.py:1358 kickstart.py:1397
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1356 kickstart.py:1395
+#: kickstart.py:1359 kickstart.py:1398
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1386
+#: kickstart.py:1389
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1387
+#: kickstart.py:1390
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1492
+#: kickstart.py:1495
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "

@@ -215,6 +215,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Oct 30 2009 Chris Lumens <clumens@redhat.com> - 12.38.3-1
+- Regardless of where load_policy is, we still need it in the intird
+  (#532016). (clumens)
+- Log why we're exiting the installer in storage.DASD.startup() (dcantrell)
+- Improve detailedMessageWindow() in text.py. (dcantrell)
+- Use 'zerombr' kickstart command for DASDs needing dasdfmt (#528386).
+  (dcantrell)
+- Add 'zerombr' to list of early kickstart commands we look for. (dcantrell)
+- TypeError: '_ped.DiskType' object is not callable (#531730) (hdegoede)
+- Remove support for IUCV networking devices on s390. (#531494) (dcantrell)
+
 * Wed Oct 28 2009 Chris Lumens <clumens@redhat.com> - 12.38.2-1
 - Find and format any unformatted DASD devices (#528386). (dcantrell)
 - Improve detailedMessageWindow() in text.py. (dcantrell)
