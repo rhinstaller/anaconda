@@ -154,6 +154,10 @@ class KernelArguments:
         ourargs = ["speakup_synth", "apic", "noapic", "apm", "ide", "noht",
                    "acpi", "video", "pci", "nodmraid", "nompath", "nomodeset",
                    "noiswmd"]
+
+        if iutil.isS390():
+            ourargs.append("cio_ignore")
+
         for arg in ourargs:
             if not flags.cmdline.has_key(arg):
                 continue
