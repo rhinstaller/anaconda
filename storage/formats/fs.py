@@ -169,7 +169,7 @@ class FS(DeviceFormat):
             self._targetSize = None
             return
 
-        if not self.minSize < newsize < self.maxSize:
+        if not self.minSize <= newsize < self.maxSize:
             raise ValueError("invalid target size request")
 
         self._targetSize = newsize
@@ -909,7 +909,23 @@ class Ext2FS(FS):
             # try once in the beginning to get the minimum size for an
             # existing filesystem.
             size = self._minSize
+            blockSize = None
+
             if self.exists and os.path.exists(self.device):
+                # get block size
+                buf = iutil.execWithCapture(self.infofsProg,
+                                            ["-h", self.device],
+                                            stderr="/dev/tty5")
+                for line in buf.splitlines():
+                    if line.startswith("Block size:"):
+                        blockSize = int(line.split(" ")[-1])
+                        break
+
+                if blockSize is None:
+                    raise FSError("failed to get block size for %s filesystem "
+                                  "on %s" % (self.mountType, self.device))
+
+                # get minimum size according to resize2fs
                 buf = iutil.execWithCapture(self.resizefsProg,
                                             ["-P", self.device],
                                             stderr="/dev/tty5")
@@ -917,9 +933,15 @@ class Ext2FS(FS):
                     if "minimum size of the filesystem:" not in line:
                         continue
 
+                    # line will look like:
+                    # Estimated minimum size of the filesystem: 1148649
+                    #
+                    # NOTE: The minimum size reported is in blocks.  Convert
+                    # to bytes, then megabytes, and finally round up.
                     (text, sep, minSize) = line.partition(": ")
-
-                    size = int(minSize) / 1024.0
+                    size = long(minSize) * blockSize
+                    size = math.ceil(size / 1024.0 / 1024.0)
+                    break
 
                 if size is None:
                     log.warning("failed to get minimum size for %s filesystem "
