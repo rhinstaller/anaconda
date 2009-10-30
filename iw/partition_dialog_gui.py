@@ -402,9 +402,9 @@ class PartitionEditor:
             lbl = createAlignedLabel(_("Allowable _Drives:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
 
+            req_disk_names = [d.name for d in self.origrequest.req_disks]
             self.driveview = createAllowedDrivesList(self.storage.disks,
-                                                     self.origrequest.req_disks,
-                                                     selectDrives=False,
+                                                     req_disk_names,
                                                      disallowDrives=[self.anaconda.updateSrc])
             lbl.set_mnemonic_widget(self.driveview)
             sw = gtk.ScrolledWindow()
