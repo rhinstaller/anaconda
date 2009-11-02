@@ -1,3 +1,84 @@
+from ..udev import *
+
+def identifyMultipaths(devices):
+    # this function does a couple of things
+    # 1) identifies multipath disks
+    # 2) sets their ID_FS_TYPE to multipath_member
+    # 3) removes the individual members of an mpath's partitions
+    # sample input with multipath pairs [sda,sdc] and [sdb,sdd]
+    # [sr0, sda, sda1, sdb, sda2, sdc, sdd, sdc1, sdc2, sde, sde1]
+    # sample output:
+    # [sr0, sda, sdb, sdc, sdd, sde, sde1]
+
+    log.info("devices to scan for multipath: %s" % [d['name'] for d in devices])
+    serials = {}
+    non_disk_devices = {}
+    for d in devices:
+        serial = udev_device_get_serial(d)
+        if (not udev_device_is_disk(d)) or \
+                (not d.has_key('ID_SERIAL_SHORT')):
+            non_disk_devices.setdefault(serial, [])
+            non_disk_devices[serial].append(d)
+            log.info("adding %s to non_disk_device list" % (d['name'],))
+            continue
+
+        serials.setdefault(serial, [])
+        serials[serial].append(d)
+
+    singlepath_disks = []
+    multipaths = []
+    for serial, disks in serials.items():
+        if len(disks) == 1:
+            log.info("adding %s to singlepath_disks" % (disks[0]['name'],))
+            singlepath_disks.append(disks[0])
+        else:
+            # some usb cardreaders use multiple lun's (for different slots)
+            # and report a fake disk serial which is the same for all the
+            # lun's (#517603)
+            all_usb = True
+            for d in disks:
+                if d.get("ID_USB_DRIVER") != "usb-storage":
+                    all_usb = False
+                    break
+            if all_usb:
+                log.info("adding multi lun usb mass storage device to singlepath_disks: %s" %
+                         [disk['name'] for disk in disks])
+                singlepath_disks.extend(disks)
+                continue
+
+            for d in disks:
+                log.info("adding %s to multipath_disks" % (d['name'],))
+                d["ID_FS_TYPE"] = "multipath_member"
+
+            multipaths.append(disks)
+            log.info("found multipath set: [%s]" % [d['name'] for d in disks])
+
+    for mpath in multipaths:
+        for serial in [d['ID_SERIAL_SHORT'] for d in mpath]:
+            if non_disk_devices.has_key(serial):
+                log.info("filtering out non disk devices [%s]" % [d['name'] for d in non_disk_devices[serial]])
+                del non_disk_devices[serial]
+
+    partition_devices = []
+    for devs in non_disk_devices.values():
+        partition_devices += devs
+
+    # this is the list of devices we want to keep from the original
+    # device list, but we want to maintain its original order.
+    singlepath_disks = filter(lambda d: d in devices, singlepath_disks)
+    #multipaths = filter(lambda d: d in devices, multipaths)
+    partition_devices = filter(lambda d: d in devices, partition_devices)
+
+    mpathStr = "["
+    for mpath in multipaths:
+        mpathStr += str([d['name'] for d in mpath])
+    mpathStr += "]"
+
+    s = "(%s, %s, %s)" % ([d['name'] for d in singlepath_disks], \
+                          mpathStr, \
+                          [d['name'] for d in partition_devices])
+    log.info("devices post multipath scan: %s" % s)
+    return (singlepath_disks, multipaths, partition_devices)
 
 class MultipathConfigWriter:
     def __init__(self):

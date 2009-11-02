@@ -1902,82 +1902,6 @@ class DeviceTree(object):
         for leaf in self.leaves:
             leafInconsistencies(leaf)
 
-    def identifyMultipaths(self, devices):
-        # this function does a couple of things
-        # 1) identifies multipath disks
-        # 2) sets their ID_FS_TYPE to multipath_member
-        # 3) removes the individual members of an mpath's partitions
-        # sample input with multipath pairs [sda,sdc] and [sdb,sdd]
-        # [sr0, sda, sda1, sdb, sda2, sdc, sdd, sdc1, sdc2, sde, sde1]
-        # sample output:
-        # [sr0, sda, sdb, sdc, sdd, sde, sde1]
-
-        log.info("devices to scan for multipath: %s" % [d['name'] for d in devices])
-        serials = {}
-        non_disk_devices = {}
-        for d in devices:
-            serial = udev_device_get_serial(d)
-            if (not udev_device_is_disk(d)) or \
-                    (not d.has_key('ID_SERIAL_SHORT')):
-                non_disk_devices.setdefault(serial, [])
-                non_disk_devices[serial].append(d)
-                log.info("adding %s to non_disk_device list" % (d['name'],))
-                continue
-
-            serials.setdefault(serial, [])
-            serials[serial].append(d)
-
-        singlepath_disks = []
-        multipath_disks = []
-        for serial, disks in serials.items():
-            if len(disks) == 1:
-                log.info("adding %s to singlepath_disks" % (disks[0]['name'],))
-                singlepath_disks.append(disks[0])
-            else:
-                # some usb cardreaders use multiple lun's (for different slots)
-                # and report a fake disk serial which is the same for all the
-                # lun's (#517603)
-                all_usb = True
-                for d in disks:
-                    if d.get("ID_USB_DRIVER") != "usb-storage":
-                        all_usb = False
-                        break
-                if all_usb:
-                    log.info("adding multi lun usb mass storage device to singlepath_disks: %s" %
-                             [disk['name'] for disk in disks])
-                    singlepath_disks.extend(disks)
-                    continue
-
-                multipath_members = {}
-                for d in disks:
-                    log.info("adding %s to multipath_disks" % (d['name'],))
-                    d["ID_FS_TYPE"] = "multipath_member"
-                    multipath_disks.append(d)
-
-                    multipath_members[d['name']] = { 'info': d,
-                                                     'found': False }
-                    log.info("found multipath set: [%s]" % [d['name'] for d in disks])
-
-        for serial in [d['ID_SERIAL_SHORT'] for d in multipath_disks]:
-            if non_disk_devices.has_key(serial):
-                    log.info("filtering out non disk devices [%s]" % [d['name'] for d in non_disk_devices[serial]])
-                    del non_disk_devices[serial]
-
-        partition_devices = []
-        for devs in non_disk_devices.values():
-            partition_devices += devs
-
-        # this is the list of devices we want to keep from the original
-        # device list, but we want to maintain its original order.
-        okdevs = singlepath_disks + multipath_disks + partition_devices
-        names = [d['name'] for d in okdevs]
-        retdevs = []
-        for dev in devices:
-            if dev['name'] in names:
-                retdevs.append(dev)
-        log.info("devices post multipath scan: %s" % [d['name'] for d in retdevs])
-        return retdevs
-
     def populate(self):
         """ Locate all storage devices. """
 
@@ -2001,12 +1925,28 @@ class DeviceTree(object):
                      % (livetarget,))
             self.protectedDevNames.append(livetarget)
 
-        # each iteration scans any devices that have appeared since the
-        # previous iteration
+        # First iteration - let's just look for disks.
         old_devices = {}
-        ignored_devices = []
-        first_iteration = True
-        handled_mpaths = False
+
+        devices = udev_get_block_devices()
+        for dev in devices:
+            old_devices[dev['name']] = dev
+
+        (singles, mpaths, partitions) = devicelibs.mpath.identifyMultipaths(devices)
+        devices = singles + reduce(list.__add__, mpaths, []) + partitions
+        log.info("devices to scan: %s" % [d['name'] for d in devices])
+        for dev in devices:
+            self.addUdevDevice(dev)
+
+        # Having found all the disks, we can now find all the multipaths built
+        # upon them.
+        for mp in self.__multipaths.values():
+            log.info("adding mpath device %s" % mp.name)
+            mp.setup()
+            self._addDevice(mp)
+
+        # Now, loop and scan for devices that have appeared since the two above
+        # blocks or since previous iterations.
         while True:
             devices = []
             new_devices = udev_get_block_devices()
@@ -2017,18 +1957,9 @@ class DeviceTree(object):
                     devices.append(new_device)
 
             if len(devices) == 0:
-                if handled_mpaths:
-                    # nothing is changing -- we are finished building devices
-                    break
-                for mp in self.__multipaths.values():
-                    log.info("adding mpath device %s" % (mp.name,))
-                    mp.setup()
-                    self._addDevice(mp)
-                handled_mpaths = True
+                # nothing is changing -- we are finished building devices
+                break
 
-            if first_iteration:
-                devices = self.identifyMultipaths(devices)
-                first_iteration = False
             log.info("devices to scan: %s" % [d['name'] for d in devices])
             for dev in devices:
                 self.addUdevDevice(dev)
