@@ -254,6 +254,20 @@ def udev_device_get_serial(udev_info):
     """ Get the serial number/UUID from the device as reported by udev. """
     return udev_info.get("ID_SERIAL_SHORT")
 
+def udev_device_get_wwid(udev_info):
+    """ The WWID of a device is typically just its serial number, but with
+        colons in the name to make it more readable. """
+    serial = udev_device_get_serial(udev_info)
+
+    if len(serial) == 32:
+        retval = ""
+        for i in range(0, 16):
+            retval += serial[i*2:i*2+2] + ":"
+
+        return retval[0:-1]
+
+    return ""
+
 def udev_device_get_vendor(udev_info):
     """ Get the vendor of the device as reported by udev. """
     return udev_info.get("ID_VENDOR_FROM_DATABASE", udev_info.get("ID_VENDOR"))
