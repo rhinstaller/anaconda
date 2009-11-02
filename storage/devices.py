@@ -1337,10 +1337,15 @@ class DMDevice(StorageDevice):
         return self.path
 
     @property
+    def mapName(self):
+        """ This device's device-mapper map name """
+        return self.name
+
+    @property
     def status(self):
         _status = False
         for map in block.dm.maps():
-            if map.name == self.name:
+            if map.name == self.mapName:
                 _status = map.live_table and not map.suspended
                 break
 
@@ -1609,19 +1614,23 @@ class LVMVolumeGroupDevice(DMDevice):
             raise DeviceError("device has not been created", self.name)
 
     @property
+    def mapName(self):
+        """ This device's device-mapper map name """
+        # Thank you lvm for this lovely hack.
+        return self.name.replace("-","--")
+
+    @property
     def path(self):
         """ Device node representing this device. """
-        # Thank you lvm for this lovely hack.
-        return "%s/%s" % (self._devDir, self.name.replace("-","--"))
+        return "%s/%s" % (self._devDir, self.mapName)
 
     def getDMNode(self):
         """ Return the dm-X (eg: dm-0) device node for this device. """
-        # Thank you lvm for this lovely hack.
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
-        return dm.dm_node_from_name(self.name.replace("-","--"))
+        return dm.dm_node_from_name(self.mapName)
 
     @property
     def status(self):
@@ -2032,21 +2041,23 @@ class LVMLogicalVolumeDevice(DMDevice):
         return self.parents[0]
 
     @property
+    def mapName(self):
+        """ This device's device-mapper map name """
+        # Thank you lvm for this lovely hack.
+        return "%s-%s" % (self.vg.mapName, self._name.replace("-","--"))
+
+    @property
     def path(self):
         """ Device node representing this device. """
-        # Thank you lvm for this lovely hack.
-        return "%s/%s-%s" % (self._devDir, self.vg.name.replace("-","--"),
-                self._name.replace("-","--"))
+        return "%s/%s" % (self._devDir, self.mapName)
 
     def getDMNode(self):
         """ Return the dm-X (eg: dm-0) device node for this device. """
-        # Thank you lvm for this lovely hack.
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
-        return dm.dm_node_from_name("%s-%s" % (self.vg.name.replace("-","--"), \
-                self._name.replace("-","--")))
+        return dm.dm_node_from_name(self.mapName)
 
     @property
     def name(self):
