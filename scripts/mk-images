@@ -405,7 +405,7 @@ instbin() {
     fi
 }
 
-setupShellEnvironment() {
+setupSshd() {
     cp -f $IMGPATH/etc/protocols $MBD_DIR/etc/protocols
     echo "sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin" \
     	>> $MBD_DIR/etc/passwd
@@ -834,7 +834,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/lib
     ln -s ../../tmp $MBD_DIR/var/lib/xkb
 
-    setupShellEnvironment
+    setupSshd
 
 cat > $MBD_DIR/.profile <<EOF
 PS1="[anaconda \u@\h \W]\\\\$ "
