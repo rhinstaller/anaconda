@@ -1028,7 +1028,6 @@ def allocatePartitions(disks, partitions, freespace):
         disklabel = _disk.format
 
         # create the extended partition if needed
-        # TODO: move to a function (disk, free)
         if part_type == parted.PARTITION_EXTENDED:
             log.debug("creating extended partition")
             addPartition(disklabel.partedDisk, free, part_type, None)
@@ -1359,15 +1358,7 @@ def growPartitions(disks, partitions, free):
 
             # recalculate partition geometries
             disklabel = disk.format
-
             start = chunk.geometry.start
-            #if start == 0 or start == getattr(extended_geometry, "start", 0):
-            #    start += 1
-
-            first_logical = False
-            if extended_geometry and chunk.contains(extended_geometry):
-                first_logical = True
-
             new_partitions = []
             for p in chunk.requests:
                 ptype = p.partition.partedPartition.type
@@ -1376,16 +1367,11 @@ def growPartitions(disks, partitions, free):
                 if ptype == parted.PARTITION_EXTENDED:
                     continue
 
-                #if ptype == parted.PARTITION_LOGICAL:
-                #    # As you wish, parted.
-                #    start += 1
-
-                # XXX if the start of the extended is aligned then we must
-                #     burn one logical block to align the first logical
-                #     partition
-                if ptype == parted.PARTITION_LOGICAL and first_logical:
+                # XXX since we need one metadata sector before each
+                #     logical partition we burn one logical block to
+                #     safely align the start of each logical partition
+                if ptype == parted.PARTITION_LOGICAL:
                     start += _a.grainSize
-                    first_logical = False
 
                 old_geometry = p.partition.partedPartition.geometry
                 new_length = p.base + p.growth
