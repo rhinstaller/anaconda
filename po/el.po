@@ -7,16 +7,16 @@
 # Simos Xenitellis <simos@hellug.gr>, 2002.
 # Nikos Charonitakis <nikosx@gmail.comr>, 2002, 2005, 2006, 2007.
 # Dimitrios Michelinakis <dimitris@michelinakis.gr>, 2006.
-# Kostas Papadimas <pkst@gnome.org>, 2006.
+# Kostas Papadimas <pkst@gnome.org>, 2006.2009.
 # Dimitris Glezos <dimitris@glezos.com>, 2006, 2007, 2008.
 # Stavros Giannouris <stavrosg@hellug.gr>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-10-28 11:35-1000\n"
-"PO-Revision-Date: 2009-11-01 12:45+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2009-10-30 16:40-0400\n"
+"PO-Revision-Date: 2009-11-03 18:42+0200\n"
+"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek Fedora team <fedora-trans-el@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -479,7 +479,7 @@ msgstr "Ακύρωση"
 #: gui.py:797
 #: gui.py:913
 #: gui.py:914
-#: ui/anaconda.glade.h:2
+#: ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "Εκσ_φαλμάτωση"
 
@@ -635,6 +635,7 @@ msgstr ""
 #: yuminstall.py:938
 #: yuminstall.py:1359
 #: yuminstall.py:1375
+#: ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr "_Πίσω"
 
@@ -807,7 +808,7 @@ msgstr "Δε βρέθηκε η εικόνα"
 #: livecd.py:111
 #, python-format
 msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr "Η δοσμένη τοποθεσία δεν είναι ένα έγκυρο %s live CD για να χρησιμοποιηθεί ως πηγή εγκατάστασης."
+msgstr "Η δοθείσα τοποθεσία δεν είναι ένα έγκυρο %s live CD για να χρησιμοποιηθεί ως πηγή εγκατάστασης."
 
 #: livecd.py:172
 msgid "Copying live image to hard drive."
@@ -830,7 +831,7 @@ msgstr "Γίνεται εκτέλεση αλλαγών συστήματος αρ
 #: livecd.py:397
 #, python-format
 msgid "The root filesystem you created is not large enough for this live image (%.2f MB required)."
-msgstr "Το root σύστημα αρχείων που δημιουργήσατε δεν είναι αρκετά μεγάλο για αυτήν τη ζωντανή εικόνα (απαιτούνται %.2f MB)."
+msgstr "Το σύστημα αρχείων root που δημιουργήσατε δεν είναι αρκετά μεγάλο για αυτήν τη live εικόνα (απαιτούνται %.2f MB)."
 
 #: network.py:56
 msgid "Hostname must be 255 or fewer characters in length."
@@ -891,7 +892,7 @@ msgstr "Υπήρξε ένα σφάλμα κατά την απομάκρυνση 
 
 #: packages.py:138
 msgid "Device Setup Failed"
-msgstr "Device Setup Failed"
+msgstr "Αποτυχία ρύθμισης συσκευής"
 
 #: packages.py:139
 #, python-format
@@ -967,7 +968,7 @@ msgstr ""
 
 #: packages.py:376
 msgid "_Install anyway"
-msgstr "Ε_γκατάσταση ούτως ή άλλως"
+msgstr "Ε_γκατάσταση οπωσδήποτε"
 
 #: packages.py:380
 msgid "The installer will now exit..."
@@ -1183,7 +1184,7 @@ msgstr "Πρόκειται να διαγράψετε το %s %s"
 
 #: partIntfHelpers.py:346
 msgid "Confirm Reset"
-msgstr "Επιβεβαίωση επαναφοράς"
+msgstr "Επιβεβαίωση επαναφοράς "
 
 #: partIntfHelpers.py:347
 msgid "Are you sure you want to reset the partition table to its original state?"
@@ -5399,7 +5400,7 @@ msgstr "_Εξυπηρετητής"
 msgid "Reboo_t"
 msgstr "Επανε_κκίνηση"
 
-#: ui/anaconda.glade.h:3
+#: ui/anaconda.glade.h:4
 msgid "_Next"
 msgstr "_Επόμενο"
 
