@@ -842,6 +842,10 @@ PATH=/bin:/usr/bin:/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysi
 export PATH PS1
 EOF
 
+cat > $MBD_DIR/.bash_history <<EOF
+killall -USR2 anaconda
+EOF
+
     rm -f $MBD_FSIMAGE
     (cd $MBD_DIR; find . |cpio --quiet -c -o) |gzip -9 > $MBD_FSIMAGE
 

@@ -183,13 +183,14 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
     newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g
     openldap openssh openssh-server
-    pam pango parted pciutils pcre
+    pam pango parted pciutils pcre psmisc
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
     python-libs python-nss python-pyblock python-sqlite
     python-urlgrabber python-volume_key pyxf86config readline redhat-artwork
     reiserfs-utils rpm rpm-libs rpm-python sed selinux-policy-targeted
     setup slang smc-meera-fonts specspo sqlite synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
+    sysvinit-tools
     tzdata udev un-core-dotum-fonts urw-fonts util-linux-ng tigervnc-server
     tigervnc-server-module vlgothic-fonts vim-minimal
     wget wpa_supplicant xkeyboard-config xfsprogs xorg-x11-xauth
@@ -445,6 +446,7 @@ sbin/parted
 sbin/pcmcia-socket-startup
 sbin/pdisk
 sbin/probe
+sbin/pidof
 sbin/reiserfsck
 sbin/reiserfstune
 sbin/resize_reiserfs
@@ -506,6 +508,7 @@ usr/bin/head
 usr/bin/hformat
 usr/bin/hmount
 usr/bin/humount
+usr/bin/killall
 usr/bin/logger
 usr/bin/lsattr*
 usr/bin/lshal
