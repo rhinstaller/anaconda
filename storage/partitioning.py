@@ -664,7 +664,7 @@ def addPartition(disk, free, part_type, size):
         end = free.end
     else:
         # size is in MB
-        length = sizeToSectors(size, disk.device.physicalSectorSize)
+        length = sizeToSectors(size, disk.device.sectorSize)
         end = start + length
         if not _a.isAligned(free, end):
             end = _a.alignNearest(free, end)
@@ -873,7 +873,7 @@ def allocatePartitions(disks, partitions, freespace):
         # loop through disks
         for _disk in req_disks:
             disklabel = disklabels[_disk.path]
-            sectorSize = disklabel.partedDevice.physicalSectorSize
+            sectorSize = disklabel.partedDevice.sectorSize
             best = None
             current_free = free
 
@@ -956,7 +956,7 @@ def allocatePartitions(disks, partitions, freespace):
 
                         # grow all growable requests
                         disk_growth = 0
-                        disk_sector_size = disklabels[disk_path].partedDevice.physicalSectorSize
+                        disk_sector_size = disklabels[disk_path].partedDevice.sectorSize
                         for chunk in chunks:
                             chunk.growRequests()
                             # record the growth for this layout
@@ -1082,7 +1082,7 @@ class Request(object):
         self.done = not partition.req_grow  # can we grow this request more?
         self.base = partition.partedPartition.geometry.length   # base sectors
 
-        sector_size = partition.partedPartition.disk.device.physicalSectorSize
+        sector_size = partition.partedPartition.disk.device.sectorSize
 
         if partition.req_grow:
             max_size = partition.req_max_size
@@ -1134,7 +1134,7 @@ class Chunk(object):
         """
         self.geometry = geometry            # parted.Geometry
         self.pool = self.geometry.length    # free sector count
-        self.sectorSize = self.geometry.device.physicalSectorSize
+        self.sectorSize = self.geometry.device.sectorSize
         self.base = 0                       # sum of growable requests' base
                                             # sizes, in sectors
         self.requests = []                  # list of Request instances
@@ -1333,7 +1333,7 @@ def growPartitions(disks, partitions, free):
 
     for disk in disks:
         log.debug("growing partitions on %s" % disk.name)
-        sector_size = disk.format.partedDevice.physicalSectorSize
+        sector_size = disk.format.partedDevice.sectorSize
         _a = getDiskAlignment(disk.format.partedDisk)
 
         # find any extended partition on this disk
