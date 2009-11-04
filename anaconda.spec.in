@@ -217,6 +217,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Nov 04 2009 David Cantrell <dcantrell@redhat.com> - 12.44-1
+- Correctly initialize modopts in loader (#531932). (dcantrell)
+
 * Tue Nov 03 2009 Chris Lumens <clumens@redhat.com> - 12.43-1
 - Remove "anaconda" from attributes to skip (#532612, #532737). (clumens)
 - Fix status for and consolidate handling of '-' in vg/lv names. (#527302)

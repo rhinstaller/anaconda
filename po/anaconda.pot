@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.42\n"
+"Project-Id-Version: anaconda 12.43\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-11-03 15:00-0500\n"
+"POT-Creation-Date: 2009-11-04 12:47-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 #: loader/loader.c:557 loader/loader.c:1191 loader/loader.c:1375
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:101 loader/method.c:279 loader/method.c:353
-#: loader/modules.c:339 loader/modules.c:351 loader/net.c:582 loader/net.c:953
+#: loader/modules.c:341 loader/modules.c:353 loader/net.c:582 loader/net.c:953
 #: loader/net.c:1587 loader/net.c:1608 loader/net.c:1880 loader/net.c:1902
 #: loader/net.c:1914 loader/nfsinstall.c:91 loader/nfsinstall.c:250
 #: loader/nfsinstall.c:269 loader/nfsinstall.c:337 loader/telnetd.c:92
@@ -3379,7 +3379,7 @@ msgstr ""
 
 #: loader/driverdisk.c:539 loader/driverdisk.c:576 loader/hdinstall.c:372
 #: loader/kickstart.c:132 loader/kickstart.c:142 loader/kickstart.c:185
-#: loader/kickstart.c:563 loader/modules.c:339 loader/modules.c:351
+#: loader/kickstart.c:563 loader/modules.c:341 loader/modules.c:353
 #: loader/net.c:1587 loader/net.c:1608 loader/nfsinstall.c:337
 #: loader/urlinstall.c:451 loader/urlinstall.c:460 loader/urlinstall.c:467
 msgid "Kickstart Error"
@@ -3734,12 +3734,12 @@ msgstr ""
 msgid "Checksum Test"
 msgstr ""
 
-#: loader/modules.c:340
+#: loader/modules.c:342
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
 
-#: loader/modules.c:352
+#: loader/modules.c:354
 msgid "A module name must be specified for the kickstart device command."
 msgstr ""
 
