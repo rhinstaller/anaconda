@@ -1397,7 +1397,8 @@ def growPartitions(disks, partitions, free):
             # adjust the extended partition as needed
             # we will ony resize an extended partition that we created
             log.debug("extended: %s" % extended_geometry)
-            if extended_geometry and chunk.contains(extended_geometry):
+            if extended_geometry and \
+               chunk.geometry.contains(extended_geometry):
                 log.debug("setting up new geometry for extended on %s" % disk.name)
                 ext_start = 0
                 ext_end = 0
