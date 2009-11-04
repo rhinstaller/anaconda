@@ -399,7 +399,12 @@ def setupGraphicalLinks():
 def createSshKey(algorithm, keyfile):
     path = '/etc/ssh/%s' % (keyfile,)
     argv = ['-q','-t',algorithm,'-f',path,'-C','','-N','']
-    iutil.execWithRedirect('ssh-keygen', argv, searchPath=1)
+    log.info("running \"%s\"" % (" ".join(['ssh-keygen']+argv),))
+
+    so = "/tmp/ssh-keygen-%s-stdout.log" % (algorithm,)
+    se = "/tmp/ssh-keygen-%s-stderr.log" % (algorithm,)
+    iutil.execWithRedirect('ssh-keygen', argv, stdout=so, stderr=se,
+                           searchPath=1)
 
 def startSsh():
     if not flags.sshd:
