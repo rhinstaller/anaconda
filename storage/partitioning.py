@@ -420,7 +420,7 @@ def partitionCompare(part1, part2):
     # give a little bump based on mountpoint
     if hasattr(part1.format, "mountpoint") and \
        hasattr(part2.format, "mountpoint"):
-        ret -= cmp(part1.format.mountpoint, part2.format.mountpoint) * 10
+        ret += cmp(part1.format.mountpoint, part2.format.mountpoint) * 10
 
     if ret > 0:
         ret = 1
