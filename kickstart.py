@@ -1086,6 +1086,7 @@ commandMap = {
         "services": commands.services.FC6_Services,
         "shutdown": Reboot,
         "skipx": SkipX,
+        "sshpw": commands.sshpw.F13_SshPw,
         "text": commands.displaymode.FC3_DisplayMode,
         "timezone": Timezone,
         "updates": commands.updates.F7_Updates,
@@ -1128,7 +1129,7 @@ class EarlyKSHandler(superclass):
 
         self.maskAllExcept(["vnc", "displaymode", "text", "cmdline",
                             "graphical", "rescue", "ignoredisk", "clearpart",
-                            "zerombr"])
+                            "zerombr", "sshpw"])
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and

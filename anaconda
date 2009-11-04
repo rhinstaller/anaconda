@@ -396,6 +396,22 @@ def setupGraphicalLinks():
         except:
             pass
 
+def handleSshPw(ks):
+    import users
+    u = users.Users()
+
+    userdata = ks.sshpw.dataList()
+    for ud in userdata:
+        if u.checkUserExists(ud.username, root="/"):
+            u.setUserPassword(username=ud.username, password=ud.password,
+                              isCrypted=ud.isCrypted, lock=ud.lock)
+        else:
+            u.createUser(name=ud.username, password=ud.password,
+                         isCrypted=ud.isCrypted, lock=ud.lock,
+                         root="/")
+
+    del u
+
 def createSshKey(algorithm, keyfile):
     path = '/etc/ssh/%s' % (keyfile,)
     argv = ['-q','-t',algorithm,'-f',path,'-C','','-N','']
@@ -602,8 +618,6 @@ if __name__ == "__main__":
 
     warnings.showwarning = AnacondaShowWarning
 
-    startSsh()
-
     setupTranslations()
 
     # reset python's default SIGINT handler
@@ -727,8 +741,6 @@ if __name__ == "__main__":
     if not flags.test and not flags.rootpath and not flags.livecdInstall:
             isys.auditDaemon()
 
-    users.createLuserConf(anaconda.rootPath)
-
     # setup links required for all install types
     for i in ( "services", "protocols", "nsswitch.conf", "joe", "selinux",
                "mke2fs.conf" ):
@@ -752,6 +764,16 @@ if __name__ == "__main__":
     #
     if earlyKS and not opts.rescue:
         opts.rescue = earlyKS.rescue.rescue
+
+    # we need to have a libuser.conf that points to the installer root for
+    # sshpw, but after that we start sshd, we need one that points to the
+    # install target.
+    luserConf = users.createLuserConf(instPath="")
+    handleSshPw(earlyKS)
+    startSsh()
+    del(os.environ["LIBUSER_CONF"])
+
+    users.createLuserConf(anaconda.rootPath)
 
     if opts.rescue:
         anaconda.rescue = True
