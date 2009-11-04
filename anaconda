@@ -46,23 +46,23 @@ def startMiniWM(root='/'):
     (rd, wr) = os.pipe()
     childpid = os.fork()
     if not childpid:
-	if os.access("./mini-wm", os.X_OK):
-	    cmd = "./mini-wm"
-	elif os.access(root + "/usr/bin/mini-wm", os.X_OK):
-	    cmd = root + "/usr/bin/mini-wm"
-	else:
-	    return None
-	
-	os.dup2(wr, 1)
-	os.close(wr)
-	args = [cmd, '--display', ':1']
-	os.execv(args[0], args)
-	sys.exit (1)
+        if os.access("./mini-wm", os.X_OK):
+            cmd = "./mini-wm"
+        elif os.access(root + "/usr/bin/mini-wm", os.X_OK):
+            cmd = root + "/usr/bin/mini-wm"
+        else:
+            return None
+        
+        os.dup2(wr, 1)
+        os.close(wr)
+        args = [cmd, '--display', ':1']
+        os.execv(args[0], args)
+        sys.exit (1)
     else:
-	# We need to make sure that mini-wm is the first client to
-	# connect to the X server (see bug #108777).  Wait for mini-wm
-	# to write back an acknowledge token.
-	os.read(rd, 1)
+        # We need to make sure that mini-wm is the first client to
+        # connect to the X server (see bug #108777).  Wait for mini-wm
+        # to write back an acknowledge token.
+        os.read(rd, 1)
 
     return childpid
 
@@ -75,42 +75,42 @@ def doStartupX11Actions(runres="800x600"):
 
     # now start up mini-wm
     try:
-	miniwm_pid = startMiniWM()
-	log.info("Started mini-wm")
+        miniwm_pid = startMiniWM()
+        log.info("Started mini-wm")
 
     except:
-	miniwm_pid = None
-	log.error("Unable to start mini-wm")
+        miniwm_pid = None
+        log.error("Unable to start mini-wm")
 
     if miniwm_pid is not None:
-	import xutils
-	import gtk
+        import xutils
+        import gtk
 
-	try:
-	    i = gtk.Invisible()
-	    i.selection_owner_set("_ANACONDA_MINI_WM_RUNNING")
+        try:
+            i = gtk.Invisible()
+            i.selection_owner_set("_ANACONDA_MINI_WM_RUNNING")
 
-	    xutils.setRootResource('Xcursor.size', '24')
-	    xutils.setRootResource('Xcursor.theme', 'Bluecurve')
-	    xutils.setRootResource('Xcursor.theme_core', 'true')
+            xutils.setRootResource('Xcursor.size', '24')
+            xutils.setRootResource('Xcursor.theme', 'Bluecurve')
+            xutils.setRootResource('Xcursor.theme_core', 'true')
 
-	    xutils.setRootResource('Xft.antialias', '1')
-	    xutils.setRootResource('Xft.hinting', '1')
-	    xutils.setRootResource('Xft.hintstyle', 'hintslight')
-	    xutils.setRootResource('Xft.rgba', 'none')
-	except:
-	    sys.stderr.write("X SERVER STARTED, THEN FAILED");
-	    raise RuntimeError, "X server failed to start"
+            xutils.setRootResource('Xft.antialias', '1')
+            xutils.setRootResource('Xft.hinting', '1')
+            xutils.setRootResource('Xft.hintstyle', 'hintslight')
+            xutils.setRootResource('Xft.rgba', 'none')
+        except:
+            sys.stderr.write("X SERVER STARTED, THEN FAILED");
+            raise RuntimeError, "X server failed to start"
 
 def doShutdownX11Actions():
     global miniwm_pid
     
     if miniwm_pid is not None:
-	try:
-	    os.kill(miniwm_pid, 15)
-	    os.waitpid(miniwm_pid, 0)
-	except:
-	    pass
+        try:
+            os.kill(miniwm_pid, 15)
+            os.waitpid(miniwm_pid, 0)
+        except:
+            pass
 
 # handle updates of just a single file in a python package
 def setupPythonUpdates():
@@ -122,40 +122,40 @@ def setupPythonUpdates():
     pyver = pyvers[0][15:]
     
     try:
-	os.mkdir("/tmp/updates")
+        os.mkdir("/tmp/updates")
     except:
-	pass
+        pass
 
     for pypkg in ("block", "yum", "rpmUtils", "urlgrabber", "pykickstart", "parted", "meh"):
-	# get the libdir.  *sigh*
-	if os.access("/usr/lib64/python%s/site-packages/%s" %(pyver, pypkg),
-		     os.X_OK):
-	    libdir = "lib64"
+        # get the libdir.  *sigh*
+        if os.access("/usr/lib64/python%s/site-packages/%s" %(pyver, pypkg),
+                     os.X_OK):
+            libdir = "lib64"
         elif os.access("/usr/lib/python%s/site-packages/%s" %(pyver, pypkg),
                        os.X_OK):
-	    libdir = "lib"
-	else:
+            libdir = "lib"
+        else:
             # If the directory doesn't exist, there's nothing to link over.
             # This happens if we forgot to include one of the above packages
             # in the image, for instance.
             continue
 
-	if os.access("/tmp/updates/%s" %(pypkg,), os.X_OK):
-	    for f in os.listdir("/usr/%s/python%s/site-packages/%s" %(libdir,
-								      pyver,
-								      pypkg)):
-		if os.access("/tmp/updates/%s/%s" %(pypkg, f), os.R_OK):
-		    continue
-		elif (f.endswith(".pyc") and
-		      os.access("/tmp/updates/%s/%s" %(pypkg, f[:-1]),os.R_OK)):
-		    # dont copy .pyc files we are replacing with updates
-		    continue
-		else:
-		    os.symlink("/usr/%s/python%s/site-packages/%s/%s" %(libdir,
-									pyver,
-									pypkg,
-									f),
-			       "/tmp/updates/%s/%s" %(pypkg, f))
+        if os.access("/tmp/updates/%s" %(pypkg,), os.X_OK):
+            for f in os.listdir("/usr/%s/python%s/site-packages/%s" %(libdir,
+                                                                      pyver,
+                                                                      pypkg)):
+                if os.access("/tmp/updates/%s/%s" %(pypkg, f), os.R_OK):
+                    continue
+                elif (f.endswith(".pyc") and
+                      os.access("/tmp/updates/%s/%s" %(pypkg, f[:-1]),os.R_OK)):
+                    # dont copy .pyc files we are replacing with updates
+                    continue
+                else:
+                    os.symlink("/usr/%s/python%s/site-packages/%s/%s" %(libdir,
+                                                                        pyver,
+                                                                        pypkg,
+                                                                        f),
+                               "/tmp/updates/%s/%s" %(pypkg, f))
 
     if os.access("/tmp/updates/70-anaconda.rules", os.R_OK):
         import shutil
@@ -352,17 +352,17 @@ def runVNC():
                 os.environ['PYTHONSTARTUP'] = p
                 break
 
-	while True:
-	    # s390/s390x are the only places we /really/ need a shell on tty1,
-	    # and everywhere else this just gets in the way of pdb.  But we
-	    # don't want to return, because that'll return try to start X
-	    # a second time.
-	    if iutil.isConsoleOnVirtualTerminal():
-            	time.sleep(10000)
-	    else:
-	    	print _("Press <enter> for a shell")
-	    	sys.stdin.readline()
-            	iutil.execConsole()
+        while True:
+            # s390/s390x are the only places we /really/ need a shell on tty1,
+            # and everywhere else this just gets in the way of pdb.  But we
+            # don't want to return, because that'll return try to start X
+            # a second time.
+            if iutil.isConsoleOnVirtualTerminal():
+                    time.sleep(10000)
+            else:
+                    print _("Press <enter> for a shell")
+                    sys.stdin.readline()
+                    iutil.execConsole()
 
 def checkMemory(opts):
     if iutil.memInstalled() < isys.MIN_RAM:
@@ -389,12 +389,12 @@ def checkMemory(opts):
 
 def setupGraphicalLinks():
     for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
-	       "fb.modes"):
+               "fb.modes"):
         try:
-	    if os.path.exists("/mnt/runtime/etc/%s" %(i,)):
-	        os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
+            if os.path.exists("/mnt/runtime/etc/%s" %(i,)):
+                os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
         except:
-	    pass
+            pass
 
 def createSshKey(algorithm, keyfile):
     path = '/etc/ssh/%s' % (keyfile,)
@@ -720,7 +720,7 @@ if __name__ == "__main__":
         opts.isHeadless = True
 
     if not flags.test and not flags.rootpath and not flags.livecdInstall:
-    	isys.auditDaemon()
+            isys.auditDaemon()
 
     users.createLuserConf(anaconda.rootPath)
 
@@ -870,29 +870,29 @@ if __name__ == "__main__":
     # running on a redirected X display, so start local X server
     if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
         try:
-	    # start X with its USR1 handler set to ignore.  this will make it send
-	    # us SIGUSR1 if it succeeds.  if it fails, catch SIGCHLD and bomb out.
+            # start X with its USR1 handler set to ignore.  this will make it send
+            # us SIGUSR1 if it succeeds.  if it fails, catch SIGCHLD and bomb out.
 
-	    def sigchld_handler(num, frame):
-		raise OSError
+            def sigchld_handler(num, frame):
+                raise OSError
 
-	    def sigusr1_handler(num, frame):
-		pass
+            def sigusr1_handler(num, frame):
+                pass
 
-	    def preexec_fn():
-		signal.signal(signal.SIGUSR1, signal.SIG_IGN)
+            def preexec_fn():
+                signal.signal(signal.SIGUSR1, signal.SIG_IGN)
 
-	    old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
-	    old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
+            old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
+            old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
             xout = open("/dev/tty5", "w")
 
             proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log",
-				     ":1", "vt6", "-s", "1440", "-ac",
-				     "-nolisten", "tcp", "-dpi", "96"],
-				     close_fds=True, stdout=xout, stderr=xout,
-				     preexec_fn=preexec_fn)
+                                     ":1", "vt6", "-s", "1440", "-ac",
+                                     "-nolisten", "tcp", "-dpi", "96"],
+                                     close_fds=True, stdout=xout, stderr=xout,
+                                     preexec_fn=preexec_fn)
 
-	    signal.pause()
+            signal.pause()
 
             os.environ["DISPLAY"] = ":1"
             doStartupX11Actions(opts.runres)
@@ -903,8 +903,8 @@ if __name__ == "__main__":
             graphical_failed = 1
             time.sleep(2)
         finally:
-	    signal.signal(signal.SIGUSR1, old_sigusr1)
-	    signal.signal(signal.SIGCHLD, old_sigchld)
+            signal.signal(signal.SIGUSR1, old_sigusr1)
+            signal.signal(signal.SIGCHLD, old_sigchld)
 
     if opts.display_mode == 't' and graphical_failed and not anaconda.isKickstart:
         ret = vnc.askVncWindow()
@@ -1026,3 +1026,5 @@ if __name__ == "__main__":
             drive.eject()
 
     del anaconda.intf
+
+# vim:tw=78:ts=4:et:sw=4
