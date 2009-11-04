@@ -32,12 +32,22 @@ log = logging.getLogger("anaconda")
 
 def createLuserConf(instPath, algoname='sha512'):
     """Writes a libuser.conf for instPath."""
-    if os.getenv("LIBUSER_CONF") and \
-       os.access(os.environ["LIBUSER_CONF"], os.R_OK):
+    createTmp = False
+    try:
         fn = os.environ["LIBUSER_CONF"]
+        if os.access(fn, os.F_OK):
+            log.info("removing libuser.conf at %s" % (os.getenv("LIBUSER_CONF")))
+            os.unlink(fn)
+        log.info("created new libuser.conf at %s with instPath=\"%s\"" % \
+                (fn,instPath))
         fd = open(fn, 'w')
-    else:
+    except:
+        createTmp = True
+
+    if createTmp:
         (fp, fn) = tempfile.mkstemp(prefix="libuser.")
+        log.info("created new libuser.conf at %s with instPath=\"%s\"" % \
+                (fn,instPath))
         fd = os.fdopen(fp, 'w')
 
     buf = """
@@ -56,6 +66,8 @@ directory = %(instPath)s/etc
     fd.write(buf)
     fd.close()
     os.environ["LIBUSER_CONF"] = fn
+
+    return fn
 
 # These are explained in crypt/crypt-entry.c in glibc's code.  The prefixes
 # we use for the different crypt salts:
@@ -88,9 +100,10 @@ class Users:
         childpid = os.fork()
 
         if not childpid:
-            os.chroot(root)
+            if not root in ["","/"]:
+                os.chroot(root)
+                del(os.environ["LIBUSER_CONF"])
 
-            del(os.environ["LIBUSER_CONF"])
             self.admin = libuser.admin()
 
             try:
@@ -125,9 +138,10 @@ class Users:
         childpid = os.fork()
 
         if not childpid:
-            os.chroot(root)
+            if not root in ["","/"]:
+                os.chroot(root)
+                del(os.environ["LIBUSER_CONF"])
 
-            del(os.environ["LIBUSER_CONF"])
             self.admin = libuser.admin()
 
             try:
@@ -195,12 +209,47 @@ class Users:
     def setRootPassword(self, password, isCrypted, lock, algo=None):
         rootUser = self.admin.lookupUserByName("root")
 
-        if isCrypted:
-            self.admin.setpassUser(rootUser, password, True)
+    def checkUserExists(self, username, root="/mnt/sysimage"):
+        childpid = os.fork()
+
+        if not childpid:
+            if not root in ["","/"]:
+                os.chroot(root)
+                del(os.environ["LIBUSER_CONF"])
+
+            self.admin = libuser.admin()
+
+            try:
+                if self.admin.lookupUserByName(username):
+                    os._exit(0)
+            except Exception, e:
+                log.critical("Error when searching for user: %s" % str(e))
+            os._exit(1)
+
+        try:
+            (pid, status) = os.waitpid(childpid, 0)
+        except OSError as e:
+            log.critical("exception from waitpid while creating a user: %s %s" % (e.errno, e.strerror))
+            return False
+
+        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
+            return True
         else:
-            self.admin.setpassUser(rootUser, cryptPassword(password, algo=algo), True)
+            return False
+
+    def setUserPassword(self, username, password, isCrypted, lock, algo=None):
+        user = self.admin.lookupUserByName(username)
+
+        if isCrypted:
+            self.admin.setpassUser(user, password, True)
+        else:
+            self.admin.setpassUser(user, cryptPassword(password, algo=algo), True)
 
         if lock:
-            self.admin.lockUser(rootUser)
+            self.admin.lockUser(user)
 
-        self.admin.modifyUser(rootUser)
+        self.admin.modifyUser(user)
+
+    def setRootPassword(self, password, isCrypted, lock, algo=None):
+        return self.setUserPassword("root", password, isCrypted, lock, algo)
+
