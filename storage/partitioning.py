@@ -658,6 +658,12 @@ def addPartition(disk, free, part_type, size):
     start = free.start
     if not _a.isAligned(free, start):
         start = _a.alignNearest(free, start)
+
+    if part_type == parted.PARTITION_LOGICAL:
+        # make room for logical partition's metadata
+        start += _a.grainSize
+
+    if start != free.start:
         log.debug("adjusted start sector from %d to %d" % (free.start, start))
 
     if part_type == parted.PARTITION_EXTENDED:
