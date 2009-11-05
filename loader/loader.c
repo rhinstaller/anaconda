@@ -135,9 +135,18 @@ static struct installMethod installMethods[] = {
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
+static int expected_exit = 0;
+
+static void doExit(int) __attribute__ ((noreturn));
+static void doExit(int result)
+{
+    expected_exit = 1;
+    exit(result);
+}
+
 void doSuspend(void) {
     newtFinished();
-    exit(1);
+    doExit(1);
 }
 
 void doShell(void) {
@@ -1199,7 +1208,7 @@ static void checkForRam(void) {
         newtWinMessage(_("Error"), _("OK"), buf);
         free(buf);
         stopNewt();
-        exit(0);
+        doExit(0);
     }
 }
 
@@ -1355,7 +1364,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     skipMethodDialog = 1;
                 else if (FL_CMDLINE(flags)) {
                     fprintf(stderr, "No method given for cmdline mode, aborting\n");
-                    exit(EXIT_FAILURE);
+                    doExit(EXIT_FAILURE);
                 }
 
                 /* If we already found a stage2 image, skip the prompt. */
@@ -1526,7 +1535,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
                 if ((ret = malloc(INET6_ADDRSTRLEN+1)) == NULL) {
                     logMessage(ERROR, "malloc failure for ret in STEP_IP");
-                    exit(EXIT_FAILURE);
+                    doExit(EXIT_FAILURE);
                 }
 
                 logMessage(INFO, "going to do getNetConfig");
@@ -1717,6 +1726,7 @@ void loaderSegvHandler(int signum) {
     const char const * const errmsgs[] = {
         "loader received SIG",
         "!  Backtrace:\n",
+        "Loader exited unexpectedly!  Backtrace:\n",
     };
 
     /* XXX This should really be in a glibc header somewhere... */
@@ -1725,14 +1735,41 @@ void loaderSegvHandler(int signum) {
     signal(signum, SIG_DFL); /* back to default */
 
     newtFinished();
-    i = write(STDERR_FILENO, errmsgs[0], strlen(errmsgs[0]));
-    i = write(STDERR_FILENO, sys_sigabbrev[signum],
-            strlen(sys_sigabbrev[signum]));
-    i = write(STDERR_FILENO, errmsgs[1], strlen(errmsgs[1]));
+    if (signum == 0) {
+        i = write(STDERR_FILENO, errmsgs[2], strlen(errmsgs[2]));
+    } else {
+        i = write(STDERR_FILENO, errmsgs[0], strlen(errmsgs[0]));
+        i = write(STDERR_FILENO, sys_sigabbrev[signum],
+                strlen(sys_sigabbrev[signum]));
+        i = write(STDERR_FILENO, errmsgs[1], strlen(errmsgs[1]));
+    }
 
     i = backtrace (array, 30);
     backtrace_symbols_fd(array, i, STDERR_FILENO);
-    exit(1);
+    _exit(1);
+}
+
+void loaderExitHandler(void)
+{
+    if (expected_exit)
+        return;
+
+    loaderSegvHandler(0);    
+}
+
+static void setupBacktrace(void)
+{
+    void *array;
+
+    signal(SIGSEGV, loaderSegvHandler);
+    signal(SIGABRT, loaderSegvHandler);
+    atexit(loaderExitHandler);
+
+    /* Turns out, there's an initializer at the top of backtrace() that
+     * (on some arches) calls dlopen(). dlopen(), unsurprisingly, calls
+     * malloc(). So, call backtrace() early in signal handler setup so
+     * we can later safely call it from the signal handler itself. */
+    backtrace(&array, 1);
 }
 
 void loaderUsrXHandler(int signum) {
@@ -1760,8 +1797,7 @@ static int anaconda_trace_init(void) {
 #endif
 
     /* set up signal handler */
-    signal(SIGSEGV, loaderSegvHandler);
-    signal(SIGABRT, loaderSegvHandler);
+    setupBacktrace();
 
     return 0;
 }
@@ -1855,18 +1891,18 @@ int main(int argc, char ** argv) {
         fprintf(stderr, "bad option %s: %s\n",
                 poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
                 poptStrerror(rc));
-        exit(1);
+        doExit(1);
     }
 
     if ((arg = (char *) poptGetArg(optCon))) {
         fprintf(stderr, "unexpected argument: %s\n", arg);
-        exit(1);
+        doExit(1);
     }
 
     if (!testing && !access("/var/run/loader.run", R_OK)) {
         printf(_("loader has already been run.  Starting shell.\n"));
         execl("/bin/sh", "-/bin/sh", NULL);
-        exit(0);
+        doExit(0);
     }
 
     f = fopen("/var/run/loader.run", "w+");
@@ -1928,7 +1964,7 @@ int main(int argc, char ** argv) {
         fprintf(stderr, "failed to read %s\n", arg);
         sleep(5);
         stop_fw_loader(&loaderData);
-        exit(1);
+        doExit(1);
     }
     initializeConsole();
 
@@ -1988,7 +2024,7 @@ int main(int argc, char ** argv) {
     if (!FL_TESTING(flags)) {
         if (fork() == 0) {
             execl("/sbin/hald", "/sbin/hald", "--use-syslog", NULL);
-            exit(1);
+            doExit(1);
         }
     }
 
@@ -2290,7 +2326,7 @@ int main(int argc, char ** argv) {
         if (!(pid = fork())) {
             if (execv(anacondaArgs[0], anacondaArgs) == -1) {
                fprintf(stderr,"exec of anaconda failed: %m\n");
-               exit(1);
+               doExit(1);
             }
         }
 
@@ -2308,7 +2344,7 @@ int main(int argc, char ** argv) {
                               strdup("/sbin/halt"));
                 if (execl(cmd, cmd, NULL) == -1) {
                     fprintf(stderr, "exec of poweroff failed: %m\n");
-                    exit(1);
+                    doExit(1);
                 }
             }
             waitpid(pid, &status, 0);
@@ -2321,7 +2357,7 @@ int main(int argc, char ** argv) {
                    init_sig, init_pid);
         kill(init_pid, init_sig);
 #endif
-        return rc;
+        doExit(rc);
     }
 #if 0
     else {
@@ -2334,7 +2370,7 @@ int main(int argc, char ** argv) {
 	printf("LANG=%s\n", getenv("LANG"));
     }
 #endif
-    return 1;
+    doExit(1);
 }
 
 /* vim:set sw=4 sts=4 et: */

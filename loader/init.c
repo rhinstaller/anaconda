@@ -30,6 +30,7 @@
 #include <ctype.h>
 #include <dirent.h>
 #include <errno.h>
+#include <execinfo.h>
 #include <fcntl.h>
 #include <net/if.h>
 #include <signal.h>
@@ -114,6 +115,15 @@ int testing=0;
 void shutDown(int doKill, reboot_action rebootAction);
 static int getKillPolicy(void);
 struct termios ts;
+
+static int expected_exit = 0;
+
+static void doExit(int) __attribute__ ((noreturn));
+static void doExit(int result)
+{
+    expected_exit = 1;
+    exit(result);
+}
 
 static void printstr(char * string) {
     int ret;
@@ -458,6 +468,57 @@ static void copyErrorFn (char *msg) {
     printf(msg);
 }
 
+void initSegvHandler(int signum) {
+    void *array[30];
+    size_t i;
+    const char const * const errmsgs[] = {
+        "init received SIG",
+        "!  Backtrace:\n",
+        "init exited unexpectedly!  Backtrace:\n",
+    };
+
+    /* XXX This should really be in a glibc header somewhere... */
+    extern const char *const sys_sigabbrev[NSIG];
+
+    signal(signum, SIG_DFL); /* back to default */
+
+    if (signum == 0) {
+        i = write(STDERR_FILENO, errmsgs[2], strlen(errmsgs[2]));
+    } else {
+        i = write(STDERR_FILENO, errmsgs[0], strlen(errmsgs[0]));
+        i = write(STDERR_FILENO, sys_sigabbrev[signum],
+                strlen(sys_sigabbrev[signum]));
+        i = write(STDERR_FILENO, errmsgs[1], strlen(errmsgs[1]));
+    }
+
+    i = backtrace (array, 30);
+    backtrace_symbols_fd(array, i, STDERR_FILENO);
+    _exit(1);
+}
+
+void initExitHandler(void)
+{
+    if (expected_exit)
+        return;
+
+    initSegvHandler(0);
+}
+
+static void setupBacktrace(void)
+{
+    void *array;
+
+    signal(SIGSEGV, initSegvHandler);
+    signal(SIGABRT, initSegvHandler);
+    atexit(initExitHandler);
+
+    /* Turns out, there's an initializer at the top of backtrace() that
+     * (on some arches) calls dlopen(). dlopen(), unsurprisingly, calls
+     * malloc(). So, call backtrace() early in signal handler setup so
+     * we can later safely call it from the signal handler itself. */
+    backtrace(&array, 1);
+}
+
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
@@ -478,19 +539,19 @@ int main(int argc, char **argv) {
         fd = getInitPid();
         if (fd > 0)
             kill(fd, SIGUSR2);
-        exit(0);
+        doExit(0);
     } else if (!strncmp(basename(argv[0]), "halt", 4)) {
         printf("Running halt...\n");
         fd = getInitPid();
         if (fd > 0)
             kill(fd, SIGUSR1);
-        exit(0);
+        doExit(0);
     } else if (!strncmp(basename(argv[0]), "reboot", 6)) {
         printf("Running reboot...\n");
         fd = getInitPid();
         if (fd > 0)
             kill(fd, SIGINT);
-        exit(0);
+        doExit(0);
     }
 
 #if !defined(__s390__) && !defined(__s390x__)
@@ -506,6 +567,9 @@ int main(int argc, char **argv) {
     }
 
     umask(022);
+
+    /* set up signal handler */
+    setupBacktrace();
 
     printstr("\nGreetings.\n");
 
@@ -643,7 +707,7 @@ int main(int argc, char **argv) {
     }
 
     if (testing)
-        exit(0);
+        doExit(0);
 
     setsid();
     if (ioctl(0, TIOCSCTTY, NULL)) {
@@ -728,12 +792,12 @@ int main(int argc, char **argv) {
     if (!testing) {
         if (fork() == 0) {
             execl("/sbin/dbus-uuidgen", "/sbin/dbus-uuidgen", "--ensure", NULL);
-            exit(1);
+            doExit(1);
         }
 
         if (fork() == 0) {
             execl("/sbin/dbus-daemon", "/sbin/dbus-daemon", "--system", NULL);
-            exit(1);
+            doExit(1);
         }
 
         sleep(2);
@@ -810,7 +874,7 @@ int main(int argc, char **argv) {
     }
 
     if (testing)
-        exit(0);
+        doExit(0);
 
     shutDown(doKill, doReboot?REBOOT:HALT);
 
