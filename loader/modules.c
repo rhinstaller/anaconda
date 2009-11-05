@@ -105,7 +105,7 @@ void mlAddBlacklist(char *module) {
 }
 
 static void addOption(const char *module, const char *option) {
-    int found = 0, i;
+    int found = 0, i, sz;
 
     found = 0;
     for (i = 0; i < nummodopts; i++) {
@@ -117,18 +117,41 @@ static void addOption(const char *module, const char *option) {
     }
 
     if (found) {
-        if (modopts == NULL) {
-            modopts = realloc(modopts, sizeof(*modopts) * (nummodopts + 1));
-            modopts[nummodopts].name = strdup(module);
-            modopts[nummodopts].numopts = 1;
-            modopts[nummodopts++].options = NULL;
-        } else {
-            modopts[i].options = realloc(modopts[i].options,
-                                         sizeof(modopts[i].options) *
-                                         (modopts[i].numopts + 1));
-            modopts[i].options[modopts[i].numopts - 1] = strdup(option);
-            modopts[i].options[modopts[i].numopts] = NULL;
+        modopts[i].options = realloc(modopts[i].options,
+                                     sizeof(modopts[i].options) *
+                                     (modopts[i].numopts + 1));
+        if (modopts[i].options == NULL) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            abort();
         }
+
+        modopts[i].options[modopts[i].numopts - 1] = strdup(option);
+        modopts[i].options[modopts[i].numopts] = NULL;
+    } else {
+        if (modopts == NULL) {
+            modopts = malloc(sizeof(struct moduleOptions) * (nummodopts + 1));
+        } else {
+            modopts = realloc(modopts, sizeof(*modopts) * (nummodopts + 1));
+        }
+
+        if (modopts == NULL) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            abort();
+        }
+
+        modopts[nummodopts].name = strdup(module);
+        modopts[nummodopts].numopts = 1;
+
+        sz = sizeof(modopts[nummodopts].options) * 2;
+        if ((modopts[nummodopts].options = malloc(sz)) == NULL) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            abort();
+        }
+
+        modopts[nummodopts].options[0] = strdup(option);
+        modopts[nummodopts].options[1] = NULL;
+
+        nummodopts++;
     }
 
     return;
