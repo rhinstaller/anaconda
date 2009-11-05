@@ -817,4 +817,5 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-/* vim:set shiftwidth=4 softtabstop=4 ts=4: */
+/* vim:tw=78:ts=4:et:sw=4
+ */
