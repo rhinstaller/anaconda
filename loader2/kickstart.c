@@ -301,15 +301,17 @@ int getKickstartFromBlockDevice(char *device, char *path) {
     return getFileFromBlockDevice(device, path, "/tmp/ks.cfg");
 }
 
-void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
-    *host = malloc(strlen(ksSource) + 1);
-    strcpy(*host, ksSource);
+void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** login, char ** password, char * ip) {
+    char *tmp;
+    char *hostsrc;
 
-    *file = strchr(*host, '/');
+    hostsrc = strdup(ksSource);
+    *host = hostsrc;
+    tmp = strchr(*host, '/');
 
-    if (*file) {
-        **file = '\0';
-        *file = *file + 1;
+    if (tmp) {
+        *file = strdup(tmp);
+        *tmp = '\0';
     } else {
         *file = malloc(sizeof(char *));
         **file = '\0';
@@ -325,6 +327,39 @@ void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
         *file = sdupprintf("%s%s-kickstart", *file, ip);
         logMessage(DEBUGLVL, "getHostandPath file(2): |%s|", *file);
     }
+
+    /* Do we have a password? */
+    tmp = strchr(*host, '@');
+    if (tmp != NULL) {
+        *login = *host;
+        *tmp = '\0';
+        *host = tmp + 1;
+
+        tmp = strchr(*login, ':');
+        if (tmp != NULL) {
+            *password = strdup(tmp + 1);
+            *tmp = '\0';
+        } else {
+            *password = malloc(sizeof(char *));
+            **password = '\0';
+        }
+
+	*host = strdup(*host);
+	*login = strdup(*login);
+	free(hostsrc);
+    } else {
+        *login = malloc(sizeof(char *));
+        **login = '\0';
+        *password = malloc(sizeof(char *));
+        **password = '\0';
+	free(hostsrc);
+    }
+
+}
+
+void getHostandPath(char * ksSource, char **host, char ** file, char * ip) {
+    char *password, *login;
+    getHostPathandLogin (ksSource, host, file, &login, &password, ip);
 }
 
 static char *newKickstartLocation(const char *origLocation) {

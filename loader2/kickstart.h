@@ -29,5 +29,6 @@ void getKickstartFile(struct loaderData_s * loaderData);
 void runKickstart(struct loaderData_s * loaderData);
 int getKickstartFromBlockDevice(char *device, char *path);
 void getHostandPath(char * ksSource, char **host, char ** file, char * ip);
+void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** login, char ** password, char * ip);
 
 #endif
