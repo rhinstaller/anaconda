@@ -584,17 +584,42 @@ int main(int argc, char **argv) {
 
     printf("creating /dev filesystem... "); 
     if (!testing) {
+        pid_t childpid;
         if (mount("/dev", "/dev", "tmpfs", 0, NULL))
             fatal_error(1);
         createDevices();
         printf("done\n");
-	printf("starting udev...");
-	if (fork() == 0) {
-	    execl("/sbin/udevd", "/sbin/udevd","--daemon",NULL);
-	    exit(1);
-	}
+        printf("starting udev...");
+        if ((childpid = fork()) == 0) {
+            execl("/sbin/udevd", "/sbin/udevd", "--daemon", NULL);
+            exit(1);
+        }
+        
+        /* wait at least until the udevd process that we forked exits */
+        do {
+            pid_t retpid;
+            int waitstatus;
 
-        execl("/sbin/udevadm", "udevadm", "control", "--env=ANACONDA=1", NULL);
+            retpid = waitpid(childpid, &waitstatus, 0);
+            if (retpid == -1) {
+                if (errno == EINTR)
+                    continue;
+                /* if the child exited before we called waitpid, we can get
+                 * ECHILD without anything really being wrong; we just lost
+                 * the race.*/
+                if (errno == ECHILD)
+                    break;
+                printf("init: error waiting on udevd: %m\n");
+                exit(1);
+            } else if (WIFEXITED(waitstatus)) {
+                break;
+            }
+        } while (1);
+        
+        if (fork() == 0) {
+            execl("/sbin/udevadm", "udevadm", "control", "--env=ANACONDA=1", NULL);
+            exit(1);
+        }
     }
     printf("done\n");
 
