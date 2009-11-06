@@ -2504,6 +2504,12 @@ class MDRaidArrayDevice(StorageDevice):
             self.format.teardown()
             udev_settle(timeout=10)
 
+        # Since BIOS RAID sets (containers in mdraid terminology) never change
+        # there is no need to stop them and later restart them. Not stopping
+        # (and thus also not starting) them also works around bug 523334
+        if self.type == "mdcontainer" or self.devices[0].type == "mdcontainer":
+            return
+
         # We don't really care what the array's state is. If the device
         # file exists, we want to deactivate it. mdraid has too many
         # states.
