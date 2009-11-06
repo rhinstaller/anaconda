@@ -443,6 +443,10 @@ def startSsh():
         os.execv("/sbin/sshd", args)
         sys.exit(1)
 
+def startDebugger(signum, frame):
+    import epdb
+    epdb.serve(skip=1)
+
 class Anaconda:
     def __init__(self):
         self.intf = None
@@ -630,6 +634,12 @@ if __name__ == "__main__":
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
 
     setupEnvironment()
+
+    pidfile = open("/var/run/anaconda.pid", "w")
+    pidfile.write("%s\n" % (os.getpid(),))
+    del pidfile
+    # add our own additional signal handlers
+    signal.signal(signal.SIGHUP, startDebugger)
 
     # we need to do this really early so we make sure its done before rpm
     # is imported
