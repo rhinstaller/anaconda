@@ -43,9 +43,11 @@ class DASD:
 
     def __init__(self):
         self._dasdlist = []
-        self._totalCylinders = 0
+        self.totalCylinders = 0
         self._completedCylinders = 0.0
         self._maxFormatJobs = 0
+        self.dasdfmt = "/sbin/dasdfmt"
+        self.commonArgv = ["-y", "-d", "cdl", "-b", "4096"]
         self.started = False
 
     def startup(self, *args, **kwargs):
@@ -77,8 +79,9 @@ class DASD:
             status = f.read().strip()
             f.close()
 
-            if status == "unformatted":
-                log.info("    %s is an unformatted DASD" % (device,))
+            if status in ["unformatted", "basic"]:
+                log.info("    %s status is %s, needs dasdfmt" % (device,
+                                                                 status,))
                 self._dasdlist.append(device)
 
         if not len(self._dasdlist):
@@ -127,7 +130,21 @@ class DASD:
                 log.info("    not running dasdfmt, exiting installer")
                 sys.exit(0)
 
-        argv = ["-y", "-P", "-d", "cdl", "-b", "4096"]
+        # gather total cylinder count
+        argv = ["-t", "-v"] + self.commonArgv
+        for dasd in self._dasdlist:
+            buf = iutil.execWithCapture(self.dasdfmt, argv + [dasd],
+                                        stderr="/dev/tty5")
+            for line in buf.splitlines():
+                if line.startswith("Drive Geometry: "):
+                    # line will look like this:
+                    # Drive Geometry: 3339 Cylinders * 15 Heads =  50085 Tracks
+                    cyls = long(filter(lambda s: s, line.split(' '))[2])
+                    self.totalCylinders += cyls
+                    break
+
+        # format DASDs
+        argv = ["-P"] + self.commonArgv
 
         if intf:
             title = P_("Formatting DASD Device", "Formatting DASD Devices", c)
@@ -137,7 +154,7 @@ class DASD:
 
             for dasd in self._dasdlist:
                 log.info("Running dasdfmt on %s" % (dasd,))
-                iutil.execWithCallback("/sbin/dasdfmt", argv + [dasd],
+                iutil.execWithCallback(self.dasdfmt, argv + [dasd],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        callback=self._updateProgressWindow,
                                        callback_data=pw, echo=False)
@@ -146,7 +163,7 @@ class DASD:
         else:
             for dasd in self._dasdlist:
                 log.info("Running dasdfmt on %s" % (dasd,))
-                iutil.execWithRedirect("/sbin/dasdfmt", argv + [dasd],
+                iutil.execWithRedirect(self.dasdfmt, argv + [dasd],
                                        stdout="/dev/tty5", stderr="/dev/tty5")
 
     def _updateProgressWindow(self, data, callback_data=None):
@@ -160,25 +177,5 @@ class DASD:
             # each newline we see in this output means one more cylinder done
             self._completedCylinders += 1.0
             callback_data.set(self._completedCylinders / self.totalCylinders)
-
-    @property
-    def totalCylinders(self):
-        """ Total number of cylinders of all unformatted DASD devices. """
-        if self._totalCylinders:
-            return self._totalCylinders
-
-        argv = ["-t", "-v", "-y", "-d", "cdl", "-b", "4096"]
-        for dasd in self._dasdlist:
-            buf = iutil.execWithCapture("/sbin/dasdfmt", argv + [dasd],
-                                        stderr="/dev/tty5")
-            for line in buf.splitlines():
-                if line.startswith("Drive Geometry: "):
-                    # line will look like this:
-                    # Drive Geometry: 3339 Cylinders * 15 Heads =  50085 Tracks
-                    cyls = long(filter(lambda s: s, line.split(' '))[2])
-                    self._totalCylinders += cyls
-                    break
-
-        return self._totalCylinders
 
 # vim:tw=78:ts=4:et:sw=4
