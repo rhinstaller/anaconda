@@ -2682,33 +2682,18 @@ class DMRaidArrayDevice(DiskDevice):
         else:
             self.sysfsPath = ''
 
-    def teardown(self, recursive=None):
-        """ Close, or tear down, a device. """
+    def deactivate(self):
+        """ Deactivate the raid set. """
         log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created", self.name)
-
-        if self.format.exists:
-            self.format.teardown()
-            udev_settle(timeout=10)
-
         # This call already checks if the set is not active.
         self._raidSet.deactivate()
 
-    def setup(self, intf=None):
-        """ Open, or set up, a device. """
+    def activate(self):
+        """ Activate the raid set. """
         log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created", self.name)
-
         # This call already checks if the set is active.
         self._raidSet.activate(mknod=True)
-
         udev_settle()
-
-        # we always probe since the device may not be set up when we want
-        # information about it
-        self._size = self.currentSize
 
     @property
     def mediaPresent(self):
