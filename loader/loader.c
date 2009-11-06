@@ -1174,25 +1174,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     return;
 }
 
-#if 0
-/* determine if we are using a framebuffer console.  return 1 if so */
-static int checkFrameBuffer() {
-    int fd;
-    int rc = 0;
-    struct fb_fix_screeninfo fix;
-
-    if ((fd = open("/dev/fb0", O_RDONLY)) == -1) {
-        return 0;
-    }
-    
-    if (ioctl(fd, FBIOGET_FSCREENINFO, &fix) >= 0) {
-        rc = 1;
-    }
-    close(fd);
-    return rc;
-}
-#endif
-
 /* make sure they have enough ram */
 static void checkForRam(void) {
     if (totalMemory() < MIN_RAM) {
@@ -1787,15 +1768,6 @@ static int anaconda_trace_init(void) {
      * is well before we might take a SEGV, so they'll go to tty8 */
     initializeTtys();
 
-#if 0
-    int fd = open("/dev/tty8", O_RDWR);
-    if (fd != STDERR_FILENO) {
-        close(STDERR_FILENO);
-        dup2(fd, STDERR_FILENO);
-        close(fd);
-    }
-#endif
-
     /* set up signal handler */
     setupBacktrace();
 
@@ -2359,17 +2331,7 @@ int main(int argc, char ** argv) {
 #endif
         doExit(rc);
     }
-#if 0
-    else {
-	char **args = anacondaArgs;
-	printf("would have run ");
-	while (*args)
-	    printf("%s ", *args++);
-	printf("\n");
-	printf("LANGKEY=%s\n", getenv("LANGKEY"));
-	printf("LANG=%s\n", getenv("LANG"));
-    }
-#endif
+
     doExit(1);
 }
 

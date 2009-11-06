@@ -129,13 +129,6 @@ static int daemonize(struct fw_loader *fwl)
     int fd;
     int rc;
 
-#if 0
-    int pid;
-    pid = fork();
-    if (pid != 0)
-        return pid;
-#endif
-
     signal(SIGTERM, kill_hotplug_signal);
     signal(SIGSEGV, loaderSegvHandler);
     signal(SIGTTOU, SIG_IGN);

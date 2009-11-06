@@ -131,12 +131,6 @@ static void printstr(char * string) {
 }
 
 static void fatal_error(int usePerror) {
-/* FIXME */
-#if 0
-    if (usePerror) 
-        perror("failed:");
-    else
-#endif
     printf("failed.\n");
 
     printf("\nI can't recover from this.\n");

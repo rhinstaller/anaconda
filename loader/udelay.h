@@ -93,13 +93,7 @@ gettimespecofday(struct timespec *ts)
     rc = gettimeofday(&tv, NULL);
     if (rc >= 0) {
         ts->tv_sec = tv.tv_sec;
-#if 0
-        ts->tv_nsec = (tv.tv_usec % NSECS_PER_USEC >= NSECS_PER_USEC / 2) ?
-            tv.tv_usec / NSECS_PER_USEC + 1 :
-            tv.tv_usec / NSECS_PER_USEC;
-#else
-        ts->tv_nsec = tv.tv_usec / NSECS_PER_USEC;
-#endif
+        ts->tv_nsec = tv.tv_usec * NSECS_PER_USEC;
     }
     return rc;
 }

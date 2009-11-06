@@ -48,23 +48,6 @@ static int simpleStringCmp(const void * a, const void * b) {
 }
 #endif
 
-#if 0
-/* sample filter function */
-/* return 1 if a dir, 0 if not */
-int getOnlyDirs(char * dir, struct dirent *entry) {
-    struct stat sb;
-    char * fn = alloca(strlen(dir) + strlen(entry->d_name) + 2);
-
-    sprintf(fn, "%s/%s", dir, entry->d_name);
-    stat(fn, &sb);
-
-    if (!S_ISDIR(sb.st_mode)) {
-        return 1;
-    }
-    return 0;
-}
-#endif
-
 #define FSTEP 10
 
 static char ** get_file_list(char * dirname, 
