@@ -217,6 +217,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Nov 06 2009 David Cantrell <dcantrell@redhat.com> - 12.46-1
+- Correct modopts initialization in loader (take 2) (#531932). (dcantrell)
+
 * Thu Nov 05 2009 David Cantrell <dcantrell@redhat.com> - 12.45-1
 - Set BETANAG to 0, we're nearing the actual release. (dcantrell)
 
