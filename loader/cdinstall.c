@@ -380,7 +380,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                     /* free up the CD drive and user can have it avaiable to  */
                     /* aid system recovery.                                   */
                     if (FL_RESCUE(flags) && !FL_TEXT(flags) &&
-                        totalMemory() > 128000) {
+                        totalMemory() > MIN_GUI_RAM ) {
                         rc = copyFile(stage2loc, "/tmp/install.img");
                         stage2img = strdup("/tmp/install.img");
                         stage2inram = 1;
