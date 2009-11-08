@@ -209,7 +209,6 @@ static int mapBiosDisks(struct device** devices,const char *path) {
                         }
                     } else if (!foundDisk ||
                                strncmp((*foundDisk)->device, "dm-", 3)) {
-                        printf("using non dm device %s\n", (*currentDev)->device);
                         foundDisk=currentDev;
                         i++;
                     }
