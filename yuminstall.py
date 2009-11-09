@@ -557,13 +557,13 @@ class AnacondaYum(YumSorter):
         repo.yumvar.update(self.conf.yumvar)
         repo.cfg = parser
 
-        if repo.id.find("-source") != -1 or repo.id.find("-debuginfo") != -1:
+        if "-source" in repo.id or "-debuginfo" in repo.id:
             name = repo.name
             del(repo)
             raise RepoError, "Repo %s contains -source or -debuginfo, excluding" % name
 
         # this is a little hard-coded, but it's effective
-        if not BETANAG and (repo.id.find("rawhide") or repo.id.find("development")):
+        if not BETANAG and ("rawhide" in repo.id or "development" in repo.id):
             name = repo.name
             del(repo)
             raise RepoError, "Excluding devel repo %s for non-devel anaconda" % name
@@ -1547,7 +1547,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     supportedUpgradeVersion = 1
                     break
 
-        if productName.find("Red Hat Enterprise Linux") == -1:
+        if "Red Hat Enterprise Linux" not in productName:
             supportedUpgradeVersion = 1
 
         if supportedUpgradeVersion == 0:
