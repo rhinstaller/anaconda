@@ -165,7 +165,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme ethtool
     elfutils-libelf expat firstboot fontconfig fonts-ISO8859-2 freetype gail gawk gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
-    gnome-themes gpm grep gtk2 gtk2-engines hal
+    gnome-themes gpm grep gtk2 gtk2-engines
     hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
     jfsutils keyutils-libs krb5-libs libICE libSM libX11 libXau
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
@@ -351,7 +351,6 @@ etc/fb.modes
 etc/fonts
 etc/group
 etc/gtk-2.0/gtkrc*
-etc/hal
 etc/hosts
 etc/im_palette.pal
 etc/imrc
@@ -477,7 +476,6 @@ usr/$LIBDIR/gtk-2.0/*/loaders/*png*
 usr/$LIBDIR/gtk-2.0/*/loaders/*xpm*
 usr/$LIBDIR/gtk-2.0/immodules
 usr/$LIBDIR/kernel-wrapper/*
-usr/$LIBDIR/hal
 usr/$LIBDIR/libuser/*
 usr/$LIBDIR/pango
 usr/$LIBDIR/python?.?
@@ -513,7 +511,6 @@ usr/bin/humount
 usr/bin/killall
 usr/bin/logger
 usr/bin/lsattr*
-usr/bin/lshal
 usr/bin/maketilo
 usr/bin/md5sum
 usr/bin/mini-wm
@@ -564,7 +561,6 @@ usr/lib/yum-plugins/blacklist.py*
 usr/lib/yum-plugins/fedorakmod.py*
 usr/lib/yum-plugins/whiteout.py*
 usr/libexec/convertdb1
-usr/libexec/hal*
 usr/libexec/nm-crash-logger
 usr/libexec/nm-dhcp-client.action
 usr/libexec/nm-dispatcher.action
@@ -579,7 +575,6 @@ usr/sbin/efibootmgr
 usr/sbin/fbset
 usr/sbin/genhomedircon
 usr/sbin/gptsync
-usr/sbin/hald
 usr/sbin/lvm
 usr/sbin/prelink
 usr/sbin/semodule
@@ -620,7 +615,6 @@ usr/share/fonts/madan/Madan.ttf
 usr/share/fonts/un-core/UnDotum.ttf
 usr/share/fonts/*/VL-Gothic-Regular.ttf
 usr/share/fonts/smc/Meera*.ttf
-usr/share/hal
 usr/share/hwdata/MonitorsDB
 usr/share/hwdata/pci.ids
 usr/share/hwdata/usb.ids
@@ -659,10 +653,8 @@ usr/share/xorg/extramodes
 usr/share/xorg/vesamodes
 usr/share/zenity
 usr/share/zoneinfo
-var/cache/hald
 var/lib/polkit-1
 var/lib/dbus
-var/lib/hal
 var/run/dbus
 EOF
 
