@@ -1273,6 +1273,8 @@ def doAutoPartition(anaconda):
 
             # now go through and set things from the request to the
             # preexisting partition's request... ladeda
+            if request.fslabel:
+                req.fslabel = request.fslabel
             if request.mountpoint:
                 req.mountpoint = request.mountpoint
             if request.badblocks:
