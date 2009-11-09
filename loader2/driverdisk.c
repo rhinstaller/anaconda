@@ -23,6 +23,8 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <dirent.h>
 
 #include <blkid/blkid.h>
 
@@ -591,6 +593,8 @@ struct ddlist* findDriverDiskByLabel(void)
     char *ddLabel = "OEMDRV";
     struct ddlist *ddDevice = NULL;
     blkid_cache bCache;
+    struct dirent *direntry;
+    DIR *sysblock;
     
     int res;
     blkid_dev_iterate bIter;
@@ -600,6 +604,25 @@ struct ddlist* findDriverDiskByLabel(void)
 	logMessage(ERROR, _("Cannot initialize cache instance for blkid"));
 	return NULL;
     }
+
+    /* List all block devices from /sys/block and add them to blkid db
+     * libblkid should be doing that, so lets consider this as a workaround */
+    sysblock = opendir("/sys/block");
+    if(sysblock){
+      while((direntry = readdir(sysblock))!=NULL){
+	/* add only h(d?), s(d?) and s(cd?) devices */
+	if(direntry->d_name[0]!='h' &&
+	   direntry->d_name[0]!='s') continue;
+
+	char *devname;
+	if(asprintf(&devname, "/dev/%s", direntry->d_name)!=-1){
+	  blkid_get_dev(bCache, devname, BLKID_DEV_NORMAL);
+	  free(devname);
+	}
+      }
+      closedir(sysblock);
+    }
+
     if((res = blkid_probe_all(bCache))<0){
 	logMessage(ERROR, _("Cannot probe devices in blkid: %d"), res);
 	return NULL;
