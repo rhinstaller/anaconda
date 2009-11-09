@@ -843,7 +843,8 @@ export PATH PS1
 EOF
 
 cat > $MBD_DIR/.bash_history <<EOF
-killall -USR2 anaconda
+kill -USR2 `cat /var/run/anaconda.pid`
+kill -HUP `cat /var/run/anaconda.pid`
 EOF
 
     rm -f $MBD_FSIMAGE
