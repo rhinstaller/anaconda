@@ -430,6 +430,8 @@ def startSsh():
 
     childpid = os.fork()
     if not childpid:
+        os.mkdir("/var/log", 0755)
+        os.open("/var/log/lastlog", os.O_RDWR | os.O_CREAT, 0644)
         ssh_keys = {
             'rsa1':'ssh_host_key',
             'rsa':'ssh_host_rsa_key',
