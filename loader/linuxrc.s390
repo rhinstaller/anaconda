@@ -1001,7 +1001,7 @@ function question_choices_nettype() {
 function helptext_nettype() {
     echo $" Help text for network type:"
     echo $"  qeth: OSA-Express Fast Ethernet, Gigabit Ethernet (including 1000Base-T),"
-    echo $"        High Speed Token Ring, and ATM (running Ethernet LAN emulation)"
+    echo $"        High Speed Token Ring, Hipersockets, and ATM (running Ethernet LAN emulation)"
     echo $"        features in QDIO mode."
     echo $"        [default]"
     echo $"  lcs:  OSA-2 Ethernet/Token Ring, OSA-Express Fast Ethernet in non-QDIO mode,"
