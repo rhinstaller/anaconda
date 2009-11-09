@@ -157,9 +157,12 @@ class NetworkDevice(SimpleConfigFile):
 
             if key == 'ONBOOT':
                 onBootWritten = 1
+                if forceOffOnBoot or self.info[key].lower() == 'no':
+                    s = s + "HOTPLUG=no\n"
 
         if not onBootWritten:
             s = s + 'ONBOOT=no\n'
+            s = s + "HOTPLUG=no\n"
 
         return s
 
