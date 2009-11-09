@@ -70,7 +70,8 @@ char *netServerPrompt = \
        "\n"
        "    o the name or IP number of your %s server\n" 
        "    o the directory on that server containing\n" 
-       "      %s for your architecture\n");
+       "      %s for your architecture\n"
+       "    o optionally, parameters for the NFS mount\n");
 
 /**
  * Callback function for the CIDR entry boxes on the manual TCP/IP

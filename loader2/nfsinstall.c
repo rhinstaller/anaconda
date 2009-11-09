@@ -37,11 +37,12 @@
 /* boot flags */
 extern uint64_t flags;
 
-int nfsGetSetup(char ** hostptr, char ** dirptr) {
-    struct newtWinEntry entries[3];
+int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr) {
+    struct newtWinEntry entries[4];
     char * buf;
     char * newServer = *hostptr ? strdup(*hostptr) : NULL;
     char * newDir = *dirptr ? strdup(*dirptr) : NULL;
+    char * newMountOpts = *optsptr ? strdup(*optsptr) : NULL;
     int rc;
 
     entries[0].text = _("NFS server name:");
@@ -50,8 +51,11 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[1].text = sdupprintf(_("%s directory:"), getProductName());
     entries[1].value = (const char **) &newDir;
     entries[1].flags = NEWT_FLAG_SCROLL;
-    entries[2].text = NULL;
-    entries[2].value = NULL;
+    entries[2].text = _("NFS mount options (optional):");
+    entries[2].value = (const char **) &newMountOpts;
+    entries[2].flags = NEWT_FLAG_SCROLL;
+    entries[3].text = NULL;
+    entries[3].value = NULL;
     buf = sdupprintf(_(netServerPrompt), _("NFS"), getProductName());
     rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
                         24, entries, _("OK"), _("Back"), NULL);
@@ -60,13 +64,16 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     if (rc == 2) {
         if (newServer) free(newServer);
         if (newDir) free(newDir);
+        if (newMountOpts) free(newMountOpts);
         return LOADER_BACK;
     }
 
     if (*hostptr) free(*hostptr);
     if (*dirptr) free(*dirptr);
+    if (*optsptr) free(*optsptr);
     *hostptr = newServer;
     *dirptr = newDir;
+    *optsptr = newMountOpts;
 
     return 0;
 }
@@ -107,8 +114,11 @@ char * mountNfsImage(struct installMethod * method,
                 } else {
                     host = strdup(host);
                     directory = strdup(directory);
+                    if (mountOpts) {
+                        mountOpts = strdup(mountOpts);
+                    }
                 }
-            } else if (nfsGetSetup(&host, &directory) == LOADER_BACK) {
+            } else if (nfsGetSetup(&host, &directory, &mountOpts) == LOADER_BACK) {
                 return NULL;
             }
              
@@ -133,7 +143,7 @@ char * mountNfsImage(struct installMethod * method,
             fullPath = alloca(strlen(host) + strlen(directory) + 2);
             sprintf(fullPath, "%s:%s", host, directory);
 
-            logMessage(INFO, "mounting nfs path %s", fullPath);
+            logMessage(INFO, "mounting nfs path %s, options '%s'", fullPath, mountOpts);
 
             if (FL_TESTING(flags)) {
                 stage = NFS_STAGE_DONE;
@@ -227,6 +237,7 @@ char * mountNfsImage(struct installMethod * method,
 
     free(host);
     free(directory);
+    free(mountOpts);
 
     return url;
 }

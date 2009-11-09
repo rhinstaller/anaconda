@@ -70,7 +70,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev);
 int findHostAndDomain(struct networkDeviceConfig * dev);
 int writeResolvConf(struct networkDeviceConfig * net);
 extern char *netServerPrompt;
-int nfsGetSetup(char ** hostptr, char ** dirptr);
+int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr);
 void initLoopback(void);
 int chooseNetworkInterface(struct loaderData_s * loaderData);
 void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg, 
