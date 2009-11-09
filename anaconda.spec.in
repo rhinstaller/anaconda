@@ -215,6 +215,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Nov 09 2009 David Cantrell <dcantrell@redhat.com> - 12.38.4-1
+- Remove previous mdadm bug 523334 workaorund (hdegoede)
+- Don't stop mdraid containers or their arrays (#532971) (hdegoede)
+- Correct modopts initialization in loader (take 2) (#531932). (dcantrell)
+- Initialize DASD totalCylinders before progress bar callback (#532420).
+  (dcantrell)
+- Correctly initialize modopts in loader (#531932). (dcantrell)
+- Remove "anaconda" from attributes to skip (#532612, #532737). (clumens)
+- Copy cio_ignore kernel parameter to zipl.conf on s390 (#475675).
+  (dcantrell)
+- Do not modify /etc/hosts from setup package (#530343). (dcantrell)
+- In execWithCallback(), support disabling stdout echo (#528386) (dcantrell)
+- Clear pot and po updates after a 'make release' or 'make archive'.
+  (dcantrell)
+
 * Fri Oct 30 2009 Chris Lumens <clumens@redhat.com> - 12.38.3-1
 - Regardless of where load_policy is, we still need it in the intird
   (#532016). (clumens)

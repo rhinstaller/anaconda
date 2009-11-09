@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.38.2\n"
+"Project-Id-Version: anaconda 12.38.3\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-10-30 16:24-0400\n"
+"POT-Creation-Date: 2009-11-09 12:06-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 #: loader/loader.c:558 loader/loader.c:1192 loader/loader.c:1376
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:101 loader/method.c:279 loader/method.c:353
-#: loader/modules.c:339 loader/modules.c:351 loader/net.c:582 loader/net.c:953
+#: loader/modules.c:364 loader/modules.c:376 loader/net.c:582 loader/net.c:953
 #: loader/net.c:1587 loader/net.c:1608 loader/net.c:1880 loader/net.c:1902
 #: loader/net.c:1914 loader/nfsinstall.c:91 loader/nfsinstall.c:250
 #: loader/nfsinstall.c:269 loader/nfsinstall.c:337 loader/telnetd.c:92
@@ -444,76 +444,76 @@ msgstr ""
 msgid "Install on System"
 msgstr ""
 
-#: iutil.py:843
+#: iutil.py:847
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
 
-#: iutil.py:851
+#: iutil.py:855
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
 
-#: iutil.py:858
+#: iutil.py:862
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %s (%s: %s)"
 msgstr ""
 
-#: iutil.py:875
+#: iutil.py:879
 #, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
 msgstr ""
 
-#: iutil.py:884
+#: iutil.py:888
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr ""
 
-#: iutil.py:893
+#: iutil.py:897
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr ""
 
-#: iutil.py:903
+#: iutil.py:907
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
 
-#: iutil.py:925
+#: iutil.py:929
 #, python-format
 msgid "Error: reading FCP property %s for reIPL (%s)"
 msgstr ""
 
-#: iutil.py:938
+#: iutil.py:942
 #, python-format
 msgid "Error: writing FCP property %s for reIPL (%s)"
 msgstr ""
 
-#: iutil.py:951
+#: iutil.py:955
 #, python-format
 msgid "Error: writing default FCP property %s for reIPL (%s)"
 msgstr ""
 
-#: iutil.py:961
+#: iutil.py:965
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 
-#: iutil.py:978
+#: iutil.py:982
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
 
-#: iutil.py:986
+#: iutil.py:990
 msgid "Error determining mount point type"
 msgstr ""
 
-#: iutil.py:990
+#: iutil.py:994
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
 
@@ -3368,7 +3368,7 @@ msgstr ""
 
 #: loader/driverdisk.c:539 loader/driverdisk.c:576 loader/hdinstall.c:372
 #: loader/kickstart.c:132 loader/kickstart.c:142 loader/kickstart.c:185
-#: loader/kickstart.c:563 loader/modules.c:339 loader/modules.c:351
+#: loader/kickstart.c:563 loader/modules.c:364 loader/modules.c:376
 #: loader/net.c:1587 loader/net.c:1608 loader/nfsinstall.c:337
 #: loader/urlinstall.c:451 loader/urlinstall.c:460 loader/urlinstall.c:467
 msgid "Kickstart Error"
@@ -3723,12 +3723,12 @@ msgstr ""
 msgid "Checksum Test"
 msgstr ""
 
-#: loader/modules.c:340
+#: loader/modules.c:365
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
 
-#: loader/modules.c:352
+#: loader/modules.c:377
 msgid "A module name must be specified for the kickstart device command."
 msgstr ""
 
