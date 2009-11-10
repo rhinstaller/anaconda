@@ -281,13 +281,19 @@ class Storage(object):
         # now set the boot partition's flag
         try:
             boot = self.anaconda.platform.bootDevice()
+            if boot.type == "mdarray":
+                bootDevs = boot.parents
+            else:
+                bootDevs = [boot]
         except DeviceError:
-            boot = None
+            bootDevs = []
         else:
-            if hasattr(boot, "bootable"):
-                boot.bootable = True
-                boot.disk.setup()
-                boot.disk.format.commitToDisk()
+            for dev in bootDevs:
+                if hasattr(dev, "bootable"):
+                    log.info("setting boot flag on %s" % dev.name)
+                    dev.bootable = True
+                    dev.disk.setup()
+                    dev.disk.format.commitToDisk()
 
     @property
     def nextID(self):
