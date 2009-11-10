@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.195
+Version: 11.1.2.196
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 10 2009 Martin Sivak <msivak@redhat.com> 11.1.2.196-1
+- Adds interactive install support for NFS options
+  Resolves: rhbz#493052
+- KS can reside on password protected FTP servers
+  Resolves: rhbz#505424
+- Detect oemdrv DDs on cdrom devices too
+  Resolves: rhbz#485060
+- Prepare dev nodes for block devices too for blkid
+  Resolves: rhbz#515437
+
 * Wed Aug 05 2009 Martin Sivak <msivak@redhat.com> 11.1.2.195-1
 - Update the loader with support code for Mellanox cards
   Resolves: rhbz#514971
