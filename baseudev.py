@@ -24,6 +24,9 @@
 import iutil
 import os
 
+import pyudev
+global_udev = pyudev.Udev()
+
 import logging
 log = logging.getLogger("storage")
 
@@ -43,20 +46,18 @@ def udev_get_device(sysfs_path):
         log.debug("%s does not exist" % sysfs_path)
         return None
 
-    db_entry = sysfs_path.replace("/", "\\x2f")
-    db_root = "/dev/.udev/db"
-    db_path = os.path.normpath("%s/%s" % (db_root, db_entry))
-    if not os.access(db_path, os.R_OK):
-        log.debug("db entry %s does not exist" % db_path)
-        return None
+    # XXX we remove the /sys part when enumerating devices,
+    # so we have to prepend it when creating the device
+    dev = global_udev.create_device("/sys" + sysfs_path)
 
-    entry = open(db_path).read()
-    dev = udev_parse_entry(entry)
-    if dev.has_key("name"):
-        dev['sysfs_path'] = sysfs_path
+    if dev:
+        dev["name"] = dev.sysname
+        dev["symlinks"] = dev["DEVLINKS"]
+        dev["sysfs_path"] = sysfs_path
+
+        # now add in the contents of the uevent file since they're handy
         dev = udev_parse_uevent_file(dev)
 
-    # now add in the contents of the uevent file since they're handy
     return dev
 
 def udev_get_devices(deviceClass="block"):
@@ -67,43 +68,6 @@ def udev_get_devices(deviceClass="block"):
         if entry:
             entries.append(entry)
     return entries
-
-def udev_parse_entry(buf):
-    dev = {}
-
-    for line in buf.splitlines():
-        line.strip()
-        (tag, sep, val) = line.partition(":")
-        if not sep:
-            continue
-
-        if tag == "N":
-            dev['name'] = val
-        elif tag == "S":
-            if dev.has_key('symlinks'):
-                dev['symlinks'].append(val)
-            else:
-                dev['symlinks'] = [val]
-        elif tag == "E":
-            if val.count("=") > 1 and val.count(" ") > 0:
-                # eg: LVM2_LV_NAME when querying the VG for its LVs
-                vars = val.split()
-                vals = []
-                var_name = None
-                for (index, subval) in enumerate(vars):
-                    (var_name, sep, var_val) = subval.partition("=")
-                    if sep:
-                        vals.append(var_val)
-
-                dev[var_name] = vals
-            else:
-                (var_name, sep, var_val) = val.partition("=")
-                if not sep:
-                    continue
-
-                dev[var_name] = var_val
-
-    return dev
 
 def udev_parse_uevent_file(dev):
     path = os.path.normpath("/sys/%s/uevent" % dev['sysfs_path'])
