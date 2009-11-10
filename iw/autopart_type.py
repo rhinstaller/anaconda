@@ -284,7 +284,8 @@ class PartitionTypeWindow(InstallWindow):
             initiator.strip()
             if len(initiator) == 0:
                 self.intf.messageWindow(_("Invalid Initiator Name"),
-                                        _("You must provide an initiator name."))
+                                        _("You must provide an initiator name."),
+                                        custom_icon="error")
                 continue
 
             self.storage.iscsi.initiator = initiator
@@ -317,17 +318,20 @@ class PartitionTypeWindow(InstallWindow):
             except network.IPError, msg:
                 err = msg
             if err:
-                self.intf.messageWindow(_("Error with Data"), "%s" %(err,))
+                self.intf.messageWindow(_("Error"), str(err),
+                                        custom_icon="error")
                 continue
 
             try:
                 self.storage.iscsi.addTarget(ip, port, user, pw,
                                              user_in, pw_in, self.intf)
             except ValueError, e:
-                self.intf.messageWindow(_("Error"), str(e))
+                self.intf.messageWindow(_("Error"), str(e),
+                                        custom_icon="error")
                 continue
             except IOError, e:
-                self.intf.messageWindow(_("Error"), str(e))
+                self.intf.messageWindow(_("Error"), str(e),
+                                        custom_icon="error")
                 rc = gtk.RESPONSE_CANCEL
             break
 
@@ -402,7 +406,8 @@ class PartitionTypeWindow(InstallWindow):
             try:
                 self.storage.fcoe.addSan(store.get_value(iter, 1), self.intf)
             except IOError, e:
-                self.intf.messageWindow(_("Error"), str(e))
+                self.intf.messageWindow(_("Error"), str(e),
+                                        custom_icon="error")
                 rc = gtk.RESPONSE_CANCEL
 
             break
@@ -431,7 +436,8 @@ class PartitionTypeWindow(InstallWindow):
             try:
                 self.storage.zfcp.addFCP(devnum, wwpn, fcplun)
             except ValueError, e:
-                self.intf.messageWindow(_("Error"), str(e))
+                self.intf.messageWindow(_("Error"), str(e),
+                                        custom_icon="error")
                 continue
             break
 
