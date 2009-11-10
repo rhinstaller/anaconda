@@ -61,6 +61,10 @@ unset testing
 # uncomment the following test="1" to never execute sensitive commands
 #testing="1"
 
+if [ "$RUNKS" = "0" ]; then
+    RUNKS=""
+fi
+
 # helper function to disable commands while running outside the initrd
 function tv() {
     if [ -z "$testing" ]; then
