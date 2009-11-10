@@ -996,8 +996,6 @@ dataMap = {
 superclass = returnClassForVersion()
 
 class AnacondaKSHandler(superclass):
-    # This handler class processes all kickstart commands.  It is used in the
-    # second parsing pass - when we do all the real work.
     def __init__ (self, anaconda):
         superclass.__init__(self, commandUpdates=commandMap, dataUpdates=dataMap)
         self.packages = AnacondaKSPackages()
@@ -1048,21 +1046,6 @@ class AnacondaKSHandler(superclass):
         for obj in filter(lambda o: hasattr(o, "execute"), self._dataObjs):
             obj.execute(self.anaconda)
 
-class EarlyKSHandler(superclass):
-    # This handler class only processes a couple kickstart commands.  It is
-    # used very early on in anaconda, when we don't yet have an interface
-    # and are looking for (1) what sort of interface we need to set up, and
-    # (2) what to ignore when we initialize storage.
-    def __init__(self, anaconda):
-        superclass.__init__(self, mapping=commandMap, dataMapping=dataMap)
-
-        self.anaconda = anaconda
-        self.id = self.anaconda.id
-
-        self.maskAllExcept(["vnc", "displaymode", "text", "cmdline",
-                            "graphical", "rescue", "ignoredisk", "clearpart",
-                            "zerombr", "sshpw"])
-
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
     # sets them up to be run.  All other scripts and commands are ignored.
@@ -1102,12 +1085,6 @@ class AnacondaKSParser(KickstartParser):
                   missingIncludeIsFatal=True):
         KickstartParser.__init__(self, handler)
 
-        # All the KickstartCommand and KickstartData objects that
-        # handleCommand returns, so we can later iterate over them and run
-        # the apply methods.  These really should be stored in the order
-        # they're seen in the kickstart file.
-        self._dataObjs = []
-
     def addScript (self):
         if string.join(self._script["body"]).strip() == "":
             return
@@ -1133,7 +1110,7 @@ class AnacondaKSParser(KickstartParser):
         return retval
 
 def preScriptPass(anaconda, file):
-    # The second pass through kickstart file processing - look for %pre scripts
+    # The first pass through kickstart file processing - look for %pre scripts
     # and run them.  This must come in a separate pass in case a script
     # generates an included file that has commands for later.
     ksparser = AnacondaPreParser(AnacondaKSHandler(anaconda))
@@ -1143,24 +1120,24 @@ def preScriptPass(anaconda, file):
     except IOError, e:
         if anaconda.intf:
             anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
-            sys.exit(0)
+            sys.exit(1)
         else:
-            raise
+            print _("The following error was found while parsing the kickstart "
+                    "configuration file:\n\n%s") % e
+            sys.exit(1)
     except KickstartError, e:
        if anaconda.intf:
            anaconda.intf.kickstartErrorWindow(e.__str__())
-           sys.exit(0)
+           sys.exit(1)
        else:
-           raise
+            print _("The following error was found while parsing the kickstart "
+                    "configuration file:\n\n%s") % e
+            sys.exit(1)
 
     # run %pre scripts
     runPreScripts(anaconda, ksparser.handler.scripts)
 
-def earlyCommandPass(anaconda, file):
-    # The first pass through kickstart file processing - look for the subset
-    # of commands listed in EarlyKSHandler and set attributes based on those.
-    # This has to be a separate pass because it needs to take place before
-    # anaconda even knows what interface to run.
+def parseKickstart(anaconda, file):
     try:
         file = preprocessKickstart(file)
     except KickstartError, msg:
@@ -1170,58 +1147,31 @@ def earlyCommandPass(anaconda, file):
         stdoutLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
         sys.exit(1)
 
-    handler = EarlyKSHandler(anaconda)
-    ksparser = KickstartParser(handler, missingIncludeIsFatal=False)
-
-    # We don't have an intf by now, so the best we can do is just print the
-    # exception out.
-    try:
-        ksparser.readKickstart(file)
-    except KickstartError, e:
-        print _("The following error was found while parsing the "
-                "kickstart configuration file:\n\n%s") % e
-        sys.exit(1)
-
-    # And return the handler object so we can get information out of it.
-    return handler
-
-def fullCommandPass(anaconda, file, earlyKS):
-    # We need to make sure storage is active before the rest of the kickstart
-    # file is processed.  But before we initialize storage, we have to tell it
-    # which disks to avoid, and we only get that information from the earlier
-    # processing of the kickstart file.
-    import storage
-    anaconda.id.storage.zeroMbr = earlyKS.zerombr.zerombr
-    anaconda.id.storage.ignoredDisks = earlyKS.ignoredisk.ignoredisk
-    anaconda.id.storage.exclusiveDisks = earlyKS.ignoredisk.onlyuse
-
-    if earlyKS.clearpart.type is not None:
-        anaconda.id.storage.clearPartType = earlyKS.clearpart.type
-        anaconda.id.storage.clearPartDisks = earlyKS.clearpart.drives
-        if earlyKS.clearpart.initAll:
-            anaconda.id.storage.reinitializeDisks = earlyKS.clearpart.initAll
-
-    storage.storageInitialize(anaconda)
-
     handler = AnacondaKSHandler(anaconda)
     ksparser = AnacondaKSParser(handler)
 
     try:
         ksparser.readKickstart(file)
     except IOError, e:
+        # We may not have an intf now, but we can do better than just raising
+        # the exception.
         if anaconda.intf:
             anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
-            sys.exit(0)
+            sys.exit(1)
         else:
-            raise
+            print _("The following error was found while parsing the kickstart "
+                    "configuration file:\n\n%s") % e
+            sys.exit(1)
     except KickstartError, e:
         if anaconda.intf:
             anaconda.intf.kickstartErrorWindow(e.__str__())
-            sys.exit(0)
+            sys.exit(1)
         else:
-            raise
+            print _("The following error was found while parsing the kickstart "
+                    "configuration file:\n\n%s") % e
+            sys.exit(1)
 
-    anaconda.id.setKsdata(handler)
+    return handler
 
 def runPostScripts(anaconda):
     if not anaconda.id.ksdata:

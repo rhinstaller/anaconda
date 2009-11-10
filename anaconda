@@ -762,28 +762,21 @@ if __name__ == "__main__":
         except:
             pass
 
-    # If we were given a kickstart file, do a first processing run looking
-    # for a couple specific commands that'll be useful in setting up the
-    # interface.
+    # This is the one place we do all kickstart file parsing.
     if opts.ksfile:
         anaconda.isKickstart = True
-        earlyKS = kickstart.earlyCommandPass(anaconda, opts.ksfile)
-    else:
-        earlyKS = None
 
-    #
-    # must specify install, rescue mode
-    #
-    if earlyKS and not opts.rescue:
-        opts.rescue = earlyKS.rescue.rescue
+        kickstart.preScriptPass(anaconda, opts.ksfile)
+        ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
+        opts.rescue = ksdata.rescue.rescue
 
-    # we need to have a libuser.conf that points to the installer root for
-    # sshpw, but after that we start sshd, we need one that points to the
-    # install target.
-    luserConf = users.createLuserConf(instPath="")
-    handleSshPw(earlyKS)
-    startSsh()
-    del(os.environ["LIBUSER_CONF"])
+        # we need to have a libuser.conf that points to the installer root for
+        # sshpw, but after that we start sshd, we need one that points to the
+        # install target.
+        luserConf = users.createLuserConf(instPath="")
+        handleSshPw(ksdata)
+        startSsh()
+        del(os.environ["LIBUSER_CONF"])
 
     users.createLuserConf(anaconda.rootPath)
 
@@ -794,16 +787,17 @@ if __name__ == "__main__":
 
         anaconda.id = instdata.InstallData(anaconda, [], opts.display_mode)
 
-        if opts.ksfile:
+        if anaconda.isKickstart:
             instClass.setInstallData(anaconda)
+            anaconda.id.setKsdata(ksdata)
 
-            #we need waitWindow valid in processKickstartFile. because storage uses it
+            # We need an interface before running kickstart execute methods for
+            # storage.
             from snack import *
             screen = SnackScreen()
             anaconda.intf = rescue.RescueInterface(screen)
 
-            kickstart.preScriptPass(anaconda, opts.ksfile)
-            kickstart.fullCommandPass(anaconda, opts.ksfile, earlyKS)
+            ksdata.execute()
 
             anaconda.intf = None
             screen.finish()
@@ -816,19 +810,19 @@ if __name__ == "__main__":
         # shouldn't get back here
         sys.exit(1)
 
-    if opts.ksfile:
-        if earlyKS.vnc.enabled:
+    if anaconda.isKickstart:
+        if ksdata.vnc.enabled:
             flags.usevnc = 1
             opts.display_mode = 'g'
 
             if vncS.password == "":
-                vncS.password = earlyKS.vnc.password
+                vncS.password = ksdata.earlyKS.vnc.password
 
             if vncS.vncconnecthost == "":
-                vncS.vncconnecthost = earlyKS.vnc.host
+                vncS.vncconnecthost = ksdata.vnc.host
 
             if vncS.vncconnectport == "":
-                vncS.vncconnectport = earlyKS.vnc.port
+                vncS.vncconnectport = ksdata.vnc.port
 
         flags.vncquestion = False
 
@@ -1021,11 +1015,28 @@ if __name__ == "__main__":
         anaconda.id.keyboard.activate()
 
     if anaconda.isKickstart:
-        kickstart.preScriptPass(anaconda, opts.ksfile)
-        kickstart.fullCommandPass(anaconda, opts.ksfile, earlyKS)
-        # We need to copy the VNC-related kickstart stuff into the new ksdata
-        anaconda.id.ksdata.vnc(enabled=earlyKS.vnc.enabled, host=earlyKS.vnc.host,
-                               password=earlyKS.vnc.password, port=earlyKS.vnc.port)
+        import storage
+
+        anaconda.id.setKsdata(ksdata)
+
+        # Before we set up the storage system, we need to know which disks to
+        # ignore, etc.  Luckily that's all in the kickstart data.
+        anaconda.id.storage.zeroMbr = ksdata.zerombr.zerombr
+        anaconda.id.storage.ignoredDisks = ksdata.ignoredisk.ignoredisk
+        anaconda.id.storage.exclusiveDisks = ksdata.ignoredisk.onlyuse
+
+        if ksdata.clearpart.type is not None:
+            anaconda.id.storage.clearPartType = ksdata.clearpart.type
+            anaconda.id.storage.clearPartDisks = ksdata.clearpart.drives
+            if ksdata.clearpart.initAll:
+                anaconda.id.storage.reinitializeDisks = ksdata.clearpart.initAll
+
+        storage.storageInitialize(anaconda)
+
+        # Now having initialized storage, we can apply all the other kickstart
+        # commands.  This gives us the ability to check that storage commands
+        # are correctly formed and refer to actual devices.
+        ksdata.execute()
 
     # Skip the disk options in rootpath mode
     if flags.rootpath:
