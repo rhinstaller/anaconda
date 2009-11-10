@@ -116,7 +116,8 @@ rpmlog:
 	@git log --pretty="format:- %s (%ae)" \
 		$(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE).. | \
 		sed -e 's/@.*)/)/' | sed -e 's/%/%%/g' | \
-		grep -v -- "- Sending translation for "
+		grep -v -- "- Sending translation for " | \
+		grep -v -- "- Merge commit "
 
 bumpver:
 	@LAST=$$(echo $(PACKAGE_VERSION) | grep "\." -o | wc -l) ; \
