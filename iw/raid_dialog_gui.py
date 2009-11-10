@@ -201,12 +201,17 @@ class RaidEditor:
                 format = fmt_class(mountpoint=mountpoint)
                 members = len(raidmembers) - spares
 
-                request = self.storage.newMDArray(minor=raidminor,
+                try:
+                    request = self.storage.newMDArray(minor=raidminor,
                                                   level=raidlevel,
                                                   format=format,
                                                   parents=raidmembers,
                                                   totalDevices=len(raidmembers),
                                                   memberDevices=members)
+                except ValueError, e:
+                    self.intf.messageWindow(_("Error"), str(e),
+                                            custom_icon="error")
+                    continue
 
                 # we must destroy luks leaf before original raid request
                 if self.origrequest.format.type == "luks":

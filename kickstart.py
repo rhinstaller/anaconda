@@ -877,7 +877,10 @@ class Raid(commands.raid.F12_Raid):
             except KeyError:
                 pass
 
-            request = storage.newMDArray(**kwargs)
+            try:
+                request = storage.newMDArray(**kwargs)
+            except ValueError, e:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=str(e))
 
             # FIXME: no way to specify an fsprofile right now
             # if pd.fsprofile:
