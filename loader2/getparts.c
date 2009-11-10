@@ -212,13 +212,8 @@ int createPartitionNodes() {
 		    if (!strcmp(b, "1"))
 			break;
 		} else if (toknum == 3) {
-		    /* this should be the partition name */
-		    /* now we need to see if this is the block device or */
-		    /* actually a partition name                         */
-		    if (!isPartitionName(b))
-			break;
-
-		    /* we found a partition! */
+		    /* this is block device or partition name */
+		    /* lets create devnode! */
 		    pptr = (char *) malloc(strlen(b) + 7);
 		    sprintf(pptr, "/dev/%s", b);
 		    mknod(pptr, 0600 | S_IFBLK, makedev(major, minor));
