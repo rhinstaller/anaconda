@@ -747,7 +747,13 @@ class DiskDevice(StorageDevice):
 
     @property
     def mediaPresent(self):
-        return self.partedDevice is not None
+        if not self.partedDevice:
+            return False
+
+        # Some drivers (cpqarray <blegh>) make block device nodes for
+        # controllers with no disks attached and then report a 0 size,
+        # treat this as no media present
+        return self.partedDevice.getSize() != 0
 
     @property
     def model(self):
