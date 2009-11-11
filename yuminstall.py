@@ -1424,31 +1424,35 @@ class YumBackend(AnacondaBackend):
             if not os.path.isdir(d):
                 os.makedirs(d, mode=0755)
 
+            mpdevlst = []
+            for mpdev in anaconda.id.diskset.mpList or []:
+                mpdevlst.append(mpdev.name)
+
             for entry in anaconda.id.fsset.entries:
                 dev = entry.device.getDevice()
-                if dev.find('mpath') != -1:
-                    # grab just the mpathXXX part of the device name
-                    mpathname = dev.replace('/dev/', '')
-                    mpathname = mpathname.replace('mpath/', '')
-                    mpathname = mpathname.replace('mapper/', '')
+                for mpdev in mpdevlst:
+                    # eliminate the major number (ex. mpath0 -> mpath)
+                    pos = 0
+                    while pos < len(mpdev):
+                        if mpdev[pos].isdigit():
+                            mpdev = mpdev[:pos]
+                            break
+                        pos += 1
+                    if dev.find(mpdev) != -1:
+                        # grab just the basename of the device
+                        mpathname = dev.replace('/dev/', '')
+                        mpathname = mpathname.replace('mpath/', '')
+                        mpathname = mpathname.replace('mapper/', '')
 
-                    # we only want 'mpathNNN' where NNN is an int, strip all
-                    # trailing subdivisions of mpathNNN
-                    trail = re.search("(?<=^mpath).*$", mpathname)
-                    if trail is not None:
-                        i = 1
-                        major = None
-
-                        while i <= len(trail.group()):
-                            try:
-                                major = int(trail.group()[0:i])
-                                i += 1
-                            except:
-                                break
-
-                        if major is not None:
-                            mpathname = mpathname.replace(trail.group(), '')
-                            mpathname = "%s%d" % (mpathname, major,)
+                        # In case of mpathNNNpMMM, we only want 'mpathNNN' where 
+                        # NNN is an int, strip all trailing subdivisions of mpathNNN
+                        mpregex = "^%s(\d*)" % mpdev
+                        match = re.search(mpregex, mpathname)
+                        if match is not None:
+                            mpathname = match.group()
+                            major = int(match.group(1))
+                    else:
+                        continue
 
                     # if we have seen this mpath device, continue
                     if wwids != []:
@@ -1623,6 +1627,14 @@ class YumBackend(AnacondaBackend):
                     f.write("        wwid \"%s\"\n" % (id,))
 
                 f.write('}\n\n')
+
+                for (mpathname, id) in wwids:
+                    if(mpathname.find("mpath") == -1):
+                        # this mpath device was renamed 
+                        f.write('\nmultipath {\n')
+                        f.write("        wwid \"%s\"\n" % (id,))
+                        f.write("        alias \"%s\"\n" % (mpathname,)) 
+                        f.write('}\n\n')
 
             f.close()
 

@@ -133,6 +133,7 @@ class AnacondaKSHandlers(KickstartHandlers):
     def doBootloader (self, args):
         KickstartHandlers.doBootloader(self, args)
         dict = self.ksdata.bootloader
+        self.id.bootloader.updateDriveList()
 
         if dict["location"] == "none":
             location = None
@@ -359,23 +360,50 @@ class AnacondaKSHandlers(KickstartHandlers):
         ds = DiskSet(self.anaconda)
         ds.startMPath()
 
+        from bdevid import bdevid as _bdevid
+        bd = _bdevid()
+        bd.load("scsi")
+
         mpath = self.ksdata.mpaths[-1]
-        log.debug("Searching for mpath '%s'" % (mpath.name,))
         for mp in DiskSet.mpList or []:
+            newname = ""
             it = True
-            for dev in mpath.devices:
-                dev = dev.split('/')[-1]
+            for path in mpath.paths:
+                dev = path.device
+                log.debug("Searching for mpath having '%s' as a member, the scsi id or wwpn:lunid" % (dev,))
                 log.debug("mpath '%s' has members %s" % (mp.name, list(mp.members)))
+                if dev.find(':') != -1:
+                    (wwpn, lunid) = dev.split(':')
+                    if wwpn != "" and lunid != "":
+                        if wwpn.startswith("0x"):
+                            wwpn = wwpn[2:]
+                        wwpn = wwpn.upper()
+                        scsidev = iutil.getScsiDeviceByWwpnLunid(wwpn, lunid)
+                        if scsidev != "":
+                            dev = "/dev/%s" % scsidev
+                            log.debug("'%s' is a member of the multipath device WWPN '%s' LUNID '%s'" % (dev, wwpn, lunid))
                 if not dev in mp.members:
-                    log.debug("mpath '%s' does not have device %s, skipping" \
-                        % (mp.name, dev))
-                    it = False
-            if it:
+                    mpscsiid = bd.probe("/dev/mapper/%s" % mp.name)[0]['unique_id']
+                    if dev != mpscsiid:
+                        log.debug("mpath '%s' does not have device %s, skipping" \
+                            % (mp.name, dev))
+                        it = False
+                    else:
+                        log.debug("Recognized --device=%s as the scsi id of '%s'" % (dev, mp.name))
+                        newname = path.name
+                        break
+                else:
+                    log.debug("Recognized --device=%s as a member of '%s'" % (dev, mp.name))
+                    newname = path.name
+                    break
+            if it and mp.name != newname:
                 log.debug("found mpath '%s', changing name to %s" \
-                    % (mp.name, mpath.name))
-                newname = mpath.name
+                    % (mp.name, newname))
+                mpath.name = mp.name
                 ds.renameMPath(mp, newname)
+                bd.unload("scsi")
                 return
+        bd.unload("scsi")
         ds.startMPath()
 
     def doDmRaid(self, args):

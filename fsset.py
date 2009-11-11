@@ -1380,8 +1380,14 @@ class FileSystemSet:
             if entry.mountpoint:
                 # use LABEL if the device has a label except for multipath
                 # devices and LUKS devices, which always use devname
+                ismpath = False
+                for mpdev in self.anaconda.id.diskset.mpList or []:
+                    if not entry.device.getDevice().find(mpdev.get_name()) == -1:
+                        ismpath = True
+                        break
+
                 if entry.getLabel() and \
-                   entry.device.getDevice().find('mpath') == -1 and \
+                   not ismpath and \
                    not entry.device.crypto:
                     device = "LABEL=%s" % (entry.getLabel(),)
                 else:
