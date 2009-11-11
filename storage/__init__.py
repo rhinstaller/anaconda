@@ -376,7 +376,7 @@ class Storage(object):
                     log.info("Skipping disk: %s: No media present" % device.name)
                     continue
                 disks.append(device)
-        disks.sort(key=lambda d: d.name)
+        disks.sort(key=lambda d: d.name, cmp=isys.compareDrives)
         return disks
 
     @property
