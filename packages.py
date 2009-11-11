@@ -153,12 +153,12 @@ def turnOnFilesystems(anaconda):
             message = _("An error was encountered while "
                         "formatting device %s.") % (device,)
             details = msg
-        except Exception as msg:
+        except Exception as e:
             # catch-all
             title = _("Storage Activation Failed")
             message = _("An error was encountered while "
                         "activating your storage configuration.")
-            details = msg
+            details = str(e)
 
         if title:
             rc = anaconda.intf.detailedMessageWindow(title, message, details,
