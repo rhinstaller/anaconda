@@ -40,6 +40,7 @@ import upgrade
 import pykickstart.commands as commands
 from storage.devices import *
 from scdate.core import zonetab
+from pykickstart.base import BaseData
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.parser import *
@@ -1118,6 +1119,18 @@ class AnacondaKSHandler(superclass):
         self.anaconda = anaconda
         self.id = self.anaconda.id
         self.onPart = {}
+
+    def dispatcher(self, args, lineno, include=None):
+        # This is a big fat hack, and I don't want it in pykickstart.  A lot
+        # of our overridden data objects here refer to the handler (to skip
+        # steps, mainly).  I don't think this should be pykickstart's job
+        # since it's only required for anaconda, so it's got to go here.
+        obj = superclass.dispatcher(self, args, lineno, include=include)
+
+        if isinstance(obj, BaseData) and self.commands[args[0]] != None:
+            obj.handler = self
+
+        return obj
 
 class EarlyKSHandler(superclass):
     # This handler class only processes a couple kickstart commands.  It is
