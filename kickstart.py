@@ -1046,62 +1046,41 @@ class ZFCP(commands.zfcp.FC3_ZFCP):
 commandMap = {
         "auth": Authconfig,
         "authconfig": Authconfig,
-        "autopart": AutoPart,
         "autostep": AutoStep,
         "bootloader": Bootloader,
-        "cdrom": commands.method.FC6_Method,
         "clearpart": ClearPart,
-        "cmdline": commands.displaymode.FC3_DisplayMode,
-        "device": commands.device.F8_Device,
-        "deviceprobe": commands.deviceprobe.FC3_DeviceProbe,
         "dmraid": DmRaid,
-        "driverdisk": commands.driverdisk.F12_DriverDisk,
         "fcoe": Fcoe,
         "firewall": Firewall,
         "firstboot": Firstboot,
-        "graphical": commands.displaymode.FC3_DisplayMode,
-        "group": commands.group.F12_Group,
         "halt": Reboot,
-        "harddrive": commands.method.FC6_Method,
         "ignoredisk": IgnoreDisk,
         "install": Upgrade,
-        "interactive": commands.interactive.FC3_Interactive,
-        "iscsi": Iscsi,
         "iscsiname": IscsiName,
-        "key": commands.key.F7_Key,
         "keyboard": Keyboard,
         "lang": Lang,
         "logging": Logging,
-        "logvol": LogVol,
-        "mediacheck": commands.mediacheck.FC4_MediaCheck,
-        "monitor": commands.monitor.F10_Monitor,
         "multipath": MultiPath,
-        "network": Network,
-        "nfs": commands.method.FC6_Method,
-        "part": Partition,
-        "partition": Partition,
         "poweroff": Reboot,
-        "raid": Raid,
         "reboot": Reboot,
-        "repo": commands.repo.F11_Repo,
-        "rescue": commands.rescue.F10_Rescue,
         "rootpw": RootPw,
         "selinux": SELinux,
-        "services": commands.services.FC6_Services,
         "shutdown": Reboot,
         "skipx": SkipX,
-        "sshpw": commands.sshpw.F13_SshPw,
-        "text": commands.displaymode.FC3_DisplayMode,
         "timezone": Timezone,
-        "updates": commands.updates.F7_Updates,
         "upgrade": Upgrade,
-        "url": commands.method.FC6_Method,
-        "user": commands.user.F8_User,
-        "vnc": commands.vnc.FC6_Vnc,
-        "volgroup": VolGroup,
         "xconfig": XConfig,
         "zerombr": ZeroMbr,
-        "zfcp": ZFCP
+}
+
+dataMap = {
+        "IscsiData": IscsiData,
+        "LogVolData": LogVolData,
+        "NetworkData": NetworkData,
+        "PartData": PartitionData,
+        "RaidData": RaidData,
+        "VolGroupData": VolGroupData,
+        "ZFCPData": ZFCPData
 }
 
 superclass = returnClassForVersion()
@@ -1110,7 +1089,7 @@ class AnacondaKSHandler(superclass):
     # This handler class processes all kickstart commands.  It is used in the
     # second parsing pass - when we do all the real work.
     def __init__ (self, anaconda):
-        superclass.__init__(self, mapping=commandMap)
+        superclass.__init__(self, commandUpdates=commandMap, dataUpdates=dataMap)
         self.packages = AnacondaKSPackages()
 
         self.permanentSkipSteps = []
