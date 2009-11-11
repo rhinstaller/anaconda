@@ -1510,7 +1510,11 @@ def growLVM(storage):
     """ Grow LVs according to the sizes of the PVs. """
     for vg in storage.vgs:
         total_free = vg.freeSpace
-        if not total_free:
+        if total_free < 0:
+            # by now we have allocated the PVs so if there isn't enough
+            # space in the VG we have a real problem
+            raise PartitioningError("not enough space for LVM requests")
+        elif not total_free:
             log.debug("vg %s has no free space" % vg.name)
             continue
 
