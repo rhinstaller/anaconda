@@ -434,6 +434,15 @@ int kickstartFromCD(char *kssrc) {
     logMessage(INFO, "getting kickstart file from first CDROM");
 
     devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
+    /* usb can take some time to settle, even with the various hacks we
+     * have in place.  some systems use portable USB CD-ROM drives, try to
+     * make sure there really isn't one before bailing */
+    for (i = 0; !devices && i < 10; ++i) {
+        logMessage(DEBUGLVL, "sleeping to wait for a USB CD-ROM");
+        sleep(2);
+        devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, 0);
+    }
+
     if (!devices) {
         logMessage(ERROR, "No CDROM devices found!");
         return 1;

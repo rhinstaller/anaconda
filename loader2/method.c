@@ -50,6 +50,19 @@
 /* boot flags */
 extern uint64_t flags;
 
+/* Mount src to dest attempting different filesystem. */
+/* This is a rhel5-only thing, in later releases "auto" option can be */
+/* passed to doPwMount() instead. */
+static int tryMounts(char *src, char *dest, int flags)
+{
+    char *fstypes[] = {"vfat","ext2","iso9660", NULL};
+    int i, rc;
+    for (i = 0, rc = 1; rc && fstypes[i] != NULL; i++)
+        rc = doPwMount(src, dest, fstypes[i], flags, NULL);
+    return rc;
+}
+
+
 int umountLoopback(char * mntpoint, char * device) {
     int loopfd;
 
@@ -645,7 +658,7 @@ int copyFileAndLoopbackMount(int fd, char * dest,
       3 - file named path not there
 */
 int getFileFromBlockDevice(char *device, char *path, char * dest) {
-    int rc;
+    int s = 1, rc, i;
     char file[4096];
 
     logMessage(INFO, "getFileFromBlockDevice(%s, %s)", device, path);
@@ -655,9 +668,16 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
         return 1;
     }
 
-    if (doPwMount("/tmp/srcdev", "/tmp/mnt", "vfat", IMOUNT_RDONLY, NULL) &&
-        doPwMount("/tmp/srcdev", "/tmp/mnt", "ext2", IMOUNT_RDONLY, NULL) && 
-        doPwMount("/tmp/srcdev", "/tmp/mnt", "iso9660", IMOUNT_RDONLY, NULL)) {
+    /* some USB thumb drives and hard drives are slow to initialize */
+    /* retry up to 5 times or 31 seconds */
+    rc = tryMounts("/tmp/srcdev", "/tmp/mnt", IMOUNT_RDONLY);
+    for (i = 0; rc && i < 5; ++i) {
+        logMessage(DEBUGLVL, "sleeping to wait for USB storage devices");
+        sleep(s);
+        s <<= 1;
+        rc = tryMounts("/tmp/srcdev", "/tmp/mnt", IMOUNT_RDONLY);
+    }
+    if (rc) {
         logMessage(ERROR, "failed to mount /dev/%s: %s", device,
                    strerror(errno));
         return 2;
