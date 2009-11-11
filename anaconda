@@ -969,6 +969,10 @@ if __name__ == "__main__":
     anaconda.id.setDisplayMode(opts.display_mode)
     instClass.setInstallData(anaconda)
 
+    # comment out the next line to make exceptions non-fatal
+    from exception import initExceptionHandling
+    initExceptionHandling(anaconda)
+
     anaconda.setDispatch()
 
     # download and run Dogtail script
@@ -1046,10 +1050,6 @@ if __name__ == "__main__":
         instClass.setSteps(anaconda)
     else:
         kickstart.setSteps(anaconda)
-
-    # comment out the next line to make exceptions non-fatal
-    from exception import initExceptionHandling
-    initExceptionHandling(anaconda)
 
     try:
         anaconda.intf.run(anaconda)
