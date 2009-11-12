@@ -736,6 +736,10 @@ i2o_block
         scsi
         "I2O Block driver"
 
+ibmvfc
+	scsi_hostadapter
+	"Power6 Virtual FC"
+
 ipr
 	scsi_hostadapter
 	"IBM iSeries/pSeries native storage"
