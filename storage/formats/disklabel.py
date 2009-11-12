@@ -147,7 +147,8 @@ class DiskLabel(DeviceFormat):
         """ Device status. """
         return (self.exists and self.device and
                 os.path.exists(self.device) and
-                self.partedDevice and self.partedDisk)
+                self.partedDevice is not None and
+                self.partedDisk is not None)
 
     def setup(self, *args, **kwargs):
         """ Open, or set up, a device. """
