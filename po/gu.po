@@ -1,4 +1,4 @@
-# translation of gu.po to Gujarati
+# translation of anaconda.po to Gujarati
 # Gujarati translations for PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -8,10 +8,10 @@
 # Sweta Kothari <swkothar@redhat.com>, 2008, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: gu\n"
+"Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-10-28 11:35-1000\n"
-"PO-Revision-Date: 2009-10-29 11:46+0530\n"
+"POT-Creation-Date: 2009-11-06 13:53-1000\n"
+"PO-Revision-Date: 2009-11-12 12:18+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgstr "શેલ માટે <enter> દબાવો"
 #: loader/loader.c:557 loader/loader.c:1191 loader/loader.c:1375
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:101 loader/method.c:279 loader/method.c:353
-#: loader/modules.c:339 loader/modules.c:351 loader/net.c:582 loader/net.c:953
+#: loader/modules.c:364 loader/modules.c:376 loader/net.c:582 loader/net.c:953
 #: loader/net.c:1587 loader/net.c:1608 loader/net.c:1880 loader/net.c:1902
 #: loader/net.c:1914 loader/nfsinstall.c:91 loader/nfsinstall.c:250
 #: loader/nfsinstall.c:269 loader/nfsinstall.c:337 loader/telnetd.c:92
@@ -371,7 +371,7 @@ msgstr ""
 msgid "Cancel"
 msgstr "નકારો"
 
-#: gui.py:796 gui.py:797 gui.py:913 gui.py:914 ui/anaconda.glade.h:2
+#: gui.py:796 gui.py:797 gui.py:913 gui.py:914 ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "ડિબગ (_D)"
 
@@ -516,6 +516,7 @@ msgstr ""
 
 #: image.py:248 livecd.py:402 packages.py:381 packages.py:384 upgrade.py:205
 #: yuminstall.py:852 yuminstall.py:938 yuminstall.py:1359 yuminstall.py:1375
+#: ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr "પાછળ (_B)"
 
@@ -3786,7 +3787,7 @@ msgstr "શું તમે કોઈપણ વધુ ડ્રાઈવર ડ�
 
 #: loader/driverdisk.c:539 loader/driverdisk.c:576 loader/hdinstall.c:372
 #: loader/kickstart.c:132 loader/kickstart.c:142 loader/kickstart.c:185
-#: loader/kickstart.c:563 loader/modules.c:339 loader/modules.c:351
+#: loader/kickstart.c:563 loader/modules.c:364 loader/modules.c:376
 #: loader/net.c:1587 loader/net.c:1608 loader/nfsinstall.c:337
 #: loader/urlinstall.c:451 loader/urlinstall.c:460 loader/urlinstall.c:467
 msgid "Kickstart Error"
@@ -4173,12 +4174,12 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "ચેકસમ ચકાસણી"
 
-#: loader/modules.c:340
+#: loader/modules.c:365
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr "ઉપકરણ કિકસ્ટાર્ટ પદ્ધતિ આદેશ માટે %s ખરાબ દલીલ: %s"
 
-#: loader/modules.c:352
+#: loader/modules.c:377
 msgid "A module name must be specified for the kickstart device command."
 msgstr "મોડ્યુલ નામ કિકસ્ટાર્ટ ઉપકરણ આદેશ માટે સ્પષ્ટ થવું જ જોઈએ."
 
@@ -4206,6 +4207,9 @@ msgid ""
 "This cannot be corrected in cmdline mode.\n"
 "Halting.\n"
 msgstr ""
+"\n"
+"આ cmdline સ્થિતિમાં યોગ્ય કરી શકાતુ નથી.\n"
+"અટકાવી રહ્યા છે.\n"
 
 #: loader/net.c:472 loader/net.c:528
 msgid "Network Error"
@@ -5628,7 +5632,7 @@ msgstr "સર્વર (_S)"
 msgid "Reboo_t"
 msgstr "રીબુટ (_t)"
 
-#: ui/anaconda.glade.h:3
+#: ui/anaconda.glade.h:4
 msgid "_Next"
 msgstr "આગળ (_N)"
 
