@@ -53,12 +53,20 @@ class AnacondaKSScript(Script):
         os.close(fd)
         os.chmod(path, 0700)
 
-        if self.logfile is not None:
-            messages = self.logfile
-        elif serial:
-            messages = "%s.log" % path
+        # Always log stdout/stderr from scripts.  Using --logfile just lets you
+        # pick where it goes.  The script will also be logged to program.log
+        # because of execWithRedirect, and to anaconda.log if the script fails.
+        if self.logfile:
+            if self.inChroot:
+                messages = "%s/%s" % (scriptRoot, self.logfile)
+            else:
+                messages = self.logfile
+
+            d = os.path.basename(messages)
+            if not os.exists(d):
+                os.makedirs(d)
         else:
-            messages = "/dev/tty3"
+            messages = "%s.log" % path
 
         if intf:
             intf.suspend()
@@ -71,20 +79,32 @@ class AnacondaKSScript(Script):
         # Always log an error.  Only fail if we have a handle on the
         # windowing system and the kickstart file included --erroronfail.
         if rc != 0:
-            log.error("Error code %s encountered running a kickstart %%pre/%%post script", rc)
+            log.error("Error code %s running the kickstart script at line %s" % (rc, self.lineno))
+
+            try:
+                f = open(messages, "r")
+                err = f.readlines()
+                f.close()
+                for l in err:
+                    log.error("\t%s" % l)
+            except:
+                err = None
 
             if self.errorOnFail:
                 if intf != None:
-                    intf.messageWindow(_("Scriptlet Failure"),
-                                       _("There was an error running the "
-                                         "scriptlet.  You may examine the "
-                                         "output in %s.  This is a fatal error "
-                                         "and your install will be aborted.\n\n"
-                                         "Press the OK button to reboot your "
-                                         "system.") % (messages,))
-                sys.exit(0)
+                    msg = _("There was an error running the kickstart "
+                            "script at line %(lineno)s.  You may examine the "
+                            "output in %(msgs)s.  This is a fatal error and "
+                            "installation will be aborted.  Press the "
+                            "OK button to exit the installer.") \
+                          % {'lineno': self.lineno, 'msgs': messages}
 
-        os.unlink(path)
+                    if err:
+                        intf.detailedMessageWindow(_("Scriptlet Failure"), msg, err)
+                    else:
+                        intf.messageWindow(_("Scriptlet Failure"), msg)
+
+                sys.exit(0)
 
         if serial or self.logfile is not None:
             os.chmod("%s" % messages, 0600)
