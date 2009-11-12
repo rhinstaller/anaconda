@@ -43,6 +43,7 @@ class DASD:
 
     def __init__(self):
         self._dasdlist = []
+        self._devices = []                  # list of DASDDevice objects
         self._totalCylinders = 0
         self._completedCylinders = 0.0
         self._maxFormatJobs = 0
@@ -148,6 +149,24 @@ class DASD:
                 log.info("Running dasdfmt on %s" % (dasd,))
                 iutil.execWithRedirect("/sbin/dasdfmt", argv + [dasd],
                                        stdout="/dev/tty5", stderr="/dev/tty5")
+
+    def addDASD(self, dasd):
+        """ Adds a DASDDevice to the internal list of DASDs. """
+        if dasd:
+            self._devices.append(dasd)
+
+    def write(self, instPath):
+        """ Write /etc/dasd.conf to target system for all DASD devices
+            configured during installation.
+        """
+        if self._devices == []:
+            return
+
+        f = open(os.path.realpath(instPath + "/etc/dasd.conf"), "w")
+        for dasd in self._devices:
+            fields = [dasd.busid] + dasd.getOpts()
+            f.write("%s\n" % (" ".join(fields),))
+        f.close()
 
     def _updateProgressWindow(self, data, callback_data=None):
         """ Reads progress output from dasdfmt and collects the number of

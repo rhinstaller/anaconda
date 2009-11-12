@@ -271,7 +271,8 @@ class Storage(object):
                                      zeroMbr=self.zeroMbr,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
-                                     iscsi=self.iscsi)
+                                     iscsi=self.iscsi,
+                                     dasd=self.dasd)
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
 
     def doIt(self):
@@ -345,7 +346,8 @@ class Storage(object):
                                      zeroMbr=self.zeroMbr,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
-                                     iscsi=self.iscsi)
+                                     iscsi=self.iscsi,
+                                     dasd=self.dasd)
         self.devicetree.populate()
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
         self.anaconda.id.rootParts = None
@@ -988,6 +990,7 @@ class Storage(object):
         self.iscsi.write(instPath, self.anaconda)
         self.fcoe.write(instPath, self.anaconda)
         self.zfcp.write(instPath)
+        self.dasd.write(instPath)
 
     def writeKS(self, f):
         def useExisting(lst):

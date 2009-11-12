@@ -209,7 +209,7 @@ class DeviceTree(object):
 
     def __init__(self, intf=None, ignored=[], exclusive=[], type=CLEARPART_TYPE_NONE,
                  clear=[], zeroMbr=None, reinitializeDisks=None, protected=[],
-                 passphrase=None, luksDict=None, iscsi=None):
+                 passphrase=None, luksDict=None, iscsi=None, dasd=None):
         # internal data members
         self._devices = []
         self._actions = []
@@ -224,6 +224,7 @@ class DeviceTree(object):
         self.zeroMbr = zeroMbr
         self.reinitializeDisks = reinitializeDisks
         self.iscsi = iscsi
+        self.dasd = dasd
 
         # protected device specs as provided by the user
         self.protectedDevSpecs = protected
@@ -1193,6 +1194,7 @@ class DeviceTree(object):
             kwargs["exists"]  = True
         elif udev_device_is_dasd(info):
             diskType = DASDDevice
+            kwargs["dasd"] = self.dasd
             kwargs["busid"] = udev_device_get_dasd_bus_id(info)
             kwargs["opts"] = {}
 
