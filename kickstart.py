@@ -69,15 +69,16 @@ class AnacondaKSScript(Script):
         os.close(fd)
         os.chmod(path, 0700)
 
-        if self.logfile is not None:
+        # Always log stdout/stderr from scripts.  Using --logfile just lets you
+        # pick where it goes.  The script will also be logged to program.log
+        # because of execWithRedirect, and to anaconda.log if the script fails.
+        if self.logfile:
             if self.inChroot:
                 messages = "%s/%s" % (scriptRoot, self.logfile)
             else:
                 messages = self.logfile
-        elif serial:
-            messages = "%s.log" % path
         else:
-            messages = "/dev/tty3"
+            messages = "%s.log" % path
 
         if intf:
             intf.suspend()
@@ -90,11 +91,19 @@ class AnacondaKSScript(Script):
         # Always log an error.  Only fail if we have a handle on the
         # windowing system and the kickstart file included --erroronfail.
         if rc != 0:
-            log.error("Error code %s encountered running the kickstart script at line %s" % (rc, self.lineno))
+            log.error("Error code %s running the kickstart script at line %s" % (rc, self.lineno))
+
+            try:
+                f = open(messages, "r")
+                err = f.readlines()
+                f.close()
+                for l in err:
+                    log.error("\t%s" % l)
+            except:
+                err = None
 
             if self.errorOnFail:
                 if intf != None:
-                    err = None
                     msg = _("There was an error running the kickstart "
                             "script at line %(lineno)s.  You may examine the "
                             "output in %(msgs)s.  This is a fatal error and "
@@ -102,26 +111,12 @@ class AnacondaKSScript(Script):
                             "OK button to exit the installer.") \
                           % {'lineno': self.lineno, 'msgs': messages}
 
-                    if self.logfile is not None and os.path.isfile(messages):
-                        try:
-                            f = open(messages, "r")
-                            err = f.readlines()
-                            f.close()
-                        except:
-                            pass
-
-                    if err is None:
-                        intf.messageWindow(_("Scriptlet Failure"), msg)
+                    if err:
+                        intf.detailedMessageWindow(_("Scriptlet Failure"), msg, err)
                     else:
-                        intf.detailedMessageWindow(_("Scriptlet Failure"), msg,
-                                                   err)
+                        intf.messageWindow(_("Scriptlet Failure"), msg)
 
                 sys.exit(0)
-
-        try:
-            os.unlink(path)
-        except:
-            pass
 
         if serial or self.logfile is not None:
             os.chmod("%s" % messages, 0600)
