@@ -490,3 +490,43 @@ def inVmware():
     if "VMware" in out:
         return True
     return False
+
+
+def getScsiDeviceByWwpnLunid(wwpn, lunid):
+    found = 0
+    for tgt in os.listdir('/sys/class/fc_transport'):
+        if tgt[:6] != "target":
+            continue
+        dir= '/sys/class/fc_transport/%s' % tgt
+        f = open('%s/port_name' % dir, "r")
+        tgt_wwpn = f.readline()
+        tgt_wwpn = tgt_wwpn.rstrip("\n")
+        if tgt_wwpn.startswith("0x"):
+            tgt_wwpn = tgt_wwpn[2:]
+        tgt_wwpn = tgt_wwpn.upper()
+        f.close()
+        ## check the first match only
+        if tgt_wwpn == wwpn:
+            found = 1
+            break
+
+    if found == 0:
+        return ""
+
+    scsi_hctl="%s:%s" % (tgt[6:], lunid)
+
+    found = 0
+    for tgt in os.listdir('/sys/block'):
+        devf = '/sys/block/%s/device' % tgt
+        if not os.path.exists(devf):
+            continue
+        devf = os.readlink(devf)
+        devf = os.path.basename(devf)
+        if devf == scsi_hctl:
+            found = 1
+            break
+    if found == 0:
+        tgt = ""
+    return tgt
+
+

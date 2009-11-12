@@ -82,7 +82,7 @@ class DmDriveCache:
             if self.cache.has_key(obj.name):
                 del self.cache[obj.name][obj.name]
                 for k,v in self.cache[obj.name].items():
-                    log.debug("adding %s to isys cache" % (name,))
+                    log.debug("adding %s to isys cache" % (k,))
                     isys.cachedDrives[k] = v
                 log.debug("removing %s from dm cache" % (obj,))
                 del self.cache[obj.name]
@@ -91,7 +91,7 @@ class DmDriveCache:
         oldname = 'mapper/' + obj.name
         if isys.cachedDrives.has_key(oldname):
             dmNameUpdates[obj.name] = newname
-            self.remove(oldname)
+            self.remove(obj.name)
             # XXX why doesn't setting the property work?
             obj.set_name(newname)
             self.add(obj)
