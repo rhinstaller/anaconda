@@ -199,6 +199,8 @@ class DiskLabel(DeviceFormat):
 
     def commit(self):
         """ Commit the current partition table to disk and notify the OS. """
+        log_method_call(self, device=self.device,
+                        numparts=len(self.partitions))
         # give committing 5 tries, failing that, raise an exception
         attempt = 1
         maxTries = 5
@@ -219,6 +221,8 @@ class DiskLabel(DeviceFormat):
 
     def commitToDisk(self):
         """ Commit the current partition table to disk. """
+        log_method_call(self, device=self.device,
+                        numparts=len(self.partitions))
         try:
             self.partedDisk.commitToDevice()
         except parted.DiskException as msg:
