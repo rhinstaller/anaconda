@@ -82,7 +82,7 @@ class BaseInstallClass:
 	pass
 
     def setBootloader(self, id, location=None, forceLBA=0, password=None,
-                      md5pass=None, appendLine="", driveorder = []):
+                      md5pass=None, appendLine="", driveorder = [], hvArgs=""):
         if appendLine:
             id.bootloader.args.set(appendLine)
         id.bootloader.setForceLBA(forceLBA)
@@ -94,6 +94,8 @@ class BaseInstallClass:
             id.bootloader.defaultDevice = location
         else:
             id.bootloader.defaultDevice = -1
+        if hvArgs:
+            id.bootloader.hvArgs = hvArgs
 
         # XXX throw out drives specified that don't exist.  anything else
         # seems silly

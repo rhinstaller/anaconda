@@ -155,7 +155,8 @@ class AnacondaKSHandlers(KickstartHandlers):
             self.showSteps.append("bootloader")
             self.id.instClass.setBootloader(self.id, location, dict["forceLBA"],
                                             dict["password"], dict["md5pass"],
-                                            dict["appendLine"], dict["driveorder"])
+                                            dict["appendLine"], dict["driveorder"],
+                                            dict["hvArgs"])
 
         self.permanentSkipSteps.extend(["upgbootloader", "bootloader",
                                         "bootloaderadvanced"])
