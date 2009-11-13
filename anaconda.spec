@@ -128,6 +128,22 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Nov 13 2009 Martin Sivak <msivak@redhat.com> 11.1.2.196-2
+- Write HOTPLUG=no to ifcfg file is ONBOOT=no
+  Resolves: rhbz#498086
+- Honor the --label option to the kickstart "part" command
+  Resolves: rhbs#498856
+- Add "Hipersockets" to qeth NETTYPE description
+  Resolves: rhbz#511962
+- Honor existing RUNKS conf file variable on s390
+  Resolves: rhbz#513951
+- kickstart option to make mpath0 point to arbitrary LUN
+  Resolves: rhbz#502768
+- Sleep if the kickstart file read fails
+  Related: rhbz#460566
+- If the device disappeared during DD selection, do not crash
+  Resolves: rhbz#521189
+
 * Tue Nov 10 2009 Martin Sivak <msivak@redhat.com> 11.1.2.196-1
 - Adds interactive install support for NFS options
   Resolves: rhbz#493052
