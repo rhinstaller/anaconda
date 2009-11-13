@@ -218,6 +218,112 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Nov 12 2009 David Cantrell <dcantrell@redhat.com> - 13.8-1
+- Ignore merge commit messages when generating the rpm changelog. (dcantrell)
+- Remove last references to hal. (dcantrell)
+- Log calls to DiskLabel's commit and commitToDisk methods. (dlehman)
+- Fix DiskLabel.status so it returns True, not self.partedDisk, when active.
+  (dlehman)
+- Write /etc/dasd.conf to target system on s390 (#533833). (dcantrell)
+- Latest dracut has new syntax for rd_DASD. (dcantrell)
+- Handle case of not enough space in VG more gracefully. (#533797) (dlehman)
+- Make sure partitioning-related drive lists are sorted properly. (#534065)
+  (dlehman)
+- Remove the early kickstart processing pass (#532453). (clumens)
+- Move all the important stuff out of the KickstartCommand.parse methods.
+  (clumens)
+- These changes require a later version of pykickstart. (clumens)
+- commandMap and dataMap are now updates to the existing dict. (clumens)
+- Set a reference to the kickstart handler on BaseData objects. (clumens)
+- Move exception setup to right after instdata is populated. (clumens)
+- Leave one free logical block before each logical partition. (dlehman)
+- Use Chunk's geometry attr to access the parted Geometry. (dlehman)
+- Fix sorting of requests by mountpoint. It was backwards. (dlehman)
+- Align logical partitions' start sector up one logical block for metadata.
+  (dlehman)
+- Use parted.Device's sectorSize attr instead of physicalSectorSize.
+  (dlehman)
+- Select partition layout based on potential for growth. (dlehman)
+- Reimplement partition growing. (dlehman)
+- Create and use a function to obtain a parted alignment for a disk.
+  (dlehman)
+- Create and use a new function to create and add new partitions to disk.
+  (dlehman)
+- Make and use a new function to remove non-existent partitions. (dlehman)
+- Disable parted's cylinder alignment code. (dlehman)
+- Use new functions for conversion between size and sector count. (dlehman)
+- Consider whether a partition is growable when choosing free space.
+  (dlehman)
+- Allocate fixed-size requests before growable requests. (dlehman)
+- For the catch-all case, put the message into the UI, not the exn
+  (#536854). (clumens)
+- Add a missing binary to KEEPFILES (#533237) (msivak)
+- Set boot flag for /boot on mdraid 1 array too (#533533). (rvykydal)
+- Report no media present for cpqarray controllers with no disks attached
+  (hdegoede)
+- Honor existing RUNKS conf file variable on s390 (#513951). (dcantrell)
+- Add "Hipersockets" to qeth NETTYPE description (#511962). (dcantrell)
+- Set custom_icon to error for advanced storage dialog errors (hdegoede)
+- When creating a new md array check we have enough members (#533027)
+  (hdegoede)
+- Convert string.find calls into something modern (jkeating)
+- rescue: Don't copy install.ing to /tmp when not enough RAM (#531304,
+  #529392) (jvonau)
+- isys: remove stray debug printf (#533597) (hdegoede)
+- Don't activate / de-activate dmraid sets on setup / teardown (hdegoede)
+- Remove previous mdadm bug 523334 workaorund (hdegoede)
+- Don't stop mdraid containers or their arrays (#532971) (hdegoede)
+- Include the command line to put anaconda into debugger mode in history.
+  (pjones)
+- Allow remote(ish) debugging. (pjones)
+- Make sure /var/log/lastlog is there so we don't have ugly logs. (pjones)
+- Correct modopts initialization in loader (take 2) (#531932). (dcantrell)
+- Get rid of dead code, and fix gettimespecofday's math. (pjones)
+- Don't exec without forking first when calling udevadm. (pjones)
+- If init or loader exit unexpectedly, traceback. (pjones)
+- Fix the vim magic in this file to work. (pjones)
+- Add handling for sshpw command. (pjones)
+- Improve createLuserConf behavior and chroot behavior in users.* (pjones)
+- Improve logging of ssh-keygen. (pjones)
+- Remove tabs in "anaconda" (pjones)
+- pidof is a symlink to killall5, so we need that as well. (pjones)
+- Correctly initialize modopts in loader (#531932). (dcantrell)
+- Increase the size of /boot a little bit (#530555). (clumens)
+- Modify autopart requests to include a separate /home (#150670). (clumens)
+- Take the spec's requiredSpace into account when creating LVs. (clumens)
+- Add the PartSpec.__str__ method for debugging. (clumens)
+- Trim the inital / off the mountpoint before making an LV name from it.
+  (clumens)
+- Remove "anaconda" from attributes to skip (#532612, #532737). (clumens)
+- Fix status for and consolidate handling of '-' in vg/lv names. (#527302)
+  (dlehman)
+- Rename "setupShellEnvironment" to "setupSshd".  That's all it does.
+  (pjones)
+- Put "killall -USR2 anaconda" in a pre-populated history. (pjones)
+- Only try to split proxy commands out if there's actually one specified.
+  (pjones)
+- Consolidate the parsing of nfs: locations for ks= and stage2= (#529197)
+  (stijn)
+- Copy cio_ignore kernel parameter to zipl.conf on s390 (#475675).
+  (dcantrell)
+- Do not modify /etc/hosts from setup package (#530343). (dcantrell)
+- In execWithCallback(), support disabling stdout echo (#528386) (dcantrell)
+- Select drives in partition dialog, preserving settings. (#529931) (dlehman)
+- Clear pot and po updates after a 'make release' or 'make archive'.
+  (dcantrell)
+- Use the new anaconda image in fedora-logos (#529267). (jkeating)
+- Call udev_trigger with a "change" action and don't filter out dm devices.
+  (dlehman)
+- Remove unused attr_nomatch keyword argument from baseudev.udev_trigger.
+  (dlehman)
+- Fix logging of isys mount/umount into program.log. (rvykydal)
+- Fix "resize failed: 1" errors for ext2/ext3/ext4 (#517491). (dcantrell)
+- Log why we're exiting the installer in storage.DASD.startup() (dcantrell)
+- Improve detailedMessageWindow() in text.py. (dcantrell)
+- Use 'zerombr' kickstart command for DASDs needing dasdfmt (#528386).
+  (dcantrell)
+- Add 'zerombr' to list of early kickstart commands we look for. (dcantrell)
+
 * Thu Oct 29 2009 Chris Lumens <clumens@redhat.com> - 13.7-1
 - TypeError: '_ped.DiskType' object is not callable (#531730) (hdegoede)
 - Fix upgrade of GRUB with md raid boot for versions F11 and earlier.
