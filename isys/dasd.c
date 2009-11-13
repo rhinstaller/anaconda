@@ -18,7 +18,7 @@
 #define u64 __u64
 #include <asm/vtoc.h>
 #include <asm/dasd.h>
-typedef struct vtoc_volume_label volume_label_t;
+typedef struct vtoc_volume_label_cdl volume_label_t;
 #endif
 
 
