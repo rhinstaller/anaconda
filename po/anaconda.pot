@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 12.38.3\n"
+"Project-Id-Version: anaconda 12.38.4\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-11-09 12:06-1000\n"
+"POT-Creation-Date: 2009-11-12 16:24-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,7 +131,7 @@ msgstr ""
 #: loader/method.c:353 loader/nfsinstall.c:250 loader/nfsinstall.c:269
 #: loader/telnetd.c:92 loader/urlinstall.c:83 loader/urlinstall.c:107
 #: loader/urlinstall.c:175 loader/urls.c:328 loader/urls.c:334
-#: storage/__init__.py:201 storage/__init__.py:1648 storage/__init__.py:1733
+#: storage/__init__.py:201 storage/__init__.py:1651 storage/__init__.py:1736
 #: textw/netconfig_text.py:280 textw/partition_text.py:186
 #: textw/partition_text.py:192 textw/partition_text.py:198
 #: textw/partition_text.py:231 textw/partition_text.py:241
@@ -161,13 +161,13 @@ msgstr ""
 #: upgrade.py:58 upgrade.py:206 yuminstall.py:236 yuminstall.py:665
 #: yuminstall.py:852 yuminstall.py:932 yuminstall.py:938 yuminstall.py:1082
 #: yuminstall.py:1107 yuminstall.py:1165 yuminstall.py:1329 yuminstall.py:1359
-#: storage/__init__.py:97 storage/__init__.py:205 storage/__init__.py:1821
+#: storage/__init__.py:97 storage/__init__.py:205 storage/__init__.py:1824
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:58 image.py:92 image.py:248 kickstart.py:1360
 #: kickstart.py:1399 upgrade.py:58 yuminstall.py:1170 iw/partition_gui.py:1038
-#: storage/__init__.py:1822
+#: storage/__init__.py:1825
 msgid "_Continue"
 msgstr ""
 
@@ -330,7 +330,7 @@ msgid ""
 msgstr ""
 
 #: gui.py:1257 image.py:164 image.py:194 packages.py:345 packages.py:350
-#: storage/__init__.py:1647
+#: storage/__init__.py:1650
 msgid "_Exit"
 msgstr ""
 
@@ -1126,7 +1126,7 @@ msgid "Read-Only"
 msgstr ""
 
 #: rescue.py:287 rescue.py:289 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:326 storage/__init__.py:1647 textw/upgrade_text.py:133
+#: loader/method.c:326 storage/__init__.py:1650 textw/upgrade_text.py:133
 msgid "Skip"
 msgstr ""
 
@@ -2521,7 +2521,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: iw/partition_gui.py:367 storage/__init__.py:1647
+#: iw/partition_gui.py:367 storage/__init__.py:1650
 msgid "Format"
 msgstr ""
 
@@ -4062,131 +4062,131 @@ msgstr ""
 msgid "Error storing an encryption key: %s\n"
 msgstr ""
 
-#: storage/__init__.py:320
+#: storage/__init__.py:321
 msgid "Finding Devices"
 msgstr ""
 
-#: storage/__init__.py:321
+#: storage/__init__.py:322
 msgid "Finding storage devices"
 msgstr ""
 
-#: storage/__init__.py:563
+#: storage/__init__.py:565
 msgid "This partition is holding the data for the hard drive install."
 msgstr ""
 
-#: storage/__init__.py:568
+#: storage/__init__.py:570
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr ""
 
-#: storage/__init__.py:574
+#: storage/__init__.py:576
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr ""
 
-#: storage/__init__.py:577
+#: storage/__init__.py:579
 msgid "This device is part of a RAID device."
 msgstr ""
 
-#: storage/__init__.py:582
+#: storage/__init__.py:584
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr ""
 
-#: storage/__init__.py:585
+#: storage/__init__.py:587
 msgid "This device is part of a LVM volume group."
 msgstr ""
 
-#: storage/__init__.py:601
+#: storage/__init__.py:603
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
 "\n"
 msgstr ""
 
-#: storage/__init__.py:873
+#: storage/__init__.py:875
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 
-#: storage/__init__.py:878
+#: storage/__init__.py:880
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 
-#: storage/__init__.py:884
+#: storage/__init__.py:886
 #, python-format
 msgid ""
 "Your / partition is less than %s MB which is lower than recommended for a "
 "normal %s install."
 msgstr ""
 
-#: storage/__init__.py:894
+#: storage/__init__.py:896
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr ""
 
-#: storage/__init__.py:901
+#: storage/__init__.py:903
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
 
-#: storage/__init__.py:928
+#: storage/__init__.py:930
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 
-#: storage/__init__.py:931
+#: storage/__init__.py:933
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 
-#: storage/__init__.py:938
+#: storage/__init__.py:940
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
 msgstr ""
 
-#: storage/__init__.py:943
+#: storage/__init__.py:945
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: storage/__init__.py:950
+#: storage/__init__.py:952
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
-#: storage/__init__.py:954
+#: storage/__init__.py:956
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr ""
 
-#: storage/__init__.py:965
+#: storage/__init__.py:967
 msgid "No Drives Found"
 msgstr ""
 
-#: storage/__init__.py:966
+#: storage/__init__.py:968
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: storage/__init__.py:1198 storage/__init__.py:1207
+#: storage/__init__.py:1201 storage/__init__.py:1210
 msgid "Dirty File Systems"
 msgstr ""
 
-#: storage/__init__.py:1199
+#: storage/__init__.py:1202
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4195,7 +4195,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:1208
+#: storage/__init__.py:1211
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4203,7 +4203,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:1680
+#: storage/__init__.py:1683
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4214,7 +4214,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: storage/__init__.py:1691
+#: storage/__init__.py:1694
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4226,7 +4226,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: storage/__init__.py:1699
+#: storage/__init__.py:1702
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4238,7 +4238,7 @@ msgid ""
 "make sure the installer is set to format all swap devices."
 msgstr ""
 
-#: storage/__init__.py:1711
+#: storage/__init__.py:1714
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4249,7 +4249,7 @@ msgid ""
 "you will need to format the device or skip it."
 msgstr ""
 
-#: storage/__init__.py:1722
+#: storage/__init__.py:1725
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -4260,7 +4260,7 @@ msgid ""
 "Press OK to exit the installer"
 msgstr ""
 
-#: storage/__init__.py:1728
+#: storage/__init__.py:1731
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -4270,11 +4270,11 @@ msgid ""
 "Press OK to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1788 storage/__init__.py:1798
+#: storage/__init__.py:1791 storage/__init__.py:1801
 msgid "Invalid mount point"
 msgstr ""
 
-#: storage/__init__.py:1789
+#: storage/__init__.py:1792
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4283,7 +4283,7 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1799
+#: storage/__init__.py:1802
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -4292,18 +4292,18 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1812 storage/__init__.py:1833
+#: storage/__init__.py:1815 storage/__init__.py:1836
 msgid "Unable to mount filesystem"
 msgstr ""
 
-#: storage/__init__.py:1813
+#: storage/__init__.py:1816
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s.  You may continue installation, "
 "but there may be problems."
 msgstr ""
 
-#: storage/__init__.py:1834
+#: storage/__init__.py:1837
 #, python-format
 msgid ""
 "An error occurred mounting device %s as %s: %s. This is a fatal error and "
@@ -4374,7 +4374,7 @@ msgstr ""
 msgid "_Re-initialize"
 msgstr ""
 
-#: storage/devicetree.py:1797 storage/devicetree.py:1846
+#: storage/devicetree.py:1799 storage/devicetree.py:1848
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

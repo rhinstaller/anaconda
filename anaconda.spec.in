@@ -215,6 +215,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Nov 12 2009 David Cantrell <dcantrell@redhat.com> - 12.38.5-1
+- Log calls to DiskLabel's commit and commitToDisk methods. (dlehman)
+- Fix DiskLabel.status so it returns True, not self.partedDisk, when active.
+  (dlehman)
+- Write /etc/dasd.conf to target system on s390 (#533833). (dcantrell)
+- Latest dracut has new syntax for rd_DASD. (dcantrell)
+- For the catch-all case, put the message into the UI, not the exn
+  (#536854). (clumens)
+- Add a missing binary to KEEPFILES (#533237) (msivak)
+- Honor existing RUNKS conf file variable on s390 (#513951). (dcantrell)
+- Add "Hipersockets" to qeth NETTYPE description (#511962). (dcantrell)
+
 * Mon Nov 09 2009 David Cantrell <dcantrell@redhat.com> - 12.38.4-1
 - Remove previous mdadm bug 523334 workaorund (hdegoede)
 - Don't stop mdraid containers or their arrays (#532971) (hdegoede)
