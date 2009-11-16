@@ -189,8 +189,8 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     python-urlgrabber python-volume_key pyxf86config readline redhat-artwork
     reiserfs-utils rpm rpm-libs rpm-python sed selinux-policy-targeted
     setup slang smc-meera-fonts specspo sqlite synaptics system-config-date
-    system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release taipeifonts tcp_wrappers
-    sysvinit-tools telnet
+    system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
+    sysvinit-tools taipeifonts tcp_wrappers tcp_wrappers-libs telnet
     tzdata udev un-core-dotum-fonts urw-fonts util-linux-ng tigervnc-server
     tigervnc-server-module vlgothic-fonts vim-minimal
     wget wpa_supplicant xkeyboard-config xfsprogs xorg-x11-xauth
@@ -226,7 +226,7 @@ if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES bind-utils binutils coreutils findutils gzip
               initscripts iputils less libgcc login lsscsi modutils mount
               net-tools openssh-clients pam portmap
-              s390utils sed strace tar tcp_wrappers xorg-x11-libs
+              s390utils sed strace tar xorg-x11-libs
               xorg-x11-xauth"
 fi
 
