@@ -1105,7 +1105,7 @@ def pullRemainingKickstartConfig(ksfile):
         url = None
 
         ll = l.strip()
-        if string.find(ll, "%ksappend") == -1:
+        if not ll.startswith("%ksappend"):
             os.write(outF, l)
             continue
 
