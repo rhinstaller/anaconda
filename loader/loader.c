@@ -251,51 +251,59 @@ void stopNewt(void) {
     newtRunning = 0;
 }
 
-static char * productName = NULL;
-static char * productPath = NULL;
-static char * productArch = NULL;
-static char * productStamp = NULL;
+static gchar *productName = NULL;
+static gchar *productPath = NULL;
+static gchar *productArch = NULL;
 
 static void initProductInfo(void) {
-    FILE *f;
-    int i;
+    gchar *contents = NULL;
+    gchar **lines = NULL, **stamp = NULL;
+    GError *fileErr = NULL;
 
-    f = fopen("/.buildstamp", "r");
-    if (!f) {
-        productName = strdup("anaconda");
-        productPath = strdup("anaconda");
-    } else {
-        productStamp = malloc(256);
-        productName = malloc(256);
-        productPath = malloc(256);
-        productStamp = fgets(productStamp, 256, f); /* stamp time and architecture */
-        productArch = strstr(productStamp, "."); /* architecture is separated by dot */
-        if(productArch) productArch++;
-
-        productName = fgets(productName, 256, f); /* product name */
-        productPath = fgets(productPath, 256, f); /* product version */
-        productPath = fgets(productPath, 256, f); /* product path */
-
-        i = strlen(productName) - 1;
-        while (isspace(*(productName + i))) {
-            *(productName + i) = '\0';
-            i--;
-        }
-        i = strlen(productPath) - 1;
-        while (isspace(*(productPath + i))) {
-            *(productPath + i) = '\0';
-            i--;
-        }
-        i = strlen(productArch) - 1;
-        while (isspace(*(productArch + i))) {
-            *(productArch + i) = '\0';
-            i--;
-        }
+    if (!g_file_get_contents("/.buildstamp", &contents, NULL, &fileErr)) {
+        logMessage(ERROR, "error reading .buildstamp: %s", fileErr->message);
+        g_error_free(fileErr);
+        productName = g_strdup("anaconda");
+        productArch = g_strdup("unknown architecture");
+        productPath = g_strdup("anaconda");
+        return;
     }
 
-    if(!productArch) productArch = strdup("unknown architecture");
+    /* .buildstamp uses the first 3 lines in this format:
+     *     STAMP.productArch
+     *     productName
+     *     productPath
+     */
+    lines = g_strsplit(contents, "\n", 0);
+    g_free(contents);
 
-    fclose(f);
+    if ((lines != NULL) && (g_strv_length(lines) >= 3)) {
+        /* STAMP.productArch */
+        stamp = g_strsplit(lines[0], ".", 0);
+
+        if ((stamp != NULL) && (g_strv_length(stamp) == 2)) {
+            productArch = g_strdup(stamp[1]);
+        } else {
+            productArch = g_strdup("unknown architecture");
+        }
+
+        if (stamp) {
+            g_strfreev(stamp);
+        }
+
+        productName = g_strdup(lines[1]);
+        productPath = g_strdup(lines[2]);
+    } else {
+        productName = g_strdup("anaconda");
+        productArch = g_strdup("unknown architecture");
+        productPath = g_strdup("anaconda");
+    }
+
+    if (lines) {
+        g_strfreev(lines);
+    }
+
+    return;
 }
 
 char * getProductName(void) {
