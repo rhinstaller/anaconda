@@ -1264,7 +1264,7 @@ Target WWID</property>
 	  <property name="spacing">0</property>
 
 	  <child>
-	    <widget class="GtkButton" id="addISCSIButton">
+	    <widget class="GtkButton" id="addAdvancedButton">
 	      <property name="visible">True</property>
 	      <property name="can_default">True</property>
 	      <property name="can_focus">True</property>
@@ -1309,7 +1309,7 @@ Target WWID</property>
 		      <child>
 			<widget class="GtkLabel" id="label9">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">Add iSCSI Target</property>
+			  <property name="label" translatable="yes">Add Advanced Target</property>
 			  <property name="use_underline">True</property>
 			  <property name="use_markup">False</property>
 			  <property name="justify">GTK_JUSTIFY_LEFT</property>

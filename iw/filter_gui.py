@@ -19,6 +19,7 @@
 #
 
 import block
+import collections
 import gtk, gobject
 import gtk.glade
 import gui
@@ -45,6 +46,40 @@ PORT_COL = 11
 TARGET_COL = 12
 LUN_COL = 13
 
+# This is kind of a magic class that is used for populating the device store.
+# It mostly acts like a list except for some funny behavior on adding/getting.
+# You must add udev dicts to this list, but when you go to examine the list
+# (by pulling items out, checking membership, etc.) you are comparing based
+# on names.
+#
+# The only reason to have this is to prevent needing two lists in a variety
+# of places throughout FilterWindow.
+class NameCache(collections.MutableSequence):
+    def __init__(self, iterable):
+        self._lst = list(iterable)
+
+    def __contains__(self, item):
+        return item["name"] in iter(self)
+
+    def __delitem__(self, index):
+        return self._lst.__delitem__(index)
+
+    def __getitem__(self, index):
+        return self._lst.__getitem__(index)["name"]
+
+    def __iter__(self):
+        for d in self._lst:
+            yield d["name"]
+
+    def __len__(self):
+        return len(self._lst)
+
+    def __setitem__(self, index, value):
+        return self._lst.__setitem__(index, value)
+
+    def insert(self, index, value):
+        return self._lst.insert(index, value)
+
 # These are global because they need to be accessible across all Callback
 # objects as the same values, and from the AdvancedFilterWindow object to add
 # and remove devices when populating scrolled windows.
@@ -65,7 +100,7 @@ def isRAID(info):
 def isMultipath(info):
     return udev_device_is_multipath_member(info)
 
-def isOther(info)
+def isOther(info):
     return udev_device_is_iscsi(info) or udev_device_is_fcoe(info)
 
 class Callbacks(object):
@@ -341,16 +376,27 @@ class FilterWindow(InstallWindow):
 
         self.anaconda.id.storage.exclusiveDisks.extend(list(selected))
 
-    def _addTuple(self, tuple):
-        global totalDevices, totalSize
+    def _add_advanced_clicked(self, button):
+        from advanced_storage import addDrive
 
-        self.store.append(None, tuple)
-        totalDevices += 1
-        totalSize += tuple[0]["XXX_SIZE"]
+        if not addDrive(self.anaconda):
+            return
 
-        for pg in self.pages:
-            if pg.cb.isMember(tuple[0]):
-                pg.cb.addToUI(tuple)
+        udev_trigger(subsystem="block")
+        new_disks = filter(udev_device_is_disk, udev_get_block_devices())
+        (new_singlepaths, new_mpaths, new_partitions) = identifyMultipaths(new_disks)
+        (new_raids, new_nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
+                                                    new_singlepaths)
+
+        nonraids = filter(lambda d: d not in self._cachedDevices, new_nonraids)
+        mpaths = filter(lambda d: d not in self._cachedMPaths, new_mpaths)
+        raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
+
+        self.populate(nonraids, mpaths, raids)
+
+        self._cachedDevices.extend(nonraids)
+        self._cachedMPaths.extend(mpaths)
+        self._cachedRaidDevices.extend(raids)
 
     def _makeBasic(self):
         np = NotebookPage(self.store, "basic", self.xml, Callbacks(self.xml))
@@ -379,7 +425,7 @@ class FilterWindow(InstallWindow):
         np.ds.addColumn(_("Paths"), PATHS_COL)
         return np
 
-    def _makeOther(self)
+    def _makeOther(self):
         np = NotebookPage(self.store, "other", self.xml, OtherCallbacks(self.xml))
 
         np.ds.addColumn(_("WWID"), WWID_COL)
@@ -414,8 +460,10 @@ class FilterWindow(InstallWindow):
         (self.xml, self.vbox) = gui.getGladeWidget("filter.glade", "vbox")
         self.buttonBox = self.xml.get_widget("buttonBox")
         self.notebook = self.xml.get_widget("notebook")
+        self.addAdvanced = self.xml.get_widget("addAdvancedButton")
 
         self.notebook.connect("switch-page", self._page_switched)
+        self.addAdvanced.connect("clicked", self._add_advanced_clicked)
 
         self.pages = []
 
@@ -449,16 +497,40 @@ class FilterWindow(InstallWindow):
                           self._makeSearch()]
 
         udev_trigger(subsystem="block")
-        all_devices = filter(udev_device_is_disk, udev_get_block_devices())
-        (all_devices, mpaths, partitions) = identifyMultipaths(all_devices)
+        disks = filter(udev_device_is_disk, udev_get_block_devices())
+        (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
 
         # The device list could be really long, so we really only want to
         # iterate over it the bare minimum of times.  Dividing this list up
         # now means fewer elements to iterate over later.
-        (raid_devices, devices) = self.partition_list(lambda d: isRAID(d) and not isCCISS(d),
-                                                      all_devices)
+        (raids, nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
+                                            singlepaths)
 
-        for d in devices:
+        self.populate(nonraids, mpaths, raids)
+
+        # If the "Add Advanced" button is ever clicked, we need to have a list
+        # of what devices previously existed so we know what's new.  Then we
+        # can just add the new devices to the UI.  This is going to be slow,
+        # but the user has to click a button to get to the slow part.
+        self._cachedDevices = NameCache(singlepaths)
+        self._cachedMPaths = NameCache(mpaths)
+        self._cachedRaidDevices = NameCache(raids)
+
+        return self.vbox
+
+    def populate(self, nonraids, mpaths, raids):
+        def _addTuple(tuple):
+            global totalDevices, totalSize
+
+            self.store.append(None, tuple)
+            totalDevices += 1
+            totalSize += tuple[0]["XXX_SIZE"]
+
+            for pg in self.pages:
+                if pg.cb.isMember(tuple[0]):
+                    pg.cb.addToUI(tuple)
+
+        for d in nonraids:
             partedDevice = parted.Device(path="/dev/" + udev_device_get_name(d))
             d["XXX_SIZE"] = int(partedDevice.getSize())
 
@@ -467,7 +539,7 @@ class FilterWindow(InstallWindow):
                      udev_device_get_vendor(d), udev_device_get_bus(d),
                      udev_device_get_serial(d), udev_device_get_wwid(d),
                      "", "", "", "")
-            self._addTuple(tuple)
+            _addTuple(tuple)
 
         for rs in block.getRaidSets():
             rs.activate(mknod=True, mkparts=False)
@@ -478,7 +550,7 @@ class FilterWindow(InstallWindow):
             fstype = ""
 
             members = map(lambda m: m.get_devpath(), list(rs.get_members()))
-            for d in raid_devices:
+            for d in raids:
                 if udev_device_get_name(d) in members:
                     fstype = udev_device_get_format(d)
                     break
@@ -491,7 +563,7 @@ class FilterWindow(InstallWindow):
 
             tuple = (data, True, False, rs.name, partedDevice.model,
                      str(size) + " MB", "", "", "", "", "", "", "", "")
-            self._addTuple(tuple)
+            _addTuple(tuple)
 
             rs.deactivate()
 
@@ -511,11 +583,9 @@ class FilterWindow(InstallWindow):
                      udev_device_get_serial(mpath[0]),
                      udev_device_get_wwid(mpath[0]),
                      paths, "", "", "")
-            self._addTuple(tuple)
+            _addTuple(tuple)
 
-        return self.vbox
-
-    def partition_list(self, pred, lst):
+    def split_list(self, pred, lst):
         pos = []
         neg = []
 
