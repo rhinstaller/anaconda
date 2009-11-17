@@ -99,6 +99,16 @@ function doshutdown()
 
 function doreboot()
 {
+    if [ -e "/sys/firmware/reipl" ]; then
+        read REIPL_TYPE < /sys/firmware/reipl/reipl_type
+        echo "reipl_type=$REIPL_TYPE"
+        pushd /sys/firmware/reipl/$REIPL_TYPE >/dev/null 2>&1
+        for i in *; do
+            echo "$i=`cat $i`"
+        done
+        popd >/dev/null 2>&1
+    fi
+
     echo $"about to exec shutdown -r"
     exec /sbin/shutdown -r
     exit 0
