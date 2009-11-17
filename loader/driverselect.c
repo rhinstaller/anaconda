@@ -49,7 +49,7 @@ static int sortDrivers(const void * a, const void * b) {
                   one->modInfo->moduleList[two->index].description);
 }
 
-static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
+static int getManualModuleArgs(struct moduleInfo * mod, gchar *** moduleArgs) {
     newtGrid grid, buttons;
     newtComponent text, f, ok, back, entry;
     struct newtExitStruct es;
@@ -113,31 +113,7 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
     logMessage(INFO, "specified args of %s for %s", argsEntry, mod->moduleName);
 
     if (strlen(argsEntry) > 0) {
-        int numAlloced = 5;
-        char * start;
-        char * end;
-
-        i = 0;
-
-        *moduleArgs = malloc((numAlloced + 1) * sizeof(*moduleArgs));
-        start = argsEntry;
-        while (start && *start) {
-            end = start;
-            while (!isspace(*end) && *end) end++;
-            *end = '\0';
-            (*moduleArgs)[i++] = strdup(start);
-            start = end + 1;
-            *end = ' ';
-            start = strchr(end, ' ');
-            if (start) start++;
-
-            if (i >= numAlloced) {
-                numAlloced += 5;
-                *moduleArgs = realloc(*moduleArgs, 
-                                      sizeof(*moduleArgs) * (numAlloced + 1));
-            }
-        }
-        (*moduleArgs)[i] = NULL;
+        *moduleArgs = g_strsplit(argsEntry, " ", 0);
     }
 
     newtFormDestroy(f);
@@ -151,7 +127,7 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
     enum driverMajor type;
     struct sortModuleList * sortedOrder;
     char giveArgs = ' ';
-    char ** moduleArgs = NULL;
+    gchar **moduleArgs = NULL;
     moduleInfoSet modInfo = loaderData->modInfo;
 
     newtComponent text, f, ok, back, argcheckbox, listbox;
@@ -246,8 +222,8 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
             done = -2;
         } else {
             if (giveArgs != ' ') {
-                i = getManualModuleArgs(&(modInfo->moduleList[num]), 
-                                         &moduleArgs);
+                i = getManualModuleArgs(&(modInfo->moduleList[num]),
+                                        &moduleArgs);
                 if (i == LOADER_BACK)
                     done = 0;
                 else
@@ -272,7 +248,9 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
     mlLoadModule(modInfo->moduleList[num].moduleName, moduleArgs);
     free(sortedOrder);
 
+    if (moduleArgs) {
+        g_strfreev(moduleArgs);
+    }
+
     return LOADER_OK;
 }
-
-
