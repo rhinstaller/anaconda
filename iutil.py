@@ -984,7 +984,10 @@ def reIPL(anaconda, loader_pid):
 
     reipl_path = "/sys/firmware/reipl"
 
-    ipldev = anaconda.id.bootloader.device
+    try:
+        ipldev = anaconda.platform.bootDevice().disk.name
+    except:
+        ipldev = None
 
     if ipldev is None:
         message = _("Error determining mount point type")
