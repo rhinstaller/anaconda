@@ -27,8 +27,8 @@ if IS_S390
 utils_PROGRAMS      += geninitrdsz mk-s390-cdboot
 endif
 
-modlist_CFLAGS      = -I$(top_srcdir)/loader
-modlist_LDADD       = $(POPT_LIBS)
+modlist_CFLAGS      = -I$(top_srcdir)/loader $(GLIB_CFLAGS)
+modlist_LDADD       = $(GLIB_LIBS)
 modlist_SOURCES     = modlist.c $(top_srcdir)/loader/moduleinfo.c
 
 MAINTAINERCLEANFILES = Makefile.in

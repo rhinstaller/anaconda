@@ -33,7 +33,6 @@
 #include <execinfo.h>
 #include <fcntl.h>
 #include <newt.h>
-#include <popt.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -56,6 +55,7 @@
 #include <linux/vt.h>
 
 #include <curl/curl.h>
+#include <glib.h>
 
 #ifdef USE_MTRACE
 #include <mcheck.h>
@@ -902,8 +902,9 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     int fd;
     char buf[1024];
     int len;
-    char ** argv;
-    int argc;
+    gint argc = 0;
+    gchar **argv = NULL;
+    GError *optErr = NULL;
     int numExtraArgs = 0;
     int i;
     char *front, *stage2param = NULL;
@@ -928,8 +929,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
 
     logMessage(INFO, "kernel command line: %s", cmdLine);
     
-    if (poptParseArgvString(cmdLine, &argc, (const char ***) &argv))
+    if (!g_shell_parse_argv(cmdLine, &argc, &argv, &optErr)) {
+        g_error_free(optErr);
         return;
+    }
 
     for (i=0; i < argc; i++) {
         if (!strcasecmp(argv[i], "askmethod"))
@@ -1823,19 +1826,21 @@ int main(int argc, char ** argv) {
     struct loaderData_s loaderData;
 
     char *path;
-    char * cmdLine = NULL;
-    char * ksFile = NULL;
-    int testing = 0;
-    int mediacheck = 0;
-    char * virtpcon = NULL;
-    poptContext optCon;
-    struct poptOption optionTable[] = {
-        { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0, NULL, NULL },
-        { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0, NULL, NULL },
-        { "test", '\0', POPT_ARG_NONE, &testing, 0, NULL, NULL },
-        { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0, NULL, NULL},
-        { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0, NULL, NULL },
-        { 0, 0, 0, 0, 0, 0, 0 }
+
+    gchar *cmdLine = NULL, *ksFile = NULL, *virtpcon = NULL;
+    gboolean testing = FALSE, mediacheck = FALSE;
+    gchar **remaining = NULL;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry optionTable[] = {
+        { "cmdline", 0, 0, G_OPTION_ARG_STRING, &cmdLine, NULL, NULL },
+        { "ksfile", 0, 0, G_OPTION_ARG_STRING, &ksFile, NULL, NULL },
+        { "test", 0, 0, G_OPTION_ARG_NONE, &testing, NULL, NULL },
+        { "mediacheck", 0, 0, G_OPTION_ARG_NONE, &mediacheck, NULL, NULL },
+        { "virtpconsole", 0, 0, G_OPTION_ARG_STRING, &virtpcon, NULL, NULL },
+        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
+          NULL, NULL },
+        { NULL },
     };
 
     /* get init PID if we have it */
@@ -1865,19 +1870,25 @@ int main(int argc, char ** argv) {
     rc = anaconda_trace_init();
 
     /* now we parse command line options */
-    optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, optionTable, NULL);
 
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
-        fprintf(stderr, "bad option %s: %s\n",
-                poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-                poptStrerror(rc));
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
+        fprintf(stderr, "bad option: %s\n", optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
         doExit(1);
     }
 
-    if ((arg = (char *) poptGetArg(optCon))) {
-        fprintf(stderr, "unexpected argument: %s\n", arg);
+    g_option_context_free(optCon);
+
+    if (remaining) {
+        fprintf(stderr, "unexpected argument: %s\n", remaining[0]);
+        g_strfreev(remaining);
         doExit(1);
     }
+
+    g_strfreev(remaining);
 
     if (!testing && !access("/var/run/loader.run", R_OK)) {
         printf(_("loader has already been run.  Starting shell.\n"));

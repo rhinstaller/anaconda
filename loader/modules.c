@@ -29,7 +29,6 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <newt.h>
-#include <popt.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -363,27 +362,35 @@ void loadKickstartModule(struct loaderData_s * loaderData,
                          int argc, char **argv) {
     gchar *opts = NULL;
     gchar *module = NULL;
-    gchar **args = NULL;
-    poptContext optCon;
+    gchar **args = NULL, **remaining = NULL;
     gboolean rc;
-    struct poptOption ksDeviceOptions[] = {
-        { "opts", '\0', POPT_ARG_STRING, &opts, 0, NULL, NULL },
-        { 0, 0, 0, 0, 0, 0, 0 }
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksDeviceOptions[] = {
+        { "opts", 0, 0, G_OPTION_ARG_STRING, &opts, NULL, NULL },
+        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
+          NULL, NULL },
+        { NULL },
     };
 
-    optCon = poptGetContext(NULL, argc, (const char **) argv,
-                            ksDeviceOptions, 0);
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksDeviceOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
         startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to device kickstart method "
-                         "command %s: %s"),
-                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS),
-                       poptStrerror(rc));
+                         "command: %s"), optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
         return;
     }
 
-    module = (gchar *) poptGetArg(optCon);
+    g_option_context_free(optCon);
+
+    if ((remaining != NULL) && (g_strv_length(remaining) == 1)) {
+        module = remaining[0];
+    }
 
     if (!module) {
         startNewt();

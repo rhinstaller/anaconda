@@ -28,11 +28,11 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <newt.h>
-#include <popt.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <glib.h>
 
 #include "loader.h"
 #include "loadermisc.h"
@@ -120,8 +120,9 @@ int ksReadCommands(char * cmdFile) {
     char * start, * end, * chptr;
     char oldch;
     int line = 0;
-    char ** argv; 
-    int argc;
+    gint argc = 0;
+    gchar **argv = NULL;
+    GError *optErr = NULL;
     int inSection = 0; /* in a section such as %post, %pre or %packages */
     struct ksCommandNames * cmd;
     int commandsAlloced = 5;
@@ -179,11 +180,15 @@ int ksReadCommands(char * cmdFile) {
             /* JKFIXME: this should be handled better, but at least we 
              * won't segfault now */
         } else {
-            if (poptParseArgvString(start, &argc, 
-                                    (const char ***) &argv) || !argc) {
-                newtWinMessage(_("Kickstart Error"), _("OK"), 
-                               _("Error in %s on line %d of kickstart file %s."),
-                               argv[0], line, cmdFile);
+            if (!g_shell_parse_argv(start, &argc, &argv, &optErr) && argc) {
+                newtWinMessage(_("Kickstart Error"), _("OK"),
+                               _("Error in %s on line %d of kickstart "
+                                 "file %s."), argv[0], line, cmdFile);
+                g_error_free(optErr);
+            } else if (!argc) {
+                newtWinMessage(_("Kickstart Error"), _("OK"),
+                               _("Missing options on line %d of kickstart "
+                                 "file %s."), line, cmdFile);
             } else {
                 for (cmd = ksTable; cmd->name; cmd++)
                     if (!strcmp(cmd->name, argv[0])) break;
@@ -478,29 +483,31 @@ static void setHalt(struct loaderData_s * loaderData, int argc,
 
 static void setShutdown(struct loaderData_s * loaderData, int argc, 
                     char ** argv) {
-    poptContext optCon;
-    int reboot = 0, halt = 0, poweroff = 0;
-    int rc;
-
-    struct poptOption ksOptions[] = {
-        { "eject", 'e', POPT_ARG_NONE, NULL, 0, NULL, NULL },
-        { "reboot", 'r', POPT_ARG_NONE, &reboot, 0, NULL, NULL },
-        { "halt", 'h', POPT_ARG_NONE, &halt, 0, NULL, NULL },
-        { "poweroff", 'p', POPT_ARG_NONE, &poweroff, 0, NULL, NULL },
-        { 0, 0, 0, 0, 0, 0, 0 }
+    gint eject = 0, reboot = 0, halt = 0, poweroff = 0;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksOptions[] = {
+        { "eject", 'e', 0, G_OPTION_ARG_INT, &eject, NULL, NULL },
+        { "reboot", 'r', 0, G_OPTION_ARG_INT, &reboot, NULL, NULL },
+        { "halt", 'h', 0, G_OPTION_ARG_INT, &halt, NULL, NULL },
+        { "poweroff", 'p', 0, G_OPTION_ARG_INT, &poweroff, NULL, NULL },
+        { NULL },
     };
 
-    optCon = poptGetContext(NULL, argc, (const char **) argv, ksOptions, 0);
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
         startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to shutdown kickstart method "
-                         "command %s: %s"),
-                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-                       poptStrerror(rc));
+                         "command: %s"), optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
         return;
     }
 
+    g_option_context_free(optCon);
 
     if (FL_NOKILL(flags)) {
         flags |= LOADER_FLAGS_HALT;

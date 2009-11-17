@@ -70,10 +70,6 @@ AC_CHECK_LIB([newt], [newtInit],
              [AC_SUBST(NEWT_LIBS, [-lnewt])],
              [AC_MSG_FAILURE([*** libnewt not usable.])])
 
-AC_CHECK_LIB([popt], [poptGetContext],
-             [AC_SUBST(POPT_LIBS, [-lpopt])],
-             [AC_MSG_FAILURE([*** libpopt not usable.])])
-
 AC_CHECK_LIB([slang], [SLang_get_int_size],
              [AC_SUBST(SLANG_LIBS, [-lslang])],
              [AC_MSG_FAILURE([*** libslang not usable.])])
@@ -132,6 +128,7 @@ AM_CHECK_PYTHON_HEADERS(,[AC_MSG_ERROR(could not find Python headers or library)
 
 # Check for libraries we need that provide pkg-config scripts
 PKG_PROG_PKG_CONFIG([0.23])
+PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.16.1])
 PKG_CHECK_MODULES([GTK_X11], [gtk+-x11-2.0 >= 2.16.1])
 PKG_CHECK_MODULES([GDK], [gdk-2.0 >= 2.16.1])
 PKG_CHECK_MODULES([NETWORKMANAGER], [NetworkManager >= 0.7.1])

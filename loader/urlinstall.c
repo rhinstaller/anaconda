@@ -24,12 +24,12 @@
  */
 
 #include <newt.h>
-#include <popt.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mount.h>
 #include <unistd.h>
 #include <errno.h>
+#include <glib.h>
 
 #include "../isys/iface.h"
 
@@ -382,28 +382,32 @@ int kickstartFromUrl(char * url, struct loaderData_s * loaderData) {
 
 void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 		    char ** argv) {
-
-    char *url = NULL, *substr = NULL;
-    char *proxy = NULL;
-    poptContext optCon;
-    int rc;
-    struct poptOption ksUrlOptions[] = {
-        { "url", '\0', POPT_ARG_STRING, &url, 0, NULL, NULL },
-        { "proxy", '\0', POPT_ARG_STRING, &proxy, 0, NULL, NULL },
-        { 0, 0, 0, 0, 0, 0, 0 }
+    char *substr = NULL;
+    gchar *url = NULL, *proxy = NULL;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksUrlOptions[] = {
+        { "url", 0, 0, G_OPTION_ARG_STRING, &url, NULL, NULL },
+        { "proxy", 0, 0, G_OPTION_ARG_STRING, &proxy, NULL, NULL },
+        { NULL },
     };
 
     logMessage(INFO, "kickstartFromUrl");
-    optCon = poptGetContext(NULL, argc, (const char **) argv, ksUrlOptions, 0);
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
+
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksUrlOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
         startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to Url kickstart method "
-                         "command %s: %s"),
-                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-                       poptStrerror(rc));
+                       _("Bad argument to URL kickstart method "
+                         "command: %s"), optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
         return;
     }
+
+    g_option_context_free(optCon);
 
     if (!url) {
         newtWinMessage(_("Kickstart Error"), _("OK"),

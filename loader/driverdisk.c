@@ -23,12 +23,12 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <newt.h>
-#include <popt.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <glib.h>
 
 #include "copy.h"
 #include "loader.h"
@@ -554,34 +554,42 @@ static void getDDFromDev(struct loaderData_s * loaderData, char * dev);
 
 void useKickstartDD(struct loaderData_s * loaderData,
                     int argc, char ** argv) {
-    char * fstype = NULL;
     char * dev = NULL;
-    char * src = NULL;
-
     char * biospart = NULL, * p = NULL; 
-    int usebiosdev = 0;
-
-    poptContext optCon;
-    int rc;
-    struct poptOption ksDDOptions[] = {
+    gchar *fstype = NULL, *src = NULL;
+    gint usebiosdev = 0;
+    gchar **remaining = NULL;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksDDOptions[] = {
         /* The --type option is deprecated and now has no effect. */
-        { "type", '\0', POPT_ARG_STRING, &fstype, 0, NULL, NULL },
-        { "source", '\0', POPT_ARG_STRING, &src, 0, NULL, NULL },
-        { "biospart", '\0', POPT_ARG_NONE, &usebiosdev, 0, NULL, NULL },
-        { 0, 0, 0, 0, 0, 0, 0 }
+        { "type", 0, 0, G_OPTION_ARG_STRING, &fstype, NULL, NULL },
+        { "source", 0, 0, G_OPTION_ARG_STRING, &src, NULL, NULL },
+        { "biospart", 0, 0, G_OPTION_ARG_INT, &usebiosdev, NULL, NULL },
+        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
+          NULL, NULL },
+        { NULL },
     };
 
-    optCon = poptGetContext(NULL, argc, (const char **) argv, ksDDOptions, 0);
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksDDOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("The following invalid argument was specified for "
-                         "the kickstart driver disk command: %s:%s"),
-                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-                       poptStrerror(rc));
+                         "the kickstart driver disk command: %s"),
+                       optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
+        g_strfreev(remaining);
         return;
     }
 
-    dev = (char *) poptGetArg(optCon);
+    g_option_context_free(optCon);
+
+    if ((remaining != NULL) && (g_strv_length(remaining) == 1)) {
+        dev = remaining[0];
+    }
 
     if (!dev && !src) {
         logMessage(ERROR, "bad arguments to kickstart driver disk command");
@@ -606,10 +614,13 @@ void useKickstartDD(struct loaderData_s * loaderData,
     }
 
     if (dev) {
-        return getDDFromDev(loaderData, dev);
+        getDDFromDev(loaderData, dev);
     } else {
-        return getDDFromSource(loaderData, src);
+        getDDFromSource(loaderData, src);
     }
+
+    g_strfreev(remaining);
+    return;
 }
 
 static void getDDFromDev(struct loaderData_s * loaderData, char * dev) {

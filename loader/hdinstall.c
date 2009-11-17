@@ -27,11 +27,11 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <newt.h>
-#include <popt.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/mount.h>
 #include <unistd.h>
+#include <glib.h>
 
 #include "driverdisk.h"
 #include "hdinstall.h"
@@ -353,29 +353,33 @@ char * mountHardDrive(struct installMethod * method,
 
 void setKickstartHD(struct loaderData_s * loaderData, int argc,
                      char ** argv) {
-    char *biospart = NULL, *partition = NULL, *dir = NULL, *p;
-    poptContext optCon;
-    int rc;
-
-    struct poptOption ksHDOptions[] = {
-        { "biospart", '\0', POPT_ARG_STRING, &biospart, 0, NULL, NULL },
-        { "partition", '\0', POPT_ARG_STRING, &partition, 0, NULL, NULL },
-        { "dir", '\0', POPT_ARG_STRING, &dir, 0, NULL, NULL },
-        { 0, 0, 0, 0, 0, 0, 0 }
+    char *p;
+    gchar *biospart = NULL, *partition = NULL, *dir = NULL;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksHDOptions[] = {
+        { "biospart", 0, 0, G_OPTION_ARG_STRING, &biospart, NULL, NULL },
+        { "partition", 0, 0, G_OPTION_ARG_STRING, &partition, NULL, NULL },
+        { "dir", 0, 0, G_OPTION_ARG_STRING, &dir, NULL, NULL },
+        { NULL },
     };
-  
 
     logMessage(INFO, "kickstartFromHD");
-    optCon = poptGetContext(NULL, argc, (const char **) argv, ksHDOptions, 0);
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
+
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksHDOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
         startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to HD kickstart method "
-                         "command %s: %s"),
-                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-                       poptStrerror(rc));
+                         "command: %s"), optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
         return;
     }
+
+    g_option_context_free(optCon);
 
     if (biospart) {
         char * dev;

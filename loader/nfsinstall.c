@@ -25,7 +25,6 @@
 
 #include <fcntl.h>
 #include <newt.h>
-#include <popt.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -369,28 +368,33 @@ char * mountNfsImage(struct installMethod * method,
 
 void setKickstartNfs(struct loaderData_s * loaderData, int argc,
                      char ** argv) {
-    char * host = NULL, * dir = NULL, * mountOpts = NULL;
     char *substr = NULL;
-    poptContext optCon;
-    int rc;
-    struct poptOption ksNfsOptions[] = {
-        { "server", '\0', POPT_ARG_STRING, &host, 0, NULL, NULL },
-        { "dir", '\0', POPT_ARG_STRING, &dir, 0, NULL, NULL },
-        { "opts", '\0', POPT_ARG_STRING, &mountOpts, 0, NULL, NULL},
-        { 0, 0, 0, 0, 0, 0, 0 }
+    gchar *host = NULL, *dir = NULL, *mountOpts = NULL;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksNfsOptions[] = {
+        { "server", 0, 0, G_OPTION_ARG_STRING, &host, NULL, NULL },
+        { "dir", 0, 0, G_OPTION_ARG_STRING, &dir, NULL, NULL },
+        { "opts", 0, 0, G_OPTION_ARG_STRING, &mountOpts, NULL, NULL },
+        { NULL },
     };
 
     logMessage(INFO, "kickstartFromNfs");
-    optCon = poptGetContext(NULL, argc, (const char **) argv, ksNfsOptions, 0);
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
+
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksNfsOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
         startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to NFS kickstart method "
-                         "command %s: %s"),
-                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-                       poptStrerror(rc));
+                         "command: %s"), optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
         return;
     }
+
+    g_option_context_free(optCon);
 
     if (!host || !dir) {
         logMessage(ERROR, "host and directory for nfs kickstart not specified");

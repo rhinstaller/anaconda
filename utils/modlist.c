@@ -17,44 +17,53 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <popt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <glib.h>
 
 #include "../isys/isys.h"
 #include "moduleinfo.h"
 
 int main(int argc, char ** argv) {
-    poptContext optCon;
-    char * modInfoFile = "/boot/module-info";
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    gchar *modInfoFile = "/boot/module-info";
+    gboolean ignoreMissing = FALSE, showModInfo = FALSE;
+    gchar **remaining = NULL;
     enum driverMajor major;
     const char * type;
     const char * mod;
     struct moduleInfo * list, * m;
-    int rc, i;
-    int showModInfo = 0;
-    int ignoreMissing = 0;
+    int i, arg = 0;
     moduleInfoSet mis;
     struct moduleInfo * mi;
-    struct poptOption optionTable[] = {
-    	    { "ignore-missing", 'I', POPT_ARG_NONE, &ignoreMissing, 0,
-	    	"Ignore modules not in modinfo file for --modinfo" },
-	    { "modinfo", 'm', POPT_ARG_NONE, &showModInfo, 0,
-	    	"Give output in module-info file for listed args" },
-	    { "modinfo-file", 'f', POPT_ARG_STRING, &modInfoFile, 0,
-	    	"Module info file to use"},
-	    POPT_AUTOHELP
-	    { 0, 0, 0, 0, 0 }
+    GOptionEntry optionTable[] = {
+        { "ignore-missing", 'I', 0, G_OPTION_ARG_NONE, &ignoreMissing,
+          "Ignore modules not in modinfo file for --modinfo", NULL },
+        { "modinfo", 'm', 0, G_OPTION_ARG_NONE, &showModInfo,
+          "Give output in module-info file for listed args", NULL },
+        { "modinfo-file", 'f', 0, G_OPTION_ARG_STRING, &modInfoFile,
+          "Module info file to use", NULL },
+        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
+          NULL, NULL },
+        { NULL },
     };
 
-    optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
+    g_option_context_add_main_entries(optCon, optionTable, NULL);
 
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
-	fprintf(stderr, "bad option %s: %s\n",
-		       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-		       poptStrerror(rc));
-	exit(1);
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
+       fprintf(stderr, "bad option: %s\n", optErr->message);
+       g_error_free(optErr);
+       g_option_context_free(optCon);
+       g_strfreev(remaining);
+       exit(1);
+    }
+
+    g_option_context_free(optCon);
+
+    if (remaining == NULL) {
+        exit(1);
     }
 
     mis = newModuleInfoSet();
@@ -65,7 +74,7 @@ int main(int argc, char ** argv) {
 
     if (showModInfo) {
         printf("Version 0\n");
-	while ((mod = poptGetArg(optCon))) {
+	while ((mod = remaining[arg]) != NULL) {
 	    mi = findModuleInfo(mis, mod);
 	    if (mi) {
 	    	printf("%s\n", mi->moduleName);
@@ -84,6 +93,7 @@ int main(int argc, char ** argv) {
 		      default:
 		      	fprintf(stderr, "unknown net minor type for %s\n",
 				mi->moduleName);
+			g_strfreev(remaining);
 			exit(1);
 		    }
 		    break;
@@ -91,6 +101,7 @@ int main(int argc, char ** argv) {
 		  default:
 		    fprintf(stderr, "unknown device type for %s (%d)\n",
 			    mi->moduleName, mi->major);
+		    g_strfreev(remaining);
 		    exit(1);
 
 		}
@@ -101,11 +112,13 @@ int main(int argc, char ** argv) {
 		}
 	    } else if (!ignoreMissing) {
 	    	fprintf(stderr, "I know nothing about %s\n", mod);
+		g_strfreev(remaining);
 		exit(1);
 	    }
+	    arg++;
 	}
     } else {
-	while ((type = poptGetArg(optCon))) {
+	while ((type = remaining[arg]) != NULL) {
 	    if (!strcasecmp(type, "scsi")) {
 		major = DRIVER_SCSI;
 	    } else if (!strcasecmp(type, "net")) {
@@ -116,6 +129,7 @@ int main(int argc, char ** argv) {
 		major = DRIVER_CDROM;
 	    } else {
 		fprintf(stderr, "type must be one of scsi, net, fs, cdrom\n");
+		g_strfreev(remaining);
 		exit(1);
 	    }
 
@@ -123,8 +137,10 @@ int main(int argc, char ** argv) {
 	    for (m = list; m && m->moduleName; m++)
 		printf("%s\n", m->moduleName);
 	    free(list);
+	    arg++;
 	}
     }
 
+    g_strfreev(remaining);
     return 0;
 }

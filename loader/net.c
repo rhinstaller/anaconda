@@ -28,7 +28,6 @@
 #include <sys/utsname.h>
 #include <arpa/inet.h>
 #include <errno.h>
-#include <popt.h>
 #include <resolv.h>
 #include <net/if.h>
 #include <newt.h>
@@ -1526,71 +1525,52 @@ int writeEnabledNetInfo(iface_t *iface) {
 
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv) {
-    char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
-    char * essid = NULL, * wepkey = NULL, * onboot = NULL;
-    int mtu = 1500, noipv4 = 0, noipv6 = 0, dhcpTimeout = -1, noDns = 0, noksdev = 0;
-    int rc;
-    poptContext optCon;
     iface_t iface;
-
-    struct poptOption ksOptions[] = {
-        { "bootproto", '\0', POPT_ARG_STRING, &bootProto, 0, NULL, NULL },
-        { "device", '\0', POPT_ARG_STRING, &device, 0, NULL, NULL },
-        { "dhcpclass", '\0', POPT_ARG_STRING, &class, 0, NULL, NULL },
-        { "gateway", '\0', POPT_ARG_STRING, NULL, 'g', NULL, NULL },
-        { "ip", '\0', POPT_ARG_STRING, NULL, 'i', NULL, NULL },
-        { "mtu", '\0', POPT_ARG_INT, &mtu, 0, NULL, NULL },
-        { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n', NULL, NULL },
-        { "netmask", '\0', POPT_ARG_STRING, NULL, 'm', NULL, NULL },
-        { "noipv4", '\0', POPT_ARG_NONE, &noipv4, 0, NULL, NULL },
-        { "noipv6", '\0', POPT_ARG_NONE, &noipv6, 0, NULL, NULL },
-        { "nodns", '\0', POPT_ARG_NONE, &noDns, 0, NULL, NULL },
-        { "hostname", '\0', POPT_ARG_STRING, NULL, 'h', NULL, NULL},
-        { "ethtool", '\0', POPT_ARG_STRING, &ethtool, 0, NULL, NULL },
-        { "essid", '\0', POPT_ARG_STRING, &essid, 0, NULL, NULL },
-        { "wepkey", '\0', POPT_ARG_STRING, &wepkey, 0, NULL, NULL },
-        { "onboot", '\0', POPT_ARG_STRING, &onboot, 0, NULL, NULL },
-        { "notksdevice", '\0', POPT_ARG_NONE, &noksdev, 0, NULL, NULL },
-        { "dhcptimeout", '\0', POPT_ARG_INT, &dhcpTimeout, 0, NULL, NULL },
-        { 0, 0, 0, 0, 0, 0, 0 }
+    gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
+    gchar *essid = NULL, *wepkey = NULL, *onboot = NULL;
+    gint mtu = 1500, dhcpTimeout = -1;
+    gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksOptions[] = {
+        { "bootproto", 0, 0, G_OPTION_ARG_STRING, &bootProto, NULL, NULL },
+        { "device", 0, 0, G_OPTION_ARG_STRING, &device, NULL, NULL },
+        { "dhcpclass", 0, 0, G_OPTION_ARG_STRING, &class, NULL, NULL },
+        { "gateway", 'g', 0, G_OPTION_ARG_STRING, &loaderData->gateway,
+          NULL, NULL },
+        { "ip", 'i', 0, G_OPTION_ARG_STRING, &loaderData->ipv4, NULL, NULL },
+        { "mtu", 0, 0, G_OPTION_ARG_INT, &mtu, NULL, NULL },
+        { "nameserver", 'n', 0, G_OPTION_ARG_STRING, &loaderData->dns,
+          NULL, NULL },
+        { "netmask", 'm', 0, G_OPTION_ARG_STRING, &loaderData->netmask,
+          NULL, NULL },
+        { "noipv4", 0, 0, G_OPTION_ARG_NONE, &noipv4, NULL, NULL },
+        { "noipv6", 0, 0, G_OPTION_ARG_NONE, &noipv6, NULL, NULL },
+        { "nodns", 0, 0, G_OPTION_ARG_NONE, &noDns, NULL, NULL },
+        { "hostname", 'h', 0, G_OPTION_ARG_STRING, &loaderData->hostname,
+          NULL, NULL },
+        { "ethtool", 0, 0, G_OPTION_ARG_STRING, &ethtool, NULL, NULL },
+        { "essid", 0, 0, G_OPTION_ARG_STRING, &essid, NULL, NULL },
+        { "wepkey", 0, 0, G_OPTION_ARG_STRING, &wepkey, NULL, NULL },
+        { "onboot", 0, 0, G_OPTION_ARG_STRING, &onboot, NULL, NULL },
+        { "notksdevice", 0, 0, G_OPTION_ARG_NONE, &noksdev, NULL, NULL },
+        { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &dhcpTimeout, NULL, NULL },
+        { NULL },
     };
 
     iface_init_iface_t(&iface);
 
-    optCon = poptGetContext(NULL, argc, (const char **) argv, 
-                            ksOptions, 0);    
-    while ((rc = poptGetNextOpt(optCon)) >= 0) {
-        arg = (char *) poptGetOptArg(optCon);
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksOptions, NULL);
 
-        switch (rc) {
-        case 'g':
-            loaderData->gateway = strdup(arg);
-            break;
-        case 'i':
-            loaderData->ipv4 = strdup(arg);
-            break;
-        case 'n':
-            loaderData->dns = strdup(arg);
-            break;
-        case 'm':
-            loaderData->netmask = strdup(arg);
-            break;
-        case 'h':
-            if (loaderData->hostname) 
-                free(loaderData->hostname);
-            loaderData->hostname = strdup(arg);
-            break;
-        }
-    }
-
-    if (rc < -1) {
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to kickstart network command %s: %s"),
-                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
-                       poptStrerror(rc));
-    } else {
-        poptFreeContext(optCon);
+                       _("Bad argument to kickstart network command: %s"),
+                       optErr->message);
+        g_error_free(optErr);
     }
+
+    g_option_context_free(optCon);
 
     /* if they've specified dhcp/bootp use dhcp for the interface */
     if (bootProto && (!strncmp(bootProto, "dhcp", 4) || 

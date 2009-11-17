@@ -25,13 +25,13 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <popt.h>
 #include <string.h>
 #include <strings.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <ctype.h>
 #include <sys/wait.h>
+#include <glib.h>
 
 #include "loader.h"
 #include "hardware.h"
@@ -115,8 +115,9 @@ static int detectHardware() {
 int earlyModuleLoad(int justProbe) {
     int fd, len, i;
     char buf[1024], *cmdLine;
-    int argc;
-    char ** argv;
+    gint argc = 0;
+    gchar **argv = NULL;
+    GError *optErr = NULL;
 
     /* FIXME: reparsing /proc/cmdline to avoid major loader changes.  
      * should probably be done in loader.c:parseCmdline() like everything 
@@ -126,13 +127,15 @@ int earlyModuleLoad(int justProbe) {
     len = read(fd, buf, sizeof(buf) - 1);
     close(fd);
     if (len <= 0) return 1;
-        
+
     buf[len] = '\0';
     cmdLine = buf;
-    
-    if (poptParseArgvString(cmdLine, &argc, (const char ***) &argv))
+
+    if (!g_shell_parse_argv(cmdLine, &argc, &argv, &optErr)) {
+        g_error_free(optErr);
         return 1;
-    
+    }
+
     for (i=0; i < argc; i++) {
         if (!strncasecmp(argv[i], "driverload=", 11)) {
             logMessage(INFO, "loading %s early", argv[i] + 11);
