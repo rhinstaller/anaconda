@@ -1,7 +1,7 @@
 /*
  * modules.h
  *
- * Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2007, 2009  Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +15,29 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Author(s): David Cantrell <dcantrell@redhat.com>
  */
 
 #ifndef H_MODULES
 #define H_MODULES
 
+#include <glib.h>
+#include "loader.h"
 #include "moduleinfo.h"
 
-void mlInitModuleConfig();
-int mlLoadModule(const char * module, char ** args);
-int mlLoadModuleSet(const char * modNames);
-void mlAddBlacklist(char *module);
-void mlRemoveBlacklist(char *module);
+#define MODULES_CONF "/etc/modprobe.d/anaconda.conf"
+
+typedef struct _module_t {
+    gchar *name;
+    GSList *options;
+} module_t;
+
+gboolean mlInitModuleConfig(void);
+gboolean mlLoadModule(const gchar *, gchar **);
+gboolean mlLoadModuleSet(const gchar *);
+gboolean mlAddBlacklist(gchar *);
+gboolean mlRemoveBlacklist(gchar *);
+void loadKickstartModule(struct loaderData_s *, int, char **);
+
 #endif

@@ -39,6 +39,7 @@
 #include "lang.h"
 #include "log.h"
 #include "kickstart.h"
+#include "modules.h"
 
 #include "kbd.h"
 #include "driverdisk.h"
@@ -86,8 +87,6 @@ static void setMediaCheck(struct loaderData_s * loaderData, int argc,
                           char ** argv);
 static void setUpdates(struct loaderData_s * loaderData, int argc,
                        char ** argv);
-void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
-                         char ** argv);
 
 struct ksCommandNames ksTable[] = {
     { KS_CMD_NFS, "nfs", setKickstartNfs },

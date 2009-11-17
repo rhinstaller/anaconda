@@ -1987,7 +1987,11 @@ int main(int argc, char ** argv) {
      * FIXME: this syntax is likely to change in a future release
      *        but is done as a quick hack for the present.
      */
-    mlInitModuleConfig();
+    if (!mlInitModuleConfig()) {
+        logMessage(ERROR, "unable to initialize kernel module loading");
+        abort();
+    }
+
     earlyModuleLoad(0);
 
     busProbe(FL_NOPROBE(flags));

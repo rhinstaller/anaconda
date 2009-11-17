@@ -1,7 +1,8 @@
 /*
  * modules.c - module loading functionality
  *
- * Copyright (C) 1999, 2000, 2001, 2002, 2003  Red Hat, Inc.
+ * Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007,
+ *               2008, 2009  Red Hat, Inc.
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -21,6 +22,7 @@
  *            Matt Wilson <msw@redhat.com>
  *            Michael Fulbright <msf@redhat.com>
  *            Jeremy Katz <katzj@redhat.com>
+ *            David Cantrell <dcantrell@redhat.com>
  */
 
 #include <ctype.h>
@@ -37,339 +39,351 @@
 #include <sys/utsname.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <glib.h>
 
 #include "loader.h"
 #include "log.h"
 #include "modules.h"
 #include "windows.h"
 
-#include "../isys/cpio.h"
-
 /* boot flags */
 extern uint64_t flags;
 
-static int writeModulesConf(char *conf);
-struct moduleOptions {
-    char *name;
-    int numopts;
-    char **options;
-};
+static GSList *modopts = NULL;
+static GSList *blacklist = NULL;
 
-static struct moduleOptions * modopts = NULL;
-static int nummodopts = -1;
+static gboolean _isValidModule(gchar *module) {
+    gint fd = -1, i = 0;
+    gchar *path = NULL, *buf = NULL, *modname = NULL;
+    gchar *ends[] = { ".ko.gz:", ".ko:", NULL };
+    struct utsname utsbuf;
+    struct stat sbuf;
 
-static char ** blacklists = NULL;
-static int numblacklists = 0;
-
-static void readBlacklist() {
-    int fd;
-    size_t len = 0;
-    char buf[1024];
-    char *start, *end;
-
-    if ((fd = open("/proc/cmdline", O_RDONLY)) < 0)
-        return;
-
-    len = read(fd, buf, sizeof(buf) - 1);
-    close(fd);
-    buf[len] = '\0';
-    start = buf;
-    
-    while (start) {
-        end = strstr(start, " ");
-        if (end)
-            *end = '\0';
-        if (strncmp(start,"blacklist=",10)) {
-            if (!end)
-                break;
-            start = end + 1;
-            continue;
-        }
-        printf("found %s\n",start);
-
-        blacklists = realloc(blacklists, sizeof(*blacklists) * (numblacklists + 1));
-        blacklists[numblacklists] = strdup(start+10);
-        numblacklists++;
-
-        if (!end)
-            break;
-        start = end + 1;
+    if (uname(&utsbuf) == -1) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        return FALSE;
     }
+
+    if (asprintf(&path, "/lib/modules/%s/modules.dep", utsbuf.release) == -1) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        return FALSE;
+    }
+
+    if (stat(path, &sbuf) == -1) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        free(path);
+        return FALSE;
+    }
+
+    if ((fd = open(path, O_RDONLY)) == -1) {
+        logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        free(path);
+        return FALSE;
+    } else {
+        free(path);
+    }
+
+    buf = mmap(0, sbuf.st_size, PROT_READ, MAP_SHARED, fd, 0);
+    if (!buf || buf == MAP_FAILED) {
+        close(fd);
+        return FALSE;
+    }
+
+    close(fd);
+
+    while (ends[i] != NULL) {
+        if (asprintf(&modname, "/%s%s", module, ends[i]) == -1) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            return FALSE;
+        }
+
+        if (g_strstr_len(buf, -1, modname) != NULL) {
+            munmap(buf, sbuf.st_size);
+            free(modname);
+            return TRUE;
+        }
+
+        free(modname);
+        modname = NULL;
+        i++;
+    }
+
+    munmap(buf, sbuf.st_size);
+    return FALSE;
 }
 
-void mlAddBlacklist(char *module) {
-    blacklists = realloc(blacklists, sizeof(*blacklists) * (numblacklists + 1));
-    blacklists[numblacklists] = strdup(module);
-    numblacklists++;
-    writeModulesConf("/etc/modprobe.d/anaconda.conf");
-}
+static void _addOption(const gchar *module, const gchar *option) {
+    gboolean found = FALSE;
+    GSList *iterator = modopts;
+    module_t *modopt = NULL;
+    gchar *tmpopt = g_strdup(option);
 
-static void addOption(const char *module, const char *option) {
-    int found = 0, i, sz;
+    while (iterator != NULL) {
+        modopt = (module_t *) iterator->data;
 
-    found = 0;
-    for (i = 0; i < nummodopts; i++) {
-        if (strncmp(modopts[i].name, module, strlen(modopts[i].name)))
-            continue;
-        modopts[i].numopts++;
-        found = 1;
-        break;
+        if (!strncmp(modopt->name, module, strlen(modopt->name))) {
+            found = TRUE;
+            break;
+        }
+
+        iterator = g_slist_next(iterator);
     }
 
     if (found) {
-        modopts[i].options = realloc(modopts[i].options,
-                                     sizeof(modopts[i].options) *
-                                     (modopts[i].numopts + 1));
-        if (modopts[i].options == NULL) {
-            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
-            abort();
-        }
-
-        modopts[i].options[modopts[i].numopts - 1] = strdup(option);
-        modopts[i].options[modopts[i].numopts] = NULL;
+        modopt->options = g_slist_append(modopt->options, tmpopt);
     } else {
-        if (modopts == NULL) {
-            modopts = malloc(sizeof(struct moduleOptions) * (nummodopts + 1));
-        } else {
-            modopts = realloc(modopts, sizeof(*modopts) * (nummodopts + 1));
-        }
-
-        if (modopts == NULL) {
+        if ((modopt = g_malloc0(sizeof(module_t))) == NULL) {
             logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
             abort();
         }
 
-        modopts[nummodopts].name = strdup(module);
-        modopts[nummodopts].numopts = 1;
-
-        sz = sizeof(modopts[nummodopts].options) * 2;
-        if ((modopts[nummodopts].options = malloc(sz)) == NULL) {
-            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
-            abort();
-        }
-
-        modopts[nummodopts].options[0] = strdup(option);
-        modopts[nummodopts].options[1] = NULL;
-
-        nummodopts++;
+        modopt->name = g_strdup(module);
+        modopt->options = NULL;
+        modopt->options = g_slist_append(modopt->options, tmpopt);
+        modopts = g_slist_append(modopts, modopt);
     }
 
     return;
 }
 
-static int isValidModule(char *module) {
-    char mod_name[64], path[512];
-    struct utsname utsbuf;
-    struct stat sbuf;
-    char *buf;
-    
-    uname(&utsbuf);
-    snprintf(path, 512, "/lib/modules/%s/modules.dep", utsbuf.release);
-    if (!stat(path, &sbuf)) {
-        int fd;
+static gboolean _writeModulesConf(gchar *conf) {
+    gint fd = -1, rc = 0, len = 0;
+    GSList *iterator = modopts;
+    GString *buf = g_string_new("# Module options and blacklists written by anaconda\n");
 
-        fd = open(path, O_RDONLY);
-        buf = mmap(0, sbuf.st_size, PROT_READ, MAP_SHARED, fd, 0);
-        if (!buf || buf == MAP_FAILED)
-            return 0;
-        close(fd);
-        snprintf(mod_name, 64, "/%s.ko.gz:", module);
-        if (strstr(buf, mod_name)) {
-            munmap(buf, sbuf.st_size);
-            return 1;
-        }
-        snprintf(mod_name, 64, "/%s.ko:", module);
-        if (strstr(buf, mod_name)) {
-            munmap(buf, sbuf.st_size);
-            return 1;
-        }
-        munmap(buf, sbuf.st_size);
+    if (conf == NULL) {
+        /* XXX: should this use mkstemp() ? */
+        conf = "/tmp/modprobe.conf";
     }
-    return 0;
-}
 
-/* read module options out of /proc/cmdline and into a structure */
-static void readModuleOpts() {
-    int fd;
-    size_t len = 0;
-    char buf[1024];
-    char *start, *end, *sep;
+    if ((fd = open(conf, O_WRONLY | O_CREAT, 0644)) == -1) {
+        logMessage(ERROR, "error opening to %s: %m", conf);
+        return FALSE;
+    }
 
-    nummodopts = 0;
-    if ((fd = open("/proc/cmdline", O_RDONLY)) < 0)
-        return;
+    while (iterator != NULL) {
+        module_t *modopt = iterator->data;
+        GSList *optiterator = modopt->options;
+        g_string_append_printf(buf, "options %s", modopt->name);
 
-    len = read(fd, buf, sizeof(buf) - 1);
+        while (optiterator != NULL) {
+            gchar *option = (gchar *) optiterator->data;
+            g_string_append_printf(buf, " %s", option);
+            optiterator = g_slist_next(optiterator);
+        }
+
+        g_string_append(buf, "\n");
+        iterator = g_slist_next(iterator);
+    }
+
+    iterator = blacklist;
+
+    while (iterator != NULL) {
+        gchar *module = (gchar *) iterator->data;
+        g_string_append_printf(buf, "blacklist %s\n", module);
+        iterator = g_slist_next(iterator);
+    }
+
+    len = buf->len;
+    rc = write(fd, buf->str, len);
     close(fd);
-    buf[len] = '\0';
-    start = buf;
+    g_string_free(buf, TRUE);
 
-    while (start) {
-        end = strstr(start, " ");
-        if (end)
-            *end = '\0';
-        sep = strstr(start, "=");
-        if (sep == NULL) {
-            if (!end)
-                break;
-            start = end + 1;
-            continue;
-        }
-        sep = strstr(start, ".");
-        if (sep == NULL) {
-            if (!end)
-                break;
-            start = end + 1;
-            continue;
-        }
-        *sep = '\0'; sep++;
-
-        if (isValidModule(start))
-            addOption(start, sep);
-
-        if (!end)
-            break;
-        start = end + 1;
-    }
+    return (rc == len);
 }
 
-static int doLoadModule(const char *module, char ** args) {
-    int child;
-    int status;
+static gboolean _doLoadModule(const gchar *module, gchar **args) {
+    gint child;
+    gint status;
 
     if (!(child = fork())) {
-        int i, rc;
-        char **argv = malloc(3 * sizeof(*argv));
-        int fd = open("/dev/tty3", O_RDWR);
+        gint i, rc;
+        gchar **argv = NULL;
+        gint fd = -1;
 
-        dup2(fd, 0);
-        dup2(fd, 1);
-        dup2(fd, 2);
-        close(fd);
+        if ((argv = g_malloc0(3 * sizeof(*argv))) == NULL) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            abort();
+        }
+
+        if ((fd = open("/dev/tty3", O_RDWR)) == -1) {
+            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+        } else {
+            dup2(fd, 0);
+            dup2(fd, 1);
+            dup2(fd, 2);
+            close(fd);
+        }
 
         argv[0] = "/sbin/modprobe";
-        argv[1] = strdup(module);
+        argv[1] = g_strdup(module);
         argv[2] = NULL;
+
         if (args) {
             for (i = 0; args[i] ; i++) {
-                addOption(module, args[i]);
+                _addOption(module, args[i]);
             }
-            writeModulesConf("/etc/modprobe.d/anaconda.conf");
+            _writeModulesConf(MODULES_CONF);
         }
+
         rc = execv("/sbin/modprobe", argv);
+        g_strfreev(argv);
         _exit(rc);
     }
 
     waitpid(child, &status, 0);
 
     if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status))) {
-        return 1;
+        return TRUE;
     } else {
-        return 0;
+        return FALSE;
     }
 }
 
-void mlRemoveBlacklist(char *module) {
-    int i;
+gboolean mlInitModuleConfig(void) {
+    gint i = 0;
+    gchar *cmdline = NULL;
+    gchar **options = NULL;
+    GError *readErr = NULL;
 
-    for (i = 0 ; i < numblacklists ; i++) {
-        if (!strcmp(blacklists[i], module))
-            blacklists[i] = NULL;
+    /* read module options out of /proc/cmdline and into a structure */
+    if (!g_file_get_contents("/proc/cmdline", &cmdline, NULL, &readErr)) {
+        logMessage(ERROR, "unable to read /proc/cmdline: %s", readErr->message);
+        g_error_free(readErr);
+        return _writeModulesConf(MODULES_CONF);
     }
-}
 
-void mlInitModuleConfig() {
-    readModuleOpts();
-    readBlacklist();
-    writeModulesConf("/etc/modprobe.d/anaconda.conf");
+    cmdline = g_strchomp(cmdline);
+    options = g_strsplit(cmdline, " ", 0);
+    g_free(cmdline);
+
+    if (options == NULL) {
+        return _writeModulesConf(MODULES_CONF);
+    }
+
+    while (options[i] != NULL) {
+        gchar *tmpmod = NULL;
+        gchar **fields = NULL;
+
+        if (g_strstr_len(options[i], -1, "=") == NULL) {
+            i++;
+            continue;
+        }
+
+        if (!strncmp(options[i], "blacklist=", 10)) {
+            if ((fields = g_strsplit(options[i], "=", 0)) != NULL) {
+                if (g_strv_length(fields) == 2) {
+                    tmpmod = g_strdup(fields[1]);
+                    blacklist = g_slist_append(blacklist, tmpmod);
+                }
+            }
+        } else if ((fields = g_strsplit(options[i], ".", 0)) != NULL) {
+            if (g_strv_length(fields) == 2) {
+                if (_isValidModule(fields[0])) {
+                    _addOption(fields[0], fields[1]);
+                }
+            }
+        }
+
+        if (fields != NULL) {
+            g_strfreev(fields);
+        }
+
+        i++;
+    }
+
+    if (options != NULL) {
+        g_strfreev(options);
+    }
+
+    return _writeModulesConf(MODULES_CONF);
 }
 
 /* load a module with a given list of arguments */
-int mlLoadModule(const char * module, char ** args) {
-    return doLoadModule(module, args);
+gboolean mlLoadModule(const gchar *module, gchar **args) {
+    return _doLoadModule(module, args);
 }
 
 /* loads a : separated list of modules */
-int mlLoadModuleSet(const char * modNames) {
-    char *ptr, *name;
-    int rc = 0;
+gboolean mlLoadModuleSet(const gchar *modNames) {
+    gchar **mods = NULL, **iterator = NULL;
+    gboolean rc = FALSE;
 
-    if (!modNames) return 1;
-    name = strdup(modNames); while (name) {
-        ptr = strchr(name, ':');
-        if (ptr) *ptr = '\0';
-        rc |= doLoadModule(name, NULL);
-        if (ptr)
-            name = ptr+1;
-        else
-            name = NULL;
+    if (modNames == NULL) {
+        return FALSE;
     }
+
+    if ((mods = g_strsplit(modNames, ":", 0)) != NULL) {
+        iterator = mods;
+
+        while (*iterator != NULL) {
+            rc |= _doLoadModule(*iterator, NULL);
+            iterator++;
+        }
+    } else {
+        return FALSE;
+    }
+
+    g_strfreev(mods);
     return rc;
 }
 
-static int writeModulesConf(char *conf) {
-    int i;
-    char buf[16384];
-    int fd, rc;
+gboolean mlAddBlacklist(gchar *module) {
+    gchar *tmpmod = NULL;
 
-    if (!conf)
-        conf = "/tmp/modprobe.conf";
+    if (module == NULL) {
+        return FALSE;
+    }
 
-    fd = open(conf, O_WRONLY | O_CREAT, 0644);
-    if (fd == -1) {
-        logMessage(ERROR, "error opening to %s: %m\n", conf);
-        return 0;
-    }
-    strcat(buf, "# Module options and blacklists written by anaconda\n");
-    for (i = 0; i < nummodopts ; i++) {
-        int j;
-
-        strcat(buf, "options ");
-        strcat(buf, modopts[i].name);
-        for (j = 0; j < modopts[i].numopts ; j++) {
-            strcat(buf, " ");
-            strcat(buf, modopts[i].options[j]);
-        }
-        strcat(buf, "\n");
-    }
-    for (i = 0; i < numblacklists ; i++) {
-        if (blacklists[i]) {
-            strcat(buf, "blacklist ");
-            strcat(buf, blacklists[i]);
-            strcat(buf, "\n");
-        }
-    }
-    
-    rc = write(fd, buf, strlen(buf));
-    close(fd);
-    return (rc != strlen(buf));
+    tmpmod = g_strdup(module);
+    blacklist = g_slist_append(blacklist, tmpmod);
+    return _writeModulesConf(MODULES_CONF);
 }
 
-void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
-                         char ** argv) {
-    char * opts = NULL;
-    char * module = NULL;
-    char ** args = NULL;
+gboolean mlRemoveBlacklist(gchar *module) {
+    GSList *iterator = blacklist;
+
+    if (module == NULL) {
+        return FALSE;
+    }
+
+    while (iterator != NULL) {
+        if (!strcmp((gchar *) iterator->data, module)) {
+            iterator = g_slist_delete_link(blacklist, iterator);
+            continue;
+        } else {
+            iterator = g_slist_next(iterator);
+        }
+    }
+
+    return TRUE;
+}
+
+void loadKickstartModule(struct loaderData_s * loaderData,
+                         int argc, char **argv) {
+    gchar *opts = NULL;
+    gchar *module = NULL;
+    gchar **args = NULL;
     poptContext optCon;
-    int rc;
+    gboolean rc;
     struct poptOption ksDeviceOptions[] = {
         { "opts", '\0', POPT_ARG_STRING, &opts, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
-    
-    optCon = poptGetContext(NULL, argc, (const char **) argv, 
+
+    optCon = poptGetContext(NULL, argc, (const char **) argv,
                             ksDeviceOptions, 0);
     if ((rc = poptGetNextOpt(optCon)) < -1) {
         startNewt();
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad argument to device kickstart method "
                          "command %s: %s"),
-                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS),
                        poptStrerror(rc));
         return;
     }
 
-    module = (char *) poptGetArg(optCon);
+    module = (gchar *) poptGetArg(optCon);
 
     if (!module) {
         startNewt();
@@ -380,30 +394,10 @@ void loadKickstartModule(struct loaderData_s * loaderData, int argc,
     }
 
     if (opts) {
-        int numAlloced = 5, i = 0;
-        char * start;
-        char * end;
-
-        args = malloc((numAlloced + 1) * sizeof(args));
-        start = opts;
-        while (start && *start) {
-            end = start;
-            while (!isspace(*end) && *end) end++;
-            *end = '\0';
-            (args)[i++] = strdup(start);
-            start = end + 1;
-            *end = ' ';
-            start = strchr(end, ' ');
-            if (start) start++;
-
-            if (i >= numAlloced) {
-                numAlloced += 5;
-                args = realloc(args, sizeof(args) * (numAlloced + 1));
-            }
-        }
-        args[i] = NULL;
+        args = g_strsplit(opts, " ", 0);
     }
 
-
-    mlLoadModule(module, args);
+    rc = mlLoadModule(module, args);
+    g_strfreev(args);
+    return;
 }
