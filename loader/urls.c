@@ -37,6 +37,7 @@
 #include <unistd.h>
 #include <netdb.h>
 #include <errno.h>
+#include <curl/curl.h>
 
 #include "lang.h"
 #include "loader.h"
@@ -103,6 +104,7 @@ int splitProxyParam(char *param, char **user, char **password, char **host,
 int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
                     char **extraHeaders, char *dest) {
     struct progressCBdata *cb_data;
+    CURL *curl = NULL;
     CURLcode status;
     struct curl_slist *headers = NULL;
     char *version;
@@ -112,34 +114,33 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
 
     f = fopen(dest, "w");
 
-    /* Clear out all the old settings, since libcurl preserves them for as
-     * long as you use the same handle and settings might have changed.
-     */
-    curl_easy_reset(loaderData->curl);
+    /* Initialize libcurl */
+    curl_global_init(CURL_GLOBAL_SSL);
+    curl = curl_easy_init();
 
     if (asprintf(&version, "anaconda/%s", VERSION) == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
 
-    curl_easy_setopt(loaderData->curl, CURLOPT_USERAGENT, version);
-    curl_easy_setopt(loaderData->curl, CURLOPT_URL, ui->url);
-    curl_easy_setopt(loaderData->curl, CURLOPT_WRITEDATA, f);
+    curl_easy_setopt(curl, CURLOPT_USERAGENT, version);
+    curl_easy_setopt(curl, CURLOPT_URL, ui->url);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, f);
 
     /* If a proxy was provided, add the options for that now. */
     if (loaderData->proxy && strcmp(loaderData->proxy, "")) {
-        curl_easy_setopt(loaderData->curl, CURLOPT_PROXY, loaderData->proxy);
+        curl_easy_setopt(curl, CURLOPT_PROXY, loaderData->proxy);
 
         if (loaderData->proxyPort && strcmp(loaderData->proxyPort, ""))
-            curl_easy_setopt(loaderData->curl, CURLOPT_PROXYPORT,
+            curl_easy_setopt(curl, CURLOPT_PROXYPORT,
                              strtol(loaderData->proxyPort, NULL, 10));
 
         if (loaderData->proxyUser && strcmp(loaderData->proxyUser, ""))
-            curl_easy_setopt(loaderData->curl, CURLOPT_PROXYUSERNAME,
+            curl_easy_setopt(curl, CURLOPT_PROXYUSERNAME,
                              loaderData->proxyUser);
 
         if (loaderData->proxyPassword && strcmp(loaderData->proxyPassword, ""))
-            curl_easy_setopt(loaderData->curl, CURLOPT_PROXYPASSWORD,
+            curl_easy_setopt(curl, CURLOPT_PROXYPASSWORD,
                              loaderData->proxyPassword);
     }
 
@@ -149,7 +150,7 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
             headers = curl_slist_append(headers, extraHeaders[i]);
         }
 
-        curl_easy_setopt(loaderData->curl, CURLOPT_HTTPHEADER, headers);
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     }
 
     /* Only set up the progress bar if we've got a UI to display it. */
@@ -164,13 +165,13 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
 
         cb_data = winProgressBar(70, 5, _("Retrieving"), "%s %s...", _("Retrieving"), filename);
 
-        curl_easy_setopt(loaderData->curl, CURLOPT_NOPROGRESS, 0);
-        curl_easy_setopt(loaderData->curl, CURLOPT_PROGRESSFUNCTION, progress_cb);
-        curl_easy_setopt(loaderData->curl, CURLOPT_PROGRESSDATA, cb_data);
+        curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0);
+        curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progress_cb);
+        curl_easy_setopt(curl, CURLOPT_PROGRESSDATA, cb_data);
     }
 
     /* Finally, do the transfer. */
-    status = curl_easy_perform(loaderData->curl);
+    status = curl_easy_perform(curl);
     if (status)
         logMessage(ERROR, "Error downloading %s: %s", ui->url, curl_easy_strerror(status));
 
@@ -182,6 +183,9 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
 
     fclose(f);
     free(version);
+
+    curl_easy_cleanup(curl);
+    curl_global_cleanup();
 
     return status;
 }

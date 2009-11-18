@@ -54,7 +54,6 @@
 #include <linux/serial.h>
 #include <linux/vt.h>
 
-#include <curl/curl.h>
 #include <glib.h>
 
 #ifdef USE_MTRACE
@@ -1932,9 +1931,6 @@ int main(int argc, char ** argv) {
     loaderData.fw_loader_pid = -1;
     loaderData.fw_search_pathz_len = -1;
     loaderData.dhcpTimeout = -1;
-
-    curl_global_init(CURL_GLOBAL_SSL);
-    loaderData.curl = curl_easy_init();
 
     extraArgs[0] = NULL;
     parseCmdLineFlags(&loaderData, cmdLine);

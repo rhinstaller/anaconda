@@ -18,7 +18,6 @@
  */
 
 #include <stdint.h>
-#include <curl/curl.h>
 
 #ifndef LOADER_H
 #define LOADER_H
@@ -157,8 +156,6 @@ struct loaderData_s {
     moduleInfoSet modInfo;
 
     int inferredStage2, invalidRepoParam;
-
-    CURL *curl;
 
     /* Proxy info needs to be in the loaderData so we can get these
      * settings off the command line, too.
