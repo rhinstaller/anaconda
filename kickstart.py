@@ -160,6 +160,17 @@ def getEscrowCertificate(anaconda, url):
         f.close()
     return anaconda.id.escrowCertificates[url]
 
+def deviceMatches(spec):
+    matches = udev_resolve_glob(spec)
+    dev = udev_resolve_devspec(spec)
+
+    # udev_resolve_devspec returns None if there's no match, but we don't
+    # want that ending up in the list.
+    if dev and dev not in matches:
+        matches.append(dev)
+
+    return matches
+
 ###
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
 ###
@@ -206,16 +217,6 @@ class Bootloader(commands.bootloader.F12_Bootloader):
             anaconda.id.bootloader.kickstart = 1
             anaconda.id.bootloader.doUpgradeOnly = 1
 
-        if self.driveorder:
-            # XXX I don't like that we are supposed to have scanned the
-            #     storage devices already and yet we cannot know about
-            #     ignoredDisks, exclusiveDisks, or iscsi disks before we
-            #     have processed the kickstart config file.
-            hds = [d.name for d in anaconda.id.storage.disks]
-            for disk in self.driveorder:
-                if disk not in hds:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in driveorder command" % disk)
-
         if location is None:
             self.handler.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:
@@ -259,14 +260,21 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
 
+        # Do any glob expansion now, since we need to have the real list of
+        # disks available before the execute methods run.
+        drives = []
+        for spec in self.drives:
+            matched = deviceMatches(spec)
+            if matched:
+                drives.extend(matched)
+            else:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % spec)
+
+        self.drives = drives
+
         return retval
 
     def execute(self, anaconda):
-        hds = map(udev_device_get_name, udev_get_block_devices())
-        for disk in self.drives:
-            if disk not in hds:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in clearpart command" % disk)
-
         anaconda.id.storage.clearPartType = self.type
         anaconda.id.storage.clearPartDisks = self.drives
         if self.initAll:
@@ -295,14 +303,35 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
         anaconda.id.firstboot = self.firstboot
 
 class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
-    def execute(self, anaconda):
-        for drive in self.ignoredisk:
-            if not drive in anaconda.id.storage.ignoredDisks:
-                anaconda.id.storage.ignoredDisks.append(drive)
+    def parse(self, args):
+        retval = commands.clearpart.F8_IgnoreDisk.parse(self, args)
 
-        for drive in self.onlyuse:
-            if not drive in anaconda.handler.id.storage.exclusiveDisks:
-                anaconda.id.storage.exclusiveDisks.append(drive)
+        # See comment in ClearPart.parse
+        drives = []
+        for spec in self.ignoredisk:
+            matched = deviceMatches(spec)
+            if matched:
+                drives.extend(matched)
+            else:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in ignoredisk command" % spec)
+
+        self.ignoredisk = drives
+
+        drives = []
+        for spec in self.onlyuse:
+            matched = deviceMatches(spec)
+            if matched:
+                drives.extend(matched)
+            else:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in ignoredisk command" % spec)
+
+        self.onlyuse = drives
+
+        return retval
+
+    def execute(self, anaconda):
+        anaconda.id.storage.ignoredDisks = self.ignoredisk
+        anaconda.id.storage.exclusiveDisks = self.onlyuse
 
 class IscsiData(commands.iscsi.F10_IscsiData):
     def execute(self, anaconda):
@@ -618,7 +647,7 @@ class PartitionData(commands.partition.F12_PartData):
             if not self.onPart:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="--noformat used without --onpart")
 
-            dev = devicetree.getDeviceByName(self.onPart)
+            dev = devicetree.getDeviceByName(udev_resolve_devspec(self.onPart))
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="No preexisting partition with the name \"%s\" was found." % self.onPart)
 
@@ -643,15 +672,15 @@ class PartitionData(commands.partition.F12_PartData):
         # that it exists first.  If it doesn't exist, see if it exists with
         # mapper/ on the front.  If that doesn't exist either, it's an error.
         if self.disk:
-            disk = devicetree.getDeviceByName(self.disk)
-            if not disk:
-                self.disk = "mapper/%s" % self.disk
-                disk = devicetree.getDeviceByName(self.disk)
+            names = [self.disk, "mapper/" + self.disk]
+            for n in names:
+                disk = devicetree.getDeviceByName(udev_resolve_devspec(n))
+                if disk:
+                    kwargs["disks"] = [disk]
+                    break
 
-                if not disk:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % self.disk)
-
-            kwargs["disks"] = [disk]
+            if not kwargs["disks"]:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % self.disk)
 
         kwargs["grow"] = self.grow
         kwargs["size"] = self.size
@@ -663,7 +692,7 @@ class PartitionData(commands.partition.F12_PartData):
         # take place there.  Also, we only support a subset of all the options
         # on pre-existing partitions.
         if self.onPart:
-            device = devicetree.getDeviceByName(self.onPart)
+            device = devicetree.getDeviceByName(udev_resolve_devspec(self.onPart))
             if not device:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent partition %s in partition command" % self.onPart)
 
@@ -925,7 +954,7 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
             storage.createDevice(request)
 
 class XConfig(commands.xconfig.F10_XConfig):
-    def execute(self, args):
+    def execute(self, anaconda):
         if self.startX:
             anaconda.id.desktop.setDefaultRunLevel(5)
 
@@ -933,7 +962,7 @@ class XConfig(commands.xconfig.F10_XConfig):
             anaconda.id.desktop.setDefaultDesktop(self.defaultdesktop)
 
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
-    def execute(self, args):
+    def execute(self, anaconda):
         anaconda.id.storage.zeroMbr = 1
 
 class ZFCPData(commands.zfcp.FC3_ZFCPData):
@@ -1148,6 +1177,9 @@ def parseKickstart(anaconda, file):
 
     handler = AnacondaKSHandler(anaconda)
     ksparser = AnacondaKSParser(handler)
+
+    # We need this so all the /dev/disk/* stuff is set up before parsing.
+    udev_trigger(subsystem="block")
 
     try:
         ksparser.readKickstart(file)
