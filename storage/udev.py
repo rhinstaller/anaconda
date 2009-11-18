@@ -44,10 +44,14 @@ def udev_resolve_devspec(devspec):
             if udev_device_get_uuid(dev) == devspec[5:]:
                 ret = dev
                 break
+        elif udev_device_get_name(dev) == _devices.devicePathToName(devspec):
+            ret = dev
+            break
         else:
-            if udev_device_get_name(dev) == _devices.devicePathToName(devspec):
-                ret = dev
-                break
+            for link in dev["symlinks"]:
+                if devspec == "/dev/" + link:
+                    ret = dev
+                    break
 
     del _devices
     if ret:
