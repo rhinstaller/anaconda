@@ -52,6 +52,18 @@ class Error(EnvironmentError):
     pass
 def copytree(src, dst, symlinks=False, preserveOwner=False,
              preserveSelinux=False):
+    def tryChown(src, dest):
+        try:
+            os.chown(dest, os.stat(src)[stat.ST_UID], os.stat(src)[stat.ST_GID])
+        except OverflowError:
+            log.error("Could not set owner and group on file %s" % dest)
+
+    def trySetfilecon(src, dest):
+        try:
+            selinux.lsetfilecon(dest, selinux.lgetfilecon(src)[1])
+        except:
+            log.error("Could not set selinux context on file %s" % dest)
+
     # copy of shutil.copytree which doesn't require dst to not exist
     # and which also has options to preserve the owner and selinux contexts
     names = os.listdir(src)
@@ -66,19 +78,17 @@ def copytree(src, dst, symlinks=False, preserveOwner=False,
                 linkto = os.readlink(srcname)
                 os.symlink(linkto, dstname)
                 if preserveSelinux:
-                    selinux.lsetfilecon(dstname, selinux.lgetfilecon(srcname)[1])
+                    trySetfilecon(srcname, dstname)
             elif os.path.isdir(srcname):
                 copytree(srcname, dstname, symlinks, preserveOwner, preserveSelinux)
             else:
                 shutil.copyfile(srcname, dstname)
                 if preserveOwner:
-                    try:
-                        os.chown(dstname, os.stat(srcname)[stat.ST_UID], os.stat(srcname)[stat.ST_GID])
-                    except OverflowError:
-                        log.error("Could not set owner and group on file %s" % dstname)
+                    tryChown(srcname, dstname)
 
                 if preserveSelinux:
-                    selinux.lsetfilecon(dstname, selinux.lgetfilecon(srcname)[1])
+                    trySetfilecon(srcname, dstname)
+
                 shutil.copystat(srcname, dstname)
         except (IOError, os.error), why:
             errors.append((srcname, dstname, str(why)))
@@ -88,9 +98,10 @@ def copytree(src, dst, symlinks=False, preserveOwner=False,
             errors.extend(err.args[0])
     try:
         if preserveOwner:
-            os.chown(dst, os.stat(src)[stat.ST_UID], os.stat(src)[stat.ST_GID])            
+            tryChown(src, dst)
         if preserveSelinux:
-            selinux.lsetfilecon(dst, selinux.lgetfilecon(src)[1])
+            trySetfilecon(src, dst)
+
         shutil.copystat(src, dst)
     except OSError as e:
         errors.extend((src, dst, e.strerror))
