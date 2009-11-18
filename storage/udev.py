@@ -57,6 +57,25 @@ def udev_resolve_devspec(devspec):
     if ret:
         return udev_device_get_name(ret)
 
+def udev_resolve_glob(glob):
+    import fnmatch
+    ret = []
+
+    if not glob:
+        return ret
+
+    for dev in udev_get_block_devices():
+        name = udev_device_get_name(dev)
+
+        if fnmatch.fnmatch(name, glob):
+            ret.append(name)
+        else:
+            for link in dev["symlinks"]:
+                if fnmatch.fnmatch("/dev/" + link, glob):
+                    ret.append(name)
+
+    return ret
+
 def udev_get_block_devices():
     udev_settle(timeout=30)
     entries = []
