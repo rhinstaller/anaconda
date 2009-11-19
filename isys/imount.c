@@ -189,8 +189,29 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
         free(device);
     }
 
-    if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status)))
-       return IMOUNT_ERR_OTHER;
+    if (!WIFEXITED(status))
+        return IMOUNT_ERR_OTHER;
+    else if ( (rc = WEXITSTATUS(status)) ) {
+        /* Refer to 'man mount' for the meaning of the error codes. */
+        switch (rc) {
+        case 1:
+            return IMOUNT_ERR_PERMISSIONS;
+        case 2:
+            return IMOUNT_ERR_SYSTEM;
+        case 4:
+            return IMOUNT_ERR_MOUNTINTERNAL;
+        case 8:
+            return IMOUNT_ERR_USERINTERRUPT;
+        case 16:
+            return IMOUNT_ERR_MTAB;
+        case 32:
+            return IMOUNT_ERR_MOUNTFAILURE;
+        case 64:
+            return IMOUNT_ERR_PARTIALSUCC;
+        default:
+            return IMOUNT_ERR_OTHER;
+        }
+    }
 
     return 0;
 }
@@ -228,6 +249,22 @@ int mkdirChain(char * origChain) {
 	return IMOUNT_ERR_ERRNO;
 
     return 0;
+}
+
+/* Returns true iff it is possible that the mount command that have returned
+ * 'errno' might succeed at a later time (think e.g. not yet initialized USB
+ * device, etc.) */
+int mountMightSucceedLater(int mountRc)
+{
+    int rc;
+    switch (mountRc) {
+    case IMOUNT_ERR_MOUNTFAILURE:
+        rc = 1;
+        break;
+    default:
+        rc = 0;
+    }
+    return rc;
 }
 
 static int mkdirIfNone(char * directory) {

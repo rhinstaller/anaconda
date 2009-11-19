@@ -256,6 +256,14 @@ int kickstartFromRemovable(char *kssrc) {
 
     logMessage(INFO, "doing kickstart from removable media");
     devices = getDevices(DEVICE_DISK);
+    /* usb can take some time to settle, even with the various hacks we
+     * have in place. some systems use portable USB CD-ROM drives, try to
+     * make sure there really isn't one before bailing. */
+    for (i = 0; !devices && i < 10; ++i) {
+        logMessage(INFO, "sleeping to wait for a USB disk");
+        sleep(2);
+        devices = getDevices(DEVICE_DISK);
+    }
     if (!devices) {
         logMessage(ERROR, "no disks");
         return 1;

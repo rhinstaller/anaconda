@@ -466,12 +466,21 @@ int copyFileAndLoopbackMount(int fd, char * dest, char * device, char * mntpoint
       3 - file named path not there
 */
 int getFileFromBlockDevice(char *device, char *path, char * dest) {
-    int rc;
+    int rc, i;
     char file[4096];
 
     logMessage(INFO, "getFileFromBlockDevice(%s, %s)", device, path);
 
-    if (doPwMount(device, "/tmp/mnt", "auto", "ro", NULL)) {
+    /* some USB thumb drives and hard drives are slow to initialize */
+    /* retry up to 5 times or 31 seconds */
+    rc = doPwMount(device, "/tmp/mnt", "auto", "ro", NULL);
+    for (i = 0; mountMightSucceedLater(rc) && i < 5; ++i) {
+        logMessage(INFO, "sleeping to wait for USB storage devices");
+        sleep(1 << i);
+        rc = doPwMount(device, "/tmp/mnt", "auto", "ro", NULL);
+        logMessage(ERROR, "error code: %d", rc);
+    }
+    if (rc) {
         logMessage(ERROR, "failed to mount /dev/%s: %m", device);
         return 2;
     }
