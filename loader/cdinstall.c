@@ -265,11 +265,8 @@ static void queryCDMediaCheck(char *dev, char *location) {
                     continue;
                 }
 
-                if (asprintf(&stage2loc, "%s/images/install.img",
-                             location) == -1) {
-                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                    abort();
-                }
+                checked_asprintf(&stage2loc, "%s/images/install.img",
+                                 location);
 
                 if (access(stage2loc, R_OK)) {
                     free(stage2loc);
@@ -308,10 +305,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
         return NULL;
     }
 
-    if (asprintf(&stage2loc, "%s/images/install.img", location) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&stage2loc, "%s/images/install.img", location);
 
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
@@ -323,10 +317,7 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                 continue;
 
             if (strncmp("/dev/", devices[i]->device, 5)) {
-                if (asprintf(&tmp, "/dev/%s", devices[i]->device) == -1) {
-                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                    abort();
-                }
+                checked_asprintf(&tmp, "/dev/%s", devices[i]->device);
 
                 free(devices[i]->device);
                 devices[i]->device = tmp;
@@ -398,19 +389,13 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                         continue;
                     }
 
-                    if (asprintf(&updpath, "%s/images/updates.img", location) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
+                    checked_asprintf(&updpath, "%s/images/updates.img", location);
 
                     logMessage(INFO, "Looking for updates in %s", updpath);
                     copyUpdatesImg(updpath);
                     free(updpath);
 
-                    if (asprintf(&updpath, "%s/images/product.img", location) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
+                    checked_asprintf(&updpath, "%s/images/product.img", location);
 
                     logMessage(INFO, "Looking for product in %s", updpath);
                     copyProductImg(updpath);
@@ -422,11 +407,8 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                         umount(location);
                     }
 
-                    if (asprintf(&retbuf, "cdrom://%s:%s",
-                                 devices[i]->device, location) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
+                    checked_asprintf(&retbuf, "cdrom://%s:%s",
+                                     devices[i]->device, location);
                 } else {
                     /* this wasnt the CD we were looking for, clean up and */
                     /* try the next CD drive                               */
@@ -439,13 +421,10 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
             if (interactive) {
                 char * buf;
 
-                if (asprintf(&buf, _("The %s disc was not found in any of your "
-                                     "CDROM drives. Please insert the %s disc "
-                                     "and press %s to retry."),
-                    getProductName(), getProductName(), _("OK")) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                }
+                checked_asprintf(&buf, _("The %s disc was not found in any of your "
+                                         "CDROM drives. Please insert the %s disc "
+                                         "and press %s to retry."),
+                                 getProductName(), getProductName(), _("OK"));
 
                 ejectCdrom(cddev);
                 rc = newtWinChoice(_("Disc Not Found"),

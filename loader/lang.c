@@ -262,10 +262,7 @@ static int setupLanguage(int choice, int forced) {
     newtDrawRootText(0, 0, buf);
 
     char *fmt = FL_RESCUE(flags) ? _(topLineWelcomeRescue) : _(topLineWelcome);
-    if (asprintf(&buf, fmt, getProductName(), getProductArch()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&buf, fmt, getProductName(), getProductArch());
 
     newtDrawRootText(0, 0, buf);
     free(buf);

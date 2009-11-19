@@ -118,10 +118,7 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
     curl_global_init(CURL_GLOBAL_SSL);
     curl = curl_easy_init();
 
-    if (asprintf(&version, "anaconda/%s", VERSION) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&version, "anaconda/%s", VERSION);
 
     curl_easy_setopt(curl, CURLOPT_USERAGENT, version);
     curl_easy_setopt(curl, CURLOPT_URL, ui->url);
@@ -251,12 +248,9 @@ int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
 
     buttons = newtButtonBar(_("OK"), &okay, _("Back"), &cancel, NULL);
 
-    if (asprintf(&buf,
-            _("Please enter the URL containing the %s installation image on your server."),
-                 getProductName()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&buf,
+                     _("Please enter the URL containing the %s installation image on your server."),
+                     getProductName());
 
     reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
     free(buf);

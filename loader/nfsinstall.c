@@ -67,24 +67,16 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[0].text = _("NFS server name:");
     entries[0].value = &newServer;
     entries[0].flags = NEWT_FLAG_SCROLL;
-
-    if (asprintf(&entries[1].text, _("%s directory:"),
-                 getProductName()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    
+    checked_asprintf(&entries[1].text, _("%s directory:"), getProductName());
 
     entries[1].value = &newDir;
     entries[1].flags = NEWT_FLAG_SCROLL;
     entries[2].text = NULL;
     entries[2].value = NULL;
 
-    if (asprintf(&buf, _("Please enter the server name and path to your %s "
-                         "installation image."), getProductName()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
-
+    checked_asprintf(&buf, _("Please enter the server name and path to your %s "
+                             "installation image."), getProductName());
     do {
         rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
                             24, entries, _("OK"), _("Back"), NULL);
@@ -148,11 +140,7 @@ static void addDefaultKickstartFile(char **file, char *ip) {
      */
     if ((*file) && (((*file)[strlen(*file) - 1] == '/') ||
                     ((*file)[strlen(*file) - 1] == '\0'))) {
-        if (asprintf(file, "%s%s-kickstart", *file, ip) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
-
+        checked_asprintf(file, "%s%s-kickstart", *file, ip);
         logMessage(DEBUGLVL, "addDefaultKickstartFile file: |%s|", *file);
     }
 }
@@ -183,12 +171,9 @@ char * mountNfsImage(struct installMethod * method,
                     loaderData->stage2Data)->mountOpts == NULL) {
                     mountOpts = strdup("ro");
                 } else {
-                    if (asprintf(&mountOpts, "ro,%s",
-                                 ((struct nfsInstallData *)
-                                 loaderData->stage2Data)->mountOpts) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
+                    checked_asprintf(&mountOpts, "ro,%s",
+                                     ((struct nfsInstallData *)
+                                      loaderData->stage2Data)->mountOpts);
                 }
 
                 logMessage(INFO, "host is %s, dir is %s, opts are '%s'", host, directory, mountOpts);
@@ -218,18 +203,10 @@ char * mountNfsImage(struct installMethod * method,
                  */
                 substr = strstr(directory, ".img");
                 if (!substr || (substr && *(substr+4) != '\0')) {
-                    if (asprintf(&(loaderData->instRepo), "nfs:%s:%s",
-                                 host, directory) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
-
-                    if (asprintf(&tmp, "nfs:%s:%s/images/install.img",
-                                 host, directory) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
-
+                    checked_asprintf(&(loaderData->instRepo), "nfs:%s:%s",
+                                     host, directory);
+                    checked_asprintf(&tmp, "nfs:%s:%s/images/install.img",
+                                     host, directory);
                     setStage2LocFromCmdline(tmp, loaderData);
                     free(host);
                     free(directory);
@@ -246,13 +223,9 @@ char * mountNfsImage(struct installMethod * method,
         case NFS_STAGE_MOUNT: {
             char *buf;
 
-            if (asprintf(&fullPath, "%s:%.*s", host,
-                         (int) (strrchr(directory, '/')-directory),
-                         directory) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
+            checked_asprintf(&fullPath, "%s:%.*s", host,
+                             (int) (strrchr(directory, '/')-directory),
+                             directory);
             logMessage(INFO, "mounting nfs path %s", fullPath);
 
             if (FL_TESTING(flags)) {
@@ -263,11 +236,8 @@ char * mountNfsImage(struct installMethod * method,
             stage = NFS_STAGE_NFS;
 
             if (!doPwMount(fullPath, "/mnt/stage2", "nfs", mountOpts, NULL)) {
-                if (asprintf(&buf, "/mnt/stage2/%s",
-                             strrchr(directory, '/')) == -1) {
-                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                    abort();
-                }
+                checked_asprintf(&buf, "/mnt/stage2/%s",
+                                 strrchr(directory, '/'));
 
                 if (!access(buf, R_OK)) {
                     logMessage(INFO, "can access %s", buf);
@@ -275,14 +245,8 @@ char * mountNfsImage(struct installMethod * method,
 
                     if (rc == 0) {
                         stage = NFS_STAGE_UPDATES;
-
-                        if (asprintf(&url, "nfs:%s:%s", host,
-                                     directory) == -1) {
-                            logMessage(CRITICAL, "%s: %d: %m", __func__,
-                                       __LINE__);
-                            abort();
-                        }
-
+                        checked_asprintf(&url, "nfs:%s:%s", host,
+                                         directory);
                         free(buf);
                         break;
                     } else {
@@ -308,12 +272,10 @@ char * mountNfsImage(struct installMethod * method,
                 break;
             }
 
-            if (asprintf(&buf, _("That directory does not seem to "
-                                 "contain a %s installation image."),
-                         getProductName()) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&buf,
+                             _("That directory does not seem to "
+                               "contain a %s installation image."),
+                             getProductName());
 
             newtWinMessage(_("Error"), _("OK"), buf);
             free(buf);
@@ -330,12 +292,9 @@ char * mountNfsImage(struct installMethod * method,
         case NFS_STAGE_UPDATES: {
             char *buf;
 
-            if (asprintf(&buf, "%.*s/RHupdates",
-                         (int) (strrchr(fullPath, '/')-fullPath),
-                         fullPath) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&buf, "%.*s/RHupdates",
+                             (int) (strrchr(fullPath, '/')-fullPath),
+                             fullPath);
 
             logMessage(INFO, "mounting nfs path %s for updates", buf);
 
@@ -406,10 +365,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 
     substr = strstr(dir, ".img");
     if (!substr || (substr && *(substr+4) != '\0')) {
-        if (asprintf(&(loaderData->instRepo), "nfs:%s:%s", host, dir) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&(loaderData->instRepo), "nfs:%s:%s", host, dir);
 
         logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
                    host, dir, mountOpts);
@@ -507,18 +463,10 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
 
             filename = nm_dhcp4_config_get_one_option(dhcp, "filename");
             if (filename == NULL) {
-                 if (asprintf(&url, "%s:/kickstart/", nextserver) == -1) {
-                     logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                     abort();
-                 }
-
+                checked_asprintf(&url, "%s:/kickstart/", nextserver);
                 logMessage(ERROR, "bootp: no bootfile received");
             } else {
-                 if (asprintf(&url, "%s:%s", nextserver, filename) == -1) {
-                     logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                     abort();
-                 }
-
+                checked_asprintf(&url, "%s:%s", nextserver, filename);
                 logMessage(INFO, "bootp: bootfile is %s", filename);
             }
 
@@ -549,15 +497,9 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
         chk = host + strlen(host)-1;
 
         if (*chk == '/' || *path == '/') {
-            if (asprintf(&host, "%s:%s", host, path) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&host, "%s:%s", host, path);
         } else {
-            if (asprintf(&host, "%s:/%s", host, path) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&host, "%s:/%s", host, path);
         }
     }
 
@@ -566,10 +508,7 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     if (!doPwMount(host, "/tmp/mnt", "nfs", opts, NULL)) {
         char * buf;
 
-        if (asprintf(&buf, "/tmp/mnt/%s", file) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&buf, "/tmp/mnt/%s", file);
 
         if (copyFile(buf, dest)) {
             logMessage(ERROR, "failed to copy file to %s", dest);

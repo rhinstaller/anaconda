@@ -84,10 +84,7 @@ static int detectHardware() {
         close(fd);
 
         if (timeout) {
-            if (asprintf(&args[2], "--timeout=%d", timeout) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&args[2], "--timeout=%d", timeout);
         }
 
         rc = execv("/sbin/udevadm", args);

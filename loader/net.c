@@ -954,15 +954,12 @@ int manualNetConfig(char * device, iface_t * iface,
     /* main window layout */
     grid = newtCreateGrid(1, 3);
 
-    if (asprintf(&buf,
-                 _("Enter the IPv4 and/or the IPv6 address and prefix "
-                   "(address / prefix).  For IPv4, the dotted-quad "
-                   "netmask or the CIDR-style prefix are acceptable. "
-                   "The gateway and name server fields must be valid IPv4 "
-                   "or IPv6 addresses.")) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&buf,
+                     _("Enter the IPv4 and/or the IPv6 address and prefix "
+                       "(address / prefix).  For IPv4, the dotted-quad "
+                       "netmask or the CIDR-style prefix are acceptable. "
+                       "The gateway and name server fields must be valid IPv4 "
+                       "or IPv6 addresses."));
 
     text = newtTextboxReflowed(-1, -1, buf, 52, 0, 10, 0);
 
@@ -1156,19 +1153,13 @@ int writeDisabledNetInfo(void) {
         }
 
         /* write disabled ifcfg-DEVICE file */
-        if (asprintf(&ofile, "%s/.ifcfg-%s",
-                     NETWORK_SCRIPTS_PATH,
-                     devs[i]->device) == -1) {
-            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
-            abort();
-        }
-
-        if (asprintf(&nfile, "%s/ifcfg-%s",
-                     NETWORK_SCRIPTS_PATH,
-                     devs[i]->device) == -1) {
-            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
-            abort();
-        }
+        
+        checked_asprintf(&ofile, "%s/.ifcfg-%s",
+                         NETWORK_SCRIPTS_PATH,
+                         devs[i]->device);
+        checked_asprintf(&nfile, "%s/ifcfg-%s",
+                         NETWORK_SCRIPTS_PATH,
+                         devs[i]->device);
 
         if ((fp = fopen(ofile, "w")) == NULL) {
             free(ofile);
@@ -1865,16 +1856,13 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
                 continue;
             }
 
-            if (asprintf(&idstr, "%s %s %s",
-                         _("You can identify the physical port for"),
-                         devices[deviceNum],
-                         _("by flashing the LED lights for a number of "
-                           "seconds.  Enter a number between 1 and 30 to "
-                           "set the duration to flash the LED port "
-                           "lights.")) == -1) {
-                logMessage(ERROR, "asprintf() failure in %s: %m", __func__);
-                abort();
-            }
+            checked_asprintf(&idstr, "%s %s %s",
+                             _("You can identify the physical port for"),
+                             devices[deviceNum],
+                             _("by flashing the LED lights for a number of "
+                               "seconds.  Enter a number between 1 and 30 to "
+                               "set the duration to flash the LED port "
+                               "lights."));
 
             i = 1;
             while (i) {

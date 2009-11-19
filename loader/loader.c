@@ -189,10 +189,7 @@ void doGdbserver(struct loaderData_s *loaderData) {
             return;
         }
 
-        if (asprintf(&pid, "%d", loaderPid) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&pid, "%d", loaderPid);
 
         if (!(child = fork())) {
             logMessage(INFO, "starting gdbserver: %s %s %s %s",
@@ -224,11 +221,7 @@ void startNewt(void) {
         char *buf;
         char *arch = getProductArch();
 
-        if (asprintf(&buf, _("Welcome to %s for %s"), getProductName(),
-                     arch) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&buf, _("Welcome to %s for %s"), getProductName(), arch);
 
         newtInit();
         newtCls();
@@ -483,10 +476,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
                 if (dir == -1) {
                     stage = UPD_DEVICE;
                 } else {
-                    if (asprintf(&part, "/dev/%s", device) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
+                    checked_asprintf(&part, "/dev/%s", device);
                     stage = UPD_PROMPT;
                 }
 
@@ -514,11 +504,8 @@ void loadUpdates(struct loaderData_s *loaderData) {
         }
 
         case UPD_PROMPT:
-            if (asprintf(&buf, _("Insert your updates disk into %s and "
-                                 "press \"OK\" to continue."), part) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&buf, _("Insert your updates disk into %s and "
+                                     "press \"OK\" to continue."), part);
 
             rc = newtWinChoice(_("Updates Disk"), _("OK"), _("Back"), buf);
             free(buf);
@@ -654,11 +641,8 @@ static void readNetInfo(struct loaderData_s ** ld) {
 
     while ((ent = readdir(dp)) != NULL) {
         if (!strncmp(ent->d_name, "ifcfg-", 6)) {
-            if (asprintf(&cfgfile, "/etc/sysconfig/network-scripts/%s",
-                         ent->d_name) == -1) {
-                logMessage(DEBUGLVL, "%s (%d): %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&cfgfile, "/etc/sysconfig/network-scripts/%s",
+                             ent->d_name);
 
             break;
         }
@@ -1150,19 +1134,13 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                 }
 
                 if (!strncasecmp(argv[i], "vesa", 4)) {
-                    if (asprintf(&extraArgs[numExtraArgs],
-                                 "--xdriver=vesa") == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
+                    checked_asprintf(&extraArgs[numExtraArgs],
+                                     "--xdriver=vesa");
 
                     logMessage(WARNING, "\"vesa\" command line argument is deprecated.  use \"xdriver=vesa\".");
                 } else {
-                    if (asprintf(&extraArgs[numExtraArgs],"--%s",
-                                 argv[i]) == -1) {
-                        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                        abort();
-                    }
+                    checked_asprintf(&extraArgs[numExtraArgs],"--%s",
+                                     argv[i]);
                 }
 
                 numExtraArgs += 1;
@@ -1189,11 +1167,8 @@ static void checkForRam(void) {
     if (totalMemory() < MIN_RAM) {
         char *buf;
 
-        if (asprintf(&buf, _("You do not have enough RAM to install %s "
-                             "on this machine."), getProductName()) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&buf, _("You do not have enough RAM to install %s "
+                                 "on this machine."), getProductName());
 
         startNewt();
         newtWinMessage(_("Error"), _("OK"), buf);
@@ -1260,11 +1235,8 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
              */
             char *tmp;
 
-            if (asprintf(&tmp, "%s/images/install.img",
-                         loaderData->instRepo) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&tmp, "%s/images/install.img",
+                             loaderData->instRepo);
 
             logMessage(INFO, "no stage2= given, assuming %s", tmp);
             setStage2LocFromCmdline(tmp, loaderData);
@@ -1604,12 +1576,9 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                         /* Doesn't contain /images?  Let's not even try. */
                         if (strstr(url, "/images") == NULL)
                             break;
-
-                        if (asprintf(&newInstRepo, "%.*s",
-                                     (int) (strstr(url, "/images")-url), url) == -1) {
-                            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                            abort();
-                        }
+                        
+                        checked_asprintf(&newInstRepo, "%.*s",
+                                         (int) (strstr(url, "/images")-url), url);
 
                         free(loaderData->instRepo);
                         loaderData->instRepo = newInstRepo;
@@ -1675,19 +1644,13 @@ static void migrate_runtime_directory(char * dirname) {
     char * runtimedir;
     int ret;
 
-    if (asprintf(&runtimedir, "/mnt/runtime%s", dirname) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&runtimedir, "/mnt/runtime%s", dirname);
 
     if (!access(runtimedir, X_OK)) {
         if (unlink(dirname) == -1) {
             char * olddir;
-
-            if (asprintf(&olddir, "%s_old", dirname) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            
+            checked_asprintf(&olddir, "%s_old", dirname);
 
             ret = rename(dirname, olddir);
             free(olddir);
@@ -1790,10 +1753,7 @@ static void add_to_path_env(const char *env, const char *val)
 
     oldenv = getenv(env);
     if (oldenv) {
-        if (asprintf(&newenv, "%s:%s", val, oldenv) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&newenv, "%s:%s", val, oldenv);
 
         oldenv = strdupa(newenv);
         free(newenv);
@@ -2134,10 +2094,7 @@ int main(int argc, char ** argv) {
 
         c = path[n];
         path[n] = '\0';
-        if (asprintf(&binpath, "%s/anaconda", path) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&binpath, "%s/anaconda", path);
         path[n] = c;
 
         if (!access(binpath, X_OK)) {

@@ -146,15 +146,8 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     location->title = strdup(title);
     location->version = version;
 
-    if (asprintf(&location->path, "/tmp/DD-%d/modules.cgz", disknum) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
-
-    if (asprintf(&fwdir, "/tmp/DD-%d/firmware", disknum) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&location->path, "/tmp/DD-%d/modules.cgz", disknum);
+    checked_asprintf(&fwdir, "/tmp/DD-%d/firmware", disknum);
 
     if (!access(fwdir, R_OK|X_OK)) {
         add_fw_search_dir(loaderData, fwdir);
@@ -349,12 +342,9 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
         case DEV_INSERT: {
             char * buf;
 
-            if (asprintf(&buf,
-                         _("Insert your driver disk into /dev/%s "
-                           "and press \"OK\" to continue."), device) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&buf,
+                             _("Insert your driver disk into /dev/%s "
+                               "and press \"OK\" to continue."), device);
 
             rc = newtWinChoice(_("Insert Driver Disk"), _("OK"), _("Back"),
                                buf);

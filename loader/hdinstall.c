@@ -67,16 +67,9 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
     if (doPwMount(device, "/mnt/isodir", "auto", "ro", NULL))
         return NULL;
 
-    if (asprintf(&dirspec, "/mnt/isodir%.*s",
-                 (int) (strrchr(dirName, '/') - dirName), dirName) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
-
-    if (asprintf(&path, "/mnt/isodir%s", dirName) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&dirspec, "/mnt/isodir%.*s",
+                     (int) (strrchr(dirName, '/') - dirName), dirName);
+    checked_asprintf(&path, "/mnt/isodir%s", dirName);
 
     if (path) {
         logMessage(INFO, "Path to stage2 image is %s", path);
@@ -92,19 +85,13 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
             goto err;
         }
 
-        if (asprintf(&updpath, "%s/updates.img", dirspec) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&updpath, "%s/updates.img", dirspec);
 
         logMessage(INFO, "Looking for updates for HD in %s", updpath);
         copyUpdatesImg(updpath);
         free(updpath);
 
-        if (asprintf(&updpath, "%s/product.img", dirspec) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&updpath, "%s/product.img", dirspec);
 
         logMessage(INFO, "Looking for product for HD in %s", updpath);
         copyProductImg(updpath);
@@ -113,11 +100,8 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
         free(dirspec);
         umount("/mnt/isodir");
 
-        if (asprintf(&url, "hd:%s:/%s", device,
-                     dirName ? dirName : ".") == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&url, "hd:%s:/%s", device,
+                         dirName ? dirName : ".");
 
         return url;
     } else {
@@ -233,15 +217,12 @@ char * mountHardDrive(struct installMethod * method,
         }
 
         /* now find out which partition has the stage2 image */
-        if (asprintf(&buf, _("What partition and directory on that "
-                             "partition holds the installation image "
-                             "for %s?  If you don't see the disk drive "
-                             "you're using listed here, press F2 to "
-                             "configure additional devices."),
-                     getProductName()) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&buf, _("What partition and directory on that "
+                                 "partition holds the installation image "
+                                 "for %s?  If you don't see the disk drive "
+                                 "you're using listed here, press F2 to "
+                                 "configure additional devices."),
+                         getProductName());
 
         text = newtTextboxReflowed(-1, -1, buf, 62, 5, 5, 0);
         free(buf);
@@ -327,10 +308,7 @@ char * mountHardDrive(struct installMethod * method,
          */
         substr = strstr(dir, ".img");
         if (!substr || (substr && *(substr+4) != '\0')) {
-            if (asprintf(&dir, "%s/images/install.img", dir) == -1) {
-                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
+            checked_asprintf(&dir, "%s/images/install.img", dir);
         }
 
         loaderData->invalidRepoParam = 1;

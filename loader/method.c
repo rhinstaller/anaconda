@@ -88,10 +88,7 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
        return LOADER_ERROR;
     }
 
-    if (asprintf(&opts, "ro,loop=%s", device) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&opts, "ro,loop=%s", device);
 
     if (doPwMount(fsystem, mntpoint, "auto", opts, &err)) {
         logMessage(ERROR, "failed to mount loopback device %s on %s as %s: %s",

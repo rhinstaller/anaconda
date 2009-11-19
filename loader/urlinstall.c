@@ -66,15 +66,9 @@ static char **headers() {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
         abort();
     }
-
-    if (asprintf(&extraHeaders[0], "X-Anaconda-Architecture: %s", getProductArch()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
-    if (asprintf(&extraHeaders[1], "X-Anaconda-System-Release: %s", getProductName()) == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    
+    checked_asprintf(&extraHeaders[0], "X-Anaconda-Architecture: %s", getProductArch());
+    checked_asprintf(&extraHeaders[1], "X-Anaconda-System-Release: %s", getProductName());
 
     if (FL_KICKSTART_SEND_MAC(flags)) {
         /* find all ethernet devices and make a header entry for each one */
@@ -89,11 +83,8 @@ static char **headers() {
 
             if (mac) {
                 extraHeaders = realloc(extraHeaders, (len+1)*sizeof(char *));
-                if (asprintf(&extraHeaders[len], "X-RHN-Provisioning-MAC-%d: %s %s",
-                             i, dev, mac) == -1) {
-                    logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-                    abort();
-                }
+                checked_asprintf(&extraHeaders[len], "X-RHN-Provisioning-MAC-%d: %s %s",
+                                 i, dev, mac);
 
                 len++;
                 free(mac);
@@ -122,10 +113,7 @@ static char **headers() {
 
         extraHeaders = realloc(extraHeaders, (len+1)*sizeof(char *));
 
-        if (asprintf(&extraHeaders[len], "X-System-Serial-Number: %s", sn) == -1) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
-        }
+        checked_asprintf(&extraHeaders[len], "X-System-Serial-Number: %s", sn);
 
         len++;
     }
@@ -190,10 +178,7 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
 
     /* grab the updates.img before install.img so that we minimize our
      * ramdisk usage */
-    if (asprintf(&ui->url, "%s/%s", path, "updates.img") == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&ui->url, "%s/%s", path, "updates.img");
 
     if (!loadSingleUrlImage(loaderData, ui, "/tmp/updates-disk.img", "/tmp/update-disk",
                             "/dev/loop7", 1)) {
@@ -211,10 +196,7 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
 
     /* grab the product.img before install.img so that we minimize our
      * ramdisk usage */
-    if (asprintf(&ui->url, "%s/%s", path, "product.img") == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&ui->url, "%s/%s", path, "product.img");
 
     if (!loadSingleUrlImage(loaderData, ui, "/tmp/product-disk.img", "/tmp/product-disk",
                             "/dev/loop7", 1)) {
@@ -228,10 +210,7 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
     free(ui->url);
     ui->url = strdup(oldUrl);
 
-    if (asprintf(&dest, "/tmp/install.img") == -1) {
-        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-        abort();
-    }
+    checked_asprintf(&dest, "/tmp/install.img");
 
     rc = loadSingleUrlImage(loaderData, ui, dest, "/mnt/runtime", "/dev/loop0", 0);
     free(dest);
@@ -299,12 +278,8 @@ char *mountUrlImage(struct installMethod *method, char *location,
                     if (!substr || (substr && *(substr+4) != '\0')) {
                         loaderData->instRepo = strdup(ui.url);
 
-                        if (asprintf(&ui.url, "%s/images/install.img",
-                                     ui.url) == -1) {
-                            logMessage(CRITICAL, "%s: %d: %m", __func__,
-                                       __LINE__);
-                            abort();
-                        }
+                        checked_asprintf(&ui.url, "%s/images/install.img",
+                                         ui.url);
                     }
 
                     loaderData->invalidRepoParam = 1;

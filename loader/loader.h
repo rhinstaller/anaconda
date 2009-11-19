@@ -182,4 +182,10 @@ struct loaderData_s {
 #define LIBPATH "/lib:/usr/lib:/usr/X11R6/lib:/usr/kerberos/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib"
 #endif
 
+#define checked_asprintf(...)                                       \
+    if (asprintf( __VA_ARGS__ ) == -1) {                            \
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);     \
+        abort();                                                    \
+    }
+
 #endif
