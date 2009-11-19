@@ -57,11 +57,12 @@
 /* boot flags */
 extern uint64_t flags;
 
-static int nfsGetSetup(char ** hostptr, char ** dirptr) {
-    struct newtWinEntry entries[3];
+static int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr) {
+    struct newtWinEntry entries[4];
     char * buf;
     char * newServer = *hostptr ? strdup(*hostptr) : NULL;
     char * newDir = *dirptr ? strdup(*dirptr) : NULL;
+    char * newMountOpts = *optsptr ? strdup(*optsptr) : NULL;
     int rc;
 
     entries[0].text = _("NFS server name:");
@@ -72,11 +73,19 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr) {
 
     entries[1].value = &newDir;
     entries[1].flags = NEWT_FLAG_SCROLL;
-    entries[2].text = NULL;
-    entries[2].value = NULL;
+    entries[2].text = _("NFS mount options (optional):");
+    entries[2].value = &newMountOpts;
+    entries[2].flags = NEWT_FLAG_SCROLL;
+    entries[3].text = NULL; 
+    entries[3].value = NULL;
 
-    checked_asprintf(&buf, _("Please enter the server name and path to your %s "
-                             "installation image."), getProductName());
+    if (asprintf(&buf, _("Please enter the server and path to your %s "
+                         "installation image and optionally additional "
+                         "NFS mount options."), getProductName()) == -1) {
+        logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+        abort();
+    }
+
     do {
         rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
                             24, entries, _("OK"), _("Back"), NULL);
@@ -88,13 +97,16 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr) {
     if (rc == 2) {
         if (newServer) free(newServer);
         if (newDir) free(newDir);
+        if (newMountOpts) free(newMountOpts);
         return LOADER_BACK;
     }
 
     if (*hostptr) free(*hostptr);
     if (*dirptr) free(*dirptr);
+    if (*optsptr) free(*optsptr);
     *hostptr = newServer;
     *dirptr = newDir;
+    *optsptr = newMountOpts;
 
     return 0;
 }
@@ -162,7 +174,6 @@ char * mountNfsImage(struct installMethod * method,
     while (stage != NFS_STAGE_DONE) {
         switch (stage) {
         case NFS_STAGE_NFS:
-            logMessage(INFO, "going to do nfsGetSetup");
             if (loaderData->method == METHOD_NFS && loaderData->stage2Data) {
                 host = ((struct nfsInstallData *)loaderData->stage2Data)->host;
                 directory = ((struct nfsInstallData *)loaderData->stage2Data)->directory;
@@ -191,9 +202,10 @@ char * mountNfsImage(struct installMethod * method,
                     directory = strdup(directory);
                 }
             } else {
-                char *substr, *tmp;
+                char *colonopts, *substr, *tmp;
 
-                if (nfsGetSetup(&host, &directory) == LOADER_BACK) {
+                logMessage(INFO, "going to do nfsGetSetup");
+                if (nfsGetSetup(&host, &directory, &mountOpts) == LOADER_BACK) {
                     loaderData->stage2Data = NULL;
                     return NULL;
                 }
@@ -203,13 +215,22 @@ char * mountNfsImage(struct installMethod * method,
                  */
                 substr = strstr(directory, ".img");
                 if (!substr || (substr && *(substr+4) != '\0')) {
-                    checked_asprintf(&(loaderData->instRepo), "nfs:%s:%s",
-                                     host, directory);
-                    checked_asprintf(&tmp, "nfs:%s:%s/images/install.img",
-                                     host, directory);
+                    if (mountOpts && strlen(mountOpts)) {
+                        checked_asprintf(&colonopts, ":%s", mountOpts);
+                    } else {
+                        colonopts = strdup("");
+                    }
+
+                    checked_asprintf(&(loaderData->instRepo), "nfs%s:%s:%s",
+                                     colonopts, host, directory);
+                    checked_asprintf(&tmp, "nfs%s:%s:%s/images/install.img",
+                                     colonopts, host, directory);
+
                     setStage2LocFromCmdline(tmp, loaderData);
                     free(host);
                     free(directory);
+                    free(mountOpts);
+                    free(colonopts);
                     free(tmp);
                     continue;
                 }
@@ -318,6 +339,8 @@ char * mountNfsImage(struct installMethod * method,
 
     free(host);
     free(directory);
+    if (mountOpts)
+        free(mountOpts);
     if (fullPath)
         free(fullPath);
 
