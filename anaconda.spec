@@ -1,6 +1,6 @@
 Name: anaconda
-Version: 11.1.2.196
-Release: 2
+Version: 11.1.2.197
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Nov 20 2009 Martin Sivak <msivak@redhat.com> 11.1.2.197
+- Added N-Port-ID (NPIV) install support for Linux on Power
+  Resolves: rhbz#512237
+- Ignore comments when looking for %ksappend lines
+  Resolves: rhbz#525676
+- Add kickstart support for xen hypervisor arguments in grub.
+  Resolves: rhbz#501438
+- Fix kickstarts without a pw
+  Resolves: rhbz#538412
+
 * Fri Nov 13 2009 Martin Sivak <msivak@redhat.com> 11.1.2.196-2
 - Write HOTPLUG=no to ifcfg file is ONBOOT=no
   Resolves: rhbz#498086
