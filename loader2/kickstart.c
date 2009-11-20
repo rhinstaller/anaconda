@@ -352,7 +352,6 @@ void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** log
         **login = '\0';
         *password = malloc(sizeof(char *));
         **password = '\0';
-	free(hostsrc);
     }
 
 }
