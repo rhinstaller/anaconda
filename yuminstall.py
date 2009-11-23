@@ -1455,7 +1455,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
     def doPreInstall(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
-            for d in ("/selinux", "/dev"):
+            for d in ("/selinux", "/dev", "/proc/bus/usb"):
                 try:
                     isys.umount(anaconda.rootPath + d, removeDir = False)
                 except Exception, e:
@@ -1540,6 +1540,12 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     isys.mount("/selinux", anaconda.rootPath + "/selinux", "selinuxfs")
                 except Exception, e:
                     log.error("error mounting selinuxfs: %s" %(e,))
+
+            # For usbfs
+            try:
+                isys.mount("/proc/bus/usb", anaconda.rootPath + "/proc/bus/usb", "usbfs")
+            except Exception, e:
+                log.error("error mounting usbfs: %s" %(e,))
 
         # write out the fstab
         if not upgrade:
