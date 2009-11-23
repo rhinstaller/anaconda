@@ -46,6 +46,8 @@ class InstallClass(BaseInstallClass):
     if not productName.startswith("Red Hat Enterprise"):
         hidden = 1
 
+    bootloaderTimeoutDefault = 5
+
     tasks = [(N_("Minimal"), ["core"]),
              (N_("Desktop"),
               ["backup-client", "base", "compat-libraries", "console-internet",
