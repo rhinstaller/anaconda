@@ -164,7 +164,7 @@ class AnacondaBackend:
 
         free = anaconda.id.storage.fsFreeSpace
         self._loopbackFile = "%s%s/rhinstall-install.img" % (anaconda.rootPath,
-                                                             free[0][0])
+                                                             free[-1][0])
 
         try:
             win = anaconda.intf.waitWindow(_("Copying File"),
