@@ -141,9 +141,6 @@ class Platform(object):
 
     def diskLabelType(self, deviceType):
         """Return the disk label type as a parted.DiskType."""
-        if deviceType == parted.DEVICE_DASD:
-            return parted.diskType["dasd"]
-
         return self._diskLabelType
 
     @property
@@ -440,6 +437,13 @@ class S390(Platform):
 
     def __init__(self, anaconda):
         Platform.__init__(self, anaconda)
+
+    def diskLabelType(self, deviceType):
+        """Return the disk label type as a parted.DiskType."""
+        if deviceType == parted.DEVICE_DASD:
+            return parted.diskType["dasd"]
+        else:
+            return Platform.diskLabelType(self, deviceType)
 
 class Sparc(Platform):
     _diskLabelType = parted.diskType["sun"]
