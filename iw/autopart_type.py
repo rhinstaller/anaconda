@@ -404,7 +404,8 @@ class PartitionTypeWindow(InstallWindow):
                 continue
 
             try:
-                self.storage.fcoe.addSan(store.get_value(iter, 1), self.intf)
+                self.storage.fcoe.addSan(nic=store.get_value(iter, 1),
+                                         dcb=False, intf=self.intf)
             except IOError, e:
                 self.intf.messageWindow(_("Error"), str(e),
                                         custom_icon="error")

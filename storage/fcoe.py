@@ -42,6 +42,8 @@ def has_fcoe():
 class fcoe(object):
     def __init__(self):
         self.started = False
+        self.dcbdStarted = False
+        self.fcoemonStarted = False
         self.nics = []
 
     def _stabilize(self, intf = None):
@@ -69,22 +71,51 @@ class fcoe(object):
 
         self.started = True
 
-    def addSan(self, nic, intf=None):
+    def _startDcbd(self):
+        if self.dcbdStarted:
+            return
+
+        iutil.execWithRedirect("dcbd", [ "-d" ],
+                               stdout = "/dev/tty5", stderr="/dev/tty5",
+                               searchPath = 1)
+        self.dcbdStarted = True
+
+    def _startFcoemon(self):
+        if self.fcoemonStarted:
+            return
+
+        iutil.execWithRedirect("fcoemon", [ ],
+                               stdout = "/dev/tty5", stderr="/dev/tty5",
+                               searchPath = 1)
+        self.fcoemonStarted = True
+
+    def addSan(self, nic, dcb=False, intf=None):
         if not has_fcoe():
             raise IOError, _("FCoE not available")
 
-        log.info("Activating FCoE SAN attached to %s" % nic)
+        log.info("Activating FCoE SAN attached to %s, dcb: %s" % (nic, dcb))
 
         iutil.execWithRedirect("ip", [ "link", "set", nic, "up" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5",
                                searchPath = 1)
 
-        f = open("/sys/module/fcoe/parameters/create", "w")
-        f.write(nic)
-        f.close()
+        if dcb:
+            self._startDcbd()
+            iutil.execWithRedirect("dcbtool", [ "sc", nic, "dcb", "on" ],
+                               stdout = "/dev/tty5", stderr="/dev/tty5",
+                               searchPath = 1)
+            iutil.execWithRedirect("dcbtool", [ "sc", nic, "app:fcoe",
+                               "e:1", "a:1", "w:1" ],
+                               stdout = "/dev/tty5", stderr="/dev/tty5",
+                               searchPath = 1)
+            self._startFcoemon()
+        else:
+            f = open("/sys/module/fcoe/parameters/create", "w")
+            f.write(nic)
+            f.close()
 
         self._stabilize(intf)
-        self.nics.append(nic)
+        self.nics.append((nic, dcb))
 
     def writeKS(self, f):
         # fixme plenty (including add ks support for fcoe in general)
@@ -97,14 +128,17 @@ class fcoe(object):
         if not os.path.isdir(instPath + "/etc/fcoe"):
             os.makedirs(instPath + "/etc/fcoe", 0755)
 
-        for nic in self.nics:
+        for nic, dcb in self.nics:
             fd = os.open(instPath + "/etc/fcoe/cfg-" + nic,
                          os.O_RDWR | os.O_CREAT)
             os.write(fd, '# Created by anaconda\n')
             os.write(fd, '# Enable/Disable FCoE service at the Ethernet port\n')
             os.write(fd, 'FCOE_ENABLE="yes"\n')
             os.write(fd, '# Indicate if DCB service is required at the Ethernet port\n')
-            os.write(fd, 'DCB_REQUIRED="no"\n')
+            if dcb:
+                os.write(fd, 'DCB_REQUIRED="yes"\n')
+            else:
+                os.write(fd, 'DCB_REQUIRED="no"\n')
             os.close(fd)
 
         return
