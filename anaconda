@@ -32,6 +32,7 @@
 
 import sys, os, re, time, subprocess
 from optparse import OptionParser
+from tempfile import mkstemp
 
 # keep up with process ID of miniwm if we start it
 
@@ -473,13 +474,18 @@ class Anaconda:
         self.xdriver = None
 
     def dumpState(self):
-        from exception import AnacondaExceptionDump
+        from meh.dump import ReverseExceptionDump
         from inspect import stack as _stack
+
         # Skip the frames for dumpState and the signal handler.
         stack = _stack()[2:]
         stack.reverse()
-        exn = AnacondaExceptionDump(None, None, stack)
-        exn.write(anaconda)
+        exn = ReverseExceptionDump((None, None, stack), self.mehConfig)
+
+        (fd, filename) = mkstemp("", "anaconda-tb-", "/tmp")
+        fo = os.fdopen(fd, "w")
+
+        exn.write(self, fo)
 
     def writeXdriver(self, instPath="/"):
         # this should go away at some point, but until it does, we
@@ -629,9 +635,6 @@ if __name__ == "__main__":
     # reset python's default SIGINT handler
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     signal.signal(signal.SIGSEGV, isys.handleSegv)
-
-    # add our own additional signal handlers
-    signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
 
     setupEnvironment()
 
@@ -965,7 +968,10 @@ if __name__ == "__main__":
 
     # comment out the next line to make exceptions non-fatal
     from exception import initExceptionHandling
-    initExceptionHandling(anaconda)
+    anaconda.mehConfig = initExceptionHandling(anaconda)
+
+    # add our own additional signal handlers
+    signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
 
     anaconda.setDispatch()
 
@@ -981,8 +987,6 @@ if __name__ == "__main__":
                fr = None
                            
            if fr:
-               from tempfile import mkstemp
-
                (fw, testcase) = mkstemp(prefix='testcase.py.', dir='/tmp')
                os.write(fw, fr.read())
                fr.close()

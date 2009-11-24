@@ -125,3 +125,5 @@ def initExceptionHandling(anaconda):
                              "/proc/cmdline"])
     handler = AnacondaExceptionHandler(conf, anaconda.intf, ReverseExceptionDump)
     handler.install(anaconda)
+
+    return conf
