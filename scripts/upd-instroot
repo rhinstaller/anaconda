@@ -160,10 +160,11 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
     cryptsetup-luks cyrus-sasl-lib db4 dbus dbus-python dejavu-sans-fonts
-    dejavu-sans-mono-fonts device-mapper
+    dcbd dejavu-sans-mono-fonts device-mapper
     device-mapper-libs dhclient dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme ethtool
-    elfutils-libelf expat firstboot fontconfig fonts-ISO8859-2 freetype gail gawk gdb-gdbserver
+    elfutils-libelf expat fcoe-utils
+    firstboot fontconfig fonts-ISO8859-2 freetype gail gawk gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
     gnome-themes gpm grep gtk2 gtk2-engines
     hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
@@ -347,7 +348,9 @@ etc/NetworkManager/nm-system-settings.conf
 etc/NetworkManager/dispatcher.d
 etc/dbus-1/*
 etc/dbus-1/system.d/*
+etc/dcbd
 etc/fb.modes
+etc/fcoe
 etc/fonts
 etc/group
 etc/gtk-2.0/gtkrc*
@@ -569,9 +572,12 @@ usr/sbin/NetworkManager
 usr/sbin/addRamDisk
 usr/sbin/anaconda
 usr/sbin/chroot
+usr/sbin/dcbd
+usr/sbin/dcbtool
 usr/sbin/ddcprobe
 usr/sbin/dmidecode
 usr/sbin/efibootmgr
+usr/sbin/fcoemon
 usr/sbin/fbset
 usr/sbin/genhomedircon
 usr/sbin/gptsync
