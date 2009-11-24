@@ -220,6 +220,12 @@ class EFI(Platform):
             if req.format.type != "efi":
                 errors.append(_("/boot/efi is not EFI."))
 
+        disk = req.disk.format.partedDisk
+
+        # Check that we've got a correct disk label.
+        if not disk.type in ["gpt", "msdos"]:
+            errors.append(_("%s must have a GPT or MSDOS disk label.") % req.disk.name)
+
         return errors
 
     def setDefaultPartitioning(self):
