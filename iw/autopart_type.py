@@ -342,9 +342,10 @@ class PartitionTypeWindow(InstallWindow):
     def addFcoeDrive(self):
         (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade",
                                             "fcoeDialog")
+        combo = dxml.get_widget("fcoeNicCombo")
+        dcb_cb = dxml.get_widget("dcbCheckbutton")
 
         # Populate the combo
-        combo = dxml.get_widget("fcoeNicCombo")
         cell = gtk.CellRendererText()
         combo.pack_start(cell, True)
         combo.set_attributes(cell, text = 0)
@@ -405,7 +406,8 @@ class PartitionTypeWindow(InstallWindow):
 
             try:
                 self.storage.fcoe.addSan(nic=store.get_value(iter, 1),
-                                         dcb=False, intf=self.intf)
+                                         dcb=dcb_cb.get_active(),
+                                         intf=self.intf)
             except IOError, e:
                 self.intf.messageWindow(_("Error"), str(e),
                                         custom_icon="error")
