@@ -222,7 +222,8 @@ class PartitionTypeWindow:
         (button, entries) = EntryWindow(screen,
                                         _("Add FCoE SAN"),
                                         _("Enter the device name for the NIC which is connected to the FCoE SAN. For example \"eth0\"."),
-                                        prompts = [ _("NIC device name") ] )
+                                        prompts = [ _("NIC device name"),
+                                                    _("Use DCB (Yes/No)") ] )
         if button == TEXT_CANCEL_CHECK:
             return INSTALL_BACK
 
@@ -232,7 +233,15 @@ class PartitionTypeWindow:
                                _("%s is not a valid NIC device name.") % nic)
             return INSTALL_BACK
 
-        self.anaconda.id.storage.fcoe.addSan(nic)
+        dcb = entries[1].strip().lower()
+        if dcb != _("yes").lower() and dcb != _("no").lower():
+            ButtonChoiceWindow(screen, _("Error"),
+                               _("DCB value must be either yes or no."))
+            return INSTALL_BACK
+
+        dcb = dcb == _("yes").lower()
+
+        self.anaconda.id.storage.fcoe.addSan(nic=nic, dcb=dcb)
 
         return INSTALL_OK
 
