@@ -183,7 +183,8 @@ class AnacondaBackend:
             return 1
 
         isys.lochangefd("/dev/loop0", self._loopbackFile)
-        isys.umount("/mnt/stage2")
+        if os.path.ismount("/mnt/stage2"):
+            isys.umount("/mnt/stage2")
 
     def removeInstallImage(self):
         if self._loopbackFile:
