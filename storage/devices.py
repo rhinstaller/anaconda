@@ -1162,20 +1162,31 @@ class PartitionDevice(StorageDevice):
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        self.createParents()
-        self.setupParents()
+        w = None
+        if intf:
+            w = intf.waitWindow(_("Creating"),
+                                _("Creating device %s") % (self.path,))
 
-        self.disk.format.addPartition(self.partedPartition)
-        self.disk.format.commit()
+        try:
+            self.createParents()
+            self.setupParents()
 
-        # Ensure old metadata which lived in freespace so did not get
-        # explictly destroyed by a destroyformat action gets wiped
-        DeviceFormat(device=self.path, exists=True).destroy()
+            self.disk.format.addPartition(self.partedPartition)
+            self.disk.format.commit()
 
-        self.partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
+            # Ensure old metadata which lived in freespace so did not get
+            # explictly destroyed by a destroyformat action gets wiped
+            DeviceFormat(device=self.path, exists=True).destroy()
+        except Exception:
+            raise
+        else:
+            self.partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
 
-        self.exists = True
-        self.setup()
+            self.exists = True
+            self.setup()
+        finally:
+            if w:
+                w.pop()
 
     def _computeResize(self, partition):
         log_method_call(self, self.name, status=self.status)
@@ -1745,21 +1756,27 @@ class LVMVolumeGroupDevice(DMDevice):
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        pv_list = []
-        #for pv in self.parents:
-            # This is a little bit different from other devices in that
-            # for VG we need the PVs to be formatted before we can create
-            # the VG.
-        #    pv.create()
-        #    pv.format.create()
-        #    pv_list.append(pv.path)
-        pv_list = [pv.path for pv in self.parents]
-        self.createParents()
-        self.setupParents()
-        lvm.vgcreate(self.name, pv_list, self.peSize)
-        # FIXME set / update self.uuid here
-        self.exists = True
-        self.setup()
+        w = None
+        if intf:
+            w = intf.progressWindow(_("Creating"),
+                                    _("Creating device %s")
+                                    % (self.path,),
+                                    100, pulse = True)
+        try:
+            self.createParents()
+            self.setupParents()
+
+            pv_list = [pv.path for pv in self.parents]
+            lvm.vgcreate(self.name, pv_list, self.peSize, progress=w)
+        except Exception:
+            raise
+        else:
+            # FIXME set / update self.uuid here
+            self.exists = True
+            self.setup()
+        finally:
+            if w:
+                w.pop()
 
     def destroy(self):
         """ Destroy the device. """
@@ -2127,14 +2144,27 @@ class LVMLogicalVolumeDevice(DMDevice):
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        self.createParents()
-        self.setupParents()
+        w = None
+        if intf:
+            w = intf.progressWindow(_("Creating"),
+                                    _("Creating device %s")
+                                    % (self.path,),
+                                    100, pulse = True)
+        try:
+            self.createParents()
+            self.setupParents()
 
-        # should we use --zero for safety's sake?
-        lvm.lvcreate(self.vg.name, self._name, self.size)
-        # FIXME set / update self.uuid here
-        self.exists = True
-        self.setup()
+            # should we use --zero for safety's sake?
+            lvm.lvcreate(self.vg.name, self._name, self.size, progress=w)
+        except Exception:
+            raise
+        else:
+            # FIXME set / update self.uuid here
+            self.exists = True
+            self.setup()
+        finally:
+            if w:
+                w.pop()
 
     def destroy(self):
         """ Destroy the device. """
@@ -2554,23 +2584,38 @@ class MDRaidArrayDevice(StorageDevice):
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        disks = [disk.path for disk in self.devices]
-        self.createParents()
-        self.setupParents()
-        spares = len(self.devices) - self.memberDevices
-        mdraid.mdcreate(self.path,
-                        self.level,
-                        disks,
-                        spares)
-        self.exists = True
-        # the array is automatically activated upon creation, but...
-        self.setup()
-        udev_settle()
-        self.updateSysfsPath()
-        info = udev_get_block_device(self.sysfsPath)
-        self.uuid = udev_device_get_md_uuid(info)
-        for member in self.devices:
-            member.mdUuid = self.uuid
+        w = None
+        if intf:
+            w = intf.progressWindow(_("Creating"),
+                                    _("Creating device %s")
+                                    % (self.path,),
+                                    100, pulse = True)
+        try:
+            self.createParents()
+            self.setupParents()
+
+            disks = [disk.path for disk in self.devices]
+            spares = len(self.devices) - self.memberDevices
+            mdraid.mdcreate(self.path,
+                            self.level,
+                            disks,
+                            spares,
+                            progress=w)
+        except Exception:
+            raise
+        else:
+            self.exists = True
+            # the array is automatically activated upon creation, but...
+            self.setup()
+            udev_settle()
+            self.updateSysfsPath()
+            info = udev_get_block_device(self.sysfsPath)
+            self.uuid = udev_device_get_md_uuid(info)
+            for member in self.devices:
+                member.mdUuid = self.uuid
+        finally:
+            if w:
+                w.pop()
 
     @property
     def formatArgs(self):
@@ -2975,24 +3020,28 @@ class FileDevice(StorageDevice):
         if self.exists:
             raise DeviceError("device already exists", self.name)
 
-        # this only checks that parents exist
-        self.createParents()
-        self.setupParents()
+        w = None
+        if intf:
+            w = intf.waitWindow(_("Creating"),
+                                _("Creating file %s") % (self.path,))
 
         try:
+            # this only checks that parents exist
+            self.createParents()
+            self.setupParents()
+
             fd = os.open(self.path, os.O_RDWR)
-        except OSError as e:
-            raise DeviceError(e, self.name)
-
-        try:
             buf = '\0' * 1024 * 1024 * self.size
             os.write(fd, buf)
         except (OSError, TypeError) as e:
             log.error("error writing out %s: %s" % (self.path, e))
+            raise DeviceError(e, self.name)
+        else:
+            self.exists = True
         finally:
             os.close(fd)
-
-        self.exists = True
+            if w:
+                w.pop()
 
     def destroy(self):
         """ Destroy the device. """
