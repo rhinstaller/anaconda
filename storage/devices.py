@@ -1634,13 +1634,13 @@ class LVMVolumeGroupDevice(DMDevice):
         """ Device node representing this device. """
         return "%s/%s" % (self._devDir, self.mapName)
 
-    def getDMNode(self):
-        """ Return the dm-X (eg: dm-0) device node for this device. """
+    def updateSysfsPath(self):
+        """ Update this device's sysfs path. """
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
-        return dm.dm_node_from_name(self.mapName)
+        self.sysfsPath = ''
 
     @property
     def status(self):
@@ -1777,7 +1777,6 @@ class LVMVolumeGroupDevice(DMDevice):
         except lvm.LVMError:
             raise DeviceError("Could not completely remove VG", self.name)
         finally:
-            self.notifyKernel()
             self.exists = False
 
     def reduce(self, pv_list):
