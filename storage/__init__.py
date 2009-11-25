@@ -291,6 +291,19 @@ class Storage(object):
         else:
             for dev in bootDevs:
                 if hasattr(dev, "bootable"):
+                    # Dos labels can only have one partition marked as active
+                    # and unmarking ie the windows partition is not a good idea
+                    skip = False
+                    if dev.disk.format.partedDisk.type == "msdos":
+                        for p in dev.disk.format.partedDisk.partitions:
+                            if p.type == parted.PARTITION_NORMAL and \
+                               p.getFlag(parted.PARTITION_BOOT):
+                                skip = True
+                                break
+                    if skip:
+                         log.info("not setting boot flag on %s as there is"
+                                  "another active partition" % dev.name)
+                         continue
                     log.info("setting boot flag on %s" % dev.name)
                     dev.bootable = True
                     dev.disk.setup()
