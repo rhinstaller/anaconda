@@ -1125,6 +1125,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
            iutil.resetRpmDb(anaconda.rootPath)
 
         iutil.writeRpmPlatform()
+        anaconda.backend.freetmp(anaconda)
         self.ayum = AnacondaYum(anaconda)
         self.ayum.setup()
 
