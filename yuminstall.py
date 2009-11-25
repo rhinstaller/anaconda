@@ -880,9 +880,16 @@ class AnacondaYum(YumSorter):
                 self.dsCallback.pop()
                 self.dsCallback = None
             except RepoError, e:
-                rc = intf.messageWindow(_("Error"),
-                          _("There was an error running your transaction for "
-                            "the following reason: %s\n") % str(e),
+                msg = _("There was an error running your transaction for "
+                        "the following reason: %s\n") % str(e)
+
+                if self.anaconda.id.upgrade:
+                    rc = intf.messageWindow(_("Error"), msg, type="custom",
+                                            custom_icon="error",
+                                            custom_buttons=[_("_Exit installer")])
+                    sys.exit(1)
+                else:
+                    rc = intf.messageWindow(_("Error"), msg
                             type="custom", custom_icon="error",
                             custom_buttons=[_("_Back"), _("_Exit installer")])
 
@@ -961,7 +968,7 @@ class AnacondaYum(YumSorter):
             spaceprob = to_unicode(spaceprob)
             fileprob = to_unicode(fileprob)
 
-            if len(self.anaconda.backend.getRequiredMedia()) > 1:
+            if len(self.anaconda.backend.getRequiredMedia()) > 1 or anaconda.id.upgrade:
                 intf.detailedMessageWindow(_("Error Running Transaction"),
                    msg, spaceprob + "\n" + fileprob, type="custom",
                    custom_icon="error", custom_buttons=[_("_Exit installer")])
@@ -1416,7 +1423,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
             (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
-            if not anaconda.id.getUpgrade():
+            if not anaconda.id.upgrade:
                 largePart = anaconda.id.storage.mountpoints.get("/usr", anaconda.id.storage.rootDevice)
 
                 if largePart and largePart.size < self.totalSize / 1024:
