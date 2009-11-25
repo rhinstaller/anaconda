@@ -282,10 +282,11 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
 
         clearPartitions(anaconda.id.storage)
 
-class Fcoe(commands.fcoe.F12_Fcoe):
+class FcoeData(commands.fcoe.F13_FcoeData):
     def execute(self, anaconda):
-        for fc in self.fcoe:
-            anaconda.id.fcoe.addSan(nic=self.nic)
+        if self.nic not in self.anaconda.id.network.available():
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % self.nic)
+        anaconda.id.fcoe.addSan(nic=self.nic, dcb=self.dcb)
 
 class Firewall(commands.firewall.F10_Firewall):
     def execute(self, anaconda):
@@ -988,7 +989,6 @@ commandMap = {
         "bootloader": Bootloader,
         "clearpart": ClearPart,
         "dmraid": DmRaid,
-        "fcoe": Fcoe,
         "firewall": Firewall,
         "firstboot": Firstboot,
         "halt": Reboot,
@@ -1012,6 +1012,7 @@ commandMap = {
 }
 
 dataMap = {
+        "FcoeData": : FcoeData,
         "IscsiData": IscsiData,
         "LogVolData": LogVolData,
         "NetworkData": NetworkData,
