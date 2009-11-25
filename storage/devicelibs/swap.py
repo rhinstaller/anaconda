@@ -31,7 +31,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 
-def mkswap(device, label=''):
+def mkswap(device, label='', progress=None):
     # We use -f to force since mkswap tends to refuse creation on lvs with
     # a message about erasing bootbits sectors on whole disks. Bah.
     argv = ["-f"]
@@ -39,10 +39,10 @@ def mkswap(device, label=''):
         argv.extend(["-L", label])
     argv.append(device)
 
-    rc = iutil.execWithRedirect("mkswap", argv,
-                                stderr = "/dev/tty5",
-                                stdout = "/dev/tty5",
-                                searchPath=1)
+    rc = iutil.execWithPulseProgress("mkswap", argv,
+                                     stderr = "/dev/tty5",
+                                     stdout = "/dev/tty5",
+                                     progress=progress)
 
     if rc:
         raise SwapError("mkswap failed for '%s'" % device)

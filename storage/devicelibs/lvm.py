@@ -157,11 +157,11 @@ def clampSize(size, pesize, roundup=None):
 
     return long(round(float(size)/float(pesize)) * pesize)
 
-def lvm(args):
-    rc = iutil.execWithRedirect("lvm", args,
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath=1)
+def lvm(args, progress=None):
+    rc = iutil.execWithPulseProgress("lvm", args,
+                                     stdout = "/dev/tty5",
+                                     stderr = "/dev/tty5",
+                                     progress=progress)
     if not rc:
         return
 
@@ -172,13 +172,13 @@ def lvm(args):
 
     raise LVMError(msg)
 
-def pvcreate(device):
+def pvcreate(device, progress=None):
     args = ["pvcreate"] + \
             config_args + \
             [device]
 
     try:
-        lvm(args)
+        lvm(args, progress=progress)
     except LVMError as msg:
         raise LVMError("pvcreate failed for %s: %s" % (device, msg))
 
@@ -238,7 +238,7 @@ def pvinfo(device):
 
     return info
 
-def vgcreate(vg_name, pv_list, pe_size):
+def vgcreate(vg_name, pv_list, pe_size, progress=None):
     argv = ["vgcreate"]
     if pe_size:
         argv.extend(["-s", "%dm" % pe_size])
@@ -247,7 +247,7 @@ def vgcreate(vg_name, pv_list, pe_size):
     argv.extend(pv_list)
 
     try:
-        lvm(argv)
+        lvm(argv, progress=progress)
     except LVMError as msg:
         raise LVMError("vgcreate failed for %s: %s" % (vg_name, msg))
 
@@ -360,7 +360,7 @@ def lvorigin(vg_name, lv_name):
 
     return origin
 
-def lvcreate(vg_name, lv_name, size):
+def lvcreate(vg_name, lv_name, size, progress=None):
     args = ["lvcreate"] + \
             ["-L", "%dm" % size] + \
             ["-n", lv_name] + \
@@ -368,7 +368,7 @@ def lvcreate(vg_name, lv_name, size):
             [vg_name]
 
     try:
-        lvm(args)
+        lvm(args, progress=progress)
     except LVMError as msg:
         raise LVMError("lvcreate failed for %s/%s: %s" % (vg_name, lv_name, msg))
 
