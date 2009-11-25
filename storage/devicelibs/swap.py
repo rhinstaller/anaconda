@@ -32,7 +32,9 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 
 def mkswap(device, label=''):
-    argv = []
+    # We use -f to force since mkswap tends to refuse creation on lvs with
+    # a message about erasing bootbits sectors on whole disks. Bah.
+    argv = ["-f"]
     if label:
         argv.extend(["-L", label])
     argv.append(device)
