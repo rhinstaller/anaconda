@@ -148,15 +148,11 @@ class AnacondaBackend:
         if self._loopbackFile and os.path.exists(self._loopbackFile):
             return
 
-        # If we've booted off the first CD/DVD (so, not the boot.iso) then
+        # If we've booted off the first CD (so, not the boot.iso or DVD) then
         # copy the install.img to the filesystem and switch loopback devices
         # to there.  Otherwise we won't be able to unmount and swap media.
-        if not anaconda.mediaDevice or not os.path.exists(installimg):
-            return
-
         free = anaconda.id.storage.fsFreeSpace
         self._loopbackFile = "%s%s/rhinstall-install.img" % (anaconda.rootPath,
-                                                             free[-1][0])
 
         try:
             win = anaconda.intf.waitWindow(_("Copying File"),
