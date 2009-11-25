@@ -327,8 +327,8 @@ class FS(DeviceFormat):
         w = None
         if intf:
             w = intf.progressWindow(_("Formatting"),
-                                    _("Creating filesystem on %s")
-                                    % (self.device,),
+                                    _("Creating %s filesystem on %s")
+                                    % (self.type, self.device),
                                     100, pulse = True)
 
         try:

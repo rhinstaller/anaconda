@@ -82,17 +82,32 @@ class LVMPhysicalVolume(DeviceFormat):
         """ Create the format. """
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
-        DeviceFormat.create(self, *args, **kwargs)
-        # Consider use of -Z|--zero
-        # -f|--force or -y|--yes may be required
+        intf = kwargs.get("intf")
+        w = None
+        if intf:
+            w = intf.progressWindow(_("Formatting"),
+                                    _("Creating %s on %s")
+                                    % (self.name, self.device),
+                                    100, pulse = True)
 
-        # lvm has issues with persistence of metadata, so here comes the
-        # hammer...
-        DeviceFormat.destroy(self, *args, **kwargs)
+        try:
+            DeviceFormat.create(self, *args, **kwargs)
+            # Consider use of -Z|--zero
+            # -f|--force or -y|--yes may be required
 
-        lvm.pvcreate(self.device)
-        self.exists = True
-        self.notifyKernel()
+            # lvm has issues with persistence of metadata, so here comes the
+            # hammer...
+            DeviceFormat.destroy(self, *args, **kwargs)
+
+            lvm.pvcreate(self.device, progress=w)
+        except Exception:
+            raise
+        else:
+            self.exists = True
+            self.notifyKernel()
+        finally:
+            if w:
+                w.pop()
 
     def destroy(self, *args, **kwargs):
         """ Destroy the format. """
