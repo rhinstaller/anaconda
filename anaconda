@@ -819,7 +819,7 @@ if __name__ == "__main__":
             opts.display_mode = 'g'
 
             if vncS.password == "":
-                vncS.password = ksdata.earlyKS.vnc.password
+                vncS.password = ksdata.vnc.password
 
             if vncS.vncconnecthost == "":
                 vncS.vncconnecthost = ksdata.vnc.host
