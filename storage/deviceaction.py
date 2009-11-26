@@ -26,7 +26,7 @@ from udev import *
 from devices import StorageDevice, PartitionDevice
 from formats import getFormat
 from errors import *
-from parted import partitionFlag, PARTITION_BOOT, PARTITION_LBA
+from parted import partitionFlag, PARTITION_LBA
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -264,10 +264,9 @@ class ActionCreateFormat(DeviceAction):
         self.device.setup()
 
         if isinstance(self.device, PartitionDevice):
-            # Flags which are truely flags, not types, so we shouldn't reset
-            reallyFlags = [ PARTITION_BOOT, PARTITION_LBA ]
             for flag in partitionFlag.keys():
-                if flag in reallyFlags or flag == self.format.partedFlag:
+                # Keep the LBA flag on pre-existing partitions
+                if flag in [ PARTITION_LBA, self.format.partedFlag ]:
                     continue
                 self.device.unsetFlag(flag)
 
