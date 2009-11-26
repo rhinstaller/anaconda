@@ -37,9 +37,7 @@ from . import DeviceFormat, register_device_format
 import iutil
 from flags import flags
 from parted import fileSystemType
-
-# is this nasty?
-log_method_call = iutil.log_method_call
+from ..storage_log import log_method_call
 
 import logging
 log = logging.getLogger("storage")

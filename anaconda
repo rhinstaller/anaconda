@@ -310,7 +310,9 @@ def setupEnvironment():
 
 def setupLoggingFromOpts(opts):
     if opts.loglevel and logLevelMap.has_key(opts.loglevel):
-        log.setHandlersLevel(logLevelMap[opts.loglevel])
+        level = logLevelMap[opts.loglevel]
+        log.setHandlersLevel(level)
+        storage.storage_log.logger.setHandlersLevel(level)
 
     if opts.syslog:
         if opts.syslog.find(":") != -1:
@@ -603,6 +605,7 @@ if __name__ == "__main__":
     import vnc
     import users
     import kickstart
+    import storage.storage_log
     from flags import flags
 
     # the following makes me very sad. -- katzj

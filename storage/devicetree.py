@@ -35,7 +35,7 @@ import devicelibs.mdraid
 import devicelibs.dm
 import devicelibs.lvm
 from udev import *
-from iutil import log_method_call
+from .storage_log import log_method_call
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

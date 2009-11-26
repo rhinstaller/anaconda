@@ -20,8 +20,9 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
-from iutil import log_method_call, numeric_type
+from iutil import numeric_type
 from parted import PARTITION_SWAP, fileSystemType
+from ..storage_log import log_method_call
 from ..errors import *
 from ..devicelibs import swap
 from . import DeviceFormat, register_device_format

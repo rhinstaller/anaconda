@@ -22,7 +22,7 @@
 
 import os
 
-from iutil import log_method_call
+from ..storage_log import log_method_call
 from flags import flags
 from parted import PARTITION_RAID
 from ..errors import *

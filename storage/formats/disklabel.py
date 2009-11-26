@@ -23,7 +23,7 @@
 import os
 import copy
 
-from iutil import log_method_call
+from ..storage_log import log_method_call
 import parted
 import _ped
 import platform

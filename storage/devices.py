@@ -108,7 +108,8 @@ import platform
 import block
 
 from errors import *
-from iutil import log_method_call, notify_kernel, numeric_type
+from iutil import notify_kernel, numeric_type
+from .storage_log import log_method_call
 from udev import *
 from formats import get_device_format_class, getFormat, DeviceFormat
 from isys import compareDrives
@@ -3265,5 +3266,3 @@ class NFSDevice(StorageDevice, NetworkStorageDevice):
     def destroy(self):
         """ Destroy the device. """
         log_method_call(self, self.name, status=self.status)
-
-

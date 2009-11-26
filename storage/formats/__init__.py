@@ -22,7 +22,8 @@
 
 import os
 
-from iutil import notify_kernel, get_sysfs_path_by_name, log_method_call
+from iutil import notify_kernel, get_sysfs_path_by_name
+from ..storage_log import log_method_call
 from ..errors import *
 from ..devicelibs.dm import dm_node_from_name
 
