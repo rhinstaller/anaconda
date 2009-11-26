@@ -938,6 +938,7 @@ class PartitionWindow(InstallWindow):
                         format = lv.format
 
                     # icon for the format column
+                    format_icon = None
                     if lv.format.type == "luks" and not lv.format.exists:
                         # we're creating the LUKS header
                         format_icon = self.lock_pixbuf

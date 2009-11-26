@@ -1012,7 +1012,7 @@ commandMap = {
 }
 
 dataMap = {
-        "FcoeData": : FcoeData,
+        "FcoeData": FcoeData,
         "IscsiData": IscsiData,
         "LogVolData": LogVolData,
         "NetworkData": NetworkData,
