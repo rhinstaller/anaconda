@@ -889,7 +889,7 @@ class AnacondaYum(YumSorter):
                                             custom_buttons=[_("_Exit installer")])
                     sys.exit(1)
                 else:
-                    rc = intf.messageWindow(_("Error"), msg
+                    rc = intf.messageWindow(_("Error"), msg,
                             type="custom", custom_icon="error",
                             custom_buttons=[_("_Back"), _("_Exit installer")])
 
