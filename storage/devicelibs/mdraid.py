@@ -35,6 +35,7 @@ log = logging.getLogger("storage")
 RAID10 = 10
 RAID6 = 6
 RAID5 = 5
+RAID4 = 4
 RAID1 = 1
 RAID0 = 0
 
@@ -43,6 +44,7 @@ def getRaidLevels():
         RAID10: ("[RAID10]", "[raid10]"),
         RAID6: ("[RAID6]", "[raid6]"),
         RAID5: ("[RAID5]", "[raid5]"),
+        RAID4: ("[RAID4]", "[raid4]"),
         RAID1: ("[RAID1]", "[raid1]"),
         RAID0: ("[RAID0]", "[raid0]"),
     }
@@ -83,6 +85,7 @@ def isRaid(raid, raidlevel):
     raid_descriptors = {RAID10: ("RAID10", "raid10", "10", 10),
                         RAID6: ("RAID6", "raid6", "6", 6),
                         RAID5: ("RAID5", "raid5", "5", 5),
+                        RAID4: ("RAID4", "raid4", "4", 4),
                         RAID1: ("mirror", "RAID1", "raid1", "1", 1),
                         RAID0: ("stripe", "RAID0", "raid0", "0", 0)}
 
@@ -96,6 +99,7 @@ def get_raid_min_members(raidlevel):
     raid_min_members = {RAID10: 2,
                         RAID6: 4,
                         RAID5: 3,
+                        RAID4: 3,
                         RAID1: 2,
                         RAID0: 2}
 
@@ -110,6 +114,7 @@ def get_raid_max_spares(raidlevel, nummembers):
     raid_max_spares = {RAID10: lambda: max(0, nummembers - get_raid_min_members(RAID10)),
                        RAID6: lambda: max(0, nummembers - get_raid_min_members(RAID6)),
                        RAID5: lambda: max(0, nummembers - get_raid_min_members(RAID5)),
+                       RAID4: lambda: max(0, nummembers - get_raid_min_members(RAID4)),
                        RAID1: lambda: max(0, nummembers - get_raid_min_members(RAID1)),
                        RAID0: lambda: 0}
 

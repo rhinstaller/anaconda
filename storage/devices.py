@@ -2263,6 +2263,9 @@ class MDRaidArrayDevice(StorageDevice):
                 size -= size % self.chunkSize
             elif self.level == mdraid.RAID1:
                 size = smallestMemberSize
+            elif self.level == mdraid.RAID4:
+                size = (self.memberDevices - 1) * smallestMemberSize
+                size -= size % self.chunkSize
             elif self.level == mdraid.RAID5:
                 size = (self.memberDevices - 1) * smallestMemberSize
                 size -= size % self.chunkSize
@@ -2575,6 +2578,9 @@ class MDRaidArrayDevice(StorageDevice):
         formatArgs = []
         if self.format.type == "ext2":
             if self.level == mdraid.RAID5:
+                formatArgs = ['-R',
+                              'stride=%d' % ((self.memberDevices - 1) * 16)]
+            if self.level == mdraid.RAID4:
                 formatArgs = ['-R',
                               'stride=%d' % ((self.memberDevices - 1) * 16)]
             elif self.level == mdraid.RAID0:
