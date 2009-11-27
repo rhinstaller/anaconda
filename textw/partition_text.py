@@ -219,30 +219,53 @@ class PartitionTypeWindow:
         return INSTALL_OK
 
     def addFcoeDriveDialog(self, screen):
-        (button, entries) = EntryWindow(screen,
-                                        _("Add FCoE SAN"),
-                                        _("Enter the device name for the NIC which is connected to the FCoE SAN. For example \"eth0\"."),
-                                        prompts = [ _("NIC device name"),
-                                                    _("Use DCB (Yes/No)") ] )
-        if button == TEXT_CANCEL_CHECK:
-            return INSTALL_BACK
+        netdevs = self.anaconda.id.network.available()
+        devs = netdevs.keys()
+        devs.sort()
 
-        nic = entries[0].strip()
-        if nic not in self.anaconda.id.network.available():
+        if not devs:
             ButtonChoiceWindow(screen, _("Error"),
-                               _("%s is not a valid NIC device name.") % nic)
+                               _("No network cards present."))
             return INSTALL_BACK
 
-        dcb = entries[1].strip().lower()
-        if dcb != _("yes").lower() and dcb != _("no").lower():
-            ButtonChoiceWindow(screen, _("Error"),
-                               _("DCB value must be either yes or no."))
+        grid = GridFormHelp(screen, _("Add FCoE SAN"), "fcoeconfig",
+                            1, 4)
+
+        tb = TextboxReflowed(60,
+                        _("Select which NIC is connected to the FCoE SAN."))
+        grid.add(tb, 0, 0, anchorLeft = 1, padding = (0, 0, 0, 1))
+
+        interfaceList = Listbox(height=len(devs), scroll=1)
+        for dev in devs:
+            hwaddr = netdevs[dev].get("HWADDR")
+            if hwaddr:
+                desc = "%s - %.50s" % (dev, hwaddr)
+            else:
+                desc = dev
+
+            interfaceList.append(desc, dev)
+
+        interfaceList.setCurrent(devs[0])
+        grid.add(interfaceList, 0, 1, padding = (0, 1, 0, 0))
+
+        dcbCheckbox = Checkbox(_("Use DCB"), 1)
+        grid.add(dcbCheckbox, 0, 2, anchorLeft = 1)
+
+        buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON] )
+        grid.add(buttons, 0, 3, anchorLeft = 1, growx = 1)
+
+        result = grid.run()
+        if buttons.buttonPressed(result) == TEXT_BACK_CHECK:
+            screen.popWindow()
             return INSTALL_BACK
 
-        dcb = dcb == _("yes").lower()
+        nic = interfaceList.current()
+        dcb = dcbCheckbox.selected()
 
-        self.anaconda.id.storage.fcoe.addSan(nic=nic, dcb=dcb)
+        self.anaconda.id.storage.fcoe.addSan(nic=nic, dcb=dcb,
+                                             intf=self.anaconda.intf)
 
+        screen.popWindow()
         return INSTALL_OK
 
     def addIscsiDriveDialog(self, screen):
