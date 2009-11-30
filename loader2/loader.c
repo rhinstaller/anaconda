@@ -958,7 +958,7 @@ static char *doLoaderMain(char * location,
         url = findAnacondaCD(location, modInfo, modLoaded, * modDepsPtr, !FL_RESCUE(flags));
         /* if we found a CD and we're not in rescue or vnc mode return */
         /* so we can short circuit straight to stage 2 from CD         */
-        if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))
+        if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride() && !ibft_present()))
             return url;
         else {
             rhcdfnd = 1;
@@ -1124,7 +1124,7 @@ static char *doLoaderMain(char * location,
         case STEP_NETWORK:
             if ( (installMethods[validMethods[methodNum]].deviceType != 
                   CLASS_NETWORK) && (!hasGraphicalOverride()) &&
-                 !FL_ASKNETWORK(flags)) {
+                 !FL_ASKNETWORK(flags) && !ibft_present()) {
                 needsNetwork = 0;
                 if (dir == 1) 
                     step = STEP_URL;
