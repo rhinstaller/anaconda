@@ -155,6 +155,9 @@ class BaseInstallClass(object):
         if len(availableClasses()) < 2:
             dispatch.skipStep("installtype", permanent=1)
 
+        # allow interface backends to skip certain steps.
+        anaconda.intf.setSteps(anaconda)
+
     # modifies the uri from installmethod.getMethodUri() to take into
     # account any installclass specific things including multiple base
     # repositories.  takes a string or list of strings, returns a dict 

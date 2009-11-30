@@ -22,9 +22,6 @@ from constants import *
 
 class TaskWindow:
     def __call__(self, screen, anaconda):
-        anaconda.dispatch.skipStep("basepkgsel")
-        anaconda.dispatch.skipStep("group-selection")
-
         anaconda.backend.resetPackageSelections()
         anaconda.backend.selectGroup("Core")
 

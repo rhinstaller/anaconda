@@ -157,7 +157,9 @@ class InstallInterface:
 
             anaconda.dispatch.gotoNext()
 	    (step, instance) = anaconda.dispatch.currentStep()
-            
+
+    def setSteps(self, anaconda):
+        pass
 
 class progressDisplay:
     def __init__(self):

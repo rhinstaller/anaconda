@@ -1145,6 +1145,9 @@ class InstallInterface:
         self.icw = InstallControlWindow (self.anaconda)
         self.icw.run (self.runres)
 
+    def setSteps(self, anaconda):
+        pass
+
 class InstallControlWindow:
     def setLanguage (self):
         if not self.__dict__.has_key('window'): return

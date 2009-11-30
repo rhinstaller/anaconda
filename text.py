@@ -548,6 +548,10 @@ class InstallInterface:
 
         self.screen.finish()
 
+    def setSteps(self, anaconda):
+        anaconda.dispatch.skipStep("basepkgsel")
+        anaconda.dispatch.skipStep("group-selection")
+
 def killSelf(screen):
     screen.finish()
     os._exit(0)
