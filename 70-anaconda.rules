@@ -1,5 +1,5 @@
 # If $ANACONDA isn't set in the environment, skip all these rules.
-ENV{ANACONDA}!=".*", GOTO="anaconda_end"
+ENV{ANACONDA}!="?*", GOTO="anaconda_end"
 
 ACTION!="add|change", GOTO="anaconda_end"
 SUBSYSTEM!="block", GOTO="anaconda_end"
