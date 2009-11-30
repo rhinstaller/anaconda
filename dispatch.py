@@ -69,6 +69,7 @@ installSteps = [
     ("language", ),
     ("keyboard", ),
     ("betanag", betaNagScreen, ),
+    ("filtertype", ),
     ("filter", ),
     ("storageinit", storageInitialize, ),
     ("findrootparts", findRootParts, ),

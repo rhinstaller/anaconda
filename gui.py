@@ -63,6 +63,7 @@ stepToClass = {
     "language" : ("language_gui", "LanguageWindow"),
     "keyboard" : ("kbd_gui", "KeyboardWindow"),
     "welcome" : ("welcome_gui", "WelcomeWindow"),
+    "filtertype" : ("filter_type", "FilterTypeWindow"),
     "filter" : ("filter_gui", "FilterWindow"), 
     "zfcpconfig" : ("zfcp_gui", "ZFCPWindow"),
     "partition" : ("partition_gui", "PartitionWindow"),

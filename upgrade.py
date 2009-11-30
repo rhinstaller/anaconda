@@ -265,6 +265,7 @@ def setSteps(anaconda):
                 "language",
                 "keyboard",
                 "welcome",
+                "filtertype",
                 "filter",
                 "cleardisksel",
                 "installtype",

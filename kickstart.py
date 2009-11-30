@@ -349,7 +349,7 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def execute(self, anaconda):
         anaconda.id.storage.ignoredDisks = self.ignoredisk
         anaconda.id.storage.exclusiveDisks = self.onlyuse
-        self.handler.skipSteps.extend(["filter"])
+        self.handler.skipSteps.extend(["filter", "filtertype"])
 
 class IscsiData(commands.iscsi.F10_IscsiData):
     def execute(self, anaconda):
