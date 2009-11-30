@@ -67,7 +67,22 @@ def dm_node_from_name(map_name):
     log.debug("dm_node_from_name(%s) returning '%s'" % (map_name, dm_node))
     return dm_node
 
-def dm_is_multipath(major, minor):
+def dm_is_multipath(info):
+    major = None
+    minor = None
+
+    if info.has_key('MAJOR'):
+        major = info['MAJOR']
+    elif info.has_key('DM_MAJOR'):
+        major = info['DM_MAJOR']
+    if info.has_key('MINOR'):
+        minor = info['MINOR']
+    elif info.has_key('DM_MINOR'):
+        minor = info['DM_MINOR']
+
+    if major is None or minor is None:
+        return False
+
     for map in block.dm.maps():
         dev = map.dev
         if dev.major == int(major) and dev.minor == int(minor):

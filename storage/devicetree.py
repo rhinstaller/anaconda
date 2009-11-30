@@ -1257,7 +1257,7 @@ class DeviceTree(object):
                             serial=udev_device_get_serial(info))
             self._addDevice(device)
         elif udev_device_is_dm(info) and \
-               devicelibs.dm.dm_is_multipath(info["DM_MAJOR"], info["DM_MINOR"]):
+               devicelibs.dm.dm_is_multipath(info):
             log.debug("%s is a multipath device" % name)
             self.addUdevDMDevice(info)
         elif udev_device_is_dm(info):
