@@ -186,7 +186,8 @@ class Dispatcher(object):
 	if self.step == None:
 	    self.step = self.firstStep
 	else:
-	    self.step = self.step + self._getDir()
+            log.info("leaving (%d) step %s" %(self._getDir(), installSteps[self.step][0]))
+            self.step = self.step + self._getDir()
 
 	if self.step >= len(installSteps):
 	    return None
@@ -197,9 +198,11 @@ class Dispatcher(object):
             if self.stepIsDirect(self.step) and not self.stepInSkipList(self.step):
 	        (stepName, stepFunc) = installSteps[self.step]
                 log.info("moving (%d) to step %s" %(self._getDir(), stepName))
+                log.debug("%s is a direct step" %(stepName,))
 		rc = stepFunc(self.anaconda)
                 if rc in [DISPATCH_BACK, DISPATCH_FORWARD]:
 		    self._setDir(rc)
+                log.info("leaving (%d) step %s" %(self._getDir(), stepName))
 		# if anything else, leave self.dir alone
 
 	    self.step = self.step + self._getDir()
