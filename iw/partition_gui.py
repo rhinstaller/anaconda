@@ -908,6 +908,69 @@ class PartitionWindow(InstallWindow):
         del self.parent
         return None
 
+    def addDevice(self, device, treeiter):
+        if device.format.type == "luks":
+            # we'll want to grab format info from the mapped
+            # device, not the encrypted one
+            try:
+                dm_dev = self.storage.devicetree.getChildren(device)[0]
+            except IndexError:
+                format = device.format
+            else:
+                format = dm_dev.format
+        else:
+            format = device.format
+
+        # icon for the format column
+        if device.format.type == "luks" and not device.format.exists:
+            # we're creating the LUKS header
+            format_icon = self.lock_pixbuf
+        elif not format.exists:
+            # we're creating a format on the device
+            format_icon = self.checkmark_pixbuf
+        else:
+            format_icon = None
+
+        # mount point string
+        if format.type == "lvmpv":
+            vg = None
+            for _vg in self.storage.vgs:
+                if _vg.dependsOn(device):
+                    vg = _vg
+                    break
+
+            mnt_str = getattr(vg, "name", "")
+        elif format.type == "mdmember":
+            array = None
+            for _array in self.storage.mdarrays:
+                if _array.dependsOn(device):
+                    array = _array
+                    break
+
+            mnt_str = getattr(array, "name", "")
+        else:
+            mnt_str = getattr(format, "mountpoint", "")
+            if mnt_str is None:
+                mnt_str = ""
+
+        # device name
+        name_str = getattr(device, "lvname", device.name)
+
+        # label
+        label_str = getattr(format, "label", "")
+        if label_str is None:
+            label_str = ""
+
+        self.tree[treeiter]['Device'] = name_str
+        self.tree[treeiter]['Size (MB)'] = "%Ld" % device.size
+        self.tree[treeiter]['PyObject'] = device
+        self.tree[treeiter]['IsFormattable'] = format.formattable
+        self.tree[treeiter]['Format'] = format_icon
+        self.tree[treeiter]['Mount Point'] = mnt_str
+        self.tree[treeiter]['IsLeaf'] = True
+        self.tree[treeiter]['Type'] = format.name
+        self.tree[treeiter]['Label'] = label_str
+
     def populate(self, initial = 0):
         self.tree.resetSelection()
 
@@ -917,50 +980,12 @@ class PartitionWindow(InstallWindow):
 	    lvmparent = self.tree.append(None)
 	    self.tree[lvmparent]['Device'] = _("LVM Volume Groups")
             for vg in vgs:
-
                 vgparent = self.tree.append(lvmparent)
-		self.tree[vgparent]['Device'] = "%s" % vg.name
-                self.tree[vgparent]['Label'] = ""
-		self.tree[vgparent]['Mount Point'] = ""
-		self.tree[vgparent]['Size (MB)'] = "%Ld" % (vg.size,)
-                self.tree[vgparent]['PyObject'] = vg
-		for lv in vg.lvs:
-                    if lv.format.type == "luks":
-                        # we'll want to grab format info from the mapped
-                        # device, not the encrypted one
-                        try:
-                            dm_dev = self.storage.devicetree.getChildren(lv)[0]
-                        except IndexError:
-                            format = lv.format
-                        else:
-                            format = dm_dev.format
-                    else:
-                        format = lv.format
-
-                    # icon for the format column
-                    format_icon = None
-                    if lv.format.type == "luks" and not lv.format.exists:
-                        # we're creating the LUKS header
-                        format_icon = self.lock_pixbuf
-                    elif not format.exists:
-                        # we're creating a format on the device
-                        format_icon = self.checkmark_pixbuf
-
-                    # mount point string
-                    if format.mountable and format.mountpoint:
-                        mnt_str = format.mountpoint
-                    else:
-                        mnt_str = ""
-
+                self.addDevice(vg, vgparent)
+                self.tree[vgparent]['Type'] = ""
+                for lv in vg.lvs:
                     iter = self.tree.append(vgparent)
-                    self.tree[iter]['Device'] = lv.lvname
-                    self.tree[iter]['Size (MB)'] = "%Ld" % lv.size
-                    self.tree[iter]['PyObject'] = lv
-                    self.tree[iter]['IsFormattable'] = format.formattable
-                    self.tree[iter]['Format'] = format_icon
-                    self.tree[iter]['Mount Point'] = mnt_str
-                    self.tree[iter]['IsLeaf'] = True
-                    self.tree[iter]['Type'] = format.name
+                    self.addDevice(lv, iter)
 
                 # We add a row for the VG free space.
                 if vg.freeSpace > 0:
@@ -971,72 +996,17 @@ class PartitionWindow(InstallWindow):
                     self.tree[iter]['Mount Point'] = ""
                     self.tree[iter]['IsLeaf'] = True
 
-
         # handle RAID next
         mdarrays = self.storage.mdarrays
         if mdarrays:
 	    raidparent = self.tree.append(None)
 	    self.tree[raidparent]['Device'] = _("RAID Devices")
             for array in mdarrays:
-		mntpt = None
-                if array.format.type == "luks":
-                    # look up the mapped/decrypted device since that's
-                    # where we'll find the format we want to display
-                    try:
-                        dm_dev = self.storage.devicetree.getChildren(array)[0]
-                    except IndexError:
-                        format = array.format
-                    else:
-                        format = dm_dev.format
-                else:
-                    format = array.format
-
-                if format.type == "lvmpv":
-                    vg = None
-		    for _vg in self.storage.vgs:
-                        if _vg.dependsOn(array):
-                            vg = _vg
-                            break
-                    if vg:
-                        mntpt = vg.name
-                    else:
-                        mntpt = ""
-                elif format.mountable and format.mountpoint:
-                    mntpt = format.mountpoint
-
                 iter = self.tree.append(raidparent)
-		if mntpt:
-                    self.tree[iter]["Mount Point"] = mntpt
-                else:
-                    self.tree[iter]["Mount Point"] = ""
-		    
-                if format.type:
-                    ptype = format.name
-                    if array.format.type == "luks" and \
-                       not array.format.exists:
-			self.tree[iter]['Format'] = self.lock_pixbuf
-                    elif not format.exists:
-                        self.tree[iter]['Format'] = self.checkmark_pixbuf
-                    self.tree[iter]['IsFormattable'] = format.formattable
-                else:
-                    ptype = _("Unknown")
-                    self.tree[iter]['IsFormattable'] = False
-
-                if array.minor is not None:
-                    device = "%s <span size=\"small\" color=\"gray\">(%s)</span>" \
-                            % (array.name, array.path)
-                else:
-                    device = "Auto"
-
-                self.tree[iter]['IsLeaf'] = True
-                self.tree[iter]['Device'] = device
-                if array.format.exists and getattr(format, "label", None):
-                    self.tree[iter]['Label'] = "%s" % format.label
-                else:
-                    self.tree[iter]['Label'] = ""
-                self.tree[iter]['Type'] = ptype
-                self.tree[iter]['Size (MB)'] = "%Ld" % array.size
-                self.tree[iter]['PyObject'] = array
+                self.addDevice(array, iter)
+                name = "%s <span size=\"small\" color=\"gray\">(%s)</span>" % \
+                            (array.name, array.path)
+                self.tree[iter]['Device'] = name
 
 	# now normal partitions
         disks = self.storage.disks
@@ -1046,17 +1016,7 @@ class PartitionWindow(InstallWindow):
             # add a parent node to the tree
             parent = self.tree.append(drvparent)
 
-            # Insert a '\n' when device string is too long.  Usually when it
-            # contains '/dev/mapper'.  First column should be around 20 chars.
-            if len(disk.name) + len(disk.path) > 20:
-                separator = "\n"
-            else:
-                separator= " "
-            self.tree[parent]['Device'] = \
-                    "%s%s<span size=\"small\" color=\"gray\">(%s)</span>" \
-                    % (disk.name, separator, disk.path)
             self.tree[parent]['PyObject'] = disk
-
             part = disk.format.firstPartition
             extendedParent = None
             while part:
@@ -1088,101 +1048,41 @@ class PartitionWindow(InstallWindow):
                         raise RuntimeError, ("crossed logical partition "
                                              "before extended")
                     iter = self.tree.append(extendedParent)
-                    self.tree[iter]['IsLeaf'] = True
                 else:
                     iter = self.tree.append(parent)
-                    self.tree[iter]['IsLeaf'] = True
 
-                if device and device.format.type == "luks":
-                    # look up the mapped/decrypted device in the tree
-                    # the format we care about will be on it
-                    try:
-                        dm_dev = self.storage.devicetree.getChildren(device)[0]
-                    except IndexError:
-                        format = device.format
+                if device and not device.isExtended:
+                    self.addDevice(device, iter)
+                else:
+                    # either extended or freespace
+                    if part.type & parted.PARTITION_FREESPACE:
+                        devstring = _("Free")
+                        ptype = ""
                     else:
-                        format = dm_dev.format
-                elif device:
-                    format = device.format
-                else:
-                    format = None
+                        devstring = device.name
+                        ptype = _("Extended")
 
-                if format and format.mountable and format.mountpoint:
-                    self.tree[iter]['Mount Point'] = format.mountpoint
-                else:
-                    self.tree[iter]['Mount Point'] = ""
-
-		if format and format.type == "lvmpv":
-		    vg = None
-                    for _vg in self.storage.vgs:
-                        if _vg.dependsOn(part):
-                            vg = _vg
-                            break
-                    if vg and vg.name:
-                        self.tree[iter]['Mount Point'] = vg.name
+                    self.tree[iter]['Device'] = devstring
+                    self.tree[iter]['Type'] = ptype
+                    size = part.getSize(unit="MB")
+                    if size < 1.0:
+                        sizestr = "< 1"
                     else:
-                        self.tree[iter]['Mount Point'] = ""
-
-                if device and device.format and \
-                   device.format.type == "luks" and \
-                   not device.format.exists:
-                    self.tree[iter]['Format'] = self.lock_pixbuf
-                elif format and not format.exists:
-                    self.tree[iter]['Format'] = self.checkmark_pixbuf
-		
-                if format and format.type:
-                    self.tree[iter]['IsFormattable'] = device.format.formattable
-
-                if device and device.isExtended:
-                    ptype = _("Extended")
-                elif format and format.type == "mdmember":
-                    ptype = _("software RAID")
-                    mds = self.storage.mdarrays
-                    array = None
-                    for _array in mds:
-                        if _array.dependsOn(device):
-                            array = _array
-                            break
-                    if array:
-                        if array.minor is not None:
-                            mddevice = "%s" % array.path
-                        else:
-                            mddevice = "Auto"
-                        self.tree[iter]['Mount Point'] = mddevice
-
-		    else:
-			self.tree[iter]['Mount Point'] = ""
-
-                    if device.format.type == "luks" and \
-                       not device.format.exists:
-			self.tree[iter]['Format'] = self.lock_pixbuf
-                else:
-                    if format and format.type:
-                        ptype = format.name
-                    else:
-                        ptype = _("Unknown")
-                if part.type & parted.PARTITION_FREESPACE:
-                    devstring = _("Free")
-                    ptype = ""
-                else:
-                    devstring = device.name
-                self.tree[iter]['Device'] = devstring
-                if format and format.exists and \
-                   getattr(format, "label", None):
-                    self.tree[iter]['Label'] = "%s" % format.label
-                else:
-                    self.tree[iter]['Label'] = ""
-
-                self.tree[iter]['Type'] = ptype
-                size = part.getSize(unit="MB")
-                if size < 1.0:
-                    sizestr = "< 1"
-                else:
-                    sizestr = "%Ld" % (size)
-                self.tree[iter]['Size (MB)'] = sizestr
-                self.tree[iter]['PyObject'] = device
+                        sizestr = "%Ld" % (size)
+                    self.tree[iter]['Size (MB)'] = sizestr
+                    self.tree[iter]['PyObject'] = device
 
                 part = part.nextPartition()
+
+            # Insert a '\n' when device string is too long.  Usually when it
+            # contains '/dev/mapper'.  First column should be around 20 chars.
+            if len(disk.name) + len(disk.path) > 20:
+                separator = "\n"
+            else:
+                separator= " "
+            self.tree[parent]['Device'] = \
+                    "%s%s<span size=\"small\" color=\"gray\">(%s)</span>" \
+                    % (disk.name, separator, disk.path)
 
         self.treeView.expand_all()
         self.messageGraph.display()
