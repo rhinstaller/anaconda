@@ -2998,7 +2998,11 @@ class FileDevice(StorageDevice):
             root = self.parents[0].format._mountpoint
             # trim the mountpoint down to the chroot since we already have
             # the otherwise fully-qualified path
-            root = root[:-len(self.parents[0].format.mountpoint)]
+            mountpoint = self.parents[0].format.mountpoint
+            if mountpoint.endswith("/"):
+                mountpoint = mountpoint[:-1]
+            if mountpoint:
+                root = root[:-len(mountpoint)]
 
         return os.path.normpath("%s/%s" % (root, path))
 
