@@ -217,6 +217,80 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Dec 01 2009 Chris Lumens <clumens@redhat.com> - 13.9-1
+- Improve text mode fcoe interface (hdegoede)
+- Fix udev rule to test whether we're in anaconda. (dlehman)
+- Fix devicelibs.dm.device_is_multipath support for new udev rules. (pjones)
+- Display progress or wait window when creating devices. (dlehman)
+- Display progress or wait window when formatting devices. (dlehman)
+- Add optional progress windows to devicelibs create functions. (dlehman)
+- Force mkswap to do its job. (dlehman)
+- Don't try to get dm node or update sysfs path for lvm vgs. (dlehman)
+- Log upon leaving installer steps as well as entering (a part of #524980).
+  (akozumpl)
+- An unitialized variable in iw/partition_gui.py and a typo in kickstart.py
+  (akozumpl)
+- Add DCB option to text mode FCoE setup (#513011) (hdegoede)
+- Add DCB option to GUI FCoE setup (#513011) (hdegoede)
+- Add DCB option to kickstart FCoE code (#513011) (hdegoede)
+- Add support for DCB to fcoe.py (#513011) (hdegoede)
+- Include fcoemon and dcbd in install.img for FCoE DCB support (#513011)
+  (hdegoede)
+- Add RAID4 support (#541433) (oliva)
+- Clear a partition's BOOT flag when formatting it (hdegoede)
+- Do not set boot flag when there is already a partition with the flag
+  (#533658) (hdegoede)
+- Fixes a syntax error in commit b495db2cd56c881a7e661ac55bd31069510cf662.
+  (akozumpl)
+- If /boot is too small to preupgrade, don't allow going back (#499321).
+  (clumens)
+- One reference to earlyKS somehow survived.  Kill it. (clumens)
+- Quote backticks when writing out the .bash_history file, and add another
+  cmd. (clumens)
+- Set the default keyboard based on language before showing the UI
+  (#532843). (clumens)
+- Don't attempt to get the size of a filesystem unless it's supported
+  (#540598). (clumens)
+- Require /boot to be on a GPT or MSDOS disk label on x86 (#540588).
+  (clumens)
+- Fix killall -USR2 anaconda writing out a traceback file. (clumens)
+- Only check for DEVICE_DASD in S390.diskLabelType, not for all platforms.
+  (clumens)
+- Use installclass to make the bootloader timeout 5 seconds on RHEL. (pjones)
+- Make sure we get tcp_wrappers-libs installed for stage 2 (pjones)
+- Mount usbfs before installing packages (#532397) (mmatsuya)
+- Use fs with largest amount of freespace to store install.img (hdegoede)
+- Always update booty drivelist before filling bootstore (#533335) (hdegoede)
+- Enhance drive specification for clearpart, ignoredisk, and partition.
+  (clumens)
+- Add a function that determines which devices match a given shell glob.
+  (clumens)
+- Extend udev_resolve_devspec to allow specifying devices in more ways.
+  (clumens)
+- Name log files something that doesn't conflict with the system (#539542).
+  (clumens)
+- Adds interactive install support for NFS options (#537764) (akozumpl)
+- Introduces check_asprintf macro that checks asprintfs return value and
+  terminates program in OOM scenarios. (akozumpl)
+- Sleep if the kickstart file read fails (#537361) (akozumpl)
+- Move libcurl initialization to urlinstTransfer() (#537870). (dcantrell)
+- Replace all popt use with glib's option parsing code. (dcantrell)
+- Clean up initProductInfo() in loader.c. (dcantrell)
+- Use glib string parsing functions in driverselect.c. (dcantrell)
+- If a package has %%pre/%%post scriptlet errors, abort the install
+  (#531599). (clumens)
+- If a package has a dependency problem, offer to continue/abort (#511801).
+  (clumens)
+- Generate more complete device.map grub file when upgrading grub. (#533621)
+  (rvykydal)
+- Added the libudev python bindings (mgracik)
+- If the kickstart log file's path doesn't exist, make it. (clumens)
+- Don't make chown or lsetfilecon errors fatal (#529940). (clumens)
+- Get correct boot device in reIPL code for s390 (#537390). (hamzy)
+- Expand the proxy table a little bit to reduce clutter (#537878). (clumens)
+- Use glib data structures in loader's module handling code. (dcantrell)
+- Various improvements to kickstart scriptlet reporting (#510636). (clumens)
+
 * Thu Nov 12 2009 David Cantrell <dcantrell@redhat.com> - 13.8-1
 - Ignore merge commit messages when generating the rpm changelog. (dcantrell)
 - Remove last references to hal. (dcantrell)
