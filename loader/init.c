@@ -753,7 +753,7 @@ int main(int argc, char **argv) {
     mkdir("/tmp", 0755);
 
     printf("mounting /tmp as tmpfs... ");
-    if (mount("none", "/tmp", "tmpfs", 0, NULL))
+    if (mount("none", "/tmp", "tmpfs", 0, "size=250m"))
         fatal_error(1);
     printf("done\n");
 
