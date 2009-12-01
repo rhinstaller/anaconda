@@ -465,6 +465,10 @@ class YumSorter(yum.YumBase):
                 if self.tsInfo.exists(dep.pkgtup):
                     pkgs = self.tsInfo.getMembers(pkgtup=dep.pkgtup)
                     member = self.bestPackagesFromList(pkgs)[0]
+                elif self.rpmdb.installed(name = dep.name, arch = dep.arch,
+                                          epoch = dep.epoch, ver = dep.version, rel = dep.release):
+                     # If the dependency NAEVR matches what's already installed, skip it
+                     continue
                 else:
                     if dep.name != req[0]:
                         log.info("adding %s for %s, required by %s" %(dep.name, req[0], txmbr.name))
