@@ -197,11 +197,16 @@ def setupTimezone(anaconda):
     
     os.environ["TZ"] = anaconda.id.timezone.tz
     tzfile = "/usr/share/zoneinfo/" + anaconda.id.timezone.tz
+    tzlocalfile = "/etc/localtime"
     if not os.access(tzfile, os.R_OK):
         log.error("unable to set timezone")
     else:
         try:
-            shutil.copyfile(tzfile, "/etc/localtime")
+            os.remove(tzlocalfile)
+        except OSError:
+            pass
+        try:
+            shutil.copyfile(tzfile, tzlocalfile)
         except OSError as e:
             log.error("Error copying timezone (from %s): %s" %(tzfile, e.strerror))
 
