@@ -1561,7 +1561,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         # write out the fstab
         if not upgrade:
             anaconda.id.storage.fsset.write(anaconda.rootPath)
-            # rootpath mode doesn't have this file around
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
                                 anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")

@@ -308,12 +308,10 @@ def titleBarMotionEventCB(widget, event, data):
         data["window"].move(int(newx), int(newy))
 
 def addFrame(dialog, title=None, showtitle = 1):
-    # We don't add a Frame in rootpath mode, as we almost certainly
-    # have a window manager
     contents = dialog.get_children()[0]
     dialog.remove(contents)
     frame = gtk.Frame()
-    if not flags.rootpath and runningMiniWm():
+    if runningMiniWm():
         frame.set_shadow_type(gtk.SHADOW_OUT)
     else:
         frame.set_shadow_type(gtk.SHADOW_NONE)
@@ -322,7 +320,7 @@ def addFrame(dialog, title=None, showtitle = 1):
         if title is None:
             title = dialog.get_title()
 
-        if title and not flags.rootpath and runningMiniWm():
+        if title and runningMiniWm():
             data = {}
             data["state"] = 0
             data["button"] = 0
@@ -444,7 +442,7 @@ def readImageFromFile(file, width = None, height = None, dither = None,
 
 class WaitWindow:
     def __init__(self, title, text, parent = None):
-        if flags.rootpath or not runningMiniWm():
+        if not runningMiniWm():
             self.window = gtk.Window()
             if parent:
                 self.window.set_transient_for(parent)
@@ -476,7 +474,7 @@ class WaitWindow:
 class ProgressWindow:
     def __init__(self, title, text, total, updpct = 0.05, updsecs=10,
                  parent = None, pulse = False):
-        if flags.rootpath or not runningMiniWm():
+        if not runningMiniWm():
             self.window = gtk.Window()
             if parent:
                 self.window.set_transient_for(parent)
@@ -1257,12 +1255,8 @@ class InstallControlWindow:
                                     custom_buttons=[_("_Exit"),
                                                     _("_Retry")])
                 if not win.getrc():
-                    if flags.rootpath:
-                        msg =  _("The installer will now exit.")
-                        buttons = [_("_Exit installer")]
-                    else:
-                        msg =  _("The system will now reboot.")
-                        buttons = [_("_Reboot")]
+                    msg =  _("The system will now reboot.")
+                    buttons = [_("_Reboot")]
 
                     MessageWindow(_("Exiting"),
                                   msg,

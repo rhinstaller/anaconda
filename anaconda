@@ -167,11 +167,6 @@ def parseOptions():
     def resolution_cb (option, opt_str, value, parser):
         parser.values.runres = value
 
-    def rootpath_cb (option, opt_str, value, parser):
-        parser.values.rootPath = os.path.abspath(value)
-        flags.setupFilesystems = False
-        flags.rootpath = True
-
     op = OptionParser()
     # Interface
     op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c")
@@ -189,8 +184,6 @@ def parseOptions():
     op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
     op.add_option("--kickstart", dest="ksfile")
     op.add_option("--rescue", dest="rescue", action="store_true", default=False)
-    op.add_option("-r", "--rootpath", action="callback", callback=rootpath_cb, dest="rootPath",
-                  default="/mnt/sysimage", nargs=1, type="string")
     op.add_option("-t", "--test", action="store_true", default=False)
     op.add_option("--targetarch", dest="targetArch", nargs=1, type="string")
 
@@ -458,7 +451,7 @@ class Anaconda:
         self.methodstr = None
         self.stage2 = None
         self.backend = None
-        self.rootPath = None
+        self.rootPath = "/mnt/sysimage"
         self.dispatch = None
         self.isKickstart = False
         self.rescue_mount = True
@@ -665,7 +658,6 @@ if __name__ == "__main__":
 
     setupLoggingFromOpts(opts)
 
-    anaconda.rootPath = opts.rootPath
     # Default is to prompt to mount the installed system.
     anaconda.rescue_mount = not opts.rescue_nomount
 
@@ -756,7 +748,7 @@ if __name__ == "__main__":
     if iutil.isS390():
         opts.isHeadless = True
 
-    if not flags.test and not flags.rootpath and not flags.livecdInstall:
+    if not flags.test and not flags.livecdInstall:
             isys.auditDaemon()
 
     # setup links required for all install types
@@ -891,7 +883,7 @@ if __name__ == "__main__":
     # now determine if we're going to run in GUI or TUI mode
     #
     # if no X server, we have to use text mode
-    if not (flags.test or flags.rootpath or x_already_set) and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
+    if not (flags.test or x_already_set) and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
          stdoutLog.warning(_("Graphical installation is not available. "
                              "Starting text mode."))
          time.sleep(2)
@@ -1044,20 +1036,6 @@ if __name__ == "__main__":
         # commands.  This gives us the ability to check that storage commands
         # are correctly formed and refer to actual devices.
         ksdata.execute()
-
-    # Skip the disk options in rootpath mode
-    if flags.rootpath:
-        anaconda.dispatch.skipStep("parttype", permanent = 1)
-        anaconda.dispatch.skipStep("autopartitionexecute", permanent = 1)
-        anaconda.dispatch.skipStep("partition", permanent = 1)
-        anaconda.dispatch.skipStep("storagedone", permanent = 1)
-        anaconda.dispatch.skipStep("bootloader", permanent = 1)
-        anaconda.dispatch.skipStep("bootloaderadvanced", permanent = 1)
-        anaconda.dispatch.skipStep("upgbootloader", permanent = 1)
-
-    if flags.rootpath:
-        anaconda.dispatch.skipStep("bootloadersetup", permanent = 1)
-        anaconda.dispatch.skipStep("instbootloader", permanent = 1)
 
     # set up the headless case
     if opts.isHeadless == 1:

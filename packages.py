@@ -192,7 +192,7 @@ def setupTimezone(anaconda):
         return
 
     # dont do this in test mode!
-    if flags.test or flags.rootpath:
+    if flags.test:
 	return
     
     os.environ["TZ"] = anaconda.id.timezone.tz
@@ -368,12 +368,8 @@ def betaNagScreen(anaconda):
 				   custom_buttons=[_("_Exit"), _("_Install anyway")])
 
 	if not rc:
-            if flags.rootpath:
-                msg =  _("The installer will now exit...")
-                buttons = [_("_Back"), _("_Exit")]
-            else:
-                msg =  _("Your system will now be rebooted...")
-                buttons = [_("_Back"), _("_Reboot")]
+            msg =  _("Your system will now be rebooted...")
+            buttons = [_("_Back"), _("_Reboot")]
 	    rc = anaconda.intf.messageWindow( _("Warning! This is pre-release software!"),
                                      msg,
                                      type="custom", custom_icon="warning",
