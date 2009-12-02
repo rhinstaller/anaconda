@@ -233,6 +233,12 @@ def parseOptions():
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
     op.add_option("--dogtail", dest="dogtail",   action="store", type="string")
 
+    # Deprecated, unloved, unused
+    op.add_option("-r", "--rootPath", dest="unsupportedMode",
+                  action="store_const", const="root path")
+    op.add_option("-t", "--test", dest="unsupportedMode",
+                  action="store_const", const="test")
+
     return op.parse_args()
 
 def setupPythonPath():
@@ -639,6 +645,10 @@ if __name__ == "__main__":
     xserver_pid = None
 
     (opts, args) = parseOptions()
+
+    if opts.unsupportedMode:
+        stdoutLog.error("Running anaconda in %s mode is no longer supported." % opts.unsupportedMode)
+        sys.exit(0)
 
     # Now that we've got arguments, do some extra processing.
     instClass = getInstClass()
