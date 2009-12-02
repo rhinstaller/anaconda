@@ -665,11 +665,13 @@ class AnacondaYum(YumSorter):
             pattern = re.compile("([[:alpha:]]+://)?(([[:alnum:]]+)(:[^:@]+)?@)?([^:]+)(:[[:digit:]]+)?(/.*)?")
 
             for ksrepo in self.anaconda.id.ksdata.repo.repoList:
+                anacondaBaseURLs = [ksrepo.baseurl]
+
                 # yum doesn't understand nfs:// and doesn't want to.  We need
                 # to first do the mount, then translate it into a file:// that
                 # yum does understand.
-                anacondaBaseURLs = [ksrepo.baseurl]
-                if ksrepo.baseurl and ksrepo.baseurl.startswith("nfs://"):
+                # "nfs:" and "nfs://" prefixes are accepted in ks repo --baseurl
+                if ksrepo.baseurl and ksrepo.baseurl.startswith("nfs:"):
                     if not network.hasActiveNetDev() and not self.anaconda.intf.enableNetwork():
                         self.anaconda.intf.messageWindow(_("No Network Available"),
                             _("Some of your software repositories require "
@@ -681,14 +683,15 @@ class AnacondaYum(YumSorter):
 
                     dest = tempfile.mkdtemp("", ksrepo.name.replace(" ", ""), "/mnt")
 
+                    # handle "nfs://" prefix
+                    if ksrepo.baseurl[4:6] == '//':
+                        ksrepo.baseurl = ksrepo.baseurl.replace('//', '', 1)
+                        anacondaBaseURLs = [ksrepo.baseurl]
                     try:
-                        isys.mount(ksrepo.baseurl[6:], dest, "nfs")
+                        isys.mount(ksrepo.baseurl[4:], dest, "nfs")
                     except Exception as e:
                         log.error("error mounting NFS repo: %s" % e)
 
-                    # Get rid of two slashes in nfs:// prefix, boot repo param
-                    # doesn't use them.
-                    anacondaBaseURLs = ["nfs:" + ksrepo.baseurl[6:]]
                     ksrepo.baseurl = "file://%s" % dest
 
                 repo = AnacondaYumRepo(ksrepo.name)
