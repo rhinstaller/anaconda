@@ -668,7 +668,7 @@ class AnacondaYum(YumSorter):
                 # yum doesn't understand nfs:// and doesn't want to.  We need
                 # to first do the mount, then translate it into a file:// that
                 # yum does understand.
-                anacondaBaseURLs = []
+                anacondaBaseURLs = [ksrepo.baseurl]
                 if ksrepo.baseurl and ksrepo.baseurl.startswith("nfs://"):
                     if not network.hasActiveNetDev() and not self.anaconda.intf.enableNetwork():
                         self.anaconda.intf.messageWindow(_("No Network Available"),
