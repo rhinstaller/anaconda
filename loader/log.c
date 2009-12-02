@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <sys/time.h>
 
 #include "log.h"
 
@@ -37,33 +38,37 @@ static FILE * file_logfile = NULL;
 static int minLevel = INFO;
 
 static void printLogHeader(int level, FILE *outfile) {
-    time_t current_time = time(NULL);
-    struct tm *t = gmtime (&current_time);
+    struct timeval current_time;
+    struct tm *t;
+    int msecs;
 
+    gettimeofday(&current_time, NULL);
+    t = gmtime(&current_time.tv_sec);
+    msecs = current_time.tv_usec / 1000;
     switch (level) {
         case DEBUGLVL:
-            fprintf (outfile, "%02d:%02d:%02d DEBUG   : ", t->tm_hour,
-                     t->tm_min, t->tm_sec);
+            fprintf (outfile, "%02d:%02d:%02d,%03d DEBUG   : ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs);
             break;
 
         case INFO:
-            fprintf (outfile, "%02d:%02d:%02d INFO    : ", t->tm_hour,
-                     t->tm_min, t->tm_sec);
+            fprintf (outfile, "%02d:%02d:%02d,%03d INFO    : ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs);
             break;
 
         case WARNING:
-            fprintf (outfile, "%02d:%02d:%02d WARNING : ", t->tm_hour,
-                     t->tm_min, t->tm_sec);
+            fprintf (outfile, "%02d:%02d:%02d,%03d WARNING : ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs);
             break;
 
         case ERROR:
-            fprintf (outfile, "%02d:%02d:%02d ERROR   : ", t->tm_hour,
-                     t->tm_min, t->tm_sec);
+            fprintf (outfile, "%02d:%02d:%02d,%03d ERROR   : ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs);
             break;
 
         case CRITICAL:
-            fprintf (outfile, "%02d:%02d:%02d CRITICAL: ", t->tm_hour,
-                     t->tm_min, t->tm_sec);
+            fprintf (outfile, "%02d:%02d:%02d,%03d CRITICAL: ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs);
             break;
     }
 }
