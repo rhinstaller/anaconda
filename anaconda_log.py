@@ -24,9 +24,12 @@
 
 import sys
 import logging
+import types
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 
 DEFAULT_LEVEL = logging.INFO
+DEFAULT_ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)-8s: %(message)s"
+DEFAULT_DATE_FORMAT = "%H:%M:%S"
 
 logFile = "/tmp/anaconda.log"
 
@@ -72,15 +75,15 @@ class AnacondaLog:
 
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_LEVEL,
-                        fmtStr="%(asctime)s %(levelname)-8s: %(message)s",
+                        fmtStr=DEFAULT_ENTRY_FORMAT,
                         autoSetLevel=True):
-        if type (file) == type ("string"):
+        if isinstance(file, types.StringTypes):
             logfileHandler = logging.FileHandler(file)
         else:
             logfileHandler = logging.StreamHandler(file)
 
         logfileHandler.setLevel(minLevel)
-        logfileHandler.setFormatter (logging.Formatter (fmtStr, "%H:%M:%S"))
+        logfileHandler.setFormatter(logging.Formatter(fmtStr, DEFAULT_DATE_FORMAT))
         addToLogger.addHandler(logfileHandler, autoSetLevel=autoSetLevel)
 
     # Add another logger to the hierarchy.  For best results, make sure
