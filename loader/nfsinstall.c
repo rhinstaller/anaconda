@@ -249,11 +249,6 @@ char * mountNfsImage(struct installMethod * method,
                              directory);
             logMessage(INFO, "mounting nfs path %s", fullPath);
 
-            if (FL_TESTING(flags)) {
-                stage = NFS_STAGE_DONE;
-                break;
-            }
-
             stage = NFS_STAGE_NFS;
 
             if (!doPwMount(fullPath, "/mnt/stage2", "nfs", mountOpts, NULL)) {

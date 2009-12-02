@@ -32,17 +32,11 @@
 
 #include "init.h"
 
-#ifdef AS_SHUTDOWN
-int testing = 0;
-#else
-extern int testing;
-#endif
-
 void disableSwap(void);
 void unmountFilesystems(void);
 
 static void performTerminations(int doKill) {
-	if (testing || !doKill)
+	if (!doKill)
 		return;
 
 	sync();
@@ -60,7 +54,7 @@ static void performTerminations(int doKill) {
 static void performUnmounts(int doKill) {
 	int ignore;
 
-	if (testing || !doKill)
+	if (!doKill)
 		return;
 
 	printf("disabling swap...\n");

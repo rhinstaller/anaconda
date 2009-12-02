@@ -49,8 +49,6 @@ struct unmountInfo {
     enum { FS, LOOP } what;
 } ;
 
-extern int testing;
-
 void undoLoop(struct unmountInfo * fs, int numFs, int this);
 
 static void printstr(char * string) {
@@ -80,12 +78,10 @@ void undoMount(struct unmountInfo * fs, int numFs, int this) {
 
     printf("\t%s", fs[this].name);
     /* don't need to unmount /tmp.  it is busy anyway. */
-    if (!testing) {
-	if (umount2(fs[this].name, MNT_DETACH) < 0) {
-	    printf(" umount failed (%d)", errno);
-	} else {
-	    printf(" done");
-	}
+    if (umount2(fs[this].name, MNT_DETACH) < 0) {
+        printf(" umount failed (%d)", errno);
+    } else {
+        printf(" done");
     }
     printf("\n");
 }
@@ -115,7 +111,7 @@ void undoLoop(struct unmountInfo * fs, int numFs, int this) {
     if ((fd = open("/tmp/loop", O_RDONLY, 0)) < 0) {
 	printf(" failed to open device: %d", errno);
     } else {
-	if (!testing && ioctl(fd, LOOP_CLR_FD, 0))
+	if (ioctl(fd, LOOP_CLR_FD, 0))
 	    printf(" LOOP_CLR_FD failed: %d", errno);
 	close(fd);
     }

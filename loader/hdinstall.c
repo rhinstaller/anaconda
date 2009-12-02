@@ -61,9 +61,6 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
 
     logMessage(INFO, "mounting device %s for hard drive install", device);
 
-    if (FL_TESTING(flags))
-        return NULL;
-
     if (doPwMount(device, "/mnt/isodir", "auto", "ro", NULL))
         return NULL;
 

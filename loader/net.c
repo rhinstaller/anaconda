@@ -444,7 +444,7 @@ int readNetConfig(char * device, iface_t * iface,
 
     /* JKFIXME: we really need a way to override this and be able to change
      * our network config */
-    if (!FL_TESTING(flags) && !FL_ASKNETWORK(flags) &&
+    if (!FL_ASKNETWORK(flags) &&
         ((iface->ipv4method > IPV4_UNUSED_METHOD) ||
          (iface->ipv6method > IPV4_UNUSED_METHOD))) {
         logMessage(INFO, "doing kickstart... setting it up");
@@ -510,27 +510,25 @@ int readNetConfig(char * device, iface_t * iface,
     }
 
     /* bring up the interface */
-    if (!FL_TESTING(flags)) {
-        err = writeEnabledNetInfo(iface);
-        if (err) {
-            logMessage(ERROR, "failed to write %s data for %s (%d)",
-                       SYSCONFIG_PATH, iface->device, err);
-            iface->ipv4method = IPV4_UNUSED_METHOD;
-            iface->ipv6method = IPV6_UNUSED_METHOD;
-            return LOADER_BACK;
-        }
+    err = writeEnabledNetInfo(iface);
+    if (err) {
+        logMessage(ERROR, "failed to write %s data for %s (%d)",
+                   SYSCONFIG_PATH, iface->device, err);
+        iface->ipv4method = IPV4_UNUSED_METHOD;
+        iface->ipv6method = IPV6_UNUSED_METHOD;
+        return LOADER_BACK;
+    }
 
-        i = get_connection(iface);
-        newtPopWindow();
+    i = get_connection(iface);
+    newtPopWindow();
 
-        if (i > 0) {
-            newtWinMessage(_("Network Error"), _("Retry"),
-                           _("There was an error configuring your network "
-                             "interface."));
-            iface->ipv4method = IPV4_UNUSED_METHOD;
-            iface->ipv6method = IPV6_UNUSED_METHOD;
-            return LOADER_ERROR;
-        }
+    if (i > 0) {
+        newtWinMessage(_("Network Error"), _("Retry"),
+                       _("There was an error configuring your network "
+                         "interface."));
+        iface->ipv4method = IPV4_UNUSED_METHOD;
+        iface->ipv6method = IPV6_UNUSED_METHOD;
+        return LOADER_ERROR;
     }
 
     return LOADER_OK;
@@ -1984,18 +1982,16 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
             break;
         }
 
-        if (!FL_TESTING(flags)) {
-            err = writeEnabledNetInfo(iface);
-            if (err) {
-                logMessage(ERROR,
-                           "failed to write %s data for %s (%d)",
-                           SYSCONFIG_PATH, iface->device, err);
-                return -1;
-            }
-
-            err = get_connection(iface);
-            newtPopWindow();
+        err = writeEnabledNetInfo(iface);
+        if (err) {
+            logMessage(ERROR,
+                       "failed to write %s data for %s (%d)",
+                       SYSCONFIG_PATH, iface->device, err);
+            return -1;
         }
+
+        err = get_connection(iface);
+        newtPopWindow();
 
         if (err) {
             logMessage(ERROR, "failed to start NetworkManager (%d)", err);

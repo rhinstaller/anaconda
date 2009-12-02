@@ -231,9 +231,7 @@ void startNewt(void) {
         newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
         
         newtRunning = 1;
-        if (FL_TESTING(flags)) 
-            newtSetSuspendCallback((void *) doSuspend, NULL);
-        else if (!access("/bin/sh",  X_OK)) 
+        if (!access("/bin/sh",  X_OK)) 
             newtSetSuspendCallback((void *) doShell, NULL);
     }
 }
@@ -326,8 +324,7 @@ void initializeConsole() {
     fflush(stdout);
 
     isysLoadFont();
-    if (!FL_TESTING(flags))
-        isysSetUnicodeKeymap();
+    isysSetUnicodeKeymap();
 }
 
 /* fbcon is buggy and resets our color palette if we allocate a terminal
@@ -1098,8 +1095,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             /* particular options.                                   */
             /* do vncpassword case first */
             if (!strncasecmp(argv[i], "vncpassword=", 12)) {
-                if (!FL_TESTING(flags))
-                    writeVNCPasswordFile("/tmp/vncpassword.dat", argv[i]+12);
+                writeVNCPasswordFile("/tmp/vncpassword.dat", argv[i]+12);
             }
             else if (!strncasecmp(argv[i], "resolution=", 11) ||
                      !strncasecmp(argv[i], "nomount", 7) ||
@@ -1766,7 +1762,7 @@ static void add_to_path_env(const char *env, const char *val)
 }
 
 int main(int argc, char ** argv) {
-    int rc;
+    int rc, ret, pid, status;
 
     struct stat sb;
     struct serial_struct si;
@@ -1784,17 +1780,16 @@ int main(int argc, char ** argv) {
 
     struct loaderData_s loaderData;
 
-    char *path;
+    char *path, *fmt;
 
     gchar *cmdLine = NULL, *ksFile = NULL, *virtpcon = NULL;
-    gboolean testing = FALSE, mediacheck = FALSE;
+    gboolean mediacheck = FALSE;
     gchar **remaining = NULL;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
     GOptionEntry optionTable[] = {
         { "cmdline", 0, 0, G_OPTION_ARG_STRING, &cmdLine, NULL, NULL },
         { "ksfile", 0, 0, G_OPTION_ARG_STRING, &ksFile, NULL, NULL },
-        { "test", 0, 0, G_OPTION_ARG_NONE, &testing, NULL, NULL },
         { "mediacheck", 0, 0, G_OPTION_ARG_NONE, &mediacheck, NULL, NULL },
         { "virtpconsole", 0, 0, G_OPTION_ARG_STRING, &virtpcon, NULL, NULL },
         { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
@@ -1849,7 +1844,7 @@ int main(int argc, char ** argv) {
 
     g_strfreev(remaining);
 
-    if (!testing && !access("/var/run/loader.run", R_OK)) {
+    if (!access("/var/run/loader.run", R_OK)) {
         printf(_("loader has already been run.  Starting shell.\n"));
         execl("/bin/sh", "-/bin/sh", NULL);
         doExit(0);
@@ -1869,7 +1864,6 @@ int main(int argc, char ** argv) {
             flags |= LOADER_FLAGS_SERIAL;
     }
 
-    if (testing) flags |= LOADER_FLAGS_TESTING;
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
     if (ksFile) flags |= LOADER_FLAGS_KICKSTART;
     if (virtpcon) flags |= LOADER_FLAGS_VIRTPCONSOLE;
@@ -1882,9 +1876,8 @@ int main(int argc, char ** argv) {
     flags |= LOADER_FLAGS_NOSHELL;
 #endif
 
-    openLog(FL_TESTING(flags));
-    if (!FL_TESTING(flags))
-        openlog("loader", 0, LOG_LOCAL0);
+    openLog();
+    openlog("loader", 0, LOG_LOCAL0);
 
     memset(&loaderData, 0, sizeof(loaderData));
     loaderData.method = -1;
@@ -1905,7 +1898,7 @@ int main(int argc, char ** argv) {
     set_fw_search_path(&loaderData, "/firmware:/lib/firmware");
     start_fw_loader(&loaderData);
 
-    arg = FL_TESTING(flags) ? "./module-info" : "/lib/modules/module-info";
+    arg = "/lib/modules/module-info";
     modInfo = newModuleInfoSet();
     if (readModuleInfo(arg, modInfo, NULL, 0)) {
         fprintf(stderr, "failed to read %s\n", arg);
@@ -2016,17 +2009,13 @@ int main(int argc, char ** argv) {
 
     url = doLoaderMain(&loaderData, modInfo);
 
-    if (!FL_TESTING(flags)) {
-        int ret;
-
-        /* unlink dirs and link to the ones in /mnt/runtime */
-        migrate_runtime_directory("/usr");
-        migrate_runtime_directory("/lib");
-        migrate_runtime_directory("/lib64");
-        ret = symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
-        copyDirectory("/mnt/runtime/etc","/etc", NULL, copyErrorFn);
-        copyDirectory("/mnt/runtime/var","/var", NULL, copyErrorFn);
-    }
+    /* unlink dirs and link to the ones in /mnt/runtime */
+    migrate_runtime_directory("/usr");
+    migrate_runtime_directory("/lib");
+    migrate_runtime_directory("/lib64");
+    ret = symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
+    copyDirectory("/mnt/runtime/etc","/etc", NULL, copyErrorFn);
+    copyDirectory("/mnt/runtime/var","/var", NULL, copyErrorFn);
 
     /* now load SELinux policy before exec'ing anaconda and the shell
      * (if we're using SELinux) */
@@ -2251,54 +2240,49 @@ int main(int argc, char ** argv) {
     
     stopNewt();
     closeLog();
-    
-    if (!FL_TESTING(flags)) {
-        int pid, status, rc;
-        char *fmt;
 
-        if (FL_RESCUE(flags)) {
-            fmt = _("Running anaconda %s, the %s rescue mode - please wait.\n");
-        } else {
-            fmt = _("Running anaconda %s, the %s system installer - please wait.\n");
-        }
-        printf(fmt, VERSION, getProductName());
-
-        if (!(pid = fork())) {
-            if (execv(anacondaArgs[0], anacondaArgs) == -1) {
-               fprintf(stderr,"exec of anaconda failed: %m\n");
-               doExit(1);
-            }
-        }
-
-        waitpid(pid, &status, 0);
-
-        if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status))) {
-            rc = 1;
-        } else {
-            rc = 0;
-        }
-
-        if ((rc == 0) && (FL_POWEROFF(flags) || FL_HALT(flags))) {
-            if (!(pid = fork())) {
-                char * cmd = (FL_POWEROFF(flags) ? strdup("/sbin/poweroff") :
-                              strdup("/sbin/halt"));
-                if (execl(cmd, cmd, NULL) == -1) {
-                    fprintf(stderr, "exec of poweroff failed: %m\n");
-                    doExit(1);
-                }
-            }
-            waitpid(pid, &status, 0);
-        }
-
-        stop_fw_loader(&loaderData);
-#if defined(__s390__) || defined(__s390x__)
-        /* at the latest possibility signal init=linuxrc.s390 to reboot/halt */
-        logMessage(INFO, "Sending signal %d to process %d\n",
-                   init_sig, init_pid);
-        kill(init_pid, init_sig);
-#endif
-        doExit(rc);
+    if (FL_RESCUE(flags)) {
+        fmt = _("Running anaconda %s, the %s rescue mode - please wait.\n");
+    } else {
+        fmt = _("Running anaconda %s, the %s system installer - please wait.\n");
     }
+    printf(fmt, VERSION, getProductName());
+
+    if (!(pid = fork())) {
+        if (execv(anacondaArgs[0], anacondaArgs) == -1) {
+           fprintf(stderr,"exec of anaconda failed: %m\n");
+           doExit(1);
+        }
+    }
+
+    waitpid(pid, &status, 0);
+
+    if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status))) {
+        rc = 1;
+    } else {
+        rc = 0;
+    }
+
+    if ((rc == 0) && (FL_POWEROFF(flags) || FL_HALT(flags))) {
+        if (!(pid = fork())) {
+            char * cmd = (FL_POWEROFF(flags) ? strdup("/sbin/poweroff") :
+                          strdup("/sbin/halt"));
+            if (execl(cmd, cmd, NULL) == -1) {
+                fprintf(stderr, "exec of poweroff failed: %m\n");
+                doExit(1);
+            }
+        }
+        waitpid(pid, &status, 0);
+    }
+
+    stop_fw_loader(&loaderData);
+#if defined(__s390__) || defined(__s390x__)
+    /* at the latest possibility signal init=linuxrc.s390 to reboot/halt */
+    logMessage(INFO, "Sending signal %d to process %d\n",
+               init_sig, init_pid);
+    kill(init_pid, init_sig);
+#endif
+    doExit(rc);
 
     doExit(1);
 }

@@ -115,16 +115,11 @@ void logMessage(int level, const char * s, ...) {
 int tty_logfd = -1;
 int file_logfd = -1;
 
-void openLog(int useLocal) {
+void openLog() {
     int flags;
 
-    if (!useLocal) {
-        tty_logfile = fopen("/dev/tty3", "w");
-        file_logfile = fopen("/tmp/anaconda.log", "w");
-    } else {
-        tty_logfile = NULL;
-        file_logfile = fopen("debug.log", "w");
-    }
+    tty_logfile = fopen("/dev/tty3", "w");
+    file_logfile = fopen("/tmp/anaconda.log", "w");
 
     if (tty_logfile) {
         tty_logfd = fileno(tty_logfile);

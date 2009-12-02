@@ -27,7 +27,7 @@
 #define LOADER_NOOP 2
 #define LOADER_ERROR -1
 
-#define LOADER_FLAGS_TESTING            (((uint64_t) 1) << 0)
+/* #0 unused */
 /* #1 unused */
 #define LOADER_FLAGS_TEXT               (((uint64_t) 1) << 2)
 #define LOADER_FLAGS_RESCUE             (((uint64_t) 1) << 3)
@@ -71,7 +71,6 @@
 #define LOADER_FLAGS_NOKILL		(((uint64_t) 1) << 38)
 #define LOADER_FLAGS_KICKSTART_SEND_SERIAL   (((uint64_t) 1) << 39)
 
-#define FL_TESTING(a)            ((a) & LOADER_FLAGS_TESTING)
 #define FL_TEXT(a)               ((a) & LOADER_FLAGS_TEXT)
 #define FL_RESCUE(a)             ((a) & LOADER_FLAGS_RESCUE)
 #define FL_KICKSTART(a)          ((a) & LOADER_FLAGS_KICKSTART)

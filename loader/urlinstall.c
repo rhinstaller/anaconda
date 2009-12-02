@@ -290,11 +290,6 @@ char *mountUrlImage(struct installMethod *method, char *location,
             }
 
             case URL_STAGE_FETCH: {
-                if (FL_TESTING(flags)) {
-                    stage = URL_STAGE_DONE;
-                    break;
-                }
-
                 if (loadUrlImages(loaderData, &ui)) {
                     stage = URL_STAGE_MAIN;
 

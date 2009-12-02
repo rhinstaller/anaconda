@@ -101,8 +101,7 @@ static struct langInfo * languages = NULL;
 static int numLanguages = 0;
 
 static void loadLanguageList(void) {
-    char * file = FL_TESTING(flags) ? "../lang-table" :
-                    "/etc/lang-table";
+    char * file = "/etc/lang-table";
     FILE * f;
     char line[256];
     char name[256], key[256], font[256], code[256],
@@ -159,10 +158,7 @@ void loadLanguage (char * file) {
 
     if (!file) {
         file = filename;
-        if (FL_TESTING(flags))
-            sprintf(filename, "loader.tr");
-        else
-            sprintf(filename, "/etc/loader.tr");
+        sprintf(filename, "/etc/loader.tr");
     }
 
     stream = gunzip_open(file);

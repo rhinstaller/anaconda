@@ -33,7 +33,7 @@ void logMessageV(int level, const char * s, va_list ap)
 	__attribute__ ((format (printf, 2, 0)));
 void logMessage(int level, const char * s, ...)
 	__attribute__ ((format (printf, 2, 3)));
-void openLog(int useLocal);
+void openLog();
 void closeLog(void);
 void setLogLevel(int minLevel);
 int getLogLevel(void);

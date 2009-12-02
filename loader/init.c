@@ -111,7 +111,6 @@ char * env[] = {
  *
  */
 
-int testing=0;
 void shutDown(int doKill, reboot_action rebootAction);
 static int getKillPolicy(void);
 struct termios ts;
@@ -134,8 +133,6 @@ static void fatal_error(int usePerror) {
     printf("failed.\n");
 
     printf("\nI can't recover from this.\n");
-    if (testing)
-        exit(0);
 #if !defined(__s390__) && !defined(__s390x__)
     while (1) ;
 #endif
@@ -548,17 +545,9 @@ int main(int argc, char **argv) {
         doExit(0);
     }
 
-#if !defined(__s390__) && !defined(__s390x__)
-    testing = (getppid() != 0) && (getppid() != 1);
-#endif
-
-    if (!testing) {
-        /* turn off screen blanking */
-        printstr("\033[9;0]");
-        printstr("\033[8]");
-    } else {
-        printstr("(running in test mode).\n");
-    }
+    /* turn off screen blanking */
+    printstr("\033[9;0]");
+    printstr("\033[8]");
 
     umask(022);
 
@@ -570,65 +559,56 @@ int main(int argc, char **argv) {
     printf("anaconda installer init version %s starting\n", VERSION);
 
     printf("mounting /proc filesystem... "); 
-    if (!testing) {
-        if (mount("/proc", "/proc", "proc", 0, NULL))
-            fatal_error(1);
-    }
+    if (mount("/proc", "/proc", "proc", 0, NULL))
+        fatal_error(1);
     printf("done\n");
 
     printf("creating /dev filesystem... "); 
-    if (!testing) {
-        pid_t childpid;
-        if (mount("/dev", "/dev", "tmpfs", 0, NULL))
-            fatal_error(1);
-        createDevices();
-        printf("done\n");
-        printf("starting udev...");
-        if ((childpid = fork()) == 0) {
-            execl("/sbin/udevd", "/sbin/udevd", "--daemon", NULL);
-            exit(1);
-        }
-        
-        /* wait at least until the udevd process that we forked exits */
-        do {
-            pid_t retpid;
-            int waitstatus;
+    if (mount("/dev", "/dev", "tmpfs", 0, NULL))
+        fatal_error(1);
+    createDevices();
+    printf("done\n");
+    printf("starting udev...");
+    if ((childpid = fork()) == 0) {
+        execl("/sbin/udevd", "/sbin/udevd", "--daemon", NULL);
+        exit(1);
+    }
+    
+    /* wait at least until the udevd process that we forked exits */
+    do {
+        pid_t retpid;
+        int waitstatus;
 
-            retpid = waitpid(childpid, &waitstatus, 0);
-            if (retpid == -1) {
-                if (errno == EINTR)
-                    continue;
-                /* if the child exited before we called waitpid, we can get
-                 * ECHILD without anything really being wrong; we just lost
-                 * the race.*/
-                if (errno == ECHILD)
-                    break;
-                printf("init: error waiting on udevd: %m\n");
-                exit(1);
-            } else if (WIFEXITED(waitstatus)) {
+        retpid = waitpid(childpid, &waitstatus, 0);
+        if (retpid == -1) {
+            if (errno == EINTR)
+                continue;
+            /* if the child exited before we called waitpid, we can get
+             * ECHILD without anything really being wrong; we just lost
+             * the race.*/
+            if (errno == ECHILD)
                 break;
-            }
-        } while (1);
-        
-        if (fork() == 0) {
-            execl("/sbin/udevadm", "udevadm", "control", "--env=ANACONDA=1", NULL);
+            printf("init: error waiting on udevd: %m\n");
             exit(1);
+        } else if (WIFEXITED(waitstatus)) {
+            break;
         }
+    } while (1);
+    
+    if (fork() == 0) {
+        execl("/sbin/udevadm", "udevadm", "control", "--env=ANACONDA=1", NULL);
+        exit(1);
     }
     printf("done\n");
 
     printf("mounting /dev/pts (unix98 pty) filesystem... "); 
-    if (!testing) {
-        if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))
-            fatal_error(1);
-    }
+    if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))
+        fatal_error(1);
     printf("done\n");
 
     printf("mounting /sys filesystem... "); 
-    if (!testing) {
-        if (mount("/sys", "/sys", "sysfs", 0, NULL))
-            fatal_error(1);
-    }
+    if (mount("/sys", "/sys", "sysfs", 0, NULL))
+        fatal_error(1);
     printf("done\n");
 
     /* these args are only for testing from commandline */
@@ -725,9 +705,6 @@ int main(int argc, char **argv) {
         }
     }
 
-    if (testing)
-        doExit(0);
-
     setsid();
     if (ioctl(0, TIOCSCTTY, NULL)) {
         printf("could not set new controlling tty\n");
@@ -757,13 +734,11 @@ int main(int argc, char **argv) {
         tcsetattr(0, TCSANOW, &ts);
     }
 
-    if (!testing) {
-        int ret;
-        ret = sethostname("localhost.localdomain", 21);
-        /* the default domainname (as of 2.0.35) is "(none)", which confuses 
-         glibc */
-        ret = setdomainname("", 0);
-    }
+    int ret;
+    ret = sethostname("localhost.localdomain", 21);
+    /* the default domainname (as of 2.0.35) is "(none)", which confuses 
+     glibc */
+    ret = setdomainname("", 0);
 
     printf("trying to remount root filesystem read write... ");
     if (mount("/", "/", "ext2", MS_REMOUNT | MS_MGC_VAL, NULL)) {
@@ -774,24 +749,20 @@ int main(int argc, char **argv) {
     /* we want our /tmp to be tmpfs, but we also want to let people hack
      * their initrds to add things like a ks.cfg, so this has to be a little
      * tricky */
-    if (!testing) {
-        rename("/tmp", "/oldtmp");
-        mkdir("/tmp", 0755);
+    rename("/tmp", "/oldtmp");
+    mkdir("/tmp", 0755);
 
-        printf("mounting /tmp as tmpfs... ");
-        if (mount("none", "/tmp", "tmpfs", 0, NULL))
-            fatal_error(1);
-        printf("done\n");
+    printf("mounting /tmp as tmpfs... ");
+    if (mount("none", "/tmp", "tmpfs", 0, NULL))
+        fatal_error(1);
+    printf("done\n");
 
-        copyDirectory("/oldtmp", "/tmp", copyErrorFn, copyErrorFn);
-        unlink("/oldtmp");
-    }
+    copyDirectory("/oldtmp", "/tmp", copyErrorFn, copyErrorFn);
+    unlink("/oldtmp");
 
     /* Now we have some /tmp space set up, and /etc and /dev point to
        it. We should be in pretty good shape. */
-
-    if (!testing) 
-        doklog("/dev/tty4");
+    doklog("/dev/tty4");
 
     /* write out a pid file */
     if ((fd = open("/var/run/init.pid", O_WRONLY|O_CREAT, 0644)) > 0) {
@@ -808,19 +779,17 @@ int main(int argc, char **argv) {
     }
 
     /* D-Bus */
-    if (!testing) {
-        if (fork() == 0) {
-            execl("/sbin/dbus-uuidgen", "/sbin/dbus-uuidgen", "--ensure", NULL);
-            doExit(1);
-        }
-
-        if (fork() == 0) {
-            execl("/sbin/dbus-daemon", "/sbin/dbus-daemon", "--system", NULL);
-            doExit(1);
-        }
-
-        sleep(2);
+    if (fork() == 0) {
+        execl("/sbin/dbus-uuidgen", "/sbin/dbus-uuidgen", "--ensure", NULL);
+        doExit(1);
     }
+
+    if (fork() == 0) {
+        execl("/sbin/dbus-daemon", "/sbin/dbus-daemon", "--system", NULL);
+        doExit(1);
+    }
+
+    sleep(2);
 
     /* Go into normal init mode - keep going, and then do a orderly shutdown
        when:
@@ -874,6 +843,7 @@ int main(int argc, char **argv) {
     }
     
     while (!doShutdown) {
+        pid_t childpid;
         childpid = waitpid(-1, &waitStatus, 0);
 
         if (childpid == installpid) 
@@ -891,9 +861,6 @@ int main(int argc, char **argv) {
     } else {
         doReboot = 1;
     }
-
-    if (testing)
-        doExit(0);
 
     shutDown(doKill, doReboot?REBOOT:HALT);
 
