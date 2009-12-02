@@ -175,9 +175,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
-        if flags.test:
-            log.info("Test mode - not performing install")
-            return
 
         progress = anaconda.id.instProgress
         progress.set_label(_("Copying live image to hard drive."))

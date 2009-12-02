@@ -93,14 +93,13 @@ class sparcBootloaderInfo(bootloaderInfo):
         else:
             sbinargs += ["-U"]
 
-        if not flags.test:
-            rc = iutil.execWithRedirect(sbinargs[0],
-                                        sbinargs[1:],
-                                        stdout = "/dev/tty5",
-                                        stderr = "/dev/tty5",
-                                        root = instRoot)
-            if rc:
-                return rc
+        rc = iutil.execWithRedirect(sbinargs[0],
+                                    sbinargs[1:],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5",
+                                    root = instRoot)
+        if rc:
+            return rc
 
         if (not os.access(instRoot + "/etc/silo.conf", os.R_OK) and
             os.access(instRoot + "/boot/etc/silo.conf", os.R_OK)):

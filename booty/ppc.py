@@ -141,14 +141,13 @@ class ppcBootloaderInfo(bootloaderInfo):
 
         ybinargs = [ yabootProg, "-f", "-C", cf ]
 
-        if not flags.test:
-            rc = iutil.execWithRedirect(ybinargs[0],
-                                        ybinargs[1:],
-                                        stdout = "/dev/tty5",
-                                        stderr = "/dev/tty5",
-                                        root = instRoot)
-            if rc:
-                return rc
+        rc = iutil.execWithRedirect(ybinargs[0],
+                                    ybinargs[1:],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5",
+                                    root = instRoot)
+        if rc:
+            return rc
 
         if (not os.access(instRoot + "/etc/yaboot.conf", os.R_OK) and
             os.access(instRoot + "/boot/etc/yaboot.conf", os.R_OK)):

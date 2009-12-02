@@ -122,7 +122,7 @@ class fcoe(object):
         return
 
     def write(self, instPath, anaconda):
-        if flags.test or not self.nics:
+        if not self.nics:
             return
 
         if not os.path.isdir(instPath + "/etc/fcoe"):

@@ -301,6 +301,5 @@ def doBasePackageSelect(anaconda):
 
 def writeConfiguration(anaconda):
     log.info("Writing main configuration")
-    if not flags.test:
-        anaconda.id.write()
-        anaconda.backend.writeConfiguration()
+    anaconda.id.write()
+    anaconda.backend.writeConfiguration()

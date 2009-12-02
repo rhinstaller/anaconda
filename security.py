@@ -64,12 +64,9 @@ class Security:
         args = args + [ "--selinux=%s" %(selinux_states[self.selinux],) ]
 
         try:
-            if not flags.test:
-                iutil.execWithRedirect("/usr/sbin/lokkit", args,
-                                       root = instPath, stdout = "/dev/null",
-                                       stderr = "/dev/null")
-            else:
-                log.info("would have run %s" %(args,))
+            iutil.execWithRedirect("/usr/sbin/lokkit", args,
+                                   root = instPath, stdout = "/dev/null",
+                                   stderr = "/dev/null")
         except RuntimeError, msg:
             log.error ("lokkit run failed: %s" %(msg,))
         except OSError as e:

@@ -1473,9 +1473,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     log.error("unable to unmount %s: %s" %(d, e))
             return
 
-            if flags.test:
-                return
-
         # shorthand
         upgrade = anaconda.id.getUpgrade()
 
@@ -1655,9 +1652,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
-        if flags.test:
-            log.info("Test mode - not performing install")
-            return
 
         if not anaconda.id.upgrade:
             rpm.addMacro("__dbi_htconfig",
@@ -1684,9 +1678,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             return DISPATCH_BACK
 
     def doPostInstall(self, anaconda):
-        if flags.test:
-            return
-
         if anaconda.id.getUpgrade():
             w = anaconda.intf.waitWindow(_("Post Upgrade"),
                                     _("Performing post-upgrade configuration"))

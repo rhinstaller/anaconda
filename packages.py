@@ -61,10 +61,7 @@ def firstbootConfiguration(anaconda):
 
 def writeKSConfiguration(anaconda):
     log.info("Writing autokickstart file")
-    if not flags.test:
-	fn = anaconda.rootPath + "/root/anaconda-ks.cfg"
-    else:
-	fn = "/tmp/anaconda-ks.cfg"
+    fn = anaconda.rootPath + "/root/anaconda-ks.cfg"
 
     anaconda.id.writeKS(fn)
 
@@ -191,10 +188,6 @@ def setupTimezone(anaconda):
     if anaconda.id.upgrade or anaconda.dir == DISPATCH_BACK:
         return
 
-    # dont do this in test mode!
-    if flags.test:
-	return
-    
     os.environ["TZ"] = anaconda.id.timezone.tz
     tzfile = "/usr/share/zoneinfo/" + anaconda.id.timezone.tz
     tzlocalfile = "/etc/localtime"

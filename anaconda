@@ -71,7 +71,7 @@ def startMiniWM(root='/'):
 def doStartupX11Actions(runres="800x600"):
     global miniwm_pid
 
-    if not flags.test and flags.setupFilesystems:
+    if flags.setupFilesystems:
         setupGraphicalLinks()
 
     # now start up mini-wm
@@ -184,7 +184,6 @@ def parseOptions():
     op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
     op.add_option("--kickstart", dest="ksfile")
     op.add_option("--rescue", dest="rescue", action="store_true", default=False)
-    op.add_option("-t", "--test", action="store_true", default=False)
     op.add_option("--targetarch", dest="targetArch", nargs=1, type="string")
 
     op.add_option("-m", "--method", dest="method", default=None)
@@ -237,26 +236,20 @@ def parseOptions():
     return op.parse_args()
 
 def setupPythonPath():
-    # For anaconda in test mode
-    if (os.path.exists('isys')):
-        sys.path.insert(0, 'isys')
-        sys.path.insert(0, 'textw')
-        sys.path.insert(0, 'iw')
-    else:
-        haveUpdates = False
-        for ndx in range(len(sys.path)-1, -1, -1):
-            if sys.path[ndx].endswith('updates'):
-                haveUpdates = True
-                break
+    haveUpdates = False
+    for ndx in range(len(sys.path)-1, -1, -1):
+        if sys.path[ndx].endswith('updates'):
+            haveUpdates = True
+            break
 
-        if haveUpdates:
-            sys.path.insert(ndx+1, '/usr/lib/anaconda')
-            sys.path.insert(ndx+2, '/usr/lib/anaconda/textw')
-            sys.path.insert(ndx+3, '/usr/lib/anaconda/iw')
-        else:
-            sys.path.insert(0, '/usr/lib/anaconda')
-            sys.path.insert(1, '/usr/lib/anaconda/textw')
-            sys.path.insert(2, '/usr/lib/anaconda/iw')
+    if haveUpdates:
+        sys.path.insert(ndx+1, '/usr/lib/anaconda')
+        sys.path.insert(ndx+2, '/usr/lib/anaconda/textw')
+        sys.path.insert(ndx+3, '/usr/lib/anaconda/iw')
+    else:
+        sys.path.insert(0, '/usr/lib/anaconda')
+        sys.path.insert(1, '/usr/lib/anaconda/textw')
+        sys.path.insert(2, '/usr/lib/anaconda/iw')
 
     sys.path.append('/usr/share/system-config-date')
 
@@ -333,11 +326,7 @@ def expandFTPMethod(str):
         return None
 
 def runVNC():
-    # dont run vncpassword if in test mode
     global vncS
-    if flags.test:
-        vncS.password = ""
-
     vncS.startServer()
 
     child = os.fork()
@@ -376,7 +365,7 @@ def checkMemory(opts):
         sys.exit(0)
 
     # override display mode if machine cannot nicely run X
-    if not flags.test and not flags.usevnc:
+    if not flags.usevnc:
         if opts.display_mode not in ('t', 'c') and iutil.memInstalled() < isys.MIN_GUI_RAM:
             stdoutLog.warning(_("You do not have enough RAM to use the graphical "
                                 "installer.  Starting text mode."))
@@ -506,8 +495,6 @@ class Anaconda:
                 from gui import InstallInterface
             except Exception, e:
                 stdoutLog.error("Exception starting GUI installer: %s" %(e,))
-                if flags.test:
-                    sys.exit(1)
                 # if we're not going to really go into GUI mode, we need to get
                 # back to vc1 where the text install is going to pop up.
                 if not x_already_set:
@@ -704,10 +691,6 @@ if __name__ == "__main__":
             (path, name) = string.split(mod, ":")
             extraModules.append((path, name))
 
-    if opts.test:
-        flags.test = 1
-        flags.setupFilesystems = 0
-
     if opts.vnc:
         flags.usevnc = 1
         opts.display_mode = 'g'
@@ -748,8 +731,8 @@ if __name__ == "__main__":
     if iutil.isS390():
         opts.isHeadless = True
 
-    if not flags.test and not flags.livecdInstall:
-            isys.auditDaemon()
+    if not flags.livecdInstall:
+        isys.auditDaemon()
 
     # setup links required for all install types
     for i in ( "services", "protocols", "nsswitch.conf", "joe", "selinux",
@@ -883,7 +866,7 @@ if __name__ == "__main__":
     # now determine if we're going to run in GUI or TUI mode
     #
     # if no X server, we have to use text mode
-    if not (flags.test or x_already_set) and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
+    if not x_already_set and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
          stdoutLog.warning(_("Graphical installation is not available. "
                              "Starting text mode."))
          time.sleep(2)

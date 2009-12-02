@@ -668,8 +668,6 @@ def isEfi():
 def writeRpmPlatform(root="/"):
     import rpmUtils.arch
 
-    if flags.test:
-        return
     if os.access("%s/etc/rpm/platform" %(root,), os.R_OK):
         return
     if not os.access("%s/etc/rpm" %(root,), os.X_OK):

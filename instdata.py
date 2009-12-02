@@ -143,12 +143,9 @@ class InstallData:
         args = ["--update", "--nostart"] + shlex.split(self.auth)
 
         try:
-            if not flags.test:
-                iutil.execWithRedirect("/usr/sbin/authconfig", args,
-                                       stdout = "/dev/tty5", stderr = "/dev/tty5",
-                                       root = self.anaconda.rootPath)
-            else:
-                log.error("Would have run: %s", args)
+            iutil.execWithRedirect("/usr/sbin/authconfig", args,
+                                   stdout = "/dev/tty5", stderr = "/dev/tty5",
+                                   root = self.anaconda.rootPath)
         except RuntimeError, msg:
                 log.error("Error running %s: %s", args, msg)
 

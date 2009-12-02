@@ -33,10 +33,6 @@ class Timezone:
         f.write(" %s\n" % self.tz)
 
     def write(self, instPath):
-        # dont do this in test mode!
-        if flags.test:
-            return
-
         fromFile = instPath + "/usr/share/zoneinfo/" + self.tz
 
         if not os.access(fromFile, os.R_OK):

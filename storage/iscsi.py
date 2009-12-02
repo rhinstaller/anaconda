@@ -263,33 +263,30 @@ class iscsi(object):
         if not self.initiatorSet:
             return
 
-        if not flags.test:
-            root = anaconda.id.storage.rootDevice
+        # set iscsi nodes to autostart
+        for node in self.nodes:
+            autostart = True
+            disks = self.getNodeDisks(node, anaconda.id.storage)
+            for disk in disks:
+                # nodes used for root get started by the initrd
+                if root.dependsOn(disk):
+                    autostart = False
 
-            # set iscsi nodes to autostart
-            for node in self.nodes:
-                autostart = True
-                disks = self.getNodeDisks(node, anaconda.id.storage)
-                for disk in disks:
-                    # nodes used for root get started by the initrd
-                    if root.dependsOn(disk):
-                        autostart = False
+            if autostart:
+                node.setParameter("node.startup", "automatic")
 
-                if autostart:
-                    node.setParameter("node.startup", "automatic")
+        if not os.path.isdir(instPath + "/etc/iscsi"):
+            os.makedirs(instPath + "/etc/iscsi", 0755)
+        fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
+        os.write(fd, "InitiatorName=%s\n" %(self.initiator))
+        os.close(fd)
 
-            if not os.path.isdir(instPath + "/etc/iscsi"):
-                os.makedirs(instPath + "/etc/iscsi", 0755)
-            fd = os.open(instPath + INITIATOR_FILE, os.O_RDWR | os.O_CREAT)
-            os.write(fd, "InitiatorName=%s\n" %(self.initiator))
-            os.close(fd)
-
-            # copy "db" files.  *sigh*
-            if os.path.isdir(instPath + "/var/lib/iscsi"):
-                shutil.rmtree(instPath + "/var/lib/iscsi")
-            if os.path.isdir("/var/lib/iscsi"):
-                shutil.copytree("/var/lib/iscsi", instPath + "/var/lib/iscsi",
-                                symlinks=True)
+        # copy "db" files.  *sigh*
+        if os.path.isdir(instPath + "/var/lib/iscsi"):
+            shutil.rmtree(instPath + "/var/lib/iscsi")
+        if os.path.isdir("/var/lib/iscsi"):
+            shutil.copytree("/var/lib/iscsi", instPath + "/var/lib/iscsi",
+                            symlinks=True)
 
     def getNode(self, name, address, port):
         for node in self.nodes:
