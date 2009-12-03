@@ -1518,42 +1518,41 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         self.initLog(anaconda.id, anaconda.rootPath)
 
-        if flags.setupFilesystems:
-            # setup /etc/rpm/ for the post-install environment
-            iutil.writeRpmPlatform(anaconda.rootPath)
+        # setup /etc/rpm/ for the post-install environment
+        iutil.writeRpmPlatform(anaconda.rootPath)
 
+        try:
+            # FIXME: making the /var/lib/rpm symlink here is a hack to
+            # workaround db->close() errors from rpm
+            iutil.mkdirChain("/var/lib")
+            for path in ("/var/tmp", "/var/lib/rpm"):
+                if os.path.exists(path) and not os.path.islink(path):
+                    shutil.rmtree(path)
+                if not os.path.islink(path):
+                    os.symlink("%s/%s" %(anaconda.rootPath, path), "%s" %(path,))
+                else:
+                    log.warning("%s already exists as a symlink to %s" %(path, os.readlink(path),))
+        except Exception, e:
+            # how this could happen isn't entirely clear; log it in case
+            # it does and causes problems later
+            log.error("error creating symlink, continuing anyway: %s" %(e,))
+
+        # SELinux hackery (#121369)
+        if flags.selinux:
             try:
-                # FIXME: making the /var/lib/rpm symlink here is a hack to
-                # workaround db->close() errors from rpm
-                iutil.mkdirChain("/var/lib")
-                for path in ("/var/tmp", "/var/lib/rpm"):
-                    if os.path.exists(path) and not os.path.islink(path):
-                        shutil.rmtree(path)
-                    if not os.path.islink(path):
-                        os.symlink("%s/%s" %(anaconda.rootPath, path), "%s" %(path,))
-                    else:
-                        log.warning("%s already exists as a symlink to %s" %(path, os.readlink(path),))
+                os.mkdir(anaconda.rootPath + "/selinux")
             except Exception, e:
-                # how this could happen isn't entirely clear; log it in case
-                # it does and causes problems later
-                log.error("error creating symlink, continuing anyway: %s" %(e,))
-
-            # SELinux hackery (#121369)
-            if flags.selinux:
-                try:
-                    os.mkdir(anaconda.rootPath + "/selinux")
-                except Exception, e:
-                    pass
-                try:
-                    isys.mount("/selinux", anaconda.rootPath + "/selinux", "selinuxfs")
-                except Exception, e:
-                    log.error("error mounting selinuxfs: %s" %(e,))
-
-            # For usbfs
+                pass
             try:
-                isys.mount("/proc/bus/usb", anaconda.rootPath + "/proc/bus/usb", "usbfs")
+                isys.mount("/selinux", anaconda.rootPath + "/selinux", "selinuxfs")
             except Exception, e:
-                log.error("error mounting usbfs: %s" %(e,))
+                log.error("error mounting selinuxfs: %s" %(e,))
+
+        # For usbfs
+        try:
+            isys.mount("/proc/bus/usb", anaconda.rootPath + "/proc/bus/usb", "usbfs")
+        except Exception, e:
+            log.error("error mounting usbfs: %s" %(e,))
 
         # write out the fstab
         if not upgrade:

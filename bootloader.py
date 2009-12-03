@@ -139,8 +139,6 @@ def writeBootloader(anaconda):
         isys.sync()
         isys.sync()
 
-    justConfigFile = not flags.setupFilesystems
-
     if anaconda.id.bootloader.defaultDevice == -1:
         return
 
@@ -157,9 +155,7 @@ def writeBootloader(anaconda):
         else:
             anaconda.id.bootloader.doUpgradeOnly = 0    
 
-    # We don't need to let the user know if we're just doing the bootloader.
-    if not justConfigFile:
-        w = anaconda.intf.waitWindow(_("Bootloader"), _("Installing bootloader."))
+    w = anaconda.intf.waitWindow(_("Bootloader"), _("Installing bootloader."))
 
     kernelList = []
     otherList = []
@@ -185,8 +181,7 @@ def writeBootloader(anaconda):
 
     if kernelLabel is None:
         log.error("unable to find default image, bailing")
-	if not justConfigFile:
-	    w.pop()
+        w.pop()
         return
 
     plainLabelUsed = 0
@@ -219,18 +214,15 @@ def writeBootloader(anaconda):
     dosync()
     try:
         rc = anaconda.id.bootloader.write(anaconda.rootPath, anaconda.id.bootloader,
-                                          kernelList, otherList, defaultDev,
-                                          justConfigFile)
-	if not justConfigFile:
-	    w.pop()
+                                          kernelList, otherList, defaultDev)
+        w.pop()
 
         if rc and anaconda.intf:
             anaconda.intf.messageWindow(_("Warning"),
                                _("There was an error installing the bootloader.  "
                                  "The system may not be bootable."))
     except booty.BootyNoKernelWarning:
-	if not justConfigFile:
-	    w.pop()
+        w.pop()
         if anaconda.intf:
             anaconda.intf.messageWindow(_("Warning"),
                                _("No kernel packages were installed on the "

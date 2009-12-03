@@ -107,8 +107,7 @@ class AnacondaBackend:
         storage.writeEscrowPackets(anaconda)
 
         sys.stdout.flush()
-        if flags.setupFilesystems:
-            syslog.stop()
+        syslog.stop()
 
     def doInstall(self, anaconda):
         log.warning("doInstall not implemented for backend!")
@@ -133,16 +132,12 @@ class AnacondaBackend:
 
         self.instLog = open(instLogName, "w+")
 
-       # dont start syslogd if we arent creating filesystems
-        if flags.setupFilesystems:
-            syslogname = "%s%s.syslog" % (instPath, logname)
-            try:
-                shutil.rmtree (syslogname)
-            except OSError:
-                pass
-            syslog.start (instPath, syslogname)
-        else:
-            syslogname = None
+        syslogname = "%s%s.syslog" % (instPath, logname)
+        try:
+            shutil.rmtree (syslogname)
+        except OSError:
+            pass
+        syslog.start (instPath, syslogname)
 
         if upgrade:
             self.modeText = _("Upgrading %s\n")
@@ -150,9 +145,6 @@ class AnacondaBackend:
             self.modeText = _("Installing %s\n")
 
     def mountInstallImage(self, anaconda, installimg):
-        if not flags.setupFilesystems:
-            return
-
         if self._loopbackFile and os.path.exists(self._loopbackFile):
             return
 

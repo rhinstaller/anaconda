@@ -71,8 +71,7 @@ def startMiniWM(root='/'):
 def doStartupX11Actions(runres="800x600"):
     global miniwm_pid
 
-    if flags.setupFilesystems:
-        setupGraphicalLinks()
+    setupGraphicalLinks()
 
     # now start up mini-wm
     try:

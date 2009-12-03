@@ -91,12 +91,6 @@ def findRootParts(anaconda):
         anaconda.dispatch.skipStep("installtype", skip = 0)
 
 def findExistingRoots(anaconda, upgradeany=False):
-    if not flags.setupFilesystems:
-        (prod, ver) = getReleaseString (anaconda.rootPath)
-        if flags.cmdline.has_key("upgradeany") or upgradeany or anaconda.id.instClass.productUpgradable(prod, ver):
-            return [(anaconda.rootPath, "")]
-        return []
-
     rootparts = findExistingRootDevices(anaconda, upgradeany=upgradeany)
     return rootparts
 
@@ -150,7 +144,7 @@ def upgradeSwapSuggestion(anaconda):
         if not device.format:
             continue
         if device.format.mountable and device.format.linuxNative:
-            if flags.setupFilesystems and not device.format.status:
+            if not device.format.status:
                 continue
             space = isys.pathSpaceAvailable(anaconda.rootPath + device.format.mountpoint)
             if space > 16:
@@ -174,90 +168,80 @@ def upgradeSwapSuggestion(anaconda):
 def upgradeMountFilesystems(anaconda):
     # mount everything and turn on swap
 
-    if flags.setupFilesystems:
-	try:
-	    mountExistingSystem(anaconda,
-                                anaconda.id.upgradeRoot[0],
-                                allowDirty = 0)
-        except ValueError as e:
-            log.error("Error mounting filesystem: %s" % e)
-	    anaconda.intf.messageWindow(_("Mount failed"),
-                _("The following error occurred when mounting the file "
-                  "systems listed in /etc/fstab.  Please fix this problem "
-                  "and try to upgrade again.\n%s" % e))
-	    sys.exit(0)
-        except IndexError as e:
-            # The upgrade root is search earlier but we give the message here.
-            log.debug("No upgrade root was found.")
-            if anaconda.isKickstart and anaconda.id.ksdata.upgrade.upgrade:
-                anaconda.intf.messageWindow(_("Upgrade root not found"),
+    try:
+        mountExistingSystem(anaconda,
+                            anaconda.id.upgradeRoot[0],
+                            allowDirty = 0)
+    except ValueError as e:
+        log.error("Error mounting filesystem: %s" % e)
+        anaconda.intf.messageWindow(_("Mount failed"),
+            _("The following error occurred when mounting the file "
+              "systems listed in /etc/fstab.  Please fix this problem "
+              "and try to upgrade again.\n%s" % e))
+        sys.exit(0)
+    except IndexError as e:
+        # The upgrade root is search earlier but we give the message here.
+        log.debug("No upgrade root was found.")
+        if anaconda.isKickstart and anaconda.id.ksdata.upgrade.upgrade:
+            anaconda.intf.messageWindow(_("Upgrade root not found"),
+                _("The root for the previously installed system was not "
+                  "found."), type="custom",
+                custom_icon="info",
+                custom_buttons=[_("Exit installer")])
+            sys.exit(0)
+        else:
+            rc = anaconda.intf.messageWindow(_("Upgrade root not found"),
                     _("The root for the previously installed system was not "
-                      "found."), type="custom",
-                    custom_icon="info",
-                    custom_buttons=[_("Exit installer")])
+                      "found.  You can exit installer or backtrack to choose "
+                      "installation instead of upgrade."),
+                type="custom",
+                custom_buttons = [ _("_Back"),
+                                   _("_Exit installer") ],
+                custom_icon="question")
+            if rc == 0:
+                return DISPATCH_BACK
+            elif rc == 1:
                 sys.exit(0)
-            else:
-                rc = anaconda.intf.messageWindow(_("Upgrade root not found"),
-                        _("The root for the previously installed system was not "
-                          "found.  You can exit installer or backtrack to choose "
-                          "installation instead of upgrade."),
-                    type="custom",
-                    custom_buttons = [ _("_Back"),
-                                       _("_Exit installer") ],
-                    custom_icon="question")
-                if rc == 0:
-                    return DISPATCH_BACK
-                elif rc == 1:
-                    sys.exit(0)
 
-	checkLinks = ( '/etc', '/var', '/var/lib', '/var/lib/rpm',
-		       '/boot', '/tmp', '/var/tmp', '/root',
-                       '/bin/sh', '/usr/tmp')
-	badLinks = []
-	for n in checkLinks:
-	    if not os.path.islink(anaconda.rootPath + n): continue
-	    l = os.readlink(anaconda.rootPath + n)
-	    if l[0] == '/':
-		badLinks.append(n)
+    checkLinks = ( '/etc', '/var', '/var/lib', '/var/lib/rpm',
+                   '/boot', '/tmp', '/var/tmp', '/root',
+                   '/bin/sh', '/usr/tmp')
+    badLinks = []
+    for n in checkLinks:
+        if not os.path.islink(anaconda.rootPath + n): continue
+        l = os.readlink(anaconda.rootPath + n)
+        if l[0] == '/':
+            badLinks.append(n)
 
-	if badLinks:
-	    message = _("The following files are absolute symbolic " 
-			"links, which we do not support during an " 
-			"upgrade. Please change them to relative "
-			"symbolic links and restart the upgrade.\n\n")
-	    for n in badLinks:
-		message = message + '\t' + n + '\n'
-	    anaconda.intf.messageWindow(_("Absolute Symlinks"), message)
-	    sys.exit(0)
+    if badLinks:
+        message = _("The following files are absolute symbolic " 
+                    "links, which we do not support during an " 
+                    "upgrade. Please change them to relative "
+                    "symbolic links and restart the upgrade.\n\n")
+        for n in badLinks:
+            message = message + '\t' + n + '\n'
+        anaconda.intf.messageWindow(_("Absolute Symlinks"), message)
+        sys.exit(0)
 
-        # fix for 80446
-        badLinks = []
-        mustBeLinks = ( '/usr/tmp', )
-        for n in mustBeLinks:
-            if not os.path.islink(anaconda.rootPath + n):
-                badLinks.append(n)
+    # fix for 80446
+    badLinks = []
+    mustBeLinks = ( '/usr/tmp', )
+    for n in mustBeLinks:
+        if not os.path.islink(anaconda.rootPath + n):
+            badLinks.append(n)
 
-        if badLinks: 
-	    message = _("The following are directories which should instead "
-                        "be symbolic links, which will cause problems with the "
-                        "upgrade.  Please return them to their original state "
-                        "as symbolic links and restart the upgrade.\n\n")
-            for n in badLinks:
-                message = message + '\t' + n + '\n'
-	    anaconda.intf.messageWindow(_("Invalid Directories"), message)
-	    sys.exit(0)
-    else:
-        if not os.access (anaconda.rootPath + "/etc/fstab", os.R_OK):
-            anaconda.intf.messageWindow(_("Warning"),
-                                        _("%s not found")
-                                        % (anaconda.rootPath + "/etc/fstab",),
-                                        type="ok")
-            return DISPATCH_BACK
+    if badLinks: 
+        message = _("The following are directories which should instead "
+                    "be symbolic links, which will cause problems with the "
+                    "upgrade.  Please return them to their original state "
+                    "as symbolic links and restart the upgrade.\n\n")
+        for n in badLinks:
+            message = message + '\t' + n + '\n'
+        anaconda.intf.messageWindow(_("Invalid Directories"), message)
+        sys.exit(0)
 
-        anaconda.id.storage.parseFSTab()
-    if flags.setupFilesystems:
-        anaconda.id.storage.turnOnSwap(upgrading=True)
-        anaconda.id.storage.mkDevRoot()
+    anaconda.id.storage.turnOnSwap(upgrading=True)
+    anaconda.id.storage.mkDevRoot()
 
     # Move /etc/rpm/platform out of the way.
     if os.path.exists(anaconda.rootPath + "/etc/rpm/platform"):

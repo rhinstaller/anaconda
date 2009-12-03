@@ -189,8 +189,7 @@ class UpgradeSwapWindow:
                                          "and 2000 MB in size."))
 		else:
 		    screen.popWindow()
-                    if flags.setupFilesystems:
-                        anaconda.id.storage.createSwapFile(dev, val)
+                    anaconda.id.storage.createSwapFile(dev, val)
                     anaconda.dispatch.skipStep("addswap", 1)
 		    return INSTALL_OK
 

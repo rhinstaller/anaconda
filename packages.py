@@ -87,100 +87,99 @@ def turnOnFilesystems(anaconda):
             anaconda.id.storage.umountFilesystems()
         return DISPATCH_NOOP
 
-    if flags.setupFilesystems:
-	if not anaconda.id.upgrade:
-            if not anaconda.id.storage.fsset.active:
-                # turn off any swaps that we didn't turn on
-                # needed for live installs
-                iutil.execWithRedirect("swapoff", ["-a"],
-                                       stdout = "/dev/tty5", stderr="/dev/tty5",
-                                       searchPath = 1)
-            anaconda.id.storage.devicetree.teardownAll()
+    if not anaconda.id.upgrade:
+        if not anaconda.id.storage.fsset.active:
+            # turn off any swaps that we didn't turn on
+            # needed for live installs
+            iutil.execWithRedirect("swapoff", ["-a"],
+                                   stdout = "/dev/tty5", stderr="/dev/tty5",
+                                   searchPath = 1)
+        anaconda.id.storage.devicetree.teardownAll()
 
-        upgrade_migrate = False
-        if anaconda.id.upgrade:
-            for d in anaconda.id.storage.migratableDevices:
-                if d.format.migrate:
-                    upgrade_migrate = True
+    upgrade_migrate = False
+    if anaconda.id.upgrade:
+        for d in anaconda.id.storage.migratableDevices:
+            if d.format.migrate:
+                upgrade_migrate = True
 
-        title = None
-        message = None
-        details = None
+    title = None
+    message = None
+    details = None
 
-        try:
-            anaconda.id.storage.doIt()
-        except DeviceResizeError as (msg, device):
-            # XXX does this make any sense? do we support resize of
-            #     devices other than partitions?
-            title = _("Device Resize Failed")
-            message = _("An error was encountered while "
-                        "resizing device %s.") % (device,)
-            details = msg
-        except DeviceCreateError as (msg, device):
-            title = _("Device Creation Failed")
-            message = _("An error was encountered while "
-                        "creating device %s.") % (device,)
-            details = msg
-        except DeviceDestroyError as (msg, device):
-            title = _("Device Removal Failed")
-            message = _("An error was encountered while "
-                        "removing device %s.") % (device,)
-            details = msg
-        except DeviceError as (msg, device):
-            title = _("Device Setup Failed")
-            message = _("An error was encountered while "
-                        "setting up device %s.") % (device,)
-            details = msg
-        except FSResizeError as (msg, device):
-            title = _("Resizing Failed")
-            message = _("There was an error encountered while "
-                        "resizing the device %s.") % (device,)
+    try:
+        anaconda.id.storage.doIt()
+    except DeviceResizeError as (msg, device):
+        # XXX does this make any sense? do we support resize of
+        #     devices other than partitions?
+        title = _("Device Resize Failed")
+        message = _("An error was encountered while "
+                    "resizing device %s.") % (device,)
+        details = msg
+    except DeviceCreateError as (msg, device):
+        title = _("Device Creation Failed")
+        message = _("An error was encountered while "
+                    "creating device %s.") % (device,)
+        details = msg
+    except DeviceDestroyError as (msg, device):
+        title = _("Device Removal Failed")
+        message = _("An error was encountered while "
+                    "removing device %s.") % (device,)
+        details = msg
+    except DeviceError as (msg, device):
+        title = _("Device Setup Failed")
+        message = _("An error was encountered while "
+                    "setting up device %s.") % (device,)
+        details = msg
+    except FSResizeError as (msg, device):
+        title = _("Resizing Failed")
+        message = _("There was an error encountered while "
+                    "resizing the device %s.") % (device,)
 
-            if os.path.exists("/tmp/resize.out"):
-                details = open("/tmp/resize.out", "r").read()
-            else:
-                details = "%s" %(msg,)
-        except FSMigrateError as (msg, device):
-            title = _("Migration Failed")
-            message = _("An error was encountered while "
-                        "migrating filesystem on device %s.") % (device,)
-            details = msg
-        except FormatCreateError as (msg, device):
-            title = _("Formatting Failed")
-            message = _("An error was encountered while "
-                        "formatting device %s.") % (device,)
-            details = msg
-        except Exception as e:
-            # catch-all
-            title = _("Storage Activation Failed")
-            message = _("An error was encountered while "
-                        "activating your storage configuration.")
-            details = str(e)
-
-        if title:
-            rc = anaconda.intf.detailedMessageWindow(title, message, details,
-                                type = "custom",
-                                custom_buttons = [_("_File Bug"), _("_Exit installer")])
-
-            if rc == 0:
-                raise
-            elif rc == 1:
-                sys.exit(1)
-
-        if not anaconda.id.upgrade:
-            anaconda.id.storage.turnOnSwap()
-            anaconda.id.storage.mountFilesystems(raiseErrors=False,
-                                                 readOnly=False,
-                                                 skipRoot=anaconda.backend.skipFormatRoot)
+        if os.path.exists("/tmp/resize.out"):
+            details = open("/tmp/resize.out", "r").read()
         else:
-            if upgrade_migrate:
-                # we should write out a new fstab with the migrated fstype
-                shutil.copyfile("%s/etc/fstab" % anaconda.rootPath,
-                                "%s/etc/fstab.anaconda" % anaconda.rootPath)
-                anaconda.id.storage.fsset.write(anaconda.rootPath)
+            details = "%s" %(msg,)
+    except FSMigrateError as (msg, device):
+        title = _("Migration Failed")
+        message = _("An error was encountered while "
+                    "migrating filesystem on device %s.") % (device,)
+        details = msg
+    except FormatCreateError as (msg, device):
+        title = _("Formatting Failed")
+        message = _("An error was encountered while "
+                    "formatting device %s.") % (device,)
+        details = msg
+    except Exception as e:
+        # catch-all
+        title = _("Storage Activation Failed")
+        message = _("An error was encountered while "
+                    "activating your storage configuration.")
+        details = str(e)
 
-            # and make sure /dev is mounted so we can read the bootloader
-            bindMountDevDirectory(anaconda.rootPath)
+    if title:
+        rc = anaconda.intf.detailedMessageWindow(title, message, details,
+                            type = "custom",
+                            custom_buttons = [_("_File Bug"), _("_Exit installer")])
+
+        if rc == 0:
+            raise
+        elif rc == 1:
+            sys.exit(1)
+
+    if not anaconda.id.upgrade:
+        anaconda.id.storage.turnOnSwap()
+        anaconda.id.storage.mountFilesystems(raiseErrors=False,
+                                             readOnly=False,
+                                             skipRoot=anaconda.backend.skipFormatRoot)
+    else:
+        if upgrade_migrate:
+            # we should write out a new fstab with the migrated fstype
+            shutil.copyfile("%s/etc/fstab" % anaconda.rootPath,
+                            "%s/etc/fstab.anaconda" % anaconda.rootPath)
+            anaconda.id.storage.fsset.write(anaconda.rootPath)
+
+        # and make sure /dev is mounted so we can read the bootloader
+        bindMountDevDirectory(anaconda.rootPath)
 
 
 def setupTimezone(anaconda):

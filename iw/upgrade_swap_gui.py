@@ -65,8 +65,7 @@ class UpgradeSwapWindow (InstallWindow):
             raise gui.StayOnScreen            
 
         else:
-            if flags.setupFilesystems:
-                self.storage.createSwapFile(dev, val)
+            self.storage.createSwapFile(dev, val)
             self.dispatch.skipStep("addswap", 1)
                 
         return None

@@ -72,7 +72,6 @@ class Flags:
 	self.__dict__['flags']['ibft'] = 1
 	self.__dict__['flags']['iscsi'] = 0
 	self.__dict__['flags']['serial'] = 0
-	self.__dict__['flags']['setupFilesystems'] = 1
 	self.__dict__['flags']['autostep'] = 0
 	self.__dict__['flags']['autoscreenshot'] = 0
 	self.__dict__['flags']['usevnc'] = 0

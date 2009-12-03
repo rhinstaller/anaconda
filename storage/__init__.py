@@ -1242,8 +1242,7 @@ def mountExistingSystem(anaconda, rootEnt,
         if rc == 0:
             return -1
 
-    if flags.setupFilesystems:
-        fsset.mountFilesystems(anaconda, readOnly=readOnly, skipRoot=True)
+    fsset.mountFilesystems(anaconda, readOnly=readOnly, skipRoot=True)
 
 
 class BlkidTab(object):
