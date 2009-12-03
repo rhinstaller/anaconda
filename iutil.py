@@ -1015,3 +1015,18 @@ def resetRpmDb(rootdir):
             os.unlink(rpmfile)
         except Exception, e:
             log.debug("error %s removing file: %s" %(e,rpmfile))
+
+def parseNfsUrl(nfsurl):
+    options = ''
+    host = ''
+    path = ''
+    if nfsurl:
+        s = nfsurl.split(":")
+        s.pop(0)
+        if len(s) >= 3:
+            (options, host, path) = s[:3]
+        elif len(s) == 2:
+            (host, path) = s
+        else:
+            host = s[0]
+    return (options, host, path)

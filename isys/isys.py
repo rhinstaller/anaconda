@@ -120,10 +120,13 @@ def unlosetup(device):
 # @param remount Are we mounting an already mounted filesystem?
 # @return The return value from the mount system call.
 def mount(device, location, fstype = "ext2", readOnly = False,
-          bindMount = False, remount = False, options = "defaults"):
+          bindMount = False, remount = False, options = None):
     flags = None
     location = os.path.normpath(location)
-    opts = string.split(options)
+    if not options:
+        opts = "defaults"
+    else:
+        opts = options.split(",")
 
     # We don't need to create device nodes for devices that start with '/'
     # (like '/usbdevfs') and also some special fake devices like 'proc'.

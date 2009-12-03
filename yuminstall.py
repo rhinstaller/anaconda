@@ -460,7 +460,8 @@ class AnacondaYum(YumSorter):
                     if not self.anaconda.intf.enableNetwork():
                         self._baseRepoURL = None
 
-                isys.mount(m[4:], self.tree, "nfs")
+                (opts, server, path) = iutil.parseNfsUrl(m)
+                isys.mount(server+":"+path, self.tree, "nfs", options=opts)
 
                 # This really should be fixed in loader instead but for now see
                 # if there's images and if so go with this being an NFSISO

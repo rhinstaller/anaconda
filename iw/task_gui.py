@@ -32,6 +32,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import network
+import iutil
 
 from yuminstall import AnacondaYumRepo
 import yum.Errors
@@ -204,13 +205,10 @@ class RepoEditor:
                     self.proxyCheckbox.set_active(False)
                     self.proxyTable.set_sensitive(False)
             elif url.startswith("nfs"):
-                method_server_dir = url.split(":")
-                try:
-                    self.nfsServerEntry.set_text(method_server_dir[1])
-                    self.nfsPathEntry.set_text(method_server_dir[2])
-                except IndexError:
-                    pass
-                self.nfsOptionsEntry.set_text("")
+                (opts, server, path) = iutil.parseNfsUrl(url)
+                self.nfsServerEntry.set_text(server)
+                self.nfsPathEntry.set_text(path)
+                self.nfsOptionsEntry.set_text(opts)
             elif url.startswith("cdrom:"):
                 pass
             elif url.startswith("hd:"):
@@ -304,6 +302,9 @@ class RepoEditor:
         path = self.nfsPathEntry.get_text()
         path.strip()
 
+        options = self.nfsOptionsEntry.get_text()
+        options.strip()
+
         repo.name = self.nameEntry.get_text()
 
         if not server or not path:
@@ -315,7 +316,7 @@ class RepoEditor:
         dest = tempfile.mkdtemp("", repo.name.replace(" ", ""), "/mnt")
 
         try:
-            isys.mount("%s:%s" % (server, path), dest, "nfs")
+            isys.mount("%s:%s" % (server, path), dest, "nfs", options=options)
         except Exception as e:
             self.intf.messageWindow(_("Error Setting Up Repository"),
                 _("The following error occurred while setting up the "
@@ -323,7 +324,7 @@ class RepoEditor:
             return False
 
         repo.baseurl = "file://%s" % dest
-        repo.anacondaBaseURLs = ["nfs:%s:%s" % (server,path)]
+        repo.anacondaBaseURLs = ["nfs:%s:%s:%s" % (options,server,path)]
         return True
 
     def _applyHd(self, repo):
@@ -441,12 +442,15 @@ class RepoMethodstrEditor(RepoEditor):
         path = self.nfsPathEntry.get_text()
         path.strip()
 
+        options = self.nfsOptionsEntry.get_text()
+        options.strip()
+
         if not server or not path:
             self.intf.messageWindow(_("Error"),
                                     _("Please enter an NFS server and path."))
             return False
 
-        return "nfs:%s:%s" % (server, path)
+        return "nfs:%s:%s:%s" % (options, server, path)
 
     def _applyHd(self):
         return None
