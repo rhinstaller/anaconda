@@ -40,7 +40,7 @@ class ppcBootloaderInfo(bootloaderInfo):
         return retval
 
     def writeYaboot(self, instRoot, bl, kernelList, 
-                  chainList, defaultDev, justConfigFile):
+                    chainList, defaultDev):
 
         yabootTarget = string.join(self.getBootDevs(bl))
 
@@ -161,11 +161,10 @@ class ppcBootloaderInfo(bootloaderInfo):
         # or not
         self.password = val
 
-    def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig):
+    def write(self, instRoot, bl, kernelList, chainList, defaultDev):
         if len(kernelList) >= 1:
             rc = self.writeYaboot(instRoot, bl, kernelList, 
-                                  chainList, defaultDev, justConfig)
+                                  chainList, defaultDev)
             if rc:
                 return rc
         else:

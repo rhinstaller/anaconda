@@ -439,8 +439,7 @@ class bootloaderInfo(object):
 
         return lilo
 
-    def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig):
+    def write(self, instRoot, bl, kernelList, chainList, defaultDev):
         rc = 0
 
         if len(kernelList) >= 1:

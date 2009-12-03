@@ -13,16 +13,15 @@ class ia64BootloaderInfo(efiBootloaderInfo):
         return config
 
     def writeLilo(self, instRoot, bl, kernelList, 
-                  chainList, defaultDev, justConfig):
+                  chainList, defaultDev):
         config = self.getBootloaderConfig(instRoot, bl,
                                           kernelList, chainList, defaultDev)
         return config.write(instRoot + self.configfile, perms = 0755)
 
-    def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig):
+    def write(self, instRoot, bl, kernelList, chainList, defaultDev):
         if len(kernelList) >= 1:
             rc = self.writeLilo(instRoot, bl, kernelList,
-                                chainList, defaultDev, justConfig)
+                                chainList, defaultDev)
             if rc:
                 return rc
         else:

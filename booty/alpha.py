@@ -17,7 +17,7 @@ class alphaBootloaderInfo(bootloaderInfo):
         return partitionNumber + 1
 
     def writeAboot(self, instRoot, bl, kernelList,
-                   chainList, defaultDev, justConfig):
+                   chainList, defaultDev):
         rootDevice = self.storage.rootDevice
         try:
             bootDevice = self.storage.mountpoints["/boot"]
@@ -100,47 +100,45 @@ class alphaBootloaderInfo(bootloaderInfo):
         f.close ()
         del f
 
-        if not justConfig:
-            # Now we're ready to write the relevant boot information. wbd
-            # is the whole boot device, bdpn is the boot device partition
-            # number.
-            wbd = self.wholeDevice (bootDevice.path)
-            bdpn = self.partitionNum (bootDevice.path)
+        # Now we're ready to write the relevant boot information. wbd
+        # is the whole boot device, bdpn is the boot device partition
+        # number.
+        wbd = self.wholeDevice (bootDevice.path)
+        bdpn = self.partitionNum (bootDevice.path)
 
-            # Calling swriteboot. The first argument is the disk to write
-            # to and the second argument is a path to the bootstrap loader
-            # file.
-            args = [("/dev/%s" % wbd), "/boot/bootlx"]
-            rc = iutil.execWithRedirect ('/sbin/swriteboot', args,
-                                         root = instRoot,
-                                         stdout = "/dev/tty5",
-                                         stderr = "/dev/tty5")
-            if rc:
-                return rc
+        # Calling swriteboot. The first argument is the disk to write
+        # to and the second argument is a path to the bootstrap loader
+        # file.
+        args = [("/dev/%s" % wbd), "/boot/bootlx"]
+        rc = iutil.execWithRedirect ('/sbin/swriteboot', args,
+                                     root = instRoot,
+                                     stdout = "/dev/tty5",
+                                     stderr = "/dev/tty5")
+        if rc:
+            return rc
 
-            # Calling abootconf to configure the installed aboot. The
-            # first argument is the disk to use, the second argument is
-            # the number of the partition on which aboot.conf resides.
-            # It's always the boot partition whether it's / or /boot (with
-            # the mount point being omitted.)
-            args = [("/dev/%s" % wbd), str (bdpn)]
-            rc = iutil.execWithRedirect ('/sbin/abootconf', args,
-                                         root = instRoot,
-                                         stdout = "/dev/tty5",
-                                         stderr = "/dev/tty5")
-            if rc:
-                return rc
+        # Calling abootconf to configure the installed aboot. The
+        # first argument is the disk to use, the second argument is
+        # the number of the partition on which aboot.conf resides.
+        # It's always the boot partition whether it's / or /boot (with
+        # the mount point being omitted.)
+        args = [("/dev/%s" % wbd), str (bdpn)]
+        rc = iutil.execWithRedirect ('/sbin/abootconf', args,
+                                     root = instRoot,
+                                     stdout = "/dev/tty5",
+                                     stderr = "/dev/tty5")
+        if rc:
+            return rc
 
         return 0
 
 
-    def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig):
+    def write(self, instRoot, bl, kernelList, chainList, defaultDev):
         if len(kernelList) < 1:
             raise BootyNoKernelWarning
 
         return self.writeAboot(instRoot, bl, kernelList,
-                               chainList, defaultDev, justConfig)
+                               chainList, defaultDev)
 
     def __init__(self, instData):
         bootloaderInfo.__init__(self, instData)

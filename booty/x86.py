@@ -490,7 +490,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         return config
 
     def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig):
+              defaultDev):
         if self.timeout is None and chainList:
             self.timeout = 5
 
@@ -498,7 +498,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         if self.doUpgradeOnly:
             if self.useGrubVal:
                 return self.writeGrub(instRoot, bl, kernelList,
-                                      chainList, defaultDev, justConfig,
+                                      chainList, defaultDev,
                                       upgrade = True)
             return 0
 
@@ -507,7 +507,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
         rc = self.writeGrub(instRoot, bl, kernelList, 
                             chainList, defaultDev,
-                            justConfig | (not self.useGrubVal))
+                            not self.useGrubVal)
         if rc:
             return rc
 

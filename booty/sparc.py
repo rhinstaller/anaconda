@@ -5,7 +5,7 @@ from bootloaderInfo import *
 
 class sparcBootloaderInfo(bootloaderInfo):
     def writeSilo(self, instRoot, bl, kernelList,
-                chainList, defaultDev, justConfigFile):
+                  chainList, defaultDev):
 
         try:
             bootDev = self.storage.mountpoints["/boot"]
@@ -113,10 +113,10 @@ class sparcBootloaderInfo(bootloaderInfo):
         self.password = val
 
     def write(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfig):
+              defaultDev):
         if len(kernelList) >= 1:
             return self.writeSilo(instRoot, bl, kernelList, chainList,
-                                  defaultDev, justConfig)
+                                  defaultDev)
         else:
             raise BootyNoKernelWarning
 
