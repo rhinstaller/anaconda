@@ -1080,7 +1080,7 @@ class BTRFS(FS):
     def supported(self):
         """ Is this filesystem a supported type? """
         supported = self._supported
-        if flags.cmdline.has_key("icantbelieveitsnotbtr"):
+        if flags.cmdline.has_key("btrfs"):
             supported = self.utilsAvailable
 
         return supported
