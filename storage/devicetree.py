@@ -81,6 +81,9 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
         else:
             # we've opened the device so we're done.
             return (globalPassphrase, False)
+
+    if not intf:
+        return (None, None)
     
     buttons = [_("Back"), _("Continue")]
     passphrase_incorrect = False
