@@ -583,7 +583,16 @@ def getDiskAlignment(disk):
             disk -- a parted.Disk instance
 
     """
-    return parted.Alignment(offset=0, grainSize=1)
+    device = disk.device
+    try:
+        a = device.optimumAlignment.intersect(disk.partitionAlignment)
+    except ArithmeticError:
+        try:
+            a = device.minimumAlignment.intersect(disk.partitionAlignment)
+        except ArithmeticError:
+            a = disk.partitionAlignment
+
+    return a
 
 def sectorsToSize(sectors, sectorSize):
     """ Convert length in sectors to size in MB.
