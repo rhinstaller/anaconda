@@ -55,9 +55,6 @@
 #include <arpa/inet.h>
 #include <linux/fb.h>
 #include <libintl.h>
-#ifdef USESELINUX
-#include <selinux/selinux.h>
-#endif
 #include <libgen.h>
 #include <linux/major.h>
 #include <linux/raid/md_u.h>
@@ -112,10 +109,6 @@ static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
-#ifdef USESELINUX
-static PyObject * doMatchPathContext(PyObject * s, PyObject * args);
-static PyObject * doSetFileContext(PyObject * s, PyObject * args);
-#endif
 static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args);
 static PyObject * doGetBiosDisk(PyObject * s, PyObject * args); 
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
@@ -154,10 +147,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
     { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
-#ifdef USESELINUX
-    { "matchPathContext", (PyCFunction) doMatchPathContext, METH_VARARGS, NULL },
-    { "setFileContext", (PyCFunction) doSetFileContext, METH_VARARGS, NULL },
-#endif
     { "biosDiskProbe", (PyCFunction) doProbeBiosDisks, METH_VARARGS,NULL},
     { "getbiosdisk",(PyCFunction) doGetBiosDisk, METH_VARARGS,NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
@@ -602,41 +591,6 @@ static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
     return Py_BuildValue("i", rc);
 }
 
-#ifdef USESELINUX
-static PyObject * doMatchPathContext(PyObject * s, PyObject * args) {
-    char *fn, *buf = NULL;
-    int ret;
-
-    if (!PyArg_ParseTuple(args, "s", &fn))
-        return NULL;
-
-    ret = matchpathcon(fn, 0, &buf);
-    if (ret == 0)
-        return Py_BuildValue("s", buf);
-    
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doSetFileContext(PyObject * s, PyObject * args) {
-    char *fn, *con;
-    char * root = NULL;
-    char path[PATH_MAX];
-    int ret;
-
-    if (!PyArg_ParseTuple(args, "ss|s", &fn, &con, &root))
-        return NULL;
-
-    if (root != NULL) 
-        snprintf(path, PATH_MAX, "%s/%s", root, fn);
-    else
-        snprintf(path, PATH_MAX, "%s", root);
-
-    ret = lsetfilecon(path, con);
-
-    return Py_BuildValue("i", ret);
-}
-#endif
 static PyObject * py_getDasdPorts(PyObject * o, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
