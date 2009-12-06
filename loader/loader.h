@@ -45,7 +45,7 @@
 #define LOADER_FLAGS_VIRTPCONSOLE       (((uint64_t) 1) << 15)
 /* #16 unused */
 #define LOADER_FLAGS_NOSHELL            (((uint64_t) 1) << 17)
-#define LOADER_FLAGS_NOPCMCIA           (((uint64_t) 1) << 18)
+/* #18 unused */
 #define LOADER_FLAGS_TELNETD            (((uint64_t) 1) << 19)
 #define LOADER_FLAGS_NOPASS             (((uint64_t) 1) << 20)
 /* #21 unused */
