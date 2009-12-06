@@ -30,6 +30,7 @@
 import math
 import os
 import tempfile
+import selinux
 import isys
 
 from ..errors import *
@@ -45,6 +46,10 @@ log = logging.getLogger("storage")
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+try:
+    lost_and_found_context = selinux.matchpathcon("/lost+found", 0)[1]
+except OSError:
+    lost_and_found_context = None
 
 fs_configs = {}
 
@@ -119,7 +124,6 @@ class FS(DeviceFormat):
     _defaultInfoOptions = []
     _migrationTarget = None
     _existingSizeFields = []
-    lostAndFoundContext = None
 
     def __init__(self, *args, **kwargs):
         """ Create a FS instance.
@@ -602,10 +606,8 @@ class FS(DeviceFormat):
             ret = isys.resetFileContext(mountpoint, chroot)
             log.info("set SELinux context for newly mounted filesystem "
                      "root at %s to %s" %(mountpoint, ret))
-            if self.lostAndFoundContext is None:
-                self.lostAndFoundContext = isys.matchPathContext("/lost+found")
             isys.setFileContext("%s/lost+found" % mountpoint,
-                                self.lostAndFoundContext, chroot)
+                                lost_and_found_context, chroot)
 
         self._mountpoint = chrootedMountpoint
 

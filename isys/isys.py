@@ -37,6 +37,7 @@ import re
 import struct
 import block
 import dbus
+import selinux
 
 import logging
 log = logging.getLogger("anaconda")
@@ -605,15 +606,21 @@ def getIPAddress(dev):
 ## Get the correct context for a file from loaded policy.
 # @param fn The filename to query.
 def matchPathContext(fn):
-    return _isys.matchPathContext(fn)
+    con = None
+    try:
+        con = selinux.matchpathcon(os.path.normpath(fn), 0)[1]
+    except OSError:
+        log.info("failed to get default SELinux context for %s" % f)
+    return con
 
 ## Set the SELinux file context of a file
 # @param fn The filename to fix.
 # @param con The context to use.
 # @param instroot An optional root filesystem to look under for fn.
 def setFileContext(fn, con, instroot = '/'):
-    if con is not None and os.access("%s/%s" % (instroot, fn), os.F_OK):
-        return (_isys.setFileContext(fn, con, instroot) != 0)
+    full_path = os.path.normpath("%s/%s" % (instroot, fn))
+    if con is not None and os.access(full_path, os.F_OK):
+        return (selinux.lsetfilecon(full_path, con) != 0)
     return False
 
 ## Restore the SELinux file context of a file to its default.
