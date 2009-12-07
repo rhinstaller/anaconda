@@ -1376,77 +1376,81 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         else:
             self.ayum.update()
 
-        try:
-            while True:
-                try:
-                    (code, msgs) = self.ayum.buildTransaction()
+        while True:
+            try:
+                (code, msgs) = self.ayum.buildTransaction()
 
-                    # If %packages --ignoremissing was given, don't bother
-                    # prompting for missing dependencies.
-                    if anaconda.isKickstart and anaconda.id.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
-                        break
-
-                    if code == 1 and not anaconda.id.upgrade:
-                        # resolveDeps returns 0 if empty transaction, 1 if error,
-                        # 2 if success
-                        depprob = "\n".join(msgs)
-
-                        rc = anaconda.intf.detailedMessageWindow(_("Warning"),
-                                _("Some of the packages you have selected for "
-                                  "install are missing dependencies.  You can "
-                                  "exit the installation, go back and change "
-                                  "your package selections, or continue "
-                                  "installing these packages without their "
-                                  "dependencies."),
-                                depprob + "\n", type="custom", custom_icon="error",
-                                custom_buttons=[_("_Exit installer"), _("_Back"),
-                                                _("_Continue")])
-
-                        if rc == 0:
-                            sys.exit(1)
-                        elif rc == 1:
-                            self.ayum._undoDepInstalls()
-                            return DISPATCH_BACK
-
+                # If %packages --ignoremissing was given, don't bother
+                # prompting for missing dependencies.
+                if anaconda.isKickstart and anaconda.id.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
                     break
-                except RepoError, e:
-                    # FIXME: would be nice to be able to recover here
-                    rc = anaconda.intf.messageWindow(_("Error"),
-                                   _("Unable to read package metadata. This may be "
-                                     "due to a missing repodata directory.  Please "
-                                     "ensure that your install tree has been "
-                                     "correctly generated.\n\n%s" % e),
-                                     type="custom", custom_icon="error",
-                                     custom_buttons=[_("_Exit installer"), _("_Retry")])
+
+                if code == 1 and not anaconda.id.upgrade:
+                    # resolveDeps returns 0 if empty transaction, 1 if error,
+                    # 2 if success
+                    depprob = "\n".join(msgs)
+
+                    rc = anaconda.intf.detailedMessageWindow(_("Warning"),
+                            _("Some of the packages you have selected for "
+                              "install are missing dependencies.  You can "
+                              "exit the installation, go back and change "
+                              "your package selections, or continue "
+                              "installing these packages without their "
+                              "dependencies."),
+                            depprob + "\n", type="custom", custom_icon="error",
+                            custom_buttons=[_("_Exit installer"), _("_Back"),
+                                            _("_Continue")])
+                    dscb.pop()
+
                     if rc == 0:
-                        sys.exit(0)
-                    else:
-                        continue
-                else:
-                    break
-
-            (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
-
-            if not anaconda.id.upgrade:
-                largePart = anaconda.id.storage.mountpoints.get("/usr", anaconda.id.storage.rootDevice)
-
-                if largePart and largePart.size < self.totalSize / 1024:
-                    rc = anaconda.intf.messageWindow(_("Error"),
-                                            _("Your selected packages require %d MB "
-                                              "of free space for installation, but "
-                                              "you do not have enough available.  "
-                                              "You can change your selections or "
-                                              "exit the installer." % (self.totalSize / 1024)),
-                                            type="custom", custom_icon="error",
-                                            custom_buttons=[_("_Back"), _("_Exit installer")])
-
-                    if rc == 1:
                         sys.exit(1)
-                    else:
+                    elif rc == 1:
                         self.ayum._undoDepInstalls()
                         return DISPATCH_BACK
-        finally:
-            dscb.pop()
+
+                break
+            except RepoError, e:
+                # FIXME: would be nice to be able to recover here
+                rc = anaconda.intf.messageWindow(_("Error"),
+                               _("Unable to read package metadata. This may be "
+                                 "due to a missing repodata directory.  Please "
+                                 "ensure that your install tree has been "
+                                 "correctly generated.\n\n%s" % e),
+                                 type="custom", custom_icon="error",
+                                 custom_buttons=[_("_Exit installer"), _("_Retry")])
+                dscb.pop()
+
+                if rc == 0:
+                    sys.exit(0)
+                else:
+                    continue
+            else:
+                break
+
+        (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
+
+        if not anaconda.id.upgrade:
+            largePart = anaconda.id.storage.mountpoints.get("/usr", anaconda.id.storage.rootDevice)
+
+            if largePart and largePart.size < self.totalSize / 1024:
+                rc = anaconda.intf.messageWindow(_("Error"),
+                                        _("Your selected packages require %d MB "
+                                          "of free space for installation, but "
+                                          "you do not have enough available.  "
+                                          "You can change your selections or "
+                                          "exit the installer." % (self.totalSize / 1024)),
+                                        type="custom", custom_icon="error",
+                                        custom_buttons=[_("_Back"), _("_Exit installer")])
+
+                dscb.pop()
+
+                if rc == 1:
+                    sys.exit(1)
+                else:
+                    self.ayum._undoDepInstalls()
+                    return DISPATCH_BACK
+
+        dscb.pop()
 
         if anaconda.mediaDevice and not anaconda.isKickstart:
            rc = presentRequiredMediaMessage(anaconda)
