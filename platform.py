@@ -39,7 +39,7 @@ class Platform(object):
        architecture quirks in one place to avoid lots of platform checks
        throughout anaconda."""
     _bootFSTypes = ["ext3"]
-    _diskLabelType = parted.diskType["msdos"]
+    _diskLabelType = "msdos"
     _isEfi = iutil.isEfi()
     _minimumSector = 0
     _packages = []
@@ -140,7 +140,7 @@ class Platform(object):
         return errors
 
     def diskLabelType(self, deviceType):
-        """Return the disk label type as a parted.DiskType."""
+        """Return the disk label type as a string."""
         return self._diskLabelType
 
     @property
@@ -192,7 +192,7 @@ class Platform(object):
 
 class EFI(Platform):
     _bootFSTypes = ["ext4", "ext3", "ext2"]
-    _diskLabelType = parted.diskType["gpt"]
+    _diskLabelType = "gpt"
     _minBootPartSize = 50
     _maxBootPartSize = 256
 
@@ -249,7 +249,7 @@ class EFI(Platform):
             return 0
 
 class Alpha(Platform):
-    _diskLabelType = parted.diskType["bsd"]
+    _diskLabelType = "bsd"
 
     def checkBootRequest(self, req):
         errors = Platform.checkBootRequest(self, req)
@@ -361,7 +361,7 @@ class IPSeriesPPC(PPC):
             return 0
 
 class NewWorldPPC(PPC):
-    _diskLabelType = parted.diskType["mac"]
+    _diskLabelType = "mac"
     _minBootPartSize = (800.00 / 1024.00)
     _maxBootPartSize = 1
 
@@ -433,7 +433,7 @@ class NewWorldPPC(PPC):
             return 0
 
 class PS3(PPC):
-    _diskLabelType = parted.diskType["msdos"]
+    _diskLabelType = "msdos"
 
     def __init__(self, anaconda):
         PPC.__init__(self, anaconda)
@@ -445,14 +445,14 @@ class S390(Platform):
         Platform.__init__(self, anaconda)
 
     def diskLabelType(self, deviceType):
-        """Return the disk label type as a parted.DiskType."""
+        """Return the disk label type as a string."""
         if deviceType == parted.DEVICE_DASD:
-            return parted.diskType["dasd"]
+            return "dasd"
         else:
             return Platform.diskLabelType(self, deviceType)
 
 class Sparc(Platform):
-    _diskLabelType = parted.diskType["sun"]
+    _diskLabelType = "sun"
 
     @property
     def minimumSector(self, disk):
@@ -470,9 +470,9 @@ class X86(EFI):
         EFI.__init__(self, anaconda)
 
         if self.isEfi:
-            self._diskLabelType = parted.diskType["gpt"]
+            self._diskLabelType = "gpt"
         else:
-            self._diskLabelType = parted.diskType["msdos"]
+            self._diskLabelType = "msdos"
 
     def bootDevice(self):
         if self.isEfi:
