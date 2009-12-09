@@ -167,8 +167,7 @@ def storageComplete(anaconda):
                                 default = 0)
 
     # Make sure that all is down, even the disks that we setup after popluate.
-    for disk in anaconda.id.storage.disks:
-        disk.teardown()
+    anaconda.id.storage.devicetree.teardownAll()
 
     if rc == 0:
         return DISPATCH_BACK
