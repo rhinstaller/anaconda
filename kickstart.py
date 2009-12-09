@@ -23,6 +23,7 @@ from storage.devices import LUKSDevice
 from storage.devicelibs.lvm import getPossiblePhysicalExtents
 from storage.formats import getFormat
 from storage.partitioning import clearPartitions
+from storage.partitioning import shouldClear
 
 from errors import *
 import iutil
@@ -238,6 +239,20 @@ class Bootloader(commands.bootloader.F12_Bootloader):
 
             if self.timeout:
                 anaconda.id.bootloader.timeout = self.timeout
+
+            # add unpartitioned devices that will get partitioned into
+            # bootloader.drivelist
+            disks = anaconda.id.storage.disks
+            partitioned = anaconda.id.storage.partitioned
+            for disk in [d for d in disks if not d.partitioned]:
+                if shouldClear(disk, anaconda.id.storage.clearPartType,
+                               anaconda.id.storage.clearPartDisks):
+                    # add newly partitioned disks to the drivelist
+                    anaconda.id.bootloader.drivelist.append(disk.name)
+                elif disk.name in anaconda.id.bootloader.drivelist:
+                    # remove unpartitioned disks from the drivelist
+                    anaconda.id.bootloader.drivelist.remove(disk.name)
+            anaconda.id.bootloader.drivelist.sort(cmp=isys.compareDrives)
 
             # Throw out drives specified that don't exist.
             if self.driveorder and len(self.driveorder) > 0:
@@ -676,9 +691,14 @@ class PartitionData(commands.partition.F12_PartData):
             names = [self.disk, "mapper/" + self.disk]
             for n in names:
                 disk = devicetree.getDeviceByName(udev_resolve_devspec(n))
-                if disk:
+                should_clear = shouldClear(disk,
+                                           storage.clearPartType,
+                                           storage.clearPartDisks)
+                if disk and (disk.partitioned or should_clear):
                     kwargs["disks"] = [disk]
                     break
+                elif disk:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified unpartitioned disk %s in partition command" % self.disk)
 
             if not kwargs["disks"]:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % self.disk)
