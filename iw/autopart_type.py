@@ -34,6 +34,8 @@ import network
 from storage import iscsi
 from storage import fcoe
 from storage.deviceaction import *
+from storage.partitioning import shouldClear
+import isys
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -211,6 +213,16 @@ class PartitionTypeWindow(InstallWindow):
                 if not rc:
                     raise gui.StayOnScreen
             
+            # our list of bootloader drives may contain some drives not in
+            # the bootloader's list because of unpartitioned drives that
+            # were selected for clearing and will therefore be partitioned
+            # by the time we install the bootloader
+            for drive in self.bl_drivelist:
+                if drive.name not in self.anaconda.id.bootloader.drivelist:
+                    self.anaconda.id.bootloader.drivelist.append(drive.name)
+            self.anaconda.id.bootloader.drivelist.sort(isys.compareDrives)
+
+            # put the chosen boot device at the front of the list
             self.anaconda.id.bootloader.drivelist.remove(defboot)
             self.anaconda.id.bootloader.drivelist.insert(0, defboot)            
 
@@ -250,6 +262,58 @@ class PartitionTypeWindow(InstallWindow):
             self.xml.get_widget("driveScroll").set_sensitive(True)
             self.xml.get_widget("bootDriveCombo").set_sensitive(True)
             self.xml.get_widget("encryptButton").set_sensitive(True)
+
+        self.updateDriveLists()
+
+    def updateDriveLists(self):
+        active = self.combo.get_active_iter()
+        clearpart = self.combo.get_model().get_value(active, 1)
+
+        # modify self.bootcombo and self.drivelist to reflect the current
+        # projected set of partitioned disks
+        disallowed = [self.anaconda.updateSrc]
+        disks = self.storage.disks
+        partitioned = self.storage.partitioned
+        if clearpart not in [CLEARPART_TYPE_ALL, -1]:
+            # only disks that are already partitioned or whose whole-disk
+            # formatting is "linux native" should be allowed
+            for disk in disks:
+                if disk not in partitioned and not shouldClear(disk, clearpart):
+                    disallowed.append(disk.name)
+        else:
+            # for CLEARPART_TYPE_ALL and custom layouts all disks should be
+            # allowed since we'll put a disklabel on any unlabeled disks we
+            # clear
+            disks = self.storage.disks
+
+        createAllowedDrivesStore(self.storage.disks,
+                                 self.storage.clearPartDisks,
+                                 self.drivelist,
+                                 disallowDrives=disallowed)
+
+        # Figure out which disks are selected for populating the bootloader
+        # combo. Also deselect unsuitable disks and ensure they cannot be
+        # selected.
+        selections = {}
+        row_iter = iter(self.drivelist.get_model())
+        for row in row_iter:
+            (selected, drive, size, desc, sensitive) = tuple(row)
+            selections[drive] = selected
+
+            if self.drivelist.sensitivity_col is not None:
+                row[self.drivelist.sensitivity_col] = drive not in disallowed
+
+            if drive in disallowed:
+                row[0] = False
+
+        # bootloader is unusual in that we only want to look at disks that
+        # have disklabels -- no partitioned md or unpartitioned disks
+        self.bl_drivelist = []
+        for disk in self.storage.disks:
+            if selections[disk.name] and disk.name not in disallowed:
+                self.bl_drivelist.append(disk)
+        self.bl_drivelist.sort(cmp=isys.compareDrives, key=lambda d: d.name)
+        self._fillBootStore()
 
     def addIscsiDrive(self):
         if not network.hasActiveNetDev():
@@ -487,24 +551,22 @@ class PartitionTypeWindow(InstallWindow):
             w = self.intf.waitWindow(_("Rescanning disks"),
                                      _("Rescanning disks"))
             self.storage.reset()
-            createAllowedDrivesStore(self.storage.disks,
-                                     self.storage.clearPartDisks,
-                                     self.drivelist,
-                                     disallowDrives=[self.anaconda.updateSrc])
-            self._fillBootStore()
+            self.updateDriveLists()
             w.pop()
 
     def _fillBootStore(self):
+        # this isn't strictly necessary, but it can't hurt -- especially if
+        # the user has added drives via iscsi or fcoe or similar
         self.anaconda.id.bootloader.updateDriveList()
+
         bootstore = self.bootcombo.get_model()
         bootstore.clear()
-        if len(self.anaconda.id.bootloader.drivelist) > 0:
-            defaultBoot = self.anaconda.id.bootloader.drivelist[0]
+        if len(self.bl_drivelist) > 0:
+            defaultBoot = self.bl_drivelist[0].name
         else:
             defaultBoot = None
-        for disk in self.storage.disks:
-            if disk.name not in self.anaconda.id.bootloader.drivelist:
-                continue
+
+        for disk in self.bl_drivelist:
             dispstr = "%s %8.0f MB %s" %(disk.name, disk.size, disk.description)
             i = bootstore.append(None)
             bootstore[i] = (dispstr, disk.name)
@@ -574,7 +636,7 @@ class PartitionTypeWindow(InstallWindow):
 
         bootstore = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
         self.bootcombo.set_model(bootstore)
-        self._fillBootStore()
+        self.updateDriveLists()
 
         self.prevrev = None
         self.review = not self.dispatch.stepInSkipList("partition")
@@ -604,5 +666,4 @@ class PartitionTypeWindow(InstallWindow):
         sigs = { "on_partitionTypeCombo_changed": self.comboChanged,
                  "on_addButton_clicked": self.addDrive }
         self.xml.signal_autoconnect(sigs)
-
         return vbox

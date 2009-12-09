@@ -166,10 +166,11 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
 
 def createAllowedDrivesList(disks, reqdrives, selectDrives=True, disallowDrives=[]):
     store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING,
-			  gobject.TYPE_STRING)
-    drivelist = WideCheckList(3, store)
+                          gobject.TYPE_STRING,
+                          gobject.TYPE_STRING,
+                          gobject.TYPE_STRING,
+                          gobject.TYPE_BOOLEAN)
+    drivelist = WideCheckList(3, store, sensitivity=True)
     createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=selectDrives,
                              disallowDrives=disallowDrives)
 

@@ -32,6 +32,7 @@ from constants import *
 from errors import *
 from deviceaction import *
 from devices import PartitionDevice, LUKSDevice, devicePathToName
+from formats import getFormat
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -276,37 +277,40 @@ def doAutoPartition(anaconda):
         anaconda.id.storage.reset()
         return DISPATCH_BACK
 
-def shouldClear(part, clearPartType, clearPartDisks=None):
-    if not isinstance(part, PartitionDevice):
+def shouldClear(device, clearPartType, clearPartDisks=None):
+    if clearPartType not in [CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL]:
         return False
 
-    if not clearPartType in [CLEARPART_TYPE_LINUX, CLEARPART_TYPE_ALL]:
-        return False
+    if isinstance(device, PartitionDevice):
+        # Never clear the special first partition on a Mac disk label, as that
+        # holds the partition table itself.
+        if device.disk.format.partedDisk.type == "mac" and \
+           device.partedPartition.number == 1 and \
+           device.partedPartition.name == "Apple":
+            return False
 
-    # Never clear the special first partition on a Mac disk label, as that
-    # holds the partition table itself.
-    if part.disk.format.partedDisk.type == "mac" and \
-       part.partedPartition.number == 1 and \
-       part.partedPartition.name == "Apple":
-        return False
+        # If we got a list of disks to clear, make sure this one's on it
+        if clearPartDisks and device.disk.name not in clearPartDisks:
+            return False
 
-    # If we got a list of disks to clear, make sure this one's on it
-    if clearPartDisks and part.disk.name not in clearPartDisks:
-        return False
+        # We don't want to fool with extended partitions, freespace, &c
+        if device.partType not in [parted.PARTITION_NORMAL,
+                                   parted.PARTITION_LOGICAL]:
+            return False
 
-    # Don't clear partitions holding install media.
-    if part.protected:
-        return False
+        if clearPartType == CLEARPART_TYPE_LINUX and \
+           not device.format.linuxNative and \
+           not device.getFlag(parted.PARTITION_LVM) and \
+           not device.getFlag(parted.PARTITION_RAID) and \
+           not device.getFlag(parted.PARTITION_SWAP):
+            return False
+    elif device.isDisk and not device.partitioned:
+        if clearPartType == CLEARPART_TYPE_LINUX and \
+           not device.format.linuxNative:
+            return False
 
-    # We don't want to fool with extended partitions, freespace, &c
-    if part.partType not in [parted.PARTITION_NORMAL, parted.PARTITION_LOGICAL]:
-        return False
-
-    if clearPartType == CLEARPART_TYPE_LINUX and \
-       not part.format.linuxNative and \
-       not part.getFlag(parted.PARTITION_LVM) and \
-       not part.getFlag(parted.PARTITION_RAID) and \
-       not part.getFlag(parted.PARTITION_SWAP):
+    # Don't clear devices holding install media.
+    if device.protected:
         return False
 
     # TODO: do platform-specific checks on ia64, pSeries, iSeries, mac
@@ -377,6 +381,24 @@ def removeEmptyExtendedPartitions(storage):
             storage.destroyDevice(extended)
             #disk.partedDisk.removePartition(extended.partedPartition)
 
+    for disk in [d for d in storage.disks if d not in storage.partitioned]:
+        # clear any whole-disk formats that need clearing
+        if shouldClear(disk, storage.clearPartType, storage.clearPartDisks):
+            log.debug("clearing %s" % disk.name)
+            devices = storage.deviceDeps(disk)
+            while devices:
+                log.debug("devices to remove: %s" % ([d.name for d in devices],))
+                leaves = [d for d in devices if d.isleaf]
+                log.debug("leaves to remove: %s" % ([d.name for d in leaves],))
+                for leaf in leaves:
+                    storage.destroyDevice(leaf)
+                    devices.remove(leaf)
+
+            destroy_action = ActionDestroyFormat(disk)
+            newLabel = getFormat("disklabel", device=disk.path)
+            create_action = ActionCreateFormat(disk, format=newLabel)
+            storage.devicetree.registerAction(destroy_action)
+            storage.devicetree.registerAction(create_action)
 
 def partitionCompare(part1, part2):
     """ More specifically defined partitions come first.
