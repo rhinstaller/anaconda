@@ -41,10 +41,9 @@ log = logging.getLogger("storage")
 class DiskLabel(DeviceFormat):
     """ Disklabel """
     _type = "disklabel"
-    _name = None
+    _name = "partition table"
     _formattable = True                # can be formatted
     _supported = False                 # is supported
-    _hidden = True                     # hide devices with this formatting?
 
     def __init__(self, *args, **kwargs):
         """ Create a DiskLabel instance.
@@ -131,6 +130,15 @@ class DiskLabel(DeviceFormat):
                  pass
 
         return self._partedDevice
+
+    @property
+    def labelType(self):
+        """ The disklabel type (eg: 'gpt', 'msdos') """
+        return self.partedDisk.type
+
+    @property
+    def name(self):
+        return "%s (%s)" % (self._name, self.labelType.upper())
 
     @property
     def size(self):
