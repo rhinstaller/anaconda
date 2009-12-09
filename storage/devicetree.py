@@ -570,10 +570,10 @@ class DeviceTree(object):
                     else:
                         ret = cmp(a2.device.name, a1.device.name)
                 elif isinstance(a1.device, PartitionDevice) and \
-                     not isinstance(a2.device, DiskDevice):
+                     a2.device.partitioned:
                     ret = 1
                 elif isinstance(a2.device, PartitionDevice) and \
-                     not isinstance(a1.device, DiskDevice):
+                     a1.device.partitioned:
                     ret = -1
                 else:
                     ret = 0
@@ -613,13 +613,13 @@ class DeviceTree(object):
                      isinstance(a2.device, PartitionDevice):
                     ret = cmp(a1.device.name, a2.device.name)
                 elif isinstance(a1.device, PartitionDevice) and \
-                     not isinstance(a2.device, DiskDevice):
+                     a2.device.partitioned:
                     if a1.isGrow():
                         ret = -1
                     else:
                         ret = 1
                 elif isinstance(a2.device, PartitionDevice) and \
-                     not isinstance(a1.device, DiskDevice):
+                     a1.device.partitioned:
                     if a2.isGrow():
                         ret = 1
                     else:
@@ -653,10 +653,10 @@ class DeviceTree(object):
                     else:
                         ret = cmp(a1.device.name, a2.device.name)
                 elif isinstance(a1.device, PartitionDevice) and \
-                     not isinstance(a2.device, DiskDevice):
+                     a2.device.partitioned:
                     ret = -1
                 elif isinstance(a2.device, PartitionDevice) and \
-                     not isinstance(a1.device, DiskDevice):
+                     a1.device.partitioned:
                     ret = 1
                 else:
                     ret = 0
@@ -684,7 +684,7 @@ class DeviceTree(object):
 
         log.debug("resetting parted disks...")
         for device in self.devices:
-            if device.format.type == "disklabel":
+            if device.partitioned:
                 device.format.resetPartedDisk()
 
         # reget parted.Partition for remaining preexisting devices
@@ -1187,7 +1187,7 @@ class DeviceTree(object):
             kwargs["identifier"] = udev_device_get_fcoe_identifier(info)
             log.debug("%s is an fcoe disk" % name)
         elif udev_device_get_md_container(info):
-            diskType = PartitionableMDRaidArrayDevice
+            diskType = MDRaidArrayDevice
             parentName = devicePathToName(udev_device_get_md_container(info))
             kwargs["parents"] = [ self.getDeviceByName(parentName) ]
             kwargs["level"]  = udev_device_get_md_level(info)
@@ -1253,7 +1253,7 @@ class DeviceTree(object):
         # The first step is to either look up or create the device
         #
         if udev_device_is_multipath_member(info):
-            device = StorageDevice(name,
+            device = DiskDevice(name,
                             major=udev_device_get_major(info),
                             minor=udev_device_get_minor(info),
                             sysfsPath=sysfs_path, exists=True,
@@ -1285,14 +1285,9 @@ class DeviceTree(object):
             if device is None:
                 device = self.addUdevOpticalDevice(info)
         elif udev_device_is_biosraid(info) and udev_device_is_disk(info):
-            # This is special handling to avoid the "unrecognized disklabel"
-            # code since biosraid member disks won't have a disklabel. We
-            # use a StorageDevice because DiskDevices need disklabels.
-            # Quite lame, but it doesn't matter much since we won't use
-            # the StorageDevice instances for anything.
             log.debug("%s is part of a biosraid" % name)
             if device is None:
-                device = StorageDevice(name,
+                device = DiskDevice(name,
                                 major=udev_device_get_major(info),
                                 minor=udev_device_get_minor(info),
                                 sysfsPath=sysfs_path, exists=True)
@@ -1314,23 +1309,28 @@ class DeviceTree(object):
         if device and device.name in self.protectedDevNames:
             device.protected = True
 
-        # Don't try to do format handling on drives without media
-        if device and not device.mediaPresent:
+        # Don't try to do format handling on drives without media or
+        # if we didn't end up with a device somehow.
+        if not device or not device.mediaPresent:
             return
 
         # Now, if the device is a disk, see if there is a usable disklabel.
         # If not, see if the user would like to create one.
-        # XXX this is the bit that forces disklabels on disks. Lame.
-        if isinstance(device, DiskDevice):
+        if device.partitionable:
             self.handleUdevDiskLabelFormat(info, device)
-            return
+            if device.partitioned or self.isIgnored(info):
+                # If the device has a disklabel, or the user chose not to
+                # create one, we are finished with this device. Otherwise
+                # it must have some non-disklabel formatting, in which case
+                # we fall through to handle that.
+                return
 
         # now handle the device's formatting
         self.handleUdevDeviceFormat(info, device)
 
     def handleUdevDiskLabelFormat(self, info, device):
         log_method_call(self, device=device.name)
-        if device.format.type == "disklabel":
+        if device.partitioned:
             # this device is already set up
             log.debug("disklabel format on %s already set up" % device.name)
             return
@@ -1374,6 +1374,11 @@ class DeviceTree(object):
                                device=device.path,
                                exists=not initlabel)
         except InvalidDiskLabelError:
+            # if there is preexisting formatting on the device we will
+            # use it instead of ignoring the device
+            if not self.zeroMbr and \
+               getFormat(udev_device_get_format(info)).type is not None:
+                return
             # if we have a cb function use it. else we ignore the device.
             if initcb is not None and initcb():
                 format = getFormat("disklabel",
@@ -1770,7 +1775,7 @@ class DeviceTree(object):
 
         if shouldClear(device, self.clearPartType,
                        clearPartDisks=self.clearPartDisks):
-            # if this is a partition that will be cleared by clearpart,
+            # if this is a device that will be cleared by clearpart,
             # don't bother with format-specific processing
             return
 

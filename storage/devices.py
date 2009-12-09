@@ -419,6 +419,8 @@ class StorageDevice(Device):
     _devDir = "/dev"
     sysfsBlockDir = "class/block"
     _resizable = False
+    partitionable = False
+    isDisk = False
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None,
@@ -711,9 +713,15 @@ class StorageDevice(Device):
                 os.access(remfile, os.R_OK) and
                 open(remfile).readline().strip() == "1")
 
+    @property
+    def partitioned(self):
+        return self.format.type == "disklabel"
+
 class DiskDevice(StorageDevice):
     """ A disk """
     _type = "disk"
+    partitionable = True
+    isDisk = True
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None, sysfsPath='', \
@@ -2196,12 +2204,9 @@ class LVMLogicalVolumeDevice(DMDevice):
 
 
 class MDRaidArrayDevice(StorageDevice):
-    """ An mdraid (Linux RAID) device.
-
-        Since this is derived from StorageDevice, not DiskDevice, it
-        can NOT be used to represent a partitionable device.
-    """
+    """ An mdraid (Linux RAID) device. """
     _type = "mdarray"
+    partitionable = True
 
     def __init__(self, name, level=None, major=None, minor=None, size=None,
                  memberDevices=None, totalDevices=None, bitmap=False,
@@ -2644,29 +2649,28 @@ class MDRaidArrayDevice(StorageDevice):
         # real work, but it isn't our place to do it from here.
         self.exists = False
 
-
-class PartitionableMDRaidArrayDevice(MDRaidArrayDevice, DiskDevice):
-    """ A partitionable mdraid (Linux RAID) device.
-
-        Since this is derived from DiskDevice, not StorageDevice, it
-        can be used to represent a partitionable device.
-    """
-    _type = "partitionable mdarray"
-
     @property
     def mediaPresent(self):
-        # Even if stopped/deactivated we still want to show up in storage.disks
-        return True
+        present = None
+        if self.partitioned:
+            # Even if stopped/deactivated we still want to show up in
+            # storage.disks
+            present = True
+        else:
+            present = self.partedDevice is not None
+
+        return present
 
     @property
     def model(self):
         return "RAID%d Array" % self.level
 
-class DMRaidArrayDevice(DiskDevice):
+class DMRaidArrayDevice(DMDevice):
     """ A dmraid (device-mapper RAID) device """
     _type = "dm-raid array"
     _packages = ["dmraid"]
-    _devDir = "/dev/mapper"
+    partitionable = True
+    isDisk = True
 
     def __init__(self, name, raidSet=None, format=None,
                  size=None, major=None, minor=None, parents=None,
@@ -2689,14 +2693,13 @@ class DMRaidArrayDevice(DiskDevice):
             for parent in parents:
                 if not parent.format or parent.format.type != "dmraidmember":
                     raise ValueError("parent devices must contain dmraidmember format")
-        DiskDevice.__init__(self, name, format=format, size=size,
-                            major=major, minor=minor, parents=parents,
-                            sysfsPath=sysfsPath)
+        DMDevice.__init__(self, name, format=format, size=size,
+                          major=major, minor=minor, parents=parents,
+                          sysfsPath=sysfsPath)
 
         self.formatClass = get_device_format_class("dmraidmember")
         if not self.formatClass:
             raise StorageError("cannot find class for 'dmraidmember'")
-
 
         self._raidSet = raidSet
 
@@ -2734,19 +2737,6 @@ class DMRaidArrayDevice(DiskDevice):
         """ Return a list of this array's member device instances. """
         return self.parents
 
-    def updateSysfsPath(self):
-        """ Update this device's sysfs path. """
-        log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created", self.name)
-
-        if self.status:
-            dm_node = dm.dm_node_from_name(self.name)
-            path = os.path.join("/sys", self.sysfsBlockDir, dm_node)
-            self.sysfsPath = os.path.realpath(path)[4:]
-        else:
-            self.sysfsPath = ''
-
     def deactivate(self):
         """ Deactivate the raid set. """
         log_method_call(self, self.name, status=self.status)
@@ -2759,6 +2749,20 @@ class DMRaidArrayDevice(DiskDevice):
         # This call already checks if the set is active.
         self._raidSet.activate(mknod=True)
         udev_settle()
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+        StorageDevice.setup(self, intf=intf)
+        self.activate()
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists and not recursive:
+            raise DeviceError("device has not been created", self.name)
+
+        log.debug("not tearing down dmraid device %s" % self.name)
 
     @property
     def mediaPresent(self):
@@ -2778,11 +2782,12 @@ def generateMultipathDeviceName():
     number = _multipathDeviceNameGenerator.get()
     return "mpath%s" % (number, )
 
-class MultipathDevice(DiskDevice):
+class MultipathDevice(DMDevice):
     """ A multipath device """
     _type = "dm-multipath"
     _packages = ["device-mapper-multipath"]
-    _devDir = "/dev/mapper"
+    partitionable = True
+    isDisk = True
 
     def __init__(self, name, info, format=None, size=None,
                  parents=None, sysfsPath=''):
@@ -2805,7 +2810,7 @@ class MultipathDevice(DiskDevice):
         self._isUp = False
         self._pyBlockMultiPath = None
         self.setupIdentity()
-        DiskDevice.__init__(self, name, format=format, size=size,
+        DMDevice.__init__(self, name, format=format, size=size,
                           parents=parents, sysfsPath=sysfsPath)
 
         # PJTODO: these need better setup
@@ -2882,26 +2887,6 @@ class MultipathDevice(DiskDevice):
         self._isUp = False
         self._pyBlockMultiPath = None
 
-    def updateSysfsPath(self):
-        """ Update this device's sysfs path. """
-        log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created", self.name)
-
-        if self.status:
-            dm_node = self.getDMNode()
-            path = os.path.join("/sys", self.sysfsBlockDir, dm_node)
-            self.sysfsPath = os.path.realpath(path)[4:]
-        else:
-            self.sysfsPath = ''
-
-    def getDMNode(self):
-        """ Return the dm-X (eg: dm-0) device node for this device. """
-        log_method_call(self, self.name, status=self.status)
-        if not self.exists:
-            raise DeviceError("device has not been created", self.name)
-
-        return dm.dm_node_from_name(self.name)
 
 class NoDevice(StorageDevice):
     """ A nodev device for nodev filesystems like tmpfs. """
@@ -3094,6 +3079,8 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An iSCSI disk. """
     _type = "iscsi"
     _packages = ["iscsi-initiator-utils", "dracut-network"]
+    partitionable = True
+    isDisk = True
 
     def __init__(self, device, **kwargs):
         self.node = kwargs.pop("node")
@@ -3126,6 +3113,8 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An FCoE disk. """
     _type = "fcoe"
     _packages = ["fcoe-utils", "dracut-network"]
+    partitionable = True
+    isDisk = True
 
     def __init__(self, device, **kwargs):
         self.nic = kwargs.pop("nic")

@@ -386,13 +386,37 @@ class Storage(object):
         """
         disks = []
         for device in self.devicetree.devices:
-            if isinstance(device, DiskDevice):
+            if device.isDisk:
                 if not device.mediaPresent:
                     log.info("Skipping disk: %s: No media present" % device.name)
                     continue
                 disks.append(device)
         disks.sort(key=lambda d: d.name, cmp=isys.compareDrives)
         return disks
+
+    @property
+    def partitioned(self):
+        """ A list of the partitioned devices in the device tree.
+
+            Ignored devices are not included, nor disks with no media present.
+
+            This is based on the current state of the device tree and
+            does not necessarily reflect the actual on-disk state of the
+            system's disks.
+        """
+        partitioned = []
+        for device in self.devicetree.devices:
+            if not device.partitioned:
+                continue
+
+            if not device.mediaPresent:
+                log.info("Skipping device: %s: No media present" % device.name)
+                continue
+
+            partitioned.append(device)
+
+        partitioned.sort(key=lambda d: d.name)
+        return partitioned
 
     @property
     def partitions(self):

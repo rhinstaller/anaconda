@@ -43,7 +43,7 @@ def _createFreeSpacePartitions(anaconda):
     # get a list of disks that have at least one free space region of at
     # least 100MB
     disks = []
-    for disk in anaconda.id.storage.disks:
+    for disk in anaconda.id.storage.partitioned:
         if anaconda.id.storage.clearPartDisks and \
            (disk.name not in anaconda.id.storage.clearPartDisks):
             continue
@@ -169,7 +169,8 @@ def doAutoPartition(anaconda):
     log.debug("clearPartType: %s" % anaconda.id.storage.clearPartType)
     log.debug("clearPartDisks: %s" % anaconda.id.storage.clearPartDisks)
     log.debug("autoPartitionRequests: %s" % anaconda.id.storage.autoPartitionRequests)
-    log.debug("storage.disks: %s" % anaconda.id.storage.disks)
+    log.debug("storage.disks: %s" % [d.name for d in anaconda.id.storage.disks])
+    log.debug("storage.partitioned: %s" % [d.name for d in anaconda.id.storage.partitioned])
     log.debug("all names: %s" % [d.name for d in anaconda.id.storage.devices])
     if anaconda.dir == DISPATCH_BACK:
         anaconda.id.storage.reset()
@@ -363,9 +364,8 @@ def clearPartitions(storage):
     # now remove any empty extended partitions
     removeEmptyExtendedPartitions(storage)
 
-
 def removeEmptyExtendedPartitions(storage):
-    for disk in storage.disks:
+    for disk in storage.partitioned:
         log.debug("checking whether disk %s has an empty extended" % disk.name)
         extended = disk.format.extendedPartition
         logical_parts = disk.format.logicalPartitions
@@ -742,7 +742,7 @@ def doPartitioning(storage, exclusiveDisks=None):
 
     """
     anaconda = storage.anaconda
-    disks = storage.disks
+    disks = storage.partitioned
     if exclusiveDisks:
         disks = [d for d in disks if d.name in exclusiveDisks]
 

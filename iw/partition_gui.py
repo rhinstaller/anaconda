@@ -1017,62 +1017,66 @@ class PartitionWindow(InstallWindow):
             parent = self.tree.append(drvparent)
 
             self.tree[parent]['PyObject'] = disk
-            part = disk.format.firstPartition
-            extendedParent = None
-            while part:
-                if part.type & parted.PARTITION_METADATA:
-                    part = part.nextPartition()
-                    continue
-
-                partName = devicePathToName(part.getDeviceNodeName())
-                device = self.storage.devicetree.getDeviceByName(partName)
-                if not device and not part.type & parted.PARTITION_FREESPACE:
-                    log.debug("can't find partition %s in device"
-                                       " tree" % partName)
-
-                # ignore the tiny < 1 MB free space partitions (#119479)
-                if part.getSize(unit="MB") <= 1.0 and \
-                   part.type & parted.PARTITION_FREESPACE:
-                    if not part.active or not device.bootable:
+            if disk.partitioned:
+                part = disk.format.firstPartition
+                extendedParent = None
+                while part:
+                    if part.type & parted.PARTITION_METADATA:
                         part = part.nextPartition()
                         continue
 
-                if device and device.isExtended:
-                    if extendedParent:
-                        raise RuntimeError, ("can't handle more than "
-                                             "one extended partition per disk")
-                    extendedParent = self.tree.append(parent)
-                    iter = extendedParent
-                elif device and device.isLogical:
-                    if not extendedParent:
-                        raise RuntimeError, ("crossed logical partition "
-                                             "before extended")
-                    iter = self.tree.append(extendedParent)
-                else:
-                    iter = self.tree.append(parent)
+                    partName = devicePathToName(part.getDeviceNodeName())
+                    device = self.storage.devicetree.getDeviceByName(partName)
+                    if not device and not part.type & parted.PARTITION_FREESPACE:
+                        log.debug("can't find partition %s in device"
+                                           " tree" % partName)
 
-                if device and not device.isExtended:
-                    self.addDevice(device, iter)
-                else:
-                    # either extended or freespace
-                    if part.type & parted.PARTITION_FREESPACE:
-                        devstring = _("Free")
-                        ptype = ""
+                    # ignore the tiny < 1 MB free space partitions (#119479)
+                    if part.getSize(unit="MB") <= 1.0 and \
+                       part.type & parted.PARTITION_FREESPACE:
+                        if not part.active or not device.bootable:
+                            part = part.nextPartition()
+                            continue
+
+                    if device and device.isExtended:
+                        if extendedParent:
+                            raise RuntimeError, ("can't handle more than "
+                                                 "one extended partition per disk")
+                        extendedParent = self.tree.append(parent)
+                        iter = extendedParent
+                    elif device and device.isLogical:
+                        if not extendedParent:
+                            raise RuntimeError, ("crossed logical partition "
+                                                 "before extended")
+                        iter = self.tree.append(extendedParent)
                     else:
-                        devstring = device.name
-                        ptype = _("Extended")
+                        iter = self.tree.append(parent)
 
-                    self.tree[iter]['Device'] = devstring
-                    self.tree[iter]['Type'] = ptype
-                    size = part.getSize(unit="MB")
-                    if size < 1.0:
-                        sizestr = "< 1"
+                    if device and not device.isExtended:
+                        self.addDevice(device, iter)
                     else:
-                        sizestr = "%Ld" % (size)
-                    self.tree[iter]['Size (MB)'] = sizestr
-                    self.tree[iter]['PyObject'] = device
+                        # either extended or freespace
+                        if part.type & parted.PARTITION_FREESPACE:
+                            devstring = _("Free")
+                            ptype = ""
+                        else:
+                            devstring = device.name
+                            ptype = _("Extended")
 
-                part = part.nextPartition()
+                        self.tree[iter]['Device'] = devstring
+                        self.tree[iter]['Type'] = ptype
+                        size = part.getSize(unit="MB")
+                        if size < 1.0:
+                            sizestr = "< 1"
+                        else:
+                            sizestr = "%Ld" % (size)
+                        self.tree[iter]['Size (MB)'] = sizestr
+                        self.tree[iter]['PyObject'] = device
+
+                    part = part.nextPartition()
+            else:
+                # whole-disk formatting
+                self.addDevice(disk, parent)
 
             # Insert a '\n' when device string is too long.  Usually when it
             # contains '/dev/mapper'.  First column should be around 20 chars.
@@ -1116,7 +1120,7 @@ class PartitionWindow(InstallWindow):
 
             # Display a create dialog.
             stripe_dev = disp_stripe.obj
-            if isinstance(stripe_dev, storage.DiskDevice):
+            if stripe_dev.partitioned:
                 tempformat = self.storage.defaultFSType
                 device = self.storage.newPartition(fmt_type=tempformat, size=200)
                 self.editPartition(device, isNew = True)
@@ -1145,7 +1149,7 @@ class PartitionWindow(InstallWindow):
             # FIXME: This code might repeat itself.  might be a good idea to
             # put it in a function.
             curr_parent = self.tree[iparent]["PyObject"]
-            if isinstance(curr_parent, storage.DiskDevice):
+            if curr_parent.partitioned:
                 tempformat = self.storage.defaultFSType
                 device = self.storage.newPartition(fmt_type=tempformat, size=200)
                 self.editPartition(device, isNew = True)
@@ -1187,7 +1191,7 @@ class PartitionWindow(InstallWindow):
         if not device:
             # This is free space.
             parent = self.tree[iparent]["PyObject"]
-            if isinstance(parent, storage.DiskDevice):
+            if parent.partitioned:
                 if not isinstance(self.stripeGraph, DiskStripeGraph):
                     self.stripeGraph.shutDown()
                     self.stripeGraph = DiskStripeGraph(self.storage,
@@ -1203,7 +1207,7 @@ class PartitionWindow(InstallWindow):
                             dcCB = self.barviewActivateCB)
                 self.stripeGraph.setDisplayed(parent)
 
-        elif isinstance(device, storage.DiskDevice):
+        elif device.partitioned:
             if not isinstance(self.stripeGraph, DiskStripeGraph):
                 self.stripeGraph.shutDown()
                 self.stripeGraph = DiskStripeGraph(self.storage,
@@ -1273,7 +1277,7 @@ class PartitionWindow(InstallWindow):
             devices. This will need some work when that time comes.
         """
         device = self.tree.getCurrentDevice()
-        if device.format.type == "disklabel":
+        if device.partitioned:
             if doClearPartitionedDevice(self.intf,
                                         self.storage,
                                         device):
@@ -1281,8 +1285,7 @@ class PartitionWindow(InstallWindow):
         elif doDeleteDevice(self.intf,
                             self.storage,
                             device):
-            if isinstance(device, storage.devices.DiskDevice) or \
-               isinstance(device, storage.devices.PartitionDevice):
+            if isinstance(device, storage.devices.PartitionDevice):
                 justRedraw = False
             else:
                 justRedraw = True
@@ -1327,7 +1330,7 @@ class PartitionWindow(InstallWindow):
 
         # FIXME: Why do I need availraidparts to clone?
         activate_create_raid_clone = False
-        if (len(self.storage.disks) > 1
+        if (len(self.storage.partitioned) > 1
                 and availraidparts > 0):
             activate_create_raid_clone = True
 

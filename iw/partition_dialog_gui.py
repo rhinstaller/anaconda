@@ -164,14 +164,14 @@ class PartitionEditor:
 
                     iter = model.iter_next(iter)
 
-                if len(allowdrives) == len(self.storage.disks):
+                if len(allowdrives) == len(self.storage.partitioned):
                     allowdrives = None
 
                 size = self.sizespin.get_value_as_int()
                 disks = []
                 if allowdrives:
                     for drive in allowdrives:
-                        for disk in self.storage.disks:
+                        for disk in self.storage.partitioned:
                             if disk.name == drive:
                                 disks.append(disk)
 
@@ -403,7 +403,7 @@ class PartitionEditor:
             maintable.attach(lbl, 0, 1, row, row + 1)
 
             req_disk_names = [d.name for d in self.origrequest.req_disks]
-            self.driveview = createAllowedDrivesList(self.storage.disks,
+            self.driveview = createAllowedDrivesList(self.storage.partitioned,
                                                      req_disk_names,
                                                      disallowDrives=[self.anaconda.updateSrc])
             lbl.set_mnemonic_widget(self.driveview)

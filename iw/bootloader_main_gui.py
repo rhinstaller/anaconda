@@ -136,7 +136,10 @@ class MainBootloaderWindow(InstallWindow):
             lbl = dxml.get_widget("bd%dLabel" %(i,))
             combo.show()
             lbl.show()
-            m = __genStore(combo, anaconda.id.storage.disks, self.driveorder[i - 1])
+            partitioned = anaconda.id.storage.partitioned
+            disks = anaconda.id.storage.disks
+            bl_disks = [d.name for d in disks if d in partitioned]
+            m = __genStore(combo, bl_disks, self.driveorder[i - 1])
 
         dxml.get_widget("bd1Combo").connect("changed", __driveChange, dxml, choices)
         __driveChange(dxml.get_widget("bd1Combo"), dxml, choices)
@@ -190,10 +193,11 @@ class MainBootloaderWindow(InstallWindow):
         self.bl = anaconda.id.bootloader
         self.intf = anaconda.intf
 
-        disks = anaconda.id.storage.disks
         self.driveorder = self.bl.drivelist
         if len(self.driveorder) == 0:
-            self.driveorder = [d.name for d in disks]
+            partitioned = anaconda.id.storage.partitioned
+            disks = anaconda.id.storage.disks
+            self.driveorder = [d.name for d in disks if d in partitioned]
 
         if self.bl.getPassword():
             self.usePass = 1

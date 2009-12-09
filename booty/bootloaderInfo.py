@@ -474,7 +474,11 @@ class bootloaderInfo(object):
         f.write("\n")
 
     def updateDriveList(self, sortedList=[]):
-        self._drivelist = map(lambda x: x.name, self.storage.disks)
+        # bootloader is unusual in that we only want to look at disks that
+        # have disklabels -- no partitioned md or unpartitioned disks
+        disks = self.storage.disks
+        partitioned = self.storage.partitioned
+        self._drivelist = [d.name for d in disks if d in partitioned]
         self._drivelist.sort(isys.compareDrives)
 
         # If we're given a sort order, make sure the drives listed in it

@@ -420,7 +420,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 # do tests we just want in UI for now, not kickstart
 def doUIRAIDLVMChecks(request, storage):
     fstype = request.format.name
-    numdrives = len(storage.disks)
+    numdrives = len(storage.partitioned)
     
 ##     if fstype and fstype.getName() == "physical volume (LVM)":
 ## 	if request.grow:
