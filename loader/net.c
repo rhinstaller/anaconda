@@ -983,7 +983,7 @@ int manualNetConfig(char * device, iface_t * iface,
     }
 
     /* run the form */
-    while ((have[IPV4] != 2) && (have[IPV6] != 2)) {
+    while ((have[IPV4] != 2) || (have[IPV6] != 2)) {
         answer = newtRunForm(f);
 
         /* collect IPv4 data */
