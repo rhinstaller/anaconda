@@ -1316,7 +1316,8 @@ class DeviceTree(object):
 
         # Now, if the device is a disk, see if there is a usable disklabel.
         # If not, see if the user would like to create one.
-        if device.partitionable:
+        format = getFormat(udev_device_get_format(info))
+        if device.partitionable and not format.hidden:
             self.handleUdevDiskLabelFormat(info, device)
             if device.partitioned or self.isIgnored(info):
                 # If the device has a disklabel, or the user chose not to
