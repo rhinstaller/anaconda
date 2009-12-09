@@ -48,9 +48,10 @@ class WideCheckList(checklist.CheckList):
 	    checklist.CheckList.toggled_item(self, data, row)
 
     
-    def __init__(self, columns, store, clickCB=None):
-	checklist.CheckList.__init__(self, columns=columns,
-				     custom_store=store)
+    def __init__(self, columns, store, clickCB=None, sensitivity=False):
+        checklist.CheckList.__init__(self, columns=columns,
+                                     custom_store=store,
+                                     sensitivity=sensitivity)
 
         # make checkbox column wider
         column = self.get_column(columns)

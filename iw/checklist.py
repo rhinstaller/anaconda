@@ -33,12 +33,13 @@ class CheckList (gtk.TreeView):
         # add the string columns to the tree view widget
         for i in range(1, columns + 1):
             renderer = gtk.CellRendererText()
-            column = gtk.TreeViewColumn('Text', renderer, text=i)
+            column = gtk.TreeViewColumn('Text', renderer, text=i,
+                                        **self.sensitivity_args)
             column.set_clickable(False)
             self.append_column(column)
 
     # XXX need to handle the multicolumn case better still....
-    def __init__ (self, columns = 1, custom_store=None):
+    def __init__ (self, columns = 1, custom_store=None, sensitivity=False):
 	if custom_store is None:
 	    self.store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 				       gobject.TYPE_STRING,
@@ -53,9 +54,24 @@ class CheckList (gtk.TreeView):
             raise RuntimeError, "CheckList supports a maximum of 2 columns"
 	
         self.columns = columns
-	
+
+        # sensitivity_col is an optional hidden boolean column that controls
+        # the sensitive property of all of the CellRenderers in its row.
+        #
+        # To enable this functionality the last column in the TreeStore
+        # must be boolean and you must pass a value of True for the
+        # 'sensitivity' keyword argument to this class' constructor.
+        self.sensitivity_col = None
+        self.sensitivity_args = {}
+        last_col = self.store.get_n_columns() - 1
+        if sensitivity and \
+           self.store.get_column_type(last_col) == gobject.TYPE_BOOLEAN:
+            self.sensitivity_col = last_col
+            self.sensitivity_args = {"sensitive": self.sensitivity_col}
+
         self.checkboxrenderer = gtk.CellRendererToggle()
-        column = gtk.TreeViewColumn('', self.checkboxrenderer, active=0)
+        column = gtk.TreeViewColumn('', self.checkboxrenderer, active=0,
+                                    **self.sensitivity_args)
 #        column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 #        column.set_fixed_width(40)
         column.set_clickable(True)
@@ -96,6 +112,8 @@ class CheckList (gtk.TreeView):
 
         iter = self.store.append(None)
         self.store.set_value(iter, 0, init_value)
+        if self.sensitivity_col is not None:
+            self.store.set_value(iter, self.sensitivity_col, True)
 
         # add the text for the number of columns we have
         i = 1
