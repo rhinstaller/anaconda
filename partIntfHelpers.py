@@ -304,14 +304,15 @@ def getPreExistFormatWarnings(storage):
     """Return a list of preexisting devices being formatted."""
     devices = []
     for device in storage.devicetree.devices:
-        if device.exists and not device.format.exists:
+        if device.exists and not device.format.exists and \
+           not device.format.hidden:
             devices.append(device)
 
     devices.sort(key=lambda d: d.name)
     rc = []
     for device in devices:
         rc.append((device.path,
-                   device.format.type,
+                   device.format.name,
                    getattr(device.format, "mountpoint", "")))
     return rc
             

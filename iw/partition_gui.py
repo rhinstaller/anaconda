@@ -874,7 +874,7 @@ class PartitionWindow(InstallWindow):
 
         formatWarnings = getPreExistFormatWarnings(self.storage)
         if formatWarnings:
-            labelstr1 = _("The following pre-existing partitions have been "
+            labelstr1 = _("The following pre-existing devices have been "
                           "selected to be formatted, destroying all data.")
 
 #            labelstr2 = _("Select 'Yes' to continue and format these "
