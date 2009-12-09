@@ -217,6 +217,47 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Dec 09 2009 Chris Lumens <clumens@redhat.com> - 13.10-1
+- Kickstart support for unpartitioned disks. (dlehman)
+- Skip disklabel handling for biosraid and multipath members. (dlehman)
+- Improve disklabel's name attr so we don't have to hide them anymore.
+  (dlehman)
+- Hide devices with certain formatting in the main partitioning UI. (dlehman)
+- Automatic partitioning support for whole-disk formatting. (dlehman)
+- Add support for whole-disk formatting. (dlehman)
+- Add per-row control over sensitive property for CheckList and
+  WideCheckList. (dlehman)
+- Use a function to add a device to the partition gui. (dlehman)
+- Don't crash if there's no intf passed to getLUKSPassphrase. (dlehman)
+- Remove unused selinux file context functions from isys. (dlehman)
+- Use selinux python module for file context operations. (dlehman)
+- Obtain device alignment information from parted. (#529051) (dlehman)
+- Handle roots with or without trailing "/" in FileDevice.path. (#541473)
+  (dlehman)
+- sundries.h is no longer used. (clumens)
+- Kill yet another unused lodaer flag. (clumens)
+- stage1 (init): Make /tmp tmpfs large enough to hold install.img (#540146)
+  (hdegoede)
+- With flags.setupFilesystems gone, justConfig can be removed from booty.
+  (clumens)
+- Nothing sets flags.setupFilesystems anymore, so it can go too. (clumens)
+- Remove test mode from the loader, too. (clumens)
+- Complain if we're started in test or rootPath mode instead of aborting.
+  (clumens)
+- Remove test mode. (clumens)
+- Remove rootPath mode. (clumens)
+- Enable method/repo nfs options in stage2. (rvykydal)
+- Accept "nfs:" prefix in ks repo --baseurl setting beside "nfs://".
+  (rvykydal)
+- Display url having invalid prefix in repo editing dialog. (rvykydal)
+- Do not traceback on invalid ks repo --baseurl values (#543003) (rvykydal)
+- Remove /etc/localtime before trying to copy into it (#533240). (akozumpl)
+- Whenever storage code tries to log a method call, do so into the
+  'tmp/storage.log' file. (a part of #524980) (akozumpl)
+- Make loader log time with milliseconds (part of #524980). (akozumpl)
+- Log storage in the same format as the main anaconda log (a part of
+  #524980) (akozumpl)
+
 * Tue Dec 01 2009 Chris Lumens <clumens@redhat.com> - 13.9-1
 - Improve text mode fcoe interface (hdegoede)
 - Fix udev rule to test whether we're in anaconda. (dlehman)
