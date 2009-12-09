@@ -888,11 +888,14 @@ def reIPLonCCW(iplsubdev, reipl_path):
             log.warning(message)
             # do NOT raise an exception since this might not exist or not be writable
 
+        log.info("ccw reIPL using DASD %s" % (device,))
+
     except Exception, e:
         try:
             message = e.args[0]
         except:
             message = e.__str__ ()
+        log.info("Caught exception %s", (message,))
         return (message,
                 (_("After shutdown, please perform a manual IPL from DASD device %s to continue "
                    "installation") % (device,)))
@@ -952,11 +955,14 @@ def reIPLonFCP(iplsubdev, reipl_path):
                 log.warning(message)
                 raise Exception (message)
 
+        log.info("fcp reIPL using FCP %(device)s, WWPN %(wwpn)s, LUN %(lun)s" % (fcpvalue))
+
     except Exception, e:
         try:
             message = e.args[0]
         except:
             message = e.__str__ ()
+        log.info("Caught exception %s", (message,))
         return (message,
                 (_("After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %(wwpn)s "
                    "and LUN %(lun)s to continue installation") % (fcpvalue)))
@@ -968,10 +974,10 @@ def reIPLtrigger(anaconda):
     if not isS390():
         return
     if anaconda.canReIPL:
-        log.info("reipl configuration successful => reboot")
+        log.info("reIPL configuration successful => reboot")
         os.kill(os.getppid(), signal.SIGUSR2)
     else:
-        log.info("reipl configuration failed => halt")
+        log.info("reIPL configuration failed => halt")
         os.kill(os.getppid(), signal.SIGUSR1)
 
 def reIPL(anaconda, loader_pid):
@@ -986,7 +992,7 @@ def reIPL(anaconda, loader_pid):
         ipldev = None
 
     if ipldev is None:
-        message = _("Error determining mount point type")
+        message = _("Error determining boot device's disk name")
         log.warning(message)
         return (message, instruction)
 
@@ -1000,6 +1006,7 @@ def reIPL(anaconda, loader_pid):
         anaconda.canReIPL = True
     else:
         anaconda.canReIPL = False
+        log.info(message)
 
     reIPLtrigger(anaconda)
 
