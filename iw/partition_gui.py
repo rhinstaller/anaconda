@@ -909,6 +909,9 @@ class PartitionWindow(InstallWindow):
         return None
 
     def addDevice(self, device, treeiter):
+        if device.format.hidden:
+            return
+
         if device.format.type == "luks":
             # we'll want to grab format info from the mapped
             # device, not the encrypted one

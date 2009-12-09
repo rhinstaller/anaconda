@@ -44,6 +44,7 @@ class DiskLabel(DeviceFormat):
     _name = None
     _formattable = True                # can be formatted
     _supported = False                 # is supported
+    _hidden = True                     # hide devices with this formatting?
 
     def __init__(self, *args, **kwargs):
         """ Create a DiskLabel instance.

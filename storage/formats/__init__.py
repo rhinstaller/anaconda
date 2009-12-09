@@ -152,6 +152,7 @@ class DeviceFormat(object):
     _minSize = 0                        # minimum size in MB
     _dump = False
     _check = False
+    _hidden = False                     # hide devices with this formatting?
 
     def __init__(self, *args, **kwargs):
         """ Create a DeviceFormat instance.
@@ -366,6 +367,11 @@ class DeviceFormat(object):
     def minSize(self):
         """ Minimum size (in MB) for this format type. """
         return self._minSize
+
+    @property
+    def hidden(self):
+        """ Whether devices with this formatting should be hidden in UIs. """
+        return self._hidden
 
     def writeKS(self, f):
         return

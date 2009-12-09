@@ -47,6 +47,7 @@ class MultipathMember(DeviceFormat):
     _bootable = False                   # can be used as boot
     _maxSize = 0                        # maximum size in MB
     _minSize = 0                        # minimum size in MB
+    _hidden = True                      # hide devices with this formatting?
 
     def __init__(self, *args, **kwargs):
         """ Create a DeviceFormat instance.
