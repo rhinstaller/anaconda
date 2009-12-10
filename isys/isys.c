@@ -72,7 +72,6 @@
 #include "isys.h"
 #include "imount.h"
 #include "ethtool.h"
-#include "smp.h"
 #include "lang.h"
 #include "eddsupport.h"
 #include "auditd.h"
@@ -84,8 +83,6 @@
 
 static PyObject * doMount(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
-static PyObject * smpAvailable(PyObject * s, PyObject * args);
-static PyObject * htAvailable(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doSwapoff(PyObject * s, PyObject * args);
 static PyObject * doLoSetup(PyObject * s, PyObject * args);
@@ -130,8 +127,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
-    { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
-    { "htavailable", (PyCFunction) htAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
     { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
@@ -314,18 +309,6 @@ static PyObject * doSwapon (PyObject * s, PyObject * args) {
     
     Py_INCREF(Py_None);
     return Py_None;
-}
-
-static PyObject * smpAvailable(PyObject * s, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    return Py_BuildValue("i", detectSMP());
-}
-
-static PyObject * htAvailable(PyObject * s, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    return Py_BuildValue("i", detectHT());
 }
 
 void init_isys(void) {

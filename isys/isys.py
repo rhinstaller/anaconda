@@ -187,13 +187,6 @@ def umount(what, removeDir = True):
 
     return rc
 
-## Get the SMP status of the system.
-# @return True if this is an SMP system, False otherwise.
-def smpAvailable():
-    return _isys.smpavailable()
-
-htavailable = _isys.htavailable
-
 ## Disable swap.
 # @param path The full path of the swap device to disable.
 def swapoff (path):
