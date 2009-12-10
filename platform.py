@@ -211,6 +211,13 @@ class EFI(Platform):
         return ret
 
     def checkBootRequest(self, req):
+        """ Perform architecture-specific checks on the boot device.
+
+            Returns a list of error strings.
+
+            NOTE: X86 does not have a separate checkBootRequest method,
+                  so this one must work for x86 as well as EFI.
+        """
         if not req:
             return [_("You have not created a /boot/efi partition.")]
 
@@ -223,8 +230,10 @@ class EFI(Platform):
         disk = req.disk.format.partedDisk
 
         # Check that we've got a correct disk label.
-        if not disk.type in ["gpt", "msdos"]:
-            errors.append(_("%s must have a GPT or MSDOS disk label.") % req.disk.name)
+        labelType = self.diskLabelType(disk.device.type)
+        if disk.type != labelType:
+            errors.append(_("%s must have a %s disk label.")
+                          % (req.disk.name, labelType.upper())
 
         return errors
 
