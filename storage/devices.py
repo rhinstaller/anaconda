@@ -593,7 +593,7 @@ class StorageDevice(Device):
 
         if self.status and self.format.exists:
             self.format.teardown()
-            udev_settle(timeout=10)
+            udev_settle()
 
         if recursive:
             self.teardownParents(recursive=recursive)
@@ -1518,11 +1518,11 @@ class LUKSDevice(DMCryptDevice):
 
         if self.status and self.format.exists:
             self.format.teardown()
-            udev_settle(timeout=10)
+            udev_settle()
 
         if self.slave.format.exists:
             self.slave.format.teardown()
-            udev_settle(timeout=10)
+            udev_settle()
 
         if recursive:
             self.teardownParents(recursive=recursive)
@@ -1530,7 +1530,7 @@ class LUKSDevice(DMCryptDevice):
     def destroy(self):
         log_method_call(self, self.name, status=self.status)
         self.format.teardown()
-        udev_settle(timeout=10)
+        udev_settle()
         self.teardown()
 
     @property
@@ -2133,7 +2133,7 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         if self.status and self.format.exists:
             self.format.teardown()
-            udev_settle(timeout=10)
+            udev_settle()
 
         if self.status:
             lvm.lvdeactivate(self.vg.name, self._name)
@@ -2199,7 +2199,7 @@ class LVMLogicalVolumeDevice(DMDevice):
         if self.format.exists:
             self.format.teardown()
 
-        udev_settle(timeout=10)
+        udev_settle()
         lvm.lvresize(self.vg.name, self._name, self.size)
 
 
@@ -2456,11 +2456,11 @@ class MDRaidArrayDevice(StorageDevice):
         device.addChild()
 
         device.setup()
-        udev_settle(timeout=10)
+        udev_settle()
         try:
             mdraid.mdadd(device.path, len(self.devices) < self.memberDevices)
             # mdadd causes udev events
-            udev_settle(timeout=10)
+            udev_settle()
         except MDRaidError as e:
             log.warning("failed to add member %s to md array %s: %s"
                         % (device.path, self.path, e))
@@ -2567,7 +2567,7 @@ class MDRaidArrayDevice(StorageDevice):
 
         if self.status and self.format.exists:
             self.format.teardown()
-            udev_settle(timeout=10)
+            udev_settle()
 
         # Since BIOS RAID sets (containers in mdraid terminology) never change
         # there is no need to stop them and later restart them. Not stopping

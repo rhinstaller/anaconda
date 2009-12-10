@@ -77,7 +77,7 @@ def udev_resolve_glob(glob):
     return ret
 
 def udev_get_block_devices():
-    udev_settle(timeout=30)
+    udev_settle()
     entries = []
     for path in udev_enumerate_block_devices():
         entry = udev_get_block_device(path)

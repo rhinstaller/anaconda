@@ -734,7 +734,7 @@ class DeviceTree(object):
                     self.teardownAll()
                     action.execute(intf=self.intf)
 
-                udev_settle(timeout=10)
+                udev_settle()
                 for device in self._devices:
                     # make sure we catch any renumbering parted does
                     if device.exists and isinstance(device, PartitionDevice):

@@ -61,7 +61,7 @@ def udev_get_device(sysfs_path):
     return dev
 
 def udev_get_devices(deviceClass="block"):
-    udev_settle(timeout=30)
+    udev_settle()
     entries = []
     for path in udev_enumerate_devices(deviceClass):
         entry = udev_get_device(path)
@@ -84,10 +84,11 @@ def udev_parse_uevent_file(dev):
 
     return dev
 
-def udev_settle(timeout=None):
-    argv = ["settle"]
-    if timeout:
-        argv.append("--timeout=%d" % int(timeout))
+def udev_settle():
+    # wait maximal 300 seconds for udev to be done running blkid, lvm,
+    # mdadm etc. This large timeout is needed when running on machines with
+    # lots of disks, or with slow disks
+    argv = ["settle", "--timeout=300"]
 
     iutil.execWithRedirect("udevadm", argv, stderr="/dev/null", searchPath=1)
 
