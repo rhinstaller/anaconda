@@ -233,7 +233,7 @@ class EFI(Platform):
         labelType = self.diskLabelType(disk.device.type)
         if disk.type != labelType:
             errors.append(_("%s must have a %s disk label.")
-                          % (req.disk.name, labelType.upper())
+                          % (req.disk.name, labelType.upper()))
 
         return errors
 
