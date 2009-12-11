@@ -995,8 +995,6 @@ class ZFCPData(commands.zfcp.FC3_ZFCPData):
         except ValueError, e:
             log.warning(str(e))
 
-        isys.flushDriveDict()
-
 
 ###
 ### HANDLERS
