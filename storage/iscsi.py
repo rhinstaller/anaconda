@@ -19,6 +19,7 @@
 #
 
 from constants import *
+from udev import *
 import os
 import iutil
 from flags import flags
@@ -84,9 +85,7 @@ def stabilize(intf = None):
     # It is possible when we get here the events for the new devices
     # are not send yet, so sleep to make sure the events are fired
     time.sleep(2)
-    iutil.execWithRedirect("udevadm", [ "settle" ],
-                           stdout = "/dev/tty5", stderr="/dev/tty5",
-                           searchPath = 1)
+    udev_settle()
     if intf:
         w.pop()
 
@@ -138,9 +137,9 @@ class iscsi(object):
                 node.login()
                 self.nodes.append(node)
                 self.ibftNodes.append(node)
-            except:
-                # FIXME, what to do when we cannot log in to a firmware
-                # provided node ??
+            except IOError, e:
+                log.error("Could not log into ibft iscsi target %s: %s" %
+                          (node.name, str(e)))
                 pass
 
         stabilize(intf)
@@ -228,7 +227,10 @@ class iscsi(object):
                 node.login()
                 self.nodes.append(node)
                 logged_in = logged_in + 1
-            except:
+            except IOError, e:
+                log.warning(
+                    _("Could not log into discovered iscsi target %s: %s" %
+                    (node.name, str(e)))
                 # some nodes may require different credentials
                 pass
 
