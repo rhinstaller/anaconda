@@ -72,6 +72,7 @@
 #include "firewire.h"
 #include "pcmcia.h"
 #include "usb.h"
+#include "ibft.h"
 
 /* install method stuff */
 #include "method.h"
