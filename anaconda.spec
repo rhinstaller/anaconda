@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.197
+Version: 11.1.2.198
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,22 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Dec 11 2009 Martin Sivak <msivak@redhat.com> 11.1.2.198-1
+- Various improvements to kickstart scriptlet reporting
+  Resolves: rhbz#510636
+- Fix parsing of optional portnr in iscsi target IP
+  Resolves: rhbz#525054
+- "ip=ibft" is not needed any more if ibft configuration is available
+  Resolves: rhbz#517768
+- Revert the badEDID check
+  Resolves: rhbz#445486
+- Remove #!/usr/bin/env python calls
+  Resolves: rhbz#521337
+- Do not reinstall packages of the same NAEVR in upgrade
+  Resolves: rhbz#495796
+- Add be2iscsi driver support
+  Resolves: rhbz#529442
+
 * Fri Nov 20 2009 Martin Sivak <msivak@redhat.com> 11.1.2.197
 - Added N-Port-ID (NPIV) install support for Linux on Power
   Resolves: rhbz#512237
