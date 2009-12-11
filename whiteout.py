@@ -46,7 +46,7 @@ whiteout="""
 	libtermcap>bash			\
 	modutils>vixie-cron		\
 	ypbind>yp-tools			\
-	ghostscript-fonts>ghostscript	\
+	ghostscript>ghostscript-fonts	\
         usermode>util-linux             \
         control-center>xscreensaver     \
         kdemultimedia-arts>kdemultimedia-libs \
