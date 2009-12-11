@@ -212,9 +212,9 @@ class Partitions:
                 if lvvg != vg:
                     continue
 
-                theDev = "/dev/mapper/%s-%s" %(vg, lv)
+                theDev = "/dev/%s" % partedUtils.dmNodeNameOfLV(vg, lv)
                 if cryptodev.isLuks(theDev):
-                    self.getCryptoDev("mapper/%s-%s" % (vg, lv), intf)
+                    self.getCryptoDev(partedUtils.dmNodeNameOfLV(vg, lv), intf)
 
         lvm.vgdeactivate()
         diskset.stopMdRaid()

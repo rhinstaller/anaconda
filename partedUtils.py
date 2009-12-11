@@ -589,6 +589,9 @@ def productMatches(oldproduct, newproduct):
 
     return 0
 
+def dmNodeNameOfLV(volgroup, logvol):
+    return "mapper/%s-%s" % (volgroup.replace("-", "--"), logvol.replace("-", "--"))
+
 class DiskSet:
     """The disks in the system."""
 
@@ -758,6 +761,21 @@ class DiskSet:
                 prefix = "/dev/"
 
             label = isys.readFSLabel(prefix + dev, makeDevNode = mknode)
+            if label:
+                labels[dev] = label
+
+            if crypto:
+                crypto.closeDevice()
+
+        for (vg, lv, size, lvorigin) in lvm.lvlist():
+            if lvorigin:
+                continue
+            prefix = "/dev/"
+            dev = "%s/%s" % (vg, lv)
+            crypto = encryptedDevices.get(dmNodeNameOfLV(vg, lv))
+            if crypto and not crypto.openDevice():
+                dev = crypto.getDevice()
+            label = isys.readFSLabel(prefix + dev, makeDevNode = 0)
             if label:
                 labels[dev] = label
 
