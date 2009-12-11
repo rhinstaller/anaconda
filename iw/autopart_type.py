@@ -271,6 +271,11 @@ class PartitionTypeWindow(InstallWindow):
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
 
+        if anaconda.dir == DISPATCH_BACK:
+            self.diskset.refreshDevices()
+            self.partitions.setFromDisk(self.diskset)
+            self.partitions.setProtected(anaconda.dispatch)
+
         (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeBox")
 
         self.combo = self.xml.get_widget("partitionTypeCombo")
