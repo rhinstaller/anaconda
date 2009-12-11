@@ -1,6 +1,6 @@
 Name: anaconda
 Version: 11.1.2.198
-Release: 2
+Release: 3
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Dec 11 2009 Martin Sivak <msivak@redhat.com> 11.1.2.198-3
+- Fix the build for s390
+  Related: rhbz#517768
+
 * Fri Dec 11 2009 Martin Sivak <msivak@redhat.com> 11.1.2.198-2
 - Fix the build, we were missing one include in loader.c
   Related: rhbz#517768

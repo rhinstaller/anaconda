@@ -72,7 +72,9 @@
 #include "firewire.h"
 #include "pcmcia.h"
 #include "usb.h"
+#if !defined(__s390__) && !defined(__s390x__)
 #include "ibft.h"
+#endif
 
 /* install method stuff */
 #include "method.h"
@@ -959,7 +961,11 @@ static char *doLoaderMain(char * location,
         url = findAnacondaCD(location, modInfo, modLoaded, * modDepsPtr, !FL_RESCUE(flags));
         /* if we found a CD and we're not in rescue or vnc mode return */
         /* so we can short circuit straight to stage 2 from CD         */
-        if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride() && !ibft_present()))
+        if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()
+#if !defined(__s390__) && !defined(__s390x__)
+                    && !ibft_present()
+#endif
+        ))
             return url;
         else {
             rhcdfnd = 1;
@@ -1125,7 +1131,11 @@ static char *doLoaderMain(char * location,
         case STEP_NETWORK:
             if ( (installMethods[validMethods[methodNum]].deviceType != 
                   CLASS_NETWORK) && (!hasGraphicalOverride()) &&
-                 !FL_ASKNETWORK(flags) && !ibft_present()) {
+                 !FL_ASKNETWORK(flags)
+#if !defined(__s390__) && !defined(__s390x__)
+                 && !ibft_present()
+#endif
+               ) {
                 needsNetwork = 0;
                 if (dir == 1) 
                     step = STEP_URL;
