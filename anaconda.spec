@@ -143,6 +143,12 @@ fi
   Resolves: rhbz#495796
 - Add be2iscsi driver support
   Resolves: rhbz#529442
+- Reset partitioning when going back to parttype screen
+  Resolves: rhbz#516715
+- Find LVs specified by label in /etc/fstab
+  Resolves: rhbz#502178
+- Ensure the ghostscript-fonts get installed with ghostscript
+  Resolves: rhbz#530548
 
 * Fri Nov 20 2009 Martin Sivak <msivak@redhat.com> 11.1.2.197
 - Added N-Port-ID (NPIV) install support for Linux on Power
