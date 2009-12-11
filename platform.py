@@ -158,7 +158,7 @@ class Platform(object):
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
-        return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=250,
+        return [PartSpec(mountpoint="/boot", fstype=self.defaultBootFSType, size=500,
                          weight=self.weight(mountpoint="/boot"))]
 
     @property
