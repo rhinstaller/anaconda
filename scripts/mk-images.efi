@@ -174,7 +174,7 @@ prepareEfiTree() {
     mv -v $MBD_BOOTTREE_TMP/EFI/BOOT/grub.efi $MBD_BOOTTREE_TMP/EFI/BOOT/BOOT${tmpefiarch}.efi
     mv -v $MBD_BOOTTREE_TMP/EFI/BOOT/grub.conf $MBD_BOOTTREE_TMP/EFI/BOOT/BOOT${tmpefiarch}.conf
 
-    artpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" --whatprovides ${brandpkgname}-logos | grep -v generic-logos | head -1)
+    artpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf --whatprovides ${brandpkgname}-logos | grep -v generic-logos | head -1)
     if [ -z "$artpkg" ]; then
        argpkg="generic-logos"
     fi
