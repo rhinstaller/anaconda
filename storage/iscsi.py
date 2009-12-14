@@ -246,7 +246,7 @@ class iscsi(object):
                 logged_in = logged_in + 1
             except IOError, e:
                 log.warning(
-                    _("Could not log into discovered iscsi target %s: %s") %
+                    "Could not log into discovered iscsi target %s: %s" %
                     (node.name, str(e)))
                 # some nodes may require different credentials
                 pass
