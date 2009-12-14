@@ -90,6 +90,19 @@ def stabilize(intf = None):
         w.pop()
 
 class iscsi(object):
+    """ iSCSI utility class.
+
+        This class will automatically discover and login to iBFT (or
+        other firmware) configured iscsi devices when the startup() method
+        gets called. It can also be used to manually configure iscsi devices
+        through the addTarget() method.
+
+        As this class needs to make sure certain things like starting iscsid
+        and logging in to firmware discovered disks only happens once 
+        and as it keeps a global list of all iSCSI devices it is implemented as
+        a Singleton.
+    """
+
     def __init__(self):
         # This list contains all nodes
         self.nodes = []
@@ -106,6 +119,10 @@ class iscsi(object):
                 self.initiatorSet = True
             except:
                 pass
+
+    # So that users can write iscsi() to get the singleton instance
+    def __call__(self):
+        return self
 
     def _getInitiator(self):
         if self._initiator != "":
@@ -306,5 +323,8 @@ class iscsi(object):
                 nodeDisks.append(disk)
 
         return nodeDisks
+
+# Create iscsi singleton
+iscsi = iscsi()
 
 # vim:tw=78:ts=4:et:sw=4

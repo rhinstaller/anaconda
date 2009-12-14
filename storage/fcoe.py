@@ -40,11 +40,27 @@ def has_fcoe():
     return os.access("/sys/module/fcoe", os.X_OK)
 
 class fcoe(object):
+    """ FCoE utility class.
+
+        This class will automatically discover and connect to EDD configured
+        FCoE SAN's when the startup() method gets called. It can also be
+        used to manually configure FCoE SAN's through the addSan() method.
+
+        As this class needs to make sure certain things like starting fcoe
+        daemons and connecting to firmware discovered SAN's only happens once
+        and as it keeps a global list of all FCoE devices it is
+        implemented as a Singleton.
+    """
+
     def __init__(self):
         self.started = False
         self.dcbdStarted = False
         self.fcoemonStarted = False
         self.nics = []
+
+    # So that users can write fcoe() to get the singleton instance
+    def __call__(self):
+        return self
 
     def _stabilize(self, intf = None):
         if intf:
@@ -142,5 +158,8 @@ class fcoe(object):
             os.close(fd)
 
         return
+
+# Create FCoE singleton
+fcoe = fcoe()
 
 # vim:tw=78:ts=4:et:sw=4

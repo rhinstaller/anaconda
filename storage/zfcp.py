@@ -323,10 +323,25 @@ class ZFCPDevice:
         return True
 
 class ZFCP:
+    """ ZFCP utility class.
+
+        This class will automatically online to ZFCP drives configured in
+        /tmp/fcpconfig when the startup() method gets called. It can also be
+        used to manually configure ZFCP devices through the addFCP() method.
+
+        As this class needs to make sure that /tmp/fcpconfig configured
+        drives are only onlined once and as it keeps a global list of all ZFCP
+        devices it is implemented as a Singleton.
+    """
+
     def __init__(self):
         self.fcpdevs = []
         self.hasReadConfig = False
         self.down = True
+
+    # So that users can write zfcp() to get the singleton instance
+    def __call__(self):
+        return self
 
     def readConfig(self):
         try:
@@ -419,5 +434,8 @@ class ZFCP:
         f = open(instPath + "/etc/modprobe.conf", "a")
         f.write("alias scsi_hostadapter zfcp\n")
         f.close()
+
+# Create ZFCP singleton
+ZFCP = ZFCP()
 
 # vim:tw=78:ts=4:et:sw=4
