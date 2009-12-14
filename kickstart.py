@@ -24,6 +24,9 @@ from storage.devicelibs.lvm import getPossiblePhysicalExtents
 from storage.formats import getFormat
 from storage.partitioning import clearPartitions
 from storage.partitioning import shouldClear
+import storage.iscsi
+import storage.fcoe
+import storage.zfcp
 
 from errors import *
 import iutil
@@ -298,11 +301,16 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         clearPartitions(anaconda.id.storage)
         self.handler.skipSteps.append("cleardisksel")
 
-class FcoeData(commands.fcoe.F13_FcoeData):
-    def execute(self, anaconda):
-        if self.nic not in self.anaconda.id.network.available():
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % self.nic)
-        anaconda.id.fcoe.addSan(nic=self.nic, dcb=self.dcb)
+class Fcoe(commands.fcoe.F13_Fcoe):
+    def parse(self, args):
+        fc = commands.fcoe.F13_Fcoe.parse(self, args)
+
+        if fc.nic not in isys.getDeviceProperties():
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic)
+
+        storage.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb)
+
+        return fc
 
 class Firewall(commands.firewall.F10_Firewall):
     def execute(self, anaconda):
@@ -351,31 +359,25 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
         anaconda.id.storage.exclusiveDisks = self.onlyuse
         self.handler.skipSteps.extend(["filter", "filtertype"])
 
-class IscsiData(commands.iscsi.F10_IscsiData):
-    def execute(self, anaconda):
-        kwargs = {
-            'ipaddr': self.ipaddr,
-            'port': self.port,
-            }
+class Iscsi(commands.iscsi.F10_Iscsi):
+    def parse(self, args):
+        tg = commands.iscsi.F10_Iscsi.parse(self, args)
 
-        if self.user and self.password:
-            kwargs.update({
-                'user': self.user,
-                'pw': self.password
-                })
-
-        if self.user_in and self.password_in:
-            kwargs.update({
-                'user_in': self.user_in,
-                'pw_in': self.password_in
-                })
-
-        if anaconda.id.iscsi.addTarget(**kwargs):
-            log.info("added iscsi target: %s" %(self.ipaddr,))
+        try:
+            storage.iscsi.iscsi().addTarget(tg.ipaddr, tg.port,
+                tg.user, tg.password, tg.user_in, tg.password_in)
+            log.info("added iscsi target: %s" %(tg.ipaddr,))
+        except (IOError, ValueError), e:
+            raise KickstartValueError, formatErrorMsg(self.lineno,
+                                                      msg=str(e))
+        return tg
 
 class IscsiName(commands.iscsiname.FC6_IscsiName):
-    def execute(self, anaconda):
-        anaconda.id.iscsi.initiator = self.iscsiname
+    def parse(self, args):
+        retval = commands.iscsiname.FC6_IscsiName.parse(self, args)
+
+        storage.iscsi.iscsi().initiator = self.iscsiname
+        return retval
 
 class Keyboard(commands.keyboard.FC3_Keyboard):
     def execute(self, anaconda):
@@ -988,13 +990,15 @@ class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def execute(self, anaconda):
         anaconda.id.storage.zeroMbr = 1
 
-class ZFCPData(commands.zfcp.FC3_ZFCPData):
-    def execute(self, anaconda):
+class ZFCP(commands.zfcp.FC3_ZFCP):
+    def parse(self, args):
+        fcp = commands.zfcp.FC3_ZFCP.parse(self, args)
         try:
-            anaconda.id.zfcp.addFCP(self.devnum, self.wwpn, self.fcplun)
+            storage.zfcp.ZFCP().addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
         except ValueError, e:
             log.warning(str(e))
 
+        return fcp
 
 ###
 ### HANDLERS
@@ -1009,11 +1013,13 @@ commandMap = {
         "bootloader": Bootloader,
         "clearpart": ClearPart,
         "dmraid": DmRaid,
+        "fcoe": Fcoe,
         "firewall": Firewall,
         "firstboot": Firstboot,
         "halt": Reboot,
         "ignoredisk": IgnoreDisk,
         "install": Upgrade,
+        "iscsi": Iscsi,
         "iscsiname": IscsiName,
         "keyboard": Keyboard,
         "lang": Lang,
@@ -1029,17 +1035,15 @@ commandMap = {
         "upgrade": Upgrade,
         "xconfig": XConfig,
         "zerombr": ZeroMbr,
+        "zfcp": ZFCP,
 }
 
 dataMap = {
-        "FcoeData": FcoeData,
-        "IscsiData": IscsiData,
         "LogVolData": LogVolData,
         "NetworkData": NetworkData,
         "PartData": PartitionData,
         "RaidData": RaidData,
         "VolGroupData": VolGroupData,
-        "ZFCPData": ZFCPData
 }
 
 superclass = returnClassForVersion()
