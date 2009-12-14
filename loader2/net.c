@@ -2424,10 +2424,14 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr) {
     int rc, query;
+    static struct networkDeviceConfig netCfgStore;
 
     /* we may have networking already, so return to the caller */
     if ((loaderData->ipinfo_set == 1) || (loaderData->ipv6info_set == 1)) {
         logMessage(INFO, "networking already configured in kickstartNetworkUp");
+    
+        /* Give the network information to the caller (#495042) */
+        memcpy(netCfgPtr, &netCfgStore, sizeof(netCfgStore));
         return 0;
     }
 
@@ -2492,6 +2496,9 @@ int kickstartNetworkUp(struct loaderData_s * loaderData,
         else
             break;
     } while (1);
+
+    /* Store all information for possible subsequent calls (#495042) */
+    memcpy(&netCfgStore, netCfgPtr, sizeof(netCfgStore));
 
     return 0;
 }
