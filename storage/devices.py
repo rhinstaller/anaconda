@@ -728,7 +728,8 @@ class DiskDevice(StorageDevice):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None, sysfsPath='',
-                 parents=None, serial=None, vendor="", bus=""):
+                 parents=None, serial=None, vendor="", bus="",
+                 exists=True):
         """ Create a DiskDevice instance.
 
             Arguments:
@@ -752,7 +753,7 @@ class DiskDevice(StorageDevice):
             DiskDevices always exist.
         """
         StorageDevice.__init__(self, device, format=format, size=size,
-                               major=major, minor=minor, exists=True,
+                               major=major, minor=minor, exists=exists,
                                sysfsPath=sysfsPath, parents=parents,
                                serial=serial, vendor=vendor, bus=bus)
 
