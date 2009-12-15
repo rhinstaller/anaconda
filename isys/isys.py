@@ -612,9 +612,13 @@ def matchPathContext(fn):
 # @param instroot An optional root filesystem to look under for fn.
 def setFileContext(fn, con, instroot = '/'):
     full_path = os.path.normpath("%s/%s" % (instroot, fn))
+    rc = False
     if con is not None and os.access(full_path, os.F_OK):
-        return (selinux.lsetfilecon(full_path, con) != 0)
-    return False
+        try:
+            rc = (selinux.lsetfilecon(full_path, con) == 0)
+        except OSError:
+            log.info("failed to set SELinux context for %s" % full_path)
+    return rc
 
 ## Restore the SELinux file context of a file to its default.
 # @param fn The filename to fix.
