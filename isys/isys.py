@@ -603,7 +603,7 @@ def matchPathContext(fn):
     try:
         con = selinux.matchpathcon(os.path.normpath(fn), 0)[1]
     except OSError:
-        log.info("failed to get default SELinux context for %s" % f)
+        log.info("failed to get default SELinux context for %s" % fn)
     return con
 
 ## Set the SELinux file context of a file
