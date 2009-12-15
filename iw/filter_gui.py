@@ -220,10 +220,12 @@ class MPathCallbacks(FilteredCallbacks):
             self.interconnectEntry.append_text(i)
 
     def _visible_by_vendor(self, model, iter, view):
-        return model.get_value(iter, VENDOR_COL) == self.vendorEntry.get_text()
+        entered = self.vendorEntry.get_text()
+        return model.get_value(iter, VENDOR_COL).find(entered) != -1
 
     def _visible_by_interconnect(self, model, iter, view):
-        return model.get_value(iter, INTERCONNECT_COL) == self.interconnectEntry.get_text()
+        entered = self.interconnectEntry.get_child().get_text()
+        return model.get_value(iter, INTERCONNECT_COL).find(entered) != -1
 
     def _visible_by_wwid(self, model, iter, view):
         # FIXME:  make this support globs, etc.
