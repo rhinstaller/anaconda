@@ -1836,6 +1836,8 @@ class FSSet(object):
                 device.format.setup(options=options,
                                     chroot=anaconda.rootPath)
             except OSError as e:
+                log.error("OSError: (%d) %s" % (e.errno, e.strerror))
+
                 if intf:
                     if e.errno == errno.EEXIST:
                         intf.messageWindow(_("Invalid mount point"),
@@ -1858,9 +1860,10 @@ class FSSet(object):
                                              "cannot continue.\n\n"
                                              "Press <Enter> to exit the "
                                              "installer.") % na)
-                log.error("OSError: (%d) %s" % (e.errno, e.strerror))
                 sys.exit(0)
             except SystemError as (num, msg):
+                log.error("SystemError: (%d) %s" % (num, msg) )
+
                 if raiseErrors:
                     raise
                 if intf and not device.format.linuxNative:
@@ -1882,9 +1885,10 @@ class FSSet(object):
                     else:
                         continue
 
-                log.error("SystemError: (%d) %s" % (num, msg) )
                 sys.exit(0)
             except FSError as msg:
+                log.error("FSError: %s" % msg)
+
                 if intf:
                     na = {'path': device.path,
                           'mountpoint': device.format.mountpoint,
@@ -1897,7 +1901,6 @@ class FSSet(object):
                                          "cannot continue.\n\n"
                                          "Press <Enter> to exit the "
                                          "installer.") % na)
-                log.error("FSError: %s" % msg)
                 sys.exit(0)
 
         self.active = True
