@@ -1661,11 +1661,14 @@ class Partitions:
             if request.encryption.addPassphrase(self.encryptionPassphrase):
                 log.error("failed to add new passphrase to existing device %s" % (request.encryption.getDevice(encrypted=1),))
 
-    def deleteDependentRequests(self, request):
+    def deleteDependentRequests(self, request, justRemove = False):
         """Handle deletion of this request and all requests which depend on it.
 
         eg, delete all logical volumes from a volume group, all volume groups
         which depend on the raid device.
+
+        justRemove - only remove requests, do not create respective delete requests
+                     in self.deletes
 
         Side effects: removes all dependent requests from self.requests
                       adds needed dependent deletes to self.deletes
@@ -1681,7 +1684,7 @@ class Partitions:
             elif isinstance(req, partRequests.VolumeGroupRequestSpec):
                 if id in req.physicalVolumes:
                     toRemove.append(req)
-                    if req.getPreExisting():
+                    if req.getPreExisting() and not justRemove:
                         delete = partRequests.DeleteVolumeGroupSpec(req.volumeGroupName)
                         self.addDelete(delete)
             elif isinstance(req, partRequests.LogicalVolumeRequestSpec):
@@ -1695,7 +1698,7 @@ class Partitions:
                     else:
                         vgname = tmp.volumeGroupName
 
-                    if req.getPreExisting():
+                    if req.getPreExisting() and not justRemove:
                         delete = partRequests.DeleteLogicalVolumeSpec(req.logicalVolumeName,
                                                                       vgname)
                         self.addDelete(delete)
