@@ -602,8 +602,8 @@ def matchPathContext(fn):
     con = None
     try:
         con = selinux.matchpathcon(os.path.normpath(fn), 0)[1]
-    except OSError:
-        log.info("failed to get default SELinux context for %s" % fn)
+    except OSError as e:
+        log.info("failed to get default SELinux context for %s: %s" % (fn, e))
     return con
 
 ## Set the SELinux file context of a file
@@ -616,8 +616,8 @@ def setFileContext(fn, con, instroot = '/'):
     if con is not None and os.access(full_path, os.F_OK):
         try:
             rc = (selinux.lsetfilecon(full_path, con) == 0)
-        except OSError:
-            log.info("failed to set SELinux context for %s" % full_path)
+        except OSError as e:
+            log.info("failed to set SELinux context for %s: %s" % (full_path, e))
     return rc
 
 ## Restore the SELinux file context of a file to its default.
