@@ -1384,9 +1384,6 @@ class DeviceTree(object):
                                    exists=False)
             else:
                 self._removeDevice(device)
-                if isinstance(device, DMRaidArrayDevice):
-                    # We should ignore the dmraid members as well
-                    self.addIgnoredDisk(device.raidSet.name)
                 self.addIgnoredDisk(device.name)
                 return
 
