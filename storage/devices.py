@@ -927,11 +927,20 @@ class PartitionDevice(StorageDevice):
         s = StorageDevice.__str__(self)
         s += ("  grow = %(grow)s  max size = %(maxsize)s  bootable = %(bootable)s\n"
               "  part type = %(partType)s  primary = %(primary)s\n"
-              "  partedPartition = %(partedPart)r  disk = %(disk)r" %
+              "  partedPartition = %(partedPart)r  disk = %(disk)r\n" %
               {"grow": self.req_grow, "maxsize": self.req_max_size,
                "bootable": self.bootable, "partType": self.partType,
                "primary": self.req_primary,
                "partedPart": self.partedPartition, "disk": self.disk})
+
+        if self.partedPartition:
+            s += ("  start = %(start)s  end = %(end)s  length = %(length)s\n"
+                  "  flags = %(flags)s" %
+                  {"length": self.partedPartition.geometry.length,
+                   "start": self.partedPartition.geometry.start,
+                   "end": self.partedPartition.geometry.end,
+                   "flags": self.partedPartition.getFlagsAsString()})
+
         return s
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
