@@ -437,11 +437,12 @@ class AnacondaYum(YumSorter):
                     (device, path) = m[3:].split(":")
                 else:
                     (device, fstype, path) = m[3:].split(":")
-                    self.isodir = "/mnt/isodir/%s" % path
 
-                    # This takes care of mounting /mnt/isodir first.
-                    self._switchImage(1)
-                    self.mediagrabber = self.mediaHandler
+                self.isodir = "/mnt/isodir/%s" % path
+
+                # This takes care of mounting /mnt/isodir first.
+                self._switchImage(1)
+                self.mediagrabber = self.mediaHandler
             elif m.startswith("nfsiso:"):
                 self.isodir = "/mnt/isodir"
 
