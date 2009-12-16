@@ -91,6 +91,22 @@ class LUKS(DeviceFormat):
         elif not self.mapName and self.device:
             self.mapName = "luks-%s" % os.path.basename(self.device)
 
+    def __str__(self):
+        s = DeviceFormat.__str__(self)
+        if self.__passphrase:
+            passphrase = "(set)"
+        else:
+            passphrase = "(not set)"
+        s += ("  cipher = %(cipher)s  keySize = %(keySize)s"
+              "  mapName = %(mapName)s\n"
+              "  keyFile = %(keyFile)s  passphrase = %(passphrase)s\n"
+              "  escrowCert = %(escrowCert)s  addBackup = %(backup)s" %
+              {"cipher": self.cipher, "keySize": self.key_size,
+               "mapName": self.mapName, "keyFile": self._key_file,
+               "passphrase": passphrase, "escrowCert": self.escrow_cert,
+               "backup": self.add_backup_passphrase})
+        return s
+
     @property
     def name(self):
         name = self._name

@@ -66,6 +66,11 @@ class MDRaidMember(DeviceFormat):
         #self.probe()
         self.biosraid = False
 
+    def __str__(self):
+        s = DeviceFormat.__str__(self)
+        s += ("  mdUUID = %(mdUUID)s" % {"mdUUID": self.mdUuid})
+        return s
+
     def probe(self):
         """ Probe for any missing information about this format. """
         log_method_call(self, device=self.device,

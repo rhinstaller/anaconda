@@ -85,6 +85,22 @@ class DiskLabel(DeviceFormat):
 
         return new
 
+    def __str__(self):
+        s = DeviceFormat.__str__(self)
+        s += ("  type = %(type)s  partition count = %(count)s"
+              "  sectorSize = %(sectorSize)s\n"
+              "  align_offset = %(offset)s  align_grain = %(grain)s\n"
+              "  partedDisk = %(disk)r\n"
+              "  origPartedDisk = %(orig_disk)r\n"
+              "  partedDevice = %(dev)r\n" %
+              {"type": self.labelType, "count": len(self.partitions),
+               "sectorSize": self.partedDevice.sectorSize,
+               "offset": self.alignment.offset,
+               "grain": self.alignment.grainSize,
+               "disk": self.partedDisk, "orig_disk": self._origPartedDisk,
+               "dev": self.partedDevice})
+        return s
+
     def resetPartedDisk(self):
         """ Set this instance's partedDisk to reflect the disk's contents. """
         log_method_call(self, device=self.device)

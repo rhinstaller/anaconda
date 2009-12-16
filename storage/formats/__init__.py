@@ -174,6 +174,19 @@ class DeviceFormat(object):
         #if self.__class__ is DeviceFormat:
         #    self.exists = True
 
+    def __str__(self):
+        s = ("%(classname)s instance (%(id)s) --\n"
+             "  type = %(type)s  name = %(name)s  status = %(status)s\n"
+             "  device = %(device)s  uuid = %(uuid)s  exists = %(exists)s\n"
+             "  options = %(options)s  supported = %(supported)s"
+             "  formattable = %(format)s  resizable = %(resize)s\n" %
+             {"classname": self.__class__.__name__, "id": "%#x" % id(self),
+              "type": self.type, "name": self.name, "status": self.status,
+              "device": self.device, "uuid": self.uuid, "exists": self.exists,
+              "options": self.options, "supported": self.supported,
+              "format": self.formattable, "resize": self.resizable})
+        return s
+
     def _setOptions(self, options):
         self._options = options
 

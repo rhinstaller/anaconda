@@ -67,6 +67,11 @@ class MultipathMember(DeviceFormat):
         # Initialize the attribute that will hold the block object.
         self._member = None
 
+    def __str__(self):
+        s = DeviceFormat.__str__(self)
+        s += ("  member = %(member)r" % {"member": self.member})
+        return s
+
     def _getMember(self):
         return self._member
 

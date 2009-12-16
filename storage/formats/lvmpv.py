@@ -67,6 +67,14 @@ class LVMPhysicalVolume(DeviceFormat):
         # for not-yet-created devices
         self.peStart = kwargs.get("peStart", 0.1875)    # in MB
 
+    def __str__(self):
+        s = DeviceFormat.__str__(self)
+        s += ("  vgName = %(vgName)s  vgUUID = %(vgUUID)s"
+              "  peStart = %(peStart)s" %
+              {"vgName": self.vgName, "vgUUID": self.vgUuid,
+               "peStart": self.peStart})
+        return s
+
     def probe(self):
         """ Probe for any missing information about this device. """
         log_method_call(self, device=self.device,

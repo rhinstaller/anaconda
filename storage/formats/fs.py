@@ -161,6 +161,16 @@ class FS(DeviceFormat):
         if self.supported:
             self.loadModule()
 
+    def __str__(self):
+        s = DeviceFormat.__str__(self)
+        s += ("  mountpoint = %(mountpoint)s  mountopts = %(mountopts)s\n"
+              "  label = %(label)s  size = %(size)s"
+              "  targetSize = %(targetSize)s\n" %
+              {"mountpoint": self.mountpoint, "mountopts": self.mountopts,
+               "label": self.label, "size": self._size,
+               "targetSize": self.targetSize})
+        return s
+
     def _setTargetSize(self, newsize):
         """ Set a target size for this filesystem. """
         if not self.exists:
