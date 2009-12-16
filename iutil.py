@@ -37,18 +37,16 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
+program_log = logging.getLogger("program")
 
 #Python reimplementation of the shell tee process, so we can
 #feed the pipe output into two places at the same time
 class tee(threading.Thread):
-    def __init__(self, inputdesc, outputdesc, outputfile):
+    def __init__(self, inputdesc, outputdesc, outputlog):
         threading.Thread.__init__(self)
         self.inputdesc = os.fdopen(inputdesc, "r")
         self.outputdesc = outputdesc
-        if isinstance(outputfile, file):
-            self.file = outputfile
-        else:
-            self.file = open(outputfile, "a")
+        self.log = outputlog
         self.running = True
 
     def run(self):
@@ -57,7 +55,7 @@ class tee(threading.Thread):
             if data == "":
                 self.running = False
             else:
-                self.file.write(data)
+                self.log.info(data.rstrip('\n'))
                 os.write(self.outputdesc, data)
 
     def stop(self):
@@ -111,8 +109,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     elif stderr is None or not isinstance(stderr, file):
         stderr = sys.stderr.fileno()
 
-    runningLog = open("/tmp/program.log", "a")
-    runningLog.write("Running... %s\n" % ([command] + argv,))
+    program_log.info("Running... %s" % ([command] + argv,))
 
     #prepare os pipes for feeding tee proceses
     pstdout, pstdin = os.pipe()
@@ -123,8 +120,8 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 
     try:
         #prepare tee proceses
-        proc_std = tee(pstdout, stdout, runningLog)
-        proc_err = tee(perrout, stderr, runningLog)
+        proc_std = tee(pstdout, stdout, program_log)
+        proc_err = tee(perrout, stderr, program_log)
 
         #start monitoring the outputs
         proc_std.start()
@@ -156,7 +153,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     except OSError as e:
         errstr = "Error running %s: %s" % (command, e.strerror)
         log.error(errstr)
-        runningLog.write(errstr)
+        program_log.error(errstr)
         #close the input ends of pipes so we get EOF in the tee processes
         os.close(pstdin)
         os.close(perrin)
@@ -182,7 +179,6 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
         os.chroot(root)
 
     def closefds ():
-        runningLog.close()
         stdinclose()
         stderrclose()
 
@@ -209,8 +205,7 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     elif stderr is None or not isinstance(stderr, file):
         stderr = sys.stderr.fileno()
 
-    runningLog = open("/tmp/program.log", "a")
-    runningLog.write("Running... %s\n" % ([command] + argv,))
+    program_log.info("Running... %s" % ([command] + argv,))
 
     env = os.environ.copy()
     env.update({"LC_ALL": "C"})
@@ -225,10 +220,10 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
         while True:
             (outStr, errStr) = proc.communicate()
             if outStr:
-                runningLog.write(outStr)
+                map(program_log.info, outStr.splitlines())
                 rc += outStr
             if errStr:
-                runningLog.write(errStr)
+                map(program_log.error, errStr.splitlines())
                 os.write(stderr, errStr)
 
             if proc.returncode is not None:
@@ -248,7 +243,6 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
         os.chroot(root)
 
     def closefds ():
-        runningLog.close()
         stdinclose()
         stdoutclose()
         stderrclose()
@@ -283,8 +277,7 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
     elif stderr is None or not isinstance(stderr, file):
         stderr = sys.stderr.fileno()
 
-    runningLog = open("/tmp/program.log", "a")
-    runningLog.write("Running... %s\n" % ([command] + argv,))
+    program_log.info("Running... %s\n" % ([command] + argv,))
 
     p = os.pipe()
     childpid = os.fork()
@@ -312,7 +305,7 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
         if echo:
             os.write(stdout, s)
 
-        runningLog.write(s)
+        map(program_log.info, s.splitlines())
 
         if callback:
             callback(s, callback_data=callback_data)

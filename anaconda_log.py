@@ -31,7 +31,8 @@ DEFAULT_LEVEL = logging.INFO
 DEFAULT_ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)-8s: %(message)s"
 DEFAULT_DATE_FORMAT = "%H:%M:%S"
 
-logFile = "/tmp/anaconda.log"
+MAIN_LOG_FILE = "/tmp/anaconda.log"
+PROGRAM_LOG_FILE = "/tmp/program.log"
 
 logLevelMap = {"debug": logging.DEBUG, "info": logging.INFO,
                "warning": logging.WARNING, "error": logging.ERROR,
@@ -57,10 +58,14 @@ class AnacondaLog:
         # Create the base of the logger hierarcy.
         self.logger = logging.getLogger("anaconda")
         self.logger.setLevel(logging.DEBUG)
+        self.addFileHandler(MAIN_LOG_FILE, self.logger,
+                            autoSetLevel=False, minLevel=logging.DEBUG)
 
-        # Add a handler for the log file.
-        self.addFileHandler (logFile, logging.getLogger("anaconda"),
-                             autoSetLevel=False, minLevel=logging.DEBUG)
+        # External program output log
+        program_logger = logging.getLogger("program")
+        program_logger.setLevel(logging.DEBUG)
+        self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
+                            autoSetLevel=False, minLevel=logging.DEBUG)
 
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
