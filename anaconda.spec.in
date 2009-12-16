@@ -217,6 +217,77 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Dec 16 2009 Chris Lumens <clumens@redhat.com> - 13.11-1
+- Clean up setting paths on preupgrade (jvonau). (clumens)
+- And call freetmp, too. (Jerry)
+- Add a method to remove /tmp/install.img on low memory conditions (jvonau).
+  (clumens)
+- Make sure /mnt/stage2 is mounted before trying to unmount. (Jerry)
+- Skip the mediaDevice check before attempting to mount the install.img.
+  (Jerry)
+- Remove install.img from /boot during preupgrade. (Jerry)
+- Add __str__ methods to the DeviceFormat classes. (dlehman)
+- Expand PartitionDevice.__str__ to include partition geometry and flags.
+  (dlehman)
+- Hide biosraid member devices that contain MDRaidMember formats. (dlehman)
+- Move disklabel handling into handleUdevDeviceFormat with the others.
+  (dlehman)
+- DiskDevice.__init__ expects an "exists" parameter, so add it. (clumens)
+- Fix multipath filtering. (clumens)
+- Log error messages before displaying dialogs. (clumens)
+- Include error messages when logging selinux context get/set failures.
+  (dlehman)
+- Catch failures to set selinux contexts so it doesn't cause a crash.
+  (dlehman)
+- Fix typo logging failure to get default file context. (dlehman)
+- Use DiskLabel.alignment instead of getDiskAlignment. (dlehman)
+- Add an alignment property to DiskLabel. (dlehman)
+- iscsi.py: Do not translate log messages (hdegoede)
+- Make iscsi,etc startup use the iscsi,etc Singletons (hdegoede)
+- kickstart: Move onlining of fcoe/iscsi/zfcp devices to parse phase
+  (hdegoede)
+- Make the fcoe, iscsi and zfcp classes singletons (hdegoede)
+- Remove call to no longer existing isys DriveDict method (hdegoede)
+- Use the correct yum configuration file when searching for the -logos
+  package (kanarip)
+- Fix two missing closing parens in previous commits. (clumens)
+- Add an interface to select the fancy filtering UI vs. the regular one.
+  (clumens)
+- Add a step to prompt for the cleardisks UI. (clumens)
+- Add a dialog to configure advanced storage devices. (clumens)
+- Add an early user interface for filtering storage devices. (clumens)
+- Rework the upgrade vs. install screen a bit to make it look nicer.
+  (clumens)
+- Add the updated and simplified parttype screen. (clumens)
+- Add a method to determine whether a device is a CCISS RAID device.
+  (clumens)
+- Move identifyMultipaths from DeviceTree to devicelibs. (clumens)
+- Add a method to return a device's WWID. (clumens)
+- Add a method to get the bus/interconnect from udev and store it on
+  devices. (clumens)
+- Add a vendor getting udev method, though udev doesn't always know it.
+  (clumens)
+- Add the serial number to all DiskDevices and subclasses. (clumens)
+- Put less space between rows and allow text to be longer before wrapping.
+  (clumens)
+- Allow InstallInterfaces to modify the installation steps. (clumens)
+- Default /boot to 500 MB. (clumens)
+- Some iscsi cleanups (hdegoede)
+- Bring auto discovered drives online before parsing the ks file (hdegoede)
+- Make a better effort at tearing down everything before action processing.
+  (dlehman)
+- Tighten restrictions on the type of disklabel on x86 and EFI boot disks.
+  (dlehman)
+- Use string instead of parted.diskType for disklabel types. (dlehman)
+- A couple of cleanups to warnings about formatting preexisting devices.
+  (dlehman)
+- Rework udev_settle timeout handling (#544177) (hdegoede)
+- Remove smp.c from the Makefile.am, too. (clumens)
+- Nothing has a kernel-smp anymore so none of this code is useful. (clumens)
+- Get rid of the goofy nested try statements. (clumens)
+- update reIPL messages (hamzy)
+- Change btrfs command line option (josef)
+
 * Wed Dec 09 2009 Chris Lumens <clumens@redhat.com> - 13.10-1
 - Kickstart support for unpartitioned disks. (dlehman)
 - Skip disklabel handling for biosraid and multipath members. (dlehman)
