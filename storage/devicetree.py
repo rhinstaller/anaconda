@@ -1243,9 +1243,8 @@ class DeviceTree(object):
         return device
 
     def addUdevDevice(self, info):
-        # FIXME: this should be broken up into more discrete chunks
         name = udev_device_get_name(info)
-        log_method_call(self, name=name)
+        log_method_call(self, name=name, info=info)
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
 
@@ -1321,20 +1320,11 @@ class DeviceTree(object):
         if not device or not device.mediaPresent:
             return
 
-        # Now, if the device is a disk, see if there is a usable disklabel.
-        # If not, see if the user would like to create one.
-        format = getFormat(udev_device_get_format(info))
-        if device.partitionable and not format.hidden:
-            self.handleUdevDiskLabelFormat(info, device)
-            if device.partitioned or self.isIgnored(info):
-                # If the device has a disklabel, or the user chose not to
-                # create one, we are finished with this device. Otherwise
-                # it must have some non-disklabel formatting, in which case
-                # we fall through to handle that.
-                return
-
         # now handle the device's formatting
         self.handleUdevDeviceFormat(info, device)
+        log.debug("got device: %s" % device)
+        if device.format.type:
+            log.debug("got format: %s" % device.format)
 
     def handleUdevDiskLabelFormat(self, info, device):
         log_method_call(self, device=device.name)
@@ -1710,13 +1700,24 @@ class DeviceTree(object):
 
     def handleUdevDeviceFormat(self, info, device):
         log_method_call(self, name=getattr(device, "name", None))
-        log.debug("%s" % info)
         name = udev_device_get_name(info)
         sysfs_path = udev_device_get_sysfs_path(info)
         uuid = udev_device_get_uuid(info)
         label = udev_device_get_label(info)
         format_type = udev_device_get_format(info)
         serial = udev_device_get_serial(info)
+
+        # Now, if the device is a disk, see if there is a usable disklabel.
+        # If not, see if the user would like to create one.
+        format = getFormat(format_type)
+        if device.partitionable and not format.hidden:
+            self.handleUdevDiskLabelFormat(info, device)
+            if device.partitioned or self.isIgnored(info):
+                # If the device has a disklabel, or the user chose not to
+                # create one, we are finished with this device. Otherwise
+                # it must have some non-disklabel formatting, in which case
+                # we fall through to handle that.
+                return
 
         format = None
         if (not device) or (not format_type) or device.format.type:
