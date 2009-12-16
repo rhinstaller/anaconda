@@ -425,7 +425,11 @@ class AnacondaYum(YumSorter):
         # whatever) is mounted yet since loader only mounts the source
         # for the stage2 image.  We need to set up the source mount
         # now.
-        if self.anaconda.methodstr:
+        if flags.cmdline.has_key("preupgrade"):
+            path = "/var/cache/yum/preupgrade"
+            self.anaconda.methodstr = "hd::%s" % path 
+            self._baseRepoURL = "file:///mnt/sysimage/%s" % path
+        elif self.anaconda.methodstr:
             m = self.anaconda.methodstr
 
             if m.startswith("hd:"):
@@ -433,10 +437,6 @@ class AnacondaYum(YumSorter):
                     (device, path) = m[3:].split(":")
                 else:
                     (device, fstype, path) = m[3:].split(":")
-
-                if flags.cmdline.has_key("preupgrade"):
-                    self._baseRepoURL = "file:///mnt/sysimage/%s" % path
-                else:
                     self.isodir = "/mnt/isodir/%s" % path
 
                     # This takes care of mounting /mnt/isodir first.
