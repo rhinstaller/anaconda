@@ -1569,6 +1569,10 @@ class DeviceTree(object):
         name = udev_device_get_name(info)
         sysfs_path = udev_device_get_sysfs_path(info)
 
+        if udev_device_is_biosraid(info):
+            # this will prevent display of the member devices in the UI
+            device.format.biosraid = True
+
         md_array = self.getDeviceByUuid(device.format.mdUuid)
         if device.format.mdUuid and md_array:
             md_array._addDevice(device)
@@ -1709,8 +1713,10 @@ class DeviceTree(object):
 
         # Now, if the device is a disk, see if there is a usable disklabel.
         # If not, see if the user would like to create one.
-        format = getFormat(format_type)
-        if device.partitionable and not format.hidden:
+        # XXX ignore disklabels on multipath or biosraid member disks
+        if device.partitionable and not \
+           (udev_device_is_biosraid(info) or
+            udev_device_is_multipath_member(info)):
             self.handleUdevDiskLabelFormat(info, device)
             if device.partitioned or self.isIgnored(info):
                 # If the device has a disklabel, or the user chose not to

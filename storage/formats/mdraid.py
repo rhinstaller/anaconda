@@ -64,6 +64,7 @@ class MDRaidMember(DeviceFormat):
         self.raidMinor = None
 
         #self.probe()
+        self.biosraid = False
 
     def probe(self):
         """ Probe for any missing information about this format. """
@@ -92,6 +93,10 @@ class MDRaidMember(DeviceFormat):
     def status(self):
         # XXX hack -- we don't have a nice way to see if the array is active
         return False
+
+    @property
+    def hidden(self):
+        return (self._hidden or self.biosraid)
 
     def writeKS(self, f):
         f.write("raid.%s" % self.mdUuid)
