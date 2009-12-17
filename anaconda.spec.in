@@ -53,6 +53,7 @@ BuildRequires: gettext >= %{gettextver}
 BuildRequires: gtk2-devel
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: isomd5sum-devel
+BuildRequires: libarchive-devel
 BuildRequires: libX11-devel
 BuildRequires: libXt-devel
 BuildRequires: libXxf86misc-devel
@@ -67,6 +68,7 @@ BuildRequires: pango-devel
 BuildRequires: pykickstart >= %{pykickstartver}
 BuildRequires: python-devel
 BuildRequires: python-urlgrabber
+BuildRequires: rpm-devel
 BuildRequires: rpm-python >= %{rpmpythonver}
 BuildRequires: slang-devel >= %{slangver}
 BuildRequires: xmlto
@@ -101,6 +103,7 @@ Requires: device-mapper-libs >= %{dmver}
 Requires: dosfstools
 Requires: e2fsprogs >= %{e2fsver}
 Requires: gzip
+Requires: libarchive
 %ifarch %{ix86} x86_64 ia64
 Requires: dmidecode
 %endif
