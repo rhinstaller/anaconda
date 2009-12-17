@@ -328,6 +328,11 @@ makemoduletree() {
         esac
     done
 
+    # create depmod.conf to support DDs
+    cat > $MMB_DIR/etc/depmod.conf << EOF
+search /tmp/DD/lib/modules built-in
+EOF
+
     # clean up leftover cruft
     find -H $MMB_DIR/lib/modules -type d -exec rmdir -f {} \; 2>/dev/null
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
@@ -808,7 +813,7 @@ makeinitrd() {
 
     makeproductfile $MBD_DIR
 
-    for n in insmod rmmod modprobe; do
+    for n in insmod rmmod modprobe depmod; do
         instbin $IMGPATH /usr/sbin/$n $MBD_DIR /sbin/$n
     done
 
