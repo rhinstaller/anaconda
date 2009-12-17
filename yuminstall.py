@@ -749,7 +749,7 @@ class AnacondaYum(YumSorter):
         if os.path.exists("%s/boot/upgrade/install.img" % self.anaconda.rootPath):
             log.info("REMOVING stage2 image from %s /boot/upgrade" % self.anaconda.rootPath )
             try:
-                os.unlink("%s/boot/upgrade/install.img" % self.anaconda.rootPath):
+                os.unlink("%s/boot/upgrade/install.img" % self.anaconda.rootPath)
             except:
                 log.warning("failed to clean /boot/upgrade")
 
