@@ -70,6 +70,7 @@
 #define LOADER_FLAGS_HAVE_CMSCONF       (((uint64_t) 1) << 37)
 #define LOADER_FLAGS_NOKILL		(((uint64_t) 1) << 38)
 #define LOADER_FLAGS_KICKSTART_SEND_SERIAL   (((uint64_t) 1) << 39)
+#define LOADER_FLAGS_AUTOMODDISK        (((uint64_t) 1) << 40)
 
 #define FL_TEXT(a)               ((a) & LOADER_FLAGS_TEXT)
 #define FL_RESCUE(a)             ((a) & LOADER_FLAGS_RESCUE)
@@ -106,6 +107,7 @@
 #define FL_HAVE_CMSCONF(a)       ((a) & LOADER_FLAGS_HAVE_CMSCONF)
 #define FL_NOKILL(a)		 ((a) & LOADER_FLAGS_NOKILL)
 #define FL_KICKSTART_SEND_SERIAL(a) ((a) & LOADER_FLAGS_KICKSTART_SEND_SERIAL)
+#define FL_AUTOMODDISK(a)        ((a) & LOADER_FLAGS_AUTOMODDISK)
 
 void startNewt(void);
 void stopNewt(void);

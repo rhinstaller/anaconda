@@ -960,6 +960,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strcasecmp(argv[i], "dd") || 
                  !strcasecmp(argv[i], "driverdisk"))
             flags |= LOADER_FLAGS_MODDISK;
+        else if (!strcasecmp(argv[i], "dlabel=on"))
+            flags |= LOADER_FLAGS_AUTOMODDISK;
+        else if (!strcasecmp(argv[i], "dlabel=off"))
+            flags &= ~LOADER_FLAGS_AUTOMODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
             flags |= LOADER_FLAGS_RESCUE;
         else if (!strcasecmp(argv[i], "nopass"))
@@ -1785,6 +1789,7 @@ int main(int argc, char ** argv) {
     struct loaderData_s loaderData;
 
     char *path, *fmt;
+    GSList *dd, *dditer;
 
     gchar *cmdLine = NULL, *ksFile = NULL, *virtpcon = NULL;
     gboolean mediacheck = FALSE;
@@ -1882,6 +1887,12 @@ int main(int argc, char ** argv) {
 
     openLog();
     openlog("loader", 0, LOG_LOCAL0);
+    
+    /* XXX if RHEL, enable the AUTODD feature by default,
+     * but we should come with more general way how to control this */
+    if (!strncmp(getProductName(), "Red Hat", 7)) {
+        flags |= LOADER_FLAGS_AUTOMODDISK;
+    }
 
     memset(&loaderData, 0, sizeof(loaderData));
     loaderData.method = -1;
@@ -1943,6 +1954,34 @@ int main(int argc, char ** argv) {
     /* FIXME: this is a bit of a hack */
     loaderData.modInfo = modInfo;
 
+    /* Setup depmod & modprobe so we can load multiple DDs */
+    modprobeDDmode();
+
+    /* If there is /.rundepmod file present, rerun depmod */
+    if (!access("/.rundepmod", R_OK)){
+        if (system("depmod -a")) {
+            /* this is not really fatal error, it might still work, log it */
+            logMessage(ERROR, "Error running depmod -a for initrd overlay");
+        }
+    }
+
+    if (FL_AUTOMODDISK(flags)) {
+        /* Load all autodetected DDs */
+        logMessage(INFO, "Trying to detect vendor driver discs");
+        dd = findDriverDiskByLabel();
+        dditer = dd;
+        while(dditer) {
+            if (loadDriverDiskFromPartition(&loaderData, (char*)(dditer->data))) {
+                logMessage(ERROR, "Automatic driver disk loader failed for %s.", (char*)(dditer->data));
+            }
+            else {
+                logMessage(INFO, "Automatic driver disk loader succeeded for %s.", (char*)(dditer->data));
+            }
+            dditer = g_slist_next(dditer);
+        }
+        g_slist_free(dd);
+    }
+
     if (FL_MODDISK(flags)) {
         startNewt();
         loadDriverDisks(DEVICE_ANY, &loaderData);
@@ -1952,6 +1991,9 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "found /dd.img, loading drivers");
         getDDFromSource(&loaderData, "path:/dd.img");
     }
+    
+    /* Reset depmod & modprobe to normal mode and get the rest of drivers*/
+    modprobeNormalmode();
 
     /* this allows us to do an early load of modules specified on the
      * command line to allow automating the load order of modules so that
@@ -2131,6 +2173,9 @@ int main(int argc, char ** argv) {
 
         tmparg++;
     }
+
+    if (FL_AUTOMODDISK(flags))
+        *argptr++ = "--dlabel";
 
     if (FL_NOIPV4(flags))
         *argptr++ = "--noipv4";
