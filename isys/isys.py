@@ -390,6 +390,16 @@ def ext2HasJournal(device):
     hasjournal = _isys.e2hasjournal(device);
     return hasjournal
 
+def modulesWithPaths():
+    mods = []
+    for modline in open("/proc/modules", "r"):
+        modName = modline.split(" ", 1)[0]
+        modInfo = iutil.execWithCapture("modinfo",
+                ["-F", "filename", modName]).splitlines()
+        modPaths = [ line.strip() for line in modInfo if line!="" ]
+        mods.extend(modPaths)
+    return mods
+
 def driveUsesModule(device, modules):
     """Returns true if a drive is using a prticular module.  Only works
        for SCSI devices right now."""
