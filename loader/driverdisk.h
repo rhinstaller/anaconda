@@ -24,6 +24,11 @@
 #include "modules.h"
 #include "moduleinfo.h"
 
+#define DD_RPMDIR_TEMPLATE "/tmp/DD-%d"
+#define DD_EXTRACTED "/tmp/DD"
+#define DD_MODULES "/tmp/DD/lib/modules"
+#define DD_FIRMWARE "/tmp/DD/lib/firmware"
+
 extern char *ddFsTypes[];
 
 int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
@@ -38,5 +43,12 @@ void useKickstartDD(struct loaderData_s * loaderData, int argc,
                     char ** argv);
 
 void getDDFromSource(struct loaderData_s * loaderData, char * src);
+
+int loadDriverDiskFromPartition(struct loaderData_s *loaderData, char* device);
+
+GSList* findDriverDiskByLabel(void);
+
+int modprobeNormalmode();
+int modprobeDDmode();
 
 #endif

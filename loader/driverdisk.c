@@ -30,6 +30,12 @@
 #include <unistd.h>
 #include <glib.h>
 
+#include <blkid/blkid.h>
+
+#include <glob.h>
+#include <rpm/rpmlib.h>
+#include <sys/utsname.h>
+
 #include "copy.h"
 #include "loader.h"
 #include "log.h"
@@ -48,6 +54,8 @@
 #include "nfsinstall.h"
 #include "urlinstall.h"
 
+#include "rpmextract.h"
+
 #include "../isys/isys.h"
 #include "../isys/imount.h"
 #include "../isys/eddsupport.h"
@@ -55,37 +63,197 @@
 /* boot flags */
 extern uint64_t flags;
 
-static char * driverDiskFiles[] = { "modinfo", "modules.dep", 
-                                    "modules.cgz", "modules.alias", NULL };
+/* modprobe DD mode */
+int modprobeDDmode(void)
+{
+    FILE *f = fopen("/etc/depmod.d/ddmode.conf", "w");
+    if (f) {
+        struct utsname unamedata;
+
+        if (uname(&unamedata))
+            fprintf(f, " pblacklist /lib/modules\n");
+        else
+            fprintf(f, " pblacklist /lib/modules/%s\n", unamedata.release);
+        fclose(f);
+    }
+
+    return f==NULL;
+}
+
+int modprobeNormalmode(void)
+{
+    /* remove depmod overrides */
+    if (unlink("/etc/depmod.d/ddmode.conf")) {
+        logMessage(ERROR, "removing ddmode.conf failed");
+        return -1;
+    }
+
+    /* run depmod to refresh modules db */
+    if (system("depmod -a")) {
+        logMessage(ERROR, "depmod -a failed");
+        return -1;
+    }
+
+    return 0;
+}
+
+/*
+ * check if the RPM in question provides
+ * Provides: userptr
+ * we use it to check kernel-modules-<kernelversion>
+ */
+int dlabelProvides(const char* dep, void *userptr)
+{
+    char *kernelver = (char*)userptr;
+
+    logMessage(DEBUGLVL, "Provides: %s\n", dep);
+
+    return strcmp(dep, kernelver);
+}
+
+/*
+ * during cpio extraction, only extract files we need
+ * eg. module .ko files and firmware directory
+ */
+int dlabelFilter(const char* name, const struct stat *fstat, void *userptr)
+{
+    int l = strlen(name);
+
+    logMessage(DEBUGLVL, "Unpacking %s (%lluB)\n", name, fstat->st_size);
+
+    /* we want firmware files */
+    if (!strncmp("lib/firmware/", name, 13)) return 0; 
+
+    if (l<3)
+        return 1;
+    l-=3;
+
+    /* and we want only .ko files */
+    if (strcmp(".ko", name+l))
+        return 1;
+
+    /* TODO we are unpacking kernel module, read it's description */
+
+    return 0;
+}
+
+char* moduleDescription(const char* modulePath)
+{
+    char *command = NULL;
+    FILE *f = NULL;
+    char *description = NULL;
+    int size;
+
+    checked_asprintf(&command, "modinfo --description '%s'", modulePath);
+    f = popen(command, "r");
+    free(command);
+
+    if (f==NULL)
+        return NULL;
+
+    description = malloc(sizeof(char)*256);
+    if (!description)
+        return NULL;
+
+    size = fread(description, 1, 255, f);
+    if (size == 0) {
+        free(description);
+        return NULL;
+    }
+
+    description[size-1]=0; /* strip the trailing newline */
+    pclose(f);
+
+    return description;
+}
+
+int globErrFunc(const char *epath, int eerrno)
+{
+    /* TODO check fatal errors */
+
+    return 0;
+}
+
+int dlabelUnpackRPMDir(char* rpmdir, char* destination)
+{
+    char *kernelver;
+    struct utsname unamedata;
+    char *oldcwd;
+    char *globpattern;
+    int rc;
+
+    /* get current working directory */ 
+    oldcwd = getcwd(NULL, 0);
+    if (!oldcwd) {
+        logMessage(ERROR, "getcwd() failed: %m");
+        return 1;
+    }
+
+    /* set the cwd to destination */
+    if (chdir(destination)) {
+        logMessage(ERROR, "We weren't able to CWD to \"%s\": %m", destination);
+        free(oldcwd);
+        return 1;
+    }
+
+    /* get running kernel version */
+    rc = uname(&unamedata);
+    checked_asprintf(&kernelver, "kernel-modules-%s",
+            rc ? "unknown" : unamedata.release);
+    logMessage(DEBUGLVL, "Kernel version: %s\n", kernelver);
+
+    checked_asprintf(&globpattern, "%s/*.rpm", rpmdir);
+    glob_t globres;
+    char** globitem;
+    if (!glob(globpattern, GLOB_NOSORT|GLOB_NOESCAPE, globErrFunc, &globres)) {
+        /* iterate over all rpm files */
+        globitem = globres.gl_pathv;
+        while (globres.gl_pathc>0 && globitem != NULL) {
+            explodeRPM(*globitem, dlabelFilter, dlabelProvides, NULL, kernelver);
+        }
+        globfree(&globres);
+        /* end of iteration */
+    }
+    free(globpattern);
+
+    /* restore CWD */
+    if (chdir(oldcwd)) {
+        logMessage(WARNING, "We weren't able to restore CWD to \"%s\": %m", oldcwd);
+    }
+
+    /* cleanup */
+    free(kernelver);
+    free(oldcwd);
+    return rc;
+}
+
+
+static char * driverDiskFiles[] = { "repodata", NULL };
 
 static int verifyDriverDisk(char *mntpt) {
     char ** fnPtr;
     char file[200];
     struct stat sb;
 
-    for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
-        sprintf(file, "%s/%s", mntpt, *fnPtr);
-        if (access(file, R_OK)) {
-            logMessage(ERROR, "cannot find %s, bad driver disk", file);
-            return LOADER_BACK;
-        }
-    }
-
-    /* check for both versions */
-    sprintf(file, "%s/rhdd", mntpt);
+    /* check for dd descriptor */
+    sprintf(file, "%s/rhdd3", mntpt);
     if (access(file, R_OK)) {
-        logMessage(DEBUGLVL, "not a new format driver disk, checking for old");
-        sprintf(file, "%s/rhdd-6.1", mntpt);
-        if (access(file, R_OK)) {
-            logMessage(ERROR, "can't find either driver disk identifier, bad "
-                       "driver disk");
-        }
+        logMessage(ERROR, "can't find driver disk identifier, bad "
+                          "driver disk");
+        return LOADER_BACK;
     }
 
     /* side effect: file is still mntpt/ddident */
     stat(file, &sb);
     if (!sb.st_size)
         return LOADER_BACK;
+    for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
+        snprintf(file, 200, "%s/%s/%s", mntpt, getProductArch(), *fnPtr);
+        if (access(file, R_OK)) {
+            logMessage(ERROR, "cannot find %s, bad driver disk", file);
+            return LOADER_BACK;
+        }
+    }
 
     return LOADER_OK;
 }
@@ -101,25 +269,20 @@ static void copyErrorFn (char *msg) {
 /* this copies the contents of the driver disk to a ramdisk and loads
  * the moduleinfo, etc.  assumes a "valid" driver disk mounted at mntpt */
 static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
-    moduleInfoSet modInfo = loaderData->modInfo;
-    char file[200], dest[200];
+    /* FIXME moduleInfoSet modInfo = loaderData->modInfo; */
+    char file[200], dest[200], src[200];
     char *title;
     char *fwdir = NULL;
     struct moduleBallLocation * location;
     struct stat sb;
     static int disknum = 0;
-    int version = 1;
     int fd, ret;
 
-    /* check for both versions */
-    sprintf(file, "%s/rhdd", mntpt);
+    /* check for new version */
+    sprintf(file, "%s/rhdd3", mntpt);
     if (access(file, R_OK)) {
-        version = 0;
-        sprintf(file, "%s/rhdd-6.1", mntpt);
-        if (access(file, R_OK)) {
-            /* this can't happen, we already verified it! */
-            return LOADER_BACK;
-        } 
+      /* this can't happen, we already verified it! */
+      return LOADER_BACK;
     }
     stat(file, &sb);
     title = malloc(sb.st_size + 1);
@@ -131,24 +294,39 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     title[sb.st_size] = '\0';
     close(fd);
 
-    sprintf(file, "/tmp/DD-%d", disknum);
+    sprintf(file, DD_RPMDIR_TEMPLATE, disknum);
     mkdirChain(file);
+    mkdirChain(DD_MODULES);
+    mkdirChain(DD_FIRMWARE);
 
     if (!FL_CMDLINE(flags)) {
         startNewt();
         winStatus(40, 3, _("Loading"), _("Reading driver disk"));
     }
 
-    sprintf(dest, "/tmp/DD-%d", disknum);
-    copyDirectory(mntpt, dest, copyWarnFn, copyErrorFn);
-
     location = malloc(sizeof(struct moduleBallLocation));
     location->title = strdup(title);
-    location->version = version;
+    checked_asprintf(&location->path, DD_MODULES);
 
-    checked_asprintf(&location->path, "/tmp/DD-%d/modules.cgz", disknum);
-    checked_asprintf(&fwdir, "/tmp/DD-%d/firmware", disknum);
+    sprintf(dest, DD_RPMDIR_TEMPLATE, disknum);
+    sprintf(src, "%s/rpms/%s", mntpt, getProductArch());
+    copyDirectory(src, dest, copyWarnFn, copyErrorFn);
 
+    /* unpack packages from dest into location->path */
+    if (dlabelUnpackRPMDir(dest, DD_EXTRACTED)) {
+        /* fatal error, log this and jump to exception handler */
+        logMessage(ERROR, "Error unpacking RPMs from driver disc no.%d",
+                disknum);
+        goto loadDriverDiscException;
+    }
+
+    /* run depmod to refresh modules db */
+    if (system("depmod -a")) {
+      /* this is not really fatal error, it might still work, log it */
+      logMessage(ERROR, "Error running depmod -a for driverdisc no.%d", disknum);
+    }
+
+    checked_asprintf(&fwdir, DD_FIRMWARE);
     if (!access(fwdir, R_OK|X_OK)) {
         add_fw_search_dir(loaderData, fwdir);
         stop_fw_loader(loaderData);
@@ -156,8 +334,13 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     }
     free(fwdir);
 
-    sprintf(file, "%s/modinfo", mntpt);
-    readModuleInfo(file, modInfo, location, 1);
+    /* TODO generate and read module info
+     *
+     * sprintf(file, "%s/modinfo", mntpt);
+     * readModuleInfo(file, modInfo, location, 1);
+     */
+
+loadDriverDiscException:
 
     if (!FL_CMDLINE(flags))
         newtPopWindow();
@@ -248,7 +431,14 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             char ** part_list = getPartitionsList(device);
             int nump = 0, num = 0;
 
-            if (part != NULL) free(part);
+            /* Do not crash if the device disappeared */
+            if (!part_list) {
+                stage = DEV_DEVICE;
+                break;
+            }
+
+            if (part != NULL)
+                free(part);
 
             if ((nump = lenPartitionsList(part_list)) == 0) {
                 if (dir == -1)
@@ -317,7 +507,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
         }
 
         case DEV_LOADFILE: {
-            if(ddfile == NULL) {
+            if (ddfile == NULL) {
                 logMessage(DEBUGLVL, "trying to load dd from NULL");
                 stage = DEV_CHOOSEFILE;
                 break;
@@ -623,3 +813,77 @@ static void getDDFromDev(struct loaderData_s * loaderData, char * dev) {
     umount("/tmp/drivers");
     unlink("/tmp/drivers");
 }
+
+
+/*
+ * Look for partition with specific label (part of #316481)
+ */
+GSList* findDriverDiskByLabel(void)
+{
+    char *ddLabel = "OEMDRV";
+    GSList *ddDevice = NULL;
+    blkid_cache bCache;
+    
+    int res;
+    blkid_dev_iterate bIter;
+    blkid_dev bDev;
+
+    if (blkid_get_cache(&bCache, NULL)<0) {
+        logMessage(ERROR, "Cannot initialize cache instance for blkid");
+        return NULL;
+    }
+    if ((res = blkid_probe_all(bCache))<0) {
+        logMessage(ERROR, "Cannot probe devices in blkid: %d", res);
+        return NULL;
+    }
+
+    if ((ddDevice = g_slist_alloc())==NULL) {
+        logMessage(ERROR, "Cannot allocate space for list of devices");
+        return NULL;
+    }
+
+    bIter = blkid_dev_iterate_begin(bCache);
+    blkid_dev_set_search(bIter, "LABEL", ddLabel);
+    while ((res = blkid_dev_next(bIter, &bDev)) !=0 ) {
+        bDev = blkid_verify(bCache, bDev);
+        if (!bDev)
+            continue;
+        logMessage(DEBUGLVL, "Adding driver disc %s to the list "
+                             "of available DDs.", blkid_dev_devname(bDev));
+        ddDevice = g_slist_prepend(ddDevice, (gpointer)blkid_dev_devname(bDev));
+        /* Freeing bDev is taken care of by the put cache call */
+    }
+    blkid_dev_iterate_end(bIter);
+
+    blkid_put_cache(bCache);
+
+    return ddDevice;
+}
+
+int loadDriverDiskFromPartition(struct loaderData_s *loaderData, char* device)
+{
+    int rc;
+
+    logMessage(INFO, "trying to mount %s", device);
+    if (doPwMount(device, "/tmp/drivers", "auto", "ro", NULL)) {
+        logMessage(ERROR, "Failed to mount driver disk.");
+        return -1;
+    }
+
+    rc = verifyDriverDisk("/tmp/drivers");
+    if (rc == LOADER_BACK) {
+        logMessage(ERROR, "Driver disk is invalid for this "
+                "release of %s.", getProductName());
+        umount("/tmp/drivers");
+        return -2;
+    }
+
+    rc = loadDriverDisk(loaderData, "/tmp/drivers");
+    umount("/tmp/drivers");
+    if (rc == LOADER_BACK) {
+        return -3;
+    }
+
+    return 0;
+}
+
