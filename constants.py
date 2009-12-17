@@ -82,3 +82,8 @@ else:
     # this string will be combined with "An unhandled exception"...
     # the leading space is not a typo.
     exceptionText += _(" against anaconda at %s") %(bugzillaUrl,)
+
+# DriverDisc Paths
+DD_EXTRACTED = "/tmp/DD"
+DD_RPMS = "/tmp/DD-*"
+

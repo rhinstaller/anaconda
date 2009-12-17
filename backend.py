@@ -73,8 +73,8 @@ class AnacondaBackend:
 
     def copyFirmware(self, anaconda):
         # Multiple driver disks may be loaded, so we need to glob for all
-        # the firmware files in all the driver disk directories.
-        for f in glob.glob("/tmp/DD-*/firmware/*"):
+        # the firmware files in the common DD firmware directory
+        for f in glob.glob(DD_EXTRACTED+"/lib/firmware/*"):
             try:
                 shutil.copyfile(f, "%s/lib/firmware/" % anaconda.rootPath)
             except IOError, e:
@@ -94,15 +94,22 @@ class AnacondaBackend:
                 has_iscsi_disk = True
                 break
 
-        if anaconda.id.extraModules:
-            self.copyFirmware(anaconda)
+        #always copy the firmware files from DD
+        self.copyFirmware(anaconda)
 
         if anaconda.id.extraModules or has_iscsi_disk:
             for (n, arch, tag) in self.kernelVersionList(anaconda.rootPath):
                 packages.recreateInitrd(n, anaconda.rootPath)
 
-        for d in glob.glob("/tmp/DD-*"):
-            shutil.copytree(d, "/root/" + os.path.basename(d))
+        #copy RPMS
+        for d in glob.glob(DD_RPMS):
+            shutil.copytree(d, anaconda.rootPath + "/root/" + os.path.basename(d))
+
+        #copy modules and firmware
+        try:
+            shutil.copytree(DD_EXTRACTED, anaconda.rootPath + "/root/DD")
+        except IOError, e:
+            pass
 
         storage.writeEscrowPackets(anaconda)
 

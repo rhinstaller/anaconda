@@ -655,16 +655,18 @@ class AnacondaYum(YumSorter):
 
         extraRepos = []
 
-        if self.anaconda.id.extraModules:
-            for d in glob.glob("/tmp/DD-*/rpms"):
-                dirname = os.path.basename(os.path.dirname(d))
-                rid = "anaconda-%s" % dirname
+        ddArch = os.uname()[4]
 
-                repo = AnacondaYumRepo(rid)
-                repo.baseurl = [ "file:///%s" % d ]
-                repo.name = "Driver Disk %s" % dirname.split("-")[1]
-                repo.enable()
-                extraRepos.append(repo)
+        #Add the Driver disc repos to Yum
+        for d in glob.glob(DD_RPMS):
+            dirname = os.path.basename(d)
+            rid = "anaconda-%s" % dirname
+
+            repo = AnacondaYumRepo(rid)
+            repo.baseurl = [ "file:///%s" % d ]
+            repo.name = "Driver Disk %s" % dirname.split("-")[1]
+            repo.enable()
+            extraRepos.append(repo)
 
         if self.anaconda.isKickstart:
             # This is the same pattern as from loader/urls.c:splitProxyParam.
@@ -1294,19 +1296,29 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     def selectModulePackages(self, anaconda, kernelPkgName):
         (base, sep, ext) = kernelPkgName.partition("-")
 
+        moduleProvides = []
+
         for (path, name) in anaconda.id.extraModules:
             if ext != "":
-                moduleProvides = "dud-%s-%s" % (name, ext)
+                moduleProvides.append("dud-%s-%s" % (name, ext))
             else:
-                moduleProvides = "dud-%s" % name
+                moduleProvides.append("dud-%s" % name)
 
-            pkgs = self.ayum.returnPackagesByDep(moduleProvides)
+        #We need to install the packages which contain modules from DriverDiscs
+        for modPath in isys.modulesWithPaths():
+            if modPath.startswith(DD_EXTRACTED):
+                moduleProvides.append(modPath[len(DD_EXTRACTED):])
+            else:
+                continue
+
+        for module in moduleProvides:
+            pkgs = self.ayum.returnPackagesByDep(module)
 
             if not pkgs:
-                log.warning("Didn't find any package providing module %s" % name)
+                log.warning("Didn't find any package providing %s" % module)
 
             for pkg in pkgs:
-                log.info("selecting package %s for module %s" % (pkg.name, name))
+                log.info("selecting package %s for %s" % (pkg.name, module))
                 self.ayum.install(po=pkg)
 
     def selectBestKernel(self, anaconda):
