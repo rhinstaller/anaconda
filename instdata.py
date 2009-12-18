@@ -95,10 +95,6 @@ class InstallData:
     def setKeyboard(self, keyboard):
         self.keyboard = keyboard
 
-    # expects 0/1
-    def setHeadless(self, isHeadless):
-        self.isHeadless = isHeadless
-
     def setKsdata(self, ksdata):
         self.ksdata = ksdata
 
@@ -132,7 +128,7 @@ class InstallData:
 
         self.anaconda.writeXdriver(self.anaconda.rootPath)
 
-        if not self.isHeadless:
+        if not self.anaconda.isHeadless:
             self.keyboard.write (self.anaconda.rootPath)
 
         self.timezone.write (self.anaconda.rootPath)
@@ -237,7 +233,7 @@ class InstallData:
                 f.write("url --url=%s\n" % urllib.unquote(m))
 
         self.instLanguage.writeKS(f)
-        if not self.isHeadless:
+        if not self.anaconda.isHeadless:
             self.keyboard.writeKS(f)
             self.network.writeKS(f)
 
@@ -288,7 +284,6 @@ class InstallData:
 
         self.monitor = None
         self.videocard = None
-        self.isHeadless = 0
         self.extraModules = extraModules
 
         self.simpleFilter = True

@@ -449,6 +449,7 @@ class Anaconda:
         self.displayMode = None
         self.id = None
         self.intf = None
+        self.isHeadless = False
         self.isKickstart = False
         self.mediaDevice = None
         self.methodstr = None
@@ -666,6 +667,7 @@ if __name__ == "__main__":
         flags.dlabel = True
 
     anaconda.displayMode = opts.display_mode
+    anaconda.isHeadless = opts.isHeadless
 
     if opts.noipv4:
         flags.useIPv4 = False
@@ -745,10 +747,6 @@ if __name__ == "__main__":
     if opts.xdriver:
         anaconda.xdriver = opts.xdriver
         anaconda.writeXdriver()
-
-    # probing for hardware on an s390 seems silly...
-    if iutil.isS390():
-        opts.isHeadless = True
 
     if not flags.livecdInstall:
         isys.auditDaemon()
@@ -878,12 +876,13 @@ if __name__ == "__main__":
          time.sleep(2)
          anaconda.displayMode = 't'
 
-    if opts.isHeadless: # s390/iSeries checks
-        if anaconda.displayMode == 'g' and not (os.environ.has_key('DISPLAY') or flags.usevnc):
-            stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
-            anaconda.displayMode = 't'
-            graphical_failed = 1
-            time.sleep(2)
+    # s390/iSeries checks
+    if anaconda.isHeadless and anaconda.displayMode == "g" and not \
+       (os.environ.has_key("DISPLAY") or flags.usevnc):
+        stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
+        anaconda.displayMode = 't'
+        graphical_failed = 1
+        time.sleep(2)
 
     # if DISPLAY not set either vnc server failed to start or we're not
     # running on a redirected X display, so start local X server
@@ -1025,8 +1024,7 @@ if __name__ == "__main__":
         ksdata.execute()
 
     # set up the headless case
-    if opts.isHeadless == 1:
-        anaconda.id.setHeadless(opts.isHeadless)
+    if anaconda.isHeadless:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
 
     if not anaconda.isKickstart:

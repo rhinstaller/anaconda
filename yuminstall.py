@@ -1587,7 +1587,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                                 anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")
             anaconda.id.network.write(instPath=anaconda.rootPath, anaconda=anaconda)
             anaconda.id.storage.write(anaconda.rootPath)
-            if not anaconda.id.isHeadless:
+            if not anaconda.isHeadless:
                 anaconda.id.keyboard.write(anaconda.rootPath)
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
