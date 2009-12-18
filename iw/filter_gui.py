@@ -535,14 +535,22 @@ class FilterWindow(InstallWindow):
     def populate(self, nonraids, mpaths, raids):
         def _addTuple(tuple):
             global totalDevices, totalSize
+            added = False
 
             self.store.append(None, tuple)
-            totalDevices += 1
-            totalSize += tuple[0]["XXX_SIZE"]
 
             for pg in self.pages:
                 if pg.cb.isMember(tuple[0]):
+                    added = True
                     pg.cb.addToUI(tuple)
+
+            # Only update the size label if this device was added to any pages.
+            # This prevents situations where we're only displaying the basic
+            # filter that has one disk, but there are several advanced disks
+            # in the store that cannot be seen.
+            if added:
+                totalDevices += 1
+                totalSize += tuple[0]["XXX_SIZE"]
 
         for d in nonraids:
             partedDevice = parted.Device(path="/dev/" + udev_device_get_name(d))
