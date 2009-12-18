@@ -91,10 +91,6 @@ class InstallData:
     def setInstallProgressClass(self, c):
         self.instProgress = c
 
-    # expects a Keyboard object
-    def setKeyboard(self, keyboard):
-        self.keyboard = keyboard
-
     def setKsdata(self, ksdata):
         self.ksdata = ksdata
 
@@ -263,9 +259,9 @@ class InstallData:
         self.bootloader.writeKS(f)
         self.storage.writeKS(f)
 
-        if self.backend is not None:
-            self.backend.writeKS(f)
-            self.backend.writePackagesKS(f, self.anaconda)
+        if self.anaconda.backend:
+            self.anaconda.backend.writeKS(f)
+            self.anaconda.backend.writePackagesKS(f, self.anaconda)
 
         # Also write out any scripts from the input ksfile.
         if self.anaconda.isKickstart:
@@ -276,16 +272,11 @@ class InstallData:
         os.chmod(filename, 0600)
 
 
-    def __init__(self, anaconda, extraModules, backend = None):
+    def __init__(self, anaconda, extraModules):
         self.instLanguage = language.Language(anaconda.displayMode)
         self.keyboard = keyboard.Keyboard()
-        self.backend = backend
         self.anaconda = anaconda
-
-        self.monitor = None
-        self.videocard = None
         self.extraModules = extraModules
-
         self.simpleFilter = True
 
         self.reset()
