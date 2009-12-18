@@ -508,7 +508,7 @@ class Anaconda:
                 stdoutLog.error("Exception starting GUI installer: %s" %(e,))
                 # if we're not going to really go into GUI mode, we need to get
                 # back to vc1 where the text install is going to pop up.
-                if not x_already_set:
+                if not flags.livecdInstall:
                     isys.vtActivate (1)
                 stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
                 self.displayMode = 't'
@@ -853,21 +853,10 @@ if __name__ == "__main__":
     checkMemory(anaconda)
 
     #
-    # find out what video hardware is available to run installer
-    #
-
-    # XXX kind of hacky - need to remember if we're running on an existing
-    #                     X display later to avoid some initilization steps
-    if os.environ.has_key('DISPLAY') and anaconda.displayMode == 'g':
-        x_already_set = 1
-    else:
-        x_already_set = 0
-
-    #
     # now determine if we're going to run in GUI or TUI mode
     #
     # if no X server, we have to use text mode
-    if not x_already_set and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
+    if not flags.livecdInstall and not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK):
          stdoutLog.warning(_("Graphical installation is not available. "
                              "Starting text mode."))
          time.sleep(2)
@@ -940,8 +929,6 @@ if __name__ == "__main__":
 
     anaconda.id = anaconda.instClass.installDataClass(anaconda, extraModules)
     anaconda.instClass.setInstallData(anaconda)
-
-    anaconda.id.x_already_set = x_already_set
 
     # comment out the next line to make exceptions non-fatal
     from exception import initExceptionHandling

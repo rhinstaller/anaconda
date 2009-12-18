@@ -1250,8 +1250,7 @@ class InstallInterface:
     def run(self, anaconda):
         self.anaconda = anaconda
 
-        # XXX x_already_set is a hack
-        if anaconda.id.keyboard and not anaconda.id.x_already_set:
+        if anaconda.id.keyboard and not flags.livecdInstall:
             anaconda.id.keyboard.activate()
 
         self.icw = InstallControlWindow (self.anaconda)
