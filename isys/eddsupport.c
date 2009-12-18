@@ -182,7 +182,7 @@ static int mapBiosDisks(struct device** devices,const char *path) {
             		continue;
 		
         	if ((rc=readDiskSig((*currentDev)->device, &currentSig)) < 0){
-			if (rc == -ENOMEDIUM)
+			if (rc == -ENOMEDIUM || rc == -ENXIO)
 			     continue;
 			return 0;
 		} 
