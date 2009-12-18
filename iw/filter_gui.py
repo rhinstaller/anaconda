@@ -437,6 +437,7 @@ class FilterWindow(InstallWindow):
         np.ds.addColumn(_("Capacity"), CAPACITY_COL)
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
+        np.ds.addColumn(_("Serial Number"), SERIAL_COL, displayed=False)
         return np
 
     def _makeSearch(self):
@@ -547,11 +548,17 @@ class FilterWindow(InstallWindow):
             partedDevice = parted.Device(path="/dev/" + udev_device_get_name(d))
             d["XXX_SIZE"] = int(partedDevice.getSize())
 
+            # This isn't so great, but for iSCSI devices the path contains a lot
+            # of useful identifiying info that should be displayed.
+            if udev_device_is_iscsi(d):
+                ident = udev_device_get_path(d)
+            else:
+                ident = udev_device_get_wwid(d)
+
             tuple = (d, True, False, udev_device_get_name(d),
                      partedDevice.model, str(d["XXX_SIZE"]) + " MB",
                      udev_device_get_vendor(d), udev_device_get_bus(d),
-                     udev_device_get_serial(d), udev_device_get_wwid(d),
-                     "", "", "", "")
+                     udev_device_get_serial(d), ident, "", "", "", "")
             _addTuple(tuple)
 
         for rs in block.getRaidSets():
