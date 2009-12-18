@@ -91,9 +91,6 @@ class InstallData:
     def setInstallProgressClass(self, c):
         self.instProgress = c
 
-    def setDisplayMode(self, display_mode):
-        self.displayMode = display_mode
-
     # expects a Keyboard object
     def setKeyboard(self, keyboard):
         self.keyboard = keyboard
@@ -283,10 +280,8 @@ class InstallData:
         os.chmod(filename, 0600)
 
 
-    def __init__(self, anaconda, extraModules, displayMode, backend = None):
-        self.displayMode = displayMode
-
-        self.instLanguage = language.Language(self.displayMode)
+    def __init__(self, anaconda, extraModules, backend = None):
+        self.instLanguage = language.Language(anaconda.displayMode)
         self.keyboard = keyboard.Keyboard()
         self.backend = backend
         self.anaconda = anaconda

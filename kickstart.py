@@ -1434,7 +1434,7 @@ def setSteps(anaconda):
     # can't stop and prompt for missing information.  Make sure we've got
     # everything that would be provided by a missing section now and error
     # out if we don't.
-    if anaconda.id.displayMode == "t":
+    if anaconda.displayMode == "t":
         missingSteps = [("bootloader", "Bootloader configuration"),
                         ("filter", "Disks to use in installation"),
                         ("cleardiskssel", "Disks to clear"),

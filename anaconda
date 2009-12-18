@@ -168,7 +168,8 @@ def parseOptions():
 
     op = OptionParser()
     # Interface
-    op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c")
+    op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
+                  default="g")
     op.add_option("-G", "--graphical", dest="display_mode", action="store_const", const="g")
     op.add_option("-T", "--text", dest="display_mode", action="store_const", const="t")
 
@@ -357,7 +358,7 @@ def runVNC():
                     sys.stdin.readline()
                     iutil.execConsole()
 
-def checkMemory(opts):
+def checkMemory(anaconda):
     if iutil.memInstalled() < isys.MIN_RAM:
         from snack import SnackScreen, ButtonChoiceWindow
 
@@ -374,10 +375,10 @@ def checkMemory(opts):
 
     # override display mode if machine cannot nicely run X
     if not flags.usevnc:
-        if opts.display_mode not in ('t', 'c') and iutil.memInstalled() < isys.MIN_GUI_RAM:
+        if anaconda.displayMode not in ('t', 'c') and iutil.memInstalled() < isys.MIN_GUI_RAM:
             stdoutLog.warning(_("You do not have enough RAM to use the graphical "
                                 "installer.  Starting text mode."))
-            opts.display_mode = 't'
+            anaconda.displayMode = 't'
             time.sleep(2)
 
 def setupGraphicalLinks():
@@ -445,6 +446,7 @@ class Anaconda:
         self.canReIPL = False
         self.dir = None
         self.dispatch = None
+        self.displayMode = None
         self.id = None
         self.intf = None
         self.isKickstart = False
@@ -493,9 +495,9 @@ class Anaconda:
     def setDispatch(self):
         self.dispatch = dispatch.Dispatcher(self)
 
-    def setInstallInterface(self, display_mode):
+    def setInstallInterface(self):
         # setup links required by graphical mode if installing and verify display mode
-        if display_mode == 'g':
+        if self.displayMode == 'g':
             stdoutLog.info (_("Starting graphical installation."))
 
             try:
@@ -507,17 +509,17 @@ class Anaconda:
                 if not x_already_set:
                     isys.vtActivate (1)
                 stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
-                display_mode = 't'
+                self.displayMode = 't'
                 if 'DISPLAY' in os.environ.keys():
                     del os.environ['DISPLAY']
                 time.sleep(2)
 
-        if display_mode == 't':
+        if self.displayMode == 't':
             from text import InstallInterface
             if not os.environ.has_key("LANG"):
                 os.environ["LANG"] = "en_US.UTF-8"
 
-        if display_mode == 'c':
+        if self.displayMode == 'c':
             from cmdline import InstallInterface
 
         self.intf = InstallInterface()
@@ -663,6 +665,8 @@ if __name__ == "__main__":
     if opts.dlabel: #autodetected driverdisc in use
         flags.dlabel = True
 
+    anaconda.displayMode = opts.display_mode
+
     if opts.noipv4:
         flags.useIPv4 = False
 
@@ -708,7 +712,7 @@ if __name__ == "__main__":
 
     if opts.vnc:
         flags.usevnc = 1
-        opts.display_mode = 'g'
+        anaconda.displayMode = 'g'
         vncS.recoverVNCPassword()
 
         # Only consider vncconnect when vnc is a param
@@ -781,7 +785,7 @@ if __name__ == "__main__":
 
         import rescue, instdata
 
-        anaconda.id = instdata.InstallData(anaconda, [], opts.display_mode)
+        anaconda.id = instdata.InstallData(anaconda, [])
 
         if anaconda.isKickstart:
             instClass.setInstallData(anaconda)
@@ -809,7 +813,7 @@ if __name__ == "__main__":
     if anaconda.isKickstart:
         if ksdata.vnc.enabled:
             flags.usevnc = 1
-            opts.display_mode = 'g'
+            anaconda.displayMode = 'g'
 
             if vncS.password == "":
                 vncS.password = ksdata.vnc.password
@@ -822,20 +826,12 @@ if __name__ == "__main__":
 
         flags.vncquestion = False
 
-    #
-    # Determine install method - GUI or TUI
-    #
-    # if display_mode wasnt set by command line parameters then set default
-    #
-    if not opts.display_mode:
-        opts.display_mode = 'g'
-    
     # disable VNC over text question when not enough memory is available
     if iutil.memInstalled() < isys.MIN_GUI_RAM:
         flags.vncquestion = False
 
 
-    if opts.display_mode == 't' and flags.vncquestion: #we prefer vnc over text mode, so ask about that
+    if anaconda.displayMode == 't' and flags.vncquestion: #we prefer vnc over text mode, so ask about that
         title = _("Would you like to use VNC?")
         message = _("Text mode provides a limited set of installation options.  "
                     "It does not allow you to specify your own partitioning "
@@ -844,7 +840,7 @@ if __name__ == "__main__":
 
         ret = vnc.askVncWindow(title, message)
         if ret != -1:
-            opts.display_mode = 'g'
+            anaconda.displayMode = 'g'
             flags.usevnc = 1
             if ret is not None:
                 vncS.password = ret
@@ -857,9 +853,9 @@ if __name__ == "__main__":
     import system_config_keyboard.keyboard as keyboard
 
     log.info("anaconda called with cmdline = %s" %(sys.argv,))
-    log.info("Display mode = %s" %(opts.display_mode,))
+    log.info("Display mode = %s" % anaconda.displayMode)
 
-    checkMemory(opts)
+    checkMemory(anaconda)
 
     #
     # find out what video hardware is available to run installer
@@ -867,7 +863,7 @@ if __name__ == "__main__":
 
     # XXX kind of hacky - need to remember if we're running on an existing
     #                     X display later to avoid some initilization steps
-    if os.environ.has_key('DISPLAY') and opts.display_mode == 'g':
+    if os.environ.has_key('DISPLAY') and anaconda.displayMode == 'g':
         x_already_set = 1
     else:
         x_already_set = 0
@@ -880,19 +876,18 @@ if __name__ == "__main__":
          stdoutLog.warning(_("Graphical installation is not available. "
                              "Starting text mode."))
          time.sleep(2)
-         opts.display_mode = 't'
+         anaconda.displayMode = 't'
 
     if opts.isHeadless: # s390/iSeries checks
-        if opts.display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
-                                             flags.usevnc):
+        if anaconda.displayMode == 'g' and not (os.environ.has_key('DISPLAY') or flags.usevnc):
             stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
-            opts.display_mode = 't'
+            anaconda.displayMode = 't'
             graphical_failed = 1
             time.sleep(2)
 
     # if DISPLAY not set either vnc server failed to start or we're not
     # running on a redirected X display, so start local X server
-    if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
+    if anaconda.displayMode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
         try:
             # start X with its USR1 handler set to ignore.  this will make it send
             # us SIGUSR1 if it succeeds.  if it fails, catch SIGCHLD and bomb out.
@@ -923,35 +918,34 @@ if __name__ == "__main__":
             xserver_pid = proc.pid
         except (OSError, RuntimeError):
             stdoutLog.warning(" X startup failed, falling back to text mode")
-            opts.display_mode = 't'
+            anaconda.displayMode = 't'
             graphical_failed = 1
             time.sleep(2)
         finally:
             signal.signal(signal.SIGUSR1, old_sigusr1)
             signal.signal(signal.SIGCHLD, old_sigchld)
 
-    if opts.display_mode == 't' and graphical_failed and not anaconda.isKickstart:
+    if anaconda.displayMode == 't' and graphical_failed and not anaconda.isKickstart:
         ret = vnc.askVncWindow()
         if ret != -1:
-            opts.display_mode = 'g'
+            anaconda.displayMode = 'g'
             flags.usevnc = 1
             if ret is not None:
                 vncS.password = ret
 
     # if they want us to use VNC do that now
-    if opts.display_mode == 'g' and flags.usevnc:
+    if anaconda.displayMode == 'g' and flags.usevnc:
         runVNC()
         doStartupX11Actions(opts.runres)
 
-    anaconda.setInstallInterface(opts.display_mode)
+    anaconda.setInstallInterface()
 
     anaconda.setBackend(instClass)
 
-    anaconda.id = instClass.installDataClass(anaconda, extraModules, opts.display_mode, anaconda.backend)
+    anaconda.id = instClass.installDataClass(anaconda, extraModules)
 
     anaconda.id.x_already_set = x_already_set
 
-    anaconda.id.setDisplayMode(opts.display_mode)
     instClass.setInstallData(anaconda)
 
     # comment out the next line to make exceptions non-fatal

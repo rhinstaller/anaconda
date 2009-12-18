@@ -311,7 +311,7 @@ def rpmSetupGraphicalSystem(anaconda):
         anaconda.id.bootloader.args.append("rhgb quiet")
 
     if ts.dbMatch('provides', 'service(graphical-login)').count() and \
-       anaconda.id.displayMode == 'g' and not flags.usevnc:
+       anaconda.displayMode == 'g' and not flags.usevnc:
         anaconda.id.desktop.setDefaultRunLevel(5)
 
 #Recreate initrd for use when driver disks add modules
