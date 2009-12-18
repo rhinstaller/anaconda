@@ -441,25 +441,25 @@ def startDebugger(signum, frame):
 
 class Anaconda:
     def __init__(self):
-        self.intf = None
-        self.dir = None
-        self.id = None
-        self.methodstr = None
-        self.stage2 = None
         self.backend = None
-        self.rootPath = "/mnt/sysimage"
-        self.dispatch = None
-        self.isKickstart = False
-        self.rescue_mount = True
-        self.rescue = False
-        self.updateSrc = None
-        self.mediaDevice = None
-        self.platform = None
         self.canReIPL = False
-        self.reIPLMessage = None
+        self.dir = None
+        self.dispatch = None
+        self.id = None
+        self.intf = None
+        self.isKickstart = False
+        self.mediaDevice = None
+        self.methodstr = None
+        self.platform = None
         self.proxy = None
         self.proxyUsername = None
         self.proxyPassword = None
+        self.reIPLMessage = None
+        self.rescue = False
+        self.rescue_mount = True
+        self.rootPath = "/mnt/sysimage"
+        self.stage2 = None
+        self.updateSrc = None
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
