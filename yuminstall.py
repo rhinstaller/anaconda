@@ -872,7 +872,7 @@ class AnacondaYum(YumSorter):
             return 0
 
         self.initActionTs()
-        if id.getUpgrade():
+        if self.anaconda.upgrade:
             self.ts.ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
         self.setColor()
 
@@ -902,7 +902,7 @@ class AnacondaYum(YumSorter):
                 msg = _("There was an error running your transaction for "
                         "the following reason: %s\n") % str(e)
 
-                if self.anaconda.id.upgrade:
+                if self.anaconda.upgrade:
                     rc = intf.messageWindow(_("Error"), msg, type="custom",
                                             custom_icon="error",
                                             custom_buttons=[_("_Exit installer")])
@@ -987,7 +987,7 @@ class AnacondaYum(YumSorter):
             spaceprob = to_unicode(spaceprob)
             fileprob = to_unicode(fileprob)
 
-            if len(self.anaconda.backend.getRequiredMedia()) > 1 or self.anaconda.id.upgrade:
+            if len(self.anaconda.backend.getRequiredMedia()) > 1 or self.anaconda.upgrade:
                 intf.detailedMessageWindow(_("Error Running Transaction"),
                    msg, spaceprob + "\n" + fileprob, type="custom",
                    custom_icon="error", custom_buttons=[_("_Exit installer")])
@@ -1128,7 +1128,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if anaconda.dir == DISPATCH_BACK:
             return DISPATCH_BACK
 
-        if anaconda.id.getUpgrade():
+        if anaconda.upgrade:
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
            iutil.resetRpmDb(anaconda.rootPath)
 
@@ -1388,7 +1388,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.ayum.dsCallback = dscb
 
         # do some sanity checks for kernel and bootloader
-        if not anaconda.id.getUpgrade():
+        if not anaconda.upgrade:
             # New installs only - upgrades will already have all this stuff.
             self.selectBestKernel(anaconda)
             map(self.selectPackage, anaconda.platform.packages)
@@ -1406,7 +1406,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 if anaconda.ksdata and anaconda.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
                     break
 
-                if code == 1 and not anaconda.id.upgrade:
+                if code == 1 and not anaconda.upgrade:
                     # resolveDeps returns 0 if empty transaction, 1 if error,
                     # 2 if success
                     depprob = "\n".join(msgs)
@@ -1450,7 +1450,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
-        if not anaconda.id.upgrade:
+        if not anaconda.upgrade:
             largePart = anaconda.id.storage.mountpoints.get("/usr", anaconda.id.storage.rootDevice)
 
             if largePart and largePart.size < self.totalSize / 1024:
@@ -1498,10 +1498,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     log.error("unable to unmount %s: %s" %(d, e))
             return
 
-        # shorthand
-        upgrade = anaconda.id.getUpgrade()
-
-        if upgrade:
+        if anaconda.upgrade:
             # An old mtab can cause confusion (esp if loop devices are
             # in it).  Be extra special careful and delete any mtab first,
             # in case the user has done something funny like make it into
@@ -1541,7 +1538,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 pass
 #            log.error("Error making directory %s: %s" % (i, msg))
 
-        self.initLog(anaconda.id, anaconda.rootPath)
+        self.initLog(anaconda.rootPath)
 
         # setup /etc/rpm/ for the post-install environment
         iutil.writeRpmPlatform(anaconda.rootPath)
@@ -1580,7 +1577,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             log.error("error mounting usbfs: %s" %(e,))
 
         # write out the fstab
-        if not upgrade:
+        if not anaconda.upgrade:
             anaconda.id.storage.fsset.write(anaconda.rootPath)
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
@@ -1677,7 +1674,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
 
-        if not anaconda.id.upgrade:
+        if not anaconda.upgrade:
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")
 
@@ -1702,7 +1699,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             return DISPATCH_BACK
 
     def doPostInstall(self, anaconda):
-        if anaconda.id.getUpgrade():
+        if anaconda.upgrade:
             w = anaconda.intf.waitWindow(_("Post Upgrade"),
                                     _("Performing post-upgrade configuration"))
         else:
@@ -1715,7 +1712,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             repo.dirCleanup()
 
         # expire yum caches on upgrade
-        if (flags.cmdline.has_key("preupgrade") or anaconda.id.getUpgrade()) and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
+        if anaconda.upgrade and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
             log.info("Expiring yum caches")
             try:
                 iutil.execWithRedirect("yum", ["clean", "all"],

@@ -457,9 +457,13 @@ class Anaconda(object):
         self.reIPLMessage = None
         self.rescue = False
         self.rescue_mount = True
+        self.rootParts = None
         self.rootPath = "/mnt/sysimage"
         self.stage2 = None
         self.updateSrc = None
+        self.upgrade = flags.cmdline.has_key("preupgrade")
+        self.upgradeRoot = None
+        self.upgradeSwapInfo = None
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None

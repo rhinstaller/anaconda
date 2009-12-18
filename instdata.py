@@ -69,32 +69,14 @@ class InstallData:
         self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
         self.auth = "--enableshadow --passalgo=sha512 --enablefingerprint"
         self.desktop = desktop.Desktop()
-        self.upgrade = None
-        if flags.cmdline.has_key("preupgrade"):
-            self.upgrade = True
         self.storage = storage.Storage(self.anaconda)
         self.bootloader = booty.getBootloader(self)
-        self.upgradeRoot = None
-        self.rootParts = None
-        self.upgradeSwapInfo = None
         self.escrowCertificates = {}
 
         if iutil.isS390() or self.anaconda.ksdata:
             self.firstboot = FIRSTBOOT_SKIP
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
-
-    # if upgrade is None, it really means False.  we use None to help the
-    # installer ui figure out if it's the first time the user has entered
-    # the examine_gui screen.   --dcantrell
-    def getUpgrade (self):
-        if self.upgrade == None:
-            return False
-        else:
-            return self.upgrade
-
-    def setUpgrade (self, bool):
-        self.upgrade = bool
 
     # Reads the auth string and returns a string indicating our desired
     # password encoding algorithm.

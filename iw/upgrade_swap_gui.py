@@ -82,7 +82,7 @@ class UpgradeSwapWindow (InstallWindow):
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
         
-        rc = anaconda.id.upgradeSwapInfo
+        rc = anaconda.upgradeSwapInfo
 
         self.neededSwap = 1
         self.row = 0

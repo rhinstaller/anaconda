@@ -214,7 +214,7 @@ class Bootloader(commands.bootloader.F12_Bootloader):
         else:
             location = self.location
 
-        if self.upgrade and not anaconda.id.getUpgrade():
+        if self.upgrade and not anaconda.upgrade:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Selected upgrade mode for bootloader but not doing an upgrade")
 
         if self.upgrade:
@@ -937,7 +937,7 @@ class Timezone(commands.timezone.FC6_Timezone):
 
 class Upgrade(commands.upgrade.F11_Upgrade):
     def execute(self, anaconda):
-        anaconda.id.setUpgrade(self.upgrade)
+        anaconda.upgrade = True
 
 class VolGroupData(commands.volgroup.FC3_VolGroupData):
     def execute(self, anaconda):

@@ -32,6 +32,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
+seenExamineScreen = False
+
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):
       
@@ -98,7 +100,7 @@ class UpgradeMigrateFSWindow:
 
 class UpgradeSwapWindow:
     def __call__ (self, screen, anaconda):
-	(fsList, suggSize, suggDev) = anaconda.id.upgradeSwapInfo
+	(fsList, suggSize, suggDev) = anaconda.upgradeSwapInfo
 
         ramDetected = iutil.memInstalled()/1024
 
@@ -201,7 +203,7 @@ class UpgradeSwapWindow:
 	
 class UpgradeExamineWindow:
     def __call__ (self, screen, anaconda):
-        parts = anaconda.id.rootParts
+        parts = anaconda.rootParts
 
         height = min(len(parts), 11) + 1
         if height == 12:
@@ -211,7 +213,9 @@ class UpgradeExamineWindow:
         partList = []
         partList.append(_("Reinstall System"))
 
-	if (anaconda.id.upgrade == None and anaconda.dispatch.stepInSkipList("installtype")) or anaconda.id.upgrade:
+        global seenExamineScreen
+
+	if (not seenExamineScreen and anaconda.dispatch.stepInSkipList("installtype")) or anaconda.upgrade:
             default = 1
         else:
             default = 0
@@ -241,13 +245,14 @@ class UpgradeExamineWindow:
 
         if root is not None:
             upgrade.setSteps(anaconda)
-            anaconda.id.setUpgrade(True)
+            anaconda.upgrade = True
 
-            anaconda.id.upgradeRoot = [(root[0], root[1])]
-            anaconda.id.rootParts = parts
+            anaconda.upgradeRoot = [(root[0], root[1])]
+            anaconda.rootParts = parts
             anaconda.dispatch.skipStep("installtype", skip = 1)
         else:
             anaconda.dispatch.skipStep("installtype", skip = 0)
-            anaconda.id.upgradeRoot = None
+            anaconda.upgradeRoot = None
 
+        seenExamineScreen = True
         return INSTALL_OK

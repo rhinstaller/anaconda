@@ -82,12 +82,12 @@ def copyAnacondaLogs(anaconda):
 
 def turnOnFilesystems(anaconda):
     if anaconda.dir == DISPATCH_BACK:
-        if not anaconda.id.upgrade:
+        if not anaconda.upgrade:
             log.info("unmounting filesystems")
             anaconda.id.storage.umountFilesystems()
         return DISPATCH_NOOP
 
-    if not anaconda.id.upgrade:
+    if not anaconda.upgrade:
         if not anaconda.id.storage.fsset.active:
             # turn off any swaps that we didn't turn on
             # needed for live installs
@@ -96,7 +96,7 @@ def turnOnFilesystems(anaconda):
         anaconda.id.storage.devicetree.teardownAll()
 
     upgrade_migrate = False
-    if anaconda.id.upgrade:
+    if anaconda.upgrade:
         for d in anaconda.id.storage.migratableDevices:
             if d.format.migrate:
                 upgrade_migrate = True
@@ -165,7 +165,7 @@ def turnOnFilesystems(anaconda):
         elif rc == 1:
             sys.exit(1)
 
-    if not anaconda.id.upgrade:
+    if not anaconda.upgrade:
         anaconda.id.storage.turnOnSwap()
         anaconda.id.storage.mountFilesystems(raiseErrors=False,
                                              readOnly=False,
@@ -183,7 +183,7 @@ def turnOnFilesystems(anaconda):
 
 def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards
-    if anaconda.id.upgrade or anaconda.dir == DISPATCH_BACK:
+    if anaconda.upgrade or anaconda.dir == DISPATCH_BACK:
         return
 
     os.environ["TZ"] = anaconda.id.timezone.tz

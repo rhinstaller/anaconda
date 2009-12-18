@@ -32,6 +32,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 UPGRADE_STR = "upgrade"
 REINSTALL_STR = "reinstall"
 
+seenExamineScreen = False
+
 class UpgradeExamineWindow (InstallWindow):
 
     windowTitle = N_("Upgrade Examine")
@@ -39,17 +41,17 @@ class UpgradeExamineWindow (InstallWindow):
     def getNext (self):
         if self.doupgrade:
             upgrade.setSteps(self.anaconda)
-            self.anaconda.id.setUpgrade(True)
+            self.anaconda.upgrade = True
 
 	    rootfs = self.parts[self.upgradecombo.get_active()]
-            self.anaconda.id.upgradeRoot = [(rootfs[0], rootfs[1])]
-            self.anaconda.id.rootParts = self.parts
+            self.anaconda.upgradeRoot = [(rootfs[0], rootfs[1])]
+            self.anaconda.rootParts = self.parts
 
             self.anaconda.dispatch.skipStep("installtype", skip = 1)
-            self.anaconda.id.upgrade = True
+            self.anaconda.upgrade = True
         else:
             self.anaconda.dispatch.skipStep("installtype", skip = 0)
-            self.anaconda.id.upgrade = False
+            self.anaconda.upgrade = False
 	
         return None
 
@@ -82,22 +84,24 @@ class UpgradeExamineWindow (InstallWindow):
 
     #UpgradeExamineWindow tag = "upgrade"
     def getScreen (self, anaconda):
+        global seenExamineScreen
         self.anaconda = anaconda
 
-	if self.anaconda.id.upgrade == None:
+        if not seenExamineScreen:
 	    # this is the first time we've entered this screen
 	    self.doupgrade = self.anaconda.dispatch.stepInSkipList("installtype")
+            seenExamineScreen = True
 	else:
-	    self.doupgrade = self.anaconda.id.upgrade
+	    self.doupgrade = self.anaconda.upgrade
 
         # we might get here after storage reset that obsoleted
         # root device objects we had found
-        if not self.anaconda.id.rootParts:
-            self.anaconda.id.rootParts = upgrade.findExistingRoots(self.anaconda,
-                                                                   flags.cmdline.has_key("upgradeany"))
+        if not self.anaconda.rootParts:
+            self.anaconda.rootParts = upgrade.findExistingRoots(self.anaconda,
+                                                                flags.cmdline.has_key("upgradeany"))
             upgrade.setUpgradeRoot(self.anaconda)
 
-        self.parts = self.anaconda.id.rootParts
+        self.parts = self.anaconda.rootParts
 
         vbox = gtk.VBox (False, 12)
 	vbox.set_border_width (8)
@@ -149,7 +153,7 @@ class UpgradeExamineWindow (InstallWindow):
 	# set default
 	idx = 0
 	for p in self.parts:
-	    if self.anaconda.id.upgradeRoot[0][0] == p[0]:
+	    if self.anaconda.upgradeRoot[0][0] == p[0]:
 	        self.upgradecombo.set_active(idx)
 	        break
 	    idx = idx + 1

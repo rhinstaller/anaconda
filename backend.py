@@ -43,7 +43,7 @@ class AnacondaBackend:
     def __init__(self, anaconda):
         """Abstract backend class all backends should inherit from this
            @param instPath: root path for the installation to occur"""
-
+        self.anaconda = anaconda
         self.instPath = anaconda.rootPath
         self.instLog = None
         self.modeText = ""
@@ -69,7 +69,7 @@ class AnacondaBackend:
         pass
 
     def doPreInstall(self, anaconda):
-        self.initLog(anaconda.id, anaconda.rootPath)
+        self.initLog(anaconda.rootPath)
 
     def copyFirmware(self, anaconda):
         # Multiple driver disks may be loaded, so we need to glob for all
@@ -120,13 +120,11 @@ class AnacondaBackend:
         log.warning("doInstall not implemented for backend!")
         raise NotImplementedError
 
-    def initLog(self, id, instPath):
-        upgrade = id.getUpgrade()
-
+    def initLog(self, instPath):
         if not os.path.isdir(instPath + "/root"):
             iutil.mkdirChain(instPath + "/root")
 
-        if upgrade:
+        if self.anaconda.upgrade:
             logname = '/root/upgrade.log'
         else:
             logname = '/root/install.log'
@@ -146,7 +144,7 @@ class AnacondaBackend:
             pass
         backend_log.log.start(instPath, syslogname)
 
-        if upgrade:
+        if self.anaconda.upgrade:
             self.modeText = _("Upgrading %s\n")
         else:
             self.modeText = _("Installing %s\n")
@@ -285,7 +283,7 @@ def doBackendSetup(anaconda):
     if anaconda.backend.doBackendSetup(anaconda) == DISPATCH_BACK:
         return DISPATCH_BACK
 
-    if anaconda.id.upgrade:
+    if anaconda.upgrade:
         anaconda.backend.checkSupportedUpgrade(anaconda)
         iutil.writeRpmPlatform(anaconda.rootPath)
 

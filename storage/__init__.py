@@ -97,7 +97,7 @@ def storageInitialize(anaconda):
         storage.reset()
 
         if not storage.protectedDevices:
-            if anaconda.id.getUpgrade():
+            if anaconda.upgrade:
                 return
             else:
                 anaconda.intf.messageWindow(_("Unknown Device"),
@@ -356,7 +356,7 @@ class Storage(object):
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup()
         self.dasd.startup(intf=self.anaconda.intf, zeroMbr=self.zeroMbr)
-        if self.anaconda.id.getUpgrade():
+        if self.anaconda.upgrade:
             clearPartType = CLEARPART_TYPE_NONE
         else:
             clearPartType = self.clearPartType
@@ -376,8 +376,8 @@ class Storage(object):
         self.devicetree.populate()
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
         self.eddDict = get_edd_dict(self.partitioned)
-        self.anaconda.id.rootParts = None
-        self.anaconda.id.upgradeRoot = None
+        self.anaconda.rootParts = None
+        self.anaconda.upgradeRoot = None
         self.dumpState("initial")
         w.pop()
 
