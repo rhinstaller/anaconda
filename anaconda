@@ -316,10 +316,6 @@ def setupLoggingFromOpts(opts):
         else:
             anaconda_log.logger.addSysLogHandler(log, opts.syslog)
 
-def getInstClass():
-    from installclass import DefaultInstall
-    return DefaultInstall()
-
 # ftp installs pass the password via a file in /tmp so
 # ps doesn't show it
 def expandFTPMethod(str):
@@ -440,21 +436,21 @@ def startDebugger(signum, frame):
     import epdb
     epdb.serve(skip=1)
 
-class Anaconda:
+class Anaconda(object):
     def __init__(self):
-        self.backend = None
+        self._backend = None
         self.canReIPL = False
         self.dir = None
-        self.dispatch = None
+        self.dispatch = dispatch.Dispatcher(self)
         self.displayMode = None
         self.id = None
-        self.intf = None
-        self.instClass = None
+        self._instClass = None
+        self._intf = None
         self.isHeadless = False
         self.ksdata = None
         self.mediaDevice = None
         self.methodstr = None
-        self.platform = None
+        self._platform = None
         self.proxy = None
         self.proxyUsername = None
         self.proxyPassword = None
@@ -468,36 +464,27 @@ class Anaconda:
         # *sigh* we still need to be able to write this out
         self.xdriver = None
 
-    def dumpState(self):
-        from meh.dump import ReverseExceptionDump
-        from inspect import stack as _stack
+    @property
+    def backend(self):
+        if not self._backend:
+            b = self.instClass.getBackend()
+            self._backend = apply(b, (self, ))
 
-        # Skip the frames for dumpState and the signal handler.
-        stack = _stack()[2:]
-        stack.reverse()
-        exn = ReverseExceptionDump((None, None, stack), self.mehConfig)
+        return self._backend
 
-        (fd, filename) = mkstemp("", "anaconda-tb-", "/tmp")
-        fo = os.fdopen(fd, "w")
+    @property
+    def instClass(self):
+        if not self._instClass:
+            from installclass import DefaultInstall
+            self._instClass = DefaultInstall()
 
-        exn.write(self, fo)
+        return self._instClass
 
-    def writeXdriver(self, instPath="/"):
-        # this should go away at some point, but until it does, we
-        # need to keep it around.  it could go into instdata but this
-        # isolates it a little more
-        if self.xdriver is None:
-            return
-        if not os.path.isdir("%s/etc/X11" %(instPath,)):
-            os.makedirs("%s/etc/X11" %(instPath,), mode=0755)
-        f = open("%s/etc/X11/xorg.conf" %(instPath,), 'w')
-        f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
-        f.close()
+    @property
+    def intf(self):
+        if self._intf:
+            return self._intf
 
-    def setDispatch(self):
-        self.dispatch = dispatch.Dispatcher(self)
-
-    def setInstallInterface(self):
         # setup links required by graphical mode if installing and verify display mode
         if self.displayMode == 'g':
             stdoutLog.info (_("Starting graphical installation."))
@@ -524,11 +511,42 @@ class Anaconda:
         if self.displayMode == 'c':
             from cmdline import InstallInterface
 
-        self.intf = InstallInterface()
+        self._intf = InstallInterface()
+        return self._intf
 
-    def setBackend(self):
-        b = self.instClass.getBackend()
-        self.backend = apply(b, (self,))
+    @property
+    def platform(self):
+        if not self._platform:
+            import platform
+            self._platform = platform.getPlatform(self)
+
+        return self._platform
+
+    def dumpState(self):
+        from meh.dump import ReverseExceptionDump
+        from inspect import stack as _stack
+
+        # Skip the frames for dumpState and the signal handler.
+        stack = _stack()[2:]
+        stack.reverse()
+        exn = ReverseExceptionDump((None, None, stack), self.mehConfig)
+
+        (fd, filename) = mkstemp("", "anaconda-tb-", "/tmp")
+        fo = os.fdopen(fd, "w")
+
+        exn.write(self, fo)
+
+    def writeXdriver(self, instPath="/"):
+        # this should go away at some point, but until it does, we
+        # need to keep it around.  it could go into instdata but this
+        # isolates it a little more
+        if self.xdriver is None:
+            return
+        if not os.path.isdir("%s/etc/X11" %(instPath,)):
+            os.makedirs("%s/etc/X11" %(instPath,), mode=0755)
+        f = open("%s/etc/X11/xorg.conf" %(instPath,), 'w')
+        f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
+        f.close()
 
     def setMethodstr(self, methodstr):
         if methodstr.startswith("cdrom://"):
@@ -567,8 +585,6 @@ class Anaconda:
         return fail
 
 if __name__ == "__main__":
-    anaconda = Anaconda()
-
     setupPythonPath()
 
     # Allow a file to be loaded as early as possible
@@ -616,8 +632,7 @@ if __name__ == "__main__":
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
 
-    import platform
-    anaconda.platform = platform.getPlatform(anaconda)
+    anaconda = Anaconda()
 
     if not iutil.isS390() and os.access("/dev/tty3", os.W_OK):
         anaconda_log.logger.addFileHandler("/dev/tty3", log,
@@ -656,8 +671,6 @@ if __name__ == "__main__":
         sys.exit(0)
 
     # Now that we've got arguments, do some extra processing.
-    anaconda.instClass = getInstClass()
-
     setupLoggingFromOpts(opts)
 
     # Default is to prompt to mount the installed system.
@@ -923,10 +936,6 @@ if __name__ == "__main__":
         runVNC()
         doStartupX11Actions(opts.runres)
 
-    anaconda.setInstallInterface()
-
-    anaconda.setBackend()
-
     anaconda.id = anaconda.instClass.installDataClass(anaconda, extraModules)
     anaconda.instClass.setInstallData(anaconda)
 
@@ -936,8 +945,6 @@ if __name__ == "__main__":
 
     # add our own additional signal handlers
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
-
-    anaconda.setDispatch()
 
     # download and run Dogtail script
     if opts.dogtail:
