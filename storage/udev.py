@@ -280,6 +280,9 @@ def udev_device_get_bus(udev_info):
     """ Get the bus a device is connected to the system by. """
     return udev_info.get("ID_BUS").upper()
 
+def udev_device_get_path(info):
+    return info["ID_PATH"]
+
 def udev_device_get_sysfs_path(info):
     return info['sysfs_path']
 
@@ -441,7 +444,7 @@ def udev_device_get_multipath_partition_disk(info):
 # ip-${iscsi_address}:${iscsi_port}-iscsi-${iscsi_tgtname}-lun-${lun}
 def udev_device_is_iscsi(info):
     try:
-        path_components = info["ID_PATH"].split("-")
+        path_components = udev_device_get_path(info).split("-")
 
         if info["ID_BUS"] == "scsi" and len(path_components) >= 6 and \
            path_components[0] == "ip" and path_components[2] == "iscsi":
@@ -452,18 +455,18 @@ def udev_device_is_iscsi(info):
     return False
 
 def udev_device_get_iscsi_name(info):
-    path_components = info["ID_PATH"].split("-")
+    path_components = udev_device_get_path(info).split("-")
 
     # Tricky, the name itself contains atleast 1 - char
     return "-".join(path_components[3:len(path_components)-2])
 
 def udev_device_get_iscsi_address(info):
-    path_components = info["ID_PATH"].split("-")
+    path_components = udev_device_get_path(info).split("-")
 
     return path_components[1].split(":")[0]
 
 def udev_device_get_iscsi_port(info):
-    path_components = info["ID_PATH"].split("-")
+    path_components = udev_device_get_path(info).split("-")
 
     return path_components[1].split(":")[1]
 
@@ -473,7 +476,7 @@ def udev_device_get_iscsi_port(info):
 # pci-eth#-fc-${id}-part#
 def udev_device_is_fcoe(info):
     try:
-        path_components = info["ID_PATH"].split("-")
+        path_components = udev_device_get_path(info).split("-")
 
         if info["ID_BUS"] == "scsi" and len(path_components) >= 4 and \
            path_components[0] == "pci" and path_components[2] == "fc" and \
@@ -485,11 +488,11 @@ def udev_device_is_fcoe(info):
     return False
 
 def udev_device_get_fcoe_nic(info):
-    path_components = info["ID_PATH"].split("-")
+    path_components = udev_device_get_path(info).split("-")
 
     return path_components[1]
 
 def udev_device_get_fcoe_identifier(info):
-    path_components = info["ID_PATH"].split("-")
+    path_components = udev_device_get_path(info).split("-")
 
     return path_components[3]
