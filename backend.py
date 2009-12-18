@@ -306,9 +306,9 @@ def doBasePackageSelect(anaconda):
     anaconda.backend.resetPackageSelections()
     if anaconda.ksdata:
         kickstart.selectPackages(anaconda)
-    elif anaconda.id.displayMode != 't':
-        anaconda.id.instClass.setPackageSelection(anaconda)
-        anaconda.id.instClass.setGroupSelection(anaconda)
+    elif anaconda.displayMode != 't':
+        anaconda.instClass.setPackageSelection(anaconda)
+        anaconda.instClass.setGroupSelection(anaconda)
 
 def writeConfiguration(anaconda):
     log.info("Writing main configuration")

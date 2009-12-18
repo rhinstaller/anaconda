@@ -548,15 +548,15 @@ class ProgressWindow:
 class InstallKeyWindow:
     def __init__(self, anaconda, key):
         (keyxml, self.win) = getGladeWidget("instkey.glade", "instkeyDialog")
-        if anaconda.id.instClass.instkeydesc is not None:
+        if anaconda.instClass.instkeydesc is not None:
             w = keyxml.get_widget("instkeyLabel")
-            w.set_text(_(anaconda.id.instClass.instkeydesc))
+            w.set_text(_(anaconda.instClass.instkeydesc))
 
-        if not anaconda.id.instClass.allowinstkeyskip:
+        if not anaconda.instClass.allowinstkeyskip:
             keyxml.get_widget("skipRadio").hide()
 
-        keyName = _(anaconda.id.instClass.instkeyname)
-        if anaconda.id.instClass.instkeyname is None:
+        keyName = _(anaconda.instClass.instkeyname)
+        if anaconda.instClass.instkeyname is None:
             keyName = _("Installation Key")
 
         # set the install key name based on the installclass
@@ -573,7 +573,7 @@ class InstallKeyWindow:
         self.skipradio = keyxml.get_widget("skipRadio")
         self.rc = 0
 
-        if anaconda.id.instClass.skipkey:
+        if anaconda.instClass.skipkey:
             self.skipradio.set_active(True)
         else:
             self.entry.grab_focus()

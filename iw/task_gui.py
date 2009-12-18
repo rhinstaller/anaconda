@@ -660,14 +660,14 @@ class TaskWindow(InstallWindow):
         self.backend = anaconda.backend
         self.anaconda = anaconda
 
-        self.tasks = anaconda.id.instClass.tasks
+        self.tasks = anaconda.instClass.tasks
         self.repos = anaconda.backend.ayum.repos
 
         (self.xml, vbox) = gui.getGladeWidget("tasksel.glade", "taskBox")
 
         lbl = self.xml.get_widget("mainLabel")
-        if anaconda.id.instClass.description:
-            lbl.set_text(_(anaconda.id.instClass.description))
+        if anaconda.instClass.description:
+            lbl.set_text(_(anaconda.instClass.description))
         else:
             txt = lbl.get_text()
             lbl.set_text(txt %(productName,))

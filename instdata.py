@@ -60,7 +60,6 @@ class InstallData:
         # - The install language
         # - The keyboard
 
-        self.instClass = None
         self.network = network.Network()
         self.firewall = firewall.Firewall()
         self.security = security.Security()

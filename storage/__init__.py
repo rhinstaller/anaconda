@@ -1275,7 +1275,7 @@ def findExistingRootDevices(anaconda, upgradeany=False):
         if os.access(anaconda.rootPath + "/etc/fstab", os.R_OK):
             (product, version) = getReleaseString(anaconda.rootPath)
             if upgradeany or \
-               anaconda.id.instClass.productUpgradable(product, version):
+               anaconda.instClass.productUpgradable(product, version):
                 rootDevs.append((device, "%s %s" % (product, version)))
             else:
                 log.info("product %s version %s found on %s is not upgradable"

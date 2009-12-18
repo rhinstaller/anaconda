@@ -216,7 +216,7 @@ def runShell(screen = None, msg=""):
     if screen:
         screen.finish()
 
-def runRescue(anaconda, instClass):
+def runRescue(anaconda):
     for file in [ "services", "protocols", "group", "joe", "man.config",
                   "nsswitch.conf", "selinux", "mke2fs.conf" ]:
         try:

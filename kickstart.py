@@ -187,7 +187,7 @@ class AutoPart(commands.autopart.F12_AutoPart):
     def execute(self, anaconda):
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
-        anaconda.id.instClass.setDefaultPartitioning(anaconda.id.storage, anaconda.platform)
+        anaconda.instClass.setDefaultPartitioning(anaconda.id.storage, anaconda.platform)
         anaconda.id.storage.doAutoPart = True
 
         if self.encrypted:
@@ -1283,7 +1283,7 @@ def selectPackages(anaconda):
     # selections.  This can also be explicitly specified with %packages
     # --default.  Otherwise, select whatever was given (even if it's nothing).
     if not ksdata.packages.seen or ksdata.packages.default:
-        anaconda.id.instClass.setGroupSelection(anaconda)
+        anaconda.instClass.setGroupSelection(anaconda)
         return
 
     for pkg in ksdata.packages.packageList:
@@ -1372,7 +1372,7 @@ def setSteps(anaconda):
         dispatch.skipStep("betanag")
         dispatch.skipStep("installtype")
     else:
-        anaconda.id.instClass.setSteps(anaconda)
+        anaconda.instClass.setSteps(anaconda)
         dispatch.skipStep("findrootparts")
 
     if interactive or flags.autostep:

@@ -449,6 +449,7 @@ class Anaconda:
         self.displayMode = None
         self.id = None
         self.intf = None
+        self.instClass = None
         self.isHeadless = False
         self.ksdata = None
         self.mediaDevice = None
@@ -525,8 +526,8 @@ class Anaconda:
 
         self.intf = InstallInterface()
 
-    def setBackend(self, instClass):
-        b = instClass.getBackend()
+    def setBackend(self):
+        b = self.instClass.getBackend()
         self.backend = apply(b, (self,))
 
     def setMethodstr(self, methodstr):
@@ -644,7 +645,6 @@ if __name__ == "__main__":
 
     extraModules = []               # XXX: this would be better as a callback
     graphical_failed = 0
-    instClass = None                # the install class to use
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
     xserver_pid = None
@@ -656,7 +656,7 @@ if __name__ == "__main__":
         sys.exit(0)
 
     # Now that we've got arguments, do some extra processing.
-    instClass = getInstClass()
+    anaconda.instClass = getInstClass()
 
     setupLoggingFromOpts(opts)
 
@@ -784,7 +784,7 @@ if __name__ == "__main__":
         anaconda.id = instdata.InstallData(anaconda, [])
 
         if anaconda.ksdata:
-            instClass.setInstallData(anaconda)
+            anaconda.instClass.setInstallData(anaconda)
 
             # We need an interface before running kickstart execute methods for
             # storage.
@@ -800,7 +800,7 @@ if __name__ == "__main__":
             # command line 'nomount' overrides kickstart /same for vnc/
             anaconda.rescue_mount = not (opts.rescue_nomount or anaconda.ksdata.rescue.nomount)
 
-        rescue.runRescue(anaconda, instClass)
+        rescue.runRescue(anaconda)
 
         # shouldn't get back here
         sys.exit(1)
@@ -936,13 +936,12 @@ if __name__ == "__main__":
 
     anaconda.setInstallInterface()
 
-    anaconda.setBackend(instClass)
+    anaconda.setBackend()
 
-    anaconda.id = instClass.installDataClass(anaconda, extraModules)
+    anaconda.id = anaconda.instClass.installDataClass(anaconda, extraModules)
+    anaconda.instClass.setInstallData(anaconda)
 
     anaconda.id.x_already_set = x_already_set
-
-    instClass.setInstallData(anaconda)
 
     # comment out the next line to make exceptions non-fatal
     from exception import initExceptionHandling
@@ -1023,7 +1022,7 @@ if __name__ == "__main__":
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
 
     if not anaconda.ksdata:
-        instClass.setSteps(anaconda)
+        anaconda.instClass.setSteps(anaconda)
     else:
         kickstart.setSteps(anaconda)
 

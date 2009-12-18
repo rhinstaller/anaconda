@@ -504,8 +504,8 @@ class AnacondaYum(YumSorter):
         # add default repos
         anacondabaseurl = (self.anaconda.methodstr or
                            "cdrom:%s" % (self.anaconda.mediaDevice))
-        anacondabasepaths = self.anaconda.id.instClass.getPackagePaths(anacondabaseurl)
-        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self._baseRepoURL).items():
+        anacondabasepaths = self.anaconda.instClass.getPackagePaths(anacondabaseurl)
+        for (name, uri) in self.anaconda.instClass.getPackagePaths(self._baseRepoURL).items():
             rid = name.replace(" ", "")
 
             repo = AnacondaYumRepo("anaconda-%s-%s" % (rid, productStamp))

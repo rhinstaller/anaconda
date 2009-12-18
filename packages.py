@@ -46,7 +46,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 def doPostAction(anaconda):
-    anaconda.id.instClass.postAction(anaconda)
+    anaconda.instClass.postAction(anaconda)
 
 def firstbootConfiguration(anaconda):
     if anaconda.id.firstboot == FIRSTBOOT_RECONFIG:
