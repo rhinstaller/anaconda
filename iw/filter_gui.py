@@ -458,12 +458,20 @@ class FilterWindow(InstallWindow):
         for line in self.store:
             line[VISIBLE_COL] = self.pages[page_num].cb.isMember(line[OBJECT_COL])
 
+    def _show_buttons(self, *args, **kwargs):
+        if self.anaconda.id.simpleFilter:
+            self.buttonBox.hide()
+            self.buttonBox.unrealize()
+        else:
+            self.buttonBox.show_all()
+
     def getScreen(self, anaconda):
         (self.xml, self.vbox) = gui.getGladeWidget("filter.glade", "vbox")
         self.buttonBox = self.xml.get_widget("buttonBox")
         self.notebook = self.xml.get_widget("notebook")
         self.addAdvanced = self.xml.get_widget("addAdvancedButton")
 
+        self.buttonBox.connect("realize", self._show_buttons)
         self.notebook.connect("switch-page", self._page_switched)
         self.addAdvanced.connect("clicked", self._add_advanced_clicked)
 
