@@ -977,6 +977,7 @@ class EntryWindow(MessageWindow):
 class InstallInterface:
     def __init__ (self):
         self.icw = None
+        self.installProgress = None
 
         # figure out if we want to run interface at 800x600 or 640x480
         if gtk.gdk.screen_width() >= 800:
@@ -1010,6 +1011,9 @@ class InstallInterface:
         net.destroy()
 
         return ret not in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]
+
+    def setInstallProgressClass(self, c):
+        self.instProgress = c
 
     def setPackageProgressWindow (self, ppw):
         self.ppw = ppw

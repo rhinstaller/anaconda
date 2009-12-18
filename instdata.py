@@ -84,9 +84,6 @@ class InstallData:
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
 
-    def setInstallProgressClass(self, c):
-        self.instProgress = c
-
     # if upgrade is None, it really means False.  we use None to help the
     # installer ui figure out if it's the first time the user has entered
     # the examine_gui screen.   --dcantrell

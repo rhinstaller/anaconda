@@ -261,6 +261,9 @@ class InstallInterface:
     def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
         return ProgressWindow(self.screen, title, text, total, updpct, pulse)
 
+    def setInstallProgressClass(self, c):
+        self.instProgress = c
+
     def exitWindow(self, title, text):
         return self.messageWindow(title, text, type="custom",
                                   custom_buttons=[_("Exit installer")])
@@ -437,6 +440,7 @@ class InstallInterface:
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
 	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 	self.screen = SnackScreen()
+        self.instProgress = None
         self._initLabelAnswers = {}
         self._inconsistentLVMAnswers = {}
 

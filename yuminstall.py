@@ -100,7 +100,7 @@ class AnacondaCallback:
 
         self.messageWindow = anaconda.intf.messageWindow
         self.pulseWindow = anaconda.intf.progressWindow
-        self.progress = anaconda.id.instProgress
+        self.progress = anaconda.intf.instProgress
         self.progressWindowClass = anaconda.intf.progressWindow
         self.rootPath = anaconda.rootPath
 
@@ -1696,7 +1696,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.instLog.write("*** FINISHED INSTALLING PACKAGES ***")
         self.instLog.close ()
 
-        anaconda.id.instProgress = None
+        anaconda.intf.setInstallProgressClass(None)
 
         if rc == DISPATCH_BACK:
             return DISPATCH_BACK

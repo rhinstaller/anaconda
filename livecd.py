@@ -176,7 +176,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
 
-        progress = anaconda.id.instProgress
+        progress = anaconda.intf.instProgress
         progress.set_label(_("Copying live image to hard drive."))
         progress.processEvents()
 
@@ -221,7 +221,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         os.close(osfd)
         os.close(rootfd)
 
-        anaconda.id.instProgress = None
+        anaconda.intf.setInstallProgressClass(None)
 
     def _doFilesystemMangling(self, anaconda):
         # FIXME: this whole method is a big fucking mess

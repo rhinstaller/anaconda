@@ -106,10 +106,10 @@ class setupForInstall:
 
     def __call__(self, screen, anaconda):
 	if anaconda.dir == DISPATCH_BACK:
-	    anaconda.id.setInstallProgressClass(None)
+	    anaconda.intf.setInstallProgressClass(None)
 	    return INSTALL_BACK
 
-        anaconda.id.setInstallProgressClass(InstallProgressWindow(screen))
+        anaconda.intf.setInstallProgressClass(InstallProgressWindow(screen))
 	return INSTALL_OK
 
 if __name__ == "__main__":
