@@ -450,7 +450,6 @@ class Anaconda:
         self.id = None
         self.intf = None
         self.isHeadless = False
-        self.isKickstart = False
         self.ksdata = None
         self.mediaDevice = None
         self.methodstr = None
@@ -763,8 +762,6 @@ if __name__ == "__main__":
 
     # This is the one place we do all kickstart file parsing.
     if opts.ksfile:
-        anaconda.isKickstart = True
-
         kickstart.preScriptPass(anaconda, opts.ksfile)
         anaconda.ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
         opts.rescue = anaconda.ksdata.rescue.rescue
@@ -786,7 +783,7 @@ if __name__ == "__main__":
 
         anaconda.id = instdata.InstallData(anaconda, [])
 
-        if anaconda.isKickstart:
+        if anaconda.ksdata:
             instClass.setInstallData(anaconda)
 
             # We need an interface before running kickstart execute methods for
@@ -808,7 +805,7 @@ if __name__ == "__main__":
         # shouldn't get back here
         sys.exit(1)
 
-    if anaconda.isKickstart:
+    if anaconda.ksdata:
         if anaconda.ksdata.vnc.enabled:
             flags.usevnc = 1
             anaconda.displayMode = 'g'
@@ -924,7 +921,7 @@ if __name__ == "__main__":
             signal.signal(signal.SIGUSR1, old_sigusr1)
             signal.signal(signal.SIGCHLD, old_sigchld)
 
-    if anaconda.displayMode == 't' and graphical_failed and not anaconda.isKickstart:
+    if anaconda.displayMode == 't' and graphical_failed and not anaconda.ksdata:
         ret = vnc.askVncWindow()
         if ret != -1:
             anaconda.displayMode = 'g'
@@ -999,7 +996,7 @@ if __name__ == "__main__":
         anaconda.id.keyboard.set(opts.keymap)
         anaconda.id.keyboard.activate()
 
-    if anaconda.isKickstart:
+    if anaconda.ksdata:
         import storage
 
         # Before we set up the storage system, we need to know which disks to
@@ -1025,7 +1022,7 @@ if __name__ == "__main__":
     if anaconda.isHeadless:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
 
-    if not anaconda.isKickstart:
+    if not anaconda.ksdata:
         instClass.setSteps(anaconda)
     else:
         kickstart.setSteps(anaconda)
@@ -1035,7 +1032,7 @@ if __name__ == "__main__":
     except SystemExit, code:
         anaconda.intf.shutdown()
 
-    if anaconda.isKickstart and anaconda.ksdata.reboot.eject:
+    if anaconda.ksdata and anaconda.ksdata.reboot.eject:
         for drive in anaconda.id.storage.devicetree.devices:
             if drive.type != "cdrom":
                 continue

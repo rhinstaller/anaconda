@@ -162,7 +162,7 @@ def storageComplete(anaconda):
             if dev.format.type == "luks" and not dev.format.exists:
                 dev.format.passphrase = anaconda.id.storage.encryptionPassphrase
 
-    if anaconda.isKickstart:
+    if anaconda.ksdata:
         return
 
     rc = anaconda.intf.messageWindow(_("Writing storage configuration to disk"),

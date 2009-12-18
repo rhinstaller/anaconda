@@ -669,7 +669,7 @@ class AnacondaYum(YumSorter):
             repo.enable()
             extraRepos.append(repo)
 
-        if self.anaconda.isKickstart:
+        if self.anaconda.ksdata:
             # This is the same pattern as from loader/urls.c:splitProxyParam.
             pattern = re.compile("([[:alpha:]]+://)?(([[:alnum:]]+)(:[^:@]+)?@)?([^:]+)(:[[:digit:]]+)?(/.*)?")
 
@@ -1237,7 +1237,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 else:
                     break # success
 
-                if anaconda.isKickstart:
+                if anaconda.ksdata:
                     buttons.append(_("_Continue"))
 
                 if not fatalerrors:
@@ -1403,7 +1403,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
                 # If %packages --ignoremissing was given, don't bother
                 # prompting for missing dependencies.
-                if anaconda.isKickstart and anaconda.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+                if anaconda.ksdata and anaconda.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
                     break
 
                 if code == 1 and not anaconda.id.upgrade:
@@ -1473,7 +1473,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         dscb.pop()
 
-        if anaconda.mediaDevice and not anaconda.isKickstart:
+        if anaconda.mediaDevice and not anaconda.ksdata:
            rc = presentRequiredMediaMessage(anaconda)
            if rc == 0:
                rc2 = anaconda.intf.messageWindow(_("Reboot?"),
@@ -1681,7 +1681,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")
 
-        if anaconda.isKickstart and anaconda.ksdata.packages.excludeDocs:
+        if anaconda.ksdata and anaconda.ksdata.packages.excludeDocs:
             rpm.addMacro("_excludedocs", "1")
 
         cb = AnacondaCallback(self.ayum, anaconda,
@@ -1867,7 +1867,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             f.write(line)
 
     def writePackagesKS(self, f, anaconda):
-        if anaconda.isKickstart:
+        if anaconda.ksdata:
             f.write(anaconda.ksdata.packages.__str__())
             return
 

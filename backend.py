@@ -304,7 +304,7 @@ def doInstall(anaconda):
 # does this need to be per-backend?  we'll just leave here until it does :)
 def doBasePackageSelect(anaconda):
     anaconda.backend.resetPackageSelections()
-    if anaconda.isKickstart:
+    if anaconda.ksdata:
         kickstart.selectPackages(anaconda)
     elif anaconda.id.displayMode != 't':
         anaconda.id.instClass.setPackageSelection(anaconda)

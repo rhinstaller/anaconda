@@ -30,7 +30,7 @@ def doMethodComplete(anaconda):
     def _ejectDevice():
         # Ejecting the CD/DVD for kickstart is handled only after %post scripts
         # have been run.
-        if anaconda.isKickstart:
+        if anaconda.ksdata:
             return None
 
         if anaconda.mediaDevice:

@@ -47,7 +47,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
         # run kickstart traceback scripts (if necessary)
         try:
-            if anaconda.isKickstart:
+            if anaconda.ksdata:
                 kickstart.runTracebackScripts(anaconda)
         except:
             pass

@@ -80,7 +80,7 @@ class InstallData:
         self.upgradeSwapInfo = None
         self.escrowCertificates = {}
 
-        if iutil.isS390() or self.anaconda.isKickstart:
+        if iutil.isS390() or self.anaconda.ksdata:
             self.firstboot = FIRSTBOOT_SKIP
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
@@ -150,7 +150,7 @@ class InstallData:
                                    self.rootPassword["lock"],
                                    algo=self.getPassAlgo())
 
-        if self.anaconda.isKickstart:
+        if self.anaconda.ksdata:
             for svc in self.anaconda.ksdata.services.disabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "off"],
@@ -240,7 +240,7 @@ class InstallData:
         # Some kickstart commands do not correspond to any anaconda UI
         # component.  If this is a kickstart install, we need to make sure
         # the information from the input file ends up in the output file.
-        if self.anaconda.isKickstart:
+        if self.anaconda.ksdata:
             f.write(self.anaconda.ksdata.user.__str__())
             f.write(self.anaconda.ksdata.services.__str__())
             f.write(self.anaconda.ksdata.reboot.__str__())
@@ -258,7 +258,7 @@ class InstallData:
             self.anaconda.backend.writePackagesKS(f, self.anaconda)
 
         # Also write out any scripts from the input ksfile.
-        if self.anaconda.isKickstart:
+        if self.anaconda.ksdata:
             for s in self.anaconda.ksdata.scripts:
                 f.write(s.__str__())
 
