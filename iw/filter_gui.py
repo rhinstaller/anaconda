@@ -109,7 +109,7 @@ class Callbacks(object):
         self.xml = xml
 
         self.sizeLabel = self.xml.get_widget("sizeLabel")
-        self.sizeLabel.connect("realize", self._update_size_label)
+        self.sizeLabel.connect("realize", self.update)
 
     def addToUI(self, tuple):
         pass
@@ -125,11 +125,17 @@ class Callbacks(object):
             selectedDevices -= 1
             selectedSize -= device["XXX_SIZE"]
 
-        self._update_size_label()
+        self.update()
 
     def isMember(self, info):
         return info and not isRAID(info) and not isCCISS(info) and \
                not isMultipath(info) and not isOther(info)
+
+    def update(self, *args, **kwargs):
+        global selectedDevices, totalDevices
+        global selectedSize, totalSize
+
+        self.sizeLabel.set_markup(_("<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total.") % (selectedDevices, selectedSize, totalDevices, totalSize))
 
     def visible(self, model, iter, view):
         # Most basic visibility function - does the model say this row
@@ -138,12 +144,6 @@ class Callbacks(object):
         # one to see what the model says.
         return self.isMember(model.get_value(iter, OBJECT_COL)) and \
                model.get_value(iter, 1)
-
-    def _update_size_label(self, *args, **kwargs):
-        global selectedDevices, totalDevices
-        global selectedSize, totalSize
-
-        self.sizeLabel.set_markup(_("<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total.") % (selectedDevices, selectedSize, totalDevices, totalSize))
 
 class RAIDCallbacks(Callbacks):
     def isMember(self, info):
@@ -395,6 +395,9 @@ class FilterWindow(InstallWindow):
         raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
 
         self.populate(nonraids, mpaths, raids)
+
+        # Make sure to update the size label at the bottom.
+        self.pages[0].cb.update()
 
         self._cachedDevices.extend(nonraids)
         self._cachedMPaths.extend(mpaths)
