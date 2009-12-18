@@ -198,7 +198,7 @@ class AutoPart(commands.autopart.F12_AutoPart):
             anaconda.id.storage.autoPartAddBackupPassphrase = \
                 self.backuppassphrase
 
-        anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class AutoStep(commands.autostep.FC3_AutoStep):
     def execute(self, anaconda):
@@ -222,9 +222,9 @@ class Bootloader(commands.bootloader.F12_Bootloader):
             anaconda.id.bootloader.doUpgradeOnly = 1
 
         if location is None:
-            anaconda.id.ksdata.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
+            anaconda.ksdata.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:
-            anaconda.id.ksdata.showSteps.append("bootloader")
+            anaconda.ksdata.showSteps.append("bootloader")
 
             if self.appendLine:
                 anaconda.id.bootloader.args.append(self.appendLine)
@@ -270,7 +270,7 @@ class Bootloader(commands.bootloader.F12_Bootloader):
 
                 anaconda.id.bootloader.updateDriveList(new)
 
-        anaconda.id.ksdata.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
+        anaconda.ksdata.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
 
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
@@ -432,7 +432,7 @@ class LogVolData(commands.logvol.F12_LogVolData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
         # Make sure this LV name is not already used in the requested VG.
@@ -513,7 +513,7 @@ class LogVolData(commands.logvol.F12_LogVolData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, anaconda):
@@ -639,7 +639,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             # store "raid." alias for other ks partitioning commands
             if self.onPart:
-                anaconda.id.ksdata.onPart[kwargs["name"]] = self.onPart
+                anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint.startswith("pv."):
             type = "lvmpv"
@@ -650,7 +650,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             # store "pv." alias for other ks partitioning commands
             if self.onPart:
-                anaconda.id.ksdata.onPart[kwargs["name"]] = self.onPart
+                anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
             type = "EFI System Partition"
@@ -676,7 +676,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
         # Size specification checks.
@@ -765,11 +765,11 @@ class PartitionData(commands.partition.F12_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class Reboot(commands.reboot.FC6_Reboot):
     def execute(self, anaconda):
-        anaconda.id.ksdata.skipSteps.append("complete")
+        anaconda.ksdata.skipSteps.append("complete")
 
 class RaidData(commands.raid.F12_RaidData):
     def execute(self, anaconda):
@@ -788,7 +788,7 @@ class RaidData(commands.raid.F12_RaidData):
         elif self.mountpoint.startswith("pv."):
             type = "lvmpv"
             kwargs["name"] = self.mountpoint
-            anaconda.id.ksdata.onPart[kwargs["name"]] = devicename
+            anaconda.ksdata.onPart[kwargs["name"]] = devicename
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
@@ -818,13 +818,13 @@ class RaidData(commands.raid.F12_RaidData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
         # Get a list of all the RAID members.
         for member in self.members:
             # if member is using --onpart, use original device
-            member = anaconda.id.ksdata.onPart.get(member, member)
+            member = anaconda.ksdata.onPart.get(member, member)
             dev = devicetree.getDeviceByName(member)
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member)
@@ -904,7 +904,7 @@ class RaidData(commands.raid.F12_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class RootPw(commands.rootpw.F8_RootPw):
     def execute(self, anaconda):
@@ -919,7 +919,7 @@ class SELinux(commands.selinux.FC3_SELinux):
 
 class SkipX(commands.skipx.FC3_SkipX):
     def execute(self, anaconda):
-        anaconda.id.ksdata.skipSteps.extend(["setsanex", "videocard", "xcustom"])
+        anaconda.ksdata.skipSteps.extend(["setsanex", "videocard", "xcustom"])
 
         if anaconda.id.desktop is not None:
             anaconda.id.desktop.setDefaultRunLevel(3)
@@ -951,7 +951,7 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
         # Get a list of all the physical volume devices that make up this VG.
         for pv in self.physvols:
             # if pv is using --onpart, use original device
-            pv = anaconda.id.ksdata.onPart.get(pv, pv)
+            pv = anaconda.ksdata.onPart.get(pv, pv)
             dev = devicetree.getDeviceByName(pv)
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
@@ -1226,11 +1226,11 @@ def parseKickstart(anaconda, file):
     return handler
 
 def runPostScripts(anaconda):
-    if not anaconda.id.ksdata:
+    if not anaconda.ksdata:
         return
 
     postScripts = filter (lambda s: s.type == KS_SCRIPT_POST,
-                          anaconda.id.ksdata.scripts)
+                          anaconda.ksdata.scripts)
 
     if len(postScripts) == 0:
         return
@@ -1271,12 +1271,12 @@ def runPreScripts(anaconda, scripts):
 def runTracebackScripts(anaconda):
     log.info("Running kickstart %%traceback script(s)")
     for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK,
-                          anaconda.id.ksdata.scripts):
+                          anaconda.ksdata.scripts):
         script.run("/", flags.serial)
     log.info("All kickstart %%traceback script(s) have been run")
 
 def selectPackages(anaconda):
-    ksdata = anaconda.id.ksdata
+    ksdata = anaconda.ksdata
     ignoreAll = False
 
     # If no %packages header was seen, use the installclass's default group
@@ -1356,7 +1356,7 @@ def setSteps(anaconda):
                len(packages.excludedList) > 0 or len(packages.excludedGroupList) > 0
 
     dispatch = anaconda.dispatch
-    ksdata = anaconda.id.ksdata
+    ksdata = anaconda.ksdata
     interactive = ksdata.interactive.interactive
 
     if ksdata.upgrade.upgrade:

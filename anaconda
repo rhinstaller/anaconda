@@ -451,6 +451,7 @@ class Anaconda:
         self.intf = None
         self.isHeadless = False
         self.isKickstart = False
+        self.ksdata = None
         self.mediaDevice = None
         self.methodstr = None
         self.platform = None
@@ -765,14 +766,14 @@ if __name__ == "__main__":
         anaconda.isKickstart = True
 
         kickstart.preScriptPass(anaconda, opts.ksfile)
-        ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
-        opts.rescue = ksdata.rescue.rescue
+        anaconda.ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
+        opts.rescue = anaconda.ksdata.rescue.rescue
 
         # we need to have a libuser.conf that points to the installer root for
         # sshpw, but after that we start sshd, we need one that points to the
         # install target.
         luserConf = users.createLuserConf(instPath="")
-        handleSshPw(ksdata)
+        handleSshPw(anaconda.ksdata)
         startSsh()
         del(os.environ["LIBUSER_CONF"])
 
@@ -787,7 +788,6 @@ if __name__ == "__main__":
 
         if anaconda.isKickstart:
             instClass.setInstallData(anaconda)
-            anaconda.id.setKsdata(ksdata)
 
             # We need an interface before running kickstart execute methods for
             # storage.
@@ -795,13 +795,13 @@ if __name__ == "__main__":
             screen = SnackScreen()
             anaconda.intf = rescue.RescueInterface(screen)
 
-            ksdata.execute()
+            anaconda.ksdata.execute()
 
             anaconda.intf = None
             screen.finish()
 
             # command line 'nomount' overrides kickstart /same for vnc/
-            anaconda.rescue_mount = not (opts.rescue_nomount or anaconda.id.ksdata.rescue.nomount)
+            anaconda.rescue_mount = not (opts.rescue_nomount or anaconda.ksdata.rescue.nomount)
 
         rescue.runRescue(anaconda, instClass)
 
@@ -809,18 +809,18 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if anaconda.isKickstart:
-        if ksdata.vnc.enabled:
+        if anaconda.ksdata.vnc.enabled:
             flags.usevnc = 1
             anaconda.displayMode = 'g'
 
             if vncS.password == "":
-                vncS.password = ksdata.vnc.password
+                vncS.password = anaconda.ksdata.vnc.password
 
             if vncS.vncconnecthost == "":
-                vncS.vncconnecthost = ksdata.vnc.host
+                vncS.vncconnecthost = anaconda.ksdata.vnc.host
 
             if vncS.vncconnectport == "":
-                vncS.vncconnectport = ksdata.vnc.port
+                vncS.vncconnectport = anaconda.ksdata.vnc.port
 
         flags.vncquestion = False
 
@@ -1002,26 +1002,24 @@ if __name__ == "__main__":
     if anaconda.isKickstart:
         import storage
 
-        anaconda.id.setKsdata(ksdata)
-
         # Before we set up the storage system, we need to know which disks to
         # ignore, etc.  Luckily that's all in the kickstart data.
-        anaconda.id.storage.zeroMbr = ksdata.zerombr.zerombr
-        anaconda.id.storage.ignoredDisks = ksdata.ignoredisk.ignoredisk
-        anaconda.id.storage.exclusiveDisks = ksdata.ignoredisk.onlyuse
+        anaconda.id.storage.zeroMbr = anaconda.ksdata.zerombr.zerombr
+        anaconda.id.storage.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
+        anaconda.id.storage.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
 
-        if ksdata.clearpart.type is not None:
-            anaconda.id.storage.clearPartType = ksdata.clearpart.type
-            anaconda.id.storage.clearPartDisks = ksdata.clearpart.drives
-            if ksdata.clearpart.initAll:
-                anaconda.id.storage.reinitializeDisks = ksdata.clearpart.initAll
+        if anaconda.ksdata.clearpart.type is not None:
+            anaconda.id.storage.clearPartType = anaconda.ksdata.clearpart.type
+            anaconda.id.storage.clearPartDisks = anaconda.ksdata.clearpart.drives
+            if anaconda.ksdata.clearpart.initAll:
+                anaconda.id.storage.reinitializeDisks = anaconda.ksdata.clearpart.initAll
 
         storage.storageInitialize(anaconda)
 
         # Now having initialized storage, we can apply all the other kickstart
         # commands.  This gives us the ability to check that storage commands
         # are correctly formed and refer to actual devices.
-        ksdata.execute()
+        anaconda.ksdata.execute()
 
     # set up the headless case
     if anaconda.isHeadless:
@@ -1037,7 +1035,7 @@ if __name__ == "__main__":
     except SystemExit, code:
         anaconda.intf.shutdown()
 
-    if anaconda.isKickstart and anaconda.id.ksdata.reboot.eject:
+    if anaconda.isKickstart and anaconda.ksdata.reboot.eject:
         for drive in anaconda.id.storage.devicetree.devices:
             if drive.type != "cdrom":
                 continue

@@ -100,7 +100,7 @@ def initExceptionHandling(anaconda):
                                  "id.comps",
                                  "id.dispatch",
                                  "id.hdList",
-                                 "id.ksdata",
+                                 "ksdata",
                                  "id.instLanguage.font",
                                  "id.instLanguage.kbd",
                                  "id.instLanguage.info",

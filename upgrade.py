@@ -64,8 +64,8 @@ def setUpgradeRoot(anaconda):
     anaconda.id.upgradeRoot = []
     root_device = None
     # kickstart can pass device as device name or uuid. No quotes allowed.
-    if anaconda.isKickstart and anaconda.id.ksdata.upgrade.root_device is not None:
-        root_device = anaconda.id.ksdata.upgrade.root_device
+    if anaconda.isKickstart and anaconda.ksdata.upgrade.root_device is not None:
+        root_device = anaconda.ksdata.upgrade.root_device
     for (dev, label) in anaconda.id.rootParts:
         if ((root_device is not None) and
             (root_device == dev.name or root_device == "UUID=%s" % dev.format.uuid)):
@@ -182,7 +182,7 @@ def upgradeMountFilesystems(anaconda):
     except IndexError as e:
         # The upgrade root is search earlier but we give the message here.
         log.debug("No upgrade root was found.")
-        if anaconda.isKickstart and anaconda.id.ksdata.upgrade.upgrade:
+        if anaconda.isKickstart and anaconda.ksdata.upgrade.upgrade:
             anaconda.intf.messageWindow(_("Upgrade root not found"),
                 _("The root for the previously installed system was not "
                   "found."), type="custom",

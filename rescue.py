@@ -266,7 +266,7 @@ def runRescue(anaconda, instClass):
     anaconda.intf = RescueInterface(screen)
 
     if anaconda.isKickstart:
-        if anaconda.id.ksdata.rescue and anaconda.id.ksdata.rescue.romount:
+        if anaconda.ksdata.rescue and anaconda.ksdata.rescue.romount:
             readOnly = 1
         else:
             readOnly = 0

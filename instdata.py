@@ -85,14 +85,8 @@ class InstallData:
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
 
-        # XXX I still expect this to die when kickstart is the data store.
-        self.ksdata = None
-
     def setInstallProgressClass(self, c):
         self.instProgress = c
-
-    def setKsdata(self, ksdata):
-        self.ksdata = ksdata
 
     # if upgrade is None, it really means False.  we use None to help the
     # installer ui figure out if it's the first time the user has entered
@@ -157,25 +151,25 @@ class InstallData:
                                    algo=self.getPassAlgo())
 
         if self.anaconda.isKickstart:
-            for svc in self.ksdata.services.disabled:
+            for svc in self.anaconda.ksdata.services.disabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "off"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=self.anaconda.rootPath)
 
-            for svc in self.ksdata.services.enabled:
+            for svc in self.anaconda.ksdata.services.enabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=self.anaconda.rootPath)
 
-            for gd in self.ksdata.group.groupList:
+            for gd in self.anaconda.ksdata.group.groupList:
                 if not self.users.createGroup(name=gd.name,
                                               gid=gd.gid,
                                               root=self.anaconda.rootPath):
                     log.error("Group %s already exists, not creating." % gd.name)
 
-            for ud in self.ksdata.user.userList:
+            for ud in self.anaconda.ksdata.user.userList:
                 if not self.users.createUser(name=ud.name,
                                              password=ud.password,
                                              isCrypted=ud.isCrypted,
@@ -247,9 +241,9 @@ class InstallData:
         # component.  If this is a kickstart install, we need to make sure
         # the information from the input file ends up in the output file.
         if self.anaconda.isKickstart:
-            f.write(self.ksdata.user.__str__())
-            f.write(self.ksdata.services.__str__())
-            f.write(self.ksdata.reboot.__str__())
+            f.write(self.anaconda.ksdata.user.__str__())
+            f.write(self.anaconda.ksdata.services.__str__())
+            f.write(self.anaconda.ksdata.reboot.__str__())
 
         self.firewall.writeKS(f)
         if self.auth.strip() != "":
@@ -265,7 +259,7 @@ class InstallData:
 
         # Also write out any scripts from the input ksfile.
         if self.anaconda.isKickstart:
-            for s in self.ksdata.scripts:
+            for s in self.anaconda.ksdata.scripts:
                 f.write(s.__str__())
 
         # make it so only root can read, could have password

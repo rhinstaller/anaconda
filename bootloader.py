@@ -63,8 +63,8 @@ def bootloaderSetupChoices(anaconda):
             sys.exit(0)
         return DISPATCH_FORWARD
 
-    if anaconda.id.ksdata and anaconda.id.ksdata.bootloader.driveorder:
-        anaconda.id.bootloader.updateDriveList(anaconda.id.ksdata.bootloader.driveorder)
+    if anaconda.ksdata and anaconda.ksdata.bootloader.driveorder:
+        anaconda.id.bootloader.updateDriveList(anaconda.ksdata.bootloader.driveorder)
     else:
         #We want the selected bootloader drive to be preferred
         pref = anaconda.id.bootloader.drivelist[:1]

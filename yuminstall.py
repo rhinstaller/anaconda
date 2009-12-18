@@ -673,7 +673,7 @@ class AnacondaYum(YumSorter):
             # This is the same pattern as from loader/urls.c:splitProxyParam.
             pattern = re.compile("([[:alpha:]]+://)?(([[:alnum:]]+)(:[^:@]+)?@)?([^:]+)(:[[:digit:]]+)?(/.*)?")
 
-            for ksrepo in self.anaconda.id.ksdata.repo.repoList:
+            for ksrepo in self.anaconda.ksdata.repo.repoList:
                 anacondaBaseURLs = [ksrepo.baseurl]
 
                 # yum doesn't understand nfs:// and doesn't want to.  We need
@@ -1403,7 +1403,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
                 # If %packages --ignoremissing was given, don't bother
                 # prompting for missing dependencies.
-                if anaconda.isKickstart and anaconda.id.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+                if anaconda.isKickstart and anaconda.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
                     break
 
                 if code == 1 and not anaconda.id.upgrade:
@@ -1681,7 +1681,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")
 
-        if anaconda.isKickstart and anaconda.id.ksdata.packages.excludeDocs:
+        if anaconda.isKickstart and anaconda.ksdata.packages.excludeDocs:
             rpm.addMacro("_excludedocs", "1")
 
         cb = AnacondaCallback(self.ayum, anaconda,
@@ -1868,7 +1868,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
     def writePackagesKS(self, f, anaconda):
         if anaconda.isKickstart:
-            f.write(anaconda.id.ksdata.packages.__str__())
+            f.write(anaconda.ksdata.packages.__str__())
             return
 
         groups = []
