@@ -66,9 +66,6 @@ class BaseInstallClass(object):
     # don't select this class by default
     default = 0
 
-    # don't force text mode
-    forceTextMode = 0
-
     # by default, place this under the "install" category; it gets it's
     # own toplevel category otherwise
     parentClass = ( _("Install on System"), "install.png" )

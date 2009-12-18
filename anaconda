@@ -861,11 +861,6 @@ if __name__ == "__main__":
 
     checkMemory(opts)
 
-    # this lets install classes force text mode instlls
-    if instClass.forceTextMode:
-        stdoutLog.info(_("Install class forcing text mode installation"))
-        opts.display_mode = 't'
-
     #
     # find out what video hardware is available to run installer
     #
