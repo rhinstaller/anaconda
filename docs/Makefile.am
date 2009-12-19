@@ -26,4 +26,4 @@ CLEANFILES = api *.xml
 MAINTAINERCLEANFILES = Makefile.in command-line.txt
 
 command-line.txt:
-	curl -A "anaconda-build" -o command-line.txt "http://fedoraproject.org/w/index.php?title=Anaconda_Boot_Options&action=raw"
+	curl -4 -A "anaconda-build" -o command-line.txt "http://fedoraproject.org/w/index.php?title=Anaconda_Boot_Options&action=raw"
