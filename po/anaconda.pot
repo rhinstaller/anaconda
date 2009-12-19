@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.10\n"
+"Project-Id-Version: anaconda 13.11\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2009-12-16 17:07-0500\n"
+"POT-Creation-Date: 2009-12-18 14:19-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -114,8 +114,8 @@ msgstr ""
 
 #: backend.py:177 image.py:288 livecd.py:198 livecd.py:404
 #: partIntfHelpers.py:237 text.py:350 text.py:354 yuminstall.py:405
-#: yuminstall.py:780 yuminstall.py:898 yuminstall.py:903 yuminstall.py:1174
-#: yuminstall.py:1238 yuminstall.py:1417 yuminstall.py:1439
+#: yuminstall.py:781 yuminstall.py:899 yuminstall.py:904 yuminstall.py:1175
+#: yuminstall.py:1239 yuminstall.py:1418 yuminstall.py:1440
 #: iw/autopart_type.py:96 iw/osbootwidget.py:210 iw/osbootwidget.py:219
 #: iw/raid_dialog_gui.py:212 iw/raid_dialog_gui.py:729
 #: iw/raid_dialog_gui.py:768 iw/task_gui.py:64 iw/task_gui.py:165
@@ -139,7 +139,7 @@ msgid "Error"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:221 bootloader.py:227 image.py:82
-#: yuminstall.py:1396 yuminstall.py:1605 yuminstall.py:1640
+#: yuminstall.py:1397 yuminstall.py:1606 yuminstall.py:1641
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: storage/devicetree.py:148 storage/devicetree.py:176
@@ -157,16 +157,16 @@ msgstr ""
 
 #: bootloader.py:60 gui.py:1098 gui.py:1135 gui.py:1341 image.py:91
 #: kickstart.py:156 livecd.py:205 livecd.py:411 packages.py:162 upgrade.py:58
-#: upgrade.py:199 yuminstall.py:246 yuminstall.py:682 yuminstall.py:900
-#: yuminstall.py:905 yuminstall.py:985 yuminstall.py:991 yuminstall.py:1145
-#: yuminstall.py:1170 yuminstall.py:1228 yuminstall.py:1404 yuminstall.py:1423
-#: yuminstall.py:1446 storage/__init__.py:98 storage/__init__.py:205
+#: upgrade.py:199 yuminstall.py:246 yuminstall.py:683 yuminstall.py:901
+#: yuminstall.py:906 yuminstall.py:986 yuminstall.py:992 yuminstall.py:1146
+#: yuminstall.py:1171 yuminstall.py:1229 yuminstall.py:1405 yuminstall.py:1424
+#: yuminstall.py:1447 storage/__init__.py:98 storage/__init__.py:205
 #: storage/__init__.py:1880
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1314
-#: kickstart.py:1353 upgrade.py:58 yuminstall.py:1233 yuminstall.py:1405
+#: kickstart.py:1353 upgrade.py:58 yuminstall.py:1234 yuminstall.py:1406
 #: iw/partition_gui.py:1600 storage/__init__.py:1881
 msgid "_Continue"
 msgstr ""
@@ -335,8 +335,8 @@ msgstr ""
 msgid "_Exit"
 msgstr ""
 
-#: gui.py:1262 image.py:164 image.py:194 livecd.py:205 yuminstall.py:772
-#: yuminstall.py:1170 yuminstall.py:1228 yuminstall.py:1423
+#: gui.py:1262 image.py:164 image.py:194 livecd.py:205 yuminstall.py:773
+#: yuminstall.py:1171 yuminstall.py:1229 yuminstall.py:1424
 msgid "_Retry"
 msgstr ""
 
@@ -344,7 +344,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1265 image.py:251 packages.py:364 yuminstall.py:1464
+#: gui.py:1265 image.py:251 packages.py:364 yuminstall.py:1465
 msgid "_Reboot"
 msgstr ""
 
@@ -425,8 +425,8 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 
-#: image.py:251 livecd.py:410 packages.py:364 upgrade.py:198 yuminstall.py:905
-#: yuminstall.py:991 yuminstall.py:1404 yuminstall.py:1446 yuminstall.py:1464
+#: image.py:251 livecd.py:410 packages.py:364 upgrade.py:198 yuminstall.py:906
+#: yuminstall.py:992 yuminstall.py:1405 yuminstall.py:1447 yuminstall.py:1465
 msgid "_Back"
 msgstr ""
 
@@ -441,83 +441,83 @@ msgstr ""
 msgid "Install on System"
 msgstr ""
 
-#: iutil.py:829
+#: iutil.py:822
 #, python-format
 msgid ""
 "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
 "s)"
 msgstr ""
 
-#: iutil.py:840
+#: iutil.py:833
 #, python-format
 msgid ""
 "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
 msgstr ""
 
-#: iutil.py:849
+#: iutil.py:842
 #, python-format
 msgid ""
 "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
 msgstr ""
 
-#: iutil.py:868
+#: iutil.py:861
 #, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
 msgstr ""
 
-#: iutil.py:878
+#: iutil.py:871
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr ""
 
-#: iutil.py:887
+#: iutil.py:880
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr ""
 
-#: iutil.py:900
+#: iutil.py:893
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
 
-#: iutil.py:922
+#: iutil.py:915
 #, python-format
 msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:937
+#: iutil.py:930
 #, python-format
 msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:952
+#: iutil.py:945
 #, python-format
 msgid ""
 "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:967
+#: iutil.py:960
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 
-#: iutil.py:984
+#: iutil.py:977
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
 
-#: iutil.py:995
+#: iutil.py:988
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: iutil.py:999
+#: iutil.py:992
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
 
@@ -533,7 +533,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: kickstart.py:150 rescue.py:240 yuminstall.py:677 yuminstall.py:1140
+#: kickstart.py:150 rescue.py:240 yuminstall.py:678 yuminstall.py:1141
 msgid "No Network Available"
 msgstr ""
 
@@ -1541,26 +1541,26 @@ msgstr ""
 msgid "Unable to access the disc."
 msgstr ""
 
-#: yuminstall.py:559
+#: yuminstall.py:560
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
-#: yuminstall.py:678 yuminstall.py:1141
+#: yuminstall.py:679 yuminstall.py:1142
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
 
-#: yuminstall.py:770 yuminstall.py:772
+#: yuminstall.py:771 yuminstall.py:773
 msgid "Re_boot"
 msgstr ""
 
-#: yuminstall.py:770
+#: yuminstall.py:771
 msgid "_Eject"
 msgstr ""
 
-#: yuminstall.py:781
+#: yuminstall.py:782
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1571,102 +1571,102 @@ msgid ""
 "\n"
 msgstr ""
 
-#: yuminstall.py:829
+#: yuminstall.py:830
 msgid "Retrying"
 msgstr ""
 
-#: yuminstall.py:829
+#: yuminstall.py:830
 msgid "Retrying download."
 msgstr ""
 
-#: yuminstall.py:894
+#: yuminstall.py:895
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 
-#: yuminstall.py:937 yuminstall.py:938
+#: yuminstall.py:938 yuminstall.py:939
 msgid "file conflicts"
 msgstr ""
 
-#: yuminstall.py:939
+#: yuminstall.py:940
 msgid "older package(s)"
 msgstr ""
 
-#: yuminstall.py:940
+#: yuminstall.py:941
 msgid "insufficient disk space"
 msgstr ""
 
-#: yuminstall.py:941
+#: yuminstall.py:942
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: yuminstall.py:942
+#: yuminstall.py:943
 msgid "package conflicts"
 msgstr ""
 
-#: yuminstall.py:943
+#: yuminstall.py:944
 msgid "package already installed"
 msgstr ""
 
-#: yuminstall.py:944
+#: yuminstall.py:945
 msgid "required package"
 msgstr ""
 
-#: yuminstall.py:945
+#: yuminstall.py:946
 msgid "package for incorrect arch"
 msgstr ""
 
-#: yuminstall.py:946
+#: yuminstall.py:947
 msgid "package for incorrect os"
 msgstr ""
 
-#: yuminstall.py:960
+#: yuminstall.py:961
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: yuminstall.py:973
+#: yuminstall.py:974
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
 
-#: yuminstall.py:976
+#: yuminstall.py:977
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr ""
 
-#: yuminstall.py:983 yuminstall.py:988
+#: yuminstall.py:984 yuminstall.py:989
 msgid "Error Running Transaction"
 msgstr ""
 
-#: yuminstall.py:1175
+#: yuminstall.py:1176
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: yuminstall.py:1211
+#: yuminstall.py:1212
 msgid "Retrieving installation information."
 msgstr ""
 
-#: yuminstall.py:1213
+#: yuminstall.py:1214
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: yuminstall.py:1215
+#: yuminstall.py:1216
 msgid "Installation Progress"
 msgstr ""
 
-#: yuminstall.py:1228 textw/constants_text.py:64
+#: yuminstall.py:1229 textw/constants_text.py:64
 msgid "Edit"
 msgstr ""
 
-#: yuminstall.py:1239 yuminstall.py:1418
+#: yuminstall.py:1240 yuminstall.py:1419
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1676,7 +1676,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: yuminstall.py:1397
+#: yuminstall.py:1398
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -1684,7 +1684,7 @@ msgid ""
 "dependencies."
 msgstr ""
 
-#: yuminstall.py:1440
+#: yuminstall.py:1441
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1692,22 +1692,22 @@ msgid ""
 "installer."
 msgstr ""
 
-#: yuminstall.py:1461
+#: yuminstall.py:1462
 msgid "Reboot?"
 msgstr ""
 
-#: yuminstall.py:1462
+#: yuminstall.py:1463
 msgid "The system will be rebooted now."
 msgstr ""
 
-#: yuminstall.py:1606
+#: yuminstall.py:1607
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1641
+#: yuminstall.py:1642
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -1716,35 +1716,35 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1688
+#: yuminstall.py:1689
 msgid "Post Upgrade"
 msgstr ""
 
-#: yuminstall.py:1689
+#: yuminstall.py:1690
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: yuminstall.py:1691
+#: yuminstall.py:1692
 msgid "Post Installation"
 msgstr ""
 
-#: yuminstall.py:1692
+#: yuminstall.py:1693
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:1913
+#: yuminstall.py:1914
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:1914
+#: yuminstall.py:1915
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:1952
+#: yuminstall.py:1953
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:1953
+#: yuminstall.py:1954
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
@@ -4498,7 +4498,7 @@ msgstr ""
 msgid "_Re-initialize"
 msgstr ""
 
-#: storage/devicetree.py:1852 storage/devicetree.py:1901
+#: storage/devicetree.py:1849 storage/devicetree.py:1898
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

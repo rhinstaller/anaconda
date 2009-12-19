@@ -217,6 +217,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Dec 18 2009 David Cantrell <dcantrell@redhat.com> - 13.12-1
+- Use the per-disk flag to disable cylinder alignment for msdos disklabels.
+  (dlehman)
+- Don't include advanced devices in the total count on the basic filter UI.
+  (clumens)
+- For iSCSI devices, put the path into the UI instead of a WWID. (clumens)
+- Add udev_device_get_path. (clumens)
+- Make Callbacks._update_size_label callable from outside the object.
+  (clumens)
+- Do not show the "Add Advanced" button on the basic filtering screen.
+  (clumens)
+- Log into program.log through the standard python logging (part of
+  #524980). (akozumpl)
+- Fix typo from commit 13022cc2. (dlehman)
+- Restore accidentally removed line in backend.py (hdegoede)
+- yuminstall: Fix indentation error (hdegoede)
+- No need to special case ignoring of dmraid sets (hdegoede)
+
 * Wed Dec 16 2009 Chris Lumens <clumens@redhat.com> - 13.11-1
 - Clean up setting paths on preupgrade (jvonau). (clumens)
 - And call freetmp, too. (Jerry)
