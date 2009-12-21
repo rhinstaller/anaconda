@@ -110,7 +110,7 @@ def initExceptionHandling(anaconda):
                                  "keyboard._mods._modelDict",
                                  "keyboard.modelDict",
                                  "id.storage.encryptionPassphrase",
-                                 "id.rootPassword",
+                                 "users.rootPassword",
                                  "id.tmpData",
                                  "intf.icw.buff",
                                  "intf.icw.currentWindow.storage.encryptionPassphrase",

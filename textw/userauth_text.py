@@ -36,13 +36,13 @@ class RootPasswordWindow:
                                        "mistake. ")),
                      0, 0, (0, 0, 0, 1))
 
-        if anaconda.id.rootPassword["isCrypted"]:
-            anaconda.id.rootPassword["password"] = ""
+        if anaconda.users.rootPassword["isCrypted"]:
+            anaconda.users.rootPassword["password"] = ""
 
         entry1 = Entry(24, password=1,
-                       text=anaconda.id.rootPassword["password"])
+                       text=anaconda.users.rootPassword["password"])
         entry2 = Entry(24, password=1,
-                       text=anaconda.id.rootPassword["password"])
+                       text=anaconda.users.rootPassword["password"])
         passgrid = Grid(2, 2)
         passgrid.setField(Label(_("Password:")), 0, 0, (0, 0, 1, 0),
                           anchorLeft=1)
@@ -94,8 +94,8 @@ class RootPasswordWindow:
             entry2.set("")
 
         screen.popWindow()
-        anaconda.id.rootPassword["password"] = entry1.value()
-        anaconda.id.rootPassword["isCrypted"] = False
+        anaconda.users.rootPassword["password"] = entry1.value()
+        anaconda.users.rootPassword["isCrypted"] = False
         return INSTALL_OK
 
     def hasBadChars(self, pw):

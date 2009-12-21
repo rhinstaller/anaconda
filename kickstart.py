@@ -181,7 +181,7 @@ def deviceMatches(spec):
 
 class Authconfig(commands.authconfig.FC3_Authconfig):
     def execute(self, anaconda):
-        anaconda.id.auth = self.authconfig
+        anaconda.security.auth = self.authconfig
 
 class AutoPart(commands.autopart.F12_AutoPart):
     def execute(self, anaconda):
@@ -908,14 +908,14 @@ class RaidData(commands.raid.F12_RaidData):
 
 class RootPw(commands.rootpw.F8_RootPw):
     def execute(self, anaconda):
-        anaconda.id.rootPassword["password"] = self.password
-        anaconda.id.rootPassword["isCrypted"] = self.isCrypted
-        anaconda.id.rootPassword["lock"] = self.lock
-        anaconda.id.ksdata.skipSteps.append("accounts")
+        anaconda.users.rootPassword["password"] = self.password
+        anaconda.users.rootPassword["isCrypted"] = self.isCrypted
+        anaconda.users.rootPassword["lock"] = self.lock
+        anaconda.ksdata.skipSteps.append("accounts")
 
 class SELinux(commands.selinux.FC3_SELinux):
     def execute(self, anaconda):
-        anaconda.id.security.setSELinux(self.selinux)
+        anaconda.security.setSELinux(self.selinux)
 
 class SkipX(commands.skipx.FC3_SkipX):
     def execute(self, anaconda):

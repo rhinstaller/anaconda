@@ -386,11 +386,11 @@ def setupGraphicalLinks():
         except:
             pass
 
-def handleSshPw(ks):
+def handleSshPw(anaconda):
     import users
-    u = users.Users()
+    u = users.Users(anaconda)
 
-    userdata = ks.sshpw.dataList()
+    userdata = anaconda.ksdata.sshpw.dataList()
     for ud in userdata:
         if u.checkUserExists(ud.username, root="/"):
             u.setUserPassword(username=ud.username, password=ud.password,
@@ -462,11 +462,13 @@ class Anaconda(object):
         self.rescue_mount = True
         self.rootParts = None
         self.rootPath = "/mnt/sysimage"
+        self.security = security.Security()
         self.stage2 = None
         self.updateSrc = None
         self.upgrade = flags.cmdline.has_key("preupgrade")
         self.upgradeRoot = None
         self.upgradeSwapInfo = None
+        self._users = None
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
@@ -544,6 +546,14 @@ class Anaconda(object):
             self._platform = platform.getPlatform(self)
 
         return self._platform
+
+    @property
+    def users(self):
+        if not self._users:
+            import users
+            self._users = users.Users(self)
+
+        return self._users
 
     def dumpState(self):
         from meh.dump import ReverseExceptionDump
@@ -627,6 +637,8 @@ class Anaconda(object):
             self.keyboard.write(self.rootPath)
 
         self.network.write(instPath=self.rootPath, anaconda=self)
+        self.users.write(self.rootPath)
+        self.security.write(self.rootPath)
 
         # XXX: This is temporary until instdata goes away completely.
         self.id.write()
@@ -686,6 +698,9 @@ class Anaconda(object):
             self.keyboard.writeKS(f)
             self.network.writeKS(f)
 
+        self.users.writeKS(f)
+        self.security.writeKS(f)
+
         # XXX: This is temporary until instdata goes away completely.
         self.id.writeKS(f)
 
@@ -727,7 +742,7 @@ if __name__ == "__main__":
     import dispatch
     import warnings
     import vnc
-    import users
+    import users, security
     import kickstart
     import storage.storage_log
     import system_config_keyboard.keyboard as keyboard
@@ -902,7 +917,7 @@ if __name__ == "__main__":
         # sshpw, but after that we start sshd, we need one that points to the
         # install target.
         luserConf = users.createLuserConf(instPath="")
-        handleSshPw(anaconda.ksdata)
+        handleSshPw(anaconda)
         startSsh()
         del(os.environ["LIBUSER_CONF"])
 
