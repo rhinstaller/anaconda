@@ -24,7 +24,6 @@
 import os, sys
 import stat
 import string
-import language
 import network
 import firewall
 import security
@@ -62,7 +61,7 @@ class InstallData:
         self.firewall = firewall.Firewall()
         self.security = security.Security()
         self.timezone = timezone.Timezone()
-        self.timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone(self.anaconda.rootPath))
+        self.timezone.setTimezoneInfo(self.anaconda.instLanguage.getDefaultTimeZone(self.anaconda.rootPath))
         self.users = None
         self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
         self.auth = "--enableshadow --passalgo=sha512 --enablefingerprint"
@@ -90,8 +89,6 @@ class InstallData:
             return None
 
     def write(self):
-        self.instLanguage.write (self.anaconda.rootPath)
-
         if not self.anaconda.isHeadless:
             self.keyboard.write (self.anaconda.rootPath)
 
@@ -146,7 +143,6 @@ class InstallData:
                     log.error("User %s already exists, not creating." % ud.name)
 
     def writeKS(self, f):
-        self.instLanguage.writeKS(f)
         if not self.anaconda.isHeadless:
             self.keyboard.writeKS(f)
             self.network.writeKS(f)
@@ -170,7 +166,6 @@ class InstallData:
         self.storage.writeKS(f)
 
     def __init__(self, anaconda, extraModules):
-        self.instLanguage = language.Language(anaconda.displayMode)
         self.keyboard = keyboard.Keyboard()
         self.anaconda = anaconda
         self.extraModules = extraModules

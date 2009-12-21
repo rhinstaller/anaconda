@@ -50,7 +50,7 @@ class LanguageWindow (InstallWindow):
 
         self.instLang.instLang = self.lang
         self.instLang.systemLang = self.lang
-        anaconda.id.timezone.setTimezoneInfo(anaconda.id.instLanguage.getDefaultTimeZone(anaconda.rootPath))
+        anaconda.id.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
 	self.ics.getICW().setLanguage()
 
         return None
@@ -84,7 +84,7 @@ class LanguageWindow (InstallWindow):
         label.set_size_request(350, -1)
         hbox.pack_start(label, False)
 
-	self.instLang = anaconda.id.instLanguage
+	self.instLang = anaconda.instLanguage
 
         self.listStore = gtk.ListStore(gobject.TYPE_STRING,
                                        gobject.TYPE_STRING,

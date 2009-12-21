@@ -114,7 +114,7 @@ class KernelArguments:
     def get(self):
         args = ""
         for s in self.getDracutStorageArgs() + [
-                 self.id.instLanguage.dracutSetupString(),
+                 self.anaconda.instLanguage.dracutSetupString(),
                  self.id.keyboard.dracutSetupString(),
                  self.args,
                  self.appendArgs ]:
@@ -156,6 +156,8 @@ class KernelArguments:
     def __init__(self, instData):
         newArgs = []
         cfgFilename = "/tmp/install.cfg"
+
+        self.anaconda = instData.anaconda
 
         if iutil.isS390():
             self.cargs = []

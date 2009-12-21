@@ -1279,7 +1279,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.ayum.repos.callback = None
 
     def getDefaultGroups(self, anaconda):
-        langs = anaconda.id.instLanguage.getCurrentLangSearchList()
+        langs = anaconda.instLanguage.getCurrentLangSearchList()
         rc = map(lambda x: x.groupid,
                  filter(lambda x: x.default, self.ayum.comps.groups))
         for g in self.ayum.comps.groups:

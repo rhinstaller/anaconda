@@ -388,9 +388,9 @@ class Keyboard(commands.keyboard.FC3_Keyboard):
 
 class Lang(commands.lang.FC3_Lang):
     def execute(self, anaconda):
-        anaconda.id.instLanguage.instLang = self.lang
-        anaconda.id.instLanguage.systemLang = self.lang
-        anaconda.id.ksdata.skipSteps.append("language")
+        anaconda.instLanguage.instLang = self.lang
+        anaconda.instLanguage.systemLang = self.lang
+        anaconda.ksdata.skipSteps.append("language")
 
 class LogVolData(commands.logvol.F12_LogVolData):
     def execute(self, anaconda):

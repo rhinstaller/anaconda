@@ -569,7 +569,7 @@ class InstallInterface:
 
     def run(self, anaconda):
         self.anaconda = anaconda
-        instLang = anaconda.id.instLanguage
+        instLang = anaconda.instLanguage
 
         if instLang.getFontFile(instLang.instLang) == "none":
             if not anaconda.ksdata:
@@ -585,8 +585,6 @@ class InstallInterface:
         # drop into the python debugger on ctrl-z if we're running in test mode
         if flags.debug:
             self.screen.suspendCallback(debugSelf, self.screen)
-
-        self.instLanguage = anaconda.id.instLanguage
 
         # draw the frame after setting up the fallback
         self.drawFrame()

@@ -445,6 +445,7 @@ class Anaconda(object):
         self.displayMode = None
         self.id = None
         self._instClass = None
+        self._instLanguage = None
         self._intf = None
         self.isHeadless = False
         self.ksdata = None
@@ -483,6 +484,14 @@ class Anaconda(object):
             self._instClass = DefaultInstall()
 
         return self._instClass
+
+    @property
+    def instLanguage(self):
+        if not self._instLanguage:
+            import language
+            self._instLanguage = language.Language(self.displayMode)
+
+        return self._instLanguage
 
     @property
     def intf(self):
@@ -590,6 +599,7 @@ class Anaconda(object):
 
     def write(self):
         self.writeXdriver()
+        self.instLanguage.write(self.rootPath)
 
         if self.ksdata:
             for svc in self.ksdata.services.disabled:
@@ -655,6 +665,8 @@ class Anaconda(object):
             f.write(self.ksdata.user.__str__())
             f.write(self.ksdata.services.__str__())
             f.write(self.ksdata.reboot.__str__())
+
+        self.instLanguage.writeKS(f)
 
         # XXX: This is temporary until instdata goes away completely.
         self.id.writeKS(f)
@@ -1067,9 +1079,9 @@ if __name__ == "__main__":
         # this is lame, but make things match what we expect (#443408)
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
         anaconda.dispatch.skipStep("language", permanent = 1)
-        anaconda.id.instLanguage.instLang = opts.lang
-        anaconda.id.instLanguage.systemLang = opts.lang
-        anaconda.id.timezone.setTimezoneInfo(anaconda.id.instLanguage.getDefaultTimeZone(anaconda.rootPath))
+        anaconda.instLanguage.instLang = opts.lang
+        anaconda.instLanguage.systemLang = opts.lang
+        anaconda.id.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
 
     if opts.keymap:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
