@@ -46,10 +46,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class InstallData:
 
     def reset(self):
-        if iutil.isS390() or self.anaconda.ksdata:
-            self.firstboot = FIRSTBOOT_SKIP
-        else:
-            self.firstboot = FIRSTBOOT_DEFAULT
+        pass
 
     def __init__(self, anaconda, extraModules):
         self.anaconda = anaconda

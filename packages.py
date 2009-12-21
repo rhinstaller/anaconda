@@ -49,10 +49,10 @@ def doPostAction(anaconda):
     anaconda.instClass.postAction(anaconda)
 
 def firstbootConfiguration(anaconda):
-    if anaconda.id.firstboot == FIRSTBOOT_RECONFIG:
+    if anaconda.firstboot == FIRSTBOOT_RECONFIG:
         f = open(anaconda.rootPath + '/etc/reconfigSys', 'w+')
         f.close()
-    elif anaconda.id.firstboot == FIRSTBOOT_SKIP:
+    elif anaconda.firstboot == FIRSTBOOT_SKIP:
         f = open(anaconda.rootPath + '/etc/sysconfig/firstboot', 'w+')
         f.write('RUN_FIRSTBOOT=NO')
         f.close()

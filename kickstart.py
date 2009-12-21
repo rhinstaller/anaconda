@@ -324,10 +324,6 @@ class Firewall(commands.firewall.F10_Firewall):
         for svc in self.services:
             anaconda.firewall.servicelist.append (svc)
 
-class Firstboot(commands.firstboot.FC3_Firstboot):
-    def execute(self, anaconda):
-        anaconda.id.firstboot = self.firstboot
-
 class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def parse(self, args):
         retval = commands.ignoredisk.F8_IgnoreDisk.parse(self, args)
@@ -1017,7 +1013,6 @@ commandMap = {
         "dmraid": DmRaid,
         "fcoe": Fcoe,
         "firewall": Firewall,
-        "firstboot": Firstboot,
         "halt": Reboot,
         "ignoredisk": IgnoreDisk,
         "install": Upgrade,
