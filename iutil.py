@@ -14,12 +14,16 @@
 #
 
 import os, isys, string, stat
+import signal
 import os.path
 from errno import *
 import rhpl
 import warnings
 import subprocess
 from flags import flags
+from constants import *
+from rhpl.translate import _
+import re
 
 import logging
 log = logging.getLogger("anaconda")
@@ -529,4 +533,178 @@ def getScsiDeviceByWwpnLunid(wwpn, lunid):
         tgt = ""
     return tgt
 
+def writeReiplMethod(reipl_path, reipl_type):
+    filename = "%s/reipl_type" % (reipl_path,)
 
+    try:
+        f = open(filename, "w")
+    except Exception, e:
+        message = "Error: On open, cannot set reIPL method to %s (%s: %s)" % (reipl_type,filename,e,)
+        log.warning(message)
+        raise Exception (message)
+
+    try:
+        f.write(reipl_type)
+        f.flush()
+    except Exception, e:
+        message = "Error: On write, cannot set reIPL method to %s (%s: %s)" % (reipl_type,filename,e,)
+        log.warning(message)
+        raise Exception (message)
+
+    try:
+        f.close()
+    except Exception, e:
+        message = "Error: On close, cannot set reIPL method to %s (%s: %s)" % (reipl_type,filename,e,)
+        log.warning(message)
+        raise Exception (message)
+
+def reIPLonCCW(iplsubdev, reipl_path):
+    device = "<unknown>"
+
+    try:
+        iplbits = re.split ('([0-9]+)', iplsubdev)
+        if len (iplbits) != 3:
+            message = "Error: %s splits into %s but not like we expect" % (iplsubdev,iplbits,)
+            log.warning(message)
+            raise Exception (message)
+
+        device = os.readlink("/sys/block/" + iplbits[0] + "/device").split('/')[-1]
+
+        writeReiplMethod(reipl_path, 'ccw')
+
+        try:
+            f = open("%s/ccw/device" % (reipl_path,), "w")
+            f.write(device)
+            f.close()
+        except Exception, e:
+            message = "Error: Could not set %s as reIPL device (%s)" % (device,e,)
+            log.warning(message)
+            raise Exception (message)
+
+        try:
+            f = open("%s/ccw/loadparm" % (reipl_path,), "w")
+            f.write("\n")
+            f.close()
+        except Exception, e:
+            message = "Error: Could not reset loadparm (%s)" % (e,)
+            log.warning(message)
+            raise Exception (message)
+
+        try:
+            f = open("%s/ccw/parm" % (reipl_path,), "w")
+            f.write("\n")
+            f.close()
+        except Exception, e:
+            message = "Warning: Could not reset parm (%s)" % (e,)
+            log.warning(message)
+            # do NOT raise an exception since this might not exist or not be writable
+
+    except Exception, e:
+        try:
+            message = e.args[0]
+        except:
+            message = e.__str__ ()
+        return (message,
+                (_("After shutdown, please perform a manual IPL from DASD device %s to continue "
+                   "installation") % (device,)))
+
+    return None
+
+def reIPLonFCP(iplsubdev, reipl_path):
+    fcpvalue = { "device": "<unknown>", "wwpn": "<unknown>", "lun": "<unknown>" }
+
+    try:
+        iplbits = re.split ('([0-9]+)', iplsubdev)
+        if len (iplbits) != 3:
+            message = "Error: %s splits into %s but not like we expect" % (iplsubdev,iplbits,)
+            log.warning(message)
+            raise Exception (message)
+
+        syspath = "/sys/block/" + iplbits[0] + "/device"
+
+        fcpprops = [ ("hba_id", "device"), ("wwpn", "wwpn"), ("fcp_lun", "lun") ]
+
+        # Read in values to change.
+        # This way, if we can't set FCP mode, we can tell the user what to manually reboot to.
+        for (syspath_property, reipl_property) in fcpprops:
+            try:
+                f = open(syspath + "/" + syspath_property, "r")
+                value = f.read().strip()
+                fcpvalue[reipl_property] = value
+                f.close()
+            except Exception, e:
+                message = "Error: reading FCP property %s for reIPL (%s)" % (syspath_property,e,)
+                log.warning(message)
+                raise Exception (message)
+
+        writeReiplMethod(reipl_path, 'fcp')
+
+        # Write out necessary parameters.
+        for (syspath_property, reipl_property) in fcpprops:
+            try:
+                f = open("%s/fcp/%s" % (reipl_path, reipl_property,), "w")
+                f.write(fcpvalue[reipl_property])
+                f.close()
+            except Exception, e:
+                message = "Error: writing FCP property %s for reIPL (%s)" % (reipl_property,e,)
+                log.warning(message)
+                raise Exception (message)
+
+        defaultprops = [ ("bootprog", "0"), ("br_lba", "0") ]
+
+        # Write out default parameters.
+        for (reipl_property, default_value) in defaultprops:
+            try:
+                f = open("%s/fcp/%s" % (reipl_path, reipl_property,), "w")
+                f.write (default_value)
+                f.close()
+            except Exception, e:
+                message = "Error: writing default FCP property %s for reIPL (%s)" % (reipl_property,e,)
+                log.warning(message)
+                raise Exception (message)
+
+    except Exception, e:
+        try:
+            message = e.args[0]
+        except:
+            message = e.__str__ ()
+        return (message,
+                (_("After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %(wwpn)s "
+                   "and LUN %(lun)s to continue installation") % (fcpvalue)))
+
+    return None
+
+def reIPL(anaconda, loader_pid):
+    instruction = _("After shutdown, please perform a manual IPL from the device "
+                    "now containing /boot to continue installation")
+
+    reipl_path = "/sys/firmware/reipl"
+
+    iplfs = anaconda.id.fsset.getEntryByMountPoint("/boot")
+    if iplfs is None:
+        iplfs = anaconda.id.fsset.getEntryByMountPoint("/")
+
+    if iplfs is None:
+        message = _("Could not get information for mount point /boot or /")
+        log.warning(message)
+        return (message, instruction)
+
+    try:
+        ipldev = iplfs.device.device
+    except:
+        ipldev = None
+
+    if ipldev is None:
+        message = _("Error determining mount point type")
+        log.warning(message)
+        return (message, instruction)
+
+    message = (_("The mount point /boot or / is on a disk that we are not familiar with"), instruction)
+    if ipldev.startswith("dasd"):
+        message = reIPLonCCW(ipldev, reipl_path)
+    elif ipldev.startswith("sd"):
+        message = reIPLonFCP(ipldev, reipl_path)
+
+    # the final return is either None if reipl configuration worked (=> reboot),
+    # or a two-item list with errorMessage and rebootInstr (=> shutdown)
+    return message

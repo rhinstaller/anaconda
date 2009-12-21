@@ -118,6 +118,8 @@ uint64_t flags = LOADER_FLAGS_SELINUX | LOADER_FLAGS_NOFB;
 int num_link_checks = 5;
 int post_link_sleep = 0;
 
+static pid_t init_pid = 1;
+
 static struct installMethod installMethods[] = {
     { N_("Local CDROM"), "cdrom", 0, CLASS_CDROM, mountCdromImage },
     { N_("Hard drive"), "hd", 0, CLASS_HD, mountHardDrive },
@@ -1384,6 +1386,11 @@ void loaderSegvHandler(int signum) {
     exit(1);
 }
 
+void loaderUsrXHandler(int signum) {
+    logMessage(INFO, "Sending signal %d to process %d\n", signum, init_pid);
+    kill(init_pid, signum);
+}
+
 static int anaconda_trace_init(void) {
 #if 0
     int fd;
@@ -1454,6 +1461,25 @@ int main(int argc, char ** argv) {
         { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0, NULL, NULL },
         { 0, 0, 0, 0, 0, 0, 0 }
     };
+
+    /* get init PID if we have it */
+    if ((f = fopen("/var/run/init.pid", "r")) != NULL) {
+        char linebuf[256];
+
+        while (fgets(linebuf, sizeof(linebuf), f) != NULL) {
+            errno = 0;
+            init_pid = strtol(linebuf, NULL, 10);
+            if (errno == EINVAL || errno == ERANGE) {
+                logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+                init_pid = 1;
+            }
+        }
+
+        fclose(f);
+    }
+
+    signal(SIGUSR1, loaderUsrXHandler);
+    signal(SIGUSR2, loaderUsrXHandler);
 
     /* Make sure sort order is right. */
     setenv ("LC_COLLATE", "C", 1);	
@@ -1952,23 +1978,6 @@ int main(int argc, char ** argv) {
             waitpid(pid, &status, 0);
         }
 
-#if defined(__s390__) || defined(__s390x__)
-        /* FIXME: we have to send a signal to linuxrc on s390 so that shutdown
-         * can happen.  this is ugly */
-        FILE * f;
-        f = fopen("/var/run/init.pid", "r");
-        if (!f) {
-            logMessage(WARNING, "can't find init.pid, guessing that init is pid 1");
-            pid = 1;
-        } else {
-            char * buf = malloc(256);
-            char *ret;
-
-            ret = fgets(buf, 256, f);
-            pid = atoi(buf);
-        }
-        kill(pid, SIGUSR2);
-#endif
         stop_fw_loader(&loaderData);
         return rc;
     }

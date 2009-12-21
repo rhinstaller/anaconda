@@ -409,3 +409,25 @@ def selectLanguageSupportGroups(grpset, instLanguage):
 
     if grp.usecount > 0:
         grpset.groups["language-support"].select()
+
+def doReIPL(anaconda):
+    if not rhpl.getArch() in ['s390', 's390x']:
+        return DISPATCH_NOOP
+
+    messageInfo = iutil.reIPL(anaconda, os.getppid())
+
+    # @TBD seeing a bug here where anaconda.canReIPL and anaconda.reIPLMessage are
+    # not initialized even though they were in Anaconda.__init__()
+    if messageInfo is None:
+        anaconda.canReIPL = True
+
+        anaconda.reIPLMessage = None
+    else:
+        anaconda.canReIPL = False
+
+        (errorMessage, rebootInstr) = messageInfo
+
+        # errorMessage intentionally not shown in UI
+        anaconda.reIPLMessage = rebootInstr
+
+    return DISPATCH_FORWARD

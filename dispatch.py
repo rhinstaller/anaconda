@@ -42,6 +42,8 @@ from backend import doPostSelection, doRepoSetup, doBasePackageSelect
 from backend import doPreInstall, doPostInstall, doInstall
 from backend import writeConfiguration
 
+from packages import doReIPL
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -82,6 +84,7 @@ installSteps = [
     ("bootloadersetup", bootloaderSetupChoices, ),
     ("bootloader", ),
     ("bootloaderadvanced", ),
+    ("reipl", doReIPL, ),
     ("networkdevicecheck", networkDeviceCheck, ),
     ("network", ),
     ("timezone", ),

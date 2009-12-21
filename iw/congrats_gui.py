@@ -34,8 +34,10 @@ class CongratulationWindow (InstallWindow):
         # this mucks around a bit, but it's the weird case and it's
         # better than adding a lot of complication to the normal
 	ics.cw.mainxml.get_widget("nextButton").hide()
-	ics.cw.mainxml.get_widget("rebootButton").show()
-	ics.cw.mainxml.get_widget("rebootButton").grab_focus()
+
+	self.rebootButton = ics.cw.mainxml.get_widget("rebootButton")
+	self.rebootButton.show()
+	self.rebootButton.grab_focus()
 
     def getNext(self):
 	# XXX - copy any screenshots over
@@ -54,8 +56,13 @@ class CongratulationWindow (InstallWindow):
             hbox.pack_start (a, False, False, 36)
 
         bootstr = ""
-        if rhpl.getArch() == "s390":
+        if rhpl.getArch() in ['s390', 's390x']:
             floppystr = ""
+            if not anaconda.canReIPL:
+                self.rebootButton.set_label(_("Shutdown"))
+            if not anaconda.reIPLMessage is None:
+                floppystr = anaconda.reIPLMessage
+
         else:
             floppystr = _("Remove any media used during the installation "
                           "process and press the \"Reboot\" button to "

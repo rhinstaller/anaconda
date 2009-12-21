@@ -83,35 +83,13 @@ function checkipv4()
 
 function doshutdown()
 {
+    echo $"about to exec shutdown"
     exec /sbin/shutdown
     exit 0
 }
 
 function doreboot()
 {
-    # find out the location of /boot and use it to re-ipl
-    boot="$(cat /proc/mounts | grep " /mnt/sysimage/boot " | awk -F" " '{print $1}')"
-    if [ -z $boot ]; then
-        # use root if /boot not used
-        boot="$(cat /proc/mounts | grep " /mnt/sysimage " | awk -F" " '{print $1}')"
-    fi
-
-    # lookup dasd disk
-    echo $boot | grep "dasd" > /dev/null
-    if [ $? -eq 0 ]; then
-        type="ccw"
-        boot="$(basename $boot)"
-        # strip partition number from dasd device
-        boot="$(echo ${boot%[0-9]})"
-        id="$(basename $(readlink /sys/block/$boot/device))"
-        echo $type > /sys/firmware/reipl/reipl_type
-        echo $id > /sys/firmware/reipl/$type/device
-    else
-        # scsi re-ipl only supported on newer machines
-        doshutdown
-        exit 0
-    fi
-
     echo $"about to exec shutdown -r"
     exec /sbin/shutdown -r
     exit 0
@@ -3149,7 +3127,9 @@ EOF
         /sbin/loader
     fi
 
-    doreboot
+    # A shutdown needs to be performed here to avoid a loop booting back into the installer
+    echo $"Finishing up with doshutdown"
+    doshutdown
 
 fi # testing
 

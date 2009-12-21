@@ -22,10 +22,15 @@ class FinishedWindow:
   
   def __call__ (self, screen, anaconda):
         bootstr = ""
+        buttonstr = _("Reboot")
 
-        if rhpl.getArch() == "s390":
+        if rhpl.getArch() in ['s390', 's390x']:
           floppystr = _("Press <Enter> to end the installation process.\n\n")
           bottomstr = _("<Enter> to exit")
+          if not anaconda.canReIPL:
+            buttonstr = _("Shutdown")
+          if not anaconda.reIPLMessage is None:
+            floppystr = anaconda.reIPLMessage + "\n\n" + floppystr
         else:
           floppystr = _("Remove any media used during the installation "
                         "process and press <Enter> to reboot your system."
@@ -44,6 +49,6 @@ class FinishedWindow:
                 "http://www.redhat.com/docs/.") %(productName,)
 
         rc = ButtonChoiceWindow (screen, _("Complete"), txt,
-                                 [ _("Reboot") ], help = "finished", width=60)
+                                 [ buttonstr ], help = "finished", width=60)
 
         return INSTALL_OK

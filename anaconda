@@ -480,6 +480,8 @@ class Anaconda:
         self.rescue_mount = True
         self.rescue = False
         self.updateSrc = None
+        self.canReIPL = False
+        self.reIPLMessage = None
 
     def setDispatch(self):
         self.dispatch = dispatch.Dispatcher(self)
@@ -988,3 +990,11 @@ if __name__ == "__main__":
             isys.ejectCdrom(drive)
 
     del anaconda.intf
+
+    if rhpl.getArch() in ['s390', 's390x']:
+        if anaconda.canReIPL:
+            log.info("reipl configuration successful => reboot")
+            os.kill(os.getppid(), signal.SIGUSR2)
+        else:
+            log.info("reipl configuration failed => halt")
+            os.kill(os.getppid(), signal.SIGUSR1)

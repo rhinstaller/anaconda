@@ -142,6 +142,7 @@ class BaseInstallClass:
 		 "partitiondone",
 		 "bootloadersetup",                 
 		 "bootloader",
+                 "reipl",
                  "networkdevicecheck",
 		 "network",
 		 "timezone",
