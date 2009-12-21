@@ -43,7 +43,7 @@ def addFcoeDrive(anaconda):
     store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
     combo.set_model(store)
 
-    netdevs = anaconda.id.network.available()
+    netdevs = anaconda.network.available()
     keys = netdevs.keys()
     keys.sort()
     selected_interface = None
@@ -107,7 +107,7 @@ def addFcoeDrive(anaconda):
 
 def addIscsiDrive(anaconda):
     if not network.hasActiveNetDev():
-        net = NetworkConfigurator(anaconda.id.network)
+        net = NetworkConfigurator(anaconda.network)
         ret = net.run()
         net.destroy()
         if ret != gtk.RESPONSE_OK:

@@ -27,7 +27,7 @@ import network
 class HostnameWindow:
     def __call__(self, screen, anaconda):
         hname = network.getDefaultHostname(anaconda)
-        anaconda.id.network.hostname = hname
+        anaconda.network.hostname = hname
         return INSTALL_OK
 
 # vim:tw=78:ts=4:et:sw=4

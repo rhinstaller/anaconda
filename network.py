@@ -111,7 +111,7 @@ def getDefaultHostname(anaconda):
         return hn
 
     try:
-        hn = anaconda.id.network.hostname
+        hn = anaconda.network.hostname
     except:
         hn = None
 

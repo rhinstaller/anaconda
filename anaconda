@@ -452,6 +452,7 @@ class Anaconda(object):
         self.ksdata = None
         self.mediaDevice = None
         self.methodstr = None
+        self._network = None
         self._platform = None
         self.proxy = None
         self.proxyUsername = None
@@ -527,6 +528,14 @@ class Anaconda(object):
 
         self._intf = InstallInterface()
         return self._intf
+
+    @property
+    def network(self):
+        if not self._network:
+            import network
+            self._network = network.Network()
+
+        return self._network
 
     @property
     def platform(self):
@@ -617,6 +626,8 @@ class Anaconda(object):
         if not self.isHeadless:
             self.keyboard.write(self.rootPath)
 
+        self.network.write(instPath=self.rootPath, anaconda=self)
+
         # XXX: This is temporary until instdata goes away completely.
         self.id.write()
 
@@ -673,6 +684,7 @@ class Anaconda(object):
 
         if not self.isHeadless:
             self.keyboard.writeKS(f)
+            self.network.writeKS(f)
 
         # XXX: This is temporary until instdata goes away completely.
         self.id.writeKS(f)

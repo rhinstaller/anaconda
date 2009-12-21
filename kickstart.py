@@ -527,7 +527,7 @@ class Logging(commands.logging.FC6_Logging):
 class NetworkData(commands.network.F8_NetworkData):
     def execute(self, anaconda):
         if self.bootProto:
-            devices = anaconda.id.network.netdevices
+            devices = anaconda.network.netdevices
             if (devices and self.bootProto):
                 if not self.device:
                     list = devices.keys ()
@@ -565,14 +565,14 @@ class NetworkData(commands.network.F8_NetworkData):
                         dev.set(("wepkey", self.wepkey))
 
         if self.hostname != "":
-            anaconda.id.network.setHostname(self.hostname)
-            anaconda.id.network.overrideDHCPhostname = True
+            anaconda.network.setHostname(self.hostname)
+            anaconda.network.overrideDHCPhostname = True
 
         if self.nameserver != "":
-            anaconda.id.network.setDNS(self.nameserver, device)
+            anaconda.network.setDNS(self.nameserver, device)
 
         if self.gateway != "":
-            anaconda.id.network.setGateway(self.gateway, device)
+            anaconda.network.setGateway(self.gateway, device)
 
         needs_net = (anaconda.methodstr and
                      (anaconda.methodstr.startswith("http:") or
@@ -580,7 +580,7 @@ class NetworkData(commands.network.F8_NetworkData):
                       anaconda.methodstr.startswith("nfs:")))
         if needs_net and not network.hasActiveNetDev():
             log.info("Bringing up network in stage2 kickstart ...")
-            rc = anaconda.id.network.bringUp()
+            rc = anaconda.network.bringUp()
             log.info("Network setup %s" % (rc and 'succeeded' or 'failed',))
 
 class MultiPath(commands.multipath.FC6_MultiPath):

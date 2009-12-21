@@ -91,8 +91,14 @@ class KernelArguments:
         types = {}
         root = self.id.storage.rootDevice
         for d in self.id.storage.devices:
-            if d is not root and not root.dependsOn(d):
-                continue
+            if root.dependsOn(d):
+                dracutSetupString = d.dracutSetupString()
+                if len(dracutSetupString):
+                    args += " %s" % dracutSetupString
+                import storage
+                if isinstance(d, storage.devices.NetworkStorageDevice):
+                    args += " "
+                    args += self.network.dracutSetupString(d)
 
             s = d.dracutSetupString()
             types[s.split("=")[0]] = True
@@ -100,7 +106,7 @@ class KernelArguments:
 
             import storage
             if isinstance(d, storage.devices.NetworkStorageDevice):
-                args.append(self.id.network.dracutSetupString(d))
+                args.append(self.anaconda.network.dracutSetupString(d))
 
         for i in [ [ "rd_LUKS_UUID", "rd_NO_LUKS" ],
                    [ "rd_LVM_LV", "rd_NO_LVM" ],

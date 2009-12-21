@@ -24,7 +24,6 @@
 import os, sys
 import stat
 import string
-import network
 import firewall
 import security
 import timezone
@@ -55,7 +54,6 @@ class InstallData:
         #
         # - The install language
 
-        self.network = network.Network()
         self.firewall = firewall.Firewall()
         self.security = security.Security()
         self.timezone = timezone.Timezone()
@@ -98,8 +96,6 @@ class InstallData:
         except RuntimeError, msg:
                 log.error("Error running %s: %s", args, msg)
 
-        self.network.write (instPath=self.anaconda.rootPath,
-                            anaconda=self.anaconda)
         self.firewall.write (self.anaconda.rootPath)
         self.security.write (self.anaconda.rootPath)
         self.desktop.write(self.anaconda.rootPath)
@@ -138,9 +134,6 @@ class InstallData:
                     log.error("User %s already exists, not creating." % ud.name)
 
     def writeKS(self, f):
-        if not self.anaconda.isHeadless:
-            self.network.writeKS(f)
-
         if self.rootPassword["isCrypted"]:
             args = " --iscrypted %s" % self.rootPassword["password"]
         else:

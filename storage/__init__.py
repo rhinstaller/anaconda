@@ -735,7 +735,7 @@ class Storage(object):
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
         else:
-            name = self.createSuggestedVGName(self.anaconda.id.network)
+            name = self.createSuggestedVGName(self.anaconda.network)
 
         if name in [d.name for d in self.devices]:
             raise ValueError("name already in use")

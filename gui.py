@@ -1003,10 +1003,10 @@ class InstallInterface:
         pass
 
     def enableNetwork(self):
-        if len(self.anaconda.id.network.netdevices) == 0:
+        if len(self.anaconda.network.netdevices) == 0:
             return False
         from netconfig_dialog import NetworkConfigurator
-        net = NetworkConfigurator(self.anaconda.id.network)
+        net = NetworkConfigurator(self.anaconda.network)
         ret = net.run()
         net.destroy()
 

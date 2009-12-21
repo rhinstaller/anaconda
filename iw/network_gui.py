@@ -79,5 +79,5 @@ class NetworkWindow(InstallWindow):
                                     custom_icon="error")
             self.hostnameError()
 
-        self.anaconda.id.network.hostname = hostname
+        self.anaconda.network.hostname = hostname
         return None

@@ -89,7 +89,7 @@ class RescueInterface:
 	    return OkCancelWindow(self.screen, title, text)
 
     def enableNetwork(self, anaconda):
-        if len(anaconda.id.network.netdevices) == 0:
+        if len(anaconda.network.netdevices) == 0:
             return False
         from netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, anaconda)
@@ -242,7 +242,7 @@ def runRescue(anaconda):
                           "will not be available in rescue mode."))
                     break
 
-                startNetworking(anaconda.id.network, anaconda.intf)
+                startNetworking(anaconda.network, anaconda.intf)
                 break
             else:
                 break

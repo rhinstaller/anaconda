@@ -219,7 +219,7 @@ class PartitionTypeWindow:
         return INSTALL_OK
 
     def addFcoeDriveDialog(self, screen):
-        netdevs = self.anaconda.id.network.available()
+        netdevs = self.anaconda.network.available()
         devs = netdevs.keys()
         devs.sort()
 
