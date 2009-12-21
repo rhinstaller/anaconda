@@ -249,6 +249,7 @@ class Storage(object):
         self.clearPartDisks = []
         self.encryptedAutoPart = False
         self.encryptionPassphrase = None
+        self.escrowCertificates = {}
         self.autoPartEscrowCert = None
         self.autoPartAddBackupPassphrase = False
         self.encryptionRetrofit = False

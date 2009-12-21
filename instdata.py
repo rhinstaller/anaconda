@@ -52,7 +52,6 @@ class InstallData:
         # - The install language
 
         self.bootloader = booty.getBootloader(self)
-        self.escrowCertificates = {}
 
         if iutil.isS390() or self.anaconda.ksdata:
             self.firstboot = FIRSTBOOT_SKIP

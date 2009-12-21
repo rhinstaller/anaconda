@@ -141,8 +141,8 @@ def getEscrowCertificate(anaconda, url):
     if not url:
         return None
 
-    if url in anaconda.id.escrowCertificates:
-        return anaconda.id.escrowCertificates[url]
+    if url in anaconda.storage.escrowCertificates:
+        return anaconda.storage.escrowCertificates[url]
 
     needs_net = not url.startswith("/") and not url.startswith("file:")
     if needs_net and not network.hasActiveNetDev():
@@ -159,10 +159,10 @@ def getEscrowCertificate(anaconda, url):
     log.info("escrow: downloading %s" % (url,))
     f = urlgrabber.urlopen(url)
     try:
-        anaconda.id.escrowCertificates[url] = f.read()
+        anaconda.storage.escrowCertificates[url] = f.read()
     finally:
         f.close()
-    return anaconda.id.escrowCertificates[url]
+    return anaconda.storage.escrowCertificates[url]
 
 def deviceMatches(spec):
     matches = udev_resolve_glob(spec)
