@@ -97,7 +97,7 @@ class AnacondaBackend:
         #always copy the firmware files from DD
         self.copyFirmware(anaconda)
 
-        if anaconda.id.extraModules or has_iscsi_disk:
+        if anaconda.extraModules or has_iscsi_disk:
             for (n, arch, tag) in self.kernelVersionList(anaconda.rootPath):
                 packages.recreateInitrd(n, anaconda.rootPath)
 

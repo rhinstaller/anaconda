@@ -445,6 +445,7 @@ class Anaconda(object):
         self.dir = None
         self.dispatch = dispatch.Dispatcher(self)
         self.displayMode = None
+        self.extraModules = []
         self.firewall = firewall.Firewall()
         self.id = None
         self._instClass = None
@@ -466,6 +467,7 @@ class Anaconda(object):
         self.rootParts = None
         self.rootPath = "/mnt/sysimage"
         self.security = security.Security()
+        self.simpleFilter = True
         self.stage2 = None
         self._storage = None
         self._timezone = None
@@ -843,7 +845,6 @@ if __name__ == "__main__":
     # is imported
     iutil.writeRpmPlatform()
 
-    extraModules = []               # XXX: this would be better as a callback
     graphical_failed = 0
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
@@ -908,7 +909,7 @@ if __name__ == "__main__":
     if opts.module:
         for mod in opts.module:
             (path, name) = string.split(mod, ":")
-            extraModules.append((path, name))
+            anaconda.extraModules.append((path, name))
 
     if opts.vnc:
         flags.usevnc = 1
@@ -1119,7 +1120,7 @@ if __name__ == "__main__":
         runVNC()
         doStartupX11Actions(opts.runres)
 
-    anaconda.id = anaconda.instClass.installDataClass(anaconda, extraModules)
+    anaconda.id = anaconda.instClass.installDataClass(anaconda)
     anaconda.instClass.setInstallData(anaconda)
 
     # comment out the next line to make exceptions non-fatal

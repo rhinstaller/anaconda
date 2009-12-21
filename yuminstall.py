@@ -1299,7 +1299,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         moduleProvides = []
 
-        for (path, name) in anaconda.id.extraModules:
+        for (path, name) in anaconda.extraModules:
             if ext != "":
                 moduleProvides.append("dud-%s-%s" % (name, ext))
             else:

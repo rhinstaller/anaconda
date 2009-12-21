@@ -48,9 +48,7 @@ class InstallData:
     def reset(self):
         pass
 
-    def __init__(self, anaconda, extraModules):
+    def __init__(self, anaconda):
         self.anaconda = anaconda
-        self.extraModules = extraModules
-        self.simpleFilter = True
 
         self.reset()

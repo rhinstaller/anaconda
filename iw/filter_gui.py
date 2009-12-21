@@ -495,7 +495,7 @@ class FilterWindow(InstallWindow):
             line[VISIBLE_COL] = self.pages[page_num].cb.isMember(line[OBJECT_COL])
 
     def _show_buttons(self, *args, **kwargs):
-        if self.anaconda.id.simpleFilter:
+        if self.anaconda.simpleFilter:
             self.buttonBox.hide()
             self.buttonBox.unrealize()
         else:
@@ -549,7 +549,7 @@ class FilterWindow(InstallWindow):
         (raids, nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
                                             singlepaths)
 
-        if anaconda.id.simpleFilter:
+        if anaconda.simpleFilter:
             # In the typical use case, the user likely only has one drive and
             # there's no point showing either the filtering UI or the
             # cleardisks UI.  Unfortunately, that means we need to duplicate
