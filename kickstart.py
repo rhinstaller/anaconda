@@ -218,8 +218,8 @@ class Bootloader(commands.bootloader.F12_Bootloader):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Selected upgrade mode for bootloader but not doing an upgrade")
 
         if self.upgrade:
-            anaconda.id.bootloader.kickstart = 1
-            anaconda.id.bootloader.doUpgradeOnly = 1
+            anaconda.bootloader.kickstart = 1
+            anaconda.bootloader.doUpgradeOnly = 1
 
         if location is None:
             anaconda.ksdata.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
@@ -227,21 +227,21 @@ class Bootloader(commands.bootloader.F12_Bootloader):
             anaconda.ksdata.showSteps.append("bootloader")
 
             if self.appendLine:
-                anaconda.id.bootloader.args.append(self.appendLine)
+                anaconda.bootloader.args.append(self.appendLine)
 
             if self.password:
-                anaconda.id.bootloader.setPassword(self.password, isCrypted = 0)
+                anaconda.bootloader.setPassword(self.password, isCrypted = 0)
 
             if self.md5pass:
-                anaconda.id.bootloader.setPassword(self.md5pass)
+                anaconda.bootloader.setPassword(self.md5pass)
 
             if location != None:
-                anaconda.id.bootloader.defaultDevice = location
+                anaconda.bootloader.defaultDevice = location
             else:
-                anaconda.id.bootloader.defaultDevice = -1
+                anaconda.bootloader.defaultDevice = -1
 
             if self.timeout:
-                anaconda.id.bootloader.timeout = self.timeout
+                anaconda.bootloader.timeout = self.timeout
 
             # add unpartitioned devices that will get partitioned into
             # bootloader.drivelist
@@ -251,24 +251,24 @@ class Bootloader(commands.bootloader.F12_Bootloader):
                 if shouldClear(disk, anaconda.storage.clearPartType,
                                anaconda.storage.clearPartDisks):
                     # add newly partitioned disks to the drivelist
-                    anaconda.id.bootloader.drivelist.append(disk.name)
-                elif disk.name in anaconda.id.bootloader.drivelist:
+                    anaconda.bootloader.drivelist.append(disk.name)
+                elif disk.name in anaconda.bootloader.drivelist:
                     # remove unpartitioned disks from the drivelist
-                    anaconda.id.bootloader.drivelist.remove(disk.name)
-            anaconda.id.bootloader.drivelist.sort(
-                cmp=anaconda.id.storage.compareDisks)
+                    anaconda.bootloader.drivelist.remove(disk.name)
+            anaconda.bootloader.drivelist.sort(
+                cmp=anaconda.storage.compareDisks)
 
             # Throw out drives specified that don't exist.
             if self.driveorder and len(self.driveorder) > 0:
                 new = []
                 for drive in self.driveorder:
-                    if drive in anaconda.id.bootloader.drivelist:
+                    if drive in anaconda.bootloader.drivelist:
                         new.append(drive)
                     else:
                         log.warning("requested drive %s in boot drive order "
                                     "doesn't exist" %(drive,))
 
-                anaconda.id.bootloader.updateDriveList(new)
+                anaconda.bootloader.updateDriveList(new)
 
         anaconda.ksdata.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
 

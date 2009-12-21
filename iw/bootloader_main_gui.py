@@ -188,7 +188,7 @@ class MainBootloaderWindow(InstallWindow):
 
     def getScreen(self, anaconda):
         self.dispatch = anaconda.dispatch
-        self.bl = anaconda.id.bootloader
+        self.bl = anaconda.bootloader
         self.intf = anaconda.intf
 
         self.driveorder = self.bl.drivelist

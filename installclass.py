@@ -200,7 +200,7 @@ class BaseInstallClass(object):
 
     def setInstallData(self, anaconda):
         anaconda.id.reset()
-        anaconda.id.bootloader.timeout = self.bootloaderTimeoutDefault
+        anaconda.bootloader.timeout = self.bootloaderTimeoutDefault
 
     def versionMatches(self, oldver):
         pass

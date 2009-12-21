@@ -308,7 +308,7 @@ def rpmSetupGraphicalSystem(anaconda):
     if iutil.isConsoleOnVirtualTerminal() and \
        ts.dbMatch('provides', 'rhgb').count() or \
        ts.dbMatch('provides', 'plymouth').count():
-        anaconda.id.bootloader.args.append("rhgb quiet")
+        anaconda.bootloader.args.append("rhgb quiet")
 
     if ts.dbMatch('provides', 'service(graphical-login)').count() and \
        anaconda.displayMode == 'g' and not flags.usevnc:

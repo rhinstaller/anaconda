@@ -439,6 +439,7 @@ def startDebugger(signum, frame):
 class Anaconda(object):
     def __init__(self):
         self._backend = None
+        self._bootloader = None
         self.canReIPL = False
         self.desktop = desktop.Desktop()
         self.dir = None
@@ -484,6 +485,14 @@ class Anaconda(object):
             self._backend = apply(b, (self, ))
 
         return self._backend
+
+    @property
+    def bootloader(self):
+        if not self._bootloader:
+            import booty
+            self._bootloader = booty.getBootloader(self)
+
+        return self._bootloader
 
     @property
     def instClass(self):
@@ -732,6 +741,7 @@ class Anaconda(object):
         self.firewall.writeKS(f)
 
         self.storage.writeKS(f)
+        self.bootloader.writeKS(f)
 
         # XXX: This is temporary until instdata goes away completely.
         self.id.writeKS(f)

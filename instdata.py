@@ -26,7 +26,6 @@ import stat
 import string
 import firewall
 import timezone
-import booty
 import storage
 import urllib
 import iutil
@@ -47,19 +46,10 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 class InstallData:
 
     def reset(self):
-        # Reset everything except:
-        #
-        # - The install language
-
-        self.bootloader = booty.getBootloader(self)
-
         if iutil.isS390() or self.anaconda.ksdata:
             self.firstboot = FIRSTBOOT_SKIP
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
-
-    def writeKS(self, f):
-        self.bootloader.writeKS(f)
 
     def __init__(self, anaconda, extraModules):
         self.anaconda = anaconda

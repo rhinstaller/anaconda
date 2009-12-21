@@ -140,8 +140,8 @@ class alphaBootloaderInfo(bootloaderInfo):
         return self.writeAboot(instRoot, bl, kernelList,
                                chainList, defaultDev)
 
-    def __init__(self, instData):
-        bootloaderInfo.__init__(self, instData)
+    def __init__(self, anaconda):
+        bootloaderInfo.__init__(self, anaconda)
         self.useGrubVal = 0
         self._configdir = "/etc"
         self._configname = "aboot.conf"

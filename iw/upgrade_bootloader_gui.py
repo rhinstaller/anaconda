@@ -113,7 +113,7 @@ class UpgradeBootloaderWindow (InstallWindow):
 
     def getScreen(self, anaconda):
         self.dispatch = anaconda.dispatch
-        self.bl = anaconda.id.bootloader
+        self.bl = anaconda.bootloader
 
         newToLibata = self._newToLibata(anaconda.rootPath)
 

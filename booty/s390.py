@@ -170,8 +170,8 @@ class s390BootloaderInfo(bootloaderInfo):
 
         return self.writeChandevConf(bl, instRoot)
 
-    def __init__(self, instData):
-        bootloaderInfo.__init__(self, instData)
+    def __init__(self, anaconda):
+        bootloaderInfo.__init__(self, anaconda)
         self.useZiplVal = 1      # only used on s390
         self.kernelLocation = "/boot/"
         self._configdir = "/etc"

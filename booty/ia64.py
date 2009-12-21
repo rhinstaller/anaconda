@@ -32,7 +32,7 @@ class ia64BootloaderInfo(efiBootloaderInfo):
             return rc
         return self.addNewEfiEntry(instRoot)
 
-    def __init__(self, instData):
-        efiBootloaderInfo.__init__(self, instData)
+    def __init__(self, anaconda):
+        efiBootloaderInfo.__init__(self, anaconda)
         self._configname = "elilo.conf"
         self._bootloader = "elilo.efi"

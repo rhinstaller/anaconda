@@ -96,7 +96,7 @@ def initExceptionHandling(anaconda):
                   attrSkipList=[ "backend.ayum",
                                  "backend.dlpkgs",
                                  "id.accounts",
-                                 "id.bootloader.password",
+                                 "bootloader.password",
                                  "id.comps",
                                  "id.dispatch",
                                  "id.hdList",

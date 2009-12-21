@@ -64,13 +64,13 @@ def bootloaderSetupChoices(anaconda):
         return DISPATCH_FORWARD
 
     if anaconda.ksdata and anaconda.ksdata.bootloader.driveorder:
-        anaconda.id.bootloader.updateDriveList(anaconda.ksdata.bootloader.driveorder)
+        anaconda.bootloader.updateDriveList(anaconda.ksdata.bootloader.driveorder)
     else:
         #We want the selected bootloader drive to be preferred
-        pref = anaconda.id.bootloader.drivelist[:1]
-        anaconda.id.bootloader.updateDriveList(pref)
+        pref = anaconda.bootloader.drivelist[:1]
+        anaconda.bootloader.updateDriveList(pref)
 
-    if iutil.isEfi() and not anaconda.id.bootloader.device:
+    if iutil.isEfi() and not anaconda.bootloader.device:
         bootPart = None
         partitions = anaconda.storage.partitions
         for part in partitions:
@@ -78,10 +78,10 @@ def bootloaderSetupChoices(anaconda):
                 bootPart = part.name
                 break
         if bootPart:
-            anaconda.id.bootloader.setDevice(bootPart)
+            anaconda.bootloader.setDevice(bootPart)
 
 # iSeries bootloader on upgrades
-    if iutil.getPPCMachine() == "iSeries" and not anaconda.id.bootloader.device:
+    if iutil.getPPCMachine() == "iSeries" and not anaconda.bootloader.device:
         bootPart = None
         partitions = anaconda.storage.partitions
         for part in partitions:
@@ -90,32 +90,32 @@ def bootloaderSetupChoices(anaconda):
                 bootPart = part.name
                 break
         if bootPart:
-            anaconda.id.bootloader.setDevice(bootPart)
+            anaconda.bootloader.setDevice(bootPart)
 
-    choices = anaconda.platform.bootloaderChoices(anaconda.id.bootloader)
+    choices = anaconda.platform.bootloaderChoices(anaconda.bootloader)
     if not choices and iutil.getPPCMachine() != "iSeries":
 	anaconda.dispatch.skipStep("instbootloader")
     else:
 	anaconda.dispatch.skipStep("instbootloader", skip = 0)
 
     # FIXME: ...
-    anaconda.id.bootloader.images.setup(anaconda.storage)
+    anaconda.bootloader.images.setup(anaconda.storage)
 
-    if anaconda.id.bootloader.defaultDevice != None and choices:
+    if anaconda.bootloader.defaultDevice != None and choices:
         keys = choices.keys()
         # there are only two possible things that can be in the keys
         # mbr and boot.  boot is ALWAYS present.  so if the dev isn't
         # listed, it was mbr and we should nicely fall back to boot
-        if anaconda.id.bootloader.defaultDevice not in keys:
+        if anaconda.bootloader.defaultDevice not in keys:
             log.warning("MBR not suitable as boot device; installing to partition")
-            anaconda.id.bootloader.defaultDevice = "boot"
-        anaconda.id.bootloader.setDevice(choices[anaconda.id.bootloader.defaultDevice][0])
+            anaconda.bootloader.defaultDevice = "boot"
+        anaconda.bootloader.setDevice(choices[anaconda.bootloader.defaultDevice][0])
     elif choices and iutil.isMactel() and choices.has_key("boot"): # haccckkkk
-        anaconda.id.bootloader.setDevice(choices["boot"][0])        
+        anaconda.bootloader.setDevice(choices["boot"][0])        
     elif choices and choices.has_key("mbr"):
-        anaconda.id.bootloader.setDevice(choices["mbr"][0])
+        anaconda.bootloader.setDevice(choices["mbr"][0])
     elif choices and choices.has_key("boot"):
-        anaconda.id.bootloader.setDevice(choices["boot"][0])
+        anaconda.bootloader.setDevice(choices["boot"][0])
 
 def fixedMdraidGrubTarget(anaconda, grubTarget):
     # handle change made in F12 - before F12 mdX used to mean installation
@@ -124,7 +124,7 @@ def fixedMdraidGrubTarget(anaconda, grubTarget):
     (product, version) = getReleaseString(anaconda.rootPath)
     try:
         if float(version) < 12:
-            stage1Devs = anaconda.id.bootloader.getPhysicalDevices(grubTarget)
+            stage1Devs = anaconda.bootloader.getPhysicalDevices(grubTarget)
             fixedGrubTarget = getDiskPart(stage1Devs[0], anaconda.storage)[0]
             log.info("Mdraid grub upgrade: %s -> %s" % (grubTarget,
                                                        fixedGrubTarget))
@@ -139,21 +139,21 @@ def writeBootloader(anaconda):
         isys.sync()
         isys.sync()
 
-    if anaconda.id.bootloader.defaultDevice == -1:
+    if anaconda.bootloader.defaultDevice == -1:
         return
 
-    if anaconda.id.bootloader.doUpgradeOnly:
+    if anaconda.bootloader.doUpgradeOnly:
         (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.storage)
         
-        anaconda.id.bootloader.doUpgradeonly = 1
+        anaconda.bootloader.doUpgradeonly = 1
         if bootType == "GRUB":
             if theDev.startswith('/dev/md'):
                 theDev = fixedMdraidGrubTarget(anaconda,
                                                devicePathToName(theDev))
-            anaconda.id.bootloader.useGrubVal = 1
-            anaconda.id.bootloader.setDevice(devicePathToName(theDev))
+            anaconda.bootloader.useGrubVal = 1
+            anaconda.bootloader.setDevice(devicePathToName(theDev))
         else:
-            anaconda.id.bootloader.doUpgradeOnly = 0    
+            anaconda.bootloader.doUpgradeOnly = 0    
 
     w = anaconda.intf.waitWindow(_("Bootloader"), _("Installing bootloader."))
 
@@ -162,15 +162,15 @@ def writeBootloader(anaconda):
     # getDefault needs to return a device, but that's too invasive for now.
     rootDev = anaconda.storage.rootDevice
 
-    if not anaconda.id.bootloader.images.getDefault():
+    if not anaconda.bootloader.images.getDefault():
         defaultDev = None
     else:
-        defaultDev = anaconda.storage.devicetree.getDeviceByName(anaconda.id.bootloader.images.getDefault())
+        defaultDev = anaconda.storage.devicetree.getDeviceByName(anaconda.bootloader.images.getDefault())
 
     kernelLabel = None
     kernelLongLabel = None
 
-    for (dev, (label, longlabel, type)) in anaconda.id.bootloader.images.getImages().items():
+    for (dev, (label, longlabel, type)) in anaconda.bootloader.images.getImages().items():
         if (rootDev is None and kernelLabel is None) or (dev == rootDev.name):
 	    kernelLabel = label
             kernelLongLabel = longlabel
@@ -213,8 +213,8 @@ def writeBootloader(anaconda):
 
     dosync()
     try:
-        rc = anaconda.id.bootloader.write(anaconda.rootPath, anaconda.id.bootloader,
-                                          kernelList, otherList, defaultDev)
+        rc = anaconda.bootloader.write(anaconda.rootPath, anaconda.bootloader,
+                                       kernelList, otherList, defaultDev)
         w.pop()
 
         if rc and anaconda.intf:

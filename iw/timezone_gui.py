@@ -105,7 +105,7 @@ class TimezoneWindow(InstallWindow):
         self.utcCheckbox.set_active(asUTC)
 
         if not anaconda.ksdata:
-            self.utcCheckbox.set_active(not hasWindows(anaconda.id.bootloader))
+            self.utcCheckbox.set_active(not hasWindows(anaconda.bootloader))
 
         self.notebook.remove(self.vbox)
         return self.vbox
