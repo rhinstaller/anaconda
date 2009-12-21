@@ -88,7 +88,7 @@ class TimezoneWindow(InstallWindow):
     # TimezoneWindow tag="timezone"
     def getScreen(self, anaconda):
 	self.intf = anaconda.intf        
-        self.timezone = anaconda.id.timezone
+        self.timezone = anaconda.timezone
         (self.default, asUTC) = self.timezone.getTimezoneInfo()
 
         if not self.default:

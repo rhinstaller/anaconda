@@ -50,7 +50,7 @@ class LanguageWindow (InstallWindow):
 
         self.instLang.instLang = self.lang
         self.instLang.systemLang = self.lang
-        anaconda.id.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
+        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
 	self.ics.getICW().setLanguage()
 
         return None

@@ -932,8 +932,8 @@ class Timezone(commands.timezone.FC6_Timezone):
                                  tab.getEntries()):
             log.warning("Timezone %s set in kickstart is not valid." % (self.timezone,))
 
-        anaconda.id.timezone.setTimezoneInfo(self.timezone, self.isUtc)
-        anaconda.id.ksdata.skipSteps.append("timezone")
+        anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
+        anaconda.ksdata.skipSteps.append("timezone")
 
 class Upgrade(commands.upgrade.F11_Upgrade):
     def execute(self, anaconda):

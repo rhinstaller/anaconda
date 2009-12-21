@@ -465,6 +465,7 @@ class Anaconda(object):
         self.rootPath = "/mnt/sysimage"
         self.security = security.Security()
         self.stage2 = None
+        self._timezone = None
         self.updateSrc = None
         self.upgrade = flags.cmdline.has_key("preupgrade")
         self.upgradeRoot = None
@@ -556,6 +557,15 @@ class Anaconda(object):
 
         return self._users
 
+    @property
+    def timezone(self):
+        if not self._timezone:
+            import timezone
+            self._timezone = timezone.Timezone()
+            self._timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone(self.rootPath))
+
+        return self._timezone
+
     def dumpState(self):
         from meh.dump import ReverseExceptionDump
         from inspect import stack as _stack
@@ -625,6 +635,7 @@ class Anaconda(object):
         if not self.isHeadless:
             self.keyboard.write(self.rootPath)
 
+        self.timezone.write(self.rootPath)
         self.network.write(instPath=self.rootPath, anaconda=self)
         self.users.write(self.rootPath)
         self.security.write(self.rootPath)
@@ -707,6 +718,7 @@ class Anaconda(object):
             self.keyboard.writeKS(f)
             self.network.writeKS(f)
 
+        self.timezone.writeKS(f)
         self.users.writeKS(f)
         self.security.writeKS(f)
         self.firewall.writeKS(f)
@@ -1124,7 +1136,7 @@ if __name__ == "__main__":
         anaconda.dispatch.skipStep("language", permanent = 1)
         anaconda.instLanguage.instLang = opts.lang
         anaconda.instLanguage.systemLang = opts.lang
-        anaconda.id.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
+        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
 
     if opts.keymap:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)

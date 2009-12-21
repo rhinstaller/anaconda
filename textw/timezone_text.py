@@ -65,7 +65,7 @@ class TimezoneWindow:
 
     def __call__(self, screen, anaconda):
 	timezones = self.getTimezoneList()
-	(default, asUtc) = anaconda.id.timezone.getTimezoneInfo()
+	(default, asUtc) = anaconda.timezone.getTimezoneInfo()
         if not default:
 	    default = anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath)
 
@@ -124,7 +124,7 @@ class TimezoneWindow:
                 break
 
         screen.popWindow()
-	anaconda.id.timezone.setTimezoneInfo(self.l.current().replace(" ", "_"), asUtc = self.c.selected())
+	anaconda.timezone.setTimezoneInfo(self.l.current().replace(" ", "_"), asUtc = self.c.selected())
 
 	return INSTALL_OK
 
