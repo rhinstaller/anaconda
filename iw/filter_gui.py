@@ -44,7 +44,7 @@ CAPACITY_COL = 5
 VENDOR_COL = 6
 INTERCONNECT_COL = 7
 SERIAL_COL = 8
-WWID_COL = 9
+ID_COL = 9
 PATHS_COL = 10
 PORT_COL = 11
 TARGET_COL = 12
@@ -181,12 +181,12 @@ class MPathCallbacks(FilteredCallbacks):
 
         self.vendorEntry = self.xml.get_widget("mpathVendorEntry")
         self.interconnectEntry = self.xml.get_widget("mpathInterconnectEntry")
-        self.WWIDEntry = self.xml.get_widget("mpathWWIDEntry")
+        self.IDEntry = self.xml.get_widget("mpathIDEntry")
 
         self.vendorEntry.connect("changed", lambda entry: self.model.refilter())
         self.vendorEntry.connect("realize", self._populateUI)
         self.interconnectEntry.connect("changed", lambda entry: self.model.refilter())
-        self.WWIDEntry.connect("changed", lambda entry: self.model.refilter())
+        self.IDEntry.connect("changed", lambda entry: self.model.refilter())
 
     def addToUI(self, tuple):
         if not tuple[VENDOR_COL] in self._vendors:
@@ -233,9 +233,9 @@ class MPathCallbacks(FilteredCallbacks):
 
     def _visible_by_wwid(self, model, iter, view):
         # FIXME:  make this support globs, etc.
-        entered = self.WWIDEntry.get_text()
+        entered = self.IDEntry.get_text()
 
-        return entered != "" and model.get_value(iter, WWID_COL).find(entered) != -1
+        return entered != "" and model.get_value(iter, ID_COL).find(entered) != -1
 
 class OtherCallbacks(MPathCallbacks):
     def __init__(self, *args, **kwargs):
@@ -249,12 +249,12 @@ class OtherCallbacks(MPathCallbacks):
 
         self.vendorEntry = self.xml.get_widget("otherVendorEntry")
         self.interconnectEntry = self.xml.get_widget("otherInterconnectEntry")
-        self.WWIDEntry = self.xml.get_widget("otherWWIDEntry")
+        self.IDEntry = self.xml.get_widget("otherIDEntry")
 
         self.vendorEntry.connect("changed", lambda entry: self.model.refilter())
         self.vendorEntry.connect("realize", self._populateUI)
         self.interconnectEntry.connect("changed", lambda entry: self.model.refilter())
-        self.WWIDEntry.connect("changed", lambda entry: self.model.refilter())
+        self.IDEntry.connect("changed", lambda entry: self.model.refilter())
 
     def isMember(self, info):
         return info and isOther(info)
@@ -273,14 +273,14 @@ class SearchCallbacks(FilteredCallbacks):
         self.portEntry = self.xml.get_widget("searchPortEntry")
         self.targetEntry = self.xml.get_widget("searchTargetEntry")
         self.LUNEntry = self.xml.get_widget("searchLUNEntry")
-        self.WWIDEntry = self.xml.get_widget("searchWWIDEntry")
+        self.IDEntry = self.xml.get_widget("searchIDEntry")
 
         # When these entries are changed, we need to redo the filtering.
         # If we don't do filter-as-you-type, we'd need a Search/Clear button.
         self.portEntry.connect("changed", lambda entry: self.model.refilter())
         self.targetEntry.connect("changed", lambda entry: self.model.refilter())
         self.LUNEntry.connect("changed", lambda entry: self.model.refilter())
-        self.WWIDEntry.connect("changed", lambda entry: self.model.refilter())
+        self.IDEntry.connect("changed", lambda entry: self.model.refilter())
 
     def isMember(self, info):
         return True
@@ -312,9 +312,9 @@ class SearchCallbacks(FilteredCallbacks):
 
     def _visible_by_wwid(self, model, iter, view):
         # FIXME:  make this support globs, etc.
-        entered = self.WWIDEntry.get_text()
+        entered = self.IDEntry.get_text()
 
-        return entered != "" and model.get_value(iter, WWID_COL).find(entered) != -1
+        return entered != "" and model.get_value(iter, ID_COL).find(entered) != -1
 
 class NotebookPage(object):
     def __init__(self, store, name, xml, cb):
@@ -430,7 +430,7 @@ class FilterWindow(InstallWindow):
     def _makeMPath(self):
         np = NotebookPage(self.store, "mpath", self.xml, MPathCallbacks(self.xml))
 
-        np.ds.addColumn(_("WWID"), WWID_COL)
+        np.ds.addColumn(_("Identifier"), ID_COL)
         np.ds.addColumn(_("Capacity"), CAPACITY_COL)
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
@@ -440,7 +440,7 @@ class FilterWindow(InstallWindow):
     def _makeOther(self):
         np = NotebookPage(self.store, "other", self.xml, OtherCallbacks(self.xml))
 
-        np.ds.addColumn(_("WWID"), WWID_COL)
+        np.ds.addColumn(_("Identifier"), ID_COL)
         np.ds.addColumn(_("Capacity"), CAPACITY_COL)
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
@@ -455,7 +455,7 @@ class FilterWindow(InstallWindow):
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL, displayed=False)
         np.ds.addColumn(_("Serial Number"), SERIAL_COL, displayed=False)
-        np.ds.addColumn(_("WWID"), WWID_COL)
+        np.ds.addColumn(_("Identifier"), ID_COL)
         np.ds.addColumn(_("Port"), PORT_COL)
         np.ds.addColumn(_("Target"), TARGET_COL)
         np.ds.addColumn(_("LUN"), LUN_COL)

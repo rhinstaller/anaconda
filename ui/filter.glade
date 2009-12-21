@@ -187,7 +187,7 @@
 		      <property name="visible">True</property>
 		      <property name="items" translatable="yes">Interconnect
 Vendor
-WWID</property>
+Identifier</property>
 		      <property name="add_tearoffs">False</property>
 		      <property name="has_frame">True</property>
 		      <property name="focus_on_click">True</property>
@@ -365,7 +365,7 @@ WWID</property>
 			  <child>
 			    <widget class="GtkLabel" id="label32">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Show WWIDs that Include:</property>
+			      <property name="label" translatable="yes">Show Identifiers that Include:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -388,7 +388,7 @@ WWID</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="mpathWWIDEntry">
+			    <widget class="GtkEntry" id="mpathIDEntry">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
@@ -540,7 +540,7 @@ WWID</property>
 		      <property name="visible">True</property>
 		      <property name="items" translatable="yes">Interconnect
 Vendor
-WWID</property>
+Identifier</property>
 		      <property name="add_tearoffs">False</property>
 		      <property name="has_frame">True</property>
 		      <property name="focus_on_click">True</property>
@@ -718,7 +718,7 @@ WWID</property>
 			  <child>
 			    <widget class="GtkLabel" id="label40">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Show WWIDs that Include:</property>
+			      <property name="label" translatable="yes">Show Identifiers that Include:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -741,7 +741,7 @@ WWID</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="otherWWIDEntry">
+			    <widget class="GtkEntry" id="otherIDEntry">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
@@ -892,7 +892,7 @@ WWID</property>
 		    <widget class="GtkComboBoxEntry" id="searchFilterBy">
 		      <property name="visible">True</property>
 		      <property name="items" translatable="yes">Port / Target / LUN
-Target WWID</property>
+Target Identifier</property>
 		      <property name="add_tearoffs">False</property>
 		      <property name="has_frame">True</property>
 		      <property name="focus_on_click">True</property>
@@ -1092,7 +1092,7 @@ Target WWID</property>
 			  <child>
 			    <widget class="GtkLabel" id="label21">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">WWID:</property>
+			      <property name="label" translatable="yes">Identifier:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">False</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1115,7 +1115,7 @@ Target WWID</property>
 			  </child>
 
 			  <child>
-			    <widget class="GtkEntry" id="searchWWIDEntry">
+			    <widget class="GtkEntry" id="searchIDEntry">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="editable">True</property>
