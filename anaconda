@@ -612,8 +612,7 @@ class Anaconda(object):
 
     def writeXdriver(self):
         # this should go away at some point, but until it does, we
-        # need to keep it around.  it could go into instdata but this
-        # isolates it a little more
+        # need to keep it around.
         if self.xdriver is None:
             return
         if not os.path.isdir("%s/etc/X11" %(self.rootPath,)):
@@ -753,9 +752,6 @@ class Anaconda(object):
 
         self.storage.writeKS(f)
         self.bootloader.writeKS(f)
-
-        # XXX: This is temporary until instdata goes away completely.
-        self.id.writeKS(f)
 
         if self.backend:
             self.backend.writeKS(f)
@@ -978,12 +974,10 @@ if __name__ == "__main__":
     if opts.rescue:
         anaconda.rescue = True
 
-        import rescue, instdata
-
-        anaconda.id = instdata.InstallData(anaconda, [])
+        import rescue
 
         if anaconda.ksdata:
-            anaconda.instClass.setInstallData(anaconda)
+            anaconda.instClass.configure(anaconda)
 
             # We need an interface before running kickstart execute methods for
             # storage.
@@ -1041,8 +1035,6 @@ if __name__ == "__main__":
 
     if opts.debug:
         flags.debug = True
-
-    import instdata
 
     log.info("anaconda called with cmdline = %s" %(sys.argv,))
     log.info("Display mode = %s" % anaconda.displayMode)
@@ -1120,8 +1112,7 @@ if __name__ == "__main__":
         runVNC()
         doStartupX11Actions(opts.runres)
 
-    anaconda.id = anaconda.instClass.installDataClass(anaconda)
-    anaconda.instClass.setInstallData(anaconda)
+    anaconda.instClass.configure(anaconda)
 
     # comment out the next line to make exceptions non-fatal
     from exception import initExceptionHandling

@@ -28,8 +28,6 @@ import language
 import imputil
 import types
 
-from instdata import InstallData
-
 from constants import *
 from meh.filer import *
 from product import *
@@ -69,9 +67,6 @@ class BaseInstallClass(object):
     # by default, place this under the "install" category; it gets it's
     # own toplevel category otherwise
     parentClass = ( _("Install on System"), "install.png" )
-
-    # we can use a different install data class
-    installDataClass = InstallData
 
     def _get_description(self):
         return _(self._description) % self._descriptionFields
@@ -197,9 +192,7 @@ class BaseInstallClass(object):
 
         storage.autoPartitionRequests = autorequests
 
-
-    def setInstallData(self, anaconda):
-        anaconda.id.reset()
+    def configure(self, anaconda):
         anaconda.bootloader.timeout = self.bootloaderTimeoutDefault
 
     def versionMatches(self, oldver):
