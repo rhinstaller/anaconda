@@ -440,6 +440,7 @@ class Anaconda(object):
     def __init__(self):
         self._backend = None
         self.canReIPL = False
+        self.desktop = desktop.Desktop()
         self.dir = None
         self.dispatch = dispatch.Dispatcher(self)
         self.displayMode = None
@@ -637,6 +638,7 @@ class Anaconda(object):
 
         self.timezone.write(self.rootPath)
         self.network.write(instPath=self.rootPath, anaconda=self)
+        self.desktop.write(self.rootPath)
         self.users.write(self.rootPath)
         self.security.write(self.rootPath)
         self.firewall.write(self.rootPath)
@@ -659,9 +661,6 @@ class Anaconda(object):
         self.network.write(instPath=self.rootPath, anaconda=self)
         self.users.write(self.rootPath)
         self.security.write(self.rootPath)
-
-        # XXX: This is temporary until instdata goes away completely.
-        self.id.write()
 
     def writeKS(self, filename):
         import urllib
@@ -761,7 +760,7 @@ if __name__ == "__main__":
     setupPythonUpdates()
 
     import signal, string, isys, iutil, time
-    import dispatch
+    import desktop, dispatch
     import warnings
     import vnc
     import firewall, users, security

@@ -26,7 +26,6 @@ import stat
 import string
 import firewall
 import timezone
-import desktop
 import booty
 import storage
 import urllib
@@ -52,7 +51,6 @@ class InstallData:
         #
         # - The install language
 
-        self.desktop = desktop.Desktop()
         self.storage = storage.Storage(self.anaconda)
         self.bootloader = booty.getBootloader(self)
         self.escrowCertificates = {}
@@ -61,9 +59,6 @@ class InstallData:
             self.firstboot = FIRSTBOOT_SKIP
         else:
             self.firstboot = FIRSTBOOT_DEFAULT
-
-    def write(self):
-        self.desktop.write(self.anaconda.rootPath)
 
     def writeKS(self, f):
         self.bootloader.writeKS(f)

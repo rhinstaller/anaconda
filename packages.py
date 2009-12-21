@@ -312,7 +312,7 @@ def rpmSetupGraphicalSystem(anaconda):
 
     if ts.dbMatch('provides', 'service(graphical-login)').count() and \
        anaconda.displayMode == 'g' and not flags.usevnc:
-        anaconda.id.desktop.setDefaultRunLevel(5)
+        anaconda.desktop.setDefaultRunLevel(5)
 
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):

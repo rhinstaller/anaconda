@@ -921,8 +921,8 @@ class SkipX(commands.skipx.FC3_SkipX):
     def execute(self, anaconda):
         anaconda.ksdata.skipSteps.extend(["setsanex", "videocard", "xcustom"])
 
-        if anaconda.id.desktop is not None:
-            anaconda.id.desktop.setDefaultRunLevel(3)
+        if anaconda.desktop is not None:
+            anaconda.desktop.setDefaultRunLevel(3)
 
 class Timezone(commands.timezone.FC6_Timezone):
     def execute(self, anaconda):
@@ -982,10 +982,10 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
 class XConfig(commands.xconfig.F10_XConfig):
     def execute(self, anaconda):
         if self.startX:
-            anaconda.id.desktop.setDefaultRunLevel(5)
+            anaconda.desktop.setDefaultRunLevel(5)
 
         if self.defaultdesktop:
-            anaconda.id.desktop.setDefaultDesktop(self.defaultdesktop)
+            anaconda.desktop.setDefaultDesktop(self.defaultdesktop)
 
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def execute(self, anaconda):
