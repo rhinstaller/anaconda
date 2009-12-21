@@ -93,9 +93,9 @@ def addFcoeDrive(anaconda):
             continue
 
         try:
-            anaconda.id.storage.fcoe.addSan(store.get_value(iter, 1),
-                                            dcb=dcb_cb.get_active(),
-                                            intf=anaconda.intf)
+            anaconda.storage.fcoe.addSan(store.get_value(iter, 1),
+                                         dcb=dcb_cb.get_active(),
+                                         intf=anaconda.intf)
         except IOError as e:
             anaconda.intf.messageWindow(_("Error"), str(e))
             rc = gtk.RESPONSE_CANCEL
@@ -124,8 +124,8 @@ def addIscsiDrive(anaconda):
     # get the initiator name if it exists and don't allow changing
     # once set
     e = dxml.get_widget("iscsiInitiatorEntry")
-    e.set_text(anaconda.id.storage.iscsi.initiator)
-    if anaconda.id.storage.iscsi.initiatorSet:
+    e.set_text(anaconda.storage.iscsi.initiator)
+    if anaconda.storage.iscsi.initiatorSet:
         e.set_sensitive(False)
 
     while True:
@@ -139,7 +139,7 @@ def addIscsiDrive(anaconda):
                                         _("You must provide an initiator name."))
             continue
 
-        anaconda.id.storage.iscsi.initiator = initiator
+        anaconda.storage.iscsi.initiator = initiator
 
         target = dxml.get_widget("iscsiAddrEntry").get_text().strip()
         user = dxml.get_widget("userEntry").get_text().strip()
@@ -169,9 +169,9 @@ def addIscsiDrive(anaconda):
             continue
 
         try:
-            anaconda.id.storage.iscsi.addTarget(ip, port, user, pw,
-                                                user_in, pw_in,
-                                                anaconda.intf)
+            anaconda.storage.iscsi.addTarget(ip, port, user, pw,
+                                             user_in, pw_in,
+                                             anaconda.intf)
         except ValueError as e:
             anaconda.intf.messageWindow(_("Error"), str(e))
             continue

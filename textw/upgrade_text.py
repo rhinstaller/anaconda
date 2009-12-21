@@ -37,7 +37,7 @@ seenExamineScreen = False
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):
       
-        migent = anaconda.id.storage.migratableDevices
+        migent = anaconda.storage.migratableDevices
 
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
@@ -93,7 +93,7 @@ class UpgradeMigrateFSWindow:
                 except Exception, e:
                     log.info("failed to get new filesystem type, defaulting to ext3: %s" %(e,))
                     newfs = getFormat("ext3")
-                    anaconda.id.storage.migrateFormat(entry, newfs)
+                    anaconda.storage.migrateFormat(entry, newfs)
 
             screen.popWindow()
             return INSTALL_OK
@@ -195,7 +195,7 @@ class UpgradeSwapWindow:
                                          "and 2000 MB in size."))
 		else:
 		    screen.popWindow()
-                    anaconda.id.storage.createSwapFile(dev, val)
+                    anaconda.storage.createSwapFile(dev, val)
                     anaconda.dispatch.skipStep("addswap", 1)
 		    return INSTALL_OK
 

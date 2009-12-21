@@ -239,7 +239,7 @@ class PartitionEditor:
                     usedev = request
 
                 origformat = usedev.format
-                devicetree = self.anaconda.id.storage.devicetree
+                devicetree = self.anaconda.storage.devicetree
 
                 if self.fsoptionsDict.has_key("formatcb"):
                     if self.fsoptionsDict["formatcb"].get_active():
@@ -337,7 +337,7 @@ class PartitionEditor:
     def __init__(self, anaconda, parent, origrequest, isNew = 0,
                  restrictfs = None):
         self.anaconda = anaconda
-	self.storage = self.anaconda.id.storage
+	self.storage = self.anaconda.storage
 	self.intf = self.anaconda.intf
 	self.origrequest = origrequest
 	self.isNew = isNew

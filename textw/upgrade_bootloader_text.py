@@ -87,7 +87,7 @@ class UpgradeBootloaderWindow:
 
         newToLibata = self._ideToLibata(anaconda.rootPath)
         (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
+                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.storage)
 
         blradio = RadioGroup()
 

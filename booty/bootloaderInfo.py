@@ -89,8 +89,8 @@ class KernelArguments:
     def getDracutStorageArgs(self):
         args = []
         types = {}
-        root = self.id.storage.rootDevice
-        for d in self.id.storage.devices:
+        root = self.anaconda.storage.rootDevice
+        for d in self.anaconda.storage.devices:
             if root.dependsOn(d):
                 dracutSetupString = d.dracutSetupString()
                 if len(dracutSetupString):

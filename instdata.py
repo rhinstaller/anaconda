@@ -51,7 +51,6 @@ class InstallData:
         #
         # - The install language
 
-        self.storage = storage.Storage(self.anaconda)
         self.bootloader = booty.getBootloader(self)
         self.escrowCertificates = {}
 
@@ -62,7 +61,6 @@ class InstallData:
 
     def writeKS(self, f):
         self.bootloader.writeKS(f)
-        self.storage.writeKS(f)
 
     def __init__(self, anaconda, extraModules):
         self.anaconda = anaconda

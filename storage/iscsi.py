@@ -283,10 +283,10 @@ class iscsi(object):
             return
 
         # set iscsi nodes to autostart
-        root = anaconda.id.storage.rootDevice
+        root = anaconda.storage.rootDevice
         for node in self.nodes:
             autostart = True
-            disks = self.getNodeDisks(node, anaconda.id.storage)
+            disks = self.getNodeDisks(node, anaconda.storage)
             for disk in disks:
                 # nodes used for root get started by the initrd
                 if root.dependsOn(disk):

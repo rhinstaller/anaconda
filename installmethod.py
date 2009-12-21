@@ -34,12 +34,12 @@ def doMethodComplete(anaconda):
             return None
 
         if anaconda.mediaDevice:
-            return anaconda.id.storage.devicetree.getDeviceByName(anaconda.mediaDevice)
+            return anaconda.storage.devicetree.getDeviceByName(anaconda.mediaDevice)
 
         # If we booted off the boot.iso instead of disc 1, eject that as well.
         if anaconda.stage2 and anaconda.stage2.startswith("cdrom://"):
             dev = anaconda.stage2[8:].split(':')[0]
-            return anaconda.id.storage.devicetree.getDeviceByName(dev)
+            return anaconda.storage.devicetree.getDeviceByName(dev)
 
     anaconda.backend.complete(anaconda)
     dev = _ejectDevice()
@@ -47,7 +47,7 @@ def doMethodComplete(anaconda):
         dev.eject()
 
     mtab = "/dev/root / ext3 ro 0 0\n"
-    rootDevice = anaconda.id.storage.rootDevice
+    rootDevice = anaconda.storage.rootDevice
     if rootDevice:
         mtab = "/dev/root / %s ro 0 0\n" % rootDevice.format.type
 

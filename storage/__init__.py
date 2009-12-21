@@ -65,7 +65,7 @@ import logging
 log = logging.getLogger("storage")
 
 def storageInitialize(anaconda):
-    storage = anaconda.id.storage
+    storage = anaconda.storage
 
     storage.shutdown()
 
@@ -123,7 +123,7 @@ def storageComplete(anaconda):
             sys.exit(0)
         return DISPATCH_FORWARD
 
-    devs = anaconda.id.storage.devicetree.getDevicesByType("luks/dm-crypt")
+    devs = anaconda.storage.devicetree.getDevicesByType("luks/dm-crypt")
     existing_luks = False
     new_luks = False
     for dev in devs:
@@ -132,13 +132,13 @@ def storageComplete(anaconda):
         else:
             new_luks = True
 
-    if (anaconda.id.storage.encryptedAutoPart or new_luks) and \
-       not anaconda.id.storage.encryptionPassphrase:
+    if (anaconda.storage.encryptedAutoPart or new_luks) and \
+       not anaconda.storage.encryptionPassphrase:
         while True:
             (passphrase, retrofit) = anaconda.intf.getLuksPassphrase(preexist=existing_luks)
             if passphrase:
-                anaconda.id.storage.encryptionPassphrase = passphrase
-                anaconda.id.storage.encryptionRetrofit = retrofit
+                anaconda.storage.encryptionPassphrase = passphrase
+                anaconda.storage.encryptionRetrofit = retrofit
                 break
             else:
                 rc = anaconda.intf.messageWindow(_("Encrypt device?"),
@@ -153,14 +153,14 @@ def storageComplete(anaconda):
                               default=0)
                 if rc == 1:
                     log.info("user elected to not encrypt any devices.")
-                    undoEncryption(anaconda.id.storage)
-                    anaconda.id.storage.encryptedAutoPart = False
+                    undoEncryption(anaconda.storage)
+                    anaconda.storage.encryptedAutoPart = False
                     break
 
-    if anaconda.id.storage.encryptionPassphrase:
-        for dev in anaconda.id.storage.devices:
+    if anaconda.storage.encryptionPassphrase:
+        for dev in anaconda.storage.devices:
             if dev.format.type == "luks" and not dev.format.exists:
-                dev.format.passphrase = anaconda.id.storage.encryptionPassphrase
+                dev.format.passphrase = anaconda.storage.encryptionPassphrase
 
     if anaconda.ksdata:
         return
@@ -176,7 +176,7 @@ def storageComplete(anaconda):
                                 default = 0)
 
     # Make sure that all is down, even the disks that we setup after popluate.
-    anaconda.id.storage.devicetree.teardownAll()
+    anaconda.storage.devicetree.teardownAll()
 
     if rc == 0:
         return DISPATCH_BACK
@@ -184,7 +184,7 @@ def storageComplete(anaconda):
 def writeEscrowPackets(anaconda):
     escrowDevices = filter(lambda d: d.format.type == "luks" and \
                                      d.format.escrow_cert,
-                           anaconda.id.storage.devices)
+                           anaconda.storage.devices)
 
     if not escrowDevices:
         return
@@ -1249,7 +1249,7 @@ def findExistingRootDevices(anaconda, upgradeany=False):
         iutil.mkdirChain(anaconda.rootPath)
 
     roots = []
-    for device in anaconda.id.storage.devicetree.leaves:
+    for device in anaconda.storage.devicetree.leaves:
         if not device.format.linuxNative or not device.format.mountable:
             continue
 
@@ -1292,7 +1292,7 @@ def mountExistingSystem(anaconda, rootEnt,
     """ Mount filesystems specified in rootDevice's /etc/fstab file. """
     rootDevice = rootEnt[0]
     rootPath = anaconda.rootPath
-    fsset = anaconda.id.storage.fsset
+    fsset = anaconda.storage.fsset
     if readOnly:
         readOnly = "ro"
     else:
@@ -1336,7 +1336,7 @@ def mountExistingSystem(anaconda, rootEnt,
                         "Linux installation, let the file systems be "
                         "checked and shut down cleanly to upgrade.\n"
                         "%s") % "\n".join(dirtyDevs))
-        anaconda.id.storage.devicetree.teardownAll()
+        anaconda.storage.devicetree.teardownAll()
         sys.exit(0)
     elif warnDirty and dirtyDevs:
         rc = messageWindow(_("Dirty File Systems"),

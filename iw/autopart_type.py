@@ -211,7 +211,7 @@ class PartitionTypeWindow(InstallWindow):
 
     def getScreen(self, anaconda):
         self.anaconda = anaconda
-        self.storage = anaconda.id.storage
+        self.storage = anaconda.storage
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
 

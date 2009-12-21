@@ -466,6 +466,7 @@ class Anaconda(object):
         self.rootPath = "/mnt/sysimage"
         self.security = security.Security()
         self.stage2 = None
+        self._storage = None
         self._timezone = None
         self.updateSrc = None
         self.upgrade = flags.cmdline.has_key("preupgrade")
@@ -557,6 +558,14 @@ class Anaconda(object):
             self._users = users.Users(self)
 
         return self._users
+
+    @property
+    def storage(self):
+        if not self._storage:
+            import storage
+            self._storage = storage.Storage(self)
+
+        return self._storage
 
     @property
     def timezone(self):
@@ -721,6 +730,8 @@ class Anaconda(object):
         self.users.writeKS(f)
         self.security.writeKS(f)
         self.firewall.writeKS(f)
+
+        self.storage.writeKS(f)
 
         # XXX: This is temporary until instdata goes away completely.
         self.id.writeKS(f)
@@ -1147,15 +1158,15 @@ if __name__ == "__main__":
 
         # Before we set up the storage system, we need to know which disks to
         # ignore, etc.  Luckily that's all in the kickstart data.
-        anaconda.id.storage.zeroMbr = anaconda.ksdata.zerombr.zerombr
-        anaconda.id.storage.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
-        anaconda.id.storage.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
+        anaconda.storage.zeroMbr = anaconda.ksdata.zerombr.zerombr
+        anaconda.storage.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
+        anaconda.storage.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
 
         if anaconda.ksdata.clearpart.type is not None:
-            anaconda.id.storage.clearPartType = anaconda.ksdata.clearpart.type
-            anaconda.id.storage.clearPartDisks = anaconda.ksdata.clearpart.drives
+            anaconda.storage.clearPartType = anaconda.ksdata.clearpart.type
+            anaconda.storage.clearPartDisks = anaconda.ksdata.clearpart.drives
             if anaconda.ksdata.clearpart.initAll:
-                anaconda.id.storage.reinitializeDisks = anaconda.ksdata.clearpart.initAll
+                anaconda.storage.reinitializeDisks = anaconda.ksdata.clearpart.initAll
 
         storage.storageInitialize(anaconda)
 
@@ -1179,7 +1190,7 @@ if __name__ == "__main__":
         anaconda.intf.shutdown()
 
     if anaconda.ksdata and anaconda.ksdata.reboot.eject:
-        for drive in anaconda.id.storage.devicetree.devices:
+        for drive in anaconda.storage.devicetree.devices:
             if drive.type != "cdrom":
                 continue
 

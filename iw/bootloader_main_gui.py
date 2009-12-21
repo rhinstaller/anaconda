@@ -134,8 +134,8 @@ class MainBootloaderWindow(InstallWindow):
             lbl = dxml.get_widget("bd%dLabel" %(i,))
             combo.show()
             lbl.show()
-            partitioned = anaconda.id.storage.partitioned
-            disks = anaconda.id.storage.disks
+            partitioned = anaconda.storage.partitioned
+            disks = anaconda.storage.disks
             bl_disks = [d for d in disks if d in partitioned]
             m = __genStore(combo, bl_disks, self.driveorder[i - 1])
 
@@ -193,8 +193,8 @@ class MainBootloaderWindow(InstallWindow):
 
         self.driveorder = self.bl.drivelist
         if len(self.driveorder) == 0:
-            partitioned = anaconda.id.storage.partitioned
-            disks = anaconda.id.storage.disks
+            partitioned = anaconda.storage.partitioned
+            disks = anaconda.storage.disks
             self.driveorder = [d.name for d in disks if d in partitioned]
 
         if self.bl.getPassword():

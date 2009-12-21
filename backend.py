@@ -87,8 +87,8 @@ class AnacondaBackend:
         # the initrd might need iscsi-initiator-utils, and chances are
         # it was not installed yet the first time mkinitrd was run, as
         # mkinitrd does not require it.
-        root = anaconda.id.storage.rootDevice
-        disks = anaconda.id.storage.devicetree.getDevicesByType("iscsi")
+        root = anaconda.storage.rootDevice
+        disks = anaconda.storage.devicetree.getDevicesByType("iscsi")
         for disk in disks:
             if root.dependsOn(disk):
                 has_iscsi_disk = True
@@ -156,7 +156,7 @@ class AnacondaBackend:
         # If we've booted off the first CD (so, not the boot.iso or DVD) then
         # copy the install.img to the filesystem and switch loopback devices
         # to there.  Otherwise we won't be able to unmount and swap media.
-        free = anaconda.id.storage.fsFreeSpace
+        free = anaconda.storage.fsFreeSpace
         self._loopbackFile = "%s%s/rhinstall-install.img" % (anaconda.rootPath,
                                                              free[-1][0])
         try:

@@ -78,7 +78,7 @@ class UpgradeSwapWindow (InstallWindow):
     
     def getScreen (self, anaconda):
         self.neededSwap = 0
-        self.storage = anaconda.id.storage
+        self.storage = anaconda.storage
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
         

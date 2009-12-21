@@ -58,17 +58,17 @@ class ClearDisksWindow (InstallWindow):
 
         bootDisk = selected[0][OBJECT_COL].name
 
-        cleardisks.sort(self.anaconda.id.storage.compareDisks)
+        cleardisks.sort(self.anaconda.storage.compareDisks)
 
-        self.anaconda.id.storage.clearPartDisks = cleardisks
+        self.anaconda.storage.clearPartDisks = cleardisks
         self.anaconda.id.bootloader.updateDriveList([bootDisk])
 
     def getScreen (self, anaconda):
         # Skip this screen as well if we only had one disk available in the
         # filtering UI.
-        if len(anaconda.id.storage.exclusiveDisks) == 1:
-            anaconda.id.storage.clearPartDisks = anaconda.id.storage.exclusiveDisks
-            anaconda.id.bootloader.drivelist = anaconda.id.storage.exclusiveDisks
+        if len(anaconda.storage.exclusiveDisks) == 1:
+            anaconda.storage.clearPartDisks = anaconda.storage.exclusiveDisks
+            anaconda.id.bootloader.drivelist = anaconda.storage.exclusiveDisks
             return None
 
         (xml, self.vbox) = gui.getGladeWidget("cleardisks.glade", "vbox")
@@ -135,19 +135,19 @@ class ClearDisksWindow (InstallWindow):
 
         # Store the first disk (according to our detected BIOS order) for
         # auto boot device selection
-        self.bootDisk = sorted(self.anaconda.id.storage.exclusiveDisks,
-                               self.anaconda.id.storage.compareDisks)[0]
+        self.bootDisk = sorted(self.anaconda.storage.exclusiveDisks,
+                               self.anaconda.storage.compareDisks)[0]
 
         # The device filtering UI set up exclusiveDisks as a list of the names
         # of all the disks we should use later on.  Now we need to go get those,
         # look up some more information in the devicetree, and set up the
         # selector.
-        for d in self.anaconda.id.storage.exclusiveDisks:
-            device = self.anaconda.id.storage.devicetree.getDeviceByName(d)
+        for d in self.anaconda.storage.exclusiveDisks:
+            device = self.anaconda.storage.devicetree.getDeviceByName(d)
             if not device:
                 continue
 
-            rightVisible = d in self.anaconda.id.storage.clearPartDisks
+            rightVisible = d in self.anaconda.storage.clearPartDisks
             rightActive = rightVisible and \
                           d in self.anaconda.id.bootloader.drivelist[:1]
             leftVisible = not rightVisible
@@ -169,9 +169,9 @@ class ClearDisksWindow (InstallWindow):
         self.leftTreeView.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
         self.rightTreeView.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
 
-        if self.anaconda.id.storage.clearPartType == CLEARPART_TYPE_LINUX:
+        if self.anaconda.storage.clearPartType == CLEARPART_TYPE_LINUX:
             self.installTargetTip.set_markup(_("<b>Tip:</b> All Linux filesystems on install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
-        elif self.anaconda.id.storage.clearPartType == CLEARPART_TYPE_ALL:
+        elif self.anaconda.storage.clearPartType == CLEARPART_TYPE_ALL:
             self.installTargetTip.set_markup(_("<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
         else:
             self.installTargetTip.set_markup(_("<b>Tip:</b> Your filesystems on install target devices will not be wiped unless you choose to do so during customization."))

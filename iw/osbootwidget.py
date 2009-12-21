@@ -36,7 +36,7 @@ class OSBootWidget:
     
     def __init__(self, anaconda, parent, blname = None):
         self.bl = anaconda.id.bootloader
-        self.storage = anaconda.id.storage
+        self.storage = anaconda.storage
         self.parent = parent
         self.intf = anaconda.intf
         if blname is not None:

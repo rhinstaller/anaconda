@@ -102,7 +102,7 @@ def bindMountDevDirectory(instPath):
 
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(anaconda):
-    migents = anaconda.id.storage.migratableDevices
+    migents = anaconda.storage.migratableDevices
     if not migents or len(migents) < 1:
         anaconda.dispatch.skipStep("upgrademigratefs")
     else:
@@ -140,7 +140,7 @@ def upgradeSwapSuggestion(anaconda):
 
     fsList = []
 
-    for device in anaconda.id.storage.fsset.devices:
+    for device in anaconda.storage.fsset.devices:
         if not device.format:
             continue
         if device.format.mountable and device.format.linuxNative:
@@ -238,8 +238,8 @@ def upgradeMountFilesystems(anaconda):
         anaconda.intf.messageWindow(_("Invalid Directories"), message)
         sys.exit(0)
 
-    anaconda.id.storage.turnOnSwap(upgrading=True)
-    anaconda.id.storage.mkDevRoot()
+    anaconda.storage.turnOnSwap(upgrading=True)
+    anaconda.storage.mkDevRoot()
 
     # Move /etc/rpm/platform out of the way.
     if os.path.exists(anaconda.rootPath + "/etc/rpm/platform"):

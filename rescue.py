@@ -366,7 +366,7 @@ def runRescue(anaconda):
                 # now turn on swap
                 if not readOnly:
                     try:
-                        anaconda.id.storage.turnOnSwap()
+                        anaconda.storage.turnOnSwap()
                     except:
                         log.error("Error enabling swap")
 
@@ -455,7 +455,7 @@ def runRescue(anaconda):
     msgStr = ""
 
     if rootmounted and not readOnly:
-        makeMtab(anaconda.rootPath, anaconda.id.storage)
+        makeMtab(anaconda.rootPath, anaconda.storage)
         try:
             makeResolvConf(anaconda.rootPath)
         except Exception, e:

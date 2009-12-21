@@ -72,7 +72,7 @@ def bootloaderSetupChoices(anaconda):
 
     if iutil.isEfi() and not anaconda.id.bootloader.device:
         bootPart = None
-        partitions = anaconda.id.storage.partitions
+        partitions = anaconda.storage.partitions
         for part in partitions:
             if part.partedPartition.active and isEfiSystemPartition(part.partedPartition):
                 bootPart = part.name
@@ -83,7 +83,7 @@ def bootloaderSetupChoices(anaconda):
 # iSeries bootloader on upgrades
     if iutil.getPPCMachine() == "iSeries" and not anaconda.id.bootloader.device:
         bootPart = None
-        partitions = anaconda.id.storage.partitions
+        partitions = anaconda.storage.partitions
         for part in partitions:
             if part.partedPartition.active and \
                part.partedPartition.getFlag(parted.PARTITION_PREP):
@@ -99,7 +99,7 @@ def bootloaderSetupChoices(anaconda):
 	anaconda.dispatch.skipStep("instbootloader", skip = 0)
 
     # FIXME: ...
-    anaconda.id.bootloader.images.setup(anaconda.id.storage)
+    anaconda.id.bootloader.images.setup(anaconda.storage)
 
     if anaconda.id.bootloader.defaultDevice != None and choices:
         keys = choices.keys()
@@ -125,7 +125,7 @@ def fixedMdraidGrubTarget(anaconda, grubTarget):
     try:
         if float(version) < 12:
             stage1Devs = anaconda.id.bootloader.getPhysicalDevices(grubTarget)
-            fixedGrubTarget = getDiskPart(stage1Devs[0], anaconda.id.storage)[0]
+            fixedGrubTarget = getDiskPart(stage1Devs[0], anaconda.storage)[0]
             log.info("Mdraid grub upgrade: %s -> %s" % (grubTarget,
                                                        fixedGrubTarget))
     except ValueError:
@@ -143,7 +143,7 @@ def writeBootloader(anaconda):
         return
 
     if anaconda.id.bootloader.doUpgradeOnly:
-        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
+        (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.storage)
         
         anaconda.id.bootloader.doUpgradeonly = 1
         if bootType == "GRUB":
@@ -160,12 +160,12 @@ def writeBootloader(anaconda):
     kernelList = []
     otherList = []
     # getDefault needs to return a device, but that's too invasive for now.
-    rootDev = anaconda.id.storage.rootDevice
+    rootDev = anaconda.storage.rootDevice
 
     if not anaconda.id.bootloader.images.getDefault():
         defaultDev = None
     else:
-        defaultDev = anaconda.id.storage.devicetree.getDeviceByName(anaconda.id.bootloader.images.getDefault())
+        defaultDev = anaconda.storage.devicetree.getDeviceByName(anaconda.id.bootloader.images.getDefault())
 
     kernelLabel = None
     kernelLongLabel = None

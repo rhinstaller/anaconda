@@ -84,20 +84,20 @@ def turnOnFilesystems(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         if not anaconda.upgrade:
             log.info("unmounting filesystems")
-            anaconda.id.storage.umountFilesystems()
+            anaconda.storage.umountFilesystems()
         return DISPATCH_NOOP
 
     if not anaconda.upgrade:
-        if not anaconda.id.storage.fsset.active:
+        if not anaconda.storage.fsset.active:
             # turn off any swaps that we didn't turn on
             # needed for live installs
             iutil.execWithRedirect("swapoff", ["-a"],
                                    stdout = "/dev/tty5", stderr="/dev/tty5")
-        anaconda.id.storage.devicetree.teardownAll()
+        anaconda.storage.devicetree.teardownAll()
 
     upgrade_migrate = False
     if anaconda.upgrade:
-        for d in anaconda.id.storage.migratableDevices:
+        for d in anaconda.storage.migratableDevices:
             if d.format.migrate:
                 upgrade_migrate = True
 
@@ -106,7 +106,7 @@ def turnOnFilesystems(anaconda):
     details = None
 
     try:
-        anaconda.id.storage.doIt()
+        anaconda.storage.doIt()
     except DeviceResizeError as (msg, device):
         # XXX does this make any sense? do we support resize of
         #     devices other than partitions?
@@ -166,16 +166,16 @@ def turnOnFilesystems(anaconda):
             sys.exit(1)
 
     if not anaconda.upgrade:
-        anaconda.id.storage.turnOnSwap()
-        anaconda.id.storage.mountFilesystems(raiseErrors=False,
-                                             readOnly=False,
-                                             skipRoot=anaconda.backend.skipFormatRoot)
+        anaconda.storage.turnOnSwap()
+        anaconda.storage.mountFilesystems(raiseErrors=False,
+                                          readOnly=False,
+                                          skipRoot=anaconda.backend.skipFormatRoot)
     else:
         if upgrade_migrate:
             # we should write out a new fstab with the migrated fstype
             shutil.copyfile("%s/etc/fstab" % anaconda.rootPath,
                             "%s/etc/fstab.anaconda" % anaconda.rootPath)
-            anaconda.id.storage.fsset.write(anaconda.rootPath)
+            anaconda.storage.fsset.write(anaconda.rootPath)
 
         # and make sure /dev is mounted so we can read the bootloader
         bindMountDevDirectory(anaconda.rootPath)
@@ -233,7 +233,7 @@ def setFileCons(anaconda):
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow"] + \
                 glob.glob('/etc/dhclient-*.conf')
 
-        vgs = ["/dev/%s" % vg.name for vg in anaconda.id.storage.vgs]
+        vgs = ["/dev/%s" % vg.name for vg in anaconda.storage.vgs]
 
         # ugh, this is ugly
         for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ] + vgs:

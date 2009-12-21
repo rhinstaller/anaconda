@@ -57,7 +57,7 @@ class Platform(object):
     def _mntDict(self):
         """Return a dictionary mapping mount points to devices."""
         ret = {}
-        for device in [d for d in self.anaconda.id.storage.devices if d.format.mountable]:
+        for device in [d for d in self.anaconda.storage.devices if d.format.mountable]:
             ret[device.format.mountpoint] = device
 
         return ret
@@ -135,8 +135,8 @@ class Platform(object):
             errors.append(_("Bootable partitions cannot be on an encrypted block device"))
         else:
             # Handle encrypted boot on more complicated devices.
-            for dev in map(lambda d: d.type == "luks/dm-crypt", self.anaconda.id.storage.devices):
-                if req in self.anaconda.id.storage.deviceDeps(dev):
+            for dev in map(lambda d: d.type == "luks/dm-crypt", self.anaconda.storage.devices):
+                if req in self.anaconda.storage.deviceDeps(dev):
                     errors.append(_("Bootable partitions cannot be on an encrypted block device"))
 
         return errors
@@ -245,7 +245,7 @@ class EFI(Platform):
         # Only add the EFI partition to the default set if there's not already
         # one on the system.
         if len(filter(lambda dev: dev.format.type == "efi" and self.validBootPartSize(dev.size),
-                      self.anaconda.id.storage.partitions)) == 0:
+                      self.anaconda.storage.partitions)) == 0:
             ret.append(PartSpec(mountpoint="/boot/efi", fstype="efi", size=20,
                                 maxSize=200, grow=True, weight=self.weight(fstype="efi")))
 
@@ -312,7 +312,7 @@ class IPSeriesPPC(PPC):
         bootDev = None
 
         # We want the first PReP partition.
-        for device in self.anaconda.id.storage.partitions:
+        for device in self.anaconda.storage.partitions:
             if device.format.type == "prepboot":
                 bootDev = device
                 break
@@ -349,9 +349,9 @@ class IPSeriesPPC(PPC):
                 errors.append(_("The boot partition must be within the first 4MB of the disk."))
 
             try:
-                req = self.anaconda.id.storage.mountpoints["/boot"]
+                req = self.anaconda.storage.mountpoints["/boot"]
             except KeyError:
-                req = self.anaconda.id.storage.rootDevice
+                req = self.anaconda.storage.rootDevice
 
             return errors + self.checkBootRequest(req)
         else:
@@ -379,7 +379,7 @@ class NewWorldPPC(PPC):
     def bootDevice(self):
         bootDev = None
 
-        for part in self.anaconda.id.storage.partitions:
+        for part in self.anaconda.storage.partitions:
             if part.format.type == "appleboot" and self.validBootPartSize(part.size):
                 bootDev = part
                 # if we're only picking one, it might as well be the first
@@ -399,7 +399,7 @@ class NewWorldPPC(PPC):
             ret["mbr"] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
         else:
             ret["boot"] = (bootDev.name, N_("Apple Bootstrap"))
-            for (n, device) in enumerate(self.anaconda.id.storage.partitions):
+            for (n, device) in enumerate(self.anaconda.storage.partitions):
                 if device.format.type == "appleboot" and device.path != bootDev.path:
                     ret["boot%d" % n] = (device.path, N_("Apple Bootstrap"))
 
@@ -421,9 +421,9 @@ class NewWorldPPC(PPC):
         # need to make sure that whatever /boot is on also meets these criteria.
         if req == self.bootDevice():
             try:
-                req = self.anaconda.id.storage.mountpoints["/boot"]
+                req = self.anaconda.storage.mountpoints["/boot"]
             except KeyError:
-                req = self.anaconda.id.storage.rootDevice
+                req = self.anaconda.storage.rootDevice
 
             return errors + self.checkBootRequest(req)
         else:

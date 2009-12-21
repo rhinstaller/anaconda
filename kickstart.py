@@ -187,15 +187,15 @@ class AutoPart(commands.autopart.F12_AutoPart):
     def execute(self, anaconda):
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
-        anaconda.instClass.setDefaultPartitioning(anaconda.id.storage, anaconda.platform)
-        anaconda.id.storage.doAutoPart = True
+        anaconda.instClass.setDefaultPartitioning(anaconda.storage, anaconda.platform)
+        anaconda.storage.doAutoPart = True
 
         if self.encrypted:
-            anaconda.id.storage.encryptedAutoPart = True
-            anaconda.id.storage.encryptionPassphrase = self.passphrase
-            anaconda.id.storage.autoPartEscrowCert = \
+            anaconda.storage.encryptedAutoPart = True
+            anaconda.storage.encryptionPassphrase = self.passphrase
+            anaconda.storage.autoPartEscrowCert = \
                 getEscrowCertificate(anaconda, self.escrowcert)
-            anaconda.id.storage.autoPartAddBackupPassphrase = \
+            anaconda.storage.autoPartAddBackupPassphrase = \
                 self.backuppassphrase
 
         anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
@@ -245,11 +245,11 @@ class Bootloader(commands.bootloader.F12_Bootloader):
 
             # add unpartitioned devices that will get partitioned into
             # bootloader.drivelist
-            disks = anaconda.id.storage.disks
-            partitioned = anaconda.id.storage.partitioned
+            disks = anaconda.storage.disks
+            partitioned = anaconda.storage.partitioned
             for disk in [d for d in disks if not d.partitioned]:
-                if shouldClear(disk, anaconda.id.storage.clearPartType,
-                               anaconda.id.storage.clearPartDisks):
+                if shouldClear(disk, anaconda.storage.clearPartType,
+                               anaconda.storage.clearPartDisks):
                     # add newly partitioned disks to the drivelist
                     anaconda.id.bootloader.drivelist.append(disk.name)
                 elif disk.name in anaconda.id.bootloader.drivelist:
@@ -294,13 +294,13 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         return retval
 
     def execute(self, anaconda):
-        anaconda.id.storage.clearPartType = self.type
-        anaconda.id.storage.clearPartDisks = self.drives
+        anaconda.storage.clearPartType = self.type
+        anaconda.storage.clearPartDisks = self.drives
         if self.initAll:
-            anaconda.id.storage.reinitializeDisks = self.initAll
+            anaconda.storage.reinitializeDisks = self.initAll
 
-        clearPartitions(anaconda.id.storage)
-        anaconda.id.ksdata.skipSteps.append("cleardiskssel")
+        clearPartitions(anaconda.storage)
+        anaconda.ksdata.skipSteps.append("cleardisksel")
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
@@ -356,9 +356,9 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
         return retval
 
     def execute(self, anaconda):
-        anaconda.id.storage.ignoredDisks = self.ignoredisk
-        anaconda.id.storage.exclusiveDisks = self.onlyuse
-        anaconda.id.ksdata.skipSteps.extend(["filter", "filtertype"])
+        anaconda.storage.ignoredDisks = self.ignoredisk
+        anaconda.storage.exclusiveDisks = self.onlyuse
+        anaconda.ksdata.skipSteps.extend(["filter", "filtertype"])
 
 class Iscsi(commands.iscsi.F10_Iscsi):
     def parse(self, args):
@@ -394,7 +394,7 @@ class Lang(commands.lang.FC3_Lang):
 
 class LogVolData(commands.logvol.F12_LogVolData):
     def execute(self, anaconda):
-        storage = anaconda.id.storage
+        storage = anaconda.storage
         devicetree = storage.devicetree
 
         storage.doAutoPart = False
@@ -593,7 +593,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
 
 class PartitionData(commands.partition.F12_PartData):
     def execute(self, anaconda):
-        storage = anaconda.id.storage
+        storage = anaconda.storage
         devicetree = storage.devicetree
         kwargs = {}
 
@@ -776,7 +776,7 @@ class RaidData(commands.raid.F12_RaidData):
         raidmems = []
         devicename = "md%d" % self.device
 
-        storage = anaconda.id.storage
+        storage = anaconda.storage
         devicetree = storage.devicetree
         kwargs = {}
 
@@ -943,7 +943,7 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
     def execute(self, anaconda):
         pvs = []
 
-        storage = anaconda.id.storage
+        storage = anaconda.storage
         devicetree = storage.devicetree
 
         storage.doAutoPart = False
@@ -989,7 +989,7 @@ class XConfig(commands.xconfig.F10_XConfig):
 
 class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def execute(self, anaconda):
-        anaconda.id.storage.zeroMbr = 1
+        anaconda.storage.zeroMbr = 1
 
 class ZFCP(commands.zfcp.FC3_ZFCP):
     def parse(self, args):

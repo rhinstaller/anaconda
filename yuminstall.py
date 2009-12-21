@@ -358,7 +358,7 @@ class AnacondaYum(YumSorter):
             self._timestamp = f.readline().strip()
             f.close()
 
-        dev = self.anaconda.id.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
+        dev = self.anaconda.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
         dev.format.mountpoint = self.tree
 
         # If self.currentMedia is None, then there shouldn't be anything
@@ -484,7 +484,7 @@ class AnacondaYum(YumSorter):
             # we should first check to see if there's a CD/DVD with packages
             # on it, and then default to the mirrorlist URL.  The user can
             # always change the repo with the repo editor later.
-            cdr = scanForMedia(self.tree, self.anaconda.id.storage)
+            cdr = scanForMedia(self.tree, self.anaconda.storage)
             if cdr:
                 self.mediagrabber = self.mediaHandler
                 self.anaconda.mediaDevice = cdr
@@ -818,7 +818,7 @@ class AnacondaYum(YumSorter):
                                                        len(grab.mirrors)))
 
         if self.currentMedia:
-            dev = self.anaconda.id.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
+            dev = self.anaconda.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
             dev.format.mountpoint = self.tree
             unmountCD(dev, self.anaconda.intf.messageWindow)
             self.currentMedia = None
@@ -885,7 +885,7 @@ class AnacondaYum(YumSorter):
         if len(mkeys) > 1:
             stage2img = "%s/images/install.img" % self.tree
             if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img):
-                self.anaconda.id.storage.umountFilesystems()
+                self.anaconda.storage.umountFilesystems()
                 return DISPATCH_BACK
 
         for i in mkeys:
@@ -1392,7 +1392,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             # New installs only - upgrades will already have all this stuff.
             self.selectBestKernel(anaconda)
             map(self.selectPackage, anaconda.platform.packages)
-            self.selectFSPackages(anaconda.id.storage)
+            self.selectFSPackages(anaconda.storage)
             self.selectAnacondaNeeds()
         else:
             self.ayum.update()
@@ -1451,7 +1451,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
         if not anaconda.upgrade:
-            largePart = anaconda.id.storage.mountpoints.get("/usr", anaconda.id.storage.rootDevice)
+            largePart = anaconda.storage.mountpoints.get("/usr", anaconda.storage.rootDevice)
 
             if largePart and largePart.size < self.totalSize / 1024:
                 rc = anaconda.intf.messageWindow(_("Error"),
@@ -1527,7 +1527,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # If there are any protected partitions we want to mount, create their
         # mount points now.
-        for protected in anaconda.id.storage.protectedDevices:
+        for protected in anaconda.storage.protectedDevices:
             if getattr(protected.format, "mountpoint", None):
                 dirList.append(protected.format.mountpoint)
 
@@ -1578,18 +1578,18 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # write out the fstab
         if not anaconda.upgrade:
-            anaconda.id.storage.fsset.write(anaconda.rootPath)
+            anaconda.storage.fsset.write(anaconda.rootPath)
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
                                 anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")
             anaconda.network.write(instPath=anaconda.rootPath, anaconda=anaconda)
-            anaconda.id.storage.write(anaconda.rootPath)
+            anaconda.storage.write(anaconda.rootPath)
             if not anaconda.isHeadless:
                 anaconda.keyboard.write(anaconda.rootPath)
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
-        f.write(anaconda.id.storage.mtab)
+        f.write(anaconda.storage.mtab)
         f.close()
 
     def checkSupportedUpgrade(self, anaconda):

@@ -67,10 +67,10 @@ class PartitionTypeWindow:
             for (txt, val) in opts:
                 typebox.append(txt, val)
 
-            if anaconda.id.storage.clearPartType is None:
+            if anaconda.storage.clearPartType is None:
                 preselection = CLEARPART_TYPE_LINUX
             else:
-                preselection = anaconda.id.storage.clearPartType
+                preselection = anaconda.storage.clearPartType
             typebox.setCurrent(preselection)
 
             g.add(typebox, 0, 1, (0, 1, 0, 0))
@@ -95,8 +95,8 @@ class PartitionTypeWindow:
             screen.pushHelpLine (_("<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"))
 
             # restore the drive list each time
-            disks = anaconda.id.storage.partitioned
-            cleardrives = anaconda.id.storage.clearPartDisks
+            disks = anaconda.storage.partitioned
+            cleardrives = anaconda.storage.clearPartDisks
 
             for disk in disks:
                 model = disk.model
@@ -129,14 +129,14 @@ class PartitionTypeWindow:
 
             if rc == "F2":
                 if self.addDriveDialog(screen) != INSTALL_BACK:
-                    anaconda.id.storage.reset()
+                    anaconda.storage.reset()
                     anaconda.id.bootloader.updateDriveList()
                 continue
 
             if res == TEXT_BACK_CHECK:
                 return INSTALL_BACK
 
-            if anaconda.id.storage.checkNoDisks():
+            if anaconda.storage.checkNoDisks():
                 continue
 
             if len(sel) < 1:
@@ -144,9 +144,9 @@ class PartitionTypeWindow:
                 continue
 
             anaconda.dispatch.skipStep("autopartitionexecute", skip = 0)
-            anaconda.id.storage.doAutoPart = True
-            anaconda.id.storage.clearPartType = partmethod_ans
-            anaconda.id.storage.clearPartDisks = sel
+            anaconda.storage.doAutoPart = True
+            anaconda.storage.clearPartType = partmethod_ans
+            anaconda.storage.clearPartDisks = sel
             break
 
         # ask to review autopartition layout - but only if it's not custom partitioning
@@ -212,7 +212,7 @@ class PartitionTypeWindow:
         wwpn = entries[1].strip()
         fcplun = entries[2].strip()
         try:
-            self.anaconda.id.storage.zfcp.addFCP(devnum, wwpn, fcplun)
+            self.anaconda.storage.zfcp.addFCP(devnum, wwpn, fcplun)
         except ValueError, e:
             log.warn(str(e)) # alternatively popup error dialog instead
                                         
@@ -262,8 +262,8 @@ class PartitionTypeWindow:
         nic = interfaceList.current()
         dcb = dcbCheckbox.selected()
 
-        self.anaconda.id.storage.fcoe.addSan(nic=nic, dcb=dcb,
-                                             intf=self.anaconda.intf)
+        self.anaconda.storage.fcoe.addSan(nic=nic, dcb=dcb,
+                                          intf=self.anaconda.intf)
 
         screen.popWindow()
         return INSTALL_OK
@@ -313,9 +313,9 @@ class PartitionTypeWindow:
             raise ValueError, msg
 
         iname = entries[1].strip()
-        if not self.anaconda.id.storage.iscsi.initiatorSet:
-            self.anaconda.id.storage.iscsi.initiator = iname
-        self.anaconda.id.storage.iscsi.addTarget(ip, port, user, pw,
-                                                 user_in, pw_in)
+        if not self.anaconda.storage.iscsi.initiatorSet:
+            self.anaconda.storage.iscsi.initiator = iname
+        self.anaconda.storage.iscsi.addTarget(ip, port, user, pw,
+                                              user_in, pw_in)
                                         
         return INSTALL_OK

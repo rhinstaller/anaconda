@@ -118,7 +118,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         newToLibata = self._newToLibata(anaconda.rootPath)
 
         (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
+                    checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.storage)
 
         self.update_radio = gtk.RadioButton(None, _("_Update boot loader configuration"))
         updatestr = _("This will update your current boot loader.")

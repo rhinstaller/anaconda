@@ -1165,7 +1165,7 @@ class VolumeGroupEditor:
 	self.dialog = None
 
     def __init__(self, anaconda, intf, parent, vg, isNew = 0):
-        self.storage = anaconda.id.storage
+        self.storage = anaconda.storage
 
         # the vg instance we were passed
         self.vg = vg

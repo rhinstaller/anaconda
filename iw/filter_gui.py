@@ -408,7 +408,7 @@ class FilterWindow(InstallWindow):
                                              custom_icon="error")
             raise gui.StayOnScreen
 
-        self.anaconda.id.storage.exclusiveDisks = list(selected)
+        self.anaconda.storage.exclusiveDisks = list(selected)
 
     def _add_advanced_clicked(self, button):
         from advanced_storage import addDrive
@@ -555,7 +555,7 @@ class FilterWindow(InstallWindow):
             # cleardisks UI.  Unfortunately, that means we need to duplicate
             # some of the getNext method.
             if len(singlepaths) == 1:
-                anaconda.id.storage.exclusiveDisks = [udev_device_get_name(singlepaths[0])]
+                anaconda.storage.exclusiveDisks = [udev_device_get_name(singlepaths[0])]
                 return None
 
             self.pages = [self._makeBasic()]
@@ -608,11 +608,11 @@ class FilterWindow(InstallWindow):
                 totalSize += tuple[0]["XXX_SIZE"]
 
         def _active(name):
-            if self.anaconda.id.storage.exclusiveDisks and \
-               name in self.anaconda.id.storage.exclusiveDisks:
+            if self.anaconda.storage.exclusiveDisks and \
+               name in self.anaconda.storage.exclusiveDisks:
                 return True
-            elif self.anaconda.id.storage.ignoredDisks and \
-                name not in self.anaconda.id.storage.ignoredDisks:
+            elif self.anaconda.storage.ignoredDisks and \
+                name not in self.anaconda.storage.ignoredDisks:
                 return True
             else:
                 return False
