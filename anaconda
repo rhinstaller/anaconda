@@ -443,6 +443,7 @@ class Anaconda(object):
         self.dir = None
         self.dispatch = dispatch.Dispatcher(self)
         self.displayMode = None
+        self.firewall = firewall.Firewall()
         self.id = None
         self._instClass = None
         self._instLanguage = None
@@ -621,6 +622,14 @@ class Anaconda(object):
         self.writeXdriver()
         self.instLanguage.write(self.rootPath)
 
+        if not self.isHeadless:
+            self.keyboard.write(self.rootPath)
+
+        self.network.write(instPath=self.rootPath, anaconda=self)
+        self.users.write(self.rootPath)
+        self.security.write(self.rootPath)
+        self.firewall.write(self.rootPath)
+
         if self.ksdata:
             for svc in self.ksdata.services.disabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
@@ -700,6 +709,7 @@ class Anaconda(object):
 
         self.users.writeKS(f)
         self.security.writeKS(f)
+        self.firewall.writeKS(f)
 
         # XXX: This is temporary until instdata goes away completely.
         self.id.writeKS(f)
@@ -742,7 +752,7 @@ if __name__ == "__main__":
     import dispatch
     import warnings
     import vnc
-    import users, security
+    import firewall, users, security
     import kickstart
     import storage.storage_log
     import system_config_keyboard.keyboard as keyboard

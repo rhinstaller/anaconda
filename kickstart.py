@@ -315,14 +315,14 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
 class Firewall(commands.firewall.F10_Firewall):
     def execute(self, anaconda):
-        anaconda.id.firewall.enabled = self.enabled
-        anaconda.id.firewall.trustdevs = self.trusts
+        anaconda.firewall.enabled = self.enabled
+        anaconda.firewall.trustdevs = self.trusts
 
         for port in self.ports:
-            anaconda.id.firewall.portlist.append (port)
+            anaconda.firewall.portlist.append (port)
 
         for svc in self.services:
-            anaconda.id.firewall.servicelist.append (svc)
+            anaconda.firewall.servicelist.append (svc)
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def execute(self, anaconda):

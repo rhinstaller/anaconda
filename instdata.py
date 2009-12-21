@@ -52,7 +52,6 @@ class InstallData:
         #
         # - The install language
 
-        self.firewall = firewall.Firewall()
         self.timezone = timezone.Timezone()
         self.timezone.setTimezoneInfo(self.anaconda.instLanguage.getDefaultTimeZone(self.anaconda.rootPath))
         self.desktop = desktop.Desktop()
@@ -67,11 +66,9 @@ class InstallData:
 
     def write(self):
         self.timezone.write (self.anaconda.rootPath)
-        self.firewall.write (self.anaconda.rootPath)
         self.desktop.write(self.anaconda.rootPath)
 
     def writeKS(self, f):
-        self.firewall.writeKS(f)
         self.timezone.writeKS(f)
         self.bootloader.writeKS(f)
         self.storage.writeKS(f)
