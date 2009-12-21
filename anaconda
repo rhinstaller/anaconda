@@ -448,6 +448,7 @@ class Anaconda(object):
         self._instLanguage = None
         self._intf = None
         self.isHeadless = False
+        self.keyboard = keyboard.Keyboard()
         self.ksdata = None
         self.mediaDevice = None
         self.methodstr = None
@@ -613,6 +614,8 @@ class Anaconda(object):
                                        [svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=self.rootPath)
+        if not self.isHeadless:
+            self.keyboard.write(self.rootPath)
 
         # XXX: This is temporary until instdata goes away completely.
         self.id.write()
@@ -668,6 +671,9 @@ class Anaconda(object):
 
         self.instLanguage.writeKS(f)
 
+        if not self.isHeadless:
+            self.keyboard.writeKS(f)
+
         # XXX: This is temporary until instdata goes away completely.
         self.id.writeKS(f)
 
@@ -712,6 +718,8 @@ if __name__ == "__main__":
     import users
     import kickstart
     import storage.storage_log
+    import system_config_keyboard.keyboard as keyboard
+
     from flags import flags
 
     # the following makes me very sad. -- katzj
@@ -957,8 +965,6 @@ if __name__ == "__main__":
 
     import instdata
 
-    import system_config_keyboard.keyboard as keyboard
-
     log.info("anaconda called with cmdline = %s" %(sys.argv,))
     log.info("Display mode = %s" % anaconda.displayMode)
 
@@ -1085,8 +1091,8 @@ if __name__ == "__main__":
 
     if opts.keymap:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
-        anaconda.id.keyboard.set(opts.keymap)
-        anaconda.id.keyboard.activate()
+        anaconda.keyboard.set(opts.keymap)
+        anaconda.keyboard.activate()
 
     if anaconda.ksdata:
         import storage

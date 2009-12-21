@@ -39,7 +39,6 @@ import shlex
 from flags import *
 from constants import *
 from simpleconfig import SimpleConfigFile
-import system_config_keyboard.keyboard as keyboard
 
 import logging
 log = logging.getLogger("anaconda")
@@ -55,7 +54,6 @@ class InstallData:
         # Reset everything except:
         #
         # - The install language
-        # - The keyboard
 
         self.network = network.Network()
         self.firewall = firewall.Firewall()
@@ -89,9 +87,6 @@ class InstallData:
             return None
 
     def write(self):
-        if not self.anaconda.isHeadless:
-            self.keyboard.write (self.anaconda.rootPath)
-
         self.timezone.write (self.anaconda.rootPath)
 
         args = ["--update", "--nostart"] + shlex.split(self.auth)
@@ -144,7 +139,6 @@ class InstallData:
 
     def writeKS(self, f):
         if not self.anaconda.isHeadless:
-            self.keyboard.writeKS(f)
             self.network.writeKS(f)
 
         if self.rootPassword["isCrypted"]:
@@ -166,7 +160,6 @@ class InstallData:
         self.storage.writeKS(f)
 
     def __init__(self, anaconda, extraModules):
-        self.keyboard = keyboard.Keyboard()
         self.anaconda = anaconda
         self.extraModules = extraModules
         self.simpleFilter = True

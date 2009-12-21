@@ -1254,8 +1254,8 @@ class InstallInterface:
     def run(self, anaconda):
         self.anaconda = anaconda
 
-        if anaconda.id.keyboard and not flags.livecdInstall:
-            anaconda.id.keyboard.activate()
+        if anaconda.keyboard and not flags.livecdInstall:
+            anaconda.keyboard.activate()
 
         self.icw = InstallControlWindow (self.anaconda)
         self.icw.run (self.runres)

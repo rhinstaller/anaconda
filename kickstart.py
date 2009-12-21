@@ -382,9 +382,9 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
 class Keyboard(commands.keyboard.FC3_Keyboard):
     def execute(self, anaconda):
-        anaconda.id.keyboard.set(self.keyboard)
-        anaconda.id.keyboard.beenset = 1
-        anaconda.id.ksdata.skipSteps.append("keyboard")
+        anaconda.keyboard.set(self.keyboard)
+        anaconda.keyboard.beenset = 1
+        anaconda.ksdata.skipSteps.append("keyboard")
 
 class Lang(commands.lang.FC3_Lang):
     def execute(self, anaconda):

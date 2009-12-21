@@ -115,7 +115,7 @@ class KernelArguments:
         args = ""
         for s in self.getDracutStorageArgs() + [
                  self.anaconda.instLanguage.dracutSetupString(),
-                 self.id.keyboard.dracutSetupString(),
+                 self.anaconda.keyboard.dracutSetupString(),
                  self.args,
                  self.appendArgs ]:
             s = s.strip()
