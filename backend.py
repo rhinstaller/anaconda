@@ -310,5 +310,5 @@ def doBasePackageSelect(anaconda):
 
 def writeConfiguration(anaconda):
     log.info("Writing main configuration")
-    anaconda.id.write()
+    anaconda.write()
     anaconda.backend.writeConfiguration()

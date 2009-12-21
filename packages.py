@@ -63,7 +63,7 @@ def writeKSConfiguration(anaconda):
     log.info("Writing autokickstart file")
     fn = anaconda.rootPath + "/root/anaconda-ks.cfg"
 
-    anaconda.id.writeKS(fn)
+    anaconda.writeKS(fn)
 
 def copyAnacondaLogs(anaconda):
     log.info("Copying anaconda logs")
