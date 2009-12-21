@@ -70,6 +70,7 @@ class OSBootWidget:
                                     active = 0)
         column.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self.checkboxrenderer.connect("toggled", self.toggledDefault)
+        self.checkboxrenderer.set_radio(True)
         self.osTreeView.append_column(column)
 
         for columnTitle in theColumns[1:]:
@@ -336,7 +337,7 @@ class OSBootWidget:
     def toggledDefault(self, data, row):
         iter = self.osStore.get_iter((int(row),))
         dev = self.osStore.get_value(iter, 2)
-        self.defaultDev = dev[5:]
+        self.defaultDev = devicePathToName(dev)
         self.fillOSList()
 
     # fill in the os list tree view
