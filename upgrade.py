@@ -267,7 +267,7 @@ def setSteps(anaconda):
                 "welcome",
                 "filtertype",
                 "filter",
-                "cleardisksel",
+                "cleardiskssel",
                 "installtype",
                 "storageinit",
                 "findrootparts",

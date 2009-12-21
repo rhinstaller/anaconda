@@ -551,7 +551,7 @@ class InstallInterface:
     def setSteps(self, anaconda):
         anaconda.dispatch.skipStep("filtertype")
         anaconda.dispatch.skipStep("filter")
-        anaconda.dispatch.skipStep("cleardisksel")
+        anaconda.dispatch.skipStep("cleardiskssel")
         anaconda.dispatch.skipStep("basepkgsel")
         anaconda.dispatch.skipStep("group-selection")
 

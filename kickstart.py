@@ -299,7 +299,7 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
             anaconda.id.storage.reinitializeDisks = self.initAll
 
         clearPartitions(anaconda.id.storage)
-        self.handler.skipSteps.append("cleardisksel")
+        self.handler.skipSteps.append("cleardiskssel")
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
@@ -1439,7 +1439,7 @@ def setSteps(anaconda):
     if anaconda.id.displayMode == "t":
         missingSteps = [("bootloader", "Bootloader configuration"),
                         ("filter", "Disks to use in installation"),
-                        ("cleardisksel", "Disks to clear"),
+                        ("cleardiskssel", "Disks to clear"),
                         ("group-selection", "Package selection")]
         errors = []
 
