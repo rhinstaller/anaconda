@@ -438,6 +438,10 @@ def startDebugger(signum, frame):
 
 class Anaconda(object):
     def __init__(self):
+        import desktop, dispatch, firewall, security
+        import system_config_keyboard.keyboard as keyboard
+        from flags import flags
+
         self._backend = None
         self._bootloader = None
         self.canReIPL = False
@@ -788,13 +792,11 @@ if __name__ == "__main__":
     setupPythonUpdates()
 
     import signal, string, isys, iutil, time
-    import desktop, dispatch
     import warnings
     import vnc
-    import firewall, users, security
+    import users
     import kickstart
     import storage.storage_log
-    import system_config_keyboard.keyboard as keyboard
 
     from flags import flags
 
