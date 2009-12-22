@@ -88,15 +88,26 @@ class KernelArguments:
 
     def getDracutStorageArgs(self):
         args = []
+        types = {}
         root = self.id.storage.rootDevice
         for d in self.id.storage.devices:
             if not root.dependsOn(d):
                 continue
 
-            args.append(d.dracutSetupString())
+            s = d.dracutSetupString()
+            types[s.split("=")[0]] = True
+            args.append(s)
+
             import storage
             if isinstance(d, storage.devices.NetworkStorageDevice):
                 args.append(self.id.network.dracutSetupString(d))
+
+        for i in [ [ "rd_LUKS_UUID", "rd_NO_LUKS" ],
+                   [ "rd_LVM_VG", "rd_NO_LVM" ],
+                   [ "rd_MD_UUID", "rd_NO_MD" ],
+                   [ "rd_DM_UUID", "rd_NO_DM" ] ]:
+            if not types.has_key(i[0]):
+                args.append(i[1])
 
         return args
 
