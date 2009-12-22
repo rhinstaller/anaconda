@@ -277,7 +277,7 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
     elif stderr is None or not isinstance(stderr, file):
         stderr = sys.stderr.fileno()
 
-    program_log.info("Running... %s\n" % ([command] + argv,))
+    program_log.info("Running... %s" % ([command] + argv,))
 
     p = os.pipe()
     childpid = os.fork()
@@ -295,6 +295,7 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
 
     os.close(p[1])
 
+    logline = ''
     while 1:
         try:
             s = os.read(p[0], 1)
@@ -305,7 +306,11 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
         if echo:
             os.write(stdout, s)
 
-        map(program_log.info, s.splitlines())
+        if s == '\n':
+            program_log.info(logline)
+            logline = ''
+        else:
+            logline += s
 
         if callback:
             callback(s, callback_data=callback_data)
