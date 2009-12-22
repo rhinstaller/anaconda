@@ -53,6 +53,9 @@ import fcoe
 import zfcp
 import dasd
 
+import shelve
+import contextlib
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -258,6 +261,7 @@ class Storage(object):
         self._nextID = 0
         self.defaultFSType = get_default_filesystem_type()
         self.defaultBootFSType = get_default_filesystem_type(boot=True)
+        self._dumpFile = "/tmp/storage.state"
 
         # these will both be empty until our reset method gets called
         self.devicetree = DeviceTree(intf=self.anaconda.intf,
@@ -307,6 +311,8 @@ class Storage(object):
                     dev.bootable = True
                     dev.disk.setup()
                     dev.disk.format.commitToDisk()
+
+        self.dumpState("final")
 
     @property
     def nextID(self):
@@ -364,6 +370,7 @@ class Storage(object):
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
         self.anaconda.id.rootParts = None
         self.anaconda.id.upgradeRoot = None
+        self.dumpState("initial")
         w.pop()
 
     @property
@@ -1020,6 +1027,12 @@ class Storage(object):
                                  "of this problem."))
             return True
         return False
+
+    def dumpState(self, suffix):
+        """ Dump the current device list to the storage shelf. """
+        key = "devices.%d.%s" % (time.time(), suffix)
+        with contextlib.closing(shelve.open(self._dumpFile)) as shelf:
+            shelf[key] = [d.dict for d in self.devices]
 
     def write(self, instPath):
         self.fsset.write(instPath)
