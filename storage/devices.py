@@ -1593,6 +1593,9 @@ class LUKSDevice(DMCryptDevice):
         """ This device's backing device. """
         return self.parents[0]
 
+    def dracutSetupString(self):
+        return "rd_LUKS_UUID=luks-%s" % self.format.uuid
+
 
 class LVMVolumeGroupDevice(DMDevice):
     """ An LVM Volume Group
@@ -2012,6 +2015,9 @@ class LVMVolumeGroupDevice(DMDevice):
         Return True if complete.
         """
         return len(self.pvs) == self.pvCount or not self.exists
+
+    def dracutSetupString(self):
+        return "rd_LVM_VG=%s" % self.name
 
 
 class LVMLogicalVolumeDevice(DMDevice):
@@ -2751,6 +2757,10 @@ class MDRaidArrayDevice(StorageDevice):
     def model(self):
         return "RAID%d Array" % self.level
 
+    def dracutSetupString(self):
+        return "rd_MD_UUID=%s" % self.uuid
+
+
 class DMRaidArrayDevice(DMDevice):
     """ A dmraid (device-mapper RAID) device """
     _type = "dm-raid array"
@@ -2854,6 +2864,10 @@ class DMRaidArrayDevice(DMDevice):
     def mediaPresent(self):
         # Even if teared down we still want to show up in storage.disks
         return True
+
+    def dracutSetupString(self):
+        return "rd_DM_UUID=%s" % self.name
+
 
 class _MultipathDeviceNameGenerator:
     def __init__(self):
