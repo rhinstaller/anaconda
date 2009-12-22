@@ -131,6 +131,10 @@ class KernelArguments:
         self.args = args
         self.appendArgs = ""
 
+    def getNoDracut(self):
+        args = self.args.strip() + " " + self.appendArgs.strip()
+        return args.strip()
+
     def chandevget(self):
         return self.cargs
 
@@ -482,8 +486,8 @@ class bootloaderInfo(object):
         args.append("--location=%s" % (self.defaultDevice,))
         args.append("--driveorder=%s" % (",".join(self.drivelist)))
 
-        if self.args.get():
-            args.append("--append=\"%s\"" %(self.args.get()))
+        if self.args.getNoDracut():
+            args.append("--append=\"%s\"" %(self.args.getNoDracut()))
 
         return args
 
