@@ -270,6 +270,12 @@ class Device(object):
               "status": self.status, "dev_id": self.id})
         return s
 
+    @property
+    def dict(self):
+        d =  {"type": self.type, "name": self.name,
+              "parents": [p.name for p in self.parents]}
+        return d
+
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
         return
 
@@ -523,6 +529,16 @@ class StorageDevice(Device):
                "targetSize": self.targetSize, "path": self.path,
                "formatArgs": self.formatArgs})
         return s
+
+    @property
+    def dict(self):
+        d =  super(StorageDevice, self).dict
+        d.update({"uuid": self.uuid, "size": self.size,
+                  "format": self.format.dict, "removable": self.removable,
+                  "major": self.major, "minor": self.minor,
+                  "exists": self.exists, "sysfs": self.sysfsPath,
+                  "targetSize": self.targetSize, "path": self.path})
+        return d
 
     @property
     def path(self):
@@ -942,6 +958,22 @@ class PartitionDevice(StorageDevice):
                    "flags": self.partedPartition.getFlagsAsString()})
 
         return s
+
+    @property
+    def dict(self):
+        d = super(PartitionDevice, self).dict
+        d.update({"type": self.partType})
+        if not self.exists:
+            d.update({"grow": self.req_grow, "maxsize": self.req_max_size,
+                      "bootable": self.bootable,
+                      "primary": self.req_primary})
+
+        if self.partedPartition:
+            d.update({"length": self.partedPartition.geometry.length,
+                      "start": self.partedPartition.geometry.start,
+                      "end": self.partedPartition.geometry.end,
+                      "flags": self.partedPartition.getFlagsAsString()})
+        return d
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
         args = []
@@ -1379,6 +1411,12 @@ class DMDevice(StorageDevice):
         return s
 
     @property
+    def dict(self):
+        d = super(DMDevice, self).dict
+        d.update({"target": self.target, "dmUuid": self.dmUuid})
+        return d
+
+    @property
     def fstabSpec(self):
         """ Return the device specifier for use in /etc/fstab. """
         return self.path
@@ -1637,6 +1675,17 @@ class LVMVolumeGroupDevice(DMDevice):
                "extents": self.extents, "freeSpace": self.freeSpace,
                "freeExtents": self.freeExtents, "pvs": self.pvs, "lvs": self.lvs})
         return s
+
+    @property
+    def dict(self):
+        d = super(LVMVolumeGroupDevice, self).dict
+        d.update({"free": self.free, "peSize": self.peSize,
+                  "peCount": self.peCount, "peFree": self.peFree,
+                  "pvCount": self.pvCount, "extents": self.extents,
+                  "freeSpace": self.freeSpace,
+                  "freeExtents": self.freeExtents,
+                  "lvNames": [lv.name for lv in self.lvs]})
+        return d
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
         args = ["--pesize=%s" % int(self.peSize * 1024)]
@@ -2041,6 +2090,18 @@ class LVMLogicalVolumeDevice(DMDevice):
                "snapshots": self.snapshotSpace, "vgspace": self.vgSpaceUsed })
         return s
 
+    @property
+    def dict(self):
+        d = super(LVMLogicalVolumeDevice, self).dict
+        if self.exists:
+            d.update({"mirrored": self.mirrored, "stripes": self.stripes,
+                      "snapshots": self.snapshotSpace,
+                      "vgspace": self.vgSpaceUsed})
+        else:
+            d.update({"percent": self.req_percent})
+
+        return d
+
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
         args = ["--name=%s" % self.lvname,
                 "--vgname=%s" % self.vg.name]
@@ -2340,6 +2401,14 @@ class MDRaidArrayDevice(StorageDevice):
               {"level": self.level, "bitmap": self.bitmap, "spares": self.spares,
                "memberDevices": self.memberDevices, "totalDevices": self.totalDevices})
         return s
+
+    @property
+    def dict(self):
+        d = super(MDRaidArrayDevice, self).dict
+        d.update({"level": self.level, "bitmap": self.bitmap,
+                  "spares": self.spares, "memberDevices": self.memberDevices,
+                  "totalDevices": self.totalDevices})
+        return d
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
         args = ["--level=%s" % self.level,

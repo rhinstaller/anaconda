@@ -108,6 +108,15 @@ class LUKS(DeviceFormat):
         return s
 
     @property
+    def dict(self):
+        d = super(LUKS, self).dict
+        d.update({"cipher": self.cipher, "keySize": self.key_size,
+                  "mapName": self.mapName, "hasKey": self.hasKey,
+                  "escrowCert": self.escrow_cert,
+                  "backup": self.add_backup_passphrase})
+        return d
+
+    @property
     def name(self):
         name = self._name
         # for existing locked devices, show "Encrypted" instead of LUKS

@@ -172,6 +172,15 @@ class FS(DeviceFormat):
                "targetSize": self.targetSize})
         return s
 
+    @property
+    def dict(self):
+        d = super(FS, self).dict
+        d.update({"mountpoint": self.mountpoint, "size": self._size,
+                  "label": self.label, "targetSize": self.targetSize,
+                  "mountable": self.mountable,
+                  "migratable": self.migratable})
+        return d
+
     def _setTargetSize(self, newsize):
         """ Set a target size for this filesystem. """
         if not self.exists:

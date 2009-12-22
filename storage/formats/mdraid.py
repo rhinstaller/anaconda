@@ -71,6 +71,12 @@ class MDRaidMember(DeviceFormat):
         s += ("  mdUUID = %(mdUUID)s" % {"mdUUID": self.mdUuid})
         return s
 
+    @property
+    def dict(self):
+        d = super(MDRaidMember, self).dict
+        d.update({"mdUUID": self.mdUuid, "biosraid": self.biosraid})
+        return d
+
     def probe(self):
         """ Probe for any missing information about this format. """
         log_method_call(self, device=self.device,

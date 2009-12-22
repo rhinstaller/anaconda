@@ -187,6 +187,14 @@ class DeviceFormat(object):
               "format": self.formattable, "resize": self.resizable})
         return s
 
+    @property
+    def dict(self):
+        d = {"type": self.type, "name": self.name, "device": self.device,
+             "uuid": self.uuid, "exists": self.exists,
+             "options": self.options, "supported": self.supported,
+             "resizable": self.resizable}
+        return d
+
     def _setOptions(self, options):
         self._options = options
 

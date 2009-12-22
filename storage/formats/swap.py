@@ -69,6 +69,12 @@ class SwapSpace(DeviceFormat):
               {"priority": self.priority, "label": self.label})
         return s
 
+    @property
+    def dict(self):
+        d = super(SwapSpace, self).dict
+        d.update({"priority": self.priority, "label": self.label})
+        return d
+
     def _setPriority(self, priority):
         if priority is None:
             self._priority = None

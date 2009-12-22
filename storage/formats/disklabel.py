@@ -101,6 +101,16 @@ class DiskLabel(DeviceFormat):
                "dev": self.partedDevice})
         return s
 
+    @property
+    def dict(self):
+        d = super(DiskLabel, self).dict
+        d.update({"labelType": self.labelType,
+                  "partitionCount": len(self.partitions),
+                  "sectorSize": self.partedDevice.sectorSize,
+                  "offset": self.alignment.offset,
+                  "grainSize": self.alignment.grainSize})
+        return d
+
     def resetPartedDisk(self):
         """ Set this instance's partedDisk to reflect the disk's contents. """
         log_method_call(self, device=self.device)

@@ -75,6 +75,13 @@ class LVMPhysicalVolume(DeviceFormat):
                "peStart": self.peStart})
         return s
 
+    @property
+    def dict(self):
+        d = super(LVMPhysicalVolume, self).dict
+        d.update({"vgName": self.vgName, "vgUUID": self.vgUuid,
+                  "peStart": self.peStart})
+        return d
+
     def probe(self):
         """ Probe for any missing information about this device. """
         log_method_call(self, device=self.device,
