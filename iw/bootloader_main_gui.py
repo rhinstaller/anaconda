@@ -98,11 +98,9 @@ class MainBootloaderWindow(InstallWindow):
             combo.set_attributes(cell, text = 0)
 
             for disk in disks:
-                size = disk.size
-                m = disk.description
-
                 i = model.append(None)
-                model[i] = ("%s %8.0f MB %s" %(disk.name, size, m),
+                model[i] = ("%s %8.0f MB %s" %(disk.name, disk.size,
+                                               disk.description),
                             "%s" %(disk.name,))
                 if disk.name == active:
                     combo.set_active_iter(i)
@@ -138,7 +136,7 @@ class MainBootloaderWindow(InstallWindow):
             lbl.show()
             partitioned = anaconda.id.storage.partitioned
             disks = anaconda.id.storage.disks
-            bl_disks = [d.name for d in disks if d in partitioned]
+            bl_disks = [d for d in disks if d in partitioned]
             m = __genStore(combo, bl_disks, self.driveorder[i - 1])
 
         dxml.get_widget("bd1Combo").connect("changed", __driveChange, dxml, choices)
