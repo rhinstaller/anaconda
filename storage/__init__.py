@@ -370,7 +370,7 @@ class Storage(object):
     def devices(self):
         """ A list of all the devices in the device tree. """
         devices = self.devicetree.devices
-        devices.sort(key=lambda d: d.path)
+        devices.sort(key=lambda d: d.name)
         return devices
 
     @property
