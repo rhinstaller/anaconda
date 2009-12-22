@@ -484,9 +484,8 @@ class LogVolData(commands.logvol.F12_LogVolData):
                                     maxsize=self.maxSizeMB,
                                     percent=self.percent)
 
-            # FIXME: no way to specify an fsprofile right now
-            # if lvd.fsprofile:
-            #     request.format.fsprofile = lvd.fsprofile
+            if self.fsprofile and hasattr(request.format, "fsprofile"):
+                request.format.fsprofile = self.fsprofile
 
             storage.createDevice(request)
 
@@ -734,9 +733,8 @@ class PartitionData(commands.partition.F12_PartData):
 
             request = storage.newPartition(**kwargs)
 
-            # FIXME: no way to specify an fsprofile right now
-            # if self.fsprofile:
-            #     request.format.fsprofile = self.fsprofile
+            if self.fsprofile and hasattr(request.format, "fsprofile"):
+                request.format.fsprofile = self.fsprofile
 
             storage.createDevice(request)
 
@@ -874,9 +872,8 @@ class RaidData(commands.raid.F12_RaidData):
             except ValueError, e:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=str(e))
 
-            # FIXME: no way to specify an fsprofile right now
-            # if pd.fsprofile:
-            #     request.format.fsprofile = pd.fsprofile
+            if self.fsprofile and hasattr(request.format, "fsprofile"):
+                request.format.fsprofile = self.fsprofile
 
             storage.createDevice(request)
 

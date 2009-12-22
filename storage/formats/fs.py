@@ -124,6 +124,7 @@ class FS(DeviceFormat):
     _defaultInfoOptions = []
     _migrationTarget = None
     _existingSizeFields = []
+    _fsProfileSpecifier = None           # mkfs option specifying fsprofile
 
     def __init__(self, *args, **kwargs):
         """ Create a FS instance.
@@ -143,10 +144,10 @@ class FS(DeviceFormat):
             raise TypeError("FS is an abstract class.")
 
         DeviceFormat.__init__(self, *args, **kwargs)
-        # TODO: fsprofiles and other ways to add format args
         self.mountpoint = kwargs.get("mountpoint")
         self.mountopts = kwargs.get("mountopts")
         self.label = kwargs.get("label")
+        self.fsprofile = kwargs.get("fsprofile")
 
         # filesystem size does not necessarily equal device size
         self._size = kwargs.get("size", 0)
@@ -297,6 +298,8 @@ class FS(DeviceFormat):
         if options and isinstance(options, list):
             argv.extend(options)
         argv.extend(self.defaultFormatOptions)
+        if self._fsProfileSpecifier and self.fsprofile:
+            argv.extend([self._fsProfileSpecifier, self.fsprofile])
         argv.append(self.device)
         return argv
     
@@ -872,6 +875,7 @@ class Ext2FS(FS):
     _infofs = "dumpe2fs"
     _defaultInfoOptions = ["-h"]
     _existingSizeFields = ["Block count:", "Block size:"]
+    _fsProfileSpecifier = "-T"
     partedSystem = fileSystemType["ext2"]
 
     def _fsckFailed(self, rc):
