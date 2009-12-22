@@ -1,6 +1,6 @@
 Name: anaconda
-Version: 11.1.2.198
-Release: 3
+Version: 11.1.2.199
+Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,20 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Dec 22 2009 Martin Sivak <msivak@redhat.com> 11.1.2.199-1
+- Support for the pmcraid driver
+  Resolves: rhbz#532777
+- Always return correct network config from kickstartNetworkUp
+  Resolves: rhbz#495042
+- Actually use the ftp login&password parse code
+  Related: rhbz#505424
+- Fix clearpart of PVs that are part of multidrive VGs
+  Resolves: rhbz#545869
+- Add support for Brocade Fibre Channel to PCIe Host Bus Adapters
+  Resolves: rhbz#475707
+- Fix EDD BIOS information parsing
+  Resolves: rhbz#540637
+
 * Fri Dec 11 2009 Martin Sivak <msivak@redhat.com> 11.1.2.198-3
 - Fix the build for s390
   Related: rhbz#517768
