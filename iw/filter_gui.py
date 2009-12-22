@@ -608,9 +608,10 @@ class FilterWindow(InstallWindow):
             if d["XXX_SIZE"] == 0:
                 continue
 
-            # This isn't so great, but for iSCSI devices the path contains a lot
-            # of useful identifiying info that should be displayed.
-            if udev_device_is_iscsi(d):
+            # This isn't so great, but iSCSi and DASD devices have an ID_PATH
+            # that contains a lot of useful identifying info, so that should be
+            # displayed instead of a blank WWID.
+            if udev_device_is_iscsi(d) or udev_device_is_dasd(d):
                 ident = udev_device_get_path(d)
             else:
                 ident = udev_device_get_wwid(d)
