@@ -86,26 +86,35 @@ def rootIsDevice(dev):
 
 class KernelArguments:
 
-    def get(self):
-        args = self.args
+    def getDracutStorageArgs(self):
+        args = []
         root = self.id.storage.rootDevice
         for d in self.id.storage.devices:
-            if root.dependsOn(d):
-                dracutSetupString = d.dracutSetupString()
-                if len(dracutSetupString):
-                    args += " %s" % dracutSetupString
-                import storage
-                if isinstance(d, storage.devices.NetworkStorageDevice):
-                    args += " "
-                    args += self.id.network.dracutSetupString(d)
+            if not root.dependsOn(d):
+                continue
 
-        args += self.id.instLanguage.dracutSetupString()
-        args += self.id.keyboard.dracutSetupString()
+            args.append(d.dracutSetupString())
+            import storage
+            if isinstance(d, storage.devices.NetworkStorageDevice):
+                args.append(self.id.network.dracutSetupString(d))
 
-        if args and self.appendArgs:
-            args += " "
+        return args
 
-        return args + self.appendArgs
+    def get(self):
+        args = ""
+        for s in self.getDracutStorageArgs() + [
+                 self.id.instLanguage.dracutSetupString(),
+                 self.id.keyboard.dracutSetupString(),
+                 self.args,
+                 self.appendArgs ]:
+            s = s.strip()
+            if not s:
+                continue
+            if args:
+                args += " "
+            args += s
+
+        return args
 
     def set(self, args):
         self.args = args
