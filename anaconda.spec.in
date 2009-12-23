@@ -217,6 +217,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Dec 23 2009 Chris Lumens <clumens@redhat.com> - 13.13-1
+- lsreipl from s390-utils uses incorrect path (hamzy).
+- fix for a bug in 05ce88b2 that split one line over several in program.log
+  (akozumpl)
+- Dump the initial and final state of the system's storage devices. (dlehman)
+- Add a "dict" attribute to Device and DeviceFormat classes. (dlehman)
+- Sort Storage.devices by name (not path) for consistency. (dlehman)
+- Put fsprofile support back in. (dlehman)
+- Fix reset of lvm filtering (#527711) (rvykydal)
+- Fix bootloader driveorder dialog. (rvykydal)
+- Fix selection of default boot target in UI (#548695) (rvykydal)
+- 'cleardiskssel' typos that made it impossible to run text install.
+  (akozumpl)
+
 * Fri Dec 18 2009 David Cantrell <dcantrell@redhat.com> - 13.12-1
 - Use the per-disk flag to disable cylinder alignment for msdos disklabels.
   (dlehman)
