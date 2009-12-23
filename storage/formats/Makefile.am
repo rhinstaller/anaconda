@@ -17,7 +17,8 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-storageformatsdir = $(libdir)/$(PACKAGE_NAME)/storage/formats
+pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
+storageformatsdir = $(pkgpyexecdir)/storage/formats
 storageformats_PYTHON = *.py
 
 MAINTAINERCLEANFILES = Makefile.in

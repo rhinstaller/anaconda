@@ -1,5 +1,4 @@
 %define livearches %{ix86} x86_64 ppc ppc64
-%define _libdir %{_prefix}/lib
 
 Summary: Graphical system installer
 Name:    anaconda
@@ -208,9 +207,9 @@ update-desktop-database &> /dev/null || :
 %{_sbindir}/showpart
 %endif
 %{_datadir}/anaconda
-%{_prefix}/lib/anaconda
-%{_prefix}/lib/anaconda-runtime
 %{_prefix}/libexec/anaconda
+%{_libdir}/python*/site-packages/pyanaconda/*
+%{_libdir}/anaconda*
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst

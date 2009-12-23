@@ -17,7 +17,8 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-storagedir = $(libdir)/$(PACKAGE_NAME)/storage
+pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
+storagedir = $(pkgpyexecdir)/storage
 storage_PYTHON = *.py
 
 SUBDIRS = devicelibs formats

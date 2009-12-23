@@ -17,7 +17,8 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-installclassesdir = $(libdir)/$(PACKAGE_NAME)/installclasses
+pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
+installclassesdir = $(pkgpyexecdir)/installclasses
 installclasses_PYTHON = *.py
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -35,6 +35,8 @@ CLEANFILES = *~ lang-names anaconda.spec
 
 MOSTLYCLEANDIRS = m4
 
+pkgpyexecdir          = $(pyexecdir)/py$(PACKAGE_NAME)
+
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
 dist_sbin_SCRIPTS     = anaconda
@@ -42,12 +44,9 @@ dist_sbin_SCRIPTS     = anaconda
 udevdir               = /lib/udev/rules.d
 dist_udev_DATA        = 70-anaconda.rules
 
-langdir               = $(libdir)/$(PACKAGE_NAME)
+langdir               = $(datadir)/$(PACKAGE_NAME)
 lang_DATA             = lang-names
 dist_lang_DATA        = lang-table
-
-pkgpyexecdir          = $(libdir)/$(PACKAGE_NAME)
-pkgpythondir          = $(libdir)/$(PACKAGE_NAME)
 
 pkgpyexec_LTLIBRARIES = xutils.la
 xutils_la_CFLAGS      = $(PYTHON_INCLUDES) $(GDK_CFLAGS) -fno-strict-aliasing
@@ -56,7 +55,7 @@ xutils_la_LIBADD      = $(PYTHON_LIBS) $(GDK_LIBS)
 xutils_la_SOURCES     = xutils.c
 
 # anaconda Python code
-anacondadir = $(libdir)/$(PACKAGE_NAME)
+anacondadir     = $(pkgpyexecdir)
 anaconda_PYTHON = *.py
 
 PYCHECKERPATH = isys:textw:iw:installclasses:/usr/share/system-config-date

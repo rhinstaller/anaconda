@@ -17,7 +17,8 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-iwdir = $(libdir)/$(PACKAGE_NAME)/iw
+pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
+iwdir = $(pkgpyexecdir)/iw
 iw_PYTHON = *.py
 
 MAINTAINERCLEANFILES = Makefile.in

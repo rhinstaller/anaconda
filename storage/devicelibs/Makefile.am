@@ -17,7 +17,8 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-storagedevicelibsdir = $(libdir)/$(PACKAGE_NAME)/storage/devicelibs
+pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
+storagedevicelibsdir = $(pkgpyexecdir)/storage/devicelibs
 storagedevicelibs_PYTHON = *.py
 
 MAINTAINERCLEANFILES = Makefile.in

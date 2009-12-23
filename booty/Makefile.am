@@ -17,7 +17,8 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-bootydir = $(libdir)/$(PACKAGE_NAME)/booty
+pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
+bootydir = $(pkgpyexecdir)/booty
 booty_PYTHON = *.py
 
 MAINTAINERCLEANFILES = Makefile.in

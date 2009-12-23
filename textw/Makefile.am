@@ -17,7 +17,8 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-textwdir = $(libdir)/$(PACKAGE_NAME)/textw
+pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
+textwdir = $(pkgpyexecdir)/textw
 textw_PYTHON = *.py
 
 MAINTAINERCLEANFILES = Makefile.in
