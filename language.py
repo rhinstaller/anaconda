@@ -144,7 +144,7 @@ class Language(object):
         self.nativeLangNames = {}
 
         # English name -> native name mapping
-        search = ('lang-names', '/usr/lib/anaconda/lang-names')
+        search = ('lang-names', '/usr/share/anaconda/lang-names')
         for path in search:
             if os.access(path, os.R_OK):
                 f = open(path, 'r')
@@ -158,7 +158,7 @@ class Language(object):
 
         # nick -> (name, short name, font, keyboard, timezone) mapping
         search = ('lang-table', '/tmp/updates/lang-table', '/etc/lang-table',
-                  '/usr/lib/anaconda/lang-table')
+                  '/usr/share/anaconda/lang-table')
         for path in search:
             if os.access(path, os.R_OK):
                 f = open(path, "r")

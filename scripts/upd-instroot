@@ -940,7 +940,7 @@ chown -R root:root $DEST
 chmod -R a+rX-w $DEST
 
 # Remove locales unused during the install
-cat $DEST/usr/lib/anaconda/lang-table* | awk '
+cat $DEST/usr/share/anaconda/lang-table* | awk '
 { gsub("-", "", $4);
   print $4;
   print gensub(/\..*$/,"","",$4);
