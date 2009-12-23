@@ -224,14 +224,20 @@ def setupPythonPath():
             haveUpdates = True
             break
 
+    # With anaconda being a real module this isn't strictly necessary, but
+    # setting up the path now prevents having to change every import line in
+    # anaconda.
+    from distutils.sysconfig import get_python_lib
+    d = get_python_lib(plat_specific=1)
+
     if haveUpdates:
-        sys.path.insert(ndx+1, '/usr/lib/anaconda')
-        sys.path.insert(ndx+2, '/usr/lib/anaconda/textw')
-        sys.path.insert(ndx+3, '/usr/lib/anaconda/iw')
+        sys.path.insert(ndx+1, "%s/pyanaconda" % d)
+        sys.path.insert(ndx+2, "%s/pyanaconda/textw" % d)
+        sys.path.insert(ndx+3, "%s/pyanaconda/iw" % d)
     else:
-        sys.path.insert(0, '/usr/lib/anaconda')
-        sys.path.insert(1, '/usr/lib/anaconda/textw')
-        sys.path.insert(2, '/usr/lib/anaconda/iw')
+        sys.path.insert(0, "%s/pyanaconda" % d)
+        sys.path.insert(1, "%s/pyanaconda/textw" % d)
+        sys.path.insert(2, "%s/pyanaconda/iw" % d)
 
     sys.path.append('/usr/share/system-config-date')
 
