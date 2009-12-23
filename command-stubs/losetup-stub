@@ -21,13 +21,7 @@
 import os
 import sys
 
-# for testing
-if (os.path.exists('isys')):
-    sys.path.append('isys')
-
-sys.path.append('/usr/lib/anaconda')
-
-import isys
+from pyanaconda import isys
 from sys import argv
 
 def usage():

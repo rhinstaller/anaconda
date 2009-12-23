@@ -17,7 +17,7 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-commandstubsdir           = $(libdir)/$(PACKAGE_NAME)
+commandstubsdir           = $(datadir)/$(PACKAGE_NAME)
 dist_commandstubs_SCRIPTS = *-stub
 
 MAINTAINERCLEANFILES = Makefile.in
