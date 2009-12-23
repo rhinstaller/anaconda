@@ -236,12 +236,13 @@ def availableClasses(showHidden=0):
 
     if os.access("installclasses", os.R_OK):
 	path = "installclasses"
-    elif os.access("/tmp/updates/installclasses", os.R_OK):
-        path = "/tmp/updates/installclasses"
-    elif os.access("/tmp/product/installclasses", os.R_OK):
-        path = "/tmp/product/installclasses"
+    elif os.access("/tmp/updates/pyanaconda/installclasses", os.R_OK):
+        path = "/tmp/updates/pyanaconda/installclasses"
+    elif os.access("/tmp/product/pyanaconda/installclasses", os.R_OK):
+        path = "/tmp/product/pyanaconda/installclasses"
     else:
-	path = "/usr/lib/anaconda/installclasses"
+        from distutils.sysconfig import get_python_lib
+        path = get_python_lib(plat_specific=1) + "/pyanaconda/installclasses"
 
     # append the location of installclasses to the python path so we
     # can import them
