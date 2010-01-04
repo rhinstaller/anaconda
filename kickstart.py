@@ -55,7 +55,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
-from anaconda_log import logger, logLevelMap
+from anaconda_log import logger, logLevelMap, setHandlersLevel
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
@@ -516,7 +516,7 @@ class LogVolData(commands.logvol.F12_LogVolData):
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, anaconda):
-        log.setHandlersLevel(logLevelMap[self.level])
+        setHandlersLevel(log, logLevelMap[self.level])
 
         if self.host != "" and self.port != "":
             logger.addSysLogHandler(log, self.host, port=int(self.port))

@@ -38,20 +38,14 @@ logLevelMap = {"debug": logging.DEBUG, "info": logging.INFO,
                "warning": logging.WARNING, "error": logging.ERROR,
                "critical": logging.CRITICAL}
 
-# Base class for logger instances.  This is what will be created any time
-# someone calls logging.getLogger("whatever").  We need this class to
-# provide the setHandlersLevel function.
-class LoggerClass(logging.Logger):
-    # Set the level of all handlers attached to a logger, except those
-    # with the autoSetLevel=False attribute.
-    def setHandlersLevel(self, level):
-        map(lambda hdlr: hdlr.setLevel(level),
-            filter (lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, self.handlers))
+# sets autoSetLevel for the given handler
+def autoSetLevel(handler, value):
+    handler.autoSetLevel = value
 
-    # Specialized addHandler that also adds the autoSetLevel attribute.
-    def addHandler(self, hdlr, autoSetLevel=True):
-        setattr(hdlr, "autoSetLevel", autoSetLevel)
-        logging.Logger.addHandler(self, hdlr)
+# all handlers of given logger with autoSetLevel == True are set to level
+def setHandlersLevel(logger, level):
+    map(lambda hdlr: hdlr.setLevel(level),
+        filter (lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logger.handlers))
 
 class AnacondaLog:
     def __init__ (self, minLevel=DEFAULT_LEVEL):
@@ -59,13 +53,13 @@ class AnacondaLog:
         self.logger = logging.getLogger("anaconda")
         self.logger.setLevel(logging.DEBUG)
         self.addFileHandler(MAIN_LOG_FILE, self.logger,
-                            autoSetLevel=False, minLevel=logging.DEBUG)
+                            autoLevel=False, minLevel=logging.DEBUG)
 
         # External program output log
         program_logger = logging.getLogger("program")
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
-                            autoSetLevel=False, minLevel=logging.DEBUG)
+                            autoLevel=False, minLevel=logging.DEBUG)
 
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
@@ -81,7 +75,7 @@ class AnacondaLog:
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_LEVEL,
                         fmtStr=DEFAULT_ENTRY_FORMAT,
-                        autoSetLevel=True):
+                        autoLevel=True):
         if isinstance(file, types.StringTypes):
             logfileHandler = logging.FileHandler(file)
         else:
@@ -89,7 +83,8 @@ class AnacondaLog:
 
         logfileHandler.setLevel(minLevel)
         logfileHandler.setFormatter(logging.Formatter(fmtStr, DEFAULT_DATE_FORMAT))
-        addToLogger.addHandler(logfileHandler, autoSetLevel=autoSetLevel)
+        autoSetLevel(logfileHandler, autoLevel)
+        addToLogger.addHandler(logfileHandler)
 
     # Add another logger to the hierarchy.  For best results, make sure
     # name falls under anaconda in the tree.
@@ -106,6 +101,4 @@ class AnacondaLog:
         syslogHandler.setFormatter(fmt)
         logger.addHandler(syslogHandler)
 
-# Set base class for logger instances.
-logging.setLoggerClass(LoggerClass)
 logger = AnacondaLog()

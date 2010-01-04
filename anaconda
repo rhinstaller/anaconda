@@ -302,8 +302,8 @@ def setupEnvironment():
 def setupLoggingFromOpts(opts):
     if opts.loglevel and logLevelMap.has_key(opts.loglevel):
         level = logLevelMap[opts.loglevel]
-        log.setHandlersLevel(level)
-        storage.storage_log.logger.setHandlersLevel(level)
+        setHandlersLevel(log, level)
+        setHandlersLevel(storage.storage_log.logger, level)
 
     if opts.syslog:
         if opts.syslog.find(":") != -1:
@@ -573,7 +573,7 @@ if __name__ == "__main__":
 
     # Set up logging as early as possible.
     import logging
-    from anaconda_log import logger, logLevelMap
+    from anaconda_log import logger, logLevelMap, setHandlersLevel
 
     log = logging.getLogger("anaconda")
     stdoutLog = logging.getLogger("anaconda.stdout")

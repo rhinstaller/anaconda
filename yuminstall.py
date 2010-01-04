@@ -33,6 +33,8 @@ import tempfile
 import itertools
 import re
 
+
+import anaconda_log
 import rpm
 import rpmUtils
 import urlgrabber.progress
@@ -629,6 +631,7 @@ class AnacondaYum(YumSorter):
         logger.propagate = False
         logger.setLevel(yum.logginglevels.INFO_2)
         logger.addHandler(file_handler)
+        anaconda_log.autoSetLevel(tty3_handler, True)
         logger.addHandler(tty3_handler)
 
         # XXX filelogger is set in setFileLog - do we or user want it?
