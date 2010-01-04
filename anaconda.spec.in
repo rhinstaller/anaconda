@@ -217,6 +217,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jan 04 2010 Chris Lumens <clumens@redhat.com> - 13.14-1
+- Include fontconfig files needed for scaling of Meera fonts (#531742,
+  #551363). (clumens)
+- Don't write dracut kernel cmdline paramters to anaconda-ks.cfg (hdegoede)
+- Write dracut rd_NO_foo options to grub.conf (hdegoede)
+- Add dracutSetupString methods to all relevant device classes (hdegoede)
+- Avoid duplicate kernel cmdline options and cleanup booty dracut code
+  (hdegoede)
+
 * Wed Dec 23 2009 Chris Lumens <clumens@redhat.com> - 13.13-1
 - lsreipl from s390-utils uses incorrect path (hamzy).
 - fix for a bug in 05ce88b2 that split one line over several in program.log
