@@ -125,7 +125,7 @@ def mount(device, location, fstype = "ext2", readOnly = False,
     flags = None
     location = os.path.normpath(location)
     if not options:
-        opts = "defaults"
+        opts = ["defaults"]
     else:
         opts = options.split(",")
 
