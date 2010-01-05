@@ -419,7 +419,13 @@ def partitionCompare(part1, part2):
     ret -= cmp(part1.req_bootable, part2.req_bootable) * 1000
 
     # more specific disk specs to the front of the list
-    ret += cmp(len(part1.req_disks), len(part2.req_disks)) * 500
+    # req_disks being empty is equivalent to it being an infinitely long list
+    if part1.req_disks and not part2.req_disks:
+        ret -= 500
+    elif not part1.req_disks and part2.req_disks:
+        ret += 500
+    else:
+        ret += cmp(len(part1.req_disks), len(part2.req_disks)) * 500
 
     # primary-only to the front of the list
     ret -= cmp(part1.req_primary, part2.req_primary) * 200
