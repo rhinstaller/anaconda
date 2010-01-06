@@ -278,7 +278,7 @@ def udev_device_get_vendor(udev_info):
 
 def udev_device_get_bus(udev_info):
     """ Get the bus a device is connected to the system by. """
-    return udev_info.get("ID_BUS").upper()
+    return udev_info.get("ID_BUS", "").upper()
 
 def udev_device_get_path(info):
     return info["ID_PATH"]
