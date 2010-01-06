@@ -40,7 +40,7 @@ endif
 COMMON_CFLAGS      = -DUSE_LOGDEV -DVERSION='"$(PACKAGE_VERSION)"'
 
 loader_CFLAGS      = $(COMMON_CFLAGS) $(GLIB_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
-                     $(LIBCURL_CFLAGS) \
+                     $(LIBCURL_CFLAGS) $(IPV6_CFLAGS) \
                      -DINCLUDE_LOCAL -DINCLUDE_NETWORK
 loader_LDADD       = $(NEWT_LIBS) $(GLIB_LIBS) $(LIBNL_LIBS) \
                      $(LIBNM_GLIB_LIBS) $(CHECKISOMD5_LIBS) \

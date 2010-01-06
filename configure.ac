@@ -171,6 +171,16 @@ if test x$selinux = xyes ; then
     AC_SUBST(NFS_CFLAGS, [-DHAVE_NFS])
 fi
 
+# IPv6 support can be enabled or disabled
+AC_ARG_ENABLE(ipv6,
+    AC_HELP_STRING([--enable-ipv6],
+                   [enable IPv6 support (default is yes)]),
+    [ipv6=$enableval],
+    [ipv6=yes])
+if test x$ipv6 = xyes ; then
+    AC_SUBST(IPV6_CFLAGS, [-DENABLE_IPV6])
+fi
+
 # Add remaining compiler flags we want to use
 CFLAGS="$CFLAGS -Wall -Werror -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE"
 
