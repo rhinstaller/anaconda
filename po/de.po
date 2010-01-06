@@ -26,7 +26,7 @@
 # Dominik Sandjaja <dominiksandjaja@fedoraproject.org>, 2008,2009.
 # Daniela Kugelmann <dkugelma@redhat.com >, 2008.
 # Christof Kälin <christof.kaelin@gmail.com>, 2009.
-# Jens Maucher <jensm@fedoraproject.org>, 2009.
+# Jens Maucher <jensm@fedoraproject.org>, 2009, 2010.
 # Hedda Peters <hpeters@redhat.com>, 2009.
 # Marcus Nitzschke <kenda@fedoraproject.org>, 2009.
 # Cornelius Neckenig <tbull@fedoraproject.org>, 2010.
@@ -36,8 +36,8 @@ msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-01-04 15:51-0500\n"
-"PO-Revision-Date: 2010-01-05 14:08+0100\n"
-"Last-Translator: Cornelius Neckenig <tbull@fedoraproject.org>\n"
+"PO-Revision-Date: 2010-01-06 15:54+0100\n"
+"Last-Translator: Jens Maucher <jensm@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -3754,9 +3754,9 @@ msgid "Unknown driver disk kickstart source: %s"
 msgstr "Ungültige Treiberdiskette im Kickstart-Befehl: %s"
 
 #: loader/driverdisk.c:569
-#, fuzzy, c-format
+#, c-format
 msgid "The following invalid argument was specified for the kickstart driver disk command: %s"
-msgstr "Folgendes ungültiges Argument wurde im Treiberdisketten-Kickstart-Befehl angegeben: %s:%s"
+msgstr "Folgendes ungültiges Argument wurde im Treiberdisketten-Kickstart-Befehl angegeben: %s"
 
 #: loader/driverselect.c:67
 #, c-format
@@ -3818,9 +3818,9 @@ msgid "Device %s does not appear to contain an installation image."
 msgstr "Auf dem Gerät %s scheint sich kein Installationsabbild zu befinden."
 
 #: loader/hdinstall.c:350
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command: %s"
-msgstr "Ungültiges Argument zum HD-Kickstart-Befehl %s: %s"
+msgstr "Ungültiges Argument zum HD-Kickstart-Befehl: %s"
 
 #: loader/hdinstall.c:422
 #: loader/hdinstall.c:478
@@ -3873,9 +3873,9 @@ msgid "Error downloading kickstart file"
 msgstr "Fehler beim Herunterladen der Kickstart-Datei"
 
 #: loader/kickstart.c:511
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command: %s"
-msgstr "Ungültiges Argument zum Abschalten des Schnellstartmethoden-Befehls %s: %s"
+msgstr "Ungültiges Argument zum Abschalten des Schnellstartmethoden-Befehls: %s"
 
 #: loader/lang.c:63
 #: loader/loader.c:224
@@ -4078,9 +4078,9 @@ msgid "Checksum Test"
 msgstr "Prüfsummen-Test"
 
 #: loader/modules.c:382
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command: %s"
-msgstr "Ungültiges Argument zum Treiber-Kickstart-Befehl %s: %s"
+msgstr "Ungültiges Argument zum Treiber-Kickstart-Befehl: %s"
 
 #: loader/modules.c:398
 msgid "A module name must be specified for the kickstart device command."
@@ -4191,9 +4191,9 @@ msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Sie müssen sowohl eine gültige IPv6-Adresse als auch ein CIDR-Präfix eingeben."
 
 #: loader/net.c:1557
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command: %s"
-msgstr "Ungültiges Argument im Kickstart-Netzwerkbefehl %s: %s"
+msgstr "Ungültiges Argument im Kickstart-Netzwerkbefehl: %s"
 
 #: loader/net.c:1578
 #, c-format
@@ -4279,9 +4279,9 @@ msgid "That directory does not seem to contain a %s installation image."
 msgstr "Das Verzeichnis scheint kein %s-Installationsabbild zu enthalten."
 
 #: loader/nfsinstall.c:367
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "Ungültiges Argument im NFS-Kickstart-Befehl %s: %s"
+msgstr "Ungültiges Argument im NFS-Kickstart-Befehl: %s"
 
 #: loader/telnetd.c:89
 #: loader/telnetd.c:128
@@ -4306,9 +4306,9 @@ msgid "Unable to retrieve the install image."
 msgstr "Das Installationsabbilder kann nicht abgerufen werden."
 
 #: loader/urlinstall.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to URL kickstart method command: %s"
-msgstr "Ungültiges Argument im URL-Kickstart-Befehl %s: %s"
+msgstr "Ungültiges Argument im URL-Kickstart-Befehl: %s"
 
 #: loader/urlinstall.c:384
 msgid "Must supply a --url argument to Url kickstart method."
