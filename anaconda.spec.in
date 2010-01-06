@@ -212,6 +212,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 06 2010 Chris Lumens <clumens@redhat.com> - 13.15-1
+- Also remove requirement for libbdevid (hdegoede).
+- Update the python-pyblock version requirement, too. (clumens)
+- Bump the required version numbers on a couple of components. (clumens)
+- ID_BUS is not always defined (on virt, for instance) so handle that.
+  (clumens)
+- opts should always be treated as a list inside isys.mount(). (clumens)
+
 * Mon Jan 04 2010 Chris Lumens <clumens@redhat.com> - 13.14-1
 - Include fontconfig files needed for scaling of Meera fonts (#531742,
   #551363). (clumens)
