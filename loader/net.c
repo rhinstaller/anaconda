@@ -291,7 +291,7 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     if (loaderData->ipv6info_set && loaderData->ipv6 != NULL) {
         if (!strncmp(loaderData->ipv6, "dhcp", 4)) {
             iface->ipv6method = IPV6_DHCP_METHOD;
-        } else if (!strcmp(loaderData->ipv6, "auto", 4)) {
+        } else if (!strncmp(loaderData->ipv6, "auto", 4)) {
             iface->ipv6method = IPV6_AUTO_METHOD;
         } else if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
             memcpy(&iface->ip6addr, &addr6, sizeof(struct in6_addr));

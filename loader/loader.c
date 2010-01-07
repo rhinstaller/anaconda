@@ -687,6 +687,10 @@ static void readNetInfo(struct loaderData_s ** ld) {
     loaderData->layer2 = NULL;
     loaderData->portno = NULL;
     loaderData->macaddr = NULL;
+#ifdef ENABLE_IPV6
+    loaderData->ipv6 = NULL;
+    loaderData->gateway6 = NULL;
+#endif
 
     /*
      * The /tmp/netinfo file is written out by /sbin/init on s390x (which is

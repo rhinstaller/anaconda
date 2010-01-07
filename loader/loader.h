@@ -133,6 +133,7 @@ struct loaderData_s {
 #ifdef ENABLE_IPV6
     char *ipv6;
     int ipv6info_set;
+    char *gateway6;
 #endif
     int mtu;
     int noDns;
