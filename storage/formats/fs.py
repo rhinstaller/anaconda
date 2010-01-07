@@ -1284,7 +1284,7 @@ class NTFS(FS):
     _resizable = True
     _minSize = 1
     _maxSize = 16 * 1024 * 1024
-    _defaultMountOptions = ["defaults"]
+    _defaultMountOptions = ["defaults", "ro"]
     _defaultCheckOptions = ["-c"]
     _packages = ["ntfsprogs"]
     _infofs = "ntfsinfo"
