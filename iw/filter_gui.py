@@ -553,7 +553,10 @@ class FilterWindow(InstallWindow):
                 totalSize += tuple[0]["XXX_SIZE"]
 
         for d in nonraids:
-            partedDevice = parted.Device(path="/dev/" + udev_device_get_name(d))
+            name = udev_device_get_name(d)
+
+            active = name in self.anaconda.id.storage.exclusiveDisks
+            partedDevice = parted.Device(path="/dev/" + name)
             d["XXX_SIZE"] = int(partedDevice.getSize())
 
             # This isn't so great, but for iSCSI devices the path contains a lot
@@ -563,7 +566,7 @@ class FilterWindow(InstallWindow):
             else:
                 ident = udev_device_get_wwid(d)
 
-            tuple = (d, True, False, udev_device_get_name(d),
+            tuple = (d, True, active, name,
                      partedDevice.model, str(d["XXX_SIZE"]) + " MB",
                      udev_device_get_vendor(d), udev_device_get_bus(d),
                      udev_device_get_serial(d), ident, "", "", "", "")
@@ -573,6 +576,7 @@ class FilterWindow(InstallWindow):
             rs.activate(mknod=True, mkparts=False)
             udev_settle()
 
+            active = rs.name in self.anaconda.id.storage.exclusiveDisks
             partedDevice = rs.PedDevice
             size = int(partedDevice.getSize())
             fstype = ""
@@ -589,7 +593,7 @@ class FilterWindow(InstallWindow):
             data = {"XXX_SIZE": size, "ID_FS_TYPE": fstype, "DM_NAME": rs.name,
                     "name": rs.name}
 
-            tuple = (data, True, False, rs.name, partedDevice.model,
+            tuple = (data, True, active, rs.name, partedDevice.model,
                      str(size) + " MB", "", "", "", "", "", "", "", "")
             _addTuple(tuple)
 
@@ -597,14 +601,17 @@ class FilterWindow(InstallWindow):
 
         for mpath in mpaths:
             # We only need to grab information from the first device in the set.
-            partedDevice = parted.Device(path="/dev/" + udev_device_get_name(mpath[0]))
+            name = udev_device_get_name(mpath[0])
+
+            active = name in self.anaconda.id.storage.exclusiveDisks
+            partedDevice = parted.Device(path="/dev/" + name)
             mpath[0]["XXX_SIZE"] = int(partedDevice.getSize())
             model = partedDevice.model
 
             # However, we do need all the paths making up this multipath set.
             paths = "\n".join(map(udev_device_get_name, mpath))
 
-            tuple = (mpath[0], True, False, "", model,
+            tuple = (mpath[0], True, active, "", model,
                      str(mpath[0]["XXX_SIZE"]) + " MB",
                      udev_device_get_vendor(mpath[0]),
                      udev_device_get_bus(mpath[0]),
