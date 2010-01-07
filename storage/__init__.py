@@ -25,6 +25,7 @@ import time
 import stat
 import errno
 import sys
+import statvfs
 
 import nss.nss
 import parted
@@ -1671,6 +1672,11 @@ class FSSet(object):
                 continue
 
             path = "%s/%s" % (chroot, device.format.mountpoint)
+
+            ST_RDONLY = 1   # this should be in python's posix module
+            if os.statvfs(path)[statvfs.F_FLAG] & ST_RDONLY:
+                continue
+
             try:
                 space.append((device.format.mountpoint,
                               isys.pathSpaceAvailable(path)))
