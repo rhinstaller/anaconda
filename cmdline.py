@@ -134,6 +134,16 @@ class InstallInterface:
         while 1:
             time.sleep(5)
 
+    def resetInitializeDiskQuestion(self):
+        pass
+
+    def questionInitializeDisk(self, path, description, size, details=""):
+        print(_("Can't have a question in command line mode!"))
+        print("(questionInitializeDisk)")
+        # don't exit
+        while 1:
+            time.sleep(5)
+
     def mainExceptionWindow(self, shortText, longTextFile):
         print(shortText)
 

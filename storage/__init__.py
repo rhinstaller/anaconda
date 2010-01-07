@@ -78,6 +78,9 @@ def storageInitialize(anaconda):
     #     populate the udev db
     udev_trigger(subsystem="block", action="change")
 
+
+    anaconda.intf.resetInitializeDiskQuestion()
+
     # Set up the protected partitions list now.
     if os.path.exists("/dev/live") and \
        stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):

@@ -126,41 +126,6 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
 
     return (passphrase, isglobal)
 
-# Don't really know where to put this.
-def questionInitializeDisk(intf=None, path=None, description=None):
-    retVal = False # The less destructive default
-    if not intf or not path:
-        pass
-    else:
-        if not path.startswith('/dev/'):
-            path = '/dev/' + path
-
-        dev = parted.getDevice(path)
-        bypath = os.path.basename(deviceNameToDiskByPath(path))
-        details = ""
-
-        if description is None:
-            description = dev.model
-
-        if bypath:
-            details = "\n\nDevice details:\n%s" % (bypath,)
-
-        rc = intf.messageWindow(_("Warning"),
-                _("Error processing drive:\n\n"
-                  "%(path)s\n%(size)-0.fMB\n%(description)s\n\n"
-                  "This device may need to be reinitialized.\n\n"
-                  "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!%(details)s")
-                % {'path': path, 'size': dev.getSize(),
-                   'description': description, 'details': details},
-                type="custom",
-                custom_buttons = [ _("_Ignore drive"),
-                                   _("_Re-initialize drive") ],
-                custom_icon="question")
-        if rc == 0:
-            pass
-        else:
-            retVal = True
-    return retVal
 
 def questionReinitILVM(intf=None, pv_names=None, lv_name=None, vg_name=None):
     retVal = False # The less destructive default
@@ -1364,8 +1329,18 @@ class DeviceTree(object):
         if self.zeroMbr:
             initcb = lambda: True
         else:
-            initcb = lambda: questionInitializeDisk(self.intf, device.path,
-                                                    device.description)
+            path = device.path
+            description = device.description or device.model
+            bypath = os.path.basename(deviceNameToDiskByPath(path))
+            if bypath:
+                details = "\n\nDevice details:\n%s" % (bypath,)
+            else:
+                details = ""
+
+            initcb = lambda: self.intf.questionInitializeDisk(path,
+                                                              description,
+                                                              device.size,
+                                                              details)
 
         try:
             format = getFormat("disklabel",

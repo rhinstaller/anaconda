@@ -987,6 +987,7 @@ class InstallInterface:
         root = gtk.gdk.get_default_root_window()
         cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
         root.set_cursor(cursor)
+        self._initLabelAnswers = {}
 
     def __del__ (self):
         pass
@@ -1122,6 +1123,42 @@ class InstallInterface:
         rc = d.run()
         d.destroy()
         return rc
+
+    def resetInitializeDiskQuestion(self):
+        self._initLabelAnswers = {}
+
+    def questionInitializeDisk(self, path, description, size, details=""):
+
+        retVal = False # The less destructive default
+
+        if not path:
+            return retVal
+
+        # we are caching answers so that we don't
+        # ask in each storage.reset() again
+        if path in self._initLabelAnswers:
+            log.info("UI not asking about disk initialization, "
+                     "using cached answer: %s" % self._initLabelAnswers[path])
+            return self._initLabelAnswers[path]
+
+        rc = self.messageWindow(_("Warning"),
+                _("Error processing drive:\n\n"
+                  "%(path)s\n%(size)-0.fMB\n%(description)s\n\n"
+                  "This device may need to be reinitialized.\n\n"
+                  "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!%(details)s")
+                % {'path': path, 'size': size,
+                   'description': description, 'details': details},
+                type="custom",
+                custom_buttons = [ _("_Ignore drive"),
+                                   _("_Re-initialize drive") ],
+                custom_icon="question")
+        if rc == 0:
+            pass
+        else:
+            retVal = True
+
+        self._initLabelAnswers[path] = retVal
+        return retVal
 
     def beep(self):
         gtk.gdk.beep()
