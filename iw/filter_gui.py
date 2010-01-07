@@ -376,7 +376,7 @@ class FilterWindow(InstallWindow):
                                              custom_icon="error")
             raise gui.StayOnScreen
 
-        self.anaconda.id.storage.exclusiveDisks.extend(list(selected))
+        self.anaconda.id.storage.exclusiveDisks = list(selected)
 
     def _add_advanced_clicked(self, button):
         from advanced_storage import addDrive
