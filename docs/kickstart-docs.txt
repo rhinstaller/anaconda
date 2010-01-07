@@ -207,6 +207,12 @@ Creating the Kickstart File
             Upgrade the existing boot loader configuration, preserving the
             old entries. This option is only available for upgrades.
 
+       --hvargs
+            If using GRUB, specifies xen hypervisor arguments. To specify
+            multiple parameters, separate them with spaces. For example:
+
+            bootloader --hvargs="dom0_mem=2G dom0_max_vcpus=4"
+
    clearpart (optional)
 
        Removes partitions from the system, prior to creation of new
