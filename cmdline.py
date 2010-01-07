@@ -144,6 +144,16 @@ class InstallInterface:
         while 1:
             time.sleep(5)
 
+    def resetReinitInconsistentLVMQuestion(self):
+        pass
+
+    def questionReinitInconsistentLVM(self, pv_names=None, lv_name=None, vg_name=None):
+        print(_("Can't have a question in command line mode!"))
+        print("(questionReinitInconsistentLVM)")
+        # don't exit
+        while 1:
+            time.sleep(5)
+
     def mainExceptionWindow(self, shortText, longTextFile):
         print(shortText)
 

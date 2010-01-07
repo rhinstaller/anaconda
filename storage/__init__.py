@@ -80,6 +80,7 @@ def storageInitialize(anaconda):
 
 
     anaconda.intf.resetInitializeDiskQuestion()
+    anaconda.intf.resetReinitInconsistentLVMQuestion()
 
     # Set up the protected partitions list now.
     if os.path.exists("/dev/live") and \

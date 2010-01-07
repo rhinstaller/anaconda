@@ -127,34 +127,6 @@ def getLUKSPassphrase(intf, device, globalPassphrase):
     return (passphrase, isglobal)
 
 
-def questionReinitILVM(intf=None, pv_names=None, lv_name=None, vg_name=None):
-    retVal = False # The less destructive default
-    if not intf or not pv_names or (lv_name is None and vg_name is None):
-        pass
-    else:
-        if vg_name is not None:
-            message = "Volume Group %s" % vg_name
-        elif lv_name is not None:
-            message = "Logical Volume %s" % lv_name
-
-        na = {'msg': message, 'pvs': ", ".join(pv_names)}
-        rc = intf.messageWindow(_("Warning"),
-                  _("Error processing LVM.\n"
-                    "There is inconsistent LVM data on %(msg)s.  You can "
-                    "reinitialize all related PVs (%(pvs)s) which will erase "
-                    "the LVM metadata, or ignore which will preserve the "
-                    "contents.") % na,
-                type="custom",
-                custom_buttons = [ _("_Ignore"),
-                                   _("_Re-initialize") ],
-                custom_icon="question")
-        if rc == 0:
-            pass
-        else:
-            retVal = True # thie means clobber.
-
-    return retVal
-
 class DeviceTree(object):
     """ A quasi-tree that represents the devices in the system.
 
@@ -1802,17 +1774,19 @@ class DeviceTree(object):
 
         def leafInconsistencies(device):
             if device.type == "lvmvg":
+                if device.complete:
+                    return
+
                 paths = []
                 for parent in device.parents:
                     paths.append(parent.path)
 
-                # when zeroMbr is true he wont ask.
-                if not device.complete and (self.zeroMbr or \
-                        questionReinitILVM(intf=self.intf, \
-                            vg_name=device.name, pv_names=paths)):
+                # if zeroMbr is true don't ask.
+                if (self.zeroMbr or
+                    self.intf.questionReinitInconsistentLVM(pv_names=paths,
+                                                            vg_name=device.name)):
                     reinitializeVG(device)
-
-                elif not device.complete:
+                else:
                     # The user chose not to reinitialize.
                     # hopefully this will ignore the vg components too.
                     self._removeDevice(device)
@@ -1827,21 +1801,21 @@ class DeviceTree(object):
                             self.addIgnoredDisk(parent.name)
                         lvm.lvm_cc_addFilterRejectRegexp(parent.name)
 
-                return
-
             elif device.type == "lvmlv":
                 # we might have already fixed this.
                 if device not in self._devices or \
                         device.name in self._ignoredDisks:
+                    return
+                if device.complete:
                     return
 
                 paths = []
                 for parent in device.vg.parents:
                     paths.append(parent.path)
 
-                if not device.complete and (self.zeroMbr or \
-                    questionReinitILVM(intf=self.intf, \
-                        lv_name=device.name, pv_names=paths)):
+                if (self.zeroMbr or
+                    self.intf.questionReinitInconsistentLVM(pv_names=paths,
+                                                            lv_name=device.name)):
 
                     # destroy all lvs.
                     for lv in device.vg.lvs:
@@ -1856,8 +1830,7 @@ class DeviceTree(object):
                         self._removeDevice(lv)
 
                     reinitializeVG(device.vg)
-
-                elif not device.complete:
+                else:
                     # ignore all the lvs.
                     for lv in device.vg.lvs:
                         self._removeDevice(lv)
@@ -1875,7 +1848,6 @@ class DeviceTree(object):
                             self._removeDevice(parent, moddisk=False)
                             self.addIgnoredDisk(parent.name)
                         lvm.lvm_cc_addFilterRejectRegexp(parent.name)
-                return
 
         # Address the inconsistencies present in the tree leaves.
         for leaf in self.leaves:

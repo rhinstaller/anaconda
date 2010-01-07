@@ -988,6 +988,7 @@ class InstallInterface:
         cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
         root.set_cursor(cursor)
         self._initLabelAnswers = {}
+        self._inconsistentLVMAnswers = {}
 
     def __del__ (self):
         pass
@@ -1158,6 +1159,50 @@ class InstallInterface:
             retVal = True
 
         self._initLabelAnswers[path] = retVal
+        return retVal
+
+    def resetReinitInconsistentLVMQuestion(self):
+        self._inconsistentLVMAnswers = {}
+
+    def questionReinitInconsistentLVM(self, pv_names=None, lv_name=None, vg_name=None):
+
+        retVal = False # The less destructive default
+
+        if not pv_names or (lv_name is None and vg_name is None):
+            return retVal
+
+        # We are caching answers so that we don't ask for ignoring
+        # in each storage.reset() again (note that reinitialization is
+        # done right after confirmation in dialog, not as a planned
+        # action).
+        key = frozenset(pv_names)
+        if key in self._inconsistentLVMAnswers:
+            log.info("UI not asking about disk initialization, "
+                     "using cached answer: %s" % self._inconsistentLVMAnswers[key])
+            return self._inconsistentLVMAnswers[key]
+
+        if vg_name is not None:
+            message = "Volume Group %s" % vg_name
+        elif lv_name is not None:
+            message = "Logical Volume %s" % lv_name
+
+        na = {'msg': message, 'pvs': ", ".join(pv_names)}
+        rc = self.messageWindow(_("Warning"),
+                  _("Error processing LVM.\n"
+                    "There is inconsistent LVM data on %(msg)s.  You can "
+                    "reinitialize all related PVs (%(pvs)s) which will erase "
+                    "the LVM metadata, or ignore which will preserve the "
+                    "contents.") % na,
+                type="custom",
+                custom_buttons = [ _("_Ignore"),
+                                   _("_Re-initialize") ],
+                custom_icon="question")
+        if rc == 0:
+            pass
+        else:
+            retVal = True # this means clobber.
+
+        self._inconsistentLVMAnswers[key] = retVal
         return retVal
 
     def beep(self):
