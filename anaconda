@@ -302,6 +302,7 @@ def setupEnvironment():
 def setupLoggingFromOpts(opts):
     if opts.loglevel and logLevelMap.has_key(opts.loglevel):
         level = logLevelMap[opts.loglevel]
+        logger.loglevel = level
         setHandlersLevel(log, level)
         setHandlersLevel(storage.storage_log.logger, level)
 

@@ -632,6 +632,7 @@ class AnacondaYum(YumSorter):
         logger.setLevel(yum.logginglevels.INFO_2)
         logger.addHandler(file_handler)
         anaconda_log.autoSetLevel(tty3_handler, True)
+        tty3_handler.setLevel(anaconda_log.logger.loglevel)
         logger.addHandler(tty3_handler)
 
         # XXX filelogger is set in setFileLog - do we or user want it?
