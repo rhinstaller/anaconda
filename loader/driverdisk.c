@@ -119,7 +119,7 @@ int dlabelFilter(const char* name, const struct stat *fstat, void *userptr)
 {
     int l = strlen(name);
 
-    logMessage(DEBUGLVL, "Unpacking %s (%lluB)\n", name, fstat->st_size);
+    logMessage(DEBUGLVL, "Unpacking %s (%luB)\n", name, fstat->st_size);
 
     /* we want firmware files */
     if (!strncmp("lib/firmware/", name, 13)) return 0; 
