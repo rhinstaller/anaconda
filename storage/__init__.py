@@ -1564,7 +1564,7 @@ class FSSet(object):
         # the device's format we found matches what's in the fstab
         fmt = getFormat(fstype, device=device.path)
         if fmt.type != device.format.type:
-            log.warning("scanned format (%s) differs from fstab "
+            raise StorageError("scanned format (%s) differs from fstab "
                         "format (%s)" % (device.format.type, fstype))
 
         if device.format.mountable:
