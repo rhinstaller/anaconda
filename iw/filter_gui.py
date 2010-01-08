@@ -552,10 +552,19 @@ class FilterWindow(InstallWindow):
                 totalDevices += 1
                 totalSize += tuple[0]["XXX_SIZE"]
 
+        def _active(name):
+            if self.anaconda.id.storage.exclusiveDisks and \
+               name in self.anaconda.id.storage.exclusiveDisks:
+                return True
+            elif self.anaconda.id.storage.ignoredDisks and \
+                name not in self.anaconda.id.storage.ignoredDisks:
+                return True
+            else:
+                return False
+
         for d in nonraids:
             name = udev_device_get_name(d)
 
-            active = name in self.anaconda.id.storage.exclusiveDisks
             partedDevice = parted.Device(path="/dev/" + name)
             d["XXX_SIZE"] = int(partedDevice.getSize())
 
@@ -566,7 +575,7 @@ class FilterWindow(InstallWindow):
             else:
                 ident = udev_device_get_wwid(d)
 
-            tuple = (d, True, active, name,
+            tuple = (d, True, _active(name), name,
                      partedDevice.model, str(d["XXX_SIZE"]) + " MB",
                      udev_device_get_vendor(d), udev_device_get_bus(d),
                      udev_device_get_serial(d), ident, "", "", "", "")
@@ -576,7 +585,6 @@ class FilterWindow(InstallWindow):
             rs.activate(mknod=True, mkparts=False)
             udev_settle()
 
-            active = rs.name in self.anaconda.id.storage.exclusiveDisks
             partedDevice = rs.PedDevice
             size = int(partedDevice.getSize())
             fstype = ""
@@ -593,7 +601,7 @@ class FilterWindow(InstallWindow):
             data = {"XXX_SIZE": size, "ID_FS_TYPE": fstype, "DM_NAME": rs.name,
                     "name": rs.name}
 
-            tuple = (data, True, active, rs.name, partedDevice.model,
+            tuple = (data, True, _active(name), rs.name, partedDevice.model,
                      str(size) + " MB", "", "", "", "", "", "", "", "")
             _addTuple(tuple)
 
@@ -603,7 +611,6 @@ class FilterWindow(InstallWindow):
             # We only need to grab information from the first device in the set.
             name = udev_device_get_name(mpath[0])
 
-            active = name in self.anaconda.id.storage.exclusiveDisks
             partedDevice = parted.Device(path="/dev/" + name)
             mpath[0]["XXX_SIZE"] = int(partedDevice.getSize())
             model = partedDevice.model
@@ -611,7 +618,7 @@ class FilterWindow(InstallWindow):
             # However, we do need all the paths making up this multipath set.
             paths = "\n".join(map(udev_device_get_name, mpath))
 
-            tuple = (mpath[0], True, active, "", model,
+            tuple = (mpath[0], True, _active(name), "", model,
                      str(mpath[0]["XXX_SIZE"]) + " MB",
                      udev_device_get_vendor(mpath[0]),
                      udev_device_get_bus(mpath[0]),
