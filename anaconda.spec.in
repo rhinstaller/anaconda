@@ -216,6 +216,36 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jan 08 2010 David Cantrell <dcantrell@redhat.com> - 13.17-1
+- fstat->st_size is a long unsigned int, not a long long unsigned int.
+  (dcantrell)
+- Use libarchive and rpm pkg-config files during build. (dcantrell)
+- Take ignoredDisks into account on the filter screen as well. (clumens)
+- Don't wait on the filtertype screen on kickstart installs. (clumens)
+- Our overridden AutoPart class must be mentioned in commandMap. (clumens)
+- Reword filter UI introductory text to be less confusing. (clumens)
+- Install the driver discs according to what was loaded in stage1 (msivak)
+- Use the updated DriverDisc code in loader (msivak)
+- Backport the RHEL5 DriverDisc functionality (msivak)
+- Include depmod in stage1 and set it to prefer the DD directory (msivak)
+- Add a function to get paths to loaded modules (msivak)
+- Add rpm extraction routines (use librpm and libarchive) (msivak)
+- Add DriverDisc v3 documentation (msivak)
+- When displaying the filter UI, check devices that are in exclusiveDisks.
+  (clumens)
+- get rid of global import of anaconda_log (akozumpl)
+- introduce loglevel flag and use it in yum's tty3 logging (akozumpl)
+- Remove LoggerClass but maintain loglevel= functionality (akozumpl)
+- Do not duplicate exclusiveDisks when going back to filtering UI. (rvykydal)
+- Fixes problems in the manual network configuration screen in loader with
+  IPv6. (akozumpl)
+- Bring back missing IPv6 pieces that were lost in time. (dcantrell)
+- Add configuration option to enable/disable IPv6 support. (dcantrell)
+- Ask about LVM inconsistencies only in storageinit step. (rvykydal)
+- Ask about disk initialization only in storageinit step. (rvykydal)
+- Fix partition request sorting based on number of allowed disks. (#540869)
+  (dlehman)
+
 * Wed Jan 06 2010 Chris Lumens <clumens@redhat.com> - 13.16-1
 - Add libblkid as a BuildRequires. (clumens)
 
