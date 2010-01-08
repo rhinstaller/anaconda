@@ -1006,6 +1006,7 @@ class ZFCP(commands.zfcp.FC3_ZFCP):
 commandMap = {
         "auth": Authconfig,
         "authconfig": Authconfig,
+        "autopart": AutoPart,
         "autostep": AutoStep,
         "bootloader": Bootloader,
         "clearpart": ClearPart,
