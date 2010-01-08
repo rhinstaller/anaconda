@@ -63,6 +63,7 @@ class AnacondaSyslogHandler(SysLogHandler):
 class AnacondaLog:
     def __init__ (self, minLevel=DEFAULT_LEVEL):
         self.loglevel = logging.DEBUG
+        self.remote_syslog = None
         # Create the base of the logger hierarcy.
         self.logger = logging.getLogger("anaconda")
         self.logger.setLevel(logging.DEBUG)

@@ -308,6 +308,7 @@ def setupLoggingFromOpts(opts):
         anaconda_log.setHandlersLevel(storage.storage_log.logger, level)
 
     if opts.syslog:
+        anaconda_log.logger.remote_syslog = opts.syslog
         if opts.syslog.find(":") != -1:
             (host, port) = opts.syslog.split(":")
             anaconda_log.logger.addSysLogHandler(log, host, port=int(port))
