@@ -329,7 +329,7 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
 
 class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def parse(self, args):
-        retval = commands.clearpart.F8_IgnoreDisk.parse(self, args)
+        retval = commands.ignoredisk.F8_IgnoreDisk.parse(self, args)
 
         # See comment in ClearPart.parse
         drives = []
@@ -1393,11 +1393,17 @@ def setSteps(anaconda):
     # Storage is initialized for us right when kickstart processing starts.
     dispatch.skipStep("storageinit")
 
-    # Don't show confirmation screens on non-interactive installs.
     if not interactive:
+        # Don't show confirmation screens on non-interactive installs.
         dispatch.skipStep("confirminstall")
         dispatch.skipStep("confirmupgrade")
         dispatch.skipStep("welcome")
+
+        # Since ignoredisk is optional and not specifying it means you want to
+        # consider all possible disks, we should not stop on the filter steps
+        # unless it's an interactive install.
+        dispatch.skipStep("filter")
+        dispatch.skipStep("filtertype")
 
     # Make sure to automatically reboot even in interactive if told to.
     if interactive and ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
