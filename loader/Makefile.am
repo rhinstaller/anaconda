@@ -40,13 +40,12 @@ endif
 COMMON_CFLAGS      = -DUSE_LOGDEV -DVERSION='"$(PACKAGE_VERSION)"'
 
 loader_CFLAGS      = $(COMMON_CFLAGS) $(GLIB_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
-                     $(LIBCURL_CFLAGS) $(IPV6_CFLAGS) \
-                     -DINCLUDE_LOCAL -DINCLUDE_NETWORK
+                     $(LIBCURL_CFLAGS) $(IPV6_CFLAGS) $(LIBARCHIVE_CFLAGS) \
+                     $(RPM_CFLAGS) -DINCLUDE_LOCAL -DINCLUDE_NETWORK
 loader_LDADD       = $(NEWT_LIBS) $(GLIB_LIBS) $(LIBNL_LIBS) \
                      $(LIBNM_GLIB_LIBS) $(CHECKISOMD5_LIBS) \
-                     $(LIBCURL_LIBS) \
-                     $(ISCSI_LIBS) $(top_srcdir)/isys/libisys.la \
-                     -lrpm -lrpmio -larchive
+                     $(LIBCURL_LIBS) $(LIBARCHIVE_LIBS) $(RPM_LIBS) \
+                     $(ISCSI_LIBS) $(top_srcdir)/isys/libisys.la
 loader_SOURCES     = loader.c copy.c log.c moduleinfo.c loadermisc.c \
                      modules.c windows.c lang.c kbd.c driverdisk.c \
                      selinux.c mediacheck.c kickstart.c driverselect.c \
