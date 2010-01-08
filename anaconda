@@ -300,18 +300,18 @@ def setupEnvironment():
     os.environ["PIXMAPPATH"] = "/tmp/updates/pixmaps/:/tmp/updates/:/tmp/product/pixmaps/:/tmp/product/:pixmaps/:/usr/share/anaconda/pixmaps/:/usr/share/pixmaps/:/usr/share/anaconda/:/usr/share/python-meh/"
 
 def setupLoggingFromOpts(opts):
-    if opts.loglevel and logLevelMap.has_key(opts.loglevel):
-        level = logLevelMap[opts.loglevel]
-        logger.loglevel = level
-        setHandlersLevel(log, level)
-        setHandlersLevel(storage.storage_log.logger, level)
+    if opts.loglevel and anaconda_log.logLevelMap.has_key(opts.loglevel):
+        level = anaconda_log.logLevelMap[opts.loglevel]
+        anaconda_log.logger.loglevel = level
+        anaconda_log.setHandlersLevel(log, level)
+        anaconda_log.setHandlersLevel(storage.storage_log.logger, level)
 
     if opts.syslog:
         if opts.syslog.find(":") != -1:
             (host, port) = opts.syslog.split(":")
-            logger.addSysLogHandler(log, host, port=int(port))
+            anaconda_log.logger.addSysLogHandler(log, host, port=int(port))
         else:
-            logger.addSysLogHandler(log, opts.syslog)
+            anaconda_log.logger.addSysLogHandler(log, opts.syslog)
 
 def getInstClass():
     from installclass import DefaultInstall
@@ -574,7 +574,7 @@ if __name__ == "__main__":
 
     # Set up logging as early as possible.
     import logging
-    from anaconda_log import logger, logLevelMap, setHandlersLevel
+    import anaconda_log
 
     log = logging.getLogger("anaconda")
     stdoutLog = logging.getLogger("anaconda.stdout")
@@ -615,7 +615,7 @@ if __name__ == "__main__":
     anaconda.platform = platform.getPlatform(anaconda)
 
     if not iutil.isS390() and os.access("/dev/tty3", os.W_OK):
-        logger.addFileHandler ("/dev/tty3", log)
+        anaconda_log.logger.addFileHandler ("/dev/tty3", log)
 
     warnings.showwarning = AnacondaShowWarning
 
