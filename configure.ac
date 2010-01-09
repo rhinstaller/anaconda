@@ -136,7 +136,7 @@ PKG_CHECK_MODULES([LIBNL], [libnl-1 >= 1.0])
 PKG_CHECK_MODULES([LIBNM_GLIB], [libnm-glib >= 0.7.1])
 PKG_CHECK_MODULES([DEVMAPPER], [devmapper >= 1.02.17])
 PKG_CHECK_MODULES([LIBCURL], [libcurl >= 7.19.5])
-PKG_CHECK_MODULES([RPM], [rpm >= 4.8.0-beta1])
+PKG_CHECK_MODULES([RPM], [rpm >= 4.8.0])
 PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 2.7.902a])
 
 # Set $RPM_OPT_FLAGS if we don't have it
