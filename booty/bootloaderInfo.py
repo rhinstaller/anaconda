@@ -91,7 +91,7 @@ class KernelArguments:
         types = {}
         root = self.id.storage.rootDevice
         for d in self.id.storage.devices:
-            if not root.dependsOn(d):
+            if d is not root and not root.dependsOn(d):
                 continue
 
             s = d.dracutSetupString()
