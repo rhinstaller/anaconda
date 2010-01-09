@@ -216,6 +216,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jan 08 2010 David Cantrell <dcantrell@redhat.com> - 13.18-1
+- RPM version check correction. (dcantrell)
+
 * Fri Jan 08 2010 David Cantrell <dcantrell@redhat.com> - 13.17-1
 - fstat->st_size is a long unsigned int, not a long long unsigned int.
   (dcantrell)
