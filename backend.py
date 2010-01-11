@@ -106,10 +106,11 @@ class AnacondaBackend:
             shutil.copytree(d, anaconda.rootPath + "/root/" + os.path.basename(d))
 
         #copy modules and firmware
-        try:
-            shutil.copytree(DD_EXTRACTED, anaconda.rootPath + "/root/DD")
-        except IOError, e:
-            pass
+        if os.path.exists(DD_EXTRACTED):
+            try:
+                shutil.copytree(DD_EXTRACTED, anaconda.rootPath + "/root/DD")
+            except IOError, e:
+                pass
 
         storage.writeEscrowPackets(anaconda)
 
