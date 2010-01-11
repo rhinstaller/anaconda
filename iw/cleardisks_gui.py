@@ -143,6 +143,10 @@ class ClearDisksWindow (InstallWindow):
         self.addButton.connect("clicked", self._add_clicked)
         self.removeButton.connect("clicked", self._remove_clicked)
 
+        # Also allow moving devices back and forth with double click, enter, etc.
+        self.leftTreeView.connect("row-activated", self._add_clicked)
+        self.rightTreeView.connect("row-activated", self._remove_clicked)
+
         if self.anaconda.id.storage.clearPartType == CLEARPART_TYPE_LINUX:
             self.installTargetTip.set_markup(_("<b>Tip:</b> All Linux filesystems on install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
         elif self.anaconda.id.storage.clearPartType == CLEARPART_TYPE_ALL:
@@ -152,7 +156,7 @@ class ClearDisksWindow (InstallWindow):
 
         return self.vbox
 
-    def _add_clicked(self, button):
+    def _add_clicked(self, widget, *args, **kwargs):
         (filteredModel, filteredIter) = self.leftTreeView.get_selection().get_selected()
 
         if not filteredIter:
@@ -174,7 +178,7 @@ class ClearDisksWindow (InstallWindow):
         self.leftFilteredModel.refilter()
         self.rightFilteredModel.refilter()
 
-    def _remove_clicked(self, button):
+    def _remove_clicked(self, widget, *args, **kwargs):
         (filteredModel, filteredIter) = self.rightTreeView.get_selection().get_selected()
 
         if not filteredIter:
