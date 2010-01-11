@@ -143,6 +143,7 @@ class DeviceSelector(DeviceDisplayer):
 
         self.view.append_column(col)
         self.view.set_headers_clickable(True)
+        self.view.connect("row-activated", self._row_activated, toggledCB, radioButton)
 
     def _all_clicked(self, button, cb=None):
         # This is called when the Add/Remove all button is checked and does
@@ -166,6 +167,11 @@ class DeviceSelector(DeviceDisplayer):
 
         set = button.get_active()
         self.store.foreach(_toggle_all, set)
+
+    def _row_activated(self, view, row, col, cb, isRadio):
+        # This is called when a row is double-clicked, or selected via space or
+        # enter.  We just want to do the same as if the checkbox were clicked.
+        self._device_toggled(None, row, cb, isRadio)
 
     def _device_toggled(self, button, row, cb, isRadio):
         # This is called when the checkbox for a device is clicked or unclicked.
