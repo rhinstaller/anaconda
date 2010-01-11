@@ -147,6 +147,10 @@ class ClearDisksWindow (InstallWindow):
         self.leftTreeView.connect("row-activated", self._add_clicked)
         self.rightTreeView.connect("row-activated", self._remove_clicked)
 
+        # And let the user select multiple devices at a time.
+        self.leftTreeView.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
+        self.rightTreeView.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
+
         if self.anaconda.id.storage.clearPartType == CLEARPART_TYPE_LINUX:
             self.installTargetTip.set_markup(_("<b>Tip:</b> All Linux filesystems on install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
         elif self.anaconda.id.storage.clearPartType == CLEARPART_TYPE_ALL:
@@ -157,49 +161,71 @@ class ClearDisksWindow (InstallWindow):
         return self.vbox
 
     def _add_clicked(self, widget, *args, **kwargs):
-        (filteredModel, filteredIter) = self.leftTreeView.get_selection().get_selected()
+        (filteredModel, pathlist) = self.leftTreeView.get_selection().get_selected_rows()
 
-        if not filteredIter:
+        if not pathlist:
             return
 
-        # If this is the first row going into the rightDS, it should be checked
-        # by default.
+        # If there aren't any rows in the right side to begin with, activate
+        # the first one in the list after the selection has been applied.
         if self.rightDS.getNVisible() == 0:
-            active = True
+            setFirstActive = True
         else:
-            active = False
+            setFirstActive = False
 
-        sortedIter = self.leftFilteredModel.convert_iter_to_child_iter(filteredIter)
+        for path in reversed(pathlist):
+            filteredIter = filteredModel.get_iter(path)
+            if not filteredIter:
+                continue
 
-        self.store.set_value(sortedIter, self.leftVisible, False)
-        self.store.set_value(sortedIter, self.rightVisible, True)
-        self.store.set_value(sortedIter, self.rightActive, active)
+            sortedIter = self.leftFilteredModel.convert_iter_to_child_iter(filteredIter)
+
+            self.store.set_value(sortedIter, self.leftVisible, False)
+            self.store.set_value(sortedIter, self.rightVisible, True)
+            self.store.set_value(sortedIter, self.rightActive, False)
+
+        if setFirstActive:
+            i = 0
+
+            while not self.store[0][self.rightVisible]:
+                i += 1
+
+            self.store[i][self.rightActive] = True
 
         self.leftFilteredModel.refilter()
         self.rightFilteredModel.refilter()
 
     def _remove_clicked(self, widget, *args, **kwargs):
-        (filteredModel, filteredIter) = self.rightTreeView.get_selection().get_selected()
+        (filteredModel, pathlist) = self.rightTreeView.get_selection().get_selected_rows()
 
-        if not filteredIter:
+        if not pathlist:
             return
 
-        sortedIter = self.rightFilteredModel.convert_iter_to_child_iter(filteredIter)
+        setFirstActive = False
 
-        # If we're removing a row that was checked and there are other rows
-        # available, check the first visible one.
-        if self.store.get_value(sortedIter, self.rightActive) and self.rightDS.getNVisible() > 1:
+        for path in reversed(pathlist):
+            filteredIter = filteredModel.get_iter(path)
+            if not filteredIter:
+                continue
+
+            sortedIter = self.rightFilteredModel.convert_iter_to_child_iter(filteredIter)
+
+            # If we're removing a row that was checked, try to set the first
+            # visible one to active after the selection is applied.
+            if self.store.get_value(sortedIter, self.rightActive):
+                setFirstActive = True
+
+            self.store.set_value(sortedIter, self.leftVisible, True)
+            self.store.set_value(sortedIter, self.rightVisible, False)
+            self.store.set_value(sortedIter, self.rightActive, False)
+
+        if self.rightDS.getNVisible() > 0 and setFirstActive:
             i = 0
 
-            # Make sure to skip the current row, of course.
-            while not self.store[i][self.rightVisible] or self.store[i][0] == self.store[sortedIter][0]:
+            while not self.store[0][self.rightVisible]:
                 i += 1
 
             self.store[i][self.rightActive] = True
-
-        self.store.set_value(sortedIter, self.leftVisible, True)
-        self.store.set_value(sortedIter, self.rightVisible, False)
-        self.store.set_value(sortedIter, self.rightActive, False)
 
         self.leftFilteredModel.refilter()
         self.rightFilteredModel.refilter()
