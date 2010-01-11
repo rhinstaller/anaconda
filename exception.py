@@ -39,9 +39,9 @@ class AnacondaExceptionHandler(ExceptionHandler):
         # See if /mnt/sysimage is present and put exception there as well
         if os.access("/mnt/sysimage/root", os.X_OK):
             try:
-                shutil.copyfile("/tmp/anacdump.txt", "/mnt/sysimage/root/anacdump.txt")
+                shutil.copyfile(self.exnFile, "/mnt/sysimage/root/%s" % self.exnFile)
             except:
-                log.error("Failed to copy anacdump.txt to /mnt/sysimage/root")
+                log.error("Failed to copy %s to /mnt/sysimage/root" % self.exnFile)
                 pass
 
         # run kickstart traceback scripts (if necessary)
