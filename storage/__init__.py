@@ -411,6 +411,9 @@ class Storage(object):
 
             Ignored devices are not included, nor disks with no media present.
 
+            Devices of types for which partitioning is not supported are also
+            not included.
+
             This is based on the current state of the device tree and
             does not necessarily reflect the actual on-disk state of the
             system's disks.

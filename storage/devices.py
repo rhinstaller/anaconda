@@ -734,7 +734,8 @@ class StorageDevice(Device):
 
     @property
     def partitioned(self):
-        return self.format.type == "disklabel"
+        return self.format.type == "disklabel" and self.partitionable
+
 
 class DiskDevice(StorageDevice):
     """ A disk """
