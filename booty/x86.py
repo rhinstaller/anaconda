@@ -25,8 +25,8 @@ class x86BootloaderInfo(efiBootloaderInfo):
             self.password = val
             self.pure = None
         else:
-            salt = "$1$"
-            saltLen = 8
+            salt = "$6$"
+            saltLen = 16
 
             saltchars = string.letters + string.digits + './'
             for i in range(saltLen):
