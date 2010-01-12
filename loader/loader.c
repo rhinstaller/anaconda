@@ -2010,6 +2010,14 @@ int main(int argc, char ** argv) {
 
     busProbe(FL_NOPROBE(flags));
 
+    /* HAL daemon */
+    if (!FL_TESTING(flags)) {
+        if (fork() == 0) {
+            execl("/sbin/hald", "/sbin/hald", "--use-syslog", NULL);
+            doExit(1);
+        }
+    }
+
     /* Disable all network interfaces in NetworkManager by default */
 #if !defined(__s390__) && !defined(__s390x__)
     int i;
