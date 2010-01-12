@@ -232,7 +232,11 @@ fi
 if [ -n "$UPDATES" ]; then UPDATES="--updates $UPDATES"; fi
 
 echo "Building images..."
-$UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --imgdir $TREEDIR/install $yumconf || die "upd-instroot failed"
+if [ -z "$DEBUGSTR" ]; then
+    $UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --imgdir $TREEDIR/install $yumconf || die "upd-instroot failed"
+else
+    /bin/sh -x $UPD_INSTROOT $DEBUGSTR $NOGRSTR --arch $BUILDARCH $UPDATES --imgdir $TREEDIR/install $yumconf || die "upd-instroot failed"
+fi
 
 echo "Writing .treeinfo file..."
 # NOTE --arch must match MK_IMAGES or the resulting treeinfo will be invalid
@@ -241,7 +245,11 @@ $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$
 # FIXME: need to update mk-images to take the yumconf
 echo "Making images: $PWD"
 echo $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf
-$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
+if [ -z "$DEBUGSTR" ]; then
+    $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
+else
+    /bin/sh -x $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
+fi
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BASEARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
