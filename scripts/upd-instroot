@@ -283,9 +283,16 @@ KEEPFILE=${TMPDIR:-/tmp}/keepfile.$$
 cat > $KEEPFILE <<EOF
 $LIBDIR/bdevid
 $LIBDIR/dbus-1
+$LIBDIR/libfreebl3.so
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
+$LIBDIR/libnss3.so
+$LIBDIR/libnssckbi.so
+$LIBDIR/libnsspem.so
 $LIBDIR/libwrap*.so*
+$LIBDIR/libsmime3.so
+$LIBDIR/libsoftokn3.so
+$LIBDIR/libssl3.so
 $LIBDIR/security/pam_*
 bin/arch
 bin/basename
@@ -485,13 +492,6 @@ usr/$LIBDIR/libiscsi.so*
 usr/$LIBDIR/libsqlite3.so*
 usr/$LIBDIR/xorg/modules
 usr/$LIBDIR/xserver/SecurityPolicy
-usr/$LIBDIR/libfreebl3.so
-usr/$LIBDIR/libnss3.so
-usr/$LIBDIR/libnssckbi.so
-usr/$LIBDIR/libnsspem.so
-usr/$LIBDIR/libsmime3.so
-usr/$LIBDIR/libsoftokn3.so
-usr/$LIBDIR/libssl3.so
 usr/bin/[
 usr/bin/Xorg
 usr/bin/Xvnc
