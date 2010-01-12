@@ -29,8 +29,9 @@ class x86BootloaderInfo(efiBootloaderInfo):
             saltLen = 16
 
             saltchars = string.letters + string.digits + './'
+            rnd = random.SystemRandom()
             for i in range(saltLen):
-                salt += random.choice(saltchars)
+                salt += rnd.choice(saltchars)
 
             self.password = crypt.crypt(val, salt)
             self.pure = val
