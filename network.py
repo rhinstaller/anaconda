@@ -244,6 +244,9 @@ class NetworkDevice(SimpleConfigFile):
             keys.remove("DESC")
         if "KEY" in keys:
             keys.remove("KEY")
+        if iutil.isS390() and ("OPTIONS" in keys) and ("HWADDR" in keys) and \
+           (self.info["OPTIONS"].find("layer2=1") != -1):
+            keys.remove("HWADDR")
 
         for key in keys:
             if (key == 'NAME') or \
