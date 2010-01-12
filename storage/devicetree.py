@@ -1081,7 +1081,11 @@ class DeviceTree(object):
 
         # Check that the disk has partitions. If it does not, we must have
         # reinitialized the disklabel.
-        if not getattr(disk.format, "partitions", None):
+        #
+        # Also ignore partitions on devices we do not support partitioning
+        # of, like logical volumes.
+        if not getattr(disk.format, "partitions", None) or \
+           not disk.partitionable:
             log.debug("ignoring partition %s" % name)
             return
 
@@ -1275,6 +1279,18 @@ class DeviceTree(object):
         except Exception as e:
             log.debug("setup of %s failed: %s" % (device.name, e))
             log.warning("aborting disklabel handler for %s" % device.name)
+            return
+
+        # special handling for unsupported partitioned devices
+        if not device.partitionable:
+            try:
+                format = getFormat("disklabel",
+                                   device=device.path,
+                                   exists=True)
+            except InvalidDiskLabelError:
+                pass
+            else:
+                device.format = format
             return
 
         # if the disk contains protected partitions we will not wipe the
@@ -1658,11 +1674,12 @@ class DeviceTree(object):
         # Now, if the device is a disk, see if there is a usable disklabel.
         # If not, see if the user would like to create one.
         # XXX ignore disklabels on multipath or biosraid member disks
-        if device.partitionable and not \
-           (udev_device_is_biosraid(info) or
-            udev_device_is_multipath_member(info)):
+        if not udev_device_is_biosraid(info) and \
+           not udev_device_is_multipath_member(info):
             self.handleUdevDiskLabelFormat(info, device)
-            if device.partitioned or self.isIgnored(info):
+            if device.partitioned or self.isIgnored(info) or \
+               (not device.partitionable and
+                device.format.type == "disklabel"):
                 # If the device has a disklabel, or the user chose not to
                 # create one, we are finished with this device. Otherwise
                 # it must have some non-disklabel formatting, in which case
