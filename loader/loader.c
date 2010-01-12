@@ -49,6 +49,7 @@
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
+#include <sys/utsname.h>
 
 #include <linux/fb.h>
 #include <linux/serial.h>
@@ -1769,6 +1770,54 @@ static void add_to_path_env(const char *env, const char *val)
     setenv(env, newenv, 1);
 }
 
+static void loadScsiDhModules(void)
+{
+    struct utsname utsname;
+    char *modules = NULL;
+    char *tmp = NULL;
+    struct dirent *ent = NULL;
+
+    uname(&utsname);
+    checked_asprintf(&tmp,
+        "/lib/modules/%s/kernel/drivers/scsi/device_handler", utsname.release);
+
+    DIR *dir = opendir(tmp);
+    free(tmp);
+    if (!dir)
+        return;
+
+    int fd = dirfd(dir);
+    while ((ent = readdir(dir)) != NULL) {
+        struct stat sb;
+
+        if (fstatat(fd, ent->d_name, &sb, 0) < 0)
+            continue;
+
+        size_t len = strlen(ent->d_name) - 3;
+        if (strcmp(ent->d_name+len, ".ko"))
+            continue;
+
+        if (S_ISREG(sb.st_mode)) {
+            char modname[len+1];
+            strncpy(modname, ent->d_name, len);
+	    modname[len] = '\0';
+
+            if (modules && modules[0]) {
+                checked_asprintf(&tmp, "%s:%s", modules, modname);
+            } else {
+                checked_asprintf(&tmp, "%s", modname);
+            }
+
+            free(modules);
+            modules = tmp;
+        }
+    }
+    closedir(dir);
+
+    mlLoadModuleSet(modules);
+    free(modules);
+}
+
 int main(int argc, char ** argv) {
     int rc, ret, pid, status;
 
@@ -1930,6 +1979,8 @@ int main(int argc, char ** argv) {
         setenv("TERM", "vt100", 1);
 
     mlLoadModuleSet("cramfs:squashfs:iscsi_tcp");
+
+    loadScsiDhModules();
 
 #if !defined(__s390__) && !defined(__s390x__)
     mlLoadModuleSet("floppy:edd:pcspkr:iscsi_ibft");
