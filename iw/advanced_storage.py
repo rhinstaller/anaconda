@@ -27,6 +27,7 @@ import iutil
 import network
 import storage.fcoe
 import storage.iscsi
+from netconfig_dialog import NetworkConfigurator
 
 def addFcoeDrive(anaconda):
     (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade", "fcoeDialog")

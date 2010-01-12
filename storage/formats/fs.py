@@ -29,6 +29,7 @@
 """
 import math
 import os
+import sys
 import tempfile
 import selinux
 import isys
@@ -532,9 +533,9 @@ class FS(DeviceFormat):
                          "interactively.  Restart installation after you "
                          "have corrected the problems on the filesystem.")
 
-                self.intf.messageWindow(_("Unrecoverable Error"),
-                                        hdr + "\n\n" + msg + "\n\n" + help,
-                                        custom_icon='error')
+                intf.messageWindow(_("Unrecoverable Error"),
+                                   hdr + "\n\n" + msg + "\n\n" + help,
+                                   custom_icon='error')
                 sys.exit(0)
             else:
                 raise FSError(hdr + msg)

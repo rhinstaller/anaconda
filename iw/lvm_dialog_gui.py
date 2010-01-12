@@ -645,7 +645,7 @@ class VolumeGroupEditor:
                         if (d.type != "lvmlv" or d.vg.id != self.vg.id) and \
                            mp == mountpoint and \
                            not (isinstance(d, LUKSDevice) and
-                                full_name in [d.name for d in dev.parents]):
+                                full_name in [dev.name for dev in d.parents]):
                             used = True
                             break
 

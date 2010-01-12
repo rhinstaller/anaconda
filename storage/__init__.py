@@ -2004,10 +2004,10 @@ class FSSet(object):
         return migratable
 
     def write(self, instPath=None):
+        """ write out all config files based on the set of filesystems """
         if not instPath:
             instPath = self.rootpath
 
-        """ write out all config files based on the set of filesystems """
         # /etc/fstab
         fstab_path = os.path.normpath("%s/etc/fstab" % instPath)
         fstab = self.fstab()

@@ -351,7 +351,7 @@ def _pulseProgressCallback(data, callback_data=None):
 def execWithPulseProgress(command, argv, stdin = None, stdout = None,
                           stderr = None, echo = True, progress = None,
                           root = '/'):
-    execWithCallback(command, argv, stdin=stdin, stdout=stdout,
+    return execWithCallback(command, argv, stdin=stdin, stdout=stdout,
                      stderr=stderr, echo=echo, callback=_pulseProgressCallback,
                      callback_data=progress, root=root)
 

@@ -1507,7 +1507,7 @@ class PartitionWindow(InstallWindow):
         # in the back when we pop up other screens.
         if dialog_rc != 1:
             log.error("I received a dialog_rc != 1 (%d) witch should not "
-                    "happen" % rc)
+                    "happen" % dialog_rc)
             self.dialog.destroy()
             return
 
@@ -1771,7 +1771,7 @@ class PartitionWindow(InstallWindow):
 
         while True:
             vgeditor.editLogicalVolume(lv, isNew = isNew)
-            actions = vgeditor.convertToActions();
+            actions = vgeditor.convertToActions()
 
             for action in actions:
                 # FIXME: handle exceptions
