@@ -604,6 +604,47 @@ update-desktop-database &> /dev/null || :
   (dcantrell)
 - Add 'zerombr' to list of early kickstart commands we look for. (dcantrell)
 
+* Tue Dec 08 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.38.5-1.1
+- Rebuilt for RHEL 6
+
+* Thu Nov 12 2009 David Cantrell <dcantrell@redhat.com> - 12.38.5-1
+- Log calls to DiskLabel's commit and commitToDisk methods. (dlehman)
+- Fix DiskLabel.status so it returns True, not self.partedDisk, when active.
+  (dlehman)
+- Write /etc/dasd.conf to target system on s390 (#533833). (dcantrell)
+- Latest dracut has new syntax for rd_DASD. (dcantrell)
+- For the catch-all case, put the message into the UI, not the exn
+  (#536854). (clumens)
+- Add a missing binary to KEEPFILES (#533237) (msivak)
+- Honor existing RUNKS conf file variable on s390 (#513951). (dcantrell)
+- Add "Hipersockets" to qeth NETTYPE description (#511962). (dcantrell)
+
+* Mon Nov 09 2009 David Cantrell <dcantrell@redhat.com> - 12.38.4-1
+- Remove previous mdadm bug 523334 workaorund (hdegoede)
+- Don't stop mdraid containers or their arrays (#532971) (hdegoede)
+- Correct modopts initialization in loader (take 2) (#531932). (dcantrell)
+- Initialize DASD totalCylinders before progress bar callback (#532420).
+  (dcantrell)
+- Correctly initialize modopts in loader (#531932). (dcantrell)
+- Remove "anaconda" from attributes to skip (#532612, #532737). (clumens)
+- Copy cio_ignore kernel parameter to zipl.conf on s390 (#475675).
+  (dcantrell)
+- Do not modify /etc/hosts from setup package (#530343). (dcantrell)
+- In execWithCallback(), support disabling stdout echo (#528386) (dcantrell)
+- Clear pot and po updates after a 'make release' or 'make archive'.
+  (dcantrell)
+
+* Fri Oct 30 2009 Chris Lumens <clumens@redhat.com> - 12.38.3-1
+- Regardless of where load_policy is, we still need it in the intird
+  (#532016). (clumens)
+- Log why we're exiting the installer in storage.DASD.startup() (dcantrell)
+- Improve detailedMessageWindow() in text.py. (dcantrell)
+- Use 'zerombr' kickstart command for DASDs needing dasdfmt (#528386).
+  (dcantrell)
+- Add 'zerombr' to list of early kickstart commands we look for. (dcantrell)
+- TypeError: '_ped.DiskType' object is not callable (#531730) (hdegoede)
+- Remove support for IUCV networking devices on s390. (#531494) (dcantrell)
+
 * Thu Oct 29 2009 Chris Lumens <clumens@redhat.com> - 13.7-1
 - TypeError: '_ped.DiskType' object is not callable (#531730) (hdegoede)
 - Fix upgrade of GRUB with md raid boot for versions F11 and earlier.
@@ -677,6 +718,52 @@ update-desktop-database &> /dev/null || :
   (hdegoede)
 - Set parted filesystemtype for swap partitions (hdegoede)
 
+* Wed Oct 28 2009 Chris Lumens <clumens@redhat.com> - 12.38.2-1
+- Find and format any unformatted DASD devices (#528386). (dcantrell)
+- Improve detailedMessageWindow() in text.py. (dcantrell)
+- Create execWithCallback() function in iutil. (dcantrell)
+- When doing initlabel on a dasd disk create a dasd disklabel (#531209)
+  (hdegoede)
+- Rename platform.diskType to platform.diskLabelType (hdegoede)
+- DASD disklabels do not allow sector exact partitioning (#527104) (hdegoede)
+- Fix DASD and zFCP device discovery (#530287). (dcantrell)
+- Pull nss libs from $LIBDIR rather than /usr/$LIBDIR. (dcantrell)
+- iutil.isPPC() should return 'ppc64' for RHEL-6. (dcantrell)
+- /sbin/load_policy -> /usr/sbin/load_policy (dcantrell)
+- RHEL-6 has system-config-firewall base. (dcantrell)
+- Inherit RHEL-6 branch changelog entries from dist-cvs. (dcantrell)
+- Fix translations of timezones in the UI (#530014). (clumens)
+- Bootloader choice strings were marked with N_, but never translated
+  (#530017). (clumens)
+
+* Tue Oct 20 2009 David Cantrell <dcantrell@redhat.com> - 12.38.1-1
+- Handle more than x.y version numbers in 'make bumpver'. (dcantrell)
+- Add '.0' to the version since we branched from f12-branch. (dcantrell)
+- Reintegrate reipl to trigger reboot/halt on s390x correctly. (#528380).
+  (maier)
+- Make LOADER_FLAGS_NOSHELL default also for s390x not just s390 (#527063).
+  (maier)
+- Adapt standalone shutdown to nokill changes so s390x can use it. (#528380).
+  (maier)
+- Add dracutSetupData() method to DASDDevice (#526354). (dcantrell)
+- Collect DASD kernel parameter information during device tree scan.
+  (#526354). (dcantrell)
+- Add dracutSetupString() method to ZFCPDiskDevice (#526354). (dcantrell)
+- Add a "File Bug" button to all possibilitys in turnOnFilesystems.
+  (#528006). (clumens)
+- For cmdline mode, add the long text to what messageWindow will print.
+  (#528006). (clumens)
+- Write LAYER2 and PORTNO correctly as parts of OPTIONS to ifcfg for s390x.
+  (maier)
+- liveinst: deactivate mdraid arrays before running liveinst (#528235).
+  (hdegoede)
+
+* Tue Oct 20 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.38-1.3
+- clean up references to kernelxen
+
+* Tue Oct 20 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.38-1.2
+- refactored anaconda-i686.patch
+
 * Tue Oct 13 2009 David Cantrell <dcantrell@redhat.com> - 13.6-1
 - BR system-config-keyboard (dcantrell)
 
@@ -703,11 +790,44 @@ update-desktop-database &> /dev/null || :
   (rvykydal)
 - Don't traceback with malformed repo= nfs: parameter. (rvykydal)
 
+* Tue Oct 13 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.38-1.1
+- Rebuild for RHEL 6
+
+* Tue Oct 13 2009 David Cantrell <dcantrell@redhat.com> - 12.38-1
+- Remove extra echo in 'make rpmlog'. (dcantrell)
+- Do not traceback if network device doesn't have HwAddress property
+  (#506013). (rvykydal)
+- Fix liveinst to (1) not unmount /dev/pts, (2) unmount in order (509632).
+  (clumens)
+- Do not read DASD data from /tmp/install.cfg in booty (#526354). (dcantrell)
+- Fix task selection when tasks contain the same group. (#528193) (notting)
+- Update drivelist with bootloader --driveorder ks option instead of
+  replacing it (#506073). (rvykydal)
+- Use ID_SERIAL to write multipath.conf, but ID_SERIAL_SHORT for UI. (pjones)
+- Handle Installation Repo (base repo) as any other in repo edit UI.
+  (rvykydal)
+- Fix methodstr editing dialog. (rvykydal)
+- Store methodstr url of repo (#502208, #526022). (rvykydal)
+- Show user of which repository he edits the url (methodstr editing).
+  (rvykydal)
+- Don't traceback with malformed repo= nfs: parameter. (rvykydal)
+
 * Mon Oct 12 2009 David Cantrell <dcantrell@redhat.com> - 13.4-1
 - Missing volume_key shouldn't break LUKS support completely. (#526899)
   (dlehman)
 - Write multipathd.conf in anaconda so that dracut can find it. (pjones)
 - We moved from dialog to newt.. (#528497) (msivak)
+- Fix a segfault when stage2= boot parameter and kickstart url method is
+  used (#524417). (rvykydal)
+- Fix parsing of optional portnr in iscsi target IP (#525118) (hdegoede)
+
+* Mon Oct 12 2009 David Cantrell <dcantrell@redhat.com> - 12.37-1
+- Missing volume_key shouldn't break LUKS support completely. (#526899)
+  (dlehman)
+- Write multipathd.conf in anaconda so that dracut can find it. (pjones)
+- Add MultipathDevice.getDMNode(), because .updateSysfsPath() needs it.
+  (pjones)
+- Add MultipathDevice.updateSysfsPath() (pjones)
 - Fix a segfault when stage2= boot parameter and kickstart url method is
   used (#524417). (rvykydal)
 - Fix parsing of optional portnr in iscsi target IP (#525118) (hdegoede)
@@ -723,6 +843,22 @@ update-desktop-database &> /dev/null || :
 - Fix grub stage1 installation for /boot on md raid1. (rvykydal)
 - Do not show the VNC-over-text question, when there is not enough memory
   for GUI (#527979) (msivak)
+- Fix filtering out of 'Sending translation for' log messages in bumpver.
+  (rvykydal)
+- Use addUdevPartitionDevice() for adding dmraid / multipath partitions
+  (#527785) (hdegoede)
+- Set partedPartition system to the correct FS when creating an FS (hdegoede)
+- Reset parted flags in createFormat not destroyFormat (hdegoede)
+- Default to mbr bootloader target for mdraid 1 boot device too (#526822).
+  (rvykydal)
+- Clear out state before calling XkbGetState. (clumens)
+
+* Fri Oct 09 2009 David Cantrell <dcantrell@redhat.com> - 12.36-1
+- Reset PartitionDevice attributes after failed edit. (#498026) (dlehman)
+- Fix cut/paste error in commit 299519d4a0693330ff6a50f3111d61feefabb0da.
+  (dlehman)
+- Consider encryption when checking for duplicate mountpoint. (#526697)
+  (dlehman)
 - Fix filtering out of 'Sending translation for' log messages in bumpver.
   (rvykydal)
 - Use addUdevPartitionDevice() for adding dmraid / multipath partitions
@@ -749,6 +885,27 @@ update-desktop-database &> /dev/null || :
 - Stop trying to run xrandr (#527678). (clumens)
 - Only initialize escrow packet code if there's devices that need it (#527668).
   (clumens)
+- On lookup of a PartedDevice also check for _ped.DeviceException (#527699)
+  (hdegoede)
+- Set related ayum attributes if media is found when editing methodstr
+  (#515441). (rvykydal)
+- In repo editing UI do not use object we are creating (#515441). (rvykydal)
+
+* Thu Oct 08 2009 Radek Vykydal <rvykydal@redhat.com> - 12.35-1
+- Override fstabSpec in PartitionDevice for by-path DASD (#526364). (dcantrell)
+- Create DASDDevice objects for DASD devices when building devicetree..
+  (dcantrell)
+- Add udev_device_is_dasd() to detect DASD devices. (dcantrell)
+- Change existing call to deviceNameToDiskByPath(). (dcantrell)
+- Make storage.devices.deviceNameToDiskByPath() more robust. (dcantrell)
+- Do not copy over 70-persistent.rules if instPath is '' (#527707) (dcantrell)
+- Filter out 'Sending translation for' log messages in bumpver. (dcantrell)
+- Don't copy _raidSet, but merely pass around a reference (hdegoede)
+- Action...Format setup device before modifying the partition table (hdegoede)
+- map() -> filter() in storage.writeEscrowPackets() (dcantrell)
+- Only initialize escrow packet code if there's devices that need it (#527668).
+  (clumens)
+- Stop trying to run xrandr (#527678). (clumens)
 - On lookup of a PartedDevice also check for _ped.DeviceException (#527699)
   (hdegoede)
 - Set related ayum attributes if media is found when editing methodstr
@@ -782,6 +939,24 @@ update-desktop-database &> /dev/null || :
 - Add a free row in the LVM tree view when necessary. (jgranado)
 - Reorganize the tree view related to lvm. (jgranado)
 - Remove unneeded variable (jgranado)
+
+* Tue Oct 06 2009 David Cantrell <dcantrell@redhat.com> - 12.34-1
+- Tell udev to ignore temporary cryptsetup devices. (#526699) (dlehman)
+- Use $LIBDIR to find the boot-wrapper file. (jkeating)
+- Have redhat.exec reference generic.prm, not redhat.parm (dcantrell)
+- Bring back cio_ignore=all, !0.0.0009 for generic.prm on s390x (#463544)
+  (dcantrell)
+- Take 70-persistent-net.rules generated at installation (#526322)
+  (dcantrell)
+- formatByDefault: Don't traceback when mountpoint is None (#522609)
+  (hdegoede)
+- Don't warn /usr should be formatted when "Format as:" is already selected
+  (hdegoede)
+- Bring up network interface before trying to use it for FCoE (hdegoede)
+- DMRaidArray: Don't report no media present when in teared down state
+  (hdegoede)
+- Wait for udev to settle before trying to find dmraid sets in udev DB
+  (hdegoede)
 
 * Mon Oct 05 2009 David Cantrell <dcantrell@redhat.com> - 13.0-1
 - Remove an errant popd. Probably cut/paste error. (jkeating)
@@ -873,6 +1048,23 @@ update-desktop-database &> /dev/null || :
 - Add a CURL instance to the loader data. (clumens)
 - Add checks for libcurl into the makefile process. (clumens)
 - Add the packages needed to support libcurl. (clumens)
+
+* Mon Oct 05 2009 David Cantrell <dcantrell@redhat.com> - 12.33-1
+- Remove an errant popd. Probably cut/paste error. (jkeating)
+- Only add the .img file to .treeinfo if it exists. (jkeating)
+- Make the netboot dir before trying to use it (jkeating)
+- Fix existing size calculation for NTFS (#520627) (dcantrell)
+- Write label to filesystem if we have one set (#526226, #526242) (dcantrell)
+- Add wget to the initrd, which is required for rhts. (clumens)
+- Fix the check for no /boot request on PPC yet again (#526843). (clumens)
+- Surround the stage2= parameter in quotes for RHEL (#526863). (clumens)
+- Stop dragging mkinitrd into the install (hdegoede)
+- Force interface up before checking link status (#525071). (dcantrell)
+- Don't try to do format handling on drives without media (#523467)
+  (hdegoede)
+- Wait for mdraid arrays to become clean before reboot / halt (hdegoede)
+- Stop /lib/udev/rules.d/65-md-incremental.rules from messing with mdraid
+  sets (hdegoede)
 
 * Tue Sep 29 2009 David Cantrell <dcantrell@redhat.com> - 12.32-1
 - Improve loader messages in parseCmdLineFlags when passing vnc (#526350).
