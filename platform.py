@@ -465,7 +465,7 @@ class Sparc(Platform):
 
     @property
     def minimumSector(self, disk):
-        (cylinders, heads, sector) = disk.device.biosGeometry
+        (cylinders, heads, sectors) = disk.device.biosGeometry
         start = long(sectors * heads)
         start /= long(1024 / disk.device.sectorSize)
         return start+1
