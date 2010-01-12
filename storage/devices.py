@@ -2691,10 +2691,20 @@ class MDRaidArrayDevice(StorageDevice):
 
             disks = [disk.path for disk in self.devices]
             spares = len(self.devices) - self.memberDevices
+            # Figure out format specific options
+            metadata="1.1"
+            bitmap=True
+            if getattr(self.format, "mountpoint", None) == "/boot":
+                metadata="1.0"
+                bitmap=False
+            elif self.format.type == "swap":
+                bitmap=False
             mdraid.mdcreate(self.path,
                             self.level,
                             disks,
                             spares,
+                            metadataVer=metadata,
+                            bitmap=bitmap,
                             progress=w)
         except Exception:
             raise

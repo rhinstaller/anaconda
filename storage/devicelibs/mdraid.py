@@ -139,12 +139,17 @@ def mdadm(args, progress=None):
 
     raise MDRaidError(msg)
 
-def mdcreate(device, level, disks, spares=0, progress=None):
+def mdcreate(device, level, disks, spares=0, metadataVer=None, bitmap=False,
+             progress=None):
     argv = ["--create", device, "--run", "--level=%s" % level]
     raid_devs = len(disks) - spares
     argv.append("--raid-devices=%d" % raid_devs)
     if spares:
         argv.append("--spare-devices=%d" % spares)
+    if metadataVer:
+        argv.append("--metadata=%s" % metadataVer)
+    if bitmap:
+        argv.append("--bitmap=internal")
     argv.extend(disks)
     
     try:
