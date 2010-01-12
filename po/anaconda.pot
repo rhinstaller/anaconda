@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.19\n"
+"Project-Id-Version: anaconda 13.20\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-01-12 10:11-0500\n"
+"POT-Creation-Date: 2010-01-12 11:08-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr ""
 #: loader/loader.c:489 loader/loader.c:507 loader/loader.c:524
 #: loader/loader.c:561 loader/loader.c:1178 loader/loader.c:1359
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
-#: loader/mediacheck.c:101 loader/method.c:276 loader/method.c:350
+#: loader/mediacheck.c:101 loader/method.c:277 loader/method.c:351
 #: loader/modules.c:381 loader/modules.c:397 loader/net.c:579 loader/net.c:950
 #: loader/net.c:1556 loader/net.c:1577 loader/net.c:1849 loader/net.c:1868
 #: loader/net.c:1880 loader/nfsinstall.c:91 loader/nfsinstall.c:279
@@ -126,8 +126,8 @@ msgstr ""
 #: loader/hdinstall.c:421 loader/hdinstall.c:464 loader/hdinstall.c:477
 #: loader/kickstart.c:296 loader/lang.c:114 loader/loader.c:413
 #: loader/loader.c:524 loader/loader.c:1178 loader/mediacheck.c:46
-#: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/method.c:276
-#: loader/method.c:350 loader/nfsinstall.c:279 loader/nfsinstall.c:296
+#: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/method.c:277
+#: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:326 loader/urls.c:332
 #: storage/__init__.py:208 storage/__init__.py:1716 storage/__init__.py:1803
@@ -1167,7 +1167,7 @@ msgid "Read-Only"
 msgstr ""
 
 #: rescue.py:287 rescue.py:289 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:323 storage/__init__.py:1715 textw/upgrade_text.py:133
+#: loader/method.c:324 storage/__init__.py:1715 textw/upgrade_text.py:133
 msgid "Skip"
 msgstr ""
 
@@ -3301,7 +3301,7 @@ msgid "Media Check"
 msgstr ""
 
 #: loader/cdinstall.c:185 loader/cdinstall.c:188 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/method.c:323
+#: loader/cdinstall.c:214 loader/method.c:324
 msgid "Test"
 msgstr ""
 
@@ -3385,7 +3385,7 @@ msgstr ""
 msgid "Cannot find kickstart file on CDROM."
 msgstr ""
 
-#: loader/copy.c:51 loader/method.c:277
+#: loader/copy.c:51 loader/method.c:278
 #, c-format
 msgid "Failed to read directory %s: %m"
 msgstr ""
@@ -3835,7 +3835,7 @@ msgid ""
 "detected by the media check."
 msgstr ""
 
-#: loader/method.c:320
+#: loader/method.c:321
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -3843,7 +3843,7 @@ msgid ""
 "   %s?"
 msgstr ""
 
-#: loader/method.c:323
+#: loader/method.c:324
 msgid "Checksum Test"
 msgstr ""
 
