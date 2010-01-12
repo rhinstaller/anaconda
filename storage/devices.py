@@ -1167,32 +1167,28 @@ class PartitionDevice(StorageDevice):
     bootable = property(_getBootable, _setBootable)
 
     def flagAvailable(self, flag):
-        log_method_call(self, path=self.path, flag=flag,
-                        part=self.partedPartition)
+        log_method_call(self, path=self.path, flag=flag)
         if not self.partedPartition:
             return
 
         return self.partedPartition.isFlagAvailable(flag)
 
     def getFlag(self, flag):
-        log_method_call(self, path=self.path, flag=flag,
-                        part=self.partedPartition)
+        log_method_call(self, path=self.path, flag=flag)
         if not self.partedPartition or not self.flagAvailable(flag):
             return
 
         return self.partedPartition.getFlag(flag)
 
     def setFlag(self, flag):
-        log_method_call(self, path=self.path, flag=flag,
-                        part=self.partedPartition)
+        log_method_call(self, path=self.path, flag=flag)
         if not self.partedPartition or not self.flagAvailable(flag):
             return
 
         self.partedPartition.setFlag(flag)
 
     def unsetFlag(self, flag):
-        log_method_call(self, path=self.path, flag=flag,
-                        part=self.partedPartition)
+        log_method_call(self, path=self.path, flag=flag)
         if not self.partedPartition or not self.flagAvailable(flag):
             return
 
