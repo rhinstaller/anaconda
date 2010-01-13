@@ -424,6 +424,9 @@ update-desktop-database &> /dev/null || :
 - Log storage in the same format as the main anaconda log (a part of
   #524980) (akozumpl)
 
+* Tue Dec 08 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.38.5-1.1
+- Rebuilt for RHEL 6
+
 * Tue Dec 01 2009 Chris Lumens <clumens@redhat.com> - 13.9-1
 - Improve text mode fcoe interface (hdegoede)
 - Fix udev rule to test whether we're in anaconda. (dlehman)
@@ -603,9 +606,6 @@ update-desktop-database &> /dev/null || :
 - Use 'zerombr' kickstart command for DASDs needing dasdfmt (#528386).
   (dcantrell)
 - Add 'zerombr' to list of early kickstart commands we look for. (dcantrell)
-
-* Tue Dec 08 2009 Dennis Gregorovic <dgregor@redhat.com> - 12.38.5-1.1
-- Rebuilt for RHEL 6
 
 * Thu Nov 12 2009 David Cantrell <dcantrell@redhat.com> - 12.38.5-1
 - Log calls to DiskLabel's commit and commitToDisk methods. (dlehman)
