@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.20\n"
+"Project-Id-Version: anaconda 13.21.-1\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-01-12 11:08-0500\n"
+"POT-Creation-Date: 2010-01-13 13:25-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,10 +24,10 @@ msgstr ""
 #: rescue.py:451 text.py:624 loader/cdinstall.c:228 loader/cdinstall.c:232
 #: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:427
 #: loader/cdinstall.c:431 loader/cdinstall.c:504 loader/dirbrowser.c:128
-#: loader/driverdisk.c:270 loader/driverdisk.c:423 loader/driverdisk.c:461
-#: loader/driverdisk.c:492 loader/driverdisk.c:527 loader/driverdisk.c:543
-#: loader/driverdisk.c:555 loader/driverdisk.c:563 loader/driverdisk.c:723
-#: loader/driverdisk.c:762 loader/driverselect.c:78 loader/driverselect.c:178
+#: loader/driverdisk.c:266 loader/driverdisk.c:419 loader/driverdisk.c:457
+#: loader/driverdisk.c:488 loader/driverdisk.c:523 loader/driverdisk.c:539
+#: loader/driverdisk.c:551 loader/driverdisk.c:559 loader/driverdisk.c:719
+#: loader/driverdisk.c:758 loader/driverselect.c:78 loader/driverselect.c:178
 #: loader/hdinstall.c:115 loader/hdinstall.c:257 loader/hdinstall.c:315
 #: loader/hdinstall.c:349 loader/hdinstall.c:421 loader/hdinstall.c:464
 #: loader/hdinstall.c:477 loader/kbd.c:119 loader/kickstart.c:132
@@ -114,15 +114,15 @@ msgstr ""
 
 #: backend.py:185 image.py:288 livecd.py:198 livecd.py:404
 #: partIntfHelpers.py:237 text.py:350 text.py:354 yuminstall.py:407
-#: yuminstall.py:787 yuminstall.py:905 yuminstall.py:910 yuminstall.py:1181
-#: yuminstall.py:1245 yuminstall.py:1434 yuminstall.py:1456
+#: yuminstall.py:787 yuminstall.py:905 yuminstall.py:910 yuminstall.py:1182
+#: yuminstall.py:1246 yuminstall.py:1435 yuminstall.py:1457
 #: iw/autopart_type.py:96 iw/osbootwidget.py:211 iw/osbootwidget.py:220
 #: iw/raid_dialog_gui.py:212 iw/raid_dialog_gui.py:729
 #: iw/raid_dialog_gui.py:768 iw/task_gui.py:64 iw/task_gui.py:165
 #: iw/task_gui.py:311 iw/task_gui.py:449 loader/cdinstall.c:228
-#: loader/cdinstall.c:504 loader/driverdisk.c:270 loader/driverdisk.c:492
-#: loader/driverdisk.c:527 loader/driverdisk.c:555 loader/driverdisk.c:563
-#: loader/driverdisk.c:627 loader/hdinstall.c:115 loader/hdinstall.c:315
+#: loader/cdinstall.c:504 loader/driverdisk.c:266 loader/driverdisk.c:488
+#: loader/driverdisk.c:523 loader/driverdisk.c:551 loader/driverdisk.c:559
+#: loader/driverdisk.c:623 loader/hdinstall.c:115 loader/hdinstall.c:315
 #: loader/hdinstall.c:421 loader/hdinstall.c:464 loader/hdinstall.c:477
 #: loader/kickstart.c:296 loader/lang.c:114 loader/loader.c:413
 #: loader/loader.c:524 loader/loader.c:1178 loader/mediacheck.c:46
@@ -139,8 +139,8 @@ msgid "Error"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1145
-#: gui.py:1190 image.py:82 text.py:475 text.py:520 yuminstall.py:1413
-#: yuminstall.py:1622 yuminstall.py:1657 iw/blpasswidget.py:148
+#: gui.py:1190 image.py:82 text.py:475 text.py:520 yuminstall.py:1414
+#: yuminstall.py:1623 yuminstall.py:1658 iw/blpasswidget.py:148
 #: iw/upgrade_swap_gui.py:190 iw/upgrade_swap_gui.py:198
 #: iw/upgrade_swap_gui.py:205 textw/upgrade_text.py:187
 msgid "Warning"
@@ -157,15 +157,15 @@ msgstr ""
 #: bootloader.py:60 gui.py:1100 gui.py:1217 gui.py:1423 image.py:91
 #: kickstart.py:156 livecd.py:205 livecd.py:411 packages.py:162 upgrade.py:58
 #: upgrade.py:199 yuminstall.py:248 yuminstall.py:689 yuminstall.py:907
-#: yuminstall.py:912 yuminstall.py:992 yuminstall.py:998 yuminstall.py:1152
-#: yuminstall.py:1177 yuminstall.py:1235 yuminstall.py:1421 yuminstall.py:1440
-#: yuminstall.py:1463 storage/__init__.py:105 storage/__init__.py:212
+#: yuminstall.py:912 yuminstall.py:992 yuminstall.py:998 yuminstall.py:1153
+#: yuminstall.py:1178 yuminstall.py:1236 yuminstall.py:1422 yuminstall.py:1441
+#: yuminstall.py:1464 storage/__init__.py:105 storage/__init__.py:212
 #: storage/__init__.py:1897
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1312
-#: kickstart.py:1351 upgrade.py:58 yuminstall.py:1240 yuminstall.py:1422
+#: kickstart.py:1351 upgrade.py:58 yuminstall.py:1241 yuminstall.py:1423
 #: iw/partition_gui.py:1600 storage/__init__.py:1898
 msgid "_Continue"
 msgstr ""
@@ -300,7 +300,7 @@ msgstr ""
 
 #: gui.py:785 gui.py:1423 partIntfHelpers.py:157 partIntfHelpers.py:342
 #: text.py:99 text.py:100 iw/account_gui.py:130 loader/dirbrowser.c:128
-#: loader/driverdisk.c:424 loader/kickstart.c:328 loader/loader.c:449
+#: loader/driverdisk.c:420 loader/kickstart.c:328 loader/loader.c:449
 #: loader/loader.c:561 textw/constants_text.py:48
 msgid "Cancel"
 msgstr ""
@@ -374,7 +374,7 @@ msgid "_Exit"
 msgstr ""
 
 #: gui.py:1344 image.py:164 image.py:194 livecd.py:205 yuminstall.py:779
-#: yuminstall.py:1177 yuminstall.py:1235 yuminstall.py:1440
+#: yuminstall.py:1178 yuminstall.py:1236 yuminstall.py:1441
 msgid "_Retry"
 msgstr ""
 
@@ -382,7 +382,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1347 image.py:251 packages.py:364 yuminstall.py:1481
+#: gui.py:1347 image.py:251 packages.py:364 yuminstall.py:1482
 msgid "_Reboot"
 msgstr ""
 
@@ -464,7 +464,7 @@ msgid ""
 msgstr ""
 
 #: image.py:251 livecd.py:410 packages.py:364 upgrade.py:198 yuminstall.py:912
-#: yuminstall.py:998 yuminstall.py:1421 yuminstall.py:1463 yuminstall.py:1481
+#: yuminstall.py:998 yuminstall.py:1422 yuminstall.py:1464 yuminstall.py:1482
 msgid "_Back"
 msgstr ""
 
@@ -571,7 +571,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: kickstart.py:150 rescue.py:240 yuminstall.py:684 yuminstall.py:1147
+#: kickstart.py:150 rescue.py:240 yuminstall.py:684 yuminstall.py:1148
 msgid "No Network Available"
 msgstr ""
 
@@ -1122,12 +1122,12 @@ msgstr ""
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: rescue.py:234 loader/driverdisk.c:667 loader/driverdisk.c:677
+#: rescue.py:234 loader/driverdisk.c:663 loader/driverdisk.c:673
 #: loader/hdinstall.c:203 textw/constants_text.py:56
 msgid "Yes"
 msgstr ""
 
-#: rescue.py:234 rescue.py:236 loader/driverdisk.c:667 loader/driverdisk.c:677
+#: rescue.py:234 rescue.py:236 loader/driverdisk.c:663 loader/driverdisk.c:673
 #: textw/constants_text.py:60
 msgid "No"
 msgstr ""
@@ -1157,7 +1157,7 @@ msgid ""
 msgstr ""
 
 #: rescue.py:287 iw/partition_gui.py:781 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:628 storage/__init__.py:150
+#: loader/cdinstall.c:214 loader/driverdisk.c:624 storage/__init__.py:150
 #: storage/devicetree.py:88
 msgid "Continue"
 msgstr ""
@@ -1584,7 +1584,7 @@ msgstr ""
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
-#: yuminstall.py:685 yuminstall.py:1148
+#: yuminstall.py:685 yuminstall.py:1149
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -1681,30 +1681,30 @@ msgstr ""
 msgid "Error Running Transaction"
 msgstr ""
 
-#: yuminstall.py:1182
+#: yuminstall.py:1183
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: yuminstall.py:1218
+#: yuminstall.py:1219
 msgid "Retrieving installation information."
 msgstr ""
 
-#: yuminstall.py:1220
+#: yuminstall.py:1221
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: yuminstall.py:1222
+#: yuminstall.py:1223
 msgid "Installation Progress"
 msgstr ""
 
-#: yuminstall.py:1235 textw/constants_text.py:64
+#: yuminstall.py:1236 textw/constants_text.py:64
 msgid "Edit"
 msgstr ""
 
-#: yuminstall.py:1246 yuminstall.py:1435
+#: yuminstall.py:1247 yuminstall.py:1436
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1714,7 +1714,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: yuminstall.py:1414
+#: yuminstall.py:1415
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -1722,7 +1722,7 @@ msgid ""
 "dependencies."
 msgstr ""
 
-#: yuminstall.py:1457
+#: yuminstall.py:1458
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1730,22 +1730,22 @@ msgid ""
 "installer."
 msgstr ""
 
-#: yuminstall.py:1478
+#: yuminstall.py:1479
 msgid "Reboot?"
 msgstr ""
 
-#: yuminstall.py:1479
+#: yuminstall.py:1480
 msgid "The system will be rebooted now."
 msgstr ""
 
-#: yuminstall.py:1623
+#: yuminstall.py:1624
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1658
+#: yuminstall.py:1659
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -1754,35 +1754,35 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1705
+#: yuminstall.py:1706
 msgid "Post Upgrade"
 msgstr ""
 
-#: yuminstall.py:1706
+#: yuminstall.py:1707
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: yuminstall.py:1708
+#: yuminstall.py:1709
 msgid "Post Installation"
 msgstr ""
 
-#: yuminstall.py:1709
+#: yuminstall.py:1710
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:1930
+#: yuminstall.py:1931
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:1931
+#: yuminstall.py:1932
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:1969
+#: yuminstall.py:1970
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:1970
+#: yuminstall.py:1971
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
@@ -3370,8 +3370,8 @@ msgstr ""
 msgid "Disc Not Found"
 msgstr ""
 
-#: loader/cdinstall.c:431 loader/driverdisk.c:424 loader/driverdisk.c:462
-#: loader/driverdisk.c:543 loader/driverselect.c:78 loader/driverselect.c:152
+#: loader/cdinstall.c:431 loader/driverdisk.c:420 loader/driverdisk.c:458
+#: loader/driverdisk.c:539 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:203 loader/hdinstall.c:257
 #: loader/kbd.c:119 loader/loader.c:490 loader/loader.c:507
 #: loader/loader.c:1359 loader/loader.c:1392 loader/net.c:579 loader/net.c:950
@@ -3390,96 +3390,96 @@ msgstr ""
 msgid "Failed to read directory %s: %m"
 msgstr ""
 
-#: loader/driverdisk.c:308
+#: loader/driverdisk.c:304
 msgid "Loading"
 msgstr ""
 
-#: loader/driverdisk.c:308
+#: loader/driverdisk.c:304
 msgid "Reading driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:418 loader/driverdisk.c:457
+#: loader/driverdisk.c:414 loader/driverdisk.c:453
 msgid "Driver Disk Source"
 msgstr ""
 
-#: loader/driverdisk.c:419
+#: loader/driverdisk.c:415
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:458
+#: loader/driverdisk.c:454
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:493
+#: loader/driverdisk.c:489
 msgid "Failed to mount partition."
 msgstr ""
 
-#: loader/driverdisk.c:498
+#: loader/driverdisk.c:494
 msgid "Select driver disk image"
 msgstr ""
 
-#: loader/driverdisk.c:499
+#: loader/driverdisk.c:495
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
-#: loader/driverdisk.c:528
+#: loader/driverdisk.c:524
 msgid "Failed to load driver disk from file."
 msgstr ""
 
-#: loader/driverdisk.c:540
+#: loader/driverdisk.c:536
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 
-#: loader/driverdisk.c:543
+#: loader/driverdisk.c:539
 msgid "Insert Driver Disk"
 msgstr ""
 
-#: loader/driverdisk.c:556
+#: loader/driverdisk.c:552
 msgid "Failed to mount driver disk."
 msgstr ""
 
-#: loader/driverdisk.c:564
+#: loader/driverdisk.c:560
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr ""
 
-#: loader/driverdisk.c:627
+#: loader/driverdisk.c:623
 msgid "Manually choose"
 msgstr ""
 
-#: loader/driverdisk.c:628
+#: loader/driverdisk.c:624
 msgid "Load another disk"
 msgstr ""
 
-#: loader/driverdisk.c:629
+#: loader/driverdisk.c:625
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:667
+#: loader/driverdisk.c:663
 msgid "Driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:668
+#: loader/driverdisk.c:664
 msgid "Do you have a driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:677
+#: loader/driverdisk.c:673
 msgid "More Driver Disks?"
 msgstr ""
 
-#: loader/driverdisk.c:678
+#: loader/driverdisk.c:674
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: loader/driverdisk.c:723 loader/driverdisk.c:762 loader/hdinstall.c:349
+#: loader/driverdisk.c:719 loader/driverdisk.c:758 loader/hdinstall.c:349
 #: loader/kickstart.c:132 loader/kickstart.c:142 loader/kickstart.c:184
 #: loader/kickstart.c:189 loader/kickstart.c:510 loader/modules.c:381
 #: loader/modules.c:397 loader/net.c:1556 loader/net.c:1577
@@ -3488,12 +3488,12 @@ msgstr ""
 msgid "Kickstart Error"
 msgstr ""
 
-#: loader/driverdisk.c:724
+#: loader/driverdisk.c:720
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr ""
 
-#: loader/driverdisk.c:763
+#: loader/driverdisk.c:759
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "

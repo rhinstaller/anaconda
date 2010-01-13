@@ -216,6 +216,19 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 13 2010 Chris Lumens <clumens@redhat.com> - 13.21.0-1
+- Don't log the size of what we're unpacking anymore. (clumens)
+- Update the pyparted and python-pyblock requirements to the latest. (clumens)
+- Fix a date ordering problem in the .spec.in %changelog. (clumens)
+- Add "askmethod" as a default argument (#545730). (clumens)
+- Set yum debuglevel by default (dgregor).
+- All the nss libraries still appear to be under $LIBDIR (dgregor).
+- RHEL6 wants "ppc64" instead of "ppc" coming from iutil.getArch (dgregor).
+- Some packages are i386, some i586, and some i686 so support all (dgregor).
+- Add a patch for debugging buildinstall (dgregor).
+- Enable the .z part of the anaconda version number. (dcantrell)
+- Bring in 12.y.z changelog entries for rhel6-branch. (dcantrell)
+
 * Tue Jan 12 2010 Chris Lumens <clumens@redhat.com> - 13.21-1
 - Fix implicit declaration of things in sys/stat.h. (clumens)
 
