@@ -171,7 +171,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     jfsutils keyutils-libs krb5-libs libICE libSM libX11 libXau
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
     libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
-    libXxf86misc libacl libart_lgpl libattr libbdevid libbdevid-python
+    libXxf86misc libacl libart_lgpl libattr
     libbonobo libcurl libfontenc libidn libgcc
     libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libnl
     libpng libselinux libselinux-python libsemanage
@@ -181,7 +181,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     lohit-kashmiri-fonts lohit-kannada-fonts lohit-maithili-fonts lohit-marathi-fonts
     lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
     lohit-telugu-fonts lvm2 madan-fonts mdadm
-    mesa-dri-drivers mkinitrd module-init-tools nash ncurses neon net-tools
+    mesa-dri-drivers module-init-tools ncurses neon net-tools
     newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g
     openldap openssh openssh-server
     pam pango parted pciutils pcre psmisc
@@ -283,7 +283,6 @@ fi
 #
 KEEPFILE=${TMPDIR:-/tmp}/keepfile.$$
 cat > $KEEPFILE <<EOF
-$LIBDIR/bdevid
 $LIBDIR/dbus-1
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
