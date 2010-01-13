@@ -500,39 +500,38 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 }
 
 void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
-    char * c, * dup;
+    if (!strncmp(arg, "nfs:", 4)) {
+        ld->method = METHOD_NFS;
+        ld->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
 
-    dup = strdup(arg);
-    c = dup;
-    /* : will let us delimit real information on the method */
-    if ((c = strtok(c, ":"))) {
-        c = strtok(NULL, ":");
+        parseNfsHostPathOpts(arg + 4,
+          &(((struct nfsInstallData *)ld->stage2Data)->host),
+          &(((struct nfsInstallData *)ld->stage2Data)->directory),
+          &(((struct nfsInstallData *)ld->stage2Data)->mountOpts));
+    } else if (!strncmp(arg, "ftp:", 4) || 
+               !strncmp(arg, "http", 4)) {
+        ld->method = METHOD_URL;
+        ld->stage2Data = calloc(sizeof(struct urlInstallData *), 1);
+        ((urlInstallData *)ld->stage2Data)->url = strdup(arg);
+    } else if (!strncmp(arg, "cdrom:", 6)) {
+        ld->method = METHOD_CDROM;
+    } else if (!strncmp(arg, "harddrive:", 10) ||
+               !strncmp(arg, "hd:", 3)) {
+        size_t offset;
 
-        if (!strncmp(arg, "nfs:", 4)) {
-            ld->method = METHOD_NFS;
-            ld->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
+	arg += strcspn(arg, ":");
+	if (!*arg || !*(arg+1))
+	    return;
+	arg += 1;
+        offset = strcspn(arg, ":");
 
-            parseNfsHostPathOpts(arg + 4,
-              &(((struct nfsInstallData *)ld->stage2Data)->host),
-              &(((struct nfsInstallData *)ld->stage2Data)->directory),
-              &(((struct nfsInstallData *)ld->stage2Data)->mountOpts));
-        } else if (!strncmp(arg, "ftp:", 4) || 
-                   !strncmp(arg, "http", 4)) {
-            ld->method = METHOD_URL;
-            ld->stage2Data = calloc(sizeof(struct urlInstallData *), 1);
-            ((urlInstallData *)ld->stage2Data)->url = strdup(arg);
-        } else if (!strncmp(arg, "cdrom:", 6)) {
-            ld->method = METHOD_CDROM;
-        } else if (!strncmp(arg, "harddrive:", 10) ||
-                   !strncmp(arg, "hd:", 3)) {
-            ld->method = METHOD_HD;
-            ld->stage2Data = calloc(sizeof(struct hdInstallData *), 1);
-            ((struct hdInstallData *)ld->stage2Data)->partition = strdup(c);
-            if ((c = strtok(NULL, ":")))
-                ((struct hdInstallData *)ld->stage2Data)->directory = strdup(c);
-            else
-                ((struct hdInstallData *)ld->stage2Data)->directory = NULL;
-        }
+        ld->method = METHOD_HD;
+        ld->stage2Data = calloc(sizeof(struct hdInstallData *), 1);
+        ((struct hdInstallData *)ld->stage2Data)->partition = strndup(arg, offset);
+	arg += offset;
+	if (*arg && *(arg+1))
+            ((struct hdInstallData *)ld->stage2Data)->directory = strdup(arg+1);
+        else
+            ((struct hdInstallData *)ld->stage2Data)->directory = NULL;
     }
-    free(dup);
 }
