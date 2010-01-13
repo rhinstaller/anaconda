@@ -70,7 +70,7 @@ function debug() {
 # Always succeeds and returns 0.
 function search_chpt() {
     local chpidtype_number=$1
-    chpidtype_symbolic=${CHPIDTYPES[$chpidtype_number]}
+    chpidtype_symbolic=${CHPIDTYPES[$((0x$chpidtype_number))]}
     if [ "$chpidtype_symbolic" == "" ]; then
         chpidtype_symbolic="?"
     fi

@@ -83,9 +83,9 @@ readonly -a CU_GROUPCHANNELS=(
 )
 
 readonly -a CHPIDTYPES=(
-    [10]=OSE
-    [11]=OSD
-    [24]=IQD
+    [0x10]=OSE
+    [0x11]=OSD
+    [0x24]=IQD
 )
 
 # Searches for a match of argument 1 on the array $CU and sets $cu_idx
