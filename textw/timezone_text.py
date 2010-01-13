@@ -46,7 +46,7 @@ class TimezoneWindow:
 	if self.c.selected():
 	    args.append("--utc")
 
-	iutil.execWithRedirect("hwclock", args, searchPath=1)
+	iutil.execWithRedirect("hwclock", args)
 	self.g.setTimer(500)
 	self.updateClock()
 

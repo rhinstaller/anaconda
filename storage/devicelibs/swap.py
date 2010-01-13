@@ -86,8 +86,7 @@ def swapon(device, priority=None):
     rc = iutil.execWithRedirect("swapon",
                                 argv,
                                 stderr = "/dev/tty5",
-                                stdout = "/dev/tty5",
-                                searchPath=1)
+                                stdout = "/dev/tty5")
 
     if rc:
         raise SwapError("swapon failed for '%s'" % device)
@@ -95,8 +94,7 @@ def swapon(device, priority=None):
 def swapoff(device):
     rc = iutil.execWithRedirect("swapoff", [device],
                                 stderr = "/dev/tty5",
-                                stdout = "/dev/tty5",
-                                searchPath=1)
+                                stdout = "/dev/tty5")
 
     if rc:
         raise SwapError("swapoff failed for '%s'" % device)

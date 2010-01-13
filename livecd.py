@@ -245,8 +245,7 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
                                 "random",
                                 rootDevice.path],
                                stdout="/dev/tty5",
-                               stderr="/dev/tty5",
-                               searchPath = 1)
+                               stderr="/dev/tty5")
         # and now set the uuid in the storage layer
         rootDevice.updateSysfsPath()
         iutil.notify_kernel("/sys%s" %rootDevice.sysfsPath)

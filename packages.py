@@ -92,8 +92,7 @@ def turnOnFilesystems(anaconda):
             # turn off any swaps that we didn't turn on
             # needed for live installs
             iutil.execWithRedirect("swapoff", ["-a"],
-                                   stdout = "/dev/tty5", stderr="/dev/tty5",
-                                   searchPath = 1)
+                                   stdout = "/dev/tty5", stderr="/dev/tty5")
         anaconda.id.storage.devicetree.teardownAll()
 
     upgrade_migrate = False
@@ -321,7 +320,7 @@ def recreateInitrd (kernelTag, instRoot):
     iutil.execWithRedirect("/sbin/new-kernel-pkg",
                            [ "--mkinitrd", "--dracut", "--depmod", "--install", kernelTag ],
                            stdout = "/dev/null", stderr = "/dev/null",
-                           searchPath = 1, root = instRoot)
+                           root = instRoot)
 
 def betaNagScreen(anaconda):
     publicBetas = { "Red Hat Linux": "Red Hat Linux Public Beta",

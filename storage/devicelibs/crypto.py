@@ -147,8 +147,7 @@ def luks_add_key(device,
     rc = iutil.execWithRedirect("cryptsetup", params,
                                 stdin = p[0],
                                 stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath = 1)
+                                stderr = "/dev/tty5")
 
     os.close(p[0])
     if rc:
@@ -185,8 +184,7 @@ def luks_remove_key(device,
     rc = iutil.execWithRedirect("cryptsetup", params,
                                 stdin = p[0],
                                 stdout = "/dev/tty5",
-                                stderr = "/dev/tty5",
-                                searchPath = 1)
+                                stderr = "/dev/tty5")
 
     os.close(p[0])
     if rc:

@@ -33,8 +33,7 @@ def has_fcoe():
     global _fcoe_module_loaded
     if not _fcoe_module_loaded:
         iutil.execWithRedirect("modprobe", [ "fcoe" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5",
-                               searchPath = 1)
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
         _fcoe_module_loaded = True
 
     return os.access("/sys/module/fcoe", os.X_OK)
