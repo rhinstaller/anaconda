@@ -198,7 +198,7 @@ class AutoPart(commands.autopart.F12_AutoPart):
             anaconda.id.storage.autoPartAddBackupPassphrase = \
                 self.backuppassphrase
 
-        self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class AutoStep(commands.autostep.FC3_AutoStep):
     def execute(self, anaconda):
@@ -222,9 +222,9 @@ class Bootloader(commands.bootloader.F12_Bootloader):
             anaconda.id.bootloader.doUpgradeOnly = 1
 
         if location is None:
-            self.handler.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
+            anaconda.id.ksdata.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:
-            self.handler.showSteps.append("bootloader")
+            anaconda.id.ksdata.showSteps.append("bootloader")
 
             if self.appendLine:
                 anaconda.id.bootloader.args.append(self.appendLine)
@@ -269,7 +269,7 @@ class Bootloader(commands.bootloader.F12_Bootloader):
 
                 anaconda.id.bootloader.updateDriveList(new)
 
-        self.handler.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
+        anaconda.id.ksdata.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
 
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
@@ -299,7 +299,7 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
             anaconda.id.storage.reinitializeDisks = self.initAll
 
         clearPartitions(anaconda.id.storage)
-        self.handler.skipSteps.append("cleardiskssel")
+        anaconda.id.ksdata.skipSteps.append("cleardiskssel")
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
@@ -357,7 +357,7 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
     def execute(self, anaconda):
         anaconda.id.storage.ignoredDisks = self.ignoredisk
         anaconda.id.storage.exclusiveDisks = self.onlyuse
-        self.handler.skipSteps.extend(["filter", "filtertype"])
+        anaconda.id.ksdata.skipSteps.extend(["filter", "filtertype"])
 
 class Iscsi(commands.iscsi.F10_Iscsi):
     def parse(self, args):
@@ -383,13 +383,13 @@ class Keyboard(commands.keyboard.FC3_Keyboard):
     def execute(self, anaconda):
         anaconda.id.keyboard.set(self.keyboard)
         anaconda.id.keyboard.beenset = 1
-        self.handler.skipSteps.append("keyboard")
+        anaconda.id.ksdata.skipSteps.append("keyboard")
 
 class Lang(commands.lang.FC3_Lang):
     def execute(self, anaconda):
         anaconda.id.instLanguage.instLang = self.lang
         anaconda.id.instLanguage.systemLang = self.lang
-        self.handler.skipSteps.append("language")
+        anaconda.id.ksdata.skipSteps.append("language")
 
 class LogVolData(commands.logvol.F12_LogVolData):
     def execute(self, anaconda):
@@ -431,7 +431,7 @@ class LogVolData(commands.logvol.F12_LogVolData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
         # Make sure this LV name is not already used in the requested VG.
@@ -512,7 +512,7 @@ class LogVolData(commands.logvol.F12_LogVolData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, anaconda):
@@ -635,7 +635,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             # store "raid." alias for other ks partitioning commands
             if self.onPart:
-                self.handler.onPart[kwargs["name"]] = self.onPart
+                anaconda.id.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint.startswith("pv."):
             type = "lvmpv"
@@ -646,7 +646,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             # store "pv." alias for other ks partitioning commands
             if self.onPart:
-                self.handler.onPart[kwargs["name"]] = self.onPart
+                anaconda.id.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
             type = "EFI System Partition"
@@ -672,7 +672,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
         # Size specification checks.
@@ -761,11 +761,11 @@ class PartitionData(commands.partition.F12_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class Reboot(commands.reboot.FC6_Reboot):
     def execute(self, anaconda):
-        self.handler.skipSteps.append("complete")
+        anaconda.id.ksdata.skipSteps.append("complete")
 
 class RaidData(commands.raid.F12_RaidData):
     def execute(self, anaconda):
@@ -784,7 +784,7 @@ class RaidData(commands.raid.F12_RaidData):
         elif self.mountpoint.startswith("pv."):
             type = "lvmpv"
             kwargs["name"] = self.mountpoint
-            self.handler.onPart[kwargs["name"]] = devicename
+            anaconda.id.ksdata.onPart[kwargs["name"]] = devicename
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
@@ -814,13 +814,13 @@ class RaidData(commands.raid.F12_RaidData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
         # Get a list of all the RAID members.
         for member in self.members:
             # if member is using --onpart, use original device
-            member = self.handler.onPart.get(member, member)
+            member = anaconda.id.ksdata.onPart.get(member, member)
             dev = devicetree.getDeviceByName(member)
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member)
@@ -900,14 +900,14 @@ class RaidData(commands.raid.F12_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        self.handler.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        anaconda.id.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class RootPw(commands.rootpw.F8_RootPw):
     def execute(self, anaconda):
         anaconda.id.rootPassword["password"] = self.password
         anaconda.id.rootPassword["isCrypted"] = self.isCrypted
         anaconda.id.rootPassword["lock"] = self.lock
-        self.handler.skipSteps.append("accounts")
+        anaconda.id.ksdata.skipSteps.append("accounts")
 
 class SELinux(commands.selinux.FC3_SELinux):
     def execute(self, anaconda):
@@ -915,7 +915,7 @@ class SELinux(commands.selinux.FC3_SELinux):
 
 class SkipX(commands.skipx.FC3_SkipX):
     def execute(self, anaconda):
-        self.handler.skipSteps.extend(["setsanex", "videocard", "xcustom"])
+        anaconda.id.ksdata.skipSteps.extend(["setsanex", "videocard", "xcustom"])
 
         if anaconda.id.desktop is not None:
             anaconda.id.desktop.setDefaultRunLevel(3)
@@ -929,7 +929,7 @@ class Timezone(commands.timezone.FC6_Timezone):
             log.warning("Timezone %s set in kickstart is not valid." % (self.timezone,))
 
         anaconda.id.timezone.setTimezoneInfo(self.timezone, self.isUtc)
-        self.handler.skipSteps.append("timezone")
+        anaconda.id.ksdata.skipSteps.append("timezone")
 
 class Upgrade(commands.upgrade.F11_Upgrade):
     def execute(self, anaconda):
@@ -947,7 +947,7 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
         # Get a list of all the physical volume devices that make up this VG.
         for pv in self.physvols:
             # if pv is using --onpart, use original device
-            pv = self.handler.onPart.get(pv, pv)
+            pv = anaconda.id.ksdata.onPart.get(pv, pv)
             dev = devicetree.getDeviceByName(pv)
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
@@ -1080,18 +1080,6 @@ class AnacondaKSHandler(superclass):
         else:
             # Data objects can be seen over and over again.
             self._dataObjs.append(obj)
-
-    def dispatcher(self, args, lineno, include=None):
-        # This is a big fat hack, and I don't want it in pykickstart.  A lot
-        # of our overridden data objects here refer to the handler (to skip
-        # steps, mainly).  I don't think this should be pykickstart's job
-        # since it's only required for anaconda, so it's got to go here.
-        obj = superclass.dispatcher(self, args, lineno, include=include)
-
-        if isinstance(obj, BaseData) and self.commands[args[0]] != None:
-            obj.handler = self
-
-        return obj
 
     def execute(self):
         for obj in filter(lambda o: hasattr(o, "execute"), self._dataObjs):
