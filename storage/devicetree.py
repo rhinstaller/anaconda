@@ -1949,7 +1949,7 @@ class DeviceTree(object):
         for device in self.leaves:
             try:
                 device.teardown(recursive=True)
-            except (DeviceError, DeviceFormatError, LVMError, MDRaidError) as e:
+            except StorageError as e:
                 log.info("teardown of %s failed: %s" % (device.name, e))
 
     def setupAll(self):
