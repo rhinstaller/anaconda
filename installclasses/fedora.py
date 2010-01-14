@@ -84,7 +84,7 @@ class InstallClass(BaseInstallClass):
         map(lambda x: anaconda.backend.selectGroup(x), ["core"])
 
     def setSteps(self, anaconda):
-	BaseInstallClass.setSteps(self, anaconda);
+	BaseInstallClass.setSteps(self, anaconda)
 	anaconda.dispatch.skipStep("partition")
 
     def getBackend(self):

@@ -41,7 +41,6 @@ import selinux
 
 import logging
 log = logging.getLogger("anaconda")
-import warnings
 
 NM_SERVICE = "org.freedesktop.NetworkManager"
 NM_MANAGER_PATH = "/org/freedesktop/NetworkManager"
@@ -387,7 +386,7 @@ def ext2IsDirty(device):
     return label
 
 def ext2HasJournal(device):
-    hasjournal = _isys.e2hasjournal(device);
+    hasjournal = _isys.e2hasjournal(device)
     return hasjournal
 
 def modulesWithPaths():

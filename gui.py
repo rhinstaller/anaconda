@@ -38,7 +38,6 @@ import shutil
 import gtk
 import gtk.glade
 import gobject
-import gettext
 from language import expandLangs
 from constants import *
 from product import *

@@ -206,9 +206,6 @@ class Users:
         else:
             return False
 
-    def setRootPassword(self, password, isCrypted, lock, algo=None):
-        rootUser = self.admin.lookupUserByName("root")
-
     def checkUserExists(self, username, root="/mnt/sysimage"):
         childpid = os.fork()
 

@@ -59,7 +59,6 @@ from anaconda_log import logger, logLevelMap, setHandlersLevel
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
-        import tempfile
         import os.path
 
         if self.inChroot:
@@ -83,7 +82,7 @@ class AnacondaKSScript(Script):
                 messages = self.logfile
 
             d = os.path.basename(messages)
-            if not os.exists(d):
+            if not os.path.exists(d):
                 os.makedirs(d)
         else:
             messages = "%s.log" % path
