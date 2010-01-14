@@ -1809,11 +1809,10 @@ int main(int argc, char ** argv) {
     /* get init PID if we have it */
     if ((f = fopen("/var/run/init.pid", "r")) != NULL) {
         char linebuf[256];
-        memset(linebuf, '\0', sizeof(linebuf));
 
-        while (fgets(linebuf, sizeof(linebuf) - 1, f) != NULL) {
+        while (fgets(linebuf, sizeof(linebuf), f) != NULL) {
             errno = 0;
-            init_pid = strtol((const char *) &linebuf, NULL, 10);
+            init_pid = strtol(linebuf, NULL, 10);
             if (errno == EINVAL || errno == ERANGE) {
                 logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
                 init_pid = 1;
