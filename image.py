@@ -179,7 +179,7 @@ def mountImage(isodir, tree, discnum, messageWindow, discImages={}):
         try:
             isoImage = "%s/%s" % (isodir, discImages[discnum])
             isys.losetup("/dev/loop1", isoImage, readOnly = 1)
-            isys.mount("/dev/loop1", tree, fstype = 'iso9660', readOnly = True);
+            isys.mount("/dev/loop1", tree, fstype = 'iso9660', readOnly = True)
             break
         except:
             ans = messageWindow(_("Missing ISO 9660 Image"),

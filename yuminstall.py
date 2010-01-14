@@ -731,7 +731,7 @@ class AnacondaYum(YumSorter):
                         if m.group(4):
                             repo.proxy = m.group(3) + m.group(4)
                         else:
-                            reop.proxy = m.group(3)
+                            repo.proxy = m.group(3)
 
                     if m and m.group(5):
                         repo.proxy_username = m.group(5)
@@ -986,7 +986,7 @@ class AnacondaYum(YumSorter):
             spaceprob = to_unicode(spaceprob)
             fileprob = to_unicode(fileprob)
 
-            if len(self.anaconda.backend.getRequiredMedia()) > 1 or anaconda.id.upgrade:
+            if len(self.anaconda.backend.getRequiredMedia()) > 1 or self.anaconda.id.upgrade:
                 intf.detailedMessageWindow(_("Error Running Transaction"),
                    msg, spaceprob + "\n" + fileprob, type="custom",
                    custom_icon="error", custom_buttons=[_("_Exit installer")])

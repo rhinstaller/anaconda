@@ -208,9 +208,9 @@ class InstallData:
         f.write("#version=%s\n" % versionToString(DEVEL))
 
         if self.upgrade:
-            f.write("upgrade\n");
+            f.write("upgrade\n")
         else:
-            f.write("install\n");
+            f.write("install\n")
 
         m = None
 

@@ -27,7 +27,7 @@ import string
 import os
 from constants import lvmErrorOutput
 
-"""Exceptions for use in lvm operations."""
+# Exceptions for use in lvm operations.
 
 class LvmError(Exception):
     """An error occurred with lvm."""
@@ -123,7 +123,7 @@ class PVCreateError(LvmError):
         return "pvcreate of pv \"%s\" failed\nLog:\n%s" % ( \
             self.pvname, self.log)
 
-"""Exceptions for use in partitioning."""
+# Exceptions for use in partitioning.
 
 class PartitioningError(Exception):
     """A critical error which must be resolved to continue the installation."""
@@ -149,7 +149,7 @@ class LabelError(Exception):
     def __str__(self):
         return self.message
 
-"""Exceptions for use in package selection."""
+# Exceptions for use in package selection.
 
 class NoSuchGroup(Exception):
     def __init__ (self, value):

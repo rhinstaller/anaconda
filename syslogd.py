@@ -61,12 +61,12 @@ class Syslogd:
 		    fd.close()
 
     def __init__(self, root = "", output = sys.stdout, socket = "/dev/log"):
-	filename = root + socket;
+	filename = root + socket
         self.goSyslog(output, filename)
 
 class InstSyslog:
     def __init__ (self):
-        self.pid = -1;
+        self.pid = -1
 
     def start (self, root, log):
         # don't run in the "install from livecd" case

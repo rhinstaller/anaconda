@@ -24,9 +24,13 @@ from constants_text import *
 from snack import *
 from flags import flags
 from constants import *
+from storage.formats import getFormat
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+
+import logging
+log = logging.getLogger("anaconda")
 
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):

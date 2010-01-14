@@ -504,7 +504,7 @@ class Network:
                         self.hostname != "localhost.localdomain"):
                         f.write(" --hostname %s" % self.hostname)
 
-                f.write("\n");
+                f.write("\n")
 
     def hasNameServers(self, hash):
         if hash.keys() == []:
