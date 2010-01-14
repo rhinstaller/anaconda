@@ -130,13 +130,13 @@ function sysecho () {
 }
 
 function dasd_settle() {
-    local dasd=/sys/bus/ccw/devices/$1
-    if [ ! -d "$dasd" ]; then
+    local dasd_status=/sys/bus/ccw/devices/$1/status
+    if [ ! -f $dasd_status ]; then
         return 1
     fi
     local i=1
     while [ $i -le 30 ] ; do
-        status="$(< /sys/bus/ccw/devices/$dasd/status 2>/dev/null)"
+        status="$(< $dasd_status 2>/dev/null)"
         case $status in
             online|unformatted)
                 return 0 ;;
