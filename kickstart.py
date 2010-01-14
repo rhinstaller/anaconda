@@ -1343,11 +1343,13 @@ def selectPackages(anaconda):
                     ignoreAll = True
 
     map(anaconda.backend.deselectPackage, ksdata.packages.excludedList)
+    map(lambda g: anaconda.backend.deselectGroup(g.name),
+        ksdata.packages.excludedGroupList)
 
 def setSteps(anaconda):
     def havePackages(packages):
         return len(packages.groupList) > 0 or len(packages.packageList) > 0 or \
-               len(packages.excludedList) > 0
+               len(packages.excludedList) > 0 or len(packages.excludedGroupList) > 0
 
     dispatch = anaconda.dispatch
     ksdata = anaconda.id.ksdata
