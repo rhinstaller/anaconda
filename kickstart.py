@@ -55,6 +55,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
+stdoutLog = logging.getLogger("anaconda.stdout")
 from anaconda_log import logger, logLevelMap, setHandlersLevel
 
 class AnacondaKSScript(Script):
