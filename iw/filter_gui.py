@@ -367,10 +367,10 @@ class FilterWindow(InstallWindow):
         # are in the list.
         selected = set()
         for dev in self.pages[0].ds.getSelected():
-            for path in dev[PATHS_COL].split():
-                selected.add(path)
-
-            selected.add(udev_device_get_name(dev[OBJECT_COL]))
+            if udev_device_is_multipath_member(dev[OBJECT_COL]):
+                selected.add(udev_device_get_multipath_name(dev[OBJECT_COL]))
+            else:
+                selected.add(udev_device_get_name(dev[OBJECT_COL]))
 
         if len(selected) == 0:
             self.anaconda.intf.messageWindow(_("Error"),
