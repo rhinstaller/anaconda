@@ -305,6 +305,7 @@ class Device(object):
 
     def setupParents(self):
         """ Run setup method of all parent devices. """
+        log_method_call(self, name=self.name, kids=self.kids)
         for parent in self.parents:
             parent.setup()
 
@@ -3009,6 +3010,8 @@ class MultipathDevice(DMDevice):
         return "WWID %s" % (self.wwid,)
 
     def addParent(self, parent):
+        """ Add a parent device to the mpath. """
+        log_method_call(self, self.name, status=self.status)
         if self.status:
             self.teardown()
             self.parents.append(parent)
