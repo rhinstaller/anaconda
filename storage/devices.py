@@ -2958,7 +2958,8 @@ class MultipathDevice(DMDevice):
         self._pyBlockMultiPath = None
         self.setupIdentity()
         DMDevice.__init__(self, name, format=format, size=size,
-                          parents=parents, sysfsPath=sysfsPath)
+                          parents=parents, sysfsPath=sysfsPath,
+                          exists=True)
 
         # PJTODO: these need better setup
         self.config = {
@@ -2981,8 +2982,8 @@ class MultipathDevice(DMDevice):
         
             May be overridden by a sub-class for e.g. RDAC handling.
         """
-        self._serial_short = self._info['ID_SERIAL_SHORT']
-        self._serial = self._info['ID_SERIAL']
+        self._identity_short = self._info['ID_SERIAL_SHORT']
+        self._identity = self._info['ID_SERIAL']
 
     @property
     def identity(self):
@@ -2990,21 +2991,17 @@ class MultipathDevice(DMDevice):
         
             May be overridden by a sub-class for e.g. RDAC handling.
         """
-        if not hasattr(self, "_serial"):
+        if not hasattr(self, "_identity"):
             raise RuntimeError, "setupIdentityFromInfo() has not been called."
-        return self._serial
-
-    @property
-    def status(self):
-        return self._isUp
+        return self._identity
 
     @property
     def wwid(self):
-        serial = self._serial_short
+        identity = self._identity_short
         ret = []
-        while serial:
-            ret.append(serial[:2])
-            serial = serial[2:]
+        while identity:
+            ret.append(identity[:2])
+            identity = identity[2:]
         return ":".join(ret)
 
     @property
