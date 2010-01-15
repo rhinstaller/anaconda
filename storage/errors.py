@@ -122,6 +122,9 @@ class LVMError(StorageError):
 class CryptoError(StorageError):
     pass
 
+class MPathError(StorageError):
+    pass
+
 # DeviceTree
 class DeviceTreeError(StorageError):
     pass
