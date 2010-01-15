@@ -844,7 +844,7 @@ GSList* findDriverDiskByLabel(void)
 
     bIter = blkid_dev_iterate_begin(bCache);
     blkid_dev_set_search(bIter, "LABEL", ddLabel);
-    while ((res = blkid_dev_next(bIter, &bDev)) !=0 ) {
+    while ((res = blkid_dev_next(bIter, &bDev)) == 0) {
         bDev = blkid_verify(bCache, bDev);
         if (!bDev)
             continue;
