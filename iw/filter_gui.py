@@ -355,6 +355,9 @@ class NotebookPage(object):
 
         self.filteredModel.refilter()
 
+    def getNVisible(self):
+        return self.ds.getNVisible()
+
 class FilterWindow(InstallWindow):
     windowTitle = N_("Device Filter")
 
@@ -529,6 +532,14 @@ class FilterWindow(InstallWindow):
         self._cachedDevices = NameCache(singlepaths)
         self._cachedMPaths = NameCache(mpaths)
         self._cachedRaidDevices = NameCache(raids)
+
+        # Switch to the first notebook page that displays any devices.
+        i = 0
+        for pg in self.pages:
+            if pg.getNVisible():
+                self.notebook.set_current_page(i)
+
+            i += 1
 
         return self.vbox
 
