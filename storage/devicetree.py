@@ -904,6 +904,7 @@ class DeviceTree(object):
                 not udev_device_is_md(info) and \
                 not udev_device_is_dm(info) and \
                 not udev_device_is_biosraid(info):
+                not udev_device_is_multipath_member(info):
             if self.exclusiveDisks and name not in self.exclusiveDisks:
                 self.addIgnoredDisk(name)
                 return True
