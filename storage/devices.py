@@ -457,6 +457,7 @@ class StorageDevice(Device):
         if isinstance(parents, Device):
             parents = [parents]
 
+        self.exists = exists
         Device.__init__(self, device, parents=parents)
 
         self.uuid = None
@@ -465,7 +466,6 @@ class StorageDevice(Device):
         self.major = numeric_type(major)
         self.minor = numeric_type(minor)
         self.sysfsPath = sysfsPath
-        self.exists = exists
         self._serial = serial
         self._vendor = vendor
         self._model = model
