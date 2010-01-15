@@ -1592,13 +1592,11 @@ class DeviceTree(object):
     def handleMultipathMemberFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
 
-        serial = udev_device_get_serial(info)
-        found = False
-        if self.__multipaths.has_key(serial):
-            mp = self.__multipaths[serial]
+        name = udev_device_get_multipath_name(info)
+        if self.__multipaths.has_key(name):
+            mp = self.__multipaths[name]
             mp.addParent(device)
         else:
-            name = generateMultipathDeviceName()
             mp = MultipathDevice(name, info, parents=[device])
             self.__multipaths[serial] = mp
 
