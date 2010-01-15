@@ -2894,20 +2894,6 @@ class DMRaidArrayDevice(DMDevice):
     def dracutSetupString(self):
         return "rd_DM_UUID=%s" % self.name
 
-
-class _MultipathDeviceNameGenerator:
-    def __init__(self):
-        self.number = 0
-    def get(self):
-        ret = self.number
-        self.number += 1
-        return ret
-_multipathDeviceNameGenerator = _MultipathDeviceNameGenerator()
-
-def generateMultipathDeviceName():
-    number = _multipathDeviceNameGenerator.get()
-    return "mpath%s" % (number, )
-
 class MultipathDevice(DMDevice):
     """ A multipath device """
     _type = "dm-multipath"
