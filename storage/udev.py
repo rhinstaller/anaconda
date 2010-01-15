@@ -155,10 +155,6 @@ def udev_device_get_label(udev_info):
     """ Get the label from the device's format as reported by udev. """
     return udev_info.get("ID_FS_LABEL")
 
-def udev_device_is_multipath_member(info):
-    """ Return True if the device is part of a multipath. """
-    return info.get("ID_FS_TYPE") == "multipath_member"
-
 def udev_device_is_dm(info):
     """ Return True if the device is a device-mapper device. """
     return info.has_key("DM_NAME")
@@ -442,6 +438,16 @@ def udev_device_get_multipath_partition_disk(info):
         return False
     diskname = udev_device_get_dmraid_partition_disk(info)
     return diskname
+
+def udev_device_is_multipath_member(info):
+    """ Return True if the device is part of a multipath. """
+    return info.get("ID_FS_TYPE") == "multipath_member"
+
+def udev_device_get_multipath_name(info):
+    """ Return the name of the multipath that the device is a member of. """
+    if udev_device_is_multipath_member(info):
+        return info['ID_MPATH_NAME']
+    return None
 
 # iscsi disks have ID_PATH in the form of:
 # ip-${iscsi_address}:${iscsi_port}-iscsi-${iscsi_tgtname}-lun-${lun}
