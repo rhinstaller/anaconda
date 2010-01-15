@@ -1181,7 +1181,9 @@ class DeviceTree(object):
         device = OpticalDevice(udev_device_get_name(info),
                                major=udev_device_get_major(info),
                                minor=udev_device_get_minor(info),
-                               sysfsPath=udev_device_get_sysfs_path(info))
+                               sysfsPath=udev_device_get_sysfs_path(info),
+                               vendor=udev_device_get_vendor(info),
+                               model=udev_device_get_model(info))
         self._addDevice(device)
         return device
 
@@ -1206,7 +1208,9 @@ class DeviceTree(object):
                             major=udev_device_get_major(info),
                             minor=udev_device_get_minor(info),
                             sysfsPath=sysfs_path, exists=True,
-                            serial=udev_device_get_serial(info))
+                            serial=udev_device_get_serial(info),
+                            vendor=udev_device_get_vendor(info),
+                            model=udev_device_get_model(info))
             self._addDevice(device)
         elif udev_device_is_dm(info) and \
                devicelibs.dm.dm_is_multipath(info):

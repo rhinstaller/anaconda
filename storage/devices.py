@@ -432,7 +432,7 @@ class StorageDevice(Device):
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None,
                  sysfsPath='', parents=None, exists=None, serial=None,
-                 vendor="", bus=""):
+                 vendor="", model="", bus=""):
         """ Create a StorageDevice instance.
 
             Arguments:
@@ -447,6 +447,10 @@ class StorageDevice(Device):
                 sysfsPath -- sysfs device path
                 format -- a DeviceFormat instance
                 parents -- a list of required Device instances
+                serial -- the ID_SERIAL_SHORT for this device
+                vendor -- the manufacturer of this Device
+                model -- manufacturer's device model string
+                bus -- the interconnect this device uses
 
         """
         # allow specification of individual parents
@@ -462,8 +466,9 @@ class StorageDevice(Device):
         self.minor = numeric_type(minor)
         self.sysfsPath = sysfsPath
         self.exists = exists
-        self.serial = serial
-        self.vendor = vendor
+        self._serial = serial
+        self._vendor = vendor
+        self._model = model
         self.bus = bus
 
         self.protected = False
@@ -737,6 +742,19 @@ class StorageDevice(Device):
     def partitioned(self):
         return self.format.type == "disklabel" and self.partitionable
 
+    @property
+    def serial(self):
+        return self._serial
+
+    @property
+    def model(self):
+        if not self._model:
+            self._model = getattr(self.partedDevice, "model", "")
+        return self._model
+
+    @property
+    def vendor(self):
+        return self._vendor
 
 class DiskDevice(StorageDevice):
     """ A disk """
@@ -746,7 +764,7 @@ class DiskDevice(StorageDevice):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None, sysfsPath='',
-                 parents=None, serial=None, vendor="", bus="",
+                 parents=None, serial=None, vendor="", model="", bus="",
                  exists=True):
         """ Create a DiskDevice instance.
 
@@ -765,6 +783,7 @@ class DiskDevice(StorageDevice):
                 removable -- whether or not this is a removable device
                 serial -- the ID_SERIAL_SHORT for this device
                 vendor -- the manufacturer of this Device
+                model -- manufacturer's device model string
                 bus -- the interconnect this device uses
 
 
@@ -773,7 +792,8 @@ class DiskDevice(StorageDevice):
         StorageDevice.__init__(self, device, format=format, size=size,
                                major=major, minor=minor, exists=exists,
                                sysfsPath=sysfsPath, parents=parents,
-                               serial=serial, vendor=vendor, bus=bus)
+                               serial=serial, model=model,
+                               vendor=vendor, bus=bus)
 
     def __str__(self):
         s = StorageDevice.__str__(self)
@@ -790,10 +810,6 @@ class DiskDevice(StorageDevice):
         # controllers with no disks attached and then report a 0 size,
         # treat this as no media present
         return self.partedDevice.getSize() != 0
-
-    @property
-    def model(self):
-        return getattr(self.partedDevice, "model", None)
 
     @property
     def description(self):
@@ -2969,6 +2985,18 @@ class MultipathDevice(DMDevice):
         return ":".join(ret)
 
     @property
+    def model(self):
+        if not self.parents:
+            return ""
+        return self.parents[0].model
+
+    @property
+    def vendor(self):
+        if not self.parents:
+            return ""
+        return self.parents[0].vendor
+
+    @property
     def description(self):
         return "WWID %s" % (self.wwid,)
 
@@ -3245,10 +3273,12 @@ class OpticalDevice(StorageDevice):
     _type = "cdrom"
 
     def __init__(self, name, major=None, minor=None, exists=None,
-                 format=None, parents=None, sysfsPath=''):
+                 format=None, parents=None, sysfsPath='', vendor="",
+                 model=""):
         StorageDevice.__init__(self, name, format=format,
                                major=major, minor=minor, exists=True,
-                               parents=parents, sysfsPath=sysfsPath)
+                               parents=parents, sysfsPath=sysfsPath,
+                               vendor=vendor, model=model)
 
     @property
     def mediaPresent(self):
