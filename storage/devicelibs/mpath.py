@@ -1,4 +1,5 @@
 from ..udev import *
+import iutil
 
 def parseMultipathOutput(output):
     # this function parses output from "multipath -d", so we can use its
@@ -20,6 +21,8 @@ def parseMultipathOutput(output):
     # It returns a structure like:
     # [ {'mpatha':['sdb','sdc']}, ... ]
     mpaths = {}
+    if output is None:
+        return mpaths
 
     name = None
     devices = []
@@ -52,63 +55,91 @@ def identifyMultipaths(devices):
     # 1) identifies multipath disks
     # 2) sets their ID_FS_TYPE to multipath_member
     # 3) removes the individual members of an mpath's partitions
-    # sample input with multipath pairs [sda,sdc] and [sdb,sdd]
-    # [sr0, sda, sda1, sdb, sda2, sdc, sdd, sdc1, sdc2, sde, sde1]
+    # sample input with multipath pair [sdb,sdc]
+    # [sr0, sda, sda1, sdb, sdb1, sdb2, sdc, sdc1, sdd, sdd1, sdd2]
     # sample output:
-    # [sr0, sda, sdb, sdc, sdd, sde, sde1]
-
+    # [sda, sdd], [[sdb, sdc]], [sr0, sda1, sdd1, sdd2]]
     log.info("devices to scan for multipath: %s" % [d['name'] for d in devices])
-    serials = {}
+
+    topology = parseMultipathOutput(iutil.execWithCapture("multipath", ["-d",]))
+    # find the devices that aren't in topology, and add them into it...
+    topodevs = reduce(lambda x,y: x.union(y), topology.values(), set())
+    for name in set([d['name'] for d in devices]).difference(topodevs):
+        topology[name] = [name]
+    
+    devmap = {}
     non_disk_devices = {}
     for d in devices:
-        serial = udev_device_get_serial(d)
-        if (not udev_device_is_disk(d)) or \
-                (not d.has_key('ID_SERIAL_SHORT')):
-            non_disk_devices.setdefault(serial, [])
-            non_disk_devices[serial].append(d)
+        if not udev_device_is_disk(d):
+            non_disk_devices[d['name']] = d
             log.info("adding %s to non_disk_device list" % (d['name'],))
             continue
-
-        serials.setdefault(serial, [])
-        serials[serial].append(d)
+        devmap[d['name']] = d
 
     singlepath_disks = []
     multipaths = []
-    for serial, disks in serials.items():
+
+    for name, disks in topology.items():
         if len(disks) == 1:
-            log.info("adding %s to singlepath_disks" % (disks[0]['name'],))
-            singlepath_disks.append(disks[0])
+            if not non_disk_devices.has_key(disks[0]):
+                log.info("adding %s to singlepath_disks" % (disks[0],))
+                singlepath_disks.append(devmap[disks[0]])
         else:
             # some usb cardreaders use multiple lun's (for different slots)
             # and report a fake disk serial which is the same for all the
             # lun's (#517603)
             all_usb = True
-            for d in disks:
+            # see if we've got any non-disk devices on our mpath list.
+            # If so, they're probably false-positives.
+            non_disks = False
+            for disk in disks:
+                d = devmap[disk]
                 if d.get("ID_USB_DRIVER") != "usb-storage":
                     all_usb = False
-                    break
+                if (not devmap.has_key(disk)) and non_disk_devices.has_key(disk):
+                    non_disks = True
+
             if all_usb:
                 log.info("adding multi lun usb mass storage device to singlepath_disks: %s" %
-                         [disk['name'] for disk in disks])
-                singlepath_disks.extend(disks)
+                         (disks,))
+                singlepath_disks.extend([devmap[d] for d in disks])
                 continue
 
-            for d in disks:
-                log.info("adding %s to multipath_disks" % (d['name'],))
-                d["ID_FS_TYPE"] = "multipath_member"
+            if non_disks:
+                log.warning("non-disk device %s is part of an mpath")
+                for disk in disks:
+                    if devmap.has_key(disk):
+                        del devmap[disk]
+                    if topology.has_key(disk):
+                        del topology[disk]
+                continue
 
-            multipaths.append(disks)
-            log.info("found multipath set: [%s]" % [d['name'] for d in disks])
+            log.info("found multipath set: %s" % (disks,))
+            for disk in disks:
+                d = devmap[disk]
+                log.info("adding %s to multipath_disks" % (disk,))
+                d["ID_FS_TYPE"] = "multipath_member"
+                d["ID_MPATH_NAME"] = name
+            
+            multipaths.append([devmap[d] for d in disks])
+
+    non_disk_serials = {}
+    for name,device in non_disk_devices.items():
+        serial = udev_device_get_serial(device)
+        non_disk_serials.setdefault(serial, [])
+        non_disk_serials[serial].append(device)
 
     for mpath in multipaths:
-        for serial in [d['ID_SERIAL_SHORT'] for d in mpath]:
-            if non_disk_devices.has_key(serial):
-                log.info("filtering out non disk devices [%s]" % [d['name'] for d in non_disk_devices[serial]])
-                del non_disk_devices[serial]
+        for serial in [d.get('ID_SERIAL_SHORT') for d in mpath]:
+            if non_disk_serials.has_key(serial):
+                log.info("filtering out non disk devices [%s]" % [d['name'] for d in non_disk_serials[serial]])
+                for name in [d['name'] for d in non_disk_serials[serial]]:
+                    if non_disk_devices.has_key(name):
+                        del non_disk_devices[name]
 
     partition_devices = []
-    for devs in non_disk_devices.values():
-        partition_devices += devs
+    for device in non_disk_devices.values():
+        partition_devices.append(device)
 
     # this is the list of devices we want to keep from the original
     # device list, but we want to maintain its original order.
