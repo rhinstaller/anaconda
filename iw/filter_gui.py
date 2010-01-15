@@ -601,7 +601,7 @@ class FilterWindow(InstallWindow):
             data = {"XXX_SIZE": size, "ID_FS_TYPE": fstype, "DM_NAME": rs.name,
                     "name": rs.name}
 
-            tuple = (data, True, _active(name), rs.name, partedDevice.model,
+            tuple = (data, True, _active(rs.name), rs.name, partedDevice.model,
                      str(size) + " MB", "", "", "", "", "", "", "", "")
             _addTuple(tuple)
 
