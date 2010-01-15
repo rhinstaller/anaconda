@@ -178,7 +178,7 @@ struct loaderData_s {
 #endif
 
 /* library paths */
-#if defined(__x86_64__) || defined(__s390x__) || defined(__ppc64__)
+#if defined(__x86_64__) || defined(__s390x__) || defined(__powerpc64__)
 #define LIBPATH "/lib64:/usr/lib64:/usr/X11R6/lib64:/usr/kerberos/lib64:/mnt/usr/lib64:/mnt/sysimage/lib64:/mnt/sysimage/usr/lib64"
 #else
 #define LIBPATH "/lib:/usr/lib:/usr/X11R6/lib:/usr/kerberos/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib"
