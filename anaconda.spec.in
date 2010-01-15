@@ -216,10 +216,53 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jan 15 2010 Chris Lumens <clumens@redhat.com> - 13.21.1-1
+- Include device-mapper-multipath in stage2.img (pjones)
+- Load all scsi_dh_* modules, since they can't be modprobe by aliases...
+  (pjones)
+- Display the first filter notebook page that has any disks on it. (clumens)
+- The firmware and additional-web-server groups no longer exist (#555609).
+  (clumens)
+- Fix a traceback adding RAID devices to the filtering UI. (clumens)
+- reIPL code cleanup in loader (dcantrell)
+- Don't log the big parted.Partition string every time we do a flag op.
+  (dlehman)
+- Check for disklabels on unpartitionable devices. (#539482) (dlehman)
+- Make partitioned attr depend on whether the device is partitionable.
+  (dlehman)
+- Make sure to clear partitions before destroying a disklabel. (dlehman)
+- Raise an exception when /etc/fstab contradicts detected fs type (#536906)
+  (dlehman)
+- Don't include read-only filesystems in fsFreeSpace. (#540525) (dlehman)
+- NTFS filesystems are not really modifiable in any real sense. Admit it.
+  (dlehman)
+- Look for the SSH config file in /etc/ssh on s390 as well (#555691).
+  (clumens)
+- Changed the architecture check from __ppc64__ to __powerpc64__ (#555669)
+  (mgracik)
+- Fix the blkid infinite loop. (#555601) (msivak)
+- Testing mode was removed. (rvykydal)
+- Support the new excludedGroupList in pykickstart (#554717). (clumens)
+- Write "#version=RHEL6" to anaconda-ks.cfg (#552230). (clumens)
+- Use passed in anaconda parameter instead of relying on handler (hdegoede)
+- kickstart.py: Fix stdoutLog not being defined (hdegoede)
+- pylint error fixes round 2 (hdegoede)
+- Fixup various errors detected by pylint (hdegoede)
+- mdraid: various changes to options for new mdraid array creation (hdegoede)
+- Emit a dracut setup string for the root device itself (hdegoede)
+- Fix path mistakes in dasd_settle() in loader/linuxrc.s390 (dcantrell)
+- Do not write HWADDR to ifcfg file on s390x for OSA Layer 2 (#546005)
+  (dcantrell)
+- Poll DASD status for 'online' or 'unformatted' (#536803) (dcantrell)
+- Add back hald for Xorg input device queries (#553780) (dcantrell)
+- Support moving multiple rows at once in the cleardisks UI. (clumens)
+- Allow disks in the filter and cleardisks UIs to be selected via
+  double-click. (clumens)
+
 * Wed Jan 13 2010 Chris Lumens <clumens@redhat.com> - 13.21.0-1
 - Don't log the size of what we're unpacking anymore. (clumens)
 - Update the pyparted and python-pyblock requirements to the latest. (clumens)
-- Fix a date ordering problem in the .spec.in %changelog. (clumens)
+- Fix a date ordering problem in the .spec.in changelog. (clumens)
 - Add "askmethod" as a default argument (#545730). (clumens)
 - Set yum debuglevel by default (dgregor).
 - All the nss libraries still appear to be under $LIBDIR (dgregor).
