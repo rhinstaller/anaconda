@@ -2033,6 +2033,7 @@ class FSSet(object):
         if mdadm_conf:
             open(mdadm_path, "w").write(mdadm_conf)
 
+        # /etc/multipath.conf
         multipath_path = os.path.normpath("%s/etc/multipath.conf" % instPath)
         multipath_conf = self.multipathConf()
         if multipath_conf:
@@ -2099,8 +2100,18 @@ class FSSet(object):
             return None
         mpaths.sort(key=lambda d: d.name)
         config = MultipathConfigWriter()
+        whitelist = []
         for mpath in mpaths:
             config.addMultipathDevice(mpath)
+            whitelist.append(mpath.name)
+            whitelist.extend([d.name for d in mpath.parents])
+
+        # blacklist everything we're not using and let the
+        # sysadmin sort it out.
+        for d in self.devicetree.devices:
+            if not d.name in whitelist:
+                config.addBlacklistDevice(d)
+
         return config.write()
 
     def fstab (self):
