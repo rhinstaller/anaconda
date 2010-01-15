@@ -2974,8 +2974,6 @@ class MultipathDevice(DMDevice):
         """
 
         self._info = info
-        self._isUp = False
-        self._pyBlockMultiPath = None
         self.setupIdentity()
         DMDevice.__init__(self, name, format=format, size=size,
                           parents=parents, sysfsPath=sysfsPath,
@@ -3042,21 +3040,65 @@ class MultipathDevice(DMDevice):
         else:
             self.parents.append(parent)
 
-    def setup(self, intf=None):
-        if self.status:
-            self.teardown()
-        self._isUp = True
-        parents = []
-        for p in self.parents:
-            parents.append(p.path)
-        self._pyBlockMultiPath = block.device.MultiPath(*parents)
+    def setupPartitions(self):
+        log_method_call(self, name=self.name, kids=self.kids)
+        rc = iutil.execWithRedirect("kpartx",
+                                ["-a", "-p", "p", "/dev/mapper/%s" % self.name],
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5")
+        if rc:
+            raise MPathError("multipath partition activation failed for '%s'" %
+                            self.name)
+        udev_settle()
 
     def teardown(self, recursive=None):
-        if not self.status:
-            return
-        self._isUp = False
-        self._pyBlockMultiPath = None
+        """ Tear down the mpath device. """
+        log_method_call(self, self.name, status=self.status)
 
+        if not self.exists and not recursive:
+            raise DeviceError("device has not been created", self.name)
+
+        if self.exists and os.path.exists(self.path):
+            #self.teardownPartitions()
+            #rc = iutil.execWithRedirect("multipath",
+            #                    ['-f', self.name],
+            #                    stdout = "/dev/tty5",
+            #                    stderr = "/dev/tty5")
+            #if rc:
+            #    raise MPathError("multipath deactivation failed for '%s'" %
+            #                    self.name)
+            bdev = block.getDevice(self.name)
+            devmap = block.getMap(major=bdev[0], minor=bdev[1])
+            if devmap.open_count:
+                return
+            try:
+                block.removeDeviceMap(devmap)
+            except Exception as e:
+                raise MPathError("failed to tear down multipath device %s: %s"
+                                % (self.name, e))
+
+        if recursive:
+            self.teardownParents(recursive=recursive)
+
+    def setup(self, intf=None):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, status=self.status)
+
+        if self.status:
+            return
+
+        StorageDevice.setup(self, intf=intf)
+        udev_settle()
+        rc = iutil.execWithRedirect("multipath",
+                            [self.name],
+                            stdout = "/dev/tty5",
+                            stderr = "/dev/tty5")
+        if rc:
+            raise MPathError("multipath activation failed for '%s'" %
+                            self.name)
+        udev_settle()
+        self.setupPartitions()
+        udev_settle()
 
 class NoDevice(StorageDevice):
     """ A nodev device for nodev filesystems like tmpfs. """
