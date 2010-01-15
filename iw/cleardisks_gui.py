@@ -136,7 +136,7 @@ class ClearDisksWindow (InstallWindow):
                 continue
 
             self.store.append(None, (device, True, True, False, False,
-                                     device.partedDevice.model,
+                                     device.model,
                                      str(int(device.size)) + " MB",
                                      device.vendor, "", device.serial))
 
