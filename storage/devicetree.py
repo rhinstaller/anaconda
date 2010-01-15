@@ -34,6 +34,7 @@ import formats
 import devicelibs.mdraid
 import devicelibs.dm
 import devicelibs.lvm
+import devicelibs.mpath
 from udev import *
 from .storage_log import log_method_call
 
@@ -172,9 +173,11 @@ class DeviceTree(object):
         # names of protected devices at the time of tree population
         self.protectedDevNames = []
 
+        self.__multipaths = {}
+        self.__multipathConfigWriter = devicelibs.mpath.MultipathConfigWriter()
+
         self.__passphrase = passphrase
         self.__luksDevs = {}
-        self.__multipaths = {}
         if luksDict and isinstance(luksDict, dict):
             self.__luksDevs = luksDict
         self._ignoredDisks = []
@@ -1603,7 +1606,7 @@ class DeviceTree(object):
             mp.addParent(device)
         else:
             mp = MultipathDevice(name, info, parents=[device])
-            self.__multipaths[serial] = mp
+            self.__multipaths[name] = mp
 
     def handleUdevDMRaidMemberFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
@@ -1906,6 +1909,10 @@ class DeviceTree(object):
         for dev in devices:
             old_devices[dev['name']] = dev
 
+        cfg = self.__multipathConfigWriter.write()
+        open("/etc/multipath.conf", "w+").write(cfg)
+        del cfg
+
         (singles, mpaths, partitions) = devicelibs.mpath.identifyMultipaths(devices)
         devices = singles + reduce(list.__add__, mpaths, []) + partitions
         log.info("devices to scan: %s" % [d['name'] for d in devices])
@@ -1914,10 +1921,23 @@ class DeviceTree(object):
 
         # Having found all the disks, we can now find all the multipaths built
         # upon them.
-        for mp in self.__multipaths.values():
+        whitelist = []
+        mpaths = self.__multipaths.values()
+        mpaths.sort(key=lambda d: d.name)
+        for mp in mpaths:
             log.info("adding mpath device %s" % mp.name)
             mp.setup()
+            whitelist.append(mp.name)
+            for p in mp.parents:
+                whitelist.append(p.name)
+            self.__multipathConfigWriter.addMultipathDevice(mp)
             self._addDevice(mp)
+        for d in self.devices:
+            if not d.name in whitelist:
+                self.__multipathConfigWriter.addBlacklistDevice(d)
+        cfg = self.__multipathConfigWriter.write()
+        open("/etc/multipath.conf", "w+").write(cfg)
+        del cfg
 
         # Now, loop and scan for devices that have appeared since the two above
         # blocks or since previous iterations.

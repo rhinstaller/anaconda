@@ -2961,18 +2961,10 @@ class MultipathDevice(DMDevice):
                           parents=parents, sysfsPath=sysfsPath,
                           exists=True)
 
-        # PJTODO: these need better setup
         self.config = {
             'wwid' : self.identity,
             'alias' : self.name,
-            #'path_grouping_policy' : 'failover',
-            #'path_selector' : '\"round-robin 0\"',
-            #'failback' : 'manual',
-            #'rr_weight' : 'priorities',
-            #'no_path_retry' : 'queue',
-            #'rr_min_io' : '100',
-            #'flush_on_last_del' : 'yes',
-            'mode' : '0644',
+            'mode' : '0600',
             'uid' : '0',
             'gid' : '0',
         }
