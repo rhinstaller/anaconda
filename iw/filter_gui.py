@@ -629,7 +629,8 @@ class FilterWindow(InstallWindow):
             # However, we do need all the paths making up this multipath set.
             paths = "\n".join(map(udev_device_get_name, mpath))
 
-            tuple = (mpath[0], True, _active(name), "", model,
+            tuple = (mpath[0], True, _active(name),
+                     udev_device_get_multipath_name(mpath[0]), model
                      str(mpath[0]["XXX_SIZE"]) + " MB",
                      udev_device_get_vendor(mpath[0]),
                      udev_device_get_bus(mpath[0]),
