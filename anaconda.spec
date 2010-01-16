@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.199
+Version: 11.1.2.201
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,22 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 15 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.201-1
+- os.exists -> os.path.exists (clumens)
+  Resolves: rhbz#554853
+- reIPL support for s390 (hamzy)
+  Resolves: rhbz#512195
+- Include 'mpath' in generic.prm file for s390 and s390x (dcantrell)
+  Resolves: rhbz#538129
+
+* Fri Jan 08 2010 Martin Sivak <msivak@redhat.com> 11.1.2.200-1
+- Provide CMS script for IPL under z/VM
+  Resolves: rhbz#475343
+- Force interface up before checking link status
+  Resolves: rhbz#549751
+- Document new bootloader --hvargs kickstart option
+  Related: rhbz#501438
+
 * Tue Dec 22 2009 Martin Sivak <msivak@redhat.com> 11.1.2.199-1
 - Support for the pmcraid driver
   Resolves: rhbz#532777
