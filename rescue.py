@@ -411,7 +411,9 @@ def runRescue(anaconda, instClass):
                     fd.close()
 
                 # set a library path to use mounted fs
-                os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/X11R6/lib"
+                libdirs = os.environ["LD_LIBRARY_PATH"].split(":")
+                mounted = map(lambda dir: "/mnt/sysimage%s" % dir, libdirs)
+                os.environ["LD_LIBRARY_PATH"] = ":".join(libdirs + mounted)
 
                 # find groff data dir
                 try:
