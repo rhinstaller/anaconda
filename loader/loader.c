@@ -2019,12 +2019,19 @@ int main(int argc, char ** argv) {
         dd = findDriverDiskByLabel();
         dditer = dd;
         while(dditer) {
+            /* load the DD */
             if (loadDriverDiskFromPartition(&loaderData, (char*)(dditer->data))) {
                 logMessage(ERROR, "Automatic driver disk loader failed for %s.", (char*)(dditer->data));
             }
             else {
                 logMessage(INFO, "Automatic driver disk loader succeeded for %s.", (char*)(dditer->data));
             }
+            
+            /* clean the device record */
+            free((char*)(dditer->data));
+            dditer->data = NULL;
+
+            /* next DD */
             dditer = g_slist_next(dditer);
         }
         g_slist_free(dd);
