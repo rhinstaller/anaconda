@@ -35,10 +35,7 @@
 void disableSwap(void);
 void unmountFilesystems(void);
 
-static void performTerminations(int doKill) {
-	if (!doKill)
-		return;
-
+static void performTerminations(void) {
 	sync();
 	printf("sending termination signals...");
 	kill(-1, 15);
@@ -51,11 +48,8 @@ static void performTerminations(int doKill) {
 	printf("done\n");
 }
 
-static void performUnmounts(int doKill) {
+static void performUnmounts(void) {
 	int ignore;
-
-	if (!doKill)
-		return;
 
 	printf("disabling swap...\n");
 	disableSwap();
@@ -84,36 +78,19 @@ static void performReboot(reboot_action rebootAction) {
 	}
 }
 
-int shouldReboot = 0;
-
-static void rebootHandler(int signum) {
-    shouldReboot = 1;
-}
-
 void shutDown(int doKill, reboot_action rebootAction) {
-	if (rebootAction == POWEROFF || rebootAction == REBOOT) {
+	if (doKill) {
 		performUnmounts(doKill);
 		performTerminations(doKill);
-		if (doKill)
-			performReboot(rebootAction);
 	}
 
-	if (!shouldReboot && rebootAction != REBOOT)
-		printf("you may safely reboot your system\n");
-	
-    signal(SIGINT, rebootHandler);
-	while (1) {
-		if (shouldReboot) {
-			performUnmounts(1);
-			performTerminations(1);
-			performReboot(REBOOT);
-		}
-		sleep(1);
+	if ((rebootAction == POWEROFF || rebootAction == REBOOT) && doKill) {
+		performReboot(rebootAction);
 	}
 
-    exit(0);
-
-    return;
+	printf("you may safely reboot your system\n");
+	exit(0);
+	return;
 }
 
 #ifdef AS_SHUTDOWN
