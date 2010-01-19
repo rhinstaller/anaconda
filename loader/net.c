@@ -1093,6 +1093,7 @@ int manualNetConfig(char * device, iface_t * iface,
 
         /* we might be done now */
         if (stack[IPV4] && have[IPV4] != 2) {
+            have[IPV4] = 0;
             newtWinMessage(_("Missing Information"), _("Retry"),
                            _("You must enter both a valid IPv4 address and a "
                              "network mask or CIDR prefix."));
@@ -1100,6 +1101,7 @@ int manualNetConfig(char * device, iface_t * iface,
 
 #ifdef ENABLE_IPV6
         if (stack[IPV6] && have[IPV6] != 2) {
+            have[IPV6] = 0;
             newtWinMessage(_("Missing Information"), _("Retry"),
                            _("You must enter both a valid IPv6 address and a "
                              "CIDR prefix."));
