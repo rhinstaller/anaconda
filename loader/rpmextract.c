@@ -282,7 +282,6 @@ int explodeRPM(const char *source,
             FILE *fdout = fopen(filename+offset, "w");
 
             if (fdout==NULL){
-                free((void*)filename);
                 rc = 33;
                 break;
             }
