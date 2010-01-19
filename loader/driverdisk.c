@@ -837,20 +837,17 @@ GSList* findDriverDiskByLabel(void)
         return NULL;
     }
 
-    if ((ddDevice = g_slist_alloc())==NULL) {
-        logMessage(ERROR, "Cannot allocate space for list of devices");
-        return NULL;
-    }
-
     bIter = blkid_dev_iterate_begin(bCache);
     blkid_dev_set_search(bIter, "LABEL", ddLabel);
     while ((res = blkid_dev_next(bIter, &bDev)) == 0) {
         bDev = blkid_verify(bCache, bDev);
         if (!bDev)
             continue;
+
+        char *devname = strdup(blkid_dev_devname(bDev));
         logMessage(DEBUGLVL, "Adding driver disc %s to the list "
-                             "of available DDs.", blkid_dev_devname(bDev));
-        ddDevice = g_slist_prepend(ddDevice, (gpointer)blkid_dev_devname(bDev));
+                             "of available DDs.", devname);
+        ddDevice = g_slist_prepend(ddDevice, (gpointer)devname);
         /* Freeing bDev is taken care of by the put cache call */
     }
     blkid_dev_iterate_end(bIter);
