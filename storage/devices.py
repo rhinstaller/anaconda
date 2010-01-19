@@ -2786,6 +2786,16 @@ class MDRaidArrayDevice(StorageDevice):
     def model(self):
         return "RAID%d Array" % self.level
 
+    @property
+    def biosraid(self):
+        return (len(self.devices) != 0 and
+                self.devices[0].type == "mdcontainer" and
+                getattr(self.devices[0].format, "biosraid", False))
+
+    @property
+    def partitionable(self):
+        return self.biosraid
+
     def dracutSetupString(self):
         return "rd_MD_UUID=%s" % self.uuid
 
