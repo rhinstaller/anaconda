@@ -425,7 +425,7 @@ class StorageDevice(Device):
     _devDir = "/dev"
     sysfsBlockDir = "class/block"
     _resizable = False
-    partitionable = False
+    _partitionable = False
     isDisk = False
 
     def __init__(self, device, format=None,
@@ -733,6 +733,10 @@ class StorageDevice(Device):
                 open(remfile).readline().strip() == "1")
 
     @property
+    def partitionable(self):
+        return self._partitionable
+
+    @property
     def partitioned(self):
         return self.format.type == "disklabel" and self.partitionable
 
@@ -740,7 +744,7 @@ class StorageDevice(Device):
 class DiskDevice(StorageDevice):
     """ A disk """
     _type = "disk"
-    partitionable = True
+    _partitionable = True
     isDisk = True
 
     def __init__(self, device, format=None,
@@ -2289,7 +2293,6 @@ class LVMLogicalVolumeDevice(DMDevice):
 class MDRaidArrayDevice(StorageDevice):
     """ An mdraid (Linux RAID) device. """
     _type = "mdarray"
-    partitionable = True
 
     def __init__(self, name, level=None, major=None, minor=None, size=None,
                  memberDevices=None, totalDevices=None, bitmap=False,
@@ -2774,7 +2777,7 @@ class DMRaidArrayDevice(DMDevice):
     """ A dmraid (device-mapper RAID) device """
     _type = "dm-raid array"
     _packages = ["dmraid"]
-    partitionable = True
+    _partitionable = True
     isDisk = True
 
     def __init__(self, name, raidSet=None, format=None,
@@ -2895,7 +2898,7 @@ class MultipathDevice(DMDevice):
     """ A multipath device """
     _type = "dm-multipath"
     _packages = ["device-mapper-multipath"]
-    partitionable = True
+    _partitionable = True
     isDisk = True
 
     def __init__(self, name, info, format=None, size=None,
@@ -3188,7 +3191,7 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An iSCSI disk. """
     _type = "iscsi"
     _packages = ["iscsi-initiator-utils", "dracut-network"]
-    partitionable = True
+    _partitionable = True
     isDisk = True
 
     def __init__(self, device, **kwargs):
@@ -3222,7 +3225,7 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An FCoE disk. """
     _type = "fcoe"
     _packages = ["fcoe-utils", "dracut-network"]
-    partitionable = True
+    _partitionable = True
     isDisk = True
 
     def __init__(self, device, **kwargs):
