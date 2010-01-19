@@ -1140,21 +1140,35 @@ class InstallInterface:
             log.info("UI not asking about disk initialization, "
                      "using cached answer: %s" % self._initLabelAnswers[path])
             return self._initLabelAnswers[path]
+        elif "all" in self._initLabelAnswers:
+            log.info("UI not asking about disk initialization, "
+                     "using cached answer: %s" % self._initLabelAnswers["all"])
+            return self._initLabelAnswers["all"]
 
         rc = self.messageWindow(_("Warning"),
                 _("Error processing drive:\n\n"
                   "%(path)s\n%(size)-0.fMB\n%(description)s\n\n"
                   "This device may need to be reinitialized.\n\n"
-                  "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!%(details)s")
+                  "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n\n"
+                  "This action may also be applied to all other disks "
+                  "needing reinitialization.%(details)s")
                 % {'path': path, 'size': size,
                    'description': description, 'details': details},
                 type="custom",
-                custom_buttons = [ _("_Ignore drive"),
-                                   _("_Re-initialize drive") ],
+                custom_buttons = [ _("_Ignore"),
+                                   _("Ignore _all"),
+                                   _("_Re-initialize"),
+                                   _("Re-ini_tialize all") ],
                 custom_icon="question")
         if rc == 0:
-            pass
-        else:
+            retVal = False
+        elif rc == 1:
+            path = "all"
+            retVal = False
+        elif rc == 2:
+            retVal = True
+        elif rc == 3:
+            path = "all"
             retVal = True
 
         self._initLabelAnswers[path] = retVal
@@ -1166,6 +1180,7 @@ class InstallInterface:
     def questionReinitInconsistentLVM(self, pv_names=None, lv_name=None, vg_name=None):
 
         retVal = False # The less destructive default
+        allSet = frozenset(["all"])
 
         if not pv_names or (lv_name is None and vg_name is None):
             return retVal
@@ -1179,6 +1194,10 @@ class InstallInterface:
             log.info("UI not asking about disk initialization, "
                      "using cached answer: %s" % self._inconsistentLVMAnswers[key])
             return self._inconsistentLVMAnswers[key]
+        elif allSet in self._inconsistentLVMAnswers:
+            log.info("UI not asking about disk initialization, "
+                     "using cached answer: %s" % self._inconsistentLVMAnswers[allSet])
+            return self._inconsistentLVMAnswers[allSet]
 
         if vg_name is not None:
             message = "Volume Group %s" % vg_name
@@ -1191,15 +1210,24 @@ class InstallInterface:
                     "There is inconsistent LVM data on %(msg)s.  You can "
                     "reinitialize all related PVs (%(pvs)s) which will erase "
                     "the LVM metadata, or ignore which will preserve the "
-                    "contents.") % na,
+                    "contents.  This action may also be applied to all other "
+                    "PVs with inconsistent metadata.") % na,
                 type="custom",
                 custom_buttons = [ _("_Ignore"),
-                                   _("_Re-initialize") ],
+                                   _("Ignore _all"),
+                                   _("_Re-initialize"),
+                                   _("Re-ini_tialize all") ],
                 custom_icon="question")
         if rc == 0:
-            pass
-        else:
-            retVal = True # this means clobber.
+            retVal = False
+        elif rc == 1:
+            key = allSet
+            retVal = False
+        elif rc == 2:
+            retVal = True
+        elif rc == 3:
+            key = allSet
+            retVal = True
 
         self._inconsistentLVMAnswers[key] = retVal
         return retVal
