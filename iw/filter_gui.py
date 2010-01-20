@@ -105,7 +105,8 @@ def isMultipath(info):
     return udev_device_is_multipath_member(info)
 
 def isOther(info):
-    return udev_device_is_iscsi(info) or udev_device_is_fcoe(info)
+    return udev_device_is_iscsi(info) or udev_device_is_fcoe(info) or \
+           udev_device_is_zfcp(info)
 
 class Callbacks(object):
     def __init__(self, xml):
