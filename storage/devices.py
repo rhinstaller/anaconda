@@ -1318,6 +1318,26 @@ class PartitionDevice(StorageDevice):
 
         self.exists = False
 
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists and not recursive:
+            raise DeviceError("device has not been created", self.name)
+
+        if self.status:
+            if self.format.exists:
+                self.format.teardown()
+            if self.parents[0].type == 'dm-multipath':
+                devmap = block.getMap(major=self.major, minor=self.minor)
+                if devmap:
+                    try:
+                        block.removeDeviceMap(devmap)
+                    except Exception as e:
+                        raise DeviceTeardownError("failed to tear down device-mapper partition %s: %s" % (self.name, e))
+                udev_settle()
+
+        StorageDevice.teardown(self, recursive=recursive)
+
     def _getSize(self):
         """ Get the device's size. """
         size = self._size
