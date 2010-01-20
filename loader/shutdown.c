@@ -80,8 +80,8 @@ static void performReboot(reboot_action rebootAction) {
 
 void shutDown(int doKill, reboot_action rebootAction) {
 	if (doKill) {
-		performUnmounts(doKill);
-		performTerminations(doKill);
+		performUnmounts();
+		performTerminations();
 	}
 
 	if ((rebootAction == POWEROFF || rebootAction == REBOOT) && doKill) {
