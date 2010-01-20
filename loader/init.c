@@ -409,7 +409,6 @@ static void termReset(void) {
 /* reboot handler */
 static void sigintHandler(int signum) {
     termReset();
-	shouldReboot = 1;
     shutDown(getKillPolicy(), REBOOT);
 }
 

@@ -25,6 +25,4 @@ typedef enum {
 	HALT
 } reboot_action;
 
-extern int shouldReboot;
-
 #endif /* INIT_H */
