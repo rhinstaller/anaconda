@@ -103,7 +103,7 @@ class KernelArguments:
                 args.append(self.id.network.dracutSetupString(d))
 
         for i in [ [ "rd_LUKS_UUID", "rd_NO_LUKS" ],
-                   [ "rd_LVM_VG", "rd_NO_LVM" ],
+                   [ "rd_LVM_LV", "rd_NO_LVM" ],
                    [ "rd_MD_UUID", "rd_NO_MD" ],
                    [ "rd_DM_UUID", "rd_NO_DM" ] ]:
             if not types.has_key(i[0]):

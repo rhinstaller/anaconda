@@ -2013,9 +2013,6 @@ class LVMVolumeGroupDevice(DMDevice):
         """
         return len(self.pvs) == self.pvCount or not self.exists
 
-    def dracutSetupString(self):
-        return "rd_LVM_VG=%s" % self.name
-
 
 class LVMLogicalVolumeDevice(DMDevice):
     """ An LVM Logical Volume """
@@ -2282,6 +2279,11 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         udev_settle()
         lvm.lvresize(self.vg.name, self._name, self.size)
+
+    def dracutSetupString(self):
+        # Note no mapName usage here, this is a lvm cmdline name, which
+        # is different (ofcourse)
+        return "rd_LVM_LV=%s/%s" % (self.vg.name, self._name)
 
 
 class MDRaidArrayDevice(StorageDevice):
