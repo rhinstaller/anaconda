@@ -216,6 +216,19 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 20 2010 Chris Lumens <clumens@redhat.com> - 13.21.2-1
+- Fix compile problem from 65a3c05. (akozumpl)
+- Fix SIGSEGV in dlabel feature (#556390) (msivak)
+- Remove unnecessary free from the rpmextract error handler (msivak)
+- Support ignore all/reinit all on the disk reinitialization question
+  (#512011). (clumens)
+- Handle reboot better on s390 (#533198) (dcantrell)
+- Reset network setting input counters for IPv4 and IPv6 (#553761).
+  (dcantrell)
+- Fix reading dasd status sysfs attribute (#536803). (dcantrell)
+- s390 CHPID types must be treated in hex for lookup table to work (#552844)
+  (maier)
+
 * Fri Jan 15 2010 Chris Lumens <clumens@redhat.com> - 13.21.1-1
 - Include device-mapper-multipath in stage2.img (pjones)
 - Load all scsi_dh_* modules, since they can't be modprobe by aliases...
