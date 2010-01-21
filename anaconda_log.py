@@ -24,8 +24,8 @@
 
 import sys
 import logging
-import types
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
+import types
 
 DEFAULT_LEVEL = logging.INFO
 DEFAULT_ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)-8s: %(message)s"
@@ -33,6 +33,7 @@ DEFAULT_DATE_FORMAT = "%H:%M:%S"
 
 MAIN_LOG_FILE = "/tmp/anaconda.log"
 PROGRAM_LOG_FILE = "/tmp/program.log"
+ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 
 logLevelMap = {"debug": logging.DEBUG, "info": logging.INFO,
                "warning": logging.WARNING, "error": logging.ERROR,
@@ -47,6 +48,18 @@ def setHandlersLevel(logger, level):
     map(lambda hdlr: hdlr.setLevel(level),
         filter (lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logger.handlers))
 
+class AnacondaSyslogHandler(SysLogHandler):
+    def __init__(self, 
+                 address=('localhost', SYSLOG_UDP_PORT),
+                 facility=SysLogHandler.LOG_USER, 
+                 tag=''):
+        self.tag = tag
+        SysLogHandler.__init__(self, address, facility)
+
+    def emit(self, record):
+        record.msg = '%s: %s' %(self.tag, record.msg)
+        SysLogHandler.emit(self, record)
+
 class AnacondaLog:
     def __init__ (self, minLevel=DEFAULT_LEVEL):
         self.loglevel = logging.DEBUG
@@ -55,12 +68,14 @@ class AnacondaLog:
         self.logger.setLevel(logging.DEBUG)
         self.addFileHandler(MAIN_LOG_FILE, self.logger,
                             autoLevel=False, minLevel=logging.DEBUG)
+        self.forwardToSyslog(self.logger)
 
         # External program output log
         program_logger = logging.getLogger("program")
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
                             autoLevel=False, minLevel=logging.DEBUG)
+        self.forwardToSyslog(program_logger)
 
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
@@ -100,6 +115,16 @@ class AnacondaLog:
         syslogHandler = SysLogHandler((host, port))
         syslogHandler.setLevel(minLevel)
         syslogHandler.setFormatter(fmt)
+        logger.addHandler(syslogHandler)
+
+    def forwardToSyslog(self, logger):
+        """Forward everything that goes in the logger to the syslog daemon.
+        """
+        syslogHandler = AnacondaSyslogHandler(
+            '/dev/log', 
+            ANACONDA_SYSLOG_FACILITY,
+            logger.name)
+        syslogHandler.setLevel(logging.DEBUG)
         logger.addHandler(syslogHandler)
 
 logger = AnacondaLog()
