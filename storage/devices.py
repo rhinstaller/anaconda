@@ -2771,15 +2771,15 @@ class MDRaidArrayDevice(StorageDevice):
 
     @property
     def mediaPresent(self):
-        present = None
-        if self.partitioned:
-            # Even if stopped/deactivated we still want to show up in
-            # storage.disks
-            present = True
-        else:
-            present = self.partedDevice is not None
+        # Containers should not get any format handling done
+        # (the device node does not allow read / write calls)
+        if self.type == "mdcontainer":
+            return False
+        # BIOS RAID sets should show as present even when teared down
+        if self.devices and self.devices[0].type == "mdcontainer":
+            return True
 
-        return present
+        return self.partedDevice is not None
 
     @property
     def model(self):
