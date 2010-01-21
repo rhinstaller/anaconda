@@ -1119,7 +1119,7 @@ class DeviceTree(object):
 
         device = None
 
-        kwargs = {}
+        kwargs = { "serial": serial, "vendor": vendor, "bus": bus }
         if udev_device_is_iscsi(info):
             diskType = iScsiDiskDevice
             kwargs["node"] = self.iscsi.getNode(
@@ -1140,9 +1140,11 @@ class DeviceTree(object):
             kwargs["parents"] = [ self.getDeviceByName(parentName) ]
             kwargs["level"]  = udev_device_get_md_level(info)
             kwargs["memberDevices"] = int(udev_device_get_md_devices(info))
-            # This needs bug #523314 fixed
             kwargs["uuid"] = udev_device_get_md_uuid(info)
             kwargs["exists"]  = True
+            del kwargs["serial"]
+            del kwargs["vendor"]
+            del kwargs["bus"]
         elif udev_device_is_dasd(info):
             diskType = DASDDevice
             kwargs["dasd"] = self.dasd
@@ -1164,10 +1166,10 @@ class DeviceTree(object):
             diskType = DiskDevice
             log.debug("%s is a disk" % name)
 
-        device = diskType(name, serial=serial, vendor=vendor,
+        device = diskType(name,
                           major=udev_device_get_major(info),
                           minor=udev_device_get_minor(info),
-                          sysfsPath=sysfs_path, bus=bus, **kwargs)
+                          sysfsPath=sysfs_path, **kwargs)
         self._addDevice(device)
         return device
 
