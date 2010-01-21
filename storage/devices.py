@@ -2438,6 +2438,22 @@ class MDRaidArrayDevice(StorageDevice):
 
         return size
 
+    @property
+    def description(self):
+        if self.level == mdraid.RAID0:
+            levelstr = "striped"
+        elif self.level == mdraid.RAID1:
+            levelstr = "mirrored"
+        else:
+            levelstr = "level: %s" % self.level
+
+        if self.type == "mdcontainer":
+            return "BIOS RAID container"
+        elif self.devices and self.devices[0].type == "mdcontainer":
+            return "BIOS RAID set (%s)" % levelstr
+        else:
+            return "MDRAID set (%s)" % levelstr
+
     def __str__(self):
         s = StorageDevice.__str__(self)
         s += ("  level = %(level)s  bitmap = %(bitmap)s  spares = %(spares)s\n"
