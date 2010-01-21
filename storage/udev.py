@@ -259,7 +259,7 @@ def udev_device_get_wwid(udev_info):
         colons in the name to make it more readable. """
     serial = udev_device_get_serial(udev_info)
 
-    if len(serial) == 32:
+    if serial and len(serial) == 32:
         retval = ""
         for i in range(0, 16):
             retval += serial[i*2:i*2+2] + ":"
