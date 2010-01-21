@@ -293,7 +293,7 @@ def udev_device_get_minor(info):
     return int(info["MINOR"])
 
 def udev_device_get_md_level(info):
-    return info["MD_LEVEL"]
+    return info.get("MD_LEVEL")
 
 def udev_device_get_md_devices(info):
     return int(info["MD_DEVICES"])
@@ -303,6 +303,9 @@ def udev_device_get_md_uuid(info):
 
 def udev_device_get_md_container(info):
     return info.get("MD_CONTAINER")
+
+def udev_device_get_md_name(info):
+    return info.get("MD_DEVNAME")
 
 def udev_device_get_vg_name(info):
     return info['LVM2_VG_NAME']
