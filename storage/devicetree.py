@@ -883,6 +883,22 @@ class DeviceTree(object):
         if name in self._ignoredDisks:
             return True
 
+        # Special handling for mdraid external metadata sets (mdraid BIOSRAID):
+        # 1) The containers are intermediate devices which will never be
+        # in exclusiveDisks
+        # 2) Sets get added to exclusive disks with their dmraid set name by
+        # the filter ui.  Note that making the ui use md names instead is not
+        # possible as the md names are simpy md# and we cannot predict the #
+        if udev_device_get_md_level(info) == "container":
+            return False
+
+        if udev_device_get_md_container(info) and \
+               udev_device_get_md_name(info):
+            md_name = udev_device_get_md_name(info)
+            for disk in self.exclusiveDisks:
+                if re.match("isw_[a-z]*_%s" % md_name, disk):
+                    return False
+
         if udev_device_is_disk(info) and \
                 not udev_device_is_md(info) and \
                 not udev_device_is_dm(info) and \
