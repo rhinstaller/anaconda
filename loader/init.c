@@ -861,6 +861,7 @@ int main(int argc, char **argv) {
         doReboot = 1;
     }
 
+    expected_exit = 1;
     shutDown(doKill, doReboot?REBOOT:HALT);
 
     return 0;
