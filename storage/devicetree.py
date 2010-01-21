@@ -911,22 +911,6 @@ class DeviceTree(object):
                 self.addIgnoredDisk(name)
                 return True
 
-        for ignored in self._ignoredDisks:
-            if ignored == os.path.basename(os.path.dirname(sysfs_path)):
-                # this is a partition on a disk in the ignore list
-                lvm.lvm_cc_addFilterRejectRegexp(name)
-                return True
-
-        # Ignore partitions found on the raw disks which are part of a
-        # biosraidset
-        sets = self.getDevicesByType("dm-raid array")
-        sets.extend(self.getDevicesByType("mdcontainer"))
-        for set in sets:
-            for disk in set.parents:
-                if disk.name == os.path.basename(os.path.dirname(sysfs_path)):
-                    lvm.lvm_cc_addFilterRejectRegexp(name)
-                    return True
-
         # Ignore loop and ram devices, we normally already skip these in
         # udev.py: enumerate_block_devices(), but we can still end up trying
         # to add them to the tree when they are slaves of other devices, this
