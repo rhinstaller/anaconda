@@ -1073,14 +1073,6 @@ class DeviceTree(object):
                 log.error("failure scanning device %s" % disk_name)
                 return
 
-            # Now that we've the disk, check if this partition should be
-            # ignored again. This catches cases when we scan the partition
-            # before the disk and we have for example a disk which is part of
-            # a BIOS raid set (and thus we should ignore the raw partitions)
-            if self.isIgnored(info):
-                log.debug("ignoring %s (%s)" % (name, sysfs_path))
-                return
-
         # Check that the disk has partitions. If it does not, we must have
         # reinitialized the disklabel.
         #
