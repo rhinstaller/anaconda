@@ -1071,6 +1071,7 @@ class DeviceTree(object):
                 # if the current device is still not in
                 # the tree, something has gone wrong
                 log.error("failure scanning device %s" % disk_name)
+                lvm.lvm_cc_addFilterRejectRegexp(name)
                 return
 
         # Check that the disk has partitions. If it does not, we must have
@@ -1080,6 +1081,11 @@ class DeviceTree(object):
         # of, like logical volumes.
         if not getattr(disk.format, "partitions", None) or \
            not disk.partitionable:
+            # When we got here because the disk does not have a disklabel
+            # format (ie a biosraid member), or because it is not
+            # partitionable we want LVM to ignore this partition too
+            if disk.format.type != "disklabel" or not disk.partitionable:
+                lvm.lvm_cc_addFilterRejectRegexp(name)
             log.debug("ignoring partition %s" % name)
             return
 
