@@ -883,8 +883,10 @@ class DeviceTree(object):
         if name in self._ignoredDisks:
             return True
 
-        if udev_device_is_disk(info) and not udev_device_is_md(info) and \
-           not udev_device_is_dm(info):
+        if udev_device_is_disk(info) and \
+                not udev_device_is_md(info) and \
+                not udev_device_is_dm(info) and \
+                not udev_device_is_biosraid(info):
             if self.exclusiveDisks and name not in self.exclusiveDisks:
                 self.addIgnoredDisk(name)
                 return True
