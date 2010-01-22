@@ -895,8 +895,9 @@ class DeviceTree(object):
         if udev_device_get_md_container(info) and \
                udev_device_get_md_name(info):
             md_name = udev_device_get_md_name(info)
-            for disk in self.exclusiveDisks:
-                if re.match("isw_[a-z]*_%s" % md_name, disk):
+            for i in range(0, len(self.exclusiveDisks)):
+                if re.match("isw_[a-z]*_%s" % md_name, self.exclusiveDisks[i]):
+                    self.exclusiveDisks[i] = name
                     return False
 
         if udev_device_is_disk(info) and \
