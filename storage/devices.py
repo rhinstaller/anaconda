@@ -2937,11 +2937,6 @@ class DMRaidArrayDevice(DMDevice):
 
         log.debug("not tearing down dmraid device %s" % self.name)
 
-    @property
-    def mediaPresent(self):
-        # Even if teared down we still want to show up in storage.disks
-        return True
-
     def dracutSetupString(self):
         return "rd_DM_UUID=%s" % self.name
 
