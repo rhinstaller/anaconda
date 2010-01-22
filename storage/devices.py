@@ -3223,8 +3223,6 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An iSCSI disk. """
     _type = "iscsi"
     _packages = ["iscsi-initiator-utils", "dracut-network"]
-    _partitionable = True
-    _isDisk = True
 
     def __init__(self, device, **kwargs):
         self.node = kwargs.pop("node")
@@ -3257,8 +3255,6 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
     """ An FCoE disk. """
     _type = "fcoe"
     _packages = ["fcoe-utils", "dracut-network"]
-    _partitionable = True
-    _isDisk = True
 
     def __init__(self, device, **kwargs):
         self.nic = kwargs.pop("nic")
