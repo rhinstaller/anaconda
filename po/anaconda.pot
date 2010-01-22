@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.1\n"
+"Project-Id-Version: anaconda 13.21.2\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-01-20 13:06-0500\n"
+"POT-Creation-Date: 2010-01-22 16:32-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1028,16 +1028,16 @@ msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 
-#: platform.py:98 platform.py:328 platform.py:396 platform.py:503
+#: platform.py:98 platform.py:330 platform.py:398 platform.py:505
 msgid "RAID Device"
 msgstr ""
 
-#: platform.py:99 platform.py:102 platform.py:329 platform.py:397
-#: platform.py:504 platform.py:507
+#: platform.py:99 platform.py:102 platform.py:331 platform.py:399
+#: platform.py:506 platform.py:509
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: platform.py:101 platform.py:506
+#: platform.py:101 platform.py:508
 msgid "First sector of boot partition"
 msgstr ""
 
@@ -1057,55 +1057,55 @@ msgstr ""
 msgid "Bootable partitions cannot be on a RAID device."
 msgstr ""
 
-#: platform.py:129
+#: platform.py:131
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
 msgstr ""
 
-#: platform.py:133 platform.py:138
+#: platform.py:135 platform.py:140
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr ""
 
-#: platform.py:210
+#: platform.py:212
 msgid "EFI System Partition"
 msgstr ""
 
-#: platform.py:222
+#: platform.py:224
 msgid "You have not created a /boot/efi partition."
 msgstr ""
 
-#: platform.py:228
+#: platform.py:230
 msgid "/boot/efi is not EFI."
 msgstr ""
 
-#: platform.py:235
+#: platform.py:237
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr ""
 
-#: platform.py:273
+#: platform.py:275
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr ""
 
-#: platform.py:285
+#: platform.py:287
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr ""
 
-#: platform.py:331
+#: platform.py:333
 msgid "PPC PReP Boot"
 msgstr ""
 
-#: platform.py:347
+#: platform.py:349
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr ""
 
-#: platform.py:399 platform.py:402
+#: platform.py:401 platform.py:404
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: platform.py:416
+#: platform.py:418
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr ""
@@ -1162,7 +1162,7 @@ msgstr ""
 
 #: rescue.py:287 iw/partition_gui.py:781 loader/cdinstall.c:206
 #: loader/cdinstall.c:214 loader/driverdisk.c:624 storage/__init__.py:151
-#: storage/devicetree.py:88
+#: storage/devicetree.py:89
 msgid "Continue"
 msgstr ""
 
@@ -3380,7 +3380,7 @@ msgstr ""
 #: loader/kbd.c:119 loader/loader.c:491 loader/loader.c:508
 #: loader/loader.c:1360 loader/loader.c:1393 loader/net.c:579 loader/net.c:950
 #: loader/net.c:1851 loader/net.c:1870 loader/nfsinstall.c:91
-#: loader/urls.c:249 storage/__init__.py:151 storage/devicetree.py:88
+#: loader/urls.c:249 storage/__init__.py:151 storage/devicetree.py:89
 #: textw/constants_text.py:52
 msgid "Back"
 msgstr ""
@@ -4467,32 +4467,32 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1222 storage/devices.py:1836 storage/devices.py:2239
-#: storage/devices.py:2684 storage/devices.py:3122
+#: storage/devices.py:1247 storage/devices.py:1881 storage/devices.py:2281
+#: storage/devices.py:2746 storage/devices.py:3227
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1223 storage/devices.py:1837 storage/devices.py:2240
-#: storage/devices.py:2685
+#: storage/devices.py:1248 storage/devices.py:1882 storage/devices.py:2282
+#: storage/devices.py:2747
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2327
+#: storage/devices.py:2373
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3123
+#: storage/devices.py:3228
 #, python-format
 msgid "Creating file %s"
 msgstr ""
 
-#: storage/devicetree.py:97
+#: storage/devicetree.py:98
 msgid "Confirm"
 msgstr ""
 
-#: storage/devicetree.py:98
+#: storage/devicetree.py:99
 #, python-format
 msgid ""
 "Are you sure you want to skip entering a passphrase for device %s?\n"
@@ -4501,7 +4501,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1815 storage/devicetree.py:1863
+#: storage/devicetree.py:1824 storage/devicetree.py:1872
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

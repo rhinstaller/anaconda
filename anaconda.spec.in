@@ -216,6 +216,67 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jan 22 2010 Chris Lumens <clumens@redhat.com> - 13.21.3-1
+- Fix a syntax error in filter_gui.py (hdegoede)
+- Fix broken log message. (pjones)
+- Make multipath support use device-mapper-multipath to setup mpaths.
+  (pjones)
+- Make PartitionDevice have its own teardown() when used with mpath. (pjones)
+- Create multipath.conf (pjones)
+- Make sure MultipathDevice is setup correctly. (pjones)
+- Remove the multipath name generator, it is no longer used. (pjones)
+- Set StorageDevice.exists before calling Device.__init__ (pjones)
+- Add another command to .bash_history. (pjones)
+- Add mpath device to selection instead of its constituents. (pjones)
+- Make all StorageDevice-s support .vendor and .model (pjones)
+- Add a parser for 'multipath -d' output. (pjones)
+- Multipath members should not be added to the ignored disk list. (pjones)
+- Add udev accessor for ID_MODEL_FROM_DATABASE/ID_MODEL. (pjones)
+- Add udev_device_get_multipath_name(). (pjones)
+- Use mpath names instead of serials to group them. (pjones)
+- Add an exception to use when multipath fails. (pjones)
+- Add missing log_method_call()s. (pjones)
+- Use StorageError insead of enumerating all the different storage errors.
+  (pjones)
+- Make clearDisksWindow use device.model not device.partedDevice.model
+  (pjones)
+- Show call depth with spaces in log_method_call() (pjones)
+- nss files moved around again, NM needs more (#557702) (dcantrell)
+- Only /boot needs to be on one of the bootFSTypes. (#557718) (dlehman)
+- MDRaidMember.__str__ add biosraid attribute to the returned string
+  (hdegoede)
+- Remove setting of _isDisk and _partitionable from iscsi and fcoe disk code
+  (hdegoede)
+- Add isDisk property to MDRaidArrayDevice (hdegoede)
+- Make isDisk a property (hdegoede)
+- Remove DMRaidDevice.mediaPresent method (hdegoede)
+- Honor clearPartDisks when clearing whole disk formatting formatted disks
+  (hdegoede)
+- Fixup MDRaidArrayDevice.biosraid (hdegoede)
+- Update exclusiveDisks when handling mdraid BIOSRAID in isIgnored (hdegoede)
+- MDRaidDevice does not have serial, vendor or bus arguments (hdegoede)
+- Don't traceback on devices without a serial (hdegoede)
+- Make addUdevPartitionDevice add lvm filters for ignored partitions
+  (hdegoede)
+- Remove BIOSRAID see if ignored again code from addUdevPartitionDevice
+  (hdegoede)
+- Remove special partition handling from isIgnored (hdegoede)
+- Fix MDRaidArrayDevice mediaPresent to not depend on paritioned state
+  (hdegoede)
+- Special handling for mdraid BIOS RAID sets in exclusive disks (hdegoede)
+- 2 small mdraid related storage/udev.py changes (hdegoede)
+- Fix an infinite loop by properly iterating over the disks store (#557856).
+  (clumens)
+- Add a description attribute to MDRaidArrayDevice (hdegoede)
+- Don't do exclusiveDisks checking for BIOS RAID members (hdegoede)
+- List biosraids w/ disks and don't include them w/ md arrays in partgui.
+  (dlehman)
+- Add biosraid property and use it in MDRaidArrayDevice.partitionable.
+  (dlehman)
+- Make partitionable a property of StorageDevice instead of a plain attr.
+  (dlehman)
+- make dracut only activate the root LV (#553295) (hdegoede)
+
 * Wed Jan 20 2010 Chris Lumens <clumens@redhat.com> - 13.21.2-1
 - Fix compile problem from 65a3c05. (akozumpl)
 - Fix SIGSEGV in dlabel feature (#556390) (msivak)
