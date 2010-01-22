@@ -187,7 +187,7 @@ class ClearDisksWindow (InstallWindow):
         if setFirstActive:
             i = 0
 
-            while not self.store[0][self.rightVisible]:
+            while not self.store[i][self.rightVisible]:
                 i += 1
 
             self.store[i][self.rightActive] = True
@@ -222,7 +222,7 @@ class ClearDisksWindow (InstallWindow):
         if self.rightDS.getNVisible() > 0 and setFirstActive:
             i = 0
 
-            while not self.store[0][self.rightVisible]:
+            while not self.store[i][self.rightVisible]:
                 i += 1
 
             self.store[i][self.rightActive] = True
