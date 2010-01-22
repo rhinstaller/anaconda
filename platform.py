@@ -125,7 +125,9 @@ class Platform(object):
 
         # Make sure /boot is on a supported FS type.  This prevents crazy
         # things like boot on vfat.
-        if not req.format.bootable or not req.format.type in self.bootFSTypes:
+        if not req.format.bootable or \
+           (getattr(req.format, "mountpoint", None) == "/boot" and
+            req.format.type not in self.bootFSTypes):
             errors.append(_("Bootable partitions cannot be on an %s filesystem.") % req.format.type)
 
         if req.type == "luks/dm-crypt":
