@@ -427,7 +427,7 @@ class StorageDevice(Device):
     sysfsBlockDir = "class/block"
     _resizable = False
     _partitionable = False
-    isDisk = False
+    _isDisk = False
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None,
@@ -739,6 +739,10 @@ class StorageDevice(Device):
                 open(remfile).readline().strip() == "1")
 
     @property
+    def isDisk(self):
+        return self._isDisk
+
+    @property
     def partitionable(self):
         return self._partitionable
 
@@ -764,7 +768,7 @@ class DiskDevice(StorageDevice):
     """ A disk """
     _type = "disk"
     _partitionable = True
-    isDisk = True
+    _isDisk = True
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None, sysfsPath='',
@@ -2843,7 +2847,7 @@ class DMRaidArrayDevice(DMDevice):
     _type = "dm-raid array"
     _packages = ["dmraid"]
     _partitionable = True
-    isDisk = True
+    _isDisk = True
 
     def __init__(self, name, raidSet=None, format=None,
                  size=None, major=None, minor=None, parents=None,
@@ -2945,7 +2949,7 @@ class MultipathDevice(DMDevice):
     _type = "dm-multipath"
     _packages = ["device-mapper-multipath"]
     _partitionable = True
-    isDisk = True
+    _isDisk = True
 
     def __init__(self, name, info, format=None, size=None,
                  parents=None, sysfsPath=''):
@@ -3283,7 +3287,7 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
     _type = "iscsi"
     _packages = ["iscsi-initiator-utils", "dracut-network"]
     _partitionable = True
-    isDisk = True
+    _isDisk = True
 
     def __init__(self, device, **kwargs):
         self.node = kwargs.pop("node")
@@ -3317,7 +3321,7 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
     _type = "fcoe"
     _packages = ["fcoe-utils", "dracut-network"]
     _partitionable = True
-    isDisk = True
+    _isDisk = True
 
     def __init__(self, device, **kwargs):
         self.nic = kwargs.pop("nic")
