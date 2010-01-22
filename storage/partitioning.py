@@ -305,6 +305,10 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
            not device.getFlag(parted.PARTITION_SWAP):
             return False
     elif device.isDisk and not device.partitioned:
+        # If we got a list of disks to clear, make sure this one's on it
+        if clearPartDisks and device.name not in clearPartDisks:
+            return False
+
         if clearPartType == CLEARPART_TYPE_LINUX and \
            not device.format.linuxNative:
             return False
