@@ -56,7 +56,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr) {
     entries[2].flags = NEWT_FLAG_SCROLL;
     entries[3].text = NULL;
     entries[3].value = NULL;
-    buf = sdupprintf(_(netServerPrompt), _("NFS"), getProductName());
+    buf = sdupprintf(_(nfsServerPrompt), getProductName());
     rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
                         24, entries, _("OK"), _("Back"), NULL);
     free(buf);

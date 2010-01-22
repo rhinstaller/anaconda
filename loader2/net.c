@@ -70,6 +70,13 @@ char *netServerPrompt = \
        "\n"
        "    o the name or IP number of your %s server\n" 
        "    o the directory on that server containing\n" 
+       "      %s for your architecture\n");
+
+char *nfsServerPrompt = \
+    N_("Please enter the following information:\n"
+       "\n"
+       "    o the name or IP number of your NFS server\n" 
+       "    o the directory on that server containing\n" 
        "      %s for your architecture\n"
        "    o optionally, parameters for the NFS mount\n");
 
