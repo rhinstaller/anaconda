@@ -97,6 +97,8 @@ def identifyMultipaths(devices):
                 if d.get("ID_USB_DRIVER") != "usb-storage":
                     all_usb = False
                 if (not devmap.has_key(disk)) and non_disk_devices.has_key(disk):
+                    log.warning("non-disk device %s is part of an mpath" %
+                                (disk,))
                     non_disks = True
 
             if all_usb:
@@ -106,7 +108,6 @@ def identifyMultipaths(devices):
                 continue
 
             if non_disks:
-                log.warning("non-disk device %s is part of an mpath")
                 for disk in disks:
                     if devmap.has_key(disk):
                         del devmap[disk]
