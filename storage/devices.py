@@ -2824,13 +2824,15 @@ class MDRaidArrayDevice(StorageDevice):
 
     @property
     def biosraid(self):
-        return (len(self.devices) != 0 and
-                self.devices[0].type == "mdcontainer" and
-                getattr(self.devices[0].format, "biosraid", False))
+        """ Is this a BIOS RAID related set? """
+        return self.type == "mdcontainer" or \
+               (len(self.devices) != 0 and \
+                self.devices[0].type == "mdcontainer")
 
     @property
     def partitionable(self):
-        return self.biosraid
+        return len(self.devices) != 0 and \
+               self.devices[0].type == "mdcontainer"
 
     def dracutSetupString(self):
         return "rd_MD_UUID=%s" % self.uuid
