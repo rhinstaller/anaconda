@@ -2838,6 +2838,11 @@ class MDRaidArrayDevice(StorageDevice):
         return len(self.devices) != 0 and \
                self.devices[0].type == "mdcontainer"
 
+    @property
+    def isDisk(self):
+        return len(self.devices) != 0 and \
+               self.devices[0].type == "mdcontainer"
+
     def dracutSetupString(self):
         return "rd_MD_UUID=%s" % self.uuid
 
