@@ -24,6 +24,7 @@ import gtk, gobject
 import gtk.glade
 import gui
 import parted
+import _ped
 from DeviceSelector import *
 from baseudev import *
 from constants import *
@@ -576,7 +577,14 @@ class FilterWindow(InstallWindow):
         for d in nonraids:
             name = udev_device_get_name(d)
 
-            partedDevice = parted.Device(path="/dev/" + name)
+            # We aren't guaranteed to be able to get a device.  In
+            # particular, built-in USB flash readers show up as devices but
+            # do not always have any media present, so parted won't be able
+            # to find a device.
+            try:
+                partedDevice = parted.Device(path="/dev/" + name)
+            except (_ped.IOException, _ped.DeviceException):
+                continue
             d["XXX_SIZE"] = int(partedDevice.getSize())
 
             # This isn't so great, but for iSCSI devices the path contains a lot
@@ -622,7 +630,10 @@ class FilterWindow(InstallWindow):
             # We only need to grab information from the first device in the set.
             name = udev_device_get_name(mpath[0])
 
-            partedDevice = parted.Device(path="/dev/" + name)
+            try:
+                partedDevice = parted.Device(path="/dev/" + name)
+            except (_ped.IOException, _ped.DeviceException):
+                continue
             mpath[0]["XXX_SIZE"] = int(partedDevice.getSize())
             model = partedDevice.model
 
