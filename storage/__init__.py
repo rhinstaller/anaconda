@@ -2068,7 +2068,7 @@ class FSSet(object):
         """ Return the contents of mdadm.conf. """
         retval = None
         arrays = self.devicetree.getDevicesByType("mdarray")
-        arrays.extend(self.devicetree.getDevicesByType("partitionable mdarray"))
+        arrays.extend(self.devicetree.getDevicesByType("mdbiosraidarray"))
         arrays.extend(self.devicetree.getDevicesByType("mdcontainer"))
         # Sort it, this not only looks nicer, but this will also put
         # containers (which get md0, md1, etc.) before their members

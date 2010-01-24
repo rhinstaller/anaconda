@@ -2384,6 +2384,7 @@ class MDRaidArrayDevice(StorageDevice):
         # when teared down.
         if self.parents and self.parents[0].type == "mdcontainer":
             self._size = self.currentSize
+            self._type = "mdbiosraidarray"
 
         # FIXME: Bitmap is more complicated than this.
         # It can be internal or external. External requires a filename.
