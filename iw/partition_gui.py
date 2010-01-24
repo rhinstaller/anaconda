@@ -1000,7 +1000,7 @@ class PartitionWindow(InstallWindow):
                     self.tree[iter]['IsLeaf'] = True
 
         # handle RAID next
-        mdarrays = [a for a in self.storage.mdarrays if not a.biosraid]
+        mdarrays = self.storage.mdarrays
         if mdarrays:
 	    raidparent = self.tree.append(None)
 	    self.tree[raidparent]['Device'] = _("RAID Devices")
