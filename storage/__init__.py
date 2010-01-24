@@ -508,6 +508,13 @@ class Storage(object):
         return arrays
 
     @property
+    def mdcontainers(self):
+        """ A list of the MD containers in the device tree. """
+        arrays = self.devicetree.getDevicesByType("mdcontainer")
+        arrays.sort(key=lambda d: d.name)
+        return arrays
+
+    @property
     def mdmembers(self):
         """ A list of the MD member devices in the device tree.
 
@@ -524,7 +531,7 @@ class Storage(object):
         unused = []
         for member in self.mdmembers:
             used = False
-            for _array in self.mdarrays:
+            for _array in self.mdarrays + self.mdcontainers:
                 if _array.dependsOn(member) and _array != array:
                     used = True
                     break
@@ -538,7 +545,7 @@ class Storage(object):
     def unusedMDMinors(self):
         """ Return a list of unused minors for use in RAID. """
         raidMinors = range(0,32)
-        for array in self.mdarrays:
+        for array in self.mdarrays + self.mdcontainers:
             if array.minor is not None:
                 raidMinors.remove(array.minor)
         return raidMinors
@@ -628,7 +635,7 @@ class Storage(object):
             return _("You cannot delete a partition of a LDL formatted "
                      "DASD.")
         elif device.format.type == "mdmember":
-            for array in self.mdarrays:
+            for array in self.mdarrays + self.mdcontainers:
                 if array.dependsOn(device):
                     if array.minor is not None:
                         return _("This device is part of the RAID "
