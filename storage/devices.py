@@ -2828,13 +2828,6 @@ class MDRaidArrayDevice(StorageDevice):
         return "RAID%d Array" % self.level
 
     @property
-    def biosraid(self):
-        """ Is this a BIOS RAID related set? """
-        return self.type == "mdcontainer" or \
-               (len(self.devices) != 0 and \
-                self.devices[0].type == "mdcontainer")
-
-    @property
     def partitionable(self):
         return len(self.devices) != 0 and \
                self.devices[0].type == "mdcontainer"
