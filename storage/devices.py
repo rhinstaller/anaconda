@@ -2825,7 +2825,7 @@ class MDRaidArrayDevice(StorageDevice):
 
     @property
     def model(self):
-        return "RAID%d Array" % self.level
+        return self.description
 
     @property
     def partitionable(self):
