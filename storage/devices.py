@@ -2415,7 +2415,7 @@ class MDRaidArrayDevice(StorageDevice):
 
         # For container members return probed size, as we cannot determine it
         # when teared down.
-        if self.devices[0].type == "mdcontainer":
+        if self.type == "mdbiosraidarray":
             return self._size
 
         size = 0
@@ -2454,7 +2454,7 @@ class MDRaidArrayDevice(StorageDevice):
 
         if self.type == "mdcontainer":
             return "BIOS RAID container"
-        elif self.devices and self.devices[0].type == "mdcontainer":
+        elif self.type == "mdbiosraidarray":
             return "BIOS RAID set (%s)" % levelstr
         else:
             return "MDRAID set (%s)" % levelstr
@@ -2505,7 +2505,7 @@ class MDRaidArrayDevice(StorageDevice):
             raise DeviceError("array is not fully defined", self.name)
 
         # containers and the sets within must only have a UUID= parameter
-        if self.type == "mdcontainer" or self.devices[0].type == "mdcontainer":
+        if self.type == "mdcontainer" or self.type == "mdbiosraidarray":
             fmt = "ARRAY %s UUID=%s\n"
             return fmt % (self.path, self.uuid)
 
@@ -2658,7 +2658,7 @@ class MDRaidArrayDevice(StorageDevice):
             if state in ("clean", "active", "active-idle", "readonly", "read-auto"):
                 status = True
             # mdcontainers have state inactive when started (clear if stopped)
-            if self._type == "mdcontainer" and state == "inactive":
+            if self.type == "mdcontainer" and state == "inactive":
                 status = True
 
         return status
@@ -2696,7 +2696,7 @@ class MDRaidArrayDevice(StorageDevice):
             disks.append(member.path)
 
         update_super_minor = True
-        if self.type == "mdcontainer" or self.devices[0].type == "mdcontainer":
+        if self.type == "mdcontainer" or self.type == "mdbiosraidarray":
             update_super_minor = False
 
         mdraid.mdactivate(self.path,
@@ -2724,7 +2724,7 @@ class MDRaidArrayDevice(StorageDevice):
         # Since BIOS RAID sets (containers in mdraid terminology) never change
         # there is no need to stop them and later restart them. Not stopping
         # (and thus also not starting) them also works around bug 523334
-        if self.type == "mdcontainer" or self.devices[0].type == "mdcontainer":
+        if self.type == "mdcontainer" or self.type == "mdbiosraidarray":
             return
 
         # We don't really care what the array's state is. If the device
@@ -2818,10 +2818,10 @@ class MDRaidArrayDevice(StorageDevice):
         if self.type == "mdcontainer":
             return False
         # BIOS RAID sets should show as present even when teared down
-        if self.devices and self.devices[0].type == "mdcontainer":
+        elif self.type == "mdbiosraidarray":
             return True
-
-        return self.partedDevice is not None
+        else:
+            return self.partedDevice is not None
 
     @property
     def model(self):
@@ -2829,13 +2829,11 @@ class MDRaidArrayDevice(StorageDevice):
 
     @property
     def partitionable(self):
-        return len(self.devices) != 0 and \
-               self.devices[0].type == "mdcontainer"
+        return self.type == "mdbiosraidarray"
 
     @property
     def isDisk(self):
-        return len(self.devices) != 0 and \
-               self.devices[0].type == "mdcontainer"
+        return self.type == "mdbiosraidarray"
 
     def dracutSetupString(self):
         return "rd_MD_UUID=%s" % self.uuid
