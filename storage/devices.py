@@ -754,6 +754,10 @@ class StorageDevice(Device):
         return self._serial
 
     @property
+    def serial_for_display(self):
+        return self.serial
+
+    @property
     def model(self):
         if not self._model:
             self._model = getattr(self.partedDevice, "model", "")
@@ -3055,6 +3059,8 @@ class MultipathDevice(DMDevice):
         return self._getWwidFromSerial(self._serial)
 
     @property
+    def serial_for_display(self):
+        return self.wwid
 
     @property
     def model(self):
