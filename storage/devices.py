@@ -2938,6 +2938,14 @@ class DMRaidArrayDevice(DMDevice):
 
         log.debug("not tearing down dmraid device %s" % self.name)
 
+    @property
+    def description(self):
+        return "BIOS RAID set (%s)" % self._raidSet.rs.set_type
+
+    @property
+    def model(self):
+        return self.description
+
     def dracutSetupString(self):
         return "rd_DM_UUID=%s" % self.name
 
