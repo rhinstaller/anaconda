@@ -172,7 +172,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     jfsutils kpartx keyutils-libs krb5-libs libICE libSM libX11 libXau
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
     libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
-    libXxf86misc libacl libart_lgpl libattr
+    libXxf86misc libacl libaio libart_lgpl libattr
     libbonobo libcurl libfontenc libidn libgcc
     libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libnl
     libpng libselinux libselinux-python libsemanage
@@ -285,6 +285,7 @@ fi
 KEEPFILE=${TMPDIR:-/tmp}/keepfile.$$
 cat > $KEEPFILE <<EOF
 $LIBDIR/dbus-1
+$LIBDIR/libaio.so*
 $LIBDIR/libmultipath.so*
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
