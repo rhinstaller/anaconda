@@ -216,6 +216,26 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jan 25 2010 Chris Lumens <clumens@redhat.com> - 13.21.4-1
+- DMRaidArrayDevice don't pass major/minor to DMDevice.__init__ (#558440)
+  (hdegoede)
+- Filter UI: don't show cciss controllers without sets (hdegoede)
+- Filter UI: give BIOS RAID sets a usable model string and display that
+  (hdegoede)
+- Make MDRaidArray description the same as DMRaidArray (hdegoede)
+- Add DMRaidArrayDevice description and model properties (#558440) (hdegoede)
+- DMRaidArrayDevices exist when created (#558440) (hdegoede)
+- Use description property for MDRaidArrayDevice model (hdegoede)
+- MDRaidArrayDevice: Get rid of the ugly self.devices[0].type checking
+  (hdegoede)
+- Make storage.unusedMDFoo also check mdcontainer members (hdegoede)
+- Remove MDRaidArrayDevice biosraid property (hdegoede)
+- Give MD BIOS RAID arrays there own type (hdegoede)
+- Check for devices with no media present in filter_gui.py (#558177)
+  (hdegoede)
+- multipath requires libaio.so (pjones)
+- Fix a syntax error in storage/devicetree.py (#558534). (clumens)
+
 * Fri Jan 22 2010 Chris Lumens <clumens@redhat.com> - 13.21.3-1
 - Fix a syntax error in filter_gui.py (hdegoede)
 - Fix broken log message. (pjones)
