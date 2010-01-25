@@ -1,6 +1,6 @@
 Name: anaconda
 Version: 11.1.2.201
-Release: 1
+Release: 2
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 21 2010 Martin Sivak <msivak@redhat.com> 11.1.2.201-2
+- Rebuild anaconda to get the newest Kudzu
+  Related: rhbz#555188
+
 * Fri Jan 15 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.201-1
 - os.exists -> os.path.exists (clumens)
   Resolves: rhbz#554853
