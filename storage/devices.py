@@ -2847,8 +2847,7 @@ class DMRaidArrayDevice(DMDevice):
     _isDisk = True
 
     def __init__(self, name, raidSet=None, format=None,
-                 size=None, major=None, minor=None, parents=None,
-                 sysfsPath=''):
+                 size=None, parents=None, sysfsPath=''):
         """ Create a DMRaidArrayDevice instance.
 
             Arguments:
@@ -2868,8 +2867,7 @@ class DMRaidArrayDevice(DMDevice):
                 if not parent.format or parent.format.type != "dmraidmember":
                     raise ValueError("parent devices must contain dmraidmember format")
         DMDevice.__init__(self, name, format=format, size=size,
-                          major=major, minor=minor, parents=parents,
-                          sysfsPath=sysfsPath, exists=True)
+                          parents=parents, sysfsPath=sysfsPath, exists=True)
 
         self.formatClass = get_device_format_class("dmraidmember")
         if not self.formatClass:
