@@ -361,7 +361,16 @@ class NotebookPage(object):
         self.filteredModel.refilter()
 
     def getNVisible(self):
-        return self.ds.getNVisible()
+        retval = 0
+        iter = self.filteredModel.get_iter_first()
+
+        while iter:
+            if self.cb.visible(self.filteredModel, iter, self.treeView):
+                retval += 1
+
+            iter = self.filteredModel.iter_next(iter)
+
+        return retval
 
 class FilterWindow(InstallWindow):
     windowTitle = N_("Device Filter")
