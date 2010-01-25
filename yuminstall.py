@@ -619,7 +619,8 @@ class AnacondaYum(YumSorter):
         file_handler.setFormatter(file_formatter)
 
         tty3_handler = logging.FileHandler("/dev/tty3")
-        tty3_formatter = logging.Formatter("%(asctime)s %(levelname)-8s: %(name)s: %(message)s", "%H:%M:%S")
+        tty3_formatter = logging.Formatter(anaconda_log.DEFAULT_TTY_FORMAT,
+                                           anaconda_log.DEFAULT_DATE_FORMAT)
         tty3_handler.setFormatter(tty3_formatter)
 
         verbose = logging.getLogger("yum.verbose")

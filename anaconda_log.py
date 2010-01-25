@@ -28,7 +28,8 @@ from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 import types
 
 DEFAULT_LEVEL = logging.INFO
-DEFAULT_ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)-8s: %(message)s"
+DEFAULT_ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
+DEFAULT_TTY_FORMAT = "%(levelname)s %(name)s: %(message)s"
 DEFAULT_DATE_FORMAT = "%H:%M:%S"
 
 MAIN_LOG_FILE = "/tmp/anaconda.log"
@@ -57,8 +58,10 @@ class AnacondaSyslogHandler(SysLogHandler):
         SysLogHandler.__init__(self, address, facility)
 
     def emit(self, record):
-        record.msg = '%s: %s' %(self.tag, record.msg)
+        original_msg = record.msg
+        record.msg = '%s: %s' %(self.tag, original_msg)
         SysLogHandler.emit(self, record)
+        record.msg = original_msg
 
 class AnacondaLog:
     def __init__ (self, minLevel=DEFAULT_LEVEL):

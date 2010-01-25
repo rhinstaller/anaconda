@@ -616,7 +616,8 @@ if __name__ == "__main__":
     anaconda.platform = platform.getPlatform(anaconda)
 
     if not iutil.isS390() and os.access("/dev/tty3", os.W_OK):
-        anaconda_log.logger.addFileHandler ("/dev/tty3", log)
+        anaconda_log.logger.addFileHandler("/dev/tty3", log,
+                                           fmtStr=anaconda_log.DEFAULT_TTY_FORMAT)
 
     warnings.showwarning = AnacondaShowWarning
 
