@@ -2446,11 +2446,11 @@ class MDRaidArrayDevice(StorageDevice):
     @property
     def description(self):
         if self.level == mdraid.RAID0:
-            levelstr = "striped"
+            levelstr = "stripe"
         elif self.level == mdraid.RAID1:
-            levelstr = "mirrored"
+            levelstr = "mirror"
         else:
-            levelstr = "level: %s" % self.level
+            levelstr = "raid%s" % self.level
 
         if self.type == "mdcontainer":
             return "BIOS RAID container"
