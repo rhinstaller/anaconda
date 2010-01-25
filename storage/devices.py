@@ -2869,7 +2869,7 @@ class DMRaidArrayDevice(DMDevice):
                     raise ValueError("parent devices must contain dmraidmember format")
         DMDevice.__init__(self, name, format=format, size=size,
                           major=major, minor=minor, parents=parents,
-                          sysfsPath=sysfsPath)
+                          sysfsPath=sysfsPath, exists=True)
 
         self.formatClass = get_device_format_class("dmraidmember")
         if not self.formatClass:
