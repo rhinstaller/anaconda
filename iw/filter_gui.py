@@ -558,6 +558,7 @@ class FilterWindow(InstallWindow):
         for pg in self.pages:
             if pg.getNVisible():
                 self.notebook.set_current_page(i)
+                break
 
             i += 1
 
