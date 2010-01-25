@@ -619,8 +619,8 @@ class AnacondaYum(YumSorter):
         file_handler.setFormatter(file_formatter)
 
         tty3_handler = logging.FileHandler("/dev/tty3")
-        tty3_formatter = logging.Formatter(anaconda_log.DEFAULT_TTY_FORMAT,
-                                           anaconda_log.DEFAULT_DATE_FORMAT)
+        tty3_formatter = logging.Formatter(anaconda_log.TTY_FORMAT,
+                                           anaconda_log.DATE_FORMAT)
         tty3_handler.setFormatter(tty3_formatter)
 
         verbose = logging.getLogger("yum.verbose")
@@ -633,7 +633,7 @@ class AnacondaYum(YumSorter):
         logger.setLevel(yum.logginglevels.INFO_2)
         logger.addHandler(file_handler)
         anaconda_log.autoSetLevel(tty3_handler, True)
-        tty3_handler.setLevel(anaconda_log.logger.loglevel)
+        tty3_handler.setLevel(anaconda_log.logger.tty_loglevel)
         logger.addHandler(tty3_handler)
 
         # XXX filelogger is set in setFileLog - do we or user want it?

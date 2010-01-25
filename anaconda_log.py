@@ -27,10 +27,10 @@ import logging
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 import types
 
-DEFAULT_LEVEL = logging.INFO
-DEFAULT_ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
-DEFAULT_TTY_FORMAT = "%(levelname)s %(name)s: %(message)s"
-DEFAULT_DATE_FORMAT = "%H:%M:%S"
+DEFAULT_TTY_LEVEL = logging.INFO
+ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
+TTY_FORMAT = "%(levelname)s %(name)s: %(message)s"
+DATE_FORMAT = "%H:%M:%S"
 
 MAIN_LOG_FILE = "/tmp/anaconda.log"
 PROGRAM_LOG_FILE = "/tmp/program.log"
@@ -64,8 +64,8 @@ class AnacondaSyslogHandler(SysLogHandler):
         record.msg = original_msg
 
 class AnacondaLog:
-    def __init__ (self, minLevel=DEFAULT_LEVEL):
-        self.loglevel = logging.DEBUG
+    def __init__ (self, minLevel=DEFAULT_TTY_LEVEL):
+        self.tty_loglevel = DEFAULT_TTY_LEVEL
         self.remote_syslog = None
         # Create the base of the logger hierarcy.
         self.logger = logging.getLogger("anaconda")
@@ -93,8 +93,8 @@ class AnacondaLog:
                              fmtStr="%(asctime)s %(message)s", minLevel=logging.INFO)
 
     # Add a simple handler - file or stream, depending on what we're given.
-    def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_LEVEL,
-                        fmtStr=DEFAULT_ENTRY_FORMAT,
+    def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_TTY_LEVEL,
+                        fmtStr=ENTRY_FORMAT,
                         autoLevel=True):
         if isinstance(file, types.StringTypes):
             logfileHandler = logging.FileHandler(file)
@@ -102,19 +102,19 @@ class AnacondaLog:
             logfileHandler = logging.StreamHandler(file)
 
         logfileHandler.setLevel(minLevel)
-        logfileHandler.setFormatter(logging.Formatter(fmtStr, DEFAULT_DATE_FORMAT))
+        logfileHandler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
         autoSetLevel(logfileHandler, autoLevel)
         addToLogger.addHandler(logfileHandler)
 
     # Add another logger to the hierarchy.  For best results, make sure
     # name falls under anaconda in the tree.
-    def addLogger (self, name, minLevel=DEFAULT_LEVEL):
+    def addLogger (self, name, minLevel=DEFAULT_TTY_LEVEL):
         newLogger = logging.getLogger(name)
         newLogger.setLevel(minLevel)
 
     # Add a handler for remote syslogs.
     def addSysLogHandler (self, logger, host, port=SYSLOG_UDP_PORT,
-                          minLevel=DEFAULT_LEVEL):
+                          minLevel=DEFAULT_TTY_LEVEL):
         fmt = logging.Formatter("%(levelname)-8s %(message)s")
         syslogHandler = SysLogHandler((host, port))
         syslogHandler.setLevel(minLevel)
