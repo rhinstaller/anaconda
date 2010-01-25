@@ -420,7 +420,7 @@ class FilterWindow(InstallWindow):
     def _makeRAID(self):
         np = NotebookPage(self.store, "raid", self.xml, RAIDCallbacks(self.xml))
 
-        np.ds.addColumn(_("Device"), DEVICE_COL)
+        np.ds.addColumn(_("Model"), MODEL_COL)
         np.ds.addColumn(_("Capacity"), CAPACITY_COL)
         return np
 
@@ -620,7 +620,8 @@ class FilterWindow(InstallWindow):
             data = {"XXX_SIZE": size, "ID_FS_TYPE": fstype, "DM_NAME": rs.name,
                     "name": rs.name}
 
-            tuple = (data, True, _active(rs.name), rs.name, partedDevice.model,
+            model = "BIOS RAID set (%s)" % rs.rs.set_type
+            tuple = (data, True, _active(rs.name), rs.name, model,
                      str(size) + " MB", "", "", "", "", "", "", "", "")
             _addTuple(tuple)
 
