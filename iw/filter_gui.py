@@ -586,6 +586,10 @@ class FilterWindow(InstallWindow):
             except (_ped.IOException, _ped.DeviceException):
                 continue
             d["XXX_SIZE"] = int(partedDevice.getSize())
+            # cciss controllers, without any sets defined, show up as a 0 size
+            # blockdev, ignore these
+            if d["XXX_SIZE"] == 0:
+                continue
 
             # This isn't so great, but for iSCSI devices the path contains a lot
             # of useful identifiying info that should be displayed.
