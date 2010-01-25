@@ -43,7 +43,7 @@ def parseMultipathOutput(output):
         elif lexemes[0] == '`-+-':
             pass
         elif lexemes[0] in ['|-','`-']:
-            devices.append(lexemes[2])
+            devices.append(lexemes[2].replace('!', '/'))
     
     if name and devices:
         mpaths[name] = devices
