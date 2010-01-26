@@ -503,7 +503,7 @@ class bootloaderInfo(object):
         disks = self.storage.disks
         partitioned = self.storage.partitioned
         self._drivelist = [d.name for d in disks if d in partitioned]
-        self._drivelist.sort(isys.compareDrives)
+        self._drivelist.sort(self.storage.compareDisks)
 
         # If we're given a sort order, make sure the drives listed in it
         # are put at the head of the drivelist in that order.  All other
