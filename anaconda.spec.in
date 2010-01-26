@@ -231,7 +231,7 @@ update-desktop-database &> /dev/null || :
 - Make storage.unusedMDFoo also check mdcontainer members (hdegoede)
 - Remove MDRaidArrayDevice biosraid property (hdegoede)
 - Give MD BIOS RAID arrays there own type (hdegoede)
-- Check for devices with no media present in filter_gui.py (#558177)
+- Check for devices with no media present in filter_gui.py (#558689)
   (hdegoede)
 - multipath requires libaio.so (pjones)
 - Fix a syntax error in storage/devicetree.py (#558534). (clumens)
