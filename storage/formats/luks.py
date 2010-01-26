@@ -134,7 +134,7 @@ class LUKS(DeviceFormat):
 
     @property
     def hasKey(self):
-        return (self.__passphrase or
+        return ((self.__passphrase not in ["", None]) or
                 (self._key_file and os.access(self._key_file, os.R_OK)))
 
     @property
