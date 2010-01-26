@@ -844,6 +844,7 @@ EOF
     instbin $IMGPATH /usr/bin/rmdir $MBD_DIR /sbin/rmdir
     instbin $IMGPATH /usr/bin/sed $MBD_DIR /sbin/sed
     instbin $IMGPATH /usr/bin/sleep $MBD_DIR /sbin/sleep
+    instbin $IMGPATH /usr/bin/strace $MBD_DIR /sbin/strace
     instbin $IMGPATH /usr/bin/touch $MBD_DIR /sbin/touch
     instbin $IMGPATH /usr/bin/wget $MBD_DIR /sbin/wget
 
