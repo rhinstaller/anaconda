@@ -106,8 +106,6 @@ static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
 static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
-static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args);
-static PyObject * doGetBiosDisk(PyObject * s, PyObject * args); 
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
 static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
@@ -142,8 +140,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
     { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
     { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
-    { "biosDiskProbe", (PyCFunction) doProbeBiosDisks, METH_VARARGS,NULL},
-    { "getbiosdisk",(PyCFunction) doGetBiosDisk, METH_VARARGS,NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
     { "prefix2netmask", (PyCFunction) doPrefixToNetmask, METH_VARARGS, NULL },
@@ -622,26 +618,6 @@ py_bind_textdomain_codeset(PyObject * o, PyObject * args) {
 
     PyErr_SetFromErrno(PyExc_SystemError);
     return NULL;
-}
-
-static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-
-    return Py_BuildValue("i", probeBiosDisks());
-}
-
-static PyObject * doGetBiosDisk(PyObject * s, PyObject * args) {
-    char *mbr_sig;
-    char *diskname;
-            
-    if (!PyArg_ParseTuple(args, "s", &mbr_sig)) return NULL;
-
-    if ((diskname = getBiosDisk(mbr_sig)))
-        return Py_BuildValue("s", diskname);
-
-    Py_INCREF(Py_None);
-    return Py_None;
 }
 
 static PyObject * doSegvHandler(PyObject *s, PyObject *args) {
