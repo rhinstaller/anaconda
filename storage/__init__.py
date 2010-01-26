@@ -48,6 +48,7 @@ from devicelibs.lvm import safeLvmName
 from devicelibs.dm import name_from_dm_node
 from devicelibs.crypto import generateBackupPassphrase
 from devicelibs.mpath import MultipathConfigWriter
+from devicelibs.edd import get_edd_dict
 from udev import *
 import iscsi
 import fcoe
@@ -255,6 +256,7 @@ class Storage(object):
         self.zeroMbr = None
         self.protectedDevSpecs = []
         self.autoPartitionRequests = []
+        self.eddDict = {}
 
         self.__luksDevs = {}
 
@@ -373,6 +375,7 @@ class Storage(object):
                                      dasd=self.dasd)
         self.devicetree.populate()
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
+        self.eddDict = get_edd_dict(self.partitioned)
         self.anaconda.id.rootParts = None
         self.anaconda.id.upgradeRoot = None
         self.dumpState("initial")
@@ -1163,6 +1166,58 @@ class Storage(object):
     def rootDevice(self):
         return self.fsset.rootDevice
 
+    def compareDisks(self, first, second):
+        if self.eddDict.has_key(first) and self.eddDict.has_key(second):
+            one = self.eddDict[first]
+            two = self.eddDict[second]
+            if (one < two):
+                return -1
+            elif (one > two):
+                return 1
+
+        # if one is in the BIOS and the other not prefer the one in the BIOS
+        if self.eddDict.has_key(first):
+            return -1
+        if self.eddDict.has_key(second):
+            return 1
+
+        if first.startswith("hd"):
+            type1 = 0
+        elif first.startswith("sd"):
+            type1 = 1
+        elif (first.startswith("vd") or first.startswith("xvd")):
+            type1 = -1
+        else:
+            type1 = 2
+
+        if second.startswith("hd"):
+            type2 = 0
+        elif second.startswith("sd"):
+            type2 = 1
+        elif (second.startswith("vd") or second.startswith("xvd")):
+            type2 = -1
+        else:
+            type2 = 2
+
+        if (type1 < type2):
+            return -1
+        elif (type1 > type2):
+            return 1
+        else:
+            len1 = len(first)
+            len2 = len(second)
+
+            if (len1 < len2):
+                return -1
+            elif (len1 > len2):
+                return 1
+            else:
+                if (first < second):
+                    return -1
+                elif (first > second):
+                    return 1
+
+        return 0
 
 def getReleaseString(mountpoint):
     relName = None
