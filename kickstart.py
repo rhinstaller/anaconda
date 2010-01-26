@@ -255,7 +255,8 @@ class Bootloader(commands.bootloader.F12_Bootloader):
                 elif disk.name in anaconda.id.bootloader.drivelist:
                     # remove unpartitioned disks from the drivelist
                     anaconda.id.bootloader.drivelist.remove(disk.name)
-            anaconda.id.bootloader.drivelist.sort(cmp=isys.compareDrives)
+            anaconda.id.bootloader.drivelist.sort(
+                cmp=anaconda.id.storage.compareDisks)
 
             # Throw out drives specified that don't exist.
             if self.driveorder and len(self.driveorder) > 0:
@@ -599,7 +600,10 @@ class PartitionData(commands.partition.F12_PartData):
         storage.doAutoPart = False
 
         if self.onbiosdisk != "":
-            self.disk = isys.doGetBiosDisk(self.onbiosdisk)
+            for (disk, biosdisk) in storage.eddDict.iteritems():
+                if str(biosdisk) == self.onbiosdisk:
+                    self.disk = disk
+                    break
 
             if self.disk == "":
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % self.onbiosdisk)

@@ -58,7 +58,7 @@ class ClearDisksWindow (InstallWindow):
 
         bootDisk = selected[0][OBJECT_COL].name
 
-        cleardisks.sort(isys.compareDrives)
+        cleardisks.sort(self.anaconda.id.storage.compareDisks)
 
         self.anaconda.id.storage.clearPartDisks.extend(cleardisks + [bootDisk])
         self.anaconda.id.bootloader.drivelist = [bootDisk] + cleardisks

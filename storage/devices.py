@@ -112,7 +112,6 @@ from iutil import notify_kernel, numeric_type
 from .storage_log import log_method_call
 from udev import *
 from formats import get_device_format_class, getFormat, DeviceFormat
-from isys import compareDrives
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -917,7 +916,6 @@ class PartitionDevice(StorageDevice):
         if not exists:
             # this is a request, not a partition -- it has no parents
             self.req_disks = self.parents[:]
-            self.req_disks.sort(key=lambda d: d.name, cmp=compareDrives)
             for dev in self.parents:
                 dev.removeChild()
             self.parents = []

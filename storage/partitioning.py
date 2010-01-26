@@ -804,7 +804,7 @@ def doPartitioning(storage, exclusiveDisks=None):
 
     removeNewPartitions(disks, partitions)
     free = getFreeRegions(disks)
-    allocatePartitions(disks, partitions, free)
+    allocatePartitions(storage, disks, partitions, free)
     growPartitions(disks, partitions, free)
 
     # The number and thus the name of partitions may have changed now,
@@ -852,7 +852,7 @@ def doPartitioning(storage, exclusiveDisks=None):
         # moment to simplify things
         storage.devicetree._addDevice(device)
 
-def allocatePartitions(disks, partitions, freespace):
+def allocatePartitions(storage, disks, partitions, freespace):
     """ Allocate partitions based on requested features.
 
         Non-existing partitions are sorted according to their requested
@@ -900,6 +900,7 @@ def allocatePartitions(disks, partitions, freespace):
             # no disks specified means any disk will do
             req_disks = disks
 
+        req_disks.sort(key=lambda d: d.name, cmp=storage.compareDisks)
         log.debug("allocating partition: %s ; id: %d ; disks: %s ;\n"
                   "boot: %s ; primary: %s ; size: %dMB ; grow: %s ; "
                   "max_size: %s" % (_part.name, _part.id, req_disks,
