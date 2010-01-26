@@ -429,7 +429,7 @@ def doUIRAIDLVMChecks(request, storage):
 ## 		     "cannot be marked to fill to use available space.")) % (fstype.getName(),)
 
     if fstype in ["physical volume (LVM)", "software RAID"]:
-	if numdrives > 1 and (not request.req_disks or len(request.disks) > 1):
+	if numdrives > 1 and (not request.req_disks or len(request.req_disks) > 1):
 	    return (_("Partitions of type '%s' must be constrained to "
 		      "a single drive.  To do this, select the "
 		      "drive in the 'Allowable Drives' checklist.")) % (fstype.getName(),)
