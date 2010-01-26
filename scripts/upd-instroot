@@ -294,7 +294,6 @@ $LIBDIR/libnssckbi.so
 $LIBDIR/libnsspem.so
 $LIBDIR/libwrap*.so*
 $LIBDIR/libsmime3.so
-$LIBDIR/libsoftokn3.so
 $LIBDIR/libssl3.so
 $LIBDIR/multipath/*
 $LIBDIR/security/pam_*
@@ -498,6 +497,7 @@ usr/$LIBDIR/pango
 usr/$LIBDIR/python?.?
 usr/$LIBDIR/rpm/rpmpopt
 usr/$LIBDIR/libiscsi.so*
+usr/$LIBDIR/libsoftokn3.so
 usr/$LIBDIR/libsqlite3.so*
 usr/$LIBDIR/xorg/modules
 usr/$LIBDIR/libnssdbm3.so
