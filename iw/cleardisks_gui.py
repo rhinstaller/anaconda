@@ -133,6 +133,11 @@ class ClearDisksWindow (InstallWindow):
         self.rightDS.addColumn(_("Model"), 5)
         self.rightDS.addColumn(_("Capacity"), 6)
 
+        # Store the first disk (according to our detected BIOS order) for
+        # auto boot device selection
+        self.bootDisk = sorted(self.anaconda.id.storage.exclusiveDisks,
+                               self.anaconda.id.storage.compareDisks)[0]
+
         # The device filtering UI set up exclusiveDisks as a list of the names
         # of all the disks we should use later on.  Now we need to go get those,
         # look up some more information in the devicetree, and set up the
@@ -167,18 +172,19 @@ class ClearDisksWindow (InstallWindow):
 
         return self.vbox
 
+    def _autoSelectBootDisk(self):
+        if self.rightDS.getSelected():
+            return
+
+        for row in self.store:
+            if row[OBJECT_COL].name == self.bootDisk and row[self.rightVisible]:
+                row[self.rightActive] = True
+
     def _add_clicked(self, widget, *args, **kwargs):
         (filteredModel, pathlist) = self.leftTreeView.get_selection().get_selected_rows()
 
         if not pathlist:
             return
-
-        # If there aren't any rows in the right side to begin with, activate
-        # the first one in the list after the selection has been applied.
-        if self.rightDS.getNVisible() == 0:
-            setFirstActive = True
-        else:
-            setFirstActive = False
 
         for path in reversed(pathlist):
             filteredIter = filteredModel.get_iter(path)
@@ -191,14 +197,7 @@ class ClearDisksWindow (InstallWindow):
             self.store.set_value(sortedIter, self.rightVisible, True)
             self.store.set_value(sortedIter, self.rightActive, False)
 
-        if setFirstActive:
-            i = 0
-
-            while not self.store[i][self.rightVisible]:
-                i += 1
-
-            self.store[i][self.rightActive] = True
-
+        self._autoSelectBootDisk()
         self.leftFilteredModel.refilter()
         self.rightFilteredModel.refilter()
 
@@ -208,8 +207,6 @@ class ClearDisksWindow (InstallWindow):
         if not pathlist:
             return
 
-        setFirstActive = False
-
         for path in reversed(pathlist):
             filteredIter = filteredModel.get_iter(path)
             if not filteredIter:
@@ -217,22 +214,10 @@ class ClearDisksWindow (InstallWindow):
 
             sortedIter = self.rightFilteredModel.convert_iter_to_child_iter(filteredIter)
 
-            # If we're removing a row that was checked, try to set the first
-            # visible one to active after the selection is applied.
-            if self.store.get_value(sortedIter, self.rightActive):
-                setFirstActive = True
-
             self.store.set_value(sortedIter, self.leftVisible, True)
             self.store.set_value(sortedIter, self.rightVisible, False)
             self.store.set_value(sortedIter, self.rightActive, False)
 
-        if self.rightDS.getNVisible() > 0 and setFirstActive:
-            i = 0
-
-            while not self.store[i][self.rightVisible]:
-                i += 1
-
-            self.store[i][self.rightActive] = True
-
+        self._autoSelectBootDisk()
         self.leftFilteredModel.refilter()
         self.rightFilteredModel.refilter()
