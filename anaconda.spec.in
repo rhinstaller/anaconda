@@ -216,6 +216,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jan 27 2010 Chris Lumens <clumens@redhat.com> - 13.21.5-1
+- Make sure we get required nss-softokn libs in the images. (dcantrell)
+- Make sure we always check /lib64 and /lib in find_library (#555669).
+  (dcantrell)
+- Add 5 second ping delay for gateway and dns test on s390x (#536815).
+  (dcantrell)
+- Update =~ regexps in linuxrc.s390 for bash-4.1 (#558537). (dcantrell)
+- Do not reference Fedora bugs in rhel6-branch commits. (dcantrell)
+
 * Mon Jan 25 2010 Chris Lumens <clumens@redhat.com> - 13.21.4-1
 - DMRaidArrayDevice don't pass major/minor to DMDevice.__init__ (#558440)
   (hdegoede)
