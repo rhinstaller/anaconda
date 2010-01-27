@@ -688,7 +688,7 @@ function syntax_check_domainname() {
     # - match against regex adopted from RFC1035,sec.2.3.1 or RFC1034,sec.3.5
     #   (Internationalized Domain Names in Applications (IDNA) [RFC4690]
     #    have to be entered after encoding by punycode [RFC3492])
-    [[ "$1" =~ ^[[:alpha:]]([[:alnum:]-]{0,61}[[:alnum:]])?(\\.[[:alpha:]]([[:alnum:]-]{0,61}[[:alnum:]])?)*$ ]]
+    [[ "$1" =~ ^[[:alpha:]]([[:alnum:]-]{0,61}[[:alnum:]])?(\.[[:alpha:]]([[:alnum:]-]{0,61}[[:alnum:]])?)*$ ]]
     case $? in
         0)
             # string matched the pattern
@@ -1091,10 +1091,10 @@ function syntax_check_subchannels() {
     # - make subchannel question dependent on NETTYPE (2 vs. 3 subchannels)
     if [ "$NETTYPE" = "qeth" ]; then
         # - match against regex, depending on qeth
-        [[ "$SUBCHANNELS" =~ ^[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4},[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4},[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4}$ ]]
+        [[ "$SUBCHANNELS" =~ ^[[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4},[[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4},[[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4}$ ]]
     else
         # - match against regex, depending on lcs/ctc
-        [[ "$SUBCHANNELS" =~ ^[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4},[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4}$ ]]
+        [[ "$SUBCHANNELS" =~ ^[[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4},[[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4}$ ]]
     fi
     case $? in
         0)
@@ -2418,7 +2418,7 @@ function parse_dasd() {
                 unset IFS
                 # parse: dev OR dev'-'dev
                 local lo=${range%%-*}
-                [[ "$lo" =~ (^[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4}$)|(^[[:xdigit:]]{3,4}$) ]]
+                [[ "$lo" =~ (^[[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4}$)|(^[[:xdigit:]]{3,4}$) ]]
                 case $? in
                     0)  # string matched the pattern
                         lo=$(canonicalize_devno $lo) ;;
@@ -2434,7 +2434,7 @@ function parse_dasd() {
                 esac
                 if [ "${range//*-*/}" = "" ]; then
                     local hi=${range##*-}
-                    [[ "$hi" =~ (^[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4}$)|(^[[:xdigit:]]{3,4}$) ]]
+                    [[ "$hi" =~ (^[[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4}$)|(^[[:xdigit:]]{3,4}$) ]]
                     case $? in
                         0)  # string matched the pattern
                             hi=$(canonicalize_devno $hi)
@@ -2595,7 +2595,7 @@ function syntax_check_fcp() {
                 continue
                 ;;
         esac
-        [[ "$devno" =~ (^[[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4}$)|(^[[:xdigit:]]{3,4}$) ]]
+        [[ "$devno" =~ (^[[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4}$)|(^[[:xdigit:]]{3,4}$) ]]
         case $? in
             0)  ;; # string matched the pattern
             1)  # string did not match the pattern
