@@ -9,11 +9,12 @@ from ctypes import *
 # XXX this one may need some tweaking...
 def find_library(name, somajor=0):
     env = os.environ.get("LD_LIBRARY_PATH")
+    common = ["/lib64", "/lib"]
 
     if env:
-        libdirs = env.split(":")
+        libdirs = env.split(":") + common
     else:
-        libdirs = ["/lib64", "/lib"]
+        libdirs = common
 
     libdirs = filter(os.path.isdir, libdirs)
 
@@ -28,7 +29,6 @@ def find_library(name, somajor=0):
         return files[0]
     else:
         return None
-
 
 # find the udev library
 libudev = find_library(name="udev", somajor=0)
