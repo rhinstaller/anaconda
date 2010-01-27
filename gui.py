@@ -1352,7 +1352,7 @@ class InstallControlWindow:
         (file, className) = stepToClass[step]
         newScreenClass = None
 
-        while 1:
+        while True:
             try:
                 found = imputil.imp.find_module(file)
                 loaded = imputil.imp.load_module(className, found[0], found[1],
@@ -1386,8 +1386,18 @@ class InstallControlWindow:
         self.currentWindow = newScreenClass(ics)
 
         new_screen = self.currentWindow.getScreen(anaconda)
+
+        # If the getScreen method returned None, that means the screen did not
+        # want to be displayed for some reason and we should skip to the next
+        # step.  However, we do not want to remove the current step from the
+        # list as later events may cause the screen to be displayed.
         if not new_screen:
-            return
+            if self.anaconda.dispatch.dir == DISPATCH_FORWARD:
+                self.anaconda.dispatch.gotoNext()
+            else:
+                self.anaconda.dispatch.gotoPrev()
+
+            return self.setScreen()
 
         self.update (ics)
 
