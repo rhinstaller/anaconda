@@ -801,13 +801,20 @@ makeinitrd() {
     instbin $IMGPATH /usr/bin/wget $MBD_DIR /sbin/wget
 
     # Indirect dependencies
-    install -m 755 $IMGPATH/$LIBDIR/libfreebl3.so $MBD_DIR/$LIBDIR/
-    install -m 755 $IMGPATH/usr/$LIBDIR/libsoftokn3.so $MBD_DIR/$LIBDIR/
+    for nsslib in freebl3 softokn3 nssdbm3 ; do
+        if [ -f $IMGPATH/$LIBDIR/lib$nsslib.so ]; then
+            install -m 755 $IMGPATH/$LIBDIR/lib$nsslib.so $MBD_DIR/$LIBDIR/
+        elif [ -f $IMGPATH/usr/$LIBDIR/lib$nsslib.so ]; then
+            install -m 755 $IMGPATH/usr/$LIBDIR/lib$nsslib.so $MBD_DIR/$LIBDIR/
+        else
+            echo "ERROR: *** Missing lib$nsslib.so" >&2
+        fi
+    done
+
     install -m 755 $IMGPATH/usr/$LIBDIR/libsqlite3.so.0 $MBD_DIR/usr/$LIBDIR/
     install -m 755 $IMGPATH/$LIBDIR/libnss_dns.so.2 $MBD_DIR/$LIBDIR/
     install -m 755 $IMGPATH/$LIBDIR/libnss_files.so.2 $MBD_DIR/$LIBDIR/
     install -m 755 $IMGPATH/$LIBDIR/libgcc_s.so.1 $MBD_DIR/$LIBDIR/
-    install -m 755 $IMGPATH/usr/$LIBDIR/libnssdbm3.so $MBD_DIR/$LIBDIR/
 
     install -m 644 $IMGPATH/etc/udev/udev.conf $MBD_DIR/etc/udev/udev.conf
     for i in $IMGPATH/lib/udev/rules.d/*.rules ; do
