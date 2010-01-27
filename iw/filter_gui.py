@@ -517,15 +517,6 @@ class FilterWindow(InstallWindow):
                                    gobject.TYPE_STRING)
         self.store.set_sort_column_id(MODEL_COL, gtk.SORT_ASCENDING)
 
-        if anaconda.id.simpleFilter:
-            self.pages = [self._makeBasic()]
-            self.notebook.set_show_border(False)
-            self.notebook.set_show_tabs(False)
-        else:
-            self.pages = [self._makeBasic(), self._makeRAID(),
-                          self._makeMPath(), self._makeOther(),
-                          self._makeSearch()]
-
         udev_trigger(subsystem="block")
         # So that drives onlined by these show up in the filter UI
         storage.iscsi.iscsi().startup(anaconda.intf)
@@ -541,6 +532,23 @@ class FilterWindow(InstallWindow):
         # now means fewer elements to iterate over later.
         (raids, nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
                                             singlepaths)
+
+        if anaconda.id.simpleFilter:
+            # In the typical use case, the user likely only has one drive and
+            # there's no point showing either the filtering UI or the
+            # cleardisks UI.  Unfortunately, that means we need to duplicate
+            # some of the getNext method.
+            if len(singlepaths) == 1:
+                anaconda.id.storage.exclusiveDisks = [udev_device_get_name(singlepaths[0])]
+                return None
+
+            self.pages = [self._makeBasic()]
+            self.notebook.set_show_border(False)
+            self.notebook.set_show_tabs(False)
+        else:
+            self.pages = [self._makeBasic(), self._makeRAID(),
+                          self._makeMPath(), self._makeOther(),
+                          self._makeSearch()]
 
         self.populate(nonraids, mpaths, raids)
 

@@ -64,6 +64,13 @@ class ClearDisksWindow (InstallWindow):
         self.anaconda.id.bootloader.updateDriveList([bootDisk])
 
     def getScreen (self, anaconda):
+        # Skip this screen as well if we only had one disk available in the
+        # filtering UI.
+        if len(anaconda.id.storage.exclusiveDisks) == 1:
+            anaconda.id.storage.clearPartDisks = anaconda.id.storage.exclusiveDisks
+            anaconda.id.bootloader.drivelist = anaconda.id.storage.exclusiveDisks
+            return None
+
         (xml, self.vbox) = gui.getGladeWidget("cleardisks.glade", "vbox")
         self.leftScroll = xml.get_widget("leftScroll")
         self.rightScroll = xml.get_widget("rightScroll")
