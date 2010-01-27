@@ -11,7 +11,7 @@ BuildPreReq: rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11
 BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
 BuildPreReq: beecrypt-devel, libselinux-devel >= 1.6, libX11-devel
 BuildPreReq: libXxf86misc-devel, intltool >= 0.31.2-3, python-urlgrabber
-BuildPreReq: pykickstart, yum >= 2.9.2, device-mapper >= 1.01.05-3, 
+BuildPreReq: pykickstart >= 0.43.8, yum >= 2.9.2, device-mapper >= 1.01.05-3, 
 BuildPreReq: libsepol-devel
 BuildPreReq: pango-devel, pirut, libXt-devel, slang-devel >= 2.0.6-2
 BuildPreReq: libdhcp-devel >= 1.20-10, mkinitrd-devel >= 5.1.2-1

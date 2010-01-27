@@ -1800,6 +1800,9 @@ class YumBackend(AnacondaBackend):
                 return 0
 
     def deselectGroup(self, group, *args):
+        # This method is meant to deselect groups that have been previously
+        # selected in the UI.  It does not handle groups removed via kickstart.
+        # yum does not work that way (in 5.5).
         try:
             self.ayum.deselectGroup(group)
         except yum.Errors.GroupsError, e:
@@ -1843,6 +1846,20 @@ class YumBackend(AnacondaBackend):
         else:
             log.debug("no such package %s to remove" %(pkg,))
             return 0
+
+    def removeGroupsPackages(self, grp):
+        # This method removes all the groups of a package that has been
+        # excluded via kickstart.  This is subtly different from removing
+        # a group previously selected in the UI.
+        groups = self.ayum.comps.return_groups(grp)
+        for grp in groups:
+            for pkgname in grp.packages:
+                for txmbr in self.ayum.tsInfo:
+                    if txmbr.po.name == pkgname and txmbr.po.state in TS_INSTALL_STATES:
+                        self.ayum.tsInfo.remove(txmbr.po.pkgtup)
+
+                        for pkg in self.ayum.tsInfo.conditionals.get(txmbr.name, []):
+                            self.ayum.tsInfo.remove(pkg.pkgtup)
 
     def upgradeFindPackages(self):
         # check the installed system to see if the packages just

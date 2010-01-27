@@ -958,7 +958,7 @@ class Kickstart(cobject):
 
     def _havePackages(self):
         return len(self.ksdata.groupList) > 0 or len(self.ksdata.packageList) > 0 or \
-               len(self.ksdata.excludedList) > 0
+               len(self.ksdata.excludedList) > 0 or len(self.ksdata.excludedGroupList)
 
     def setSteps(self, dispatch):
         if self.ksdata.upgrade:
@@ -1095,6 +1095,7 @@ class Kickstart(cobject):
                 pass
 
         map(anaconda.backend.deselectPackage, self.ksdata.excludedList)
+        map(anaconda.backend.removeGroupsPackages, self.ksdata.excludedGroupList)
 
 # look through ksfile and if it contains any lines:
 #
