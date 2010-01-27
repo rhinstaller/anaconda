@@ -286,9 +286,12 @@ KEEPFILE=${TMPDIR:-/tmp}/keepfile.$$
 cat > $KEEPFILE <<EOF
 $LIBDIR/dbus-1
 $LIBDIR/libaio.so*
+$LIBDIR/libfreebl3.so
 $LIBDIR/libmultipath.so*
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
+$LIBDIR/libnssdbm3.so
+$LIBDIR/libsoftokn3.so
 $LIBDIR/libwrap*.so*
 $LIBDIR/multipath/*
 $LIBDIR/security/pam_*
