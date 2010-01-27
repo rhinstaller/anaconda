@@ -60,8 +60,8 @@ class ClearDisksWindow (InstallWindow):
 
         cleardisks.sort(self.anaconda.id.storage.compareDisks)
 
-        self.anaconda.id.storage.clearPartDisks.extend(cleardisks + [bootDisk])
-        self.anaconda.id.bootloader.drivelist = [bootDisk] + cleardisks
+        self.anaconda.id.storage.clearPartDisks = cleardisks
+        self.anaconda.id.bootloader.updateDriveList([bootDisk])
 
     def getScreen (self, anaconda):
         (xml, self.vbox) = gui.getGladeWidget("cleardisks.glade", "vbox")
@@ -140,7 +140,13 @@ class ClearDisksWindow (InstallWindow):
             if not device:
                 continue
 
-            self.store.append(None, (device, True, True, False, False,
+            rightVisible = d in self.anaconda.id.storage.clearPartDisks
+            rightActive = rightVisible and \
+                          d in self.anaconda.id.bootloader.drivelist[:1]
+            leftVisible = not rightVisible
+            self.store.append(None, (device,
+                                     leftVisible, True,
+                                     rightVisible, rightActive,
                                      device.model,
                                      str(int(device.size)) + " MB",
                                      device.vendor, "", device.serial))
