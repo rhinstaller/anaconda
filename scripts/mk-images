@@ -662,6 +662,7 @@ makeinitrd() {
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
     install -m 644 $IMGPATH/etc/passwd $MBD_DIR/etc/passwd
     install -m 644 $IMGPATH/etc/group $MBD_DIR/etc/group
+    install -m 644 $IMGPATH/etc/netconfig $MBD_DIR/etc/netconfig
     install -m 644 $IMGPATH/etc/nsswitch.conf $MBD_DIR/etc/nsswitch.conf
     install -m 644 $IMGPATH/etc/hosts $MBD_DIR/etc/hosts
     mkdir -p $MBD_DIR/usr/lib/locale
