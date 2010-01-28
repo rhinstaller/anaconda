@@ -31,6 +31,9 @@ from constants import *
 from iw_gui import *
 from storage.udev import *
 from storage.devicelibs.mpath import *
+import storage.iscsi
+import storage.fcoe
+import storage.zfcp
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -506,6 +509,12 @@ class FilterWindow(InstallWindow):
         self.store.set_sort_column_id(MODEL_COL, gtk.SORT_ASCENDING)
 
         udev_trigger(subsystem="block")
+        # So that drives onlined by these show up in the filter UI
+        storage.iscsi.iscsi().startup(anaconda.intf)
+        storage.fcoe.fcoe().startup(anaconda.intf)
+        storage.zfcp.ZFCP().startup()
+        # Note we do NOT call dasd.startup() here, that does not online drives,
+        # but only checks if they need formatting.
         disks = filter(udev_device_is_disk, udev_get_block_devices())
         (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
 
