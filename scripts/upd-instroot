@@ -176,7 +176,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     libbonobo libcurl libfontenc libidn libgcc
     libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libnl
     libpng libselinux libselinux-python libsemanage
-    libsemanage-python libsepol libssh2 libstdc++ libthai libuser
+    libsemanage-python libsepol libssh2 libstdc++ libthai libtirpc libuser
     libuser-python libvolume_id libxcb libxkbfile libxml2 lklug-fonts 
     lohit-assamese-fonts lohit-bengali-fonts lohit-gujarati-fonts lohit-hindi-fonts
     lohit-kashmiri-fonts lohit-kannada-fonts lohit-maithili-fonts lohit-marathi-fonts
@@ -367,6 +367,7 @@ etc/imrc
 etc/iscsid.conf
 etc/man.config
 etc/mke2fs.conf
+etc/netconfig
 etc/nsswitch.conf
 etc/pam.d/other
 etc/pam.d/sshd
