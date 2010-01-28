@@ -99,7 +99,7 @@ function build_list() {
     while read dir; do
         debug 6 " examining sysfs directory $dir"
         # must not use $...FORMAT (file globs) here since this is a regex:
-        [[ "$dir" =~ ^css\([[:xdigit:]]+\)/\([[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4}\)/\([[:xdigit:]]+\\.[0-3]\\.[[:xdigit:]]{4}\)$ ]]
+        [[ "$dir" =~ ^css([[:xdigit:]]+)/([[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4})/([[:xdigit:]]+\.[0-3]\.[[:xdigit:]]{4})$ ]]
         case $? in
             0)
                 # string matched the pattern
