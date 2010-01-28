@@ -322,16 +322,16 @@ class NotebookPage(object):
         # Every page needs a ScrolledWindow to display the results in.
         self.scroll = xml.get_widget("%sScroll" % name)
 
-        self.sortedModel = gtk.TreeModelSort(store)
         self.filteredModel = store.filter_new()
-        self.treeView = gtk.TreeView(self.filteredModel)
+        self.sortedModel = gtk.TreeModelSort(self.filteredModel)
+        self.treeView = gtk.TreeView(self.sortedModel)
 
         self.scroll.add(self.treeView)
 
         self.cb = cb
-        self.cb.model = self.filteredModel
+        self.cb.model = self.sortedModel
 
-        self.ds = DeviceSelector(store, self.filteredModel, self.treeView,
+        self.ds = DeviceSelector(store, self.sortedModel, self.treeView,
                                  visible=VISIBLE_COL, active=ACTIVE_COL)
         self.ds.createMenu()
         self.ds.createSelectionCol(toggledCB=self.cb.deviceToggled)

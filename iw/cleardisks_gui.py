@@ -106,15 +106,15 @@ class ClearDisksWindow (InstallWindow):
 
         # The left view shows all the drives that will just be mounted, but
         # can still be moved to the right hand side.
-        self.leftSortedModel = gtk.TreeModelSort(self.store)
         self.leftFilteredModel = self.store.filter_new()
-        self.leftTreeView = gtk.TreeView(self.leftFilteredModel)
+        self.leftSortedModel = gtk.TreeModelSort(self.leftFilteredModel)
+        self.leftTreeView = gtk.TreeView(self.leftSortedModel)
 
         self.leftFilteredModel.set_visible_func(lambda model, iter, view: model.get_value(iter, self.leftVisible), self.leftTreeView)
 
         self.leftScroll.add(self.leftTreeView)
 
-        self.leftDS = DeviceSelector(self.store, self.leftFilteredModel,
+        self.leftDS = DeviceSelector(self.store, self.leftSortedModel,
                                      self.leftTreeView, visible=self.leftVisible,
                                      active=self.leftActive)
         self.leftDS.createMenu()
@@ -125,15 +125,15 @@ class ClearDisksWindow (InstallWindow):
         self.leftDS.addColumn(_("Serial Number"), 9, displayed=False)
 
         # The right view show all the drives that will be wiped during install.
-        self.rightSortedModel = gtk.TreeModelSort(self.store)
         self.rightFilteredModel = self.store.filter_new()
-        self.rightTreeView = gtk.TreeView(self.rightFilteredModel)
+        self.rightSortedModel = gtk.TreeModelSort(self.rightFilteredModel)
+        self.rightTreeView = gtk.TreeView(self.rightSortedModel)
 
         self.rightFilteredModel.set_visible_func(lambda model, iter, view: model.get_value(iter, self.rightVisible), self.rightTreeView)
 
         self.rightScroll.add(self.rightTreeView)
 
-        self.rightDS = DeviceSelector(self.store, self.rightFilteredModel,
+        self.rightDS = DeviceSelector(self.store, self.rightSortedModel,
                                       self.rightTreeView, visible=self.rightVisible,
                                       active=self.rightActive)
         self.rightDS.createSelectionCol(title=_("Boot"), radioButton=True)
@@ -184,42 +184,44 @@ class ClearDisksWindow (InstallWindow):
                 row[self.rightActive] = True
 
     def _add_clicked(self, widget, *args, **kwargs):
-        (filteredModel, pathlist) = self.leftTreeView.get_selection().get_selected_rows()
+        (sortedModel, pathlist) = self.leftTreeView.get_selection().get_selected_rows()
 
         if not pathlist:
             return
 
         for path in reversed(pathlist):
-            filteredIter = filteredModel.get_iter(path)
-            if not filteredIter:
+            sortedIter = sortedModel.get_iter(path)
+            if not sortedIter:
                 continue
 
-            sortedIter = self.leftFilteredModel.convert_iter_to_child_iter(filteredIter)
+            filteredIter = self.leftSortedModel.convert_iter_to_child_iter(None, sortedIter)
+            iter = self.leftFilteredModel.convert_iter_to_child_iter(filteredIter)
 
-            self.store.set_value(sortedIter, self.leftVisible, False)
-            self.store.set_value(sortedIter, self.rightVisible, True)
-            self.store.set_value(sortedIter, self.rightActive, False)
+            self.store.set_value(iter, self.leftVisible, False)
+            self.store.set_value(iter, self.rightVisible, True)
+            self.store.set_value(iter, self.rightActive, False)
 
         self._autoSelectBootDisk()
         self.leftFilteredModel.refilter()
         self.rightFilteredModel.refilter()
 
     def _remove_clicked(self, widget, *args, **kwargs):
-        (filteredModel, pathlist) = self.rightTreeView.get_selection().get_selected_rows()
+        (sortedModel, pathlist) = self.rightTreeView.get_selection().get_selected_rows()
 
         if not pathlist:
             return
 
         for path in reversed(pathlist):
-            filteredIter = filteredModel.get_iter(path)
-            if not filteredIter:
+            sortedIter = sortedModel.get_iter(path)
+            if not sortedIter:
                 continue
 
-            sortedIter = self.rightFilteredModel.convert_iter_to_child_iter(filteredIter)
+            filteredIter = self.rightSortedModel.convert_iter_to_child_iter(None, sortedIter)
+            iter = self.rightFilteredModel.convert_iter_to_child_iter(filteredIter)
 
-            self.store.set_value(sortedIter, self.leftVisible, True)
-            self.store.set_value(sortedIter, self.rightVisible, False)
-            self.store.set_value(sortedIter, self.rightActive, False)
+            self.store.set_value(iter, self.leftVisible, True)
+            self.store.set_value(iter, self.rightVisible, False)
+            self.store.set_value(iter, self.rightActive, False)
 
         self._autoSelectBootDisk()
         self.leftFilteredModel.refilter()
