@@ -95,29 +95,36 @@ class DeviceDisplayer(object):
         # will be on the far right edge.
         self.view.connect("show", lambda x: self.view.append_column(menuCol))
 
+    def getStoreIter(self, row, model=None):
+        """Get an iter on the underlying store that maps to a row on the
+           provided model.  If model is None, use the default.
+        """
+        if not model:
+            model = self.model
+
+        iter = model.get_iter(row)
+        if not iter:
+            return None
+
+        while not self.store.iter_is_valid(iter):
+            if isinstance(model, gtk.TreeModelFilter):
+                iter = model.convert_iter_to_child_iter(iter)
+            elif isinstance(model, gtk.TreeModelSort):
+                iter = model.convert_iter_to_child_iter(None, iter)
+
+            model = model.get_model()
+
+        return iter
+
     def getSelected(self):
         """Return a list of all the items currently checked in the UI, or
            an empty list if nothing is selected.
         """
-        retval = []
-        iter = self.store.get_iter_first()
-
-        while iter:
-            if self.store.get_value(iter, self.active):
-                retval.append(self.store[iter])
-
-            iter = self.store.iter_next(iter)
-
-        return retval
+        return filter(lambda row: row[self.active], self.store)
 
     def getNVisible(self):
-        visible = 0
-
-        for row in self.store:
-            if row[self.visible]:
-                visible += 1
-
-        return visible
+        """Return the number of items currently visible in the UI."""
+        return len(filter(lambda row: row[self.visible], self.store))
 
 class DeviceSelector(DeviceDisplayer):
     def createSelectionCol(self, title="", radioButton=False, toggledCB=None):
@@ -150,20 +157,19 @@ class DeviceSelector(DeviceDisplayer):
         # the obvious.
         def _toggle_all(model, path, iter, set):
             # Don't check the boxes of rows that aren't visible.
-            visible = model.get_value(iter, self.visible)
-            if not visible:
+            if not model[path][self.visible]:
                 return
 
             # Don't try to set a row to active if it's already been checked.
             # This prevents devices that have been checked before the all
             # button was checked from getting double counted.
-            if model.get_value(iter, self.active) == set:
+            if model[path][self.active] == set:
                 return
 
-            model.set_value(iter, self.active, set)
+            model[path][self.active] = set
 
             if cb:
-                cb(set, model.get_value(iter, OBJECT_COL))
+                cb(set, model[path][OBJECT_COL])
 
         set = button.get_active()
         self.store.foreach(_toggle_all, set)
@@ -175,15 +181,11 @@ class DeviceSelector(DeviceDisplayer):
 
     def _device_toggled(self, button, row, cb, isRadio):
         # This is called when the checkbox for a device is clicked or unclicked.
-        model = self.model
-        iter = model.get_iter(row)
-
+        iter = self.getStoreIter(row)
         if not iter:
             return
 
-        while not self.store.iter_is_valid(iter):
-            iter = model.convert_iter_to_child_iter(iter)
-            model = model.get_model()
+        storeRow = self.store.get_path(iter)
 
         if isRadio:
             # This is lame, but there's no other way to do it.  First we have
@@ -192,10 +194,13 @@ class DeviceSelector(DeviceDisplayer):
             for r in self.store:
                 r[self.active] = False
 
-            self.store[iter][self.active] = True
-        else:
-            is_checked = self.store.get_value(iter, self.active)
-            self.store.set_value(iter, self.active, not is_checked)
+            self.store[storeRow][self.active] = True
 
-        if cb:
-            cb(not is_checked, self.store.get_value(iter, OBJECT_COL))
+            if cb:
+                cb(True, self.store[storeRow][OBJECT_COL])
+        else:
+            is_checked = self.store[storeRow][self.active]
+            self.store[storeRow][self.active] = not is_checked
+
+            if cb:
+                cb(not is_checked, self.store[storeRow][OBJECT_COL])
