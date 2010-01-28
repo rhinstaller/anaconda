@@ -809,7 +809,7 @@ $template anaconda_syslog, "%timestamp:8:$:date-rfc3164%,%timestamp:1:3:date-sub
 # directly into files via python logging)
 *.*;\
 authpriv.none;\
-local1.none             /tmp/messages.log;anaconda_syslog
+local1.none             /tmp/syslog;anaconda_syslog
                         & /dev/tty4;anaconda_tty4
 
 # ### begin forwarding rule ###
