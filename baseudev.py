@@ -31,19 +31,22 @@ import logging
 log = logging.getLogger("storage")
 
 def udev_enumerate_devices(deviceClass="block"):
-    return global_udev.enumerate_devices(subsystem=deviceClass)
+    devices = global_udev.enumerate_devices(subsystem=deviceClass)
+    return [path[4:] for path in devices]
 
 def udev_get_device(sysfs_path):
-    if not os.path.exists(sysfs_path):
+    if not os.path.exists("/sys%s" % sysfs_path):
         log.debug("%s does not exist" % sysfs_path)
         return None
 
-    dev = global_udev.create_device(sysfs_path)
+    # XXX we remove the /sys part when enumerating devices,
+    # so we have to prepend it when creating the device
+    dev = global_udev.create_device("/sys" + sysfs_path)
 
     if dev:
         dev["name"] = dev.sysname
         dev["symlinks"] = dev["DEVLINKS"]
-        dev["sysfs_path"] = sysfs_path[4:]
+        dev["sysfs_path"] = sysfs_path
 
         # now add in the contents of the uevent file since they're handy
         dev = udev_parse_uevent_file(dev)
