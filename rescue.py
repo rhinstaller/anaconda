@@ -102,6 +102,12 @@ class RescueInterface:
         w.pop()
         return (passphrase, isglobal)
 
+    def resetInitializeDiskQuestion(self):
+        self._initLabelAnswers = {}
+
+    def resetReinitInconsistentLVMQuestion(self):
+        self._inconsistentLVMAnswers = {}
+
     def shutdown (self):
         pass
 
