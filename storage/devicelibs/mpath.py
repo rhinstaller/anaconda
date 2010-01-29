@@ -34,7 +34,7 @@ def parseMultipathOutput(output):
             break
         if lexemes[0] == 'create:':
             if name and devices:
-                mpaths.append(mpath)
+                mpaths[name] = devices
                 name = None
                 devices = []
             name = lexemes[1]
