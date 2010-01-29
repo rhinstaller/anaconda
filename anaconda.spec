@@ -1,6 +1,6 @@
 Name: anaconda
 Version: 11.1.2.202
-Release: 2
+Release: 3
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 29 2010 Martin Sivak <msivak@redhat.com> 11.1.2.202-3
+- Rebuild anaconda to get the newest Kudzu
+  Resolves: rhbz#555188
+
 * Wed Jan 27 2010 Chris Lumens <clumens@redhat.com> 11.1.2.202-2
 - Add anaconda support for group removal syntax.
   Resolves: rhbz#558516
