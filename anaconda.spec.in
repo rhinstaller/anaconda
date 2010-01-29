@@ -216,6 +216,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jan 29 2010 Chris Lumens <clumens@redhat.com> - 13.21.7-1
+- Correctly add found multipath devices to our dict (#560029). (clumens)
+- Remove /sys prefix in udev_enumerate_devices() (#560037) (hdegoede)
+
 * Thu Jan 28 2010 David Cantrell <dcantrell@redhat.com> - 13.21.6-1
 - Use libudev's enumerate_devices function (#559394) (mgracik)
 - Update =~ regexps in lsznet.raw for bash-4.1 (#558537). (dcantrell)
