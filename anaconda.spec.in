@@ -216,6 +216,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jan 28 2010 David Cantrell <dcantrell@redhat.com> - 13.21.6-1
+- Use libudev's enumerate_devices function (#559394) (mgracik)
+- Update =~ regexps in lsznet.raw for bash-4.1 (#558537). (dcantrell)
+- Include /etc/netconfig in the initrd for NFS (#557704). (clumens)
+- multipath gives us CCISS devices names with ! in them, but we expect /.
+  (clumens)
+
 * Wed Jan 27 2010 Chris Lumens <clumens@redhat.com> - 13.21.5-1
 - Make sure we get required nss-softokn libs in the images. (dcantrell)
 - Make sure we always check /lib64 and /lib in find_library (#555669).
