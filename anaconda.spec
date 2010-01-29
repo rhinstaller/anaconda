@@ -1,6 +1,6 @@
 Name: anaconda
 Version: 11.1.2.202
-Release: 3
+Release: 4
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Jan 29 2010 Martin Sivak <msivak@redhat.com> 11.1.2.202-4
+- Rebuild anaconda to get the newest Kudzu
+  Resolves: rhbz#555188
+
 * Fri Jan 29 2010 Martin Sivak <msivak@redhat.com> 11.1.2.202-3
 - Rebuild anaconda to get the newest Kudzu
   Resolves: rhbz#555188
