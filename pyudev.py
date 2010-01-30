@@ -42,30 +42,68 @@ libudev = CDLL(libudev)
 
 # create aliases for needed functions and set the return types where needed
 libudev_udev_new = libudev.udev_new
+libudev_udev_new.argtypes = []
+libudev_udev_new.restype = c_void_p
 libudev_udev_unref = libudev.udev_unref
+libudev_udev_unref.argtypes = [ c_void_p ]
 
 libudev_udev_device_new_from_syspath = libudev.udev_device_new_from_syspath
+libudev_udev_device_new_from_syspath.restype = c_void_p
+libudev_udev_device_new_from_syspath.argtypes = [ c_void_p, c_char_p ]
 libudev_udev_device_unref = libudev.udev_device_unref
+libudev_udev_device_unref.argtypes = [ c_void_p ]
 
 libudev_udev_device_get_syspath = libudev.udev_device_get_syspath
-libudev_udev_device_get_sysname = libudev.udev_device_get_sysname
 libudev_udev_device_get_syspath.restype = c_char_p
+libudev_udev_device_get_syspath.argtypes = [ c_void_p ]
+libudev_udev_device_get_sysname = libudev.udev_device_get_sysname
 libudev_udev_device_get_sysname.restype = c_char_p
+libudev_udev_device_get_sysname.argtypes = [ c_void_p ]
+libudev_udev_device_get_devpath = libudev.udev_device_get_devpath
+libudev_udev_device_get_devpath.restype = c_char_p
+libudev_udev_device_get_devpath.argtypes = [ c_void_p ]
+libudev_udev_device_get_devtype = libudev.udev_device_get_devtype
+libudev_udev_device_get_devtype.restype = c_char_p
+libudev_udev_device_get_devtype.argtypes = [ c_void_p ]
+libudev_udev_device_get_devnode = libudev.udev_device_get_devnode
+libudev_udev_device_get_devnode.restype = c_char_p
+libudev_udev_device_get_devnode.argtypes = [ c_void_p ]
+libudev_udev_device_get_subsystem = libudev.udev_device_get_subsystem
+libudev_udev_device_get_subsystem.restype = c_char_p
+libudev_udev_device_get_subsystem.argtypes = [ c_void_p ]
+libudev_udev_device_get_sysnum = libudev.udev_device_get_sysnum
+libudev_udev_device_get_sysnum.restype = c_char_p
+libudev_udev_device_get_sysnum.argtypes = [ c_void_p ]
 
 libudev_udev_device_get_properties_list_entry = libudev.udev_device_get_properties_list_entry
+libudev_udev_device_get_properties_list_entry.restype = c_void_p
+libudev_udev_device_get_properties_list_entry.argtypes = [ c_void_p ]
 libudev_udev_list_entry_get_next = libudev.udev_list_entry_get_next
+libudev_udev_list_entry_get_next.restype = c_void_p
+libudev_udev_list_entry_get_next.argtypes = [ c_void_p ]
 
 libudev_udev_list_entry_get_name = libudev.udev_list_entry_get_name
-libudev_udev_list_entry_get_value = libudev.udev_list_entry_get_value
 libudev_udev_list_entry_get_name.restype = c_char_p
+libudev_udev_list_entry_get_name.argtypes = [ c_void_p ]
+libudev_udev_list_entry_get_value = libudev.udev_list_entry_get_value
 libudev_udev_list_entry_get_value.restype = c_char_p
+libudev_udev_list_entry_get_value.argtypes = [ c_void_p ]
 
 libudev_udev_enumerate_new = libudev.udev_enumerate_new
+libudev_udev_enumerate_new.restype = c_void_p
+libudev_udev_enumerate_new.argtypes = [ c_void_p ]
 libudev_udev_enumerate_unref = libudev.udev_enumerate_unref
+libudev_udev_enumerate_unref.argtypes = [ c_void_p ]
 
 libudev_udev_enumerate_add_match_subsystem = libudev.udev_enumerate_add_match_subsystem
+libudev_udev_enumerate_add_match_subsystem.restype = c_int
+libudev_udev_enumerate_add_match_subsystem.argtypes = [ c_void_p, c_char_p ]
 libudev_udev_enumerate_scan_devices = libudev.udev_enumerate_scan_devices
+libudev_udev_enumerate_scan_devices.restype = c_int
+libudev_udev_enumerate_scan_devices.argtypes = [ c_void_p ]
 libudev_udev_enumerate_get_list_entry = libudev.udev_enumerate_get_list_entry
+libudev_udev_enumerate_get_list_entry.restype = c_void_p
+libudev_udev_enumerate_get_list_entry.argtypes = [ c_void_p ]
 
 
 class UdevDevice(dict):
@@ -113,20 +151,11 @@ class UdevDevice(dict):
             property_entry = libudev_udev_list_entry_get_next(property_entry)
 
         # set additional properties
-        libudev.udev_device_get_devpath.restype = c_char_p
-        self.devpath = libudev.udev_device_get_devpath(udev_device)
-
-        libudev.udev_device_get_subsystem.restype = c_char_p
-        self.subsystem = libudev.udev_device_get_subsystem(udev_device)
-
-        libudev.udev_device_get_devtype.restype = c_char_p
-        self.devtype = libudev.udev_device_get_devtype(udev_device)
-
-        libudev.udev_device_get_sysnum.restype = c_char_p
-        self.sysnum = libudev.udev_device_get_sysnum(udev_device)
-
-        libudev.udev_device_get_devnode.restype = c_char_p
-        self.devnode = libudev.udev_device_get_devnode(udev_device)
+        self.devpath = libudev_udev_device_get_devpath(udev_device)
+        self.subsystem = libudev_udev_device_get_subsystem(udev_device)
+        self.devtype = libudev_udev_device_get_devtype(udev_device)
+        self.sysnum = libudev_udev_device_get_sysnum(udev_device)
+        self.devnode = libudev_udev_device_get_devnode(udev_device)
 
         # cleanup
         libudev_udev_device_unref(udev_device)

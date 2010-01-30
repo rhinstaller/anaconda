@@ -45,7 +45,7 @@ def udev_get_device(sysfs_path):
 
     if dev:
         dev["name"] = dev.sysname
-        dev["symlinks"] = dev["DEVLINKS"]
+        dev["symlinks"] = dev.get("DEVLINKS", [])
         dev["sysfs_path"] = sysfs_path
 
         # now add in the contents of the uevent file since they're handy
