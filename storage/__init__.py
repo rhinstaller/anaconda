@@ -549,7 +549,7 @@ class Storage(object):
         """ Return a list of unused minors for use in RAID. """
         raidMinors = range(0,32)
         for array in self.mdarrays + self.mdcontainers:
-            if array.minor is not None:
+            if array.minor is not None and array.minor in raidMinors:
                 raidMinors.remove(array.minor)
         return raidMinors
 
