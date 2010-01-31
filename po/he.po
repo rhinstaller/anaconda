@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-01-20 16:07-1000\n"
-"PO-Revision-Date: 2010-01-26 15:06+0200\n"
+"PO-Revision-Date: 2010-01-31 12:01+0200\n"
 "Last-Translator: Elad <el.il@doom.co.il>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -357,15 +357,14 @@ msgstr "בתהליך... "
 #: kickstart.py:1210
 #: kickstart.py:1218
 #: text.py:387
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration file:\n"
 "\n"
 "%s"
 msgstr ""
-"השגיאה הבאה התגלתה במהלך פענוח תצורת kickstart שסופקה על ידך:\n"
-"\n"
-"%s"
+"השגיאה הבאה התגלתה במהלך פענוח קובץ תצורת ה-kickstart: ‏/n\n"
+"‏‏%s"
 
 #: cmdline.py:98
 msgid "Command line mode requires all choices to be specified in a kickstart configuration file."
@@ -377,7 +376,6 @@ msgstr ""
 #: cmdline.py:131
 #: cmdline.py:141
 #: cmdline.py:151
-#, fuzzy
 msgid "Can't have a question in command line mode!"
 msgstr "בהפעלה משורת פקודה לא ניתן לשאול שאלות!"
 
@@ -409,7 +407,6 @@ msgstr "תצלומי המסך הועתקו"
 
 #
 #: gui.py:120
-#, fuzzy
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -417,7 +414,7 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
-"תצלומי המסך נשמרו לתיקייה:\n"
+"תצלומי המסך נשמרו בתיקייה:\n"
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
@@ -708,17 +705,17 @@ msgstr "דרושה מדיית התקנה"
 
 #
 #: image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"להתקנת התכנה שביקשת ידרשו הדיסקים הבאים:\n"
+"להתקנת התכנה שביקשת ידרשו הדיסקים הבאים של  %(productName)s %(productVersion)s:\n"
 "\n"
-"%s\n"
-"האם הדיסקים האלו נמצאים? אם ברצונך לעצור את ההתקנה ולצאת, ניתן לבחור \"הפעלה מחדש\"."
+"%(reqcdstr)s\n"
+"אנא הכן את הדיסקים האלו לפני שתמשיך עם ההתקנה. אם אתה צריך לבטל את ההתקנה ולצאת, בחר באפשרות \"הפעל מחדש\"."
 
 #
 #: image.py:251
@@ -811,7 +808,6 @@ msgstr ""
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
 
-#
 #: kickstart.py:115
 #, fuzzy, python-format
 msgid "There was an error running the kickstart script at line %(lineno)s.  You may examine the output in %(msgs)s.  This is a fatal error and installation will be aborted.  Press the OK button to exit the installer."
@@ -850,7 +846,6 @@ msgstr "שגיאה לא מוכרת בעיבוד שורות ‎%%ksappend: ‏%s"
 #
 #: kickstart.py:1241
 #: livecd.py:229
-#, fuzzy
 msgid "Post-Installation"
 msgstr "סיום התקנה"
 
@@ -1346,9 +1341,9 @@ msgstr "המחיצה ‎%s עומדת להימחק."
 
 #
 #: partIntfHelpers.py:338
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %(type)s %(name)s"
-msgstr "המחיצה ‎/dev/%s עומדת להימחק."
+msgstr "אתה עומד למחוק את %(type)s %(name)s"
 
 #
 #: partIntfHelpers.py:349
@@ -1433,7 +1428,7 @@ msgstr ""
 #: platform.py:235
 #, python-format
 msgid "%s must have a %s disk label."
-msgstr ""
+msgstr "ל-%s חייבת להיות תווית כונן מסוג %s."
 
 #: platform.py:273
 #, python-format
@@ -1443,7 +1438,7 @@ msgstr ""
 #: platform.py:285
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
-msgstr ""
+msgstr "הדיסק %s דורש לפחות 1MB של מקום פנוי בהתחלה."
 
 #
 #: platform.py:331
@@ -1516,7 +1511,6 @@ msgstr "לא ניתן להפעיל התקן רשת. רשת לא תהיה זמי�
 msgid "Rescue"
 msgstr "הצלה"
 
-#
 #: rescue.py:277
 #, python-format
 msgid ""
@@ -1741,7 +1735,7 @@ msgstr ""
 
 #: upgrade.py:187
 msgid "The root for the previously installed system was not found."
-msgstr ""
+msgstr "מחיצת השורש של ההתקנה הקודמת שלך לא נמצאה."
 
 #: upgrade.py:194
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
@@ -1777,9 +1771,9 @@ msgstr "תיקיות לא תקינות"
 
 #
 #: vnc.py:137
-#, fuzzy, python-format
+#, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
-msgstr "‏‏%s ‏%s התקנה על המחשב %s"
+msgstr "‏התקנת %(productName)s ‏%(productVersion)s על המחשב %(name)s"
 
 #: vnc.py:143
 #, python-format
@@ -2032,9 +2026,8 @@ msgstr ""
 msgid "Error Setting Up Repository"
 msgstr "שגיאה בהגדרת המאגר"
 
-#
 #: yuminstall.py:345
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -2044,9 +2037,9 @@ msgid ""
 msgstr ""
 "להלן השגיאה שקרתה במהלך הגדרת מאגר התכנה להתקנה:\n"
 "\n"
-"%s\n"
+"%(e)s\n"
 "\n"
-"יש לספק את המידע הנכון לצורך התקנת %s."
+"יש לספק את המידע הנכון לצורך התקנת %(productName)s."
 
 #
 #: yuminstall.py:389
@@ -2343,9 +2336,9 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: installclasses/rhel.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "The default installation of %s is a minimal install. You can optionally select a different set of software now."
-msgstr "התקנת ברירת המחדל של %s כוללת תכנה המתאימה לשימוש כללי באינטרנט. באיזה משימות נוספות ברצונך להתקין תמיכה?"
+msgstr "התקנת ברירת המחדל של %s היא התקנה מינימלית. באפשרותך לבחור סט אחר של תוכנה עכשיו."
 
 #: installclasses/rhel.py:52
 msgid "Desktop"
@@ -2363,9 +2356,9 @@ msgstr "חבילות ב־%s"
 
 #
 #: iw/GroupSelector.py:424
-#, fuzzy, python-format
+#, python-format
 msgid "Optional packages selected: %(inst)d of %(cnt)d"
-msgstr "חבילות בחירה שבחרת: %d מתוך %d"
+msgstr "חבילות אופציונליות שנבחרו: %(inst)d מתוך %(cnt)d"
 
 #
 #: iw/GroupSelector.py:426
@@ -2483,14 +2476,17 @@ msgid ""
 "\n"
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
+"מסיר רק מחיצות לינוקס (שנוצרו מהתקנות קודמות של לינוקס). האפשרות הזאת לא מסירה מחיצות אחרות שאולי יש על התקן האחסון (כמו VFAT או FAT32).\n"
+"\n"
+"<b>טיפ:</b> האפשרות הזאת תסיר מידע מההתקנים הנבחרים. וודא שיש לך גיבויים."
 
 #: iw/autopart_type.py:246
 msgid "Shrink Current System"
-msgstr "כווץ מערכת נוכחית"
+msgstr "הקטן מערכת נוכחית"
 
 #: iw/autopart_type.py:248
 msgid "Shrinks existing partitions to create free space for the default layout."
-msgstr ""
+msgstr "מקטין את המחיצה הקיימת על מנת ליצור מקום פנוי לפריסת ברירת המחדל"
 
 #: iw/autopart_type.py:250
 msgid "Use Free Space"
@@ -2498,7 +2494,7 @@ msgstr "השתמש בשטח פנוי"
 
 #: iw/autopart_type.py:252
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
-msgstr ""
+msgstr "שומר את המידע הנוכחי שלך על המחיצות ומשתמש רק במקום ללא מחיצות על ההתקנים הנבחרים, בהנחה שיש לך מספיק מקום פנוי זמין."
 
 #
 #: iw/autopart_type.py:256
@@ -2507,7 +2503,7 @@ msgstr "הגדרת פריסת מחיצות מותאמת אישית"
 
 #: iw/autopart_type.py:258
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
-msgstr ""
+msgstr "צור ידנית פריסת מחיצות מותאמת אישית משלך על ההתקנים הנבחרים באמצעות כלי המחיצות שלנו."
 
 #
 #: iw/blpasswidget.py:44
@@ -2626,6 +2622,9 @@ msgid ""
 "\n"
 "Please reboot to use the installed system.  Note that updates may be available to ensure the proper functioning of your system and installation of these updates is recommended after the reboot."
 msgstr ""
+"איחולי, התקנת %s הסתיימה.\n"
+"\n"
+"אנא הפעל את המחשב מחדש על מנת להשתמש במערכת המותקנת. שים לב שיכולים להיות עדכונים זמינים כדי לוודא את התפקוד התקין של המערכת שלך. התקנה של עדכונים אלו מומלצת אחרי הפעלת המחשב מחדש."
 
 #
 #: iw/examine_gui.py:37
@@ -2654,11 +2653,9 @@ msgstr "שדרוג התקנה קיימת"
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your storage device(s)."
 msgstr "בחירה באפשרות זו תשדרג את מערכת ‎%s שלך. קבצי המידע הקיימים על הכוננים ישמרו."
 
-#
 #: iw/examine_gui.py:105
-#, fuzzy
 msgid "At least one existing installation has been detected on your system.  What would you like to do?"
-msgstr "לא נטענו מנהלי התקנים עבור המערכת שלך. האם ברצונך לטעון כעת?"
+msgstr "לפחות התקנה קיימת אחת זוהתה על המערכת שלך. מה ברצונך לעשות?"
 
 #
 #: iw/examine_gui.py:124
@@ -2693,7 +2690,6 @@ msgstr "באיזו שפה יש להשתמש בתהליך ההתקנה?"
 msgid "Not enough space"
 msgstr "אין מספיק מקום"
 
-#
 #: iw/lvm_dialog_gui.py:125
 msgid "The physical extent size cannot be changed because otherwise the space required by the currently defined logical volumes will be increased to more than the available space."
 msgstr ""
@@ -2732,7 +2728,6 @@ msgstr ""
 msgid "Too small"
 msgstr "קטן מדי"
 
-#
 #: iw/lvm_dialog_gui.py:200
 msgid "This change in the value of the physical extent will waste substantial space on one or more of the physical volumes in the volume group."
 msgstr ""
@@ -2883,11 +2878,10 @@ msgstr ""
 msgid "No free slots"
 msgstr "אין חריצים פנויים"
 
-#
 #: iw/lvm_dialog_gui.py:798
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot create more than %d logical volume per volume group."
-msgstr "אין באפשרותך ליצור יותר מ-%s נפחים לוגיים לכל קבוצת נפחים."
+msgstr "אין באפשרותך ליצור יותר מ-%d נפחים לוגיים לכל קבוצת נפחים."
 
 #
 #: iw/lvm_dialog_gui.py:808
@@ -3026,7 +3020,6 @@ msgstr "_עריכה"
 msgid "_Logical Volumes"
 msgstr "כרכים _לוגיים"
 
-#
 #: iw/netconfig_dialog.py:192
 #: textw/netconfig_text.py:36
 #, fuzzy, python-format
@@ -3121,17 +3114,16 @@ msgstr "שגיאה בשם המחשב"
 msgid "You must enter a valid hostname for this computer."
 msgstr "חובה להזין שם חוקי עבור מחשב זה."
 
-#
 #: iw/network_gui.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
 "\n"
 "%(herrors)s"
 msgstr ""
-"שם המחשב \"%s\" אינו חוקי מהסיבה:\n"
+"שם המחשב \"%(hostname)s\" אינו חוקי בגלל הסיבות הבאות:\n"
 "\n"
-"%s"
+"%(herrors)s"
 
 #
 #: iw/osbootwidget.py:50
@@ -3266,7 +3258,6 @@ msgstr "_כוננים מותרים:"
 msgid "Force to be a _primary partition"
 msgstr "הכרח להיות מחיצה _ראשית"
 
-#
 #: iw/partition_gui.py:356
 #, fuzzy, python-format
 msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
@@ -3396,7 +3387,7 @@ msgstr "מורחב"
 
 #: iw/partition_gui.py:1346
 msgid "Cannot perform any creation action"
-msgstr ""
+msgstr "לא יכול לבצע אף פעולת יצירה."
 
 #: iw/partition_gui.py:1347
 msgid ""
@@ -3407,6 +3398,12 @@ msgid ""
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 msgstr ""
+"פעולת היצירה דורשת אחד מהדברים הבאות:\n"
+"\n"
+"*מקום פנוי באחד מהכוננים הקשיחים.\n"
+"*לפחות שתי מחיצות RAID תוכנתי פנויות.\n"
+"*לפחות מחיצה פיזית אחת (LVM) פנויה.\n"
+"*לפחות קבוצת נפחים אחת עם מקום פנוי."
 
 #: iw/partition_gui.py:1455
 #, fuzzy, python-format
@@ -3877,7 +3874,6 @@ msgstr "עקב שינויים במערכת, לא ניתן לעדכן אוטומ�
 msgid "The installer is unable to detect the boot loader currently in use on your system."
 msgstr "תכנית ההתקנה לא זיהתה את מנהל האתחול שנמצע בשימוש המערכת שלך."
 
-#
 #: iw/upgrade_bootloader_gui.py:138
 #: textw/upgrade_bootloader_text.py:121
 #, fuzzy, python-format
@@ -4223,28 +4219,23 @@ msgstr ""
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
-#
 #: loader/driverdisk.c:528
 msgid "Failed to load driver disk from file."
 msgstr ""
 
-#
 #: loader/driverdisk.c:540
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "יש להכניס דיסק מנהלי התקנים אל ‎/dev/%s וללחוץ \"אישור\" להמשך."
 
-#
 #: loader/driverdisk.c:543
 msgid "Insert Driver Disk"
 msgstr "נא להכניס דיסק מנהלי התקנים"
 
-#
 #: loader/driverdisk.c:556
 msgid "Failed to mount driver disk."
 msgstr "עגינת דיסק מנהלי התקנים נכשלה."
 
-#
 #: loader/driverdisk.c:564
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
@@ -4399,9 +4390,8 @@ msgstr "ארגומנט שגוי לפקודת הרשת %s: ‏%s"
 #: loader/hdinstall.c:422
 #: loader/hdinstall.c:478
 msgid "Cannot find kickstart file on hard drive."
-msgstr ""
+msgstr "לא ניתן למצוא את קובץ ה־kickstart על הכונן הקשיח."
 
-#
 #: loader/hdinstall.c:465
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
@@ -4435,7 +4425,6 @@ msgstr "התרחשה שגיאה במהלך קריאת תוכנו של קובץ k
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "שגיאה ב־%s בשורה %d של קובץ ה־kickstart‏ %s."
 
-#
 #: loader/kickstart.c:190
 #, fuzzy, c-format
 msgid "Missing options on line %d of kickstart file %s."
@@ -4446,7 +4435,6 @@ msgstr "שגיאה ב־%s בשורה %d של קובץ ה־kickstart‏ %s."
 msgid "Cannot find ks.cfg on removable media."
 msgstr "קובץ ks.cfg לא נמצא על מדיה שליפה."
 
-#
 #: loader/kickstart.c:333
 msgid "Unable to download the kickstart file.  Please modify the kickstart parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
@@ -4473,13 +4461,13 @@ msgstr "ברוכים הבאים ל־%s עבור %s"
 #: loader/lang.c:64
 #, c-format
 msgid "Welcome to %s for %s - Rescue Mode"
-msgstr ""
+msgstr "ברוך הבא ל %s עבור %s - מצב הצלה"
 
 #
 #: loader/lang.c:65
 #: loader/loader.c:232
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
+msgstr " ‏ <Tab>/<Alt-Tab> מעבר בין פריטים  | <Space> בוחר | <F12> המסך הבא "
 
 #
 #: loader/lang.c:369
@@ -4632,7 +4620,6 @@ msgstr "בוצע"
 msgid "Add Device"
 msgstr "הוספת התקן"
 
-#
 #: loader/loader.c:1903
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
@@ -4641,7 +4628,7 @@ msgstr ""
 #: loader/loader.c:2355
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
-msgstr ""
+msgstr "מריץ את אנקונדה %s, מצב ההצלה של %s - הנה המתן.\n"
 
 #: loader/loader.c:2357
 #, c-format
@@ -4778,7 +4765,7 @@ msgstr "‏IPv4 נדרש עבור NFS"
 #
 #: loader/net.c:677
 msgid "NFS installation method requires IPv4 support."
-msgstr ""
+msgstr "התקנה באמצעות NFS דורשת תמיכה ב־IPv4."
 
 #
 #: loader/net.c:776
@@ -4834,7 +4821,6 @@ msgstr "חובה לכתוב כתובת IPv4 חוקית ומסכת רשת או ק
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "חובה לכתוב כתובת IPv6 חוקית ומסכת רשת או קידומת CIDR."
 
-#
 #: loader/net.c:1559
 #, fuzzy, c-format
 msgid "Bad argument to kickstart network command: %s"
@@ -4958,7 +4944,6 @@ msgstr "ממתין לחיבור telnet."
 msgid "Running anaconda via telnet."
 msgstr "מפעיל את תכנת ההתקנה דרך חיבור telnet."
 
-#
 #: loader/urlinstall.c:138
 #, fuzzy, c-format
 msgid "Unable to retrieve %s."
@@ -4969,7 +4954,6 @@ msgstr "הורדת %s://%s%s נכשלה."
 msgid "Unable to retrieve the install image."
 msgstr "הורדת קובץ ההתקנה נכשלה."
 
-#
 #: loader/urlinstall.c:373
 #, fuzzy, c-format
 msgid "Bad argument to URL kickstart method command: %s"
@@ -4996,7 +4980,7 @@ msgstr "מוריד"
 #: loader/urls.c:252
 #, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
-msgstr ""
+msgstr "נא להכניס את הכתובת המכילה את קובץ ההתקנה %s על השרת שלך."
 
 #
 #: loader/urls.c:270
@@ -5026,7 +5010,7 @@ msgstr "ססמה"
 #
 #: loader/urls.c:319
 msgid "URL Setup"
-msgstr ""
+msgstr "התקנה מכתובת"
 
 #
 #: loader/urls.c:327
@@ -5166,20 +5150,19 @@ msgid "Your root partition is less than 250 megabytes which is usually too small
 msgstr "גודל מחיצת השורש שלך קטן מ־‏250 MB וזה אינו מספיק בדרך כלל להתקנת %s."
 
 #: storage/__init__.py:948
-#, fuzzy, python-format
+#, python-format
 msgid "Your / partition is less than %(min)s MB which is lower than recommended for a normal %(productName)s install."
-msgstr "גודל מחיצת / שלך קטן מ־%s‏ MB וזה פחות מהגודל המומלץ להתקנת %s רגילה."
+msgstr "גודל מחיצת השורש שלך (/) קטן מ־%(min)s MB וזה פחות מהגודל המומלץ להתקנת %(productName)s רגילה."
 
 #: storage/__init__.py:958
 #, python-format
 msgid "Your / partition does not match the the live image you are installing from.  It must be formatted as %s."
 msgstr "מחיצת ה / שלך לא מתאימה לתמונה החיה ממנה אתה מתקין. המחיצה חייבת להיות מסוג %s."
 
-#
 #: storage/__init__.py:965
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(mount)s partition is less than %(size)s megabytes which is lower than recommended for a normal %(productName)s install."
-msgstr "גודל מחיצת %s שלך קטן מ־%s וזה פחות מהגודל המומלץ להתקנת %s רגילה."
+msgstr "גודל המחיצה %(mount)s קטן מ־%(size)s MB וזה פחות מהגודל המומלץ להתקנת %(productName)s רגילה."
 
 #
 #: storage/__init__.py:994
@@ -5272,7 +5255,7 @@ msgstr ""
 "המופיעה בקובץ ‎/etc/fstab משמשת כעת לאחסון המערכת במצב שינה לכונן, כלומר בפעם האחרונה שהמחשב הודלק, הוא התעורר ממצב זה.כדי לבצע שדרוג, יש לכבות את המערכת באופן מלא ולא רק להעביר אותה למצב שינה לכונן."
 
 #: storage/__init__.py:1776
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -5284,7 +5267,7 @@ msgstr ""
 "\n"
 "     %s\n"
 "\n"
-"המופיעה בקובץ ‎/etc/fstab משמשת כעת לאחסון המערכת במצב שינה לכונן, כלומר בפעם האחרונה שהמחשב הודלק, הוא התעורר ממצב זה.כדי לבצע התקנה, חובה לוודא שתכנת ההתקנה תבצע פורמט של כל מחיצות הדפדוף."
+"המופיעה בקובץ ‎/etc/fstab משמשת כעת לאחסון המערכת במצב שינה לכונן,  מה שאומר שהמערכת כרגע במצב שינה. אם אתה מבצע התקנה חדשה וודא שתכנת ההתקנה תבצע פורמט של כל מחיצות הדפדוף."
 
 #: storage/__init__.py:1788
 #, python-format
@@ -5362,7 +5345,6 @@ msgstr ""
 msgid "Unable to mount filesystem"
 msgstr "לא ניתן לעגן מערכת קבצים"
 
-#
 #: storage/__init__.py:1899
 #, fuzzy, python-format
 msgid "An error occurred mounting device %(path)s as %(mountpoint)s.  You may continue installation, but there may be problems."
@@ -5499,7 +5481,6 @@ msgstr ""
 
 #
 #: storage/formats/fs.py:862
-#, fuzzy
 msgid "Operational error."
 msgstr "שגיאה"
 
@@ -5513,17 +5494,16 @@ msgstr ""
 
 #: storage/formats/fs.py:865
 msgid "Shared library error."
-msgstr ""
+msgstr "שגיאת ספריה משותפת."
 
 #: storage/formats/fs.py:1024
 msgid "Recoverable errors have been detected or dosfsck has discovered an internal inconsistency."
-msgstr ""
+msgstr "שגיאה נינת לתיקון התגלתה או ש-dosfsck גילה אי-עקביות פנימית"
 
 #
 #: storage/formats/fs.py:1026
-#, fuzzy
 msgid "Usage error."
-msgstr "שגיאה בכונן היעד"
+msgstr "Usage error."
 
 #: storage/iscsi.py:83
 #: storage/iscsi.py:84
@@ -5598,17 +5578,16 @@ msgstr ""
 "\n"
 "יש להקיש 'אישור' ליציאה מתכנית ההתקנה."
 
-#
 #: storage/partitioning.py:239
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
 "%(msg)s.%(extra)s"
 msgstr ""
-"לא ניתן להקצות את המחיצות הדרושות: \n"
+"לא ניתן להקצות את המחיצות שנבחרו: \n"
 "\n"
-"%s.%s"
+"%(msg)s.%(extra)s"
 
 #
 #: storage/partitioning.py:260
@@ -5626,7 +5605,6 @@ msgstr ""
 msgid "Automatic Partitioning Errors"
 msgstr "שגיאות בחלוקה אוטומטית למחיצות"
 
-#
 #: storage/partitioning.py:263
 #, fuzzy, python-format
 msgid ""
@@ -5843,7 +5821,7 @@ msgstr "באיזה כונן(ים) ברצונך להשתמש לתהליך ההת�
 #
 #: textw/partition_text.py:95
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
+msgstr "‏<Space>,<+>,<-> בחירה   |   <F2> הוספת כונן   |   <F12> המסך הבא"
 
 #
 #: textw/partition_text.py:173
@@ -6269,7 +6247,7 @@ msgstr "הצג ושנה את פריסת המחיצות"
 
 #: ui/autopart.glade.h:3
 msgid "Volume to Shrink"
-msgstr ""
+msgstr "מחיצה להקטנה"
 
 #: ui/autopart.glade.h:4
 msgid "Which partition would you like to shrink to make room for your installation?"
@@ -6286,7 +6264,7 @@ msgstr "_הצפנת מערכת"
 
 #: ui/autopart.glade.h:7
 msgid "_Shrink"
-msgstr ""
+msgstr "_הקטן:"
 
 #
 #: ui/blwhere.glade.h:1
@@ -6519,7 +6497,7 @@ msgstr ""
 #
 #: ui/zfcp-config.glade.h:3
 msgid "<b>WWPN:</b>"
-msgstr ""
+msgstr "<b>WWPN:</b>"
 
 #
 #: ui/zfcp-config.glade.h:4
