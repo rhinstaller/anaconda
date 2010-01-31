@@ -63,6 +63,7 @@ class DiskLabel(DeviceFormat):
         self._partedDisk = None
         self._origPartedDisk = None
         self._alignment = None
+        self._endAlignment = None
 
         if self.partedDevice:
             # set up the parted objects and raise exception on failure
@@ -338,6 +339,15 @@ class DiskLabel(DeviceFormat):
             self._alignment = a
 
         return self._alignment
+
+    @property
+    def endAlignment(self):
+        if not self._endAlignment:
+            self._endAlignment = parted.Alignment(
+                                        offset = self.alignment.offset - 1,
+                                        grainSize = self.alignment.grainSize)
+
+        return self._endAlignment
 
 register_device_format(DiskLabel)
 
