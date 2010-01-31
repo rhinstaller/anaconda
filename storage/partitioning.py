@@ -692,10 +692,10 @@ def addPartition(disklabel, free, part_type, size):
     else:
         # size is in MB
         length = sizeToSectors(size, disklabel.partedDevice.sectorSize)
-        end = start + length
-        if not disklabel.alignment.isAligned(free, end):
-            end = disklabel.alignment.alignNearest(free, end)
-            log.debug("adjusted length from %d to %d" % (length, end - start))
+        end = start + length - 1
+        if not disklabel.endAlignment.isAligned(free, end):
+            end = disklabel.endAlignment.alignNearest(free, end)
+            log.debug("adjusted length from %d to %d" % (length, end - start + 1))
 
     new_geom = parted.Geometry(device=disklabel.partedDevice,
                                start=start,
@@ -727,8 +727,8 @@ def getFreeRegions(disks):
             if not disk.format.alignment.isAligned(f, f.start):
                 f.start = disk.format.alignment.alignNearest(f, f.start)
 
-            if not disk.format.alignment.isAligned(f, f.end):
-                f.end = disk.format.alignment.alignNearest(f, f.end)
+            if not disk.format.endAlignment.isAligned(f, f.end):
+                f.end = disk.format.endAlignment.alignNearest(f, f.end)
 
             if f.length > 0:
                 free.append(f)
@@ -1402,10 +1402,10 @@ def growPartitions(disks, partitions, free):
 
                 old_geometry = p.partition.partedPartition.geometry
                 new_length = p.base + p.growth
-                end = start + new_length
+                end = start + new_length - 1
                 # align end sector as needed
-                if not disklabel.alignment.isAligned(chunk.geometry, end):
-                    end = disklabel.alignment.alignDown(chunk.geometry, end)
+                if not disklabel.endAlignment.isAligned(chunk.geometry, end):
+                    end = disklabel.endAlignment.alignDown(chunk.geometry, end)
                 new_geometry = parted.Geometry(device=disklabel.partedDevice,
                                                start=start,
                                                end=end)
