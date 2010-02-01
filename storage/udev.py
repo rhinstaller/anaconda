@@ -256,7 +256,7 @@ def udev_device_is_partition(info):
 
 def udev_device_get_serial(udev_info):
     """ Get the serial number/UUID from the device as reported by udev. """
-    return udev_info.get("ID_SERIAL_SHORT")
+    return udev_info.get("ID_SERIAL_SHORT", udev_info.get("ID_SERIAL"))
 
 def udev_device_get_wwid(udev_info):
     """ The WWID of a device is typically just its serial number, but with
