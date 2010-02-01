@@ -216,6 +216,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 01 2010 Chris Lumens <clumens@redhat.com> - 13.21.8-1
+- Fixup partition aligning (#560586) (hdegoede)
+- pyudev: explicitly specify all return value and argument types (#559394)
+  (hdegoede)
+
 * Fri Jan 29 2010 Chris Lumens <clumens@redhat.com> - 13.21.7-1
 - Correctly add found multipath devices to our dict (#560029). (clumens)
 - Remove /sys prefix in udev_enumerate_devices() (#560037) (hdegoede)
