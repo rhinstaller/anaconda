@@ -216,6 +216,69 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Feb 01 2010 Chris Lumens <clumens@redhat.com> - 13.24-1
+- Don't log the size of what we're unpacking anymore. (clumens)
+- Fixup partition aligning (#560586) (hdegoede)
+- Fix backtrace when adding mdraid arrays (#560360) (hdegoede)
+- pyudev: explicitly specify all return value and argument types (#559394)
+  (hdegoede)
+- Correctly add found multipath devices to our dict (#560029). (clumens)
+- gtk.TreeStores are iterable, so use indices instead of iterators. (clumens)
+- Build sorted models on top of filtered models to make column sorting work.
+  (clumens)
+- Skip the filtering UI if there's only one disk in the machine. (clumens)
+- Allow getScreen methods to indicate the screen should be skipped. (clumens)
+- rename constants and a variable in anconda_log.py so the names make more
+  sense. (akozumpl)
+- anaconda, storage and yum: log to tty3 in the same format as we log into
+  tty4 (akozumpl)
+- Remove /sys prefix in udev_enumerate_devices() (hdegoede)
+- Use libudev's enumerate_devices function (#559394) (mgracik)
+- Update =~ regexps in lsznet.raw for bash-4.1 (#558537). (dcantrell)
+- Startup iscsi / fcoe / zfcp before listing drives in the filter UI
+  (hdegoede)
+- cleardisk_gui: Fix going back to the cleardisks gui (hdegoede)
+- cleardisk_gui: Base autoselection of bootdev on detected BIOS order
+  (hdegoede)
+- Fix typo in partition_ui_helpers_gui.py (hdegoede)
+- Remove no longer used isys EDD code (hdegoede)
+- Hookup new python EDD code (#478996) (hdegoede)
+- Add pure python EDD code parsing and compareDrives substitute (#478996)
+  (hdegoede)
+- Include /etc/netconfig in the initrd for NFS (#557704). (clumens)
+- Log system messages to /tmp/syslog instead of /tmp/messages.log. (clumens)
+- Make sure we always check /lib64 and /lib in find_library (#555669).
+  (dcantrell)
+- Make sure we get required nss-softokn libs in the images. (dcantrell)
+- Add 5 second ping delay for gateway and dns test on s390x (#536815).
+  (dcantrell)
+- Update =~ regexps in linuxrc.s390 for bash-4.1 (#558537). (dcantrell)
+- Add strace to the stage2 image and initrd. (clumens)
+- multipath gives us CCISS devices names with ! in them, but we expect /.
+  (clumens)
+- Fix visibility counting on filter notebook pages. (clumens)
+- Fix thinko in displaying the first filter notebook page that disks.
+  (pjones)
+- DMRaidArrayDevice don't pass major/minor to DMDevice.__init__ (#558440)
+  (hdegoede)
+- Filter UI: don't show cciss controllers without sets (hdegoede)
+- Filter UI: give BIOS RAID sets a usable model string and display that
+  (hdegoede)
+- Make MDRaidArray description the same as DMRaidArray (hdegoede)
+- Add DMRaidArrayDevice description and model properties (#558440) (hdegoede)
+- DMRaidArrayDevices exist when created (#558440) (hdegoede)
+- Clarify syslinux menu text (#557774) (hdegoede)
+- Use description property for MDRaidArrayDevice model (hdegoede)
+- MDRaidArrayDevice: Get rid of the ugly self.devices[0].type checking
+  (hdegoede)
+- Make storage.unusedMDFoo also check mdcontainer members (hdegoede)
+- Remove MDRaidArrayDevice biosraid property (hdegoede)
+- Give MD BIOS RAID arrays there own type (hdegoede)
+- Check for devices with no media present in filter_gui.py (#558177)
+  (hdegoede)
+- multipath requires libaio.so (pjones)
+- init, fixes a bug in getSyslog() causing a SEGV (akozumpl)
+
 * Fri Jan 22 2010 Chris Lumens <clumens@redhat.com> - 13.23-1
 - Only /boot needs to be on one of the bootFSTypes. (#557718) (dlehman)
 - nss files moved around again, NM needs more (#557702) (dcantrell)
