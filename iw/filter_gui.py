@@ -416,9 +416,10 @@ class FilterWindow(InstallWindow):
 
         np.ds.addColumn(_("Model"), MODEL_COL)
         np.ds.addColumn(_("Capacity"), CAPACITY_COL)
-        np.ds.addColumn(_("Vendor"), VENDOR_COL)
+        np.ds.addColumn(_("Vendor"), VENDOR_COL, displayed=False)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
         np.ds.addColumn(_("Serial Number"), SERIAL_COL)
+        np.ds.addColumn(_("Identifier"), ID_COL)
         return np
 
     def _makeRAID(self):
