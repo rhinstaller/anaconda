@@ -184,10 +184,12 @@ class MPathCallbacks(FilteredCallbacks):
         self.interconnectEntry = self.xml.get_widget("mpathInterconnectEntry")
         self.IDEntry = self.xml.get_widget("mpathIDEntry")
 
-        self.vendorEntry.connect("changed", lambda entry: self.model.refilter())
-        self.vendorEntry.connect("realize", self._populateUI)
-        self.interconnectEntry.connect("changed", lambda entry: self.model.refilter())
-        self.IDEntry.connect("changed", lambda entry: self.model.refilter())
+        self.mpathFilterHBox = self.xml.get_widget("mpathFilterHBox")
+        self.mpathFilterHBox.connect("realize", self._populateUI)
+
+        self.vendorEntry.connect("changed", lambda entry: self.model.get_model().refilter())
+        self.interconnectEntry.connect("changed", lambda entry: self.model.get_model().refilter())
+        self.IDEntry.connect("changed", lambda entry: self.model.get_model().refilter())
 
     def addToUI(self, tuple):
         if not tuple[VENDOR_COL] in self._vendors:
@@ -214,18 +216,30 @@ class MPathCallbacks(FilteredCallbacks):
         return True
 
     def _populateUI(self, widget):
+        cell = gtk.CellRendererText()
+
         self._vendors.sort()
         self.vendorEntry.set_model(gtk.ListStore(gobject.TYPE_STRING))
+        self.vendorEntry.pack_start(cell)
+        self.vendorEntry.add_attribute(cell, 'text', 0)
+
         for v in self._vendors:
             self.vendorEntry.append_text(v)
 
+        self.vendorEntry.show_all()
+
         self._interconnects.sort()
         self.interconnectEntry.set_model(gtk.ListStore(gobject.TYPE_STRING))
+        self.interconnectEntry.pack_start(cell)
+        self.interconnectEntry.add_attribute(cell, 'text', 0)
+
         for i in self._interconnects:
             self.interconnectEntry.append_text(i)
 
+        self.interconnectEntry.show_all()
+
     def _visible_by_vendor(self, model, iter, view):
-        entered = self.vendorEntry.get_text()
+        entered = self.vendorEntry.get_child().get_text()
         return model.get_value(iter, VENDOR_COL).find(entered) != -1
 
     def _visible_by_interconnect(self, model, iter, view):
@@ -252,10 +266,12 @@ class OtherCallbacks(MPathCallbacks):
         self.interconnectEntry = self.xml.get_widget("otherInterconnectEntry")
         self.IDEntry = self.xml.get_widget("otherIDEntry")
 
-        self.vendorEntry.connect("changed", lambda entry: self.model.refilter())
-        self.vendorEntry.connect("realize", self._populateUI)
-        self.interconnectEntry.connect("changed", lambda entry: self.model.refilter())
-        self.IDEntry.connect("changed", lambda entry: self.model.refilter())
+        self.otherFilterHBox = self.xml.get_widget("otherFilterHBox")
+        self.otherFilterHBox.connect("realize", self._populateUI)
+
+        self.vendorEntry.connect("changed", lambda entry: self.model.get_model().refilter())
+        self.interconnectEntry.connect("changed", lambda entry: self.model.get_model().refilter())
+        self.IDEntry.connect("changed", lambda entry: self.model.get_model().refilter())
 
     def isMember(self, info):
         return info and isOther(info)
@@ -278,10 +294,10 @@ class SearchCallbacks(FilteredCallbacks):
 
         # When these entries are changed, we need to redo the filtering.
         # If we don't do filter-as-you-type, we'd need a Search/Clear button.
-        self.portEntry.connect("changed", lambda entry: self.model.refilter())
-        self.targetEntry.connect("changed", lambda entry: self.model.refilter())
-        self.LUNEntry.connect("changed", lambda entry: self.model.refilter())
-        self.IDEntry.connect("changed", lambda entry: self.model.refilter())
+        self.portEntry.connect("changed", lambda entry: self.model.get_model().refilter())
+        self.targetEntry.connect("changed", lambda entry: self.model.get_model().refilter())
+        self.LUNEntry.connect("changed", lambda entry: self.model.get_model().refilter())
+        self.IDEntry.connect("changed", lambda entry: self.model.get_model().refilter())
 
     def isMember(self, info):
         return True
