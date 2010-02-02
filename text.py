@@ -662,7 +662,6 @@ class InstallInterface:
         anaconda.dispatch.skipStep("filtertype")
         anaconda.dispatch.skipStep("filter")
         anaconda.dispatch.skipStep("cleardiskssel")
-        anaconda.dispatch.skipStep("basepkgsel")
         anaconda.dispatch.skipStep("group-selection")
 
 def killSelf(screen):
