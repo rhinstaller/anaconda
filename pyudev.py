@@ -145,6 +145,11 @@ class UdevDevice(dict):
             name = libudev_udev_list_entry_get_name(property_entry)
             value = libudev_udev_list_entry_get_value(property_entry)
 
+            # XXX some of the strings contain a list of values in them,
+            # we want to split them and make a list
+            if value.count(" %s=" % name):
+                value = value.split(" %s=" % name)
+
             self[name] = value
 
             # get next property entry
