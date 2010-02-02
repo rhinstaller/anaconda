@@ -122,16 +122,6 @@ def udev_get_block_device(sysfs_path):
     else:
         return dev
 
-def udev_parse_block_entry(buf):
-    dev = udev_parse_entry(buf)
-
-    for (key, value) in dev.iteritems():
-        if value.count(" "):
-            # eg: DEVLINKS
-            dev.update({key: value.split()})
-
-    return dev
-
 
 # These are functions for retrieving specific pieces of information from
 # udev database entries.
