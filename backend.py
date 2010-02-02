@@ -307,7 +307,7 @@ def doBasePackageSelect(anaconda):
     anaconda.backend.resetPackageSelections()
     if anaconda.isKickstart:
         kickstart.selectPackages(anaconda)
-    else:
+    elif anaconda.id.displayMode != 't':
         anaconda.id.instClass.setPackageSelection(anaconda)
         anaconda.id.instClass.setGroupSelection(anaconda)
 
