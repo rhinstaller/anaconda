@@ -105,6 +105,10 @@ libudev_udev_enumerate_get_list_entry = libudev.udev_enumerate_get_list_entry
 libudev_udev_enumerate_get_list_entry.restype = c_void_p
 libudev_udev_enumerate_get_list_entry.argtypes = [ c_void_p ]
 
+libudev_udev_device_get_devlinks_list_entry = libudev.udev_device_get_devlinks_list_entry
+libudev_udev_device_get_devlinks_list_entry.restype = c_void_p
+libudev_udev_device_get_devlinks_list_entry.argtypes = [ c_void_p ]
+
 
 class UdevDevice(dict):
 
@@ -121,29 +125,25 @@ class UdevDevice(dict):
         self.syspath = libudev_udev_device_get_syspath(udev_device)
         self.sysname = libudev_udev_device_get_sysname(udev_device)
 
+        # get the devlinks list
+        devlinks = []
+        devlinks_entry = libudev_udev_device_get_devlinks_list_entry(udev_device)
+
+        while devlinks_entry:
+            path = libudev_udev_list_entry_get_name(devlinks_entry)
+            devlinks.append(path)
+
+            devlinks_entry = libudev_udev_list_entry_get_next(devlinks_entry)
+
+        # add devlinks list to the dictionary
+        self["symlinks"] = devlinks
+
         # get the first property entry
         property_entry = libudev_udev_device_get_properties_list_entry(udev_device)
 
         while property_entry:
             name = libudev_udev_list_entry_get_name(property_entry)
             value = libudev_udev_list_entry_get_value(property_entry)
-
-            # XXX we have to split some of the values into a list,
-            # the libudev is not so smart :(
-            fields = value.split()
-
-            if len(fields) > 1:
-                value = [fields[0]]
-
-                for item in fields[1:]:
-                    (key, sep, val) = item.partition("=")
-                    if sep:
-                        value.append(val)
-                    else:
-                        value.append(key)
-
-                if len(value) == 1:
-                    value = value[0]
 
             self[name] = value
 
