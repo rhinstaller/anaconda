@@ -37,26 +37,23 @@ class IPError(Exception):
 class IPMissing(Exception):
     pass
 
-def inStrRange(v, s):
-    if string.find(s, v) == -1:
-	return 0
-    else:
-	return 1
-
 def sanityCheckHostname(hostname):
     if len(hostname) < 1:
 	return None
 
-    if len(hostname) > 64:
-	return _("Hostname must be 64 or less characters in length.")
-    
-    if not inStrRange(hostname[0], string.ascii_letters):
-	return _("Hostname must start with a valid character in the range "
-		 "'a-z' or 'A-Z'")
+    if len(hostname) > 255:
+	return _("Hostname must be 255 or fewer characters in length.")
+
+    validStart = string.ascii_letters + string.digits
+    validAll = validStart + ".-"
+
+    if string.find(validStart, hostname[0]) == -1:
+	return _("Hostname must start with a valid character in the ranges "
+		 "'a-z', 'A-Z', or '0-9'")
 
     for i in range(1, len(hostname)):
-	if not inStrRange(hostname[i], string.ascii_letters+string.digits+".-"):
-	    return _("Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'")
+	if string.find(validAll, hostname[i]) == -1:
+	    return _("Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'")
 
     return None
 	    
