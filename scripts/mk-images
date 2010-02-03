@@ -195,9 +195,9 @@ if [ -n "$dieLater" ]; then exit 1; fi
 
 if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
     # go ahead and create the keymaps so we only have to do it once
-    if [ -f $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH ]; then
+    if [ -f $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BASEARCH ]; then
         echo "Found keymap override, using it"
-        cp $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BUILDARCH $KEYMAPS
+        cp $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BASEARCH $KEYMAPS
     else
         echo "Running: $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
         $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
