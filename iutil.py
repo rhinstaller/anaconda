@@ -105,7 +105,7 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
     elif stderr is None or not isinstance(stderr, file):
         stderr = sys.stderr.fileno()
 
-    program_log.info("Running... %s" % ([command] + argv,))
+    program_log.info("Running... %s" % (" ".join([command] + argv),))
 
     #prepare os pipes for feeding tee proceses
     pstdout, pstdin = os.pipe()
@@ -201,7 +201,7 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
     elif stderr is None or not isinstance(stderr, file):
         stderr = sys.stderr.fileno()
 
-    program_log.info("Running... %s" % ([command] + argv,))
+    program_log.info("Running... %s" % (" ".join([command] + argv),))
 
     env = os.environ.copy()
     env.update({"LC_ALL": "C"})
@@ -273,7 +273,7 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
     elif stderr is None or not isinstance(stderr, file):
         stderr = sys.stderr.fileno()
 
-    program_log.info("Running... %s" % ([command] + argv,))
+    program_log.info("Running... %s" % (" ".join([command] + argv),))
 
     p = os.pipe()
     p_stderr = os.pipe()
