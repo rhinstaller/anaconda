@@ -701,6 +701,10 @@ def addPartition(disklabel, free, part_type, size):
                                start=start,
                                end=end)
 
+    max_length = disklabel.partedDisk.maxPartitionLength
+    if max_length and new_geom.length > max_length:
+        raise PartitioningError("requested size exceeds maximum allowed")
+
     # create the partition and add it to the disk
     partition = parted.Partition(disk=disklabel.partedDisk,
                                  type=part_type,
@@ -1124,14 +1128,13 @@ class Request(object):
         sector_size = partition.partedPartition.disk.device.sectorSize
 
         if partition.req_grow:
-            max_size = partition.req_max_size
-            format_max_size = partition.format.maxSize
-            if not max_size or \
-               (format_max_size and format_max_size < max_size):
-                max_size = format_max_size
+            limits = filter(lambda l: l > 0,
+                        [sizeToSectors(partition.req_max_size, sector_size),
+                         sizeToSectors(partition.format.maxSize, sector_size),
+                         partition.partedPartition.disk.maxPartitionLength])
 
-            if max_size:
-                max_sectors = sizeToSectors(max_size, sector_size)
+            if limits:
+                max_sectors = min(limits)
                 self.max_growth = max_sectors - self.base
 
     @property
