@@ -216,6 +216,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 03 2010 Chris Lumens <clumens@redhat.com> - 13.21.9-1
+- Fix typo in action sorting. Disklabels before partitions. (#561306))
+  (dlehman)
+- Fix: execWithRedirect() logging stderr at wrong loglevel. (akozumpl)
+- Fix: execWithCallback() not logging stderr. (akozumpl)
+- Fix keymaps-override-ppc pickup in mk-images (#524235) (msivak)
+- Fix:  ArithmeticError: Could not align to closest sector (#561278)
+  (hdegoede)
+- On text kickstart installs, doBasePackageSelect still needs to run
+  (#559593). (clumens)
+- Skip the filtering UI if there's only one disk in the machine (#560671).
+  (clumens)
+- Allow getScreen methods to indicate the screen should be skipped. (clumens)
+
 * Mon Feb 01 2010 Chris Lumens <clumens@redhat.com> - 13.21.8-1
 - Fixup partition aligning (#560586) (hdegoede)
 - pyudev: explicitly specify all return value and argument types (#559394)

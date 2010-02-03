@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.7\n"
+"Project-Id-Version: anaconda 13.21.8\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-01 11:43-0500\n"
+"POT-Creation-Date: 2010-02-03 18:00-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -154,7 +154,7 @@ msgid ""
 "Would you like to continue with the installation?"
 msgstr ""
 
-#: bootloader.py:60 gui.py:1099 gui.py:1244 gui.py:1450 image.py:91
+#: bootloader.py:60 gui.py:1099 gui.py:1244 gui.py:1460 image.py:91
 #: kickstart.py:156 livecd.py:205 livecd.py:411 packages.py:162 upgrade.py:58
 #: upgrade.py:199 yuminstall.py:248 yuminstall.py:689 yuminstall.py:907
 #: yuminstall.py:912 yuminstall.py:992 yuminstall.py:998 yuminstall.py:1153
@@ -298,7 +298,7 @@ msgid ""
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: gui.py:784 gui.py:1450 partIntfHelpers.py:157 partIntfHelpers.py:342
+#: gui.py:784 gui.py:1460 partIntfHelpers.py:157 partIntfHelpers.py:342
 #: text.py:99 text.py:100 iw/account_gui.py:130 loader/dirbrowser.c:128
 #: loader/driverdisk.c:420 loader/kickstart.c:328 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
@@ -394,24 +394,24 @@ msgstr ""
 msgid "Exiting"
 msgstr ""
 
-#: gui.py:1447 livecd.py:126 text.py:266 upgrade.py:190
+#: gui.py:1457 livecd.py:126 text.py:266 upgrade.py:190
 msgid "Exit installer"
 msgstr ""
 
-#: gui.py:1448
+#: gui.py:1458
 msgid "Are you sure you wish to exit the installer?"
 msgstr ""
 
-#: gui.py:1457
+#: gui.py:1467
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: gui.py:1463
+#: gui.py:1473
 msgid "Unable to load title bar"
 msgstr ""
 
-#: gui.py:1525
+#: gui.py:1535
 msgid "Install Window"
 msgstr ""
 
@@ -483,83 +483,83 @@ msgstr ""
 msgid "Install on System"
 msgstr ""
 
-#: iutil.py:827
+#: iutil.py:847
 #, python-format
 msgid ""
 "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
 "s)"
 msgstr ""
 
-#: iutil.py:838
+#: iutil.py:858
 #, python-format
 msgid ""
 "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
 msgstr ""
 
-#: iutil.py:847
+#: iutil.py:867
 #, python-format
 msgid ""
 "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
 msgstr ""
 
-#: iutil.py:866
+#: iutil.py:886
 #, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
 msgstr ""
 
-#: iutil.py:876
+#: iutil.py:896
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr ""
 
-#: iutil.py:885
+#: iutil.py:905
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr ""
 
-#: iutil.py:898
+#: iutil.py:918
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
 
-#: iutil.py:920
+#: iutil.py:940
 #, python-format
 msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:935
+#: iutil.py:955
 #, python-format
 msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:950
+#: iutil.py:970
 #, python-format
 msgid ""
 "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:965
+#: iutil.py:985
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 
-#: iutil.py:982
+#: iutil.py:1002
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
 
-#: iutil.py:993
+#: iutil.py:1013
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: iutil.py:997
+#: iutil.py:1017
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
 
