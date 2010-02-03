@@ -594,10 +594,10 @@ class DeviceTree(object):
                         ret = cmp(a1.device.name, a2.device.name)
                 elif isinstance(a1.device, PartitionDevice) and \
                      a2.device.partitioned:
-                    ret = -1
+                    ret = 1
                 elif isinstance(a2.device, PartitionDevice) and \
                      a1.device.partitioned:
-                    ret = 1
+                    ret = -1
                 else:
                     ret = 0
             elif a1.isCreate():
