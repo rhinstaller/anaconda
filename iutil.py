@@ -276,20 +276,23 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
     program_log.info("Running... %s" % ([command] + argv,))
 
     p = os.pipe()
+    p_stderr = os.pipe()
     childpid = os.fork()
     if not childpid:
         os.close(p[0])
+        os.close(p_stderr[0])
         os.dup2(p[1], 1)
-        os.dup2(stderr, 2)
+        os.dup2(p_stderr[1], 2)
         os.dup2(stdin, 0)
         os.close(stdin)
         os.close(p[1])
-        os.close(stderr)
+        os.close(p_stderr[1])
 
         os.execvp(command, [command] + argv)
         os._exit(1)
 
     os.close(p[1])
+    os.close(p_stderr[1])
 
     logline = ''
     while 1:
@@ -322,6 +325,23 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
 
         if len(s) < 1:
             break
+    if len(logline) > 0:
+        program_log.info(logline)
+
+    log_errors = ''
+    while 1:
+        try:
+            err = os.read(p_stderr[0], 128)
+        except OSError as e:
+            if e.errno != 4:
+                raise IOError, e.args
+            break
+        log_errors += err
+        if len(err) < 1:
+            break
+    map(program_log.error, log_errors.splitlines())
+    os.close(p[0])
+    os.close(p_stderr[0])
 
     try:
         #if we didn't already get our child's exit status above, do so now.
