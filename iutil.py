@@ -42,11 +42,11 @@ program_log = logging.getLogger("program")
 #Python reimplementation of the shell tee process, so we can
 #feed the pipe output into two places at the same time
 class tee(threading.Thread):
-    def __init__(self, inputdesc, outputdesc, outputlog):
+    def __init__(self, inputdesc, outputdesc, logmethod):
         threading.Thread.__init__(self)
         self.inputdesc = os.fdopen(inputdesc, "r")
         self.outputdesc = outputdesc
-        self.log = outputlog
+        self.logmethod = logmethod
         self.running = True
 
     def run(self):
@@ -55,7 +55,7 @@ class tee(threading.Thread):
             if data == "":
                 self.running = False
             else:
-                self.log.info(data.rstrip('\n'))
+                self.logmethod(data.rstrip('\n'))
                 os.write(self.outputdesc, data)
 
     def stop(self):
@@ -120,8 +120,8 @@ def execWithRedirect(command, argv, stdin = None, stdout = None,
 
     try:
         #prepare tee proceses
-        proc_std = tee(pstdout, stdout, program_log)
-        proc_err = tee(perrout, stderr, program_log)
+        proc_std = tee(pstdout, stdout, program_log.info)
+        proc_err = tee(perrout, stderr, program_log.error)
 
         #start monitoring the outputs
         proc_std.start()
