@@ -151,8 +151,7 @@ def udev_device_is_dm(info):
 
 def udev_device_is_md(info):
     """ Return True if the device is a mdraid array device. """
-    return info.has_key("MD_DEVNAME") and \
-           info.has_key("MD_METADATA")
+    return info.has_key("MD_METADATA")
 
 def udev_device_is_cciss(info):
     """ Return True if the device is a CCISS device. """
