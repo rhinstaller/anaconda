@@ -150,7 +150,7 @@ class PartitionEditor:
                     self.fillmaxszsb.update()
                     maxsize = self.fillmaxszsb.get_value_as_int()
                 else:
-                    maxsize = None
+                    maxsize = 0
 
                 allowdrives = []
                 model = self.driveview.get_model()
