@@ -216,6 +216,30 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 03 2010 David Lehman <dlehman@redhat.com> - 13.25-1
+- Fix keymaps-override-ppc pickup in mk-images (#524235) (msivak)
+- Fix typo in action sorting. Disklabels before partitions. (#560017)
+  (dlehman)
+- Display ID_PATH for zFCP devices instead of looking for a WWID. (clumens)
+- Fix a variety of filtering UI problems caused by switching models around.
+  (clumens)
+- Add ID_SERIAL in as a backup in case there's no ID_SERIAL_SHORT. (clumens)
+- Display ID_PATH instead of WWID for DASDs as well. (clumens)
+- Rename the WWID column to Identifier. (clumens)
+- Enforce maximum partition sizes. (#528276) (dlehman)
+- Log commands as a string instead of as a list of strings. (dlehman)
+- Strip off the timestamp from error output pulled from program.log.
+  (dlehman)
+- Fix: execWithRedirect() logging stderr at wrong loglevel. (akozumpl)
+- Fix: execWithCallback() not logging stderr. (akozumpl)
+- Fix:  ArithmeticError: Could not align to closest sector (#561278)
+  (hdegoede)
+- Fixed parsing of strings with multiple values in pyudev (mgracik)
+- On text kickstart installs, doBasePackageSelect still needs to run
+  (#559593). (clumens)
+- Remove unused udev_parse_block_entry() function (hdegoede)
+- Fixed the problem with string to list properties (#560262) (mgracik)
+
 * Mon Feb 01 2010 Chris Lumens <clumens@redhat.com> - 13.24-1
 - Don't log the size of what we're unpacking anymore. (clumens)
 - Fixup partition aligning (#560586) (hdegoede)

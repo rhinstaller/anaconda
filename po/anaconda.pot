@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.23\n"
+"Project-Id-Version: anaconda 13.24\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-01 17:24-0500\n"
+"POT-Creation-Date: 2010-02-03 20:03-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -483,83 +483,83 @@ msgstr ""
 msgid "Install on System"
 msgstr ""
 
-#: iutil.py:823
+#: iutil.py:843
 #, python-format
 msgid ""
 "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
 "s)"
 msgstr ""
 
-#: iutil.py:834
+#: iutil.py:854
 #, python-format
 msgid ""
 "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
 msgstr ""
 
-#: iutil.py:843
+#: iutil.py:863
 #, python-format
 msgid ""
 "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
 msgstr ""
 
-#: iutil.py:862
+#: iutil.py:882
 #, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
 msgstr ""
 
-#: iutil.py:872
+#: iutil.py:892
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr ""
 
-#: iutil.py:881
+#: iutil.py:901
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr ""
 
-#: iutil.py:894
+#: iutil.py:914
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
 
-#: iutil.py:916
+#: iutil.py:936
 #, python-format
 msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:931
+#: iutil.py:951
 #, python-format
 msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:946
+#: iutil.py:966
 #, python-format
 msgid ""
 "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:961
+#: iutil.py:981
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 
-#: iutil.py:978
+#: iutil.py:998
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
 
-#: iutil.py:989
+#: iutil.py:1009
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: iutil.py:993
+#: iutil.py:1013
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
 
@@ -4457,12 +4457,12 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/devicelibs/lvm.py:315
+#: storage/devicelibs/lvm.py:317
 #, python-format
 msgid "vginfo failed for %s"
 msgstr ""
 
-#: storage/devicelibs/lvm.py:344
+#: storage/devicelibs/lvm.py:346
 #, python-format
 msgid "lvs failed for %s"
 msgstr ""
