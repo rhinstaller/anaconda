@@ -3040,6 +3040,7 @@ fi
 [ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> $IFCFGFILE
 [ "$CTCPROT" != "" ] && echo "CTCPROT=$CTCPROT" >> $IFCFGFILE
 [ "$MACADDR" != "" ] && echo "MACADDR=$MACADDR" >> $IFCFGFILE
+[ "$VSWITCH" != "" ] && echo "VSWITCH=$VSWITCH" >> $IFCFGFILE
 optstr=""
 for option in LAYER2 PORTNO; do
     [ -z "${!option}" ] && continue
