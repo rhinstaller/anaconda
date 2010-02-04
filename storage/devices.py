@@ -2756,7 +2756,8 @@ class MDRaidArrayDevice(StorageDevice):
             spares = len(self.devices) - self.memberDevices
             # Figure out format specific options
             metadata="1.1"
-            bitmap=True
+            # bitmaps are not meaningful on raid0 according to mdadm-3.0.3
+            bitmap = self.level != 0
             if getattr(self.format, "mountpoint", None) == "/boot":
                 metadata="1.0"
                 bitmap=False
