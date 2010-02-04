@@ -1125,7 +1125,7 @@ class PartitionWindow(InstallWindow):
             stripe_dev = disp_stripe.obj
             if stripe_dev.partitioned:
                 tempformat = self.storage.defaultFSType
-                device = self.storage.newPartition(fmt_type=tempformat, size=200)
+                device = self.storage.newPartition(fmt_type=tempformat)
                 self.editPartition(device, isNew = True)
 
             elif isinstance(stripe_dev, storage.LVMVolumeGroupDevice):
@@ -1154,7 +1154,7 @@ class PartitionWindow(InstallWindow):
             curr_parent = self.tree[iparent]["PyObject"]
             if curr_parent.partitioned:
                 tempformat = self.storage.defaultFSType
-                device = self.storage.newPartition(fmt_type=tempformat, size=200)
+                device = self.storage.newPartition(fmt_type=tempformat)
                 self.editPartition(device, isNew = True)
 
             elif isinstance(curr_parent, storage.LVMVolumeGroupDevice):
@@ -1513,8 +1513,7 @@ class PartitionWindow(InstallWindow):
 
         self.dialog.destroy()
         if rp_rb.get_active():
-            member = self.storage.newPartition(fmt_type="software RAID",
-                                               size=200)
+            member = self.storage.newPartition(fmt_type="mdmember")
             self.editPartition(member, isNew = True, restrictfs=["mdmember"])
             return
 
@@ -1541,8 +1540,7 @@ class PartitionWindow(InstallWindow):
             return
 
         elif lp_rb.get_active():
-            member = self.storage.newPartition(fmt_type="physical volume (LVM)",
-                                               size=200)
+            member = self.storage.newPartition(fmt_type="lvmpv")
             self.editPartition(member, isNew = True, restrictfs=["lvmpv"])
             return
 
@@ -1558,7 +1556,7 @@ class PartitionWindow(InstallWindow):
 
         elif sp_rb.get_active():
             tempformat = self.storage.defaultFSType
-            device = self.storage.newPartition(fmt_type=tempformat, size=200)
+            device = self.storage.newPartition(fmt_type=tempformat)
             self.editPartition(device, isNew = True)
             return
 
