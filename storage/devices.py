@@ -948,6 +948,9 @@ class PartitionDevice(StorageDevice):
             # XXX It might be worthwhile to create a shit-simple
             #     PartitionRequest class and pass one to this constructor
             #     for new partitions.
+            if not self._size:
+                # default size for new partition requests
+                self._size = 500
             self.req_name = name
             self.req_partType = partType
             self.req_primary = primary
