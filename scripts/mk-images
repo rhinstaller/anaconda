@@ -901,6 +901,8 @@ udevadm info --export-db | less
 tail -f /tmp/storage.log
 EOF
 
+    cp /usr/share/doc/python-devel-*/gdbinit $MBD_DIR/.gdbinit
+
     rm -f $MBD_FSIMAGE
     (cd $MBD_DIR; find . |cpio --quiet -c -o) |gzip -9 > $MBD_FSIMAGE
 
