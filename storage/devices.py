@@ -430,7 +430,8 @@ class StorageDevice(Device):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None,
-                 sysfsPath='', parents=None, exists=None, serial=None,
+                 sysfsPath='', parents=None, exists=None,
+                 serial=None, serial_short=None,
                  vendor="", model="", bus=""):
         """ Create a StorageDevice instance.
 
@@ -446,7 +447,8 @@ class StorageDevice(Device):
                 sysfsPath -- sysfs device path
                 format -- a DeviceFormat instance
                 parents -- a list of required Device instances
-                serial -- the ID_SERIAL_SHORT for this device
+                serial -- the ID_SERIAL for this device
+                serial_short -- the ID_SERIAL_SHORT for this device
                 vendor -- the manufacturer of this Device
                 model -- manufacturer's device model string
                 bus -- the interconnect this device uses
@@ -466,6 +468,7 @@ class StorageDevice(Device):
         self.minor = numeric_type(minor)
         self.sysfsPath = sysfsPath
         self._serial = serial
+        self._serial_short = serial_short
         self._vendor = vendor
         self._model = model
         self.bus = bus
@@ -754,8 +757,15 @@ class StorageDevice(Device):
         return self._serial
 
     @property
+    def serial_short(self):
+        return self._serial_short
+
+    @property
     def serial_for_display(self):
-        return self.serial
+        try:
+            return self.serial_short
+        except NotImplementedError:
+            return self.serial
 
     @property
     def model(self):
@@ -775,7 +785,8 @@ class DiskDevice(StorageDevice):
 
     def __init__(self, device, format=None,
                  size=None, major=None, minor=None, sysfsPath='',
-                 parents=None, serial=None, vendor="", model="", bus="",
+                 parents=None, serial=None, serial_short=None,
+                 vendor="", model="", bus="",
                  exists=True):
         """ Create a DiskDevice instance.
 
@@ -792,7 +803,8 @@ class DiskDevice(StorageDevice):
                 format -- a DeviceFormat instance
                 parents -- a list of required Device instances
                 removable -- whether or not this is a removable device
-                serial -- the ID_SERIAL_SHORT for this device
+                serial -- the ID_SERIAL for this device
+                serial_short -- the ID_SERIAL_SHORT for this device
                 vendor -- the manufacturer of this Device
                 model -- manufacturer's device model string
                 bus -- the interconnect this device uses
@@ -803,8 +815,8 @@ class DiskDevice(StorageDevice):
         StorageDevice.__init__(self, device, format=format, size=size,
                                major=major, minor=minor, exists=exists,
                                sysfsPath=sysfsPath, parents=parents,
-                               serial=serial, model=model,
-                               vendor=vendor, bus=bus)
+                               serial=serial, serial_short=serial_short,
+                               model=model, vendor=vendor, bus=bus)
 
     def __str__(self):
         s = StorageDevice.__str__(self)
@@ -1503,6 +1515,18 @@ class DMDevice(StorageDevice):
         return getattr(self, "_serial", "")
 
     @property
+    def serial_short(self):
+        if self._serial_short:
+            return self._serial_short
+        try:
+            serial_short = getattr(self, "_getSerialShort")()
+        except:
+            raise NotImplementedError("serial_short method not defined for Device")
+
+        self._serial_short = serial_short
+        return getattr(self, "_serial_short", "")
+
+    @property
     def fstabSpec(self):
         """ Return the device specifier for use in /etc/fstab. """
         return self.path
@@ -1581,7 +1605,7 @@ class DMCryptDevice(DMDevice):
         """
         DMDevice.__init__(self, name, format=format, size=size,
                           parents=parents, sysfsPath=sysfsPath,
-                          exists=exists, target="crypt")
+                          exists=exists, target="crypt", dmUuid=uuid)
 
 class LUKSDevice(DMCryptDevice):
     """ A mapped LUKS device. """
@@ -2999,8 +3023,9 @@ class MultipathDevice(DMDevice):
     _packages = ["device-mapper-multipath"]
     _partitionable = True
     _isDisk = True
+    _resizable = False
 
-    def __init__(self, name, info, format=None, size=None,
+    def __init__(self, name, info, format=None,
                  parents=None, sysfsPath=''):
         """ Create a MultipathDevice instance.
 
@@ -3017,8 +3042,12 @@ class MultipathDevice(DMDevice):
                 parents -- a list of the backing devices (Device instances)
         """
 
-        self._info = info
         dmUuid="mpath-%s" % info['ID_SERIAL']
+        size=None
+        for parent in parents:
+            if parent.size:
+                size = parent.size
+                break
         DMDevice.__init__(self, name, format=format, size=size,
                           parents=parents, sysfsPath=sysfsPath,
                           exists=True, dmUuid=dmUuid)
@@ -3031,6 +3060,10 @@ class MultipathDevice(DMDevice):
             'gid' : '0',
         }
 
+    @property
+    def size(self):
+        return self._size
+
     def _getWwidFromSerial(self, serial):
         wwid = []
         while serial:
@@ -3039,8 +3072,8 @@ class MultipathDevice(DMDevice):
         wwid = ":".join(wwid)
         return wwid
 
-    def _getSerial(self):
-        serial = DMDevice._getSerial(self)
+    def _getSerialShort(self):
+        serial = self._getSerial()
         if not serial:
             return None
 
@@ -3052,11 +3085,11 @@ class MultipathDevice(DMDevice):
 
     @property
     def wwid(self):
-        if not self._serial:
-            self._serial = self._getSerial()
-        if not self._serial:
+        if not self._serial_short:
+            self._serial_short = self._getSerialShort()
+        if not self._serial_short:
             return ""
-        return self._getWwidFromSerial(self._serial)
+        return self._getWwidFromSerial(self._serial_short)
 
     @property
     def serial_for_display(self):

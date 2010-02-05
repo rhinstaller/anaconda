@@ -1117,16 +1117,26 @@ class DeviceTree(object):
         uuid = udev_device_get_uuid(info)
         sysfs_path = udev_device_get_sysfs_path(info)
         serial = udev_device_get_serial(info)
+        serial_short = udev_device_get_serial_short(info)
         bus = udev_device_get_bus(info)
 
         # udev doesn't always provide a vendor.
         vendor = udev_device_get_vendor(info)
         if not vendor:
             vendor = ""
+        model = udev_device_get_model(info)
+        if not model:
+            model = ""
 
         device = None
 
-        kwargs = { "serial": serial, "vendor": vendor, "bus": bus }
+        kwargs = {
+            "serial": serial,
+            "serial_short": serial_short,
+            "vendor": vendor,
+            "model": model,
+            "bus": bus
+        }
         if udev_device_is_iscsi(info):
             diskType = iScsiDiskDevice
             kwargs["node"] = self.iscsi.getNode(
@@ -1216,6 +1226,7 @@ class DeviceTree(object):
                             minor=udev_device_get_minor(info),
                             sysfsPath=sysfs_path, exists=True,
                             serial=udev_device_get_serial(info),
+                            serial_short=udev_device_get_serial_short(info),
                             vendor=udev_device_get_vendor(info),
                             model=udev_device_get_model(info))
             self._addDevice(device)
@@ -1681,6 +1692,7 @@ class DeviceTree(object):
         label = udev_device_get_label(info)
         format_type = udev_device_get_format(info)
         serial = udev_device_get_serial(info)
+        serial_short = udev_device_get_serial_short(info)
 
         # Now, if the device is a disk, see if there is a usable disklabel.
         # If not, see if the user would like to create one.
@@ -1710,6 +1722,7 @@ class DeviceTree(object):
                   "label": label,
                   "device": device.path,
                   "serial": serial,
+                  "serial_short": serial_short,
                   "exists": True}
 
         # set up type-specific arguments for the format constructor

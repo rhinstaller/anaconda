@@ -241,14 +241,18 @@ def udev_device_is_partition(info):
     has_start = os.path.exists("/sys/%s/start" % info['sysfs_path'])
     return info.get("DEVTYPE") == "partition" or has_start
 
-def udev_device_get_serial(udev_info):
+def udev_device_get_serial_short(udev_info):
     """ Get the serial number/UUID from the device as reported by udev. """
     return udev_info.get("ID_SERIAL_SHORT", udev_info.get("ID_SERIAL"))
+
+def udev_device_get_serial(udev_info):
+    """ Get the serial number/UUID from the device as reported by udev. """
+    return udev_info.get("ID_SERIAL")
 
 def udev_device_get_wwid(udev_info):
     """ The WWID of a device is typically just its serial number, but with
         colons in the name to make it more readable. """
-    serial = udev_device_get_serial(udev_info)
+    serial = udev_device_get_serial_short(udev_info)
 
     if serial and len(serial) == 32:
         retval = ""
