@@ -169,7 +169,7 @@ def lvm(args, progress=None):
     try:
         # grab the last line of program.log and strip off the timestamp
         msg = open("/tmp/program.log").readlines()[-1]
-        msg = msg.split(" : ", 1)[1].strip()
+        msg = msg.split("program: ", 1)[1].strip()
     except Exception:
         msg = ""
 
