@@ -888,13 +888,13 @@ EOF
 
     setupSshd
 
-cat > $MBD_DIR/.profile <<EOF
+    cat > $MBD_DIR/.profile <<EOF
 PS1="[anaconda \u@\h \W]\\\\$ "
 PATH=/bin:/usr/bin:/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
 export PATH PS1
 EOF
 
-cat > $MBD_DIR/.bash_history <<EOF
+    cat > $MBD_DIR/.bash_history <<EOF
 kill -USR2 \`cat /var/run/anaconda.pid\`
 kill -HUP \`cat /var/run/anaconda.pid\`
 udevadm info --export-db | less
