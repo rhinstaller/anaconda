@@ -216,6 +216,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Feb 05 2010 David Cantrell <dcantrell@redhat.com> - 13.21.10-1
+- Write ARP=no to ifcfg file when VSWITCH=1 is set on s390x (#561926).
+  (dcantrell)
+
 * Wed Feb 03 2010 Chris Lumens <clumens@redhat.com> - 13.21.9-1
 - Fix typo in action sorting. Disklabels before partitions. (#561306))
   (dlehman)
