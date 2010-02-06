@@ -1279,6 +1279,9 @@ class PartitionDevice(StorageDevice):
         newGeometry = parted.Geometry(device=currentDev,
                                       start=currentGeom.start,
                                       length=newLen)
+        # and align the end sector
+        newGeometry.end = self.disk.format.endAlignment.alignDown(newGeometry,
+                                                               newGeometry.end)
         constraint = parted.Constraint(exactGeom=newGeometry)
 
         return (constraint, newGeometry)
