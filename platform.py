@@ -135,7 +135,7 @@ class Platform(object):
             errors.append(_("Bootable partitions cannot be on an encrypted block device"))
         else:
             # Handle encrypted boot on more complicated devices.
-            for dev in map(lambda d: d.type == "luks/dm-crypt", self.anaconda.id.storage.devices):
+            for dev in filter(lambda d: d.type == "luks/dm-crypt", self.anaconda.id.storage.devices):
                 if req in self.anaconda.id.storage.deviceDeps(dev):
                     errors.append(_("Bootable partitions cannot be on an encrypted block device"))
 
