@@ -229,13 +229,20 @@ class EFI(Platform):
             if req.format.type != "efi":
                 errors.append(_("/boot/efi is not EFI."))
 
-        disk = req.disk.format.partedDisk
+        # Don't try to check the disklabel on lv's etc, using lv for /boot
+        # is already checked in the generic Platform.checkBootRequest()
+        if req.type == "partition":
+            partitions = [ req ]
+        elif req.type == "mdarray":
+            partitions = filter(lambda d: d.type == "partition", req.parents)
 
         # Check that we've got a correct disk label.
-        labelType = self.diskLabelType(disk.device.type)
-        if disk.type != labelType:
-            errors.append(_("%s must have a %s disk label.")
-                          % (req.disk.name, labelType.upper()))
+        for p in partitions:        
+            partedDisk = p.disk.format.partedDisk
+            labelType = self.diskLabelType(partedDisk.device.type)
+            if partedDisk.type != labelType:
+                errors.append(_("%s must have a %s disk label.")
+                              % (p.disk.name, labelType.upper()))
 
         return errors
 
@@ -265,7 +272,7 @@ class Alpha(Platform):
     def checkBootRequest(self, req):
         errors = Platform.checkBootRequest(self, req)
 
-        if not req or not req.disk:
+        if not req or req.type != "partition" or not req.disk:
             return errors
 
         disk = req.disk.format.partedDisk
@@ -408,7 +415,7 @@ class NewWorldPPC(PPC):
     def checkBootRequest(self, req):
         errors = PPC.checkBootRequest(self, req)
 
-        if not req or not req.disk:
+        if not req or req.type != "partition" or not req.disk:
             return errors
 
         disk = req.disk.format.partedDisk
