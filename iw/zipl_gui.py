@@ -48,7 +48,7 @@ class ZiplWindow (InstallWindow):
     # ZiplWindow tag="zipl"
     def getScreen(self, anaconda):
 	self.dispatch = anaconda.dispatch
-	self.bl = anaconda.id.bootloader
+	self.bl = anaconda.bootloader
         self.intf = anaconda.intf
 
 	imageList = self.bl.images.getImages()

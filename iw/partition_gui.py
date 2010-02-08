@@ -1675,14 +1675,14 @@ class PartitionWindow(InstallWindow):
 
             for action in actions:
                 # XXX we should handle exceptions here
-                self.anaconda.id.storage.devicetree.registerAction(action)
+                self.anaconda.storage.devicetree.registerAction(action)
 
             if self.refresh(justRedraw=not actions):
                 # autopart failed -- cancel the actions and try to get
                 # back to previous state
                 actions.reverse()
                 for action in actions:
-                    self.anaconda.id.storage.devicetree.cancelAction(action)
+                    self.anaconda.storage.devicetree.cancelAction(action)
 
                 # FIXME: proper action/device management would be better
                 if not isNew:
@@ -1791,7 +1791,7 @@ class PartitionWindow(InstallWindow):
 
     def getScreen(self, anaconda):
         self.anaconda = anaconda
-        self.storage = anaconda.id.storage
+        self.storage = anaconda.storage
         self.intf = anaconda.intf
         self.checkmark_pixbuf = gui.getPixbuf("checkMark.png")
         self.lock_pixbuf = gui.getPixbuf("gnome-lock.png")

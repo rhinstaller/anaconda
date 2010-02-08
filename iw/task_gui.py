@@ -275,7 +275,7 @@ class RepoEditor:
     def _applyMedia(self, repo):
         # FIXME works only if storage has detected format of cdrom drive
         ayum = self.anaconda.backend.ayum
-        cdr = scanForMedia(ayum.tree, self.anaconda.id.storage)
+        cdr = scanForMedia(ayum.tree, self.anaconda.storage)
         if not cdr:
             self.intf.messageWindow(_("No Media Found"),
                                     _("No installation media was found. "
@@ -421,7 +421,7 @@ class RepoMethodstrEditor(RepoEditor):
         return repourl
 
     def _applyMedia(self):
-        cdr = scanForMedia(self.anaconda.backend.ayum.tree, self.anaconda.id.storage)
+        cdr = scanForMedia(self.anaconda.backend.ayum.tree, self.anaconda.storage)
         if not cdr:
             self.intf.messageWindow(_("No Media Found"),
                                     _("No installation media was found. "
@@ -660,14 +660,14 @@ class TaskWindow(InstallWindow):
         self.backend = anaconda.backend
         self.anaconda = anaconda
 
-        self.tasks = anaconda.id.instClass.tasks
+        self.tasks = anaconda.instClass.tasks
         self.repos = anaconda.backend.ayum.repos
 
         (self.xml, vbox) = gui.getGladeWidget("tasksel.glade", "taskBox")
 
         lbl = self.xml.get_widget("mainLabel")
-        if anaconda.id.instClass.description:
-            lbl.set_text(_(anaconda.id.instClass.description))
+        if anaconda.instClass.description:
+            lbl.set_text(_(anaconda.instClass.description))
         else:
             txt = lbl.get_text()
             lbl.set_text(txt %(productName,))

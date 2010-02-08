@@ -2246,6 +2246,10 @@ int main(int argc, char ** argv) {
         *argptr++ = "--noipv6";
 #endif
 
+#if defined(__s390__) || defined(__s390x__)
+    *argptr++ = "--headless";
+#endif
+
     if (FL_KICKSTART(flags)) {
         *argptr++ = "--kickstart";
         *argptr++ = loaderData.ksFile;

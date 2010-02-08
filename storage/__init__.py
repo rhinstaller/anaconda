@@ -65,7 +65,7 @@ import logging
 log = logging.getLogger("storage")
 
 def storageInitialize(anaconda):
-    storage = anaconda.id.storage
+    storage = anaconda.storage
 
     storage.shutdown()
 
@@ -97,7 +97,7 @@ def storageInitialize(anaconda):
         storage.reset()
 
         if not storage.protectedDevices:
-            if anaconda.id.getUpgrade():
+            if anaconda.upgrade:
                 return
             else:
                 anaconda.intf.messageWindow(_("Unknown Device"),
@@ -123,7 +123,7 @@ def storageComplete(anaconda):
             sys.exit(0)
         return DISPATCH_FORWARD
 
-    devs = anaconda.id.storage.devicetree.getDevicesByType("luks/dm-crypt")
+    devs = anaconda.storage.devicetree.getDevicesByType("luks/dm-crypt")
     existing_luks = False
     new_luks = False
     for dev in devs:
@@ -132,13 +132,13 @@ def storageComplete(anaconda):
         else:
             new_luks = True
 
-    if (anaconda.id.storage.encryptedAutoPart or new_luks) and \
-       not anaconda.id.storage.encryptionPassphrase:
+    if (anaconda.storage.encryptedAutoPart or new_luks) and \
+       not anaconda.storage.encryptionPassphrase:
         while True:
             (passphrase, retrofit) = anaconda.intf.getLuksPassphrase(preexist=existing_luks)
             if passphrase:
-                anaconda.id.storage.encryptionPassphrase = passphrase
-                anaconda.id.storage.encryptionRetrofit = retrofit
+                anaconda.storage.encryptionPassphrase = passphrase
+                anaconda.storage.encryptionRetrofit = retrofit
                 break
             else:
                 rc = anaconda.intf.messageWindow(_("Encrypt device?"),
@@ -153,16 +153,16 @@ def storageComplete(anaconda):
                               default=0)
                 if rc == 1:
                     log.info("user elected to not encrypt any devices.")
-                    undoEncryption(anaconda.id.storage)
-                    anaconda.id.storage.encryptedAutoPart = False
+                    undoEncryption(anaconda.storage)
+                    anaconda.storage.encryptedAutoPart = False
                     break
 
-    if anaconda.id.storage.encryptionPassphrase:
-        for dev in anaconda.id.storage.devices:
+    if anaconda.storage.encryptionPassphrase:
+        for dev in anaconda.storage.devices:
             if dev.format.type == "luks" and not dev.format.exists:
-                dev.format.passphrase = anaconda.id.storage.encryptionPassphrase
+                dev.format.passphrase = anaconda.storage.encryptionPassphrase
 
-    if anaconda.isKickstart:
+    if anaconda.ksdata:
         return
 
     rc = anaconda.intf.messageWindow(_("Writing storage configuration to disk"),
@@ -176,7 +176,7 @@ def storageComplete(anaconda):
                                 default = 0)
 
     # Make sure that all is down, even the disks that we setup after popluate.
-    anaconda.id.storage.devicetree.teardownAll()
+    anaconda.storage.devicetree.teardownAll()
 
     if rc == 0:
         return DISPATCH_BACK
@@ -184,7 +184,7 @@ def storageComplete(anaconda):
 def writeEscrowPackets(anaconda):
     escrowDevices = filter(lambda d: d.format.type == "luks" and \
                                      d.format.escrow_cert,
-                           anaconda.id.storage.devices)
+                           anaconda.storage.devices)
 
     if not escrowDevices:
         return
@@ -249,6 +249,7 @@ class Storage(object):
         self.clearPartDisks = []
         self.encryptedAutoPart = False
         self.encryptionPassphrase = None
+        self.escrowCertificates = {}
         self.autoPartEscrowCert = None
         self.autoPartAddBackupPassphrase = False
         self.encryptionRetrofit = False
@@ -356,7 +357,7 @@ class Storage(object):
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup()
         self.dasd.startup(intf=self.anaconda.intf, zeroMbr=self.zeroMbr)
-        if self.anaconda.id.getUpgrade():
+        if self.anaconda.upgrade:
             clearPartType = CLEARPART_TYPE_NONE
         else:
             clearPartType = self.clearPartType
@@ -376,8 +377,8 @@ class Storage(object):
         self.devicetree.populate()
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
         self.eddDict = get_edd_dict(self.partitioned)
-        self.anaconda.id.rootParts = None
-        self.anaconda.id.upgradeRoot = None
+        self.anaconda.rootParts = None
+        self.anaconda.upgradeRoot = None
         self.dumpState("initial")
         w.pop()
 
@@ -735,7 +736,7 @@ class Storage(object):
         if kwargs.has_key("name"):
             name = kwargs.pop("name")
         else:
-            name = self.createSuggestedVGName(self.anaconda.id.network)
+            name = self.createSuggestedVGName(self.anaconda.network)
 
         if name in [d.name for d in self.devices]:
             raise ValueError("name already in use")
@@ -1249,7 +1250,7 @@ def findExistingRootDevices(anaconda, upgradeany=False):
         iutil.mkdirChain(anaconda.rootPath)
 
     roots = []
-    for device in anaconda.id.storage.devicetree.leaves:
+    for device in anaconda.storage.devicetree.leaves:
         if not device.format.linuxNative or not device.format.mountable:
             continue
 
@@ -1275,7 +1276,7 @@ def findExistingRootDevices(anaconda, upgradeany=False):
         if os.access(anaconda.rootPath + "/etc/fstab", os.R_OK):
             (product, version) = getReleaseString(anaconda.rootPath)
             if upgradeany or \
-               anaconda.id.instClass.productUpgradable(product, version):
+               anaconda.instClass.productUpgradable(product, version):
                 rootDevs.append((device, "%s %s" % (product, version)))
             else:
                 log.info("product %s version %s found on %s is not upgradable"
@@ -1292,7 +1293,7 @@ def mountExistingSystem(anaconda, rootEnt,
     """ Mount filesystems specified in rootDevice's /etc/fstab file. """
     rootDevice = rootEnt[0]
     rootPath = anaconda.rootPath
-    fsset = anaconda.id.storage.fsset
+    fsset = anaconda.storage.fsset
     if readOnly:
         readOnly = "ro"
     else:
@@ -1336,7 +1337,7 @@ def mountExistingSystem(anaconda, rootEnt,
                         "Linux installation, let the file systems be "
                         "checked and shut down cleanly to upgrade.\n"
                         "%s") % "\n".join(dirtyDevs))
-        anaconda.id.storage.devicetree.teardownAll()
+        anaconda.storage.devicetree.teardownAll()
         sys.exit(0)
     elif warnDirty and dirtyDevs:
         rc = messageWindow(_("Dirty File Systems"),

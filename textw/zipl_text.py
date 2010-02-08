@@ -29,7 +29,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class ZiplWindow:
     def __call__(self, screen, anaconda):
-        self.bl = anaconda.id.bootloader
+        self.bl = anaconda.bootloader
 
         t = TextboxReflowed(53,
                          _("The z/IPL Boot Loader will be installed "

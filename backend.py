@@ -43,7 +43,7 @@ class AnacondaBackend:
     def __init__(self, anaconda):
         """Abstract backend class all backends should inherit from this
            @param instPath: root path for the installation to occur"""
-
+        self.anaconda = anaconda
         self.instPath = anaconda.rootPath
         self.instLog = None
         self.modeText = ""
@@ -69,7 +69,7 @@ class AnacondaBackend:
         pass
 
     def doPreInstall(self, anaconda):
-        self.initLog(anaconda.id, anaconda.rootPath)
+        self.initLog(anaconda.rootPath)
 
     def copyFirmware(self, anaconda):
         # Multiple driver disks may be loaded, so we need to glob for all
@@ -87,8 +87,8 @@ class AnacondaBackend:
         # the initrd might need iscsi-initiator-utils, and chances are
         # it was not installed yet the first time mkinitrd was run, as
         # mkinitrd does not require it.
-        root = anaconda.id.storage.rootDevice
-        disks = anaconda.id.storage.devicetree.getDevicesByType("iscsi")
+        root = anaconda.storage.rootDevice
+        disks = anaconda.storage.devicetree.getDevicesByType("iscsi")
         for disk in disks:
             if root.dependsOn(disk):
                 has_iscsi_disk = True
@@ -97,7 +97,7 @@ class AnacondaBackend:
         #always copy the firmware files from DD
         self.copyFirmware(anaconda)
 
-        if anaconda.id.extraModules or has_iscsi_disk:
+        if anaconda.extraModules or has_iscsi_disk:
             for (n, arch, tag) in self.kernelVersionList(anaconda.rootPath):
                 packages.recreateInitrd(n, anaconda.rootPath)
 
@@ -120,13 +120,11 @@ class AnacondaBackend:
         log.warning("doInstall not implemented for backend!")
         raise NotImplementedError
 
-    def initLog(self, id, instPath):
-        upgrade = id.getUpgrade()
-
+    def initLog(self, instPath):
         if not os.path.isdir(instPath + "/root"):
             iutil.mkdirChain(instPath + "/root")
 
-        if upgrade:
+        if self.anaconda.upgrade:
             logname = '/root/upgrade.log'
         else:
             logname = '/root/install.log'
@@ -146,7 +144,7 @@ class AnacondaBackend:
             pass
         backend_log.log.start(instPath, syslogname)
 
-        if upgrade:
+        if self.anaconda.upgrade:
             self.modeText = _("Upgrading %s\n")
         else:
             self.modeText = _("Installing %s\n")
@@ -158,7 +156,7 @@ class AnacondaBackend:
         # If we've booted off the first CD (so, not the boot.iso or DVD) then
         # copy the install.img to the filesystem and switch loopback devices
         # to there.  Otherwise we won't be able to unmount and swap media.
-        free = anaconda.id.storage.fsFreeSpace
+        free = anaconda.storage.fsFreeSpace
         self._loopbackFile = "%s%s/rhinstall-install.img" % (anaconda.rootPath,
                                                              free[-1][0])
         try:
@@ -285,7 +283,7 @@ def doBackendSetup(anaconda):
     if anaconda.backend.doBackendSetup(anaconda) == DISPATCH_BACK:
         return DISPATCH_BACK
 
-    if anaconda.id.upgrade:
+    if anaconda.upgrade:
         anaconda.backend.checkSupportedUpgrade(anaconda)
         iutil.writeRpmPlatform(anaconda.rootPath)
 
@@ -304,13 +302,13 @@ def doInstall(anaconda):
 # does this need to be per-backend?  we'll just leave here until it does :)
 def doBasePackageSelect(anaconda):
     anaconda.backend.resetPackageSelections()
-    if anaconda.isKickstart:
+    if anaconda.ksdata:
         kickstart.selectPackages(anaconda)
-    elif anaconda.id.displayMode != 't':
-        anaconda.id.instClass.setPackageSelection(anaconda)
-        anaconda.id.instClass.setGroupSelection(anaconda)
+    elif anaconda.displayMode != 't':
+        anaconda.instClass.setPackageSelection(anaconda)
+        anaconda.instClass.setGroupSelection(anaconda)
 
 def writeConfiguration(anaconda):
     log.info("Writing main configuration")
-    anaconda.id.write()
+    anaconda.write()
     anaconda.backend.writeConfiguration()

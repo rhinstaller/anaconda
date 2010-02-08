@@ -33,13 +33,13 @@ class KeyboardWindow:
     def __call__(self, screen, anaconda):
         if flags.serial or flags.virtpconsole:
 	    return INSTALL_NOOP
-        keyboards = anaconda.id.keyboard.modelDict.keys()
+        keyboards = anaconda.keyboard.modelDict.keys()
         keyboards.sort ()
 
-	if anaconda.id.keyboard.beenset:
-	    default = anaconda.id.keyboard.get ()
+	if anaconda.keyboard.beenset:
+	    default = anaconda.keyboard.get ()
 	else:
-	    default = anaconda.id.instLanguage.getDefaultKeyboard(anaconda.rootPath)
+	    default = anaconda.instLanguage.getDefaultKeyboard(anaconda.rootPath)
 
         if default not in keyboards:
             default = 'us'
@@ -53,10 +53,10 @@ class KeyboardWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        anaconda.id.keyboard.set (keyboards[choice])
-        anaconda.id.keyboard.beenset = 1
+        anaconda.keyboard.set (keyboards[choice])
+        anaconda.keyboard.beenset = 1
 
-        anaconda.id.keyboard.activate()
+        anaconda.keyboard.activate()
 
         # FIXME: eventually, kbd.activate will do this
 	try:

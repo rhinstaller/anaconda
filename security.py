@@ -32,6 +32,8 @@ selinux_states = { SELINUX_DISABLED: "disabled",
 
 class Security:
     def __init__(self):
+        self.auth = "--enableshadow --passalgo=sha512 --enablefingerprint"
+
         if flags.selinux == 1:
             self.selinux = SELINUX_ENFORCING
         else:
@@ -54,6 +56,9 @@ class Security:
 
 	f.write("selinux --%s\n" %(selinux_states[self.selinux],))
 
+        if self.auth.strip() != "":
+            f.write("authconfig %s\n" % self.auth)
+
     def write(self, instPath):
         args = [ "--quiet", "--nostart" ]
 
@@ -71,3 +76,12 @@ class Security:
             log.error ("lokkit run failed: %s" %(msg,))
         except OSError as e:
             log.error ("lokkit run failed: %s" % e.strerror)
+
+        args = ["--update", "--nostart"] + shlex.split(self.auth)
+
+        try:
+            iutil.execWithRedirect("/usr/sbin/authconfig", args,
+                                   stdout = "/dev/tty5", stderr = "/dev/tty5",
+                                   root = instPath)
+        except RuntimeError, msg:
+                log.error("Error running %s: %s", args, msg)

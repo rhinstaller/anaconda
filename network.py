@@ -111,7 +111,7 @@ def getDefaultHostname(anaconda):
         return hn
 
     try:
-        hn = anaconda.id.network.hostname
+        hn = anaconda.network.hostname
     except:
         hn = None
 
@@ -596,10 +596,10 @@ class Network:
             # installation when / is on a network backed device.
             if anaconda is not None:
                 import storage
-                rootdev = anaconda.id.storage.rootDevice
+                rootdev = anaconda.storage.rootDevice
                 # FIXME: use d.host_address to only add "NM_CONTROLLED=no"
                 # for interfaces actually used enroute to the device
-                for d in anaconda.id.storage.devices:
+                for d in anaconda.storage.devices:
                     if isinstance(d, storage.devices.NetworkStorageDevice) and\
                        (rootdev.dependsOn(d) or d.nic == device):
                         f.write("NM_CONTROLLED=no\n")

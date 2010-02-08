@@ -210,7 +210,7 @@ def doClearPartitionedDevice(intf, storage, device, confirm=1, quiet=0):
 
 def checkForSwapNoMatch(anaconda):
     """Check for any partitions of type 0x82 which don't have a swap fs."""
-    for device in anaconda.id.storage.partitions:
+    for device in anaconda.storage.partitions:
         if not device.exists:
             # this is only for existing partitions
             continue
@@ -228,7 +228,7 @@ def checkForSwapNoMatch(anaconda):
                                     custom_icon="question")
             if rc == 1:
                 format = getFormat("swap", device=device.path)
-                anaconda.id.storage.formatDevice(device, format)
+                anaconda.storage.formatDevice(device, format)
 
     return
 

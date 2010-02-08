@@ -47,7 +47,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
         # run kickstart traceback scripts (if necessary)
         try:
-            if anaconda.isKickstart:
+            if anaconda.ksdata:
                 kickstart.runTracebackScripts(anaconda)
         except:
             pass
@@ -92,25 +92,25 @@ class AnacondaExceptionHandler(ExceptionHandler):
 def initExceptionHandling(anaconda):
     conf = Config(programName="anaconda",
                   programVersion=isys.getAnacondaVersion(),
-                  bugFiler=anaconda.id.instClass.bugFiler,
+                  bugFiler=anaconda.instClass.bugFiler,
                   attrSkipList=[ "backend.ayum",
                                  "backend.dlpkgs",
                                  "id.accounts",
-                                 "id.bootloader.password",
+                                 "bootloader.password",
                                  "id.comps",
                                  "id.dispatch",
                                  "id.hdList",
-                                 "id.ksdata",
-                                 "id.instLanguage.font",
-                                 "id.instLanguage.kbd",
-                                 "id.instLanguage.info",
-                                 "id.instLanguage.localeInfo",
-                                 "id.instLanguage.nativeLangNames",
-                                 "id.instLanguage.tz",
-                                 "id.keyboard._mods._modelDict",
-                                 "id.keyboard.modelDict",
-                                 "id.storage.encryptionPassphrase",
-                                 "id.rootPassword",
+                                 "ksdata",
+                                 "instLanguage.font",
+                                 "instLanguage.kbd",
+                                 "instLanguage.info",
+                                 "instLanguage.localeInfo",
+                                 "instLanguage.nativeLangNames",
+                                 "instLanguage.tz",
+                                 "keyboard._mods._modelDict",
+                                 "keyboard.modelDict",
+                                 "storage.encryptionPassphrase",
+                                 "users.rootPassword",
                                  "id.tmpData",
                                  "intf.icw.buff",
                                  "intf.icw.currentWindow.storage.encryptionPassphrase",

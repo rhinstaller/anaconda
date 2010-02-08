@@ -143,7 +143,7 @@ class InstallProgressWindow (InstallWindow):
 
 	# All done with creating components of UI
 	self.intf.setPackageProgressWindow(self)
-	anaconda.id.setInstallProgressClass(self)
+	self.intf.setInstallProgressClass(self)
 
 	vbox.set_border_width(6)
 

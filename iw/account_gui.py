@@ -33,7 +33,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class AccountWindow (InstallWindow):
     def getScreen(self, anaconda):
-        self.rootPassword = anaconda.id.rootPassword
+        self.anaconda = anaconda
         self.intf = anaconda.intf
 
         (self.xml, self.align) = gui.getGladeWidget("account.glade",
@@ -59,9 +59,9 @@ class AccountWindow (InstallWindow):
             lambda w, e: self.handleCapsLockRelease(w, e, self.capslock))
 
         # we might have a root password already
-        if not self.rootPassword['isCrypted']:
-            self.pw.set_text(self.rootPassword['password'])
-            self.confirm.set_text(self.rootPassword['password'])
+        if not self.anaconda.users.rootPassword['isCrypted']:
+            self.pw.set_text(self.anaconda.users.rootPassword['password'])
+            self.confirm.set_text(self.anaconda.users.rootPassword['password'])
 
         # pressing Enter in confirm == clicking Next
         vbox = self.xml.get_widget("account_box")
@@ -141,7 +141,7 @@ class AccountWindow (InstallWindow):
                                         custom_icon="error")
                 self.passwordError()
 
-        self.rootPassword["password"] = self.pw.get_text()
-        self.rootPassword["isCrypted"] = False
+        self.anaconda.users.rootPassword["password"] = self.pw.get_text()
+        self.anaconda.users.rootPassword["isCrypted"] = False
 
         return None

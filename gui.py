@@ -548,15 +548,15 @@ class ProgressWindow:
 class InstallKeyWindow:
     def __init__(self, anaconda, key):
         (keyxml, self.win) = getGladeWidget("instkey.glade", "instkeyDialog")
-        if anaconda.id.instClass.instkeydesc is not None:
+        if anaconda.instClass.instkeydesc is not None:
             w = keyxml.get_widget("instkeyLabel")
-            w.set_text(_(anaconda.id.instClass.instkeydesc))
+            w.set_text(_(anaconda.instClass.instkeydesc))
 
-        if not anaconda.id.instClass.allowinstkeyskip:
+        if not anaconda.instClass.allowinstkeyskip:
             keyxml.get_widget("skipRadio").hide()
 
-        keyName = _(anaconda.id.instClass.instkeyname)
-        if anaconda.id.instClass.instkeyname is None:
+        keyName = _(anaconda.instClass.instkeyname)
+        if anaconda.instClass.instkeyname is None:
             keyName = _("Installation Key")
 
         # set the install key name based on the installclass
@@ -573,7 +573,7 @@ class InstallKeyWindow:
         self.skipradio = keyxml.get_widget("skipRadio")
         self.rc = 0
 
-        if anaconda.id.instClass.skipkey:
+        if anaconda.instClass.skipkey:
             self.skipradio.set_active(True)
         else:
             self.entry.grab_focus()
@@ -977,6 +977,7 @@ class EntryWindow(MessageWindow):
 class InstallInterface:
     def __init__ (self):
         self.icw = None
+        self.installProgress = None
 
         # figure out if we want to run interface at 800x600 or 640x480
         if gtk.gdk.screen_width() >= 800:
@@ -1002,14 +1003,17 @@ class InstallInterface:
         pass
 
     def enableNetwork(self):
-        if len(self.anaconda.id.network.netdevices) == 0:
+        if len(self.anaconda.network.netdevices) == 0:
             return False
         from netconfig_dialog import NetworkConfigurator
-        net = NetworkConfigurator(self.anaconda.id.network)
+        net = NetworkConfigurator(self.anaconda.network)
         ret = net.run()
         net.destroy()
 
         return ret not in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]
+
+    def setInstallProgressClass(self, c):
+        self.instProgress = c
 
     def setPackageProgressWindow (self, ppw):
         self.ppw = ppw
@@ -1250,9 +1254,8 @@ class InstallInterface:
     def run(self, anaconda):
         self.anaconda = anaconda
 
-        # XXX x_already_set is a hack
-        if anaconda.id.keyboard and not anaconda.id.x_already_set:
-            anaconda.id.keyboard.activate()
+        if anaconda.keyboard and not flags.livecdInstall:
+            anaconda.keyboard.activate()
 
         self.icw = InstallControlWindow (self.anaconda)
         self.icw.run (self.runres)

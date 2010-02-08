@@ -60,8 +60,8 @@ class UpgradeMigrateFSWindow (InstallWindow):
         return None
 
     def getScreen (self, anaconda):
-        self.devicetree = anaconda.id.storage.devicetree
-        self.migent = anaconda.id.storage.migratableDevices
+        self.devicetree = anaconda.storage.devicetree
+        self.migent = anaconda.storage.migratableDevices
         
         box = gtk.VBox (False, 5)
         box.set_border_width (5)

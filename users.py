@@ -93,8 +93,10 @@ def cryptPassword(password, algo=None):
     return crypt.crypt (password, saltstr)
 
 class Users:
-    def __init__ (self):
+    def __init__ (self, anaconda):
+        self.anaconda = anaconda
         self.admin = libuser.admin()
+        self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
 
     def createGroup (self, name=None, gid=None, root="/mnt/sysimage"):
         childpid = os.fork()
@@ -234,6 +236,19 @@ class Users:
         else:
             return False
 
+    # Reads the auth string and returns a string indicating our desired
+    # password encoding algorithm.
+    def getPassAlgo(self):
+        if self.anaconda.security.auth.find("--enablemd5") != -1 or \
+           self.anaconda.security.auth.find("--passalgo=md5") != -1:
+            return 'md5'
+        elif self.anaconda.security.auth.find("--passalgo=sha256") != -1:
+            return 'sha256'
+        elif self.anaconda.security.auth.find("--passalgo=sha512") != -1:
+            return 'sha512'
+        else:
+            return None
+
     def setUserPassword(self, username, password, isCrypted, lock, algo=None):
         user = self.admin.lookupUserByName(username)
 
@@ -247,6 +262,46 @@ class Users:
 
         self.admin.modifyUser(user)
 
-    def setRootPassword(self, password, isCrypted, lock, algo=None):
-        return self.setUserPassword("root", password, isCrypted, lock, algo)
+    def setRootPassword(self, algo=None):
+        return self.setUserPassword("root", self.rootPassword["password"],
+                                    self.rootPassword["isCrypted"],
+                                    self.rootPassword["lock"], algo)
 
+    def write(self, instPath):
+        # make sure crypt_style in libuser.conf matches the salt we're using
+        self.createLuserConf(instPath, algoname=self.getPassAlgo())
+
+        # User should already exist, just without a password.
+        self.setRootPassword(algo=self.getPassAlgo())
+
+        if self.anaconda.ksdata:
+            for gd in self.anaconda.ksdata.group.groupList:
+                if not self.createGroup(name=gd.name,
+                                        gid=gd.gid,
+                                        root=instPath):
+                    log.error("Group %s already exists, not creating." % gd.name)
+
+            for ud in self.anaconda.ksdata.user.userList:
+                if not self.createUser(name=ud.name,
+                                       password=ud.password,
+                                       isCrypted=ud.isCrypted,
+                                       groups=ud.groups,
+                                       homedir=ud.homedir,
+                                       shell=ud.shell,
+                                       uid=ud.uid,
+                                       algo=self.getPassAlgo(),
+                                       lock=ud.lock,
+                                       root=instPath,
+                                       gecos=ud.gecos):
+                    log.error("User %s already exists, not creating." % ud.name)
+
+    def writeKS(self, f):
+        if self.rootPassword["isCrypted"]:
+            args = " --iscrypted %s" % self.rootPassword["password"]
+        else:
+            args = " --iscrypted %s" % self.cryptPassword(self.rootPassword["password"], algo=self.getPassAlgo())
+
+        if self.rootPassword["lock"]:
+            args += " --lock"
+
+        f.write("rootpw %s\n" % args)

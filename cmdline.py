@@ -66,6 +66,7 @@ class InstallInterface:
     def __init__(self):
 #        signal.signal(signal.SIGINT, signal.SIG_IGN)
         signal.signal(signal.SIGTSTP, signal.SIG_DFL)
+        self.instProgress = None
 
     def __del__(self):
         pass
@@ -178,6 +179,9 @@ class InstallInterface:
             anaconda.dispatch.gotoNext()
 	    (step, instance) = anaconda.dispatch.currentStep()
 
+    def setInstallProgressClass(self, c):
+        self.instProgress = c
+
     def setSteps(self, anaconda):
         pass
 
@@ -207,9 +211,9 @@ class progressDisplay:
 
 def setupProgressDisplay(anaconda):
     if anaconda.dir == DISPATCH_BACK:
-        anaconda.id.setInstallProgressClass(None)
+        anaconda.intf.setInstallProgressClass(None)
         return DISPATCH_BACK
     else:
-        anaconda.id.setInstallProgressClass(progressDisplay())
+        anaconda.intf.setInstallProgressClass(progressDisplay())
         
     return DISPATCH_FORWARD

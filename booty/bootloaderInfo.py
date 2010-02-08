@@ -89,10 +89,16 @@ class KernelArguments:
     def getDracutStorageArgs(self):
         args = []
         types = {}
-        root = self.id.storage.rootDevice
-        for d in self.id.storage.devices:
-            if d is not root and not root.dependsOn(d):
-                continue
+        root = self.anaconda.storage.rootDevice
+        for d in self.anaconda.storage.devices:
+            if root.dependsOn(d):
+                dracutSetupString = d.dracutSetupString()
+                if len(dracutSetupString):
+                    args += " %s" % dracutSetupString
+                import storage
+                if isinstance(d, storage.devices.NetworkStorageDevice):
+                    args += " "
+                    args += self.network.dracutSetupString(d)
 
             s = d.dracutSetupString()
             types[s.split("=")[0]] = True
@@ -100,7 +106,7 @@ class KernelArguments:
 
             import storage
             if isinstance(d, storage.devices.NetworkStorageDevice):
-                args.append(self.id.network.dracutSetupString(d))
+                args.append(self.anaconda.network.dracutSetupString(d))
 
         for i in [ [ "rd_LUKS_UUID", "rd_NO_LUKS" ],
                    [ "rd_LVM_LV", "rd_NO_LVM" ],
@@ -114,8 +120,8 @@ class KernelArguments:
     def get(self):
         args = ""
         for s in self.getDracutStorageArgs() + [
-                 self.id.instLanguage.dracutSetupString(),
-                 self.id.keyboard.dracutSetupString(),
+                 self.anaconda.instLanguage.dracutSetupString(),
+                 self.anaconda.keyboard.dracutSetupString(),
                  self.args,
                  self.appendArgs ]:
             s = s.strip()
@@ -153,9 +159,11 @@ class KernelArguments:
 
         self.appendArgs += args
 
-    def __init__(self, instData):
+    def __init__(self, anaconda):
         newArgs = []
         cfgFilename = "/tmp/install.cfg"
+
+        self.anaconda = anaconda
 
         if iutil.isS390():
             self.cargs = []
@@ -194,7 +202,6 @@ class KernelArguments:
 
         self.args = " ".join(newArgs)
         self.appendArgs = ""
-        self.id = instData
 
 
 class BootImages:
@@ -528,8 +535,8 @@ class bootloaderInfo(object):
         self._drivelist = val
     drivelist = property(_getDriveList, _setDriveList)
 
-    def __init__(self, instData):
-        self.args = KernelArguments(instData)
+    def __init__(self, anaconda):
+        self.args = KernelArguments(anaconda)
         self.images = BootImages()
         self.device = None
         self.defaultDevice = None  # XXX hack, used by kickstart
@@ -541,7 +548,7 @@ class bootloaderInfo(object):
         self.pure = None
         self.above1024 = 0
         self.timeout = None
-        self.storage = instData.storage
+        self.storage = anaconda.storage
 
         # this has somewhat strange semantics.  if 0, act like a normal
         # "install" case.  if 1, update lilo.conf (since grubby won't do that)
@@ -665,11 +672,11 @@ class efiBootloaderInfo(bootloaderInfo):
             return rc
         return self.addNewEfiEntry(instRoot)
 
-    def __init__(self, instData, initialize = True):
+    def __init__(self, anaconda, initialize = True):
         if initialize:
-            bootloaderInfo.__init__(self, instData)
+            bootloaderInfo.__init__(self, anaconda)
         else:
-            self.storage = instData.storage
+            self.storage = anaconda.storage
 
         if iutil.isEfi():
             self._configdir = "/boot/efi/EFI/redhat"

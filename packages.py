@@ -46,13 +46,13 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 def doPostAction(anaconda):
-    anaconda.id.instClass.postAction(anaconda)
+    anaconda.instClass.postAction(anaconda)
 
 def firstbootConfiguration(anaconda):
-    if anaconda.id.firstboot == FIRSTBOOT_RECONFIG:
+    if anaconda.firstboot == FIRSTBOOT_RECONFIG:
         f = open(anaconda.rootPath + '/etc/reconfigSys', 'w+')
         f.close()
-    elif anaconda.id.firstboot == FIRSTBOOT_SKIP:
+    elif anaconda.firstboot == FIRSTBOOT_SKIP:
         f = open(anaconda.rootPath + '/etc/sysconfig/firstboot', 'w+')
         f.write('RUN_FIRSTBOOT=NO')
         f.close()
@@ -63,7 +63,7 @@ def writeKSConfiguration(anaconda):
     log.info("Writing autokickstart file")
     fn = anaconda.rootPath + "/root/anaconda-ks.cfg"
 
-    anaconda.id.writeKS(fn)
+    anaconda.writeKS(fn)
 
 def copyAnacondaLogs(anaconda):
     log.info("Copying anaconda logs")
@@ -82,22 +82,22 @@ def copyAnacondaLogs(anaconda):
 
 def turnOnFilesystems(anaconda):
     if anaconda.dir == DISPATCH_BACK:
-        if not anaconda.id.upgrade:
+        if not anaconda.upgrade:
             log.info("unmounting filesystems")
-            anaconda.id.storage.umountFilesystems()
+            anaconda.storage.umountFilesystems()
         return DISPATCH_NOOP
 
-    if not anaconda.id.upgrade:
-        if not anaconda.id.storage.fsset.active:
+    if not anaconda.upgrade:
+        if not anaconda.storage.fsset.active:
             # turn off any swaps that we didn't turn on
             # needed for live installs
             iutil.execWithRedirect("swapoff", ["-a"],
                                    stdout = "/dev/tty5", stderr="/dev/tty5")
-        anaconda.id.storage.devicetree.teardownAll()
+        anaconda.storage.devicetree.teardownAll()
 
     upgrade_migrate = False
-    if anaconda.id.upgrade:
-        for d in anaconda.id.storage.migratableDevices:
+    if anaconda.upgrade:
+        for d in anaconda.storage.migratableDevices:
             if d.format.migrate:
                 upgrade_migrate = True
 
@@ -106,7 +106,7 @@ def turnOnFilesystems(anaconda):
     details = None
 
     try:
-        anaconda.id.storage.doIt()
+        anaconda.storage.doIt()
     except DeviceResizeError as (msg, device):
         # XXX does this make any sense? do we support resize of
         #     devices other than partitions?
@@ -165,17 +165,17 @@ def turnOnFilesystems(anaconda):
         elif rc == 1:
             sys.exit(1)
 
-    if not anaconda.id.upgrade:
-        anaconda.id.storage.turnOnSwap()
-        anaconda.id.storage.mountFilesystems(raiseErrors=False,
-                                             readOnly=False,
-                                             skipRoot=anaconda.backend.skipFormatRoot)
+    if not anaconda.upgrade:
+        anaconda.storage.turnOnSwap()
+        anaconda.storage.mountFilesystems(raiseErrors=False,
+                                          readOnly=False,
+                                          skipRoot=anaconda.backend.skipFormatRoot)
     else:
         if upgrade_migrate:
             # we should write out a new fstab with the migrated fstype
             shutil.copyfile("%s/etc/fstab" % anaconda.rootPath,
                             "%s/etc/fstab.anaconda" % anaconda.rootPath)
-            anaconda.id.storage.fsset.write(anaconda.rootPath)
+            anaconda.storage.fsset.write(anaconda.rootPath)
 
         # and make sure /dev is mounted so we can read the bootloader
         bindMountDevDirectory(anaconda.rootPath)
@@ -183,11 +183,11 @@ def turnOnFilesystems(anaconda):
 
 def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards
-    if anaconda.id.upgrade or anaconda.dir == DISPATCH_BACK:
+    if anaconda.upgrade or anaconda.dir == DISPATCH_BACK:
         return
 
-    os.environ["TZ"] = anaconda.id.timezone.tz
-    tzfile = "/usr/share/zoneinfo/" + anaconda.id.timezone.tz
+    os.environ["TZ"] = anaconda.timezone.tz
+    tzfile = "/usr/share/zoneinfo/" + anaconda.timezone.tz
     tzlocalfile = "/etc/localtime"
     if not os.access(tzfile, os.R_OK):
         log.error("unable to set timezone")
@@ -204,7 +204,7 @@ def setupTimezone(anaconda):
     if iutil.isS390():
         return
     args = [ "--hctosys" ]
-    if anaconda.id.timezone.utc:
+    if anaconda.timezone.utc:
         args.append("-u")
 
     try:
@@ -233,7 +233,7 @@ def setFileCons(anaconda):
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow"] + \
                 glob.glob('/etc/dhclient-*.conf')
 
-        vgs = ["/dev/%s" % vg.name for vg in anaconda.id.storage.vgs]
+        vgs = ["/dev/%s" % vg.name for vg in anaconda.storage.vgs]
 
         # ugh, this is ugly
         for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ] + vgs:
@@ -308,11 +308,11 @@ def rpmSetupGraphicalSystem(anaconda):
     if iutil.isConsoleOnVirtualTerminal() and \
        ts.dbMatch('provides', 'rhgb').count() or \
        ts.dbMatch('provides', 'plymouth').count():
-        anaconda.id.bootloader.args.append("rhgb quiet")
+        anaconda.bootloader.args.append("rhgb quiet")
 
     if ts.dbMatch('provides', 'service(graphical-login)').count() and \
-       anaconda.id.displayMode == 'g' and not flags.usevnc:
-        anaconda.id.desktop.setDefaultRunLevel(5)
+       anaconda.displayMode == 'g' and not flags.usevnc:
+        anaconda.desktop.setDefaultRunLevel(5)
 
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):

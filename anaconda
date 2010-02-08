@@ -168,7 +168,8 @@ def parseOptions():
 
     op = OptionParser()
     # Interface
-    op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c")
+    op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
+                  default="g")
     op.add_option("-G", "--graphical", dest="display_mode", action="store_const", const="g")
     op.add_option("-T", "--text", dest="display_mode", action="store_const", const="t")
 
@@ -315,10 +316,6 @@ def setupLoggingFromOpts(opts):
         else:
             anaconda_log.logger.addSysLogHandler(log, opts.syslog)
 
-def getInstClass():
-    from installclass import DefaultInstall
-    return DefaultInstall()
-
 # ftp installs pass the password via a file in /tmp so
 # ps doesn't show it
 def expandFTPMethod(str):
@@ -357,7 +354,7 @@ def runVNC():
                     sys.stdin.readline()
                     iutil.execConsole()
 
-def checkMemory(opts):
+def checkMemory(anaconda):
     if iutil.memInstalled() < isys.MIN_RAM:
         from snack import SnackScreen, ButtonChoiceWindow
 
@@ -374,10 +371,10 @@ def checkMemory(opts):
 
     # override display mode if machine cannot nicely run X
     if not flags.usevnc:
-        if opts.display_mode not in ('t', 'c') and iutil.memInstalled() < isys.MIN_GUI_RAM:
+        if anaconda.displayMode not in ('t', 'c') and iutil.memInstalled() < isys.MIN_GUI_RAM:
             stdoutLog.warning(_("You do not have enough RAM to use the graphical "
                                 "installer.  Starting text mode."))
-            opts.display_mode = 't'
+            anaconda.displayMode = 't'
             time.sleep(2)
 
 def setupGraphicalLinks():
@@ -389,11 +386,11 @@ def setupGraphicalLinks():
         except:
             pass
 
-def handleSshPw(ks):
+def handleSshPw(anaconda):
     import users
-    u = users.Users()
+    u = users.Users(anaconda)
 
-    userdata = ks.sshpw.dataList()
+    userdata = anaconda.ksdata.sshpw.dataList()
     for ud in userdata:
         if u.checkUserExists(ud.username, root="/"):
             u.setUserPassword(username=ud.username, password=ud.password,
@@ -439,30 +436,169 @@ def startDebugger(signum, frame):
     import epdb
     epdb.serve(skip=1)
 
-class Anaconda:
+class Anaconda(object):
     def __init__(self):
-        self.intf = None
-        self.dir = None
-        self.id = None
-        self.methodstr = None
-        self.stage2 = None
-        self.backend = None
-        self.rootPath = "/mnt/sysimage"
-        self.dispatch = None
-        self.isKickstart = False
-        self.rescue_mount = True
-        self.rescue = False
-        self.updateSrc = None
-        self.mediaDevice = None
-        self.platform = None
+        import desktop, dispatch, firewall, security
+        import system_config_keyboard.keyboard as keyboard
+        from flags import flags
+
+        self._backend = None
+        self._bootloader = None
         self.canReIPL = False
-        self.reIPLMessage = None
+        self.desktop = desktop.Desktop()
+        self.dir = None
+        self.dispatch = dispatch.Dispatcher(self)
+        self.displayMode = None
+        self.extraModules = []
+        self.firewall = firewall.Firewall()
+        self.id = None
+        self._instClass = None
+        self._instLanguage = None
+        self._intf = None
+        self.isHeadless = False
+        self.keyboard = keyboard.Keyboard()
+        self.ksdata = None
+        self.mediaDevice = None
+        self.methodstr = None
+        self._network = None
+        self._platform = None
         self.proxy = None
         self.proxyUsername = None
         self.proxyPassword = None
+        self.reIPLMessage = None
+        self.rescue = False
+        self.rescue_mount = True
+        self.rootParts = None
+        self.rootPath = "/mnt/sysimage"
+        self.security = security.Security()
+        self.simpleFilter = True
+        self.stage2 = None
+        self._storage = None
+        self._timezone = None
+        self.updateSrc = None
+        self.upgrade = flags.cmdline.has_key("preupgrade")
+        self.upgradeRoot = None
+        self.upgradeSwapInfo = None
+        self._users = None
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
+
+    @property
+    def backend(self):
+        if not self._backend:
+            b = self.instClass.getBackend()
+            self._backend = apply(b, (self, ))
+
+        return self._backend
+
+    @property
+    def bootloader(self):
+        if not self._bootloader:
+            import booty
+            self._bootloader = booty.getBootloader(self)
+
+        return self._bootloader
+
+    @property
+    def firstboot(self):
+        if self.ksdata:
+            return self.ksdata.firstboot.firstboot
+        elif iutil.isS390():
+            return FIRSTBOOT_SKIP
+        else:
+            return FIRSTBOOT_DEFAULT
+
+    @property
+    def instClass(self):
+        if not self._instClass:
+            from installclass import DefaultInstall
+            self._instClass = DefaultInstall()
+
+        return self._instClass
+
+    @property
+    def instLanguage(self):
+        if not self._instLanguage:
+            import language
+            self._instLanguage = language.Language(self.displayMode)
+
+        return self._instLanguage
+
+    @property
+    def intf(self):
+        if self._intf:
+            return self._intf
+
+        # setup links required by graphical mode if installing and verify display mode
+        if self.displayMode == 'g':
+            stdoutLog.info (_("Starting graphical installation."))
+
+            try:
+                from gui import InstallInterface
+            except Exception, e:
+                stdoutLog.error("Exception starting GUI installer: %s" %(e,))
+                # if we're not going to really go into GUI mode, we need to get
+                # back to vc1 where the text install is going to pop up.
+                if not flags.livecdInstall:
+                    isys.vtActivate (1)
+                stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
+                self.displayMode = 't'
+                if 'DISPLAY' in os.environ.keys():
+                    del os.environ['DISPLAY']
+                time.sleep(2)
+
+        if self.displayMode == 't':
+            from text import InstallInterface
+            if not os.environ.has_key("LANG"):
+                os.environ["LANG"] = "en_US.UTF-8"
+
+        if self.displayMode == 'c':
+            from cmdline import InstallInterface
+
+        self._intf = InstallInterface()
+        return self._intf
+
+    @property
+    def network(self):
+        if not self._network:
+            import network
+            self._network = network.Network()
+
+        return self._network
+
+    @property
+    def platform(self):
+        if not self._platform:
+            import platform
+            self._platform = platform.getPlatform(self)
+
+        return self._platform
+
+    @property
+    def users(self):
+        if not self._users:
+            import users
+            self._users = users.Users(self)
+
+        return self._users
+
+    @property
+    def storage(self):
+        if not self._storage:
+            import storage
+            self._storage = storage.Storage(self)
+
+        return self._storage
+
+    @property
+    def timezone(self):
+        if not self._timezone:
+            import timezone
+            self._timezone = timezone.Timezone()
+            self._timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone(self.rootPath))
+
+        return self._timezone
 
     def dumpState(self):
         from meh.dump import ReverseExceptionDump
@@ -478,53 +614,16 @@ class Anaconda:
 
         exn.write(self, fo)
 
-    def writeXdriver(self, instPath="/"):
+    def writeXdriver(self):
         # this should go away at some point, but until it does, we
-        # need to keep it around.  it could go into instdata but this
-        # isolates it a little more
+        # need to keep it around.
         if self.xdriver is None:
             return
-        if not os.path.isdir("%s/etc/X11" %(instPath,)):
-            os.makedirs("%s/etc/X11" %(instPath,), mode=0755)
-        f = open("%s/etc/X11/xorg.conf" %(instPath,), 'w')
+        if not os.path.isdir("%s/etc/X11" %(self.rootPath,)):
+            os.makedirs("%s/etc/X11" %(self.rootPath,), mode=0755)
+        f = open("%s/etc/X11/xorg.conf" %(self.rootPath,), 'w')
         f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
         f.close()
-
-    def setDispatch(self):
-        self.dispatch = dispatch.Dispatcher(self)
-
-    def setInstallInterface(self, display_mode):
-        # setup links required by graphical mode if installing and verify display mode
-        if display_mode == 'g':
-            stdoutLog.info (_("Starting graphical installation."))
-
-            try:
-                from gui import InstallInterface
-            except Exception, e:
-                stdoutLog.error("Exception starting GUI installer: %s" %(e,))
-                # if we're not going to really go into GUI mode, we need to get
-                # back to vc1 where the text install is going to pop up.
-                if not x_already_set:
-                    isys.vtActivate (1)
-                stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
-                display_mode = 't'
-                if 'DISPLAY' in os.environ.keys():
-                    del os.environ['DISPLAY']
-                time.sleep(2)
-
-        if display_mode == 't':
-            from text import InstallInterface
-            if not os.environ.has_key("LANG"):
-                os.environ["LANG"] = "en_US.UTF-8"
-
-        if display_mode == 'c':
-            from cmdline import InstallInterface
-
-        self.intf = InstallInterface()
-
-    def setBackend(self, instClass):
-        b = instClass.getBackend()
-        self.backend = apply(b, (self,))
 
     def setMethodstr(self, methodstr):
         if methodstr.startswith("cdrom://"):
@@ -562,9 +661,115 @@ class Anaconda:
 
         return fail
 
-if __name__ == "__main__":
-    anaconda = Anaconda()
+    def write(self):
+        self.writeXdriver()
+        self.instLanguage.write(self.rootPath)
 
+        if not self.isHeadless:
+            self.keyboard.write(self.rootPath)
+
+        self.timezone.write(self.rootPath)
+        self.network.write(instPath=self.rootPath, anaconda=self)
+        self.desktop.write(self.rootPath)
+        self.users.write(self.rootPath)
+        self.security.write(self.rootPath)
+        self.firewall.write(self.rootPath)
+
+        if self.ksdata:
+            for svc in self.ksdata.services.disabled:
+                iutil.execWithRedirect("/sbin/chkconfig",
+                                       [svc, "off"],
+                                       stdout="/dev/tty5", stderr="/dev/tty5",
+                                       root=self.rootPath)
+
+            for svc in self.ksdata.services.enabled:
+                iutil.execWithRedirect("/sbin/chkconfig",
+                                       [svc, "on"],
+                                       stdout="/dev/tty5", stderr="/dev/tty5",
+                                       root=self.rootPath)
+        if not self.isHeadless:
+            self.keyboard.write(self.rootPath)
+
+        self.network.write(instPath=self.rootPath, anaconda=self)
+        self.users.write(self.rootPath)
+        self.security.write(self.rootPath)
+
+    def writeKS(self, filename):
+        import urllib
+        from pykickstart.version import versionToString, DEVEL
+
+        f = open(filename, "w")
+
+        f.write("# Kickstart file automatically generated by anaconda.\n\n")
+        f.write("#version=%s\n" % versionToString(DEVEL))
+
+        if self.upgrade:
+            f.write("upgrade\n");
+        else:
+            f.write("install\n");
+
+        m = None
+
+        if self.methodstr:
+            m = self.methodstr
+        elif self.stage2:
+            m = self.stage2
+
+        if m:
+            if m.startswith("cdrom:"):
+                f.write("cdrom\n")
+            elif m.startswith("hd:"):
+                if m.count(":") == 3:
+                    (part, fs, dir) = string.split(m[3:], ":")
+                else:
+                    (part, dir) = string.split(m[3:], ":")
+
+                f.write("harddrive --partition=%s --dir=%s\n" % (part, dir))
+            elif m.startswith("nfs:"):
+                if m.count(":") == 3:
+                    (server, opts, dir) = string.split(m[4:], ":")
+                    f.write("nfs --server=%s --opts=%s --dir=%s" % (server, opts, dir))
+                else:
+                    (server, dir) = string.split(m[4:], ":")
+                    f.write("nfs --server=%s --dir=%s\n" % (server, dir))
+            elif m.startswith("ftp://") or m.startswith("http"):
+                f.write("url --url=%s\n" % urllib.unquote(m))
+
+        # Some kickstart commands do not correspond to any anaconda UI
+        # component.  If this is a kickstart install, we need to make sure
+        # the information from the input file ends up in the output file.
+        if self.ksdata:
+            f.write(self.ksdata.user.__str__())
+            f.write(self.ksdata.services.__str__())
+            f.write(self.ksdata.reboot.__str__())
+
+        self.instLanguage.writeKS(f)
+
+        if not self.isHeadless:
+            self.keyboard.writeKS(f)
+            self.network.writeKS(f)
+
+        self.timezone.writeKS(f)
+        self.users.writeKS(f)
+        self.security.writeKS(f)
+        self.firewall.writeKS(f)
+
+        self.storage.writeKS(f)
+        self.bootloader.writeKS(f)
+
+        if self.backend:
+            self.backend.writeKS(f)
+            self.backend.writePackagesKS(f, self)
+
+        # Also write out any scripts from the input ksfile.
+        if self.ksdata:
+            for s in self.ksdata.scripts:
+                f.write(s.__str__())
+
+        # make it so only root can read, could have password
+        os.chmod(filename, 0600)
+
+if __name__ == "__main__":
     setupPythonPath()
 
     # Allow a file to be loaded as early as possible
@@ -587,12 +792,12 @@ if __name__ == "__main__":
     setupPythonUpdates()
 
     import signal, string, isys, iutil, time
-    import dispatch
     import warnings
     import vnc
     import users
     import kickstart
     import storage.storage_log
+
     from flags import flags
 
     # the following makes me very sad. -- katzj
@@ -612,8 +817,7 @@ if __name__ == "__main__":
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
 
-    import platform
-    anaconda.platform = platform.getPlatform(anaconda)
+    anaconda = Anaconda()
 
     if not iutil.isS390() and os.access("/dev/tty3", os.W_OK):
         anaconda_log.logger.addFileHandler("/dev/tty3", log,
@@ -639,9 +843,7 @@ if __name__ == "__main__":
     # is imported
     iutil.writeRpmPlatform()
 
-    extraModules = []               # XXX: this would be better as a callback
     graphical_failed = 0
-    instClass = None                # the install class to use
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
     xserver_pid = None
@@ -653,8 +855,6 @@ if __name__ == "__main__":
         sys.exit(0)
 
     # Now that we've got arguments, do some extra processing.
-    instClass = getInstClass()
-
     setupLoggingFromOpts(opts)
 
     # Default is to prompt to mount the installed system.
@@ -662,6 +862,9 @@ if __name__ == "__main__":
 
     if opts.dlabel: #autodetected driverdisc in use
         flags.dlabel = True
+
+    anaconda.displayMode = opts.display_mode
+    anaconda.isHeadless = opts.isHeadless
 
     if opts.noipv4:
         flags.useIPv4 = False
@@ -704,11 +907,11 @@ if __name__ == "__main__":
     if opts.module:
         for mod in opts.module:
             (path, name) = string.split(mod, ":")
-            extraModules.append((path, name))
+            anaconda.extraModules.append((path, name))
 
     if opts.vnc:
         flags.usevnc = 1
-        opts.display_mode = 'g'
+        anaconda.displayMode = 'g'
         vncS.recoverVNCPassword()
 
         # Only consider vncconnect when vnc is a param
@@ -742,10 +945,6 @@ if __name__ == "__main__":
         anaconda.xdriver = opts.xdriver
         anaconda.writeXdriver()
 
-    # probing for hardware on an s390 seems silly...
-    if iutil.isS390():
-        opts.isHeadless = True
-
     if not flags.livecdInstall:
         isys.auditDaemon()
 
@@ -760,17 +959,15 @@ if __name__ == "__main__":
 
     # This is the one place we do all kickstart file parsing.
     if opts.ksfile:
-        anaconda.isKickstart = True
-
         kickstart.preScriptPass(anaconda, opts.ksfile)
-        ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
-        opts.rescue = ksdata.rescue.rescue
+        anaconda.ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
+        opts.rescue = anaconda.ksdata.rescue.rescue
 
         # we need to have a libuser.conf that points to the installer root for
         # sshpw, but after that we start sshd, we need one that points to the
         # install target.
         luserConf = users.createLuserConf(instPath="")
-        handleSshPw(ksdata)
+        handleSshPw(anaconda)
         startSsh()
         del(os.environ["LIBUSER_CONF"])
 
@@ -779,13 +976,10 @@ if __name__ == "__main__":
     if opts.rescue:
         anaconda.rescue = True
 
-        import rescue, instdata
+        import rescue
 
-        anaconda.id = instdata.InstallData(anaconda, [], opts.display_mode)
-
-        if anaconda.isKickstart:
-            instClass.setInstallData(anaconda)
-            anaconda.id.setKsdata(ksdata)
+        if anaconda.ksdata:
+            anaconda.instClass.configure(anaconda)
 
             # We need an interface before running kickstart execute methods for
             # storage.
@@ -793,49 +987,41 @@ if __name__ == "__main__":
             screen = SnackScreen()
             anaconda.intf = rescue.RescueInterface(screen)
 
-            ksdata.execute()
+            anaconda.ksdata.execute()
 
             anaconda.intf = None
             screen.finish()
 
             # command line 'nomount' overrides kickstart /same for vnc/
-            anaconda.rescue_mount = not (opts.rescue_nomount or anaconda.id.ksdata.rescue.nomount)
+            anaconda.rescue_mount = not (opts.rescue_nomount or anaconda.ksdata.rescue.nomount)
 
-        rescue.runRescue(anaconda, instClass)
+        rescue.runRescue(anaconda)
 
         # shouldn't get back here
         sys.exit(1)
 
-    if anaconda.isKickstart:
-        if ksdata.vnc.enabled:
+    if anaconda.ksdata:
+        if anaconda.ksdata.vnc.enabled:
             flags.usevnc = 1
-            opts.display_mode = 'g'
+            anaconda.displayMode = 'g'
 
             if vncS.password == "":
-                vncS.password = ksdata.vnc.password
+                vncS.password = anaconda.ksdata.vnc.password
 
             if vncS.vncconnecthost == "":
-                vncS.vncconnecthost = ksdata.vnc.host
+                vncS.vncconnecthost = anaconda.ksdata.vnc.host
 
             if vncS.vncconnectport == "":
-                vncS.vncconnectport = ksdata.vnc.port
+                vncS.vncconnectport = anaconda.ksdata.vnc.port
 
         flags.vncquestion = False
 
-    #
-    # Determine install method - GUI or TUI
-    #
-    # if display_mode wasnt set by command line parameters then set default
-    #
-    if not opts.display_mode:
-        opts.display_mode = 'g'
-    
     # disable VNC over text question when not enough memory is available
     if iutil.memInstalled() < isys.MIN_GUI_RAM:
         flags.vncquestion = False
 
 
-    if opts.display_mode == 't' and flags.vncquestion: #we prefer vnc over text mode, so ask about that
+    if anaconda.displayMode == 't' and flags.vncquestion: #we prefer vnc over text mode, so ask about that
         title = _("Would you like to use VNC?")
         message = _("Text mode provides a limited set of installation options.  "
                     "It does not allow you to specify your own partitioning "
@@ -844,7 +1030,7 @@ if __name__ == "__main__":
 
         ret = vnc.askVncWindow(title, message)
         if ret != -1:
-            opts.display_mode = 'g'
+            anaconda.displayMode = 'g'
             flags.usevnc = 1
             if ret is not None:
                 vncS.password = ret
@@ -852,52 +1038,32 @@ if __name__ == "__main__":
     if opts.debug:
         flags.debug = True
 
-    import instdata
-
-    import system_config_keyboard.keyboard as keyboard
-
     log.info("anaconda called with cmdline = %s" %(sys.argv,))
-    log.info("Display mode = %s" %(opts.display_mode,))
+    log.info("Display mode = %s" % anaconda.displayMode)
 
-    checkMemory(opts)
-
-    # this lets install classes force text mode instlls
-    if instClass.forceTextMode:
-        stdoutLog.info(_("Install class forcing text mode installation"))
-        opts.display_mode = 't'
-
-    #
-    # find out what video hardware is available to run installer
-    #
-
-    # XXX kind of hacky - need to remember if we're running on an existing
-    #                     X display later to avoid some initilization steps
-    if os.environ.has_key('DISPLAY') and opts.display_mode == 'g':
-        x_already_set = 1
-    else:
-        x_already_set = 0
+    checkMemory(anaconda)
 
     #
     # now determine if we're going to run in GUI or TUI mode
     #
     # if no X server, we have to use text mode
-    if not x_already_set and (not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK)):
+    if not flags.livecdInstall and not iutil.isS390() and not os.access("/usr/bin/Xorg", os.X_OK):
          stdoutLog.warning(_("Graphical installation is not available. "
                              "Starting text mode."))
          time.sleep(2)
-         opts.display_mode = 't'
+         anaconda.displayMode = 't'
 
-    if opts.isHeadless: # s390/iSeries checks
-        if opts.display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
-                                             flags.usevnc):
-            stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
-            opts.display_mode = 't'
-            graphical_failed = 1
-            time.sleep(2)
+    # s390/iSeries checks
+    if anaconda.isHeadless and anaconda.displayMode == "g" and not \
+       (os.environ.has_key("DISPLAY") or flags.usevnc):
+        stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
+        anaconda.displayMode = 't'
+        graphical_failed = 1
+        time.sleep(2)
 
     # if DISPLAY not set either vnc server failed to start or we're not
     # running on a redirected X display, so start local X server
-    if opts.display_mode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
+    if anaconda.displayMode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
         try:
             # start X with its USR1 handler set to ignore.  this will make it send
             # us SIGUSR1 if it succeeds.  if it fails, catch SIGCHLD and bomb out.
@@ -928,36 +1094,27 @@ if __name__ == "__main__":
             xserver_pid = proc.pid
         except (OSError, RuntimeError):
             stdoutLog.warning(" X startup failed, falling back to text mode")
-            opts.display_mode = 't'
+            anaconda.displayMode = 't'
             graphical_failed = 1
             time.sleep(2)
         finally:
             signal.signal(signal.SIGUSR1, old_sigusr1)
             signal.signal(signal.SIGCHLD, old_sigchld)
 
-    if opts.display_mode == 't' and graphical_failed and not anaconda.isKickstart:
+    if anaconda.displayMode == 't' and graphical_failed and not anaconda.ksdata:
         ret = vnc.askVncWindow()
         if ret != -1:
-            opts.display_mode = 'g'
+            anaconda.displayMode = 'g'
             flags.usevnc = 1
             if ret is not None:
                 vncS.password = ret
 
     # if they want us to use VNC do that now
-    if opts.display_mode == 'g' and flags.usevnc:
+    if anaconda.displayMode == 'g' and flags.usevnc:
         runVNC()
         doStartupX11Actions(opts.runres)
 
-    anaconda.setInstallInterface(opts.display_mode)
-
-    anaconda.setBackend(instClass)
-
-    anaconda.id = instClass.installDataClass(anaconda, extraModules, opts.display_mode, anaconda.backend)
-
-    anaconda.id.x_already_set = x_already_set
-
-    anaconda.id.setDisplayMode(opts.display_mode)
-    instClass.setInstallData(anaconda)
+    anaconda.instClass.configure(anaconda)
 
     # comment out the next line to make exceptions non-fatal
     from exception import initExceptionHandling
@@ -965,8 +1122,6 @@ if __name__ == "__main__":
 
     # add our own additional signal handlers
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
-
-    anaconda.setDispatch()
 
     # download and run Dogtail script
     if opts.dogtail:
@@ -1002,46 +1157,43 @@ if __name__ == "__main__":
         # this is lame, but make things match what we expect (#443408)
         opts.lang = opts.lang.replace(".utf8", ".UTF-8")
         anaconda.dispatch.skipStep("language", permanent = 1)
-        anaconda.id.instLanguage.instLang = opts.lang
-        anaconda.id.instLanguage.systemLang = opts.lang
-        anaconda.id.timezone.setTimezoneInfo(anaconda.id.instLanguage.getDefaultTimeZone(anaconda.rootPath))
+        anaconda.instLanguage.instLang = opts.lang
+        anaconda.instLanguage.systemLang = opts.lang
+        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
 
     if opts.keymap:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
-        anaconda.id.keyboard.set(opts.keymap)
-        anaconda.id.keyboard.activate()
+        anaconda.keyboard.set(opts.keymap)
+        anaconda.keyboard.activate()
 
-    if anaconda.isKickstart:
+    if anaconda.ksdata:
         import storage
-
-        anaconda.id.setKsdata(ksdata)
 
         # Before we set up the storage system, we need to know which disks to
         # ignore, etc.  Luckily that's all in the kickstart data.
-        anaconda.id.storage.zeroMbr = ksdata.zerombr.zerombr
-        anaconda.id.storage.ignoredDisks = ksdata.ignoredisk.ignoredisk
-        anaconda.id.storage.exclusiveDisks = ksdata.ignoredisk.onlyuse
+        anaconda.storage.zeroMbr = anaconda.ksdata.zerombr.zerombr
+        anaconda.storage.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
+        anaconda.storage.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
 
-        if ksdata.clearpart.type is not None:
-            anaconda.id.storage.clearPartType = ksdata.clearpart.type
-            anaconda.id.storage.clearPartDisks = ksdata.clearpart.drives
-            if ksdata.clearpart.initAll:
-                anaconda.id.storage.reinitializeDisks = ksdata.clearpart.initAll
+        if anaconda.ksdata.clearpart.type is not None:
+            anaconda.storage.clearPartType = anaconda.ksdata.clearpart.type
+            anaconda.storage.clearPartDisks = anaconda.ksdata.clearpart.drives
+            if anaconda.ksdata.clearpart.initAll:
+                anaconda.storage.reinitializeDisks = anaconda.ksdata.clearpart.initAll
 
         storage.storageInitialize(anaconda)
 
         # Now having initialized storage, we can apply all the other kickstart
         # commands.  This gives us the ability to check that storage commands
         # are correctly formed and refer to actual devices.
-        ksdata.execute()
+        anaconda.ksdata.execute()
 
     # set up the headless case
-    if opts.isHeadless == 1:
-        anaconda.id.setHeadless(opts.isHeadless)
+    if anaconda.isHeadless:
         anaconda.dispatch.skipStep("keyboard", permanent = 1)
 
-    if not anaconda.isKickstart:
-        instClass.setSteps(anaconda)
+    if not anaconda.ksdata:
+        anaconda.instClass.setSteps(anaconda)
     else:
         kickstart.setSteps(anaconda)
 
@@ -1050,8 +1202,8 @@ if __name__ == "__main__":
     except SystemExit, code:
         anaconda.intf.shutdown()
 
-    if anaconda.isKickstart and anaconda.id.ksdata.reboot.eject:
-        for drive in anaconda.id.storage.devicetree.devices:
+    if anaconda.ksdata and anaconda.ksdata.reboot.eject:
+        for drive in anaconda.storage.devicetree.devices:
             if drive.type != "cdrom":
                 continue
 

@@ -261,6 +261,9 @@ class InstallInterface:
     def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
         return ProgressWindow(self.screen, title, text, total, updpct, pulse)
 
+    def setInstallProgressClass(self, c):
+        self.instProgress = c
+
     def exitWindow(self, title, text):
         return self.messageWindow(title, text, type="custom",
                                   custom_buttons=[_("Exit installer")])
@@ -376,7 +379,7 @@ class InstallInterface:
         return (passphrase, isglobal)
 
     def enableNetwork(self):
-        if len(self.anaconda.id.network.netdevices) == 0:
+        if len(self.anaconda.network.netdevices) == 0:
             return False
         from netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, self.anaconda)
@@ -437,6 +440,7 @@ class InstallInterface:
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
 	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 	self.screen = SnackScreen()
+        self.instProgress = None
         self._initLabelAnswers = {}
         self._inconsistentLVMAnswers = {}
 
@@ -565,10 +569,10 @@ class InstallInterface:
 
     def run(self, anaconda):
         self.anaconda = anaconda
-        instLang = anaconda.id.instLanguage
+        instLang = anaconda.instLanguage
 
         if instLang.getFontFile(instLang.instLang) == "none":
-            if not anaconda.isKickstart:
+            if not anaconda.ksdata:
                 ButtonChoiceWindow(self.screen, "Language Unavailable",
                                    "%s display is unavailable in text mode.  "
                                    "The installation will continue in "
@@ -581,8 +585,6 @@ class InstallInterface:
         # drop into the python debugger on ctrl-z if we're running in test mode
         if flags.debug:
             self.screen.suspendCallback(debugSelf, self.screen)
-
-        self.instLanguage = anaconda.id.instLanguage
 
         # draw the frame after setting up the fallback
         self.drawFrame()

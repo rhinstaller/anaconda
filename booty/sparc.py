@@ -120,8 +120,8 @@ class sparcBootloaderInfo(bootloaderInfo):
         else:
             raise BootyNoKernelWarning
 
-    def __init__(self, instData):
-        bootloaderInfo.__init__(self, instData)
+    def __init__(self, anaconda):
+        bootloaderInfo.__init__(self, anaconda)
         self.useSiloVal = 1
         self.kernelLocation = "/boot"
         self._configdir = "/etc"

@@ -61,28 +61,28 @@ def queryUpgradeContinue(anaconda):
     return DISPATCH_FORWARD
 
 def setUpgradeRoot(anaconda):
-    anaconda.id.upgradeRoot = []
+    anaconda.upgradeRoot = []
     root_device = None
     # kickstart can pass device as device name or uuid. No quotes allowed.
-    if anaconda.isKickstart and anaconda.id.ksdata.upgrade.root_device is not None:
-        root_device = anaconda.id.ksdata.upgrade.root_device
-    for (dev, label) in anaconda.id.rootParts:
+    if anaconda.ksdata and anaconda.ksdata.upgrade.root_device is not None:
+        root_device = anaconda.ksdata.upgrade.root_device
+    for (dev, label) in anaconda.rootParts:
         if ((root_device is not None) and
             (root_device == dev.name or root_device == "UUID=%s" % dev.format.uuid)):
-            anaconda.id.upgradeRoot.insert(0, (dev,label))
+            anaconda.upgradeRoot.insert(0, (dev,label))
         else:
-            anaconda.id.upgradeRoot.append((dev,label))
+            anaconda.upgradeRoot.append((dev,label))
 
 def findRootParts(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
-    if anaconda.id.rootParts is None:
-        anaconda.id.rootParts = findExistingRoots(anaconda,
-                                                  flags.cmdline.has_key("upgradeany"))
+    if anaconda.rootParts is None:
+        anaconda.rootParts = findExistingRoots(anaconda,
+                                               flags.cmdline.has_key("upgradeany"))
 
     setUpgradeRoot(anaconda)
 
-    if anaconda.id.rootParts is not None and len(anaconda.id.rootParts) > 0:
+    if anaconda.rootParts is not None and len(anaconda.rootParts) > 0:
         anaconda.dispatch.skipStep("findinstall", skip = 0)
         if productName.find("Red Hat Enterprise Linux") == -1:
             anaconda.dispatch.skipStep("installtype", skip = 1)
@@ -102,7 +102,7 @@ def bindMountDevDirectory(instPath):
 
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(anaconda):
-    migents = anaconda.id.storage.migratableDevices
+    migents = anaconda.storage.migratableDevices
     if not migents or len(migents) < 1:
         anaconda.dispatch.skipStep("upgrademigratefs")
     else:
@@ -140,7 +140,7 @@ def upgradeSwapSuggestion(anaconda):
 
     fsList = []
 
-    for device in anaconda.id.storage.fsset.devices:
+    for device in anaconda.storage.fsset.devices:
         if not device.format:
             continue
         if device.format.mountable and device.format.linuxNative:
@@ -162,16 +162,14 @@ def upgradeSwapSuggestion(anaconda):
 	if (size > suggSize) and (size > (suggestion + 100)):
 	    suggDev = device
 
-    anaconda.id.upgradeSwapInfo = (fsList, suggestion, suggDev)
+    anaconda.upgradeSwapInfo = (fsList, suggestion, suggDev)
 
 # XXX handle going backwards
 def upgradeMountFilesystems(anaconda):
     # mount everything and turn on swap
 
     try:
-        mountExistingSystem(anaconda,
-                            anaconda.id.upgradeRoot[0],
-                            allowDirty = 0)
+        mountExistingSystem(anaconda, anaconda.upgradeRoot[0], allowDirty = 0)
     except ValueError as e:
         log.error("Error mounting filesystem: %s" % e)
         anaconda.intf.messageWindow(_("Mount failed"),
@@ -182,7 +180,7 @@ def upgradeMountFilesystems(anaconda):
     except IndexError as e:
         # The upgrade root is search earlier but we give the message here.
         log.debug("No upgrade root was found.")
-        if anaconda.isKickstart and anaconda.id.ksdata.upgrade.upgrade:
+        if anaconda.ksdata and anaconda.ksdata.upgrade.upgrade:
             anaconda.intf.messageWindow(_("Upgrade root not found"),
                 _("The root for the previously installed system was not "
                   "found."), type="custom",
@@ -240,8 +238,8 @@ def upgradeMountFilesystems(anaconda):
         anaconda.intf.messageWindow(_("Invalid Directories"), message)
         sys.exit(0)
 
-    anaconda.id.storage.turnOnSwap(upgrading=True)
-    anaconda.id.storage.mkDevRoot()
+    anaconda.storage.turnOnSwap(upgrading=True)
+    anaconda.storage.mkDevRoot()
 
     # Move /etc/rpm/platform out of the way.
     if os.path.exists(anaconda.rootPath + "/etc/rpm/platform"):

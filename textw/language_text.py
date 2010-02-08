@@ -30,18 +30,17 @@ log = logging.getLogger("anaconda")
 
 class LanguageWindow:
     def __call__(self, screen, anaconda):
-        id = anaconda.id
-        languages = id.instLanguage.available ()
+        languages = anaconda.instLanguage.available ()
         languages.sort()
 
-        current = id.instLanguage.instLang
+        current = anaconda.instLanguage.instLang
 
         height = min((8, len(languages)))
 	buttons = [TEXT_OK_BUTTON, TEXT_BACK_BUTTON]
 
         translated = []
         for lang in languages:
-            translated.append ((_(lang), id.instLanguage.getLangByName(lang)))
+            translated.append ((_(lang), anaconda.instLanguage.getLangByName(lang)))
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
@@ -52,19 +51,19 @@ class LanguageWindow:
         if button == TEXT_BACK_CHECK:
             return INSTALL_BACK
 
-        if id.instLanguage.getFontFile(choice) == "none":
+        if anaconda.instLanguage.getFontFile(choice) == "none":
             ButtonChoiceWindow(screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  The "
                                "installation will continue in English." % (choice,),
                                buttons=[TEXT_OK_BUTTON])
-            id.instLanguage.instLang = choice
-            id.instLanguage.systemLang = choice
-            id.timezone.setTimezoneInfo(id.instLanguage.getDefaultTimeZone(anaconda.rootPath))
+            anaconda.instLanguage.instLang = choice
+            anaconda.instLanguage.systemLang = choice
+            anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
             return INSTALL_OK
 
-        id.instLanguage.instLang = choice
-        id.instLanguage.systemLang = choice
-        id.timezone.setTimezoneInfo(id.instLanguage.getDefaultTimeZone(anaconda.rootPath))
+        anaconda.instLanguage.instLang = choice
+        anaconda.instLanguage.systemLang = choice
+        anaconda.timezone.setTimezoneInfo(anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath))
 
 	anaconda.intf.drawFrame()
 

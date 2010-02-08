@@ -89,7 +89,7 @@ class RescueInterface:
 	    return OkCancelWindow(self.screen, title, text)
 
     def enableNetwork(self, anaconda):
-        if len(anaconda.id.network.netdevices) == 0:
+        if len(anaconda.network.netdevices) == 0:
             return False
         from netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, anaconda)
@@ -222,7 +222,7 @@ def runShell(screen = None, msg=""):
     if screen:
         screen.finish()
 
-def runRescue(anaconda, instClass):
+def runRescue(anaconda):
     for file in [ "services", "protocols", "group", "joe", "man.config",
                   "nsswitch.conf", "selinux", "mke2fs.conf" ]:
         try:
@@ -248,7 +248,7 @@ def runRescue(anaconda, instClass):
                           "will not be available in rescue mode."))
                     break
 
-                startNetworking(anaconda.id.network, anaconda.intf)
+                startNetworking(anaconda.network, anaconda.intf)
                 break
             else:
                 break
@@ -260,7 +260,7 @@ def runRescue(anaconda, instClass):
     if not anaconda.rescue_mount:
         # the %post should be responsible for mounting all needed file systems
         # NOTE: 1st script must be bash or simple python as nothing else might be available in the rescue image
-        if anaconda.isKickstart:
+        if anaconda.ksdata:
            from kickstart import runPostScripts
            runPostScripts(anaconda)
         else:
@@ -271,8 +271,8 @@ def runRescue(anaconda, instClass):
     screen = SnackScreen()
     anaconda.intf = RescueInterface(screen)
 
-    if anaconda.isKickstart:
-        if anaconda.id.ksdata.rescue and anaconda.id.ksdata.rescue.romount:
+    if anaconda.ksdata:
+        if anaconda.ksdata.rescue and anaconda.ksdata.rescue.romount:
             readOnly = 1
         else:
             readOnly = 0
@@ -307,7 +307,7 @@ def runRescue(anaconda, instClass):
 
     if not disks:
         root = None
-    elif (len(disks) == 1) or anaconda.isKickstart:
+    elif (len(disks) == 1) or anaconda.ksdata:
         root = disks[0]
     else:
         height = min (len (disks), 12)
@@ -345,7 +345,7 @@ def runRescue(anaconda, instClass):
                                      readOnly = readOnly)
 
             if rc == -1:
-                if anaconda.isKickstart:
+                if anaconda.ksdata:
                     log.error("System had dirty file systems which you chose not to mount")
                 else:
                     ButtonChoiceWindow(screen, _("Rescue"),
@@ -356,7 +356,7 @@ def runRescue(anaconda, instClass):
                           "shell."), [_("OK")], width = 50)
                 rootmounted = 0
             else:
-                if anaconda.isKickstart:
+                if anaconda.ksdata:
                     log.info("System has been mounted under: %s" % anaconda.rootPath)
                 else:
                     ButtonChoiceWindow(screen, _("Rescue"),
@@ -372,7 +372,7 @@ def runRescue(anaconda, instClass):
                 # now turn on swap
                 if not readOnly:
                     try:
-                        anaconda.id.storage.turnOnSwap()
+                        anaconda.storage.turnOnSwap()
                     except:
                         log.error("Error enabling swap")
 
@@ -436,7 +436,7 @@ def runRescue(anaconda, instClass):
             if exc in (IndexError, ValueError, SyntaxError):
                 raise exc, val, sys.exc_info()[2]
 
-            if anaconda.isKickstart:
+            if anaconda.ksdata:
                 log.error("An error occurred trying to mount some or all of your system")
             else:
                 ButtonChoiceWindow(screen, _("Rescue"),
@@ -446,7 +446,7 @@ def runRescue(anaconda, instClass):
                       "automatically when you exit from the shell.") % (anaconda.rootPath,),
                       [_("OK")] )
     else:
-        if anaconda.isKickstart:
+        if anaconda.ksdata:
             log.info("No Linux partitions found")
             screen.finish()
             print(_("You don't have any Linux partitions.  Rebooting.\n"))
@@ -461,7 +461,7 @@ def runRescue(anaconda, instClass):
     msgStr = ""
 
     if rootmounted and not readOnly:
-        makeMtab(anaconda.rootPath, anaconda.id.storage)
+        makeMtab(anaconda.rootPath, anaconda.storage)
         try:
             makeResolvConf(anaconda.rootPath)
         except Exception, e:
@@ -472,7 +472,7 @@ def runRescue(anaconda, instClass):
     makeFStab()
 
     # run %post if we've mounted everything
-    if anaconda.isKickstart:
+    if anaconda.ksdata:
         from kickstart import runPostScripts
         runPostScripts(anaconda)
     else:

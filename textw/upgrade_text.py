@@ -32,10 +32,12 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
+seenExamineScreen = False
+
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, anaconda):
       
-        migent = anaconda.id.storage.migratableDevices
+        migent = anaconda.storage.migratableDevices
 
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
@@ -91,14 +93,14 @@ class UpgradeMigrateFSWindow:
                 except Exception, e:
                     log.info("failed to get new filesystem type, defaulting to ext3: %s" %(e,))
                     newfs = getFormat("ext3")
-                    anaconda.id.storage.migrateFormat(entry, newfs)
+                    anaconda.storage.migrateFormat(entry, newfs)
 
             screen.popWindow()
             return INSTALL_OK
 
 class UpgradeSwapWindow:
     def __call__ (self, screen, anaconda):
-	(fsList, suggSize, suggDev) = anaconda.id.upgradeSwapInfo
+	(fsList, suggSize, suggDev) = anaconda.upgradeSwapInfo
 
         ramDetected = iutil.memInstalled()/1024
 
@@ -193,7 +195,7 @@ class UpgradeSwapWindow:
                                          "and 2000 MB in size."))
 		else:
 		    screen.popWindow()
-                    anaconda.id.storage.createSwapFile(dev, val)
+                    anaconda.storage.createSwapFile(dev, val)
                     anaconda.dispatch.skipStep("addswap", 1)
 		    return INSTALL_OK
 
@@ -201,7 +203,7 @@ class UpgradeSwapWindow:
 	
 class UpgradeExamineWindow:
     def __call__ (self, screen, anaconda):
-        parts = anaconda.id.rootParts
+        parts = anaconda.rootParts
 
         height = min(len(parts), 11) + 1
         if height == 12:
@@ -211,7 +213,9 @@ class UpgradeExamineWindow:
         partList = []
         partList.append(_("Reinstall System"))
 
-	if (anaconda.id.upgrade == None and anaconda.dispatch.stepInSkipList("installtype")) or anaconda.id.upgrade:
+        global seenExamineScreen
+
+	if (not seenExamineScreen and anaconda.dispatch.stepInSkipList("installtype")) or anaconda.upgrade:
             default = 1
         else:
             default = 0
@@ -241,13 +245,14 @@ class UpgradeExamineWindow:
 
         if root is not None:
             upgrade.setSteps(anaconda)
-            anaconda.id.setUpgrade(True)
+            anaconda.upgrade = True
 
-            anaconda.id.upgradeRoot = [(root[0], root[1])]
-            anaconda.id.rootParts = parts
+            anaconda.upgradeRoot = [(root[0], root[1])]
+            anaconda.rootParts = parts
             anaconda.dispatch.skipStep("installtype", skip = 1)
         else:
             anaconda.dispatch.skipStep("installtype", skip = 0)
-            anaconda.id.upgradeRoot = None
+            anaconda.upgradeRoot = None
 
+        seenExamineScreen = True
         return INSTALL_OK

@@ -65,15 +65,15 @@ class TimezoneWindow:
 
     def __call__(self, screen, anaconda):
 	timezones = self.getTimezoneList()
-	(default, asUtc) = anaconda.id.timezone.getTimezoneInfo()
+	(default, asUtc) = anaconda.timezone.getTimezoneInfo()
         if not default:
-	    default = anaconda.id.instLanguage.getDefaultTimeZone(anaconda.rootPath)
+	    default = anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath)
 
 	bb = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 	t = TextboxReflowed(30, 
 			_("In which time zone are you located?"))
 
-        if not anaconda.isKickstart and not hasWindows(anaconda.id.bootloader):
+        if not anaconda.ksdata and not hasWindows(anaconda.bootloader):
             asUtc = True
 
 #
@@ -124,7 +124,7 @@ class TimezoneWindow:
                 break
 
         screen.popWindow()
-	anaconda.id.timezone.setTimezoneInfo(self.l.current().replace(" ", "_"), asUtc = self.c.selected())
+	anaconda.timezone.setTimezoneInfo(self.l.current().replace(" ", "_"), asUtc = self.c.selected())
 
 	return INSTALL_OK
 

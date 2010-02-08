@@ -1165,7 +1165,7 @@ class VolumeGroupEditor:
 	self.dialog = None
 
     def __init__(self, anaconda, intf, parent, vg, isNew = 0):
-        self.storage = anaconda.id.storage
+        self.storage = anaconda.storage
 
         # the vg instance we were passed
         self.vg = vg
@@ -1246,7 +1246,7 @@ class VolumeGroupEditor:
             if not self.isNew:
                 self.volnameEntry.set_text(self.vg.name)
             else:
-                self.volnameEntry.set_text(self.storage.createSuggestedVGName(anaconda.id.network))
+                self.volnameEntry.set_text(self.storage.createSuggestedVGName(anaconda.network))
         else:
             lbl = createAlignedLabel(_("Volume Group Name:"))
             self.volnameEntry = gtk.Label(self.vg.name)

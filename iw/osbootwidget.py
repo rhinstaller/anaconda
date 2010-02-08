@@ -35,8 +35,8 @@ class OSBootWidget:
     """Widget to display OSes to boot and allow adding new ones."""
     
     def __init__(self, anaconda, parent, blname = None):
-        self.bl = anaconda.id.bootloader
-        self.storage = anaconda.id.storage
+        self.bl = anaconda.bootloader
+        self.storage = anaconda.storage
         self.parent = parent
         self.intf = anaconda.intf
         if blname is not None:

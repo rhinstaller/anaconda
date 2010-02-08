@@ -96,10 +96,10 @@ class InstallClass(BaseInstallClass):
 
         return {'Installation Repo': uri}
 
-    def setInstallData(self, anaconda):
-        BaseInstallClass.setInstallData(self, anaconda)
+    def configure(self, anaconda):
+        BaseInstallClass.configure(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self,
-                                                anaconda.id.storage,
+                                                anaconda.storage,
                                                 anaconda.platform)
 
     def setGroupSelection(self, anaconda):

@@ -96,10 +96,10 @@ class NetworkConfiguratorText:
 
         self.interfaceList = CheckboxTree(height=3, scroll=1)
 
-        netdevs = self.anaconda.id.network.available()
+        netdevs = self.anaconda.network.available()
         devs = netdevs.keys()
         devs.sort()
-        ksdevice = self.anaconda.id.network.getKSDevice()
+        ksdevice = self.anaconda.network.getKSDevice()
         if ksdevice:
             ksdevice = ksdevice.get('DEVICE')
         selected_interface = None
@@ -178,7 +178,7 @@ class NetworkConfiguratorText:
         #self._ipv6Toggled()
         self._dhcpToggled()
 
-        netdevs = self.anaconda.id.network.available()
+        netdevs = self.anaconda.network.available()
 
         while True:
             result = grid.run()
@@ -274,7 +274,7 @@ class NetworkConfiguratorText:
                         continue
 
             w = self.anaconda.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager"))
-            result = self.anaconda.id.network.bringUp(devices=selected_netdevs)
+            result = self.anaconda.network.bringUp(devices=selected_netdevs)
             w.pop()
             if result:
                 break

@@ -88,11 +88,11 @@ class TimezoneWindow(InstallWindow):
     # TimezoneWindow tag="timezone"
     def getScreen(self, anaconda):
 	self.intf = anaconda.intf        
-        self.timezone = anaconda.id.timezone
+        self.timezone = anaconda.timezone
         (self.default, asUTC) = self.timezone.getTimezoneInfo()
 
         if not self.default:
-            self.default = anaconda.id.instLanguage.getDefaultTimeZone(anaconda.rootPath)
+            self.default = anaconda.instLanguage.getDefaultTimeZone(anaconda.rootPath)
             asUTC = 0
 
         if (string.find(self.default, "UTC") != -1):
@@ -104,8 +104,8 @@ class TimezoneWindow(InstallWindow):
         self.tz.setCurrent(self.zonetab.findEntryByTZ(self.default))
         self.utcCheckbox.set_active(asUTC)
 
-        if not anaconda.isKickstart:
-            self.utcCheckbox.set_active(not hasWindows(anaconda.id.bootloader))
+        if not anaconda.ksdata:
+            self.utcCheckbox.set_active(not hasWindows(anaconda.bootloader))
 
         self.notebook.remove(self.vbox)
         return self.vbox

@@ -100,7 +100,7 @@ class AnacondaCallback:
 
         self.messageWindow = anaconda.intf.messageWindow
         self.pulseWindow = anaconda.intf.progressWindow
-        self.progress = anaconda.id.instProgress
+        self.progress = anaconda.intf.instProgress
         self.progressWindowClass = anaconda.intf.progressWindow
         self.rootPath = anaconda.rootPath
 
@@ -358,7 +358,7 @@ class AnacondaYum(YumSorter):
             self._timestamp = f.readline().strip()
             f.close()
 
-        dev = self.anaconda.id.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
+        dev = self.anaconda.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
         dev.format.mountpoint = self.tree
 
         # If self.currentMedia is None, then there shouldn't be anything
@@ -484,7 +484,7 @@ class AnacondaYum(YumSorter):
             # we should first check to see if there's a CD/DVD with packages
             # on it, and then default to the mirrorlist URL.  The user can
             # always change the repo with the repo editor later.
-            cdr = scanForMedia(self.tree, self.anaconda.id.storage)
+            cdr = scanForMedia(self.tree, self.anaconda.storage)
             if cdr:
                 self.mediagrabber = self.mediaHandler
                 self.anaconda.mediaDevice = cdr
@@ -504,8 +504,8 @@ class AnacondaYum(YumSorter):
         # add default repos
         anacondabaseurl = (self.anaconda.methodstr or
                            "cdrom:%s" % (self.anaconda.mediaDevice))
-        anacondabasepaths = self.anaconda.id.instClass.getPackagePaths(anacondabaseurl)
-        for (name, uri) in self.anaconda.id.instClass.getPackagePaths(self._baseRepoURL).items():
+        anacondabasepaths = self.anaconda.instClass.getPackagePaths(anacondabaseurl)
+        for (name, uri) in self.anaconda.instClass.getPackagePaths(self._baseRepoURL).items():
             rid = name.replace(" ", "")
 
             repo = AnacondaYumRepo("anaconda-%s-%s" % (rid, productStamp))
@@ -669,11 +669,11 @@ class AnacondaYum(YumSorter):
             repo.enable()
             extraRepos.append(repo)
 
-        if self.anaconda.isKickstart:
+        if self.anaconda.ksdata:
             # This is the same pattern as from loader/urls.c:splitProxyParam.
             pattern = re.compile("([[:alpha:]]+://)?(([[:alnum:]]+)(:[^:@]+)?@)?([^:]+)(:[[:digit:]]+)?(/.*)?")
 
-            for ksrepo in self.anaconda.id.ksdata.repo.repoList:
+            for ksrepo in self.anaconda.ksdata.repo.repoList:
                 anacondaBaseURLs = [ksrepo.baseurl]
 
                 # yum doesn't understand nfs:// and doesn't want to.  We need
@@ -818,7 +818,7 @@ class AnacondaYum(YumSorter):
                                                        len(grab.mirrors)))
 
         if self.currentMedia:
-            dev = self.anaconda.id.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
+            dev = self.anaconda.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
             dev.format.mountpoint = self.tree
             unmountCD(dev, self.anaconda.intf.messageWindow)
             self.currentMedia = None
@@ -872,7 +872,7 @@ class AnacondaYum(YumSorter):
             return 0
 
         self.initActionTs()
-        if id.getUpgrade():
+        if self.anaconda.upgrade:
             self.ts.ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
         self.setColor()
 
@@ -885,7 +885,7 @@ class AnacondaYum(YumSorter):
         if len(mkeys) > 1:
             stage2img = "%s/images/install.img" % self.tree
             if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img):
-                self.anaconda.id.storage.umountFilesystems()
+                self.anaconda.storage.umountFilesystems()
                 return DISPATCH_BACK
 
         for i in mkeys:
@@ -902,7 +902,7 @@ class AnacondaYum(YumSorter):
                 msg = _("There was an error running your transaction for "
                         "the following reason: %s\n") % str(e)
 
-                if self.anaconda.id.upgrade:
+                if self.anaconda.upgrade:
                     rc = intf.messageWindow(_("Error"), msg, type="custom",
                                             custom_icon="error",
                                             custom_buttons=[_("_Exit installer")])
@@ -987,7 +987,7 @@ class AnacondaYum(YumSorter):
             spaceprob = to_unicode(spaceprob)
             fileprob = to_unicode(fileprob)
 
-            if len(self.anaconda.backend.getRequiredMedia()) > 1 or self.anaconda.id.upgrade:
+            if len(self.anaconda.backend.getRequiredMedia()) > 1 or self.anaconda.upgrade:
                 intf.detailedMessageWindow(_("Error Running Transaction"),
                    msg, spaceprob + "\n" + fileprob, type="custom",
                    custom_icon="error", custom_buttons=[_("_Exit installer")])
@@ -1128,7 +1128,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if anaconda.dir == DISPATCH_BACK:
             return DISPATCH_BACK
 
-        if anaconda.id.getUpgrade():
+        if anaconda.upgrade:
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
            iutil.resetRpmDb(anaconda.rootPath)
 
@@ -1237,7 +1237,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 else:
                     break # success
 
-                if anaconda.isKickstart:
+                if anaconda.ksdata:
                     buttons.append(_("_Continue"))
 
                 if not fatalerrors:
@@ -1279,7 +1279,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.ayum.repos.callback = None
 
     def getDefaultGroups(self, anaconda):
-        langs = anaconda.id.instLanguage.getCurrentLangSearchList()
+        langs = anaconda.instLanguage.getCurrentLangSearchList()
         rc = map(lambda x: x.groupid,
                  filter(lambda x: x.default, self.ayum.comps.groups))
         for g in self.ayum.comps.groups:
@@ -1299,7 +1299,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         moduleProvides = []
 
-        for (path, name) in anaconda.id.extraModules:
+        for (path, name) in anaconda.extraModules:
             if ext != "":
                 moduleProvides.append("dud-%s-%s" % (name, ext))
             else:
@@ -1388,11 +1388,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.ayum.dsCallback = dscb
 
         # do some sanity checks for kernel and bootloader
-        if not anaconda.id.getUpgrade():
+        if not anaconda.upgrade:
             # New installs only - upgrades will already have all this stuff.
             self.selectBestKernel(anaconda)
             map(self.selectPackage, anaconda.platform.packages)
-            self.selectFSPackages(anaconda.id.storage)
+            self.selectFSPackages(anaconda.storage)
             self.selectAnacondaNeeds()
         else:
             self.ayum.update()
@@ -1403,10 +1403,10 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
                 # If %packages --ignoremissing was given, don't bother
                 # prompting for missing dependencies.
-                if anaconda.isKickstart and anaconda.id.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
+                if anaconda.ksdata and anaconda.ksdata.packages.handleMissing == KS_MISSING_IGNORE:
                     break
 
-                if code == 1 and not anaconda.id.upgrade:
+                if code == 1 and not anaconda.upgrade:
                     # resolveDeps returns 0 if empty transaction, 1 if error,
                     # 2 if success
                     depprob = "\n".join(msgs)
@@ -1450,8 +1450,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         (self.dlpkgs, self.totalSize, self.totalFiles)  = self.ayum.getDownloadPkgs()
 
-        if not anaconda.id.upgrade:
-            largePart = anaconda.id.storage.mountpoints.get("/usr", anaconda.id.storage.rootDevice)
+        if not anaconda.upgrade:
+            largePart = anaconda.storage.mountpoints.get("/usr", anaconda.storage.rootDevice)
 
             if largePart and largePart.size < self.totalSize / 1024:
                 rc = anaconda.intf.messageWindow(_("Error"),
@@ -1473,7 +1473,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         dscb.pop()
 
-        if anaconda.mediaDevice and not anaconda.isKickstart:
+        if anaconda.mediaDevice and not anaconda.ksdata:
            rc = presentRequiredMediaMessage(anaconda)
            if rc == 0:
                rc2 = anaconda.intf.messageWindow(_("Reboot?"),
@@ -1498,10 +1498,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     log.error("unable to unmount %s: %s" %(d, e))
             return
 
-        # shorthand
-        upgrade = anaconda.id.getUpgrade()
-
-        if upgrade:
+        if anaconda.upgrade:
             # An old mtab can cause confusion (esp if loop devices are
             # in it).  Be extra special careful and delete any mtab first,
             # in case the user has done something funny like make it into
@@ -1530,7 +1527,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         # If there are any protected partitions we want to mount, create their
         # mount points now.
-        for protected in anaconda.id.storage.protectedDevices:
+        for protected in anaconda.storage.protectedDevices:
             if getattr(protected.format, "mountpoint", None):
                 dirList.append(protected.format.mountpoint)
 
@@ -1541,7 +1538,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 pass
 #            log.error("Error making directory %s: %s" % (i, msg))
 
-        self.initLog(anaconda.id, anaconda.rootPath)
+        self.initLog(anaconda.rootPath)
 
         # setup /etc/rpm/ for the post-install environment
         iutil.writeRpmPlatform(anaconda.rootPath)
@@ -1580,19 +1577,19 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             log.error("error mounting usbfs: %s" %(e,))
 
         # write out the fstab
-        if not upgrade:
-            anaconda.id.storage.fsset.write(anaconda.rootPath)
+        if not anaconda.upgrade:
+            anaconda.storage.fsset.write(anaconda.rootPath)
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
                                 anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")
-            anaconda.id.network.write(instPath=anaconda.rootPath, anaconda=anaconda)
-            anaconda.id.storage.write(anaconda.rootPath)
-            if not anaconda.id.isHeadless:
-                anaconda.id.keyboard.write(anaconda.rootPath)
+            anaconda.network.write(instPath=anaconda.rootPath, anaconda=anaconda)
+            anaconda.storage.write(anaconda.rootPath)
+            if not anaconda.isHeadless:
+                anaconda.keyboard.write(anaconda.rootPath)
 
         # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
         f = open(anaconda.rootPath + "/etc/mtab", "w+")
-        f.write(anaconda.id.storage.mtab)
+        f.write(anaconda.storage.mtab)
         f.close()
 
     def checkSupportedUpgrade(self, anaconda):
@@ -1677,11 +1674,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     def doInstall(self, anaconda):
         log.info("Preparing to install packages")
 
-        if not anaconda.id.upgrade:
+        if not anaconda.upgrade:
             rpm.addMacro("__dbi_htconfig",
                          "hash nofsync %{__dbi_other} %{__dbi_perms}")
 
-        if anaconda.isKickstart and anaconda.id.ksdata.packages.excludeDocs:
+        if anaconda.ksdata and anaconda.ksdata.packages.excludeDocs:
             rpm.addMacro("_excludedocs", "1")
 
         cb = AnacondaCallback(self.ayum, anaconda,
@@ -1696,13 +1693,13 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         self.instLog.write("*** FINISHED INSTALLING PACKAGES ***")
         self.instLog.close ()
 
-        anaconda.id.instProgress = None
+        anaconda.intf.setInstallProgressClass(None)
 
         if rc == DISPATCH_BACK:
             return DISPATCH_BACK
 
     def doPostInstall(self, anaconda):
-        if anaconda.id.getUpgrade():
+        if anaconda.upgrade:
             w = anaconda.intf.waitWindow(_("Post Upgrade"),
                                     _("Performing post-upgrade configuration"))
         else:
@@ -1715,7 +1712,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             repo.dirCleanup()
 
         # expire yum caches on upgrade
-        if (flags.cmdline.has_key("preupgrade") or anaconda.id.getUpgrade()) and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
+        if anaconda.upgrade and os.path.exists("%s/var/cache/yum" %(anaconda.rootPath,)):
             log.info("Expiring yum caches")
             try:
                 iutil.execWithRedirect("yum", ["clean", "all"],
@@ -1867,8 +1864,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             f.write(line)
 
     def writePackagesKS(self, f, anaconda):
-        if anaconda.isKickstart:
-            f.write(anaconda.id.ksdata.packages.__str__())
+        if anaconda.ksdata:
+            f.write(anaconda.ksdata.packages.__str__())
             return
 
         groups = []

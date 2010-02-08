@@ -41,9 +41,9 @@ class FilterTypeWindow(InstallWindow):
 
     def getNext(self):
         if self.buttonGroup.getCurrent() == "simple":
-            self.anaconda.id.simpleFilter = True
+            self.anaconda.simpleFilter = True
         else:
-            self.anaconda.id.simpleFilter = False
+            self.anaconda.simpleFilter = False
 
         return None
 
@@ -72,7 +72,7 @@ class FilterTypeWindow(InstallWindow):
         widget = self.buttonGroup.render()
         vbox.pack_start(widget, expand=True, fill=True)
 
-        if self.anaconda.id.simpleFilter == True:
+        if self.anaconda.simpleFilter == True:
             self.buttonGroup.setCurrent("simple")
         else:
             self.buttonGroup.setCurrent("complex")
