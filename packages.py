@@ -107,28 +107,6 @@ def turnOnFilesystems(anaconda):
 
     try:
         anaconda.storage.doIt()
-    except DeviceResizeError as (msg, device):
-        # XXX does this make any sense? do we support resize of
-        #     devices other than partitions?
-        title = _("Device Resize Failed")
-        message = _("An error was encountered while "
-                    "resizing device %s.") % (device,)
-        details = msg
-    except DeviceCreateError as (msg, device):
-        title = _("Device Creation Failed")
-        message = _("An error was encountered while "
-                    "creating device %s.") % (device,)
-        details = msg
-    except DeviceDestroyError as (msg, device):
-        title = _("Device Removal Failed")
-        message = _("An error was encountered while "
-                    "removing device %s.") % (device,)
-        details = msg
-    except DeviceError as (msg, device):
-        title = _("Device Setup Failed")
-        message = _("An error was encountered while "
-                    "setting up device %s.") % (device,)
-        details = msg
     except FSResizeError as (msg, device):
         title = _("Resizing Failed")
         message = _("There was an error encountered while "
@@ -143,27 +121,17 @@ def turnOnFilesystems(anaconda):
         message = _("An error was encountered while "
                     "migrating filesystem on device %s.") % (device,)
         details = msg
-    except FormatCreateError as (msg, device):
-        title = _("Formatting Failed")
-        message = _("An error was encountered while "
-                    "formatting device %s.") % (device,)
-        details = msg
     except Exception as e:
-        # catch-all
-        title = _("Storage Activation Failed")
-        message = _("An error was encountered while "
-                    "activating your storage configuration.")
-        details = str(e)
+        raise
 
-    if title:
-        rc = anaconda.intf.detailedMessageWindow(title, message, details,
-                            type = "custom",
-                            custom_buttons = [_("_File Bug"), _("_Exit installer")])
+    rc = anaconda.intf.detailedMessageWindow(title, message, details,
+                        type = "custom",
+                        custom_buttons = [_("_File Bug"), _("_Exit installer")])
 
-        if rc == 0:
-            raise
-        elif rc == 1:
-            sys.exit(1)
+    if rc == 0:
+        raise
+    elif rc == 1:
+        sys.exit(1)
 
     if not anaconda.upgrade:
         anaconda.storage.turnOnSwap()
