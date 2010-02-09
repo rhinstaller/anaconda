@@ -102,9 +102,20 @@ image=vmlinuz
         read-only
 	initrd=initrd.img
 EOF
+        # now create a similar copy in the root of the image
+        # (this is arguably needed for certain EFI implementations)
+	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE_TMP/
+	cp $MBD_BOOTTREE_TMP/elilo.efi $MBD_BOOTTREE_TMP/bootia64.efi
+	cat > $MBD_BOOTTREE_TMP/elilo.conf << EOF
+prompt	
+timeout=50
+relocatable
 
-	# make a copy in the root of the image
-	cp $MBD_BOOTTREE_TMP/EFI/boot/* $MBD_BOOTTREE_TMP
+image=efi/boot/vmlinuz
+        label=linux
+        read-only
+	initrd=efi/boot/initrd.img
+EOF
 }
 
 makeBootImages() {
