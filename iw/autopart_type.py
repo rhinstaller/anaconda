@@ -235,8 +235,8 @@ class PartitionTypeWindow(InstallWindow):
                                           "sure you have backups."))
         self.buttonGroup.addEntry("replace", _("Replace Existing Linux System(s)"),
                                   pixmap=gui.readImageFromFile("partscheme-replace.png"),
-                                  descr=_("Removes only Linux partitions (created from "
-                                          "a previous Linux installation).  This does "
+                                  descr=_("Removes all Linux partitions on the "
+                                          "selected device(s). This does "
                                           "not remove other partitions you may have "
                                           "on your storage device(s) (such as VFAT or "
                                           "FAT32).\n\n"
