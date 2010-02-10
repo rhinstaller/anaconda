@@ -62,35 +62,56 @@ static void performUnmounts(void) {
 }
 
 static void performReboot(reboot_action rebootAction) {
-	if (rebootAction == POWEROFF) {
+    switch (rebootAction) {
+    case POWEROFF:
         printf("powering off system\n");
-		sleep(2);
+        sleep(2);
         reboot(RB_POWER_OFF);
-	} else if (rebootAction == REBOOT) {
-		printf("rebooting system\n");
-		sleep(2);
-
+        break;
+    case REBOOT:
+        printf("rebooting system\n");
+        sleep(2);
 #if USE_MINILIBC
-		reboot(0xfee1dead, 672274793, 0x1234567);
+        reboot(0xfee1dead, 672274793, 0x1234567);
 #else
-		reboot(RB_AUTOBOOT);
+        reboot(RB_AUTOBOOT);
 #endif
-	}
+        break;
+    case HALT:
+        printf("halting system\n");
+        reboot(RB_HALT_SYSTEM);
+        break;
+    default:
+        break;
+    }
 }
 
-void shutDown(int doKill, reboot_action rebootAction) {
-	if (doKill) {
-		performUnmounts();
-		performTerminations();
-	}
+static void performDelayedReboot()
+{
+    printf("The system will be rebooted when you press Ctrl-C or Ctrl-Alt-Delete.\n");
+    while (1) {
+        sleep(1);
+    }
+}
 
-	if ((rebootAction == POWEROFF || rebootAction == REBOOT) && doKill) {
-		performReboot(rebootAction);
-	}
-
-	printf("you may safely reboot your system\n");
-	exit(0);
-	return;
+void shutDown(int doKill, reboot_action rebootAction)
+{
+    static int reentered = 0;
+    
+    if (reentered) {
+        performUnmounts();
+        performTerminations();
+        performReboot(rebootAction);
+    }
+    reentered = 1;
+    if (rebootAction != DELAYED_REBOOT && doKill) {
+        performUnmounts();
+        performTerminations();
+        performReboot(rebootAction);
+    } else {
+        performDelayedReboot();
+    }
+    exit(0);
 }
 
 #ifdef AS_SHUTDOWN
