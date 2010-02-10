@@ -112,50 +112,33 @@ def doShutdownX11Actions():
         except:
             pass
 
-# handle updates of just a single file in a python package
 def setupPythonUpdates():
-    import glob
+    from distutils.sysconfig import get_python_lib
 
-    # get the python version.  first of /usr/lib/python*, strip off the
-    # first 15 chars
-    pyvers = glob.glob("/usr/lib/python*")
-    pyver = pyvers[0][15:]
-    
-    try:
-        os.mkdir("/tmp/updates")
-    except:
-        pass
+    for pkg in os.listdir("/tmp/updates"):
+        d = "/tmp/updates/%s" % pkg
 
-    for pypkg in ("block", "yum", "rpmUtils", "urlgrabber", "pykickstart", "parted", "meh"):
-        # get the libdir.  *sigh*
-        if os.access("/usr/lib64/python%s/site-packages/%s" %(pyver, pypkg),
-                     os.X_OK):
-            libdir = "lib64"
-        elif os.access("/usr/lib/python%s/site-packages/%s" %(pyver, pypkg),
-                       os.X_OK):
-            libdir = "lib"
-        else:
-            # If the directory doesn't exist, there's nothing to link over.
-            # This happens if we forgot to include one of the above packages
-            # in the image, for instance.
+        if not os.path.isdir(d):
             continue
 
-        if os.access("/tmp/updates/%s" %(pypkg,), os.X_OK):
-            for f in os.listdir("/usr/%s/python%s/site-packages/%s" %(libdir,
-                                                                      pyver,
-                                                                      pypkg)):
-                if os.access("/tmp/updates/%s/%s" %(pypkg, f), os.R_OK):
-                    continue
-                elif (f.endswith(".pyc") and
-                      os.access("/tmp/updates/%s/%s" %(pypkg, f[:-1]),os.R_OK)):
-                    # dont copy .pyc files we are replacing with updates
-                    continue
-                else:
-                    os.symlink("/usr/%s/python%s/site-packages/%s/%s" %(libdir,
-                                                                        pyver,
-                                                                        pypkg,
-                                                                        f),
-                               "/tmp/updates/%s/%s" %(pypkg, f))
+        # See if the package exists in /usr/lib{64,}/python/?.?/site-packages.
+        # If it does, we can set it up as an update.  If not, the pkg is
+        # likely a completely new directory and should not be looked at.
+        dest = "%s/%s" % (get_python_lib(), pkg)
+        if not os.access(dest, os.R_OK):
+            dest = "%s/%s" % (get_python_lib(1), pkg)
+            if not os.access(dest, os.R_OK):
+                continue
+
+        contents = os.listdir(d)
+
+        # Symlink over everything that's in the python libdir but not in
+        # the updates directory.
+        for f in filter(lambda fn: fn not in contents, os.listdir(dest)):
+            if f.endswith(".pyc") or f.endswith(".pyo"):
+                continue
+
+            os.symlink("%s/%s" % (dest, f), "/tmp/updates/%s/%s" % (pkg, f))
 
     if os.access("/tmp/updates/70-anaconda.rules", os.R_OK):
         import shutil
