@@ -596,8 +596,8 @@ function set_device_online() {
     echo $"Activating network device..."
     local sysnettype
     case "${NETTYPE}" in
-        qeth) sysnettype=${NETTYPE} ;;
-        lcs|ctc) sysnettype=cu3088 ;;
+        qeth|lcs) sysnettype=${NETTYPE} ;;
+        ctc) sysnettype=ctm ;;
     esac
     if ! [ -f /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online ]; then
         echo $"Sysfs path to set device online does not exist."
@@ -793,8 +793,8 @@ function rollback_config() {
         if [ -n "$SCH_R_DEVBUSID" ]; then
             local sysnettype
             case "${NETTYPE}" in
-                qeth) sysnettype=${NETTYPE} ;;
-                lcs|ctc) sysnettype=cu3088 ;;
+                qeth|lcs) sysnettype=${NETTYPE} ;;
+                ctcm) sysnettype=ctcm ;;
             esac
             [ -f /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online ] && \
                 sysecho /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online "0"
@@ -1352,9 +1352,9 @@ function handle_subchannels() {
                 fi
                 ;;
             ctc|lcs)
-                if [ -f /sys/devices/cu3088/$SCH_R_DEVBUSID/type ]; then
+                if [ -f /sys/devices/$driver/$SCH_R_DEVBUSID/type ]; then
                     local type
-                    read type < /sys/devices/cu3088/$SCH_R_DEVBUSID/type
+                    read type < /sys/devices/$driver/$SCH_R_DEVBUSID/type
                     [ "$type" = "CTC/A" ] && \
                         type="channel-to-channel adapter (CTC/A)"
                     echo $"Detected: $type"
@@ -1711,7 +1711,7 @@ function syntax_check_ctcprot() {
 
 function handle_ctcprot() {
     [ -n "$CTCPROT" ] || return 0
-    if sysecho /sys/devices/cu3088/${SCH_R_DEVBUSID}/protocol "$CTCPROT"; then
+    if sysecho /sys/devices/ctcm/${SCH_R_DEVBUSID}/protocol "$CTCPROT"; then
         return 0
     fi
     echo $"Could not configure CTC protocol $CTCPROT for $SUBCHANNELS"
@@ -1765,7 +1765,7 @@ function syntax_check_lcs_portno() {
 
 function handle_lcs_portno() {
     [ -n "$PORTNAME" ] || return 0
-    if sysecho /sys/devices/cu3088/$SCH_R_DEVBUSID/portno "$PORTNAME"; then
+    if sysecho /sys/devices/lcs/$SCH_R_DEVBUSID/portno "$PORTNAME"; then
         return 0
     fi
     echo $"Could not configure relative port number $PORTNAME for $SUBCHANNELS"
