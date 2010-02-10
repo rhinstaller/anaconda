@@ -1399,6 +1399,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     break;
                 } else if (rc == 3) {
                     step = STEP_METHOD;
+                    loaderData->method = -1;
                     dir = -1;
                     break;
                 }
