@@ -22,7 +22,10 @@
 typedef enum {
 	REBOOT,
 	POWEROFF,
-	HALT
+	HALT,
+        /* gives user a chance to read the trace before scrolling the text out
+           with disk unmounting and termination info */
+        DELAYED_REBOOT
 } reboot_action;
 
 #endif /* INIT_H */

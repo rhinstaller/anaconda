@@ -513,8 +513,8 @@ int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
     int fd = -1;
-    int doReboot = 0;
     int doShutdown =0;
+    reboot_action shutdown_method = HALT;
     int isSerial = 0;
     char * console = NULL;
     int doKill = 1;
@@ -851,6 +851,7 @@ int main(int argc, char **argv) {
 
     if (!WIFEXITED(waitStatus) ||
         (WIFEXITED(waitStatus) && WEXITSTATUS(waitStatus))) {
+        shutdown_method = DELAYED_REBOOT;
         printf("install exited abnormally [%d/%d] ", WIFEXITED(waitStatus),
                                                      WEXITSTATUS(waitStatus));
         if (WIFSIGNALED(waitStatus)) {
@@ -858,11 +859,10 @@ int main(int argc, char **argv) {
         }
         printf("\n");
     } else {
-        doReboot = 1;
+        shutdown_method = REBOOT;
     }
 
-    expected_exit = 1;
-    shutDown(doKill, doReboot?REBOOT:HALT);
+    shutDown(doKill, shutdown_method);
 
     return 0;
 }
