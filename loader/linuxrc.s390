@@ -149,6 +149,16 @@ function dasd_settle() {
     return 1
 }
 
+function dasd_settle_all() {
+    for dasdccw in $(cut -d '(' -f 1 /proc/dasd/devices) ; do
+        if ! dasd_settle $dasdccw ; then
+            echo $"Could not access DASD $dasdccw in time"
+            return 1
+        fi
+    done
+    return 0
+}
+
 function startinetd()
 {
     echo
@@ -2515,6 +2525,7 @@ function parse_dasd() {
     done < <(echo $DASD | sed 's/,/\n/g')
     if [ "$handle" = "yes" ]; then
         udevadm settle
+        dasd_settle_all || return 1
         echo $"Activated DASDs:"
         cat /proc/dasd/devices | sed -e 's/ at ([^)]*) is//' -e 's/ at/,/'
     fi
