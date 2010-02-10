@@ -124,14 +124,15 @@ def turnOnFilesystems(anaconda):
     except Exception as e:
         raise
 
-    rc = anaconda.intf.detailedMessageWindow(title, message, details,
+    if title:
+        rc = anaconda.intf.detailedMessageWindow(title, message, details,
                         type = "custom",
                         custom_buttons = [_("_File Bug"), _("_Exit installer")])
 
-    if rc == 0:
-        raise
-    elif rc == 1:
-        sys.exit(1)
+        if rc == 0:
+            raise
+        elif rc == 1:
+            sys.exit(1)
 
     if not anaconda.upgrade:
         anaconda.storage.turnOnSwap()
