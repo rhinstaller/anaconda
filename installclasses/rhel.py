@@ -38,9 +38,9 @@ class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
-    _description = N_("The default installation of %s is a minimal install. "
-                      "You can optionally select a different set of software "
-                      "now.")
+    _description = N_("The default installation of %s is a basic server install. "
+                     "You can optionally select a different set of software "
+                     "now.")
     _descriptionFields = (productName,)
     sortPriority = 10000
     if not productName.startswith("Red Hat Enterprise"):
@@ -48,43 +48,44 @@ class InstallClass(BaseInstallClass):
 
     bootloaderTimeoutDefault = 5
 
-    tasks = [(N_("Minimal"), ["core"]),
+    tasks = [(N_("Basic Server"),
+              ["base", "console-internet", "core", "debugging",
+               "directory-client", "network-file-system-client",
+               "perl-runtime", "server-platform"]),
+             (N_("Database Server"),
+              ["base", "console-internet", "core", "debugging",
+               "directory-client", "network-file-system-client",
+               "perl-runtime", "server-platform",
+               "mysql", "postgresql",
+               "system-admin-tools"]),
+             (N_("Web Server"),
+              ["base", "console-internet", "core", "debugging",
+               "directory-client", "network-file-system-client",
+               "perl-runtime", "server-platform",
+               "web-server", "php", "rails", "turbogears",
+               "system-admin-tools"]),
              (N_("Desktop"),
-              ["backup-client", "base", "compat-libraries", "console-internet",
-               "debugging", "directory-client", "fonts",
-               "legacy-unix", "core", "network-file-system-client",
-               "network-tools", "print-client", "virtualization", "vpn",
+              ["base", "core", "debugging",
+               "directory-client", "network-file-system-client",
+               "perl-runtime", "server-platform",
+               "fonts", "print-client",
                "basic-desktop", "desktop-debugging", "desktop-platform",
                "general-desktop", "graphical-admin-tools", "input-methods",
                "legacy-x", "x11","office-suite", "graphics",
                "virtualization-client"]),
-             (N_("Software Development"),
-              ["backup-client", "base", "compat-libraries", "console-internet",
-               "debugging", "directory-client", "fonts",
-               "legacy-unix", "core", "network-file-system-client",
-               "network-tools", "print-client", "virtualization", "vpn",
+             (N_("Software Development Workstation"),
+              ["base", "core", "debugging",
+               "directory-client", "network-file-system-client",
+               "perl-runtime", "server-platform",
+               "fonts", "print-client",
                "basic-desktop", "desktop-debugging", "desktop-platform",
                "general-desktop", "graphical-admin-tools", "input-methods",
                "legacy-x", "x11", "virtualization-client", "emacs", "tex",
                "desktop-platform-devel", "development", "eclipse",
-               "server-platform-devel", "technical-writing"]),
-             (N_("Web Server"),
-              ["backup-client", "base", "compat-libraries", "console-internet",
-               "debugging", "directory-client", "legacy-unix",
-               "core", "network-file-system-client", "network-tools",
-               "web-server", "additional-web-server", "server-platform",
-               "mysql", "php", "postgresql", "rails", "turbogears",
-               "system-admin-tools"]),
-             (N_("Advanced Server"),
-              ["backup-client", "base", "compat-libraries", "console-internet",
-               "debugging", "directory-client", "legacy-unix",
-               "core", "network-file-system-client", "network-tools",
-               "web-server", "server-platform",
-               "mysql", "php", "postgresql", "rails", "turbogears",
-               "cifs-file-server", "clustering", "clustered-storage",
-               "directory-server", "mail-server", "ftp-server",
-               "network-server", "nfs-file-server", "print-server",
-               "system-admin-tools"])]
+               "server-platform-devel", "technical-writing",
+               "additional-desktop-devel", "additional-server-devel"]),
+             (N_("Minimal"),
+              ["core"])]
 
     bugFiler = BugzillaFiler("https://bugzilla.redhat.com/xmlrpc.cgi",
                              "https://bugzilla.redhat.com/",
