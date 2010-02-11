@@ -64,11 +64,19 @@ class ClearDisksWindow (InstallWindow):
         self.anaconda.bootloader.updateDriveList([bootDisk])
 
     def getScreen (self, anaconda):
-        # Skip this screen as well if we only had one disk available in the
-        # filtering UI.
-        if len(anaconda.storage.exclusiveDisks) == 1:
-            anaconda.storage.clearPartDisks = anaconda.storage.exclusiveDisks
-            anaconda.bootloader.drivelist = anaconda.storage.exclusiveDisks
+        # We can't just use exclusiveDisks here because of kickstart.  First,
+        # the kickstart file could have used ignoredisk --drives= in which case
+        # exclusiveDisks would be empty.  Second, ignoredisk is entirely
+        # optional in which case neither list would be populated.  Luckily,
+        # isIgnored handles all this properly.
+        disks = map(udev_device_get_name,
+                    filter(lambda d: not anaconda.storage.devicetree.isIgnored(d),
+                           filter(udev_device_is_disk, udev_get_block_devices())))
+
+        # Skip this screen as well if there's only one disk to use.
+        if len(disks) == 1:
+            anaconda.storage.clearPartDisks = disks
+            anaconda.bootloader.drivelist = disks
             return None
 
         (xml, self.vbox) = gui.getGladeWidget("cleardisks.glade", "vbox")
@@ -135,14 +143,13 @@ class ClearDisksWindow (InstallWindow):
 
         # Store the first disk (according to our detected BIOS order) for
         # auto boot device selection
-        self.bootDisk = sorted(self.anaconda.storage.exclusiveDisks,
-                               self.anaconda.storage.compareDisks)[0]
+        self.bootDisk = sorted(disks, self.anaconda.storage.compareDisks)[0]
 
         # The device filtering UI set up exclusiveDisks as a list of the names
         # of all the disks we should use later on.  Now we need to go get those,
         # look up some more information in the devicetree, and set up the
         # selector.
-        for d in self.anaconda.storage.exclusiveDisks:
+        for d in disks:
             device = self.anaconda.storage.devicetree.getDeviceByName(d)
             if not device:
                 continue
