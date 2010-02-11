@@ -1606,6 +1606,7 @@ class LUKSDevice(DMCryptDevice):
 
         self.slave.setup()
         self.slave.format.setup()
+        udev_settle()
 
         # we always probe since the device may not be set up when we want
         # information about it
