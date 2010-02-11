@@ -255,7 +255,7 @@ def vgcreate(vg_name, pv_list, pe_size, progress=None):
         raise LVMError("vgcreate failed for %s: %s" % (vg_name, msg))
 
 def vgremove(vg_name):
-    args = ["vgremove"] + \
+    args = ["vgremove", "--force"] + \
             config_args +\
             [vg_name]
 
