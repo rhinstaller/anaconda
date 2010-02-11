@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.9\n"
+"Project-Id-Version: anaconda 13.21.10\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-05 15:06-1000\n"
+"POT-Creation-Date: 2010-02-11 12:23-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1806,15 +1806,15 @@ msgstr ""
 msgid "Graphical Desktop"
 msgstr ""
 
-#: installclasses/fedora.py:54 installclasses/rhel.py:61
+#: installclasses/fedora.py:54
 msgid "Software Development"
 msgstr ""
 
-#: installclasses/fedora.py:60 installclasses/rhel.py:71
+#: installclasses/fedora.py:60 installclasses/rhel.py:61
 msgid "Web Server"
 msgstr ""
 
-#: installclasses/fedora.py:64 installclasses/rhel.py:51
+#: installclasses/fedora.py:64 installclasses/rhel.py:87
 msgid "Minimal"
 msgstr ""
 
@@ -1825,16 +1825,24 @@ msgstr ""
 #: installclasses/rhel.py:41
 #, python-format
 msgid ""
-"The default installation of %s is a minimal install. You can optionally "
+"The default installation of %s is a basic server install. You can optionally "
 "select a different set of software now."
 msgstr ""
 
-#: installclasses/rhel.py:52
+#: installclasses/rhel.py:51
+msgid "Basic Server"
+msgstr ""
+
+#: installclasses/rhel.py:55
+msgid "Database Server"
+msgstr ""
+
+#: installclasses/rhel.py:67
 msgid "Desktop"
 msgstr ""
 
-#: installclasses/rhel.py:78
-msgid "Advanced Server"
+#: installclasses/rhel.py:76
+msgid "Software Development Workstation"
 msgstr ""
 
 #: iw/GroupSelector.py:147
@@ -4467,23 +4475,23 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1247 storage/devices.py:1881 storage/devices.py:2281
-#: storage/devices.py:2747 storage/devices.py:3225
+#: storage/devices.py:1247 storage/devices.py:1884 storage/devices.py:2284
+#: storage/devices.py:2750 storage/devices.py:3229
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1248 storage/devices.py:1882 storage/devices.py:2282
-#: storage/devices.py:2748
+#: storage/devices.py:1248 storage/devices.py:1885 storage/devices.py:2285
+#: storage/devices.py:2751
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2373
+#: storage/devices.py:2376
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3226
+#: storage/devices.py:3230
 #, python-format
 msgid "Creating file %s"
 msgstr ""

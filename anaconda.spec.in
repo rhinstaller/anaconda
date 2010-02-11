@@ -216,6 +216,19 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.11-1
+- Revert "Write ARP=no to ifcfg file when VSWITCH=1 is set on s390x
+  (#561926)." (dcantrell)
+- Update task list for RHEL6 beta 1 (#561164, notting). (clumens)
+- Keep the end sector aligned when resizing partitions (#560647) (hdegoede)
+- Do not override BASEARCH with BUILDARCH, it doesn't make sense (#524235)
+  (msivak)
+- Prevent init from telling us its story if the shutdown was planned.
+  (#562166) (akozumpl)
+- Remove check for MD_DEVNAME from udev_device_is_md. (#562024) (dlehman)
+- Don't try to specify bitmap for RAID0 since mdadm doesn't allow it.
+  (#562023) (dlehman)
+
 * Fri Feb 05 2010 David Cantrell <dcantrell@redhat.com> - 13.21.10-1
 - Write ARP=no to ifcfg file when VSWITCH=1 is set on s390x (#561926).
   (dcantrell)
