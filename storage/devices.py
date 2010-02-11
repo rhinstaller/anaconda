@@ -1706,7 +1706,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
         # TODO: validate peSize if given
         if not self.peSize:
-            self.peSize = 4.0   # MB
+            self.peSize = 32.0   # MB
 
         #self.probe()
 
