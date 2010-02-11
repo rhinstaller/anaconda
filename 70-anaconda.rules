@@ -10,24 +10,12 @@ KERNEL=="dm-*", ACTION=="add", GOTO="anaconda_end"
 ENV{ANACBIN}="/sbin"
 TEST!="$env{ANACBIN}/dmsetup", ENV{ANACBIN}="/usr/sbin"
 
-# device-mapper devices are special. we can't run blkid on them until we
-# know they aren't cryptsetup temporary devices.
-KERNEL!="dm-*", IMPORT{program}="$env{ANACBIN}/blkid -o udev -p $tempnode"
-KERNEL!="dm-*", GOTO="anaconda_mdraid"
+KERNEL=="dm-*", ENV{DM_UDEV_DISABLE_DISK_RULES_FLAG}=="1", GOTO="anaconda_end"
+KERNEL=="dm-*", ENV{DM_NAME}!="?*", GOTO="anaconda_end"
+KERNEL=="dm-*", ENV{DM_SUSPENDED}=="1", GOTO="anaconda_end"
+KERNEL=="dm-*", ENV{DM_SUSPENDED}=="Suspended", GOTO="anaconda_end"
 
-IMPORT{program}="$env{ANACBIN}/dmsetup info -c --nameprefixes --unquoted --rows --noheadings -o name,uuid,suspended,readonly,major,minor,open,tables_loaded,names_using_dev -j%M -m%m"
-ENV{DM_NAME}!="?*", GOTO="anaconda_end"
-ENV{DM_UUID}=="CRYPT-TEMP-?*", GOTO="anaconda_end"
-ENV{DM_UUID}!="?*", ENV{DM_NAME}=="temporary-cryptsetup-?*", GOTO="anaconda_end"
 IMPORT{program}="$env{ANACBIN}/blkid -o udev -p $tempnode"
-
-SYMLINK+="disk/by-id/dm-name-$env{DM_NAME}"
-ENV{DM_UUID}=="?*", SYMLINK+="disk/by-id/dm-uuid-$env{DM_UUID}"
-
-ENV{DM_STATE}=="SUSPENDED", GOTO="anaconda_end"
-
-OPTIONS="link_priority=-100"
-ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{ID_FS_UUID_ENC}=="?*", SYMLINK+="disk/by-uuid/$env{ID_FS_UUID_ENC}"
 
 LABEL="anaconda_mdraid"
 KERNEL!="md*", GOTO="anaconda_mdraid_member"
