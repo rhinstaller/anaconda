@@ -607,6 +607,13 @@ makeinitrd() {
             instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
         done
 
+        # lsznet requirements
+        mkdir -p $MBD_DIR/lib/s390-tools
+        for lsznetbin in lsznet.raw znetcontrolunits ; do
+            target="/lib/s390-tools/$lsznetbin"
+            instbin $IMGPATH $target $MBD_DIR $target
+        done
+
         # required for lsznet
         instbin $IMGPATH /usr/bin/sort $MBD_DIR /sbin/sort
 
@@ -650,8 +657,6 @@ makeinitrd() {
     else
         instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/shutdown $MBD_DIR /sbin/shutdown
         instbin $IMGPATH /usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR /sbin/init
-        instbin $IMGPATH /usr/lib/anaconda-runtime/loader/lsznet.raw $MBD_DIR /sbin/lsznet
-        instbin $IMGPATH /usr/lib/anaconda-runtime/loader/controlunits.sh $MBD_DIR /sbin/controlunits
         instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
     fi
 

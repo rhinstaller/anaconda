@@ -31,7 +31,7 @@
 # - udevadm and udevd need to be there
 # - have /etc/udev/udev.conf with at least one comment line as content
 # - if necessary, have udev rules
-# - copy lsznet.raw and controlunits.sh to initrd
+# - lsznet.raw and znetcontrolunits from s390utils-base in /lib/s390-tools
 # - pack kernel modules and module-init-tools (no longer use busybox for that)
 # - "multi on" in /etc/host.conf [RH bugs 486457,486461,483244]
 
@@ -341,18 +341,14 @@ function udev_setup() {
 declare -a nettable
 
 function read_lsznet_output() {
-    #local lsznet_output=/tmp/lsznet.raw
-    #lsznet.raw > $lsznet_output
     count=0
     local line
     while read line; do
         nettable[$count]="$line"
         count=$((count + 1))
-    #done < $lsznet_output
-    #rm -f $lsznet_output
     # using the more sophisticated process substitution instead of temp file
     # requires the symlink /dev/fd -> /proc/self/fd => createDevices
-    done < <(lsznet)
+    done < <(/lib/s390-tools/lsznet.raw)
 }
 
 function print_nettable() {
@@ -505,7 +501,7 @@ declare -r BUSIDFORMAT=[[:xdigit:]][[:xdigit:]][[:xdigit:]][[:xdigit:]]
 declare -r IDFORMAT=$PREFIXFORMAT.$SSIDFORMAT.$BUSIDFORMAT
 declare -r SUBCHANNEL_TYPE_IO=0
 
-. /sbin/controlunits
+. /lib/s390-tools/znetcontrolunits
 
 function cardtype2cleartext() {
     local cardtype=$1
