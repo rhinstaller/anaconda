@@ -159,7 +159,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
     btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
-    cryptsetup-luks cyrus-sasl-lib db4 dbus dbus-python dejavu-sans-fonts
+    cryptsetup-luks cyrus-sasl-lib db4 dbus dbus-python dbus-x11 dejavu-sans-fonts
     dcbd dejavu-sans-mono-fonts device-mapper device-mapper-libs
     device-mapper-multipath device-mapper-multipath-libs
     dhclient dmraid dmraid-libs
@@ -173,16 +173,17 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
     libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
     libXxf86misc libacl libaio libart_lgpl libattr
-    libbonobo libcurl libfontenc libidn libgcc
-    libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libnl
+    libbonobo libcanberra libcanberra-gtk2 libcurl libfontenc libidn libgcc
+    libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libnl libogg
     libpng libselinux libselinux-python libsemanage
-    libsemanage-python libsepol libssh2 libstdc++ libthai libtirpc libuser
-    libuser-python libvolume_id libxcb libxkbfile libxml2 lklug-fonts 
+    libsemanage-python libsepol libssh2 libstdc++ libtdb libthai libtirpc 
+    libtool-ltdl libuser
+    libuser-python libvolume_id libvorbis libxcb libxkbfile libxml2 lklug-fonts
     lohit-assamese-fonts lohit-bengali-fonts lohit-gujarati-fonts lohit-hindi-fonts
     lohit-kashmiri-fonts lohit-kannada-fonts lohit-maithili-fonts lohit-marathi-fonts
     lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
     lohit-telugu-fonts lvm2 madan-fonts mdadm
-    mesa-dri-drivers module-init-tools ncurses neon net-tools
+    mesa-dri-drivers metacity module-init-tools ncurses neon net-tools
     newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g
     openldap openssh openssh-server
     pam pango parted pciutils pcre psmisc
@@ -191,13 +192,14 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     python-urlgrabber python-volume_key pyxf86config readline redhat-artwork
     reiserfs-utils report-config-default report-gtk report-newt rpm rpm-libs
     rpm-python rsyslog sed selinux-policy-targeted
-    setup slang smc-meera-fonts specspo sqlite strace synaptics system-config-date
+    setup slang smc-meera-fonts specspo sqlite startup-notification strace
+    synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
     sysvinit-tools taipeifonts tcp_wrappers tcp_wrappers-libs telnet
     tigervnc-server tigervnc-server-module tzdata
     udev un-core-dotum-fonts urw-fonts usbutils util-linux-ng
     vlgothic-fonts vim-minimal
-    wget wpa_supplicant xkeyboard-config xfsprogs xorg-x11-xauth
+    wget wpa_supplicant xcb-util xkeyboard-config xfsprogs xorg-x11-xauth
     xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
     xorg-x11-fonts-misc xorg-x11-server-utils
     xorg-x11-server-Xorg xorg-x11-xkb-utils xorg-x11-xfs yum
@@ -500,6 +502,7 @@ usr/$LIBDIR/pango
 usr/$LIBDIR/python?.?
 usr/$LIBDIR/rpm/rpmpopt
 usr/$LIBDIR/libiscsi.so*
+usr/$LIBDIR/libmetacity-private.so*
 usr/$LIBDIR/libsqlite3.so*
 usr/$LIBDIR/xorg/modules
 usr/$LIBDIR/xserver/SecurityPolicy
@@ -515,6 +518,7 @@ usr/bin/[
 usr/bin/Xorg
 usr/bin/Xvnc
 usr/bin/chattr*
+usr/bin/dbus-launch
 usr/bin/du
 usr/bin/expr
 usr/bin/gdb-gdbserver
@@ -533,6 +537,7 @@ usr/bin/logger
 usr/bin/lsattr*
 usr/bin/maketilo
 usr/bin/md5sum
+usr/bin/metacity
 usr/bin/mini-wm
 usr/bin/mkzimage
 usr/bin/pango*
@@ -674,6 +679,7 @@ usr/share/terminfo/v/vt100-nav
 usr/share/terminfo/v/vt320
 usr/share/terminfo/v/vt320-w
 usr/share/terminfo/x/xterm
+usr/share/themes/Atlanta/metacity-1
 usr/share/xorg/extramodes
 usr/share/xorg/vesamodes
 usr/share/zenity
