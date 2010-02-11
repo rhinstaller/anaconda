@@ -36,7 +36,7 @@ from tempfile import mkstemp
 
 # keep up with process ID of miniwm if we start it
 
-miniwm_pid = None
+wm_pid = None
 
 # Make sure messages sent through python's warnings module get logged.
 def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr, line=None):
@@ -67,22 +67,41 @@ def startMiniWM(root='/'):
 
     return childpid
 
+def startMetacityWM():
+    childpid = os.fork()
+    if not childpid:
+        cmd = '/usr/bin/metacity'
+        if not os.access(cmd, os.X_OK):
+            log.error("Unable to find the window manager binary.")
+            sys.exit(1)
+        args = ['--display', ':1',
+                '--sm-disable']
+        rc = iutil.execWithRedirect(cmd, args, 
+                               stdout='/dev/null', stderr='/dev/null')
+        if rc:
+            log.error("Error running window manager.")
+            sys.exit (rc)
+        else:
+            log.info("The window manager has terminated.")
+            sys.exit(0)
+    return childpid
+
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions(runres="800x600"):
-    global miniwm_pid
+    global wm_pid
 
     setupGraphicalLinks()
 
     # now start up mini-wm
     try:
-        miniwm_pid = startMiniWM()
-        log.info("Started mini-wm")
+        wm_pid = startMetacityWM()
+        log.info("Started metacity, pid %s." % (wm_pid,))
 
     except:
-        miniwm_pid = None
-        log.error("Unable to start mini-wm")
+        wm_pid = None
+        log.error("Unable to start the window manager.")
 
-    if miniwm_pid is not None:
+    if wm_pid is not None:
         import xutils
         import gtk
 
@@ -103,12 +122,12 @@ def doStartupX11Actions(runres="800x600"):
             raise RuntimeError, "X server failed to start"
 
 def doShutdownX11Actions():
-    global miniwm_pid
+    global wm_pid
     
-    if miniwm_pid is not None:
+    if wm_pid is not None:
         try:
-            os.kill(miniwm_pid, 15)
-            os.waitpid(miniwm_pid, 0)
+            os.kill(wm_pid, 15)
+            os.waitpid(wm_pid, 0)
         except:
             pass
 
