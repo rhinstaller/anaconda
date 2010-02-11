@@ -27,7 +27,7 @@ noinst_HEADERS     = *.h
 
 if IS_S390
 boot_PROGRAMS      += shutdown
-dist_boot_SCRIPTS  = linuxrc.s390 lsznet.raw controlunits.sh
+dist_boot_SCRIPTS  = linuxrc.s390
 else
 boot_PROGRAMS      += init
 endif
