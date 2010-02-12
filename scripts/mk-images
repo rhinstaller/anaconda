@@ -126,6 +126,8 @@ fi
 
 if [ "$BUILDARCH" = "sparc64" ]; then
     BASEARCH=sparc
+else
+    BASEARCH=$BUILDARCH
 fi
 
 # explicit block size setting for some arches (FIXME: we compose
