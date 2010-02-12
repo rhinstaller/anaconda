@@ -301,10 +301,11 @@ def doInstall(anaconda):
 
 # does this need to be per-backend?  we'll just leave here until it does :)
 def doBasePackageSelect(anaconda):
-    anaconda.backend.resetPackageSelections()
     if anaconda.ksdata:
+        anaconda.backend.resetPackageSelections()
         kickstart.selectPackages(anaconda)
     elif anaconda.displayMode != 't':
+        anaconda.backend.resetPackageSelections()
         anaconda.instClass.setPackageSelection(anaconda)
         anaconda.instClass.setGroupSelection(anaconda)
 
