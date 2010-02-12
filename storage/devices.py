@@ -1252,7 +1252,13 @@ class PartitionDevice(StorageDevice):
             self.setupParents()
 
             self.disk.format.addPartition(self.partedPartition)
-            self.disk.format.commit()
+
+            try:
+                self.disk.format.commit()
+            except DiskLabelCommitError:
+                part = self.disk.format.partedDisk.getPartitionByPath(self.path)
+                self.disk.format.removePartition(part)
+                raise
 
             # Ensure old metadata which lived in freespace so did not get
             # explictly destroyed by a destroyformat action gets wiped
