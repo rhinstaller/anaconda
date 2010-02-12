@@ -561,7 +561,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/usr/libexec
     mkdir -p $MBD_DIR/usr/$LIBDIR/NetworkManager
-    mkdir -p $MBD_DIR/usr/$LIBDIR/rsyslog
+    mkdir -p $MBD_DIR/$LIBDIR/rsyslog
     mkdir -p $MBD_DIR/usr/share/dbus-1/system-services
     mkdir -p $MBD_DIR/var/cache/hald
     mkdir -p $MBD_DIR/var/lib/dbus
@@ -790,9 +790,9 @@ makeinitrd() {
 
     # rsyslog
     instbin $IMGPATH /usr/sbin/rsyslogd $MBD_DIR /sbin/rsyslogd
-    ( cd $IMGPATH/usr/$LIBDIR/rsyslog
+    ( cd $IMGPATH/$LIBDIR/rsyslog
       for f in *.so; do
-          instbin $IMGPATH /usr/$LIBDIR/rsyslog/$f $MBD_DIR /usr/$LIBDIR/rsyslog/$f
+          instbin $IMGPATH /$LIBDIR/rsyslog/$f $MBD_DIR /$LIBDIR/rsyslog/$f
       done
     )
     # \EOF has a quote in the first character on purpose; see man bash on here documents
