@@ -1229,6 +1229,12 @@ class XFS(FS):
     _existingSizeFields = ["dblocks =", "blocksize ="]
     partedSystem = fileSystemType["xfs"]
 
+    def _getLabelArgs(self, label):
+        argv = []
+        argv.extend(self.defaultLabelOptions)
+        argv.extend([label, self.device])
+        return argv
+
 register_device_format(XFS)
 
 
