@@ -269,7 +269,7 @@ class Users:
 
     def write(self, instPath):
         # make sure crypt_style in libuser.conf matches the salt we're using
-        self.createLuserConf(instPath, algoname=self.getPassAlgo())
+        createLuserConf(instPath, algoname=self.getPassAlgo())
 
         # User should already exist, just without a password.
         self.setRootPassword(algo=self.getPassAlgo())
