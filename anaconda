@@ -510,8 +510,7 @@ class Anaconda(object):
 
         return self._instLanguage
 
-    @property
-    def intf(self):
+    def _getInterface(self):
         if self._intf:
             return self._intf
 
@@ -543,6 +542,12 @@ class Anaconda(object):
 
         self._intf = InstallInterface()
         return self._intf
+
+    def _setInterface(self, v):
+        # "lambda cannot contain assignment"
+        self._intf = v
+
+    intf = property(_getInterface, _setInterface)
 
     @property
     def network(self):
