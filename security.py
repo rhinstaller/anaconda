@@ -19,7 +19,7 @@
 # Author(s): Jeremy Katz <katzj@redhat.com>
 #
 
-import iutil
+import iutil, shlex
 from flags import flags
 from pykickstart.constants import *
 
