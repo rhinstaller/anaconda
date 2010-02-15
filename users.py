@@ -299,7 +299,7 @@ class Users:
         if self.rootPassword["isCrypted"]:
             args = " --iscrypted %s" % self.rootPassword["password"]
         else:
-            args = " --iscrypted %s" % self.cryptPassword(self.rootPassword["password"], algo=self.getPassAlgo())
+            args = " --iscrypted %s" % cryptPassword(self.rootPassword["password"], algo=self.getPassAlgo())
 
         if self.rootPassword["lock"]:
             args += " --lock"
