@@ -20,7 +20,7 @@ import iutil
 from bootloaderInfo import *
 from bootloader import *
 
-class BootyNoKernelWarning:
+class BootyNoKernelWarning(Exception):
     def __init__ (self, value=""):
         self.value = value
 

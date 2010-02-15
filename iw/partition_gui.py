@@ -173,7 +173,7 @@ class Slice:
         if self.box:
             self.box.set(outline_color="black", fill_color=self.unsel_col)
 
-class Stripe:
+class Stripe(object):
     """
     canvas -- the canvas where everything goes
     text -- the text that will appear on top of the stripe

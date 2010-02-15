@@ -141,7 +141,7 @@ class DeviceSelector(DeviceDisplayer):
 
         if not radioButton:
             self.allButton = gtk.ToggleButton()
-            col.connect("clicked", lambda *args: self.allButton.set_active(self.allButton.get_active() != True))
+            col.connect("clicked", lambda *args: self.allButton.set_active(not self.allButton.get_active()))
 
             col.set_widget(self.allButton)
             self.allButton.show_all()

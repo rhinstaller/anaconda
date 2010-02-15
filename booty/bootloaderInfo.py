@@ -98,7 +98,7 @@ class KernelArguments:
                 import storage
                 if isinstance(d, storage.devices.NetworkStorageDevice):
                     args += " "
-                    args += self.network.dracutSetupString(d)
+                    args += self.anaconda.network.dracutSetupString(d)
 
             s = d.dracutSetupString()
             types[s.split("=")[0]] = True
