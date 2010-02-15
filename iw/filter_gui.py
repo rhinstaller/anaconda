@@ -620,7 +620,11 @@ class FilterWindow(InstallWindow):
             size = int(partedDevice.getSize())
             fstype = ""
 
-            members = map(lambda m: m.get_devpath(), list(rs.get_members()))
+            # get_members also returns subsets with layered raids, we only
+            # want the devices
+            members = filter(lambda m: isinstance(m, block.device.RaidDev),
+                             list(rs.get_members()))
+            members = map(lambda m: m.get_devpath(), members)
             for d in raids:
                 if udev_device_get_name(d) in members:
                     fstype = udev_device_get_format(d)
