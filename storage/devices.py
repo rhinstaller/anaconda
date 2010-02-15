@@ -1403,7 +1403,7 @@ class PartitionDevice(StorageDevice):
         Setting up a disk is not trivial.  It has the potential to change
         the underlying object.  If necessary we must also change this object.
         """
-        log_method_call(self, self.name, old=self.disk, new=disk)
+        log_method_call(self, self.name, old=self.disk.name, new=disk.name)
         if self.disk:
             self.disk.removeChild()
 
