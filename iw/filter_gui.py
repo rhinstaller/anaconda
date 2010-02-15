@@ -656,6 +656,7 @@ class FilterWindow(InstallWindow):
                      udev_device_get_serial(d), ident, "", "", "", "")
             _addTuple(tuple)
 
+        used_raidmembers = []
         for rs in block.getRaidSets():
             rs.activate(mknod=True, mkparts=False)
             udev_settle()
@@ -669,6 +670,7 @@ class FilterWindow(InstallWindow):
             members = filter(lambda m: isinstance(m, block.device.RaidDev),
                              list(rs.get_members()))
             members = map(lambda m: m.get_devpath(), members)
+            used_raidmembers.extend(members)
             for d in raids:
                 if udev_device_get_name(d) in members:
                     fstype = udev_device_get_format(d)
@@ -686,6 +688,13 @@ class FilterWindow(InstallWindow):
             _addTuple(tuple)
 
             rs.deactivate()
+
+        unused_raidmembers = []
+        for d in raids:
+            if udev_device_get_name(d) not in used_raidmembers:
+                unused_raidmembers.append(udev_device_get_name(d))
+
+        self.anaconda.intf.unusedRaidMembersWarning(unused_raidmembers)
 
         for mpath in mpaths:
             # We only need to grab information from the first device in the set.

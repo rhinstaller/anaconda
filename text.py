@@ -36,6 +36,7 @@ from flags import flags
 from constants_text import *
 from constants import *
 from network import hasActiveNetDev
+from installinterfacebase import InstallInterfaceBase
 import imputil
 
 import gettext
@@ -257,7 +258,7 @@ class PassphraseEntryWindow:
     def pop(self):
         self.screen.popWindow()
 
-class InstallInterface:
+class InstallInterface(InstallInterfaceBase):
     def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
         return ProgressWindow(self.screen, title, text, total, updpct, pulse)
 
@@ -434,6 +435,7 @@ class InstallInterface:
         self.screen.resume()
 
     def __init__(self):
+	InstallInterfaceBase.__init__(self)
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
 	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 	self.screen = SnackScreen()

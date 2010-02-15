@@ -42,6 +42,7 @@ from language import expandLangs
 from constants import *
 from product import *
 from network import hasActiveNetDev
+from installinterfacebase import InstallInterfaceBase
 import xutils
 import imputil
 
@@ -974,8 +975,9 @@ class EntryWindow(MessageWindow):
     def destroy(self):
         self.dialog.destroy()
 
-class InstallInterface:
+class InstallInterface(InstallInterfaceBase):
     def __init__ (self):
+        InstallInterfaceBase.__init__(self)
         self.icw = None
 
         # figure out if we want to run interface at 800x600 or 640x480

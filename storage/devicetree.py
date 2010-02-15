@@ -173,6 +173,8 @@ class DeviceTree(object):
         # names of protected devices at the time of tree population
         self.protectedDevNames = []
 
+        self.unusedRaidMembers = []
+
         self.__multipaths = {}
         self.__multipathConfigWriter = devicelibs.mpath.MultipathConfigWriter()
 
@@ -1630,7 +1632,7 @@ class DeviceTree(object):
         if len(rss) == 0:
             # we ignore the device in the hope that all the devices
             # from this set will be ignored.
-            # FIXME: Can we reformat a raid device?
+            self.unusedRaidMembers.append(device.name)
             self.addIgnoredDisk(device.name)
             return
 
@@ -1878,6 +1880,15 @@ class DeviceTree(object):
         # Address the inconsistencies present in the tree leaves.
         for leaf in self.leaves:
             leafInconsistencies(leaf)
+
+        # Check for unused BIOS raid members, unused dmraid members are added
+        # to self.unusedRaidMembers as they are processed, extend this list
+        # with unused mdraid BIOS raid members
+        for c in self.getDevicesByType("mdcontainer"):
+            if c.kids == 0:
+                self.unusedRaidMembers.extend(map(lambda m: m.name, c.devices))
+
+        self.intf.unusedRaidMembersWarning(self.unusedRaidMembers)
 
     def populate(self):
         """ Locate all storage devices. """

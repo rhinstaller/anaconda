@@ -26,6 +26,7 @@ import parted
 from constants import *
 from flags import flags
 from iutil import strip_markup
+from installinterfacebase import InstallInterfaceBase
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -62,8 +63,9 @@ class ProgressWindow:
         print(text)
         print(_("In progress"))
 
-class InstallInterface:
+class InstallInterface(InstallInterfaceBase):
     def __init__(self):
+        InstallInterfaceBase.__init__(self)
 #        signal.signal(signal.SIGINT, signal.SIG_IGN)
         signal.signal(signal.SIGTSTP, signal.SIG_DFL)
 
