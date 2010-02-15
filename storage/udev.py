@@ -151,7 +151,9 @@ def udev_device_is_dm(info):
 
 def udev_device_is_md(info):
     """ Return True if the device is a mdraid array device. """
-    return info.has_key("MD_METADATA")
+    # isw raid set *members* have MD_METADATA set, but are not arrays!
+    return info.has_key("MD_METADATA") and \
+           info.get("ID_FS_TYPE") != "isw_raid_member"
 
 def udev_device_is_cciss(info):
     """ Return True if the device is a CCISS device. """
