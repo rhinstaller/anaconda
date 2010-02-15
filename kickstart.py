@@ -933,7 +933,7 @@ class Timezone(commands.timezone.FC6_Timezone):
 
 class Upgrade(commands.upgrade.F11_Upgrade):
     def execute(self, anaconda):
-        anaconda.upgrade = True
+        anaconda.upgrade = self.upgrade
 
 class VolGroupData(commands.volgroup.FC3_VolGroupData):
     def execute(self, anaconda):
