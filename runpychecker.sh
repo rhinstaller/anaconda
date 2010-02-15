@@ -37,7 +37,7 @@ if [ "`tail -c 1 pychecker-false-positives`" == "`echo`" ]; then
   exit 1
 fi
 
-export PYTHONPATH="isys:textw:iw:installclasses:/usr/share/system-config-date"
+export PYTHONPATH=".:.libs:isys:isys/.libs:textw:iw:installclasses:/usr/share/system-config-date"
 
 pychecker --only --limit 1000 \
   --maxlines 500 --maxargs 20 --maxbranches 80 --maxlocals 60 --maxreturns 20 \
