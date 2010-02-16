@@ -94,6 +94,12 @@ class AnacondaLog:
         self.addFileHandler(sys.stdout, stdoutLogger,
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
 
+        # Stderr logger
+        stderrLogger = logging.getLogger("anaconda.stderr")
+        stderrLogger.setLevel(logging.INFO)
+        self.addFileHandler(sys.stderr, stderrLogger,
+                            fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
+
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_TTY_LEVEL,
                         fmtStr=ENTRY_FORMAT,

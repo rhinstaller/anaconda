@@ -55,7 +55,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
-stdoutLog = logging.getLogger("anaconda.stdout")
+stderrLog = logging.getLogger("anaconda.stderr")
 from anaconda_log import logger, logLevelMap, setHandlersLevel,\
     DEFAULT_TTY_LEVEL
 
@@ -1169,16 +1169,16 @@ def preScriptPass(anaconda, file):
             anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
             sys.exit(1)
         else:
-            print _("The following error was found while parsing the kickstart "
-                    "configuration file:\n\n%s") % e
+            stderrLog.critical(_("The following error was found while parsing the kickstart "
+                              "configuration file:\n\n%s") % e)
             sys.exit(1)
     except KickstartError, e:
        if anaconda.intf:
            anaconda.intf.kickstartErrorWindow(e.__str__())
            sys.exit(1)
        else:
-            print _("The following error was found while parsing the kickstart "
-                    "configuration file:\n\n%s") % e
+            stderrLog.critical(_("The following error was found while parsing the kickstart "
+                              "configuration file:\n\n%s") % e)
             sys.exit(1)
 
     # run %pre scripts
@@ -1188,10 +1188,10 @@ def parseKickstart(anaconda, file):
     try:
         file = preprocessKickstart(file)
     except KickstartError, msg:
-        stdoutLog.critical(_("Error processing %%ksappend lines: %s") % msg)
+        stderrLog.critical(_("Error processing %%ksappend lines: %s") % msg)
         sys.exit(1)
     except Exception, e:
-        stdoutLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
+        stderrLog.critical(_("Unknown error processing %%ksappend lines: %s") % e)
         sys.exit(1)
 
     handler = AnacondaKSHandler(anaconda)
@@ -1215,16 +1215,16 @@ def parseKickstart(anaconda, file):
             anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
             sys.exit(1)
         else:
-            print _("The following error was found while parsing the kickstart "
-                    "configuration file:\n\n%s") % e
+            stderrLog.critical(_("The following error was found while parsing the kickstart "
+                              "configuration file:\n\n%s") % e)
             sys.exit(1)
     except KickstartError, e:
         if anaconda.intf:
             anaconda.intf.kickstartErrorWindow(e.__str__())
             sys.exit(1)
         else:
-            print _("The following error was found while parsing the kickstart "
-                    "configuration file:\n\n%s") % e
+            stderrLog.critical(_("The following error was found while parsing the kickstart "
+                              "configuration file:\n\n%s") % e)
             sys.exit(1)
 
     return handler
