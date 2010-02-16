@@ -1435,8 +1435,10 @@ def growPartitions(disks, partitions, free):
             # adjust the extended partition as needed
             # we will ony resize an extended partition that we created
             log.debug("extended: %s" % extended_geometry)
+            # only check the start sector of the extended because its end
+            # sector is not aligned
             if extended_geometry and \
-               chunk.geometry.contains(extended_geometry):
+               chunk.geometry.containsSector(extended_geometry.start):
                 log.debug("setting up new geometry for extended on %s" % disk.name)
                 ext_start = 0
                 ext_end = 0
