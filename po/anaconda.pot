@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.25\n"
+"Project-Id-Version: anaconda 13.27\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-12 20:22-0500\n"
+"POT-Creation-Date: 2010-02-16 17:52-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: anaconda:336
+#: anaconda:339
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:351 rescue.py:330 rescue.py:356 rescue.py:369 rescue.py:447
-#: rescue.py:459 text.py:654 loader/cdinstall.c:228 loader/cdinstall.c:232
+#: anaconda:354 rescue.py:330 rescue.py:356 rescue.py:369 rescue.py:447
+#: rescue.py:459 text.py:656 loader/cdinstall.c:228 loader/cdinstall.c:232
 #: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:427
 #: loader/cdinstall.c:431 loader/cdinstall.c:504 loader/dirbrowser.c:128
 #: loader/driverdisk.c:266 loader/driverdisk.c:419 loader/driverdisk.c:457
@@ -49,32 +49,32 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: anaconda:358
+#: anaconda:361
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 
-#: anaconda:518
+#: anaconda:522
 msgid "Starting graphical installation."
 msgstr ""
 
-#: anaconda:1008
+#: anaconda:1018
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:1009
+#: anaconda:1019
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:1034
+#: anaconda:1044
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:1042
+#: anaconda:1052
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -109,7 +109,7 @@ msgid ""
 msgstr ""
 
 #: backend.py:182 image.py:288 livecd.py:198 livecd.py:403
-#: partIntfHelpers.py:237 text.py:353 text.py:357 yuminstall.py:407
+#: partIntfHelpers.py:237 text.py:354 text.py:358 yuminstall.py:407
 #: yuminstall.py:788 yuminstall.py:906 yuminstall.py:911 yuminstall.py:1182
 #: yuminstall.py:1246 yuminstall.py:1435 yuminstall.py:1457
 #: iw/autopart_type.py:96 iw/osbootwidget.py:211 iw/osbootwidget.py:220
@@ -126,7 +126,7 @@ msgstr ""
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:326 loader/urls.c:332
-#: storage/__init__.py:210 storage/__init__.py:1788 storage/__init__.py:1875
+#: storage/__init__.py:210 storage/__init__.py:1789 storage/__init__.py:1876
 #: textw/netconfig_text.py:282 textw/partition_text.py:186
 #: textw/partition_text.py:192 textw/partition_text.py:198
 #: textw/partition_text.py:227 textw/partition_text.py:273
@@ -134,8 +134,8 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1152
-#: gui.py:1212 image.py:82 text.py:483 text.py:543 yuminstall.py:1414
+#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1154
+#: gui.py:1214 image.py:82 text.py:485 text.py:545 yuminstall.py:1414
 #: yuminstall.py:1620 yuminstall.py:1655 iw/blpasswidget.py:148
 #: iw/upgrade_swap_gui.py:190 iw/upgrade_swap_gui.py:198
 #: iw/upgrade_swap_gui.py:205 textw/upgrade_text.py:193
@@ -150,19 +150,19 @@ msgid ""
 "Would you like to continue with the installation?"
 msgstr ""
 
-#: bootloader.py:60 gui.py:1103 gui.py:1248 gui.py:1463 image.py:91
+#: bootloader.py:60 gui.py:1105 gui.py:1250 gui.py:1465 image.py:91
 #: kickstart.py:156 livecd.py:205 livecd.py:410 packages.py:130 upgrade.py:58
 #: upgrade.py:197 yuminstall.py:248 yuminstall.py:690 yuminstall.py:908
 #: yuminstall.py:913 yuminstall.py:993 yuminstall.py:999 yuminstall.py:1153
 #: yuminstall.py:1178 yuminstall.py:1236 yuminstall.py:1422 yuminstall.py:1441
 #: yuminstall.py:1464 storage/__init__.py:107 storage/__init__.py:214
-#: storage/__init__.py:1969
+#: storage/__init__.py:1970
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1299
 #: kickstart.py:1338 upgrade.py:58 yuminstall.py:1241 yuminstall.py:1423
-#: iw/partition_gui.py:1598 storage/__init__.py:1970
+#: iw/partition_gui.py:1598 storage/__init__.py:1971
 msgid "_Continue"
 msgstr ""
 
@@ -186,16 +186,16 @@ msgid ""
 "will not be changed."
 msgstr ""
 
-#: cmdline.py:55
+#: cmdline.py:56
 msgid "Completed"
 msgstr ""
 
-#: cmdline.py:63
+#: cmdline.py:64
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:87 gui.py:1243 kickstart.py:1163 kickstart.py:1171
-#: kickstart.py:1209 kickstart.py:1217 text.py:390
+#: cmdline.py:89 gui.py:1245 kickstart.py:1163 kickstart.py:1171
+#: kickstart.py:1209 kickstart.py:1217 text.py:391
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -204,13 +204,13 @@ msgid ""
 "%s"
 msgstr ""
 
-#: cmdline.py:99
+#: cmdline.py:101
 msgid ""
 "Command line mode requires all choices to be specified in a kickstart "
 "configuration file."
 msgstr ""
 
-#: cmdline.py:118 cmdline.py:125 cmdline.py:132 cmdline.py:142 cmdline.py:152
+#: cmdline.py:120 cmdline.py:127 cmdline.py:134 cmdline.py:144 cmdline.py:154
 msgid "Can't have a question in command line mode!"
 msgstr ""
 
@@ -229,15 +229,15 @@ msgstr ""
 msgid " against anaconda at %s"
 msgstr ""
 
-#: gui.py:108
+#: gui.py:109
 msgid "An error occurred saving screenshots to disk."
 msgstr ""
 
-#: gui.py:119
+#: gui.py:120
 msgid "Screenshots Copied"
 msgstr ""
 
-#: gui.py:120
+#: gui.py:121
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -246,66 +246,66 @@ msgid ""
 "You can access these when you reboot and login as root."
 msgstr ""
 
-#: gui.py:163
+#: gui.py:164
 msgid "Saving Screenshot"
 msgstr ""
 
-#: gui.py:164
+#: gui.py:165
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr ""
 
-#: gui.py:167
+#: gui.py:168
 msgid "Error Saving Screenshot"
 msgstr ""
 
-#: gui.py:168
+#: gui.py:169
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 
-#: gui.py:560
+#: gui.py:561
 msgid "Installation Key"
 msgstr ""
 
-#: gui.py:631 text.py:148
+#: gui.py:632 text.py:149
 msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
 msgstr ""
 
-#: gui.py:650 gui.py:658 text.py:186 text.py:196
+#: gui.py:651 gui.py:659 text.py:187 text.py:197
 msgid "Error with passphrase"
 msgstr ""
 
-#: gui.py:651 text.py:187
+#: gui.py:652 text.py:188
 msgid "The passphrases you entered were different.  Please try again."
 msgstr ""
 
-#: gui.py:659
+#: gui.py:660
 msgid "The passphrase must be at least eight characters long."
 msgstr ""
 
-#: gui.py:693 text.py:224
+#: gui.py:694 text.py:225
 #, python-format
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: gui.py:784 gui.py:1463 partIntfHelpers.py:157 partIntfHelpers.py:342
-#: text.py:99 text.py:100 iw/account_gui.py:130 loader/dirbrowser.c:128
+#: gui.py:785 gui.py:1465 partIntfHelpers.py:157 partIntfHelpers.py:342
+#: text.py:100 text.py:101 iw/account_gui.py:130 loader/dirbrowser.c:128
 #: loader/driverdisk.c:420 loader/kickstart.c:328 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
 msgid "Cancel"
 msgstr ""
 
-#: gui.py:796 gui.py:797 gui.py:913 gui.py:914 ui/anaconda.glade.h:2
+#: gui.py:797 gui.py:798 gui.py:914 gui.py:915 ui/anaconda.glade.h:2
 msgid "_Debug"
 msgstr ""
 
-#: gui.py:1153 text.py:484
+#: gui.py:1155 text.py:486
 #, python-format
 msgid ""
 "Error processing drive:\n"
@@ -322,23 +322,23 @@ msgid ""
 "(details)s"
 msgstr ""
 
-#: gui.py:1162 gui.py:1220 text.py:493 text.py:551
+#: gui.py:1164 gui.py:1222 text.py:495 text.py:553
 msgid "_Ignore"
 msgstr ""
 
-#: gui.py:1163 gui.py:1221 text.py:494 text.py:552
+#: gui.py:1165 gui.py:1223 text.py:496 text.py:554
 msgid "Ignore _all"
 msgstr ""
 
-#: gui.py:1164 gui.py:1222 text.py:495 text.py:553
+#: gui.py:1166 gui.py:1224 text.py:497 text.py:555
 msgid "_Re-initialize"
 msgstr ""
 
-#: gui.py:1165 gui.py:1223 text.py:496 text.py:554
+#: gui.py:1167 gui.py:1225 text.py:498 text.py:556
 msgid "Re-ini_tialize all"
 msgstr ""
 
-#: gui.py:1213 text.py:544
+#: gui.py:1215 text.py:546
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -348,19 +348,19 @@ msgid ""
 "with inconsistent metadata."
 msgstr ""
 
-#: gui.py:1245 text.py:392
+#: gui.py:1247 text.py:393
 msgid "Error Parsing Kickstart Config"
 msgstr ""
 
-#: gui.py:1287
+#: gui.py:1289
 msgid "default:LTR"
 msgstr ""
 
-#: gui.py:1367 text.py:619
+#: gui.py:1369 text.py:621
 msgid "Error!"
 msgstr ""
 
-#: gui.py:1368 text.py:620
+#: gui.py:1370 text.py:622
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -368,46 +368,46 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: gui.py:1373 image.py:164 image.py:194 packages.py:328
-#: storage/__init__.py:1787
+#: gui.py:1375 image.py:164 image.py:194 packages.py:328
+#: storage/__init__.py:1788
 msgid "_Exit"
 msgstr ""
 
-#: gui.py:1374 image.py:164 image.py:194 livecd.py:205 yuminstall.py:780
+#: gui.py:1376 image.py:164 image.py:194 livecd.py:205 yuminstall.py:780
 #: yuminstall.py:1178 yuminstall.py:1236 yuminstall.py:1441
 msgid "_Retry"
 msgstr ""
 
-#: gui.py:1376 storage/partitioning.py:275
+#: gui.py:1378 storage/partitioning.py:275
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1377 image.py:251 packages.py:332 yuminstall.py:1482
+#: gui.py:1379 image.py:251 packages.py:332 yuminstall.py:1482
 msgid "_Reboot"
 msgstr ""
 
-#: gui.py:1379
+#: gui.py:1381
 msgid "Exiting"
 msgstr ""
 
-#: gui.py:1460 livecd.py:126 text.py:269 upgrade.py:188
+#: gui.py:1462 livecd.py:126 text.py:270 upgrade.py:188
 msgid "Exit installer"
 msgstr ""
 
-#: gui.py:1461
+#: gui.py:1463
 msgid "Are you sure you wish to exit the installer?"
 msgstr ""
 
-#: gui.py:1470
+#: gui.py:1472
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: gui.py:1476
+#: gui.py:1478
 msgid "Unable to load title bar"
 msgstr ""
 
-#: gui.py:1538
+#: gui.py:1540
 msgid "Install Window"
 msgstr ""
 
@@ -1118,7 +1118,7 @@ msgid "Read-Only"
 msgstr ""
 
 #: rescue.py:293 rescue.py:295 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1787 textw/upgrade_text.py:139
+#: loader/method.c:324 storage/__init__.py:1788 textw/upgrade_text.py:139
 msgid "Skip"
 msgstr ""
 
@@ -1130,7 +1130,7 @@ msgstr ""
 msgid "Which device holds the root partition of your installation?"
 msgstr ""
 
-#: rescue.py:330 rescue.py:334 text.py:624 text.py:626
+#: rescue.py:330 rescue.py:334 text.py:626 text.py:628
 msgid "Exit"
 msgstr ""
 
@@ -1183,57 +1183,57 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr ""
 
-#: text.py:153
+#: text.py:154
 msgid "Passphrase for encrypted device"
 msgstr ""
 
-#: text.py:166
+#: text.py:167
 msgid "Also add this passphrase to all existing encrypted devices"
 msgstr ""
 
-#: text.py:197
+#: text.py:198
 #, python-format
 msgid "The passphrase must be at least %d character long."
 msgstr ""
 
-#: text.py:231 ui/lukspassphrase.glade.h:6
+#: text.py:232 ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
 msgstr ""
 
-#: text.py:239 ui/lukspassphrase.glade.h:7
+#: text.py:240 ui/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
 msgstr ""
 
-#: text.py:354 text.py:358
+#: text.py:355 text.py:359
 msgid "Repository editing is not available in text mode."
 msgstr ""
 
-#: text.py:420
+#: text.py:421
 #, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
 msgstr ""
 
-#: text.py:422
+#: text.py:423
 #, python-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: text.py:424
+#: text.py:425
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: text.py:624 loader/net.c:110 loader/net.c:471 loader/net.c:526
+#: text.py:626 loader/net.c:110 loader/net.c:471 loader/net.c:526
 #: loader/net.c:668 loader/net.c:676 loader/net.c:1097 loader/net.c:1105
 msgid "Retry"
 msgstr ""
 
-#: text.py:650
+#: text.py:652
 msgid "Cancelled"
 msgstr ""
 
-#: text.py:651
+#: text.py:653
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
@@ -2590,7 +2590,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: iw/partition_gui.py:612 storage/__init__.py:1787
+#: iw/partition_gui.py:612 storage/__init__.py:1788
 msgid "Format"
 msgstr ""
 
@@ -4295,7 +4295,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:1820
+#: storage/__init__.py:1821
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4306,7 +4306,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: storage/__init__.py:1831
+#: storage/__init__.py:1832
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4318,7 +4318,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: storage/__init__.py:1839
+#: storage/__init__.py:1840
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4330,7 +4330,7 @@ msgid ""
 "make sure the installer is set to format all swap devices."
 msgstr ""
 
-#: storage/__init__.py:1851
+#: storage/__init__.py:1852
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4341,7 +4341,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: storage/__init__.py:1862
+#: storage/__init__.py:1863
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4352,7 +4352,7 @@ msgid ""
 "Press OK to exit the installer"
 msgstr ""
 
-#: storage/__init__.py:1869
+#: storage/__init__.py:1870
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4362,11 +4362,11 @@ msgid ""
 "Press OK to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1932 storage/__init__.py:1944
+#: storage/__init__.py:1933 storage/__init__.py:1945
 msgid "Invalid mount point"
 msgstr ""
 
-#: storage/__init__.py:1933
+#: storage/__init__.py:1934
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4375,7 +4375,7 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1945
+#: storage/__init__.py:1946
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -4384,18 +4384,18 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1961 storage/__init__.py:1985
+#: storage/__init__.py:1962 storage/__init__.py:1986
 msgid "Unable to mount filesystem"
 msgstr ""
 
-#: storage/__init__.py:1962
+#: storage/__init__.py:1963
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
 
-#: storage/__init__.py:1986
+#: storage/__init__.py:1987
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -4414,23 +4414,23 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1248 storage/devices.py:1886 storage/devices.py:2286
-#: storage/devices.py:2752 storage/devices.py:3231
+#: storage/devices.py:1250 storage/devices.py:1905 storage/devices.py:2305
+#: storage/devices.py:2771 storage/devices.py:3250
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1249 storage/devices.py:1887 storage/devices.py:2287
-#: storage/devices.py:2753
+#: storage/devices.py:1251 storage/devices.py:1906 storage/devices.py:2306
+#: storage/devices.py:2772
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2378
+#: storage/devices.py:2397
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3232
+#: storage/devices.py:3251
 #, python-format
 msgid "Creating file %s"
 msgstr ""
@@ -4448,7 +4448,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1824 storage/devicetree.py:1872
+#: storage/devicetree.py:1826 storage/devicetree.py:1874
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

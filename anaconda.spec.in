@@ -217,6 +217,37 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 16 2010 Chris Lumens <clumens@redhat.com> - 13.27-1
+- Fix hiding the advanced button on the filter UI (#555769, #565425,
+  #560016). (clumens)
+- PartitionDevice._setDisk: self.disk can be None. (#565930) (dlehman)
+- Add currentSize method to the PartitionDevice class (#565822) (hdegoede)
+- Fix instData removal mis merge (hdegoede)
+- Require a format to have a mountpoint before testing for RO (#565879).
+  (clumens)
+- The step is named cleardiskssel, not cleardisksel (#565873). (clumens)
+- Use the LUKS UUID, not the filesystem UUID for dracut. (#561373) (dlehman)
+- Show the correct device path when formatting as swap or luks. (dlehman)
+- Fix ordering of arguments to xfs_admin for writing fs label. (#556546)
+  (dlehman)
+- Log only the disks' names in PartitionDevice._setDisk. (dlehman)
+- Check for the updates directory before using it (#565840). (clumens)
+- Fix a handful of simple pychecker errors. (clumens)
+- Add the .libs directories to PYTHONPATH so pychecker works again. (clumens)
+- Warn when ignoring BIOS RAID members (#560932) (hdegoede)
+- Intel BIOS RAID array not recognized (#565458) (hdegoede)
+- Fix traceback in filter_gui.py when dealing with RAID10 BIOSRAID (#565444)
+  (hdegoede)
+- Remove newly added partition from disk if subsequent commit fails.
+  (#559907) (dlehman)
+- Use property() so we can assign to anaconda.intf (#565639). (clumens)
+- Don't always set anaconda.upgrade to be True (#565622). (clumens)
+- Re-remove the end of line from pychecker-false-positives. (clumens)
+- cryptPassword is not part of any class (#565611). (clumens)
+- Fix another missing import (#565599). (clumens)
+- Add a missing import (#565592). (clumens)
+- createLuserConf is not a part of any class (#565306). (clumens)
+
 * Fri Feb 12 2010 David Lehman <dlehman@redhat.com> - 13.26-1
 - Fix return values for dasd_settle_all() in linuxrc.s390 (#558881).
   (dcantrell)
