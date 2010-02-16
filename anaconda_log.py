@@ -66,7 +66,7 @@ class AnacondaSyslogHandler(SysLogHandler):
         record.msg = original_msg
 
 class AnacondaLog:
-    def __init__ (self, minLevel=DEFAULT_TTY_LEVEL):
+    def __init__ (self):
         self.tty_loglevel = DEFAULT_TTY_LEVEL
         self.remote_syslog = None
         # Create the base of the logger hierarcy.
