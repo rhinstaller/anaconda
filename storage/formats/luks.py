@@ -192,7 +192,8 @@ class LUKS(DeviceFormat):
         w = None
         if intf:
             w = intf.waitWindow(_("Formatting"),
-                                _("Encrypting %s") % (self.device,))
+                                _("Encrypting %s") % kwargs.get("device",
+                                                                self.device))
 
         try:
             DeviceFormat.create(self, *args, **kwargs)

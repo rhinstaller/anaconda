@@ -160,7 +160,8 @@ class SwapSpace(DeviceFormat):
         if intf:
             w = intf.progressWindow(_("Formatting"),
                                     _("Creating %s on %s")
-                                    % (self.type, self.device),
+                                    % (self.type,
+                                       kwargs.get("device", self.device)),
                                     100, pulse = True)
 
         try:
