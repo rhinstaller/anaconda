@@ -115,6 +115,9 @@ def doShutdownX11Actions():
 def setupPythonUpdates():
     from distutils.sysconfig import get_python_lib
 
+    if not os.path.exists("/tmp/updates"):
+        return
+
     for pkg in os.listdir("/tmp/updates"):
         d = "/tmp/updates/%s" % pkg
 
