@@ -1647,7 +1647,7 @@ class LUKSDevice(DMCryptDevice):
         return self.parents[0]
 
     def dracutSetupString(self):
-        return "rd_LUKS_UUID=luks-%s" % self.format.uuid
+        return "rd_LUKS_UUID=luks-%s" % self.slave.format.uuid
 
 
 class LVMVolumeGroupDevice(DMDevice):
