@@ -71,14 +71,14 @@ class AnacondaLog:
         self.logger = logging.getLogger("anaconda")
         self.logger.setLevel(logging.DEBUG)
         self.addFileHandler(MAIN_LOG_FILE, self.logger,
-                            autoLevel=False, minLevel=logging.DEBUG)
+                            minLevel=logging.DEBUG)
         self.forwardToSyslog(self.logger)
 
         # External program output log
         program_logger = logging.getLogger("program")
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
-                            autoLevel=False, minLevel=logging.DEBUG)
+                            minLevel=logging.DEBUG)
         self.forwardToSyslog(program_logger)
 
         # Create a second logger for just the stuff we want to dup on
@@ -95,7 +95,7 @@ class AnacondaLog:
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_TTY_LEVEL,
                         fmtStr=ENTRY_FORMAT,
-                        autoLevel=True):
+                        autoLevel=False):
         if isinstance(file, types.StringTypes):
             logfileHandler = logging.FileHandler(file)
         else:

@@ -27,5 +27,6 @@ logger.setLevel(logging.DEBUG)
 anaconda_log.logger.addFileHandler("/tmp/storage.log", logger, logging.DEBUG)
 anaconda_log.logger.addFileHandler("/dev/tty3", logger,
                                    anaconda_log.DEFAULT_TTY_LEVEL,
-                                   anaconda_log.TTY_FORMAT)
+                                   anaconda_log.TTY_FORMAT,
+                                   autoLevel=True)
 anaconda_log.logger.forwardToSyslog(logger)
