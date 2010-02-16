@@ -300,7 +300,7 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
             anaconda.storage.reinitializeDisks = self.initAll
 
         clearPartitions(anaconda.storage)
-        anaconda.ksdata.skipSteps.append("cleardisksel")
+        anaconda.ksdata.skipSteps.append("cleardiskssel")
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
