@@ -32,6 +32,7 @@ import types
 DEFAULT_TTY_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 TTY_FORMAT = "%(levelname)s %(name)s: %(message)s"
+STDOUT_FORMAT = "%(asctime)s %(message)s"
 DATE_FORMAT = "%H:%M:%S"
 
 MAIN_LOG_FILE = "/tmp/anaconda.log"
@@ -70,11 +71,11 @@ class AnacondaLog:
         self.tty_loglevel = DEFAULT_TTY_LEVEL
         self.remote_syslog = None
         # Create the base of the logger hierarcy.
-        self.logger = logging.getLogger("anaconda")
-        self.logger.setLevel(logging.DEBUG)
-        self.addFileHandler(MAIN_LOG_FILE, self.logger,
+        logger = logging.getLogger("anaconda")
+        logger.setLevel(logging.DEBUG)
+        self.addFileHandler(MAIN_LOG_FILE, logger,
                             minLevel=logging.DEBUG)
-        self.forwardToSyslog(self.logger)
+        self.forwardToSyslog(logger)
 
         # External program output log
         program_logger = logging.getLogger("program")
@@ -87,12 +88,11 @@ class AnacondaLog:
         # stdout.  Anything written here will also get passed up to the
         # parent loggers for processing and possibly be written to the
         # log.
-        self.stdoutLogger = logging.getLogger("anaconda.stdout")
-        self.stdoutLogger.setLevel(logging.INFO)
-
+        stdoutLogger = logging.getLogger("anaconda.stdout")
+        stdoutLogger.setLevel(logging.INFO)
         # Add a handler for the duped stuff.  No fancy formatting, thanks.
-        self.addFileHandler (sys.stdout, self.stdoutLogger,
-                             fmtStr="%(asctime)s %(message)s", minLevel=logging.INFO)
+        self.addFileHandler(sys.stdout, stdoutLogger,
+                            fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
 
     # Add a simple handler - file or stream, depending on what we're given.
     def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_TTY_LEVEL,
