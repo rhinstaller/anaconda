@@ -1741,6 +1741,7 @@ class FSSet(object):
         space = []
         for device in self.devices:
             if not device.format.mountable or \
+               not device.format.mountpoint or \
                not device.format.status:
                 continue
 
