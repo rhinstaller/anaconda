@@ -216,6 +216,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.12-1
+- Use the LUKS UUID, not the filesystem UUID for dracut. (#561373) (dlehman)
+- Only check that extended's start sector is within the chunk. (#560908)
+  (dlehman)
+- Add currentSize method to the PartitionDevice class (#565822) (hdegoede)
+- Set initrd load address to 32MB for s390x (#546422). (dcantrell)
+- Intel BIOS RAID array not recognized (#565458) (hdegoede)
+- Fix traceback in filter_gui.py when dealing with RAID10 BIOSRAID (#565444)
+  (hdegoede)
+- "_Do_ override BASEARCH with BUILDARCH, it does make sense (#524235)"
+  (msivak)
+
 * Thu Feb 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.11-1
 - Revert "Write ARP=no to ifcfg file when VSWITCH=1 is set on s390x
   (#561926)." (dcantrell)
