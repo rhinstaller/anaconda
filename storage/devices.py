@@ -928,6 +928,7 @@ class PartitionDevice(StorageDevice):
         self.partedFlags = {}
         self._partedPartition = None
         self._origPath = None
+        self._currentSize = 0
 
         # FIXME: Validate size, but only if this is a new partition.
         #        For existing partitions we will get the size from
@@ -1230,6 +1231,7 @@ class PartitionDevice(StorageDevice):
 
         # this is in MB
         self._size = self.partedPartition.getSize()
+        self._currentSize = self._size
         self.targetSize = self._size
 
         self._partType = self.partedPartition.type
@@ -1263,6 +1265,7 @@ class PartitionDevice(StorageDevice):
             self.partedPartition = self.disk.format.partedDisk.getPartitionByPath(self.path)
 
             self.exists = True
+            self._currentSize = self.partedPartition.getSize()
             self.setup()
         finally:
             if w:
@@ -1306,6 +1309,7 @@ class PartitionDevice(StorageDevice):
                                             end=geometry.end)
 
             self.disk.format.commit()
+            self._currentSize = partition.getSize()
 
     def destroy(self):
         """ Destroy the device. """
@@ -1418,6 +1422,14 @@ class PartitionDevice(StorageDevice):
             return maxPartSize
         else:
             return self.format.maxSize
+
+    @property
+    def currentSize(self):
+        """ The device's actual size. """
+        if self.exists:
+            return self._currentSize
+        else:
+            return 0
 
 
 class DMDevice(StorageDevice):
