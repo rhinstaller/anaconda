@@ -79,7 +79,7 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr) {
     entries[3].text = NULL; 
     entries[3].value = NULL;
 
-    if (asprintf(&buf, _("Please enter the server and path to your %s "
+    if (asprintf(&buf, _("Please enter the server and NFSv3 path to your %s "
                          "installation image and optionally additional "
                          "NFS mount options."), getProductName()) == -1) {
         logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
