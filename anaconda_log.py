@@ -29,6 +29,8 @@ import logging
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 import types
 
+import iutil
+
 DEFAULT_TTY_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
 TTY_FORMAT = "%(levelname)s %(name)s: %(message)s"
@@ -36,6 +38,7 @@ STDOUT_FORMAT = "%(asctime)s %(message)s"
 DATE_FORMAT = "%H:%M:%S"
 
 MAIN_LOG_FILE = "/tmp/anaconda.log"
+MAIN_LOG_TTY = "/dev/tty3"
 PROGRAM_LOG_FILE = "/tmp/program.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 
@@ -76,6 +79,11 @@ class AnacondaLog:
         self.addFileHandler(MAIN_LOG_FILE, logger,
                             minLevel=logging.DEBUG)
         self.forwardToSyslog(logger)
+        # Log to tty3.
+        if not iutil.isS390() and os.access(MAIN_LOG_TTY, os.W_OK):
+            self.addFileHandler(MAIN_LOG_TTY, logger,
+                                fmtStr=TTY_FORMAT,
+                                autoLevel=True)
 
         # External program output log
         program_logger = logging.getLogger("program")

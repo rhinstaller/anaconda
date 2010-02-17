@@ -814,14 +814,7 @@ if __name__ == "__main__":
     _ = lambda x: gettext.ldgettext("anaconda", x)
 
     anaconda = Anaconda()
-
-    if not iutil.isS390() and os.access("/dev/tty3", os.W_OK):
-        anaconda_log.logger.addFileHandler("/dev/tty3", log,
-                                           fmtStr=anaconda_log.TTY_FORMAT,
-                                           autoLevel=True)
-
     warnings.showwarning = AnacondaShowWarning
-
     setupTranslations()
 
     # reset python's default SIGINT handler
