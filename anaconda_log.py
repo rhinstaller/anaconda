@@ -22,6 +22,8 @@
 #            Michael Fulbright <msf@redhat.com>
 #
 
+import os
+import signal
 import sys
 import logging
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
@@ -130,5 +132,22 @@ class AnacondaLog:
             logger.name)
         syslogHandler.setLevel(logging.DEBUG)
         logger.addHandler(syslogHandler)
+
+    def updateRemote(self, remote_syslog):
+        """Updates the location of remote rsyslogd to forward to.
+
+        Requires updating rsyslogd config and sending SIGHUP to the daemon.
+        """
+        PIDFILE  = "/var/run/syslogd.pid"
+        CFGFILE  = "/etc/rsyslog.conf"
+        TEMPLATE = "*.* @@%s\n"
+
+        self.remote_syslog = remote_syslog
+        with open(CFGFILE, 'a') as cfgfile:
+            forward_line = TEMPLATE % remote_syslog
+            cfgfile.write(forward_line)
+        with open(PIDFILE, 'r') as pidfile:
+            pid = int(pidfile.read())
+            os.kill(pid, signal.SIGHUP)
 
 logger = AnacondaLog()

@@ -56,7 +56,8 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 stdoutLog = logging.getLogger("anaconda.stdout")
-from anaconda_log import logger, logLevelMap, setHandlersLevel
+from anaconda_log import logger, logLevelMap, setHandlersLevel,\
+    DEFAULT_TTY_LEVEL
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
@@ -513,13 +514,21 @@ class LogVolData(commands.logvol.F12_LogVolData):
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, anaconda):
-        setHandlersLevel(log, logLevelMap[self.level])
+        if logger.tty_loglevel == DEFAULT_TTY_LEVEL:
+            # not set from the command line
+            level = logLevelMap[self.level]
+            logger.tty_loglevel = level
+            storage_log = logging.getLogger("storage")
+            setHandlersLevel(log, level)
+            setHandlersLevel(storage_log, level)
 
-        if self.host != "" and self.port != "":
-            logger.addSysLogHandler(log, self.host, port=int(self.port))
-        elif self.host != "":
-            logger.addSysLogHandler(log, self.host)
-
+        if logger.remote_syslog == None and len(self.host) > 0:
+            # not set from the command line, ok to use kickstart
+            remote_server = self.host
+            if self.port:
+                remote_server = "%s:%s" %(self.host, self.port)
+            logger.updateRemote(remote_server)
+    
 class NetworkData(commands.network.F8_NetworkData):
     def execute(self, anaconda):
         if self.bootProto:
