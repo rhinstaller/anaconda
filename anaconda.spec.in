@@ -216,6 +216,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 17 2010 Chris Lumens <clumens@redhat.com> - 13.21.13-1
+- Add missing methods to RescueInterface (#566298). (pjones)
+
 * Tue Feb 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.12-1
 - Use the LUKS UUID, not the filesystem UUID for dracut. (#561373) (dlehman)
 - Only check that extended's start sector is within the chunk. (#560908)
