@@ -550,7 +550,10 @@ class Anaconda(object):
         # "lambda cannot contain assignment"
         self._intf = v
 
-    intf = property(_getInterface, _setInterface)
+    def _delInterface(self):
+        del self._intf
+
+    intf = property(_getInterface, _setInterface, _delInterface)
 
     @property
     def network(self):
