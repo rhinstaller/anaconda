@@ -216,6 +216,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 18 2010 David Cantrell <dcantrell@redhat.com> - 13.21.14-1
+- Don't traceback during kickstart if no ignoredisk line is given (#563581).
+  (dcantrell)
+- cleardisk_gui: Base autoselection of bootdev on detected BIOS order
+  (hdegoede)
+- Pass '--force' to vgremove to avoid interactive prompts. (#563873)
+  (dlehman)
+- Fixed parsing of strings with multiple values in pyudev (mgracik)
+- Fixed the problem with string to list properties (#560262) (mgracik)
+
 * Wed Feb 17 2010 Chris Lumens <clumens@redhat.com> - 13.21.13-1
 - Add missing methods to RescueInterface (#566298). (pjones)
 
