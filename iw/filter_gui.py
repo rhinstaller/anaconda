@@ -443,6 +443,7 @@ class FilterWindow(InstallWindow):
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
         np.ds.addColumn(_("Serial Number"), SERIAL_COL)
+        np.ds.addColumn(_("Device"), DEVICE_COL, displayed=False)
         return np
 
     def _makeRAID(self):
@@ -450,6 +451,7 @@ class FilterWindow(InstallWindow):
 
         np.ds.addColumn(_("Model"), MODEL_COL)
         np.ds.addColumn(_("Capacity"), CAPACITY_COL)
+        np.ds.addColumn(_("Device"), DEVICE_COL, displayed=False)
         return np
 
     def _makeMPath(self):
@@ -460,6 +462,7 @@ class FilterWindow(InstallWindow):
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
         np.ds.addColumn(_("Paths"), PATHS_COL)
+        np.ds.addColumn(_("Device"), DEVICE_COL, displayed=False)
         return np
 
     def _makeOther(self):
@@ -470,6 +473,7 @@ class FilterWindow(InstallWindow):
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
         np.ds.addColumn(_("Serial Number"), SERIAL_COL, displayed=False)
+        np.ds.addColumn(_("Device"), DEVICE_COL, displayed=False)
         return np
 
     def _makeSearch(self):
@@ -484,6 +488,7 @@ class FilterWindow(InstallWindow):
         np.ds.addColumn(_("Port"), PORT_COL)
         np.ds.addColumn(_("Target"), TARGET_COL)
         np.ds.addColumn(_("LUN"), LUN_COL)
+        np.ds.addColumn(_("Device"), DEVICE_COL, displayed=False)
         return np
 
     def _page_switched(self, notebook, useless, page_num):
