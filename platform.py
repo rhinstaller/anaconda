@@ -231,6 +231,7 @@ class EFI(Platform):
 
         # Don't try to check the disklabel on lv's etc, using lv for /boot
         # is already checked in the generic Platform.checkBootRequest()
+        partitions = []
         if req.type == "partition":
             partitions = [ req ]
         elif req.type == "mdarray":
