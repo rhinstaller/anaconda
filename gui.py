@@ -262,9 +262,6 @@ def getBusyCursorStatus():
     
     return _busyCursor
 
-def runningMiniWm():
-    return xutils.getXatom("_ANACONDA_MINI_WM_RUNNING")
-
 class MnemonicLabel(gtk.Label):
     def __init__(self, text="", alignment = None):
         gtk.Label.__init__(self, "")
@@ -311,63 +308,10 @@ def titleBarMotionEventCB(widget, event, data):
         data["window"].move(int(newx), int(newy))
 
 def addFrame(dialog, title=None, showtitle = 1):
-    contents = dialog.get_children()[0]
-    dialog.remove(contents)
-    frame = gtk.Frame()
-    if runningMiniWm():
-        frame.set_shadow_type(gtk.SHADOW_OUT)
-    else:
-        frame.set_shadow_type(gtk.SHADOW_NONE)
-    box = gtk.VBox()
-    try:
-        if title is None:
-            title = dialog.get_title()
-
-        if title and runningMiniWm():
-            data = {}
-            data["state"] = 0
-            data["button"] = 0
-            data["deltax"] = 0
-            data["deltay"] = 0
-            data["window"] = dialog
-            eventBox = gtk.EventBox()
-            eventBox.connect("button-press-event", titleBarMousePressCB, data)
-            eventBox.connect("button-release-event", titleBarMouseReleaseCB, data)
-            eventBox.connect("motion-notify-event", titleBarMotionEventCB,data)
-            titleBox = gtk.HBox(False, 5)
-            eventBox.add(titleBox)
-            eventBox.modify_bg(gtk.STATE_NORMAL, eventBox.rc_get_style().bg[gtk.STATE_SELECTED])
-
-            if showtitle:
-                titlelbl = gtk.Label("")
-                titlelbl.set_markup("<b>"+_(title)+"</b>")
-                titlelbl.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("white"))
-                titlelbl.set_property("ypad", 4)
-                titleBox.pack_start(titlelbl)
-            else:
-                s = gtk.Label("")
-                titleBox.pack_start(s)
-            eventBox.show_all()
-            box.pack_start(eventBox, False, False)
-        else:
-            dialog.set_title (title)
-    except:
-        pass
-
-    frame2=gtk.Frame()
-    frame2.set_shadow_type(gtk.SHADOW_NONE)
-    frame2.set_border_width(4)
-    frame2.add(contents)
-    contents.show()
-    frame2.show()
-    box.pack_start(frame2, True, True, padding=5)
-    box.show()
-    frame.add(box)
-    frame.show()
-    dialog.add(frame)
-
     # make screen shots work
     dialog.connect ("key-release-event", handleShiftPrintScrnRelease)
+    if title:
+        dialog.set_title(title)
 
 def findGladeFile(file):
     path = os.environ.get("GLADEPATH", "./:ui/:/tmp/updates/:/tmp/updates/ui/")
@@ -445,12 +389,12 @@ def readImageFromFile(file, width = None, height = None, dither = None,
 
 class WaitWindow:
     def __init__(self, title, text, parent = None):
-        if not runningMiniWm():
+        if flags.livecdInstall:
             self.window = gtk.Window()
             if parent:
                 self.window.set_transient_for(parent)
         else:
-            self.window = gtk.Window(gtk.WINDOW_POPUP)
+            self.window = gtk.Window()
 
         self.window.set_modal(True)
         self.window.set_type_hint (gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
@@ -477,12 +421,12 @@ class WaitWindow:
 class ProgressWindow:
     def __init__(self, title, text, total, updpct = 0.05, updsecs=10,
                  parent = None, pulse = False):
-        if not runningMiniWm():
+        if flags.livecdInstall:
             self.window = gtk.Window()
             if parent:
                 self.window.set_transient_for(parent)
         else:
-            self.window = gtk.Window(gtk.WINDOW_POPUP)
+            self.window = gtk.Window()
 
         self.window.set_modal(True)
         self.window.set_type_hint (gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
@@ -1474,20 +1418,20 @@ class InstallControlWindow:
         if p is None:
             print(_("Unable to load title bar"))
         if (gtk.gdk.screen_height() < 600) or \
-           (gtk.gdk.screen_height() <= 675 and not runningMiniWm()):
+                (gtk.gdk.screen_height() <= 675 and flags.livecdInstall):
             i.hide()
             self.window.set_resizable(True)
             self.window.set_size_request(-1, -1)
             self.window.fullscreen()
         else:
             self.window.set_size_request(800, 600)
-            self.window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
-            # this is kind of poor, but if we're running in the live mode
-            # and the dpi is something weird, give ourselves as much 
-            # space as we can.  this gets things to fit with a dpi
-            # of up to 147
-            if not runningMiniWm():
+            # if we're running in the live mode and the dpi is something weird,
+            # give ourselves as much space as we can.  this gets things to fit
+            # with a dpi of up to 147
+            if flags.livecdInstall:
                 i.hide()
+            else:
+                self.window.fullscreen()
 
         if flags.debug:
             self.mainxml.get_widget("debugButton").show_now()

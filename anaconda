@@ -34,38 +34,12 @@ import sys, os, re, time, subprocess
 from optparse import OptionParser
 from tempfile import mkstemp
 
-# keep up with process ID of miniwm if we start it
-
+# keep up with process ID of the window manager if we start it
 wm_pid = None
 
 # Make sure messages sent through python's warnings module get logged.
 def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr, line=None):
     log.warning("%s" % warnings.formatwarning(message, category, filename, lineno, line))
-
-# start miniWM
-def startMiniWM(root='/'):
-    (rd, wr) = os.pipe()
-    childpid = os.fork()
-    if not childpid:
-        if os.access("./mini-wm", os.X_OK):
-            cmd = "./mini-wm"
-        elif os.access(root + "/usr/bin/mini-wm", os.X_OK):
-            cmd = root + "/usr/bin/mini-wm"
-        else:
-            return None
-        
-        os.dup2(wr, 1)
-        os.close(wr)
-        args = [cmd, '--display', ':1']
-        os.execv(args[0], args)
-        sys.exit (1)
-    else:
-        # We need to make sure that mini-wm is the first client to
-        # connect to the X server (see bug #108777).  Wait for mini-wm
-        # to write back an acknowledge token.
-        os.read(rd, 1)
-
-    return childpid
 
 def startMetacityWM():
     childpid = os.fork()
@@ -92,10 +66,10 @@ def doStartupX11Actions(runres="800x600"):
 
     setupGraphicalLinks()
 
-    # now start up mini-wm
+    # now start up the window manager
     try:
         wm_pid = startMetacityWM()
-        log.info("Started metacity, pid %s." % (wm_pid,))
+        log.info("Started window manager, pid %s." % (wm_pid,))
 
     except:
         wm_pid = None
@@ -106,9 +80,6 @@ def doStartupX11Actions(runres="800x600"):
         import gtk
 
         try:
-            i = gtk.Invisible()
-            i.selection_owner_set("_ANACONDA_MINI_WM_RUNNING")
-
             xutils.setRootResource('Xcursor.size', '24')
             xutils.setRootResource('Xcursor.theme', 'Bluecurve')
             xutils.setRootResource('Xcursor.theme_core', 'true')
