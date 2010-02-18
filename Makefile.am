@@ -37,12 +37,7 @@ MOSTLYCLEANDIRS = m4
 
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
-bin_PROGRAMS          = mini-wm
 dist_sbin_SCRIPTS     = anaconda
-
-mini_wm_CFLAGS        = $(X11_CFLAGS) $(XCOMPOSITE_CFLAGS) $(GTK_X11_CFLAGS)
-mini_wm_LDFLAGS       = $(X11_LIBS) $(XCOMPOSITE_LIBS) $(GTK_X11_LIBS)
-mini_wm_SOURCES       = mini-wm.c
 
 udevdir               = /lib/udev/rules.d
 dist_udev_DATA        = 70-anaconda.rules
