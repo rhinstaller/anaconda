@@ -30,6 +30,7 @@ import sys
 import os
 import isys
 from storage import mountExistingSystem
+from installinterfacebase import InstallInterfaceBase
 import iutil
 import shutil
 import time
@@ -42,7 +43,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
-class RescueInterface:
+class RescueInterface(InstallInterfaceBase):
     def waitWindow(self, title, text):
         return WaitWindow(self.screen, title, text)
 
@@ -118,6 +119,7 @@ class RescueInterface:
         pass
 
     def __init__(self, screen):
+        InstallInterfaceBase.__init__(self)
         self.screen = screen
 
 # XXX grub-install is stupid and uses df output to figure out
