@@ -307,7 +307,7 @@ def titleBarMotionEventCB(widget, event, data):
 
         data["window"].move(int(newx), int(newy))
 
-def addFrame(dialog, title=None, showtitle = 1):
+def addFrame(dialog, title=None):
     # make screen shots work
     dialog.connect ("key-release-event", handleShiftPrintScrnRelease)
     if title:
@@ -406,7 +406,7 @@ class WaitWindow:
         box.add(label)
         box.set_shadow_type(gtk.SHADOW_NONE)
         self.window.add(box)
-        addFrame(self.window, showtitle = 0)
+        addFrame(self.window)
         self.window.show_all()
         rootPushBusyCursor()
         self.refresh()
@@ -447,7 +447,7 @@ class ProgressWindow:
         box.pack_start (self.progress, True)
         self.window.add(box)
 
-        addFrame(self.window, showtitle = 0)
+        addFrame(self.window)
         self.window.show_all ()
         rootPushBusyCursor()
         self.refresh()
