@@ -17,7 +17,7 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-ISYS_SRCS = devices.c imount.c cpio.c uncpio.c dasd.c lang.c \
+ISYS_SRCS = devices.c imount.c cpio.c uncpio.c lang.c \
             isofs.c linkdetect.c vio.c ethtool.c eddsupport.c iface.c \
             str.c auditd.c
 

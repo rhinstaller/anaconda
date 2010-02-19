@@ -103,9 +103,6 @@ static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
-static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
-static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
-static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
 static PyObject * doPrefixToNetmask(PyObject *s, PyObject *args);
@@ -137,9 +134,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
-    { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
-    { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
-    { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
     { "prefix2netmask", (PyCFunction) doPrefixToNetmask, METH_VARARGS, NULL },
@@ -569,27 +563,6 @@ static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
     
     return Py_BuildValue("i", rc);
 }
-
-static PyObject * py_getDasdPorts(PyObject * o, PyObject * args) {
-    if (!PyArg_ParseTuple(args, "")) return NULL;
-
-    return Py_BuildValue("s", getDasdPorts());
-}
-
-static PyObject * py_isUsableDasd(PyObject * o, PyObject * args) {
-    char *devname;
-    if (!PyArg_ParseTuple(args, "s", &devname))
-	return NULL;
-    return Py_BuildValue("i", isUsableDasd(devname));
-}
-
-static PyObject * py_isLdlDasd(PyObject * o, PyObject * args) {
-    char *devname;
-    if (!PyArg_ParseTuple(args, "s", &devname))
-	return NULL;
-    return Py_BuildValue("i", isLdlDasd(devname));
-}
-
 
 static PyObject * printObject (PyObject * o, PyObject * args) {
     PyObject * obj;

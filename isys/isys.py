@@ -202,15 +202,6 @@ def swapon (path):
 def loadKeymap(keymap):
     return _isys.loadKeymap (keymap)
 
-def getDasdPorts():
-    return _isys.getDasdPorts()
-
-def isUsableDasd(device):
-    return _isys.isUsableDasd(device)
-
-def isLdlDasd(device):
-    return _isys.isLdlDasd(device)
-
 # read /proc/dasd/devices and get a mapping between devs and the dasdnum
 def getDasdDevPort():
     ret = {}
