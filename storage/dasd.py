@@ -33,6 +33,23 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
+def getDasdPorts():
+    """ Return comma delimited string of valid DASD ports. """
+    ports = []
+
+    f = open("/proc/dasd/devices", "r")
+    lines = map(lambda x: x.strip(), f.readlines())
+    f.close()
+
+    for line in lines:
+        if "unknown" in line:
+            continue
+
+        if "(FBA )" in line or "(ECKD)" in line:
+            ports.append(line.split('(')[0])
+
+    return ','.join(ports)
+
 class DASD:
     """ Controlling class for DASD interaction before the storage code in
         anaconda has initialized.
