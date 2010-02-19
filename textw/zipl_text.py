@@ -18,12 +18,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import isys
 import string
 from snack import *
 from constants_text import *
 
 from constants import *
+from storage.dasd import getDasdPorts
+
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -45,11 +46,11 @@ class ZiplWindow:
 
         if self.bl.args and self.bl.args.get():
             kernelparms = self.bl.args.get()
-        if isys.getDasdPorts() and (kernelparms.find("dasd=") == -1):
+        if getDasdPorts() and (kernelparms.find("dasd=") == -1):
             if len(kernelparms) > 0:
-                kernelparms = "%s dasd=%s" %(kernelparms, isys.getDasdPorts())
+                kernelparms = "%s dasd=%s" %(kernelparms, getDasdPorts())
             else:
-                kernelparms = "dasd=%s" %(isys.getDasdPorts(),)
+                kernelparms = "dasd=%s" %(getDasdPorts(),)
         kernelentry.set(kernelparms)
 
         if self.bl.args and self.bl.args.chandevget():

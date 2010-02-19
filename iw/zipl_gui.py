@@ -19,11 +19,11 @@
 #
 
 # must replace with explcit form so update disks will work
-import isys
 import gtk
 import string
 from iw_gui import *
 from constants import *
+from storage.dasd import getDasdPorts
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
@@ -101,11 +101,11 @@ class ZiplWindow (InstallWindow):
             kernelparms = self.bl.args.get()
         else:
             kernelparms = ""
-        if isys.getDasdPorts() and (kernelparms.find("dasd=") == -1):
+        if getDasdPorts() and (kernelparms.find("dasd=") == -1):
             if len(kernelparms) > 0:
-                kernelparms = "%s dasd=%s" %(kernelparms, isys.getDasdPorts())
+                kernelparms = "%s dasd=%s" %(kernelparms, getDasdPorts())
             else:
-                kernelparms = "dasd=%s" %(isys.getDasdPorts(),)
+                kernelparms = "dasd=%s" %(getDasdPorts(),)
         self.kernelEntry.set_text(kernelparms)
         
         if self.bl.args and self.bl.args.chandevget():
