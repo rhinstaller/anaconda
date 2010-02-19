@@ -399,11 +399,11 @@ class InstallInterface(InstallInterfaceBase):
         exnWin = MainExceptionWindow(shortText, longTextFile, screen=self.screen)
         return exnWin
 
-    def saveExceptionWindow(self, longTextFile, desc="", *args, **kwargs):
+    def saveExceptionWindow(self, accountManager, signature, *args, **kwargs):
         from meh.ui.text import SaveExceptionWindow
-        win = SaveExceptionWindow (longTextFile, desc=desc, screen=self.screen,
+        win = SaveExceptionWindow (accountManager, signature, screen=self.screen,
                                    *args, **kwargs)
-        return win
+        win.run()
 
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)

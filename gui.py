@@ -1033,11 +1033,10 @@ class InstallInterface(InstallInterfaceBase):
         addFrame(win.dialog)
         return win
 
-    def saveExceptionWindow(self, longTextFile, desc="", *args, **kwargs):
+    def saveExceptionWindow(self, accountManager, signature):
         from meh.ui.gui import SaveExceptionWindow
-        win = SaveExceptionWindow (longTextFile, desc=desc, *args, **kwargs)
-        addFrame(win.dialog)
-        return win
+        win = SaveExceptionWindow (accountManager, signature)
+        win.run()
 
     def exitWindow(self, title, text):
         if self.icw:
