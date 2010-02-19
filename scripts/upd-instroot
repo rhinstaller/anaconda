@@ -190,7 +190,8 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
     python-libs python-nss python-pyblock python-sqlite python-epdb
     python-urlgrabber python-volume_key pyxf86config readline redhat-artwork
-    reiserfs-utils rpm rpm-libs rpm-python sed selinux-policy-targeted
+    reiserfs-utils report-config-default report-gtk report-newt rpm rpm-libs
+    rpm-python sed selinux-policy-targeted
     setup slang smc-meera-fonts specspo sqlite startup-notification 
     synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
@@ -389,6 +390,7 @@ etc/polkit-1/nullbackend.conf.d/*
 etc/prelink.conf
 etc/protocols
 etc/rc.d/init.d/functions
+etc/report.d/*
 etc/rpm/macros.prelink
 etc/security/limits.conf
 etc/security/pam_env.conf
