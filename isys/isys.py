@@ -202,49 +202,6 @@ def swapon (path):
 def loadKeymap(keymap):
     return _isys.loadKeymap (keymap)
 
-# read /proc/dasd/devices and get a mapping between devs and the dasdnum
-def getDasdDevPort():
-    ret = {}
-    f = open("/proc/dasd/devices", "r")
-    lines = f.readlines()
-    f.close()
-
-    for line in lines:
-        index = line.index("(")
-        dasdnum = line[:index]
-
-        start = line[index:].find("dasd")
-        end = line[index + start:].find(":")
-        dev = line[index + start:end + start + index].strip()
-
-        ret[dev] = dasdnum
-
-    return ret
-
-# get active/ready state of a dasd device
-# returns 0 if we're fine, 1 if not
-def getDasdState(dev):
-    devs = getDasdDevPort()
-    if not devs.has_key(dev):
-        log.warning("don't have %s in /dev/dasd/devices!" %(dev,))
-        return 0
-
-    f = open("/proc/dasd/devices", "r")
-    lines = f.readlines()
-    f.close()
-
-    for line in lines:
-        if not line.startswith(devs[dev]):
-            continue
-        # 2.6 seems to return basic
-        if line.find(" basic") != -1:
-            return 1
-        # ... and newer 2.6 returns unformatted.  consistency!
-        if line.find(" unformatted") != -1:
-            return 1
-
-    return 0
-
 def resetResolv():
     return _isys.resetresolv()
 
