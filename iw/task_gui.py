@@ -35,6 +35,7 @@ import network
 import iutil
 
 from yuminstall import AnacondaYumRepo
+import urlgrabber.grabber
 import yum.Errors
 
 import logging
@@ -530,6 +531,8 @@ class TaskWindow(InstallWindow):
             if not self.anaconda.intf.enableNetwork():
                 return gtk.RESPONSE_CANCEL
 
+            urlgrabber.grabber.reset_curl_obj()
+
         dialog = RepoEditor(self.anaconda, repo)
         dialog.createDialog()
         dialog.run()
@@ -578,6 +581,8 @@ class TaskWindow(InstallWindow):
             if repo.needsNetwork() and not network.hasActiveNetDev():
                 if not self.anaconda.intf.enableNetwork():
                     return
+
+                urlgrabber.grabber.reset_curl_obj()
 
             repo.enable()
             if not setupRepo(self.anaconda, repo):

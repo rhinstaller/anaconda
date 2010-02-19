@@ -71,7 +71,7 @@ BuildRequires: newt-devel
 BuildRequires: pango-devel
 BuildRequires: pykickstart >= %{pykickstartver}
 BuildRequires: python-devel
-BuildRequires: python-urlgrabber
+BuildRequires: python-urlgrabber >= 3.9.1-5
 BuildRequires: rpm-devel
 BuildRequires: rpm-python >= %{rpmpythonver}
 BuildRequires: slang-devel >= %{slangver}
@@ -98,7 +98,7 @@ Requires: parted >= %{partedver}
 Requires: pyparted >= %{pypartedver}
 Requires: yum >= %{yumver}
 Requires: libxml2-python
-Requires: python-urlgrabber
+Requires: python-urlgrabber >= 3.9.1-5
 Requires: system-logos
 Requires: pykickstart >= %{pykickstartver}
 Requires: system-config-date >= %{syscfgdatever}

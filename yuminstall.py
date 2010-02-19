@@ -455,6 +455,8 @@ class AnacondaYum(YumSorter):
                         self._baseRepoURL = None
                         return
 
+                    urlgrabber.grabber.reset_curl_obj()
+
                 self._switchImage(1)
                 self.mediagrabber = self.mediaHandler
             elif m.startswith("http") or m.startswith("ftp:"):
@@ -463,6 +465,8 @@ class AnacondaYum(YumSorter):
                 if not network.hasActiveNetDev():
                     if not self.anaconda.intf.enableNetwork():
                         self._baseRepoURL = None
+
+                    urlgrabber.grabber.reset_curl_obj()
 
                 (opts, server, path) = iutil.parseNfsUrl(m)
                 isys.mount(server+":"+path, self.tree, "nfs", options=opts)
@@ -831,6 +835,8 @@ class AnacondaYum(YumSorter):
         if package.repo.needsNetwork() and not network.hasActiveNetDev():
             if not self.anaconda.intf.enableNetwork():
                 return
+
+            urlgrabber.grabber.reset_curl_obj()
 
         rc = self.anaconda.intf.messageWindow(_("Error"),
                    _("The file %s cannot be opened.  This is due to a missing "
@@ -1202,6 +1208,8 @@ debuglevel=10
                        custom_buttons=[_("_Exit installer")])
                    sys.exit(1)
 
+               urlgrabber.grabber.reset_curl_obj()
+
         self.doRepoSetup(anaconda)
         self.doSackSetup(anaconda)
         self.doGroupSetup(anaconda)
@@ -1280,7 +1288,9 @@ debuglevel=10
                     if repo.needsNetwork() and not network.hasActiveNetDev():
                         if anaconda.intf.enableNetwork():
                             repo.mirrorlistparsed = False
-                            continue
+                            continue 
+
+                        urlgrabber.grabber.reset_curl_obj()
 
                     buttons = [_("_Exit installer"), _("Edit"), _("_Retry")]
                 else:
