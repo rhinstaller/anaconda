@@ -101,7 +101,6 @@ def initExceptionHandling(anaconda):
 
     conf = Config(programName="anaconda",
                   programVersion=isys.getAnacondaVersion(),
-                  bugFiler=anaconda.instClass.bugFiler,
                   attrSkipList=[ "backend.ayum",
                                  "backend.dlpkgs",
                                  "accounts",

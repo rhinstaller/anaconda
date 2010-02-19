@@ -29,7 +29,6 @@ import imputil
 import types
 
 from constants import *
-from meh.filer import *
 from product import *
 from storage.partspec import *
 
@@ -54,9 +53,6 @@ class BaseInstallClass(object):
     # default to showing the upgrade option
     showUpgrade = True
     bootloaderTimeoutDefault = 0
-
-    bugFiler = AbstractFiler(product.bugUrl, product.bugUrl,
-                             product.productVersion, product.productName)
 
     # list of of (txt, grplist) tuples for task selection screen
     tasks = []

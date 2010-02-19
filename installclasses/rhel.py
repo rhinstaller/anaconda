@@ -20,7 +20,6 @@
 from installclass import BaseInstallClass
 from constants import *
 from product import *
-from meh.filer import *
 from flags import flags
 import os
 import types
@@ -85,10 +84,6 @@ class InstallClass(BaseInstallClass):
                "directory-server", "mail-server", "ftp-server",
                "network-server", "nfs-file-server", "print-server",
                "system-admin-tools"])]
-
-    bugFiler = BugzillaFiler("https://bugzilla.redhat.com/xmlrpc.cgi",
-                             "https://bugzilla.redhat.com/",
-                             product.productVersion, product.productName)
 
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
