@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 13.27\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-16 17:52-0500\n"
+"POT-Creation-Date: 2010-02-19 17:22-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,22 +59,22 @@ msgstr ""
 msgid "Starting graphical installation."
 msgstr ""
 
-#: anaconda:1018
+#: anaconda:1015
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:1019
+#: anaconda:1016
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:1044
+#: anaconda:1041
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:1052
+#: anaconda:1049
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -151,7 +151,7 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:60 gui.py:1105 gui.py:1250 gui.py:1465 image.py:91
-#: kickstart.py:156 livecd.py:205 livecd.py:410 packages.py:130 upgrade.py:58
+#: kickstart.py:157 livecd.py:205 livecd.py:410 packages.py:130 upgrade.py:58
 #: upgrade.py:197 yuminstall.py:248 yuminstall.py:690 yuminstall.py:908
 #: yuminstall.py:913 yuminstall.py:993 yuminstall.py:999 yuminstall.py:1153
 #: yuminstall.py:1178 yuminstall.py:1236 yuminstall.py:1422 yuminstall.py:1441
@@ -160,8 +160,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1299
-#: kickstart.py:1338 upgrade.py:58 yuminstall.py:1241 yuminstall.py:1423
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1308
+#: kickstart.py:1347 upgrade.py:58 yuminstall.py:1241 yuminstall.py:1423
 #: iw/partition_gui.py:1598 storage/__init__.py:1971
 msgid "_Continue"
 msgstr ""
@@ -194,8 +194,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:89 gui.py:1245 kickstart.py:1163 kickstart.py:1171
-#: kickstart.py:1209 kickstart.py:1217 text.py:391
+#: cmdline.py:89 gui.py:1245 kickstart.py:1172 kickstart.py:1180
+#: kickstart.py:1218 kickstart.py:1226 text.py:391
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -559,7 +559,7 @@ msgstr ""
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
 
-#: kickstart.py:115
+#: kickstart.py:116
 #, python-format
 msgid ""
 "There was an error running the kickstart script at line %(lineno)s.  You may "
@@ -567,77 +567,77 @@ msgid ""
 "be aborted.  Press the OK button to exit the installer."
 msgstr ""
 
-#: kickstart.py:123 kickstart.py:125
+#: kickstart.py:124 kickstart.py:126
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: kickstart.py:150 rescue.py:246 yuminstall.py:685 yuminstall.py:1148
+#: kickstart.py:151 rescue.py:246 yuminstall.py:685 yuminstall.py:1148
 msgid "No Network Available"
 msgstr ""
 
-#: kickstart.py:151
+#: kickstart.py:152
 msgid ""
 "Encryption key escrow requires networking, but there was an error enabling "
 "the network on your system."
 msgstr ""
 
-#: kickstart.py:1182
+#: kickstart.py:1191
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1185
+#: kickstart.py:1194
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1240 livecd.py:229
+#: kickstart.py:1249 livecd.py:229
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1241
+#: kickstart.py:1250
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1257
+#: kickstart.py:1266
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1258
+#: kickstart.py:1267
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1290
+#: kickstart.py:1299
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1291
+#: kickstart.py:1300
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1297 kickstart.py:1336
+#: kickstart.py:1306 kickstart.py:1345
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1298 kickstart.py:1337
+#: kickstart.py:1307 kickstart.py:1346
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1328
+#: kickstart.py:1337
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1329
+#: kickstart.py:1338
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1444
+#: kickstart.py:1453
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "

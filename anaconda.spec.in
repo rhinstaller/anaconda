@@ -217,6 +217,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Feb 19 2010 Chris Lumens <clumens@redhat.com> - 13.28-1
+- Allow --ignoremissing to work for @base and @core (#566752).
+  (clumens)
+- Add device node names to the filter UI, hidden by default (#566375).
+  (clumens)
+- logging: initialize tty3 logging in anaconda_log, along with all other
+  basic loggers. (akozumpl)
+- logging: introduce stderr logger and use it for critical situations in
+  kickstart.py. (akozumpl)
+- logging: Loggers live a cosmopolitan life, forget about them after
+  created. (akozumpl)
+- logging: remove AnacondaLog's unused default parameter. (akozumpl)
+- logging, fix: setting remote logging from kicstart (akozumpl)
+- logging: addFileHandler does not set autoLevel by default (akozumpl)
+- Allow deleting the interface property, too (#566186). (clumens)
+
 * Tue Feb 16 2010 Chris Lumens <clumens@redhat.com> - 13.27-1
 - Fix hiding the advanced button on the filter UI (#555769, #565425,
   #560016). (clumens)
