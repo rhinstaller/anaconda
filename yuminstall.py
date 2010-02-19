@@ -786,13 +786,6 @@ class AnacondaYum(YumSorter):
             buttons = [_("Re_boot"), _("_Retry")]
 
         pkgFile = to_unicode(os.path.basename(package.remote_path))
-
-        if package.repo.needsNetwork() and not network.hasActiveNetDev():
-            if not self.anaconda.intf.enableNetwork():
-                return
-
-            urlgrabber.grabber.reset_curl_obj()
-
         rc = self.anaconda.intf.messageWindow(_("Error"),
                    _("The file %s cannot be opened.  This is due to a missing "
                      "file, a corrupt package or corrupt media.  Please "
@@ -1150,18 +1143,19 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         # If any enabled repositories require networking, go ahead and bring
         # it up now.  No need to have people wait for the timeout when we
         # know this in advance.
-        if len(filter(lambda r: r.needsNetwork(), self.ayum.repos.listEnabled())) > 0 and \
-           not network.hasActiveNetDev():
-               if not anaconda.intf.enableNetwork():
-                   anaconda.intf.messageWindow(_("No Network Available"),
-                       _("Some of your software repositories require "
-                         "networking, but there was an error enabling the "
-                         "network on your system."),
-                       type="custom", custom_icon="error",
-                       custom_buttons=[_("_Exit installer")])
-                   sys.exit(1)
+        for repo in self.ayum.repos.listEnabled():
+            if repo.needsNetwork() and not network.hasActiveNetDev():
+                if not anaconda.intf.enableNetwork():
+                    anaconda.intf.messageWindow(_("No Network Available"),
+                        _("Some of your software repositories require "
+                          "networking, but there was an error enabling the "
+                          "network on your system."),
+                        type="custom", custom_icon="error",
+                        custom_buttons=[_("_Exit installer")])
+                    sys.exit(1)
 
-               urlgrabber.grabber.reset_curl_obj()
+                urlgrabber.grabber.reset_curl_obj()
+                break
 
         self.doRepoSetup(anaconda)
         self.doSackSetup(anaconda)
@@ -1238,13 +1232,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     waitwin.pop()
                 except RepoError, e:
                     waitwin.pop()
-                    if repo.needsNetwork() and not network.hasActiveNetDev():
-                        if anaconda.intf.enableNetwork():
-                            repo.mirrorlistparsed = False
-                            continue 
-
-                        urlgrabber.grabber.reset_curl_obj()
-
                     buttons = [_("_Exit installer"), _("Edit"), _("_Retry")]
                 else:
                     break # success
