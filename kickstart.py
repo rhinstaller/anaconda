@@ -1306,10 +1306,10 @@ def selectPackages(anaconda):
         elif rc == 1:
             ignoreAll = True
 
-    anaconda.backend.selectGroup("Core")
+    ksdata.packages.groupList.insert(0, Group("Core"))
 
     if ksdata.packages.addBase:
-        anaconda.backend.selectGroup("Base")
+        ksdata.packages.groupList.insert(1, Group("Base"))
     else:
         log.warning("not adding Base group")
 
