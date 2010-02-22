@@ -68,15 +68,14 @@ class ClearDisksWindow (InstallWindow):
         # the kickstart file could have used ignoredisk --drives= in which case
         # exclusiveDisks would be empty.  Second, ignoredisk is entirely
         # optional in which case neither list would be populated.  Luckily,
-        # isIgnored handles all this properly.
-        disks = map(udev_device_get_name,
-                    filter(lambda d: not anaconda.storage.devicetree.isIgnored(d),
-                           filter(udev_device_is_disk, udev_get_block_devices())))
+        # storage.disks takes isIgnored into account and that handles both these
+        # issues.
+        disks = filter(lambda d: not d.format.hidden, anaconda.storage.disks)
 
         # Skip this screen as well if there's only one disk to use.
         if len(disks) == 1:
-            anaconda.storage.clearPartDisks = disks
-            anaconda.bootloader.drivelist = disks
+            anaconda.storage.clearPartDisks = [disks[0].name]
+            anaconda.bootloader.drivelist = [disks[0].name]
             return None
 
         (xml, self.vbox) = gui.getGladeWidget("cleardisks.glade", "vbox")
@@ -143,27 +142,24 @@ class ClearDisksWindow (InstallWindow):
 
         # Store the first disk (according to our detected BIOS order) for
         # auto boot device selection
-        self.bootDisk = sorted(disks, self.anaconda.storage.compareDisks)[0]
+        names = map(lambda d: d.name, disks)
+        self.bootDisk = sorted(names, self.anaconda.storage.compareDisks)[0]
 
         # The device filtering UI set up exclusiveDisks as a list of the names
         # of all the disks we should use later on.  Now we need to go get those,
         # look up some more information in the devicetree, and set up the
         # selector.
         for d in disks:
-            device = self.anaconda.storage.devicetree.getDeviceByName(d)
-            if not device:
-                continue
-
-            rightVisible = d in self.anaconda.storage.clearPartDisks
+            rightVisible = d.name in self.anaconda.storage.clearPartDisks
             rightActive = rightVisible and \
-                          d in self.anaconda.bootloader.drivelist[:1]
+                          d.name in self.anaconda.bootloader.drivelist[:1]
             leftVisible = not rightVisible
-            self.store.append(None, (device,
+            self.store.append(None, (d,
                                      leftVisible, True,
                                      rightVisible, rightActive,
-                                     device.model,
-                                     str(int(device.size)) + " MB",
-                                     device.vendor, "", device.serial))
+                                     d.model,
+                                     str(int(d.size)) + " MB",
+                                     d.vendor, "", d.serial))
 
         self.addButton.connect("clicked", self._add_clicked)
         self.removeButton.connect("clicked", self._remove_clicked)
