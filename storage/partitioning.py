@@ -723,31 +723,12 @@ def getFreeRegions(disks):
 
             disks -- list of parted.Disk instances
 
-        Return value is a list of aligned parted.Geometry instances.
+        Return value is a list of unaligned parted.Geometry instances.
 
     """
     free = []
     for disk in disks:
         for f in disk.format.partedDisk.getFreeSpaceRegions():
-            # device alignment fixups
-            if not disk.format.alignment.isAligned(f, f.start):
-                try:
-                    f.start = disk.format.alignment.alignNearest(f, f.start)
-                except ArithmeticError, e:
-                    # This happens when the free region is too small to create
-                    # an aligned partition in it, ie the freespace between the
-                    # mbr and the first aligned partition
-                    continue
-
-            if not disk.format.endAlignment.isAligned(f, f.end):
-                try:
-                    f.end = disk.format.endAlignment.alignNearest(f, f.end)
-                except ArithmeticError, e:
-                    # This happens when the free region is too small to create
-                    # an aligned partition in it, ie the freespace after the
-                    # last aligned partition
-                    continue
-
             if f.length > 0:
                 free.append(f)
 
