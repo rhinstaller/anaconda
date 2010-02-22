@@ -689,13 +689,15 @@ def addPartition(disklabel, free, part_type, size):
 
     if part_type == parted.PARTITION_EXTENDED:
         end = free.end
+        length = end - start + 1
     else:
         # size is in MB
         length = sizeToSectors(size, disklabel.partedDevice.sectorSize)
         end = start + length - 1
-        if not disklabel.endAlignment.isAligned(free, end):
-            end = disklabel.endAlignment.alignNearest(free, end)
-            log.debug("adjusted length from %d to %d" % (length, end - start + 1))
+
+    if not disklabel.endAlignment.isAligned(free, end):
+        end = disklabel.endAlignment.alignNearest(free, end)
+        log.debug("adjusted length from %d to %d" % (length, end - start + 1))
 
     new_geom = parted.Geometry(device=disklabel.partedDevice,
                                start=start,
