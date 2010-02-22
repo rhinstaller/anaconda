@@ -857,6 +857,11 @@ class RaidData(commands.raid.F12_RaidData):
             # if member is using --onpart, use original device
             member = anaconda.id.ksdata.onPart.get(member, member)
             dev = devicetree.getDeviceByName(member)
+            if dev and dev.format.type == "luks":
+                try:
+                    dev = devicetree.getChildren(dev)[0]
+                except IndexError:
+                    dev = None
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member)
 
@@ -985,6 +990,11 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
             # if pv is using --onpart, use original device
             pv = anaconda.id.ksdata.onPart.get(pv, pv)
             dev = devicetree.getDeviceByName(pv)
+            if dev and dev.format.type == "luks":
+                try:
+                    dev = devicetree.getChildren(dev)[0]
+                except IndexError:
+                    dev = None
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
 
