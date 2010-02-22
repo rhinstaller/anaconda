@@ -41,7 +41,8 @@ get_dso_deps() {
         FILES[$n]="$FILE"
         let n++
     done << EOF
-        $(/usr/sbin/chroot $root env LD_TRACE_PRELINKING=1 LD_WARN= \
+        $(/usr/sbin/chroot $root env --unset=LD_LIBRARY_PATH \
+                                     LD_TRACE_PRELINKING=1 LD_WARN= \
                                      LD_TRACE_LOADED_OBJECTS=1 $LDSO $bin)
 EOF
 
