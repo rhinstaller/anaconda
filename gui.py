@@ -395,7 +395,6 @@ class WaitWindow:
                 self.window.set_transient_for(parent)
         else:
             self.window = gtk.Window()
-
         self.window.set_modal(True)
         self.window.set_type_hint (gtk.gdk.WINDOW_TYPE_HINT_DIALOG)
         self.window.set_title(title)
@@ -406,8 +405,13 @@ class WaitWindow:
         box.add(label)
         box.set_shadow_type(gtk.SHADOW_NONE)
         self.window.add(box)
+        box.show_all()
         addFrame(self.window)
-        self.window.show_all()
+        # Displaying windows should not be done outside of the gtk
+        # mainloop. With metacity this bites us and we have to do
+        # window.show_now() AND refresh() to correctly display the window and
+        # its contents:
+        self.window.show_now()
         rootPushBusyCursor()
         self.refresh()
 
@@ -445,10 +449,11 @@ class ProgressWindow:
         self.updpct = updpct
         self.progress = gtk.ProgressBar ()
         box.pack_start (self.progress, True)
+        box.show_all()
         self.window.add(box)
-
         addFrame(self.window)
-        self.window.show_all ()
+        # see comment at WaitWindow.__init__():
+        self.window.show_now ()
         rootPushBusyCursor()
         self.refresh()
 
