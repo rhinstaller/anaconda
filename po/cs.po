@@ -5,14 +5,15 @@
 # Nikola Štohanzl <niko@srnet.cz>, 2006.
 # Milan Keršláger <kerslage@linux.cz>, 2007, 2010.
 # Adam Pribyl <pribyl@lowlevel.cz>, 2007, 2008.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-16 17:52-0500\n"
-"PO-Revision-Date: 2010-02-20 13:48+0100\n"
+"POT-Creation-Date: 2010-02-19 17:22-0500\n"
+"PO-Revision-Date: 2010-02-22 13:14+0100\n"
 "Last-Translator: Milan Kerslager <milan@kerslager.cz>\n"
-"Language-Team: Czech <fedora-cs-list@redhat.com>\n"
+"Language-Team: Czech <Czech <cs-users@lists.fedoraproject.org>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +23,7 @@ msgstr ""
 
 #: anaconda:339
 msgid "Press <enter> for a shell"
-msgstr "Stiskněte <Enter> pro shell"
+msgstr "Pro spuštění shellu stiskněte <Enter>"
 
 #: anaconda:354 rescue.py:330 rescue.py:356 rescue.py:369 rescue.py:447
 #: rescue.py:459 text.py:656 loader/cdinstall.c:228 loader/cdinstall.c:232
@@ -65,11 +66,11 @@ msgstr ""
 msgid "Starting graphical installation."
 msgstr "Spouští se grafická instalace."
 
-#: anaconda:1018
+#: anaconda:1015
 msgid "Would you like to use VNC?"
 msgstr "Chcete použít VNC?"
 
-#: anaconda:1019
+#: anaconda:1016
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -79,11 +80,11 @@ msgstr ""
 "vlastní rozložení diskových oddílů nebo výběr balíčků. Chcete raději použít "
 "VNC režim?"
 
-#: anaconda:1044
+#: anaconda:1041
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Grafická instalace není k dispozici. Spouští se textový režim."
 
-#: anaconda:1052
+#: anaconda:1049
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "Proměnná prostředí DISPLAY není nastavena. Spouští se textový režim."
 
@@ -168,7 +169,7 @@ msgstr ""
 "Chcete pokračovat v instalaci?"
 
 #: bootloader.py:60 gui.py:1105 gui.py:1250 gui.py:1465 image.py:91
-#: kickstart.py:156 livecd.py:205 livecd.py:410 packages.py:130 upgrade.py:58
+#: kickstart.py:157 livecd.py:205 livecd.py:410 packages.py:130 upgrade.py:58
 #: upgrade.py:197 yuminstall.py:248 yuminstall.py:690 yuminstall.py:908
 #: yuminstall.py:913 yuminstall.py:993 yuminstall.py:999 yuminstall.py:1153
 #: yuminstall.py:1178 yuminstall.py:1236 yuminstall.py:1422 yuminstall.py:1441
@@ -177,8 +178,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr "_Ukončit instalátor"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1299
-#: kickstart.py:1338 upgrade.py:58 yuminstall.py:1241 yuminstall.py:1423
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1308
+#: kickstart.py:1347 upgrade.py:58 yuminstall.py:1241 yuminstall.py:1423
 #: iw/partition_gui.py:1598 storage/__init__.py:1971
 msgid "_Continue"
 msgstr "_Pokračovat"
@@ -215,8 +216,8 @@ msgstr "Dokončeno"
 msgid "In progress"
 msgstr "Probíhá"
 
-#: cmdline.py:89 gui.py:1245 kickstart.py:1163 kickstart.py:1171
-#: kickstart.py:1209 kickstart.py:1217 text.py:391
+#: cmdline.py:89 gui.py:1245 kickstart.py:1172 kickstart.py:1180
+#: kickstart.py:1218 kickstart.py:1226 text.py:391
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -370,8 +371,8 @@ msgstr ""
 "\n"
 "REINICIALIZACE ZPŮSOBÍ, ŽE VŠECHNA DATA BUDOU ZTRACENA!\n"
 "\n"
-"Reinicializace může být aplikována na další disky, které ji budou potřebovat."
-"%(details)s"
+"Reinicializaci můžete aplikovat i na další disky, které ji budou potřebovat.%"
+"(details)s"
 
 #: gui.py:1164 gui.py:1222 text.py:495 text.py:553
 msgid "_Ignore"
@@ -400,9 +401,9 @@ msgid ""
 msgstr ""
 "Chyba zpracování LVM.\n"
 "Na %(msg)s jsou nekonzistentní LVM data. Můžete reinicializovat všechny "
-"související PV (%(pvs)s), což smaže LVM metadata. Nebo můžete chybu "
-"ignorovat, což zachová obsah LVM svazku. Tato akce může být aplikována na "
-"ostatní PV s nekonzistentními metadaty."
+"související PV (%(pvs)s), což přepíše LVM metadata. Nebo můžete chybu "
+"ignorovat, což zachová obsah LVM svazku. Tato akce může být aplikována též "
+"na ostatní PV s nekonzistentními metadaty."
 
 #: gui.py:1247 text.py:393
 msgid "Error Parsing Kickstart Config"
@@ -535,7 +536,7 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 "Pro programy, které jste se rozhodli nainstalovat, budou potřeba následující "
-"%(productName)s %(productVersion)s média:\n"
+"média distribuce %(productName)s %(productVersion)s:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Připravte si je před pokračováním v instalaci. Pokud potřebujete instalaci "
@@ -654,7 +655,7 @@ msgstr ""
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "Bod připojení /boot nebo / je na disku, který nebyl rozpoznán"
 
-#: kickstart.py:115
+#: kickstart.py:116
 #, python-format
 msgid ""
 "There was an error running the kickstart script at line %(lineno)s.  You may "
@@ -665,15 +666,15 @@ msgstr ""
 "můžete zkontrolovat v %(msgs)s. Po závažné chybě bude instalace  přerušena. "
 "Pro ukončení stiskněte tlačítko OK."
 
-#: kickstart.py:123 kickstart.py:125
+#: kickstart.py:124 kickstart.py:126
 msgid "Scriptlet Failure"
 msgstr "Chyba skriptu"
 
-#: kickstart.py:150 rescue.py:246 yuminstall.py:685 yuminstall.py:1148
+#: kickstart.py:151 rescue.py:246 yuminstall.py:685 yuminstall.py:1148
 msgid "No Network Available"
 msgstr "Síť není k dispozici"
 
-#: kickstart.py:151
+#: kickstart.py:152
 msgid ""
 "Encryption key escrow requires networking, but there was an error enabling "
 "the network on your system."
@@ -681,37 +682,37 @@ msgstr ""
 "Přístup k dešifrovacímu klíči vyžaduje počítačovou síť, avšak při její "
 "aktivaci došlo k chybě."
 
-#: kickstart.py:1182
+#: kickstart.py:1191
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Chyba při zpracovávání %%ksappend: %s"
 
-#: kickstart.py:1185
+#: kickstart.py:1194
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Neznámá chyba při zpracovávání %%ksappend: %s"
 
-#: kickstart.py:1240 livecd.py:229
+#: kickstart.py:1249 livecd.py:229
 msgid "Post-Installation"
 msgstr "Po instalaci"
 
-#: kickstart.py:1241
+#: kickstart.py:1250
 msgid "Running post-installation scripts"
 msgstr "Spuštění poinstalačních skriptů"
 
-#: kickstart.py:1257
+#: kickstart.py:1266
 msgid "Pre-Installation"
 msgstr "Před instalací"
 
-#: kickstart.py:1258
+#: kickstart.py:1267
 msgid "Running pre-installation scripts"
 msgstr "Spouštění předinstalačních skriptů"
 
-#: kickstart.py:1290
+#: kickstart.py:1299
 msgid "Missing Package"
 msgstr "Chybějící balíček"
 
-#: kickstart.py:1291
+#: kickstart.py:1300
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -720,19 +721,19 @@ msgstr ""
 "V kickstart souboru je požadována instalace balíčku '%s'. Takový balíček "
 "neexistuje. Chcete pokračovat nebo přerušit instalaci?"
 
-#: kickstart.py:1297 kickstart.py:1336
+#: kickstart.py:1306 kickstart.py:1345
 msgid "_Abort"
 msgstr "_Přerušit"
 
-#: kickstart.py:1298 kickstart.py:1337
+#: kickstart.py:1307 kickstart.py:1346
 msgid "_Ignore All"
 msgstr "_Ignorovat Vše"
 
-#: kickstart.py:1328
+#: kickstart.py:1337
 msgid "Missing Group"
 msgstr "Chybějící skupina"
 
-#: kickstart.py:1329
+#: kickstart.py:1338
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -741,7 +742,7 @@ msgstr ""
 "V kickstart souboru je požadována instalace skupiny '%s'. Taková skupina "
 "neexistuje. Chcete pokračovat nebo přerušit instalaci?"
 
-#: kickstart.py:1444
+#: kickstart.py:1453
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -880,7 +881,8 @@ msgid ""
 "\n"
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
-"Děkujeme vám, že jste si stáhli předběžnou verzi %(productName)s.\n"
+"Děkujeme vám, že jste si stáhli předběžnou verzi distribuce %(productName)"
+"s.\n"
 "\n"
 "Předběžná verze není dokončeným produktem a není určena pro běžné použití. "
 "Účelem předběžné verze je testování a získání ohlasů od testerů.\n"
@@ -893,7 +895,7 @@ msgstr ""
 
 #: packages.py:328
 msgid "_Install anyway"
-msgstr "I přesto _instalovat"
+msgstr "I_nstalovat předběžnou verzi"
 
 #: packages.py:331
 msgid "Your system will now be rebooted..."
@@ -1055,7 +1057,8 @@ msgid ""
 "%(errorstr)s"
 msgstr ""
 "V požadovaném rozdělení na oddíly se vyskytly následující kritické chyby, "
-"které musí být před pokračováním instalace %(productName)s.\n"
+"které musí být před pokračováním instalace distribuce %(productName)s "
+"opraveny.\n"
 "\n"
 "%(errorstr)s"
 
@@ -1076,7 +1079,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Chcete i přes to pokračovat?"
+"Chcete přesto pokračovat?"
 
 #: partIntfHelpers.py:289
 msgid ""
@@ -1406,7 +1409,7 @@ msgstr "Úprava repozitářů není v textovém režimu k dispozici."
 #: text.py:421
 #, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
-msgstr "Vítá vás %(productName)s pro %(productArch)s"
+msgstr "Vítá vás systém %(productName)s pro %(productArch)s"
 
 #: text.py:423
 #, python-format
@@ -1516,12 +1519,12 @@ msgstr "Neplatné adresáře"
 #: vnc.py:137
 #, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
-msgstr "%(productName)s %(productVersion)s instalace na %(name)s"
+msgstr "Instalace systému %(productName)s %(productVersion)s na %(name)s"
 
 #: vnc.py:143
 #, python-format
 msgid "%(productName)s %(productVersion)s installation"
-msgstr "%(productName)s %(productVersion)s instalace"
+msgstr "Instalace systému %(productName)s %(productVersion)s"
 
 #: vnc.py:172
 #, python-format
@@ -1752,7 +1755,7 @@ msgstr ""
 "\n"
 "%(e)s\n"
 "\n"
-"Zadejte prosím správné informace pro instalaci %(productName)s."
+"Zadejte správné informace pro instalaci systému %(productName)s."
 
 #: yuminstall.py:389
 msgid "Change Disc"
@@ -1973,9 +1976,9 @@ msgid ""
 "s.  This is likely to not succeed.  Are you sure you wish to continue the "
 "upgrade process?"
 msgstr ""
-"%(productName)s, na kterou aktualizujete, zřejmě používá architekturu %"
-"(myarch)s, což neodpovídá dříve nainstalované architektuře %(arch)s. "
-"Aktualizace zřejmě neuspěje. Opravdu chcete v aktualizaci pokračovat?"
+"Aktualizujete na systém %(productName)s architektury %(myarch)s, který "
+"neodpovídá dříve nainstalované architektuře %(arch)s. Aktualizace zřejmě "
+"nebude úspěšná. Opravdu chcete v aktualizaci pokračovat?"
 
 #: yuminstall.py:1703
 msgid "Post Upgrade"
@@ -2169,7 +2172,7 @@ msgstr ""
 "Na vybraných zařízeních budou odstraněny všechny oddíly včetně oddílů "
 "vytvořených jinými operačními systémy.\n"
 "\n"
-"<b>Upozornění:</b> Tato volba smaže na vybraných zařízeních všechna data. "
+"<b>Upozornění:</b> Volba smaže na vybraných zařízeních všechna data. "
 "Ujistěte se, že máte jejich zálohu."
 
 #: iw/autopart_type.py:236
@@ -2185,10 +2188,10 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
-"Na vybraných zařízeních budou odstraněny všechny Linuxové oddíly včetně "
-"oddílů vytvořených jinými operačními systémy.\n"
+"Na vybraných zařízeních budou odstraněny všechny Linuxové oddíly. Budou "
+"zachovány ostatní oddíly a na nich umístěná data (například FAT, NTFS atp).\n"
 "\n"
-"<b>Upozornění:</b> Tato volba smaže na vybraných zařízeních všechna data. "
+"<b>Upozornění:</b> Volba smaže na vybraných zařízeních všechna data. "
 "Ujistěte se, že máte jejich zálohu."
 
 #: iw/autopart_type.py:246
@@ -2198,7 +2201,9 @@ msgstr "Zmenšit současný systém"
 #: iw/autopart_type.py:248
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
-msgstr "Zmenšit existující oddíly pro volné místo pro implicitní rozložení."
+msgstr ""
+"Zmenšit existující oddíly a vytvořit tak volné místo, na kterém bude "
+"vytvořeno implicitní rozložení oddílů."
 
 #: iw/autopart_type.py:250
 msgid "Use Free Space"
@@ -2237,7 +2242,7 @@ msgstr ""
 
 #: iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr "_Změnit heslo"
+msgstr "Změnit _heslo"
 
 #: iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
@@ -2259,7 +2264,7 @@ msgstr "_Heslo:"
 
 #: iw/blpasswidget.py:118
 msgid "Con_firm:"
-msgstr "Heslo (_znovu):"
+msgstr "Heslo (znov_u):"
 
 #: iw/blpasswidget.py:139
 msgid "Passwords don't match"
@@ -2293,7 +2298,7 @@ msgstr "_Instalovat zavaděč systému na /dev/%s."
 
 #: iw/bootloader_main_gui.py:229
 msgid "_Change device"
-msgstr "_Změnit zařízení"
+msgstr "Z_měnit zařízení"
 
 #: iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2846,7 +2851,7 @@ msgstr "_Název"
 
 #: iw/osbootwidget.py:153
 msgid "_Device"
-msgstr "_Zařízení"
+msgstr "Z_ařízení"
 
 #: iw/osbootwidget.py:183
 msgid "Default Boot _Target"
@@ -2920,7 +2925,7 @@ msgstr "_Typ systému souborů:"
 
 #: iw/partition_dialog_gui.py:402
 msgid "Allowable _Drives:"
-msgstr "Výběr _disků:"
+msgstr "_Výběr disků:"
 
 #: iw/partition_dialog_gui.py:471
 msgid "Force to be a _primary partition"
@@ -3173,7 +3178,7 @@ msgstr "_Vytvořit"
 
 #: iw/partition_gui.py:1810
 msgid "Re_set"
-msgstr "_Obnovit"
+msgstr "O_bnovit"
 
 #: iw/partition_gui.py:1833
 msgid "Please Select A Device"
@@ -3194,7 +3199,7 @@ msgstr "_Migrovat systém souborů na:"
 
 #: iw/partition_ui_helpers_gui.py:364
 msgid "_Resize"
-msgstr "_Změnit velikost"
+msgstr "Změnit _velikost"
 
 #: iw/partition_ui_helpers_gui.py:433
 #, python-format
@@ -3238,7 +3243,7 @@ msgstr "Upravit RAID zařízení"
 
 #: iw/raid_dialog_gui.py:431
 msgid "RAID _Device:"
-msgstr "RAID _zařízení:"
+msgstr "RAID z_ařízení:"
 
 #: iw/raid_dialog_gui.py:449
 msgid "RAID _Level:"
@@ -4693,16 +4698,16 @@ msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
-"Zvolené rozložení oddílů bude zapsáno na disk. Všechna data na odstraněných "
-"nebo formátovaných oddílech budou ztracena."
+"Vytvořené rozložení oddílů bude zapsáno na disk. Všechna data na "
+"odstraněných nebo formátovaných oddílech budou ztracena."
 
 #: storage/__init__.py:174
 msgid "Go _back"
-msgstr "_Jít zpět"
+msgstr "_Vrátit se zpět"
 
 #: storage/__init__.py:175
 msgid "_Write changes to disk"
-msgstr "_Zapsat změny na disk"
+msgstr "Zapsat změny na d_isk"
 
 #: storage/__init__.py:194
 msgid "Running..."
@@ -5608,7 +5613,9 @@ msgstr "Ve které časové zóně je počítač umístěn?"
 
 #: textw/timezone_text.py:92
 msgid "System clock uses UTC"
-msgstr "Systémové hodiny používají UTC čas"
+msgstr ""
+"Systémové hodiny obsahují UTC čas (typicky počítače používající výhradně "
+"Linux)"
 
 #: textw/upgrade_bootloader_text.py:116 textw/upgrade_bootloader_text.py:126
 msgid "Update boot loader configuration"
@@ -5807,7 +5814,7 @@ msgstr "Přidat _FCoE SAN"
 
 #: ui/adddrive.glade.h:2
 msgid "Add _ZFCP LUN"
-msgstr "Přidat _ZFCP LUN"
+msgstr "Přidat ZFCP _LUN"
 
 #: ui/adddrive.glade.h:3
 msgid "Add _iSCSI target"
@@ -5900,7 +5907,7 @@ msgstr "_Další"
 
 #: ui/autopart.glade.h:1
 msgid "<b>Shrink partition _to size (in MB):</b>"
-msgstr "<b>_Zmenšit oddíl na velikost (v MB):</b>"
+msgstr "<b>Z_menšit oddíl na velikost (v MB):</b>"
 
 #: ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -5925,7 +5932,7 @@ msgstr "_Šifrovat systém"
 
 #: ui/autopart.glade.h:7
 msgid "_Shrink"
-msgstr "_Zmenšit"
+msgstr "Z_menšit"
 
 #: ui/blwhere.glade.h:1
 msgid "/boot"
@@ -6074,7 +6081,7 @@ msgstr "Povolit podporu IPv_6"
 
 #: ui/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "_Dynamické nastavení IP adresy (DHCP)"
+msgstr "Dy_namické nastavení IP adresy (DHCP)"
 
 #: ui/network.glade.h:1
 msgid "Hostname:"
@@ -6088,7 +6095,7 @@ msgstr "Pojmenujte tento počítač. Jméno identifikuje počítač v síti."
 
 #: ui/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "Upravit po_zději"
+msgstr "Upravit _později"
 
 #: ui/tasksel.glade.h:2
 msgid ""
@@ -6152,7 +6159,7 @@ msgstr "Arabština"
 
 #: lang-table.h:3
 msgid "Assamese"
-msgstr "Ásámština"
+msgstr "Asámština"
 
 #: lang-table.h:4
 msgid "Bengali"
@@ -6220,7 +6227,7 @@ msgstr "Řečtina"
 
 #: lang-table.h:20
 msgid "Gujarati"
-msgstr "Gujarati"
+msgstr "Gudžarátština"
 
 #: lang-table.h:21
 msgid "Hebrew"
@@ -6240,11 +6247,11 @@ msgstr "Islandština"
 
 #: lang-table.h:25
 msgid "Iloko"
-msgstr "Iloko"
+msgstr "Ilokáno"
 
 #: lang-table.h:26
 msgid "Indonesian"
-msgstr "Indonéština"
+msgstr "Indonézština"
 
 #: lang-table.h:27
 msgid "Italian"
@@ -6256,7 +6263,7 @@ msgstr "Japonština"
 
 #: lang-table.h:29
 msgid "Kannada"
-msgstr "Kannada"
+msgstr "Kannadština"
 
 #: lang-table.h:30
 msgid "Korean"
@@ -6276,11 +6283,11 @@ msgstr "Malajština"
 
 #: lang-table.h:34
 msgid "Malayalam"
-msgstr "Malayalam"
+msgstr "Malajálamština"
 
 #: lang-table.h:35
 msgid "Marathi"
-msgstr "Marathi"
+msgstr "Maráthština"
 
 #: lang-table.h:36
 msgid "Nepali"
@@ -6296,7 +6303,7 @@ msgstr "Severní Sotho"
 
 #: lang-table.h:39
 msgid "Oriya"
-msgstr "Oriya"
+msgstr "Urijština"
 
 #: lang-table.h:40
 msgid "Persian"
@@ -6332,11 +6339,11 @@ msgstr "Srbština"
 
 #: lang-table.h:48
 msgid "Serbian(Latin)"
-msgstr "Srbština (Latin)"
+msgstr "Srbština (latinka)"
 
 #: lang-table.h:49
 msgid "Sinhala"
-msgstr "Sinhala"
+msgstr "Sinhálština"
 
 #: lang-table.h:50
 msgid "Slovak"
@@ -6356,7 +6363,7 @@ msgstr "Švédština"
 
 #: lang-table.h:54
 msgid "Tajik"
-msgstr "Tajik"
+msgstr "Tádžičtina"
 
 #: lang-table.h:55
 msgid "Tamil"
@@ -6364,7 +6371,7 @@ msgstr "Tamilština"
 
 #: lang-table.h:56
 msgid "Telugu"
-msgstr "Telugu"
+msgstr "Telugština"
 
 #: lang-table.h:57
 msgid "Turkish"
@@ -6372,7 +6379,7 @@ msgstr "Turečtina"
 
 #: lang-table.h:58
 msgid "Ukrainian"
-msgstr "Ukrajiština"
+msgstr "Ukrajinština"
 
 #: lang-table.h:59
 msgid "Vietnamese"
@@ -6384,634 +6391,4 @@ msgstr "Velština"
 
 #: lang-table.h:61
 msgid "Zulu"
-msgstr "Zulu"
-
-#~ msgid "Install class forcing text mode installation"
-#~ msgstr "Třída instalace vynucující instalaci v textovém režimu"
-
-#~ msgid "reipl configuration successful => reboot"
-#~ msgstr "reipl konfigurace úspěšná => reboot"
-
-#~ msgid "reipl configuration failed => halt"
-#~ msgstr "reipl konfigurace selhala => halt"
-
-#~ msgid "The installer will now exit."
-#~ msgstr "Instalační program bude nyní ukončen."
-
-#~ msgid "Device Resize Failed"
-#~ msgstr "Změna velikosti zařízení selhala"
-
-#~ msgid "An error was encountered while resizing device %s."
-#~ msgstr "Při změně velikosti zařízení %s došlo k chybě."
-
-#~ msgid "Device Creation Failed"
-#~ msgstr "Vytvoření zařízení selhalo"
-
-#~ msgid "An error was encountered while creating device %s."
-#~ msgstr "Při vytváření zařízení %s došlo k chybě."
-
-#~ msgid "Device Removal Failed"
-#~ msgstr "Odebrání zařízení selhalo"
-
-#~ msgid "An error was encountered while removing device %s."
-#~ msgstr "Při odebírání zařízení %s došlo k chybě."
-
-#~ msgid "Device Setup Failed"
-#~ msgstr "Nastavení zařízení selhalo"
-
-#~ msgid "An error was encountered while setting up device %s."
-#~ msgstr "Při nastavování zařízení %s došlo k chybě."
-
-#~ msgid "Formatting Failed"
-#~ msgstr "Formátování selhalo"
-
-#~ msgid "An error was encountered while formatting device %s."
-#~ msgstr "Při formátování zařízení %s došlo k chybě."
-
-#~ msgid "Storage Activation Failed"
-#~ msgstr "Aktivace úložiště selhala"
-
-#~ msgid ""
-#~ "An error was encountered while activating your storage configuration."
-#~ msgstr "Při aktivaci konfigurace vašeho úložiště se vyskytla chyba."
-
-#~ msgid "Invalid Key"
-#~ msgstr "Neplatný klíč"
-
-#~ msgid "The key you entered is invalid."
-#~ msgstr "Vložený klíč není platný."
-
-#~ msgid "_Skip"
-#~ msgstr "_Přeskočit"
-
-#~ msgid "The installer will now exit..."
-#~ msgstr "Instalační program bude ukončen..."
-
-#~ msgid "/boot is not on an ext2 filesystem."
-#~ msgstr "/boot není na systému souborů ext2."
-
-#~ msgid "Please enter your %(instkey)s"
-#~ msgstr "Vložte %(instkey)s."
-
-#~ msgid "Skip entering %(instkey)s"
-#~ msgstr "Přeskočit vložení %(instkey)s"
-
-#~ msgid "%s not found"
-#~ msgstr "%s nenalezen"
-
-#~ msgid "%s %s installation"
-#~ msgstr "Instalace %s %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of software applicable for "
-#~ "general internet usage. What additional tasks would you like your system "
-#~ "to include support for?"
-#~ msgstr ""
-#~ "Standardní instalace %s obsahuje sadu programů pro běžné používání "
-#~ "Internetu. Které další činnosti by měl váš systém podporovat?"
-
-#~ msgid "Office and Productivity"
-#~ msgstr "Kancelář a Produktivita"
-
-#~ msgid "Office"
-#~ msgstr "Kancelář"
-
-#~ msgid "Multimedia"
-#~ msgstr "Multimédia"
-
-#~ msgid "Web server"
-#~ msgstr "Web server"
-
-#~ msgid "Virtualization"
-#~ msgstr "Virtualizace"
-
-#~ msgid "Clustering"
-#~ msgstr "Clustery"
-
-#~ msgid "Storage Clustering"
-#~ msgstr "Úložné clustery"
-
-#~ msgid "Installation Number"
-#~ msgstr "Instalační číslo"
-
-#~ msgid ""
-#~ "Would you like to enter an Installation Number (sometimes called "
-#~ "Subscription Number) now? This feature enables the installer to access "
-#~ "any extra components included with your subscription.  If you skip this "
-#~ "step, additional components can be installed manually later.\n"
-#~ "\n"
-#~ "See http://www.redhat.com/InstNum/ for more information."
-#~ msgstr ""
-#~ "Chcete zadat nyní instalační číslo (někdy se nazývá Subscription Number)? "
-#~ "Tato vlastnost umožní instalátoru přístup k různým extra komponentám "
-#~ "obsaženým ve vaší subscription.  Pokud přeskočíte tento krok, dodatečné "
-#~ "komponenty mohou být instalovány ručně později.\n"
-#~ "\n"
-#~ "Navštivte http://www.redhat.com/InstNum/ pro více informací."
-
-#~ msgid ""
-#~ "If you cannot locate the Installation Number, consult http://www.redhat."
-#~ "com/InstNum/"
-#~ msgstr ""
-#~ "Pokud nemůžete nalézt instalační číslo, navštivte http://www.redhat.com/"
-#~ "InstNum/"
-
-#~ msgid "%s: %s"
-#~ msgstr "%s: %s"
-
-#~ msgid ""
-#~ "Do you really want to boot from a disk which is not used for installation?"
-#~ msgstr ""
-#~ "Opravdu chcete zavádět systém z disku, který se nepoužívá pro instalaci?"
-
-#~ msgid "Invalid Initiator Name"
-#~ msgstr "Neplatné jméno pro iniciátor"
-
-#~ msgid "You must provide an initiator name."
-#~ msgstr "Je nutné vložit jméno iniciátoru."
-
-#~ msgid "Error with Data"
-#~ msgstr "Chyba v datech"
-
-#~ msgid "Rescanning disks"
-#~ msgstr "Znovu prohlížím disky"
-
-#~ msgid "_Install %s"
-#~ msgstr "_Instalovat systém %s"
-
-#~ msgid "The following installed system will be upgraded:"
-#~ msgstr "Bude aktualizován následující nainstalovaný systém:"
-
-#~ msgid "You must select a device to edit"
-#~ msgstr "Musíte zvolit zařízení, které chcete upravovat"
-
-#~ msgid "Not supported"
-#~ msgstr "Nepodporováno"
-
-#~ msgid "LVM is NOT supported on this platform."
-#~ msgstr "LVM na této platformě NENÍ podporován."
-
-#~ msgid "Software RAID is NOT supported on this platform."
-#~ msgstr "Softwarový RAID na této platformě NENÍ podporován."
-
-#~ msgid "No RAID minor device numbers available"
-#~ msgstr "Chybí menší čísla zařízení RAID"
-
-#~ msgid ""
-#~ "A software RAID device cannot be created because all of the available "
-#~ "RAID minor device numbers have been used."
-#~ msgstr ""
-#~ "Nelze vytvořit zařízení softwarový RAID, protože všechna menší čísla "
-#~ "zařízení RAID již byla použita."
-
-#~ msgid "RAID Options"
-#~ msgstr "Nastavení RAID"
-
-#~ msgid "What do you want to do now?"
-#~ msgstr "Co chcete provést?"
-
-#~ msgid "Create a RAID _device [default=/dev/md%s]."
-#~ msgstr "Vytvořit _zařízení RAID [implicitní /dev/md%s]."
-
-#~ msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-#~ msgstr "Vytvořit zařízení RAID _klonováním disku [implicitní /dev/md%s]."
-
-#~ msgid "Ne_w"
-#~ msgstr "No_vý"
-
-#~ msgid "R_AID"
-#~ msgstr "_RAID"
-
-#~ msgid "_LVM"
-#~ msgstr "_LVM"
-
-#~ msgid "Hide RAID device/LVM Volume _Group members"
-#~ msgstr "_Skrýt členy zařízení RAID a skupin svazků LVM"
-
-#~ msgid ""
-#~ "Clone Drive Tool\n"
-#~ "\n"
-#~ "This tool allows you to significantly reduce the amount of effort "
-#~ "required to setup RAID arrays.  This tool uses a source drive which has "
-#~ "been prepared with the desired partitioning layout, and clones this "
-#~ "layout onto other similar sized drives.  Then a RAID device can be "
-#~ "created.\n"
-#~ "\n"
-#~ "NOTE: The source drive must have partitions which are restricted to be on "
-#~ "that drive only, and can only contain unused software RAID partitions.  "
-#~ "Other partition types are not allowed.\n"
-#~ "\n"
-#~ "EVERYTHING on the target drive(s) will be destroyed by this process."
-#~ msgstr ""
-#~ "Nástroj pro klonování disků\n"
-#~ "\n"
-#~ "Nástroj na klonování disků umožňuje podstatně zjednodušit vytvoření polí "
-#~ "RAID. Vytvoříte zdrojový disk s požadovaným rozložením oddílů a "
-#~ "naklonujete jeho rozložení na ostatní, podobně velké disky. Pak lze "
-#~ "vytvořit zařízení RAID.\n"
-#~ "\n"
-#~ "UPOZORNĚNÍ: Zdrojový disk musí mít oddíly, které jsou omezeny na jeden "
-#~ "disk a může obsahovat jen nepoužité softwarové RAID oddíly. Jiné typy "
-#~ "oddílů nejsou povoleny.\n"
-#~ "\n"
-#~ "VŠECHNA DATA na cílovém disku (discích) budou klonováním smazána."
-
-#~ msgid ""
-#~ "The following error occurred while setting up the installation "
-#~ "repository:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Please provide the correct information for installing %s"
-#~ msgstr ""
-#~ "Při přípravě instalačního repozitáře došlo k následující chybě:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Zadejte prosím správné informace pro instalaci %s"
-
-#~ msgid "Unknown Host"
-#~ msgstr "Neznámý počítač"
-
-#~ msgid "%s is not a valid hostname."
-#~ msgstr "%s není platné jméno počítače."
-
-#~ msgid "_Ignore drive"
-#~ msgstr "_Ignorovat disk"
-
-#~ msgid "_Re-initialize drive"
-#~ msgstr "_Inicializovat disk"
-
-#~ msgid "attr dict must include a type"
-#~ msgstr "atribut dict musí obsahovat typ"
-
-#~ msgid ""
-#~ "Enter the device name for the NIC which is connected to the FCoE SAN. For "
-#~ "example \"eth0\"."
-#~ msgstr ""
-#~ "Zadejte název síťové karty, která je připojena k FCoE SAN. Například "
-#~ "\"eth0\"."
-
-#~ msgid "NIC device name"
-#~ msgstr "Název síťového zařízení"
-
-#~ msgid "%s is not a valid NIC device name."
-#~ msgstr "%s není platné jméno síťového zařízení."
-
-#~ msgid "Disable _dmraid device"
-#~ msgstr "Zakázat zařízení _dmraid"
-
-#~ msgid ""
-#~ "Installation requires partitioning of your hard drive.  The default "
-#~ "layout is suitable for most users.  Select what space to use and which "
-#~ "drives to use as the install target. You can also choose to create your "
-#~ "own custom layout."
-#~ msgstr ""
-#~ "Před instalací je potřeba rozdělit disk na oddíly a určit, kam se bude "
-#~ "instalovat. Automatické rozdělení vytvoří implicitní rozdělení, které "
-#~ "bude ve většině případů vyhovovat. Můžete také vytvořit oddíly ručně a "
-#~ "sami určit, kam budou připojeny."
-
-#~ msgid "What drive would you like to _boot this installation from?"
-#~ msgstr "Z _kterého zařízení chcete zavádět tuto instalaci?"
-
-#~ msgid "_Advanced storage configuration"
-#~ msgstr "_Pokročilé nastavení ukládání dat"
-
-#~ msgid "_Select the drive(s) to use for this installation."
-#~ msgstr "_Vybrat disk(y), které budou použity pro instalaci:"
-
-#~ msgid "%(instkey)s:"
-#~ msgstr "%(instkey)s:"
-
-#~ msgid "Please enter your %(instkey)s."
-#~ msgstr "Vložte %(instkey)s."
-
-#~ msgid ""
-#~ "The following error was found while parsing thekickstart configuration "
-#~ "file:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Při zpracovávání kickstart souboru byla nalezena následující chyba:\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "label1"
-#~ msgstr "Název"
-
-#~ msgid ""
-#~ "You do not have enough RAM to install %s on this machine.\n"
-#~ "\n"
-#~ "Press <return> to reboot your system.\n"
-#~ msgstr "Nemáte dostatek paměti RAM pro instalaci distribuce %s."
-
-#~ msgid ""
-#~ "Your bug could not be filed due to the following error when communicating "
-#~ "with bugzilla:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Vaši chybu nebylo možné ohlásit kvůli následující chybě při komunikaci s "
-#~ "bugzillou:\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Your bug could not be filed due to bad information in the bug fields.  "
-#~ "This is most likely an error in anaconda:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Vaši chybu nebylo možné ohlásit kvůli špatným informacím v polícho "
-#~ "chybě.  To je pravděpodobně chyba v anacondě:\n"
-#~ "\n"
-#~ "%s"
-
-#~ msgid "Unable To File Bug"
-#~ msgstr "Nemohu ohlásit chybu"
-
-#~ msgid "Bug Filing Not Supported"
-#~ msgstr "Hlášení chyb nepodporováno"
-
-#~ msgid ""
-#~ "Your distribution does not provide a supported bug filing system, so you "
-#~ "cannot save your exception this way."
-#~ msgstr ""
-#~ "Vaše distribuce nemá podporovaný systém pro hlášení chyb, takže svou "
-#~ "výjimku nemůžete uložit tímto způsobem."
-
-#~ msgid "Invalid Bug Information"
-#~ msgstr "Neplatné informace o chybě"
-
-#~ msgid ""
-#~ "Please provide a valid username, password, and short bug description."
-#~ msgstr "Zadejte prosím platné jméno uživatele, heslo a krátký popis chyby."
-
-#~ msgid "Unable To Login"
-#~ msgstr "Nemohu se přihlásit"
-
-#~ msgid ""
-#~ "There was an error logging into %s using the provided username and "
-#~ "password."
-#~ msgstr ""
-#~ "Při přihlašování do %s pomocí zadaného jména uživatele a hesla došlo k "
-#~ "chybě."
-
-#~ msgid ""
-#~ "A new bug has been created with your traceback attached. Please add "
-#~ "additional information such as what you were doing when you encountered "
-#~ "the bug, screenshots, and whatever else is appropriate to the following "
-#~ "bug:\n"
-#~ "\n"
-#~ "%s/%s"
-#~ msgstr ""
-#~ "Byla vytvořena nová chyba a váš traceback byl přiložen. Přidejte prosím "
-#~ "další informace, např. co jste dělali když došlo k chybě, snímky "
-#~ "obrazovky, nebo jiné vhodé informace k následující chybě:\n"
-#~ "\n"
-#~ "%s/%s"
-
-#~ msgid "Bug Updated"
-#~ msgstr "Chyba aktualizována"
-
-#~ msgid ""
-#~ "A bug with your information already exists.  Your account has been added "
-#~ "to the CC list and your traceback added as a comment.  Please add "
-#~ "additional descriptive information to the following bug:\n"
-#~ "\n"
-#~ "%s/%s"
-#~ msgstr ""
-#~ "Chyba s vašimi informacemi již existuje. Váš účet byl přidán do seznamu "
-#~ "Cc a váš traceback byl přidán jako komentář.  Přidejte prosím další "
-#~ "popisné informace k následující chybě:\n"
-#~ "\n"
-#~ "%s/%s"
-
-#~ msgid "Dump Written"
-#~ msgstr "Záznam uložen"
-
-#~ msgid ""
-#~ "Your system's state has been successfully written to the disk. The "
-#~ "installer will now exit."
-#~ msgstr ""
-#~ "Stav vašeho systému byl úspěšně zapsán na disk. Instalace bude nyní "
-#~ "ukončena."
-
-#~ msgid "Dump Not Written"
-#~ msgstr "Záznam nebyl uložen"
-
-#~ msgid ""
-#~ "Cannot save a bug report since there is no active networking device "
-#~ "available."
-#~ msgstr ""
-#~ "Nemohu uložit hlášení o chybě, protože není k dispozici aktivní síťové "
-#~ "zařízení."
-
-#~ msgid ""
-#~ "Your system's state has been successfully written to the remote host.  "
-#~ "The installer will now exit."
-#~ msgstr ""
-#~ "Stav vašeho systému byl úspěšně zapsán na vzdálený počítač. Instalace "
-#~ "bude nyní ukončena."
-
-#~ msgid "There was a problem writing the system state to the remote host."
-#~ msgstr "Při zápisu záznamu chyby na vzdálený počítač došlo k chybě."
-
-#~ msgid "Bugzilla (%s)"
-#~ msgstr "Bugzilla (%s)"
-
-#~ msgid "Debug"
-#~ msgstr "Ladění"
-
-#~ msgid "Exception Occurred"
-#~ msgstr "Došlo k výjimce"
-
-#~ msgid "Doing post-installation"
-#~ msgstr "Dokončení instalace"
-
-#~ msgid "None"
-#~ msgstr "Nic"
-
-#~ msgid ""
-#~ "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
-#~ "DASDs are not supported for usage during an install of %s.  If you wish "
-#~ "to use this disk for installation, it must be re-initialized causing the "
-#~ "loss of ALL DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to reformat this DASD using CDL format?"
-#~ msgstr ""
-#~ "Zařízení %s je naformátován na LDL místo na CDL. DASD s formátem LDL "
-#~ "nejsou při instalaci %s podporovány. Pokud chcete disk použít pro "
-#~ "instalaci, musí být znovu inicializován, což způsobí ztrátu VŠECH DAT na "
-#~ "disku.\n"
-#~ "\n"
-#~ "Chcete DASD přeformátovat na formát CDL?"
-
-#~ msgid ""
-#~ "/dev/%s currently has a %s partition layout.  To use this drive for the "
-#~ "installation of %s, it must be re-initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "Would you like to re-initialize this drive?"
-#~ msgstr ""
-#~ "Zařízení /dev/%s má tabulku rozložení oddílů %s. Abyste na disk mohli "
-#~ "nainstalovat %s, musí být znovu inicializován, což znamená ztrátu VŠECH "
-#~ "DAT na disku.\n"
-#~ "\n"
-#~ "Chcete disk inicializovat?"
-
-#~ msgid "Initializing"
-#~ msgstr "Inicializace"
-
-#~ msgid "Please wait while formatting drive %s...\n"
-#~ msgstr "Čekejte prosím, formátuje se disk %s...\n"
-
-#~ msgid ""
-#~ "The partition table on device %s (%s %-0.f MB) was unreadable.\n"
-#~ "\n"
-#~ "To create new partitions it must be initialized, causing the loss of ALL "
-#~ "DATA on this drive.\n"
-#~ "\n"
-#~ "This operation will override any previous installation choices about "
-#~ "which drives to ignore.\n"
-#~ "\n"
-#~ "Would you like to initialize this drive, erasing ALL DATA?"
-#~ msgstr ""
-#~ "Tabulka oddílů na zařízení %s (%s %-0.f MB) je nečitelná.\n"
-#~ "\n"
-#~ "Aby mohly být vytvořeny nové oddíly, musí být tabulka oddílů "
-#~ "inicializována, což znamená ztrátu VŠECH DAT na disku.\n"
-#~ "\n"
-#~ "Operace nebere ohled na dřívější rozhodnutí, které disky chcete "
-#~ "ignorovat.\n"
-#~ "\n"
-#~ "Chcete inicializovat tento disk a smazat VŠECHNA DATA?"
-
-#~ msgid ""
-#~ "The drive /dev/%s has more than 15 partitions on it.  The SCSI subsystem "
-#~ "in the Linux kernel does not allow for more than 15 partitons at this "
-#~ "time.  You will not be able to make changes to the partitioning of this "
-#~ "disk or use any partitions beyond /dev/%s15 in %s"
-#~ msgstr ""
-#~ "Zařízení /dev/%s obsahuje více než 15 oddílů. SCSI subsystém v jádře "
-#~ "Linuxu zatím více, než 15 zařízení neumožňuje. Nebude možné provádět "
-#~ "změny v rozdělení disku ani používat oddíly za 15. oddílem /dev/%s v %s."
-
-#~ msgid "Save"
-#~ msgstr "Uložit"
-
-#~ msgid "Save to local disk"
-#~ msgstr "Uložit na místní disk"
-
-#~ msgid "Send to bugzilla (%s)"
-#~ msgstr "Poslat do bugzilly (%s)"
-
-#~ msgid "Send to remote server (scp)"
-#~ msgstr "Poslat na vzdálený server (scp)"
-
-#~ msgid "Bug Description"
-#~ msgstr "Popis chyby"
-
-#~ msgid "Host (host:port)"
-#~ msgstr "Počítač (počítač:port)"
-
-#~ msgid "Destination file"
-#~ msgstr "Cílový soubor"
-
-#~ msgid ""
-#~ "You have choosen the upgrade for %s architecture, but the installed "
-#~ "system is for %s architecture. \n"
-#~ "\n"
-#~ msgstr ""
-#~ "Zvolili jste aktualizaci pro architekturu %s, ale nainstalovaný systém je "
-#~ "pro architekturu %s. \n"
-#~ "\n"
-
-#~ msgid ""
-#~ "Would you like to upgrade  the installed system to the %s architecture?"
-#~ msgstr "Chcete nainstalovaný systém aktualizovat na architekturu %s?"
-
-#~ msgid "%s Bytes"
-#~ msgstr "%s bajtů"
-
-#~ msgid "Processing"
-#~ msgstr "Zpracovávání"
-
-#~ msgid "%s of %s packages completed"
-#~ msgstr "%s z %s balíčků dokončeno"
-
-#~ msgid "Starting install process.  This may take several minutes..."
-#~ msgstr "Spouštím proces instalace. Může to chvíli trvat..."
-
-#~ msgid "Drive %s (Geom: %s/%s/%s) (Model: %s)"
-#~ msgstr "Disk %s (Geom: %s/%s/%s) (Model: %s)"
-
-#~ msgid ""
-#~ "To install the full set of supported packages included in your "
-#~ "subscription, please enter your Installation Number"
-#~ msgstr ""
-#~ "Pro instalaci všech podporovaných balíčků pro vaše předplatné vložte své "
-#~ "Instalační číslo"
-
-#~ msgid ""
-#~ "If you're unable to locate the Installation Number, consult http://www."
-#~ "redhat.com/apps/support/in.html.\n"
-#~ "\n"
-#~ "If you skip:\n"
-#~ "* You may not get access to the full set of packages included in your "
-#~ "subscription.\n"
-#~ "* It may result in an unsupported/uncertified installation of Red Hat "
-#~ "Enterprise Linux.\n"
-#~ "* You will not get software and security updates for packages not "
-#~ "included in your subscription."
-#~ msgstr ""
-#~ "Pokud nemůžete nalézt instalační číslo, podívejte se na http://www.redhat."
-#~ "com/apps/support/in.html.\n"
-#~ "\n"
-#~ "Pokud tento krok přeskočíte:\n"
-#~ "* Nemusíte získat přístup ke všem balíčkům v předplatném.\n"
-#~ "* Může mít nepodporovanou/necertifikovanou instalaci Red Hat Entriprise "
-#~ "Linuxu.\n"
-#~ "* Nezískáte bezpečnostní a softwarové aktualizace dle předplatného."
-
-#~ msgid "boot flag not available for this partition"
-#~ msgstr ""
-#~ "Nelze odstranit oddíl:\n"
-#~ "\n"
-
-#~ msgid "_Ignore drive(s)"
-#~ msgstr "_Ignorovat disk"
-
-#~ msgid "_Re-initialize drive(s)"
-#~ msgstr "_Inicializovat disk"
-
-#~ msgid "Your system will now be rebooted."
-#~ msgstr "Systém bude restartován."
-
-#~ msgid "Bug _description"
-#~ msgstr "_Popis chyby"
-
-#~ msgid "Destination _file"
-#~ msgstr "_Cílový soubor"
-
-#~ msgid ""
-#~ "Local storage device\n"
-#~ "Local disk\n"
-#~ "Remote server (scp)"
-#~ msgstr ""
-#~ "Místní úložné zařízení\n"
-#~ "Místní disk\n"
-#~ "Vzdálený server (scp)"
-
-#~ msgid "Please choose a destination for saving your traceback."
-#~ msgstr "Zvolte prosím cíl pro uložení vašeho tracebacku."
-
-#~ msgid "Select A File"
-#~ msgstr "Vybrat soubor"
-
-#~ msgid "_Host (host:port)"
-#~ msgstr "_Počítač (počítač:port)"
-
-#~ msgid "_Password"
-#~ msgstr "_Heslo"
+msgstr "Zulština"
