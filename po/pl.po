@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-02-22 16:07-1000\n"
-"PO-Revision-Date: 2010-02-23 17:36+0100\n"
+"PO-Revision-Date: 2010-02-23 18:09+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -315,8 +315,8 @@ msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
 msgstr ""
-"Proszę wybrać hasło dla zaszyfrowanych urządzeń. Podczas uruchamiania "
-"systemu użytkownik będzie o nie poproszony."
+"Proszę wybrać hasło dla zaszyfrowanych urządzeń. Użytkownik będzie o nie "
+"proszony podczas uruchamiania systemu."
 
 #: gui.py:651 gui.py:659 text.py:187 text.py:197
 msgid "Error with passphrase"
@@ -1358,8 +1358,8 @@ msgid ""
 msgstr ""
 "System został zamontowany w katalogu %(rootPath)s.\n"
 "\n"
-"Proszę nacisnąć klawisz <return>, aby uzyskać powłokę. Aby katalog / był "
-"taki sam jak katalog / w ratowanym systemie, należy wykonać polecenie: \n"
+"Naciśnięcie klawisza <return> spowoduje przejście do powłoki. Aby katalog / "
+"był taki sam, jak katalog / w ratowanym systemie, należy wykonać polecenie:\n"
 "\n"
 "\tchroot %(rootPath)s\n"
 "\n"
@@ -1377,8 +1377,8 @@ msgstr ""
 "Wystąpił błąd podczas próby montowania części lub całości systemu. Część "
 "systemu może być zamontowana jako %s.\n"
 "\n"
-"Proszę nacisnąć klawisz <return>, aby uzyskać powłokę. Po wyjściu z niej "
-"system zostanie automatycznie uruchomiony ponownie."
+"Naciśnięcie klawisza <return> spowoduje przejście do powłoki. Po wyjściu z "
+"niej system zostanie automatycznie uruchomiony ponownie."
 
 #: rescue.py:454
 msgid "You don't have any Linux partitions.  Rebooting.\n"
@@ -1393,8 +1393,8 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Nie ma żadnych partycji systemu Linux. Proszę nacisnąć klawisz return, aby "
-"uzyskać powłokę. Po wyjściu z powłoki system zostanie automatycznie "
+"Nie ma żadnych partycji systemu Linux. Naciśnięcie klawisza return spowoduje "
+"przejście do powłoki. Po wyjściu z powłoki system zostanie automatycznie "
 "uruchomiony ponownie."
 
 #: rescue.py:471
@@ -1456,8 +1456,7 @@ msgstr "Anulowano"
 
 #: text.py:653
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Nie można cofnąć się do poprzedniego kroku. Należy spróbować jeszcze raz."
+msgstr "Nie można przejść do poprzedniego kroku. Należy spróbować jeszcze raz."
 
 #: upgrade.py:51
 msgid "Proceed with upgrade?"
@@ -4433,7 +4432,7 @@ msgstr ""
 
 #: loader/loader.c:1620
 msgid "The following devices have been found on your system."
-msgstr "Odnalezione następujące urządzenia w systemie."
+msgstr "W systemie odnaleziono następujące urządzenia."
 
 #: loader/loader.c:1622
 msgid ""
@@ -5084,7 +5083,7 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"Następujące systemy plików w systemie Linux zostały nieczysto odsmontowane. "
+"Następujące systemy plików w systemie Linux zostały nieczysto odmontowane. "
 "Zamontować je mimo to?\n"
 "%s"
 
@@ -5102,7 +5101,7 @@ msgstr ""
 "\n"
 "     %s\n"
 "\n"
-"jest starego typu partycją wymiany systemu Linux. Aby używać tego urządzenia "
+"jest partycją wymiany systemu Linux starego typu. Aby używać tego urządzenia "
 "dla przestrzeni wymiany, należy ją ponownie sformatować jako partycję "
 "wymiany systemu Linux nowego typu."
 
@@ -5952,7 +5951,7 @@ msgstr "Instalacja"
 
 #: liveinst/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr "Instalacja płyty Live na dysku twardym"
+msgstr "Instalacja obrazu Live na dysku twardym"
 
 #: liveinst/liveinst.desktop.in.h:3
 msgid "Install to Hard Drive"
@@ -6455,7 +6454,7 @@ msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
-"Dodaje to hasło dla wszystkich istniejących zaszyfrowanej urządzeń, aby "
+"Ustawia to hasło dla wszystkich istniejących zaszyfrowanych urządzeń, aby "
 "ułatwić uruchamianie"
 
 #: ui/lukspassphrase.glade.h:2
