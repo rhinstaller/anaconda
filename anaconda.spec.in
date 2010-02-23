@@ -216,6 +216,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 23 2010 David Cantrell <dcantrell@redhat.com> - 13.21.15-1
+- When BUILDARCH==ppc64, set BASEARCH to ppc (#524235). (dcantrell)
+- There is no kernel-PAE package anymore, use kernel for xen (#559347).
+  (dcantrell)
+- Don't show BIOS RAID and multipath members in the cleardisks UI (#567281).
+  (clumens)
+- Don't reset the default package selection on text installs (#559593).
+  (clumens)
+
 * Thu Feb 18 2010 David Cantrell <dcantrell@redhat.com> - 13.21.14-1
 - Don't traceback during kickstart if no ignoredisk line is given (#563581).
   (dcantrell)
