@@ -217,6 +217,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 23 2010 Chris Lumens <clumens@redhat.com> - 13.30-1
+- Revert "Add back hald for Xorg input device queries (#553780)" (clumens)
+- No longer remove persistent udev rules files (#566948). (clumens)
+- When BUILDARCH==ppc64, set BASEARCH to ppc (#524235). (dcantrell)
+- There is no kernel-PAE package anymore, use kernel for xen (#559347).
+  (dcantrell)
+- Fix a typo, leaving one less string needing translation (#567427).
+  (clumens)
+- Don't show BIOS RAID and multipath members in the cleardisks UI (#567281).
+  (clumens)
+
 * Mon Feb 22 2010 David Cantrell <dcantrell@redhat.com> - 13.29-1
 - DiskLabel.status can't be determined so return False. (#563526,#561074)
   (dlehman)

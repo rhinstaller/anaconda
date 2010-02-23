@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.28\n"
+"Project-Id-Version: anaconda 13.29\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-22 16:07-1000\n"
+"POT-Creation-Date: 2010-02-23 16:41-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2009,49 +2009,49 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:441
+#: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:441
 #: iw/filter_gui.py:452 iw/filter_gui.py:482
 msgid "Model"
 msgstr ""
 
-#: iw/cleardisks_gui.py:123 iw/cleardisks_gui.py:142 iw/filter_gui.py:442
+#: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:442
 #: iw/filter_gui.py:453 iw/filter_gui.py:461 iw/filter_gui.py:472
 #: iw/filter_gui.py:483
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:124 iw/filter_gui.py:443 iw/filter_gui.py:462
+#: iw/cleardisks_gui.py:123 iw/filter_gui.py:443 iw/filter_gui.py:462
 #: iw/filter_gui.py:473 iw/filter_gui.py:484
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:125 iw/filter_gui.py:444 iw/filter_gui.py:463
+#: iw/cleardisks_gui.py:124 iw/filter_gui.py:444 iw/filter_gui.py:463
 #: iw/filter_gui.py:474 iw/filter_gui.py:485
 msgid "Interconnect"
 msgstr ""
 
-#: iw/cleardisks_gui.py:126 iw/filter_gui.py:445 iw/filter_gui.py:475
+#: iw/cleardisks_gui.py:125 iw/filter_gui.py:445 iw/filter_gui.py:475
 #: iw/filter_gui.py:486
 msgid "Serial Number"
 msgstr ""
 
-#: iw/cleardisks_gui.py:140
+#: iw/cleardisks_gui.py:139
 msgid "Boot"
 msgstr ""
 
-#: iw/cleardisks_gui.py:180
+#: iw/cleardisks_gui.py:176
 msgid ""
 "<b>Tip:</b> All Linux filesystems on install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
 msgstr ""
 
-#: iw/cleardisks_gui.py:182 ui/cleardisks.glade.h:3
+#: iw/cleardisks_gui.py:178 ui/cleardisks.glade.h:3
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
 
-#: iw/cleardisks_gui.py:184
+#: iw/cleardisks_gui.py:180
 msgid ""
 "<b>Tip:</b> Your filesystems on install target devices will not be wiped "
 "unless you choose to do so during customization."
@@ -3237,7 +3237,7 @@ msgstr ""
 msgid "Migrate File Systems"
 msgstr ""
 
-#: iw/upgrade_migratefs_gui.py:69
+#: iw/upgrade_migratefs_gui.py:69 textw/upgrade_text.py:44
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
@@ -3854,12 +3854,12 @@ msgstr ""
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2360
+#: loader/loader.c:2354
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2362
+#: loader/loader.c:2356
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -5028,17 +5028,6 @@ msgstr ""
 
 #: textw/upgrade_bootloader_text.py:131
 msgid "Create new boot loader configuration"
-msgstr ""
-
-#: textw/upgrade_text.py:44
-#, python-format
-msgid ""
-"This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in %"
-"(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
-"\n"
-"Which of these partitions would you like to migrate?"
 msgstr ""
 
 #: textw/upgrade_text.py:125
