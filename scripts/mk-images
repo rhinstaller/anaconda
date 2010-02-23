@@ -565,14 +565,12 @@ makeinitrd() {
     mkdir -p $MBD_DIR/usr/$LIBDIR/NetworkManager
     mkdir -p $MBD_DIR/$LIBDIR/rsyslog
     mkdir -p $MBD_DIR/usr/share/dbus-1/system-services
-    mkdir -p $MBD_DIR/var/cache/hald
     mkdir -p $MBD_DIR/var/lib/dbus
     mkdir -p $MBD_DIR/var/lib/dhclient
     mkdir -p $MBD_DIR/etc/dhcp
     mkdir -p $MBD_DIR/var/lock/rpm
     mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/run/dbus
-    mkdir -p $MBD_DIR/var/run/hald
     mkdir -p $MBD_DIR/var/run/NetworkManager
     mkdir -p $MBD_DIR/etc/dbus-1/system.d
     mkdir -p $MBD_DIR/etc/modprobe.d
@@ -582,8 +580,6 @@ makeinitrd() {
     mkdir -p $MBD_DIR/usr/share/polkit-1/actions
     mkdir -p $MBD_DIR/etc/polkit-1/localauthority.conf.d
     mkdir -p $MBD_DIR/etc/polkit-1/nullbackend.conf.d
-    mkdir -p $MBD_DIR/etc/hal/fdi
-    mkdir -p $MBD_DIR/usr/share/hal/fdi
     mkdir -p $MBD_DIR/usr/share/hwdata
     mkdir -p $MBD_DIR/etc/rc.d/init.d
     mkdir -p $MBD_DIR/usr/sbin
@@ -724,18 +720,6 @@ makeinitrd() {
     # hwdata
     cp -a $IMGPATH/usr/share/hwdata/pci.ids $MBD_DIR/usr/share/hwdata/pci.ids
     cp -a $IMGPATH/usr/share/hwdata/usb.ids $MBD_DIR/usr/share/hwdata/usb.ids
-
-    # hal
-    instbin $IMGPATH /usr/sbin/hald $MBD_DIR /sbin/hald
-    ( cd $IMGPATH/usr/libexec
-      for f in hald-runner hald-generate-fdi-cache hal*storage* ; do
-          instbin $IMGPATH /usr/libexec/$f $MBD_DIR /usr/libexec/$f
-      done
-    )
-    touch $MBD_DIR/var/run/hald.acl-list
-    cp -a $IMGPATH/usr/share/hal/fdi/* $MBD_DIR/usr/share/hal/fdi
-    cp -a $IMGPATH/etc/hal/fdi/* $MBD_DIR/etc/hal/fdi
-    cp -a $IMGPATH/etc/dbus-1/system.d/hal.conf $MBD_DIR/etc/dbus-1/system.d
 
     # PolicyKit
     ( cd $IMGPATH/etc/polkit-1
