@@ -38,7 +38,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
-#include <syslog.h>
 #include <unistd.h>
 #include <stdint.h>
 #include <dirent.h>
@@ -1933,7 +1932,6 @@ int main(int argc, char ** argv) {
 #endif
 
     openLog();
-    openlog("loader", 0, LOG_LOCAL0);
     
     /* XXX if RHEL, enable the AUTODD feature by default,
      * but we should come with more general way how to control this */

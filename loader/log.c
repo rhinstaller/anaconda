@@ -30,12 +30,34 @@
 #include <time.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <syslog.h>
 
 #include "log.h"
 
 static FILE * tty_logfile = NULL;
 static FILE * file_logfile = NULL;
 static int minLevel = INFO;
+static const char * syslog_facility = "loader";
+
+/* maps our loglevel to syslog loglevel */
+static int mapLogLevel(int level)
+{
+    switch (level) {
+    case DEBUGLVL:
+        return LOG_DEBUG;
+    case INFO:
+        return LOG_INFO;
+    case WARNING:
+        return LOG_WARNING;
+    case CRITICAL:
+        return LOG_CRIT;
+    case ERROR:
+    default:
+        /* if someone called us with an invalid level value, log it as an error
+           too. */
+        return LOG_ERR;
+    }
+}
 
 static void printLogHeader(int level, FILE *outfile) {
     struct timeval current_time;
@@ -74,34 +96,28 @@ static void printLogHeader(int level, FILE *outfile) {
 }
 
 void logMessageV(int level, const char * s, va_list ap) {
+    va_list apc;
+    va_copy(apc, ap);
+    /* Log everything into syslog */
+    vsyslog(mapLogLevel(level), s, apc);
 
     /* Only log to the screen things that are above the minimum level. */
     if (tty_logfile && level >= minLevel) {
-        va_list apc;
-
-        va_copy(apc, ap);
-
         printLogHeader(level, tty_logfile);
         vfprintf(tty_logfile, s, apc);
         fprintf(tty_logfile, "\n");
         fflush(tty_logfile);
-
-        va_end(apc);
     }
 
     /* But log everything to the file. */
     if (file_logfile) {
-        va_list apc;
-
-        va_copy(apc, ap);
-
         printLogHeader(level, file_logfile);
         vfprintf(file_logfile, s, apc);
         fprintf(file_logfile, "\n");
         fflush(file_logfile);
-
-        va_end(apc);
     }
+
+    va_end(apc);
 }
 
 void logMessage(int level, const char * s, ...) {
@@ -116,8 +132,11 @@ int tty_logfd = -1;
 int file_logfd = -1;
 
 void openLog() {
-    int flags;
+    /* init syslog logging (so loader messages can also be forwarded to a remote
+       syslog daemon */
+    openlog(syslog_facility, 0, LOG_LOCAL1);
 
+    int flags;
     tty_logfile = fopen("/dev/tty3", "w");
     file_logfile = fopen("/tmp/anaconda.log", "w");
 
@@ -140,6 +159,8 @@ void closeLog(void) {
 
     if (file_logfile)
         fclose(file_logfile);
+    /* close syslog logger */
+    closelog();
 }
 
 /* set the level.  higher means you see more verbosity */
