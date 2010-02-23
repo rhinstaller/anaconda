@@ -42,7 +42,7 @@ class UpgradeMigrateFSWindow:
 	g = GridFormHelp(screen, _("Migrate File Systems"), "upmigfs", 1, 4)
 
 	text = (_("This release of %(productName)s supports "
-                 "the an updated file system, which has several "
+                 "an updated file system, which has several "
                  "benefits over the file system traditionally shipped "
                  "in %(productName)s.  This installation program can migrate "
                  "formatted partitions without data loss.\n\n"
