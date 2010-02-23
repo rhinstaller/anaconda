@@ -22,7 +22,7 @@
 # Nadine Reissle <nreissle@redhat.com>, 2006.
 # Timo Trinks <ttrinks@redhat.com>, 2007,2008.
 # Michael Schönitzer <michael@schoenitzer.de>, 2007.
-# Fabian Affolter <fab@fedoraproject.org>, 2007-2009.
+# Fabian Affolter <fab@fedoraproject.org>, 2007-2010.
 # Dominik Sandjaja <dominiksandjaja@fedoraproject.org>, 2008,2009.
 # Daniela Kugelmann <dkugelma@redhat.com >, 2008.
 # Christof Kälin <christof.kaelin@gmail.com>, 2009.
@@ -35,9 +35,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-16 17:52-0500\n"
-"PO-Revision-Date: 2010-02-17 11:18+0100\n"
-"Last-Translator: Marcus Nitzschke <kenda@fedoraproject.org>\n"
+"POT-Creation-Date: 2010-02-22 16:07-1000\n"
+"PO-Revision-Date: 2010-02-23 10:39+0100\n"
+"Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,11 +51,11 @@ msgid "Press <enter> for a shell"
 msgstr "Drücken Sie <Enter>, um eine Shell zu erhalten"
 
 #: anaconda:354
-#: rescue.py:330
-#: rescue.py:356
-#: rescue.py:369
-#: rescue.py:447
-#: rescue.py:459
+#: rescue.py:332
+#: rescue.py:358
+#: rescue.py:371
+#: rescue.py:449
+#: rescue.py:461
 #: text.py:656
 #: loader/cdinstall.c:228
 #: loader/cdinstall.c:232
@@ -143,19 +143,19 @@ msgstr "Zu wenig Arbeitsspeicher (RAM), um die grafische Installation zu verwend
 msgid "Starting graphical installation."
 msgstr "Grafische Installation wird gestartet …"
 
-#: anaconda:1018
+#: anaconda:1015
 msgid "Would you like to use VNC?"
 msgstr "Möchten Sie VNC benutzen?"
 
-#: anaconda:1019
+#: anaconda:1016
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
 msgstr "Der Textmodus bietet eine begrenzte Auswahl an Installationsoptionen. Es im Textmodus nicht möglich ein eigenes Partitionslayout zu verwenden oder die Paketauswahl zu verändern. Möchten Sie stattdessen im VNC Modus installieren?"
 
-#: anaconda:1044
+#: anaconda:1041
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Grafische Installation ist nicht verfügbar. Textmodus wird gestartet."
 
-#: anaconda:1052
+#: anaconda:1049
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "Die DISPLAY-Variable ist nicht gesetzt. Textmodus wird gestartet."
 
@@ -193,23 +193,26 @@ msgstr "Ein Fehler trat während der Übertragung des Installationsabbild auf Ih
 #: text.py:354
 #: text.py:358
 #: yuminstall.py:407
-#: yuminstall.py:788
-#: yuminstall.py:906
-#: yuminstall.py:911
-#: yuminstall.py:1182
-#: yuminstall.py:1246
-#: yuminstall.py:1435
-#: yuminstall.py:1457
+#: yuminstall.py:789
+#: yuminstall.py:907
+#: yuminstall.py:912
+#: yuminstall.py:1186
+#: yuminstall.py:1245
+#: yuminstall.py:1434
+#: yuminstall.py:1456
 #: iw/autopart_type.py:96
+#: iw/cleardisks_gui.py:43
+#: iw/cleardisks_gui.py:53
+#: iw/filter_gui.py:405
 #: iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220
 #: iw/raid_dialog_gui.py:212
 #: iw/raid_dialog_gui.py:729
 #: iw/raid_dialog_gui.py:768
-#: iw/task_gui.py:64
-#: iw/task_gui.py:165
-#: iw/task_gui.py:311
-#: iw/task_gui.py:449
+#: iw/task_gui.py:65
+#: iw/task_gui.py:166
+#: iw/task_gui.py:312
+#: iw/task_gui.py:450
 #: loader/cdinstall.c:228
 #: loader/cdinstall.c:504
 #: loader/driverdisk.c:266
@@ -263,9 +266,9 @@ msgstr "Fehler"
 #: image.py:82
 #: text.py:485
 #: text.py:545
-#: yuminstall.py:1414
-#: yuminstall.py:1620
-#: yuminstall.py:1655
+#: yuminstall.py:1413
+#: yuminstall.py:1619
+#: yuminstall.py:1654
 #: iw/blpasswidget.py:148
 #: iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198
@@ -289,24 +292,24 @@ msgstr ""
 #: gui.py:1250
 #: gui.py:1465
 #: image.py:91
-#: kickstart.py:156
+#: kickstart.py:157
 #: livecd.py:205
 #: livecd.py:410
 #: packages.py:130
 #: upgrade.py:58
 #: upgrade.py:197
 #: yuminstall.py:248
-#: yuminstall.py:690
-#: yuminstall.py:908
-#: yuminstall.py:913
-#: yuminstall.py:993
-#: yuminstall.py:999
-#: yuminstall.py:1153
-#: yuminstall.py:1178
-#: yuminstall.py:1236
-#: yuminstall.py:1422
-#: yuminstall.py:1441
-#: yuminstall.py:1464
+#: yuminstall.py:694
+#: yuminstall.py:909
+#: yuminstall.py:914
+#: yuminstall.py:994
+#: yuminstall.py:1000
+#: yuminstall.py:1154
+#: yuminstall.py:1182
+#: yuminstall.py:1235
+#: yuminstall.py:1421
+#: yuminstall.py:1440
+#: yuminstall.py:1463
 #: storage/__init__.py:107
 #: storage/__init__.py:214
 #: storage/__init__.py:1970
@@ -316,11 +319,11 @@ msgstr "_Installation beenden"
 #: bootloader.py:60
 #: image.py:92
 #: image.py:251
-#: kickstart.py:1299
-#: kickstart.py:1338
+#: kickstart.py:1318
+#: kickstart.py:1357
 #: upgrade.py:58
-#: yuminstall.py:1241
-#: yuminstall.py:1423
+#: yuminstall.py:1240
+#: yuminstall.py:1422
 #: iw/partition_gui.py:1598
 #: storage/__init__.py:1971
 msgid "_Continue"
@@ -352,10 +355,10 @@ msgstr "In Arbeit"
 
 #: cmdline.py:89
 #: gui.py:1245
-#: kickstart.py:1163
-#: kickstart.py:1171
-#: kickstart.py:1209
-#: kickstart.py:1217
+#: kickstart.py:1182
+#: kickstart.py:1190
+#: kickstart.py:1228
+#: kickstart.py:1236
 #: text.py:391
 #, python-format
 msgid ""
@@ -590,10 +593,10 @@ msgstr "_Beenden"
 #: image.py:164
 #: image.py:194
 #: livecd.py:205
-#: yuminstall.py:780
-#: yuminstall.py:1178
-#: yuminstall.py:1236
-#: yuminstall.py:1441
+#: yuminstall.py:786
+#: yuminstall.py:1182
+#: yuminstall.py:1235
+#: yuminstall.py:1440
 msgid "_Retry"
 msgstr "Wiede_rholen"
 
@@ -605,7 +608,7 @@ msgstr "Ihr System wird nun neu gestartet."
 #: gui.py:1379
 #: image.py:251
 #: packages.py:332
-#: yuminstall.py:1482
+#: yuminstall.py:1481
 msgid "_Reboot"
 msgstr "Neu sta_rten"
 
@@ -693,11 +696,11 @@ msgstr ""
 #: livecd.py:409
 #: packages.py:332
 #: upgrade.py:196
-#: yuminstall.py:913
-#: yuminstall.py:999
-#: yuminstall.py:1422
-#: yuminstall.py:1464
-#: yuminstall.py:1482
+#: yuminstall.py:914
+#: yuminstall.py:1000
+#: yuminstall.py:1421
+#: yuminstall.py:1463
+#: yuminstall.py:1481
 msgid "_Back"
 msgstr "_Zurück"
 
@@ -777,83 +780,83 @@ msgstr "Fehler bei der Namenserkennung des  Boot-Laufwerkes"
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "Der Einhängepunkt /boot oder / ist auf einem Laufwerk, mit welchem wir nicht umgehen können"
 
-#: kickstart.py:115
+#: kickstart.py:116
 #, python-format
 msgid "There was an error running the kickstart script at line %(lineno)s.  You may examine the output in %(msgs)s.  This is a fatal error and installation will be aborted.  Press the OK button to exit the installer."
 msgstr "Beim Ausführen des Kickstart-Skripts trat ein Fehler in Zeile %(lineno)s auf. Sie können die Ausgabe in %(msgs)s untersuchen. Hierbei handelt es sich um einen schwerwiegenden Fehler und die Installation wird abgebrochen. Klicken Sie auf OK, um das Installationsprogramm zu beenden."
 
-#: kickstart.py:123
-#: kickstart.py:125
+#: kickstart.py:124
+#: kickstart.py:126
 msgid "Scriptlet Failure"
 msgstr "Skriptfehler"
 
-#: kickstart.py:150
-#: rescue.py:246
-#: yuminstall.py:685
-#: yuminstall.py:1148
+#: kickstart.py:151
+#: rescue.py:248
+#: yuminstall.py:689
+#: yuminstall.py:1149
 msgid "No Network Available"
 msgstr "Kein Netzwerk verfügbar"
 
-#: kickstart.py:151
+#: kickstart.py:152
 msgid "Encryption key escrow requires networking, but there was an error enabling the network on your system."
 msgstr "Hinterlegung des Verschlüsselungsschlüssel erfordert eine Netzwerkverbindung, jedoch trat ein Fehler beim Aktivieren des Netzwerkes auf."
 
-#: kickstart.py:1182
+#: kickstart.py:1201
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Fehler in der Verarbeitung von %%ksappend Zeilen: %s"
 
-#: kickstart.py:1185
+#: kickstart.py:1204
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Unbekannter Fehler bei der Verarbeitung von %%ksappend Zeilen: %s"
 
-#: kickstart.py:1240
+#: kickstart.py:1259
 #: livecd.py:229
 msgid "Post-Installation"
 msgstr "Post-Installation"
 
-#: kickstart.py:1241
+#: kickstart.py:1260
 msgid "Running post-installation scripts"
 msgstr "Post-Installationsskripte werden ausgeführt"
 
-#: kickstart.py:1257
+#: kickstart.py:1276
 msgid "Pre-Installation"
 msgstr "Prä-Installation"
 
-#: kickstart.py:1258
+#: kickstart.py:1277
 msgid "Running pre-installation scripts"
 msgstr "Prä-Installationsskripte werden ausgeführt"
 
-#: kickstart.py:1290
+#: kickstart.py:1309
 msgid "Missing Package"
 msgstr "Fehlendes Paket"
 
-#: kickstart.py:1291
+#: kickstart.py:1310
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort this installation?"
 msgstr "Sie haben angegeben, dass das Paket '%s' installiert werden soll. Dieses Paket existiert nicht. Möchten Sie fortfahren oder diese Installation abbrechen?"
 
-#: kickstart.py:1297
-#: kickstart.py:1336
+#: kickstart.py:1316
+#: kickstart.py:1355
 msgid "_Abort"
 msgstr "_Abbrechen"
 
-#: kickstart.py:1298
-#: kickstart.py:1337
+#: kickstart.py:1317
+#: kickstart.py:1356
 msgid "_Ignore All"
 msgstr "Alle _Ignorieren"
 
-#: kickstart.py:1328
+#: kickstart.py:1347
 msgid "Missing Group"
 msgstr "Fehlende Gruppe"
 
-#: kickstart.py:1329
+#: kickstart.py:1348
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort this installation?"
 msgstr "Sie haben angegeben, dass die Gruppe '%s' installiert werden soll. Diese Gruppe existiert nicht. Möchten Sie fortfahren oder diese Installation abbrechen?"
 
-#: kickstart.py:1444
+#: kickstart.py:1463
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that anaconda cannot prompt for.  Please add the following sections and try again:\n"
@@ -1191,23 +1194,24 @@ msgid "Are you sure you want to reset the partition table to its original state?
 msgstr "Sind Sie sicher, dass Sie die Partitionstabelle in den Originalzustand zurücksetzen möchten?"
 
 #: platform.py:98
-#: platform.py:342
-#: platform.py:410
-#: platform.py:517
+#: platform.py:343
+#: platform.py:411
+#: platform.py:518
+#: ui/create-storage.glade.h:17
 msgid "RAID Device"
 msgstr "RAID-Gerät"
 
 #: platform.py:99
 #: platform.py:102
-#: platform.py:343
-#: platform.py:411
-#: platform.py:518
-#: platform.py:521
+#: platform.py:344
+#: platform.py:412
+#: platform.py:519
+#: platform.py:522
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
 #: platform.py:101
-#: platform.py:520
+#: platform.py:521
 msgid "First sector of boot partition"
 msgstr "Erster Sektor der Bootpartition"
 
@@ -1253,56 +1257,56 @@ msgstr "Sie haben keine /boot/efi-Partition erstellt."
 msgid "/boot/efi is not EFI."
 msgstr "/boot/efi ist nicht EFI."
 
-#: platform.py:249
+#: platform.py:250
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr "%s muss eine %s Laufwerksbezeichung haben."
 
-#: platform.py:287
+#: platform.py:288
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "%s muss eine bsd-Laufwerkkennung haben."
 
-#: platform.py:299
+#: platform.py:300
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr "Die Festplatte %s erfordert mindestens 1 MB freien Speicher am Anfang."
 
-#: platform.py:345
+#: platform.py:346
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: platform.py:361
+#: platform.py:362
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr "Die Boot-Partition muss sich innerhalb der ersten 4 MB der Festplatte befinden."
 
-#: platform.py:413
-#: platform.py:416
+#: platform.py:414
+#: platform.py:417
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: platform.py:430
+#: platform.py:431
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "%s muss eine mac-Laufwerkkennung haben."
 
-#: rescue.py:205
+#: rescue.py:207
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Nach Beendigung verlassen Sie bitte die Shell ('exit'). Ihr System wird dann neu starten."
 
-#: rescue.py:219
+#: rescue.py:221
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "Kann /bin/sh nicht finden und ausführen! Shell wird nicht gestartet"
 
-#: rescue.py:238
+#: rescue.py:240
 msgid "Setup Networking"
 msgstr "Netzwerk einrichten"
 
-#: rescue.py:239
+#: rescue.py:241
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Wollen Sie die Netzwerk-Schnittstellen auf diesem System starten?"
 
-#: rescue.py:240
+#: rescue.py:242
 #: loader/driverdisk.c:663
 #: loader/driverdisk.c:673
 #: loader/hdinstall.c:203
@@ -1310,26 +1314,26 @@ msgstr "Wollen Sie die Netzwerk-Schnittstellen auf diesem System starten?"
 msgid "Yes"
 msgstr "Ja"
 
-#: rescue.py:240
 #: rescue.py:242
+#: rescue.py:244
 #: loader/driverdisk.c:663
 #: loader/driverdisk.c:673
 #: textw/constants_text.py:60
 msgid "No"
 msgstr "Nein"
 
-#: rescue.py:247
+#: rescue.py:249
 msgid "Unable to activate a networking device.  Networking will not be available in rescue mode."
 msgstr "Aktivieren des Netzwerk-Gerätes nicht möglich. Netzwerk wird im Rettungsmodus nicht verfügbar sein."
 
-#: rescue.py:282
-#: rescue.py:351
-#: rescue.py:362
-#: rescue.py:442
+#: rescue.py:284
+#: rescue.py:353
+#: rescue.py:364
+#: rescue.py:444
 msgid "Rescue"
 msgstr "Rettung"
 
-#: rescue.py:283
+#: rescue.py:285
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and mount it under the directory %s.  You can then make any changes required to your system.  If you want to proceed with this step choose 'Continue'.  You can also choose to mount your file systems read-only instead of read-write by choosing 'Read-Only'.\n"
@@ -1342,7 +1346,7 @@ msgstr ""
 "Wenn dieser Prozess fehlschlägt, können Sie 'Überspringen' wählen. Auf diese Weise wird dieser Schritt übersprungen und es wird direkt eine Befehls-Shell angezeigt.\n"
 "\n"
 
-#: rescue.py:293
+#: rescue.py:295
 #: iw/partition_gui.py:781
 #: loader/cdinstall.c:206
 #: loader/cdinstall.c:214
@@ -1352,13 +1356,13 @@ msgstr ""
 msgid "Continue"
 msgstr "Weiter"
 
-#: rescue.py:293
-#: rescue.py:298
+#: rescue.py:295
+#: rescue.py:300
 msgid "Read-Only"
 msgstr "Nur-Lesen"
 
-#: rescue.py:293
 #: rescue.py:295
+#: rescue.py:297
 #: loader/cdinstall.c:248
 #: loader/cdinstall.c:251
 #: loader/method.c:324
@@ -1367,26 +1371,26 @@ msgstr "Nur-Lesen"
 msgid "Skip"
 msgstr "Überspringen"
 
-#: rescue.py:327
+#: rescue.py:329
 msgid "System to Rescue"
 msgstr "Zu rettendes System"
 
-#: rescue.py:328
+#: rescue.py:330
 msgid "Which device holds the root partition of your installation?"
 msgstr "Auf welchem Gerät befindet sich die Root-Partition der Installation?"
 
-#: rescue.py:330
-#: rescue.py:334
+#: rescue.py:332
+#: rescue.py:336
 #: text.py:626
 #: text.py:628
 msgid "Exit"
 msgstr "Beenden"
 
-#: rescue.py:352
+#: rescue.py:354
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions.  The system will reboot automatically when you exit from the shell."
 msgstr "Ihr System hatte fehlerhafte Dateisysteme, die Sie nicht eingehängt haben. Drücken Sie die Enter-Taste, um eine Shell aufzurufen, von der Sie fsck und Ihre Partitionen einhängen können. Das System bootet automatisch neu, wenn Sie die Shell verlassen."
 
-#: rescue.py:363
+#: rescue.py:365
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -1405,7 +1409,7 @@ msgstr ""
 "\n"
 "Das System wird automatisch neu starten, wenn Sie die Shell verlassen."
 
-#: rescue.py:443
+#: rescue.py:445
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may be mounted under %s.\n"
@@ -1416,19 +1420,19 @@ msgstr ""
 "\n"
 "Drücken Sie <Enter>, um eine Shell aufzurufen. Das System wird automatisch neustarten, wenn Sie die Shell verlassen."
 
-#: rescue.py:452
+#: rescue.py:454
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "Sie haben keine Linux-Partitionen. Starte neu.\n"
 
-#: rescue.py:455
+#: rescue.py:457
 msgid "Rescue Mode"
 msgstr "Rettungsmodus"
 
-#: rescue.py:456
+#: rescue.py:458
 msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
 msgstr "Sie haben keine Linux-Partitionen. Drücken Sie die Enter-Taste, um eine Shell zu erhalten. Das System wird automatisch neu starten, wenn Sie die Shell verlassen."
 
-#: rescue.py:469
+#: rescue.py:471
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Ihr System wurde unter dem Verzeichnis %s eingehängt."
@@ -1781,7 +1785,7 @@ msgid "A fatal error occurred when installing the %s package.  This could indica
 msgstr "Ein schwerwiegender Fehler trat bei der Installation des Pakets %s auf. Dies kann auf Fehler beim Lesen des Installationsmediums hindeuten. Die Installation kann nicht fortgesetzt werden."
 
 #: yuminstall.py:344
-#: iw/task_gui.py:321
+#: iw/task_gui.py:322
 msgid "Error Setting Up Repository"
 msgstr "Fehler beim Einrichten des Repositories"
 
@@ -1822,26 +1826,26 @@ msgstr "Dies ist nicht der korrekte %s Datenträger"
 msgid "Unable to access the disc."
 msgstr "Zugriff auf den Datenträger nicht möglich."
 
-#: yuminstall.py:562
+#: yuminstall.py:566
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Im Repository %r fehlt der Name in der Konfiguration, benutze id"
 
-#: yuminstall.py:686
-#: yuminstall.py:1149
+#: yuminstall.py:690
+#: yuminstall.py:1150
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
 msgstr "Einige Ihrer Software-Repositories erfordern eine Netzwerkverbindung, jedoch trat ein Fehler beim Aktivieren des Netzwerkes auf."
 
-#: yuminstall.py:778
-#: yuminstall.py:780
+#: yuminstall.py:784
+#: yuminstall.py:786
 msgid "Re_boot"
 msgstr "Neu _starten"
 
-#: yuminstall.py:778
+#: yuminstall.py:784
 msgid "_Eject"
 msgstr "_Auswerfen"
 
-#: yuminstall.py:789
+#: yuminstall.py:790
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt package or corrupt media.  Please verify your installation source.\n"
@@ -1854,61 +1858,61 @@ msgstr ""
 "Wenn Sie die Installation abbrechen, befindet sich das System in einem inkonsistenten Zustand und erfordert höchstwahrscheinlich eine Neuinstallation.\n"
 "\n"
 
-#: yuminstall.py:837
+#: yuminstall.py:838
 msgid "Retrying"
 msgstr "Wiederholen"
 
-#: yuminstall.py:837
+#: yuminstall.py:838
 msgid "Retrying download."
 msgstr "Download wird erneut versucht."
 
-#: yuminstall.py:902
+#: yuminstall.py:903
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "Ein Fehler trat bei der Ausführung Ihrer Transaktion auf, aufgrund folgender Ursache(n): %s\n"
 
-#: yuminstall.py:945
 #: yuminstall.py:946
+#: yuminstall.py:947
 msgid "file conflicts"
 msgstr "Dateikonflikte"
 
-#: yuminstall.py:947
+#: yuminstall.py:948
 msgid "older package(s)"
 msgstr "ältere(s) Paket(e)"
 
-#: yuminstall.py:948
+#: yuminstall.py:949
 msgid "insufficient disk space"
 msgstr "zu wenig Festplattenspeicherplatz"
 
-#: yuminstall.py:949
+#: yuminstall.py:950
 msgid "insufficient disk inodes"
 msgstr "zu wenig Disk-Inodes verbleibend"
 
-#: yuminstall.py:950
+#: yuminstall.py:951
 msgid "package conflicts"
 msgstr "Paketkonflikte"
 
-#: yuminstall.py:951
+#: yuminstall.py:952
 msgid "package already installed"
 msgstr "Paket bereits installiert"
 
-#: yuminstall.py:952
+#: yuminstall.py:953
 msgid "required package"
 msgstr "Benötigtes Paket"
 
-#: yuminstall.py:953
+#: yuminstall.py:954
 msgid "package for incorrect arch"
 msgstr "Paket für inkorrekte Architektur"
 
-#: yuminstall.py:954
+#: yuminstall.py:955
 msgid "package for incorrect os"
 msgstr "Paket für inkorrektes OS"
 
-#: yuminstall.py:968
+#: yuminstall.py:969
 msgid "You need more space on the following file systems:\n"
 msgstr "Sie benötigen mehr Platz auf folgenden Dateisystemen:\n"
 
-#: yuminstall.py:981
+#: yuminstall.py:982
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1917,40 +1921,40 @@ msgstr ""
 "Es existiert ein Dateikonflikt während der Prüfung der zu installierenden Pakete.\n"
 "%s\n"
 
-#: yuminstall.py:984
+#: yuminstall.py:985
 #, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
 msgstr "Ein Fehler trat bei der Ausführung Ihrer Transaktion auf, aufgrund folgender Ursache(n): %s\n"
 
-#: yuminstall.py:991
-#: yuminstall.py:996
+#: yuminstall.py:992
+#: yuminstall.py:997
 msgid "Error Running Transaction"
 msgstr "Fehler beim Durchführen der Transaktion"
 
-#: yuminstall.py:1183
+#: yuminstall.py:1187
 msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
 msgstr "Kann Gruppeninformationen aus Repository nicht lesen. Es existiert ein Problem mit der Generierung Ihres Installationsbaums."
 
-#: yuminstall.py:1219
+#: yuminstall.py:1223
 msgid "Retrieving installation information."
 msgstr "Installationsinformationen werden abgerufen."
 
-#: yuminstall.py:1221
+#: yuminstall.py:1225
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Installationsinformationen für %s werden abgerufen."
 
-#: yuminstall.py:1223
+#: yuminstall.py:1227
 msgid "Installation Progress"
 msgstr "Installationsfortschritt"
 
-#: yuminstall.py:1236
+#: yuminstall.py:1235
 #: textw/constants_text.py:64
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: yuminstall.py:1247
-#: yuminstall.py:1436
+#: yuminstall.py:1246
+#: yuminstall.py:1435
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.\n"
@@ -1961,62 +1965,62 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1415
+#: yuminstall.py:1414
 msgid "Some of the packages you have selected for install are missing dependencies.  You can exit the installation, go back and change your package selections, or continue installing these packages without their dependencies."
 msgstr "Ein Teil der ausgewälten Pakete haben fehlende Abhängigkeiten. Sie können die Installation beenden, zurück gehen und Ihre Paketauswahl ändern, oder mit der Installation der Pakte ohne Installierung ihrer Abhängigkeiten fortfahren."
 
-#: yuminstall.py:1458
+#: yuminstall.py:1457
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
 msgstr "Ihre ausgewählten Pakete benötigen %d MB freien Speicherplatz für die Installation, aber Ihnen steht nicht genügend zur Verfügung. Sie können Ihre Auswahl ändern oder die Installation abbrechen."
 
-#: yuminstall.py:1479
+#: yuminstall.py:1478
 msgid "Reboot?"
 msgstr "Neu starten?"
 
-#: yuminstall.py:1480
+#: yuminstall.py:1479
 msgid "The system will be rebooted now."
 msgstr "Ihr System wird nun neu gestartet."
 
-#: yuminstall.py:1621
+#: yuminstall.py:1620
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr "Anscheinend versuchen Sie, ein System zu aktualisieren, das zu alt ist, um auf diese Version von %s aktualisiert zu werden. Sind Sie sicher, dass Sie mit dem Upgrade fortfahren wollen?"
 
-#: yuminstall.py:1656
+#: yuminstall.py:1655
 #, python-format
 msgid "The arch of the release of %(productName)s you are upgrading to appears to be %(myarch)s which does not match your previously installed arch of %(arch)s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr "Die Architektur dieser Version von %(productName)s, welche Sie aktualisieren wollen, scheint %(myarch)s zu sein, welche nicht mit Ihrer vorher installierten Architektur %(arch)s übereinstimmt. Dies wird vermutlich nicht erfolgreich sein. Sind Sie sicher, dass Sie mit dem Upgrade fortfahren wollen?"
 
-#: yuminstall.py:1703
+#: yuminstall.py:1702
 msgid "Post Upgrade"
 msgstr "Post-Upgrade"
 
-#: yuminstall.py:1704
+#: yuminstall.py:1703
 msgid "Performing post-upgrade configuration"
 msgstr "Post-Upgrade-Konfiguration wird durchgeführt"
 
-#: yuminstall.py:1706
+#: yuminstall.py:1705
 msgid "Post Installation"
 msgstr "Post-Installation"
 
-#: yuminstall.py:1707
+#: yuminstall.py:1706
 msgid "Performing post-installation configuration"
 msgstr "Konfiguration nach erfolgter Installation wird durchgeführt"
 
-#: yuminstall.py:1927
+#: yuminstall.py:1926
 msgid "Installation Starting"
 msgstr "Installation startet"
 
-#: yuminstall.py:1928
+#: yuminstall.py:1927
 msgid "Starting installation process"
 msgstr "Installationsvorgang wird gestartet"
 
-#: yuminstall.py:1966
+#: yuminstall.py:1965
 msgid "Dependency Check"
 msgstr "Abhängigkeitsüberprüfung"
 
-#: yuminstall.py:1967
+#: yuminstall.py:1966
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Abhängigkeitsüberprüfung der zu installierenden Pakete"
 
@@ -2270,6 +2274,79 @@ msgstr "_Bootloader wird auf /dev/%s installiert."
 msgid "_Change device"
 msgstr "_Datenträger wechseln"
 
+#: iw/cleardisks_gui.py:33
+msgid "Clear Disks Selector"
+msgstr ""
+
+#: iw/cleardisks_gui.py:44
+#: iw/filter_gui.py:406
+#, fuzzy
+msgid "You must select at least one drive to be used for installation."
+msgstr "Sie müssen mindestens eine Festplatte auswählen, um %s zu installieren."
+
+#: iw/cleardisks_gui.py:54
+#, fuzzy
+msgid "You must select one drive to boot from."
+msgstr "Sie müssen ein zu bearbeitendes Gerät angeben"
+
+#: iw/cleardisks_gui.py:122
+#: iw/cleardisks_gui.py:141
+#: iw/filter_gui.py:441
+#: iw/filter_gui.py:452
+#: iw/filter_gui.py:482
+msgid "Model"
+msgstr "Modell"
+
+#: iw/cleardisks_gui.py:123
+#: iw/cleardisks_gui.py:142
+#: iw/filter_gui.py:442
+#: iw/filter_gui.py:453
+#: iw/filter_gui.py:461
+#: iw/filter_gui.py:472
+#: iw/filter_gui.py:483
+msgid "Capacity"
+msgstr "Kapazität"
+
+#: iw/cleardisks_gui.py:124
+#: iw/filter_gui.py:443
+#: iw/filter_gui.py:462
+#: iw/filter_gui.py:473
+#: iw/filter_gui.py:484
+msgid "Vendor"
+msgstr "Hersteller"
+
+#: iw/cleardisks_gui.py:125
+#: iw/filter_gui.py:444
+#: iw/filter_gui.py:463
+#: iw/filter_gui.py:474
+#: iw/filter_gui.py:485
+msgid "Interconnect"
+msgstr ""
+
+#: iw/cleardisks_gui.py:126
+#: iw/filter_gui.py:445
+#: iw/filter_gui.py:475
+#: iw/filter_gui.py:486
+msgid "Serial Number"
+msgstr "Seriennummer"
+
+#: iw/cleardisks_gui.py:140
+msgid "Boot"
+msgstr "Boot"
+
+#: iw/cleardisks_gui.py:180
+msgid "<b>Tip:</b> All Linux filesystems on install target devices will be reformatted and wiped of any data.  Make sure you have backups."
+msgstr ""
+
+#: iw/cleardisks_gui.py:182
+#: ui/cleardisks.glade.h:3
+msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
+msgstr ""
+
+#: iw/cleardisks_gui.py:184
+msgid "<b>Tip:</b> Your filesystems on install target devices will not be wiped unless you choose to do so during customization."
+msgstr ""
+
 #: iw/congrats_gui.py:33
 msgid "Congratulations"
 msgstr "Herzlichen Glückwunsch!"
@@ -2352,6 +2429,73 @@ msgstr "<b>Welche %s Installation möchten Sie aktualisieren?</b>"
 #: iw/examine_gui.py:142
 msgid "Unknown Linux system"
 msgstr "Unbekanntes Linux-System"
+
+#: iw/filter_gui.py:142
+#, python-format
+msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
+msgstr ""
+
+#: iw/filter_gui.py:391
+#, fuzzy
+msgid "Device Filter"
+msgstr "Einrichten des Gerätes gescheitert"
+
+#: iw/filter_gui.py:446
+#: iw/filter_gui.py:454
+#: iw/filter_gui.py:465
+#: iw/filter_gui.py:476
+#: iw/filter_gui.py:491
+#: iw/osbootwidget.py:66
+#: iw/partition_gui.py:607
+msgid "Device"
+msgstr "Gerät"
+
+#: iw/filter_gui.py:460
+#: iw/filter_gui.py:471
+#: iw/filter_gui.py:487
+#, fuzzy
+msgid "Identifier"
+msgstr "Identifiziere"
+
+#: iw/filter_gui.py:464
+msgid "Paths"
+msgstr "Pfade"
+
+#: iw/filter_gui.py:488
+#: loader/urls.c:290
+msgid "Port"
+msgstr "Port"
+
+#: iw/filter_gui.py:489
+msgid "Target"
+msgstr "Ziel"
+
+#: iw/filter_gui.py:490
+msgid "LUN"
+msgstr "LUN"
+
+#: iw/filter_type.py:55
+#, fuzzy
+msgid "What type of devices will your installation involve?"
+msgstr "Auf welchem Datenträgertyp ist das Installationabbild vorhanden?"
+
+#: iw/filter_type.py:61
+#, fuzzy
+msgid "Basic Storage Devices"
+msgstr "Speichergeräte finden"
+
+#: iw/filter_type.py:62
+msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
+msgstr ""
+
+#: iw/filter_type.py:66
+#, fuzzy
+msgid "Specialized Storage Devices"
+msgstr "Speichergeräte finden"
+
+#: iw/filter_type.py:67
+msgid "Installs or upgrades to devices such as Storage Area Networks (SANs) or mainframe attached disks (DASD), usually in an enterprise environment"
+msgstr ""
 
 #: iw/language_gui.py:33
 msgid "Language Selection"
@@ -2761,11 +2905,6 @@ msgstr "Standard"
 #: iw/partition_gui.py:608
 msgid "Label"
 msgstr "Kennung"
-
-#: iw/osbootwidget.py:66
-#: iw/partition_gui.py:607
-msgid "Device"
-msgstr "Gerät"
 
 #: iw/osbootwidget.py:130
 msgid "Image"
@@ -3279,7 +3418,7 @@ msgstr "Ziel-Festplatte/n:"
 msgid "Drives"
 msgstr "Festplatten"
 
-#: iw/task_gui.py:65
+#: iw/task_gui.py:66
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a missing repodata directory.  Please ensure that your repository has been correctly generated.\n"
@@ -3290,49 +3429,49 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:142
+#: iw/task_gui.py:143
 msgid "Edit Repository"
 msgstr "Repsoitory bearbeiten"
 
-#: iw/task_gui.py:166
+#: iw/task_gui.py:167
 #, python-format
 msgid "The repository %s has already been added.  Please choose a different repository name and URL."
 msgstr "Das Repository %s wurde bereits hinzugefügt. Wählen Sie einen anderen Namen für das Repository und eine andere URL."
 
-#: iw/task_gui.py:246
+#: iw/task_gui.py:247
 msgid "Invalid Proxy URL"
 msgstr "Ungültiger Proxy-URL"
 
-#: iw/task_gui.py:247
+#: iw/task_gui.py:248
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "Sie müssen eine HTTP- oder FTP-URL für den Proxy angeben."
 
-#: iw/task_gui.py:258
-#: iw/task_gui.py:416
+#: iw/task_gui.py:259
+#: iw/task_gui.py:417
 msgid "Invalid Repository URL"
 msgstr "Ungültige Repository-URL"
 
-#: iw/task_gui.py:259
-#: iw/task_gui.py:417
+#: iw/task_gui.py:260
+#: iw/task_gui.py:418
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Sie müssen eine HTTP- oder FTP-URL für das Repository angeben."
 
-#: iw/task_gui.py:280
-#: iw/task_gui.py:426
+#: iw/task_gui.py:281
+#: iw/task_gui.py:427
 msgid "No Media Found"
 msgstr "Kein Medium gefunden"
 
-#: iw/task_gui.py:281
-#: iw/task_gui.py:427
+#: iw/task_gui.py:282
+#: iw/task_gui.py:428
 msgid "No installation media was found. Please insert a disc into your drive and try again."
 msgstr "Kein Installationsmedium gefunden. Bitte legen Sie einen Datenträgen in Ihr Laufwerk und versuchen es erneut."
 
-#: iw/task_gui.py:312
-#: iw/task_gui.py:450
+#: iw/task_gui.py:313
+#: iw/task_gui.py:451
 msgid "Please enter an NFS server and path."
 msgstr "Bitte geben Sie den NFS-Server-Namen und den Pfad ein."
 
-#: iw/task_gui.py:322
+#: iw/task_gui.py:323
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3343,24 +3482,24 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:345
+#: iw/task_gui.py:346
 msgid "Invalid Repository Name"
 msgstr "Ungültiger Repository-Name"
 
-#: iw/task_gui.py:346
+#: iw/task_gui.py:347
 msgid "You must provide a repository name."
 msgstr "Sie müssen einen Respository-Namen angeben."
 
-#: iw/task_gui.py:482
+#: iw/task_gui.py:483
 #: ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "Repository hinzufügen"
 
-#: iw/task_gui.py:487
+#: iw/task_gui.py:488
 msgid "No Software Repos Enabled"
 msgstr "Keine Software-Repository aktiviert"
 
-#: iw/task_gui.py:488
+#: iw/task_gui.py:489
 msgid "You must have at least one software repository enabled to continue installation."
 msgstr "Es muss mindestens ein Software-Repository aktiviert sein, um mit der Installation fortzufahren."
 
@@ -3548,7 +3687,7 @@ msgstr ""
 "Sie können nun die zusätzlichen Kernel-Parameter eingeben, die Ihr Rechner oder Ihre Einstellungen eventuell benötigen."
 
 #: iw/zipl_gui.py:90
-#: textw/zipl_text.py:71
+#: textw/zipl_text.py:72
 msgid "Kernel Parameters"
 msgstr "Kernel-Parameter"
 
@@ -4355,10 +4494,6 @@ msgstr "HTTP-Proxy aktivieren"
 #: loader/urls.c:285
 msgid "Proxy URL"
 msgstr "Proxy-URL"
-
-#: loader/urls.c:290
-msgid "Port"
-msgstr "Port"
 
 #: loader/urls.c:295
 msgid "Username"
@@ -5314,16 +5449,16 @@ msgstr ""
 "Willkommen bei %s!\n"
 "\n"
 
-#: textw/zipl_text.py:35
+#: textw/zipl_text.py:36
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup require."
 msgstr "Der z/IPL-Bootloader wird auf Ihrem System installiert, nachdem die Installation abgeschlossen ist. Sie können nun zusätzliche Kernel- und chandev-Parameter angeben, die Ihr Rechner oder Ihr Setup erfordert."
 
-#: textw/zipl_text.py:67
+#: textw/zipl_text.py:68
 msgid "z/IPL Configuration"
 msgstr "z/IPL-Konfiguration"
 
-#: textw/zipl_text.py:75
-#: textw/zipl_text.py:79
+#: textw/zipl_text.py:76
+#: textw/zipl_text.py:80
 msgid "Chandev line "
 msgstr "Chandev-Zeile "
 
@@ -5539,6 +5674,93 @@ msgstr "Drittes BIOS-Laufwerk:"
 msgid "Where would you like to install the boot loader for your system?"
 msgstr "Wo soll der Bootloader für Ihr System installiert werden?"
 
+#: ui/cleardisks.glade.h:1
+msgid "<b>Data Storage Devices</b> (to be mounted only)"
+msgstr ""
+
+#: ui/cleardisks.glade.h:2
+msgid "<b>Install Target Devices</b>"
+msgstr ""
+
+#: ui/cleardisks.glade.h:4
+msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data drives (these will not be formatted, only mounted) and which devices you'd like to use as system drives (these may be formatted)."
+msgstr ""
+
+#: ui/create-storage.glade.h:1
+msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:2
+msgid "<span size=\"small\" color=\"gray\">Create a logical volume on selected volume group</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:3
+msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:4
+msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:5
+msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:6
+msgid "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated partition</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:7
+msgid "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated partitions</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:8
+msgid "Create"
+msgstr "Erzeugen"
+
+#: ui/create-storage.glade.h:9
+msgid "Create LVM"
+msgstr "LVM erzeugen"
+
+#: ui/create-storage.glade.h:10
+msgid "Create Partition"
+msgstr "Partition erzeugen"
+
+#: ui/create-storage.glade.h:11
+msgid "Create Software RAID"
+msgstr "Software-RAID erzeugen"
+
+#: ui/create-storage.glade.h:12
+msgid "Create Storage"
+msgstr "Speicherplatz erzeugen"
+
+#: ui/create-storage.glade.h:13
+#, fuzzy
+msgid "LVM Logical Volume"
+msgstr "Logischen Datenträger (Logical Volume) anlegen"
+
+#: ui/create-storage.glade.h:14
+#, fuzzy
+msgid "LVM Physical Volume"
+msgstr "_Logische Datenträger (Logical Volumes)"
+
+#: ui/create-storage.glade.h:15
+#, fuzzy
+msgid "LVM Volume Group"
+msgstr "LVM-Datenträgerverbände"
+
+#: ui/create-storage.glade.h:16
+msgid "RAID Clone"
+msgstr "RAID-Klon"
+
+#: ui/create-storage.glade.h:18
+msgid "RAID Partition"
+msgstr "RAID-Partition"
+
+#: ui/create-storage.glade.h:19
+msgid "Standard Partition"
+msgstr "Standard-Partition"
+
 #: ui/detailed-dialog.glade.h:1
 msgid "Info"
 msgstr "Info"
@@ -5566,6 +5788,98 @@ msgstr ""
 #: ui/fcoe-config.glade.h:6
 msgid "_Add FCoE Disk(s)"
 msgstr "FCoE-Platte(n) hinzufügen"
+
+#: ui/filter.glade.h:2
+#, no-c-format
+msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
+msgstr ""
+
+#: ui/filter.glade.h:3
+msgid "<b>Tip:</b> Selecting a drive on this screen does not necessarily mean it will be wiped by the installation process.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
+msgstr ""
+
+#: ui/filter.glade.h:4
+msgid "Add Advanced Target"
+msgstr "Erweitertes Ziel hinzufügen"
+
+#: ui/filter.glade.h:5
+msgid "Basic Devices"
+msgstr "Basis-Geräte"
+
+#: ui/filter.glade.h:6
+msgid "Filter By:"
+msgstr "Filtern nach:"
+
+#: ui/filter.glade.h:7
+msgid "Firmware RAID"
+msgstr "Firmware-RAID"
+
+#: ui/filter.glade.h:8
+#, fuzzy
+msgid "Identifier:"
+msgstr "Identifiziere"
+
+#: ui/filter.glade.h:9
+msgid ""
+"Interconnect\n"
+"Vendor\n"
+"Identifier"
+msgstr ""
+
+#: ui/filter.glade.h:12
+msgid "LUN:"
+msgstr "LUN:"
+
+#: ui/filter.glade.h:13
+#, fuzzy
+msgid "Multipath Devices"
+msgstr "Doppeltes Gerät"
+
+#: ui/filter.glade.h:14
+msgid "Other SAN Devices"
+msgstr "Andere SAN-Geräte"
+
+#: ui/filter.glade.h:15
+msgid "Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount to your system, below:"
+msgstr ""
+
+#: ui/filter.glade.h:16
+msgid ""
+"Port / Target / LUN\n"
+"Target Identifier"
+msgstr ""
+
+#: ui/filter.glade.h:18
+msgid "Port:"
+msgstr "Port:"
+
+#: ui/filter.glade.h:19
+msgid "Search"
+msgstr "Suche"
+
+#: ui/filter.glade.h:20
+msgid "Search By:"
+msgstr "Suche nach:"
+
+#: ui/filter.glade.h:21
+msgid "Search Results:"
+msgstr "Such-Resultate:"
+
+#: ui/filter.glade.h:22
+msgid "Show Identifiers that Include:"
+msgstr ""
+
+#: ui/filter.glade.h:23
+msgid "Show Only Devices From:"
+msgstr ""
+
+#: ui/filter.glade.h:24
+msgid "Show Only Devices Using:"
+msgstr ""
+
+#: ui/filter.glade.h:25
+msgid "Target:"
+msgstr "Ziel:"
 
 #: ui/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
@@ -5946,97 +6260,65 @@ msgstr "Zulu"
 
 #~ msgid "Install class forcing text mode installation"
 #~ msgstr "Installationsklasse erfordert Installation im Textmodus"
-
 #~ msgid "Device Resize Failed"
 #~ msgstr "Größenänderung des Gerätes gescheitert"
-
 #~ msgid "An error was encountered while resizing device %s."
 #~ msgstr "Beim Ändern der Größe des Geräts %s trat ein Fehler auf."
-
 #~ msgid "Device Creation Failed"
 #~ msgstr "Geräteerstellung fehlgeschlagen"
-
 #~ msgid "An error was encountered while creating device %s."
 #~ msgstr "Beim Anlegen des Geräts %s trat ein Fehler auf."
-
 #~ msgid "Device Removal Failed"
 #~ msgstr "Entfernung des Gerätes gescheitert"
-
 #~ msgid "An error was encountered while removing device %s."
 #~ msgstr "Beim Entfernen des Geräts %s trat ein Fehler auf."
-
-#~ msgid "Device Setup Failed"
-#~ msgstr "Einrichten des Gerätes gescheitert"
-
 #~ msgid "An error was encountered while setting up device %s."
 #~ msgstr "Beim Konfigurieren des Geräts %s trat ein Fehler auf."
-
 #~ msgid "Formatting Failed"
 #~ msgstr "Formatieren fehlgeschlagen"
-
 #~ msgid "An error was encountered while formatting device %s."
 #~ msgstr "Beim Formatieren des Geräts %s trat ein Fehler auf."
-
 #~ msgid "Storage Activation Failed"
 #~ msgstr "Speicheraktivierung fehlgeschlagen"
-
 #~ msgid ""
 #~ "An error was encountered while activating your storage configuration."
 #~ msgstr ""
 #~ "Beim Aktivieren der Speicher-Konfiguration ist ein Fehler aufgetreten."
-
 #~ msgid "_Ignore drive"
 #~ msgstr "Laufwerk _ignorieren"
-
 #~ msgid "_Re-initialize drive"
 #~ msgstr "Laufwerk e_rneut initialisieren"
-
 #~ msgid "The installer will now exit."
 #~ msgstr "Das Installationsprogramm wird nun beendet."
-
 #~ msgid "The installer will now exit..."
 #~ msgstr "Das Installationsprogramm wird nun beendet ..."
-
 #~ msgid "%s not found"
 #~ msgstr "%s nicht gefunden"
-
 #~ msgid ""
 #~ "Do you really want to boot from a disk which is not used for installation?"
 #~ msgstr ""
 #~ "Wollen Sie wirklich von einem Laufwerk starten, welches nicht für die "
 #~ "Installation gebraucht wird?"
-
 #~ msgid "Invalid Initiator Name"
 #~ msgstr "Ungültiger Initiatorname"
-
 #~ msgid "You must provide an initiator name."
 #~ msgstr "Sie müssen einen Initiatornamen angeben."
-
 #~ msgid "Rescanning disks"
 #~ msgstr "Frage Laufwerke erneut ab"
-
 #~ msgid "_Install %s"
 #~ msgstr "%s _installieren"
-
 #~ msgid "The following installed system will be upgraded:"
 #~ msgstr "Das folgende installierte System wird aktualisiert:"
-
-#~ msgid "software RAID"
-#~ msgstr "Software-RAID"
-
 #~ msgid ""
 #~ "Enter the device name for the NIC which is connected to the FCoE SAN. For "
 #~ "example \"eth0\"."
 #~ msgstr ""
 #~ "Geben Sie den Gerätenamen für die NIC ein, die mit dem FCoE SAN verbunden "
 #~ "ist. Zum Beispiel \"eth0\"."
-
 #~ msgid "NIC device name"
 #~ msgstr "NIC-Gerätename"
-
 #~ msgid "%s is not a valid NIC device name."
 #~ msgstr "%s ist kein gültiger NIC-Gerätename."
-
 #~ msgid ""
 #~ "Installation requires partitioning of your hard drive.  The default "
 #~ "layout is suitable for most users.  Select what space to use and which "
@@ -6047,26 +6329,19 @@ msgstr "Zulu"
 #~ "Standard-Layout ist für die meisten Benutzer sinnvoll. Bitte wählen Sie "
 #~ "den zu verwendenden Platz und die zu verwendende Festplatte aus. Sie "
 #~ "können auch Ihre eigene Partitionierung erstellen."
-
 #~ msgid "What drive would you like to _boot this installation from?"
 #~ msgstr "Von welchem Laufwerk möchten Sie diese Installation _booten?"
-
 #~ msgid "_Advanced storage configuration"
 #~ msgstr "Erweiterte Speicherkonfigur_ation"
-
 #~ msgid "_Select the drive(s) to use for this installation."
 #~ msgstr ""
 #~ "Wählen _Sie das/die für die Installation zu verwendenden Laufwerk(e)."
-
 #~ msgid "reipl configuration successful => reboot"
 #~ msgstr "reIPL-Konfiguration erfolgreich => Neustart"
-
 #~ msgid "reipl configuration failed => halt"
 #~ msgstr "reIPL-Konfiguration fehlgeschlagen => halt"
-
 #~ msgid "/boot is not on an ext2 filesystem."
 #~ msgstr "/boot liegt nicht auf einem ext2-Dateisystem."
-
 #~ msgid ""
 #~ "The default installation of %s includes a set of software applicable for "
 #~ "general internet usage. What additional tasks would you like your system "
@@ -6075,66 +6350,43 @@ msgstr "Zulu"
 #~ "Die Standardinstallation von %s beinhaltet eine Auswahl an Programmen für "
 #~ "die allgemeine Internetnutzung. Welche zusätzlichen Aufgaben sollen durch "
 #~ "Ihr System unterstützt werden?"
-
 #~ msgid "Office and Productivity"
 #~ msgstr "Büro und Produktivität"
-
 #~ msgid "Error with Data"
 #~ msgstr "Fehler mit Daten"
-
 #~ msgid "%s %s installation"
 #~ msgstr "%s %s Installation durchführen"
-
 #~ msgid "%s: %s"
 #~ msgstr "%s: %s"
-
-#~ msgid "You must select a device to edit"
-#~ msgstr "Sie müssen ein zu bearbeitendes Gerät angeben"
-
 #~ msgid "Not supported"
 #~ msgstr "Nicht unterstützt"
-
 #~ msgid "LVM is NOT supported on this platform."
 #~ msgstr "LVM wird auf dieser Plattform NICHT unterstützt."
-
 #~ msgid "Software RAID is NOT supported on this platform."
 #~ msgstr "Software-RAID wird auf dieser Plattform NICHT unterstützt."
-
 #~ msgid "No RAID minor device numbers available"
 #~ msgstr "Keine RAID-Geräte-Nummern verfügbar"
-
 #~ msgid ""
 #~ "A software RAID device cannot be created because all of the available "
 #~ "RAID minor device numbers have been used."
 #~ msgstr ""
 #~ "Es kann kein Software-RAID-Gerät angelegt werden, da alle verfügbaren "
 #~ "Geräte-Nummern bereits verwendet werden."
-
-#~ msgid "RAID Options"
-#~ msgstr "RAID-Optionen"
-
 #~ msgid "What do you want to do now?"
 #~ msgstr "Was möchten Sie nun tun?"
-
 #~ msgid "Create a RAID _device [default=/dev/md%s]."
 #~ msgstr "RAI_D Gerät anlegen [Standard=/dev/md%s]."
-
 #~ msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 #~ msgstr ""
 #~ "Festplatte klonen, um ein RAI_D-Gerät anzulegen [Standard=/dev/md%s]."
-
 #~ msgid "Ne_w"
 #~ msgstr "Ne_u"
-
 #~ msgid "R_AID"
 #~ msgstr "R_AID"
-
 #~ msgid "_LVM"
 #~ msgstr "_LVM"
-
 #~ msgid "Hide RAID device/LVM Volume _Group members"
 #~ msgstr "RAID-Gerät/LVM-Datenträgerverbund-Bestandteile ausblenden"
-
 #~ msgid ""
 #~ "Clone Drive Tool\n"
 #~ "\n"
@@ -6163,7 +6415,6 @@ msgstr "Zulu"
 #~ "erlaubt.\n"
 #~ "\n"
 #~ "ALLE DATEN der Ziel-Festplatte(n) werden gelöscht."
-
 #~ msgid ""
 #~ "The following error occurred while setting up the installation "
 #~ "repository:\n"
@@ -6178,9 +6429,8 @@ msgstr "Zulu"
 #~ "%s\n"
 #~ "\n"
 #~ "Bitte geben Sie die korrekten Informationen an, um %s zu installieren."
-
 #~ msgid "Unknown Host"
 #~ msgstr "Unbekannter Rechner"
-
 #~ msgid "%s is not a valid hostname."
 #~ msgstr "%s ist kein gültiger Rechnername."
+
