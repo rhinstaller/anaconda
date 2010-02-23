@@ -69,28 +69,28 @@ static void printLogHeader(int level, FILE *outfile) {
     msecs = current_time.tv_usec / 1000;
     switch (level) {
         case DEBUGLVL:
-            fprintf (outfile, "%02d:%02d:%02d,%03d DEBUG   : ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs);
+            fprintf (outfile, "%02d:%02d:%02d,%03d DEBUG %s: ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs, syslog_facility);
             break;
 
         case INFO:
-            fprintf (outfile, "%02d:%02d:%02d,%03d INFO    : ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs);
+            fprintf (outfile, "%02d:%02d:%02d,%03d INFO %s: ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs, syslog_facility);
             break;
 
         case WARNING:
-            fprintf (outfile, "%02d:%02d:%02d,%03d WARNING : ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs);
+            fprintf (outfile, "%02d:%02d:%02d,%03d WARNING %s: ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs, syslog_facility);
             break;
 
         case ERROR:
-            fprintf (outfile, "%02d:%02d:%02d,%03d ERROR   : ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs);
+            fprintf (outfile, "%02d:%02d:%02d,%03d ERROR %s: ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs, syslog_facility);
             break;
 
         case CRITICAL:
-            fprintf (outfile, "%02d:%02d:%02d,%03d CRITICAL: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs);
+            fprintf (outfile, "%02d:%02d:%02d,%03d CRITICAL %s: ", t->tm_hour,
+                     t->tm_min, t->tm_sec, msecs, syslog_facility);
             break;
     }
 }
