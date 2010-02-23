@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-12 20:22-0500\n"
-"PO-Revision-Date: 2010-02-21 16:02+0200\n"
+"POT-Creation-Date: 2010-02-22 16:07-1000\n"
+"PO-Revision-Date: 2010-02-23 12:08+0200\n"
 "Last-Translator: Elad <el.il@doom.co.il>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,17 +20,17 @@ msgstr ""
 "X-Generator: Lokalize 1.0\n"
 "X-Poedit-Language: Hebrew\n"
 
-#: anaconda:336
+#: anaconda:339
 msgid "Press <enter> for a shell"
 msgstr "יש להקיש <enter> לקבלת שורת פקודה"
 
-#: anaconda:351
-#: rescue.py:330
-#: rescue.py:356
-#: rescue.py:369
-#: rescue.py:447
-#: rescue.py:459
-#: text.py:654
+#: anaconda:354
+#: rescue.py:332
+#: rescue.py:358
+#: rescue.py:371
+#: rescue.py:449
+#: rescue.py:461
+#: text.py:656
 #: loader/cdinstall.c:228
 #: loader/cdinstall.c:232
 #: loader/cdinstall.c:248
@@ -110,27 +110,27 @@ msgid "OK"
 msgstr "אישור"
 
 #
-#: anaconda:358
+#: anaconda:361
 msgid "You do not have enough RAM to use the graphical installer.  Starting text mode."
 msgstr "אין מספיק זיכרון בכדי להשתמש בהתקנה גרפית. מתחיל הפעלה בתצורת טקסט."
 
-#: anaconda:518
+#: anaconda:522
 msgid "Starting graphical installation."
 msgstr "מפעיל התקנה גרפית."
 
-#: anaconda:1008
+#: anaconda:1015
 msgid "Would you like to use VNC?"
 msgstr "האם ברצונך להשתמש ב־VNC?"
 
-#: anaconda:1009
+#: anaconda:1016
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:1034
+#: anaconda:1041
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "ההתקנה גרפית אינה זמינה. מפעיל התקנה טקסטואלית."
 
-#: anaconda:1042
+#: anaconda:1049
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "המשתנה DISPLAY אינו מוגדר. מפעיל התקנה טקסטואלית."
 
@@ -172,26 +172,29 @@ msgstr "קרתה תקלה במהלך העברת קובץ ההתקנה לכונן
 #: livecd.py:198
 #: livecd.py:403
 #: partIntfHelpers.py:237
-#: text.py:353
-#: text.py:357
+#: text.py:354
+#: text.py:358
 #: yuminstall.py:407
-#: yuminstall.py:788
-#: yuminstall.py:906
-#: yuminstall.py:911
-#: yuminstall.py:1182
-#: yuminstall.py:1246
-#: yuminstall.py:1435
-#: yuminstall.py:1457
+#: yuminstall.py:789
+#: yuminstall.py:907
+#: yuminstall.py:912
+#: yuminstall.py:1186
+#: yuminstall.py:1245
+#: yuminstall.py:1434
+#: yuminstall.py:1456
 #: iw/autopart_type.py:96
+#: iw/cleardisks_gui.py:43
+#: iw/cleardisks_gui.py:53
+#: iw/filter_gui.py:405
 #: iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220
 #: iw/raid_dialog_gui.py:212
 #: iw/raid_dialog_gui.py:729
 #: iw/raid_dialog_gui.py:768
-#: iw/task_gui.py:64
-#: iw/task_gui.py:165
-#: iw/task_gui.py:311
-#: iw/task_gui.py:449
+#: iw/task_gui.py:65
+#: iw/task_gui.py:166
+#: iw/task_gui.py:312
+#: iw/task_gui.py:450
 #: loader/cdinstall.c:228
 #: loader/cdinstall.c:504
 #: loader/driverdisk.c:266
@@ -224,8 +227,8 @@ msgstr "קרתה תקלה במהלך העברת קובץ ההתקנה לכונן
 #: loader/urls.c:326
 #: loader/urls.c:332
 #: storage/__init__.py:210
-#: storage/__init__.py:1788
-#: storage/__init__.py:1875
+#: storage/__init__.py:1789
+#: storage/__init__.py:1876
 #: textw/netconfig_text.py:282
 #: textw/partition_text.py:186
 #: textw/partition_text.py:192
@@ -241,14 +244,14 @@ msgstr "שגיאה"
 #: bootloader.py:55
 #: bootloader.py:221
 #: bootloader.py:227
-#: gui.py:1152
-#: gui.py:1212
+#: gui.py:1154
+#: gui.py:1214
 #: image.py:82
-#: text.py:483
-#: text.py:543
-#: yuminstall.py:1414
-#: yuminstall.py:1620
-#: yuminstall.py:1655
+#: text.py:485
+#: text.py:545
+#: yuminstall.py:1413
+#: yuminstall.py:1619
+#: yuminstall.py:1654
 #: iw/blpasswidget.py:148
 #: iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198
@@ -269,31 +272,31 @@ msgstr ""
 "האם ברצונך להמשיך בהתקנה?"
 
 #: bootloader.py:60
-#: gui.py:1103
-#: gui.py:1248
-#: gui.py:1463
+#: gui.py:1105
+#: gui.py:1250
+#: gui.py:1465
 #: image.py:91
-#: kickstart.py:156
+#: kickstart.py:157
 #: livecd.py:205
 #: livecd.py:410
 #: packages.py:130
 #: upgrade.py:58
 #: upgrade.py:197
 #: yuminstall.py:248
-#: yuminstall.py:690
-#: yuminstall.py:908
-#: yuminstall.py:913
-#: yuminstall.py:993
-#: yuminstall.py:999
-#: yuminstall.py:1153
-#: yuminstall.py:1178
-#: yuminstall.py:1236
-#: yuminstall.py:1422
-#: yuminstall.py:1441
-#: yuminstall.py:1464
+#: yuminstall.py:694
+#: yuminstall.py:909
+#: yuminstall.py:914
+#: yuminstall.py:994
+#: yuminstall.py:1000
+#: yuminstall.py:1154
+#: yuminstall.py:1182
+#: yuminstall.py:1235
+#: yuminstall.py:1421
+#: yuminstall.py:1440
+#: yuminstall.py:1463
 #: storage/__init__.py:107
 #: storage/__init__.py:214
-#: storage/__init__.py:1969
+#: storage/__init__.py:1970
 msgid "_Exit installer"
 msgstr "י_ציאה מתכנית ההתקנה"
 
@@ -301,13 +304,13 @@ msgstr "י_ציאה מתכנית ההתקנה"
 #: bootloader.py:60
 #: image.py:92
 #: image.py:251
-#: kickstart.py:1299
-#: kickstart.py:1338
+#: kickstart.py:1318
+#: kickstart.py:1357
 #: upgrade.py:58
-#: yuminstall.py:1241
-#: yuminstall.py:1423
+#: yuminstall.py:1240
+#: yuminstall.py:1422
 #: iw/partition_gui.py:1598
-#: storage/__init__.py:1970
+#: storage/__init__.py:1971
 msgid "_Continue"
 msgstr "המשך_"
 
@@ -330,23 +333,23 @@ msgid "No kernel packages were installed on the system.  Bootloader configuratio
 msgstr "לא הותקנו חבילות ליבה (kernel) על המערכת שלך. לכן, לא יבוצעו שינויים בתצורת טעינת מערכת ההפעלה."
 
 #
-#: cmdline.py:55
+#: cmdline.py:56
 msgid "Completed"
 msgstr "הושלם"
 
 #
-#: cmdline.py:63
+#: cmdline.py:64
 msgid "In progress"
 msgstr "בתהליך... "
 
 #
-#: cmdline.py:87
-#: gui.py:1243
-#: kickstart.py:1163
-#: kickstart.py:1171
-#: kickstart.py:1209
-#: kickstart.py:1217
-#: text.py:390
+#: cmdline.py:89
+#: gui.py:1245
+#: kickstart.py:1182
+#: kickstart.py:1190
+#: kickstart.py:1228
+#: kickstart.py:1236
+#: text.py:391
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration file:\n"
@@ -356,16 +359,16 @@ msgstr ""
 "השגיאה הבאה התגלתה במהלך פענוח קובץ תצורת ה-kickstart: ‏/n\n"
 "‏‏%s"
 
-#: cmdline.py:99
+#: cmdline.py:101
 msgid "Command line mode requires all choices to be specified in a kickstart configuration file."
 msgstr ""
 
 #
-#: cmdline.py:118
-#: cmdline.py:125
-#: cmdline.py:132
-#: cmdline.py:142
-#: cmdline.py:152
+#: cmdline.py:120
+#: cmdline.py:127
+#: cmdline.py:134
+#: cmdline.py:144
+#: cmdline.py:154
 msgid "Can't have a question in command line mode!"
 msgstr "בהפעלה משורת פקודה לא ניתן לשאול שאלות!"
 
@@ -382,16 +385,16 @@ msgstr "לספק תכנה זו."
 msgid " against anaconda at %s"
 msgstr " כנגד anaconda ב־%s"
 
-#: gui.py:108
+#: gui.py:109
 msgid "An error occurred saving screenshots to disk."
 msgstr "אירעה שגיאה במהלך שמירת תצלומי המסך לכונן הקשיח."
 
-#: gui.py:119
+#: gui.py:120
 msgid "Screenshots Copied"
 msgstr "תצלומי המסך הועתקו"
 
 #
-#: gui.py:120
+#: gui.py:121
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -406,70 +409,70 @@ msgstr ""
 "ניתן לגשת אליהם לאחר הפעלה מחדש וכניסה למערכת כ-root."
 
 #
-#: gui.py:163
+#: gui.py:164
 msgid "Saving Screenshot"
 msgstr "שמור תצלום מסך"
 
 #
-#: gui.py:164
+#: gui.py:165
 #, python-format
 msgid "A screenshot named '%s' has been saved."
 msgstr "תצלום המסך בשם '%s' נשמר."
 
 #
-#: gui.py:167
+#: gui.py:168
 msgid "Error Saving Screenshot"
 msgstr "ארעה שגיאה בשמירת תצלום המסך"
 
 #
-#: gui.py:168
+#: gui.py:169
 msgid "An error occurred while saving the screenshot.  If this occurred during package installation, you may need to try several times for it to succeed."
 msgstr "התרחשה שגיאה בזמן שמירת תצלום המסך. במידה ושגיאה זו מתרחשת בזמן התקנת חבילה, יתכן ויהיה צורך לנסות שוב מספר פעמים לפני שתצליח."
 
 #
-#: gui.py:560
+#: gui.py:561
 msgid "Installation Key"
 msgstr "מפתח התקנה"
 
 #
-#: gui.py:631
-#: text.py:148
+#: gui.py:632
+#: text.py:149
 msgid "Choose a passphrase for the encrypted devices. You will be prompted for this passphrase during system boot."
 msgstr "בחר ססמה עבור התקנים מוצפנים. ססמה זו תידרש בזמן הפעלת המערכת."
 
 #
-#: gui.py:650
-#: gui.py:658
-#: text.py:186
-#: text.py:196
+#: gui.py:651
+#: gui.py:659
+#: text.py:187
+#: text.py:197
 msgid "Error with passphrase"
 msgstr "ססמה שגויה"
 
 #
-#: gui.py:651
-#: text.py:187
+#: gui.py:652
+#: text.py:188
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "שתי הססמאות שהוזנו אינן זהות, נסה שנית."
 
 #
-#: gui.py:659
+#: gui.py:660
 msgid "The passphrase must be at least eight characters long."
 msgstr "הססמה חייבת להכיל לפחות שמונה תווים."
 
 #
-#: gui.py:693
-#: text.py:224
+#: gui.py:694
+#: text.py:225
 #, python-format
 msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
 msgstr "ההתקן %s מוצפן. בכדי לגשת לתכולתו במהלך ההתקנה, חובה להקליד את ססמת ההתקן בתיבה להלן."
 
 #
-#: gui.py:784
-#: gui.py:1463
+#: gui.py:785
+#: gui.py:1465
 #: partIntfHelpers.py:157
 #: partIntfHelpers.py:342
-#: text.py:99
 #: text.py:100
+#: text.py:101
 #: iw/account_gui.py:130
 #: loader/dirbrowser.c:128
 #: loader/driverdisk.c:420
@@ -481,16 +484,16 @@ msgid "Cancel"
 msgstr "בטל"
 
 #
-#: gui.py:796
 #: gui.py:797
-#: gui.py:913
+#: gui.py:798
 #: gui.py:914
+#: gui.py:915
 #: ui/anaconda.glade.h:2
 msgid "_Debug"
 msgstr "_ניפוי שגיאות"
 
-#: gui.py:1153
-#: text.py:484
+#: gui.py:1155
+#: text.py:486
 #, python-format
 msgid ""
 "Error processing drive:\n"
@@ -506,37 +509,37 @@ msgid ""
 "This action may also be applied to all other disks needing reinitialization.%(details)s"
 msgstr ""
 
-#: gui.py:1162
-#: gui.py:1220
-#: text.py:493
-#: text.py:551
-msgid "_Ignore"
-msgstr "_התעלם"
-
-#
-#: gui.py:1163
-#: gui.py:1221
-#: text.py:494
-#: text.py:552
-msgid "Ignore _all"
-msgstr "התעלם מהכל"
-
 #: gui.py:1164
 #: gui.py:1222
 #: text.py:495
 #: text.py:553
-msgid "_Re-initialize"
-msgstr "_פרמט מחדש"
+msgid "_Ignore"
+msgstr "_התעלם"
 
+#
 #: gui.py:1165
 #: gui.py:1223
 #: text.py:496
 #: text.py:554
+msgid "Ignore _all"
+msgstr "התעלם מהכל"
+
+#: gui.py:1166
+#: gui.py:1224
+#: text.py:497
+#: text.py:555
+msgid "_Re-initialize"
+msgstr "_פרמט מחדש"
+
+#: gui.py:1167
+#: gui.py:1225
+#: text.py:498
+#: text.py:556
 msgid "Re-ini_tialize all"
 msgstr "פרמט מחדש את הכל"
 
-#: gui.py:1213
-#: text.py:544
+#: gui.py:1215
+#: text.py:546
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -544,25 +547,25 @@ msgid ""
 msgstr ""
 
 #
-#: gui.py:1245
-#: text.py:392
+#: gui.py:1247
+#: text.py:393
 msgid "Error Parsing Kickstart Config"
 msgstr "שגיאה בפענוח הגדרות kickstart"
 
 #
-#: gui.py:1287
+#: gui.py:1289
 msgid "default:LTR"
 msgstr "default:RTL"
 
 #
-#: gui.py:1367
-#: text.py:619
+#: gui.py:1369
+#: text.py:621
 msgid "Error!"
 msgstr "שגיאה!"
 
 #
-#: gui.py:1368
-#: text.py:620
+#: gui.py:1370
+#: text.py:622
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -574,71 +577,71 @@ msgstr ""
 "className = %s"
 
 #
-#: gui.py:1373
+#: gui.py:1375
 #: image.py:164
 #: image.py:194
 #: packages.py:328
-#: storage/__init__.py:1787
+#: storage/__init__.py:1788
 msgid "_Exit"
 msgstr "י_ציאה"
 
 #
-#: gui.py:1374
+#: gui.py:1376
 #: image.py:164
 #: image.py:194
 #: livecd.py:205
-#: yuminstall.py:780
-#: yuminstall.py:1178
-#: yuminstall.py:1236
-#: yuminstall.py:1441
+#: yuminstall.py:786
+#: yuminstall.py:1182
+#: yuminstall.py:1235
+#: yuminstall.py:1440
 msgid "_Retry"
 msgstr "נסה _שנית"
 
 #
-#: gui.py:1376
+#: gui.py:1378
 #: storage/partitioning.py:275
 msgid "The system will now reboot."
 msgstr "המערכת עכשיו תופעל מחדש."
 
 #
-#: gui.py:1377
+#: gui.py:1379
 #: image.py:251
 #: packages.py:332
-#: yuminstall.py:1482
+#: yuminstall.py:1481
 msgid "_Reboot"
 msgstr "_הפעל מחדש"
 
 #
-#: gui.py:1379
+#: gui.py:1381
 msgid "Exiting"
 msgstr "יוצא"
 
 #
-#: gui.py:1460
+#: gui.py:1462
 #: livecd.py:126
-#: text.py:269
+#: text.py:270
 #: upgrade.py:188
 msgid "Exit installer"
 msgstr "יציאה מתכנית ההתקנה"
 
 #
-#: gui.py:1461
+#: gui.py:1463
 msgid "Are you sure you wish to exit the installer?"
 msgstr "האם אתה בטוח שברצונך לצאת מתהליך ההתקנה?"
 
 #
-#: gui.py:1470
+#: gui.py:1472
 #, python-format
 msgid "%s Installer"
 msgstr "מתקין %s"
 
 #
-#: gui.py:1476
+#: gui.py:1478
 msgid "Unable to load title bar"
 msgstr "לא ניתן לטעון את הכותרת"
 
 #
-#: gui.py:1538
+#: gui.py:1540
 msgid "Install Window"
 msgstr "חלון התקנה"
 
@@ -706,11 +709,11 @@ msgstr ""
 #: livecd.py:409
 #: packages.py:332
 #: upgrade.py:196
-#: yuminstall.py:913
-#: yuminstall.py:999
-#: yuminstall.py:1422
-#: yuminstall.py:1464
-#: yuminstall.py:1482
+#: yuminstall.py:914
+#: yuminstall.py:1000
+#: yuminstall.py:1421
+#: yuminstall.py:1463
+#: yuminstall.py:1481
 msgid "_Back"
 msgstr "_אחורה"
 
@@ -792,97 +795,97 @@ msgstr ""
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "נקודת העיגון /boot או / נמצאת על דיסק שאינו מוכר לנו"
 
-#: kickstart.py:115
+#: kickstart.py:116
 #, python-format
 msgid "There was an error running the kickstart script at line %(lineno)s.  You may examine the output in %(msgs)s.  This is a fatal error and installation will be aborted.  Press the OK button to exit the installer."
 msgstr "אירעה שגיאה בהרצת תסריט kickstart בשורה %(lineno)s. ניתן לעיין בפלט ב-%(msgs)s. זוהי שגיאה גורלית וההתקנה תופסק. נא ללחוץ \"אישור\" ליציאה מתכנית ההתקנה."
 
 #
-#: kickstart.py:123
-#: kickstart.py:125
+#: kickstart.py:124
+#: kickstart.py:126
 msgid "Scriptlet Failure"
 msgstr "תסריטון נכשל"
 
 #
-#: kickstart.py:150
-#: rescue.py:246
-#: yuminstall.py:685
-#: yuminstall.py:1148
+#: kickstart.py:151
+#: rescue.py:248
+#: yuminstall.py:689
+#: yuminstall.py:1149
 msgid "No Network Available"
 msgstr "אין רשת זמינה"
 
-#: kickstart.py:151
+#: kickstart.py:152
 msgid "Encryption key escrow requires networking, but there was an error enabling the network on your system."
 msgstr ""
 
 #
-#: kickstart.py:1182
+#: kickstart.py:1201
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "שגיאה בעיבוד שורות ‎:%%ksappend ‏%s"
 
 #
-#: kickstart.py:1185
+#: kickstart.py:1204
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "שגיאה לא מוכרת בעיבוד שורות ‎%%ksappend: ‏%s"
 
 #
-#: kickstart.py:1240
+#: kickstart.py:1259
 #: livecd.py:229
 msgid "Post-Installation"
 msgstr "סיום התקנה"
 
 #
-#: kickstart.py:1241
+#: kickstart.py:1260
 msgid "Running post-installation scripts"
 msgstr "מריץ תסריטי סיום התקנה"
 
 #
-#: kickstart.py:1257
+#: kickstart.py:1276
 msgid "Pre-Installation"
 msgstr "קדם התקנה"
 
 #
-#: kickstart.py:1258
+#: kickstart.py:1277
 msgid "Running pre-installation scripts"
 msgstr "מריץ תסריטי קדם התקנה"
 
 #
-#: kickstart.py:1290
+#: kickstart.py:1309
 msgid "Missing Package"
 msgstr "חבילה חסרה"
 
 #
-#: kickstart.py:1291
+#: kickstart.py:1310
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort this installation?"
 msgstr "ציינת שיש להתקין את החבילה '%s'. חבילה זו לא קיימת. האם להמשיך או לנטוש את ההתקנה?"
 
 #
-#: kickstart.py:1297
-#: kickstart.py:1336
+#: kickstart.py:1316
+#: kickstart.py:1355
 msgid "_Abort"
 msgstr "_בטל"
 
 #
-#: kickstart.py:1298
-#: kickstart.py:1337
+#: kickstart.py:1317
+#: kickstart.py:1356
 msgid "_Ignore All"
 msgstr "התעלם מהכל"
 
 #
-#: kickstart.py:1328
+#: kickstart.py:1347
 msgid "Missing Group"
 msgstr "קבוצה חסרה"
 
 #
-#: kickstart.py:1329
+#: kickstart.py:1348
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort this installation?"
 msgstr "ציינת שיש להתקין את קבוצת החבילות '%s'. קבוצה זו לא קיימת. האם להמשיך או לנטוש את ההתקנה?"
 
-#: kickstart.py:1444
+#: kickstart.py:1463
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that anaconda cannot prompt for.  Please add the following sections and try again:\n"
@@ -1030,12 +1033,10 @@ msgstr "_התקן בכל זאת"
 msgid "Your system will now be rebooted..."
 msgstr "המערכת שלך תופעל מחדש כעת..."
 
-#
 #: partIntfHelpers.py:41
 msgid "Please enter a volume group name."
 msgstr "יש להזין שם עבור קבוצת הכרכים."
 
-#
 #: partIntfHelpers.py:45
 msgid "Volume Group Names must be less than 128 characters"
 msgstr "שמות קבוצות כרכים חייבים להיות קצרים מ־‏128 תווים"
@@ -1278,25 +1279,26 @@ msgstr "האם לאפס את השינויים ולהחזיר את טבלת המ�
 
 #
 #: platform.py:98
-#: platform.py:342
-#: platform.py:410
-#: platform.py:517
+#: platform.py:343
+#: platform.py:411
+#: platform.py:518
+#: ui/create-storage.glade.h:17
 msgid "RAID Device"
 msgstr "התקן RAID"
 
 #
 #: platform.py:99
 #: platform.py:102
-#: platform.py:343
-#: platform.py:411
-#: platform.py:518
-#: platform.py:521
+#: platform.py:344
+#: platform.py:412
+#: platform.py:519
+#: platform.py:522
 msgid "Master Boot Record (MBR)"
 msgstr "רשומת אתחול ראשית (MBR)"
 
 #
 #: platform.py:101
-#: platform.py:520
+#: platform.py:521
 msgid "First sector of boot partition"
 msgstr "בתחילת המחיצה המשמשת לטעינת מערכת"
 
@@ -1350,64 +1352,64 @@ msgstr "לא יצרת מחיצת /boot/efi."
 msgid "/boot/efi is not EFI."
 msgstr ""
 
-#: platform.py:249
+#: platform.py:250
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr "ל-%s חייבת להיות תווית כונן מסוג %s."
 
-#: platform.py:287
+#: platform.py:288
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr "‏%s חייב להיות בעל תווית דיסק מסוג bsd."
 
-#: platform.py:299
+#: platform.py:300
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr "הדיסק %s דורש לפחות 1MB של מקום פנוי בהתחלה."
 
 #
-#: platform.py:345
+#: platform.py:346
 msgid "PPC PReP Boot"
 msgstr "תהליך טענת מערכת PReP עבור מעבדי PPC"
 
 #
-#: platform.py:361
+#: platform.py:362
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr "מחיצת האתחול חייבת להיות ב 4MB הראשונים של הכונן."
 
 #
-#: platform.py:413
-#: platform.py:416
+#: platform.py:414
+#: platform.py:417
 msgid "Apple Bootstrap"
 msgstr "תהליך טעינת מערכת של Apple"
 
-#: platform.py:430
+#: platform.py:431
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr "‏%s חייב להיות בעל תווית דיסק מסוג mac."
 
 #
-#: rescue.py:205
+#: rescue.py:207
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "בסיום, יש לצאת מה־shell והמערכת תבצע הפעלה מחדש."
 
 #
-#: rescue.py:219
+#: rescue.py:221
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "לא נמצאה התכנית ‎/bin/sh לצורך הרצה! לא מריץ shell"
 
 #
-#: rescue.py:238
+#: rescue.py:240
 msgid "Setup Networking"
 msgstr "הגדרות תקשורת"
 
 #
-#: rescue.py:239
+#: rescue.py:241
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "האם להפעיל את ממשקי הרשת במערכת זו?"
 
 #
-#: rescue.py:240
+#: rescue.py:242
 #: loader/driverdisk.c:663
 #: loader/driverdisk.c:673
 #: loader/hdinstall.c:203
@@ -1416,27 +1418,27 @@ msgid "Yes"
 msgstr "כן"
 
 #
-#: rescue.py:240
 #: rescue.py:242
+#: rescue.py:244
 #: loader/driverdisk.c:663
 #: loader/driverdisk.c:673
 #: textw/constants_text.py:60
 msgid "No"
 msgstr "לא"
 
-#: rescue.py:247
+#: rescue.py:249
 msgid "Unable to activate a networking device.  Networking will not be available in rescue mode."
 msgstr "לא ניתן להפעיל התקן רשת. רשת לא תהיה זמינה במצב ההצלה."
 
 #
-#: rescue.py:282
-#: rescue.py:351
-#: rescue.py:362
-#: rescue.py:442
+#: rescue.py:284
+#: rescue.py:353
+#: rescue.py:364
+#: rescue.py:444
 msgid "Rescue"
 msgstr "הצלה"
 
-#: rescue.py:283
+#: rescue.py:285
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and mount it under the directory %s.  You can then make any changes required to your system.  If you want to proceed with this step choose 'Continue'.  You can also choose to mount your file systems read-only instead of read-write by choosing 'Read-Only'.\n"
@@ -1446,7 +1448,7 @@ msgid ""
 msgstr ""
 
 #
-#: rescue.py:293
+#: rescue.py:295
 #: iw/partition_gui.py:781
 #: loader/cdinstall.c:206
 #: loader/cdinstall.c:214
@@ -1457,46 +1459,46 @@ msgid "Continue"
 msgstr "המשך"
 
 #
-#: rescue.py:293
-#: rescue.py:298
+#: rescue.py:295
+#: rescue.py:300
 msgid "Read-Only"
 msgstr "קריאה בלבד"
 
 #
-#: rescue.py:293
 #: rescue.py:295
+#: rescue.py:297
 #: loader/cdinstall.c:248
 #: loader/cdinstall.c:251
 #: loader/method.c:324
-#: storage/__init__.py:1787
+#: storage/__init__.py:1788
 #: textw/upgrade_text.py:139
 msgid "Skip"
 msgstr "דלג"
 
 #
-#: rescue.py:327
+#: rescue.py:329
 msgid "System to Rescue"
 msgstr "המערכת אותה מצילים"
 
-#: rescue.py:328
+#: rescue.py:330
 msgid "Which device holds the root partition of your installation?"
 msgstr "איזו מחיצה מכילה את מחיצת השורש של ההתקנה שלך?"
 
 #
-#: rescue.py:330
-#: rescue.py:334
-#: text.py:624
+#: rescue.py:332
+#: rescue.py:336
 #: text.py:626
+#: text.py:628
 msgid "Exit"
 msgstr "יציאה"
 
 #
-#: rescue.py:352
+#: rescue.py:354
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions.  The system will reboot automatically when you exit from the shell."
 msgstr "במערכת שלך יש מערכות קבצים פגועות שבחרת לא לעגן. נא ללחוץ Enter לכניסה לשורת הפקודה, משם ניתן לבדוק (בעזרת fsck) ולעגן את המחיצות. ביציאה משורת הפקודה תבוצע אוטומטית הפעלת המחשב מחדש."
 
-#: rescue.py:363
-#, fuzzy, python-format
+#: rescue.py:365
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1506,16 +1508,16 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"מערכת הקבצים שלך עוגנה תחת ‎%s.‏\n"
+"המערכת שלך עוגנה תחת ‎%(rootPath)s.‏\n"
 "\n"
 "לכניסה לשורת הפקודה יש ללחוץ <return>. אם ברצונך להפוך את מערכת הקבצים שלך לשורש סביבת העבודה, יש להריץ את הפקודה:\n"
 "\n"
-"\tchroot %s\n"
+"\tchroot %(rootPath)s\n"
 "\n"
-"ביציאה משורת הפקודה תבוצע אוטומטית הפעלת המחשב מחדש."
+"ביציאה משורת הפקודה המחשב יופעל מחדש באופן אוטומטי."
 
 #
-#: rescue.py:443
+#: rescue.py:445
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may be mounted under %s.\n"
@@ -1526,79 +1528,79 @@ msgstr ""
 "\n"
 "נא ללחוץ <return> לכניסה לשורת הפקודה. ביציאה משורת הפקודה תבוצע אוטומטית הפעלת המחשב מחדש."
 
-#: rescue.py:452
+#: rescue.py:454
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "אין לך מחיצות לינוקס. מאתחל. \n"
 
 #
-#: rescue.py:455
+#: rescue.py:457
 msgid "Rescue Mode"
 msgstr "מצב הצלה"
 
 #
-#: rescue.py:456
+#: rescue.py:458
 msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
 msgstr "לא נמצאו מחיצות לינוקס. יש להקליד <return> להפעלת המעטפת (shell). המערכת תופעל מחדש באופן אוטומטי ביציאה מהמעטפת."
 
 #
-#: rescue.py:469
+#: rescue.py:471
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "דיסק מערכת ההפעלה מעוגן תחת התיקייה %s."
 
 #
-#: text.py:153
+#: text.py:154
 msgid "Passphrase for encrypted device"
 msgstr "ססמה עבור התקן מוצפן"
 
 #
-#: text.py:166
+#: text.py:167
 msgid "Also add this passphrase to all existing encrypted devices"
 msgstr "כמו כן הוסף ססמה זו לכל ההתקנים המוצפנים הקיימים"
 
 #
-#: text.py:197
+#: text.py:198
 #, python-format
 msgid "The passphrase must be at least %d character long."
 msgstr "הססמה חייבת להכיל לפחות %d תווים."
 
 #
-#: text.py:231
+#: text.py:232
 #: ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
 msgstr "ססמה"
 
 #
-#: text.py:239
+#: text.py:240
 #: ui/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
 msgstr "זוהי הססמה הכללית"
 
 #
-#: text.py:354
-#: text.py:358
+#: text.py:355
+#: text.py:359
 msgid "Repository editing is not available in text mode."
 msgstr "עריכת מאגרים לא זמינה במצב טקסטואלי."
 
 #
-#: text.py:420
+#: text.py:421
 #, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
 msgstr "ברוכים הבאים ל־%(productName)s עבור %(productArch)s"
 
 #
-#: text.py:422
+#: text.py:423
 #, python-format
 msgid "Welcome to %s"
 msgstr "ברוכים הבאים אל %s"
 
 #
-#: text.py:424
+#: text.py:425
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
 msgstr "  <Tab>/<Alt-Tab> ניווט בין מרכיבים   |  <Space> בחירה   |  <F12> מסך הבא"
 
 #
-#: text.py:624
+#: text.py:626
 #: loader/net.c:110
 #: loader/net.c:471
 #: loader/net.c:526
@@ -1610,12 +1612,12 @@ msgid "Retry"
 msgstr "נסה שנית"
 
 #
-#: text.py:650
+#: text.py:652
 msgid "Cancelled"
 msgstr "מבוטל"
 
 #
-#: text.py:651
+#: text.py:653
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "מנקודה זו לא ניתן לחזור לשלב הקודם. הדרך היחידה היא לנסות מחדש."
 
@@ -1946,7 +1948,7 @@ msgstr "שגיאה חמורה אירעה בהתקנת החבילה %s. זה יכ
 
 #
 #: yuminstall.py:344
-#: iw/task_gui.py:321
+#: iw/task_gui.py:322
 msgid "Error Setting Up Repository"
 msgstr "שגיאה בהגדרת המאגר"
 
@@ -1993,29 +1995,29 @@ msgid "Unable to access the disc."
 msgstr "לא התאפשרה גישה לדיסק."
 
 #
-#: yuminstall.py:562
+#: yuminstall.py:566
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "אין בהגדרות שם למאגר %r, משתמש בזיהוי"
 
-#: yuminstall.py:686
-#: yuminstall.py:1149
+#: yuminstall.py:690
+#: yuminstall.py:1150
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
 msgstr "חלק ממקורות התוכנה שלך דורשים רשת, אבל הייתה שגיאה בהפעלת הרשת במערכת שלך."
 
 #
-#: yuminstall.py:778
-#: yuminstall.py:780
+#: yuminstall.py:784
+#: yuminstall.py:786
 msgid "Re_boot"
 msgstr "א_תחול"
 
 #
-#: yuminstall.py:778
+#: yuminstall.py:784
 msgid "_Eject"
 msgstr "_הוצא"
 
 #
-#: yuminstall.py:789
+#: yuminstall.py:790
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt package or corrupt media.  Please verify your installation source.\n"
@@ -2029,73 +2031,73 @@ msgstr ""
 "\n"
 
 #
-#: yuminstall.py:837
+#: yuminstall.py:838
 msgid "Retrying"
 msgstr "מנסה שנית"
 
-#: yuminstall.py:837
+#: yuminstall.py:838
 msgid "Retrying download."
 msgstr "מנסה להוריד שוב."
 
 #
-#: yuminstall.py:902
+#: yuminstall.py:903
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "במהלך ביצוע הפעולה אירעה שגיאה מהסיבה הבאה: ‎%s\n"
 
 #
-#: yuminstall.py:945
 #: yuminstall.py:946
+#: yuminstall.py:947
 msgid "file conflicts"
 msgstr "התנגשויות קבצים"
 
 #
-#: yuminstall.py:947
+#: yuminstall.py:948
 msgid "older package(s)"
 msgstr "חבילות ישנות יותר"
 
 #
-#: yuminstall.py:948
+#: yuminstall.py:949
 msgid "insufficient disk space"
 msgstr "אין מספיק מקום פנוי על הכונן"
 
 #
-#: yuminstall.py:949
+#: yuminstall.py:950
 msgid "insufficient disk inodes"
 msgstr "אין מספיק inodes פנויים בכונן"
 
 #
-#: yuminstall.py:950
+#: yuminstall.py:951
 msgid "package conflicts"
 msgstr "התנגשות חבילות"
 
 #
-#: yuminstall.py:951
+#: yuminstall.py:952
 msgid "package already installed"
 msgstr "חבילה מותקנת כבר"
 
 #
-#: yuminstall.py:952
+#: yuminstall.py:953
 msgid "required package"
 msgstr "חבילה הכרחית"
 
 #
-#: yuminstall.py:953
+#: yuminstall.py:954
 msgid "package for incorrect arch"
 msgstr "חבילה לארכיטקטורה שגויה"
 
 #
-#: yuminstall.py:954
+#: yuminstall.py:955
 msgid "package for incorrect os"
 msgstr "חבילה למערכת הפעלה שגויה"
 
 #
-#: yuminstall.py:968
+#: yuminstall.py:969
 msgid "You need more space on the following file systems:\n"
 msgstr "נדרש עוד מקום על מערכות הקבצים הבאות:\n"
 
 #
-#: yuminstall.py:981
+#: yuminstall.py:982
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2105,45 +2107,45 @@ msgstr ""
 "%s\n"
 
 #
-#: yuminstall.py:984
+#: yuminstall.py:985
 #, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
 msgstr "בביצוע הפעולה אירעה שגיאה מהסיבות להלן: ‎%s.‏\n"
 
 #
-#: yuminstall.py:991
-#: yuminstall.py:996
+#: yuminstall.py:992
+#: yuminstall.py:997
 msgid "Error Running Transaction"
 msgstr "שגיאה בביצוע הפעולה"
 
 #
-#: yuminstall.py:1183
+#: yuminstall.py:1187
 msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
 msgstr "לא ניתן לקרוא מהמאגר מידע אודות קבוצות חבילות. בעיה זו נובעת מיצירה שגויה של עץ תיקיות התקנה."
 
-#: yuminstall.py:1219
+#: yuminstall.py:1223
 msgid "Retrieving installation information."
 msgstr "קריאת מידע להתקנה."
 
-#: yuminstall.py:1221
+#: yuminstall.py:1225
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "קריאת מידע להתקנת %s."
 
 #
-#: yuminstall.py:1223
+#: yuminstall.py:1227
 msgid "Installation Progress"
 msgstr "התקדמות התקנה"
 
 #
-#: yuminstall.py:1236
+#: yuminstall.py:1235
 #: textw/constants_text.py:64
 msgid "Edit"
 msgstr "עריכה"
 
 #
-#: yuminstall.py:1247
-#: yuminstall.py:1436
+#: yuminstall.py:1246
+#: yuminstall.py:1435
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.\n"
@@ -2154,71 +2156,71 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1415
+#: yuminstall.py:1414
 msgid "Some of the packages you have selected for install are missing dependencies.  You can exit the installation, go back and change your package selections, or continue installing these packages without their dependencies."
 msgstr "חסרות תלויות לחלק מהחבילות שבחרת להתקנה. אתה יכול לצאת מההתקנה, לחזור חזרה ולשנות את החבילות שבחרת, או להתקין את החבילות האלו בלי התלויות שלהן."
 
 #
-#: yuminstall.py:1458
+#: yuminstall.py:1457
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
 msgstr "עבור התקנת החבילות שנבחרו נדרש מקום פנוי של %d MB, אבל אין מספיק מקום פנוי. ניתן לשנות את הבחירה או לצאת מתכנת ההתקנה."
 
 #
-#: yuminstall.py:1479
+#: yuminstall.py:1478
 msgid "Reboot?"
 msgstr "להפעיל מערכת מחדש?"
 
 #
-#: yuminstall.py:1480
+#: yuminstall.py:1479
 msgid "The system will be rebooted now."
 msgstr "המערכת תופעל מחדש עכשיו."
 
 #
-#: yuminstall.py:1621
+#: yuminstall.py:1620
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr "נראה שזוהי מערכת ישנה מידי כדי לשדרג לגרסה זו של %s. האם להמשיך בתהליך השדרוג?"
 
 #
-#: yuminstall.py:1656
+#: yuminstall.py:1655
 #, python-format
 msgid "The arch of the release of %(productName)s you are upgrading to appears to be %(myarch)s which does not match your previously installed arch of %(arch)s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr "הארכיטקטורה של השחרור הזה של %(productName)s שאליו אתה מנסה לשדרג היא %(myarch)s שלא מתאימה לארכיטקטורה הישנה שלך מסוג %(arch)s. רוב הסיכויים שהשדרוג לא יצליח. האם אתה רוצה להמשיך בתהליך השדרוג?"
 
 #
-#: yuminstall.py:1703
+#: yuminstall.py:1702
 msgid "Post Upgrade"
 msgstr "סיום שדרוג"
 
-#: yuminstall.py:1704
+#: yuminstall.py:1703
 msgid "Performing post-upgrade configuration"
 msgstr "מבצע הגדרות אחר שדרוג"
 
 #
-#: yuminstall.py:1706
+#: yuminstall.py:1705
 msgid "Post Installation"
 msgstr "סיום התקנה"
 
-#: yuminstall.py:1707
+#: yuminstall.py:1706
 msgid "Performing post-installation configuration"
 msgstr "מבצע הגדרות אחרי התקנה"
 
 #
-#: yuminstall.py:1927
+#: yuminstall.py:1926
 msgid "Installation Starting"
 msgstr "תחילת התקנה"
 
-#: yuminstall.py:1928
+#: yuminstall.py:1927
 msgid "Starting installation process"
 msgstr "מתחיל תהליך התקנה"
 
 #
-#: yuminstall.py:1966
+#: yuminstall.py:1965
 msgid "Dependency Check"
 msgstr "בדיקת תלויות"
 
-#: yuminstall.py:1967
+#: yuminstall.py:1966
 msgid "Checking dependencies in packages selected for installation"
 msgstr "מתבצעת בדיקת תלויות בחבילות שנבחרו להתקנה..."
 
@@ -2501,6 +2503,77 @@ msgstr "התקנת מנהל האתחול על ‎/dev/%s."
 msgid "_Change device"
 msgstr "ה_חלף התקן"
 
+#: iw/cleardisks_gui.py:33
+msgid "Clear Disks Selector"
+msgstr ""
+
+#: iw/cleardisks_gui.py:44
+#: iw/filter_gui.py:406
+msgid "You must select at least one drive to be used for installation."
+msgstr "עליך לבחור לפחות כונן אחד שישמש להתקנה."
+
+#: iw/cleardisks_gui.py:54
+msgid "You must select one drive to boot from."
+msgstr "אתה חייב לבחור התקן אתחול אחד."
+
+#: iw/cleardisks_gui.py:122
+#: iw/cleardisks_gui.py:141
+#: iw/filter_gui.py:441
+#: iw/filter_gui.py:452
+#: iw/filter_gui.py:482
+msgid "Model"
+msgstr "דגם"
+
+#: iw/cleardisks_gui.py:123
+#: iw/cleardisks_gui.py:142
+#: iw/filter_gui.py:442
+#: iw/filter_gui.py:453
+#: iw/filter_gui.py:461
+#: iw/filter_gui.py:472
+#: iw/filter_gui.py:483
+msgid "Capacity"
+msgstr "קיבולת"
+
+#: iw/cleardisks_gui.py:124
+#: iw/filter_gui.py:443
+#: iw/filter_gui.py:462
+#: iw/filter_gui.py:473
+#: iw/filter_gui.py:484
+msgid "Vendor"
+msgstr "ספק"
+
+#: iw/cleardisks_gui.py:125
+#: iw/filter_gui.py:444
+#: iw/filter_gui.py:463
+#: iw/filter_gui.py:474
+#: iw/filter_gui.py:485
+msgid "Interconnect"
+msgstr ""
+
+#: iw/cleardisks_gui.py:126
+#: iw/filter_gui.py:445
+#: iw/filter_gui.py:475
+#: iw/filter_gui.py:486
+msgid "Serial Number"
+msgstr "מספר סידורי"
+
+#: iw/cleardisks_gui.py:140
+msgid "Boot"
+msgstr "אתחול"
+
+#: iw/cleardisks_gui.py:180
+msgid "<b>Tip:</b> All Linux filesystems on install target devices will be reformatted and wiped of any data.  Make sure you have backups."
+msgstr "‏<b>עצה:</b> כל מערכות הקבצים מסוג לינוקס על יעד ההתקנה יפורמטו מחדש וכל המידע שעליהם ימחק. וודא שיש לך גיבויים."
+
+#: iw/cleardisks_gui.py:182
+#: ui/cleardisks.glade.h:3
+msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
+msgstr "‏<b>עצה:</b> התקני היעד להתקני יפורמטו מחדש וכל המידע שעליהם ימחק. וודא שיש לך גיבויים."
+
+#: iw/cleardisks_gui.py:184
+msgid "<b>Tip:</b> Your filesystems on install target devices will not be wiped unless you choose to do so during customization."
+msgstr "‏<b>עצה:</b> מערכות הקבצים שעל התקני היעד להתקנה לא ימחקו אלא אם תבחר לעשות כן בזמן ההתאמה האישית."
+
 #
 #: iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2570,7 +2643,7 @@ msgstr "שדרוג התקנה קיימת"
 #: iw/examine_gui.py:69
 #, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your storage device(s)."
-msgstr "בחר באפשרות זו אם ברצונך לשדרג את מערכת %s הקיימת שלך. האפשרות הזאת תשמר את המידע הקיים בהתקני האכסון שלך."
+msgstr "בחר באפשרות זו אם ברצונך לשדרג את מערכת %s הקיימת שלך. האפשרות הזאת תשמר את המידע הקיים בהתקני האחסון שלך."
 
 #: iw/examine_gui.py:109
 msgid "At least one existing installation has been detected on your system.  What would you like to do?"
@@ -2586,6 +2659,70 @@ msgstr "<b>איזו התקנה של %s ברצונך לשדרג?</b>"
 #: iw/examine_gui.py:142
 msgid "Unknown Linux system"
 msgstr "מערכת לינוקס לא מוכרת"
+
+#: iw/filter_gui.py:142
+#, python-format
+msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
+msgstr ""
+
+#: iw/filter_gui.py:391
+msgid "Device Filter"
+msgstr "מסנן התקן"
+
+#
+#: iw/filter_gui.py:446
+#: iw/filter_gui.py:454
+#: iw/filter_gui.py:465
+#: iw/filter_gui.py:476
+#: iw/filter_gui.py:491
+#: iw/osbootwidget.py:66
+#: iw/partition_gui.py:607
+msgid "Device"
+msgstr "התקן"
+
+#: iw/filter_gui.py:460
+#: iw/filter_gui.py:471
+#: iw/filter_gui.py:487
+msgid "Identifier"
+msgstr "מזהה"
+
+#: iw/filter_gui.py:464
+msgid "Paths"
+msgstr "נתיבים"
+
+#
+#: iw/filter_gui.py:488
+#: loader/urls.c:290
+msgid "Port"
+msgstr "יציאה (port)"
+
+#: iw/filter_gui.py:489
+msgid "Target"
+msgstr "יעד"
+
+#: iw/filter_gui.py:490
+msgid "LUN"
+msgstr ""
+
+#: iw/filter_type.py:55
+msgid "What type of devices will your installation involve?"
+msgstr "איזה סוגי התקנים תכלול ההתקנה שלך?"
+
+#: iw/filter_type.py:61
+msgid "Basic Storage Devices"
+msgstr "התקני אחסון בסיסיים"
+
+#: iw/filter_type.py:62
+msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
+msgstr "משדרג או מתקין לסוגים הממוצעים של התקני אחסון. אם אתה לא בטוח איזו אפשרות מתאימה לך, זאת כנראה האפשרות הזו."
+
+#: iw/filter_type.py:66
+msgid "Specialized Storage Devices"
+msgstr "התקני אחסון מיוחדים"
+
+#: iw/filter_type.py:67
+msgid "Installs or upgrades to devices such as Storage Area Networks (SANs) or mainframe attached disks (DASD), usually in an enterprise environment"
+msgstr "משדרג או מתקין להתקנים כמו Storage Area Networks (SANs) או דיסקים המחוברים למחשב מרכזי (DASD), בד\"כ בסביבה ארגונית גדולה."
 
 #
 #: iw/language_gui.py:33
@@ -2617,7 +2754,6 @@ msgstr ""
 msgid "Confirm Physical Extent Change"
 msgstr ""
 
-#
 #: iw/lvm_dialog_gui.py:135
 msgid ""
 "This change in the value of the physical extent will require the sizes of the current logical volume requests to be rounded up in size to an integer multiple of the physical extent.\n"
@@ -3057,12 +3193,6 @@ msgid "Label"
 msgstr "תווית"
 
 #
-#: iw/osbootwidget.py:66
-#: iw/partition_gui.py:607
-msgid "Device"
-msgstr "התקן"
-
-#
 #: iw/osbootwidget.py:130
 msgid "Image"
 msgstr "Image"
@@ -3082,7 +3212,6 @@ msgstr "_תווית"
 msgid "_Device"
 msgstr "_התקן"
 
-#
 #: iw/osbootwidget.py:183
 msgid "Default Boot _Target"
 msgstr "י_עד אתחול ברירת מחדל"
@@ -3122,7 +3251,6 @@ msgstr "התקן זה כבר נבחר עבור שורת הפעלה אחרת."
 msgid "Cannot Delete"
 msgstr "לא ניתן למחוק"
 
-#
 #: iw/osbootwidget.py:323
 #, python-format
 msgid "This boot target cannot be deleted because it is for the %s system you are about to install."
@@ -3174,9 +3302,9 @@ msgid "Force to be a _primary partition"
 msgstr "הכרח להיות מחיצה _ראשית"
 
 #: iw/partition_gui.py:356
-#, fuzzy, python-format
+#, python-format
 msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
-msgstr "כונן ‎%s‎ ‏(%-0.f MB) ‏(דגם: %s)"
+msgstr "כונן ‎%(drive)s‎ ‏(%(size)-0.f MB) ‏(דגם: %(model)s)"
 
 #
 #: iw/partition_gui.py:396
@@ -3188,9 +3316,9 @@ msgid "Free"
 msgstr "פנוי"
 
 #: iw/partition_gui.py:474
-#, fuzzy, python-format
+#, python-format
 msgid "LVM Volume Group %s (%-0.f MB)"
-msgstr "קבוצות כרכים LVM"
+msgstr "קבוצות כרכים LVM ‏%s (%-0.f MB)"
 
 #: iw/partition_gui.py:540
 #, python-format
@@ -3204,7 +3332,7 @@ msgstr "סוג"
 
 #
 #: iw/partition_gui.py:612
-#: storage/__init__.py:1787
+#: storage/__init__.py:1788
 msgid "Format"
 msgstr "פרמט"
 
@@ -3555,17 +3683,15 @@ msgstr ""
 "\n"
 "יש למחוק מחיצות אלו לפני שיהיה ניתן לשכפל כונן זה."
 
-#
 #: iw/raid_dialog_gui.py:644
 #: iw/raid_dialog_gui.py:650
 #: iw/raid_dialog_gui.py:666
 msgid "Target Drive Error"
 msgstr "שגיאה בכונן היעד"
 
-#
 #: iw/raid_dialog_gui.py:645
 msgid "Please select the target drives for the clone operation."
-msgstr "יש לבחור את כונני המטרה לפעולת השכפול."
+msgstr "יש לבחור את כונני היעד לפעולת השכפול."
 
 #: iw/raid_dialog_gui.py:651
 #, python-format
@@ -3652,7 +3778,7 @@ msgid "Drives"
 msgstr "כוננים"
 
 #
-#: iw/task_gui.py:65
+#: iw/task_gui.py:66
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a missing repodata directory.  Please ensure that your repository has been correctly generated.\n"
@@ -3664,57 +3790,57 @@ msgstr ""
 "%s"
 
 #
-#: iw/task_gui.py:142
+#: iw/task_gui.py:143
 msgid "Edit Repository"
 msgstr "עריכת מאגר"
 
 #
-#: iw/task_gui.py:166
+#: iw/task_gui.py:167
 #, python-format
 msgid "The repository %s has already been added.  Please choose a different repository name and URL."
 msgstr "המאגר %s כבר התווסף. נא לבחור שם חדש וכתובת שונה למאגר."
 
 #
-#: iw/task_gui.py:246
+#: iw/task_gui.py:247
 msgid "Invalid Proxy URL"
 msgstr "כתובת מתווך לא חוקית"
 
 #
-#: iw/task_gui.py:247
+#: iw/task_gui.py:248
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "עבור שרת מתווך יש לספק כתובות מסוג HTTP‏, HTTPS או FTP."
 
 #
-#: iw/task_gui.py:258
-#: iw/task_gui.py:416
+#: iw/task_gui.py:259
+#: iw/task_gui.py:417
 msgid "Invalid Repository URL"
 msgstr "כתובת מאגר לא תקינה"
 
 #
-#: iw/task_gui.py:259
-#: iw/task_gui.py:417
+#: iw/task_gui.py:260
+#: iw/task_gui.py:418
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "עליך לספק כתובת HTTP‏, HTTPS, או FTP למאגר."
 
 #
-#: iw/task_gui.py:280
-#: iw/task_gui.py:426
+#: iw/task_gui.py:281
+#: iw/task_gui.py:427
 msgid "No Media Found"
 msgstr "לא נמצאה מדיה"
 
 #
-#: iw/task_gui.py:281
-#: iw/task_gui.py:427
+#: iw/task_gui.py:282
+#: iw/task_gui.py:428
 msgid "No installation media was found. Please insert a disc into your drive and try again."
 msgstr "לא נמצאה מדייה להתקנה. נא להכניס דיסק לתוך הכונן ולנסות שוב."
 
 #
-#: iw/task_gui.py:312
-#: iw/task_gui.py:450
+#: iw/task_gui.py:313
+#: iw/task_gui.py:451
 msgid "Please enter an NFS server and path."
 msgstr "יש להזין את שם שרת NFS ואת שם התיקייה."
 
-#: iw/task_gui.py:322
+#: iw/task_gui.py:323
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3726,28 +3852,28 @@ msgstr ""
 "%s"
 
 #
-#: iw/task_gui.py:345
+#: iw/task_gui.py:346
 msgid "Invalid Repository Name"
 msgstr "שם המאגר לא תקין"
 
 #
-#: iw/task_gui.py:346
+#: iw/task_gui.py:347
 msgid "You must provide a repository name."
 msgstr "עליך לספק שם למאגר."
 
 #
-#: iw/task_gui.py:482
+#: iw/task_gui.py:483
 #: ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "הוספת מאגר"
 
 #
-#: iw/task_gui.py:487
+#: iw/task_gui.py:488
 msgid "No Software Repos Enabled"
 msgstr "לא נבחרו מאגרי תכנה"
 
 #
-#: iw/task_gui.py:488
+#: iw/task_gui.py:489
 msgid "You must have at least one software repository enabled to continue installation."
 msgstr "צריך לפחות מאגר תכנה אחד פעיל כדי להמשיך בהתקנה."
 
@@ -3787,9 +3913,9 @@ msgstr "תכנית ההתקנה לא זיהתה את מנהל האתחול שנ�
 
 #: iw/upgrade_bootloader_gui.py:138
 #: textw/upgrade_bootloader_text.py:121
-#, fuzzy, python-format
+#, python-format
 msgid "The installer has detected the %(type)s boot loader currently installed on %(bootDev)s."
-msgstr "תכנית ההתקנה זיהתה את מנהל האתחול %s מותקן על %s."
+msgstr "תכנית ההתקנה זיהתה את מנהל האתחול %(type)s מותקן על %(bootDev)s."
 
 #
 #: iw/upgrade_bootloader_gui.py:142
@@ -3956,7 +4082,7 @@ msgstr ""
 
 #
 #: iw/zipl_gui.py:90
-#: textw/zipl_text.py:71
+#: textw/zipl_text.py:72
 msgid "Kernel Parameters"
 msgstr "פרמטרים ל־kernel"
 
@@ -4123,7 +4249,6 @@ msgstr "כישלון בעגינת מחיצה."
 msgid "Select driver disk image"
 msgstr ""
 
-#
 #: loader/driverdisk.c:495
 msgid "Select the file which is your driver disk image."
 msgstr ""
@@ -4204,7 +4329,6 @@ msgstr "האם ברצונך לטעון עוד דיסקים עם מנהלי הת�
 msgid "Kickstart Error"
 msgstr "שגיאת Kickstart"
 
-#
 #: loader/driverdisk.c:720
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
@@ -4570,7 +4694,6 @@ msgstr ""
 msgid "Success"
 msgstr "הצלחה"
 
-#
 #: loader/mediacheck.c:102
 msgid "The image which was just tested was successfully verified.  It should be OK to install from this media.  Note that not all media/drive errors can be detected by the media check."
 msgstr ""
@@ -4894,11 +5017,6 @@ msgid "Proxy URL"
 msgstr "כתובת מתווך"
 
 #
-#: loader/urls.c:290
-msgid "Port"
-msgstr "יציאה (port)"
-
-#
 #: loader/urls.c:295
 msgid "Username"
 msgstr "שם משתמש"
@@ -5130,7 +5248,7 @@ msgstr ""
 "להלן רשימת מערכות קבצים שהעיגון שלהן לא נותק באופן מסודר. האם ברצונך לעגן אותן בכל אופן?\n"
 "%s"
 
-#: storage/__init__.py:1820
+#: storage/__init__.py:1821
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5140,7 +5258,7 @@ msgid ""
 "is an old-style Linux swap partition.  If you want to use this device for swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: storage/__init__.py:1831
+#: storage/__init__.py:1832
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5155,7 +5273,7 @@ msgstr ""
 "\n"
 "המופיעה בקובץ ‎/etc/fstab משמשת כעת לאחסון המערכת במצב שינה לכונן, כלומר בפעם האחרונה שהמחשב הודלק, הוא התעורר ממצב זה.כדי לבצע שדרוג, יש לכבות את המערכת באופן מלא ולא רק להעביר אותה למצב שינה לכונן."
 
-#: storage/__init__.py:1839
+#: storage/__init__.py:1840
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5170,7 +5288,7 @@ msgstr ""
 "\n"
 "המופיעה בקובץ ‎/etc/fstab משמשת כעת לאחסון המערכת במצב שינה לכונן,  מה שאומר שהמערכת כרגע במצב שינה. אם אתה מבצע התקנה חדשה וודא שתכנת ההתקנה תבצע פורמט של כל מחיצות הדפדוף."
 
-#: storage/__init__.py:1851
+#: storage/__init__.py:1852
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5180,7 +5298,7 @@ msgid ""
 "does not contain a supported swap volume.  In order to continue installation, you will need to format the device or skip it."
 msgstr ""
 
-#: storage/__init__.py:1862
+#: storage/__init__.py:1863
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5195,7 +5313,7 @@ msgstr ""
 "\n"
 "יש ללחוץ על 'אישור' בכדי לצאת מתכנית ההתקנה"
 
-#: storage/__init__.py:1869
+#: storage/__init__.py:1870
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5211,13 +5329,13 @@ msgstr ""
 "יש ללחוץ 'אישור' ליציאה מתכנית ההתקנה."
 
 #
-#: storage/__init__.py:1932
-#: storage/__init__.py:1944
+#: storage/__init__.py:1933
+#: storage/__init__.py:1945
 msgid "Invalid mount point"
 msgstr "נקודת עיגון לא חוקית"
 
 #
-#: storage/__init__.py:1933
+#: storage/__init__.py:1934
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is not a directory. This is a fatal error and the install cannot continue.\n"
@@ -5228,7 +5346,7 @@ msgstr ""
 "\n"
 "יש ללחוץ <enter> ליציאה מתכנית ההתקנה."
 
-#: storage/__init__.py:1945
+#: storage/__init__.py:1946
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a fatal error and the install cannot continue.\n"
@@ -5240,17 +5358,17 @@ msgstr ""
 "יש ללחוץ <Enter> ליציאה מתכנית ההתקנה."
 
 #
-#: storage/__init__.py:1961
-#: storage/__init__.py:1985
+#: storage/__init__.py:1962
+#: storage/__init__.py:1986
 msgid "Unable to mount filesystem"
 msgstr "לא ניתן לעגן מערכת קבצים"
 
-#: storage/__init__.py:1962
+#: storage/__init__.py:1963
 #, python-format
 msgid "An error occurred mounting device %(path)s as %(mountpoint)s.  You may continue installation, but there may be problems."
 msgstr "שגיאה אירעה במהלך עיגון ההתקן %(path)s בנקודה %(mountpoint)s.  ניתן להמשיך בהתקנה, אך עלולות להיות בעיות בהמשך."
 
-#: storage/__init__.py:1986
+#: storage/__init__.py:1987
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This is a fatal error and the install cannot continue.\n"
@@ -5272,29 +5390,29 @@ msgid "lvs failed for %s"
 msgstr ""
 
 #
-#: storage/devices.py:1248
-#: storage/devices.py:1886
-#: storage/devices.py:2286
-#: storage/devices.py:2752
-#: storage/devices.py:3231
+#: storage/devices.py:1250
+#: storage/devices.py:1905
+#: storage/devices.py:2305
+#: storage/devices.py:2771
+#: storage/devices.py:3250
 msgid "Creating"
 msgstr "יוצר"
 
 #
-#: storage/devices.py:1249
-#: storage/devices.py:1887
-#: storage/devices.py:2287
-#: storage/devices.py:2753
+#: storage/devices.py:1251
+#: storage/devices.py:1906
+#: storage/devices.py:2306
+#: storage/devices.py:2772
 #, python-format
 msgid "Creating device %s"
 msgstr "יוצר התקן %s"
 
-#: storage/devices.py:2378
+#: storage/devices.py:2397
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3232
+#: storage/devices.py:3251
 #, python-format
 msgid "Creating file %s"
 msgstr "יוצר קובץ %s"
@@ -5316,8 +5434,8 @@ msgstr ""
 "\n"
 "דילוג על שלב זה יגרום לכך שתכולת הכונן לא תהיה זמינה במהלך ההתקנה."
 
-#: storage/devicetree.py:1824
-#: storage/devicetree.py:1872
+#: storage/devicetree.py:1826
+#: storage/devicetree.py:1874
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "מחיצה זו מהווה חלק מקבוצת כרכים לא תקינה של LVM."
 
@@ -5768,13 +5886,11 @@ msgstr ""
 msgid "Configure iSCSI Parameters"
 msgstr ""
 
-#
 #: textw/partition_text.py:281
 #: ui/iscsi-config.glade.h:8
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
 msgstr ""
 
-#
 #: textw/partition_text.py:282
 msgid "Target IP Address"
 msgstr ""
@@ -5939,18 +6055,18 @@ msgstr ""
 "\n"
 
 #
-#: textw/zipl_text.py:35
+#: textw/zipl_text.py:36
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup require."
 msgstr ""
 
 #
-#: textw/zipl_text.py:67
+#: textw/zipl_text.py:68
 msgid "z/IPL Configuration"
 msgstr ""
 
 #
-#: textw/zipl_text.py:75
-#: textw/zipl_text.py:79
+#: textw/zipl_text.py:76
+#: textw/zipl_text.py:80
 msgid "Chandev line "
 msgstr ""
 
@@ -6023,7 +6139,6 @@ msgstr "החשבון root מיועד לניהול המערכת. יש להזין 
 msgid "Add _FCoE SAN"
 msgstr ""
 
-#
 #: ui/adddrive.glade.h:2
 msgid "Add _ZFCP LUN"
 msgstr ""
@@ -6210,6 +6325,90 @@ msgstr "כונן BIOS שלישי:"
 msgid "Where would you like to install the boot loader for your system?"
 msgstr "היכן ברצונך להתקין את מנהל האתחול של המערכת?"
 
+#: ui/cleardisks.glade.h:1
+msgid "<b>Data Storage Devices</b> (to be mounted only)"
+msgstr "‏<b>התקני אחסון מידע</b> (לעיגון בלבד)"
+
+#: ui/cleardisks.glade.h:2
+msgid "<b>Install Target Devices</b>"
+msgstr "<b>התקני היעד להתקנה</b>"
+
+#: ui/cleardisks.glade.h:4
+msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data drives (these will not be formatted, only mounted) and which devices you'd like to use as system drives (these may be formatted)."
+msgstr "להלן התקני האחסון שבהם בחרת להיות חלק מהתקנה זו. אנא ציין באמצעות החצים באילו התקנים אתה רוצה להשתמש ככונני מידע (אלה לא יפורמטו, רק יעוגנו) ובאילו התקנים אתה רוצה להשתמש ככונני מערכת (אלו אולי יפורמטו)."
+
+#: ui/create-storage.glade.h:1
+msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:2
+msgid "<span size=\"small\" color=\"gray\">Create a logical volume on selected volume group</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:3
+msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgstr "‏<span size=\"small\" color=\"gray\">צור מחיצת LVM מפורמטת</span>"
+
+#: ui/create-storage.glade.h:4
+msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:5
+msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgstr "<span size=\"small\" color=\"gray\">יצירת מחיצה למטרות כלליות</span>"
+
+#: ui/create-storage.glade.h:6
+msgid "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated partition</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:7
+msgid "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated partitions</span>"
+msgstr ""
+
+#: ui/create-storage.glade.h:8
+msgid "Create"
+msgstr "צור"
+
+#: ui/create-storage.glade.h:9
+msgid "Create LVM"
+msgstr "צור LVM"
+
+#: ui/create-storage.glade.h:10
+msgid "Create Partition"
+msgstr "צור מחיצה"
+
+#: ui/create-storage.glade.h:11
+msgid "Create Software RAID"
+msgstr "צור Software RAID"
+
+#: ui/create-storage.glade.h:12
+msgid "Create Storage"
+msgstr ""
+
+#: ui/create-storage.glade.h:13
+msgid "LVM Logical Volume"
+msgstr "כרך לוגי LVM"
+
+#: ui/create-storage.glade.h:14
+msgid "LVM Physical Volume"
+msgstr "כרך פיזי LVM"
+
+#: ui/create-storage.glade.h:15
+msgid "LVM Volume Group"
+msgstr "קבוצת כרכים LVM"
+
+#: ui/create-storage.glade.h:16
+msgid "RAID Clone"
+msgstr "שיבוט RAID"
+
+#: ui/create-storage.glade.h:18
+msgid "RAID Partition"
+msgstr "מחיצת RAID"
+
+#: ui/create-storage.glade.h:19
+msgid "Standard Partition"
+msgstr "מחיצה רגילה"
+
 #
 #: ui/detailed-dialog.glade.h:1
 msgid "Info"
@@ -6237,6 +6436,99 @@ msgstr ""
 #: ui/fcoe-config.glade.h:6
 msgid "_Add FCoE Disk(s)"
 msgstr ""
+
+#: ui/filter.glade.h:2
+#, no-c-format
+msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
+msgstr ""
+
+#: ui/filter.glade.h:3
+msgid "<b>Tip:</b> Selecting a drive on this screen does not necessarily mean it will be wiped by the installation process.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
+msgstr "‏<b>עצה:</b> בחירת כונן במסך זה לא אומרת בהכרח שהוא ימחק במהלך תהליך ההתקנה. בנוסף, שים לב שלאחר ההתקנה אתה יכול לעגן כוננים שלא בחרת כאן ע\"י עריכת הקובץ /etc/fstab."
+
+#: ui/filter.glade.h:4
+#, fuzzy
+msgid "Add Advanced Target"
+msgstr "שרת מתקדם"
+
+#: ui/filter.glade.h:5
+msgid "Basic Devices"
+msgstr "התקנים בסיסיים"
+
+#: ui/filter.glade.h:6
+msgid "Filter By:"
+msgstr "סנן ע\"י"
+
+#: ui/filter.glade.h:7
+#, fuzzy
+msgid "Firmware RAID"
+msgstr "תכנת RAID"
+
+#: ui/filter.glade.h:8
+msgid "Identifier:"
+msgstr "מזהה:"
+
+#: ui/filter.glade.h:9
+msgid ""
+"Interconnect\n"
+"Vendor\n"
+"Identifier"
+msgstr ""
+
+#: ui/filter.glade.h:12
+msgid "LUN:"
+msgstr ""
+
+#: ui/filter.glade.h:13
+#, fuzzy
+msgid "Multipath Devices"
+msgstr "התקן כפול"
+
+#: ui/filter.glade.h:14
+msgid "Other SAN Devices"
+msgstr "התקני SAN אחרים"
+
+#: ui/filter.glade.h:15
+msgid "Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount to your system, below:"
+msgstr "אנא בחר התקנים שעליהם אתה מעוניין להתקין את מערכת ההפעלה, וגם התקנים שאתה רוצה שיעוגנו באופן אוטומטי למערכת שלך:"
+
+#: ui/filter.glade.h:16
+msgid ""
+"Port / Target / LUN\n"
+"Target Identifier"
+msgstr ""
+
+#: ui/filter.glade.h:18
+msgid "Port:"
+msgstr "יציאה (port):"
+
+#: ui/filter.glade.h:19
+msgid "Search"
+msgstr "חפש"
+
+#: ui/filter.glade.h:20
+msgid "Search By:"
+msgstr "חפש לפי:"
+
+#: ui/filter.glade.h:21
+msgid "Search Results:"
+msgstr "תוצאות חיפוש:"
+
+#: ui/filter.glade.h:22
+msgid "Show Identifiers that Include:"
+msgstr ""
+
+#: ui/filter.glade.h:23
+msgid "Show Only Devices From:"
+msgstr ""
+
+#: ui/filter.glade.h:24
+msgid "Show Only Devices Using:"
+msgstr ""
+
+#: ui/filter.glade.h:25
+msgid "Target:"
+msgstr "יעד:"
 
 #
 #: ui/iscsi-config.glade.h:1
@@ -6388,7 +6680,6 @@ msgstr "_ערוך מאגר"
 msgid "<b>Device number:</b>"
 msgstr "<b>מספר ההתקן:</b>"
 
-#
 #: ui/zfcp-config.glade.h:2
 msgid "<b>FCP LUN:</b>"
 msgstr ""
@@ -6724,8 +7015,6 @@ msgstr "זולו"
 #
 #~ msgid "An error was encountered while removing device %s."
 #~ msgstr "אירעה שגיאה במהלך הסרת ההתקן %s."
-#~ msgid "Device Setup Failed"
-#~ msgstr "הגדרת ההתקן נכשלה"
 #
 #~ msgid "An error was encountered while setting up device %s."
 #~ msgstr "אירעה שגיאה במהלך הגדרת ההתקן %s."
@@ -6763,9 +7052,6 @@ msgstr "זולו"
 #
 #~ msgid "The following installed system will be upgraded:"
 #~ msgstr "המערכות המותקנות הבאות ישודרגו:"
-#
-#~ msgid "software RAID"
-#~ msgstr "תכנת RAID"
 #
 #~ msgid "_Ignore drive"
 #~ msgstr "הת_עלם מהכונן"
@@ -6812,8 +7098,6 @@ msgstr "זולו"
 #
 #~ msgid "Error with Data"
 #~ msgstr "שגיאה בנתונים"
-#~ msgid "You must select a device to edit"
-#~ msgstr "יש לבחור התקן לצורך עריכה"
 #
 #~ msgid "Not supported"
 #~ msgstr "לא נתמך"
@@ -6833,9 +7117,6 @@ msgstr "זולו"
 #~ msgstr ""
 #~ "לא ניתן ליצור התקן תכנת RAID מכיוון שכל מספרי ההתקן הזמינים ל־RAID כבר "
 #~ "בשימוש."
-#
-#~ msgid "RAID Options"
-#~ msgstr "אפשרויות RAID"
 #
 #~ msgid "What do you want to do now?"
 #~ msgstr "מה ברצונך לעשות עכשיו?"
