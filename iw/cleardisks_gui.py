@@ -68,15 +68,14 @@ class ClearDisksWindow (InstallWindow):
         # the kickstart file could have used ignoredisk --drives= in which case
         # exclusiveDisks would be empty.  Second, ignoredisk is entirely
         # optional in which case neither list would be populated.  Luckily,
-        # isIgnored handles all this properly.
-        disks = map(udev_device_get_name,
-                    filter(lambda d: not anaconda.id.storage.devicetree.isIgnored(d),
-                           filter(udev_device_is_disk, udev_get_block_devices())))
+        # storage.disks takes isIgnored into account and that handles both these
+        # issues.
+        disks = filter(lambda d: not d.format.hidden, anaconda.id.storage.disks)
 
         # Skip this screen as well if there's only one disk to use.
         if len(disks) == 1:
-            anaconda.id.storage.clearPartDisks = disks
-            anaconda.id.bootloader.drivelist = disks
+            anaconda.id.storage.clearPartDisks = [disks[0].name]
+            anaconda.id.bootloader.drivelist = [disks[0].name]
             return None
 
         (xml, self.vbox) = gui.getGladeWidget("cleardisks.glade", "vbox")
@@ -143,21 +142,18 @@ class ClearDisksWindow (InstallWindow):
 
         # Store the first disk (according to our detected BIOS order) for
         # auto boot device selection
-        self.bootDisk = sorted(disks, isys.compareDrives)[0]
+        names = map(lambda d: d.name, disks)
+        self.bootDisk = sorted(names, isys.compareDrives)[0]
 
         # The device filtering UI set up exclusiveDisks as a list of the names
         # of all the disks we should use later on.  Now we need to go get those,
         # look up some more information in the devicetree, and set up the
         # selector.
         for d in disks:
-            device = self.anaconda.id.storage.devicetree.getDeviceByName(d)
-            if not device:
-                continue
-
-            self.store.append(None, (device, True, True, False, False,
-                                     device.model,
-                                     str(int(device.size)) + " MB",
-                                     device.vendor, "", device.serial))
+            self.store.append(None, (d, True, True, False, False,
+                                     d.model,
+                                     str(int(d.size)) + " MB",
+                                     d.vendor, "", d.serial))
 
         self.addButton.connect("clicked", self._add_clicked)
         self.removeButton.connect("clicked", self._remove_clicked)
