@@ -853,7 +853,6 @@ makeinitrd() {
     for i in $IMGPATH/lib/udev/*; do
        if [ -f $i ]; then install -m 755 $i $MBD_DIR/lib/udev/${i##*/}; fi
     done
-    rm -f $MBD_DIR/lib/udev/rules.d/*persistent*
     rm -f $MBD_DIR/lib/udev/rules.d/*generator*
 
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
