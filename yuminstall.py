@@ -234,6 +234,9 @@ class AnacondaCallback:
         elif what in (rpm.RPMCALLBACK_CPIO_ERROR,
                       rpm.RPMCALLBACK_UNPACK_ERROR,
                       rpm.RPMCALLBACK_SCRIPT_ERROR):
+            if not isinstance(h, types.TupleType):
+                h = (h, None)
+
             (hdr, rpmloc) = h
 
             # Script errors store whether or not they're fatal in "total".  So,
