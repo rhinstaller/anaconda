@@ -217,6 +217,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Feb 24 2010 David Cantrell <dcantrell@redhat.com> - 13.31-1
+- Revert "There is no kernel-PAE package anymore, use kernel for xen
+  (#559347)." (dcantrell)
+- logging: make loader say 'loader' (#563009). (akozumpl)
+- Make loader log into syslog (so remote logging works for it as well)
+  (#524980) (akozumpl)
+
 * Tue Feb 23 2010 Chris Lumens <clumens@redhat.com> - 13.30-1
 - Revert "Add back hald for Xorg input device queries (#553780)" (clumens)
 - No longer remove persistent udev rules files (#566948). (clumens)

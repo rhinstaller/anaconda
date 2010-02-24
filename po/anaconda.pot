@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.29\n"
+"Project-Id-Version: anaconda 13.30\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-23 16:41-0500\n"
+"POT-Creation-Date: 2010-02-24 07:56-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,9 +33,9 @@ msgstr ""
 #: loader/hdinstall.c:477 loader/kbd.c:119 loader/kickstart.c:132
 #: loader/kickstart.c:142 loader/kickstart.c:184 loader/kickstart.c:189
 #: loader/kickstart.c:296 loader/kickstart.c:328 loader/kickstart.c:510
-#: loader/lang.c:114 loader/lang.c:372 loader/loader.c:414 loader/loader.c:450
-#: loader/loader.c:490 loader/loader.c:508 loader/loader.c:525
-#: loader/loader.c:562 loader/loader.c:1177 loader/loader.c:1358
+#: loader/lang.c:114 loader/lang.c:372 loader/loader.c:413 loader/loader.c:449
+#: loader/loader.c:489 loader/loader.c:507 loader/loader.c:524
+#: loader/loader.c:561 loader/loader.c:1176 loader/loader.c:1357
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:101 loader/method.c:277 loader/method.c:351
 #: loader/modules.c:381 loader/modules.c:397 loader/net.c:579 loader/net.c:950
@@ -121,8 +121,8 @@ msgstr ""
 #: loader/driverdisk.c:523 loader/driverdisk.c:551 loader/driverdisk.c:559
 #: loader/driverdisk.c:623 loader/hdinstall.c:115 loader/hdinstall.c:315
 #: loader/hdinstall.c:421 loader/hdinstall.c:464 loader/hdinstall.c:477
-#: loader/kickstart.c:296 loader/lang.c:114 loader/loader.c:414
-#: loader/loader.c:525 loader/loader.c:1177 loader/mediacheck.c:46
+#: loader/kickstart.c:296 loader/lang.c:114 loader/loader.c:413
+#: loader/loader.c:524 loader/loader.c:1176 loader/mediacheck.c:46
 #: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
@@ -297,8 +297,8 @@ msgstr ""
 
 #: gui.py:785 gui.py:1465 partIntfHelpers.py:157 partIntfHelpers.py:342
 #: text.py:100 text.py:101 iw/account_gui.py:130 loader/dirbrowser.c:128
-#: loader/driverdisk.c:420 loader/kickstart.c:328 loader/loader.c:450
-#: loader/loader.c:562 textw/constants_text.py:48
+#: loader/driverdisk.c:420 loader/kickstart.c:328 loader/loader.c:449
+#: loader/loader.c:561 textw/constants_text.py:48
 msgid "Cancel"
 msgstr ""
 
@@ -3441,8 +3441,8 @@ msgstr ""
 #: loader/cdinstall.c:431 loader/driverdisk.c:420 loader/driverdisk.c:458
 #: loader/driverdisk.c:539 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:203 loader/hdinstall.c:257
-#: loader/kbd.c:119 loader/loader.c:491 loader/loader.c:508
-#: loader/loader.c:1358 loader/loader.c:1391 loader/net.c:579 loader/net.c:950
+#: loader/kbd.c:119 loader/loader.c:490 loader/loader.c:507
+#: loader/loader.c:1357 loader/loader.c:1390 loader/net.c:579 loader/net.c:950
 #: loader/net.c:1851 loader/net.c:1870 loader/nfsinstall.c:91
 #: loader/urls.c:249 storage/__init__.py:152 storage/devicetree.py:89
 #: textw/constants_text.py:52
@@ -3702,7 +3702,7 @@ msgstr ""
 msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr ""
 
-#: loader/lang.c:63 loader/loader.c:225
+#: loader/lang.c:63 loader/loader.c:224
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr ""
@@ -3712,7 +3712,7 @@ msgstr ""
 msgid "Welcome to %s for %s - Rescue Mode"
 msgstr ""
 
-#: loader/lang.c:65 loader/loader.c:232
+#: loader/lang.c:65 loader/loader.c:231
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -3721,145 +3721,145 @@ msgstr ""
 msgid "Choose a Language"
 msgstr ""
 
-#: loader/loader.c:131
+#: loader/loader.c:130
 msgid "Local CD/DVD"
 msgstr ""
 
-#: loader/loader.c:132
+#: loader/loader.c:131
 msgid "Hard drive"
 msgstr ""
 
-#: loader/loader.c:133
+#: loader/loader.c:132
 msgid "NFS directory"
 msgstr ""
 
-#: loader/loader.c:445 loader/loader.c:486
+#: loader/loader.c:444 loader/loader.c:485
 msgid "Update Disk Source"
 msgstr ""
 
-#: loader/loader.c:446
+#: loader/loader.c:445
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: loader/loader.c:487
+#: loader/loader.c:486
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
 
-#: loader/loader.c:505
+#: loader/loader.c:504
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr ""
 
-#: loader/loader.c:508
+#: loader/loader.c:507
 msgid "Updates Disk"
 msgstr ""
 
-#: loader/loader.c:526
+#: loader/loader.c:525
 msgid "Failed to mount updates disk"
 msgstr ""
 
-#: loader/loader.c:531
+#: loader/loader.c:530
 msgid "Updates"
 msgstr ""
 
-#: loader/loader.c:531
+#: loader/loader.c:530
 msgid "Reading anaconda updates"
 msgstr ""
 
-#: loader/loader.c:567
+#: loader/loader.c:566
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
 
-#: loader/loader.c:576
+#: loader/loader.c:575
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1173
+#: loader/loader.c:1172
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: loader/loader.c:1227
+#: loader/loader.c:1226
 msgid "Media Detected"
 msgstr ""
 
-#: loader/loader.c:1228
+#: loader/loader.c:1227
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1350
+#: loader/loader.c:1349
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1351
+#: loader/loader.c:1350
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1353
+#: loader/loader.c:1352
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1355
+#: loader/loader.c:1354
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1390
+#: loader/loader.c:1389
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1390
+#: loader/loader.c:1389
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1391
+#: loader/loader.c:1390
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1392
+#: loader/loader.c:1391
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1620
+#: loader/loader.c:1619
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1622
+#: loader/loader.c:1621
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1626
+#: loader/loader.c:1625
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1627
+#: loader/loader.c:1626
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1628
+#: loader/loader.c:1627
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1904
+#: loader/loader.c:1903
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2354
+#: loader/loader.c:2352
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2356
+#: loader/loader.c:2354
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
