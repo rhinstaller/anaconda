@@ -87,14 +87,6 @@ makeBootImages() {
   local initrd="initrd.img"
   local kernelimage="vmlinuz"
 
-  if [ "$kernelvers" = "$kernelxen" ] ; then
-    local tag="${kernelvers#kernel}"
-    if [ -n "$tag" -a "$tag" != "$kernelvers" ] ; then
-      initrd="initrd${tag}.img"
-      kernelimage="vmlinuz${tag}"
-    fi
-  fi
-
   echo "Building $initrd"
   makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/$initrd \
 	--initrdsize 8192 \
@@ -102,8 +94,7 @@ makeBootImages() {
 	--modules "$INITRDMODS"
   [ $? = 0 ] || exit 1
 
-  if [ "$kernelvers" != "$kernelxen" ] ; then
-    if [ -f $IMGPATH/usr/share/syslinux/isolinux.bin ]; then
+  if [ -f $IMGPATH/usr/share/syslinux/isolinux.bin ]; then
 	echo "Building isolinux directory"
 	MBD_BOOTTREE=$TOPDESTPATH/isolinux
 	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd.img
@@ -123,14 +114,14 @@ makeBootImages() {
            cp $IMGPATH/usr/lib/anaconda-runtime/boot/memtest* $MBD_BOOTTREE/memtest
            echo -e "label memtest86\n  menu label ^Memory test\n  kernel memtest\n  append -\n" >> $MBD_BOOTTREE/isolinux.cfg
 	fi
-    else
+  else
 	echo "No isolinux binaries.  Skipping isolinux creation"
-    fi
+  fi
 
-    # symlink the kernel for pxe dir
-    ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
+  # symlink the kernel for pxe dir
+  ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
 
-    cat > $TOPDESTPATH/images/pxeboot/README <<EOF
+  cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
 
 The following files are available:
@@ -138,16 +129,15 @@ vmlinuz - the kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of $PRODUCT
 EOF
-    cat << __EOT__ >> $TOPDESTPATH/.treeinfo
+  cat << __EOT__ >> $TOPDESTPATH/.treeinfo
 [images-$BASEARCH]
 kernel = images/pxeboot/vmlinuz
 initrd = images/pxeboot/initrd.img
 __EOT__
-    if [ -n "$BOOTISO" ]; then echo "boot.iso = images/$BOOTISO" >> $TOPDESTPATH/.treeinfo ; fi    
-  fi
+  if [ -n "$BOOTISO" ]; then echo "boot.iso = images/$BOOTISO" >> $TOPDESTPATH/.treeinfo ; fi    
 
   # set up the boot stuff for the xen guest kernel
-  if [ -z "$kernelxen" -o "$kernelvers" = "$kernelxen" ] ; then
+  if [ "$xen" = "yes" ] ; then
     cp $KERNELROOT/boot/vmlinuz-$version $TOPDESTPATH/images/pxeboot/$kernelimage
     cat << __EOT__ >> $TOPDESTPATH/.treeinfo
 [images-xen]

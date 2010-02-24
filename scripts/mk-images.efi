@@ -197,49 +197,48 @@ makeEfiImages() {
     echo "in makeEfiImages"
     yumconf="$1"
     echo "Making EFI images ($PWD)"
-    if [ "$kernelvers" != "$kernelxen" ]; then
-        local grubarch=${efiarch}
-        case ${efiarch} in
-            ia32) grubarch=i?86 ;;
-            x64) grubarch=x86_64 ;;
-        esac
 
-        grubpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf grub.$grubarch)
+    local grubarch=${efiarch}
+    case ${efiarch} in
+        ia32) grubarch=i?86 ;;
+        x64) grubarch=x86_64 ;;
+    esac
 
-        if [ -z "$grubpkg" ]; then
-            echo "cannot find package grub.$grubarch" >&2
-            return 1
-        fi
-        echo "Building efiboot.img for ${efiarch}/$KERNELARCH at $TOPDESTPATH/images/efiboot.img"
-	echo "grubpkg: ${grubpkg}"
+    grubpkg=$(repoquery --qf "%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}" -c $yumconf grub.$grubarch)
 
-        makeefibootimage \
-            --imagename efiboot.img \
-            --kernel $TOPDESTPATH/images/pxeboot/vmlinuz \
-            --initrd $TOPDESTPATH/images/pxeboot/initrd.img \
-            --grubpkg ${grubpkg}
-        local ret=$?
-        if [ $ret -ne 0 ]; then
-            echo "makeefibootimage (1) failed" >&2
-            return $ret
-        fi
+    if [ -z "$grubpkg" ]; then
+        echo "cannot find package grub.$grubarch" >&2
+        return 1
+    fi
+    echo "Building efiboot.img for ${efiarch}/$KERNELARCH at $TOPDESTPATH/images/efiboot.img"
+   e "grubpkg: ${grubpkg}"
 
-        makeefibootdisk $TOPDESTPATH/images/efiboot.img $TOPDESTPATH/images/efidisk.img
-        local ret=$?
-        [ $ret -eq 0 ] || return $ret
-        rm -vf $TOPDESTPATH/images/efiboot.img
-
-        # make a boot image with just boot*.efi in it...
-        makeefibootimage \
-            --imagename efiboot.img \
-            --kernelpath /images/pxeboot/vmlinuz \
-            --initrdpath /images/pxeboot/initrd.img \
-            --grubpkg ${grubpkg}
-        local ret=$?
-        if [ $ret -ne 0 ]; then
-            echo "makeefibootimage (2) failed" >&2
-        fi
+    makeefibootimage \
+        --imagename efiboot.img \
+        --kernel $TOPDESTPATH/images/pxeboot/vmlinuz \
+        --initrd $TOPDESTPATH/images/pxeboot/initrd.img \
+        --grubpkg ${grubpkg}
+    local ret=$?
+    if [ $ret -ne 0 ]; then
+        echo "makeefibootimage (1) failed" >&2
         return $ret
     fi
-    return 0
+
+    makeefibootdisk $TOPDESTPATH/images/efiboot.img $TOPDESTPATH/images/efidisk.img
+    local ret=$?
+    [ $ret -eq 0 ] || return $ret
+    rm -vf $TOPDESTPATH/images/efiboot.img
+
+    # make a boot image with just boot*.efi in it...
+    makeefibootimage \
+        --imagename efiboot.img \
+        --kernelpath /images/pxeboot/vmlinuz \
+        --initrdpath /images/pxeboot/initrd.img \
+        --grubpkg ${grubpkg}
+    local ret=$?
+    if [ $ret -ne 0 ]; then
+        echo "makeefibootimage (2) failed" >&2
+    fi
+
+    return $ret
 }

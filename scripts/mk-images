@@ -1002,6 +1002,7 @@ fi
 
 # Find the kernel, unpack it, and verify it
 kerneltags="kernel"
+xen=no
 efiarch=""
 arches="$BUILDARCH"
 if [ "$BUILDARCH" = "ppc" ]; then
@@ -1009,10 +1010,11 @@ if [ "$BUILDARCH" = "ppc" ]; then
 elif [ "$BUILDARCH" = "i386" ]; then
     arches="i586"
     efiarch="ia32"
-    kerneltags="kernel kernel-PAE"
-    kernelxen="kernel-PAE"
+    kerneltags="kernel"
+    xen=yes
 elif [ "$BUILDARCH" = "x86_64" ]; then
     kerneltags="kernel"
+    xen=yes
     efiarch="x64"
 elif [ "$BUILDARCH" = "ia64" ]; then
     kerneltags="kernel"
