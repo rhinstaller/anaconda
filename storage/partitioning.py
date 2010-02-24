@@ -232,7 +232,9 @@ def doAutoPartition(anaconda):
         anaconda.id.storage.reset()
         if not anaconda.isKickstart:
             extra = ""
-            anaconda.dispatch.skipStep("partition", skip = 0)
+
+            if anaconda.id.displayMode != "t":
+                anaconda.dispatch.skipStep("partition", skip = 0)
         else:
             extra = _("\n\nPress 'OK' to exit the installer.")
         anaconda.intf.messageWindow(_("Error Partitioning"),
