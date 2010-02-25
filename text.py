@@ -663,10 +663,10 @@ class InstallInterface(InstallInterfaceBase):
         self.screen.finish()
 
     def setSteps(self, anaconda):
-        anaconda.dispatch.skipStep("filtertype")
-        anaconda.dispatch.skipStep("filter")
-        anaconda.dispatch.skipStep("cleardiskssel")
-        anaconda.dispatch.skipStep("group-selection")
+        anaconda.dispatch.skipStep("filtertype", permanent=1)
+        anaconda.dispatch.skipStep("filter", permanent=1)
+        anaconda.dispatch.skipStep("cleardiskssel", permanent=1)
+        anaconda.dispatch.skipStep("group-selection", permanent=1)
 
 def killSelf(screen):
     screen.finish()
