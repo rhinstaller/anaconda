@@ -217,6 +217,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 25 2010 David Lehman <dlehman@redhat.com> - 13.32-1
+- Check for the real device-mapper nodes in /proc/swaps. (#567840) (dlehman)
+- It's necessary to give each vfprintf invocation a fresh va_list (#568235)
+  (akozumpl)
+- Don't unconditionally unskip the partition step on failure (#567889).
+  (clumens)
+- rpm doesn't always give the callback a tuple (#567878). (clumens)
+
 * Wed Feb 24 2010 David Cantrell <dcantrell@redhat.com> - 13.31-1
 - Revert "There is no kernel-PAE package anymore, use kernel for xen
   (#559347)." (dcantrell)
