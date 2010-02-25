@@ -345,7 +345,7 @@ def doReIPL(anaconda):
 #   import pdb
 #   pdb.set_trace ()
 
-    if not iutil.isS390():
+    if not iutil.isS390() or anaconda.dir == DISPATCH_BACK:
         return DISPATCH_NOOP
 
     messageInfo = iutil.reIPL(anaconda, os.getppid())
