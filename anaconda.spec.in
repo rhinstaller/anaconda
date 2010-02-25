@@ -216,6 +216,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 25 2010 David Cantrell <dcantrell@redhat.com> - 13.21.16-1
+- Add [images-xen] block to .treeinfo (#559347). (dcantrell)
+- Revert "There is no kernel-PAE package anymore, use kernel for xen
+  (#559347)." (dcantrell)
+
 * Tue Feb 23 2010 David Cantrell <dcantrell@redhat.com> - 13.21.15-1
 - When BUILDARCH==ppc64, set BASEARCH to ppc (#524235). (dcantrell)
 - There is no kernel-PAE package anymore, use kernel for xen (#559347).
