@@ -26,6 +26,7 @@ import iutil
 import os
 
 from ..errors import *
+from . import dm
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -100,13 +101,23 @@ def swapoff(device):
         raise SwapError("swapoff failed for '%s'" % device)
 
 def swapstatus(device):
+    alt_dev = None
+    if device.startswith("/dev/mapper/"):
+        # get the real device node for device-mapper devices since the ones
+        # with meaningful names are just symlinks
+        try:
+            alt_dev = "/dev/%s" % dm.dm_node_from_name(device.split("/")[-1])
+        except DMError:
+            alt_dev = None
+
     lines = open("/proc/swaps").readlines()
     status = False
     for line in lines:
         if not line.strip():
             continue
-            
-        if line.split()[0] == device:
+
+        swap_dev = line.split()[0]
+        if swap_dev in [device, alt_dev]:
             status = True
             break
 
