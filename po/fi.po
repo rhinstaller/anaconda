@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-02-24 07:56-1000\n"
-"PO-Revision-Date: 2010-02-25 15:04+0200\n"
+"PO-Revision-Date: 2010-02-25 15:09+0200\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -807,13 +807,12 @@ msgid "No Network Available"
 msgstr "Verkko ei ole käytettävissä"
 
 #: kickstart.py:152
-#, fuzzy
 msgid ""
 "Encryption key escrow requires networking, but there was an error enabling "
 "the network on your system."
 msgstr ""
-"Jotkut ohjelmistojen asennuslähteistä vaativat verkkoyhteyttä, mutta verkon "
-"käyttöönotossa oli ongelmia."
+"Vara-avainjärjestelmä (encryption key escrow) vaatii verkkoyhteyttä, mutta "
+"verkon käyttöönotossa oli ongelmia."
 
 # ../loader/kickstart.c:59
 #: kickstart.py:1201
