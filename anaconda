@@ -397,14 +397,28 @@ def createSshKey(algorithm, keyfile):
     se = "/tmp/ssh-keygen-%s-stderr.log" % (algorithm,)
     iutil.execWithRedirect('ssh-keygen', argv, stdout=so, stderr=se)
 
+def fork_orphan():
+    """Forks an orphan.
+    
+    Returns 1 in the parent and 0 in the orphaned child.
+    """
+    intermediate = os.fork()
+    if not intermediate:
+        if os.fork():
+            # the intermediate child dies
+            os._exit(0)
+        return 0;
+    # the original process waits for the intermediate child
+    os.waitpid(intermediate, 0)
+    return 1
+
 def startSsh():
     if not flags.sshd:
         return   
     if iutil.isS390():
         return
 
-    childpid = os.fork()
-    if not childpid:
+    if not fork_orphan():
         os.mkdir("/var/log", 0755)
         os.open("/var/log/lastlog", os.O_RDWR | os.O_CREAT, 0644)
         ssh_keys = {
@@ -1050,6 +1064,12 @@ if __name__ == "__main__":
     # running on a redirected X display, so start local X server
     if anaconda.displayMode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
         try:
+            # The following code depends on no SIGCHLD being delivered, possibly
+            # only except the one from a failing X.org. Thus make sure before
+            # entering this section that all the other children of anaconda have
+            # terminated or were forked into an orphan (which won't deliver a
+            # SIGCHLD to mess up the fragile signaling below).
+
             # start X with its USR1 handler set to ignore.  this will make it send
             # us SIGUSR1 if it succeeds.  if it fails, catch SIGCHLD and bomb out.
 
