@@ -1,6 +1,5 @@
 from ..udev import *
 import iutil
-import os
 
 def parseMultipathOutput(output):
     # this function parses output from "multipath -d", so we can use its
@@ -61,11 +60,6 @@ def identifyMultipaths(devices):
     # sample output:
     # [sda, sdd], [[sdb, sdc]], [sr0, sda1, sdd1, sdd2]]
     log.info("devices to scan for multipath: %s" % [d['name'] for d in devices])
-
-    if not os.path.exists("/etc/multipath.conf"):
-        cfg = MultipathConfigWriter().write()
-        open("/etc/multipath.conf", "w+").write(cfg)
-        del cfg
 
     topology = parseMultipathOutput(iutil.execWithCapture("multipath", ["-d",]))
     # find the devices that aren't in topology, and add them into it...
