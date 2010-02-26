@@ -80,6 +80,8 @@ for i in /dev/md*; do
     esac
 done
 
+/sbin/udevadm control --env=ANACONDA=1
+
 if [ -x /usr/bin/devkit-disks ]; then
     /usr/bin/devkit-disks --inhibit -- /usr/bin/hal-lock --interface org.freedesktop.Hal.Device.Storage --exclusive --run "$ANACONDA $*"
 elif [ -x /usr/bin/hal-lock -a -e /var/lock/subsys/haldaemon ]; then
