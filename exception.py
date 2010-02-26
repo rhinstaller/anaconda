@@ -90,6 +90,15 @@ class AnacondaExceptionHandler(ExceptionHandler):
         os.kill(os.getpid(), signal.SIGKILL)
 
 def initExceptionHandling(anaconda):
+    fileList = [ "/tmp/anaconda.log", "/tmp/lvmout", "/tmp/resize.out",
+                 "/tmp/program.log", "/tmp/storage.log", "/tmp/yum.log",
+                 anaconda.rootPath + "/root/install.log",
+                 anaconda.rootPath + "/root/upgrade.log", "/proc/cmdline" ]
+    if flags.livecdInstall:
+        fileList.extend(["/var/log/dmesg"])
+    else:
+        fileList.extend(["/tmp/syslog"])
+
     conf = Config(programName="anaconda",
                   programVersion=isys.getAnacondaVersion(),
                   bugFiler=anaconda.instClass.bugFiler,
@@ -117,12 +126,7 @@ def initExceptionHandling(anaconda):
                                  "intf.icw.stockButtons",
                                ],
                   localSkipList=[ "passphrase", "password" ],
-                  fileList=[ "/tmp/syslog", "/tmp/anaconda.log", "/tmp/lvmout",
-                             "/tmp/resize.out", "/tmp/program.log",
-                             "/tmp/storage.log", "/tmp/yum.log",
-                             anaconda.rootPath + "/root/install.log",
-                             anaconda.rootPath + "/root/upgrade.log",
-                             "/proc/cmdline"])
+                  fileList=fileList)
     handler = AnacondaExceptionHandler(conf, anaconda.intf, ReverseExceptionDump)
     handler.install(anaconda)
 
