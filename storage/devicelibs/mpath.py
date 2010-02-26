@@ -137,7 +137,7 @@ def identifyMultipaths(devices):
         non_disk_serials[serial].append(device)
 
     for mpath in multipaths:
-        for serial in [d.get('ID_SERIAL') for d in mpath]:
+        for serial in [d.get('ID_SERIAL_SHORT') for d in mpath]:
             if non_disk_serials.has_key(serial):
                 log.info("filtering out non disk devices [%s]" % [d['name'] for d in non_disk_serials[serial]])
                 for name in [d['name'] for d in non_disk_serials[serial]]:
