@@ -1481,23 +1481,6 @@ class DMDevice(StorageDevice):
         d.update({"target": self.target, "dmUuid": self.dmUuid})
         return d
 
-    def _getSerial(self):
-        serial = self.dmUuid
-        if not serial:
-            return None
-
-        # self.dmUuid looks like "LVM-13Z8f3Y0UPhG1jHpnesb9enBb7xQqREps1CczxQSXD8Ofv271EAc8ocUviw4OV9K"
-        # we want 13Z8f3Y0UPhG1jHpnesb9enBb7xQqREps1CczxQSXD8Ofv271EAc8ocUviw4OV9K
-        return serial.split('-')[1]
-
-    @property
-    def serial(self):
-        if self._serial:
-            return self._serial
-
-        self._serial = self._getSerial()
-        return getattr(self, "_serial", "")
-
     @property
     def fstabSpec(self):
         """ Return the device specifier for use in /etc/fstab. """
@@ -3014,47 +2997,45 @@ class MultipathDevice(DMDevice):
         """
 
         self._info = info
-        dmUuid="mpath-%s" % info['ID_SERIAL']
+        self.setupIdentity()
         DMDevice.__init__(self, name, format=format, size=size,
                           parents=parents, sysfsPath=sysfsPath,
-                          exists=True, dmUuid=dmUuid)
+                          exists=True)
 
         self.config = {
-            'wwid' : info['ID_SERIAL'],
+            'wwid' : self.identity,
             'alias' : self.name,
             'mode' : '0600',
             'uid' : '0',
             'gid' : '0',
         }
 
-    def _getWwidFromSerial(self, serial):
-        wwid = []
-        while serial:
-            wwid.append(serial[:2])
-            serial = serial[2:]
-        wwid = ":".join(wwid)
-        return wwid
+    def setupIdentity(self):
+        """ Adds identifying remarks to MultipathDevice object.
+        
+            May be overridden by a sub-class for e.g. RDAC handling.
+        """
+        self._identity_short = self._info['ID_SERIAL_SHORT']
+        self._identity = self._info['ID_SERIAL']
 
-    def _getSerial(self):
-        serial = DMDevice._getSerial(self)
-        if not serial:
-            return None
-
-        # DMDevice._serial looks like 36006016092d21800703762872c60db11"
-        # we want 6006016092d21800703762872c60db11
-        serial = serial[1:]
-        self.config['wwid'] = self._getWwidFromSerial(serial)
-        return serial
+    @property
+    def identity(self):
+        """ Get identity set with setupIdentityFromInfo()
+        
+            May be overridden by a sub-class for e.g. RDAC handling.
+        """
+        if not hasattr(self, "_identity"):
+            raise RuntimeError, "setupIdentityFromInfo() has not been called."
+        return self._identity
 
     @property
     def wwid(self):
-        if not self._serial:
-            self._serial = self._getSerial()
-        if not self._serial:
-            return ""
-        return self._getWwidFromSerial(self._serial)
-
-    @property
+        identity = self._identity_short
+        ret = []
+        while identity:
+            ret.append(identity[:2])
+            identity = identity[2:]
+        return ":".join(ret)
 
     @property
     def model(self):
