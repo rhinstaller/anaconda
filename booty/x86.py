@@ -200,7 +200,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         return self.runGrubInstall(instRoot, bootDev.name, cmds, cfPath)
 
     def writeGrub(self, instRoot, bl, kernelList, chainList,
-            defaultDev, justConfigFile, upgrade=False):
+            defaultDev, upgrade=False):
 
         rootDev = self.storage.rootDevice
         grubTarget = bl.getDevice()
@@ -225,14 +225,11 @@ class x86BootloaderInfo(efiBootloaderInfo):
         usedDevs.update(self.getPhysicalDevices(bootDev.name))
         usedDevs.update([dev for (label, longlabel, dev) in chainList if longlabel])
 
-        if not justConfigFile or not upgrade:
+        if not upgrade:
             self.writeDeviceMap(instRoot, usedDevs, upgrade)
             self.writeSysconfig(instRoot, grubTarget, upgrade)
 
-        if not justConfigFile:
-            return self.installGrub(instRoot, bootDev, grubTarget, grubPath, cfPath)
-
-        return 0
+        return self.installGrub(instRoot, bootDev, grubTarget, grubPath, cfPath)
 
     def writeGrubConf(self, instRoot, bootDev, rootDev, defaultDev, kernelList,
                       chainList, grubTarget, grubPath, cfPath):
