@@ -661,9 +661,6 @@ class Anaconda(object):
         self.writeXdriver()
         self.instLanguage.write(self.rootPath)
 
-        if not self.isHeadless:
-            self.keyboard.write(self.rootPath)
-
         self.timezone.write(self.rootPath)
         self.network.write(instPath=self.rootPath, anaconda=self)
         self.desktop.write(self.rootPath)
@@ -683,12 +680,6 @@ class Anaconda(object):
                                        [svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=self.rootPath)
-        if not self.isHeadless:
-            self.keyboard.write(self.rootPath)
-
-        self.network.write(instPath=self.rootPath, anaconda=self)
-        self.users.write(self.rootPath)
-        self.security.write(self.rootPath)
 
     def writeKS(self, filename):
         import urllib
