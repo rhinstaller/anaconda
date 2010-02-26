@@ -160,7 +160,6 @@ class ClearDisksWindow (InstallWindow):
                                      d.model,
                                      str(int(d.size)) + " MB",
                                      d.vendor, "", d.serial))
-                                     d.vendor, "", d.serial_for_display))
 
         self.addButton.connect("clicked", self._add_clicked)
         self.removeButton.connect("clicked", self._remove_clicked)
