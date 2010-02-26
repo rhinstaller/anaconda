@@ -1303,7 +1303,11 @@ class DeviceTree(object):
             except InvalidDiskLabelError:
                 pass
             else:
-                device.format = format
+                if format.partitions:
+                    # parted's checks for disklabel presence are less than
+                    # rigorous, so we will assume that detected disklabels
+                    # with no partitions are spurious
+                    device.format = format
             return
 
         # if the disk contains protected partitions we will not wipe the
