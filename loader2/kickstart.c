@@ -310,7 +310,7 @@ void getHostPathandLogin(char * ksSource, char **host, char ** file, char ** log
     tmp = strchr(*host, '/');
 
     if (tmp) {
-        *file = strdup(tmp);
+        *file = strdup(tmp +  1);
         *tmp = '\0';
     } else {
         *file = malloc(sizeof(char *));
