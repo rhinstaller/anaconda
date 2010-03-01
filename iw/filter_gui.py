@@ -349,7 +349,8 @@ class NotebookPage(object):
         self.ds = DeviceSelector(store, self.sortedModel, self.treeView,
                                  visible=VISIBLE_COL, active=ACTIVE_COL)
         self.ds.createMenu()
-        self.ds.createSelectionCol(toggledCB=self.cb.deviceToggled)
+        self.ds.createSelectionCol(toggledCB=self.cb.deviceToggled,
+                                   membershipCB=self.cb.isMember)
 
         self.filteredModel.set_visible_func(self.cb.visible, self.treeView)
 

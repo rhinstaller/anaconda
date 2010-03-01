@@ -127,7 +127,8 @@ class DeviceDisplayer(object):
         return len(filter(lambda row: row[self.visible], self.store))
 
 class DeviceSelector(DeviceDisplayer):
-    def createSelectionCol(self, title="", radioButton=False, toggledCB=None):
+    def createSelectionCol(self, title="", radioButton=False, toggledCB=None,
+                           membershipCB=None):
         # Add a column full of checkboxes/radiobuttons in the first column of the view.
         crt = gtk.CellRendererToggle()
         crt.set_property("activatable", True)
@@ -146,18 +147,21 @@ class DeviceSelector(DeviceDisplayer):
             col.set_widget(self.allButton)
             self.allButton.show_all()
 
-            self.allButton.connect("toggled", self._all_clicked, toggledCB)
+            self.allButton.connect("toggled", self._all_clicked, toggledCB, membershipCB)
 
         self.view.append_column(col)
         self.view.set_headers_clickable(True)
         self.view.connect("row-activated", self._row_activated, toggledCB, radioButton)
 
-    def _all_clicked(self, button, cb=None):
+    def _all_clicked(self, button, toggledCB=None, membershipCB=None):
         # This is called when the Add/Remove all button is checked and does
         # the obvious.
         def _toggle_all(model, path, iter, set):
-            # Don't check the boxes of rows that aren't visible.
-            if not model[path][self.visible]:
+            # Don't check the boxes of rows that aren't visible or aren't part
+            # of the currently displayed page.  We'd like the all button to
+            # only operate on the current page, after all.
+            if not model[path][self.visible] or \
+               (membershipCB and not membershipCB(model[path][OBJECT_COL])):
                 return
 
             # Don't try to set a row to active if it's already been checked.
@@ -168,8 +172,8 @@ class DeviceSelector(DeviceDisplayer):
 
             model[path][self.active] = set
 
-            if cb:
-                cb(set, model[path][OBJECT_COL])
+            if toggledCB:
+                toggledCB(set, model[path][OBJECT_COL])
 
         set = button.get_active()
         self.store.foreach(_toggle_all, set)
