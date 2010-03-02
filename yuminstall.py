@@ -1419,7 +1419,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                               "exit the installation, go back and change "
                               "your package selections, or continue "
                               "installing these packages without their "
-                              "dependencies."),
+                              "dependencies.  If you continue, these packages "
+                              "may not work correctly due to missing components."),
                             depprob + "\n", type="custom", custom_icon="error",
                             custom_buttons=[_("_Exit installer"), _("_Back"),
                                             _("_Continue")])

@@ -173,11 +173,11 @@ class ClearDisksWindow (InstallWindow):
         self.rightTreeView.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
 
         if self.anaconda.storage.clearPartType == CLEARPART_TYPE_LINUX:
-            self.installTargetTip.set_markup(_("<b>Tip:</b> All Linux filesystems on install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
+            self.installTargetTip.set_markup(_("<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
         elif self.anaconda.storage.clearPartType == CLEARPART_TYPE_ALL:
-            self.installTargetTip.set_markup(_("<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
+            self.installTargetTip.set_markup(_("<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
         else:
-            self.installTargetTip.set_markup(_("<b>Tip:</b> Your filesystems on install target devices will not be wiped unless you choose to do so during customization."))
+            self.installTargetTip.set_markup(_("<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."))
 
         return self.vbox
 
