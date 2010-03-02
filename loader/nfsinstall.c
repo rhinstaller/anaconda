@@ -44,7 +44,6 @@
 #include "lang.h"
 #include "loadermisc.h"
 #include "kickstart.h"
-#include "log.h"
 #include "method.h"
 #include "nfsinstall.h"
 #include "net.h"
@@ -53,6 +52,7 @@
 
 #include "../isys/imount.h"
 #include "../isys/iface.h"
+#include "../isys/log.h"
 
 /* boot flags */
 extern uint64_t flags;

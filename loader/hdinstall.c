@@ -39,7 +39,6 @@
 #include "kickstart.h"
 #include "loader.h"
 #include "loadermisc.h"
-#include "log.h"
 #include "lang.h"
 #include "modules.h"
 #include "method.h"
@@ -50,6 +49,7 @@
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 #include "../isys/eddsupport.h"
+#include "../isys/log.h"
 
 /* boot flags */
 extern uint64_t flags;

@@ -41,10 +41,11 @@
 #include <asm/types.h>
 #include <linux/netlink.h>
 
+#include "../isys/log.h"
+
 #include "loader.h"
 #include "fwloader.h"
 #include "udelay.h"
-#include "log.h"
 
 #ifndef FWDEBUG
 #define logMessage(x, ...)

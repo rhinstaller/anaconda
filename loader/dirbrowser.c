@@ -31,7 +31,8 @@
 #include <sys/stat.h>
 
 #ifndef STANDALONE
-#include "log.h"
+#include "../isys/log.h"
+
 #include "loader.h"
 #include "loadermisc.h"
 #include "lang.h"

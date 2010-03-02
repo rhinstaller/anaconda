@@ -36,9 +36,10 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+#include "../isys/log.h"
+
 #include "lang.h"
 #include "loader.h"
-#include "log.h"
 #include "modules.h"
 #include "net.h"
 #include "telnet.h"

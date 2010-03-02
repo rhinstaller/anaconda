@@ -46,7 +46,7 @@ loader_LDADD       = $(NEWT_LIBS) $(GLIB_LIBS) $(LIBNL_LIBS) \
                      $(LIBNM_GLIB_LIBS) $(CHECKISOMD5_LIBS) \
                      $(LIBCURL_LIBS) $(LIBARCHIVE_LIBS) $(RPM_LIBS) \
                      $(ISCSI_LIBS) $(top_srcdir)/isys/libisys.la -lm
-loader_SOURCES     = loader.c copy.c log.c moduleinfo.c loadermisc.c \
+loader_SOURCES     = loader.c copy.c moduleinfo.c loadermisc.c \
                      modules.c windows.c lang.c kbd.c driverdisk.c \
                      selinux.c mediacheck.c kickstart.c driverselect.c \
                      getparts.c dirbrowser.c fwloader.c ibft.c hardware.c \

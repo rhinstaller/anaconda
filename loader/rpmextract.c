@@ -37,8 +37,9 @@
 #include <archive_entry.h>
 
 #include "loader.h"
-#include "log.h"
 #include "rpmextract.h"
+
+#include "../isys/log.h"
 
 /*
  * internal structure to pass to libarchive callbacks

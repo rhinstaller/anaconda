@@ -38,7 +38,6 @@
 
 #include "copy.h"
 #include "loader.h"
-#include "log.h"
 #include "loadermisc.h"
 #include "lang.h"
 #include "fwloader.h"
@@ -59,6 +58,7 @@
 #include "../isys/isys.h"
 #include "../isys/imount.h"
 #include "../isys/eddsupport.h"
+#include "../isys/log.h"
 
 /* boot flags */
 extern uint64_t flags;

@@ -40,8 +40,9 @@
 #include <unistd.h>
 #include <glib.h>
 
+#include "../isys/log.h"
+
 #include "loader.h"
-#include "log.h"
 #include "modules.h"
 #include "windows.h"
 

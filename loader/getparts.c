@@ -29,7 +29,7 @@
 #include <ctype.h>
 #include <string.h>
 
-#include "log.h"
+#include "../isys/log.h"
 
 /* see if this is a partition name or not */
 static int isPartitionName(char *pname) {

@@ -28,11 +28,12 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include "../isys/log.h"
+
 #include "modules.h"
 #include "moduleinfo.h"
 #include "loader.h"
 #include "loadermisc.h"
-#include "log.h"
 #include "lang.h"
 #include "driverdisk.h"
 

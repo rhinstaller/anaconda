@@ -31,7 +31,8 @@
 #include <stdarg.h>
 #include <math.h>
 
-#include "log.h"
+#include "../isys/log.h"
+
 #include "windows.h"
 
 void winStatus(int width, int height, char * title, char * text, ...) {

@@ -32,7 +32,7 @@
 
 #include "loader.h"
 #include "loadermisc.h"
-#include "log.h"
+#include "../isys/log.h"
 
 int loadpolicy() {
     int pid, status;

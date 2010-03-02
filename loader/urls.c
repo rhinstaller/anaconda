@@ -39,11 +39,12 @@
 #include <errno.h>
 #include <curl/curl.h>
 
+#include "../isys/log.h"
+
 #include "lang.h"
 #include "loader.h"
 #include "loadermisc.h"
 #include "urls.h"
-#include "log.h"
 #include "windows.h"
 #include "net.h"
 

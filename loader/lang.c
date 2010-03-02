@@ -37,7 +37,6 @@
 
 #include "loader.h"
 #include "lang.h"
-#include "log.h"
 #include "loadermisc.h"
 #include "windows.h"
 
@@ -45,6 +44,7 @@
 #include "../isys/cpio.h"
 #include "../isys/lang.h"
 #include "../isys/isys.h"
+#include "../isys/log.h"
 
 /* boot flags */
 extern uint64_t flags;

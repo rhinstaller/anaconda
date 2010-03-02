@@ -32,7 +32,8 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
-#include "log.h"
+#include "../isys/log.h"
+
 #include "windows.h"
 
 int copyFileFd(int infd, char * dest, progressCB pbcb,

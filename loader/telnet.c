@@ -27,7 +27,7 @@
 #include <unistd.h>
 
 #include "telnet.h"
-#include "log.h"
+#include "../isys/log.h"
 
 #define IAC "\xff"
 #define DONT "\xfe"

@@ -32,13 +32,13 @@
 #include <glib.h>
 
 #include "../isys/iface.h"
+#include "../isys/log.h"
 
 #include "copy.h"
 #include "kickstart.h"
 #include "loader.h"
 #include "loadermisc.h"
 #include "lang.h"
-#include "log.h"
 #include "method.h"
 #include "net.h"
 #include "method.h"

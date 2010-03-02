@@ -30,8 +30,9 @@
 #include <newt.h>
 #include <libcheckisomd5.h>
 
+#include "../isys/log.h"
+
 #include "lang.h"
-#include "log.h"
 #include "windows.h"
 
 int doMediaCheck(char *file, char *descr) {

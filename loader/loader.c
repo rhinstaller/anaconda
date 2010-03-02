@@ -64,7 +64,6 @@
 #include "getparts.h"
 #include "loader.h"
 #include "loadermisc.h" /* JKFIXME: functions here should be split out */
-#include "log.h"
 #include "lang.h"
 #include "fwloader.h"
 #include "kbd.h"
@@ -100,6 +99,7 @@
 #include "../isys/lang.h"
 #include "../isys/eddsupport.h"
 #include "../isys/str.h"
+#include "../isys/log.h"
 
 /* maximum number of extra arguments that can be passed to the second stage */
 #define MAX_EXTRA_ARGS 128

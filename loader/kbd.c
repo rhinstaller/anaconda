@@ -31,12 +31,12 @@
 
 #include "loader.h"
 #include "loadermisc.h"
-#include "log.h"
 #include "lang.h"
 #include "windows.h"
 
 #include "../isys/stubs.h"
 #include "../isys/lang.h"
+#include "../isys/log.h"
 
 /* boot flags */
 extern uint64_t flags;

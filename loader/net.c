@@ -44,11 +44,11 @@
 #include "../isys/ethtool.h"
 #include "../isys/iface.h"
 #include "../isys/str.h"
+#include "../isys/log.h"
 
 #include "lang.h"
 #include "loader.h"
 #include "loadermisc.h"
-#include "log.h"
 #include "method.h"
 #include "net.h"
 #include "windows.h"
