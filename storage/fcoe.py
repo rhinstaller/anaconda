@@ -53,7 +53,7 @@ class fcoe(object):
 
     def __init__(self):
         self.started = False
-        self.dcbdStarted = False
+        self.lldpadStarted = False
         self.fcoemonStarted = False
         self.nics = []
 
@@ -86,14 +86,14 @@ class fcoe(object):
 
         self.started = True
 
-    def _startDcbd(self):
-        if self.dcbdStarted:
+    def _startLldpad(self):
+        if self.lldpadStarted:
             return
 
-        iutil.execWithRedirect("dcbd", [ "-d" ],
+        iutil.execWithRedirect("lldpad", [ "-d" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5",
                                searchPath = 1)
-        self.dcbdStarted = True
+        self.lldpadStarted = True
 
     def _startFcoemon(self):
         if self.fcoemonStarted:
@@ -115,7 +115,7 @@ class fcoe(object):
                                searchPath = 1)
 
         if dcb:
-            self._startDcbd()
+            self._startLldpad()
             iutil.execWithRedirect("dcbtool", [ "sc", nic, "dcb", "on" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5",
                                searchPath = 1)
