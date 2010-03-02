@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.204
+Version: 11.1.2.205
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 2 2010 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.205
+- Do not leave the initial slash in path in getHostandPath() (akozumpl)
+  Resolves: rhbz#568691
+
 * Tue Feb 23 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.204
 - Update anaconda xorg driver list (dcantrell)
   Resolves: rhbz#567666
