@@ -160,7 +160,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
     cryptsetup-luks cyrus-sasl-lib db4 dbus dbus-python dejavu-sans-fonts
-    dcbd dejavu-sans-mono-fonts device-mapper device-mapper-libs
+    dejavu-sans-mono-fonts device-mapper device-mapper-libs
     device-mapper-multipath device-mapper-multipath-libs
     dhclient dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme ethtool
@@ -177,7 +177,7 @@ PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
     libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libnl
     libpng libselinux libselinux-python libsemanage
     libsemanage-python libsepol libssh2 libstdc++ libthai libtirpc libuser
-    libuser-python libvolume_id libxcb libxkbfile libxml2 lklug-fonts 
+    libuser-python libvolume_id libxcb libxkbfile libxml2 lklug-fonts lldpad
     lohit-assamese-fonts lohit-bengali-fonts lohit-gujarati-fonts lohit-hindi-fonts
     lohit-kashmiri-fonts lohit-kannada-fonts lohit-maithili-fonts lohit-marathi-fonts
     lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
@@ -360,7 +360,6 @@ etc/NetworkManager/nm-system-settings.conf
 etc/NetworkManager/dispatcher.d
 etc/dbus-1/*
 etc/dbus-1/system.d/*
-etc/dcbd
 etc/fb.modes
 etc/fcoe
 etc/fonts
@@ -588,7 +587,6 @@ usr/sbin/NetworkManager
 usr/sbin/addRamDisk
 usr/sbin/anaconda
 usr/sbin/chroot
-usr/sbin/dcbd
 usr/sbin/dcbtool
 usr/sbin/ddcprobe
 usr/sbin/dmidecode
@@ -598,6 +596,7 @@ usr/sbin/fbset
 usr/sbin/genhomedircon
 usr/sbin/gptsync
 usr/sbin/hald
+usr/sbin/lldpad
 usr/sbin/lvm
 usr/sbin/prelink
 usr/sbin/semodule
@@ -682,6 +681,7 @@ var/cache/hald
 var/lib/polkit-1
 var/lib/dbus
 var/lib/hal
+var/lib/lldpad
 var/run/dbus
 EOF
 
