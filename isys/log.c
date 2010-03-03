@@ -95,6 +95,18 @@ static void printLogHeader(int level, FILE *outfile) {
     }
 }
 
+static void printLogMessage(int level, FILE *outfile, const char *s, va_list ap) {
+    printLogHeader(level, outfile);
+
+    va_list apc;
+    va_copy(apc, ap);
+    vfprintf(main_log_tty, s, apc);
+    va_end(apc);
+
+    fprintf(outfile, "\n");
+    fflush(outfile);
+}
+
 void logMessageV(int level, const char * s, va_list ap) {
     va_list apc;
     /* Log everything into syslog */
@@ -104,22 +116,12 @@ void logMessageV(int level, const char * s, va_list ap) {
 
     /* Only log to the screen things that are above the minimum level. */
     if (main_log_tty && level >= minLevel) {
-        printLogHeader(level, main_log_tty);
-        va_copy(apc, ap);
-        vfprintf(main_log_tty, s, apc);
-        va_end(apc);
-        fprintf(main_log_tty, "\n");
-        fflush(main_log_tty);
+        printLogMessage(level, main_log_tty, s, ap);
     }
 
     /* But log everything to the file. */
     if (main_log_file) {
-        printLogHeader(level, main_log_file);
-        va_copy(apc, ap);
-        vfprintf(main_log_file, s, apc);
-        va_end(apc);
-        fprintf(main_log_file, "\n");
-        fflush(main_log_file);
+        printLogMessage(level, main_log_file, s, ap);
     }
 }
 
