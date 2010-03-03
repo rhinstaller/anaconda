@@ -34,8 +34,8 @@
 
 #include "log.h"
 
-static FILE * tty_logfile = NULL;
-static FILE * file_logfile = NULL;
+static FILE * main_log_tty = NULL;
+static FILE * main_log_file = NULL;
 static int minLevel = INFO;
 static const char * syslog_facility = "loader";
 
@@ -103,23 +103,23 @@ void logMessageV(int level, const char * s, va_list ap) {
     va_end(apc);
 
     /* Only log to the screen things that are above the minimum level. */
-    if (tty_logfile && level >= minLevel) {
-        printLogHeader(level, tty_logfile);
+    if (main_log_tty && level >= minLevel) {
+        printLogHeader(level, main_log_tty);
         va_copy(apc, ap);
-        vfprintf(tty_logfile, s, apc);
+        vfprintf(main_log_tty, s, apc);
         va_end(apc);
-        fprintf(tty_logfile, "\n");
-        fflush(tty_logfile);
+        fprintf(main_log_tty, "\n");
+        fflush(main_log_tty);
     }
 
     /* But log everything to the file. */
-    if (file_logfile) {
-        printLogHeader(level, file_logfile);
+    if (main_log_file) {
+        printLogHeader(level, main_log_file);
         va_copy(apc, ap);
-        vfprintf(file_logfile, s, apc);
+        vfprintf(main_log_file, s, apc);
         va_end(apc);
-        fprintf(file_logfile, "\n");
-        fflush(file_logfile);
+        fprintf(main_log_file, "\n");
+        fflush(main_log_file);
     }
 }
 
@@ -140,28 +140,28 @@ void openLog() {
     openlog(syslog_facility, 0, LOG_LOCAL1);
 
     int flags;
-    tty_logfile = fopen("/dev/tty3", "w");
-    file_logfile = fopen("/tmp/anaconda.log", "w");
+    main_log_tty = fopen("/dev/tty3", "w");
+    main_log_file = fopen("/tmp/anaconda.log", "w");
 
-    if (tty_logfile) {
-        tty_logfd = fileno(tty_logfile);
+    if (main_log_tty) {
+        tty_logfd = fileno(main_log_tty);
         flags = fcntl(tty_logfd, F_GETFD, 0) | FD_CLOEXEC;
         fcntl(tty_logfd, F_SETFD, flags);
     }
 
-    if (file_logfile) {
-        file_logfd = fileno(file_logfile);
+    if (main_log_file) {
+        file_logfd = fileno(main_log_file);
         flags = fcntl(file_logfd, F_GETFD, 0) | FD_CLOEXEC;
         fcntl(file_logfd, F_SETFD, flags);
     }
 }
 
 void closeLog(void) {
-    if (tty_logfile)
-        fclose(tty_logfile);
+    if (main_log_tty)
+        fclose(main_log_tty);
 
-    if (file_logfile)
-        fclose(file_logfile);
+    if (main_log_file)
+        fclose(main_log_file);
     /* close syslog logger */
     closelog();
 }
