@@ -151,6 +151,9 @@ def udev_device_is_dm(info):
 
 def udev_device_is_md(info):
     """ Return True if the device is a mdraid array device. """
+    # Don't identify partitions on mdraid arrays as raid arrays
+    if udev_device_is_partition(info):
+        return False
     # isw raid set *members* have MD_METADATA set, but are not arrays!
     return info.has_key("MD_METADATA") and \
            info.get("ID_FS_TYPE") != "isw_raid_member"
