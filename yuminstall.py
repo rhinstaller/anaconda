@@ -1293,6 +1293,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         """Reset the package selection to an empty state."""
         for txmbr in self.ayum.tsInfo:
             self.ayum.tsInfo.remove(txmbr.pkgtup)
+        self.ayum.tsInfo.conditionals.clear()
         for grp in self.ayum.comps.groups:
             grp.selected = False
 
