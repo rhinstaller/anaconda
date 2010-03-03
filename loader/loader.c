@@ -1270,7 +1270,9 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
              * path that's at the end of it.
              */
             loaderData->inferredStage2 = 1;
-            skipMethodDialog = 1;
+            if (loaderData->method != -1) {
+                skipMethodDialog = 1;
+            }
         } else if (loaderData->stage2Data) {
             skipMethodDialog = 1;
         }
