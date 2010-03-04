@@ -570,8 +570,7 @@ usr/bin/vncpasswd
 usr/bin/wget
 usr/bin/xkbcomp
 usr/bin/zenity
-usr/lib/anaconda
-usr/lib/anaconda-runtime
+usr/$LIBDIR/anaconda
 usr/lib/kernel-wrapper
 usr/lib/locale
 usr/lib/python?.?
@@ -584,6 +583,7 @@ usr/lib/yaboot
 usr/lib/yum-plugins/blacklist.py*
 usr/lib/yum-plugins/fedorakmod.py*
 usr/lib/yum-plugins/whiteout.py*
+usr/libexec/anaconda
 usr/libexec/convertdb1
 usr/libexec/fcoe/fcoe_edd.sh
 usr/libexec/nm-crash-logger
@@ -1030,8 +1030,7 @@ cp $DEST/usr/share/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
 cp $DEST/usr/share/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
 cp $DEST/usr/share/anaconda/mknod-stub $DEST/usr/bin/mknod
 mv $DEST/usr/sbin/anaconda $DEST/usr/bin/anaconda
-mv $DEST/usr/lib/anaconda-runtime/lib* $DEST/usr/$LIBDIR 2>/dev/null
-mv $DEST/usr/lib/anaconda/sitecustomize.py $DEST/usr/$LIBDIR/python?.?/site-packages
+mv $DEST/usr/$LIBDIR/python?.?/site-packages/pyanaconda/sitecustomize.py $DEST/usr/$LIBDIR/python?.?/site-packages
 
 mv $DEST/etc/yum.repos.d $DEST/etc/anaconda.repos.d
 
@@ -1071,33 +1070,33 @@ done
 
 # copy bootloader files for sparc
 if [ $ARCH = sparc -o $ARCH = sparcv9 -o $ARCH = sparc64 ]; then
-    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
+    mkdir -p $DEST/usr/share/anaconda/boot
     [ -d $DEST/boot ] || die "ERROR: directory missing: $DEST/boot"
-    (cd $DEST/boot; find -name "*.b") | (cd $DEST/boot; /bin/cpio --quiet -pdmu $DEST/usr/lib/anaconda-runtime/boot)
+    (cd $DEST/boot; find -name "*.b") | (cd $DEST/boot; /bin/cpio --quiet -pdmu $DEST/usr/share/anaconda/boot)
 fi
 
 # copy bootloader file for ppc
 if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
-    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
-    cp -af $DEST/boot/efika.forth $DEST/usr/lib/anaconda-runtime/boot
+    mkdir -p $DEST/usr/share/anaconda/boot
+    cp -af $DEST/boot/efika.forth $DEST/usr/share/anaconda/boot
 fi
 
 # copy bootloader file for alpha
 if [ $ARCH = alpha ]; then
-    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
-    cp -af $DEST/boot/bootlx $DEST/usr/lib/anaconda-runtime/boot
+    mkdir -p $DEST/usr/share/anaconda/boot
+    cp -af $DEST/boot/bootlx $DEST/usr/share/anaconda/boot
 fi
 
 # copy bootloader files for ia64
 if [ $ARCH = ia64 ]; then
-    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
-    cp -af $DEST/boot/efi/EFI/redhat//* $DEST/usr/lib/anaconda-runtime/boot
+    mkdir -p $DEST/usr/share/anaconda/boot
+    cp -af $DEST/boot/efi/EFI/redhat//* $DEST/usr/share/anaconda/boot
 fi
 
 # copy bootloader files for i386/x86_64
 if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
-    mkdir -p $DEST/usr/lib/anaconda-runtime/boot
-    cp -af $DEST/boot/memtest* $DEST/usr/lib/anaconda-runtime/boot
+    mkdir -p $DEST/usr/share/anaconda/boot
+    cp -af $DEST/boot/memtest* $DEST/usr/share/anaconda/boot
 fi
 
 rm -rf $DEST/boot $DEST/home $DEST/root $DEST/tmp
@@ -1110,7 +1109,7 @@ for d in idle distutils bsddb lib-old hotshot doctest.py pydoc.py site-packages/
     rm -rf $DEST/$d
 done
 
-$DEST/usr/lib/anaconda-runtime/scrubtree $DEST
+$DEST/usr/libexec/anaconda/scrubtree $DEST
 
 echo "Creating debug dir"
 mkdir -p $DEST/usr/lib/debug

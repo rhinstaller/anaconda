@@ -406,8 +406,8 @@ static void spawnShell(void) {
 
         if (!access("/tmp/updates/pyrc.py", R_OK|X_OK))
             setenv("PYTHONSTARTUP", "/tmp/updates/pyrc.py", 1);
-        else if (!access("/usr/lib/anaconda-runtime/pyrc.py", R_OK|X_OK))
-            setenv("PYTHONSTARTUP", "/usr/lib/anaconda-runtime/pyrc.py", 1);
+        else if (!access("/usr/share/anaconda/pyrc.py", R_OK|X_OK))
+            setenv("PYTHONSTARTUP", "/usr/share/anaconda/pyrc.py", 1);
         setenv("LD_LIBRARY_PATH", LIBPATH, 1);
         setenv("LANG", "C", 1);
         

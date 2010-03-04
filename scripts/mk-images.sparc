@@ -133,12 +133,12 @@ makeBootImages() {
 	--loaderbin loader \
 	--modules "$TFTPINITRDMODS $SPARCMODS"
     [ $? = 0 ] || exit 1
-    if [ -f $IMGPATH/usr/lib/anaconda-runtime/boot/second.b ]; then
+    if [ -f $IMGPATH/usr/share/anaconda/boot/second.b ]; then
 	echo "Building boot dir for silo"
 	MBD_BOOTTREE=$TOPDESTPATH/boot
 	MBD_FSIMAGE=$TOPDESTPATH/images/initrd.img
 	mkdir $MBD_BOOTTREE
-	cp $IMGPATH/usr/lib/anaconda-runtime/boot/*.b $MBD_BOOTTREE/
+	cp $IMGPATH/usr/share/anaconda/boot/*.b $MBD_BOOTTREE/
 	
 	prepareBootTree
 
@@ -149,7 +149,7 @@ makeBootImages() {
         echo "Deleting $TOPDESTPATH/images/tftpinitrd.img , we only want this for the tftp image creation"
         # rm -rf $TOPDESTPATH/images/tftpinitrd.img
     else
-	echo "I can't find SILO in $IMGPATH/usr/lib/anaconda-runtime/boot ?!?"
+	echo "I can't find SILO in $IMGPATH/usr/share/anaconda/boot ?!?"
 	exit 1
     fi
 

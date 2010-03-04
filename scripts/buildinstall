@@ -213,10 +213,10 @@ else
     BUILDINSTALL=./buildinstall
 
     for f in $UPD_INSTROOT $MK_IMAGES $MK_STAMP $MK_TREEINFO $BUILDINSTALL; do
-        if [ -n "$UPDATES" -a -f $UPDATES/usr/lib/anaconda-runtime/$f ]; then
-            cp -a $UPDATES/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
+        if [ -n "$UPDATES" -a -f $UPDATES/usr/libexec/anaconda/$f ]; then
+            cp -a $UPDATES/usr/libexec/anaconda/$f* $BUILDINSTDIR/
         elif [ ! -f $f ]; then
-            cp -a $BUILDINSTDIR/usr/lib/anaconda-runtime/$f* $BUILDINSTDIR/
+            cp -a $BUILDINSTDIR/usr/libexec/anaconda/$f* $BUILDINSTDIR/
         else
             cp -a $f* $BUILDINSTDIR/
         fi

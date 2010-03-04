@@ -160,17 +160,17 @@ mkdir -p $KERNELBASE
 mkdir -p $INSTIMGPATH
 
 # Stuff that we need
-TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
-GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
-GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
-MKS390CDBOOT=$IMGPATH/usr/lib/anaconda-runtime/mk-s390-cdboot
-GENMODINFO=$IMGPATH/usr/lib/anaconda-runtime/genmodinfo
+TRIMPCIIDS=$IMGPATH/usr/libexec/anaconda/trimpciids
+GETKEYMAPS=$IMGPATH/usr/libexec/anaconda/getkeymaps
+GENINITRDSZ=$IMGPATH/usr/$LIBDIR/anaconda/geninitrdsz
+MKS390CDBOOT=$IMGPATH/usr/$LIBDIR/anaconda/mk-s390-cdboot
+GENMODINFO=$IMGPATH/usr/libexec/anaconda/genmodinfo
 KEYMAPS=$TMPDIR/keymaps-$BUILDARCH.$$
-SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
-MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
+SCREENFONT=$IMGPATH/usr/share/anaconda/screenfont-${BASEARCH}.gz
+MODLIST=$IMGPATH/usr/libexec/anaconda/modlist
 MODINFO=$TMPDIR/modinfo-$BUILDARCH.$$
-LOADERBINDIR=$IMGPATH/usr/lib/anaconda-runtime/loader
-BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
+LOADERBINDIR=$IMGPATH/usr/$LIBDIR/anaconda
+BOOTDISKDIR=$IMGPATH/usr/share/anaconda/boot
 LANGTABLE=$IMGPATH/usr/share/anaconda/lang-table
 PCIIDS=$IMGPATH/usr/share/hwdata/pci.ids
 XDRIVERS=$IMGPATH/usr/share/hwdata/videoaliases
@@ -198,9 +198,9 @@ if [ -n "$dieLater" ]; then exit 1; fi
 
 if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
     # go ahead and create the keymaps so we only have to do it once
-    if [ -f $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BASEARCH ]; then
+    if [ -f $IMGPATH/usr/share/anaconda/keymaps-override-$BASEARCH ]; then
         echo "Found keymap override, using it"
-        cp $IMGPATH/usr/lib/anaconda-runtime/keymaps-override-$BASEARCH $KEYMAPS
+        cp $IMGPATH/usr/share/anaconda/keymaps-override-$BASEARCH $KEYMAPS
     else
         echo "Running: $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
         $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
@@ -658,7 +658,7 @@ makeinitrd() {
         ln -s ./init $MBD_DIR/sbin/poweroff
     else
         instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/shutdown $MBD_DIR /sbin/shutdown
-        instbin $IMGPATH /usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR /sbin/init
+        instbin $IMGPATH /usr/share/anaconda/linuxrc.s390 $MBD_DIR /sbin/init
         instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
         cp -a $IMGPATH/usr/sbin/*_cio_free $MBD_DIR/sbin
     fi
@@ -876,7 +876,7 @@ EOF
     done
     rm -f $MBD_DIR/lib/udev/rules.d/*generator*
 
-    install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
+    install -m 644 $IMGPATH/usr/share/anaconda/$MYLOADERTR $MBD_DIR/etc/loader.tr
     for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color g/gnome ; do
         [ -f $IMGPATH/usr/share/terminfo/$i ] && \
         install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
@@ -968,8 +968,8 @@ makemainimage () {
 
     if [ $type = "ext2" ]; then
         SIZE=$(du -sk $IMGPATH | awk '{ print int($1 * 1.1) }')
-        if [ -d $IMGPATH/usr/lib/anaconda-runtime ]; then
-            ERROR=$(du -sk $IMGPATH/usr/lib/anaconda-runtime | awk '{ print $1 }')
+        if [ -d $IMGPATH/usr/share/anaconda]; then
+            ERROR=$(du -sk $IMGPATH/usr/share/anaconda | awk '{ print $1 }')
             SIZE=$(expr $SIZE - $ERROR)
         fi
         if [ -d $IMGPATH/usr/share/syslinux ]; then
@@ -982,7 +982,7 @@ makemainimage () {
         mount -o loop $mmi_tmpimage $mmi_mntpoint
 
         (cd $IMGPATH; find . |
-            fgrep -v "./usr/lib/anaconda-runtime" |
+            fgrep -v "./usr/share/anaconda" |
             fgrep -v "./usr/share/syslinux"
             cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
         makeproductfile $mmi_mntpoint

@@ -37,20 +37,20 @@ prepareBootTree() {
 	ln $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 
-	if [ -f $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg ]; then
-		cp $IMGPATH/usr/lib/anaconda-runtime/syslinux-vesa-splash.jpg $MBD_BOOTTREE/splash.jpg
+	if [ -f $IMGPATH/usr/share/anaconda/syslinux-vesa-splash.jpg ]; then
+		cp $IMGPATH/usr/share/anaconda/syslinux-vesa-splash.jpg $MBD_BOOTTREE/splash.jpg
 		cp $IMGPATH/usr/share/syslinux/vesamenu.c32 $MBD_BOOTTREE/vesamenu.c32
 		sed -i s'/default linux/default vesamenu.c32/g' $MBD_BOOTTREE/syslinux.cfg
 		sed -i 's/prompt 1/#prompt 1/g' $MBD_BOOTTREE/syslinux.cfg
-	elif [ -x $IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh ]; then
-		$IMGPATH/usr/lib/anaconda-runtime/splashtolss.sh $BOOTDISKDIR/syslinux-splash.png $BOOTDISKDIR/splash.lss
+	elif [ -x $IMGPATH/usr/share/anaconda/splashtolss.sh ]; then
+		$IMGPATH/usr/share/anaconda/splashtolss.sh $BOOTDISKDIR/syslinux-splash.png $BOOTDISKDIR/splash.lss
 		if [ $? != 0 ]; then
 		    echo $0: Failed to create splash.lss
 		    exit 1
 		fi    
 		cp $BOOTDISKDIR/splash.lss $MBD_BOOTTREE/splash.lss
-	elif [ -f $IMGPATH/usr/lib/anaconda-runtime/splash.lss ]; then
-		cp $IMGPATH/usr/lib/anaconda-runtime/splash.lss $MBD_BOOTTREE/splash.lss
+	elif [ -f $IMGPATH/usr/share/anaconda/splash.lss ]; then
+		cp $IMGPATH/usr/share/anaconda/splash.lss $MBD_BOOTTREE/splash.lss
 	fi
 
 	rm -f $MBD_BOOTTREE/syslinux-splash.png
@@ -119,8 +119,8 @@ makeBootImages() {
 	sed -i "s/initrd=initrd.img/initrd=initrd.img stage2=hd:LABEL=\"$CDLABEL\"/" $MBD_BOOTTREE/isolinux.cfg
 
 	# copy in memtest if present
-	if [ -f $IMGPATH/usr/lib/anaconda-runtime/boot/memtest* ]; then
-           cp $IMGPATH/usr/lib/anaconda-runtime/boot/memtest* $MBD_BOOTTREE/memtest
+	if [ -f $IMGPATH/usr/share/anaconda/boot/memtest* ]; then
+           cp $IMGPATH/usr/share/anaconda/boot/memtest* $MBD_BOOTTREE/memtest
            echo -e "label memtest86\n  menu label ^Memory test\n  kernel memtest\n  append -\n" >> $MBD_BOOTTREE/isolinux.cfg
 	fi
     else

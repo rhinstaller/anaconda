@@ -120,7 +120,7 @@ doPostImages() {
 	
     # Create ofboot.b and bootinfo.txt files, and yaboot binaries for Mac and CHRP
     cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
-    cp $IMGPATH/usr/lib/anaconda-runtime/boot/efika.forth $TOPDESTPATH/ppc/efika.forth
+    cp $IMGPATH/usr/share/anaconda/boot/efika.forth $TOPDESTPATH/ppc/efika.forth
 
     if [ -d $TOPDESTPATH/ppc/mac ]; then
 	cp $BOOTDISKDIR/ofboot.b $TOPDESTPATH/ppc/mac/ofboot.b
