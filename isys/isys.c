@@ -76,6 +76,7 @@
 #include "eddsupport.h"
 #include "auditd.h"
 #include "imount.h"
+#include "log.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
@@ -110,6 +111,7 @@ static PyObject * doGetBlkidData(PyObject * s, PyObject * args);
 static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
 static PyObject * doGetLinkStatus(PyObject * s, PyObject * args);
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
+static PyObject * doInitLog(PyObject * s);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -141,6 +143,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isCapsLockEnabled", (PyCFunction) doIsCapsLockEnabled, METH_VARARGS, NULL },
     { "getLinkStatus", (PyCFunction) doGetLinkStatus, METH_VARARGS, NULL },
     { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
+    { "initLog", (PyCFunction) doInitLog, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -680,6 +683,12 @@ static PyObject * doGetLinkStatus(PyObject * s, PyObject * args) {
 
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args) {
     return Py_BuildValue("s", VERSION);
+}
+
+static PyObject * doInitLog(PyObject * s) {
+    openLog();
+    Py_INCREF(Py_None);
+    return Py_None;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

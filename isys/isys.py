@@ -556,3 +556,4 @@ handleSegv = _isys.handleSegv
 printObject = _isys.printObject
 bind_textdomain_codeset = _isys.bind_textdomain_codeset
 isVioConsole = _isys.isVioConsole
+initLog = _isys.initLog

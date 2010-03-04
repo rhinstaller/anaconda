@@ -771,7 +771,10 @@ if __name__ == "__main__":
     # this handles setting up updates for pypackages to minimize the set needed
     setupPythonUpdates()
 
-    import signal, string, isys, iutil, time
+    import isys
+    isys.initLog()
+
+    import signal, string, iutil, time
     import warnings
     import vnc
     import users
