@@ -151,8 +151,11 @@ char * mountHardDrive(struct installMethod * method,
         /* if exist, duplicate */
         if (kspartition)
             kspartition = strdup(kspartition);
-        if (ksdirectory)
+        if (ksdirectory) {
             ksdirectory = strdup(ksdirectory);
+        } else {
+            ksdirectory = strdup("/images/install.img");
+        }
 
         if (!kspartition || !ksdirectory) {
             logMessage(ERROR, "missing partition or directory specification");
