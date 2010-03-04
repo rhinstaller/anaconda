@@ -36,8 +36,11 @@
 
 static FILE * main_log_tty = NULL;
 static FILE * main_log_file = NULL;
+static FILE * program_log_file = NULL;
 static int minLevel = INFO;
-static const char * syslog_facility = "loader";
+static const char * main_tag = "loader";
+static const char * program_tag = "program";
+static const int syslog_facility = LOG_LOCAL0;
 
 /* maps our loglevel to syslog loglevel */
 static int mapLogLevel(int level)
@@ -59,7 +62,7 @@ static int mapLogLevel(int level)
     }
 }
 
-static void printLogHeader(int level, FILE *outfile) {
+static void printLogHeader(int level, const char *tag, FILE *outfile) {
     struct timeval current_time;
     struct tm *t;
     int msecs;
@@ -70,44 +73,63 @@ static void printLogHeader(int level, FILE *outfile) {
     switch (level) {
         case DEBUGLVL:
             fprintf (outfile, "%02d:%02d:%02d,%03d DEBUG %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, syslog_facility);
+                     t->tm_min, t->tm_sec, msecs, tag);
             break;
 
         case INFO:
             fprintf (outfile, "%02d:%02d:%02d,%03d INFO %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, syslog_facility);
+                     t->tm_min, t->tm_sec, msecs, tag);
             break;
 
         case WARNING:
             fprintf (outfile, "%02d:%02d:%02d,%03d WARNING %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, syslog_facility);
+                     t->tm_min, t->tm_sec, msecs, tag);
             break;
 
         case ERROR:
             fprintf (outfile, "%02d:%02d:%02d,%03d ERROR %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, syslog_facility);
+                     t->tm_min, t->tm_sec, msecs, tag);
             break;
 
         case CRITICAL:
             fprintf (outfile, "%02d:%02d:%02d,%03d CRITICAL %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, syslog_facility);
+                     t->tm_min, t->tm_sec, msecs, tag);
             break;
     }
 }
 
-static void printLogMessage(int level, FILE *outfile, const char *s, va_list ap) {
-    printLogHeader(level, outfile);
+static void printLogMessage(int level, const char *tag, FILE *outfile, const char *s, va_list ap)
+{
+    printLogHeader(level, tag, outfile);
 
     va_list apc;
     va_copy(apc, ap);
-    vfprintf(main_log_tty, s, apc);
+    vfprintf(outfile, s, apc);
     va_end(apc);
 
     fprintf(outfile, "\n");
     fflush(outfile);
 }
 
-void logMessageV(int level, const char * s, va_list ap) {
+static void retagSyslog(const char* new_tag)
+{
+    closelog();
+    openlog(new_tag, 0, syslog_facility);
+}
+
+void logMessageV(enum logger_t logger, int level, const char * s, va_list ap) {
+    FILE *log_tty = main_log_tty;
+    FILE *log_file = main_log_file;
+    const char *tag = main_tag;
+    if (logger == PROGRAM_LOG) {
+        /* tty output is done directly for programs */
+        log_tty = NULL;
+        log_file = program_log_file;
+        tag = program_tag;
+        /* close and reopen syslog so we get the tagging right */
+        retagSyslog(tag);
+    }
+
     va_list apc;
     /* Log everything into syslog */
     va_copy(apc, ap);
@@ -115,21 +137,33 @@ void logMessageV(int level, const char * s, va_list ap) {
     va_end(apc);
 
     /* Only log to the screen things that are above the minimum level. */
-    if (main_log_tty && level >= minLevel) {
-        printLogMessage(level, main_log_tty, s, ap);
+    if (main_log_tty && level >= minLevel && log_tty) {
+        printLogMessage(level, tag, log_tty, s, ap);
     }
 
     /* But log everything to the file. */
     if (main_log_file) {
-        printLogMessage(level, main_log_file, s, ap);
+        printLogMessage(level, tag, log_file, s, ap);
     }
+
+    /* change the syslog tag back to the default again */
+    if (logger == PROGRAM_LOG)
+        retagSyslog(main_tag);
 }
 
 void logMessage(int level, const char * s, ...) {
     va_list args;
 
     va_start(args, s);
-    logMessageV(level, s, args);
+    logMessageV(MAIN_LOG, level, s, args);
+    va_end(args);
+}
+
+void logProgramMessage(int level, const char * s, ...) {
+    va_list args;
+
+    va_start(args, s);
+    logMessageV(PROGRAM_LOG, level, s, args);
     va_end(args);
 }
 
@@ -139,11 +173,12 @@ int file_logfd = -1;
 void openLog() {
     /* init syslog logging (so loader messages can also be forwarded to a remote
        syslog daemon */
-    openlog(syslog_facility, 0, LOG_LOCAL1);
+    openlog(main_tag, 0, syslog_facility);
 
     int flags;
-    main_log_tty = fopen("/dev/tty3", "w");
-    main_log_file = fopen("/tmp/anaconda.log", "w");
+    main_log_tty = fopen("/dev/tty3", "a");
+    main_log_file = fopen("/tmp/anaconda.log", "a");
+    program_log_file = fopen("/tmp/program.log", "a");
 
     if (main_log_tty) {
         tty_logfd = fileno(main_log_tty);
@@ -156,14 +191,23 @@ void openLog() {
         flags = fcntl(file_logfd, F_GETFD, 0) | FD_CLOEXEC;
         fcntl(file_logfd, F_SETFD, flags);
     }
+    
+    if (program_log_file) {
+        int fd;
+        fd = fileno(program_log_file);
+        flags = fcntl(fd, F_GETFD, 0) | FD_CLOEXEC;
+        fcntl(file_logfd, F_SETFD, flags);
+    }
 }
 
 void closeLog(void) {
     if (main_log_tty)
         fclose(main_log_tty);
-
     if (main_log_file)
         fclose(main_log_file);
+    if (program_log_file)
+        fclose(program_log_file);
+    
     /* close syslog logger */
     closelog();
 }

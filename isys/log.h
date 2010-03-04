@@ -29,10 +29,17 @@
 #define ERROR    40
 #define CRITICAL 50
 
-void logMessageV(int level, const char * s, va_list ap)
-	__attribute__ ((format (printf, 2, 0)));
+enum logger_t {
+    MAIN_LOG = 1,
+    PROGRAM_LOG = 2
+};
+
+void logMessageV(enum logger_t logger, int level, const char * s, va_list ap)
+    __attribute__ ((format (printf, 3, 0)));
 void logMessage(int level, const char * s, ...)
-	__attribute__ ((format (printf, 2, 3)));
+    __attribute__ ((format (printf, 2, 3)));
+void logProgramMessage(int level, const char * s, ...)
+    __attribute__ ((format (printf, 2, 3)));
 void openLog();
 void closeLog(void);
 void setLogLevel(int minLevel);
