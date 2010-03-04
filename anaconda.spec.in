@@ -216,6 +216,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 04 2010 David Cantrell <dcantrell@redhat.com> - 13.21.17-1
+- Group definition updates (#568348). (dcantrell)
+- Correct problem with screenfont and keymap on ppc[64] systems (#569505).
+  (dcantrell)
+- Improve reboot modes in init.c and shutdown.c. (#564297). (akozumpl)
+- Fix recognition of partitions on mdraid arrays (#569462) (hdegoede)
+- Use new package structure of firstaidkit (#510346) (msivak)
+
 * Thu Feb 25 2010 David Cantrell <dcantrell@redhat.com> - 13.21.16-1
 - Add [images-xen] block to .treeinfo (#559347). (dcantrell)
 - Revert "There is no kernel-PAE package anymore, use kernel for xen
