@@ -486,17 +486,60 @@ Creating the Kickstart File
 
    iscsi (optional)
 
-        iscsi --ipaddr= [options]
+       Specifies additional iSCSI storage to be attached during
+       installation. If you use the iscsi parameter, you must also
+       assign a name to the iSCSI node, using the iscsiname parameter.
+       The iscsiname parameter must appear before the iscsi
+       parameter in the kickstart file.
 
-       --target=
+       iscsi --ipaddr=<addr> [other-options]
+
+       We recommend that wherever possible you configure iSCSI storage in
+       the system BIOS or firmware (iBFT for Intel systems) rather than use
+       the iscsi parameter. *Anaconda* automatically detects and uses
+       disks configured in BIOS or firmware and no special configuration is
+       necessary in the kickstart file.
+
+       If you must use the iscsi parameter, ensure that networking is
+       activated at the beginning of the installation, and that the
+       iscsi parameter appears in the kickstart file before you refer
+       to iSCSI disks with parameters such as clearpart or ignoredisk.
+
+       --ipaddr= (mandatory)
+
+            The IP address of the target to connect to.
 
        --port=
 
+            The port number to connect to (default, --port=3260).
+
        --user=
+
+            The username required to authenticate with the target.
 
        --password=
 
+            The password that corresponds with the username specified for
+            the target.
+
+       --reverse-user=
+
+            The username required to authenticate with the initiator from
+            a target that uses reverse CHAP authentication.
+
+       --reverse-password=
+
+            The password that corresponds with the username specified for
+            the initiator.
+
    iscsiname (optional)
+
+       Assigns a name to an iSCSI node specified by the iscsi parameter. If
+       you use the iscsi parameter in your kickstart file, this
+       parameter is mandatory, and you must specify iscsiname in the
+       kickstart file before you specify iscsi.
+
+       iscsiname <iqn>
 
    key (optional)
 
