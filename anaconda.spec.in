@@ -217,6 +217,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 04 2010 Chris Lumens <clumens@redhat.com> - 13.33-1
+- On live installs, the syslog is /var/log/dmesg. (#568814). (clumens)
+- Set up udev environment so anaconda's udev rules run in livecd. (#568460)
+  (dlehman)
+- Ignore probably-spurious disklabels on unpartitionable devices. (#567832)
+  (dlehman)
+- The justConfigFile parameter doesn't do anything on x86, either (#568567).
+  (clumens)
+- Add python-devel's gdbinit, which provides useful debugging macros.
+  (pjones)
+- Minor style fix (indent "cat" correctly") (pjones)
+- doReIPL should return when going back through steps, too (#563862).
+  (clumens)
+- Skip the filter/cleardisk steps on upgrades, too (#568334). (clumens)
+
 * Thu Feb 25 2010 David Lehman <dlehman@redhat.com> - 13.32-1
 - Check for the real device-mapper nodes in /proc/swaps. (#567840) (dlehman)
 - It's necessary to give each vfprintf invocation a fresh va_list (#568235)
