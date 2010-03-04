@@ -126,8 +126,6 @@ fi
 
 if [ "$BUILDARCH" = "sparc64" ]; then
     BASEARCH=sparc
-elif [ "$BUILDARCH" = "ppc64" ]; then
-    BASEARCH=ppc
 else
     BASEARCH=$BUILDARCH
 fi

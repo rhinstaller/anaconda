@@ -227,13 +227,14 @@ AM_CONDITIONAL(IS_GPTSYNC_ARCH,
   [test x$s_arch == xi386 || test x$s_arch == xx86_64])
 
 AM_CONDITIONAL(IS_KEYMAPS_OVERRIDE_ARCH,
-  [test x$s_arch == xi386 || test x$s_arch == xppc || test x$s_arch == xx86_64])
+  [test x$s_arch == xi386 || test x$s_arch == xppc ||
+   test x$s_arch == xx86_64 || test x$s_arch == xppc64])
 
 AM_CONDITIONAL(IS_I386,
   [test x$s_arch == xi386])
 
 AM_CONDITIONAL(IS_PPC,
-  [test x$s_arch == xppc])
+  [test x$s_arch == xppc || test x$s_arch == xppc64])
 
 AM_CONDITIONAL(IS_S390,
   [test x$s_arch == xs390 || test x$s_arch == xs390x])

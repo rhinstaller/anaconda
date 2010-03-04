@@ -26,14 +26,5 @@ EXTRA_DIST = screenfont-*.gz updfonts
 
 MAINTAINERCLEANFILES = Makefile.in
 
-i386:
-	./updfonts i386
-
-alpha:
-	./updfonts alpha
-
-sparc:
-	./updfonts sparc
-
-ia64:
-	./updfonts ia64
+$(ARCH):
+	./updfonts $(ARCH)
