@@ -29,6 +29,7 @@
 #include <unistd.h>
 
 #include "imount.h"
+#include "log.h"
 
 #define _(foo) foo
 
@@ -68,11 +69,20 @@ static int readFD(int fd, char **buf) {
     return filesize;
 }
 
+static size_t rstrip(char *str) {
+    size_t len = strlen(str);
+    if (len > 0 && str[len-1] == '\n') {
+        str[len-1] = '\0';
+        --len;
+    }
+    return len;
+}
+
 int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
                         char *options, char **err) {
-    int rc, child, status, pipefd[2];
+    int rc, child, status;
+    int stdout_pipe[2], stderr_pipe[2];
     char *opts = NULL, *device = NULL, *cmd = NULL;
-    int programLogFD;
 
     if (mode == IMOUNT_MODE_MOUNT) {
         cmd = "/bin/mount";
@@ -118,68 +128,83 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
         }
     }
 
-    programLogFD = open("/tmp/program.log",
-                        O_APPEND|O_CREAT|O_WRONLY, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
-
-    if (pipe(pipefd))
+    if (pipe(stdout_pipe))
+        return IMOUNT_ERR_ERRNO;
+    if (pipe(stderr_pipe))
         return IMOUNT_ERR_ERRNO;
 
     if (!(child = fork())) {
-        int fd;
+        int tty_fd;
 
-        close(pipefd[0]);
+        close(stdout_pipe[0]);
+        close(stderr_pipe[0]);
 
-        /* Close stdin entirely, redirect stdout to /tmp/program.log, and
-         * redirect stderr to a pipe so we can put error messages into
-         * exceptions.  We'll only use these messages should mount also
-         * return an error code.
+        /* Pull stdin from /dev/tty5 and redirect stdout and stderr to the pipes
+         *  so we can log the output and put error messages into exceptions.
+         *  We'll only use these messages should mount also return an error
+         *  code.
          */
-        fd = open("/dev/tty5", O_RDONLY);
+        tty_fd = open("/dev/tty5", O_RDONLY);
         close(STDIN_FILENO);
-        dup2(fd, STDIN_FILENO);
-        close(fd);
+        dup2(tty_fd, STDIN_FILENO);
+        close(tty_fd);
 
         close(STDOUT_FILENO);
-        dup2(programLogFD, STDOUT_FILENO);
-
-        dup2(pipefd[1], STDERR_FILENO);
+        dup2(stdout_pipe[1], STDOUT_FILENO);
+        close(STDERR_FILENO);
+        dup2(stderr_pipe[1], STDERR_FILENO);
 
         if (mode == IMOUNT_MODE_MOUNT) {
             if (opts) {
-                fprintf(stdout, "Running... %s -n -t %s -o %s %s %s\n",
+                logProgramMessage(INFO, "Running... %s -n -t %s -o %s %s %s",
                         cmd, fs, opts, device, where);
                 rc = execl(cmd, cmd,
                            "-n", "-t", fs, "-o", opts, device, where, NULL);
                 exit(1);
             } else {
-                fprintf(stdout, "Running... %s -n -t %s %s %s\n",
+                logProgramMessage(INFO, "Running... %s -n -t %s %s %s",
                         cmd, fs, device, where);
                 rc = execl(cmd, cmd, "-n", "-t", fs, device, where, NULL);
                 exit(1);
             }
         } else if (mode == IMOUNT_MODE_UMOUNT) {
-            fprintf(stdout, "Running... %s %s\n", cmd, where);
+            logProgramMessage(INFO, "Running... %s %s", cmd, where);
             rc = execl(cmd, cmd, where, NULL);
             exit(1);
         } else {
-            fprintf(stdout, "Running... Unknown imount mode: %d\n", mode);
+            logProgramMessage(ERROR, "Running... Unknown imount mode: %d\n", mode);
             exit(1);
         }
     }
 
-    close(pipefd[1]);
+    close(stdout_pipe[1]);
+    close(stderr_pipe[1]);
 
-    if (err != NULL) {
-        if (*err != NULL) {
-            rc = readFD(pipefd[0], err);
-            rc = write(programLogFD, *err, 4096);
-        }
+    char *buffer = NULL;
+    /* In case when when the stderr pipe gets enough data to fill the kernel
+     * buffer we might see a deadlock as this will block the mount program on
+     * its next write(). The buffer size is 65kB though so we should be safe.
+     */
+    rc = readFD(stdout_pipe[0], &buffer);
+    if (rc > 0) {
+        rstrip(buffer);
+        logProgramMessage(INFO, buffer);
+        free(buffer);
+        buffer = NULL;
     }
+    rc = readFD(stderr_pipe[0], &buffer);
+    if (rc > 0) {
+        rstrip(buffer);
+        logProgramMessage(ERROR, buffer);
+        if (err != NULL)
+            *err = buffer;
+        else
+            free(buffer);
+    }
+    close(stdout_pipe[0]);
+    close(stderr_pipe[0]);
 
-    close(pipefd[0]);
     waitpid(child, &status, 0);
-
-    close(programLogFD);
 
     if (opts) {
         free(opts);
