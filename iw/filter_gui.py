@@ -416,7 +416,7 @@ class FilterWindow(InstallWindow):
         if not addDrive(self.anaconda):
             return
 
-        udev_trigger(subsystem="block")
+        udev_trigger(subsystem="block", action="change")
         new_disks = filter(udev_device_is_disk, udev_get_block_devices())
         (new_singlepaths, new_mpaths, new_partitions) = identifyMultipaths(new_disks)
         (new_raids, new_nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
@@ -538,7 +538,7 @@ class FilterWindow(InstallWindow):
                                    gobject.TYPE_STRING)
         self.store.set_sort_column_id(MODEL_COL, gtk.SORT_ASCENDING)
 
-        udev_trigger(subsystem="block")
+        udev_trigger(subsystem="block", action="change")
         # So that drives onlined by these show up in the filter UI
         storage.iscsi.iscsi().startup(anaconda.intf)
         storage.fcoe.fcoe().startup(anaconda.intf)

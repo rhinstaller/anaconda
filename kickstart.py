@@ -1208,7 +1208,7 @@ def parseKickstart(anaconda, file):
     ksparser = AnacondaKSParser(handler)
 
     # We need this so all the /dev/disk/* stuff is set up before parsing.
-    udev_trigger(subsystem="block")
+    udev_trigger(subsystem="block", action="change")
     # So that drives onlined by these can be used in the ks file
     storage.iscsi.iscsi().startup()
     storage.fcoe.fcoe().startup()
