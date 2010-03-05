@@ -470,7 +470,7 @@ def copyDeviceNode(src, dest):
 ## Get the SPARC machine variety type.
 # @return The SPARC machine type, or 0 if not SPARC.
 def getSparcMachine():
-    if not isSPARC():
+    if not isSparc():
         return 0
 
     machine = None
