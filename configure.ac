@@ -250,6 +250,7 @@ AC_CONFIG_FILES([Makefile
                  bootdisk/Makefile
                  bootdisk/i386/Makefile
                  bootdisk/ppc/Makefile
+                 bootdisk/sparc/Makefile
                  bootdisk/s390x/Makefile
                  bootdisk/x86_64/Makefile
                  booty/Makefile
