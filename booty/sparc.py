@@ -1,7 +1,10 @@
+import string
 import os
 
 from booty import BootyNoKernelWarning
+from util import getDiskPart
 from bootloaderInfo import *
+import iutil
 
 class sparcBootloaderInfo(bootloaderInfo):
     def writeSilo(self, instRoot, bl, kernelList,
@@ -35,7 +38,7 @@ class sparcBootloaderInfo(bootloaderInfo):
         f.write("message=%s\n" % (mf,))
         f.write("timeout=%s\n" % (self.timeout or 50))
 
-        (name, partNum) = getDiskPart(bootDev, self.storage)
+        (name, partNum) = getDiskPart(bootDev.name, self.storage)
         partno = partNum + 1
         f.write("partition=%s\n" % (partno,))
 
@@ -86,9 +89,7 @@ class sparcBootloaderInfo(bootloaderInfo):
 
         backup = "%s/backup.b" % (cfPath,)
         sbinargs = ["/sbin/silo", "-f", "-C", cf, "-S", backup]
-        # TODO!!!  FIXME!!!  XXX!!!
-        # butil is not defined!!!  - assume this is in rhpl now?
-        if butil.getSparcMachine() == "sun4u":
+        if (iutil.getSparcMachine() == "sun4u" or iutil.getSparcMachine() == "sun4v"):
             sbinargs += ["-u"]
         else:
             sbinargs += ["-U"]
@@ -102,8 +103,8 @@ class sparcBootloaderInfo(bootloaderInfo):
             return rc
 
         if (not os.access(instRoot + "/etc/silo.conf", os.R_OK) and
-            os.access(instRoot + "/boot/etc/silo.conf", os.R_OK)):
-            os.symlink("../boot/etc/silo.conf",
+            os.access(instRoot + "/boot/silo.conf", os.R_OK)):
+            os.symlink("../boot/silo.conf",
                        instRoot + "/etc/silo.conf")
 
         return 0
