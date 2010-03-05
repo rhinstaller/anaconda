@@ -87,7 +87,7 @@ char * env[] = {
 
     /* we set a nicer ld library path specifically for bash -- a full
        one makes anaconda unhappy */
-#if defined(__x86_64__) || defined(__s390x__) || defined(__powerpc64__)
+#if defined(__x86_64__) || defined(__s390x__) || defined(__powerpc64__) || (defined(__sparc__) && defined(__arch64__))
     "LD_LIBRARY_PATH=/lib64:/usr/lib64:/lib:/usr/lib",
 #else
     "LD_LIBRARY_PATH=/lib:/usr/lib",
