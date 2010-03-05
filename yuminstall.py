@@ -1175,18 +1175,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     def doGroupSetup(self, anaconda):
         while True:
             try:
-                # FIXME: this is a pretty ugly hack to make it so that we don't lose
-                # groups being selected (#237708)
-                sel = filter(lambda g: g.selected, self.ayum.comps.get_groups())
                 self.ayum.doGroupSetup()
-                # now we'll actually reselect groups..
-                map(lambda g: self.selectGroup(g.groupid), sel)
-
-                # and now, to add to the hacks, we'll make sure that packages don't
-                # have groups double-listed.  this avoids problems with deselecting
-                # groups later
-                for txmbr in self.ayum.tsInfo.getMembers():
-                    txmbr.groups = yum.misc.unique(txmbr.groups)
             except (GroupsError, NoSuchGroup, RepoError), e:
                 buttons = [_("_Exit installer"), _("_Retry")]
             else:
