@@ -17,6 +17,6 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-SUBDIRS = i386 ppc s390x x86_64
+SUBDIRS = i386 ppc sparc s390x x86_64
 
 MAINTAINERCLEANFILES = Makefile.in
