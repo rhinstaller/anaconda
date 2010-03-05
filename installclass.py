@@ -330,5 +330,4 @@ baseclass = getBaseInstallClass()
 # we need to be able to differentiate between this and custom
 class DefaultInstall(baseclass):
     def __init__(self):
-	BaseInstallClass.__init__(self)
-
+        baseclass.__init__(self)
