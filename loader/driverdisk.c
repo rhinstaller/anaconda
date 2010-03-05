@@ -836,6 +836,9 @@ GSList* findDriverDiskByLabel(void)
         logMessage(ERROR, "Cannot probe devices in blkid: %d", res);
         return NULL;
     }
+    if ((res = blkid_probe_all_removable(bCache))<0) {
+        logMessage(ERROR, "Cannot probe removable devices in blkid: %d", res);
+    }
 
     bIter = blkid_dev_iterate_begin(bCache);
     blkid_dev_set_search(bIter, "LABEL", ddLabel);
