@@ -1,4 +1,4 @@
-# bootdisk/x86_64/Makefile.am for anaconda
+# bootdisk/sparc/Makefile.am for anaconda
 #
 # Copyright (C) 2009  Red Hat, Inc.
 #
