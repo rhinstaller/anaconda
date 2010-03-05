@@ -46,6 +46,7 @@ class InstallClass(BaseInstallClass):
         hidden = 1
 
     bootloaderTimeoutDefault = 5
+    bootloaderExtraArgs = "crashkernel=auto"
 
     tasks = [(N_("Minimal"), ["core"]),
              (N_("Desktop"),
