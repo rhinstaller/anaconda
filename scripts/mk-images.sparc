@@ -167,6 +167,7 @@ doPostImages() {
 			-x repodata \
 			-sparc-label "$PRODUCT $VERSION Boot Disc" \
 			-o $TOPDESTPATH/images/$BOOTISO -graft-points \
-			boot=$TOPDESTPATH/boot images/stage2.img=$TOPDESTPATH/images/stage2.img
+			boot=$TOPDESTPATH/boot images/install.img=$TOPDESTPATH/images/install.img
+		implantisomd5 $TOPDESTPATH/images/$BOOTISO
 	fi
 }
