@@ -45,21 +45,6 @@ def setupRepo(anaconda, repo):
         anaconda.backend.doRepoSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         anaconda.backend.doSackSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         log.info("added (UI) repository %s with source URL %s, id:%s" % (repo.name, repo.mirrorlist or repo.baseurl, repo.id))
-        # FIXME: need a per-repo way of doing this; largely cut and paste
-        # from yum right now
-        if not repo.groups_added:
-            try:
-                groupfile = repo.getGroups()
-                # open it up as a file object so iterparse can cope
-                # with our gz file
-                if groupfile is not None and groupfile.endswith('.gz'):
-                    groupfile = gzip.open(groupfile)
-                anaconda.backend.ayum._comps.add(groupfile)
-            except Exception, e:
-                log.debug("unable to add group information for repository %s" %(repo.name))
-            else:
-                repo.groups_added = True
-                log.info("added group information for repository %s" %(repo.name))
     except (IOError, yum.Errors.RepoError) as e:
         anaconda.intf.messageWindow(_("Error"),
               _("Unable to read package metadata from repository.  "
@@ -386,6 +371,17 @@ class RepoEditor:
                 except Exception as e:
                     log.warning("error removing cachedir for %s: %s" %(self.repo, e))
                     pass
+
+            if (newRepoObj.enablegroups or 
+                (removeOld and self.repo.enablegroups)):
+                # update groups information
+                try:
+                    self.anaconda.backend.ayum.doGroupSetup()
+                except Exception as e:
+                    log.debug("unable to reset group information after UI repo edit: %s"
+                              % e)
+                else:
+                    log.info("group information reset after UI repo edit")
 
             self.repo = newRepoObj
             break
