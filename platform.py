@@ -477,6 +477,7 @@ class S390(Platform):
 
 class Sparc(Platform):
     _diskLabelType = "sun"
+    _packages = ["silo"]
 
     @property
     def minimumSector(self, disk):
