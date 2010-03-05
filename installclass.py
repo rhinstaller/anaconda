@@ -56,6 +56,7 @@ class BaseInstallClass(object):
     # default to showing the upgrade option
     showUpgrade = True
     bootloaderTimeoutDefault = 0
+    bootloaderExtraArgs = ""
 
     bugFiler = AbstractFiler(product.bugUrl, product.bugUrl,
                              product.productVersion, product.productName)
@@ -205,6 +206,7 @@ class BaseInstallClass(object):
         anaconda.id.reset()
         anaconda.id.instClass = self
         anaconda.id.bootloader.timeout = self.bootloaderTimeoutDefault
+        anaconda.id.bootloader.args.append(self.bootloaderExtraArgs)
 
     def versionMatches(self, oldver):
         pass
