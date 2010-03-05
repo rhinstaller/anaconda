@@ -21,10 +21,6 @@ ISYS_SRCS = devices.c imount.c cpio.c uncpio.c lang.c \
             isofs.c linkdetect.c vio.c ethtool.c eddsupport.c iface.c \
             str.c auditd.c
 
-if IS_PPC
-ISYS_SRCS += minifind.c
-endif
-
 dist_noinst_HEADERS = *.h
 
 ISYS_CFLAGS = -DVERSION='"$(PACKAGE_VERSION)"' $(NFS_CFLAGS) \
