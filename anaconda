@@ -514,36 +514,6 @@ class Anaconda(object):
         return self._instLanguage
 
     def _getInterface(self):
-        if self._intf:
-            return self._intf
-
-        # setup links required by graphical mode if installing and verify display mode
-        if self.displayMode == 'g':
-            stdoutLog.info (_("Starting graphical installation."))
-
-            try:
-                from gui import InstallInterface
-            except Exception, e:
-                stdoutLog.error("Exception starting GUI installer: %s" %(e,))
-                # if we're not going to really go into GUI mode, we need to get
-                # back to vc1 where the text install is going to pop up.
-                if not flags.livecdInstall:
-                    isys.vtActivate (1)
-                stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
-                self.displayMode = 't'
-                if 'DISPLAY' in os.environ.keys():
-                    del os.environ['DISPLAY']
-                time.sleep(2)
-
-        if self.displayMode == 't':
-            from text import InstallInterface
-            if not os.environ.has_key("LANG"):
-                os.environ["LANG"] = "en_US.UTF-8"
-
-        if self.displayMode == 'c':
-            from cmdline import InstallInterface
-
-        self._intf = InstallInterface()
         return self._intf
 
     def _setInterface(self, v):
@@ -609,6 +579,39 @@ class Anaconda(object):
         fo = os.fdopen(fd, "w")
 
         exn.write(self, fo)
+
+    def initInterface(self):
+        if self._intf:
+            raise RuntimeError, "Second attempt to initialize the InstallInterface"
+
+        # setup links required by graphical mode if installing and verify display mode
+        if self.displayMode == 'g':
+            stdoutLog.info (_("Starting graphical installation."))
+
+            try:
+                from gui import InstallInterface
+            except Exception, e:
+                stdoutLog.error("Exception starting GUI installer: %s" %(e,))
+                # if we're not going to really go into GUI mode, we need to get
+                # back to vc1 where the text install is going to pop up.
+                if not flags.livecdInstall:
+                    isys.vtActivate (1)
+                stdoutLog.warning("GUI installer startup failed, falling back to text mode.")
+                self.displayMode = 't'
+                if 'DISPLAY' in os.environ.keys():
+                    del os.environ['DISPLAY']
+                time.sleep(2)
+
+        if self.displayMode == 't':
+            from text import InstallInterface
+            if not os.environ.has_key("LANG"):
+                os.environ["LANG"] = "en_US.UTF-8"
+
+        if self.displayMode == 'c':
+            from cmdline import InstallInterface
+
+        self._intf = InstallInterface()
+        return self._intf
 
     def writeXdriver(self):
         # this should go away at some point, but until it does, we
@@ -1095,6 +1098,8 @@ if __name__ == "__main__":
         runVNC()
         doStartupX11Actions(opts.runres)
 
+    # with X running we can initialize the UI interface
+    anaconda.initInterface()
     anaconda.instClass.configure(anaconda)
 
     # comment out the next line to make exceptions non-fatal
