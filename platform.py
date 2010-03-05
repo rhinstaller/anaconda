@@ -447,6 +447,7 @@ class S390(Platform):
 
 class Sparc(Platform):
     _diskType = parted.diskType["sun"]
+    _bootloaderPackage = "silo"
 
     @property
     def minimumSector(self, disk):
