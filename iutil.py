@@ -467,6 +467,25 @@ def copyDeviceNode(src, dest):
 
     os.mknod(dest, mode | type, filestat.st_rdev)
 
+## Get the SPARC machine variety type.
+# @return The SPARC machine type, or 0 if not SPARC.
+def getSparcMachine():
+    if not isSPARC():
+        return 0
+
+    machine = None
+
+
+    f = open('/proc/cpuinfo', 'r')
+    lines = f.readlines()
+    f.close()
+    for line in lines:
+        if line.find('type') != -1:
+            machine = line.split(':')[1].strip()
+            return machine
+
+    return None
+
 ## Get the PPC machine variety type.
 # @return The PPC machine type, or 0 if not PPC.
 def getPPCMachine():
