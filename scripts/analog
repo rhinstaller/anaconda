@@ -1,0 +1,167 @@
+#! /usr/bin/python 
+#
+# analog: Remote logging manager for the Red Hat Installer
+#
+# Copyright (C) 2010
+# Red Hat, Inc.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author: Ales Kozumplik <akozumpl@redhat.com>
+#
+
+import getpass
+import errno
+import optparse
+import os
+import os.path
+import signal
+import sys
+
+DEFAULT_PORT = 6080
+DEFAULT_ANALOG_DIR = '.analog'
+USAGE = "%prog [options] <log directory root>"
+HINT = "/sbin/rsyslogd -c 4 -f %(conf)s -i %(pid)s"
+PID_LOCATION = "/tmp/%(username)s/rsyslogd_%(port)s.pid"
+
+RSYSLOG_TEMPLATE ="""
+#### MODULES ####
+# Provides TCP syslog reception
+$ModLoad imtcp.so  
+$InputTCPServerRun %(port)s
+
+#### GLOBAL DIRECTIVES ####
+
+# Use default timestamp format
+$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
+
+# File syncing capability is disabled by default. This feature is usually not required, 
+# not useful and an extreme performance hit
+#$ActionFileEnableSync on
+
+
+#### RULES ####
+
+$template anaconda_tty4, "%%timestamp:8:$:date-rfc3164%%,%%timestamp:1:3:date-subseconds%% %%syslogseverity-text:::uppercase%% %%programname%%:%%msg%%\\n"
+$template anaconda_debug, "%%syslogfacility-text%%|%%hostname%%|%%syslogseverity-text%%|%%syslogtag%%|%%msg%%\\n"
+$template anaconda_syslog, "%%timestamp:8:$:date-rfc3164%%,%%timestamp:1:3:date-subseconds%% %%syslogseverity-text:::uppercase%% %%programname%%:%%msg%%\\n"
+
+$template path_syslog, "%(directory)s/%%FROMHOST-IP%%/syslog
+$template path_anaconda, "%(directory)s/%%FROMHOST-IP%%/anaconda.log"
+$template path_program, "%(directory)s/%%FROMHOST-IP%%/program.log"
+$template path_storage, "%(directory)s/%%FROMHOST-IP%%/storage.log"
+$template path_sysimage, "%(directory)s/%%FROMHOST-IP%%/install.log.syslog"
+
+*.*                                                  %(directory)s/debug_all.log;anaconda_debug
+
+kern.*;\\
+daemon.*                                             ?path_syslog;anaconda_syslog
+
+:programname, contains, "loader"                     ?path_anaconda;anaconda_syslog
+:programname, contains, "anaconda"                   ?path_anaconda;anaconda_syslog
+:programname, contains, "program"                    ?path_program;anaconda_syslog
+:programname, contains, "storage"                    ?path_storage;anaconda_syslog
+:hostname, contains, "sysimage"                      ?path_sysimage;anaconda_syslog
+
+# discard those that we logged
+:programname, contains, "rsyslogd"                   ~
+:programname, contains, "loader"                     ~
+:programname, contains, "anaconda"                   ~
+:programname, contains, "program"                    ~
+:programname, contains, "storage"                    ~
+:hostname, contains, "sysimage"                      ~
+kern.*                                               ~
+daemon.*                                             ~
+# dump the rest
+*.*                                                  %(directory)s/debug_unknown_source.log;anaconda_debug
+
+"""
+
+# option parsing
+class OptParserError(Exception):
+    def __str__(self):
+        return self.args[0]
+
+    @property
+    def parser(self):
+        return self.args[1]
+    
+def get_opts():
+    parser = optparse.OptionParser(usage=USAGE,
+                                   add_help_option=False)
+    parser.add_option ('-h', '--help', action="callback", callback=help_and_exit,
+                       help="Display this help")
+    parser.add_option ('-p', type="int", dest="port", 
+                       default=DEFAULT_PORT, 
+                       help="TCP port the rsyslog daemon will listen on")
+    parser.add_option ('-o', type="string", dest="output", 
+                       default=None, 
+                       help="Output file")
+    parser.add_option ('-s', action="store_true", dest="stdout",
+                       default=False, 
+                       help="Generate bash command to run rsyslogd on stdout (only valid when -o is also specified)")
+    (options, args) = parser.parse_args()
+    if len(args) < 1:
+        raise OptParserError("no log root directory given", parser)
+    if options.stdout and not options.output:
+        raise OptParserError("-s only valid with -o", parser)
+    options.log_root = args[0]
+    args = args[1:]
+    return (options, args)
+
+def help_and_exit(option, opt, value, parser):
+    parser.print_help()
+    sys.exit(0)
+
+def generate_rsyslog_config(port, directory):
+    values = {
+        "directory" : directory,
+        "port"      : port
+        }
+    config = RSYSLOG_TEMPLATE % values
+    return config
+
+def pid_location(port):
+    # find the target location
+    name = getpass.getuser()
+    values = {
+        "username" : name,
+        "port" : port
+        }
+    location = PID_LOCATION % values
+    # now make sure the directory exists
+    directory = os.path.dirname(location)
+    if not os.path.exists(directory):
+        os.mkdir(directory)
+    return location
+
+if __name__ == "__main__":
+    try:
+        (options, args) = get_opts()
+    except OptParserError as exc:
+        exc.parser.error(str(exc))
+        sys.exit(1)
+    directory = os.path.join(os.getcwd(), options.log_root)
+    config = generate_rsyslog_config(options.port, directory)
+    if options.output:
+        with open(options.output, 'w') as file:
+            file.write(config)
+        if options.stdout:
+            pid = pid_location(options.port)
+            print HINT % {
+                "conf" : options.output,
+                "pid" : pid
+                }
+    else:
+        print config
