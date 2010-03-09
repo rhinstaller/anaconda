@@ -46,11 +46,12 @@ class VolumeGroupEditor:
         vg = LVMVolumeGroupDevice('tmp-%s' % self.vg.name,
                                   parents=pvs, peSize=self.peSize)
         for lv in self.lvs.values():
-            LVMLogicalVolumeDevice(lv['name'], vg, format=lv['format'],
+            _l = LVMLogicalVolumeDevice(lv['name'], vg, format=lv['format'],
                                    size=lv['size'], exists=lv['exists'],
                                    stripes=lv['stripes'],
                                    logSize=lv['logSize'],
                                    snapshotSpace=lv['snapshotSpace'])
+            _l.originalFormat = lv['originalFormat']
 
         return vg
 
@@ -405,23 +406,31 @@ class VolumeGroupEditor:
         # appear.  Note that if the format is swap or Raiddevice, the mount
         # point is none-sense.
         templuks = None
-        usedev = None
-        for _lv in tempvg.lvs:
-            if _lv.lvname == lv['name']:
-                templv = _lv
-                usedev = templv
-                if templv.format.type == "luks":
-                    templuks = LUKSDevice("luks-%s" % lv['name'],
-                                          parents=[templv],
-                                          format=self.luks[lv['name']],
-                                          exists=templv.format.exists)
-                    usedev = templuks
-                break
+        templv = self.getLVByName(lv['name'], vg=tempvg)
+        usedev = templv
+        if templv.format.type == "luks":
+            templuks = LUKSDevice("luks-%s" % lv['name'],
+                                  parents=[templv],
+                                  format=self.luks[lv['name']],
+                                  exists=templv.format.exists)
+            usedev = templuks
 
         if lv['format'].type == "luks":
             format = self.luks[lv['name']]
         else:
             format = lv['format']
+
+        if lv['exists']:
+            _origlv = self.getLVByName(lv['name'])
+            originalFormat = _origlv.originalFormat
+            if originalFormat.type == "luks":
+                try:
+                    _origluks = self.storage.devicetree.getChildren(_origlv)[0]
+                except IndexError:
+                    pass
+                else:
+                    originalFormat = _origluks.originalFormat
+
         mountCombo = createMountPointCombo(usedev, excludeMountPoints=["/boot"])
 
 
@@ -467,16 +476,13 @@ class VolumeGroupEditor:
         else:
             # File system type lable & combo
             newfstypelabel = createAlignedLabel(_("Original File System Type:"))
-            if format.type:
-                newfstypeCombo = gtk.Label(format.name)
-            else:
-                newfstypeCombo = gtk.Label(_("Unknown"))
+            newfstypeCombo = gtk.Label(originalFormat.name)
 
             # File system label label & combo
-            if getattr(format, "label", None):
+            if getattr(originalFormat, "label", None):
                 newfslabellabel = createAlignedLabel(_("Original File System "
                                                       "Label:"))
-                newfslableCombo = gtk.Label(format.label)
+                newfslableCombo = gtk.Label(originalFormat.label)
 
             # Logical Volume name label & entry
             lvnamelabel = createAlignedLabel(_("Logical Volume Name:"))
@@ -737,7 +743,12 @@ class VolumeGroupEditor:
                         format = templv.format
 
                     templv.format = format
-                elif format.mountable:
+                elif self.fsoptionsDict.has_key("formatcb") and \
+                     not self.fsoptionsDict["formatcb"].get_active():
+                    templv.format = templv.originalFormat
+                    format = templv.format
+
+                if format.mountable:
                     format.mountpoint = mountpoint
 
                 if self.fsoptionsDict.has_key("migratecb") and \
@@ -770,6 +781,7 @@ class VolumeGroupEditor:
         self.lvs[templv.lvname] = {'name': templv.lvname,
                                    'size': templv.size,
                                    'format': templv.format,
+                                   'originalFormat': templv.originalFormat,
                                    'stripes': templv.stripes,
                                    'logSize': templv.logSize,
                                    'snapshotSpace': templv.snapshotSpace,
@@ -817,9 +829,11 @@ class VolumeGroupEditor:
 
         tempvg = self.getTempVG()
         name = self.storage.createSuggestedLVName(tempvg)
+        format = getFormat(self.storage.defaultFSType)
         self.lvs[name] = {'name': name,
                           'size': free,
-                          'format': getFormat(self.storage.defaultFSType),
+                          'format': format,
+                          'originalFormat': format,
                           'stripes': 1,
                           'logSize': 0,
                           'snapshotSpace': 0,
@@ -1073,12 +1087,7 @@ class VolumeGroupEditor:
                 log.debug("lv %s already exists" % lv.lvname)
                 # this lv is preexisting. check for resize and reformat.
                 # first, get the real/original lv
-                origlv = None
-                for _lv in self.vg.lvs:
-                    if _lv.lvname == lv.lvname:
-                        origlv = _lv
-                        break
-
+                origlv = self.getLVByName(lv.lvname)
                 if lv.resizable and lv.targetSize != origlv.size:
                     actions.append(ActionResizeDevice(origlv, lv.targetSize))
 
@@ -1099,6 +1108,38 @@ class VolumeGroupEditor:
                     else:
                         usedev = origlv
                         format = lv.format
+
+                    # no formatting action requested, meaning we should
+                    # cancel all format create/destroy actions
+                    if format == usedev.originalFormat:
+                        devicetree = self.storage.devicetree
+                        cancel = []
+                        if origlv.originalFormat.type == "luks":
+                            path = "/dev/mapper/luks-%s" % origlv.originalFormat.uuid
+                            cancel.extend(devicetree.findActions(path=path))
+
+                        cancel.extend(devicetree.findActions(type="create",
+                                                             object="format",
+                                                             devid=origlv.id))
+                        cancel.extend(devicetree.findActions(type="destroy",
+                                                             object="format",
+                                                             devid=origlv.id))
+                        for action in cancel:
+                            devicetree.cancelAction(action)
+
+                        # even though we cancelled a bunch of actions, it's
+                        # pretty much impossible to be sure we cancelled them
+                        # in the correct order. make sure things are back to
+                        # their original state.
+                        if origlv.format.type == "luks":
+                            try:
+                                usedev = devicetree.getChildren(origlv)[0]
+                            except IndexError:
+                                usedev = origlv
+                            else:
+                                usedev.format = usedev.originalFormat
+                        else:
+                            usedev = origlv
 
                     if hasattr(format, "mountpoint"):
                         usedev.format.mountpoint = format.mountpoint
@@ -1164,6 +1205,14 @@ class VolumeGroupEditor:
 	    self.dialog.destroy()
 	self.dialog = None
 
+    def getLVByName(self, name, vg=None):
+        if vg is None:
+            vg = self.vg
+
+        for lv in vg.lvs:
+            if lv.lvname == name or lv.name == name:
+                return lv
+
     def __init__(self, anaconda, intf, parent, vg, isNew = 0):
         self.storage = anaconda.id.storage
 
@@ -1192,6 +1241,7 @@ class VolumeGroupEditor:
             self.lvs[lv.lvname] = {"name": lv.lvname,
                                    "size": lv.size,
                                    "format": copy.copy(lv.format),
+                                   "originalFormat": lv.originalFormat,
                                    "stripes": lv.stripes,
                                    "logSize": lv.logSize,
                                    "snapshotSpace": lv.snapshotSpace,
