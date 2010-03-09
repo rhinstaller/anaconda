@@ -24,6 +24,8 @@
 #include <errno.h>
 #include <ctype.h>
 #include <string.h>
+#include <dirent.h>
+#include <errno.h>
 
 #include "log.h"
 
@@ -157,80 +159,123 @@ int lenPartitionsList(char **list) {
     return rc;
 }
 
-/* Ensure all the device nodes from /proc/partitions exist in /dev
- * returns number of partitions found
- */
-int createPartitionNodes() {
+int createDevNode(const char *dname, const char *devname)
+{
+    char *dnode;
     FILE *f;
-    int numfound = 0;
+    int major, minor;
 
-    f = fopen("/proc/partitions", "r");
+    f = fopen(dname, "r");
+    logMessage(DEBUGLVL, "Trying to get device info %s from %s.", devname, dname);
+
     if (!f) {
-	logMessage(ERROR, "getPartitionsList: could not open /proc/partitions");
-	return -1;
+        logMessage(ERROR, "Could not open %s.", dname);
+        return -1;
     }
 
-    /* read through /proc/partitions and parse out partitions */
-    while (1) {
-	char *tmpptr, *pptr;
-	char tmpstr[4096];
-
-	tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
-
-	if (tmpptr) {
-	    char *a, *b;
-	    int toknum = 0;
-	    int major, minor;
-
-	    a = tmpstr;
-	    while (1) {
-		b = strsep(&a, " \n");
-
-		/* if no fields left abort */
-		if (!b)
-		    break;
-
-		/* if field was empty means we hit another delimiter */
-		if (!*b)
-		    continue;
-
-		/* make sure this is a valid partition line, should start */
-		/* with a numeral */
-		if (toknum == 0) {
-		    if (!isdigit(*b))
-			break;
-		    else
-		        major = atoi(b);
-		/* minor number */
-		} else if (toknum == 1) {
-		    if (!isdigit(*b))
-			break;
-		    else
-		        minor = atoi(b);
-		} else if (toknum == 2) {
-		    /* if size is exactly 1 then ignore it as an extended */
-		    if (!strcmp(b, "1"))
-			break;
-		} else if (toknum == 3) {
-		    /* this is block device or partition name */
-		    /* lets create devnode! */
-		    pptr = (char *) malloc(strlen(b) + 7);
-		    sprintf(pptr, "/dev/%s", b);
-		    mknod(pptr, 0600 | S_IFBLK, makedev(major, minor));
-		    logMessage(INFO, "creating device node for %s as b %d %d", pptr, major, minor);
-		    free(pptr);
-
-		    numfound++;
-		    break;
-		}
-		toknum++;
-	    }
-	} else {
-	    break;
-	}
+    if(fscanf(f, "%i:%i", &major, &minor)<2){
+        logMessage(ERROR, "Could not get major/minor from %s.", devname);
+        fclose(f);
+        return -2;
     }
 
     fclose(f);
+   
+    if(asprintf(&dnode, "/dev/%s", devname)<=0) {
+        logMessage(ERROR, "Cannot allocate memory for device node (%s).", devname);
+        return -3;
+    }
+    
+    if(mknod(dnode, 0600 | S_IFBLK, makedev(major, minor))<0) {
+        if(errno!=EEXIST) {
+            logMessage(ERROR, "Failed to create device node (%s %i:%i).", dnode, major, minor);
+        }
+
+        free(dnode);
+        return -4;
+    }
+    else {
+        logMessage(DEBUGLVL, "Device node (%s %i:%i) created.", dnode, major, minor);
+        free(dnode);
+        return 0;
+    }
+}
+
+/* Ensure all the device nodes from /sys/block exist in /dev
+ * returns number of partitions found
+ */
+int createPartitionNodes()
+{
+    DIR *d, *subd;
+    int numfound = 0;
+    struct dirent *dirp;
+    struct dirent *subdirp;
+
+    logMessage(DEBUGLVL, "Creating device nodes...");
+
+    d = opendir("/sys/block");
+    if(!d) {
+        logMessage(ERROR, "Cannot read /sys/block. Device nodes will not be created and driver discs may not work");
+        return -1;
+    }
+
+    /* Go through /sys/block */
+    while((dirp = readdir(d)) != NULL) {
+        char *dname;
+
+        if(!strcmp(dirp->d_name, "..") || !strcmp(dirp->d_name, "."))
+            continue;
+        
+        logMessage(DEBUGLVL, "Trying to create device nodes for %s.", dirp->d_name);
+
+        if(asprintf(&dname, "/sys/block/%s/dev", dirp->d_name)<=0) {
+            logMessage(ERROR, "Cannot allocate memory for device info (%s).", dirp->d_name);
+            continue;
+        }
+
+        if(!createDevNode(dname, dirp->d_name))
+            numfound++;
+        free(dname);
+
+        /* Look for partitions */
+        if(asprintf(&dname, "/sys/block/%s", dirp->d_name)<=0) {
+            logMessage(ERROR, "Cannot allocate memory for device subdirectory (%s).", dirp->d_name);
+            continue;
+        }
+
+        subd = opendir(dname);
+        if(!subd) {
+            logMessage(ERROR, "Cannot read /sys/block/%s. Partition nodes will not be created and driver discs may not work", dirp->d_name);
+            free(dname);
+            continue;
+        }
+
+        /* Go through /sys/block/$dname */
+        while((subdirp = readdir(subd)) != NULL) {
+            char *subdirname;
+
+            /* check if it is a partition */
+            if(strncmp(subdirp->d_name, dirp->d_name, dirp->d_reclen)){
+                /* not a partition, check next.. */
+                continue;
+            }
+
+            logMessage(DEBUGLVL, "Trying to create device nodes for %s.", subdirp->d_name);
+            if(asprintf(&subdirname, "/sys/block/%s/%s/dev", dirp->d_name, subdirp->d_name)<=0) {
+                logMessage(ERROR, "Cannot allocate memory for device info (%s).", subdirp->d_name);
+                continue;
+            }
+
+            if(!createDevNode(subdirname, subdirp->d_name))
+                numfound++;
+            free(subdirname);
+        }
+        
+        closedir(subd);
+        free(dname);
+    }
+
+    closedir(d);
 
     return numfound;
 }
