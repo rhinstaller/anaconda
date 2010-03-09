@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-24 07:56-1000\n"
-"PO-Revision-Date: 2010-02-25 15:09+0200\n"
+"POT-Creation-Date: 2010-03-04 10:31-0500\n"
+"PO-Revision-Date: 2010-03-09 22:53+0200\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -174,9 +174,9 @@ msgstr ""
 # ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:292
 # ../upgrade.py:304
 #: backend.py:182 image.py:288 livecd.py:198 livecd.py:403
-#: partIntfHelpers.py:237 text.py:354 text.py:358 yuminstall.py:407
-#: yuminstall.py:789 yuminstall.py:907 yuminstall.py:912 yuminstall.py:1186
-#: yuminstall.py:1245 yuminstall.py:1434 yuminstall.py:1456
+#: partIntfHelpers.py:237 text.py:354 text.py:358 yuminstall.py:410
+#: yuminstall.py:792 yuminstall.py:910 yuminstall.py:915 yuminstall.py:1189
+#: yuminstall.py:1248 yuminstall.py:1437 yuminstall.py:1459
 #: iw/autopart_type.py:96 iw/cleardisks_gui.py:43 iw/cleardisks_gui.py:53
 #: iw/filter_gui.py:405 iw/osbootwidget.py:211 iw/osbootwidget.py:220
 #: iw/raid_dialog_gui.py:212 iw/raid_dialog_gui.py:729
@@ -210,8 +210,8 @@ msgstr "Virhe"
 # ../textw/upgrade_text.py:172 ../upgrade.py:239 ../upgrade.py:357
 # ../upgrade.py:376
 #: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1154
-#: gui.py:1214 image.py:82 text.py:485 text.py:545 yuminstall.py:1413
-#: yuminstall.py:1619 yuminstall.py:1654 iw/blpasswidget.py:148
+#: gui.py:1214 image.py:82 text.py:485 text.py:545 yuminstall.py:1416
+#: yuminstall.py:1622 yuminstall.py:1657 iw/blpasswidget.py:148
 #: iw/upgrade_swap_gui.py:190 iw/upgrade_swap_gui.py:198
 #: iw/upgrade_swap_gui.py:205 textw/upgrade_text.py:193
 msgid "Warning"
@@ -233,17 +233,17 @@ msgstr ""
 # ../packages.py:653
 #: bootloader.py:60 gui.py:1105 gui.py:1250 gui.py:1465 image.py:91
 #: kickstart.py:157 livecd.py:205 livecd.py:410 packages.py:130 upgrade.py:58
-#: upgrade.py:197 yuminstall.py:248 yuminstall.py:694 yuminstall.py:909
-#: yuminstall.py:914 yuminstall.py:994 yuminstall.py:1000 yuminstall.py:1154
-#: yuminstall.py:1182 yuminstall.py:1235 yuminstall.py:1421 yuminstall.py:1440
-#: yuminstall.py:1463 storage/__init__.py:107 storage/__init__.py:214
+#: upgrade.py:197 yuminstall.py:251 yuminstall.py:697 yuminstall.py:912
+#: yuminstall.py:917 yuminstall.py:997 yuminstall.py:1003 yuminstall.py:1157
+#: yuminstall.py:1185 yuminstall.py:1238 yuminstall.py:1424 yuminstall.py:1443
+#: yuminstall.py:1466 storage/__init__.py:107 storage/__init__.py:214
 #: storage/__init__.py:1970
 msgid "_Exit installer"
 msgstr "_Lopeta asennusohjelma"
 
 # ../rescue.py:99
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1318
-#: kickstart.py:1357 upgrade.py:58 yuminstall.py:1240 yuminstall.py:1422
+#: kickstart.py:1357 upgrade.py:58 yuminstall.py:1243 yuminstall.py:1425
 #: iw/partition_gui.py:1598 storage/__init__.py:1971
 msgid "_Continue"
 msgstr "_Jatka"
@@ -317,9 +317,9 @@ msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
-"On ilmennyt käsittelemätön poikkeustilanne. Tämä on luultavasti ohjelmavirhe. "
-"Voit tallentaa kopion poikkeustilanteen yksityiskohdista ja tehdä "
-"vikaraportin"
+"On ilmennyt käsittelemätön poikkeustilanne. Tämä on luultavasti "
+"ohjelmavirhe. Voit tallentaa kopion poikkeustilanteen yksityiskohdista ja "
+"tehdä vikaraportin"
 
 #: constants.py:80
 msgid " with the provider of this software."
@@ -545,17 +545,17 @@ msgid "_Exit"
 msgstr "_Poistu"
 
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
-#: gui.py:1376 image.py:164 image.py:194 livecd.py:205 yuminstall.py:786
-#: yuminstall.py:1182 yuminstall.py:1235 yuminstall.py:1440
+#: gui.py:1376 image.py:164 image.py:194 livecd.py:205 yuminstall.py:789
+#: yuminstall.py:1185 yuminstall.py:1238 yuminstall.py:1443
 msgid "_Retry"
 msgstr "_Uudelleen"
 
-#: gui.py:1378 storage/partitioning.py:275
+#: gui.py:1378 storage/partitioning.py:277
 msgid "The system will now reboot."
 msgstr "Järjestelmä käynnistyy uudelleen."
 
 # ../iw/partition_gui.py:1528
-#: gui.py:1379 image.py:251 packages.py:332 yuminstall.py:1481
+#: gui.py:1379 image.py:251 packages.py:332 yuminstall.py:1484
 msgid "_Reboot"
 msgstr "_Käynnistä uudelleen"
 
@@ -579,7 +579,7 @@ msgstr "Haluatko varmasti poistua asennusohjelmasta?"
 #: gui.py:1472
 #, python-format
 msgid "%s Installer"
-msgstr "%s -asennusohjelma"
+msgstr "%s-asennusohjelma"
 
 # ../gui.py:706
 #: gui.py:1478
@@ -672,8 +672,8 @@ msgstr ""
 # ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
 # ../textw/confirm_text.py:38 ../textw/constants_text.py:28
 # ../textw/silo_text.py:110 ../textw/userauth_text.py:185
-#: image.py:251 livecd.py:409 packages.py:332 upgrade.py:196 yuminstall.py:914
-#: yuminstall.py:1000 yuminstall.py:1421 yuminstall.py:1463 yuminstall.py:1481
+#: image.py:251 livecd.py:409 packages.py:332 upgrade.py:196 yuminstall.py:917
+#: yuminstall.py:1003 yuminstall.py:1424 yuminstall.py:1466 yuminstall.py:1484
 msgid "_Back"
 msgstr "_Takaisin"
 
@@ -802,7 +802,7 @@ msgid "Scriptlet Failure"
 msgstr "Sovelma epäonnistui"
 
 # ../loader/net.c:814
-#: kickstart.py:151 rescue.py:248 yuminstall.py:689 yuminstall.py:1149
+#: kickstart.py:151 rescue.py:248 yuminstall.py:692 yuminstall.py:1152
 msgid "No Network Available"
 msgstr "Verkko ei ole käytettävissä"
 
@@ -1979,11 +1979,11 @@ msgid "Finishing upgrade process.  This may take a little while."
 msgstr "Viimeistellään asennusta. Tähän voi kulua hetki aikaa."
 
 # ../iw/progress_gui.py:28
-#: yuminstall.py:242
+#: yuminstall.py:245
 msgid "Error Installing Package"
 msgstr "Virhe pakettia asennettaessa"
 
-#: yuminstall.py:243
+#: yuminstall.py:246
 #, python-format
 msgid ""
 "A fatal error occurred when installing the %s package.  This could indicate "
@@ -1992,12 +1992,12 @@ msgstr ""
 "Pakettia %s asennettaessa tapahtui vakava virhe. Tämä saattaa johtua "
 "asennusmediaa luettaessa tapahtuneesta virheestä. Asennusta ei voida jatkaa."
 
-#: yuminstall.py:344 iw/task_gui.py:322
+#: yuminstall.py:347 iw/task_gui.py:322
 msgid "Error Setting Up Repository"
 msgstr "Virhe asennuslähteen asettamisessa"
 
 # ../autopart.py:891
-#: yuminstall.py:345
+#: yuminstall.py:348
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -2013,38 +2013,38 @@ msgstr ""
 "Anna oikeat tiedot tuotteen %(productName)s asentamiseksi."
 
 # ../image.py:119
-#: yuminstall.py:389
+#: yuminstall.py:392
 msgid "Change Disc"
 msgstr "Vaihda levy"
 
 # ../image.py:120
-#: yuminstall.py:390
+#: yuminstall.py:393
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
 msgstr "Syötä %(productName)s -levy %(discnum)d."
 
 # ../image.py:137
-#: yuminstall.py:400
+#: yuminstall.py:403
 msgid "Wrong Disc"
 msgstr "Väärä levy"
 
 # ../image.py:138
-#: yuminstall.py:401
+#: yuminstall.py:404
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Asemassa ei ole oikeata %s -levyä."
 
-#: yuminstall.py:408
+#: yuminstall.py:411
 msgid "Unable to access the disc."
 msgstr "Levyn käyttäminen ei onnistu."
 
 # FIXME: What's the r?
-#: yuminstall.py:566
+#: yuminstall.py:569
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Asennuslähteen %r asetuksista puuttuu nimi, käytetään tunnistetta"
 
-#: yuminstall.py:690 yuminstall.py:1150
+#: yuminstall.py:693 yuminstall.py:1153
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2053,15 +2053,15 @@ msgstr ""
 "käyttöönotossa oli ongelmia."
 
 # ../iw/partition_gui.py:1528
-#: yuminstall.py:784 yuminstall.py:786
+#: yuminstall.py:787 yuminstall.py:789
 msgid "Re_boot"
 msgstr "Käynnistä _uudelleen"
 
-#: yuminstall.py:784
+#: yuminstall.py:787
 msgid "_Eject"
 msgstr "_Poista levy"
 
-#: yuminstall.py:790
+#: yuminstall.py:793
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2080,66 +2080,66 @@ msgstr ""
 "\n"
 
 # ../loader/urls.c:103
-#: yuminstall.py:838
+#: yuminstall.py:841
 msgid "Retrying"
 msgstr "Yritetään uudelleen"
 
-#: yuminstall.py:838
+#: yuminstall.py:841
 msgid "Retrying download."
 msgstr "Yritetään latausta uudelleen."
 
-#: yuminstall.py:903
+#: yuminstall.py:906
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr "Transaktion suorittamisessa tapahtui virhe seuraavasta syystä: %s\n"
 
-#: yuminstall.py:946 yuminstall.py:947
+#: yuminstall.py:949 yuminstall.py:950
 msgid "file conflicts"
 msgstr "Tiedostoristiriita"
 
 # ../iw/progress_gui.py:28
-#: yuminstall.py:948
+#: yuminstall.py:951
 msgid "older package(s)"
 msgstr "Vanhemmat paketit"
 
-#: yuminstall.py:949
+#: yuminstall.py:952
 msgid "insufficient disk space"
 msgstr "Ei tarpeeksi tilaa levyllä"
 
-#: yuminstall.py:950
+#: yuminstall.py:953
 msgid "insufficient disk inodes"
 msgstr "Ei tarpeeksi inodeja levyllä"
 
-#: yuminstall.py:951
+#: yuminstall.py:954
 msgid "package conflicts"
 msgstr "pakettiristiriita"
 
-#: yuminstall.py:952
+#: yuminstall.py:955
 msgid "package already installed"
 msgstr "Paketti on jo asennettu"
 
 #
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
-#: yuminstall.py:953
+#: yuminstall.py:956
 msgid "required package"
 msgstr "Vaadittu paketti"
 
-#: yuminstall.py:954
+#: yuminstall.py:957
 msgid "package for incorrect arch"
 msgstr "Paketti on väärälle arkkitehtuurille"
 
-#: yuminstall.py:955
+#: yuminstall.py:958
 msgid "package for incorrect os"
 msgstr "Paketti on väärälle käyttöjärjestelmälle"
 
-#: yuminstall.py:969
+#: yuminstall.py:972
 msgid "You need more space on the following file systems:\n"
 msgstr "Tarvitaan lisää tilaa seuraavilla tiedostojärjestelmillä:\n"
 
 # ../loader/loader.c:1487
-#: yuminstall.py:982
+#: yuminstall.py:985
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2148,7 +2148,7 @@ msgstr ""
 "Asennettavia paketteja tarkistettaessa löytyi tiedostokonflikteja:\n"
 "%s\n"
 
-#: yuminstall.py:985
+#: yuminstall.py:988
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
@@ -2156,11 +2156,11 @@ msgid ""
 msgstr "Transaktion suorittamisessa tapahtui virhe seuraavista syistä: %s\n"
 
 # ../packages.py:481
-#: yuminstall.py:992 yuminstall.py:997
+#: yuminstall.py:995 yuminstall.py:1000
 msgid "Error Running Transaction"
 msgstr "Virhe transaktion suorittamisessa"
 
-#: yuminstall.py:1187
+#: yuminstall.py:1190
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2169,18 +2169,18 @@ msgstr ""
 "ongelma."
 
 # ../packages.py:100
-#: yuminstall.py:1223
+#: yuminstall.py:1226
 msgid "Retrieving installation information."
 msgstr "Luetaan asennustietoja."
 
 # ../packages.py:100
-#: yuminstall.py:1225
+#: yuminstall.py:1228
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Luetaan asennustietoja lähteelle %s."
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
-#: yuminstall.py:1227
+#: yuminstall.py:1230
 msgid "Installation Progress"
 msgstr "Asennuksen edistyminen"
 
@@ -2188,11 +2188,11 @@ msgstr "Asennuksen edistyminen"
 # ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 # ../textw/silo_text.py:216 ../textw/silo_text.py:238
 # ../textw/userauth_text.py:219
-#: yuminstall.py:1235 textw/constants_text.py:64
+#: yuminstall.py:1238 textw/constants_text.py:64
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: yuminstall.py:1246 yuminstall.py:1435
+#: yuminstall.py:1249 yuminstall.py:1438
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2206,7 +2206,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1414
+#: yuminstall.py:1417
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2217,7 +2217,7 @@ msgstr ""
 "palata takaisin ja muuttaa pakettivalintoja, lopettaa asennuksen tai jatkaa "
 "näiden pakettien asennusta ilman riippuvuuksia."
 
-#: yuminstall.py:1457
+#: yuminstall.py:1460
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2228,15 +2228,15 @@ msgstr ""
 "vapaana. Voit muuttaa valintoja tai poistua asennusohjelmasta."
 
 # ../iw/partition_gui.py:1528
-#: yuminstall.py:1478
+#: yuminstall.py:1481
 msgid "Reboot?"
 msgstr "Käynnistä uudelleen?"
 
-#: yuminstall.py:1479
+#: yuminstall.py:1482
 msgid "The system will be rebooted now."
 msgstr "Järjestelmä käynnistetään uudelleen."
 
-#: yuminstall.py:1620
+#: yuminstall.py:1623
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2245,7 +2245,7 @@ msgstr ""
 "Järjestelmä on liian vanha, jotta sitä voitaisiin päivittää %sn tähän "
 "versioon. Haluatko varmasti jatkaa päivitystä?"
 
-#: yuminstall.py:1655
+#: yuminstall.py:1658
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2258,41 +2258,41 @@ msgstr ""
 "luultavasti onnistu. Haluatko varmasti jatkaa päivitystä?"
 
 # ../installclasses/upgradeclass.py:12
-#: yuminstall.py:1702
+#: yuminstall.py:1705
 msgid "Post Upgrade"
 msgstr "Päivitystä täydentävä"
 
 # ../packages.py:654
-#: yuminstall.py:1703
+#: yuminstall.py:1706
 msgid "Performing post-upgrade configuration"
 msgstr "Tehdään päivitystä täydentäviä asetuksia"
 
 # ../packages.py:653
-#: yuminstall.py:1705
+#: yuminstall.py:1708
 msgid "Post Installation"
 msgstr "Asennusta täydentävät toimet"
 
 # ../packages.py:654
-#: yuminstall.py:1706
+#: yuminstall.py:1709
 msgid "Performing post-installation configuration"
 msgstr "Tehdään asennusta täydentäviä asetuksia"
 
-#: yuminstall.py:1926
+#: yuminstall.py:1929
 msgid "Installation Starting"
 msgstr "Asennus alkaa"
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
-#: yuminstall.py:1927
+#: yuminstall.py:1930
 msgid "Starting installation process"
 msgstr "Asennuksen aloituksen edistyminen"
 
 # ../packages.py:157
-#: yuminstall.py:1965
+#: yuminstall.py:1968
 msgid "Dependency Check"
 msgstr "Riippuvuuksien tarkistus"
 
 # ../packages.py:158
-#: yuminstall.py:1966
+#: yuminstall.py:1969
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Tarkistetaan asennettaviksi valittujen pakettien riippuvuuksia"
 
@@ -2793,7 +2793,7 @@ msgstr "Tuntematon Linux-järjestelmä"
 #: iw/filter_gui.py:142
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
-msgstr "<b>%s laitteita (%s MB) valittuna</b> / %s laitteita (%s MB) yhteensä."
+msgstr "<b>%s laitetta (%s MB) valittuna</b> / %s laitetta (%s MB) yhteensä."
 
 #: iw/filter_gui.py:391
 msgid "Device Filter"
@@ -3713,7 +3713,7 @@ msgstr "Asemanmonistuseditoria ei voitu luoda jostain syystä."
 # ../autopart.py:913 ../iw/partition_gui.py:1275
 # ../textw/partition_text.py:163
 #: iw/partition_gui.py:1584 storage/partitioning.py:197
-#: storage/partitioning.py:238
+#: storage/partitioning.py:240
 msgid "Error Partitioning"
 msgstr "Virhe suoritettaessa osiointia"
 
@@ -5015,7 +5015,7 @@ msgstr "Käynnistetään anaconda %s, %s -pelastustila - odota hetki.\n"
 #: loader/loader.c:2354
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr "Käynnistetään anaconda %s, %s -asennusohjelma - odota hetki.\n"
+msgstr "Käynnistetään anaconda %s, %s-asennusohjelma - odota hetki.\n"
 
 #: loader/mediacheck.c:46
 #, c-format
@@ -5917,7 +5917,7 @@ msgstr ""
 "Jos ohitat tämän kohdan, laitteella olevia tietoja ei voi käyttää asennuksen "
 "aikana."
 
-#: storage/devicetree.py:1826 storage/devicetree.py:1874
+#: storage/devicetree.py:1830 storage/devicetree.py:1878
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Tämä laite on osa epäyhtenäistä LVM-taltioryhmää."
 
@@ -5982,7 +5982,7 @@ msgstr ""
 "tiedostojärjestelmän korjaamisen. Yritä asennusta uudelleen, kun "
 "tiedostojärjestelmän ongelmat on korjattu."
 
-#: storage/formats/fs.py:535 storage/partitioning.py:274
+#: storage/formats/fs.py:535 storage/partitioning.py:276
 msgid "Unrecoverable Error"
 msgstr "Palautumaton häiriö"
 
@@ -6101,7 +6101,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: storage/partitioning.py:237 storage/partitioning.py:258
+#: storage/partitioning.py:239 storage/partitioning.py:260
 msgid ""
 "\n"
 "\n"
@@ -6112,7 +6112,7 @@ msgstr ""
 "Poistu asennusohjelmasta painamalla OK."
 
 # ../autopart.py:914
-#: storage/partitioning.py:239
+#: storage/partitioning.py:241
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -6123,7 +6123,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: storage/partitioning.py:260
+#: storage/partitioning.py:262
 msgid ""
 "\n"
 "\n"
@@ -6134,11 +6134,11 @@ msgstr ""
 "Paina OK valitaksesi erilaisen osiointivaihtoehdon."
 
 # ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
-#: storage/partitioning.py:262
+#: storage/partitioning.py:264
 msgid "Automatic Partitioning Errors"
 msgstr "Automaattisen osioinnin virheet"
 
-#: storage/partitioning.py:263
+#: storage/partitioning.py:265
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -6892,37 +6892,42 @@ msgstr ""
 "saatetaan alustaa)."
 
 #: ui/create-storage.glade.h:1
-msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">Luo RAID-osio</span>"
 
 #: ui/create-storage.glade.h:2
 msgid ""
-"<span size=\"small\" color=\"gray\">Create a logical volume on selected volume "
-"group</span>"
+"<span size=\"small\" color=\"gray\">Create a logical volume on selected "
+"volume group</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">Luo looginen taltio valittuun "
 "taltioryhmään</span>"
 
 #: ui/create-storage.glade.h:3
-msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">Luo LVM-osio</span>"
 
 #: ui/create-storage.glade.h:4
-msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
-msgstr "<span size=\"small\" color=\"gray\">Helpottaa RAID-laitteen luomista</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">Helpottaa RAID-laitteen luomista</span>"
 
 #: ui/create-storage.glade.h:5
 msgid ""
 "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr "<span size=\"small\" color=\"gray\">Yleiskäyttöisen osion luominen</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">Yleiskäyttöisen osion luominen</span>"
 
 #: ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
 "partition</span>"
 msgstr ""
-"<span size=\"small\" color=\"gray\">Vaatii vähintään yhden vapaan LVM-"
-"osion</span>"
+"<span size=\"small\" color=\"gray\">Vaatii vähintään yhden vapaan LVM-osion</"
+"span>"
 
 #: ui/create-storage.glade.h:7
 msgid ""
@@ -7017,13 +7022,13 @@ msgstr "<b>%s laitteita (%s) valittuna</b> / %s laitteita (%s) yhteensä."
 msgid ""
 "<b>Tip:</b> Selecting a drive on this screen does not necessarily mean it "
 "will be wiped by the installation process.  Also, note that post-"
-"installation you may mount drives you did not select here by modifying your "
-"/etc/fstab file."
+"installation you may mount drives you did not select here by modifying your /"
+"etc/fstab file."
 msgstr ""
 "<b>Vinkki:</b> Levyn valitseminen tässä ruudussa ei välttämättä tarkoita, "
 "että se tyhjennetään asennuksen aikana. Huomaa myös, että asennuksen jälkeen "
-"voit liittää levyjä joita et valinnut tässä muokkaamalla /etc/fstab-"
-"tiedostoa."
+"voit /etc/fstab-tiedostoa muokkaamalla liittää levyjä, joita et valinnut "
+"tässä ruudussa."
 
 # ../loader/net.c:266 ../loader/net.c:804
 #: ui/filter.glade.h:4
@@ -7224,7 +7229,6 @@ msgstr "Säädä IP-asetukset _dynaamisesti (DHCP)"
 msgid "Hostname:"
 msgstr "Konenimi:"
 
-# TODO: paremmin?
 #: ui/network.glade.h:2
 msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
