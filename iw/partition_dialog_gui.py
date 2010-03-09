@@ -287,11 +287,38 @@ class PartitionEditor:
                             actions.append(ActionCreateDevice(luksdev))
                             actions.append(ActionCreateFormat(luksdev))
                     elif not self.fsoptionsDict["formatcb"].get_active():
-                        creates = devicetree.findActions(type="create",
-                                                         object="format",
-                                                         devid=usedev.id)
-                        for action in creates:
+                        # if the format checkbutton is inactive, cancel all
+                        # actions on this device that create or destroy
+                        # formats
+                        cancel = []
+                        if request.originalFormat.type == "luks":
+                            path = "/dev/mapper/luks-%s" % request.originalFormat.uuid
+                            cancel.extend(devicetree.findActions(path=path))
+
+                        cancel.extend(devicetree.findActions(type="destroy",
+                                                             object="format",
+                                                             devid=request.id))
+                        cancel.extend(devicetree.findActions(type="create",
+                                                             object="format",
+                                                             devid=request.id))
+                        cancel.reverse()
+                        for action in cancel:
                             devicetree.cancelAction(action)
+
+                        # even though we cancelled a bunch of actions, it's
+                        # pretty much impossible to be sure we cancelled them
+                        # in the correct order. make sure things are back to
+                        # their original state.
+                        request.format = request.originalFormat
+                        if request.format.type == "luks":
+                            try:
+                                usedev = devicetree.getChildren(request)[0]
+                            except IndexError:
+                                usedev = request
+                            else:
+                                usedev.format = usedev.originalFormat
+                        else:
+                            usedev = request
 
                         if usedev.format.mountable:
                             usedev.format.mountpoint = mountpoint
@@ -416,15 +443,22 @@ class PartitionEditor:
 
             row = row + 1
 
-        # original fs label
-        if usereq.format.exists and \
-           getattr(usereq.format, "label", None):
-            maintable.attach(createAlignedLabel(_("Original File System "
-                                                  "Label:")),
+        # original fs type and label
+        if self.origrequest.exists:
+            maintable.attach(createAlignedLabel(_("Original File System Type:")),
                              0, 1, row, row + 1)
-            fslabel = gtk.Label(usereq.format.label)
-            maintable.attach(fslabel, 1, 2, row, row + 1)
-            row = row + 1
+            self.fstypeCombo = gtk.Label(usereq.originalFormat.name)
+
+            maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
+            row += 1
+
+            if getattr(usereq.originalFormat, "label", None):
+                maintable.attach(createAlignedLabel(_("Original File System "
+                                                      "Label:")),
+                                 0, 1, row, row + 1)
+                fslabel = gtk.Label(usereq.originalFormat.label)
+                maintable.attach(fslabel, 1, 2, row, row + 1)
+                row = row + 1
 
         # size
         if not self.origrequest.exists:

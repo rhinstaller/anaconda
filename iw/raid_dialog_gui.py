@@ -279,7 +279,45 @@ class RaidEditor:
                             luksdev = None
 
                         actions.append(ActionDestroyFormat(self.origrequest))
-                elif self.origrequest.format.mountable:
+                elif self.fsoptionsDict.has_key("formatcb") and \
+                     not self.fsoptionsDict["formatcb"].get_active():
+                    # if the format checkbutton is inactive, cancel all
+                    # actions on this device that create or destroy formats
+                    devicetree = self.storage.devicetree
+                    request = self.origrequest
+                    cancel = []
+                    if request.originalFormat.type == "luks":
+                        path = "/dev/mapper/luks-%s" % request.originalFormat.uuid
+                        cancel.extend(devicetree.findActions(path=path))
+
+                    cancel.extend(devicetree.findActions(type="destroy",
+                                                         object="format",
+                                                         devid=request.id))
+                    cancel.extend(devicetree.findActions(type="create",
+                                                         object="format",
+                                                         devid=request.id))
+                    for action in cancel:
+                        devicetree.cancelAction(action)
+
+                    # even though we cancelled a bunch of actions, it's
+                    # pretty much impossible to be sure we cancelled them
+                    # in the correct order. make sure things are back to
+                    # their original state.
+                    request.format = request.originalFormat
+                    if request.format.type == "luks":
+                        try:
+                            usedev = devicetree.getChildren(request)[0]
+                        except IndexError:
+                            usedev = request
+                        else:
+                            usedev.format = usedev.originalFormat
+                    else:
+                        usedev = request
+
+                    if usedev.format.mountable:
+                        usedev.format.mountpoint = mountpoint
+
+                if self.origrequest.format.mountable:
                     self.origrequest.format.mountpoint = mountpoint
 
 		if self.fsoptionsDict.has_key("migratecb") and \
@@ -408,22 +446,18 @@ class RaidEditor:
 	    lbl.set_mnemonic_widget(self.fstypeCombo)
             maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
             row += 1
-        elif format.exists:
+        else:
             maintable.attach(createAlignedLabel(_("Original File System Type:")),
                              0, 1, row, row + 1)
-            if format.type:
-                self.fstypeCombo = gtk.Label(format.name)
-            else:
-                self.fstypeCombo = gtk.Label(_("Unknown"))
-
+            self.fstypeCombo = gtk.Label(usedev.originalFormat.name)
             maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
             row += 1
 
-            if getattr(format, "label", None):
+            if getattr(usedev.originalFormat, "label", None):
                 maintable.attach(createAlignedLabel(_("Original File System "
                                                       "Label:")),
                                  0, 1, row, row + 1)
-                maintable.attach(gtk.Label(format.label),
+                maintable.attach(gtk.Label(usedev.originalFormat.label),
                                  1, 2, row, row + 1)
                 row += 1
 
