@@ -214,21 +214,22 @@ rel="`awk '/Release:/ { split($2, r, "%"); print r[[1]] }' anaconda.spec.in`"
 AC_SUBST(PACKAGE_RELEASE, [$rel])
 
 # Set $(ARCH) and arch-related tests
-s_arch="`uname -m | sed -e s/i.86/i386/ -e s/sparc.*/sparc/ -e s/ppc.*/ppc/`"
+s_arch="`uname -m | sed -e s/i.86/i386/ -e s/sparc.*/sparc/`"
 AC_SUBST(ARCH, [$s_arch])
 
 AM_CONDITIONAL(IS_FONT_ARCH,
   [test x$s_arch != xs390 && test x$s_arch != xs390x])
 
 AM_CONDITIONAL(IS_LIVEINST_ARCH,
-  [test x$s_arch == xppc || test x$s_arch == xi386 || test x$s_arch == xx86_64])
+  [test x$s_arch == xi386 || test x$s_arch == xx86_64 ||
+   test x$s_arch == xppc || test x$s_arch == xppc64])
 
 AM_CONDITIONAL(IS_GPTSYNC_ARCH,
   [test x$s_arch == xi386 || test x$s_arch == xx86_64])
 
 AM_CONDITIONAL(IS_KEYMAPS_OVERRIDE_ARCH,
-  [test x$s_arch == xi386 || test x$s_arch == xppc ||
-   test x$s_arch == xx86_64 || test x$s_arch == xppc64])
+  [test x$s_arch == xi386 || test x$s_arch == xx86_64 ||
+   test x$s_arch == xppc || test x$s_arch == xppc64])
 
 AM_CONDITIONAL(IS_I386,
   [test x$s_arch == xi386])
