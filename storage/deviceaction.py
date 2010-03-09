@@ -309,7 +309,7 @@ class ActionDestroyFormat(DeviceAction):
     def execute(self, intf=None):
         """ wipe the filesystem signature from the device """
         if self.origFormat:
-            self.device.setup()
+            self.device.setup(orig=True)
             self.origFormat.destroy()
             udev_settle()
             self.device.teardown()
@@ -344,7 +344,7 @@ class ActionResizeFormat(DeviceAction):
         self.device.format.targetSize = newsize
 
     def execute(self, intf=None):
-        self.device.setup()
+        self.device.setup(orig=True)
         self.device.format.doResize(intf=intf)
 
     def cancel(self):
@@ -363,7 +363,7 @@ class ActionMigrateFormat(DeviceAction):
         self.device.format.migrate = True
 
     def execute(self, intf=None):
-        self.device.setup()
+        self.device.setup(orig=True)
         self.device.format.doMigrate(intf=intf)
 
     def cancel(self):
