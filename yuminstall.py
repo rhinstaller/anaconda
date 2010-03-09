@@ -1094,7 +1094,7 @@ class YumBackend(AnacondaBackend):
         buf = """
 [main]
 installroot=%s
-cachedir=/var/cache/yum
+cachedir=/var/cache/yum/$basearch/$releasever
 keepcache=0
 logfile=/tmp/yum.log
 metadata_expire=0
