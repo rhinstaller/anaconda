@@ -110,6 +110,9 @@ class PartitionEditor:
                 return []
 
             mountpoint = self.mountCombo.get_children()[0].get_text()
+            if mountpoint == _("<Not Applicable>"):
+                mountpoint = ""
+
             if mountpoint:
                 used = False
                 for (mp, dev) in self.storage.mountpoints.iteritems():
