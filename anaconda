@@ -856,19 +856,6 @@ if __name__ == "__main__":
 
     if anaconda.ksdata:
         import storage
-
-        # Before we set up the storage system, we need to know which disks to
-        # ignore, etc.  Luckily that's all in the kickstart data.
-        anaconda.storage.zeroMbr = anaconda.ksdata.zerombr.zerombr
-        anaconda.storage.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
-        anaconda.storage.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
-
-        if anaconda.ksdata.clearpart.type is not None:
-            anaconda.storage.clearPartType = anaconda.ksdata.clearpart.type
-            anaconda.storage.clearPartDisks = anaconda.ksdata.clearpart.drives
-            if anaconda.ksdata.clearpart.initAll:
-                anaconda.storage.reinitializeDisks = anaconda.ksdata.clearpart.initAll
-
         storage.storageInitialize(anaconda)
 
         # Now having initialized storage, we can apply all the other kickstart
