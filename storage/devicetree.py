@@ -1279,6 +1279,7 @@ class DeviceTree(object):
         log.debug("got device: %s" % device)
         if device.format.type:
             log.debug("got format: %s" % device.format)
+        device.originalFormat = device.format
 
     def handleUdevDiskLabelFormat(self, info, device):
         log_method_call(self, device=device.name)

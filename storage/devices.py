@@ -302,11 +302,11 @@ class Device(object):
         """ Destroy the device. """
         raise NotImplementedError("destroy method not defined for Device")
 
-    def setupParents(self):
+    def setupParents(self, orig=False):
         """ Run setup method of all parent devices. """
-        log_method_call(self, name=self.name, kids=self.kids)
+        log_method_call(self, name=self.name, orig=orig, kids=self.kids)
         for parent in self.parents:
-            parent.setup()
+            parent.setup(orig=orig)
 
     def teardownParents(self, recursive=None):
         """ Run teardown method of all parent devices. """
@@ -473,6 +473,7 @@ class StorageDevice(Device):
         self.protected = False
 
         self.format = format
+        self.originalFormat = self.format
         self.fstabComment = ""
         self._targetSize = self._size
 
@@ -527,12 +528,12 @@ class StorageDevice(Device):
               "  major = %(major)s  minor = %(minor)r  exists = %(exists)s\n"
               "  sysfs path = %(sysfs)s  partedDevice = %(partedDevice)r\n"
               "  target size = %(targetSize)s  path = %(path)s\n"
-              "  format args = %(formatArgs)s" %
+              "  format args = %(formatArgs)s  originalFormat = %(origFmt)s" %
               {"uuid": self.uuid, "format": self.format, "size": self.size,
                "major": self.major, "minor": self.minor, "exists": self.exists,
                "sysfs": self.sysfsPath, "partedDevice": self.partedDevice,
                "targetSize": self.targetSize, "path": self.path,
-               "formatArgs": self.formatArgs})
+               "formatArgs": self.formatArgs, "origFmt": self.originalFormat})
         return s
 
     @property
@@ -599,15 +600,18 @@ class StorageDevice(Device):
         """
         raise NotImplementedError("resize method not defined for StorageDevice")
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
-        self.setupParents()
+        self.setupParents(orig=orig)
         for parent in self.parents:
-            parent.format.setup()
+            if orig:
+                parent.originalFormat.setup()
+            else:
+                parent.format.setup()
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
@@ -615,8 +619,11 @@ class StorageDevice(Device):
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
 
-        if self.status and self.format.exists:
-            self.format.teardown()
+        if self.status:
+            if self.originalFormat.exists:
+                self.originalFormat.teardown()
+            if self.format.exists:
+                self.format.teardown()
             udev_settle()
 
         if recursive:
@@ -844,9 +851,9 @@ class DiskDevice(StorageDevice):
 
         self.teardown()
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status)
         if not os.path.exists(self.path):
             raise DeviceError("device does not exist", self.name)
 
@@ -1330,7 +1337,7 @@ class PartitionDevice(StorageDevice):
         if not self.isleaf:
             raise DeviceError("Cannot destroy non-leaf device", self.name)
 
-        self.setupParents()
+        self.setupParents(orig=True)
         self.disk.format.removePartition(self.partedPartition)
         self.disk.format.commit()
 
@@ -1343,6 +1350,8 @@ class PartitionDevice(StorageDevice):
             raise DeviceError("device has not been created", self.name)
 
         if self.status:
+            if self.originalFormat.exists:
+                self.originalFormat.teardown()
             if self.format.exists:
                 self.format.teardown()
             if self.parents[0].type == 'dm-multipath':
@@ -1617,14 +1626,17 @@ class LUKSDevice(DMCryptDevice):
         self.exists = True
         self.setup()
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
-        self.slave.setup()
-        self.slave.format.setup()
+        self.slave.setup(orig=orig)
+        if orig:
+            self.slave.originalFormat.setup()
+        else:
+            self.slave.format.setup()
         udev_settle()
 
         # we always probe since the device may not be set up when we want
@@ -1637,8 +1649,15 @@ class LUKSDevice(DMCryptDevice):
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
 
-        if self.status and self.format.exists:
-            self.format.teardown()
+        if self.status:
+            if self.originalFormat.exists:
+                self.originalFormat.teardown()
+            if self.format.exists:
+                self.format.teardown()
+            udev_settle()
+
+        if self.slave.originalFormat.exists:
+            self.slave.originalFormat.teardown()
             udev_settle()
 
         if self.slave.format.exists:
@@ -1864,13 +1883,13 @@ class LVMVolumeGroupDevice(DMDevice):
 
         device.removeChild()
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device.
 
             XXX we don't do anything like "vgchange -ay" because we don't
                 want all of the LVs activated, just the VG itself.
         """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
@@ -1880,7 +1899,7 @@ class LVMVolumeGroupDevice(DMDevice):
         if len(self.parents) < self.pvCount:
             raise DeviceError("cannot activate VG with missing PV(s)", self.name)
 
-        self.setupParents()
+        self.setupParents(orig=orig)
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
@@ -1929,7 +1948,7 @@ class LVMVolumeGroupDevice(DMDevice):
             raise DeviceError("device has not been created", self.name)
 
         # set up the pvs since lvm needs access to them to do the vgremove
-        self.setupParents()
+        self.setupParents(orig=True)
 
         # this sometimes fails for some reason.
         try:
@@ -2256,16 +2275,16 @@ class LVMLogicalVolumeDevice(DMDevice):
         """ Test if vg exits and if it has all pvs. """
         return self.vg.complete
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
         if self.status:
             return
 
-        self.vg.setup()
+        self.vg.setup(orig=orig)
         lvm.lvactivate(self.vg.name, self._name)
 
         # we always probe since the device may not be set up when we want
@@ -2278,8 +2297,11 @@ class LVMLogicalVolumeDevice(DMDevice):
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
 
-        if self.status and self.format.exists:
-            self.format.teardown()
+        if self.status:
+            if self.originalFormat.exists:
+                self.originalFormat.teardown()
+            if self.format.exists:
+                self.format.teardown()
             udev_settle()
 
         if self.status:
@@ -2330,7 +2352,7 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         self.teardown()
         # set up the vg's pvs so lvm can remove the lv
-        self.vg.setupParents()
+        self.vg.setupParents(orig=True)
         lvm.lvremove(self.vg.name, self._name)
         self.exists = False
 
@@ -2341,8 +2363,10 @@ class LVMLogicalVolumeDevice(DMDevice):
             raise DeviceError("device has not been created", self.name)
 
         # Setup VG parents (in case they are dmraid partitions for example)
-        self.vg.setupParents()
+        self.vg.setupParents(orig=True)
 
+        if self.originalFormat.exists:
+            self.originalFormat.teardown()
         if self.format.exists:
             self.format.teardown()
 
@@ -2705,9 +2729,9 @@ class MDRaidArrayDevice(StorageDevice):
         """ Return a list of this array's member device instances. """
         return self.parents
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
@@ -2716,7 +2740,7 @@ class MDRaidArrayDevice(StorageDevice):
 
         disks = []
         for member in self.devices:
-            member.setup()
+            member.setup(orig=orig)
             disks.append(member.path)
 
         update_super_minor = True
@@ -2741,8 +2765,11 @@ class MDRaidArrayDevice(StorageDevice):
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
 
-        if self.status and self.format.exists:
-            self.format.teardown()
+        if self.status:
+            if self.originalFormat.exists:
+                self.originalFormat.teardown()
+            if self.format.exists:
+                self.format.teardown()
             udev_settle()
 
         # Since BIOS RAID sets (containers in mdraid terminology) never change
@@ -2947,10 +2974,10 @@ class DMRaidArrayDevice(DMDevice):
         self._raidSet.activate(mknod=True)
         udev_settle()
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, status=self.status)
-        StorageDevice.setup(self, intf=intf)
+        log_method_call(self, self.name, orig=orig, status=self.status)
+        StorageDevice.setup(self, intf=intf, orig=orig)
         self.activate()
 
     def teardown(self, recursive=None):
@@ -3103,14 +3130,14 @@ class MultipathDevice(DMDevice):
         if recursive:
             self.teardownParents(recursive=recursive)
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status)
 
         if self.status:
             return
 
-        StorageDevice.setup(self, intf=intf)
+        StorageDevice.setup(self, intf=intf, orig=orig)
         udev_settle()
         rc = iutil.execWithRedirect("multipath",
                             [self.name],
@@ -3152,9 +3179,9 @@ class NoDevice(StorageDevice):
         """ Probe for any missing information about this device. """
         log_method_call(self, self.name, status=self.status)
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status)
 
     def teardown(self, recursive=False):
         """ Close, or tear down, a device. """
@@ -3226,13 +3253,16 @@ class FileDevice(StorageDevice):
 
         return os.path.normpath("%s/%s" % (root, path))
 
-    def setup(self):
-        StorageDevice.setup(self)
+    def setup(self, intf=None, orig=False):
+        StorageDevice.setup(self, orig=orig)
         if self.format and self.format.exists and not self.format.status:
             self.format.device = self.path
 
         for parent in self.parents:
-            parent.format.setup()
+            if orig:
+                parent.originalFormat.setup()
+            else:
+                parent.format.setup()
 
     def teardown(self, recursive=None):
         StorageDevice.teardown(self)
@@ -3475,9 +3505,9 @@ class NFSDevice(StorageDevice, NetworkStorageDevice):
         """ Device node representing this device. """
         return self.name
 
-    def setup(self, intf=None):
+    def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
-        log_method_call(self, self.name, status=self.status)
+        log_method_call(self, self.name, orig=orig, status=self.status)
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """
