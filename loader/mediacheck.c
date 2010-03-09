@@ -97,7 +97,7 @@ int doMediaCheck(char *file, char *descr) {
                          "If applicable, please clean the disc "
                          "and try again.  If this test continues to fail you "
                          "should not continue the install."));
-    } else if (rc > 0) {
+    } else if (rc == 1) {
         logMessage(INFO, "mediacheck: %s (%s) PASSED", file, descr);
         newtWinMessage(_("Success"), _("OK"),
                        _("The image which was just tested was successfully "
