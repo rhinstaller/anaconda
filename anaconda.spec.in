@@ -216,6 +216,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 08 2010 David Cantrell <dcantrell@redhat.com> - 13.21.18-1
+- Do not call 'ppc64' a 'ppc' to match rpmUtils.arch.getBaseArch() (#569505)
+  (dcantrell)
+
 * Thu Mar 04 2010 David Cantrell <dcantrell@redhat.com> - 13.21.17-1
 - Group definition updates (#568348). (dcantrell)
 - Correct problem with screenfont and keymap on ppc[64] systems (#569505).
