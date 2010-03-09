@@ -593,6 +593,8 @@ class VolumeGroupEditor:
                 fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
 
             mountpoint = mountCombo.get_children()[0].get_text().strip()
+            if mountpoint == _("<Not Applicable>"):
+                mountpoint = ""
 
             # validate logical volume name
             lvname = lvnameentry.get_text().strip()
