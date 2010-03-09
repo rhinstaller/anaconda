@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.205
+Version: 11.1.2.206
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 09 2010 Martin Sivak <msivak@redhat.com> 11.1.2.206-1
+- Use /sys/block instead of /proc/partitions for device nodes (msivak)
+  Related: rhbz#485060
+- Wait a bit longer for network on s390 (Brad Hinson)
+  Resolves: rhbz#506742
+
 * Tue Mar 2 2010 Ales Kozumplik <akozumpl@redhat.com> 11.1.2.205
 - Do not leave the initial slash in path in getHostandPath() (akozumpl)
   Resolves: rhbz#568691
