@@ -80,14 +80,14 @@ int doMediaCheck(char *file, char *descr) {
     newtFormDestroy(f);
     newtPopWindow();
 
-    if (rc == -1) {
+    if (rc == ISOMD5SUM_CHECK_NOT_FOUND) {
 	logMessage(WARNING, "mediacheck: %s (%s) has no checksum info", file, descr);
 	newtWinMessage(_("Error"), _("OK"),
 		       _("Unable to read the disc checksum from the "
 			 "primary volume descriptor.  This probably "
 			 "means the disc was created without adding the "
 			 "checksum."));
-    } else if (rc == 0) {
+    } else if (rc == ISOMD5SUM_CHECK_FAILED) {
         logMessage(ERROR, "mediacheck: %s (%s) FAILED", file, descr);
         newtWinMessage(_("Error"), _("OK"),
                        _("The image which was just tested has errors. "
@@ -96,7 +96,7 @@ int doMediaCheck(char *file, char *descr) {
                          "If applicable, please clean the disc "
                          "and try again.  If this test continues to fail you "
                          "should not continue the install."));
-    } else if (rc == 1) {
+    } else if (rc == ISOMD5SUM_CHECK_PASSED) {
         logMessage(INFO, "mediacheck: %s (%s) PASSED", file, descr);
         newtWinMessage(_("Success"), _("OK"),
                        _("The image which was just tested was successfully "
