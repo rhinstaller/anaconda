@@ -37,7 +37,7 @@ struct progressCBdata {
     newtComponent label;
 };
 
-void progressCallback(void *pbdata, long long pos, long long total);
+int progressCallback(void *pbdata, long long pos, long long total);
 struct progressCBdata *winProgressBar(int width, int height, char *title, char *text, ...);
 
 #endif /* _WINDOWS_H_ */
