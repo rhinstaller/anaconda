@@ -107,7 +107,49 @@ def upgradeMigrateFind(anaconda):
         anaconda.dispatch.skipStep("upgrademigratefs")
     else:
         anaconda.dispatch.skipStep("upgrademigratefs", skip = 0)
+
+def copyFromSysimage(rootPath, filename):
+    """Mirrors filename from the sysimage on the ramdisk."""
+    sysfile = os.path.normpath("%s/%s" % (rootPath, filename))
+    if os.access(sysfile, os.R_OK):
+        try:
+            # remove our copy if we have one (think liveinstall)
+            os.remove(filename)
+        except OSError:
+            pass
+        try:
+            shutil.copyfile(sysfile, filename)
+        except OSError as e:
+            log.error("Error copying %s to sysimage: %s" %(sysfile, e.strerror))
+            return False
+    else:
+        log.error("Error copying %s to sysimage, file not accessible." % sysfile)
+        return False
+    return True
+
+def restoreTime(anaconda):
+    """Load time setup for upgrade install.
     
+    We need to find out the timezone and the UTC parameter of the old system and
+    set the system time accordingly, so timestamps are set correctly for the
+    files the upgrade procedure will create.
+
+    This is pretty much what packages.setupTimezone() does in reverse.
+    """
+    if anaconda.dir == DISPATCH_BACK:
+        return
+    if os.environ.has_key("TZ"):
+        del os.environ["TZ"]
+    copyFromSysimage(anaconda.rootPath, '/etc/localtime')
+    copyFromSysimage(anaconda.rootPath, '/etc/adjtime')
+    if iutil.isS390():
+        return
+    args = [ "--hctosys" ]
+    try:
+        iutil.execWithRedirect("/usr/sbin/hwclock", args,stdout = "/dev/tty5",
+                               stderr = "/dev/tty5")
+    except RuntimeError:
+        log.error("Failed to set the clock.")
 
 # returns None if no more swap is needed
 def upgradeSwapSuggestion(anaconda):
@@ -271,6 +313,7 @@ def setSteps(anaconda):
                 "findrootparts",
                 "findinstall",
                 "upgrademount",
+                "restoretime",
                 "upgrademigfind",
                 "upgrademigratefs",
                 "enablefilesystems",
