@@ -361,6 +361,9 @@ int getRemovableDevices(char *** devNames) {
 
     devs = getDevices(DEVICE_DISK | DEVICE_CDROM);
 
+    if (!devs)
+        return numDevices;
+
     for (i = 0; devs[i] ; i++) {
         if (devs[i]->priv.removable) {
             *devNames = realloc(*devNames, (numDevices + 2) * sizeof(char *));
