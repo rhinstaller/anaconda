@@ -722,12 +722,15 @@ class VolumeGroupEditor:
                     continue
 
                 format = fmt_class(mountpoint=mountpoint)
-                if self.lukscb and self.lukscb.get_active() and \
-                   (templv.format.type != "luks" or
-                    (templv.format.exists and not templv.format.hasKey)):
-                    newluks = format
-                    format = getFormat("luks",
+                if self.lukscb and self.lukscb.get_active():
+                    if templv.format.type != "luks":
+                        newluks = format
+                        format = getFormat("luks",
                                        passphrase=self.storage.encryptionPassphrase)
+                    else:
+                        newluks = format
+                        format = templv.format
+
                 templv.format = format
             else:
                 # existing lv
