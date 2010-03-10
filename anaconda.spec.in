@@ -216,6 +216,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 10 2010 David Cantrell <dcantrell@redhat.com> - 13.21.19-1
+- Ensure ppc64 is not a font arch. (#569505). (dcantrell)
+- Startup iscsi / fcoe / zfcp before listing drives in the filter UI
+  (hdegoede)
+- Fix traceback when trying to configure zfcp disks (#572108) (hdegoede)
+
 * Mon Mar 08 2010 David Cantrell <dcantrell@redhat.com> - 13.21.18-1
 - Do not call 'ppc64' a 'ppc' to match rpmUtils.arch.getBaseArch() (#569505)
   (dcantrell)
