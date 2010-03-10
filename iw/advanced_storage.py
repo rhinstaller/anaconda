@@ -202,7 +202,7 @@ def addZfcpDrive(anaconda):
         fcplun = dxml.get_widget("fcplunEntry").get_text().strip()
 
         try:
-            anaconda.storage.zfcp.addFCP(devnum, wwpn, fcplun)
+            anaconda.id.storage.zfcp.addFCP(devnum, wwpn, fcplun)
         except ValueError as e:
             anaconda.intf.messageWindow(_("Error"), str(e))
             continue
