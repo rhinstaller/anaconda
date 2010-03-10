@@ -3385,7 +3385,19 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
         log.debug("created new fcoe disk %s @ %s" % (device, self.nic))
 
     def dracutSetupString(self):
-        return "netroot=fcoe:%s:nodcb" % self.nic
+        dcb = True
+
+        from .fcoe import fcoe
+        for nic, dcb in fcoe().nics:
+            if nic == self.nic:
+                break
+
+        if dcb:
+            dcbOpt = "dcb"
+        else:
+            dcbOpt = "nodcb"
+
+        return "netroot=fcoe:%s:%s" % (self.nic, dcbOpt)
 
 
 class OpticalDevice(StorageDevice):
