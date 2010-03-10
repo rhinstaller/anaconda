@@ -218,7 +218,8 @@ s_arch="`uname -m | sed -e s/i.86/i386/ -e s/sparc.*/sparc/`"
 AC_SUBST(ARCH, [$s_arch])
 
 AM_CONDITIONAL(IS_FONT_ARCH,
-  [test x$s_arch != xs390 && test x$s_arch != xs390x])
+  [test x$s_arch != xs390 && test x$s_arch != xs390x &&
+   test x$s_arch != xppc64])
 
 AM_CONDITIONAL(IS_LIVEINST_ARCH,
   [test x$s_arch == xi386 || test x$s_arch == xx86_64 ||

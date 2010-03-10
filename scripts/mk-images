@@ -656,7 +656,9 @@ makeinitrd() {
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
        install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
-       install -m 644 $SCREENFONT $MBD_DIR/etc/screenfont.gz
+       if [ -f $SCREENFONT ]; then
+          install -m 644 $SCREENFONT $MBD_DIR/etc/screenfont.gz
+       fi
     fi
 
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
