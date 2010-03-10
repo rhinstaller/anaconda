@@ -69,9 +69,8 @@ def doStartupX11Actions(runres="800x600"):
     # now start up the window manager
     try:
         wm_pid = startMetacityWM()
-        log.info("Started window manager, pid %s." % (wm_pid,))
-
-    except:
+        log.info("Starting window manager, pid %s." % (wm_pid,))
+    except Exception:
         wm_pid = None
         log.error("Unable to start the window manager.")
 
