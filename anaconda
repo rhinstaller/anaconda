@@ -405,8 +405,6 @@ def createSshKey(algorithm, keyfile):
                            searchPath=1)
 
 def startSsh():
-    if not flags.sshd:
-        return   
     if iutil.isS390():
         return
 
@@ -755,11 +753,13 @@ if __name__ == "__main__":
         ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
         opts.rescue = ksdata.rescue.rescue
 
+    if flags.sshd:
         # we need to have a libuser.conf that points to the installer root for
         # sshpw, but after that we start sshd, we need one that points to the
         # install target.
         luserConf = users.createLuserConf(instPath="")
-        handleSshPw(ksdata)
+        if anaconda.isKickstart:
+            handleSshPw(ksdata)
         startSsh()
         del(os.environ["LIBUSER_CONF"])
 
