@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # pulled right out of mkinitrd....
+export LD_HWCAP_MASK=0
 DSO_DEPS=""
 LDSO=""
 get_dso_deps() {
