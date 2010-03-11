@@ -216,6 +216,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20-1
+- Tell ld.so and friends not to use hardware optimized libs (#572178)
+  (pjones)
+
 * Wed Mar 10 2010 David Cantrell <dcantrell@redhat.com> - 13.21.19-1
 - Ensure ppc64 is not a font arch. (#569505). (dcantrell)
 - Startup iscsi / fcoe / zfcp before listing drives in the filter UI
