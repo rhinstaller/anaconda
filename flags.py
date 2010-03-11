@@ -85,7 +85,7 @@ class Flags:
         self.__dict__['flags']['cmdline'] = self.createCmdlineDict()
         self.__dict__['flags']['useIPv4'] = True
         self.__dict__['flags']['useIPv6'] = True
-        self.__dict__['flags']['sshd'] = 1
+        self.__dict__['flags']['sshd'] = 0
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
         # do things like bogl on them.  this preserves what that

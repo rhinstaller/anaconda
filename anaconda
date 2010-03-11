@@ -362,6 +362,9 @@ def setupGraphicalLinks():
             pass
 
 def handleSshPw(anaconda):
+    if not anaconda.ksdata:
+        return
+
     import users
     u = users.Users(anaconda)
 
@@ -387,8 +390,6 @@ def createSshKey(algorithm, keyfile):
     iutil.execWithRedirect('ssh-keygen', argv, stdout=so, stderr=se)
 
 def startSsh():
-    if not flags.sshd:
-        return   
     if iutil.isS390():
         return
 
@@ -939,6 +940,7 @@ if __name__ == "__main__":
         anaconda.ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
         opts.rescue = anaconda.ksdata.rescue.rescue
 
+    if flags.sshd:
         # we need to have a libuser.conf that points to the installer root for
         # sshpw, but after that we start sshd, we need one that points to the
         # install target.
