@@ -694,6 +694,9 @@ class PartitionData(commands.partition.F12_PartData):
             names = [self.disk, "mapper/" + self.disk]
             for n in names:
                 disk = devicetree.getDeviceByName(udev_resolve_devspec(n))
+                if not disk:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % n)
+
                 should_clear = shouldClear(disk,
                                            storage.clearPartType,
                                            storage.clearPartDisks)
