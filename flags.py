@@ -64,6 +64,12 @@ class Flags:
             cmdlineDict[key] = val
 
         return cmdlineDict
+
+    def decideCmdlineFlag(self, flag):
+        if self.__dict__['flags']['cmdline'].has_key(flag) \
+                and not self.__dict__['flags']['cmdline'].has_key("no" + flag) \
+                and self.__dict__['flags']['cmdline'][flag] != "0":
+            self.__dict__['flags'][flag] = 1
 	
     def __init__(self):
 	self.__dict__['flags'] = {}
@@ -92,12 +98,14 @@ class Flags:
         # device is
         self.__dict__['flags']['virtpconsole'] = None
 
-        for x in ['selinux','sshd']:
+        for x in ['selinux']:
             if self.__dict__['flags']['cmdline'].has_key(x):
                 if self.__dict__['flags']['cmdline'][x]:
                     self.__dict__['flags'][x] = 1
                 else:
                     self.__dict__['flags'][x] = 0
+
+        self.decideCmdlineFlag('sshd')
 
         if self.__dict__['flags']['cmdline'].has_key("debug"):
             self.__dict__['flags']['debug'] = self.__dict__['flags']['cmdline']['debug']
