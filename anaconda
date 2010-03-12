@@ -347,10 +347,27 @@ def checkMemory(anaconda):
     # override display mode if machine cannot nicely run X
     if not flags.usevnc:
         if anaconda.displayMode not in ('t', 'c') and iutil.memInstalled() < isys.MIN_GUI_RAM:
-            stdoutLog.warning(_("You do not have enough RAM to use the graphical "
-                                "installer.  Starting text mode."))
-            anaconda.displayMode = 't'
-            time.sleep(2)
+            complain = _("You do not have enough RAM to use the graphical "
+                         "installer.")
+            if flags.livecdInstall:
+                stdoutLog.warning(complain)
+                recommendation = _("Try the text mode installer by running:\n\n"
+                                   "'/usr/bin/liveinst -T'\n\n from a root "
+                                   "terminal.")
+                title = _("Not enough RAM")
+                text = "%s %s" %(complain, recommendation)
+                import gtk
+                dialog = gtk.MessageDialog(type = gtk.MESSAGE_ERROR, 
+                                           buttons = gtk.BUTTONS_CLOSE,
+                                           message_format=text)
+                dialog.set_title(title)
+                dialog.run()
+                sys.exit(1)
+            else:
+                resolution = _("Starting text mode.")
+                stdoutLog.warning("%s %s" % (complain, resolution))
+                anaconda.displayMode = 't'
+                time.sleep(2)
 
 def setupGraphicalLinks():
     for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
