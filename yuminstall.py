@@ -238,6 +238,12 @@ class AnacondaCallback:
 
             (hdr, rpmloc) = h
 
+            # If this is a cleanup/remove, then hdr is a string not a header.
+            if isinstance(hdr, rpm.hdr):
+                name = hdr['name']
+            else:
+                name = hdr
+
             # Script errors store whether or not they're fatal in "total".  So,
             # we should only error out for fatal script errors or the cpio and
             # unpack problems.
@@ -246,7 +252,7 @@ class AnacondaCallback:
                     _("A fatal error occurred when installing the %s "
                       "package.  This could indicate errors when reading "
                       "the installation media.  Installation cannot "
-                      "continue.") % hdr['name'],
+                      "continue.") % name,
                     type="custom", custom_icon="error",
                     custom_buttons=[_("_Exit installer")])
                 sys.exit(1)
