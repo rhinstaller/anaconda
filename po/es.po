@@ -18,9 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-02-23 16:41-0500\n"
-"PO-Revision-Date: 2010-02-24 10:46-0300\n"
-"Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
+"POT-Creation-Date: 2010-03-04 10:31-0500\n"
+"PO-Revision-Date: 2010-03-14 18:53-0300\n"
+"Last-Translator: Claudio Rodrigo Pereyra Diaz <claudio@pereyradiaz.com.ar>\n"
 "Language-Team: Spanish <trans-es@lists.fedoraproject.org. >\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -129,14 +129,14 @@ msgstr "Presione <intro> para entrar a un shell"
 #: loader/kickstart.c:510
 #: loader/lang.c:114
 #: loader/lang.c:372
-#: loader/loader.c:414
-#: loader/loader.c:450
-#: loader/loader.c:490
-#: loader/loader.c:508
-#: loader/loader.c:525
-#: loader/loader.c:562
-#: loader/loader.c:1177
-#: loader/loader.c:1358
+#: loader/loader.c:413
+#: loader/loader.c:449
+#: loader/loader.c:489
+#: loader/loader.c:507
+#: loader/loader.c:524
+#: loader/loader.c:561
+#: loader/loader.c:1176
+#: loader/loader.c:1357
 #: loader/mediacheck.c:46
 #: loader/mediacheck.c:85
 #: loader/mediacheck.c:92
@@ -304,14 +304,14 @@ msgstr "Se ha producido un error al transferir la imagen de instalación a su di
 #: partIntfHelpers.py:237
 #: text.py:354
 #: text.py:358
-#: yuminstall.py:407
-#: yuminstall.py:789
-#: yuminstall.py:907
-#: yuminstall.py:912
-#: yuminstall.py:1186
-#: yuminstall.py:1245
-#: yuminstall.py:1434
-#: yuminstall.py:1456
+#: yuminstall.py:410
+#: yuminstall.py:792
+#: yuminstall.py:910
+#: yuminstall.py:915
+#: yuminstall.py:1189
+#: yuminstall.py:1248
+#: yuminstall.py:1437
+#: yuminstall.py:1459
 #: iw/autopart_type.py:96
 #: iw/cleardisks_gui.py:43
 #: iw/cleardisks_gui.py:53
@@ -340,9 +340,9 @@ msgstr "Se ha producido un error al transferir la imagen de instalación a su di
 #: loader/hdinstall.c:477
 #: loader/kickstart.c:296
 #: loader/lang.c:114
-#: loader/loader.c:414
-#: loader/loader.c:525
-#: loader/loader.c:1177
+#: loader/loader.c:413
+#: loader/loader.c:524
+#: loader/loader.c:1176
 #: loader/mediacheck.c:46
 #: loader/mediacheck.c:85
 #: loader/mediacheck.c:92
@@ -402,9 +402,9 @@ msgstr "Error"
 #: image.py:82
 #: text.py:485
 #: text.py:545
-#: yuminstall.py:1413
-#: yuminstall.py:1619
-#: yuminstall.py:1654
+#: yuminstall.py:1416
+#: yuminstall.py:1622
+#: yuminstall.py:1657
 #: iw/blpasswidget.py:148
 #: iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198
@@ -440,18 +440,18 @@ msgstr ""
 #: packages.py:130
 #: upgrade.py:58
 #: upgrade.py:197
-#: yuminstall.py:248
-#: yuminstall.py:694
-#: yuminstall.py:909
-#: yuminstall.py:914
-#: yuminstall.py:994
-#: yuminstall.py:1000
-#: yuminstall.py:1154
-#: yuminstall.py:1182
-#: yuminstall.py:1235
-#: yuminstall.py:1421
-#: yuminstall.py:1440
-#: yuminstall.py:1463
+#: yuminstall.py:251
+#: yuminstall.py:697
+#: yuminstall.py:912
+#: yuminstall.py:917
+#: yuminstall.py:997
+#: yuminstall.py:1003
+#: yuminstall.py:1157
+#: yuminstall.py:1185
+#: yuminstall.py:1238
+#: yuminstall.py:1424
+#: yuminstall.py:1443
+#: yuminstall.py:1466
 #: storage/__init__.py:107
 #: storage/__init__.py:214
 #: storage/__init__.py:1970
@@ -467,8 +467,8 @@ msgstr "Salir d_el instalador"
 #: kickstart.py:1318
 #: kickstart.py:1357
 #: upgrade.py:58
-#: yuminstall.py:1240
-#: yuminstall.py:1422
+#: yuminstall.py:1243
+#: yuminstall.py:1425
 #: iw/partition_gui.py:1598
 #: storage/__init__.py:1971
 msgid "_Continue"
@@ -674,8 +674,8 @@ msgstr "Dispositivo %s está encriptado. Para acceder a su contenido durante la 
 #: loader/dirbrowser.c:128
 #: loader/driverdisk.c:420
 #: loader/kickstart.c:328
-#: loader/loader.c:450
-#: loader/loader.c:562
+#: loader/loader.c:449
+#: loader/loader.c:561
 #: textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Cancelar"
@@ -875,15 +875,15 @@ msgstr "_Salir"
 #: image.py:164
 #: image.py:194
 #: livecd.py:205
-#: yuminstall.py:786
-#: yuminstall.py:1182
-#: yuminstall.py:1235
-#: yuminstall.py:1440
+#: yuminstall.py:789
+#: yuminstall.py:1185
+#: yuminstall.py:1238
+#: yuminstall.py:1443
 msgid "_Retry"
 msgstr "_Volver a intentar"
 
 #: gui.py:1378
-#: storage/partitioning.py:275
+#: storage/partitioning.py:277
 msgid "The system will now reboot."
 msgstr "El sistema será reiniciado."
 
@@ -893,7 +893,7 @@ msgstr "El sistema será reiniciado."
 #: gui.py:1379
 #: image.py:251
 #: packages.py:332
-#: yuminstall.py:1481
+#: yuminstall.py:1484
 msgid "_Reboot"
 msgstr "_Reiniciar"
 
@@ -1029,11 +1029,11 @@ msgstr ""
 #: livecd.py:409
 #: packages.py:332
 #: upgrade.py:196
-#: yuminstall.py:914
-#: yuminstall.py:1000
-#: yuminstall.py:1421
-#: yuminstall.py:1463
-#: yuminstall.py:1481
+#: yuminstall.py:917
+#: yuminstall.py:1003
+#: yuminstall.py:1424
+#: yuminstall.py:1466
+#: yuminstall.py:1484
 msgid "_Back"
 msgstr "_Anterior"
 
@@ -1131,8 +1131,8 @@ msgstr "Fallo de Scriptlet "
 # ../loader/net.c:814
 #: kickstart.py:151
 #: rescue.py:248
-#: yuminstall.py:689
-#: yuminstall.py:1149
+#: yuminstall.py:692
+#: yuminstall.py:1152
 msgid "No Network Available"
 msgstr "No hay red disponible"
 
@@ -2499,16 +2499,16 @@ msgstr "Finalizando el proceso de actualización. Esto puede tardar un poco."
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
-#: yuminstall.py:242
+#: yuminstall.py:245
 msgid "Error Installing Package"
 msgstr "Error al instalar paquete"
 
-#: yuminstall.py:243
+#: yuminstall.py:246
 #, python-format
 msgid "A fatal error occurred when installing the %s package.  This could indicate errors when reading the installation media.  Installation cannot continue."
 msgstr "Un error fatal ocurrió cuando se instalaba el paquete %s.  Esto podría indicar errores cuando se leía el medio de instalación.  La instalación no puede continuar."
 
-#: yuminstall.py:344
+#: yuminstall.py:347
 #: iw/task_gui.py:322
 msgid "Error Setting Up Repository"
 msgstr "Error al configurar repositorio"
@@ -2516,7 +2516,7 @@ msgstr "Error al configurar repositorio"
 # ../autopart.py:881
 # ../autopart.py:888
 # ../autopart.py:888
-#: yuminstall.py:345
+#: yuminstall.py:348
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -2534,14 +2534,14 @@ msgstr ""
 # ../image.py:119
 # ../image.py:119
 # ../image.py:119
-#: yuminstall.py:389
+#: yuminstall.py:392
 msgid "Change Disc"
 msgstr "Cambie disco"
 
 # ../image.py:120
 # ../image.py:120
 # ../image.py:120
-#: yuminstall.py:390
+#: yuminstall.py:393
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
 msgstr "Por favor, introduzca %(productName)s disco %(discnum)d para continuar."
@@ -2549,45 +2549,45 @@ msgstr "Por favor, introduzca %(productName)s disco %(discnum)d para continuar."
 # ../image.py:137
 # ../image.py:137
 # ../image.py:137
-#: yuminstall.py:400
+#: yuminstall.py:403
 msgid "Wrong Disc"
 msgstr "Disco incorrecto"
 
 # ../image.py:138
 # ../image.py:138
 # ../image.py:138
-#: yuminstall.py:401
+#: yuminstall.py:404
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Éste no es el disco %s correcto."
 
-#: yuminstall.py:408
+#: yuminstall.py:411
 msgid "Unable to access the disc."
 msgstr "No se puede acceder al disco."
 
-#: yuminstall.py:566
+#: yuminstall.py:569
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Falta en nombre en la configuración del repositorio %r, se usará id"
 
-#: yuminstall.py:690
-#: yuminstall.py:1150
+#: yuminstall.py:693
+#: yuminstall.py:1153
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
 msgstr "Alguno de los repositorios de software necesitan la red, pero hubo un error al habilitarla en su sistema."
 
 # ../iw/partition_gui.py:1516
 # ../iw/partition_gui.py:1518
 # ../iw/partition_gui.py:1526
-#: yuminstall.py:784
-#: yuminstall.py:786
+#: yuminstall.py:787
+#: yuminstall.py:789
 msgid "Re_boot"
 msgstr "Reiniciar"
 
-#: yuminstall.py:784
+#: yuminstall.py:787
 msgid "_Eject"
 msgstr "_Expulsar"
 
-#: yuminstall.py:790
+#: yuminstall.py:793
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt package or corrupt media.  Please verify your installation source.\n"
@@ -2603,41 +2603,41 @@ msgstr ""
 # ../loader/urls.c:103
 # ../loader/urls.c:103
 # ../loader/urls.c:103
-#: yuminstall.py:838
+#: yuminstall.py:841
 msgid "Retrying"
 msgstr "Reintentando"
 
-#: yuminstall.py:838
+#: yuminstall.py:841
 msgid "Retrying download."
 msgstr "Reintentando la descarga."
 
-#: yuminstall.py:903
+#: yuminstall.py:906
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "Ocurrió un error durante su transacción, por la(s) siguiente(s) razón(es): %s\n"
 
-#: yuminstall.py:946
-#: yuminstall.py:947
+#: yuminstall.py:949
+#: yuminstall.py:950
 msgid "file conflicts"
 msgstr "conflictos de archivo"
 
-#: yuminstall.py:948
+#: yuminstall.py:951
 msgid "older package(s)"
 msgstr "Paquete(s) antiguo(s)"
 
-#: yuminstall.py:949
+#: yuminstall.py:952
 msgid "insufficient disk space"
 msgstr "espacio de disco insuficiente"
 
-#: yuminstall.py:950
+#: yuminstall.py:953
 msgid "insufficient disk inodes"
 msgstr "inodos de disco insuficientes"
 
-#: yuminstall.py:951
+#: yuminstall.py:954
 msgid "package conflicts"
 msgstr "conflictos de paquete"
 
-#: yuminstall.py:952
+#: yuminstall.py:955
 msgid "package already installed"
 msgstr "paquete ya instalado"
 
@@ -2647,26 +2647,26 @@ msgstr "paquete ya instalado"
 # ../textw/partition_text.py:114
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
-#: yuminstall.py:953
+#: yuminstall.py:956
 msgid "required package"
 msgstr "paquete requerido"
 
-#: yuminstall.py:954
+#: yuminstall.py:957
 msgid "package for incorrect arch"
 msgstr "paquete para arquitectura incorrecta"
 
-#: yuminstall.py:955
+#: yuminstall.py:958
 msgid "package for incorrect os"
 msgstr "paquete para SO incorrecto"
 
-#: yuminstall.py:969
+#: yuminstall.py:972
 msgid "You need more space on the following file systems:\n"
 msgstr "Necesita más espacio en los siguientes sistemas de archivos:\n"
 
 # ../loader/loader.c:1487
 # ../loader/loader.c:1487
 # ../loader/loader.c:1487
-#: yuminstall.py:982
+#: yuminstall.py:985
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2675,7 +2675,7 @@ msgstr ""
 "Hubieron conflictos de archivo cuando se chequeaban los paquetes a instalar:\n"
 "%s\n"
 
-#: yuminstall.py:985
+#: yuminstall.py:988
 #, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
 msgstr "Ocurrió un error durante su transacción, por la(s) siguiente(s) razón(es): %s\n"
@@ -2683,26 +2683,26 @@ msgstr "Ocurrió un error durante su transacción, por la(s) siguiente(s) razón
 # ../packages.py:467
 # ../packages.py:474
 # ../packages.py:475
-#: yuminstall.py:992
-#: yuminstall.py:997
+#: yuminstall.py:995
+#: yuminstall.py:1000
 msgid "Error Running Transaction"
 msgstr "Error al ejecutar la transacción"
 
-#: yuminstall.py:1187
+#: yuminstall.py:1190
 msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
 msgstr "No se pudo leer la información de grupo de los repositorios. Este es un problema con la generación de su árbol de instalación."
 
 # ../packages.py:96
 # ../packages.py:96
 # ../packages.py:97
-#: yuminstall.py:1223
+#: yuminstall.py:1226
 msgid "Retrieving installation information."
 msgstr "Obteniendo la información de la instalación."
 
 # ../packages.py:96
 # ../packages.py:96
 # ../packages.py:97
-#: yuminstall.py:1225
+#: yuminstall.py:1228
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Obteniendo la información de instalación para %s."
@@ -2710,7 +2710,7 @@ msgstr "Obteniendo la información de instalación para %s."
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
-#: yuminstall.py:1227
+#: yuminstall.py:1230
 msgid "Installation Progress"
 msgstr "Progreso de la instalación"
 
@@ -2726,13 +2726,13 @@ msgstr "Progreso de la instalación"
 # ../textw/fdisk_text.py:41 ../textw/partition_text.py:987
 # ../textw/silo_text.py:216 ../textw/silo_text.py:238
 # ../textw/userauth_text.py:219
-#: yuminstall.py:1235
+#: yuminstall.py:1238
 #: textw/constants_text.py:64
 msgid "Edit"
 msgstr "Modificar"
 
-#: yuminstall.py:1246
-#: yuminstall.py:1435
+#: yuminstall.py:1249
+#: yuminstall.py:1438
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.\n"
@@ -2743,11 +2743,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1414
+#: yuminstall.py:1417
 msgid "Some of the packages you have selected for install are missing dependencies.  You can exit the installation, go back and change your package selections, or continue installing these packages without their dependencies."
 msgstr "Algunos de los paquetes que seleccionó para instalar tiene dependencia perdidas. Usted puede: salir de la instalación, volver atrás y cambiar la selección de paquetes, o continuar instalando estos paquetes sin sus dependencias."
 
-#: yuminstall.py:1457
+#: yuminstall.py:1460
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
 msgstr "Los paquetes seleccionados requieren %d MB de espacio libre para ser instalados, pero no hay espacio libre suficiente disponible. Puede cambiar su selección o salir del instalador."
@@ -2755,20 +2755,20 @@ msgstr "Los paquetes seleccionados requieren %d MB de espacio libre para ser ins
 # ../iw/partition_gui.py:1516
 # ../iw/partition_gui.py:1518
 # ../iw/partition_gui.py:1526
-#: yuminstall.py:1478
+#: yuminstall.py:1481
 msgid "Reboot?"
 msgstr "¿Reiniciar?"
 
-#: yuminstall.py:1479
+#: yuminstall.py:1482
 msgid "The system will be rebooted now."
 msgstr "Su sistema será reiniciado ahora."
 
-#: yuminstall.py:1620
+#: yuminstall.py:1623
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr "Pareciera que está actualizando desde un sistema que es demasiado antiguo para ser actualizado a la versión %s. ¿Está seguro de que desea continuar con el proceso de actualización?"
 
-#: yuminstall.py:1655
+#: yuminstall.py:1658
 #, python-format
 msgid "The arch of the release of %(productName)s you are upgrading to appears to be %(myarch)s which does not match your previously installed arch of %(arch)s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr "El arch del lanzamiento de %(productName)s al que está actualizando parece ser %(myarch)s lo que no coincide con el arch %(arch)s que fue instalado al principio.  Esto seguramente no funcionará.  ¿Está seguro de que desea continuar con el proceso de actualización?"
@@ -2776,56 +2776,56 @@ msgstr "El arch del lanzamiento de %(productName)s al que está actualizando par
 # ../installclasses/upgradeclass.py:12
 # ../installclasses/upgradeclass.py:12
 # ../installclasses/upgradeclass.py:12
-#: yuminstall.py:1702
+#: yuminstall.py:1705
 msgid "Post Upgrade"
 msgstr "Post actualización"
 
 # ../packages.py:631
 # ../packages.py:647
 # ../packages.py:648
-#: yuminstall.py:1703
+#: yuminstall.py:1706
 msgid "Performing post-upgrade configuration"
 msgstr "Ejecutando configuración post-actualización."
 
 # ../packages.py:630
 # ../packages.py:646
 # ../packages.py:647
-#: yuminstall.py:1705
+#: yuminstall.py:1708
 msgid "Post Installation"
 msgstr "Post instalación"
 
 # ../packages.py:631
 # ../packages.py:647
 # ../packages.py:648
-#: yuminstall.py:1706
+#: yuminstall.py:1709
 msgid "Performing post-installation configuration"
 msgstr "Realizando configuración post-instalación"
 
 # ../gui.py:791
 # ../gui.py:791
 # ../gui.py:791
-#: yuminstall.py:1926
+#: yuminstall.py:1929
 msgid "Installation Starting"
 msgstr "Iniciando la instalación"
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
-#: yuminstall.py:1927
+#: yuminstall.py:1930
 msgid "Starting installation process"
 msgstr "Iniciando el proceso de instalación"
 
 # ../packages.py:153
 # ../packages.py:153
 # ../packages.py:154
-#: yuminstall.py:1965
+#: yuminstall.py:1968
 msgid "Dependency Check"
 msgstr "Comprobación de las dependencias"
 
 # ../packages.py:154
 # ../packages.py:154
 # ../packages.py:155
-#: yuminstall.py:1966
+#: yuminstall.py:1969
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Comprobando dependencias de los paquetes seleccionados para la instalación"
 
@@ -3448,7 +3448,7 @@ msgstr "Dispositivos de almacenamiento básicos"
 
 #: iw/filter_type.py:62
 msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
-msgstr "Instala o actualiza tomando en cuenta tipos de dispositivos de almacenamiento clásicos. Si no conoce exactamente las características de sus dispositivos, probablemente ésta sea la opción correcta para usted. "
+msgstr "Instala o actualiza teniendo en cuenta tipos de dispositivos de almacenamiento clásicos. Si no conoce exactamente las características de sus dispositivos, probablemente ésta sea la opción correcta para usted. "
 
 #: iw/filter_type.py:66
 msgid "Specialized Storage Devices"
@@ -3456,7 +3456,7 @@ msgstr "Dispositivos de almacenamiento especializados"
 
 #: iw/filter_type.py:67
 msgid "Installs or upgrades to devices such as Storage Area Networks (SANs) or mainframe attached disks (DASD), usually in an enterprise environment"
-msgstr "Instala o actualiza tomando en cuenta tipos de dispositivos de almacenamiento utilizados típicamente dentro de las empresas, como son Redes área de almecenamiento (SANs, por las iniciales en inglés de Storage Area Networks), o discos asociados a un equipo central (DASD). "
+msgstr "Instala o actualiza teniendo en cuenta tipos de dispositivos de almacenamiento utilizados típicamente dentro de las empresas, como son Redes área de almecenamiento (SANs, por las iniciales en inglés de Storage Area Networks), o discos asociados a un equipo central (DASD). "
 
 # ../gui.py:382 ../iw/language_gui.py:20 ../textw/language_text.py:43
 # ../gui.py:382 ../iw/language_gui.py:20 ../textw/language_text.py:38
@@ -4437,7 +4437,7 @@ msgstr "Por algún motivo no se ha podido crear el editor de clonación de la un
 # ../textw/partition_text.py:163
 #: iw/partition_gui.py:1584
 #: storage/partitioning.py:197
-#: storage/partitioning.py:238
+#: storage/partitioning.py:240
 msgid "Error Partitioning"
 msgstr "Error de particionamiento"
 
@@ -5320,10 +5320,10 @@ msgstr "Disco no Encontrado"
 #: loader/hdinstall.c:203
 #: loader/hdinstall.c:257
 #: loader/kbd.c:119
-#: loader/loader.c:491
-#: loader/loader.c:508
-#: loader/loader.c:1358
-#: loader/loader.c:1391
+#: loader/loader.c:490
+#: loader/loader.c:507
+#: loader/loader.c:1357
+#: loader/loader.c:1390
 #: loader/net.c:579
 #: loader/net.c:950
 #: loader/net.c:1851
@@ -5707,7 +5707,7 @@ msgstr "Argumento no válido para el comando apagar del método kickstart: %s"
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 #: loader/lang.c:63
-#: loader/loader.c:225
+#: loader/loader.c:224
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr "Bienvenido a %s para %s"
@@ -5724,7 +5724,7 @@ msgstr "Bienvenido a %s para %s - Modo Rescate"
 # ../loader/lang.c:41 ../loader/loader.c:188
 # ../loader/lang.c:41 ../loader/loader.c:188
 #: loader/lang.c:65
-#: loader/loader.c:232
+#: loader/loader.c:231
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr " <Tab>/<Alt-Tab> entre elementos | <Espacio> seleccionar | <F12> siguiente "
 
@@ -5738,50 +5738,50 @@ msgstr "Elija un idioma"
 # ../loader/loader.c:123
 # ../loader/loader.c:123
 # ../loader/loader.c:123
-#: loader/loader.c:131
+#: loader/loader.c:130
 msgid "Local CD/DVD"
 msgstr "CD/DVD Local"
 
 # ../loader/loader.c:131
 # ../loader/loader.c:131
 # ../loader/loader.c:131
-#: loader/loader.c:132
+#: loader/loader.c:131
 msgid "Hard drive"
 msgstr "Disco duro"
 
 # ../loader/net.c:173 ../loader/urls.c:194
 # ../loader/net.c:173 ../loader/urls.c:194
 # ../loader/net.c:173 ../loader/urls.c:194
-#: loader/loader.c:133
+#: loader/loader.c:132
 msgid "NFS directory"
 msgstr "Directorio NFS"
 
 # ../loader/loader.c:2300
 # ../loader/loader.c:2300
 # ../loader/loader.c:2300
-#: loader/loader.c:445
-#: loader/loader.c:486
+#: loader/loader.c:444
+#: loader/loader.c:485
 msgid "Update Disk Source"
 msgstr "Disco de actualización "
 
 # ../loader/loader.c:1058
 # ../loader/loader.c:1058
 # ../loader/loader.c:1058
-#: loader/loader.c:446
+#: loader/loader.c:445
 msgid "You have multiple devices which could serve as sources for an update disk.  Which would you like to use?"
 msgstr "Tiene múltiples dispositivos que pueden servir como fuentes para discos de actualización. ¿Cuál le gustaría usar?"
 
 # ../loader/loader.c:1058
 # ../loader/loader.c:1058
 # ../loader/loader.c:1058
-#: loader/loader.c:487
+#: loader/loader.c:486
 msgid "There are multiple partitions on this device which could contain the update disk image.  Which would you like to use?"
 msgstr "Hay múltiples particiones en este dispositivo que podrían  contener la imagen del disco de actualización. ¿Cuál le gustaría utilizar?"
 
 # ../loader/loader.c:2301
 # ../loader/loader.c:2301
 # ../loader/loader.c:2301
-#: loader/loader.c:505
+#: loader/loader.c:504
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr "Introduzca su disco de actualización en %s y presione \"Aceptar\" (OK) para continuar."
@@ -5789,46 +5789,46 @@ msgstr "Introduzca su disco de actualización en %s y presione \"Aceptar\" (OK) 
 # ../loader/loader.c:2300
 # ../loader/loader.c:2300
 # ../loader/loader.c:2300
-#: loader/loader.c:508
+#: loader/loader.c:507
 msgid "Updates Disk"
 msgstr "Disco de actualización"
 
 # ../loader/devices.c:260
 # ../loader/devices.c:260
 # ../loader/devices.c:260
-#: loader/loader.c:526
+#: loader/loader.c:525
 msgid "Failed to mount updates disk"
 msgstr "Falló al montar el disco de actualización"
 
 # ../loader/loader.c:2321
 # ../loader/loader.c:2321
 # ../loader/loader.c:2321
-#: loader/loader.c:531
+#: loader/loader.c:530
 msgid "Updates"
 msgstr "Actualizaciones"
 
 # ../loader/loader.c:2321
 # ../loader/loader.c:2321
 # ../loader/loader.c:2321
-#: loader/loader.c:531
+#: loader/loader.c:530
 msgid "Reading anaconda updates"
 msgstr "Leyendo actualizaciones de anaconda"
 
-#: loader/loader.c:567
+#: loader/loader.c:566
 msgid "Unable to download the updates image.  Please modify the updates location below or press Cancel to proceed without updates.."
 msgstr "No se pudo descargar la imagen de actualización. Por favor modifique la ubicación de la actualización de abajo o presione Cancelar para proceder sin actualizaciones."
 
 # ../loader/kickstart.c:59
 # ../loader/kickstart.c:59
 # ../loader/kickstart.c:59
-#: loader/loader.c:576
+#: loader/loader.c:575
 msgid "Error downloading updates image"
 msgstr "Error al descargar la imagen de actualizaciones"
 
 # ../loader/loader.c:2524
 # ../loader/loader.c:2524
 # ../loader/loader.c:2524
-#: loader/loader.c:1173
+#: loader/loader.c:1172
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "No posee suficiente RAM para instalar %s en esta máquina."
@@ -5836,78 +5836,78 @@ msgstr "No posee suficiente RAM para instalar %s en esta máquina."
 # ../mouse.py:273 ../xserver.py:44
 # ../mouse.py:273 ../xserver.py:44
 # ../mouse.py:274 ../xserver.py:44
-#: loader/loader.c:1227
+#: loader/loader.c:1226
 msgid "Media Detected"
 msgstr "Media detectada"
 
-#: loader/loader.c:1228
+#: loader/loader.c:1227
 msgid "Found local installation media"
 msgstr "Se ha detectado contenido de instalación local"
 
 # ../loader/loader.c:1482
 # ../loader/loader.c:1482
 # ../loader/loader.c:1482
-#: loader/loader.c:1350
+#: loader/loader.c:1349
 msgid "Rescue Method"
 msgstr "Método de Rescate"
 
 # ../loader/loader.c:1483
 # ../loader/loader.c:1483
 # ../loader/loader.c:1483
-#: loader/loader.c:1351
+#: loader/loader.c:1350
 msgid "Installation Method"
 msgstr "Método de instalación"
 
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
-#: loader/loader.c:1353
+#: loader/loader.c:1352
 msgid "What type of media contains the rescue image?"
 msgstr "¿Qué tipo de dispositivo contiene la imagen de rescate?"
 
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
 # ../loader/loader.c:1485
-#: loader/loader.c:1355
+#: loader/loader.c:1354
 msgid "What type of media contains the installation image?"
 msgstr "¿Qué tipo de dispositivo contiene la imagen de instalación?"
 
 # ../partitioning.py:1465
 # ../partitioning.py:1485
 # ../partitioning.py:1488
-#: loader/loader.c:1390
+#: loader/loader.c:1389
 msgid "No driver found"
 msgstr "No se encontró el driver"
 
 # ../iw/fdisk_gui.py:93
 # ../iw/fdisk_gui.py:93
 # ../iw/fdisk_gui.py:93
-#: loader/loader.c:1390
+#: loader/loader.c:1389
 msgid "Select driver"
 msgstr "Seleccione el controlador"
 
 # ../loader/devices.c:232
 # ../loader/devices.c:232
 # ../loader/devices.c:232
-#: loader/loader.c:1391
+#: loader/loader.c:1390
 msgid "Use a driver disk"
 msgstr "Use un disco de controladores"
 
-#: loader/loader.c:1392
+#: loader/loader.c:1391
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
 msgstr "No pudo encontrar ningún dispositivo del tipo requerido para esta instalación. Le gustaría seleccionar manualmente su controlador o usar un disco de controlador? "
 
 # ../loader/loader.c:371
 # ../loader/loader.c:371
 # ../loader/loader.c:371
-#: loader/loader.c:1620
+#: loader/loader.c:1619
 msgid "The following devices have been found on your system."
 msgstr "Se han encontrado los siguientes dispositivos en su sistema."
 
 # ../loader/loader.c:399
 # ../loader/loader.c:399
 # ../loader/loader.c:399
-#: loader/loader.c:1622
+#: loader/loader.c:1621
 msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
 msgstr "No se han cargado controladores de dispositivos para su sistema. ¿Desearía cargar alguno en este momento? "
 
@@ -5917,25 +5917,25 @@ msgstr "No se han cargado controladores de dispositivos para su sistema. ¿Desea
 # ../loader/loader.c:321 ../loader/loader.c:382 ../loader/loader.c:398
 # ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
 # ../loader/loader.c:321 ../loader/loader.c:382 ../loader/loader.c:398
-#: loader/loader.c:1626
+#: loader/loader.c:1625
 msgid "Devices"
 msgstr "Dispositivos"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: loader/loader.c:1627
+#: loader/loader.c:1626
 msgid "Done"
 msgstr "Hecho"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
-#: loader/loader.c:1628
+#: loader/loader.c:1627
 msgid "Add Device"
 msgstr "Añadir dispositivo"
 
-#: loader/loader.c:1904
+#: loader/loader.c:1903
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ya se ejecutó el cargador. Arrancando el shell.\n"
@@ -5943,7 +5943,7 @@ msgstr "ya se ejecutó el cargador. Arrancando el shell.\n"
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
-#: loader/loader.c:2354
+#: loader/loader.c:2352
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "Ejecutando anaconda %s, el modo de rescate %s - por favor espere.\n"
@@ -5951,7 +5951,7 @@ msgstr "Ejecutando anaconda %s, el modo de rescate %s - por favor espere.\n"
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
-#: loader/loader.c:2356
+#: loader/loader.c:2354
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "Ejecutando anaconda %s - el instalador del sistema %s - por favor espere.\n"
@@ -6925,8 +6925,8 @@ msgstr ""
 # ../partitioning.py:1631
 # ../partitioning.py:1651
 # ../partitioning.py:1654
-#: storage/devicetree.py:1826
-#: storage/devicetree.py:1874
+#: storage/devicetree.py:1830
+#: storage/devicetree.py:1878
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Esta partición es parte de un grupo de volúmenes LVM inconsistente."
 
@@ -6991,7 +6991,7 @@ msgid "Errors like this usually mean there is a problem with the filesystem that
 msgstr "Errores como éste por lo general significan que hay un problema con el sistema de archivos que requieren la interacción del usuario para ser reparado. Antes de reiniciar la instalación, reinicie en modo de rescate o con otro sistema que te permita reparar el sistema de archivos de forma interactiva. Reinicie la instalación después de haber corregido los problemas en el sistema de archivos."
 
 #: storage/formats/fs.py:535
-#: storage/partitioning.py:274
+#: storage/partitioning.py:276
 msgid "Unrecoverable Error"
 msgstr "Error irrecuperable"
 
@@ -7097,8 +7097,8 @@ msgstr ""
 # ../autopart.py:847
 # ../autopart.py:854
 # ../autopart.py:854
-#: storage/partitioning.py:237
-#: storage/partitioning.py:258
+#: storage/partitioning.py:239
+#: storage/partitioning.py:260
 msgid ""
 "\n"
 "\n"
@@ -7111,7 +7111,7 @@ msgstr ""
 # ../autopart.py:904
 # ../autopart.py:911
 # ../autopart.py:911
-#: storage/partitioning.py:239
+#: storage/partitioning.py:241
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -7122,7 +7122,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: storage/partitioning.py:260
+#: storage/partitioning.py:262
 msgid ""
 "\n"
 "\n"
@@ -7135,11 +7135,11 @@ msgstr ""
 # ../iw/partition_gui.py:1578 ../textw/partition_text.py:1052
 # ../iw/partition_gui.py:1580 ../textw/partition_text.py:1052
 # ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
-#: storage/partitioning.py:262
+#: storage/partitioning.py:264
 msgid "Automatic Partitioning Errors"
 msgstr "Errores de Particionamiento Automático"
 
-#: storage/partitioning.py:263
+#: storage/partitioning.py:265
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
