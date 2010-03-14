@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-04 10:31-0500\n"
-"PO-Revision-Date: 2010-03-14 18:53-0300\n"
+"PO-Revision-Date: 2010-03-14 19:06-0300\n"
 "Last-Translator: Claudio Rodrigo Pereyra Diaz <claudio@pereyradiaz.com.ar>\n"
 "Language-Team: Spanish <trans-es@lists.fedoraproject.org. >\n"
 "MIME-Version: 1.0\n"
@@ -3017,7 +3017,7 @@ msgid ""
 msgstr ""
 "Elimina todas las particiones en los dispositivos seleccionados. Esto incluye las particiones creadas por otros sistemas operativos.\n"
 "\n"
-"<b>Consejo:</b> Esta opción eliminará los datos de los dispositivos seleccionados. Asegúrese que realizó respaldos."
+"<b>Nota:</b> Esta opción eliminará los datos de los dispositivos seleccionados. Asegúrese que realizó respaldos."
 
 #: iw/autopart_type.py:236
 msgid "Replace Existing Linux System(s)"
@@ -3031,7 +3031,7 @@ msgid ""
 msgstr ""
 "Elimina todas las particiones Linux del dispositivo seleccionado. Esto no elimina otras particiones que pueda llegar a tener en sus dispositivos de almacenamiento (tales como VFAT o FAT32).\n"
 "\n"
-"<b>Consejo:</b> Esta opción eliminará los datos de los dispositivos seleccionados. Asegúrese de haber realizado respaldos."
+"<b>Nota:</b> Esta opción eliminará los datos de los dispositivos seleccionados. Asegúrese de haber realizado respaldos."
 
 #: iw/autopart_type.py:246
 msgid "Shrink Current System"
@@ -3244,16 +3244,16 @@ msgstr "Arranque"
 
 #: iw/cleardisks_gui.py:176
 msgid "<b>Tip:</b> All Linux filesystems on install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>Consejo:</b> Todos los sistemas de archivos Linux en los dispositivos elegidos para realizar la instalación serán formateados y todos sus datos serán eliminados. Asegúrese de tener respaldos."
+msgstr "<b>Nota:</b> Todos los sistemas de archivos Linux en los dispositivos elegidos para realizar la instalación serán formateados y todos sus datos serán eliminados. Asegúrese de tener respaldos."
 
 #: iw/cleardisks_gui.py:178
 #: ui/cleardisks.glade.h:3
 msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>Consejo:</b> Los dispositivos elegidos para realizar la instalación serán formateados y todos sus datos serán eliminados. Asegúrese de tener respaldos."
+msgstr "<b>Nota:</b> Los dispositivos elegidos para realizar la instalación serán formateados y todos sus datos serán eliminados. Asegúrese de tener respaldos."
 
 #: iw/cleardisks_gui.py:180
 msgid "<b>Tip:</b> Your filesystems on install target devices will not be wiped unless you choose to do so during customization."
-msgstr "<b>Consejo:</b> Los sistemas de archivos existentes en los dispositivos elegidos para realizar la instalación no serán eliminados a menos que usted así lo indique durante la personalización."
+msgstr "<b>Nota:</b> Los sistemas de archivos existentes en los dispositivos elegidos para realizar la instalación no serán eliminados a menos que usted así lo indique durante la personalización."
 
 # ../iw/congrats_gui.py:21 ../iw/congrats_gui.py:75
 # ../iw/congrats_gui.py:22 ../iw/congrats_gui.py:83
@@ -8088,7 +8088,7 @@ msgstr "<b>%s dispositivos (%s) seleccionados</b> de %s dispositivos (%s) totale
 
 #: ui/filter.glade.h:3
 msgid "<b>Tip:</b> Selecting a drive on this screen does not necessarily mean it will be wiped by the installation process.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
-msgstr "<b>Consejo:</b>: Elegir un disco en esta pantalla no significa necesariamente que será borrado en el proceso de instalación. Además, fíjese que luego de la instalación usted podrá montar discos que no haya seleccionado aquí, a través de una modificación del archivo /etc/fstab."
+msgstr "<b>Nota:</b>: Elegir un disco en esta pantalla no significa necesariamente que será borrado en el proceso de instalación. Además, fíjese que luego de la instalación usted podrá montar discos que no haya seleccionado aquí, a través de una modificación del archivo /etc/fstab."
 
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
