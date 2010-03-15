@@ -217,6 +217,79 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 15 2010 David Lehman <dlehman@redhat.com> - 14.0-1
+- Do not crash on .autorelabel when using read only rescue mount (#568367)
+  (msivak)
+- parted.PartedDisk can throw IOExceptions too (#573539) (hdegoede)
+- l10n: fix/updates to hungarian translation (snicore)
+- l10n: updated translations (snicore)
+- Use the disk name from kickstart in the shouldClear error message.
+  (clumens)
+- Fix displaying error messages on cleanup/remove callback problems
+  (#572893). (clumens)
+- Before running shouldClear, make sure a real disk was specified (#572523).
+  (clumens)
+- Fix: execWithRedirect() unexpectedkeyword argument 'searchPath' (#572853)
+  (hdegoede)
+- Tell ld.so and friends not to use hardware optimized libs (#572178)
+  (pjones)
+- By default, libcurl does not appear to follow redirects (#572528).
+  (clumens)
+- FcoeDiskDevice.dracutSetupString: handle DCB on / off option (hdegoede)
+- Redo the 'sshd' flag. (ajax)
+- Catch "Exception" when window manager is starting. (akozumpl)
+- Preserve encryption setting when re-editing new encrypted LVs. (#568547)
+  (dlehman)
+- Never pass "<Not applicable>" as mountpoint to format constructors.
+  (dlehman)
+- Fix up device dialogs' handling of preexisting formatting. (dlehman)
+- Set up devices using their original formats for certain action types.
+  (#565848) (dlehman)
+- Keep a handle to devices' original format instance. (#565848) (dlehman)
+- Pick up system's clock settings on upgrade. (#570299) (akozumpl)
+- Do not crash when getDevices returns NULL (#567939) (msivak)
+- Use new API in libblkid to look for driverdiscs on removable devices
+  (#508242) (msivak)
+- Use new package structure of firstaidkit (#510346) (msivak)
+- Add "crashkernel=auto" to grub.conf for RHEL installs (#561729) (hdegoede)
+- Drop iscsi initrd generation hack (hdegoede)
+- Fix recognition of partitions on mdraid arrays (#569462) (hdegoede)
+- dcbd is being replaced with lldpad (#563790) (hdegoede)
+- Use the same cache directory as yum now uses (#568996). (clumens)
+- exception.py: switch to tty1 before exit (#569071) (akozumpl)
+- Reset conditionals of transaction info too. (#505189) (rvykydal)
+- Use '--keyword=P_:1,2' for plural gettext string extraction (#567417).
+  (dcantrell)
+- make sure the new logging also works when isys is imported as a python
+  module. (akozumpl)
+- use the new logging approach in imount.c (akozumpl)
+- allow logging into program.log and syslog through log.c (akozumpl)
+- log.c: factor out common parts from logMessageV() (akozumpl)
+- static variable rename in log.c (akozumpl)
+- move log.c from loader into isys. (akozumpl)
+- Analog, a generator of rsyslog config files to monitor remote installs.
+  (akozumpl)
+- Remove isys/minifind.c and isys/minifind.h (dcantrell)
+- Keep default metacity schema generated for gconf. (#520146) (rvykydal)
+- metacity, fix a displaying problem with WaitWindow and ProgressWindow
+  (#520146) (akozumpl)
+- Nuke addFrame()'s showtitle parameter (#520146). (akozumpl)
+- Remove gui code we no longer need when mini-wm is gone (#520146) (akozumpl)
+- Remove mini-wm.c. (#520146) (akozumpl)
+- Introduces metacity window manager (#520146) (akozumpl)
+- fix: do not initialize the install interface whenever is is accessed
+  (#565872) (akozumpl)
+- Select/Deselect All should only apply to the current tab (#516143,
+  #568875). (clumens)
+- Don't try to write firewall and auth information twice (#568528). (clumens)
+- Fixes bug #569373 - Change udev_trigger block calls to use change action
+  (bcl)
+- Include the report module and related support files (#562656). (clumens)
+- report handles exn saving now, and doesn't require a Filer (#562656).
+  (clumens)
+- Adapt to using report's UI API (#562656). (clumens)
+- Do some editing of package and filter UI strings (#569039). (clumens)
+
 * Thu Mar 04 2010 Chris Lumens <clumens@redhat.com> - 13.33-1
 - On live installs, the syslog is /var/log/dmesg. (#568814). (clumens)
 - Set up udev environment so anaconda's udev rules run in livecd. (#568460)
