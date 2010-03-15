@@ -217,6 +217,36 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 15 2010 David Lehman <dlehman@redhat.com> - 13.34-1
+- parted.PartedDisk can throw IOExceptions too (#573539) (hdegoede)
+- Fix recognition of partitions on mdraid arrays (#569462) (hdegoede)
+- Use the disk name from kickstart in the shouldClear error message.
+  (clumens)
+- Fix displaying error messages on cleanup/remove callback problems
+  (#572893). (clumens)
+- Before running shouldClear, make sure a real disk was specified (#572523).
+  (clumens)
+- exception.py: switch to tty1 before exit (#569071) (akozumpl)
+- Preserve encryption setting when re-editing new encrypted LVs. (#568547)
+  (dlehman)
+- Never pass "<Not applicable>" as mountpoint to format constructors.
+  (dlehman)
+- Fix up device dialogs' handling of preexisting formatting. (dlehman)
+- Set up devices using their original formats for certain action types.
+  (#565848) (dlehman)
+- Keep a handle to devices' original format instance. (#565848) (dlehman)
+- Tell ld.so and friends not to use hardware optimized libs (#572178)
+  (pjones)
+- By default, libcurl does not appear to follow redirects (#572528).
+  (clumens)
+- Use '--keyword=P_:1,2' for plural gettext string extraction (#567417).
+  (dcantrell)
+- fix: do not initialize the install interface whenever is is accessed
+  (#565872) (akozumpl)
+- Select/Deselect All should only apply to the current tab (#516143,
+  #568875). (clumens)
+- Don't try to write firewall and auth information twice (#568528). (clumens)
+
 * Thu Mar 04 2010 Chris Lumens <clumens@redhat.com> - 13.33-1
 - On live installs, the syslog is /var/log/dmesg. (#568814). (clumens)
 - Set up udev environment so anaconda's udev rules run in livecd. (#568460)
