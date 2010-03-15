@@ -386,8 +386,13 @@ def runRescue(anaconda):
                     except Exception, e:
                         log.error("error mounting selinuxfs: %s" %(e,))
 
-                    fd = open("%s/.autorelabel" % anaconda.rootPath, "w+")
-                    fd.close()
+                    # we have to catch the possible exception
+                    # because we support read-only mounting
+                    try:
+                        fd = open("%s/.autorelabel" % anaconda.rootPath, "w+")
+                        fd.close()
+                    except Exception, e:
+                        log.warning("cannot touch /.autorelabel")
 
                 # set a library path to use mounted fs
                 libdirs = os.environ["LD_LIBRARY_PATH"].split(":")
