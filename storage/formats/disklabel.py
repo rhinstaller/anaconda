@@ -130,7 +130,7 @@ class DiskLabel(DeviceFormat):
             if self.exists:
                 try:
                     self._partedDisk = parted.Disk(device=self.partedDevice)
-                except _ped.DiskLabelException as e:
+                except (_ped.DiskLabelException, IOException) as e:
                     raise InvalidDiskLabelError()
 
                 if self._partedDisk.type == "loop":
