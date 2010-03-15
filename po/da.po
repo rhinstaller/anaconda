@@ -10,13 +10,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-03-04 10:31-0500\n"
-"PO-Revision-Date: 2010-02-23 23:07+0100\n"
+"POT-Creation-Date: 2010-03-15 10:59-0500\n"
+"PO-Revision-Date: 2010-03-15 20:12+0100\n"
 "Last-Translator: Kris Thomsen <lakristho@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: anaconda:339
 msgid "Press <enter> for a shell"
@@ -46,7 +47,7 @@ msgstr "Tryk <Enter> for at få en skal"
 #: loader/nfsinstall.c:296 loader/nfsinstall.c:366 loader/telnetd.c:92
 #: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
 #: loader/urlinstall.c:372 loader/urlinstall.c:383 loader/urlinstall.c:390
-#: loader/urls.c:249 loader/urls.c:326 loader/urls.c:332
+#: loader/urls.c:251 loader/urls.c:328 loader/urls.c:334
 #: textw/constants_text.py:44
 msgid "OK"
 msgstr "O.k."
@@ -59,15 +60,15 @@ msgstr ""
 "Du har ikke nok RAM til at bruge det grafiske installationsprogram.  Starter "
 "i teksttilstand."
 
-#: anaconda:522
+#: anaconda:589
 msgid "Starting graphical installation."
 msgstr "Starter grafisk installation."
 
-#: anaconda:1015
+#: anaconda:1009
 msgid "Would you like to use VNC?"
 msgstr "Vil du bruge VNC?"
 
-#: anaconda:1016
+#: anaconda:1010
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -77,11 +78,11 @@ msgstr ""
 "installationen.  Den giver dig ikke lov til at angive dit eget "
 "partitionslayout eller valg af pakker.  Vil du bruge VNC-tilstand istedet?"
 
-#: anaconda:1041
+#: anaconda:1035
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Grafisk installation er ikke tilgængelig. Starter i teksttilstand."
 
-#: anaconda:1049
+#: anaconda:1043
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY-variabel er ikke sat. Starter i teksttilstand."
 
@@ -120,13 +121,13 @@ msgstr ""
 "harddisk.  Du er sikkert løbet tør for diskplads."
 
 #: backend.py:182 image.py:288 livecd.py:198 livecd.py:403
-#: partIntfHelpers.py:237 text.py:354 text.py:358 yuminstall.py:410
-#: yuminstall.py:792 yuminstall.py:910 yuminstall.py:915 yuminstall.py:1189
-#: yuminstall.py:1248 yuminstall.py:1437 yuminstall.py:1459
+#: partIntfHelpers.py:237 text.py:354 text.py:358 yuminstall.py:416
+#: yuminstall.py:798 yuminstall.py:916 yuminstall.py:921 yuminstall.py:1195
+#: yuminstall.py:1254 yuminstall.py:1443 yuminstall.py:1465
 #: iw/autopart_type.py:96 iw/cleardisks_gui.py:43 iw/cleardisks_gui.py:53
-#: iw/filter_gui.py:405 iw/osbootwidget.py:211 iw/osbootwidget.py:220
-#: iw/raid_dialog_gui.py:212 iw/raid_dialog_gui.py:729
-#: iw/raid_dialog_gui.py:768 iw/task_gui.py:65 iw/task_gui.py:166
+#: iw/filter_gui.py:406 iw/osbootwidget.py:211 iw/osbootwidget.py:220
+#: iw/raid_dialog_gui.py:215 iw/raid_dialog_gui.py:766
+#: iw/raid_dialog_gui.py:805 iw/task_gui.py:65 iw/task_gui.py:166
 #: iw/task_gui.py:312 iw/task_gui.py:450 loader/cdinstall.c:228
 #: loader/cdinstall.c:504 loader/driverdisk.c:266 loader/driverdisk.c:488
 #: loader/driverdisk.c:523 loader/driverdisk.c:551 loader/driverdisk.c:559
@@ -137,7 +138,7 @@ msgstr ""
 #: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
-#: loader/urlinstall.c:221 loader/urls.c:326 loader/urls.c:332
+#: loader/urlinstall.c:221 loader/urls.c:328 loader/urls.c:334
 #: storage/__init__.py:210 storage/__init__.py:1789 storage/__init__.py:1876
 #: textw/netconfig_text.py:282 textw/partition_text.py:186
 #: textw/partition_text.py:192 textw/partition_text.py:198
@@ -147,8 +148,8 @@ msgid "Error"
 msgstr "Fejl"
 
 #: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1154
-#: gui.py:1214 image.py:82 text.py:485 text.py:545 yuminstall.py:1416
-#: yuminstall.py:1622 yuminstall.py:1657 iw/blpasswidget.py:148
+#: gui.py:1214 image.py:82 text.py:485 text.py:545 yuminstall.py:1422
+#: yuminstall.py:1628 yuminstall.py:1663 iw/blpasswidget.py:148
 #: iw/upgrade_swap_gui.py:190 iw/upgrade_swap_gui.py:198
 #: iw/upgrade_swap_gui.py:205 textw/upgrade_text.py:193
 msgid "Warning"
@@ -168,16 +169,16 @@ msgstr ""
 
 #: bootloader.py:60 gui.py:1105 gui.py:1250 gui.py:1465 image.py:91
 #: kickstart.py:157 livecd.py:205 livecd.py:410 packages.py:130 upgrade.py:58
-#: upgrade.py:197 yuminstall.py:251 yuminstall.py:697 yuminstall.py:912
-#: yuminstall.py:917 yuminstall.py:997 yuminstall.py:1003 yuminstall.py:1157
-#: yuminstall.py:1185 yuminstall.py:1238 yuminstall.py:1424 yuminstall.py:1443
-#: yuminstall.py:1466 storage/__init__.py:107 storage/__init__.py:214
+#: upgrade.py:197 yuminstall.py:257 yuminstall.py:703 yuminstall.py:918
+#: yuminstall.py:923 yuminstall.py:1003 yuminstall.py:1009 yuminstall.py:1163
+#: yuminstall.py:1191 yuminstall.py:1244 yuminstall.py:1430 yuminstall.py:1449
+#: yuminstall.py:1472 storage/__init__.py:107 storage/__init__.py:214
 #: storage/__init__.py:1970
 msgid "_Exit installer"
 msgstr "_Afslut installationsprogram"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1318
-#: kickstart.py:1357 upgrade.py:58 yuminstall.py:1243 yuminstall.py:1425
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1321
+#: kickstart.py:1360 upgrade.py:58 yuminstall.py:1249 yuminstall.py:1431
 #: iw/partition_gui.py:1598 storage/__init__.py:1971
 msgid "_Continue"
 msgstr "_Fortsæt"
@@ -214,8 +215,8 @@ msgstr "Færdig"
 msgid "In progress"
 msgstr "Under udførelse"
 
-#: cmdline.py:89 gui.py:1245 kickstart.py:1182 kickstart.py:1190
-#: kickstart.py:1228 kickstart.py:1236 text.py:391
+#: cmdline.py:89 gui.py:1245 kickstart.py:1185 kickstart.py:1193
+#: kickstart.py:1231 kickstart.py:1239 text.py:391
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -434,8 +435,8 @@ msgstr ""
 msgid "_Exit"
 msgstr "_Afslut"
 
-#: gui.py:1376 image.py:164 image.py:194 livecd.py:205 yuminstall.py:789
-#: yuminstall.py:1185 yuminstall.py:1238 yuminstall.py:1443
+#: gui.py:1376 image.py:164 image.py:194 livecd.py:205 yuminstall.py:795
+#: yuminstall.py:1191 yuminstall.py:1244 yuminstall.py:1449
 msgid "_Retry"
 msgstr "_Prøv igen"
 
@@ -443,7 +444,7 @@ msgstr "_Prøv igen"
 msgid "The system will now reboot."
 msgstr "Systemet vil nu genstarte."
 
-#: gui.py:1379 image.py:251 packages.py:332 yuminstall.py:1484
+#: gui.py:1379 image.py:251 packages.py:332 yuminstall.py:1490
 msgid "_Reboot"
 msgstr "_Genstart"
 
@@ -545,8 +546,8 @@ msgstr ""
 "Hav disse klar inden du fortsætter med installationen.  Hvis du skal afbryde "
 "installationen og afslutte, bør du vælge \"Genstart\"."
 
-#: image.py:251 livecd.py:409 packages.py:332 upgrade.py:196 yuminstall.py:917
-#: yuminstall.py:1003 yuminstall.py:1424 yuminstall.py:1466 yuminstall.py:1484
+#: image.py:251 livecd.py:409 packages.py:332 upgrade.py:196 yuminstall.py:923
+#: yuminstall.py:1009 yuminstall.py:1430 yuminstall.py:1472 yuminstall.py:1490
 msgid "_Back"
 msgstr "_Tilbage"
 
@@ -672,7 +673,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Fejl med scriptlet"
 
-#: kickstart.py:151 rescue.py:248 yuminstall.py:692 yuminstall.py:1152
+#: kickstart.py:151 rescue.py:248 yuminstall.py:698 yuminstall.py:1158
 msgid "No Network Available"
 msgstr "Intet netværk tilgængeligt"
 
@@ -684,37 +685,37 @@ msgstr ""
 "Nøglekontrakt til kryptering kræver netværksforbindelse, men der opstod en "
 "fejl ved aktivering af netværket på dit system."
 
-#: kickstart.py:1201
+#: kickstart.py:1204
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Fejl ved behandling af %%ksappend linjer: %s"
 
-#: kickstart.py:1204
+#: kickstart.py:1207
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Ukendt fejl ved behandling af %%ksappend linjer: %s"
 
-#: kickstart.py:1259 livecd.py:229
+#: kickstart.py:1262 livecd.py:229
 msgid "Post-Installation"
 msgstr "Efter-installation"
 
-#: kickstart.py:1260
+#: kickstart.py:1263
 msgid "Running post-installation scripts"
 msgstr "Kører efter-installationsskripter"
 
-#: kickstart.py:1276
+#: kickstart.py:1279
 msgid "Pre-Installation"
 msgstr "Før-installation"
 
-#: kickstart.py:1277
+#: kickstart.py:1280
 msgid "Running pre-installation scripts"
 msgstr "Kører før-installationsskripter"
 
-#: kickstart.py:1309
+#: kickstart.py:1312
 msgid "Missing Package"
 msgstr "Mangler pakke"
 
-#: kickstart.py:1310
+#: kickstart.py:1313
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -723,19 +724,19 @@ msgstr ""
 "Du har angivet at pakken \"%s\" skal installeres.  Denne pakke findes ikke. "
 "Vil du fortsætte eller afbryde denne installation?"
 
-#: kickstart.py:1316 kickstart.py:1355
+#: kickstart.py:1319 kickstart.py:1358
 msgid "_Abort"
 msgstr "_Afbryd"
 
-#: kickstart.py:1317 kickstart.py:1356
+#: kickstart.py:1320 kickstart.py:1359
 msgid "_Ignore All"
 msgstr "_Ignorér alle"
 
-#: kickstart.py:1347
+#: kickstart.py:1350
 msgid "Missing Group"
 msgstr "Manglende gruppe"
 
-#: kickstart.py:1348
+#: kickstart.py:1351
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -744,7 +745,7 @@ msgstr ""
 "Du har angivet at gruppen \"%s\" skal installeres. Denne gruppe findes ikke. "
 "Vil du fortsætte eller afbryde denne installation?"
 
-#: kickstart.py:1463
+#: kickstart.py:1466
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -972,7 +973,7 @@ msgstr "Kan ikke fjerne"
 msgid "You must first select a partition to delete."
 msgstr "Du skal først vælge en partition som skal fjernes."
 
-#: partIntfHelpers.py:153 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:843
+#: partIntfHelpers.py:153 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:862
 msgid "Confirm Delete"
 msgstr "Bekræft sletning"
 
@@ -981,8 +982,8 @@ msgstr "Bekræft sletning"
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr "Du er i færd med at slette alle partitioner på enheden \"%s\"."
 
-#: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:846
-#: iw/lvm_dialog_gui.py:1379 iw/osbootwidget.py:104 iw/partition_gui.py:1809
+#: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:865
+#: iw/lvm_dialog_gui.py:1435 iw/osbootwidget.py:104 iw/partition_gui.py:1809
 #: iw/partition_gui.py:1821
 msgid "_Delete"
 msgstr "_Slet"
@@ -1404,7 +1405,9 @@ msgstr "Tilføj også denne adgangskode til alle eksisterende krypterede enheder
 #: text.py:198
 #, python-format
 msgid "The passphrase must be at least %d character long."
-msgstr "Adgangskoden skal være mindst %d tegn lang."
+msgid_plural "The passphrase must be at least %d characters long."
+msgstr[0] "Adgangskoden skal være mindst %d tegn lang."
+msgstr[1] "Adgangskoden skal være mindst %d tegn lang."
 
 #: text.py:232 ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
@@ -1559,7 +1562,9 @@ msgstr "Forsøger igen om 15 sekunder..."
 #: vnc.py:195
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
-msgstr "Opgiver forsøg på at forbinde efter %d forsøg!\n"
+msgid_plural "Giving up attempting to connect after %d tries!\n"
+msgstr[0] "Opgiver forsøg på at forbinde efter %d forsøg!\n"
+msgstr[1] "Opgiver forsøg på at forbinde efter %d forsøg!\n"
 
 #: vnc.py:206
 #, python-format
@@ -1713,7 +1718,9 @@ msgstr "%s kB"
 #: yuminstall.py:90
 #, python-format
 msgid "%s Byte"
-msgstr "%s byte"
+msgid_plural "%s Bytes"
+msgstr[0] "%s byte"
+msgstr[1] "%s bytes"
 
 #: yuminstall.py:134
 msgid "Preparing to install"
@@ -1731,7 +1738,9 @@ msgstr "<b>Installerer %(pkgStr)s</b> (%(size)s)\n"
 #: yuminstall.py:212
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr "Færdiggjorte pakker: %(donepkgs)d af %(numpkgs)d"
+msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
+msgstr[0] "Færdiggjorte pakker: %(donepkgs)d af %(numpkgs)d"
+msgstr[1] "Færdiggjorte pakker: %(donepkgs)d af %(numpkgs)d"
 
 #: yuminstall.py:227
 msgid "Finishing upgrade"
@@ -1741,11 +1750,11 @@ msgstr "Afslutter opgradering"
 msgid "Finishing upgrade process.  This may take a little while."
 msgstr "Afslutter opgraderingsproces.  Dette kan tage et lille stykke tid."
 
-#: yuminstall.py:245
+#: yuminstall.py:251
 msgid "Error Installing Package"
 msgstr "Kunne ikke installere pakke"
 
-#: yuminstall.py:246
+#: yuminstall.py:252
 #, python-format
 msgid ""
 "A fatal error occurred when installing the %s package.  This could indicate "
@@ -1755,11 +1764,11 @@ msgstr ""
 "fejl under læsning af installationsmediet.  Installationen kan ikke "
 "fortsætte."
 
-#: yuminstall.py:347 iw/task_gui.py:322
+#: yuminstall.py:353 iw/task_gui.py:322
 msgid "Error Setting Up Repository"
 msgstr "Kunne ikke indstille pakkearkiv"
 
-#: yuminstall.py:348
+#: yuminstall.py:354
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -1774,34 +1783,34 @@ msgstr ""
 "\n"
 "Angiv venligst de rigtige informationer for at installere %(productName)s."
 
-#: yuminstall.py:392
+#: yuminstall.py:398
 msgid "Change Disc"
 msgstr "Skift disk"
 
-#: yuminstall.py:393
+#: yuminstall.py:399
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
 msgstr "Indsæt venligst %(productName)s disk %(discnum)d for at fortsætte."
 
-#: yuminstall.py:403
+#: yuminstall.py:409
 msgid "Wrong Disc"
 msgstr "Forkert disk"
 
-#: yuminstall.py:404
+#: yuminstall.py:410
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Dette er ikke den korrekte %s-disk."
 
-#: yuminstall.py:411
+#: yuminstall.py:417
 msgid "Unable to access the disc."
 msgstr "Kan ikke tilgå disken."
 
-#: yuminstall.py:569
+#: yuminstall.py:575
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Pakkearkiv %r mangler navn i konfigurationen, bruger id"
 
-#: yuminstall.py:693 yuminstall.py:1153
+#: yuminstall.py:699 yuminstall.py:1159
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -1809,15 +1818,15 @@ msgstr ""
 "Nogen af dine pakkearkiver kræver netværksforbindelse, men der opstod en "
 "fejl ved aktivering af netværket på dit system."
 
-#: yuminstall.py:787 yuminstall.py:789
+#: yuminstall.py:793 yuminstall.py:795
 msgid "Re_boot"
 msgstr "_Genstart"
 
-#: yuminstall.py:787
+#: yuminstall.py:793
 msgid "_Eject"
 msgstr "_Skub ud"
 
-#: yuminstall.py:793
+#: yuminstall.py:799
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1834,62 +1843,62 @@ msgstr ""
 "sandsynligvis vil kræve geninstallation.\n"
 "\n"
 
-#: yuminstall.py:841
+#: yuminstall.py:847
 msgid "Retrying"
 msgstr "Forsøger igen"
 
-#: yuminstall.py:841
+#: yuminstall.py:847
 msgid "Retrying download."
 msgstr "Forsøger at hente igen."
 
-#: yuminstall.py:906
+#: yuminstall.py:912
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 "Der opstod en fejl ved kørsel af din overførsel af følgende årsag: %s\n"
 
-#: yuminstall.py:949 yuminstall.py:950
+#: yuminstall.py:955 yuminstall.py:956
 msgid "file conflicts"
 msgstr "filkonflikter"
 
-#: yuminstall.py:951
+#: yuminstall.py:957
 msgid "older package(s)"
 msgstr "ældre pakke(r)"
 
-#: yuminstall.py:952
+#: yuminstall.py:958
 msgid "insufficient disk space"
 msgstr "ikke tilstrækkeligt diskplads"
 
-#: yuminstall.py:953
+#: yuminstall.py:959
 msgid "insufficient disk inodes"
 msgstr "ikke tilstrækkeligt diskinoder"
 
-#: yuminstall.py:954
+#: yuminstall.py:960
 msgid "package conflicts"
 msgstr "pakkekonflikter"
 
-#: yuminstall.py:955
+#: yuminstall.py:961
 msgid "package already installed"
 msgstr "pakke er allerede installeret"
 
-#: yuminstall.py:956
+#: yuminstall.py:962
 msgid "required package"
 msgstr "nødvendig pakke"
 
-#: yuminstall.py:957
+#: yuminstall.py:963
 msgid "package for incorrect arch"
 msgstr "pakke til forkert arkitektur"
 
-#: yuminstall.py:958
+#: yuminstall.py:964
 msgid "package for incorrect os"
 msgstr "pakke til forkert operativsystem"
 
-#: yuminstall.py:972
+#: yuminstall.py:978
 msgid "You need more space on the following file systems:\n"
 msgstr "Du har brug for mere plads på følgende filsystem:\n"
 
-#: yuminstall.py:985
+#: yuminstall.py:991
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1898,7 +1907,7 @@ msgstr ""
 "Der er filkonflikter under kontrol af hvilke pakker der skal installeres:\n"
 "%s\n"
 
-#: yuminstall.py:988
+#: yuminstall.py:994
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
@@ -1906,11 +1915,11 @@ msgid ""
 msgstr ""
 "Der opstod en fejl ved kørsel af din overførsel af følgende årsag(er): %s.\n"
 
-#: yuminstall.py:995 yuminstall.py:1000
+#: yuminstall.py:1001 yuminstall.py:1006
 msgid "Error Running Transaction"
 msgstr "Fejl ved kørsel af overførsel"
 
-#: yuminstall.py:1190
+#: yuminstall.py:1196
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -1918,24 +1927,24 @@ msgstr ""
 "Kan ikke læse gruppeinformation fra pakkearkiver.  Dette er et problem med "
 "oprettelsen af dit installationstræ."
 
-#: yuminstall.py:1226
+#: yuminstall.py:1232
 msgid "Retrieving installation information."
 msgstr "Modtager installationsinformation."
 
-#: yuminstall.py:1228
+#: yuminstall.py:1234
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Modtager installationsinformation til %s."
 
-#: yuminstall.py:1230
+#: yuminstall.py:1236
 msgid "Installation Progress"
 msgstr "Installationsfremskridt"
 
-#: yuminstall.py:1238 textw/constants_text.py:64
+#: yuminstall.py:1244 textw/constants_text.py:64
 msgid "Edit"
 msgstr "Redigér"
 
-#: yuminstall.py:1249 yuminstall.py:1438
+#: yuminstall.py:1255 yuminstall.py:1444
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1950,7 +1959,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1417
+#: yuminstall.py:1423
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -1962,7 +1971,7 @@ msgstr ""
 "pakkevalg eller fortsætte med at installere disse pakker uden deres "
 "afhængigheder."
 
-#: yuminstall.py:1460
+#: yuminstall.py:1466
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1973,15 +1982,15 @@ msgstr ""
 "har ikke nok fri plads. Du kan ændre dine valg eller afslutte "
 "installationsprogrammet."
 
-#: yuminstall.py:1481
+#: yuminstall.py:1487
 msgid "Reboot?"
 msgstr "Genstart?"
 
-#: yuminstall.py:1482
+#: yuminstall.py:1488
 msgid "The system will be rebooted now."
 msgstr "Systemet vil nu blive genstartet."
 
-#: yuminstall.py:1623
+#: yuminstall.py:1629
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -1991,7 +2000,7 @@ msgstr ""
 "opgradere til denne version af %s. Er du sikker på, at du vil fortsætte "
 "opgraderingen?"
 
-#: yuminstall.py:1658
+#: yuminstall.py:1664
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2004,35 +2013,35 @@ msgstr ""
 "arkitektur på %(arch)s. Dette kan højst sandsynligt ikke lade sig gøre. Er "
 "du sikker på, at du vil fortsætte opgraderingsprocessen?"
 
-#: yuminstall.py:1705
+#: yuminstall.py:1711
 msgid "Post Upgrade"
 msgstr "Efteropgradering"
 
-#: yuminstall.py:1706
+#: yuminstall.py:1712
 msgid "Performing post-upgrade configuration"
 msgstr "Udfører konfiguration af efteropgradering"
 
-#: yuminstall.py:1708
+#: yuminstall.py:1714
 msgid "Post Installation"
 msgstr "Efterinstallation"
 
-#: yuminstall.py:1709
+#: yuminstall.py:1715
 msgid "Performing post-installation configuration"
 msgstr "Udfører konfiguration af efterinstallation"
 
-#: yuminstall.py:1929
+#: yuminstall.py:1935
 msgid "Installation Starting"
 msgstr "Installation starter"
 
-#: yuminstall.py:1930
+#: yuminstall.py:1936
 msgid "Starting installation process"
 msgstr "Starter installationsproces"
 
-#: yuminstall.py:1968
+#: yuminstall.py:1974
 msgid "Dependency Check"
 msgstr "Afhængighedskontrol"
 
-#: yuminstall.py:1969
+#: yuminstall.py:1975
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Kontrollerer afhængigheder i pakker, som er valgt til installation"
 
@@ -2335,7 +2344,7 @@ msgstr "_Skift enhed"
 msgid "Clear Disks Selector"
 msgstr "Ryd diskvælger"
 
-#: iw/cleardisks_gui.py:44 iw/filter_gui.py:406
+#: iw/cleardisks_gui.py:44 iw/filter_gui.py:407
 msgid "You must select at least one drive to be used for installation."
 msgstr "Du skal vælge mindst et drev, som skal bruges til installation."
 
@@ -2343,29 +2352,29 @@ msgstr "Du skal vælge mindst et drev, som skal bruges til installation."
 msgid "You must select one drive to boot from."
 msgstr "Du skal vælge et drev at starte op fra."
 
-#: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:441
-#: iw/filter_gui.py:452 iw/filter_gui.py:482
+#: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:442
+#: iw/filter_gui.py:453 iw/filter_gui.py:483
 msgid "Model"
 msgstr "Model"
 
-#: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:442
-#: iw/filter_gui.py:453 iw/filter_gui.py:461 iw/filter_gui.py:472
-#: iw/filter_gui.py:483
+#: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:443
+#: iw/filter_gui.py:454 iw/filter_gui.py:462 iw/filter_gui.py:473
+#: iw/filter_gui.py:484
 msgid "Capacity"
 msgstr "Kapacitet"
 
-#: iw/cleardisks_gui.py:123 iw/filter_gui.py:443 iw/filter_gui.py:462
-#: iw/filter_gui.py:473 iw/filter_gui.py:484
+#: iw/cleardisks_gui.py:123 iw/filter_gui.py:444 iw/filter_gui.py:463
+#: iw/filter_gui.py:474 iw/filter_gui.py:485
 msgid "Vendor"
 msgstr "Producent"
 
-#: iw/cleardisks_gui.py:124 iw/filter_gui.py:444 iw/filter_gui.py:463
-#: iw/filter_gui.py:474 iw/filter_gui.py:485
+#: iw/cleardisks_gui.py:124 iw/filter_gui.py:445 iw/filter_gui.py:464
+#: iw/filter_gui.py:475 iw/filter_gui.py:486
 msgid "Interconnect"
 msgstr "Forbind"
 
-#: iw/cleardisks_gui.py:125 iw/filter_gui.py:445 iw/filter_gui.py:475
-#: iw/filter_gui.py:486
+#: iw/cleardisks_gui.py:125 iw/filter_gui.py:446 iw/filter_gui.py:476
+#: iw/filter_gui.py:487
 msgid "Serial Number"
 msgstr "Serienummer"
 
@@ -2500,33 +2509,33 @@ msgstr "Ukendt Linux-system"
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr "<b>%s enhed(er) (%s MB) valgt</b> ud af %s enhed(er) (%s MB) i alt."
 
-#: iw/filter_gui.py:391
+#: iw/filter_gui.py:392
 msgid "Device Filter"
 msgstr "Enhedsfilter"
 
-#: iw/filter_gui.py:446 iw/filter_gui.py:454 iw/filter_gui.py:465
-#: iw/filter_gui.py:476 iw/filter_gui.py:491 iw/osbootwidget.py:66
+#: iw/filter_gui.py:447 iw/filter_gui.py:455 iw/filter_gui.py:466
+#: iw/filter_gui.py:477 iw/filter_gui.py:492 iw/osbootwidget.py:66
 #: iw/partition_gui.py:607
 msgid "Device"
 msgstr "Enhed"
 
-#: iw/filter_gui.py:460 iw/filter_gui.py:471 iw/filter_gui.py:487
+#: iw/filter_gui.py:461 iw/filter_gui.py:472 iw/filter_gui.py:488
 msgid "Identifier"
 msgstr "Identifikator"
 
-#: iw/filter_gui.py:464
+#: iw/filter_gui.py:465
 msgid "Paths"
 msgstr "Stier"
 
-#: iw/filter_gui.py:488 loader/urls.c:290
+#: iw/filter_gui.py:489 loader/urls.c:292
 msgid "Port"
 msgstr "Port"
 
-#: iw/filter_gui.py:489
+#: iw/filter_gui.py:490
 msgid "Target"
 msgstr "Mål"
 
-#: iw/filter_gui.py:490
+#: iw/filter_gui.py:491
 msgid "LUN"
 msgstr "LUN"
 
@@ -2568,13 +2577,13 @@ msgstr "Valg af sprog"
 msgid "What language would you like to use during the installation process?"
 msgstr "Hvilket sprog ønsker du at benytte under installationsprocessen?"
 
-#: iw/lvm_dialog_gui.py:124 iw/lvm_dialog_gui.py:170 iw/lvm_dialog_gui.py:184
-#: iw/lvm_dialog_gui.py:223 iw/lvm_dialog_gui.py:300 iw/lvm_dialog_gui.py:682
-#: iw/lvm_dialog_gui.py:703
+#: iw/lvm_dialog_gui.py:125 iw/lvm_dialog_gui.py:171 iw/lvm_dialog_gui.py:185
+#: iw/lvm_dialog_gui.py:224 iw/lvm_dialog_gui.py:301 iw/lvm_dialog_gui.py:690
+#: iw/lvm_dialog_gui.py:711
 msgid "Not enough space"
 msgstr "Ikke nok plads"
 
-#: iw/lvm_dialog_gui.py:125
+#: iw/lvm_dialog_gui.py:126
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
@@ -2584,11 +2593,11 @@ msgstr ""
 "defineredelogiske diskenheder, vil blive øget til mere end den tilgængelige "
 "plads."
 
-#: iw/lvm_dialog_gui.py:134
+#: iw/lvm_dialog_gui.py:135
 msgid "Confirm Physical Extent Change"
 msgstr "Bekræft ændring af fysisk størrelse"
 
-#: iw/lvm_dialog_gui.py:135
+#: iw/lvm_dialog_gui.py:136
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2602,11 +2611,11 @@ msgstr ""
 "\n"
 "Denne ændring vil træde i kraft med det samme."
 
-#: iw/lvm_dialog_gui.py:144 iw/lvm_dialog_gui.py:206
+#: iw/lvm_dialog_gui.py:145 iw/lvm_dialog_gui.py:207
 msgid "C_ontinue"
 msgstr "_Fortsæt"
 
-#: iw/lvm_dialog_gui.py:171
+#: iw/lvm_dialog_gui.py:172
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2617,7 +2626,7 @@ msgstr ""
 "(curpe)10.2f MB) er større end den mindste fysiske diskenhed (%(maxpvsize)"
 "10.2f MB) i diskenhedsgruppen."
 
-#: iw/lvm_dialog_gui.py:185
+#: iw/lvm_dialog_gui.py:186
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2628,11 +2637,11 @@ msgstr ""
 "(curpe)10.2f MB) er for stor sammenholdt med størrelsen på den mindste "
 "fysiske diskenhed (%(maxpvsize)10.2f MB) i diskenhedsgruppen."
 
-#: iw/lvm_dialog_gui.py:199
+#: iw/lvm_dialog_gui.py:200
 msgid "Too small"
 msgstr "For lille"
 
-#: iw/lvm_dialog_gui.py:200
+#: iw/lvm_dialog_gui.py:201
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
@@ -2641,7 +2650,7 @@ msgstr ""
 "mængder plads væk på en eller flere af de fysiske diskenheder i "
 "diskenhedsgruppen."
 
-#: iw/lvm_dialog_gui.py:224
+#: iw/lvm_dialog_gui.py:225
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -2652,7 +2661,7 @@ msgstr ""
 "logiske diskenhedsstørrelse (%10.2f MB) er mindre end én eller flere af de "
 "angivne logiske diskenheder."
 
-#: iw/lvm_dialog_gui.py:301
+#: iw/lvm_dialog_gui.py:302
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -2660,98 +2669,101 @@ msgstr ""
 "Du kan ikke fjerne denne fysiske diskenhed, da diskenhedsgruppen ellers "
 "bliver for lille til at indeholde de aktuelt definerede logiske diskenheder."
 
-#: iw/lvm_dialog_gui.py:400
+#: iw/lvm_dialog_gui.py:401
 msgid "Make Logical Volume"
 msgstr "Opret logisk diskenhed"
 
-#: iw/lvm_dialog_gui.py:402
+#: iw/lvm_dialog_gui.py:403
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Redigér logisk diskenhed: %s"
 
-#: iw/lvm_dialog_gui.py:433 iw/raid_dialog_gui.py:402
+#: iw/lvm_dialog_gui.py:442 iw/raid_dialog_gui.py:443
 msgid "_File System Type:"
 msgstr "_Filsystemtype:"
 
-#: iw/lvm_dialog_gui.py:439
+#: iw/lvm_dialog_gui.py:448
 msgid "_Logical Volume Name:"
 msgstr "Navn på _logisk diskenhed:"
 
-#: iw/lvm_dialog_gui.py:448 iw/partition_dialog_gui.py:432
+#: iw/lvm_dialog_gui.py:457 iw/partition_dialog_gui.py:469
 msgid "_Size (MB):"
 msgstr "_Størrelse (MB):"
 
-#: iw/lvm_dialog_gui.py:455
+#: iw/lvm_dialog_gui.py:464
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Maksimal størrelse er %s MB)"
 
-#: iw/lvm_dialog_gui.py:460 iw/partition_dialog_gui.py:484
-#: iw/partition_ui_helpers_gui.py:331 iw/raid_dialog_gui.py:374
+#: iw/lvm_dialog_gui.py:469 iw/partition_dialog_gui.py:521
+#: iw/partition_ui_helpers_gui.py:331 iw/raid_dialog_gui.py:415
 msgid "_Encrypt"
 msgstr "_Kryptér"
 
-#: iw/lvm_dialog_gui.py:469 iw/raid_dialog_gui.py:412
+#: iw/lvm_dialog_gui.py:478 iw/partition_dialog_gui.py:451
+#: iw/raid_dialog_gui.py:453
 msgid "Original File System Type:"
 msgstr "Oprindelig filsystemtype:"
 
-#: iw/lvm_dialog_gui.py:473 iw/raid_dialog_gui.py:417
-msgid "Unknown"
-msgstr "Ukendt"
-
-#: iw/lvm_dialog_gui.py:477 iw/partition_dialog_gui.py:422
-#: iw/raid_dialog_gui.py:423
+#: iw/lvm_dialog_gui.py:483 iw/partition_dialog_gui.py:459
+#: iw/raid_dialog_gui.py:460
 msgid "Original File System Label:"
 msgstr "Oprindelig etikette for filsystem:"
 
-#: iw/lvm_dialog_gui.py:482
+#: iw/lvm_dialog_gui.py:488
 msgid "Logical Volume Name:"
 msgstr "Navn på logisk diskenhed:"
 
-#: iw/lvm_dialog_gui.py:486
+#: iw/lvm_dialog_gui.py:492
 msgid "Size (MB):"
 msgstr "Størrelse (MB):"
 
-#: iw/lvm_dialog_gui.py:513 iw/partition_dialog_gui.py:377
-#: iw/raid_dialog_gui.py:393
+#: iw/lvm_dialog_gui.py:519 iw/partition_dialog_gui.py:407
+#: iw/raid_dialog_gui.py:434
 msgid "_Mount Point:"
 msgstr "_Monteringspunkt:"
 
-#: iw/lvm_dialog_gui.py:596
+#: iw/lvm_dialog_gui.py:596 iw/partition_dialog_gui.py:113
+#: iw/partition_ui_helpers_gui.py:109 iw/partition_ui_helpers_gui.py:131
+#: iw/partition_ui_helpers_gui.py:133 iw/raid_dialog_gui.py:169
+msgid "<Not Applicable>"
+msgstr "<Ikke brugbar>"
+
+#: iw/lvm_dialog_gui.py:604
 msgid "Illegal Logical Volume Name"
 msgstr "Ugyldigt navn på logisk diskenhed"
 
-#: iw/lvm_dialog_gui.py:611
+#: iw/lvm_dialog_gui.py:619
 msgid "Illegal logical volume name"
 msgstr "Ugyldigt navn på logisk diskenhed"
 
-#: iw/lvm_dialog_gui.py:612
+#: iw/lvm_dialog_gui.py:620
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Navnet på den logiske diskenhed \"%s\" er allerede i brug. Vælg et andet."
 
-#: iw/lvm_dialog_gui.py:653 iw/partition_dialog_gui.py:124
-#: iw/raid_dialog_gui.py:180
+#: iw/lvm_dialog_gui.py:661 iw/partition_dialog_gui.py:127
+#: iw/raid_dialog_gui.py:183
 msgid "Mount point in use"
 msgstr "Monteringspunkt i brug"
 
-#: iw/lvm_dialog_gui.py:654 iw/partition_dialog_gui.py:125
-#: iw/raid_dialog_gui.py:181
+#: iw/lvm_dialog_gui.py:662 iw/partition_dialog_gui.py:128
+#: iw/raid_dialog_gui.py:184
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Monteringspunktet \"%s\" er i brug. Vælg venligst et andet."
 
-#: iw/lvm_dialog_gui.py:669
+#: iw/lvm_dialog_gui.py:677
 msgid "Illegal size"
 msgstr "Ugyldig størrelse"
 
-#: iw/lvm_dialog_gui.py:670
+#: iw/lvm_dialog_gui.py:678
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr ""
 "Den forespurgte størrelse som indtastet, er ikke et gyldigt tal større end 0."
 
-#: iw/lvm_dialog_gui.py:683
+#: iw/lvm_dialog_gui.py:691
 #, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
@@ -2764,7 +2776,7 @@ msgstr ""
 "du oprette flere fysiske diskenheder fra upartitioneret diskplads og tilføje "
 "dem til denne diskenhedsgruppe."
 
-#: iw/lvm_dialog_gui.py:704
+#: iw/lvm_dialog_gui.py:712
 #, python-format
 msgid ""
 "The logical volumes you have configured require %(size)d MB, but the volume "
@@ -2775,21 +2787,24 @@ msgstr ""
 "diskenhedsgruppen har kun %(tempvgsize)d MB.  Lav diskenhedsgruppen større "
 "eller lav de(t) logiske diskenhed(er) mindre."
 
-#: iw/lvm_dialog_gui.py:797
+#: iw/lvm_dialog_gui.py:814
 msgid "No free slots"
 msgstr "Ingen ledige pladser"
 
-#: iw/lvm_dialog_gui.py:798
+#: iw/lvm_dialog_gui.py:815
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
-msgstr ""
+msgid_plural "You cannot create more than %d logical volumes per volume group."
+msgstr[0] ""
+"Du kan ikke oprette mere end %d logisk diskenhed per diskenhedsgruppe."
+msgstr[1] ""
 "Du kan ikke oprette mere end %d logiske diskenheder per diskenhedsgruppe."
 
-#: iw/lvm_dialog_gui.py:808
+#: iw/lvm_dialog_gui.py:825
 msgid "No free space"
 msgstr "Ingen ledig plads"
 
-#: iw/lvm_dialog_gui.py:809
+#: iw/lvm_dialog_gui.py:826
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -2799,31 +2814,31 @@ msgstr ""
 "diskenheder. Før at tilføje en logisk diskenhed skal du formindske "
 "størrelsen på ét eller flere af de nuværende logiske diskenheder"
 
-#: iw/lvm_dialog_gui.py:844
+#: iw/lvm_dialog_gui.py:863
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Er du sikker på, at du vil slette den logiske diskenhed \"%s\"?"
 
-#: iw/lvm_dialog_gui.py:950
+#: iw/lvm_dialog_gui.py:969
 msgid "Invalid Volume Group Name"
 msgstr "Ugyldigt navn på diskenhedsgruppe"
 
-#: iw/lvm_dialog_gui.py:959
+#: iw/lvm_dialog_gui.py:978
 msgid "Name in use"
 msgstr "Navnet er i brug"
 
-#: iw/lvm_dialog_gui.py:960
+#: iw/lvm_dialog_gui.py:979
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 "Navnet til diskenhedsgruppen \"%s\" er allerede i brug. Vælg venligst et "
 "andet."
 
-#: iw/lvm_dialog_gui.py:1210
+#: iw/lvm_dialog_gui.py:1266
 msgid "Not enough physical volumes"
 msgstr "Ikke nok fysiske diskenheder"
 
-#: iw/lvm_dialog_gui.py:1211
+#: iw/lvm_dialog_gui.py:1267
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2837,70 +2852,70 @@ msgstr ""
 "Opret en partition eller RAID-kæde af typen \"fysisk diskenhed (LVM)\" og "
 "vælg dernæst indstillingen \"LVM\" igen."
 
-#: iw/lvm_dialog_gui.py:1222
+#: iw/lvm_dialog_gui.py:1278
 msgid "Make LVM Volume Group"
 msgstr "Opret diskenhedsgruppe for LVM"
 
-#: iw/lvm_dialog_gui.py:1225
+#: iw/lvm_dialog_gui.py:1281
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Redigér diskenhedsgruppe for LVM: %s"
 
-#: iw/lvm_dialog_gui.py:1227
+#: iw/lvm_dialog_gui.py:1283
 msgid "Edit LVM Volume Group"
 msgstr "Redigér diskenhedsgruppe for LVM"
 
-#: iw/lvm_dialog_gui.py:1243
+#: iw/lvm_dialog_gui.py:1299
 msgid "_Volume Group Name:"
 msgstr "Navn på _diskenhedsgruppe:"
 
-#: iw/lvm_dialog_gui.py:1251
+#: iw/lvm_dialog_gui.py:1307
 msgid "Volume Group Name:"
 msgstr "Navn på diskenhedsgruppe:"
 
-#: iw/lvm_dialog_gui.py:1259
+#: iw/lvm_dialog_gui.py:1315
 msgid "_Physical Extent:"
 msgstr "_Fysisk størrelse:"
 
-#: iw/lvm_dialog_gui.py:1274
+#: iw/lvm_dialog_gui.py:1330
 msgid "Physical Volumes to _Use:"
 msgstr "Fysiske diskenheder der skal _bruges:"
 
-#: iw/lvm_dialog_gui.py:1280
+#: iw/lvm_dialog_gui.py:1336
 msgid "Used Space:"
 msgstr "Brugt plads:"
 
-#: iw/lvm_dialog_gui.py:1297
+#: iw/lvm_dialog_gui.py:1353
 msgid "Free Space:"
 msgstr "Ledig plads:"
 
-#: iw/lvm_dialog_gui.py:1315
+#: iw/lvm_dialog_gui.py:1371
 msgid "Total Space:"
 msgstr "Plads ialt:"
 
-#: iw/lvm_dialog_gui.py:1353
+#: iw/lvm_dialog_gui.py:1409
 msgid "Logical Volume Name"
 msgstr "Navn på logisk diskenhed"
 
-#: iw/lvm_dialog_gui.py:1356 iw/partition_gui.py:610
+#: iw/lvm_dialog_gui.py:1412 iw/partition_gui.py:610
 #: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:124
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: iw/lvm_dialog_gui.py:1359 iw/partition_gui.py:609
+#: iw/lvm_dialog_gui.py:1415 iw/partition_gui.py:609
 msgid "Size (MB)"
 msgstr "Størrelse (MB)"
 
-#: iw/lvm_dialog_gui.py:1373 iw/osbootwidget.py:96
+#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Tilføj"
 
-#: iw/lvm_dialog_gui.py:1376 iw/osbootwidget.py:100 iw/partition_gui.py:1808
+#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:100 iw/partition_gui.py:1808
 #: iw/partition_gui.py:1818
 msgid "_Edit"
 msgstr "_Redigér"
 
-#: iw/lvm_dialog_gui.py:1391
+#: iw/lvm_dialog_gui.py:1447
 msgid "_Logical Volumes"
 msgstr "_Logiske diskenheder"
 
@@ -3078,24 +3093,24 @@ msgstr "Udfyld al plads _op til (MB):"
 msgid "Fill to maximum _allowable size"
 msgstr "Udfyld op til maksimal _tilladt størrelse"
 
-#: iw/partition_dialog_gui.py:347
+#: iw/partition_dialog_gui.py:377
 msgid "Add Partition"
 msgstr "Tilføj partition"
 
-#: iw/partition_dialog_gui.py:349
+#: iw/partition_dialog_gui.py:379
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "Redigér partition: %s"
 
-#: iw/partition_dialog_gui.py:386
+#: iw/partition_dialog_gui.py:416
 msgid "File System _Type:"
 msgstr "Filsystems_type:"
 
-#: iw/partition_dialog_gui.py:402
+#: iw/partition_dialog_gui.py:432
 msgid "Allowable _Drives:"
 msgstr "Tilladte _drev:"
 
-#: iw/partition_dialog_gui.py:471
+#: iw/partition_dialog_gui.py:508
 msgid "Force to be a _primary partition"
 msgstr "Tving til at være en _primærpartition"
 
@@ -3252,7 +3267,9 @@ msgstr ""
 #: iw/partition_gui.py:1465
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
-msgstr "Du har i øjeblikket %d software-RAID-partitioner til fri brug."
+msgid_plural "You currently have %d software RAID partitions free to use."
+msgstr[0] "Du har i øjeblikket %d software-RAID-partition til fri brug."
+msgstr[1] "Du har i øjeblikket %d software-RAID-partitioner til fri brug."
 
 #: iw/partition_gui.py:1469
 msgid "About RAID"
@@ -3292,7 +3309,10 @@ msgstr ""
 #: iw/partition_gui.py:1487
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
-msgstr ""
+msgid_plural "You currently have %d available PVs free to use.\n"
+msgstr[0] ""
+"Du har i øjeblikket %d tilgængelig fysisk diskenhed til fri brug.\n"
+msgstr[1] ""
 "Du har i øjeblikket %d tilgængelige fysiske diskenheder til fri brug.\n"
 
 #: iw/partition_gui.py:1491
@@ -3353,11 +3373,6 @@ msgstr "Nul_stil"
 msgid "Please Select A Device"
 msgstr "Vælg en enhed"
 
-#: iw/partition_ui_helpers_gui.py:109 iw/partition_ui_helpers_gui.py:131
-#: iw/partition_ui_helpers_gui.py:133
-msgid "<Not Applicable>"
-msgstr "<Ikke brugbar>"
-
 #: iw/partition_ui_helpers_gui.py:312
 msgid "_Format as:"
 msgstr "_Formatér som:"
@@ -3370,7 +3385,7 @@ msgstr "Mi_grér filsystemer til:"
 msgid "_Resize"
 msgstr "_Redigér størrelse"
 
-#: iw/partition_ui_helpers_gui.py:433
+#: iw/partition_ui_helpers_gui.py:435
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
@@ -3383,7 +3398,7 @@ msgstr ""
 msgid "Installing Packages"
 msgstr "Installerer pakker"
 
-#: iw/raid_dialog_gui.py:341
+#: iw/raid_dialog_gui.py:382
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -3397,40 +3412,40 @@ msgstr ""
 "Opret først mindst to partitioner af typen \"software-RAID\" og vælg dernæst "
 "indstillingen \"RAID\" igen."
 
-#: iw/raid_dialog_gui.py:355
+#: iw/raid_dialog_gui.py:396
 msgid "Make RAID Device"
 msgstr "Opret RAID-enhed"
 
-#: iw/raid_dialog_gui.py:358
+#: iw/raid_dialog_gui.py:399
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr "Redigér RAID-enhed: %s"
 
-#: iw/raid_dialog_gui.py:360
+#: iw/raid_dialog_gui.py:401
 msgid "Edit RAID Device"
 msgstr "Redigér RAID-enhed"
 
-#: iw/raid_dialog_gui.py:431
+#: iw/raid_dialog_gui.py:468
 msgid "RAID _Device:"
 msgstr "RAID-_enhed:"
 
-#: iw/raid_dialog_gui.py:449
+#: iw/raid_dialog_gui.py:486
 msgid "RAID _Level:"
 msgstr "RAID-_niveau:"
 
-#: iw/raid_dialog_gui.py:491
+#: iw/raid_dialog_gui.py:528
 msgid "_RAID Members:"
 msgstr "_RAID-medlemmer:"
 
-#: iw/raid_dialog_gui.py:508
+#: iw/raid_dialog_gui.py:545
 msgid "Number of _spares:"
 msgstr "Antal _reservediske:"
 
-#: iw/raid_dialog_gui.py:518
+#: iw/raid_dialog_gui.py:555
 msgid "_Format partition?"
 msgstr "_Formatér partition?"
 
-#: iw/raid_dialog_gui.py:592
+#: iw/raid_dialog_gui.py:629
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -3438,12 +3453,12 @@ msgstr ""
 "Kildedrevet har ingen partitioner som kan klones. Du skal først definere "
 "partitioner af typen \"software-RAID\" på denne disk inden den kan klones."
 
-#: iw/raid_dialog_gui.py:596 iw/raid_dialog_gui.py:602
-#: iw/raid_dialog_gui.py:616 iw/raid_dialog_gui.py:629
+#: iw/raid_dialog_gui.py:633 iw/raid_dialog_gui.py:639
+#: iw/raid_dialog_gui.py:653 iw/raid_dialog_gui.py:666
 msgid "Source Drive Error"
 msgstr "Fejl med kildedrev"
 
-#: iw/raid_dialog_gui.py:603
+#: iw/raid_dialog_gui.py:640
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -3455,7 +3470,7 @@ msgstr ""
 "\n"
 "Disse partitioner skal fjernes inden dette drev kan klones. "
 
-#: iw/raid_dialog_gui.py:617
+#: iw/raid_dialog_gui.py:654
 #, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
@@ -3469,7 +3484,7 @@ msgstr ""
 "Disse partitioner skal fjernes eller begrænses til kun dette drev inden "
 "dette drev kan klones. "
 
-#: iw/raid_dialog_gui.py:630
+#: iw/raid_dialog_gui.py:667
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -3481,21 +3496,21 @@ msgstr ""
 "\n"
 "Disse partitioner skal fjernes inden dette drev kan klones."
 
-#: iw/raid_dialog_gui.py:644 iw/raid_dialog_gui.py:650
-#: iw/raid_dialog_gui.py:666
+#: iw/raid_dialog_gui.py:681 iw/raid_dialog_gui.py:687
+#: iw/raid_dialog_gui.py:703
 msgid "Target Drive Error"
 msgstr "Fejl på måldisk"
 
-#: iw/raid_dialog_gui.py:645
+#: iw/raid_dialog_gui.py:682
 msgid "Please select the target drives for the clone operation."
 msgstr "Vælg måldiskene for kloningshandlingen."
 
-#: iw/raid_dialog_gui.py:651
+#: iw/raid_dialog_gui.py:688
 #, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
 msgstr "Kildedrevet %s kan ikke også vælges som en måldisk."
 
-#: iw/raid_dialog_gui.py:667
+#: iw/raid_dialog_gui.py:704
 #, python-format
 msgid ""
 "The target drive %(path)s has a partition which cannot be removed for the "
@@ -3512,11 +3527,11 @@ msgstr ""
 "\n"
 "Denne partition skal fjernes inden dette drev kan blive et mål."
 
-#: iw/raid_dialog_gui.py:730
+#: iw/raid_dialog_gui.py:767
 msgid "Please select a source drive."
 msgstr "Vælg et kildedrev."
 
-#: iw/raid_dialog_gui.py:750
+#: iw/raid_dialog_gui.py:787
 #, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
@@ -3525,7 +3540,7 @@ msgstr ""
 "Drevet %s vil nu blive klonet til de følgende drev:\n"
 "\n"
 
-#: iw/raid_dialog_gui.py:755
+#: iw/raid_dialog_gui.py:792
 msgid ""
 "\n"
 "\n"
@@ -3535,23 +3550,23 @@ msgstr ""
 "\n"
 "ADVARSEL! ALLE DATA PÅ MÅLDISKENE VIL BLIVE ØDELAGT."
 
-#: iw/raid_dialog_gui.py:758
+#: iw/raid_dialog_gui.py:795
 msgid "Final Warning"
 msgstr "Sidste advarsel"
 
-#: iw/raid_dialog_gui.py:760
+#: iw/raid_dialog_gui.py:797
 msgid "Clone Drives"
 msgstr "Klon drev"
 
-#: iw/raid_dialog_gui.py:769
+#: iw/raid_dialog_gui.py:806
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "En fejl skete ved tømning af måldiskene. Kloning mislykkedes."
 
-#: iw/raid_dialog_gui.py:792
+#: iw/raid_dialog_gui.py:829
 msgid "Clone Drive Tool"
 msgstr "Værktøj til drevkloning"
 
-#: iw/raid_dialog_gui.py:801
+#: iw/raid_dialog_gui.py:838
 msgid ""
 "This tool clones the layout from a partitioned source onto other similar "
 "sized drives. The source must have partitions which are restricted to that "
@@ -3563,15 +3578,15 @@ msgstr ""
 "drev og må KUN indeholde ubrugte software-RAID-partitioner.  ALT på "
 "måldrevene vil blive slettet.\n"
 
-#: iw/raid_dialog_gui.py:812
+#: iw/raid_dialog_gui.py:849
 msgid "Source Drive:"
 msgstr "Kildedrev:"
 
-#: iw/raid_dialog_gui.py:820
+#: iw/raid_dialog_gui.py:857
 msgid "Target Drive(s):"
 msgstr "Måldiskdrev:"
 
-#: iw/raid_dialog_gui.py:828
+#: iw/raid_dialog_gui.py:865
 msgid "Drives"
 msgstr "Drev"
 
@@ -4004,7 +4019,7 @@ msgstr "Cd ikke fundet"
 #: loader/kbd.c:119 loader/loader.c:490 loader/loader.c:507
 #: loader/loader.c:1357 loader/loader.c:1390 loader/net.c:579 loader/net.c:950
 #: loader/net.c:1851 loader/net.c:1870 loader/nfsinstall.c:91
-#: loader/urls.c:249 storage/__init__.py:152 storage/devicetree.py:89
+#: loader/urls.c:251 storage/__init__.py:152 storage/devicetree.py:89
 #: textw/constants_text.py:52
 msgid "Back"
 msgstr "Tilbage"
@@ -4780,11 +4795,11 @@ msgstr "Skal angive et --url-argument til URL-kickstartmetoden."
 msgid "Unknown Url method %s"
 msgstr "Ukendt URL-metode %s"
 
-#: loader/urls.c:155 loader/urls.c:163
+#: loader/urls.c:157 loader/urls.c:165
 msgid "Retrieving"
 msgstr "Henter"
 
-#: loader/urls.c:252
+#: loader/urls.c:254
 #, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
@@ -4792,31 +4807,31 @@ msgstr ""
 "Indtast venligst URL'en som indeholder %s installationsaftrykket på din "
 "server."
 
-#: loader/urls.c:270
+#: loader/urls.c:272
 msgid "Enable HTTP proxy"
 msgstr "Aktivér HTTP-proxy"
 
-#: loader/urls.c:285
+#: loader/urls.c:287
 msgid "Proxy URL"
 msgstr "Proxy-URL"
 
-#: loader/urls.c:295
+#: loader/urls.c:297
 msgid "Username"
 msgstr "Brugernavn"
 
-#: loader/urls.c:300
+#: loader/urls.c:302
 msgid "Password"
 msgstr "Adgangskode"
 
-#: loader/urls.c:319
+#: loader/urls.c:321
 msgid "URL Setup"
 msgstr "URL-opsætning"
 
-#: loader/urls.c:327
+#: loader/urls.c:329
 msgid "You must enter a URL."
 msgstr "Du skal indtaste en URL."
 
-#: loader/urls.c:333
+#: loader/urls.c:335
 msgid "URL must be either an ftp or http URL"
 msgstr "URL skal enten være en ftp- eller http-URL"
 
@@ -5251,23 +5266,23 @@ msgstr "vginfo fejlede for %s"
 msgid "lvs failed for %s"
 msgstr "lvs fejlede for %s"
 
-#: storage/devices.py:1250 storage/devices.py:1905 storage/devices.py:2305
-#: storage/devices.py:2771 storage/devices.py:3250
+#: storage/devices.py:1257 storage/devices.py:1924 storage/devices.py:2327
+#: storage/devices.py:2798 storage/devices.py:3280
 msgid "Creating"
 msgstr "Opretter"
 
-#: storage/devices.py:1251 storage/devices.py:1906 storage/devices.py:2306
-#: storage/devices.py:2772
+#: storage/devices.py:1258 storage/devices.py:1925 storage/devices.py:2328
+#: storage/devices.py:2799
 #, python-format
 msgid "Creating device %s"
 msgstr "Opretter enhed %s"
 
-#: storage/devices.py:2397
+#: storage/devices.py:2421
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "Et RAID%d sæt kræver mindst %d medlemmer"
 
-#: storage/devices.py:3251
+#: storage/devices.py:3281
 #, python-format
 msgid "Creating file %s"
 msgstr "Opretter fil %s"
@@ -5290,7 +5305,7 @@ msgstr ""
 "Hvis du springer dette trin over vil enhedens indhold ikke være tilgængeligt "
 "under installationen."
 
-#: storage/devicetree.py:1830 storage/devicetree.py:1878
+#: storage/devicetree.py:1831 storage/devicetree.py:1879
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Denne partition er en del af en inkonsistent diskenhedsgruppe for LVM."
 
@@ -6294,9 +6309,9 @@ msgid ""
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
 msgstr ""
-"<b>Tip:</b> At vælge et drev i denne dialog betyder ikke nødvendigvis at "
-"den vil blive slettet under installationsprocessen.  Bemærk også, at du "
-"kan montere drev, som du ikke valgte her, under efter-installationen ved at "
+"<b>Tip:</b> At vælge et drev i denne dialog betyder ikke nødvendigvis at den "
+"vil blive slettet under installationsprocessen.  Bemærk også, at du kan "
+"montere drev, som du ikke valgte her, under efter-installationen ved at "
 "redigere din /etc/fstab-fil."
 
 #: ui/filter.glade.h:4
@@ -6790,6 +6805,9 @@ msgstr "Walisisk"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "Unknown"
+#~ msgstr "Ukendt"
 
 #~ msgid ""
 #~ "This release of %(productName)s supports the an updated file system, "
