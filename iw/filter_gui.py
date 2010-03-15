@@ -602,6 +602,7 @@ class FilterWindow(InstallWindow):
     def populate(self, nonraids, mpaths, raids):
         def _addTuple(tuple):
             global totalDevices, totalSize
+            global selectedDevices, selectedSize
             added = False
 
             self.store.append(None, tuple)
@@ -618,6 +619,10 @@ class FilterWindow(InstallWindow):
             if added:
                 totalDevices += 1
                 totalSize += tuple[0]["XXX_SIZE"]
+
+                if tuple[2]:
+                    selectedDevices += 1
+                    selectedSize += tuple[0]["XXX_SIZE"]
 
         def _active(name):
             if self.anaconda.id.storage.exclusiveDisks and \
