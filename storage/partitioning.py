@@ -1457,6 +1457,9 @@ def growPartitions(disks, partitions, free):
             # recalculate partition geometries
             disklabel = disk.format
             start = chunk.geometry.start
+            # align start sector as needed
+            if not disklabel.alignment.isAligned(chunk.geometry, start):
+                start = disklabel.alignment.alignUp(chunk.geometry, start)
             new_partitions = []
             for p in chunk.requests:
                 ptype = p.partition.partedPartition.type
