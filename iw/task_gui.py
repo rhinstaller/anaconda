@@ -363,6 +363,9 @@ class RepoEditor:
                 newRepoObj = AnacondaYumRepo(reponame.replace(" ", ""))
                 removeOld = False
 
+            # corresponds to self.repos.setCacheDir in AnacondaYum.doConfigSetup
+            newRepoObj.basecachedir = self.anaconda.backend.ayum.conf.cachedir
+
             type = self.typeComboBox.get_active()
             if not applyFuncs[type](newRepoObj) or not self._addAndEnableRepo(newRepoObj) or not \
                    setupRepo(self.anaconda, newRepoObj):
