@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-15 10:59-0500\n"
-"PO-Revision-Date: 2010-03-16 07:07+0100\n"
+"PO-Revision-Date: 2010-03-16 16:25+0100\n"
 "Last-Translator: Peter Bojtos <ptr@ulx.hu>\n"
 "Language-Team: Hungarian <Hungarian <fedora-trans-hu@redhat.com>>\n"
 "MIME-Version: 1.0\n"
@@ -2052,7 +2052,6 @@ msgid "Desktop"
 msgstr "Asztal"
 
 #: installclasses/rhel.py:78
-#, fuzzy
 msgid "Advanced Server"
 msgstr "Haladó szerver"
 
@@ -2262,8 +2261,9 @@ msgid "_Change device"
 msgstr "Eszköz_csere"
 
 #: iw/cleardisks_gui.py:33
+#, fuzzy
 msgid "Clear Disks Selector"
-msgstr ""
+msgstr "Clear Disks Selector"
 
 #: iw/cleardisks_gui.py:44
 #: iw/filter_gui.py:407
@@ -5779,9 +5779,8 @@ msgid "Filter By:"
 msgstr "Szűrés erre:"
 
 #: ui/filter.glade.h:7
-#, fuzzy
 msgid "Firmware RAID"
-msgstr "szoftver RAID"
+msgstr "Firmware-es RAID"
 
 #: ui/filter.glade.h:8
 msgid "Identifier:"
