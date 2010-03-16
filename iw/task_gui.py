@@ -200,8 +200,8 @@ class RepoEditor:
                     self.proxyCheckbox.set_active(True)
                     self.proxyTable.set_sensitive(True)
                     self.proxyEntry.set_text(self.repo.proxy)
-                    self.usernameEntry.set_text(self.repo.proxy_username)
-                    self.passwordEntry.set_text(self.repo.proxy_password)
+                    self.usernameEntry.set_text(self.repo.proxy_username or '')
+                    self.passwordEntry.set_text(self.repo.proxy_password or '')
                 else:
                     self.proxyCheckbox.set_active(False)
                     self.proxyTable.set_sensitive(False)
@@ -250,8 +250,9 @@ class RepoEditor:
                 return False
 
             repo.proxy = proxy
-            repo.proxy_username = self.usernameEntry.get_text()
-            repo.proxy_password = self.passwordEntry.get_text()
+            # with empty string yum would create invalid proxy string
+            repo.proxy_username = self.usernameEntry.get_text() or None
+            repo.proxy_password = self.passwordEntry.get_text() or None
 
         repourl = self.baseurlEntry.get_text()
         repourl.strip()
