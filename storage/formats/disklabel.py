@@ -142,6 +142,10 @@ class DiskLabel(DeviceFormat):
             else:
                 self._partedDisk = self.freshPartedDisk()
 
+            # turn off cylinder alignment
+            if self._partedDisk.isFlagAvailable(parted.DISK_CYLINDER_ALIGNMENT):
+                self._partedDisk.unsetFlag(parted.DISK_CYLINDER_ALIGNMENT)
+
         return self._partedDisk
 
     @property

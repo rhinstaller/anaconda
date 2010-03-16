@@ -786,11 +786,6 @@ def doPartitioning(storage, exclusiveDisks=None):
     if bootDev:
         bootDev.req_bootable = True
 
-    # turn off cylinder alignment
-    for partedDisk in [d.format.partedDisk for d in disks]:
-        if partedDisk.isFlagAvailable(parted.DISK_CYLINDER_ALIGNMENT):
-            partedDisk.unsetFlag(parted.DISK_CYLINDER_ALIGNMENT)
-
     removeNewPartitions(disks, partitions)
     free = getFreeRegions(disks)
     allocatePartitions(storage, disks, partitions, free)
