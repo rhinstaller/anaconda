@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-03-04 10:31-0500\n"
-"PO-Revision-Date: 2010-03-14 05:23+0100\n"
+"POT-Creation-Date: 2010-03-15 10:59-0500\n"
+"PO-Revision-Date: 2010-03-16 07:07+0100\n"
 "Last-Translator: Peter Bojtos <ptr@ulx.hu>\n"
 "Language-Team: Hungarian <Hungarian <fedora-trans-hu@redhat.com>>\n"
 "MIME-Version: 1.0\n"
@@ -104,9 +104,9 @@ msgstr "Parancsértelmezőért nyomjon <Enter>-t"
 #: loader/urlinstall.c:372
 #: loader/urlinstall.c:383
 #: loader/urlinstall.c:390
-#: loader/urls.c:249
-#: loader/urls.c:326
-#: loader/urls.c:332
+#: loader/urls.c:251
+#: loader/urls.c:328
+#: loader/urls.c:334
 #: textw/constants_text.py:44
 msgid "OK"
 msgstr "OK"
@@ -115,23 +115,23 @@ msgstr "OK"
 msgid "You do not have enough RAM to use the graphical installer.  Starting text mode."
 msgstr "Nincs elég memória a grafikus telepítő használatához.  Telepítés szöveges módban."
 
-#: anaconda:522
+#: anaconda:589
 msgid "Starting graphical installation."
 msgstr "Grafikus telepítő indul…"
 
-#: anaconda:1015
+#: anaconda:1009
 msgid "Would you like to use VNC?"
 msgstr "Szeretne VNC-t használni?"
 
-#: anaconda:1016
+#: anaconda:1010
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
 msgstr "A szöveges mód lekorlátozott telepítés opciókat kínál.  Nem engedi meg a saját merevlemez felosztást vagy a csomagok kiválogatását.  Kívánja inkább a VNC módot használni?"
 
-#: anaconda:1041
+#: anaconda:1035
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Grafikus telepítés nem érhető el. Szöveges mód indítása."
 
-#: anaconda:1049
+#: anaconda:1043
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY változó nincs beállítva. Szöveges mód indítása."
 
@@ -168,23 +168,23 @@ msgstr "Hiba történt a telepítési képmás merevlemezre írása közben. Val
 #: partIntfHelpers.py:237
 #: text.py:354
 #: text.py:358
-#: yuminstall.py:410
-#: yuminstall.py:792
-#: yuminstall.py:910
-#: yuminstall.py:915
-#: yuminstall.py:1189
-#: yuminstall.py:1248
-#: yuminstall.py:1437
-#: yuminstall.py:1459
+#: yuminstall.py:416
+#: yuminstall.py:798
+#: yuminstall.py:916
+#: yuminstall.py:921
+#: yuminstall.py:1195
+#: yuminstall.py:1254
+#: yuminstall.py:1443
+#: yuminstall.py:1465
 #: iw/autopart_type.py:96
 #: iw/cleardisks_gui.py:43
 #: iw/cleardisks_gui.py:53
-#: iw/filter_gui.py:405
+#: iw/filter_gui.py:406
 #: iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220
-#: iw/raid_dialog_gui.py:212
-#: iw/raid_dialog_gui.py:729
-#: iw/raid_dialog_gui.py:768
+#: iw/raid_dialog_gui.py:215
+#: iw/raid_dialog_gui.py:766
+#: iw/raid_dialog_gui.py:805
 #: iw/task_gui.py:65
 #: iw/task_gui.py:166
 #: iw/task_gui.py:312
@@ -218,8 +218,8 @@ msgstr "Hiba történt a telepítési képmás merevlemezre írása közben. Val
 #: loader/urlinstall.c:137
 #: loader/urlinstall.c:159
 #: loader/urlinstall.c:221
-#: loader/urls.c:326
-#: loader/urls.c:332
+#: loader/urls.c:328
+#: loader/urls.c:334
 #: storage/__init__.py:210
 #: storage/__init__.py:1789
 #: storage/__init__.py:1876
@@ -242,9 +242,9 @@ msgstr "Hiba"
 #: image.py:82
 #: text.py:485
 #: text.py:545
-#: yuminstall.py:1416
-#: yuminstall.py:1622
-#: yuminstall.py:1657
+#: yuminstall.py:1422
+#: yuminstall.py:1628
+#: yuminstall.py:1663
 #: iw/blpasswidget.py:148
 #: iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198
@@ -274,18 +274,18 @@ msgstr ""
 #: packages.py:130
 #: upgrade.py:58
 #: upgrade.py:197
-#: yuminstall.py:251
-#: yuminstall.py:697
-#: yuminstall.py:912
-#: yuminstall.py:917
-#: yuminstall.py:997
+#: yuminstall.py:257
+#: yuminstall.py:703
+#: yuminstall.py:918
+#: yuminstall.py:923
 #: yuminstall.py:1003
-#: yuminstall.py:1157
-#: yuminstall.py:1185
-#: yuminstall.py:1238
-#: yuminstall.py:1424
-#: yuminstall.py:1443
-#: yuminstall.py:1466
+#: yuminstall.py:1009
+#: yuminstall.py:1163
+#: yuminstall.py:1191
+#: yuminstall.py:1244
+#: yuminstall.py:1430
+#: yuminstall.py:1449
+#: yuminstall.py:1472
 #: storage/__init__.py:107
 #: storage/__init__.py:214
 #: storage/__init__.py:1970
@@ -295,11 +295,11 @@ msgstr "_Kilépés a telepítőből"
 #: bootloader.py:60
 #: image.py:92
 #: image.py:251
-#: kickstart.py:1318
-#: kickstart.py:1357
+#: kickstart.py:1321
+#: kickstart.py:1360
 #: upgrade.py:58
-#: yuminstall.py:1243
-#: yuminstall.py:1425
+#: yuminstall.py:1249
+#: yuminstall.py:1431
 #: iw/partition_gui.py:1598
 #: storage/__init__.py:1971
 msgid "_Continue"
@@ -331,10 +331,10 @@ msgstr "Folyamatban"
 
 #: cmdline.py:89
 #: gui.py:1245
-#: kickstart.py:1182
-#: kickstart.py:1190
-#: kickstart.py:1228
-#: kickstart.py:1236
+#: kickstart.py:1185
+#: kickstart.py:1193
+#: kickstart.py:1231
+#: kickstart.py:1239
 #: text.py:391
 #, python-format
 msgid ""
@@ -467,7 +467,7 @@ msgstr "Ny_omkövetés"
 
 #: gui.py:1155
 #: text.py:486
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error processing drive:\n"
 "\n"
@@ -483,13 +483,15 @@ msgid ""
 msgstr ""
 "HIba a meghajtó feldolgozásakor:\n"
 "\n"
-"%s\n"
-"%-0.fMB\n"
-"%s\n"
+"%(path)s\n"
+"%(size)-0.fMB\n"
+"%(description)s\n"
 "\n"
-"Talán újra kellene inicializálni.\n"
+"Ezt a meghajtót újra kellene inicializálni.\n"
 "\n"
-"ÚRAINICIALIZÁLÁSKOR MINDEN ADAT EL FOG VESZNI AZ ESZKÖZÖN!%s"
+"ÚRAINICIALIZÁLÁSKOR MINDEN ADAT EL FOG VESZNI AZ ESZKÖZÖN!\n"
+"\n"
+"Ez a művelet a többi lemezre is alkalmazható.%(details)s"
 
 #: gui.py:1164
 #: gui.py:1222
@@ -502,9 +504,8 @@ msgstr "_Mellőz"
 #: gui.py:1223
 #: text.py:496
 #: text.py:554
-#, fuzzy
 msgid "Ignore _all"
-msgstr "_Mindegyik mellőzése"
+msgstr "Minde_gyik mellőzése"
 
 #: gui.py:1166
 #: gui.py:1224
@@ -517,19 +518,18 @@ msgstr "Újra _alakít"
 #: gui.py:1225
 #: text.py:498
 #: text.py:556
-#, fuzzy
 msgid "Re-ini_tialize all"
-msgstr "Újra _alakít"
+msgstr "Mindent új_raalakít"
 
 #: gui.py:1215
 #: text.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error processing LVM.\n"
 "There is inconsistent LVM data on %(msg)s.  You can reinitialize all related PVs (%(pvs)s) which will erase the LVM metadata, or ignore which will preserve the contents.  This action may also be applied to all other PVs with inconsistent metadata."
 msgstr ""
-"LVM-et feldolgozása közben hiba történt.\n"
-"Úgy tűnik ellentmondásos LVM adatok vannak a(z) %s eszközön.  Újra lehet alakítani minden kapcsolódó PV-t (%s) (fizikai kötetet), ami minden LVM leíró adatot töröl, vagy mellőzni amivel megőrzi a tartalmat."
+"Hiba történt az LVM feldolgozása közben. \n"
+"Úgy tűnik ellentmondásos LVM adatok vannak a(z) %(msg)s eszközön.  Újra lehet alakítani minden kapcsolódó PV-t (%(pvs)s) (fizikai kötetet), így minden LVM metaadatot töröl. Ha mellőzi, megőrzi a tartalmát. Ezt a műveletet alkalmazhatja az összes inkonzisztens metaadatot tartalmazó PV-re is."
 
 #: gui.py:1247
 #: text.py:393
@@ -569,10 +569,10 @@ msgstr "_Kilépés"
 #: image.py:164
 #: image.py:194
 #: livecd.py:205
-#: yuminstall.py:789
-#: yuminstall.py:1185
-#: yuminstall.py:1238
-#: yuminstall.py:1443
+#: yuminstall.py:795
+#: yuminstall.py:1191
+#: yuminstall.py:1244
+#: yuminstall.py:1449
 msgid "_Retry"
 msgstr "Újr_a"
 
@@ -584,7 +584,7 @@ msgstr "A rendszer most újraindul."
 #: gui.py:1379
 #: image.py:251
 #: packages.py:332
-#: yuminstall.py:1484
+#: yuminstall.py:1490
 msgid "_Reboot"
 msgstr "Újrai_ndítás"
 
@@ -656,28 +656,28 @@ msgid "Required Install Media"
 msgstr "Szükséges telepítő adathordozók"
 
 #: image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"A kiválasztott szoftverek telepítéséhez a következő %s %s lemezek \n"
+"A kiválasztott szoftverek telepítéséhez a következő %(productName)s %(productVersion)s lemezek \n"
 "szükségesek:\n"
 "\n"
-"%s\n"
+"%(reqcdstr)s\n"
 "Kérem készítse elő őket, mielőtt folytatná a telepítést.  Ha meg kell szakítania a telepítést, válassza az „Újraindítás” gombot."
 
 #: image.py:251
 #: livecd.py:409
 #: packages.py:332
 #: upgrade.py:196
-#: yuminstall.py:917
-#: yuminstall.py:1003
-#: yuminstall.py:1424
-#: yuminstall.py:1466
-#: yuminstall.py:1484
+#: yuminstall.py:923
+#: yuminstall.py:1009
+#: yuminstall.py:1430
+#: yuminstall.py:1472
+#: yuminstall.py:1490
 msgid "_Back"
 msgstr "_Vissza"
 
@@ -706,9 +706,9 @@ msgid "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s:
 msgstr "Hiba: Záráskor nem lehet reIPL eljárást a következőre állítani: %s (%s: %s)"
 
 #: iutil.py:882
-#, fuzzy, python-format
+#, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
-msgstr "Hiba: Nem lehet %s eszközt reIPL-nek beállítani (%s)"
+msgstr "Hiba: Nem lehet  %(device)s eszközt reIPL-nek beállítani (%(e)s)"
 
 #: iutil.py:892
 #, python-format
@@ -750,18 +750,17 @@ msgid "After shutdown, please perform a manual IPL from the device now containin
 msgstr "Leállás után, a telepítés folytatásához kérem végezzen IPL-t kézivezérléssel a /boot eszközéről"
 
 #: iutil.py:1009
-#, fuzzy
 msgid "Error determining boot device's disk name"
-msgstr "Hiba a csatolási pont típusának meghatározása közben"
+msgstr "Az indítólemez nevének megállapítása sikertelen"
 
 #: iutil.py:1013
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "A / vagy a /boot csatolási pont számunkra ismeretlen lemezen van"
 
 #: kickstart.py:116
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running the kickstart script at line %(lineno)s.  You may examine the output in %(msgs)s.  This is a fatal error and installation will be aborted.  Press the OK button to exit the installer."
-msgstr "A kickstart szkript feldolgozása alatt a %s. sorban hiba történt.  %s fájlban megvizsgálhatja a kimenetet.  Ez végzetes hiba és  a telepítés nem  folytatható.  Nyomjon OK-t, a telepítőből való kilépéshez."
+msgstr "A kickstart szkript feldolgozása sonán a %(lineno)s. sorban hiba történt.  A(z) %(msgs)s  fájlban megvizsgálhatja a kimenetet.  Ez végzetes hiba és  a telepítés nem  folytatható.  Nyomjon OK-t, a telepítőből való kilépéshez."
 
 #: kickstart.py:124
 #: kickstart.py:126
@@ -770,8 +769,8 @@ msgstr "Kickstart szkript hiba"
 
 #: kickstart.py:151
 #: rescue.py:248
-#: yuminstall.py:692
-#: yuminstall.py:1152
+#: yuminstall.py:698
+#: yuminstall.py:1158
 msgid "No Network Available"
 msgstr "Nincs elérhető hálózat"
 
@@ -779,62 +778,62 @@ msgstr "Nincs elérhető hálózat"
 msgid "Encryption key escrow requires networking, but there was an error enabling the network on your system."
 msgstr "Titkosítási kulcs zárolásához hálózat kell, de a hálózat engedélyezése közben hiba történt ."
 
-#: kickstart.py:1201
+#: kickstart.py:1204
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Hiba %%ksappend sorok feldolgozása alatt: %s"
 
-#: kickstart.py:1204
+#: kickstart.py:1207
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Ismeretlen hiba %%ksappend sorok feldolgozása alatt: %s"
 
-#: kickstart.py:1259
+#: kickstart.py:1262
 #: livecd.py:229
 msgid "Post-Installation"
 msgstr "Zárótelepítés"
 
-#: kickstart.py:1260
+#: kickstart.py:1263
 msgid "Running post-installation scripts"
 msgstr "Telepítést záró szkriptek futtatása"
 
-#: kickstart.py:1276
+#: kickstart.py:1279
 msgid "Pre-Installation"
 msgstr "Telepítés előkészítés"
 
-#: kickstart.py:1277
+#: kickstart.py:1280
 msgid "Running pre-installation scripts"
 msgstr "Telepítés előkészítési szkriptek futtatása"
 
-#: kickstart.py:1309
+#: kickstart.py:1312
 msgid "Missing Package"
 msgstr "Hiányzó csomag"
 
-#: kickstart.py:1310
+#: kickstart.py:1313
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort this installation?"
 msgstr "„%s” csomagot megjelölte telepítésre.  Nincs ilyen csomag. Folytatni akarja, vagy megszakítja a telepítést?"
 
-#: kickstart.py:1316
-#: kickstart.py:1355
+#: kickstart.py:1319
+#: kickstart.py:1358
 msgid "_Abort"
 msgstr "_Megszakítás"
 
-#: kickstart.py:1317
-#: kickstart.py:1356
+#: kickstart.py:1320
+#: kickstart.py:1359
 msgid "_Ignore All"
 msgstr "_Mindegyik mellőzése"
 
-#: kickstart.py:1347
+#: kickstart.py:1350
 msgid "Missing Group"
 msgstr "Hiányzó csoport"
 
-#: kickstart.py:1348
+#: kickstart.py:1351
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort this installation?"
 msgstr "„%s” csoportot megjelölte telepítésre. Nincs ilyen csoport. Folytatni akarja, vagy megszakítja a telepítést?"
 
-#: kickstart.py:1463
+#: kickstart.py:1466
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that anaconda cannot prompt for.  Please add the following sections and try again:\n"
@@ -1017,7 +1016,7 @@ msgstr "Először ki kell választani a törölni kívánt partíciót."
 
 #: partIntfHelpers.py:153
 #: partIntfHelpers.py:341
-#: iw/lvm_dialog_gui.py:843
+#: iw/lvm_dialog_gui.py:862
 msgid "Confirm Delete"
 msgstr "Törlés megerősítése"
 
@@ -1028,8 +1027,8 @@ msgstr "„%s” eszközön minden részt törölni fog."
 
 #: partIntfHelpers.py:157
 #: partIntfHelpers.py:342
-#: iw/lvm_dialog_gui.py:846
-#: iw/lvm_dialog_gui.py:1379
+#: iw/lvm_dialog_gui.py:865
+#: iw/lvm_dialog_gui.py:1435
 #: iw/osbootwidget.py:104
 #: iw/partition_gui.py:1809
 #: iw/partition_gui.py:1821
@@ -1093,15 +1092,15 @@ msgid "Error with Partitioning"
 msgstr "Hiba a particionálásnál"
 
 #: partIntfHelpers.py:258
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. These errors must be corrected prior to continuing with your install of %(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
-"A kívánt felosztási sémában kritikus hibák a következők. Ezeket a hibákat ki kell javítani, mielőtt folytatná %s telepítését.\n"
+"A kívánt felosztási sémában kritikus hibái a következők. Ezeket a hibákat ki kell javítania, mielőtt folytatná %(productName)s telepítését.\n"
 "\n"
-"%s"
+"%(errorstr)s"
 
 #: partIntfHelpers.py:274
 msgid "Partitioning Warning"
@@ -1160,9 +1159,9 @@ msgid "You are about to delete the %s partition."
 msgstr "%s rész törlésére készül."
 
 #: partIntfHelpers.py:338
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %(type)s %(name)s"
-msgstr "%s %s törlésére készül."
+msgstr " %(type)s %(name)s törlésére készül"
 
 #: partIntfHelpers.py:349
 msgid "Confirm Reset"
@@ -1237,9 +1236,9 @@ msgid "/boot/efi is not EFI."
 msgstr "/boot/efi nem EFI."
 
 #: platform.py:250
-#, fuzzy, python-format
+#, python-format
 msgid "%s must have a %s disk label."
-msgstr "%s résznek rendelkeznie kell BSD lemez címkével."
+msgstr "%s-nek %s lemezcímkével kell rendelkeznie."
 
 #: platform.py:288
 #, python-format
@@ -1370,7 +1369,7 @@ msgid "Your system had dirty file systems which you chose not to mount.  Press r
 msgstr "A rendszerben rendezetlen fájlrendszerek vannak, amiket úgy döntött, nem csatlakoztat.  Nyomjon Enter-t, hogy a parancssorban a részeket fsck-val kijavíthatja, és becsatolhatja. A rendszer magától újraindul, amikor kilép a rendszerhéjból."
 
 #: rescue.py:365
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1380,11 +1379,11 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"A rendszer becsatolva %s ponton.\n"
+"A rendszere becsatolva a(z) %(rootPath)s pontra.\n"
 "\n"
-"Nyomjon <Enter>-t rendszerhéj megnyitásához. Ha a rendszert gyökér környezetté szeretné tenni, adja ki a következő parancsot:\n"
+"Nyomjon <Enter>-t rendszerhéj megnyitásához. Ha a rendszert root környezetté szeretné tenni, adja ki a következő parancsot:\n"
 "\n"
-"\tchroot %s\n"
+"\tchroot %(rootPath)s\n"
 "\n"
 "A rendszer magától újraindul, amikor kilép a rendszerhéjból."
 
@@ -1427,7 +1426,9 @@ msgstr "E jelszó használata minden meglévő titkosított eszközhöz"
 #: text.py:198
 #, python-format
 msgid "The passphrase must be at least %d character long."
-msgstr "A jelszónak legalább %d karakter hosszságúnak kell lennie."
+msgid_plural "The passphrase must be at least %d characters long."
+msgstr[0] "A jelszónak legalább %d karakter hosszságúnak kell lennie."
+msgstr[1] "A jelszónak legalább %d karakter hosszságúnak kell lennie."
 
 #: text.py:232
 #: ui/lukspassphrase.glade.h:6
@@ -1445,9 +1446,9 @@ msgid "Repository editing is not available in text mode."
 msgstr "Tároló szerkesztés nem érhető el szöveges módban."
 
 #: text.py:421
-#, fuzzy, python-format
+#, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
-msgstr "Üdvözli %s %s"
+msgstr "Üdvözli a %(productName)s %(productArch)s"
 
 #: text.py:423
 #, python-format
@@ -1544,9 +1545,9 @@ msgid "Invalid Directories"
 msgstr "Érvénytelen mappák"
 
 #: vnc.py:137
-#, fuzzy, python-format
+#, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
-msgstr "%s %s telepítés %s gazdára"
+msgstr "%(productName)s %(productVersion)s telepítése erre: %(name)s"
 
 #: vnc.py:143
 #, python-format
@@ -1569,7 +1570,9 @@ msgstr "Újabb próbálkozás 15 másodperc múlva..."
 #: vnc.py:195
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
-msgstr "Kapcsolódás megszakítása %d sikertelen kísérlet után.\n"
+msgid_plural "Giving up attempting to connect after %d tries!\n"
+msgstr[0] "Kapcsolódás megszakítása %d sikertelen kísérlet után.\n"
+msgstr[1] "Kapcsolódás megszakítása %d sikertelen kísérlet után.\n"
 
 #: vnc.py:206
 #, python-format
@@ -1724,9 +1727,11 @@ msgid "%s KB"
 msgstr "%s kB"
 
 #: yuminstall.py:90
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
-msgstr "%s MB"
+msgid_plural "%s Bytes"
+msgstr[0] "%s Byte"
+msgstr[1] "%s Byte"
 
 #: yuminstall.py:134
 msgid "Preparing to install"
@@ -1737,14 +1742,16 @@ msgid "Preparing transaction from installation source"
 msgstr "Tranzakció előkészítése telepítő forrásból"
 
 #: yuminstall.py:163
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
-msgstr "<b>%s telepítése</b> (%s)\n"
+msgstr "<b>%(pkgStr)s telepítése</b>(%(size)s)\n"
 
 #: yuminstall.py:212
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr ""
+msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
+msgstr[0] " %(donepkgs)d csomag elkészült, összesen:  %(numpkgs)d"
+msgstr[1] " %(donepkgs)d csomag elkészült, összesen:  %(numpkgs)d"
 
 #: yuminstall.py:227
 msgid "Finishing upgrade"
@@ -1754,22 +1761,22 @@ msgstr "Felfejlesztés befejezése"
 msgid "Finishing upgrade process.  This may take a little while."
 msgstr "Felfejlesztés befejezése.  Ez egy ideig eltarthat."
 
-#: yuminstall.py:245
+#: yuminstall.py:251
 msgid "Error Installing Package"
 msgstr "Csomag telepítése meghiúsult"
 
-#: yuminstall.py:246
+#: yuminstall.py:252
 #, python-format
 msgid "A fatal error occurred when installing the %s package.  This could indicate errors when reading the installation media.  Installation cannot continue."
 msgstr "Végzetes hiba történt a %s csomag telepítése közben. Ez jelentheti a telepítő média hibáit is ami olvasás közben derült ki. Telepítés nem tud folytatódni."
 
-#: yuminstall.py:347
+#: yuminstall.py:353
 #: iw/task_gui.py:322
 msgid "Error Setting Up Repository"
 msgstr "Hiba a tároló beállítása közben"
 
-#: yuminstall.py:348
-#, fuzzy, python-format
+#: yuminstall.py:354
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -1779,52 +1786,52 @@ msgid ""
 msgstr ""
 "A következő hiba történt a telepítő tároló beállítása közben:\n"
 "\n"
-"%s\n"
+"%(e)s\n"
 "\n"
-"Kérem adja meg a helyes információt %s telepítéséhez."
+"Kérem adja meg a helyes információt %(productName)s telepítéséhez."
 
-#: yuminstall.py:392
+#: yuminstall.py:398
 msgid "Change Disc"
 msgstr "Cseréljen lemezt"
 
-#: yuminstall.py:393
-#, fuzzy, python-format
+#: yuminstall.py:399
+#, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
-msgstr "Helyezze be %s %d. lemezét a folytatáshoz."
+msgstr "Helyezze be a %(productName)s  %(discnum)d lemezét a folytatáshoz."
 
-#: yuminstall.py:403
+#: yuminstall.py:409
 msgid "Wrong Disc"
 msgstr "Rossz lemez"
 
-#: yuminstall.py:404
+#: yuminstall.py:410
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Ez nem a megfelelő %s lemez."
 
-#: yuminstall.py:411
+#: yuminstall.py:417
 msgid "Unable to access the disc."
 msgstr "Elérhetetlen a lemez."
 
-#: yuminstall.py:569
+#: yuminstall.py:575
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "%r tároló neve hiányzik a beállításban, id-t használata név helyett"
 
-#: yuminstall.py:693
-#: yuminstall.py:1153
+#: yuminstall.py:699
+#: yuminstall.py:1159
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
 msgstr "Néhány szoftver tárolóhoz hálózat kell, de a hálózat engedélyezése közben hiba történt ."
 
-#: yuminstall.py:787
-#: yuminstall.py:789
+#: yuminstall.py:793
+#: yuminstall.py:795
 msgid "Re_boot"
 msgstr "Újrain_dítás"
 
-#: yuminstall.py:787
+#: yuminstall.py:793
 msgid "_Eject"
 msgstr "L_emez kiadása"
 
-#: yuminstall.py:793
+#: yuminstall.py:799
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt package or corrupt media.  Please verify your installation source.\n"
@@ -1837,61 +1844,61 @@ msgstr ""
 "Ha kilép, a rendszer töredékkel teli marad, s emiatt újbóli telepítést igényel.\n"
 "\n"
 
-#: yuminstall.py:841
+#: yuminstall.py:847
 msgid "Retrying"
 msgstr "Újrapróbálás"
 
-#: yuminstall.py:841
+#: yuminstall.py:847
 msgid "Retrying download."
 msgstr "Letöltés újrapróbálása."
 
-#: yuminstall.py:906
+#: yuminstall.py:912
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "Az átvitel végrehajtása alatt hiba történt a következő okból: %s\n"
 
-#: yuminstall.py:949
-#: yuminstall.py:950
+#: yuminstall.py:955
+#: yuminstall.py:956
 msgid "file conflicts"
 msgstr "fájl ütközés"
 
-#: yuminstall.py:951
+#: yuminstall.py:957
 msgid "older package(s)"
 msgstr "régebbi csomag(ok)"
 
-#: yuminstall.py:952
+#: yuminstall.py:958
 msgid "insufficient disk space"
 msgstr "nem elegendő szabad lemezterület"
 
-#: yuminstall.py:953
+#: yuminstall.py:959
 msgid "insufficient disk inodes"
 msgstr "nincs elég inode"
 
-#: yuminstall.py:954
+#: yuminstall.py:960
 msgid "package conflicts"
 msgstr "csomag ütközés"
 
-#: yuminstall.py:955
+#: yuminstall.py:961
 msgid "package already installed"
 msgstr "már telepített csomag"
 
-#: yuminstall.py:956
+#: yuminstall.py:962
 msgid "required package"
 msgstr "szükséges csomag"
 
-#: yuminstall.py:957
+#: yuminstall.py:963
 msgid "package for incorrect arch"
 msgstr "nem megfelelő architektúrához készült csomag"
 
-#: yuminstall.py:958
+#: yuminstall.py:964
 msgid "package for incorrect os"
 msgstr "nem megfelelő operációs rendszerhez készült csomag"
 
-#: yuminstall.py:972
+#: yuminstall.py:978
 msgid "You need more space on the following file systems:\n"
 msgstr "Több szabad helyre van szüksége az alábbi fájlrendszereken:\n"
 
-#: yuminstall.py:985
+#: yuminstall.py:991
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1900,40 +1907,40 @@ msgstr ""
 "Fájlütközés történt a telepítendő csomagokat ellenőrzése alatt:\n"
 "%s\n"
 
-#: yuminstall.py:988
+#: yuminstall.py:994
 #, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
 msgstr "Az átvitel végrehajtása alatt hiba történt a következő miatt: %s\n"
 
-#: yuminstall.py:995
-#: yuminstall.py:1000
+#: yuminstall.py:1001
+#: yuminstall.py:1006
 msgid "Error Running Transaction"
 msgstr "Hiba az átvitel végrehajtása alatt"
 
-#: yuminstall.py:1190
+#: yuminstall.py:1196
 msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
 msgstr "Nem sikerült beolvasni a csoportinformációt a tárolókból. A probléma a telepítési fa felépítésében lépett fel."
 
-#: yuminstall.py:1226
+#: yuminstall.py:1232
 msgid "Retrieving installation information."
 msgstr "Telepítő információk beszerzése."
 
-#: yuminstall.py:1228
+#: yuminstall.py:1234
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Telepítő információk beszerzése %s számára."
 
-#: yuminstall.py:1230
+#: yuminstall.py:1236
 msgid "Installation Progress"
 msgstr "Telepítés állapota"
 
-#: yuminstall.py:1238
+#: yuminstall.py:1244
 #: textw/constants_text.py:64
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: yuminstall.py:1249
-#: yuminstall.py:1438
+#: yuminstall.py:1255
+#: yuminstall.py:1444
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.\n"
@@ -1944,62 +1951,62 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1417
+#: yuminstall.py:1423
 msgid "Some of the packages you have selected for install are missing dependencies.  You can exit the installation, go back and change your package selections, or continue installing these packages without their dependencies."
-msgstr ""
+msgstr "Néhány telepítésre kiválasztott csomagnak hiányzó függőségei vannak. Kiléphet a telepítésből, visszamehet és megváltoztathatja a telepítendő csomaglistát vagy folytathatja a telepítést a függőségek telepítése nélkül."
 
-#: yuminstall.py:1460
+#: yuminstall.py:1466
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
 msgstr "A kiválasztott csomagoknak %d MB szabad hely kell, de nincs elég elérhető.  Megváltoztathatja az összeállítást, vagy kiléphet a telepítőből."
 
-#: yuminstall.py:1481
+#: yuminstall.py:1487
 msgid "Reboot?"
 msgstr "Újraindítás?"
 
-#: yuminstall.py:1482
+#: yuminstall.py:1488
 msgid "The system will be rebooted now."
 msgstr "A rendszer most újraindul."
 
-#: yuminstall.py:1623
+#: yuminstall.py:1629
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr "Úgy tűnik, a rendszer túl régi, ezért nem frissíthető fel %s változatra.  Biztosan folytatni szeretné a folyamatot?"
 
-#: yuminstall.py:1658
-#, fuzzy, python-format
+#: yuminstall.py:1664
+#, python-format
 msgid "The arch of the release of %(productName)s you are upgrading to appears to be %(myarch)s which does not match your previously installed arch of %(arch)s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr "%s kiadás architektúrája, amire frissít, %s, ami nem egyezik meg a korábban telepített %s architektúrával.  Nem valószínű, hogy ez a folyamat sikerrel zárul.  Biztosan folytatni akarja a folyamatot?"
+msgstr "A jelenlegi %(productName)s, amelyre frissít, %(myarch)s architektúrájú, amely nem egyezik meg a telepített %(arch)s architektúrával. A frissítés valószínűleg nem fog sikerülni. Biztosan folytatja a frissítést?"
 
-#: yuminstall.py:1705
+#: yuminstall.py:1711
 msgid "Post Upgrade"
 msgstr "Zárófrissítés"
 
-#: yuminstall.py:1706
+#: yuminstall.py:1712
 msgid "Performing post-upgrade configuration"
 msgstr "Zárófrissítés beállításainak végrehajtása"
 
-#: yuminstall.py:1708
+#: yuminstall.py:1714
 msgid "Post Installation"
 msgstr "Zárótelepítés"
 
-#: yuminstall.py:1709
+#: yuminstall.py:1715
 msgid "Performing post-installation configuration"
 msgstr "Zárótelepítés beállításainak végrehajtása"
 
-#: yuminstall.py:1929
+#: yuminstall.py:1935
 msgid "Installation Starting"
 msgstr "Kezdődik a telepítés"
 
-#: yuminstall.py:1930
+#: yuminstall.py:1936
 msgid "Starting installation process"
 msgstr "Telepítési folyamat indul"
 
-#: yuminstall.py:1968
+#: yuminstall.py:1974
 msgid "Dependency Check"
 msgstr "Függőség ellenőrzés"
 
-#: yuminstall.py:1969
+#: yuminstall.py:1975
 msgid "Checking dependencies in packages selected for installation"
 msgstr "A telepítésre kiválasztott csomagok közötti függőségek ellenőrzése"
 
@@ -2008,12 +2015,11 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: installclasses/fedora.py:40
-#, fuzzy, python-format
+#, python-format
 msgid "The default installation of %s includes a set of software applicable for general internet usage. You can optionally select a different set of software now."
 msgstr "A %s alapértelmezetten tartalmaz néhány programot, mely alkalmassá teszi általános internet-használatra. Ettől eltérő szoftver-összeállítást is választhat."
 
 #: installclasses/fedora.py:49
-#, fuzzy
 msgid "Graphical Desktop"
 msgstr "Grafikus Asztal"
 
@@ -2030,7 +2036,7 @@ msgstr "Web kiszolgáló"
 #: installclasses/fedora.py:64
 #: installclasses/rhel.py:51
 msgid "Minimal"
-msgstr ""
+msgstr "Minimális"
 
 #: installclasses/rhel.py:40
 msgid "Red Hat Enterprise Linux"
@@ -2039,17 +2045,16 @@ msgstr "Red Hat Enterprise Linux"
 #: installclasses/rhel.py:41
 #, python-format
 msgid "The default installation of %s is a minimal install. You can optionally select a different set of software now."
-msgstr ""
+msgstr "Az alapértelmezett %s telepítés egy minimális összeállítás. Itt tetszőlegesen módosíthatja a telepítésre kerülő további szoftvereket."
 
 #: installclasses/rhel.py:52
-#, fuzzy
 msgid "Desktop"
 msgstr "Asztal"
 
 #: installclasses/rhel.py:78
 #, fuzzy
 msgid "Advanced Server"
-msgstr "Névkiszolgáló:"
+msgstr "Haladó szerver"
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2057,9 +2062,9 @@ msgid "Packages in %s"
 msgstr "%s csomagok"
 
 #: iw/GroupSelector.py:424
-#, fuzzy, python-format
+#, python-format
 msgid "Optional packages selected: %(inst)d of %(cnt)d"
-msgstr "%d / %d választható csomag bejelölve."
+msgstr "Telepítésre kijelölt opcionális csomagok: %(inst)d of %(cnt)d"
 
 #: iw/GroupSelector.py:426
 #, python-format
@@ -2148,7 +2153,6 @@ msgid "Use All Space"
 msgstr "Minden hely felhasználása"
 
 #: iw/autopart_type.py:230
-#, fuzzy
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions created by other operating systems.\n"
 "\n"
@@ -2159,9 +2163,8 @@ msgstr ""
 "<b>Megjegyzés:</b> Ez az opció adatokat távolít el a kiválasztott eszköz(ök)ön, győződjön meg róla, hogy van biztonsági mentése."
 
 #: iw/autopart_type.py:236
-#, fuzzy
 msgid "Replace Existing Linux System(s)"
-msgstr "Meglévő Linux rendszer lecserélése"
+msgstr "Meglévő Linux rendszer(ek) lecserélése"
 
 #: iw/autopart_type.py:238
 msgid ""
@@ -2179,23 +2182,21 @@ msgstr "Meglévő rendszer összehúzása"
 
 #: iw/autopart_type.py:248
 msgid "Shrinks existing partitions to create free space for the default layout."
-msgstr ""
+msgstr "A meglévő partíciók zsugorítása, hogy legyen hely a rendszer alapértelmezett partícióinak."
 
 #: iw/autopart_type.py:250
-#, fuzzy
 msgid "Use Free Space"
-msgstr "Szabad hely használata"
+msgstr "Szabad hely felhasználása"
 
 #: iw/autopart_type.py:252
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
-msgstr ""
+msgstr "Megtartja a jelenlegi partícióit és az azon tárolt adatokat, csak a kiválasztott meghajtók partícionálatlan területeit használja fel. Ezen opcióhoz elegendő partícionálatlan lemezterülettel kell rendelkeznie."
 
 #: iw/autopart_type.py:256
 msgid "Create Custom Layout"
 msgstr "Egyedi felosztás létrehozása"
 
 #: iw/autopart_type.py:258
-#, fuzzy
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
 msgstr "Sajátkezű partícionálás a kiválasztott eszközön a beépített eszköz segítségével."
 
@@ -2265,71 +2266,68 @@ msgid "Clear Disks Selector"
 msgstr ""
 
 #: iw/cleardisks_gui.py:44
-#: iw/filter_gui.py:406
-#, fuzzy
+#: iw/filter_gui.py:407
 msgid "You must select at least one drive to be used for installation."
-msgstr "Legalább egy merevlemezt ki kell választani %s telepítéséhez."
+msgstr "Legalább egy merevlemezt ki kell választani a telepítéséhez."
 
 #: iw/cleardisks_gui.py:54
-#, fuzzy
 msgid "You must select one drive to boot from."
-msgstr "Ki kell választani a szerkeszteni kívánt eszközt"
+msgstr "Ki kell választania, melyik meghajtóról kíván bootolni."
 
 #: iw/cleardisks_gui.py:121
 #: iw/cleardisks_gui.py:140
-#: iw/filter_gui.py:441
-#: iw/filter_gui.py:452
-#: iw/filter_gui.py:482
+#: iw/filter_gui.py:442
+#: iw/filter_gui.py:453
+#: iw/filter_gui.py:483
 msgid "Model"
 msgstr "Modell"
 
 #: iw/cleardisks_gui.py:122
 #: iw/cleardisks_gui.py:141
-#: iw/filter_gui.py:442
-#: iw/filter_gui.py:453
-#: iw/filter_gui.py:461
-#: iw/filter_gui.py:472
-#: iw/filter_gui.py:483
+#: iw/filter_gui.py:443
+#: iw/filter_gui.py:454
+#: iw/filter_gui.py:462
+#: iw/filter_gui.py:473
+#: iw/filter_gui.py:484
 msgid "Capacity"
 msgstr "Kapacitás"
 
 #: iw/cleardisks_gui.py:123
-#: iw/filter_gui.py:443
-#: iw/filter_gui.py:462
-#: iw/filter_gui.py:473
-#: iw/filter_gui.py:484
-#, fuzzy
-msgid "Vendor"
-msgstr "_Fedora"
-
-#: iw/cleardisks_gui.py:124
 #: iw/filter_gui.py:444
 #: iw/filter_gui.py:463
 #: iw/filter_gui.py:474
 #: iw/filter_gui.py:485
-msgid "Interconnect"
-msgstr ""
+msgid "Vendor"
+msgstr "_Fedora"
 
-#: iw/cleardisks_gui.py:125
+#: iw/cleardisks_gui.py:124
 #: iw/filter_gui.py:445
+#: iw/filter_gui.py:464
 #: iw/filter_gui.py:475
 #: iw/filter_gui.py:486
+#, fuzzy
+msgid "Interconnect"
+msgstr "Összekapcsolás"
+
+#: iw/cleardisks_gui.py:125
+#: iw/filter_gui.py:446
+#: iw/filter_gui.py:476
+#: iw/filter_gui.py:487
 msgid "Serial Number"
-msgstr ""
+msgstr "Sorozatszám"
 
 #: iw/cleardisks_gui.py:139
-#, fuzzy
 msgid "Boot"
-msgstr "/boot"
+msgstr "Boot"
 
 #: iw/cleardisks_gui.py:176
 msgid "<b>Tip:</b> All Linux filesystems on install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Megjegyzés:</b> A kiválasztott eszközökön minden Linux partíció formázásra kerül, ezáltal minden adat törlődik rajtuk. Győződjön meg róla, hogy készített biztonsági mentést."
 
 #: iw/cleardisks_gui.py:178
 #: ui/cleardisks.glade.h:3
 msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Megjegyzés:</b> A telepítés céllemezei formázásra kerülnek, rajtuk minden adat el fog veszni. Győződjön meg róla, hogy készített biztonsági mentést."
 
 #: iw/cleardisks_gui.py:180
 msgid "<b>Tip:</b> Your filesystems on install target devices will not be wiped unless you choose to do so during customization."
@@ -2386,34 +2384,31 @@ msgid "Upgrade Examine"
 msgstr "Frissítési vizsgálat"
 
 #: iw/examine_gui.py:60
-#, fuzzy
 msgid "Fresh Installation"
-msgstr "Telepítés előkészítés"
+msgstr "Új telepítés"
 
 #: iw/examine_gui.py:62
-#, fuzzy, python-format
+#, python-format
 msgid "Choose this option to install a fresh copy of %s on your system.  Existing software and data may be overwritten depending on your configuration choices."
-msgstr "Válassza ezt a lehetőséget, ha új rendszert szeretne. Az egyéb konfigurációs beállításoktól függően a meglévő szoftverek és fájlok felülírásra kerülhetnek."
+msgstr "Válassza ezt a lehetőséget, ha egy új %s rendszert szeretne. Az egyéb konfigurációs beállításoktól függően a meglévő szoftverek és fájlok felülírásra kerülhetnek."
 
 #: iw/examine_gui.py:67
-#, fuzzy
 msgid "Upgrade an Existing Installation"
 msgstr "Meglévő rendszer _frissítése"
 
 #: iw/examine_gui.py:69
-#, fuzzy, python-format
+#, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your storage device(s)."
-msgstr "Ha meglévő %s rendszert szeretne frissteni, akkor válassza ezt a lehetőséget.  Ez megtartja az eszközökön levő adatokat."
+msgstr "Ha meglévő %s rendszert szeretne frissteni, akkor válassza ezt a lehetőséget, ezzel megtartja az eszközökön levő adatokat."
 
 #: iw/examine_gui.py:109
-#, fuzzy
 msgid "At least one existing installation has been detected on your system.  What would you like to do?"
-msgstr "Nincs eszköz vezérlő betöltve a rendszerbe.  Be szeretne most tölteni egyet?"
+msgstr "Legalább egy korábbi rendszer található a gépen. Mit szeretne tenni?"
 
 #: iw/examine_gui.py:128
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "Mit szeretne tenni?"
+msgstr "<b>Mely %s telepítést szeretné frissíteni?</b>"
 
 #: iw/examine_gui.py:142
 msgid "Unknown Linux system"
@@ -2422,72 +2417,64 @@ msgstr "Ismeretlen Linux rendszer"
 #: iw/filter_gui.py:142
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
-msgstr ""
+msgstr "<b>%s eszközök (%s MB) lettek kiválasztva</b>, összes: %s device(s) (%s MB)."
 
-#: iw/filter_gui.py:391
-#, fuzzy
+#: iw/filter_gui.py:392
 msgid "Device Filter"
-msgstr "Eszköz beállítása sikertelen"
+msgstr "Eszköz szűrő"
 
-#: iw/filter_gui.py:446
-#: iw/filter_gui.py:454
-#: iw/filter_gui.py:465
-#: iw/filter_gui.py:476
-#: iw/filter_gui.py:491
+#: iw/filter_gui.py:447
+#: iw/filter_gui.py:455
+#: iw/filter_gui.py:466
+#: iw/filter_gui.py:477
+#: iw/filter_gui.py:492
 #: iw/osbootwidget.py:66
 #: iw/partition_gui.py:607
 msgid "Device"
 msgstr "Eszköz"
 
-#: iw/filter_gui.py:460
-#: iw/filter_gui.py:471
-#: iw/filter_gui.py:487
-#, fuzzy
-msgid "Identifier"
-msgstr "Azonosítás"
-
-#: iw/filter_gui.py:464
-#, fuzzy
-msgid "Paths"
-msgstr "_Út"
-
+#: iw/filter_gui.py:461
+#: iw/filter_gui.py:472
 #: iw/filter_gui.py:488
-#: loader/urls.c:290
-#, fuzzy
-msgid "Port"
-msgstr "_Megszakítás"
+msgid "Identifier"
+msgstr "Azonosító"
+
+#: iw/filter_gui.py:465
+msgid "Paths"
+msgstr "Útvonalak"
 
 #: iw/filter_gui.py:489
-#, fuzzy
-msgid "Target"
-msgstr "Próba"
+#: loader/urls.c:292
+msgid "Port"
+msgstr "Port"
 
 #: iw/filter_gui.py:490
+msgid "Target"
+msgstr "Cél"
+
+#: iw/filter_gui.py:491
 msgid "LUN"
 msgstr "LUN"
 
 #: iw/filter_type.py:55
-#, fuzzy
 msgid "What type of devices will your installation involve?"
-msgstr "Milyen típusú hordozón van a telepítő képmás?"
+msgstr "Milyen típusú eszközökre szeretne telepíteni?"
 
 #: iw/filter_type.py:61
-#, fuzzy
 msgid "Basic Storage Devices"
-msgstr "Tároló eszközök keresése"
+msgstr "Általános tárolóeszközök"
 
 #: iw/filter_type.py:62
 msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
-msgstr ""
+msgstr "Tipikus háttértárolókra történő telepítés vagy frissítés. Ha nem biztos a beállításban, válassza ezt a lehetőséget."
 
 #: iw/filter_type.py:66
-#, fuzzy
 msgid "Specialized Storage Devices"
-msgstr "Tároló eszközök keresése"
+msgstr "Különleges tárolóeszközök"
 
 #: iw/filter_type.py:67
 msgid "Installs or upgrades to devices such as Storage Area Networks (SANs) or mainframe attached disks (DASD), usually in an enterprise environment"
-msgstr ""
+msgstr "SAN (Storage Area Aetwork) vagy DASD (Direct Access Storage Device) eszközre történő telepítés vagy frissítés, általában vállalati környezetben."
 
 #: iw/language_gui.py:33
 msgid "Language Selection"
@@ -2498,25 +2485,25 @@ msgstr "Nyelv kiválasztása"
 msgid "What language would you like to use during the installation process?"
 msgstr "Melyik nyelvet szeretné használni a telepítés alatt?"
 
-#: iw/lvm_dialog_gui.py:124
-#: iw/lvm_dialog_gui.py:170
-#: iw/lvm_dialog_gui.py:184
-#: iw/lvm_dialog_gui.py:223
-#: iw/lvm_dialog_gui.py:300
-#: iw/lvm_dialog_gui.py:682
-#: iw/lvm_dialog_gui.py:703
+#: iw/lvm_dialog_gui.py:125
+#: iw/lvm_dialog_gui.py:171
+#: iw/lvm_dialog_gui.py:185
+#: iw/lvm_dialog_gui.py:224
+#: iw/lvm_dialog_gui.py:301
+#: iw/lvm_dialog_gui.py:690
+#: iw/lvm_dialog_gui.py:711
 msgid "Not enough space"
 msgstr "Nincs elég szabad hely"
 
-#: iw/lvm_dialog_gui.py:125
+#: iw/lvm_dialog_gui.py:126
 msgid "The physical extent size cannot be changed because otherwise the space required by the currently defined logical volumes will be increased to more than the available space."
 msgstr "A fizikai terjedelem mérete nem változtatható meg, mert akkor a már meglévő logikai kötetek mérete meghaladná a rendelkezésre álló helyet."
 
-#: iw/lvm_dialog_gui.py:134
+#: iw/lvm_dialog_gui.py:135
 msgid "Confirm Physical Extent Change"
 msgstr "Fizikai terjedelem méretének változtatás megerősítése"
 
-#: iw/lvm_dialog_gui.py:135
+#: iw/lvm_dialog_gui.py:136
 msgid ""
 "This change in the value of the physical extent will require the sizes of the current logical volume requests to be rounded up in size to an integer multiple of the physical extent.\n"
 "\n"
@@ -2526,188 +2513,194 @@ msgstr ""
 "\n"
 "A változás azonnal érvénybe lép."
 
-#: iw/lvm_dialog_gui.py:144
-#: iw/lvm_dialog_gui.py:206
+#: iw/lvm_dialog_gui.py:145
+#: iw/lvm_dialog_gui.py:207
 msgid "C_ontinue"
 msgstr "F_olytatás"
 
-#: iw/lvm_dialog_gui.py:171
-#, fuzzy, python-format
+#: iw/lvm_dialog_gui.py:172
+#, python-format
 msgid "The physical extent size cannot be changed because the value selected (%(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)10.2f MB) in the volume group."
-msgstr "Fizikai kiterjedés mérete nem változtatható meg, mert a választott érték (%10.2f MB) nagyobb, mint a legkisebb fizikai kötet (%10.2f MB) a kötet csoportban."
+msgstr "A fizikai kiterjedés mérete nem változtatható meg, mert a választott érték (%(curpe)10.2f MB) nagyobb, mint a legkisebb fizikai kötet (%(maxpvsize)10.2f MB) a kötetcsoportban."
 
-#: iw/lvm_dialog_gui.py:185
-#, fuzzy, python-format
+#: iw/lvm_dialog_gui.py:186
+#, python-format
 msgid "The physical extent size cannot be changed because the value selected (%(curpe)10.2f MB) is too large compared to the size of the smallest physical volume (%(maxpvsize)10.2f MB) in the volume group."
-msgstr "Fizikai kiterjedés mérete nem változtatható meg, mert a választott érték (%10.2f MB) túl nagy a legkisebb fizikai kötethez (%10.2f MB) viszonyítva a kötetcsoportban."
+msgstr "A fizikai kiterjedés mérete nem változtatható meg, mert a választott érték (%(curpe)10.2f MB) túl nagy a legkisebb fizikai kötethez (%(maxpvsize)10.2f  MB) a kötetcsoportban."
 
-#: iw/lvm_dialog_gui.py:199
+#: iw/lvm_dialog_gui.py:200
 msgid "Too small"
 msgstr "Túl kicsi"
 
-#: iw/lvm_dialog_gui.py:200
+#: iw/lvm_dialog_gui.py:201
 msgid "This change in the value of the physical extent will waste substantial space on one or more of the physical volumes in the volume group."
 msgstr "Ha erre az értékre változtatja a fizikai kiterjedés méretét, akkor a kötet csoporton belül legalább egy fizikai köteten jelentős helyet pocsékol el."
 
-#: iw/lvm_dialog_gui.py:224
+#: iw/lvm_dialog_gui.py:225
 #, python-format
 msgid "The physical extent size cannot be changed because the resulting maximum logical volume size (%10.2f MB) is smaller than one or more of the currently defined logical volumes."
 msgstr "Fizikai kiterjedés mérete nem változtatható meg, mert ezzel a maximális logikai kötet méret (%10.2f MB) kisebb lenne, mint az egyik létező logikai kötet mérete."
 
-#: iw/lvm_dialog_gui.py:301
+#: iw/lvm_dialog_gui.py:302
 msgid "You cannot remove this physical volume because otherwise the volume group will be too small to hold the currently defined logical volumes."
 msgstr "E fizikai kötet nem távolítható el, mert akkor a logikai kötetcsoport túl kicsi lenne ahhoz, hogy elférjenek rajta a most megadott logikai kötetek."
 
-#: iw/lvm_dialog_gui.py:400
+#: iw/lvm_dialog_gui.py:401
 msgid "Make Logical Volume"
 msgstr "Logikai kötet készítése"
 
-#: iw/lvm_dialog_gui.py:402
+#: iw/lvm_dialog_gui.py:403
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Logikai kötet szerkesztése: %s"
 
-#: iw/lvm_dialog_gui.py:433
-#: iw/raid_dialog_gui.py:402
+#: iw/lvm_dialog_gui.py:442
+#: iw/raid_dialog_gui.py:443
 msgid "_File System Type:"
 msgstr "_Fájl rendszer típusa:"
 
-#: iw/lvm_dialog_gui.py:439
+#: iw/lvm_dialog_gui.py:448
 msgid "_Logical Volume Name:"
 msgstr "_Logikai kötet név:"
 
-#: iw/lvm_dialog_gui.py:448
-#: iw/partition_dialog_gui.py:432
+#: iw/lvm_dialog_gui.py:457
+#: iw/partition_dialog_gui.py:469
 msgid "_Size (MB):"
 msgstr "Mé_ret (MB):"
 
-#: iw/lvm_dialog_gui.py:455
+#: iw/lvm_dialog_gui.py:464
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Max. méret %s MB)"
 
-#: iw/lvm_dialog_gui.py:460
-#: iw/partition_dialog_gui.py:484
+#: iw/lvm_dialog_gui.py:469
+#: iw/partition_dialog_gui.py:521
 #: iw/partition_ui_helpers_gui.py:331
-#: iw/raid_dialog_gui.py:374
+#: iw/raid_dialog_gui.py:415
 msgid "_Encrypt"
 msgstr "_Titkosítás"
 
-#: iw/lvm_dialog_gui.py:469
-#: iw/raid_dialog_gui.py:412
+#: iw/lvm_dialog_gui.py:478
+#: iw/partition_dialog_gui.py:451
+#: iw/raid_dialog_gui.py:453
 msgid "Original File System Type:"
 msgstr "Eredeti fájlrendszer típusa:"
 
-#: iw/lvm_dialog_gui.py:473
-#: iw/raid_dialog_gui.py:417
-msgid "Unknown"
-msgstr "Ismeretlen"
-
-#: iw/lvm_dialog_gui.py:477
-#: iw/partition_dialog_gui.py:422
-#: iw/raid_dialog_gui.py:423
+#: iw/lvm_dialog_gui.py:483
+#: iw/partition_dialog_gui.py:459
+#: iw/raid_dialog_gui.py:460
 msgid "Original File System Label:"
 msgstr "Eredeti fájl rendszer címke:"
 
-#: iw/lvm_dialog_gui.py:482
+#: iw/lvm_dialog_gui.py:488
 msgid "Logical Volume Name:"
 msgstr "Logikai kötet név:"
 
-#: iw/lvm_dialog_gui.py:486
+#: iw/lvm_dialog_gui.py:492
 msgid "Size (MB):"
 msgstr "Méret (MB):"
 
-#: iw/lvm_dialog_gui.py:513
-#: iw/partition_dialog_gui.py:377
-#: iw/raid_dialog_gui.py:393
+#: iw/lvm_dialog_gui.py:519
+#: iw/partition_dialog_gui.py:407
+#: iw/raid_dialog_gui.py:434
 msgid "_Mount Point:"
 msgstr "_Csatolási pont:"
 
 #: iw/lvm_dialog_gui.py:596
+#: iw/partition_dialog_gui.py:113
+#: iw/partition_ui_helpers_gui.py:109
+#: iw/partition_ui_helpers_gui.py:131
+#: iw/partition_ui_helpers_gui.py:133
+#: iw/raid_dialog_gui.py:169
+msgid "<Not Applicable>"
+msgstr "<Nem jellemző>"
+
+#: iw/lvm_dialog_gui.py:604
 msgid "Illegal Logical Volume Name"
 msgstr "Tiltott Logikai kötet név"
 
-#: iw/lvm_dialog_gui.py:611
+#: iw/lvm_dialog_gui.py:619
 msgid "Illegal logical volume name"
 msgstr "Tiltott logikai kötet név"
 
-#: iw/lvm_dialog_gui.py:612
+#: iw/lvm_dialog_gui.py:620
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Ezt a „%s” logikai kötet nevet már használják. Kérem válasszon másikat."
 
-#: iw/lvm_dialog_gui.py:653
-#: iw/partition_dialog_gui.py:124
-#: iw/raid_dialog_gui.py:180
+#: iw/lvm_dialog_gui.py:661
+#: iw/partition_dialog_gui.py:127
+#: iw/raid_dialog_gui.py:183
 msgid "Mount point in use"
 msgstr "A csatoló pont használatban van"
 
-#: iw/lvm_dialog_gui.py:654
-#: iw/partition_dialog_gui.py:125
-#: iw/raid_dialog_gui.py:181
+#: iw/lvm_dialog_gui.py:662
+#: iw/partition_dialog_gui.py:128
+#: iw/raid_dialog_gui.py:184
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Ezt a „%s” csatoló pontot már használják. Kérem válasszon másikat."
 
-#: iw/lvm_dialog_gui.py:669
+#: iw/lvm_dialog_gui.py:677
 msgid "Illegal size"
 msgstr "Tiltott méret"
 
-#: iw/lvm_dialog_gui.py:670
+#: iw/lvm_dialog_gui.py:678
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "A megadott méret érvényes pozitív szám kell lengyen."
 
-#: iw/lvm_dialog_gui.py:683
-#, fuzzy, python-format
+#: iw/lvm_dialog_gui.py:691
+#, python-format
 msgid "The current requested size (%(size)10.2f MB) is larger than the maximum logical volume size (%(maxlv)10.2f MB). To increase this limit you can create more Physical Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr "A kért méret (%10.2f MB) nagyobb, mint a maximális logikai kötet méret (%10.2f MB). Ha szeretné növelni ez utóbbi korlátot, akkor csináljon további fizikai kötetet a még fel nem osztott helyen, és adja azt hozzá e kötetcsoporthoz."
+msgstr "A kért méret (%(size)10.2f MB) nagyobb, mint a maximális logikai kötet méret (%(maxlv)10.2f MB). Ha szeretné megnövelni ezt a korlátot, akkor csináljon további fizikai kötetet a még fel nem osztott helyen, és adja azt hozzá ezen kötetcsoporthoz."
 
-#: iw/lvm_dialog_gui.py:704
-#, fuzzy, python-format
+#: iw/lvm_dialog_gui.py:712
+#, python-format
 msgid "The logical volumes you have configured require %(size)d MB, but the volume group only has %(tempvgsize)d MB.  Please either make the volume group larger or make the logical volume(s) smaller."
-msgstr "A beállított logikai köteteknek %d MB kell, de a kötetcsoportban csak %d MB van.  Kérem bővítse a kötetcsoportot, vagy szűkítse a logikai kötetet."
+msgstr "A beállított logikai köteteknek %(size)d  szabad helyre van szükségük, de a kötetcsoportban csak  %(tempvgsize)d MB van. Kérem bővítse a kötetcsoportot, vagy szűkítse a logikai kötetet."
 
-#: iw/lvm_dialog_gui.py:797
+#: iw/lvm_dialog_gui.py:814
 msgid "No free slots"
 msgstr "Nincs üres aljzat"
 
-#: iw/lvm_dialog_gui.py:798
+#: iw/lvm_dialog_gui.py:815
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
-msgstr "Egy kötetcsoportban nem lehet több logikai kötet, mint %d."
+msgid_plural "You cannot create more than %d logical volumes per volume group."
+msgstr[0] "Egy kötetcsoportban nem lehet több logikai kötet, mint %d."
+msgstr[1] "Egy kötetcsoportban nem lehet több logikai kötet, mint %d."
 
-#: iw/lvm_dialog_gui.py:808
+#: iw/lvm_dialog_gui.py:825
 msgid "No free space"
 msgstr "Nincs szabad hely"
 
-#: iw/lvm_dialog_gui.py:809
+#: iw/lvm_dialog_gui.py:826
 msgid "There is no room left in the volume group to create new logical volumes. To add a logical volume you must reduce the size of one or more of the currently existing logical volumes"
 msgstr "Nem maradt hely a kötetcsoportban új logikai kötet létrehozásához. Logikai kötet hozzáadásához legalább az egyik meglévő logikai kötet méretét le kell csökkenteni."
 
-#: iw/lvm_dialog_gui.py:844
+#: iw/lvm_dialog_gui.py:863
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Biztosan törölni szeretné „%s” logikai kötetet?"
 
-#: iw/lvm_dialog_gui.py:950
+#: iw/lvm_dialog_gui.py:969
 msgid "Invalid Volume Group Name"
 msgstr "Érvénytelen kötet csoport név"
 
-#: iw/lvm_dialog_gui.py:959
+#: iw/lvm_dialog_gui.py:978
 msgid "Name in use"
 msgstr "Név használatban"
 
-#: iw/lvm_dialog_gui.py:960
+#: iw/lvm_dialog_gui.py:979
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "„%s” kötet csoport nevet már használják. Kérem válasszon másikat."
 
-#: iw/lvm_dialog_gui.py:1210
+#: iw/lvm_dialog_gui.py:1266
 msgid "Not enough physical volumes"
 msgstr "Nincs elég fizikai kötet"
 
-#: iw/lvm_dialog_gui.py:1211
-#, fuzzy
+#: iw/lvm_dialog_gui.py:1267
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM Volume Group.\n"
 "\n"
@@ -2715,90 +2708,90 @@ msgid ""
 msgstr ""
 "Legalább egy nem használt fizikai kötet szükséges egy LVM kötetcsoport (VG) létrehozásához.\n"
 "\n"
-"Hozzon létre egy „fizikai kötet (LVM)” típusú részt vagy egy RAID csoportot majd válassza újból az „LVM” opciót."
+"Hozzon létre egy „fizikai kötet (LVM)” típusú partíciót vagy egy RAID csoportot majd válassza újból az „LVM” opciót."
 
-#: iw/lvm_dialog_gui.py:1222
+#: iw/lvm_dialog_gui.py:1278
 msgid "Make LVM Volume Group"
 msgstr "LVM kötet csoport készítése"
 
-#: iw/lvm_dialog_gui.py:1225
+#: iw/lvm_dialog_gui.py:1281
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "LVM kötet csoport szerkesztése: %s"
 
-#: iw/lvm_dialog_gui.py:1227
+#: iw/lvm_dialog_gui.py:1283
 msgid "Edit LVM Volume Group"
 msgstr "LVM kötet csoport szerkesztése"
 
-#: iw/lvm_dialog_gui.py:1243
+#: iw/lvm_dialog_gui.py:1299
 msgid "_Volume Group Name:"
 msgstr "Kötet cso_port név:"
 
-#: iw/lvm_dialog_gui.py:1251
+#: iw/lvm_dialog_gui.py:1307
 msgid "Volume Group Name:"
 msgstr "Kötet csoport név:"
 
-#: iw/lvm_dialog_gui.py:1259
+#: iw/lvm_dialog_gui.py:1315
 msgid "_Physical Extent:"
 msgstr "_Fizikai darab:"
 
-#: iw/lvm_dialog_gui.py:1274
+#: iw/lvm_dialog_gui.py:1330
 msgid "Physical Volumes to _Use:"
 msgstr "_Használandó fizikai kötetek:"
 
-#: iw/lvm_dialog_gui.py:1280
+#: iw/lvm_dialog_gui.py:1336
 msgid "Used Space:"
 msgstr "Felhasznált hely:"
 
-#: iw/lvm_dialog_gui.py:1297
+#: iw/lvm_dialog_gui.py:1353
 msgid "Free Space:"
 msgstr "Szabad hely:"
 
-#: iw/lvm_dialog_gui.py:1315
+#: iw/lvm_dialog_gui.py:1371
 msgid "Total Space:"
 msgstr "Összes hely:"
 
-#: iw/lvm_dialog_gui.py:1353
+#: iw/lvm_dialog_gui.py:1409
 msgid "Logical Volume Name"
 msgstr "Logikai kötet név"
 
-#: iw/lvm_dialog_gui.py:1356
+#: iw/lvm_dialog_gui.py:1412
 #: iw/partition_gui.py:610
 #: iw/upgrade_swap_gui.py:138
 #: textw/upgrade_text.py:124
 msgid "Mount Point"
 msgstr "Csatoló pont"
 
-#: iw/lvm_dialog_gui.py:1359
+#: iw/lvm_dialog_gui.py:1415
 #: iw/partition_gui.py:609
 msgid "Size (MB)"
 msgstr "Méret (MB)"
 
-#: iw/lvm_dialog_gui.py:1373
+#: iw/lvm_dialog_gui.py:1429
 #: iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Hozzáadás"
 
-#: iw/lvm_dialog_gui.py:1376
+#: iw/lvm_dialog_gui.py:1432
 #: iw/osbootwidget.py:100
 #: iw/partition_gui.py:1808
 #: iw/partition_gui.py:1818
 msgid "_Edit"
 msgstr "Sz_erkesztés"
 
-#: iw/lvm_dialog_gui.py:1391
+#: iw/lvm_dialog_gui.py:1447
 msgid "_Logical Volumes"
 msgstr "_Logikai kötetek"
 
 #: iw/netconfig_dialog.py:192
 #: textw/netconfig_text.py:36
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred converting the value entered for \"%(field)s\":\n"
 "%(errmsg)s"
 msgstr ""
-"„%s” mezőben megadott adatot átalakítván hiba történt:\n"
-"%s"
+"„%(field)s mezőben megadott adatot átalakítása közben hiba történt:\n"
+"%(errmsg)s"
 
 #: iw/netconfig_dialog.py:195
 #: iw/netconfig_dialog.py:204
@@ -2876,15 +2869,15 @@ msgid "You must enter a valid hostname for this computer."
 msgstr "Érvényes gazda nevet kell adni ennek a számítógépnek."
 
 #: iw/network_gui.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
 "\n"
 "%(herrors)s"
 msgstr ""
-"A megadott „%s” gazda név érvénytelen az alábbi ok miatt:\n"
+"A megadott „%(hostname)s” hosztnév érvénytelen az alábbi ok miatt:\n"
 "\n"
-"%s"
+"%(herrors)s"
 
 #: iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
@@ -2968,31 +2961,31 @@ msgstr "Összes hely kitöltése _eddig (MB):"
 msgid "Fill to maximum _allowable size"
 msgstr "Kitöltés a max. _megengedett méretig"
 
-#: iw/partition_dialog_gui.py:347
+#: iw/partition_dialog_gui.py:377
 msgid "Add Partition"
 msgstr "Partició hozzáadása"
 
-#: iw/partition_dialog_gui.py:349
+#: iw/partition_dialog_gui.py:379
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "%s partíció szerkesztése"
 
-#: iw/partition_dialog_gui.py:386
+#: iw/partition_dialog_gui.py:416
 msgid "File System _Type:"
 msgstr "Fájl rendszer _típusa:"
 
-#: iw/partition_dialog_gui.py:402
+#: iw/partition_dialog_gui.py:432
 msgid "Allowable _Drives:"
 msgstr "Engedélyezett e_szközök:"
 
-#: iw/partition_dialog_gui.py:471
+#: iw/partition_dialog_gui.py:508
 msgid "Force to be a _primary partition"
 msgstr "Kényszerített első_dleges rész legyen"
 
 #: iw/partition_gui.py:356
-#, fuzzy, python-format
+#, python-format
 msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
-msgstr "%s eszköz (%-0.f MB) (modell: %s)"
+msgstr "%(drive)s eszköz (%(size)-0.f MB) (modell: %(model)s)"
 
 #: iw/partition_gui.py:396
 #: iw/partition_gui.py:442
@@ -3003,14 +2996,14 @@ msgid "Free"
 msgstr "Szabad"
 
 #: iw/partition_gui.py:474
-#, fuzzy, python-format
+#, python-format
 msgid "LVM Volume Group %s (%-0.f MB)"
-msgstr "LVM kötet csoportok"
+msgstr "LVM kötet csoport %s (%-0.f MB)"
 
 #: iw/partition_gui.py:540
 #, python-format
 msgid "MD RAID ARRAY %s (%-0.f MB)"
-msgstr ""
+msgstr "MD RAID tömb %s (%-0.f MB)"
 
 #: iw/partition_gui.py:611
 msgid "Type"
@@ -3067,7 +3060,6 @@ msgid "Partitioning Warnings"
 msgstr "Partícionálási figyelmeztetések"
 
 #: iw/partition_gui.py:877
-#, fuzzy
 msgid "The following pre-existing devices have been selected to be formatted, destroying all data."
 msgstr "A következő korábban már kialakított partíciókat jelölte ki formázásra az összes adat törlésével."
 
@@ -3098,7 +3090,7 @@ msgstr "Kibővített"
 
 #: iw/partition_gui.py:1346
 msgid "Cannot perform any creation action"
-msgstr ""
+msgstr "Nem lehet végrehajtani létrehozás-műveletet."
 
 #: iw/partition_gui.py:1347
 msgid ""
@@ -3109,11 +3101,17 @@ msgid ""
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 msgstr ""
+"A létrehozás műveletéhez az alábbiak közül legalább az egyik szükséges:\n"
+"\n"
+"* Szabad hely az egyik merevlemezen.\n"
+"* Legalább két szabad Szoftveres RAID partíció.\n"
+"* Legalább egy szabad LVM kötet (PV).\n"
+"* Legalább egy kötetcsoport (VG), melyen található szabad hely."
 
 #: iw/partition_gui.py:1455
-#, fuzzy, python-format
+#, python-format
 msgid "Software RAID allows you to combine several disks into a larger RAID device.  A RAID device can be configured to provide additional speed and reliability compared to using an individual drive.  For more information on using RAID devices please consult the %s documentation.\n"
-msgstr "Szoftveres RAID esetén több lemezt össze lehet vonni egy nagyobb RAID eszközbe.  RAID eszközök külön álló lemezekhez képest nagyobb sebességet, és megbízhatóságot nyújtanak.  RAID eszközök használatával kapcsolatban kérem olvassa el a %s dokumentációt."
+msgstr "Szoftveres RAID esetén több lemezt össze lehet vonni egy nagyobb RAID eszközbe. RAID eszközök különálló lemezekhez képest nagyobb sebességet és megbízhatóságot nyújtanak. A RAID eszközök használatával kapcsolatban kérem olvassa el a %s dokumentációt.\n"
 
 #: iw/partition_gui.py:1461
 msgid ""
@@ -3124,14 +3122,15 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1465
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d software RAID partition free to use."
-msgstr "Szoftveres RAID _részt szeretnék készíteni."
+msgid_plural "You currently have %d software RAID partitions free to use."
+msgstr[0] "Jelenleg %d szoftveres RAID partíció használható"
+msgstr[1] "Jelenleg %d szoftveres RAID partíció használható"
 
 #: iw/partition_gui.py:1469
-#, fuzzy
 msgid "About RAID"
-msgstr "szoftver RAID"
+msgstr "A RAID-ről"
 
 #: iw/partition_gui.py:1475
 #, python-format
@@ -3149,11 +3148,13 @@ msgstr ""
 #: iw/partition_gui.py:1487
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
-msgstr ""
+msgid_plural "You currently have %d available PVs free to use.\n"
+msgstr[0] "Jelenleg %d PV áll rendelkezésre\n"
+msgstr[1] "Jelenleg %d PV áll rendelkezésre\n"
 
 #: iw/partition_gui.py:1491
 msgid "You currently have free space to create PVs."
-msgstr ""
+msgstr "Jelenleg is rendelkezésre áll elegendő hely PV-k létrehozásához."
 
 #: iw/partition_gui.py:1494
 msgid "About LVM"
@@ -3207,15 +3208,8 @@ msgid "Re_set"
 msgstr "_Visszaállítás"
 
 #: iw/partition_gui.py:1833
-#, fuzzy
 msgid "Please Select A Device"
-msgstr "Válasszon forrás meghajtót."
-
-#: iw/partition_ui_helpers_gui.py:109
-#: iw/partition_ui_helpers_gui.py:131
-#: iw/partition_ui_helpers_gui.py:133
-msgid "<Not Applicable>"
-msgstr "<Nem jellemző>"
+msgstr "Válasszon meghajtót"
 
 #: iw/partition_ui_helpers_gui.py:312
 msgid "_Format as:"
@@ -3229,7 +3223,7 @@ msgstr "Fájlrendszer mi_grálása:"
 msgid "_Resize"
 msgstr "Át_méretezés"
 
-#: iw/partition_ui_helpers_gui.py:433
+#: iw/partition_ui_helpers_gui.py:435
 #, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  To do this, select the drive in the 'Allowable Drives' checklist."
 msgstr "„%s” típusú részeket csak egyetlen eszközhöz lehet rendelni.  Az eszközt a „Használható eszközök” listából lehet kiválasztani."
@@ -3238,7 +3232,7 @@ msgstr "„%s” típusú részeket csak egyetlen eszközhöz lehet rendelni.  A
 msgid "Installing Packages"
 msgstr "Csomagok telepítése"
 
-#: iw/raid_dialog_gui.py:341
+#: iw/raid_dialog_gui.py:382
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID device.\n"
 "\n"
@@ -3248,51 +3242,51 @@ msgstr ""
 "\n"
 "Először csináljon legalább két „szoftver RAID” részt, majd válassza újból a „RAID” opciót."
 
-#: iw/raid_dialog_gui.py:355
+#: iw/raid_dialog_gui.py:396
 msgid "Make RAID Device"
 msgstr "RAID eszköz készítése"
 
-#: iw/raid_dialog_gui.py:358
+#: iw/raid_dialog_gui.py:399
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr "%s RAID eszköz szerkesztése"
 
-#: iw/raid_dialog_gui.py:360
+#: iw/raid_dialog_gui.py:401
 msgid "Edit RAID Device"
 msgstr "RAID eszköz szerkesztése"
 
-#: iw/raid_dialog_gui.py:431
+#: iw/raid_dialog_gui.py:468
 msgid "RAID _Device:"
 msgstr "RAID _eszköz:"
 
-#: iw/raid_dialog_gui.py:449
+#: iw/raid_dialog_gui.py:486
 msgid "RAID _Level:"
 msgstr "RAID _szint:"
 
-#: iw/raid_dialog_gui.py:491
+#: iw/raid_dialog_gui.py:528
 msgid "_RAID Members:"
 msgstr "_RAID tagok:"
 
-#: iw/raid_dialog_gui.py:508
+#: iw/raid_dialog_gui.py:545
 msgid "Number of _spares:"
 msgstr "Tartalékok _száma:"
 
-#: iw/raid_dialog_gui.py:518
+#: iw/raid_dialog_gui.py:555
 msgid "_Format partition?"
 msgstr "Partíció _formázása?"
 
-#: iw/raid_dialog_gui.py:592
+#: iw/raid_dialog_gui.py:629
 msgid "The source drive has no partitions to be cloned.  You must first define partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr "A forrás eszközön nincs tükrözhető rész.  Másolás előtt „szoftveres RAID” típusú részeket kell készíteni az eszközön."
 
-#: iw/raid_dialog_gui.py:596
-#: iw/raid_dialog_gui.py:602
-#: iw/raid_dialog_gui.py:616
-#: iw/raid_dialog_gui.py:629
+#: iw/raid_dialog_gui.py:633
+#: iw/raid_dialog_gui.py:639
+#: iw/raid_dialog_gui.py:653
+#: iw/raid_dialog_gui.py:666
 msgid "Source Drive Error"
 msgstr "Hibás forrás eszköz"
 
-#: iw/raid_dialog_gui.py:603
+#: iw/raid_dialog_gui.py:640
 msgid ""
 "The source drive you selected has partitions which are not of type 'software RAID'.\n"
 "\n"
@@ -3302,7 +3296,7 @@ msgstr ""
 "\n"
 "Az eszköz tükrözése csak e részek eltávolítása után lehetséges. "
 
-#: iw/raid_dialog_gui.py:617
+#: iw/raid_dialog_gui.py:654
 #, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to the drive %s.\n"
@@ -3313,7 +3307,7 @@ msgstr ""
 "\n"
 "Ezeket a partíciókat el kell távolítani, vagy erre az eszközre kell korlátozni ahhoz, hogy az eszköz tükrözhető legyen. "
 
-#: iw/raid_dialog_gui.py:630
+#: iw/raid_dialog_gui.py:667
 msgid ""
 "The source drive you selected has software RAID partition(s) which are members of an active software RAID device.\n"
 "\n"
@@ -3323,23 +3317,23 @@ msgstr ""
 "\n"
 "E részeket el kell távolítani ahhoz, hogy az eszköz másolható legyen."
 
-#: iw/raid_dialog_gui.py:644
-#: iw/raid_dialog_gui.py:650
-#: iw/raid_dialog_gui.py:666
+#: iw/raid_dialog_gui.py:681
+#: iw/raid_dialog_gui.py:687
+#: iw/raid_dialog_gui.py:703
 msgid "Target Drive Error"
 msgstr "Hibás cél eszköz"
 
-#: iw/raid_dialog_gui.py:645
+#: iw/raid_dialog_gui.py:682
 msgid "Please select the target drives for the clone operation."
 msgstr "Válasszon cél eszközöket a tükrözési művelethez."
 
-#: iw/raid_dialog_gui.py:651
+#: iw/raid_dialog_gui.py:688
 #, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
 msgstr "%s forrás eszköz nem választható ki cél eszköznek is egyszerre."
 
-#: iw/raid_dialog_gui.py:667
-#, fuzzy, python-format
+#: iw/raid_dialog_gui.py:704
+#, python-format
 msgid ""
 "The target drive %(path)s has a partition which cannot be removed for the following reason:\n"
 "\n"
@@ -3347,17 +3341,17 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"A %s cél eszköz tartalmaz olyan részt, ami a következő okból nem távolítható el:\n"
+"A %(path)s cél eszköz tartalmaz olyan partíciót, ami a következő okból nem távolítható el:\n"
 "\n"
-"„%s”\n"
+"\"%(rc)s\"\n"
 "\n"
-"Csak e rész eltávolítása után jelölhető ki célként az eszköz."
+"Csak a partíció eltávolítása után telepíthet rá."
 
-#: iw/raid_dialog_gui.py:730
+#: iw/raid_dialog_gui.py:767
 msgid "Please select a source drive."
 msgstr "Válasszon forrás meghajtót."
 
-#: iw/raid_dialog_gui.py:750
+#: iw/raid_dialog_gui.py:787
 #, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
@@ -3366,7 +3360,7 @@ msgstr ""
 "A %s eszközt a következő eszközökre tükrözöm:\n"
 "\n"
 
-#: iw/raid_dialog_gui.py:755
+#: iw/raid_dialog_gui.py:792
 msgid ""
 "\n"
 "\n"
@@ -3376,36 +3370,36 @@ msgstr ""
 "\n"
 "FIGYELEM! A CÉL ESZKÖZÖKÖN MEGLÉVŐ ADATOK ELVESZNEK!"
 
-#: iw/raid_dialog_gui.py:758
+#: iw/raid_dialog_gui.py:795
 msgid "Final Warning"
 msgstr "Utolsó figyelmeztetés"
 
-#: iw/raid_dialog_gui.py:760
+#: iw/raid_dialog_gui.py:797
 msgid "Clone Drives"
 msgstr "Eszközök tükrözése"
 
-#: iw/raid_dialog_gui.py:769
+#: iw/raid_dialog_gui.py:806
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "Hiba történt a cél eszközök törlése közben.  A tükrözés sikertelen."
 
-#: iw/raid_dialog_gui.py:792
+#: iw/raid_dialog_gui.py:829
 #, fuzzy
 msgid "Clone Drive Tool"
-msgstr "Eszközök tükrözése"
+msgstr "Eszközök tükrözése eszköz"
 
-#: iw/raid_dialog_gui.py:801
+#: iw/raid_dialog_gui.py:838
 msgid "This tool clones the layout from a partitioned source onto other similar sized drives. The source must have partitions which are restricted to that drive and must ONLY contain unused software RAID partitions.  EVERYTHING on the target drive(s) will be destroyed.\n"
-msgstr ""
+msgstr "Ez az eszköz lemásolja az elrendezést egy forráseszközről egy hasonló méretű meghajtóra. A forrás partíciói az eszközre kell legyenek korlátozva és CSAK nem használt RAID partíciókat tartalmazhatnak. A céleszközön MINDEN ADAT el fog veszni.\n"
 
-#: iw/raid_dialog_gui.py:812
+#: iw/raid_dialog_gui.py:849
 msgid "Source Drive:"
 msgstr "Forrás eszköz:"
 
-#: iw/raid_dialog_gui.py:820
+#: iw/raid_dialog_gui.py:857
 msgid "Target Drive(s):"
 msgstr "Cél eszköz(ök):"
 
-#: iw/raid_dialog_gui.py:828
+#: iw/raid_dialog_gui.py:865
 msgid "Drives"
 msgstr "Eszközök"
 
@@ -3524,9 +3518,9 @@ msgstr "A telepítő nem képes érzékelni a most használt rendszerindítót."
 
 #: iw/upgrade_bootloader_gui.py:138
 #: textw/upgrade_bootloader_text.py:121
-#, fuzzy, python-format
+#, python-format
 msgid "The installer has detected the %(type)s boot loader currently installed on %(bootDev)s."
-msgstr "A telepítő %s rendszerbetöltőt talált %s rendszerben."
+msgstr "A telepítő %(type)s rendszerbetöltőt talált a(z) %(bootDev)s eszközön."
 
 #: iw/upgrade_bootloader_gui.py:142
 msgid "This is the recommended option."
@@ -3559,13 +3553,13 @@ msgstr "Fájlrendszerek migrálása"
 
 #: iw/upgrade_migratefs_gui.py:69
 #: textw/upgrade_text.py:44
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has several benefits over the file system traditionally shipped in %(productName)s.  This installation program can migrate formatted partitions without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%s jelen kiadása támogat egy frissebb fájlrendszert, ami több szempontból is előnyösebb hagyományosan %s rendszerekben adottaknál.  Ez a telepítő képes a kialakított részeket adatvesztés nélkül átalakítani.\n"
+"%(productName)s jelen kiadása támogat egy frissebb fájlrendszert, ami több szempontból is előnyösebb hagyományosan %(productName)s rendszerekben adottaknál.  Ez a telepítő képes a kialakított részeket adatvesztés nélkül átalakítani.\n"
 "\n"
 "Ezek közül mely részeket szeretné átalakítani?"
 
@@ -3779,7 +3773,7 @@ msgstr "Lemez nem található"
 #: loader/net.c:1851
 #: loader/net.c:1870
 #: loader/nfsinstall.c:91
-#: loader/urls.c:249
+#: loader/urls.c:251
 #: storage/__init__.py:152
 #: storage/devicetree.py:89
 #: textw/constants_text.py:52
@@ -3906,7 +3900,7 @@ msgstr "Ismeretlen vezérlő lemez kickstart forrás: %s"
 #: loader/driverdisk.c:759
 #, fuzzy, c-format
 msgid "The following invalid argument was specified for the kickstart driver disk command: %s"
-msgstr "A következő érvénytelen argumentum volt megadva a kickstart vezérlő lemez parancsában: %s:%s"
+msgstr "A következő érvénytelen argumentum volt megadva a kickstart vezérlő lemez parancsában: %s"
 
 #: loader/driverselect.c:67
 #, c-format
@@ -4006,9 +4000,9 @@ msgid "Error in %s on line %d of kickstart file %s."
 msgstr "%s hibás: %d. sor %s kickstart fájl."
 
 #: loader/kickstart.c:190
-#, fuzzy, c-format
+#, c-format
 msgid "Missing options on line %d of kickstart file %s."
-msgstr "%s hibás: %d. sor %s kickstart fájl."
+msgstr "A %d. sorban hiányzó opciók a %s kickstart fileban."
 
 #: loader/kickstart.c:297
 msgid "Cannot find ks.cfg on removable media."
@@ -4023,9 +4017,9 @@ msgid "Error downloading kickstart file"
 msgstr "Kickstart fájlt letöltése hibás"
 
 #: loader/kickstart.c:511
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command: %s"
-msgstr "Hibás paraméter a kickstart metódus parancs leállításában: %s: %s"
+msgstr "Hibás paraméter a kickstart metódus parancs leállításában: %s"
 
 #: loader/lang.c:63
 #: loader/loader.c:224
@@ -4341,9 +4335,9 @@ msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Meg kell adni egy érvényes IPv6 címet és egy CIDR-előtagot."
 
 #: loader/net.c:1559
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command: %s"
-msgstr "%s network kickstart parancsban hibás argumentum: %s"
+msgstr "network kickstart parancs hibás argumentuma: %s"
 
 #: loader/net.c:1580
 #, c-format
@@ -4411,9 +4405,9 @@ msgid "NFS mount options (optional):"
 msgstr "NFS csatolás opciói (nem kötelező):"
 
 #: loader/nfsinstall.c:82
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server and path to your %s installation image and optionally additional NFS mount options."
-msgstr "Kérem adja meg a kiszolgáló nevét és az utat az ön %s telepítő képéhez."
+msgstr "Kérem adja meg a kiszolgáló nevét és az útvonalat, valamint az esetleges NFS kapcsolókat a(z) %s telepítő képéhez."
 
 #: loader/nfsinstall.c:90
 msgid "NFS Setup"
@@ -4447,18 +4441,18 @@ msgid "Running anaconda via telnet."
 msgstr "Anaconda futtatása telneten át."
 
 #: loader/urlinstall.c:138
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s."
-msgstr "Nem tudok letölteni %s://%s/%s helyről."
+msgstr "%s lekérése sikertelen."
 
 #: loader/urlinstall.c:222
 msgid "Unable to retrieve the install image."
 msgstr "Nem tudtam letölteni a telepítő képet."
 
 #: loader/urlinstall.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to URL kickstart method command: %s"
-msgstr "%s Url kickstart parancsban hibás argumentum: %s"
+msgstr "Url kickstart parancs hibás argumentuma: %s"
 
 #: loader/urlinstall.c:384
 msgid "Must supply a --url argument to Url kickstart method."
@@ -4469,44 +4463,41 @@ msgstr "Meg kell adni egy --url argumentumot az Url kickstart parancsnak."
 msgid "Unknown Url method %s"
 msgstr "Ismeretlen Url parancs %s"
 
-#: loader/urls.c:155
-#: loader/urls.c:163
+#: loader/urls.c:157
+#: loader/urls.c:165
 msgid "Retrieving"
 msgstr "Letöltés"
 
-#: loader/urls.c:252
+#: loader/urls.c:254
 #, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "Kérem, adja meg az URL-t, ami %s telepítő képeket tartalmazza a kiszolgálón."
 
-#: loader/urls.c:270
-#, fuzzy
+#: loader/urls.c:272
 msgid "Enable HTTP proxy"
-msgstr "IPv4 támogatás engedélyezése"
+msgstr "HTTP Proxy engedélyezése"
 
-#: loader/urls.c:285
-#, fuzzy
+#: loader/urls.c:287
 msgid "Proxy URL"
-msgstr "Érvénytelen proxy URL"
+msgstr "Proxy URL"
 
-#: loader/urls.c:295
+#: loader/urls.c:297
 msgid "Username"
 msgstr "Felhasználónév"
 
-#: loader/urls.c:300
-#, fuzzy
+#: loader/urls.c:302
 msgid "Password"
 msgstr "Jelszó:"
 
-#: loader/urls.c:319
+#: loader/urls.c:321
 msgid "URL Setup"
 msgstr "URL beállítás"
 
-#: loader/urls.c:327
+#: loader/urls.c:329
 msgid "You must enter a URL."
 msgstr "Meg kell adni egy URL-t."
 
-#: loader/urls.c:333
+#: loader/urls.c:335
 msgid "URL must be either an ftp or http URL"
 msgstr "Az URL vagy ftp vagy http URL kell legyen."
 
@@ -4626,9 +4617,9 @@ msgid "Your root partition is less than 250 megabytes which is usually too small
 msgstr "A gyökér rész mérete kisebb 250 MB-nál, ami általában nem elég %s telepítéséhez."
 
 #: storage/__init__.py:959
-#, fuzzy, python-format
+#, python-format
 msgid "Your / partition is less than %(min)s MB which is lower than recommended for a normal %(productName)s install."
-msgstr "A / rész kisebb %s MB-nál, ami kevesebb, mint a normál %s telepítésre ajánlott minimum."
+msgstr "A / partíció kisebb %(min)s MB-nál, ami kevesebb, mint a normál %(productName)s telepítésre ajánlott minimum."
 
 #: storage/__init__.py:969
 #, python-format
@@ -4636,9 +4627,9 @@ msgid "Your / partition does not match the the live image you are installing fro
 msgstr "A / rész nem egyezik meg az élő képpel, ahonnan telepít.  %s fájlrendszert kell kialakítani."
 
 #: storage/__init__.py:976
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(mount)s partition is less than %(size)s megabytes which is lower than recommended for a normal %(productName)s install."
-msgstr "%s rész kisebb %s megabájtnál, ami kevesebb, mint a normál %s telepítésre ajánlott minimum."
+msgstr "A %(mount)s partíció kisebb %(size)s megabájtnál, ami kevesebb, mint a normál %(productName)s telepítésre ajánlott minimum."
 
 #: storage/__init__.py:1005
 msgid "Installing on a USB device.  This may or may not produce a working system."
@@ -4739,7 +4730,7 @@ msgstr ""
 "lapozó eszközt az /etc/fstab fájl szerint jelenleg szoftveres felfüggesztéshez használják, ami annyit jelent, hogy a rendszer hibernált állapotban van. Ha új telepítést végez, győződjön meg arról, hogy a telepítő újra alakítja az összes lapozó területet."
 
 #: storage/__init__.py:1852
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4747,14 +4738,14 @@ msgid ""
 "\n"
 "does not contain a supported swap volume.  In order to continue installation, you will need to format the device or skip it."
 msgstr ""
-"A lapozó eszköz:\n"
+"A swap eszköz:\n"
 "\n"
 "     %s\n"
 "\n"
-"nem tartalmaz egy támogató lapozó kötetet. A telepítés folytatásához, szügsége lesz az eszköz formázására vagy kihagyására."
+"nem tartalmaz egy támogatott swap kötetet sem. A telepítés folytatásához szügsége lesz az eszköz formázására vagy kihagyására."
 
 #: storage/__init__.py:1863
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -4762,14 +4753,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Hiba történt %s lapozó eszköz engedélyezése alatt: %s\n"
+"Hiba történt %(name)s swap eszköz engedélyezésekor: %(msg)s\n"
 "\n"
 "A frissítendő partíción levő /etc/fstab fájl nem hivatkozik érvényes lapozó területre.\n"
 "\n"
 "Nyomjon OK-t, hogy kilépjen a telepítőből."
 
 #: storage/__init__.py:1870
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -4777,7 +4768,7 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"%s lapozó eszköz engedélyezése közben hiba történt: %s\n"
+"%(name)s lapozó eszköz engedélyezése közben hiba történt: %(msg)s\n"
 "\n"
 "A legvalószínűbb, hogy a lapozó terület még nincs kialakítva.\n"
 "\n"
@@ -4800,13 +4791,13 @@ msgstr ""
 "Nyomjon <Enter>-t, hogy kilépjen a telepítőből."
 
 #: storage/__init__.py:1946
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s előkészítése közben hiba történt: %s.  Ez végzetes hiba. A telepítés nem folytatható.\n"
+"%(mountpoint)s létrehozása közben hiba történt:  %(msg)s.  Ez végzetes hiba. A telepítés nem folytatható.\n"
 "\n"
 "Nyomjon <Enter>-t, hogy kilépjen a telepítőből."
 
@@ -4816,20 +4807,20 @@ msgid "Unable to mount filesystem"
 msgstr "Nem lehet fájlrendszert becsatolni"
 
 #: storage/__init__.py:1963
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred mounting device %(path)s as %(mountpoint)s.  You may continue installation, but there may be problems."
-msgstr "%s eszközt %s ponton való becsatolása közben hiba történt.  Folytathatja a telepítést, de további hibák léphetnek fel."
+msgstr "A(z) %(path)s eszköz %(mountpoint)s pontra való becsatolása közben hiba történt.  Folytathatja a telepítést, de további hibák léphetnek fel."
 
 #: storage/__init__.py:1987
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%s eszközt %s típusú részként becsatolva hiba történt: %s. Ez végzetes hiba. A telepítés nem folytatható.\n"
+"A(z) %(path)s eszközt %(mountpoint)s helyre csatolása közben hiba történt: %(msg)s. Ez végzetes hiba, a telepítés nem folytatható.\n"
 "\n"
-"Nyomjon <Enter>-t, hogy kilépjen a telepítőből."
+"Nyomjon <Enter>-t a telepítőből való kilépéshez."
 
 #: storage/devicelibs/lvm.py:317
 #, python-format
@@ -4841,32 +4832,31 @@ msgstr "vginfo sikertelen %s eszközre"
 msgid "lvs failed for %s"
 msgstr "lvs sikertelen %s eszközre"
 
-#: storage/devices.py:1250
-#: storage/devices.py:1905
-#: storage/devices.py:2305
-#: storage/devices.py:2771
-#: storage/devices.py:3250
-#, fuzzy
+#: storage/devices.py:1257
+#: storage/devices.py:1924
+#: storage/devices.py:2327
+#: storage/devices.py:2798
+#: storage/devices.py:3280
 msgid "Creating"
-msgstr "Horvát"
+msgstr "Létrehozás"
 
-#: storage/devices.py:1251
-#: storage/devices.py:1906
-#: storage/devices.py:2306
-#: storage/devices.py:2772
-#, fuzzy, python-format
+#: storage/devices.py:1258
+#: storage/devices.py:1925
+#: storage/devices.py:2328
+#: storage/devices.py:2799
+#, python-format
 msgid "Creating device %s"
-msgstr "Eszköz_csere"
+msgstr "%s eszköz létrehozása"
 
-#: storage/devices.py:2397
-#, fuzzy, python-format
+#: storage/devices.py:2421
+#, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "A RAID%d csoport legalább %d tagból kell álljon."
 
-#: storage/devices.py:3251
-#, fuzzy, python-format
+#: storage/devices.py:3281
+#, python-format
 msgid "Creating file %s"
-msgstr "Fájlrendszer kialakítása %s partíción"
+msgstr "%s fájl létrehozása"
 
 #: storage/devicetree.py:98
 msgid "Confirm"
@@ -4883,8 +4873,8 @@ msgstr ""
 "\n"
 "Ha átugorja e lépést, az eszköz tartalma elérhetetlen lesz a telepítés közben."
 
-#: storage/devicetree.py:1830
-#: storage/devicetree.py:1878
+#: storage/devicetree.py:1831
+#: storage/devicetree.py:1879
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "E rész egy ellentmondásos LVM kötetcsoporthoz tartozik."
 
@@ -4897,9 +4887,9 @@ msgid "Formatting"
 msgstr "Formázás"
 
 #: storage/formats/fs.py:355
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %s filesystem on %s"
-msgstr "Fájlrendszer kialakítása %s partíción"
+msgstr "%s fájlrendszer kialakítása %s partíción"
 
 #: storage/formats/fs.py:453
 msgid "Resizing"
@@ -4911,9 +4901,9 @@ msgid "Resizing filesystem on %s"
 msgstr "Fájlrendszer átméretezése %s partíción"
 
 #: storage/formats/fs.py:489
-#, fuzzy, python-format
+#, python-format
 msgid "Unknown return code: %d."
-msgstr "Ismeretlen Url parancs %s"
+msgstr "Ismeretlen visszatérési kód: %d"
 
 #: storage/formats/fs.py:503
 msgid "Checking"
@@ -4927,7 +4917,7 @@ msgstr "Fájlrendszer ellenőrzése %s partíción"
 #: storage/formats/fs.py:521
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
-msgstr ""
+msgstr "A(z) %(type)s fájlrendszer ellenőrzése sikertelen a(z) %(device)s eszközön:"
 
 #: storage/formats/fs.py:527
 msgid "Errors like this usually mean there is a problem with the filesystem that will require user interaction to repair.  Before restarting installation, reboot to rescue mode or another system that allows you to repair the filesystem interactively.  Restart installation after you have corrected the problems on the filesystem."
@@ -4943,12 +4933,10 @@ msgid "File system errors left uncorrected."
 msgstr "A fájlrendszer hibái javítatlanul maradtak."
 
 #: storage/formats/fs.py:862
-#, fuzzy
 msgid "Operational error."
 msgstr "Műveleti hiba."
 
 #: storage/formats/fs.py:863
-#, fuzzy
 msgid "Usage or syntax error."
 msgstr "Szintaktikai vagy használattal kapcsolatos hiba."
 
@@ -4958,16 +4946,15 @@ msgstr "Az e2fsck megszakítása felhasználói kérésre."
 
 #: storage/formats/fs.py:865
 msgid "Shared library error."
-msgstr ""
+msgstr "Hiba történt az osztott függvénykönyvtárral."
 
 #: storage/formats/fs.py:1024
 msgid "Recoverable errors have been detected or dosfsck has discovered an internal inconsistency."
-msgstr ""
+msgstr "Az ellenőrzés javítható hibákat észlelt, vagy a dosfsck belső inkonzisztenciát talált."
 
 #: storage/formats/fs.py:1026
-#, fuzzy
 msgid "Usage error."
-msgstr "Hibás cél eszköz"
+msgstr "Hibás használat."
 
 #: storage/iscsi.py:83
 #: storage/iscsi.py:84
@@ -5039,7 +5026,7 @@ msgstr ""
 "Nyomjon „OK”-t, hogy kilépjen a telepítőből."
 
 #: storage/partitioning.py:241
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
@@ -5047,7 +5034,7 @@ msgid ""
 msgstr ""
 "Nem sikerült lefoglalni a kért partíciókat: \n"
 "\n"
-"%s.%s"
+"%(msg)s.%(extra)s"
 
 #: storage/partitioning.py:262
 msgid ""
@@ -5064,7 +5051,7 @@ msgid "Automatic Partitioning Errors"
 msgstr "Az Automatikus Particionálás során fellépett hibák"
 
 #: storage/partitioning.py:265
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -5072,11 +5059,11 @@ msgid ""
 "\n"
 "This can happen if there is not enough space on your hard drive(s) for the installation. %(extra)s"
 msgstr ""
-"A következő hibák jelentkeztek a particionálás miatt:\n"
+"A következő hibák jelentkeztek a particionálásával:\n"
 "\n"
-"%s\n"
+"%(errortxt)s\n"
 "\n"
-"Ez akkor fordulhat elő, ha nincs elég szabad hely a lemezeken a telepítéshez. %s"
+"Ez akkor fordulhat elő, ha nincs elég szabad hely a lemezeken a telepítéshez. %(extra)s"
 
 #: storage/zfcp.py:50
 msgid "You have not specified a device number or the number is invalid"
@@ -5106,14 +5093,14 @@ msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
 msgstr "A zFCP eszköz nem beállítható %s online (%s)"
 
 #: storage/zfcp.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
-msgstr "Hiba: Nem lehet %s WWPN-t hozzáadni a zFCP eszközhöz %s (%s)."
+msgstr "Hiba: Nem lehet %(wwpn)s WWPN-t hozzáadni %(devnum)s (%(e)s) a zFCP eszközhöz."
 
 #: storage/zfcp.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
-msgstr "%s WWPN nem található az zFCP eszközben %s."
+msgstr "%(wwpn)s WWPN nem található az %(devnum)s zFCP eszközben."
 
 #: storage/zfcp.py:182
 #, fuzzy, python-format
@@ -5123,7 +5110,7 @@ msgstr "Hiba: %s LUN nem hozzáadható a %s WWPN zFCP eszközön %s (%s)."
 #: storage/zfcp.py:188
 #, fuzzy, python-format
 msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
-msgstr "%s LUN a WWPN %s az %s zFCP eszközön  már beállított."
+msgstr "%(fcplun)s LUN a WWPN %(wwpn)s az %(devnum)s zFCP eszközön  már beállított."
 
 #: storage/zfcp.py:200
 #, fuzzy, python-format
@@ -5136,14 +5123,14 @@ msgid "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed 
 msgstr "%s LUN a WWPN %s az %s zFCP eszközön  már beállított."
 
 #: storage/zfcp.py:266
-#, fuzzy, python-format
+#, python-format
 msgid "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s)."
-msgstr "Precízen nem törölhető a zFCP SCSI eszköze %s %s %s (%s)"
+msgstr "A SCSI eszköz törlése a(z) %(devnum)s %(wwpn)s %(fcplun)s (%(e)s) zFCP eszközön nem sikerült."
 
 #: storage/zfcp.py:275
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "Hiba: %s LUN nem eltávolítható a %s WWPN zFCP eszközön %s (%s)."
+msgstr "Hiba: %(fcplun)s LUN nem távolítható el a %(wwpn)s WWPN %(devnum)s (%(e)s) zFCP eszközön."
 
 #: storage/zfcp.py:293
 #, fuzzy, python-format
@@ -5288,7 +5275,7 @@ msgstr "FCoE SAN hozzáadása"
 
 #: textw/partition_text.py:235
 msgid "Select which NIC is connected to the FCoE SAN."
-msgstr ""
+msgstr "Válassza ki, melyik NIC van az FCoE SAN-hoz csatlakoztatva."
 
 #: textw/partition_text.py:251
 #: ui/fcoe-config.glade.h:5
@@ -5387,7 +5374,6 @@ msgid "System to Upgrade"
 msgstr "Frissitendő rendszer"
 
 #: textw/upgrade_text.py:227
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
@@ -5496,7 +5482,6 @@ msgid "Root Password:"
 msgstr "Rendszergazda jelszó:"
 
 #: ui/account.glade.h:3
-#, fuzzy
 msgid "The root account is used for administering the system.  Enter a password for the root user."
 msgstr "A root fiókot rendszer-adminisztrációra használhatja.  Kérem adja meg a root fiók jelszavát."
 
@@ -5597,9 +5582,8 @@ msgid "_Next"
 msgstr "_Tovább"
 
 #: ui/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Shrink partition _to size (in MB):</b>"
-msgstr "<b>_Cél csökkentése (MB-ban):</b>"
+msgstr "<b>_Cél csökkentése ekkorára (MB-ban):</b>"
 
 #: ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -5663,12 +5647,11 @@ msgstr "Hova szeretné telepíteni a rendszerindítót?"
 
 #: ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
+msgstr "<b>Adattároló eszközök</b> (csak csatolás)"
 
 #: ui/cleardisks.glade.h:2
-#, fuzzy
 msgid "<b>Install Target Devices</b>"
-msgstr "<b>%s telepítése</b> (%s)\n"
+msgstr "<b>Telepítés célmeghajtói</b>"
 
 #: ui/cleardisks.glade.h:4
 msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data drives (these will not be formatted, only mounted) and which devices you'd like to use as system drives (these may be formatted)."
@@ -5676,84 +5659,75 @@ msgstr "Alul láthatja a telepítés részeként kiválasztott tárolóeszközö
 
 #: ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">RAID partíció létrehozása</span>"
 
 #: ui/create-storage.glade.h:2
 msgid "<span size=\"small\" color=\"gray\">Create a logical volume on selected volume group</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Logikai kötet (LV) kialakítása a kiválasztott kötetcsoportban (VG)</span>"
 
 #: ui/create-storage.glade.h:3
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">LVM partíció létrehozása</span>"
 
 #: ui/create-storage.glade.h:4
 msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">RAID eszközök létrehozásának megkönnyítése</span>"
 
 #: ui/create-storage.glade.h:5
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Általános célú partíció létrehozása</span>"
 
 #: ui/create-storage.glade.h:6
 msgid "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Legalább egy szabad LVM formázású partíció szükséges</span>"
 
 #: ui/create-storage.glade.h:7
 msgid "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated partitions</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Legalább 2 RAID partíciót igényel</span>"
 
 #: ui/create-storage.glade.h:8
-#, fuzzy
 msgid "Create"
-msgstr "Szabad"
+msgstr "Létrehozás"
 
 #: ui/create-storage.glade.h:9
 msgid "Create LVM"
 msgstr "LVM létrehozása"
 
 #: ui/create-storage.glade.h:10
-#, fuzzy
 msgid "Create Partition"
-msgstr "Válasszon partíciót"
+msgstr "Partíció létrehozása"
 
 #: ui/create-storage.glade.h:11
-#, fuzzy
 msgid "Create Software RAID"
-msgstr "szoftver RAID"
+msgstr "Szoftveres RAID létrehozása"
 
 #: ui/create-storage.glade.h:12
 msgid "Create Storage"
 msgstr "Tároló létrehozása"
 
 #: ui/create-storage.glade.h:13
-#, fuzzy
 msgid "LVM Logical Volume"
-msgstr "Logikai kötet készítése"
+msgstr "LVM logikai kötet"
 
 #: ui/create-storage.glade.h:14
-#, fuzzy
 msgid "LVM Physical Volume"
-msgstr "_Logikai kötetek"
+msgstr "LVM fizikai kötet"
 
 #: ui/create-storage.glade.h:15
-#, fuzzy
 msgid "LVM Volume Group"
-msgstr "LVM kötet csoportok"
+msgstr "LVM kötetcsoport"
 
 #: ui/create-storage.glade.h:16
-#, fuzzy
 msgid "RAID Clone"
-msgstr "RAID opciók"
+msgstr "RAID klón"
 
 #: ui/create-storage.glade.h:18
-#, fuzzy
 msgid "RAID Partition"
-msgstr "Partició hozzáadása"
+msgstr "Partició partíció"
 
 #: ui/create-storage.glade.h:19
-#, fuzzy
 msgid "Standard Partition"
-msgstr "Partició hozzáadása"
+msgstr "Általános partíció"
 
 #: ui/detailed-dialog.glade.h:1
 msgid "Info"
@@ -5768,9 +5742,8 @@ msgid "Configure FCoE Parameters"
 msgstr "FCoE paraméterek beállítása"
 
 #: ui/fcoe-config.glade.h:2
-#, fuzzy
 msgid "NIC:"
-msgstr "NIC"
+msgstr "NIC:"
 
 #: ui/fcoe-config.glade.h:3
 msgid ""
@@ -5787,26 +5760,23 @@ msgstr "FCoE lemez(ek) hozzá_adása"
 #: ui/filter.glade.h:2
 #, no-c-format
 msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
-msgstr ""
+msgstr "<b>%s eszközök (%s) kiválasztva</b>, összes: %s (%s)."
 
 #: ui/filter.glade.h:3
 msgid "<b>Tip:</b> Selecting a drive on this screen does not necessarily mean it will be wiped by the installation process.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
-msgstr ""
+msgstr "<b>Megjegyzés:</b> Ha itt kiválaszt egy meghajtót, annak tartalma nem feltétlenül kerül törlésre. A telepítés után a /etc/fstab fájl módosításával is csatolhatja az itt ki nem választott meghajtókat."
 
 #: ui/filter.glade.h:4
-#, fuzzy
 msgid "Add Advanced Target"
-msgstr "További tároló lehetőségek"
+msgstr "Speciális cél megadása"
 
 #: ui/filter.glade.h:5
-#, fuzzy
 msgid "Basic Devices"
 msgstr "Eszközök"
 
 #: ui/filter.glade.h:6
-#, fuzzy
 msgid "Filter By:"
-msgstr "_Hiba iktatása"
+msgstr "Szűrés erre:"
 
 #: ui/filter.glade.h:7
 #, fuzzy
@@ -5814,16 +5784,19 @@ msgid "Firmware RAID"
 msgstr "szoftver RAID"
 
 #: ui/filter.glade.h:8
-#, fuzzy
 msgid "Identifier:"
-msgstr "Azonosítás"
+msgstr "Azonosító"
 
 #: ui/filter.glade.h:9
+#, fuzzy
 msgid ""
 "Interconnect\n"
 "Vendor\n"
 "Identifier"
 msgstr ""
+"Összekapcsolás\n"
+"Gyártó\n"
+"Azonosító"
 
 #: ui/filter.glade.h:12
 msgid "LUN:"
@@ -5835,13 +5808,12 @@ msgid "Multipath Devices"
 msgstr "Ismételt eszköz"
 
 #: ui/filter.glade.h:14
-#, fuzzy
 msgid "Other SAN Devices"
-msgstr "RAID eszközök"
+msgstr "Egyéb SAN eszközök"
 
 #: ui/filter.glade.h:15
 msgid "Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount to your system, below:"
-msgstr ""
+msgstr "Kérem válassza ki alul azokat a meghajtókat, melyre az operációs rendszert kívánja telepíteni, illetve melyeket automatikusan csatolni kíván a rendszerhez:"
 
 #: ui/filter.glade.h:16
 msgid ""
@@ -5861,7 +5833,7 @@ msgstr "Keresés"
 
 #: ui/filter.glade.h:20
 msgid "Search By:"
-msgstr ""
+msgstr "Keresés e szerint:"
 
 #: ui/filter.glade.h:21
 msgid "Search Results:"
@@ -5869,18 +5841,17 @@ msgstr "Keresés eredménye:"
 
 #: ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
-msgstr ""
+msgstr "Csak ezt tartalmazó azonosítókat mutasson:"
 
 #: ui/filter.glade.h:23
 msgid "Show Only Devices From:"
-msgstr ""
+msgstr "Csak innen mutasson eszközöket:"
 
 #: ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr ""
+msgstr "Csak ezt használó eszközöket jelenítsen meg: "
 
 #: ui/filter.glade.h:25
-#, fuzzy
 msgid "Target:"
 msgstr "Cél eszköz(ök):"
 
@@ -6260,6 +6231,9 @@ msgstr "Welsh"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "Unknown"
+#~ msgstr "Ismeretlen"
 
 #~ msgid "Install class forcing text mode installation"
 #~ msgstr "A telepítő osztály szöveges módú telepítést erőltet"
