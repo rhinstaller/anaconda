@@ -856,6 +856,9 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/lib
     ln -s ../../tmp $MBD_DIR/var/lib/xkb
 
+    # copy hmac files for openssl
+    cp $IMGPATH/usr/$LIBDIR/.*.hmac $MBD_DIR/usr/$LIBDIR/
+
     setupSshd
 
 cat > $MBD_DIR/.profile <<EOF
