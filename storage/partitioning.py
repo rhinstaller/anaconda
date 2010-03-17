@@ -73,7 +73,6 @@ def _createFreeSpacePartitions(anaconda):
             fmt_args = {}
         part = anaconda.storage.newPartition(fmt_type=fmt_type,
                                                 fmt_args=fmt_args,
-                                                size=1,
                                                 grow=True,
                                                 disks=[disk])
         anaconda.storage.createDevice(part)
