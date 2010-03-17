@@ -870,6 +870,7 @@ class PartitionDevice(StorageDevice):
     """
     _type = "partition"
     _resizable = True
+    defaultSize = 500
 
     def __init__(self, name, format=None,
                  size=None, grow=False, maxsize=None,
@@ -958,7 +959,7 @@ class PartitionDevice(StorageDevice):
             #     for new partitions.
             if not self._size:
                 # default size for new partition requests
-                self._size = 500
+                self._size = self.defaultSize
             self.req_name = name
             self.req_partType = partType
             self.req_primary = primary
@@ -1023,7 +1024,7 @@ class PartitionDevice(StorageDevice):
         if self.req_primary:
             args.append("--asprimary")
         if self.req_size:
-            args.append("--size=%s" % (self.req_size or 1))
+            args.append("--size=%s" % (self.req_size or self.defaultSize))
         if preexisting:
             if len(self.req_disks) == 1:
                 args.append("--ondisk=%s" % self.req_disks[0].name)
