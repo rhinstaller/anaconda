@@ -624,7 +624,7 @@ class FS(DeviceFormat):
         if rc:
             raise FSError("mount failed: %s" % rc)
 
-        if flags.selinux:
+        if flags.selinux and "ro" not in options.split(","):
             ret = isys.resetFileContext(mountpoint, chroot)
             log.info("set SELinux context for newly mounted filesystem "
                      "root at %s to %s" %(mountpoint, ret))
