@@ -216,6 +216,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 17 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20.1-1
+- Don't traceback when a user tries to put /boot on an LV (#567515) (hdegoede)
+- Fix backtrace when trying to use LV for /boot (#567515) (hdegoede)
+- Wait for all DASDs to be online after autodetection (#558881). (dcantrel)
+
 * Thu Mar 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20-1
 - Tell ld.so and friends not to use hardware optimized libs (#572178)
   (pjones)
