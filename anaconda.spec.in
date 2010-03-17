@@ -207,6 +207,7 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda
 %{_prefix}/lib/anaconda
 %{_prefix}/lib/anaconda-runtime
+%{_prefix}/libexec/anaconda
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst

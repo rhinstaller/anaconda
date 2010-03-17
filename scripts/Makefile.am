@@ -25,4 +25,7 @@ dist_scripts_DATA    = mk-images.* pyrc.py
 dist_noinst_SCRIPTS  = getlangnames.py upd-bootimage upd-initrd upd-kernel \
                        makeupdates
 
+analogdir = $(libexecdir)/$(PACKAGE_NAME)
+dist_analog_SCRIPTS = analog
+
 MAINTAINERCLEANFILES = Makefile.in
