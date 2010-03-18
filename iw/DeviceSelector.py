@@ -36,6 +36,11 @@ OBJECT_COL = 0
 VISIBLE_COL = 1
 ACTIVE_COL = 2
 
+# This should not be overridden.  It controls whether or not a row may be
+# deselected.  Rows with this column set will stay in selected or not
+# (whichever they were initialized to) permanently.
+IMMUTABLE_COL = 3
+
 class DeviceDisplayer(object):
     def _column_toggled(self, menuItem, col):
         # This is called when a selection is made in the column visibility drop
@@ -160,8 +165,8 @@ class DeviceSelector(DeviceDisplayer):
             # Don't check the boxes of rows that aren't visible or aren't part
             # of the currently displayed page.  We'd like the all button to
             # only operate on the current page, after all.
-            if not model[path][self.visible] or \
-               (membershipCB and not membershipCB(model[path][OBJECT_COL])):
+            if not model[path][self.visible] or model[path][IMMUTABLE_COL] or \
+                (membershipCB and not membershipCB(model[path][OBJECT_COL])):
                 return
 
             # Don't try to set a row to active if it's already been checked.
@@ -190,6 +195,8 @@ class DeviceSelector(DeviceDisplayer):
             return
 
         storeRow = self.store.get_path(iter)
+        if self.store[storeRow][IMMUTABLE_COL]:
+            return
 
         if isRadio:
             # This is lame, but there's no other way to do it.  First we have
