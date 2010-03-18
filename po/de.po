@@ -38,7 +38,7 @@ msgstr ""
 "Project-Id-Version: anaconda.f13-branch\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-15 10:59-0500\n"
-"PO-Revision-Date: 2010-03-17 16:03+1000\n"
+"PO-Revision-Date: 2010-03-18 15:24+1000\n"
 "Last-Translator: sknirT omiT <moc.tahder@sknirtt>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1458,11 +1458,11 @@ msgid "Also add this passphrase to all existing encrypted devices"
 msgstr "Diesen Passwortsatz für alle vorhandenen verschlüsselten Geräte hinzufügen"
 
 #: text.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
-msgstr[0] "Das Passwortsatz muss aus mindestens %d Zeichen bestehen."
-msgstr[1] "Das Passwortsatz muss aus mindestens %d Zeichen bestehen."
+msgstr[0] "Der Passwortsatz muss aus mindestens %d Zeichen bestehen."
+msgstr[1] "Der Passwortsatz muss aus mindestens %d Zeichen bestehen."
 
 #: text.py:232 ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
@@ -1617,10 +1617,10 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "Versuche in 15 Sekunden erneut zu verbinden ..."
 
 #: vnc.py:195
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
-msgstr[0] "Nach %d Versuchen Verbindungsaufbau aufgegeben!\n"
+msgstr[0] "Nach %d Versuch Verbindungsaufbau aufgegeben!\n"
 msgstr[1] "Nach %d Versuchen Verbindungsaufbau aufgegeben!\n"
 
 #: vnc.py:206
@@ -1779,11 +1779,11 @@ msgid "%s KB"
 msgstr "%s KB"
 
 #: yuminstall.py:90
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
 msgstr[0] "%s Byte"
-msgstr[1] "%s Byte"
+msgstr[1] "%s Bytes"
 
 #: yuminstall.py:134
 msgid "Preparing to install"
@@ -1799,11 +1799,11 @@ msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgstr "<b>%(pkgStr)s installieren</b> (%(size)s)\n"
 
 #: yuminstall.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr[0] "Pakete komplett: %(donepkgs)d of %(numpkgs)d"
-msgstr[1] "Pakete komplett: %(donepkgs)d of %(numpkgs)d"
+msgstr[0] "Pakete komplett: %(donepkgs)d von %(numpkgs)d"
+msgstr[1] "Pakete komplett: %(donepkgs)d von %(numpkgs)d"
 
 #: yuminstall.py:227
 msgid "Finishing upgrade"
@@ -2415,14 +2415,12 @@ msgid "Clear Disks Selector"
 msgstr "Festplattensektoren säubern"
 
 #: iw/cleardisks_gui.py:44 iw/filter_gui.py:407
-#, fuzzy
 msgid "You must select at least one drive to be used for installation."
-msgstr "Sie müssen mindestens eine Festplatte auswählen, um %s zu installieren."
+msgstr "Sie müssen mindestens ein Laufwerk für die Installation auswählen."
 
 #: iw/cleardisks_gui.py:54
-#, fuzzy
 msgid "You must select one drive to boot from."
-msgstr "Sie müssen ein zu bearbeitendes Gerät angeben"
+msgstr "Sie müssen ein Gerät angeben, von dem gebootet werden soll."
 
 #: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:442
 #: iw/filter_gui.py:453 iw/filter_gui.py:483
@@ -2617,20 +2615,21 @@ msgid "LUN"
 msgstr "LUN"
 
 #: iw/filter_type.py:55
-#, fuzzy
 msgid "What type of devices will your installation involve?"
-msgstr "Auf welchem Datenträgertyp ist das Installationabbild vorhanden?"
+msgstr "Welche Gerätetypen umfasst Ihre Installation?"
 
 #: iw/filter_type.py:61
-#, fuzzy
 msgid "Basic Storage Devices"
-msgstr "Speichergeräte finden"
+msgstr "Basis-Speichergeräte"
 
 #: iw/filter_type.py:62
 msgid ""
 "Installs or upgrades to typical types of storage devices.  If you're not "
 "sure which option is right for you, this is probably it."
 msgstr ""
+"Installiert oder aktualisiert auf typische Speichergerätetypen.  Dies ist "
+"womöglich die richtige Wahl, falls Sie unsicher sind, ob diese Option "
+"die richtige für Sie ist."
 
 #: iw/filter_type.py:66
 msgid "Specialized Storage Devices"
@@ -2641,6 +2640,8 @@ msgid ""
 "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
 "mainframe attached disks (DASD), usually in an enterprise environment"
 msgstr ""
+"Installiert oder aktualisiert auf Geräte wie Storage Area Networks (SANs) oder "
+"per Mainframe angehängte Speichergeräte (DASD)"
 
 #: iw/language_gui.py:33
 msgid "Language Selection"
@@ -2874,10 +2875,10 @@ msgid "No free slots"
 msgstr "Keine freien Plätze"
 
 #: iw/lvm_dialog_gui.py:815
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
-msgstr[0] "Sie können nicht mehr als %d logische Volumen pro Volumengruppe erzeugen."
+msgstr[0] "Sie können nicht mehr als %d logisches Volumen pro Volumengruppe erzeugen."
 msgstr[1] "Sie können nicht mehr als %d logische Volumen pro Volumengruppe erzeugen."
 
 #: iw/lvm_dialog_gui.py:825
@@ -3357,11 +3358,11 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1465
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
-msgstr[0] "Sie haben momentan %d Software RAID-Partition, welche frei sind zum Benutzen."
-msgstr[1] "Sie haben momentan %d Software RAID-Partition, welche frei sind zum Benutzen."
+msgstr[0] "Sie haben momentan %d frei zu verwendende Software RAID-Partition."
+msgstr[1] "Sie haben momentan %d frei zu verwendende Software RAID-Partitionen."
 
 #: iw/partition_gui.py:1469
 msgid "About RAID"
@@ -3400,7 +3401,7 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1487
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
 msgstr[0] "Sie haben %d PV zur freien Verfügung.\n"
@@ -6299,7 +6300,7 @@ msgstr "Wo soll der Bootloader für Ihr System installiert werden?"
 
 #: ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
+msgstr "<b>Data Storage Devices</b> (nur einzuhängende Datenspeichergeräte)"
 
 #: ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
@@ -6312,6 +6313,11 @@ msgid ""
 "like to use as data drives (these will not be formatted, only mounted) and "
 "which devices you'd like to use as system drives (these may be formatted)."
 msgstr ""
+"Nachfolgend sind die von Ihnen für diese Installation ausgewählten Speichergeräte "
+"aufgeführt.  Geben Sie mit Hilfe der nachfolgenden Pfeile an, welche Geräte Sie als "
+"Datenlaufwerke (diese werden nicht formatiert, sondern lediglich eingehängt) und "
+"welche Geräte Sie als Systemlaufwerke verwenden möchten (diese können formatiert "
+"werden)."
 
 #: ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
@@ -6376,9 +6382,8 @@ msgid "LVM Physical Volume"
 msgstr "LVM physikalischen Datenträger (Physical Volume)"
 
 #: ui/create-storage.glade.h:15
-#, fuzzy
 msgid "LVM Volume Group"
-msgstr "LVM-Datenträgerverbände"
+msgstr "LVM-Datenträgerverbund"
 
 #: ui/create-storage.glade.h:16
 msgid "RAID Clone"
@@ -6432,6 +6437,10 @@ msgid ""
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
 msgstr ""
+"<b>Hinweis:</b> Die Auswahl eines Laufwerks auf diesem Bildschirm bedeutet "
+"nicht unbedingt, dass es während des Installationsprozesses formatiert wird.  Beachten "
+"Sie bitte auch, dass Sie Laufwerke, die Sie nicht an dieser Stelle ausgewählt haben, nach "
+"Abschluss der Installation einhängen können, indem Sie Ihre /etc/fstab-Datei anpassen."
 
 #: ui/filter.glade.h:4
 msgid "Add Advanced Target"
@@ -6468,9 +6477,8 @@ msgid "LUN:"
 msgstr "LUN:"
 
 #: ui/filter.glade.h:13
-#, fuzzy
 msgid "Multipath Devices"
-msgstr "Doppeltes Gerät"
+msgstr "Multipath-Geräte"
 
 #: ui/filter.glade.h:14
 msgid "Other SAN Devices"
@@ -6481,6 +6489,9 @@ msgid ""
 "Please select the drives you'd like to install the operating system on, as "
 "well as any drives you'd like to automatically mount to your system, below:"
 msgstr ""
+"Bitte wählen Sie nachfolgend die Laufwerke, auf denen Sie das Betriebssystem "
+"installieren möchten, sowie Laufwerke, die automatisch in Ihr System eingehängt "
+"werden sollen, aus:"
 
 #: ui/filter.glade.h:16
 msgid ""
@@ -6507,18 +6518,16 @@ msgid "Search Results:"
 msgstr "Such-Resultate:"
 
 #: ui/filter.glade.h:22
-#, fuzzy
 msgid "Show Identifiers that Include:"
-msgstr "Enthaltende Bezeichner anzeigen:"
+msgstr "Bezeichner anzeigen, die Folgendes enthalten:"
 
 #: ui/filter.glade.h:23
 msgid "Show Only Devices From:"
 msgstr "Nur Geräte anzeigen von:"
 
 #: ui/filter.glade.h:24
-#, fuzzy
 msgid "Show Only Devices Using:"
-msgstr "Nur Geräte "
+msgstr "Nur verwendete Geräte anzeigen:"
 
 #: ui/filter.glade.h:25
 msgid "Target:"
