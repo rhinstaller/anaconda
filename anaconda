@@ -440,7 +440,7 @@ def startDebugger(signum, frame):
     import epdb
     epdb.serve(skip=1)
 
-class Anaconda:
+class Anaconda(object):
     def __init__(self):
         self.intf = None
         self.dir = None
@@ -562,6 +562,19 @@ class Anaconda:
             log.error("network install required, but no network devices available")
 
         return fail
+
+    @property
+    def protected(self):
+        import stat
+
+        if os.path.exists("/dev/live") and \
+           stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
+            return [os.readlink("/dev/live")]
+        elif self.methodstr and self.msthodstr.startswith("hd:"):
+            method = self.methodstr[3:]
+            return [method.split(":", 3)[0]]
+        else:
+            return []
 
 if __name__ == "__main__":
     anaconda = Anaconda()

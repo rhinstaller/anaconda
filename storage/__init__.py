@@ -85,18 +85,11 @@ def storageInitialize(anaconda):
     anaconda.intf.resetReinitInconsistentLVMQuestion()
 
     # Set up the protected partitions list now.
-    if os.path.exists("/dev/live") and \
-       stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
-        target = os.readlink("/dev/live")
-        storage.protectedDevSpecs = [target]
-        storage.reset()
-    elif anaconda.methodstr and anaconda.methodstr.startswith("hd:"):
-        method = anaconda.methodstr[3:]
-        devspec = method.split(":", 3)[0]
-        storage.protectedDevSpecs.append(devspec)
+    if anaconda.protected:
+        storage.protectedDevSpecs.extend(anaconda.protected)
         storage.reset()
 
-        if not storage.protectedDevices:
+        if not flags.livecdInstall and not storage.protectedDevices:
             if anaconda.id.getUpgrade():
                 return
             else:
