@@ -549,6 +549,19 @@ class Anaconda(object):
         return self._platform
 
     @property
+    def protected(self):
+        import stat
+
+        if os.path.exists("/dev/live") and \
+           stat.S_ISBLK(os.stat("/dev/live")[stat.ST_MODE]):
+            return [os.readlink("/dev/live")]
+        elif self.methodstr and self.methodstr.startswith("hd:"):
+            method = self.methodstr[3:]
+            return [method.split(":", 3)[0]]
+        else:
+            return []
+
+    @property
     def users(self):
         if not self._users:
             import users
