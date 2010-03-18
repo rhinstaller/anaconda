@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-15 10:59-0500\n"
-"PO-Revision-Date: 2010-03-17 20:57+0100\n"
+"PO-Revision-Date: 2010-03-18 09:20+0100\n"
 "Last-Translator: Milan Kerslager <milan@kerslager.cz>\n"
 "Language-Team: Czech <Czech <cs-users@lists.fedoraproject.org>>\n"
 "MIME-Version: 1.0\n"
@@ -441,7 +441,7 @@ msgstr "_Opakovat"
 
 #: gui.py:1378 storage/partitioning.py:277
 msgid "The system will now reboot."
-msgstr "Systém bude nyní restartován."
+msgstr "Systém bude restartován."
 
 #: gui.py:1379 image.py:251 packages.py:332 yuminstall.py:1490
 msgid "_Reboot"
@@ -644,7 +644,7 @@ msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
-"Po vypnutí prosím pro pokračování instalace proveďte ruční IPL ze zařízení, "
+"Pro pokračování instalace proveďte po vypnutí systému ruční IPL ze zařízení, "
 "které nyní obsahuje /boot"
 
 #: iutil.py:1009
@@ -967,7 +967,7 @@ msgstr "Nejprve musíte zvolit oddíl, který chcete odstranit."
 
 #: partIntfHelpers.py:153 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:862
 msgid "Confirm Delete"
-msgstr "Potvrdit odstranění"
+msgstr "Potvrzení odstranění"
 
 #: partIntfHelpers.py:154
 #, python-format
@@ -1134,7 +1134,7 @@ msgstr "Chcete smazat %(type)s %(name)s"
 
 #: partIntfHelpers.py:349
 msgid "Confirm Reset"
-msgstr "Potvrdit obnovení"
+msgstr "Potvrzení obnovení"
 
 #: partIntfHelpers.py:350
 msgid ""
@@ -2037,8 +2037,9 @@ msgid ""
 "general internet usage. You can optionally select a different set of "
 "software now."
 msgstr ""
-"Standardní instalace %s obsahuje sadu programů pro připojení k Internetu a "
-"jeho používání. Nyní můžete zvolit jiný výběr instalovaného software."
+"Standardní instalace systému %s obsahuje sadu programů pro připojení k "
+"Internetu a jeho používání. Zde můžete zvolit jiný výběr instalovaného "
+"software:"
 
 #: installclasses/fedora.py:49
 msgid "Graphical Desktop"
@@ -2066,8 +2067,8 @@ msgid ""
 "The default installation of %s is a minimal install. You can optionally "
 "select a different set of software now."
 msgstr ""
-"Implicitní instalace %s je minimální instalací. Nyní můžete zvolit jiný "
-"výběr instalovaného software."
+"Implicitní instalace %s je minimální instalací. Můžete zvolit jiný výběr "
+"instalovaného software."
 
 #: installclasses/rhel.py:52
 msgid "Desktop"
@@ -2205,8 +2206,8 @@ msgstr ""
 "Na vybraných zařízeních budou odstraněny všechny Linuxové oddíly. Budou "
 "zachovány ostatní oddíly a na nich umístěná data (například FAT, NTFS atp).\n"
 "\n"
-"<b>Upozornění:</b> Volba smaže na vybraných zařízeních všechna data. "
-"Ujistěte se, že máte jejich zálohu."
+"<b>Upozornění:</b> Volba smaže na vybraných oddílech všechna data. Ujistěte "
+"se, že máte jejich zálohu."
 
 #: iw/autopart_type.py:246
 msgid "Shrink Current System"
@@ -2513,7 +2514,7 @@ msgstr "LUN"
 
 #: iw/filter_type.py:55
 msgid "What type of devices will your installation involve?"
-msgstr "Jaké typy zařízení budete při instalaci používat?"
+msgstr "Jaká zařízení budete při instalaci používat?"
 
 #: iw/filter_type.py:61
 msgid "Basic Storage Devices"
@@ -2566,7 +2567,7 @@ msgstr ""
 
 #: iw/lvm_dialog_gui.py:135
 msgid "Confirm Physical Extent Change"
-msgstr "Potvrdit změnu velikosti fyzického extentu."
+msgstr "Potvrzení změny velikosti fyzického extentu."
 
 #: iw/lvm_dialog_gui.py:136
 msgid ""
@@ -2690,7 +2691,7 @@ msgstr "Velikost (MB):"
 #: iw/lvm_dialog_gui.py:519 iw/partition_dialog_gui.py:407
 #: iw/raid_dialog_gui.py:434
 msgid "_Mount Point:"
-msgstr "_Připojit do:"
+msgstr "_Připojit do adresáře:"
 
 #: iw/lvm_dialog_gui.py:596 iw/partition_dialog_gui.py:113
 #: iw/partition_ui_helpers_gui.py:109 iw/partition_ui_helpers_gui.py:131
@@ -3161,8 +3162,8 @@ msgid ""
 "The following pre-existing devices have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Uvedené oddíly budou naformátovány, což smaže všechna data, která jsou na "
-"nich uložena:"
+"Níže uvedené oddíly budou naformátovány, což smaže všechna data, která jsou "
+"na nich uložena:"
 
 #: iw/partition_gui.py:889
 msgid "Format Warnings"
@@ -3502,7 +3503,7 @@ msgid ""
 "The drive %s will now be cloned to the following drives:\n"
 "\n"
 msgstr ""
-"Disk %s bude nyní naklonován na následující disky:\n"
+"Disk %s bude naklonován na následující disky:\n"
 "\n"
 
 #: iw/raid_dialog_gui.py:792
@@ -3874,7 +3875,7 @@ msgstr ""
 "Pokud budete chtít změnit nastaveni, upravte konfigurační soubor /etc/zipl."
 "conf.\n"
 "\n"
-"Nyní můžete zadat doplňující parametry jádra, které jsou potřeba pro váš "
+"Zde můžete zadat doplňující parametry jádra, které jsou potřeba pro váš "
 "počítač."
 
 #: iw/zipl_gui.py:90 textw/zipl_text.py:72
@@ -6388,7 +6389,7 @@ msgstr ""
 
 #: ui/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
-msgstr "Potvrďte heslo:"
+msgstr "Potvrzení hesla:"
 
 #: ui/lukspassphrase.glade.h:4
 msgid "Enter passphrase for encrypted partition"
@@ -6448,7 +6449,7 @@ msgstr "Upravit _později"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr "Vložte další repozitář, který chcete pro instalaci použít."
+msgstr "Aktivujte další repozitáře, které chcete pro instalaci použít:"
 
 #: ui/tasksel.glade.h:4
 #, no-c-format
@@ -6465,8 +6466,8 @@ msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"Výběr instalovaných součástí můžete změnit teď nebo po instalaci pomocí "
-"aplikace pro správu balíčků."
+"Výběr instalovaných součástí můžete změnit teď hned nebo až po provedení "
+"instalace pomocí aplikace pro správu balíčků."
 
 #: ui/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6474,7 +6475,7 @@ msgstr "_Přidat rozšiřující repozitáře"
 
 #: ui/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "_Upravit teď"
+msgstr "Upravit _hned"
 
 #: ui/tasksel.glade.h:8
 msgid "_Modify repository"
