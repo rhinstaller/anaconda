@@ -661,11 +661,8 @@ class FilterWindow(InstallWindow):
         if flags.dmraid:
             used_raidmembers = []
             for rs in block.getRaidSets():
-                rs.activate(mknod=True, mkparts=False)
-                udev_settle()
-
-                partedDevice = rs.PedDevice
-                size = int(partedDevice.getSize())
+                # dmraid does everything in sectors
+                size = (rs.rs.sectors * 512) / (1024.0 * 1024.0)
                 fstype = ""
 
                 # get_members also returns subsets with layered raids, we only
@@ -689,8 +686,6 @@ class FilterWindow(InstallWindow):
                 tuple = (data, True, _active(rs.name), rs.name, model,
                          str(size) + " MB", "", "", "", "", "", "", "", "")
                 _addTuple(tuple)
-
-                rs.deactivate()
 
             unused_raidmembers = []
             for d in raids:
