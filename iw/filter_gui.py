@@ -674,7 +674,7 @@ class FilterWindow(InstallWindow):
                      udev_device_get_serial(d), ident, "", "", "", "")
             _addTuple(tuple)
 
-        if flags.dmraid:
+        if raids and flags.dmraid:
             used_raidmembers = []
             for rs in block.getRaidSets():
                 # dmraid does everything in sectors
@@ -686,11 +686,16 @@ class FilterWindow(InstallWindow):
                 members = filter(lambda m: isinstance(m, block.device.RaidDev),
                                  list(rs.get_members()))
                 members = map(lambda m: m.get_devpath(), members)
-                used_raidmembers.extend(members)
                 for d in raids:
                     if udev_device_get_name(d) in members:
                         fstype = udev_device_get_format(d)
                         break
+
+                # Skip this set if none of its members are in the raids list
+                if not fstype:
+                    continue
+
+                used_raidmembers.extend(members)
 
                 # biosraid devices don't really get udev data, at least not in a
                 # a way that's useful to the filtering UI.  So we need to fake
