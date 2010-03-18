@@ -25,6 +25,7 @@ import string
 from iw_gui import *
 import gui
 import network
+import iutil
 
 from constants import *
 import gettext
@@ -42,6 +43,8 @@ class NetworkWindow(InstallWindow):
         self.icon = self.xml.get_widget("icon")
         self.hostnameEntry = self.xml.get_widget("hostnameEntry")
         self.hostnameEntry.set_text(self.hostname)
+
+        self.xml.get_widget("netconfButton").connect("clicked", self._NMConfig)
 
         # pressing Enter in confirm == clicking Next
         self.hostnameEntry.connect("activate",
@@ -81,3 +84,8 @@ class NetworkWindow(InstallWindow):
 
         self.anaconda.network.hostname = hostname
         return None
+
+    def _NMConfig(self, *args):
+        iutil.execWithRedirect("/usr/bin/nm-connection-editor", [],
+                               stdout = "/dev/tty5",
+                               stderr = "/dev/tty5")
