@@ -155,7 +155,7 @@ die () {
     exit 1
 }
 
-PACKAGES="GConf2 NetworkManager ORBit2 acl anaconda
+PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bitmap-fonts-cjk
     btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
@@ -358,6 +358,7 @@ boot/efi/EFI/redhat/elilo.efi
 boot/efi/EFI/redhat/grub.efi
 boot/efika.forth
 boot/memtest86*
+etc/NetworkManager/VPN
 etc/NetworkManager/nm-system-settings.conf
 etc/NetworkManager/dispatcher.d
 etc/dbus-1/*
@@ -516,6 +517,7 @@ usr/bin/Xorg
 usr/bin/Xvnc
 usr/bin/chattr*
 usr/bin/dbus-launch
+usr/bin/dbus-launch
 usr/bin/du
 usr/bin/expr
 usr/bin/gdb-gdbserver
@@ -537,6 +539,7 @@ usr/bin/maketilo
 usr/bin/md5sum
 usr/bin/metacity
 usr/bin/mkzimage
+usr/bin/nm-connection-editor
 usr/bin/pango*
 usr/bin/python
 usr/bin/python?.?
@@ -649,6 +652,8 @@ usr/share/hwdata/pci.ids
 usr/share/hwdata/usb.ids
 usr/share/hwdata/videoaliases
 usr/share/hwdata/videodrivers
+usr/share/icons/hicolor/*/apps/nm-*
+usr/share/icons/hicolor/index.theme
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/share/locale/*/LC_MESSAGES/cracklib.mo
 usr/share/locale/*/LC_MESSAGES/gtk20.mo
@@ -659,6 +664,7 @@ usr/share/locale/*/LC_MESSAGES/system-config-date.mo
 usr/share/locale/*/LC_MESSAGES/system-config-keyboard.mo
 usr/share/locale/*/LC_MESSAGES/zenity.mo
 usr/share/locale/locale.alias
+usr/share/nm-applet/*
 usr/share/pixmaps/comps/*.png
 usr/share/pixmaps/gnome-default-dlg.png
 usr/share/pixmaps/gnome-error.png

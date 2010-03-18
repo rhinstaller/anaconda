@@ -749,14 +749,17 @@ makeinitrd() {
     ( cd $IMGPATH/usr/share/polkit/actions
       cp -a org.freedesktop.policykit.policy $MBD_DIR/usr/share/polkit-1/actions
     )
+    cp -a $IMGPATH/etc/dbus-1/system.d/org.freedesktop.PolicyKit1.conf $MBD_DIR/etc/dbus-1/system.d
+    cp -a $IMGPATH/etc/dbus-1/system.d/ConsoleKit.conf $MBD_DIR/etc/dbus-1/system.d
+    chmod 04755 $IMGPATH/usr/libexec/polkit-1/polkit-agent-helper-1
 
     # dbus
     instbin $IMGPATH /usr/bin/dbus-uuidgen $MBD_DIR /sbin/dbus-uuidgen
     instbin $IMGPATH /usr/bin/dbus-daemon $MBD_DIR /sbin/dbus-daemon
     cp -a $IMGPATH/etc/dbus-1/system.conf $MBD_DIR/etc/dbus-1/system.conf
+    chown root:dbus $IMGPATH/$LIBDIR/dbus-1/dbus-daemon-launch-helper
+    chmod 04750 $IMGPATH/$LIBDIR/dbus-1/dbus-daemon-launch-helper
     cp -a $IMGPATH/$LIBDIR/dbus-1/dbus-daemon-launch-helper $MBD_DIR/$LIBDIR/dbus-1
-    chown root:dbus $MBD_DIR/$LIBDIR/dbus-1/dbus-daemon-launch-helper
-    chmod 04750 $MBD_DIR/$LIBDIR/dbus-1/dbus-daemon-launch-helper
 
     # wpa_supplicant
     instbin $IMGPATH /usr/sbin/wpa_passphrase $MBD_DIR /usr/sbin/wpa_passphrase
@@ -907,8 +910,8 @@ makeinstimage () {
         echo "Running mkcramfs $CRAMBS $tmp $INSTIMGPATH/${imagename}2.img"
         mkfs.cramfs $CRAMBS $tmp $TMPDIR/${imagename}2.img.$$
     elif [ "$type" = "squashfs" ]; then
-        echo "Running mksquashfs $tmp $TMPDIR/${imagename}2.img -all-root -no-fragments -no-progress"
-        mksquashfs $tmp $TMPDIR/${imagename}2.img.$$ -all-root -no-fragments -no-progress
+        echo "Running mksquashfs $tmp $TMPDIR/${imagename}2.img -no-fragments -no-progress"
+        mksquashfs $tmp $TMPDIR/${imagename}2.img.$$ -no-fragments -no-progress
         chmod 0644 $TMPDIR/${imagename}2.img.$$
     fi
     cp $TMPDIR/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
@@ -953,8 +956,8 @@ makemainimage () {
         rmdir $mmi_mntpoint
     elif [ $type = "squashfs" ]; then
         makeproductfile $IMGPATH
-        echo "Running mksquashfs $IMGPATH $mmi_tmpimage -all-root -no-fragments -no-progress"
-        mksquashfs $IMGPATH $mmi_tmpimage -all-root -no-fragments -no-progress
+        echo "Running mksquashfs $IMGPATH $mmi_tmpimage -no-fragments -no-progress"
+        mksquashfs $IMGPATH $mmi_tmpimage -no-fragments -no-progress
         chmod 0644 $mmi_tmpimage
         SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     elif [ $type = "cramfs" ]; then
