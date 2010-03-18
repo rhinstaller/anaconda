@@ -26,6 +26,8 @@ from iw_gui import *
 import gui
 import network
 import iutil
+import gobject
+import subprocess
 
 from constants import *
 import gettext
@@ -85,7 +87,20 @@ class NetworkWindow(InstallWindow):
         self.anaconda.id.network.hostname = hostname
         return None
 
+    def _NMExited(self, pid, condition, data):
+        self.intf.icw.window.set_sensitive(True)
+
     def _NMConfig(self, *args):
-        iutil.execWithRedirect("/usr/bin/nm-connection-editor", [],
-                               stdout = "/dev/tty5",
-                               stderr = "/dev/tty5")
+
+        self.intf.icw.window.set_sensitive(False)
+        cmd = ["/usr/bin/nm-connection-editor"]
+        out = open("/dev/tty5", "w")
+        try:
+            proc = subprocess.Popen(cmd, stdout=out, stderr=out)
+        except Exception as e:
+            self.intf.icw.window.set_sensitive(True)
+            import logging
+            log = logging.getLogger("anaconda")
+            log.error("Could not start nm-connection-editor: %s" % e)
+        else:
+            gobject.child_watch_add(proc.pid, self._NMExited, data=None, priority=gobject.PRIORITY_DEFAULT)
