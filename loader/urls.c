@@ -62,8 +62,7 @@ int progress_cb(void *data, double dltotal, double dlnow, double ultotal, double
     return 0;
 }
 
-int splitProxyParam(char *param, char **user, char **password, char **host,
-                    char **port) {
+int splitProxyParam(char *param, char **user, char **password, char **proxy) {
     /* proxy=[protocol://][username[:password]@]host[:port] */
     char *pattern = "([[:alpha:]]+://)?(([[:alnum:]]+)(:[^:@]+)?@)?([^:]+)(:[[:digit:]]+)?(/.*)?";
     regex_t re;
@@ -90,12 +89,27 @@ int splitProxyParam(char *param, char **user, char **password, char **host,
     if (pmatch[4].rm_so != -1)
         *password = strndup(param+pmatch[4].rm_so+1, pmatch[4].rm_eo-pmatch[4].rm_so-1);
 
-    if (pmatch[5].rm_so != -1)
-        *host = strndup(param+pmatch[5].rm_so, pmatch[5].rm_eo-pmatch[5].rm_so);
+    if (pmatch[5].rm_so != -1) {
+        char *portStr = "";
 
-    /* Skip the leading colon. */
-    if (pmatch[6].rm_so != -1)
-        *port = strndup(param+pmatch[6].rm_so+1, pmatch[6].rm_eo-pmatch[6].rm_so-1);
+        if (pmatch[6].rm_so != -1)
+            portStr = strndup(param+pmatch[6].rm_so, pmatch[6].rm_eo-pmatch[6].rm_so);
+
+        /* If no parameter was given, default to HTTP.  yum will want to know
+         * the protocol, and curl will just ignore it if given.
+         */
+        if (pmatch[1].rm_so != -1) {
+            checked_asprintf(proxy, "%.*s%.*s%s", pmatch[1].rm_eo-pmatch[1].rm_so,
+                                                  param+pmatch[1].rm_so,
+                                                  pmatch[5].rm_eo-pmatch[5].rm_so,
+                                                  param+pmatch[5].rm_so,
+                                                  portStr);
+        } else {
+            checked_asprintf(proxy, "http://%.*s%s", pmatch[5].rm_eo-pmatch[5].rm_so,
+                                                     param+pmatch[5].rm_so,
+                                                     portStr);
+        }
+    }
 
     regfree(&re);
     return 1;
@@ -129,10 +143,6 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
     /* If a proxy was provided, add the options for that now. */
     if (loaderData->proxy && strcmp(loaderData->proxy, "")) {
         curl_easy_setopt(curl, CURLOPT_PROXY, loaderData->proxy);
-
-        if (loaderData->proxyPort && strcmp(loaderData->proxyPort, ""))
-            curl_easy_setopt(curl, CURLOPT_PROXYPORT,
-                             strtol(loaderData->proxyPort, NULL, 10));
 
         if (loaderData->proxyUser && strcmp(loaderData->proxyUser, ""))
             curl_easy_setopt(curl, CURLOPT_PROXYUSERNAME,
@@ -211,8 +221,8 @@ char * addrToIp(char * hostname) {
 static void setProxySensitivity(newtComponent co, void *dptr) {
     int i;
 
-    /* It's 4 because there are four entry boxes in the proxy grid.  Lame. */
-    for (i = 0; i < 4; i++) {
+    /* It's 3 because there are three entry boxes in the proxy grid.  Lame. */
+    for (i = 0; i < 3; i++) {
         newtEntrySetFlags(*((newtComponent *) dptr), NEWT_FLAG_DISABLED,
                           NEWT_FLAGS_TOGGLE);
         dptr += sizeof(newtComponent);
@@ -223,10 +233,10 @@ static void setProxySensitivity(newtComponent co, void *dptr) {
 
 int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
     newtComponent form, okay, cancel, urlEntry, proxyCheckbox;
-    newtComponent proxyEntries[4];
+    newtComponent proxyEntries[3];
     newtComponent answer, text;
     char enableProxy;
-    char *url = "", *proxy = "", *proxyPort = "", *proxyUser = "", *proxyPassword = "";
+    char *url = "", *proxy = "", *proxyUser = "", *proxyPassword = "";
     char * reflowedText = NULL;
     int width, height;
     newtGrid buttons, grid, proxyGrid;
@@ -238,9 +248,6 @@ int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
 
     if (loaderData->proxy)
         proxy = loaderData->proxy;
-
-    if (loaderData->proxyPort)
-        proxyPort = loaderData->proxyPort;
 
     if (loaderData->proxyUser)
         proxyUser = loaderData->proxyUser;
@@ -274,34 +281,28 @@ int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
     newtComponentAddCallback(proxyCheckbox, setProxySensitivity, &proxyEntries);
 
     proxyEntries[0] = newtEntry(-1, -1, proxy, 35, (const char **) &proxy, NEWT_FLAG_SCROLL);
-    proxyEntries[1] = newtEntry(-1, -1, proxyPort, 5, (const char **) &proxyPort, 0);
-    proxyEntries[2] = newtEntry(-1, -1, proxyUser, 15, (const char **) &proxyUser, NEWT_FLAG_SCROLL);
-    proxyEntries[3] = newtEntry(-1, -1, proxyPassword, 15, (const char **) &proxyPassword, NEWT_FLAG_SCROLL|NEWT_FLAG_PASSWORD);
+    proxyEntries[1] = newtEntry(-1, -1, proxyUser, 15, (const char **) &proxyUser, NEWT_FLAG_SCROLL);
+    proxyEntries[2] = newtEntry(-1, -1, proxyPassword, 15, (const char **) &proxyPassword, NEWT_FLAG_SCROLL|NEWT_FLAG_PASSWORD);
 
     /* Set the initial proxy grid sensitivity to match. */
     if (enableProxy == ' ')
         setProxySensitivity(proxyCheckbox, proxyEntries);
 
-    proxyGrid = newtCreateGrid(2, 4);
+    proxyGrid = newtCreateGrid(2, 3);
     newtGridSetField(proxyGrid, 0, 0, NEWT_GRID_COMPONENT,
                      newtLabel(-1, -1, _("Proxy URL")),
                      0, 0, 0, 0, 0, NEWT_ANCHOR_LEFT);
     newtGridSetField(proxyGrid, 1, 0, NEWT_GRID_COMPONENT, proxyEntries[0],
                      0, 0, 0, 0, 0, NEWT_ANCHOR_LEFT);
     newtGridSetField(proxyGrid, 0, 1, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("Port")),
-                     0, 0, 0, 0, 0, NEWT_ANCHOR_LEFT);
-    newtGridSetField(proxyGrid, 1, 1, NEWT_GRID_COMPONENT, proxyEntries[1],
-                     0, 0, 0, 0, 0, NEWT_ANCHOR_LEFT);
-    newtGridSetField(proxyGrid, 0, 2, NEWT_GRID_COMPONENT,
                      newtLabel(-1, -1, _("Username")),
                      0, 0, 0, 1, 0, NEWT_ANCHOR_LEFT);
-    newtGridSetField(proxyGrid, 1, 2, NEWT_GRID_COMPONENT, proxyEntries[2],
+    newtGridSetField(proxyGrid, 1, 1, NEWT_GRID_COMPONENT, proxyEntries[1],
                      0, 0, 0, 1, 0, NEWT_ANCHOR_LEFT);
-    newtGridSetField(proxyGrid, 0, 3, NEWT_GRID_COMPONENT,
+    newtGridSetField(proxyGrid, 0, 2, NEWT_GRID_COMPONENT,
                      newtLabel(-1, -1, _("Password")),
                      0, 0, 0, 1, 0, NEWT_ANCHOR_LEFT);
-    newtGridSetField(proxyGrid, 1, 3, NEWT_GRID_COMPONENT, proxyEntries[3],
+    newtGridSetField(proxyGrid, 1, 2, NEWT_GRID_COMPONENT, proxyEntries[2],
                      0, 0, 0, 1, 0, NEWT_ANCHOR_LEFT);
 
     grid = newtCreateGrid(1, 5);
@@ -340,12 +341,10 @@ int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
 
             if (enableProxy == '*') {
                loaderData->proxy = strdup(proxy);
-               loaderData->proxyPort = strdup(proxyPort);
                loaderData->proxyUser = strdup(proxyUser);
                loaderData->proxyPassword = strdup(proxyPassword);
             } else {
                loaderData->proxy = "";
-               loaderData->proxyPort = "";
                loaderData->proxyUser = "";
                loaderData->proxyPassword = "";
             }

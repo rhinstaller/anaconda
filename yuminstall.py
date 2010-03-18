@@ -724,21 +724,28 @@ class AnacondaYum(YumSorter):
                 if ksrepo.proxy:
                     m = pattern.match(ksrepo.proxy)
 
-                    if m and m.group(3):
+                    if m and m.group(5):
                         # If both a host and port was found, just paste them
                         # together using the colon at the beginning of the port
                         # match as a separator.  Otherwise, just use the host.
-                        if m.group(4):
-                            repo.proxy = m.group(3) + m.group(4)
+                        if m.group(6):
+                            repo.proxy = m.group(5) + m.group(6)
                         else:
-                            repo.proxy = m.group(3)
+                            repo.proxy = m.group(5)
 
-                    if m and m.group(5):
-                        repo.proxy_username = m.group(5)
+                        # yum also requires a protocol.  If none was given,
+                        # default to http.
+                        if m.group(1):
+                            repo.proxy = m.group(1) + repo.proxy
+                        else:
+                            repo.proxy = "http://" + repo.proxy
 
-                    if m and m.group(6):
+                    if m and m.group(3):
+                        repo.proxy_username = m.group(3)
+
+                    if m and m.group(4):
                         # Skip the leading colon.
-                        repo.proxy_password = m.group(6)[1:]
+                        repo.proxy_password = m.group(4)[1:]
 
                 repo.enable()
                 extraRepos.append(repo)
