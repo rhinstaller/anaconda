@@ -31,6 +31,7 @@ from constants import *
 from iw_gui import *
 from storage.udev import *
 from storage.devicelibs.mpath import *
+from flags import flags
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
@@ -99,7 +100,10 @@ def isCCISS(info):
     return udev_device_is_cciss(info)
 
 def isRAID(info):
-    return udev_device_is_biosraid(info)
+    if flags.dmraid:
+        return udev_device_is_biosraid(info)
+
+    return False
 
 def isMultipath(info):
     return udev_device_is_multipath_member(info)
@@ -659,45 +663,46 @@ class FilterWindow(InstallWindow):
                      udev_device_get_serial(d), ident, "", "", "", "")
             _addTuple(tuple)
 
-        used_raidmembers = []
-        for rs in block.getRaidSets():
-            rs.activate(mknod=True, mkparts=False)
-            udev_settle()
+        if flags.dmraid:
+            used_raidmembers = []
+            for rs in block.getRaidSets():
+                rs.activate(mknod=True, mkparts=False)
+                udev_settle()
 
-            partedDevice = rs.PedDevice
-            size = int(partedDevice.getSize())
-            fstype = ""
+                partedDevice = rs.PedDevice
+                size = int(partedDevice.getSize())
+                fstype = ""
 
-            # get_members also returns subsets with layered raids, we only
-            # want the devices
-            members = filter(lambda m: isinstance(m, block.device.RaidDev),
-                             list(rs.get_members()))
-            members = map(lambda m: m.get_devpath(), members)
-            used_raidmembers.extend(members)
+                # get_members also returns subsets with layered raids, we only
+                # want the devices
+                members = filter(lambda m: isinstance(m, block.device.RaidDev),
+                                 list(rs.get_members()))
+                members = map(lambda m: m.get_devpath(), members)
+                used_raidmembers.extend(members)
+                for d in raids:
+                    if udev_device_get_name(d) in members:
+                        fstype = udev_device_get_format(d)
+                        break
+
+                # biosraid devices don't really get udev data, at least not in a
+                # a way that's useful to the filtering UI.  So we need to fake
+                # that data now so we have something to put into the store.
+                data = {"XXX_SIZE": size, "ID_FS_TYPE": fstype,
+                        "DM_NAME": rs.name, "name": rs.name}
+
+                model = "BIOS RAID set (%s)" % rs.rs.set_type
+                tuple = (data, True, _active(rs.name), rs.name, model,
+                         str(size) + " MB", "", "", "", "", "", "", "", "")
+                _addTuple(tuple)
+
+                rs.deactivate()
+
+            unused_raidmembers = []
             for d in raids:
-                if udev_device_get_name(d) in members:
-                    fstype = udev_device_get_format(d)
-                    break
+                if udev_device_get_name(d) not in used_raidmembers:
+                    unused_raidmembers.append(udev_device_get_name(d))
 
-            # biosraid devices don't really get udev data, at least not in a
-            # way that's useful to the filtering UI.  So we need to fake that
-            # data now so we have something to put into the store.
-            data = {"XXX_SIZE": size, "ID_FS_TYPE": fstype, "DM_NAME": rs.name,
-                    "name": rs.name}
-
-            model = "BIOS RAID set (%s)" % rs.rs.set_type
-            tuple = (data, True, _active(rs.name), rs.name, model,
-                     str(size) + " MB", "", "", "", "", "", "", "", "")
-            _addTuple(tuple)
-
-            rs.deactivate()
-
-        unused_raidmembers = []
-        for d in raids:
-            if udev_device_get_name(d) not in used_raidmembers:
-                unused_raidmembers.append(udev_device_get_name(d))
-
-        self.anaconda.intf.unusedRaidMembersWarning(unused_raidmembers)
+            self.anaconda.intf.unusedRaidMembersWarning(unused_raidmembers)
 
         for mpath in mpaths:
             # We only need to grab information from the first device in the set.
