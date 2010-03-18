@@ -406,8 +406,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     if (proxy) {
         splitProxyParam(proxy, &loaderData->proxyUser,
 			       &loaderData->proxyPassword,
-			       &loaderData->proxy,
-			       &loaderData->proxyPort);
+			       &loaderData->proxy);
     }
     logMessage(INFO, "results of url ks, url %s", url);
 }

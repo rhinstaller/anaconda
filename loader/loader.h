@@ -163,7 +163,6 @@ struct loaderData_s {
      * settings off the command line, too.
      */
     char *proxy;
-    char *proxyPort;
     char *proxyUser;
     char *proxyPassword;
 };

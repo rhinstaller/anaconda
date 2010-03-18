@@ -1108,8 +1108,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             loaderData->gdbServer = strdup(argv[i] + 4);
         else if (!strncasecmp(argv[i], "proxy=", 6))
             splitProxyParam(argv[i]+6, &loaderData->proxyUser,
-                            &loaderData->proxyPassword, &loaderData->proxy,
-                            &loaderData->proxyPort);
+                            &loaderData->proxyPassword, &loaderData->proxy);
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
@@ -2329,19 +2328,11 @@ int main(int argc, char ** argv) {
         }
 
         if (loaderData.proxy && strcmp("", loaderData.proxy)) {
-            char *tmp = NULL;
             *argptr++ = "--proxy";
 
-            tmp = strdup(loaderData.proxy);
-            if (loaderData.proxyPort) {
-                tmp = realloc(tmp, strlen(tmp)+strlen(loaderData.proxyPort)+2);
-                tmp = strcat(tmp, ":");
-                tmp = strcat(tmp, loaderData.proxyPort);
-            }
+            *argptr++ = strdup(loaderData.proxy);
 
-            *argptr++ = tmp;
-
-            if (loaderData.proxyUser) {
+            if (strcmp(loaderData.proxyUser, "")) {
                 int fd, ret;
 
                 fd = open("/tmp/proxy", O_CREAT|O_TRUNC|O_RDWR, 0600);
