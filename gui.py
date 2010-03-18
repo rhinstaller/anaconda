@@ -1438,7 +1438,7 @@ class InstallControlWindow:
             if flags.livecdInstall:
                 i.hide()
             else:
-                self.window.fullscreen()
+                self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DESKTOP)
 
         if flags.debug:
             self.mainxml.get_widget("debugButton").show_now()
