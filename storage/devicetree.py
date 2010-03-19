@@ -37,6 +37,7 @@ import devicelibs.lvm
 import devicelibs.mpath
 from udev import *
 from .storage_log import log_method_call
+import iutil
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -1784,6 +1785,15 @@ class DeviceTree(object):
             self.handleUdevLVMPVFormat(info, device)
         elif device.format.type == "multipath_member":
             self.handleMultipathMemberFormat(info, device)
+
+    def updateDeviceFormat(self, device):
+        log.debug("updating format of device: %s" % device)
+        iutil.notify_kernel("/sys%s" % device.sysfsPath)
+        udev_settle()
+        info = udev_get_device(device.sysfsPath)
+        self.handleUdevDeviceFormat(info, device)
+        if device.format.type:
+            log.debug("got format: %s" % device.format)
 
     def _handleInconsistencies(self):
         def reinitializeVG(vg):
