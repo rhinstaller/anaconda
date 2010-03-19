@@ -86,21 +86,24 @@ def rootIsDevice(dev):
 
 class KernelArguments:
 
-    def getDracutStorageArgs(self):
+    def getDracutStorageArgs(self, devices):
         args = []
         types = {}
-        root = self.anaconda.storage.rootDevice
-        for d in self.anaconda.storage.devices:
-            if d is not root and not root.dependsOn(d):
-                continue
+        for device in devices:
+            for d in self.anaconda.storage.devices:
+                if d is not device and not device.dependsOn(d):
+                    continue
 
-            s = d.dracutSetupString()
-            types[s.split("=")[0]] = True
-            args.append(s)
+                s = d.dracutSetupString()
+                types[s.split("=")[0]] = True
+                if s not in args:
+                    args.append(s)
 
-            import storage
-            if isinstance(d, storage.devices.NetworkStorageDevice):
-                args.append(self.anaconda.network.dracutSetupString(d))
+                import storage
+                if isinstance(d, storage.devices.NetworkStorageDevice):
+                    s = self.anaconda.network.dracutSetupString(d)
+                    if s not in args:
+                        args.append(s)
 
         for i in [ [ "rd_LUKS_UUID", "rd_NO_LUKS" ],
                    [ "rd_LVM_LV", "rd_NO_LVM" ],
@@ -113,7 +116,18 @@ class KernelArguments:
 
     def get(self):
         args = ""
-        for s in self.getDracutStorageArgs() + [
+        bootArgs = []
+        rootDev = self.anaconda.storage.rootDevice
+        neededDevs = [ rootDev ]
+
+        if flags.cmdline.get("fips") == "1":
+            bootDev = self.anaconda.storage.mountpoints.get("/boot", rootDev)
+            bootArgs = [ "boot=%s" % bootDev.fstabSpec ]
+            if bootDev is not rootDev:
+                neededDevs = [ rootDev, bootDev ]
+
+        for s in bootArgs + \
+                 self.getDracutStorageArgs(neededDevs) + [
                  self.anaconda.instLanguage.dracutSetupString(),
                  self.anaconda.keyboard.dracutSetupString(),
                  self.args,
