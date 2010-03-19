@@ -257,6 +257,7 @@ def scanForMedia(tree, storage):
         if dev.type != "cdrom":
             continue
 
+        storage.devicetree.updateDeviceFormat(dev)
         try:
             dev.format.mount(mountpoint=tree)
         except:
