@@ -1018,6 +1018,7 @@ cp $DEST/usr/lib/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
 cp $DEST/usr/lib/anaconda/mknod-stub $DEST/usr/bin/mknod
 mv $DEST/usr/sbin/anaconda $DEST/usr/bin/anaconda
 mv $DEST/usr/lib/anaconda-runtime/lib* $DEST/usr/$LIBDIR 2>/dev/null
+mv $DEST/usr/lib/anaconda/sitecustomize.py $DEST/usr/$LIBDIR/python?.?/site-packages
 
 mv $DEST/etc/yum.repos.d $DEST/etc/anaconda.repos.d
 
