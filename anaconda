@@ -1035,6 +1035,7 @@ if __name__ == "__main__":
 
     log.info("anaconda called with cmdline = %s" %(sys.argv,))
     log.info("Display mode = %s" % anaconda.displayMode)
+    log.info("Default encoding = %s " % sys.getdefaultencoding())
 
     checkMemory(anaconda)
 
