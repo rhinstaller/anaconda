@@ -291,7 +291,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
 	    /* if somebody removed the drive, partition list is NULL */
 	    /* rhbz#521189 */
 	    if (!part_list){
-              stage = DEV_DEVICE;
+	       stage = DEV_INSERT;
 	      break;
 	    }
 
