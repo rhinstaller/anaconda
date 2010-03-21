@@ -255,7 +255,7 @@ int createPartitionNodes()
             char *subdirname;
 
             /* check if it is a partition */
-            if(strncmp(subdirp->d_name, dirp->d_name, strlen(dirp->d_name))){
+            if(strncmp(subdirp->d_name, dirp->d_name, dirp->d_reclen)){
                 /* not a partition, check next.. */
                 continue;
             }
