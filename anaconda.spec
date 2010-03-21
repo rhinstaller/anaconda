@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.207
+Version: 11.1.2.208
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Mar 21 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.208-1
+- Revert patch for #521189 (dcantrell)
+  Resolves: rhbz#575129
+
 * Sun Mar 21 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.207-1
 - Fix driver disk loading from partitionless media (dcantrell)
   Resolves: rhbz#575129
