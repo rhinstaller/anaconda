@@ -288,13 +288,6 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             char ** part_list = getPartitionsList(device);
             int nump = 0, num = 0;
 
-	    /* if somebody removed the drive, partition list is NULL */
-	    /* rhbz#521189 */
-	    if (!part_list){
-              stage = DEV_DEVICE;
-	      break;
-	    }
-
             if (part != NULL) free(part);
 
             if ((nump = lenPartitionsList(part_list)) == 0) {
