@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.206
+Version: 11.1.2.207
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Mar 21 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.207-1
+- Fix driver disk loading from partitionless media (dcantrell)
+  Resolves: rhbz#575129
+
 * Tue Mar 09 2010 Martin Sivak <msivak@redhat.com> 11.1.2.206-1
 - Use /sys/block instead of /proc/partitions for device nodes (msivak)
   Related: rhbz#485060
