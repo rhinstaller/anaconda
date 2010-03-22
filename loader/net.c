@@ -43,7 +43,6 @@
 #include "../isys/isys.h"
 #include "../isys/ethtool.h"
 #include "../isys/iface.h"
-#include "../isys/str.h"
 #include "../isys/log.h"
 
 #include "lang.h"
@@ -1670,12 +1669,10 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
     if (loaderData->netDev && (loaderData->netDev_set) == 1) {
         if ((loaderData->bootIf && (loaderData->bootIf_set) == 1) &&
             !strcasecmp(loaderData->netDev, "bootif")) {
-            ksMacAddr = strdup(loaderData->bootIf);
+            ksMacAddr = g_ascii_strup(loaderData->bootIf, -1);
         } else {
-            ksMacAddr = strdup(loaderData->netDev);
+            ksMacAddr = g_ascii_strup(loaderData->netDev, -1);
         }
-
-        ksMacAddr = str2upper(ksMacAddr);
     }
 
     for (i = 0; devs[i]; i++) {
@@ -2007,6 +2004,8 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
 void splitHostname (char *str, char **host, char **port)
 {
     char *rightbrack = strchr(str, ']');
+    char *firstcolon = strchr(str, ':');
+    char *secondcolon = strrchr(str, ':');
 
     *host = NULL;
     *port = NULL;
@@ -2023,7 +2022,7 @@ void splitHostname (char *str, char **host, char **port)
         }
         else
             *host = strndup(str+1, rightbrack-1-str);
-    } else if (strcount(str, ':') > 1) {
+    } else if (firstcolon && secondcolon && firstcolon != secondcolon) {
         /* An IPv6 address without brackets.  Don't make the user surround the
          * address with brackets if there's no port number.
          */

@@ -19,7 +19,7 @@
 
 ISYS_SRCS = devices.c imount.c cpio.c uncpio.c lang.c \
             isofs.c linkdetect.c vio.c ethtool.c eddsupport.c iface.c \
-            str.c auditd.c log.c
+            auditd.c log.c
 
 dist_noinst_HEADERS = *.h
 

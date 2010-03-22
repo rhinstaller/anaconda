@@ -98,7 +98,6 @@
 #include "../isys/stubs.h"
 #include "../isys/lang.h"
 #include "../isys/eddsupport.h"
-#include "../isys/str.h"
 #include "../isys/log.h"
 
 /* maximum number of extra arguments that can be passed to the second stage */
@@ -848,9 +847,9 @@ static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
      */
     loaderData->ipv6 = NULL;
 
-    if (!strncmp(str2lower(argv), "ipv6=dhcp", 9)) {
+    if (!strncasecmp(argv, "ipv6=dhcp", 9)) {
         loaderData->ipv6 = strdup("dhcp");
-    } else if (!strncmp(str2lower(argv), "ipv6=auto", 9)) {
+    } else if (!strncasecmp(argv, "ipv6=auto", 9)) {
         loaderData->ipv6 = strdup("auto");
     }
 

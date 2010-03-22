@@ -52,7 +52,6 @@
 
 #include "isys.h"
 #include "iface.h"
-#include "str.h"
 
 /* Internal-only function prototypes. */
 static struct nl_handle *_iface_get_handle(void);
@@ -303,7 +302,9 @@ char *iface_mac2str(char *ifname) {
     }
 
     if ((buf = nl_addr2str(addr, buf, buflen)) != NULL) {
-        buf = str2upper(buf);
+        char *oldbuf = buf;
+        buf = g_ascii_strup(buf, -1);
+        free(oldbuf);
     }
 
 mac2str_error4:
