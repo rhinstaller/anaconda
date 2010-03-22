@@ -6,11 +6,13 @@ anaconda
 backend.py
 bootloader.py
 cmdline.py
+compssort.py
 constants.py
-exception.py
+firewall.py
 gui.py
 image.py
 installclass.py
+installinterfacebase.py
 iutil.py
 kickstart.py
 livecd.py
@@ -29,25 +31,31 @@ installclasses/fedora.py
 installclasses/rhel.py
 
 # Graphical user interface source files
+iw/DeviceSelector.py
 iw/GroupSelector.py
 iw/account_gui.py
+iw/advanced_storage.py
 iw/autopart_type.py
 iw/blpasswidget.py
 iw/bootloader_main_gui.py
+iw/checklist.py
 iw/cleardisks_gui.py
 iw/congrats_gui.py
+iw/datacombo.py
 iw/examine_gui.py
 iw/filter_gui.py
 iw/filter_type.py
+iw/iw_gui.py
 iw/language_gui.py
 iw/lvm_dialog_gui.py
 iw/netconfig_dialog.py
 iw/network_gui.py
 iw/osbootwidget.py
+iw/package_gui.py
 iw/partition_dialog_gui.py
 iw/partition_gui.py
 iw/partition_ui_helpers_gui.py
-iw/progress_gui.py
+iw/pixmapRadioButtonGroup_gui.py
 iw/raid_dialog_gui.py
 iw/task_gui.py
 iw/timezone_gui.py
@@ -80,10 +88,25 @@ loader/windows.c
 
 # Storage module source files
 storage/__init__.py
+storage/dasd.py
+storage/deviceaction.py
+storage/devicelibs/crypto.py
+storage/devicelibs/dm.py
 storage/devicelibs/lvm.py
+storage/devicelibs/mdraid.py
+storage/devicelibs/swap.py
 storage/devices.py
 storage/devicetree.py
+storage/fcoe.py
+storage/formats/__init__.py
+storage/formats/disklabel.py
+storage/formats/dmraid.py
 storage/formats/fs.py
+storage/formats/luks.py
+storage/formats/lvmpv.py
+storage/formats/mdraid.py
+storage/formats/multipath.py
+storage/formats/swap.py
 storage/iscsi.py
 storage/partitioning.py
 storage/zfcp.py
@@ -92,6 +115,7 @@ storage/zfcp.py
 textw/complete_text.py
 textw/constants_text.py
 textw/keyboard_text.py
+textw/language_text.py
 textw/netconfig_text.py
 textw/partition_text.py
 textw/progress_text.py
