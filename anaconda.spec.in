@@ -218,6 +218,51 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 22 2010 David Lehman <dlehman@redhat.com> - 14.1-1
+- Don't pass size=1 for autopart PVs. Use PartitionDevice's default size.
+  (dlehman)
+- Update po/POTFILES.in to list all files with strings. (dcantrell)
+- platform.py: _diskLabelType is a string itself (hdegoede)
+- Make python start with correct default unicode encoding (#539904).
+  (akozumpl)
+- Add boot= argument to kernel cmdline when in fips mode (#573178) (hdegoede)
+- Catch NotImplementedError when scanning for disklabels (#566722) (hdegoede)
+- BIOS RAID sets get shown double when adding advanced storage (#574714)
+  (hdegoede)
+- Filter UI do not start / stop BIOS RAID sets to get there size (#574587)
+  (hdegoede)
+- Make filter UI honor nodmraid cmdline option (#574684) (hdegoede)
+- Properly align the first partition we create (#574220) (hdegoede)
+- Move disabling of cylinder alignment to disklabel format (hdegoede)
+- put the analog script into the RPM (akozumpl)
+- Fix focus, repaint, and stack issues for nm-c-e (#520146) (rvykydal)
+- Connect nm-connection-editor to network config button (#520146). (rvykydal)
+- Add "Configure Network" button to network UI screen (#520146). (rvykydal)
+- Add nm-connection-editor to stage2 (#520146). (rvykydal)
+- l10n: Updates to Spanish (Castilian) (es) translation (gguerrer)
+- Don't try to set selinux context for read-only mountpoints. (dlehman)
+- Derive stage2= from repo=nfsiso: correctly (#565885) (rvykydal)
+- Include USB ATA bridge modules in initrd (#531532) (rvykydal)
+- Remove hacks that don't apply in present repo setup flow. (rvykydal)
+- Reset comps/groups info after editing repo in UI (#555585) (rvykydal)
+- Set cache base directory for repos added/edited in UI. (rvykydal)
+- Use None, not '', for empty repo proxy attributes (#572460) (rvykydal)
+- livecd: show graphical error dialog when memory check fails (#572263)
+  (akozumpl)
+- l10n: Updates to Sinhala (si) translation (snavin)
+- use isSparc not isSPARC (dennis)
+- set the bootloader to silo for sparc installs (dennis)
+- sparc64 is a lib64 arch (dennis)
+- Make sure that SPARC bootdisk Makefile is made (dennis)
+- make sure we include sparc boot configs (dennis)
+- add function to get the sparc system type (dennis)
+- Sparc bootloader config not written to /etc (dennis)
+- Fix generation of boot.iso on SPARC (dennis)
+- l10n: Updates to Polish (pl) translation (raven)
+- Keep the selected device count right when going back to filtering
+  (#572882). (clumens)
+- Fully qualify _ped.IOException. (dlehman)
+
 * Mon Mar 15 2010 David Lehman <dlehman@redhat.com> - 14.0-1
 - Do not crash on .autorelabel when using read only rescue mount (#568367)
   (msivak)
