@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.208
+Version: 11.1.2.209
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 22 2010 Martin Sivak <msivak@redhat.com> 11.1.2.209-1
+- Add a missing patch to make dlabel work again
+  Related: rhbz#485060
+
 * Sun Mar 21 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.208-1
 - Revert patch for #521189 (dcantrell)
   Resolves: rhbz#575129
