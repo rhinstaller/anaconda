@@ -39,7 +39,9 @@
 
 #define IMOUNT_MODE_MOUNT  1
 #define IMOUNT_MODE_UMOUNT 2
+#define IMOUNT_MODE_BIND   3
 
+int doBindMount(char* path, char *where, char **err);
 int doPwMount(char *dev, char *where, char *fs, char *options, char **err);
 int doPwUmount(char *where, char **err);
 int mkdirChain(char * origChain);

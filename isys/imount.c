@@ -84,18 +84,21 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
     int stdout_pipe[2], stderr_pipe[2];
     char *opts = NULL, *device = NULL, *cmd = NULL;
 
-    if (mode == IMOUNT_MODE_MOUNT) {
+    switch (mode) {
+    case IMOUNT_MODE_MOUNT:
+    case IMOUNT_MODE_BIND:
         cmd = "/bin/mount";
-    } else if (mode == IMOUNT_MODE_UMOUNT) {
+        if (mkdirChain(where))
+            return IMOUNT_ERR_ERRNO;
+        break;
+    case IMOUNT_MODE_UMOUNT:
         cmd = "/bin/umount";
-    } else {
+        break;
+    default:
         return IMOUNT_ERR_MODE;
     }
 
     if (mode == IMOUNT_MODE_MOUNT) {
-        if (mkdirChain(where))
-            return IMOUNT_ERR_ERRNO;
-
         if (strstr(fs, "nfs")) {
             if (options) {
                 if (asprintf(&opts, "%s,nolock", options) == -1) {
@@ -167,6 +170,11 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
                 rc = execl(cmd, cmd, "-n", "-t", fs, device, where, NULL);
                 exit(1);
             }
+        } else if (mode == IMOUNT_MODE_BIND) {
+            logProgramMessage(INFO, "Running... %s --bind %s %s",
+                              cmd, dev, where);
+            rc = execl(cmd, cmd, "--bind", dev, where, NULL);
+            exit(1);
         } else if (mode == IMOUNT_MODE_UMOUNT) {
             logProgramMessage(INFO, "Running... %s %s", cmd, where);
             rc = execl(cmd, cmd, where, NULL);
@@ -239,6 +247,11 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
     }
 
     return 0;
+}
+
+int doBindMount(char* path, char *where, char **err) {
+    return mountCommandWrapper(IMOUNT_MODE_BIND,
+                               path, where, NULL, NULL, err);
 }
 
 int doPwMount(char *dev, char *where, char *fs, char *options, char **err) {
