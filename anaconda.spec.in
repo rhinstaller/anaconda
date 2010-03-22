@@ -217,6 +217,19 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 22 2010 David Lehman <dlehman@redhat.com> - 13.36-1
+- Don't pass size=1 for autopart PVs. Use PartitionDevice's default size.
+  (dlehman)
+- Make python start with correct default unicode encoding (#539904).
+  (akozumpl)
+- Fixes bug #569373 - Change udev_trigger block calls to use change action
+  (bcl)
+- Fix: execWithRedirect() unexpectedkeyword argument 'searchPath' (#572853)
+  (hdegoede)
+- Do not crash on .autorelabel when using read only rescue mount (#568367)
+  (msivak)
+- Do not crash when getDevices returns NULL (#567939) (msivak)
+
 * Mon Mar 15 2010 David Lehman <dlehman@redhat.com> - 13.35-1
 - Fully qualify _ped.IOException. (dlehman)
 

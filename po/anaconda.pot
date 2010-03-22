@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.34\n"
+"Project-Id-Version: anaconda 13.35\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-03-15 14:56-0500\n"
+"POT-Creation-Date: 2010-03-22 16:29-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,14 +21,14 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:354 rescue.py:332 rescue.py:358 rescue.py:371 rescue.py:449
-#: rescue.py:461 text.py:656 loader/cdinstall.c:228 loader/cdinstall.c:232
+#: anaconda:354 rescue.py:332 rescue.py:358 rescue.py:371 rescue.py:454
+#: rescue.py:466 text.py:656 loader/cdinstall.c:228 loader/cdinstall.c:232
 #: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:427
 #: loader/cdinstall.c:431 loader/cdinstall.c:504 loader/dirbrowser.c:128
-#: loader/driverdisk.c:266 loader/driverdisk.c:419 loader/driverdisk.c:457
-#: loader/driverdisk.c:488 loader/driverdisk.c:523 loader/driverdisk.c:539
-#: loader/driverdisk.c:551 loader/driverdisk.c:559 loader/driverdisk.c:719
-#: loader/driverdisk.c:758 loader/driverselect.c:78 loader/driverselect.c:178
+#: loader/driverdisk.c:266 loader/driverdisk.c:422 loader/driverdisk.c:460
+#: loader/driverdisk.c:491 loader/driverdisk.c:526 loader/driverdisk.c:542
+#: loader/driverdisk.c:554 loader/driverdisk.c:562 loader/driverdisk.c:722
+#: loader/driverdisk.c:761 loader/driverselect.c:78 loader/driverselect.c:178
 #: loader/hdinstall.c:115 loader/hdinstall.c:257 loader/hdinstall.c:315
 #: loader/hdinstall.c:349 loader/hdinstall.c:421 loader/hdinstall.c:464
 #: loader/hdinstall.c:477 loader/kbd.c:119 loader/kickstart.c:132
@@ -71,11 +71,11 @@ msgid ""
 "you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:1035
+#: anaconda:1036
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:1043
+#: anaconda:1044
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -118,9 +118,9 @@ msgstr ""
 #: iw/raid_dialog_gui.py:215 iw/raid_dialog_gui.py:766
 #: iw/raid_dialog_gui.py:805 iw/task_gui.py:65 iw/task_gui.py:166
 #: iw/task_gui.py:312 iw/task_gui.py:450 loader/cdinstall.c:228
-#: loader/cdinstall.c:504 loader/driverdisk.c:266 loader/driverdisk.c:488
-#: loader/driverdisk.c:523 loader/driverdisk.c:551 loader/driverdisk.c:559
-#: loader/driverdisk.c:623 loader/hdinstall.c:115 loader/hdinstall.c:315
+#: loader/cdinstall.c:504 loader/driverdisk.c:266 loader/driverdisk.c:491
+#: loader/driverdisk.c:526 loader/driverdisk.c:554 loader/driverdisk.c:562
+#: loader/driverdisk.c:626 loader/hdinstall.c:115 loader/hdinstall.c:315
 #: loader/hdinstall.c:421 loader/hdinstall.c:464 loader/hdinstall.c:477
 #: loader/kickstart.c:296 loader/lang.c:114 loader/loader.c:413
 #: loader/loader.c:524 loader/loader.c:1176 loader/mediacheck.c:46
@@ -298,7 +298,7 @@ msgstr ""
 
 #: gui.py:785 gui.py:1465 partIntfHelpers.py:157 partIntfHelpers.py:342
 #: text.py:100 text.py:101 iw/account_gui.py:130 loader/dirbrowser.c:128
-#: loader/driverdisk.c:420 loader/kickstart.c:328 loader/loader.c:449
+#: loader/driverdisk.c:423 loader/kickstart.c:328 loader/loader.c:449
 #: loader/loader.c:561 textw/constants_text.py:48
 msgid "Cancel"
 msgstr ""
@@ -380,7 +380,7 @@ msgstr ""
 msgid "_Retry"
 msgstr ""
 
-#: gui.py:1378 storage/partitioning.py:277
+#: gui.py:1378 storage/partitioning.py:276
 msgid "The system will now reboot."
 msgstr ""
 
@@ -1076,12 +1076,12 @@ msgstr ""
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: rescue.py:242 loader/driverdisk.c:663 loader/driverdisk.c:673
+#: rescue.py:242 loader/driverdisk.c:666 loader/driverdisk.c:676
 #: loader/hdinstall.c:203 textw/constants_text.py:56
 msgid "Yes"
 msgstr ""
 
-#: rescue.py:242 rescue.py:244 loader/driverdisk.c:663 loader/driverdisk.c:673
+#: rescue.py:242 rescue.py:244 loader/driverdisk.c:666 loader/driverdisk.c:676
 #: textw/constants_text.py:60
 msgid "No"
 msgstr ""
@@ -1092,7 +1092,7 @@ msgid ""
 "rescue mode."
 msgstr ""
 
-#: rescue.py:284 rescue.py:353 rescue.py:364 rescue.py:444
+#: rescue.py:284 rescue.py:353 rescue.py:364 rescue.py:449
 msgid "Rescue"
 msgstr ""
 
@@ -1111,7 +1111,7 @@ msgid ""
 msgstr ""
 
 #: rescue.py:295 iw/partition_gui.py:781 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:624 storage/__init__.py:152
+#: loader/cdinstall.c:214 loader/driverdisk.c:627 storage/__init__.py:152
 #: storage/devicetree.py:89
 msgid "Continue"
 msgstr ""
@@ -1157,7 +1157,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:445
+#: rescue.py:450
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1167,21 +1167,21 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: rescue.py:454
+#: rescue.py:459
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr ""
 
-#: rescue.py:457
+#: rescue.py:462
 msgid "Rescue Mode"
 msgstr ""
 
-#: rescue.py:458
+#: rescue.py:463
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:471
+#: rescue.py:476
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr ""
@@ -2882,8 +2882,8 @@ msgstr ""
 msgid "The drive clone editor could not be created for some reason."
 msgstr ""
 
-#: iw/partition_gui.py:1584 storage/partitioning.py:197
-#: storage/partitioning.py:240
+#: iw/partition_gui.py:1584 storage/partitioning.py:196
+#: storage/partitioning.py:239
 msgid "Error Partitioning"
 msgstr ""
 
@@ -3451,8 +3451,8 @@ msgstr ""
 msgid "Disc Not Found"
 msgstr ""
 
-#: loader/cdinstall.c:431 loader/driverdisk.c:420 loader/driverdisk.c:458
-#: loader/driverdisk.c:539 loader/driverselect.c:78 loader/driverselect.c:152
+#: loader/cdinstall.c:431 loader/driverdisk.c:423 loader/driverdisk.c:461
+#: loader/driverdisk.c:542 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:203 loader/hdinstall.c:257
 #: loader/kbd.c:119 loader/loader.c:490 loader/loader.c:507
 #: loader/loader.c:1357 loader/loader.c:1390 loader/net.c:579 loader/net.c:950
@@ -3479,88 +3479,88 @@ msgstr ""
 msgid "Reading driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:414 loader/driverdisk.c:453
+#: loader/driverdisk.c:417 loader/driverdisk.c:456
 msgid "Driver Disk Source"
 msgstr ""
 
-#: loader/driverdisk.c:415
+#: loader/driverdisk.c:418
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:454
+#: loader/driverdisk.c:457
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:489
+#: loader/driverdisk.c:492
 msgid "Failed to mount partition."
 msgstr ""
 
-#: loader/driverdisk.c:494
+#: loader/driverdisk.c:497
 msgid "Select driver disk image"
 msgstr ""
 
-#: loader/driverdisk.c:495
+#: loader/driverdisk.c:498
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
-#: loader/driverdisk.c:524
+#: loader/driverdisk.c:527
 msgid "Failed to load driver disk from file."
 msgstr ""
 
-#: loader/driverdisk.c:536
+#: loader/driverdisk.c:539
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 
-#: loader/driverdisk.c:539
+#: loader/driverdisk.c:542
 msgid "Insert Driver Disk"
 msgstr ""
 
-#: loader/driverdisk.c:552
+#: loader/driverdisk.c:555
 msgid "Failed to mount driver disk."
 msgstr ""
 
-#: loader/driverdisk.c:560
+#: loader/driverdisk.c:563
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr ""
 
-#: loader/driverdisk.c:623
+#: loader/driverdisk.c:626
 msgid "Manually choose"
 msgstr ""
 
-#: loader/driverdisk.c:624
+#: loader/driverdisk.c:627
 msgid "Load another disk"
 msgstr ""
 
-#: loader/driverdisk.c:625
+#: loader/driverdisk.c:628
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:663
+#: loader/driverdisk.c:666
 msgid "Driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:664
+#: loader/driverdisk.c:667
 msgid "Do you have a driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:673
+#: loader/driverdisk.c:676
 msgid "More Driver Disks?"
 msgstr ""
 
-#: loader/driverdisk.c:674
+#: loader/driverdisk.c:677
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: loader/driverdisk.c:719 loader/driverdisk.c:758 loader/hdinstall.c:349
+#: loader/driverdisk.c:722 loader/driverdisk.c:761 loader/hdinstall.c:349
 #: loader/kickstart.c:132 loader/kickstart.c:142 loader/kickstart.c:184
 #: loader/kickstart.c:189 loader/kickstart.c:510 loader/modules.c:381
 #: loader/modules.c:397 loader/net.c:1558 loader/net.c:1579
@@ -3569,12 +3569,12 @@ msgstr ""
 msgid "Kickstart Error"
 msgstr ""
 
-#: loader/driverdisk.c:720
+#: loader/driverdisk.c:723
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr ""
 
-#: loader/driverdisk.c:759
+#: loader/driverdisk.c:762
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -4540,23 +4540,23 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1257 storage/devices.py:1924 storage/devices.py:2327
-#: storage/devices.py:2798 storage/devices.py:3280
+#: storage/devices.py:1258 storage/devices.py:1925 storage/devices.py:2328
+#: storage/devices.py:2799 storage/devices.py:3281
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1258 storage/devices.py:1925 storage/devices.py:2328
-#: storage/devices.py:2799
+#: storage/devices.py:1259 storage/devices.py:1926 storage/devices.py:2329
+#: storage/devices.py:2800
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2421
+#: storage/devices.py:2422
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3281
+#: storage/devices.py:3282
 #, python-format
 msgid "Creating file %s"
 msgstr ""
@@ -4628,7 +4628,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:535 storage/partitioning.py:276
+#: storage/formats/fs.py:535 storage/partitioning.py:275
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4694,23 +4694,23 @@ msgstr ""
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
-#: storage/partitioning.py:191
+#: storage/partitioning.py:190
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:194
+#: storage/partitioning.py:193
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:223
+#: storage/partitioning.py:222
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: storage/partitioning.py:225
+#: storage/partitioning.py:224
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4718,14 +4718,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/partitioning.py:239 storage/partitioning.py:260
+#: storage/partitioning.py:238 storage/partitioning.py:259
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:241
+#: storage/partitioning.py:240
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4733,18 +4733,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: storage/partitioning.py:262
+#: storage/partitioning.py:261
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: storage/partitioning.py:264
+#: storage/partitioning.py:263
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: storage/partitioning.py:265
+#: storage/partitioning.py:264
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
