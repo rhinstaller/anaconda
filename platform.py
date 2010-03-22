@@ -284,7 +284,7 @@ class Alpha(Platform):
         disk = req.disk.format.partedDisk
 
         # Check that we're a BSD disk label
-        if not disk.type == self._diskLabelType.name:
+        if not disk.type == self._diskLabelType:
             errors.append(_("%s must have a bsd disk label.") % req.disk.name)
 
         # The first free space should start at the beginning of the drive and
@@ -427,7 +427,7 @@ class NewWorldPPC(PPC):
         disk = req.disk.format.partedDisk
 
         # Check that we're a Mac disk label
-        if not disk.type == self._diskLabelType.name:
+        if not disk.type == self._diskLabelType:
             errors.append(_("%s must have a mac disk label.") % req.disk.name)
 
         # All of the above just checks the appleboot partitions.  We still
