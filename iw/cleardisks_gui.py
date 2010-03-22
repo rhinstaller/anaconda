@@ -143,7 +143,7 @@ class ClearDisksWindow (InstallWindow):
         # Store the first disk (according to our detected BIOS order) for
         # auto boot device selection
         names = map(lambda d: d.name, disks)
-        self.bootDisk = sorted(names, isys.compareDrives)[0]
+        self.bootDisk = sorted(names, self.anaconda.id.storage.compareDisks)[0]
 
         # The device filtering UI set up exclusiveDisks as a list of the names
         # of all the disks we should use later on.  Now we need to go get those,
