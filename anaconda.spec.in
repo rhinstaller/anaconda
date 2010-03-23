@@ -217,6 +217,95 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 23 2010 David Cantrell <dcantrell@redhat.com> - 13.21.21-1
+- Update filter for translation log entries. (dlehman)
+- Reset comps/groups info after editing repo in UI (#574761) (rvykydal)
+- Set cache base directory for repos added/edited in UI (#574757). (rvykydal)
+- Reset conditionals of transaction info too. (#574777) (rvykydal)
+- Update po/POTFILES.in and anaconda.pot file. (dcantrell)
+- Fix: "Hookup new python EDD code" mismerge (hdegoede)
+- Make python start with correct default unicode encoding (#576237).
+  (akozumpl)
+- Add boot= argument to kernel cmdline when in fips mode (#573178) (hdegoede)
+- Catch NotImplementedError when scanning for disklabels (#566722) (hdegoede)
+- BIOS RAID sets get shown double when adding advanced storage (#574715)
+  (hdegoede)
+- Filter UI do not start / stop BIOS RAID sets to get there size (#574682)
+  (hdegoede)
+- Make filter UI honor nodmraid cmdline option (#574683) (hdegoede)
+- Revert "Fix cio_ignore handling for zFCP devices (#533492)." (dcantrell)
+- Fix cio_ignore handling for zFCP devices (#533492). (dcantrell)
+- Fix focus, repaint, and stack issues for nm-c-e (#520146) (rvykydal)
+- Connect nm-connection-editor to network config button (#520146). (rvykydal)
+- Add "Configure Network" button to network UI screen (#520146). (rvykydal)
+- Add nm-connection-editor to stage2 (#520146). (rvykydal)
+- Keep default metacity schema generated for gconf. (#520146) (rvykydal)
+- platform.checkBootRequest(): Fix use of map instead of filter (#574940)
+  (hdegoede)
+- If no devices were found do not SIGSEGV (#576240) (msivak)
+- Use new API in libblkid to look for driverdiscs on removable devices
+  (#508242) (msivak)
+- metacity, fix a displaying problem with WaitWindow and ProgressWindow
+  (#520146) (akozumpl)
+- Nuke addFrame()'s showtitle parameter (#520146). (akozumpl)
+- Remove gui code we no longer need when mini-wm is gone (#520146) (akozumpl)
+- Remove mini-wm.c. (#520146) (akozumpl)
+- Introduces metacity window manager (#520146) (akozumpl)
+- Update Assamese translation (#552197). (clumens)
+- Prompt user for install method when going back to STEP_METHOD (#574510)
+  (dcantrell)
+- Add hmac checksums to the initrd image (#568295) (mgracik)
+- parted.PartedDisk can throw IOExceptions too (#574481) (hdegoede)
+- cleardisk_gui: Fix going back to the cleardisks gui (#574454) (hdegoede)
+- Add "crashkernel=auto" to grub.conf for RHEL installs (#561729) (hdegoede)
+- FcoeDiskDevice.dracutSetupString: handle DCB on / off option (hdegoede)
+- dcbd is being replaced with lldpad (#563790) (hdegoede)
+- RescueInterface should inherit from InstallInterfaceBase too (hdegoede)
+- Warn when ignoring BIOS RAID members (#560932) (hdegoede)
+- Don't traceback when a user tries to put /boot on an LV (#567515)
+  (hdegoede)
+- Fix backtrace when trying to use LV for /boot (#567515) (hdegoede)
+- Fix backtrace when adding mdraid arrays (#560360) (hdegoede)
+- Remove no longer used isys EDD code (hdegoede)
+- Hookup new python EDD code (#478996) (hdegoede)
+- Add pure python EDD code parsing and compareDrives substitute (#478996)
+  (hdegoede)
+- Wait for all DASDs to be online after autodetection (#558881). (dcantrell)
+- Use lsznet.raw from s390utils package (#563548). (dcantrell)
+- Use /sys/devices/{lcs,ctcm} instead of /sys/devices/cu3088 (#561816).
+  (dcantrell)
+- Derive stage2= from repo=nfsiso: correctly (#565885) (rvykydal)
+- Include USB ATA bridge modules in initrd (#531532) (rvykydal)
+- Select/Deselect All should only apply to the current tab (#516143).
+  (clumens)
+- Add device node names to the filter UI, hidden by default (#566375).
+  (clumens)
+- Display ID_PATH for zFCP devices instead of looking for a WWID. (clumens)
+- Fix a couple filtering UI problems caused by switching models around
+  (#574469). (clumens)
+- Fix visibility counting on filter notebook pages. (clumens)
+- Fix thinko in displaying the first filter notebook page that disks.
+  (pjones)
+- gtk.TreeStores are iterable, so use indices instead of iterators. (clumens)
+- Build sorted models on top of filtered models to make column sorting work.
+  (clumens)
+- Change what columns are shown by default on the basic filtering tab
+  (#560666). (clumens)
+- Add ID_SERIAL in as a backup in case there's no ID_SERIAL_SHORT (#574467).
+  (clumens)
+- Put ZFCP devices on the "Other" tab of the filtering UI. (clumens)
+- Display ID_PATH instead of WWID for DASDs as well. (clumens)
+- Rename the WWID column to Identifier. (clumens)
+- cosmetic: tell them we expect NFSv3 path in loader (#560101). (akozumpl)
+- Allow --ignoremissing to work for )
+- Add a Requires: for tigervnc-server (#561498). (clumens)
+- doReIPL should return when going back through steps, too (#563862).
+  (clumens)
+- By default, libcurl does not appear to follow redirects (#572528).
+  (clumens)
+- Before running shouldClear, make sure a real disk was specified (#572523).
+  (clumens)
+
 * Thu Mar 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20-1
 - Tell ld.so and friends not to use hardware optimized libs (#572178)
   (pjones)
