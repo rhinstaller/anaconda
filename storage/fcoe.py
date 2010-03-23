@@ -19,6 +19,7 @@
 
 import os
 import iutil
+import isys
 import logging
 import time
 from flags import flags
@@ -75,6 +76,21 @@ class fcoe(object):
         if intf:
             w.pop()
 
+    def _startEDD(self, intf = None):
+        rc = iutil.execWithCapture("/usr/libexec/fcoe/sysfs_edd.sh", [ "-i" ],
+                                   stderr="/dev/tty5")
+        if not rc.startswith("NIC="):
+            log.info("No FCoE EDD info found: %s" % rc)
+            return
+
+        (key, val) = rc.split("=", 1)
+        if val not in isys.getDeviceProperties():
+            log.error("Unknown FCoE NIC found in EDD: %s, ignoring" % val)
+            return
+
+        log.info("FCoE NIC found in EDD: %s" % val)
+        self.addSan(val, dcb=True, intf=intf)
+
     def startup(self, intf = None):
         if self.started:
             return
@@ -82,9 +98,7 @@ class fcoe(object):
         if not has_fcoe():
             return
 
-        # Place holder for adding autodetection of FCoE setups based on
-        # firmware tables (like iBFT for iSCSI)
-
+        self._startEDD(intf)
         self.started = True
 
     def _startLldpad(self):
