@@ -519,7 +519,7 @@ class FS(DeviceFormat):
 
         if self._fsckFailed(rc):
             hdr = _("%(type)s filesystem check failure on %(device)s: ") % \
-                   (self.type, self.device,)
+                    {"type": self.type, "device": self.device}
 
             msg = self._fsckErrorMessage(rc)
 
