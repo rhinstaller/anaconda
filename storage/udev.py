@@ -49,7 +49,7 @@ def udev_resolve_devspec(devspec):
             break
         else:
             for link in dev["symlinks"]:
-                if devspec == "/dev/" + link:
+                if devspec == link:
                     ret = dev
                     break
 
@@ -71,7 +71,7 @@ def udev_resolve_glob(glob):
             ret.append(name)
         else:
             for link in dev["symlinks"]:
-                if fnmatch.fnmatch("/dev/" + link, glob):
+                if fnmatch.fnmatch(link, glob):
                     ret.append(name)
 
     return ret

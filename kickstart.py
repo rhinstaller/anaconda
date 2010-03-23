@@ -32,6 +32,7 @@ from errors import *
 import iutil
 import isys
 import os
+import os.path
 import tempfile
 from flags import flags
 from constants import *
@@ -60,8 +61,6 @@ from anaconda_log import logger, logLevelMap, setHandlersLevel
 
 class AnacondaKSScript(Script):
     def run(self, chroot, serial, intf = None):
-        import os.path
-
         if self.inChroot:
             scriptRoot = chroot
         else:
@@ -165,6 +164,9 @@ def getEscrowCertificate(anaconda, url):
     return anaconda.id.escrowCertificates[url]
 
 def deviceMatches(spec):
+    if not spec.startswith("/dev/"):
+        spec = os.path.normpath("/dev/" + spec)
+
     matches = udev_resolve_glob(spec)
     dev = udev_resolve_devspec(spec)
 
