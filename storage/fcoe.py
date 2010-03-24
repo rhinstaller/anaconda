@@ -84,6 +84,7 @@ class fcoe(object):
         (key, val) = rc.split("=", 1)
         if val not in isys.getDeviceProperties():
             log.error("Unknown FCoE NIC found in EDD: %s, ignoring" % val)
+            return
 
         log.info("FCoE NIC found in EDD: %s" % val)
         self.addSan(val, dcb=True, intf=intf)
