@@ -1752,9 +1752,11 @@ class PartitionWindow(InstallWindow):
                     vg, isNew = False)
             tempvg = vgeditor.getTempVG()
             name = self.storage.createSuggestedLVName(tempvg)
+            format = getFormat(self.storage.defaultFSType)
             vgeditor.lvs[name] = {'name': name,
                               'size': vg.freeSpace,
-                              'format': getFormat(self.storage.defaultFSType),
+                              'format': format,
+                              'originalFormat': format,
                               'stripes': 1,
                               'logSize': 0,
                               'snapshotSpace': 0,
