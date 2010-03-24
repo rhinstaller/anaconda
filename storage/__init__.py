@@ -823,7 +823,7 @@ class Storage(object):
 
     def extendedPartitionsSupported(self):
         """ Return whether any disks support extended partitions."""
-        for disk in self.disks:
+        for disk in self.partitioned:
             if disk.format.partedDisk.supportsFeature(parted.DISK_TYPE_EXTENDED):
                 return True
         return False
