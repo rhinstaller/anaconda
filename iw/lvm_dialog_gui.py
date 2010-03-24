@@ -1136,7 +1136,6 @@ class VolumeGroupEditor:
                         # pretty much impossible to be sure we cancelled them
                         # in the correct order. make sure things are back to
                         # their original state.
-                        origlv.format = request.originalFormat
                         if origlv.format.type == "luks":
                             try:
                                 usedev = devicetree.getChildren(origlv)[0]
