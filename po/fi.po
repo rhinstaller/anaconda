@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-03-04 10:31-0500\n"
-"PO-Revision-Date: 2010-03-09 22:53+0200\n"
+"POT-Creation-Date: 2010-03-15 10:59-0500\n"
+"PO-Revision-Date: 2010-03-23 11:52+0200\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -74,7 +74,7 @@ msgstr "Paina <enter> päästäksesi komentoriville"
 #: loader/nfsinstall.c:296 loader/nfsinstall.c:366 loader/telnetd.c:92
 #: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
 #: loader/urlinstall.c:372 loader/urlinstall.c:383 loader/urlinstall.c:390
-#: loader/urls.c:249 loader/urls.c:326 loader/urls.c:332
+#: loader/urls.c:251 loader/urls.c:328 loader/urls.c:334
 #: textw/constants_text.py:44
 msgid "OK"
 msgstr "OK"
@@ -89,16 +89,16 @@ msgstr ""
 "Käynnistetään asennus tekstitilassa."
 
 # ../upgrade.py:43
-#: anaconda:522
+#: anaconda:589
 msgid "Starting graphical installation."
 msgstr "Käynnistetään graafinen asennus."
 
 # ../loader/loader.c:322
-#: anaconda:1015
+#: anaconda:1009
 msgid "Would you like to use VNC?"
 msgstr "Haluatko käyttää VNC:tä?"
 
-#: anaconda:1016
+#: anaconda:1010
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -109,11 +109,11 @@ msgstr ""
 "sijasta VNC-tilaa?"
 
 # ../anaconda:410
-#: anaconda:1041
+#: anaconda:1035
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Graafinen asennus ei ole käytettävissä. Käynnistetään tekstiasennus."
 
-#: anaconda:1049
+#: anaconda:1043
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY-muuttujaa ei ole asetettu. Käynnistetään tekstitila."
 
@@ -174,13 +174,13 @@ msgstr ""
 # ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:292
 # ../upgrade.py:304
 #: backend.py:182 image.py:288 livecd.py:198 livecd.py:403
-#: partIntfHelpers.py:237 text.py:354 text.py:358 yuminstall.py:410
-#: yuminstall.py:792 yuminstall.py:910 yuminstall.py:915 yuminstall.py:1189
-#: yuminstall.py:1248 yuminstall.py:1437 yuminstall.py:1459
+#: partIntfHelpers.py:237 text.py:354 text.py:358 yuminstall.py:416
+#: yuminstall.py:798 yuminstall.py:916 yuminstall.py:921 yuminstall.py:1195
+#: yuminstall.py:1254 yuminstall.py:1443 yuminstall.py:1465
 #: iw/autopart_type.py:96 iw/cleardisks_gui.py:43 iw/cleardisks_gui.py:53
-#: iw/filter_gui.py:405 iw/osbootwidget.py:211 iw/osbootwidget.py:220
-#: iw/raid_dialog_gui.py:212 iw/raid_dialog_gui.py:729
-#: iw/raid_dialog_gui.py:768 iw/task_gui.py:65 iw/task_gui.py:166
+#: iw/filter_gui.py:406 iw/osbootwidget.py:211 iw/osbootwidget.py:220
+#: iw/raid_dialog_gui.py:215 iw/raid_dialog_gui.py:766
+#: iw/raid_dialog_gui.py:805 iw/task_gui.py:65 iw/task_gui.py:166
 #: iw/task_gui.py:312 iw/task_gui.py:450 loader/cdinstall.c:228
 #: loader/cdinstall.c:504 loader/driverdisk.c:266 loader/driverdisk.c:488
 #: loader/driverdisk.c:523 loader/driverdisk.c:551 loader/driverdisk.c:559
@@ -191,7 +191,7 @@ msgstr ""
 #: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
-#: loader/urlinstall.c:221 loader/urls.c:326 loader/urls.c:332
+#: loader/urlinstall.c:221 loader/urls.c:328 loader/urls.c:334
 #: storage/__init__.py:210 storage/__init__.py:1789 storage/__init__.py:1876
 #: textw/netconfig_text.py:282 textw/partition_text.py:186
 #: textw/partition_text.py:192 textw/partition_text.py:198
@@ -210,8 +210,8 @@ msgstr "Virhe"
 # ../textw/upgrade_text.py:172 ../upgrade.py:239 ../upgrade.py:357
 # ../upgrade.py:376
 #: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1154
-#: gui.py:1214 image.py:82 text.py:485 text.py:545 yuminstall.py:1416
-#: yuminstall.py:1622 yuminstall.py:1657 iw/blpasswidget.py:148
+#: gui.py:1214 image.py:82 text.py:485 text.py:545 yuminstall.py:1422
+#: yuminstall.py:1628 yuminstall.py:1663 iw/blpasswidget.py:148
 #: iw/upgrade_swap_gui.py:190 iw/upgrade_swap_gui.py:198
 #: iw/upgrade_swap_gui.py:205 textw/upgrade_text.py:193
 msgid "Warning"
@@ -233,17 +233,17 @@ msgstr ""
 # ../packages.py:653
 #: bootloader.py:60 gui.py:1105 gui.py:1250 gui.py:1465 image.py:91
 #: kickstart.py:157 livecd.py:205 livecd.py:410 packages.py:130 upgrade.py:58
-#: upgrade.py:197 yuminstall.py:251 yuminstall.py:697 yuminstall.py:912
-#: yuminstall.py:917 yuminstall.py:997 yuminstall.py:1003 yuminstall.py:1157
-#: yuminstall.py:1185 yuminstall.py:1238 yuminstall.py:1424 yuminstall.py:1443
-#: yuminstall.py:1466 storage/__init__.py:107 storage/__init__.py:214
+#: upgrade.py:197 yuminstall.py:257 yuminstall.py:703 yuminstall.py:918
+#: yuminstall.py:923 yuminstall.py:1003 yuminstall.py:1009 yuminstall.py:1163
+#: yuminstall.py:1191 yuminstall.py:1244 yuminstall.py:1430 yuminstall.py:1449
+#: yuminstall.py:1472 storage/__init__.py:107 storage/__init__.py:214
 #: storage/__init__.py:1970
 msgid "_Exit installer"
 msgstr "_Lopeta asennusohjelma"
 
 # ../rescue.py:99
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1318
-#: kickstart.py:1357 upgrade.py:58 yuminstall.py:1243 yuminstall.py:1425
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1321
+#: kickstart.py:1360 upgrade.py:58 yuminstall.py:1249 yuminstall.py:1431
 #: iw/partition_gui.py:1598 storage/__init__.py:1971
 msgid "_Continue"
 msgstr "_Jatka"
@@ -285,8 +285,8 @@ msgstr "Valmiina"
 msgid "In progress"
 msgstr "Kesken"
 
-#: cmdline.py:89 gui.py:1245 kickstart.py:1182 kickstart.py:1190
-#: kickstart.py:1228 kickstart.py:1236 text.py:391
+#: cmdline.py:89 gui.py:1245 kickstart.py:1185 kickstart.py:1193
+#: kickstart.py:1231 kickstart.py:1239 text.py:391
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -545,8 +545,8 @@ msgid "_Exit"
 msgstr "_Poistu"
 
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
-#: gui.py:1376 image.py:164 image.py:194 livecd.py:205 yuminstall.py:789
-#: yuminstall.py:1185 yuminstall.py:1238 yuminstall.py:1443
+#: gui.py:1376 image.py:164 image.py:194 livecd.py:205 yuminstall.py:795
+#: yuminstall.py:1191 yuminstall.py:1244 yuminstall.py:1449
 msgid "_Retry"
 msgstr "_Uudelleen"
 
@@ -555,7 +555,7 @@ msgid "The system will now reboot."
 msgstr "Järjestelmä käynnistyy uudelleen."
 
 # ../iw/partition_gui.py:1528
-#: gui.py:1379 image.py:251 packages.py:332 yuminstall.py:1484
+#: gui.py:1379 image.py:251 packages.py:332 yuminstall.py:1490
 msgid "_Reboot"
 msgstr "_Käynnistä uudelleen"
 
@@ -672,8 +672,8 @@ msgstr ""
 # ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
 # ../textw/confirm_text.py:38 ../textw/constants_text.py:28
 # ../textw/silo_text.py:110 ../textw/userauth_text.py:185
-#: image.py:251 livecd.py:409 packages.py:332 upgrade.py:196 yuminstall.py:917
-#: yuminstall.py:1003 yuminstall.py:1424 yuminstall.py:1466 yuminstall.py:1484
+#: image.py:251 livecd.py:409 packages.py:332 upgrade.py:196 yuminstall.py:923
+#: yuminstall.py:1009 yuminstall.py:1430 yuminstall.py:1472 yuminstall.py:1490
 msgid "_Back"
 msgstr "_Takaisin"
 
@@ -802,7 +802,7 @@ msgid "Scriptlet Failure"
 msgstr "Sovelma epäonnistui"
 
 # ../loader/net.c:814
-#: kickstart.py:151 rescue.py:248 yuminstall.py:692 yuminstall.py:1152
+#: kickstart.py:151 rescue.py:248 yuminstall.py:698 yuminstall.py:1158
 msgid "No Network Available"
 msgstr "Verkko ei ole käytettävissä"
 
@@ -815,40 +815,40 @@ msgstr ""
 "verkon käyttöönotossa oli ongelmia."
 
 # ../loader/kickstart.c:59
-#: kickstart.py:1201
+#: kickstart.py:1204
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Virhe käsiteltäessä %%ksappend-rivejä: %s"
 
-#: kickstart.py:1204
+#: kickstart.py:1207
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Tuntematon virhe käsiteltäessä %%ksappend-rivejä: %s"
 
 # ../packages.py:653
-#: kickstart.py:1259 livecd.py:229
+#: kickstart.py:1262 livecd.py:229
 msgid "Post-Installation"
 msgstr "Asennusta täydentävät toimet"
 
-#: kickstart.py:1260
+#: kickstart.py:1263
 msgid "Running post-installation scripts"
 msgstr "Suoritetaan asennuksen jälkeisiä komentoja"
 
 # ../textw/progress_text.py:79
-#: kickstart.py:1276
+#: kickstart.py:1279
 msgid "Pre-Installation"
 msgstr "Asennusta edeltävät toimet"
 
-#: kickstart.py:1277
+#: kickstart.py:1280
 msgid "Running pre-installation scripts"
 msgstr "Suoritetaan asennusta edeltäviä komentoja"
 
 # ../iw/progress_gui.py:28
-#: kickstart.py:1309
+#: kickstart.py:1312
 msgid "Missing Package"
 msgstr "Puuttuva paketti"
 
-#: kickstart.py:1310
+#: kickstart.py:1313
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -858,21 +858,21 @@ msgstr ""
 "Haluatko jatkaa vai keskeyttää asennuksen?"
 
 # ../iw/partition_gui.py:1528
-#: kickstart.py:1316 kickstart.py:1355
+#: kickstart.py:1319 kickstart.py:1358
 msgid "_Abort"
 msgstr "_Keskeytä"
 
 # ../gui.py:113 ../text.py:285
-#: kickstart.py:1317 kickstart.py:1356
+#: kickstart.py:1320 kickstart.py:1359
 msgid "_Ignore All"
 msgstr "_Ohita kaikki"
 
 # ../loader/net.c:404
-#: kickstart.py:1347
+#: kickstart.py:1350
 msgid "Missing Group"
 msgstr "Puuttuva ryhmä"
 
-#: kickstart.py:1348
+#: kickstart.py:1351
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -881,7 +881,7 @@ msgstr ""
 "Valitsit ryhmän \"%s\" asennettavaksi. Sitä ei kuitenkaan löydy. Haluatko "
 "jatkaa vai keskeyttää asennuksen?"
 
-#: kickstart.py:1463
+#: kickstart.py:1466
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1121,7 +1121,7 @@ msgid "You must first select a partition to delete."
 msgstr "Valitse ensin poistettava osio."
 
 # ../partitioning.py:1590
-#: partIntfHelpers.py:153 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:843
+#: partIntfHelpers.py:153 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:862
 msgid "Confirm Delete"
 msgstr "Vahvista poisto"
 
@@ -1132,8 +1132,8 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr "Olet poistamassa kaikki osiot laitteelta \"%s\"."
 
 # ../iw/partition_gui.py:1527
-#: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:846
-#: iw/lvm_dialog_gui.py:1379 iw/osbootwidget.py:104 iw/partition_gui.py:1809
+#: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:865
+#: iw/lvm_dialog_gui.py:1435 iw/osbootwidget.py:104 iw/partition_gui.py:1809
 #: iw/partition_gui.py:1821
 msgid "_Delete"
 msgstr "_Poista"
@@ -1612,7 +1612,9 @@ msgstr ""
 #: text.py:198
 #, python-format
 msgid "The passphrase must be at least %d character long."
-msgstr "Salalauseen on oltava vähintään %d merkkiä pitkä."
+msgid_plural "The passphrase must be at least %d characters long."
+msgstr[0] "Salalauseen on oltava vähintään %d merkin pituinen."
+msgstr[1] "Salalauseen on oltava vähintään %d merkkiä pitkä."
 
 #: text.py:232 ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
@@ -1782,7 +1784,9 @@ msgstr "Yritetään uudelleen 15 sekunnin kuluttua..."
 #: vnc.py:195
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
-msgstr "Lopetetaan yrittäminen %d yrityskerran jälkeen!\n"
+msgid_plural "Giving up attempting to connect after %d tries!\n"
+msgstr[0] "Lopetetaan yrittäminen %d yrityskerran jälkeen!\n"
+msgstr[1] "Lopetetaan yrittäminen %d yrityskerran jälkeen!\n"
 
 #: vnc.py:206
 #, python-format
@@ -1948,7 +1952,9 @@ msgstr "%s kt"
 #: yuminstall.py:90
 #, python-format
 msgid "%s Byte"
-msgstr "%s tavu"
+msgid_plural "%s Bytes"
+msgstr[0] "%s tavu"
+msgstr[1] "%s tavua"
 
 #: yuminstall.py:134
 msgid "Preparing to install"
@@ -1968,7 +1974,9 @@ msgstr "<b>Asennetaan %(pkgStr)s</b> (%(size)s)\n"
 #: yuminstall.py:212
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr "Paketteja valmiina: %(donepkgs)d/%(numpkgs)d"
+msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
+msgstr[0] "Paketteja valmiina: %(donepkgs)d/%(numpkgs)d"
+msgstr[1] "Paketteja valmiina: %(donepkgs)d/%(numpkgs)d"
 
 #: yuminstall.py:227
 msgid "Finishing upgrade"
@@ -1979,11 +1987,11 @@ msgid "Finishing upgrade process.  This may take a little while."
 msgstr "Viimeistellään asennusta. Tähän voi kulua hetki aikaa."
 
 # ../iw/progress_gui.py:28
-#: yuminstall.py:245
+#: yuminstall.py:251
 msgid "Error Installing Package"
 msgstr "Virhe pakettia asennettaessa"
 
-#: yuminstall.py:246
+#: yuminstall.py:252
 #, python-format
 msgid ""
 "A fatal error occurred when installing the %s package.  This could indicate "
@@ -1992,12 +2000,12 @@ msgstr ""
 "Pakettia %s asennettaessa tapahtui vakava virhe. Tämä saattaa johtua "
 "asennusmediaa luettaessa tapahtuneesta virheestä. Asennusta ei voida jatkaa."
 
-#: yuminstall.py:347 iw/task_gui.py:322
+#: yuminstall.py:353 iw/task_gui.py:322
 msgid "Error Setting Up Repository"
 msgstr "Virhe asennuslähteen asettamisessa"
 
 # ../autopart.py:891
-#: yuminstall.py:348
+#: yuminstall.py:354
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -2013,38 +2021,38 @@ msgstr ""
 "Anna oikeat tiedot tuotteen %(productName)s asentamiseksi."
 
 # ../image.py:119
-#: yuminstall.py:392
+#: yuminstall.py:398
 msgid "Change Disc"
 msgstr "Vaihda levy"
 
 # ../image.py:120
-#: yuminstall.py:393
+#: yuminstall.py:399
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
 msgstr "Syötä %(productName)s -levy %(discnum)d."
 
 # ../image.py:137
-#: yuminstall.py:403
+#: yuminstall.py:409
 msgid "Wrong Disc"
 msgstr "Väärä levy"
 
 # ../image.py:138
-#: yuminstall.py:404
+#: yuminstall.py:410
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "Asemassa ei ole oikeata %s -levyä."
 
-#: yuminstall.py:411
+#: yuminstall.py:417
 msgid "Unable to access the disc."
 msgstr "Levyn käyttäminen ei onnistu."
 
 # FIXME: What's the r?
-#: yuminstall.py:569
+#: yuminstall.py:575
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Asennuslähteen %r asetuksista puuttuu nimi, käytetään tunnistetta"
 
-#: yuminstall.py:693 yuminstall.py:1153
+#: yuminstall.py:699 yuminstall.py:1159
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2053,15 +2061,15 @@ msgstr ""
 "käyttöönotossa oli ongelmia."
 
 # ../iw/partition_gui.py:1528
-#: yuminstall.py:787 yuminstall.py:789
+#: yuminstall.py:793 yuminstall.py:795
 msgid "Re_boot"
 msgstr "Käynnistä _uudelleen"
 
-#: yuminstall.py:787
+#: yuminstall.py:793
 msgid "_Eject"
 msgstr "_Poista levy"
 
-#: yuminstall.py:793
+#: yuminstall.py:799
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2080,66 +2088,66 @@ msgstr ""
 "\n"
 
 # ../loader/urls.c:103
-#: yuminstall.py:841
+#: yuminstall.py:847
 msgid "Retrying"
 msgstr "Yritetään uudelleen"
 
-#: yuminstall.py:841
+#: yuminstall.py:847
 msgid "Retrying download."
 msgstr "Yritetään latausta uudelleen."
 
-#: yuminstall.py:906
+#: yuminstall.py:912
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr "Transaktion suorittamisessa tapahtui virhe seuraavasta syystä: %s\n"
 
-#: yuminstall.py:949 yuminstall.py:950
+#: yuminstall.py:955 yuminstall.py:956
 msgid "file conflicts"
 msgstr "Tiedostoristiriita"
 
 # ../iw/progress_gui.py:28
-#: yuminstall.py:951
+#: yuminstall.py:957
 msgid "older package(s)"
 msgstr "Vanhemmat paketit"
 
-#: yuminstall.py:952
+#: yuminstall.py:958
 msgid "insufficient disk space"
 msgstr "Ei tarpeeksi tilaa levyllä"
 
-#: yuminstall.py:953
+#: yuminstall.py:959
 msgid "insufficient disk inodes"
 msgstr "Ei tarpeeksi inodeja levyllä"
 
-#: yuminstall.py:954
+#: yuminstall.py:960
 msgid "package conflicts"
 msgstr "pakettiristiriita"
 
-#: yuminstall.py:955
+#: yuminstall.py:961
 msgid "package already installed"
 msgstr "Paketti on jo asennettu"
 
 #
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
-#: yuminstall.py:956
+#: yuminstall.py:962
 msgid "required package"
 msgstr "Vaadittu paketti"
 
-#: yuminstall.py:957
+#: yuminstall.py:963
 msgid "package for incorrect arch"
 msgstr "Paketti on väärälle arkkitehtuurille"
 
-#: yuminstall.py:958
+#: yuminstall.py:964
 msgid "package for incorrect os"
 msgstr "Paketti on väärälle käyttöjärjestelmälle"
 
-#: yuminstall.py:972
+#: yuminstall.py:978
 msgid "You need more space on the following file systems:\n"
 msgstr "Tarvitaan lisää tilaa seuraavilla tiedostojärjestelmillä:\n"
 
 # ../loader/loader.c:1487
-#: yuminstall.py:985
+#: yuminstall.py:991
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2148,7 +2156,7 @@ msgstr ""
 "Asennettavia paketteja tarkistettaessa löytyi tiedostokonflikteja:\n"
 "%s\n"
 
-#: yuminstall.py:988
+#: yuminstall.py:994
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
@@ -2156,11 +2164,11 @@ msgid ""
 msgstr "Transaktion suorittamisessa tapahtui virhe seuraavista syistä: %s\n"
 
 # ../packages.py:481
-#: yuminstall.py:995 yuminstall.py:1000
+#: yuminstall.py:1001 yuminstall.py:1006
 msgid "Error Running Transaction"
 msgstr "Virhe transaktion suorittamisessa"
 
-#: yuminstall.py:1190
+#: yuminstall.py:1196
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2169,18 +2177,18 @@ msgstr ""
 "ongelma."
 
 # ../packages.py:100
-#: yuminstall.py:1226
+#: yuminstall.py:1232
 msgid "Retrieving installation information."
 msgstr "Luetaan asennustietoja."
 
 # ../packages.py:100
-#: yuminstall.py:1228
+#: yuminstall.py:1234
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Luetaan asennustietoja lähteelle %s."
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
-#: yuminstall.py:1230
+#: yuminstall.py:1236
 msgid "Installation Progress"
 msgstr "Asennuksen edistyminen"
 
@@ -2188,11 +2196,11 @@ msgstr "Asennuksen edistyminen"
 # ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 # ../textw/silo_text.py:216 ../textw/silo_text.py:238
 # ../textw/userauth_text.py:219
-#: yuminstall.py:1238 textw/constants_text.py:64
+#: yuminstall.py:1244 textw/constants_text.py:64
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: yuminstall.py:1249 yuminstall.py:1438
+#: yuminstall.py:1255 yuminstall.py:1444
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2206,7 +2214,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1417
+#: yuminstall.py:1423
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2217,7 +2225,7 @@ msgstr ""
 "palata takaisin ja muuttaa pakettivalintoja, lopettaa asennuksen tai jatkaa "
 "näiden pakettien asennusta ilman riippuvuuksia."
 
-#: yuminstall.py:1460
+#: yuminstall.py:1466
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2228,15 +2236,15 @@ msgstr ""
 "vapaana. Voit muuttaa valintoja tai poistua asennusohjelmasta."
 
 # ../iw/partition_gui.py:1528
-#: yuminstall.py:1481
+#: yuminstall.py:1487
 msgid "Reboot?"
 msgstr "Käynnistä uudelleen?"
 
-#: yuminstall.py:1482
+#: yuminstall.py:1488
 msgid "The system will be rebooted now."
 msgstr "Järjestelmä käynnistetään uudelleen."
 
-#: yuminstall.py:1623
+#: yuminstall.py:1629
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2245,7 +2253,7 @@ msgstr ""
 "Järjestelmä on liian vanha, jotta sitä voitaisiin päivittää %sn tähän "
 "versioon. Haluatko varmasti jatkaa päivitystä?"
 
-#: yuminstall.py:1658
+#: yuminstall.py:1664
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2258,41 +2266,41 @@ msgstr ""
 "luultavasti onnistu. Haluatko varmasti jatkaa päivitystä?"
 
 # ../installclasses/upgradeclass.py:12
-#: yuminstall.py:1705
+#: yuminstall.py:1711
 msgid "Post Upgrade"
 msgstr "Päivitystä täydentävä"
 
 # ../packages.py:654
-#: yuminstall.py:1706
+#: yuminstall.py:1712
 msgid "Performing post-upgrade configuration"
 msgstr "Tehdään päivitystä täydentäviä asetuksia"
 
 # ../packages.py:653
-#: yuminstall.py:1708
+#: yuminstall.py:1714
 msgid "Post Installation"
 msgstr "Asennusta täydentävät toimet"
 
 # ../packages.py:654
-#: yuminstall.py:1709
+#: yuminstall.py:1715
 msgid "Performing post-installation configuration"
 msgstr "Tehdään asennusta täydentäviä asetuksia"
 
-#: yuminstall.py:1929
+#: yuminstall.py:1935
 msgid "Installation Starting"
 msgstr "Asennus alkaa"
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
-#: yuminstall.py:1930
+#: yuminstall.py:1936
 msgid "Starting installation process"
 msgstr "Asennuksen aloituksen edistyminen"
 
 # ../packages.py:157
-#: yuminstall.py:1968
+#: yuminstall.py:1974
 msgid "Dependency Check"
 msgstr "Riippuvuuksien tarkistus"
 
 # ../packages.py:158
-#: yuminstall.py:1969
+#: yuminstall.py:1975
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Tarkistetaan asennettaviksi valittujen pakettien riippuvuuksia"
 
@@ -2622,7 +2630,7 @@ msgid "Clear Disks Selector"
 msgstr "Tyhjennettävien levyjen valitsin"
 
 # ../iw/partition_gui.py:1609
-#: iw/cleardisks_gui.py:44 iw/filter_gui.py:406
+#: iw/cleardisks_gui.py:44 iw/filter_gui.py:407
 msgid "You must select at least one drive to be used for installation."
 msgstr "Asennusta varten on valittava ainakin yksi levy."
 
@@ -2631,30 +2639,30 @@ msgstr "Asennusta varten on valittava ainakin yksi levy."
 msgid "You must select one drive to boot from."
 msgstr "On valittava ainakin yksi levy, jolta käynnistetään."
 
-#: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:441
-#: iw/filter_gui.py:452 iw/filter_gui.py:482
+#: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:442
+#: iw/filter_gui.py:453 iw/filter_gui.py:483
 msgid "Model"
 msgstr "Malli"
 
-#: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:442
-#: iw/filter_gui.py:453 iw/filter_gui.py:461 iw/filter_gui.py:472
-#: iw/filter_gui.py:483
+#: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:443
+#: iw/filter_gui.py:454 iw/filter_gui.py:462 iw/filter_gui.py:473
+#: iw/filter_gui.py:484
 msgid "Capacity"
 msgstr "Koko"
 
 # ../iw/partition_gui.py:1545
-#: iw/cleardisks_gui.py:123 iw/filter_gui.py:443 iw/filter_gui.py:462
-#: iw/filter_gui.py:473 iw/filter_gui.py:484
+#: iw/cleardisks_gui.py:123 iw/filter_gui.py:444 iw/filter_gui.py:463
+#: iw/filter_gui.py:474 iw/filter_gui.py:485
 msgid "Vendor"
 msgstr "Valmistaja"
 
-#: iw/cleardisks_gui.py:124 iw/filter_gui.py:444 iw/filter_gui.py:463
-#: iw/filter_gui.py:474 iw/filter_gui.py:485
+#: iw/cleardisks_gui.py:124 iw/filter_gui.py:445 iw/filter_gui.py:464
+#: iw/filter_gui.py:475 iw/filter_gui.py:486
 msgid "Interconnect"
 msgstr "Liitäntä"
 
-#: iw/cleardisks_gui.py:125 iw/filter_gui.py:445 iw/filter_gui.py:475
-#: iw/filter_gui.py:486
+#: iw/cleardisks_gui.py:125 iw/filter_gui.py:446 iw/filter_gui.py:476
+#: iw/filter_gui.py:487
 msgid "Serial Number"
 msgstr "Sarjanumero"
 
@@ -2795,7 +2803,7 @@ msgstr "Tuntematon Linux-järjestelmä"
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr "<b>%s laitetta (%s MB) valittuna</b> / %s laitetta (%s MB) yhteensä."
 
-#: iw/filter_gui.py:391
+#: iw/filter_gui.py:392
 msgid "Device Filter"
 msgstr "Laitesuodin"
 
@@ -2804,31 +2812,31 @@ msgstr "Laitesuodin"
 # ../textw/bootloader_text.py:196 ../textw/bootloader_text.py:267
 # ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 # ../textw/silo_text.py:207
-#: iw/filter_gui.py:446 iw/filter_gui.py:454 iw/filter_gui.py:465
-#: iw/filter_gui.py:476 iw/filter_gui.py:491 iw/osbootwidget.py:66
+#: iw/filter_gui.py:447 iw/filter_gui.py:455 iw/filter_gui.py:466
+#: iw/filter_gui.py:477 iw/filter_gui.py:492 iw/osbootwidget.py:66
 #: iw/partition_gui.py:607
 msgid "Device"
 msgstr "Laite"
 
-#: iw/filter_gui.py:460 iw/filter_gui.py:471 iw/filter_gui.py:487
+#: iw/filter_gui.py:461 iw/filter_gui.py:472 iw/filter_gui.py:488
 msgid "Identifier"
 msgstr "Tunniste"
 
-#: iw/filter_gui.py:464
+#: iw/filter_gui.py:465
 msgid "Paths"
 msgstr "Polut"
 
 # ../iw/partition_gui.py:1528
-#: iw/filter_gui.py:488 loader/urls.c:290
+#: iw/filter_gui.py:489 loader/urls.c:292
 msgid "Port"
 msgstr "﻿Portti"
 
 # ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
-#: iw/filter_gui.py:489
+#: iw/filter_gui.py:490
 msgid "Target"
 msgstr "Kohde"
 
-#: iw/filter_gui.py:490
+#: iw/filter_gui.py:491
 msgid "LUN"
 msgstr "LUN"
 
@@ -2871,13 +2879,13 @@ msgstr "Kielen valinta"
 msgid "What language would you like to use during the installation process?"
 msgstr "Mitä kieltä asennuksen aikana käytetään?"
 
-#: iw/lvm_dialog_gui.py:124 iw/lvm_dialog_gui.py:170 iw/lvm_dialog_gui.py:184
-#: iw/lvm_dialog_gui.py:223 iw/lvm_dialog_gui.py:300 iw/lvm_dialog_gui.py:682
-#: iw/lvm_dialog_gui.py:703
+#: iw/lvm_dialog_gui.py:125 iw/lvm_dialog_gui.py:171 iw/lvm_dialog_gui.py:185
+#: iw/lvm_dialog_gui.py:224 iw/lvm_dialog_gui.py:301 iw/lvm_dialog_gui.py:690
+#: iw/lvm_dialog_gui.py:711
 msgid "Not enough space"
 msgstr "Ei riittävästi tilaa"
 
-#: iw/lvm_dialog_gui.py:125
+#: iw/lvm_dialog_gui.py:126
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
@@ -2886,11 +2894,11 @@ msgstr ""
 "Fyysisen varausyksikön kokoa ei voida muuttaa, koska muuten määriteltyjen "
 "loogisten taltioiden koko kasvaa suuremmaksi kuin käytettävissä oleva tila."
 
-#: iw/lvm_dialog_gui.py:134
+#: iw/lvm_dialog_gui.py:135
 msgid "Confirm Physical Extent Change"
 msgstr "Vahvista fyysisen varausyksikön muutos"
 
-#: iw/lvm_dialog_gui.py:135
+#: iw/lvm_dialog_gui.py:136
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2905,11 +2913,11 @@ msgstr ""
 " Tämä muutos tulee voimaan välittömästi."
 
 # ../rescue.py:99
-#: iw/lvm_dialog_gui.py:144 iw/lvm_dialog_gui.py:206
+#: iw/lvm_dialog_gui.py:145 iw/lvm_dialog_gui.py:207
 msgid "C_ontinue"
 msgstr "_Jatka"
 
-#: iw/lvm_dialog_gui.py:171
+#: iw/lvm_dialog_gui.py:172
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2920,7 +2928,7 @@ msgstr ""
 "10.2f Mt) on suurempi kuin pienin fyysinen taltio (%(maxpvsize)10.2f Mt) "
 "taltioryhmässä."
 
-#: iw/lvm_dialog_gui.py:185
+#: iw/lvm_dialog_gui.py:186
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2931,11 +2939,11 @@ msgstr ""
 "10.2f Mt) on liian suuri suhteessa pienimpään fyysiseen taltioon (%"
 "(maxpvsize)10.2f Mt) taltioryhmässä."
 
-#: iw/lvm_dialog_gui.py:199
+#: iw/lvm_dialog_gui.py:200
 msgid "Too small"
 msgstr "Liian pieni"
 
-#: iw/lvm_dialog_gui.py:200
+#: iw/lvm_dialog_gui.py:201
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
@@ -2943,7 +2951,7 @@ msgstr ""
 "Tämä muutos fyysisen varausyksikön kokoon tuhlaa merkittävästi tilaa yhdellä "
 "tai useammalla fyysisellä taltiolla taltioryhmässä."
 
-#: iw/lvm_dialog_gui.py:224
+#: iw/lvm_dialog_gui.py:225
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -2954,7 +2962,7 @@ msgstr ""
 "mahdollinen loogisen taltion koko (%10.2f MB) on pienempi kuin yksi tai "
 "useampi määritelty looginen taltio."
 
-#: iw/lvm_dialog_gui.py:301
+#: iw/lvm_dialog_gui.py:302
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -2962,21 +2970,21 @@ msgstr ""
 "Et voi poistaa tätä fyysistä taltiota, koska muuten taltioryhmästä tulisi "
 "liian pieni määritellyille loogisille taltioille."
 
-#: iw/lvm_dialog_gui.py:400
+#: iw/lvm_dialog_gui.py:401
 msgid "Make Logical Volume"
 msgstr "Luo looginen taltio"
 
-#: iw/lvm_dialog_gui.py:402
+#: iw/lvm_dialog_gui.py:403
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Muokkaa loogista taltiota: %s"
 
 # ../iw/partition_gui.py:871 ../textw/partition_text.py:604
-#: iw/lvm_dialog_gui.py:433 iw/raid_dialog_gui.py:402
+#: iw/lvm_dialog_gui.py:442 iw/raid_dialog_gui.py:443
 msgid "_File System Type:"
 msgstr "_Tiedostojärjestelmän tyyppi:"
 
-#: iw/lvm_dialog_gui.py:439
+#: iw/lvm_dialog_gui.py:448
 msgid "_Logical Volume Name:"
 msgstr "_Loogisen taltion nimi:"
 
@@ -2984,37 +2992,33 @@ msgstr "_Loogisen taltion nimi:"
 # ../iw/partition_gui.py:931 ../iw/partition_gui.py:946
 # ../iw/partition_gui.py:982 ../textw/partition_text.py:282
 # ../textw/partition_text.py:365 ../textw/partition_text.py:620
-#: iw/lvm_dialog_gui.py:448 iw/partition_dialog_gui.py:432
+#: iw/lvm_dialog_gui.py:457 iw/partition_dialog_gui.py:469
 msgid "_Size (MB):"
 msgstr "_Koko (Mt):"
 
-#: iw/lvm_dialog_gui.py:455
+#: iw/lvm_dialog_gui.py:464
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Suurin koko on %s Mt)"
 
-#: iw/lvm_dialog_gui.py:460 iw/partition_dialog_gui.py:484
-#: iw/partition_ui_helpers_gui.py:331 iw/raid_dialog_gui.py:374
+#: iw/lvm_dialog_gui.py:469 iw/partition_dialog_gui.py:521
+#: iw/partition_ui_helpers_gui.py:331 iw/raid_dialog_gui.py:415
 msgid "_Encrypt"
 msgstr "_Salaa"
 
 # ../iw/partition_gui.py:879
-#: iw/lvm_dialog_gui.py:469 iw/raid_dialog_gui.py:412
+#: iw/lvm_dialog_gui.py:478 iw/partition_dialog_gui.py:451
+#: iw/raid_dialog_gui.py:453
 msgid "Original File System Type:"
 msgstr "Tiedostojärjestelmän alkuperäinen tyyppi:"
 
-# ../iw/partition_gui.py:888
-#: iw/lvm_dialog_gui.py:473 iw/raid_dialog_gui.py:417
-msgid "Unknown"
-msgstr "Tuntematon"
-
 # ../iw/partition_gui.py:920
-#: iw/lvm_dialog_gui.py:477 iw/partition_dialog_gui.py:422
-#: iw/raid_dialog_gui.py:423
+#: iw/lvm_dialog_gui.py:483 iw/partition_dialog_gui.py:459
+#: iw/raid_dialog_gui.py:460
 msgid "Original File System Label:"
 msgstr "Tiedostojärjestelmän alkuperäinen nimiö:"
 
-#: iw/lvm_dialog_gui.py:482
+#: iw/lvm_dialog_gui.py:488
 msgid "Logical Volume Name:"
 msgstr "Loogisen taltion nimi:"
 
@@ -3022,57 +3026,67 @@ msgstr "Loogisen taltion nimi:"
 # ../iw/partition_gui.py:931 ../iw/partition_gui.py:946
 # ../iw/partition_gui.py:982 ../textw/partition_text.py:282
 # ../textw/partition_text.py:365 ../textw/partition_text.py:620
-#: iw/lvm_dialog_gui.py:486
+#: iw/lvm_dialog_gui.py:492
 msgid "Size (MB):"
 msgstr "Koko (Mt):"
 
 #
 # ../iw/partition_gui.py:863 ../iw/partition_gui.py:1349
 # ../textw/partition_text.py:205
-#: iw/lvm_dialog_gui.py:513 iw/partition_dialog_gui.py:377
-#: iw/raid_dialog_gui.py:393
+#: iw/lvm_dialog_gui.py:519 iw/partition_dialog_gui.py:407
+#: iw/raid_dialog_gui.py:434
 msgid "_Mount Point:"
 msgstr "_Liitospiste:"
 
-#: iw/lvm_dialog_gui.py:596
+# ../iw/partition_gui.py:313 ../iw/partition_gui.py:334
+# ../iw/partition_gui.py:336 ../textw/partition_text.py:186
+# ../textw/partition_text.py:188 ../textw/partition_text.py:190
+# ../textw/partition_text.py:215
+#: iw/lvm_dialog_gui.py:596 iw/partition_dialog_gui.py:113
+#: iw/partition_ui_helpers_gui.py:109 iw/partition_ui_helpers_gui.py:131
+#: iw/partition_ui_helpers_gui.py:133 iw/raid_dialog_gui.py:169
+msgid "<Not Applicable>"
+msgstr "<Ei käytettävissä>"
+
+#: iw/lvm_dialog_gui.py:604
 msgid "Illegal Logical Volume Name"
 msgstr "Virheellinen loogisen taltion nimi"
 
-#: iw/lvm_dialog_gui.py:611
+#: iw/lvm_dialog_gui.py:619
 msgid "Illegal logical volume name"
 msgstr "Virheellinen loogisen taltion nimi"
 
-#: iw/lvm_dialog_gui.py:612
+#: iw/lvm_dialog_gui.py:620
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Looginen taltio \"%s\" on jo käytössä. Valitse toinen laite."
 
 # ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
 # ../packages.py:588 ../packages.py:608 ../textw/upgrade_text.py:106
-#: iw/lvm_dialog_gui.py:653 iw/partition_dialog_gui.py:124
-#: iw/raid_dialog_gui.py:180
+#: iw/lvm_dialog_gui.py:661 iw/partition_dialog_gui.py:127
+#: iw/raid_dialog_gui.py:183
 msgid "Mount point in use"
 msgstr "Liitospiste on käytössä"
 
 # ../partitioning.py:379
-#: iw/lvm_dialog_gui.py:654 iw/partition_dialog_gui.py:125
-#: iw/raid_dialog_gui.py:181
+#: iw/lvm_dialog_gui.py:662 iw/partition_dialog_gui.py:128
+#: iw/raid_dialog_gui.py:184
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Liitospiste \"%s\" on jo käytössä. Valitse jokin muu liitospiste."
 
 #
 # ../textw/packages_text.py:116
-#: iw/lvm_dialog_gui.py:669
+#: iw/lvm_dialog_gui.py:677
 msgid "Illegal size"
 msgstr "Virheellinen koko"
 
 # ../textw/upgrade_text.py:161
-#: iw/lvm_dialog_gui.py:670
+#: iw/lvm_dialog_gui.py:678
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Pyydetty koko ei kelpaa."
 
-#: iw/lvm_dialog_gui.py:683
+#: iw/lvm_dialog_gui.py:691
 #, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
@@ -3084,7 +3098,7 @@ msgstr ""
 "enimmäiskoko (%(maxlv)10.2f Mt). Voit muuttaa rajaa luomalla lisää fyysisiä "
 "taltioita osioimattomasta levytilasta ja lisäämällä ne tähän taltioryhmään."
 
-#: iw/lvm_dialog_gui.py:704
+#: iw/lvm_dialog_gui.py:712
 #, python-format
 msgid ""
 "The logical volumes you have configured require %(size)d MB, but the volume "
@@ -3095,23 +3109,25 @@ msgstr ""
 "koko on vain %(tempvgsize)d Mt. Tee joko taltioryhmästä suurempi tai "
 "pienennä loogisia taltioita."
 
-#: iw/lvm_dialog_gui.py:797
+#: iw/lvm_dialog_gui.py:814
 msgid "No free slots"
 msgstr "Ei vapaita paikkoja"
 
-#: iw/lvm_dialog_gui.py:798
+#: iw/lvm_dialog_gui.py:815
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
-msgstr "Taltioryhmään ei voida luoda enempää kuin %d loogista taltiota."
+msgid_plural "You cannot create more than %d logical volumes per volume group."
+msgstr[0] "Taltioryhmään ei voida luoda enempää kuin yhden loogisen taltion."
+msgstr[1] "Taltioryhmään ei voida luoda enempää kuin %d loogista taltiota."
 
 #
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
-#: iw/lvm_dialog_gui.py:808
+#: iw/lvm_dialog_gui.py:825
 msgid "No free space"
 msgstr "Ei vapaata tilaa"
 
-#: iw/lvm_dialog_gui.py:809
+#: iw/lvm_dialog_gui.py:826
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3122,31 +3138,31 @@ msgstr ""
 "taltiota."
 
 # ../partitioning.py:1588
-#: iw/lvm_dialog_gui.py:844
+#: iw/lvm_dialog_gui.py:863
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Haluatko varmasti poistaa loogisen taltion \"%s\"?"
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
-#: iw/lvm_dialog_gui.py:950
+#: iw/lvm_dialog_gui.py:969
 msgid "Invalid Volume Group Name"
 msgstr "Virheellinen taltioryhmän nimi"
 
-#: iw/lvm_dialog_gui.py:959
+#: iw/lvm_dialog_gui.py:978
 msgid "Name in use"
 msgstr "Käytössä oleva nimi"
 
 # ../partitioning.py:379
-#: iw/lvm_dialog_gui.py:960
+#: iw/lvm_dialog_gui.py:979
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Taltioryhmän nimi \"%s\" on jo käytössä. Valitse jokin muu."
 
-#: iw/lvm_dialog_gui.py:1210
+#: iw/lvm_dialog_gui.py:1266
 msgid "Not enough physical volumes"
 msgstr "Ei riittävästi fyysisiä taltioita"
 
-#: iw/lvm_dialog_gui.py:1211
+#: iw/lvm_dialog_gui.py:1267
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3159,82 +3175,82 @@ msgstr ""
 "Luo osio tai RAID-laite ja aseta sen tyypiksi \"fyysinen taltio (LVM)\" ja "
 "valitse \"LVM\" uudelleen."
 
-#: iw/lvm_dialog_gui.py:1222
+#: iw/lvm_dialog_gui.py:1278
 msgid "Make LVM Volume Group"
 msgstr "Luo taltioryhmä (LVM)"
 
-#: iw/lvm_dialog_gui.py:1225
+#: iw/lvm_dialog_gui.py:1281
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Muokkaa taltioryhmää %s"
 
-#: iw/lvm_dialog_gui.py:1227
+#: iw/lvm_dialog_gui.py:1283
 msgid "Edit LVM Volume Group"
 msgstr "Muokkaa taltioryhmää"
 
-#: iw/lvm_dialog_gui.py:1243
+#: iw/lvm_dialog_gui.py:1299
 msgid "_Volume Group Name:"
 msgstr "_Taltioryhmän nimi:"
 
-#: iw/lvm_dialog_gui.py:1251
+#: iw/lvm_dialog_gui.py:1307
 msgid "Volume Group Name:"
 msgstr "Taltioryhmän nimi:"
 
-#: iw/lvm_dialog_gui.py:1259
+#: iw/lvm_dialog_gui.py:1315
 msgid "_Physical Extent:"
 msgstr "_Fyysinen varausyksikkö:"
 
-#: iw/lvm_dialog_gui.py:1274
+#: iw/lvm_dialog_gui.py:1330
 msgid "Physical Volumes to _Use:"
 msgstr "_Käytettävät fyysiset taltiot:"
 
 #
 # ../packages.py:615
-#: iw/lvm_dialog_gui.py:1280
+#: iw/lvm_dialog_gui.py:1336
 msgid "Used Space:"
 msgstr "Käytetty tila:"
 
 #
 # ../textw/upgrade_text.py:107
-#: iw/lvm_dialog_gui.py:1297
+#: iw/lvm_dialog_gui.py:1353
 msgid "Free Space:"
 msgstr "Vapaa tila:"
 
 #
 # ../iw/package_gui.py:456
-#: iw/lvm_dialog_gui.py:1315
+#: iw/lvm_dialog_gui.py:1371
 msgid "Total Space:"
 msgstr "Yhteensä:"
 
-#: iw/lvm_dialog_gui.py:1353
+#: iw/lvm_dialog_gui.py:1409
 msgid "Logical Volume Name"
 msgstr "Loogisen taltion nimi"
 
 # ../iw/partition_gui.py:1545 ../iw/upgrade_swap_gui.py:123
 # ../packages.py:588 ../packages.py:608 ../textw/upgrade_text.py:106
-#: iw/lvm_dialog_gui.py:1356 iw/partition_gui.py:610
+#: iw/lvm_dialog_gui.py:1412 iw/partition_gui.py:610
 #: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:124
 msgid "Mount Point"
 msgstr "Liitospiste"
 
 #
 # ../iw/package_gui.py:425 ../iw/partition_gui.py:1545
-#: iw/lvm_dialog_gui.py:1359 iw/partition_gui.py:609
+#: iw/lvm_dialog_gui.py:1415 iw/partition_gui.py:609
 msgid "Size (MB)"
 msgstr "Koko (Mt)"
 
 # ../iw/account_gui.py:333 ../textw/userauth_text.py:218
-#: iw/lvm_dialog_gui.py:1373 iw/osbootwidget.py:96
+#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Lisää"
 
 # ../iw/partition_gui.py:1526
-#: iw/lvm_dialog_gui.py:1376 iw/osbootwidget.py:100 iw/partition_gui.py:1808
+#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:100 iw/partition_gui.py:1808
 #: iw/partition_gui.py:1818
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: iw/lvm_dialog_gui.py:1391
+#: iw/lvm_dialog_gui.py:1447
 msgid "_Logical Volumes"
 msgstr "_Loogiset taltiot"
 
@@ -3450,28 +3466,28 @@ msgid "Fill to maximum _allowable size"
 msgstr "K_asvata suurimpaan mahdolliseen kokoon"
 
 # ../iw/partition_gui.py:846 ../textw/partition_text.py:541
-#: iw/partition_dialog_gui.py:347
+#: iw/partition_dialog_gui.py:377
 msgid "Add Partition"
 msgstr "Lisää osio"
 
 #
-#: iw/partition_dialog_gui.py:349
+#: iw/partition_dialog_gui.py:379
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "Muokkaa osiota: %s"
 
 # ../iw/partition_gui.py:871 ../textw/partition_text.py:604
-#: iw/partition_dialog_gui.py:386
+#: iw/partition_dialog_gui.py:416
 msgid "File System _Type:"
 msgstr "_Tiedostojärjestelmän tyyppi:"
 
 # ../iw/partition_gui.py:900 ../textw/partition_text.py:260
-#: iw/partition_dialog_gui.py:402
+#: iw/partition_dialog_gui.py:432
 msgid "Allowable _Drives:"
 msgstr "_Sallitut levyt:"
 
 # ../iw/partition_gui.py:1084 ../textw/partition_text.py:583
-#: iw/partition_dialog_gui.py:471
+#: iw/partition_dialog_gui.py:508
 msgid "Force to be a _primary partition"
 msgstr "_Pakota ensisijaiseksi osioksi"
 
@@ -3650,7 +3666,10 @@ msgstr ""
 #: iw/partition_gui.py:1465
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
-msgstr ""
+msgid_plural "You currently have %d software RAID partitions free to use."
+msgstr[0] ""
+"Tällä hetkellä käytettävissä on %d vapaa ohjelmistopohjaista RAID-osiota."
+msgstr[1] ""
 "Tällä hetkellä käytettävissä on %d vapaata ohjelmistopohjaista RAID-osiota."
 
 # ../iw/partition_gui.py:646 ../textw/partition_text.py:79
@@ -3691,7 +3710,9 @@ msgstr ""
 #: iw/partition_gui.py:1487
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
-msgstr "Käytettävissä on %d vapaata fyysistä taltiota.\n"
+msgid_plural "You currently have %d available PVs free to use.\n"
+msgstr[0] "Käytettävissä on %d vapaa fyysinen taltio.\n"
+msgstr[1] "Käytettävissä on %d vapaata fyysistä taltiota.\n"
 
 #: iw/partition_gui.py:1491
 msgid "You currently have free space to create PVs."
@@ -3759,15 +3780,6 @@ msgstr "_Palauta"
 msgid "Please Select A Device"
 msgstr "Valitse laite"
 
-# ../iw/partition_gui.py:313 ../iw/partition_gui.py:334
-# ../iw/partition_gui.py:336 ../textw/partition_text.py:186
-# ../textw/partition_text.py:188 ../textw/partition_text.py:190
-# ../textw/partition_text.py:215
-#: iw/partition_ui_helpers_gui.py:109 iw/partition_ui_helpers_gui.py:131
-#: iw/partition_ui_helpers_gui.py:133
-msgid "<Not Applicable>"
-msgstr "<Ei käytettävissä>"
-
 # ../textw/partition_text.py:457
 #: iw/partition_ui_helpers_gui.py:312
 msgid "_Format as:"
@@ -3783,7 +3795,7 @@ msgstr "_Muunna tiedostojärjestelmät muotoon:"
 msgid "_Resize"
 msgstr "_Muuta kokoa"
 
-#: iw/partition_ui_helpers_gui.py:433
+#: iw/partition_ui_helpers_gui.py:435
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
@@ -3797,7 +3809,7 @@ msgstr ""
 msgid "Installing Packages"
 msgstr "Asennetaan paketteja"
 
-#: iw/raid_dialog_gui.py:341
+#: iw/raid_dialog_gui.py:382
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -3812,47 +3824,47 @@ msgstr ""
 "RAID\", ja valitse sitten \"RAID\" uudelleen."
 
 # ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
-#: iw/raid_dialog_gui.py:355
+#: iw/raid_dialog_gui.py:396
 msgid "Make RAID Device"
 msgstr "Luo RAID-laite"
 
 # ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
-#: iw/raid_dialog_gui.py:358
+#: iw/raid_dialog_gui.py:399
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr "Muokkaa RAID-laitetta: %s"
 
 # ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
-#: iw/raid_dialog_gui.py:360
+#: iw/raid_dialog_gui.py:401
 msgid "Edit RAID Device"
 msgstr "Muokkaa RAID-laitetta"
 
 # ../iw/partition_gui.py:724 ../textw/partition_text.py:147
-#: iw/raid_dialog_gui.py:431
+#: iw/raid_dialog_gui.py:468
 msgid "RAID _Device:"
 msgstr "RAI_D-laite:"
 
 # ../iw/partition_gui.py:1368 ../textw/partition_text.py:382
-#: iw/raid_dialog_gui.py:449
+#: iw/raid_dialog_gui.py:486
 msgid "RAID _Level:"
 msgstr "RAID-_taso:"
 
 # ../iw/partition_gui.py:1403 ../textw/partition_text.py:400
-#: iw/raid_dialog_gui.py:491
+#: iw/raid_dialog_gui.py:528
 msgid "_RAID Members:"
 msgstr "_RAID-jäsenet:"
 
 # ../iw/partition_gui.py:1414
-#: iw/raid_dialog_gui.py:508
+#: iw/raid_dialog_gui.py:545
 msgid "Number of _spares:"
 msgstr "Varalev_yjen lukumäärä:"
 
 # ../iw/partition_gui.py:1421 ../textw/partition_text.py:842
-#: iw/raid_dialog_gui.py:518
+#: iw/raid_dialog_gui.py:555
 msgid "_Format partition?"
 msgstr "_Alustetaanko osio?"
 
-#: iw/raid_dialog_gui.py:592
+#: iw/raid_dialog_gui.py:629
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -3860,12 +3872,12 @@ msgstr ""
 "Lähdelevyllä ei ole osioita, joiden määrittelyjä voitaisiin kopioida. Luo "
 "ensin osioita, joiden tyyppi on \"ohjelmisto-RAID\"."
 
-#: iw/raid_dialog_gui.py:596 iw/raid_dialog_gui.py:602
-#: iw/raid_dialog_gui.py:616 iw/raid_dialog_gui.py:629
+#: iw/raid_dialog_gui.py:633 iw/raid_dialog_gui.py:639
+#: iw/raid_dialog_gui.py:653 iw/raid_dialog_gui.py:666
 msgid "Source Drive Error"
 msgstr "Lähdelevyn virhe"
 
-#: iw/raid_dialog_gui.py:603
+#: iw/raid_dialog_gui.py:640
 msgid ""
 "The source drive you selected has partitions which are not of type 'software "
 "RAID'.\n"
@@ -3876,7 +3888,7 @@ msgstr ""
 "\n"
 "Nämä osiot on poistettava, jotta määrittelyt voidaan kopioida."
 
-#: iw/raid_dialog_gui.py:617
+#: iw/raid_dialog_gui.py:654
 #, python-format
 msgid ""
 "The source drive you selected has partitions which are not constrained to "
@@ -3890,7 +3902,7 @@ msgstr ""
 "Nämä osiot on joko poistettava tai rajoitettava tälle levylle ennen kuin "
 "levy voidaan kopioida."
 
-#: iw/raid_dialog_gui.py:630
+#: iw/raid_dialog_gui.py:667
 msgid ""
 "The source drive you selected has software RAID partition(s) which are "
 "members of an active software RAID device.\n"
@@ -3902,22 +3914,22 @@ msgstr ""
 "\n"
 "Nämä osiot on poistettava ennen kuin levyn määrittelyt voidaan kopioida."
 
-#: iw/raid_dialog_gui.py:644 iw/raid_dialog_gui.py:650
-#: iw/raid_dialog_gui.py:666
+#: iw/raid_dialog_gui.py:681 iw/raid_dialog_gui.py:687
+#: iw/raid_dialog_gui.py:703
 msgid "Target Drive Error"
 msgstr "Kohdelevyn virhe"
 
 # ../textw/xconfig_text.py:260
-#: iw/raid_dialog_gui.py:645
+#: iw/raid_dialog_gui.py:682
 msgid "Please select the target drives for the clone operation."
 msgstr "Valitse kopioinnin kohdelevyt."
 
-#: iw/raid_dialog_gui.py:651
+#: iw/raid_dialog_gui.py:688
 #, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
 msgstr "Lähdelevyä %s ei voi valita myös kohteeksi."
 
-#: iw/raid_dialog_gui.py:667
+#: iw/raid_dialog_gui.py:704
 #, python-format
 msgid ""
 "The target drive %(path)s has a partition which cannot be removed for the "
@@ -3934,11 +3946,11 @@ msgstr ""
 "Tämä osio on poistettava ennen kuin tämä levy voi olla kohde."
 
 # ../loader/devices.c:533
-#: iw/raid_dialog_gui.py:730
+#: iw/raid_dialog_gui.py:767
 msgid "Please select a source drive."
 msgstr "Valitse lähdelevy."
 
-#: iw/raid_dialog_gui.py:750
+#: iw/raid_dialog_gui.py:787
 #, python-format
 msgid ""
 "The drive %s will now be cloned to the following drives:\n"
@@ -3947,7 +3959,7 @@ msgstr ""
 "Levy %s kopioidaan seuraaville levyille:\n"
 "\n"
 
-#: iw/raid_dialog_gui.py:755
+#: iw/raid_dialog_gui.py:792
 msgid ""
 "\n"
 "\n"
@@ -3958,25 +3970,25 @@ msgstr ""
 "VAROITUS! KAIKKI TIEDOT KOHDELEVYILLÄ TUHOUTUVAT."
 
 # ../partitioning.py:1860
-#: iw/raid_dialog_gui.py:758
+#: iw/raid_dialog_gui.py:795
 msgid "Final Warning"
 msgstr "Viimeinen varoitus"
 
 # ../iw/partition_gui.py:900 ../textw/partition_text.py:260
-#: iw/raid_dialog_gui.py:760
+#: iw/raid_dialog_gui.py:797
 msgid "Clone Drives"
 msgstr "Kopioi levyt"
 
-#: iw/raid_dialog_gui.py:769
+#: iw/raid_dialog_gui.py:806
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "Kohdelevyjen tyhjennys epäonnistui. Kopiointi epäonnistui."
 
 # ../iw/partition_gui.py:900 ../textw/partition_text.py:260
-#: iw/raid_dialog_gui.py:792
+#: iw/raid_dialog_gui.py:829
 msgid "Clone Drive Tool"
 msgstr "Levyn kloonaustyökalu"
 
-#: iw/raid_dialog_gui.py:801
+#: iw/raid_dialog_gui.py:838
 msgid ""
 "This tool clones the layout from a partitioned source onto other similar "
 "sized drives. The source must have partitions which are restricted to that "
@@ -3989,17 +4001,17 @@ msgstr ""
 "kohdelevyltä.\n"
 
 # ../iw/partition_gui.py:911
-#: iw/raid_dialog_gui.py:812
+#: iw/raid_dialog_gui.py:849
 msgid "Source Drive:"
 msgstr "Lähdelevy:"
 
 # ../loader/loader.c:816
-#: iw/raid_dialog_gui.py:820
+#: iw/raid_dialog_gui.py:857
 msgid "Target Drive(s):"
 msgstr "Kohdelevy(t):"
 
 # ../iw/partition_gui.py:911
-#: iw/raid_dialog_gui.py:828
+#: iw/raid_dialog_gui.py:865
 msgid "Drives"
 msgstr "Levyt"
 
@@ -4489,7 +4501,7 @@ msgstr "Levyä ei löytynyt"
 #: loader/kbd.c:119 loader/loader.c:490 loader/loader.c:507
 #: loader/loader.c:1357 loader/loader.c:1390 loader/net.c:579 loader/net.c:950
 #: loader/net.c:1851 loader/net.c:1870 loader/nfsinstall.c:91
-#: loader/urls.c:249 storage/__init__.py:152 storage/devicetree.py:89
+#: loader/urls.c:251 storage/__init__.py:152 storage/devicetree.py:89
 #: textw/constants_text.py:52
 msgid "Back"
 msgstr "Takaisin"
@@ -5367,46 +5379,46 @@ msgid "Unknown Url method %s"
 msgstr "Tuntematon URL-tyyppi %s"
 
 # ../loader/urls.c:103
-#: loader/urls.c:155 loader/urls.c:163
+#: loader/urls.c:157 loader/urls.c:165
 msgid "Retrieving"
 msgstr "Haen"
 
-#: loader/urls.c:252
+#: loader/urls.c:254
 #, c-format
 msgid ""
 "Please enter the URL containing the %s installation image on your server."
 msgstr "Syötä URL, joka sisältää %s -asennuskuvan palvelimellasi."
 
-#: loader/urls.c:270
+#: loader/urls.c:272
 msgid "Enable HTTP proxy"
 msgstr "﻿Ota käyttöön HTTP-välityspalvelin"
 
 # ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
-#: loader/urls.c:285
+#: loader/urls.c:287
 msgid "Proxy URL"
 msgstr "Välityspalvelimen osoite"
 
 # ../textw/userauth_text.py:204
-#: loader/urls.c:295
+#: loader/urls.c:297
 msgid "Username"
 msgstr "Käyttäjätunnus"
 
 # ../textw/userauth_text.py:101
-#: loader/urls.c:300
+#: loader/urls.c:302
 msgid "Password"
 msgstr "Salasana"
 
 # ../loader/net.c:179
-#: loader/urls.c:319
+#: loader/urls.c:321
 msgid "URL Setup"
 msgstr "URL-asetus"
 
 # ../loader/urls.c:242
-#: loader/urls.c:327
+#: loader/urls.c:329
 msgid "You must enter a URL."
 msgstr "On annettava URL."
 
-#: loader/urls.c:333
+#: loader/urls.c:335
 msgid "URL must be either an ftp or http URL"
 msgstr "URL:n on oltava ftp- tai http-URL"
 
@@ -5875,25 +5887,25 @@ msgid "lvs failed for %s"
 msgstr "lvs-komento epäonnistui taltioryhmälle %s"
 
 # ../floppy.py:73
-#: storage/devices.py:1250 storage/devices.py:1905 storage/devices.py:2305
-#: storage/devices.py:2771 storage/devices.py:3250
+#: storage/devices.py:1257 storage/devices.py:1924 storage/devices.py:2327
+#: storage/devices.py:2798 storage/devices.py:3280
 msgid "Creating"
 msgstr "Luodaan"
 
 # ../image.py:119
-#: storage/devices.py:1251 storage/devices.py:1906 storage/devices.py:2306
-#: storage/devices.py:2772
+#: storage/devices.py:1258 storage/devices.py:1925 storage/devices.py:2328
+#: storage/devices.py:2799
 #, python-format
 msgid "Creating device %s"
 msgstr "Luodaan laitetta %s"
 
-#: storage/devices.py:2397
+#: storage/devices.py:2421
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "RAID%d-pakka vaatii vähintään %d jäsentä"
 
 # ../fsset.py:146
-#: storage/devices.py:3251
+#: storage/devices.py:3281
 #, python-format
 msgid "Creating file %s"
 msgstr "Luodaan tiedostoa %s"
@@ -5917,7 +5929,7 @@ msgstr ""
 "Jos ohitat tämän kohdan, laitteella olevia tietoja ei voi käyttää asennuksen "
 "aikana."
 
-#: storage/devicetree.py:1830 storage/devicetree.py:1878
+#: storage/devicetree.py:1831 storage/devicetree.py:1879
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Tämä laite on osa epäyhtenäistä LVM-taltioryhmää."
 
@@ -7551,6 +7563,10 @@ msgstr "kymri"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "zulu"
+
+# ../iw/partition_gui.py:888
+#~ msgid "Unknown"
+#~ msgstr "Tuntematon"
 
 # ../iw/upgrade_migratefs_gui.py:54 ../textw/upgrade_text.py:32
 #~ msgid ""
