@@ -38,7 +38,7 @@ msgstr ""
 "Project-Id-Version: anaconda.f13-branch\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-15 10:59-0500\n"
-"PO-Revision-Date: 2010-03-18 15:24+1000\n"
+"PO-Revision-Date: 2010-03-25 14:38+1000\n"
 "Last-Translator: sknirT omiT <moc.tahder@sknirtt>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2465,9 +2465,7 @@ msgstr ""
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
-msgstr ""
-"<b>Hinweis:</b> Die Installations-Zielgeräte werden neu formatiert und "
-"sämtliche Daten gelöscht.  Stellen Sie sicher, dass Sie Datensicherungen besitzen."
+msgstr "<b>Hinweis:</b> Die Installations-Zielgeräte werden neu formatiert und sämtliche Daten gelöscht.  Stellen Sie sicher, dass Sie Datensicherungen besitzen."
 
 #: iw/cleardisks_gui.py:180
 msgid ""
@@ -2641,7 +2639,7 @@ msgid ""
 "mainframe attached disks (DASD), usually in an enterprise environment"
 msgstr ""
 "Installiert oder aktualisiert auf Geräte wie Storage Area Networks (SANs) oder "
-"per Mainframe angehängte Speichergeräte (DASD)"
+"per Mainframe angehängte Speichergeräte (DASD), gewöhnlich in einer Unternehmensumgebung"
 
 #: iw/language_gui.py:33
 msgid "Language Selection"
@@ -4865,7 +4863,7 @@ msgid ""
 "optionally additional NFS mount options."
 msgstr ""
 "Bitte geben Sie den Server-Namen und den Pfad zu den %s-"
-"Installationsabbildern ein, optional weitere NFS-Einhängeoptionen."
+"Installationsabbildern ein und optional weitere NFS-Einhängeoptionen."
 
 #: loader/nfsinstall.c:90
 msgid "NFS Setup"
@@ -6304,7 +6302,7 @@ msgstr "<b>Data Storage Devices</b> (nur einzuhängende Datenspeichergeräte)"
 
 #: ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
-msgstr "<b>Ziel-Geräte installieren</b>"
+msgstr "<b>Installations-Zielgeräte</b>"
 
 #: ui/cleardisks.glade.h:4
 msgid ""
@@ -6327,7 +6325,7 @@ msgstr "<span size=\"small\" color=\"gray\">Eine RAID-formatierte Partition erst
 msgid ""
 "<span size=\"small\" color=\"gray\">Create a logical volume on selected "
 "volume group</span>"
-msgstr "<span size=\"small\" color=\"gray\">Einen logischen Datenträger (Logical Volume) in der ausgewählten Datenträgerverbund (Volume Group) erstellen</span>"
+msgstr "<span size=\"small\" color=\"gray\">Einen logischen Datenträger (Logical Volume) im ausgewählten Datenträgerverbund (Volume Group) erstellen</span>"
 
 #: ui/create-storage.glade.h:3
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
@@ -6375,11 +6373,11 @@ msgstr "Speicherplatz erzeugen"
 
 #: ui/create-storage.glade.h:13
 msgid "LVM Logical Volume"
-msgstr "LVM Logischen Datenträger (Logical Volume)"
+msgstr "LVM Logischer Datenträger (Logical Volume)"
 
 #: ui/create-storage.glade.h:14
 msgid "LVM Physical Volume"
-msgstr "LVM physikalischen Datenträger (Physical Volume)"
+msgstr "LVM physikalischer Datenträger (Physical Volume)"
 
 #: ui/create-storage.glade.h:15
 msgid "LVM Volume Group"
@@ -6428,7 +6426,7 @@ msgstr "FCoE-Platte(n) hinzufügen"
 #: ui/filter.glade.h:2
 #, no-c-format
 msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
-msgstr "<b>%s-Geräte (%s) ausgewählt</b> vom %s devices (%s) total."
+msgstr "<b>%s-Geräte (%s) ausgewählt</b> von %s Gerät(en) (%s) insgesamt."
 
 #: ui/filter.glade.h:3
 msgid ""
@@ -6482,7 +6480,7 @@ msgstr "Multipath-Geräte"
 
 #: ui/filter.glade.h:14
 msgid "Other SAN Devices"
-msgstr "Andere SAN-Geräte"
+msgstr "Sonstige SAN-Geräte"
 
 #: ui/filter.glade.h:15
 msgid ""
@@ -6515,7 +6513,7 @@ msgstr "Suche nach:"
 
 #: ui/filter.glade.h:21
 msgid "Search Results:"
-msgstr "Such-Resultate:"
+msgstr "Suchergebnisse:"
 
 #: ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
@@ -6527,7 +6525,7 @@ msgstr "Nur Geräte anzeigen von:"
 
 #: ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr "Nur verwendete Geräte anzeigen:"
+msgstr "Nur Geräte anzeigen, die Folgendes verwenden:"
 
 #: ui/filter.glade.h:25
 msgid "Target:"
