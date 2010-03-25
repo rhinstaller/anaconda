@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-23 07:20-1000\n"
-"PO-Revision-Date: 2010-03-25 12:44\n"
+"PO-Revision-Date: 2010-03-25 13:03\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -2007,8 +2007,8 @@ msgid ""
 "package selections, or continue installing these packages without their "
 "dependencies."
 msgstr ""
-"Для некоторых из выбранных для установки пакетов отсутствуют зависимости.  "
-"Можно выйти из процесса установки, вернуться назад и изменить выбор пакетов "
+"Отсутствуют зависимости для некоторых выбранных для установки пакетов.  "
+"Можно выйти из процесса установки, вернуться назад и изменить набор пакетов "
 "или продолжить установку этих пакетов без их зависимостей."
 
 #: yuminstall.py:1459
@@ -2446,14 +2446,14 @@ msgstr "Загрузка"
 msgid ""
 "<b>Tip:</b> All Linux filesystems on install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>Совет:</b> Все файловые системы Linux на устройствах устанавливаемой системы будут отформатированы с удалением данных. Проверьте наличие резервных копий."
+msgstr "<b>Совет:</b> Все файловые системы Linux на устройствах в устанавливаемой системе будут отформатированы с удалением данных. Проверьте наличие резервных копий."
 
 #: iw/cleardisks_gui.py:178 ui/cleardisks.glade.h:3
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
-"<b>Совет:</b> Устройства устанавливаемой системы будут "
+"<b>Совет:</b> Устройства в устанавливаемой системе будут "
 "отформатированы с потерей данных.  Проверьте наличие резервных копий."
 
 #: iw/cleardisks_gui.py:180
@@ -2841,7 +2841,7 @@ msgstr "Нет свободных слотов"
 #: iw/lvm_dialog_gui.py:798
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
-msgstr "Вы не можете создать больше %d логических разделов в логической группе"
+msgstr "Вы не можете создать больше %d логических томов в группе томов."
 
 #: iw/lvm_dialog_gui.py:808
 msgid "No free space"
