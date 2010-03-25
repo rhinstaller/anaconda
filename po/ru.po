@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-23 07:20-1000\n"
-"PO-Revision-Date: 2010-03-25 11:34\n"
+"PO-Revision-Date: 2010-03-25 12:44\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -579,7 +579,7 @@ msgstr "Установка в системе"
 msgid ""
 "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS "
 "RAID sets. Ignoring disk %s."
-msgstr ""
+msgstr "Диск %s содержит метаданные RAID BIOS, но не входит в состав известных наборов RAID BIOS. %s будет проигнорирован."
 
 #: iutil.py:847
 #, python-format
@@ -1615,11 +1615,11 @@ msgstr "Отказ от попыток подключения после %d ра
 #: vnc.py:206
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "Подключите вручную Ваш клиент VNC к %s для начала установки."
+msgstr "Подключите вручную клиент VNC к %s для начала установки."
 
 #: vnc.py:208
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Подключите Ваш клиент VNC вручную для начала установки."
+msgstr "Подключите клиент VNC вручную для начала установки."
 
 #: vnc.py:211
 msgid "Starting VNC..."
@@ -2216,9 +2216,8 @@ msgstr ""
 "такие символы не допускаются."
 
 #: iw/advanced_storage.py:91
-#, fuzzy
 msgid "You must select a NIC to use."
-msgstr "Необходимо выбрать сетевое устройство"
+msgstr "Необходимо выбрать сетевую карту."
 
 #: iw/advanced_storage.py:138
 msgid "Invalid Initiator Name"
@@ -2229,9 +2228,8 @@ msgid "You must provide an initiator name."
 msgstr "Необходимо указать имя инициатора."
 
 #: iw/advanced_storage.py:168
-#, fuzzy
 msgid "Error with Data"
-msgstr "Ошибка"
+msgstr "Ошибка данных"
 
 #: iw/autopart_type.py:97
 msgid ""
@@ -2294,7 +2292,7 @@ msgstr ""
 "При этом другие разделы (например, VFAT или FAT32) не будут удалены.\n"
 "\n"
 "<b>Совет:</b> Этот выбор приведёт к удалению данных на выбранных "
-"устройствах.  Убедитесь, что у вас есть резервные копиии."
+"устройствах.  Убедитесь, что у вас есть резервные копии."
 
 #: iw/autopart_type.py:246
 msgid "Shrink Current System"
@@ -2403,84 +2401,66 @@ msgid "_Change device"
 msgstr "_Изменить устройство"
 
 #: iw/cleardisks_gui.py:33
-#, fuzzy
 msgid "Clear Disks Selector"
 msgstr "Очистить выбор дисков"
 
 #: iw/cleardisks_gui.py:44 iw/filter_gui.py:412
-#, fuzzy
 msgid "You must select at least one drive to be used for installation."
-msgstr "Необходимо выбрать хотя бы один диск для установки."
+msgstr "Необходимо выбрать как минимум один диск для установки."
 
 #: iw/cleardisks_gui.py:54
-#, fuzzy
 msgid "You must select one drive to boot from."
-msgstr "Необходимо выбрать один диск, с которого должна производиться загрузка. "
+msgstr "Необходимо выбрать один диск, с которого будет производиться загрузка."
 
 #: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:447
 #: iw/filter_gui.py:459 iw/filter_gui.py:489
-#, fuzzy
 msgid "Model"
 msgstr "Модель"
 
 #: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:448
 #: iw/filter_gui.py:460 iw/filter_gui.py:468 iw/filter_gui.py:479
 #: iw/filter_gui.py:490
-#, fuzzy
 msgid "Capacity"
-msgstr "Объем"
+msgstr "Объём"
 
 #: iw/cleardisks_gui.py:123 iw/filter_gui.py:449 iw/filter_gui.py:469
 #: iw/filter_gui.py:480 iw/filter_gui.py:491
-#, fuzzy
 msgid "Vendor"
 msgstr "Поставщик"
 
 #: iw/cleardisks_gui.py:124 iw/filter_gui.py:450 iw/filter_gui.py:470
 #: iw/filter_gui.py:481 iw/filter_gui.py:492
-#, fuzzy
 msgid "Interconnect"
-msgstr "Связывать"
+msgstr "Соединение"
 
 #: iw/cleardisks_gui.py:125 iw/filter_gui.py:451 iw/filter_gui.py:482
 #: iw/filter_gui.py:493
-#, fuzzy
 msgid "Serial Number"
 msgstr "Серийный номер"
 
 #: iw/cleardisks_gui.py:139
-#, fuzzy
 msgid "Boot"
 msgstr "Загрузка"
 
 #: iw/cleardisks_gui.py:176
-#, fuzzy
 msgid ""
 "<b>Tip:</b> All Linux filesystems on install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
-"<b>Совет:</b> Все файловые системы Linux на устройствах намеченной для "
-"установки системы будут переформатированы, и с них будут удалены все "
-"данные.  Убедитесь, что есть резервные копии."
+msgstr "<b>Совет:</b> Все файловые системы Linux на устройствах устанавливаемой системы будут отформатированы с удалением данных. Проверьте наличие резервных копий."
 
 #: iw/cleardisks_gui.py:178 ui/cleardisks.glade.h:3
-#, fuzzy
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
-"<b>Совет:</b> Устройства на намеченной для установки системы будут "
-"переформатированы, и с них будут удалены все данные.  Убедитесь, что есть "
-"резервные копии."
+"<b>Совет:</b> Устройства устанавливаемой системы будут "
+"отформатированы с потерей данных.  Проверьте наличие резервных копий."
 
 #: iw/cleardisks_gui.py:180
-#, fuzzy
 msgid ""
 "<b>Tip:</b> Your filesystems on install target devices will not be wiped "
 "unless you choose to do so during customization."
-msgstr ""
-"<b>Совет:</b> Ваши файловые системы на устройствах намеченной для установки "
-"системы не будут стерты, если вы не выберете это действие при настройке."
+msgstr "<b>Совет:</b> Если вы специально не выберете удаление файловых систем, все файловые системы на устройствах целевой системы останутся нетронутыми."
 
 #: iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2583,18 +2563,15 @@ msgstr "Неизвестная система Linux"
 
 #: iw/filter_gui.py:147
 #, python-format
-#, fuzzy
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr "<b>выбрано %s устройств (%s МБ)</b> из %s устройств (%s МБ) в сумме."
 
 #: iw/filter_gui.py:397
-#, fuzzy
 msgid "Device Filter"
 msgstr "Фильтр устройств"
 
 #: iw/filter_gui.py:452 iw/filter_gui.py:467 iw/filter_gui.py:478
 #: iw/filter_gui.py:494
-#, fuzzy
 msgid "Identifier"
 msgstr "Идентификатор"
 
@@ -2605,7 +2582,6 @@ msgid "Device"
 msgstr "Устройство"
 
 #: iw/filter_gui.py:471
-#, fuzzy
 msgid "Paths"
 msgstr "Пути"
 
@@ -2614,48 +2590,36 @@ msgid "Port"
 msgstr "Порт"
 
 #: iw/filter_gui.py:496
-#, fuzzy
 msgid "Target"
-msgstr "Целевое устройство"
+msgstr "Цель"
 
 #: iw/filter_gui.py:497
-#, fuzzy
 msgid "LUN"
 msgstr "LUN"
 
 #: iw/filter_type.py:55
-#, fuzzy
 msgid "What type of devices will your installation involve?"
-msgstr "Какой тип устройства будет использоваться в вашей установке?"
+msgstr "Какой тип устройств будет использоваться при установке?"
 
 #: iw/filter_type.py:61
-#, fuzzy
 msgid "Basic Storage Devices"
-msgstr "Базовые устройства хранения"
+msgstr "Стандартные накопители"
 
 #: iw/filter_type.py:62
-#, fuzzy
 msgid ""
 "Installs or upgrades to typical types of storage devices.  If you're not "
 "sure which option is right for you, this is probably it."
-msgstr ""
-"Установка или обновление для типичных видом устройств хранения.  Если вы не "
-"уверены, какой вариант вам подходит, то это, вероятно, именно он."
+msgstr "Установка или обновление на стандартных накопителях. Этот выбор подходит, если вы не уверены, какой вариант следует выбрать."
 
 #: iw/filter_type.py:66
-#, fuzzy
 msgid "Specialized Storage Devices"
-msgstr "Специализированные устройства хранения"
+msgstr "Специализированные накопители"
 
 #: iw/filter_type.py:67
-#, fuzzy
 msgid ""
 "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
 "mainframe attached disks (DASD), usually in an enterprise environment"
-msgstr ""
-"Установка или обновление для таких устройств, как сеть хранения данных (СХД) "
-"или подключенные к мэйнфрейму диски (DASD), как правило, в корпоративной "
-"среде"
+msgstr "Установка или обновление в сетях SAN или на подключенных к мэйнфрейму дисках (DASD). Обычно используется в корпоративной среде"
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2890,7 +2854,7 @@ msgid ""
 "currently existing logical volumes"
 msgstr ""
 "В группе томов нет места для создания новых логических томов. Чтобы добавить "
-"логический том, Вам необходимо уменьшить размер одного или нескольких уже "
+"логический том, необходимо уменьшить размер одного или нескольких уже "
 "существующих логических томов"
 
 #: iw/lvm_dialog_gui.py:844
@@ -4791,12 +4755,12 @@ msgid "NFS mount options (optional):"
 msgstr "Параметры монтирования NFS (необязательные):"
 
 #: loader/nfsinstall.c:82
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the server and NFSv3 path to your %s installation image and "
 "optionally additional NFS mount options."
 msgstr ""
-"Введите имя сервера и путь к установочному образу %s и, если нужно, "
+"Введите имя сервера, путь NFSv3 к установочному образу %s и, если нужно, "
 "дополнительные параметры монтирования NFS."
 
 #: loader/nfsinstall.c:90
@@ -4815,7 +4779,7 @@ msgstr "Этот каталог не содержит установочный �
 #: loader/nfsinstall.c:367
 #, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "Неверный аргумент для NFS метода кикстарт-установки %s"
+msgstr "Неверный аргумент для NFS метода кикстарт-установки: %s"
 
 #: loader/telnetd.c:89 loader/telnetd.c:128
 msgid "Telnet"
@@ -5306,30 +5270,32 @@ msgstr ""
 "Нажмите <Enter> для выхода из программы установки."
 
 #: storage/dasd.py:103
-#, fuzzy
 msgid "Unformatted DASD Device Found"
-msgstr "Устройство"
+msgstr "Найдено неформатированное устройство DASD"
 
 #: storage/dasd.py:105
 #, python-format
-#, fuzzy
 msgid ""
 "Format uninitialized DASD device?\n"
 "\n"
 "There is %d uninitialized DASD device on this system.  To continue "
 "installation, the device must be formatted.  Formatting will remove any data "
 "on this device."
-msgstr "Формат Форматирование."
+msgstr ""
+"Форматировать неинициализированное устройство DASD?\n"
+"\n"
+"В системе есть %d неинициализированное устройство DASD. "
+"Для продолжения установки его необходимо инициализировать. "
+"Все данные при форматировании будут удалены."
 
 #: storage/dasd.py:134
-#, fuzzy
 msgid "Formatting DASD Device"
-msgstr "Форматирование Устройство"
+msgstr "Форматирование устройства DASD"
 
 #: storage/dasd.py:135
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
-msgstr ""
+msgstr "Подготовка %d устройства DASD для использования Linux..."
 
 #: storage/devicelibs/lvm.py:315
 #, python-format
@@ -5355,7 +5321,7 @@ msgstr "Создание устройства %s"
 #: storage/devices.py:2386
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
-msgstr "Для RAID%d-массива требуется  минимум %d элементов"
+msgstr "Для RAID%d требуется как минимум %d элементов"
 
 #: storage/devices.py:3240
 #, python-format
@@ -5385,12 +5351,11 @@ msgstr "Этот раздел входит в состав несогласов�
 
 #: storage/fcoe.py:67 storage/fcoe.py:68
 msgid "Connecting to FCoE SAN"
-msgstr ""
+msgstr "Подключение к FCoE SAN"
 
 #: storage/fcoe.py:110
-#, fuzzy
 msgid "FCoE not available"
-msgstr "iSCSI не доступен"
+msgstr "FCoE недоступен"
 
 #: storage/formats/fs.py:102
 msgid "filesystem configuration missing a type"
@@ -5486,19 +5451,18 @@ msgid "Usage error."
 msgstr "Ошибка использования."
 
 #: storage/formats/luks.py:48
-#, fuzzy
 msgid "Encrypted"
-msgstr "_Шифрование"
+msgstr "Зашифрована"
 
 #: storage/formats/luks.py:195
-#, fuzzy, python-format
+#, python-format
 msgid "Encrypting %s"
-msgstr "_Шифрование"
+msgstr "Шифрование %s"
 
 #: storage/formats/lvmpv.py:104 storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %s on %s"
-msgstr "Создание"
+msgstr "Создание %s на %s"
 
 #: storage/iscsi.py:83 storage/iscsi.py:84
 msgid "Scanning iSCSI nodes"
@@ -5510,7 +5474,7 @@ msgstr "Инициализируется инициатор iSCSI"
 
 #: storage/iscsi.py:213
 msgid "iSCSI not available"
-msgstr "iSCSI не доступен"
+msgstr "iSCSI недоступен"
 
 #: storage/iscsi.py:215
 msgid "No initiator name set"
@@ -6278,122 +6242,94 @@ msgid "<b>Install Target Devices</b>"
 msgstr "<b>Устройства устанавливаемой системы</b>"
 
 #: ui/cleardisks.glade.h:4
-#, fuzzy
 msgid ""
 "Below are the storage devices you've selected to be a part of this "
 "installation.  Please indicate using the arrows below which devices you'd "
 "like to use as data drives (these will not be formatted, only mounted) and "
 "which devices you'd like to use as system drives (these may be formatted)."
-msgstr ""
-"Ниже представлены устройства хранения, выбраные вами для использования в "
-"этой установке.  Укажите с помощью стрелок внизу, какие устройства вы бы "
-"хотели использовать в качестве дисков с данными (они не будут "
-"форматироваться, только монтироваться), а какие - в качестве системных "
-"дисков (эти могут быть сформатированы)."
+msgstr "Ниже представлены выбранные вами устройства хранения. С помощью стрелок укажите, какие устройства вы бы хотели использовать в качестве дисков с данными (будут смонтированы, но не отформатированы), а какие &mdash; в качестве системных дисков (могут быть отформатированы)."
 
 #: ui/create-storage.glade.h:1
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">Создать форматированный раздел RAID</"
-"span>"
+msgstr "<span size=\"small\" color=\"gray\">Создать раздел RAID</span>"
 
 #: ui/create-storage.glade.h:2
-#, fuzzy
 msgid ""
 "<span size=\"small\" color=\"gray\">Create a logical volume on selected "
 "volume group</span>"
 msgstr ""
-"<span size=\"small\" color=\"gray\">Создать логический том на выбранной "
+"<span size=\"small\" color=\"gray\">Создать логический том в выбранной "
 "группе томов</span>"
 
 #: ui/create-storage.glade.h:3
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">Создать форматированный раздел "
-"логического тома</span>"
+msgstr "<span size=\"small\" color=\"gray\">Создать раздел LVM</span>"
 
 #: ui/create-storage.glade.h:4
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">Облегчает создание RAID-устройства</span>"
 
 #: ui/create-storage.glade.h:5
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">Создание раздела общего назначения</span>"
 
 #: ui/create-storage.glade.h:6
-#, fuzzy
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
 "partition</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">Требует по меньшей мере 1 свободный "
-"форматированный раздел логического тома</span>"
+"раздел LVM</span>"
 
 #: ui/create-storage.glade.h:7
-#, fuzzy
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated "
 "partitions</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">Требует по меньшей мере 2 свободных "
-"форматированных разделов RAID</span>"
+"раздела RAID</span>"
 
 #: ui/create-storage.glade.h:8
-#, fuzzy
 msgid "Create"
 msgstr "Создать"
 
 #: ui/create-storage.glade.h:9
-#, fuzzy
 msgid "Create LVM"
-msgstr "Создать логический том"
+msgstr "Создать LVM"
 
 #: ui/create-storage.glade.h:10
-#, fuzzy
 msgid "Create Partition"
 msgstr "Создать раздел"
 
 #: ui/create-storage.glade.h:11
-#, fuzzy
 msgid "Create Software RAID"
 msgstr "Создать программный RAID"
 
 #: ui/create-storage.glade.h:12
-#, fuzzy
 msgid "Create Storage"
-msgstr "Создать дисковое пространство"
+msgstr "Создать пространство хранения"
 
 #: ui/create-storage.glade.h:13
-#, fuzzy
 msgid "LVM Logical Volume"
 msgstr "Логический том LVM"
 
 #: ui/create-storage.glade.h:14
-#, fuzzy
 msgid "LVM Physical Volume"
 msgstr "Физический том LVM"
 
 #: ui/create-storage.glade.h:15
-#, fuzzy
 msgid "LVM Volume Group"
 msgstr "Группа томов LVM"
 
 #: ui/create-storage.glade.h:16
-#, fuzzy
 msgid "RAID Clone"
 msgstr "Копия RAID"
 
 #: ui/create-storage.glade.h:18
-#, fuzzy
 msgid "RAID Partition"
 msgstr "Раздел RAID"
 
 #: ui/create-storage.glade.h:19
-#, fuzzy
 msgid "Standard Partition"
 msgstr "Стандартный раздел"
 
@@ -6425,50 +6361,41 @@ msgstr "_Добавить диски FCoE"
 
 #: ui/filter.glade.h:2
 #, no-c-format
-#, fuzzy
 msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
 msgstr "<b>%s устройств (%s) выбрано</b> из %s устройств (%s) в сумме."
 
 #: ui/filter.glade.h:3
-#, fuzzy
 msgid ""
 "<b>Tip:</b> Selecting a drive on this screen does not necessarily mean it "
 "will be wiped by the installation process.  Also, note that post-"
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
 msgstr ""
-"<b>Совет:</b> Выбор диска на этом экране не обязательно означает, что он "
-"будет стерт процессом установки.  Кроме того, имейте в виду, что после "
-"установки можно смонтировать диски, не выбранные здесь, путем редактирования "
+"<b>Совет:</b> Выбор диска на этом экране не означает, что он "
+"будет очищен в процессе установки. После установки можно смонтировать не выбранные здесь диски путём редактирования "
 "файла /etc/fstab."
 
 #: ui/filter.glade.h:4
-#, fuzzy
 msgid "Add Advanced Target"
 msgstr "Добавить расширенную цель"
 
 #: ui/filter.glade.h:5
-#, fuzzy
 msgid "Basic Devices"
-msgstr "Базовые устройства"
+msgstr "Стандартные устройства"
 
 #: ui/filter.glade.h:6
-#, fuzzy
 msgid "Filter By:"
 msgstr "Фильтр по:"
 
 #: ui/filter.glade.h:7
-#, fuzzy
 msgid "Firmware RAID"
 msgstr "Аппаратный RAID"
 
 #: ui/filter.glade.h:8
-#, fuzzy
 msgid "Identifier:"
 msgstr "Идентификатор:"
 
 #: ui/filter.glade.h:9
-#, fuzzy
 msgid ""
 "Interconnect\n"
 "Vendor\n"
@@ -6479,32 +6406,27 @@ msgstr ""
 "Идентификатор"
 
 #: ui/filter.glade.h:12
-#, fuzzy
 msgid "LUN:"
 msgstr "LUN:"
 
 #: ui/filter.glade.h:13
-#, fuzzy
 msgid "Multipath Devices"
-msgstr "Устройства Multipath"
+msgstr "Многопутевые устройства"
 
 #: ui/filter.glade.h:14
-#, fuzzy
 msgid "Other SAN Devices"
-msgstr "Другие устройства СХД"
+msgstr "Другие устройства SAN"
 
 #: ui/filter.glade.h:15
-#, fuzzy
 msgid ""
 "Please select the drives you'd like to install the operating system on, as "
 "well as any drives you'd like to automatically mount to your system, below:"
 msgstr ""
-"Выберите ниже диски, на которые бы вы хотели установить операционную "
+"Выберите диски, куда следует установить операционную "
 "систему, а также все диски, которые бы вы хотели автоматически подключать к "
 "вашей системе:"
 
 #: ui/filter.glade.h:16
-#, fuzzy
 msgid ""
 "Port / Target / LUN\n"
 "Target Identifier"
@@ -6513,42 +6435,34 @@ msgstr ""
 "Идентификатор целевого устройства"
 
 #: ui/filter.glade.h:18
-#, fuzzy
 msgid "Port:"
 msgstr "Порт:"
 
 #: ui/filter.glade.h:19
-#, fuzzy
 msgid "Search"
 msgstr "Поиск"
 
 #: ui/filter.glade.h:20
-#, fuzzy
 msgid "Search By:"
 msgstr "Искать по:"
 
 #: ui/filter.glade.h:21
-#, fuzzy
 msgid "Search Results:"
 msgstr "Результаты поиска:"
 
 #: ui/filter.glade.h:22
-#, fuzzy
 msgid "Show Identifiers that Include:"
 msgstr "Показывать идентификаторы, которые содержат:"
 
 #: ui/filter.glade.h:23
-#, fuzzy
 msgid "Show Only Devices From:"
 msgstr "Показывать только устройства от:"
 
 #: ui/filter.glade.h:24
-#, fuzzy
 msgid "Show Only Devices Using:"
 msgstr "Показывать только устройства, использующие:"
 
 #: ui/filter.glade.h:25
-#, fuzzy
 msgid "Target:"
 msgstr "Целевой диск:"
 
@@ -6641,9 +6555,8 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Использовать _динамическую конфигурацию IP (DHCP)"
 
 #: ui/network.glade.h:1
-#, fuzzy
 msgid "Configure Network"
-msgstr "Ошибка при настройке сети"
+msgstr "Настроить сеть"
 
 #: ui/network.glade.h:2
 msgid "Hostname:"
