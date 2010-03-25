@@ -56,6 +56,7 @@
 #include <linux/fb.h>
 #include <libintl.h>
 #include <libgen.h>
+#include <linux/cdrom.h>
 #include <linux/major.h>
 #include <linux/raid/md_u.h>
 #include <linux/raid/md_p.h>
@@ -506,6 +507,11 @@ static PyObject * doEjectCdrom(PyObject * s, PyObject * args) {
 
     if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
 
+    /* Ask it to unlock the door and then eject the disc. There's really
+     * nothing to do if unlocking doesn't work, so just eject without
+     * worrying about it. -- pjones
+     */
+    ioctl(fd, CDROM_LOCKDOOR, 0);
     if (ioctl(fd, CDROMEJECT, 1)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
