@@ -87,6 +87,10 @@ int doMediaCheck(char *file, char *descr) {
 			 "primary volume descriptor.  This probably "
 			 "means the disc was created without adding the "
 			 "checksum."));
+    } else if (rc == ISOMD5SUM_FILE_NOT_FOUND) {
+        logMessage(WARNING, "mediacheck: %s (%s) open failed", file, descr);
+        newtWinMessage(_("Error"), _("OK"),
+                       _("Unable to open the image."));
     } else if (rc == ISOMD5SUM_CHECK_FAILED) {
         logMessage(ERROR, "mediacheck: %s (%s) FAILED", file, descr);
         newtWinMessage(_("Error"), _("OK"),
