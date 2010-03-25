@@ -220,6 +220,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 25 2010 David Lehman <dlehman@redhat.com> - 14.2-1
+- Unlock the CD tray door in isys.ejectcdrom() (#569377) (pjones)
+- Try to pull in generic libraries as well as optimized ones (#572178)
+  (pjones)
+- Translate the Back button in glade (#576082) (akozumpl)
+- Make the kernel 'sshd' parameter work as expected (#572493) (akozumpl)
+- Add originalFormat handling to editLVMLogicalVolume. (#576529) (dlehman)
+- Fix a cut&paste error that caused a traceback (#574743) (dlehman)
+- Remove isys/str.c, replace calls with glib.h or string.h calls. (dcantrell)
+- Only look for extended partitions on partitioned devices (#576628)
+  (hdegoede)
+- Fix referring to disks by-label, by-uuid, etc (#575855). (clumens)
+- fcoe startEDD() add missing return statement (hdegoede)
+- Add support for recognizing BIOS EDD configured FCoE drives (#513018)
+  (hdegoede)
+- Update format of cdrom devices when looking for repos on media (#566269)
+  (rvykydal)
+- Fix syntax for passing a mapping to a translatable string (#576085).
+  (clumens)
+- Update filter for translation log entries. (dlehman)
+
 * Mon Mar 22 2010 David Lehman <dlehman@redhat.com> - 14.1-1
 - Don't pass size=1 for autopart PVs. Use PartitionDevice's default size.
   (dlehman)
