@@ -41,6 +41,15 @@ get_dso_deps() {
         NAMES[$n]="$NAME"
         FILES[$n]="$FILE"
         let n++
+
+        # try to find a generic version
+        local basedir=$(dirname $(dirname "$FILE"))
+        local basefile=$(basename "$FILE")
+        if [ -f "$basedir/$basefile" ]; then
+            NAMES[$n]="$NAME"
+            FILES[$n]="$basedir/$basefile"
+            let n++
+        fi
     done << EOF
         $(/usr/sbin/chroot $root env --unset=LD_LIBRARY_PATH \
                                      LD_TRACE_PRELINKING=1 LD_WARN= \
