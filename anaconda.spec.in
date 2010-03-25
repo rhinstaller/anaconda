@@ -217,6 +217,26 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Mar 25 2010 David Lehman <dlehman@redhat.com> - 13.37-1
+- Unlock the CD tray door in isys.ejectcdrom() (#569377) (pjones)
+- Texts under storage/formats missing from the .pot file (#576082).
+  (akozumpl)
+- Translate the Back button in glade (#576082) (akozumpl)
+- Add originalFormat handling to editLVMLogicalVolume. (#576529) (dlehman)
+- Fix a cut&paste error that caused a traceback (#574743) (dlehman)
+- yum requires the proxy settings to include a protocol (#576691). (clumens)
+- Only look for extended partitions on partitioned devices (#576628)
+  (hdegoede)
+- Fix referring to disks by-label, by-uuid, etc (#575855). (clumens)
+- Fix syntax for passing a mapping to a translatable string (#576085).
+  (clumens)
+- Catch NotImplementedError when scanning for disklabels (#566722) (hdegoede)
+- Filter UI do not start / stop BIOS RAID sets to get there size (#574587)
+  (hdegoede)
+- Make filter UI honor nodmraid cmdline option (#574684) (hdegoede)
+- Properly align the first partition we create (#574220) (hdegoede)
+- Update filter for translation log entries. (dlehman)
+
 * Mon Mar 22 2010 David Lehman <dlehman@redhat.com> - 13.36-1
 - Don't pass size=1 for autopart PVs. Use PartitionDevice's default size.
   (dlehman)
