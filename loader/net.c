@@ -1200,7 +1200,7 @@ int writeDisabledNetInfo(void) {
  *     /etc/sysconfig/network
  */
 int writeEnabledNetInfo(iface_t *iface) {
-    int i = 0, osa_layer2 = 1, osa_portno = 0;
+    int i = 0, osa_layer2 = 0, osa_portno = 0;
     mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
     FILE *fp = NULL;
     char buf[INET6_ADDRSTRLEN+1];
