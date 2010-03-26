@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-11 11:00-1000\n"
-"PO-Revision-Date: 2010-03-26 11:37+1000\n"
+"PO-Revision-Date: 2010-03-26 14:10+1000\n"
 "Last-Translator: Gladys Guerrero  <gguerrer@redhat.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -185,7 +185,7 @@ msgstr "Instalando %s\n"
 # ../image.py:62
 #: backend.py:166
 msgid "Copying File"
-msgstr "Copiando Archivo"
+msgstr "Copiando archivo"
 
 # ../image.py:63
 # ../image.py:63
@@ -450,7 +450,7 @@ msgstr " con el proveedor de este software."
 #: constants.py:84
 #, python-format
 msgid " against anaconda at %s"
-msgstr " contra el paquete Anaconda en %s"
+msgstr " contra Anaconda en %s"
 
 #: gui.py:108
 msgid "An error occurred saving screenshots to disk."
@@ -1275,7 +1275,7 @@ msgstr "Ha ocurrido un error al cambiar el tamaño del dispositivo %s. "
 # ../upgrade.py:214
 #: packages.py:119
 msgid "Device Creation Failed"
-msgstr "Falló la Creación del Dispositivo"
+msgstr "Falló la creación del dispositivo"
 
 #: packages.py:120
 #, python-format
@@ -1284,16 +1284,16 @@ msgstr "Ha ocurrido un error al crear el dispositivo %s. "
 
 #: packages.py:124
 msgid "Device Removal Failed"
-msgstr "Falló la Eliminación del Dispositivo"
+msgstr "Falló la remoción del dispositivo"
 
 #: packages.py:125
 #, python-format
 msgid "An error was encountered while removing device %s."
-msgstr "Ha ocurrido un error al cambiar el eliminar el dispositivo %s. "
+msgstr "Ha ocurrido un error al eliminar dispositivo %s. "
 
 #: packages.py:129
 msgid "Device Setup Failed"
-msgstr "Falló la Configuración del Dispositivo"
+msgstr "Falló la configuración de dispositivo"
 
 #: packages.py:130
 #, python-format
@@ -1305,7 +1305,7 @@ msgstr "Ha ocurrido un error al configurar el dispositivo %s. "
 # ../loader/urls.c:103
 #: packages.py:134
 msgid "Resizing Failed"
-msgstr "Restablecimiento de dimensión falló"
+msgstr "Cambio de dimensión falló"
 
 #: packages.py:135
 #, python-format
@@ -1327,7 +1327,7 @@ msgstr "Ha ocurrido un error al migrar el sistema de archivo en el dispositivo %
 # ../fsset.py:1488
 #: packages.py:148
 msgid "Formatting Failed"
-msgstr "Falló el Formateo"
+msgstr "Falló el formateo"
 
 #: packages.py:149
 #, python-format
@@ -1336,7 +1336,7 @@ msgstr "Ha ocurrido un error al dar formato al dispositivo %s. "
 
 #: packages.py:154
 msgid "Storage Activation Failed"
-msgstr "Falló la Activación del Almacenaje"
+msgstr "Falló la activación del almacenaje"
 
 #: packages.py:155
 msgid "An error was encountered while activating your storage configuration."
@@ -1344,7 +1344,7 @@ msgstr "Se encontró un error al activar la configuración de su almacenaje."
 
 #: packages.py:162
 msgid "_File Bug"
-msgstr "In_formar Error"
+msgstr "In_formar error"
 
 #: packages.py:344 packages.py:365
 msgid "Warning! This is pre-release software!"
@@ -1369,14 +1369,14 @@ msgstr ""
 "\n"
 "\n"
 "Ésta no es la versión final y no se recomienda para sistemas de producción. "
-"El objetivo de esta versión es el de recopilar información de aquéllos que "
+"El objetivo de esta versión es el de recopilar información de aquellos que "
 "la prueben y no es adecuada para el uso diario.\n"
 "\n"
-"Para informar del feedback, visite:\n"
+"Para registrar sus comentarios, visite:\n"
 "\n"
 "   %(bugzillaUrl)s\n"
 "\n"
-"y archive un informe en '%(fileagainst)s'.\n"
+"y presente un informe de '%(fileagainst)s'.\n"
 
 # ../installclass.py:27
 # ../installclass.py:27
@@ -1436,7 +1436,7 @@ msgstr "Los nombres de volumen lógicos deben de tener menos de 128 caracteres"
 #: partIntfHelpers.py:71
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr "Error - El nombre de volumen lógico  %s no es válido."
+msgstr "Error - El nombre de volumen lógico %s no es válido."
 
 # ../textw/bootloader_text.py:229
 # ../textw/bootloader_text.py:229
@@ -4473,7 +4473,7 @@ msgstr ""
 "Logical Volume Manager (LVM) es una construcción de 3 niveles. .El primer "
 "nivel se compone de los discos o particiones con formato de metadatos LVM "
 "llamado Volúmenes Físicos (PV).  Un Grupo de Volúmenes (VG) se asienta "
-"encima de uno o más PVs. El VG, a su vez, es la base para crear uno o más "
+"encima de uno o más PV. El VG, a su vez, es la base para crear uno o más "
 "Volúmenes Lógicos (LV). Tenga en cuenta que un VG puede ser un agregado de "
 "PV de múltiples discos físicos.  Para obtener más información sobre el uso "
 "de LVM por favor consulte la documentación de% s\n"
@@ -5509,7 +5509,7 @@ msgstr "Disco no Encontrado"
 #: loader/urls.c:249 storage/__init__.py:151 storage/devicetree.py:89
 #: textw/constants_text.py:52
 msgid "Back"
-msgstr "Anterior"
+msgstr "Atrás "
 
 #: loader/cdinstall.c:505
 msgid "Cannot find kickstart file on CDROM."
