@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-03-04 11:24-1000\n"
-"PO-Revision-Date: 2010-03-08 11:41+1000\n"
+"POT-Creation-Date: 2010-03-11 11:00-1000\n"
+"PO-Revision-Date: 2010-03-26 11:37+1000\n"
 "Last-Translator: Gladys Guerrero  <gguerrer@redhat.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -137,7 +137,7 @@ msgstr "Iniciando la instalación gráfica."
 # ../loader/loader.c:322
 #: anaconda:838
 msgid "Would you like to use VNC?"
-msgstr "¿Desearía usar VNC?"
+msgstr "¿Desea usar VNC?"
 
 #: anaconda:839
 msgid ""
@@ -203,8 +203,7 @@ msgid ""
 "is often cause by damaged or low quality media."
 msgstr ""
 "Se ha producido un error al transferir la imagen de instalación a su disco "
-"duro.  Generalmente esto se debe a una mala calidad, o a que alguno de los "
-"medios de instalación ha sido dañado."
+"duro. Generalmente esto se debe a medios que están dañados o que son de mala calidad."
 
 # ../image.py:66
 # ../image.py:66
@@ -378,7 +377,7 @@ msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
 msgstr ""
-"Hubo un error al instalar el gestor de arranque. El sistema podría no "
+"Error al instalar el gestor de arranque. El sistema podría no "
 "iniciarse."
 
 #: bootloader.py:228
@@ -387,7 +386,7 @@ msgid ""
 "will not be changed."
 msgstr ""
 "No se ha instalado ningún paquete del kernel en su sistema. La configuración "
-"del gestor de arranque no será modificada."
+"del gestor de arranque no se modificará."
 
 # ../iw/progress_gui.py:256
 # ../iw/progress_gui.py:256
@@ -644,9 +643,10 @@ msgid ""
 "with inconsistent metadata."
 msgstr ""
 "Error al procesar LVM.\n"
-"Hay datos de LVM inconsistentes en %(msg)s. Puede reinicializar todos los "
-"PV (%(pvs)s) relacionados que borrarán todos los metadatos de LVM, o "
-"ignorar los que preservarán el contenido. Esta acción puede también aplicarse a todos los PV con metadatos inconsistentes."
+"Hay datos de LVM inconsistentes en %(msg)s. Puede reinicializar todos los PV "
+"(%(pvs)s) relacionados que borrarán todos los metadatos de LVM, o ignorar "
+"los que preservarán el contenido. Esta acción puede también aplicarse a "
+"todos los PV con metadatos inconsistentes."
 
 # ../loader/kickstart.c:59
 # ../loader/kickstart.c:59
@@ -1185,8 +1185,8 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"Se presentó un error al instalar la imagen viva en su disco duro. Esto se pudo "
-"deber a medios dañados.\n"
+"Se presentó un error al instalar la imagen viva en su disco duro. Esto se "
+"pudo deber a medios dañados.\n"
 "\n"
 "Si sale, su sistema quedará en un estado inconsistente y necesitará ser "
 "reinstalado."
@@ -1348,7 +1348,7 @@ msgstr "In_formar Error"
 
 #: packages.py:344 packages.py:365
 msgid "Warning! This is pre-release software!"
-msgstr "¡Atención! ¡Ésta es una versión beta!"
+msgstr "¡Advertencia! ¡Ésta es una versión beta!"
 
 #: packages.py:345
 #, python-format
@@ -1550,7 +1550,7 @@ msgstr ""
 "%s tiene una partición de tipo 0x82 (Linux Swap) pero no parece estar "
 "formateada como tal.\n"
 "\n"
-"¿Le gustaría dar formato a esta partición como una partición swap?"
+"¿Desea dar formato a esta partición como una partición swap?"
 
 # ../iw/partition_gui.py:1597
 # ../iw/partition_gui.py:1599
@@ -1629,7 +1629,7 @@ msgstr ""
 # ../partitioning.py:1828
 #: partIntfHelpers.py:274
 msgid "Partitioning Warning"
-msgstr "Aviso de particionamiento"
+msgstr "Advertencia de particionamiento"
 
 # ../partitioning.py:1785
 # ../partitioning.py:1805
@@ -2199,7 +2199,7 @@ msgstr ""
 # ../iw/package_gui.py:35 ../packages.py:43
 #: upgrade.py:56
 msgid "Would you like to continue with the upgrade?"
-msgstr "¿Le gustaría continuar con la actualización?"
+msgstr "¿Desea continuar con la actualización?"
 
 # ../upgrade.py:214
 #: upgrade.py:177
@@ -2488,7 +2488,7 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
-"X no puede arrancar en su máquina. ¿Le gustaría iniciar VNC para conectarse "
+"X no puede arrancar en su máquina. ¿Desea iniciar VNC para conectarse "
 "a este computador desde otra máquina y realizar una instalación gráfica o "
 "continuar con una instalación en modo texto?"
 
@@ -2569,8 +2569,8 @@ msgid ""
 "A fatal error occurred when installing the %s package.  This could indicate "
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
-"Un error fatal ocurrió cuando se instalaba el paquete %s.  Esto podría "
-"indicar errores cuando se leía el medio de instalación.  La instalación no "
+"Un error fatal ocurrió cuando se instalaba el paquete %s. Esto podría "
+"indicar que hay errores al leer el medio de instalación. La instalación no "
 "puede continuar."
 
 #: yuminstall.py:344 iw/task_gui.py:321
@@ -3105,8 +3105,8 @@ msgstr "Utilizar de todos modos"
 #: iw/account_gui.py:138 textw/userauth_text.py:75
 msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
-"La contraseña solicitada contiene caracteres que no son ASCII, los cuales no son "
-"permitidos. "
+"La contraseña solicitada contiene caracteres que no son ASCII, los cuales no "
+"son permitidos. "
 
 #: iw/autopart_type.py:97
 msgid ""
@@ -3411,8 +3411,8 @@ msgid ""
 "Choose this option to install a fresh copy of %s on your system.  Existing "
 "software and data may be overwritten depending on your configuration choices."
 msgstr ""
-"Seleccione esta opción para instalar una copia fresca de %s en su sistema.El "
-"software y los datos existentes podrían ser sobreescritos dependiendo de las "
+"Seleccione esta opción para instalar una copia fresca de %s en su sistema. El "
+"software y los datos existentes podrían ser sobrescritos según las "
 "opciones de configuración elegidas."
 
 # ../installclasses/upgradeclass.py:8
@@ -3448,7 +3448,7 @@ msgstr ""
 #: iw/examine_gui.py:124
 #, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "<b>¿Qué instalación de %s desearía actualizar?</b>"
+msgstr "<b>¿Qué instalación de %s desea actualizar?</b>"
 
 # ../loader/urls.c:247
 # ../loader/urls.c:247
@@ -3469,7 +3469,7 @@ msgstr "Selección del idioma"
 # ../iw/language_gui.py:49 ../textw/language_text.py:39
 #: iw/language_gui.py:81 loader/lang.c:370
 msgid "What language would you like to use during the installation process?"
-msgstr "¿Qué idioma le gustaría usar durante el proceso de instalación?"
+msgstr "¿Qué idioma desea usar durante el proceso de instalación?"
 
 #: iw/lvm_dialog_gui.py:124 iw/lvm_dialog_gui.py:170 iw/lvm_dialog_gui.py:184
 #: iw/lvm_dialog_gui.py:223 iw/lvm_dialog_gui.py:300 iw/lvm_dialog_gui.py:682
@@ -3727,9 +3727,8 @@ msgid ""
 "larger or make the logical volume(s) smaller."
 msgstr ""
 "Los volúmenes lógicos que ha configurado necesitan %(size)d MB, pero el "
-"grupo de volúmenes solo posee %(tempvgsize)d MB. Por favor, o bien agrande "
-"el grupo de volúmenes, o bien disminuya el tamaño del/los volumen/es lógico/"
-"s."
+"grupo de volúmenes solo posee %(tempvgsize)d MB. Por favor, amplíe "
+"el grupo de volúmenes, o disminuya el tamaño del o los volúmenes lógicos."
 
 #: iw/lvm_dialog_gui.py:797
 msgid "No free slots"
@@ -3738,7 +3737,7 @@ msgstr "Ningún espacio libre"
 #: iw/lvm_dialog_gui.py:798
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
-msgstr "No  puedes crear más de %d volúmenes lógicos por grupo de volúmenes."
+msgstr "No puede crear más de %d volúmenes lógicos por grupo de volúmenes."
 
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
@@ -3934,11 +3933,11 @@ msgstr "Es necesario un valor para el campo %s."
 #: iw/netconfig_dialog.py:213
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Se ha producido un error al levantar la placa de red %s."
+msgstr "Se ha producido un error al levantar la interfaz de red %s."
 
 #: iw/netconfig_dialog.py:215
 msgid "Error Configuring Network"
-msgstr "Error al Configurar la Red."
+msgstr "Error al configurar la red."
 
 # ../loader/net.c:413 ../loader/net.c:738
 # ../loader/net.c:413 ../loader/net.c:738
@@ -3978,7 +3977,7 @@ msgstr "El prefijo CIDR IPv4 debe estar entre 0 y 32."
 #: textw/netconfig_text.py:236 textw/netconfig_text.py:242
 #: textw/netconfig_text.py:250
 msgid "IPv4 Network Mask"
-msgstr "Máscara de Red IPv4"
+msgstr "Máscara de red IPv4"
 
 # ../iw/network_gui.py:251
 # ../iw/network_gui.py:251
@@ -4173,7 +4172,7 @@ msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"Este punto de arranque no se puede eliminar porque es para el sistema  %s "
+"Este punto de arranque no se puede eliminar porque es para el sistema %s "
 "que está a punto de instalar."
 
 # ../iw/partition_gui.py:800
@@ -4231,7 +4230,7 @@ msgstr "_Tipo de sistema de archivos:"
 # ../iw/partition_gui.py:900 ../textw/partition_text.py:260
 #: iw/partition_dialog_gui.py:402
 msgid "Allowable _Drives:"
-msgstr "_Unidades admisibles:"
+msgstr "Uni_dades admisibles:"
 
 # ../iw/partition_gui.py:1081 ../textw/partition_text.py:582
 # ../iw/partition_gui.py:1083 ../textw/partition_text.py:582
@@ -4314,7 +4313,7 @@ msgstr "Particionamiento"
 
 #: iw/partition_gui.py:846
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr "El esquema de particionado que pidió causó los siguientes errores críticos."
+msgstr "El esquema de particiones solicitado causó los siguientes errores críticos."
 
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
@@ -4335,14 +4334,14 @@ msgstr "Errores de particionamiento"
 
 #: iw/partition_gui.py:861
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr "El esquema de particionado que pidió generó las siguientes advertencias."
+msgstr "El esquema de particiones solicitado generó las siguientes advertencias."
 
 # ../iw/partition_gui.py:561
 # ../iw/partition_gui.py:561
 # ../iw/partition_gui.py:561
 #: iw/partition_gui.py:863
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr "¿Le gustaría continuar con su esquema de particionamiento?"
+msgstr "¿Desea continuar con su esquema de particionamiento?"
 
 # ../iw/partition_gui.py:567
 # ../iw/partition_gui.py:567
@@ -4476,7 +4475,7 @@ msgstr ""
 "llamado Volúmenes Físicos (PV).  Un Grupo de Volúmenes (VG) se asienta "
 "encima de uno o más PVs. El VG, a su vez, es la base para crear uno o más "
 "Volúmenes Lógicos (LV). Tenga en cuenta que un VG puede ser un agregado de "
-"PVs de múltiples discos físicos.  Para obtener más información sobre el uso "
+"PV de múltiples discos físicos.  Para obtener más información sobre el uso "
 "de LVM por favor consulte la documentación de% s\n"
 
 #: iw/partition_gui.py:1483
@@ -4498,7 +4497,7 @@ msgstr "Actualmente tiene disponible %d PV libre para su uso.\n"
 
 #: iw/partition_gui.py:1491
 msgid "You currently have free space to create PVs."
-msgstr "Actualmente tiene espacio libre para crear PVs."
+msgstr "Actualmente tiene espacio libre para crear PV."
 
 #: iw/partition_gui.py:1494
 msgid "About LVM"
@@ -4540,7 +4539,7 @@ msgstr "No se han podido asignar la particiones requeridas: %s."
 #: iw/partition_gui.py:1596
 #, python-format
 msgid "Warning: %s."
-msgstr "Aviso: %s."
+msgstr "Advertencia: %s."
 
 # ../partitioning.py:1662 ../partitioning.py:1684
 # ../partitioning.py:1682 ../partitioning.py:1704
@@ -4711,9 +4710,9 @@ msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
 msgstr ""
-"La unidad de fuente no posee particiones para clonar. Debería, en primer "
+"La unidad de fuente no posee particiones para clonar. Debe, en primer "
 "lugar, definir las particiones del tipo 'software RAID' en esta unidad antes "
-"de que pueda clonar."
+"de que se pueda clonar."
 
 #: iw/raid_dialog_gui.py:596 iw/raid_dialog_gui.py:602
 #: iw/raid_dialog_gui.py:616 iw/raid_dialog_gui.py:629
@@ -4828,7 +4827,7 @@ msgstr ""
 # ../partitioning.py:1850
 #: iw/raid_dialog_gui.py:758
 msgid "Final Warning"
-msgstr "Aviso final"
+msgstr "Advertencia final"
 
 # ../iw/partition_gui.py:897 ../textw/partition_text.py:260
 # ../iw/partition_gui.py:899 ../textw/partition_text.py:260
@@ -5086,7 +5085,7 @@ msgid ""
 "boot loaders, you should choose this."
 msgstr ""
 "Esto le permitirá crear una nueva configuración del gestor de arranque. Si "
-"desea cambiar los gestores de arranque, debería escoger esta opción."
+"desea cambiar los gestores de arranque, debe escoger esta opción."
 
 # ../textw/bootloader_text.py:66
 # ../textw/bootloader_text.py:66
@@ -5101,7 +5100,7 @@ msgid ""
 "a third party boot loader, you should choose this."
 msgstr ""
 "Esto no cambiará la configuración del cargador de arranque. Si está usando "
-"un cargador de arranque de otro fabricante, debería escoger esta opción."
+"un cargador de arranque de otro fabricante, debe escoger esta opción."
 
 # ../loader/loader.c:322
 # ../loader/loader.c:322
@@ -5157,7 +5156,7 @@ msgid ""
 msgstr ""
 "Los Kernel recientes (2.4 o más nuevos) necesitan más swap que los kernels "
 "anteriores, hasta el doble de espacio swap que de la RAM en el sistema. "
-"Actualmente tiene %dMB de swap configurado, no obstante debería crear "
+"Actualmente tiene %dMB de swap configurados, no obstante debe crear "
 "espacio swap adicional en uno de sus sistemas de archivos."
 
 # ../iw/upgrade_swap_gui.py:95
@@ -5554,7 +5553,7 @@ msgid ""
 "Which would you like to use?"
 msgstr ""
 "Tiene múltiples dispositivos que pueden servir como fuentes para un disco de "
-"controladores. ¿Cuál le gustaría utilizar?"
+"controladores. ¿Cuál desea utilizar?"
 
 # ../loader/loader.c:1058
 # ../loader/loader.c:1058
@@ -5564,8 +5563,8 @@ msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Hay múltiples particiones en este dispositivo que podrían  contener la "
-"imagen del controlador de disco. ¿Cuál le gustaría utilizar?"
+"Hay múltiples particiones en este dispositivo que podrían contener la "
+"imagen del controlador de disco. ¿Cuál desea utilizar?"
 
 # ../loader/pcmcia.c:114
 # ../loader/pcmcia.c:114
@@ -5636,7 +5635,7 @@ msgid ""
 "driver disk?"
 msgstr ""
 "No se encontraron dispositivos del tipo apropiado en este disco de "
-"controladores. ¿Le gustaría seleccionar manualmente el controlador, "
+"controladores. ¿Desea seleccionar manualmente el controlador, "
 "continuar o cargar otro disco?"
 
 # ../loader/devices.c:532
@@ -5739,7 +5738,7 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"No se encontraron controladores para insertar manualmente. ¿Le gustaría usar "
+"No se encontraron controladores para insertar manualmente. ¿Desea usar "
 "un disco de controladores?"
 
 # ../loader/devices.c:327
@@ -5784,7 +5783,7 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"¡Parece ser que no tiene discos duros en el sistema! ¿Le gustaría configurar "
+"¡Parece ser que no tiene discos duros en el sistema! ¿Desea configurar "
 "dispositivos adicionales?"
 
 # ../loader/loader.c:817
@@ -5987,7 +5986,7 @@ msgid ""
 "Which would you like to use?"
 msgstr ""
 "Tiene múltiples dispositivos que pueden servir como fuentes para discos de "
-"actualización. ¿Cuál le gustaría usar?"
+"actualización. ¿Cuál desea usar?"
 
 # ../loader/loader.c:1058
 # ../loader/loader.c:1058
@@ -5997,8 +5996,8 @@ msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Hay múltiples particiones en este dispositivo que podrían  contener la "
-"imagen del disco de actualización. ¿Cuál le gustaría utilizar?"
+"Hay múltiples particiones en este dispositivo que podrían contener la "
+"imagen del disco de actualización. ¿Cuál desea utilizar?"
 
 # ../loader/loader.c:2301
 # ../loader/loader.c:2301
@@ -6128,7 +6127,7 @@ msgid ""
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 "No pudo encontrar ningún dispositivo del tipo requerido para esta "
-"instalación. Le gustaría seleccionar manualmente su controlador o usar un "
+"instalación. ¿Desea seleccionar manualmente su controlador o usar un "
 "disco de controlador? "
 
 # ../loader/loader.c:371
@@ -6146,7 +6145,7 @@ msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
-"No se han cargado controladores de dispositivos para su sistema. ¿Desearía "
+"No se han cargado controladores de dispositivos para su sistema. ¿Desea "
 "cargar alguno en este momento? "
 
 # ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
@@ -6230,7 +6229,7 @@ msgstr ""
 "La imagen que acaba de probar tiene errores. Esto puede ser debido a un "
 "archivo descargado dañado o a un disco con errores. Si aplica, por favor "
 "limpie el disco en inténtelo nuevamente. Si esta prueba continúa fallando, "
-"debería suspender la instalación. "
+"debe suspender la instalación. "
 
 #: loader/mediacheck.c:101
 msgid "Success"
@@ -6465,7 +6464,7 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"Tiene múltiples dispositivos de red en el sistema. ¿Cuáles le gustaría "
+"Tiene múltiples dispositivos de red en el sistema. ¿Cuáles desea "
 "instalar?"
 
 #: loader/net.c:1851
@@ -7391,7 +7390,7 @@ msgstr "e2fsck cancelado por pedido del usuario."
 
 #: storage/formats/fs.py:867
 msgid "Shared library error."
-msgstr "Error en librería compartida."
+msgstr "Error en biblioteca compartida."
 
 #: storage/formats/fs.py:1027
 msgid ""
@@ -7787,7 +7786,7 @@ msgstr "Usar el disco entero"
 
 #: textw/partition_text.py:64
 msgid "Replace existing Linux system"
-msgstr "Reemplazar el sistema Linux existente"
+msgstr "Remplazar el sistema Linux existente"
 
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
 # ../textw/partition_text.py:114
@@ -7825,7 +7824,7 @@ msgstr "Opciones Avanzadas de Almacenamiento"
 # ../iw/partition_gui.py:998
 #: textw/partition_text.py:174 ui/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr "¿Desearía modificar la configuración de su disco?"
+msgstr "¿Desea modificar la configuración de su disco?"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
 # ../loader/loader.c:373 ../loader/loader.c:398
@@ -8368,7 +8367,7 @@ msgstr "Volumen a redimensionar"
 # ../rescue.py:128 ../textw/upgrade_text.py:209
 #: ui/autopart.glade.h:4
 msgid "Which partition would you like to shrink to make room for your installation?"
-msgstr "¿Qué partición desea redimensionar para hacerle lugar a su instalación?"
+msgstr "¿Qué partición desea cambiar reducir para darle espacio a su instalación?"
 
 #: ui/autopart.glade.h:5
 msgid "Which type of installation would you like?"
@@ -8609,7 +8608,7 @@ msgid ""
 "support?"
 msgstr ""
 "La instalación por defecto de %s incluye un grupo de aplicaciones para el "
-"uso general de Internet. ¿Qué tareas adicionales le gustaría poder realizar "
+"uso general de Internet. ¿Qué tareas adicionales desea realizar "
 "con su sistema?"
 
 #: ui/tasksel.glade.h:5
