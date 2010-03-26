@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: anaconda.ja\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-03-26 11:28+0900\n"
+"PO-Revision-Date: 2010-03-26 11:45+0900\n"
 "Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1226,7 +1226,7 @@ msgstr "RAID1 デバイス上にしか起動可能なパーティションは存
 
 #: platform.py:124
 msgid "Bootable RAID1 set members must be partitions."
-msgstr ""
+msgstr "起動可能なRAID1メンバーはパーティションでなければなりません。"
 
 #: platform.py:129
 msgid "Bootable partitions cannot be on a logical volume."
@@ -2351,16 +2351,16 @@ msgstr "/boot"
 
 #: iw/cleardisks_gui.py:176
 msgid "<b>Tip:</b> All Linux filesystems on install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Tip:</b>インストール対象のディスク上にあるすべての Linux ファイルシステムはデータが消去されます。バックアップを取得してください。"
 
 #: iw/cleardisks_gui.py:178
 #: ui/cleardisks.glade.h:3
 msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Tip:</b>インストール対象のディスク上にある再フォーマットするファイルシステムはデータが消去されます。バックアップを取得してください。"
 
 #: iw/cleardisks_gui.py:180
 msgid "<b>Tip:</b> Your filesystems on install target devices will not be wiped unless you choose to do so during customization."
-msgstr ""
+msgstr "<b>Tip:</b>インストール対象のディスク上にあるファイルシステムはカスタマイズすることでデータは消去されないでしょう。"
 
 #: iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -3179,11 +3179,11 @@ msgstr ""
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
-msgstr[0] ""
+msgstr[0] "利用可能な %d 個の未使用のPVがあります。\n"
 
 #: iw/partition_gui.py:1491
 msgid "You currently have free space to create PVs."
-msgstr ""
+msgstr "現在、PVを作るための空き領域があります。"
 
 #: iw/partition_gui.py:1494
 msgid "About LVM"
@@ -3230,7 +3230,7 @@ msgstr ""
 
 #: iw/partition_gui.py:1809
 msgid "_Create"
-msgstr ""
+msgstr "作成(_C)"
 
 #: iw/partition_gui.py:1812
 msgid "Re_set"
@@ -4428,7 +4428,7 @@ msgstr "%s ディレクトリー:"
 
 #: loader/nfsinstall.c:76
 msgid "NFS mount options (optional):"
-msgstr ""
+msgstr "NFS マウントオプション (任意):"
 
 #: loader/nfsinstall.c:82
 #, fuzzy, c-format
@@ -4967,7 +4967,7 @@ msgstr ""
 
 #: storage/formats/fs.py:862
 msgid "Operational error."
-msgstr ""
+msgstr "操作エラー"
 
 #: storage/formats/fs.py:863
 msgid "Usage or syntax error."
@@ -4979,7 +4979,7 @@ msgstr ""
 
 #: storage/formats/fs.py:865
 msgid "Shared library error."
-msgstr ""
+msgstr "共有ライブラリのエラー"
 
 #: storage/formats/fs.py:1024
 msgid "Recoverable errors have been detected or dosfsck has discovered an internal inconsistency."
@@ -5026,7 +5026,7 @@ msgstr[0] ""
 #: storage/fcoe.py:66
 #: storage/fcoe.py:67
 msgid "Connecting to FCoE SAN"
-msgstr ""
+msgstr "FCoE SAN に接続中..."
 
 #: storage/fcoe.py:106
 #, fuzzy
@@ -5344,7 +5344,7 @@ msgstr "zSeries マシンはファイバーチャネル (FCP) 経由で業界基
 
 #: textw/partition_text.py:228
 msgid "No network cards present."
-msgstr ""
+msgstr "ネットワークカードが見つかりません。"
 
 #: textw/partition_text.py:231
 msgid "Add FCoE SAN"
@@ -5724,11 +5724,11 @@ msgstr "ブートローダーのインストール場所を指定してくださ
 
 #: ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
+msgstr "<b>データストレージデバイス</b> (マウント済みのみ)"
 
 #: ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
-msgstr ""
+msgstr "<b>インストール対象デバイス</b>"
 
 #: ui/cleardisks.glade.h:4
 msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data drives (these will not be formatted, only mounted) and which devices you'd like to use as system drives (these may be formatted)."
