@@ -65,6 +65,11 @@ if [ "$RUNKS" = "0" ]; then
     RUNKS=""
 fi
 
+# ping command to use to test host availability (for gateway & dns servers)
+PINGOPTS="-c 3 -w 30"
+PING="ping $PINGOPTS"
+PING6="ping6 $PINGOPTS"
+
 # helper function to disable commands while running outside the initrd
 function tv() {
     if [ -z "$testing" ]; then
@@ -2042,7 +2047,7 @@ function configure_ipv4_gateway() {
         # (virtual) CTC(/A) seems to need some time to get functional
         local i=1
         while : ; do
-            ping -c 1 -w 5 $GATEWAY >& /dev/null && break
+            $PING $GATEWAY >& /dev/null && break
             i=$((i+1))
             if [ "$i" -gt 3 ]; then
                 echo $"Could not reach gateway $GATEWAY within timeout"
@@ -2050,7 +2055,7 @@ function configure_ipv4_gateway() {
             fi
         done
     else
-        if ! ping -c 1 -w 5 $GATEWAY >& /dev/null; then
+        if ! $PING $GATEWAY >& /dev/null; then
             echo $"Could not reach your default gateway $GATEWAY"
             return 1
         fi
@@ -2144,7 +2149,7 @@ function configure_ipv6_gateway() {
     fi
     # BH FIXME: Workaround for manual MACADDR, need ping to update arp table
     echo $"Trying to reach gateway $GATEWAY..."
-    if ! ping6 -c 1 $GATEWAY >& /dev/null; then
+    if ! $PING6 $GATEWAY >& /dev/null; then
         echo $"Could not reach your default gateway $GATEWAY"
         return 1
     fi
@@ -2275,7 +2280,7 @@ function handle_dns() {
     echo $"Trying to reach DNS servers..."
     if [ "$ipv6" ]; then
         while read dnsitem; do
-            if ! ping6 -c 1 $dnsitem >& /dev/null; then
+            if ! $PING6 $dnsitem >& /dev/null; then
                 echo $"Could not ping DNS server (might still serve DNS requests): $dnsitem"
                 allgood="no"
                 # this should not be a hard failure since some network
@@ -2289,7 +2294,7 @@ function handle_dns() {
             # reachable by ping, so it would make sense to use nslookup.
             # However, nslookup fails with "Resolver Error 0 (no error)"
             # at this stage of the setup progress => not useful
-            if ! ping -c 1 -w 5 $dnsitem >& /dev/null; then
+            if ! $PING $dnsitem >& /dev/null; then
                 echo $"Could not ping DNS server: $dnsitem"
 #                if nslookup $dnsitem $dnsitem >& /dev/null; then
 #                    echo $" but could resolve DNS server with itself: $dnsitem"
