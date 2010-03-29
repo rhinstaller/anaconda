@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-11 11:00-1000\n"
-"PO-Revision-Date: 2010-03-26 14:10+1000\n"
+"PO-Revision-Date: 2010-03-29 11:27+1000\n"
 "Last-Translator: Gladys Guerrero  <gguerrer@redhat.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1017,7 +1017,7 @@ msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
-"Después de apagar, por favor realice una carga del programa inicial manual "
+"Después de apagar, por favor realice una carga manual del programa inicial "
 "desde el dispositivo que contiene ahora el /boot para poder continuar la "
 "instalación"
 
@@ -1852,7 +1852,7 @@ msgstr "%s debe tener una etiqueta de disco mac."
 # ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 #: rescue.py:205
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr "Cuando haya acabado salga de la shell y su sistema reiniciará."
+msgstr "Cuando haya acabado salga del shell y su sistema reiniciará."
 
 #: rescue.py:219
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
@@ -1946,11 +1946,11 @@ msgstr ""
 "El entorno de rescate intentará encontrar su instalación de Linux y montarla "
 "bajo el directorio %s. Podrá hacer cualquier cambio que requiera a su "
 "sistema. Si desea proceder con este paso seleccione 'Continuar'. También "
-"puede escoger montar sus sistemas de archivos  en modo de solo-lectura en "
-"lugar de en modo lectura-escritura escogiendo 'Solo-lectura'.\n"
+"puede escoger montar sus sistemas de archivos en modo de sólo-lectura en "
+"lugar de en modo lectura-escritura escogiendo 'Sólo-lectura'.\n"
 "\n"
 "Si este proceso falla por cualquier motivo, escoja 'Omitir' y saltará este "
-"paso para pasar directamente a la shell de comandos.\n"
+"paso para pasar directamente al shell de comandos.\n"
 "\n"
 
 # ../rescue.py:99
@@ -2017,8 +2017,8 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 "Su sistema contiene sistemas de ficheros no válidos que ha escogido no "
-"montar. Pulse Enter para obtener una shell que pueda hacer fsck y montar sus "
-"particiones. El sistema se reiniciará automáticamente cuando salga de la "
+"montar. Pulse Enter para obtener un shell que pueda ejecutar fsck y montar sus "
+"particiones. El sistema se reiniciará automáticamente al salir del "
 "shell."
 
 # ../rescue.py:146
@@ -2038,12 +2038,12 @@ msgid ""
 msgstr ""
 "El sistema ha sido montado bajo %(rootPath)s.\n"
 "\n"
-"Pulse <return> para obtener una shell. Si desea que su sistema sea el "
+"Pulse <return> para obtener un shell. Si desea que su sistema sea el "
 "entorno de root, ejecute el comando:\n"
 "\n"
 "\tchroot %(rootPath)s\n"
 "\n"
-"El sistema se reiniciará automáticamente cuando salga de la shell."
+"El sistema se reiniciará automáticamente cuando salga del shell."
 
 # ../rescue.py:164
 # ../rescue.py:164
@@ -2060,8 +2060,8 @@ msgstr ""
 "Se ha producido un error al intentar montar algunos o todos los sistemas. "
 "Algunos podrían ser montados bajo %s.\n"
 "\n"
-"Pulse <intro> para obtener una shell. El sistema se reiniciará\n"
-"automáticamente cuando salga de la shell."
+"Pulse <intro> para obtener un shell. El sistema se reiniciará\n"
+"automáticamente cuando salga del shell."
 
 #: rescue.py:450
 msgid "You don't have any Linux partitions.  Rebooting.\n"
@@ -2082,8 +2082,8 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"No tiene ninguna partición Linux. Pulse Intro para obtener una shell. El "
-"sistema se reiniciará cuando salga de la shell."
+"No tiene ninguna partición Linux. Pulse Enter para obtener un shell. El "
+"sistema se reiniciará cuando salga del shell."
 
 # ../rescue.py:181
 # ../rescue.py:181
@@ -2953,9 +2953,9 @@ msgid ""
 "general internet usage. You can optionally select a different set of "
 "software now."
 msgstr ""
-"La instalación por defecto de %s incluye un grupo de aplicaciones para el "
-"uso general de Internet.  Opcionalmente puede seleccionar ahora un grupo "
-"diferente de aplicaciones ."
+"La instalación por defecto de %s incluye un grupo de aplicaciones para "
+"uso general de Internet. Opcionalmente puede seleccionar un grupo "
+"diferente de software."
 
 #: installclasses/fedora.py:49
 msgid "Graphical Desktop"
@@ -2987,7 +2987,7 @@ msgid ""
 "select a different set of software now."
 msgstr ""
 "La instalación por defecto de %s es una instalación mínima. Opcionalmente, "
-"puede seleccionar un conjunto de software ahora."
+"puede seleccionar un grupo diferente de software."
 
 # ../loader/net.c:266 ../loader/net.c:804
 # ../loader/net.c:266 ../loader/net.c:804
@@ -3038,7 +3038,7 @@ msgstr "Sin categorizar"
 # ../textw/userauth_text.py:22
 #: iw/account_gui.py:52
 msgid "Root _Password:"
-msgstr "_Contraseña de root:"
+msgstr "C_ontraseña de root:"
 
 # ../iw/account_gui.py:289
 # ../iw/account_gui.py:289
@@ -3156,7 +3156,7 @@ msgstr ""
 "incluye las particiones creadas por otros sistemas operativos.\n"
 "\n"
 "<b>Consejo:</b> Esta opción eliminará los datos de los dispositivos "
-"seleccionados. Asegúrese que realizó respaldos."
+"seleccionados. Asegúrese de haber realizado copias de seguridad."
 
 #: iw/autopart_type.py:236
 msgid "Replace Existing Linux System(s)"
@@ -3176,16 +3176,16 @@ msgstr ""
 "almacenamiento (tales como VFAT o FAT32).\n"
 "\n"
 "<b>Consejo:</b> Esta opción eliminará los datos de los dispositivos "
-"seleccionados. Asegúrese que realizó respaldos."
+"seleccionados. Asegúrese de haber realizado copias de seguridad."
 
 #: iw/autopart_type.py:246
 msgid "Shrink Current System"
-msgstr "Achicar el Sistema Actual"
+msgstr "Reducir el sistema actual"
 
 #: iw/autopart_type.py:248
 msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
-"Achica las particiones existentes para hacer espacio para el diseño "
+"Reduce las particiones existentes para dar espacio al diseño "
 "predeterminado."
 
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
@@ -3243,7 +3243,7 @@ msgstr ""
 # ../iw/account_gui.py:77
 #: iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr "Cambiar _contraseña"
+msgstr "Cambiar c_ontraseña"
 
 # ../textw/bootloader_text.py:384
 # ../textw/bootloader_text.py:384
@@ -3772,7 +3772,7 @@ msgstr "¿Está seguro de querer eliminar el volumen lógico \"%s\"?"
 # ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 #: iw/lvm_dialog_gui.py:950
 msgid "Invalid Volume Group Name"
-msgstr "Nombre de grupo de volumen no válido"
+msgstr "Nombre de grupo de volumen inválido"
 
 #: iw/lvm_dialog_gui.py:959
 msgid "Name in use"
@@ -3801,11 +3801,11 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
-"A menos que sea necesaria la partición de volumen físico no usada para crear "
+"Por lo menos se necesita una partición de volumen físico sin usar para crear "
 "un grupo de volumen LVM.\n"
 "\n"
 "Cree una partición o un arreglo RAID del tipo \"volumen físico (LVM)\" y "
-"seleccione la opción \"LVM\" de nuevo."
+"seleccione otra vez la opción \"LVM\"o."
 
 #: iw/lvm_dialog_gui.py:1222
 msgid "Make LVM Volume Group"
@@ -4470,13 +4470,13 @@ msgid ""
 "be an aggregate of PVs from multiple physical disk.  For more information on "
 "using LVM please consult the %s documentation\n"
 msgstr ""
-"Logical Volume Manager (LVM) es una construcción de 3 niveles. .El primer "
-"nivel se compone de los discos o particiones con formato de metadatos LVM "
-"llamado Volúmenes Físicos (PV).  Un Grupo de Volúmenes (VG) se asienta "
+"El Administrador de volumen loǵicos (LVM) es una construcción de 3 niveles. El primer "
+"nivel se compone de discos o particiones con formato de metadatos LVM "
+"llamado Volúmenes Físicos (PV). El Grupo de Volúmenes (VG) se sitúa "
 "encima de uno o más PV. El VG, a su vez, es la base para crear uno o más "
 "Volúmenes Lógicos (LV). Tenga en cuenta que un VG puede ser un agregado de "
-"PV de múltiples discos físicos.  Para obtener más información sobre el uso "
-"de LVM por favor consulte la documentación de% s\n"
+"PV de múltiples discos físicos. Para obtener más información sobre el uso "
+"de LVM, por favor consulte la documentación de% s\n"
 
 #: iw/partition_gui.py:1483
 msgid ""
@@ -4703,7 +4703,7 @@ msgstr "Número de re_servas:"
 # ../iw/partition_gui.py:1419 ../textw/partition_text.py:842
 #: iw/raid_dialog_gui.py:518
 msgid "_Format partition?"
-msgstr "¿Desea _formatear las particiones?"
+msgstr "¿Desea _formatear la partición?"
 
 #: iw/raid_dialog_gui.py:592
 msgid ""
@@ -5156,7 +5156,7 @@ msgid ""
 msgstr ""
 "Los Kernel recientes (2.4 o más nuevos) necesitan más swap que los kernels "
 "anteriores, hasta el doble de espacio swap que de la RAM en el sistema. "
-"Actualmente tiene %dMB de swap configurados, no obstante debe crear "
+"Actualmente tiene %dMB de swap configurados, no obstante ahora puede crear "
 "espacio swap adicional en uno de sus sistemas de archivos."
 
 # ../iw/upgrade_swap_gui.py:95
@@ -5178,7 +5178,7 @@ msgstr ""
 # ../iw/upgrade_swap_gui.py:109
 #: iw/upgrade_swap_gui.py:111
 msgid "I _want to create a swap file"
-msgstr "_Deseo crear un archivo swap"
+msgstr "Deseo crear un archivo s_wap"
 
 # ../iw/upgrade_swap_gui.py:116
 # ../iw/upgrade_swap_gui.py:116
@@ -5535,7 +5535,7 @@ msgstr "Cargando"
 # ../loader/devices.c:260
 #: loader/driverdisk.c:304
 msgid "Reading driver disk"
-msgstr "Leyendo el contenido del disco"
+msgstr "Leyendo el disco de controlador"
 
 # ../loader/devices.c:532
 # ../loader/devices.c:532
@@ -5578,11 +5578,11 @@ msgstr "Falló al montar la partición."
 # ../iw/fdisk_gui.py:93
 #: loader/driverdisk.c:494
 msgid "Select driver disk image"
-msgstr "Seleccione la imagen del controlador del disco"
+msgstr "Seleccione la imagen de disco de controlador"
 
 #: loader/driverdisk.c:495
 msgid "Select the file which is your driver disk image."
-msgstr "Seleccione el archivo que es su imagen de controlador de disco."
+msgstr "Seleccione el archivo que es su imagen de disco de controlador."
 
 # ../loader/devices.c:260
 # ../loader/devices.c:260
@@ -5650,7 +5650,7 @@ msgstr "Disco de controladores"
 # ../loader/devices.c:232
 #: loader/driverdisk.c:664
 msgid "Do you have a driver disk?"
-msgstr "¿Tiene un disco de drivers?"
+msgstr "¿Tiene un disco de controladores?"
 
 # ../loader/devices.c:532
 # ../loader/devices.c:532
@@ -5684,7 +5684,7 @@ msgstr "Error Kickstart"
 #: loader/driverdisk.c:720
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Fuente del controlador del disco del método kickstart desconocida: %s"
+msgstr "Fuente Kickstart de disco de controlador desconocido: %s"
 
 # ../loader/net.c:723
 # ../loader/net.c:723
@@ -5695,8 +5695,8 @@ msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s"
 msgstr ""
-"Se especificó el siguiente argumento inválido para el comando controlador de "
-"disco de kickstart: %s"
+"Se especificó el siguiente argumento inválido para el comando de "
+"disco de controlador de kickstart: %s"
 
 # ../loader/devices.c:86
 # ../loader/devices.c:86
@@ -5708,7 +5708,7 @@ msgid ""
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button."
 msgstr ""
-"Por favor introduzca cualquier parámetro que desee pasar al módulo  %s "
+"Por favor introduzca cualquier parámetro que desee pasar al módulo %s "
 "separado con espacios. Si no sabe qué parámetros dar, sáltese esta pantalla "
 "pulsando el botón \"Aceptar\"."
 
@@ -5748,10 +5748,7 @@ msgstr ""
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
-msgstr ""
-"Por favor seleccione el controlador que desea cargar. Si el driver que "
-"necesita no aparece en esta lista y usted tiene un disco de controladores "
-"aparte, por favor pulse F2."
+msgstr "Por favor seleccione el controlador que desea cargar. Si el controlador no aparece en esta lista y usted tiene un disco de controladores, por favor pulse F2."
 
 # ../loader/devices.c:336
 # ../loader/devices.c:336
@@ -6175,7 +6172,7 @@ msgstr "Añadir dispositivo"
 #: loader/loader.c:1905
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "ya se ejecutó el cargador. Arrancando el shell.\n"
+msgstr "ya se está ejecutando el cargador. Arrancando el shell.\n"
 
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
@@ -6745,7 +6742,7 @@ msgid ""
 msgstr ""
 "Especificó que la encriptación del dispositivo de bloque debe estar "
 "activado, pero no dio ninguna contraseña. Si no vuelve atrás y provee una "
-"contraseña, el encriptado del dispositivo de bloques se deshabilitará."
+"contraseña, el encriptado del dispositivo de bloques se inhabilitará."
 
 # ../iw/partition_gui.py:1029
 # ../iw/partition_gui.py:1031
@@ -8210,7 +8207,7 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"La cuenta root se utiliza para la administración del sistema. Introduzca una "
+"La cuenta root se utiliza para la administración del sistema. Ingrese una "
 "contraseña para el usuario root."
 
 #: ui/adddrive.glade.h:1
@@ -8274,7 +8271,7 @@ msgstr "U_RL del Proxy (host:puerto)"
 # ../textw/userauth_text.py:22
 #: ui/addrepo.glade.h:11
 msgid "Proxy pass_word"
-msgstr "C_ontraseña del Proxy"
+msgstr "C_ontraseña de Proxy"
 
 # ../loader/urls.c:190
 # ../loader/urls.c:190
@@ -8296,7 +8293,7 @@ msgstr "Seleccione un Directorio"
 
 #: ui/addrepo.glade.h:15
 msgid "URL is a _mirror list"
-msgstr "La URL es una lista de _espejos"
+msgstr "La URL es una lista de espe_jos"
 
 # ../loader/net.c:173 ../loader/urls.c:194
 # ../loader/net.c:173 ../loader/urls.c:194
@@ -8341,14 +8338,14 @@ msgstr "_Servidor"
 # ../iw/partition_gui.py:1526
 #: ui/anaconda.glade.h:1
 msgid "Reboo_t"
-msgstr "_Reiniciar"
+msgstr "Re_iniciar"
 
 # ../gui.py:605
 # ../gui.py:605
 # ../gui.py:605
 #: ui/anaconda.glade.h:3
 msgid "_Next"
-msgstr "_Siguiente"
+msgstr "Si_guiente"
 
 #: ui/autopart.glade.h:1
 msgid "<b>Shrink partition _to size (in MB):</b>"
@@ -8360,14 +8357,14 @@ msgstr "Re_visar y modificar la capa de particiones"
 
 #: ui/autopart.glade.h:3
 msgid "Volume to Shrink"
-msgstr "Volumen a redimensionar"
+msgstr "Volumen a reducir"
 
 # ../rescue.py:128 ../textw/upgrade_text.py:208
 # ../rescue.py:128 ../textw/upgrade_text.py:208
 # ../rescue.py:128 ../textw/upgrade_text.py:209
 #: ui/autopart.glade.h:4
 msgid "Which partition would you like to shrink to make room for your installation?"
-msgstr "¿Qué partición desea cambiar reducir para darle espacio a su instalación?"
+msgstr "¿Qué partición desea reducir para dar espacio a su instalación?"
 
 #: ui/autopart.glade.h:5
 msgid "Which type of installation would you like?"
@@ -8379,7 +8376,7 @@ msgstr "Sistema de _Encriptado"
 
 #: ui/autopart.glade.h:7
 msgid "_Shrink"
-msgstr "_Reducir"
+msgstr "Redu_cir"
 
 # ../iw/partition_gui.py:1516
 # ../iw/partition_gui.py:1518
@@ -8480,7 +8477,7 @@ msgstr "<b>Nombre de _Usuario CHAP:</b>"
 # ../loader/urls.c:357 ../textw/userauth_text.py:37
 #: ui/iscsi-config.glade.h:3
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>Contra_seña CHAP en Reversa:</b>"
+msgstr "<b>Contr_aseña CHAP en Reversa:</b>"
 
 #: ui/iscsi-config.glade.h:4
 msgid "<b>Reverse CHAP U_sername:</b>"
@@ -8628,7 +8625,7 @@ msgstr "_Agregar repositorios de software adicional"
 # ../installclasses/custom.py:12
 #: ui/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "_Personalizar ahora"
+msgstr "Personali_zar ahora"
 
 #: ui/tasksel.glade.h:8
 msgid "_Modify repository"
