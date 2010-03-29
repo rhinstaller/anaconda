@@ -458,6 +458,13 @@ static void copyErrorFn (char *msg) {
     printf(msg);
 }
 
+void initSigChildHandler(int signum) {
+    int ret;
+    pid_t pid;
+
+    pid = wait(&ret);
+}
+
 void initSegvHandler(int signum) {
     void *array[30];
     size_t i;
@@ -552,6 +559,9 @@ int main(int argc, char **argv) {
 
     /* set up signal handler */
     setupBacktrace();
+
+    /* set up SIGCHLD handler */
+    signal(SIGCHLD, initSigChildHandler);
 
     printstr("\nGreetings.\n");
 
