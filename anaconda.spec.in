@@ -216,6 +216,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Mar 29 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20.3-1
+- Use /sbin/dasd_cio_free to free blacklisted DASDs (#558881) (dcantrell)
+
 * Thu Mar 25 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20.2-1
 - Try to pull in generic libraries as well as optimized ones (#572178)
   (pjones)
