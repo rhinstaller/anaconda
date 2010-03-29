@@ -2398,14 +2398,27 @@ function parse_dasd() {
     [ "$1" = "-h" ] && handle=yes || unset handle
     local dasditem
     local allgood="yes"
+    local cio_wc=$(wc -c /proc/cio_ignore)
+    read cio_wc_bytes cio_wc_filename cio_wc_foo <<< "$cio_wc"
+    if [ "$handle" = "yes" -a "$cio_wc_bytes" != "0" ]; then
+        echo $"Trying to clear specified DASDs from device blacklist..."
+        mkdir -p /etc/modprobe.d
+        echo "options dasd_mod dasd=$DASD" > /etc/modprobe.d/dasd_mod.conf
+        if ! dasd_cio_free; then
+            echo $"Not all specified DASDs could be detected within timeout."
+            allgood="no"
+        fi
+    fi
     while read dasditem; do
         unset range features range lo hi rangegood \
             attrs devno lodevno hidevno devbusid sys
         case $dasditem in
             autodetect)
                 [ -z "$handle" ] && continue
-                local cio_wc=$(wc -c /proc/cio_ignore)
+                cio_wc=$(wc -c /proc/cio_ignore)
                 read cio_wc_bytes cio_wc_filename cio_wc_foo <<< "$cio_wc"
+                # above we only freed the devices specified in $DASD,
+                # so there might still be other DASDs in the blacklist
                 if [ "$cio_wc_bytes" != "0" ]; then
                     echo $"Note: There is a device blacklist active! Only activating visible DASDs."
                 fi
@@ -2465,14 +2478,6 @@ function parse_dasd() {
                         2)  echo "l.$LINENO: syntax error in regex of match operator =~, code needs to be fixed" 1>&2 ;;
                         *)  echo "l.$LINENO: unexpected return code of regex match operator =~, code needs to be fixed" 1>&2 ;;
                     esac
-                fi
-                if [ "$rangegood" = "yes" -a "$handle" = "yes" ]; then
-                    if ! sysecho /proc/cio_ignore "free $range"; then
-                        echo $"Could not free DASD device $range from device blacklist"
-                        allgood="no"
-                    else
-                        udevadm settle
-                    fi
                 fi
                 if [ "${features//*)/}" != "" ]; then
                     if [ -z "$handle" ]; then
