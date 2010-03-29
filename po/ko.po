@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch.ko\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-11 11:00-1000\n"
-"PO-Revision-Date: 2010-03-29 17:01+1000\n"
+"PO-Revision-Date: 2010-03-30 08:59+1000\n"
 "Last-Translator: Hyunsok Oh <hoh@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4131,7 +4131,7 @@ msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"업데이트 디스켓 소스로 사용 가능한 장치가 여러개 발견되었습니다. 어떤 장치를 "
+"업데이트 디스크 소스로 사용 가능한 장치가 여러개 발견되었습니다. 어떤 장치를 "
 "사용하시겠습니까?"
 
 #: loader/loader.c:487
@@ -5762,11 +5762,11 @@ msgstr "드라이브 추가(_A)"
 
 #: ui/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
-msgstr "<b>리포지터리 이름(_n):</b>"
+msgstr "<b>리포지터리 이름(_N):</b>"
 
 #: ui/addrepo.glade.h:2
 msgid "<b>Repository _type:</b>"
-msgstr "<b>리포지터리 유형(_t):</b>  "
+msgstr "<b>리포지터리 유형(_T):</b>  "
 
 #: ui/addrepo.glade.h:4
 msgid "Configure _proxy"
@@ -5917,9 +5917,8 @@ msgid "Configure FCoE Parameters"
 msgstr "FCoE 매개변수 설정 "
 
 #: ui/fcoe-config.glade.h:2
-#, fuzzy
 msgid "NIC:"
-msgstr "NIC"
+msgstr "NIC:"
 
 #: ui/fcoe-config.glade.h:3
 msgid ""
@@ -6054,16 +6053,16 @@ msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"선택의 심화된 사용자 설정은 소프트웨어 관리 응용프로그램을 거쳐 지"
-"금 혹은 설치 이후에 완성될 수 있습니다."
+"여러분은 지금 소프트웨어 선택 사용자 설정을 더 진행하시거나, 소프트"
+"웨어 관리 어플리케이션을 사용해 나중에 설치할 수 있습니다."
 
 #: ui/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "부가 소프트웨어 리포지터리 추가(_A)"
+msgstr "소프트웨어 리포지터리 추가(_A)"
 
 #: ui/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "지금 사용자 설정(_C)"
+msgstr "지금 사용자 설정하기(_C)"
 
 #: ui/tasksel.glade.h:8
 msgid "_Modify repository"
@@ -6175,157 +6174,157 @@ msgstr "힌두어  "
 
 #: lang-table.h:23
 msgid "Hungarian"
-msgstr "헝가리아어  "
+msgstr "헝가리어  "
 
 #: lang-table.h:24
 msgid "Icelandic"
-msgstr "아이슬랜드어      "
+msgstr "아이슬랜드어"
 
 #: lang-table.h:25
 msgid "Iloko"
-msgstr "일로카노어  "
+msgstr "일로카노어"
 
 #: lang-table.h:26
 msgid "Indonesian"
-msgstr "인도네시아어  "
+msgstr "인도네시아어"
 
 #: lang-table.h:27
 msgid "Italian"
-msgstr "이탈리아어      "
+msgstr "이탈리아어"
 
 #: lang-table.h:28
 msgid "Japanese"
-msgstr "일본어  "
+msgstr "일본어"
 
 #: lang-table.h:29
 msgid "Kannada"
-msgstr "칸나다어  "
+msgstr "칸나다어"
 
 #: lang-table.h:30
 msgid "Korean"
-msgstr "한국어  "
+msgstr "한국어"
 
 #: lang-table.h:31
 msgid "Macedonian"
-msgstr "마케도니아어  "
+msgstr "마케도니아어"
 
 #: lang-table.h:32
 msgid "Maithili"
-msgstr "마이틸리어  "
+msgstr "마이틸리어"
 
 #: lang-table.h:33
 msgid "Malay"
-msgstr "말레이어  "
+msgstr "말레이어"
 
 #: lang-table.h:34
 msgid "Malayalam"
-msgstr "말라얄람어   "
+msgstr "말라얄람어"
 
 #: lang-table.h:35
 msgid "Marathi"
-msgstr "마라티어  "
+msgstr "마라티어"
 
 #: lang-table.h:36
 msgid "Nepali"
-msgstr "네팔어  "
+msgstr "네팔어"
 
 #: lang-table.h:37
 msgid "Norwegian(Bokmål)"
-msgstr "노르웨이어(Bokmål)  "
+msgstr "노르웨이어(Bokmål)"
 
 #: lang-table.h:38
 msgid "Northern Sotho"
-msgstr "북부 소토어   "
+msgstr "북부 소토어"
 
 #: lang-table.h:39
 msgid "Oriya"
-msgstr "오리야어   "
+msgstr "오리야어"
 
 #: lang-table.h:40
 msgid "Persian"
-msgstr "페르시아어   "
+msgstr "페르시아어"
 
 #: lang-table.h:41
 msgid "Polish"
-msgstr "폴란드어  "
+msgstr "폴란드어"
 
 #: lang-table.h:42
 msgid "Portuguese"
-msgstr "포르투갈어  "
+msgstr "포르투갈어"
 
 #: lang-table.h:43
 msgid "Portuguese(Brazilian)"
-msgstr "포르투갈어(브라질) "
+msgstr "포르투갈어(브라질)"
 
 #: lang-table.h:44
 msgid "Punjabi"
-msgstr "펀잡어  "
+msgstr "펀잡어"
 
 #: lang-table.h:45
 msgid "Romanian"
-msgstr "루마니아어  "
+msgstr "루마니아어"
 
 #: lang-table.h:46
 msgid "Russian"
-msgstr "러시아어  "
+msgstr "러시아어"
 
 #: lang-table.h:47
 msgid "Serbian"
-msgstr "세르비아어  "
+msgstr "세르비아어"
 
 #: lang-table.h:48
 msgid "Serbian(Latin)"
-msgstr "세르비아어(라틴)  "
+msgstr "세르비아어(라틴)"
 
 #: lang-table.h:49
 msgid "Sinhala"
-msgstr "신할라어      "
+msgstr "신할라어"
 
 #: lang-table.h:50
 msgid "Slovak"
-msgstr "슬로바키아어  "
+msgstr "슬로바키아어"
 
 #: lang-table.h:51
 msgid "Slovenian"
-msgstr "슬로베니아어       "
+msgstr "슬로베니아어"
 
 #: lang-table.h:52
 msgid "Spanish"
-msgstr "스페인어  "
+msgstr "스페인어"
 
 #: lang-table.h:53
 msgid "Swedish"
-msgstr "스웨덴어  "
+msgstr "스웨덴어"
 
 #: lang-table.h:54
 msgid "Tajik"
-msgstr "타직어  "
+msgstr "타직어"
 
 #: lang-table.h:55
 msgid "Tamil"
-msgstr "타밀어  "
+msgstr "타밀어"
 
 #: lang-table.h:56
 msgid "Telugu"
-msgstr "텔루구어  "
+msgstr "텔루구어"
 
 #: lang-table.h:57
 msgid "Turkish"
-msgstr "터키어  "
+msgstr "터키어"
 
 #: lang-table.h:58
 msgid "Ukrainian"
-msgstr "우크라이나어   "
+msgstr "우크라이나어"
 
 #: lang-table.h:59
 msgid "Vietnamese"
-msgstr "베트남어  "
+msgstr "베트남어"
 
 #: lang-table.h:60
 msgid "Welsh"
-msgstr "웨일스어  "
+msgstr "웨일스어"
 
 #: lang-table.h:61
 msgid "Zulu"
-msgstr "줄루어  "
+msgstr "줄루어"
 
