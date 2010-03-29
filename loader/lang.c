@@ -252,9 +252,10 @@ static int setupLanguage(int choice, int forced) {
     isysLoadFont();
 
     /* clear out top line */
-    buf = alloca(80);
+    buf = alloca(81); /* reserve one byte for \0 */
     for (i=0; i < 80; i++)
 	buf[i] = ' ';
+    buf[80] = 0; /* and set the \0 */
     newtDrawRootText(0, 0, buf);
 
     char *fmt = FL_RESCUE(flags) ? _(topLineWelcomeRescue) : _(topLineWelcome);
