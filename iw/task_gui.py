@@ -42,6 +42,10 @@ import logging
 log = logging.getLogger("anaconda")
 
 def setupRepo(anaconda, repo):
+    if repo.needsNetwork() and not network.hasActiveNetDev():
+        if not anaconda.intf.enableNetwork():
+            return False
+        urlgrabber.grabber.reset_curl_obj()
     try:
         anaconda.backend.doRepoSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         anaconda.backend.doSackSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
@@ -299,6 +303,15 @@ class RepoEditor:
                                     _("Please enter an NFS server and path."))
             return False
 
+        if not network.hasActiveNetDev():
+            if not self.anaconda.intf.enableNetwork():
+                self.intf.messageWindow(_("No Network Available"),
+                    _("Some of your software repositories require "
+                      "networking, but there was an error enabling the "
+                      "network on your system."))
+                return False
+            urlgrabber.grabber.reset_curl_obj()
+
         import tempfile
         dest = tempfile.mkdtemp("", repo.name.replace(" ", ""), "/mnt")
 
@@ -536,12 +549,6 @@ class TaskWindow(InstallWindow):
         dialog.createDialog()
         if dialog.run() in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
             return gtk.RESPONSE_CANCEL
-
-        if dialog.repo.needsNetwork() and not network.hasActiveNetDev():
-            if not self.anaconda.intf.enableNetwork():
-                return gtk.RESPONSE_CANCEL
-
-            urlgrabber.grabber.reset_curl_obj()
 
         s = self.xml.get_widget("repoList").get_model()
         s.append([dialog.repo.isEnabled(), dialog.repo.name, dialog.repo])
