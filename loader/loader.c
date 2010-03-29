@@ -1214,7 +1214,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
     char *url = NULL, *ret = NULL, *devName = NULL, *kbdtype = NULL;
     static iface_t iface;
-    int i, rc, dir = 1;
+    int i, rc = LOADER_NOOP, dir = 1;
     int needsNetwork = 0, class = -1;
     int skipMethodDialog = 0, skipLangKbd = 0;
 
