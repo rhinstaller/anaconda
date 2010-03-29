@@ -231,11 +231,7 @@ class DiskLabel(DeviceFormat):
         if not os.access(self.device, os.W_OK):
             raise DeviceFormatError("device path does not exist")
 
-        self._partedDisk = parted.freshDisk(device=self.partedDevice,
-                                            ty=self.partedDisk.type)
-        self.commit()
         self.partedDevice.clobber()
-        self.commit()
         self.exists = False
 
     def commit(self):
