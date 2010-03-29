@@ -75,7 +75,7 @@ class fcoe(object):
             w.pop()
 
     def _startEDD(self, intf = None):
-        rc = iutil.execWithCapture("/usr/libexec/fcoe/sysfs_edd.sh", [ "-i" ],
+        rc = iutil.execWithCapture("/usr/libexec/fcoe/fcoe_edd.sh", [ "-i" ],
                                    stderr="/dev/tty5")
         if not rc.startswith("NIC="):
             log.info("No FCoE EDD info found: %s" % rc)

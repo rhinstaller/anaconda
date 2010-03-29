@@ -44,7 +44,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %define mehver 0.8
 %define sckeyboardver 1.3.1
 %define libblkid 2.17.1-1
-%define fcoeutilsver 1.0.12-2.20100323git
+%define fcoeutilsver 1.0.12-3.20100323git
 
 BuildRequires: audit-libs-devel
 BuildRequires: bzip2-devel
