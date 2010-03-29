@@ -1796,6 +1796,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 log.debug("no such group %s" %(group,))
 
     def selectPackage(self, pkg, *args):
+        if self.ayum.tsInfo.matchNaevr(name=pkg):
+            return 0
+
         try:
             mbrs = self.ayum.install(pattern=pkg)
             return len(mbrs)
