@@ -2946,10 +2946,6 @@ if [ -z "$testing" ]; then
 
 fi # testing
 
-if [ -n "$DASD" ]; then
-    echo "DASD=$DASD" > /tmp/dasd_ports
-fi
-
 # syntax check to give user early feedback on parameters provided in parm file
 # (he probably won't notice the logs written by anaconda later on)
 syntax_check_fcp

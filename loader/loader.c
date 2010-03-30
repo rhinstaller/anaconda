@@ -1988,7 +1988,6 @@ int main(int argc, char ** argv) {
 #endif
 
     /* now let's do some initial hardware-type setup */
-    dasdSetup();
 #if defined(__powerpc__)
     mlLoadModule("spufs", NULL);
 #endif
