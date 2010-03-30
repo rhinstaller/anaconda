@@ -888,11 +888,10 @@ class AnacondaYum(YumSorter):
         mkeys = self.tsInfo.reqmedia.keys()
         mkeys.sort(mediasort)
 
-        if len(mkeys) > 1:
-            stage2img = "%s/images/install.img" % self.tree
-            if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img):
-                self.anaconda.id.storage.umountFilesystems()
-                return DISPATCH_BACK
+        stage2img = "%s/images/install.img" % self.tree
+        if self.anaconda.backend.mountInstallImage(self.anaconda, stage2img):
+            self.anaconda.storage.umountFilesystems()
+            return DISPATCH_BACK
 
         for i in mkeys:
             self.tsInfo.curmedia = i
