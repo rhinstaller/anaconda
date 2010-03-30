@@ -216,6 +216,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 30 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20.4-1
+- Include /sbin/*_cio_free commands in s390x initrd.img (#558881).
+  (dcantrell)
+
 * Mon Mar 29 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20.3-1
 - Use /sbin/dasd_cio_free to free blacklisted DASDs (#558881) (dcantrell)
 
