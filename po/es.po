@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-11 11:00-1000\n"
-"PO-Revision-Date: 2010-03-30 14:22+1000\n"
+"PO-Revision-Date: 2010-03-30 14:57+1000\n"
 "Last-Translator: Gladys Guerrero  <gguerrer@redhat.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1376,7 +1376,7 @@ msgstr ""
 "\n"
 "   %(bugzillaUrl)s\n"
 "\n"
-"y presente un informe de '%(fileagainst)s'.\n"
+"y presente un informe a nombre de '%(fileagainst)s'.\n"
 
 # ../installclass.py:27
 # ../installclass.py:27
@@ -2171,7 +2171,7 @@ msgstr "Cancelada"
 # ../text.py:397
 #: text.py:649
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "No puede retroceder desde aquí. Tendrá que intentarlo de nuevo. "
+msgstr "No puede ir al paso anterior desde aquí. Tendrá que intentarlo de nuevo."
 
 # ../iw/package_gui.py:30 ../packages.py:37
 # ../iw/package_gui.py:30 ../packages.py:37
@@ -2204,7 +2204,7 @@ msgstr "¿Desea continuar con la actualización?"
 # ../upgrade.py:214
 #: upgrade.py:177
 msgid "Mount failed"
-msgstr "Montaje fallado"
+msgstr "Falló el montaje "
 
 # ../upgrade.py:210
 # ../upgrade.py:215
@@ -2217,8 +2217,7 @@ msgid ""
 "%s"
 msgstr ""
 "El siguiente error ocurrió al montar los sistemas de archivo listados en /"
-"etc/fstab. Por favor, resuelva el problema e intente la actualización de "
-"nuevo.\n"
+"etc/fstab. Por favor, resuelva el problema e intente actualizar otra vez.\n"
 "%s"
 
 # ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
@@ -2236,14 +2235,14 @@ msgstr "Raíz de actualización no encontrada"
 
 #: upgrade.py:187
 msgid "The root for the previously installed system was not found."
-msgstr "La raíz del sistema ya instalado no fue encontrado."
+msgstr "El root para el sistema instalado previamente no se encontró."
 
 #: upgrade.py:194
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
 msgstr ""
-"La raíz del sistema instalado previamente no fue encontrada. Puede salir del "
+"El root para el sistema instalado previamente no se encontró. Puede salir del "
 "instalador o ir hacia atrás para elegir instalación en vez de actualización."
 
 # ../upgrade.py:225
@@ -2317,21 +2316,21 @@ msgstr "¡Conectado!"
 
 #: vnc.py:189
 msgid "Will try to connect again in 15 seconds..."
-msgstr "Se intentará conectarse después de 15 segundos..."
+msgstr "Intentará conectarse después de 15 segundos..."
 
 #: vnc.py:195
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
-msgstr "Dejando de intentar conectarse despues de %d intentos!\n"
+msgstr "Dejará de intentar conectarse después de %d intentos!\n"
 
 #: vnc.py:206
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "Por favor conecte manualmente su cliente VNC a %s para iniciar la instalación"
+msgstr "Por favor conecte manualmente su cliente VNC a %s para iniciar la instalación."
 
 #: vnc.py:208
 msgid "Please manually connect your vnc client to begin the install."
-msgstr "Por favor conecte manualmente su cliente VNC para iniciar la instalación"
+msgstr "Por favor conecte manualmente su cliente VNC para iniciar la instalación."
 
 #: vnc.py:211
 msgid "Starting VNC..."
@@ -2339,7 +2338,7 @@ msgstr "Iniciando VNC..."
 
 #: vnc.py:236
 msgid "The VNC server is now running."
-msgstr "El servidor VNC ahora se está ejecutando"
+msgstr "El servidor VNC se está ejecutando."
 
 #: vnc.py:249
 msgid ""
@@ -2458,7 +2457,7 @@ msgstr "Contraseñas distintas"
 #: vnc.py:315 vnc.py:414 textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
-"Las contraseñas que ha introducido son diferentes. Por favor inténtelo de "
+"Las contraseñas que ha ingresado son diferentes. Por favor inténtelo de "
 "nuevo."
 
 # ../textw/userauth_text.py:53 ../textw/userauth_text.py:120
@@ -2878,9 +2877,9 @@ msgid ""
 "s.  This is likely to not succeed.  Are you sure you wish to continue the "
 "upgrade process?"
 msgstr ""
-"El arch del lanzamiento de %(productName)s al que está actualizando parece "
+"El arch del lanzamiento de %(productName)s al cual está actualizando parece "
 "ser %(myarch)s lo que no coincide con el arch %(arch)s que fue instalado al "
-"principio.  Esto seguramente no funcionará.  ¿Está seguro de que desea "
+"principio. Esto seguramente no funcionará. ¿Está seguro de que desea "
 "continuar con el proceso de actualización?"
 
 # ../installclasses/upgradeclass.py:12
@@ -3160,7 +3159,7 @@ msgstr ""
 
 #: iw/autopart_type.py:236
 msgid "Replace Existing Linux System(s)"
-msgstr "Reemplazar el Sistema Linux existente"
+msgstr "Remplazar el Sistema Linux existente"
 
 #: iw/autopart_type.py:238
 msgid ""
@@ -3204,8 +3203,8 @@ msgid ""
 "space on the selected device(s), assuming you have enough free space "
 "available."
 msgstr ""
-"Mantiene sus datos actuales y particiones, y usa solamente el espacio no "
-"particionado en los dispositivos seleccionados, asumiendo que hay espacio "
+"Retiene sus datos actuales y particiones, y usa solamente el espacio no "
+"dividido en los dispositivos seleccionados, asumiendo que hay espacio "
 "libre suficiente."
 
 #: iw/autopart_type.py:256
@@ -3217,7 +3216,7 @@ msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
 msgstr ""
-"Crear manualmente su propio diseño en los dispositivos seleccionados usando "
+"Crear manualmente su propio diseño en los dispositivos seleccionados mediante "
 "nuestra herramienta de particionado."
 
 # ../textw/bootloader_text.py:384
@@ -4470,7 +4469,7 @@ msgid ""
 "be an aggregate of PVs from multiple physical disk.  For more information on "
 "using LVM please consult the %s documentation\n"
 msgstr ""
-"El Administrador de volumen loǵicos (LVM) es una construcción de 3 niveles. El primer "
+"El Administrador de volumen lógicos (LVM) es una construcción de 3 niveles. El primer "
 "nivel se compone de discos o particiones con formato de metadatos LVM "
 "llamado Volúmenes Físicos (PV). El Grupo de Volúmenes (VG) se sitúa "
 "encima de uno o más PV. El VG, a su vez, es la base para crear uno o más "
