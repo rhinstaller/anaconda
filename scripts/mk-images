@@ -620,12 +620,15 @@ makeinitrd() {
         instbin $IMGPATH /usr/bin/uname $MBD_DIR /sbin/uname
         instbin $IMGPATH /usr/bin/find $MBD_DIR /sbin/find
 
-        # required for linuxrc.s390
+        # required for linuxrc.s390 (and other commands)
         for cmd in ping ping6 cat head tr wc echo printf cut mknod ; do
             instbin $IMGPATH /usr/bin/$cmd $MBD_DIR /sbin/$cmd
         done
         instbin $IMGPATH /usr/sbin/cmsfscat $MBD_DIR /sbin/cmsfscat
         instbin $IMGPATH /usr/sbin/sysctl $MBD_DIR /sbin/sysctl
+
+        # required for *_cio_free
+        instbin $IMGPATH /usr/bin/seq $MBD_DIR /sbin/seq
 
         # usability and problem determination
         for cmd in cp chown chmod date dmesg ps ls less vi gzip tar scp \
@@ -657,6 +660,7 @@ makeinitrd() {
         instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/shutdown $MBD_DIR /sbin/shutdown
         instbin $IMGPATH /usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR /sbin/init
         instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
+        cp -a $IMGPATH/usr/sbin/*_cio_free $MBD_DIR/sbin
     fi
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
