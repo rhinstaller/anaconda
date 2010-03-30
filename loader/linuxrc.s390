@@ -603,7 +603,7 @@ function set_device_online() {
     local sysnettype
     case "${NETTYPE}" in
         qeth|lcs) sysnettype=${NETTYPE} ;;
-        ctc) sysnettype=ctm ;;
+        ctc) sysnettype=ctcm ;;
     esac
     if ! [ -f /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/online ]; then
         echo $"Sysfs path to set device online does not exist."
