@@ -83,8 +83,8 @@ int doMediaCheck(char *file, char *descr) {
     if (rc == ISOMD5SUM_CHECK_NOT_FOUND) {
 	logMessage(WARNING, "mediacheck: %s (%s) has no checksum info", file, descr);
 	newtWinMessage(_("Error"), _("OK"),
-		       _("Unable to read the disc checksum from the "
-			 "primary volume descriptor.  This probably "
+		       _("Unable to find the checksum in the "
+			 "image.  This probably "
 			 "means the disc was created without adding the "
 			 "checksum."));
     } else if (rc == ISOMD5SUM_FILE_NOT_FOUND) {
