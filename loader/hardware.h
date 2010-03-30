@@ -25,6 +25,4 @@
 int earlyModuleLoad(int justProbe);
 int busProbe(int justProbe);
 
-void dasdSetup();
-
 #endif
