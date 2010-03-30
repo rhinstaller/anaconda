@@ -823,4 +823,17 @@ class Network:
 
             netargs += "ifname=%s:%s" % (nic, hwaddr.lower())
 
+        nettype = dev.get("NETTYPE")
+        subchannels = dev.get("SUBCHANNELS")
+        if iutil.isS390() and nettype and subchannels:
+            if netargs != "":
+                netargs += " "
+
+            netargs += "rd_CCW=%s,%s" % (nettype, subchannels)
+
+            options = dev.get("OPTIONS")
+            if options:
+                options = filter(lambda x: x != '', options.split(' '))
+                netargs += ",%s" % (','.join(options))
+
         return netargs
