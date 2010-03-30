@@ -786,12 +786,13 @@ class Network:
                 return ""
 
             routeInfo = route.split()
-            if routeInfo[0] != host or len(routeInfo) < 5:
+            if routeInfo[0] != host or len(routeInfo) < 5 or \
+               "dev" not in routeInfo or routeInfo.index("dev") > 3:
                 log.error('Unexpected "ip route get to %s" reply: %s' %
                           (host, routeInfo))
                 return ""
 
-            nic = routeInfo[2]
+            nic = routeInfo[routeInfo.index("dev") + 1]
 
         if nic not in self.netdevices.keys():
             log.error('Unknown network interface: %s' % nic)
