@@ -162,6 +162,7 @@ class AnacondaBackend:
         self._loopbackFile = "%s%s/rhinstall-install.img" % (anaconda.rootPath,
                                                              free[-1][0])
         try:
+            log.info("transferring install image to install target")
             win = anaconda.intf.waitWindow(_("Copying File"),
                     _("Transferring install image to hard drive"))
             shutil.copyfile(installimg, self._loopbackFile)
@@ -204,8 +205,7 @@ class AnacondaBackend:
     # installs that don't use /mnt/stage2 hold the install.img on
     # a tmpfs, free this ram if things are tight.
         stage2img = "/tmp/install.img"
-        if os.path.exists(stage2img) and iutil.memAvailable() < isys.MIN_GUI_RAM:
-            log.info("%s exists and low memory" % stage2img )
+        if os.path.exists(stage2img):
             # free up /tmp for more memory before yum is called,
             if self.mountInstallImage(anaconda, stage2img):
                	return DISPATCH_BACK
