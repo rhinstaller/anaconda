@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-26 10:15-1000\n"
-"PO-Revision-Date: 2010-03-31 14:10+1000\n"
+"PO-Revision-Date: 2010-03-31 15:10+1000\n"
 "Last-Translator: Glaucia Cintra <gcintra@redhat.com>\n"
 "Language-Team: Portuguese <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3300,9 +3300,15 @@ msgid ""
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 msgstr ""
+"Note que a ação de criação requer um dos seguintes: \n"
+"\n"
+"*Espaço livre em um dos Hard Drives.\n"
+"*Ao menos duas partições livres de RAID por Software.\n"
+"*Ao menos uma partição livre de volume físico (LVM).\n"
+"*Ao menos um Grupo de Volume com espaço livre."
 
 #: iw/partition_gui.py:1455
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
 "device.  A RAID device can be configured to provide additional speed and "
@@ -3313,7 +3319,7 @@ msgstr ""
 "RAID maior. Um dispositivo RAID pode ser configurado para prover maior "
 "velocidade e confiabilidade, em comparação ao uso de um dispositivo "
 "individual. Para mais informações sobre como usar os dispositivos RAID "
-"consulte a documentação do %s."
+"consulte a documentação do %s.\n"
 
 #: iw/partition_gui.py:1461
 msgid ""
@@ -3328,14 +3334,13 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1465
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d software RAID partition free to use."
-msgstr "Criar uma _partição RAID por software."
+msgstr "Você possui atualmente %d partições de RAID por software livre para utilizar."
 
 #: iw/partition_gui.py:1469
-#, fuzzy
 msgid "About RAID"
-msgstr "RAID por software"
+msgstr "Sobre RAID"
 
 #: iw/partition_gui.py:1475
 #, python-format
@@ -3367,7 +3372,7 @@ msgstr ""
 
 #: iw/partition_gui.py:1494
 msgid "About LVM"
-msgstr ""
+msgstr "Sobre LVM"
 
 #: iw/partition_gui.py:1526
 msgid "Couldn't Create Drive Clone Editor"
@@ -3408,18 +3413,16 @@ msgstr ""
 "%s"
 
 #: iw/partition_gui.py:1809
-#, fuzzy
 msgid "_Create"
-msgstr "Relatório de erro criado"
+msgstr "_Create"
 
 #: iw/partition_gui.py:1812
 msgid "Re_set"
 msgstr "Re_staurar"
 
 #: iw/partition_gui.py:1835
-#, fuzzy
 msgid "Please Select A Device"
-msgstr "Por favor, selecione um disco de origem."
+msgstr "Por favor, selecione um dispositivo"
 
 #: iw/partition_ui_helpers_gui.py:109 iw/partition_ui_helpers_gui.py:131
 #: iw/partition_ui_helpers_gui.py:133
@@ -3614,9 +3617,8 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "Ocorreu um erro ao limpar os discos de destino. A clonagem falhou."
 
 #: iw/raid_dialog_gui.py:792
-#, fuzzy
 msgid "Clone Drive Tool"
-msgstr "Clonar discos"
+msgstr "Clonar Ferramentas de Disco"
 
 #: iw/raid_dialog_gui.py:801
 msgid ""
@@ -4824,18 +4826,18 @@ msgid "Running anaconda via telnet."
 msgstr "Executando o Anaconda via telnet."
 
 #: loader/urlinstall.c:138
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s."
-msgstr "Não foi possível obter %s://%s%s."
+msgstr "Não foi possível recuperar %s."
 
 #: loader/urlinstall.c:222
 msgid "Unable to retrieve the install image."
 msgstr "Não foi possível obter a imagem de instalação."
 
 #: loader/urlinstall.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to URL kickstart method command: %s"
-msgstr "Argumento inválido para o comando do método kickstart URL %s: %s"
+msgstr "Argumento inválido para o comando do método kickstart URL: %s"
 
 #: loader/urlinstall.c:384
 msgid "Must supply a --url argument to Url kickstart method."
@@ -4858,19 +4860,16 @@ msgstr ""
 "servidor."
 
 #: loader/urls.c:279
-#, fuzzy
 msgid "Enable HTTP proxy"
-msgstr "Habilitar suporte para IPv4"
+msgstr "Habilitar proxy HTTP"
 
 #: loader/urls.c:293
-#, fuzzy
 msgid "Proxy URL"
-msgstr "URL do proxy inválida"
+msgstr "URL do proxy"
 
 #: loader/urls.c:298
-#, fuzzy
 msgid "Username"
-msgstr "_Nome de usuário"
+msgstr "Nome de usuário"
 
 #: loader/urls.c:303
 msgid "Password"
@@ -5034,13 +5033,13 @@ msgstr ""
 "pouco para instalar o %s."
 
 #: storage/__init__.py:958
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s install."
 msgstr ""
-"Sua partição / tem menos de %s MB, o que é inferior ao tamanho recomendado "
-"para uma instalação normal do %s."
+"Sua partição / tem menos de %(min)s MB, o que é inferior ao tamanho recomendado "
+"para uma instalação normal do %(productName)s."
 
 #: storage/__init__.py:968
 #, python-format
@@ -5052,13 +5051,13 @@ msgstr ""
 "formatada como %s."
 
 #: storage/__init__.py:975
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
-"Sua partição %s tem menos de %s megabytes, o que é inferior ao tamanho "
-"recomendado para uma instalação normal do %s."
+"Sua partição %(mount)s tem menos de %(size)s megabytes, o que é inferior ao tamanho "
+"recomendado para uma instalação normal do %(productName)s."
 
 #: storage/__init__.py:1004
 msgid "Installing on a USB device.  This may or may not produce a working system."
@@ -5204,7 +5203,7 @@ msgstr ""
 "swap estão marcadas para serem formatadas."
 
 #: storage/__init__.py:1850
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -5218,10 +5217,10 @@ msgstr ""
 "     %s\n"
 "\n"
 "não contém um volume com suporte a swap. Para continuar com a instalação "
-"você precisará formatar o dispositivo ou ignorá-lo."
+"você precisará formatar o dispositivo ou ignorá-lo. "
 
 #: storage/__init__.py:1861
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -5230,7 +5229,7 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Erro ao habilitar o dispositivo swap %s: %s\n"
+"Erro ao habilitar o dispositivo swap %(name)s: %(msg)s\n"
 "\n"
 "O /etc/fstab na sua partição de atualização não referencia um dispositivo de "
 "swap válido.\n"
@@ -5238,7 +5237,7 @@ msgstr ""
 "Pressione OK para sair do instalador."
 
 #: storage/__init__.py:1868
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -5246,7 +5245,7 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Erro ao habilitar a partição swap %s: %s\n"
+"Erro ao habilitar a partição swap %(name)s: %(msg)s\n"
 "\n"
 "Isto provavelmente significa que este dispositivo de swap não foi "
 "inicializado.\n"
@@ -5271,14 +5270,14 @@ msgstr ""
 "Pressione <Enter> para sair do instalador."
 
 #: storage/__init__.py:1944
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
 "fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Ocorreu um erro ao tentar criar %s: %s. Este é um erro fatal e a instalação "
+"Ocorreu um erro ao tentar criar %(mountpoint)s: %(msg)s. Este é um erro fatal e a instalação "
 "não pode continuar.\n"
 "\n"
 "Pressione <Enter> para sair do instalador."
@@ -5288,30 +5287,30 @@ msgid "Unable to mount filesystem"
 msgstr "Não foi possível montar o sistema de arquivos"
 
 #: storage/__init__.py:1961
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
-"Ocorreu um erro ao montar o dispositivo %s como %s. Você pode continuar a "
+"Ocorreu um erro ao montar o dispositivo %(path)s como %(mountpoint)s. Você pode continuar a "
 "instalação, mas poderá haver problemas."
 
 #: storage/__init__.py:1985
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
 "is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Ocorreu um erro ao montar o dispositivo %s como %s: %s. Este é um erro fatal "
+"Ocorreu um erro ao montar o dispositivo %(path)s como %(mountpoint)s: %(msg)s. Este é um erro fatal "
 "e a instalação não pode continuar.\n"
 "\n"
 "Pressione <Enter> para sair do instalador."
 
 #: storage/dasd.py:103
 msgid "Unformatted DASD Device Found"
-msgstr ""
+msgstr "Foi encontrado um Dispositivo DASD não formatado"
 
 #: storage/dasd.py:105
 #, python-format
@@ -5324,9 +5323,8 @@ msgid ""
 msgstr ""
 
 #: storage/dasd.py:134
-#, fuzzy
 msgid "Formatting DASD Device"
-msgstr "Falha ao formatar"
+msgstr "Formatando o Dispositivo DASD"
 
 #: storage/dasd.py:135
 #, python-format
@@ -5345,15 +5343,14 @@ msgstr "lvs falhou para %s"
 
 #: storage/devices.py:1247 storage/devices.py:1894 storage/devices.py:2294
 #: storage/devices.py:2760 storage/devices.py:3239
-#, fuzzy
 msgid "Creating"
-msgstr "Croata"
+msgstr "Criando"
 
 #: storage/devices.py:1248 storage/devices.py:1895 storage/devices.py:2295
 #: storage/devices.py:2761
-#, fuzzy, python-format
+#, python-format
 msgid "Creating device %s"
-msgstr "_Alterar dispositivo"
+msgstr "Criando dispositivo %s"
 
 #: storage/devices.py:2386
 #, python-format
@@ -5361,9 +5358,9 @@ msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
 #: storage/devices.py:3240
-#, fuzzy, python-format
+#, python-format
 msgid "Creating file %s"
-msgstr "Criando sistema de arquivos em %s"
+msgstr "Criando arquivo %s"
 
 #: storage/devicetree.py:99
 msgid "Confirm"
@@ -5389,12 +5386,11 @@ msgstr "Esta partição faz parte de um grupo de volumes LVM inconsistente."
 
 #: storage/fcoe.py:68 storage/fcoe.py:69
 msgid "Connecting to FCoE SAN"
-msgstr ""
+msgstr "Conectando ao FCoE SAN"
 
 #: storage/fcoe.py:124
-#, fuzzy
 msgid "FCoE not available"
-msgstr "iSCSI não disponível"
+msgstr "FCoE não disponível"
 
 #: storage/formats/fs.py:102
 msgid "filesystem configuration missing a type"
@@ -5406,9 +5402,9 @@ msgid "Formatting"
 msgstr "Formatando"
 
 #: storage/formats/fs.py:355
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %s filesystem on %s"
-msgstr "Criando sistema de arquivos em %s"
+msgstr "Criando  %s sistema de arquivos em %s"
 
 #: storage/formats/fs.py:454
 msgid "Resizing"
@@ -5420,9 +5416,9 @@ msgid "Resizing filesystem on %s"
 msgstr "Redimensionando o sistema de arquivos em %s"
 
 #: storage/formats/fs.py:490
-#, fuzzy, python-format
+#, python-format
 msgid "Unknown return code: %d."
-msgstr "Método URL %s desconhecido"
+msgstr "Código Desconhecido de Retorno: %d. "
 
 #: storage/formats/fs.py:504
 msgid "Checking"
@@ -5452,26 +5448,24 @@ msgid "Unrecoverable Error"
 msgstr "Erro irrecuperável"
 
 #: storage/formats/fs.py:863
-#, fuzzy
 msgid "File system errors left uncorrected."
-msgstr "Foi detectado um erro no sistema de arquivos, não é possível continuar."
+msgstr "Erros no sistema de arquivos  não corrigidos."
 
 #: storage/formats/fs.py:864
-#, fuzzy
 msgid "Operational error."
-msgstr "Erro fatal"
+msgstr "Erro operacional."
 
 #: storage/formats/fs.py:865
 msgid "Usage or syntax error."
-msgstr ""
+msgstr "Uso de erro de sintáxe."
 
 #: storage/formats/fs.py:866
 msgid "e2fsck cancelled by user request."
-msgstr ""
+msgstr "e2fsck cancelado pela requisição de usuário."
 
 #: storage/formats/fs.py:867
 msgid "Shared library error."
-msgstr ""
+msgstr "Erro de biblioteca compartilhada."
 
 #: storage/formats/fs.py:1027
 msgid ""
@@ -5480,24 +5474,22 @@ msgid ""
 msgstr ""
 
 #: storage/formats/fs.py:1029
-#, fuzzy
 msgid "Usage error."
-msgstr "Erro no disco de destino"
+msgstr "Erro de uso."
 
 #: storage/formats/luks.py:48
-#, fuzzy
 msgid "Encrypted"
-msgstr "_Criptografar"
+msgstr "Criptografado"
 
 #: storage/formats/luks.py:195
-#, fuzzy, python-format
+#, python-format
 msgid "Encrypting %s"
-msgstr "_Criptografar"
+msgstr "Criptografando %s"
 
 #: storage/formats/lvmpv.py:104 storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %s on %s"
-msgstr "Criando sistema de arquivos em %s"
+msgstr "Criando %s em %s"
 
 #: storage/iscsi.py:83 storage/iscsi.py:84
 msgid "Scanning iSCSI nodes"
@@ -5573,7 +5565,7 @@ msgstr ""
 "Pressione \"OK\" para sair do instalador."
 
 #: storage/partitioning.py:239
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
@@ -5581,7 +5573,7 @@ msgid ""
 msgstr ""
 "Não foi possível alocar as partições solicitadas: \n"
 "\n"
-"%s.%s"
+"%(msg)s.%(extra)s"
 
 #: storage/partitioning.py:260
 msgid ""
@@ -5627,11 +5619,11 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Você não especificou um LUN FCP ou o número é inválido."
 
 #: storage/zfcp.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "Could not free zFCP device %(devnum)s from device ignore list (%(e)s)."
 msgstr ""
-"Não foi possível liberar o dispositivo zFCP %s a partir da lista de "
-"dispositivos ignorados (%s)."
+"Não foi possível liberar o dispositivo zFCP %(devnum)s a partir da lista de "
+"dispositivos ignorados (%(e)s)."
 
 #: storage/zfcp.py:137
 #, python-format
