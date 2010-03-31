@@ -217,6 +217,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 31 2010 David Lehman <dlehman@redhat.com> - 13.37.2-1
+- Copy install.img to install target on http installs. (pjones)
+- Make sure the install.img exists before attempting to copy (#578391).
+  (clumens)
+
 * Tue Mar 30 2010 David Lehman <dlehman@redhat.com> - 13.37.1-1
 - Copy install.img and remount no matter how many discs (#577196) (pjones)
 
