@@ -447,10 +447,12 @@ if [ ${BUILDARCH} = s390x ]; then
 elif [ ${BUILDARCH} = ppc64 ]; then
     # ... and similar for ppc64
     source $TOPDIR/mk-images.ppc
-elif [ ${BUILDARCH} = "x86_64" -o ${BUILDARCH} = "i386" ]; then
+elif [ ${BUILDARCH} = "x86_64" ]; then
+    export UEFI_BOOT_ISO="no"
     source $TOPDIR/mk-images.x86
-    # Only generate EFI images on 64bit
-    test ${BUILDARCH} = "x86_64" && source $TOPDIR/mk-images.efi
+    source $TOPDIR/mk-images.efi
+elif [ ${BUILDARCH} = "i386" ]; then
+    source $TOPDIR/mk-images.x86
 elif [ ${BUILDARCH} = "sparc64" -o ${BUILDARCH} = "sparcv9" ]; then
     source $TOPDIR/mk-images.sparc
 else

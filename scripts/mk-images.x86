@@ -142,7 +142,8 @@ doPostImages() {
     if [ -n "$BOOTISO" ]; then
         EFIARGS=""
         EFIGRAFT=""
-        if [ -f $TOPDESTPATH/images/efiboot.img ]; then
+        if [ $UEFI_BOOT_ISO = "yes" -a \
+		-f $TOPDESTPATH/images/efiboot.img ]; then
             echo "Found efiboot.img, making an EFI-capable boot.iso"
             EFIARGS="-eltorito-alt-boot -e images/efiboot.img -no-emul-boot"
             EFIGRAFT="EFI/BOOT=$TOPDESTPATH/EFI/BOOT"
