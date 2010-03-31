@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.21\n"
+"Project-Id-Version: anaconda 13.21.22\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-03-26 10:15-1000\n"
+"POT-Creation-Date: 2010-03-31 08:36-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgstr ""
 #: loader/hdinstall.c:477 loader/kbd.c:119 loader/kickstart.c:132
 #: loader/kickstart.c:142 loader/kickstart.c:184 loader/kickstart.c:189
 #: loader/kickstart.c:296 loader/kickstart.c:328 loader/kickstart.c:510
-#: loader/lang.c:114 loader/lang.c:372 loader/loader.c:414 loader/loader.c:450
+#: loader/lang.c:114 loader/lang.c:373 loader/loader.c:414 loader/loader.c:450
 #: loader/loader.c:490 loader/loader.c:508 loader/loader.c:525
 #: loader/loader.c:562 loader/loader.c:1178 loader/loader.c:1359
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
@@ -121,8 +121,8 @@ msgstr ""
 #: iw/advanced_storage.py:207 iw/autopart_type.py:96 iw/cleardisks_gui.py:43
 #: iw/cleardisks_gui.py:53 iw/filter_gui.py:411 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:212 iw/raid_dialog_gui.py:729
-#: iw/raid_dialog_gui.py:768 iw/task_gui.py:49 iw/task_gui.py:150
-#: iw/task_gui.py:296 iw/task_gui.py:448 loader/cdinstall.c:228
+#: iw/raid_dialog_gui.py:768 iw/task_gui.py:52 iw/task_gui.py:153
+#: iw/task_gui.py:299 iw/task_gui.py:459 loader/cdinstall.c:228
 #: loader/cdinstall.c:504 loader/driverdisk.c:266 loader/driverdisk.c:490
 #: loader/driverdisk.c:525 loader/driverdisk.c:553 loader/driverdisk.c:561
 #: loader/driverdisk.c:625 loader/hdinstall.c:115 loader/hdinstall.c:315
@@ -588,6 +588,7 @@ msgid "Scriptlet Failure"
 msgstr ""
 
 #: kickstart.py:149 rescue.py:248 yuminstall.py:684 yuminstall.py:1155
+#: iw/task_gui.py:305
 msgid "No Network Available"
 msgstr ""
 
@@ -1560,7 +1561,7 @@ msgid ""
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
 
-#: yuminstall.py:344 iw/task_gui.py:306
+#: yuminstall.py:344 iw/task_gui.py:317
 msgid "Error Setting Up Repository"
 msgstr ""
 
@@ -1601,7 +1602,7 @@ msgstr ""
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
-#: yuminstall.py:685 yuminstall.py:1156
+#: yuminstall.py:685 yuminstall.py:1156 iw/task_gui.py:306
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2289,7 +2290,7 @@ msgstr ""
 msgid "Language Selection"
 msgstr ""
 
-#: iw/language_gui.py:81 loader/lang.c:370 textw/language_text.py:47
+#: iw/language_gui.py:81 loader/lang.c:371 textw/language_text.py:47
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
@@ -3174,7 +3175,7 @@ msgstr ""
 msgid "Drives"
 msgstr ""
 
-#: iw/task_gui.py:50
+#: iw/task_gui.py:53
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -3184,48 +3185,48 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/task_gui.py:127
+#: iw/task_gui.py:130
 msgid "Edit Repository"
 msgstr ""
 
-#: iw/task_gui.py:151
+#: iw/task_gui.py:154
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
 
-#: iw/task_gui.py:231
+#: iw/task_gui.py:234
 msgid "Invalid Proxy URL"
 msgstr ""
 
-#: iw/task_gui.py:232
+#: iw/task_gui.py:235
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr ""
 
-#: iw/task_gui.py:243 iw/task_gui.py:415
+#: iw/task_gui.py:246 iw/task_gui.py:426
 msgid "Invalid Repository URL"
 msgstr ""
 
-#: iw/task_gui.py:244 iw/task_gui.py:416
+#: iw/task_gui.py:247 iw/task_gui.py:427
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr ""
 
-#: iw/task_gui.py:265 iw/task_gui.py:425
+#: iw/task_gui.py:268 iw/task_gui.py:436
 msgid "No Media Found"
 msgstr ""
 
-#: iw/task_gui.py:266 iw/task_gui.py:426
+#: iw/task_gui.py:269 iw/task_gui.py:437
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
 
-#: iw/task_gui.py:297 iw/task_gui.py:449
+#: iw/task_gui.py:300 iw/task_gui.py:460
 msgid "Please enter an NFS server and path."
 msgstr ""
 
-#: iw/task_gui.py:307
+#: iw/task_gui.py:318
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3233,23 +3234,23 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/task_gui.py:330
+#: iw/task_gui.py:341
 msgid "Invalid Repository Name"
 msgstr ""
 
-#: iw/task_gui.py:331
+#: iw/task_gui.py:342
 msgid "You must provide a repository name."
 msgstr ""
 
-#: iw/task_gui.py:481 ui/addrepo.glade.h:3
+#: iw/task_gui.py:492 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr ""
 
-#: iw/task_gui.py:486
+#: iw/task_gui.py:497
 msgid "No Software Repos Enabled"
 msgstr ""
 
-#: iw/task_gui.py:487
+#: iw/task_gui.py:498
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3802,7 +3803,7 @@ msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
-#: loader/lang.c:369
+#: loader/lang.c:370
 msgid "Choose a Language"
 msgstr ""
 
@@ -3939,12 +3940,12 @@ msgstr ""
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2349
+#: loader/loader.c:2348
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2351
+#: loader/loader.c:2350
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""

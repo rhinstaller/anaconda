@@ -219,6 +219,48 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Mar 31 2010 David Cantrell <dcantrell@redhat.com> - 13.21.23-1
+- network.dracutSetupString(): handle hosts outside the subnet (#577193)
+  (hdegoede)
+  Resolves: rhbz#577193
+- Write rd_CCW when root fs is on a network device on s390x (#577193)
+  (dcantrell)
+  Resolves: rhbz#577193
+- Keep /usr/bin/seq for the initrd.img (#558881). (dcantrell)
+  Related: rhbz#558881
+- Fix syntax for passing a mapping to a translatable string (#578489).
+  (clumens)
+  Resolves: rhbz#578489
+- Keep the selected device count right when going back to filtering
+  (#578451). (clumens)
+  Resolves: rhbz#578451
+- Enable network if it is needed when repo is added in UI (#577899)
+  (rvykydal)
+  Resolves: rhbz#577899
+- Do not try to commit diskLabels on non partitionable devices (#576145)
+  (hdegoede)
+  Resolves: rhbz#576145
+- Fix typo in linuxrc.s390. ctm should be ctcm (#561816) (dcantrell)
+  Related: rhbz#561816
+- Remove dasdSetup() from loader (#558881) (dcantrell)
+  Resolves: rhbz#558881
+- Include /sbin/*_cio_free commands in s390x initrd.img (#558881).
+  (dcantrell)
+  Resolves: rhbz#558881
+- Wait for SIGCHILD signals (#540923) (msivak)
+  Resolves: rhbz#540923
+- fcoe: sysfs_edd.sh has been renamed to fcoe_edd.sh (hdegoede)
+  Related: rhbz#513018
+- Use /sbin/dasd_cio_free to free blacklisted DASDs (#558881) (dcantrell)
+  Resolves: rhbz#558881
+- Increase ping timeout for gateway/dns server reachability check (#536815)
+  (dcantrell)
+  Resolves: rhbz#536815
+- Fix off-by-one error in string initialization (#563210) (msivak)
+  Resolves: rhbz#563210
+- exception.py: switch to tty1 before exit (#576851) (akozumpl)
+  Resolves: rhbz#576851
+
 * Fri Mar 26 2010 David Cantrell <dcantrell@redhat.com> - 13.21.22-1
 - Try to pull in generic libraries as well as optimized ones (#572178)
   (pjones)
