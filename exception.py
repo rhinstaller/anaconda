@@ -89,14 +89,6 @@ class AnacondaExceptionHandler(ExceptionHandler):
         pdb.post_mortem (tb)
         os.kill(os.getpid(), signal.SIGKILL)
 
-    def runQuit(self, (ty, value, tb)):
-        # see a similar comment at runDebug()
-        try:
-            isys.vtActivate(1)
-        except SystemError:
-            pass
-        sys.exit(self.exitcode)
-
 def initExceptionHandling(anaconda):
     conf = Config(programName="anaconda",
                   programVersion=isys.getAnacondaVersion(),
