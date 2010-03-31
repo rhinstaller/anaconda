@@ -1,4 +1,4 @@
-# translation of anaconda.rhel6-branch.pt_BR.po to Portuguese
+# translation of pt_BR.po to Portuguese
 # Brazilian Portuguese translation of Anaconda.
 # This file is distributed under the same license as the Anaconda package.
 # Pedro Morais <morais@kde.org>
@@ -18,10 +18,10 @@
 # Glaucia Cintra <gcintra@redhat.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.rhel6-branch.pt_BR\n"
+"Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-26 10:15-1000\n"
-"PO-Revision-Date: 2010-03-29 14:45+1000\n"
+"PO-Revision-Date: 2010-03-31 14:10+1000\n"
 "Last-Translator: Glaucia Cintra <gcintra@redhat.com>\n"
 "Language-Team: Portuguese <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -590,7 +590,7 @@ msgstr "Instalar no sistema"
 msgid ""
 "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS "
 "RAID sets. Ignoring disk %s."
-msgstr ""
+msgstr "Disco %s contém metadados do BIOS RAID, mas não é parte dos conjuntos BIOS RAID reconhecidos. Ignorando disco %s."
 
 #: iutil.py:847
 #, python-format
@@ -622,8 +622,7 @@ msgstr ""
 #: iutil.py:886
 #, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
-msgstr ""
-"Erro: Não é possível definir %(device)s como um dispositivo reIPL (%(e)s)"
+msgstr "Erro: Não é possível definir %(device)s como um dispositivo reIPL (%(e)s)"
 
 #: iutil.py:896
 #, python-format
@@ -656,10 +655,8 @@ msgstr "Erro: gravando a propriedade FCP %(reipl_property)s para reIPL (%(e)s)"
 
 #: iutil.py:970
 #, python-format
-msgid ""
-"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr ""
-"Erro: gravando a propriedade FCP padrão %(reipl_property)s para reIPL (%(e)s)"
+msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgstr "Erro: gravando a propriedade FCP padrão %(reipl_property)s para reIPL (%(e)s)"
 
 #: iutil.py:985
 #, python-format
@@ -794,8 +791,7 @@ msgstr "Não foi possível encontrar a imagem"
 
 #: livecd.py:122
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "A localização fornecida não é válida para o %s live CD para ser usada como "
 "uma fonte de instalação."
@@ -849,8 +845,7 @@ msgstr ""
 "z\", \"A-Z\" ou \"0-9\""
 
 #: network.py:67
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 "Os nomes de máquina só podem conter os caracteres \"a-z\", \"A-Z\", \"0-9\", "
 "\"-\" ou \".\""
@@ -929,8 +924,7 @@ msgstr "Falha na migração"
 #: packages.py:144
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr ""
-"Um erro foi encontrado ao migrar o sistema de arquivos no dispositivo %s."
+msgstr "Um erro foi encontrado ao migrar o sistema de arquivos no dispositivo %s."
 
 #: packages.py:148
 msgid "Formatting Failed"
@@ -1230,8 +1224,7 @@ msgid "Confirm Reset"
 msgstr "Confirmar restauração"
 
 #: partIntfHelpers.py:350
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Tem certeza que deseja restaurar a tabela de partições para o estado "
 "original?"
@@ -1269,8 +1262,7 @@ msgstr "Partições de inicialização não podem estar em um dispositivo RAID."
 #: platform.py:131
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr ""
-"Partições de inicialização não podem estar em um sistema de arquivos %s."
+msgstr "Partições de inicialização não podem estar em um sistema de arquivos %s."
 
 #: platform.py:135 platform.py:140
 msgid "Bootable partitions cannot be on an encrypted block device"
@@ -1311,8 +1303,7 @@ msgstr "Inicialização PPC PReP"
 
 #: platform.py:357
 msgid "The boot partition must be within the first 4MB of the disk."
-msgstr ""
-"A partição de inicialização deve estar dentro dos primeiros 4MB do disco."
+msgstr "A partição de inicialização deve estar dentro dos primeiros 4MB do disco."
 
 #: platform.py:409 platform.py:412
 msgid "Apple Bootstrap"
@@ -1493,8 +1484,7 @@ msgstr "Frase-senha para o dispositivo criptografado"
 
 #: text.py:167
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr ""
-"Adicionar essa frase-senha a todos os dispositivos criptografados existentes"
+msgstr "Adicionar essa frase-senha a todos os dispositivos criptografados existentes"
 
 #: text.py:198
 #, python-format
@@ -1666,8 +1656,7 @@ msgstr ""
 
 #: vnc.py:208
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Por favor, conecte seu cliente vnc manualmente para iniciar a instalação."
+msgstr "Por favor, conecte seu cliente vnc manualmente para iniciar a instalação."
 
 #: vnc.py:211
 msgid "Starting VNC..."
@@ -1882,8 +1871,7 @@ msgstr "Trocar disco"
 #: yuminstall.py:390
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
-msgstr ""
-"Para continuar a instalação insira o disco %(productName)s  %(discnum)d ."
+msgstr "Para continuar a instalação insira o disco %(productName)s  %(discnum)d ."
 
 #: yuminstall.py:400
 msgid "Wrong Disc"
@@ -1947,8 +1935,7 @@ msgstr "Tentando baixar novamente."
 
 #: yuminstall.py:908
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "Houve um erro ao executar a sua transação, pelo seguinte motivo: %s\n"
 
 #: yuminstall.py:951 yuminstall.py:952
@@ -2059,7 +2046,7 @@ msgid ""
 "dependencies.  You can exit the installation, go back and change your "
 "package selections, or continue installing these packages without their "
 "dependencies."
-msgstr ""
+msgstr "Alguns pacotes que você selecionou para serem instalados não possuem dependências. Você pode sair a instalação, voltar e mudar suas seleções de pacotes, ou continuar a instalar estes pacotes sem suas dependências."
 
 #: yuminstall.py:1466
 #, python-format
@@ -2152,7 +2139,7 @@ msgstr ""
 
 #: installclasses/fedora.py:48
 msgid "Graphical Desktop"
-msgstr ""
+msgstr "Desktop Gráfico"
 
 #: installclasses/fedora.py:53
 msgid "Software Development"
@@ -2261,31 +2248,26 @@ msgid "Use Anyway"
 msgstr "Usar mesmo assim"
 
 #: iw/account_gui.py:138 textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "A senha requisitada contém caracteres não-ASCII, que não são permitidos para "
 "uso em senhas."
 
 #: iw/advanced_storage.py:91
-#, fuzzy
 msgid "You must select a NIC to use."
-msgstr "Você deve selecionar um dispositivo de rede"
+msgstr "Você deve selecionar um NIC para ser utilizado."
 
 #: iw/advanced_storage.py:138
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "Nome do iniciador iSCSI"
+msgstr "Nome do iniciador inválido"
 
 #: iw/advanced_storage.py:139
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "Você deve informar um nome para o repositório."
+msgstr "Você deve informar um nome de iniciador."
 
 #: iw/advanced_storage.py:168
-#, fuzzy
 msgid "Error with Data"
-msgstr "Erro nos dados"
+msgstr "Erro nos Dados"
 
 #: iw/autopart_type.py:97
 msgid ""
@@ -2302,7 +2284,7 @@ msgstr "Erro ao redimensionar o sistema de arquivos"
 #: iw/autopart_type.py:121
 #, python-format
 msgid "%(device)s: %(msg)s"
-msgstr ""
+msgstr "%(device)s: %(msg)s"
 
 #: iw/autopart_type.py:130
 msgid "Resize Device Error"
@@ -2311,7 +2293,7 @@ msgstr "Erro ao redimensionar dispositivo"
 #: iw/autopart_type.py:131
 #, python-format
 msgid "%(name)s: %(msg)s"
-msgstr ""
+msgstr "%(name)s: %(msg)s"
 
 #: iw/autopart_type.py:228
 msgid "Use All Space"
@@ -2325,6 +2307,9 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
+"Remove todas as partições nos dispositivos selecionados. Isto inclui partições criadas por outros sistemas operacionais. \n"
+"\n"
+"<b>Dica:</b> Esta opção irá remover dados dos dispositivos selecionados. Certifique-se que possui os backups."
 
 #: iw/autopart_type.py:236
 msgid "Replace Existing Linux System(s)"
@@ -2339,15 +2324,17 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
+"Remove somente partições do LInux (criadas a partir de instalações do Linux anteriores). Esta não remove outras partições que você possa ter em seu dispositivo de armazenamento (tal como o VFAT ou FAT32). \n"
+"\n"
+"<b>Dica:</b> Esta opção irá remover dados de dispositivos selecionados. Certifique-se que você possui os backups."
 
 #: iw/autopart_type.py:246
 msgid "Shrink Current System"
 msgstr "Reduzir o Sistema Atual"
 
 #: iw/autopart_type.py:248
-msgid ""
-"Shrinks existing partitions to create free space for the default layout."
-msgstr ""
+msgid "Shrinks existing partitions to create free space for the default layout."
+msgstr "Diminui partições existentes para criar espaço livre para o layout padrão."
 
 #: iw/autopart_type.py:250
 msgid "Use Free Space"
@@ -2358,7 +2345,7 @@ msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
 "available."
-msgstr ""
+msgstr "Retém seus dados atuais e partições e utiliza somente espaço não particionado em dispositivos selecionados, assumindo que você tenha espaço livre disponível suficiente."
 
 #: iw/autopart_type.py:256
 msgid "Create Custom Layout"
@@ -2368,7 +2355,7 @@ msgstr "Criar Layout Personalizado"
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
-msgstr ""
+msgstr "Cria manualmente seu próprio layout padronizado em dispositivos selecionados usando sua ferramenta de particionamento."
 
 #: iw/blpasswidget.py:44
 msgid "_Use a boot loader password"
@@ -2443,67 +2430,63 @@ msgstr "_Alterar dispositivo"
 
 #: iw/cleardisks_gui.py:33
 msgid "Clear Disks Selector"
-msgstr ""
+msgstr "Limpa Seletor de Discos"
 
 #: iw/cleardisks_gui.py:44 iw/filter_gui.py:412
-#, fuzzy
 msgid "You must select at least one drive to be used for installation."
-msgstr "É necessário escolher pelo menos um disco para instalar o %s."
+msgstr "É necessário escolher pelo menos um disco a ser usado para a instalação."
 
 #: iw/cleardisks_gui.py:54
-#, fuzzy
 msgid "You must select one drive to boot from."
-msgstr "Você deve selecionar um dispositivo de rede"
+msgstr "Você deve selecionar um disco a ser inicializado."
 
 #: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:447
 #: iw/filter_gui.py:459 iw/filter_gui.py:489
 msgid "Model"
-msgstr ""
+msgstr "Modelo"
 
 #: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:448
 #: iw/filter_gui.py:460 iw/filter_gui.py:468 iw/filter_gui.py:479
 #: iw/filter_gui.py:490
 msgid "Capacity"
-msgstr ""
+msgstr "Capacidade"
 
 #: iw/cleardisks_gui.py:123 iw/filter_gui.py:449 iw/filter_gui.py:469
 #: iw/filter_gui.py:480 iw/filter_gui.py:491
-#, fuzzy
 msgid "Vendor"
-msgstr "_Fedora"
+msgstr "Fabricante"
 
 #: iw/cleardisks_gui.py:124 iw/filter_gui.py:450 iw/filter_gui.py:470
 #: iw/filter_gui.py:481 iw/filter_gui.py:492
 msgid "Interconnect"
-msgstr ""
+msgstr "Interconectar"
 
 #: iw/cleardisks_gui.py:125 iw/filter_gui.py:451 iw/filter_gui.py:482
 #: iw/filter_gui.py:493
 msgid "Serial Number"
-msgstr ""
+msgstr "Número de Série"
 
 #: iw/cleardisks_gui.py:139
-#, fuzzy
 msgid "Boot"
-msgstr "/boot"
+msgstr "Boot"
 
 #: iw/cleardisks_gui.py:176
 msgid ""
 "<b>Tip:</b> All Linux filesystems on install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Dica:</b> Todos os sistemas de arquivo do Linux nos dispositivos de alvo de instalação, serão reformatados e apagados de qualquer dado. Certifique-se de que possui os backups."
 
 #: iw/cleardisks_gui.py:178 ui/cleardisks.glade.h:3
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Dica:</b>Dispositivos de alvo de instalação, serão reformatados e apagados de qualquer dado. Certifique-se de que possui os backups."
 
 #: iw/cleardisks_gui.py:180
 msgid ""
 "<b>Tip:</b> Your filesystems on install target devices will not be wiped "
 "unless you choose to do so during customization."
-msgstr ""
+msgstr "<b>Dica:</b> Seus sistemas de arquivo nos dispositivos de alvo de instalação não serão apagados a menos que escolha esta opção durante a padronização."
 
 #: iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2561,47 +2544,42 @@ msgid "Upgrade Examine"
 msgstr "Examinar atualização"
 
 #: iw/examine_gui.py:58
-#, fuzzy
 msgid "Fresh Installation"
-msgstr "Pré-instalação"
+msgstr "Nova instalação"
 
 #: iw/examine_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option to install a fresh copy of %s on your system.  Existing "
 "software and data may be overwritten depending on your configuration choices."
 msgstr ""
-"Selecione esta opção para executar uma nova instalação em seu sistema. Os "
+"Selecione esta opção para instalar uma nova cópia do %s em seu sistema. Os "
 "dados e programas existentes podem ser sobrescritos dependendo das suas "
 "opções de configuração."
 
 #: iw/examine_gui.py:65
-#, fuzzy
 msgid "Upgrade an Existing Installation"
-msgstr "_Atualizar uma instalação existente"
+msgstr "Atualizar uma instalação existente"
 
 #: iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your storage device(s)."
 msgstr ""
 "Selecione esta opção se você deseja atualizar seu sistema %s existente.  "
-"Esta opção preservará os dados existentes nos seus discos."
+"Esta opção preservará os dados existentes nos seus dispositivos de armazenamento."
 
 #: iw/examine_gui.py:105
-#, fuzzy
 msgid ""
 "At least one existing installation has been detected on your system.  What "
 "would you like to do?"
-msgstr ""
-"Nenhum driver de dispositivo foi carregado para o seu sistema. Você deseja "
-"carregar algum agora?"
+msgstr "Foi detectado pelo menos uma instalação existente em seu sistema. O que você deseja fazer?"
 
 #: iw/examine_gui.py:124
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "O que você deseja fazer?"
+msgstr "<b>Qual %s instalação você gostaria de atualizar?</b>"
 
 #: iw/examine_gui.py:138
 msgid "Unknown Linux system"
@@ -2610,18 +2588,16 @@ msgstr "Sistema Linux desconhecido"
 #: iw/filter_gui.py:147
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
-msgstr ""
+msgstr "<b>%s dispositivos (%s MB) selecionados</b> fora do %s total dos (%s MB) dispositivos."
 
 #: iw/filter_gui.py:397
-#, fuzzy
 msgid "Device Filter"
-msgstr "Falha na configuração do dispositivo"
+msgstr "Filtro de Dispositivo"
 
 #: iw/filter_gui.py:452 iw/filter_gui.py:467 iw/filter_gui.py:478
 #: iw/filter_gui.py:494
-#, fuzzy
 msgid "Identifier"
-msgstr "Identificar"
+msgstr "Identificador"
 
 #: iw/filter_gui.py:453 iw/filter_gui.py:461 iw/filter_gui.py:472
 #: iw/filter_gui.py:483 iw/filter_gui.py:498 iw/osbootwidget.py:66
@@ -2630,50 +2606,44 @@ msgid "Device"
 msgstr "Dispositivo"
 
 #: iw/filter_gui.py:471
-#, fuzzy
 msgid "Paths"
-msgstr "_Caminho"
+msgstr "Caminho"
 
 #: iw/filter_gui.py:495
-#, fuzzy
 msgid "Port"
-msgstr "_Abortar"
+msgstr "Porta"
 
 #: iw/filter_gui.py:496
-#, fuzzy
 msgid "Target"
-msgstr "Testar"
+msgstr "Alvo"
 
 #: iw/filter_gui.py:497
 msgid "LUN"
-msgstr ""
+msgstr "LUN"
 
 #: iw/filter_type.py:55
-#, fuzzy
 msgid "What type of devices will your installation involve?"
-msgstr "Que tipo de mídia contém a imagem de instalação?"
+msgstr "Que tipo de dispositivos estarão envolvidos na sua instalação?"
 
 #: iw/filter_type.py:61
-#, fuzzy
 msgid "Basic Storage Devices"
-msgstr "Localizando dispositivos de armazenamento"
+msgstr "Dispositivos de armazenamento básico"
 
 #: iw/filter_type.py:62
 msgid ""
 "Installs or upgrades to typical types of storage devices.  If you're not "
 "sure which option is right for you, this is probably it."
-msgstr ""
+msgstr "Instalações ou atualizações em tipos típicos de dispositivos de armazenamento. Se você não estiver certo de quais opções são as ideais para você, provavelmente será esta."
 
 #: iw/filter_type.py:66
-#, fuzzy
 msgid "Specialized Storage Devices"
-msgstr "Localizando dispositivos de armazenamento"
+msgstr "Dispositivos de armazenamento especializados"
 
 #: iw/filter_type.py:67
 msgid ""
 "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
 "mainframe attached disks (DASD), usually in an enterprise environment"
-msgstr ""
+msgstr "Instalações ou atualizações em dispositivos tais como Storage Area Networks (SANs) ou discos anexados (DASD), geralmente em um ambiente corporativo."
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2722,26 +2692,26 @@ msgid "C_ontinue"
 msgstr "C_ontinuar"
 
 #: iw/lvm_dialog_gui.py:171
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
 "10.2f MB) in the volume group."
 msgstr ""
 "O tamanho da extensão física não pode ser alterado porque o valor "
-"selecionado (%10.2f MB) é maior do que o menor volume físico (%10.2f MB) no "
+"selecionado (%(curpe) 10.2f MB) é maior do que o menor volume físico (%(maxpvsize) 10.2f MB) no "
 "grupo de volumes."
 
 #: iw/lvm_dialog_gui.py:185
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "(curpe)10.2f MB) is too large compared to the size of the smallest physical "
 "volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 "O tamanho da extensão física não pode ser alterado porque o valor "
-"selecionado (%10.2f MB) é muito grande se comparado ao tamanho do menor "
-"volume físico (%10.2f MB) no grupo de volumes."
+"selecionado (%(curpe)10.2f MB) é muito grande se comparado ao tamanho do menor "
+"volume físico (%(maxpvsize)10.2f MB) no grupo de volumes."
 
 #: iw/lvm_dialog_gui.py:199
 msgid "Too small"
@@ -2842,8 +2812,7 @@ msgstr "Nome de volume lógico inválido"
 #: iw/lvm_dialog_gui.py:612
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"O nome do volume lógico \"%s\" já está em uso. Por favor escolha outro."
+msgstr "O nome do volume lógico \"%s\" já está em uso. Por favor escolha outro."
 
 #: iw/lvm_dialog_gui.py:653 iw/partition_dialog_gui.py:124
 #: iw/raid_dialog_gui.py:180
@@ -2865,27 +2834,27 @@ msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "O tamanho que você inseriu não é um número válido maior que 0."
 
 #: iw/lvm_dialog_gui.py:683
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
 "logical volume size (%(maxlv)10.2f MB). To increase this limit you can "
 "create more Physical Volumes from unpartitioned disk space and add them to "
 "this Volume Group."
 msgstr ""
-"O tamanho atual solicitado (%10.2f MB) é maior do que o tamanho máximo do "
-"volume lógico (%10.2f MB). Para aumentar este limite você pode criar mais "
+"O tamanho atual solicitado (%(size)10.2f MB) é maior do que o tamanho máximo do "
+"volume lógico (%(maxlv)10.2f MB). Para aumentar este limite você pode criar mais "
 "Volumes Físicos utilizando o espaço em disco não particionado e adicioná-los "
 "a este Grupo de Volumes."
 
 #: iw/lvm_dialog_gui.py:704
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %(size)d MB, but the volume "
 "group only has %(tempvgsize)d MB.  Please either make the volume group "
 "larger or make the logical volume(s) smaller."
 msgstr ""
-"Os volumes lógicos que você configurou requerem %d MB, mas o grupo de "
-"volumes possui somente %d MB. Por favor, faça um grupo de volumes maior ou o"
+"Os volumes lógicos que você configurou requerem %(size)d MB, mas o grupo de "
+"volumes possui somente %(tempvgsize)d MB. Por favor, faça um grupo de volumes maior ou o"
 "(s) volume(s) lógico(s) menor(es)."
 
 #: iw/lvm_dialog_gui.py:797
@@ -2893,10 +2862,9 @@ msgid "No free slots"
 msgstr "Não há slots livres"
 
 #: iw/lvm_dialog_gui.py:798
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot create more than %d logical volume per volume group."
-msgstr ""
-"Você não pode criar mais do que %s volumes lógicos por grupo de volumes."
+msgstr "Você não pode criar mais do que %d volumes lógicos por grupo de volumes."
 
 #: iw/lvm_dialog_gui.py:808
 msgid "No free space"
@@ -2928,8 +2896,7 @@ msgstr "Nome em uso"
 #: iw/lvm_dialog_gui.py:960
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"O nome do grupo de volumes \"%s\" já está em uso. Por favor escolha outro."
+msgstr "O nome do grupo de volumes \"%s\" já está em uso. Por favor escolha outro."
 
 #: iw/lvm_dialog_gui.py:1210
 msgid "Not enough physical volumes"
@@ -3017,13 +2984,13 @@ msgid "_Logical Volumes"
 msgstr "Volumes _lógicos"
 
 #: iw/netconfig_dialog.py:192 textw/netconfig_text.py:36
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred converting the value entered for \"%(field)s\":\n"
 "%(errmsg)s"
 msgstr ""
-"Ocorreu um erro ao converter o valor inserido para \"%s\":\n"
-"%s"
+"Ocorreu um erro ao converter o valor inserido para \"%(field)s\":\n"
+"%(errmsg)s"
 
 #: iw/netconfig_dialog.py:195 iw/netconfig_dialog.py:204
 #: textw/netconfig_text.py:35 textw/netconfig_text.py:42
@@ -3090,15 +3057,15 @@ msgid "You must enter a valid hostname for this computer."
 msgstr "Você deve digitar um nome de máquina válido para este computador."
 
 #: iw/network_gui.py:79
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
 "\n"
 "%(herrors)s"
 msgstr ""
-"O nome de máquina \"%s\" não é válido pela seguinte razão:\n"
+"O nome de máquina \"%(hostname)s\" não é válido pela seguinte razão:\n"
 "\n"
-"%s"
+"%(herrors)s"
 
 #: iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
@@ -3159,8 +3126,7 @@ msgstr "Dispositivo duplicado"
 
 #: iw/osbootwidget.py:260
 msgid "This device is already being used for another boot entry."
-msgstr ""
-"Este dispositivo já está sendo utilizado por outra entrada de inicialização."
+msgstr "Este dispositivo já está sendo utilizado por outra entrada de inicialização."
 
 #: iw/osbootwidget.py:322
 msgid "Cannot Delete"
@@ -3213,9 +3179,9 @@ msgid "Force to be a _primary partition"
 msgstr "Forçar para que seja uma partição _primária"
 
 #: iw/partition_gui.py:356
-#, fuzzy, python-format
+#, python-format
 msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
-msgstr "Disco %s (%-0.f MB) (Modelo: %s)"
+msgstr "Disco %(drive)s (%(size)-0.f MB) (Modelo: %(model)s)"
 
 #: iw/partition_gui.py:396 iw/partition_gui.py:442 iw/partition_gui.py:509
 #: iw/partition_gui.py:996 iw/partition_gui.py:1063
@@ -3223,14 +3189,14 @@ msgid "Free"
 msgstr "Livre"
 
 #: iw/partition_gui.py:474
-#, fuzzy, python-format
+#, python-format
 msgid "LVM Volume Group %s (%-0.f MB)"
-msgstr "Grupos de volumes LVM"
+msgstr "Grupos de volumes LVM %s (%-0.f MB)"
 
 #: iw/partition_gui.py:540
 #, python-format
 msgid "MD RAID ARRAY %s (%-0.f MB)"
-msgstr ""
+msgstr "MD RAID ARRAY %s (%-0.f MB)"
 
 #: iw/partition_gui.py:611
 msgid "Type"
@@ -3261,16 +3227,14 @@ msgid "Partitioning"
 msgstr "Particionamento"
 
 #: iw/partition_gui.py:846
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 "O esquema de particionamento requisitado por você causou os seguintes erros "
 "críticos."
 
 #: iw/partition_gui.py:848
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr ""
 "Estes erros precisam ser corrigidos antes de continuar com a instalação do %"
 "s."
@@ -3281,8 +3245,7 @@ msgstr "Erros de particionamento"
 
 #: iw/partition_gui.py:861
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
-"O esquema de particionamento requisitado por você gerou os seguintes avisos."
+msgstr "O esquema de particionamento requisitado por você gerou os seguintes avisos."
 
 #: iw/partition_gui.py:863
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3293,13 +3256,12 @@ msgid "Partitioning Warnings"
 msgstr "Avisos de particionamento"
 
 #: iw/partition_gui.py:877
-#, fuzzy
 msgid ""
 "The following pre-existing devices have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"As seguintes partições pré-existentes foram selecionadas para serem "
-"formatadas, causando a destruição de todos os dados."
+"Os seguintes dispositivos pré-existentes foram selecionados para serem "
+"formatados, causando a destruição de todos os dados."
 
 #: iw/partition_gui.py:889
 msgid "Format Warnings"
@@ -3327,7 +3289,7 @@ msgstr "Estendida"
 
 #: iw/partition_gui.py:1346
 msgid "Cannot perform any creation action"
-msgstr ""
+msgstr "Não é possível realizar qualquer ação de criação"
 
 #: iw/partition_gui.py:1347
 msgid ""
@@ -3413,8 +3375,7 @@ msgstr "Não foi possível criar o editor de clonagem de discos"
 
 #: iw/partition_gui.py:1527
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Por alguma razão não foi possível criar o editor de clonagem de discos."
+msgstr "Por alguma razão não foi possível criar o editor de clonagem de discos."
 
 #: iw/partition_gui.py:1586 storage/partitioning.py:197
 #: storage/partitioning.py:238
@@ -3598,8 +3559,7 @@ msgstr "Por favor, selecione os discos de destino para a clonagem."
 #: iw/raid_dialog_gui.py:651
 #, python-format
 msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr ""
-"O disco de origem %s não pode ser selecionado como disco de destino também."
+msgstr "O disco de origem %s não pode ser selecionado como disco de destino também."
 
 #: iw/raid_dialog_gui.py:667
 #, fuzzy, python-format
@@ -3720,8 +3680,7 @@ msgstr "URL do repositório inválida"
 
 #: iw/task_gui.py:244 iw/task_gui.py:416
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr ""
-"Você deve informar uma URL do tipo HTTP, HTTPS ou FTP para um repositório."
+msgstr "Você deve informar uma URL do tipo HTTP, HTTPS ou FTP para um repositório."
 
 #: iw/task_gui.py:265 iw/task_gui.py:425
 msgid "No Media Found"
@@ -3811,8 +3770,7 @@ msgstr ""
 msgid ""
 "The installer has detected the %(type)s boot loader currently installed on %"
 "(bootDev)s."
-msgstr ""
-"O instalador detectou o gerenciador de inicialização %s instalado em %s."
+msgstr "O instalador detectou o gerenciador de inicialização %s instalado em %s."
 
 #: iw/upgrade_bootloader_gui.py:142
 msgid "This is the recommended option."
@@ -3944,8 +3902,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "O arquivo de memória virtual deve ter entre 1 e 2000 MB de tamanho."
 
 #: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:187
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 "O dispositivo selecionado não tem espaço suficiente para a partição de "
 "memória virtual."
@@ -4171,8 +4128,7 @@ msgstr "Não foi possível montar o disco de drivers a partir do arquivo."
 #: loader/driverdisk.c:538
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Insira o seu disco de drivers em /dev/%s e pressione \"OK\" para continuar."
+msgstr "Insira o seu disco de drivers em /dev/%s e pressione \"OK\" para continuar."
 
 #: loader/driverdisk.c:541
 msgid "Insert Driver Disk"
@@ -4408,10 +4364,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Bem-vindo ao %s para %s - Modo de Recuperação"
 
 #: loader/lang.c:65 loader/loader.c:232
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> alterna seleção  | <Espaço> seleciona | <F12> continuar "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> alterna seleção  | <Espaço> seleciona | <F12> continuar "
 
 #: loader/lang.c:369
 msgid "Choose a Language"
@@ -4567,14 +4521,12 @@ msgstr "o carregador já foi executado. Iniciando janela de comandos.\n"
 #: loader/loader.c:2349
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
-msgstr ""
-"Executando o Anaconda %s, o modo de recuperação do %s - por favor aguarde.\n"
+msgstr "Executando o Anaconda %s, o modo de recuperação do %s - por favor aguarde.\n"
 
 #: loader/loader.c:2351
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr ""
-"Executando o Anaconda %s, o instalador do sistema %s - por favor aguarde.\n"
+msgstr "Executando o Anaconda %s, o instalador do sistema %s - por favor aguarde.\n"
 
 #: loader/mediacheck.c:46
 #, c-format
@@ -4641,8 +4593,7 @@ msgstr "Teste de consistência"
 #: loader/modules.c:382
 #, fuzzy, c-format
 msgid "Bad argument to device kickstart method command: %s"
-msgstr ""
-"Argumento inválido no comando do método kickstart do dispositivo %s: %s"
+msgstr "Argumento inválido no comando do método kickstart do dispositivo %s: %s"
 
 #: loader/modules.c:398
 msgid "A module name must be specified for the kickstart device command."
@@ -4747,8 +4698,7 @@ msgid "Missing Information"
 msgstr "Informação faltando"
 
 #: loader/net.c:1098
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Você deve inserir um endereço IPv4 válido e uma máscara de rede ou um "
 "prefixo CIDR."
@@ -4809,8 +4759,7 @@ msgstr "Duração inválida"
 
 #: loader/net.c:1883
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
-"Você deve inserir o número segundos como um número inteiro entre 1 e 30."
+msgstr "Você deve inserir o número segundos como um número inteiro entre 1 e 30."
 
 #: loader/net.c:1895
 #, c-format
@@ -4903,8 +4852,7 @@ msgstr "Obtendo"
 
 #: loader/urls.c:261
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr ""
 "Por favor, insira a URL que contém a imagem de instalação do %s no seu "
 "servidor."
@@ -5113,8 +5061,7 @@ msgstr ""
 "recomendado para uma instalação normal do %s."
 
 #: storage/__init__.py:1004
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Instalando em um dispositivo USB. Isto pode ou não produzir um sistema "
 "funcional."
@@ -5147,8 +5094,7 @@ msgstr ""
 
 #: storage/__init__.py:1026
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Este ponto de montagem é inválido. O diretório %s deve estar no sistema de "
 "arquivos /."
@@ -5508,8 +5454,7 @@ msgstr "Erro irrecuperável"
 #: storage/formats/fs.py:863
 #, fuzzy
 msgid "File system errors left uncorrected."
-msgstr ""
-"Foi detectado um erro no sistema de arquivos, não é possível continuar."
+msgstr "Foi detectado um erro no sistema de arquivos, não é possível continuar."
 
 #: storage/formats/fs.py:864
 #, fuzzy
@@ -5715,13 +5660,11 @@ msgstr "WWPN %s não localizado no dispositivo zFCP %s."
 msgid ""
 "Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
 "s)."
-msgstr ""
-"Não foi possível adicionar o LUN %s ao WWPN %s no dispositivo zFCP %s (%s)."
+msgstr "Não foi possível adicionar o LUN %s ao WWPN %s no dispositivo zFCP %s (%s)."
 
 #: storage/zfcp.py:188
 #, fuzzy, python-format
-msgid ""
-"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
 msgstr "LUN %s em WWPN %s no dispositivo zFCP %s já configurado."
 
 #: storage/zfcp.py:200
@@ -5754,8 +5697,7 @@ msgstr ""
 msgid ""
 "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
 "(e)s)."
-msgstr ""
-"Não foi possível remover o LUN %s em WWPN %s no dispositivo zFCP %s (%s)."
+msgstr "Não foi possível remover o LUN %s em WWPN %s no dispositivo zFCP %s (%s)."
 
 #: storage/zfcp.py:293
 #, fuzzy, python-format
@@ -5877,8 +5819,7 @@ msgstr "Que disco(s) você deseja utilizar para esta instalação?"
 
 #: textw/partition_text.py:95
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Espaço>,<+>,<-> seleção   |   <F2> Adicionar disco   |   <F12> continuar"
+msgstr "<Espaço>,<+>,<-> seleção   |   <F2> Adicionar disco   |   <F12> continuar"
 
 #: textw/partition_text.py:173 ui/adddrive.glade.h:4
 msgid "Advanced Storage Options"
@@ -6203,8 +6144,7 @@ msgstr ""
 "Disco rígido"
 
 #: ui/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr ""
 "Por favor, forneça as informações de configuração para esse repositório de "
 "programas."
@@ -6275,8 +6215,7 @@ msgid "Volume to Shrink"
 msgstr "Volume a ser reduzido"
 
 #: ui/autopart.glade.h:4
-msgid ""
-"Which partition would you like to shrink to make room for your installation?"
+msgid "Which partition would you like to shrink to make room for your installation?"
 msgstr ""
 "Qual partição você gostaria de reduzir a fim de obter espaço para a sua "
 "instalação?"
@@ -6327,8 +6266,7 @@ msgstr "Terceiro drive da BIOS:"
 
 #: ui/blwhere.glade.h:9
 msgid "Where would you like to install the boot loader for your system?"
-msgstr ""
-"Onde você deseja instalar o gerenciador de inicialização para o seu sistema?"
+msgstr "Onde você deseja instalar o gerenciador de inicialização para o seu sistema?"
 
 #: ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
@@ -6347,8 +6285,7 @@ msgid ""
 msgstr ""
 
 #: ui/create-storage.glade.h:1
-msgid ""
-"<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
 msgstr ""
 
 #: ui/create-storage.glade.h:2
@@ -6358,18 +6295,15 @@ msgid ""
 msgstr ""
 
 #: ui/create-storage.glade.h:3
-msgid ""
-"<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
 msgstr ""
 
 #: ui/create-storage.glade.h:4
-msgid ""
-"<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
+msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
 msgstr ""
 
 #: ui/create-storage.glade.h:5
-msgid ""
-"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr ""
 
 #: ui/create-storage.glade.h:6
@@ -6978,5 +6912,3 @@ msgstr "Galês"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "Installing Packages"
-#~ msgstr "Instalando pacotes"
