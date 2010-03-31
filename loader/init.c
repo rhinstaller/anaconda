@@ -770,8 +770,10 @@ int main(int argc, char **argv) {
         pid_t childpid;
         childpid = waitpid(-1, &waitStatus, 0);
 
-        if (childpid == installpid) 
+        if (childpid == installpid) {
             doShutdown = 1;
+            ioctl(0, VT_ACTIVATE, 1);
+        }
     }
 
     if (!WIFEXITED(waitStatus) ||
