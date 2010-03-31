@@ -124,6 +124,7 @@ int post_link_sleep = 0;
 
 static pid_t init_pid = 1;
 static int init_sig = SIGUSR1; /* default to shutdown=halt */
+static const char *LANG_DEFAULT = "en_US.UTF-8";
 
 static struct installMethod installMethods[] = {
     { N_("Local CD/DVD"), 0, DEVICE_CDROM, mountCdromImage },
@@ -219,10 +220,26 @@ void startNewt(void) {
     if (!newtRunning) {
         char *buf;
         char *arch = getProductArch();
-
         checked_asprintf(&buf, _("Welcome to %s for %s"), getProductName(), arch);
 
+        /*
+         * Because currently initrd.img only has got the default English locale
+         * support, pretend for newtInit() it is actually the used LANG so Newt
+         * knows how to compute character widths etc. 
+         */
+        char *lang = getenv("LANG");
+        if (lang) {
+            lang = strdup(lang);
+        }
+        setenv("LANG", LANG_DEFAULT, 1);
         newtInit();
+        unsetenv("LANG");
+        /* restore the original LANG value */
+        if (lang) {
+            setenv("LANG", lang, 1);
+            free(lang);
+        }
+
         newtCls();
         newtDrawRootText(0, 0, buf);
         free(buf);
@@ -318,7 +335,7 @@ char * getProductPath(void) {
 
 void initializeConsole() {
     /* enable UTF-8 console */
-    setenv("LANG","en_US.UTF-8",1);
+    setenv("LANG", LANG_DEFAULT, 1);
     printf("\033%%G");
     fflush(stdout);
 
