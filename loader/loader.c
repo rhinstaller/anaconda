@@ -1144,10 +1144,13 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                  * to anaconda
                  */
                 if (!strncasecmp(argv[i], "syslog", 6) ||
-                    !strncasecmp(argv[i], "vnc", 3) ||
-                    isKickstartFileRemote(loaderData->ksFile)) {
+                    !strncasecmp(argv[i], "vnc", 3)) {
                     logMessage(INFO, "early networking required for %s",
                                argv[i]);
+                    flags |= LOADER_FLAGS_EARLY_NETWORKING;
+                }
+                if (isKickstartFileRemote(loaderData->ksFile)) {
+                    logMessage(INFO, "early networking required for remote kickstart configuration");
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
 
