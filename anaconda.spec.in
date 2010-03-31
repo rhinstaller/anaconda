@@ -217,6 +217,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 30 2010 David Lehman <dlehman@redhat.com> - 13.37.1-1
+- Copy install.img and remount no matter how many discs (#577196) (pjones)
+
 * Thu Mar 25 2010 David Lehman <dlehman@redhat.com> - 13.37-1
 - Unlock the CD tray door in isys.ejectcdrom() (#569377) (pjones)
 - Texts under storage/formats missing from the .pot file (#576082).
