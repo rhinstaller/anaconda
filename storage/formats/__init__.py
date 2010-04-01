@@ -343,7 +343,7 @@ class DeviceFormat(object):
     @property
     def resizable(self):
         """ Can formats of this type be resized? """
-        return self._resizable
+        return self._resizable and self.exists
 
     @property
     def bootable(self):
