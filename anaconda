@@ -621,7 +621,7 @@ if __name__ == "__main__":
 
     if opts.xdriver:
         anaconda.xdriver = opts.xdriver
-        anaconda.writeXdriver()
+        anaconda.writeXdriver(root="/")
 
     if not flags.livecdInstall:
         isys.auditDaemon()
