@@ -647,14 +647,16 @@ class Anaconda(object):
         self._intf = InstallInterface()
         return self._intf
 
-    def writeXdriver(self):
+    def writeXdriver(self, root = None):
         # this should go away at some point, but until it does, we
         # need to keep it around.
         if self.xdriver is None:
             return
-        if not os.path.isdir("%s/etc/X11" %(self.rootPath,)):
-            os.makedirs("%s/etc/X11" %(self.rootPath,), mode=0755)
-        f = open("%s/etc/X11/xorg.conf" %(self.rootPath,), 'w')
+        if root is None:
+            root = self.rootPath
+        if not os.path.isdir("%s/etc/X11" %(root,)):
+            os.makedirs("%s/etc/X11" %(root,), mode=0755)
+        f = open("%s/etc/X11/xorg.conf" %(root,), 'w')
         f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
         f.close()
 
@@ -964,7 +966,7 @@ if __name__ == "__main__":
 
     if opts.xdriver:
         anaconda.xdriver = opts.xdriver
-        anaconda.writeXdriver()
+        anaconda.writeXdriver(root="/")
 
     if not flags.livecdInstall:
         isys.auditDaemon()
