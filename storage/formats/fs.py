@@ -448,6 +448,16 @@ class FS(DeviceFormat):
 
         self.doCheck(intf=intf)
 
+        # The first minimum size can be incorrect if the fs was not
+        # properly unmounted. After doCheck the minimum size will be correct
+        # so run the check one last time and bump up the size if it was too
+        # small.
+        self._minInstanceSize = None
+        if self.targetSize < self.minSize:
+            self.targetSize = self.minSize
+            log.info("Minimum size changed, setting targetSize on %s to %s" \
+                     % (self.device, self.targetSize))
+
         w = None
         if intf:
             w = intf.progressWindow(_("Resizing"),
