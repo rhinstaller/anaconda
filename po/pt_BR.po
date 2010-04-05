@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-26 10:15-1000\n"
-"PO-Revision-Date: 2010-03-31 15:10+1000\n"
+"PO-Revision-Date: 2010-04-06 09:02+1000\n"
 "Last-Translator: Glaucia Cintra <gcintra@redhat.com>\n"
 "Language-Team: Portuguese <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -3351,7 +3351,7 @@ msgid ""
 "is the base to creat one ore more Logical Volumes (LV).  Note that a VG can "
 "be an aggregate of PVs from multiple physical disk.  For more information on "
 "using LVM please consult the %s documentation\n"
-msgstr ""
+msgstr "Gerenciador de Volume Lógico (LVM - Logical Volume Manager) é uma construção de 3 níveis. O primeiro nível é feito de discos ou partições formatadas com metadados de LVM chamado de Volumes Físicos (PV). Um Grupo de Volume (VG) fica no topo de um ou mais PVs. O VG, por sua vez, é a base para criar um ou mais Volumes Físicos (LV). Observe que um VG pode ser um agregado de PVs de disco físico múltiplo. Para mais informações sobre como usar o LVM, por favor consulte a %s documentação\n"
 
 #: iw/partition_gui.py:1483
 msgid ""
@@ -3360,15 +3360,17 @@ msgid ""
 "with free space.\n"
 "\n"
 msgstr ""
+"Para criar um PV você precisa de uma partição com espaço livre. Para criar um VG você precisa de um PV que não seja parte de nenhum VG existente. Para criar um LV, você precisa de um VG com espaço livre.\n"
+"\n"
 
 #: iw/partition_gui.py:1487
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
-msgstr ""
+msgstr "Você atualmente possui %d PV livre disponível para usar.\n"
 
 #: iw/partition_gui.py:1491
 msgid "You currently have free space to create PVs."
-msgstr ""
+msgstr "Você possui espaço livre no momento para criar PVs."
 
 #: iw/partition_gui.py:1494
 msgid "About LVM"
@@ -3565,7 +3567,7 @@ msgid "The source drive %s cannot be selected as a target drive as well."
 msgstr "O disco de origem %s não pode ser selecionado como disco de destino também."
 
 #: iw/raid_dialog_gui.py:667
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %(path)s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3574,10 +3576,10 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"O disco de destino %s tem uma partição que não pode ser removida pela "
+"O disco de destino %(path)s tem uma partição que não pode ser removida pela "
 "seguinte razão:\n"
 "\n"
-"\"%s\"\n"
+"\"%(rc)s\"\n"
 "\n"
 "Esta partição deve ser removida antes que este disco possa ser um destino."
 
@@ -3626,7 +3628,7 @@ msgid ""
 "sized drives. The source must have partitions which are restricted to that "
 "drive and must ONLY contain unused software RAID partitions.  EVERYTHING on "
 "the target drive(s) will be destroyed.\n"
-msgstr ""
+msgstr "Esta ferramenta clona o layout de uma fonte particionada em outros discos de tamanho semelhantes. A fonte deve possuir partições que são restritas ao disco e devem conter somente partições de software sem uso. Será destruído tudo que estiver nos drives de alvo.\n"
 
 #: iw/raid_dialog_gui.py:812
 msgid "Source Drive:"
@@ -3768,11 +3770,11 @@ msgstr ""
 "utilizado em seu sistema no momento."
 
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has detected the %(type)s boot loader currently installed on %"
 "(bootDev)s."
-msgstr "O instalador detectou o gerenciador de inicialização %s instalado em %s."
+msgstr "O instalador detectou o gerenciador de inicialização %(type)s instalado em %(bootDev)s."
 
 #: iw/upgrade_bootloader_gui.py:142
 msgid "This is the recommended option."
@@ -3812,7 +3814,7 @@ msgid "Migrate File Systems"
 msgstr "Migrar sistemas de arquivos"
 
 #: iw/upgrade_migratefs_gui.py:69
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
 "several benefits over the file system traditionally shipped in %(productName)"
@@ -3821,9 +3823,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Esta versão do %s suporta um sistema de arquivos mais atualizado, que tem "
+"Esta versão do %(productName)s suporta um sistema de arquivos mais atualizado, que tem "
 "várias vantagens em relação ao sistema de arquivos tradicionalmente incluso "
-"no %s. Este programa de instalação pode migrar as partições formatadas sem "
+"no %(productName)s. Este programa de instalação pode migrar as partições formatadas sem "
 "perda de dados.\n"
 "\n"
 "Quais destas partições você deseja migrar?"
@@ -4194,13 +4196,13 @@ msgid "Unknown driver disk kickstart source: %s"
 msgstr "Fonte kickstart do disco de drivers desconhecida: %s"
 
 #: loader/driverdisk.c:761
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s"
 msgstr ""
 "O argumento inválido a seguir foi especificado no comando kickstart do disco "
-"de drivers: %s:%s"
+"de drivers:%s"
 
 #: loader/driverselect.c:67
 #, c-format
@@ -4290,9 +4292,9 @@ msgid "Device %s does not appear to contain an installation image."
 msgstr "O dispositivo %s não parece conter uma imagem de instalação."
 
 #: loader/hdinstall.c:350
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command: %s"
-msgstr "Argumento inválido no comando do método kickstart do HD %s: %s"
+msgstr "Argumento inválido no comando do método kickstart do HD: %s"
 
 #: loader/hdinstall.c:422 loader/hdinstall.c:478
 msgid "Cannot find kickstart file on hard drive."
@@ -4327,9 +4329,9 @@ msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Erro em %s na linha %d do arquivo kickstart %s."
 
 #: loader/kickstart.c:190
-#, fuzzy, c-format
+#, c-format
 msgid "Missing options on line %d of kickstart file %s."
-msgstr "Erro em %s na linha %d do arquivo kickstart %s."
+msgstr "Opções faltando na linha %d do arquivo kickstart %s."
 
 #: loader/kickstart.c:297
 msgid "Cannot find ks.cfg on removable media."
@@ -4349,11 +4351,9 @@ msgid "Error downloading kickstart file"
 msgstr "Erro ao baixar arquivo kickstart"
 
 #: loader/kickstart.c:511
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command: %s"
-msgstr ""
-"Argumento inválido para o método de desligamento do kickstart com o comando %"
-"s: %s"
+msgstr "Argumento inválido para o método de desligamento do kickstart com o comando: %s"
 
 #: loader/lang.c:63 loader/loader.c:225
 #, c-format
@@ -4593,9 +4593,9 @@ msgid "Checksum Test"
 msgstr "Teste de consistência"
 
 #: loader/modules.c:382
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command: %s"
-msgstr "Argumento inválido no comando do método kickstart do dispositivo %s: %s"
+msgstr "Argumento inválido no comando do método kickstart do dispositivo: %s"
 
 #: loader/modules.c:398
 msgid "A module name must be specified for the kickstart device command."
@@ -4627,6 +4627,9 @@ msgid ""
 "This cannot be corrected in cmdline mode.\n"
 "Halting.\n"
 msgstr ""
+"\n"
+"Isto não pode ser corrigido no modo cmdline.\n"
+"Interrompendo.\n"
 
 #: loader/net.c:471 loader/net.c:526
 msgid "Network Error"
@@ -4710,9 +4713,9 @@ msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Você deve inserir um endereço IPv6 e um prefixo CIDR válidos."
 
 #: loader/net.c:1559
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command: %s"
-msgstr "Argumento inválido para o comando de rede kickstart %s: %s"
+msgstr "Argumento inválido para o comando de rede kickstart: %s"
 
 #: loader/net.c:1580
 #, c-format
@@ -4784,16 +4787,16 @@ msgstr "Diretório %s:"
 
 #: loader/nfsinstall.c:76
 msgid "NFS mount options (optional):"
-msgstr ""
+msgstr "Opções de montagem de NFS (opcional):"
 
 #: loader/nfsinstall.c:82
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the server and NFSv3 path to your %s installation image and "
 "optionally additional NFS mount options."
 msgstr ""
-"Por favor, insira o nome do servidor e o caminho para a sua imagem de "
-"instalação do %s."
+"Por favor, insira o caminho do servidor e NFSv3 em sua imagem de "
+"instalação do %s e opções de montagem NFS adicionais opcionalmente."
 
 #: loader/nfsinstall.c:90
 msgid "NFS Setup"
@@ -4809,9 +4812,9 @@ msgid "That directory does not seem to contain a %s installation image."
 msgstr "Esse diretório não parece conter uma imagem de instalação do %s."
 
 #: loader/nfsinstall.c:367
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "Argumento inválido para o comando do método kickstart do NFS %s: %s"
+msgstr "Argumento inválido para o comando do método kickstart do NFS: %s"
 
 #: loader/telnetd.c:89 loader/telnetd.c:128
 msgid "Telnet"
@@ -5321,6 +5324,9 @@ msgid ""
 "installation, the device must be formatted.  Formatting will remove any data "
 "on this device."
 msgstr ""
+"Formatar o dispositivo DASD não inicializado?\n"
+"\n"
+"Existem  %d dispositivos DASD não inicializados neste sistema. Para continuar a instalação, o dispositivo deve ser formatado. Ao formatar você removerá todos os dados deste dispositivo."
 
 #: storage/dasd.py:134
 msgid "Formatting DASD Device"
@@ -5329,7 +5335,7 @@ msgstr "Formatando o Dispositivo DASD"
 #: storage/dasd.py:135
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
-msgstr ""
+msgstr "Preparado  %d do dispositivo DASD para usar com Linux..."
 
 #: storage/devicelibs/lvm.py:315
 #, python-format
@@ -5355,7 +5361,7 @@ msgstr "Criando dispositivo %s"
 #: storage/devices.py:2386
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
-msgstr ""
+msgstr "Um conjunto RAID%d requer ao menos  %d membros."
 
 #: storage/devices.py:3240
 #, python-format
@@ -5432,7 +5438,7 @@ msgstr "Verificando o sistema de arquivos em %s"
 #: storage/formats/fs.py:522
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
-msgstr ""
+msgstr "%(type)s de falha de checagem de sistema de arquivos em %(device)s:"
 
 #: storage/formats/fs.py:528
 msgid ""
@@ -5441,7 +5447,7 @@ msgid ""
 "reboot to rescue mode or another system that allows you to repair the "
 "filesystem interactively.  Restart installation after you have corrected the "
 "problems on the filesystem."
-msgstr ""
+msgstr "Erros como este geralmente siginificam que existe um problema com o sistema de arquivos, o qual requer interação de usuário para reparar. Antes de reiniciar a reinicialização da instalação para modo de recuperação ou outro sistema semelhante que permita que você repare o sistema de arquivo de forma interativa. Reinicie a instalação após ter corrigido os problemas no sistema de arquivo."
 
 #: storage/formats/fs.py:536 storage/partitioning.py:274
 msgid "Unrecoverable Error"
@@ -5471,7 +5477,7 @@ msgstr "Erro de biblioteca compartilhada."
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
-msgstr ""
+msgstr "Erros corrigíveis foram detectados ou dosfsck descobriu uma inconsistência interna."
 
 #: storage/formats/fs.py:1029
 msgid "Usage error."
@@ -5590,7 +5596,7 @@ msgid "Automatic Partitioning Errors"
 msgstr "Erros no particionamento automático"
 
 #: storage/partitioning.py:263
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -5601,10 +5607,10 @@ msgid ""
 msgstr ""
 "Os seguintes erros ocorreram com o seu particionamento:\n"
 "\n"
-"%s\n"
+"%(errortxt)s\n"
 "\n"
 "Isto pode acontecer se não houver espaço suficiente para a instalação no(s) "
-"seu(s) disco(s) rígido(s). %s"
+"seu(s) disco(s) rígido(s).%(extra)s"
 
 #: storage/zfcp.py:50
 msgid "You have not specified a device number or the number is invalid"
@@ -5633,73 +5639,73 @@ msgstr ""
 "ignorados."
 
 #: storage/zfcp.py:149
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
-msgstr "Não foi possível tornar o dispositivo zFCP %s online (%s)."
+msgstr "Não foi possível definir o dispositivo zFCP  %(devnum)s online (%(e)s)."
 
 #: storage/zfcp.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
-msgstr "Não foi possível adicionar o WWPN %s no dispositivo zFCP %s (%s)."
+msgstr "Não foi possível adicionar o WWPN %(wwpn)s no dispositivo zFCP %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
-msgstr "WWPN %s não localizado no dispositivo zFCP %s."
+msgstr "WWPN %(wwpn)s não localizado no dispositivo zFCP %(devnum)s."
 
 #: storage/zfcp.py:182
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
 "s)."
-msgstr "Não foi possível adicionar o LUN %s ao WWPN %s no dispositivo zFCP %s (%s)."
+msgstr "Não foi possível adicionar o LUN %(fcplun)s ao WWPN %(wwpn)s no dispositivo zFCP %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:188
-#, fuzzy, python-format
+#, python-format
 msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
-msgstr "LUN %s em WWPN %s no dispositivo zFCP %s já configurado."
+msgstr "LUN %(fcplun)s em WWPN %(wwpn)s no dispositivo zFCP %(devnum)s já configurado."
 
 #: storage/zfcp.py:200
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP "
 "device %(devnum)s (%(e)s)."
 msgstr ""
-"Não foi possível ler o atributo falho do LUN %s em WWPN %s no dispositivo "
-"zFCP %s (%s)."
+"Não foi possível ler o atributo falho do LUN %(fcplun)s em WWPN %(wwpn)s no dispositivo "
+"zFCP %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:209
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
 "again."
-msgstr "LUN %s falho em WWPN %s no dispositivo zFCP %s removido novamente."
+msgstr "LUN %(fcplun)s falho em WWPN %(wwpn)s no dispositivo zFCP %(devnum)s removido novamente."
 
 #: storage/zfcp.py:266
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
 "s (%(e)s)."
 msgstr ""
-"Não foi possível excluir corretamente o dispositivo SCSI do zFCP %s %s %s (%"
-"s)."
+"Não foi possível excluir corretamente o dispositivo SCSI do zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
 
 #: storage/zfcp.py:275
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
 "(e)s)."
-msgstr "Não foi possível remover o LUN %s em WWPN %s no dispositivo zFCP %s (%s)."
+msgstr "Não foi possível remover o LUN %(fcplun)s em WWPN %(wwpn)s no dispositivo zFCP %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:293
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "Não foi possível remover o WWPN %s no dispositivo zFCP %s (%s)."
+msgstr "Não foi possível remover o WWPN %(wwpn)s no dispositivo zFCP %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:319
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
-msgstr "Não foi possível tornar o dispositivo zFCP %s offline (%s)."
+msgstr "Não foi possível tornar o dispositivo zFCP %(devnum)s offline (%(e)s)."
 
 #: textw/complete_text.py:32
 msgid "Reboot"
@@ -5838,7 +5844,7 @@ msgstr ""
 
 #: textw/partition_text.py:228
 msgid "No network cards present."
-msgstr ""
+msgstr "Não foi encontrado nenhuma placa de rede."
 
 #: textw/partition_text.py:231
 msgid "Add FCoE SAN"
@@ -5846,11 +5852,11 @@ msgstr "Adicionar FCoE SAN"
 
 #: textw/partition_text.py:235
 msgid "Select which NIC is connected to the FCoE SAN."
-msgstr ""
+msgstr "Selecione o NIC que está conectado ao FCoE SAN."
 
 #: textw/partition_text.py:251 ui/fcoe-config.glade.h:5
 msgid "Use DCB"
-msgstr ""
+msgstr "Use o DCB"
 
 #: textw/partition_text.py:280 ui/iscsi-config.glade.h:7
 msgid "Configure iSCSI Parameters"
@@ -5913,7 +5919,7 @@ msgid "Create new boot loader configuration"
 msgstr "Criar nova configuração do gerenciador de inicialização"
 
 #: textw/upgrade_text.py:42
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
 "has several benefits over the file system traditionally shipped in %"
@@ -5922,9 +5928,9 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Esta versão do %s suporta um sistema de arquivos mais atualizado, que tem "
+"Esta versão do %(productName)s suporta um sistema de arquivos mais atualizado, que tem "
 "várias vantagens em relação ao sistema de arquivos tradicionalmente incluso "
-"no %s. Este programa de instalação pode migrar as partições formatadas sem "
+"no %(productName)s. Este programa de instalação pode migrar as partições formatadas sem "
 "perda de dados.\n"
 "\n"
 "Quais destas partições você deseja migrar?"
@@ -6194,9 +6200,8 @@ msgid "_Next"
 msgstr "_Avançar"
 
 #: ui/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Shrink partition _to size (in MB):</b>"
-msgstr "<b>Re_duzir para (em MB):</b>"
+msgstr "<b>Reduzir partição_para tamanho (em MB):</b>"
 
 #: ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6214,7 +6219,7 @@ msgstr ""
 
 #: ui/autopart.glade.h:5
 msgid "Which type of installation would you like?"
-msgstr ""
+msgstr "Qual o tipo de instalação que você deseja?"
 
 #: ui/autopart.glade.h:6
 msgid "_Encrypt system"
@@ -6262,11 +6267,11 @@ msgstr "Onde você deseja instalar o gerenciador de inicialização para o seu s
 
 #: ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
+msgstr "<b>Dispositivos de Armazenamento de Dados</b> (a ser montado somente)"
 
 #: ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
-msgstr ""
+msgstr "<b>Instalar Dispositivos de Alvo</b>"
 
 #: ui/cleardisks.glade.h:4
 msgid ""
@@ -6274,93 +6279,85 @@ msgid ""
 "installation.  Please indicate using the arrows below which devices you'd "
 "like to use as data drives (these will not be formatted, only mounted) and "
 "which devices you'd like to use as system drives (these may be formatted)."
-msgstr ""
+msgstr "Abaixo se encontram os dispositivos que você selecionou para serem parte desta instalação. Por favor, indique usando as setas abaixo, para os dispositivos que você deseja usar como drives de dados (estes não serão formatados, somente montados) e quais dispositivos você deseja usar como drives de sistema (estes podem ser formatados)"
 
 #: ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Criar uma partição formatada de RAID</span>"
 
 #: ui/create-storage.glade.h:2
 msgid ""
 "<span size=\"small\" color=\"gray\">Create a logical volume on selected "
 "volume group</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Criar um volume lógido no grupo de volume selecionado</span>"
 
 #: ui/create-storage.glade.h:3
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Criar uma partição formatada de LVM</span>"
 
 #: ui/create-storage.glade.h:4
 msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Facilita a criação do dispositivo RAID</span>"
 
 #: ui/create-storage.glade.h:5
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Criação de partição para propósitos gerais</span>"
 
 #: ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
 "partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Requer ao menos 1 partição de LVM livre formatada</span>"
 
 #: ui/create-storage.glade.h:7
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated "
 "partitions</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Requer ao menos 2 partições de RAID livres formatadas</span>"
 
 #: ui/create-storage.glade.h:8
-#, fuzzy
 msgid "Create"
-msgstr "Relatório de erro criado"
+msgstr "Criar"
 
 #: ui/create-storage.glade.h:9
-#, fuzzy
 msgid "Create LVM"
-msgstr "Relatório de erro criado"
+msgstr "Criar LVMRelatório de erro criado"
 
 #: ui/create-storage.glade.h:10
-#, fuzzy
 msgid "Create Partition"
-msgstr "Selecione a partição"
+msgstr "Crie a partição"
 
 #: ui/create-storage.glade.h:11
 msgid "Create Software RAID"
-msgstr ""
+msgstr "Crie o RAID por Software"
 
 #: ui/create-storage.glade.h:12
 msgid "Create Storage"
-msgstr ""
+msgstr "Criar Armazenamento"
 
 #: ui/create-storage.glade.h:13
-#, fuzzy
 msgid "LVM Logical Volume"
-msgstr "Criar volume lógico"
+msgstr "Volume Lógico LVM"
 
 #: ui/create-storage.glade.h:14
-#, fuzzy
 msgid "LVM Physical Volume"
-msgstr "Volumes _lógicos"
+msgstr "Volume Físico LVM"
 
 #: ui/create-storage.glade.h:15
-#, fuzzy
 msgid "LVM Volume Group"
-msgstr "Grupos de volumes LVM"
+msgstr "Grupo de Volumes LVM"
 
 #: ui/create-storage.glade.h:16
 msgid "RAID Clone"
-msgstr ""
+msgstr "Clone do RAID"
 
 #: ui/create-storage.glade.h:18
-#, fuzzy
 msgid "RAID Partition"
-msgstr "Adicionar partição"
+msgstr "Partição RAID"
 
 #: ui/create-storage.glade.h:19
-#, fuzzy
 msgid "Standard Partition"
-msgstr "Adicionar partição"
+msgstr "Partição Padrão"
 
 #: ui/detailed-dialog.glade.h:1
 msgid "Info"
@@ -6375,9 +6372,8 @@ msgid "Configure FCoE Parameters"
 msgstr "Configurar parâmetros FCoE"
 
 #: ui/fcoe-config.glade.h:2
-#, fuzzy
 msgid "NIC:"
-msgstr "NIC"
+msgstr "NIC:"
 
 #: ui/fcoe-config.glade.h:3
 msgid ""
@@ -6394,7 +6390,7 @@ msgstr "_Adicionar disco(s) FCoE"
 #: ui/filter.glade.h:2
 #, no-c-format
 msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
-msgstr ""
+msgstr "<b>%s dispositivos (%s) selecionados</b> fora do total %s de dispositivos (%s)."
 
 #: ui/filter.glade.h:3
 msgid ""
@@ -6405,14 +6401,12 @@ msgid ""
 msgstr ""
 
 #: ui/filter.glade.h:4
-#, fuzzy
 msgid "Add Advanced Target"
-msgstr "Opções avançadas de armazenamento"
+msgstr "Adicionar Alvo Avançado"
 
 #: ui/filter.glade.h:5
-#, fuzzy
 msgid "Basic Devices"
-msgstr "Servidor básico"
+msgstr "Dispositivos básicos"
 
 #: ui/filter.glade.h:6
 #, fuzzy
