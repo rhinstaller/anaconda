@@ -17,7 +17,7 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-bootdir            = $(libdir)/$(PACKAGE_NAME)-runtime/loader
+bootdir            = $(libdir)/$(PACKAGE_NAME)
 shareddir          = $(datadir)/$(PACKAGE_NAME)
 
 boot_PROGRAMS      = loader
