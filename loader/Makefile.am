@@ -18,22 +18,24 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 bootdir            = $(libdir)/$(PACKAGE_NAME)-runtime/loader
+shareddir          = $(datadir)/$(PACKAGE_NAME)
+
 boot_PROGRAMS      = loader
-boot_DATA          = loader.tr
-dist_boot_DATA     = unicode-linedraw-chars.txt
+shared_DATA        = loader.tr
+dist_shared_DATA   = unicode-linedraw-chars.txt
 noinst_PROGRAMS    = mkctype dirbrowser
 noinst_DATA        = ctype.c
 noinst_HEADERS     = *.h
 
 if IS_S390
 boot_PROGRAMS      += shutdown
-dist_boot_SCRIPTS  = linuxrc.s390
+dist_shared_SCRIPTS  = linuxrc.s390
 else
-boot_PROGRAMS      += init
+boot_PROGRAMS       += init
 endif
 
 if IS_KEYMAPS_OVERRIDE_ARCH
-keymapsdir         = $(libdir)/$(PACKAGE_NAME)-runtime
+keymapsdir         = $(datadir)/$(PACKAGE_NAME)
 keymaps_DATA       = keymaps-override-$(ARCH)
 endif
 

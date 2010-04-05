@@ -18,7 +18,7 @@
 # Author: Dennis Gilmore <dgilmore@redhat.com>
 
 if IS_SPARC
-bootdir        = $(libdir)/$(PACKAGE_NAME)-runtime/boot
+bootdir        = $(datadir)/$(PACKAGE_NAME)/boot
 dist_boot_DATA = boot.msg silo.conf
 endif
 

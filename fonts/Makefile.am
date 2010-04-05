@@ -18,7 +18,7 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 if IS_FONT_ARCH
-fontsdir        = $(libdir)/$(PACKAGE_NAME)-runtime
+fontsdir        = $(datadir)/$(PACKAGE_NAME)
 dist_fonts_DATA = screenfont-$(ARCH).gz
 endif
 

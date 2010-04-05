@@ -18,6 +18,7 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 utilsdir            = $(libdir)/$(PACKAGE_NAME)-runtime
+
 utils_PROGRAMS      = modlist mapshdr readmap
 dist_utils_SCRIPTS  = genmodinfo trimpciids
 noinst_PROGRAMS     = snarffont

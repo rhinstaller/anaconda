@@ -17,7 +17,7 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-scriptsdir = $(libdir)/$(PACKAGE_NAME)-runtime
+scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
 dist_scripts_SCRIPTS = upd-instroot mk-images buildinstall \
                        buildinstall.functions scrubtree getkeymaps \
                        makestamp.py maketreeinfo.py upd-updates

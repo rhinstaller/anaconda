@@ -18,7 +18,7 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 if IS_I386
-bootdir        = $(libdir)/$(PACKAGE_NAME)-runtime/boot
+bootdir        = $(datadir)/$(PACKAGE_NAME)/boot
 dist_boot_DATA = boot.msg grub.conf syslinux.cfg
 endif
 

@@ -18,7 +18,7 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 if IS_S390
-bootdir        = $(libdir)/$(PACKAGE_NAME)-runtime/boot
+bootdir        = $(datadir)/$(PACKAGE_NAME)/boot
 dist_boot_DATA = generic.ins generic.prm redhat.exec
 endif
 

@@ -18,7 +18,7 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 if IS_PPC
-bootdir        = $(libdir)/$(PACKAGE_NAME)-runtime/boot
+bootdir        = $(datadir)/$(PACKAGE_NAME)/boot
 dist_boot_DATA = magic ofboot.b yaboot.conf.in bootinfo.txt mapping \
                  yaboot.conf.3264
 endif
