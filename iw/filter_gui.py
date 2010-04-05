@@ -432,7 +432,7 @@ class FilterWindow(InstallWindow):
         mpaths = filter(lambda d: d not in self._cachedMPaths, new_mpaths)
         raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
 
-        self.populate(nonraids, mpaths, raids)
+        self.populate(nonraids, mpaths, raids, activeByDefault=True)
 
         # Make sure to update the size label at the bottom.
         self.pages[0].cb.update()
@@ -599,7 +599,7 @@ class FilterWindow(InstallWindow):
 
         return self.vbox
 
-    def populate(self, nonraids, mpaths, raids):
+    def populate(self, nonraids, mpaths, raids, activeByDefault=False):
         def _addTuple(tuple):
             global totalDevices, totalSize
             global selectedDevices, selectedSize
@@ -636,7 +636,7 @@ class FilterWindow(InstallWindow):
             return False
 
         def _active(info):
-            if _isProtected(info):
+            if _isProtected(info) or activeByDefault:
                 return True
 
             name = udev_device_get_name(info)
