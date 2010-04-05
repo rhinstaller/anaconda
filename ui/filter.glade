@@ -1396,7 +1396,7 @@ Target Identifier</property>
 	    <widget class="GtkLabel" id="label3">
 	      <property name="width_request">600</property>
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">&lt;b&gt;Tip:&lt;/b&gt; Selecting a drive on this screen does not necessarily mean it will be formatted by the installation process.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file.</property>
+	      <property name="label" translatable="yes">&lt;b&gt;Tip:&lt;/b&gt; Selected drives will not be formatted unless you choose to do so later during installation.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">True</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
