@@ -432,7 +432,7 @@ class FilterWindow(InstallWindow):
         mpaths = filter(lambda d: d not in self._cachedMPaths, new_mpaths)
         raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
 
-        self.populate(nonraids, mpaths, raids)
+        self.populate(nonraids, mpaths, raids, activeByDefault=True)
 
         # Make sure to update the size label at the bottom.
         self.pages[0].cb.update()
@@ -599,7 +599,7 @@ class FilterWindow(InstallWindow):
 
         return self.vbox
 
-    def populate(self, nonraids, mpaths, raids):
+    def populate(self, nonraids, mpaths, raids, activeByDefault=False):
         def _addTuple(tuple):
             global totalDevices, totalSize
             global selectedDevices, selectedSize
@@ -625,6 +625,9 @@ class FilterWindow(InstallWindow):
                     selectedSize += tuple[0]["XXX_SIZE"]
 
         def _active(name):
+            if activeByDefault:
+                return True
+
             if self.anaconda.id.storage.exclusiveDisks and \
                name in self.anaconda.id.storage.exclusiveDisks:
                 return True
