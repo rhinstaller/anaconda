@@ -2,7 +2,6 @@
 # Leonid Kanter <leon@asplinux.ru>, 2004, 2006.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
 # Andrew Martynov <andrewm@inventa.ru>, 2004, 2005, 2006, 2008, 2009.
-# Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>, 2005.
 # wedge <wedge@xwing>, 2006.
 # Yulia <ypoyarko@redhat.com>, 2006, 2008, 2010.
 # Nikolay Sivov <bunglehead@gmail.com>, 2007.
@@ -15,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-23 07:20-1000\n"
-"PO-Revision-Date: 2010-04-01 16:33+1100\n"
+"PO-Revision-Date: 2010-04-06 15:43\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -332,7 +331,7 @@ msgstr "Ошибка пароля"
 
 #: gui.py:601 text.py:188
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "Введенные Вами пароли не совпадают. Повторите ввод."
+msgstr "Введенные пароли не совпадают. Повторите ввод."
 
 #: gui.py:609
 msgid "The passphrase must be at least eight characters long."
@@ -1126,7 +1125,7 @@ msgid ""
 "\n"
 "%(errorstr)s"
 msgstr ""
-"Запрошенная Вами схема разбиения вызвала следующие критические ошибки. Эти "
+"Запрошенная схема разбиения вызвала следующие критические ошибки. Эти "
 "ошибки должны быть исправлены для продолжения установки %(productName)s.\n"
 "\n"
 "%(errorstr)s"
@@ -1144,7 +1143,7 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"Выбранная Вами схема разбиения вызвала следующие предупреждения.\n"
+"Выбранная схема разбиения вызвала следующие предупреждения.\n"
 "\n"
 "%s\n"
 "\n"
@@ -1719,7 +1718,7 @@ msgstr "Пароли не совпадают"
 
 #: vnc.py:315 vnc.py:414 textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
-msgstr "Введенные Вами пароли не совпадают. Повторите ввод."
+msgstr "Введенные пароли не совпадают. Повторите ввод."
 
 #: vnc.py:320 vnc.py:419 textw/userauth_text.py:66
 msgid "Password Length"
@@ -1984,7 +1983,7 @@ msgstr "Прогресс установки"
 
 #: yuminstall.py:1236 textw/constants_text.py:64
 msgid "Edit"
-msgstr "Редактировать"
+msgstr "Изменить"
 
 #: yuminstall.py:1247 yuminstall.py:1437
 #, python-format
@@ -3398,7 +3397,7 @@ msgstr ""
 
 #: iw/partition_gui.py:1809
 msgid "_Create"
-msgstr "_Создание"
+msgstr "_Создать"
 
 #: iw/partition_gui.py:1812
 msgid "Re_set"
