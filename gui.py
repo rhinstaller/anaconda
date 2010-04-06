@@ -1216,22 +1216,8 @@ class InstallInterface(InstallInterfaceBase):
 class InstallControlWindow:
     def setLanguage (self):
         if not self.__dict__.has_key('window'): return
-
         self.reloadRcQueued = 1
-
-        # need to reload our widgets
-        self.setLtR()
-
-        # reload the glade file, although we're going to keep our toplevel
-        self.loadGlade()
-
-        self.window.destroy()
-        self.window = self.mainxml.get_widget("mainWindow")
-        
-        self.createWidgets()
-        self.connectSignals()
-        self.setScreen()
-        self.window.show()
+        self.setup_window(True)
 
     def setLtR(self):
         ltrrtl = gettext.dgettext("gtk20", "default:LTR")
@@ -1458,15 +1444,17 @@ class InstallControlWindow:
         self.mainxml = gtk.glade.XML(findGladeFile("anaconda.glade"),
                                      domain="anaconda")
 
-    def setup_window (self):
+    def setup_window (self, window_reload):
         self.setLtR()
+
+        if window_reload:
+            self.window.destroy()
 
         self.loadGlade()
         self.window = self.mainxml.get_widget("mainWindow")
 
         self.createWidgets()
         self.connectSignals()
-
         self.setScreen()
         self.window.show()
             
@@ -1477,7 +1465,7 @@ class InstallControlWindow:
         rootPopBusyCursor()
         
     def run (self, runres):
-        self.setup_window()
+        self.setup_window(False)
         gtk.main()
             
 class InstallControlState:
