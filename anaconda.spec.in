@@ -220,6 +220,74 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 06 2010 Chris Lumens <clumens@redhat.com> - 14.3-1
+- Sort partition create actions before other unpartitioned devices.
+  (#574379) (dlehman)
+- Update the partition scheme icons to better looking ones (#579697).
+  (clumens)
+- Move some kickstart-specific storage init into storageInitialization.
+  (clumens)
+- Call the right superclass's __init__ method. (clumens)
+- Adjust paths that reference things that have moved. (clumens)
+- Move compiled things out of /usr/lib/anaconda-runtime. (clumens)
+- Move boot files, language data, keymaps, etc. to /usr/share/anaconda/.
+  (clumens)
+- Move class Anaconda to __init__.py. (clumens)
+- Install classes are now under the anaconda module directory. (clumens)
+- lang-table and lang-names have moved to /usr/share/anaconda. (clumens)
+- upd-instroot no longer needs to explicitly pull in the python parts.
+  (clumens)
+- Adjust command stubs to use new anaconda module location. (clumens)
+- Put /usr/lib*/python?.?/site-packages/pyanaconda at the front of
+  PYTHONPATH. (clumens)
+- Adjust the Makefiles to install anaconda to /usr/lib{,64}/python?.?.
+  (clumens)
+- ui: keep the bootloader device dialog always centered (#463489). (akozumpl)
+- Reword the filter UI tooltip to be a little more clear (#576144). (clumens)
+- Automatically select devices added via the "Add Advanced" button
+  (#579051). (clumens)
+- Re-Check minimum size of partition after running fsck on it (#578955) (bcl)
+- Take the request's format into account when deciding to resize (#578471).
+  (clumens)
+- Schedule removal actions for any format on a --onpart= device (#576976).
+  (clumens)
+- Fix early networking log message to correctly assign blame. (pjones)
+- Restore xdriver=<driver> functionality (#577312) (msivak)
+- loader: con Newt into thinking LANG is always en_US.UTF-8 (#576541).
+  (akozumpl)
+- network.dracutSetupString(): handle hosts outside the subnet (#577193)
+  (hdegoede)
+- Copy install.img to install target on http installs. (pjones)
+- Make sure the install.img exists before attempting to copy (#578391).
+  (clumens)
+- Write rd_CCW when root fs is on a network device on s390x (#577193)
+  (dcantrell)
+- Keep /usr/bin/seq for the initrd.img (#558881). (dcantrell)
+- fix: Tackle race condition issues during X startup. (akozumpl)
+- Make checksum error message user-friendlier (#578151) (rvykydal)
+- Enable network if it is needed when repo is added in UI (#577803).
+  (rvykydal)
+- Do not try to commit diskLabels on non partitionable devices (#576145)
+  (hdegoede)
+- Copy install.img and remount no matter how many discs (#577196) (pjones)
+- Fix typo in linuxrc.s390. ctm should be ctcm. (dcantrell)
+- Remove dasdSetup() from loader. (dcantrell)
+- Add new return code check for isomd5sum's mediaCheckFile (#578160).
+  (rvykydal)
+- Use symbolic constants of libcheckisomd5 (#555107) (rvykydal)
+- Adapt for libcheckisomd5 callback abi change (#555107) (rvykydal)
+- Include /sbin/*_cio_free commands in s390x initrd.img (#558881).
+  (dcantrell)
+- Use /sbin/dasd_cio_free to free blacklisted DASDs (#558881) (dcantrell)
+- Don't add duplicates to the transaction set (#575878, jantill). (clumens)
+- fcoe: sysfs_edd.sh has been renamed to fcoe_edd.sh (hdegoede)
+- Fix off-by-one error in string initialization (#577413) (msivak)
+- Fix uninitialized variable compile error (#577501) (msivak)
+- Do not write OPTIONS=layer2=1 on all architectures (#577005). (dcantrell)
+- Show protected devices in the filter UI, but make them immutable
+  (#568343). (clumens)
+- Turn protected devices into a property on the Anaconda object. (clumens)
+
 * Thu Mar 25 2010 David Lehman <dlehman@redhat.com> - 14.2-1
 - Unlock the CD tray door in isys.ejectcdrom() (#569377) (pjones)
 - Try to pull in generic libraries as well as optimized ones (#572178)
