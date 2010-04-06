@@ -2,14 +2,10 @@
 # Leonid Kanter <leon@asplinux.ru>, 2004, 2006.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
 # Andrew Martynov <andrewm@inventa.ru>, 2004, 2005, 2006, 2008, 2009.
-# Yuliya Poyarkova <ypoyarko@brisbane.redhat.com>, 2005.
 # wedge <wedge@xwing>, 2006.
-# Yuliya Poyarkova <ypoyarko@redhat.com>, 2006.
-# Yulia Poyarkova <ypoyarko@redhat.com>, 2006, 2010.
+# Yulia <ypoyarko@redhat.com>, 2006, 2008, 2010.
 # Nikolay Sivov <bunglehead@gmail.com>, 2007.
-# Yulia Poyarkova <yulia.poyarkova@redhat.com>, 2008, 2009.
 # Alexey Vasyukov <alexey.vasyukov@vdel.com>, 2009.
-# Yulia Poyarkova <yulia.poyarkova@gmail.com>, 2009.
 # Raspopov Sergey <qwerty3456@mail.ru>, 2009.
 # translation of anaconda.master.ru.po to
 # translation of ru.po to
@@ -18,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-22 15:08-0500\n"
-"PO-Revision-Date: 2010-04-01 16:30+1100\n"
+"PO-Revision-Date: 2010-04-06 15:34\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -348,7 +344,7 @@ msgstr "Ошибка пароля"
 
 #: gui.py:601 text.py:188
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "Введенные Вами пароли не совпадают. Повторите ввод."
+msgstr "Введенные пароли не совпадают. Повторите ввод."
 
 #: gui.py:609
 msgid "The passphrase must be at least eight characters long."
@@ -1094,7 +1090,7 @@ msgid ""
 "\n"
 "%(errorstr)s"
 msgstr ""
-"Запрошенная Вами схема разбиения вызвала следующие критические ошибки. Эти "
+"Запрошенная схема разбиения вызвала следующие критические ошибки. Эти "
 "ошибки должны быть исправлены для продолжения установки %(productName)s.\n"
 "\n"
 "%(errorstr)s"
@@ -1112,7 +1108,7 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"Выбранная Вами схема разбиения вызвала следующие предупреждения.\n"
+"Выбранная схема разбиения вызвала следующие предупреждения.\n"
 "\n"
 "%s\n"
 "\n"
@@ -1697,7 +1693,7 @@ msgstr "Пароли не совпадают"
 
 #: vnc.py:315 vnc.py:414 textw/userauth_text.py:71
 msgid "The passwords you entered were different. Please try again."
-msgstr "Введенные Вами пароли не совпадают. Повторите ввод."
+msgstr "Введенные пароли не совпадают. Повторите ввод."
 
 #: vnc.py:320 vnc.py:419 textw/userauth_text.py:66
 msgid "Password Length"
@@ -1968,7 +1964,7 @@ msgstr "Прогресс установки"
 
 #: yuminstall.py:1233 textw/constants_text.py:64
 msgid "Edit"
-msgstr "Редактировать"
+msgstr "Изменить"
 
 #: yuminstall.py:1244 yuminstall.py:1435
 #, python-format
@@ -2003,7 +1999,7 @@ msgid ""
 "do not have enough available.  You can change your selections or exit the "
 "installer."
 msgstr ""
-"Выбранные Вами пакеты требуют для установки %d МБ свободного места, но у Вас "
+"Выбранные пакеты требуют для установки %d МБ свободного места, но у вас "
 "нет достаточного объема. Вы можете изменить выбор или выйти из программы "
 "установки."
 
@@ -3392,7 +3388,7 @@ msgstr ""
 
 #: iw/partition_gui.py:1807
 msgid "_Create"
-msgstr "_Создание"
+msgstr "_Создать"
 
 #: iw/partition_gui.py:1810
 msgid "Re_set"
@@ -4874,7 +4870,7 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"Выбранная Вами конфигурация хранилища уже активирована. Вы не сможете "
+"Выбранная конфигурация хранилища уже активирована. Вы не сможете "
 "вернуться к окну редактирования диска. Продолжить установку?"
 
 #: storage/__init__.py:144
@@ -4900,7 +4896,7 @@ msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
 msgstr ""
-"Выбранные Вами параметры разбиения на разделы будут записаны на диск. Все "
+"Выбранные параметры разбиения на разделы будут записаны на диск. Все "
 "данные в удаленных и переформатированных разделах будут потеряны."
 
 #: storage/__init__.py:174
