@@ -1457,6 +1457,9 @@ class InstallControlWindow:
         self.connectSignals()
         self.setScreen()
         self.window.show()
+        # calling present() will focus the window in the winodw manager so
+        # the mnemonics work without additional clicking
+        self.window.present()
             
     def busyCursorPush(self):
         rootPushBusyCursor()
