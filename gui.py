@@ -1458,7 +1458,7 @@ class InstallControlWindow:
         self.mainxml = gtk.glade.XML(findGladeFile("anaconda.glade"),
                                      domain="anaconda")
 
-    def setup_window (self, runres):
+    def setup_window (self):
         self.setLtR()
 
         self.loadGlade()
@@ -1477,7 +1477,7 @@ class InstallControlWindow:
         rootPopBusyCursor()
         
     def run (self, runres):
-        self.setup_window(runres)
+        self.setup_window()
         gtk.main()
             
 class InstallControlState:
