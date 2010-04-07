@@ -219,6 +219,33 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 06 2010 David Cantrell <dcantrell@redhat.com> - 13.21.24-1
+- Update installclasses/rhel.py for latest comps changes (dcantrell)
+  Resolves: rhbz#579903
+- Sort partition create actions before other unpartitioned devices.
+  (dlehman)
+  Resolves: rhbz#574379
+- Fix up device dialogs' handling of preexisting formatting. (dlehman)
+  Related: rhbz#572331
+- Set up devices using their original formats for certain action types.
+  (dlehman)
+  Resolves: rhbz#572331
+- Keep a handle to devices' original format instance. (dlehman)
+  Related: rhbz#572331
+- Automatically select devices added via the "Add Advanced" button (clumens)
+  Resolves: rhbz#579051
+- Schedule removal actions for any format on a --onpart= device (clumens)
+  Resolves: rhbz#576976
+- Take the request's format into account when deciding to resize (clumens)
+  Resolves: rhbz#578471
+- DiskLabel.status can't be determined so return False. (dlehman)
+  Resolves: rhbz#563526
+- Ignore probably-spurious disklabels on unpartitionable devices.  (dlehman)
+  Resolves: rhbz#570474
+- Remove newly added partition from disk if subsequent commit fails.
+  (dlehman)
+  Resolves: rhbz#559907
+
 * Wed Mar 31 2010 David Cantrell <dcantrell@redhat.com> - 13.21.23-1
 - network.dracutSetupString(): handle hosts outside the subnet (#577193)
   (hdegoede)
