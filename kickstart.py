@@ -156,11 +156,23 @@ def getEscrowCertificate(anaconda, url):
             sys.exit(1)
 
     log.info("escrow: downloading %s" % (url,))
-    f = urlgrabber.urlopen(url)
+
+    try:
+        f = urlgrabber.urlopen(url)
+    except urlgrabber.grabber.URLGrabError as e:
+        msg = _("The following error was encountered while downloading the escrow certificate:\n\n%s" % e)
+        if anaconda.intf:
+            anaconda.intf.kickstartErrorWindow(msg)
+            sys.exit(1)
+        else:
+            stderrLog.critical(msg)
+            sys.exit(1)
+
     try:
         anaconda.id.escrowCertificates[url] = f.read()
     finally:
         f.close()
+
     return anaconda.id.escrowCertificates[url]
 
 def deviceMatches(spec):
