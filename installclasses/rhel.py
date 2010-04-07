@@ -56,13 +56,13 @@ class InstallClass(BaseInstallClass):
               ["base", "console-internet", "core", "debugging",
                "directory-client", "java-platform", "network-file-system-client",
                "performance", "perl-runtime", "server-platform",
-               "mysql-client", "mysql-server", "postgresql-client", "postgresql-server"
+               "mysql-client", "mysql", "postgresql-client", "postgresql"
                "system-admin-tools"]),
              (N_("Web Server"),
               ["base", "console-internet", "core", "debugging",
                "directory-client", "java-platform", "network-file-system-client",
                "performance", "perl-runtime", "server-platform",
-               "web-server", "web-servlet", "php", "rails", "turbogears",
+               "web-server", "web-servlet", "php", "turbogears",
                "system-admin-tools"]),
              (N_("Desktop"),
               ["base", "core", "debugging",
