@@ -21,7 +21,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-26 10:15-1000\n"
-"PO-Revision-Date: 2010-04-06 09:02+1000\n"
+"PO-Revision-Date: 2010-04-07 10:16+1000\n"
 "Last-Translator: Glaucia Cintra <gcintra@redhat.com>\n"
 "Language-Team: Portuguese <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -6398,7 +6398,7 @@ msgid ""
 "will be wiped by the installation process.  Also, note that post-"
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
-msgstr ""
+msgstr "<b>Dica:</b> Se você selecionar um drive nesta tela, não significa que este será apagado pelo processo de instalação. Da mesma forma, observe que após a instalação, você poderá montar drives que você não selecionou aqui, modificando seu /etc/fstab file."
 
 #: ui/filter.glade.h:4
 msgid "Add Advanced Target"
@@ -6409,18 +6409,16 @@ msgid "Basic Devices"
 msgstr "Dispositivos básicos"
 
 #: ui/filter.glade.h:6
-#, fuzzy
 msgid "Filter By:"
-msgstr "_Relatar erro"
+msgstr "Filtrar por:"
 
 #: ui/filter.glade.h:7
 msgid "Firmware RAID"
-msgstr ""
+msgstr "Firmware RAID"
 
 #: ui/filter.glade.h:8
-#, fuzzy
 msgid "Identifier:"
-msgstr "Identificar"
+msgstr "Identificador:"
 
 #: ui/filter.glade.h:9
 msgid ""
@@ -6428,66 +6426,67 @@ msgid ""
 "Vendor\n"
 "Identifier"
 msgstr ""
+"Interconectar\n"
+"Fabricante\n"
+"Identificador"
 
 #: ui/filter.glade.h:12
 msgid "LUN:"
-msgstr ""
+msgstr "LUN:"
 
 #: ui/filter.glade.h:13
-#, fuzzy
 msgid "Multipath Devices"
-msgstr "Dispositivo duplicado"
+msgstr "Dispositivos Multipath"
 
 #: ui/filter.glade.h:14
-#, fuzzy
 msgid "Other SAN Devices"
-msgstr "Dispositivos RAID"
+msgstr "Outros Dispositivos SAN"
 
 #: ui/filter.glade.h:15
 msgid ""
 "Please select the drives you'd like to install the operating system on, as "
 "well as any drives you'd like to automatically mount to your system, below:"
-msgstr ""
+msgstr "Por favor, selecione os drives onde você deseja instalar o sistema operacional, assim como qualquer outro drive que você deseja montar automaticamente no seu sistema, abaixo:"
 
 #: ui/filter.glade.h:16
 msgid ""
 "Port / Target / LUN\n"
 "Target Identifier"
 msgstr ""
+"Porta / Alvo / LUN\n"
+"Identificador de Alvo"
 
 #: ui/filter.glade.h:18
-#, fuzzy
 msgid "Port:"
-msgstr "_Abortar"
+msgstr "Porta:"
 
 #: ui/filter.glade.h:19
 msgid "Search"
-msgstr ""
+msgstr "Buscar"
 
 #: ui/filter.glade.h:20
 msgid "Search By:"
-msgstr ""
+msgstr "Buscar por:"
 
 #: ui/filter.glade.h:21
 msgid "Search Results:"
-msgstr ""
+msgstr "Buscar resultados:"
 
 #: ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
-msgstr ""
+msgstr "Exibir identificadores que incluem:"
 
 #: ui/filter.glade.h:23
 msgid "Show Only Devices From:"
-msgstr ""
+msgstr "Mostrar somente dispositivos de:"
 
 #: ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr ""
+msgstr "Exibir somente dispositivos usando:"
 
 #: ui/filter.glade.h:25
-#, fuzzy
 msgid "Target:"
-msgstr "Disco(s) de destino:"
+msgstr "Alvo:"
 
 #: ui/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
@@ -6578,9 +6577,8 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "Utilizar configuração de IP _dinâmico (DHCP)"
 
 #: ui/network.glade.h:1
-#, fuzzy
 msgid "Configure Network"
-msgstr "Erro ao configurar a rede"
+msgstr "Configurar a rede"
 
 #: ui/network.glade.h:2
 msgid "Hostname:"
