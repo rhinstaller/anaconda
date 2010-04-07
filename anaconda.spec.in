@@ -216,6 +216,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 06 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20.5-1
+- Update installclasses/rhel.py for latest comps changes (#579903).
+  (dcantrell)
+- Keep /usr/bin/seq for the initrd.img (#558881). (dcantrell)
+- Sort partition create actions before other unpartitioned devices.
+  (#574379) (dlehman)
+
 * Tue Mar 30 2010 David Cantrell <dcantrell@redhat.com> - 13.21.20.4-1
 - Include /sbin/*_cio_free commands in s390x initrd.img (#558881).
   (dcantrell)
