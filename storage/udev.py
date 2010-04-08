@@ -449,6 +449,8 @@ def udev_device_get_multipath_name(info):
 
 # iscsi disks have ID_PATH in the form of:
 # ip-${iscsi_address}:${iscsi_port}-iscsi-${iscsi_tgtname}-lun-${lun}
+# Note that in the case of IPV6 iscsi_address itself can contain :
+# too, but iscsi_port never contains :
 def udev_device_is_iscsi(info):
     try:
         path_components = udev_device_get_path(info).split("-")
@@ -470,12 +472,15 @@ def udev_device_get_iscsi_name(info):
 def udev_device_get_iscsi_address(info):
     path_components = udev_device_get_path(info).split("-")
 
-    return path_components[1].split(":")[0]
+    # IPV6 addresses contain : within the address, so take everything
+    # before the last : as address
+    return ":".join(path_components[1].split(":")[:-1])
 
 def udev_device_get_iscsi_port(info):
     path_components = udev_device_get_path(info).split("-")
 
-    return path_components[1].split(":")[1]
+    # IPV6 contains : within the address, the part after the last : is the port
+    return path_components[1].split(":")[-1]
 
 # fcoe disks have ID_PATH in the form of:
 # pci-eth#-fc-${id}
