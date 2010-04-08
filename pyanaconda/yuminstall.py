@@ -661,6 +661,18 @@ class AnacondaYum(YumSorter):
 
         return repo
 
+    def _getTreeinfo(self):
+        if os.access("%s/.treeinfo" % self.anaconda.methodstr, os.R_OK):
+            return "%s/.treeinfo" % self.anaconda.methodstr
+        else:
+            try:
+                ug = URLGrabber()
+                ug.urlgrab("%s/.treeinfo" % self.anaconda.methodstr,
+                           "/tmp/.treeinfo", copy_local=1)
+                return "/tmp/.treeinfo"
+            except:
+                return None
+
     # We need to make sure $releasever gets set up before .repo files are
     # read.  Since there's no redhat-release package in /mnt/sysimage (and
     # won't be for quite a while), we need to do our own substutition.
@@ -668,15 +680,12 @@ class AnacondaYum(YumSorter):
         from ConfigParser import ConfigParser
         c = ConfigParser()
 
-        try:
-            if os.access("%s/.treeinfo" % self.anaconda.methodstr, os.R_OK):
-                ConfigParser.read(c, "%s/.treeinfo" % self.anaconda.methodstr)
-            else:
-                ug = URLGrabber()
-                ug.urlgrab("%s/.treeinfo" % self.anaconda.methodstr,
-                           "/tmp/.treeinfo", copy_local=1)
-                ConfigParser.read(c, "/tmp/.treeinfo")
+        treeinfo = self._getTreeinfo()
+        if not treeinfo:
+            return productVersion
 
+        ConfigParser.read(c, treeinfo)
+        try:
             return c.get("general", "version")
         except:
             return productVersion
