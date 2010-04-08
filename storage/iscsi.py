@@ -152,6 +152,7 @@ class iscsi(object):
         for node in found_nodes:
             try:
                 node.login()
+                log.info("iscsi._startIBFT logged in to %s %s %s" % (node.name, node.address, node.port))
                 self.nodes.append(node)
                 self.ibftNodes.append(node)
             except IOError, e:
@@ -242,6 +243,7 @@ class iscsi(object):
                 if (authinfo):
                     node.setAuth(authinfo)
                 node.login()
+                log.info("iscsi.addTarget logged in to %s %s %s" % (node.name, node.address, node.port))
                 self.nodes.append(node)
                 logged_in = logged_in + 1
             except IOError, e:
