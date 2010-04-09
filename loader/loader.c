@@ -2331,14 +2331,14 @@ int main(int argc, char ** argv) {
 
             *argptr++ = strdup(loaderData.proxy);
 
-            if (strcmp(loaderData.proxyUser, "")) {
+            if (loaderData.proxyUser && strcmp(loaderData.proxyUser, "")) {
                 int fd, ret;
 
                 fd = open("/tmp/proxy", O_CREAT|O_TRUNC|O_RDWR, 0600);
                 ret = write(fd, loaderData.proxyUser, strlen(loaderData.proxyUser));
                 ret = write(fd, "\r\n", 2);
 
-                if (loaderData.proxyPassword) {
+                if (loaderData.proxyPassword && strcmp(loaderData.proxyPassword, "")) {
                     ret = write(fd, loaderData.proxyPassword, strlen(loaderData.proxyPassword));
                     ret = write(fd, "\r\n", 2);
                 }
