@@ -106,32 +106,14 @@ pycheck-file:
 api:
 	doxygen docs/api.cfg
 
-rpmlog:
-	@git log --pretty="format:- %s (%ae)" \
-		$(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE).. | \
-		sed -e 's/@.*)/)/' | sed -e 's/%/%%/g' | \
-		grep -v -- "- l10n: " | \
-		grep -v -- "- Merge commit "
-
 bumpver:
-	@LAST=$$(echo $(PACKAGE_VERSION) | grep "\." -o | wc -l) ; \
-	FIELD=$$(($${LAST} + 1)) ; \
-	NEWSUBVER=$$((`echo $(PACKAGE_VERSION) | cut -d . -f $${FIELD}` + 1)) ; \
-	NEWVERSION="`echo $(PACKAGE_VERSION) | cut -d . -f 1-$${LAST}`.$$NEWSUBVER" ; \
-	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
-	cl=`grep -n %changelog anaconda.spec.in |cut -d : -f 1` ; \
-	tail --lines=+$$(($$cl + 1)) anaconda.spec.in > speclog ; \
-	make --quiet rpmlog 2>/dev/null | fold -s -w 77 | while read line ; do \
-		if [ ! "$$(echo $$line | cut -c-2)" = "- " ]; then \
-			echo "  $$line" ; \
-		else \
-			echo "$$line" ; \
-		fi ; \
-	done > newspeclog ; \
-	(head -n $$cl anaconda.spec.in ; echo "$$DATELINE" ; cat newspeclog ; echo ""; cat speclog) > anaconda.spec.in.new ; \
-	mv anaconda.spec.in.new anaconda.spec.in ; rm -f speclog ; rm -f newspeclog ; \
-	sed -i "s/AC_INIT(\[$(PACKAGE_NAME)\], \[$(PACKAGE_VERSION)\], \[$(PACKAGE_BUGREPORT\])/AC_INIT(\[$(PACKAGE_NAME)\], \[$$NEWVERSION\], \[$(PACKAGE_BUGREPORT\])/" configure.ac
-	$(MAKE) -C po $(PACKAGE_NAME).pot-update
+	opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
+	@if [ ! -z "$(IGNORE)" ]; then \
+		scripts/makebumpver $${opts} -i $(IGNORE) ; \
+	else \
+		scripts/makebumpver $${opts} ; \
+	fi ; \
+	@$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 install-buildrequires:
 	yum install $$(grep BuildRequires: anaconda.spec.in | cut -d ' ' -f 2)
