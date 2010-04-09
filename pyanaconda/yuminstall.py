@@ -20,6 +20,7 @@
 from flags import flags
 from errors import *
 
+from ConfigParser import ConfigParser
 import sys
 import os
 import os.path
@@ -661,26 +662,53 @@ class AnacondaYum(YumSorter):
 
         return repo
 
-    def _getTreeinfo(self):
-        if os.access("%s/.treeinfo" % self.anaconda.methodstr, os.R_OK):
-            return "%s/.treeinfo" % self.anaconda.methodstr
+    # Given the baseurl for a repository, see if it has any valid addon repos and
+    # if so, return a list of (repo name, repo URL).
+    def _getAddons(self, baseurl):
+        retval = []
+        c = ConfigParser()
+
+        # If there's no .treeinfo for this repo, don't bother looking for addons.
+        treeinfo = self._getTreeinfo(baseurl)
+        if not treeinfo:
+            return retval
+
+        # We need to know which variant is being installed so we know what addons
+        # are valid options.
+        ConfigParser.read(c, treeinfo)
+        variant = c.get("general", "variant")
+
+        section = "variant-%s" % variant
+        if c.has_section(section):
+            validAddons = c.get(section, "addons").split(",")
         else:
-            try:
-                ug = URLGrabber()
-                ug.urlgrab("%s/.treeinfo" % self.anaconda.methodstr,
-                           "/tmp/.treeinfo", copy_local=1)
-                return "/tmp/.treeinfo"
-            except:
-                return None
+            return retval
+
+        for addon in validAddons:
+            if not c.has_section("addon-%s" % addon):
+                continue
+
+            url = "%s/%s" % (baseurl, c.get("addon-%s" % addon, "repository"))
+            retval.append((addon, url))
+
+        return retval
+
+    def _getTreeinfo(self, baseurl):
+        try:
+            ug = URLGrabber()
+            ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo", copy_local=1)
+            return "/tmp/.treeinfo"
+        except Exception as e:
+            log.error("Error downloading %s/.treeinfo: %s" % (baseurl, e))
+            return None
 
     # We need to make sure $releasever gets set up before .repo files are
     # read.  Since there's no redhat-release package in /mnt/sysimage (and
     # won't be for quite a while), we need to do our own substutition.
     def _getReleasever(self):
-        from ConfigParser import ConfigParser
         c = ConfigParser()
 
-        treeinfo = self._getTreeinfo()
+        treeinfo = self._getTreeinfo(self.anaconda.methodstr)
         if not treeinfo:
             return productVersion
 
@@ -809,12 +837,25 @@ class AnacondaYum(YumSorter):
                 repo.enable()
                 extraRepos.append(repo)
 
+        initialRepos = self.repos.repos.values() + extraRepos
+        for repo in initialRepos:
+            addons = self._getAddons(repo.mirrorlist or repo.baseurl[0])
+            for addon in addons:
+                addonRepo = AnacondaYumRepo(addon[0])
+                addonRepo.name = addon[0]
+                addonRepo.baseurl = [ addon[1] ]
+
+                if repo.isEnabled():
+                    addonRepo.enable()
+
+                extraRepos.append(addonRepo)
+
         for repo in extraRepos:
             try:
                 self.repos.add(repo)
-                log.info("added repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
+                log.info("added repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl[0]))
             except:
-                log.warning("ignoring duplicate repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl))
+                log.warning("ignoring duplicate repository %s with URL %s" % (repo.name, repo.mirrorlist or repo.baseurl[0]))
 
         self.repos.setCacheDir(self.conf.cachedir)
 
