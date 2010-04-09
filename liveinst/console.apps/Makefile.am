@@ -22,4 +22,5 @@ consoledir        = /etc/security/console.apps
 dist_console_DATA = liveinst
 endif
 
+CLEANFILES = *.h
 MAINTAINERCLEANFILES = Makefile.in

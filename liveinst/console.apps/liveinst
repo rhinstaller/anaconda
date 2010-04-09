@@ -1,3 +1,6 @@
 USER=root
 PROGRAM=/usr/sbin/liveinst
 SESSION=true
+# has to be here otherwise consolehelper switches off the waiting cursor too early
+STARTUP_NOTIFICATION_NAME="Starting Install to Hard Drive"
+DOMAIN=anaconda
