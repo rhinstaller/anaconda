@@ -689,15 +689,6 @@ class AnacondaYum(YumSorter):
                 # yum does understand.
                 # "nfs:" and "nfs://" prefixes are accepted in ks repo --baseurl
                 if ksrepo.baseurl and ksrepo.baseurl.startswith("nfs:"):
-                    if not network.hasActiveNetDev() and not self.anaconda.intf.enableNetwork():
-                        self.anaconda.intf.messageWindow(_("No Network Available"),
-                            _("Some of your software repositories require "
-                              "networking, but there was an error enabling the "
-                              "network on your system."),
-                            type="custom", custom_icon="error",
-                            custom_buttons=[_("_Exit installer")])
-                        sys.exit(1)
-
                     dest = tempfile.mkdtemp("", ksrepo.name.replace(" ", ""), "/mnt")
 
                     # handle "nfs://" prefix
