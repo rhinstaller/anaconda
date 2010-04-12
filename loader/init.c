@@ -558,21 +558,26 @@ int main(int argc, char **argv) {
     printf("anaconda installer init version %s starting\n", VERSION);
 
     printf("mounting /proc filesystem... "); 
+    fflush(stdout);
     if (mount("/proc", "/proc", "proc", 0, NULL))
         fatal_error(1);
     printf("done\n");
 
     printf("creating /dev filesystem... "); 
+    fflush(stdout);
     if (mount("/dev", "/dev", "tmpfs", 0, NULL))
         fatal_error(1);
     createDevices();
     printf("done\n");
+
     printf("starting udev...");
+    fflush(stdout);
     if ((childpid = fork()) == 0) {
         execl("/sbin/udevd", "/sbin/udevd", "--daemon", NULL);
+        fprintf(stderr, " exec of /sbin/udevd failed.");
         exit(1);
     }
-    
+
     /* wait at least until the udevd process that we forked exits */
     do {
         pid_t retpid;
@@ -593,19 +598,22 @@ int main(int argc, char **argv) {
             break;
         }
     } while (1);
-    
+
     if (fork() == 0) {
         execl("/sbin/udevadm", "udevadm", "control", "--env=ANACONDA=1", NULL);
+        fprintf(stderr, " exec of /sbin/udevadm failed.");
         exit(1);
     }
     printf("done\n");
 
     printf("mounting /dev/pts (unix98 pty) filesystem... "); 
+    fflush(stdout);
     if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))
         fatal_error(1);
     printf("done\n");
 
     printf("mounting /sys filesystem... "); 
+    fflush(stdout);
     if (mount("/sys", "/sys", "sysfs", 0, NULL))
         fatal_error(1);
     printf("done\n");
@@ -740,6 +748,7 @@ int main(int argc, char **argv) {
     ret = setdomainname("", 0);
 
     printf("trying to remount root filesystem read write... ");
+    fflush(stdout);
     if (mount("/", "/", "ext2", MS_REMOUNT | MS_MGC_VAL, NULL)) {
         fatal_error(1);
     }
@@ -752,6 +761,7 @@ int main(int argc, char **argv) {
     mkdir("/tmp", 0755);
 
     printf("mounting /tmp as tmpfs... ");
+    fflush(stdout);
     if (mount("none", "/tmp", "tmpfs", 0, "size=250m"))
         fatal_error(1);
     printf("done\n");
@@ -780,11 +790,13 @@ int main(int argc, char **argv) {
     /* D-Bus */
     if (fork() == 0) {
         execl("/sbin/dbus-uuidgen", "/sbin/dbus-uuidgen", "--ensure", NULL);
+        fprintf(stderr, "exec of /sbin/dbus-uuidgen failed.");
         doExit(1);
     }
 
     if (fork() == 0) {
         execl("/sbin/dbus-daemon", "/sbin/dbus-daemon", "--system", NULL);
+        fprintf(stderr, "exec of /sbin/dbus-daemon failed.");
         doExit(1);
     }
 
