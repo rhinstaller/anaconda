@@ -401,8 +401,7 @@ def createSshKey(algorithm, keyfile):
 
     so = "/tmp/ssh-keygen-%s-stdout.log" % (algorithm,)
     se = "/tmp/ssh-keygen-%s-stderr.log" % (algorithm,)
-    iutil.execWithRedirect('ssh-keygen', argv, stdout=so, stderr=se,
-                           searchPath=1)
+    iutil.execWithRedirect('ssh-keygen', argv, stdout=so, stderr=se)
 
 def fork_orphan():
     """Forks an orphan.

@@ -68,16 +68,15 @@ class tee(threading.Thread):
 # @param stdin The file descriptor to read stdin from.
 # @param stdout The file descriptor to redirect stdout to.
 # @param stderr The file descriptor to redirect stderr to.
-# @param searchPath Should command be searched for in $PATH?
 # @param root The directory to chroot to before running command.
 # @return The return code of command.
 def execWithRedirect(command, argv, stdin = None, stdout = None,
-                     stderr = None, searchPath = 0, root = '/'):
+                     stderr = None, root = '/'):
     def chroot ():
         os.chroot(root)
 
-        if not searchPath and not os.access (command, os.X_OK):
-            raise RuntimeError, command + " can not be run"
+    if command.startswith('/'):
+        log.warning("'%s' specified as full path" % (command,))
 
     stdinclose = stdoutclose = stderrclose = lambda : None
 
@@ -182,6 +181,9 @@ def execWithCapture(command, argv, stdin = None, stderr = None, root='/'):
         stdinclose()
         stderrclose()
 
+    if command.startswith('/'):
+        log.warning("'%s' specified as full path" % (command,))
+
     stdinclose = stderrclose = lambda : None
     rc = ""
     argv = list(argv)
@@ -246,6 +248,9 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
         stdinclose()
         stdoutclose()
         stderrclose()
+
+    if command.startswith('/'):
+        log.warning("'%s' specified as full path" % (command,))
 
     stdinclose = stdoutclose = stderrclose = lambda : None
 

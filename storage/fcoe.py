@@ -34,8 +34,7 @@ def has_fcoe():
     global _fcoe_module_loaded
     if not _fcoe_module_loaded:
         iutil.execWithRedirect("modprobe", [ "fcoe" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5",
-                               searchPath = 1)
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
         _fcoe_module_loaded = True
 
     return os.access("/sys/module/fcoe", os.X_OK)
@@ -71,8 +70,7 @@ class fcoe(object):
         # I have no clue how long we need to wait, this ought to do the trick
         time.sleep(10)
         iutil.execWithRedirect("udevadm", [ "settle" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5",
-                               searchPath = 1)
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
         if intf:
             w.pop()
 
@@ -106,8 +104,7 @@ class fcoe(object):
             return
 
         iutil.execWithRedirect("lldpad", [ "-d" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5",
-                               searchPath = 1)
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
         self.lldpadStarted = True
 
     def _startFcoemon(self):
@@ -115,8 +112,7 @@ class fcoe(object):
             return
 
         iutil.execWithRedirect("fcoemon", [ ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5",
-                               searchPath = 1)
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
         self.fcoemonStarted = True
 
     def addSan(self, nic, dcb=False, intf=None):
@@ -126,18 +122,15 @@ class fcoe(object):
         log.info("Activating FCoE SAN attached to %s, dcb: %s" % (nic, dcb))
 
         iutil.execWithRedirect("ip", [ "link", "set", nic, "up" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5",
-                               searchPath = 1)
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
 
         if dcb:
             self._startLldpad()
             iutil.execWithRedirect("dcbtool", [ "sc", nic, "dcb", "on" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5",
-                               searchPath = 1)
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
             iutil.execWithRedirect("dcbtool", [ "sc", nic, "app:fcoe",
                                "e:1", "a:1", "w:1" ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5",
-                               searchPath = 1)
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
             self._startFcoemon()
         else:
             f = open("/sys/module/fcoe/parameters/create", "w")

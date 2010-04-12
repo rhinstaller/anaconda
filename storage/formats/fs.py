@@ -399,8 +399,7 @@ class FS(DeviceFormat):
             rc = iutil.execWithRedirect(self.migratefsProg,
                                         argv,
                                         stdout = "/dev/tty5",
-                                        stderr = "/dev/tty5",
-                                        searchPath = 1)
+                                        stderr = "/dev/tty5")
         except Exception as e:
             raise FSMigrateError("filesystem migration failed: %s" % e,
                                  self.device)
@@ -550,8 +549,7 @@ class FS(DeviceFormat):
         for module in self._modules:
             try:
                 rc = iutil.execWithRedirect("modprobe", [module],
-                                            stdout="/dev/tty5", stderr="/dev/tty5",
-                                            searchPath=1)
+                                            stdout="/dev/tty5", stderr="/dev/tty5")
             except Exception as e:
                 log.error("Could not load kernel module %s: %s" % (module, e))
                 self._supported = False
@@ -672,8 +670,7 @@ class FS(DeviceFormat):
         argv = self._getLabelArgs(label)
         rc = iutil.execWithRedirect(self.labelfsProg,
                                     argv,
-                                    stderr="/dev/tty5",
-                                    searchPath=1)
+                                    stderr="/dev/tty5")
         if rc:
             raise FSError("label failed")
 
@@ -920,7 +917,6 @@ class Ext2FS(FS):
             rc = iutil.execWithRedirect("tune2fs",
                                         ["-c0", "-i0",
                                          "-ouser_xattr,acl", self.device],
-                                        searchPath = True,
                                         stdout = "/dev/tty5",
                                         stderr = "/dev/tty5")
         except Exception as e:
