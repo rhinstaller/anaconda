@@ -305,7 +305,7 @@ def rpmSetupGraphicalSystem(anaconda):
     ts = rpm.TransactionSet(anaconda.rootPath)
 
     # Only add "rhgb quiet" on non-s390, non-serial installs
-    if iutil.isConsoleOnVirtualTerminal() and \
+    if not iutil.isS390() and iutil.isConsoleOnVirtualTerminal() and \
        ts.dbMatch('provides', 'rhgb').count() or \
        ts.dbMatch('provides', 'plymouth').count():
         anaconda.id.bootloader.args.append("rhgb quiet")
