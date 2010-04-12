@@ -503,7 +503,7 @@ int main(int argc, char **argv) {
         pid_t retpid;
         int waitstatus;
 
-        retpid = waitpid(childpid, &waitstatus, 0);
+        retpid = wait(&waitstatus);
         if (retpid == -1) {
             if (errno == EINTR)
                 continue;
@@ -514,7 +514,7 @@ int main(int argc, char **argv) {
                 break;
             printf("init: error waiting on udevd: %m\n");
             exit(1);
-        } else if (WIFEXITED(waitstatus)) {
+        } else if ((retpid == childpid) && WIFEXITED(waitstatus)) {
             break;
         }
     } while (1);
@@ -768,7 +768,7 @@ int main(int argc, char **argv) {
     
     while (!doShutdown) {
         pid_t childpid;
-        childpid = waitpid(-1, &waitStatus, 0);
+        childpid = wait(&waitStatus);
 
         if (childpid == installpid) {
             doShutdown = 1;
