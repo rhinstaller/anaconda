@@ -107,13 +107,13 @@ api:
 	doxygen docs/api.cfg
 
 bumpver:
-	opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
-	@if [ ! -z "$(IGNORE)" ]; then \
-		scripts/makebumpver $${opts} -i $(IGNORE) ; \
+	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
+	if [ ! -z "$(IGNORE)" ]; then \
+		scripts/makebumpver $${opts} -i $(IGNORE) || exit 1 ; \
 	else \
-		scripts/makebumpver $${opts} ; \
+		scripts/makebumpver $${opts} || exit 1 ; \
 	fi ; \
-	@$(MAKE) -C po $(PACKAGE_NAME).pot-update
+	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 install-buildrequires:
 	yum install $$(grep BuildRequires: anaconda.spec.in | cut -d ' ' -f 2)
