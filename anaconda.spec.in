@@ -219,6 +219,28 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Apr 12 2010 David Cantrell <dcantrell@redhat.com> - 13.21.25-1
+- Fix traceback in booty when ppc /boot lives on mdraid (hdegoede)
+  Resolves: rhbz#531722
+- Add some better printing to init for future debugging. (clumens)
+  Related: rhbz#579044
+- Get rid of iutil.exec*()'s searchPath argument, it is harmful. (pjones)
+  Resolves: rhbz#579654
+- Unify two wait*() paths, so we only have two, not three... (pjones)
+  Resolves: rhbz#579044
+- Default to /images/install.img if no dir is given in stage2=hd: (rvykydal)
+  Resolves: rhbz#549398
+- Don't segfault if proxyUser or proxyPassword are empty (clumens).
+  Resolves: rhbz#580683
+- Allow using pre-existing gpt labels for /boot on non EFI x86 (hdegoede)
+  Resolves: rhbz#580404
+- storage/udev.py handle iscsi ID_PATH IPV6 address containing : (hdegoede)
+  Resolves: rhbz#579761
+- Catch errors when downloading the escrow cert (clumens).
+  Resolves: rhbz#579992
+- fix: Tackle race condition issues during X startup (akozumpl).
+  Resolves: rhbz#579654
+
 * Tue Apr 06 2010 David Cantrell <dcantrell@redhat.com> - 13.21.24-1
 - Update installclasses/rhel.py for latest comps changes (dcantrell)
   Resolves: rhbz#579903
