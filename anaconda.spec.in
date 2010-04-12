@@ -235,7 +235,7 @@ update-desktop-database &> /dev/null || :
 - Automatically select devices added via the "Add Advanced" button (clumens)
   Resolves: rhbz#579051
 - Schedule removal actions for any format on a --onpart= device (clumens)
-  Resolves: rhbz#576976
+  Resolves: rhbz#578937
 - Take the request's format into account when deciding to resize (clumens)
   Resolves: rhbz#578471
 - DiskLabel.status can't be determined so return False. (dlehman)
