@@ -144,7 +144,7 @@ class Callbacks(object):
         global selectedDevices, totalDevices
         global selectedSize, totalSize
 
-        self.sizeLabel.set_markup(_("<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total.") % (selectedDevices, selectedSize, totalDevices, totalSize))
+        self.sizeLabel.set_markup(_("Selected %s (%s MB) out of %s (%s MB) devices total." % (selectedDevices, selectedSize, totalDevices, totalSize))
 
     def visible(self, model, iter, view):
         # Most basic visibility function - does the model say this row

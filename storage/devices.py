@@ -115,6 +115,7 @@ from formats import get_device_format_class, getFormat, DeviceFormat
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
 import logging
 log = logging.getLogger("storage")
@@ -2420,8 +2421,10 @@ class MDRaidArrayDevice(StorageDevice):
         # For new arrays check if we have enough members
         if (not exists and parents and
                 len(parents) < mdraid.get_raid_min_members(self.level)):
-            raise ValueError, _("A RAID%d set requires atleast %d members") % (
-                           self.level, mdraid.get_raid_min_members(self.level))
+            raise ValueError, P_("A RAID%d set requires at least %d member",
+                                 "A RAIDs set requires at least %d members",
+                                 mdraid.get_raid_min_members(self.level)) %
+                                 self.level, mdraid.get_raid_min_members(self.level)
 
         self.uuid = uuid
         self._totalDevices = numeric_type(totalDevices)
