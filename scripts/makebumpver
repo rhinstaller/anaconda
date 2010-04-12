@@ -46,6 +46,16 @@ class MakeBumpVer:
         self.release = kwargs.get('release')
         self.bugreport = kwargs.get('bugreport')
         self.ignore = kwargs.get('ignore')
+
+        self.bugmap = {}
+        bugmap = kwargs.get('bugmap')
+        if bugmap and bugmap != '':
+            maps = bugmap.split(',')
+            for mapping in maps:
+                bugs = mapping.split('=')
+                if len(bugs) == 2:
+                    self.bugmap[bugs[0]] = bugs[1]
+
         self.configure = kwargs.get('configure')
         self.spec = kwargs.get('spec')
 
@@ -201,16 +211,17 @@ class MakeBumpVer:
                 if m:
                     fullbug = summary[m.start():m.end()]
                     bug = summary[m.start()+2:m.end()-1]
-                    valid = self._isRHELBug(bug, commit, summary)
+                    ckbug = self.bugmap.get(bug, bug)
+                    valid = self._isRHELBug(ckbug, commit, summary)
 
                     if valid:
                         summary = summary.replace(fullbug, "(%s)" % author)
-                        rhbz.add("Resolves: rhbz#%s" % bug)
+                        rhbz.add("Resolves: rhbz#%s" % ckbug)
 
-                        if not self._isRHELBugInMODIFIED(bug, commit, summary):
+                        if not self._isRHELBugInMODIFIED(ckbug, commit, summary):
                             bad = True
 
-                        if not self._isRHELBugFixedInVersion(bug, commit,
+                        if not self._isRHELBugFixedInVersion(ckbug, commit,
                                                              summary, fixedIn):
                             bad = True
                     else:
@@ -224,18 +235,20 @@ class MakeBumpVer:
                                  longline)
                     if m:
                         bug = longline[longline.index('#')+1:]
+                        ckbug = self.bugmap.get(bug, bug)
                         resolves = longline.startswith('Resolves')
-                        valid = self._isRHELBug(bug, commit, summary)
+                        valid = self._isRHELBug(ckbug, commit, summary)
 
                         if valid:
+                            longline.replace(bug, ckbug)
                             rhbz.add(longline)
                         else:
                             bad = True
 
                         if valid and resolves and \
-                           (not self._isRHELBugInMODIFIED(bug, commit,
+                           (not self._isRHELBugInMODIFIED(ckbug, commit,
                                                           summary) or \
-                            not self._isRHELBugFixedInVersion(bug, commit,
+                            not self._isRHELBugFixedInVersion(ckbug, commit,
                                                               summary,
                                                               fixedIn)):
                             bad = True
@@ -318,20 +331,28 @@ def usage(cmd):
     sys.stdout.write("    -r, --release    Package release number.\n")
     sys.stdout.write("    -b, --bugreport  Bug reporting email address.\n")
     sys.stdout.write("    -i, --ignore     Comma separated list of git commits to ignore.\n")
+    sys.stdout.write("    -m, --map        Comma separated list of FEDORA_BZ=RHEL_BZ mappings.\n")
+    sys.stdout.write("\nThe -i switch is intended for use with utility commits that we do not need to\n")
+    sys.stdout.write("reference in the spec file changelog.  The -m switch is used to map a Fedora\n")
+    sys.stdout.write("BZ number to a RHEL BZ number for the spec file changelog.  Use -m if you have\n")
+    sys.stdout.write("a commit that needs to reference a RHEL bug and have cloned the bug, but the\n")
+    sys.stdout.write("original commit was already pushed to the central repo.\n")
 
 def main(argv):
     prog = os.path.basename(sys.argv[0])
     cwd = os.getcwd()
     configure = os.path.realpath(cwd + '/configure.ac')
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
-    name, version, release, bugreport, ignore = None, None, None, None, None
+    name, version, release, bugreport = None, None, None, None
+    ignore, bugmap = None, None
     help, unknown = False, False
     opts, args = [], []
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:?',
+        opts, args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:?',
                                    ['name=', 'version=', 'release=',
-                                    'bugreport=', 'ignore=', 'help'])
+                                    'bugreport=', 'ignore=', 'map=',
+                                    'help'])
     except getopt.GetoptError:
         help = True
 
@@ -346,6 +367,8 @@ def main(argv):
             bugreport = a
         elif o in ('-i', '--ignore'):
             ignore = a
+        elif o in ('-m', '--map'):
+            bugmap = a
         elif o in ('-?', '--help'):
             help = True
         else:
@@ -380,7 +403,7 @@ def main(argv):
         sys.exit(1)
 
     mbv = MakeBumpVer(name=name, version=version, release=release,
-                      bugreport=bugreport, ignore=ignore,
+                      bugreport=bugreport, ignore=ignore, bugmap=bugmap,
                       configure=configure, spec=spec)
     mbv.run()
 

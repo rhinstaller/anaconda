@@ -109,10 +109,12 @@ api:
 bumpver:
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
-		scripts/makebumpver $${opts} -i $(IGNORE) || exit 1 ; \
-	else \
-		scripts/makebumpver $${opts} || exit 1 ; \
+		opts="$${opts} -i $(IGNORE)" ; \
 	fi ; \
+	if [ ! -z "$(MAP)" ]; then \
+		opts="$${opts} -m $(MAP)" ; \
+	fi ; \
+	scripts/makebumpver $${opts} || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 install-buildrequires:
