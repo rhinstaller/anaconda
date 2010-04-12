@@ -458,13 +458,6 @@ static void copyErrorFn (char *msg) {
     printf(msg);
 }
 
-void initSigChildHandler(int signum) {
-    int ret;
-    pid_t pid;
-
-    pid = wait(&ret);
-}
-
 void initSegvHandler(int signum) {
     void *array[30];
     size_t i;
@@ -560,9 +553,6 @@ int main(int argc, char **argv) {
     /* set up signal handler */
     setupBacktrace();
 
-    /* set up SIGCHLD handler */
-    signal(SIGCHLD, initSigChildHandler);
-
     printstr("\nGreetings.\n");
 
     printf("anaconda installer init version %s starting\n", VERSION);
@@ -588,7 +578,7 @@ int main(int argc, char **argv) {
         pid_t retpid;
         int waitstatus;
 
-        retpid = waitpid(childpid, &waitstatus, 0);
+        retpid = wait(&waitstatus);
         if (retpid == -1) {
             if (errno == EINTR)
                 continue;
@@ -599,7 +589,7 @@ int main(int argc, char **argv) {
                 break;
             printf("init: error waiting on udevd: %m\n");
             exit(1);
-        } else if (WIFEXITED(waitstatus)) {
+        } else if ((retpid == childpid) && WIFEXITED(waitstatus)) {
             break;
         }
     } while (1);
@@ -853,9 +843,9 @@ int main(int argc, char **argv) {
     
     while (!doShutdown) {
         pid_t childpid;
-        childpid = waitpid(-1, &waitStatus, 0);
+        childpid = wait(&waitStatus);
 
-        if (childpid == installpid) 
+        if (childpid == installpid)
             doShutdown = 1;
     }
 
