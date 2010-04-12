@@ -2422,7 +2422,7 @@ class MDRaidArrayDevice(StorageDevice):
         if (not exists and parents and
                 len(parents) < mdraid.get_raid_min_members(self.level)):
             raise ValueError, P_("A RAID%d set requires at least %d member",
-                                 "A RAIDs set requires at least %d members",
+                                 "A RAID%d set requires at least %d members",
                                  mdraid.get_raid_min_members(self.level)) %
                                  self.level, mdraid.get_raid_min_members(self.level)
 

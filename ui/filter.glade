@@ -1347,7 +1347,7 @@ Target Identifier</property>
       <child>
 	<widget class="GtkLabel" id="sizeLabel">
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">&lt;b&gt;%s devices (%s) selected&lt;/b&gt; out of %s devices (%s) total.</property>
+	  <property name="label" translatable="yes">Selected devices: %s (%s) out of %s (%s).</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">True</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
