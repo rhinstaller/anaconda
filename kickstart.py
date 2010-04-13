@@ -1038,9 +1038,9 @@ class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
     def execute(self, anaconda):
         anaconda.storage.zeroMbr = 1
 
-class ZFCP(commands.zfcp.FC3_ZFCP):
+class ZFCP(commands.zfcp.F12_ZFCP):
     def parse(self, args):
-        fcp = commands.zfcp.FC3_ZFCP.parse(self, args)
+        fcp = commands.zfcp.F12_ZFCP.parse(self, args)
         try:
             storage.zfcp.ZFCP().addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
         except ValueError, e:
