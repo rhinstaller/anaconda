@@ -1034,7 +1034,7 @@ class XConfig(commands.xconfig.F10_XConfig):
         if self.defaultdesktop:
             anaconda.desktop.setDefaultDesktop(self.defaultdesktop)
 
-class ZeroMbr(commands.zerombr.FC3_ZeroMbr):
+class ZeroMbr(commands.zerombr.F9_ZeroMbr):
     def execute(self, anaconda):
         anaconda.storage.zeroMbr = 1
 
