@@ -1,9 +1,10 @@
 #!/usr/bin/python
 #-*- coding:utf-8 -*-
 
+from distutils.sysconfig import get_python_lib
 import sys
 
-REQUIRED_PATHS = ["/usr/lib/anaconda",
+REQUIRED_PATHS = ["%s/pyanaconda" % get_python_lib(plat_specific=1),
                   "/usr/share/system-config-date"]
 sys.path.extend(REQUIRED_PATHS)
 
