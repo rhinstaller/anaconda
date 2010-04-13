@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.24\n"
+"Project-Id-Version: anaconda 13.21.25\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-04-12 11:20-1000\n"
+"POT-Creation-Date: 2010-04-13 11:29-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,8 +168,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1336
-#: kickstart.py:1375 upgrade.py:58 yuminstall.py:1248 yuminstall.py:1431
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1346
+#: kickstart.py:1385 upgrade.py:58 yuminstall.py:1248 yuminstall.py:1431
 #: iw/partition_gui.py:1600 storage/__init__.py:1969
 msgid "_Continue"
 msgstr ""
@@ -202,8 +202,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1189 kickstart.py:1200 kickstart.py:1208
-#: kickstart.py:1246 kickstart.py:1254 text.py:388
+#: cmdline.py:88 gui.py:1189 kickstart.py:1210 kickstart.py:1218
+#: kickstart.py:1256 kickstart.py:1264 text.py:388
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -607,63 +607,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1219
+#: kickstart.py:1229
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1222
+#: kickstart.py:1232
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1277 livecd.py:229
+#: kickstart.py:1287 livecd.py:229
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1278
+#: kickstart.py:1288
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1294
+#: kickstart.py:1304
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1295
+#: kickstart.py:1305
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1327
+#: kickstart.py:1337
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1328
+#: kickstart.py:1338
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1334 kickstart.py:1373
+#: kickstart.py:1344 kickstart.py:1383
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1335 kickstart.py:1374
+#: kickstart.py:1345 kickstart.py:1384
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1365
+#: kickstart.py:1375
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1366
+#: kickstart.py:1376
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1481
+#: kickstart.py:1491
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -903,7 +903,7 @@ msgstr ""
 msgid "You must first select a partition to delete."
 msgstr ""
 
-#: partIntfHelpers.py:153 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:857
+#: partIntfHelpers.py:153 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:860
 msgid "Confirm Delete"
 msgstr ""
 
@@ -912,8 +912,8 @@ msgstr ""
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr ""
 
-#: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:860
-#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:104 iw/partition_gui.py:1813
+#: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:863
+#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1813
 #: iw/partition_gui.py:1825
 msgid "_Delete"
 msgstr ""
@@ -2476,49 +2476,49 @@ msgid ""
 "larger or make the logical volume(s) smaller."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:809
+#: iw/lvm_dialog_gui.py:812
 msgid "No free slots"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:810
+#: iw/lvm_dialog_gui.py:813
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:820
+#: iw/lvm_dialog_gui.py:823
 msgid "No free space"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:821
+#: iw/lvm_dialog_gui.py:824
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:858
+#: iw/lvm_dialog_gui.py:861
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:964
+#: iw/lvm_dialog_gui.py:967
 msgid "Invalid Volume Group Name"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:973
+#: iw/lvm_dialog_gui.py:976
 msgid "Name in use"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:974
+#: iw/lvm_dialog_gui.py:977
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1260
+#: iw/lvm_dialog_gui.py:1263
 msgid "Not enough physical volumes"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1261
+#: iw/lvm_dialog_gui.py:1264
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2527,70 +2527,70 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1272
+#: iw/lvm_dialog_gui.py:1275
 msgid "Make LVM Volume Group"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1275
+#: iw/lvm_dialog_gui.py:1278
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1277
+#: iw/lvm_dialog_gui.py:1280
 msgid "Edit LVM Volume Group"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1293
+#: iw/lvm_dialog_gui.py:1296
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1301
+#: iw/lvm_dialog_gui.py:1304
 msgid "Volume Group Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1309
+#: iw/lvm_dialog_gui.py:1312
 msgid "_Physical Extent:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1324
+#: iw/lvm_dialog_gui.py:1327
 msgid "Physical Volumes to _Use:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1330
+#: iw/lvm_dialog_gui.py:1333
 msgid "Used Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1347
+#: iw/lvm_dialog_gui.py:1350
 msgid "Free Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1365
+#: iw/lvm_dialog_gui.py:1368
 msgid "Total Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1403
+#: iw/lvm_dialog_gui.py:1406
 msgid "Logical Volume Name"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1406 iw/partition_gui.py:610
+#: iw/lvm_dialog_gui.py:1409 iw/partition_gui.py:610
 #: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:122
 msgid "Mount Point"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1409 iw/partition_gui.py:609
+#: iw/lvm_dialog_gui.py:1412 iw/partition_gui.py:609
 msgid "Size (MB)"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1423 iw/osbootwidget.py:96
+#: iw/lvm_dialog_gui.py:1426 iw/osbootwidget.py:96
 msgid "_Add"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1426 iw/osbootwidget.py:100 iw/partition_gui.py:1812
+#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1812
 #: iw/partition_gui.py:1822
 msgid "_Edit"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1441
+#: iw/lvm_dialog_gui.py:1444
 msgid "_Logical Volumes"
 msgstr ""
 
@@ -4642,23 +4642,23 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1255 storage/devices.py:1920 storage/devices.py:2323
-#: storage/devices.py:2794 storage/devices.py:3276
+#: storage/devices.py:1255 storage/devices.py:1922 storage/devices.py:2325
+#: storage/devices.py:2796 storage/devices.py:3278
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1256 storage/devices.py:1921 storage/devices.py:2324
-#: storage/devices.py:2795
+#: storage/devices.py:1256 storage/devices.py:1923 storage/devices.py:2326
+#: storage/devices.py:2797
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2417
+#: storage/devices.py:2419
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3277
+#: storage/devices.py:3279
 #, python-format
 msgid "Creating file %s"
 msgstr ""

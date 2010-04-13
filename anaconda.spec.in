@@ -219,6 +219,26 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 13 2010 David Cantrell <dcantrell@redhat.com> - 13.21.26-1
+- Write an AUTO ... line to mdadm.conf (hdegoede)
+  Resolves: rhbz#581984
+- Add udev_settle after setup of LUKSDevice. (dlehman)
+  Resolves: rhbz#534043
+- Fix creation of encrypted md members and pvs in kickstart. (dlehman)
+  Resolves: rhbz#578890
+- Preserve encryption setting when re-editing new encrypted LVs. (dlehman)
+  Resolves: rhbz#579930
+- Enforce maximum partition sizes. (dlehman)
+  Resolves: rhbz#580302
+- Remove rules handled by the device-mapper package's rules. (dlehman)
+  Resolves: rhbz#580304
+- Fix ordering of arguments to xfs_admin for writing fs label. (dlehman)
+  Resolves: rhbz#580305
+- Show the correct device path when formatting as swap or luks. (dlehman)
+  Resolves: rhbz#580488
+- Inherit the ZFCP command from the correct pykickstart class (clumens).
+  Resolves: rhbz#581829
+
 * Mon Apr 12 2010 David Cantrell <dcantrell@redhat.com> - 13.21.25-1
 - Fix traceback in booty when ppc /boot lives on mdraid (hdegoede)
   Resolves: rhbz#531722
