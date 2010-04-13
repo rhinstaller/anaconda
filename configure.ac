@@ -272,6 +272,7 @@ AC_CONFIG_FILES([Makefile
                  storage/devicelibs/Makefile
                  storage/formats/Makefile
                  tests/Makefile
+                 tests/kickstart/Makefile
                  tests/storage/Makefile
                  tests/storage/devicelibs/Makefile
                  textw/Makefile

@@ -1,6 +1,6 @@
-# tests/Makefile.am for anaconda
+# tests/kickstart/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2010  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,9 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: David Cantrell <dcantrell@redhat.com>
-
-SUBDIRS = kickstart storage
+# Author: Chris Lumens <clumens@redhat.com>
 
 EXTRA_DIST = *.py
 
