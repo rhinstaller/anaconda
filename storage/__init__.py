@@ -2123,7 +2123,6 @@ class FSSet(object):
 
     def mdadmConf(self):
         """ Return the contents of mdadm.conf. """
-        retval = None
         arrays = self.devicetree.getDevicesByType("mdarray")
         arrays.extend(self.devicetree.getDevicesByType("mdbiosraidarray"))
         arrays.extend(self.devicetree.getDevicesByType("mdcontainer"))
@@ -2136,19 +2135,15 @@ class FSSet(object):
 
         conf = "# mdadm.conf written out by anaconda\n"
         conf += "MAILADDR root\n"
+        conf += "AUTO +imsm +1.x -all\n"
         devices = self.mountpoints.values() + self.swapDevices
         for array in arrays:
-            writeConf = False
             for device in devices:
                 if device == array or device.dependsOn(array):
-                    writeConf = True
+                    conf += array.mdadmConfEntry
                     break
 
-            if writeConf:
-                conf += array.mdadmConfEntry
-                retval = conf
-
-        return retval
+        return conf
 
     def multipathConf(self):
         """ Return the contents of multipath.conf. """
