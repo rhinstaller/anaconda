@@ -41,6 +41,12 @@
 
 # debug: set -x
 
+if [ "${0##*/}" = "reboot" ]; then
+    kill -USR2 1
+elif [ "${0##*/}" = "halt" ]; then
+    kill -USR1 1
+fi
+
 VERSION=1.2
 
 export TEXTDOMAIN=s390installer
