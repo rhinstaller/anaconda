@@ -402,10 +402,7 @@ class FilterWindow(InstallWindow):
         # are in the list.
         selected = set()
         for dev in self.pages[0].ds.getSelected():
-            if udev_device_is_multipath_member(dev[OBJECT_COL]):
-                selected.add(udev_device_get_multipath_name(dev[OBJECT_COL]))
-            else:
-                selected.add(udev_device_get_name(dev[OBJECT_COL]))
+            selected.add(udev_device_get_name(dev[OBJECT_COL]))
 
         if len(selected) == 0:
             self.anaconda.intf.messageWindow(_("Error"),
@@ -696,6 +693,7 @@ class FilterWindow(InstallWindow):
                 for d in raids:
                     if udev_device_get_name(d) in members:
                         fstype = udev_device_get_format(d)
+                        sysfs_path = udev_device_get_sysfs_path(d)
                         break
 
                 # Skip this set if none of its members are in the raids list
@@ -708,10 +706,11 @@ class FilterWindow(InstallWindow):
                 # a way that's useful to the filtering UI.  So we need to fake
                 # that data now so we have something to put into the store.
                 data = {"XXX_SIZE": size, "ID_FS_TYPE": fstype,
-                        "DM_NAME": rs.name, "name": rs.name}
+                        "DM_NAME": rs.name, "name": rs.name,
+                        "sysfs_path": sysfs_path}
 
                 model = "BIOS RAID set (%s)" % rs.rs.set_type
-                tuple = (data, True, _active(rs.name), _isProtected(d), rs.name,
+                tuple = (data, True, _active(data), _isProtected(data), rs.name,
                          model, str(size) + " MB", "", "", "", "", "", "", "", "")
                 _addTuple(tuple)
 
@@ -736,7 +735,11 @@ class FilterWindow(InstallWindow):
             # However, we do need all the paths making up this multipath set.
             paths = "\n".join(map(udev_device_get_name, mpath))
 
-            tuple = (mpath[0], True, _active(mpath[0]), _isProtected(mpath[0]),
+            # We use a copy here, so as to not modify the original udev info
+            # dict as that would break NameCache matching
+            data = mpath[0].copy()
+            data["name"] = udev_device_get_multipath_name(mpath[0])
+            tuple = (data, True, _active(data), _isProtected(data),
                      udev_device_get_multipath_name(mpath[0]), model,
                      str(mpath[0]["XXX_SIZE"]) + " MB",
                      udev_device_get_vendor(mpath[0]),
