@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import baseclass
 import unittest
 import storage.devicelibs.lvm as lvm

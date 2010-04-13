@@ -1,3 +1,4 @@
+#!/usr/bin/python
 #
 # Copyright (C) 2010  Red Hat, Inc.
 #
@@ -47,6 +48,11 @@ class DataVersionTestCase(unittest.TestCase):
             pykickstartClass = eval("self.handler.%s" % dataName)
 
             self.assertEqual(baseClass.__name__, pykickstartClass.__name__)
+def suite():
+    suite = unittest.TestSuite()
+    suite.addTest(CommandVersionTestCase())
+    suite.addTest(DataVersionTestCase())
+    return suite
 
-if __name__ == "__main__":
-    unittest.main()
+s = suite()
+unittest.TextTestRunner(verbosity=2).run(s)
