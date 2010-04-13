@@ -570,11 +570,11 @@ msgid_plural ""
 "Disks %s contain BIOS RAID metadata, but are not part of any recognized BIOS "
 "RAID sets. Ignoring disks %s."
 msgstr[0] ""
-"Диск %s містить метадані BIOS RAID, яле не є частиною розпізнаного BIOS набору томів RAID. Диск ігнорується %s."
+"Диск %s містить метадані BIOS RAID, але не є частиною розпізнаного BIOS набору томів RAID. Диск ігнорується %s."
 msgstr[1] ""
-"Диски %s містить метадані BIOS RAID, яле не є частиною розпізнаного BIOS набору томів RAID. Диски ігноруються %s."
+"Диски %s містить метадані BIOS RAID, але не є частиною розпізнаного BIOS набору томів RAID. Диски ігноруються %s."
 msgstr[2] ""
-"Диски %s містить метадані BIOS RAID, яле не є частиною розпізнаного BIOS набору томів RAID. Диски ігноруються %s."
+"Диски %s містить метадані BIOS RAID, але не є частиною розпізнаного BIOS набору томів RAID. Диски ігноруються %s."
 
 #: iutil.py:843
 #, python-format
@@ -1413,7 +1413,7 @@ msgstr "Пароль для зашифрованого пристрою"
 
 #: text.py:167
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr "Використовуйте цей пароль для усіх існуючих шифрованих пристроїв."
+msgstr "Використовуйте цей пароль для усіх наявних шифрованих пристроїв."
 
 #: text.py:198
 #, python-format
@@ -1608,7 +1608,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Ви обрали підключення до прпрослуховуючого vncviewer. \n"
+"Ви обрали підключення до прослуховуючого vncviewer. \n"
 "Для цього немає потреби вказувати пароль.\n"
 "Якщо ви вкажете пароль, він буде використовуватись\n"
 "у випадку помилки при спробі підключення до vncviewer.\n"
@@ -1776,7 +1776,7 @@ msgid ""
 "A fatal error occurred when installing the %s package.  This could indicate "
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
-"КРитична помилка при встановленні пакету %s.  Це може бути внаслідок помилок "
+"Критична помилка при встановленні пакету %s.  Це може бути внаслідок помилок "
 "при читанні з носіїв встановлення.  Подальше встановлення неможливе."
 
 #: yuminstall.py:353 iw/task_gui.py:322
@@ -2100,7 +2100,7 @@ msgid ""
 "The default installation of %s is a minimal install. You can optionally "
 "select a different set of software now."
 msgstr ""
-"Стандартне встановлення %s включає мінімальний набір програм. Підтримку яки "
+"Стандартне встановлення %s включає мінімальний набір програм. Підтримку яких "
 "додаткових задач потрібно увімкнути?"
 
 #: installclasses/rhel.py:52
@@ -2379,7 +2379,7 @@ msgstr "Потрібно обрати принаймні один жорстки
 
 #: iw/cleardisks_gui.py:54
 msgid "You must select one drive to boot from."
-msgstr "Необхідно диск, з якого відбуватиметься завантаженння."
+msgstr "Необхідно обрати диск, з якого відбуватиметься завантаження."
 
 #: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:446
 #: iw/filter_gui.py:457 iw/filter_gui.py:487
@@ -3871,7 +3871,7 @@ msgstr "Розмір фалу підкачки повинен бути між 1 
 #: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:189
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr "На пристрої, який ви вибрали для розділу підкачки, невистачає місця."
+msgstr "На пристрої, який ви вибрали для розділу підкачки, бракує місця."
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
 msgid "Network Install Required"
@@ -4706,7 +4706,7 @@ msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
-"за допомогою блимання світлового індикатора протягом вказаного проміжкучасу. "
+"за допомогою блимання світлового індикатора протягом вказаного проміжку часу. "
 "Введіть число у діапазоні 1-30, яку визначить інтервал у секундах."
 
 #: loader/net.c:1869
@@ -5114,7 +5114,7 @@ msgstr ""
 "     %s\n"
 "\n"
 "є розділом підкачки Linux старого типу.  Якщо ви хочете використовувати цей "
-"пристрій для підкачкитреба переформатувати його у розділ підкачки Linux "
+"пристрій для підкачки треба переформатувати його у розділ підкачки Linux "
 "нового типу."
 
 #: storage/__init__.py:1832
@@ -5392,7 +5392,7 @@ msgstr "Скасування e2fsck за вимогою користувача."
 
 #: storage/formats/fs.py:865
 msgid "Shared library error."
-msgstr "Помилка у спільній бібілотеці."
+msgstr "Помилка у спільній бібліотеці."
 
 #: storage/formats/fs.py:1024
 msgid ""
@@ -6579,7 +6579,7 @@ msgid ""
 "network."
 msgstr ""
 "Вкажіть для цього комп'ютера назву вузла, яка буде використовуватись для "
-"його ідентіфикації у мережі."
+"його ідентифікації у мережі."
 
 #: ui/tasksel.glade.h:1
 msgid "Customize _later"
