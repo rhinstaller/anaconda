@@ -29,6 +29,7 @@ from DeviceSelector import *
 from baseudev import *
 from constants import *
 from iw_gui import *
+from storage.devices import devicePathToName
 from storage.udev import *
 from storage.devicelibs.mpath import *
 from flags import flags
@@ -39,17 +40,17 @@ import storage.zfcp
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-DEVICE_COL = 3
-MODEL_COL = 4
-CAPACITY_COL = 5
-VENDOR_COL = 6
-INTERCONNECT_COL = 7
-SERIAL_COL = 8
-ID_COL = 9
-PATHS_COL = 10
-PORT_COL = 11
-TARGET_COL = 12
-LUN_COL = 13
+DEVICE_COL = 4
+MODEL_COL = 5
+CAPACITY_COL = 6
+VENDOR_COL = 7
+INTERCONNECT_COL = 8
+SERIAL_COL = 9
+ID_COL = 10
+PATHS_COL = 11
+PORT_COL = 12
+TARGET_COL = 13
+LUN_COL = 14
 
 # This is kind of a magic class that is used for populating the device store.
 # It mostly acts like a list except for some funny behavior on adding/getting.
@@ -152,7 +153,7 @@ class Callbacks(object):
         # visibility function, though they should also take a look at this
         # one to see what the model says.
         return self.isMember(model.get_value(iter, OBJECT_COL)) and \
-               model.get_value(iter, 1)
+               model.get_value(iter, VISIBLE_COL)
 
 class RAIDCallbacks(Callbacks):
     def isMember(self, info):
@@ -307,7 +308,7 @@ class SearchCallbacks(FilteredCallbacks):
         return True
 
     def visible(self, model, iter, view):
-        if not model.get_value(iter, 1):
+        if not model.get_value(iter, VISIBLE_COL):
             return False
 
         if self.filtering:
@@ -532,11 +533,12 @@ class FilterWindow(InstallWindow):
         # unused much of the time.  Oh well.
 
         # Object,
-        # visible, active (checked),
+        # visible, active (checked), immutable,
         # device, model, capacity, vendor, interconnect, serial number, wwid
         # paths, port, target, lun
         self.store = gtk.TreeStore(gobject.TYPE_PYOBJECT,
                                    gobject.TYPE_BOOLEAN, gobject.TYPE_BOOLEAN,
+                                   gobject.TYPE_BOOLEAN,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING,
@@ -624,8 +626,19 @@ class FilterWindow(InstallWindow):
                     selectedDevices += 1
                     selectedSize += tuple[0]["XXX_SIZE"]
 
+        def _isProtected(info):
+            protectedNames = map(udev_resolve_devspec, self.anaconda.protected)
+
+            sysfs_path = udev_device_get_sysfs_path(info)
+            for protected in protectedNames:
+                _p = "/sys/%s/%s" % (sysfs_path, protected)
+                if os.path.exists(os.path.normpath(_p)):
+                    return True
+
+            return False
+
         def _active(name):
-            if activeByDefault:
+            if activeByDefault or _isProtected(info):
                 return True
 
             if self.anaconda.id.storage.exclusiveDisks and \
@@ -662,7 +675,7 @@ class FilterWindow(InstallWindow):
             else:
                 ident = udev_device_get_wwid(d)
 
-            tuple = (d, True, _active(name), name,
+            tuple = (d, True, _active(d), _isProtected(d), name,
                      partedDevice.model, str(d["XXX_SIZE"]) + " MB",
                      udev_device_get_vendor(d), udev_device_get_bus(d),
                      udev_device_get_serial(d), ident, "", "", "", "")
@@ -698,8 +711,8 @@ class FilterWindow(InstallWindow):
                         "DM_NAME": rs.name, "name": rs.name}
 
                 model = "BIOS RAID set (%s)" % rs.rs.set_type
-                tuple = (data, True, _active(rs.name), rs.name, model,
-                         str(size) + " MB", "", "", "", "", "", "", "", "")
+                tuple = (data, True, _active(rs.name), _isProtected(d), rs.name,
+                         model, str(size) + " MB", "", "", "", "", "", "", "", "")
                 _addTuple(tuple)
 
             unused_raidmembers = []
@@ -723,7 +736,7 @@ class FilterWindow(InstallWindow):
             # However, we do need all the paths making up this multipath set.
             paths = "\n".join(map(udev_device_get_name, mpath))
 
-            tuple = (mpath[0], True, _active(name),
+            tuple = (mpath[0], True, _active(mpath[0]), _isProtected(mpath[0]),
                      udev_device_get_multipath_name(mpath[0]), model,
                      str(mpath[0]["XXX_SIZE"]) + " MB",
                      udev_device_get_vendor(mpath[0]),
