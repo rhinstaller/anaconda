@@ -31,6 +31,7 @@ import os
 import isys
 from storage import mountExistingSystem
 from installinterfacebase import InstallInterfaceBase
+from add_drive_text import addDriveDialog
 import iutil
 import shutil
 import time
@@ -288,16 +289,21 @@ def runRescue(anaconda, instClass):
                   "%s.  You can then make any changes required to your "
                   "system.  If you want to proceed with this step choose "
                   "'Continue'.  You can also choose to mount your file systems "
-                  "read-only instead of read-write by choosing 'Read-Only'."
+                  "read-only instead of read-write by choosing 'Read-Only'.  "
+                  "If you need to activate SAN devices choose 'Advanced'."
                   "\n\n"
                   "If for some reason this process fails you can choose 'Skip' "
                   "and this step will be skipped and you will go directly to a "
                   "command shell.\n\n") % (anaconda.rootPath,),
-                  [_("Continue"), _("Read-Only"), _("Skip")] )
+                  [_("Continue"), _("Read-Only"), _("Skip"), _("Advanced")] )
 
             if rc == string.lower(_("Skip")):
                 runShell(screen)
                 sys.exit(0)
+            elif rc == string.lower(_("Advanced")):
+                addDialog = addDriveDialog(anaconda)
+                addDialog.addDriveDialog(screen)
+                continue
             elif rc == string.lower(_("Read-Only")):
                 readOnly = 1
             else:
