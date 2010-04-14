@@ -281,26 +281,28 @@ def runRescue(anaconda, instClass):
     else:
         # prompt to see if we should try and find root filesystem and mount
         # everything in /etc/fstab on that root
-        rc = ButtonChoiceWindow(screen, _("Rescue"),
-            _("The rescue environment will now attempt to find your "
-              "Linux installation and mount it under the directory "
-              "%s.  You can then make any changes required to your "
-              "system.  If you want to proceed with this step choose "
-              "'Continue'.  You can also choose to mount your file systems "
-              "read-only instead of read-write by choosing 'Read-Only'."
-              "\n\n"
-              "If for some reason this process fails you can choose 'Skip' "
-              "and this step will be skipped and you will go directly to a "
-              "command shell.\n\n") % (anaconda.rootPath,),
-              [_("Continue"), _("Read-Only"), _("Skip")] )
+        while True:
+            rc = ButtonChoiceWindow(screen, _("Rescue"),
+                _("The rescue environment will now attempt to find your "
+                  "Linux installation and mount it under the directory "
+                  "%s.  You can then make any changes required to your "
+                  "system.  If you want to proceed with this step choose "
+                  "'Continue'.  You can also choose to mount your file systems "
+                  "read-only instead of read-write by choosing 'Read-Only'."
+                  "\n\n"
+                  "If for some reason this process fails you can choose 'Skip' "
+                  "and this step will be skipped and you will go directly to a "
+                  "command shell.\n\n") % (anaconda.rootPath,),
+                  [_("Continue"), _("Read-Only"), _("Skip")] )
 
-        if rc == string.lower(_("Skip")):
-            runShell(screen)
-            sys.exit(0)
-        elif rc == string.lower(_("Read-Only")):
-            readOnly = 1
-        else:
-            readOnly = 0
+            if rc == string.lower(_("Skip")):
+                runShell(screen)
+                sys.exit(0)
+            elif rc == string.lower(_("Read-Only")):
+                readOnly = 1
+            else:
+                readOnly = 0
+            break
 
     import storage
     storage.storageInitialize(anaconda)
