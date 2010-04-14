@@ -49,6 +49,9 @@ class DASD:
         self._maxFormatJobs = 0
         self.started = False
 
+    def __call__(self):
+        return self
+
     def startup(self, *args, **kwargs):
         """ Look for any unformatted DASDs in the system and offer the user
             the option for format them with dasdfmt or exit the installer.
@@ -199,5 +202,8 @@ class DASD:
                     break
 
         return self._totalCylinders
+
+# Create DASD singleton
+DASD = DASD()
 
 # vim:tw=78:ts=4:et:sw=4
