@@ -175,6 +175,7 @@ class addDriveDialog(object):
         iname = entries[1].strip()
         if not storage.iscsi.iscsi().initiatorSet:
             storage.iscsi.iscsi().initiator = iname
-        storage.iscsi.iscsi().addTarget(ip, port, user, pw, user_in, pw_in)
+        storage.iscsi.iscsi().addTarget(ip, port, user, pw, user_in, pw_in,
+                                        intf=self.anaconda.intf)
 
         return INSTALL_OK
