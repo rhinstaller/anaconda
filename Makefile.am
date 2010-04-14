@@ -23,8 +23,8 @@ SUBDIRS = isys po loader booty storage textw utils scripts bootdisk \
           installclasses iw command-stubs ui docs pixmaps tests fonts \
           gptsync liveinst
 
-EXTRA_DIST = config.rpath COPYING pychecker-false-positives \
-             pycheckrc-for-anaconda runpychecker.sh lang-table \
+EXTRA_DIST = config.rpath COPYING \
+             lang-table \
              anaconda.spec.in
 
 MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
@@ -58,8 +58,6 @@ xutils_la_SOURCES     = xutils.c
 anacondadir     = $(pkgpyexecdir)
 anaconda_PYTHON = *.py
 
-PYCHECKERPATH = isys:textw:iw:installclasses:/usr/share/system-config-date
-PYCHECKEROPTS = -F pycheckrc-for-anaconda
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
 sed_verbose = $(sed_verbose_$(V))
@@ -96,12 +94,6 @@ release: archive
 src: archive
 	@rpmbuild -ts --nodeps $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.bz2 || exit 1
 	@rm -f $(PACKAGE_NAME)-$(PACKAGE_VERSION).tar.bz2
-
-pycheck:
-	PYTHONPATH=$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) *.py textw/*.py iw/*.py installclasses/*.py storage/*.py | grep -v "__init__() not called"
-
-pycheck-file:
-	PYTHONPATH=.:$(PYCHECKERPATH) pychecker $(PYCHECKEROPTS) $(CHECK) | grep -v "__init__() not called"
 
 api:
 	doxygen docs/api.cfg
