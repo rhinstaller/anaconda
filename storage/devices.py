@@ -2424,7 +2424,7 @@ class MDRaidArrayDevice(StorageDevice):
             raise ValueError, P_("A RAID%d set requires at least %d member",
                                  "A RAID%d set requires at least %d members",
                                  mdraid.get_raid_min_members(self.level)) % \
-                                 self.level, mdraid.get_raid_min_members(self.level)
+                                 (self.level, mdraid.get_raid_min_members(self.level))
 
         self.uuid = uuid
         self._totalDevices = numeric_type(totalDevices)

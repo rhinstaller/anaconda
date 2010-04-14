@@ -28,7 +28,9 @@
 #            Matt Wilson <msw@rpath.com>
 #
 
-import os, time
+import os, time, string
+import iutil
+import isys
 from tempfile import mkstemp
 
 import logging
@@ -82,6 +84,7 @@ class Anaconda(object):
         self.upgradeRoot = None
         self.upgradeSwapInfo = None
         self._users = None
+        self.mehConfig = None
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
@@ -220,6 +223,7 @@ class Anaconda(object):
             try:
                 from gui import InstallInterface
             except Exception, e:
+                from flags import flags
                 stdoutLog.error("Exception starting GUI installer: %s" %(e,))
                 # if we're not going to really go into GUI mode, we need to get
                 # back to vc1 where the text install is going to pop up.
@@ -325,9 +329,9 @@ class Anaconda(object):
         f.write("#version=%s\n" % versionToString(DEVEL))
 
         if self.upgrade:
-            f.write("upgrade\n");
+            f.write("upgrade\n")
         else:
-            f.write("install\n");
+            f.write("install\n")
 
         m = None
 

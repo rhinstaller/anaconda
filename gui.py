@@ -1373,6 +1373,7 @@ class InstallControlWindow:
         self.currentWindow = None
         self.anaconda = anaconda
         self.handle = None
+        self.window = None
 
     def keyRelease (self, window, event):
         if ((event.keyval == gtk.keysyms.KP_Delete
