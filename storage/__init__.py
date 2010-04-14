@@ -96,7 +96,7 @@ def storageInitialize(anaconda):
                 anaconda.intf.messageWindow(_("Unknown Device"),
                     _("The installation source given by device %s "
                       "could not be found.  Please check your "
-                      "parameters and try again.") % devspec,
+                      "parameters and try again.") % anaconda.protected,
                     type="custom", custom_buttons = [_("_Exit installer")])
                 sys.exit(1)
     else:
