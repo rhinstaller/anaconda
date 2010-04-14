@@ -1149,8 +1149,8 @@ class Request(object):
 
     def __str__(self):
         s = ("%(type)s instance --\n"
-             "id = %(id)s  name = %(name)s  growable = %(growable)\n"
-             "base = %(base)d  growth = %(grow)d  max_grow = %(max_grow)d\n"
+             "id = %(id)s  name = %(name)s  growable = %(growable)s\n"
+             "base = %(base)d  growth = %(growth)d  max_grow = %(max_grow)d\n"
              "done = %(done)s" %
              {"type": self.__class__.__name__, "id": self.id,
               "name": self.partition.name, "growable": self.growable,

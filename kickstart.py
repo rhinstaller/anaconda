@@ -165,7 +165,7 @@ def getEscrowCertificate(anaconda, url):
             anaconda.intf.kickstartErrorWindow(msg)
             sys.exit(1)
         else:
-            stderrLog.critical(msg)
+            stdoutLog.critical(msg)
             sys.exit(1)
 
     try:
