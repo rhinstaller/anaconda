@@ -219,6 +219,26 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Apr 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.27-1
+- Simplify HWADDR removal check on s390x (dcantrell)
+  Resolves: rhbz#546005
+- Set minswap suggestion on s390x to 1 (dcantrell).
+  Resolves: rhbz#466289
+- Check for and offer to format unformatted DASD devices (dcantrell).
+  Resolves: rhbz#560702
+- Add /sbin/reboot and /sbin/halt to s390 initrd.img (dcantrell)
+  Resolves: rhbz#571370
+- Do not append "rhgb quiet" to s390 boot loader config (dcantrell)
+  Resolves: rhbz#570743
+- filter_gui.py: fixup isProtected changes for biosraid and mpath (clumens)
+  Resolves: rhbz#582418
+- Show protected devices in the filter UI, but make them immutable (clumens).
+  Resolves: rhbz#582380
+- Turn protected devices into a property on the Anaconda object (clumens)
+  Related: rhbz#582380
+- Don't make UEFI boot media for i386 (pjones)
+  Resolves: rhbz#576580
+
 * Tue Apr 13 2010 David Cantrell <dcantrell@redhat.com> - 13.21.26-1
 - Write an AUTO ... line to mdadm.conf (hdegoede)
   Resolves: rhbz#581984
