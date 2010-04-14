@@ -147,10 +147,12 @@ def setupPythonUpdates():
                                                                         f),
                                "/tmp/updates/%s/%s" %(pypkg, f))
 
-    if os.access("/tmp/updates/70-anaconda.rules", os.R_OK):
-        import shutil
-        shutil.copyfile("/tmp/updates/70-anaconda.rules",
-                        "/etc/udev/rules.d/70-anaconda.rules")
+
+    import glob
+    import shutil
+    for rule in glob.glob("/tmp/updates/*.rules"):
+        target = "/etc/udev/rules.d/" + rule.split('/')[-1]
+        shutil.copyfile(rule, target)
 
 def parseOptions():
     def resolution_cb (option, opt_str, value, parser):
