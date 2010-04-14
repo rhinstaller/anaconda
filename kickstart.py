@@ -192,7 +192,7 @@ def deviceMatches(spec):
 
 # Remove any existing formatting on a device, but do not remove the partition
 # itself.  This sets up an existing device to be used in a --onpart option.
-def removeExistingFormat(device, devicetree):
+def removeExistingFormat(device, storage):
     deps = storage.deviceDeps(device)
     while deps:
         leaves = [d for d in deps if d.isleaf]
@@ -200,7 +200,7 @@ def removeExistingFormat(device, devicetree):
             storage.destroyDevice(leaf)
             deps.remove(leaf)
 
-    devicetree.registerAction(ActionDestroyFormat(device))
+    storage.devicetree.registerAction(ActionDestroyFormat(device))
 
 ###
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
@@ -489,7 +489,7 @@ class LogVolData(commands.logvol.F12_LogVolData):
             if not device:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent LV %s in logvol command" % self.name)
 
-            removeExistingFormat(device, devicetree)
+            removeExistingFormat(device, storage)
             devicetree.registerAction(ActionCreateFormat(device, format))
         else:
             # If a previous device has claimed this mount point, delete the
@@ -759,7 +759,7 @@ class PartitionData(commands.partition.F12_PartData):
             if not device:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent partition %s in partition command" % self.onPart)
 
-            removeExistingFormat(device, devicetree)
+            removeExistingFormat(device, storage)
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
         else:
             # If a previous device has claimed this mount point, delete the
@@ -901,7 +901,7 @@ class RaidData(commands.raid.F12_RaidData):
             if not device:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specifeid nonexistent RAID %s in raid command" % devicename)
 
-            removeExistingFormat(device, devicetree)
+            removeExistingFormat(device, storage)
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
         else:
             # If a previous device has claimed this mount point, delete the
