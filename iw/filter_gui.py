@@ -36,6 +36,7 @@ from flags import flags
 import storage.iscsi
 import storage.fcoe
 import storage.zfcp
+import storage.dasd
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -547,8 +548,7 @@ class FilterWindow(InstallWindow):
         storage.iscsi.iscsi().startup(anaconda.intf)
         storage.fcoe.fcoe().startup(anaconda.intf)
         storage.zfcp.ZFCP().startup()
-        # Note we do NOT call dasd.startup() here, that does not online drives,
-        # but only checks if they need formatting.
+        storage.dasd.DASD().startup(anaconda.intf)
         disks = filter(udev_device_is_disk, udev_get_block_devices())
         (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
 
