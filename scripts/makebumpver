@@ -38,6 +38,18 @@ class MakeBumpVer:
         self.password = None
         self.bz = None
 
+        authfile = os.path.realpath(os.getenv('HOME') + '/.rhbzauth')
+        if os.path.isfile(authfile):
+            f = open(authfile, 'r')
+            lines = map(lambda x: x.strip(), f.readlines())
+            f.close()
+
+            for line in lines:
+                if line.startswith('RHBZ_USER='):
+                    self.username = line[10:].strip('"\'')
+                elif line.startswith('RHBZ_PASSWORD='):
+                    self.password = line[14:].strip('"\'')
+
         self.gituser = self._gitConfig('user.name')
         self.gitemail = self._gitConfig('user.email')
 
