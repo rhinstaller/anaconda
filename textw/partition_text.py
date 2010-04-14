@@ -27,6 +27,9 @@ import string
 import copy
 import network
 import parted
+import storage.iscsi
+import storage.fcoe
+import storage.zfcp
 from partIntfHelpers import *
 from snack import *
 from constants_text import *
@@ -157,13 +160,11 @@ class PartitionTypeWindow:
 
     def addDriveDialog(self, screen):
         newdrv = []
-        from storage import iscsi
-        if iscsi.has_iscsi():
+        if storage.iscsi.has_iscsi():
             newdrv.append("Add iSCSI target")
         if iutil.isS390():
             newdrv.append( "Add zFCP LUN" )
-        from storage import fcoe
-        if fcoe.has_fcoe():
+        if storage.fcoe.has_fcoe():
             newdrv.append("Add FCoE SAN")
 
         if len(newdrv) == 0:
@@ -212,7 +213,7 @@ class PartitionTypeWindow:
         wwpn = entries[1].strip()
         fcplun = entries[2].strip()
         try:
-            self.anaconda.storage.zfcp.addFCP(devnum, wwpn, fcplun)
+            storage.zfcp.ZFCP().addFCP(devnum, wwpn, fcplun)
         except ValueError, e:
             log.warn(str(e)) # alternatively popup error dialog instead
                                         
@@ -262,8 +263,8 @@ class PartitionTypeWindow:
         nic = interfaceList.current()
         dcb = dcbCheckbox.selected()
 
-        self.anaconda.storage.fcoe.addSan(nic=nic, dcb=dcb,
-                                          intf=self.anaconda.intf)
+        storage.fcoe.fcoe().addSan(nic=nic, dcb=dcb,
+                                   intf=self.anaconda.intf)
 
         screen.popWindow()
         return INSTALL_OK
@@ -313,9 +314,8 @@ class PartitionTypeWindow:
             raise ValueError, msg
 
         iname = entries[1].strip()
-        if not self.anaconda.storage.iscsi.initiatorSet:
-            self.anaconda.storage.iscsi.initiator = iname
-        self.anaconda.storage.iscsi.addTarget(ip, port, user, pw,
-                                              user_in, pw_in)
-                                        
+        if not storage.iscsi.iscsi().initiatorSet:
+            storage.iscsi.iscsi().initiator = iname
+        storage.iscsi.iscsi().addTarget(ip, port, user, pw, user_in, pw_in)
+
         return INSTALL_OK
