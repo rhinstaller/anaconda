@@ -372,6 +372,45 @@ def clearPartitions(storage):
     # now remove any empty extended partitions
     removeEmptyExtendedPartitions(storage)
 
+    _platform = storage.anaconda.platform
+
+    # make sure that the the boot device has the correct disklabel type if
+    # we're going to completely clear it.
+    for disk in storage.partitioned:
+        if not storage.anaconda.id.bootloader.drivelist:
+            break
+
+        if disk.name != storage.anaconda.id.bootloader.drivelist[0]:
+            continue
+
+        if storage.clearPartType != CLEARPART_TYPE_ALL or \
+           (storage.clearPartDisks and disk.name not in storage.clearPartDisks):
+            continue
+
+        # don't reinitialize the disklabel if the disk contains install media
+        if filter(lambda p: p.dependsOn(disk), storage.protectedDevices):
+            continue
+
+        nativeLabelType = _platform.diskLabelType(disk.partedDevice.type)
+        if disk.format.labelType == nativeLabelType:
+            continue
+
+        if disk.format.labelType == "mac":
+            # remove the magic apple partition
+            for part in storage.partitions:
+                if part.disk == disk and part.partedPartition.number == 1:
+                    log.debug("clearing %s" % part.name)
+                    # We can't schedule the apple map partition for removal
+                    # because parted will not allow us to remove it from the
+                    # disk. Still, we need it out of the devicetree.
+                    storage.devicetree._removeDevice(part, moddisk=False)
+
+        destroy_action = ActionDestroyFormat(disk)
+        newLabel = getFormat("disklabel", device=disk.path)
+        create_action = ActionCreateFormat(disk, format=newLabel)
+        storage.devicetree.registerAction(destroy_action)
+        storage.devicetree.registerAction(create_action)
+
 def removeEmptyExtendedPartitions(storage):
     for disk in storage.partitioned:
         log.debug("checking whether disk %s has an empty extended" % disk.name)
