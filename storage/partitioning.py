@@ -926,7 +926,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
         req_disks.sort(key=lambda d: d.name, cmp=storage.compareDisks)
         boot_index = None
         for disk in req_disks:
-            if disk.name == storage.anaconda.id.bootloader.drivelist[0]:
+            if disk.name == storage.anaconda.bootloader.drivelist[0]:
                 boot_index = req_disks.index(disk)
 
         if boot_index is not None and len(req_disks) > 1:
