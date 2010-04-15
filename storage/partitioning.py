@@ -943,10 +943,21 @@ def allocatePartitions(storage, disks, partitions, freespace):
             # no disks specified means any disk will do
             req_disks = disks
 
+        # sort the disks, making sure the boot disk is first
         req_disks.sort(key=lambda d: d.name, cmp=storage.compareDisks)
+        boot_index = None
+        for disk in req_disks:
+            if disk.name == storage.anaconda.id.bootloader.drivelist[0]:
+                boot_index = req_disks.index(disk)
+
+        if boot_index is not None and len(req_disks) > 1:
+            boot_disk = req_disks.pop(boot_index)
+            req_disks.insert(0, boot_disk)
+
         log.debug("allocating partition: %s ; id: %d ; disks: %s ;\n"
                   "boot: %s ; primary: %s ; size: %dMB ; grow: %s ; "
-                  "max_size: %s" % (_part.name, _part.id, req_disks,
+                  "max_size: %s" % (_part.name, _part.id,
+                                    [d.name for d in req_disks],
                                     _part.req_bootable, _part.req_primary,
                                     _part.req_size, _part.req_grow,
                                     _part.req_max_size))
