@@ -1,7 +1,7 @@
 #
 # rhel.py
 #
-# Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2010  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,84 +23,38 @@ from product import *
 from flags import flags
 import os
 import types
-import iutil
-
-import gettext
-_ = lambda x: gettext.ldgettext("anaconda", x)
 
 import installmethod
 import yuminstall
 
-import rpmUtils.arch
-
-class InstallClass(BaseInstallClass):
+class RHELInstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
-    _description = N_("The default installation of %s is a minimal install. "
-                      "You can optionally select a different set of software "
-                      "now.")
+    _description = N_("The default installation of %s is a minimum install. "
+                     "You can optionally select a different set of software "
+                     "now.")
     _descriptionFields = (productName,)
     sortPriority = 10000
-    if not productName.startswith("Red Hat Enterprise"):
-        hidden = 1
+    hidden = 1
 
     bootloaderTimeoutDefault = 5
     bootloaderExtraArgs = "crashkernel=auto"
 
-    tasks = [(N_("Minimal"), ["core"]),
-             (N_("Desktop"),
-              ["backup-client", "base", "compat-libraries", "console-internet",
-               "debugging", "directory-client", "fonts",
-               "legacy-unix", "core", "network-file-system-client",
-               "network-tools", "print-client", "virtualization", "vpn",
-               "basic-desktop", "desktop-debugging", "desktop-platform",
-               "general-desktop", "graphical-admin-tools", "input-methods",
-               "legacy-x", "x11","office-suite", "graphics",
-               "virtualization-client"]),
-             (N_("Software Development"),
-              ["backup-client", "base", "compat-libraries", "console-internet",
-               "debugging", "directory-client", "fonts",
-               "legacy-unix", "core", "network-file-system-client",
-               "network-tools", "print-client", "virtualization", "vpn",
-               "basic-desktop", "desktop-debugging", "desktop-platform",
-               "general-desktop", "graphical-admin-tools", "input-methods",
-               "legacy-x", "x11", "virtualization-client", "emacs", "tex",
-               "desktop-platform-devel", "development", "eclipse",
-               "server-platform-devel", "technical-writing"]),
-             (N_("Web Server"),
-              ["backup-client", "base", "compat-libraries", "console-internet",
-               "debugging", "directory-client", "legacy-unix",
-               "core", "network-file-system-client", "network-tools",
-               "web-server", "additional-web-server", "server-platform",
-               "mysql", "php", "postgresql", "rails", "turbogears",
-               "system-admin-tools"]),
-             (N_("Advanced Server"),
-              ["backup-client", "base", "compat-libraries", "console-internet",
-               "debugging", "directory-client", "legacy-unix",
-               "core", "network-file-system-client", "network-tools",
-               "web-server", "server-platform",
-               "mysql", "php", "postgresql", "rails", "turbogears",
-               "cifs-file-server", "clustering", "clustered-storage",
-               "directory-server", "mail-server", "ftp-server",
-               "network-server", "nfs-file-server", "print-server",
-               "system-admin-tools"])]
+    tasks = [(N_("Minimal"),
+              ["core"])]
 
     def getPackagePaths(self, uri):
         if not type(uri) == types.ListType:
             uri = [uri,]
 
-        return {'Installation Repo': uri}
+        return {productName: uri}
 
-    def configure(self, anaconda):
-        BaseInstallClass.configure(self, anaconda)
+    def setInstallData(self, anaconda):
+        BaseInstallClass.setInstallData(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self,
-                                                anaconda.storage,
+                                                anaconda.id.storage,
                                                 anaconda.platform)
-
-    def setGroupSelection(self, anaconda):
-        BaseInstallClass.setGroupSelection(self, anaconda)
-        map(lambda x: anaconda.backend.selectGroup(x), ["core"])
 
     def setSteps(self, anaconda):
         BaseInstallClass.setSteps(self, anaconda)
