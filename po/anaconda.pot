@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.26\n"
+"Project-Id-Version: anaconda 13.21.27\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-04-14 12:38-1000\n"
+"POT-Creation-Date: 2010-04-15 12:29-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:360 rescue.py:332 rescue.py:358 rescue.py:371 rescue.py:447
-#: rescue.py:459 text.py:654 loader/cdinstall.c:228 loader/cdinstall.c:232
+#: anaconda:360 rescue.py:348 rescue.py:374 rescue.py:387 rescue.py:463
+#: rescue.py:475 text.py:654 loader/cdinstall.c:228 loader/cdinstall.c:232
 #: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:427
 #: loader/cdinstall.c:431 loader/cdinstall.c:504 loader/dirbrowser.c:128
 #: loader/driverdisk.c:266 loader/driverdisk.c:421 loader/driverdisk.c:459
@@ -134,10 +134,8 @@ msgstr ""
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:329 loader/urls.c:335
 #: storage/__init__.py:203 storage/__init__.py:1780 storage/__init__.py:1867
-#: textw/netconfig_text.py:282 textw/partition_text.py:186
-#: textw/partition_text.py:192 textw/partition_text.py:198
-#: textw/partition_text.py:227 textw/partition_text.py:273
-#: textw/upgrade_text.py:179 textw/upgrade_text.py:186
+#: textw/netconfig_text.py:282 textw/upgrade_text.py:179
+#: textw/upgrade_text.py:186
 msgid "Error"
 msgstr ""
 
@@ -587,7 +585,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: kickstart.py:149 rescue.py:248 yuminstall.py:684 yuminstall.py:1155
+#: kickstart.py:149 rescue.py:257 yuminstall.py:684 yuminstall.py:1155
 #: iw/task_gui.py:305
 msgid "No Network Available"
 msgstr ""
@@ -1133,91 +1131,96 @@ msgstr ""
 msgid "%s must have a mac disk label."
 msgstr ""
 
-#: rescue.py:207
+#: rescue.py:216
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
-#: rescue.py:221
+#: rescue.py:230
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr ""
 
-#: rescue.py:240
+#: rescue.py:249
 msgid "Setup Networking"
 msgstr ""
 
-#: rescue.py:241
+#: rescue.py:250
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: rescue.py:242 loader/driverdisk.c:665 loader/driverdisk.c:675
+#: rescue.py:251 loader/driverdisk.c:665 loader/driverdisk.c:675
 #: loader/hdinstall.c:206 textw/constants_text.py:56
 msgid "Yes"
 msgstr ""
 
-#: rescue.py:242 rescue.py:244 loader/driverdisk.c:665 loader/driverdisk.c:675
+#: rescue.py:251 rescue.py:253 loader/driverdisk.c:665 loader/driverdisk.c:675
 #: textw/constants_text.py:60
 msgid "No"
 msgstr ""
 
-#: rescue.py:249
+#: rescue.py:258
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
 msgstr ""
 
-#: rescue.py:284 rescue.py:353 rescue.py:364 rescue.py:442
+#: rescue.py:294 rescue.py:369 rescue.py:380 rescue.py:458
 msgid "Rescue"
 msgstr ""
 
-#: rescue.py:285
+#: rescue.py:295
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
 "your system.  If you want to proceed with this step choose 'Continue'.  You "
 "can also choose to mount your file systems read-only instead of read-write "
-"by choosing 'Read-Only'.\n"
+"by choosing 'Read-Only'.  If you need to activate SAN devices choose "
+"'Advanced'.\n"
 "\n"
 "If for some reason this process fails you can choose 'Skip' and this step "
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
 
-#: rescue.py:295 iw/partition_gui.py:781 loader/cdinstall.c:206
+#: rescue.py:306 iw/partition_gui.py:781 loader/cdinstall.c:206
 #: loader/cdinstall.c:214 loader/driverdisk.c:626 storage/__init__.py:145
 #: storage/devicetree.py:90
 msgid "Continue"
 msgstr ""
 
-#: rescue.py:295 rescue.py:300
+#: rescue.py:306 rescue.py:315
 msgid "Read-Only"
 msgstr ""
 
-#: rescue.py:295 rescue.py:297 loader/cdinstall.c:248 loader/cdinstall.c:251
+#: rescue.py:306 rescue.py:308 loader/cdinstall.c:248 loader/cdinstall.c:251
 #: loader/method.c:324 storage/__init__.py:1779 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr ""
 
-#: rescue.py:329
+#: rescue.py:306 rescue.py:311
+msgid "Advanced"
+msgstr ""
+
+#: rescue.py:345
 msgid "System to Rescue"
 msgstr ""
 
-#: rescue.py:330
+#: rescue.py:346
 msgid "Which device holds the root partition of your installation?"
 msgstr ""
 
-#: rescue.py:332 rescue.py:336 text.py:624 text.py:626
+#: rescue.py:348 rescue.py:352 text.py:624 text.py:626
 msgid "Exit"
 msgstr ""
 
-#: rescue.py:354
+#: rescue.py:370
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:365
+#: rescue.py:381
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -1230,7 +1233,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:443
+#: rescue.py:459
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1240,21 +1243,21 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: rescue.py:452
+#: rescue.py:468
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr ""
 
-#: rescue.py:455
+#: rescue.py:471
 msgid "Rescue Mode"
 msgstr ""
 
-#: rescue.py:456
+#: rescue.py:472
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:469
+#: rescue.py:485
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr ""
@@ -1797,19 +1800,19 @@ msgstr ""
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:1938
+#: yuminstall.py:1939
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:1939
+#: yuminstall.py:1940
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:1977
+#: yuminstall.py:1978
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:1978
+#: yuminstall.py:1979
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
@@ -4642,23 +4645,23 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1255 storage/devices.py:1922 storage/devices.py:2325
-#: storage/devices.py:2796 storage/devices.py:3278
+#: storage/devices.py:1270 storage/devices.py:1940 storage/devices.py:2343
+#: storage/devices.py:2814 storage/devices.py:3296
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1256 storage/devices.py:1923 storage/devices.py:2326
-#: storage/devices.py:2797
+#: storage/devices.py:1271 storage/devices.py:1941 storage/devices.py:2344
+#: storage/devices.py:2815
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2419
+#: storage/devices.py:2437
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3279
+#: storage/devices.py:3297
 #, python-format
 msgid "Creating file %s"
 msgstr ""
@@ -4676,7 +4679,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1847 storage/devicetree.py:1895
+#: storage/devicetree.py:1843 storage/devicetree.py:1891
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
@@ -5044,104 +5047,35 @@ msgstr ""
 msgid "Error configuring network device %s"
 msgstr ""
 
-#: textw/partition_text.py:58
+#: textw/partition_text.py:62
 msgid "Partitioning Type"
 msgstr ""
 
-#: textw/partition_text.py:60
+#: textw/partition_text.py:64
 msgid ""
 "Installation requires partitioning of your hard drive.  The default layout "
 "is suitable for most users.  Select what space to use and which drives to "
 "use as the install target."
 msgstr ""
 
-#: textw/partition_text.py:63
+#: textw/partition_text.py:67
 msgid "Use entire drive"
 msgstr ""
 
-#: textw/partition_text.py:64
+#: textw/partition_text.py:68
 msgid "Replace existing Linux system"
 msgstr ""
 
-#: textw/partition_text.py:65
+#: textw/partition_text.py:69
 msgid "Use free space"
 msgstr ""
 
-#: textw/partition_text.py:80
+#: textw/partition_text.py:84
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr ""
 
-#: textw/partition_text.py:95
+#: textw/partition_text.py:99
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-
-#: textw/partition_text.py:173 ui/adddrive.glade.h:4
-msgid "Advanced Storage Options"
-msgstr ""
-
-#: textw/partition_text.py:174 ui/adddrive.glade.h:5
-msgid "How would you like to modify your drive configuration?"
-msgstr ""
-
-#: textw/partition_text.py:203
-msgid "Add FCP Device"
-msgstr ""
-
-#: textw/partition_text.py:204 ui/zfcp-config.glade.h:5
-msgid ""
-"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
-"(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
-"Name (WWPN), and a 64 bit FCP LUN for each device."
-msgstr ""
-
-#: textw/partition_text.py:228
-msgid "No network cards present."
-msgstr ""
-
-#: textw/partition_text.py:231
-msgid "Add FCoE SAN"
-msgstr ""
-
-#: textw/partition_text.py:235
-msgid "Select which NIC is connected to the FCoE SAN."
-msgstr ""
-
-#: textw/partition_text.py:251 ui/fcoe-config.glade.h:5
-msgid "Use DCB"
-msgstr ""
-
-#: textw/partition_text.py:280 ui/iscsi-config.glade.h:7
-msgid "Configure iSCSI Parameters"
-msgstr ""
-
-#: textw/partition_text.py:281 ui/iscsi-config.glade.h:8
-msgid ""
-"To use iSCSI disks, you must provide the address of your iSCSI target and "
-"the iSCSI initiator name you've configured for your host."
-msgstr ""
-
-#: textw/partition_text.py:282
-msgid "Target IP Address"
-msgstr ""
-
-#: textw/partition_text.py:283
-msgid "iSCSI Initiator Name"
-msgstr ""
-
-#: textw/partition_text.py:284
-msgid "CHAP username"
-msgstr ""
-
-#: textw/partition_text.py:285
-msgid "CHAP password"
-msgstr ""
-
-#: textw/partition_text.py:286
-msgid "Reverse CHAP username"
-msgstr ""
-
-#: textw/partition_text.py:287
-msgid "Reverse CHAP password"
 msgstr ""
 
 #: textw/progress_text.py:46
@@ -5335,6 +5269,14 @@ msgstr ""
 
 #: ui/adddrive.glade.h:3
 msgid "Add _iSCSI target"
+msgstr ""
+
+#: ui/adddrive.glade.h:4
+msgid "Advanced Storage Options"
+msgstr ""
+
+#: ui/adddrive.glade.h:5
+msgid "How would you like to modify your drive configuration?"
 msgstr ""
 
 #: ui/adddrive.glade.h:6
@@ -5603,6 +5545,10 @@ msgid ""
 "your FCoE switch."
 msgstr ""
 
+#: ui/fcoe-config.glade.h:5
+msgid "Use DCB"
+msgstr ""
+
 #: ui/fcoe-config.glade.h:6
 msgid "_Add FCoE Disk(s)"
 msgstr ""
@@ -5725,6 +5671,16 @@ msgstr ""
 
 #: ui/iscsi-config.glade.h:6
 msgid "<b>iSCSI Initiator _Name:</b>"
+msgstr ""
+
+#: ui/iscsi-config.glade.h:7
+msgid "Configure iSCSI Parameters"
+msgstr ""
+
+#: ui/iscsi-config.glade.h:8
+msgid ""
+"To use iSCSI disks, you must provide the address of your iSCSI target and "
+"the iSCSI initiator name you've configured for your host."
 msgstr ""
 
 #: ui/iscsi-config.glade.h:9
@@ -5851,6 +5807,13 @@ msgstr ""
 
 #: ui/zfcp-config.glade.h:4
 msgid "Add FCP device"
+msgstr ""
+
+#: ui/zfcp-config.glade.h:5
+msgid ""
+"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
+"(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
+"Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr ""
 
 #: lang-table.h:1
