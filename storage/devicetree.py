@@ -627,16 +627,20 @@ class DeviceTree(object):
         for device in self.devices:
             if device.partitioned:
                 device.format.resetPartedDisk()
+                if device.originalFormat.type == "disklabel" and \
+                   device.originalFormat != device.format:
+                    device.originalFormat.resetPartedDisk()
 
         # reget parted.Partition for remaining preexisting devices
         for device in self.devices:
-            if isinstance(device, PartitionDevice):
-                p = device.partedPartition
+            if isinstance(device, PartitionDevice) and device.exists:
+                device.resetPartedPartition()
 
         # reget parted.Partition for existing devices we're removing
         for action in self._actions:
-            if isinstance(action.device, PartitionDevice):
-                p = action.device.partedPartition
+            if isinstance(action.device, PartitionDevice) and \
+               action.device.exists:
+                action.device.resetPartedPartition()
 
         # setup actions to create any extended partitions we added
         #
