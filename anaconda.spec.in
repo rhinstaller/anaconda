@@ -13,6 +13,7 @@ URL:     http://fedoraproject.org/wiki/Anaconda
 # git clone http://git.fedorahosted.org/git/anaconda.git
 # git checkout -b archive-branch anaconda-%{version}-%{release}
 # ./autogen.sh
+# ./configure
 # make dist
 Source0: %{name}-%{version}.tar.bz2
 
@@ -59,7 +60,7 @@ BuildRequires: libarchive-devel
 BuildRequires: libX11-devel
 BuildRequires: libXt-devel
 BuildRequires: libXxf86misc-devel
-BuildRequires: libblkid-devel >= %{liblkid}
+BuildRequires: libblkid-devel >= %{libblkid}
 BuildRequires: libcurl-devel
 BuildRequires: libnl-devel >= %{libnlver}
 BuildRequires: libselinux-devel >= %{libselinuxver}
@@ -2941,7 +2942,7 @@ update-desktop-database &> /dev/null || :
   (rvykydal)
 - actionDestroyFormat call takes device, not format (rvykydal)
 - Fix getChildren call in partition UI (rvykydal)
-- Fix removing of devices with the same name from	tree when adding
+- Fix removing of devices with the same name from tree when adding
   create action. (rvykydal)
 - Do not duplicate requested minor number in edit raid UI list. (rvykydal)
 - Offer available partitions when editing non-preexisting raid request.
