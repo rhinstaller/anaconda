@@ -320,8 +320,9 @@ class MakeBumpVer:
                 for subline in sublines[1:]:
                     f.write("  %s\n" % subline)
 
-            for entry in rhbz:
-                f.write("  %s\n" % entry)
+            if rhbz:
+                for entry in rhbz:
+                    f.write("  %s\n" % entry)
 
         f.write("\n")
         f.writelines(bottom)
