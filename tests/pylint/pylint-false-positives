@@ -1,0 +1,34 @@
+^F0401:[ 0-9]*: Unable to import 'gtk.gdk'$
+^F0401:[ 0-9]*: Unable to import 'repomd.mdErrors'$
+^F0401:[ 0-9]*: Unable to import 'volume_key'$
+^E0601:[ 0-9]*:VolumeGroupEditor\.editLogicalVolume\.<lambda>: Using variable 'maintable' before assignment$
+^W0122:[ 0-9]*:InstallInterface\.run: Use of the exec statement$
+^E0602:[ 0-9]*:InstallInterface\.run: Undefined variable 'nextWin'$
+^E0602:[ 0-9]*:sparcBootloaderInfo\.writeSilo: Undefined variable 'butil'$
+^E1101:[ 0-9]*:.*: Class 'vbox' has no 'pack_start' member$
+^E1101:[ 0-9]*:.*: Instance of 'WideCheckList' has no 'get_model' member$
+^E1101:[ 0-9]*:.*: Instance of 'WideCheckList' has no 'get_column' member$
+^E1101:[ 0-9]*:.*: Instance of 'WideCheckList' has no 'set_expander_column' member$
+^E1101:[ 0-9]*:.*: Instance of 'WideCheckList' has no 'append_row' member$
+^E1101:[ 0-9]*:.*: Instance of 'WideCheckList' has no 'store' member$
+^E1101:[ 0-9]*:.*: Instance of 'WideCheckList' has no 'set_size_request' member$
+^E1101:[ 0-9]*:AnacondaTZMap\.selectionChanged: Instance of 'Enum' has no 'ENTRY' member$
+^E1101:[ 0-9]*:DeviceAction\..*: Instance of 'DeviceAction' has no 'dir' member$
+^E1101:[ 0-9]*:VolumeGroupEditor\.editLogicalVolume: Class 'format' has no 'mountable' member$
+^E1101:[ 0-9]*:.*checkBootRequest: Instance of 'str' has no 'name' member$
+^E1101:[ 0-9]*:rpm.*: Instance of 'TransactionSet' has no 'dbMatch' member$
+^E1101:[ 0-9]*:EntryWindow.__init__: Class 'child' has no 'pack_start' member$
+^E1101:[ 0-9]*:FilteredCallbacks\..*set: Instance of 'FilteredCallbacks' has no 'notebook' member$
+^E1101:[ 0-9]*:.*: Instance of 'dict' has no 'Get' member$
+^E1103:[ 0-9]*:.*: Instance of 'str' has no '.*' member \(but some types could not be inferred\)$
+^E1103:[ 0-9]*:execWithCapture: Instance of 'list' has no 'splitlines' member \(but some types could not be inferred\)$
+^E1103:[ 0-9]*:VncServer\.connectToView: Instance of 'list' has no 'startswith' member \(but some types could not be inferred\)$
+^E1103:[ 0-9]*:VncServer\.connectToView: Instance of 'list' has no 'endswith' member \(but some types could not be inferred\)$
+^E1103:[ 0-9]*:bindMountDevDirectory: Instance of 'DeviceFormat' has no 'mount' member \(but some types could not be inferred\)$
+^E1103:[ 0-9]*:DeviceTree.handleUdevDiskLabelFormat: Instance of 'DeviceFormat' has no 'partitions' member \(but some types could not be inferred\)$
+^W0404:[ 0-9]*:runRescue: Reimport 'runPostScripts' \(imported line [0-9]*\)$
+# Note this will become a real issue when we start supporting multiple netdevs
+^W0631:[ 0-9]*:Network.write: Using possibly undefined loop variable 'dev'$
+# Also filter out the stupid pyblock not running as root message
+^dm.c: [ 0-9]*: not running as root returning empty list$
+Note this last line must never end with a newline
