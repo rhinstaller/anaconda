@@ -220,6 +220,65 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Apr 15 2010 Chris Lumens <clumens@redhat.com> - 14.4-1
+- There is no rhbz list for non rhel branch builds. (dcantrell)
+- pylint up, pychecker down. (clumens)
+- Add a script for running pylint on anaconda (hdegoede)
+- add_drive_text: Pass interface to iscsi.addTarget (hdegoede)
+- Add a questionInitializeDisk method to the rescue interface (#582304)
+  (hdegoede)
+- Add advanced storage support to rescue mode (#571808) (hdegoede)
+- rescue.py: Put our mount / rw, ro, skip question in a loop (hdegoede)
+- Move addDriveDialog() and friends to their own class (hdegoede)
+- partition_text: Make addDriveDialog() not depend on anaconda.storage
+  (hdegoede)
+- Fix syntax error in kickstart.py (hdegoede)
+- Fix various syntax errors (hdegoede)
+- Read ~/.rhbzauth in scripts/makebumpver (dcantrell)
+- Simplify HWADDR removal check on s390x (#546005) (dcantrell)
+- Set minswap suggestion on s390x to 1 (#466289). (dcantrell)
+- Check for and offer to format unformatted DASD devices (#560702). (dcantrell)
+- Add /sbin/reboot and /sbin/halt to s390 initrd.img (#571370) (dcantrell)
+- Do not append "rhgb quiet" to s390 boot loader config (#570743) (dcantrell)
+- Increase ping timeout for gateway/dns server reachability check (#536815)
+  (dcantrell)
+- Wait on all pids, not just udevd's. (#540923) (pjones)
+- Use the new modularized anaconda path in run_test.py. (clumens)
+- Fix a mismatched kickstart command as caught by the new test case. (clumens)
+- Fix a typo. (clumens)
+- Fix "make check" to run the tests against your git checkout of anaconda.
+  (clumens)
+- Add a test case to verify that kickstart commands use the right handler.
+  (clumens)
+- filter_gui.py: fixup isProtected changes for biosraid and mpath (hdegoede)
+- Write an AUTO ... line to mdadm.conf (#537329) (hdegoede)
+- Inherit the ZFCP command from the correct pykickstart class (#581829).
+  (clumens)
+- Apply yet another translation patch (#573870). (clumens)
+- Add bug mapping support to scripts/makebumpver. (dcantrell)
+- Makefile.am syntax fixes for the 'bumpver' target. (dcantrell)
+- Fix traceback in booty when ppc /boot lives on mdraid (#555272) (hdegoede)
+- Call scripts/makebumpver from 'make bumpver' target. (dcantrell)
+- Add docs/commit-log.txt explaining git commit log policies. (dcantrell)
+- Move 'make bumpver' functionality to scripts/makebumpver (dcantrell)
+- Fix some previously difficult-to-translate strings (#573870). (clumens)
+- Default to /images/install.img if no dir is given in stage2=hd: (#528809)
+  (rvykydal)
+- Startup notification in live installer (#530908). (akozumpl)
+- init: switch back to tty1 after the installer finishes. (#577380) (akozumpl)
+- Don't segfault if proxyUser or proxyPassword are empty (#580226). (clumens)
+- yum requires the proxy settings to include a protocol (#576691). (clumens)
+- Allow using pre-existing gpt labels for /boot on non EFI x86 (#572488)
+  (hdegoede)
+- Log successful login to iscsi targets (hdegoede)
+- storage/udev.py handle iscsi ID_PATH IPV6 address containing : (#579761)
+  (hdegoede)
+- Catch errors when downloading the escrow cert (#579992). (clumens)
+- fix: mnemonics don't work in the welcome screen until user clicks. (akozumpl)
+- refactoring gui.py: setup_window() and setLanguage() are way too similar.
+  (akozumpl)
+- gui.py: removed unused parameter in setup_window() (akozumpl)
+
 * Tue Apr 06 2010 Chris Lumens <clumens@redhat.com> - 14.3-1
 - Sort partition create actions before other unpartitioned devices.
   (#574379) (dlehman)
