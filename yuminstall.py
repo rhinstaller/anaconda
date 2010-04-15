@@ -1844,6 +1844,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         for gid in grps:
             g = self.ayum.comps.return_group(gid)
             if not g:
+                log.debug("no such group %s" % (gid,))
                 return False
         return True
 
