@@ -195,8 +195,9 @@ class MakeBumpVer:
         proc = subprocess.Popen(['git', 'log', '--pretty=oneline', range],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE).communicate()
-        lines = filter(lambda x: x.find('l10n: ') == -1 and \
-                                 x.find('Merge commit') == -1,
+        lines = filter(lambda x: x.find('l10n: ') != 41 and \
+                                 x.find('Merge commit') != 41 and \
+                                 x.find('Merge branch') != 41,
                        proc[0].strip('\n').split('\n'))
 
         if self.ignore and self.ignore != '':
