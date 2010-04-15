@@ -1107,16 +1107,6 @@ class PartitionDevice(StorageDevice):
         return spec
 
     def _getPartedPartition(self):
-        if not self.exists:
-            return self._partedPartition
-
-        partitionDisk = self._partedPartition.disk.getPedDisk()
-        disklabelDisk = self.disk.format.partedDisk.getPedDisk()
-        if partitionDisk is not disklabelDisk:
-            # The disklabel's parted disk has been reset, reget our partition
-            log.debug("regetting partedPartition %s for %s because of PartedDisk reset" % (self._origPath, self.path))
-            self._setPartedPartition(self.disk.format.partedDisk.getPartitionByPath(self._origPath))
-
         return self._partedPartition
 
     def _setPartedPartition(self, partition):
@@ -1137,6 +1127,31 @@ class PartitionDevice(StorageDevice):
 
     partedPartition = property(lambda d: d._getPartedPartition(),
                                lambda d,p: d._setPartedPartition(p))
+
+    def resetPartedPartition(self):
+        """ Re-get self.partedPartition from the original disklabel. """
+        log_method_call(self, self.name)
+        if not self.exists:
+            return
+
+        # find the correct partition on the original parted.Disk since the
+        # name/number we're now using may no longer match
+        _disklabel = self.disk.originalFormat
+
+        if self.isExtended:
+            # getPartitionBySector doesn't work on extended partitions
+            _partition = _disklabel.extendedPartition
+            log.debug("extended lookup found partition %s"
+                        % devicePathToName(getattr(_partition, "path", None)))
+        else:
+            # lookup the partition by sector to avoid the renumbering
+            # nonsense entirely
+            _sector = self.partedPartition.geometry.start
+            _partition = _disklabel.partedDisk.getPartitionBySector(_sector)
+            log.debug("sector-based lookup found partition %s"
+                        % devicePathToName(getattr(_partition, "path", None)))
+
+        self.partedPartition = _partition
 
     def _getWeight(self):
         return self.req_base_weight
@@ -1341,8 +1356,11 @@ class PartitionDevice(StorageDevice):
             raise DeviceError("Cannot destroy non-leaf device", self.name)
 
         self.setupParents(orig=True)
-        self.disk.format.removePartition(self.partedPartition)
-        self.disk.format.commit()
+
+        # we should have already set self.partedPartition to point to the
+        # partition on the original disklabel
+        self.disk.originalFormat.removePartition(self.partedPartition)
+        self.disk.originalFormat.commit()
 
         self.exists = False
 

@@ -219,6 +219,11 @@ class DiskLabel(DeviceFormat):
             raise DeviceFormatError("device exists and is active")
 
         DeviceFormat.create(self, *args, **kwargs)
+
+        # We're relying on someone having called resetPartedDisk -- we
+        # could ensure a fresh disklabel by setting self._partedDisk to
+        # None right before calling self.commit(), but that might hide
+        # other problems.
         self.commit()
         self.exists = True
 
