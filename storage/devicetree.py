@@ -514,10 +514,10 @@ class DeviceTree(object):
                         ret = cmp(a2.device.name, a1.device.name)
                 elif isinstance(a1.device, PartitionDevice) and \
                      a2.device.partitioned:
-                    ret = 1
+                    ret = -1
                 elif isinstance(a2.device, PartitionDevice) and \
                      a1.device.partitioned:
-                    ret = -1
+                    ret = 1
                 else:
                     ret = 0
             elif a1.isDestroy():
@@ -555,18 +555,6 @@ class DeviceTree(object):
                 elif isinstance(a1.device, PartitionDevice) and \
                      isinstance(a2.device, PartitionDevice):
                     ret = cmp(a1.device.name, a2.device.name)
-                elif isinstance(a1.device, PartitionDevice) and \
-                     a2.device.partitioned:
-                    if a1.isGrow():
-                        ret = -1
-                    else:
-                        ret = 1
-                elif isinstance(a2.device, PartitionDevice) and \
-                     a1.device.partitioned:
-                    if a2.isGrow():
-                        ret = 1
-                    else:
-                        ret = -1
                 else:
                     ret = 0
             elif a1.isResize():
@@ -622,9 +610,13 @@ class DeviceTree(object):
                     ret = -1
                 elif isinstance(a1.device, PartitionDevice) and \
                      isinstance(a2.device, PartitionDevice):
-                    ret = cmp(a1.device.name, a2.device.name)
+                    if a1.device.disk == a2.device.disk:
+                        ret = cmp(a1.device.partedPartition.number,
+                                  a2.device.partedPartition.number)
+                    else:
+                        ret = cmp(a1.device.name, a2.device.name)
                 else:
-                    ret = cmp(a1.device.name, a2.device.name)
+                    ret = 0
             else:
                 ret = 0
 
