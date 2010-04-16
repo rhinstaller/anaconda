@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-23 07:20-1000\n"
-"PO-Revision-Date: 2010-04-06 15:43\n"
+"PO-Revision-Date: 2010-04-17 09:22\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -386,21 +386,25 @@ msgstr ""
 "Это действие может быть также выполнено со всеми другими дисками, требующими "
 "повторной инициализации.%(details)s"
 
+# must be short!
 #: gui.py:1109 gui.py:1167 text.py:491 text.py:549
 msgid "_Ignore"
-msgstr "_Игнорировать"
+msgstr "_Пропустить"
 
+# must be short!
 #: gui.py:1110 gui.py:1168 text.py:492 text.py:550
 msgid "Ignore _all"
-msgstr "_Игнорировать все"
+msgstr "П_ропустить все"
 
+# MUST be short. Leave as it is!
 #: gui.py:1111 gui.py:1169 text.py:493 text.py:551
 msgid "_Re-initialize"
-msgstr "_Инициализировать повторно"
+msgstr "_Инициализировать"
 
+# must be short!
 #: gui.py:1112 gui.py:1170 text.py:494 text.py:552
 msgid "Re-ini_tialize all"
-msgstr "_Инициализировать повторно все"
+msgstr "И_нициализировать все"
 
 #: gui.py:1160 text.py:542
 #, python-format
