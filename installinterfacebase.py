@@ -40,12 +40,10 @@ class InstallInterfaceBase(object):
             unusedRaidMembers.sort()
             self.messageWindow(_("Warning"),
                 P_("Disk %s contains BIOS RAID metadata, but is not part of "
-                   "any recognized BIOS RAID sets. Ignoring disk %s." %
-                   (", ".join(unusedRaidMembers),
-                    ", ".join(unusedRaidMembers)),
+                   "any recognized BIOS RAID sets. Ignoring disk %s.",
                    "Disks %s contain BIOS RAID metadata, but are not part of "
-                   "any recognized BIOS RAID sets. Ignoring disks %s." %
+                   "any recognized BIOS RAID sets. Ignoring disks %s.",
+                   len(unusedRaidMembers)) %
                    (", ".join(unusedRaidMembers),
                     ", ".join(unusedRaidMembers)),
-                   len(unusedRaidMembers)),
                 custom_icon="warning")
