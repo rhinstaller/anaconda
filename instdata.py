@@ -296,6 +296,6 @@ class InstallData:
         self.isHeadless = 0
         self.extraModules = extraModules
 
-        self.simpleFilter = True
+        self.simpleFilter = not iutil.isS390()
 
         self.reset()
