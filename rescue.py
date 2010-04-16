@@ -118,6 +118,10 @@ class RescueInterface(InstallInterfaceBase):
         # Never reinit VG's in rescue mode!
         return False
 
+    def questionInitializeDASD(self, c, devs):
+        # Special return value to let dasd.py know we're rescue mode
+        return "rescue"
+
     def shutdown (self):
         pass
 
