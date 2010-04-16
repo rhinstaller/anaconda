@@ -75,7 +75,7 @@ class Anaconda(object):
         self.rootParts = None
         self.rootPath = "/mnt/sysimage"
         self.security = security.Security()
-        self.simpleFilter = True
+        self.simpleFilter = not iutil.isS390()
         self.stage2 = None
         self._storage = None
         self._timezone = None
