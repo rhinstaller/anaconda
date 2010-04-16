@@ -120,30 +120,11 @@ class DASD:
         c = len(self._dasdlist)
 
         if intf and askUser:
-            title = P_("Unformatted DASD Device Found",
-                       "Unformatted DASD Devices Found", c)
-            msg = P_("Format uninitialized DASD device?\n\n"
-                     "There is %d uninitialized DASD device on this "
-                     "system.  To continue installation, the device must "
-                     "be formatted.  Formatting will remove any data on "
-                     "this device." % c,
-                     "Format uninitialized DASD devices?\n\n"
-                     "There are %d uninitialized DASD devices on this "
-                     "system.  To continue installation, the devices must "
-                     "be formatted.  Formatting will remove any data on "
-                     "these devices." % c,
-                     c)
-
             devs = ''
             for dasd in self._dasdlist:
                 devs += "%s\n" % (dasd,)
 
-            icon = "/usr/share/icons/gnome/32x32/status/dialog-error.png"
-            buttons = [_("_Format"), _("_Exit installer")]
-            rc = intf.detailedMessageWindow(title, msg, devs.strip(),
-                                                 type="custom",
-                                                 custom_icon=icon,
-                                                 custom_buttons=buttons)
+            rc = intf.questionInitializeDASD(c, devs)
             if rc == 1:
                 log.info("    not running dasdfmt, exiting installer")
                 sys.exit(0)
