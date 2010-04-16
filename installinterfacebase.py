@@ -61,13 +61,12 @@ class InstallInterfaceBase(object):
                  "There is %d uninitialized DASD device on this "
                  "system.  To continue installation, the device must "
                  "be formatted.  Formatting will remove any data on "
-                 "this device." % c,
+                 "this device.",
                  "Format uninitialized DASD devices?\n\n"
                  "There are %d uninitialized DASD devices on this "
                  "system.  To continue installation, the devices must "
                  "be formatted.  Formatting will remove any data on "
-                 "these devices." % c,
-                 c)
+                 "these devices.", c) % c
         icon = "/usr/share/icons/gnome/32x32/status/dialog-error.png"
         buttons = [_("_Format"), _("_Exit installer")]
         return self.detailedMessageWindow(title, msg, devs.strip(),
