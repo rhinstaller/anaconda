@@ -1157,10 +1157,10 @@ class VolumeGroupEditor:
                     # check the lv's format also, explicitly, in case it is
                     # encrypted. in this case we must check them both.
                     if format.resizable and lv.format.resizable and \
-                       lv.targetSize != format.currentSize and \
-                       usedev.format.exists:
-                        new_size = lv.targetSize
-                        actions.append(ActionResizeFormat(usedev, new_size))
+                            lv.targetSize != format.targetSize and \
+                            usedev.format.exists:
+                        log.debug("resizing format on %s to %d" % (usedev.lvname, lv.targetSize))
+                        actions.append(ActionResizeFormat(usedev, lv.targetSize))
                 elif lv.format.type:
                     log.debug("new format: %s" % lv.format.type)
                     # destroy old format and any associated luks devices
