@@ -189,7 +189,7 @@ class FS(DeviceFormat):
 
         if newsize is None:
             # unset any outstanding resize request
-            self._targetSize = None
+            self._targetSize = self._size
             return
 
         if not self.minSize <= newsize < self.maxSize:
