@@ -111,6 +111,10 @@ class DASD:
             if rc == 1:
                 log.info("    not running dasdfmt, exiting installer")
                 sys.exit(0)
+            # Check for special rescue mode return
+            elif rc == "rescue":
+                log.info("    rescue mode: not running dasdfmt")
+                return
 
         argv = ["-y", "-P", "-d", "cdl", "-b", "4096"]
 
