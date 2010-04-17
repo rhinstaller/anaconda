@@ -250,7 +250,7 @@ update-desktop-database &> /dev/null || :
 - Add a questionInitializeDisk method to the rescue interface (hdegoede)
   Resolves: rhbz#582304
 - Fix syntax error in kickstart.py (hdegoede)
-  Related: rhbz#576976
+  Related: rhbz#578937
 - Add advanced storage support to rescue mode (hdegoede)
   Resolves: rhbz#571808
 - rescue.py: Put our mount / rw, ro, skip question in a loop (hdegoede)
