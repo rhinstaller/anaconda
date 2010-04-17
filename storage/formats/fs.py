@@ -740,6 +740,11 @@ class FS(DeviceFormat):
                (os.access("/sbin/mount.%s" % (self.mountType,), os.X_OK))
 
     @property
+    def resizable(self):
+        """ Can formats of this filesystem type be resized? """
+        return super(FS, self).resizable and self.utilsAvailable
+
+    @property
     def defaultFormatOptions(self):
         """ Default options passed to mkfs for this filesystem type. """
         # return a copy to prevent modification
