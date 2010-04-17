@@ -736,8 +736,18 @@ class FS(DeviceFormat):
 
     @property
     def mountable(self):
-        return (self.mountType in kernel_filesystems) or \
-               (os.access("/sbin/mount.%s" % (self.mountType,), os.X_OK))
+        canmount = (self.mountType in kernel_filesystems) or \
+                   (os.access("/sbin/mount.%s" % (self.mountType,), os.X_OK))
+        modpath = os.path.realpath(os.path.join("/lib/modules", os.uname()[2]))
+        modname = "%s.ko" % self.mountType
+
+        if not canmount and os.path.isdir(modpath):
+            for root, dirs, files in os.walk(modpath):
+                have = filter(lambda x: x.startswith(modname), files)
+                if len(have) == 1 and have[0].startswith(modname):
+                    return True
+
+        return canmount
 
     @property
     def resizable(self):
