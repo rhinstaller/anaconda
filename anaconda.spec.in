@@ -220,6 +220,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Apr 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.29-1
+- Fix hiding the advanced button on the filter UI (clumens).
+  Resolves: rhbz#565425
+  Resolves: rhbz#555769
+- Select "Advanced Storage Devices" by default on s390 (clumens).
+  Resolves: rhbz#580433
+- Don't sigsegv on stage2= derived from invalid repo= parameter (rvykydal).
+  Resolves: rhbz#574746
+- Removed the tooltips showing glade.gnome.org link (mgracik)
+  Resolves: rhbz#566773
+
 * Thu Apr 15 2010 David Cantrell <dcantrell@redhat.com> - 13.21.28-1
 - PkgWrangler fixes (dcantrell)
   Related: rhbz#543948
