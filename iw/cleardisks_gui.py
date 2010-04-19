@@ -90,19 +90,24 @@ class ClearDisksWindow (InstallWindow):
 
         self.leftVisible = 1
         self.leftActive = 2
-        self.rightVisible = 3
-        self.rightActive = 4
+        self.rightVisible = 4
+        self.rightActive = 5
 
         # One store for both views.  First the obejct, then a visible/active for
         # the left hand side, then a visible/active for the right hand side, then
         # all the other stuff.
+        #
+        # NOTE: the third boolean is a placeholder.  DeviceSelector uses the third
+        # slot in the store to determine whether the row is immutable or not.  We
+        # just need to put False in there for everything.
         self.store = gtk.TreeStore(gobject.TYPE_PYOBJECT,
                                    gobject.TYPE_BOOLEAN, gobject.TYPE_BOOLEAN,
+                                   gobject.TYPE_BOOLEAN,
                                    gobject.TYPE_BOOLEAN, gobject.TYPE_BOOLEAN,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING,
                                    gobject.TYPE_STRING, gobject.TYPE_STRING,
                                    gobject.TYPE_STRING)
-        self.store.set_sort_column_id(5, gtk.SORT_ASCENDING)
+        self.store.set_sort_column_id(6, gtk.SORT_ASCENDING)
 
         # The left view shows all the drives that will just be mounted, but
         # can still be moved to the right hand side.
@@ -118,11 +123,11 @@ class ClearDisksWindow (InstallWindow):
                                      self.leftTreeView, visible=self.leftVisible,
                                      active=self.leftActive)
         self.leftDS.createMenu()
-        self.leftDS.addColumn(_("Model"), 5)
-        self.leftDS.addColumn(_("Capacity"), 6)
-        self.leftDS.addColumn(_("Vendor"), 7)
-        self.leftDS.addColumn(_("Interconnect"), 8, displayed=False)
-        self.leftDS.addColumn(_("Serial Number"), 9, displayed=False)
+        self.leftDS.addColumn(_("Model"), 6)
+        self.leftDS.addColumn(_("Capacity"), 7)
+        self.leftDS.addColumn(_("Vendor"), 8)
+        self.leftDS.addColumn(_("Interconnect"), 9, displayed=False)
+        self.leftDS.addColumn(_("Serial Number"), 10, displayed=False)
 
         # The right view show all the drives that will be wiped during install.
         self.rightFilteredModel = self.store.filter_new()
@@ -137,8 +142,8 @@ class ClearDisksWindow (InstallWindow):
                                       self.rightTreeView, visible=self.rightVisible,
                                       active=self.rightActive)
         self.rightDS.createSelectionCol(title=_("Boot"), radioButton=True)
-        self.rightDS.addColumn(_("Model"), 5)
-        self.rightDS.addColumn(_("Capacity"), 6)
+        self.rightDS.addColumn(_("Model"), 6)
+        self.rightDS.addColumn(_("Capacity"), 7)
 
         # Store the first disk (according to our detected BIOS order) for
         # auto boot device selection
@@ -155,7 +160,7 @@ class ClearDisksWindow (InstallWindow):
                           d.name in self.anaconda.bootloader.drivelist[:1]
             leftVisible = not rightVisible
             self.store.append(None, (d,
-                                     leftVisible, True,
+                                     leftVisible, True, False,
                                      rightVisible, rightActive,
                                      d.model,
                                      str(int(d.size)) + " MB",
