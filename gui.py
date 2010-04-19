@@ -1424,6 +1424,9 @@ class InstallControlWindow:
             # with a dpi of up to 147
             if flags.livecdInstall:
                 i.hide()
+            elif flags.preexisting_x11:
+                # running on a pre-existing X, probably through X11 forwarding
+                pass 
             else:
                 self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DESKTOP)
 
