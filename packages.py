@@ -309,8 +309,9 @@ def betaNagScreen(anaconda):
         fileagainst = "%s Beta" %(productName,)
     
     while 1:
-	rc = anaconda.intf.messageWindow( _("Warning! This is pre-release software!"),
-				 _("Thank you for downloading this "
+	rc = anaconda.intf.messageWindow(_("Warning"),
+				 _("Warning!  This is pre-release software!\n\n"
+                                   "Thank you for downloading this "
 				   "pre-release of %(productName)s.\n\n"
 				   "This is not a final "
 				   "release and is not intended for use "
@@ -325,7 +326,7 @@ def betaNagScreen(anaconda):
 				    'bugzillaUrl': bugzillaUrl,
 				    'fileagainst': fileagainst},
 				   type="custom", custom_icon="warning",
-				   custom_buttons=[_("_Exit"), _("_Install anyway")])
+				   custom_buttons=[_("_Exit"), _("_Install Anyway")])
 
 	if not rc:
             msg =  _("Your system will now be rebooted...")
