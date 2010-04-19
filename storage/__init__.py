@@ -170,14 +170,14 @@ def storageComplete(anaconda):
     if anaconda.ksdata:
         return
 
-    rc = anaconda.intf.messageWindow(_("Writing storage configuration to disk"),
+    rc = anaconda.intf.messageWindow(_("Confirm"),
                                 _("The partitioning options you have selected "
                                   "will now be written to disk.  Any "
                                   "data on deleted or reformatted partitions "
                                   "will be lost."),
                                 type = "custom", custom_icon="warning",
-                                custom_buttons=[_("Go _back"),
-                                                _("_Write changes to disk")],
+                                custom_buttons=[_("Go _Back"),
+                                                _("_Write Changes to Disk")],
                                 default = 0)
 
     # Make sure that all is down, even the disks that we setup after popluate.
