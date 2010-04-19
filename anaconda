@@ -465,6 +465,10 @@ if __name__ == "__main__":
     log = logging.getLogger("anaconda")
     stdoutLog = logging.getLogger("anaconda.stdout")
 
+    if os.geteuid() != 0:
+        stdoutLog.error("anaconda must be run as root.")
+        sys.exit(0)
+
     # pull this in to get product name and versioning
     import product
 
