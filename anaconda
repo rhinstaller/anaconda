@@ -699,6 +699,8 @@ if __name__ == "__main__":
     if iutil.memInstalled() < isys.MIN_GUI_RAM:
         flags.vncquestion = False
 
+    if os.environ.has_key('DISPLAY'):
+        flags.preexisting_x11 = True
 
     if anaconda.displayMode == 't' and flags.vncquestion: #we prefer vnc over text mode, so ask about that
         title = _("Would you like to use VNC?")
@@ -735,7 +737,7 @@ if __name__ == "__main__":
 
     # s390/iSeries checks
     if anaconda.isHeadless and anaconda.displayMode == "g" and not \
-       (os.environ.has_key("DISPLAY") or flags.usevnc):
+       (flags.preexisting_x11 or flags.usevnc):
         stdoutLog.warning(_("DISPLAY variable not set. Starting text mode."))
         anaconda.displayMode = 't'
         graphical_failed = 1
@@ -743,7 +745,7 @@ if __name__ == "__main__":
 
     # if DISPLAY not set either vnc server failed to start or we're not
     # running on a redirected X display, so start local X server
-    if anaconda.displayMode == 'g' and not os.environ.has_key('DISPLAY') and not flags.usevnc:
+    if anaconda.displayMode == 'g' and not flags.preexisting_x11 and not flags.usevnc:
         try:
             # The following code depends on no SIGCHLD being delivered, possibly
             # only except the one from a failing X.org. Thus make sure before
