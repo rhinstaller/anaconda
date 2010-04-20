@@ -1439,12 +1439,16 @@ class PartitionWindow(InstallWindow):
         # How can I get sensitivity from gtk.radiobutton?
         if activate_create_partition:
             sp_rb.set_active(True)
+            sp_rb.grab_focus()
         elif activate_create_vg:
             vg_rb.set_active(True)
+            vg_rb.grab_focus()
         elif activate_create_raid_dev:
             rd_rb.set_active(True)
+            rd_rb.grab_focus()
         elif activate_create_raid_clone:
             rc_rb.set_active(True)
+            rc_rb.grab_focus()
 
         gui.addFrame(self.dialog)
         self.dialog.show_all()
