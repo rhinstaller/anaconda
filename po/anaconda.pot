@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.28\n"
+"Project-Id-Version: anaconda 13.21.29\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-04-16 16:22-1000\n"
+"POT-Creation-Date: 2010-04-19 17:37-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,8 +20,8 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:360 rescue.py:348 rescue.py:374 rescue.py:387 rescue.py:463
-#: rescue.py:475 text.py:654 loader/cdinstall.c:228 loader/cdinstall.c:232
+#: anaconda:360 rescue.py:352 rescue.py:378 rescue.py:391 rescue.py:467
+#: rescue.py:479 text.py:654 loader/cdinstall.c:228 loader/cdinstall.c:232
 #: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:427
 #: loader/cdinstall.c:431 loader/cdinstall.c:504 loader/dirbrowser.c:128
 #: loader/driverdisk.c:266 loader/driverdisk.c:421 loader/driverdisk.c:459
@@ -140,7 +140,7 @@ msgid "Error"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1098
-#: gui.py:1158 image.py:82 installinterfacebase.py:41 text.py:481 text.py:541
+#: gui.py:1158 image.py:82 installinterfacebase.py:46 text.py:481 text.py:541
 #: yuminstall.py:1422 yuminstall.py:1631 yuminstall.py:1666
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
@@ -157,12 +157,12 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:60 gui.py:1049 gui.py:1194 gui.py:1410 image.py:91
-#: kickstart.py:155 livecd.py:205 livecd.py:410 packages.py:161 upgrade.py:58
-#: upgrade.py:199 yuminstall.py:248 yuminstall.py:689 yuminstall.py:914
-#: yuminstall.py:919 yuminstall.py:999 yuminstall.py:1005 yuminstall.py:1160
-#: yuminstall.py:1185 yuminstall.py:1243 yuminstall.py:1430 yuminstall.py:1449
-#: yuminstall.py:1472 storage/__init__.py:100 storage/__init__.py:207
-#: storage/__init__.py:1961 storage/dasd.py:125
+#: installinterfacebase.py:74 kickstart.py:155 livecd.py:205 livecd.py:410
+#: packages.py:161 upgrade.py:58 upgrade.py:199 yuminstall.py:248
+#: yuminstall.py:689 yuminstall.py:914 yuminstall.py:919 yuminstall.py:999
+#: yuminstall.py:1005 yuminstall.py:1160 yuminstall.py:1185 yuminstall.py:1243
+#: yuminstall.py:1430 yuminstall.py:1449 yuminstall.py:1472
+#: storage/__init__.py:100 storage/__init__.py:207 storage/__init__.py:1961
 msgid "_Exit installer"
 msgstr ""
 
@@ -413,7 +413,7 @@ msgstr ""
 msgid "Unable to load title bar"
 msgstr ""
 
-#: gui.py:1485
+#: gui.py:1489
 msgid "Install Window"
 msgstr ""
 
@@ -486,11 +486,29 @@ msgstr ""
 msgid "Install on System"
 msgstr ""
 
-#: installinterfacebase.py:42
+#: installinterfacebase.py:47
 #, python-format
 msgid ""
 "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS "
 "RAID sets. Ignoring disk %s."
+msgstr ""
+
+#: installinterfacebase.py:60
+msgid "Unformatted DASD Device Found"
+msgstr ""
+
+#: installinterfacebase.py:62
+#, python-format
+msgid ""
+"Format uninitialized DASD device?\n"
+"\n"
+"There is %d uninitialized DASD device on this system.  To continue "
+"installation, the device must be formatted.  Formatting will remove any data "
+"on this device."
+msgstr ""
+
+#: installinterfacebase.py:74 iw/partition_gui.py:894
+msgid "_Format"
 msgstr ""
 
 #: iutil.py:855
@@ -585,7 +603,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: kickstart.py:149 rescue.py:257 yuminstall.py:684 yuminstall.py:1155
+#: kickstart.py:149 rescue.py:261 yuminstall.py:684 yuminstall.py:1155
 #: iw/task_gui.py:305
 msgid "No Network Available"
 msgstr ""
@@ -1131,43 +1149,43 @@ msgstr ""
 msgid "%s must have a mac disk label."
 msgstr ""
 
-#: rescue.py:216
+#: rescue.py:220
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
-#: rescue.py:230
+#: rescue.py:234
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr ""
 
-#: rescue.py:249
+#: rescue.py:253
 msgid "Setup Networking"
 msgstr ""
 
-#: rescue.py:250
+#: rescue.py:254
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: rescue.py:251 loader/driverdisk.c:665 loader/driverdisk.c:675
+#: rescue.py:255 loader/driverdisk.c:665 loader/driverdisk.c:675
 #: loader/hdinstall.c:206 textw/constants_text.py:56
 msgid "Yes"
 msgstr ""
 
-#: rescue.py:251 rescue.py:253 loader/driverdisk.c:665 loader/driverdisk.c:675
+#: rescue.py:255 rescue.py:257 loader/driverdisk.c:665 loader/driverdisk.c:675
 #: textw/constants_text.py:60
 msgid "No"
 msgstr ""
 
-#: rescue.py:258
+#: rescue.py:262
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
 msgstr ""
 
-#: rescue.py:294 rescue.py:369 rescue.py:380 rescue.py:458
+#: rescue.py:298 rescue.py:373 rescue.py:384 rescue.py:462
 msgid "Rescue"
 msgstr ""
 
-#: rescue.py:295
+#: rescue.py:299
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1182,45 +1200,45 @@ msgid ""
 "\n"
 msgstr ""
 
-#: rescue.py:306 iw/partition_gui.py:781 loader/cdinstall.c:206
+#: rescue.py:310 iw/partition_gui.py:781 loader/cdinstall.c:206
 #: loader/cdinstall.c:214 loader/driverdisk.c:626 storage/__init__.py:145
 #: storage/devicetree.py:90
 msgid "Continue"
 msgstr ""
 
-#: rescue.py:306 rescue.py:315
+#: rescue.py:310 rescue.py:319
 msgid "Read-Only"
 msgstr ""
 
-#: rescue.py:306 rescue.py:308 loader/cdinstall.c:248 loader/cdinstall.c:251
+#: rescue.py:310 rescue.py:312 loader/cdinstall.c:248 loader/cdinstall.c:251
 #: loader/method.c:324 storage/__init__.py:1779 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr ""
 
-#: rescue.py:306 rescue.py:311
+#: rescue.py:310 rescue.py:315
 msgid "Advanced"
 msgstr ""
 
-#: rescue.py:345
+#: rescue.py:349
 msgid "System to Rescue"
 msgstr ""
 
-#: rescue.py:346
+#: rescue.py:350
 msgid "Which device holds the root partition of your installation?"
 msgstr ""
 
-#: rescue.py:348 rescue.py:352 text.py:624 text.py:626
+#: rescue.py:352 rescue.py:356 text.py:624 text.py:626
 msgid "Exit"
 msgstr ""
 
-#: rescue.py:370
+#: rescue.py:374
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:381
+#: rescue.py:385
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -1233,7 +1251,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:459
+#: rescue.py:463
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1243,21 +1261,21 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: rescue.py:468
+#: rescue.py:472
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr ""
 
-#: rescue.py:471
+#: rescue.py:475
 msgid "Rescue Mode"
 msgstr ""
 
-#: rescue.py:472
+#: rescue.py:476
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:485
+#: rescue.py:489
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr ""
@@ -2110,49 +2128,49 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:446
+#: iw/cleardisks_gui.py:126 iw/cleardisks_gui.py:145 iw/filter_gui.py:446
 #: iw/filter_gui.py:458 iw/filter_gui.py:488
 msgid "Model"
 msgstr ""
 
-#: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:447
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:146 iw/filter_gui.py:447
 #: iw/filter_gui.py:459 iw/filter_gui.py:467 iw/filter_gui.py:478
 #: iw/filter_gui.py:489
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:123 iw/filter_gui.py:448 iw/filter_gui.py:468
+#: iw/cleardisks_gui.py:128 iw/filter_gui.py:448 iw/filter_gui.py:468
 #: iw/filter_gui.py:479 iw/filter_gui.py:490
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:124 iw/filter_gui.py:449 iw/filter_gui.py:469
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:449 iw/filter_gui.py:469
 #: iw/filter_gui.py:480 iw/filter_gui.py:491
 msgid "Interconnect"
 msgstr ""
 
-#: iw/cleardisks_gui.py:125 iw/filter_gui.py:450 iw/filter_gui.py:481
+#: iw/cleardisks_gui.py:130 iw/filter_gui.py:450 iw/filter_gui.py:481
 #: iw/filter_gui.py:492
 msgid "Serial Number"
 msgstr ""
 
-#: iw/cleardisks_gui.py:139
+#: iw/cleardisks_gui.py:144
 msgid "Boot"
 msgstr ""
 
-#: iw/cleardisks_gui.py:176
+#: iw/cleardisks_gui.py:181
 msgid ""
 "<b>Tip:</b> All Linux filesystems on install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
 msgstr ""
 
-#: iw/cleardisks_gui.py:178 ui/cleardisks.glade.h:3
+#: iw/cleardisks_gui.py:183 ui/cleardisks.glade.h:3
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
 
-#: iw/cleardisks_gui.py:180
+#: iw/cleardisks_gui.py:185
 msgid ""
 "<b>Tip:</b> Your filesystems on install target devices will not be wiped "
 "unless you choose to do so during customization."
@@ -2861,10 +2879,6 @@ msgstr ""
 
 #: iw/partition_gui.py:889
 msgid "Format Warnings"
-msgstr ""
-
-#: iw/partition_gui.py:894 storage/dasd.py:125
-msgid "_Format"
 msgstr ""
 
 #: iw/partition_gui.py:984
@@ -4612,25 +4626,11 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/dasd.py:106
-msgid "Unformatted DASD Device Found"
-msgstr ""
-
-#: storage/dasd.py:108
-#, python-format
-msgid ""
-"Format uninitialized DASD device?\n"
-"\n"
-"There is %d uninitialized DASD device on this system.  To continue "
-"installation, the device must be formatted.  Formatting will remove any data "
-"on this device."
-msgstr ""
-
-#: storage/dasd.py:137
+#: storage/dasd.py:122
 msgid "Formatting DASD Device"
 msgstr ""
 
-#: storage/dasd.py:138
+#: storage/dasd.py:123
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgstr ""
@@ -4746,33 +4746,33 @@ msgstr ""
 msgid "Unrecoverable Error"
 msgstr ""
 
-#: storage/formats/fs.py:860
+#: storage/formats/fs.py:875
 msgid "File system errors left uncorrected."
 msgstr ""
 
-#: storage/formats/fs.py:861
+#: storage/formats/fs.py:876
 msgid "Operational error."
 msgstr ""
 
-#: storage/formats/fs.py:862
+#: storage/formats/fs.py:877
 msgid "Usage or syntax error."
 msgstr ""
 
-#: storage/formats/fs.py:863
+#: storage/formats/fs.py:878
 msgid "e2fsck cancelled by user request."
 msgstr ""
 
-#: storage/formats/fs.py:864
+#: storage/formats/fs.py:879
 msgid "Shared library error."
 msgstr ""
 
-#: storage/formats/fs.py:1023
+#: storage/formats/fs.py:1038
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
 msgstr ""
 
-#: storage/formats/fs.py:1025
+#: storage/formats/fs.py:1040
 msgid "Usage error."
 msgstr ""
 

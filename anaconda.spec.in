@@ -220,6 +220,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Apr 19 2010 David Cantrell <dcantrell@redhat.com> - 13.21.30-1
+- Don't make all devices on the boot device selector immutable (clumens).
+  Resolves: rhbz#583028
+- Careful with that WINDOW_TYPE_HINT_DESKTOP, Eugene. (akozumpl)
+  Resolves: rhbz#582998
+- Prevent low-level formatting of DASDs in rescue mode (hdegoede)
+  Resolves: rhbz#582638
+- Move the question about formatting DASD's to the interface class (hdegoede)
+  Related: rhbz#582638
+- Let the user know if adding a zfcp drive fails (hdegoede)
+  Resolves: rhbz#582632
+- Check for presence of filesystem module in FS.mountable (dcantrell)
+  Resolves: rhbz#580520
+- Check for fs utils when determining if an fs can be resized (dcantrell)
+  Resolves: rhbz#572431
+
 * Fri Apr 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.29-1
 - Fix hiding the advanced button on the filter UI (clumens).
   Resolves: rhbz#565425
