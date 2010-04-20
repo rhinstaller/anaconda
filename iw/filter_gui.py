@@ -508,7 +508,7 @@ class FilterWindow(InstallWindow):
     def _show_buttons(self, *args, **kwargs):
         if self.anaconda.id.simpleFilter:
             self.buttonBox.hide()
-            self.buttonBox.unrealize()
+            self.buttonBox.set_no_show_all(True)
         else:
             self.buttonBox.show_all()
 

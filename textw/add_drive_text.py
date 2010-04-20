@@ -71,11 +71,10 @@ class addDriveDialog(object):
         devnum = entries[0].strip()
         wwpn = entries[1].strip()
         fcplun = entries[2].strip()
-        try:
-            storage.zfcp.ZFCP().addFCP(devnum, wwpn, fcplun)
-        except ValueError, e:
-            log.warn(str(e)) # alternatively popup error dialog instead
-                                        
+
+        # This may throw a value error, which gets handled by addDriveDialog()
+        storage.zfcp.ZFCP().addFCP(devnum, wwpn, fcplun)
+
         return INSTALL_OK
 
     def addFcoeDriveDialog(self, screen):

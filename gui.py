@@ -1434,7 +1434,11 @@ class InstallControlWindow:
             # with a dpi of up to 147
             if flags.livecdInstall:
                 i.hide()
+            elif self.anaconda.id.x_already_set:
+                # running on a pre-existing X, probably through X11 forwarding
+                pass
             else:
+                # normal graphical install or a VNC session
                 self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DESKTOP)
 
         if flags.debug:

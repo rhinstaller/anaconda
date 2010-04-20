@@ -220,6 +220,63 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Apr 19 2010 David Cantrell <dcantrell@redhat.com> - 13.21.30-1
+- Don't make all devices on the boot device selector immutable (clumens).
+  Resolves: rhbz#583028
+- Careful with that WINDOW_TYPE_HINT_DESKTOP, Eugene. (akozumpl)
+  Resolves: rhbz#582998
+- Prevent low-level formatting of DASDs in rescue mode (hdegoede)
+  Resolves: rhbz#582638
+- Move the question about formatting DASD's to the interface class (hdegoede)
+  Related: rhbz#582638
+- Let the user know if adding a zfcp drive fails (hdegoede)
+  Resolves: rhbz#582632
+- Check for presence of filesystem module in FS.mountable (dcantrell)
+  Resolves: rhbz#580520
+- Check for fs utils when determining if an fs can be resized (dcantrell)
+  Resolves: rhbz#572431
+
+* Fri Apr 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.29-1
+- Fix hiding the advanced button on the filter UI (clumens).
+  Resolves: rhbz#565425
+  Resolves: rhbz#555769
+- Select "Advanced Storage Devices" by default on s390 (clumens).
+  Resolves: rhbz#580433
+- Don't sigsegv on stage2= derived from invalid repo= parameter (rvykydal).
+  Resolves: rhbz#574746
+- Removed the tooltips showing glade.gnome.org link (mgracik)
+  Resolves: rhbz#566773
+
+* Thu Apr 15 2010 David Cantrell <dcantrell@redhat.com> - 13.21.28-1
+- PkgWrangler fixes (dcantrell)
+  Related: rhbz#543948
+- Do not append "rhgb quiet" to s390 boot loader config (dcantrell)
+  Related: rhbz#526364
+  Resolves: rhbz#570743
+- Try to get boot reqs onto the selected boot device. (dlehman)
+  Resolves: rhbz#560387
+- Ensure proper disklabel type on boot disk if CLEARPART_TYPE_ALL. (dlehman)
+  Resolves: rhbz#570483
+- Add proper support for destruction of disklabels. (dlehman)
+  Related: rhbz#570483
+- Three small fixes to action sorting. (dlehman)
+  Related: rhbz#570483
+- add_drive_text: Pass interface to iscsi.addTarget (hdegoede)
+  Related: rhbz#571808
+- Add a questionInitializeDisk method to the rescue interface (hdegoede)
+  Resolves: rhbz#582304
+- Fix syntax error in kickstart.py (hdegoede)
+  Related: rhbz#578937
+- Add advanced storage support to rescue mode (hdegoede)
+  Resolves: rhbz#571808
+- rescue.py: Put our mount / rw, ro, skip question in a loop (hdegoede)
+  Related: rhbz#571808
+- Move addDriveDialog() and friends to their own class (hdegoede)
+  Related: rhbz#571808
+- partition_text: Make addDriveDialog() not depend on anaconda.storage
+  (hdegoede)
+  Related: rhbz#571808
+
 * Wed Apr 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.27-1
 - Simplify HWADDR removal check on s390x (dcantrell)
   Resolves: rhbz#546005
