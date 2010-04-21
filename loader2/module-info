@@ -176,6 +176,10 @@ cxgb3
 	eth
 	"Chelsio 10Gb Ethernet adapter"
 
+cxgb4
+	eth
+	"Chelsio Terminator4 10G unified wire network controller"
+
 de600
 	eth
 	"D-Link DE-600 Ethernet pocket adapter"
@@ -1183,3 +1187,6 @@ virtio_blk
 virtio_net
 	eth
 	"Virtio network driver"
+
+# vim: noexpandtab
+
