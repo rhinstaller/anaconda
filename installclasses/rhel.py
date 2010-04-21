@@ -50,10 +50,10 @@ class RHELInstallClass(BaseInstallClass):
 
         return {productName: uri}
 
-    def setInstallData(self, anaconda):
-        BaseInstallClass.setInstallData(self, anaconda)
+    def configure(self, anaconda):
+        BaseInstallClass.configure(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self,
-                                                anaconda.id.storage,
+                                                anaconda.storage,
                                                 anaconda.platform)
 
     def setSteps(self, anaconda):
