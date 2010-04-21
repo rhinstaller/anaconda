@@ -217,6 +217,49 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Apr 21 2010 David Lehman <dlehman@redhat.com> - 13.38-1
+- Restore storage.clearPartType after reset when backing out of GUI.
+  (#559233) (dlehman)
+- Make Cancel button the default for 'Weak Password' dialog (#582660) (bcl)
+- Set Create Storage focus to first active radio button (#582676) (bcl)
+- livecd.py: set the selected keyboard (#583289). (akozumpl)
+- Fix uninitialized variable compile error (#577501) (msivak)
+- In groupListExists, log what groups don't exist. (notting)
+- Add a questionInitializeDisk method to the rescue interface (#582304)
+  (hdegoede)
+- Fix syntax error in kickstart.py (hdegoede)
+- Add a script for running pylint on anaconda (hdegoede)
+- Fix various syntax errors (hdegoede)
+- Write an AUTO ... line to mdadm.conf (#537329) (hdegoede)
+- filter_gui.py: fixup isProtected changes for biosraid and mpath (#581820)
+  (hdegoede)
+- BIOS RAID sets get shown double when adding advanced storage (#574714)
+  (hdegoede)
+- init: switch back to tty1 after the installer finishes. (#577380)
+  (akozumpl)
+- Use None, not '', for empty repo proxy attributes (#572460) (rvykydal)
+- Don't segfault if proxyUser or proxyPassword are empty (#580226). (clumens)
+- Allow using pre-existing gpt labels for /boot on non EFI x86 (#572488)
+  (hdegoede)
+- Re-Check minimum size of partition after running fsck on it (#578955) (bcl)
+- Show protected devices in the filter UI, but make them immutable
+  (#568343). (clumens)
+- Turn protected devices into a property on the Anaconda object. (clumens)
+- Schedule removal actions for any format on a --onpart= device (#576976).
+  (clumens)
+- Update the partition scheme icons to better looking ones (#579697).
+  (clumens)
+- Sort partition create actions before other unpartitioned devices.
+  (#574379) (dlehman)
+- Restore xdriver=<driver> functionality (#577312) (msivak)
+- loader: con Newt into thinking LANG is always en_US.UTF-8 (#576541).
+  (akozumpl)
+- Copy install.img to install target on http installs. (pjones)
+- Make sure the install.img exists before attempting to copy (#578391).
+  (clumens)
+- fix: Tackle race condition issues during X startup (#577708). (akozumpl)
+- Copy install.img and remount no matter how many discs (#577196) (pjones)
+
 * Thu Mar 25 2010 David Lehman <dlehman@redhat.com> - 13.37-1
 - Unlock the CD tray door in isys.ejectcdrom() (#569377) (pjones)
 - Texts under storage/formats missing from the .pot file (#576082).
