@@ -114,6 +114,16 @@ def storageInitialize(anaconda):
     else:
         storage.reset()
 
+    if not storage.disks:
+        rc = anaconda.intf.messageWindow(_("No disks found"),
+                _("No usable disks have been found."),
+                type="custom",
+                custom_buttons = [_("Back"), _("_Exit installer")],
+                default=0)
+        if rc == 0:
+            return DISPATCH_BACK
+        sys.exit(1)
+
 # dispatch.py helper function
 def storageComplete(anaconda):
     if anaconda.dir == DISPATCH_BACK:
