@@ -210,12 +210,17 @@ class DeviceTree(object):
             creates = self.findActions(devid=a.device.id,
                                        type="create",
                                        object="device")
+            log.debug("found %d create and %d destroy actions for device id %d"
+                        % (len(creates), len(destroys), a.device.id))
 
             # If the device is not preexisting, we remove all actions up
             # to and including the last destroy action.
             # If the device is preexisting, we remove all actions from
             # after the first destroy action up to and including the last
             # destroy action.
+            # If the device is preexisting and there is only one device
+            # destroy action we remove all resize and format create/migrate
+            # actions on that device that precede the destroy action.
             loops = []
             first_destroy_idx = None
             first_create_idx = None
@@ -235,12 +240,25 @@ class DeviceTree(object):
                     start = first_create_idx
                     stop_action = destroys[-1]
 
+            dev_actions = self.findActions(devid=a.device.id)
             if start is None:
-                continue
+                # only one device destroy, so prune preceding resizes and
+                # format creates and migrates
+                for _a in dev_actions[:]:
+                    if _a.isResize() or (_a.isFormat() and not _a.isDestroy()):
+                        continue
+
+                    dev_actions.remove(_a)
+
+                if not dev_actions:
+                    # nothing to prune
+                    continue
+
+                start = self._actions.index(dev_actions[0])
+                stop_action = dev_actions[-1]
 
             # now we remove all actions on this device between the start
             # index (into self._actions) and stop_action.
-            dev_actions = self.findActions(path=a.device.path)
             for rem in dev_actions:
                 end = self._actions.index(stop_action)
                 if start <= self._actions.index(rem) <= end:
