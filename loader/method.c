@@ -59,6 +59,15 @@
 /* boot flags */
 extern uint64_t flags;
 
+static void stripTrailingSlash(char *path) {
+    size_t len = strlen(path);
+
+    if (len == 0)
+        return;
+    if (path[len-1] == '/')
+        path[len-1] = '\0';
+}
+
 int umountLoopback(char * mntpoint, char * device) {
     int loopfd;
 
@@ -508,6 +517,7 @@ void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
           &(((struct nfsInstallData *)ld->stage2Data)->host),
           &(((struct nfsInstallData *)ld->stage2Data)->directory),
           &(((struct nfsInstallData *)ld->stage2Data)->mountOpts));
+        stripTrailingSlash(((struct nfsInstallData *)ld->stage2Data)->directory);
     } else if (!strncmp(arg, "nfsiso:", 7)) {
         ld->method = METHOD_NFS;
         ld->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
