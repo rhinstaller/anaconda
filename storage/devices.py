@@ -713,6 +713,10 @@ class StorageDevice(Device):
                       lambda d,f: d._setFormat(f),
                       doc="The device's formatting.")
 
+    def preCommitFixup(self, *args, **kwargs):
+        """ Do any necessary pre-commit fixups."""
+        pass
+
     def create(self, intf=None):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
@@ -1128,7 +1132,7 @@ class PartitionDevice(StorageDevice):
     partedPartition = property(lambda d: d._getPartedPartition(),
                                lambda d,p: d._setPartedPartition(p))
 
-    def resetPartedPartition(self):
+    def preCommitFixup(self, *args, **kwargs):
         """ Re-get self.partedPartition from the original disklabel. """
         log_method_call(self, self.name)
         if not self.exists:
