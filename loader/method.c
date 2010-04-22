@@ -418,12 +418,6 @@ void copyProductImg(char * path) {
     }
 }
 
-/* unmount a second stage, if mounted. Used for CDs and mediacheck mostly,
-   so we can eject CDs.                                                   */
-void umountStage2(void) {
-    umountLoopback("/mnt/runtime", "/dev/loop0");
-}
-
 /** Bind the uncompressed second stage to /mnt/runtime.
  *
  * return 0 on success, 1 on failure to mount.

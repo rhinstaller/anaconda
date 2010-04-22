@@ -45,7 +45,6 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device);
 int readStampFileFromIso(char *file, char **descr, char **timestamp);
 void queryIsoMediaCheck(char * isoDir);
 
-void umountStage2(void);
 int mountStage2(char *stage2path);
 int mountStage2Direct(char *stage2path);
 int copyFileAndLoopbackMount(int fd, char *dest, char *device, char *mntpoint,
