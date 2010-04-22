@@ -278,7 +278,7 @@ char * mountNfsImage(struct installMethod * method,
 
             if (!doPwMount(fullPath, "/mnt/stage2", "nfs", mountOpts, NULL)) {
                 checked_asprintf(&buf, "/mnt/stage2/%s",
-                                 strrchr(directory, '/'));
+                                 strrchr(directory, '/') + 1);
 
                 if (!access(buf, R_OK)) {
                     logMessage(INFO, "can access %s", buf);
