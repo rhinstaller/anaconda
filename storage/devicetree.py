@@ -649,16 +649,15 @@ class DeviceTree(object):
                    device.originalFormat != device.format:
                     device.originalFormat.resetPartedDisk()
 
-        # reget parted.Partition for remaining preexisting devices
+        # Call preCommitFixup on all devices
         for device in self.devices:
-            if isinstance(device, PartitionDevice) and device.exists:
-                device.resetPartedPartition()
+            device.preCommitFixup()
 
-        # reget parted.Partition for existing devices we're removing
+        # Also call preCommitFixup on any devices we're going to
+        # destroy (these are already removed from the tree)
         for action in self._actions:
-            if isinstance(action.device, PartitionDevice) and \
-               action.device.exists:
-                action.device.resetPartedPartition()
+            if isinstance(action, ActionDestroyDevice):
+                action.device.preCommitFixup()
 
         # setup actions to create any extended partitions we added
         #
