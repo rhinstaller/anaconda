@@ -1283,9 +1283,10 @@ class PartitionDevice(StorageDevice):
                 self.disk.format.removePartition(part)
                 raise
 
-            # Ensure old metadata which lived in freespace so did not get
-            # explictly destroyed by a destroyformat action gets wiped
-            DeviceFormat(device=self.path, exists=True).destroy()
+            if not self.isExtended:
+                # Ensure old metadata which lived in freespace so did not get
+                # explictly destroyed by a destroyformat action gets wiped
+                DeviceFormat(device=self.path, exists=True).destroy()
         except Exception:
             raise
         else:
