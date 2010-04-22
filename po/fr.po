@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.fr\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-04-23 00:17+0200\n"
+"PO-Revision-Date: 2010-04-23 00:44+0200\n"
 "Last-Translator: Bertrand Juglas <b@juglas.name>\n"
 "Language-Team: French <trans-fr@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -1629,7 +1629,7 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "Nouvel essai de connexion dans 15 secondes..."
 
 #: vnc.py:195
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] "Abandon de la connexion après %d tentative !\n"
@@ -1790,7 +1790,7 @@ msgid "%s KB"
 msgstr "%s Kio"
 
 #: yuminstall.py:90
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
 msgstr[0] "%s Octet"
@@ -1810,7 +1810,7 @@ msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgstr "<b>Installation de %(pkgStr)s</b> (%(size)s)\n"
 
 #: yuminstall.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgstr[0] "Paquets terminés : %(donepkgs)d sur %(numpkgs)d"
@@ -2255,7 +2255,6 @@ msgstr ""
 "autorisés."
 
 #: iw/advanced_storage.py:91
-#, fuzzy
 msgid "You must select a NIC to use."
 msgstr "Sélectionnez un périphérique de réseau"
 
@@ -2902,7 +2901,7 @@ msgid "No free slots"
 msgstr "Aucun emplacement disponible"
 
 #: iw/lvm_dialog_gui.py:815
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
 msgstr[0] "Impossible de créer plus de %d volume logique par groupe de volumes."
