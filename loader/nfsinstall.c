@@ -30,6 +30,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -56,6 +57,30 @@
 
 /* boot flags */
 extern uint64_t flags;
+
+/**
+ * Test whether the mounted stage2 path is an uncompreseed image, not a squashfs.
+ * 
+ * Asusme path is readable.
+ */
+static int isNfsMountDirect(const char * path) {
+    struct stat stat_info;
+    if (stat(path, &stat_info))
+        return 0;
+
+    if (!S_ISDIR(stat_info.st_mode))
+        /* if it's not a directory, then it's not an uncompressed image */
+        return 0;
+
+    char * buildstamp;
+    checked_asprintf(&buildstamp, "%s/%s", path, ".buildstamp");
+    if (access(buildstamp, F_OK))
+        /* if it doesn't contain buildstamp, then it's not an uncompressed image */
+        return 0;
+    free(buildstamp);
+
+    return 1;
+}
 
 static int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr) {
     struct newtWinEntry entries[4];
@@ -257,7 +282,12 @@ char * mountNfsImage(struct installMethod * method,
 
                 if (!access(buf, R_OK)) {
                     logMessage(INFO, "can access %s", buf);
-                    rc = mountStage2(buf);
+                    if (isNfsMountDirect(buf)) {
+                        logMessage(INFO, "using uncompressed stage2 image");
+                        rc = mountStage2Direct(buf);
+                    } else {
+                        rc = mountStage2(buf);
+                    }
 
                     if (rc == 0) {
                         stage = NFS_STAGE_UPDATES;

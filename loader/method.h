@@ -47,6 +47,7 @@ void queryIsoMediaCheck(char * isoDir);
 
 void umountStage2(void);
 int mountStage2(char *stage2path);
+int mountStage2Direct(char *stage2path);
 int copyFileAndLoopbackMount(int fd, char *dest, char *device, char *mntpoint,
                              progressCB pbcb, struct progressCBdata *data, long long total);
 int getFileFromBlockDevice(char *device, char *path, char * dest);
