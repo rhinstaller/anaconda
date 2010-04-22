@@ -2410,7 +2410,7 @@ class MDRaidArrayDevice(StorageDevice):
     _type = "mdarray"
 
     def __init__(self, name, level=None, major=None, minor=None, size=None,
-                 memberDevices=None, totalDevices=None, bitmap=False,
+                 memberDevices=None, totalDevices=None,
                  uuid=None, format=None, exists=None,
                  parents=None, sysfsPath=''):
         """ Create a MDRaidArrayDevice instance.
@@ -2426,7 +2426,6 @@ class MDRaidArrayDevice(StorageDevice):
                 size -- the device's size (units/format TBD)
                 uuid -- the device's UUID
                 minor -- the device minor
-                bitmap -- whether to use a bitmap (boolean)
                 sysfsPath -- sysfs device path
                 format -- a DeviceFormat instance
                 exists -- indicates whether this is an existing device
@@ -2456,15 +2455,15 @@ class MDRaidArrayDevice(StorageDevice):
         self.chunkSize = 64.0 / 1024.0          # chunk size in MB
         self.superBlockSize = 128.0 / 1024.0    # superblock size in MB
 
+        self.createMetadataVer = "1.1"
+        # bitmaps are not meaningful on raid0 according to mdadm-3.0.3
+        self.createBitmap = self.level != 0
+
         # For container members probe size now, as we cannot determine it
         # when teared down.
         if self.parents and self.parents[0].type == "mdcontainer":
             self._size = self.currentSize
             self._type = "mdbiosraidarray"
-
-        # FIXME: Bitmap is more complicated than this.
-        # It can be internal or external. External requires a filename.
-        self.bitmap = bitmap
 
         self.formatClass = get_device_format_class("mdmember")
         if not self.formatClass:
@@ -2537,17 +2536,17 @@ class MDRaidArrayDevice(StorageDevice):
 
     def __str__(self):
         s = StorageDevice.__str__(self)
-        s += ("  level = %(level)s  bitmap = %(bitmap)s  spares = %(spares)s\n"
+        s += ("  level = %(level)s  spares = %(spares)s\n"
               "  members = %(memberDevices)s\n"
               "  total devices = %(totalDevices)s" %
-              {"level": self.level, "bitmap": self.bitmap, "spares": self.spares,
+              {"level": self.level, "spares": self.spares,
                "memberDevices": self.memberDevices, "totalDevices": self.totalDevices})
         return s
 
     @property
     def dict(self):
         d = super(MDRaidArrayDevice, self).dict
-        d.update({"level": self.level, "bitmap": self.bitmap,
+        d.update({"level": self.level,
                   "spares": self.spares, "memberDevices": self.memberDevices,
                   "totalDevices": self.totalDevices})
         return d
@@ -2815,6 +2814,26 @@ class MDRaidArrayDevice(StorageDevice):
         if recursive:
             self.teardownParents(recursive=recursive)
 
+    def preCommitFixup(self, *args, **kwargs):
+        """ Determine create parameters for this set """
+        mountpoints = kwargs.pop("mountpoints")
+        log_method_call(self, self.name, mountpoints)
+
+        if "/boot" in mountpoints:
+            bootmountpoint = "/boot"
+        else:
+            bootmountpoint = "/"
+
+        # If we are used to boot from we cannot use 1.1 metadata
+        if getattr(self.format, "mountpoint", None) == bootmountpoint or \
+           getattr(self.format, "mountpoint", None) == "/boot/efi" or \
+           self.format.type == "prepboot":
+            self.createMetadataVer = "1.0"
+
+        # Bitmaps are not useful for swap and small partitions
+        if self.size < 1000 or self.format.type == "swap":
+            self.createBitmap = False
+
     def create(self, intf=None):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
@@ -2833,21 +2852,12 @@ class MDRaidArrayDevice(StorageDevice):
 
             disks = [disk.path for disk in self.devices]
             spares = len(self.devices) - self.memberDevices
-            # Figure out format specific options
-            metadata="1.1"
-            # bitmaps are not meaningful on raid0 according to mdadm-3.0.3
-            bitmap = self.level != 0
-            if getattr(self.format, "mountpoint", None) == "/boot":
-                metadata="1.0"
-                bitmap=False
-            elif self.format.type == "swap":
-                bitmap=False
             mdraid.mdcreate(self.path,
                             self.level,
                             disks,
                             spares,
-                            metadataVer=metadata,
-                            bitmap=bitmap,
+                            metadataVer=self.createMetadataVer,
+                            bitmap=self.createBitmap,
                             progress=w)
         except Exception:
             raise
