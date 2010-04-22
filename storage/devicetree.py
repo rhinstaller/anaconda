@@ -650,14 +650,15 @@ class DeviceTree(object):
                     device.originalFormat.resetPartedDisk()
 
         # Call preCommitFixup on all devices
+        mpoints = [getattr(d.format, 'mountpoint', "") for d in self.devices]
         for device in self.devices:
-            device.preCommitFixup()
+            device.preCommitFixup(mountpoints=mpoints)
 
         # Also call preCommitFixup on any devices we're going to
         # destroy (these are already removed from the tree)
         for action in self._actions:
             if isinstance(action, ActionDestroyDevice):
-                action.device.preCommitFixup()
+                action.device.preCommitFixup(mountpoints=mpoints)
 
         # setup actions to create any extended partitions we added
         #
