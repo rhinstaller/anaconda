@@ -846,15 +846,21 @@ def doPartitioning(storage, exclusiveDisks=None):
             # remove any obsolete extended partitions
             for part in storage.partitions:
                 if part.disk == disk and part.isExtended:
-                    storage.devicetree._removeDevice(part, moddisk=False)
+                    if part.exists:
+                        storage.destroyDevice(part)
+                    else:
+                        storage.devicetree._removeDevice(part, moddisk=False)
             continue
 
         extendedName = devicePathToName(extended.getDeviceNodeName())
         # remove any obsolete extended partitions
         for part in storage.partitions:
             if part.disk == disk and part.isExtended and \
-               part.name != extendedName:
-                storage.devicetree._removeDevice(part, moddisk=False)
+               part.partedPartition not in disk.format.partitions:
+                if part.exists:
+                    storage.destroyDevice(part)
+                else:
+                    storage.devicetree._removeDevice(part, moddisk=False)
 
         device = storage.devicetree.getDeviceByName(extendedName)
         if device:
