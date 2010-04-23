@@ -141,7 +141,7 @@ class ClearDisksWindow (InstallWindow):
         self.rightDS = DeviceSelector(self.store, self.rightSortedModel,
                                       self.rightTreeView, visible=self.rightVisible,
                                       active=self.rightActive)
-        self.rightDS.createSelectionCol(title=_("Boot"), radioButton=True)
+        self.rightDS.createSelectionCol(title=_("Boot\nLoader"), radioButton=True)
         self.rightDS.addColumn(_("Model"), 6)
         self.rightDS.addColumn(_("Capacity"), 7)
 
