@@ -160,3 +160,4 @@ class PartitionTypeWindow:
 
         return INSTALL_OK
 
+

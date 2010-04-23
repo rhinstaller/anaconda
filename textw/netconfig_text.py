@@ -96,7 +96,7 @@ class NetworkConfiguratorText:
 
         self.interfaceList = CheckboxTree(height=3, scroll=1)
 
-        netdevs = self.anaconda.network.available()
+        netdevs = self.anaconda.network.netdevices
         devs = netdevs.keys()
         devs.sort()
         ksdevice = self.anaconda.network.getKSDevice()
@@ -178,7 +178,7 @@ class NetworkConfiguratorText:
         #self._ipv6Toggled()
         self._dhcpToggled()
 
-        netdevs = self.anaconda.network.available()
+        netdevs = self.anaconda.network.netdevices
 
         while True:
             result = grid.run()

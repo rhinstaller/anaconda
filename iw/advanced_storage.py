@@ -43,7 +43,7 @@ def addFcoeDrive(anaconda):
     store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
     combo.set_model(store)
 
-    netdevs = anaconda.network.available()
+    netdevs = anaconda.network.netdevices
     keys = netdevs.keys()
     keys.sort()
     selected_interface = None

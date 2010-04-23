@@ -315,145 +315,56 @@ class NetworkDevice(IfcfgFile):
 
 
 class Network:
+
     def __init__(self):
+
+        self.hostname = socket.gethostname()
+        self.overrideDHCPhostname = False
+        self.update()
+
+    def update(self):
+
         self.netdevices = {}
         self.ksdevice = None
         self.domains = []
-        self.hostname = socket.gethostname()
-        self.overrideDHCPhostname = False
 
         # populate self.netdevices
         devhash = isys.getDeviceProperties(dev=None)
-        for dev in devhash.keys():
-            self.netdevices[dev] = NetworkDevice(dev)
-            ifcfg_contents = self.readIfcfgContents(dev)
+        for iface in devhash.keys():
+            device = NetworkDevice(netscriptsDir, iface, logfile=ifcfgLogFile)
+            device.loadIfcfgFile()
+            device.log("===== Network.update\n")
 
-            # if NM_CONTROLLED is set to yes, we read in settings from
-            # NetworkManager first, then fill in the gaps with the data
-            # from the ifcfg file
-            useNetworkManager = False
-            if ifcfg_contents.has_key('NM_CONTROLLED') and \
-               not ifcfg_contents['NM_CONTROLLED'].lower() == 'no':
-                useNetworkManager = True
+            if device.get('DOMAIN'):
+                self.domains.append(device.get('DOMAIN'))
+            # TODORV - the last iface in loop wins, might be ok,
+            #          not worthy of special juggling
+            if device.get('HOSTNAME'):
+                self.hostname = device.get('HOSTNAME')
 
-            # this interface is managed by NetworkManager, so read from
-            # NetworkManager first
-            if useNetworkManager:
-                props = devhash[dev]
+            device.description = isys.getNetDevDesc(iface)
 
-                if isys.isDeviceDHCP(dev):
-                    self.netdevices[dev].set(('BOOTPROTO', 'dhcp'))
-                else:
-                    self.netdevices[dev].unset('BOOTPROTO')
-                    bus = dbus.SystemBus()
-                    config_path = props.Get(isys.NM_MANAGER_IFACE, 'Ip4Config')
-                    config = bus.get_object(isys.NM_SERVICE, config_path)
-                    config_props = dbus.Interface(config, isys.DBUS_PROPS_IFACE)
+            self.netdevices[iface] = device
 
-                    # addresses (3-element list:  ipaddr, netmask, gateway)
-                    addrs = config_props.Get(isys.NM_MANAGER_IFACE, 'Addresses')[0]
-                    try:
-                        tmp = struct.pack('I', addrs[0])
-                        ipaddr = socket.inet_ntop(socket.AF_INET, tmp)
-                        self.netdevices[dev].set(('IPADDR', ipaddr))
-                    except:
-                        pass
 
-                    try:
-                        tmp = struct.pack('I', addrs[1])
-                        netmask = socket.inet_ntop(socket.AF_INET, tmp)
-                        self.netdevices[dev].set(('NETMASK', netmask))
-                    except:
-                        pass
-
-                    try:
-                        tmp = struct.pack('I', addrs[2])
-                        gateway = socket.inet_ntop(socket.AF_INET, tmp)
-                        self.netdevices[dev].set(('GATEWAY', gateway))
-                    except:
-                        pass
-
-                self.hostname = socket.gethostname()
-
-            # read in remaining settings from ifcfg file
-            for key in ifcfg_contents.keys():
-                if key == 'GATEWAY':
-                    self.netdevices[dev].set((key, ifcfg_contents[key]))
-                elif key == 'DOMAIN':
-                    self.domains.append(ifcfg_contents[key])
-                elif key == 'HOSTNAME':
-                    self.hostname = ifcfg_contents[key]
-                elif self.netdevices[dev].get(key) == '':
-                    self.netdevices[dev].set((key, ifcfg_contents[key]))
-
-        # now initialize remaining devices
-        # XXX we just throw return away, the method initialize a
-        # object member so we dont need to
-        available_devices = self.available()
-
-        if len(available_devices) > 0:
-            # set first device to start up onboot
-            oneactive = 0
-            for dev in available_devices.keys():
-                try:
-                    if available_devices[dev].get("ONBOOT") == "yes":
-                        oneactive = 1
+        ksdevice = flags.cmdline.get('ksdevice', None)
+        if ksdevice:
+            for dev in self.netdevices:
+                if ksdevice == 'link' and isys.getLinkStatus(dev):
+                    self.ksdevice = dev
+                    break
+                elif ksdevice == dev:
+                    self.ksdevice = dev
+                    break
+                elif ':' in ksdevice:
+                    if ksdevice.upper() == self.netdevices[dev].get('HWADDR'):
+                        self.ksdevice = dev
                         break
-                except:
-                    continue
 
-    def readIfcfgContents(self, dev):
-        ifcfg = "/etc/sysconfig/network-scripts/ifcfg-%s" % (dev,)
-        contents = {}
 
-        try:
-            f = open(ifcfg, "r")
-            lines = f.readlines()
-            f.close()
-
-            for line in lines:
-                line = line.strip()
-                if line.startswith('#') or line == '':
-                    continue
-
-                var = string.splitfields(line, '=', 1)
-                if len(var) == 2:
-                    var[1] = var[1].replace('"', '')
-                    contents[var[0]] = string.strip(var[1])
-        except:
-            return {}
-
-        return contents
 
     def getDevice(self, device):
         return self.netdevices[device]
-
-    def available(self):
-        ksdevice = None
-        if flags.cmdline.has_key('ksdevice'):
-            ksdevice = flags.cmdline['ksdevice']
-
-        for dev in isys.getDeviceProperties().keys():
-            if not self.netdevices.has_key(dev):
-                self.netdevices[dev] = NetworkDevice(dev)
-
-            hwaddr = isys.getMacAddress(dev)
-
-            self.netdevices[dev].set(('HWADDR', hwaddr))
-            self.netdevices[dev].set(('DESC', isys.getNetDevDesc(dev)))
-
-            if not ksdevice:
-                continue
-
-            if ksdevice == 'link' and isys.getLinkStatus(dev):
-                self.ksdevice = dev
-            elif ksdevice == dev:
-                self.ksdevice = dev
-            elif ksdevice.find(':') != -1:
-                if ksdevice.upper() == hwaddr:
-                    self.ksdevice = dev
-
-        return self.netdevices
 
     def getKSDevice(self):
         if self.ksdevice is None:
