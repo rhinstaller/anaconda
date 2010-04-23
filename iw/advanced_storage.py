@@ -53,7 +53,7 @@ def addFcoeDrive(anaconda):
             continue
 
         i = store.append(None)
-        desc = netdevs[dev].get("DESC")
+        desc = netdevs[dev].description
         if desc:
             desc = "%s - %s" %(dev, desc)
         else:

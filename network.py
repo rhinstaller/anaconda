@@ -245,6 +245,7 @@ class NetworkDevice(IfcfgFile):
         self.logfile = logfile
         if iface.startswith('ctc'):
             self.info["TYPE"] = "CTC"
+        self.description = ""
 
     def clear(self):
         IfcfgFile.clear(self)
@@ -256,8 +257,6 @@ class NetworkDevice(IfcfgFile):
         keys = self.info.keys()
         keys.sort()
         keys.remove("DEVICE")
-        if "DESC" in keys:
-            keys.remove("DESC")
         keys.insert(0, "DEVICE")
         if "KEY" in keys:
             keys.remove("KEY")
@@ -784,8 +783,8 @@ class Network:
                     addr = addr.lower()
 
                     s = ""
-                    if len(dev.get("DESC")) > 0:
-                        s = "# %s (rule written by anaconda)\n" % (dev.get("DESC"),)
+                    if len(dev.description) > 0:
+                        s = "# %s (rule written by anaconda)\n" % (dev.description,)
                     else:
                         s = "# %s (rule written by anaconda)\n" % (devname,)
                         s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", ATTR{type}=="1", KERNEL=="%s*", NAME="%s"\n' % (addr, basename, devname,)
