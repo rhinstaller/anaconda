@@ -42,6 +42,10 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 
+sysconfigDir = "/etc/sysconfig"
+netscriptsDir = "%s/network-scripts" % (sysconfigDir)
+networkConfFile = "%s/network" % (sysconfigDir)
+
 class IPError(Exception):
     pass
 
@@ -523,9 +527,9 @@ class Network:
         if len(devices) == 0:
             return
 
-        sysconfig = "%s/etc/sysconfig" % (instPath,)
-        netscripts = "%s/network-scripts" % (sysconfig,)
-        destnetwork = "%s/network" % (sysconfig,)
+        sysconfig = instPath + sysconfigDir
+        netscripts = instPath + netscriptsDir
+        destnetwork = instPath + networkConfFile
 
         if not os.path.isdir(netscripts):
             iutil.mkdirChain(netscripts)
