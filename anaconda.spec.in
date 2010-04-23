@@ -220,6 +220,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Apr 22 2010 David Cantrell <dcantrell@redhat.com> - 13.21.31-1
+- Prune resize and format create/migrate actions if destroying a device.
+  (dlehman)
+  Resolves: rhbz#575070
+  Resolves: rhbz#585026
+- Schedule actions when removing existing extended partitions. (dlehman)
+  Resolves: rhbz#585028
+- Don't try to zero out extended partitions. (dlehman)
+  Resolves: rhbz#585025
+- lvm: check resizing against format's targetSize (akozumpl).
+  Resolves: rhbz#580171
+- Restore storage.clearPartType after reset when backing out of GUI. (dlehman)
+  Resolves: rhbz#559233
+- Make Cancel button the default for 'Weak Password' dialog (bcl)
+  Resolves: rhbz#582660
+- Set Create Storage focus to first active radio button (bcl)
+  Resolves: rhbz#582676
+
 * Mon Apr 19 2010 David Cantrell <dcantrell@redhat.com> - 13.21.30-1
 - Don't make all devices on the boot device selector immutable (clumens).
   Resolves: rhbz#583028

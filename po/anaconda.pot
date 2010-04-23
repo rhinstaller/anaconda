@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.29\n"
+"Project-Id-Version: anaconda 13.21.30\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-04-19 17:37-1000\n"
+"POT-Creation-Date: 2010-04-22 17:49-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,7 +168,7 @@ msgstr ""
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1346
 #: kickstart.py:1385 upgrade.py:58 yuminstall.py:1248 yuminstall.py:1431
-#: iw/partition_gui.py:1600 storage/__init__.py:1962
+#: iw/partition_gui.py:1608 storage/__init__.py:1962
 msgid "_Continue"
 msgstr ""
 
@@ -301,7 +301,7 @@ msgid ""
 msgstr ""
 
 #: gui.py:734 gui.py:1410 partIntfHelpers.py:157 partIntfHelpers.py:342
-#: text.py:100 text.py:101 iw/account_gui.py:130 loader/dirbrowser.c:128
+#: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:422 loader/kickstart.c:328 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
 msgid "Cancel"
@@ -929,8 +929,8 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr ""
 
 #: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:863
-#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1813
-#: iw/partition_gui.py:1825
+#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1821
+#: iw/partition_gui.py:1833
 msgid "_Delete"
 msgstr ""
 
@@ -978,7 +978,7 @@ msgstr ""
 msgid "Format?"
 msgstr ""
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1598
+#: partIntfHelpers.py:249 iw/partition_gui.py:1606
 msgid "_Modify Partition"
 msgstr ""
 
@@ -1854,39 +1854,23 @@ msgstr ""
 msgid "Software Development"
 msgstr ""
 
-#: installclasses/fedora.py:59 installclasses/rhel.py:61
+#: installclasses/fedora.py:59
 msgid "Web Server"
 msgstr ""
 
-#: installclasses/fedora.py:63 installclasses/rhel.py:90
+#: installclasses/fedora.py:63 installclasses/rhel.py:44
 msgid "Minimal"
 msgstr ""
 
-#: installclasses/rhel.py:39
+#: installclasses/rhel.py:33
 msgid "Red Hat Enterprise Linux"
 msgstr ""
 
-#: installclasses/rhel.py:40
+#: installclasses/rhel.py:34
 #, python-format
 msgid ""
-"The default installation of %s is a basic server install. You can optionally "
+"The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
-msgstr ""
-
-#: installclasses/rhel.py:51
-msgid "Basic Server"
-msgstr ""
-
-#: installclasses/rhel.py:55
-msgid "Database Server"
-msgstr ""
-
-#: installclasses/rhel.py:67
-msgid "Desktop"
-msgstr ""
-
-#: installclasses/rhel.py:77
-msgid "Software Development Workstation"
 msgstr ""
 
 #: iw/GroupSelector.py:147
@@ -1921,7 +1905,7 @@ msgid "Caps Lock is on."
 msgstr ""
 
 #: iw/account_gui.py:102 iw/account_gui.py:110 iw/account_gui.py:117
-#: iw/account_gui.py:137 textw/userauth_text.py:74
+#: iw/account_gui.py:138 textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr ""
 
@@ -1948,11 +1932,11 @@ msgstr ""
 msgid "You have provided a weak password: %s"
 msgstr ""
 
-#: iw/account_gui.py:130
+#: iw/account_gui.py:131
 msgid "Use Anyway"
 msgstr ""
 
-#: iw/account_gui.py:138 textw/userauth_text.py:75
+#: iw/account_gui.py:139 textw/userauth_text.py:75
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
@@ -2606,8 +2590,8 @@ msgstr ""
 msgid "_Add"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1812
-#: iw/partition_gui.py:1822
+#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1820
+#: iw/partition_gui.py:1830
 msgid "_Edit"
 msgstr ""
 
@@ -2806,7 +2790,7 @@ msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
 msgstr ""
 
 #: iw/partition_gui.py:396 iw/partition_gui.py:442 iw/partition_gui.py:509
-#: iw/partition_gui.py:996 iw/partition_gui.py:1063
+#: iw/partition_gui.py:1000 iw/partition_gui.py:1067
 msgid "Free"
 msgstr ""
 
@@ -2881,27 +2865,27 @@ msgstr ""
 msgid "Format Warnings"
 msgstr ""
 
-#: iw/partition_gui.py:984
+#: iw/partition_gui.py:988
 msgid "LVM Volume Groups"
 msgstr ""
 
-#: iw/partition_gui.py:1006
+#: iw/partition_gui.py:1010
 msgid "RAID Devices"
 msgstr ""
 
-#: iw/partition_gui.py:1017 loader/hdinstall.c:206
+#: iw/partition_gui.py:1021 loader/hdinstall.c:206
 msgid "Hard Drives"
 msgstr ""
 
-#: iw/partition_gui.py:1067
+#: iw/partition_gui.py:1071
 msgid "Extended"
 msgstr ""
 
-#: iw/partition_gui.py:1346
+#: iw/partition_gui.py:1350
 msgid "Cannot perform any creation action"
 msgstr ""
 
-#: iw/partition_gui.py:1347
+#: iw/partition_gui.py:1351
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -2911,7 +2895,7 @@ msgid ""
 "* At least one Volume Group with free space."
 msgstr ""
 
-#: iw/partition_gui.py:1455
+#: iw/partition_gui.py:1463
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -2920,7 +2904,7 @@ msgid ""
 "using RAID devices please consult the %s documentation.\n"
 msgstr ""
 
-#: iw/partition_gui.py:1461
+#: iw/partition_gui.py:1469
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -2928,16 +2912,16 @@ msgid ""
 "\n"
 msgstr ""
 
-#: iw/partition_gui.py:1465
+#: iw/partition_gui.py:1473
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgstr ""
 
-#: iw/partition_gui.py:1469
+#: iw/partition_gui.py:1477
 msgid "About RAID"
 msgstr ""
 
-#: iw/partition_gui.py:1475
+#: iw/partition_gui.py:1483
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
@@ -2948,7 +2932,7 @@ msgid ""
 "using LVM please consult the %s documentation\n"
 msgstr ""
 
-#: iw/partition_gui.py:1483
+#: iw/partition_gui.py:1491
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create a LV you need a VG "
@@ -2956,47 +2940,47 @@ msgid ""
 "\n"
 msgstr ""
 
-#: iw/partition_gui.py:1487
+#: iw/partition_gui.py:1495
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgstr ""
 
-#: iw/partition_gui.py:1491
+#: iw/partition_gui.py:1499
 msgid "You currently have free space to create PVs."
 msgstr ""
 
-#: iw/partition_gui.py:1494
+#: iw/partition_gui.py:1502
 msgid "About LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1526
+#: iw/partition_gui.py:1534
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: iw/partition_gui.py:1527
+#: iw/partition_gui.py:1535
 msgid "The drive clone editor could not be created for some reason."
 msgstr ""
 
-#: iw/partition_gui.py:1586 storage/partitioning.py:197
+#: iw/partition_gui.py:1594 storage/partitioning.py:197
 #: storage/partitioning.py:238
 msgid "Error Partitioning"
 msgstr ""
 
-#: iw/partition_gui.py:1587
+#: iw/partition_gui.py:1595
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1596
+#: iw/partition_gui.py:1604
 #, python-format
 msgid "Warning: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1627
+#: iw/partition_gui.py:1635
 msgid "Unable To Edit"
 msgstr ""
 
-#: iw/partition_gui.py:1628
+#: iw/partition_gui.py:1636
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -3004,15 +2988,15 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/partition_gui.py:1811
+#: iw/partition_gui.py:1819
 msgid "_Create"
 msgstr ""
 
-#: iw/partition_gui.py:1814
+#: iw/partition_gui.py:1822
 msgid "Re_set"
 msgstr ""
 
-#: iw/partition_gui.py:1837
+#: iw/partition_gui.py:1845
 msgid "Please Select A Device"
 msgstr ""
 
@@ -4645,23 +4629,23 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1270 storage/devices.py:1940 storage/devices.py:2343
-#: storage/devices.py:2814 storage/devices.py:3296
+#: storage/devices.py:1270 storage/devices.py:1941 storage/devices.py:2344
+#: storage/devices.py:2815 storage/devices.py:3297
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1271 storage/devices.py:1941 storage/devices.py:2344
-#: storage/devices.py:2815
+#: storage/devices.py:1271 storage/devices.py:1942 storage/devices.py:2345
+#: storage/devices.py:2816
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2437
+#: storage/devices.py:2438
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3297
+#: storage/devices.py:3298
 #, python-format
 msgid "Creating file %s"
 msgstr ""
@@ -4679,7 +4663,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1843 storage/devicetree.py:1891
+#: storage/devicetree.py:1861 storage/devicetree.py:1909
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
