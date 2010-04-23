@@ -41,7 +41,7 @@ import gobject
 from language import expandLangs
 from constants import *
 from product import *
-from network import hasActiveNetDev
+import network
 from installinterfacebase import InstallInterfaceBase
 import xutils
 import imputil
@@ -954,15 +954,67 @@ class InstallInterface(InstallInterfaceBase):
     def resume(self):
         pass
 
-    def enableNetwork(self):
+
+    # TODORV: handle one device case - don't ask
+    def enableNetwork(self, just_setup=False):
+
         if len(self.anaconda.id.network.netdevices) == 0:
             return False
-        from netconfig_dialog import NetworkConfigurator
-        net = NetworkConfigurator(self.anaconda.id.network)
-        ret = net.run()
-        net.destroy()
 
-        return ret not in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]
+        from network_gui import (runNMCE,
+                                 selectNetDevicesDialog)
+
+        networkEnabled = False
+        while not networkEnabled:
+            choice = selectNetDevicesDialog(self.anaconda.id.network,
+                                            select_install_device=(not just_setup))
+            if not choice:
+                break
+            nm_controlled_devices, install_device = choice
+
+            # update ifcfg files for nm-c-e
+            self.anaconda.id.network.setNMControlledDevices(nm_controlled_devices)
+            if not just_setup:
+                self.anaconda.id.network.updateActiveDevices([install_device])
+
+            runNMCE(self.anaconda)
+
+            self.anaconda.id.network.update()
+
+            if just_setup:
+                # TODORV check which devices were actually activated by nmce
+                # and which we should wait for (the case for more than one
+                # device)
+                onboot_devs = self.anaconda.id.network.getOnbootIfaces()
+                if onboot_devs:
+                    install_device = onboot_devs[0]
+
+            self.anaconda.id.network.write()
+
+            if install_device:
+                w = WaitWindow(_("Waiting for NetworkManager"),
+                               _("Waiting for NetworkManager to get connection."))
+                networkEnabled = self.anaconda.id.network.waitForConnection()
+                if not networkEnabled and not just_setup:
+                    self._handleNetworkError(install_device)
+                w.pop()
+
+            if just_setup:
+                break
+
+        return networkEnabled
+
+
+    def _handleNetworkError(self, field):
+        d = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR,
+                              gtk.BUTTONS_OK,
+                              _("An error occurred trying to bring up the "
+                                "%s network interface.") % (field,))
+        d.set_title(_("Error Configuring Network"))
+        d.set_position(gtk.WIN_POS_CENTER)
+        addFrame(d)
+        d.run()
+        d.destroy()
 
     def setPackageProgressWindow (self, ppw):
         self.ppw = ppw

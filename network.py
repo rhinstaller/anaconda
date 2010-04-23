@@ -264,11 +264,8 @@ class NetworkDevice(IfcfgFile):
             keys.remove("HWADDR")
 
         for key in keys:
-            if (key == 'NAME') or \
-               (key == 'NM_CONTROLLED' and not flags.livecdInstall):
-                continue
             # make sure we include autoneg in the ethtool line
-            elif key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
+            if key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
                 s = s + key + """="autoneg off %s"\n""" % (self.info[key])
             elif self.info[key] is not None:
                 s = s + key + '="' + self.info[key] + '"\n'
@@ -412,6 +409,33 @@ class Network:
                 return None
 
         return ip
+
+    # devices == None => set for all
+    def setNMControlledDevices(self, devices=None):
+        for devname, device in self.netdevices.items():
+            if devices and devname not in devices:
+                device.set(('NM_CONTROLLED', 'no'))
+            else:
+                device.set(('NM_CONTROLLED', 'yes'))
+            device.writeIfcfgFile()
+            device.log_file("device set to be nm controlled\n")
+
+    # devices == None => set for all
+    def updateActiveDevices(self, devices=None):
+        for devname, device in self.netdevices.items():
+            if devices and devname not in devices:
+                device.set(('ONBOOT', 'no'))
+            else:
+                device.set(('ONBOOT', 'yes'))
+            device.writeIfcfgFile()
+            device.log_file("updateActiveDevices\n")
+
+    def getOnbootIfaces(self):
+        ifaces = []
+        for iface, device in self.netdevices.items():
+            if device.get('ONBOOT') == "yes":
+                ifaces.append(iface)
+        return ifaces
 
     def writeKS(self, f):
         devNames = self.netdevices.keys()
@@ -658,9 +682,7 @@ class Network:
     # write out current configuration state and wait for NetworkManager
     # to bring the device up, watch NM state and return to the caller
     # once we have a state
-    def bringUp(self, devices=None):
-        self.write(devices=devices)
-
+    def waitForConnection(self):
         bus = dbus.SystemBus()
         nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
         props = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
@@ -680,6 +702,13 @@ class Network:
             return True
 
         return False
+
+    # write out current configuration state and wait for NetworkManager
+    # to bring the device up, watch NM state and return to the caller
+    # once we have a state
+    def bringUp(self, devices=None):
+        self.write(devices=devices)
+        return self.waitForConnection()
 
     # get a kernel cmdline string for dracut needed for access to host host
     def dracutSetupString(self, networkStorageDevice):

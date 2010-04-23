@@ -607,6 +607,7 @@ class NetworkData(commands.network.F8_NetworkData):
                       anaconda.methodstr.startswith("nfs:")))
         if needs_net and not network.hasActiveNetDev():
             log.info("Bringing up network in stage2 kickstart ...")
+            dev.set (('NM_CONTROLLED', 'yes'))
             rc = anaconda.id.network.bringUp()
             log.info("Network setup %s" % (rc and 'succeeded' or 'failed',))
 
