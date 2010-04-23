@@ -27,7 +27,6 @@ import iutil
 import network
 import storage.fcoe
 import storage.iscsi
-from netconfig_dialog import NetworkConfigurator
 
 def addFcoeDrive(anaconda):
     (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade", "fcoeDialog")
@@ -107,11 +106,8 @@ def addFcoeDrive(anaconda):
 
 def addIscsiDrive(anaconda):
     if not network.hasActiveNetDev():
-        net = NetworkConfigurator(anaconda.network)
-        ret = net.run()
-        net.destroy()
-        if ret != gtk.RESPONSE_OK:
-            return ret
+        if not self.anaconda.intf.enableNetwork()
+            return gtk.RESPONSE_CANCEL
 
     (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade", "iscsiDialog")
     gui.addFrame(dialog)

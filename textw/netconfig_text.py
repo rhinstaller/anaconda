@@ -196,8 +196,10 @@ class NetworkConfiguratorText:
 
             for name, dev in netdevs.items():
                 if name in selected:
+                    dev.set(('NM_CONTROLLED', 'yes'))
                     dev.set(('ONBOOT', 'yes'))
                 else:
+                    dev.set(('NM_CONTROLLED', 'no'))
                     dev.set(('ONBOOT', 'no'))
 
             selected_netdevs = []
