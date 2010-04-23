@@ -16,6 +16,8 @@
 
 import string
 import os
+import tempfile
+import shutil
 
 # use our own ASCII only uppercase function to avoid locale issues
 # not going to be fast but not important
@@ -80,9 +82,68 @@ class SimpleConfigFile:
 
     def get (self, key):
         key = uppercase_ASCII_string(key)
-        if self.info.has_key (key):
-            return self.info[key]
-        else:
-            return ""
+        return self.info.get(key, "")
 
+
+class IfcfgFile(SimpleConfigFile):
+
+    def __init__(self, dir, iface):
+        SimpleConfigFile.__init__(self)
+        self.iface = iface
+        self.dir = dir
+
+    @property
+    def path(self):
+        return os.path.join(self.dir, "ifcfg-%s" % self.iface)
+
+    def clear(self):
+        self.info = {}
+
+    def read(self):
+        """Reads values from ifcfg file.
+
+        returns: number of values read
+        """
+        f = open(self.path, "r")
+        lines = f.readlines()
+        f.close()
+
+        for line in lines:
+            line = line.strip()
+            if line.startswith("#") or line == '':
+                continue
+            fields = line.split('=', 2)
+            if len(fields) < 2:
+                continue
+            key = uppercase_ASCII_string(fields[0])
+            value = fields[1]
+            # XXX hack
+            value = value.replace('"', '')
+            value = value.replace("'", '')
+            self.info[key] = value
+
+        return len(self.info)
+
+    # This method has to write file in a particular
+    # way so that ifcfg-rh's inotify mechanism triggeres
+    # TODORV: check that it is still true.
+    def write(self, dir=None):
+        """Writes values into ifcfg file."""
+
+        if not dir:
+            path = self.path
+        else:
+            path = os.path.join(dir, os.path.basename(self.path))
+
+        fd, newifcfg = tempfile.mkstemp(prefix="ifcfg-%s" % self.iface, text=False)
+        os.write(fd, self.__str__())
+        os.close(fd)
+
+        os.chmod(newifcfg, 0644)
+        try:
+            os.remove(path)
+        except OSError, e:
+            if e.errno != 2:
+                raise
+        shutil.move(newifcfg, path)
 
