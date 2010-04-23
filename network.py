@@ -500,50 +500,10 @@ class Network:
                 continue
 
             bootproto = dev.get('BOOTPROTO').lower()
-            ipv6addr = dev.get('IPV6ADDR').lower()
-            ipv6prefix = dev.get('IPV6PREFIX').lower()
-            ipv6autoconf = dev.get('IPV6_AUTOCONF').lower()
-            dhcpv6c = dev.get('DHCPV6C').lower()
-
-            newifcfg = "/tmp/ifcfg-%s.new" % (device,)
-            f = open(newifcfg, "w")
-            if len(dev.get("DESC")) > 0:
-                f.write("# %s\n" % (dev.get("DESC"),))
-
-            # if bootproto is dhcp, unset any static settings (#218489)
-            # *but* don't unset if either IPv4 or IPv6 is manual (#433290)
-            if bootproto == 'dhcp':
-                dev.unset('IPADDR')
-                dev.unset('NETMASK')
-                dev.unset('GATEWAY')
-
-            # handle IPv6 settings correctly for the ifcfg file
-            dev.unset('IPV6ADDR')
-            dev.unset('IPV6PREFIX')
-
-            if ipv6addr == 'dhcp':
-                dev.set(('IPV6INIT', 'yes'))
-                dev.set(('DHCPV6C', 'yes'))
-            elif ipv6addr != '' and ipv6addr is not None:
-                dev.set(('IPV6INIT', 'yes'))
-
-                if ipv6prefix != '' and ipv6prefix is not None:
-                    dev.set(('IPV6ADDR', ipv6addr + '/' + ipv6prefix))
-                else:
-                    dev.set(('IPV6ADDR', ipv6addr))
-
-            if dev.get('IPV6_AUTOCONF').lower() == 'yes':
-                dev.set(('IPV6INIT', 'yes'))
-
-            f.write(str(dev))
-
             # write out the hostname as DHCP_HOSTNAME if given (#81613)
             if (bootproto == 'dhcp' and self.hostname and
                 self.overrideDHCPhostname):
-                f.write("DHCP_HOSTNAME=%s\n" %(self.hostname,))
-
-            if dev.get('MTU') and dev.get('MTU') != 0:
-                f.write("MTU=%s\n" % dev.get('MTU'))
+                dev.set(('DHCP_HOSTNAME', self.hostname))
 
             # tell NetworkManager not to touch any interfaces used during
             # installation when / is on a network backed device.
@@ -555,20 +515,11 @@ class Network:
                 for d in anaconda.storage.devices:
                     if isinstance(d, storage.devices.NetworkStorageDevice) and\
                        (rootdev.dependsOn(d) or d.nic == device):
-                        f.write("NM_CONTROLLED=no\n")
+                        dev.set(('NM_CONTROLLED', 'no'))
                         break
 
-            f.close()
-            os.chmod(newifcfg, 0644)
-
-            # move the new ifcfg in place
-            destcfg = "%s/ifcfg-%s" % (netscripts, device,)
-            try:
-                os.remove(destcfg)
-            except OSError as e:
-                if e.errno != 2:
-                    raise
-            shutil.move(newifcfg, destcfg)
+            dev.writeIfcfgFile(netscripts)
+            dev.log_file("===== write\n")
 
             # XXX: is this necessary with NetworkManager?
             # handle the keys* files if we have those
