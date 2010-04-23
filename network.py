@@ -272,7 +272,7 @@ class NetworkDevice(IfcfgFile):
             elif key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
                 s = s + key + """="autoneg off %s"\n""" % (self.info[key])
             elif self.info[key] is not None:
-                s = s + key + "=" + self.info[key] + "\n"
+                s = s + key + '="' + self.info[key] + '"\n'
 
         return s
 
