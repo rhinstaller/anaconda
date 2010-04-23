@@ -71,17 +71,6 @@ prepareBootTree() {
 }
 
 mkdir -p $TOPDESTPATH/images/pxeboot
-cat > $TOPDESTPATH/images/README <<EOF
-This directory contains image files that can be used to create media
-capable of starting the $PRODUCT installation process.
-
-The boot.iso file is an ISO 9660 image of a bootable CD-ROM.  It is useful
-in cases where the CD-ROM installation method is not desired, but the
-CD-ROM's boot speed would be an advantage.
-
-To use this image file, burn the file onto CD-R (or CD-RW) media as you
-normally would.
-EOF
 
 makeBootImages() {
   local initrd="initrd.img"
@@ -130,14 +119,6 @@ makeBootImages() {
     # symlink the kernel for pxe dir
     ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
 
-    cat > $TOPDESTPATH/images/pxeboot/README <<EOF
-The files in this directory are useful for booting a machine via PXE.  
-
-The following files are available:
-vmlinuz - the kernel used for the installer
-initrd.img - an initrd with support for all install methods and
-    drivers supported for installation of $PRODUCT
-EOF
     cat << __EOT__ >> $TOPDESTPATH/.treeinfo
 [images-$BASEARCH]
 kernel = images/pxeboot/vmlinuz

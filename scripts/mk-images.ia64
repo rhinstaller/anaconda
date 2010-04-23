@@ -143,14 +143,6 @@ makeBootImages() {
     rmdir $TOPDESTPATH/kernels
 
     # make a pxe dir with kernel + initrd
-    cat > $TOPDESTPATH/images/pxeboot/README <<EOF
-The files in this directory are useful for booting a machine via PXE.  
-
-The following files are available:
-vmlinuz - the kernel used for the installer
-initrd.img - an initrd with support for all install methods and
-    drivers supported for installation of $PRODUCT
-EOF
     cat << __EOT__ >> $TOPDESTPATH/.treeinfo
 [images-$KERNELARCH]
 kernel = images/pxeboot/vmlinuz
