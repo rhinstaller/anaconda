@@ -159,3 +159,4 @@ class PartitionTypeWindow:
         anaconda.dispatch.skipStep("bootloader", skip = 1)
 
         return INSTALL_OK
+
