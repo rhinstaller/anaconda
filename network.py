@@ -253,12 +253,12 @@ class NetworkDevice(IfcfgFile):
 
     def __str__(self):
         s = ""
-        s = s + "DEVICE=" + self.info["DEVICE"] + "\n"
         keys = self.info.keys()
         keys.sort()
         keys.remove("DEVICE")
         if "DESC" in keys:
             keys.remove("DESC")
+        keys.insert(0, "DEVICE")
         if "KEY" in keys:
             keys.remove("KEY")
         if iutil.isS390() and ("HWADDR" in keys):
