@@ -238,6 +238,28 @@ def getActiveNetDevs():
     ret.sort()
     return ret
 
+def logIfcfgFile(path, header="\n"):
+    logfile = ifcfgLogFile
+    if not os.access(path, os.R_OK):
+        return
+    f = open(path, 'r')
+    lf = open(logfile, 'a')
+    lf.write(header)
+    lf.write(f.read())
+    lf.close()
+    f.close()
+
+def logIfcfgFiles(header="\n"):
+
+    lf = open(ifcfgLogFile, 'a')
+    lf.write(header)
+    lf.close()
+
+    devprops = isys.getDeviceProperties(dev=None)
+    for device in devprops:
+        path = "%s/ifcfg-%s" % (netscriptsDir, device)
+        logIfcfgFile(path, "===== %s\n" % (path,))
+
 class NetworkDevice(IfcfgFile):
 
     def __init__(self, dir, iface, logfile='/tmp/ifcfg.log'):

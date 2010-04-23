@@ -978,7 +978,9 @@ class InstallInterface(InstallInterfaceBase):
             if not just_setup:
                 self.anaconda.network.updateActiveDevices([install_device])
 
+            network.logIfcfgFiles(header="========== before nm-c-e run\n")
             runNMCE(self.anaconda)
+            network.logIfcfgFiles(header="========== after nm-c-e run\n")
 
             self.anaconda.network.update()
 
