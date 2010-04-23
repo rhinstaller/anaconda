@@ -34,7 +34,7 @@ import os
 import time
 import dbus
 from flags import flags
-from simpleconfig import SimpleConfigFile
+from simpleconfig import IfcfgFile
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -45,6 +45,7 @@ log = logging.getLogger("anaconda")
 sysconfigDir = "/etc/sysconfig"
 netscriptsDir = "%s/network-scripts" % (sysconfigDir)
 networkConfFile = "%s/network" % (sysconfigDir)
+ifcfgLogFile = "/tmp/ifcfg.log"
 
 class IPError(Exception):
     pass
@@ -237,7 +238,19 @@ def getActiveNetDevs():
     ret.sort()
     return ret
 
-class NetworkDevice(SimpleConfigFile):
+class NetworkDevice(IfcfgFile):
+
+    def __init__(self, dir, iface, logfile='/tmp/ifcfg.log'):
+        IfcfgFile.__init__(self, dir, iface)
+        self.logfile = logfile
+        if iface.startswith('ctc'):
+            self.info["TYPE"] = "CTC"
+
+    def clear(self):
+        IfcfgFile.clear(self)
+        if self.iface.startswith('ctc'):
+            self.info["TYPE"] = "CTC"
+
     def __str__(self):
         s = ""
         s = s + "DEVICE=" + self.info["DEVICE"] + "\n"
@@ -263,10 +276,44 @@ class NetworkDevice(SimpleConfigFile):
 
         return s
 
-    def __init__(self, dev):
-        self.info = { "DEVICE" : dev }
-        if dev.startswith('ctc'):
-            self.info["TYPE"] = "CTC"
+    def loadIfcfgFile(self):
+        self.clear()
+        IfcfgFile.read(self)
+
+    def writeIfcfgFile(self, dir=None):
+        IfcfgFile.write(self, dir)
+
+    def log(self, header="\n"):
+        lf = open(self.logfile, 'a')
+        lf.write(header)
+        lf.close()
+        self.log_file()
+        self.log_write_file()
+        self.log_values()
+
+    def log_values(self, header="\n"):
+        lf = open(self.logfile, 'a')
+        lf.write(header)
+        lf.write("== values for file %s\n" % self.path)
+        lf.write(IfcfgFile.__str__(self))
+        lf.close()
+
+    def log_write_file(self, header="\n"):
+        lf = open(self.logfile, 'a')
+        lf.write(header)
+        lf.write("== file to be written for %s\n" % self.path)
+        lf.write(self.__str__())
+        lf.close()
+
+    def log_file(self, header="\n"):
+        f = open(self.path, 'r')
+        lf = open(self.logfile, 'a')
+        lf.write(header)
+        lf.write("== file %s\n" % self.path)
+        lf.write(f.read())
+        lf.close()
+        f.close()
+
 
 class Network:
     def __init__(self):
