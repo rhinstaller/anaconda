@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.fr\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-04-24 18:43+0200\n"
+"PO-Revision-Date: 2010-04-25 18:41+0200\n"
 "Last-Translator: Pablo Martin-Gomez <pablo.martin-gomez@laposte.net>\n"
 "Language-Team: Français <fedora-trans-fr@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -654,7 +654,7 @@ msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
-"Après l'extinction, veuillez effectuer manuellment un IPL depuis le "
+"Après l'extinction, veuillez effectuer manuellement un IPL depuis le "
 "périphérique DASD %s pour continuer l'installation"
 
 #: iutil.py:936
@@ -2490,7 +2490,7 @@ msgstr "Vendeur"
 #: iw/cleardisks_gui.py:124 iw/filter_gui.py:449 iw/filter_gui.py:468
 #: iw/filter_gui.py:479 iw/filter_gui.py:490
 msgid "Interconnect"
-msgstr "Interconnection"
+msgstr "Interconnexion"
 
 #: iw/cleardisks_gui.py:125 iw/filter_gui.py:450 iw/filter_gui.py:480
 #: iw/filter_gui.py:491
@@ -4972,12 +4972,12 @@ msgstr "Paramètre incorrect dans la commande méthode URL de kickstart : %s"
 
 #: loader/urlinstall.c:384
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr "Vous devez fournir un argument --url pour la méthode Url kickstart."
+msgstr "Vous devez fournir un argument --url pour la méthode URL kickstart."
 
 #: loader/urlinstall.c:391
 #, c-format
 msgid "Unknown Url method %s"
-msgstr "Méthode Url inconnue %s"
+msgstr "Méthode URL inconnue %s"
 
 #: loader/urls.c:167 loader/urls.c:175
 msgid "Retrieving"
