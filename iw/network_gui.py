@@ -152,9 +152,9 @@ def selectNetDevicesDialog(network, select_install_device=True):
         ksdevice = network.getKSDevice()
         if ksdevice:
             ksdevice = ksdevice.get('DEVICE')
-        selected_interface = None
+        selected_interface_idx = 0
 
-        for dev in devs:
+        for idx, dev in enumerate(devs):
             i = store.append(None)
             # TODORV: add description
             hwaddr = netdevs[dev].get("HWADDR")
@@ -164,19 +164,13 @@ def selectNetDevicesDialog(network, select_install_device=True):
             else:
                 desc = "%s" %(dev,)
 
-            if selected_interface is None:
-                selected_interface = i
-
             if ksdevice and ksdevice == dev:
-                selected_interface = i
+                selected_interface_idx = idx
 
             store[i] = (desc, dev)
 
         # TODORV: simplify to use just indexes
-        if selected_interface:
-            combo.set_active_iter(selected_interface)
-        else:
-            combo.set_active(0)
+        combo.set_active(selected_interface_idx)
 
         def installDevChanged(combo, dev_check_buttons):
             active = combo.get_active()
@@ -210,6 +204,9 @@ def selectNetDevicesDialog(network, select_install_device=True):
     dialog.vbox.pack_start(table)
 
     if select_install_device:
+        selected_dev_cb = dev_check_buttons[selected_interface_idx][1]
+        selected_dev_cb.set_active(True)
+        selected_dev_cb.set_sensitive(False)
         combo.connect("changed", installDevChanged, dev_check_buttons)
 
     dialog.show_all()
