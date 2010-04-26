@@ -1,13 +1,4 @@
-# German translation of anaconda
-# Copyright (C) 2001 Red Hat, Inc.
-# This file is distributed under the same license as the anaconda package.
-# HINWEIS: CD wurde in dieser PO-Datei absichtlich mit Datentraeger
-# uebersetzt, da Installationsmedien heutzutage sowohl
-# CD als auch DVD sein koennen. Bitte nicht abaendern!!
-# HINWEIS 2: "Swap" wird jeweils als "Auslagerungsdatei",
-# "Auslagerungsgerät" etc. uebersetzt, aber jeweils
-# mit (Swap) als Zusatz. So koennen Windows-Benutzer wie auch
-# Unix/Linux-Benutzer erkennen, was damit gemeint ist.
+# translation of anaconda.master.po to
 # Ronny Buchmann <ronny-vlug@vlugnet.org> 2004,2005,2006.
 # Claudia Krug <fhonig@redhat.it>, 2001.
 # Bernd Groh <bgroh@redhat.com>, 2002,2003,2004,2005,2006.
@@ -16,7 +7,6 @@
 # Verena Fuehrer <vfuehrer@redhat.com>, 2004.
 # Thomas Ritter <nethad@gmx.net>, 2005.
 # Nadine Reissle <nreissle@redhat.com>, 2006.
-# Timo Trinks <ttrinks@redhat.com>, 2007,2008.
 # Michael Schönitzer <michael@schoenitzer.de>, 2007.
 # Fabian Affolter <fab@fedoraproject.org>, 2007-2010.
 # Dominik Sandjaja <dominiksandjaja@fedoraproject.org>, 2008,2009.
@@ -27,20 +17,31 @@
 # Marcus Nitzschke <kenda@fedoraproject.org>, 2009,2010.
 # Cornelius Neckenig <tbull@fedoraproject.org>, 2010.
 # Thomas Spura <tomspur@fedoraproject.org>, 2010.
+# sknirT omiT <moc.tahder@sknirtt>, 2010.
+# German translation of anaconda
+# Copyright (C) 2001 Red Hat, Inc.
+# This file is distributed under the same license as the anaconda package.
+# HINWEIS: CD wurde in dieser PO-Datei absichtlich mit Datentraeger
+# uebersetzt, da Installationsmedien heutzutage sowohl
+# CD als auch DVD sein koennen. Bitte nicht abaendern!!
+# HINWEIS 2: "Swap" wird jeweils als "Auslagerungsdatei",
+# "Auslagerungsgerät" etc. uebersetzt, aber jeweils
+# mit (Swap) als Zusatz. So koennen Windows-Benutzer wie auch
+# Unix/Linux-Benutzer erkennen, was damit gemeint ist.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.master.de\n"
+"Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-04-15 10:46-0400\n"
-"PO-Revision-Date: 2010-04-25 12:07+0100\n"
-"Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
-"Language-Team: trans-de@lists.fedoraproject.org\n"
+"PO-Revision-Date: 2010-04-27 09:42+1000\n"
+"Last-Translator: sknirT omiT <moc.tahder@sknirtt>\n"
+"Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Virtaal 0.5.2\n"
+"X-Generator: KBabel 1.11.4\n"
 "X-Poedit-Language: German\n"
 
 #: anaconda:334
@@ -2240,7 +2241,7 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
 "Entfernt alle Partitionen auf den ausgewählten Laufwerk(en). Beinhaltet auch Partitionen, die von anderen Betriebssystemen erstellt wurden.\n"
-"<b>Tipp:</b> Diese Option löscht Daten von ausgewählten Laufwerk(en). Eine Sicherung der Daten wird empfohlen."
+"<b>Hinweis:</b> Diese Option löscht Daten von ausgewählten Laufwerk(en). Eine Sicherung der Daten wird empfohlen."
 
 #: iw/autopart_type.py:236
 msgid "Replace Existing Linux System(s)"
@@ -2253,7 +2254,7 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
 "Entfernt alle Linux-Partitionen auf dem gewählten Laufwerk. Dies entfernt keine anderen Partitionen auf Ihren Laufwerk(en) (z.B. VFAT oder FAT32).\n"
-"<b>Tipp:</b> Diese Option löscht alle Datenauf dem gewählten Laufwerk(en). Eine Sicherung der Daten wird empfohlen."
+"<b>Hinweis:</b> Diese Option löscht alle Datenauf dem gewählten Laufwerk(en). Eine Sicherung der Daten wird empfohlen."
 
 #: iw/autopart_type.py:246
 msgid "Shrink Current System"
@@ -2408,7 +2409,7 @@ msgstr "<b>Hinweis:</b> Die Installationszielen werden neu formatiert und die Da
 
 #: iw/cleardisks_gui.py:180
 msgid "<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."
-msgstr "<b>Tipp:</b> Ihre Dateisysteme auf den Installationszielen werden nicht neu formatiert, außer Sie wählen das in der Anpassung aus."
+msgstr "<b>Hinweis:</b> Ihre Dateisysteme auf den Installationszielen werden nicht neu formatiert, außer Sie wählen das in der Anpassung aus."
 
 #: iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2535,9 +2536,8 @@ msgid "LUN"
 msgstr "LUN"
 
 #: iw/filter_type.py:55
-#, fuzzy
 msgid "What type of devices will your installation involve?"
-msgstr "Welchem Gerätetyp wird Ihre Installation einbeziehen?"
+msgstr "Welche Gerätetypen umfasst Ihre Installation?"
 
 #: iw/filter_type.py:61
 msgid "Basic Storage Devices"
@@ -2545,7 +2545,7 @@ msgstr "Basis-Speichergeräte"
 
 #: iw/filter_type.py:62
 msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
-msgstr ""
+msgstr "Installiert oder aktualisiert auf typische Speichergerätetypen.  Dies ist womöglich die richtige Wahl, falls Sie unsicher sind, ob diese Option die richtige für Sie ist."
 
 #: iw/filter_type.py:66
 msgid "Specialized Storage Devices"
@@ -2553,7 +2553,7 @@ msgstr "Spezielle Speichergeräte"
 
 #: iw/filter_type.py:67
 msgid "Installs or upgrades to devices such as Storage Area Networks (SANs) or mainframe attached disks (DASD), usually in an enterprise environment"
-msgstr ""
+msgstr "Installiert oder aktualisiert auf Geräte wie Storage Area Networks (SANs) oder per Mainframe angehängte Speichergeräte (DASD), gewöhnlich in einer Unternehmensumgebung"
 
 #: iw/language_gui.py:33
 #: textw/language_text.py:45
@@ -5697,7 +5697,7 @@ msgstr "Welche Art von Installation bevorzugen Sie?"
 
 #: ui/autopart.glade.h:6
 msgid "_Encrypt system"
-msgstr "_Verschlüssele System"
+msgstr "System _verschlüssen"
 
 #: ui/autopart.glade.h:7
 msgid "_Shrink"
@@ -5748,37 +5748,32 @@ msgid "<b>Install Target Devices</b>"
 msgstr "<b>Ziel-Geräte installieren</b>"
 
 #: ui/cleardisks.glade.h:3
-#, fuzzy
 msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>Tipp:</b> Das Installations-Zielgerät wird formatiert und alle Daten gelöscht. Stellen Sie sicher, dass Sie Sicherungen besitzen."
+msgstr "<b>Hinweis:</b> Die Installations-Zielgeräte werden neu formatiert und sämtliche Daten gelöscht.  Stellen Sie sicher, dass Sie Datensicherungen besitzen."
 
 #: ui/cleardisks.glade.h:4
 msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data drives (these will not be formatted, only mounted) and which devices you'd like to use as system drives (these may be formatted)."
-msgstr ""
+msgstr "Nachfolgend sind die von Ihnen für diese Installation ausgewählten Speichergeräte aufgeführt.  Geben Sie mit Hilfe der nachfolgenden Pfeile an, welche Geräte Sie als Datenlaufwerke (diese werden nicht formatiert, sondern lediglich eingehängt) und welche Geräte Sie als Systemlaufwerke verwenden möchten (diese können formatiert werden)."
 
 #: ui/create-storage.glade.h:1
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr "<span size=\"small\" color=\"gray\">Eine RAID-formatierte Partition erzeugen</span>"
+msgstr "<span size=\"small\" color=\"gray\">Eine RAID-formatierte Partition erstellen</span>"
 
 #: ui/create-storage.glade.h:2
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Create a logical volume on selected volume group</span>"
-msgstr "<span size=\"small\" color=\"gray\">Ein logisches Volumen in der gewählten Volumen-Gruppe erzeugen</span>"
+msgstr "<span size=\"small\" color=\"gray\">Einen logischen Datenträger im ausgewählten Datenträgerverbund erstellen</span>"
 
 #: ui/create-storage.glade.h:3
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">Eine LVM-formatierte Partion anlegen</span>"
 
 #: ui/create-storage.glade.h:4
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
-msgstr "<span size=\"small\" color=\"gray\">Erleichtert die RAID-Geräterzeugung</span>"
+msgstr "<span size=\"small\" color=\"gray\">Ermöglicht das Erstellen eines RAID-Geräts</span>"
 
 #: ui/create-storage.glade.h:5
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr "<span size=\"small\" color=\"gray\">Allgemeine Partition-Erzeugung</span>"
+msgstr "<span size=\"small\" color=\"gray\">Erstellung einer Partition für allgemeine Zwecke</span>"
 
 #: ui/create-storage.glade.h:6
 msgid "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted partition</span>"
@@ -5817,9 +5812,8 @@ msgid "LVM Physical Volume"
 msgstr "LVM physikalischen Datenträger (Physical Volume)"
 
 #: ui/create-storage.glade.h:15
-#, fuzzy
 msgid "LVM Volume Group"
-msgstr "LVM-Datenträgerverbände"
+msgstr "LVM-Datenträgerverbund"
 
 #: ui/create-storage.glade.h:16
 msgid "RAID Clone"
@@ -5867,7 +5861,7 @@ msgstr "FCoE-Platte(n) hinzufügen"
 
 #: ui/filter.glade.h:1
 msgid "<b>Tip:</b> Selected drives will not be formatted unless you choose to do so later during installation.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
-msgstr ""
+msgstr "<b>Hinweis:</b> Dies ausgewählten Laufwerke werden erst dann formatiert, wenn Sie sich zu einem späteren Zeitpunkt der Installation dazu entschließen.   Beachten Sie außerdem, dass Sie nach Abschluß der Installation Laufwerke einhängen können, die Sie hier nicht ausgewählt haben, indem Sie Ihre /etc/fstab-Datei anpassen."
 
 #: ui/filter.glade.h:2
 msgid "Add Advanced Target"
@@ -5945,18 +5939,16 @@ msgid "Selected devices: %s (%s) out of %s (%s)."
 msgstr "Ausgewählte Gerätes: %s (%s) von %s (%s)."
 
 #: ui/filter.glade.h:22
-#, fuzzy
 msgid "Show Identifiers that Include:"
-msgstr "Bezeichner anzeigen, die folgendes enthalten:"
+msgstr "Bezeichner anzeigen, die Folgendes enthalten:"
 
 #: ui/filter.glade.h:23
 msgid "Show Only Devices From:"
 msgstr "Nur Geräte anzeigen von:"
 
 #: ui/filter.glade.h:24
-#, fuzzy
 msgid "Show Only Devices Using:"
-msgstr "Nur Geräte anzeigen:"
+msgstr "Nur Geräte anzeigen, die Folgendes verwenden:"
 
 #: ui/filter.glade.h:25
 msgid "Target:"
@@ -6355,282 +6347,3 @@ msgstr "Walisisch"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "Starting graphical installation."
-#~ msgstr "Grafische Installation wird gestartet …"
-
-#~ msgid ""
-#~ "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
-#~ msgstr ""
-#~ "<b>%s device(s) (%s MB) ausgewählt</b> von %s device(s) (%s MB) total."
-
-#~ msgid "Add FCP Device"
-#~ msgstr "FCP-Gerät hinzufügen"
-
-#~ msgid "No network cards present."
-#~ msgstr "Keine Netzwerkkarten vorhanden."
-
-#~ msgid "Add FCoE SAN"
-#~ msgstr "FCoE SAN hinzufügen"
-
-#~ msgid "Select which NIC is connected to the FCoE SAN."
-#~ msgstr "Bitte wählen Sie aus, welches NIC zu FCoE SAN verbunden ist."
-
-#~ msgid "Target IP Address"
-#~ msgstr "Ziel-IP-Adresse"
-
-#~ msgid "iSCSI Initiator Name"
-#~ msgstr "iSCSI-Initiatorname"
-
-#~ msgid "CHAP username"
-#~ msgstr "CHAP-Benutzername"
-
-#~ msgid "CHAP password"
-#~ msgstr "CHAP-Passwort"
-
-#~ msgid "Reverse CHAP username"
-#~ msgstr "Reverse-CHAP-Benutzername"
-
-#~ msgid "Reverse CHAP password"
-#~ msgstr "Reverse-CHAP-Passwort"
-
-#~ msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
-#~ msgstr "<b>%s-Geräte (%s) ausgewählt</b> vom %s devices (%s) total."
-
-#~ msgid "Unknown"
-#~ msgstr "Unbekannt"
-
-#~ msgid "Installing Packages"
-#~ msgstr "Installieren der Pakete"
-
-#~ msgid ""
-#~ "This release of %(productName)s supports the an updated file system, "
-#~ "which has several benefits over the file system traditionally shipped in %"
-#~ "(productName)s.  This installation program can migrate formatted "
-#~ "partitions without data loss.\n"
-#~ "\n"
-#~ "Which of these partitions would you like to migrate?"
-#~ msgstr ""
-#~ "Diese Version von %(productName)s unterstützt das aktualisierte "
-#~ "Dateisystem. Es hat einige Vorteile gegenüber dem traditionellen "
-#~ "Dateisystem, das bisher in %(productName)s als Standard verwendet wurde. "
-#~ "Dieses Installationsprogramm kann formatierte Partitionen ohne "
-#~ "Datenverlust migrieren.\n"
-#~ "\n"
-#~ "Welche dieser Partition möchten Sie migrieren?"
-
-#~ msgid "Install class forcing text mode installation"
-#~ msgstr "Installationsklasse erfordert Installation im Textmodus"
-
-#~ msgid "Device Resize Failed"
-#~ msgstr "Größenänderung des Gerätes gescheitert"
-
-#~ msgid "An error was encountered while resizing device %s."
-#~ msgstr "Beim Ändern der Größe des Geräts %s trat ein Fehler auf."
-
-#~ msgid "Device Creation Failed"
-#~ msgstr "Geräteerstellung fehlgeschlagen"
-
-#~ msgid "An error was encountered while creating device %s."
-#~ msgstr "Beim Anlegen des Geräts %s trat ein Fehler auf."
-
-#~ msgid "Device Removal Failed"
-#~ msgstr "Entfernung des Gerätes gescheitert"
-
-#~ msgid "An error was encountered while removing device %s."
-#~ msgstr "Beim Entfernen des Geräts %s trat ein Fehler auf."
-
-#~ msgid "An error was encountered while setting up device %s."
-#~ msgstr "Beim Konfigurieren des Geräts %s trat ein Fehler auf."
-
-#~ msgid "An error was encountered while formatting device %s."
-#~ msgstr "Beim Formatieren des Geräts %s trat ein Fehler auf."
-
-#~ msgid "Storage Activation Failed"
-#~ msgstr "Speicheraktivierung fehlgeschlagen"
-
-#~ msgid ""
-#~ "An error was encountered while activating your storage configuration."
-#~ msgstr ""
-#~ "Beim Aktivieren der Speicher-Konfiguration ist ein Fehler aufgetreten."
-
-#~ msgid "_Ignore drive"
-#~ msgstr "Laufwerk _ignorieren"
-
-#~ msgid "_Re-initialize drive"
-#~ msgstr "Laufwerk e_rneut initialisieren"
-
-#~ msgid "The installer will now exit."
-#~ msgstr "Das Installationsprogramm wird nun beendet."
-
-#~ msgid "The installer will now exit..."
-#~ msgstr "Das Installationsprogramm wird nun beendet ..."
-
-#~ msgid "%s not found"
-#~ msgstr "%s nicht gefunden"
-
-#~ msgid ""
-#~ "Do you really want to boot from a disk which is not used for installation?"
-#~ msgstr ""
-#~ "Wollen Sie wirklich von einem Laufwerk starten, welches nicht für die "
-#~ "Installation gebraucht wird?"
-
-#~ msgid "Rescanning disks"
-#~ msgstr "Frage Laufwerke erneut ab"
-
-#~ msgid "_Install %s"
-#~ msgstr "%s _installieren"
-
-#~ msgid "The following installed system will be upgraded:"
-#~ msgstr "Das folgende installierte System wird aktualisiert:"
-
-#~ msgid ""
-#~ "Enter the device name for the NIC which is connected to the FCoE SAN. For "
-#~ "example \"eth0\"."
-#~ msgstr ""
-#~ "Geben Sie den Gerätenamen für die NIC ein, die mit dem FCoE SAN verbunden "
-#~ "ist. Zum Beispiel \"eth0\"."
-
-#~ msgid "NIC device name"
-#~ msgstr "NIC-Gerätename"
-
-#~ msgid "%s is not a valid NIC device name."
-#~ msgstr "%s ist kein gültiger NIC-Gerätename."
-
-#~ msgid ""
-#~ "Installation requires partitioning of your hard drive.  The default "
-#~ "layout is suitable for most users.  Select what space to use and which "
-#~ "drives to use as the install target. You can also choose to create your "
-#~ "own custom layout."
-#~ msgstr ""
-#~ "Die Installation erfordert die Partitionierung Ihrer Festplatte. Das "
-#~ "Standard-Layout ist für die meisten Benutzer sinnvoll. Bitte wählen Sie "
-#~ "den zu verwendenden Platz und die zu verwendende Festplatte aus. Sie "
-#~ "können auch Ihre eigene Partitionierung erstellen."
-
-#~ msgid "What drive would you like to _boot this installation from?"
-#~ msgstr "Von welchem Laufwerk möchten Sie diese Installation _booten?"
-
-#~ msgid "_Advanced storage configuration"
-#~ msgstr "Erweiterte Speicherkonfigur_ation"
-
-#~ msgid "_Select the drive(s) to use for this installation."
-#~ msgstr ""
-#~ "Wählen _Sie das/die für die Installation zu verwendenden Laufwerk(e)."
-
-#~ msgid "reipl configuration successful => reboot"
-#~ msgstr "reIPL-Konfiguration erfolgreich => Neustart"
-
-#~ msgid "reipl configuration failed => halt"
-#~ msgstr "reIPL-Konfiguration fehlgeschlagen => halt"
-
-#~ msgid "/boot is not on an ext2 filesystem."
-#~ msgstr "/boot liegt nicht auf einem ext2-Dateisystem."
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of software applicable for "
-#~ "general internet usage. What additional tasks would you like your system "
-#~ "to include support for?"
-#~ msgstr ""
-#~ "Die Standardinstallation von %s beinhaltet eine Auswahl an Programmen für "
-#~ "die allgemeine Internetnutzung. Welche zusätzlichen Aufgaben sollen durch "
-#~ "Ihr System unterstützt werden?"
-
-#~ msgid "Office and Productivity"
-#~ msgstr "Büro und Produktivität"
-
-#~ msgid "%s %s installation"
-#~ msgstr "%s %s Installation durchführen"
-
-#~ msgid "%s: %s"
-#~ msgstr "%s: %s"
-
-#~ msgid "Not supported"
-#~ msgstr "Nicht unterstützt"
-
-#~ msgid "LVM is NOT supported on this platform."
-#~ msgstr "LVM wird auf dieser Plattform NICHT unterstützt."
-
-#~ msgid "Software RAID is NOT supported on this platform."
-#~ msgstr "Software-RAID wird auf dieser Plattform NICHT unterstützt."
-
-#~ msgid "No RAID minor device numbers available"
-#~ msgstr "Keine RAID-Geräte-Nummern verfügbar"
-
-#~ msgid ""
-#~ "A software RAID device cannot be created because all of the available "
-#~ "RAID minor device numbers have been used."
-#~ msgstr ""
-#~ "Es kann kein Software-RAID-Gerät angelegt werden, da alle verfügbaren "
-#~ "Geräte-Nummern bereits verwendet werden."
-
-#~ msgid "What do you want to do now?"
-#~ msgstr "Was möchten Sie nun tun?"
-
-#~ msgid "Create a RAID _device [default=/dev/md%s]."
-#~ msgstr "RAI_D Gerät anlegen [Standard=/dev/md%s]."
-
-#~ msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-#~ msgstr ""
-#~ "Festplatte klonen, um ein RAI_D-Gerät anzulegen [Standard=/dev/md%s]."
-
-#~ msgid "Ne_w"
-#~ msgstr "Ne_u"
-
-#~ msgid "R_AID"
-#~ msgstr "R_AID"
-
-#~ msgid "_LVM"
-#~ msgstr "_LVM"
-
-#~ msgid "Hide RAID device/LVM Volume _Group members"
-#~ msgstr "RAID-Gerät/LVM-Datenträgerverbund-Bestandteile ausblenden"
-
-#~ msgid ""
-#~ "Clone Drive Tool\n"
-#~ "\n"
-#~ "This tool allows you to significantly reduce the amount of effort "
-#~ "required to setup RAID arrays.  This tool uses a source drive which has "
-#~ "been prepared with the desired partitioning layout, and clones this "
-#~ "layout onto other similar sized drives.  Then a RAID device can be "
-#~ "created.\n"
-#~ "\n"
-#~ "NOTE: The source drive must have partitions which are restricted to be on "
-#~ "that drive only, and can only contain unused software RAID partitions.  "
-#~ "Other partition types are not allowed.\n"
-#~ "\n"
-#~ "EVERYTHING on the target drive(s) will be destroyed by this process."
-#~ msgstr ""
-#~ "Tool zum Klonen von Platten\n"
-#~ "\n"
-#~ "Dieses Werkzeug erleichtert das Einstellen von RAID-Arrays erheblich. Das "
-#~ "Konzept dieses Werkzeugs ist es, eine entsprechend partitionierte Quell-"
-#~ "Festplatte auf andere Festplatten einer ähnlichen Größe zu klonen. "
-#~ "Anschließend kann ein RAID-Gerät angelegt werden.\n"
-#~ "\n"
-#~ "HINWEIS: Die Quell-Festplatte muss Partitionen besitzen, die "
-#~ "ausschließlich auf diese Festplatte beschränkt sind, und kann nur neue "
-#~ "Software-RAID-Partitionen enthalten. Andere Partitionstypen sind nicht "
-#~ "erlaubt.\n"
-#~ "\n"
-#~ "ALLE DATEN der Ziel-Festplatte(n) werden gelöscht."
-
-#~ msgid ""
-#~ "The following error occurred while setting up the installation "
-#~ "repository:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Please provide the correct information for installing %s"
-#~ msgstr ""
-#~ "Folgende Fehler traten beim Einrichten des Installations-Repositorys "
-#~ "auf:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Bitte geben Sie die korrekten Informationen an, um %s zu installieren."
-
-#~ msgid "Unknown Host"
-#~ msgstr "Unbekannter Rechner"
-
-#~ msgid "%s is not a valid hostname."
-#~ msgstr "%s ist kein gültiger Rechnername."
