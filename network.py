@@ -162,6 +162,15 @@ def hasActiveNetDev():
     except:
         return False
 
+def hasWirelessDev():
+    devprops = isys.getDeviceProperties()
+    for dev, props in devprops.items():
+        device_type = int(props.Get(isys.NM_MANAGER_IFACE, "DeviceType"))
+        if device_type == 2:
+            return True
+    return False
+
+
 # Return a list of device names (e.g., eth0) for all active devices.
 # Returning a list here even though we will almost always have one
 # device.  NM uses lists throughout its D-Bus communication, so trying
@@ -439,6 +448,16 @@ class Network:
             if device.get('ONBOOT') == "yes":
                 ifaces.append(iface)
         return ifaces
+
+    def updateIfcfgsSSID(self, devssids):
+        for devname, device in self.netdevices.items():
+            if devname in devssids.keys() and devssids[devname]:
+                device.set(('ESSID', devssids[devname][0]))
+                device.writeIfcfgFile()
+                device.log_file("updateIfcfgSSID\n")
+
+    def getSSIDs(self):
+        return getSSIDs(self.netdevices.keys())
 
     def writeKS(self, f):
         devNames = self.netdevices.keys()
@@ -810,3 +829,45 @@ class Network:
                 netargs += ",%s" % (','.join(options))
 
         return netargs
+
+def getSSIDs(devices_to_scan=None):
+
+    rv = {}
+    bus = dbus.SystemBus()
+    nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+    device_paths = nm.get_dbus_method("GetDevices")()
+
+    for device_path in device_paths:
+
+        device = bus.get_object(isys.NM_SERVICE, device_path)
+        device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
+        # interface name, eg. "eth0", "wlan0"
+        dev = str(device_props_iface.Get(isys.NM_MANAGER_IFACE, "Interface"))
+
+        if (isys.isWireless(dev) and
+            (not devices_to_scan or dev in devices_to_scan)):
+
+            i = 0
+            log.info("scanning APs for %s" % dev)
+            while i < 5:
+                ap_paths = device.GetAccessPoints(dbus_interface='org.freedesktop.NetworkManager.Device.Wireless')
+                if ap_paths:
+                    break
+                time.sleep(0.5)
+                i += 0.5
+
+            ssids = []
+            for ap_path in ap_paths:
+                ap = bus.get_object(isys.NM_SERVICE, ap_path)
+                ap_props = dbus.Interface(ap, isys.DBUS_PROPS_IFACE)
+                ssid_bytearray = ap_props.Get(isys.NM_MANAGER_IFACE, "Ssid")
+                ssid = "".join((str(b) for b in ssid_bytearray))
+                ssids.append(ssid)
+            log.info("APs found for %s: %s" % (dev, str(ssids)))
+            # XXX there can be duplicates in a list, but maybe
+            # we want to keep them when/if we differentiate on something
+            # more then just ssids; for now, remove them
+            rv[dev]=list(set(ssids))
+
+    return rv
+

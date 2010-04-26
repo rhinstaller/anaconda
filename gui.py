@@ -964,7 +964,8 @@ class InstallInterface(InstallInterfaceBase):
             return False
 
         from network_gui import (runNMCE,
-                                 selectNetDevicesDialog)
+                                 selectNetDevicesDialog,
+                                 selectSSIDsDialog)
 
         networkEnabled = False
         while not networkEnabled:
@@ -982,6 +983,21 @@ class InstallInterface(InstallInterfaceBase):
             self.anaconda.network.setNMControlledDevices(nm_controlled_devices)
             if not just_setup:
                 self.anaconda.network.updateActiveDevices([install_device])
+
+            # we might want to do this only once
+            # TODORV: put into Network objects
+            if network.hasWirelessDev():
+                # NOTE: For wireless, we need supplicant to go to ready state,
+                #       that means to get the wireless device managed by NM
+                self.anaconda.id.network.writeIfcfgFiles()
+                w = self.anaconda.intf.waitWindow(_("Wireless setup"),
+                                    _("Scanning access points for wireless devices"))
+                # get available wireless APs
+                dev_all_ssids = self.anaconda.network.getSSIDs()
+                w.pop()
+                # select wireless APs
+                dev_ssids = selectSSIDsDialog(dev_all_ssids) or dev_all_ssids
+                self.anaconda.network.updateIfcfgsSSID(dev_ssids)
 
             self.anaconda.id.network.writeIfcfgFiles()
             network.logIfcfgFiles(header="========== before nm-c-e run\n")

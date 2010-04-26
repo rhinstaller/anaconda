@@ -236,5 +236,61 @@ def selectNetDevicesDialog(network, select_install_device=True):
     dialog.destroy()
     return retval
 
+def selectSSIDsDialog(devssids):
+    """Dialog for access point selection.
+
+    devssids - dict iface->[ssid1, ssid2, ssid3, ...]
+    returns  - dict iface->[ssidX] or None on Cancel
+    """
+
+    # If there are no choices, don't ask
+    for dev, ssids in devssids.items():
+        if len(ssids) > 1:
+            break
+    else:
+        return devssids
+
+    rv = {}
+    dialog = gtk.Dialog(_("Select APs"))
+    dialog.add_button('gtk-cancel', gtk.RESPONSE_CANCEL)
+    dialog.add_button('gtk-ok', 1)
+    dialog.set_position(gtk.WIN_POS_CENTER)
+    gui.addFrame(dialog)
+
+    dialog.vbox.pack_start(gui.WrappingLabel(
+        _("Select APs for wireless devices")))
+
+    table = gtk.Table(len(devssids), 2)
+    table.set_row_spacings(5)
+    table.set_col_spacings(5)
+
+    combos = {}
+    for i, (dev, ssids) in enumerate(devssids.items()):
+
+        label = gtk.Label(dev)
+        table.attach(label, 0, 1, i, i+1, gtk.FILL, gtk.FILL)
+
+        combo = gtk.combo_box_new_text()
+        for ssid in ssids:
+            combo.append_text(ssid)
+        table.attach(combo, 1, 2, i, i+1, gtk.FILL, gtk.FILL)
+        combo.set_active(0)
+        combos[dev] = combo
+
+    dialog.vbox.pack_start(table)
+
+    dialog.show_all()
+
+    rc = dialog.run()
+
+    # cancel
+    if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
+        rv = None
+    else:
+        for dev, combo in combos.items():
+            rv[dev] = [combo.get_active_text()]
+
+    dialog.destroy()
+    return rv
 
 
