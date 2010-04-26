@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-04-19 17:39-1000\n"
-"PO-Revision-Date: 2010-04-21 18:40+0530\n"
+"POT-Creation-Date: 2010-04-22 17:49-1000\n"
+"PO-Revision-Date: 2010-04-26 13:13+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,6 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -211,7 +212,7 @@ msgstr "సంస్థాపకి నిష్క్రమించుము (
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1346
 #: kickstart.py:1385 upgrade.py:58 yuminstall.py:1248 yuminstall.py:1431
-#: iw/partition_gui.py:1600 storage/__init__.py:1962
+#: iw/partition_gui.py:1608 storage/__init__.py:1962
 msgid "_Continue"
 msgstr "కొనసాగించు(_C)"
 
@@ -360,7 +361,7 @@ msgstr ""
 "సంకేతపదమును క్రిందన ప్రవేశపెట్టండి."
 
 #: gui.py:734 gui.py:1410 partIntfHelpers.py:157 partIntfHelpers.py:342
-#: text.py:100 text.py:101 iw/account_gui.py:130 loader/dirbrowser.c:128
+#: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:422 loader/kickstart.c:328 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
 msgid "Cancel"
@@ -1079,8 +1080,8 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr "మీరు పరికరము '%s' పైని అన్ని విభజనలను తొలగించబోతున్నారు."
 
 #: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:863
-#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1813
-#: iw/partition_gui.py:1825
+#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1821
+#: iw/partition_gui.py:1833
 msgid "_Delete"
 msgstr "తొలగించు(_D)"
 
@@ -1139,7 +1140,7 @@ msgstr ""
 msgid "Format?"
 msgstr "రూపాంతరము?"
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1598
+#: partIntfHelpers.py:249 iw/partition_gui.py:1606
 msgid "_Modify Partition"
 msgstr "విభజనని సవరించుము (_M)"
 
@@ -2128,42 +2129,26 @@ msgstr "గ్రాఫికల్ డెస్కుటాప్"
 msgid "Software Development"
 msgstr "సాఫ్టువేర్ అభివృద్ధి"
 
-#: installclasses/fedora.py:59 installclasses/rhel.py:61
+#: installclasses/fedora.py:59
 msgid "Web Server"
 msgstr "వెబ్ సేవిక"
 
-#: installclasses/fedora.py:63 installclasses/rhel.py:90
+#: installclasses/fedora.py:63 installclasses/rhel.py:44
 msgid "Minimal"
 msgstr "కనీస"
 
-#: installclasses/rhel.py:39
+#: installclasses/rhel.py:33
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
-#: installclasses/rhel.py:40
+#: installclasses/rhel.py:34
 #, python-format
 msgid ""
-"The default installation of %s is a basic server install. You can optionally "
+"The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
 msgstr ""
-"%s యొక్క అప్రమేయ సంస్థాపన వొక కనీస సర్వర్ సంస్థాపన. మీరు ఐచ్చికంగా వేరే సాఫ్టువేరు సమితిని యిప్పుడు "
+"%s యొక్క అప్రమేయ సంస్థాపన వొక కనీస సంస్థాపన. మీరు ఐచ్చికంగా వేరే సాఫ్టువేరు సమితిని యిప్పుడు "
 "యెంచుకొనవచ్చును."
-
-#: installclasses/rhel.py:51
-msgid "Basic Server"
-msgstr "ప్రాధమిక సర్వర్"
-
-#: installclasses/rhel.py:55
-msgid "Database Server"
-msgstr "డాటాబేస్ సర్వర్"
-
-#: installclasses/rhel.py:67
-msgid "Desktop"
-msgstr "డెస్కుటాప్"
-
-#: installclasses/rhel.py:77
-msgid "Software Development Workstation"
-msgstr "సాఫ్టువేర్ అభివృద్ధి వర్కుస్టేషన్"
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2197,7 +2182,7 @@ msgid "Caps Lock is on."
 msgstr "Caps Lock ఆన్ అయిఉంది."
 
 #: iw/account_gui.py:102 iw/account_gui.py:110 iw/account_gui.py:117
-#: iw/account_gui.py:137 textw/userauth_text.py:74
+#: iw/account_gui.py:138 textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr "సంకేతపదంతో దోషం"
 
@@ -2225,11 +2210,11 @@ msgstr "బలహీన సంకేతపదం"
 msgid "You have provided a weak password: %s"
 msgstr "మీరు వొక బలహీనమైన సంకేతపదమును అందించారు: %s"
 
-#: iw/account_gui.py:130
+#: iw/account_gui.py:131
 msgid "Use Anyway"
 msgstr "ఏమైనాసరే వుపయోగించుము"
 
-#: iw/account_gui.py:138 textw/userauth_text.py:75
+#: iw/account_gui.py:139 textw/userauth_text.py:75
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "కావలసిన సంకేతపదం ASCII-కాని అక్షరాలను కలిగి ఉంది, ఇవి అంగీకరించబడవు."
@@ -2957,8 +2942,8 @@ msgstr "పరిమాణం (MB)"
 msgid "_Add"
 msgstr "జతచేయు(_A)"
 
-#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1812
-#: iw/partition_gui.py:1822
+#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1820
+#: iw/partition_gui.py:1830
 msgid "_Edit"
 msgstr "సరికూర్చు(_E)"
 
@@ -3164,7 +3149,7 @@ msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
 msgstr "డ్రైవ్ %(drive)s (%(size)-0.f MB) (రకము: %(model)s)"
 
 #: iw/partition_gui.py:396 iw/partition_gui.py:442 iw/partition_gui.py:509
-#: iw/partition_gui.py:996 iw/partition_gui.py:1063
+#: iw/partition_gui.py:1000 iw/partition_gui.py:1067
 msgid "Free"
 msgstr "ఖాళీ"
 
@@ -3244,27 +3229,27 @@ msgstr ""
 msgid "Format Warnings"
 msgstr "రూపాంతరము హెచ్చరికలు"
 
-#: iw/partition_gui.py:984
+#: iw/partition_gui.py:988
 msgid "LVM Volume Groups"
 msgstr "LVM వాల్యూమ్‌ సమూహాలు"
 
-#: iw/partition_gui.py:1006
+#: iw/partition_gui.py:1010
 msgid "RAID Devices"
 msgstr "RAID సాధనాలు"
 
-#: iw/partition_gui.py:1017 loader/hdinstall.c:206
+#: iw/partition_gui.py:1021 loader/hdinstall.c:206
 msgid "Hard Drives"
 msgstr "హార్డ్ డ్రైవులు"
 
-#: iw/partition_gui.py:1067
+#: iw/partition_gui.py:1071
 msgid "Extended"
 msgstr "పొడిగింపు"
 
-#: iw/partition_gui.py:1346
+#: iw/partition_gui.py:1350
 msgid "Cannot perform any creation action"
 msgstr "ఏ సృష్టీకరణ చర్యను జరుపలేదు"
 
-#: iw/partition_gui.py:1347
+#: iw/partition_gui.py:1351
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -3280,7 +3265,7 @@ msgstr ""
 "* కనీసం వొక ఖాళీ భౌతిక వాల్యూమ్ (LVM) విభజన.\n"
 "* ఖళీ జాగాతో కనీసం వొక వాల్యూమ్ గ్రూప్."
 
-#: iw/partition_gui.py:1455
+#: iw/partition_gui.py:1463
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3292,7 +3277,7 @@ msgstr ""
 "పరికరము స్వతంత్ర డ్రైవ్‌తో పోల్చుకుంటే అదనపు వేగాన్ని మరియు నమ్మకాన్ని ఇవ్వటానికి ఆకృతీకరించవచ్చు. RAID "
 "పరికరాలను వుపయోగించుటపై అదనపు సమాచారం కొరకు %s పత్రికీకరణను చదవండి.\n"
 
-#: iw/partition_gui.py:1461
+#: iw/partition_gui.py:1469
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -3303,16 +3288,16 @@ msgstr ""
 "తరువాత రూపాంతరము చేయదగిన మరియూ మరల్చదగ్గ RAID పరికరాన్ని సృష్టించాలి.\n"
 "\n"
 
-#: iw/partition_gui.py:1465
+#: iw/partition_gui.py:1473
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgstr "మీరు ప్రస్తుతం వుపయోగించుటకు %d సాఫ్టువేరు RAID విభజనను ఖాళీగా కలిగివున్నారు."
 
-#: iw/partition_gui.py:1469
+#: iw/partition_gui.py:1477
 msgid "About RAID"
 msgstr "RAID గురించి"
 
-#: iw/partition_gui.py:1475
+#: iw/partition_gui.py:1483
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
@@ -3329,7 +3314,7 @@ msgstr ""
 "గమనించండి.  LVM వుపయోగించుటపై మరింత సమాచారము కొరకు %s పత్రికీకరణను సంప్రదించుము\n"
 "\n"
 
-#: iw/partition_gui.py:1483
+#: iw/partition_gui.py:1491
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create a LV you need a VG "
@@ -3341,47 +3326,47 @@ msgstr ""
 "కావలెను.\n"
 "\n"
 
-#: iw/partition_gui.py:1487
+#: iw/partition_gui.py:1495
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgstr "మీరు ప్రస్తుతం వుపయోగించుటకు %d ఖాళీగా అందుబాటులోవున్న PVను కలిగివున్నారు.\n"
 
-#: iw/partition_gui.py:1491
+#: iw/partition_gui.py:1499
 msgid "You currently have free space to create PVs."
 msgstr "PVలను సృష్టించుటకు మీరు ప్రస్తుతం ఖాళీ జాగాను కలిగివున్నారు."
 
-#: iw/partition_gui.py:1494
+#: iw/partition_gui.py:1502
 msgid "About LVM"
 msgstr "LVM గురించి"
 
-#: iw/partition_gui.py:1526
+#: iw/partition_gui.py:1534
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "డ్రైవు క్లోన్ సరికూర్పరిని సృష్టించ లేరు"
 
-#: iw/partition_gui.py:1527
+#: iw/partition_gui.py:1535
 msgid "The drive clone editor could not be created for some reason."
 msgstr "డ్రైవ్ క్లోన్ సరికూర్పరి కొన్ని కారణాలవల్ల సృష్టించబడలేదు."
 
-#: iw/partition_gui.py:1586 storage/partitioning.py:197
+#: iw/partition_gui.py:1594 storage/partitioning.py:197
 #: storage/partitioning.py:238
 msgid "Error Partitioning"
 msgstr "విభజన దోషం"
 
-#: iw/partition_gui.py:1587
+#: iw/partition_gui.py:1595
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "అభ్యర్ధించిన విభజనలను కేటాయించలేము: %s."
 
-#: iw/partition_gui.py:1596
+#: iw/partition_gui.py:1604
 #, python-format
 msgid "Warning: %s."
 msgstr "హెచ్చరిక:%s."
 
-#: iw/partition_gui.py:1627
+#: iw/partition_gui.py:1635
 msgid "Unable To Edit"
 msgstr "సరికూర్పు సాధ్యంకాదు"
 
-#: iw/partition_gui.py:1628
+#: iw/partition_gui.py:1636
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -3392,15 +3377,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/partition_gui.py:1811
+#: iw/partition_gui.py:1819
 msgid "_Create"
 msgstr "సృష్టించు (_C)"
 
-#: iw/partition_gui.py:1814
+#: iw/partition_gui.py:1822
 msgid "Re_set"
 msgstr "తిరిగి అమర్చు (_s)"
 
-#: iw/partition_gui.py:1837
+#: iw/partition_gui.py:1845
 msgid "Please Select A Device"
 msgstr "దయచేసి ఒక డ్రైవుని ఎన్నుకోండి"
 
@@ -5247,23 +5232,23 @@ msgstr "%s కొరకు vginfo విఫలమైంది"
 msgid "lvs failed for %s"
 msgstr "%s కొరకు lvs విఫలమైంది"
 
-#: storage/devices.py:1270 storage/devices.py:1940 storage/devices.py:2343
-#: storage/devices.py:2814 storage/devices.py:3296
+#: storage/devices.py:1270 storage/devices.py:1941 storage/devices.py:2344
+#: storage/devices.py:2815 storage/devices.py:3297
 msgid "Creating"
 msgstr "సృష్టించుచున్నది"
 
-#: storage/devices.py:1271 storage/devices.py:1941 storage/devices.py:2344
-#: storage/devices.py:2815
+#: storage/devices.py:1271 storage/devices.py:1942 storage/devices.py:2345
+#: storage/devices.py:2816
 #, python-format
 msgid "Creating device %s"
 msgstr "పరికరము %sను సృష్టించుచున్నది"
 
-#: storage/devices.py:2437
+#: storage/devices.py:2438
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "RAID%d సమితికి కనీసం %d సభ్యులు కావలెను"
 
-#: storage/devices.py:3297
+#: storage/devices.py:3298
 #, python-format
 msgid "Creating file %s"
 msgstr "%s ఫైలును సృష్టించుట"
@@ -5284,7 +5269,7 @@ msgstr ""
 "\n"
 "మీరు ఈ అంచెను వదిలివేసినట్లైతే పరికరం యొక్క సారములు సంస్థాపనా సమయమందు అందుబాటులో ఉండవు."
 
-#: storage/devicetree.py:1843 storage/devicetree.py:1891
+#: storage/devicetree.py:1861 storage/devicetree.py:1909
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "ఈ విభజన వొక స్థిరత్వంలేని LVM వాల్యూమ్ సమూహంయొక్క భాగము."
 
