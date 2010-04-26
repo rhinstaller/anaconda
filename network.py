@@ -284,12 +284,14 @@ class NetworkDevice(IfcfgFile):
             keys.remove("KEY")
         if iutil.isS390() and ("HWADDR" in keys):
             keys.remove("HWADDR")
+        # make sure we include autoneg in the ethtool line
+        if 'ETHTOOL_OPTS' in keys:
+            eopts = self.get('ETHTOOL_OPTS')
+            if "autoneg" not in eopts:
+                self.set(('ETHTOOL_OPTS', "autoneg off %s" % eopts))
 
         for key in keys:
-            # make sure we include autoneg in the ethtool line
-            if key == 'ETHTOOL_OPTS' and self.info[key].find("autoneg")== -1:
-                s = s + key + """="autoneg off %s"\n""" % (self.info[key])
-            elif self.info[key] is not None:
+            if self.info[key] is not None:
                 s = s + key + '="' + self.info[key] + '"\n'
 
         return s
