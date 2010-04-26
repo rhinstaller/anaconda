@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-12-08 13:23-0500\n"
-"PO-Revision-Date: 2010-04-08 21:36+0900\n"
+"PO-Revision-Date: 2010-04-26 14:02+0900\n"
 "Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,11 +28,15 @@ msgstr ""
 "Plural-Forms: Plural-Forms: nplurals=1; plural=0;\n"
 "\n"
 "\n"
+"\n"
 
 #: ../anaconda:265
 #, fuzzy
 msgid "Unknown Error"
-msgstr "不明"
+msgstr ""
+"\n"
+"\n"
+"不明なエラーが発生しました。作業を中断します。\n"
 
 #: ../anaconda:268
 #, fuzzy, c-format
@@ -41,7 +45,7 @@ msgstr "%s のエラーが %d 行目(キックスタートファイル %s の)�
 
 #: ../anaconda:405
 msgid "Press <enter> for a shell"
-msgstr "シェルを起動するには、<enter> を押してください。"
+msgstr "シェルには、<enter> を押します。"
 
 #: ../anaconda:420 ../gui.py:233 ../rescue.py:299 ../rescue.py:373
 #: ../rescue.py:400 ../rescue.py:410 ../rescue.py:494 ../rescue.py:500
@@ -2075,7 +2079,7 @@ msgid "Rescue"
 msgstr "レスキュー"
 
 #: ../rescue.py:329
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -2088,10 +2092,11 @@ msgid ""
 "\n"
 msgstr ""
 "レスキュー環境はこれから Linux インストールを探し、ディレクトリー %s の下にマ"
-"ウントしようと試みます。これにより、ご使用のシステムに必要な変更を行うことが"
-"できます。このプロセスを続ける場合、「続行」を選択してください。また 「読み取"
-"り専用」を選択すると、「読み取りと書き込み」ではなく「読み取り専用」でのファ"
-"イルシステムのマウントを選択することもできます。\n"
+"ウントしようと試みます。その後にご使用のシステムに必要な変更を行うことができ"
+"ます。このプロセスを続ける場合、「続行」を選択してください。また「読み取り専"
+"用」を選択すると、「読み取りと書き込み」ではなく「読み取り専用」でのファイル"
+"システムのマウントを選択することもできます。SAN デバイスをアクティベート する"
+"必要がある場合は、「高度な設定」を選択して下さい。\n"
 "\n"
 "何らかの原因でこのプロセスが失敗する場合は「スキップする」を選択し、このプロ"
 "セスをとばして直接コマンドシェルに行くことができます。\n"
@@ -3316,8 +3321,9 @@ msgstr "元のファイルシステムタイプ:"
 
 #: ../iw/lvm_dialog_gui.py:411 ../iw/partition_dialog_gui.py:339
 #: ../iw/raid_dialog_gui.py:327
+#, fuzzy
 msgid "Unknown"
-msgstr "不明"
+msgstr "不明なデバイス"
 
 #: ../iw/lvm_dialog_gui.py:417 ../iw/partition_dialog_gui.py:373
 #: ../iw/raid_dialog_gui.py:333
@@ -3786,9 +3792,8 @@ msgid "Unknown Ethernet Device"
 msgstr "不明なデバイス"
 
 #: ../iw/network_gui.py:625
-#, fuzzy
 msgid "unknown"
-msgstr "不明"
+msgstr ""
 
 #: ../iw/network_gui.py:627
 msgid "Hardware address: "
@@ -5290,7 +5295,7 @@ msgstr "マウントポイント(_M):"
 #: ../textw/partition_text.py:323
 #, fuzzy
 msgid "File System type:"
-msgstr "ファイルシステムタイプ(_T):"
+msgstr "ファイルシステムタイプ(_F):"
 
 #: ../textw/partition_text.py:357
 #, fuzzy
@@ -5342,7 +5347,7 @@ msgstr "スペア数(_S):"
 #: ../textw/partition_text.py:551
 #, fuzzy
 msgid "File System Type:"
-msgstr "ファイルシステムタイプ(_T):"
+msgstr "ファイルシステムタイプ(_F):"
 
 #: ../textw/partition_text.py:564
 #, fuzzy
@@ -5572,6 +5577,7 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "ドライブの構成をどのように変更しますか?"
 
 #: ../textw/partition_text.py:1684
+#, fuzzy
 msgid "Add FCP Device"
 msgstr "FCP デバイスの追加"
 
@@ -5672,7 +5678,7 @@ msgstr "完了"
 #: ../textw/progress_text.py:180
 #, fuzzy
 msgid "Remaining:  "
-msgstr "ルーマニア語"
+msgstr "サイズ変更"
 
 #: ../textw/task_text.py:42
 #, fuzzy
@@ -6910,7 +6916,7 @@ msgstr "NFS 設定"
 #: ../loader2/urls.c:338
 #, fuzzy
 msgid "HTTP Setup"
-msgstr "URLの設定"
+msgstr "NFS 設定"
 
 #: ../loader2/urls.c:348
 #, fuzzy
@@ -6925,7 +6931,7 @@ msgstr "URLを入力してください。"
 #: ../loader2/urls.c:358
 #, fuzzy
 msgid "Unknown Host"
-msgstr "不明"
+msgstr "不明な Linux システム"
 
 #: ../loader2/urls.c:359
 #, fuzzy, c-format
@@ -8051,7 +8057,7 @@ msgstr "マラーティー語"
 #. generated from lang-table
 #, fuzzy
 msgid "Norwegian"
-msgstr "ノルウェー語 (Bokmål)"
+msgstr "韓国語"
 
 #. generated from lang-table
 msgid "Northern Sotho"
@@ -8279,6 +8285,22 @@ msgstr "ズールー語"
 #~ "ディクス %s には、BIOS RAID メタデータが含まれていますが、認識された BIOS "
 #~ "RAID セットの一部ではありません。ディスク %s を無視します。"
 
+#~ msgid "Unformatted DASD Device Found"
+#~ msgstr "フォーマットしていない DASD デバイスを発見しました"
+
+#~ msgid ""
+#~ "Format uninitialized DASD device?\n"
+#~ "\n"
+#~ "There is %d uninitialized DASD device on this system.  To continue "
+#~ "installation, the device must be formatted.  Formatting will remove any "
+#~ "data on this device."
+#~ msgstr ""
+#~ "初期化をしていない DASD デバイスをフォーマットしますか? \n"
+#~ "\n"
+#~ "このシステムに %d 個の初期化していない DASD デバイスがあります。 インス"
+#~ "トールを継続するには、デバイスをフォーマットする必要があります。 フォー"
+#~ "マットをするとデバイス上のデータはすべて消滅します。"
+
 #~ msgid ""
 #~ "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 #~ "(e)s)"
@@ -8361,6 +8383,16 @@ msgstr "ズールー語"
 #~ msgstr ""
 #~ "暗号化キー escrow は はネットワークを必要とします。しかし使用中のシステム"
 #~ "でネットワークの有効化にエラーが発生しました。"
+
+#~ msgid ""
+#~ "The following error was encountered while downloading the escrow "
+#~ "certificate:\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "escrow 証明書のダウンロード中に次のエラーに 遭遇しました:\n"
+#~ "\n"
+#~ "%s"
 
 #~ msgid "Error processing %%ksappend lines: %s"
 #~ msgstr "%%ksappend 行目を処理中にエラーが発生しました: %s"
@@ -8511,6 +8543,9 @@ msgstr "ズールー語"
 #~ "ネットワーキングデバイスを始動できません。ネットワーキングはレスキューモー"
 #~ "ドでは 使用できません。"
 
+#~ msgid "Advanced"
+#~ msgstr "高度な設定"
+
 #~ msgid "You don't have any Linux partitions.  Rebooting.\n"
 #~ msgstr "Linux パーティションがありません。再起動します。\n"
 
@@ -8563,16 +8598,6 @@ msgstr "ズールー語"
 #~ "\n"
 #~ "パスワードを使って VNC を実行するように選択しました。\n"
 #~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Unknown Error.  Aborting. \n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "不明なエラーが発生しました。作業を中断します。\n"
 
 #~ msgid "Preparing to install"
 #~ msgstr "インストールの準備中"
@@ -8680,23 +8705,11 @@ msgstr "ズールー語"
 #~ msgstr "最低限"
 
 #~ msgid ""
-#~ "The default installation of %s is a basic server install. You can "
-#~ "optionally select a different set of software now."
+#~ "The default installation of %s is a minimum install. You can optionally "
+#~ "select a different set of software now."
 #~ msgstr ""
-#~ "%s のデフォルトインストールは基本サーバーのインストールです。オプションと"
-#~ "して 異なる組み合わせのソフトウェアを今選択することができます。"
-
-#~ msgid "Basic Server"
-#~ msgstr "基本サーバー"
-
-#~ msgid "Database Server"
-#~ msgstr "データベースサーバー"
-
-#~ msgid "Desktop"
-#~ msgstr "デスクトップ"
-
-#~ msgid "Software Development Workstation"
-#~ msgstr "ソフトウェア開発ワークステーション"
+#~ "%s のデフォルトインストールは最小限インストールです。オプションとして 異な"
+#~ "る組み合わせのソフトウェアを今選択することができます。"
 
 #~ msgid "Optional packages selected: %(inst)d of %(cnt)d"
 #~ msgstr "オプションパッケージが選択されました: %(cnt)d 個内の %(inst)d 個 "
@@ -9197,6 +9210,9 @@ msgstr "ズールー語"
 #~ msgid "Proxy URL"
 #~ msgstr "プロキシ URL"
 
+#~ msgid "URL Setup"
+#~ msgstr "URLの設定"
+
 #~ msgid "URL must be either an ftp or http URL"
 #~ msgstr "URL は ftp か http のものである必要があります。"
 
@@ -9291,22 +9307,6 @@ msgstr "ズールー語"
 #~ "\n"
 #~ "<Enter> を押してインストーラを終了してください。"
 
-#~ msgid "Unformatted DASD Device Found"
-#~ msgstr "フォーマットしていない DASD デバイスを発見しました"
-
-#~ msgid ""
-#~ "Format uninitialized DASD device?\n"
-#~ "\n"
-#~ "There is %d uninitialized DASD device on this system.  To continue "
-#~ "installation, the device must be formatted.  Formatting will remove any "
-#~ "data on this device."
-#~ msgstr ""
-#~ "初期化をしていない DASD デバイスをフォーマットしますか? \n"
-#~ "\n"
-#~ "このシステムに %d 個の初期化していない DASD デバイスがあります。 インス"
-#~ "トールを継続するには、デバイスをフォーマットする必要があります。 フォー"
-#~ "マットをするとデバイス上のデータはすべて消滅します。"
-
 #~ msgid "Formatting DASD Device"
 #~ msgstr "DASD デバイスのフォーマット"
 
@@ -9333,9 +9333,6 @@ msgstr "ズールー語"
 
 #~ msgid "filesystem configuration missing a type"
 #~ msgstr "ファイルシステム設定にタイプがありません。"
-
-#~ msgid "Resizing"
-#~ msgstr "サイズ変更"
 
 #~ msgid "Resizing filesystem on %s"
 #~ msgstr "%s のファイルシステムのサイズ変更"
@@ -9540,36 +9537,6 @@ msgstr "ズールー語"
 
 #~ msgid "Use free space"
 #~ msgstr "空き領域を使用"
-
-#~ msgid "No network cards present."
-#~ msgstr "ネットワークカードがありません"
-
-#~ msgid "Add FCoE SAN"
-#~ msgstr "FCoE SAN の追加"
-
-#~ msgid "Select which NIC is connected to the FCoE SAN."
-#~ msgstr "FCoE SAN に接続する NIC を選択します。"
-
-#~ msgid "Use DCB"
-#~ msgstr "DCB の使用"
-
-#~ msgid "Target IP Address"
-#~ msgstr "ターゲット IP アドレス"
-
-#~ msgid "iSCSI Initiator Name"
-#~ msgstr "iSCSI イニシエーター名"
-
-#~ msgid "CHAP username"
-#~ msgstr "CHAP ユーザー名"
-
-#~ msgid "CHAP password"
-#~ msgstr "CHAP パスワード"
-
-#~ msgid "Reverse CHAP username"
-#~ msgstr "逆順 CHAP ユーザー名"
-
-#~ msgid "Reverse CHAP password"
-#~ msgstr "逆順 CHAP パスワード"
 
 #~ msgid ""
 #~ "You have provided a weak password: %s\n"
@@ -9814,6 +9781,9 @@ msgstr "ズールー語"
 #~ "使用する FCoE スイッチに接続されているネットワークインターフェイス \n"
 #~ "を選択して下さい。"
 
+#~ msgid "Use DCB"
+#~ msgstr "DCB の使用"
+
 #~ msgid "_Add FCoE Disk(s)"
 #~ msgstr "FCoE ディスクの追加（_A）"
 
@@ -9935,6 +9905,9 @@ msgstr "ズールー語"
 
 #~ msgid "Nepali"
 #~ msgstr "ネパール語"
+
+#~ msgid "Norwegian(Bokmål)"
+#~ msgstr "ノルウェー語 (Bokmål)"
 
 #~ msgid "Persian"
 #~ msgstr "ペルシア語"
