@@ -18,20 +18,21 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2009-11-06 13:53-1000\n"
-"PO-Revision-Date: 2010-04-09 15:58+0900\n"
+"PO-Revision-Date: 2010-04-26 14:02+0900\n"
 "Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=1; plural=0;\n\n"
+"Plural-Forms: Plural-Forms: nplurals=1; plural=0;\n"
+"\n"
 "\n"
 "\n"
 
 #: anaconda:361
 msgid "Press <enter> for a shell"
-msgstr "シェルを起動するには、<enter> を押してください。"
+msgstr "シェルには、<enter> を押します。"
 
 #: anaconda:376 rescue.py:324 rescue.py:350 rescue.py:363 rescue.py:439
 #: rescue.py:451 text.py:500 loader/cdinstall.c:228 loader/cdinstall.c:232
@@ -553,7 +554,8 @@ msgstr ""
 #: iutil.py:863
 #, fuzzy, python-format
 msgid "Error: Could not set %s as reIPL device (%s)"
-msgstr "エラー: %(device)s を reIPL デバイス (%(e)s) としてセットできませんでした"
+msgstr ""
+"エラー: %(device)s を reIPL デバイス (%(e)s) としてセットできませんでした"
 
 #: iutil.py:872
 #, python-format
@@ -722,7 +724,8 @@ msgstr "イメージを検出できません。"
 
 #: livecd.py:111
 #, python-format
-msgid "The given location isn't a valid %s live CD to use as an installation source."
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 "与えられた場所は、インストールソースとして使用するための有効な %s ライブ ディ"
 "スク ではありません。"
@@ -775,7 +778,8 @@ msgstr ""
 "ば なりません。"
 
 #: network.py:67
-msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid ""
+"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 "ホスト名には 「a-z」、 「A-Z」、 「0-9」、「-」、 「.」以外の文字は使用できま"
 "せん。"
@@ -1157,7 +1161,8 @@ msgid "Confirm Reset"
 msgstr "リセットの確認"
 
 #: partIntfHelpers.py:347
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "本当に、パーティションテーブル設定をリセットして元の状態に戻しますか?"
 
 #: platform.py:93 platform.py:320 platform.py:388 platform.py:488
@@ -1192,7 +1197,8 @@ msgstr "起動可能なパーティションを RAID デバイス上に作成す
 #: platform.py:127 platform.py:131
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr "起動可能なパーティションを、ファイルシステム %s に作成することはできません。"
+msgstr ""
+"起動可能なパーティションを、ファイルシステム %s に作成することはできません。"
 
 #: platform.py:135 platform.py:140
 msgid "Bootable partitions cannot be on an encrypted block device"
@@ -1211,7 +1217,8 @@ msgstr "/boot/efi パーティションが作成されていません。"
 #: platform.py:225
 #, fuzzy
 msgid "/boot is not on an ext2 filesystem."
-msgstr "起動可能なパーティションを、ファイルシステム %s に作成することはできません。"
+msgstr ""
+"起動可能なパーティションを、ファイルシステム %s に作成することはできません。"
 
 #: platform.py:228
 msgid "/boot/efi is not EFI."
@@ -1283,7 +1290,7 @@ msgid "Rescue"
 msgstr "レスキュー"
 
 #: rescue.py:277
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -1296,10 +1303,11 @@ msgid ""
 "\n"
 msgstr ""
 "レスキュー環境はこれから Linux インストールを探し、ディレクトリー %s の下にマ"
-"ウントしようと試みます。これにより、ご使用のシステムに必要な変更を行うことが"
-"できます。このプロセスを続ける場合、「続行」を選択してください。また 「読み取"
-"り専用」を選択すると、「読み取りと書き込み」ではなく「読み取り専用」でのファ"
-"イルシステムのマウントを選択することもできます。\n"
+"ウントしようと試みます。その後にご使用のシステムに必要な変更を行うことができ"
+"ます。このプロセスを続ける場合、「続行」を選択してください。また「読み取り専"
+"用」を選択すると、「読み取りと書き込み」ではなく「読み取り専用」でのファイル"
+"システムのマウントを選択することもできます。SAN デバイスをアクティベート する"
+"必要がある場合は、「高度な設定」を選択して下さい。\n"
 "\n"
 "何らかの原因でこのプロセスが失敗する場合は「スキップする」を選択し、このプロ"
 "セスをとばして直接コマンドシェルに行くことができます。\n"
@@ -1831,7 +1839,8 @@ msgstr "ダウンロードの再試行中。"
 
 #: yuminstall.py:849
 #, python-format
-msgid "There was an error running your transaction for the following reason: %s\n"
+msgid ""
+"There was an error running your transaction for the following reason: %s\n"
 msgstr "トランザクションの実行中に次のような理由でエラーが発生しました。%s\n"
 
 #: yuminstall.py:884 yuminstall.py:885
@@ -2048,12 +2057,12 @@ msgstr ""
 
 #: installclasses/rhel.py:49
 msgid "Desktop"
-msgstr "デスクトップ"
+msgstr ""
 
 #: installclasses/rhel.py:75
 #, fuzzy
 msgid "Advanced Server"
-msgstr "ネームサーバー:"
+msgstr "高度な設定"
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2121,7 +2130,8 @@ msgid "Use Anyway"
 msgstr "とにかく使う"
 
 #: iw/account_gui.py:138 textw/userauth_text.py:75
-msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgid ""
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "要求されたパスワードには、パスワードに使用できない非 ASCII 文字が含まれていま"
 "す。"
@@ -2141,14 +2151,15 @@ msgstr "ファイルシステムリサイズエラー"
 #: iw/autopart_type.py:124 iw/autopart_type.py:133
 #, python-format
 msgid "%s: %s"
-msgstr "%s: %s"
+msgstr ""
 
 #: iw/autopart_type.py:132
 msgid "Resize Device Error"
 msgstr "デバイスリサイズエラー"
 
 #: iw/autopart_type.py:207
-msgid "Do you really want to boot from a disk which is not used for installation?"
+msgid ""
+"Do you really want to boot from a disk which is not used for installation?"
 msgstr ""
 
 #: iw/autopart_type.py:284
@@ -2484,8 +2495,9 @@ msgstr "元のファイルシステムタイプ:"
 
 #: iw/lvm_dialog_gui.py:471 iw/partition_gui.py:777 iw/partition_gui.py:929
 #: iw/raid_dialog_gui.py:412
+#, fuzzy
 msgid "Unknown"
-msgstr "不明"
+msgstr "不明なデバイス"
 
 #: iw/lvm_dialog_gui.py:475 iw/partition_dialog_gui.py:424
 #: iw/raid_dialog_gui.py:418
@@ -2516,7 +2528,8 @@ msgstr "不適切な論理ボリューム名"
 #: iw/lvm_dialog_gui.py:610
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
+msgstr ""
+"論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
 
 #: iw/lvm_dialog_gui.py:652 iw/partition_dialog_gui.py:126
 #: iw/raid_dialog_gui.py:180
@@ -2914,13 +2927,17 @@ msgid "Partitioning"
 msgstr "パーティション設定"
 
 #: iw/partition_gui.py:609
-msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr "あなたが要求したパーティション設定案は以下の重大なエラーを起こしました。"
+msgid ""
+"The partitioning scheme you requested caused the following critical errors."
+msgstr ""
+"あなたが要求したパーティション設定案は以下の重大なエラーを起こしました。"
 
 #: iw/partition_gui.py:611
 #, python-format
-msgid "You must correct these errors before you continue your installation of %s."
-msgstr "%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
+msgid ""
+"You must correct these errors before you continue your installation of %s."
+msgstr ""
+"%s のインストールを続行する前にこれらのエラーを修正する必要があります。"
 
 #: iw/partition_gui.py:617
 msgid "Partitioning Errors"
@@ -3378,7 +3395,8 @@ msgstr "無効なリポジトリー URL です。"
 
 #: iw/task_gui.py:258 iw/task_gui.py:413
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "リポジトリーには、HTTP, HTTPS, または FTP の URL を入力する必要があります。"
+msgstr ""
+"リポジトリーには、HTTP, HTTPS, または FTP の URL を入力する必要があります。"
 
 #: iw/task_gui.py:279 iw/task_gui.py:422
 msgid "No Media Found"
@@ -3461,7 +3479,8 @@ msgstr "インストーラーは現在システムで使用中のブートロー
 
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, fuzzy, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "インストーラーが現在 %(bootDev)s にインストールされている %(type)s ブートロー"
 "ダーを検出しました。"
@@ -3592,7 +3611,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap ファイルは 1 MB から 2000 MB の間の容量にしてください。"
 
 #: iw/upgrade_swap_gui.py:207 textw/upgrade_text.py:183
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "swap パーティション用に選択したデバイスには十分な領域がありません。"
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
@@ -3945,7 +3965,8 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr "このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
+msgstr ""
+"このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
 
 #: loader/hdinstall.c:236
 #, c-format
@@ -4036,7 +4057,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s (%s 用)へようこそ - レスキューモード"
 
 #: loader/lang.c:65 loader/loader.c:226
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面 "
 
 #: loader/lang.c:376
@@ -4189,12 +4211,14 @@ msgstr "ローダーはすでに実行されています。シェルの起動中
 #: loader/loader.c:2241
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
-msgstr "anaconda %s を %s レスキューモードで実行中 - しばらくお待ちください。\n"
+msgstr ""
+"anaconda %s を %s レスキューモードで実行中 - しばらくお待ちください。\n"
 
 #: loader/loader.c:2243
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr "anaconda %s・%s システムインストーラーを実行中 - しばらくお待ちください。\n"
+msgstr ""
+"anaconda %s・%s システムインストーラーを実行中 - しばらくお待ちください。\n"
 
 #: loader/mediacheck.c:46
 #, c-format
@@ -4367,14 +4391,16 @@ msgid "Missing Information"
 msgstr "情報が不足しています"
 
 #: loader/net.c:1103
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "有効な IPv4 アドレスとネットマスクまたは CIDR プレフィックスの両方を入力する"
 "必要があります。"
 
 #: loader/net.c:1110
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
-msgstr "有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
+msgstr ""
+"有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
 
 #: loader/net.c:1588
 #, fuzzy, c-format
@@ -4515,8 +4541,10 @@ msgstr "取り込み中"
 
 #: loader/urls.c:295
 #, c-format
-msgid "Please enter the URL containing the %s installation image on your server."
-msgstr "%s のインストールイメージを含んでいるサーバーの URL を入力してください。"
+msgid ""
+"Please enter the URL containing the %s installation image on your server."
+msgstr ""
+"%s のインストールイメージを含んでいるサーバーの URL を入力してください。"
 
 #: loader/urls.c:321
 msgid "URL Setup"
@@ -4533,7 +4561,7 @@ msgstr "URL は ftp か http のものである必要があります。"
 #: loader/urls.c:346
 #, fuzzy
 msgid "Unknown Host"
-msgstr "不明"
+msgstr "不明な Linux システム"
 
 #: loader/urls.c:347
 #, fuzzy, c-format
@@ -4632,7 +4660,8 @@ msgstr "ストレージデバイスを検索中"
 
 #: storage/__init__.py:560
 msgid "This partition is holding the data for the hard drive install."
-msgstr "このパーティションはハードドライブインストール用のデータを保有しています。"
+msgstr ""
+"このパーティションはハードドライブインストール用のデータを保有しています。"
 
 #: storage/__init__.py:565
 msgid "You cannot delete a partition of a LDL formatted DASD."
@@ -4712,7 +4741,8 @@ msgstr ""
 "s のインストールでの 推奨容量には不足しています。"
 
 #: storage/__init__.py:925
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB デバイス上にインストールしています。稼動するシステムが作成されることもあ"
 "りますが、されないこともあります。"
@@ -4743,7 +4773,8 @@ msgstr ""
 
 #: storage/__init__.py:947
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "このマウントポイントは正しくありません。%s ディレクトリーは / ファイルシステ"
 "ム上になければなりません。"
@@ -5218,7 +5249,8 @@ msgstr "zFCP デバイス %s が見つからず、デバイス無理リストに
 #: storage/zfcp.py:150
 #, fuzzy, python-format
 msgid "Could not set zFCP device %s online (%s)."
-msgstr "zFCP デバイス %(devnum)s を オンライン (%(e)s) にセットできませんでした。"
+msgstr ""
+"zFCP デバイス %(devnum)s を オンライン (%(e)s) にセットできませんでした。"
 
 #: storage/zfcp.py:161
 #, fuzzy, python-format
@@ -5246,7 +5278,8 @@ msgstr ""
 
 #: storage/zfcp.py:193
 #, fuzzy, python-format
-msgid "Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
+msgid ""
+"Could not read failed attribute of LUN %s at WWPN %s on zFCP device %s (%s)."
 msgstr ""
 "zFCP デバイス %(devnum)s (%(e)s) 上の WWPN %(wwpn)s で LUN %(fcplun)s の 失敗"
 "属性を読みこむことが できませんでした。"
@@ -5275,7 +5308,8 @@ msgstr ""
 #: storage/zfcp.py:275
 #, fuzzy, python-format
 msgid "Could not remove WWPN %s on zFCP device %s (%s)."
-msgstr "zFCP デバイス %(devnum)s (%(e)s) 上で WWPN %(wwpn)s を削除できませんでした。"
+msgstr ""
+"zFCP デバイス %(devnum)s (%(e)s) 上で WWPN %(wwpn)s を削除できませんでした。"
 
 #: storage/zfcp.py:299
 #, fuzzy, python-format
@@ -5391,6 +5425,7 @@ msgid "How would you like to modify your drive configuration?"
 msgstr "ドライブの構成をどのように変更しますか?"
 
 #: textw/partition_text.py:203
+#, fuzzy
 msgid "Add FCP Device"
 msgstr "FCP デバイスの追加"
 
@@ -5406,8 +5441,9 @@ msgstr ""
 "あります。"
 
 #: textw/partition_text.py:223
+#, fuzzy
 msgid "Add FCoE SAN"
-msgstr "FCoE SAN の追加"
+msgstr "_FCoE SAN の追加"
 
 #: textw/partition_text.py:224
 msgid ""
@@ -5438,28 +5474,34 @@ msgstr ""
 "びiSCSI ターゲットのアドレスを入力してください。"
 
 #: textw/partition_text.py:250
+#, fuzzy
 msgid "Target IP Address"
-msgstr "ターゲット IP アドレス"
+msgstr "<b>ターゲット IP アドレス(_T):</b>"
 
 #: textw/partition_text.py:251
+#, fuzzy
 msgid "iSCSI Initiator Name"
-msgstr "iSCSI イニシエーター名"
+msgstr "<b>iSCSI イニシエーター名(_N):</b>"
 
 #: textw/partition_text.py:252
+#, fuzzy
 msgid "CHAP username"
-msgstr "CHAP ユーザー名"
+msgstr "プロキシーのユーザー名 (_S)"
 
 #: textw/partition_text.py:253
+#, fuzzy
 msgid "CHAP password"
-msgstr "CHAP パスワード"
+msgstr "パスワード"
 
 #: textw/partition_text.py:254
+#, fuzzy
 msgid "Reverse CHAP username"
-msgstr "逆順 CHAP ユーザー名"
+msgstr "<b>逆順 CHAP ユーザー名 (_S):</b>"
 
 #: textw/partition_text.py:255
+#, fuzzy
 msgid "Reverse CHAP password"
-msgstr "逆順 CHAP パスワード"
+msgstr "<b>逆順 CHAP パスワード (_A):</b>"
 
 #: textw/progress_text.py:46
 msgid "Package Installation"
@@ -5707,7 +5749,8 @@ msgstr ""
 "Hard Drive"
 
 #: ui/addrepo.glade.h:9
-msgid "Please provide the configuration information for this software repository."
+msgid ""
+"Please provide the configuration information for this software repository."
 msgstr "このソフトウェアリポジトリーの設定情報を入力してください。"
 
 #: ui/addrepo.glade.h:10
@@ -5793,8 +5836,10 @@ msgid "What drive would you like to _boot this installation from?"
 msgstr "インストール時に使用する言語を選択してください。"
 
 #: ui/autopart.glade.h:6
-msgid "Which partition would you like to shrink to make room for your installation?"
-msgstr "インストールするための空きを作るために、どのパーティションを縮小しますか?"
+msgid ""
+"Which partition would you like to shrink to make room for your installation?"
+msgstr ""
+"インストールするための空きを作るために、どのパーティションを縮小しますか?"
 
 #: ui/autopart.glade.h:7
 #, fuzzy
@@ -6282,3 +6327,656 @@ msgstr "ウェールズ語"
 msgid "Zulu"
 msgstr "ズールー語"
 
+#~ msgid "Ignore _all"
+#~ msgstr "全てを無視 (_A)"
+
+#~ msgid "Re-ini_tialize all"
+#~ msgstr "全てを再初期化 (_T)"
+
+#~ msgid ""
+#~ "Disk %s contains BIOS RAID metadata, but is not part of any recognized "
+#~ "BIOS RAID sets. Ignoring disk %s."
+#~ msgstr ""
+#~ "ディクス %s には、BIOS RAID メタデータが含まれていますが、認識された BIOS "
+#~ "RAID セットの一部ではありません。ディスク %s を無視します。"
+
+#~ msgid "Unformatted DASD Device Found"
+#~ msgstr "フォーマットしていない DASD デバイスを発見しました"
+
+#~ msgid ""
+#~ "Format uninitialized DASD device?\n"
+#~ "\n"
+#~ "There is %d uninitialized DASD device on this system.  To continue "
+#~ "installation, the device must be formatted.  Formatting will remove any "
+#~ "data on this device."
+#~ msgstr ""
+#~ "初期化をしていない DASD デバイスをフォーマットしますか? \n"
+#~ "\n"
+#~ "このシステムに %d 個の初期化していない DASD デバイスがあります。 インス"
+#~ "トールを継続するには、デバイスをフォーマットする必要があります。 フォー"
+#~ "マットをするとデバイス上のデータはすべて消滅します。"
+
+#~ msgid ""
+#~ "The following error was encountered while downloading the escrow "
+#~ "certificate:\n"
+#~ "\n"
+#~ "%s"
+#~ msgstr ""
+#~ "escrow 証明書のダウンロード中に次のエラーに 遭遇しました:\n"
+#~ "\n"
+#~ "%s"
+
+#~ msgid "%s must have a %s disk label."
+#~ msgstr "%s は %s ディスクラベルを持っている必要があります。"
+
+#~ msgid "The passphrase must be at least %d character long."
+#~ msgstr "パスフレーズは最低 %d 文字以上でなければなりません。"
+
+#~ msgid "Welcome to %(productName)s for %(productArch)s"
+#~ msgstr "%(productArch)s の %(productName)s へようこそ"
+
+#~ msgid "%(productName)s %(productVersion)s installation"
+#~ msgstr "%(productName)s %(productVersion)s のインストール"
+
+#~ msgid "Giving up attempting to connect after %d try!\n"
+#~ msgstr "%d 回の試行の後で接続試行をあきらめます!\n"
+
+#~ msgid "%s Byte"
+#~ msgstr "%s Byte"
+
+#~ msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
+#~ msgstr "完了したパッケージ: %(numpkgs)d 個の内 %(donepkgs)d "
+
+#~ msgid ""
+#~ "Some of the packages you have selected for install are missing "
+#~ "dependencies.  You can exit the installation, go back and change your "
+#~ "package selections, or continue installing these packages without their "
+#~ "dependencies."
+#~ msgstr ""
+#~ "インストールするために選択したパッケージの一部は依存関係が欠如していま"
+#~ "す。 インストールを終了してパッケージ選択に戻るか、又は依存関係のないパッ"
+#~ "ケージの インストールを継続してください。"
+
+#~ msgid ""
+#~ "The default installation of %s includes a set of software applicable for "
+#~ "general internet usage. You can optionally select a different set of "
+#~ "software now."
+#~ msgstr ""
+#~ "%s のデフォルトインストールには一般的なインターネット使用に適用できるソフ"
+#~ "トウェアのセットが含まれています。オプションとして異なる組み合わせのソフト"
+#~ "ウェアを 今選択することができます。"
+
+#~ msgid "Graphical Desktop"
+#~ msgstr "グラフィカルデスクトップ"
+
+#~ msgid "Minimal"
+#~ msgstr "最低限"
+
+#~ msgid ""
+#~ "The default installation of %s is a minimum install. You can optionally "
+#~ "select a different set of software now."
+#~ msgstr ""
+#~ "%s のデフォルトインストールは最小限インストールです。オプションとして 異な"
+#~ "る組み合わせのソフトウェアを今選択することができます。"
+
+#~ msgid "%(device)s: %(msg)s"
+#~ msgstr "%(device)s: %(msg)s"
+
+#~ msgid "%(name)s: %(msg)s"
+#~ msgstr "%(name)s: %(msg)s"
+
+#~ msgid "Use All Space"
+#~ msgstr "全ての領域を使用する"
+
+#~ msgid ""
+#~ "Removes all partitions on the selected device(s).  This includes "
+#~ "partitions created by other operating systems.\n"
+#~ "\n"
+#~ "<b>Tip:</b> This option will remove data from the selected device(s).  "
+#~ "Make sure you have backups."
+#~ msgstr ""
+#~ "選択したデバイス上の全てのパーティションを削除します。これには、他のオペ"
+#~ "レーティング システムで作成されたパーティションも含まれます。\n"
+#~ "\n"
+#~ "<b>ヒント:</b>このオプションは選択したデバイスからデータを削除します。 "
+#~ "バックアップがあることを確認してください。"
+
+#~ msgid "Replace Existing Linux System(s)"
+#~ msgstr "既存の Linux システムを入れ替える"
+
+#~ msgid ""
+#~ "Removes only Linux partitions (created from a previous Linux "
+#~ "installation).  This does not remove other partitions you may have on "
+#~ "your storage device(s) (such as VFAT or FAT32).\n"
+#~ "\n"
+#~ "<b>Tip:</b> This option will remove data from the selected device(s).  "
+#~ "Make sure you have backups."
+#~ msgstr ""
+#~ "Linux のパーティションのみを削除します（以前の Linux インストールで作成し"
+#~ "たもの）。 これは、ストレージデバイス上に存在する他のパーティションは削除"
+#~ "しません （VFAT や FAT32 など）。\n"
+#~ "\n"
+#~ "<b>ヒント:</b> このオプションは、選択したデバイスからデータを削除します。"
+#~ "バックアップが あることを確認して下さい。"
+
+#~ msgid ""
+#~ "Shrinks existing partitions to create free space for the default layout."
+#~ msgstr ""
+#~ "現在のパーティションを縮小してデフォルトレイアウト用に空き領域を作成しま"
+#~ "す。"
+
+#~ msgid "Use Free Space"
+#~ msgstr "空き領域を使用する"
+
+#~ msgid ""
+#~ "Retains your current data and partitions and uses only the unpartitioned "
+#~ "space on the selected device(s), assuming you have enough free space "
+#~ "available."
+#~ msgstr ""
+#~ "現在のデータとパーティションを維持して、選択したデバイスに十分な空き領域が"
+#~ "ある限りは そのパーティション未設定領域のみを使用します。"
+
+#~ msgid ""
+#~ "Manually create your own custom layout on the selected device(s) using "
+#~ "our partitioning tool."
+#~ msgstr ""
+#~ "パーティション設定ツールを使用して選択したデバイス上に手動で個人設定のカス"
+#~ "タムレイアウトを 作成します。"
+
+#~ msgid "Clear Disks Selector"
+#~ msgstr "ディスクセレクタを空にする"
+
+#~ msgid "You must select at least one drive to be used for installation."
+#~ msgstr ""
+#~ "インストール用に少なくともハードドライブを 1 つ選択しなければなりません。"
+
+#~ msgid "You must select one drive to boot from."
+#~ msgstr "ブート元のドライブをを１つ選択する必要があります。"
+
+#~ msgid "Model"
+#~ msgstr "モデル"
+
+#~ msgid "Capacity"
+#~ msgstr "容量"
+
+#~ msgid "Vendor"
+#~ msgstr "ベンダー"
+
+#~ msgid "Interconnect"
+#~ msgstr "相互接続"
+
+#~ msgid "Serial Number"
+#~ msgstr "シリアル番号"
+
+#~ msgid "Boot"
+#~ msgstr "ブート"
+
+#~ msgid ""
+#~ "<b>Tip:</b> All Linux filesystems on install target devices will be "
+#~ "reformatted and wiped of any data.  Make sure you have backups."
+#~ msgstr ""
+#~ "<b>ヒント:</b> インストール先のデバイス上にある全ての Linux ファイルシステ"
+#~ "ムは 再フォーマットされてデータは抹消されます。バックアップがあることを確"
+#~ "認して下さい。"
+
+#~ msgid ""
+#~ "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
+#~ "data.  Make sure you have backups."
+#~ msgstr ""
+#~ "<b>ヒント:</b> インストール先のデバイスは再フォーマットされてデータは抹消"
+#~ "されます。 バックアップがあることを確認して下さい。"
+
+#~ msgid ""
+#~ "<b>Tip:</b> Your filesystems on install target devices will not be wiped "
+#~ "unless you choose to do so during customization."
+#~ msgstr ""
+#~ "<b>ヒント:</b> インストール先のデバイス上にあるファイルシステムは、カスタ"
+#~ "マイズ中に 削除の選択をしていない限りは抹消されません。"
+
+#~ msgid "Fresh Installation"
+#~ msgstr "新規インストール"
+
+#~ msgid ""
+#~ "At least one existing installation has been detected on your system.  "
+#~ "What would you like to do?"
+#~ msgstr ""
+#~ "使用システム上に少なくとも１つの既存インストールが検出されました。どうした"
+#~ "いですか?"
+
+#~ msgid "<b>Which %s installation would you like to upgrade?</b>"
+#~ msgstr "<b>どの %s インストールをアップグレードしたいですか?</b>"
+
+#~ msgid ""
+#~ "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
+#~ msgstr "%s device(s) 合計 (%s MB) の内 <b>%s device(s) (%s MB) を選択</b>"
+
+#~ msgid "Device Filter"
+#~ msgstr "デバイスフィルター"
+
+#~ msgid "Identifier"
+#~ msgstr "識別子"
+
+#~ msgid "Paths"
+#~ msgstr "パス"
+
+#~ msgid "Port"
+#~ msgstr "ポート"
+
+#~ msgid "Target"
+#~ msgstr "ターゲット"
+
+#~ msgid "LUN"
+#~ msgstr "LUN"
+
+#~ msgid "What type of devices will your installation involve?"
+#~ msgstr "インストールはどんなタイプのデバイスを使用しますか?"
+
+#~ msgid "Basic Storage Devices"
+#~ msgstr "基本ストレージデバイス"
+
+#~ msgid ""
+#~ "Installs or upgrades to typical types of storage devices.  If you're not "
+#~ "sure which option is right for you, this is probably it."
+#~ msgstr ""
+#~ "標準タイプのストレージデバイスにインストール、又はアップグレードします。 "
+#~ "どのオプションが正しいのか不明な場合は、これが適切でしょう。"
+
+#~ msgid "Specialized Storage Devices"
+#~ msgstr "特殊化したストレージデバイス"
+
+#~ msgid ""
+#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
+#~ "mainframe attached disks (DASD), usually in an enterprise environment"
+#~ msgstr ""
+#~ "SAN (Storage Area Network)、あるいはメインフレームに接続されたディスク "
+#~ "(DASD) など 通常はエンタープライズ環境にあるデバイスにインストール、又は"
+#~ "アップグレードします。"
+
+#~ msgid "You cannot create more than %d logical volume per volume group."
+#~ msgstr "ボリュームグループ毎に %d 以上の論理ボリュームは作成できません。"
+
+#~ msgid "LVM Volume Group %s (%-0.f MB)"
+#~ msgstr "LVM ボリュームグループ %s (%-0.f MB)"
+
+#~ msgid "MD RAID ARRAY %s (%-0.f MB)"
+#~ msgstr "MD RAID アレイ %s (%-0.f MB)"
+
+#~ msgid ""
+#~ "The following pre-existing devices have been selected to be formatted, "
+#~ "destroying all data."
+#~ msgstr ""
+#~ "次の既存のデバイスをフォーマットするよう選択されています。これによりすべて"
+#~ "のデータが消去されます。"
+
+#~ msgid "Cannot perform any creation action"
+#~ msgstr "作成作業を実行できません"
+
+#~ msgid ""
+#~ "Note that the creation action requires one of the following:\n"
+#~ "\n"
+#~ "* Free space in one of the Hard Drives.\n"
+#~ "* At least two free Software RAID partitions.\n"
+#~ "* At least one free physical volume (LVM) partition.\n"
+#~ "* At least one Volume Group with free space."
+#~ msgstr ""
+#~ "作成作業には以下のいずれかが必要なことに注意して下さい:\n"
+#~ "\n"
+#~ "* ハードドライブの１つに空き領域。\n"
+#~ "* ソフトウェア RAID に最低 2つの空きパーティション。 \n"
+#~ "* 物理ボリューム (LVM) に最低１つの空きパーティション。\n"
+#~ "* 最低１つの空き領域を持つボリュームグループ。"
+
+#~ msgid "You currently have %d software RAID partition free to use."
+#~ msgstr "%d 個のソフトウェア RAID パーティションの空き領域が使用できます。"
+
+#~ msgid "About RAID"
+#~ msgstr "RAID について"
+
+#~ msgid ""
+#~ "Logical Volume Manager (LVM) is a 3 level construct. The fist level is "
+#~ "made up of disks or partitions formated with LVM metadata called Physical "
+#~ "Volumes (PV).  A Volume Group (VG) sits on top of one or more PVs. The "
+#~ "VG, in turn, is the base to creat one ore more Logical Volumes (LV).  "
+#~ "Note that a VG can be an aggregate of PVs from multiple physical disk.  "
+#~ "For more information on using LVM please consult the %s documentation\n"
+#~ msgstr ""
+#~ "LVM (Logical Volume Manager) は３レベル構造になっています。最初のレベルは "
+#~ "LVM メタデータでフォーマットされた物理ボリューム (PV) と呼ばれるディスク、"
+#~ "又は パーティションの集合です。ボリュームグループ (VG) は単数、又は複数の "
+#~ "PV から構成 されます。そして次には VG が単数、又は複数の論理ボリューム "
+#~ "(LV) を構成する土台と なります。VG は複数の物理ディスクから出来る PV の総"
+#~ "合体であることに留意して 下さい。LVM の使用法についての詳細には、%s ドキュ"
+#~ "メントをご覧下さい。\n"
+
+#~ msgid ""
+#~ "To create a PV you need a partition with free space.  To create a VG you "
+#~ "need a PV that is not part of any existing VG.  To create a LV you need a "
+#~ "VG with free space.\n"
+#~ "\n"
+#~ msgstr ""
+#~ "PV を作成するには、空き領域を持つパーティションが必要です。VG を作成するに"
+#~ "は、 既存の VG の一部ではない PV が必要です。LV を作成するには、空き領域を"
+#~ "持つ VG が必要になります。\n"
+#~ "\n"
+
+#~ msgid "You currently have %d available PV free to use.\n"
+#~ msgstr "現在、%d 個の PV の空き領域が使用できます。\n"
+
+#~ msgid "You currently have free space to create PVs."
+#~ msgstr "現在、PV を作成するための空き領域があります。"
+
+#~ msgid "About LVM"
+#~ msgstr "LVM について"
+
+#~ msgid "_Create"
+#~ msgstr "作成（_C）"
+
+#~ msgid "Please Select A Device"
+#~ msgstr "デバイスを １つ選択してください。"
+
+#~ msgid "Clone Drive Tool"
+#~ msgstr "ドライブのクローンツール"
+
+#~ msgid ""
+#~ "This tool clones the layout from a partitioned source onto other similar "
+#~ "sized drives. The source must have partitions which are restricted to "
+#~ "that drive and must ONLY contain unused software RAID partitions.  "
+#~ "EVERYTHING on the target drive(s) will be destroyed.\n"
+#~ msgstr ""
+#~ "このツールはパーティション設定を持つソースからのレイアウトを他の同様な サ"
+#~ "イズのドライブにクローンします。このソース（クローン元）はこのドライブに制"
+#~ "約された パーティションを持っている必要があり、未使用のソフトウェア RAID "
+#~ "パーティションのみ を含んでいる必要があります。ターゲットドライブ（クロー"
+#~ "ン先）上の全ては消去されます。\n"
+
+#~ msgid "Missing options on line %d of kickstart file %s."
+#~ msgstr "%d 行目のオプションがキックスタートファイル %s にありません。"
+
+#~ msgid "NFS mount options (optional):"
+#~ msgstr "NFS マウントポイント（オプション）"
+
+#~ msgid "Enable HTTP proxy"
+#~ msgstr "HTTP プロキシを有効にする"
+
+#~ msgid "Proxy URL"
+#~ msgstr "プロキシ URL"
+
+#~ msgid "Username"
+#~ msgstr "ユーザー名"
+
+#~ msgid "Formatting DASD Device"
+#~ msgstr "DASD デバイスのフォーマット"
+
+#~ msgid "Preparing %d DASD device for use with Linux..."
+#~ msgstr "Linux での使用の為に %d DASD デバイスを準備中..."
+
+#~ msgid "Creating"
+#~ msgstr "作成"
+
+#~ msgid "Creating device %s"
+#~ msgstr "デバイス %s の作成 "
+
+#~ msgid "A RAID%d set requires atleast %d members"
+#~ msgstr "RAID%d セットには少なくとも %d 個のメンバーが必要です。"
+
+#~ msgid "Creating file %s"
+#~ msgstr "ファイル %s の作成"
+
+#~ msgid "Connecting to FCoE SAN"
+#~ msgstr "FCoE SAN へ接続"
+
+#~ msgid "FCoE not available"
+#~ msgstr "FCoE は使用できません"
+
+#~ msgid "Unknown return code: %d."
+#~ msgstr "不明な戻しコードです: %d"
+
+#~ msgid "%(type)s filesystem check failure on %(device)s: "
+#~ msgstr "%(device)s 上で %(type)s ファイルシステムのチェックに失敗: "
+
+#~ msgid ""
+#~ "Errors like this usually mean there is a problem with the filesystem that "
+#~ "will require user interaction to repair.  Before restarting installation, "
+#~ "reboot to rescue mode or another system that allows you to repair the "
+#~ "filesystem interactively.  Restart installation after you have corrected "
+#~ "the problems on the filesystem."
+#~ msgstr ""
+#~ "このようなエラーは通常、ファイルシステムに問題があることを意味しており、 "
+#~ "その修正にはユーザーの介入を必要とします。インストールを再開始する前に レ"
+#~ "スキューモードで、又はファイルシステムを対話式で修正できる他のシステムで "
+#~ "再起動して下さい。ファイルシステムの問題を修正してからインストールを再開"
+#~ "始 して下さい。"
+
+#~ msgid "File system errors left uncorrected."
+#~ msgstr "ファイルシステムエラーが未修正のままです。"
+
+#~ msgid "Operational error."
+#~ msgstr "操作上のエラー"
+
+#~ msgid "Usage or syntax error."
+#~ msgstr "ユーザー又は構文のエラー"
+
+#~ msgid "e2fsck cancelled by user request."
+#~ msgstr "ユーザーの指示で e2fsck がキャンセルされました。"
+
+#~ msgid "Shared library error."
+#~ msgstr "共有ライブラリのエラー"
+
+#~ msgid ""
+#~ "Recoverable errors have been detected or dosfsck has discovered an "
+#~ "internal inconsistency."
+#~ msgstr ""
+#~ "復元可能なエラーは検出されたか、又は dosfsck が内部の整合性問題を発見しま"
+#~ "した。"
+
+#~ msgid "Usage error."
+#~ msgstr "使用法エラー"
+
+#~ msgid "Encrypted"
+#~ msgstr "暗号化"
+
+#~ msgid "Encrypting %s"
+#~ msgstr "暗号化 %s"
+
+#~ msgid "Creating %s on %s"
+#~ msgstr "%s 上に %s を作成"
+
+#~ msgid ""
+#~ "Could not allocate requested partitions: \n"
+#~ "\n"
+#~ "%(msg)s.%(extra)s"
+#~ msgstr ""
+#~ "要求されたパーティションを割り当てできませんでした: \n"
+#~ "\n"
+#~ "%(msg)s.%(extra)s"
+
+#~ msgid "Which type of installation would you like?"
+#~ msgstr "どのタイプのインストールをしますか ?"
+
+#~ msgid "<b>Data Storage Devices</b> (to be mounted only)"
+#~ msgstr "<b>データストレージデバイス</b> (マウントのみ)"
+
+#~ msgid "<b>Install Target Devices</b>"
+#~ msgstr "<b>インストール先のデバイス</b>"
+
+#~ msgid ""
+#~ "Below are the storage devices you've selected to be a part of this "
+#~ "installation.  Please indicate using the arrows below which devices you'd "
+#~ "like to use as data drives (these will not be formatted, only mounted) "
+#~ "and which devices you'd like to use as system drives (these may be "
+#~ "formatted)."
+#~ msgstr ""
+#~ "このインストールの一部として選択したストレージデバイスを以下に示します。 "
+#~ "以下の矢印を使用してデータドライブとして使用したいデバイス（これらはフォー"
+#~ "マットされずにマウントされるだけ）と システムドライブとして使用したいデバ"
+#~ "イス（これらはフォーマットできます）を示して下さい。 "
+
+#~ msgid ""
+#~ "<span size=\"small\" color=\"gray\">Create a RAID formated partition</"
+#~ "span>"
+#~ msgstr ""
+#~ "<span size=\"small\" color=\"gray\">RAID フォーマットをしたパーティション"
+#~ "を作成</span>"
+
+#~ msgid ""
+#~ "<span size=\"small\" color=\"gray\">Create a logical volume on selected "
+#~ "volume group</span>"
+#~ msgstr ""
+#~ "<span size=\"small\" color=\"gray\">選択したボリュームグループ上に論理ボ"
+#~ "リュームを作成 </span>"
+
+#~ msgid ""
+#~ "<span size=\"small\" color=\"gray\">Create an LVM formated partition</"
+#~ "span>"
+#~ msgstr ""
+#~ "<span size=\"small\" color=\"gray\">LVM フォーマットしたパーティションを作"
+#~ "成</span>"
+
+#~ msgid ""
+#~ "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</"
+#~ "span>"
+#~ msgstr ""
+#~ "<span size=\"small\" color=\"gray\">RAID デバイスの作成を用意</span>"
+
+#~ msgid ""
+#~ "<span size=\"small\" color=\"gray\">General purpose partition creation</"
+#~ "span>"
+#~ msgstr ""
+#~ "<span size=\"small\" color=\"gray\">汎用目的のパーティションを作成</span>"
+
+#~ msgid ""
+#~ "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
+#~ "partition</span>"
+#~ msgstr ""
+#~ "<span size=\"small\" color=\"gray\">LVM フォーマットの空きパーティションが"
+#~ "最低でも１つ必要 </span>"
+
+#~ msgid ""
+#~ "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID "
+#~ "formated partitions</span>"
+#~ msgstr ""
+#~ "<span size=\"small\" color=\"gray\">RAID フォーマットの空きパーティション"
+#~ "が最低でも２つ必要</span>"
+
+#~ msgid "Create"
+#~ msgstr "作成"
+
+#~ msgid "Create LVM"
+#~ msgstr "LVM を作成"
+
+#~ msgid "Create Partition"
+#~ msgstr "パーティションを作成"
+
+#~ msgid "Create Storage"
+#~ msgstr "ストレージを作成"
+
+#~ msgid "LVM Logical Volume"
+#~ msgstr "LVM 論理ボリューム"
+
+#~ msgid "LVM Physical Volume"
+#~ msgstr "LVM 物理ボリューム"
+
+#~ msgid "LVM Volume Group"
+#~ msgstr "LVM ボリュームグループ"
+
+#~ msgid "RAID Clone"
+#~ msgstr "RAID クローン"
+
+#~ msgid "RAID Partition"
+#~ msgstr "RAID パーティション"
+
+#~ msgid "Standard Partition"
+#~ msgstr "標準パーティション"
+
+#~ msgid "Use DCB"
+#~ msgstr "DCB の使用"
+
+#~ msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
+#~ msgstr "%s デバイスの合計 (%s) の内 <b>%s デバイス の (%s) を選択</b>"
+
+#~ msgid ""
+#~ "<b>Tip:</b> Selecting a drive on this screen does not necessarily mean it "
+#~ "will be wiped by the installation process.  Also, note that post-"
+#~ "installation you may mount drives you did not select here by modifying "
+#~ "your /etc/fstab file."
+#~ msgstr ""
+#~ "<b>ヒント:</b> この画面でドライブを選択しても必ずしもインストールプロセス"
+#~ "によって 消去されることにはなりません。また、インストール後に /etc/fstab "
+#~ "ファイルを編集することで ここで選択していないドライブをマウントすることも"
+#~ "出来ます。 "
+
+#~ msgid "Add Advanced Target"
+#~ msgstr "高度なターゲットの追加"
+
+#~ msgid "Basic Devices"
+#~ msgstr "基本デバイス"
+
+#~ msgid "Filter By:"
+#~ msgstr "フィルター項目:"
+
+#~ msgid "Firmware RAID"
+#~ msgstr "ファームウェア RAID"
+
+#~ msgid "Identifier:"
+#~ msgstr "識別子:"
+
+#~ msgid ""
+#~ "Interconnect\n"
+#~ "Vendor\n"
+#~ "Identifier"
+#~ msgstr ""
+#~ "相互接続\n"
+#~ "ベンダー\n"
+#~ "識別子"
+
+#~ msgid "LUN:"
+#~ msgstr "LUN:"
+
+#~ msgid "Multipath Devices"
+#~ msgstr "マルチパスデバイス"
+
+#~ msgid "Other SAN Devices"
+#~ msgstr "他の SAN デバイス"
+
+#~ msgid ""
+#~ "Please select the drives you'd like to install the operating system on, "
+#~ "as well as any drives you'd like to automatically mount to your system, "
+#~ "below:"
+#~ msgstr ""
+#~ "オペレーティングシステムのインストール先となるデバイスを選択して下さい。更"
+#~ "には システムに自動的にマウントを希望するいずれかのドライブも以下で選択し"
+#~ "てください:"
+
+#~ msgid ""
+#~ "Port / Target / LUN\n"
+#~ "Target Identifier"
+#~ msgstr ""
+#~ "ポート / ターゲット / LUN\n"
+#~ "ターゲット識別子"
+
+#~ msgid "Port:"
+#~ msgstr "ポート:"
+
+#~ msgid "Search"
+#~ msgstr "検索"
+
+#~ msgid "Search By:"
+#~ msgstr "検索項目:"
+
+#~ msgid "Search Results:"
+#~ msgstr "検索結果:"
+
+#~ msgid "Show Identifiers that Include:"
+#~ msgstr "以下を含む識別子を表示します:"
+
+#~ msgid "Show Only Devices From:"
+#~ msgstr "以下からのデバイスのみを表示します:"
+
+#~ msgid "Show Only Devices Using:"
+#~ msgstr "以下を使用したデバイスのみを表示します:"
+
+#~ msgid "Target:"
+#~ msgstr "ターゲット:"
+
+#~ msgid "Configure Network"
+#~ msgstr "ネットワークの設定"
