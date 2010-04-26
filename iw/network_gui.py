@@ -156,13 +156,17 @@ def selectNetDevicesDialog(network, select_install_device=True):
 
         for idx, dev in enumerate(devs):
             i = store.append(None)
-            # TODORV: add description
+
+            desc = netdevs[dev].description
+            if desc:
+                desc = "%s - %s" %(dev, desc)
+            else:
+                desc = "%s" %(dev,)
+
             hwaddr = netdevs[dev].get("HWADDR")
 
             if hwaddr:
-                desc = "%s - %s" %(dev, hwaddr,)
-            else:
-                desc = "%s" %(dev,)
+                desc = "%s - %s" %(desc, hwaddr,)
 
             if ksdevice and ksdevice == dev:
                 selected_interface_idx = idx
