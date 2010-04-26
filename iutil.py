@@ -454,9 +454,6 @@ def swapSuggestion(quiet=0):
             minswap = mem
             maxswap = 2*mem
 
-    if isS390():
-        minswap = 1
-
     if not quiet:
 	log.info("Swap attempt of %sM to %sM", minswap, maxswap)
 
