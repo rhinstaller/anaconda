@@ -943,6 +943,26 @@ cat > $DEST/.gconf/desktop/gnome/interface/%gconf.xml <<EOF
 </gconf>
 EOF
 
+# anaconda needs to change a couple of the default gconf entries
+GCONF_RULES_FILE=$DEST/etc/gconf/gconf.xml.defaults/anaconda.rules
+cat > $GCONF_RULES_FILE <<EOF
+<?xml version="1.0"?>
+<gconfentryfile>
+
+  <entrylist base="/apps">
+    <entry>
+      <key>metacity/general/button_layout</key>
+      <schema_key>/schemas/apps/metacity/general/button_layout</schema_key>
+      <value>
+        <string>:</string>
+      </value>
+    </entry>
+  </entrylist>
+
+</gconfentryfile>
+EOF
+gconftool-2 --direct --config-source="xml:readwrite:$DEST/etc/gconf/gconf.xml.defaults" --load $GCONF_RULES_FILE
+
 rm -rf $YUMDIR
 
 chown -R root:root $DEST
