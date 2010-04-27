@@ -33,6 +33,7 @@ import struct
 import os
 import time
 import dbus
+import tempfile
 from flags import flags
 from simpleconfig import IfcfgFile
 
@@ -228,15 +229,17 @@ class NetworkDevice(IfcfgFile):
     def __init__(self, dir, iface, logfile='/tmp/ifcfg.log'):
         IfcfgFile.__init__(self, dir, iface)
         self.logfile = logfile
+        self.description = ""
         if iface.startswith('ctc'):
             self.info["TYPE"] = "CTC"
-        self.description = ""
+        self.wepkey = ""
         self._dirty = False
 
     def clear(self):
         IfcfgFile.clear(self)
         if self.iface.startswith('ctc'):
             self.info["TYPE"] = "CTC"
+        self.wepkey = ""
 
     def __str__(self):
         s = ""
@@ -284,6 +287,29 @@ class NetworkDevice(IfcfgFile):
             return
         IfcfgFile.set(self, *args)
         self._dirty = True
+
+    def writeWepkeyFile(self, dir=None, overwrite=True):
+        if not self.wepkey:
+            return False
+        if not dir:
+            dir = os.path.dirname(self.path)
+        keyfile = os.path.join(dir, "keys-%s" % self.iface)
+
+        if not overwrite and os.path.isfile(keyfile):
+            return False
+
+        fd, newifcfg = tempfile.mkstemp(prefix="keys-%s" % self.iface, text=False)
+        os.write(fd, "KEY1=%s\n" % self.wepkey)
+        os.close(fd)
+
+        os.chmod(newifcfg, 0644)
+        try:
+            os.remove(keyfile)
+        except OSError as e:
+            if e.errno != 2:
+                raise
+        shutil.move(newifcfg, keyfile)
+
 
     def log(self, header="\n"):
         lf = open(self.logfile, 'a')
@@ -568,6 +594,7 @@ class Network:
             return
 
         # /etc/sysconfig/network-scripts/ifcfg-*
+        # /etc/sysconfig/network-scripts/keys-*
         for dev in devices:
             device = dev.get('DEVICE')
 
@@ -592,21 +619,8 @@ class Network:
 
             dev.writeIfcfgFile()
 
-            # XXX: is this necessary with NetworkManager?
-            # handle the keys* files if we have those
-            if dev.get("KEY"):
-                cfgfile = "%s/keys-%s" % (netscriptsDir, device,)
-                if not instPath == '' and os.path.isfile(cfgfile):
-                    continue
-
-                newkey = "%s/keys-%s.new" % (netscriptsDir, device,)
-                f = open(newkey, "w")
-                f.write("KEY=%s\n" % (dev.get('KEY'),))
-                f.close()
-                os.chmod(newkey, 0600)
-
-                destkey = "%s/keys-%s" % (netscriptsDir, device,)
-                shutil.move(newkey, destkey)
+            if dev.wepkey:
+                dev.writeWepkeyFile(dir=netscriptsDir, overwrite=False)
 
 
         # /etc/sysconfig/network

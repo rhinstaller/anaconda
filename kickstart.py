@@ -596,7 +596,9 @@ class NetworkData(commands.network.F8_NetworkData):
                     if self.essid:
                         dev.set(("essid", self.essid))
                     if self.wepkey:
-                        dev.set(("wepkey", self.wepkey))
+                        dev.set(("defaultkey", "1"))
+                        dev.wepkey = self.wepkey
+                        dev.writeWepkeyFile()
 
         if self.hostname != "":
             anaconda.network.setHostname(self.hostname)
