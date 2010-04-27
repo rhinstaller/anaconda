@@ -697,7 +697,7 @@ class Network:
                         s = "# %s (rule written by anaconda)\n" % (dev.description,)
                     else:
                         s = "# %s (rule written by anaconda)\n" % (devname,)
-                        s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", ATTR{type}=="1", KERNEL=="%s*", NAME="%s"\n' % (addr, basename, devname,)
+                    s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", ATTR{type}=="1", KERNEL=="%s*", NAME="%s"\n' % (addr, basename, devname,)
 
                     f.write(s)
 
