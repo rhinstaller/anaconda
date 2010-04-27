@@ -49,7 +49,10 @@ class NetworkWindow(InstallWindow):
         self.hostnameEntry = self.xml.get_widget("hostnameEntry")
         self.hostnameEntry.set_text(self.hostname)
 
-        self.xml.get_widget("netconfButton").connect("clicked", self._setupNetwork)
+        self.netconfButton = self.xml.get_widget("netconfButton")
+        self.netconfButton.connect("clicked", self._setupNetwork)
+        if len(self.anaconda.id.network.netdevices) == 0:
+            self.netconfButton.set_sensitive(False)
 
         # pressing Enter in confirm == clicking Next
         self.hostnameEntry.connect("activate",
