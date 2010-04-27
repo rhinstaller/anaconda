@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-04-19 17:39-1000\n"
-"PO-Revision-Date: 2010-04-21 10:00+0530\n"
+"POT-Creation-Date: 2010-04-22 17:50-1000\n"
+"PO-Revision-Date: 2010-04-27 11:24+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <maajhe-sanganak@freelists.org>\n"
 "MIME-Version: 1.0\n"
@@ -185,7 +185,7 @@ msgstr "प्रतिष्ठापकातून बाहेर पडा 
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1346
 #: kickstart.py:1385 upgrade.py:58 yuminstall.py:1248 yuminstall.py:1431
-#: iw/partition_gui.py:1600 storage/__init__.py:1962
+#: iw/partition_gui.py:1608 storage/__init__.py:1962
 msgid "_Continue"
 msgstr "पुढे चला (_C)"
 
@@ -334,7 +334,7 @@ msgstr ""
 "उपकरनाचे गुप्तवाक्यरचना खाली प्रविष्ट केले पाहिजे."
 
 #: gui.py:734 gui.py:1410 partIntfHelpers.py:157 partIntfHelpers.py:342
-#: text.py:100 text.py:101 iw/account_gui.py:130 loader/dirbrowser.c:128
+#: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:422 loader/kickstart.c:328 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
 msgid "Cancel"
@@ -714,8 +714,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"escrow प्रमाणपत्र डाऊनलोड करतेवेळी खालील त्रुटी "
-"आढळली:\n"
+"escrow प्रमाणपत्र डाऊनलोड करतेवेळी खालील त्रुटी आढळली:\n"
 "\n"
 "%s"
 
@@ -1055,8 +1054,8 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr "तुम्ही '%s' उपकरनवरील सर्व विभाजने नष्ट करणार आहात."
 
 #: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:863
-#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1813
-#: iw/partition_gui.py:1825
+#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1821
+#: iw/partition_gui.py:1833
 msgid "_Delete"
 msgstr "नष्ट करा (_D)"
 
@@ -1116,7 +1115,7 @@ msgstr ""
 msgid "Format?"
 msgstr "स्वरुपण(फॉरमॅट) करावे?"
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1598
+#: partIntfHelpers.py:249 iw/partition_gui.py:1606
 msgid "_Modify Partition"
 msgstr "विभाजनात फेरफार(_M)"
 
@@ -1351,12 +1350,13 @@ msgid ""
 "\n"
 msgstr ""
 "रेस्क्यू एन्वार्यनमेंट आत्ता Linux प्रतिष्ठापन शोधण्याचा आणि त्यांस %s डिरेक्ट्रीमध्ये माऊंट "
-"करण्याचा प्रयत्न करेल. त्यानंतर प्रणालीकरीता आवश्यक बदल करणे शक्य आहे.  ही पद्धत पुढे चालू ठेवायची असल्यास "
-"'चालू ठेवा' नीवडा.  फइल प्रणाली 'रिड-ओंली' नीवडून रिड-राईट ऐवजी रिड-ओंली म्हणून फाइल प्रणाली माऊं करणे शक्य आहे.  "
-"SAN साधणे सक्रीय करायचे असल्यास 'प्रगत' नीवडा.\n"
+"करण्याचा प्रयत्न करेल. त्यानंतर प्रणालीकरीता आवश्यक बदल करणे शक्य आहे.  ही पद्धत पुढे चालू "
+"ठेवायची असल्यास 'चालू ठेवा' नीवडा.  फइल प्रणाली 'रिड-ओंली' नीवडून रिड-राईट ऐवजी रिड-"
+"ओंली म्हणून फाइल प्रणाली माऊं करणे शक्य आहे.  SAN साधणे सक्रीय करायचे असल्यास 'प्रगत' "
+"नीवडा.\n"
 "\n"
-"कोणत्याही कारणास्तव ही प्रक्रिया अपयशी झाल्यास 'टाळा' नीवडा व ही पद्धत वगळली जाईल व वापरकर्ता "
-"कमांड शेलकरीता निर्देशीत केला जातो.\n"
+"कोणत्याही कारणास्तव ही प्रक्रिया अपयशी झाल्यास 'टाळा' नीवडा व ही पद्धत वगळली जाईल "
+"व वापरकर्ता कमांड शेलकरीता निर्देशीत केला जातो.\n"
 "\n"
 
 #: rescue.py:310 iw/partition_gui.py:781 loader/cdinstall.c:206
@@ -2106,42 +2106,24 @@ msgstr "ग्राफिकल डेस्कटॉप"
 msgid "Software Development"
 msgstr "सॉफ्टवेअर विकास"
 
-#: installclasses/fedora.py:59 installclasses/rhel.py:61
+#: installclasses/fedora.py:59
 msgid "Web Server"
 msgstr "वेब सर्वर"
 
-#: installclasses/fedora.py:63 installclasses/rhel.py:90
+#: installclasses/fedora.py:63 installclasses/rhel.py:44
 msgid "Minimal"
 msgstr "किमान"
 
-#: installclasses/rhel.py:39
+#: installclasses/rhel.py:33
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
-#: installclasses/rhel.py:40
+#: installclasses/rhel.py:34
 #, python-format
 msgid ""
-"The default installation of %s is a basic server install. You can optionally "
+"The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
-msgstr ""
-"%s चे पूर्वनिर्धारीत प्रतिष्ठापन म्हणजे मूळ सर्व्हर प्रतिष्ठापन आहे. तुम्ही आत्ता वैकल्पिकपणे "
-"वेगळ्या सॉफ्टवेअरचे संच नीवडू शकता."
-
-#: installclasses/rhel.py:51
-msgid "Basic Server"
-msgstr "मूळ सर्व्हर"
-
-#: installclasses/rhel.py:55
-msgid "Database Server"
-msgstr "डाटाबेस सर्व्हर"
-
-#: installclasses/rhel.py:67
-msgid "Desktop"
-msgstr "डेस्कटॉप"
-
-#: installclasses/rhel.py:77
-msgid "Software Development Workstation"
-msgstr "सॉफ्टवेअर डेव्हलपमेंट वर्कस्टेशन"
+msgstr "%s चे पूर्वनिर्धारीत प्रतिष्ठापन म्हणजे किमान प्रतिष्ठापन आहे. आत्ता वैकल्पिकपणे वेगळ्या सॉफ्टवेअरचे संच नीवडणे शक्य आहे."
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2175,7 +2157,7 @@ msgid "Caps Lock is on."
 msgstr "Caps Lock सुरू आहे."
 
 #: iw/account_gui.py:102 iw/account_gui.py:110 iw/account_gui.py:117
-#: iw/account_gui.py:137 textw/userauth_text.py:74
+#: iw/account_gui.py:138 textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr "पासवर्डाशी निगडीत त्रुटी"
 
@@ -2204,11 +2186,11 @@ msgstr "कमजोर पासवर्ड"
 msgid "You have provided a weak password: %s"
 msgstr "तुम्ही कमजोर पासवर्ड पुरवले आहे: %s"
 
-#: iw/account_gui.py:130
+#: iw/account_gui.py:131
 msgid "Use Anyway"
 msgstr "कसेही वापर करा"
 
-#: iw/account_gui.py:138 textw/userauth_text.py:75
+#: iw/account_gui.py:139 textw/userauth_text.py:75
 msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "निवेदित पासवर्डात ascii-नसलेली अक्षरे आहेत, जी पासवर्डात वापरण्यास मज्जाव आहे."
 
@@ -2934,8 +2916,8 @@ msgstr "आकार (MB)"
 msgid "_Add"
 msgstr "जोडा(_A)"
 
-#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1812
-#: iw/partition_gui.py:1822
+#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1820
+#: iw/partition_gui.py:1830
 msgid "_Edit"
 msgstr "संपादा(_E)"
 
@@ -3143,7 +3125,7 @@ msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
 msgstr "ड्राइव्ह्ह %(drive)s (%(size)-0.f MB) (मॉडेल: %(model)s)"
 
 #: iw/partition_gui.py:396 iw/partition_gui.py:442 iw/partition_gui.py:509
-#: iw/partition_gui.py:996 iw/partition_gui.py:1063
+#: iw/partition_gui.py:1000 iw/partition_gui.py:1067
 msgid "Free"
 msgstr "मुक्त"
 
@@ -3220,27 +3202,27 @@ msgstr "खालील पूर्व-उपस्थीत उपकरणा
 msgid "Format Warnings"
 msgstr "स्वरुप(फॉरमॅट) सुचना"
 
-#: iw/partition_gui.py:984
+#: iw/partition_gui.py:988
 msgid "LVM Volume Groups"
 msgstr "LVM खंड संच"
 
-#: iw/partition_gui.py:1006
+#: iw/partition_gui.py:1010
 msgid "RAID Devices"
 msgstr "RAID यंत्रे"
 
-#: iw/partition_gui.py:1017 loader/hdinstall.c:206
+#: iw/partition_gui.py:1021 loader/hdinstall.c:206
 msgid "Hard Drives"
 msgstr "हार्ड ड्राइव्ह्स"
 
-#: iw/partition_gui.py:1067
+#: iw/partition_gui.py:1071
 msgid "Extended"
 msgstr "विस्तारित"
 
-#: iw/partition_gui.py:1346
+#: iw/partition_gui.py:1350
 msgid "Cannot perform any creation action"
 msgstr "निर्माण क्रिया सुरू करणे अशक्य आहे"
 
-#: iw/partition_gui.py:1347
+#: iw/partition_gui.py:1351
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -3256,7 +3238,7 @@ msgstr ""
 "* किमान एक मोकळी फिजीकल वॉल्यूम (LVM) विभाजन.\n"
 "* मोकळी जागासह किमान एक वॉल्यूम ग्रूप."
 
-#: iw/partition_gui.py:1455
+#: iw/partition_gui.py:1463
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3269,7 +3251,7 @@ msgstr ""
 "पुरवण्यासाठी संरचीत केले जाऊ शकते.  RAID यंत्र वापरण्याविषयी अधिक माहितीसाठी कृपया %s "
 "दस्तऐवजीकरण पहा.\n"
 
-#: iw/partition_gui.py:1461
+#: iw/partition_gui.py:1469
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -3280,16 +3262,16 @@ msgstr ""
 "करावित.  मग तुम्ही एक RAID यंत्र बनवू शकता ज्याचे स्वरूपण आणि आरोहण केले जाऊ शकते.\n"
 "\n"
 
-#: iw/partition_gui.py:1465
+#: iw/partition_gui.py:1473
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgstr "सध्या तुमच्याकडे %d सॉफ्टवेअर RAID विभाजन वापरणीकरीता आहे."
 
-#: iw/partition_gui.py:1469
+#: iw/partition_gui.py:1477
 msgid "About RAID"
 msgstr "RAID विषयी"
 
-#: iw/partition_gui.py:1475
+#: iw/partition_gui.py:1483
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
@@ -3306,7 +3288,7 @@ msgstr ""
 "एकूण PVs असू शकते. LVM चा वापर करण्यासाठी अधिक माहितीकरीता कृपया %s दस्तऐवजीकरण "
 "पहा\n"
 
-#: iw/partition_gui.py:1483
+#: iw/partition_gui.py:1491
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create a LV you need a VG "
@@ -3318,47 +3300,47 @@ msgstr ""
 "करण्यासाठी तुम्हाला मोकळ्या जागेसह VG आवश्यक आहे.\n"
 "\n"
 
-#: iw/partition_gui.py:1487
+#: iw/partition_gui.py:1495
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgstr "तुमच्याकडे सध्या वापरण्याजोगी %d उपलब्ध PV आहे.\n"
 
-#: iw/partition_gui.py:1491
+#: iw/partition_gui.py:1499
 msgid "You currently have free space to create PVs."
 msgstr "तुमच्याकडे PVs निर्माण करण्यासाठी मोकळी जागा आहे."
 
-#: iw/partition_gui.py:1494
+#: iw/partition_gui.py:1502
 msgid "About LVM"
 msgstr "LVM विषयी"
 
-#: iw/partition_gui.py:1526
+#: iw/partition_gui.py:1534
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "ड्राइव्ह क्लोन संपादक निर्माण करता आला नाही"
 
-#: iw/partition_gui.py:1527
+#: iw/partition_gui.py:1535
 msgid "The drive clone editor could not be created for some reason."
 msgstr "काही कारणास्तव ड्राइव्ह क्लोन संपादक निर्माण करता आला नाही."
 
-#: iw/partition_gui.py:1586 storage/partitioning.py:197
+#: iw/partition_gui.py:1594 storage/partitioning.py:197
 #: storage/partitioning.py:238
 msgid "Error Partitioning"
 msgstr "विभाजनात त्रुटी "
 
-#: iw/partition_gui.py:1587
+#: iw/partition_gui.py:1595
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "निवेदित विभाजने वाटता नाही आली: %s."
 
-#: iw/partition_gui.py:1596
+#: iw/partition_gui.py:1604
 #, python-format
 msgid "Warning: %s."
 msgstr "सुचना: %s."
 
-#: iw/partition_gui.py:1627
+#: iw/partition_gui.py:1635
 msgid "Unable To Edit"
 msgstr "संपादन करण्यास असमर्थ"
 
-#: iw/partition_gui.py:1628
+#: iw/partition_gui.py:1636
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -3369,15 +3351,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/partition_gui.py:1811
+#: iw/partition_gui.py:1819
 msgid "_Create"
 msgstr "निर्माण करा (_C)"
 
-#: iw/partition_gui.py:1814
+#: iw/partition_gui.py:1822
 msgid "Re_set"
 msgstr "पुन्हस्थापन (_s)"
 
-#: iw/partition_gui.py:1837
+#: iw/partition_gui.py:1845
 msgid "Please Select A Device"
 msgstr "कृपया एक उपकरण निवडा"
 
@@ -5224,23 +5206,23 @@ msgstr "%s करीता vginfo अपयशी ठरले"
 msgid "lvs failed for %s"
 msgstr "%s करीता lvs अपयशी ठरले"
 
-#: storage/devices.py:1270 storage/devices.py:1940 storage/devices.py:2343
-#: storage/devices.py:2814 storage/devices.py:3296
+#: storage/devices.py:1270 storage/devices.py:1941 storage/devices.py:2344
+#: storage/devices.py:2815 storage/devices.py:3297
 msgid "Creating"
 msgstr "निर्माण करत आहे"
 
-#: storage/devices.py:1271 storage/devices.py:1941 storage/devices.py:2344
-#: storage/devices.py:2815
+#: storage/devices.py:1271 storage/devices.py:1942 storage/devices.py:2345
+#: storage/devices.py:2816
 #, python-format
 msgid "Creating device %s"
 msgstr "उपकरण %s निर्माण करत आहे"
 
-#: storage/devices.py:2437
+#: storage/devices.py:2438
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "RAID%d संचाला किमान %d सदस्य आवश्यक आहे"
 
-#: storage/devices.py:3297
+#: storage/devices.py:3298
 #, python-format
 msgid "Creating file %s"
 msgstr "फाइल %s निर्माण करत आहे"
@@ -5261,7 +5243,7 @@ msgstr ""
 "\n"
 "ही पध्दत वगळल्यास प्रतिष्ठापनवेळी उपकरनचे अनुक्रम उपलब्ध राहणार नाही."
 
-#: storage/devicetree.py:1843 storage/devicetree.py:1891
+#: storage/devicetree.py:1861 storage/devicetree.py:1909
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "हे विभाजन अयोग्य LVM खंड गटाचे भाग आहे."
 
