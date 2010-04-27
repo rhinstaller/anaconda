@@ -220,6 +220,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Apr 26 2010 David Cantrell <dcantrell@redhat.com> - 13.21.32-1
+- Revert "Set minswap suggestion on s390x to 1 (dcantrell)."
+  Resolves: rhbz#466289
+- Properly align the first partition we create (hdegoede)
+  Resolves: rhbz#586144
+- Remove the README files (clumens).
+  Resolves: rhbz#584595
+- Make it more clear what the purpose of the "Boot" column is (clumens).
+  Resolves: rhbz#586177
+
 * Thu Apr 22 2010 David Cantrell <dcantrell@redhat.com> - 13.21.31-1
 - Prune resize and format create/migrate actions if destroying a device.
   (dlehman)

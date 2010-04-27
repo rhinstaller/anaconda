@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.30\n"
+"Project-Id-Version: anaconda 13.21.31\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-04-22 17:49-1000\n"
+"POT-Creation-Date: 2010-04-26 16:45-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -511,83 +511,83 @@ msgstr ""
 msgid "_Format"
 msgstr ""
 
-#: iutil.py:855
+#: iutil.py:852
 #, python-format
 msgid ""
 "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
 "s)"
 msgstr ""
 
-#: iutil.py:866
+#: iutil.py:863
 #, python-format
 msgid ""
 "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
 msgstr ""
 
-#: iutil.py:875
+#: iutil.py:872
 #, python-format
 msgid ""
 "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
 msgstr ""
 
-#: iutil.py:894
+#: iutil.py:891
 #, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
 msgstr ""
 
-#: iutil.py:904
+#: iutil.py:901
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr ""
 
-#: iutil.py:913
+#: iutil.py:910
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr ""
 
-#: iutil.py:926
+#: iutil.py:923
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
 msgstr ""
 
-#: iutil.py:948
+#: iutil.py:945
 #, python-format
 msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:963
+#: iutil.py:960
 #, python-format
 msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:978
+#: iutil.py:975
 #, python-format
 msgid ""
 "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr ""
 
-#: iutil.py:993
+#: iutil.py:990
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
 "(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 
-#: iutil.py:1010
+#: iutil.py:1007
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
 msgstr ""
 
-#: iutil.py:1021
+#: iutil.py:1018
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: iutil.py:1025
+#: iutil.py:1022
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr ""
 
@@ -2139,7 +2139,9 @@ msgid "Serial Number"
 msgstr ""
 
 #: iw/cleardisks_gui.py:144
-msgid "Boot"
+msgid ""
+"Boot\n"
+"Loader"
 msgstr ""
 
 #: iw/cleardisks_gui.py:181
@@ -5422,7 +5424,8 @@ msgid ""
 "Below are the storage devices you've selected to be a part of this "
 "installation.  Please indicate using the arrows below which devices you'd "
 "like to use as data drives (these will not be formatted, only mounted) and "
-"which devices you'd like to use as system drives (these may be formatted)."
+"which devices you'd like to use as system drives (these may be formatted).  "
+"Please also indicate which system drive will have the bootloader installed."
 msgstr ""
 
 #: ui/create-storage.glade.h:1
