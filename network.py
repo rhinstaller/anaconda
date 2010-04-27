@@ -247,8 +247,6 @@ class NetworkDevice(IfcfgFile):
         keys.sort()
         keys.remove("DEVICE")
         keys.insert(0, "DEVICE")
-        if "KEY" in keys:
-            keys.remove("KEY")
         if iutil.isS390() and ("HWADDR" in keys):
             keys.remove("HWADDR")
         # make sure we include autoneg in the ethtool line
@@ -484,6 +482,12 @@ class Network:
 
     def getSSIDs(self):
         return getSSIDs(self.netdevices.keys())
+
+    def selectPreferredSSIDs(self, dev_ssids):
+        for iface, device in self.netdevices.items():
+            preferred = device.get('ESSID')
+            if preferred and preferred in dev_ssids[iface]:
+                dev_ssids[iface] = [preferred]
 
     def writeKS(self, f):
         devNames = self.netdevices.keys()
