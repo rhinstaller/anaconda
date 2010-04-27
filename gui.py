@@ -1448,6 +1448,10 @@ class InstallControlWindow:
         self.mainxml = gtk.glade.XML(findGladeFile("anaconda.glade"),
                                      domain="anaconda")
 
+    def setup_theme(self):
+        settings = gtk.settings_get_default()
+        settings.set_long_property("gtk-button-images", 0, "gui.py:setup_theme")
+
     def setup_window (self, window_reload):
         self.setLtR()
 
@@ -1472,6 +1476,7 @@ class InstallControlWindow:
         rootPopBusyCursor()
         
     def run (self, runres):
+        self.setup_theme()
         self.setup_window(False)
         gtk.main()
             
