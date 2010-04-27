@@ -202,13 +202,11 @@ class NetworkConfiguratorText:
                     dev.set(('NM_CONTROLLED', 'no'))
                     dev.set(('ONBOOT', 'no'))
 
-            selected_netdevs = []
             for devname in selected:
                 if not netdevs.has_key(devname):
                     continue
 
                 netdev = netdevs[devname]
-                selected_netdevs.append(netdev)
                 netdev.set(("ONBOOT", "yes"))
 
                 if self.dhcpCheckbox.selected():
@@ -276,7 +274,7 @@ class NetworkConfiguratorText:
                         continue
 
             w = self.anaconda.intf.waitWindow(_("Configuring Network Interfaces"), _("Waiting for NetworkManager"))
-            result = self.anaconda.id.network.bringUp(devices=selected_netdevs)
+            result = self.anaconda.id.network.bringUp()
             w.pop()
             if result:
                 break
