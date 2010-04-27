@@ -1,7 +1,7 @@
 #
 # dasd.py - DASD class
 #
-# Copyright (C) 2009  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2009, 2010  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 import iutil
 import sys
 import os
+from storage.errors import DasdFormatError
 from storage.devices import deviceNameToDiskByPath
 from constants import *
 from flags import flags
@@ -44,15 +45,17 @@ class DASD:
     def __init__(self):
         self._dasdlist = []
         self._devices = []                  # list of DASDDevice objects
-        self._totalCylinders = 0
+        self.totalCylinders = 0
         self._completedCylinders = 0.0
         self._maxFormatJobs = 0
+        self.dasdfmt = "/sbin/dasdfmt"
+        self.commonArgv = ["-y", "-d", "cdl", "-b", "4096"]
         self.started = False
 
     def __call__(self):
         return self
 
-    def startup(self, *args, **kwargs):
+    def startup(self, intf, exclusiveDisks, zeroMbr):
         """ Look for any unformatted DASDs in the system and offer the user
             the option for format them with dasdfmt or exit the installer.
         """
@@ -60,12 +63,11 @@ class DASD:
             return
 
         self.started = True
+        out = "/dev/tty5"
+        err = "/dev/tty5"
 
         if not iutil.isS390():
             return
-
-        intf = kwargs.get("intf")
-        zeroMbr = kwargs.get("zeroMbr")
 
         log.info("Checking for unformatted DASD devices:")
 
@@ -81,8 +83,11 @@ class DASD:
             status = f.read().strip()
             f.close()
 
-            if status == "unformatted":
-                log.info("    %s is an unformatted DASD" % (device,))
+            if status in ["unformatted"] and device not in exclusiveDisks:
+                bypath = deviceNameToDiskByPath("/dev/" + device)
+                log.info("    %s (%s) status is %s, needs dasdfmt" % (device,
+                                                                      bypath,
+                                                                      status,))
                 self._dasdlist.append(device)
 
         if not len(self._dasdlist):
@@ -116,27 +121,60 @@ class DASD:
                 log.info("    rescue mode: not running dasdfmt")
                 return
 
-        argv = ["-y", "-P", "-d", "cdl", "-b", "4096"]
+        # gather total cylinder count
+        argv = ["-t", "-v"] + self.commonArgv
+        for dasd in self._dasdlist:
+            buf = iutil.execWithCapture(self.dasdfmt, argv + [dasd],
+                                        stderr=err)
+            for line in buf.splitlines():
+                if line.startswith("Drive Geometry: "):
+                    # line will look like this:
+                    # Drive Geometry: 3339 Cylinders * 15 Heads =  50085 Tracks
+                    cyls = long(filter(lambda s: s, line.split(' '))[2])
+                    self.totalCylinders += cyls
+                    break
+
+        # format DASDs
+        argv = ["-P"] + self.commonArgv
+        update = self._updateProgressWindow
+
+        title = P_("Formatting DASD Device", "Formatting DASD Devices", c)
+        msg = P_("Preparing %d DASD device for use with Linux..." % c,
+                 "Preparing %d DASD devices for use with Linux..." % c, c)
 
         if intf:
-            title = P_("Formatting DASD Device", "Formatting DASD Devices", c)
-            msg = P_("Preparing %d DASD device for use with Linux..." % c,
-                     "Preparing %d DASD devices for use with Linux..." % c, c)
-            pw = intf.progressWindow(title, msg, 1.0)
+            if self.totalCylinders:
+                pw = intf.progressWindow(title, msg, 1.0)
+            else:
+                pw = intf.progressWindow(title, msg, 100, pulse=True)
 
-            for dasd in self._dasdlist:
-                log.info("Running dasdfmt on %s" % (dasd,))
-                iutil.execWithCallback("/sbin/dasdfmt", argv + [dasd],
-                                       stdout="/dev/tty5", stderr="/dev/tty5",
-                                       callback=self._updateProgressWindow,
-                                       callback_data=pw, echo=False)
+        for dasd in self._dasdlist:
+            bypath = deviceNameToDiskByPath("/dev/" + dasd)
+            log.info("Running dasdfmt on %s" % (bypath,))
+            arglist = argv + [dasd]
 
-            pw.pop()
-        else:
-            for dasd in self._dasdlist:
-                log.info("Running dasdfmt on %s" % (dasd,))
-                iutil.execWithRedirect("/sbin/dasdfmt", argv + [dasd],
-                                       stdout="/dev/tty5", stderr="/dev/tty5")
+            try:
+                if intf and self.totalCylinders:
+                    rc = iutil.execWithCallback(self.dasdfmt, arglist,
+                                                stdout=out, stderr=err,
+                                                callback=update,
+                                                callback_data=pw,
+                                                echo=False)
+                elif intf:
+                    rc = iutil.execWithPulseProgress(self.dasdfmt, arglist,
+                                                     stdout=out, stderr=err,
+                                                     progress=pw)
+                else:
+                    rc = iutil.execWithRedirect(self.dasdfmt, arglist,
+                                                stdout=out, stderr=err)
+            except Exception as e:
+                raise DasdFormatError(e, bypath)
+
+            if rc:
+                raise DasdFormatError("dasdfmt failed: %s" % rc, bypath)
+
+            if intf:
+                pw.pop()
 
     def addDASD(self, dasd):
         """ Adds a DASDDevice to the internal list of DASDs. """
@@ -167,26 +205,6 @@ class DASD:
             # each newline we see in this output means one more cylinder done
             self._completedCylinders += 1.0
             callback_data.set(self._completedCylinders / self.totalCylinders)
-
-    @property
-    def totalCylinders(self):
-        """ Total number of cylinders of all unformatted DASD devices. """
-        if self._totalCylinders:
-            return self._totalCylinders
-
-        argv = ["-t", "-v", "-y", "-d", "cdl", "-b", "4096"]
-        for dasd in self._dasdlist:
-            buf = iutil.execWithCapture("/sbin/dasdfmt", argv + [dasd],
-                                        stderr="/dev/tty5")
-            for line in buf.splitlines():
-                if line.startswith("Drive Geometry: "):
-                    # line will look like this:
-                    # Drive Geometry: 3339 Cylinders * 15 Heads =  50085 Tracks
-                    cyls = long(filter(lambda s: s, line.split(' '))[2])
-                    self._totalCylinders += cyls
-                    break
-
-        return self._totalCylinders
 
 # Create DASD singleton
 DASD = DASD()

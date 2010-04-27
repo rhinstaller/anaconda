@@ -358,7 +358,7 @@ class Storage(object):
         self.iscsi.startup(self.anaconda.intf)
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup()
-        self.dasd.startup(intf=self.anaconda.intf, zeroMbr=self.zeroMbr)
+        self.dasd.startup(self.anaconda.intf, self.exclusiveDisks, self.zeroMbr)
         if self.anaconda.id.getUpgrade():
             clearPartType = CLEARPART_TYPE_NONE
         else:

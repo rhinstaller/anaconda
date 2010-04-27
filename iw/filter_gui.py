@@ -550,7 +550,9 @@ class FilterWindow(InstallWindow):
         storage.iscsi.iscsi().startup(anaconda.intf)
         storage.fcoe.fcoe().startup(anaconda.intf)
         storage.zfcp.ZFCP().startup()
-        storage.dasd.DASD().startup(anaconda.intf)
+        storage.dasd.DASD().startup(anaconda.intf,
+                                    anaconda.id.storage.exclusiveDisks,
+                                    anaconda.id.storage.zeroMbr)
         disks = filter(udev_device_is_disk, udev_get_block_devices())
         (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
 
