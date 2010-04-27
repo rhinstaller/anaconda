@@ -20,12 +20,16 @@
 
 import sys
 import parted
+import _ped
 
 def main(argv):
     lst = set()
 
     for dev in filter(lambda d: d.type != parted.DEVICE_DM, parted.getAllDevices()):
-        disk = parted.Disk(dev)
+        try:
+            disk = parted.Disk(dev)
+        except _ped.DiskLabelException:
+            continue
 
         for part in disk.partitions:
             lst.add("%s %s" % (part.path, int(part.getSize())))
