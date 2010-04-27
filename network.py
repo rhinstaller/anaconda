@@ -524,10 +524,9 @@ class Network:
 
         return False
 
-    def write(self, instPath='', anaconda=None, devices=None):
+    def write(self, instPath='', anaconda=None):
 
-        if devices is None:
-            devices = self.netdevices.values()
+        devices = self.netdevices.values()
 
         if len(devices) == 0:
             return
@@ -730,8 +729,8 @@ class Network:
     # write out current configuration state and wait for NetworkManager
     # to bring the device up, watch NM state and return to the caller
     # once we have a state
-    def bringUp(self, devices=None):
-        self.write(devices=devices)
+    def bringUp(self):
+        self.write()
         return self.waitForConnection()
 
     # get a kernel cmdline string for dracut needed for access to host host
