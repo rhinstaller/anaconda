@@ -151,7 +151,7 @@ def setupPythonUpdates():
         target = "/etc/udev/rules.d/" + rule.split('/')[-1]
         shutil.copyfile(rule, target)
 
-def parseOptions():
+def parseOptions(argv = None):
     def resolution_cb (option, opt_str, value, parser):
         parser.values.runres = value
 
@@ -229,7 +229,7 @@ def parseOptions():
     op.add_option("-t", "--test", dest="unsupportedMode",
                   action="store_const", const="test")
 
-    return op.parse_args()
+    return op.parse_args(argv)
 
 def setupPythonPath():
     haveUpdates = False

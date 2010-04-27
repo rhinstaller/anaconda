@@ -1,15 +1,12 @@
 import os
 
-# this has to be imported before running anything
-import anaconda_log
-import upgrade
-
-
 def getAvailableSuites():
-    root, tests_dir = os.path.split(os.path.dirname(__file__))
+    root_dir, tests_dir = os.path.split(os.path.dirname(__file__))
     modules = []
 
     for root, dirs, files in os.walk(tests_dir):
+        if os.path.exists(os.path.join(root, ".disabled")):
+            continue
         for filename in files:
             if filename.endswith(".py") and filename != "__init__.py":
                 basename, extension = os.path.splitext(filename)
@@ -27,3 +24,8 @@ def getAvailableSuites():
             available_suites[module] = suite()
 
     return available_suites
+
+if __name__ == '__main__':
+    s = getAvailableSuites()
+    unittest.TextTestRunner(verbosity=2).run(s)
+    
