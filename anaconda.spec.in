@@ -220,6 +220,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Apr 28 2010 David Cantrell <dcantrell@redhat.com> - 13.21.33-1
+- Offer to format unformatted DASD devices (dcantrell)
+  Resolves: rhbz#560702
+- Make sure we use 1.0 mdraid metadata when the set is used for boot (hdegoede)
+  Resolves: rhbz#585106
+- Add a preCommitFixup hook to StorageDevice classes (hdegoede)
+  Related: rhbz#585106
+- Check for not having found any disks after populating the tree (hdegoede)
+  Resolves: rhbz#585105
+- init: switch back to tty1 after the installer finishes. (akozumpl)
+  Resolves: rhbz#576851
+- Don't traceback on CD-ROM driver in list-harddrives-stub (clumens).
+  Resolves: rhbz#586410
+- Fetch ks files over NFS when ksdevice is not given (dcantrell)
+  Resolves: rhbz#541873
+
 * Mon Apr 26 2010 David Cantrell <dcantrell@redhat.com> - 13.21.32-1
 - Revert "Set minswap suggestion on s390x to 1 (dcantrell)."
   Resolves: rhbz#466289
