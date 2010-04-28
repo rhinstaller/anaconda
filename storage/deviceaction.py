@@ -217,6 +217,11 @@ class ActionDestroyDevice(DeviceAction):
     def execute(self, intf=None):
         self.device.destroy()
 
+        # Make sure libparted does not keep cached info for this device
+        # and returns it when we create a new device with the same name
+        if self.device.partedDevice:
+            self.device.partedDevice.removeFromCache()
+
 
 class ActionResizeDevice(DeviceAction):
     """ An action representing the resizing of an existing device. """
