@@ -217,6 +217,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Apr 28 2010 David Lehman <dlehman@redhat.com> - 13.39-1
+- X input configuration has moved to /usr/share (#585621). (clumens)
+- Keep the selected device count right when going back to filtering
+  (#572882). (clumens)
+- Prune resize and format create/migrate actions if destroying a device.
+  (dlehman)
+- Schedule actions when removing existing extended partitions. (#568219)
+  (dlehman)
+- Don't try to zero out extended partitions. (dlehman)
+
 * Wed Apr 21 2010 David Lehman <dlehman@redhat.com> - 13.38-1
 - Restore storage.clearPartType after reset when backing out of GUI.
   (#559233) (dlehman)
