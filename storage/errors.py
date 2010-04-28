@@ -148,3 +148,6 @@ class UdevError(StorageError):
 class UnrecognizedFSTabEntryError(StorageError):
     pass
 
+# dasd
+class DasdFormatError(StorageError):
+    pass
