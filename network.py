@@ -831,7 +831,7 @@ class Network:
 
             netargs += "rd_CCW=%s,%s" % (nettype, subchannels)
 
-            options = dev.get("OPTIONS")
+            options = dev.get("OPTIONS").strip("'\"")
             if options:
                 options = filter(lambda x: x != '', options.split(' '))
                 netargs += ",%s" % (','.join(options))
