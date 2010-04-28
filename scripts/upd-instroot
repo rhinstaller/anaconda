@@ -169,7 +169,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
     gnome-themes gpm grep gtk2 gtk2-engines
     hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
-    jfsutils kpartx keyutils-libs krb5-libs libICE libSM libX11 libXau
+    jfsutils kbd kpartx keyutils-libs krb5-libs libICE libSM libX11 libXau
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
     libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
     libXxf86misc libacl libaio libart_lgpl libattr
@@ -524,6 +524,7 @@ usr/bin/[
 usr/bin/Xorg
 usr/bin/Xvnc
 usr/bin/chattr*
+usr/bin/chvt
 usr/bin/dbus-launch
 usr/bin/dbus-launch
 usr/bin/du
