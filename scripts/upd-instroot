@@ -390,7 +390,6 @@ etc/shells
 etc/sysconfig/network-scripts/network-functions*
 etc/udev
 etc/wpa_supplicant/wpa_supplicant.conf
-etc/xorg.conf.d/*
 etc/yum.repos.d/*
 etc/yum/pluginconf.d/blacklist.conf
 etc/yum/pluginconf.d/fedorakmod.conf
@@ -574,6 +573,7 @@ usr/lib/python?.?/site-packages/epdb/*.py
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
+usr/share/X11/xorg.conf.d/*
 usr/share/syslinux
 usr/lib/yaboot
 usr/lib/yum-plugins/blacklist.py*
