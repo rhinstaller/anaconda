@@ -309,6 +309,10 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
         if clearPartDisks and device.name not in clearPartDisks:
             return False
 
+        # Never clear disks with hidden formats
+        if device.format.hidden:
+            return False
+
         if clearPartType == CLEARPART_TYPE_LINUX and \
            not device.format.linuxNative:
             return False
