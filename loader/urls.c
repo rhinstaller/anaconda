@@ -140,6 +140,7 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, f);
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
     curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
+    curl_easy_setopt(curl, CURLOPT_FAILONERROR, 1);
 
     /* If a proxy was provided, add the options for that now. */
     if (loaderData->proxy && strcmp(loaderData->proxy, "")) {
