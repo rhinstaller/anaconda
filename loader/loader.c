@@ -1847,6 +1847,7 @@ int main(int argc, char ** argv) {
     char twelve = 12;
 
     moduleInfoSet modInfo;
+    iface_t iface;
 
     char *url = NULL;
 
@@ -2121,6 +2122,10 @@ int main(int argc, char ** argv) {
             (ksReadCommands((ksFile)?ksFile:loaderData.ksFile)!=LOADER_ERROR)) {
             runKickstart(&loaderData);
         }
+    }
+
+    if (FL_EARLY_NETWORKING(flags)) {
+        kickstartNetworkUp(&loaderData, &iface);
     }
 
     if (FL_TELNETD(flags))
