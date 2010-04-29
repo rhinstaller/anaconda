@@ -77,6 +77,11 @@ def udev_resolve_glob(glob):
     return ret
 
 def udev_get_block_devices():
+    # Wait for scsi adapters to be done with scanning their busses (#583143)
+    iutil.execWithRedirect("modprobe", [ "scsi_wait_scan" ],
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
+    iutil.execWithRedirect("rmmod", [ "scsi_wait_scan" ],
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
     udev_settle()
     entries = []
     for path in udev_enumerate_block_devices():
