@@ -478,27 +478,54 @@ class Network:
 
         return False
 
-    def write(self, instPath='', anaconda=None):
+    def _copyFileToPath(self, file, instPath='', overwrite=False):
+        if not os.path.isfile(file):
+            return False
+        destfile = os.path.join(instPath, file.lstrip('/'))
+        if (os.path.isfile(destfile) and not overwrite):
+            return False
+        if not os.path.isdir(os.path.dirname(destfile)):
+            iutil.mkdirChain(os.path.dirname(destfile))
+        shutil.copy(file, destfile)
+        return True
+
+    def copyConfigToPath(self, instPath=''):
+
+        if len(self.netdevices) == 0:
+            return
+
+        # /etc/sysconfig/network-scripts/ifcfg-DEVICE
+        # /etc/sysconfig/network-scripts/keys-DEVICE
+        # /etc/dhclient-DEVICE.conf
+        # TODORV: do we really don't want overwrite on live cd?
+        for devName, device in self.netdevices.items():
+            self._copyFileToPath(device.path, instPath)
+            self._copyFileToPath(device.keyfilePath, instPath)
+            dhclientfile = os.path.join("/etc/dhclient-%s.conf" % devName)
+            self._copyFileToPath(dhclientfile, instPath)
+
+        # /etc/sysconfig/network
+        self._copyFileToPath(networkConfFile, instPath,
+                             overwrite=flags.livecdInstall)
+
+        # /etc/resolv.conf
+        self._copyFileToPath("/etc/resolv.conf", instPath,
+                             overwrite=flags.livecdInstall)
+
+        # /etc/udev/rules.d/70-persistent-net.rules
+        self._copyFileToPath("/etc/udev/rules.d/70-persistent-net.rules",
+                             instPath, overwrite=flags.livecdInstall)
+
+    def write(self, anaconda=None):
 
         devices = self.netdevices.values()
 
         if len(devices) == 0:
             return
 
-        sysconfig = instPath + sysconfigDir
-        netscripts = instPath + netscriptsDir
-        destnetwork = instPath + networkConfFile
-
-        if not os.path.isdir(netscripts):
-            iutil.mkdirChain(netscripts)
-
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in devices:
             device = dev.get('DEVICE')
-
-            cfgfile = "%s/ifcfg-%s" % (netscripts, device,)
-            if (instPath) and (os.path.isfile(cfgfile)):
-                continue
 
             bootproto = dev.get('BOOTPROTO').lower()
             # write out the hostname as DHCP_HOSTNAME if given (#81613)
@@ -519,56 +546,47 @@ class Network:
                         dev.set(('NM_CONTROLLED', 'no'))
                         break
 
-            dev.writeIfcfgFile(netscripts)
+            dev.writeIfcfgFile(netscriptsDir)
             dev.log_file("===== write\n")
 
             # XXX: is this necessary with NetworkManager?
             # handle the keys* files if we have those
             if dev.get("KEY"):
-                cfgfile = "%s/keys-%s" % (netscripts, device,)
+                cfgfile = "%s/keys-%s" % (netscriptsDir, device,)
                 if not instPath == '' and os.path.isfile(cfgfile):
                     continue
 
-                newkey = "%s/keys-%s.new" % (netscripts, device,)
+                newkey = "%s/keys-%s.new" % (netscriptsDir, device,)
                 f = open(newkey, "w")
                 f.write("KEY=%s\n" % (dev.get('KEY'),))
                 f.close()
                 os.chmod(newkey, 0600)
 
-                destkey = "%s/keys-%s" % (netscripts, device,)
+                destkey = "%s/keys-%s" % (netscriptsDir, device,)
                 shutil.move(newkey, destkey)
 
-            # /etc/dhclient-DEVICE.conf
-            dhclientconf = '/etc/dhclient-' + device + '.conf'
-            if os.path.isfile(dhclientconf):
-                destdhclientconf = '%s%s' % (instPath, dhclientconf,)
-                try:
-                    shutil.copy(dhclientconf, destdhclientconf)
-                except:
-                    log.warning("unable to copy %s to target system" % (dhclientconf,))
 
         # /etc/sysconfig/network
-        if (not instPath) or (not os.path.isfile(destnetwork)) or flags.livecdInstall:
-            newnetwork = "%s.new" % (destnetwork,)
+        newnetwork = "%s.new" % (networkConfFile)
 
-            f = open(newnetwork, "w")
-            f.write("NETWORKING=yes\n")
-            f.write("HOSTNAME=")
+        f = open(newnetwork, "w")
+        f.write("NETWORKING=yes\n")
+        f.write("HOSTNAME=")
 
-            # use instclass hostname if set(kickstart) to override
-            if self.hostname:
-                f.write(self.hostname + "\n")
-            else:
-                f.write("localhost.localdomain\n")
+        # use instclass hostname if set(kickstart) to override
+        if self.hostname:
+            f.write(self.hostname + "\n")
+        else:
+            f.write("localhost.localdomain\n")
 
-            if dev.get('GATEWAY'):
-                f.write("GATEWAY=%s\n" % (dev.get('GATEWAY'),))
+        if dev.get('GATEWAY'):
+            f.write("GATEWAY=%s\n" % (dev.get('GATEWAY'),))
 
-            if dev.get('IPV6_DEFAULTGW'):
-                f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
+        if dev.get('IPV6_DEFAULTGW'):
+            f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
 
-            f.close()
-            shutil.move(newnetwork, destnetwork)
+        f.close()
+        shutil.move(newnetwork, networkConfFile)
 
         # If the hostname was not looked up, but typed in by the user,
         # domain might not be computed, so do it now.
@@ -595,66 +613,53 @@ class Network:
                 self.domains = [domainname]
 
         # /etc/resolv.conf
-        if (not instPath) or (not os.path.isfile(instPath + '/etc/resolv.conf')) or flags.livecdInstall:
-            if os.path.isfile('/etc/resolv.conf') and instPath != '':
-                destresolv = "%s/etc/resolv.conf" % (instPath,)
-                shutil.copy('/etc/resolv.conf', destresolv)
-            elif (self.domains != ['localdomain'] and self.domains) or \
-                self.hasNameServers(dev.info):
-                resolv = "%s/etc/resolv.conf" % (instPath,)
+        if (self.domains != ['localdomain'] and self.domains) or \
+            self.hasNameServers(dev.info):
+            resolv = "/etc/resolv.conf"
 
-                f = open(resolv, "w")
+            f = open(resolv, "w")
 
-                if self.domains != ['localdomain'] and self.domains:
-                    f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
+            if self.domains != ['localdomain'] and self.domains:
+                f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
 
-                for key in dev.info.keys():
-                    if key.upper().startswith('DNS'):
-                        f.write("nameserver %s\n" % (dev.get(key),))
+            for key in dev.info.keys():
+                if key.upper().startswith('DNS'):
+                    f.write("nameserver %s\n" % (dev.get(key),))
 
-                f.close()
+            f.close()
 
         # /etc/udev/rules.d/70-persistent-net.rules
         rules = "/etc/udev/rules.d/70-persistent-net.rules"
-        destRules = instPath + rules
-        if (not instPath) or (not os.path.isfile(destRules)) or \
-           flags.livecdInstall:
-            if not os.path.isdir("%s/etc/udev/rules.d" %(instPath,)):
-                iutil.mkdirChain("%s/etc/udev/rules.d" %(instPath,))
-
-            if os.path.isfile(rules) and rules != destRules:
-                shutil.copy(rules, destRules)
-            else:
-                f = open(destRules, "w")
-                f.write("""
+        f = open(rules, "w")
+        f.write("""
 # This file was automatically generated by the /lib/udev/write_net_rules
 # program run by the persistent-net-generator.rules rules file.
 #
 # You can modify it, as long as you keep each rule on a single line.
 
 """)
-                for dev in self.netdevices.values():
-                    addr = dev.get("HWADDR")
-                    if not addr:
-                        continue
-                    devname = dev.get("DEVICE")
-                    basename = devname
-                    while basename != "" and basename[-1] in string.digits:
-                        basename = basename[:-1]
+        for dev in self.netdevices.values():
+            addr = dev.get("HWADDR")
+            if not addr:
+                continue
+            devname = dev.get("DEVICE")
+            basename = devname
+            while basename != "" and basename[-1] in string.digits:
+                basename = basename[:-1]
 
-                    # rules are case senstive for address. Lame.
-                    addr = addr.lower()
+            # rules are case senstive for address. Lame.
+            addr = addr.lower()
 
-                    s = ""
-                    if len(dev.description) > 0:
-                        s = "# %s (rule written by anaconda)\n" % (dev.description,)
-                    else:
-                        s = "# %s (rule written by anaconda)\n" % (devname,)
-                    s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", ATTR{type}=="1", KERNEL=="%s*", NAME="%s"\n' % (addr, basename, devname,)
+            s = ""
+            if len(dev.description) > 0:
+                s = "# %s (rule written by anaconda)\n" % (dev.description,)
+            else:
+                s = "# %s (rule written by anaconda)\n" % (devname,)
+            s = s + 'SUBSYSTEM==\"net\", ACTION==\"add\", DRIVERS=="?*", ATTR{address}=="%s", ATTR{type}=="1", KERNEL=="%s*", NAME="%s"\n' % (addr, basename, devname,)
 
-                    f.write(s)
+            f.write(s)
 
-                f.close()
+        f.close()
 
     def waitForDevicesActivation(self, devices):
         waited_devs_props = {}

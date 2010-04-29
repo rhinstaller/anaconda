@@ -1645,7 +1645,8 @@ debuglevel=10
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
                                 anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")
-            anaconda.id.network.write(instPath=anaconda.rootPath, anaconda=anaconda)
+            anaconda.id.network.write(anaconda=anaconda)
+            anaconda.id.network.copyConfigToPath(instPath=anaconda.rootPath)
             anaconda.id.storage.write(anaconda.rootPath)
             if not anaconda.id.isHeadless:
                 anaconda.id.keyboard.write(anaconda.rootPath)
