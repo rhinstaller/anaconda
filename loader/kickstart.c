@@ -87,6 +87,8 @@ static void setMediaCheck(struct loaderData_s * loaderData, int argc,
                           char ** argv);
 static void setUpdates(struct loaderData_s * loaderData, int argc,
                        char ** argv);
+static void setVnc(struct loaderData_s * loaderData, int argc,
+                       char ** argv);
 
 struct ksCommandNames ksTable[] = {
     { KS_CMD_NFS, "nfs", setKickstartNfs },
@@ -107,6 +109,7 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_SHUTDOWN, "shutdown", setShutdown },
     { KS_CMD_MEDIACHECK, "mediacheck", setMediaCheck },
     { KS_CMD_UPDATES, "updates", setUpdates },
+    { KS_CMD_VNC, "vnc", setVnc },
     { KS_CMD_NONE, NULL, NULL }
 };
 
@@ -435,6 +438,13 @@ void getKickstartFile(struct loaderData_s *loaderData) {
     }
 
     flags |= LOADER_FLAGS_KICKSTART;
+    return;
+}
+
+static void setVnc(struct loaderData_s * loaderData, int argc,
+                   char ** argv) {
+    logMessage(INFO, "kickstart forcing graphical mode over vnc");
+    flags |= LOADER_FLAGS_GRAPHICAL | LOADER_FLAGS_EARLY_NETWORKING;
     return;
 }
 
