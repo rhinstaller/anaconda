@@ -132,30 +132,36 @@ char * mountHardDrive(struct installMethod * method,
     newtGrid entryGrid, grid, buttons;
 
     int done = 0;
-    char * dir = strdup("");
+    char * dir = g_strdup("");
     char * tmpDir;
     char * url = NULL;
-    char * buf, *substr;
+    char * buf;
     int numPartitions;
 
     char **partition_list;
     char *selpart;
     char *kspartition = NULL, *ksdirectory = NULL;
+    char *imgpath = "/images/install.img";
 
     /* handle kickstart/stage2= data first if available */
     if (loaderData->method == METHOD_HD && loaderData->stage2Data) {
         kspartition = ((struct hdInstallData *)loaderData->stage2Data)->partition;
-        ksdirectory = ((struct hdInstallData *)loaderData->stage2Data)->directory;
-        logMessage(INFO, "partition is %s, dir is %s", kspartition, ksdirectory);
-
-        /* if exist, duplicate */
-        if (kspartition)
-            kspartition = strdup(kspartition);
-        if (ksdirectory) {
-            ksdirectory = strdup(ksdirectory);
-        } else {
-            ksdirectory = strdup("/images/install.img");
+        if (kspartition) {
+            kspartition = g_strdup(kspartition);
         }
+
+        ksdirectory = ((struct hdInstallData *)loaderData->stage2Data)->directory;
+        if (ksdirectory) {
+            if (g_strrstr(ksdirectory, ".img")) {
+                ksdirectory = g_strdup(ksdirectory);
+            } else {
+                ksdirectory = g_strconcat(ksdirectory, imgpath, NULL);
+            }
+        } else {
+            ksdirectory = g_strdup(imgpath);
+        }
+
+        logMessage(INFO, "partition is %s, dir is %s", kspartition, ksdirectory);
 
         if (!kspartition || !ksdirectory) {
             logMessage(ERROR, "missing partition or directory specification");
@@ -178,8 +184,8 @@ char * mountHardDrive(struct installMethod * method,
                 if (loaderData->inferredStage2)
                     loaderData->invalidRepoParam = 1;
             } else {
-                free(kspartition);
-                free(ksdirectory);
+                g_free(kspartition);
+                g_free(ksdirectory);
                 return url;
             }
         }
@@ -237,7 +243,7 @@ char * mountHardDrive(struct installMethod * method,
         /* if we had ks data around use it to prime entry, then get rid of it*/
         if (kspartition) {
             newtListboxSetCurrentByKey(listbox, kspartition);
-            free(kspartition);
+            g_free(kspartition);
             kspartition = NULL;
         }
 
@@ -249,7 +255,7 @@ char * mountHardDrive(struct installMethod * method,
         /* if we had ks data around use it to prime entry, then get rid of it*/
         if (ksdirectory) {
             newtEntrySet(dirEntry, ksdirectory, 1);
-            free(ksdirectory);
+            g_free(ksdirectory);
             ksdirectory = NULL;
         }
 
@@ -282,12 +288,12 @@ char * mountHardDrive(struct installMethod * method,
 
         selpart = newtListboxGetCurrent(listbox);
 
-        free(dir);
+        g_free(dir);
         if (tmpDir && *tmpDir) {
             /* Protect from form free. */
-            dir = strdup(tmpDir);
+            dir = g_strdup(tmpDir);
         } else  {
-            dir = strdup("");
+            dir = g_strdup("");
         }
 
         newtFormDestroy(form);
@@ -306,9 +312,10 @@ char * mountHardDrive(struct installMethod * method,
         /* If the user-provided URL points at a repo instead of a stage2
          * image, fix that up now.
          */
-        substr = strstr(dir, ".img");
-        if (!substr || (substr && *(substr+4) != '\0')) {
-            checked_asprintf(&dir, "%s/images/install.img", dir);
+        if (g_strrstr(dir, ".img") == NULL) {
+            char *tmp = g_strconcat(dir, imgpath, NULL);
+            g_free(dir);
+            dir = tmp;
         }
 
         loaderData->invalidRepoParam = 1;
@@ -324,7 +331,7 @@ char * mountHardDrive(struct installMethod * method,
         done = 1; 
     }
 
-    free(dir);
+    g_free(dir);
 
     return url;
 }
