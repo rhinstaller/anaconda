@@ -164,4 +164,7 @@ class AnacondaLog:
             pid = int(pidfile.read())
             os.kill(pid, signal.SIGHUP)
 
-logger = AnacondaLog()
+logger = None
+def init():
+    global logger
+    logger = AnacondaLog()

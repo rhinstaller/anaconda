@@ -493,6 +493,7 @@ if __name__ == "__main__":
     # Set up logging as early as possible.
     import logging
     import anaconda_log
+    anaconda_log.init()
 
     log = logging.getLogger("anaconda")
     stdoutLog = logging.getLogger("anaconda.stdout")
