@@ -278,9 +278,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
 
         f.write('default=%s\n' % (default))
-        f.write('timeout=%d\n' % (self.timeout or 0))
 
         if self.serial == 1:
+            # Set the global timeout in serial case
+            f.write('timeout=%d\n' % (self.timeout or 5))
             # grub the 0-based number of the serial console device
             unit = self.serialDevice[-1]
             
@@ -299,6 +300,8 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write("serial --unit=%s --speed=%s\n" %(unit, speed))
             f.write("terminal --timeout=%s serial console\n" % (self.timeout or 5))
         else:
+            # Default to 0 timeout in the non-serial case
+            f.write('timeout=%d\n' % (self.timeout or 0))
             # we only want splashimage if they're not using a serial console
             if os.access("%s/boot/grub/splash.xpm.gz" %(instRoot,), os.R_OK):
                 f.write('splashimage=%s%sgrub/splash.xpm.gz\n'
