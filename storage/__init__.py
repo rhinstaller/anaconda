@@ -1756,7 +1756,7 @@ class FSSet(object):
             path = "%s/%s" % (chroot, device.format.mountpoint)
 
             ST_RDONLY = 1   # this should be in python's posix module
-            if os.statvfs(path)[statvfs.F_FLAG] & ST_RDONLY:
+            if not os.path.exists(path) or os.statvfs(path)[statvfs.F_FLAG] & ST_RDONLY:
                 continue
 
             try:
