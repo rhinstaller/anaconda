@@ -34,6 +34,8 @@ def main(argv):
         for part in disk.partitions:
             lst.add("%s %s" % (part.path, int(part.getSize())))
 
+        print("%s %s" % (dev.path, int(dev.getSize())))
+
     lst = list(lst)
     lst.sort()
     for entry in lst:
