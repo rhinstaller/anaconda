@@ -15,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.f12-branch.kn\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-04-19 17:37-1000\n"
-"PO-Revision-Date: 2010-04-20 17:48+0530\n"
+"POT-Creation-Date: 2010-04-28 12:33-1000\n"
+"PO-Revision-Date: 2010-04-26 16:50+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: kn-IN <>\n"
 "MIME-Version: 1.0\n"
@@ -158,7 +158,7 @@ msgstr ""
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:329 loader/urls.c:335
-#: storage/__init__.py:203 storage/__init__.py:1780 storage/__init__.py:1867
+#: storage/__init__.py:213 storage/__init__.py:1790 storage/__init__.py:1877
 #: textw/netconfig_text.py:282 textw/upgrade_text.py:179
 #: textw/upgrade_text.py:186
 msgid "Error"
@@ -190,13 +190,14 @@ msgstr ""
 #: yuminstall.py:689 yuminstall.py:914 yuminstall.py:919 yuminstall.py:999
 #: yuminstall.py:1005 yuminstall.py:1160 yuminstall.py:1185 yuminstall.py:1243
 #: yuminstall.py:1430 yuminstall.py:1449 yuminstall.py:1472
-#: storage/__init__.py:100 storage/__init__.py:207 storage/__init__.py:1961
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
+#: storage/__init__.py:1971
 msgid "_Exit installer"
 msgstr "ಅನುಸ್ಥಾಪಕದಿಂದ ನಿರ್ಗಮಿಸು (_E)"
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1346
 #: kickstart.py:1385 upgrade.py:58 yuminstall.py:1248 yuminstall.py:1431
-#: iw/partition_gui.py:1600 storage/__init__.py:1962
+#: iw/partition_gui.py:1608 storage/__init__.py:1972
 msgid "_Continue"
 msgstr "ಮುಂದುವರೆ (_C)"
 
@@ -326,20 +327,20 @@ msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
 msgstr ""
-"ನಿಮ್ಮ ಗೂಢಲಿಪೀಕರಿಸಿದ ಸಾಧನಗಳಿಗಾಗಿ ಒಂದು ಗುಪ್ತವಾಕ್ಯವನ್ನು ಆರಿಸಿ. ಗಣಕವನ್ನು ಬೂಟ್ ಮಾಡಿದಾಗ "
-"ಈ ಗುಪ್ತವಾಕ್ಯಕ್ಕಾಗಿ ನಿಮ್ಮನ್ನು ಕೇಳಲಾಗುತ್ತದೆ."
+"ನಿಮ್ಮ ಗೂಢಲಿಪೀಕರಿಸಿದ ಸಾಧನಗಳಿಗಾಗಿ ಒಂದು ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ಆರಿಸಿ. ಗಣಕವನ್ನು ಬೂಟ್ "
+"ಮಾಡಿದಾಗ ಈ ಗುಪ್ತವಾಕ್ಯಾಂಶಕ್ಕಾಗಿ ನಿಮ್ಮನ್ನು ಕೇಳಲಾಗುತ್ತದೆ."
 
 #: gui.py:600 gui.py:608 text.py:187 text.py:197
 msgid "Error with passphrase"
-msgstr "ಗುಪ್ತಪದದಲ್ಲಿ ದೋಷ"
+msgstr "ಗುಪ್ತವಾಕ್ಯಾಂಶದಲ್ಲಿ ದೋಷ"
 
 #: gui.py:601 text.py:188
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "ನೀವು ನಮೂದಿಸಿದ ಗುಪ್ತಪದಗಳು ಭಿನ್ನವಾಗಿವೆ.  ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ."
+msgstr "ನೀವು ನಮೂದಿಸಿದ ಗುಪ್ತವಾಕ್ಯಾಂಶಗಳು ಭಿನ್ನವಾಗಿವೆ.  ದಯವಿಟ್ಟು ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ."
 
 #: gui.py:609
 msgid "The passphrase must be at least eight characters long."
-msgstr "ಗುಪ್ತಪದವು ಕನಿಷ್ಟ ಆರು ಅಕ್ಷರಗಳಷ್ಟಾದರೂ ದೊಡ್ಡದಾಗಿರಬೇಕು."
+msgstr "ಗುಪ್ತವಾಕ್ಯಾಂಶವು ಕನಿಷ್ಟ ಆರು ಅಕ್ಷರಗಳಷ್ಟಾದರೂ ದೊಡ್ಡದಾಗಿರಬೇಕು."
 
 #: gui.py:643 text.py:225
 #, python-format
@@ -348,10 +349,10 @@ msgid ""
 "installation you must enter the device's passphrase below."
 msgstr ""
 "ಸಾಧನ %s ವು ಗೂಢಲಿಪೀಕರಣಗೊಂಡಿದೆ. ಸಾಧನ ಹೊಂದಿರುವ ವಿಷಯಗಳನ್ನು ಅನುಸ್ಥಾಪನೆಯ ಸಮಯದಲ್ಲಿ "
-"ನಿಲುಕಿಸಿಕೊಳ್ಳಲು ನೀವು ಈ ಕೆಳಗೆ ಗುಪ್ತಪದವನ್ನು ನಮೂದಿಸಿ."
+"ನಿಲುಕಿಸಿಕೊಳ್ಳಲು ನೀವು ಈ ಕೆಳಗೆ ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ನಮೂದಿಸಿ."
 
 #: gui.py:734 gui.py:1410 partIntfHelpers.py:157 partIntfHelpers.py:342
-#: text.py:100 text.py:101 iw/account_gui.py:130 loader/dirbrowser.c:128
+#: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:422 loader/kickstart.c:328 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
 msgid "Cancel"
@@ -444,7 +445,7 @@ msgstr ""
 "className = %s"
 
 #: gui.py:1320 image.py:164 image.py:194 packages.py:359
-#: storage/__init__.py:1779
+#: storage/__init__.py:1789
 msgid "_Exit"
 msgstr "ನಿರ್ಗಮಿಸು (_E)"
 
@@ -610,7 +611,7 @@ msgstr ""
 msgid "_Format"
 msgstr "ಫಾರ್ಮಾಟ್‍ಗೊಳಿಸು (_F)"
 
-#: iutil.py:855
+#: iutil.py:852
 #, python-format
 msgid ""
 "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
@@ -619,7 +620,7 @@ msgstr ""
 "ದೋಷ: ತೆರೆದಾಗ, %(reipl_type)s (%(filename)s ಗೆ reIPL ವಿಧಾನವನ್ನು ಹೊಂದಿಸಲಾಗಿಲ್ಲ : "
 "%(e)s)"
 
-#: iutil.py:866
+#: iutil.py:863
 #, python-format
 msgid ""
 "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
@@ -628,7 +629,7 @@ msgstr ""
 "ದೋಷ: ಬರೆದಾಗ, %(reipl_type)s (%(filename)s ಗೆ reIPL ವಿಧಾನವನ್ನು ಹೊಂದಿಸಲಾಗಿಲ್ಲ : %"
 "(e)s)"
 
-#: iutil.py:875
+#: iutil.py:872
 #, python-format
 msgid ""
 "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
@@ -637,22 +638,22 @@ msgstr ""
 "ದೋಷ: ಮುಚ್ಚಿದಾಗ, %(reipl_type)s (%(filename)s ಗೆ reIPL ವಿಧಾನವನ್ನು ಹೊಂದಿಸಲಾಗಿಲ್ಲ: "
 "%(e)s)"
 
-#: iutil.py:894
+#: iutil.py:891
 #, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
 msgstr "ದೋಷ: %(device)s ಅನ್ನು reIPL (%(e)s) ಎಂಬ ಸಾಧನವಾಗಿ ಬದಲಾಯಿಸಲಾಗಿಲ್ಲ"
 
-#: iutil.py:904
+#: iutil.py:901
 #, python-format
 msgid "Error: Could not reset loadparm (%s)"
 msgstr "ದೋಷ: loadparm (%s) ಅನ್ನು ಮರಳಿ ಹೊಂದಿಸಲಾಗಿಲ್ಲ"
 
-#: iutil.py:913
+#: iutil.py:910
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
 msgstr "ಎಚ್ಚರಿಕೆ: parm (%s) ಅನ್ನು ಮರಳಿ ಹೊಂದಿಸಲಾಗಿಲ್ಲ"
 
-#: iutil.py:926
+#: iutil.py:923
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
@@ -661,17 +662,17 @@ msgstr ""
 "ಸ್ಥಗಿತಗೊಳಿಸಿದ ನಂತರ, ಅನುಸ್ಥಾಪನೆಯನ್ನು ಮುಂದುವರೆಸಲು ದಯವಿಟ್ಟು DASD ಸಾಧನ %s ದಿಂದ "
 "ಕೈಯಾರೆ IPL ಅನ್ನು ನಿರ್ವಹಿಸಿ"
 
-#: iutil.py:948
+#: iutil.py:945
 #, python-format
 msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
 msgstr "ದೋಷ: FCP ಗುಣ %(syspath_property)s ಅನ್ನು reIPL (%(e)s) ಗಾಗಿ ಓದಲಾಗುತ್ತಿದೆ"
 
-#: iutil.py:963
+#: iutil.py:960
 #, python-format
 msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr "ದೋಷ: FCP ಗುಣ %(reipl_property)s ಅನ್ನು reIPL (%(e)s) ಗಾಗಿ ಬರೆಯಲಾಗುತ್ತಿದೆ"
 
-#: iutil.py:978
+#: iutil.py:975
 #, python-format
 msgid ""
 "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
@@ -679,7 +680,7 @@ msgstr ""
 "ದೋಷ: ಪೂರ್ವನಿಯೋಜಿತ FCP ಗುಣ %(reipl_property)s ಅನ್ನು reIPL reIPL (%(e)s) ಗಾಗಿ "
 "ಬರೆಯಲಾಗುತ್ತಿದೆ"
 
-#: iutil.py:993
+#: iutil.py:990
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
@@ -688,7 +689,7 @@ msgstr ""
 "ಸ್ಥಗಿತಗೊಳಿಸಿದ ನಂತರ, ಅನುಸ್ಥಾಪನೆಯನ್ನು ಮುಂದುವರೆಸಲು ದಯವಿಟ್ಟು WWPN %(wwpn)s ಹಾಗು LUN %"
 "(lun)s ಯೊಂದಿಗೆ FCP %(device)s ಕೈಯಾರೆ IPL ಅನ್ನು ನಿರ್ವಹಿಸಿ"
 
-#: iutil.py:1010
+#: iutil.py:1007
 msgid ""
 "After shutdown, please perform a manual IPL from the device now containing /"
 "boot to continue installation"
@@ -696,11 +697,11 @@ msgstr ""
 "ಸ್ಥಗಿತಗೊಳಿಸಿದ ನಂತರ, ಅನುಸ್ಥಾಪನೆಯನ್ನು ಮುಂದುವರೆಸಲು ದಯವಿಟ್ಟು /boot ಸಾಧನದಿಂದ ಕೈಯಾರೆ "
 "IPL ಅನ್ನು ನಿರ್ವಹಿಸಿ"
 
-#: iutil.py:1021
+#: iutil.py:1018
 msgid "Error determining boot device's disk name"
 msgstr "ಬೂಟ್ ಸಾಧನದ ಡಿಸ್ಕಿನ ಹೆಸರನ್ನು ನಿರ್ಧರಿಸುವಲ್ಲಿ ದೋಷ"
 
-#: iutil.py:1025
+#: iutil.py:1022
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "ಆರೋಹಣ ತಾಣವಾದ /boot ಅಥವ / ನಮಗೆ ತಿಳಿಯದೆ ಇರುವ ಬಗೆಯ ಒಂದು ಡಿಸ್ಕಿನಲ್ಲಿದೆ"
 
@@ -1091,8 +1092,8 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr "ನೀವು '%s' ಸಾಧನದಲ್ಲಿರುವ ಎಲ್ಲಾ ವಿಭಾಗಗಳನ್ನೂ ತೆಗೆದುಹಾಕುವುದರಲ್ಲಿದ್ದೀರಿ."
 
 #: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:863
-#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1813
-#: iw/partition_gui.py:1825
+#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1821
+#: iw/partition_gui.py:1833
 msgid "_Delete"
 msgstr "ಅಳಿಸು (_D)"
 
@@ -1153,7 +1154,7 @@ msgstr ""
 msgid "Format?"
 msgstr "ಫಾರ್ಮಾಟುಗೊಳಿಸುವುದೇ?"
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1598
+#: partIntfHelpers.py:249 iw/partition_gui.py:1606
 msgid "_Modify Partition"
 msgstr "ವಿಭಾಗವನ್ನು ಮಾರ್ಪಡಿಸು (_M)"
 
@@ -1406,7 +1407,7 @@ msgstr ""
 "\n"
 
 #: rescue.py:310 iw/partition_gui.py:781 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:626 storage/__init__.py:145
+#: loader/cdinstall.c:214 loader/driverdisk.c:626 storage/__init__.py:155
 #: storage/devicetree.py:90
 msgid "Continue"
 msgstr "ಮುಂದುವರೆ"
@@ -1416,7 +1417,7 @@ msgid "Read-Only"
 msgstr "ಓದಲು-ಮಾತ್ರ"
 
 #: rescue.py:310 rescue.py:312 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1779 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1789 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "ಉಪೇಕ್ಷಿಸಿ"
 
@@ -1505,11 +1506,11 @@ msgstr "ನಿಮ್ಮ ವ್ಯವಸ್ಥೆಯು %s ಕೋಶದಡಿಯ�
 
 #: text.py:154
 msgid "Passphrase for encrypted device"
-msgstr "ಗೂಢಲಿಪೀಕರಿಸಲಾದ ಸಾಧನಕ್ಕಾಗಿನ ಗುಪ್ತಪದ"
+msgstr "ಗೂಢಲಿಪೀಕರಿಸಲಾದ ಸಾಧನಕ್ಕಾಗಿನ ಗುಪ್ತವಾಕ್ಯಾಂಶ"
 
 #: text.py:167
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr "ಈ ಗುಪ್ತಪದವನ್ನು ಎಲ್ಲಾ ಹೊಸ ಗೂಢಲಿಪೀಕರಿಸಲಾದ ಸಾಧನಗಳಿಗೂ ಸಹ ಸೇರಿಸಿ"
+msgstr "ಈ ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ಎಲ್ಲಾ ಹೊಸ ಗೂಢಲಿಪೀಕರಿಸಲಾದ ಸಾಧನಗಳಿಗೂ ಸಹ ಸೇರಿಸಿ"
 
 #: text.py:198
 #, python-format
@@ -1518,11 +1519,11 @@ msgstr "ಗುಪ್ತವಾಕ್ಯಾಂಶವು(ಪಾಸ್‌ಫ್ರ�
 
 #: text.py:232 ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
-msgstr "ಗುಪ್ತಪದ"
+msgstr "ಗುಪ್ತವಾಕ್ಯಾಂಶ"
 
 #: text.py:240 ui/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
-msgstr "ಇದು ಒಂದು ಜಾಗತಿಕ ಗುಪ್ತಪದ"
+msgstr "ಇದು ಒಂದು ಜಾಗತಿಕ ಗುಪ್ತವಾಕ್ಯಾಂಶ"
 
 #: text.py:352 text.py:356
 msgid "Repository editing is not available in text mode."
@@ -1702,7 +1703,7 @@ msgstr ""
 "\n"
 "\n"
 "ನೀವು ಒಂದು ಆಲಿಸುವಂತಹ vncviewer ಗೆ ಸಂಪರ್ಕ ಹೊಂದಲು ಬಯಸಿದ್ದೀರಿ. \n"
-"ಇದಕ್ಕಾಗಿ ಒಂದು ಗುಪ್ತಪದವನ್ನು ಹೊಂದಿಸುವ ಅಗತ್ಯವಿರುವಿದಿಲ್ಲ.  ಎಲ್ಲಿಯಾದರೂ \n"
+"ಇದಕ್ಕಾಗಿ ಒಂದು ಗುಪ್ತಪದವನ್ನು ಹೊಂದಿಸುವ ಅಗತ್ಯವಿರುವುದಿಲ್ಲ.  ಎಲ್ಲಿಯಾದರೂ \n"
 "ನೀವು ಒಂದು ಗುಪ್ತಪದವನ್ನು ಹೊಂದಿಸಿದಲ್ಲಿ, vncviewer ಗೆ ಸಂಪರ್ಕವು \n"
 "ಯಶಸ್ವಿಯಾಗದ ಸಂದರ್ಭದಲ್ಲಿ ಬಳಸಲಾಗುತ್ತದೆ \n"
 "\n"
@@ -2171,42 +2172,26 @@ msgstr "ಚಿತ್ರಾತ್ಮಕ ಗಣಕತೆರೆ"
 msgid "Software Development"
 msgstr "ತಂತ್ರಾಂಶ ವಿಕಾಸನ"
 
-#: installclasses/fedora.py:59 installclasses/rhel.py:61
+#: installclasses/fedora.py:59
 msgid "Web Server"
 msgstr "ಜಾಲ ಪರಿಚಾರಕ"
 
-#: installclasses/fedora.py:63 installclasses/rhel.py:90
+#: installclasses/fedora.py:63 installclasses/rhel.py:44
 msgid "Minimal"
 msgstr "ಕನಿಷ್ಟ ಅಗತ್ಯವಿರುವ"
 
-#: installclasses/rhel.py:39
+#: installclasses/rhel.py:33
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
-#: installclasses/rhel.py:40
+#: installclasses/rhel.py:34
 #, python-format
 msgid ""
-"The default installation of %s is a basic server install. You can optionally "
+"The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
 msgstr ""
-"%s ನ ಪೂರ್ವನಿಯೋಜಿತ ಅನುಸ್ಥಾಪನೆಯು ಮೂಲಭೂತ ಪರಿಚಾರಕ ಅನುಸ್ಥಾಪನೆಯಾಗಿದೆ.  ನೀವು ಈಗ "
-"ಬೇಕಿದ್ದಲ್ಲಿ ವಿಭಿನ್ನವಾದ ತಂತ್ರಾಂಶದ ಸಮೂಹವನ್ನು ಆಯ್ಕೆ ಮಾಡಿಕೊಳ್ಳಬಹುದು."
-
-#: installclasses/rhel.py:51
-msgid "Basic Server"
-msgstr "ಮೂಲಭೂತ ಪರಿಚಾರಕ"
-
-#: installclasses/rhel.py:55
-msgid "Database Server"
-msgstr "ದತ್ತಸಂಚಯ ಪರಿಚಾರಕ"
-
-#: installclasses/rhel.py:67
-msgid "Desktop"
-msgstr "ಗಣಕತೆರೆ"
-
-#: installclasses/rhel.py:77
-msgid "Software Development Workstation"
-msgstr "ತಂತ್ರಾಂಶ ವಿಕಸನಾ ಕಾರ್ಯಕ್ಷೇತ್ರ"
+"%s ನ ಪೂರ್ವನಿಯೋಜಿತ ಅನುಸ್ಥಾಪನೆಯು ಕನಿಷ್ಟ ಅನುಸ್ಥಾಪನೆಯಾಗಿದೆ.  ನೀವು ಈಗ ಬೇಕಿದ್ದಲ್ಲಿ "
+"ವಿಭಿನ್ನವಾದ ತಂತ್ರಾಂಶದ ಸಮೂಹವನ್ನು ಆಯ್ಕೆ ಮಾಡಿಕೊಳ್ಳಬಹುದು."
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2240,7 +2225,7 @@ msgid "Caps Lock is on."
 msgstr "ಕ್ಯಾಪ್ಸ್‍ ಲಾಕ್ ಚಾಲಿತವಾಗಿದೆ."
 
 #: iw/account_gui.py:102 iw/account_gui.py:110 iw/account_gui.py:117
-#: iw/account_gui.py:137 textw/userauth_text.py:74
+#: iw/account_gui.py:138 textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr "ಗುಪ್ತಪದದಲ್ಲಿ ದೋಷವಿದೆ"
 
@@ -2269,11 +2254,11 @@ msgstr "ದುರ್ಬಲ ಗುಪ್ತಪದ"
 msgid "You have provided a weak password: %s"
 msgstr "ನೀವು ಒಂದು ದುರ್ಬಲ ಗುಪ್ತಪದವನ್ನು ಒದಗಿಸಿದ್ದೀರಿ: %s"
 
-#: iw/account_gui.py:130
+#: iw/account_gui.py:131
 msgid "Use Anyway"
 msgstr "ಪರವಾಗಿಲ್ಲ ಬಳಸು"
 
-#: iw/account_gui.py:138 textw/userauth_text.py:75
+#: iw/account_gui.py:139 textw/userauth_text.py:75
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
@@ -2505,8 +2490,11 @@ msgid "Serial Number"
 msgstr "ಅನುಕ್ರಮ ಸಂಖ್ಯೆ"
 
 #: iw/cleardisks_gui.py:144
-msgid "Boot"
-msgstr "ಬೂಟ್"
+#, fuzzy
+msgid ""
+"Boot\n"
+"Loader"
+msgstr "ಬೂಟ್‍ಲೋಡರ್"
 
 #: iw/cleardisks_gui.py:181
 msgid ""
@@ -3020,8 +3008,8 @@ msgstr "ಗಾತ್ರ (ಎಮ್.ಬಿ)"
 msgid "_Add"
 msgstr "ಸೇರಿಸು (_A)"
 
-#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1812
-#: iw/partition_gui.py:1822
+#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1820
+#: iw/partition_gui.py:1830
 msgid "_Edit"
 msgstr "ಸಂಪಾದನೆ (_E)"
 
@@ -3230,7 +3218,7 @@ msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
 msgstr "ಡ್ರೈವ್ %(drive)s (%(size)-0.f ಎಮ್ ಬಿ) (ಮಾದರಿ: %(model)s)"
 
 #: iw/partition_gui.py:396 iw/partition_gui.py:442 iw/partition_gui.py:509
-#: iw/partition_gui.py:996 iw/partition_gui.py:1063
+#: iw/partition_gui.py:1000 iw/partition_gui.py:1067
 msgid "Free"
 msgstr "ಖಾಲಿ"
 
@@ -3248,7 +3236,7 @@ msgstr "MD RAID ARRAY %s (%-0.f ಎಮ್‌ಬಿ)"
 msgid "Type"
 msgstr "ಶೈಲಿ"
 
-#: iw/partition_gui.py:612 storage/__init__.py:1779
+#: iw/partition_gui.py:612 storage/__init__.py:1789
 msgid "Format"
 msgstr "ಫಾರ್ಮಾಟ್‍ಗೊಳಿಸು"
 
@@ -3312,27 +3300,27 @@ msgstr ""
 msgid "Format Warnings"
 msgstr "ಫಾರ್ಮಾಟ್ ಎಚ್ಚರಿಕೆಗಳು"
 
-#: iw/partition_gui.py:984
+#: iw/partition_gui.py:988
 msgid "LVM Volume Groups"
 msgstr "LVM ಪರಿಮಾಣ ಸಮೂಹಗಳು"
 
-#: iw/partition_gui.py:1006
+#: iw/partition_gui.py:1010
 msgid "RAID Devices"
 msgstr "RAID ಸಾಧನಗಳು"
 
-#: iw/partition_gui.py:1017 loader/hdinstall.c:206
+#: iw/partition_gui.py:1021 loader/hdinstall.c:206
 msgid "Hard Drives"
 msgstr "ಹಾರ್ಡ್ ಡ್ರೈವ್‍ಗಳು"
 
-#: iw/partition_gui.py:1067
+#: iw/partition_gui.py:1071
 msgid "Extended"
 msgstr "ವಿಸ್ತರಿಸಲಾದ"
 
-#: iw/partition_gui.py:1346
+#: iw/partition_gui.py:1350
 msgid "Cannot perform any creation action"
 msgstr "ಯಾವುದೆ ನಿರ್ಮಿಸುವ ಕಾರ್ಯವನ್ನು ನಿರ್ವಹಿಸಲು ಸಾಧ್ಯವಾಗಿಲ್ಲ"
 
-#: iw/partition_gui.py:1347
+#: iw/partition_gui.py:1351
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -3348,7 +3336,7 @@ msgstr ""
 "* ಕನಿಷ್ಟ ಒಂದು ಮುಕ್ತ ಭೌತಿಕ ಪರಿಮಾಣ (LVM) ವಿಭಾಗ.\n"
 "* ಮುಕ್ತ ಸ್ಥಳವನ್ನು ಹೊಂದಿರುವ ಕನಿಷ್ಟ ಒಂದು ಪರಿಮಾಣ ಸಮೂಹ."
 
-#: iw/partition_gui.py:1455
+#: iw/partition_gui.py:1463
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3361,7 +3349,7 @@ msgstr ""
 "ವಿಶ್ವಾಸಾರ್ಹತೆಯನ್ನು ನೀಡುವಂತೆ ಸಂರಚಿಸಬಹುದು.  RAID ಗಳ ಬಗೆಗಿನ ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ %s "
 "ದಸ್ತಾವೇಜುಗಳನ್ನು ನೋಡಿ.\n"
 
-#: iw/partition_gui.py:1461
+#: iw/partition_gui.py:1469
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -3373,16 +3361,16 @@ msgstr ""
 "ರಚಿಸಬಹುದು.\n"
 "\n"
 
-#: iw/partition_gui.py:1465
+#: iw/partition_gui.py:1473
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgstr "ಮುಕ್ತವಾಗಿ ಬಳಸಲು ನಿಮ್ಮಲ್ಲಿ ಪ್ರಸಕ್ತ %d ತಂತ್ರಾಂಶಾತ್ಮಕ RAID ವಿಭಾಗವಿದೆ."
 
-#: iw/partition_gui.py:1469
+#: iw/partition_gui.py:1477
 msgid "About RAID"
 msgstr "RAID ಕುರಿತು"
 
-#: iw/partition_gui.py:1475
+#: iw/partition_gui.py:1483
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
@@ -3399,7 +3387,7 @@ msgstr ""
 "ಡಿಸ್ಕುಗಳಲ್ಲಿನ PVಗಳ ಒಗ್ಗೂಡಿಕೆಯೂ ಸಹ ಆಗಿರಬಹುದು ಎನ್ನುವುದನ್ನು ನೆನಪಿಡಿ.  LVM ಬಗೆಗಿನ "
 "ಹೆಚ್ಚಿನ ಮಾಹಿತಿಗಾಗಿ %s ದಸ್ತಾವೇಜನ್ನು ನೋಡಿ\n"
 
-#: iw/partition_gui.py:1483
+#: iw/partition_gui.py:1491
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create a LV you need a VG "
@@ -3411,47 +3399,47 @@ msgstr ""
 "ಒಂದು ಹೊಸ LV ಅನ್ನು ರಚಿಸಲು ಮುಕ್ತ ಸ್ಥಳವನ್ನು ಹೊಂದಿರುವ VG ಇರುವ ಅಗತ್ಯವಿರುತ್ತದೆ.\n"
 "\n"
 
-#: iw/partition_gui.py:1487
+#: iw/partition_gui.py:1495
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgstr "ಮುಕ್ತವಾಗಿ ಬಳಸಲು ನಿಮ್ಮಲ್ಲಿ ಪ್ರಸಕ್ತ %d PV ಯು ಲಭ್ಯವಿದೆ.\n"
 
-#: iw/partition_gui.py:1491
+#: iw/partition_gui.py:1499
 msgid "You currently have free space to create PVs."
 msgstr "PVಗಳನ್ನು ರಚಿಸಲು ನೀವು ಮುಕ್ತ ಸ್ಥಳವನ್ನು ಹೊಂದಿದ್ದೀರಿ."
 
-#: iw/partition_gui.py:1494
+#: iw/partition_gui.py:1502
 msgid "About LVM"
 msgstr "LVM ಕುರಿತು "
 
-#: iw/partition_gui.py:1526
+#: iw/partition_gui.py:1534
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "ಡ್ರೈವ್‍ ತದ್ರೂಪಕ ಸಂಪಾದಕನನ್ನು ರಚಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
 
-#: iw/partition_gui.py:1527
+#: iw/partition_gui.py:1535
 msgid "The drive clone editor could not be created for some reason."
 msgstr "ಡ್ರೈವ್ ತದ್ರೂಪಕ ಸಂಪಾದಕವನ್ನು ಕಾರಣಾಂತರಗಳಿಂದ ರಚಿಸಲಾಗಲಿಲ್ಲ."
 
-#: iw/partition_gui.py:1586 storage/partitioning.py:197
+#: iw/partition_gui.py:1594 storage/partitioning.py:197
 #: storage/partitioning.py:238
 msgid "Error Partitioning"
 msgstr "ವಿಭಾಗೀಕರಣದಲ್ಲಿ ದೋಷ"
 
-#: iw/partition_gui.py:1587
+#: iw/partition_gui.py:1595
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "ಕೋರಿದ ವಿಭಾಗಗಳನ್ನು ನಿಗದಿಗೊಳಿಸಲಾಗಲಿಲ್ಲ: %s."
 
-#: iw/partition_gui.py:1596
+#: iw/partition_gui.py:1604
 #, python-format
 msgid "Warning: %s."
 msgstr "ಎಚ್ಚರಿಕೆ: %s."
 
-#: iw/partition_gui.py:1627
+#: iw/partition_gui.py:1635
 msgid "Unable To Edit"
 msgstr "ಸಂಪಾದಿಸಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ"
 
-#: iw/partition_gui.py:1628
+#: iw/partition_gui.py:1636
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -3462,15 +3450,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/partition_gui.py:1811
+#: iw/partition_gui.py:1819
 msgid "_Create"
 msgstr "ನಿರ್ಮಿಸು(_C)"
 
-#: iw/partition_gui.py:1814
+#: iw/partition_gui.py:1822
 msgid "Re_set"
 msgstr "ಮರುಸಿದ್ಧಗೂಳಿಸು (_s)"
 
-#: iw/partition_gui.py:1837
+#: iw/partition_gui.py:1845
 msgid "Please Select A Device"
 msgstr "ದಯವಿಟ್ಟು ಒಂದು ಸಾಧನವನ್ನು ಆರಿಸಿ"
 
@@ -4114,8 +4102,8 @@ msgstr "ಡಿಸ್ಕ್‍ ಕಂಡುಬಂದಿಲ್ಲ"
 #: loader/kbd.c:119 loader/loader.c:491 loader/loader.c:508
 #: loader/loader.c:1361 loader/loader.c:1394 loader/net.c:579 loader/net.c:950
 #: loader/net.c:1851 loader/net.c:1870 loader/nfsinstall.c:91
-#: loader/urls.c:258 storage/__init__.py:145 storage/devicetree.py:90
-#: textw/constants_text.py:52
+#: loader/urls.c:258 storage/__init__.py:109 storage/__init__.py:155
+#: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
 msgstr "ಹಿಂದಕ್ಕೆ"
 
@@ -4812,7 +4800,7 @@ msgstr "ಸೆಕೆಂಡುಗಳನ್ನು ೧ ಹಾಗು ೩೦ ರ ಒ�
 msgid "Flashing %s port lights for %d seconds."
 msgstr "%s ಸಂಪರ್ಕಸ್ಥಾನದ ದೀಪಗಳನ್ನು %d ಸೆಕೆಂಡುಗಳಿಗೆ ಮಿನುಗಿಸಲಾಗುತ್ತದೆ."
 
-#: loader/net.c:2062 loader/net.c:2066
+#: loader/net.c:2063 loader/net.c:2067
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "NetworkManager %s ಅನ್ನು ಸಂರಚಿಸುವುದನ್ನು ಕಾಯಲಾಗುತ್ತಿದೆ.\n"
@@ -4953,11 +4941,20 @@ msgstr ""
 "ಸಾಧನ %s ದಿಂದ ಒದಗಿಸಲಾದ ಅನುಸ್ಥಾಪನಾ ಮೂಲವು ಕಂಡುಬಂದಿಲ್ಲ. ದಯವಿಟ್ಟು ಒಂದು ಡಿಸ್ಕನ್ನು ನಿಮ್ಮ "
 "ಡ್ರೈವಿಗೆ ತೂರಿಸಿ ಹಾಗು ಇನ್ನೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ."
 
-#: storage/__init__.py:108
+#: storage/__init__.py:106
+#, fuzzy
+msgid "No disks found"
+msgstr "ಯಂತ್ರಚಾಲಕಗಳು ಕಂಡುಬರಲಿಲ್ಲ"
+
+#: storage/__init__.py:107
+msgid "No usable disks have been found."
+msgstr ""
+
+#: storage/__init__.py:118
 msgid "Installation cannot continue."
 msgstr "ಅನುಸ್ಥಾಪನೆ ಮುಂದುವರೆಯಲು ಸಾಧ್ಯವಿಲ್ಲ."
 
-#: storage/__init__.py:109
+#: storage/__init__.py:119
 msgid ""
 "The storage configuration you have chosen has already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -4967,25 +4964,25 @@ msgstr ""
 "ಸಂಪಾದನಾ ತೆರೆಗೆ ಹಿಮ್ಮೆಟ್ಟಲು ಸಾಧ್ಯವಿಲ್ಲ. ಅನುಸ್ಥಾಪನಾ ಪ್ರಕ್ರಿಯೆಯೊಂದಿಗೆ ಮುಂದುವರೆಯಲು "
 "ಇಷ್ಟಪಡುತ್ತೀರೇನು?"
 
-#: storage/__init__.py:137
+#: storage/__init__.py:147
 msgid "Encrypt device?"
 msgstr "ಸಾಧನವನ್ನು ಗೂಢಲಿಪೀಕರಣಗೊಳಿಸಬೇಕೆ?"
 
-#: storage/__init__.py:138
+#: storage/__init__.py:148
 msgid ""
 "You specified block device encryption should be enabled, but you have not "
 "supplied a passphrase. If you do not go back and provide a passphrase, block "
 "device encryption will be disabled."
 msgstr ""
 "ಖಂಡ ಸಾಧನದ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಶಕ್ತಗೊಳಿಸಬೇಕು ಎಂದು ನೀವು ಸೂಚಿಸಿದ್ದೀರಿ, ಆದರೆ ನೀವು ಒಂದು "
-"ಗುಪ್ತಪದವನ್ನು ಒದಗಿಸಿಲ್ಲ. ನೀವು ಹಿಂದಕ್ಕೆ ಹೋಗಿ ಗುಪ್ತಪದವನ್ನು ಒದಗಿಸದೆ ಇದ್ದಲ್ಲಿ, ಖಂಡ ಸಾಧನದ "
-"ಗೂಢಲಿಪೀಕರಣವನ್ನು ಅಶಕ್ತಗೊಳಿಸಲಾಗುವುದು."
+"ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ಒದಗಿಸಿಲ್ಲ. ನೀವು ಹಿಂದಕ್ಕೆ ಹೋಗಿ ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ಒದಗಿಸದೆ ಇದ್ದಲ್ಲಿ, "
+"ಖಂಡ ಸಾಧನದ ಗೂಢಲಿಪೀಕರಣವನ್ನು ಅಶಕ್ತಗೊಳಿಸಲಾಗುವುದು."
 
-#: storage/__init__.py:161
+#: storage/__init__.py:171
 msgid "Writing storage configuration to disk"
 msgstr "ಶೇಖರಣಾ ಸಂರಚನೆಯನ್ನು ಡಿಸ್ಕ್‍ಗೆ ಬರೆಯಲಾಗುತ್ತಿದೆ"
 
-#: storage/__init__.py:162
+#: storage/__init__.py:172
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -4993,62 +4990,62 @@ msgstr ""
 "ನೀವು ಆರಿಸಿದ ವಿಭಾಗೀಕರಣ ಆಯ್ಕೆಗಳನ್ನು ಈಗ ಡಿಸ್ಕ್‍ಗೆ ಬರೆಯಲಾಗುತ್ತಿದೆ.  ಅಳಿಸಲಾದ ಅಥವ "
 "ಮರುಫಾರ್ಮಾಟ್ ಮಾಡಲಾದ ವಿಭಾಗಗಳಲ್ಲಿ ಯಾವುದೆ ದತ್ತಾಂಶಗಳಿದ್ದಲ್ಲಿ ಅವು ನಾಶವಾಗುತ್ತವೆ."
 
-#: storage/__init__.py:167
+#: storage/__init__.py:177
 msgid "Go _back"
 msgstr "ಹಿಂದಕ್ಕೆ ತೆರಳು (_b)"
 
-#: storage/__init__.py:168
+#: storage/__init__.py:178
 msgid "_Write changes to disk"
 msgstr "ಮಾರ್ಪಾಡುಗಳನ್ನು ಡಿಸ್ಕ್‍ಗೆ ಬರೆ(_W)"
 
-#: storage/__init__.py:187
+#: storage/__init__.py:197
 msgid "Running..."
 msgstr "ಚಲಾಯಿಸಲಾಗುತ್ತಿದೆ..."
 
-#: storage/__init__.py:188
+#: storage/__init__.py:198
 msgid "Storing encryption keys"
 msgstr "ಗೂಢಲಿಪೀಕರಿಸಲಾದ ಕೀಲಿಗಳನ್ನು ಶೇಖರಿಸಿಡಲಾಗುತ್ತಿದೆ"
 
-#: storage/__init__.py:204
+#: storage/__init__.py:214
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "ಗೂಢಲಿಪೀಕರಿಸಲಾದ ಕೀಲಿಗಳನ್ನು ಶೇಖರಿಸಿಡುವಲ್ಲಿ ದೋಷ: %s\n"
 
-#: storage/__init__.py:346
+#: storage/__init__.py:356
 msgid "Finding Devices"
 msgstr "ಸಾಧನವನ್ನು ಪತ್ತೆ ಹಚ್ಚಲಾಗುತ್ತಿದೆ"
 
-#: storage/__init__.py:347
+#: storage/__init__.py:357
 msgid "Finding storage devices"
 msgstr "ಶೇಖರಣಾ ಸಾಧನಗಳನ್ನು ಪತ್ತೆಹಚ್ಚಲಾಗುತ್ತಿದೆ"
 
-#: storage/__init__.py:626
+#: storage/__init__.py:636
 msgid "This partition is holding the data for the hard drive install."
 msgstr "ಹಾರ್ಡ್ ಡ್ರೈವಿನಿಂದ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಮಾಡಬೇಕಾದ ಮಾಹಿತಿಯನ್ನು ಈ ವಿಭಾಗ ಹೊಂದಿದೆ."
 
-#: storage/__init__.py:631
+#: storage/__init__.py:641
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "LDL ರೀತ್ಯಾ ಫಾರ್ಮಾಟ್ ಆಗಿರುವ DASD ನ ವಿಭಾಗವನ್ನು ನೀವು ತೆಗೆದುಹಾಕಲಾರಿರಿ."
 
-#: storage/__init__.py:637
+#: storage/__init__.py:647
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "ಈ ಸಾಧನವು RAID ಸಾಧನ %s ನ ಒಂದು ಭಾಗವಾಗಿದೆ."
 
-#: storage/__init__.py:640
+#: storage/__init__.py:650
 msgid "This device is part of a RAID device."
 msgstr "ಈ ಸಾಧನವು RAID ಸಾಧನದ ಒಂದು ಭಾಗವಾಗಿದೆ."
 
-#: storage/__init__.py:645
+#: storage/__init__.py:655
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "ಈ ಸಾಧನವು LVM ಪರಿಮಾಣ ಸಮೂಹ '%s' ನ ಒಂದು ಭಾಗವಾಗಿದೆ."
 
-#: storage/__init__.py:648
+#: storage/__init__.py:658
 msgid "This device is part of a LVM volume group."
 msgstr "ಈ ಸಾಧನವು LVM ಪರಿಮಾಣ ಸಮೂಹದ ಒಂದು ಭಾಗವಾಗಿದೆ."
 
-#: storage/__init__.py:664
+#: storage/__init__.py:674
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -5058,7 +5055,7 @@ msgstr ""
 "ಹೊಂದಿದೆ:\n"
 "\n"
 
-#: storage/__init__.py:940
+#: storage/__init__.py:950
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -5067,7 +5064,7 @@ msgstr ""
 "%s ನ ಅನುಸ್ಥಾಪನೆಗೆ ಅಗತ್ಯವಾದ ನಿರ್ವಾಹಣಾ(ರೂಟ್)ವಿಭಾಗವನ್ನು (/) (root partition) ನೀವು "
 "ಗೊತ್ತುಪಡಿಸಿಲ್ಲ."
 
-#: storage/__init__.py:945
+#: storage/__init__.py:955
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -5076,7 +5073,7 @@ msgstr ""
 "ನಿಮ್ಮ ನಿರ್ವಾಹಣಾ(ರೂಟ್)ವಿಭಾಗ ೨೫೦ ಮೆಗಾಬೈಟ್ ಗಳಿಗಿಂತಲೂ ಕಡಿಮೆಯದಾಗಿದ್ದು, ಸಾಮಾನ್ಯವಾಗಿ %s ನ "
 "ಅನುಸ್ಥಾಪನೆಗೆ ಅತಿ ಚಿಕ್ಕದಾಗಿದ್ದಾಗಿದೆ."
 
-#: storage/__init__.py:951
+#: storage/__init__.py:961
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -5085,7 +5082,7 @@ msgstr ""
 "ನಿಮ್ಮ / ವಿಭಾಗದ ಗಾತ್ರವು %(min)s ಎಮ್‌ಬಿಗಿಂತಲೂ ಕಡಿಮೆಯಾಗಿದ್ದು, ಇದು %(productName)s ನ "
 "ಸಾಮಾನ್ಯ ಅನುಸ್ಥಾಪನೆಗೆ ಶಿಫಾರಸು ಮಾಡಲಾಗುವುದಕ್ಕಿಂತ ಕಡಿಮೆಯಾಗಿದೆ."
 
-#: storage/__init__.py:961
+#: storage/__init__.py:971
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -5094,7 +5091,7 @@ msgstr ""
 "ನೀವು ಅನುಸ್ಥಾಪಿಸುತ್ತಿರುವ ಲೈವ್ ಚಿತ್ರಿಕೆಗೆ ನಿಮ್ಮ / ವಿಭಾಗವು ತಾಳೆಯಾಗುತ್ತಿಲ್ಲ. ಅದನ್ನು %s "
 "ಆಗಿ ಫಾರ್ಮಾಟ್ ಮಾಡಬೇಕು."
 
-#: storage/__init__.py:968
+#: storage/__init__.py:978
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -5103,14 +5100,14 @@ msgstr ""
 "ನಿಮ್ಮ %(mount)s ವಿಭಾಗದ ಗಾತ್ರವು %(size)s ಮೆಗಾಬೈಟ್ ಗಳಿಗಿಂತಲೂ ಕಡಿಮೆಯಾಗಿದ್ದು, ಇದು %"
 "(productName)s ನ ಸಾಮಾನ್ಯ ಅನುಸ್ಥಾಪನೆಗೆ ಶಿಫಾರಸುಮಾಡಿರುವುದಕ್ಕಿಂತ ಕಡಿಮೆಯಾಗಿದೆ."
 
-#: storage/__init__.py:997
+#: storage/__init__.py:1007
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB ಸಾಧನದಲ್ಲಿ ಅನುಸ್ಥಾಪನೆಗೊಳ್ಳುತ್ತಿದೆ.  ಇದು ಕಾರ್ಯೋಪಯುಕ್ತ ವ್ಯವಸ್ಥೆಯನ್ನು ನೀಡುತ್ತದೆಯೆಂಬುದು "
 "ಖಚಿತವಿಲ್ಲ."
 
-#: storage/__init__.py:1000
+#: storage/__init__.py:1010
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -5118,7 +5115,7 @@ msgstr ""
 "FireWire ಸಾಧನದಲ್ಲಿ ಅನುಸ್ಥಾಪನೆಗೊಳ್ಳುತ್ತಿದೆ.  ಇದು ಕಾರ್ಯೋಪಯುಕ್ತ ವ್ಯವಸ್ಥೆಯನ್ನು "
 "ನೀಡುತ್ತದೆಯೆಂಬುದು ಖಚಿತವಿಲ್ಲ."
 
-#: storage/__init__.py:1007
+#: storage/__init__.py:1017
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
@@ -5126,7 +5123,7 @@ msgstr ""
 "ನೀವು ಒಂದು ಸ್ವಾಪ್ ವಿಭಾಗವನ್ನು ನಿಗದಿಪಡಿಸಿಲ್ಲ. ಇರುವ ಮೆಮೊರಿಯ ಕಾರಣದಿಂದಾಗಿ, ಅನುಸ್ಥಾಪನೆ "
 "ಪೂರ್ಣಗೊಳ್ಳಲು ಒಂದು ಸ್ವಾಪ್ ವಿಭಾಗದ ಅಗತ್ಯವಿರುತ್ತದೆ."
 
-#: storage/__init__.py:1012
+#: storage/__init__.py:1022
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -5134,22 +5131,22 @@ msgstr ""
 "ನೀವು ಒಂದು ಸ್ವಾಪ್ ವಿಭಾಗವನ್ನು ನಿಗದಿಪಡಿಸಿಲ್ಲ. ಎಲ್ಲಾ ಸಮಯ್ದಲ್ಲೂ ಇದರ ಕಟ್ಟುನಿಟ್ಟಿನ ಆವಶ್ಯಕತೆ "
 "ಇರದಿದ್ದರೂ ಸಹ, ಬಹುತೇಕ ಅನುಸ್ಥಾಪನೆಗಳ ಕಾರ್ಯದಕ್ಷತೆಯು ಇದರಿಂದ ಉತ್ತಮಗೊಳ್ಳುತ್ತದೆ."
 
-#: storage/__init__.py:1019
+#: storage/__init__.py:1029
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ಈ ಆರೋಹಣಾ ತಾಣವು ಅಮಾನ್ಯವಾಗಿದೆ.  %s ಕೋಶವು / ಕಡತ ವ್ಯವಸ್ಥೆಯಲ್ಲಿರಬೇಕು."
 
-#: storage/__init__.py:1023
+#: storage/__init__.py:1033
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "%s ಆರೋಹಣಾತಾಣವು ಲಿನಕ್ಸ್ ಕಡತ ವ್ಯವಸ್ಥೆಯಾಗಿರಬೇಕು."
 
-#: storage/__init__.py:1034
+#: storage/__init__.py:1044
 msgid "No Drives Found"
 msgstr "ಯಾವುದೇ ಡ್ರೈವುಗಳು ಕಂಡುಬಂದಿಲ್ಲ"
 
-#: storage/__init__.py:1035
+#: storage/__init__.py:1045
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -5157,11 +5154,11 @@ msgstr ""
 "ದೋಷ ಸಂಭವಿಸಿದೆ - ಹೊಸ ಕಡತ ವ್ಯವಸ್ಥೆಯನ್ನು ರಚಿಸಲು ಯಾವ ಮಾನ್ಯವಾದ ಸಾಧನಗಳೂ ಕಂಡುಬರಲಿಲ್ಲ ಈ "
 "ತೊಂದರೆಯ ಕಾರಣವನ್ನು ತಿಳಿದುಕೊಳ್ಳಲು ದಯವಿಟ್ಟು ನಿಮ್ಮ ಯಂತ್ರಾಂಶವನ್ನೊಮ್ಮೆ ಪರಿಶೀಲಿಸಿ."
 
-#: storage/__init__.py:1326 storage/__init__.py:1335
+#: storage/__init__.py:1336 storage/__init__.py:1345
 msgid "Dirty File Systems"
 msgstr "ದೋಷಯುಕ್ತ ಕಡತ ವ್ಯವಸ್ಥೆಗಳು"
 
-#: storage/__init__.py:1327
+#: storage/__init__.py:1337
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5174,7 +5171,7 @@ msgstr ""
 "ಸ್ಥಗಿತಗೊಳಿಸಿ, ಅನುಸ್ಥಾಪನೆಯನ್ನು ನವೀಕರಿಸಲು ಅನುವುಮಾಡಿಕೊಡಿ.\n"
 "%s"
 
-#: storage/__init__.py:1336
+#: storage/__init__.py:1346
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5185,7 +5182,7 @@ msgstr ""
 "ಅವುಗಳನ್ನು ಆರೋಹಿಸುವುದೇ?\n"
 "%s"
 
-#: storage/__init__.py:1812
+#: storage/__init__.py:1822
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5202,7 +5199,7 @@ msgstr ""
 "ಒಂದು ಹಳೆಯ-ಶೈಲಿ ಲಿನಕ್ಸ್ ಸ್ವಾಪ್ ವಿಭಾಗವಾಗಿದೆ.  ನೀವು ಈ ಸಾಧನವನ್ನು ಸ್ವಾಪ್ ಸ್ಥಳಕ್ಕಾಗಿ "
 "ಬಳಸಬೇಕಿದ್ದರೆ, ಹೊಸ ಶೈಲಿಯ ಲಿನಕ್ಸ್ ಸ್ವಾಪ್ ವಿಭಾಗವಾಗಿ ಮರು ಫಾರ್ಮಾಟ್ ಮಾಡಬೇಕಾಗುತ್ತದೆ."
 
-#: storage/__init__.py:1823
+#: storage/__init__.py:1833
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5221,7 +5218,7 @@ msgstr ""
 "ನಿಮ್ಮ ಗಣಕ ಸುಪ್ತಸ್ಥಿತಿ (hibernation) ಗೆ ತೆರಳುತ್ತಿರುವುದನ್ನು ಸೂಚಿಸುತ್ತದೆ. ಗಣಕವನ್ನು "
 "ನವೀಕರಿಸಲು ದಯವಿಟ್ಟು ಅದನ್ನು ಸುಪ್ತಸ್ಥಿತಿಗೆ ಕರೆದೊಯ್ಯುವ ಬದಲು, ಸ್ಥಗಿತಗೊಳಿಸಿ (shut down)."
 
-#: storage/__init__.py:1831
+#: storage/__init__.py:1841
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5241,7 +5238,7 @@ msgstr ""
 "ಹೊಸ ಅನುಸ್ಥಾಪನೆಯನ್ನು ಕೈಗೆತ್ತಿಕೊಂಡಿರುವ ಪಕ್ಷದಲ್ಲಿ, ನಿಮ್ಮ ಅನುಸ್ಥಾಪಕವು ಎಲ್ಲಾ ಸ್ವಾಪ್‍ಗಳನ್ನೂ "
 "ಫಾರ್ಮಾಟ್‍ಗೊಳಿಸಲು ಅನುವುಗೊಂಡಿದೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ."
 
-#: storage/__init__.py:1843
+#: storage/__init__.py:1853
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5258,7 +5255,7 @@ msgstr ""
 "ಬೆಂಬಲಿತವಾದ ಸ್ವಾಪ್ ಪರಿಮಾಣವನ್ನು ಹೊಂದಿಲ್ಲ.  ಅನುಸ್ಥಾಪನೆಯನ್ನು ಮುಂದುವರೆಸಬೇಕಿದ್ದರೆ, "
 "ಸಾಧನವನ್ನು ಫಾರ್ಮ್ಯಾಟ್ ಮಾಡಬೇಕಾಗುತ್ತದೆ ಅಥವ ಕಡೆಗಣಿಸಬೇಕಾಗುತ್ತದೆ."
 
-#: storage/__init__.py:1854
+#: storage/__init__.py:1864
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5274,7 +5271,7 @@ msgstr ""
 "\n"
 "ಅನುಸ್ಥಾಪಕದಿಂದ ನಿರ್ಗಮಿಸಲು 'ಸರಿ' ಗುಂಡಿಯನ್ನೊತ್ತಿರಿ"
 
-#: storage/__init__.py:1861
+#: storage/__init__.py:1871
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5289,11 +5286,11 @@ msgstr ""
 "\n"
 "ಅನುಸ್ಥಾಪಕದಿಂದ ನಿರ್ಗಮಿಸಲು 'ಸರಿ' ಗುಂಡಿಯನ್ನೊತ್ತಿರಿ."
 
-#: storage/__init__.py:1924 storage/__init__.py:1936
+#: storage/__init__.py:1934 storage/__init__.py:1946
 msgid "Invalid mount point"
 msgstr "ಅಮಾನ್ಯವಾದ ಆರೋಹಣಾತಾಣ"
 
-#: storage/__init__.py:1925
+#: storage/__init__.py:1935
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5306,7 +5303,7 @@ msgstr ""
 "\n"
 "ಅನುಸ್ಥಾಪಕದಿಂದ ನಿರ್ಗಮಿಸಲು <Enter> ಒತ್ತಿರಿ."
 
-#: storage/__init__.py:1937
+#: storage/__init__.py:1947
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5319,11 +5316,11 @@ msgstr ""
 "\n"
 "ಅನುಸ್ಥಾಪಕದಿಂದ ನಿರ್ಗಮಿಸಲು <Enter> ಒತ್ತಿರಿ."
 
-#: storage/__init__.py:1953 storage/__init__.py:1977
+#: storage/__init__.py:1963 storage/__init__.py:1987
 msgid "Unable to mount filesystem"
 msgstr "ಕಡತವ್ಯವಸ್ಥೆಯನ್ನು ಆರೋಹಿಸಲು ಸಾಧ್ಯವಾಗುತ್ತಿಲ್ಲ"
 
-#: storage/__init__.py:1954
+#: storage/__init__.py:1964
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5332,7 +5329,7 @@ msgstr ""
 "ಸಾಧನ %(path)s ಅನ್ನು %(mountpoint)s ಆಗಿ ಆರೋಹಿಸುವುದರಲ್ಲಿ ದೋಷ ಕಂಡುಬಂದಿದೆ. ನೀವು "
 "ಅನುಸ್ಥಾಪನೆಯನ್ನು ಮುಂದುವರೆಸಬಹುದು, ಆದರೆ ತೊಂದರೆಗಳುಂಟಾಗಬಹುದು."
 
-#: storage/__init__.py:1978
+#: storage/__init__.py:1988
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5345,11 +5342,11 @@ msgstr ""
 "\n"
 "ಅನುಸ್ಥಾಪಕದಿಂದ ನಿರ್ಗಮಿಸಲು <Enter> ಒತ್ತಿರಿ."
 
-#: storage/dasd.py:122
+#: storage/dasd.py:141
 msgid "Formatting DASD Device"
 msgstr "DASD ಸಾಧನವನ್ನು ಫಾರ್ಮಾಟ್ ಮಾಡುವಿಕೆ"
 
-#: storage/dasd.py:123
+#: storage/dasd.py:142
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgstr "ಲಿನಕ್ಸಿನಲ್ಲಿ ಬಳಸಲು %d DASD ಸಾಧನವನ್ನು ಸಿದ್ಧಗೊಳಿಸಲಾಗುತ್ತಿದೆ..."
@@ -5364,23 +5361,23 @@ msgstr "%s ಗಾಗಿನ vginfo"
 msgid "lvs failed for %s"
 msgstr "%s ಗಾಗಿನ lvs ವಿಫಲಗೊಂಡಿದೆ"
 
-#: storage/devices.py:1270 storage/devices.py:1940 storage/devices.py:2343
-#: storage/devices.py:2814 storage/devices.py:3296
+#: storage/devices.py:1274 storage/devices.py:1945 storage/devices.py:2348
+#: storage/devices.py:2838 storage/devices.py:3311
 msgid "Creating"
 msgstr "ನಿರ್ಮಿಸಲಾಗುತ್ತಿದೆ"
 
-#: storage/devices.py:1271 storage/devices.py:1941 storage/devices.py:2344
-#: storage/devices.py:2815
+#: storage/devices.py:1275 storage/devices.py:1946 storage/devices.py:2349
+#: storage/devices.py:2839
 #, python-format
 msgid "Creating device %s"
 msgstr "%s ಎಂಬ ಸಾಧನವನ್ನು ನಿರ್ಮಿಸಲಾಗುತ್ತಿದೆ"
 
-#: storage/devices.py:2437
+#: storage/devices.py:2441
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "ಒಂದು RAID%d ಸೆಟ್‌ಗಾಗಿ ಕನಿಷ್ಟ %d ಸದಸ್ಯರುಗಳ ಅಗತ್ಯವಿರುತ್ತದೆ"
 
-#: storage/devices.py:3297
+#: storage/devices.py:3312
 #, python-format
 msgid "Creating file %s"
 msgstr "%s ಎಂಬ ಕಡತವನ್ನು ನಿರ್ಮಿಸಲಾಗುತ್ತಿದೆ"
@@ -5397,12 +5394,12 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
-"%s ಸಾಧನಕ್ಕೆ ಒಂದು ಗುಪ್ತಪದವನ್ನು ಖಚಿತವಾಗಿಯೂ ನಮೂದಿಸದೆ ಇರಲು ಬಯಸುತ್ತೀರೆ?\n"
+"%s ಸಾಧನಕ್ಕೆ ಒಂದು ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ಖಚಿತವಾಗಿಯೂ ನಮೂದಿಸದೆ ಇರಲು ಬಯಸುತ್ತೀರೆ?\n"
 "\n"
 "ಈ ಹಂತವನ್ನು ಉಪೇಕ್ಷಿಸಿದರೆ ಅನುಸ್ಥಾಪನೆಯ ಸಮಯದಲ್ಲಿ ಸಾಧನದಲ್ಲಿನ ವಿಷಯಗಳು ನಿಮಗೆ "
 "ಲಭ್ಯವಿರುವುದಿಲ್ಲ."
 
-#: storage/devicetree.py:1843 storage/devicetree.py:1891
+#: storage/devicetree.py:1861 storage/devicetree.py:1909
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "ಈ ಸಾಧನವು ಒಂದು ಅಸ್ಥಿರ LVM ಪರಿಮಾಣ ಸಮೂಹದ ಒಂದು ಭಾಗವಾಗಿದೆ."
 
@@ -6237,11 +6234,13 @@ msgid "<b>Install Target Devices</b>"
 msgstr "<b>ನಿರ್ದೇಶಿತ ಸಾಧನಗಳನ್ನು ಅನುಸ್ಥಾಪಿಸು</b>"
 
 #: ui/cleardisks.glade.h:4
+#, fuzzy
 msgid ""
 "Below are the storage devices you've selected to be a part of this "
 "installation.  Please indicate using the arrows below which devices you'd "
 "like to use as data drives (these will not be formatted, only mounted) and "
-"which devices you'd like to use as system drives (these may be formatted)."
+"which devices you'd like to use as system drives (these may be formatted).  "
+"Please also indicate which system drive will have the bootloader installed."
 msgstr ""
 "ಈ ಅನುಸ್ಥಾಪನೆಯ ಭಾಗವಾಗಬೇಕೆಂದು ನೀವು ಬಯಸಿದ ಶೇಖರಣಾ ಸಾಧನಗಳ ಪಟ್ಟಿ ಈ ಕೆಳಗಿನಂತಿದೆ. ಯಾವ "
 "ಸಾಧನವನ್ನು ದತ್ತಾಂಶ ಡ್ರೈವ್ ಆಗಿ ನೀವು ಬಳಸಲು ಬಯಸುತ್ತೀರಿ ಎಂದು ಸೂಚಿಸಲು ದಯವಿಟ್ಟು ಬಾಣದ "
@@ -6527,7 +6526,7 @@ msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
-"ಬೂಟ್‌ ಪ್ರಕ್ರಿಯೆಯನ್ನು streamline ಮಾಡಲು ಈ ಗುಪ್ತಪದವನ್ನು ಎಲ್ಲಾ ಹೊಸ ಗೂಢಲಿಪೀಕರಿಸಲಾದ "
+"ಬೂಟ್‌ ಪ್ರಕ್ರಿಯೆಯನ್ನು streamline ಮಾಡಲು ಈ ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ಎಲ್ಲಾ ಹೊಸ ಗೂಢಲಿಪೀಕರಿಸಲಾದ "
 "ಸಾಧನಗಳಿಗೂ ಸಹ ಸೇರಿಸಿ"
 
 #: ui/lukspassphrase.glade.h:2
@@ -6535,20 +6534,20 @@ msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"ಈ ಗೂಢಲಿಪೀಕರಿಸಿದ ವಿಭಾಗಕ್ಕಾಗಿ ಒಂದು ಗುಪ್ತಪದವನ್ನು ಆರಿಸಿ. ಗಣಕವನ್ನು ಬೂಟ್ ಮಾಡಿದಾಗ ಈ "
-"ಗುಪ್ತಪದಕ್ಕಗಿ ನಿಮ್ಮನ್ನು ಕೇಳಲಾಗುತ್ತದೆ."
+"ಈ ಗೂಢಲಿಪೀಕರಿಸಿದ ವಿಭಾಗಕ್ಕಾಗಿ ಒಂದು ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ಆರಿಸಿ. ಗಣಕವನ್ನು ಬೂಟ್ ಮಾಡಿದಾಗ ಈ "
+"ಗುಪ್ತವಾಕ್ಯಾಂಶಕ್ಕಾಗಿ ನಿಮ್ಮನ್ನು ಕೇಳಲಾಗುತ್ತದೆ."
 
 #: ui/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
-msgstr "ಗುಪ್ತಪದವನ್ನು ದೃಢೀಕರಿಸಿ:"
+msgstr "ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ದೃಢೀಕರಿಸಿ:"
 
 #: ui/lukspassphrase.glade.h:4
 msgid "Enter passphrase for encrypted partition"
-msgstr "ಗೂಢಲಿಪೀಕರಿಸಲಾದ ವಿಭಾಗಕ್ಕಾಗಿ ಗುಪ್ತಪದವನ್ನು ನಮೂದಿಸಿ"
+msgstr "ಗೂಢಲಿಪೀಕರಿಸಲಾದ ವಿಭಾಗಕ್ಕಾಗಿ ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ನಮೂದಿಸಿ"
 
 #: ui/lukspassphrase.glade.h:5
 msgid "Enter passphrase:"
-msgstr "ಗುಪ್ತಪದವನ್ನು ನಮೂದಿಸಿ:"
+msgstr "ಗುಪ್ತವಾಕ್ಯಾಂಶವನ್ನು ನಮೂದಿಸಿ:"
 
 #: ui/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
@@ -6909,6 +6908,21 @@ msgstr "ವೆಲ್ಷ್"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "ಝುಲು"
+
+#~ msgid "Boot"
+#~ msgstr "ಬೂಟ್"
+
+#~ msgid "Basic Server"
+#~ msgstr "ಮೂಲಭೂತ ಪರಿಚಾರಕ"
+
+#~ msgid "Database Server"
+#~ msgstr "ದತ್ತಸಂಚಯ ಪರಿಚಾರಕ"
+
+#~ msgid "Desktop"
+#~ msgstr "ಗಣಕತೆರೆ"
+
+#~ msgid "Software Development Workstation"
+#~ msgstr "ತಂತ್ರಾಂಶ ವಿಕಸನಾ ಕಾರ್ಯಕ್ಷೇತ್ರ"
 
 #~ msgid "Unknown"
 #~ msgstr "ಗೊತ್ತಿಲ್ಲದ"
