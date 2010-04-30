@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-26 10:19-1000\n"
-"PO-Revision-Date: 2010-04-26 14:22-0300\n"
+"PO-Revision-Date: 2010-04-30 14:51-0300\n"
 "Last-Translator: Taylon Silmer <taylonsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <trans-pt_br@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -403,7 +403,7 @@ msgstr "_Ignorar"
 
 #: gui.py:1109 gui.py:1167 text.py:492 text.py:550
 msgid "Ignore _all"
-msgstr "Ignorar_tudo"
+msgstr "Ignorar _todos"
 
 #: gui.py:1110 gui.py:1168 text.py:493 text.py:551
 msgid "_Re-initialize"
@@ -411,7 +411,7 @@ msgstr "_Reinicializar"
 
 #: gui.py:1111 gui.py:1169 text.py:494 text.py:552
 msgid "Re-ini_tialize all"
-msgstr "Reini_cializar tudo"
+msgstr "Reini_cializar todos"
 
 #: gui.py:1159 text.py:542
 #, python-format
@@ -2332,7 +2332,7 @@ msgstr ""
 "partições criadas por outros sistemas operacionais. \n"
 "\n"
 "<b>Dica:</b> Esta opção irá remover dados dos dispositivos selecionados. "
-"Certifique-se que possui os backups."
+"Certifique-se de que você possui os backups."
 
 #: iw/autopart_type.py:236
 msgid "Replace Existing Linux System(s)"
@@ -5502,7 +5502,7 @@ msgstr "Formatando"
 #: storage/formats/fs.py:355
 #, python-format
 msgid "Creating %s filesystem on %s"
-msgstr "Criando  %s sistema de arquivos em %s"
+msgstr "Criando o sistema de arquivos %s em %s"
 
 #: storage/formats/fs.py:454
 msgid "Resizing"
@@ -6543,10 +6543,10 @@ msgid ""
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
 msgstr ""
-"<b>Dica:</b> Se você selecionar um drive nesta tela, não significa que este "
-"será apagado pelo processo de instalação. Da mesma forma, observe que após a "
-"instalação, você poderá montar drives que você não selecionou aqui, "
-"modificando seu /etc/fstab file."
+"<b>Dica:</b> Ao selecionar um drive nesta tela, não significa que este será "
+"apagado pelo processo de instalação.  Da mesma forma, observe que após a "
+"instalação, você poderá montar os drives que você não selecionou aqui, "
+"modificando o seu arquivo /etc/fstab."
 
 #: ui/filter.glade.h:4
 msgid "Add Advanced Target"
