@@ -245,20 +245,21 @@ def availableClasses(showHidden=0):
     else:
         if allClasses_hidden: return allClasses_hidden
 
-    if os.access("installclasses", os.R_OK):
-	path = "installclasses"
-    elif os.access("/tmp/updates/installclasses", os.R_OK):
-        path = "/tmp/updates/installclasses"
-    elif os.access("/tmp/product/installclasses", os.R_OK):
-        path = "/tmp/product/installclasses"
-    else:
-	path = "/usr/lib/anaconda/installclasses"
+    path = []
+
+    for dir in ["installclasses", "/tmp/updates/installclasses",
+                "/tmp/product/installclasses", "/usr/lib/anaconda/installclasses"]:
+        if os.access(dir, os.R_OK):
+            path.append(dir)
 
     # append the location of installclasses to the python path so we
     # can import them
-    sys.path.insert(0, path)
+    sys.path = path + sys.path
 
-    files = os.listdir(path)
+    files = []
+    for p in reversed(path):
+        files += os.listdir(p)
+
     done = {}
     list = []
     for file in files:

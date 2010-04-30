@@ -27,7 +27,7 @@ import types
 import installmethod
 import yuminstall
 
-class RHELInstallClass(BaseInstallClass):
+class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
