@@ -45,7 +45,8 @@ class RaidEditor:
 	store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			      gobject.TYPE_STRING,
 			      gobject.TYPE_STRING)
-	partlist = WideCheckList(2, store)
+	partlist = WideCheckList(2, store, 
+                                 clickCB=self.raidlist_toggle_callback)
 
 	sw = gtk.ScrolledWindow()
 	sw.add(partlist)
@@ -137,6 +138,7 @@ class RaidEditor:
 	    return []
 	
 	while 1:
+	    self.allow_ok_button()
 	    rc = self.dialog.run()
 
 	    # user hit cancel, do nothing
@@ -400,7 +402,7 @@ class RaidEditor:
 	dialog = gtk.Dialog(tstr, self.parent)
 	gui.addFrame(dialog)
 	dialog.add_button('gtk-cancel', 2)
-	dialog.add_button('gtk-ok', 1)
+	self.ok_button = dialog.add_button('gtk-ok', 1)
 	dialog.set_position(gtk.WIN_POS_CENTER)
 
 	maintable = gtk.Table()
@@ -576,7 +578,37 @@ class RaidEditor:
 	self.dialog = dialog
 	return
 
+    def allow_ok_button(self, path=None):
+        """
+        Determine if the OK button should be enabled.
+        
+        If path is given it points to the row where the toggle state is about to
+        change.
+        """
+        model = self.raidlist.get_model()
+        allow = False
+        iter = model.get_iter_first()
+        toggled_iter = None
+        if path:
+            toggled_iter = model.get_iter(path)
+        while iter:
+            val = model.get_value(iter, 0)
+            if toggled_iter and \
+                    model.get_value(toggled_iter, 1) == \
+                    model.get_value(iter, 1):
+                # this is being toggled, negate the value:
+                if not val:
+                    allow = True
+            else:
+                if val:
+                    allow = True
+            iter = model.iter_next(iter)
 
+        self.ok_button.set_sensitive(allow)
+
+    def raidlist_toggle_callback(self, data, path):
+        self.allow_ok_button(path)
+        return 1
 
 class RaidCloneDialog:
     def createDriveList(self, disks):
