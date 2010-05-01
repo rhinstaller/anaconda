@@ -707,13 +707,15 @@ class VolumeGroupEditor:
                     templv.size = size
                 except ValueError:
                     self.intf.messageWindow(_("Not enough space"),
-                                            _("The logical volumes you have "
-                                              "configured require %(size)d MB,"
-                                              " but the volume group only has "
-                                              "%(tempvgsize)d MB.  Please "
-                                              "either make the volume group "
-                                              "larger or make the logical "
-                                              "volume(s) smaller.")
+                                            _("The size entered for this "
+                                              "logical volume (%(size)d MB) "
+                                              "combined with the size of the "
+                                              "other logical volume(s) "
+                                              "exceeds the size of the "
+                                              "volume group (%(tempvgsize)d "
+                                              "MB). Please make the volume "
+                                              "group larger or make the "
+                                              "logical volume smaller.")
                                               % {'size': size,
                                                  'tempvgsize': tempvg.size},
                                             custom_icon="error")
