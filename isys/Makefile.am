@@ -52,4 +52,10 @@ libisys_la_LDFLAGS    = -static
 libisys_la_LIBADD     = $(ISYS_LIBS)
 libisys_la_SOURCES    = $(ISYS_SRCS)
 
+auditddir             = $(libdir)/$(PACKAGE_NAME)-runtime
+auditd_PROGRAMS       = auditd
+auditd_SOURCES        = auditd.c
+auditd_CFLAGS         = -DSTANDALONE $(SELINUX_CFLAGS)
+auditd_LDADD          = $(SELINUX_LIBS) $(LIBNL_LIBS)
+
 MAINTAINERCLEANFILES = Makefile.in

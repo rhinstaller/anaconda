@@ -60,6 +60,18 @@ def startMetacityWM():
             sys.exit(0)
     return childpid
 
+def startAuditDaemon():
+    childpid = os.fork()
+    if not childpid:
+        cmd = '/sbin/auditd'
+        try:
+            os.execl(cmd, cmd)
+        except OSError as e:
+            log.error("Error running the audit daemon: %s" % str(e))
+        sys.exit(0)
+    # auditd will turn into a daemon so catch the immediate child pid now:
+    os.waitpid(childpid, 0)
+
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions(runres="800x600"):
     global wm_pid
@@ -762,7 +774,7 @@ if __name__ == "__main__":
         opts.isHeadless = True
 
     if not flags.livecdInstall:
-        isys.auditDaemon()
+        startAuditDaemon()
 
     # setup links required for all install types
     for i in ( "services", "protocols", "nsswitch.conf", "joe", "selinux",

@@ -163,6 +163,7 @@ GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
 GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
 MKS390CDBOOT=$IMGPATH/usr/lib/anaconda-runtime/mk-s390-cdboot
 GENMODINFO=$IMGPATH/usr/lib/anaconda-runtime/genmodinfo
+LIBEXECBINDIR=$IMGPATH/usr/lib/anaconda-runtime
 KEYMAPS=$TMPDIR/keymaps-$BUILDARCH.$$
 SCREENFONT=$IMGPATH/usr/lib/anaconda-runtime/screenfont-${BASEARCH}.gz
 MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
@@ -667,6 +668,7 @@ makeinitrd() {
         instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
         cp -a $IMGPATH/usr/sbin/*_cio_free $MBD_DIR/sbin
     fi
+    instbin $IMGPATH ${LIBEXECBINDIR##$IMGPATH}/auditd $MBD_DIR /sbin/auditd
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
        install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
