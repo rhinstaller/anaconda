@@ -22,7 +22,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-26 10:19-1000\n"
-"PO-Revision-Date: 2010-04-30 14:51-0300\n"
+"PO-Revision-Date: 2010-05-03 12:03-0300\n"
 "Last-Translator: Taylon Silmer <taylonsilva@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <trans-pt_br@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -2318,7 +2318,7 @@ msgstr "%(name)s: %(msg)s"
 
 #: iw/autopart_type.py:228
 msgid "Use All Space"
-msgstr "Utilize todo o espaço:"
+msgstr "Utilizar todo o espaço:"
 
 #: iw/autopart_type.py:230
 msgid ""
@@ -2493,7 +2493,7 @@ msgstr "Fabricante"
 #: iw/cleardisks_gui.py:124 iw/filter_gui.py:450 iw/filter_gui.py:470
 #: iw/filter_gui.py:481 iw/filter_gui.py:492
 msgid "Interconnect"
-msgstr "Interconectar"
+msgstr "Interconector"
 
 #: iw/cleardisks_gui.py:125 iw/filter_gui.py:451 iw/filter_gui.py:482
 #: iw/filter_gui.py:493
@@ -2633,7 +2633,7 @@ msgstr "Sistema Linux desconhecido"
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr ""
-"<b>%s dispositivos (%s MB) selecionados</b> fora do %s total dos (%s MB) "
+"<b>%s dispositivo(s) (%s MB) selecionado(s)</b> fora do total dos %s (%s MB) "
 "dispositivos."
 
 #: iw/filter_gui.py:397
@@ -3104,11 +3104,11 @@ msgstr "Ocorreu um erro ao configurar o dispositivo de rede:"
 
 #: iw/network_gui.py:72 iw/network_gui.py:78
 msgid "Error with Hostname"
-msgstr "Erro no nome de máquina"
+msgstr "Erro no nome da máquina"
 
 #: iw/network_gui.py:73
 msgid "You must enter a valid hostname for this computer."
-msgstr "Você deve digitar um nome de máquina válido para este computador."
+msgstr "Você deve digitar um nome válido para este computador."
 
 #: iw/network_gui.py:79
 #, python-format
@@ -3117,7 +3117,7 @@ msgid ""
 "\n"
 "%(herrors)s"
 msgstr ""
-"O nome de máquina \"%(hostname)s\" não é válido pela seguinte razão:\n"
+"O nome \"%(hostname)s\" não é válido pela seguinte razão:\n"
 "\n"
 "%(herrors)s"
 
@@ -6574,7 +6574,7 @@ msgid ""
 "Vendor\n"
 "Identifier"
 msgstr ""
-"Interconectar\n"
+"Interconector\n"
 "Fabricante\n"
 "Identificador"
 
@@ -6733,14 +6733,14 @@ msgstr "Configurar a rede"
 
 #: ui/network.glade.h:2
 msgid "Hostname:"
-msgstr "Nome de máquina:"
+msgstr "Nome da máquina:"
 
 #: ui/network.glade.h:3
 msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
 msgstr ""
-"Por favor, nomeie este computador.  O nome de máquina identifica o "
+"Por favor, nomeie este computador.  O nome da máquina identifica o "
 "computador em uma rede."
 
 #: ui/tasksel.glade.h:1
