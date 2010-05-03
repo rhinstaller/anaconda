@@ -990,35 +990,50 @@ class InstallInterface(InstallInterfaceBase):
             self.anaconda.network.update()
 
             if just_setup:
-                # TODORV check which devices were actually activated by nmce
-                # and which we should wait for (the case for more than one
-                # device)
-                onboot_devs = self.anaconda.network.getOnbootIfaces()
-                if onboot_devs:
-                    install_device = onboot_devs[0]
+                waited_devs = self.anaconda.network.getOnbootIfaces()
+            else:
+                waited_devs = [install_device]
 
             self.anaconda.network.write()
 
-            if install_device:
+            if waited_devs:
                 w = WaitWindow(_("Waiting for NetworkManager"),
-                               _("Waiting for NetworkManager to get connection."))
-                networkEnabled = self.anaconda.network.waitForConnection()
-                if not networkEnabled and not just_setup:
-                    self._handleNetworkError(install_device)
+                               _("Waiting for NetworkManager to activate "
+                                 "these devices: %s" % ",".join(waited_devs)))
+                failed_devs = self.anaconda.network.waitForDevicesActivation(waited_devs)
                 w.pop()
+
+                if just_setup:
+                    if failed_devs:
+                        self._handleDeviceActivationFail(failed_devs)
+                else:
+                    networkEnabled = install_device not in failed_devs
+                    if not networkEnabled:
+                        self._handleNetworkError(install_device)
 
             if just_setup:
                 break
 
         return networkEnabled
 
+    def _handleDeviceActivationFail(self, devices):
+        d = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR,
+                              gtk.BUTTONS_OK,
+                              _("Failed to activate these "
+                                "network interfaces: %s" %
+                                ",".join(devices)))
+        d.set_title(_("Network Configuration"))
+        d.set_position(gtk.WIN_POS_CENTER)
+        addFrame(d)
+        d.run()
+        d.destroy()
 
     def _handleNetworkError(self, field):
         d = gtk.MessageDialog(None, 0, gtk.MESSAGE_ERROR,
                               gtk.BUTTONS_OK,
                               _("An error occurred trying to bring up the "
                                 "%s network interface.") % (field,))
-        d.set_title(_("Error Configuring Network"))
+        d.set_title(_("Error Enabling Network"))
         d.set_position(gtk.WIN_POS_CENTER)
         addFrame(d)
         d.run()
