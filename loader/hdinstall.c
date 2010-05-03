@@ -152,7 +152,7 @@ char * mountHardDrive(struct installMethod * method,
 
         ksdirectory = ((struct hdInstallData *)loaderData->stage2Data)->directory;
         if (ksdirectory) {
-            if (g_strrstr(ksdirectory, ".img")) {
+            if (g_str_has_suffix(ksdirectory, ".img")) {
                 ksdirectory = g_strdup(ksdirectory);
             } else {
                 ksdirectory = g_strconcat(ksdirectory, imgpath, NULL);
@@ -312,7 +312,7 @@ char * mountHardDrive(struct installMethod * method,
         /* If the user-provided URL points at a repo instead of a stage2
          * image, fix that up now.
          */
-        if (g_strrstr(dir, ".img") == NULL) {
+        if (!g_str_has_suffix(dir, ".img")) {
             char *tmp = g_strconcat(dir, imgpath, NULL);
             g_free(dir);
             dir = tmp;
