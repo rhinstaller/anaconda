@@ -281,14 +281,16 @@ class BootImages:
 
             type = part.format.type
 
-            if type in dosFilesystems and not foundDos and doesDualBoot():
+            if type in dosFilesystems and not foundDos and doesDualBoot() and \
+               not part.getFlag(parted.PARTITION_DIAG):
                 try:
                     bootable = checkForBootBlock(part.path)
                     retval.append((part, type))
                     foundDos = True
                 except:
                     pass
-            elif type in ["ntfs", "hpfs"] and not foundDos and doesDualBoot():
+            elif type in ["ntfs", "hpfs"] and not foundDos and \
+                 doesDualBoot() and not part.getFlag(parted.PARTITION_DIAG):
                 retval.append((part, type))
                 # maybe questionable, but the first ntfs or fat is likely to
                 # be the correct one to boot with XP using ntfs
