@@ -229,12 +229,12 @@ class InstallData:
                     (part, dir) = string.split(m[3:], ":")
 
                 f.write("harddrive --partition=%s --dir=%s\n" % (part, dir))
-            elif m.startswith("nfs:"):
+            elif m.startswith("nfs:") or m.startswith("nfsiso:"):
                 if m.count(":") == 3:
-                    (server, opts, dir) = string.split(m[4:], ":")
+                    (method, server, opts, dir) = m.split(":")
                     f.write("nfs --server=%s --opts=%s --dir=%s" % (server, opts, dir))
                 else:
-                    (server, dir) = string.split(m[4:], ":")
+                    (method, server, dir) = m.split(":")
                     f.write("nfs --server=%s --dir=%s\n" % (server, dir))
             elif m.startswith("ftp://") or m.startswith("http"):
                 f.write("url --url=%s\n" % urllib.unquote(m))
