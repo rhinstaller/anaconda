@@ -162,6 +162,7 @@ mkdir -p $INSTIMGPATH
 # Stuff that we need
 TRIMPCIIDS=$IMGPATH/usr/libexec/anaconda/trimpciids
 GETKEYMAPS=$IMGPATH/usr/libexec/anaconda/getkeymaps
+LIBEXECBINDIR=$IMGPATH/usr/libexec/anaconda
 GENINITRDSZ=$IMGPATH/usr/$LIBDIR/anaconda/geninitrdsz
 MKS390CDBOOT=$IMGPATH/usr/$LIBDIR/anaconda/mk-s390-cdboot
 GENMODINFO=$IMGPATH/usr/libexec/anaconda/genmodinfo
@@ -666,6 +667,7 @@ makeinitrd() {
         instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
         cp -a $IMGPATH/usr/sbin/*_cio_free $MBD_DIR/sbin
     fi
+    instbin $IMGPATH ${LIBEXECBINDIR##$IMGPATH}/auditd $MBD_DIR /sbin/auditd
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
        install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
