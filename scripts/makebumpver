@@ -115,6 +115,9 @@ class MakeBumpVer:
         else:
             ret = filter(lambda x: x != '', ret)
 
+        if field == '%b' and not isinstance(ret, type([])):
+            ret = [ret]
+
         return ret
 
     def _queryBug(self, bug):

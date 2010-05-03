@@ -221,6 +221,54 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon May 03 2010 David Cantrell <dcantrell@redhat.com> - 13.21.34-1
+- Use g_str_has_suffix() to check end of string (dcantrell)
+  Related: rhbz#522064
+- Add repos for all addons in all enabled repositories (clumens).
+  Resolves: rhbz#580697
+- Remove an unnecessary network test and bringup in doConfigSetup. (clumens)
+  Related: rhbz#580697
+- Add a method that fetches and returns the .treeinfo file. (clumens)
+  Related: rhbz#580697
+- Find stage2 install.img on local hd installs (dcantrell)
+  Related: rhbz#522064
+- Copy install.img to install target on http installs. (pjones)
+  Resolves: rhbz#549653
+- Make sure the install.img exists before attempting to copy (clumens).
+  Resolves: rhbz#549653
+- Copy install.img and remount no matter how many discs (pjones)
+  Resolves: rhbz#549653
+- Prevent root-on-xfs (akozumpl).
+  Resolves: rhbz#498002
+- gui: gray out OK button while adding raid set (akozumpl).
+  Resolves: rhbz#587161
+- Strip quoting from OPTIONS when composing rd_CCW line (dcantrell).
+  Resolves: rhbz#577193
+- Add all possible install class locations to the search path (clumens).
+  Resolves: rhbz#587696
+- Print out device sizes in list-harddrives-stub as well (clumens).
+  Resolves: rhbz#587395
+- Wait for scsi adapters to be done with scanning their busses (hdegoede)
+  Resolves: rhbz#583143
+- Add new return code check for isomd5sum's mediaCheckFile (rvykydal).
+  Resolves: rhbz#586359
+- fix: mnemonics don't work in the welcome screen until user clicks (akozumpl).
+  Resolves: rhbz#587157
+- Set CURL_FAILONERROR to catch url download errors (dcantrell)
+  Resolves: rhbz#586925
+- Bring up network for local hd vnc kickstart installs (dcantrell)
+  Resolves: rhbz#522064
+- gui: no close buttons etc. in window decoration (akozumpl)
+  Resolves: rhbz#582645
+- Added clear command to the install.img (mgracik)
+  Resolves: rhbz#586499
+- Added chvt to the install.img (mgracik)
+  Resolves: rhbz#575844
+- Don't clear BIOS RAID member disks (hdegoede)
+  Resolves: rhbz#586985
+- Remove devices from libparted's cache when destroying them (hdegoede)
+  Resolves: rhbz#568346
+
 * Wed Apr 28 2010 David Cantrell <dcantrell@redhat.com> - 13.21.33-1
 - Offer to format unformatted DASD devices (dcantrell)
   Resolves: rhbz#560702
