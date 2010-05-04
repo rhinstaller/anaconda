@@ -84,11 +84,11 @@ class DASD:
             f.close()
 
             if status in ["unformatted"] and device not in exclusiveDisks:
-                bypath = deviceNameToDiskByPath("/dev/" + device)
+                bypath = deviceNameToDiskByPath(device)
                 log.info("    %s (%s) status is %s, needs dasdfmt" % (device,
                                                                       bypath,
                                                                       status,))
-                self._dasdlist.append(device)
+                self._dasdlist.append((device, bypath))
 
         if not len(self._dasdlist):
             log.info("    no unformatted DASD devices found")
@@ -103,14 +103,12 @@ class DASD:
                      "command, unable to run dasdfmt, exiting installer")
             sys.exit(0)
 
-        tmplist = map(lambda s: "/dev/" + s, self._dasdlist)
-        self._dasdlist = map(lambda s: deviceNameToDiskByPath(s), tmplist)
         c = len(self._dasdlist)
 
         if intf and askUser:
             devs = ''
-            for dasd in self._dasdlist:
-                devs += "%s\n" % (dasd,)
+            for dasd, bypath in self._dasdlist:
+                devs += "/dev/disk/by-path/%s\n" % (bypath,)
 
             rc = intf.questionInitializeDASD(c, devs)
             if rc == 1:
@@ -123,8 +121,8 @@ class DASD:
 
         # gather total cylinder count
         argv = ["-t", "-v"] + self.commonArgv
-        for dasd in self._dasdlist:
-            buf = iutil.execWithCapture(self.dasdfmt, argv + [dasd],
+        for dasd, bypath in self._dasdlist:
+            buf = iutil.execWithCapture(self.dasdfmt, argv + ["/dev/" + dasd],
                                         stderr=err)
             for line in buf.splitlines():
                 if line.startswith("Drive Geometry: "):
@@ -148,10 +146,9 @@ class DASD:
             else:
                 pw = intf.progressWindow(title, msg, 100, pulse=True)
 
-        for dasd in self._dasdlist:
-            bypath = deviceNameToDiskByPath("/dev/" + dasd)
-            log.info("Running dasdfmt on %s" % (bypath,))
-            arglist = argv + [dasd]
+        for dasd, bypath in self._dasdlist:
+            log.info("Running dasdfmt on /dev/disk/by-path/%s" % (bypath,))
+            arglist = argv + ["/dev/" + dasd]
 
             try:
                 if intf and self.totalCylinders:
@@ -173,8 +170,8 @@ class DASD:
             if rc:
                 raise DasdFormatError("dasdfmt failed: %s" % rc, bypath)
 
-            if intf:
-                pw.pop()
+        if intf:
+            pw.pop()
 
     def addDASD(self, dasd):
         """ Adds a DASDDevice to the internal list of DASDs. """
