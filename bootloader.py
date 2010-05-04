@@ -232,9 +232,12 @@ def writeBootloader(anaconda):
     dosync()
 
 def hasWindows(bl):
+    if not booty.doesDualBoot():
+        return False
+
     foundWindows = False
-    for (k,v) in bl.images.getImages().iteritems():
-        if v[0].lower() == 'other' and v[2] in bootloaderInfo.dosFilesystems:
+    for (dev, type) in bl.images.availableBootDevices(bl.storage):
+        if type in booty.dosFilesystems:
             foundWindows = True
             break
 
