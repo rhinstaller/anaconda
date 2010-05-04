@@ -1,11 +1,12 @@
 /*
- * geninitrdsz.c
- * Generate initrd.size file for zSeries platforms.
+ * addrsize.c
+ * Generate initrd.addrsize file for s390x platforms.
  * Takes an integer argument and writes out the binary representation of
- * that value to the initrd.size file.
+ * that value to the initrd.addrsize file.
  * https://bugzilla.redhat.com/bugzilla/show_bug.cgi?id=197773
+ * https://bugzilla.redhat.com/show_bug.cgi?id=546422
  *
- * Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2007-2010  Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,30 +34,54 @@
 #include <string.h>
 
 int main(int argc,char **argv) {
-    unsigned int zero = 0;
-    int fd;
-    unsigned int size;
-    mode_t mode = S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH;
+    char *cmd = basename(argv[0]);
+    char *address = NULL, *input = NULL, *output = NULL;
+    struct stat initrd_stat;
+    unsigned int addr = 0, size = 0, zero = 0;
+    int fd, rc;
+    char *tmp = NULL;
 
-    if (argc != 3) {
-        printf("Usage: %s [integer size] [output file]\n", basename(argv[0]));
-        printf("Example: %s 12288475 initrd.size\n", basename(argv[0]));
-        return 0;
+    if (argc != 4) {
+        printf("Generate initrd address and size file used by the .ins LPAR load mechanism\n");
+        printf("Usage: %s [address] [initrd] [output file]\n", cmd);
+        printf("Example: %s 0x02000000 initrd.img initrd.addrsize\n", cmd);
+        return 1;
     }
 
-    size = htonl(atoi(argv[1]));
-    fd = open(argv[2], O_CREAT | O_RDWR, mode);
+    address = argv[1];
+    input = argv[2];
+    output = argv[3];
+
+    rc = stat(input, &initrd_stat);
+    if (rc) {
+        perror("Error getting initrd stats ");
+        return 2;
+    }
+
+    addr = htonl(strtoul(address, &tmp, 0));
+    size = htonl(initrd_stat.st_size);
+    fd = open(output, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
 
     if (write(fd, &zero, sizeof(int)) == -1) {
-        perror("writing initrd.size (zero)");
-        return errno;
+        perror("writing initrd.addr (zero) ");
+        return 3;
     }
 
-    if (write(fd, &size, sizeof(int)) == -1) {
-        perror("writing initrd.size (size)");
-        return errno;
+    if (write(fd, &addr, sizeof(int)) == -1) {
+        perror("writing initrd.addr (zero) ");
+        return 4;
+    }
+
+    if (write(fd, &zero, sizeof(int)) == -1) {
+        perror("writing initrd.addr (zero) ");
+        return 5;
+    }
+
+    if (write(fd, &addr, sizeof(int)) == -1) {
+        perror("writing initrd.addr (zero) ");
+        return 6;
     }
 
     close(fd);
-    return 0;
+    return EXIT_SUCCESS;
 }
