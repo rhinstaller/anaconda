@@ -30,7 +30,7 @@
 	<widget class="GtkLabel" id="label1">
 	  <property name="width_request">600</property>
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes">Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data drives (these will not be formatted, only mounted) and which devices you'd like to use as system drives (these may be formatted).  Please also indicate which system drive will have the bootloader installed.</property>
+	  <property name="label" translatable="yes">Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data devices (these will not be formatted, only mounted) and which devices you'd like to use as installation target devices (these may be formatted).  Please also indicate which system drive will have the bootloader installed.</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">False</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
