@@ -126,6 +126,9 @@ class KernelArguments:
             if bootDev is not rootDev:
                 neededDevs = [ rootDev, bootDev ]
 
+        if self.anaconda.storage.fsset.swapDevices:
+            neededDevs.append(self.anaconda.storage.fsset.swapDevices[0])
+
         for s in bootArgs + \
                  self.getDracutStorageArgs(neededDevs) + [
                  self.anaconda.instLanguage.dracutSetupString(),
