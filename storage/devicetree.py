@@ -1356,15 +1356,14 @@ class DeviceTree(object):
         if self.zeroMbr:
             initcb = lambda: True
         else:
-            path = device.path
             description = device.description or device.model
-            bypath = os.path.basename(deviceNameToDiskByPath(path))
+            bypath = os.path.basename(deviceNameToDiskByPath(device.name))
             if bypath:
                 details = "\n\nDevice details:\n%s" % (bypath,)
             else:
                 details = ""
 
-            initcb = lambda: self.intf.questionInitializeDisk(path,
+            initcb = lambda: self.intf.questionInitializeDisk(bypath,
                                                               description,
                                                               device.size,
                                                               details)

@@ -148,28 +148,14 @@ def devicePathToName(devicePath):
 
 
 def deviceNameToDiskByPath(deviceName=None):
-    bypath = '/dev/disk/by-path'
-
     if not deviceName:
         return ""
 
-    if not os.path.isdir(bypath):
-        return ""
+    for dev in udev_get_block_devices():
+        if udev_device_get_name(dev) == deviceName:
+            return udev_device_get_path(dev)
 
-    deviceName = os.path.basename(deviceName)
-
-    for path in os.listdir(bypath):
-        entry = bypath + '/' + path
-
-        if os.path.islink(entry):
-            target = os.path.basename(os.readlink(entry))
-        else:
-            target = os.path.basename(entry)
-
-        if target == deviceName:
-            return entry
-
-    return ""
+    return deviceName
 
 
 class Device(object):
@@ -1105,7 +1091,7 @@ class PartitionDevice(StorageDevice):
     def fstabSpec(self):
         spec = self.path
         if self.disk and self.disk.type == 'dasd':
-            spec = deviceNameToDiskByPath(self.path)
+            spec = deviceNameToDiskByPath(self.name)
         elif self.format and self.format.uuid:
             spec = "UUID=%s" % self.format.uuid
         return spec
