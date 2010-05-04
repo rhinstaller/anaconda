@@ -660,8 +660,8 @@ makeinitrd() {
         instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/shutdown $MBD_DIR /sbin/shutdown
         instbin $IMGPATH /usr/share/anaconda/linuxrc.s390 $MBD_DIR /sbin/init
         ( cd $MBD_DIR/sbin
-          ln -sf linuxrc.s390 reboot
-          ln -sf linuxrc.s390 halt
+          ln -sf init reboot
+          ln -sf init halt
         )
         instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
         cp -a $IMGPATH/usr/sbin/*_cio_free $MBD_DIR/sbin
