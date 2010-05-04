@@ -60,7 +60,7 @@ class Security:
             f.write("authconfig %s\n" % self.auth)
 
     def write(self, instPath):
-        args = [ "--quiet", "--nostart" ]
+        args = []
 
         if not selinux_states.has_key(self.selinux):
             log.error("unknown selinux state: %s" %(self.selinux,))
