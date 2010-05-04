@@ -289,12 +289,6 @@ class BootImages:
                     foundDos = True
                 except:
                     pass
-            elif type in ["ntfs", "hpfs"] and not foundDos and \
-                 doesDualBoot() and not part.getFlag(parted.PARTITION_DIAG):
-                retval.append((part, type))
-                # maybe questionable, but the first ntfs or fat is likely to
-                # be the correct one to boot with XP using ntfs
-                foundDos = True
             elif type == "appleboot" and iutil.getPPCMachine() == "PMac" and part.bootable:
                 foundAppleBootstrap = True
             elif type in ["hfs", "hfs+"] and foundAppleBootstrap:
