@@ -24,6 +24,7 @@ import iutil
 from time import *
 from snack import *
 from constants_text import *
+from bootloader import hasWindows
 from scdate.core import zonetab
 
 from constants import *
@@ -71,6 +72,9 @@ class TimezoneWindow:
 	bb = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 	t = TextboxReflowed(30, 
 			_("In which time zone are you located?"))
+
+        if not anaconda.ksdata and not hasWindows(anaconda.bootloader):
+            asUtc = True
 
 #
 # disabling this for now

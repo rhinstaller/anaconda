@@ -230,3 +230,12 @@ def writeBootloader(anaconda):
                                  "will not be changed."))
 
     dosync()
+
+def hasWindows(bl):
+    foundWindows = False
+    for (k,v) in bl.images.getImages().iteritems():
+        if v[0].lower() == 'other' and v[2] in bootloaderInfo.dosFilesystems:
+            foundWindows = True
+            break
+
+    return foundWindows
