@@ -1094,7 +1094,8 @@ class AnacondaYum(YumSorter):
                 return True
         if len(grp.mandatory_packages) > 0:
             return False
-        for pkg in grp.default_packages.keys() + grp.optional_packages.keys():
+        for pkg in grp.default_packages.keys() + grp.optional_packages.keys() + \
+                   grp.conditional_packages.keys():
             if self._pkgExists(pkg):
                 return True
         return False
