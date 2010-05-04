@@ -63,40 +63,6 @@
 /* boot flags */
 extern uint64_t flags;
 
-/* modprobe DD mode */
-int modprobeDDmode(void)
-{
-    FILE *f = fopen("/etc/depmod.d/ddmode.conf", "w");
-    if (f) {
-        struct utsname unamedata;
-
-        if (uname(&unamedata))
-            fprintf(f, " pblacklist /lib/modules\n");
-        else
-            fprintf(f, " pblacklist /lib/modules/%s\n", unamedata.release);
-        fclose(f);
-    }
-
-    return f==NULL;
-}
-
-int modprobeNormalmode(void)
-{
-    /* remove depmod overrides */
-    if (unlink("/etc/depmod.d/ddmode.conf")) {
-        logMessage(ERROR, "removing ddmode.conf failed");
-        return -1;
-    }
-
-    /* run depmod to refresh modules db */
-    if (system("depmod -a")) {
-        logMessage(ERROR, "depmod -a failed");
-        return -1;
-    }
-
-    return 0;
-}
-
 /*
  * check if the RPM in question provides
  * Provides: userptr
@@ -362,6 +328,7 @@ int getRemovableDevices(char *** devNames) {
     devs = getDevices(DEVICE_DISK | DEVICE_CDROM);
 
     if(devs) for (i = 0; devs[i] ; i++) {
+            logMessage(DEBUGLVL, "Considering device %s (isremovable: %d)", devs[i]->device, devs[i]->priv.removable);
         if (devs[i]->priv.removable) {
             *devNames = realloc(*devNames, (numDevices + 2) * sizeof(char *));
             (*devNames)[numDevices] = strdup(devs[i]->device);
@@ -383,7 +350,7 @@ int getRemovableDevices(char *** devNames) {
  * usecancel: if 1, use cancel instead of back
  */
 int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
-                        int usecancel, int noprobe) {
+                        int usecancel, int noprobe, GTree *moduleState) {
     char * device = NULL, * part = NULL, * ddfile = NULL;
     char ** devNames = NULL;
     enum { DEV_DEVICE, DEV_PART, DEV_CHOOSEFILE, DEV_LOADFILE, 
@@ -603,6 +570,9 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                 break;
             }
 
+            /* Unload all devices and load them again to use the updated modules */
+            logMessage(INFO, "Trying to refresh loaded drivers");
+            mlRestoreModuleState(moduleState);
             busProbe(0);
 
             devices = getDevices(class);
@@ -653,7 +623,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
 
 
 /* looping way to load driver disks */
-int loadDriverDisks(int class, struct loaderData_s *loaderData) {
+int loadDriverDisks(int class, struct loaderData_s *loaderData, GTree *moduleState) {
     int rc;
 
     rc = newtWinChoice(_("Driver disk"), _("Yes"), _("No"), 
@@ -661,7 +631,7 @@ int loadDriverDisks(int class, struct loaderData_s *loaderData) {
     if (rc != 1)
         return LOADER_OK;
 
-    rc = loadDriverFromMedia(DEVICE_ANY, loaderData, 1, 0);
+    rc = loadDriverFromMedia(DEVICE_ANY, loaderData, 1, 0, moduleState);
     if (rc == LOADER_BACK)
         return LOADER_OK;
 
@@ -670,23 +640,27 @@ int loadDriverDisks(int class, struct loaderData_s *loaderData) {
                            _("Do you wish to load any more driver disks?"));
         if (rc != 1)
             break;
-        loadDriverFromMedia(DEVICE_ANY, loaderData, 0, 0);
+        loadDriverFromMedia(DEVICE_ANY, loaderData, 0, 0, moduleState);
     } while (1);
 
     return LOADER_OK;
 }
 
-static void loadFromLocation(struct loaderData_s * loaderData, char * dir) {
+static void loadFromLocation(struct loaderData_s * loaderData, char * dir, GTree *moduleState) {
     if (verifyDriverDisk(dir) == LOADER_BACK) {
         logMessage(ERROR, "not a valid driver disk");
         return;
     }
 
     loadDriverDisk(loaderData, dir);
+
+    /* Unload all devices and load them again to use the updated modules */
+    logMessage(INFO, "Trying to refresh loaded drivers");
+    mlRestoreModuleState(moduleState);
     busProbe(0);
 }
 
-void getDDFromSource(struct loaderData_s * loaderData, char * src) {
+void getDDFromSource(struct loaderData_s * loaderData, char * src, GTree *moduleState) {
     char *path = "/tmp/dd.img";
     int unlinkf = 0;
 
@@ -706,7 +680,7 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src) {
      * scsi cdrom drives */
 #if !defined(__s390__) && !defined(__s390x__)
     } else if (!strncmp(src, "cdrom", 5)) {
-        loadDriverDisks(DEVICE_ANY, loaderData);
+        loadDriverDisks(DEVICE_ANY, loaderData, moduleState);
         return;
 #endif
     } else if (!strncmp(src, "path:", 5)) {
@@ -718,7 +692,7 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src) {
     }
 
     if (!mountLoopback(path, "/tmp/drivers", "/dev/loop6")) {
-        loadFromLocation(loaderData, "/tmp/drivers");
+        loadFromLocation(loaderData, "/tmp/drivers", moduleState);
         umountLoopback("/tmp/drivers", "/dev/loop6");
         unlink("/tmp/drivers");
         if (unlinkf) unlink(path);
@@ -726,7 +700,7 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src) {
 
 }
 
-static void getDDFromDev(struct loaderData_s * loaderData, char * dev);
+static void getDDFromDev(struct loaderData_s * loaderData, char * dev, GTree *moduleState);
 
 void useKickstartDD(struct loaderData_s * loaderData,
                     int argc, char ** argv) {
@@ -790,22 +764,22 @@ void useKickstartDD(struct loaderData_s * loaderData,
     }
 
     if (dev) {
-        getDDFromDev(loaderData, dev);
+        getDDFromDev(loaderData, dev, NULL);
     } else {
-        getDDFromSource(loaderData, src);
+        getDDFromSource(loaderData, src, NULL);
     }
 
     g_strfreev(remaining);
     return;
 }
 
-static void getDDFromDev(struct loaderData_s * loaderData, char * dev) {
+static void getDDFromDev(struct loaderData_s * loaderData, char * dev, GTree* moduleState) {
     if (doPwMount(dev, "/tmp/drivers", "auto", "ro", NULL)) {
         logMessage(ERROR, "unable to mount driver disk %s", dev);
         return;
     }
 
-    loadFromLocation(loaderData, "/tmp/drivers");
+    loadFromLocation(loaderData, "/tmp/drivers", moduleState);
     umount("/tmp/drivers");
     unlink("/tmp/drivers");
 }

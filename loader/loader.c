@@ -1380,7 +1380,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     break;
                 }
 
-                rc = loadDriverFromMedia(class, loaderData, 0, 0);
+                rc = loadDriverFromMedia(class, loaderData, 0, 0, NULL);
                 if (rc == LOADER_BACK) {
                     step = STEP_DRIVER;
                     dir = -1;
@@ -1800,6 +1800,7 @@ int main(int argc, char ** argv) {
 
     char *path, *fmt;
     GSList *dd, *dditer;
+    GTree *moduleState;
 
     gchar *cmdLine = NULL, *ksFile = NULL, *virtpcon = NULL;
     gboolean mediacheck = FALSE;
@@ -1964,9 +1965,6 @@ int main(int argc, char ** argv) {
     /* FIXME: this is a bit of a hack */
     loaderData.modInfo = modInfo;
 
-    /* Setup depmod & modprobe so we can load multiple DDs */
-    modprobeDDmode();
-
     /* If there is /.rundepmod file present, rerun depmod */
     if (!access("/.rundepmod", R_OK)){
         if (system("depmod -a")) {
@@ -1974,43 +1972,6 @@ int main(int argc, char ** argv) {
             logMessage(ERROR, "Error running depmod -a for initrd overlay");
         }
     }
-
-    if (FL_AUTOMODDISK(flags)) {
-        /* Load all autodetected DDs */
-        logMessage(INFO, "Trying to detect vendor driver discs");
-        dd = findDriverDiskByLabel();
-        dditer = dd;
-        while(dditer) {
-            /* load the DD */
-            if (loadDriverDiskFromPartition(&loaderData, (char*)(dditer->data))) {
-                logMessage(ERROR, "Automatic driver disk loader failed for %s.", (char*)(dditer->data));
-            }
-            else {
-                logMessage(INFO, "Automatic driver disk loader succeeded for %s.", (char*)(dditer->data));
-            }
-            
-            /* clean the device record */
-            free((char*)(dditer->data));
-            dditer->data = NULL;
-
-            /* next DD */
-            dditer = g_slist_next(dditer);
-        }
-        g_slist_free(dd);
-    }
-
-    if (FL_MODDISK(flags)) {
-        startNewt();
-        loadDriverDisks(DEVICE_ANY, &loaderData);
-    }
-
-    if (!access("/dd.img", R_OK)) {
-        logMessage(INFO, "found /dd.img, loading drivers");
-        getDDFromSource(&loaderData, "path:/dd.img");
-    }
-    
-    /* Reset depmod & modprobe to normal mode and get the rest of drivers*/
-    modprobeNormalmode();
 
     /* this allows us to do an early load of modules specified on the
      * command line to allow automating the load order of modules so that
@@ -2025,6 +1986,52 @@ int main(int argc, char ** argv) {
 
     earlyModuleLoad(0);
 
+    /* Save list of preloaded modules so we can restore the state */
+    moduleState = mlSaveModuleState();
+
+    /* Load all known devices */
+    busProbe(FL_NOPROBE(flags));
+
+    if (FL_AUTOMODDISK(flags)) {
+        /* Load all autodetected DDs */
+        logMessage(INFO, "Trying to detect vendor driver discs");
+        dd = findDriverDiskByLabel();
+        dditer = dd;
+        while(dditer) {
+            /* load the DD */
+            if (loadDriverDiskFromPartition(&loaderData, (char*)(dditer->data))) {
+                logMessage(ERROR, "Automatic driver disk loader failed for %s.", (char*)(dditer->data));
+            }
+            else {
+                logMessage(INFO, "Automatic driver disk loader succeeded for %s.", (char*)(dditer->data));
+
+                /* Unload all devices and load them again to use the updated modules */
+                mlRestoreModuleState(moduleState);
+                busProbe(0);
+            }
+            
+            /* clean the device record */
+            free((char*)(dditer->data));
+            dditer->data = NULL;
+
+            /* next DD */
+            dditer = g_slist_next(dditer);
+        }
+        g_slist_free(dd);
+    }
+
+    if (FL_MODDISK(flags)) {
+        startNewt();
+        loadDriverDisks(DEVICE_ANY, &loaderData, moduleState);
+    }
+
+    if (!access("/dd.img", R_OK)) {
+        logMessage(INFO, "found /dd.img, loading drivers");
+        getDDFromSource(&loaderData, "path:/dd.img", moduleState);
+    }
+    
+    /* Reset depmod & modprobe to normal mode and get the rest of drivers*/
+    mlFreeModuleState(moduleState);
     busProbe(FL_NOPROBE(flags));
 
     /* HAL daemon */
@@ -2056,7 +2063,7 @@ int main(int argc, char ** argv) {
      * we won't have network devices available (and that's the only thing
      * we support with this right now */
     if (loaderData.ddsrc != NULL) {
-        getDDFromSource(&loaderData, loaderData.ddsrc);
+        getDDFromSource(&loaderData, loaderData.ddsrc, NULL);
     }
 
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,

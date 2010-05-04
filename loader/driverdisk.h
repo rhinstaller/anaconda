@@ -32,9 +32,9 @@
 extern char *ddFsTypes[];
 
 int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
-                        int usecancel, int noprobe);
+                        int usecancel, int noprobe, GTree *moduleState);
 
-int loadDriverDisks(int class, struct loaderData_s *loaderData);
+int loadDriverDisks(int class, struct loaderData_s *loaderData, GTree *moduleState);
 
 int getRemovableDevices(char *** devNames);
 
@@ -42,13 +42,10 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData);
 void useKickstartDD(struct loaderData_s * loaderData, int argc, 
                     char ** argv);
 
-void getDDFromSource(struct loaderData_s * loaderData, char * src);
+void getDDFromSource(struct loaderData_s * loaderData, char * src, GTree *moduleState);
 
 int loadDriverDiskFromPartition(struct loaderData_s *loaderData, char* device);
 
 GSList* findDriverDiskByLabel(void);
-
-int modprobeNormalmode();
-int modprobeDDmode();
 
 #endif
