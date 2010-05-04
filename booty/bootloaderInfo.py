@@ -126,6 +126,9 @@ class KernelArguments:
             if bootDev is not rootDev:
                 neededDevs = [ rootDev, bootDev ]
 
+        if self.id.storage.fsset.swapDevices:
+            neededDevs.append(self.id.storage.fsset.swapDevices[0])
+
         for s in bootArgs + \
                  self.getDracutStorageArgs(neededDevs) + [
                  self.id.instLanguage.dracutSetupString(),
