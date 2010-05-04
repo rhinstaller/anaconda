@@ -216,11 +216,11 @@ else
     PACKAGES="$PACKAGES glibc openssl"
 fi
 
-if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = i686 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES pcmciautils grub"
 fi
 
-if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = i686 -o $ARCH = x86_64 -o $ARCH = ia64 ]; then
     PACKAGES="$PACKAGES dmidecode efibootmgr"
 fi
 
@@ -256,7 +256,7 @@ PACKAGESRESCUE="bzip2 bzip2-libs dump
                 firstaidkit-plugin-mdadm-conf firstaidkit-plugin-key-recovery
                 volume_key"
 
-if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = i686 -o $ARCH = x86_64 ]; then
   PACKAGESRESCUE="$PACKAGESRESCUE gpart grub firstaidkit-plugin-grub"
 fi
 
@@ -267,7 +267,7 @@ if [ $ARCH = sparc -o $ARCH = sparcv9 -o $ARCH = sparc64 ]; then
     PACKAGES="$PACKAGES tilo silo"
 fi
 
-if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = i686 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES syslinux memtest86+ grub"
 fi
 
@@ -893,7 +893,7 @@ usr/bin/whiptail
 usr/bin/firstaidkit-qs
 EOF
 
-if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = i686 -o $ARCH = x86_64 ]; then
     cat >> $KEEPFILERESCUE <<-EOF
 sbin/grub
 usr/bin/gpart
@@ -1114,7 +1114,7 @@ if [ $ARCH = ia64 ]; then
 fi
 
 # copy bootloader files for i386/x86_64
-if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = x86_64 ]; then
+if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = i686 -o $ARCH = x86_64 ]; then
     mkdir -p $DEST/usr/share/anaconda/boot
     cp -af $DEST/boot/memtest* $DEST/usr/share/anaconda/boot
 fi
