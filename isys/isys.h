@@ -20,8 +20,9 @@
 #ifndef H_ISYS
 #define H_ISYS
 
-#define MIN_RAM			131072
-#define MIN_GUI_RAM		393216
+#define MIN_RAM			262144 // 256 MB
+#define MIN_GUI_RAM		524288 // 512 MB
+#define URL_INSTALL_EXTRA_RAM   131072 // 128 MB
 #define EARLY_SWAP_RAM		524288
 
 #define OUTPUT_TERMINAL "/dev/tty5"

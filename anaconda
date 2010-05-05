@@ -349,24 +349,42 @@ def runVNC():
                     sys.stdin.readline()
                     iutil.execConsole()
 
-def checkMemory(anaconda):
-    if iutil.memInstalled() < isys.MIN_RAM:
-        from snack import SnackScreen, ButtonChoiceWindow
+def within_available_memory(needed_ram):
+    # kernel binary code estimate that is
+    # not reported in MemTotal by /proc/meminfo:
+    epsilon = 15360 # 15 MB
+    return needed_ram < (iutil.memInstalled() + epsilon)
 
+def check_memory(anaconda, opts, display_mode=None):
+
+    if not display_mode:
+        display_mode = anaconda.displayMode
+
+    extra_ram = 0
+    reason = ''
+    if opts.stage2.startswith(('http', 'ftp', '@')):
+        extra_ram += isys.URL_INSTALL_EXTRA_RAM
+        reason = " using this install method"
+
+    needed_ram = isys.MIN_RAM + extra_ram
+    if not within_available_memory(needed_ram):
+        from snack import SnackScreen, ButtonChoiceWindow
         screen = SnackScreen()
         ButtonChoiceWindow(screen, _('Fatal Error'),
                             _('You do not have enough RAM to install %s '
-                              'on this machine.\n'
+                              'on this machine%s.\n'
                               '\n'
                               'Press <return> to reboot your system.\n')
-                           %(product.productName,),
+                           %(product.productName, reason),
                            buttons = (_("OK"),))
         screen.finish()
         sys.exit(0)
 
     # override display mode if machine cannot nicely run X
-    if not flags.usevnc:
-        if anaconda.displayMode not in ('t', 'c') and iutil.memInstalled() < isys.MIN_GUI_RAM:
+    if display_mode not in ('t', 'c') and not flags.usevnc:
+        needed_ram = isys.MIN_GUI_RAM + extra_ram
+
+        if not within_available_memory(needed_ram):
             complain = _("You do not have enough RAM to use the graphical "
                          "installer.")
             if flags.livecdInstall:
@@ -545,6 +563,9 @@ if __name__ == "__main__":
     xserver_pid = None
 
     (opts, args) = parseOptions()
+
+    # check memory, just the text mode for now:
+    check_memory(anaconda, opts, 't')
 
     if opts.unsupportedMode:
         stdoutLog.error("Running anaconda in %s mode is no longer supported." % opts.unsupportedMode)
@@ -741,7 +762,7 @@ if __name__ == "__main__":
     log.info("Display mode = %s" % anaconda.displayMode)
     log.info("Default encoding = %s " % sys.getdefaultencoding())
 
-    checkMemory(anaconda)
+    check_memory(anaconda, opts)
 
     #
     # now determine if we're going to run in GUI or TUI mode
