@@ -224,7 +224,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         anaconda.id.instProgress = None
 
     def _doFilesystemMangling(self, anaconda):
-        # FIXME: this whole method is a big fucking mess
         log.info("doing post-install fs mangling")
         wait = anaconda.intf.waitWindow(_("Post-Installation"),
                                         _("Performing post-installation filesystem changes.  This may take several minutes."))
@@ -260,29 +259,39 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
         # this is pretty distasteful, but should work with things like
         # having a separate /usr/local
 
-        # now create a tree so that we know what's mounted under where
-        fsdict = {"/": []}
-        for mount in sorted(anaconda.id.storage.mountpoints.keys()):
-            entry = anaconda.id.storage.mountpoints[mount]
-            tocopy = entry.format.mountpoint
-            if tocopy.startswith("/mnt") or tocopy == "swap":
-                continue
-            keys = sorted(fsdict.keys(), reverse = True)
-            for key in keys:
-                if tocopy.startswith(key):
-                    fsdict[key].append(entry)
-                    break
-            fsdict[tocopy] = []
-        log.debug("mangling dict looks like %s" %(fsdict,))
+        def _setupFilesystems(mounts, chroot="", teardown=False):
+            """ Setup or teardown all filesystems except for "/" """
+            mountpoints = sorted(mounts.keys(),
+                                 reverse=teardown is True)
+            if teardown:
+                method = "teardown"
+                kwargs = {}
+            else:
+                method = "setup"
+                kwargs = {"chroot": chroot}
 
-        # and now let's do the real copies; and we don't want to copy /!
-        copied = ["/"]
-        for tocopy in sorted(fsdict.keys()):
-            if tocopy in copied:
-                continue
-            copied.append(tocopy)
-            copied.extend(map(lambda x: x.format.mountpoint, fsdict[tocopy]))
-            entry = anaconda.id.storage.mountpoints[tocopy]
+            mountpoints.remove("/")
+            for mountpoint in mountpoints:
+                device = mounts[mountpoint]
+                getattr(device.format, method)(**kwargs)
+
+        # Start by sorting the mountpoints in decreasing-depth order.
+        mountpoints = sorted(anaconda.id.storage.mountpoints.keys(),
+                             reverse=True)
+        # We don't want to copy the root filesystem.
+        mountpoints.remove("/")
+        stats = {} # mountpoint: posix.stat_result
+
+        # unmount the filesystems, except for /
+        _setupFilesystems(anaconda.id.storage.mountpoints, teardown=True)
+
+        # mount all of the filesystems under /mnt so we can copy in content
+        _setupFilesystems(anaconda.id.storage.mountpoints,
+                          chroot=anaconda.rootPath + "/mnt")
+
+        # And now let's do the real copies
+        for tocopy in mountpoints:
+            device = anaconda.id.storage.mountpoints[tocopy]
 
             # FIXME: all calls to wait.refresh() are kind of a hack... we
             # should do better about not doing blocking things in the
@@ -290,30 +299,56 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
             # time.
             wait.refresh()
 
-            # unmount subdirs + this one and then remount under /mnt
-            for e in fsdict[tocopy] + [entry]:
-                e.format.teardown()
-            for e in [entry] + fsdict[tocopy]:
-                e.format.setup(chroot=anaconda.rootPath + "/mnt")
+            if not os.path.exists("%s/%s" % (anaconda.rootPath, tocopy)):
+                # the directory does not exist in the live image, so there's
+                # nothing to move
+                continue
 
-            copytree("%s/%s" %(anaconda.rootPath, tocopy),
-                     "%s/mnt/%s" %(anaconda.rootPath, tocopy), True, True,
-                     flags.selinux)
-            shutil.rmtree("%s/%s" %(anaconda.rootPath, tocopy))
+            copytree("%s/%s" % (anaconda.rootPath, tocopy),
+                     "%s/mnt/%s" % (anaconda.rootPath, tocopy),
+                     True, True, flags.selinux)
+            wait.refresh()
+            shutil.rmtree("%s/%s" % (anaconda.rootPath, tocopy))
             wait.refresh()
 
-            # mount it back in the correct place
-            for e in fsdict[tocopy] + [entry]:
-                e.format.teardown()
-                try:
-                    os.rmdir("%s/mnt/%s" %(anaconda.rootPath,
-                                           e.format.mountpoint))
-                except OSError as e:
-                    log.debug("error removing %s" %(tocopy,))
-            for e in [entry] + fsdict[tocopy]:                
-                e.format.setup(chroot=anaconda.rootPath)
+        # now unmount each fs, collect stat info for the mountpoint, then
+        # remove the entire tree containing the mountpoint
+        for tocopy in mountpoints:
+            device = anaconda.id.storage.mountpoints[tocopy]
+            device.format.teardown()
+            if not os.path.exists("%s/%s" % (anaconda.rootPath, tocopy)):
+                continue
 
+            try:
+                stats[tocopy]= os.stat("%s/mnt/%s" % (anaconda.rootPath,
+                                                      tocopy))
+            except Exception as e:
+                log.info("failed to get stat info for mountpoint %s: %s"
+                            % (tocopy, e))
+
+            shutil.rmtree("%s/mnt/%s" % (anaconda.rootPath,
+                                         tocopy.split("/")[1]))
             wait.refresh()
+
+        # now mount all of the filesystems so that post-install writes end
+        # up where they're supposed to end up
+        _setupFilesystems(anaconda.id.storage.mountpoints,
+                          chroot=anaconda.rootPath)
+
+        # restore stat info for each mountpoint
+        for mountpoint in reversed(mountpoints):
+            if mountpoint not in stats:
+                # there's no info to restore since the mountpoint did not
+                # exist in the live image
+                continue
+
+            dest = "%s/%s" % (anaconda.rootPath, mountpoint)
+            st = stats[mountpoint]
+
+            # restore the correct stat info for this mountpoint
+            os.utime(dest, (st.st_atime, st.st_mtime))
+            os.chown(dest, st.st_uid, st.st_gid)
+            os.chmod(dest, stat.S_IMODE(st.st_mode))
 
         # ensure that non-fstab filesystems are mounted in the chroot
         if flags.selinux:
