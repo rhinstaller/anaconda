@@ -217,6 +217,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 04 2010 David Lehman <dlehman@redhat.com> - 13.40-1
+- Teach upd-instroot about i686 (jkeating)
+- Enable network if it is needed when repo is added in UI (#577803).
+  (rvykydal)
+- Tell dracut it should activate the first swap device (#572771) (hdegoede)
+- Add boot= argument to kernel cmdline when in fips mode (hdegoede)
+- Don't make all devices on the boot device selector immutable (#583028).
+  (clumens)
+- Do not use --quiet and --nostart when doing selinux configuration
+  (#568528) (msivak)
+- Check for not having found any disks after populating the tree (#588498)
+  (hdegoede)
+- Don't add recovery partitions to the grub boot menu (#534066) (hdegoede)
+- Default the global grub timeout to 5 for serial (jkeating)
+- Make sure a given path exists before calling os.statvfs on it (#587662).
+  (clumens)
+- Turn off BETANAG - we're getting close to the release (#587639). (clumens)
+- Don't clear BIOS RAID member disks (#587066) (hdegoede)
+- Remove devices from libparted's cache when destroying them (#586622)
+  (hdegoede)
+
 * Wed Apr 28 2010 David Lehman <dlehman@redhat.com> - 13.39-1
 - X input configuration has moved to /usr/share (#585621). (clumens)
 - Keep the selected device count right when going back to filtering
