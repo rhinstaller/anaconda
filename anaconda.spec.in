@@ -221,6 +221,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 04 2010 David Cantrell <dcantrell@redhat.com> - 13.21.35-1
+- Make deviceNameToDiskByPath check udev info instead of sysfs (dcantrell)
+  Related: rhbz#560702
+- Fix some minor problems in storage/dasd.py (dcantrell)
+  Resolves: rhbz#560702
+- Read in network settings correctly, as configured by linuxrc.s390 (dcantrell)
+  Related: rhbz#522064
+- Clean up wording for oversized LVs (dcantrell)
+  Resolves: rhbz#587459
+- Tell dracut it should activate the first swap device (hdegoede)
+  Resolves: rhbz#588351
+- Don't add recovery partitions to the grub boot menu (hdegoede)
+  Resolves: rhbz#588664
+- Add nfs options to kickstart if we use nfsiso (mgracik)
+  Resolves: rhbz#585136
+
 * Mon May 03 2010 David Cantrell <dcantrell@redhat.com> - 13.21.34-1
 - Use g_str_has_suffix() to check end of string (dcantrell)
   Related: rhbz#522064
