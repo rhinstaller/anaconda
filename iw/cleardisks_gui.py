@@ -171,6 +171,7 @@ class ClearDisksWindow (InstallWindow):
 
         # Also allow moving devices back and forth with double click, enter, etc.
         self.leftTreeView.connect("row-activated", self._add_clicked)
+        self.rightTreeView.disconnect(self.rightDS._activated_id)
         self.rightTreeView.connect("row-activated", self._remove_clicked)
 
         # And let the user select multiple devices at a time.

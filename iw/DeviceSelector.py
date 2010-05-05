@@ -156,7 +156,7 @@ class DeviceSelector(DeviceDisplayer):
 
         self.view.append_column(col)
         self.view.set_headers_clickable(True)
-        self.view.connect("row-activated", self._row_activated, toggledCB, radioButton)
+        self._activated_id = self.view.connect("row-activated", self._row_activated, toggledCB, radioButton)
 
     def _all_clicked(self, button, toggledCB=None, membershipCB=None):
         # This is called when the Add/Remove all button is checked and does
