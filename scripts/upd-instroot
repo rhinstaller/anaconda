@@ -957,6 +957,20 @@ cat > $GCONF_RULES_FILE <<EOF
         <string>:</string>
       </value>
     </entry>
+    <entry>
+      <key>metacity/general/action_right_click_titlebar</key>
+      <schema_key>/schemas/apps/metacity/general/action_right_click_titlebar</schema_key>
+      <value>
+        <string>none</string>
+      </value>
+    </entry>
+    <entry>
+      <key>metacity/window_keybindings/close</key>
+      <schema_key>/schemas/apps/metacity/window_keybindings/close</schema_key>
+      <value>
+        <string>disabled</string>
+      </value>
+    </entry>
   </entrylist>
 
 </gconfentryfile>
