@@ -105,7 +105,7 @@ class PartitionEditor:
             luksdev = None
 	    
             # user hit cancel, do nothing
-            if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 self.destroy()
                 return []
 
@@ -380,7 +380,7 @@ class PartitionEditor:
 	    
         self.dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(self.dialog)
-        self.dialog.add_button('gtk-cancel', 2)
+        self.dialog.add_button('gtk-cancel', gtk.RESPONSE_CANCEL)
         self.dialog.add_button('gtk-ok', 1)
         self.dialog.set_position(gtk.WIN_POS_CENTER)
         

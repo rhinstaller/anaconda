@@ -505,7 +505,7 @@ class VolumeGroupEditor:
         # Here is where the gtk crap begins.
         dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(dialog)
-        dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-cancel', gtk.RESPONSE_CANCEL)
         dialog.add_button('gtk-ok', 1)
         dialog.set_position(gtk.WIN_POS_CENTER)
 
@@ -569,7 +569,7 @@ class VolumeGroupEditor:
 
         while 1:
             rc = dialog.run()
-            if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 if isNew:
                     del self.lvs[lv['name']]
                 dialog.destroy()
@@ -958,7 +958,7 @@ class VolumeGroupEditor:
 	while 1:
 	    rc = self.dialog.run()
 
-	    if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
+	    if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
 		self.destroy()
 		return []
 
@@ -1285,7 +1285,7 @@ class VolumeGroupEditor:
 	    
         dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(dialog)
-        dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-cancel', gtk.RESPONSE_CANCEL)
         dialog.add_button('gtk-ok', 1)
 
         dialog.set_position(gtk.WIN_POS_CENTER)

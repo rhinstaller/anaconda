@@ -142,7 +142,7 @@ class RaidEditor:
 	    rc = self.dialog.run()
 
 	    # user hit cancel, do nothing
-	    if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
+	    if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
 		self.destroy()
 		return []
 
@@ -404,7 +404,7 @@ class RaidEditor:
 		
 	dialog = gtk.Dialog(tstr, self.parent)
 	gui.addFrame(dialog)
-	dialog.add_button('gtk-cancel', 2)
+	dialog.add_button('gtk-cancel', gtk.RESPONSE_CANCEL)
 	self.ok_button = dialog.add_button('gtk-ok', 1)
 	dialog.set_position(gtk.WIN_POS_CENTER)
 
@@ -787,7 +787,7 @@ class RaidCloneDialog:
 	    rc = self.dialog.run()
 
 	    # user hit cancel, do nothing
-	    if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
+	    if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
 		self.destroy()
 		return None
 
@@ -861,7 +861,7 @@ class RaidCloneDialog:
 	self.dialog = gtk.Dialog(_("Clone Drive Tool"), self.parent)
         self.dialog.set_default_size(500, 200)
 	gui.addFrame(self.dialog)
-	self.dialog.add_button('gtk-cancel', 2)
+	self.dialog.add_button('gtk-cancel', gtk.RESPONSE_CANCEL)
 	self.dialog.add_button('gtk-ok', 1)
 	self.dialog.set_position(gtk.WIN_POS_CENTER)
 

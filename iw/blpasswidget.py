@@ -97,7 +97,7 @@ class BootloaderPasswordWidget:
     # get the bootloader password
     def passwordWindow(self, *args):
         dialog = gtk.Dialog(_("Enter Boot Loader Password"), self.parent)
-        dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-cancel', gtk.RESPONSE_CANCEL)
         dialog.add_button('gtk-ok', 1)
         dialog.set_position(gtk.WIN_POS_CENTER)
         gui.addFrame(dialog)
@@ -132,7 +132,7 @@ class BootloaderPasswordWidget:
 
         while 1:
             rc = dialog.run()
-            if rc in [2, gtk.RESPONSE_DELETE_EVENT]:
+            if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
                 break
 
             if pwEntry.get_text() != confirmEntry.get_text():
