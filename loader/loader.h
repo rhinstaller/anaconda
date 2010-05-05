@@ -109,6 +109,7 @@
 #define FL_KICKSTART_SEND_SERIAL(a) ((a) & LOADER_FLAGS_KICKSTART_SEND_SERIAL)
 #define FL_AUTOMODDISK(a)        ((a) & LOADER_FLAGS_AUTOMODDISK)
 
+void doExit(int) __attribute__ ((noreturn));
 void startNewt(void);
 void stopNewt(void);
 char * getProductName(void);

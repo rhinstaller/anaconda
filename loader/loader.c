@@ -136,8 +136,7 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 static int expected_exit = 0;
 
-static void doExit(int) __attribute__ ((noreturn));
-static void doExit(int result)
+void doExit(int result)
 {
     expected_exit = 1;
     exit(result);

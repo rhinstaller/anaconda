@@ -202,7 +202,7 @@ int beTelnet(void) {
 
         kill(child, SIGTERM);
         close(conn);
-        exit(0);
+        doExit(0);
     }
 
     unlockpt(masterFd);
