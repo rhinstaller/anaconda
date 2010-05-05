@@ -732,13 +732,15 @@ def addPartition(disklabel, free, part_type, size):
 
     if part_type == parted.PARTITION_EXTENDED:
         end = free.end
+        length = end - start + 1
     else:
         # size is in MB
         length = sizeToSectors(size, disklabel.partedDevice.sectorSize)
         end = start + length - 1
-        if not disklabel.endAlignment.isAligned(free, end):
-            end = disklabel.endAlignment.alignNearest(free, end)
-            log.debug("adjusted length from %d to %d" % (length, end - start + 1))
+
+    if not disklabel.endAlignment.isAligned(free, end):
+        end = disklabel.endAlignment.alignNearest(free, end)
+        log.debug("adjusted length from %d to %d" % (length, end - start + 1))
 
     new_geom = parted.Geometry(device=disklabel.partedDevice,
                                start=start,
@@ -764,31 +766,12 @@ def getFreeRegions(disks):
 
             disks -- list of parted.Disk instances
 
-        Return value is a list of aligned parted.Geometry instances.
+        Return value is a list of unaligned parted.Geometry instances.
 
     """
     free = []
     for disk in disks:
         for f in disk.format.partedDisk.getFreeSpaceRegions():
-            # device alignment fixups
-            if not disk.format.alignment.isAligned(f, f.start):
-                try:
-                    f.start = disk.format.alignment.alignNearest(f, f.start)
-                except ArithmeticError, e:
-                    # This happens when the free region is too small to create
-                    # an aligned partition in it, ie the freespace between the
-                    # mbr and the first aligned partition
-                    continue
-
-            if not disk.format.endAlignment.isAligned(f, f.end):
-                try:
-                    f.end = disk.format.endAlignment.alignNearest(f, f.end)
-                except ArithmeticError, e:
-                    # This happens when the free region is too small to create
-                    # an aligned partition in it, ie the freespace after the
-                    # last aligned partition
-                    continue
-
             if f.length > 0:
                 free.append(f)
 
@@ -1502,10 +1485,8 @@ def growPartitions(disks, partitions, free):
             # adjust the extended partition as needed
             # we will ony resize an extended partition that we created
             log.debug("extended: %s" % extended_geometry)
-            # only check the start sector of the extended because its end
-            # sector is not aligned
             if extended_geometry and \
-               chunk.geometry.containsSector(extended_geometry.start):
+               chunk.geometry.contains(extended_geometry):
                 log.debug("setting up new geometry for extended on %s" % disk.name)
                 ext_start = 0
                 ext_end = 0
