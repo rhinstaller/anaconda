@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-04-15 10:46-0400\n"
-"PO-Revision-Date: 2010-04-26 14:02+0900\n"
+"PO-Revision-Date: 2010-05-06 15:10+0900\n"
 "Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: Plural-Forms: nplurals=1; plural=0;\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -2440,8 +2441,9 @@ msgid "Serial Number"
 msgstr "シリアル番号"
 
 #: iw/cleardisks_gui.py:139
+#, fuzzy
 msgid "Boot"
-msgstr "ブート"
+msgstr "/boot"
 
 #: iw/cleardisks_gui.py:176
 #, fuzzy
@@ -4553,9 +4555,8 @@ msgstr ""
 "ん。 恐らく、このディスクはチェックサムを追加しないで作成されています。"
 
 #: loader/mediacheck.c:94
-#, fuzzy
 msgid "Unable to open the image."
-msgstr "イメージを検出できません。"
+msgstr "イメージを開けません。"
 
 #: loader/mediacheck.c:98
 msgid ""
@@ -6230,6 +6231,7 @@ msgstr ""
 "ます。 バックアップがあることを確認して下さい。"
 
 #: ui/cleardisks.glade.h:4
+#, fuzzy
 msgid ""
 "Below are the storage devices you've selected to be a part of this "
 "installation.  Please indicate using the arrows below which devices you'd "
@@ -6239,7 +6241,8 @@ msgstr ""
 "このインストールの一部として選択したストレージデバイスを以下に示します。 以下"
 "の矢印を使用してデータドライブとして使用したいデバイス（これらはフォーマット"
 "されずにマウントされるだけ）と システムドライブとして使用したいデバイス（これ"
-"らはフォーマットできます）を示して下さい。 "
+"らはフォーマットできます）を示して下さい。また、ブートローダをインストールす"
+"るシステムドライブも示して下さい。 "
 
 #: ui/create-storage.glade.h:1
 #, fuzzy
@@ -6953,8 +6956,27 @@ msgstr "ズールー語"
 #~ msgstr "使用ストレージの設定をアクティベート中にエラーが発生しました。"
 
 #~ msgid ""
+#~ "Boot\n"
+#~ "Loader"
+#~ msgstr ""
+#~ "ブート\n"
+#~ " ローダー"
+
+#~ msgid ""
 #~ "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 #~ msgstr "%s device(s) 合計 (%s MB) の内 <b>%s device(s) (%s MB) を選択</b>"
+
+#~ msgid "No disks found"
+#~ msgstr "ディスクが見つかりません"
+
+#~ msgid "No usable disks have been found."
+#~ msgstr "使用可能なディスクは見付かりません。"
+
+#~ msgid ""
+#~ "Placing the root partition on an XFS filesystem is not supported in %s."
+#~ msgstr ""
+#~ "XFS ファイルシステム上に root パーティションを配置することは %s ではサポー"
+#~ "ト されていません。"
 
 #~ msgid ""
 #~ "This release of %(productName)s supports the an updated file system, "
