@@ -53,7 +53,7 @@ class RescueInterface(InstallInterfaceBase):
 
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_icon=None,
-                              custom_buttons=[]):
+                              custom_buttons=[], expanded=False):
         return self.messageWindow(title, text, type, default, custom_icon,
                                   custom_buttons)
 

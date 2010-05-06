@@ -109,7 +109,7 @@ class InstallInterface(InstallInterfaceBase):
 
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_buttons=None,
-                              custom_icon=None):
+                              custom_icon=None, expanded=False):
         if longText:
             text += "\n\n%s" % longText
 
