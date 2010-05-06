@@ -19,24 +19,37 @@
 
 makeefibootdisk()
 {
-    partimg=$1
-    target=$2
+    partimg=$1 && shift
+    target=$1 && shift
 
     if [ ! -f $1 ]; then
         return
     fi
 
-    local partsize=$(ls -l $1 | awk '{ print $5; }')
+    local partsize=$(/bin/ls -l $partimg | awk '{ print $5; }')
     local disksize=$((17408 + $partsize + 17408))
     disksize=$(($disksize + $(($disksize % 512))))
     local diskimg=$(mktemp /tmp/efidisk.img.XXXXXX)
     dd if=/dev/zero of=$diskimg count=1 bs=$disksize
+    MAKEDEV /dev/loop
     local loop=$(losetup -v -f $diskimg | awk '{ print $4 }')
+    echo "loop is $loop"
+    ls -l $loop
     dmsetup create efiboot$$ --table "0 $(($disksize / 512)) linear $loop 0"
+    dmsetup mknodes efiboot$$
+    echo "efiboot$$ should exist"
+    ls -l /dev/mapper/efiboot$$*
     parted --script /dev/mapper/efiboot$$ mklabel gpt unit b mkpart '"EFI System Partition"' fat32 17408 $((17408 + $partsize)) set 1 boot on
+    dmsetup mknodes efiboot$$p1 || :
+    echo "efiboot$$p1 should exist"
+    ls -l /dev/mapper/efiboot$$*
+    dmsetup ls
+    dmsetup table
     dd if=$partimg of=/dev/mapper/efiboot$$p1
-    dmsetup remove /dev/mapper/efiboot$$p1
-    dmsetup remove /dev/mapper/efiboot$$
+    echo "dd-ing $partimg to /dev/mapper/efiboot$$p1"
+    # the next two lines seem to depend on the exact version of parted :/
+    dmsetup remove -f /dev/mapper/efiboot$$p1 || :
+    dmsetup remove -f /dev/mapper/efiboot$$
     losetup -d $loop
 
     mv -v $diskimg $target
@@ -127,7 +140,7 @@ prepareEfiImage() {
     # dynamically calculate the size of the dosfs
     BOOTDISKSIZE=$(du -kcs $MBD_BOOTTREE_TMP | tail -n1 | awk '{print $1}')
     BOOTDISKSIZE=$(expr $BOOTDISKSIZE + 100)
-    echo "The size of the efiboot.img dosfs is $BOOTDISKSIZE"
+    echo "The size of the efiboot.img dosfs is ${BOOTDISKSIZE}k"
     mkdosfs -n ANACONDA -C $MBD_FILENAME $BOOTDISKSIZE >/dev/null
     mount -o loop,shortname=winnt,umask=0077 -t vfat $MBD_FILENAME $MBD_BOOTTREE
     cp -R $MBD_BOOTTREE_TMP/* $MBD_BOOTTREE
