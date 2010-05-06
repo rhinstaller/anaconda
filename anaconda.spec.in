@@ -221,6 +221,47 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu May 06 2010 David Cantrell <dcantrell@redhat.com> - 13.21.36-1
+- Just use /dev/dasdX if we can't get a by-path link (dcantrell)
+  Related: rhbz#589713
+- Do not prepend /dev/disk/by-path in format DASD window (dcantrell)
+  Related: rhbz#589717
+  Related: rhbz#589713
+- Use udev_device_get_by_path() to get /dev/disk/by-path link (dcantrell)
+  Resolves: rhbz#589717
+  Resolves: rhbz#589713
+- Add udev_device_get_by_path() to return /dev/disk/by-path link (dcantrell)
+  Related: rhbz#589717
+  Related: rhbz#589713
+- Expand the details pane when showing unformatted DASDs (dcantrell)
+  Resolves: rhbz#580463
+- Log problem line if unquoting failed in readNetInfo() (dcantrell)
+  Related: rhbz#522064
+- Update generic.ins for s390x (dcantrell)
+  Resolves: rhbz#546422
+- Rename geninitrdsz.c to addrsize.c (dcantrell)
+  Resolves: rhbz#546422
+- Generate initrd.addrsize file correctly for LPAR booting (dcantrell)
+  Resolves: rhbz#546422
+- Only allow upgrading from one minor release of RHEL to another (clumens).
+  Resolves: rhbz#589052
+- fcoe: use fipvlan instead of fcoemon to bring up fcoe (hdegoede)
+  Resolves: rhbz#486244
+- memory: increase the RAM limits, check for URL installs (akozumpl).
+  Resolves: rhbz#549653
+- memory: build auditd as a standalone binary and run it so. (akozumpl)
+  Related: rhbz#549653
+- gui: don't let metacity display the title right-click menu (akozumpl).
+  Resolves: rhbz#588642
+- Align extended partitions like we do other partitions. (dlehman)
+  Resolves: rhbz#560908
+- Link /sbin/reboot and /sbin/halt to /sbin/init on s390x (dcantrell)
+  Resolves: rhbz#571370
+- Allow displaying groups that only contain conditional packages (clumens).
+  Resolves: rhbz#588735
+- Don't remove *.hmac files when creating install images (mgracik)
+  Resolves: rhbz#568295
+
 * Tue May 04 2010 David Cantrell <dcantrell@redhat.com> - 13.21.35-1
 - Make deviceNameToDiskByPath check udev info instead of sysfs (dcantrell)
   Related: rhbz#560702
