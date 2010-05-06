@@ -260,6 +260,18 @@ AC_CONFIG_FILES([Makefile
                  docs/Makefile
                  fonts/Makefile
                  gptsync/Makefile
+                 icons/Makefile
+                 icons/hicolor/Makefile
+                 icons/hicolor/48x48/Makefile
+                 icons/hicolor/48x48/apps/Makefile
+                 icons/hicolor/32x32/Makefile
+                 icons/hicolor/32x32/apps/Makefile
+                 icons/hicolor/24x24/Makefile
+                 icons/hicolor/24x24/apps/Makefile
+                 icons/hicolor/22x22/Makefile
+                 icons/hicolor/22x22/apps/Makefile
+                 icons/hicolor/16x16/Makefile
+                 icons/hicolor/16x16/apps/Makefile
                  installclasses/Makefile
                  isys/Makefile
                  iw/Makefile
