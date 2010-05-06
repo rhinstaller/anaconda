@@ -153,9 +153,9 @@ def deviceNameToDiskByPath(deviceName=None):
 
     for dev in udev_get_block_devices():
         if udev_device_get_name(dev) == deviceName:
-            return udev_device_get_path(dev)
+            return udev_device_get_by_path(dev)
 
-    return deviceName
+    return None
 
 
 class Device(object):
