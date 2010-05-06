@@ -8,14 +8,14 @@
 # Gábor Szentiványi <szenti@ulx.hu>, 2006.
 # Sulyok Péter <peti@fedoraproject.org>, 2008, 2009.
 # Hoppár Zoltán <hopparz@gmail.com>, 2009, 2010.
-#
+# Bojtos Péter <ptr@ulx.hu>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-03-30 12:47+0100\n"
-"Last-Translator: Zoltan Hoppar <zoltanh721@fedoraproject.org>\n"
+"PO-Revision-Date: 2010-05-06 08:58+0100\n"
+"Last-Translator: Peter Bojtos <ptr@ulx.hu>\n"
 "Language-Team: Hungarian <Hungarian <fedora-trans-hu@redhat.com>>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2189,7 +2189,6 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
 "Eltávolít minden partíciót a kiválasztott eszköz(ök)ön, beleértve a más rendszerek által létrehozottakat is.\n"
-"\n"
 "<b>Megjegyzés:</b> Ez az opció adatokat távolít el a kiválasztott eszköz(ök)ön, győződjön meg róla, hogy van biztonsági mentése."
 
 #: iw/autopart_type.py:236
@@ -2203,7 +2202,6 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
 "Eltávolít minden Linux partíciót a kiválasztott eszköz(ök)ön, de a többi partíciót (pl. VFAT vagy FAT32) változatlanul hagyja.\n"
-"\n"
 "<b>Megjegyzés:</b> Ez az opció adatokat töröl a kiválasztott eszköz(ök)ön. Győződjön meg róla, hogy van biztonsági mentése."
 
 #: iw/autopart_type.py:246
@@ -5209,7 +5207,7 @@ msgstr "Nem sikerült a hibás %(fcplun)s LUN attribútum kiolvasása %(wwpn)s W
 #: storage/zfcp.py:209
 #, python-format
 msgid "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed again."
-msgstr ""
+msgstr "Hibás LUN %(fcplun)s itt: WWPN %(wwpn)s a zFCP eszközön %(devnum)s újra eltávolítva."
 
 #: storage/zfcp.py:266
 #, python-format
