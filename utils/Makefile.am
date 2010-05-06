@@ -24,7 +24,7 @@ noinst_PROGRAMS     = snarffont
 dist_noinst_SCRIPTS = filtermoddeps
 
 if IS_S390
-utils_PROGRAMS      += geninitrdsz mk-s390-cdboot
+utils_PROGRAMS      += addrsize mk-s390-cdboot
 endif
 
 modlist_CFLAGS      = -I$(top_srcdir)/loader $(GLIB_CFLAGS)

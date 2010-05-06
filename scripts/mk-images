@@ -160,7 +160,7 @@ mkdir -p $INSTIMGPATH
 # Stuff that we need
 TRIMPCIIDS=$IMGPATH/usr/lib/anaconda-runtime/trimpciids
 GETKEYMAPS=$IMGPATH/usr/lib/anaconda-runtime/getkeymaps
-GENINITRDSZ=$IMGPATH/usr/lib/anaconda-runtime/geninitrdsz
+ADDRSIZE=$IMGPATH/usr/lib/anaconda-runtime/addrsize
 MKS390CDBOOT=$IMGPATH/usr/lib/anaconda-runtime/mk-s390-cdboot
 GENMODINFO=$IMGPATH/usr/lib/anaconda-runtime/genmodinfo
 LIBEXECBINDIR=$IMGPATH/usr/lib/anaconda-runtime
