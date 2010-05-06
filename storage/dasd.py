@@ -125,7 +125,7 @@ class DASD:
         if intf and askUser:
             devs = ''
             for dasd, bypath in self._dasdlist:
-                devs += "/dev/disk/by-path/%s\n" % (bypath,)
+                devs += "%s\n" % (bypath,)
 
             rc = intf.questionInitializeDASD(c, devs)
             if rc == 1:
@@ -164,7 +164,7 @@ class DASD:
                 pw = intf.progressWindow(title, msg, 100, pulse=True)
 
         for dasd, bypath in self._dasdlist:
-            log.info("Running dasdfmt on /dev/disk/by-path/%s" % (bypath,))
+            log.info("Running dasdfmt on %s" % (bypath,))
             arglist = argv + ["/dev/" + dasd]
 
             try:
