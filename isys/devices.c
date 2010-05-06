@@ -135,6 +135,8 @@ struct device **getDevices(enum deviceType type) {
             ret[numdevices+1] = NULL;
             numdevices++;
         }
+
+        closedir(dir);
     }
 storagedone:
 
@@ -210,6 +212,8 @@ storagedone:
             ret[numdevices+1] = NULL;
             numdevices++;
         }
+
+        closedir(dir);
     }
 netdone:
     return ret;
