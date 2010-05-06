@@ -217,6 +217,7 @@ update-desktop-database &> /dev/null || :
 %config(noreplace) %{_sysconfdir}/security/console.apps/*
 %{_sysconfdir}/X11/xinit/xinitrc.d/*
 %{_datadir}/applications/*.desktop
+%{_datadir}/icons/hicolor/*
 %endif
 
 %changelog
