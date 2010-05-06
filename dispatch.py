@@ -58,8 +58,8 @@ log = logging.getLogger("anaconda")
 #
 # items are one of
 #
-#	( name )
-#	( name, Function )
+#       ( name )
+#       ( name, Function )
 #
 # in the second case, the function is called directly from the dispatcher
 
@@ -121,11 +121,11 @@ class Dispatcher(object):
 
     def gotoPrev(self):
         self._setDir(DISPATCH_BACK)
-	self.moveStep()
+        self.moveStep()
 
     def gotoNext(self):
-	self._setDir(DISPATCH_FORWARD)
-	self.moveStep()
+        self._setDir(DISPATCH_FORWARD)
+        self.moveStep()
 
     def canGoBack(self):
         # begin with the step before this one.  If all steps are skipped,
@@ -143,41 +143,41 @@ class Dispatcher(object):
             if state == 1:
                 del self.skipSteps[step]
 
-	stepExists = {}
-	for step in installSteps:
-	    name = step[0]
-	    if not name in steps:
-		self.skipSteps[name] = 1
+        stepExists = {}
+        for step in installSteps:
+            name = step[0]
+            if not name in steps:
+                self.skipSteps[name] = 1
 
-	    stepExists[name] = 1
+            stepExists[name] = 1
 
-	for name in steps:
-	    if not stepExists.has_key(name):
+        for name in steps:
+            if not stepExists.has_key(name):
                 #XXX: hack for yum support
-		#raise KeyError, ("step %s does not exist" % name)
+                #raise KeyError, ("step %s does not exist" % name)
                 log.warning("step %s does not exist", name)
 
     def stepInSkipList(self, step):
         if type(step) == type(1):
             step = installSteps[step][0]
-	return self.skipSteps.has_key(step)
+        return self.skipSteps.has_key(step)
 
     def skipStep(self, stepToSkip, skip = 1, permanent = 0):
-	for step in installSteps:
-	    name = step[0]
-	    if name == stepToSkip:
-		if skip:
+        for step in installSteps:
+            name = step[0]
+            if name == stepToSkip:
+                if skip:
                     if permanent:
                         self.skipSteps[name] = 2
                     elif not self.skipSteps.has_key(name):
                         self.skipSteps[name] = 1
-		elif self.skipSteps.has_key(name):
-		    # if marked as permanent then dont change
-		    if self.skipSteps[name] != 2:
-			del self.skipSteps[name]
-		return
+                elif self.skipSteps.has_key(name):
+                    # if marked as permanent then dont change
+                    if self.skipSteps[name] != 2:
+                        del self.skipSteps[name]
+                return
 
-	#raise KeyError, ("unknown step %s" % stepToSkip)
+        #raise KeyError, ("unknown step %s" % stepToSkip)
         log.warning("step %s does not exist", name)
 
     def stepIsDirect(self, step):
@@ -188,61 +188,61 @@ class Dispatcher(object):
             return False
 
     def moveStep(self):
-	if self.step == None:
-	    self.step = self.firstStep
-	else:
+        if self.step == None:
+            self.step = self.firstStep
+        else:
             log.info("leaving (%d) step %s" %(self._getDir(), installSteps[self.step][0]))
             self.step = self.step + self._getDir()
 
-	if self.step >= len(installSteps):
-	    return None
+        if self.step >= len(installSteps):
+            return None
 
         while self.step >= self.firstStep and self.step < len(installSteps) \
             and (self.stepInSkipList(self.step) or self.stepIsDirect(self.step)):
 
             if self.stepIsDirect(self.step) and not self.stepInSkipList(self.step):
-	        (stepName, stepFunc) = installSteps[self.step]
+                (stepName, stepFunc) = installSteps[self.step]
                 log.info("moving (%d) to step %s" %(self._getDir(), stepName))
                 log.debug("%s is a direct step" %(stepName,))
-		rc = stepFunc(self.anaconda)
+                rc = stepFunc(self.anaconda)
                 if rc in [DISPATCH_BACK, DISPATCH_FORWARD]:
-		    self._setDir(rc)
+                    self._setDir(rc)
                 log.info("leaving (%d) step %s" %(self._getDir(), stepName))
-		# if anything else, leave self.dir alone
+                # if anything else, leave self.dir alone
 
-	    self.step = self.step + self._getDir()
-	    if self.step == len(installSteps):
-		return None
+            self.step = self.step + self._getDir()
+            if self.step == len(installSteps):
+                return None
 
-	if (self.step < 0):
-	    # pick the first step not in the skip list
-	    self.step = 0
-	    while self.skipSteps.has_key(installSteps[self.step][0]):
-		self.step = self.step + 1
-	elif self.step >= len(installSteps):
-	    self.step = len(installSteps) - 1
-	    while self.skipSteps.has_key(installSteps[self.step][0]):
-		self.step = self.step - 1
+        if (self.step < 0):
+            # pick the first step not in the skip list
+            self.step = 0
+            while self.skipSteps.has_key(installSteps[self.step][0]):
+                self.step = self.step + 1
+        elif self.step >= len(installSteps):
+            self.step = len(installSteps) - 1
+            while self.skipSteps.has_key(installSteps[self.step][0]):
+                self.step = self.step - 1
         log.info("moving (%d) to step %s" %(self._getDir(), installSteps[self.step][0]))
 
     def currentStep(self):
-	if self.step == None:
-	    self.gotoNext()
-	elif self.step >= len(installSteps):
-	    return (None, None)
+        if self.step == None:
+            self.gotoNext()
+        elif self.step >= len(installSteps):
+            return (None, None)
 
-	stepInfo = installSteps[self.step]
-	step = stepInfo[0]
+        stepInfo = installSteps[self.step]
+        step = stepInfo[0]
 
-	return (step, self.anaconda)
+        return (step, self.anaconda)
 
     def __init__(self, anaconda):
         self.anaconda = anaconda
-	self.anaconda.dir = DISPATCH_FORWARD
-	self.step = None
-	self.skipSteps = {}
+        self.anaconda.dir = DISPATCH_FORWARD
+        self.step = None
+        self.skipSteps = {}
 
-	self.firstStep = 0
+        self.firstStep = 0
 
     def _getDir(self):
         return self.anaconda.dir
@@ -251,3 +251,4 @@ class Dispatcher(object):
         self.anaconda.dir = dir
 
     dir = property(_getDir,_setDir)
+
