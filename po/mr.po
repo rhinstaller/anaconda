@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-04-15 10:46-0400\n"
-"PO-Revision-Date: 2010-04-27 11:24+0530\n"
+"PO-Revision-Date: 2010-05-06 11:23+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <maajhe-sanganak@freelists.org>\n"
 "MIME-Version: 1.0\n"
@@ -2394,8 +2394,9 @@ msgid "Serial Number"
 msgstr "सिरीअल क्रमांक"
 
 #: iw/cleardisks_gui.py:139
+#, fuzzy
 msgid "Boot"
-msgstr "बूट"
+msgstr "/boot"
 
 #: iw/cleardisks_gui.py:176
 #, fuzzy
@@ -2785,8 +2786,9 @@ msgid ""
 "group only has %(tempvgsize)d MB.  Please either make the volume group "
 "larger or make the logical volume(s) smaller."
 msgstr ""
-"तुम्ही संरचीत केलेले लॉजीकल खंडाला %(size)d MB आवश्यक आहे, परंतु खंड गटकडे फक्त %"
-"(tempvgsize)d MB आहे.  कृपया खंड गटाला मोठे करा किंवा लॉजीकल खंड लहान करा."
+"संरचीत केलेले लॉजीकल वॉल्यूमला %(size)d MB आवश्यक आहे, परंतु वॉल्यूम ग्रूपकडे फक्त %"
+"(tempvgsize)d MB उपलब्ध आहे.  कृपया वॉल्यूम ग्रूपला मोठे करा किंवा लॉजीकल वॉल्यूम्स् लहान "
+"करा."
 
 #: iw/lvm_dialog_gui.py:814
 msgid "No free slots"
@@ -4457,9 +4459,8 @@ msgstr ""
 "जोडताच निर्माण केली असावी."
 
 #: loader/mediacheck.c:94
-#, fuzzy
 msgid "Unable to open the image."
-msgstr "प्रतिष्ठापन प्रतिमा शोधण्यास असमर्थ"
+msgstr "प्रतिमा उघडणे अशक्य."
 
 #: loader/mediacheck.c:98
 msgid ""
@@ -6116,16 +6117,18 @@ msgstr ""
 "आहे याची खात्री करा."
 
 #: ui/cleardisks.glade.h:4
+#, fuzzy
 msgid ""
 "Below are the storage devices you've selected to be a part of this "
 "installation.  Please indicate using the arrows below which devices you'd "
 "like to use as data drives (these will not be formatted, only mounted) and "
 "which devices you'd like to use as system drives (these may be formatted)."
 msgstr ""
-"या प्रतिष्ठापनचे भाग होण्यासाठी स्टोरेज साधणे खालील प्रमाणे आहे.  डाटा ड्राइव्हस् (यांस "
-"रूपण केले जात नाही, फक्त माऊंट केले जाते) म्हणून कोणत्या साधणांचा वापर व्हावा व प्रणाली "
-"ड्राइव्हस् म्हणून कोणत्या साधणांचा वापर व्हावा (यांस रूपण करणे शक्य आहे) त्यांस कृपया "
-"बाणांद्वारे दाखवा."
+"या प्रतिष्ठापनचे भाग म्हणून समाविष्ट करण्याजोगी स्टोरेज साधणे खालील प्रमाणे आहे.  डाटा "
+"ड्राइव्हस् (यांस रूपण केले जात नाही, फक्त माऊंट केले जाते) म्हणून कोणत्या साधणांचा वापर "
+"व्हावा व प्रणाली ड्राइव्हस् म्हणून कोणत्या साधणांचा वापर व्हावा (यांस रूपण करणे शक्य आहे) "
+"त्यांस कृपया बाणांद्वारे दाखवा. कृपया बूटलोडरचे प्रतिष्ठापन शक्य असणाऱ्या प्रणालीवरील "
+"ड्राइव्हर दाखवा."
 
 #: ui/create-storage.glade.h:1
 #, fuzzy
@@ -6829,8 +6832,25 @@ msgstr "झुलू"
 #~ msgstr "किकस्टार्ट व्यूहरचनेचे विश्लेषण करताना खालील त्रुटी आढळली."
 
 #~ msgid ""
+#~ "Boot\n"
+#~ "Loader"
+#~ msgstr ""
+#~ "बूट\n"
+#~ "लोडर"
+
+#~ msgid ""
 #~ "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 #~ msgstr "<b>%s device(s) (%s MB) नीवडले</b>, एकूण %s device(s) (%s MB) पैकी."
+
+#~ msgid "No disks found"
+#~ msgstr "डिस्क्स् आढळले नाही"
+
+#~ msgid "No usable disks have been found."
+#~ msgstr "वापरण्याजोगी डिस्कस् आढळले नाही."
+
+#~ msgid ""
+#~ "Placing the root partition on an XFS filesystem is not supported in %s."
+#~ msgstr "रूट विभाजनला XFS फाइलप्रणालीवर स्थीत करणे %s मध्ये समर्थीत नाही."
 
 #~ msgid ""
 #~ "This release of %(productName)s supports the an updated file system, "
