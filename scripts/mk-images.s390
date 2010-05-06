@@ -17,6 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# initrd.img load address for generic.ins LPAR booting
+# See https://bugzilla.redhat.com/show_bug.cgi?id=546422 for details.
+INITRD_ADDRESS=0x2000000
+
 getAllS390ModuleNames() {
     s390dir="${KERNELROOT}/lib/modules/${version}/kernel/drivers/s390"
     if [ -d "${s390dir}" ]; then
@@ -33,8 +37,7 @@ makeBootImages() {
 	    --initrdsize 20000 \
 	    --loaderbin loader \
 	    --modules "$INITRDMODS $(getAllS390ModuleNames)"
-	sz=$(ls -l $TOPDESTPATH/images/initrd.img | awk '{print $5}')
-	$GENINITRDSZ $sz $TOPDESTPATH/images/initrd.size
+	$ADDRSIZE $INITRD_ADDRESS $TOPDESTPATH/images/initrd.img $TOPDESTPATH/images/initrd.addrsize
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
 
 	cp -v $BOOTDISKDIR/redhat.exec $TOPDESTPATH/images/redhat.exec
@@ -51,7 +54,7 @@ makeBootImages() {
 [images-$KERNELARCH]
 kernel = images/kernel.img
 initrd = images/initrd.img
-initrd.size = images/initrd.size
+initrd.addrsize = images/initrd.addrsize
 generic.prm = images/generic.prm
 generic.ins = generic.ins
 cdboot.img = images/cdboot.img

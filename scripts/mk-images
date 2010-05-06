@@ -163,7 +163,7 @@ mkdir -p $INSTIMGPATH
 TRIMPCIIDS=$IMGPATH/usr/libexec/anaconda/trimpciids
 GETKEYMAPS=$IMGPATH/usr/libexec/anaconda/getkeymaps
 LIBEXECBINDIR=$IMGPATH/usr/libexec/anaconda
-GENINITRDSZ=$IMGPATH/usr/$LIBDIR/anaconda/geninitrdsz
+ADDRSIZE=$IMGPATH/usr/$LIBDIR/anaconda/addrsize
 MKS390CDBOOT=$IMGPATH/usr/$LIBDIR/anaconda/mk-s390-cdboot
 GENMODINFO=$IMGPATH/usr/libexec/anaconda/genmodinfo
 KEYMAPS=$TMPDIR/keymaps-$BUILDARCH.$$
