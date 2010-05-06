@@ -42,7 +42,7 @@ makeBootImages() {
 
 	cp -v $BOOTDISKDIR/redhat.exec $TOPDESTPATH/images/redhat.exec
 	cp -v $BOOTDISKDIR/generic.prm $TOPDESTPATH/images/generic.prm
-	cp -v $BOOTDISKDIR/generic.ins $TOPDESTPATH/generic.ins
+	sed -e "s|@INITRD_LOAD_ADDRESS@|$INITRD_ADDRESS|g" < $BOOTDISKDIR/generic.ins > $TOPDESTPATH/generic.ins
 
    $MKS390CDBOOT \
       -i $TOPDESTPATH/images/kernel.img \
