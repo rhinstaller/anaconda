@@ -301,7 +301,7 @@ class InstallInterface(InstallInterfaceBase):
 
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_icon=None,
-                              custom_buttons=[]):
+                              custom_buttons=[], expanded=False):
         t = TextboxReflowed(60, text, maxHeight=8)
         lt = Textbox(60, 6, longText, scroll=1, wrap=1)
         g = GridFormHelp(self.screen, title, help, 1, 3)

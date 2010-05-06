@@ -75,4 +75,5 @@ class InstallInterfaceBase(object):
         return self.detailedMessageWindow(title, msg, devs.strip(),
                                              type="custom",
                                              custom_icon=icon,
-                                             custom_buttons=buttons)
+                                             custom_buttons=buttons,
+                                             expanded=True)

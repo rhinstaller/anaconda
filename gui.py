@@ -812,7 +812,7 @@ class MessageWindow:
             pass
 
 class DetailedMessageWindow(MessageWindow):
-    def __init__(self, title, text, longText=None, type="ok", default=None, custom_buttons=None, custom_icon=None, run=True, parent=None, destroyAfterRun=True):
+    def __init__(self, title, text, longText=None, type="ok", default=None, custom_buttons=None, custom_icon=None, run=True, parent=None, destroyAfterRun=True, expanded=False):
         self.title = title
 
         if flags.autostep:
@@ -843,6 +843,8 @@ class DetailedMessageWindow(MessageWindow):
         self.info = xml.get_widget("info")
         self.detailedExpander = xml.get_widget("detailedExpander")
         self.detailedView = xml.get_widget("detailedView")
+
+        self.detailedExpander.set_expanded(expanded)
 
         if parent:
             self.dialog.set_transient_for(parent)
@@ -1015,7 +1017,7 @@ class InstallInterface(InstallInterfaceBase):
 
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_buttons=None,
-                              custom_icon=None):
+                              custom_icon=None, expanded=False):
         if self.icw:
             parent = self.icw.window
         else:
@@ -1023,7 +1025,7 @@ class InstallInterface(InstallInterfaceBase):
 
         rc = DetailedMessageWindow (title, text, longText, type, default,
                                     custom_buttons, custom_icon, run=True,
-                                    parent=parent).getrc()
+                                    parent=parent, expanded=expanded).getrc()
         return rc
 
     def mainExceptionWindow(self, shortText, longTextFile):
