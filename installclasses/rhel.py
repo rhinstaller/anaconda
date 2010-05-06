@@ -104,7 +104,10 @@ class RHELInstallClass(BaseInstallClass):
         return False
 
     def versionMatches(self, oldver):
-        return True
+        oldMajor = oldver.split(".")[0]
+        newMajor = productVersion.split(".")[0]
+
+        return oldMajor == newMajor
 
     def __init__(self):
         BaseInstallClass.__init__(self)
