@@ -102,6 +102,9 @@ class DASD:
 
             if status in ["unformatted"] and device not in exclusiveDisks:
                 bypath = deviceNameToDiskByPath(device)
+                if not bypath:
+                    bypath = "/dev/" + device
+
                 log.info("    %s (%s) status is %s, needs dasdfmt" % (device,
                                                                       bypath,
                                                                       status,))
