@@ -698,8 +698,9 @@ static void readNetInfo(struct loaderData_s ** ld) {
             gchar *val = g_shell_unquote(pair[1], &e);
 
             if (e != NULL) {
-                logMessage(WARNING, "error reading %s from %s: %s",
-                           pair[0], cfgfile, e->message);
+                logMessage(WARNING,
+                           "error reading %s from %s (line=%s): %s",
+                           pair[0], cfgfile, tmp, e->message);
                 g_error_free(e);
             }
 
