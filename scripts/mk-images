@@ -95,7 +95,7 @@ fi
 TOPDIR=$(cd $TOPDIR; pwd)
 
 # modules that are needed.  this is the generic "needed for every arch" stuff
-COMMONMODS="fat vfat nfs sunrpc lockd floppy cramfs loop edd pcspkr squashfs ipv6 virtio_pci netconsole"
+COMMONMODS="fat vfat nfs sunrpc lockd floppy cramfs loop edd pcspkr squashfs ipv6 8021q virtio_pci netconsole"
 UMSMODS="ums-jumpshot ums-datafab ums-freecom ums-usbat ums-sddr55 ums-onetouch ums-alauda ums-karma ums-sddr09 ums-cypress"
 USBMODS="$UMSMODS ohci-hcd uhci-hcd ehci-hcd usbhid mousedev usb-storage sd_mod sr_mod ub appletouch bcm5974"
 FIREWIREMODS="ohci1394 sbp2 fw-ohci fw-sbp2 firewire-sbp2 firewire-ohci"

@@ -55,7 +55,6 @@ class fcoe(object):
     def __init__(self):
         self.started = False
         self.lldpadStarted = False
-        self.fcoemonStarted = False
         self.nics = []
 
     # So that users can write fcoe() to get the singleton instance
@@ -107,14 +106,6 @@ class fcoe(object):
                                stdout = "/dev/tty5", stderr="/dev/tty5")
         self.lldpadStarted = True
 
-    def _startFcoemon(self):
-        if self.fcoemonStarted:
-            return
-
-        iutil.execWithRedirect("fcoemon", [ ],
-                               stdout = "/dev/tty5", stderr="/dev/tty5")
-        self.fcoemonStarted = True
-
     def addSan(self, nic, dcb=False, intf=None):
         if not has_fcoe():
             raise IOError, _("FCoE not available")
@@ -131,7 +122,8 @@ class fcoe(object):
             iutil.execWithRedirect("dcbtool", [ "sc", nic, "app:fcoe",
                                "e:1", "a:1", "w:1" ],
                                stdout = "/dev/tty5", stderr="/dev/tty5")
-            self._startFcoemon()
+            iutil.execWithRedirect("fipvlan", [ nic, "-c", "-s" ],
+                               stdout = "/dev/tty5", stderr="/dev/tty5")
         else:
             f = open("/sys/module/fcoe/parameters/create", "w")
             f.write(nic)
