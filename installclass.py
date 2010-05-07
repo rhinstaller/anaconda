@@ -21,6 +21,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from distutils.sysconfig import get_python_lib
 import os, sys, iutil
 import isys
 import string
@@ -234,21 +235,23 @@ def availableClasses(showHidden=0):
     else:
         if allClasses_hidden: return allClasses_hidden
 
-    if os.access("installclasses", os.R_OK):
-	path = "installclasses"
-    elif os.access("/tmp/updates/pyanaconda/installclasses", os.R_OK):
-        path = "/tmp/updates/pyanaconda/installclasses"
-    elif os.access("/tmp/product/pyanaconda/installclasses", os.R_OK):
-        path = "/tmp/product/pyanaconda/installclasses"
-    else:
-        from distutils.sysconfig import get_python_lib
-        path = get_python_lib(plat_specific=1) + "/pyanaconda/installclasses"
+    path = []
+
+    for dir in ["installclasses",
+                "/tmp/updates/pyanaconda/installclasses",
+                "/tmp/product/pyanaconda/installclasses",
+                "%s/pyanaconda/installclasses" % get_python_lib(plat_specific=1) ]:
+        if os.access(dir, os.R_OK):
+            path.append(dir)
 
     # append the location of installclasses to the python path so we
     # can import them
-    sys.path.insert(0, path)
+    sys.path = path + sys.path
 
-    files = os.listdir(path)
+    files = []
+    for p in reversed(path):
+        files += os.listdir(p)
+
     done = {}
     list = []
     for file in files:
