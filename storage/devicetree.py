@@ -1365,10 +1365,12 @@ class DeviceTree(object):
             initcb = lambda: True
         else:
             description = device.description or device.model
-            bypath = os.path.basename(deviceNameToDiskByPath(device.name))
+            bypath = deviceNameToDiskByPath(device.name)
             if bypath:
+                bypath = os.path.basename(bypath)
                 details = "\n\nDevice details:\n%s" % (bypath,)
             else:
+                bypath = device.name
                 details = ""
 
             initcb = lambda: self.intf.questionInitializeDisk(bypath,
