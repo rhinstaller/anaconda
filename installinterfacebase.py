@@ -32,7 +32,7 @@ class InstallInterfaceBase(object):
 
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_icon=None,
-                              custom_buttons=[]):
+                              custom_buttons=[], expanded=False):
         raise NotImplementedError
 
     def unusedRaidMembersWarning(self, unusedRaidMembers):
