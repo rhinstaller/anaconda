@@ -120,7 +120,7 @@ class RescueInterface(InstallInterfaceBase):
 
     def questionInitializeDASD(self, c, devs):
         # Special return value to let dasd.py know we're rescue mode
-        return "rescue"
+        return 1
 
     def shutdown (self):
         pass
