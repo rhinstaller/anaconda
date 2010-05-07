@@ -1686,6 +1686,10 @@ class LUKSDevice(DMCryptDevice):
         self.teardown()
 
     @property
+    def req_grow(self):
+        return getattr(self.slave, "req_grow", None)
+
+    @property
     def slave(self):
         """ This device's backing device. """
         return self.parents[0]
