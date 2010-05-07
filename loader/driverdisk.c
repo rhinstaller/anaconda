@@ -434,12 +434,6 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             char ** part_list = getPartitionsList(device);
             int nump = 0, num = 0;
 
-            /* Do not crash if the device disappeared */
-            if (!part_list) {
-                stage = DEV_DEVICE;
-                break;
-            }
-
             if (part != NULL)
                 free(part);
 
