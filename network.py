@@ -222,6 +222,7 @@ class NetworkDevice(IfcfgFile):
         if iface.startswith('ctc'):
             self.info["TYPE"] = "CTC"
         self.description = ""
+        self._dirty = False
 
     def clear(self):
         IfcfgFile.clear(self)
@@ -253,9 +254,27 @@ class NetworkDevice(IfcfgFile):
     def loadIfcfgFile(self):
         self.clear()
         IfcfgFile.read(self)
+        self.log("NetworkDevice read from %s\n" % self.path)
+        self._dirty = False
 
-    def writeIfcfgFile(self, dir=None):
-        IfcfgFile.write(self, dir)
+    def writeIfcfgFile(self):
+        # Write out the file only if there is a key whose
+        # value has been changed since last load of ifcfg file.
+        if self._dirty:
+            IfcfgFile.write(self)
+            self.log("NetworkDevice written to %s\n" % self.path)
+            self._dirty = False
+
+    def set(self, *args):
+        # If we are changing value of a key set _dirty flag
+        # informing that ifcfg file needs to be synced.
+        for (key, data) in args:
+            if self.get(key) != data:
+                break
+        else:
+            return
+        IfcfgFile.set(self, *args)
+        self._dirty = True
 
     def log(self, header="\n"):
         lf = open(self.logfile, 'a')
@@ -307,8 +326,12 @@ class Network:
         devhash = isys.getDeviceProperties(dev=None)
         for iface in devhash.keys():
             device = NetworkDevice(netscriptsDir, iface, logfile=ifcfgLogFile)
-            device.loadIfcfgFile()
-            device.log("===== Network.update\n")
+            if os.access(device.path, os.R_OK):
+                device.loadIfcfgFile()
+            else:
+                log.info("Network.update(): %s file not found" %
+                         device.path)
+                continue
 
             if device.get('DOMAIN'):
                 self.domains.append(device.get('DOMAIN'))
@@ -388,6 +411,12 @@ class Network:
 
         return ip
 
+    # Note that the file is written-out only if there is a value
+    # that has changed.
+    def writeIfcfgFiles(self):
+        for device in self.netdevices.values():
+            device.writeIfcfgFile()
+
     # devices == None => set for all
     def setNMControlledDevices(self, devices=None):
         for devname, device in self.netdevices.items():
@@ -395,8 +424,6 @@ class Network:
                 device.set(('NM_CONTROLLED', 'no'))
             else:
                 device.set(('NM_CONTROLLED', 'yes'))
-            device.writeIfcfgFile()
-            device.log_file("device set to be nm controlled\n")
 
     # devices == None => set for all
     def updateActiveDevices(self, devices=None):
@@ -405,8 +432,6 @@ class Network:
                 device.set(('ONBOOT', 'no'))
             else:
                 device.set(('ONBOOT', 'yes'))
-            device.writeIfcfgFile()
-            device.log_file("updateActiveDevices\n")
 
     def getOnbootIfaces(self):
         ifaces = []
@@ -546,8 +571,7 @@ class Network:
                         dev.set(('NM_CONTROLLED', 'no'))
                         break
 
-            dev.writeIfcfgFile(netscriptsDir)
-            dev.log_file("===== write\n")
+            dev.writeIfcfgFile()
 
             # XXX: is this necessary with NetworkManager?
             # handle the keys* files if we have those
