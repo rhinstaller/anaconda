@@ -535,6 +535,14 @@ class DeviceTree(object):
                 elif isinstance(a2.device, PartitionDevice) and \
                      a1.device.partitioned:
                     ret = -1
+                # remove partitions before unpartitioned non-partition
+                # devices
+                elif isinstance(a1.device, PartitionDevice) and \
+                     not isinstance(a2.device, PartitionDevice):
+                    ret = 1
+                elif isinstance(a2.device, PartitionDevice) and \
+                     not isinstance(a1.device, PartitionDevice):
+                    ret = -1
                 else:
                     ret = 0
             elif a1.isDestroy():
