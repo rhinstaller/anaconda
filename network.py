@@ -129,53 +129,6 @@ def getDefaultHostname(anaconda):
 
     return hn
 
-# return if the device is of a type that requires a ptpaddr to be specified
-def isPtpDev(devname):
-    if devname.startswith("ctc"):
-        return True
-    return False
-
-def _anyUsing(method):
-    # method names that NetworkManager might use
-    if method == 'auto':
-        methods = (method, 'dhcp')
-    else:
-        methods = (method)
-
-    try:
-        bus = dbus.SystemBus()
-        nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
-        nm_props_iface = dbus.Interface(nm, isys.DBUS_PROPS_IFACE)
-        active_connections = nm_props_iface.Get(isys.NM_MANAGER_IFACE, "ActiveConnections")
-
-        for path in active_connections:
-            active = bus.get_object(isys.NM_SERVICE, path)
-            active_props_iface = dbus.Interface(active, isys.DBUS_PROPS_IFACE)
-
-            active_service_name = active_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, "ServiceName")
-            active_path = active_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, "Connection")
-
-            connection = bus.get_object(active_service_name, active_path)
-            connection_iface = dbus.Interface(connection, isys.NM_CONNECTION_IFACE)
-            settings = connection_iface.GetSettings()
-
-            # XXX: add support for Ip6Config when it appears
-            ip4_setting = settings['ipv4']
-            if not ip4_setting or not ip4_setting['method'] or ip4_setting['method'] in methods:
-                return True
-
-            return False
-    except:
-        return False
-
-# determine whether any active at boot devices are using dhcp or dhcpv6
-def anyUsingDHCP():
-    return _anyUsing('auto')
-
-# determine whether any active at boot devices are using static IP config
-def anyUsingStatic():
-    return _anyUsing('manual')
-
 # sanity check an IP string.
 def sanityCheckIPString(ip_string):
     if ip_string.strip() == "":
