@@ -752,6 +752,12 @@ class VolumeGroupEditor:
                      not self.fsoptionsDict["formatcb"].get_active():
                     templv.format = templv.originalFormat
                     format = templv.format
+                    if templv.format.type == "luks":
+                        origlv = self.getLVByName(templv.lvname)
+                        try:
+                            format = self.storage.devicetree.getChildren(origlv)[0].format
+                        except IndexError:
+                            pass
 
                 if format.mountable:
                     format.mountpoint = mountpoint
