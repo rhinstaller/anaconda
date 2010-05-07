@@ -674,6 +674,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
 
         if (!strstr(tmp, "=")) {
             g_free(tmp);
+            line++;
             continue;
         }
 
@@ -688,44 +689,44 @@ static void readNetInfo(struct loaderData_s ** ld) {
                            "error reading %s from %s (line=%s): %s",
                            pair[0], cfgfile, tmp, e->message);
                 g_error_free(e);
-            }
+            } else {
+                if (!g_strcmp0(pair[0], "IPADDR")) {
+                    loaderData->ipv4 = strdup(val);
+                } else if (!g_strcmp0(pair[0], "NETMASK")) {
+                    loaderData->netmask = strdup(val);
+                } else if (!g_strcmp0(pair[0], "GATEWAY")) {
+                    loaderData->gateway = strdup(val);
+                } else if (!g_strcmp0(pair[0], "DNS")) {
+                    loaderData->dns = strdup(val);
+                } else if (!g_strcmp0(pair[0], "MTU")) {
+                    errno = 0;
+                    loaderData->mtu = strtol(val, NULL, 10);
 
-            if (!g_strcmp0(pair[0], "IPADDR")) {
-                loaderData->ipv4 = strdup(val);
-            } else if (!g_strcmp0(pair[0], "NETMASK")) {
-                loaderData->netmask = strdup(val);
-            } else if (!g_strcmp0(pair[0], "GATEWAY")) {
-                loaderData->gateway = strdup(val);
-            } else if (!g_strcmp0(pair[0], "DNS")) {
-                loaderData->dns = strdup(val);
-            } else if (!g_strcmp0(pair[0], "MTU")) {
-                errno = 0;
-                loaderData->mtu = strtol(val, NULL, 10);
-
-                if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
-                                         loaderData->mtu == LONG_MAX)) ||
-                    (errno != 0 && loaderData->mtu == 0)) {
-                    logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-                    abort();
+                    if ((errno == ERANGE && (loaderData->mtu == LONG_MIN ||
+                                             loaderData->mtu == LONG_MAX)) ||
+                        (errno != 0 && loaderData->mtu == 0)) {
+                        logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
+                        abort();
+                    }
+                } else if (!g_strcmp0(pair[0], "PEERID")) {
+                    loaderData->peerid = strdup(val);
+                } else if (!g_strcmp0(pair[0], "SUBCHANNELS")) {
+                    loaderData->subchannels = strdup(val);
+                } else if (!g_strcmp0(pair[0], "PORTNAME")) {
+                    loaderData->portname = strdup(val);
+                } else if (!g_strcmp0(pair[0], "NETTYPE")) {
+                    loaderData->nettype = strdup(val);
+                } else if (!g_strcmp0(pair[0], "CTCPROT")) {
+                    loaderData->ctcprot = strdup(val);
+                } else if (!g_strcmp0(pair[0], "LAYER2")) {
+                    loaderData->layer2 = strdup(val);
+                } else if (!g_strcmp0(pair[0], "PORTNO")) {
+                    loaderData->portno = strdup(val);
+                } else if (!g_strcmp0(pair[0], "MACADDR")) {
+                    loaderData->macaddr = strdup(val);
+                } else if (!g_strcmp0(pair[0], "HOSTNAME")) {
+                    loaderData->hostname = strdup(val);
                 }
-            } else if (!g_strcmp0(pair[0], "PEERID")) {
-                loaderData->peerid = strdup(val);
-            } else if (!g_strcmp0(pair[0], "SUBCHANNELS")) {
-                loaderData->subchannels = strdup(val);
-            } else if (!g_strcmp0(pair[0], "PORTNAME")) {
-                loaderData->portname = strdup(val);
-            } else if (!g_strcmp0(pair[0], "NETTYPE")) {
-                loaderData->nettype = strdup(val);
-            } else if (!g_strcmp0(pair[0], "CTCPROT")) {
-                loaderData->ctcprot = strdup(val);
-            } else if (!g_strcmp0(pair[0], "LAYER2")) {
-                loaderData->layer2 = strdup(val);
-            } else if (!g_strcmp0(pair[0], "PORTNO")) {
-                loaderData->portno = strdup(val);
-            } else if (!g_strcmp0(pair[0], "MACADDR")) {
-                loaderData->macaddr = strdup(val);
-            } else if (!g_strcmp0(pair[0], "HOSTNAME")) {
-                loaderData->hostname = strdup(val);
             }
 
             g_free(val);
