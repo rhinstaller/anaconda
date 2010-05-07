@@ -231,11 +231,13 @@ def mountptchangeCB(widget, fstypecombo):
     if widget.get_children()[0].get_text() == "/boot":
         fstypecombo.set_active_text(get_default_filesystem_type(boot=True))
 
-def resizeOptionCB(widget, resizesb):
+def resizeOptionCB(widget, data):
+    (formatcb, resizesb) = data
+    formatcb.set_sensitive(not widget.get_active())
     resizesb.set_sensitive(widget.get_active())
 
 def formatOptionResizeCB(widget, data):
-    (resizesb, fmt) = data
+    (resizecb, resizesb, fmt) = data
 
     if widget.get_active():
         lower = 1
@@ -248,6 +250,9 @@ def formatOptionResizeCB(widget, data):
 
     if resizesb.get_value_as_int() < lower:
         resizesb.set_value(adj.lower)
+
+    resizecb.set_sensitive(not widget.get_active())
+    resizesb.set_sensitive(resizecb.get_active())
 
 def formatMigrateOptionCB(widget, data):
     (sensitive,) = widget.get_properties('sensitive')
@@ -392,12 +397,13 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         resizesb.set_data("reqlower", reqlower)
         rc["resizesb"] = resizesb
         maintable.attach(resizesb, 1, 2, row, row + 1)
-        resizecb.connect('toggled', resizeOptionCB, resizesb)
-        resizeOptionCB(resizecb, resizesb)
+        resizecb.connect('toggled', resizeOptionCB, (formatcb, resizesb))
+        resizeOptionCB(resizecb, (formatcb, resizesb))
         row = row + 1
 
         if formatcb:
-            formatcb.connect("toggled", formatOptionResizeCB, (resizesb, origfs))
+            formatcb.connect("toggled", formatOptionResizeCB,
+                             (resizecb, resizesb, origfs))
 
     if luksdev:
         lukscb.set_active(1)
