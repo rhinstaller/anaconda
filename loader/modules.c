@@ -24,7 +24,6 @@
  *            Jeremy Katz <katzj@redhat.com>
  *            David Cantrell <dcantrell@redhat.com>
  */
-
 #include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -39,6 +38,8 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <glib.h>
+#include <glib/gprintf.h>
+#include <assert.h>
 
 #include "../isys/log.h"
 
@@ -408,4 +409,122 @@ void loadKickstartModule(struct loaderData_s * loaderData,
     rc = mlLoadModule(module, args);
     g_strfreev(args);
     return;
+}
+
+inline gint gcmp(gconstpointer a, gconstpointer b, gpointer userptr)
+{
+    return g_strcmp0(a, b);
+}
+
+int processModuleLines(GTree *data, int (*f)(gchar**, GTree*)){
+    char *line = NULL;
+    size_t linesize = 0;
+    gchar** lineparts = NULL;
+    int count = 0;
+
+    FILE *file = fopen("/proc/modules", "r");
+    if (file == NULL)
+        return -1;
+
+    while (1) {
+        if (getline(&line, &linesize, file) < 0)
+            break;
+
+        if (*line == NULL)
+            break;
+
+        lineparts = g_strsplit_set(line, " ", 4);
+
+        free(line);
+        line = NULL;
+
+        int ret = f(lineparts, data);
+        g_strfreev(lineparts);
+
+        if (ret < 0)
+            break;
+        count+=ret;
+    }
+
+    fclose(file);
+    return count;
+}
+
+inline int cb_savestate(gchar** parts, GTree *data)
+{
+    logMessage(DEBUGLVL, "Saving module %s", parts[0]);
+    g_tree_insert(data, g_strdup(parts[0]), (gchar*)1);
+    return 1;
+}
+
+GTree* mlSaveModuleState()
+{
+    GTree *state = NULL;
+
+    state = g_tree_new_full(gcmp, NULL, g_free, NULL);
+    if(!state)
+        return NULL;
+
+    processModuleLines(state, cb_savestate);
+
+    return state;
+}
+
+inline int cb_restorestate(gchar** parts, GTree *data)
+{
+    pid_t pid;
+    int status;
+
+    /* this module has to stay loaded */
+    if (g_tree_lookup(data, parts[0])){
+        return 0;
+    }
+
+    /* this module is still required */
+    if (parts[2][0] != '0') {
+        return 0;
+    }
+
+    /* rmmod parts[0] */
+    pid = fork();
+    if (pid == 0) {
+        execl("/sbin/rmmod", "-f", parts[0], NULL);
+        _exit(1);
+    }
+    else if (pid < 0) {
+        logMessage(ERROR, "Module %s removal FAILED", parts[0]);
+        return 0;
+    }
+
+    waitpid(pid, &status, 0);
+    if (WEXITSTATUS(status)) {
+        logMessage(DEBUGLVL, "Module %s was NOT removed", parts[0]);
+        return 0;
+    }
+    else{
+        logMessage(DEBUGLVL, "Module %s was removed", parts[0]);
+        return 1;
+    }
+    
+    return 0;
+}
+
+void mlRestoreModuleState(GTree *state)
+{
+    if(!state)
+        return;
+
+    logMessage(INFO, "Restoring module state...");
+
+    /* repeat until we can't remove anything else */
+    while (processModuleLines(state, cb_restorestate) > 0)
+        /* noop */;
+}
+
+void mlFreeModuleState(GTree *state)
+{
+    if(!state)
+        return;
+
+    g_tree_destroy(state);
 }

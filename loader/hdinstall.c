@@ -218,7 +218,7 @@ char * mountHardDrive(struct installMethod * method,
                 return NULL;
             }
 
-            rc = loadDriverFromMedia(DEVICE_DISK, loaderData, 0, 0);
+            rc = loadDriverFromMedia(DEVICE_DISK, loaderData, 0, 0, NULL);
             continue;
         }
 
@@ -303,7 +303,7 @@ char * mountHardDrive(struct installMethod * method,
             loaderData->stage2Data = NULL;
             return NULL;
         } else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
-            rc = loadDriverFromMedia(DEVICE_DISK, loaderData, 0, 0);
+            rc = loadDriverFromMedia(DEVICE_DISK, loaderData, 0, 0, NULL);
             continue;
         }
 

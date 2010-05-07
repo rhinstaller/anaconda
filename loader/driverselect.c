@@ -156,7 +156,7 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
             if (i != 1)
                 return LOADER_BACK;
             
-            loadDriverFromMedia(class, loaderData, 1, 1);
+            loadDriverFromMedia(class, loaderData, 1, 1, NULL);
             continue;
         } else {
             break;
@@ -236,7 +236,7 @@ int chooseManualDriver(int class, struct loaderData_s *loaderData) {
     if (done == -1) 
         return LOADER_BACK;
     if (done == -2) {
-        loadDriverFromMedia(class, loaderData, 1, 1);
+        loadDriverFromMedia(class, loaderData, 1, 1, NULL);
         return chooseManualDriver(class, loaderData);
     }
 
