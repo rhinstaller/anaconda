@@ -429,7 +429,7 @@ int processModuleLines(GTree *data, int (*f)(gchar**, GTree*)){
         if (getline(&line, &linesize, file) < 0)
             break;
 
-        if (*line == NULL)
+        if (line == NULL)
             break;
 
         lineparts = g_strsplit_set(line, " ", 4);
