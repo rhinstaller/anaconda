@@ -221,6 +221,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri May 07 2010 David Cantrell <dcantrell@redhat.com> - 13.21.37-1
+- Make Format and Resize checkboxes mutually exclusive (dcantrell)
+  Resolves: rhbz#589977
+- Advance line pointer & don't strdup(val) on error in readNetInfo (dcantrell)
+  Related: rhbz#522064
+- Correct a typo in processModuleLines (dcantrell)
+  Related: rhbz#586905
+- Use module reloading in driver disc operations (msivak)
+  Resolves: rhbz#586905
+- Remove the check for partitions (msivak)
+  Resolves: rhbz#508242
+- Close the dir descriptor after usage. (msivak)
+  Resolves: rhbz#589574
+
 * Thu May 06 2010 David Cantrell <dcantrell@redhat.com> - 13.21.36-1
 - Just use /dev/dasdX if we can't get a by-path link (dcantrell)
   Related: rhbz#589713
