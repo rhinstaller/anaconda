@@ -53,7 +53,7 @@ class BaseInstallClass(object):
     pkgstext = ""
     # default to showing the upgrade option
     showUpgrade = True
-    bootloaderTimeoutDefault = 0
+    bootloaderTimeoutDefault = None
 
     bugFiler = AbstractFiler(product.bugUrl, product.bugUrl,
                              product.productVersion, product.productName)
