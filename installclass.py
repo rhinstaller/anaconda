@@ -53,7 +53,7 @@ class BaseInstallClass(object):
     pkgstext = ""
     # default to showing the upgrade option
     showUpgrade = True
-    bootloaderTimeoutDefault = 0
+    bootloaderTimeoutDefault = None
     bootloaderExtraArgs = ""
 
     # list of of (txt, grplist) tuples for task selection screen
