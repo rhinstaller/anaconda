@@ -1335,18 +1335,11 @@ class PartitionWindow(InstallWindow):
                 and availraidparts > 1):
             activate_create_raid_dev = True
 
-        # FIXME: Why do I need availraidparts to clone?
-        activate_create_raid_clone = False
-        if (len(self.storage.partitioned) > 1
-                and availraidparts > 0):
-            activate_create_raid_clone = True
-
         # Must check if all the possibilities are False.  In this case tell the
         # user that he can't create anything and the reasons.
         if (not activate_create_partition
                 and not activate_create_vg
-                and not activate_create_raid_dev
-                and not activate_create_raid_clone):
+                and not activate_create_raid_dev):
             self.intf.messageWindow(_("Cannot perform any creation action"),
                         _("Note that the creation action requires one of the "
                         "following:\n\n"
@@ -1433,12 +1426,6 @@ class PartitionWindow(InstallWindow):
         if activate_create_raid_dev:
             rd_rb.set_sensitive(True)
 
-        # Activate RAID clone if needed.
-        # rc_rb -> RAID clone
-        rc_rb = create_storage_xml.get_widget("create_storage_rb_raid_clone")
-        if activate_create_raid_clone:
-            rc_rb.set_sensitive(True)
-
         # Before drawing lets select the first radio button that is sensitive:
         # How can I get sensitivity from gtk.radiobutton?
         if activate_create_partition:
@@ -1450,9 +1437,6 @@ class PartitionWindow(InstallWindow):
         elif activate_create_raid_dev:
             rd_rb.set_active(True)
             rd_rb.grab_focus()
-        elif activate_create_raid_clone:
-            rc_rb.set_active(True)
-            rc_rb.grab_focus()
 
         gui.addFrame(self.dialog)
         self.dialog.show_all()
@@ -1523,23 +1507,6 @@ class PartitionWindow(InstallWindow):
         if rp_rb.get_active():
             member = self.storage.newPartition(fmt_type="mdmember")
             self.editPartition(member, isNew = True, restrictfs=["mdmember"])
-            return
-
-        elif rc_rb.get_active():
-            # r_d_g -> raid_dialog_gui
-            cloneDialog = r_d_g.RaidCloneDialog(self.storage, self.intf,
-                    self.parent)
-            if cloneDialog is None:
-                self.intf.messageWindow(_("Couldn't Create Drive Clone Editor"),
-                                        _("The drive clone editor could not "
-                                          "be created for some reason."),
-                                        custom_icon="error")
-                return
-
-            if cloneDialog.run():
-                self.refresh()
-
-            cloneDialog.destroy()
             return
 
         elif rd_rb.get_active():
