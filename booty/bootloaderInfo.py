@@ -561,6 +561,9 @@ class bootloaderInfo(object):
         self.above1024 = 0
         self.timeout = None
         self.storage = instData.storage
+        self.serial = 0
+        self.serialDevice = None
+        self.serialOptions = None
 
         # this has somewhat strange semantics.  if 0, act like a normal
         # "install" case.  if 1, update lilo.conf (since grubby won't do that)
@@ -572,34 +575,28 @@ class bootloaderInfo(object):
         self._drivelist = None
 
         if flags.serial != 0:
-            options = ""
-            device = ""
+            self.serial = 1
+            self.timeout = 5
+
             console = flags.cmdline.get("console", "")
-
-            # the options are everything after the comma
-            comma = console.find(",")
-            if comma != -1:
-                options = console[comma:]
-                device = console[:comma]
+            if console:
+                # the options are everything after the comma
+                comma = console.find(",")
+                if comma != -1:
+                    self.serialDevice = console[:comma]
+                    self.serialOptions = console[comma + 1:]
+                else:
+                    self.serialDevice = console
+                    self.serialOptions = ""
             else:
-                device = console
-
-            if not device and iutil.isIA64():
                 self.serialDevice = "ttyS0"
                 self.serialOptions = ""
-            else:
-                self.serialDevice = device
-                # don't keep the comma in the options
-                self.serialOptions = options[1:]
 
-            if self.serialDevice:
-                self.args.append("console=%s%s" %(self.serialDevice, options))
-                self.serial = 1
-                self.timeout = 5
-        else:
-            self.serial = 0
-            self.serialDevice = None
-            self.serialOptions = None
+            if self.serialOptions:
+                self.args.append("console=%s,%s" %(self.serialDevice,
+                                                   self.serialOptions))
+            else:
+                self.args.append("console=%s" % self.serialDevice)
 
         if flags.virtpconsole is not None:
             if flags.virtpconsole.startswith("/dev/"):
