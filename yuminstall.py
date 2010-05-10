@@ -611,16 +611,17 @@ class AnacondaYum(YumSorter):
         variant = c.get("general", "variant")
 
         section = "variant-%s" % variant
-        if c.has_section(section):
+        if c.has_section(section) and c.has_option(section, "addons"):
             validAddons = c.get(section, "addons").split(",")
         else:
             return retval
 
         for addon in validAddons:
-            if not c.has_section("addon-%s" % addon):
+            addonSection = "addon-%s" % addon
+            if not c.has_section(addonSection) or not c.has_option(addonSection, "repository"):
                 continue
 
-            url = "%s/%s" % (baseurl, c.get("addon-%s" % addon, "repository"))
+            url = "%s/%s" % (baseurl, c.get(addonSection, "repository"))
             retval.append((addon, url))
 
         return retval
