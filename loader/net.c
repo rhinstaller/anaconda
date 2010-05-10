@@ -247,6 +247,7 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
 		iface->ipv4method = IPV4_DHCP_METHOD;
 		logMessage(INFO, "iBFT is not present");
 	    }
+
 	    /* MAC address doesn't match */
 	    else if(strcasecmp(ibft_iface_mac(), devmacaddr)){
 		iface->ipv4method = IPV4_DHCP_METHOD;
@@ -1736,28 +1737,19 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
         return LOADER_ERROR;
     }
 
-    /* JKFIXME: if we only have one interface and it doesn't have link,
-     * do we go ahead? */
-    if (deviceNums == 1) {
-        logMessage(INFO, "only have one network device: %s", devices[0]);
-        loaderData->netDev = devices[0];
-        return LOADER_NOOP;
-    }
-
-    while ((loaderData->netDev && (loaderData->netDev_set == 1)) &&
-           !strcmp(loaderData->netDev, "ibft")) {
+    /* If there is iBFT table and ksdevice doesn't say otherwise, use it */
+    while (!loaderData->netDev_set || !strcmp(loaderData->netDev, "ibft")) {
         char *devmacaddr = NULL;
         char *ibftmacaddr = "";
 
         /* get MAC from the iBFT table */
         if (!(ibftmacaddr = ibft_iface_mac())) { /* iBFT not present or error */
-            lookForLink = 0;
+            logMessage(ERROR, "iBFT doesn't couldn't provide valid NIC MAC address");
             break;
         }
 
         logMessage(INFO, "looking for iBFT configured device %s with link",
                    ibftmacaddr);
-        lookForLink = 0;
 
         for (i = 0; devs[i]; i++) {
             if (!devs[i]->device)
@@ -1768,26 +1760,34 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
             if(!strcasecmp(devmacaddr, ibftmacaddr)){
                 logMessage(INFO,
                            "%s has the right MAC (%s), checking for link",
-                           devmacaddr, devices[i]);
+                           devs[i]->device, devmacaddr);
                 free(devmacaddr);
 
-                if (get_link_status(devices[i]) == 1) {
-                    lookForLink = 0;
-                    loaderData->netDev = devices[i];
-                    logMessage(INFO, "%s has link, using it", devices[i]);
+                /* wait for the link (max 5s) */
+                for (rc = 0; rc < 5; rc++) {
+                    if (get_link_status(devs[i]->device) == 0) {
+                        logMessage(INFO, "%s still has no link, waiting", devs[i]->device);
+                        sleep(1);                 
+                    } else {
+                        lookForLink = 0;
+                        loaderData->netDev = devs[i]->device;
+                        loaderData->netDev_set = 1;
+                        logMessage(INFO, "%s has link, using it", devs[i]->device);
 
-                    /* set the IP method to ibft if not requested differently */
-                    if (loaderData->ipv4 == NULL) {
-                        loaderData->ipv4 = strdup("ibft");
-                        logMessage(INFO,
-                                   "%s will be configured using iBFT values",
-                                   devices[i]);
+                        /* set the IP method to ibft if not requested differently */
+                        if (loaderData->ipv4 == NULL) {
+                            loaderData->ipv4 = strdup("ibft");
+                            loaderData->ipinfo_set = 1;
+                            logMessage(INFO,
+                                       "%s will be configured using iBFT values",
+                                       devices[i]);
+                        }
+
+                        return LOADER_NOOP;
                     }
-
-                    return LOADER_NOOP;
-                } else {
-                    logMessage(INFO, "%s has no link, skipping it", devices[i]);
                 }
+
+                logMessage(INFO, "%s has no link, skipping it", devices[i]);
 
                 break;
             } else {
@@ -1820,6 +1820,15 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 
         logMessage(WARNING,
                    "wanted netdev with link, but none present.  prompting");
+    }
+
+    /* JKFIXME: if we only have one interface and it doesn't have link,
+     * do we go ahead? */
+    if (deviceNums == 1) {
+        logMessage(INFO, "only have one network device: %s", devices[0]);
+        loaderData->netDev = devices[0];
+        loaderData->netDev_set = 1;
+        return LOADER_NOOP;
     }
 
     if (FL_CMDLINE(flags)) {
