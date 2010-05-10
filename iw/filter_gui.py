@@ -422,6 +422,13 @@ class FilterWindow(InstallWindow):
 
         udev_trigger(subsystem="block", action="change")
         new_disks = filter(udev_device_is_disk, udev_get_block_devices())
+
+        mcw = MultipathConfigWriter()
+        cfg = mcw.write()
+        open("/etc/multipath.conf", "w+").write(cfg)
+        del cfg
+        del mcw
+
         (new_singlepaths, new_mpaths, new_partitions) = identifyMultipaths(new_disks)
         (new_raids, new_nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
                                                     new_singlepaths)
@@ -552,6 +559,12 @@ class FilterWindow(InstallWindow):
                                     anaconda.storage.exclusiveDisks,
                                     anaconda.storage.zeroMbr)
         disks = filter(udev_device_is_disk, udev_get_block_devices())
+
+        mcw = MultipathConfigWriter()
+        cfg = mcw.write()
+        open("/etc/multipath.conf", "w+").write(cfg)
+        del cfg
+        del mcw
         (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
 
         # The device list could be really long, so we really only want to
