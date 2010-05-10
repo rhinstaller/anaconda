@@ -1,3 +1,6 @@
+
+import re
+
 from ..udev import *
 import iutil
 
@@ -5,15 +8,23 @@ def parseMultipathOutput(output):
     # this function parses output from "multipath -d", so we can use its
     # logic for our topology.
     # The input looks like:
-    # create: mpathb (1ATA     ST3120026AS                                         5M) undef ATA,ST3120026AS
+    # create: mpathc (1ATA     ST3120026AS                                         5M) undef ATA,ST3120026AS
     # size=112G features='0' hwhandler='0' wp=undef
     # `-+- policy='round-robin 0' prio=1 status=undef
     #   `- 2:0:0:0 sda 8:0  undef ready running
-    # create: mpatha (36006016092d21800703762872c60db11) undef DGC,RAID 5
+    # create: mpathb (36006016092d21800703762872c60db11) undef DGC,RAID 5
     # size=10G features='1 queue_if_no_path' hwhandler='1 emc' wp=undef
     # `-+- policy='round-robin 0' prio=2 status=undef
     #   |- 6:0:0:0 sdb 8:16 undef ready running
     #   `- 7:0:0:0 sdc 8:32 undef ready running
+    # create: mpatha (36001438005deb4710000500000270000) dm-0 HP,HSV400
+    # size=20G features='0' hwhandler='0' wp=rw
+    # |-+- policy='round-robin 0' prio=-1 status=active
+    # | |- 7:0:0:1 sda 8:0  active undef running
+    # | `- 7:0:1:1 sdb 8:16 active undef running
+    # `-+- policy='round-robin 0' prio=-1 status=enabled
+    #   |- 7:0:2:1 sdc 8:32 active undef running
+    #   `- 7:0:3:1 sdd 8:48 active undef running
     #
     # (In anaconda, the first one there won't be included because we blacklist
     # "ATA" as a vendor.)
@@ -27,8 +38,13 @@ def parseMultipathOutput(output):
     name = None
     devices = []
 
+    policy = re.compile('^[|+` -]+policy')
+    device = re.compile('^[|+` -]+[0-9]+:[0-9]+:[0-9]+:[0-9]+ ([a-zA-Z!/]+)')
+
     lines = output.split('\n')
     for line in lines:
+        pmatch = policy.match(line)
+        dmatch = device.match(line)
         lexemes = line.split()
         if not lexemes:
             break
@@ -40,10 +56,10 @@ def parseMultipathOutput(output):
             name = lexemes[1]
         elif lexemes[0].startswith('size='):
             pass
-        elif lexemes[0] == '`-+-':
+        elif pmatch:
             pass
-        elif lexemes[0] in ['|-','`-']:
-            devices.append(lexemes[2].replace('!', '/'))
+        elif dmatch:
+            devices.append(dmatch.groups()[0].replace('!','/'))
     
     if name and devices:
         mpaths[name] = devices
