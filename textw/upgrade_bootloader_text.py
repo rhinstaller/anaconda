@@ -91,16 +91,11 @@ class UpgradeBootloaderWindow:
 
         blradio = RadioGroup()
 
-        (update, newbl, nobl) = (0, 0, 0)
-        if not self.dispatch.stepInSkipList("bootloader"):
-            newbl = 1
-        elif self.dispatch.stepInSkipList("instbootloader"):
+        (update, nobl) = (0, 0)
+        if self.dispatch.stepInSkipList("instbootloader"):
             nobl = 1
-        else:
-            if newToLibata or self.type is None or self.bootDev is None:
-                newbl = 1
-            else:
-                update = 1
+        elif not (newToLibata or self.type is None or self.bootDev is None):
+            update = 1
 
         if newToLibata or self.type is None or self.bootDev is None:
             if newToLibata:
@@ -128,9 +123,6 @@ class UpgradeBootloaderWindow:
 
         self.nobl_radio = blradio.add(_("Skip boot loader updating"),
                                       "nobl", nobl)
-        self.newbl_radio = blradio.add(_("Create new boot loader "
-                                         "configuration"),
-                                       "newbl", newbl)
 
         buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 
@@ -140,8 +132,7 @@ class UpgradeBootloaderWindow:
         grid.add(t, 0, 0, (0,0,0,1))
         grid.add(self.update_radio, 0, 1, (0,0,0,0))
         grid.add(self.nobl_radio, 0, 2, (0,0,0,0))
-        grid.add(self.newbl_radio, 0, 3, (0,0,0,1))
-        grid.add(buttons, 0, 4, growx = 1)
+        grid.add(buttons, 0, 3, growx = 1)
 
 
         while 1:
@@ -158,12 +149,6 @@ class UpgradeBootloaderWindow:
                 self.dispatch.skipStep("bootloader", skip = 1)
                 self.dispatch.skipStep("bootloaderadvanced", skip = 1)
                 self.dispatch.skipStep("instbootloader", skip = 1)
-            elif blradio.getSelection() == "newbl":
-                self.dispatch.skipStep("bootloadersetup", skip = 0)
-                self.dispatch.skipStep("bootloader", skip = 0)
-                self.dispatch.skipStep("bootloaderadvanced", skip = 0)
-                self.dispatch.skipStep("instbootloader", skip = 0)
-                self.bl.doUpgradeOnly = 0
             else:
                 self.dispatch.skipStep("bootloadersetup", skip = 0)
                 self.dispatch.skipStep("bootloader", skip = 1)
