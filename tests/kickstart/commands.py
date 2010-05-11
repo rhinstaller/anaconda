@@ -18,14 +18,14 @@
 # Author: Chris Lumens <clumens@redhat.com>
 import unittest
 
-import kickstart
-import pykickstart.version
-
 # Verify that each kickstart command in anaconda uses the correct version of
 # that command as provided by pykickstart.  That is, if there's an FC3 and an
 # F10 version of a command, make sure anaconda >= F10 uses the F10 version.
 class CommandVersionTestCase(unittest.TestCase):
     def setUp(self):
+        import kickstart
+        import pykickstart.version
+
         self.handler = pykickstart.version.makeVersion(kickstart.ver)
 
     def runTest(self):
@@ -37,6 +37,9 @@ class CommandVersionTestCase(unittest.TestCase):
 # Do the same thing as CommandVersionTestCase, but for data objects.
 class DataVersionTestCase(unittest.TestCase):
     def setUp(self):
+        import kickstart
+        import pykickstart.version
+
         self.handler = pykickstart.version.makeVersion(kickstart.ver)
 
     def runTest(self):

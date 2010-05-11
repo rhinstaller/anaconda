@@ -1,9 +1,12 @@
 #!/usr/bin/python
 import baseclass
 import unittest
-import storage.devicelibs.lvm as lvm
 
 class LVMTestCase(baseclass.DevicelibsTestCase):
+
+    def setUp(self):
+        baseclass.DevicelibsTestCase.setUp(self)
+        import storage.devicelibs.lvm as lvm
 
     def testLVM(self):
         ##

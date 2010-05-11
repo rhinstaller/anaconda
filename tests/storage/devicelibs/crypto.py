@@ -1,12 +1,16 @@
 #!/usr/bin/python
 import baseclass
 import unittest
-import storage.devicelibs.crypto as crypto
 
 import tempfile
 import os
 
 class CryptoTestCase(baseclass.DevicelibsTestCase):
+
+    def setUp(self):
+        baseclass.DevicelibsTestCase.setUp(self)
+        import storage.devicelibs.crypto as crypto
+
 
     def testCrypto(self):
         ##

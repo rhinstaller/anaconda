@@ -1,9 +1,12 @@
 #!/usr/bin/python
 import baseclass
 import unittest
-import storage.devicelibs.mpath as mpath
 
 class MPathTestCase(baseclass.DevicelibsTestCase):
+    def setUp(self):
+        baseclass.DevicelibsTestCase.setUp(self)
+        import storage.devicelibs.mpath as mpath
+
     def testMPath(self):
         ##
         ## parseMultipathOutput

@@ -1,9 +1,12 @@
 #!/usr/bin/python
 import baseclass
 import unittest
-import storage.devicelibs.swap as swap
 
 class SwapTestCase(baseclass.DevicelibsTestCase):
+
+    def setUp(self):
+        baseclass.DevicelibsTestCase.setUp(self)
+        import storage.devicelibs.swap as swap
 
     def testSwap(self):
         ##

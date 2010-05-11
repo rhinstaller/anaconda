@@ -1,11 +1,13 @@
 #!/usr/bin/python
 import baseclass
 import unittest
-import storage.devicelibs.mdraid as mdraid
-
 import time
 
 class MDRaidTestCase(baseclass.DevicelibsTestCase):
+
+    def setUp(self):
+        baseclass.DevicelibsTestCase.setUp(self)
+        import storage.devicelibs.mdraid as mdraid
 
     def testMDRaid(self):
         ##
