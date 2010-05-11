@@ -1,4 +1,4 @@
-# tests/Makefile.am for anaconda
+# liveinst/Makefile.am for anaconda
 #
 # Copyright (C) 2009  Red Hat, Inc.
 #
@@ -15,8 +15,20 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: David Cantrell <dcantrell@redhat.com>
+# Author: Martin Sivak <msivak@redhat.com>
 
-SUBDIRS = mock kickstart_test storage_test
+SUBDIRS = installclasses iw textw storage 
 
 MAINTAINERCLEANFILES = Makefile.in
+
+# anaconda Python code
+pkgpyexecdir    = $(pyexecdir)/py$(PACKAGE_NAME)
+anacondadir     = $(pkgpyexecdir)
+anaconda_PYTHON = *.py
+pkgpyexec_LTLIBRARIES = xutils.la
+
+xutils_la_CFLAGS      = $(PYTHON_INCLUDES) $(GDK_CFLAGS) -fno-strict-aliasing
+xutils_la_LDFLAGS     = -module -avoid-version $(PYTHON_LDFLAGS) $(GDK_LDFLAGS)
+xutils_la_LIBADD      = $(PYTHON_LIBS) $(GDK_LIBS)
+xutils_la_SOURCES     = xutils.c
+

@@ -32,6 +32,7 @@ class TestCase(unittest.TestCase):
     def setupModules(self, a):
         """Mock specified list of modules and store the list so it can be
            properly unloaded during tearDown"""
+
         import sys
         self.preexistingModules = set(sys.modules.keys())
 
@@ -50,11 +51,8 @@ class TestCase(unittest.TestCase):
 
     def tearDown(self):
         """Unload previously Mocked modules"""
-        import sys
 
-        for m in sys.modules.keys():
-            if m in self.preexistingModules and not m in self.injectedModules:
-                continue
-            
-            del sys.modules[m]
+        import sys
+        for k in self.injectedModules.keys():
+            del sys.modules[k]
 

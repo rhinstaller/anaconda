@@ -32,7 +32,7 @@ ISYS_LIBS   = $(RESOLV_LIBS) $(EXT2FS_LIBS) $(ZLIB_LIBS) \
               $(DEVMAPPER_LIBS) $(BLKID_LIBS) $(X11_LIBS) $(SELINUX_LIBS) \
               $(LIBNL_LIBS) $(LIBNM_GLIB_LIBS)
 
-isysdir     = $(pkgpyexecdir)
+isysdir     = $(pkgpyexecdir)/isys
 isys_PYTHON = *.py
 
 pkgpyexec_LTLIBRARIES = _isys.la

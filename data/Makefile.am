@@ -1,4 +1,4 @@
-# tests/storage/Makefile.am for anaconda
+# liveinst/Makefile.am for anaconda
 #
 # Copyright (C) 2009  Red Hat, Inc.
 #
@@ -15,10 +15,22 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: David Cantrell <dcantrell@redhat.com>
+# Author: Martin Sivak <msivak@redhat.com>
 
-SUBDIRS = devicelibs
+SUBDIRS = bootdisk command-stubs fonts icons liveinst pixmaps ui 
 
-EXTRA_DIST = *.py
+EXTRA_DIST = lang-table
+CLEANFILES = *~ lang-names 
+
+udevdir               = /lib/udev/rules.d
+dist_udev_DATA        = 70-anaconda.rules
+
+langdir               = $(datadir)/$(PACKAGE_NAME)
+lang_DATA             = lang-names
+dist_lang_DATA        = lang-table
 
 MAINTAINERCLEANFILES = Makefile.in
+
+lang-names: lang-table
+	PYTHONPATH="$(top_srcdir)/:$(top_srcdir)/isys/.libs" $(PYTHON) ../scripts/getlangnames.py > lang-names
+

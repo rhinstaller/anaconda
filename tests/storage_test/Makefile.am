@@ -1,4 +1,4 @@
-# tests/Makefile.am for anaconda
+# tests/storage/Makefile.am for anaconda
 #
 # Copyright (C) 2009  Red Hat, Inc.
 #
@@ -17,6 +17,7 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-SUBDIRS = mock kickstart_test storage_test
+SUBDIRS = devicelibs_test
+
 
 MAINTAINERCLEANFILES = Makefile.in

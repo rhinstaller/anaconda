@@ -102,8 +102,8 @@ keymaps-override-$(ARCH): keymaps-$(ARCH)
 ctype.c: mkctype
 	$(mkctype_verbose)./mkctype > ctype.c
 
-loader.tr: $(top_srcdir)/lang-table loader.po
-	@LANGS="`cut -f 2 $(top_srcdir)/lang-table | egrep -v '(^en$$)'`" ; \
+loader.tr: $(top_srcdir)/data/lang-table loader.po
+	@LANGS="`cut -f 2 $(top_srcdir)/data/lang-table | egrep -v '(^en$$)'`" ; \
 	if [ ! -d tr ]; then \
 		mkdir -p tr ; \
 	fi ; \

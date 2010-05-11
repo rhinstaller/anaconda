@@ -17,16 +17,45 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 import unittest
+import sys
+from mock import Mock, patch, TestCase
+
+class O(object):
+    pass
 
 # Verify that each kickstart command in anaconda uses the correct version of
 # that command as provided by pykickstart.  That is, if there's an FC3 and an
 # F10 version of a command, make sure anaconda >= F10 uses the F10 version.
-class CommandVersionTestCase(unittest.TestCase):
+class CommandVersionTestCase(TestCase):
     def setUp(self):
-        import kickstart
+        self.setupModules([
+            'pyanaconda.isys',
+            'pyanaconda.storage',
+            'pyanaconda.storage.isys',
+            'pyanaconda.storage.devices',
+            'pyanaconda.storage.formats',
+            'pyanaconda.storage.partitioning',
+            'pyanaconda.storage.deviceaction',
+            'pyanaconda.storage.devicelibs',
+            'pyanaconda.storage.devicelibs.lvm',
+            'pyanaconda.storage.iscsi',
+            'pyanaconda.storage.fcoe',
+            'pyanaconda.storage.zfcp',
+            'iutil',
+            'constants',
+            'flags',
+            'anaconda_log',
+            'parted',
+            'block',
+            'baseudev'])
+        
+        import pyanaconda.kickstart
         import pykickstart.version
 
         self.handler = pykickstart.version.makeVersion(kickstart.ver)
+
+    def tearDown(self):
+        self.tearDownModules()
 
     def runTest(self):
         for (commandName, commandObj) in kickstart.commandMap.iteritems():
@@ -37,7 +66,7 @@ class CommandVersionTestCase(unittest.TestCase):
 # Do the same thing as CommandVersionTestCase, but for data objects.
 class DataVersionTestCase(unittest.TestCase):
     def setUp(self):
-        import kickstart
+        import pyanaconda.kickstart
         import pykickstart.version
 
         self.handler = pykickstart.version.makeVersion(kickstart.ver)

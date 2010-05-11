@@ -30,7 +30,7 @@ import socket
 import stat
 import posix
 import sys
-import iutil
+import pyanaconda.iutil as iutil
 import warnings
 import resource
 import re

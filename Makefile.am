@@ -19,44 +19,23 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = isys po loader booty storage textw utils scripts bootdisk \
-          installclasses iw command-stubs ui docs pixmaps tests fonts \
-          gptsync liveinst icons
+SUBDIRS = isys loader gptsync booty pyanaconda data \
+	  tests utils scripts docs po
 
 EXTRA_DIST = config.rpath COPYING \
-             lang-table \
              anaconda.spec.in
 
 MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
                        depcomp install-sh ltmain.sh missing ABOUT-NLS \
                        INSTALL aclocal.m4 configure *.pyc py-compile
 
-CLEANFILES = *~ lang-names anaconda.spec
+CLEANFILES = *~ anaconda.spec
 
 MOSTLYCLEANDIRS = m4
-
-pkgpyexecdir          = $(pyexecdir)/py$(PACKAGE_NAME)
 
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
 dist_sbin_SCRIPTS     = anaconda
-
-udevdir               = /lib/udev/rules.d
-dist_udev_DATA        = 70-anaconda.rules
-
-langdir               = $(datadir)/$(PACKAGE_NAME)
-lang_DATA             = lang-names
-dist_lang_DATA        = lang-table
-
-pkgpyexec_LTLIBRARIES = xutils.la
-xutils_la_CFLAGS      = $(PYTHON_INCLUDES) $(GDK_CFLAGS) -fno-strict-aliasing
-xutils_la_LDFLAGS     = -module -avoid-version $(PYTHON_LDFLAGS) $(GDK_LDFLAGS)
-xutils_la_LIBADD      = $(PYTHON_LIBS) $(GDK_LIBS)
-xutils_la_SOURCES     = xutils.c
-
-# anaconda Python code
-anacondadir     = $(pkgpyexecdir)
-anaconda_PYTHON = *.py
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
@@ -66,9 +45,6 @@ sed_verbose_0 = @echo "  SED    "$@;
 
 $(PACKAGE_NAME).spec: $(PACKAGE_NAME).spec.in
 	$(sed_verbose)sed -e 's/#VERSION#/$(PACKAGE_VERSION)/' < $< > $@
-
-lang-names: lang-table
-	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names
 
 testiso: install
 	@if [ "$(REPO)" = "" ]; then echo "ERROR: Need a repo to pull packages from!" ; exit 1 ; fi

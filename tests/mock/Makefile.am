@@ -17,6 +17,5 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-SUBDIRS = mock kickstart_test storage_test
-
+EXTRA_DIST = *.py
 MAINTAINERCLEANFILES = Makefile.in

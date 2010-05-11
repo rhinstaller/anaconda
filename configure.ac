@@ -247,47 +247,50 @@ AM_CONDITIONAL(IS_SPARC,
   [test x$s_arch == xsparc || test x$s_arch == xsparc64])
 
 AC_CONFIG_FILES([Makefile
-                 bootdisk/Makefile
-                 bootdisk/i386/Makefile
-                 bootdisk/ppc/Makefile
-                 bootdisk/sparc/Makefile
-                 bootdisk/s390x/Makefile
-                 bootdisk/x86_64/Makefile
+                 data/Makefile
+                 data/bootdisk/Makefile
+                 data/bootdisk/i386/Makefile
+                 data/bootdisk/ppc/Makefile
+                 data/bootdisk/sparc/Makefile
+                 data/bootdisk/s390x/Makefile
+                 data/bootdisk/x86_64/Makefile
                  booty/Makefile
-                 command-stubs/Makefile
+                 data/command-stubs/Makefile
                  docs/Makefile
-                 fonts/Makefile
+                 data/fonts/Makefile
                  gptsync/Makefile
-                 icons/Makefile
-                 icons/hicolor/Makefile
-                 icons/hicolor/48x48/Makefile
-                 icons/hicolor/48x48/apps/Makefile
-                 icons/hicolor/32x32/Makefile
-                 icons/hicolor/32x32/apps/Makefile
-                 icons/hicolor/24x24/Makefile
-                 icons/hicolor/24x24/apps/Makefile
-                 icons/hicolor/22x22/Makefile
-                 icons/hicolor/22x22/apps/Makefile
-                 icons/hicolor/16x16/Makefile
-                 icons/hicolor/16x16/apps/Makefile
-                 installclasses/Makefile
+                 pyanaconda/installclasses/Makefile
                  isys/Makefile
-                 iw/Makefile
-                 liveinst/Makefile
-                 liveinst/console.apps/Makefile
-                 liveinst/pam.d/Makefile
+                 pyanaconda/iw/Makefile
+                 data/liveinst/Makefile
+                 data/liveinst/console.apps/Makefile
+                 data/liveinst/pam.d/Makefile
                  loader/Makefile
-                 pixmaps/Makefile
+                 data/pixmaps/Makefile
+                 data/icons/Makefile
+                 data/icons/hicolor/Makefile
+                 data/icons/hicolor/16x16/Makefile
+                 data/icons/hicolor/16x16/apps/Makefile
+                 data/icons/hicolor/22x22/Makefile
+                 data/icons/hicolor/22x22/apps/Makefile
+                 data/icons/hicolor/24x24/Makefile
+                 data/icons/hicolor/24x24/apps/Makefile
+                 data/icons/hicolor/32x32/Makefile
+                 data/icons/hicolor/32x32/apps/Makefile
+                 data/icons/hicolor/48x48/Makefile
+                 data/icons/hicolor/48x48/apps/Makefile
                  po/Makefile.in
                  scripts/Makefile
-                 storage/Makefile
-                 storage/devicelibs/Makefile
-                 storage/formats/Makefile
+                 pyanaconda/Makefile
+                 pyanaconda/storage/Makefile
+                 pyanaconda/storage/devicelibs/Makefile
+                 pyanaconda/storage/formats/Makefile
                  tests/Makefile
-                 tests/kickstart/Makefile
-                 tests/storage/Makefile
-                 tests/storage/devicelibs/Makefile
-                 textw/Makefile
-                 ui/Makefile
+                 tests/mock/Makefile
+                 tests/kickstart_test/Makefile
+                 tests/storage_test/Makefile
+                 tests/storage_test/devicelibs_test/Makefile
+                 pyanaconda/textw/Makefile
+                 data/ui/Makefile
                  utils/Makefile])
 AC_OUTPUT
