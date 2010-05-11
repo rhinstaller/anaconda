@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.36\n"
+"Project-Id-Version: anaconda 13.21.37\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-05-07 16:43-1000\n"
+"POT-Creation-Date: 2010-05-11 10:33-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,10 +24,10 @@ msgstr ""
 #: rescue.py:479 text.py:654 loader/cdinstall.c:228 loader/cdinstall.c:232
 #: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:427
 #: loader/cdinstall.c:431 loader/cdinstall.c:504 loader/dirbrowser.c:128
-#: loader/driverdisk.c:232 loader/driverdisk.c:388 loader/driverdisk.c:420
-#: loader/driverdisk.c:451 loader/driverdisk.c:486 loader/driverdisk.c:502
-#: loader/driverdisk.c:514 loader/driverdisk.c:522 loader/driverdisk.c:689
-#: loader/driverdisk.c:728 loader/driverselect.c:78 loader/driverselect.c:178
+#: loader/driverdisk.c:233 loader/driverdisk.c:389 loader/driverdisk.c:421
+#: loader/driverdisk.c:452 loader/driverdisk.c:487 loader/driverdisk.c:503
+#: loader/driverdisk.c:515 loader/driverdisk.c:523 loader/driverdisk.c:690
+#: loader/driverdisk.c:729 loader/driverselect.c:78 loader/driverselect.c:178
 #: loader/hdinstall.c:115 loader/hdinstall.c:266 loader/hdinstall.c:325
 #: loader/hdinstall.c:359 loader/hdinstall.c:431 loader/hdinstall.c:474
 #: loader/hdinstall.c:487 loader/kbd.c:119 loader/kickstart.c:135
@@ -39,8 +39,8 @@ msgstr ""
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:579 loader/net.c:950 loader/net.c:1558 loader/net.c:1579
-#: loader/net.c:1851 loader/net.c:1870 loader/net.c:1882
+#: loader/net.c:580 loader/net.c:951 loader/net.c:1559 loader/net.c:1580
+#: loader/net.c:1860 loader/net.c:1879 loader/net.c:1891
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:366 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
@@ -123,9 +123,9 @@ msgstr ""
 #: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:214 iw/raid_dialog_gui.py:795
 #: iw/raid_dialog_gui.py:834 iw/task_gui.py:52 iw/task_gui.py:153
 #: iw/task_gui.py:299 iw/task_gui.py:459 loader/cdinstall.c:228
-#: loader/cdinstall.c:504 loader/driverdisk.c:232 loader/driverdisk.c:451
-#: loader/driverdisk.c:486 loader/driverdisk.c:514 loader/driverdisk.c:522
-#: loader/driverdisk.c:589 loader/hdinstall.c:115 loader/hdinstall.c:325
+#: loader/cdinstall.c:504 loader/driverdisk.c:233 loader/driverdisk.c:452
+#: loader/driverdisk.c:487 loader/driverdisk.c:515 loader/driverdisk.c:523
+#: loader/driverdisk.c:590 loader/hdinstall.c:115 loader/hdinstall.c:325
 #: loader/hdinstall.c:431 loader/hdinstall.c:474 loader/hdinstall.c:487
 #: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:414
 #: loader/loader.c:525 loader/loader.c:1137 loader/mediacheck.c:46
@@ -133,8 +133,8 @@ msgstr ""
 #: loader/method.c:277 loader/method.c:351 loader/nfsinstall.c:279
 #: loader/nfsinstall.c:296 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urls.c:330
-#: loader/urls.c:336 storage/__init__.py:213 storage/__init__.py:1795
-#: storage/__init__.py:1882 textw/netconfig_text.py:282
+#: loader/urls.c:336 storage/__init__.py:213 storage/__init__.py:1796
+#: storage/__init__.py:1883 textw/netconfig_text.py:282
 #: textw/upgrade_text.py:179 textw/upgrade_text.py:186
 msgid "Error"
 msgstr ""
@@ -157,18 +157,18 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:60 gui.py:1051 gui.py:1196 gui.py:1412 image.py:91
-#: installinterfacebase.py:74 kickstart.py:155 livecd.py:205 livecd.py:410
-#: packages.py:161 upgrade.py:58 upgrade.py:199 yuminstall.py:249
-#: yuminstall.py:955 yuminstall.py:960 yuminstall.py:1040 yuminstall.py:1046
-#: yuminstall.py:1202 yuminstall.py:1227 yuminstall.py:1285 yuminstall.py:1472
-#: yuminstall.py:1491 yuminstall.py:1514 storage/__init__.py:100
-#: storage/__init__.py:109 storage/__init__.py:217 storage/__init__.py:1976
+#: kickstart.py:155 livecd.py:205 livecd.py:410 packages.py:161 upgrade.py:58
+#: upgrade.py:199 yuminstall.py:249 yuminstall.py:955 yuminstall.py:960
+#: yuminstall.py:1040 yuminstall.py:1046 yuminstall.py:1202 yuminstall.py:1227
+#: yuminstall.py:1285 yuminstall.py:1472 yuminstall.py:1491 yuminstall.py:1514
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
+#: storage/__init__.py:1977
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1346
 #: kickstart.py:1385 upgrade.py:58 yuminstall.py:1290 yuminstall.py:1473
-#: iw/partition_gui.py:1608 storage/__init__.py:1977
+#: iw/partition_gui.py:1608 storage/__init__.py:1978
 msgid "_Continue"
 msgstr ""
 
@@ -302,7 +302,7 @@ msgstr ""
 
 #: gui.py:734 gui.py:1412 partIntfHelpers.py:157 partIntfHelpers.py:342
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
-#: loader/driverdisk.c:389 loader/kickstart.c:331 loader/loader.c:450
+#: loader/driverdisk.c:390 loader/kickstart.c:331 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
 msgid "Cancel"
 msgstr ""
@@ -328,7 +328,7 @@ msgid ""
 "(details)s"
 msgstr ""
 
-#: gui.py:1110 gui.py:1168 text.py:491 text.py:549
+#: gui.py:1110 gui.py:1168 installinterfacebase.py:74 text.py:491 text.py:549
 msgid "_Ignore"
 msgstr ""
 
@@ -375,7 +375,7 @@ msgid ""
 msgstr ""
 
 #: gui.py:1322 image.py:164 image.py:194 packages.py:359
-#: storage/__init__.py:1794
+#: storage/__init__.py:1795
 msgid "_Exit"
 msgstr ""
 
@@ -1164,12 +1164,12 @@ msgstr ""
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: rescue.py:255 loader/driverdisk.c:629 loader/driverdisk.c:639
+#: rescue.py:255 loader/driverdisk.c:630 loader/driverdisk.c:640
 #: loader/hdinstall.c:212 textw/constants_text.py:56
 msgid "Yes"
 msgstr ""
 
-#: rescue.py:255 rescue.py:257 loader/driverdisk.c:629 loader/driverdisk.c:639
+#: rescue.py:255 rescue.py:257 loader/driverdisk.c:630 loader/driverdisk.c:640
 #: textw/constants_text.py:60
 msgid "No"
 msgstr ""
@@ -1200,7 +1200,7 @@ msgid ""
 msgstr ""
 
 #: rescue.py:310 iw/partition_gui.py:781 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:590 storage/__init__.py:155
+#: loader/cdinstall.c:214 loader/driverdisk.c:591 storage/__init__.py:155
 #: storage/devicetree.py:90
 msgid "Continue"
 msgstr ""
@@ -1210,7 +1210,7 @@ msgid "Read-Only"
 msgstr ""
 
 #: rescue.py:310 rescue.py:312 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1794 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1795 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr ""
 
@@ -1320,8 +1320,8 @@ msgid ""
 "screen"
 msgstr ""
 
-#: text.py:624 loader/net.c:110 loader/net.c:471 loader/net.c:526
-#: loader/net.c:668 loader/net.c:676 loader/net.c:1097 loader/net.c:1105
+#: text.py:624 loader/net.c:110 loader/net.c:472 loader/net.c:527
+#: loader/net.c:669 loader/net.c:677 loader/net.c:1098 loader/net.c:1106
 msgid "Retry"
 msgstr ""
 
@@ -2810,7 +2810,7 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: iw/partition_gui.py:612 storage/__init__.py:1794
+#: iw/partition_gui.py:612 storage/__init__.py:1795
 msgid "Format"
 msgstr ""
 
@@ -3533,12 +3533,12 @@ msgstr ""
 msgid "Disc Not Found"
 msgstr ""
 
-#: loader/cdinstall.c:431 loader/driverdisk.c:389 loader/driverdisk.c:421
-#: loader/driverdisk.c:502 loader/driverselect.c:78 loader/driverselect.c:152
+#: loader/cdinstall.c:431 loader/driverdisk.c:390 loader/driverdisk.c:422
+#: loader/driverdisk.c:503 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:491 loader/loader.c:508
-#: loader/loader.c:1320 loader/loader.c:1353 loader/net.c:579 loader/net.c:950
-#: loader/net.c:1851 loader/net.c:1870 loader/nfsinstall.c:91
+#: loader/loader.c:1320 loader/loader.c:1353 loader/net.c:580 loader/net.c:951
+#: loader/net.c:1860 loader/net.c:1879 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -3553,110 +3553,110 @@ msgstr ""
 msgid "Failed to read directory %s: %m"
 msgstr ""
 
-#: loader/driverdisk.c:270
+#: loader/driverdisk.c:271
 msgid "Loading"
 msgstr ""
 
-#: loader/driverdisk.c:270
+#: loader/driverdisk.c:271
 msgid "Reading driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:383 loader/driverdisk.c:416
+#: loader/driverdisk.c:384 loader/driverdisk.c:417
 msgid "Driver Disk Source"
 msgstr ""
 
-#: loader/driverdisk.c:384
+#: loader/driverdisk.c:385
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:417
+#: loader/driverdisk.c:418
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:452
+#: loader/driverdisk.c:453
 msgid "Failed to mount partition."
 msgstr ""
 
-#: loader/driverdisk.c:457
+#: loader/driverdisk.c:458
 msgid "Select driver disk image"
 msgstr ""
 
-#: loader/driverdisk.c:458
+#: loader/driverdisk.c:459
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
-#: loader/driverdisk.c:487
+#: loader/driverdisk.c:488
 msgid "Failed to load driver disk from file."
 msgstr ""
 
-#: loader/driverdisk.c:499
+#: loader/driverdisk.c:500
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 
-#: loader/driverdisk.c:502
+#: loader/driverdisk.c:503
 msgid "Insert Driver Disk"
 msgstr ""
 
-#: loader/driverdisk.c:515
+#: loader/driverdisk.c:516
 msgid "Failed to mount driver disk."
 msgstr ""
 
-#: loader/driverdisk.c:523
+#: loader/driverdisk.c:524
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr ""
 
-#: loader/driverdisk.c:589
+#: loader/driverdisk.c:590
 msgid "Manually choose"
 msgstr ""
 
-#: loader/driverdisk.c:590
+#: loader/driverdisk.c:591
 msgid "Load another disk"
 msgstr ""
 
-#: loader/driverdisk.c:591
+#: loader/driverdisk.c:592
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:629
+#: loader/driverdisk.c:630
 msgid "Driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:630
+#: loader/driverdisk.c:631
 msgid "Do you have a driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:639
+#: loader/driverdisk.c:640
 msgid "More Driver Disks?"
 msgstr ""
 
-#: loader/driverdisk.c:640
+#: loader/driverdisk.c:641
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: loader/driverdisk.c:689 loader/driverdisk.c:728 loader/hdinstall.c:359
+#: loader/driverdisk.c:690 loader/driverdisk.c:729 loader/hdinstall.c:359
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1558 loader/net.c:1579
+#: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
 #: loader/nfsinstall.c:366 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
 msgstr ""
 
-#: loader/driverdisk.c:690
+#: loader/driverdisk.c:691
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr ""
 
-#: loader/driverdisk.c:729
+#: loader/driverdisk.c:730
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -4033,12 +4033,12 @@ msgid ""
 "IPv6 networks"
 msgstr ""
 
-#: loader/net.c:464 loader/net.c:472 loader/net.c:527
+#: loader/net.c:465 loader/net.c:473 loader/net.c:528
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr ""
 
-#: loader/net.c:466
+#: loader/net.c:467
 #, c-format
 msgid ""
 "\n"
@@ -4046,138 +4046,138 @@ msgid ""
 "Halting.\n"
 msgstr ""
 
-#: loader/net.c:471 loader/net.c:526
+#: loader/net.c:472 loader/net.c:527
 msgid "Network Error"
 msgstr ""
 
-#: loader/net.c:557 textw/netconfig_text.py:133
+#: loader/net.c:558 textw/netconfig_text.py:133
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: loader/net.c:571
+#: loader/net.c:572
 msgid "Enable IPv6 support"
 msgstr ""
 
-#: loader/net.c:611
+#: loader/net.c:612
 msgid "Configure TCP/IP"
 msgstr ""
 
-#: loader/net.c:668
+#: loader/net.c:669
 msgid "Missing Protocol"
 msgstr ""
 
-#: loader/net.c:669
+#: loader/net.c:670
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 
-#: loader/net.c:676
+#: loader/net.c:677
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: loader/net.c:677
+#: loader/net.c:678
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: loader/net.c:776
+#: loader/net.c:777
 msgid "IPv4 address:"
 msgstr ""
 
-#: loader/net.c:788 loader/net.c:855 ui/netconfig.glade.h:1
+#: loader/net.c:789 loader/net.c:856
 msgid "/"
 msgstr ""
 
-#: loader/net.c:843
+#: loader/net.c:844
 msgid "IPv6 address:"
 msgstr ""
 
-#: loader/net.c:909 textw/netconfig_text.py:160
+#: loader/net.c:910 textw/netconfig_text.py:160
 msgid "Gateway:"
 msgstr ""
 
-#: loader/net.c:917
+#: loader/net.c:918
 msgid "Name Server:"
 msgstr ""
 
-#: loader/net.c:956
+#: loader/net.c:957
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: loader/net.c:973
+#: loader/net.c:974
 msgid "Manual TCP/IP Configuration"
 msgstr ""
 
-#: loader/net.c:1097 loader/net.c:1105
+#: loader/net.c:1098 loader/net.c:1106
 msgid "Missing Information"
 msgstr ""
 
-#: loader/net.c:1098
+#: loader/net.c:1099
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1106
+#: loader/net.c:1107
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1559
+#: loader/net.c:1560
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1580
+#: loader/net.c:1581
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1657
+#: loader/net.c:1658
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1846
+#: loader/net.c:1855
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1847
+#: loader/net.c:1856
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1851
+#: loader/net.c:1860
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1860
+#: loader/net.c:1869
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1862
+#: loader/net.c:1871
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1869
+#: loader/net.c:1878
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1882
+#: loader/net.c:1891
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1883
+#: loader/net.c:1892
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:1895
+#: loader/net.c:1904
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2063 loader/net.c:2067
+#: loader/net.c:2072 loader/net.c:2076
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4520,7 +4520,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/__init__.py:1827
+#: storage/__init__.py:1828
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4531,7 +4531,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: storage/__init__.py:1838
+#: storage/__init__.py:1839
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4543,7 +4543,7 @@ msgid ""
 "down your system rather than hibernating it."
 msgstr ""
 
-#: storage/__init__.py:1846
+#: storage/__init__.py:1847
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4555,7 +4555,7 @@ msgid ""
 "make sure the installer is set to format all swap devices."
 msgstr ""
 
-#: storage/__init__.py:1858
+#: storage/__init__.py:1859
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4566,7 +4566,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: storage/__init__.py:1869
+#: storage/__init__.py:1870
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4577,7 +4577,7 @@ msgid ""
 "Press OK to exit the installer"
 msgstr ""
 
-#: storage/__init__.py:1876
+#: storage/__init__.py:1877
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4587,11 +4587,11 @@ msgid ""
 "Press OK to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1939 storage/__init__.py:1951
+#: storage/__init__.py:1940 storage/__init__.py:1952
 msgid "Invalid mount point"
 msgstr ""
 
-#: storage/__init__.py:1940
+#: storage/__init__.py:1941
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4600,7 +4600,7 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1952
+#: storage/__init__.py:1953
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -4609,18 +4609,18 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/__init__.py:1968 storage/__init__.py:1992
+#: storage/__init__.py:1969 storage/__init__.py:1993
 msgid "Unable to mount filesystem"
 msgstr ""
 
-#: storage/__init__.py:1969
+#: storage/__init__.py:1970
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
 msgstr ""
 
-#: storage/__init__.py:1993
+#: storage/__init__.py:1994
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -4629,11 +4629,11 @@ msgid ""
 "Press <Enter> to exit the installer."
 msgstr ""
 
-#: storage/dasd.py:142
+#: storage/dasd.py:138
 msgid "Formatting DASD Device"
 msgstr ""
 
-#: storage/dasd.py:143
+#: storage/dasd.py:139
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgstr ""
@@ -4648,23 +4648,23 @@ msgstr ""
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1260 storage/devices.py:1931 storage/devices.py:2334
-#: storage/devices.py:2824 storage/devices.py:3297
+#: storage/devices.py:1260 storage/devices.py:1935 storage/devices.py:2338
+#: storage/devices.py:2828 storage/devices.py:3301
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1261 storage/devices.py:1932 storage/devices.py:2335
-#: storage/devices.py:2825
+#: storage/devices.py:1261 storage/devices.py:1936 storage/devices.py:2339
+#: storage/devices.py:2829
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2427
+#: storage/devices.py:2431
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3298
+#: storage/devices.py:3302
 #, python-format
 msgid "Creating file %s"
 msgstr ""
@@ -4682,7 +4682,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1860 storage/devicetree.py:1908
+#: storage/devicetree.py:1862 storage/devicetree.py:1910
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
@@ -4999,11 +4999,11 @@ msgstr ""
 msgid "A value is required for the field %s"
 msgstr ""
 
-#: textw/netconfig_text.py:88 ui/netconfig.glade.h:9
+#: textw/netconfig_text.py:88 ui/netconfig.glade.h:1
 msgid "Enable network interface"
 msgstr ""
 
-#: textw/netconfig_text.py:91 ui/netconfig.glade.h:10
+#: textw/netconfig_text.py:91
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
@@ -5263,26 +5263,6 @@ msgid ""
 msgstr ""
 
 #: ui/adddrive.glade.h:1
-msgid "Add _FCoE SAN"
-msgstr ""
-
-#: ui/adddrive.glade.h:2
-msgid "Add _ZFCP LUN"
-msgstr ""
-
-#: ui/adddrive.glade.h:3
-msgid "Add _iSCSI target"
-msgstr ""
-
-#: ui/adddrive.glade.h:4
-msgid "Advanced Storage Options"
-msgstr ""
-
-#: ui/adddrive.glade.h:5
-msgid "How would you like to modify your drive configuration?"
-msgstr ""
-
-#: ui/adddrive.glade.h:6
 msgid "_Add drive"
 msgstr ""
 
@@ -5368,27 +5348,23 @@ msgid "<b>Shrink partition _to size (in MB):</b>"
 msgstr ""
 
 #: ui/autopart.glade.h:2
-msgid "Re_view and modify partitioning layout"
-msgstr ""
-
-#: ui/autopart.glade.h:3
 msgid "Volume to Shrink"
 msgstr ""
 
-#: ui/autopart.glade.h:4
+#: ui/autopart.glade.h:3
 msgid ""
 "Which partition would you like to shrink to make room for your installation?"
 msgstr ""
 
-#: ui/autopart.glade.h:5
+#: ui/autopart.glade.h:4
 msgid "Which type of installation would you like?"
 msgstr ""
 
-#: ui/autopart.glade.h:6
+#: ui/autopart.glade.h:5
 msgid "_Encrypt system"
 msgstr ""
 
-#: ui/autopart.glade.h:7
+#: ui/autopart.glade.h:6
 msgid "_Shrink"
 msgstr ""
 
@@ -5715,38 +5691,6 @@ msgstr ""
 msgid "Enter passphrase:"
 msgstr ""
 
-#: ui/netconfig.glade.h:2
-msgid "<b>Gateway:</b>"
-msgstr ""
-
-#: ui/netconfig.glade.h:3
-msgid "<b>IPv4 Address:</b>"
-msgstr ""
-
-#: ui/netconfig.glade.h:4
-msgid "<b>IPv6 Address:</b>"
-msgstr ""
-
-#: ui/netconfig.glade.h:5
-msgid "<b>Nameserver:</b>"
-msgstr ""
-
-#: ui/netconfig.glade.h:6
-msgid "<b>_Interface:</b>"
-msgstr ""
-
-#: ui/netconfig.glade.h:7
-msgid "Enable IPv_4 support"
-msgstr ""
-
-#: ui/netconfig.glade.h:8
-msgid "Enable IPv_6 support"
-msgstr ""
-
-#: ui/netconfig.glade.h:11
-msgid "Use _dynamic IP configuration (DHCP)"
-msgstr ""
-
 #: ui/network.glade.h:1
 msgid "Configure Network"
 msgstr ""
@@ -5762,38 +5706,16 @@ msgid ""
 msgstr ""
 
 #: ui/tasksel.glade.h:1
-msgid "Customize _later"
-msgstr ""
-
-#: ui/tasksel.glade.h:2
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
 
-#: ui/tasksel.glade.h:4
-#, no-c-format
-msgid ""
-"The default installation of %s includes a set of software applicable for "
-"general internet usage.  What additional tasks would you like your system to "
-"support?"
-msgstr ""
-
-#: ui/tasksel.glade.h:5
-msgid ""
-"You can further customize the software selection now, or after install via "
-"the software management application."
-msgstr ""
-
-#: ui/tasksel.glade.h:6
+#: ui/tasksel.glade.h:2
 msgid "_Add additional software repositories"
 msgstr ""
 
-#: ui/tasksel.glade.h:7
-msgid "_Customize now"
-msgstr ""
-
-#: ui/tasksel.glade.h:8
+#: ui/tasksel.glade.h:3
 msgid "_Modify repository"
 msgstr ""
 

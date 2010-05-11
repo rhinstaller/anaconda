@@ -221,6 +221,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.38-1
+- Add hmac file for libgcrypt to install.img (mgracik)
+  Resolves: rhbz#590701
+- Make sure a given path exists before calling os.statvfs on it. (clumens)
+  Related: rhbz#591030
+- Require a format to have a mountpoint before testing for RO (clumens).
+  Resolves: rhbz#591030
+- Fix verification of DDs, we were looking for wrong path (msivak)
+  Resolves: rhbz#508242
+- isys/auditd was missing from .gitingore. (akozumpl)
+  Related: rhbz#549653
+- Offer to ignore unformatted DASDs rather than forcing exit (dcantrell)
+  Resolves: rhbz#580456
+  Related: rhbz#582638
+- Fix usage of deviceNameToDiskByPath in devicetree.py (dcantrell)
+  Resolves: rhbz#589967
+- Use iBFT if present and user didn't asked for anything else. (msivak)
+  Resolves: rhbz#581428
+- storage: LUKSDevice takes req_grow after its slave (akozumpl).
+  Resolves: rhbz#589450
+
 * Fri May 07 2010 David Cantrell <dcantrell@redhat.com> - 13.21.37-1
 - Make Format and Resize checkboxes mutually exclusive (dcantrell)
   Resolves: rhbz#589977
