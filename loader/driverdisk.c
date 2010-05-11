@@ -213,8 +213,9 @@ static int verifyDriverDisk(char *mntpt) {
     stat(file, &sb);
     if (!sb.st_size)
         return LOADER_BACK;
+
     for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
-        snprintf(file, 200, "%s/%s/%s", mntpt, getProductArch(), *fnPtr);
+        snprintf(file, 200, "%s/rpms/%s/%s", mntpt, getProductArch(), *fnPtr);
         if (access(file, R_OK)) {
             logMessage(ERROR, "cannot find %s, bad driver disk", file);
             return LOADER_BACK;
