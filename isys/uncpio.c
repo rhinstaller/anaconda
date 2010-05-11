@@ -36,6 +36,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <utime.h>
+#include <syslog.h>
 
 #include "cpio.h"
 #include "stubs.h"
@@ -504,7 +505,7 @@ int myCpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings,
 
     do {
 	if ((rc = getNextHeader(&fd, &ch, NULL))) {
-	    fprintf(stderr, _("error %d reading header: %s\n"), rc, 
+	    syslog( LOG_WARNING, _("error %d reading header: %s\n"), rc, 
 		    myCpioStrerror(rc));
 	    return CPIOERR_BAD_HEADER;
 	}
@@ -755,7 +756,7 @@ int myCpioFilterArchive(gzFile inStream, gzFile outStream, char ** patterns) {
 
     do {
 	if ((rc = getNextHeader(&inFd, &ch, &pHeader))) {
-	    fprintf(stderr, _("error %d reading header: %s\n"), rc, 
+	    syslog( LOG_WARNING, _("error %d reading header: %s\n"), rc, 
 		    myCpioStrerror(rc));
 	    return CPIOERR_BAD_HEADER;
 	}
