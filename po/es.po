@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-05-11 18:09-0300\n"
+"PO-Revision-Date: 2010-05-11 18:25-0300\n"
 "Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Spanish <trans-es@lists.fedoraproject.org. >\n"
 "MIME-Version: 1.0\n"
@@ -1283,15 +1283,15 @@ msgstr "La partición raíz que ha creado no es suficiente para esta imagen live
 # ../textw/userauth_text.py:55
 #: network.py:56
 msgid "Hostname must be 255 or fewer characters in length."
-msgstr "El nombre de host debe ser de 255 caracteres de largo o menor."
+msgstr "El nombre del equipo debe ser de 255 caracteres de largo o menor."
 
 #: network.py:62
 msgid "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-9'"
-msgstr "el nombre de host empieza con un carácter válido en el rango 'a-z', 'A-Z' o '0-9'"
+msgstr "El nombre del equipo empieza con un carácter válido en el rango 'a-z', 'A-Z' o '0-9'"
 
 #: network.py:67
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr " Los nombres de host sólo pueden contener los caracteres 'a-z', 'A-Z', '0-9', '-', o '.'"
+msgstr "Los nombres de equipo sólo pueden contener los caracteres 'a-z', 'A-Z', '0-9', '-', o '.'"
 
 # ../iw/network_gui.py:194
 # ../iw/network_gui.py:194
@@ -2254,7 +2254,7 @@ msgstr "Directorios inválidos"
 #: vnc.py:137
 #, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
-msgstr "Instalación de %(productName)s %(productVersion)s en el host %(name)s"
+msgstr "Instalación de %(productName)s %(productVersion)s en el equipo %(name)s"
 
 #: vnc.py:143
 #, python-format
@@ -2264,7 +2264,7 @@ msgstr "%(productName)s %(productVersion)s instalación"
 #: vnc.py:172
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr "Intentando conectarse con el cliente VNC en el servidor %s..."
+msgstr "Intentando conectarse con el cliente VNC en el equipo %s..."
 
 # ../iw/progress_gui.py:256
 # ../iw/progress_gui.py:256
@@ -4057,11 +4057,11 @@ msgstr "Error al configurar dispositivo de red:"
 #: iw/network_gui.py:67
 #: iw/network_gui.py:73
 msgid "Error with Hostname"
-msgstr "Error con el nombre de host"
+msgstr "Error con el nombre del equipo"
 
 #: iw/network_gui.py:68
 msgid "You must enter a valid hostname for this computer."
-msgstr "Debe ingresar un nombre válido de host para esta computadora."
+msgstr "Debe ingresar un nombre de equipo válido para esta computadora."
 
 #: iw/network_gui.py:74
 #, python-format
@@ -4070,7 +4070,7 @@ msgid ""
 "\n"
 "%(herrors)s"
 msgstr ""
-"El nombre del host \"%(hostname)s\" no es válido por el siguiente motivo:\n"
+"El nombre del equipo \"%(hostname)s\" no es válido por el siguiente motivo:\n"
 "\n"
 "%(herrors)s"
 
@@ -8441,11 +8441,11 @@ msgstr "Utilizar la configuración de IP dinámica (DHCP)"
 # ../textw/network_text.py:177
 #: ui/network.glade.h:1
 msgid "Hostname:"
-msgstr "Nombre del host:"
+msgstr "Nombre del equipo:"
 
 #: ui/network.glade.h:2
 msgid "Please name this computer.  The hostname identifies the computer on a network."
-msgstr "Por favor, de un nombre a esta computadora. El nombre de host identifica al computador en una red."
+msgstr "Por favor, de un nombre a esta computadora. El nombre del equipo identifica a la computadora en una red."
 
 #: ui/tasksel.glade.h:1
 msgid "Customize _later"
