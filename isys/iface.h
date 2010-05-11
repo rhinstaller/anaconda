@@ -163,4 +163,9 @@ int iface_start_NetworkManager(void);
  */
 int iface_set_interface_mtu(char *ifname, int mtu);
 
+/*
+ * Checks if interface is wireless
+ */
+int is_wireless_device(char *ifname);
+
 #endif /* ISYSIFACE_H */

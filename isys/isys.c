@@ -113,6 +113,7 @@ static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
 static PyObject * doGetLinkStatus(PyObject * s, PyObject * args);
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
 static PyObject * doInitLog(PyObject * s);
+static PyObject * doIsWirelessDevice(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -145,6 +146,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getLinkStatus", (PyCFunction) doGetLinkStatus, METH_VARARGS, NULL },
     { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
     { "initLog", (PyCFunction) doInitLog, METH_VARARGS, NULL },
+    { "isWirelessDevice", (PyCFunction) doIsWirelessDevice, METH_VARARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -697,6 +699,20 @@ static PyObject * doInitLog(PyObject * s) {
     openLog();
     Py_INCREF(Py_None);
     return Py_None;
+}
+
+static PyObject * doIsWirelessDevice(PyObject * s, PyObject * args) {
+    char *dev = NULL;
+
+    if (!PyArg_ParseTuple(args, "s", &dev)) {
+        return NULL;
+    }
+
+    if (is_wireless_device(dev) == 1) {
+        return PyBool_FromLong(1);
+    }
+
+    return PyBool_FromLong(0);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

@@ -592,7 +592,7 @@ class NetworkData(commands.network.F8_NetworkData):
                 if self.ethtool:
                     dev.set (("ethtool_opts", self.ethtool))
 
-                if isys.isWireless(device):
+                if isys.isWirelessDevice(device):
                     if self.essid:
                         dev.set(("essid", self.essid))
                     if self.wepkey:

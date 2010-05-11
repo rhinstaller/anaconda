@@ -436,26 +436,8 @@ def getNetDevDesc(dev):
     return desc
 
 # Determine if a network device is a wireless device.
-def isWireless(dev):
-    if dev == '' or dev is None:
-        return False
-
-    device_props_iface = getDeviceProperties(dev=dev)
-    if device_props_iface is None:
-        return None
-
-    device_type = int(device_props_iface.Get(NM_MANAGER_IFACE, "DeviceType"))
-
-    # from include/NetworkManager.h in the NM source code
-    #    0 == NM_DEVICE_TYPE_UNKNOWN
-    #    1 == NM_DEVICE_TYPE_ETHERNET
-    #    2 == NM_DEVICE_TYPE_WIFI
-    #    3 == NM_DEVICE_TYPE_GSM
-    #    4 == NM_DEVICE_TYPE_CDMA
-    if device_type == 2:
-        return True
-    else:
-        return False
+def isWirelessDevice(dev):
+    return _isys.isWirelessDevice(dev)
 
 # Get the IP address for a network device.
 def getIPAddress(dev):

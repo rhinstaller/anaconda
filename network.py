@@ -867,7 +867,7 @@ def getSSIDs(devices_to_scan=None):
         # interface name, eg. "eth0", "wlan0"
         dev = str(device_props_iface.Get(isys.NM_MANAGER_IFACE, "Interface"))
 
-        if (isys.isWireless(dev) and
+        if (isys.isWirelessDevice(dev) and
             (not devices_to_scan or dev in devices_to_scan)):
 
             i = 0

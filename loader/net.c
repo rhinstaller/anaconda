@@ -39,6 +39,7 @@
 #include <glib.h>
 #include <NetworkManager.h>
 #include <nm-client.h>
+#include <nm-device-wifi.h>
 
 #include "../isys/isys.h"
 #include "../isys/ethtool.h"
@@ -405,6 +406,22 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
 
     if (loaderData->portno) {
         iface->portno = strdup(loaderData->portno);
+    }
+
+    if (loaderData->wepkey) {
+        if (is_wireless_device(loaderData->netDev)) {
+            iface->wepkey = strdup(loaderData->wepkey);
+        } else {
+            iface->wepkey = NULL;
+        }
+    }
+
+    if (loaderData->essid) {
+        if (is_wireless_device(loaderData->netDev)) {
+            iface->ssid = strdup(loaderData->essid);
+        } else {
+            iface->ssid = NULL;
+        }
     }
 
     if (loaderData->noDns) {
@@ -1441,6 +1458,14 @@ int writeEnabledNetInfo(iface_t *iface) {
         fprintf(fp, "MACADDR=%s\n", iface->macaddr);
     }
 
+    if (iface->ssid) {
+        fprintf(fp, "ESSID=%s\n", iface->ssid);
+    }
+
+    if (iface->wepkey) {
+        fprintf(fp, "DEFAULTKEY=1");
+    }
+
     if (fclose(fp) == EOF) {
         free(ofile);
         free(nfile);
@@ -1460,6 +1485,48 @@ int writeEnabledNetInfo(iface_t *iface) {
     if (nfile) {
         free(nfile);
     }
+
+    /* wireless wepkey: keys-DEVICE file */
+    if (iface->wepkey) {
+        if (asprintf(&ofile, "%s/.keys-%s",
+                     NETWORK_SCRIPTS_PATH, iface->device) == -1) {
+            return 21;
+        }
+
+        if (asprintf(&nfile, "%s/keys-%s",
+                     NETWORK_SCRIPTS_PATH, iface->device) == -1) {
+            return 22;
+        }
+
+        if ((fp = fopen(ofile, "w")) == NULL) {
+            free(ofile);
+            return 23;
+        }
+
+        fprintf(fp, "KEY1=%s\n", iface->wepkey);
+
+
+        if (fclose(fp) == EOF) {
+            free(ofile);
+            free(nfile);
+            return 24;
+        }
+
+        if (rename(ofile, nfile) == -1) {
+            free(ofile);
+            free(nfile);
+            return 25;
+        }
+
+        if (ofile) {
+            free(ofile);
+        }
+
+        if (nfile) {
+            free(nfile);
+        }
+    }
+
 
     /* Global settings */
     if ((fp = fopen(SYSCONFIG_PATH"/.network", "w")) == NULL) {
