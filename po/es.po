@@ -19,8 +19,8 @@ msgstr ""
 "Project-Id-Version: anaconda.master.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-03-26 08:48-0300\n"
-"Last-Translator: Domingo Becker <domingobecker@gmail.com>\n"
+"PO-Revision-Date: 2010-05-11 18:09-0300\n"
+"Last-Translator: Héctor Daniel Cabrera <logan@fedoraproject.org>\n"
 "Language-Team: Spanish <trans-es@lists.fedoraproject.org. >\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -614,7 +614,7 @@ msgstr "Clave de instalación"
 #: gui.py:632
 #: text.py:149
 msgid "Choose a passphrase for the encrypted devices. You will be prompted for this passphrase during system boot."
-msgstr "Elija una frase de acceso para los dispositivos encriptados. Se le pedirá que ingrese esta frase durante el arranque del sistema."
+msgstr "Elija una frase de acceso para los dispositivos cifrados. Se le pedirá que ingrese esta frase durante el arranque del sistema."
 
 # ../textw/userauth_text.py:21
 # ../textw/userauth_text.py:22
@@ -645,7 +645,7 @@ msgstr "La contraseña debe tener al menos 8 caracteres de largo."
 #: text.py:225
 #, python-format
 msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
-msgstr "Dispositivo %s está encriptado. Para acceder a su contenido durante la instalación debe ingresar su contraseña aquí."
+msgstr "Dispositivo %s está cifrado. Para acceder a su contenido durante la instalación debe ingresar su contraseña aquí."
 
 # ../gui.py:114 ../iw/account_gui.py:151 ../iw/account_gui.py:162
 # ../iw/partition_gui.py:846 ../iw/partition_gui.py:1316
@@ -1153,7 +1153,7 @@ msgstr "No hay red disponible"
 
 #: kickstart.py:151
 msgid "Encryption key escrow requires networking, but there was an error enabling the network on your system."
-msgstr "El depósito de la clave de encriptación necesita red, pero hubo un error al habilitarla en su sistema."
+msgstr "El depósito de la clave de cifrado necesita red, pero hubo un error al habilitarla en su sistema."
 
 # ../loader/kickstart.c:59
 # ../loader/kickstart.c:59
@@ -1773,7 +1773,7 @@ msgstr "Las particiones de arranque sólo pueden estar en un sistema de archivo 
 #: platform.py:140
 #: platform.py:145
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr "Las particiones de arranque no pueden estar en un dispositivo de bloques encriptado"
+msgstr "Las particiones de arranque no pueden estar en un dispositivo de bloques cifrado"
 
 # ../iw/partition_gui.py:843 ../textw/partition_text.py:540
 # ../iw/partition_gui.py:845 ../textw/partition_text.py:540
@@ -2063,11 +2063,11 @@ msgstr "El sistema está montado bajo el directorio %s."
 
 #: text.py:154
 msgid "Passphrase for encrypted device"
-msgstr "Contraseña del dispositivo encriptado"
+msgstr "Contraseña del dispositivo cifrado"
 
 #: text.py:167
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr "también agregue esta contraseña a todos los dispositivos encriptados existentes"
+msgstr "también agregue esta contraseña a todos los dispositivos cifrados existentes"
 
 # ../textw/userauth_text.py:121
 # ../textw/userauth_text.py:129
@@ -3512,7 +3512,7 @@ msgstr "Dispositivos de almacenamiento especializados"
 
 #: iw/filter_type.py:67
 msgid "Installs or upgrades to devices such as Storage Area Networks (SANs) or mainframe attached disks (DASD), usually in an enterprise environment"
-msgstr "Instala o actualiza teniendo en cuenta tipos de dispositivos de almacenamiento utilizados típicamente dentro de las empresas, como son Redes área de almecenamiento (SANs, por las iniciales en inglés de Storage Area Networks), o discos asociados a un equipo central (DASD). "
+msgstr "Instala o actualiza teniendo en cuenta tipos de dispositivos de almacenamiento utilizados típicamente dentro de las empresas, como son las Redes de área de almacenamiento (SANs, por las iniciales en inglés de Storage Area Networks), o discos asociados a un equipo central (DASD). "
 
 # ../gui.py:382 ../iw/language_gui.py:20 ../textw/language_text.py:43
 # ../gui.py:382 ../iw/language_gui.py:20 ../textw/language_text.py:38
@@ -3639,7 +3639,7 @@ msgstr "El tamaño máximo es de %s MB)"
 #: iw/partition_ui_helpers_gui.py:331
 #: iw/raid_dialog_gui.py:415
 msgid "_Encrypt"
-msgstr "_Encriptar"
+msgstr "_Cifrar"
 
 # ../iw/partition_gui.py:876
 # ../iw/partition_gui.py:878
@@ -6509,11 +6509,11 @@ msgstr "Las opciones de almacenamiento elegidas han sido activadas. No puede vol
 
 #: storage/__init__.py:144
 msgid "Encrypt device?"
-msgstr "¿Encriptar el dispositivo?"
+msgstr "¿Cifrar el dispositivo?"
 
 #: storage/__init__.py:145
 msgid "You specified block device encryption should be enabled, but you have not supplied a passphrase. If you do not go back and provide a passphrase, block device encryption will be disabled."
-msgstr "Especificó que la encriptación del dispositivo de bloque debe estar activado, pero no dio ninguna contraseña. Si no vuelve atrás y provee una contraseña, el encriptado del dispositivo de bloques se deshabilitará."
+msgstr "Especificó que el cifrado del dispositivo de bloque debe estar activado, pero no dio ninguna contraseña. Si no vuelve atrás y provee una contraseña, el cifrado del dispositivo de bloques se deshabilitará."
 
 # ../iw/partition_gui.py:1029
 # ../iw/partition_gui.py:1031
@@ -6567,12 +6567,12 @@ msgstr "Ejecutando"
 
 #: storage/__init__.py:195
 msgid "Storing encryption keys"
-msgstr "Almacenando las claves de encriptación"
+msgstr "Almacenando las llaves de cifrado"
 
 #: storage/__init__.py:211
 #, python-format
 msgid "Error storing an encryption key: %s\n"
-msgstr "Error al almacenar una clave de encriptación: %s\n"
+msgstr "Error al almacenar una llave de cifrado: %s\n"
 
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
@@ -7089,12 +7089,12 @@ msgstr "Error de uso."
 
 #: storage/formats/luks.py:48
 msgid "Encrypted"
-msgstr "Encriptado"
+msgstr "Cifrado"
 
 #: storage/formats/luks.py:195
 #, python-format
 msgid "Encrypting %s"
-msgstr "Encriptando %s"
+msgstr "Cifrando %s"
 
 # ../fsset.py:142
 # ../fsset.py:145
@@ -8037,7 +8037,7 @@ msgstr "¿Qué tipo de instalación desea?"
 
 #: ui/autopart.glade.h:6
 msgid "_Encrypt system"
-msgstr "Sistema de _Encriptado"
+msgstr "_Cifrar sistema"
 
 #: ui/autopart.glade.h:7
 msgid "_Shrink"
@@ -8371,11 +8371,11 @@ msgstr "_Agregar destino"
 
 #: ui/lukspassphrase.glade.h:1
 msgid "Also add this passphrase to all existing encrypted devices to streamline the boot process"
-msgstr "También use esta contraseña para todos los dispositivos encriptados existentes para racionalizar el proceso de arranque"
+msgstr "También use esta contraseña para todos los dispositivos cifrados existentes para racionalizar el proceso de arranque"
 
 #: ui/lukspassphrase.glade.h:2
 msgid "Choose a passphrase for this encrypted partition. You will be prompted for the passphrase during system boot."
-msgstr "Escoja una contraseña para esta partición encriptada. Se la pedirán durante la carga del sistema."
+msgstr "Escoja una contraseña para esta partición cifrada. Se la pedirán durante la carga del sistema."
 
 # ../partitioning.py:1561
 # ../partitioning.py:1581
@@ -8386,7 +8386,7 @@ msgstr "Confirmar contraseña:"
 
 #: ui/lukspassphrase.glade.h:4
 msgid "Enter passphrase for encrypted partition"
-msgstr "Ingrese la contraseña de la partición encriptada"
+msgstr "Ingrese la contraseña de la partición cifrada"
 
 #: ui/lukspassphrase.glade.h:5
 msgid "Enter passphrase:"
