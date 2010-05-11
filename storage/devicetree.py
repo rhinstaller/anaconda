@@ -1357,11 +1357,11 @@ class DeviceTree(object):
             initcb = lambda: True
         else:
             description = device.description or device.model
-            bypath = deviceNameToDiskByPath(device.name)
-            if bypath:
-                bypath = os.path.basename(bypath)
+            try:
+                bypath = os.path.basename(deviceNameToDiskByPath(device.name))
                 details = "\n\nDevice details:\n%s" % (bypath,)
-            else:
+            except DeviceNotFoundError:
+                # some devices don't have a /dev/disk/by-path/ #!@#@!@#
                 bypath = device.name
                 details = ""
 

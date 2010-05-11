@@ -150,12 +150,15 @@ def deviceNameToDiskByPath(deviceName=None):
     if not deviceName:
         return ""
 
+    ret = None
     for dev in udev_get_block_devices():
         if udev_device_get_name(dev) == deviceName:
-            return udev_device_get_by_path(dev)
+            ret = udev_device_get_by_path(dev)
+            break
 
-    return None
-
+    if ret:
+        return ret
+    raise DeviceNotFoundError(deviceName)
 
 class Device(object):
     """ A generic device.

@@ -129,6 +129,9 @@ class MPathError(StorageError):
 class DeviceTreeError(StorageError):
     pass
 
+class DeviceNotFoundError(StorageError):
+    pass
+
 # DeviceAction
 class DeviceActionError(StorageError):
     pass
