@@ -221,6 +221,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed May 12 2010 David Cantrell <dcantrell@redhat.com> - 13.21.39-1
+- Set permissions on initrd.addrsize to 0644 (dcantrell)
+  Resolves: rhbz#591455
+- Add the chk files for libraries to the install.img (mgracik)
+  Resolves: rhbz#590701
+- Add the eject command to the install.img (mgracik)
+  Resolves: rhbz#591070
+- Remove raid clone option and code (hdegoede)
+  Resolves: rhbz#589957
+- Correctly parse system-release (lkundrak)
+  Resolves: rhbz#590407
+
 * Tue May 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.38-1
 - Add hmac file for libgcrypt to install.img (mgracik)
   Resolves: rhbz#590701

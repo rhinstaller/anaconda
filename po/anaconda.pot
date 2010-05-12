@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.37\n"
+"Project-Id-Version: anaconda 13.21.38\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-05-11 10:33-1000\n"
+"POT-Creation-Date: 2010-05-12 05:34-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,22 +120,22 @@ msgstr ""
 #: iw/advanced_storage.py:176 iw/advanced_storage.py:179
 #: iw/advanced_storage.py:207 iw/autopart_type.py:96 iw/cleardisks_gui.py:43
 #: iw/cleardisks_gui.py:53 iw/filter_gui.py:410 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:214 iw/raid_dialog_gui.py:795
-#: iw/raid_dialog_gui.py:834 iw/task_gui.py:52 iw/task_gui.py:153
-#: iw/task_gui.py:299 iw/task_gui.py:459 loader/cdinstall.c:228
-#: loader/cdinstall.c:504 loader/driverdisk.c:233 loader/driverdisk.c:452
-#: loader/driverdisk.c:487 loader/driverdisk.c:515 loader/driverdisk.c:523
-#: loader/driverdisk.c:590 loader/hdinstall.c:115 loader/hdinstall.c:325
-#: loader/hdinstall.c:431 loader/hdinstall.c:474 loader/hdinstall.c:487
-#: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:414
-#: loader/loader.c:525 loader/loader.c:1137 loader/mediacheck.c:46
-#: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/mediacheck.c:96
-#: loader/method.c:277 loader/method.c:351 loader/nfsinstall.c:279
-#: loader/nfsinstall.c:296 loader/telnetd.c:92 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urls.c:330
-#: loader/urls.c:336 storage/__init__.py:213 storage/__init__.py:1796
-#: storage/__init__.py:1883 textw/netconfig_text.py:282
-#: textw/upgrade_text.py:179 textw/upgrade_text.py:186
+#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:214 iw/task_gui.py:52
+#: iw/task_gui.py:153 iw/task_gui.py:299 iw/task_gui.py:459
+#: loader/cdinstall.c:228 loader/cdinstall.c:504 loader/driverdisk.c:233
+#: loader/driverdisk.c:452 loader/driverdisk.c:487 loader/driverdisk.c:515
+#: loader/driverdisk.c:523 loader/driverdisk.c:590 loader/hdinstall.c:115
+#: loader/hdinstall.c:325 loader/hdinstall.c:431 loader/hdinstall.c:474
+#: loader/hdinstall.c:487 loader/kickstart.c:299 loader/lang.c:114
+#: loader/loader.c:414 loader/loader.c:525 loader/loader.c:1137
+#: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
+#: loader/mediacheck.c:96 loader/method.c:277 loader/method.c:351
+#: loader/nfsinstall.c:279 loader/nfsinstall.c:296 loader/telnetd.c:92
+#: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
+#: loader/urls.c:330 loader/urls.c:336 storage/__init__.py:213
+#: storage/__init__.py:1796 storage/__init__.py:1883
+#: textw/netconfig_text.py:282 textw/upgrade_text.py:179
+#: textw/upgrade_text.py:186
 msgid "Error"
 msgstr ""
 
@@ -168,7 +168,7 @@ msgstr ""
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1346
 #: kickstart.py:1385 upgrade.py:58 yuminstall.py:1290 yuminstall.py:1473
-#: iw/partition_gui.py:1608 storage/__init__.py:1978
+#: iw/partition_gui.py:1575 storage/__init__.py:1978
 msgid "_Continue"
 msgstr ""
 
@@ -928,8 +928,8 @@ msgid "You are about to delete all partitions on the device '%s'."
 msgstr ""
 
 #: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:865
-#: iw/lvm_dialog_gui.py:1434 iw/osbootwidget.py:104 iw/partition_gui.py:1821
-#: iw/partition_gui.py:1833
+#: iw/lvm_dialog_gui.py:1434 iw/osbootwidget.py:104 iw/partition_gui.py:1788
+#: iw/partition_gui.py:1800
 msgid "_Delete"
 msgstr ""
 
@@ -977,7 +977,7 @@ msgstr ""
 msgid "Format?"
 msgstr ""
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1606
+#: partIntfHelpers.py:249 iw/partition_gui.py:1573
 msgid "_Modify Partition"
 msgstr ""
 
@@ -1066,7 +1066,7 @@ msgid ""
 msgstr ""
 
 #: platform.py:98 platform.py:339 platform.py:407 platform.py:514
-#: ui/create-storage.glade.h:17
+#: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr ""
 
@@ -2592,8 +2592,8 @@ msgstr ""
 msgid "_Add"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1431 iw/osbootwidget.py:100 iw/partition_gui.py:1820
-#: iw/partition_gui.py:1830
+#: iw/lvm_dialog_gui.py:1431 iw/osbootwidget.py:100 iw/partition_gui.py:1787
+#: iw/partition_gui.py:1797
 msgid "_Edit"
 msgstr ""
 
@@ -2883,11 +2883,11 @@ msgstr ""
 msgid "Extended"
 msgstr ""
 
-#: iw/partition_gui.py:1350
+#: iw/partition_gui.py:1343
 msgid "Cannot perform any creation action"
 msgstr ""
 
-#: iw/partition_gui.py:1351
+#: iw/partition_gui.py:1344
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -2897,7 +2897,7 @@ msgid ""
 "* At least one Volume Group with free space."
 msgstr ""
 
-#: iw/partition_gui.py:1463
+#: iw/partition_gui.py:1447
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -2906,7 +2906,7 @@ msgid ""
 "using RAID devices please consult the %s documentation.\n"
 msgstr ""
 
-#: iw/partition_gui.py:1469
+#: iw/partition_gui.py:1453
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -2914,16 +2914,16 @@ msgid ""
 "\n"
 msgstr ""
 
-#: iw/partition_gui.py:1473
+#: iw/partition_gui.py:1457
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgstr ""
 
-#: iw/partition_gui.py:1477
+#: iw/partition_gui.py:1461
 msgid "About RAID"
 msgstr ""
 
-#: iw/partition_gui.py:1483
+#: iw/partition_gui.py:1467
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
@@ -2934,7 +2934,7 @@ msgid ""
 "using LVM please consult the %s documentation\n"
 msgstr ""
 
-#: iw/partition_gui.py:1491
+#: iw/partition_gui.py:1475
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create a LV you need a VG "
@@ -2942,47 +2942,39 @@ msgid ""
 "\n"
 msgstr ""
 
-#: iw/partition_gui.py:1495
+#: iw/partition_gui.py:1479
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgstr ""
 
-#: iw/partition_gui.py:1499
+#: iw/partition_gui.py:1483
 msgid "You currently have free space to create PVs."
 msgstr ""
 
-#: iw/partition_gui.py:1502
+#: iw/partition_gui.py:1486
 msgid "About LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1534
-msgid "Couldn't Create Drive Clone Editor"
-msgstr ""
-
-#: iw/partition_gui.py:1535
-msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-
-#: iw/partition_gui.py:1594 storage/partitioning.py:197
+#: iw/partition_gui.py:1561 storage/partitioning.py:197
 #: storage/partitioning.py:238
 msgid "Error Partitioning"
 msgstr ""
 
-#: iw/partition_gui.py:1595
+#: iw/partition_gui.py:1562
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1604
+#: iw/partition_gui.py:1571
 #, python-format
 msgid "Warning: %s."
 msgstr ""
 
-#: iw/partition_gui.py:1635
+#: iw/partition_gui.py:1602
 msgid "Unable To Edit"
 msgstr ""
 
-#: iw/partition_gui.py:1636
+#: iw/partition_gui.py:1603
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -2990,15 +2982,15 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/partition_gui.py:1819
+#: iw/partition_gui.py:1786
 msgid "_Create"
 msgstr ""
 
-#: iw/partition_gui.py:1822
+#: iw/partition_gui.py:1789
 msgid "Re_set"
 msgstr ""
 
-#: iw/partition_gui.py:1845
+#: iw/partition_gui.py:1812
 msgid "Please Select A Device"
 msgstr ""
 
@@ -3066,122 +3058,6 @@ msgstr ""
 
 #: iw/raid_dialog_gui.py:554
 msgid "_Format partition?"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:658
-msgid ""
-"The source drive has no partitions to be cloned.  You must first define "
-"partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr ""
-
-#: iw/raid_dialog_gui.py:662 iw/raid_dialog_gui.py:668
-#: iw/raid_dialog_gui.py:682 iw/raid_dialog_gui.py:695
-msgid "Source Drive Error"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:669
-msgid ""
-"The source drive you selected has partitions which are not of type 'software "
-"RAID'.\n"
-"\n"
-"You must remove these partitions before this drive can be cloned. "
-msgstr ""
-
-#: iw/raid_dialog_gui.py:683
-#, python-format
-msgid ""
-"The source drive you selected has partitions which are not constrained to "
-"the drive %s.\n"
-"\n"
-"You must remove these partitions or restrict them to this drive before this "
-"drive can be cloned. "
-msgstr ""
-
-#: iw/raid_dialog_gui.py:696
-msgid ""
-"The source drive you selected has software RAID partition(s) which are "
-"members of an active software RAID device.\n"
-"\n"
-"You must remove these partitions before this drive can be cloned."
-msgstr ""
-
-#: iw/raid_dialog_gui.py:710 iw/raid_dialog_gui.py:716
-#: iw/raid_dialog_gui.py:732
-msgid "Target Drive Error"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:711
-msgid "Please select the target drives for the clone operation."
-msgstr ""
-
-#: iw/raid_dialog_gui.py:717
-#, python-format
-msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr ""
-
-#: iw/raid_dialog_gui.py:733
-#, python-format
-msgid ""
-"The target drive %(path)s has a partition which cannot be removed for the "
-"following reason:\n"
-"\n"
-"\"%(rc)s\"\n"
-"\n"
-"You must remove this partition before this drive can be a target."
-msgstr ""
-
-#: iw/raid_dialog_gui.py:796
-msgid "Please select a source drive."
-msgstr ""
-
-#: iw/raid_dialog_gui.py:816
-#, python-format
-msgid ""
-"The drive %s will now be cloned to the following drives:\n"
-"\n"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:821
-msgid ""
-"\n"
-"\n"
-"WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
-msgstr ""
-
-#: iw/raid_dialog_gui.py:824
-msgid "Final Warning"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:826
-msgid "Clone Drives"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:835
-msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-
-#: iw/raid_dialog_gui.py:858
-msgid "Clone Drive Tool"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:867
-msgid ""
-"This tool clones the layout from a partitioned source onto other similar "
-"sized drives. The source must have partitions which are restricted to that "
-"drive and must ONLY contain unused software RAID partitions.  EVERYTHING on "
-"the target drive(s) will be destroyed.\n"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:878
-msgid "Source Drive:"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:886
-msgid "Target Drive(s):"
-msgstr ""
-
-#: iw/raid_dialog_gui.py:894
-msgid "Drives"
 msgstr ""
 
 #: iw/task_gui.py:53
@@ -5439,67 +5315,58 @@ msgstr ""
 
 #: ui/create-storage.glade.h:4
 msgid ""
-"<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
-msgstr ""
-
-#: ui/create-storage.glade.h:5
-msgid ""
 "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr ""
 
-#: ui/create-storage.glade.h:6
+#: ui/create-storage.glade.h:5
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
 "partition</span>"
 msgstr ""
 
-#: ui/create-storage.glade.h:7
+#: ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated "
 "partitions</span>"
 msgstr ""
 
-#: ui/create-storage.glade.h:8
+#: ui/create-storage.glade.h:7
 msgid "Create"
 msgstr ""
 
-#: ui/create-storage.glade.h:9
+#: ui/create-storage.glade.h:8
 msgid "Create LVM"
 msgstr ""
 
-#: ui/create-storage.glade.h:10
+#: ui/create-storage.glade.h:9
 msgid "Create Partition"
 msgstr ""
 
-#: ui/create-storage.glade.h:11
+#: ui/create-storage.glade.h:10
 msgid "Create Software RAID"
 msgstr ""
 
-#: ui/create-storage.glade.h:12
+#: ui/create-storage.glade.h:11
 msgid "Create Storage"
 msgstr ""
 
-#: ui/create-storage.glade.h:13
+#: ui/create-storage.glade.h:12
 msgid "LVM Logical Volume"
 msgstr ""
 
-#: ui/create-storage.glade.h:14
+#: ui/create-storage.glade.h:13
 msgid "LVM Physical Volume"
 msgstr ""
 
-#: ui/create-storage.glade.h:15
+#: ui/create-storage.glade.h:14
 msgid "LVM Volume Group"
 msgstr ""
 
 #: ui/create-storage.glade.h:16
-msgid "RAID Clone"
-msgstr ""
-
-#: ui/create-storage.glade.h:18
 msgid "RAID Partition"
 msgstr ""
 
-#: ui/create-storage.glade.h:19
+#: ui/create-storage.glade.h:17
 msgid "Standard Partition"
 msgstr ""
 
