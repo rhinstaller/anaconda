@@ -144,6 +144,7 @@ class ClearDisksWindow (InstallWindow):
         self.rightDS.createSelectionCol(title=_("Boot\nLoader"), radioButton=True)
         self.rightDS.addColumn(_("Model"), 6)
         self.rightDS.addColumn(_("Capacity"), 7)
+        self.rightDS.addColumn(_("Serial Number"), 10, displayed=False)
 
         # Store the first disk (according to our detected BIOS order) for
         # auto boot device selection
