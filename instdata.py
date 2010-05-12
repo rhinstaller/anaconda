@@ -231,7 +231,7 @@ class InstallData:
                 f.write("harddrive --partition=%s --dir=%s\n" % (part, dir))
             elif m.startswith("nfs:") or m.startswith("nfsiso:"):
                 if m.count(":") == 3:
-                    (method, server, opts, dir) = m.split(":")
+                    (method, opts, server, dir) = m.split(":")
                     f.write("nfs --server=%s --opts=%s --dir=%s" % (server, opts, dir))
                 else:
                     (method, server, dir) = m.split(":")
