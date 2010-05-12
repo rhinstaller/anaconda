@@ -47,10 +47,8 @@ class UpgradeExamineWindow (InstallWindow):
             self.anaconda.upgradeRoot = [(rootfs[0], rootfs[1])]
             self.anaconda.rootParts = self.parts
 
-            self.anaconda.dispatch.skipStep("installtype", skip = 1)
             self.anaconda.upgrade = True
         else:
-            self.anaconda.dispatch.skipStep("installtype", skip = 0)
             self.anaconda.upgrade = False
 	
         return None
@@ -89,7 +87,7 @@ class UpgradeExamineWindow (InstallWindow):
 
         if not seenExamineScreen:
 	    # this is the first time we've entered this screen
-	    self.doupgrade = self.anaconda.dispatch.stepInSkipList("installtype")
+	    self.doupgrade = False
             seenExamineScreen = True
 	else:
 	    self.doupgrade = self.anaconda.upgrade

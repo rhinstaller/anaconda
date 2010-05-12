@@ -84,11 +84,8 @@ def findRootParts(anaconda):
 
     if anaconda.rootParts is not None and len(anaconda.rootParts) > 0:
         anaconda.dispatch.skipStep("findinstall", skip = 0)
-        if productName.find("Red Hat Enterprise Linux") == -1:
-            anaconda.dispatch.skipStep("installtype", skip = 1)
     else:
         anaconda.dispatch.skipStep("findinstall", skip = 1)
-        anaconda.dispatch.skipStep("installtype", skip = 0)
 
 def findExistingRoots(anaconda, upgradeany=False):
     rootparts = findExistingRootDevices(anaconda, upgradeany=upgradeany)
@@ -308,7 +305,6 @@ def setSteps(anaconda):
                 "filtertype",
                 "filter",
                 "cleardiskssel",
-                "installtype",
                 "storageinit",
                 "findrootparts",
                 "findinstall",

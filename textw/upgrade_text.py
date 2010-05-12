@@ -215,7 +215,7 @@ class UpgradeExamineWindow:
 
         global seenExamineScreen
 
-	if (not seenExamineScreen and anaconda.dispatch.stepInSkipList("installtype")) or anaconda.upgrade:
+	if anaconda.upgrade:
             default = 1
         else:
             default = 0
@@ -249,9 +249,7 @@ class UpgradeExamineWindow:
 
             anaconda.upgradeRoot = [(root[0], root[1])]
             anaconda.rootParts = parts
-            anaconda.dispatch.skipStep("installtype", skip = 1)
         else:
-            anaconda.dispatch.skipStep("installtype", skip = 0)
             anaconda.upgradeRoot = None
 
         seenExamineScreen = True

@@ -1416,18 +1416,15 @@ def setSteps(anaconda):
         dispatch.skipStep("language")
         dispatch.skipStep("keyboard")
         dispatch.skipStep("betanag")
-        dispatch.skipStep("installtype")
     else:
         anaconda.instClass.setSteps(anaconda)
         dispatch.skipStep("findrootparts")
 
     if interactive or flags.autostep:
-        dispatch.skipStep("installtype")
         dispatch.skipStep("bootdisk")
 
     dispatch.skipStep("bootdisk")
     dispatch.skipStep("betanag")
-    dispatch.skipStep("installtype")
     dispatch.skipStep("network")
 
     # Storage is initialized for us right when kickstart processing starts.

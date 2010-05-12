@@ -84,7 +84,6 @@ class BaseInstallClass(object):
                  "storageinit",
                  "findrootparts",
 		 "betanag",
-		 "installtype",
                  "cleardiskssel",
                  "parttype",
                  "autopartitionexecute",
@@ -142,11 +141,6 @@ class BaseInstallClass(object):
         # upgrade will also always force looking for an upgrade. 
         if flags.cmdline.has_key("upgrade"):
             dispatch.skipStep("findrootparts", skip = 0)
-
-        # if there's only one install class, it doesn't make much sense
-        # to show it
-        if len(availableClasses()) < 2:
-            dispatch.skipStep("installtype", permanent=1)
 
         # allow interface backends to skip certain steps.
         anaconda.intf.setSteps(anaconda)
