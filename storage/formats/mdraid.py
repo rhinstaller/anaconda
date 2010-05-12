@@ -64,7 +64,7 @@ class MDRaidMember(DeviceFormat):
         self.raidMinor = None
 
         #self.probe()
-        self.biosraid = False
+        self.biosraid = kwargs.get("biosraid")
 
     def __str__(self):
         s = DeviceFormat.__str__(self)

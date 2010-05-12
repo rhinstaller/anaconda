@@ -1569,10 +1569,6 @@ class DeviceTree(object):
         name = udev_device_get_name(info)
         sysfs_path = udev_device_get_sysfs_path(info)
 
-        if udev_device_is_biosraid(info):
-            # this will prevent display of the member devices in the UI
-            device.format.biosraid = True
-
         md_array = self.getDeviceByUuid(device.format.mdUuid)
         if device.format.mdUuid and md_array:
             md_array._addDevice(device)
@@ -1751,6 +1747,7 @@ class DeviceTree(object):
                 kwargs["mdUuid"] = udev_device_get_md_uuid(info)
             except KeyError:
                 log.debug("mdraid member %s has no md uuid" % name)
+            kwargs["biosraid"] = udev_device_is_biosraid(info)
         elif format_type == "LVM2_member":
             # lvm
             try:
