@@ -103,3 +103,7 @@ updates:
 
 # DEPRECATED TARGETS:
 archive-no-tag: dist
+
+# UNIT TESTING TARGETS
+unittest:
+	PYTHONPATH=tests/:. nosetests -w tests/
