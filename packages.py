@@ -280,6 +280,7 @@ def rpmSetupGraphicalSystem(anaconda):
         anaconda.bootloader.args.append("rhgb quiet")
 
     if ts.dbMatch('provides', 'service(graphical-login)').count() and \
+       ts.dbMatch('provides', 'xorg-x11-server-Xorg').count() and \
        anaconda.displayMode == 'g' and not flags.usevnc:
         anaconda.desktop.setDefaultRunLevel(5)
 
