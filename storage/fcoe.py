@@ -77,7 +77,7 @@ class fcoe(object):
         rc = iutil.execWithCapture("/usr/libexec/fcoe/fcoe_edd.sh", [ "-i" ],
                                    stderr="/dev/tty5")
         if not rc.startswith("NIC="):
-            log.info("No FCoE EDD info found: %s" % rc)
+            log.info("No FCoE EDD info found: %s" % rc.rstrip())
             return
 
         (key, val) = rc.split("=", 1)
