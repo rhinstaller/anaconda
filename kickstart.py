@@ -1432,8 +1432,6 @@ def setSteps(anaconda):
 
     if not interactive:
         # Don't show confirmation screens on non-interactive installs.
-        dispatch.skipStep("confirminstall")
-        dispatch.skipStep("confirmupgrade")
         dispatch.skipStep("welcome")
 
         # Since ignoredisk is optional and not specifying it means you want to

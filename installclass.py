@@ -98,7 +98,6 @@ class BaseInstallClass(object):
                  "basepkgsel",
 		 "tasksel",                                  
 		 "postselection",
-		 "confirminstall",
                  "reipl",
 		 "install",
 		 "enablefilesystems",
