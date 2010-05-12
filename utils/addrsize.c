@@ -40,6 +40,7 @@ int main(int argc,char **argv) {
     unsigned int addr = 0, size = 0, zero = 0;
     int fd, rc;
     char *tmp = NULL;
+    mode_t mode = S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH;
 
     if (argc != 4) {
         printf("Generate initrd address and size file used by the .ins LPAR load mechanism\n");
@@ -60,7 +61,7 @@ int main(int argc,char **argv) {
 
     addr = htonl(strtoul(address, &tmp, 0));
     size = htonl(initrd_stat.st_size);
-    fd = open(output, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
+    fd = open(output, O_CREAT | O_RDWR, mode);
 
     if (write(fd, &zero, sizeof(int)) == -1) {
         perror("writing initrd.addr (zero) ");
