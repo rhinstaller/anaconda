@@ -311,8 +311,7 @@ char * mountNfsImage(struct installMethod * method,
             checked_asprintf(&buf, "%.*s/RHupdates",
                              (int) (strrchr(fullPath, '/')-fullPath),
                              fullPath);
-
-            logMessage(INFO, "mounting nfs path %s for updates", buf);
+            logMessage(INFO, "Looking for updates in %s", buf);
 
             if (!doPwMount(buf, "/tmp/update-disk", "nfs", mountOpts, NULL)) {
                 logMessage(INFO, "Using RHupdates/ for NFS install");
@@ -322,6 +321,22 @@ char * mountNfsImage(struct installMethod * method,
             } else {
                 logMessage(INFO, "No RHupdates/ directory found, skipping");
             }
+
+            free(buf);
+
+            checked_asprintf(&buf, "%.*s/updates.img",
+                             (int) (strrchr(fullPath, '/')-fullPath),
+                             fullPath):
+            logMessage(INFO, "Looking for updates in %s", buf);
+            copyUpdatesImg(buf);
+            free(buf);
+
+            checked_asprintf(&buf, "%.*s/product.img",
+                             (int) (strrchr(fullPath, '/')-fullPath),
+                             fullPath):
+            logMessage(INFO, "Looking for product in %s", buf);
+            copyProductImg(buf);
+            free(buf);
 
             stage = NFS_STAGE_DONE;
             break;
