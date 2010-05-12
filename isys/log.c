@@ -40,7 +40,7 @@ static FILE * program_log_file = NULL;
 static int minLevel = INFO;
 static const char * main_tag = "loader";
 static const char * program_tag = "program";
-static const int syslog_facility = LOG_LOCAL0;
+static const int syslog_facility = LOG_LOCAL1;
 
 /* maps our loglevel to syslog loglevel */
 static int mapLogLevel(int level)
