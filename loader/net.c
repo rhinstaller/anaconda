@@ -1744,7 +1744,7 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
 
         /* get MAC from the iBFT table */
         if (!(ibftmacaddr = ibft_iface_mac())) { /* iBFT not present or error */
-            logMessage(ERROR, "iBFT doesn't couldn't provide valid NIC MAC address");
+            logMessage(INFO, "iBFT couldn't provide valid NIC MAC address");
             break;
         }
 
