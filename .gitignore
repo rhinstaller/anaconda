@@ -1,5 +1,7 @@
 *.a
 *.bak
+*.desktop.in.h
+*.glade.h
 *.la
 *.o
 *.pyc
@@ -26,14 +28,13 @@ config.status
 config.sub
 configure
 depcomp
+dirbrowser
 install-sh
+keymaps-override-*
 lang-names
 lang-table.h
 libtool
-liveinst/*.desktop.in.h
-liveinst/console.apps/liveinst.h
-loader/dirbrowser
-loader/keymaps-override-*
+liveinst.h
 ltmain.sh
 m4/libtool.m4
 m4/ltoptions.m4
@@ -52,6 +53,5 @@ po/stamp-po
 py-compile
 stamp-h1
 tags
-ui/*.glade.h
 xutils.la
 xutils_la-xutils.lo
