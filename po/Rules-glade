@@ -1,9 +1,9 @@
-UI_SRCS = $(wildcard $(top_srcdir)/ui/*.glade)
+UI_SRCS = $(wildcard $(top_srcdir)/data/ui/*.glade)
 UI_HDRS = $(UI_SRCS:.glade=.glade.h)
 
 %.glade.h: %.glade
-	@cd $(top_builddir)/ui ; \
-	intltool-extract -q --type=gettext/glade -l $< ; \
+	@cd $(top_builddir)/data/ui ; \
+	intltool-extract -q --type=gettext/glade -l $$(basename $<) ; \
 	mv tmp/*h . ; \
 	rmdir tmp
 

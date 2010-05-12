@@ -1,17 +1,17 @@
-LIVEINST_SRCS = $(top_srcdir)/liveinst/liveinst.desktop.in $(top_srcdir)/liveinst/console.apps/liveinst
-LIVEINST_HDRS = $(top_builddir)/liveinst/liveinst.desktop.in.h $(top_srcdir)/liveinst/console.apps/liveinst.h
+LIVEINST_SRCS = $(top_srcdir)/data/liveinst/liveinst.desktop.in $(top_srcdir)/data/liveinst/console.apps/liveinst
+LIVEINST_HDRS = $(top_builddir)/data/liveinst/liveinst.desktop.in.h $(top_builddir)/data/liveinst/console.apps/liveinst.h
 
 %.desktop.in.h: %.desktop.in
-	@cd $(top_builddir)/liveinst ; \
-	intltool-extract -q --type=gettext/keys -l $< ; \
+	@cd $(top_builddir)/data/liveinst ; \
+	intltool-extract -q --type=gettext/keys -l $$(basename $<) ; \
 	mv tmp/*h . ; \
 	rmdir tmp
 
-%liveinst.h : %liveinst
-	@cd $(top_builddir)/liveinst/console.apps ; \
-	intltool-extract -q --type=gettext/quoted -l $(notdir $<) ; \
+%liveinst.h: %liveinst
+	@cd $(top_builddir)/data/liveinst/console.apps ; \
+	intltool-extract -q --type=gettext/quoted -l $$(basename $<) ; \
 	mv tmp/*h . ; \
-	rmdir tmp        
+	rmdir tmp
 
 mostlyclean-liveinst:
 	rm -f $(LIVEINST_HDRS)
