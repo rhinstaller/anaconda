@@ -128,7 +128,7 @@ class AccountWindow (InstallWindow):
                                           _("You have provided a weak password: %s") % msg,
                                           type="custom", custom_icon="error",
                                           default=0,
-                                          custom_buttons=[_("Cancel"), _("Use Anyway")])
+                                          custom_buttons=[_("Cancel"), _("_Use Anyway")])
             if ret == 0:
                 self.passwordError()
 
