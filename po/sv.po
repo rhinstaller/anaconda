@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-05-13 19:07+0200\n"
+"PO-Revision-Date: 2010-05-13 19:22+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -348,7 +348,7 @@ msgid "_Debug"
 msgstr "_Felsök"
 
 #: gui.py:1155 text.py:486
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error processing drive:\n"
 "\n"
@@ -365,34 +365,34 @@ msgid ""
 msgstr ""
 "Fel vid bearbetning av disk:\n"
 "\n"
-"%s\n"
-"%-0.f MB\n"
-"%s\n"
+"%(path)s\n"
+"%(size)-0.f MB\n"
+"%(description)s\n"
 "\n"
 "Denna enhet kanske behöver intieras om.\n"
 "\n"
-"ATT INITIERA OM GÖR ATT ALL DATA GÅR FÖRLORAD!%s"
+"ATT INITIERA OM GÖR ATT ALL DATA GÅR FÖRLORAD!\n"
+"\n"
+"Denna åtgärd kan också tillämpas på alla andra diskar som behöver initieras om %(details)s"
 
 #: gui.py:1164 gui.py:1222 text.py:495 text.py:553
 msgid "_Ignore"
 msgstr "_Ignorera"
 
 #: gui.py:1165 gui.py:1223 text.py:496 text.py:554
-#, fuzzy
 msgid "Ignore _all"
-msgstr "Ignorera alla"
+msgstr "Ignorera _alla"
 
 #: gui.py:1166 gui.py:1224 text.py:497 text.py:555
 msgid "_Re-initialize"
 msgstr "_Ominitiera"
 
 #: gui.py:1167 gui.py:1225 text.py:498 text.py:556
-#, fuzzy
 msgid "Re-ini_tialize all"
-msgstr "_Ominitiera"
+msgstr "Omini_tiera alla"
 
 #: gui.py:1215 text.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error processing LVM.\n"
 "There is inconsistent LVM data on %(msg)s.  You can reinitialize all related "
@@ -401,9 +401,7 @@ msgid ""
 "with inconsistent metadata."
 msgstr ""
 "Fel vid bearbetning av LVM.\n"
-"Det finns inkonsistenta LVM-data på %s.  Du kan initiera om alla relaterade "
-"PV:er (%s), vilket kommer att radera LVM-metadata, eller ignorera, vilket "
-"kommer att bevara innehållet."
+"Det finns inkonsistenta LVM-data på %(msg)s.  Du kan initiera om alla relaterade PV:er (%(pvs)s), vilket kommer att radera LVM-metadata, eller ignorera, vilket kommer att bevara innehållet.  Denna åtgärd kan också tillämpas på alla andra PV:er med inkonsistenta metadata."
 
 #: gui.py:1247 text.py:393
 msgid "Error Parsing Kickstart Config"
@@ -529,7 +527,7 @@ msgid "Required Install Media"
 msgstr "Nödvändiga installationsmedia"
 
 #: image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %"
 "(productName)s %(productVersion)s discs:\n"
@@ -538,12 +536,10 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Programvaran du har valt att installera kommer att kräva följande %s %s "
-"skivor:\n"
+"Programvaran du har valt att installera kommer att kräva följande %(productName)s %(productVersion)s-skivor:\n"
 "\n"
-"%s\n"
-"Ha dessa till hands innan du fortsätter med installationen. Om du måste "
-"avbryta installationen och avsluta, välj \"Starta om\"."
+"%(reqcdstr)s\n"
+"Ha dessa till hands innan du fortsätter med installationen. Om du måste avbryta installationen och avsluta, välj \"Starta om\"."
 
 #: image.py:251 livecd.py:409 packages.py:332 upgrade.py:196 yuminstall.py:930
 #: yuminstall.py:1016 yuminstall.py:1437 yuminstall.py:1479 yuminstall.py:1497
@@ -577,30 +573,30 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: iutil.py:843
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
 "s)"
-msgstr "Fel: Vid öppning, kan inte ställa in reIPL-metod till %s (%s: %s)"
+msgstr "Fel: Vid öppning, kan inte ställa in reIPL-metod till %(reipl_type)s (%(filename)s: %(e)s)"
 
 #: iutil.py:854
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
-msgstr "Fel: Vid skrivning, kan inte ställa in reIPL-metod till %s (%s: %s)"
+msgstr "Fel: Vid skrivning, kan inte ställa in reIPL-metod till %(reipl_type)s (%(filename)s: %(e)s)"
 
 #: iutil.py:863
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
-msgstr "Fel: Vid stängning, kan inte ställa in reIPL-metod till %s (%s: %s)"
+msgstr "Fel: Vid stängning, kan inte ställa in reIPL-metod till %(reipl_type)s (%(filename)s: %(e)s)"
 
 #: iutil.py:882
-#, fuzzy, python-format
+#, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
-msgstr "Fel: Kunde inte ställa in %s som en reIPL-enhet (%s)"
+msgstr "Fel: Kunde inte ställa in %(device)s som en reIPL-enhet (%(e)s)"
 
 #: iutil.py:892
 #, python-format
@@ -622,20 +618,20 @@ msgstr ""
 "installationen"
 
 #: iutil.py:936
-#, fuzzy, python-format
+#, python-format
 msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
-msgstr "Fel: vid läsning av FCP-egenskap %s för reIPL (%s)"
+msgstr "Fel: när FCP-egenskap %(syspath_property)s lästes för reIPL (%(e)s)"
 
 #: iutil.py:951
-#, fuzzy, python-format
+#, python-format
 msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr "Fel: vid skrivning av FCP-egenskap %s för reIPL (%s)"
+msgstr "Fel: när FCP-egenskap %(reipl_property)s skrevs för reIPL (%(e)s)"
 
 #: iutil.py:966
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr "Fel: vid skrivning av standard-FCP-egenskap %s för reIPL (%s)"
+msgstr "Fel: när standard-FCP-egenskap %(reipl_property)s skrevs för reIPL (%(e)s)"
 
 #: iutil.py:981
 #, python-format
@@ -655,25 +651,20 @@ msgstr ""
 "att fortsätta installationen"
 
 #: iutil.py:1009
-#, fuzzy
 msgid "Error determining boot device's disk name"
-msgstr "Fel när typ av monteringspunkt avgjordes"
+msgstr "Fel när startenhetens disknamn bestämdes."
 
 #: iutil.py:1013
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
 msgstr "Monteringspunkten /boot eller / är på en disk som vi inte känner till"
 
 #: kickstart.py:115
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the kickstart script at line %(lineno)s.  You may "
 "examine the output in %(msgs)s.  This is a fatal error and installation will "
 "be aborted.  Press the OK button to exit the installer."
-msgstr ""
-"Det uppstod ett fel vid körningen av kickstartskriptet på rad %s.  Du kan "
-"undersöka utdata i %s.  Detta är ett ödesdigert fel och din installation "
-"kommer att avbrytas.  Tryck OK-knappen för att avsluta "
-"installationsprogrammet."
+msgstr "Det uppstod ett fel vid körningen av kickstartskriptet på rad %(lineno)s.  Du kan undersöka utdata i %(msgs)s.  Detta är ett ödesdigert fel och installationen kommer att avbrytas.  Tryck OK-knappen för att avsluta installationsprogrammet."
 
 #: kickstart.py:123 kickstart.py:125
 msgid "Scriptlet Failure"
@@ -879,7 +870,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Varning! Detta är en förhandsutgåva!"
 
 #: packages.py:313
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %(productName)s.\n"
 "\n"
@@ -1181,7 +1172,7 @@ msgstr "Startbara partitioner kan endast finnas på RAID1-enheter."
 
 #: platform.py:124
 msgid "Bootable RAID1 set members must be partitions."
-msgstr ""
+msgstr "Starbara RAID1-uppsättningsmedlemmar måste vara partitioner."
 
 #: platform.py:129
 msgid "Bootable partitions cannot be on a logical volume."
@@ -1209,9 +1200,9 @@ msgid "/boot/efi is not EFI."
 msgstr "/boot/efi är inte EFI."
 
 #: platform.py:250
-#, fuzzy, python-format
+#, python-format
 msgid "%s must have a %s disk label."
-msgstr "%s måste ha en bsd-disketikett."
+msgstr "%s måste ha en %s-disketikett."
 
 #: platform.py:288
 #, python-format
@@ -1343,7 +1334,7 @@ msgstr ""
 "skalet."
 
 #: rescue.py:365
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1354,12 +1345,11 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Ditt system har monterats under %s.\n"
+"Ditt system har monterats under %(rootPath)s.\n"
 "\n"
-"Tryck <Retur> för att komma till ett skal. Om du vill göra ditt system till "
-"rotmiljön kan du köra kommandot:\n"
+"Tryck <retur> för att komma till ett skal.  Om du vill göra ditt system till rotmiljön, kör kommandot:\n"
 "\n"
-"\tchroot %s\n"
+"\tchroot %(rootPath)s\n"
 "\n"
 "Systemet kommer automatiskt att startas om när du avslutar skalet."
 
@@ -1408,11 +1398,11 @@ msgid "Also add this passphrase to all existing encrypted devices"
 msgstr "Lägg också till detta lösenord för alla befintliga krypterade enheter"
 
 #: text.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
-msgstr[0] "Lösenfrasen måste vara minst åtta tecken lång."
-msgstr[1] "Lösenfrasen måste vara minst åtta tecken lång."
+msgstr[0] "Lösenfrasen måste vara minst %d tecken lång."
+msgstr[1] "Lösenfrasen måste vara minst %d tecken lång."
 
 #: text.py:232 ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
@@ -1427,9 +1417,9 @@ msgid "Repository editing is not available in text mode."
 msgstr "Förrådsredigering är inte tillgängligt i textläge."
 
 #: text.py:421
-#, fuzzy, python-format
+#, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
-msgstr "Välkommen till %s för %s"
+msgstr "Välkommen till %(productName)s för %(productArch)s"
 
 #: text.py:423
 #, python-format
@@ -1542,14 +1532,14 @@ msgid "Invalid Directories"
 msgstr "Ogiltiga kataloger"
 
 #: vnc.py:137
-#, fuzzy, python-format
+#, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
-msgstr "Installationsprogram för %s %s på värden %s"
+msgstr "Installation av %(productName)s %(productVersion)s på värden %(name)s"
 
 #: vnc.py:143
 #, python-format
 msgid "%(productName)s %(productVersion)s installation"
-msgstr ""
+msgstr "Installation av %(productName)s %(productVersion)s"
 
 #: vnc.py:172
 #, python-format
@@ -1721,11 +1711,11 @@ msgid "%s KB"
 msgstr "%s kB"
 
 #: yuminstall.py:90
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
-msgstr[0] "%s MB"
-msgstr[1] "%s MB"
+msgstr[0] "%s byte"
+msgstr[1] "%s byte"
 
 #: yuminstall.py:134
 msgid "Preparing to install"
@@ -1736,9 +1726,9 @@ msgid "Preparing transaction from installation source"
 msgstr "Förbereder transaktion från installationskälla"
 
 #: yuminstall.py:163
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
-msgstr "<b>Installerar %s</b> (%s)\n"
+msgstr "<b>Installerar %(pkgStr)s</b> (%(size)s)\n"
 
 #: yuminstall.py:212
 #, python-format
@@ -1774,7 +1764,7 @@ msgid "Error Setting Up Repository"
 msgstr "Fel när förråd sattes upp"
 
 #: yuminstall.py:354
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -1784,18 +1774,18 @@ msgid ""
 msgstr ""
 "Följande fel inträffade när installationsförrådet sattes upp:\n"
 "\n"
-"%s\n"
+"%(e)s\n"
 "\n"
-"Ange korrekt information för att installera %s."
+"Ange korrekt information för att installera %(productName)s."
 
 #: yuminstall.py:398
 msgid "Change Disc"
 msgstr "Byt skiva"
 
 #: yuminstall.py:399
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
-msgstr "Sätt in %s-skiva %d för att fortsätta."
+msgstr "Sätt in %(productName)s-skiva %(discnum)d för att fortsätta."
 
 #: yuminstall.py:409
 msgid "Wrong Disc"
@@ -1968,7 +1958,7 @@ msgid ""
 "dependencies.  You can exit the installation, go back and change your "
 "package selections, or continue installing these packages without their "
 "dependencies."
-msgstr ""
+msgstr "Några av paketen du har valt att installera saknar beroenden.  Du kan avsluta installationen, gå tillbaka och ändra dina paketval, eller fortsätta installationen av dessa paket utan deras beroenden."
 
 #: yuminstall.py:1473
 #, python-format
