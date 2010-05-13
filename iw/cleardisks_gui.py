@@ -142,6 +142,7 @@ class ClearDisksWindow (InstallWindow):
                                       self.rightTreeView, visible=self.rightVisible,
                                       active=self.rightActive)
         self.rightDS.createSelectionCol(title=_("Boot\nLoader"), radioButton=True)
+        self.rightDS.createMenu()
         self.rightDS.addColumn(_("Model"), 6)
         self.rightDS.addColumn(_("Capacity"), 7)
         self.rightDS.addColumn(_("Serial Number"), 10, displayed=False)
