@@ -353,7 +353,7 @@ class Anaconda(object):
                 f.write("harddrive --partition=%s --dir=%s\n" % (part, dir))
             elif m.startswith("nfs:"):
                 if m.count(":") == 3:
-                    (server, opts, dir) = string.split(m[4:], ":")
+                    (opts, server, dir) = string.split(m[4:], ":")
                     f.write("nfs --server=%s --opts=%s --dir=%s" % (server, opts, dir))
                 else:
                     (server, dir) = string.split(m[4:], ":")
