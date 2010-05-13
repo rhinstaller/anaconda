@@ -177,8 +177,7 @@ class Dispatcher(object):
                         del self.skipSteps[name]
                 return
 
-        #raise KeyError, ("unknown step %s" % stepToSkip)
-        log.warning("step %s does not exist", name)
+        log.warning("step %s does not exist", stepToSkip)
 
     def stepIsDirect(self, step):
         """Takes a step number"""

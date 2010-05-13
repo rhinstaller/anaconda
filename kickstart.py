@@ -965,8 +965,6 @@ class SELinux(commands.selinux.FC3_SELinux):
 
 class SkipX(commands.skipx.FC3_SkipX):
     def execute(self, anaconda):
-        anaconda.ksdata.skipSteps.extend(["setsanex", "videocard", "xcustom"])
-
         if anaconda.desktop is not None:
             anaconda.desktop.setDefaultRunLevel(3)
 
@@ -1424,10 +1422,6 @@ def setSteps(anaconda):
         anaconda.instClass.setSteps(anaconda)
         dispatch.skipStep("findrootparts")
 
-    if interactive or flags.autostep:
-        dispatch.skipStep("bootdisk")
-
-    dispatch.skipStep("bootdisk")
     dispatch.skipStep("betanag")
     dispatch.skipStep("network")
 
