@@ -1017,6 +1017,11 @@ class PartitionWindow(InstallWindow):
 
         # now normal partitions
         disks = self.storage.partitioned
+        # also include unpartitioned disks that aren't mpath or biosraid
+        whole = filter(lambda d: not d.partitioned and not d.format.hidden,
+                       self.storage.disks)
+        disks.extend(whole)
+        disks.sort(key=lambda d: d.name)
         drvparent = self.tree.append(None)
         self.tree[drvparent]['Device'] = _("Hard Drives")
         for disk in disks:
