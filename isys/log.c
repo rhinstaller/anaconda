@@ -82,17 +82,17 @@ static void printLogHeader(int level, const char *tag, FILE *outfile) {
             break;
 
         case WARNING:
-            fprintf (outfile, "%02d:%02d:%02d,%03d WARNING %s: ", t->tm_hour,
+            fprintf (outfile, "%02d:%02d:%02d,%03d WARN %s: ", t->tm_hour,
                      t->tm_min, t->tm_sec, msecs, tag);
             break;
 
         case ERROR:
-            fprintf (outfile, "%02d:%02d:%02d,%03d ERROR %s: ", t->tm_hour,
+            fprintf (outfile, "%02d:%02d:%02d,%03d ERR %s: ", t->tm_hour,
                      t->tm_min, t->tm_sec, msecs, tag);
             break;
 
         case CRITICAL:
-            fprintf (outfile, "%02d:%02d:%02d,%03d CRITICAL %s: ", t->tm_hour,
+            fprintf (outfile, "%02d:%02d:%02d,%03d CRIT %s: ", t->tm_hour,
                      t->tm_min, t->tm_sec, msecs, tag);
             break;
     }

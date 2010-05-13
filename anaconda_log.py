@@ -73,6 +73,10 @@ class AnacondaLog:
     def __init__ (self):
         self.tty_loglevel = DEFAULT_TTY_LEVEL
         self.remote_syslog = None
+        # Rename the loglevels so they are the same as in syslog.
+        logging.addLevelName(logging.WARNING, "WARN")
+        logging.addLevelName(logging.ERROR, "ERR")
+        logging.addLevelName(logging.CRITICAL, "CRIT")
         # Create the base of the logger hierarcy.
         logger = logging.getLogger("anaconda")
         logger.setLevel(logging.DEBUG)
