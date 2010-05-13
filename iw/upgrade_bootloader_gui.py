@@ -43,18 +43,15 @@ class UpgradeBootloaderWindow (InstallWindow):
         if self.nobl_radio.get_active():
             self.dispatch.skipStep("bootloadersetup", skip = 1)
             self.dispatch.skipStep("bootloader", skip = 1)
-            self.dispatch.skipStep("bootloaderadvanced", skip = 1)
             self.dispatch.skipStep("instbootloader", skip = 1)
         elif self.newbl_radio.get_active():
             self.dispatch.skipStep("bootloadersetup", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 0)
-            self.dispatch.skipStep("bootloaderadvanced", skip = 0)
             self.dispatch.skipStep("instbootloader", skip = 0)
             self.bl.doUpgradeOnly = 0
         else:
             self.dispatch.skipStep("bootloadersetup", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 1)
-            self.dispatch.skipStep("bootloaderadvanced", skip = 1)
             self.dispatch.skipStep("instbootloader", skip = 0)
             self.bl.doUpgradeOnly = 1
 

@@ -189,7 +189,6 @@ class PartitionTypeWindow(InstallWindow):
             else:
                 self.dispatch.skipStep("partition")
                 self.dispatch.skipStep("bootloader")
-                self.dispatch.skipStep("bootloaderadvanced")
 
         return None
 

@@ -147,12 +147,10 @@ class UpgradeBootloaderWindow:
             if blradio.getSelection() == "nobl":                           
                 self.dispatch.skipStep("bootloadersetup", skip = 1)
                 self.dispatch.skipStep("bootloader", skip = 1)
-                self.dispatch.skipStep("bootloaderadvanced", skip = 1)
                 self.dispatch.skipStep("instbootloader", skip = 1)
             else:
                 self.dispatch.skipStep("bootloadersetup", skip = 0)
                 self.dispatch.skipStep("bootloader", skip = 1)
-                self.dispatch.skipStep("bootloaderadvanced", skip = 1)
                 self.dispatch.skipStep("instbootloader", skip = 0)
                 self.bl.doUpgradeOnly = 1
 
