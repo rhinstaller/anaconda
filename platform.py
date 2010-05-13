@@ -373,7 +373,7 @@ class IPSeriesPPC(PPC):
 
     def setDefaultPartitioning(self):
         ret = PPC.setDefaultPartitioning(self)
-        ret.append(PartSpec(fstype="PPC PReP Boot", size=4,
+        ret.append(PartSpec(fstype="prepboot", size=4,
                             weight=self.weight(fstype="prepboot")))
         return ret
 
@@ -445,7 +445,7 @@ class NewWorldPPC(PPC):
 
     def setDefaultPartitioning(self):
         ret = Platform.setDefaultPartitioning(self)
-        ret.append(PartSpec(fstype="Apple Bootstrap", size=1, maxSize=1,
+        ret.append(PartSpec(fstype="appleboot", size=1, maxSize=1,
                             weight=self.weight(fstype="appleboot")))
         return ret
 
