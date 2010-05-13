@@ -153,6 +153,8 @@ if __name__ == "__main__":
         exc.parser.error(str(exc))
         sys.exit(1)
     directory = os.path.join(os.getcwd(), options.log_root)
+    directory = os.path.abspath(directory)
+    options.output = os.path.abspath(options.output)
     config = generate_rsyslog_config(options.port, directory)
     if options.output:
         with open(options.output, 'w') as file:
