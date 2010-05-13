@@ -206,10 +206,19 @@ class OptionalPackageSelector:
             
 
     def __getPackageObject(self, pkgname):
-        pos = self.ayum.pkgSack.searchNevra(name=pkgname)
-        if len(pos) > 0:
-            return pos[0]
-        return None
+        try:
+            pkgs = self.ayum.pkgSack.returnNewestByName(pkgname)
+        except:
+            return None
+
+        if not pkgs:
+            return None
+
+        pkgs = self.ayum.bestPackagesFromList(pkgs)
+        if not pkgs:
+            return None
+
+        return pkgs[0]
 
     def _populate(self):
         pkgs = self.group.default_packages.keys() + \
