@@ -193,6 +193,8 @@ class PartitionEditor:
                     request = self.origrequest
                     request.weight = weight
 
+                usedev = request
+
                 if self.lukscb and self.lukscb.get_active() and \
                    request.format.type != "luks":
                     luksformat = format
@@ -214,6 +216,14 @@ class PartitionEditor:
                         luksdev = None
 
                     actions.append(ActionDestroyFormat(request))
+                elif self.lukscb and self.lukscb.get_active() and \
+                     self.origrequest.format.type == "luks":
+                    # re-edit of new encrypted partition. we're only updating
+                    # the formatting on the LUKS device
+                    try:
+                        usedev = self.storage.devicetree.getChildren(self.origrequest)[0]
+                    except IndexError:
+                        pass
 
                 if self.isNew:
                     # we're all set, so create the actions
@@ -226,7 +236,7 @@ class PartitionEditor:
                     request.req_primary = primary
                     request.req_disks = disks
 
-                actions.append(ActionCreateFormat(request, format))
+                actions.append(ActionCreateFormat(usedev, format))
                 if luksdev:
                     actions.append(ActionCreateDevice(luksdev))
                     actions.append(ActionCreateFormat(luksdev))
