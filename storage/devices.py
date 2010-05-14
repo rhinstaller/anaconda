@@ -1355,7 +1355,11 @@ class PartitionDevice(StorageDevice):
         # we should have already set self.partedPartition to point to the
         # partition on the original disklabel
         self.disk.originalFormat.removePartition(self.partedPartition)
-        self.disk.originalFormat.commit()
+        try:
+            self.disk.originalFormat.commit()
+        except DiskLabelCommitError:
+            self.disk.originalFormat.addPartition(self.partedPartition)
+            raise
 
         self.exists = False
 
