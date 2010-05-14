@@ -286,12 +286,17 @@ class NetworkDevice(IfcfgFile):
         IfcfgFile.set(self, *args)
         self._dirty = True
 
+    @property
+    def keyfilePath(self):
+        return os.path.join(self.dir, "keys-%s" % self.iface)
+
     def writeWepkeyFile(self, dir=None, overwrite=True):
         if not self.wepkey:
             return False
         if not dir:
-            dir = os.path.dirname(self.path)
-        keyfile = os.path.join(dir, "keys-%s" % self.iface)
+            keyfile = self.keyfilePath
+        else:
+            keyfile = os.path.join(dir, os.path.basename(self.keyfilePath))
 
         if not overwrite and os.path.isfile(keyfile):
             return False
