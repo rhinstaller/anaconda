@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri May 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.41-1
+- Only install non-branded anaconda icon on liveinst arches (dcantrell)
+  Related: rhbz#588737
+
 * Fri May 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.40-1
 - Add the best package for this arch to the optional package selector
   (clumens).
