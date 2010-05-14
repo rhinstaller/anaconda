@@ -17,7 +17,9 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
+if IS_LIVEINST_ARCH
 iconsdir        = $(datadir)/icons/hicolor/22x22/apps
 dist_icons_DATA = anaconda.png
+endif
 
 MAINTAINERCLEANFILES = Makefile.in
