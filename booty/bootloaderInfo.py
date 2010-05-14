@@ -194,7 +194,7 @@ class KernelArguments:
         # look for kernel arguments we know should be preserved and add them
         ourargs = ["speakup_synth", "apic", "noapic", "apm", "ide", "noht",
                    "acpi", "video", "pci", "nodmraid", "nompath", "nomodeset",
-                   "noiswmd"]
+                   "noiswmd", "fips"]
 
         if iutil.isS390():
             ourargs.append("cio_ignore")
