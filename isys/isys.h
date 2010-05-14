@@ -20,10 +20,16 @@
 #ifndef H_ISYS
 #define H_ISYS
 
-#define MIN_RAM			262144 // 256 MB
-#define MIN_GUI_RAM		524288 // 512 MB
-#define URL_INSTALL_EXTRA_RAM   131072 // 128 MB
-#define EARLY_SWAP_RAM		524288
+#if defined(__powerpc64__) || defined(__sparc__)
+  #define MIN_RAM                 1024*1024 // 1 GB
+  #define GUI_INSTALL_EXTRA_RAM   512*1024  // 512 MB
+#else
+  #define MIN_RAM                 256 * 1024 // 256 MB
+  #define GUI_INSTALL_EXTRA_RAM   128 * 1024 // 128 MB
+#endif
+#define URL_INSTALL_EXTRA_RAM   128 * 1024 // 128 MB
+#define MIN_GUI_RAM             MIN_RAM + GUI_INSTALL_EXTRA_RAM
+#define EARLY_SWAP_RAM          512 * 1024 // 512 MB
 
 #define OUTPUT_TERMINAL "/dev/tty5"
 

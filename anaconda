@@ -349,12 +349,6 @@ def runVNC():
                     sys.stdin.readline()
                     iutil.execConsole()
 
-def within_available_memory(needed_ram):
-    # kernel binary code estimate that is
-    # not reported in MemTotal by /proc/meminfo:
-    epsilon = 15360 # 15 MB
-    return needed_ram < (iutil.memInstalled() + epsilon)
-
 def check_memory(anaconda, opts, display_mode=None):
 
     if not display_mode:
@@ -366,8 +360,10 @@ def check_memory(anaconda, opts, display_mode=None):
         extra_ram += isys.URL_INSTALL_EXTRA_RAM
         reason = " using this install method"
 
+    total_ram = iutil.total_memory()
+
     needed_ram = isys.MIN_RAM + extra_ram
-    if not within_available_memory(needed_ram):
+    if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
         screen = SnackScreen()
         ButtonChoiceWindow(screen, _('Fatal Error'),
@@ -382,9 +378,9 @@ def check_memory(anaconda, opts, display_mode=None):
 
     # override display mode if machine cannot nicely run X
     if display_mode not in ('t', 'c') and not flags.usevnc:
-        needed_ram = isys.MIN_GUI_RAM + extra_ram
+        needed_ram += isys.GUI_INSTALL_EXTRA_RAM
 
-        if not within_available_memory(needed_ram):
+        if needed_ram > total_ram:
             complain = _("You do not have enough RAM to use the graphical "
                          "installer.")
             if flags.livecdInstall:

@@ -144,6 +144,13 @@ int totalMemory(void) {
         }
     }
 
+    /*Because /proc/meminfo only gives us the MemTotal (total physical RAM minus
+    the kernel binary code), we need to round this up. Assuming every machine
+    has the total RAM MB number divisible by 128. */
+    total /= 1024;
+    total = (total / 128 + 1) * 128;
+    total *= 1024;
+
     logMessage(INFO, "%d kB are available", total);
 
     return total;

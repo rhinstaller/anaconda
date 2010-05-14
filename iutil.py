@@ -453,6 +453,17 @@ def swapSuggestion(quiet=0):
 
     return (minswap, maxswap)
 
+def total_memory():
+    """
+    Calculate how much memory this machine has in kB. Because /proc/meminfo only
+    gives us the MemTotal (total physical RAM minus the kernel binary code), we
+    need to round this up. Assuming every machine has the total RAM MB number
+    divisible by 128
+    """
+    reported_mb = memInstalled() / 1024
+    mem = ((reported_mb / 128) + 1) * 128
+    return mem * 1024
+
 ## Create a directory path.  Don't fail if the directory already exists.
 # @param dir The directory path to create.
 def mkdirChain(dir):
