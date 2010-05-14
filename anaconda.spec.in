@@ -222,6 +222,97 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri May 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.40-1
+- Add the best package for this arch to the optional package selector
+  (clumens).
+  Resolves: rhbz#591653
+- Add hmac file for sshd (mgracik)
+  Resolves: rhbz#592186
+- Enable fips mode after fips mode installation (mgracik)
+  Resolves: rhbz#592188
+- Remove wireless support bit causing traceback (rvykydal)
+  Resolves: rhbz#520146
+- Determine if an mdmember is biosraid earlier (hdegoede)
+  Resolves: rhbz#586298
+- cleanup booty x86 flag.serial handling (hdegoede)
+  Resolves: rhbz#590653
+- Update po/POTFILES.in for nm-connection-editor integration. (dcantrell)
+  Related: rhbz#520146
+- Fix typo in loader/nfsinstall.c (dcantrell)
+  Related: rhbz#587696
+- Swap server and opts on the split() call (dcantrell)
+  Resolves: rhbz#591479
+- Handle devices that don't have a /dev/disk/by-path/ symlink (pjones)
+  Resolves: rhbz#563242
+- Make sure we write out multipath.conf before discovery (pjones)
+  Resolves: rhbz#563242
+- Handle >2 way /sbin/multipath output better (pjones)
+  Resolves: rhbz#563242
+- Add non-branded default liveinst icons for anaconda (dcantrell)
+  Resolves: rhbz#588737
+- Look for updates.img and product.img on NFS installs. (clumens)
+  Related: rhbz#587696
+- And add a menu to the right hand side so you can see the new column.
+  (clumens)
+  Related: rhbz#560666
+- Be more resilient to config files missing sections and options (clumens).
+  Resolves: rhbz#590591
+- Write out ifcfg files only when necessary (rvykydal)
+  Resolves: rhbz#520146
+- Use separate method for copying network configuration to system (rvykydal).
+  Resolves: rhbz#520146
+- Network: remove functions that are not used anymore (rvykydal)
+  Resolves: rhbz#520146
+- Wait for specific activated network devices (rvykydal).
+  Resolves: rhbz#520146
+- Set network devices configured in ks to be nm-controlled (rvykydal).
+  Resolves: rhbz#520146
+- Remove no longer needed devices argument from Network.write() (rvykydal)
+  Resolves: rhbz#520146
+- Actually generate contents of 70-persistent-net.rules (rvykydal)
+  Resolves: rhbz#520146
+- Disable [Network Configuration] button if there are no net devs (rvykydal)
+  Resolves: rhbz#520146
+- Add net device description into selection dialog (rvykydal)
+  Resolves: rhbz#520146
+- Check preselected install network device as nm controlled (rvykydal)
+  Resolves: rhbz#520146
+- Don't ask when configuring net if we have only one network device (rvykydal)
+  Resolves: rhbz#520146
+- Do not mess value change with line formatting (rvykydal)
+  Resolves: rhbz#520146
+- Log change of ifcfg files by nm-c-e (rvykydal)
+  Resolves: rhbz#520146
+- Enable networking in stage 2 using nm-c-e (rvykydal)
+  Resolves: rhbz#520146
+- Write ifcfg files via NetworkDevice in Network.write() method (rvykydal)
+  Resolves: rhbz#520146
+- Use ifcfg files via NetworkDevice in Network class (rvykydal)
+  Resolves: rhbz#520146
+- Use proper attribute instead of NetworkDevice 'DESC' hack (rvykydal)
+  Resolves: rhbz#520146
+- Quote values when writing out to ifcfg files (rvykydal)
+  Resolves: rhbz#520146
+- Network.__str__() little cleanup (rvykydal)
+  Resolves: rhbz#520146
+- Use IfcfgFile class to back NetworkDevice objects (rvykydal)
+  Resolves: rhbz#520146
+- Move some consts to module globals for use in other places (rvykydal)
+  Resolves: rhbz#520146
+- Add class to manupulate ifcfg files (rvykydal)
+  Resolves: rhbz#520146
+- Add nslookup to the install.img (mgracik)
+  Resolves: rhbz#591064
+- Redirect uncpio errors to syslog (bcl)
+  Resolves: rhbz#588671
+- Reset the resolver cache after bringing up the network (clumens).
+  Resolves: rhbz#587032
+- Set runlevel 5 based on the presence of both a display manager and X server.
+  (notting)
+  Resolves: rhbz#591610
+- Add "Serial Number" column to the right side of the cleardisks UI. (clumens)
+  Related: rhbz#560666
+
 * Wed May 12 2010 David Cantrell <dcantrell@redhat.com> - 13.21.39-1
 - Set permissions on initrd.addrsize to 0644 (dcantrell)
   Resolves: rhbz#591455
