@@ -106,7 +106,7 @@ def addFcoeDrive(anaconda):
 
 def addIscsiDrive(anaconda):
     if not network.hasActiveNetDev():
-        if not anaconda.intf.enableNetwork()
+        if not anaconda.intf.enableNetwork():
             return gtk.RESPONSE_CANCEL
 
     (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade", "iscsiDialog")
