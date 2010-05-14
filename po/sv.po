@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-05-13 19:22+0200\n"
+"PO-Revision-Date: 2010-05-14 20:23+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -1990,36 +1990,26 @@ msgstr ""
 "uppgraderingsprocessen?"
 
 #: yuminstall.py:1671
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
 "be %(myarch)s which does not match your previously installed arch of %(arch)"
 "s.  This is likely to not succeed.  Are you sure you wish to continue the "
 "upgrade process?"
-msgstr ""
-"Arkitekturen på den utgåva av %s du uppgraderar verkar vara %s vilket inte "
-"stämmer överens med din tidigare installerade arkitektur %s.  Detta kommer "
-"antagligen inte att lyckas.  Är du säker på att du vill fortsätta "
-"uppgraderingsprocessen?"
+msgstr "Arkitekturen på den utgåva av %(productName)s du uppgraderar verkar vara %(myarch)s vilket inte stämmer överens med din tidigare installerade arkitektur %(arch)s.  Detta kommer antagligen inte att lyckas.  Är du säker på att du vill fortsätta uppgraderingsprocessen?"
 
 #: yuminstall.py:1718
 msgid "Post Upgrade"
 msgstr "Efteruppgradering"
 
-# För många klagomål på "postinstallationskonfiguration", det får bli
-# "efterinstallationskonfiguration" istället, och motsvarande.
 #: yuminstall.py:1719
 msgid "Performing post-upgrade configuration"
 msgstr "Utför konfigurering efter uppgradering"
 
-# För många klagomål på "postinstallation", det får bli "efterinstallation"
-# istället.
 #: yuminstall.py:1721
 msgid "Post Installation"
 msgstr "Efter installation"
 
-# För många klagomål på "postinstallationskonfiguration", det får bli
-# "efterinstallationskonfiguration" istället.
 #: yuminstall.py:1722
 msgid "Performing post-installation configuration"
 msgstr "Utför konfiguration efter installation"
@@ -2045,19 +2035,16 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: installclasses/fedora.py:40
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage. You can optionally select a different set of "
 "software now."
-msgstr ""
-"Standardinstallationen av %s inkluderar en samling program som är lämpliga "
-"för allmän Internetanvändning. Vilka ytterligare uppgifter vill du att "
-"systemet ska ha stöd för?"
+msgstr "Standardinstallationen av %s inkluderar en samling program som är lämpliga för allmän internetanvändning.  Du har möjlighet att välja en annan uppsättning program nu."
 
 #: installclasses/fedora.py:49
 msgid "Graphical Desktop"
-msgstr ""
+msgstr "Grafiskt skrivbord"
 
 #: installclasses/fedora.py:54 installclasses/rhel.py:61
 msgid "Software Development"
@@ -2069,20 +2056,18 @@ msgstr "Webbserver"
 
 #: installclasses/fedora.py:64 installclasses/rhel.py:51
 msgid "Minimal"
-msgstr ""
+msgstr "Minimal"
 
 #: installclasses/rhel.py:40
 msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: installclasses/rhel.py:41
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s is a minimal install. You can optionally "
 "select a different set of software now."
-msgstr ""
-"Standardinstallationen av %s är en minimal installation. Vilka ytterligare "
-"uppgifter vill du att systemet ska ha stöd för?"
+msgstr "Standardinstallationen av %s är en minimal installation.  Du har möjlighet att välja en annan uppsättning program nu."
 
 #: installclasses/rhel.py:52
 msgid "Desktop"
@@ -2098,9 +2083,9 @@ msgid "Packages in %s"
 msgstr "Paket i %s"
 
 #: iw/GroupSelector.py:424
-#, fuzzy, python-format
+#, python-format
 msgid "Optional packages selected: %(inst)d of %(cnt)d"
-msgstr "Valfria paket valda: %d av %d"
+msgstr "Valfria paket valda: %(inst)d av %(cnt)d"
 
 #: iw/GroupSelector.py:426
 #, python-format
@@ -2165,9 +2150,8 @@ msgstr ""
 "tillåtet."
 
 #: iw/advanced_storage.py:91
-#, fuzzy
 msgid "You must select a NIC to use."
-msgstr "Du måste välja en enhet att redigera"
+msgstr "Du måste välja en nätverksenhet att använda."
 
 #: iw/advanced_storage.py:138
 msgid "Invalid Initiator Name"
@@ -2196,7 +2180,7 @@ msgstr "Fel vid ändring av storlek på filsystemet"
 #: iw/autopart_type.py:121
 #, python-format
 msgid "%(device)s: %(msg)s"
-msgstr ""
+msgstr "%(device)s: %(msg)s"
 
 #: iw/autopart_type.py:130
 msgid "Resize Device Error"
@@ -2205,12 +2189,11 @@ msgstr "Fel vid storleksändring av enhet"
 #: iw/autopart_type.py:131
 #, python-format
 msgid "%(name)s: %(msg)s"
-msgstr ""
+msgstr "%(name)s: %(msg)s"
 
 #: iw/autopart_type.py:228
-#, fuzzy
 msgid "Use All Space"
-msgstr "Använt diskutrymme:"
+msgstr "Använt allt utrymme"
 
 #: iw/autopart_type.py:230
 msgid ""
@@ -2220,11 +2203,13 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
+"Tar bort alla partitioner på de valda enheterna.  Detta inkluderar partitioner skapade av andra operativsystem.\n"
+"\n"
+"<b>Tips:</b> Detta alternativ kommer ta bort data från de valda enheterna.  Se till att du har säkerhetskopior."
 
 #: iw/autopart_type.py:236
-#, fuzzy
 msgid "Replace Existing Linux System(s)"
-msgstr "Ersätter existerande Linuxsystem"
+msgstr "Ersätt befintliga Linuxsystem"
 
 #: iw/autopart_type.py:238
 msgid ""
@@ -2235,19 +2220,20 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
+"Tar bort alla Linuxpartitioner på de valda enheterna.  Detta tar inte bort andra partitioner du kan tänkas ha på dina lagringsenheter (såsom VFAT eller FAT32).\n"
+"\n"
+"<b>Tips:</b> Detta alternativ kommer ta bort data från de valda enheterna.  Se till att du har säkerhetskopior."
 
 #: iw/autopart_type.py:246
-#, fuzzy
 msgid "Shrink Current System"
-msgstr "Krymp det aktuella systemet"
+msgstr "Krymp nuvarande system"
 
 #: iw/autopart_type.py:248
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
-msgstr ""
+msgstr "Krymper befintliga partitioner för att skapa fritt utrymme för standardlayouten."
 
 #: iw/autopart_type.py:250
-#, fuzzy
 msgid "Use Free Space"
 msgstr "Använd ledigt utrymme"
 
@@ -2256,10 +2242,9 @@ msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
 "available."
-msgstr ""
+msgstr "Bevarar dina nuvarande data och partitioner och använder bara det opartitionerade utrymmet på de valda enheterna, under antagandet att du har tillräckligt fritt utrymme tillgängligt."
 
 #: iw/autopart_type.py:256
-#, fuzzy
 msgid "Create Custom Layout"
 msgstr "Skapa anpassad layout"
 
@@ -2267,7 +2252,7 @@ msgstr "Skapa anpassad layout"
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
-msgstr ""
+msgstr "Skapa manuellt din egen anpassade layout på de valda enheterna med partitioneringsverktyget."
 
 #: iw/blpasswidget.py:44
 msgid "_Use a boot loader password"
@@ -2341,18 +2326,15 @@ msgstr "_Ändra enhet"
 
 #: iw/cleardisks_gui.py:33
 msgid "Clear Disks Selector"
-msgstr ""
+msgstr "Töm diskväljare"
 
 #: iw/cleardisks_gui.py:44 iw/filter_gui.py:411
-#, fuzzy
 msgid "You must select at least one drive to be used for installation."
-msgstr ""
-"Du måste välja minst en hårddisk som du vill att %s ska installeras på."
+msgstr "Du måste välja minst en enhet som du vill använda för installation."
 
 #: iw/cleardisks_gui.py:54
-#, fuzzy
 msgid "You must select one drive to boot from."
-msgstr "Du måste välja en enhet att redigera"
+msgstr "Du måste välja en enhet att starta från."
 
 #: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:446
 #: iw/filter_gui.py:457 iw/filter_gui.py:487
@@ -6424,9 +6406,8 @@ msgid "Show Only Devices Using:"
 msgstr ""
 
 #: ui/filter.glade.h:25
-#, fuzzy
 msgid "Target:"
-msgstr "Målhårddisk(ar):"
+msgstr "Mål:"
 
 #: ui/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
