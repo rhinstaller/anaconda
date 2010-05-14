@@ -300,7 +300,7 @@ class Anaconda(object):
         self.instLanguage.write(self.rootPath)
 
         self.timezone.write(self.rootPath)
-        self.network.write(anaconda=anaconda)
+        self.network.write(anaconda=self)
         self.network.copyConfigToPath(instPath=self.rootPath)
         self.desktop.write(self.rootPath)
         self.users.write(self.rootPath)
