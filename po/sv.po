@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-05-14 20:23+0200\n"
+"PO-Revision-Date: 2010-05-15 17:14+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -2339,52 +2339,50 @@ msgstr "Du måste välja en enhet att starta från."
 #: iw/cleardisks_gui.py:121 iw/cleardisks_gui.py:140 iw/filter_gui.py:446
 #: iw/filter_gui.py:457 iw/filter_gui.py:487
 msgid "Model"
-msgstr ""
+msgstr "Modell"
 
 #: iw/cleardisks_gui.py:122 iw/cleardisks_gui.py:141 iw/filter_gui.py:447
 #: iw/filter_gui.py:458 iw/filter_gui.py:466 iw/filter_gui.py:477
 #: iw/filter_gui.py:488
 msgid "Capacity"
-msgstr ""
+msgstr "Kapacitet"
 
 #: iw/cleardisks_gui.py:123 iw/filter_gui.py:448 iw/filter_gui.py:467
 #: iw/filter_gui.py:478 iw/filter_gui.py:489
-#, fuzzy
 msgid "Vendor"
-msgstr "_Fedora"
+msgstr "Tillverkare"
 
 #: iw/cleardisks_gui.py:124 iw/filter_gui.py:449 iw/filter_gui.py:468
 #: iw/filter_gui.py:479 iw/filter_gui.py:490
 msgid "Interconnect"
-msgstr ""
+msgstr "Anslutning"
 
 #: iw/cleardisks_gui.py:125 iw/filter_gui.py:450 iw/filter_gui.py:480
 #: iw/filter_gui.py:491
 msgid "Serial Number"
-msgstr ""
+msgstr "Serienummer"
 
 #: iw/cleardisks_gui.py:139
-#, fuzzy
 msgid "Boot"
-msgstr "/boot"
+msgstr "Start"
 
 #: iw/cleardisks_gui.py:176
 msgid ""
 "<b>Tip:</b> All Linux filesystems on install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Tips:</b> Alla Linuxfilsystem på enheter som är installationsmål kommer att formateras om och rensas på all data.  Se till att du har säkerhetskopior."
 
 #: iw/cleardisks_gui.py:178 ui/cleardisks.glade.h:3
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Tips:</b> Enheter som är installationsmål kommer att formateras om och rensas på all data.  Se till att du har säkerhetskopior."
 
 #: iw/cleardisks_gui.py:180
 msgid ""
 "<b>Tip:</b> Your filesystems on install target devices will not be wiped "
 "unless you choose to do so during customization."
-msgstr ""
+msgstr "<b>Tips:</b> Dina filsystem på enheter som är installationsmål kommer inte att rensas om du inte valde det under inställningen."
 
 #: iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2441,47 +2439,37 @@ msgid "Upgrade Examine"
 msgstr "Granskning av uppgradering"
 
 #: iw/examine_gui.py:60
-#, fuzzy
 msgid "Fresh Installation"
-msgstr "Förinstallation"
+msgstr "Ny installation"
 
 #: iw/examine_gui.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option to install a fresh copy of %s on your system.  Existing "
 "software and data may be overwritten depending on your configuration choices."
-msgstr ""
-"Välj detta alternativ för att installera ditt system på nytt. Befintlig "
-"programvara och data kommer att skrivas över beroende på dina "
-"konfigurationsval."
+msgstr "Välj detta alternativ för att installera ett nytt exemplar av %s på ditt system.  Befintliga program och data kan komma att skrivas över beroende på dina konfigurationsval."
 
 #: iw/examine_gui.py:67
-#, fuzzy
 msgid "Upgrade an Existing Installation"
-msgstr "_Uppgradera en befintlig installation"
+msgstr "Uppgradera en befintlig installation"
 
 #: iw/examine_gui.py:69
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your storage device(s)."
-msgstr ""
-"Välj detta alternativ om du vill uppgradera ditt befintliga %s-system. Detta "
-"alternativ kommer att bevara befintlig data på dina hårddiskar."
+msgstr "Välj detta alternativ om du vill uppgradera ditt befintliga %s-system.  Detta alternativ kommer att bevara befintlig data på dina lagringsenheter."
 
 #: iw/examine_gui.py:109
-#, fuzzy
 msgid ""
 "At least one existing installation has been detected on your system.  What "
 "would you like to do?"
-msgstr ""
-"Inga enhetsdrivrutiner för ditt system har lästs in. Vill du läsa in några "
-"nu?"
+msgstr "Åtminstone en befintlig installation har upptäckts på ditt system.  Vad vill du göra?"
 
 #: iw/examine_gui.py:128
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "Vad vill du göra?"
+msgstr "<b>Vilken %s-installation vill du uppgradera?</b>"
 
 #: iw/examine_gui.py:142
 msgid "Unknown Linux system"
@@ -2490,12 +2478,11 @@ msgstr "Okänt Linux-system"
 #: iw/filter_gui.py:146
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
-msgstr ""
+msgstr "<b>%s enheter (%s MB) valda</b> av %s enheter (%s MB) totalt."
 
 #: iw/filter_gui.py:396
-#, fuzzy
 msgid "Device Filter"
-msgstr "Misslyckades att ställa in enhet"
+msgstr "Enhetsfilter"
 
 #: iw/filter_gui.py:451 iw/filter_gui.py:459 iw/filter_gui.py:470
 #: iw/filter_gui.py:481 iw/filter_gui.py:496 iw/osbootwidget.py:66
@@ -2504,55 +2491,48 @@ msgid "Device"
 msgstr "Enhet"
 
 #: iw/filter_gui.py:465 iw/filter_gui.py:476 iw/filter_gui.py:492
-#, fuzzy
 msgid "Identifier"
-msgstr "Identifiera"
+msgstr "Identifierare"
 
 #: iw/filter_gui.py:469
-#, fuzzy
 msgid "Paths"
-msgstr "Sök_väg"
+msgstr "Sökvägar"
 
 #: iw/filter_gui.py:493
-#, fuzzy
 msgid "Port"
-msgstr "_Avbryt"
+msgstr "Port"
 
 #: iw/filter_gui.py:494
-#, fuzzy
 msgid "Target"
-msgstr "Testa"
+msgstr "Mål"
 
 #: iw/filter_gui.py:495
 msgid "LUN"
-msgstr ""
+msgstr "LUN"
 
 #: iw/filter_type.py:55
-#, fuzzy
 msgid "What type of devices will your installation involve?"
-msgstr "Vilket sorts medium innehåller installationsavbilden?"
+msgstr "Vilken slags enheter kommer din installation ta med?"
 
 #: iw/filter_type.py:61
-#, fuzzy
 msgid "Basic Storage Devices"
-msgstr "Letar efter lagringsenheter"
+msgstr "Normala lagringsenheter"
 
 #: iw/filter_type.py:62
 msgid ""
 "Installs or upgrades to typical types of storage devices.  If you're not "
 "sure which option is right for you, this is probably it."
-msgstr ""
+msgstr "Installerar eller uppgraderar på typeska lagringsenheter.  Om du inte är säker på vilket alternativ som är rätt för dig, är det formodligen detta."
 
 #: iw/filter_type.py:66
-#, fuzzy
 msgid "Specialized Storage Devices"
-msgstr "Letar efter lagringsenheter"
+msgstr "Speciella lagringsenheter"
 
 #: iw/filter_type.py:67
 msgid ""
 "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
 "mainframe attached disks (DASD), usually in an enterprise environment"
-msgstr ""
+msgstr "Installerar eller uppgraderar till enheter såsom nätverkslagringsenheter (SAN) eller stordatorers tillkopplade diskar (DASD), vanligen i företagsmiljö"
 
 #: iw/language_gui.py:33 textw/language_text.py:45
 msgid "Language Selection"
@@ -2601,25 +2581,20 @@ msgid "C_ontinue"
 msgstr "F_ortsätt"
 
 #: iw/lvm_dialog_gui.py:172
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
 "10.2f MB) in the volume group."
-msgstr ""
-"Storleken på den fysiska ytan kan inte ändras eftersom det värde som valts (%"
-"10.2f MB) är större än den minsta fysiska volymen (%10.2f MB) i volymgruppen."
+msgstr "Storleken på den fysiska ytan kan inte ändras eftersom det värde som valts (%(curpe)10.2f MB) är större än den minsta fysiska volymen (%(maxpvsize)10.2f MB) i volymgruppen."
 
 #: iw/lvm_dialog_gui.py:186
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "(curpe)10.2f MB) is too large compared to the size of the smallest physical "
 "volume (%(maxpvsize)10.2f MB) in the volume group."
-msgstr ""
-"Storleken på den fysiska ytan kan inte ändras eftersom det värde som valts (%"
-"10.2f MB) är för stor jämfört med storleken på den minsta fysiska volymen (%"
-"10.2f MB) i volymgruppen."
+msgstr "Storleken på den fysiska ytan kan inte ändras eftersom det värde som valts (%(curpe)10.2f MB) är för stor jämfört med storleken på den minsta fysiska volymen (%(maxpvsize)10.2f MB) i volymgruppen."
 
 #: iw/lvm_dialog_gui.py:200
 msgid "Too small"
@@ -2746,28 +2721,21 @@ msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Den begärda storleken som angavs är inte ett giltigt tal större än 0."
 
 #: iw/lvm_dialog_gui.py:691
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
 "logical volume size (%(maxlv)10.2f MB). To increase this limit you can "
 "create more Physical Volumes from unpartitioned disk space and add them to "
 "this Volume Group."
-msgstr ""
-"Den för tillfället begärda storleken (%10.2f MB) är större än den maximala "
-"logiska volymstorleken (%10.2f MB). För att höja denna gräns kan du skapa "
-"fler fysiska volymer från opartitionerat diskutrymme och lägga till dem i "
-"denna volymgrupp."
+msgstr "Den nu storleken (%(size)10.2f MB) är större än den maximala storleken på en logisk volym (%(maxlv)10.2f MB).  För att höja denna gräns kan du skapa fler fysiska volymer från opartitionerat diskutrymme och lägga till dem i denna volymgrupp."
 
 #: iw/lvm_dialog_gui.py:712
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The logical volumes you have configured require %(size)d MB, but the volume "
 "group only has %(tempvgsize)d MB.  Please either make the volume group "
 "larger or make the logical volume(s) smaller."
-msgstr ""
-"De logiska volymer du har konfigurerat kräver %d MB, men volymgruppen har "
-"bara %d MB.  Gör antingen volymgruppen större eller gör de logiska volymerna "
-"mindre."
+msgstr "De logiska volymer du har konfigurerat kräver %(size)d MB, men volymgruppen har bara %(tempvgsize)d MB.  Gör antingen volymgruppen större eller gör de logiska volymerna mindre."
 
 #: iw/lvm_dialog_gui.py:814
 msgid "No free slots"
@@ -2897,13 +2865,13 @@ msgid "_Logical Volumes"
 msgstr "Logiska _volymer"
 
 #: iw/netconfig_dialog.py:192 textw/netconfig_text.py:36
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred converting the value entered for \"%(field)s\":\n"
 "%(errmsg)s"
 msgstr ""
-"Ett fel inträffade vid konvertering av värdet som angavs för \"%s\":\n"
-"%s"
+"Ett fel inträffade vid konvertering av värdet som angavs för \"%(field)s\":\n"
+"%(errmsg)s"
 
 #: iw/netconfig_dialog.py:195 iw/netconfig_dialog.py:204
 #: textw/netconfig_text.py:35 textw/netconfig_text.py:42
@@ -2970,15 +2938,15 @@ msgid "You must enter a valid hostname for this computer."
 msgstr "Du måste ange ett giltigt värdnamn för denna dator."
 
 #: iw/network_gui.py:74
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
 "\n"
 "%(herrors)s"
 msgstr ""
-"Värdnamnet \"%s\" är inte giltigt av följande skäl:\n"
+"Värdnamnet \"%(hostname)s\" är inte giltigt av följande skäl:\n"
 "\n"
-"%s"
+"%(herrors)s"
 
 #: iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
@@ -3091,9 +3059,9 @@ msgid "Force to be a _primary partition"
 msgstr "Tvinga att vara en _primär partition"
 
 #: iw/partition_gui.py:356
-#, fuzzy, python-format
+#, python-format
 msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
-msgstr "Enhet %s (%-0.f MB) (Modell: %s)"
+msgstr "Enhet %(drive)s (%(size)-0.f MB) (Modell: %(model)s)"
 
 #: iw/partition_gui.py:396 iw/partition_gui.py:442 iw/partition_gui.py:509
 #: iw/partition_gui.py:996 iw/partition_gui.py:1063
@@ -3101,14 +3069,14 @@ msgid "Free"
 msgstr "Ledigt"
 
 #: iw/partition_gui.py:474
-#, fuzzy, python-format
+#, python-format
 msgid "LVM Volume Group %s (%-0.f MB)"
-msgstr "LVM-volymgrupper"
+msgstr "LVM-volymgrupp %s (%-0.f MB)"
 
 #: iw/partition_gui.py:540
 #, python-format
 msgid "MD RAID ARRAY %s (%-0.f MB)"
-msgstr ""
+msgstr "MD-RAID-kedja %s (%-0.f MB)"
 
 #: iw/partition_gui.py:611
 msgid "Type"
@@ -3201,7 +3169,7 @@ msgstr "Utökad"
 
 #: iw/partition_gui.py:1346
 msgid "Cannot perform any creation action"
-msgstr ""
+msgstr "Kan inte utföra någon konstruktionsåtgärd"
 
 #: iw/partition_gui.py:1347
 msgid ""
@@ -3212,6 +3180,12 @@ msgid ""
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 msgstr ""
+"Observera att konstruktionsåtgärderna kräver en av följande:\n"
+"\n"
+"* Fritt ytrymme på en av hårddiskarna.\n"
+"* Åtminstone två lediga mjukvaru-RAID-partitioner.\n"
+"* Åtminstone en fri fysisk (LVM)-partition.\n"
+"* Åtminstone en volymgrupp med fritt utrymme."
 
 #: iw/partition_gui.py:1455
 #, fuzzy, python-format
@@ -3246,9 +3220,8 @@ msgstr[0] "Skapa en programvaru-RAID-partition."
 msgstr[1] "Skapa en programvaru-RAID-partition."
 
 #: iw/partition_gui.py:1469
-#, fuzzy
 msgid "About RAID"
-msgstr "programvaru-RAID"
+msgstr "Om RAID"
 
 #: iw/partition_gui.py:1475
 #, python-format
