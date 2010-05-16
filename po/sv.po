@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-05-15 17:14+0200\n"
+"PO-Revision-Date: 2010-05-16 14:59+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -3135,13 +3135,10 @@ msgid "Partitioning Warnings"
 msgstr "Partitioneringsvarningar"
 
 #: iw/partition_gui.py:877
-#, fuzzy
 msgid ""
 "The following pre-existing devices have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"De följande befintliga partitionerna har valts ut för formatering som kommer "
-"att förstöra all data."
+msgstr "De följande befintliga enheterna har valts ut för formatering, vilket förstör all data."
 
 #: iw/partition_gui.py:889
 msgid "Format Warnings"
@@ -3188,17 +3185,13 @@ msgstr ""
 "* Åtminstone en volymgrupp med fritt utrymme."
 
 #: iw/partition_gui.py:1455
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
 "device.  A RAID device can be configured to provide additional speed and "
 "reliability compared to using an individual drive.  For more information on "
 "using RAID devices please consult the %s documentation.\n"
-msgstr ""
-"Programvaru-RAID låter dig kombinera flera hårddiskar i en större RAID-"
-"enhet.  En RAID-enhet kan konfigureras att tillhandahålla ytterligare "
-"hastighet och pålitlighet jämfört med att använda en ensam hårddisk.  För "
-"mer information om användning av RAID-enheter, konsultera %s-dokumentationen."
+msgstr "Programvaru-RAID låter dig kombinera flera hårddiskar i en större RAID-enhet.  En RAID-enhet kan konfigureras att tillhandahålla ytterligare hastighet och pålitlighet jämfört med att använda en ensam hårddisk.  För mer information om användning av RAID-enheter, se %s-dokumentationen.\n"
 
 #: iw/partition_gui.py:1461
 msgid ""
@@ -3213,11 +3206,11 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1465
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
-msgstr[0] "Skapa en programvaru-RAID-partition."
-msgstr[1] "Skapa en programvaru-RAID-partition."
+msgstr[0] "Du har för närvarande %d programvaru-RAID-partition ledig att använda."
+msgstr[1] "Du har för närvarande %d programvaru-RAID-partitioner lediga att använda."
 
 #: iw/partition_gui.py:1469
 msgid "About RAID"
@@ -3232,7 +3225,7 @@ msgid ""
 "in turn, is the base to create one or more Logical Volumes (LV).  Note that "
 "a VG can be an aggregate of PVs from multiple physical disks.  For more "
 "information on using LVM please consult the %s documentation\n"
-msgstr ""
+msgstr "Logisk volym-hanteraren (LVM, logical volume manager) är en 3-nivåkonstruktion.  Den första nivån består av diskar och partitioner formaterade med LVM-metadata och kallas fysiska volymer (PV, physical volume).  En volymgrupp (VG, volume group) sitter ovanpå en eller flera PV:er.  VG:n, i sin tur, är grunden för att skapa en eller flera logiska volymer (LV, logical volume).  Observera att en VG kan vara en sammansättning av PV:er från flera fysiska diskar.  För mer infomration om hur man använder LVM, se %s-dokumentationen\n"
 
 #: iw/partition_gui.py:1483
 msgid ""
@@ -3240,22 +3233,22 @@ msgid ""
 "need a PV that is not part of any existing VG.  To create an LV you need a "
 "VG with free space.\n"
 "\n"
-msgstr ""
+msgstr "För att skapa en PV behöver du en partition med ledigt utrymme.  För att skapa en VG behöver du en PV som inte utgör del av någon befintlig VG.  För att skapa en LV behöver du en VG med ledigt utrymme.\n\n"
 
 #: iw/partition_gui.py:1487
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Du har för närvarande %d tillgänglig PV ledig att använda.\n"
+msgstr[1] "Du har för närvarande %d tillgängliga PV lediga att använda.\n"
 
 #: iw/partition_gui.py:1491
 msgid "You currently have free space to create PVs."
-msgstr ""
+msgstr "Du har för närvarande ledigt utrymme att skapa PV:er."
 
 #: iw/partition_gui.py:1494
 msgid "About LVM"
-msgstr ""
+msgstr "Om LVM"
 
 #: iw/partition_gui.py:1525
 msgid "Couldn't Create Drive Clone Editor"
@@ -3297,16 +3290,15 @@ msgstr ""
 
 #: iw/partition_gui.py:1809
 msgid "_Create"
-msgstr ""
+msgstr "_Skapa"
 
 #: iw/partition_gui.py:1812
 msgid "Re_set"
 msgstr "_Återställ"
 
 #: iw/partition_gui.py:1835
-#, fuzzy
 msgid "Please Select A Device"
-msgstr "Välj en källenhet."
+msgstr "Välj en enhet"
 
 #: iw/partition_ui_helpers_gui.py:312
 msgid "_Format as:"
@@ -3446,7 +3438,7 @@ msgid "The source drive %s cannot be selected as a target drive as well."
 msgstr "Källhårddisken %s kan inte även väljas som en målhårddisk också."
 
 #: iw/raid_dialog_gui.py:704
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The target drive %(path)s has a partition which cannot be removed for the "
 "following reason:\n"
@@ -3455,9 +3447,9 @@ msgid ""
 "\n"
 "You must remove this partition before this drive can be a target."
 msgstr ""
-"Målhårddisken %s har en partition som av följande skäl inte kan tas bort:\n"
+"Målhårddisken %(path)s har en partition som av följande skäl inte kan tas bort:\n"
 "\n"
-"\"%s\"\n"
+"\"%(rc)s\"\n"
 "\n"
 "Du måste ta bort denna partition innan denna hårddisk kan vara ett mål."
 
@@ -3498,9 +3490,8 @@ msgstr ""
 "Ett fel inträffade vid tömning av målhårddiskarna. Kloning misslyckades."
 
 #: iw/raid_dialog_gui.py:829
-#, fuzzy
 msgid "Clone Drive Tool"
-msgstr "Klona hårddiskar"
+msgstr "Verltyg för att klona diskar"
 
 #: iw/raid_dialog_gui.py:838
 msgid ""
@@ -3508,7 +3499,7 @@ msgid ""
 "sized drives. The source must have partitions which are restricted to that "
 "drive and must ONLY contain unused software RAID partitions.  EVERYTHING on "
 "the target drive(s) will be destroyed.\n"
-msgstr ""
+msgstr "Detta verktyg klonar en layout från en partitionerad källa till en disk av liknande storlek.  Källan måste ha partitioner som är begränsade till den disken och får BARA innehålla oanvända programvaru-RAID-partitioner.  ALLT på måldiskarna kommer att förstöras.\n"
 
 #: iw/raid_dialog_gui.py:849
 msgid "Source Drive:"
@@ -3647,13 +3638,11 @@ msgstr ""
 "tillfället används på ditt system."
 
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The installer has detected the %(type)s boot loader currently installed on %"
 "(bootDev)s."
-msgstr ""
-"Installationsprogrammet har detekterat startprogrammet %s som är installerat "
-"på %s."
+msgstr "Installationsprogrammet har detekterat startprogrammet %(type)s som är installerat på %(bootDev)s."
 
 #: iw/upgrade_bootloader_gui.py:142
 msgid "This is the recommended option."
@@ -3693,7 +3682,7 @@ msgid "Migrate File Systems"
 msgstr "Migrera filsystem"
 
 #: iw/upgrade_migratefs_gui.py:69 textw/upgrade_text.py:44
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
 "several benefits over the file system traditionally shipped in %(productName)"
@@ -3702,10 +3691,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Denna utgåva av %s stödjer ett uppdaterat filsystem, som har flera fördelar "
-"jämfört med filsystemet som normalt använts i %s.  Detta "
-"installationsprogram kan migrera formaterade partitioner utan förlust av "
-"data.\n"
+"Denna utgåva av %(productName)s stödjer ett uppdaterat filsystem, som har flera fördelar jämfört med filsystemet som normalt använts i %(productName)s.  Detta installationsprogram kan migrera formaterade partitioner utan förlust av data.\n"
 "\n"
 "Vilka av dessa partitioner vill du migrera?"
 
@@ -4077,13 +4063,11 @@ msgid "Unknown driver disk kickstart source: %s"
 msgstr "Okänd kickstartkälla för drivrutinsdiskett: %s"
 
 #: loader/driverdisk.c:762
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s"
-msgstr ""
-"Följande ogiltiga argument angavs till kickstartkommandot för "
-"drivrutinsdiskett: %s:%s"
+msgstr "Följande ogiltiga argument angavs till kickstartkommandot för drivrutinsdiskett: %s"
 
 #: loader/driverselect.c:67
 #, c-format
@@ -4173,9 +4157,9 @@ msgid "Device %s does not appear to contain an installation image."
 msgstr "Enheten %s ser inte ut att innehålla en installationsavbild."
 
 #: loader/hdinstall.c:350
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command: %s"
-msgstr "Felaktigt argument till HD-kickstartmetodkommandot %s: %s"
+msgstr "Felaktigt argument till HD-kickstartmetodkommandot: %s"
 
 #: loader/hdinstall.c:422 loader/hdinstall.c:478
 msgid "Cannot find kickstart file on hard drive."
@@ -4210,9 +4194,9 @@ msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Fel i %s på rad %d i kickstartfilen %s."
 
 #: loader/kickstart.c:190
-#, fuzzy, c-format
+#, c-format
 msgid "Missing options on line %d of kickstart file %s."
-msgstr "Fel i %s på rad %d i kickstartfilen %s."
+msgstr "Flagga saknas på rad %d i kickstartfilen %s."
 
 #: loader/kickstart.c:297
 msgid "Cannot find ks.cfg on removable media."
@@ -4232,10 +4216,9 @@ msgid "Error downloading kickstart file"
 msgstr "Fel vid nedladdning av uppstartsfil"
 
 #: loader/kickstart.c:511
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command: %s"
-msgstr ""
-"Felaktigt argument till kickstartmetodkommandot för nedstängning %s: %s"
+msgstr "Felaktigt argument till kickstartmetodkommandot för nedstängning: %s"
 
 #: loader/lang.c:63 loader/loader.c:224
 #, c-format
@@ -4477,9 +4460,9 @@ msgid "Checksum Test"
 msgstr "Test av kontrollsumma"
 
 #: loader/modules.c:382
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command: %s"
-msgstr "Felaktigt argument till enhetskickstartmetodkommandot %s: %s"
+msgstr "Felaktigt argument till enhetskickstartmetodkommandot: %s"
 
 #: loader/modules.c:398
 msgid "A module name must be specified for the kickstart device command."
@@ -4511,6 +4494,9 @@ msgid ""
 "This cannot be corrected in cmdline mode.\n"
 "Halting.\n"
 msgstr ""
+"\n"
+"Detta kan inte rättas i kommandoradsläge.\n"
+"Stannar.\n"
 
 #: loader/net.c:471 loader/net.c:526
 msgid "Network Error"
@@ -4594,9 +4580,9 @@ msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Du måste skriva in både en giltig IPv6-adress och ett CIDR prefix."
 
 #: loader/net.c:1559
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command: %s"
-msgstr "Felaktigt argument till kickstartnätverkskommandot %s: %s"
+msgstr "Felaktigt argument till kickstartnätverkskommandot: %s"
 
 #: loader/net.c:1580
 #, c-format
@@ -4667,7 +4653,7 @@ msgstr "%s-katalog:"
 
 #: loader/nfsinstall.c:76
 msgid "NFS mount options (optional):"
-msgstr ""
+msgstr "NFS-monteringsflaggor (frivilligt):"
 
 #: loader/nfsinstall.c:82
 #, fuzzy, c-format
@@ -4918,13 +4904,11 @@ msgstr ""
 "att installera %s."
 
 #: storage/__init__.py:959
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s install."
-msgstr ""
-"Din /-partition är mindre än %s MB vilket är mindre än rekommenderat för en "
-"normal installation av %s."
+msgstr "Din /-partition är mindre än %(min)s MB vilket är mindre än rekommenderat för en normal installation av %(productName)s."
 
 #: storage/__init__.py:969
 #, python-format
@@ -4936,13 +4920,11 @@ msgstr ""
 "Den måste vara formaterad som %s."
 
 #: storage/__init__.py:976
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
-msgstr ""
-"Din %s-partition är mindre än %s megabyte vilket är mindre än rekommenderat "
-"för en normal installation av %s."
+msgstr "Din %(mount)s-partition är mindre än %(size)s megabyte vilket är mindre än rekommenderat för en normal installation av %(productName)s."
 
 #: storage/__init__.py:1005
 msgid ""
@@ -5089,7 +5071,7 @@ msgstr ""
 "inställt att formatera alla växlingspartitioner."
 
 #: storage/__init__.py:1852
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -5102,11 +5084,10 @@ msgstr ""
 "\n"
 "     %s\n"
 "\n"
-"innehåller inte en stödd växlingsvolym.  För att fortsätta installationen "
-"kommer du behöva formatera enheten eller hoppa över den."
+"innehåller inte en stödd växlingsvolym.  För att fortsätta installationen behöver du formatera enheten eller hoppa över den."
 
 #: storage/__init__.py:1863
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -5115,15 +5096,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Fel vid aktivering av växlingsenhet %s: %s\n"
+"Fel vid aktivering av växlingsenhet %(name)s: %(msg)s\n"
 "\n"
-"/etc/fstab på din uppgraderingspartition refererar inte till en giltig "
-"växlingenhet.\n"
+"/etc/fstab på din uppgraderingspartition refererar inte till en giltig växlingenhet.\n"
 "\n"
 "Tryck OK för att avsluta installationsprogrammet."
 
 #: storage/__init__.py:1870
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -5131,9 +5111,9 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Fel vid aktivering av växlingsenheten %s: %s\n"
+"Fel vid aktivering av växlingsenheten %(name)s: %(msg)s\n"
 "\n"
-"Detta betyder med största sannolikhet att enheten inte har initierats.\n"
+"Med största sannolikhet har inte denna enhet initierats.\n"
 "\n"
 "Tryck OK för att avsluta installationsprogrammet."
 
@@ -5156,15 +5136,14 @@ msgstr ""
 "Tryck <Retur> för att för att avsluta installationsprogrammet."
 
 #: storage/__init__.py:1946
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
 "fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Ett fel inträffade vid försöket att skapa %s: %s. Detta problem är "
-"ödesdigert och installationsprogrammet kan inte fortsätta.\n"
+"Ett fel inträffade vid försöket att skapa %(mountpoint)s: %(msg)s.  Detta är ett ödesdigert fel och installationsprogrammet kan inte fortsätta.\n"
 "\n"
 "Tryck <Retur> för att för att avsluta installationsprogrammet."
 
@@ -5173,24 +5152,21 @@ msgid "Unable to mount filesystem"
 msgstr "Kan inte montera filsystem"
 
 #: storage/__init__.py:1963
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
-msgstr ""
-"Ett fel inträffade vid montering av enhet %s som %s.  Du kan fortsätta "
-"installationen men det kan bli problem."
+msgstr "Ett fel inträffade vid montering av enheten %(path)s som %(mountpoint)s.  Du kan fortsätta installationen, men det kan bli problem."
 
 #: storage/__init__.py:1987
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
 "is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Ett fel inträffade vid montering av enhet %s som %s: %s.  Detta är ett "
-"ödesdigert fel och installationen kan inte fortsätta.\n"
+"Ett fel inträffade vid montering av enhet %(path)s som %(mountpoint)s: %(msg)s.  Detta är ett ödesdigert fel och installationen kan inte fortsätta.\n"
 "\n"
 "Tryck <Retur> för att för att avsluta installationsprogrammet."
 
@@ -5206,25 +5182,24 @@ msgstr "lvs misslyckades för %s"
 
 #: storage/devices.py:1258 storage/devices.py:1925 storage/devices.py:2328
 #: storage/devices.py:2799 storage/devices.py:3281
-#, fuzzy
 msgid "Creating"
-msgstr "Kroatiska"
+msgstr "Skapar"
 
 #: storage/devices.py:1259 storage/devices.py:1926 storage/devices.py:2329
 #: storage/devices.py:2800
-#, fuzzy, python-format
+#, python-format
 msgid "Creating device %s"
-msgstr "_Ändra enhet"
+msgstr "Skapar enhet %s"
 
 #: storage/devices.py:2422
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
-msgstr ""
+msgstr "En RAID%d-uppsättning behöver åtminstone %d medlemmar"
 
 #: storage/devices.py:3282
-#, fuzzy, python-format
+#, python-format
 msgid "Creating file %s"
-msgstr "Skapar filsystem på %s"
+msgstr "Skapar filen %s"
 
 #: storage/devicetree.py:98
 msgid "Confirm"
@@ -5257,9 +5232,9 @@ msgid "Formatting"
 msgstr "Formaterar"
 
 #: storage/formats/fs.py:355
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %s filesystem on %s"
-msgstr "Skapar filsystem på %s"
+msgstr "Skapar %s-filsystem på %s"
 
 #: storage/formats/fs.py:453
 msgid "Resizing"
@@ -5271,9 +5246,9 @@ msgid "Resizing filesystem on %s"
 msgstr "Ändrar storlek på filsystemet på %s"
 
 #: storage/formats/fs.py:489
-#, fuzzy, python-format
+#, python-format
 msgid "Unknown return code: %d."
-msgstr "Url-metoden %s är okänd"
+msgstr "Okänt returvärde: %d."
 
 #: storage/formats/fs.py:503
 msgid "Checking"
@@ -5287,7 +5262,7 @@ msgstr "Kontrollerar filsystem på %s"
 #: storage/formats/fs.py:521
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
-msgstr ""
+msgstr "%(type)s-filsystemskontrollen misslyckades på %(device)s: "
 
 #: storage/formats/fs.py:527
 msgid ""
@@ -5296,7 +5271,7 @@ msgid ""
 "reboot to rescue mode or another system that allows you to repair the "
 "filesystem interactively.  Restart installation after you have corrected the "
 "problems on the filesystem."
-msgstr ""
+msgstr "Fel som detta betyder vanligen att det finns ett problem med filsystemet som kräver åtgärd från användaren för att laga.  Före du startar om installationen, starta om i räddningsläge eller till ett annat system som låter dig laga filsystemet interaktivt.  Starta om installationen efter att du har rättat problemen på filsystemet."
 
 #: storage/formats/fs.py:535 storage/partitioning.py:275
 msgid "Unrecoverable Error"
@@ -6329,14 +6304,12 @@ msgid "LUN:"
 msgstr ""
 
 #: ui/filter.glade.h:13
-#, fuzzy
 msgid "Multipath Devices"
-msgstr "Dublettenhet"
+msgstr "Flervägsenheter"
 
 #: ui/filter.glade.h:14
-#, fuzzy
 msgid "Other SAN Devices"
-msgstr "RAID-enheter"
+msgstr "Andra SAN-enheter"
 
 #: ui/filter.glade.h:15
 msgid ""
