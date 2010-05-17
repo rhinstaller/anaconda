@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-05-16 14:59+0200\n"
+"PO-Revision-Date: 2010-05-17 11:16+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -569,8 +569,8 @@ msgid ""
 msgid_plural ""
 "Disks %s contain BIOS RAID metadata, but are not part of any recognized BIOS "
 "RAID sets. Ignoring disks %s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Disken %s innehåller BIOS RAID-metadata, men är inte del av någon igenkänd BIOS RAID-kedja.  Ignorerar disken %s."
+msgstr[1] "Diskarna %s innehåller BIOS RAID-metadata, men är inte del av någon igenkänd BIOS RAID-kedja.  Ignorerar diskarna %s."
 
 #: iutil.py:843
 #, python-format
@@ -1558,8 +1558,8 @@ msgstr "Försöker igen om 15 sekunder..."
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ger upp försök att ansluta efter %d försök!\n"
+msgstr[1] "Ger upp försök att ansluta efter %d försök!\n"
 
 #: vnc.py:206
 #, python-format
@@ -1734,8 +1734,8 @@ msgstr "<b>Installerar %(pkgStr)s</b> (%(size)s)\n"
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Paket klart: %(donepkgs)d av %(numpkgs)d"
+msgstr[1] "Paket klara: %(donepkgs)d av %(numpkgs)d"
 
 #: yuminstall.py:227
 msgid "Finishing upgrade"
@@ -2745,8 +2745,8 @@ msgstr "Inga lediga platser"
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Du kan inte skapa mer än %d logisk volym per volymgrupp."
+msgstr[1] "Du kan inte skapa mer än %d logiska volymer per volymgrupp."
 
 #: iw/lvm_dialog_gui.py:825
 msgid "No free space"
@@ -4656,11 +4656,11 @@ msgid "NFS mount options (optional):"
 msgstr "NFS-monteringsflaggor (frivilligt):"
 
 #: loader/nfsinstall.c:82
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter the server and path to your %s installation image and "
 "optionally additional NFS mount options."
-msgstr "Ange servernamn och sökväg till din %s-installationsavbild."
+msgstr "Ange server och sökväg till din %s-installationsavbild och eventuella ytterligare NFS-monteringsflaggor."
 
 #: loader/nfsinstall.c:90
 msgid "NFS Setup"
@@ -4676,9 +4676,9 @@ msgid "That directory does not seem to contain a %s installation image."
 msgstr "Den katalogen verkar inte innehålla en %s-installationsavbild."
 
 #: loader/nfsinstall.c:367
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "Felaktigt argument till NFS-kickstartmetodkommandot %s: %s"
+msgstr "Felaktigt argument till NFS-kickstartmetodkommandot: %s"
 
 #: loader/telnetd.c:89 loader/telnetd.c:128
 msgid "Telnet"
@@ -4693,18 +4693,18 @@ msgid "Running anaconda via telnet."
 msgstr "Kör anaconda via telnet."
 
 #: loader/urlinstall.c:138
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s."
-msgstr "Kan inte hämta %s://%s%s."
+msgstr "Kan inte hämta %s."
 
 #: loader/urlinstall.c:222
 msgid "Unable to retrieve the install image."
 msgstr "Kan inte hämta installationsavbilden."
 
 #: loader/urlinstall.c:373
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to URL kickstart method command: %s"
-msgstr "Felaktigt argument till Url-kickstartmetodkommandot %s: %s"
+msgstr "Felaktigt argument till URL-kickstartmetodkommandot: %s"
 
 #: loader/urlinstall.c:384
 msgid "Must supply a --url argument to Url kickstart method."
@@ -4726,24 +4726,20 @@ msgid ""
 msgstr "Ange URL:en som innehåller %s-installationsavbilden på din server."
 
 #: loader/urls.c:279
-#, fuzzy
 msgid "Enable HTTP proxy"
-msgstr "Slå på IPv4 stöd"
+msgstr "Aktivera HTTP-proxy"
 
 #: loader/urls.c:293
-#, fuzzy
 msgid "Proxy URL"
-msgstr "Ogiltig proxy-URL"
+msgstr "Proxy-URL"
 
 #: loader/urls.c:298
-#, fuzzy
 msgid "Username"
-msgstr "CHAP-användarnamn"
+msgstr "Användarnamn"
 
 #: loader/urls.c:303
-#, fuzzy
 msgid "Password"
-msgstr "Lösenord:"
+msgstr "Lösenord"
 
 #: loader/urls.c:322
 msgid "URL Setup"
@@ -5279,55 +5275,53 @@ msgstr "Olösligt fel"
 
 #: storage/formats/fs.py:861
 msgid "File system errors left uncorrected."
-msgstr ""
+msgstr "Filsystemsfel lämnades orättade."
 
 #: storage/formats/fs.py:862
 msgid "Operational error."
-msgstr ""
+msgstr "Operativt fel."
 
 #: storage/formats/fs.py:863
 msgid "Usage or syntax error."
-msgstr ""
+msgstr "Användnings- eller syntaxfel."
 
 #: storage/formats/fs.py:864
 msgid "e2fsck cancelled by user request."
-msgstr ""
+msgstr "e2fsck annullerat på begäran av användaren."
 
 #: storage/formats/fs.py:865
 msgid "Shared library error."
-msgstr ""
+msgstr "Fel i delat bibliotek."
 
 #: storage/formats/fs.py:1024
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
-msgstr ""
+msgstr "Fel som går att åtgärda har upptäckts eller så har dosfsck upptäckte en intern inkonsistens."
 
 #: storage/formats/fs.py:1026
-#, fuzzy
 msgid "Usage error."
-msgstr "Målhårddiskfel"
+msgstr "Användningsfel."
 
 #: storage/formats/luks.py:48
-#, fuzzy
 msgid "Encrypted"
-msgstr "_Kryptera"
+msgstr "Krypterad"
 
 #: storage/formats/luks.py:195
-#, fuzzy, python-format
+#, python-format
 msgid "Encrypting %s"
-msgstr "_Kryptera"
+msgstr "Krypterar %s"
 
 #: storage/formats/lvmpv.py:104 storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %s on %s"
-msgstr "Skapar filsystem på %s"
+msgstr "Skapar %s på %s"
 
 #: storage/dasd.py:120
 msgid "Unformatted DASD Device Found"
 msgid_plural "Unformatted DASD Devices Found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Oformaterad DASD-enhet funnen"
+msgstr[1] "Oformaterade DASD-enheter funna"
 
 #: storage/dasd.py:122
 #, python-format
@@ -5344,30 +5338,34 @@ msgid_plural ""
 "installation, the devices must be formatted.  Formatting will remove any "
 "data on these devices."
 msgstr[0] ""
+"Formatera oinitierad DASD-enhet?\n"
+"\n"
+"Det finns %d oinitierad DASD-enhet på detta system.  För att fortsätta installationen behöver enheten formateras.  Formatering kommmer ta bort eventuella data på denna enhet."
 msgstr[1] ""
+"Formatera oinitierade DASD-enheter?\n"
+"\n"
+"Det finns %d oinitierade DASD-enheter på detta system.  För att fortsätta installationen behöver enheterna formateras.  Formatering kommmer ta bort eventuella data på dessa enheter."
 
 #: storage/dasd.py:151
-#, fuzzy
 msgid "Formatting DASD Device"
 msgid_plural "Formatting DASD Devices"
-msgstr[0] "Formatering misslyckades"
-msgstr[1] "Formatering misslyckades"
+msgstr[0] "Formaterar DASD-enhet"
+msgstr[1] "Formaterar DASD-enheter"
 
 #: storage/dasd.py:152
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Förbereder %d DASD-enhet för att användas med Linux ..."
+msgstr[1] "Förbereder %d DASD-enheter för att användas med Linux ..."
 
 #: storage/fcoe.py:66 storage/fcoe.py:67
 msgid "Connecting to FCoE SAN"
-msgstr ""
+msgstr "Ansluter till FCoE SAN"
 
 #: storage/fcoe.py:106
-#, fuzzy
 msgid "FCoE not available"
-msgstr "iSCSI inte tillgängligt"
+msgstr "FCoE inte tillgängligt"
 
 #: storage/iscsi.py:83 storage/iscsi.py:84
 msgid "Scanning iSCSI nodes"
@@ -5443,7 +5441,7 @@ msgstr ""
 "Tryck \"OK\" för att avsluta installationsprogrammet."
 
 #: storage/partitioning.py:240
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
@@ -5451,7 +5449,7 @@ msgid ""
 msgstr ""
 "Kunde inte allokera begärda partitioner: \n"
 "\n"
-"%s.%s"
+"%(msg)s.%(extra)s"
 
 #: storage/partitioning.py:261
 msgid ""
@@ -5468,7 +5466,7 @@ msgid "Automatic Partitioning Errors"
 msgstr "Fel vid automatisk partitionering"
 
 #: storage/partitioning.py:264
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -5479,10 +5477,9 @@ msgid ""
 msgstr ""
 "Följande fel inträffade med din partitionering:\n"
 "\n"
-"%s\n"
+"%(errortxt)s\n"
 "\n"
-"Detta kan inträffa om det inte finns tillräckligt med utrymme på din(a) "
-"hårddisk(ar) för installationen. %s"
+"Detta kan inträffa om det inte finns tillräckligt med utrymme på dina hårddiskar för installationen. %(extra)s"
 
 #: storage/zfcp.py:50
 msgid "You have not specified a device number or the number is invalid"
@@ -5499,10 +5496,9 @@ msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Du har inte angivit ett FCP-LUN eller så är numret ogiltigt."
 
 #: storage/zfcp.py:131
-#, fuzzy, python-format
+#, python-format
 msgid "Could not free zFCP device %(devnum)s from device ignore list (%(e)s)."
-msgstr ""
-"Kunde inte frigöra zFCP-enheten %s från listan över ignorerade enheter (%s)."
+msgstr "Kunde inte frigöra zFCP-enhet %(devnum)s från listan över ignorerade enheter (%(e)s)."
 
 #: storage/zfcp.py:137
 #, python-format
@@ -5511,71 +5507,70 @@ msgstr ""
 "zFCP-enheten %s finns inte, inte ens i listan över enheter att ignorera."
 
 #: storage/zfcp.py:149
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
-msgstr "Fel: Kunde inte ställa in zFCP-enhet %s uppkopplad (%s)."
+msgstr "Kunde inte ställa in zFCP-enhet %(devnum)s uppkopplad (%(e)s)."
 
 #: storage/zfcp.py:160
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
-msgstr "Kunde inte lägga till WWPN %s till zFCP-enhet %s (%s)."
+msgstr "Kunde inte lägga till WWPN %(wwpn)s till zFCP-enhet %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
-msgstr "WWPN %s finns inte på zFCP-enhet %s."
+msgstr "WWPN %(wwpn)s finns inte på zFCP-enhet %(devnum)s."
 
 #: storage/zfcp.py:182
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
 "s)."
-msgstr "Kunde inte lägga till LUN %s till WWPN %s på zFCP-enhet %s (%s)."
+msgstr "Kunde inte lägga till LUN %(fcplun)s till WWPN %(wwpn)s på zFCP-enhet %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:188
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
-msgstr "LUN %s på WWPN %s på zFCP-enheten %s är redan konfigurerad."
+msgstr "LUN %(fcplun)s på WWPN %(wwpn)s på zFCP-enheten %(devnum)s är redan konfigurerad."
 
 #: storage/zfcp.py:200
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP "
 "device %(devnum)s (%(e)s)."
-msgstr ""
-"Kunde inte läsa felattribut hos LUN %s på WWPN %s på zFCP-enhet %s (%s)."
+msgstr "Kunde inte läsa felattribut hos LUN %(fcplun)s på WWPN %(wwpn)s på zFCP-enhet %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:209
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
 "again."
-msgstr "Misslyckad LUN %s på WWPN %s på zFCP-enhet %s borttagen igen."
+msgstr "Söndrig LUN %(fcplun)s på WWPN %(wwpn)s på zFCP-enhet %(devnum)s borttagen igen."
 
 #: storage/zfcp.py:266
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
 "s (%(e)s)."
-msgstr "Kunde inte korrekt radera SCSI-enhet på zFCP %s %s %s (%s)."
+msgstr "Kunde inte korrekt radera SCSI-enhet på zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s)."
 
 #: storage/zfcp.py:275
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
 "(e)s)."
-msgstr "Kunde inte ta bort LUN %s på WWPN %s på zFCP-enhet %s (%s)."
+msgstr "Kunde inte ta bort LUN %(fcplun)s på WWPN %(wwpn)s på zFCP-enhet %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:293
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "Kunde inte ta bort WWPN %s på zFCP-enhet %s (%s)."
+msgstr "Kunde inte ta bort WWPN %(wwpn)s på zFCP-enhet %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:319
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
-msgstr "Kunde inte ställa in zFCP-enhet %s offline (%s)."
+msgstr "Kunde inte ställa in zFCP-enhet %(devnum)s offline (%(e)s)."
 
 #: textw/complete_text.py:32
 msgid "Reboot"
@@ -5715,7 +5710,7 @@ msgstr ""
 
 #: textw/partition_text.py:228
 msgid "No network cards present."
-msgstr ""
+msgstr "Det finns inget nätverkskort."
 
 #: textw/partition_text.py:231
 msgid "Add FCoE SAN"
@@ -5723,11 +5718,11 @@ msgstr "Lägg till FCoE SAN"
 
 #: textw/partition_text.py:235
 msgid "Select which NIC is connected to the FCoE SAN."
-msgstr ""
+msgstr "Välj vilket NIC som är anslutet till FCoE SAN:et."
 
 #: textw/partition_text.py:251 ui/fcoe-config.glade.h:5
 msgid "Use DCB"
-msgstr ""
+msgstr "Använd DCB"
 
 #: textw/partition_text.py:280 ui/iscsi-config.glade.h:7
 msgid "Configure iSCSI Parameters"
@@ -6051,9 +6046,8 @@ msgid "_Next"
 msgstr "_Nästa"
 
 #: ui/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Shrink partition _to size (in MB):</b>"
-msgstr "<b>_Mål för krympning (i MB):</b>"
+msgstr "<b>Krymp partition _till storlek (i MB):</b>"
 
 #: ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -6071,7 +6065,7 @@ msgstr ""
 
 #: ui/autopart.glade.h:5
 msgid "Which type of installation would you like?"
-msgstr ""
+msgstr "Vilken installationstyp önskar du?"
 
 #: ui/autopart.glade.h:6
 msgid "_Encrypt system"
