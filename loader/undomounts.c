@@ -111,8 +111,7 @@ void undoLoop(struct unmountInfo * fs, int numFs, int this) {
     if ((fd = open("/tmp/loop", O_RDONLY, 0)) < 0) {
 	printf(" failed to open device: %d", errno);
     } else {
-	if (ioctl(fd, LOOP_CLR_FD, 0))
-	    printf(" LOOP_CLR_FD failed: %d", errno);
+	ioctl(fd, LOOP_CLR_FD, 0);
 	close(fd);
     }
 
