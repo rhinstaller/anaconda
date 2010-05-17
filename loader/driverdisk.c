@@ -65,16 +65,19 @@ extern uint64_t flags;
 
 /*
  * check if the RPM in question provides
- * Provides: userptr
- * we use it to check kernel-modules-<kernelversion>
+ * Provides: <dep> = <version>
+ * we use it to check if kernel-modules = <kernelversion>
  */
-int dlabelProvides(const char* dep, void *userptr)
+int dlabelProvides(const char* dep, const char* version, void *userptr)
 {
     char *kernelver = (char*)userptr;
 
-    logMessage(DEBUGLVL, "Provides: %s\n", dep);
+    logMessage(DEBUGLVL, "Provides: %s = %s", dep, version);
 
-    return strcmp(dep, kernelver);
+    if (version == NULL)
+        return -1;
+
+    return strcmp(dep, "kernel-modules") || strcmp(version, kernelver);
 }
 
 /*
@@ -85,7 +88,7 @@ int dlabelFilter(const char* name, const struct stat *fstat, void *userptr)
 {
     int l = strlen(name);
 
-    logMessage(DEBUGLVL, "Unpacking %s\n", name);
+    logMessage(DEBUGLVL, "Unpacking %s", name);
 
     /* we want firmware files */
     if (!strncmp("lib/firmware/", name, 13)) return 0; 
@@ -164,9 +167,9 @@ int dlabelUnpackRPMDir(char* rpmdir, char* destination)
 
     /* get running kernel version */
     rc = uname(&unamedata);
-    checked_asprintf(&kernelver, "kernel-modules-%s",
+    checked_asprintf(&kernelver, "%s",
             rc ? "unknown" : unamedata.release);
-    logMessage(DEBUGLVL, "Kernel version: %s\n", kernelver);
+    logMessage(DEBUGLVL, "Kernel version: %s", kernelver);
 
     checked_asprintf(&globpattern, "%s/*.rpm", rpmdir);
     glob_t globres;

@@ -153,45 +153,67 @@ int explodeRPM(const char *source,
 
     /* Retrieve all dependencies and run them through deps function */
     while (deps) {
-        struct rpmtd_s td;
+        struct rpmtd_s tddep;
+        struct rpmtd_s tdver;
         const char *depname;
+        const char *depversion;
 
-        if (!headerGet(h, RPMTAG_REQUIRENAME, &td, HEADERGET_MINMEM))
+        if (!headerGet(h, RPMTAG_PROVIDES, &tddep, HEADERGET_MINMEM))
             break;
 
+        if (!headerGet(h, RPMTAG_PROVIDEVERSION, &tdver, HEADERGET_MINMEM)){
+            rpmtdFreeData(&tddep);
+            break;
+        }
+
         /* iterator */
-        while ((depname = rpmtdNextString(&td))) {
-            if (deps(depname, userptr)) {
+        while ((depname = rpmtdNextString(&tddep))) {
+            depversion = rpmtdNextString(&tdver);
+            if (deps(depname, depversion, userptr)) {
+                rpmtdFreeData(&tddep);
+                rpmtdFreeData(&tdver);
                 Fclose(fdi);
                 return EXIT_BADDEPS;
             }
         }
-        rpmtdFreeData(&td);
+
+        rpmtdFreeData(&tddep);
+        rpmtdFreeData(&tdver);
+
         break;
     }
 
     /* Retrieve all provides and run them through provides function */
     while (provides) {
-        struct rpmtd_s td;
+        struct rpmtd_s tddep;
+        struct rpmtd_s tdver;
         const char *depname;
+        const char *depversion;
         int found = 0;
 
-        if (!headerGet(h, RPMTAG_PROVIDES, &td, HEADERGET_MINMEM))
+        if (!headerGet(h, RPMTAG_PROVIDES, &tddep, HEADERGET_MINMEM))
             break;
 
+        if (!headerGet(h, RPMTAG_PROVIDEVERSION, &tdver, HEADERGET_MINMEM)){
+            rpmtdFreeData(&tddep);
+            break;
+        }
+
         /* iterator */
-        while ((depname = rpmtdNextString(&td))) {
-            if (!provides(depname, userptr)) {
+        while ((depname = rpmtdNextString(&tddep))) {
+            depversion = rpmtdNextString(&tdver);
+            if (!provides(depname, depversion, userptr)) {
                 found++;
             }
         }
-        rpmtdFreeData(&td);
 
-        if (found<=0) {
+        rpmtdFreeData(&tddep);
+        rpmtdFreeData(&tdver);
+
+        if (found<=0){
             Fclose(fdi);
             return EXIT_BADDEPS;
         }
-
         break;
     }
 
