@@ -294,7 +294,7 @@ def setupEnvironment():
         del os.environ["LD_PRELOAD"]
 
     os.environ["GLADEPATH"] = "/tmp/updates/:/tmp/updates/ui/:ui/:/usr/share/anaconda/ui/:/usr/share/python-meh/"
-    os.environ["PIXMAPPATH"] = "/tmp/updates/pixmaps/:/tmp/updates/:/tmp/product/pixmaps/:/tmp/product/:pixmaps/:/usr/share/anaconda/pixmaps/:/usr/share/pixmaps/:/usr/share/anaconda/:/usr/share/python-meh/"
+    os.environ["PIXMAPPATH"] = "/tmp/updates/pixmaps/:/tmp/updates/:/tmp/product/pixmaps/:/tmp/product/:pixmaps/:/usr/share/anaconda/pixmaps/:/usr/share/pixmaps/:/usr/share/anaconda/:/usr/share/python-meh/:/usr/share/icons/Fedora/48x48/apps/"
 
 def setupLoggingFromOpts(opts):
     if opts.loglevel and anaconda_log.logLevelMap.has_key(opts.loglevel):

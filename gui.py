@@ -1552,6 +1552,9 @@ class InstallControlWindow:
 
         if window_reload:
             self.window.destroy()
+        else if flags.livecdInstall:
+            pixbuf = getPixbuf("anaconda.png")
+            gtk.window_set_default_icon(pixbuf)
 
         self.loadGlade()
         self.window = self.mainxml.get_widget("mainWindow")
