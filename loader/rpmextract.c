@@ -185,8 +185,12 @@ int explodeRPM(const char *source,
             }
         }
         rpmtdFreeData(&td);
-        if (found<=0)
+
+        if (found<=0) {
+            Fclose(fdi);
             return EXIT_BADDEPS;
+        }
+
         break;
     }
 
@@ -292,8 +296,9 @@ int explodeRPM(const char *source,
                 needskip = 0;
             } else {
                 needskip = 0;
-                fclose(fdout);
             }
+
+            fclose(fdout);
         }
 
         /* symlink, we assume that the path contained in symlink
@@ -319,6 +324,7 @@ int explodeRPM(const char *source,
     }
 
     archive_read_finish(cpio);
+    Fclose(gzdi);
 
     return rc != ARCHIVE_OK;
 }

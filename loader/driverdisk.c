@@ -174,8 +174,9 @@ int dlabelUnpackRPMDir(char* rpmdir, char* destination)
     if (!glob(globpattern, GLOB_NOSORT|GLOB_NOESCAPE, globErrFunc, &globres)) {
         /* iterate over all rpm files */
         globitem = globres.gl_pathv;
-        while (globres.gl_pathc>0 && globitem != NULL) {
+        while (globres.gl_pathc>0 && globitem != NULL && *globitem != NULL) {
             explodeRPM(*globitem, dlabelFilter, dlabelProvides, NULL, kernelver);
+            globitem++;
         }
         globfree(&globres);
         /* end of iteration */
