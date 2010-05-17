@@ -853,6 +853,7 @@ EOF
     instbin $IMGPATH /usr/bin/strace $MBD_DIR /sbin/strace
     instbin $IMGPATH /usr/bin/touch $MBD_DIR /sbin/touch
     instbin $IMGPATH /usr/bin/wget $MBD_DIR /sbin/wget
+    instbin $IMGPATH /usr/sbin/lsof $MBD_DIR /sbin/lsof
 
     # Indirect dependencies
     for nsslib in freebl3 softokn3 nssdbm3 ; do
