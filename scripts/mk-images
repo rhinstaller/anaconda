@@ -590,6 +590,7 @@ makeinitrd() {
     mkdir -m 111 -p $MBD_DIR/var/empty/sshd
     mkdir -p $MBD_DIR/etc/{pam.d,security}
     mkdir -p $MBD_DIR/$LIBDIR/security
+    mkdir -p $MBD_DIR/usr/lib/rpm
 
     for x in $IMGPATH/$LIBDIR/security/* ; do
 	y=$(basename $x)
@@ -889,6 +890,8 @@ EOF
         [ -f $IMGPATH/usr/share/terminfo/$i ] && \
         install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
     done
+
+    cp -a $IMGPATH/usr/lib/rpm/rpmrc $MBD_DIR/usr/lib/rpm
 
     makeproductfile $MBD_DIR
 
