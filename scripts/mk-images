@@ -333,7 +333,8 @@ makemoduletree() {
     done
 
     # create depmod.conf to support DDs
-    cat > $MMB_DIR/etc/depmod.conf << EOF
+    mkdir -p $MMB_DIR/etc/depmod.d
+    cat > $MMB_DIR/etc/depmod.d/dd.conf << EOF
 search /tmp/DD/lib/modules built-in
 EOF
 
