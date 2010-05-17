@@ -76,7 +76,7 @@ any anaconda's supported filesystem (vfat, squashfs, ext2 and ext3).
 |  /...  - any other architecture the DD provides drivers for
 
 There is a special requirement for the RPMs used to update drivers. Anaconda
-picks up only RPMs which provide kernel-modules-<running kernel version>.
+picks up only RPMs which provide "kernel-modules = <running kernel version>".
 
 Initrd overlay driverdisc image
 -------------------------------

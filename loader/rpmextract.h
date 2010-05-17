@@ -32,7 +32,7 @@
 
 /* both filter functions return 0 - match, 1 - match not found */
 typedef int (*filterfunc)(const char* name, const struct stat *fstat, void *userptr);
-typedef int (*dependencyfunc)(const char* depends, void *userptr);
+typedef int (*dependencyfunc)(const char* depname, const char* depversion, void *userptr);
 
 int explodeRPM(const char* file,
                filterfunc filter,
