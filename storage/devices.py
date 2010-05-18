@@ -1759,6 +1759,7 @@ class LVMVolumeGroupDevice(DMDevice):
         self.lv_uuids = []
         self.lv_sizes = []
         self.lv_attr = []
+        self.hasDuplicate = False
 
         # circular references, here I come
         self._lvs = []
@@ -1858,7 +1859,7 @@ class LVMVolumeGroupDevice(DMDevice):
                 return False
 
         # if we are missing some of our PVs we cannot be active
-        if len(self.pvs) != self.pvCount:
+        if not self.complete:
             return False
 
         return True
@@ -1880,7 +1881,12 @@ class LVMVolumeGroupDevice(DMDevice):
             raise ValueError("addDevice requires a PV arg")
 
         if self.uuid and device.format.vgUuid != self.uuid:
-            raise ValueError("UUID mismatch")
+            # this means there is another vg with the same name on the system
+            # set hasDuplicate which will make complete return False
+            # and let devicetree._handleInconsistencies() further handle this.
+            # Note we still add the device to our parents for use by
+            # devicetree._handleInconsistencies()
+            self.hasDuplicate = True
 
         if device in self.pvs:
             raise ValueError("device is already a member of this VG")
@@ -1889,7 +1895,7 @@ class LVMVolumeGroupDevice(DMDevice):
         device.addChild()
 
         # now see if the VG can be activated
-        if len(self.parents) == self.pvCount:
+        if self.complete:
             self.setup()
 
     def _removeDevice(self, device):
@@ -1921,7 +1927,7 @@ class LVMVolumeGroupDevice(DMDevice):
         if self.status:
             return
 
-        if len(self.parents) < self.pvCount:
+        if not self.complete:
             raise DeviceError("cannot activate VG with missing PV(s)", self.name)
 
         self.setupParents(orig=orig)
@@ -2124,6 +2130,10 @@ class LVMVolumeGroupDevice(DMDevice):
         """Check if the vg has all its pvs in the system
         Return True if complete.
         """
+        # vgs with duplicate names are overcomplete, which is not what we want
+        if self.hasDuplicate:
+            return False
+
         return len(self.pvs) == self.pvCount or not self.exists
 
 
