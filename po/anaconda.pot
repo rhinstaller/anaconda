@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.40\n"
+"Project-Id-Version: anaconda 13.21.41\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-05-14 12:30-1000\n"
+"POT-Creation-Date: 2010-05-18 10:02-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,10 +24,10 @@ msgstr ""
 #: rescue.py:479 text.py:654 loader/cdinstall.c:228 loader/cdinstall.c:232
 #: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:427
 #: loader/cdinstall.c:431 loader/cdinstall.c:504 loader/dirbrowser.c:128
-#: loader/driverdisk.c:233 loader/driverdisk.c:389 loader/driverdisk.c:421
-#: loader/driverdisk.c:452 loader/driverdisk.c:487 loader/driverdisk.c:503
-#: loader/driverdisk.c:515 loader/driverdisk.c:523 loader/driverdisk.c:690
-#: loader/driverdisk.c:729 loader/driverselect.c:78 loader/driverselect.c:178
+#: loader/driverdisk.c:237 loader/driverdisk.c:393 loader/driverdisk.c:425
+#: loader/driverdisk.c:456 loader/driverdisk.c:491 loader/driverdisk.c:507
+#: loader/driverdisk.c:519 loader/driverdisk.c:527 loader/driverdisk.c:694
+#: loader/driverdisk.c:733 loader/driverselect.c:78 loader/driverselect.c:178
 #: loader/hdinstall.c:115 loader/hdinstall.c:266 loader/hdinstall.c:325
 #: loader/hdinstall.c:359 loader/hdinstall.c:431 loader/hdinstall.c:474
 #: loader/hdinstall.c:487 loader/kbd.c:119 loader/kickstart.c:135
@@ -112,7 +112,7 @@ msgid ""
 "probably out of disk space."
 msgstr ""
 
-#: backend.py:185 image.py:289 livecd.py:198 livecd.py:403
+#: backend.py:185 image.py:289 livecd.py:198 livecd.py:440
 #: partIntfHelpers.py:237 text.py:351 text.py:355 yuminstall.py:408
 #: yuminstall.py:842 yuminstall.py:960 yuminstall.py:965 yuminstall.py:1240
 #: yuminstall.py:1306 yuminstall.py:1496 yuminstall.py:1518
@@ -122,9 +122,9 @@ msgstr ""
 #: iw/cleardisks_gui.py:53 iw/filter_gui.py:410 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:214 iw/task_gui.py:53
 #: iw/task_gui.py:154 iw/task_gui.py:300 iw/task_gui.py:460
-#: loader/cdinstall.c:228 loader/cdinstall.c:504 loader/driverdisk.c:233
-#: loader/driverdisk.c:452 loader/driverdisk.c:487 loader/driverdisk.c:515
-#: loader/driverdisk.c:523 loader/driverdisk.c:590 loader/hdinstall.c:115
+#: loader/cdinstall.c:228 loader/cdinstall.c:504 loader/driverdisk.c:237
+#: loader/driverdisk.c:456 loader/driverdisk.c:491 loader/driverdisk.c:519
+#: loader/driverdisk.c:527 loader/driverdisk.c:594 loader/hdinstall.c:115
 #: loader/hdinstall.c:325 loader/hdinstall.c:431 loader/hdinstall.c:474
 #: loader/hdinstall.c:487 loader/kickstart.c:299 loader/lang.c:114
 #: loader/loader.c:414 loader/loader.c:525 loader/loader.c:1137
@@ -157,7 +157,7 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:60 gui.py:1126 gui.py:1271 gui.py:1487 image.py:91
-#: kickstart.py:155 livecd.py:205 livecd.py:410 packages.py:161 upgrade.py:58
+#: kickstart.py:155 livecd.py:205 livecd.py:447 packages.py:161 upgrade.py:58
 #: upgrade.py:199 yuminstall.py:249 yuminstall.py:962 yuminstall.py:967
 #: yuminstall.py:1047 yuminstall.py:1053 yuminstall.py:1209 yuminstall.py:1236
 #: yuminstall.py:1296 yuminstall.py:1483 yuminstall.py:1502 yuminstall.py:1525
@@ -302,7 +302,7 @@ msgstr ""
 
 #: gui.py:734 gui.py:1487 partIntfHelpers.py:157 partIntfHelpers.py:342
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
-#: loader/driverdisk.c:390 loader/kickstart.c:331 loader/loader.c:450
+#: loader/driverdisk.c:394 loader/kickstart.c:331 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
 msgid "Cancel"
 msgstr ""
@@ -496,7 +496,7 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 
-#: image.py:251 livecd.py:409 packages.py:364 upgrade.py:198 yuminstall.py:967
+#: image.py:251 livecd.py:446 packages.py:364 upgrade.py:198 yuminstall.py:967
 #: yuminstall.py:1053 yuminstall.py:1483 yuminstall.py:1525 yuminstall.py:1543
 #: ui/anaconda.glade.h:2
 msgid "_Back"
@@ -659,7 +659,7 @@ msgstr ""
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1289 livecd.py:229
+#: kickstart.py:1289 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
@@ -737,13 +737,13 @@ msgid ""
 "require reinstallation."
 msgstr ""
 
-#: livecd.py:230
+#: livecd.py:229
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
 msgstr ""
 
-#: livecd.py:404
+#: livecd.py:441
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
@@ -1191,12 +1191,12 @@ msgstr ""
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: rescue.py:255 loader/driverdisk.c:630 loader/driverdisk.c:640
+#: rescue.py:255 loader/driverdisk.c:634 loader/driverdisk.c:644
 #: loader/hdinstall.c:212 textw/constants_text.py:56
 msgid "Yes"
 msgstr ""
 
-#: rescue.py:255 rescue.py:257 loader/driverdisk.c:630 loader/driverdisk.c:640
+#: rescue.py:255 rescue.py:257 loader/driverdisk.c:634 loader/driverdisk.c:644
 #: textw/constants_text.py:60
 msgid "No"
 msgstr ""
@@ -1227,7 +1227,7 @@ msgid ""
 msgstr ""
 
 #: rescue.py:310 iw/partition_gui.py:781 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:591 storage/__init__.py:155
+#: loader/cdinstall.c:214 loader/driverdisk.c:595 storage/__init__.py:155
 #: storage/devicetree.py:90
 msgid "Continue"
 msgstr ""
@@ -3387,8 +3387,8 @@ msgstr ""
 msgid "Disc Not Found"
 msgstr ""
 
-#: loader/cdinstall.c:431 loader/driverdisk.c:390 loader/driverdisk.c:422
-#: loader/driverdisk.c:503 loader/driverselect.c:78 loader/driverselect.c:152
+#: loader/cdinstall.c:431 loader/driverdisk.c:394 loader/driverdisk.c:426
+#: loader/driverdisk.c:507 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:491 loader/loader.c:508
 #: loader/loader.c:1320 loader/loader.c:1353 loader/net.c:580 loader/net.c:951
@@ -3407,96 +3407,96 @@ msgstr ""
 msgid "Failed to read directory %s: %m"
 msgstr ""
 
-#: loader/driverdisk.c:271
+#: loader/driverdisk.c:275
 msgid "Loading"
 msgstr ""
 
-#: loader/driverdisk.c:271
+#: loader/driverdisk.c:275
 msgid "Reading driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:384 loader/driverdisk.c:417
+#: loader/driverdisk.c:388 loader/driverdisk.c:421
 msgid "Driver Disk Source"
 msgstr ""
 
-#: loader/driverdisk.c:385
+#: loader/driverdisk.c:389
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:418
+#: loader/driverdisk.c:422
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
 
-#: loader/driverdisk.c:453
+#: loader/driverdisk.c:457
 msgid "Failed to mount partition."
 msgstr ""
 
-#: loader/driverdisk.c:458
+#: loader/driverdisk.c:462
 msgid "Select driver disk image"
 msgstr ""
 
-#: loader/driverdisk.c:459
+#: loader/driverdisk.c:463
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
-#: loader/driverdisk.c:488
+#: loader/driverdisk.c:492
 msgid "Failed to load driver disk from file."
 msgstr ""
 
-#: loader/driverdisk.c:500
+#: loader/driverdisk.c:504
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 
-#: loader/driverdisk.c:503
+#: loader/driverdisk.c:507
 msgid "Insert Driver Disk"
 msgstr ""
 
-#: loader/driverdisk.c:516
+#: loader/driverdisk.c:520
 msgid "Failed to mount driver disk."
 msgstr ""
 
-#: loader/driverdisk.c:524
+#: loader/driverdisk.c:528
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr ""
 
-#: loader/driverdisk.c:590
+#: loader/driverdisk.c:594
 msgid "Manually choose"
 msgstr ""
 
-#: loader/driverdisk.c:591
+#: loader/driverdisk.c:595
 msgid "Load another disk"
 msgstr ""
 
-#: loader/driverdisk.c:592
+#: loader/driverdisk.c:596
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:630
+#: loader/driverdisk.c:634
 msgid "Driver disk"
 msgstr ""
 
-#: loader/driverdisk.c:631
+#: loader/driverdisk.c:635
 msgid "Do you have a driver disk?"
 msgstr ""
 
-#: loader/driverdisk.c:640
+#: loader/driverdisk.c:644
 msgid "More Driver Disks?"
 msgstr ""
 
-#: loader/driverdisk.c:641
+#: loader/driverdisk.c:645
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: loader/driverdisk.c:690 loader/driverdisk.c:729 loader/hdinstall.c:359
+#: loader/driverdisk.c:694 loader/driverdisk.c:733 loader/hdinstall.c:359
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
 #: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
@@ -3505,12 +3505,12 @@ msgstr ""
 msgid "Kickstart Error"
 msgstr ""
 
-#: loader/driverdisk.c:691
+#: loader/driverdisk.c:695
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr ""
 
-#: loader/driverdisk.c:730
+#: loader/driverdisk.c:734
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -3830,8 +3830,8 @@ msgstr ""
 
 #: loader/mediacheck.c:86
 msgid ""
-"Unable to read the disc checksum from the primary volume descriptor.  This "
-"probably means the disc was created without adding the checksum."
+"Unable to find the checksum in the image.  This probably means the disc was "
+"created without adding the checksum."
 msgstr ""
 
 #: loader/mediacheck.c:93

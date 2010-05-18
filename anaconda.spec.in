@@ -222,6 +222,35 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 18 2010 David Cantrell <dcantrell@redhat.com> - 13.21.42-1
+- Fix the order of arguments in archive read callback and archive closing.
+  (msivak)
+  Related: rhbz#508242
+- Use "kernel-modules = version" style for locating rpms providing driver
+  updates (msivak)
+  Related: rhbz#508242
+- Move depmod configuration into new directory structure to get rid of depmod
+  warning (msivak)
+  Resolves: rhbz#508242
+- Fix descriptor leak and iteration progress in driverdisc code (msivak)
+  Resolves: rhbz#592225
+- Add the rpmrc file to the initrd.img (mgracik)
+  Resolves: rhbz#508242
+- Add the eject package to packages list (mgracik)
+  Resolves: rhbz#591070
+- Add support to livecd for arbitrarily complex dir structures. (dlehman)
+  Related: rhbz#590384
+- livecd.py: set the selected keyboard. (akozumpl)
+  Related: rhbz#590384
+- On live installs, the syslog is /var/log/dmesg. (clumens)
+  Related: rhbz#590384
+- Set up udev environment so anaconda's udev rules run in livecd. (dlehman)
+  Related: rhbz#590384
+- Check for the real device-mapper nodes in /proc/swaps (dlehman).
+  Resolves: rhbz#590384
+- Make checksum error message user-friendlier (rvykydal)
+  Resolves: rhbz#592324
+
 * Fri May 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.41-1
 - Only install non-branded anaconda icon on liveinst arches (dcantrell)
   Related: rhbz#588737
