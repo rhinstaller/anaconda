@@ -158,17 +158,17 @@ class MakeBumpVer:
             print "***     %s\n" % summary
             return False
 
-    def _isRHELBugInMODIFIED(self, bug, commit, summary):
+    def _isRHELBugInCorrectState(self, bug, commit, summary):
         bzentry = self._queryBug(bug)
 
         if not bzentry:
             print "*** Bugzilla query for %s failed.\n" % bug
             return False
 
-        if bzentry.bug_status == 'MODIFIED':
+        if bzentry.bug_status in ['MODIFIED', 'ON_QA']:
             return True
         else:
-            print "*** Bug %s is not in MODIFIED." % bug
+            print "*** Bug %s is not in MODIFIED or ON_QA." % bug
             print "***     Commit: %s" % commit
             print "***     %s\n" % summary
             return False
@@ -231,7 +231,8 @@ class MakeBumpVer:
                         summary = summary.replace(fullbug, "(%s)" % author)
                         rhbz.add("Resolves: rhbz#%s" % ckbug)
 
-                        if not self._isRHELBugInMODIFIED(ckbug, commit, summary):
+                        if not self._isRHELBugInCorrectState(ckbug, commit,
+                                                             summary):
                             bad = True
 
                         if not self._isRHELBugFixedInVersion(ckbug, commit,
@@ -244,23 +245,28 @@ class MakeBumpVer:
                     summary += " (%s)" % author
 
                 for longline in long:
-                    m = re.match("^(Resolves|Related|Conflicts):\ rhbz#\d+$",
+                    m = re.match("^(Resolves|Related|Conflicts):\ rhbz#\d+.*$",
                                  longline)
-                    if m:
-                        bug = longline[longline.index('#')+1:]
+                    if not m:
+                        continue
+
+                    actionre = re.search("(Resolves|Related|Conflicts)",
+                                         longline)
+                    bugre = re.search("\d+", longline)
+                    if actionre and bugre:
+                        action = actionre.group()
+                        bug = bugre.group()
                         ckbug = self.bugmap.get(bug, bug)
-                        resolves = longline.startswith('Resolves')
                         valid = self._isRHELBug(ckbug, commit, summary)
 
                         if valid:
-                            longline.replace(bug, ckbug)
-                            rhbz.add(longline)
+                            rhbz.add("%s: rhbz#%s" % (action, ckbug))
                         else:
                             bad = True
 
-                        if valid and resolves and \
-                           (not self._isRHELBugInMODIFIED(ckbug, commit,
-                                                          summary) or \
+                        if valid and action == 'Resolves' and \
+                           (not self._isRHELBugInCorrectState(ckbug, commit,
+                                                              summary) or \
                             not self._isRHELBugFixedInVersion(ckbug, commit,
                                                               summary,
                                                               fixedIn)):
