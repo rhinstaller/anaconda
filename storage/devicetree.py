@@ -1452,6 +1452,77 @@ class DeviceTree(object):
             log.warning("luks device %s already in the tree"
                         % device.format.mapName)
 
+    def handleVgLvs(self, vg_device, lv_names, lv_uuids, lv_sizes, lv_attr):
+        vg_name = vg_device.name
+
+        if not lv_names:
+            log.debug("no LVs listed for VG %s" % vg_name)
+            return
+
+        # make a list of indices with snapshots at the end
+        indices = range(len(lv_names))
+        indices.sort(key=lambda i: lv_attr[i][0] in 'Ss')
+        for index in indices:
+            lv_name = lv_names[index]
+            name = "%s-%s" % (vg_name, lv_name)
+            if lv_attr[index][0] in 'Ss':
+                log.debug("found lvm snapshot volume '%s'" % name)
+                origin_name = devicelibs.lvm.lvorigin(vg_name, lv_name)
+                if not origin_name:
+                    log.error("lvm snapshot '%s-%s' has unknown origin"
+                                % (vg_name, lv_name))
+                    continue
+
+                origin = self.getDeviceByName("%s-%s" % (vg_name,
+                                                         origin_name))
+                if not origin:
+                    log.warning("snapshot lv '%s' origin lv '%s-%s' "
+                                "not found" % (name,
+                                               vg_name, origin_name))
+                    continue
+
+                log.debug("adding %dMB to %s snapshot total"
+                            % (lv_sizes[index], origin.name))
+                origin.snapshotSpace += lv_sizes[index]
+                continue
+            elif lv_attr[index][0] in 'Iil':
+                # skip mirror images and log volumes
+                continue
+
+            log_size = 0
+            if lv_attr[index][0] in 'Mm':
+                stripes = 0
+                # identify mirror stripes/copies and mirror logs
+                for (j, _lvname) in enumerate(lv_names):
+                    if lv_attr[j][0] not in 'Iil':
+                        continue
+
+                    if _lvname == "[%s_mlog]" % lv_name:
+                        log_size = lv_sizes[j]
+                    elif _lvname.startswith("[%s_mimage_" % lv_name):
+                        stripes += 1
+            else:
+                stripes = 1
+
+            lv_dev = self.getDeviceByName(name)
+            if lv_dev is None:
+                lv_uuid = lv_uuids[index]
+                lv_size = lv_sizes[index]
+                lv_device = LVMLogicalVolumeDevice(lv_name,
+                                                   vg_device,
+                                                   uuid=lv_uuid,
+                                                   size=lv_size,
+                                                   stripes=stripes,
+                                                   logSize=log_size,
+                                                   exists=True)
+                self._addDevice(lv_device)
+
+                try:
+                    lv_device.setup()
+                except DeviceError as (msg, name):
+                    log.info("setup of %s failed: %s"
+                                        % (lv_device.name, msg))
+
     def handleUdevLVMPVFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
         # lookup/create the VG and LVs
@@ -1503,73 +1574,7 @@ class DeviceTree(object):
                 log.warning("invalid data for %s: %s" % (device.name, e))
                 return
 
-            if not lv_names:
-                log.debug("no LVs listed for VG %s" % device.name)
-                return
-
-            # make a list of indices with snapshots at the end
-            indices = range(len(lv_names))
-            indices.sort(key=lambda i: lv_attr[i][0] in 'Ss')
-            for index in indices:
-                lv_name = lv_names[index]
-                name = "%s-%s" % (vg_name, lv_name)
-                if lv_attr[index][0] in 'Ss':
-                    log.debug("found lvm snapshot volume '%s'" % name)
-                    origin_name = devicelibs.lvm.lvorigin(vg_name, lv_name)
-                    if not origin_name:
-                        log.error("lvm snapshot '%s-%s' has unknown origin"
-                                    % (vg_name, lv_name))
-                        continue
-
-                    origin = self.getDeviceByName("%s-%s" % (vg_name,
-                                                             origin_name))
-                    if not origin:
-                        log.warning("snapshot lv '%s' origin lv '%s-%s' "
-                                    "not found" % (name,
-                                                   vg_name, origin_name))
-                        continue
-
-                    log.debug("adding %dMB to %s snapshot total"
-                                % (lv_sizes[index], origin.name))
-                    origin.snapshotSpace += lv_sizes[index]
-                    continue
-                elif lv_attr[index][0] in 'Iil':
-                    # skip mirror images and log volumes
-                    continue
-
-                log_size = 0
-                if lv_attr[index][0] in 'Mm':
-                    stripes = 0
-                    # identify mirror stripes/copies and mirror logs
-                    for (j, _lvname) in enumerate(lv_names):
-                        if lv_attr[j][0] not in 'Iil':
-                            continue
-
-                        if _lvname == "[%s_mlog]" % lv_name:
-                            log_size = lv_sizes[j]
-                        elif _lvname.startswith("[%s_mimage_" % lv_name):
-                            stripes += 1
-                else:
-                    stripes = 1
-
-                lv_dev = self.getDeviceByName(name)
-                if lv_dev is None:
-                    lv_uuid = lv_uuids[index]
-                    lv_size = lv_sizes[index]
-                    lv_device = LVMLogicalVolumeDevice(lv_name,
-                                                       vg_device,
-                                                       uuid=lv_uuid,
-                                                       size=lv_size,
-                                                       stripes=stripes,
-                                                       logSize=log_size,
-                                                       exists=True)
-                    self._addDevice(lv_device)
-
-                    try:
-                        lv_device.setup()
-                    except DeviceError as (msg, name):
-                        log.info("setup of %s failed: %s"
-                                            % (lv_device.name, msg))
+            self.handleVgLvs(vg_device, lv_names, lv_uuids, lv_sizes, lv_attr)
 
     def handleUdevMDMemberFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
