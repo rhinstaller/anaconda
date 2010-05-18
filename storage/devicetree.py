@@ -1452,12 +1452,21 @@ class DeviceTree(object):
             log.warning("luks device %s already in the tree"
                         % device.format.mapName)
 
-    def handleVgLvs(self, vg_device, lv_names, lv_uuids, lv_sizes, lv_attr):
+    def handleVgLvs(self, vg_device):
+        ret = False
         vg_name = vg_device.name
+        lv_names = vg_device.lv_names
+        lv_uuids = vg_device.lv_uuids
+        lv_sizes = vg_device.lv_sizes
+        lv_attr = vg_device.lv_attr
+
+        if not vg_device.complete:
+            log.warning("Skipping LVs for incomplete VG %s" % vg_name)
+            return False
 
         if not lv_names:
             log.debug("no LVs listed for VG %s" % vg_name)
-            return
+            return False
 
         # make a list of indices with snapshots at the end
         indices = range(len(lv_names))
@@ -1519,9 +1528,12 @@ class DeviceTree(object):
 
                 try:
                     lv_device.setup()
+                    ret = True
                 except DeviceError as (msg, name):
                     log.info("setup of %s failed: %s"
                                         % (lv_device.name, msg))
+
+        return ret
 
     def handleUdevLVMPVFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
@@ -1535,11 +1547,6 @@ class DeviceTree(object):
         vg_device = self.getDeviceByName(vg_name)
         if vg_device:
             vg_device._addDevice(device)
-            for lv in vg_device.lvs:
-                try:
-                    lv.setup()
-                except DeviceError as (msg, name):
-                    log.info("setup of %s failed: %s" % (lv.name, msg))
         else:
             try:
                 vg_uuid = udev_device_get_vg_uuid(info)
@@ -1565,16 +1572,27 @@ class DeviceTree(object):
                                              exists=True)
             self._addDevice(vg_device)
 
-            try:
-                lv_names = udev_device_get_lv_names(info)
-                lv_uuids = udev_device_get_lv_uuids(info)
-                lv_sizes = udev_device_get_lv_sizes(info)
-                lv_attr = udev_device_get_lv_attr(info)
-            except KeyError as e:
-                log.warning("invalid data for %s: %s" % (device.name, e))
-                return
+        # Now we add any lv info found in this pv to the vg_device, we
+        # do this for all pvs as pvs only contain lv info for lvs which they
+        # contain themselves
+        try:
+            lv_names = udev_device_get_lv_names(info)
+            lv_uuids = udev_device_get_lv_uuids(info)
+            lv_sizes = udev_device_get_lv_sizes(info)
+            lv_attr = udev_device_get_lv_attr(info)
+        except KeyError as e:
+            log.warning("invalid data for %s: %s" % (device.name, e))
+            return
 
-            self.handleVgLvs(vg_device, lv_names, lv_uuids, lv_sizes, lv_attr)
+        for i in range(len(lv_names)):
+            # Skip empty and already added lvs
+            if not lv_names[i] or lv_names[i] in vg_device.lv_names:
+                continue
+
+            vg_device.lv_names.append(lv_names[i])
+            vg_device.lv_uuids.append(lv_uuids[i])
+            vg_device.lv_sizes.append(lv_sizes[i])
+            vg_device.lv_attr.append(lv_attr[i])
 
     def handleUdevMDMemberFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)
@@ -1936,6 +1954,15 @@ class DeviceTree(object):
 
         self.intf.unusedRaidMembersWarning(self.unusedRaidMembers)
 
+    def _setupLvs(self):
+        ret = False
+
+        for device in self.getDevicesByType("lvmvg"):
+            if self.handleVgLvs(device):
+                ret = True
+
+        return ret
+
     def populate(self):
         """ Locate all storage devices. """
 
@@ -2008,6 +2035,12 @@ class DeviceTree(object):
                     devices.append(new_device)
 
             if len(devices) == 0:
+                # nothing is changing -- time to setup lvm lvs and scan them
+                # we delay this till all other devices are scanned so that
+                # 1) the lvm filter for ignored disks is completely setup
+                # 2) we have checked all devs for duplicate vg names
+                if self._setupLvs():
+                    continue
                 # nothing is changing -- we are finished building devices
                 break
 
