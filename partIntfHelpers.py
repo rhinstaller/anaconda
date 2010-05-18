@@ -79,36 +79,17 @@ def sanityCheckLogicalVolumeName(logvolname):
 		     "are letters, digits, '.' or '_'.")
     return None
 
-def sanityCheckMountPoint(mntpt, fstype, preexisting, format):
+def sanityCheckMountPoint(mntpt):
     """Sanity check that the mountpoint is valid.
 
     mntpt is the mountpoint being used.
-    fstype is the file system being used on the request.
-    preexisting is whether the request was preexisting (request.preexist)
-    format is whether the request is being formatted or not
     """
-    if mntpt:
-        passed = 1
-        if not mntpt:
-            passed = 0
-        else:
-            if mntpt[0] != '/' or (len(mntpt) > 1 and mntpt[-1:] == '/'):
-                passed = 0
-	    elif mntpt.find(' ') > -1:
-		passed = 0
-                
-        if not passed:
-            return _("The mount point %s is invalid.  Mount points must start "
-                     "with '/' and cannot end with '/', and must contain "
-                     "printable characters and no spaces." % mntpt)
-        else:
-            return None
-    else:
-        if (fstype and fstype.mountable and (not preexisting or format)):
-            return _("Please specify a mount point for this partition.")
-        else:
-            # its an existing partition so don't force a mount point
-            return None
+    if not mntpt.startswith("/") or \
+       (len(mntpt) > 1 and mntpt.endswith("/")) or \
+       " " in mntpt:
+           return _("The mount point %s is invalid.  Mount points must start "
+                    "with '/' and cannot end with '/', and must contain "
+                    "printable characters and no spaces.") % mntpt
 
 def doDeleteDevice(intf, storage, device, confirm=1, quiet=0):
     """Delete a partition from the request list.
