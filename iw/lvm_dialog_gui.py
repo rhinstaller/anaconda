@@ -31,6 +31,7 @@ from partition_ui_helpers_gui import *
 from constants import *
 from storage.devices import *
 from storage.deviceaction import *
+from partIntfHelpers import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -593,6 +594,14 @@ class VolumeGroupEditor:
                 fmt_class = self.fsoptionsDict["fstypeCombo"].get_active_value()
 
             mountpoint = mountCombo.get_children()[0].get_text().strip()
+            (sensitive,) = mountCombo.get_properties('sensitive')
+            if sensitive and mountpoint:
+                msg = sanityCheckMountPoint(mountpoint)
+                if msg:
+                    self.intf.messageWindow(_("Mount Point Error"),
+                                            msg,
+                                            custom_icon="error")
+                    continue
 
             # validate logical volume name
             lvname = lvnameentry.get_text().strip()
