@@ -207,6 +207,7 @@ void closeLog(void) {
         fclose(main_log_file);
     if (program_log_file)
         fclose(program_log_file);
+    main_log_tty = main_log_file = program_log_file = NULL;
     
     /* close syslog logger */
     closelog();
