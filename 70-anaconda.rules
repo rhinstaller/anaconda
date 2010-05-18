@@ -47,10 +47,8 @@ ENV{ID_FS_TYPE}=="linux_raid_member", IMPORT{program}="$env{ANACBIN}/mdadm --exa
 ENV{ID_FS_TYPE}=="isw_raid_member", IMPORT{program}="$env{ANACBIN}/mdadm --examine --export $tempnode"
 
 # probe metadata of LVM2 physical volumes
-ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="$env{ANACBIN}/lvm pvs --ignorelockingfailure --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -opv_name,pv_uuid,pv_size,vg_name,vg_uuid,pv_pe_count,pv_pe_alloc_count,pe_start $tempnode"
-ENV{LVM2_VG_NAME}!="?*", GOTO="anaconda_end"
-ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="$env{ANACBIN}/lvm vgs --ignorelockingfailure --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -ouuid,size,free,extent_size,extent_count,free_count,pv_count $env{LVM2_VG_NAME}"
-ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="$env{ANACBIN}/lvm lvs -a --ignorelockingfailure --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -olv_name,lv_uuid,lv_size,lv_attr $env{LVM2_VG_NAME}"
+ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="$env{ANACBIN}/lvm pvs --ignorelockingfailure --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -opv_name,pv_uuid,pv_size,pv_pe_count,pv_pe_alloc_count,pe_start,vg_name,vg_uuid,vg_size,vg_free,vg_extent_size,vg_extent_count,vg_free_count,pv_count $tempnode"
+ENV{ID_FS_TYPE}=="LVM2_member", IMPORT{program}="$env{ANACBIN}/lvm pvs --ignorelockingfailure --units k --nosuffix --nameprefixes --rows --unquoted --noheadings -olv_name,lv_uuid,lv_size,lv_attr $tempnode"
 
 LABEL="anaconda_end"
 
