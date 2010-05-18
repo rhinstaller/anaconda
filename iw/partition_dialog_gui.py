@@ -30,6 +30,7 @@ from storage.devices import PartitionDevice, LUKSDevice
 from storage.deviceaction import *
 from partition_ui_helpers_gui import *
 from constants import *
+from partIntfHelpers import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -110,10 +111,15 @@ class PartitionEditor:
                 return []
 
             mountpoint = self.mountCombo.get_children()[0].get_text()
-            if mountpoint == _("<Not Applicable>"):
-                mountpoint = ""
+            (sensitive,) = self.mountCombo.get_properties('sensitive')
+            if sensitive and mountpoint:
+                msg = sanityCheckMountPoint(mountpoint)
+                if msg:
+                    self.intf.messageWindow(_("Mount Point Error"),
+                                            msg,
+                                            custom_icon="error")
+                    continue
 
-            if mountpoint:
                 used = False
                 for (mp, dev) in self.storage.mountpoints.iteritems():
                     if mp == mountpoint and \
