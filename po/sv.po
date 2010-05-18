@@ -3,14 +3,14 @@
 # Magnus Larsson <fedoratrans@gmail.com>, 2007, 2008, 2009.
 # Göran Uddeborg <goeran@uddeborg.se>, 2008-2010.
 #
-# $Id$
+# $Id: anaconda.po,v 1.18 2010-05-18 11:57:07+02 göran Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-05-17 11:16+0200\n"
+"PO-Revision-Date: 2010-05-18 11:55+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -6113,12 +6113,11 @@ msgstr "Var vill du installera startprogrammet för ditt system?"
 
 #: ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
+msgstr "<b>Datalagringsenheter</b> (skall bara monteras)"
 
 #: ui/cleardisks.glade.h:2
-#, fuzzy
 msgid "<b>Install Target Devices</b>"
-msgstr "<b>Installerar %s</b> (%s)\n"
+msgstr "<b>Installationsmålenheter</b>"
 
 #: ui/cleardisks.glade.h:4
 msgid ""
@@ -6126,98 +6125,89 @@ msgid ""
 "installation.  Please indicate using the arrows below which devices you'd "
 "like to use as data drives (these will not be formatted, only mounted) and "
 "which devices you'd like to use as system drives (these may be formatted)."
-msgstr ""
+msgstr "Nedan finns lagringsenheterna som du valt skall vara med i denna installation.  Indikera med pilarna nedan vilka enheter du vil använda som dataenheter (dessa formateras inte, monteras bara) och vilka enheter du vill använda som systemenheter (dessa kan komma att formateras)."
 
 #: ui/create-storage.glade.h:1
 msgid ""
 "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Skapa en RAID-formaterad partition</span>"
 
 #: ui/create-storage.glade.h:2
 msgid ""
 "<span size=\"small\" color=\"gray\">Create a logical volume on selected "
 "volume group</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Skapa en logisk volym på vald volymgrupp</span>"
 
 #: ui/create-storage.glade.h:3
 msgid ""
 "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Skapa en LVM-formaterad partition</span>"
 
 #: ui/create-storage.glade.h:4
 msgid ""
 "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Möjliggör skapande av RAID-enhet</span>"
 
 #: ui/create-storage.glade.h:5
 msgid ""
 "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Skapande av allmän partition</span>"
 
 #: ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
 "partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Kräver åtminstone 1 fri LVM-formaterad partition</span>"
 
 #: ui/create-storage.glade.h:7
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated "
 "partitions</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Kräver åtminstone 2 fria RAID-formaterade partitioner</span>"
 
 #: ui/create-storage.glade.h:8
-#, fuzzy
 msgid "Create"
-msgstr "Ledigt"
+msgstr "Skapa"
 
 #: ui/create-storage.glade.h:9
 msgid "Create LVM"
-msgstr ""
+msgstr "Skapa LVM"
 
 #: ui/create-storage.glade.h:10
-#, fuzzy
 msgid "Create Partition"
-msgstr "Välj partition"
+msgstr "Skapa partition"
 
 #: ui/create-storage.glade.h:11
-#, fuzzy
 msgid "Create Software RAID"
-msgstr "programvaru-RAID"
+msgstr "Skapa programvaru-RAID"
 
 #: ui/create-storage.glade.h:12
 msgid "Create Storage"
-msgstr ""
+msgstr "Skapa lagring"
 
 #: ui/create-storage.glade.h:13
-#, fuzzy
 msgid "LVM Logical Volume"
-msgstr "Skapa logisk volym"
+msgstr "LVM logisk volym"
 
 #: ui/create-storage.glade.h:14
-#, fuzzy
 msgid "LVM Physical Volume"
-msgstr "Logiska _volymer"
+msgstr "LVM fysisk volym"
 
 #: ui/create-storage.glade.h:15
-#, fuzzy
 msgid "LVM Volume Group"
-msgstr "LVM-volymgrupper"
+msgstr "LVM-volymgrupp"
 
 #: ui/create-storage.glade.h:16
-#, fuzzy
 msgid "RAID Clone"
-msgstr "RAID-alternativ"
+msgstr "RAID-klon"
 
 #: ui/create-storage.glade.h:18
-#, fuzzy
 msgid "RAID Partition"
-msgstr "Lägg till partition"
+msgstr "RAID-partition"
 
 #: ui/create-storage.glade.h:19
-#, fuzzy
 msgid "Standard Partition"
-msgstr "Lägg till partition"
+msgstr "Standardpartition"
 
 #: ui/detailed-dialog.glade.h:1
 msgid "Info"
@@ -6232,9 +6222,8 @@ msgid "Configure FCoE Parameters"
 msgstr "Konfigurera FCoE-parametrar"
 
 #: ui/fcoe-config.glade.h:2
-#, fuzzy
 msgid "NIC:"
-msgstr "NIC"
+msgstr "NIC:"
 
 #: ui/fcoe-config.glade.h:3
 msgid ""
@@ -6251,7 +6240,7 @@ msgstr "_Lägg till FCoE-disk(ar)"
 #: ui/filter.glade.h:2
 #, no-c-format
 msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
-msgstr ""
+msgstr "<b>%s enheter (%s) valda</b> av %s enhter (%s) totalt."
 
 #: ui/filter.glade.h:3
 msgid ""
@@ -6259,32 +6248,27 @@ msgid ""
 "will be wiped by the installation process.  Also, note that post-"
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
-msgstr ""
+msgstr "<b>Tips:</b> Att välja en disk på denna skärm betyder inte nödvändigtvis att den kommer att tömmas av installationsprocessen.  Dessutom, notera att du efter installationen kan montera diskar du inte valde här genom att ändra din /etc/fstab-fil."
 
 #: ui/filter.glade.h:4
-#, fuzzy
 msgid "Add Advanced Target"
-msgstr "Avancerad server:"
+msgstr "Lägg till avancerat mål:"
 
 #: ui/filter.glade.h:5
-#, fuzzy
 msgid "Basic Devices"
-msgstr "Enheter"
+msgstr "Normala enheter"
 
 #: ui/filter.glade.h:6
-#, fuzzy
 msgid "Filter By:"
-msgstr "_Rapportera fel"
+msgstr "Filtrera efter:"
 
 #: ui/filter.glade.h:7
-#, fuzzy
 msgid "Firmware RAID"
-msgstr "programvaru-RAID"
+msgstr "RAID i fast programvara"
 
 #: ui/filter.glade.h:8
-#, fuzzy
 msgid "Identifier:"
-msgstr "Identifiera"
+msgstr "Identifierare:"
 
 #: ui/filter.glade.h:9
 msgid ""
@@ -6292,10 +6276,13 @@ msgid ""
 "Vendor\n"
 "Identifier"
 msgstr ""
+"Anslutning\n"
+"Tillverkare\n"
+"Identifierare"
 
 #: ui/filter.glade.h:12
 msgid "LUN:"
-msgstr ""
+msgstr "LUN:"
 
 #: ui/filter.glade.h:13
 msgid "Multipath Devices"
@@ -6309,41 +6296,43 @@ msgstr "Andra SAN-enheter"
 msgid ""
 "Please select the drives you'd like to install the operating system on, as "
 "well as any drives you'd like to automatically mount to your system, below:"
-msgstr ""
+msgstr "Välj diskarna du vill installera operativsystemet på, samt eventuella diskar du vill skall monteras automatiskt av ditt system, nedan:"
 
 #: ui/filter.glade.h:16
 msgid ""
 "Port / Target / LUN\n"
 "Target Identifier"
 msgstr ""
+"Port / Mål / LUN\n"
+"Målidentifierare"
 
 #: ui/filter.glade.h:18
 msgid "Port:"
-msgstr ""
+msgstr "Port:"
 
 #: ui/filter.glade.h:19
 msgid "Search"
-msgstr ""
+msgstr "Sök"
 
 #: ui/filter.glade.h:20
 msgid "Search By:"
-msgstr ""
+msgstr "Sök efter:"
 
 #: ui/filter.glade.h:21
 msgid "Search Results:"
-msgstr ""
+msgstr "Sköresultat:"
 
 #: ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
-msgstr ""
+msgstr "Visa identifierare som innehåller:"
 
 #: ui/filter.glade.h:23
 msgid "Show Only Devices From:"
-msgstr ""
+msgstr "Visa endast enheter från:"
 
 #: ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr ""
+msgstr "Visa endast enheter som använder:"
 
 #: ui/filter.glade.h:25
 msgid "Target:"
@@ -6750,298 +6739,3 @@ msgstr "Kymriska"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "Install class forcing text mode installation"
-#~ msgstr "Installationsklassen påtvingar textlägesinstallation"
-
-#~ msgid "reipl configuration successful => reboot"
-#~ msgstr "reipl-konfigurationen lyckades => starta om"
-
-#~ msgid "reipl configuration failed => halt"
-#~ msgstr "reipl-konfigurationen misslyckades => stanna"
-
-#~ msgid "The installer will now exit."
-#~ msgstr "Installationsprogrammet kommer nu att avslutas."
-
-#~ msgid "Device Resize Failed"
-#~ msgstr "Misslyckades ändra storlek på enhet"
-
-#~ msgid "An error was encountered while resizing device %s."
-#~ msgstr "Ett fel dök upp vid ändring av storlek på enhet %s."
-
-#~ msgid "Device Creation Failed"
-#~ msgstr "Misslyckades skapa enhet"
-
-#~ msgid "An error was encountered while creating device %s."
-#~ msgstr "Ett fel dök upp när enhet %s skapades."
-
-#~ msgid "Device Removal Failed"
-#~ msgstr "Misslyckades att ta bort enhet"
-
-#~ msgid "An error was encountered while removing device %s."
-#~ msgstr "Ett fel dök upp när enhet %s togs bort."
-
-#~ msgid "An error was encountered while setting up device %s."
-#~ msgstr "Ett fel dök upp när enhet %s ställdes in."
-
-#~ msgid "An error was encountered while formatting device %s."
-#~ msgstr "Ett fel dök upp när enhet %s formaterades."
-
-#~ msgid "Storage Activation Failed"
-#~ msgstr "Aktiveringen av lagring misslyckades"
-
-#~ msgid ""
-#~ "An error was encountered while activating your storage configuration."
-#~ msgstr "Ett fel dök upp vid aktivering av din lagringskonfiguration."
-
-#~ msgid "The installer will now exit..."
-#~ msgstr "Installationsprogrammet kommer nu att avslutas..."
-
-#~ msgid "/boot is not on an ext2 filesystem."
-#~ msgstr "/boot är inte ett ext2-filsystem."
-
-#~ msgid "%s not found"
-#~ msgstr "%s hittades inte"
-
-#~ msgid "%s %s installation"
-#~ msgstr "Installation av %s %s"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of software applicable for "
-#~ "general internet usage. What additional tasks would you like your system "
-#~ "to include support for?"
-#~ msgstr ""
-#~ "Standardinstallationen av %s inkluderar en samling program som är "
-#~ "lämpliga för allmän Internetanvändning. Vilka ytterligare uppgifter vill "
-#~ "du att systemet ska ha stöd för?"
-
-#~ msgid "Office and Productivity"
-#~ msgstr "Kontor och produktivitet"
-
-#~ msgid "%s: %s"
-#~ msgstr "%s: %s"
-
-#~ msgid ""
-#~ "Do you really want to boot from a disk which is not used for installation?"
-#~ msgstr ""
-#~ "Vill du verkligen starta från en disk som inte används för installation?"
-
-#~ msgid "Rescanning disks"
-#~ msgstr "Läser igenom diskar igen"
-
-#~ msgid "_Install %s"
-#~ msgstr "_Installera %s"
-
-#~ msgid "The following installed system will be upgraded:"
-#~ msgstr "Följande installerade system kommer att uppgraderas:"
-
-#~ msgid "Unknown"
-#~ msgstr "Okänd"
-
-#~ msgid "Not supported"
-#~ msgstr "Stöds inte"
-
-#~ msgid "LVM is NOT supported on this platform."
-#~ msgstr "LVM stöds INTE på denna plattform."
-
-#~ msgid "Software RAID is NOT supported on this platform."
-#~ msgstr "Programvaru-RAID stöds INTE på denna plattform."
-
-#~ msgid "No RAID minor device numbers available"
-#~ msgstr "Inga undre RAID-enhetsnummer tillgängliga"
-
-#~ msgid ""
-#~ "A software RAID device cannot be created because all of the available "
-#~ "RAID minor device numbers have been used."
-#~ msgstr ""
-#~ "En programvaru-RAID-enhet kan inte skapas eftersom alla tillgängliga "
-#~ "undre RAID-enhetsnummer har använts."
-
-#~ msgid "What do you want to do now?"
-#~ msgstr "Vad vill du göra nu?"
-
-#~ msgid "Create a RAID _device [default=/dev/md%s]."
-#~ msgstr "Skapa en RAID-_enhet [standard=/dev/md%s]."
-
-#~ msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-#~ msgstr ""
-#~ "Klona en _hårddisk för att skapa en RAID-enhet [standard=/dev/md%s]."
-
-#~ msgid "Ne_w"
-#~ msgstr "N_y"
-
-#~ msgid "R_AID"
-#~ msgstr "R_AID"
-
-#~ msgid "_LVM"
-#~ msgstr "_LVM"
-
-#~ msgid "Hide RAID device/LVM Volume _Group members"
-#~ msgstr "Dölj RAID-enhetsmedlemmar/LVM-volym_gruppsmedlemmar"
-
-#~ msgid ""
-#~ "Clone Drive Tool\n"
-#~ "\n"
-#~ "This tool allows you to significantly reduce the amount of effort "
-#~ "required to setup RAID arrays.  This tool uses a source drive which has "
-#~ "been prepared with the desired partitioning layout, and clones this "
-#~ "layout onto other similar sized drives.  Then a RAID device can be "
-#~ "created.\n"
-#~ "\n"
-#~ "NOTE: The source drive must have partitions which are restricted to be on "
-#~ "that drive only, and can only contain unused software RAID partitions.  "
-#~ "Other partition types are not allowed.\n"
-#~ "\n"
-#~ "EVERYTHING on the target drive(s) will be destroyed by this process."
-#~ msgstr ""
-#~ "Enhetskloningsverktyg\n"
-#~ "\n"
-#~ "Detta verktyg låter dig avsevärt minska mängden arbete som krävs för att "
-#~ "konfigurera RAID-kedjor. Detta verktyg använder en källenhet som har "
-#~ "förberetts med den önskade partitionsstrukturen och klonar sedan denna "
-#~ "struktur till andra liknande enheter med samma storlek. Då kan en RAID-"
-#~ "enhet skapas.\n"
-#~ "\n"
-#~ "OBS: Källenheten måste ha partitioner som är begränsade till att endast "
-#~ "vara på den enheten, och får endast innehålla oanvända programvaru-RAID-"
-#~ "partitioner. Andra partitionstyper är inte tillåtna.\n"
-#~ "\n"
-#~ "ALLTING på målenheterna kommer att förstöras av denna process."
-
-#~ msgid ""
-#~ "The following error occurred while setting up the installation "
-#~ "repository:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Please provide the correct information for installing %s"
-#~ msgstr ""
-#~ "Följande fel inträffade när installationsförrådet sattes upp:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Ange korrekt information för att installera %s"
-
-#~ msgid "Unknown Host"
-#~ msgstr "Okänd värd"
-
-#~ msgid "%s is not a valid hostname."
-#~ msgstr "%s är inget giltigt värdnamn."
-
-#~ msgid "_Ignore drive"
-#~ msgstr "_Ignorera enhet"
-
-#~ msgid "_Re-initialize drive"
-#~ msgstr "_Återinitiera enhet"
-
-#~ msgid ""
-#~ "Enter the device name for the NIC which is connected to the FCoE SAN. For "
-#~ "example \"eth0\"."
-#~ msgstr ""
-#~ "Ange enhetsnamnet för den NIC som är ansluten till FCoE SAN:et.  Till "
-#~ "exempel \"eth0\"."
-
-#~ msgid "NIC device name"
-#~ msgstr "NIC-enhetsnamn"
-
-#~ msgid "%s is not a valid NIC device name."
-#~ msgstr "%s är inget giltigt NIC-enhetsnamn."
-
-#~ msgid ""
-#~ "This release of %s supports the an updated file system, which has several "
-#~ "benefits over the file system traditionally shipped in %s.  This "
-#~ "installation program can migrate formatted partitions without data loss.\n"
-#~ "\n"
-#~ "Which of these partitions would you like to migrate?"
-#~ msgstr ""
-#~ "Denna utgåva av %s stödjer ett uppdaterat filsystem, som har flera "
-#~ "fördelar jämfört med filsystemet som normalt använts i %s. Detta "
-#~ "installationsprogram kan migrera formaterade partitioner utan förlust av "
-#~ "data.\n"
-#~ "\n"
-#~ "Vilka av dessa partitioner vill du migrera?"
-
-#~ msgid ""
-#~ "Installation requires partitioning of your hard drive.  The default "
-#~ "layout is suitable for most users.  Select what space to use and which "
-#~ "drives to use as the install target. You can also choose to create your "
-#~ "own custom layout."
-#~ msgstr ""
-#~ "Installationen kräver partitionering av din hårddisk.  Som standard väljs "
-#~ "en partitioneringslayout som passar de flesta användare.  Välj det "
-#~ "utrymme och de hårddiskar som skall användas som installationsmål.  Du "
-#~ "kan också välja att skapa din egen anpassade layout."
-
-#~ msgid "What drive would you like to _boot this installation from?"
-#~ msgstr "Vilken enhet vill _starta denna installation från?"
-
-#~ msgid "_Advanced storage configuration"
-#~ msgstr "_Avancerad lagringskonfiguration"
-
-#~ msgid "_Select the drive(s) to use for this installation."
-#~ msgstr ""
-#~ "_Välj den eller de hårddiskar som ska användas för denna installation."
-
-#~ msgid "Invalid Key"
-#~ msgstr "Ogiltig nyckel"
-
-#~ msgid "The key you entered is invalid."
-#~ msgstr "Nyckeln du angav är inte giltig."
-
-#~ msgid "_Skip"
-#~ msgstr "_Hoppa över"
-
-#~ msgid "Please enter your %(instkey)s"
-#~ msgstr "Ange din %(instkey)s"
-
-#~ msgid "Skip entering %(instkey)s"
-#~ msgstr "Hoppa över inmatning %(instkey)s"
-
-#~ msgid "Office"
-#~ msgstr "Kontor"
-
-#~ msgid "Multimedia"
-#~ msgstr "Multimedia"
-
-#~ msgid "Web server"
-#~ msgstr "Webbserver"
-
-#~ msgid "Virtualization"
-#~ msgstr "Virtualisering"
-
-#~ msgid "Clustering"
-#~ msgstr "Klustring"
-
-#~ msgid "Storage Clustering"
-#~ msgstr "Lagringsklustring"
-
-#~ msgid "Installation Number"
-#~ msgstr "Installationsnummer"
-
-#~ msgid ""
-#~ "Would you like to enter an Installation Number (sometimes called "
-#~ "Subscription Number) now? This feature enables the installer to access "
-#~ "any extra components included with your subscription.  If you skip this "
-#~ "step, additional components can be installed manually later.\n"
-#~ "\n"
-#~ "See http://www.redhat.com/InstNum/ for more information."
-#~ msgstr ""
-#~ "Vill du ange ett installationsnummer (ibland kallat prenumerationsnummer) "
-#~ "nu?  Denna funktion gör det möjligt för installeraren att komma åt "
-#~ "eventuella extra komponenter som ingår i din prenumeration.  Om du hoppar "
-#~ "över detta steg kan ytterligare komponenter installeras manuellt senare.\n"
-#~ "\n"
-#~ "Se http://www.redhat.com/InstNum/ för mer information."
-
-#~ msgid ""
-#~ "If you cannot locate the Installation Number, consult http://www.redhat."
-#~ "com/InstNum/"
-#~ msgstr ""
-#~ "Om du inte kan hitta installationsnumret, konsultera http://www.redhat."
-#~ "com/InstNum/"
-
-#~ msgid "%(instkey)s:"
-#~ msgstr "%(instkey)s:"
-
-#~ msgid "Please enter your %(instkey)s."
-#~ msgstr "Ange din %(instkey)s."
