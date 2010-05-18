@@ -57,7 +57,7 @@ ssize_t rpm_myread(struct archive *a, void *client_data, const void **buff)
 {
     struct cpio_mydata *mydata = client_data;
     *buff = mydata->buffer;
-    return Fread(mydata->buffer, BUFFERSIZE, 1, mydata->gzdi);
+    return Fread(mydata->buffer, 1, BUFFERSIZE, mydata->gzdi);
 }
 
 int rpm_myclose(struct archive *a, void *client_data)
@@ -230,7 +230,7 @@ int explodeRPM(const char *source,
     free(rpmio_flags);
 
     if (gzdi == NULL) {
-        logMessage(ERROR, "cannot re-open payload: %s\n", Fstrerror(gzdi));
+        logMessage(ERROR, "cannot re-open payload: %s", Fstrerror(gzdi));
         return EXIT_FAILURE;
     }
 
@@ -345,8 +345,7 @@ int explodeRPM(const char *source,
             archive_read_data_skip(cpio);
     }
 
-    archive_read_finish(cpio);
-    Fclose(gzdi);
+    rc = archive_read_finish(cpio); /* Also closes the RPM stream using callback */
 
     return rc != ARCHIVE_OK;
 }
