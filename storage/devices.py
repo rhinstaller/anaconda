@@ -1706,7 +1706,7 @@ class LVMVolumeGroupDevice(DMDevice):
 
     def __init__(self, name, parents, size=None, free=None,
                  peSize=None, peCount=None, peFree=None, pvCount=None,
-                 lvNames=[], uuid=None, exists=None, sysfsPath=''):
+                 uuid=None, exists=None, sysfsPath=''):
         """ Create a LVMVolumeGroupDevice instance.
 
             Arguments:
@@ -1727,7 +1727,6 @@ class LVMVolumeGroupDevice(DMDevice):
                     peFree -- number of free extents
                     peCount -- total number of extents
                     pvCount -- number of PVs in this VG
-                    lvNames -- the names of this VG's LVs
                     uuid -- the VG's UUID
 
         """
@@ -1751,7 +1750,10 @@ class LVMVolumeGroupDevice(DMDevice):
         self.peCount = numeric_type(peCount)
         self.peFree = numeric_type(peFree)
         self.pvCount = numeric_type(pvCount)
-        self.lvNames = lvNames
+        self.lv_names = []
+        self.lv_uuids = []
+        self.lv_sizes = []
+        self.lv_attr = []
 
         # circular references, here I come
         self._lvs = []
@@ -1766,14 +1768,14 @@ class LVMVolumeGroupDevice(DMDevice):
         s = DMDevice.__str__(self)
         s += ("  free = %(free)s  PE Size = %(peSize)s  PE Count = %(peCount)s\n"
               "  PE Free = %(peFree)s  PV Count = %(pvCount)s\n"
-              "  LV Names = %(lvNames)s  modified = %(modified)s\n"
+              "  LV Names = %(lv_names)s  modified = %(modified)s\n"
               "  extents = %(extents)s  free space = %(freeSpace)s\n"
               "  free extents = %(freeExtents)s\n"
               "  PVs = %(pvs)s\n"
               "  LVs = %(lvs)s" %
               {"free": self.free, "peSize": self.peSize, "peCount": self.peCount,
                "peFree": self.peFree, "pvCount": self.pvCount,
-               "lvNames": self.lvNames, "modified": self.isModified,
+               "lv_names": self.lv_names, "modified": self.isModified,
                "extents": self.extents, "freeSpace": self.freeSpace,
                "freeExtents": self.freeExtents, "pvs": self.pvs, "lvs": self.lvs})
         return s
@@ -1786,6 +1788,10 @@ class LVMVolumeGroupDevice(DMDevice):
                   "pvCount": self.pvCount, "extents": self.extents,
                   "freeSpace": self.freeSpace,
                   "freeExtents": self.freeExtents,
+                  "lv_names": self.lv_names,
+                  "lv_uuids": self.lv_uuids,
+                  "lv_sizes": self.lv_sizes,
+                  "lv_attr": self.lv_attr,
                   "lvNames": [lv.name for lv in self.lvs]})
         return d
 
