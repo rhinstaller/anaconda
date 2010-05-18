@@ -1,0 +1,51 @@
+#! /bin/bash
+#
+# restart-anaconda: Debugging tool to restart stage2 Anaconda.
+#
+# Copyright (C) 2010
+# Red Hat, Inc.  All rights reserved.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+RESTART_FILE=/tmp/restart_anaconda
+ANACONDA_PID=`cat /var/run/anaconda.pid`
+
+descendants() {
+    PID=$1
+    DIRECT=`ps --ppid $PID -o pid=`
+    INDIRECT=''
+    for child in $DIRECT; do
+	INDIRECT+=' '`descendants $child`
+    done
+    # prepend grandchildren, we are goingt to kill them first  
+    DESCENDANTS=$INDIRECT' '$DIRECT
+    echo $DESCENDANTS
+}
+
+anaconda_descendants() {
+    descendants $ANACONDA_PID
+}
+
+# this is how loader knows it should restart stuff. 
+# it will also delete the file once the restart is in progress.
+touch $RESTART_FILE
+
+# kill all anaconda descendants and anaconda itself
+RESTART_VICTIMS=`anaconda_descendants` 
+RESTART_VICTIMS+=' '$ANACONDA_PID
+echo "killing processes: " $RESTART_VICTIMS
+for child in $RESTART_VICTIMS; do
+    kill -s KILL $child &>/dev/null
+done

@@ -1085,6 +1085,7 @@ cp $DEST/usr/share/anaconda/losetup-stub $DEST/usr/bin/losetup
 cp $DEST/usr/share/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
 cp $DEST/usr/share/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
 cp $DEST/usr/share/anaconda/mknod-stub $DEST/usr/bin/mknod
+cp $DEST/usr/share/anaconda/restart-anaconda $DEST/usr/bin/restart-anaconda
 mv $DEST/usr/sbin/anaconda $DEST/usr/bin/anaconda
 mv $DEST/usr/$LIBDIR/python?.?/site-packages/pyanaconda/sitecustomize.py $DEST/usr/$LIBDIR/python?.?/site-packages
 

@@ -28,4 +28,7 @@ dist_noinst_SCRIPTS  = getlangnames.py upd-bootimage upd-initrd upd-kernel \
 analogdir = $(libexecdir)/$(PACKAGE_NAME)
 dist_analog_SCRIPTS = analog
 
+stage2scriptsdir = $(datadir)/$(PACKAGE_NAME)
+dist_stage2scripts_SCRIPTS = restart-anaconda
+
 MAINTAINERCLEANFILES = Makefile.in

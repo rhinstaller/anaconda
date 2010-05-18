@@ -1772,6 +1772,14 @@ void loaderUsrXHandler(int signum) {
     init_sig = signum;
 }
 
+int restart_anaconda() {
+    if (access("/tmp/restart_anaconda", R_OK))
+        return 0;
+    puts("Restarting Anaconda.");
+    unlink("/tmp/restart_anaconda");
+    return 1;
+}
+
 static int anaconda_trace_init(void) {
 #ifdef USE_MTRACE
     setenv("MALLOC_TRACE","/malloc",1);
@@ -2396,14 +2404,15 @@ int main(int argc, char ** argv) {
     }
     printf(fmt, VERSION, getProductName());
 
-    if (!(pid = fork())) {
-        if (execv(anacondaArgs[0], anacondaArgs) == -1) {
-           fprintf(stderr,"exec of anaconda failed: %m\n");
-           doExit(1);
+    do {
+        if (!(pid = fork())) {
+            if (execv(anacondaArgs[0], anacondaArgs) == -1) {
+                fprintf(stderr,"exec of anaconda failed: %m\n");
+                doExit(1);
+            }
         }
-    }
-
-    waitpid(pid, &status, 0);
+        waitpid(pid, &status, 0);
+    } while (restart_anaconda());
 
     if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status))) {
         rc = 1;
