@@ -3428,7 +3428,7 @@ class FcoeDiskDevice(DiskDevice, NetworkStorageDevice):
         else:
             dcbOpt = "nodcb"
 
-        return "netroot=fcoe:%s:%s" % (self.nic, dcbOpt)
+        return "fcoe=%s:%s" % (self.nic, dcbOpt)
 
 
 class OpticalDevice(StorageDevice):
