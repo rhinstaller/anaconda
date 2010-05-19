@@ -189,11 +189,14 @@ class Dispatcher(object):
 	if self.step == None:
 	    self.step = self.firstStep
 	else:
+            if self.step >= len(installSteps):
+                return None
+
             log.info("leaving (%d) step %s" %(self._getDir(), installSteps[self.step][0]))
             self.step = self.step + self._getDir()
 
-	if self.step >= len(installSteps):
-	    return None
+            if self.step >= len(installSteps):
+                return None
 
         while self.step >= self.firstStep and self.step < len(installSteps) \
             and (self.stepInSkipList(self.step) or self.stepIsDirect(self.step)):
