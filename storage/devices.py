@@ -461,6 +461,7 @@ class StorageDevice(Device):
         self.bus = bus
 
         self.protected = False
+        self.immutable = None
 
         self.format = format
         self.originalFormat = self.format
