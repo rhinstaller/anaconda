@@ -222,6 +222,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed May 19 2010 David Cantrell <dcantrell@redhat.com> - 13.21.43-1
+- Handle vgs with duplicate names (hdegoede)
+  Resolves: rhbz#591469
+- Delay setting up lvs until other devices are scanned (hdegoede)
+  Related: rhbz#591469
+- anaconda udev rules should not get lvm info based in volgroup name (hdegoede)
+  Related: rhbz#591469
+- Move creation of lv devices into its own function (hdegoede)
+  Related: rhbz#591469
+- FcoeDiskDevice.dracutSetupString(): use the right dracut syntax (hdegoede)
+  Resolves: rhbz#486244
+
 * Tue May 18 2010 David Cantrell <dcantrell@redhat.com> - 13.21.42-1
 - Fix the order of arguments in archive read callback and archive closing.
   (msivak)
