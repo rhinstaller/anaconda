@@ -1772,11 +1772,18 @@ void loaderUsrXHandler(int signum) {
     init_sig = signum;
 }
 
-int restart_anaconda() {
+int restart_anaconda(struct loaderData_s *loaderData) {
     if (access("/tmp/restart_anaconda", R_OK))
         return 0;
     puts("Restarting Anaconda.");
     unlink("/tmp/restart_anaconda");
+    if (loaderData->updatessrc) {
+        int updates_fd = open("/tmp/updates", O_RDONLY);
+        if (recursiveRemove(updates_fd))
+            fprintf(stderr, "Error removing /tmp/updates. Updates won't be re-downloaded.");
+        else
+            loadUpdatesFromRemote(loaderData->updatessrc, loaderData);
+    }
     return 1;
 }
 
@@ -2412,7 +2419,7 @@ int main(int argc, char ** argv) {
             }
         }
         waitpid(pid, &status, 0);
-    } while (restart_anaconda());
+    } while (restart_anaconda(&loaderData));
 
     if (!WIFEXITED(status) || (WIFEXITED(status) && WEXITSTATUS(status))) {
         rc = 1;

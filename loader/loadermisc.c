@@ -25,15 +25,17 @@
  */
 
 #include <ctype.h>
+#include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
 #include <stdarg.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 #include "../isys/log.h"
-
 #include "windows.h"
 
 int copyFileFd(int infd, char * dest, progressCB pbcb,
@@ -84,6 +86,77 @@ int copyFile(char * source, char * dest) {
 
     close(infd);
 
+    return rc;
+}
+
+/**
+ * Do "rm -rf" on the target directory.
+ *
+ * Returns 0 on success, nonzero otherwise (i.e. directory doesn't exist or
+ * some of its contents couldn't be removed.
+ *
+ * This is copied from the util-linux-ng project.
+ */
+int recursiveRemove(int fd)
+{
+    struct stat rb;
+    DIR *dir;
+    int rc = -1;
+    int dfd;
+
+    if (!(dir = fdopendir(fd))) {
+        goto done;
+    }
+
+    /* fdopendir() precludes us from continuing to use the input fd */
+    dfd = dirfd(dir);
+
+    if (fstat(dfd, &rb)) {
+        goto done;
+    }
+
+    while(1) {
+        struct dirent *d;
+
+        errno = 0;
+        if (!(d = readdir(dir))) {
+            if (errno) {
+                goto done;
+            }
+            break;  /* end of directory */
+        }
+
+        if (!strcmp(d->d_name, ".") || !strcmp(d->d_name, ".."))
+            continue;
+
+        if (d->d_type == DT_DIR) {
+            struct stat sb;
+
+            if (fstatat(dfd, d->d_name, &sb, AT_SYMLINK_NOFOLLOW)) {
+                continue;
+            }
+
+            /* remove subdirectories if device is same as dir */
+            if (sb.st_dev == rb.st_dev) {
+                int cfd;
+
+                cfd = openat(dfd, d->d_name, O_RDONLY);
+                if (cfd >= 0) {
+                    recursiveRemove(cfd);
+                    close(cfd);
+                }
+            } else
+                continue;
+        }
+
+        unlinkat(dfd, d->d_name, d->d_type == DT_DIR ? AT_REMOVEDIR : 0);
+    }
+
+    rc = 0; /* success */
+
+ done:
+    if (dir)
+        closedir(dir);
     return rc;
 }
 
