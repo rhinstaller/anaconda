@@ -322,6 +322,10 @@ def shouldClear(device, clearPartType, clearPartDisks=None):
     if device.protected:
         return False
 
+    # Don't clear immutable devices.
+    if device.immutable:
+        return False
+
     # TODO: do platform-specific checks on ia64, pSeries, iSeries, mac
 
     return True
