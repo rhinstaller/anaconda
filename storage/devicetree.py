@@ -1892,54 +1892,6 @@ class DeviceTree(object):
                             self.addIgnoredDisk(parent.name)
                         lvm.lvm_cc_addFilterRejectRegexp(parent.name)
 
-            elif device.type == "lvmlv":
-                # we might have already fixed this.
-                if device not in self._devices or \
-                        device.name in self._ignoredDisks:
-                    return
-                if device.complete:
-                    return
-
-                paths = []
-                for parent in device.vg.parents:
-                    paths.append(parent.path)
-
-                if (self.zeroMbr or
-                    self.intf.questionReinitInconsistentLVM(pv_names=paths,
-                                                            lv_name=device.name)):
-
-                    # destroy all lvs.
-                    for lv in device.vg.lvs:
-                        try:
-                            # reinitializeVG should clean up if necessary
-                            lv.destroy()
-                        except StorageError as e:
-                            log.info("error removing lv %s from "
-                                     "inconsistent/incomplete vg %s"
-                                     % (lv.lvname, device.vg.name))
-                        device.vg._removeLogVol(lv)
-                        self._removeDevice(lv)
-
-                    reinitializeVG(device.vg)
-                else:
-                    # ignore all the lvs.
-                    for lv in device.vg.lvs:
-                        self._removeDevice(lv)
-                        lvm.lvm_cc_addFilterRejectRegexp(lv.name)
-                    # ignore the vg
-                    self._removeDevice(device.vg)
-                    lvm.lvm_cc_addFilterRejectRegexp(device.vg.name)
-                    lvm.blacklistVG(device.vg.name)
-                    # ignore all the pvs
-                    for parent in device.vg.parents:
-                        if parent.type == "partition":
-                            parent.immutable = \
-                                _("This partition is part of an inconsistent LVM Volume Group.")
-                        else:
-                            self._removeDevice(parent, moddisk=False)
-                            self.addIgnoredDisk(parent.name)
-                        lvm.lvm_cc_addFilterRejectRegexp(parent.name)
-
         # Address the inconsistencies present in the tree leaves.
         for leaf in self.leaves:
             leafInconsistencies(leaf)
