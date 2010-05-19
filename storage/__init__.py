@@ -95,6 +95,7 @@ def storageInitialize(anaconda):
 
     anaconda.intf.resetInitializeDiskQuestion()
     anaconda.intf.resetReinitInconsistentLVMQuestion()
+    lvm.lvm_vg_blacklist = []
 
     # Set up the protected partitions list now.
     if anaconda.protected:
