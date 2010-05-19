@@ -17,6 +17,7 @@
 # Author(s): Martin Sivak <msivak@redhat.com>
 
 from StringIO import StringIO
+import os.path
 
 class DiskIO(object):
     """Simple object to simplify mocking of file operations in Mock
@@ -45,6 +46,12 @@ class DiskIO(object):
     def __init__(self):
         self.reset()
 
+    def __getitem__(self, key):
+        return self.fs[key]
+
+    def __setitem__(self, key, value):
+        self.fs[key] = value
+
     def reset(self):
         self.fs = {
             "/proc": self.Dir,
@@ -60,11 +67,11 @@ class DiskIO(object):
             raise IOError("[Errno 21] Is a directory: '%s'" % (path))
         elif not content and mode.startswith("w"):
             self.fs[path] = ""
-            f = self.IO(self.fs, path, self.fs[path])
+            f = self.TestFile(self.fs, path, self.fs[path])
         elif not content:
             raise IOError("[Errno 2] No such file or directory: '%s'" % (path,))
         elif mode.endswith("+") or mode.endswith("a"):
-            f = self.IO(self.fs, path, content)
+            f = self.TestFile(self.fs, path, content)
             f.seek(0, os.SEEK_END)
         else:
             f = self.IO(self.fs, path, content)

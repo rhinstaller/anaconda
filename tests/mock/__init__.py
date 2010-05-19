@@ -33,13 +33,28 @@ class TestCase(unittest.TestCase):
         """Mock specified list of modules and store the list so it can be
            properly unloaded during tearDown"""
         import sys
+        self.preexistingModules = set(sys.modules.keys())
+
         for m in a:
             sys.modules[m] = Mock()
             self.injectedModules[m] = sys.modules[m]
 
-    def tearDownModules(self):
+    def modifiedModule(self, mname, mod = None):
+        """Mark module (and all it's parents) as tainted"""
+        
+        oldname=""
+        for m in mname.split("."):
+            self.injectedModules[oldname+m] = mod
+            oldname += m + "."
+        self.injectedModules[mname] = mod    
+
+    def tearDown(self):
         """Unload previously Mocked modules"""
         import sys
-        for k in self.injectedModules.keys():
-            del sys.modules[k]
+
+        for m in sys.modules.keys():
+            if m in self.preexistingModules and not m in self.injectedModules:
+                continue
+            
+            del sys.modules[m]
 
