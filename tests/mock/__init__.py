@@ -53,6 +53,10 @@ class TestCase(unittest.TestCase):
         """Unload previously Mocked modules"""
 
         import sys
-        for k in self.injectedModules.keys():
-            del sys.modules[k]
+
+        for m in sys.modules.keys():
+            if m in self.preexistingModules and not m in self.injectedModules:
+                continue
+            
+            del sys.modules[m]
 
