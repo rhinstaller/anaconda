@@ -1524,13 +1524,7 @@ class DeviceTree(object):
                                                    logSize=log_size,
                                                    exists=True)
                 self._addDevice(lv_device)
-
-                try:
-                    lv_device.setup()
-                    ret = True
-                except DeviceError as (msg, name):
-                    log.info("setup of %s failed: %s"
-                                        % (lv_device.name, msg))
+                lv_device.setup()
 
         return ret
 
