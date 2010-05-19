@@ -186,7 +186,6 @@ class DeviceTree(object):
         self._ignoredDisks = []
         for disk in ignored:
             self.addIgnoredDisk(disk)
-        self.immutableDevices = []
         lvm.lvm_cc_resetFilter()
 
     def addIgnoredDisk(self, disk):
@@ -1886,8 +1885,8 @@ class DeviceTree(object):
                     lvm.blacklistVG(device.name)
                     for parent in device.parents:
                         if parent.type == "partition":
-                            self.immutableDevices.append([parent.name,
-                                _("This partition is part of an inconsistent LVM Volume Group.")])
+                            parent.immutable = \
+                                _("This partition is part of an inconsistent LVM Volume Group.")
                         else:
                             self._removeDevice(parent, moddisk=False)
                             self.addIgnoredDisk(parent.name)
@@ -1934,8 +1933,8 @@ class DeviceTree(object):
                     # ignore all the pvs
                     for parent in device.vg.parents:
                         if parent.type == "partition":
-                            self.immutableDevices.append([parent.name,
-                                _("This partition is part of an inconsistent LVM Volume Group.")])
+                            parent.immutable = \
+                                _("This partition is part of an inconsistent LVM Volume Group.")
                         else:
                             self._removeDevice(parent, moddisk=False)
                             self.addIgnoredDisk(parent.name)
