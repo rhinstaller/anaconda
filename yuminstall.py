@@ -1280,13 +1280,16 @@ debuglevel=10
 
     def doRepoSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         self.__withFuncDo(anaconda, lambda r: self.ayum.doRepoSetup(thisrepo=r.id),
-                          thisrepo=thisrepo, fatalerrors=fatalerrors)
+                          thisrepo=thisrepo, fatalerrors=fatalerrors,
+                          callback=RepoSetupPulseProgress(anaconda.intf))
 
     def doSackSetup(self, anaconda, thisrepo = None, fatalerrors = True):
         self.__withFuncDo(anaconda, lambda r: self.ayum.doSackSetup(thisrepo=r.id),
-                          thisrepo=thisrepo, fatalerrors=fatalerrors)
+                          thisrepo=thisrepo, fatalerrors=fatalerrors,
+                          callback=SackSetupProgress(anaconda.intf))
 
-    def __withFuncDo(self, anaconda, fn, thisrepo=None, fatalerrors=True):
+    def __withFuncDo(self, anaconda, fn, thisrepo=None, fatalerrors=True,
+                     callback=None):
         # Don't do this if we're being called as a dispatcher step (instead
         # of being called when a repo is added via the UI) and we're going
         # back.
@@ -1301,19 +1304,17 @@ debuglevel=10
             repos = self.ayum.repos.listEnabled()
 
         for repo in repos:
-            if repo.name is None:
-                txt = _("Retrieving installation information.")
-            else:
-                txt = _("Retrieving installation information for %s.")%(repo.name)
-
-            waitwin = anaconda.intf.waitWindow(_("Installation Progress"), txt)
+            if callback:
+                callback.connect(repo)
 
             while True:
                 try:
                     fn(repo)
-                    waitwin.pop()
+                    if callback:
+                        callback.disconnect()
                 except RepoError, e:
-                    waitwin.pop()
+                    if callback:
+                        callback.disconnect()
                     if repo.needsNetwork() and not network.hasActiveNetDev():
                         if anaconda.intf.enableNetwork():
                             repo.mirrorlistparsed = False
@@ -2122,3 +2123,58 @@ class YumDepSolveProgress:
 
     def pop(self):
         self.window.pop()
+
+# We don't have reasonable hook for sackSetup, and it
+# is fairly fast, so we use just waitWindow here
+class SackSetupProgress:
+    def __init__(self, intf):
+        self.intf = intf
+
+    def connect(self, repo):
+        if repo.name is None:
+            txt = _("Retrieving installation information.")
+        else:
+            txt = _("Retrieving installation information for %s.")%(repo.name)
+        self.window = self.intf.waitWindow(_("Installation Progress"), txt)
+
+    def disconnect(self):
+        self.window.pop()
+
+class RepoSetupPulseProgress:
+    def __init__(self, intf):
+        self.intf = intf
+        self.repo = None
+
+    def connect(self, repo):
+        self.repo = repo
+        if repo.name is None:
+            txt = _("Retrieving installation information.")
+        else:
+            txt = _("Retrieving installation information for %s.")%(repo.name)
+        self.window = self.intf.progressWindow(_("Installation Progress"),
+                                               txt,
+                                               1.0, pulse=True)
+        repo.setCallback(self)
+
+    def disconnect(self):
+        self.window.pop()
+        self.repo.setCallback(None)
+
+    def refresh(self, *args):
+        self.window.refresh()
+
+    def set(self):
+        self.window.pulse()
+
+    def start(self, filename, url, basename, size, text):
+        log.debug("Grabbing  %s" % url)
+        self.set()
+        self.refresh()
+
+    def update(self, read):
+        self.set()
+        self.refresh()
+
+    def end(self, read):
+        self.set()
+        self.window.refresh()
