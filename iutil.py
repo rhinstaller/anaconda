@@ -339,6 +339,8 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
         log_errors += err
         if len(err) < 1:
             break
+
+    os.write(stderr, log_errors)
     map(program_log.error, log_errors.splitlines())
     os.close(p[0])
     os.close(p_stderr[0])
