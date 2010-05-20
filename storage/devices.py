@@ -1768,6 +1768,9 @@ class LVMVolumeGroupDevice(DMDevice):
         if not self.peSize:
             self.peSize = 4.0   # MB
 
+        if not self.exists:
+            self.pvCount = len(self.parents)
+
         #self.probe()
 
     def __str__(self):
@@ -2032,6 +2035,9 @@ class LVMVolumeGroupDevice(DMDevice):
         self.parents.append(pv)
         pv.addChild()
 
+        # and update our pv count
+        self.pvCount = len(self.parents)
+
     def _removePV(self, pv):
         """ Remove an PV from this VG. """
         if not pv in self.pvs:
@@ -2043,6 +2049,9 @@ class LVMVolumeGroupDevice(DMDevice):
 
         self.parents.remove(pv)
         pv.removeChild()
+
+        # and update our pv count
+        self.pvCount = len(self.parents)
 
     # We can't rely on lvm to tell us about our size, free space, &c
     # since we could have modifications queued, unless the VG and all of
