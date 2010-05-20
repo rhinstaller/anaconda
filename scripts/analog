@@ -21,6 +21,8 @@
 # Author: Ales Kozumplik <akozumpl@redhat.com>
 #
 
+from __future__ import print_function
+
 import getpass
 import errno
 import optparse
@@ -157,13 +159,17 @@ if __name__ == "__main__":
     options.output = os.path.abspath(options.output)
     config = generate_rsyslog_config(options.port, directory)
     if options.output:
-        with open(options.output, 'w') as file:
-            file.write(config)
+        try:
+            with open(options.output, 'w') as file:
+                file.write(config)
+        except IOError as e:
+            print("Can't write into file %s" % options.output, file=sys.stderr)
+            sys.exit(1)
         if options.stdout:
             pid = pid_location(options.port)
-            print HINT % {
-                "conf" : options.output,
-                "pid" : pid
-                }
+            print(HINT % {
+                    "conf" : options.output,
+                    "pid" : pid
+                    })
     else:
-        print config
+        print(config)
