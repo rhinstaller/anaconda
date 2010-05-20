@@ -40,12 +40,12 @@ def mkswap(device, label='', progress=None):
         argv.extend(["-L", label])
     argv.append(device)
 
-    rc = iutil.execWithPulseProgress("mkswap", argv,
+    ret = iutil.execWithPulseProgress("mkswap", argv,
                                      stderr = "/dev/tty5",
                                      stdout = "/dev/tty5",
                                      progress=progress)
 
-    if rc:
+    if ret.rc:
         raise SwapError("mkswap failed for '%s'" % device)
 
 def swapon(device, priority=None):

@@ -168,15 +168,17 @@ class DASD:
 
             try:
                 if intf and self.totalCylinders:
-                    rc = iutil.execWithCallback(self.dasdfmt, arglist,
-                                                stdout=out, stderr=err,
-                                                callback=update,
-                                                callback_data=pw,
-                                                echo=False)
+                    ret = iutil.execWithCallback(self.dasdfmt, arglist,
+                                                 stdout=out, stderr=err,
+                                                 callback=update,
+                                                 callback_data=pw,
+                                                 echo=False)
+                    rc = ret.rc
                 elif intf:
-                    rc = iutil.execWithPulseProgress(self.dasdfmt, arglist,
-                                                     stdout=out, stderr=err,
-                                                     progress=pw)
+                    ret = iutil.execWithPulseProgress(self.dasdfmt, arglist,
+                                                      stdout=out, stderr=err,
+                                                      progress=pw)
+                    rc = ret.rc
                 else:
                     rc = iutil.execWithRedirect(self.dasdfmt, arglist,
                                                 stdout=out, stderr=err)

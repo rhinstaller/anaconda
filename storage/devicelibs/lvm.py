@@ -159,21 +159,12 @@ def clampSize(size, pesize, roundup=None):
     return long(round(float(size)/float(pesize)) * pesize)
 
 def lvm(args, progress=None):
-    rc = iutil.execWithPulseProgress("lvm", args,
+    ret = iutil.execWithPulseProgress("lvm", args,
                                      stdout = "/dev/tty5",
                                      stderr = "/dev/tty5",
                                      progress=progress)
-    if not rc:
-        return
-
-    try:
-        # grab the last line of program.log and strip off the timestamp
-        msg = open("/tmp/program.log").readlines()[-1]
-        msg = msg.split("program: ", 1)[1].strip()
-    except Exception:
-        msg = ""
-
-    raise LVMError(msg)
+    if ret.rc:
+        raise LVMError(ret.stderr)
 
 def pvcreate(device, progress=None):
     args = ["pvcreate"] + \

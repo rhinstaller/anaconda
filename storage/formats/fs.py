@@ -357,18 +357,18 @@ class FS(DeviceFormat):
                                     100, pulse = True)
 
         try:
-            rc = iutil.execWithPulseProgress(self.mkfsProg,
-                                             argv,
-                                             stdout="/dev/tty5",
-                                             stderr="/dev/tty5",
-                                             progress=w)
+            ret = iutil.execWithPulseProgress(self.mkfsProg,
+                                              argv,
+                                              stdout="/dev/tty5",
+                                              stderr="/dev/tty5",
+                                              progress=w)
         except Exception as e:
             raise FormatCreateError(e, self.device)
         finally:
             if w:
                 w.pop()
 
-        if rc:
+        if ret.rc:
             raise FormatCreateError("format failed: %s" % rc, self.device)
 
         self.exists = True
@@ -466,7 +466,7 @@ class FS(DeviceFormat):
                                     100, pulse = True)
 
         try:
-            rc = iutil.execWithPulseProgress(self.resizefsProg,
+            ret = iutil.execWithPulseProgress(self.resizefsProg,
                                              self.resizeArgs,
                                              stdout="/dev/tty5",
                                              stderr="/dev/tty5",
@@ -477,7 +477,7 @@ class FS(DeviceFormat):
             if w:
                 w.pop()
 
-        if rc:
+        if ret.rc:
             raise FSResizeError("resize failed: %s" % rc, self.device)
 
         self.doCheck(intf=intf)
@@ -516,7 +516,7 @@ class FS(DeviceFormat):
                                     100, pulse = True)
 
         try:
-            rc = iutil.execWithPulseProgress(self.fsckProg,
+            ret = iutil.execWithPulseProgress(self.fsckProg,
                                              self._getCheckArgs(),
                                              stdout="/dev/tty5",
                                              stderr="/dev/tty5",
@@ -527,11 +527,11 @@ class FS(DeviceFormat):
             if w:
                 w.pop()
 
-        if self._fsckFailed(rc):
+        if self._fsckFailed(ret.rc):
             hdr = _("%(type)s filesystem check failure on %(device)s: ") % \
                     {"type": self.type, "device": self.device}
 
-            msg = self._fsckErrorMessage(rc)
+            msg = self._fsckErrorMessage(ret.rc)
 
             if intf:
                 help = _("Errors like this usually mean there is a problem "

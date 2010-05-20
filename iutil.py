@@ -39,6 +39,12 @@ import logging
 log = logging.getLogger("anaconda")
 program_log = logging.getLogger("program")
 
+class ExecProduct(object):
+    def __init__(self, rc, stdout, stderr):
+        self.rc = rc
+        self.stdout = stdout
+        self.stderr = stderr
+
 #Python reimplementation of the shell tee process, so we can
 #feed the pipe output into two places at the same time
 class tee(threading.Thread):
@@ -350,14 +356,11 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
         log.critical("exception from waitpid: %s %s" %(e.errno, e.strerror))
 
     closefds()
-    # *shrug*  no clue why this would happen, but hope that things are fine
-    if status is None:
-        return 0
 
+    rc = 1
     if os.WIFEXITED(status):
-        return os.WEXITSTATUS(status)
-
-    return 1
+        rc = os.WEXITSTATUS(status)
+    return ExecProduct(rc, log_output , log_errors)
 
 def _pulseProgressCallback(data, callback_data=None):
     if callback_data:
