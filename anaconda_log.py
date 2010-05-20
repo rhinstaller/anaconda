@@ -132,15 +132,6 @@ class AnacondaLog:
         newLogger = logging.getLogger(name)
         newLogger.setLevel(minLevel)
 
-    # Add a handler for remote syslogs.
-    def addSysLogHandler (self, logger, host, port=SYSLOG_UDP_PORT,
-                          minLevel=DEFAULT_TTY_LEVEL):
-        fmt = logging.Formatter("%(levelname)-8s %(message)s")
-        syslogHandler = SysLogHandler((host, port))
-        syslogHandler.setLevel(minLevel)
-        syslogHandler.setFormatter(fmt)
-        logger.addHandler(syslogHandler)
-
     def forwardToSyslog(self, logger):
         """Forward everything that goes in the logger to the syslog daemon.
         """
