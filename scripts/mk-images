@@ -592,6 +592,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/etc/{pam.d,security}
     mkdir -p $MBD_DIR/$LIBDIR/security
     mkdir -p $MBD_DIR/usr/lib/rpm
+    mkdir -p $MBD_DIR/var/lib/rpm
 
     for x in $IMGPATH/$LIBDIR/security/* ; do
 	y=$(basename $x)
@@ -860,6 +861,7 @@ makeinitrd() {
     done
 
     cp -a $IMGPATH/usr/lib/rpm/rpmrc $MBD_DIR/usr/lib/rpm
+    cp -a $IMGPATH/usr/lib/rpm/macros $MBD_DIR/usr/lib/rpm
 
     makeproductfile $MBD_DIR
 
