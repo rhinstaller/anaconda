@@ -294,22 +294,18 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
     os.close(p[1])
     os.close(p_stderr[1])
 
-    logline = ''
+    log_output = ''
     while 1:
         try:
             s = os.read(p[0], 1)
         except OSError as e:
             if e.errno != 4:
+                map(program_log.info, log_output.splitlines())
                 raise IOError, e.args
 
         if echo:
             os.write(stdout, s)
-
-        if s == '\n':
-            program_log.info(logline)
-            logline = ''
-        else:
-            logline += s
+        log_output += s
 
         if callback:
             callback(s, callback_data=callback_data)
@@ -325,8 +321,8 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
 
         if len(s) < 1:
             break
-    if len(logline) > 0:
-        program_log.info(logline)
+
+    map(program_log.info, log_output.splitlines())
 
     log_errors = ''
     while 1:
@@ -334,6 +330,7 @@ def execWithCallback(command, argv, stdin = None, stdout = None,
             err = os.read(p_stderr[0], 128)
         except OSError as e:
             if e.errno != 4:
+                map(program_log.error, log_errors.splitlines())
                 raise IOError, e.args
             break
         log_errors += err
