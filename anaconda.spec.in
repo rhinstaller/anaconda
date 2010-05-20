@@ -222,6 +222,34 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu May 20 2010 David Cantrell <dcantrell@redhat.com> - 13.21.44-1
+- Add missing rpm macros file to get rid of the rpm warnings (msivak)
+  Related: rhbz#593941
+- Keep track of pvcount for non existing vgs (hdegoede)
+  Resolves: rhbz#593871
+- Don't clear immutable devices (hdegoede)
+  Resolves: rhbz#593642
+- Store immutable info into the device for easier access (hdegoede)
+  Related: rhbz#593642
+- Check for sane mountpoint in raid dialog (bcl)
+  Resolves: rhbz#592185
+- Check for sane mountpoint in lvm dialog (bcl)
+  Resolves: rhbz#592185
+- Check for sane mountpoint in partition dialog (bcl)
+  Resolves: rhbz#592185
+- Cleaned up sanityCheckMountPoint (bcl)
+  Related: rhbz#592185
+- Return disk to prior state following failed partition removal. (dlehman)
+  Resolves: rhbz#592339
+- Remove partitions after unpartitioned non-partition devices. (dlehman)
+  Resolves: rhbz#592337
+- Pick up mountpoint for existing formats on encrypted LVs. (dlehman)
+  Resolves: rhbz#587002
+- Display unpartitioned disks in main partitioning gui. (dlehman)
+  Resolves: rhbz#588637
+- Don't drop encryption when re-editing new encrypted partitions. (dlehman)
+  Resolves: rhbz#592340
+
 * Wed May 19 2010 David Cantrell <dcantrell@redhat.com> - 13.21.43-1
 - Handle vgs with duplicate names (hdegoede)
   Resolves: rhbz#591469
