@@ -126,12 +126,6 @@ class AnacondaLog:
         autoSetLevel(logfileHandler, autoLevel)
         addToLogger.addHandler(logfileHandler)
 
-    # Add another logger to the hierarchy.  For best results, make sure
-    # name falls under anaconda in the tree.
-    def addLogger (self, name, minLevel=DEFAULT_TTY_LEVEL):
-        newLogger = logging.getLogger(name)
-        newLogger.setLevel(minLevel)
-
     def forwardToSyslog(self, logger):
         """Forward everything that goes in the logger to the syslog daemon.
         """
