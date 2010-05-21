@@ -30,7 +30,6 @@ import sys
 from timezone_map_gui import TimezoneMap, Enum
 from iw_gui import *
 from booty.bootloaderInfo import dosFilesystems
-from bootloader import hasWindows
 
 from constants import *
 import gettext
@@ -103,9 +102,6 @@ class TimezoneWindow(InstallWindow):
         # Now fix the default we set when we made the timezone map widget.
         self.tz.setCurrent(self.zonetab.findEntryByTZ(self.default))
         self.utcCheckbox.set_active(asUTC)
-
-        if not anaconda.ksdata:
-            self.utcCheckbox.set_active(not hasWindows(anaconda.bootloader))
 
         self.notebook.remove(self.vbox)
         return self.vbox
