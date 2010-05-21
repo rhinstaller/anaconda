@@ -132,9 +132,9 @@ class iscsi(object):
 
     def _setInitiator(self, val):
         if self.initiatorSet and val != self._initiator:
-            raise ValueError, "Unable to change iSCSI initiator name once set"
+            raise ValueError, _("Unable to change iSCSI initiator name once set")
         if len(val) == 0:
-            raise ValueError, "Must provide a non-zero length string"
+            raise ValueError, _("Must provide an iSCSI initiator name")
         self._initiator = val
 
     initiator = property(_getInitiator, _setInitiator)
