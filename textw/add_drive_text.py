@@ -135,11 +135,13 @@ class addDriveDialog(object):
                                "'linux asknetwork'")
             return INSTALL_BACK
         
+        iname = storage.iscsi.iscsi().initiator
         (button, entries) = EntryWindow(screen,
                                         _("Configure iSCSI Parameters"),
                                         _("To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."),
                                         prompts = [ _("Target IP Address"),
-                                                    _("iSCSI Initiator Name"),
+                                                    (_("iSCSI Initiator Name"),
+                                                     iname),
                                                     _("CHAP username"),
                                                     _("CHAP password"),
                                                     _("Reverse CHAP username"),
@@ -172,8 +174,7 @@ class addDriveDialog(object):
             raise ValueError, msg
 
         iname = entries[1].strip()
-        if not storage.iscsi.iscsi().initiatorSet:
-            storage.iscsi.iscsi().initiator = iname
+        storage.iscsi.iscsi().initiator = iname
         storage.iscsi.iscsi().addTarget(ip, port, user, pw, user_in, pw_in,
                                         intf=self.anaconda.intf)
 
