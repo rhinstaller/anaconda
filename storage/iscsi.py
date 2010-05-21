@@ -66,7 +66,7 @@ def has_iscsi():
 def randomIname():
     """Generate a random initiator name the same way as iscsi-iname"""
     
-    s = "iqn.1994-05.com.fedora:01."
+    s = "iqn.1994-05.com.domain:01."
     m = hashlib.md5()
     u = os.uname()
     for i in u:
