@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri May 21 2010 David Cantrell <dcantrell@redhat.com> - 13.21.45-1
+- Use correct NM dbus interfaces (rvykydal)
+  Resolves: rhbz#594716
+- Don't autostep past the end of the install screens (bcl)
+  Resolves: rhbz#593556
+
 * Thu May 20 2010 David Cantrell <dcantrell@redhat.com> - 13.21.44-1
 - Add missing rpm macros file to get rid of the rpm warnings (msivak)
   Related: rhbz#593941
