@@ -90,18 +90,18 @@ def getDefaultHostname(anaconda):
     for connection in active_connections:
         active_connection = bus.get_object(isys.NM_SERVICE, connection)
         active_connection_props_iface = dbus.Interface(active_connection, isys.DBUS_PROPS_IFACE)
-        devices = active_connection_props_iface.Get(isys.NM_MANAGER_IFACE, 'Devices')
+        devices = active_connection_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, 'Devices')
 
         for device_path in devices:
             device = bus.get_object(isys.NM_SERVICE, device_path)
             device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
 
-            ip4_config_path = device_props_iface.Get(isys.NM_MANAGER_IFACE, 'Ip4Config')
+            ip4_config_path = device_props_iface.Get(isys.NM_DEVICE_IFACE, 'Ip4Config')
             ip4_config_obj = bus.get_object(isys.NM_SERVICE, ip4_config_path)
             ip4_config_props = dbus.Interface(ip4_config_obj, isys.DBUS_PROPS_IFACE)
 
             # addresses (3-element list:  ipaddr, netmask, gateway)
-            addrs = ip4_config_props.Get(isys.NM_MANAGER_IFACE, "Addresses")[0]
+            addrs = ip4_config_props.Get(isys.NM_IP4CONFIG_IFACE, "Addresses")[0]
             try:
                 tmp = struct.pack('I', addrs[0])
                 ipaddr = socket.inet_ntop(socket.AF_INET, tmp)
@@ -166,7 +166,7 @@ def hasActiveNetDev():
 def hasWirelessDev():
     devprops = isys.getDeviceProperties()
     for dev, props in devprops.items():
-        device_type = int(props.Get(isys.NM_MANAGER_IFACE, "DeviceType"))
+        device_type = int(props.Get(isys.NM_DEVICE_IFACE, "DeviceType"))
         if device_type == 2:
             return True
     return False
@@ -189,13 +189,13 @@ def getActiveNetDevs():
     for connection in active_connections:
         active_connection = bus.get_object(isys.NM_SERVICE, connection)
         active_connection_props_iface = dbus.Interface(active_connection, isys.DBUS_PROPS_IFACE)
-        devices = active_connection_props_iface.Get(isys.NM_MANAGER_IFACE, 'Devices')
+        devices = active_connection_props_iface.Get(isys.NM_ACTIVE_CONNECTION_IFACE, 'Devices')
 
         for device_path in devices:
             device = bus.get_object(isys.NM_SERVICE, device_path)
             device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
 
-            interface_name = device_props_iface.Get(isys.NM_MANAGER_IFACE, 'Interface')
+            interface_name = device_props_iface.Get(isys.NM_DEVICE_IFACE, 'Interface')
             active_devs.add(interface_name)
 
     ret = list(active_devs)
@@ -352,6 +352,7 @@ class Network:
 
         self.hostname = socket.gethostname()
         self.overrideDHCPhostname = False
+
         self.update()
 
     def update(self):
@@ -736,14 +737,14 @@ class Network:
         for device_path in device_paths:
             device = bus.get_object(isys.NM_SERVICE, device_path)
             device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
-            iface = str(device_props_iface.Get(isys.NM_MANAGER_IFACE, "Interface"))
+            iface = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
             if iface in devices:
                 waited_devs_props[iface] = device_props_iface
 
         i = 0
         while True:
             for dev, device_props_iface in waited_devs_props.items():
-                state = device_props_iface.Get(isys.NM_MANAGER_IFACE, "State")
+                state = device_props_iface.Get(isys.NM_DEVICE_IFACE, "State")
                 if state == isys.NM_DEVICE_STATE_ACTIVATED:
                     waited_devs_props.pop(dev)
             if len(waited_devs_props) == 0:
@@ -865,7 +866,7 @@ def getSSIDs(devices_to_scan=None):
         device = bus.get_object(isys.NM_SERVICE, device_path)
         device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
         # interface name, eg. "eth0", "wlan0"
-        dev = str(device_props_iface.Get(isys.NM_MANAGER_IFACE, "Interface"))
+        dev = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
 
         if (isys.isWirelessDevice(dev) and
             (not devices_to_scan or dev in devices_to_scan)):
@@ -883,7 +884,7 @@ def getSSIDs(devices_to_scan=None):
             for ap_path in ap_paths:
                 ap = bus.get_object(isys.NM_SERVICE, ap_path)
                 ap_props = dbus.Interface(ap, isys.DBUS_PROPS_IFACE)
-                ssid_bytearray = ap_props.Get(isys.NM_MANAGER_IFACE, "Ssid")
+                ssid_bytearray = ap_props.Get(isys.NM_ACCESS_POINT_IFACE, "Ssid")
                 ssid = "".join((str(b) for b in ssid_bytearray))
                 ssids.append(ssid)
             log.info("APs found for %s: %s" % (dev, str(ssids)))

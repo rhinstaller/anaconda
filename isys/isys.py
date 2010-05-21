@@ -48,6 +48,8 @@ NM_MANAGER_IFACE = "org.freedesktop.NetworkManager"
 NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
 NM_CONNECTION_IFACE = "org.freedesktop.NetworkManagerSettings.Connection"
 NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
+NM_IP4CONFIG_IFACE = "org.freedesktop.NetworkManager.IP4Config"
+NM_ACCESS_POINT_IFACE = "org.freedesktop.NetworkManager.AccessPoint"
 
 NM_STATE_UNKNOWN = 0
 NM_STATE_ASLEEP = 1
@@ -338,7 +340,7 @@ def getDeviceProperties(dev=None):
         device = bus.get_object(NM_SERVICE, path)
         device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
 
-        device_interface = str(device_props_iface.Get(NM_MANAGER_IFACE, "Interface"))
+        device_interface = str(device_props_iface.Get(NM_DEVICE_IFACE, "Interface"))
 
         if dev is None:
             all[device_interface] = device_props_iface
@@ -396,7 +398,7 @@ def getMacAddress(dev):
 
     device_macaddr = None
     try:
-        device_macaddr = device_props_iface.Get(NM_MANAGER_IFACE, "HwAddress").upper()
+        device_macaddr = device_props_iface.Get(NM_DEVICE_IFACE, "HwAddress").upper()
     except dbus.exceptions.DBusException as e:
         if e.get_dbus_name() != 'org.freedesktop.DBus.Error.InvalidArgs':
             raise
@@ -449,7 +451,7 @@ def getIPAddress(dev):
         return None
 
     # XXX: add support for IPv6 addresses when NM can do that
-    device_ip4addr = device_props_iface.Get(NM_MANAGER_IFACE, "Ip4Address")
+    device_ip4addr = device_props_iface.Get(NM_DEVICE_IFACE, "Ip4Address")
 
     try:
         tmp = struct.pack('I', device_ip4addr)
