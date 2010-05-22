@@ -791,9 +791,6 @@ class AnacondaYum(YumSorter):
                 addonRepo.name = addon[0]
                 addonRepo.baseurl = [ addon[1] ]
 
-                if repo.isEnabled():
-                    addonRepo.enable()
-
                 extraRepos.append(addonRepo)
 
         for repo in extraRepos:
