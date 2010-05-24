@@ -324,16 +324,12 @@ char * mountNfsImage(struct installMethod * method,
 
             free(buf);
 
-            checked_asprintf(&buf, "%.*s/updates.img",
-                             (int) (strrchr(fullPath, '/')-fullPath),
-                             fullPath);
+            checked_asprintf(&buf, "%s/updates.img", fullPath);
             logMessage(INFO, "Looking for updates in %s", buf);
             copyUpdatesImg(buf);
             free(buf);
 
-            checked_asprintf(&buf, "%.*s/product.img",
-                             (int) (strrchr(fullPath, '/')-fullPath),
-                             fullPath);
+            checked_asprintf(&buf, "%s/product.img", fullPath);
             logMessage(INFO, "Looking for product in %s", buf);
             copyProductImg(buf);
             free(buf);
