@@ -373,7 +373,7 @@ def check_memory(opts, display_mode=None):
 
     extra_ram = 0
     reason = ''
-    if opts.stage2.startswith(('http', 'ftp', '@')):
+    if opts.stage2 and opts.stage2.startswith(('http', 'ftp', '@')):
         extra_ram += isys.URL_INSTALL_EXTRA_RAM
         reason = " using this install method"
 
