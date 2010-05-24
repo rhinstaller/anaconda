@@ -78,6 +78,7 @@
 #include "auditd.h"
 #include "imount.h"
 #include "log.h"
+#include "mem.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
@@ -114,6 +115,7 @@ static PyObject * doGetLinkStatus(PyObject * s, PyObject * args);
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
 static PyObject * doInitLog(PyObject * s);
 static PyObject * doIsWirelessDevice(PyObject * s, PyObject * args);
+static PyObject * doTotalMemory(PyObject * s);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -147,6 +149,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
     { "initLog", (PyCFunction) doInitLog, METH_VARARGS, NULL },
     { "isWirelessDevice", (PyCFunction) doIsWirelessDevice, METH_VARARGS, NULL },
+    { "total_memory", (PyCFunction) doTotalMemory, METH_NOARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -713,6 +716,10 @@ static PyObject * doIsWirelessDevice(PyObject * s, PyObject * args) {
     }
 
     return PyBool_FromLong(0);
+
+static PyObject * doTotalMemory(PyObject * s) {
+    int tm = totalMemory();
+    return PyInt_FromLong(tm);
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

@@ -99,6 +99,7 @@
 #include "../isys/lang.h"
 #include "../isys/eddsupport.h"
 #include "../isys/log.h"
+#include "../isys/mem.h"
 
 /* maximum number of extra arguments that can be passed to the second stage */
 #define MAX_EXTRA_ARGS 128

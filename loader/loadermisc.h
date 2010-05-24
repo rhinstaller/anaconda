@@ -28,6 +28,5 @@ int copyFile(char * source, char * dest);
 int copyFileFd(int infd, char * dest, progressCB pbcb,
                struct progressCBdata *data, long long total);
 int simpleStringCmp(const void * a, const void * b);
-int totalMemory(void);
 
 #endif

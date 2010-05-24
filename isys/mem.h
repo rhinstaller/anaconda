@@ -1,7 +1,8 @@
 /*
- * isys.h
+ * mem.h
  *
- * Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+ * Copyright (C) 2010
+ * Red Hat, Inc.  All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,18 +18,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef H_ISYS
-#define H_ISYS
+#ifndef _MEM_H_
+#define _MEM_H_
 
-#define OUTPUT_TERMINAL "/dev/tty5"
-
-int insmod(char * modName, char * path, char ** args);
-int rmmod(char * modName);
-
-/* returns 0 for true, !0 for false */
-int fileIsIso(const char * file);
-
-/* returns 1 if on an iSeries vio console, 0 otherwise */
-int isVioConsole(void);
-
+#if defined(__powerpc64__) || defined(__sparc__)
+  #define MIN_RAM                 1024*1024 // 1 GB
+  #define GUI_INSTALL_EXTRA_RAM   512*1024  // 512 MB
+#else
+  #define MIN_RAM                 256 * 1024 // 256 MB
+  #define GUI_INSTALL_EXTRA_RAM   128 * 1024 // 128 MB
 #endif
+#define URL_INSTALL_EXTRA_RAM   128 * 1024 // 128 MB
+#define MIN_GUI_RAM             MIN_RAM + GUI_INSTALL_EXTRA_RAM
+#define EARLY_SWAP_RAM          512 * 1024 // 512 MB
+
+int totalMemory(void);
+
+#endif /* _MEM_H_ */

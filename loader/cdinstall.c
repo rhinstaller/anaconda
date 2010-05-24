@@ -59,6 +59,7 @@
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 #include "../isys/log.h"
+#include "../isys/mem.h"
 
 /* boot flags */
 extern uint64_t flags;

@@ -366,7 +366,7 @@ def check_memory(anaconda, opts, display_mode=None):
         extra_ram += isys.URL_INSTALL_EXTRA_RAM
         reason = " using this install method"
 
-    total_ram = iutil.total_memory()
+    total_ram = isys.total_memory()
 
     needed_ram = isys.MIN_RAM + extra_ram
     if needed_ram > total_ram:
