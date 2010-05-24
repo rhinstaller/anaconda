@@ -2962,9 +2962,9 @@ fi # testing
 syntax_check_fcp
 # currently we ignore failed syntax checks since FCP parms are non-interactive
 for i in ${!FCP_*}; do
-    echo "${!i}" >> /tmp/fcpconfig
+    echo "${!i}" >> /etc/zfcp.conf
 done
-# cio_ignore handling for FCP should happen when the content of /tmp/fcpconfig
+# cio_ignore handling for FCP should happen when the content of /etc/zfcp.conf
 # will actually be processed which is in anaconda's zfcp.py ZFCP::readConfig()
 
 # TODO/FIXME: also need to pass IPv6 decision to loader/anaconda

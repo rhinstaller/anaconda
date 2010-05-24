@@ -27,9 +27,9 @@ from udev import udev_settle
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+import iutil
 import logging
 log = logging.getLogger("anaconda")
-import warnings
 
 def loggedWriteLineToFile(fn, value):
     f = open(fn, "w")
@@ -39,6 +39,7 @@ def loggedWriteLineToFile(fn, value):
 
 zfcpsysfs = "/sys/bus/ccw/drivers/zfcp"
 scsidevsysfs = "/sys/bus/scsi/devices"
+zfcpconf = "/etc/zfcp.conf"
 
 class ZFCPDevice:
     def __init__(self, devnum, wwpn, fcplun):
@@ -122,15 +123,10 @@ class ZFCPDevice:
         unitdir = "%s/%s" %(portdir, self.fcplun)
         failed = "%s/failed" %(unitdir)
 
-        try:
-            if not os.path.exists(online):
-                loggedWriteLineToFile("/proc/cio_ignore",
-                                      "free %s" %(self.devnum,))
-                udev_settle()
-        except IOError as e:
-            raise ValueError, _("Could not free zFCP device %(devnum)s from "
-                                "device ignore list (%(e)s).") \
-                              % {'devnum': self.devnum, 'e': e}
+        if not os.path.exists(online):
+            log.info("Freeing zFCP device %s" % (self.devnum,))
+            iutil.execWithRedirect("zfcp_cio_free", ["-d", self.devnum],
+                                   stdout="/dev/tty5", stderr="/dev/tty5")
 
         if not os.path.exists(online):
             raise ValueError, _(
@@ -143,8 +139,6 @@ class ZFCPDevice:
             f.close()
             if devonline != "1":
                 loggedWriteLineToFile(online, "1")
-            else:
-                log.info("zFCP device %s already online." %(self.devnum,))
         except IOError as e:
             raise ValueError, _("Could not set zFCP device %(devnum)s "
                                 "online (%(e)s).") \
@@ -335,7 +329,7 @@ class ZFCP:
     """
 
     def __init__(self):
-        self.fcpdevs = []
+        self.fcpdevs = set()
         self.hasReadConfig = False
         self.down = True
 
@@ -345,45 +339,34 @@ class ZFCP:
 
     def readConfig(self):
         try:
-            f = open("/tmp/fcpconfig", "r")
+            f = open(zfcpconf, "r")
         except IOError:
-            log.info("no /tmp/fcpconfig; not configuring zfcp")
+            log.info("no %s; not configuring zfcp" % (zfcpconf,))
             return
 
-        lines = f.readlines()
+        lines = map(lambda x: x.strip().lower(), f.readlines())
         f.close()
+
         for line in lines:
-            # each line is a string separated list of values to describe a dev
-            # there are two valid formats for the line:
-            #   devnum scsiid wwpn scsilun fcplun    (scsiid + scsilun ignored)
-            #   devnum wwpn fcplun
-            line = string.strip(line).lower()
-            if line.startswith("#"):
-                continue
-            fcpconf = string.split(line)
-            if len(fcpconf) == 3:
-                devnum = fcpconf[0]
-                wwpn = fcpconf[1]
-                fcplun = fcpconf[2]
-            elif len(fcpconf) == 5:
-                warnings.warn("SCSI ID and SCSI LUN values for ZFCP devices are ignored and deprecated.", DeprecationWarning)
-                devnum = fcpconf[0]
-                wwpn = fcpconf[2]
-                fcplun = fcpconf[4]
-            else:
-                log.warn("Invalid line found in /tmp/fcpconfig!")
+            if line.startswith("#") or line == '':
                 continue
 
-            try:
-                self.addFCP(devnum, wwpn, fcplun)
-            except ValueError, e:
-                log.warn(str(e))
+            fields = line.split()
+
+            if len(fields) == 3:
+                self.addFCP(fields[0], fields[1], fields[2])
+            elif len(fields) == 5:
+                # support old syntax of:
+                # devno scsiid wwpn scsilun fcplun
+                self.addFCP(fields[0], fields[2], fields[4])
+            else:
+                log.warn("Invalid line found in %s: %s" % (zfcpconf, line,))
                 continue
 
     def addFCP(self, devnum, wwpn, fcplun):
         d = ZFCPDevice(devnum, wwpn, fcplun)
         if d.onlineDevice():
-            self.fcpdevs.append(d)
+            self.fcpdevs.add(d)
 
     def shutdown(self):
         if self.down:
@@ -406,7 +389,7 @@ class ZFCP:
             self.hasReadConfig = True
             # readConfig calls addFCP which calls onlineDevice already
             return
-            
+
         if len(self.fcpdevs) == 0:
             return
         for d in self.fcpdevs:
@@ -426,7 +409,7 @@ class ZFCP:
     def write(self, instPath):
         if len(self.fcpdevs) == 0:
             return
-        f = open(instPath + "/etc/zfcp.conf", "w")
+        f = open(instPath + zfcpconf, "w")
         for d in self.fcpdevs:
             f.write("%s\n" %(d,))
         f.close()
