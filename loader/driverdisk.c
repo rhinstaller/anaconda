@@ -143,13 +143,11 @@ int globErrFunc(const char *epath, int eerrno)
     return 0;
 }
 
-int dlabelUnpackRPMDir(char* rpmdir, char* destination)
+int dlabelUnpackRPMDir(char* rpmdir, char* destination, char *kernelver)
 {
-    char *kernelver;
-    struct utsname unamedata;
     char *oldcwd;
     char *globpattern;
-    int rc;
+    int rc = 0;
 
     /* get current working directory */ 
     oldcwd = getcwd(NULL, 0);
@@ -164,12 +162,6 @@ int dlabelUnpackRPMDir(char* rpmdir, char* destination)
         free(oldcwd);
         return 1;
     }
-
-    /* get running kernel version */
-    rc = uname(&unamedata);
-    checked_asprintf(&kernelver, "%s",
-            rc ? "unknown" : unamedata.release);
-    logMessage(DEBUGLVL, "Kernel version: %s", kernelver);
 
     checked_asprintf(&globpattern, "%s/*.rpm", rpmdir);
     glob_t globres;
@@ -192,7 +184,6 @@ int dlabelUnpackRPMDir(char* rpmdir, char* destination)
     }
 
     /* cleanup */
-    free(kernelver);
     free(oldcwd);
     return rc;
 }
@@ -247,7 +238,9 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     struct moduleBallLocation * location;
     struct stat sb;
     static int disknum = 0;
-    int fd, ret;
+    int rc, fd, ret;
+    char *kernelver;
+    struct utsname unamedata;
 
     /* check for new version */
     sprintf(file, "%s/rhdd3", mntpt);
@@ -264,6 +257,12 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
         sb.st_size--;
     title[sb.st_size] = '\0';
     close(fd);
+
+    /* get running kernel version */
+    rc = uname(&unamedata);
+    checked_asprintf(&kernelver, "%s",
+            rc ? "unknown" : unamedata.release);
+    logMessage(DEBUGLVL, "Kernel version: %s", kernelver);
 
     sprintf(file, DD_RPMDIR_TEMPLATE, disknum);
     mkdirChain(file);
@@ -284,12 +283,24 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     copyDirectory(src, dest, copyWarnFn, copyErrorFn);
 
     /* unpack packages from dest into location->path */
-    if (dlabelUnpackRPMDir(dest, DD_EXTRACTED)) {
+    if (dlabelUnpackRPMDir(dest, DD_EXTRACTED, kernelver)) {
         /* fatal error, log this and jump to exception handler */
         logMessage(ERROR, "Error unpacking RPMs from driver disc no.%d",
                 disknum);
         goto loadDriverDiscException;
     }
+
+
+    /* ensure updates directory exists */
+    sprintf(file, "/lib/modules/%s/updates", kernelver);
+    mkdirChain(file);
+
+    /* make sure driver update are referenced from system module dir
+       but from a different subdir, initrd overlays use the main
+       /lib/modules/<kernel>/updates
+     */
+    sprintf(file, "/lib/modules/%s/updates/DD", kernelver);
+    rc = symlink(DD_MODULES, file);
 
     /* run depmod to refresh modules db */
     if (system("depmod -a")) {
@@ -312,6 +323,9 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
      */
 
 loadDriverDiscException:
+
+    /* cleanup */
+    free(kernelver);
 
     if (!FL_CMDLINE(flags))
         newtPopWindow();
