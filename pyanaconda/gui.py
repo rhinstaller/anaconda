@@ -920,8 +920,7 @@ class InstallInterface(InstallInterfaceBase):
                 self.anaconda.network.updateActiveDevices([install_device])
 
             # we might want to do this only once
-            # TODORV: put into Network objects
-            if network.hasWirelessDev():
+            if self.anaconda.network.hasWirelessDev():
                 # NOTE: For wireless, we need supplicant to go to ready state,
                 #       that means to get the wireless device managed by NM
                 self.anaconda.network.writeIfcfgFiles()

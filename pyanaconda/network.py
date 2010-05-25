@@ -163,15 +163,6 @@ def hasActiveNetDev():
     except:
         return False
 
-def hasWirelessDev():
-    devprops = isys.getDeviceProperties()
-    for dev, props in devprops.items():
-        device_type = int(props.Get(isys.NM_DEVICE_IFACE, "DeviceType"))
-        if device_type == 2:
-            return True
-    return False
-
-
 # Return a list of device names (e.g., eth0) for all active devices.
 # Returning a list here even though we will almost always have one
 # device.  NM uses lists throughout its D-Bus communication, so trying
@@ -568,6 +559,12 @@ class Network:
             if key.upper().startswith('DNS'):
                 return True
 
+        return False
+
+    def hasWirelessDev(self):
+        for dev in self.netdevices:
+            if isys.isWirelessDevice(dev)
+                return True
         return False
 
     def _copyFileToPath(self, file, instPath='', overwrite=False):
