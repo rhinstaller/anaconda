@@ -222,6 +222,29 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon May 24 2010 David Cantrell <dcantrell@redhat.com> - 13.21.46-1
+- Read cciss devices correctly from 'multipath -d' output (dcantrell)
+  Resolves: rhbz#559507
+- Do not enable addon repos by default (dcantrell)
+  Resolves: rhbz#561164
+- On NFS installs, look for product.img and updates.img under images/
+  (clumens).
+  Resolves: rhbz#594811
+- Remove yum cache for anaconda's temporary repos (clumens).
+  Resolves: rhbz#593649
+- Change the configuration of depmod and link modules to better place (msivak)
+  Resolves: rhbz#593941
+- Fix a syntax error in the advanced storage code (clumens).
+  Resolves: rhbz#595290
+- clearer error messages for missing iscsi initiator name (hdegoede)
+  Related: rhbz#594434
+- fedora is part of iSCSI initiator name (hdegoede)
+  Resolves: rhbz#594659
+- Add default iSCSI initiator name in rescue mode (hdegoede)
+  Resolves: rhbz#594434
+- Make vesa and rescue options available in UEFI (pjones)
+  Resolves: rhbz#576828
+
 * Fri May 21 2010 David Cantrell <dcantrell@redhat.com> - 13.21.45-1
 - Use correct NM dbus interfaces (rvykydal)
   Resolves: rhbz#594716
