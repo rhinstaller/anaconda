@@ -949,7 +949,6 @@ class InstallInterface(InstallInterfaceBase):
         pass
 
 
-    # TODORV: handle one device case - don't ask
     # just_setup is used for [Configure Network] button
     def enableNetwork(self, just_setup=False):
 
@@ -982,7 +981,7 @@ class InstallInterface(InstallInterfaceBase):
             if network.hasWirelessDev():
                 # NOTE: For wireless, we need supplicant to go to ready state,
                 #       that means to get the wireless device managed by NM
-                self.anaconda.id.network.writeIfcfgFiles()
+                self.anaconda.network.writeIfcfgFiles()
                 w = self.anaconda.intf.waitWindow(_("Wireless setup"),
                                     _("Scanning access points for wireless devices"))
                 # get available wireless APs
@@ -994,7 +993,7 @@ class InstallInterface(InstallInterfaceBase):
                 dev_ssids = selectSSIDsDialog(dev_all_ssids) or dev_all_ssids
                 self.anaconda.network.updateIfcfgsSSID(dev_ssids)
 
-            self.anaconda.id.network.writeIfcfgFiles()
+            self.anaconda.network.writeIfcfgFiles()
             network.logIfcfgFiles(header="========== before nm-c-e run\n")
             runNMCE(self.anaconda)
             network.logIfcfgFiles(header="========== after nm-c-e run\n")
