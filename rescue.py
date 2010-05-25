@@ -37,6 +37,7 @@ import shutil
 import time
 import network
 import subprocess
+from pykickstart.constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -466,7 +467,8 @@ def runRescue(anaconda, instClass):
                       "automatically when you exit from the shell.") % (anaconda.rootPath,),
                       [_("OK")] )
     else:
-        if anaconda.isKickstart:
+        if anaconda.isKickstart and \
+               anaconda.id.ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
             log.info("No Linux partitions found")
             screen.finish()
             print(_("You don't have any Linux partitions.  Rebooting.\n"))
@@ -487,15 +489,22 @@ def runRescue(anaconda, instClass):
         except Exception, e:
             log.error("error making a resolv.conf: %s" %(e,))
         msgStr = _("Your system is mounted under the %s directory.") % (anaconda.rootPath,)
+        ButtonChoiceWindow(screen, _("Rescue"), msgStr, [_("OK")] )
 
+    # we do not need ncurses anymore, shut them down
+    screen.finish()
+    
     #create /etc/fstab in ramdisk, so it is easier to work with RO mounted filesystems
     makeFStab()
 
     # run %post if we've mounted everything
-    if anaconda.isKickstart:
+    if rootmounted and not readOnly and anaconda.isKickstart:
         from kickstart import runPostScripts
         runPostScripts(anaconda)
-    else:
+
+    # start shell if reboot wasn't requested
+    if not anaconda.isKickstart or \
+           not anaconda.id.ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
         runShell(screen, msgStr)
 
     sys.exit(0)

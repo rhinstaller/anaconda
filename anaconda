@@ -812,7 +812,7 @@ if __name__ == "__main__":
 
         kickstart.preScriptPass(anaconda, opts.ksfile)
         ksdata = kickstart.parseKickstart(anaconda, opts.ksfile)
-        opts.rescue = ksdata.rescue.rescue
+        opts.rescue = opts.rescue or ksdata.rescue.rescue
 
     if flags.sshd:
         # we need to have a libuser.conf that points to the installer root for
