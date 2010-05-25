@@ -354,7 +354,7 @@ class Anaconda(object):
             elif m.startswith("nfs:"):
                 if m.count(":") == 3:
                     (opts, server, dir) = string.split(m[4:], ":")
-                    f.write("nfs --server=%s --opts=%s --dir=%s" % (server, opts, dir))
+                    f.write("nfs --server=%s --opts=%s --dir=%s\n" % (server, opts, dir))
                 else:
                     (server, dir) = string.split(m[4:], ":")
                     f.write("nfs --server=%s --dir=%s\n" % (server, dir))
