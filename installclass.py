@@ -129,7 +129,7 @@ class BaseInstallClass(object):
 	if not BETANAG:
 	    dispatch.skipStep("betanag", permanent=1)
 
-        if not iutil.isX86():
+        if iutil.isEfi() or not iutil.isX86():
             dispatch.skipStep("bootloader", permanent=1)
 
         # allow backends to disable interactive package selection
