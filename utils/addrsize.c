@@ -32,6 +32,7 @@
 #include <unistd.h>
 #include <errno.h>
 #include <string.h>
+#include <libgen.h>
 
 int main(int argc,char **argv) {
     char *cmd = basename(argv[0]);
@@ -39,7 +40,6 @@ int main(int argc,char **argv) {
     struct stat initrd_stat;
     unsigned int addr = 0, size = 0, zero = 0;
     int fd, rc;
-    char *tmp = NULL;
     mode_t mode = S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH;
 
     if (argc != 4) {
@@ -59,7 +59,7 @@ int main(int argc,char **argv) {
         return 2;
     }
 
-    addr = htonl(strtoul(address, &tmp, 0));
+    addr = htonl(strtoul(address, NULL, 0));
     size = htonl(initrd_stat.st_size);
     fd = open(output, O_CREAT | O_RDWR, mode);
 
@@ -69,7 +69,7 @@ int main(int argc,char **argv) {
     }
 
     if (write(fd, &addr, sizeof(int)) == -1) {
-        perror("writing initrd.addr (zero) ");
+        perror("writing initrd.addr (addr) ");
         return 4;
     }
 
@@ -78,8 +78,8 @@ int main(int argc,char **argv) {
         return 5;
     }
 
-    if (write(fd, &addr, sizeof(int)) == -1) {
-        perror("writing initrd.addr (zero) ");
+    if (write(fd, &size, sizeof(int)) == -1) {
+        perror("writing initrd.addr (size) ");
         return 6;
     }
 
