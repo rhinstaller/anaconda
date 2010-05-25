@@ -165,7 +165,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     device-mapper-multipath device-mapper-multipath-libs
     dhclient dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme eject ethtool
-    elfutils-libelf expat fcoe-utils
+    elfutils-libelf expat fcoe-utils fipscheck
     firstboot fontconfig fonts-ISO8859-2 freetype gail gawk gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
     gnome-themes gpm grep gtk2 gtk2-engines hal
@@ -538,6 +538,8 @@ usr/bin/dbus-launch
 usr/bin/du
 usr/bin/eject
 usr/bin/expr
+usr/bin/fipscheck
+usr/bin/.fipscheck.hmac
 usr/bin/gdb-gdbserver
 usr/bin/gdialog
 usr/bin/gdk-pixbuf-query-loaders*
