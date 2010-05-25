@@ -560,7 +560,7 @@ class InstallInterface(InstallInterfaceBase):
             retVal = True
         elif rc == 3:
             key = allSet
-            retval = True
+            retVal = True
 
         self._inconsistentLVMAnswers[key] = retVal
         return retVal
