@@ -369,7 +369,7 @@ class FS(DeviceFormat):
                 w.pop()
 
         if ret.rc:
-            raise FormatCreateError("format failed: %s" % rc, self.device)
+            raise FormatCreateError("format failed: %s" % ret.rc, self.device)
 
         self.exists = True
         self.notifyKernel()
@@ -478,7 +478,7 @@ class FS(DeviceFormat):
                 w.pop()
 
         if ret.rc:
-            raise FSResizeError("resize failed: %s" % rc, self.device)
+            raise FSResizeError("resize failed: %s" % ret.rc, self.device)
 
         self.doCheck(intf=intf)
 
