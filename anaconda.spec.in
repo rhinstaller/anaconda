@@ -222,6 +222,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 25 2010 David Cantrell <dcantrell@redhat.com> - 13.21.47-1
+- Skip the bootloader placement window if we're on UEFI (pjones)
+  Resolves: rhbz#582143
+- Support cio_ignore functionality for zFCP devices (dcantrell)
+  Resolves: rhbz#533492
+- Add missing newline for 'nfs' line in ks file (dcantrell)
+  Resolves: rhbz#591479
+- Correct problem with initrd.addrsize generation (dcantrell)
+  Resolves: rhbz#546422
+- Add fipscheck to the install.img (mgracik)
+  Resolves: rhbz#592186
+- Don't unconditionally unskip the partition step on failure (clumens).
+  Resolves: rhbz#595604
+- Fix rescue mode startup with kickstart file and without (msivak)
+  Resolves: rhbz#515896
+- fix: traceback in check_memory() (akozumpl).
+  Resolves: rhbz#595284
+- Make re-init all inconsistent lvm mean re-init all instead of ignore all
+  (hdegoede)
+  Related: rhbz#591469
+
 * Mon May 24 2010 David Cantrell <dcantrell@redhat.com> - 13.21.46-1
 - Read cciss devices correctly from 'multipath -d' output (dcantrell)
   Resolves: rhbz#559507
