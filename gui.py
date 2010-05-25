@@ -932,11 +932,6 @@ class InstallInterface(InstallInterfaceBase):
         self.icw = None
         self.installProgress = None
 
-        # figure out if we want to run interface at 800x600 or 640x480
-        if gtk.gdk.screen_width() >= 800:
-            self.runres = "800x600"
-        else:
-            self.runres = "640x480"
         root = gtk.gdk.get_default_root_window()
         cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
         root.set_cursor(cursor)
@@ -1193,7 +1188,7 @@ class InstallInterface(InstallInterfaceBase):
             anaconda.keyboard.activate()
 
         self.icw = InstallControlWindow (self.anaconda)
-        self.icw.run (self.runres)
+        self.icw.run()
 
     def setSteps(self, anaconda):
         pass
@@ -1463,7 +1458,7 @@ class InstallControlWindow:
     def busyCursorPop(self):
         rootPopBusyCursor()
         
-    def run (self, runres):
+    def run (self):
         self.setup_theme()
         self.setup_window(False)
         gtk.main()
