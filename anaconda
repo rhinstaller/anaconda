@@ -73,7 +73,7 @@ def startAuditDaemon():
     os.waitpid(childpid, 0)
 
 # function to handle X startup special issues for anaconda
-def doStartupX11Actions(runres="800x600"):
+def doStartupX11Actions():
     global wm_pid
 
     setupGraphicalLinks()
@@ -88,7 +88,6 @@ def doStartupX11Actions(runres="800x600"):
 
     if wm_pid is not None:
         import xutils
-        import gtk
 
         try:
             xutils.setRootResource('Xcursor.size', '24')
@@ -102,6 +101,22 @@ def doStartupX11Actions(runres="800x600"):
         except:
             sys.stderr.write("X SERVER STARTED, THEN FAILED");
             raise RuntimeError, "X server failed to start"
+
+def set_x_resolution(runres):
+    # cant do this if no window manager is running because otherwise when we
+    # open and close an X connection in the xutils calls the X server will exit
+    # since this is the first X connection (if no window manager is running)
+    if runres and opts.display_mode == 'g' and not flags.usevnc and wm_pid :
+        try:
+            log.info("Setting the screen resolution to: %s.", runres)
+            iutil.execWithRedirect("xrandr", 
+                                   ["-d", ":1", "-s", runres],
+                                   stdout="/dev/tty5", stderr="/dev/tty5")
+        except RuntimeError as e:
+            log.error("The X resolution not set")
+            iutil.execWithRedirect("xrandr",
+                                   ["-d", ":1", "-q"],
+                                   stdout="/dev/tty5", stderr="/dev/tty5")
 
 def doShutdownX11Actions():
     global wm_pid
@@ -152,9 +167,6 @@ def setupPythonUpdates():
         shutil.copyfile(rule, target)
 
 def parseOptions(argv = None):
-    def resolution_cb (option, opt_str, value, parser):
-        parser.values.runres = value
-
     op = OptionParser()
     # Interface
     op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
@@ -184,8 +196,7 @@ def parseOptions(argv = None):
     # Display
     op.add_option("--headless", dest="isHeadless", action="store_true", default=False)
     op.add_option("--nofb")
-    op.add_option("--resolution", action="callback", callback=resolution_cb, dest="runres",
-                  default="800x600", nargs=1, type="string")
+    op.add_option("--resolution", dest="runres", default=None)
     op.add_option("--serial", action="store_true", default=False)
     op.add_option("--usefbx", dest="xdriver", action="store_const", const="fbdev")
     op.add_option("--virtpconsole")
@@ -788,10 +799,10 @@ if __name__ == "__main__":
             # us SIGUSR1 if it succeeds.  if it fails, catch SIGCHLD and bomb out.
 
             def sigchld_handler(num, frame):
-                raise OSError
+                raise OSError(0, "SIGCHLD caught when trying to start the X server.")
 
             def sigusr1_handler(num, frame):
-                pass
+                log.debug("X server has signalled a successful start.")
 
             def preexec_fn():
                 signal.signal(signal.SIGUSR1, signal.SIG_IGN)
@@ -809,7 +820,7 @@ if __name__ == "__main__":
             signal.pause()
 
             os.environ["DISPLAY"] = ":1"
-            doStartupX11Actions(opts.runres)
+            doStartupX11Actions()
             xserver_pid = proc.pid
         except (OSError, RuntimeError):
             stdoutLog.warning(" X startup failed, falling back to text mode")
@@ -819,6 +830,8 @@ if __name__ == "__main__":
         finally:
             signal.signal(signal.SIGUSR1, old_sigusr1)
             signal.signal(signal.SIGCHLD, old_sigchld)
+
+    set_x_resolution(opts.runres)
 
     if anaconda.displayMode == 't' and graphical_failed and not anaconda.ksdata:
         ret = vnc.askVncWindow()
@@ -831,7 +844,7 @@ if __name__ == "__main__":
     # if they want us to use VNC do that now
     if anaconda.displayMode == 'g' and flags.usevnc:
         runVNC()
-        doStartupX11Actions(opts.runres)
+        doStartupX11Actions()
 
     # with X running we can initialize the UI interface
     anaconda.initInterface()
