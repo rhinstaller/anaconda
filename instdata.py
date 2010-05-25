@@ -232,7 +232,7 @@ class InstallData:
             elif m.startswith("nfs:") or m.startswith("nfsiso:"):
                 if m.count(":") == 3:
                     (method, opts, server, dir) = m.split(":")
-                    f.write("nfs --server=%s --opts=%s --dir=%s" % (server, opts, dir))
+                    f.write("nfs --server=%s --opts=%s --dir=%s\n" % (server, opts, dir))
                 else:
                     (method, server, dir) = m.split(":")
                     f.write("nfs --server=%s --dir=%s\n" % (server, dir))
