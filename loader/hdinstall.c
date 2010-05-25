@@ -339,6 +339,7 @@ char * mountHardDrive(struct installMethod * method,
 void setKickstartHD(struct loaderData_s * loaderData, int argc,
                      char ** argv) {
     char *p;
+    char *substr = NULL;
     gchar *biospart = NULL, *partition = NULL, *dir = NULL;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
@@ -390,6 +391,14 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
         ((struct hdInstallData *)loaderData->stage2Data)->partition = partition;
     if (dir)
         ((struct hdInstallData *)loaderData->stage2Data)->directory = dir;
+
+    if (partition && dir) {
+        /* set repo only if location of stage 2 is not specified explicitly in --dir */
+        substr = strstr(dir, ".img");
+        if (!substr || (substr && *(substr+4) != '\0')) {
+            checked_asprintf(&(loaderData->instRepo), "hd:%s:%s", partition, dir);
+        }
+    }
 
     logMessage(INFO, "results of hd ks, partition is %s, dir is %s", partition,
                dir);
