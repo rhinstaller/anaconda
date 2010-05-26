@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.46\n"
+"Project-Id-Version: anaconda 13.21.47\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-05-25 11:36-1000\n"
+"POT-Creation-Date: 2010-05-26 05:21-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,12 +16,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: anaconda:359
+#: anaconda:371
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:390 rescue.py:353 rescue.py:379 rescue.py:392 rescue.py:468
-#: rescue.py:481 rescue.py:492 text.py:654 loader/cdinstall.c:228
+#: anaconda:402 rescue.py:353 rescue.py:379 rescue.py:392 rescue.py:470
+#: rescue.py:483 rescue.py:494 text.py:654 loader/cdinstall.c:228
 #: loader/cdinstall.c:232 loader/cdinstall.c:248 loader/cdinstall.c:251
 #: loader/cdinstall.c:427 loader/cdinstall.c:431 loader/cdinstall.c:504
 #: loader/dirbrowser.c:128 loader/driverdisk.c:228 loader/driverdisk.c:407
@@ -29,8 +29,8 @@ msgstr ""
 #: loader/driverdisk.c:521 loader/driverdisk.c:533 loader/driverdisk.c:541
 #: loader/driverdisk.c:708 loader/driverdisk.c:747 loader/driverselect.c:78
 #: loader/driverselect.c:178 loader/hdinstall.c:115 loader/hdinstall.c:266
-#: loader/hdinstall.c:325 loader/hdinstall.c:359 loader/hdinstall.c:431
-#: loader/hdinstall.c:474 loader/hdinstall.c:487 loader/kbd.c:119
+#: loader/hdinstall.c:325 loader/hdinstall.c:360 loader/hdinstall.c:440
+#: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kbd.c:119
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:299 loader/kickstart.c:331
 #: loader/kickstart.c:520 loader/lang.c:114 loader/lang.c:373
@@ -50,36 +50,36 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: anaconda:399
+#: anaconda:411
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 
-#: anaconda:532
+#: anaconda:544
 msgid "Starting graphical installation."
 msgstr ""
 
-#: anaconda:889
+#: anaconda:901
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:890
+#: anaconda:902
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:918
+#: anaconda:930
 msgid "Install class forcing text mode installation"
 msgstr ""
 
-#: anaconda:937
+#: anaconda:949
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:945
+#: anaconda:957
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -126,8 +126,8 @@ msgstr ""
 #: loader/cdinstall.c:228 loader/cdinstall.c:504 loader/driverdisk.c:228
 #: loader/driverdisk.c:470 loader/driverdisk.c:505 loader/driverdisk.c:533
 #: loader/driverdisk.c:541 loader/driverdisk.c:608 loader/hdinstall.c:115
-#: loader/hdinstall.c:325 loader/hdinstall.c:431 loader/hdinstall.c:474
-#: loader/hdinstall.c:487 loader/kickstart.c:299 loader/lang.c:114
+#: loader/hdinstall.c:325 loader/hdinstall.c:440 loader/hdinstall.c:483
+#: loader/hdinstall.c:496 loader/kickstart.c:299 loader/lang.c:114
 #: loader/loader.c:414 loader/loader.c:525 loader/loader.c:1137
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/method.c:277 loader/method.c:351
@@ -1204,7 +1204,7 @@ msgid ""
 "rescue mode."
 msgstr ""
 
-#: rescue.py:299 rescue.py:374 rescue.py:385 rescue.py:463 rescue.py:492
+#: rescue.py:299 rescue.py:374 rescue.py:385 rescue.py:465 rescue.py:494
 msgid "Rescue"
 msgstr ""
 
@@ -1274,7 +1274,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:464
+#: rescue.py:466
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1284,21 +1284,21 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: rescue.py:474
+#: rescue.py:476
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr ""
 
-#: rescue.py:477
+#: rescue.py:479
 msgid "Rescue Mode"
 msgstr ""
 
-#: rescue.py:478
+#: rescue.py:480
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: rescue.py:491
+#: rescue.py:493
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr ""
@@ -3498,7 +3498,7 @@ msgstr ""
 msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
-#: loader/driverdisk.c:708 loader/driverdisk.c:747 loader/hdinstall.c:359
+#: loader/driverdisk.c:708 loader/driverdisk.c:747 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
 #: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
@@ -3592,16 +3592,16 @@ msgstr ""
 msgid "Device %s does not appear to contain an installation image."
 msgstr ""
 
-#: loader/hdinstall.c:360
+#: loader/hdinstall.c:361
 #, c-format
 msgid "Bad argument to HD kickstart method command: %s"
 msgstr ""
 
-#: loader/hdinstall.c:432 loader/hdinstall.c:488
+#: loader/hdinstall.c:441 loader/hdinstall.c:497
 msgid "Cannot find kickstart file on hard drive."
 msgstr ""
 
-#: loader/hdinstall.c:475
+#: loader/hdinstall.c:484
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr ""
@@ -4538,7 +4538,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1889 storage/devicetree.py:1937
+#: storage/devicetree.py:1893 storage/devicetree.py:1941
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

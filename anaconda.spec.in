@@ -222,6 +222,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed May 26 2010 David Cantrell <dcantrell@redhat.com> - 13.21.48-1
+- Fixed the setting of LD_LIBRARY_PATH in rescue (mgracik)
+  Resolves: rhbz#594034
+- Set repository in kickstart harddrive command (rvykydal)
+  Resolves: rhbz#592239
+- Give pre-existing mdraid arrays the proper name in the UI (hdegoede)
+  Resolves: rhbz#596227
+- Add nm-c-e translations to stage 2 (rvykydal)
+  Resolves: rhbz#594982
+- set the resolution with resolution= from the cmdline (akozumpl).
+  Resolves: rhbz#594918
+
 * Tue May 25 2010 David Cantrell <dcantrell@redhat.com> - 13.21.47-1
 - Skip the bootloader placement window if we're on UEFI (pjones)
   Resolves: rhbz#582143
