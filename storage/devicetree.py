@@ -1620,7 +1620,11 @@ class DeviceTree(object):
             md_name = devicePathToName(md_info.get("device", ""))
             if md_name:
                 try:
-                    minor = int(md_name[2:])     # strip off leading "md"
+                    # md_name can be either md# or md/#
+                    if md_name.startswith("md/"):
+                        minor = int(md_name[3:])     # strip off leading "md/"
+                    else:
+                        minor = int(md_name[2:])     # strip off leading "md"
                 except (IndexError, ValueError):
                     minor = None
                     md_name = None
