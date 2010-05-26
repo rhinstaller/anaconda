@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-04-15 10:46-0400\n"
-"PO-Revision-Date: 2010-05-26 17:04+1000\n"
+"PO-Revision-Date: 2010-05-26 17:07+1000\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -3838,7 +3838,7 @@ msgid ""
 msgstr ""
 "Последним ядрам (2.4 и новее) требуется значительно больше пространства "
 "подкачки по сравнению с более ранними версиями ядра, вплоть до удвоенного "
-"объема ОЗУ в Вашей системе. Сейчас у Вас выделено для подкачки %d МБ, но вы "
+"объема ОЗУ в системе. Сейчас выделено для подкачки %d МБ, но вы "
 "можете создать дополнительное пространство подкачки на одной из файловых "
 "систем."
 
@@ -4162,7 +4162,7 @@ msgstr "Диск драйверов"
 
 #: loader/driverdisk.c:667
 msgid "Do you have a driver disk?"
-msgstr "У Вас есть диск с драйвером?"
+msgstr "Есть диск с драйверами?"
 
 #: loader/driverdisk.c:676
 msgid "More Driver Disks?"
@@ -4230,7 +4230,7 @@ msgid ""
 "appear and you have a driver disk, press F2."
 msgstr ""
 "Выберите из списка драйвер, который необходимо загрузить. Если драйвера нет "
-"в списке, и у Вас есть диск драйверов, нажмите F2."
+"в списке, но у вас есть диск драйверов, нажмите F2."
 
 #: loader/driverselect.c:180
 msgid "Specify optional module arguments"
@@ -6498,7 +6498,7 @@ msgid ""
 "the passphrase during system boot."
 msgstr ""
 "Выберите пароль для зашифрованного раздела. Ввод пароля будет будет запрошен "
-"при каждой загрузке системы."
+"при загрузке системы."
 
 #: ui/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
