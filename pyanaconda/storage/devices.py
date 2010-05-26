@@ -2019,6 +2019,7 @@ class LVMVolumeGroupDevice(DMDevice):
            lv.size > self.freeSpace:
             raise DeviceError("new lv is too large to fit in free space", self.name)
 
+        log.debug("Adding %s/%dMB to %s" % (lv.name, lv.size, self.name))
         self._lvs.append(lv)
 
     def _removeLogVol(self, lv):
@@ -2081,6 +2082,7 @@ class LVMVolumeGroupDevice(DMDevice):
         # sum up the sizes of the PVs and align to pesize
         size = 0
         for pv in self.pvs:
+            log.debug("PV size == %s" % pv.size)
             size += max(0, self.align(pv.size - pv.format.peStart))
 
         return size
@@ -2536,8 +2538,10 @@ class MDRaidArrayDevice(StorageDevice):
             elif self.level == mdraid.RAID10:
                 size = (self.memberDevices / 2.0) * smallestMemberSize
                 size -= size % self.chunkSize
+            log.debug("non-existant RAID %s size == %s" % (self.level, size))
         else:
             size = self.partedDevice.getSize()
+            log.debug("existing RAID %s size == %s" % (self.level, size))
 
         return size
 
