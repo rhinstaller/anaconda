@@ -22,6 +22,9 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
+import logging
+log = logging.getLogger("anaconda")
+
 class InstallInterfaceBase(object):
     def __init__(self):
         self._warnedUnusedRaidMembers = []
