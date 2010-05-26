@@ -356,6 +356,8 @@ class Network:
         self.overrideDHCPhostname = False
 
         self.update()
+        # We want wireless devices to be nm controlled by default
+        self.controlWireless()
 
     def update(self):
 
@@ -497,6 +499,11 @@ class Network:
             preferred = device.get('ESSID')
             if preferred and preferred in dev_ssids[iface]:
                 dev_ssids[iface] = [preferred]
+
+    def controlWireless(self):
+        for devname, device in self.netdevices.items():
+            if isys.isWireless(devname):
+                device.set(('NM_CONTROLLED', 'yes'))
 
     def writeKS(self, f):
         devNames = self.netdevices.keys()
