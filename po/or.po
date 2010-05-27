@@ -1,4 +1,4 @@
-# translation of anaconda.f-13.or.po to Oriya
+# translation of anaconda.f13-branch.or.po to Oriya
 # translation of or.po to
 # Oriya translation of anaconda.pot
 # Copyright (C) 2006, Red Hat Inc.
@@ -9,10 +9,10 @@
 # Manoj Kumar Giri <mgiri@redhat.com>, 2008, 2009, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.f-13.or\n"
+"Project-Id-Version: anaconda.f13-branch.or\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-03-25 17:57-0500\n"
-"PO-Revision-Date: 2010-04-15 11:48+0530\n"
+"PO-Revision-Date: 2010-05-27 17:57+0530\n"
 "Last-Translator: Manoj Kumar Giri <mgiri@redhat.com>\n"
 "Language-Team: Oriya <Translation-team-or@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -414,19 +414,19 @@ msgstr ""
 
 #: gui.py:1164 gui.py:1222 text.py:495 text.py:553
 msgid "_Ignore"
-msgstr "ଅଗ୍ରାହ୍ଯ କରନ୍ତୁ (_I)"
+msgstr "ଅଗ୍ରାହ୍ଯ (_I)"
 
 #: gui.py:1165 gui.py:1223 text.py:496 text.py:554
 msgid "Ignore _all"
-msgstr "ସମସ୍ତଙ୍କୁ ଅଗ୍ରାହ୍ଯ କରନ୍ତୁ (_a)"
+msgstr "ସମସ୍ତଙ୍କୁ ଅଗ୍ରାହ୍ଯ (_a)"
 
 #: gui.py:1166 gui.py:1224 text.py:497 text.py:555
 msgid "_Re-initialize"
-msgstr "ପୁନଃ ପ୍ରାରମ୍ଭିକୃତ କରନ୍ତୁ (_R)"
+msgstr "ପୁନଃ ପ୍ରାରମ୍ଭିକୃତ (_R)"
 
 #: gui.py:1167 gui.py:1225 text.py:498 text.py:556
 msgid "Re-ini_tialize all"
-msgstr "ସମସ୍ତଙ୍କୁ ପୁନଃ ପ୍ରାରମ୍ଭିକୃତ କରନ୍ତୁ (_t)"
+msgstr "ସମସ୍ତଙ୍କୁ ପୁନଃ ପ୍ରାରମ୍ଭିକୃତ (_t)"
 
 #: gui.py:1215 text.py:546
 #, python-format
@@ -614,7 +614,7 @@ msgstr[0] ""
 "ନୁହଁ। ଡିସ୍କ %s କୁ ଅଗ୍ରାହ୍ୟ କରାଯାଉଛି।"
 msgstr[1] ""
 "ଡିସ୍କ %s BIOS RAID ଅଧିତଥ୍ୟ ଧାରଣ କରିଥାଏ, କିନ୍ତୁ ଏହା କୌଣସି ପରିଚିତ BIOS RAID ସେଟଗୁଡ଼ିକର ଅଂଶ "
-"ନୁହଁ। ଡିସ୍କ %s ଗୁଡ଼ିକୁ ଅଗ୍ରାହ୍ୟ କରାଯାଉଛି।"
+"ନୁହଁ। ଡିସ୍କ %s କୁ ଅଗ୍ରାହ୍ୟ କରାଯାଉଛି।"
 
 #: iutil.py:843
 #, python-format
@@ -1740,8 +1740,8 @@ msgstr "%s କିଲୋ-ବାଇଟ୍"
 #, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
-msgstr[0] "%s ବାଇଟ"
-msgstr[1] "%s ବାଇଟ"
+msgstr[0] "%s Byte"
+msgstr[1] "%s Byte"
 
 #: yuminstall.py:134
 msgid "Preparing to install"
@@ -2398,7 +2398,7 @@ msgstr "ସଂଯୁକ୍ତ"
 #: iw/cleardisks_gui.py:125 iw/filter_gui.py:450 iw/filter_gui.py:480
 #: iw/filter_gui.py:491
 msgid "Serial Number"
-msgstr "କ୍ରମିକ ସଂଖ୍ୟା"
+msgstr "କ୍ରମସଂଖ୍ୟା"
 
 #: iw/cleardisks_gui.py:139
 msgid "Boot"
@@ -2438,7 +2438,7 @@ msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
-"ଅଭିନନ୍ଦନ, ଆପଣଙ୍କ %s ସ୍ଥାପନ ପ୍ରକ୍ରିୟା ଟି ସମ୍ପୂର୍ଣ୍ଣ ହେଲା।\n"
+"ଅଭିନନ୍ଦନ, ଆପଣଙ୍କ %s ସ୍ଥାପନ କ୍ରିୟା ସମ୍ପୂର୍ଣ୍ଣ ହେଲା।\n"
 "\n"
 
 #: iw/congrats_gui.py:77 textw/complete_text.py:42
@@ -3390,7 +3390,7 @@ msgstr ""
 
 #: iw/progress_gui.py:37
 msgid "Installing Packages"
-msgstr "ପ୍ଯାକେଜ ସ୍ଥାପନ କରୁଅଛି"
+msgstr "ପ୍ଯାକେଜ ମାନଙ୍କୁ ସ୍ଥାପନ କରିବା ବିଷୟରେ"
 
 #: iw/raid_dialog_gui.py:382
 msgid ""
@@ -3400,10 +3400,9 @@ msgid ""
 "First create at least two partitions of type \"software RAID\", and then "
 "select the \"RAID\" option again."
 msgstr ""
-"ଗୋଟିଏ RAID ଉପକରଣ ସୃଷ୍ଟି କରିବା ପାଇଁ ଅତିକମରେ ଦୁଇଟି ଅବ୍ଯବହୃତ ସଫଟୱେର RAID "
-"ବିଭାଜନ ଆବଶ୍ୟକ।\n"
+"ଗୋଟିଏ ରେଡ ଉପକରଣ ସୃଷ୍ଟି କରିବା ପାଇଁ ଅତିକମରେ ଦୁଇଟି ଅବ୍ଯବହୃତ ସଫଟୱେର ରେଡ ବିଭାଜନ ଆବଶ୍ୟକ।\n"
 "\n"
-"ପ୍ରଥମେ ଅତିକମରେ \"ସଫଟୱେର ପ୍ରକାରର\" ଦୁଇଟି ବିଭାଜନ ସୃଷ୍ଟି କରନ୍ତୁ, ଏବଂ ପରେ ପୁନର୍ବାର \"RAID\" "
+"ପ୍ରଥମେ ଅତିକମରେ \"ସଫଟୱେର ପ୍ରକାରର\" ଦୁଇଟି ବିଭାଜନ ସୃଷ୍ଟି କରନ୍ତୁ, ଏବଂ ପରେ ପୁନର୍ବାର \"ରେଡ\" "
 "ବିକଳ୍ପକୁ ଚୟନ କରନ୍ତୁ।"
 
 #: iw/raid_dialog_gui.py:396
@@ -6309,21 +6308,21 @@ msgid ""
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
 msgstr ""
-"<b>ସୂଚନା:</b> ଏହି ପରଦାରେ ଗୋଟିଏ ଡ୍ରାଇଭକୁ ଚୟନ କରିବା ଅର୍ଥ ନୁହଁ ଯେ ଏହା ସ୍ଥାପନ କ୍ରିୟା ଦ୍ୱାରା "
-"ଅପସାରିତ ହୋଇଯିବ।  ଏବଂ ମଧ୍ଯ, ମନେରଖନ୍ତୁ ଯେ ସ୍ଥାପନ କ୍ରିୟା ପରେ ଆପଣ /etc/fstab ଫାଇଲକୁ "
-"ପରିବର୍ତ୍ତନ କରି ବାଛିନଥିବା ଡ୍ରାଇଭଗୁଡ଼ିକୁ ସ୍ଥାପନ କରିପାରିବେ।"
+"<b>ସୂଚନା:</b> ଏହି ପରଦାରେ ଡ୍ରାଇଭକୁ ଚୟନ କରିବା ଅର୍ଥ ନୁହଁ ଯେ ଏହା ସ୍ଥାପନ କ୍ରିୟା"
+"ଦ୍ୱାରା ଅପସାରିତ ହେବ। ଏବଂ ମଧ୍ଯ, ମନେରଖନ୍ତୁ ଯେ ସ୍ଥାପନ କ୍ରିୟା ପରେ ଆପଣ /etc/fstab "
+"ଫାଇଲକୁ ପରିବର୍ତ୍ତନ କରି ବାଛିନଥିବା ଡ୍ରାଇଭଗୁଡ଼ିକୁ ସ୍ଥାପନ କରିପାରିବେ।"
 
 #: ui/filter.glade.h:4
 msgid "Add Advanced Target"
-msgstr "ଉନ୍ନତ ଲକ୍ଷ୍ଯସ୍ଥଳକୁ ଯୋଗ କରନ୍ତୁ"
+msgstr "ଉନ୍ନତ ଲକ୍ଷ୍ଯକୁ ଯୋଡ଼ନ୍ତୁ"
 
 #: ui/filter.glade.h:5
 msgid "Basic Devices"
-msgstr "ମୌଳିକ ଉପକରଣଗୁଡ଼ିକ"
+msgstr "ମୂଳ ଉପକରଣ"
 
 #: ui/filter.glade.h:6
 msgid "Filter By:"
-msgstr "ଏହା ଦ୍ୱାରା ଛଣାହୋଇଥାଏ:"
+msgstr "ଏହା ଦ୍ୱାରା ଛଣାହୋଇଛି:"
 
 #: ui/filter.glade.h:7
 msgid "Firmware RAID"
@@ -6339,7 +6338,7 @@ msgid ""
 "Vendor\n"
 "Identifier"
 msgstr ""
-"ପରସ୍ପର ସହିତ ସଂଯୁକ୍ତ\n"
+"ଅନ୍ତଃ ସଂଯୁକ୍ତ\n"
 "ବିକ୍ରେତା\n"
 "ପରିଚାୟକ"
 
@@ -6349,19 +6348,19 @@ msgstr "LUN:"
 
 #: ui/filter.glade.h:13
 msgid "Multipath Devices"
-msgstr "ଏକାଧିକ ପଥ ବିଶିଷ୍ଟ ଉପକରଣ"
+msgstr "ବହୁପଥ ଉପକରଣ"
 
 #: ui/filter.glade.h:14
 msgid "Other SAN Devices"
-msgstr "ଅନ୍ୟାନ୍ୟ SAN ଉପକରଣମାନ"
+msgstr "ଅନ୍ୟ SAN ଉପକରଣ"
 
 #: ui/filter.glade.h:15
 msgid ""
 "Please select the drives you'd like to install the operating system on, as "
 "well as any drives you'd like to automatically mount to your system, below:"
 msgstr ""
-"ପ୍ରଚାଳନ ତନ୍ତ୍ରକୁ ସ୍ଥାପନ କରିବା ପାଇଁ ଚାହୁଁଥିବା ଡ୍ରାଇଭଗୁଡ଼ିକୁ ଦୟାକରି ବାଛନ୍ତୁ, ଏବଂ ମଧ୍ଯ କୌଣସି ଡ୍ରାଇଭ "
-"ଯାହାକୁ ଆପଣ ସ୍ୱୟଂଚାଳିତ ଭାବରେ ଆପଣଙ୍କ ତନ୍ତ୍ରରେ ସ୍ଥାପନ କରିବାକୁ ପସନ୍ଦକରୁଛନ୍ତି, ନିମ୍ନରେ:"
+"ପ୍ରଚାଳନ ତନ୍ତ୍ରକୁ ସ୍ଥାପନ କରିବା ପାଇଁ ଡ୍ରାଇଭଗୁଡ଼ିକୁ ଦୟାକରି ବାଛନ୍ତୁ, ଏବଂ ନିମ୍ନରେ"
+"ସ୍ୱୟଂଚାଳିତ ଭାବେ ତନ୍ତ୍ରରେ ସ୍ଥାପନ କରିବାକୁ ପସନ୍ଦକରୁଥିବା ଡ୍ରାଇଭକୁ ମଧ୍ଯ ବାଛନ୍ତୁ:"
 
 #: ui/filter.glade.h:16
 msgid ""
