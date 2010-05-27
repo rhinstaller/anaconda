@@ -1,4 +1,4 @@
-# translation of fr.po to French
+# translation of anaconda.rhel6-branch.fr.po to French
 # Copyright (C) 2001-2008 Red Hat, Inc.
 #
 #
@@ -16,10 +16,10 @@
 # Sam Friedmann <sam.friedmann@redhat.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: fr\n"
+"Project-Id-Version: anaconda.rhel6-branch.fr\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-05-26 05:21-1000\n"
-"PO-Revision-Date: 2010-05-27 12:00+1000\n"
+"PO-Revision-Date: 2010-05-27 14:05+1000\n"
 "Last-Translator: Sam Friedmann <sam.friedmann@redhat.com>\n"
 "Language-Team: French <French fedora-trans-fr@fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -375,12 +375,12 @@ msgstr "En attente de NetworkManager"
 #: gui.py:1001
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
-msgstr "Veuillez patienter pendant que NetworkManager active ces périphériques&nbsp;: %s"
+msgstr "Veuillez patienter pendant que NetworkManager active ces périphériques : %s"
 
 #: gui.py:1022
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
-msgstr "Échec de l'activation de ces interfaces réseaux&nbsp;: %s"
+msgstr "Échec de l'activation de ces interfaces réseaux : %s"
 
 #: gui.py:1025
 msgid "Network Configuration"
@@ -639,7 +639,7 @@ msgid ""
 "installation, the device must be formatted.  Formatting will remove any data "
 "on this device."
 msgstr ""
-"Formater le périphérique DASD non-initialisé&nbsp;?\n"
+"Formater le périphérique DASD non-initialisé ?\n"
 "\n"
 "Il y a %d périphérique DASD non-initialisé sur ce système. Pour continuer "
 "l'installation, le périphérique doit être formaté. Le formatage supprimera "
@@ -783,7 +783,7 @@ msgid ""
 "%s"
 msgstr ""
 "L'erreur suivante est apparue lors du téléchargement du certificat "
-"escrow&nbsp;:\n"
+"escrow :\n"
 "\n"
 "%s"
 
@@ -2402,7 +2402,7 @@ msgstr ""
 "Supprime toutes les partitions sur le(s) périphérique(s) sélectionné(s). "
 "Cela inclut les partitions créées par d'autres systèmes d'exploitation.\n"
 "\n"
-"<b>Astuce&nbsp;:</b> Cette option supprimera les données du (ou des) "
+"<b>Astuce :</b> Cette option supprimera les données du (ou des) "
 "périphérique(s) sélectionné(s). Assurez-vous de bien faire des copies de "
 "sauvegardes."
 
@@ -2424,7 +2424,7 @@ msgstr ""
 "pourriez avoir sur votre (ou vos) périphérique(s) de stockage (tel que VFAT "
 "ou FAT32). \n"
 "\n"
-"<b>Astuce&nbsp;:</b> Cette option supprimera les données du (ou des) "
+"<b>Astuce :</b> Cette option supprimera les données du (ou des) "
 "périphérique(s) sélectionné(s). Assurez-vous de bien faire des copies de "
 "sauvegarde."
 
@@ -2587,7 +2587,7 @@ msgid ""
 "<b>Tip:</b> All Linux filesystems on install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
 msgstr ""
-"<b>Astuce&nbsp;:</b> Tous les systèmes de fichiers Linux sur des "
+"<b>Astuce :</b> Tous les systèmes de fichiers Linux sur des "
 "périphériques cibles d'installation seront reformatés et toutes leurs "
 "données seront effacées. Assurez-vous d'avoir des copies de sauvegarde."
 
@@ -2596,7 +2596,7 @@ msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
-"<b>Astuce&nbsp;:</b> Les périphériques cibles d'installation seront "
+"<b>Astuce :</b> Les périphériques cibles d'installation seront "
 "reformatés et leurs données effacées. Assurez-vous d'avoir des copies de "
 "sauvegarde."
 
@@ -2605,7 +2605,7 @@ msgid ""
 "<b>Tip:</b> Your filesystems on install target devices will not be wiped "
 "unless you choose to do so during customization."
 msgstr ""
-"<b>Astuce&nbsp;:</b> Les systèmes de fichiers de vos périphériques cibles "
+"<b>Astuce :</b> Les systèmes de fichiers de vos périphériques cibles "
 "d'installation ne seront pas effacés à moins que vous ne le choisissiez lors "
 "de la personnalisation."
 
@@ -2697,12 +2697,12 @@ msgid ""
 "would you like to do?"
 msgstr ""
 "Au moins une installation a été détectée sur votre système. Que souhaitez-"
-"vous faire&nbsp;?"
+"vous faire ?"
 
 #: iw/examine_gui.py:124
 #, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "<b>Quelle installation %s souhaitez-vous mettre à niveau&nbsp;?</b>"
+msgstr "<b>Quelle installation %s souhaitez-vous mettre à niveau ?</b>"
 
 #: iw/examine_gui.py:138
 msgid "Unknown Linux system"
@@ -2748,7 +2748,7 @@ msgstr "LUN"
 
 #: iw/filter_type.py:55
 msgid "What type of devices will your installation involve?"
-msgstr "Quel type de périphériques contient votre installation&nbsp;?"
+msgstr "Quel type de périphériques contient votre installation ?"
 
 #: iw/filter_type.py:61
 msgid "Basic Storage Devices"
@@ -5589,7 +5589,7 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %(extra)s"
 msgstr ""
-"Les erreurs suivantes ont eu lieu lors du partitionnement&nbsp;:\n"
+"Les erreurs suivantes ont eu lieu lors du partitionnement :\n"
 "\n"
 "%(errortxt)s\n"
 "\n"
@@ -6139,7 +6139,7 @@ msgstr ""
 
 #: ui/autopart.glade.h:4
 msgid "Which type of installation would you like?"
-msgstr "Quel type d'installation souhaitez-vous&nbsp;?"
+msgstr "Quel type d'installation souhaitez-vous ?"
 
 #: ui/autopart.glade.h:5
 msgid "_Encrypt system"
@@ -6333,7 +6333,7 @@ msgid ""
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
 msgstr ""
-"<b>Astuce&nbsp;:</b> La sélection d'un disque sur cet écran ne signifie pas "
+"<b>Astuce :</b> La sélection d'un disque sur cet écran ne signifie pas "
 "que celui-ci sera obligatoirement effacé par le processus d'installation. "
 "Remarquez aussi que vous pourrez monter des disques que vous n'avez pas "
 "installé ici, ceci peut être réalisé en modifiant votre fichier /etc/fstab "
@@ -6349,7 +6349,7 @@ msgstr "Périphériques basiques"
 
 #: ui/filter.glade.h:6
 msgid "Filter By:"
-msgstr "Filtrer par&nbsp;:"
+msgstr "Filtrer par :"
 
 #: ui/filter.glade.h:7
 msgid "Firmware RAID"
@@ -6357,7 +6357,7 @@ msgstr "RAID micrologiciel"
 
 #: ui/filter.glade.h:8
 msgid "Identifier:"
-msgstr "Identificateur&nbsp;:"
+msgstr "Identificateur :"
 
 #: ui/filter.glade.h:9
 msgid ""
@@ -6371,7 +6371,7 @@ msgstr ""
 
 #: ui/filter.glade.h:12
 msgid "LUN:"
-msgstr "LUN&nbsp;:"
+msgstr "LUN :"
 
 #: ui/filter.glade.h:13
 msgid "Multipath Devices"
@@ -6388,7 +6388,7 @@ msgid ""
 msgstr ""
 "Veuillez sélectionner ci-dessous les disques sur lesquels vous souhaitez "
 "installer le système d'exploitation, ainsi que tout autre disque que vous "
-"souhaiteriez monter automatiquement sur votre système&nbsp;:"
+"souhaiteriez monter automatiquement sur votre système :"
 
 #: ui/filter.glade.h:16
 msgid ""
@@ -6400,7 +6400,7 @@ msgstr ""
 
 #: ui/filter.glade.h:18
 msgid "Port:"
-msgstr "Port&nbsp;:"
+msgstr "Port :"
 
 #: ui/filter.glade.h:19
 msgid "Search"
@@ -6408,27 +6408,27 @@ msgstr "Rechercher"
 
 #: ui/filter.glade.h:20
 msgid "Search By:"
-msgstr "Rechercher par &nbsp;:"
+msgstr "Rechercher par :"
 
 #: ui/filter.glade.h:21
 msgid "Search Results:"
-msgstr "Résultats de la recherche&nbsp;:"
+msgstr "Résultats de la recherche :"
 
 #: ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
-msgstr "Afficher les identificateurs qui incluent&nbsp;:"
+msgstr "Afficher les identificateurs qui incluent :"
 
 #: ui/filter.glade.h:23
 msgid "Show Only Devices From:"
-msgstr "Uniquement afficher les périphériques de&nbsp;:"
+msgstr "Uniquement afficher les périphériques de :"
 
 #: ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr "Uniquement afficher les périphériques utilisant&nbsp;:"
+msgstr "Uniquement afficher les périphériques utilisant :"
 
 #: ui/filter.glade.h:25
 msgid "Target:"
-msgstr "Cible&nbsp;:"
+msgstr "Cible :"
 
 #: ui/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
