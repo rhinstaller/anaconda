@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-05-26 16:59-0400\n"
-"PO-Revision-Date: 2010-05-27 10:59+1000\n"
+"PO-Revision-Date: 2010-05-27 11:06+1000\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -378,19 +378,18 @@ msgid "Waiting for NetworkManager"
 msgstr "Ожидание NetworkManager"
 
 #: gui.py:1012
-#, fuzzy, python-format
+#, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
-msgstr "Ожидание настройки %s с помощью NetworkManager.\n"
+msgstr "Ожидание активации устройств с помощью NetworkManager: %s"
 
 #: gui.py:1033
-#, fuzzy, python-format
+#, python-format
 msgid "Failed to activate these network interfaces: %s"
-msgstr "Активировать сетевые интерфейсы этой системы?"
+msgstr "Не удалось активировать сетевые интерфейсы: %s"
 
 #: gui.py:1036
-#, fuzzy
 msgid "Network Configuration"
-msgstr "Настройка VNC"
+msgstr "Настройка сети"
 
 #: gui.py:1045
 #, python-format
@@ -398,9 +397,8 @@ msgid "An error occurred trying to bring up the %s network interface."
 msgstr "Произошла ошибка при включении сетевого интерфейса %s."
 
 #: gui.py:1047
-#, fuzzy
 msgid "Error Enabling Network"
-msgstr "Ошибка при настройке сети"
+msgstr "Ошибка при активации сети"
 
 #: gui.py:1174 text.py:393
 msgid "Error Parsing Kickstart Config"
@@ -2209,13 +2207,13 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: installclasses/rhel.py:34
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
 msgstr ""
-"Стандартная установка %s включает минимальный набор программ. Поддержку "
-"каких дополнительных задач вы хотели бы включить?"
+"Стандартная установка %s включает минимальный набор программ. По желанию "
+"можно выбрать другой набор программ."
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2514,11 +2512,12 @@ msgid "Serial Number"
 msgstr "Серийный номер"
 
 #: iw/cleardisks_gui.py:144
-#, fuzzy
 msgid ""
 "Boot\n"
 "Loader"
-msgstr "Загрузчик"
+msgstr ""
+"Загруз-\n"
+"чик"
 
 #: iw/cleardisks_gui.py:184
 msgid ""
@@ -2863,9 +2862,8 @@ msgstr "Точка _монтирования:"
 
 #: iw/lvm_dialog_gui.py:601 iw/partition_dialog_gui.py:118
 #: iw/raid_dialog_gui.py:176
-#, fuzzy
 msgid "Mount Point Error"
-msgstr "Точка монтирования"
+msgstr "Ошибка точки подключения"
 
 #: iw/lvm_dialog_gui.py:611
 msgid "Illegal Logical Volume Name"
@@ -2913,16 +2911,15 @@ msgstr ""
 "пространстве диска и добавить их в эту группу томов (VG)."
 
 #: iw/lvm_dialog_gui.py:719
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
 "size of the other logical volume(s) exceeds the size of the volume group (%"
 "(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
-"Для настроенных логических томов потребуется %(size)d МБ пространства, но в "
-"группе томов доступно всего %(tempvgsize)d МБ. Либо увеличьте размер группы "
-"томов, либо уменьшите размер отдельных логических томов."
+"Требуемый объём пространства для этого логического тома (размером %(size)d МБ) и других логических томов превышает размер группы томов (%(tempvgsize)d МБ). Либо увеличьте размер группы "
+"томов, либо уменьшите размер логического тома."
 
 #: iw/lvm_dialog_gui.py:829
 msgid "No free slots"
@@ -3073,9 +3070,8 @@ msgstr ""
 "%(herrors)s"
 
 #: iw/network_gui.py:133
-#, fuzzy
 msgid "Select network interfaces"
-msgstr "Включить сетевой интерфейс"
+msgstr "Выбор сетевых интерфейсов"
 
 #: iw/network_gui.py:142 textw/netconfig_text.py:91
 msgid ""
@@ -3087,7 +3083,7 @@ msgstr ""
 
 #: iw/network_gui.py:195
 msgid "Select which devices should be configured with NetworkManager."
-msgstr ""
+msgstr "Выберите устройства для настройки с помощью NetworkManager."
 
 #: iw/network_gui.py:254
 #, fuzzy
@@ -4781,13 +4777,12 @@ msgstr ""
 "повторите попытку."
 
 #: storage/__init__.py:119
-#, fuzzy
 msgid "No disks found"
-msgstr "Драйверы не найдены"
+msgstr "Диски не найдены"
 
 #: storage/__init__.py:120
 msgid "No usable disks have been found."
-msgstr ""
+msgstr "Не найдены диски, доступные для использования."
 
 #: storage/__init__.py:131
 msgid "Installation cannot continue."
@@ -5372,12 +5367,11 @@ msgstr "Сканирование узлов iSCSI"
 
 #: storage/iscsi.py:135
 msgid "Unable to change iSCSI initiator name once set"
-msgstr ""
+msgstr "Невозможно изменить установленное имя инициатора iSCSI."
 
 #: storage/iscsi.py:137
-#, fuzzy
 msgid "Must provide an iSCSI initiator name"
-msgstr "Необходимо указать имя инициатора."
+msgstr "Необходимо указать имя инициатора iSCSI."
 
 #: storage/iscsi.py:177 storage/iscsi.py:178
 msgid "Initializing iSCSI initiator"
