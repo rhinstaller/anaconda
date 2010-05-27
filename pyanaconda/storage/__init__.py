@@ -84,6 +84,7 @@ def storageInitialize(anaconda):
     # ignore, etc.  Luckily that's all in the kickstart data.
     if anaconda.ksdata:
         anaconda.storage.zeroMbr = anaconda.ksdata.zerombr.zerombr
+        anaconda.storage.ignoreDiskInteractive = ksdata.ignoredisk.interactive
         anaconda.storage.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
         anaconda.storage.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
 
@@ -258,6 +259,7 @@ class Storage(object):
         self.anaconda = anaconda
 
         # storage configuration variables
+        self.ignoreDiskInteractive = False
         self.ignoredDisks = []
         self.exclusiveDisks = []
         self.doAutoPart = False
@@ -1110,7 +1112,9 @@ class Storage(object):
         f.write("#clearpart %s\n" % " ".join(args))
 
         # ignoredisks
-        if self.ignoredDisks:
+        if self.ignoreDiskInteractive:
+            f.write("#ignoredisk --interactive\n")
+        elif self.ignoredDisks:
             f.write("#ignoredisk --drives=%s\n" % ",".join(self.ignoredDisks))
         elif self.exclusiveDisks:
             f.write("#ignoredisk --only-use=%s\n" % ",".join(self.exclusiveDisks))

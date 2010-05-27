@@ -351,9 +351,9 @@ class Firewall(commands.firewall.F10_Firewall):
         for svc in self.services:
             anaconda.firewall.servicelist.append (svc)
 
-class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
+class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
     def parse(self, args):
-        retval = commands.ignoredisk.F8_IgnoreDisk.parse(self, args)
+        retval = commands.ignoredisk.RHEL6_IgnoreDisk.parse(self, args)
 
         # See comment in ClearPart.parse
         drives = []
@@ -379,9 +379,11 @@ class IgnoreDisk(commands.ignoredisk.F8_IgnoreDisk):
         return retval
 
     def execute(self, anaconda):
+        anaconda.storage.ignoreDiskInteractive = self.interactive
         anaconda.storage.ignoredDisks = self.ignoredisk
         anaconda.storage.exclusiveDisks = self.onlyuse
-        anaconda.ksdata.skipSteps.extend(["filter", "filtertype"])
+        if not self.interactive:
+            anaconda.ksdata.skipSteps.extend(["filter", "filtertype"])
 
 class Iscsi(commands.iscsi.F10_Iscsi):
     def parse(self, args):
@@ -1432,6 +1434,7 @@ def setSteps(anaconda):
         # Don't show confirmation screens on non-interactive installs.
         dispatch.skipStep("welcome")
 
+    if not interactive and not anaconda.storage.ignoreDiskInteractive:
         # Since ignoredisk is optional and not specifying it means you want to
         # consider all possible disks, we should not stop on the filter steps
         # unless it's an interactive install.
