@@ -245,6 +245,7 @@ class Storage(object):
         self.anaconda = anaconda
 
         # storage configuration variables
+        self.ignoreDiskInteractive = False
         self.ignoredDisks = []
         self.exclusiveDisks = []
         self.doAutoPart = False
@@ -1101,7 +1102,9 @@ class Storage(object):
         f.write("#clearpart %s\n" % " ".join(args))
 
         # ignoredisks
-        if self.ignoredDisks:
+        if self.ignoreDiskInteractive:
+            f.write("#ignoredisk --interactive\n")
+        elif self.ignoredDisks:
             f.write("#ignoredisk --drives=%s\n" % ",".join(self.ignoredDisks))
         elif self.exclusiveDisks:
             f.write("#ignoredisk --only-use=%s\n" % ",".join(self.exclusiveDisks))

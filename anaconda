@@ -1091,6 +1091,7 @@ if __name__ == "__main__":
         # Before we set up the storage system, we need to know which disks to
         # ignore, etc.  Luckily that's all in the kickstart data.
         anaconda.id.storage.zeroMbr = ksdata.zerombr.zerombr
+        anaconda.id.storage.ignoreDiskInteractive = ksdata.ignoredisk.interactive
         anaconda.id.storage.ignoredDisks = ksdata.ignoredisk.ignoredisk
         anaconda.id.storage.exclusiveDisks = ksdata.ignoredisk.onlyuse
 
