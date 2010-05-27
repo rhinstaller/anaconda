@@ -83,10 +83,25 @@ def sanityCheckMountPoint(mntpt):
     """Sanity check that the mountpoint is valid.
 
     mntpt is the mountpoint being used.
+
+    The Rules
+        Start with one /
+        Don't end with /
+        No spaces
+        No /../
+        No /./
+        No //
+        Don't end with /..
+        Don't end with /.
     """
     if not mntpt.startswith("/") or \
        (len(mntpt) > 1 and mntpt.endswith("/")) or \
-       " " in mntpt:
+       " " in mntpt or \
+       "/../" in mntpt or \
+       "/./" in mntpt or \
+       "//" in mntpt or \
+       mntpt.endswith("/..") or \
+       mntpt.endswith("/.") :
            return _("The mount point %s is invalid.  Mount points must start "
                     "with '/' and cannot end with '/', and must contain "
                     "printable characters and no spaces.") % mntpt
