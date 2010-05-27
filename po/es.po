@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch.es\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-05-11 10:33-1000\n"
-"PO-Revision-Date: 2010-05-12 12:03+1000\n"
+"PO-Revision-Date: 2010-05-27 15:39+1000\n"
 "Last-Translator: Gladys Guerrero  <gguerrer@redhat.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -601,17 +601,17 @@ msgid ""
 "This action may also be applied to all other disks needing reinitialization.%"
 "(details)s"
 msgstr ""
-"Error processing drive:\n"
+"Error al procesar unidad:\n"
 "\n"
 "%(path)s\n"
 "%(size)-0.fMB\n"
 "%(description)s\n"
 "\n"
-"This device may need to be reinitialized.\n"
+"Este dispositivo necesita ser reinicializado.\n"
 "\n"
-"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
+"LA REINICIALIZACIÓN PUEDE OCASIONAR LA PÉRDIDA DE DATOS!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization.%"
+"Esta acción también puede aplicarse a los demás discos que requieren reinicialización.%"
 "(details)s"
 
 # ../gui.py:113 ../text.py:284
@@ -882,11 +882,11 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Los programas que ha seleccionado para instalar requerirán los siguientes %"
-"(productName)s %(productVersion)sdiscos:\n"
+"El software que ha seleccionado para instalar requerirá los siguientes %"
+"(productName)s %(productVersion)s discos:\n"
 "\n"
 "%(reqcdstr)s\n"
-"Por favor téngalos listos antes de seguir con la instalación. Si necesita "
+"Por favor téngalos listos antes de proseguir. Si necesita "
 "abortar la instalación y salir por favor seleccione \"Reiniciar\"."
 
 # ../gui.py:603 ../loader/cdrom.c:34 ../loader/devices.c:93
@@ -1773,14 +1773,14 @@ msgstr "Está a punto de borrar el %(type)s %(name)s"
 # ../partitioning.py:1584
 #: partIntfHelpers.py:349
 msgid "Confirm Reset"
-msgstr "Confirmar el reinicio"
+msgstr "Confirmar restablecer"
 
 # ../partitioning.py:1562
 # ../partitioning.py:1582
 # ../partitioning.py:1585
 #: partIntfHelpers.py:350
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr "¿Está seguro de querer reiniciar la tabla de partición a su estado original?"
+msgstr "¿Está seguro de querer restablecer la tabla de partición a su estado original?"
 
 # ../iw/partition_gui.py:724 ../textw/partition_text.py:147
 # ../iw/partition_gui.py:724 ../textw/partition_text.py:147
@@ -2918,7 +2918,7 @@ msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Pareciera que está actualizando desde un sistema que es demasiado antiguo "
+"Parece que está actualizando desde un sistema demasiado antiguo "
 "para ser actualizado a la versión %s. ¿Está seguro de que desea continuar "
 "con el proceso de actualización?"
 
@@ -3206,7 +3206,7 @@ msgstr "%(name)s: %(msg)s"
 # ../packages.py:609
 #: iw/autopart_type.py:228
 msgid "Use All Space"
-msgstr "Usar Todo el Espacio"
+msgstr "Usar todo el espacio"
 
 #: iw/autopart_type.py:230
 msgid ""
@@ -3220,11 +3220,11 @@ msgstr ""
 "incluye las particiones creadas por otros sistemas operativos.\n"
 "\n"
 "<b>Consejo:</b> Esta opción eliminará los datos de los dispositivos "
-"seleccionados. Asegúrese que realizó respaldos."
+"seleccionados. Asegúrese de hacer copias de seguridad."
 
 #: iw/autopart_type.py:236
 msgid "Replace Existing Linux System(s)"
-msgstr "Reemplazar el Sistema Linux existente"
+msgstr "Remplazar sistema(s) Linux existente(s)"
 
 #: iw/autopart_type.py:238
 msgid ""
@@ -3240,16 +3240,16 @@ msgstr ""
 "almacenamiento (tales como VFAT o FAT32).\n"
 "\n"
 "<b>Consejo:</b> Esta opción eliminará los datos de los dispositivos "
-"seleccionados. Asegúrese que realizó respaldos."
+"seleccionados. Asegúrese de hacer copias de seguridad."
 
 #: iw/autopart_type.py:246
 msgid "Shrink Current System"
-msgstr "Achicar el Sistema Actual"
+msgstr "Achicar el sistema Actual"
 
 #: iw/autopart_type.py:248
 msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
-"Achica las particiones existentes para hacer espacio para el diseño "
+"Achica las particiones existentes para dar campo al diseño "
 "predeterminado."
 
 # ../iw/partition_gui.py:642 ../textw/partition_text.py:75
@@ -3260,7 +3260,7 @@ msgstr ""
 # ../textw/partition_text.py:114
 #: iw/autopart_type.py:250
 msgid "Use Free Space"
-msgstr "Usar el Espacio Libre"
+msgstr "Usar el espacio libre"
 
 #: iw/autopart_type.py:252
 msgid ""
@@ -3274,7 +3274,7 @@ msgstr ""
 
 #: iw/autopart_type.py:256
 msgid "Create Custom Layout"
-msgstr "Crear un Diseño Personalizado."
+msgstr "Crear un diseño personalizado."
 
 #: iw/autopart_type.py:258
 msgid ""
@@ -3282,7 +3282,7 @@ msgid ""
 "partitioning tool."
 msgstr ""
 "Crear manualmente su propio diseño en los dispositivos seleccionados usando "
-"nuestra herramienta de particionado."
+"nuestra herramienta de particionamiento."
 
 # ../textw/bootloader_text.py:384
 # ../textw/bootloader_text.py:384
@@ -3841,7 +3841,7 @@ msgstr "Tamaño (MB)"
 #: iw/lvm_dialog_gui.py:464
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr "El tamaño máximo es de %s MB)"
+msgstr "(El tamaño máximo es de %s MB)"
 
 #: iw/lvm_dialog_gui.py:469 iw/partition_dialog_gui.py:518
 #: iw/partition_ui_helpers_gui.py:336 iw/raid_dialog_gui.py:414
@@ -4528,7 +4528,7 @@ msgstr "Particionamiento"
 
 #: iw/partition_gui.py:846
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr "El esquema de particionado que pidió causó los siguientes errores críticos."
+msgstr "El esquema de particionamiento que pidió causó los siguientes errores críticos."
 
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
@@ -4536,9 +4536,7 @@ msgstr "El esquema de particionado que pidió causó los siguientes errores crí
 #: iw/partition_gui.py:848
 #, python-format
 msgid "You must correct these errors before you continue your installation of %s."
-msgstr ""
-"Estos errores deben ser corregidos antes de continuar con la instalación de %"
-"s."
+msgstr "Estos errores deben ser corregidos antes de continuar con la instalación de %s."
 
 # ../iw/partition_gui.py:553
 # ../iw/partition_gui.py:553
@@ -4549,7 +4547,7 @@ msgstr "Errores de particionamiento"
 
 #: iw/partition_gui.py:861
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr "El esquema de particionado que pidió generó las siguientes advertencias."
+msgstr "El esquema de particionamiento que pidió generó las siguientes advertencias."
 
 # ../iw/partition_gui.py:561
 # ../iw/partition_gui.py:561
@@ -7095,9 +7093,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"No ha definido una partición root (/), necesaria para que la instalación de %"
-"s continúe."
+msgstr "No ha definido una partición root (/), necesaria para que la instalación de %s continúe."
 
 # ../partitioning.py:551
 # ../partitioning.py:566
@@ -7392,11 +7388,11 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Se ha producido un error al intentar crear %s.  Algún elemento de este path "
-"no es un directorio.  Este es un error fatal y la instalación no puede "
+"Se ha producido un error al intentar crear %s.  Algún elemento de esta ruta "
+"no es un directorio. Este es un error fatal y la instalación no puede "
 "continuar.\n"
 "\n"
-"Pulse <enter> para salir del instalador."
+"Pulse <Enter> para salir del instalador."
 
 # ../fsset.py:828
 # ../fsset.py:900
@@ -7412,7 +7408,7 @@ msgstr ""
 "Se ha producido un error al intentar crear %(mountpoint)s: %(msg)s.  Este es "
 "un error fatal, y la instalación no puede continuar.\n"
 "\n"
-"Pulse <enter> para salir del instalador."
+"Pulse <Enter> para salir del instalador."
 
 # ../gui.py:476
 # ../gui.py:476
@@ -7426,9 +7422,7 @@ msgstr "No se pudo montar el sistema de archivo"
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
 "continue installation, but there may be problems."
-msgstr ""
-"Ocurrió un error cuando se montaba el dispositivo %(path)s como %(mountpoint)"
-"s. Puede continuar la instalación, pero pueden haber problemas."
+msgstr "Ocurrió un error cuando se montaba el dispositivo %(path)s como %(mountpoint)s. Puede continuar la instalación, pero pueden haber problemas."
 
 # ../fsset.py:828
 # ../fsset.py:900
@@ -7516,10 +7510,10 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
-"Seguro que deseas no escribir una contraseña para este dispositivo? %s\n"
+"¿Está seguro de que no desea ingresar una contraseña para este dispositivo? %s\n"
 "\n"
-"Si omites este paso, los contenidos del dispositivo no estarán disponibles "
-"durante la instalación. "
+"Si omite este paso, los contenidos del dispositivo no estarán disponibles "
+"durante la instalación."
 
 # ../partitioning.py:1631
 # ../partitioning.py:1651
@@ -7704,7 +7698,7 @@ msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
-"No se pudo encontrar espacio libre suficiente para el particionado "
+"No se pudo encontrar espacio libre suficiente para el particionamiento "
 "automático. Presione 'Aceptar' para salir del instalador."
 
 #: storage/partitioning.py:194
@@ -7712,8 +7706,8 @@ msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
-"No se pudo encontrar espacio libre suficiente para el particionado "
-"automático, por favor, use otro método de particionado."
+"No se pudo encontrar espacio libre suficiente para el particionamiento "
+"automático, por favor, use otro método de particionamiento."
 
 # ../autopart.py:890
 # ../autopart.py:897
@@ -7772,7 +7766,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Presione Aceptar para elegir una opción de particionado diferente."
+"Presione Aceptar para elegir una opción de particionamiento diferente."
 
 # ../iw/partition_gui.py:1578 ../textw/partition_text.py:1052
 # ../iw/partition_gui.py:1580 ../textw/partition_text.py:1052
@@ -7791,7 +7785,7 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation. %(extra)s"
 msgstr ""
-"Se produjeron los siguientes errores con su particionado:\n"
+"Se produjeron los siguientes errores con su particionamiento:\n"
 "\n"
 "%(errortxt)s\n"
 "\n"
@@ -7915,7 +7909,7 @@ msgstr "Reiniciar"
 # ../textw/complete_text.py:25
 #: textw/complete_text.py:34
 msgid "<Enter> to exit"
-msgstr "<enter> para salir"
+msgstr "<Enter> para salir"
 
 # ../textw/complete_text.py:28 ../textw/complete_text.py:50
 # ../textw/complete_text.py:65
@@ -8136,7 +8130,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Esta versión de %(productName)s soporta el sistema de archivos an, que tiene "
+"Esta versión de %(productName)s soporta un sistema de archivos actualizado, el cual tiene "
 "varios beneficios sobre el sistema de archivos que se incluía "
 "tradicionalmente en %(productName)s. Este programa de instalación puede "
 "migrar las particiones formateadas sin perder datos.\n"
