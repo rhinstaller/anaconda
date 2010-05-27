@@ -11,10 +11,10 @@
 # translation of ru.po to
 msgid ""
 msgstr ""
-"Project-Id-Version: rhel6_ru\n"
+"Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-05-25 11:36-1000\n"
-"PO-Revision-Date: 2010-05-26 17:24+1000\n"
+"PO-Revision-Date: 2010-05-27 10:54+1000\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -399,17 +399,17 @@ msgid ""
 "This action may also be applied to all other disks needing reinitialization.%"
 "(details)s"
 msgstr ""
-"Ошибка обработки диска\n"
+"Ошибка обработки диска:\n"
 "\n"
 "%(path)s\n"
 "%(size)-0.f МБ\n"
 "%(description)s\n"
 "\n"
-"Возможно, необходимо выполнить повторную инициализацию этого устройства.\n"
+"Возможно, необходимо повторно инициализировать это устройство.\n"
 "\n"
-"ЭТО ПРИВЕДЕТ К ПОТЕРЕ ВСЕХ ДАННЫХ НА ДИСКЕ!\n"
+"ЭТО ПРИВЕДЕТ К ПОТЕРЕ ВСЕХ ДАННЫХ НА ДИСКЕ\n"
 "\n"
-"Это действие может быть также выполнено со всеми другими дисками, требующими "
+"Это действие может быть применено к другим дискам, требующим "
 "повторной инициализации.%(details)s"
 
 # KEEP SHORT!
@@ -2815,7 +2815,7 @@ msgstr "(Макс. размер %s МБ)"
 #: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:537
 #: iw/partition_ui_helpers_gui.py:336 iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
-msgstr "_Шифрование"
+msgstr "За_шифровать"
 
 #: iw/lvm_dialog_gui.py:479 iw/partition_dialog_gui.py:467
 #: iw/raid_dialog_gui.py:461
