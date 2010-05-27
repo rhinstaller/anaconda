@@ -1571,6 +1571,8 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 }
 
                 writeEnabledNetInfo(&iface);
+                /* Prevent asking about interface for updates.img */
+                loaderData->netDev_set = 1;
                 step = STEP_STAGE2;
                 dir = 1;
                 break;
