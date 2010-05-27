@@ -1,4 +1,4 @@
-# translation of ja.po to Japanese
+# translation of anaconda.rhel6-branch.po to
 # anaconda/ja.po
 # Copyright (C) 2001 Red Hat, Inc.
 # SATO Satoru <ssato@redhat.com>
@@ -15,17 +15,18 @@
 # Makoto Mizukami <mmk9060@aol.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: ja\n"
+"Project-Id-Version: anaconda.rhel6-branch\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-05-04 14:17-1000\n"
-"PO-Revision-Date: 2010-05-06 22:19+0900\n"
-"Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
-"Language-Team: Japanese <jp@li.org>\n"
+"PO-Revision-Date: 2010-05-27 10:37+0900\n"
+"Last-Translator: \n"
+"Language-Team:  <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=1; plural=0;\n\n"
+"Plural-Forms: Plural-Forms: nplurals=1; plural=0;\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -118,14 +119,14 @@ msgstr "ファイルをコピー中"
 
 #: backend.py:167
 msgid "Transferring install image to hard drive"
-msgstr "インストールイメージをハードドライブに転送中"
+msgstr "インストールイメージをハードディスクに転送中"
 
 #: backend.py:177
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
 msgstr ""
-"インストールイメージをハードドライブへ転送している際にエラーが発生しました。"
+"インストールイメージをハードディスクへ転送している際にエラーが発生しました。"
 "これは傷んだ、または品質の悪い媒体が原因でよく発生します。"
 
 #: backend.py:181
@@ -133,7 +134,7 @@ msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"インストールイメージをハードドライブへ転送中にエラーが発生しました。おそらく"
+"インストールイメージをハードディスクへ転送中にエラーが発生しました。おそらく"
 "ディスク容量が不足しています。"
 
 #: backend.py:185 image.py:289 livecd.py:198 livecd.py:403
@@ -532,7 +533,7 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"インストーラーはイメージ #%s のマウントを試行しましたが、ハードドライブ上に見"
+"インストーラーはイメージ #%s のマウントを試行しましたが、ハードディスク上に見"
 "つかりませんでした。\n"
 "\n"
 "このイメージをドライブにコピーしてから「再試行」をクリックしてください。「終"
@@ -584,8 +585,8 @@ msgid ""
 "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS "
 "RAID sets. Ignoring disk %s."
 msgstr ""
-"ディクス %s には、BIOS RAID メタデータが含まれていますが、認識された BIOS "
-"RAID セットの一部ではありません。ディスク %s を無視します。"
+"ディクス %s には、ファームウェア RAID メタデータが含まれていますが、認識された "
+"ファームウェア RAID セットの一部ではありません。ディスク %s を無視します。"
 
 #: installinterfacebase.py:60
 msgid "Unformatted DASD Device Found"
@@ -827,7 +828,7 @@ msgstr ""
 
 #: livecd.py:180
 msgid "Copying live image to hard drive."
-msgstr "ライブイメージをハードドライブに転送中。"
+msgstr "ライブイメージをハードディスクに転送中。"
 
 #: livecd.py:199
 msgid ""
@@ -837,7 +838,7 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will "
 "require reinstallation."
 msgstr ""
-"ライブイメージをハードドライブにインストールする時にエラーが発生しました。 不"
+"ライブイメージをハードディスクにインストールする時にエラーが発生しました。 不"
 "正なメディアが原因かもしれません。インストールメディアを確認して下さい。\n"
 "\n"
 "終了するとシステムは矛盾した状態となり、再インストールを必要とするように なり"
@@ -1129,7 +1130,7 @@ msgstr ""
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr ""
-"%s をインストールするには、少なくともハードドライブを 1 つ選択しなければなり"
+"%s をインストールするには、少なくともハードディスクを 1 つ選択しなければなり"
 "ません。"
 
 #: partIntfHelpers.py:241
@@ -2151,7 +2152,7 @@ msgstr ""
 
 #: installclasses/fedora.py:48
 msgid "Graphical Desktop"
-msgstr "グラフィカルデスクトップ"
+msgstr "デスクトップ"
 
 #: installclasses/fedora.py:53
 msgid "Software Development"
@@ -2439,7 +2440,7 @@ msgstr "ディスクセレクタを空にする"
 
 #: iw/cleardisks_gui.py:44 iw/filter_gui.py:411
 msgid "You must select at least one drive to be used for installation."
-msgstr "インストール用に少なくともハードドライブを 1 つ選択しなければなりません。"
+msgstr "インストール用に少なくともハードディスクを 1 つ選択しなければなりません。"
 
 #: iw/cleardisks_gui.py:54
 msgid "You must select one drive to boot from."
@@ -3290,7 +3291,7 @@ msgstr "RAID デバイス"
 
 #: iw/partition_gui.py:1021 loader/hdinstall.c:212
 msgid "Hard Drives"
-msgstr "ハードドライブ"
+msgstr "ハードディスク"
 
 #: iw/partition_gui.py:1071
 msgid "Extended"
@@ -3311,7 +3312,7 @@ msgid ""
 msgstr ""
 "作成作業には以下のいずれかが必要なことに注意して下さい:\n"
 "\n"
-"* ハードドライブの１つに空き領域。\n"
+"* ハードディスクの１つに空き領域。\n"
 "* ソフトウェア RAID に最低 2つの空きパーティション。 \n"
 "* 物理ボリューム (LVM) に最低１つの空きパーティション。\n"
 "* 最低１つの空き領域を持つボリュームグループ。"
@@ -4275,14 +4276,14 @@ msgid ""
 "An error occured finding the installation image on your hard drive.  Please "
 "check your images and try again."
 msgstr ""
-"ハードドライブからインストールイメージを読み込み中にエラーが発生しました。 ご"
+"ハードディスクからインストールイメージを読み込み中にエラーが発生しました。 ご"
 "使用のイメージを確認してからやり直してください。"
 
 #: loader/hdinstall.c:213
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr "このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
+msgstr "このシステムにはハードディスクがないようです。追加デバイスの設定を行いますか?"
 
 #: loader/hdinstall.c:226
 #, c-format
@@ -4315,12 +4316,12 @@ msgstr "HD キックスタートコマンド に対する引数が不正です: 
 
 #: loader/hdinstall.c:432 loader/hdinstall.c:488
 msgid "Cannot find kickstart file on hard drive."
-msgstr "ハードドライブにキックスタートファイルが見つかりません。"
+msgstr "ハードディスクにキックスタートファイルが見つかりません。"
 
 #: loader/hdinstall.c:475
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr "BIOS ディスク %s 用のハードドライブが見つかりません"
+msgstr "BIOS ディスク %s 用のハードディスクが見つかりません"
 
 #: loader/kbd.c:117
 msgid "Keyboard Type"
@@ -4396,7 +4397,7 @@ msgstr "ローカル CD/DVD"
 
 #: loader/loader.c:132
 msgid "Hard drive"
-msgstr "ハードドライブ"
+msgstr "ハードディスク"
 
 #: loader/loader.c:133
 msgid "NFS directory"
@@ -5003,7 +5004,7 @@ msgstr "ストレージデバイスを検索中"
 
 #: storage/__init__.py:636
 msgid "This partition is holding the data for the hard drive install."
-msgstr "このパーティションはハードドライブインストール用のデータを保有しています。"
+msgstr "このパーティションはハードディスクインストール用のデータを保有しています。"
 
 #: storage/__init__.py:641
 msgid "You cannot delete a partition of a LDL formatted DASD."
@@ -5619,7 +5620,7 @@ msgstr ""
 "\n"
 "%(errortxt)s\n"
 "\n"
-"このエラーは、インストール用に十分な領域がハードドライブ上にない場合に発生し"
+"このエラーは、インストール用に十分な領域がハードディスク上にない場合に発生し"
 "ます。%(extra)s"
 
 #: storage/zfcp.py:50
@@ -5811,7 +5812,7 @@ msgid ""
 "is suitable for most users.  Select what space to use and which drives to "
 "use as the install target."
 msgstr ""
-"インストールにはハードドライブのパーティション設定が必要です。デフォルトのレ"
+"インストールにはハードディスクのパーティション設定が必要です。デフォルトのレ"
 "イアウトはほとんどのユーザーに適しています。使用する領域と使用するドライブを "
 "インストールのターゲットとして選択します。"
 
@@ -5989,7 +5990,7 @@ msgstr "ライブ ディスク をハードディスクにインストール"
 
 #: liveinst/liveinst.desktop.in.h:3
 msgid "Install to Hard Drive"
-msgstr "ハードドライブにインストール"
+msgstr "ハードディスクにインストール"
 
 #: ui/GroupSelector.glade.h:1
 msgid ""
