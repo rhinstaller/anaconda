@@ -354,15 +354,22 @@ char * mountNfsImage(struct installMethod * method,
 
             free(buf);
 
-            checked_asprintf(&buf, "%s/updates.img", fullPath);
-            logMessage(INFO, "Looking for updates in %s", buf);
-            copyUpdatesImg(buf);
-            free(buf);
+            if (!doPwMount(fullPath, "/tmp/disk-image", "nfs", mountOpts, NULL)) {
+                logMessage(INFO, "Looking for updates in %s/updates.img", fullPath);
+                checked_asprintf(&buf, "/tmp/disk-image/updates.img");
+                copyUpdatesImg(buf);
+                free(buf);
 
-            checked_asprintf(&buf, "%s/product.img", fullPath);
-            logMessage(INFO, "Looking for product in %s", buf);
-            copyProductImg(buf);
-            free(buf);
+                logMessage(INFO, "Looking for product in %s/product.img", fullPath);
+                checked_asprintf(&buf, "/tmp/disk-image/product.img");
+                copyProductImg(buf);
+                free(buf);
+
+                umount("/tmp/disk-image");
+                unlink("/tmp/disk-image");
+            } else {
+                logMessage(INFO, "Couldn't mount %s for updates and product", fullPath);
+            }
 
             stage = NFS_STAGE_DONE;
             break;
