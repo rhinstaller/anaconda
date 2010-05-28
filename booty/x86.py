@@ -425,10 +425,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         devs = list(usedDiskDevs)
         devs.sort(key=lambda d: d.name)
         for dev in devs:
-            # XXX hack city.  If they're not the sort of thing that'll
-            # be in the device map, they shouldn't still be in the list.
-            if not dev.type == "mdarray":
-                f.write("(%s)     %s\n" % (self.grubbyDiskName(dev), dev.path))
+            f.write("(%s)     %s\n" % (self.grubbyDiskName(dev), dev.path))
         f.close()
 
     def writeSysconfig(self, instRoot, grubTarget, upgrade):
