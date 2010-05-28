@@ -2477,8 +2477,8 @@ class MDRaidArrayDevice(StorageDevice):
         self._totalDevices = numeric_type(totalDevices)
         self._memberDevices = numeric_type(memberDevices)
         self.sysfsPath = "/devices/virtual/block/%s" % name
-        self.chunkSize = 64.0 / 1024.0          # chunk size in MB
-        self.superBlockSize = 128.0 / 1024.0    # superblock size in MB
+        self.chunkSize = 512.0 / 1024.0         # chunk size in MB
+        self.superBlockSize = 2.0               # superblock size in MB
 
         self.createMetadataVer = "1.1"
         # bitmaps are not meaningful on raid0 according to mdadm-3.0.3
