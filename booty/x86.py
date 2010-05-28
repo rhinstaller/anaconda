@@ -221,7 +221,6 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # keep track of which devices are used for the device.map
         usedDevs = set()
         usedDevs.update(self.getPhysicalDevices(grubTarget))
-        usedDevs.update(self.getPhysicalDevices(rootDev.name))
         usedDevs.update(self.getPhysicalDevices(bootDev.name))
         usedDevs.update([dev for (label, longlabel, dev) in chainList if longlabel])
 
