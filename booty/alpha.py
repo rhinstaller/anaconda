@@ -6,14 +6,6 @@ from bootloaderInfo import *
 from util import getDiskPart
 
 class alphaBootloaderInfo(bootloaderInfo):
-    def wholeDevice (self, path):
-        (device, foo) = getDiskPart(path, self.storage)
-        return device
-
-    def partitionNum (self, path):
-        (foo, partitionNumber) = getDiskPart(path, self.storage)
-        return partitionNumber
-
     def writeAboot(self, instRoot, bl, kernelList,
                    chainList, defaultDev):
         rootDevice = self.storage.rootDevice
@@ -66,7 +58,7 @@ class alphaBootloaderInfo(bootloaderInfo):
             f.write ("#         all kernel paths are relative to /boot/\n")
 
         # bpn is the boot partition number.
-        bpn = self.partitionNum(bootDevice.path)
+        bpn = getDiskPart(bootDevice)
         lines = 0
 
         # We write entries line using the following format:
@@ -101,8 +93,8 @@ class alphaBootloaderInfo(bootloaderInfo):
         # Now we're ready to write the relevant boot information. wbd
         # is the whole boot device, bdpn is the boot device partition
         # number.
-        wbd = self.wholeDevice (bootDevice.path)
-        bdpn = self.partitionNum (bootDevice.path)
+        wbd = getDiskPart(bootDevice)[0]
+        bdpn = getDiskPart(bootDevice)[1]
 
         # Calling swriteboot. The first argument is the disk to write
         # to and the second argument is a path to the bootstrap loader

@@ -346,7 +346,8 @@ class bootloaderInfo(object):
     def setDevice(self, device):
         self.device = device
 
-        (dev, part) = getDiskPart(device, self.storage)
+        (dev, part) = getDiskPart(
+                             self.storage.devicetree.getDeviceByName(device))
         if part is None:
             self.defaultDevice = "mbr"
         else:

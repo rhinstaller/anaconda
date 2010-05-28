@@ -26,7 +26,7 @@ liloConfigFile = "/etc/lilo.conf"
 yabootConfigFile = "/etc/yaboot.conf"
 siloConfigFile = "/etc/silo.conf"
 
-def getRaidDisks(raidDevice, storage, raidLevel=None, stripPart=1):
+def getRaidDisks(raidDevice, storage, raidLevel=None):
     rc = []
     if raidLevel is not None:
         try:
@@ -52,14 +52,9 @@ def getRaidDisks(raidDevice, storage, raidLevel=None, stripPart=1):
                 dev = string.split(field, '[')[0]
                 if len(dev) == 0:
                     continue
-                if stripPart:
-                    disk = getDiskPart(dev, storage)[0]
-                    rc.append(disk)
-                else:
-                    rc.append(dev)
+                rc.append(dev)
 
     return rc
-            
 
 def getBootBlock(bootDev, instRoot, storage, seekBlocks=0):
     """Get the boot block from bootDev.  Return a 512 byte string."""
@@ -199,7 +194,8 @@ def getBootloaderTypeAndBoot(instRoot, storage):
 
         if bootDev is not None:
             # XXX SILO sucks just like grub.
-            if getDiskPart(bootDev, storage)[1] != 4:
+            dev = storage.devicetree.getDeviceByName(bootDev)
+            if getDiskPart(dev)[1] != 4:
                 block = getBootBlock(bootDev, instRoot, storage, 1)
                 if block[24:28] == "SILO":
                     return ("SILO", bootDev)

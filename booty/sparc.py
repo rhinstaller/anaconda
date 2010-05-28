@@ -38,7 +38,7 @@ class sparcBootloaderInfo(bootloaderInfo):
         f.write("message=%s\n" % (mf,))
         f.write("timeout=%s\n" % (self.timeout or 50))
 
-        (name, partNum) = getDiskPart(bootDev.name, self.storage)
+        (disk, partNum) = getDiskPart(bootDev)
         f.write("partition=%s\n" % (partNum,))
 
         if self.password:

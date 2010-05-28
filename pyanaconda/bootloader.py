@@ -125,8 +125,7 @@ def fixedMdraidGrubTarget(anaconda, grubTarget):
     try:
         if float(version) < 12:
             stage1Devs = anaconda.bootloader.getPhysicalDevices(grubTarget)
-            disk = getDiskPart(stage1Devs[0].name, anaconda.storage)[0]
-            fixedGrubTarget = anaconda.storage.devicetree.getDeviceByName(disk)
+            fixedGrubTarget = getDiskPart(stage1Devs[0])[0]
             log.info("Mdraid grub upgrade: %s -> %s" % (grubTarget.name,
                                                         fixedGrubTarget.name))
     except ValueError:
