@@ -148,6 +148,8 @@ class PartitionTypeWindow(InstallWindow):
         if self.storage.checkNoDisks():
             raise gui.StayOnScreen
 
+        self.storage.clearPartChoice = self.buttonGroup.getCurrent()
+
         if self.buttonGroup.getCurrent() == "custom":
             self.dispatch.skipStep("autopartitionexecute", skip = 1)
             self.dispatch.skipStep("partition", skip = 0)
@@ -264,12 +266,15 @@ class PartitionTypeWindow(InstallWindow):
         self.table.attach(widget, 0, 1, 1, 2)
 
         # if not set in ks, use UI default
-        if self.storage.clearPartType is None or self.storage.clearPartType == CLEARPART_TYPE_LINUX:
-            self.buttonGroup.setCurrent("replace")
-        elif self.storage.clearPartType == CLEARPART_TYPE_NONE:
-            self.buttonGroup.setCurrent("freespace")
-        elif self.storage.clearPartType == CLEARPART_TYPE_ALL:
-            self.buttonGroup.setCurrent("all")
+        if self.storage.clearPartChoice:
+            self.buttonGroup.setCurrent(self.storage.clearPartChoice)
+        else:
+            if self.storage.clearPartType is None or self.storage.clearPartType == CLEARPART_TYPE_LINUX:
+                self.buttonGroup.setCurrent("replace")
+            elif self.storage.clearPartType == CLEARPART_TYPE_NONE:
+                self.buttonGroup.setCurrent("freespace")
+            elif self.storage.clearPartType == CLEARPART_TYPE_ALL:
+                self.buttonGroup.setCurrent("all")
 
         if self.buttonGroup.getCurrent() == "custom":
             # make sure reviewButton is active and not sensitive
