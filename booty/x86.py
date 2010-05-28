@@ -134,8 +134,8 @@ class x86BootloaderInfo(efiBootloaderInfo):
         bootDevs = self.getPhysicalDevices(bootDev)
 
         installs = [(None,
-                     self.grubbyPartitionName(stage1Devs[0].name),
-                     self.grubbyPartitionName(bootDevs[0].name))]
+                     self.grubbyPartitionName(stage1Devs[0]),
+                     self.grubbyPartitionName(bootDevs[0]))]
 
         if bootDev.type == "mdarray":
 
@@ -148,9 +148,11 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 # 1) install stage1 on target disk/partiton
                 stage1Dev, mdMemberBootPart = matches[0]
                 installs = [(None,
-                             self.grubbyPartitionName(stage1Dev.name),
-                             self.grubbyPartitionName(mdMemberBootPart.name))]
-                firstMdMemberDiskGrubbyName = self.grubbyDiskName(getDiskPart(mdMemberBootPart.name, self.storage)[0])
+                             self.grubbyPartitionName(stage1Dev),
+                             self.grubbyPartitionName(mdMemberBootPart))]
+                firstMdMemberDiskGrubbyName = self.grubbyDiskName(
+                    self.storage.devicetree.getDeviceByName(
+                        getDiskPart(mdMemberBootPart.name, self.storage)[0]))
 
                 # 2) and install stage1 on other members' disks/partitions too
                 # NOTES:
@@ -174,12 +176,14 @@ class x86BootloaderInfo(efiBootloaderInfo):
                     mdRaidDeviceRemap = (firstMdMemberDiskGrubbyName,
                                          mdMemberBootDisk)
 
-                    stage1TargetGrubbyName = self.grubbyPartitionName(stage1Target.name)
-                    rootPartGrubbyName = self.grubbyPartitionName(mdMemberBootPart.name)
+                    stage1TargetGrubbyName = self.grubbyPartitionName(stage1Target)
+                    rootPartGrubbyName = self.grubbyPartitionName(mdMemberBootPart)
 
                     # now replace grub disk name part according to special device
                     # mapping
-                    old = self.grubbyDiskName(mdMemberBootDisk).strip('() ')
+                    old = self.grubbyDiskName(
+                        self.storage.devicetree.getDeviceByName(
+                            mdMemberBootDisk)).strip('() ')
                     new = firstMdMemberDiskGrubbyName.strip('() ')
                     rootPartGrubbyName = rootPartGrubbyName.replace(old, new)
                     stage1TargetGrubbyName = stage1TargetGrubbyName.replace(old, new)
@@ -270,7 +274,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write("#          all kernel and initrd paths are relative "
                     "to /, eg.\n")            
         
-        f.write('#          root %s\n' % self.grubbyPartitionName(bootDevs[0].name))
+        f.write('#          root %s\n' % self.grubbyPartitionName(bootDevs[0]))
         f.write("#          kernel %svmlinuz-version ro root=%s\n" % (cfPath, rootDev.path))
         f.write("#          initrd %sinitrd-[generic-]version.img\n" % (cfPath))
         f.write("#boot=/dev/%s\n" % (grubTarget))
@@ -313,7 +317,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             # we only want splashimage if they're not using a serial console
             if os.access("%s/boot/grub/splash.xpm.gz" %(instRoot,), os.R_OK):
                 f.write('splashimage=%s%sgrub/splash.xpm.gz\n'
-                        % (self.grubbyPartitionName(bootDevs[0].name), cfPath))
+                        % (self.grubbyPartitionName(bootDevs[0]), cfPath))
                 f.write("hiddenmenu\n")
 
             
@@ -327,7 +331,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             initrd = self.makeInitrd(kernelTag, instRoot)
 
             f.write('title %s (%s)\n' % (longlabel, version))
-            f.write('\troot %s\n' % self.grubbyPartitionName(bootDevs[0].name))
+            f.write('\troot %s\n' % self.grubbyPartitionName(bootDevs[0]))
 
             realroot = " root=%s" % rootDev.fstabSpec
 
@@ -370,7 +374,8 @@ class x86BootloaderInfo(efiBootloaderInfo):
             if ((not longlabel) or (longlabel == "")):
                 continue
             f.write('title %s\n' % (longlabel))
-            f.write('\trootnoverify %s\n' % self.grubbyPartitionName(device))
+            f.write('\trootnoverify %s\n' % self.grubbyPartitionName(
+                             self.storage.devicetree.getDeviceByName(device)))
 #            f.write('\tmakeactive\n')
             f.write('\tchainloader +1')
             f.write('\n')
@@ -428,7 +433,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             # be in the device map, they shouldn't still be in the list.
             dev = self.storage.devicetree.getDeviceByName(drive)
             if not dev.type == "mdarray":
-                f.write("(%s)     %s\n" % (self.grubbyDiskName(drive), dev.path))
+                f.write("(%s)     %s\n" % (self.grubbyDiskName(dev), dev.path))
         f.close()
 
     def writeSysconfig(self, instRoot, grubTarget, upgrade):
@@ -451,16 +456,16 @@ class x86BootloaderInfo(efiBootloaderInfo):
         f.write("forcelba=0\n")
         f.close()
 
-    def grubbyDiskName(self, name):
-        return "hd%d" % self.drivelist.index(name)
+    def grubbyDiskName(self, dev):
+        return "hd%d" % self.drivelist.index(dev.name)
 
     def grubbyPartitionName(self, dev):
-        (name, partNum) = getDiskPart(dev, self.storage)
+        (name, partNum) = getDiskPart(dev.name, self.storage)
+        disk = self.storage.devicetree.getDeviceByName(name)
         if partNum != None:
-            return "(%s,%d)" % (self.grubbyDiskName(name), partNum)
+            return "(%s,%d)" % (self.grubbyDiskName(disk), partNum)
         else:
-            return "(%s)" %(self.grubbyDiskName(name))
-    
+            return "(%s)" %(self.grubbyDiskName(disk))
 
     def getBootloaderConfig(self, instRoot, bl, kernelList,
                             chainList, defaultDev):
