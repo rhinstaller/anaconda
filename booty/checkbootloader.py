@@ -199,7 +199,7 @@ def getBootloaderTypeAndBoot(instRoot, storage):
 
         if bootDev is not None:
             # XXX SILO sucks just like grub.
-            if getDiskPart(bootDev, storage)[1] != 3:
+            if getDiskPart(bootDev, storage)[1] != 4:
                 block = getBootBlock(bootDev, instRoot, storage, 1)
                 if block[24:28] == "SILO":
                     return ("SILO", bootDev)

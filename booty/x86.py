@@ -463,7 +463,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         (name, partNum) = getDiskPart(dev.name, self.storage)
         disk = self.storage.devicetree.getDeviceByName(name)
         if partNum != None:
-            return "(%s,%d)" % (self.grubbyDiskName(disk), partNum)
+            return "(%s,%d)" % (self.grubbyDiskName(disk), partNum - 1)
         else:
             return "(%s)" %(self.grubbyDiskName(disk))
 
