@@ -24,6 +24,7 @@ from DeviceSelector import *
 from constants import *
 import isys
 from iw_gui import *
+from storage.devices import deviceNameToDiskByPath
 from storage.udev import *
 
 import gettext
@@ -126,8 +127,8 @@ class ClearDisksWindow (InstallWindow):
         self.leftDS.addColumn(_("Model"), 6)
         self.leftDS.addColumn(_("Capacity"), 7)
         self.leftDS.addColumn(_("Vendor"), 8)
-        self.leftDS.addColumn(_("Interconnect"), 9, displayed=False)
-        self.leftDS.addColumn(_("Serial Number"), 10, displayed=False)
+        self.leftDS.addColumn(_("Identifier"), 9)
+        self.leftDS.addColumn(_("Interconnect"), 10, displayed=False)
 
         # The right view show all the drives that will be wiped during install.
         self.rightFilteredModel = self.store.filter_new()
@@ -145,7 +146,7 @@ class ClearDisksWindow (InstallWindow):
         self.rightDS.createMenu()
         self.rightDS.addColumn(_("Model"), 6)
         self.rightDS.addColumn(_("Capacity"), 7)
-        self.rightDS.addColumn(_("Serial Number"), 10, displayed=False)
+        self.rightDS.addColumn(_("Identifier"), 9)
 
         # Store the first disk (according to our detected BIOS order) for
         # auto boot device selection
@@ -161,12 +162,20 @@ class ClearDisksWindow (InstallWindow):
             rightActive = rightVisible and \
                           d.name in self.anaconda.bootloader.drivelist[:1]
             leftVisible = not rightVisible
+
+            if hasattr(d, "wwid"):
+                ident = d.wwid
+            else:
+                ident = deviceNameToDiskByPath(d.name)
+                if ident.startswith("/dev/disk/by-path/"):
+                    ident.replace("/dev/disk/by-path/", "")
+
             self.store.append(None, (d,
                                      leftVisible, True, False,
                                      rightVisible, rightActive,
                                      d.model,
                                      str(int(d.size)) + " MB",
-                                     d.vendor, "", d.serial))
+                                     d.vendor, ident, d.bus))
 
         self.addButton.connect("clicked", self._add_clicked)
         self.removeButton.connect("clicked", self._remove_clicked)
