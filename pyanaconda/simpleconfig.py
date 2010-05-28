@@ -112,9 +112,7 @@ class IfcfgFile(SimpleConfigFile):
             line = line.strip()
             if line.startswith("#") or line == '':
                 continue
-            fields = line.split('=', 2)
-            if len(fields) < 2:
-                continue
+            fields = line.split('=', 1)
             key = uppercase_ASCII_string(fields[0])
             value = fields[1]
             # XXX hack
