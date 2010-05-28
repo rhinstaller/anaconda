@@ -107,7 +107,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         matches = []
         for stage1Dev in stage1Devs:
             for mdBootPart in bootDevs:
-                if getDiskPart(stage1Dev, self.storage)[0] == getDiskPart(mdBootPart, self.storage)[0]:
+                if getDiskPart(stage1Dev.name, self.storage)[0] == getDiskPart(mdBootPart.name, self.storage)[0]:
                     matches.append((stage1Dev, mdBootPart))
         return matches
 
@@ -116,7 +116,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
         bootDevsHavingStage1Dev = [match[1] for match in matches]
         for mdBootPart in bootDevs:
             if mdBootPart not in bootDevsHavingStage1Dev:
-               updatedMatches.append((getDiskPart(mdBootPart, self.storage)[0], mdBootPart))
+               updatedMatches.append((
+                   self.storage.devicetree.getDeviceByName(
+                       getDiskPart(mdBootPart.name, self.storage)[0]),
+                   mdBootPart))
         return updatedMatches
 
     def installGrub(self, instRoot, bootDev, grubTarget, grubPath, cfPath):
@@ -136,8 +139,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
         if bootDev.type == "mdarray":
 
-            matches = self.matchingBootTargets([d.name for d in stage1Devs],
-                                               [d.name for d in bootDevs])
+            matches = self.matchingBootTargets(stage1Devs, bootDevs)
 
             # If the stage1 target disk contains member of boot raid array (mbr
             # case) or stage1 target partition is member of boot raid array
@@ -146,9 +148,9 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 # 1) install stage1 on target disk/partiton
                 stage1Dev, mdMemberBootPart = matches[0]
                 installs = [(None,
-                             self.grubbyPartitionName(stage1Dev),
-                             self.grubbyPartitionName(mdMemberBootPart))]
-                firstMdMemberDiskGrubbyName = self.grubbyDiskName(getDiskPart(mdMemberBootPart, self.storage)[0])
+                             self.grubbyPartitionName(stage1Dev.name),
+                             self.grubbyPartitionName(mdMemberBootPart.name))]
+                firstMdMemberDiskGrubbyName = self.grubbyDiskName(getDiskPart(mdMemberBootPart.name, self.storage)[0])
 
                 # 2) and install stage1 on other members' disks/partitions too
                 # NOTES:
@@ -162,18 +164,18 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
                 # if target is mbr, we want to install also to mbr of other
                 # members, so extend the matching list
-                matches = self.addMemberMbrs(matches, [d.name for d in bootDevs])
+                matches = self.addMemberMbrs(matches, bootDevs)
                 for stage1Target, mdMemberBootPart in matches[1:]:
                     # prepare special device mapping corresponding to member removal
-                    mdMemberBootDisk = getDiskPart(mdMemberBootPart, self.storage)[0]
+                    mdMemberBootDisk = getDiskPart(mdMemberBootPart.name, self.storage)[0]
                     # It can happen due to ks --driveorder option, but is it ok?
                     if not mdMemberBootDisk in self.drivelist:
                         continue
                     mdRaidDeviceRemap = (firstMdMemberDiskGrubbyName,
                                          mdMemberBootDisk)
 
-                    stage1TargetGrubbyName = self.grubbyPartitionName(stage1Target)
-                    rootPartGrubbyName = self.grubbyPartitionName(mdMemberBootPart)
+                    stage1TargetGrubbyName = self.grubbyPartitionName(stage1Target.name)
+                    rootPartGrubbyName = self.grubbyPartitionName(mdMemberBootPart.name)
 
                     # now replace grub disk name part according to special device
                     # mapping
