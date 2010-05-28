@@ -8,6 +8,9 @@ from flags import flags
 import checkbootloader
 import iutil
 
+import logging
+log = logging.getLogger("anaconda")
+
 class x86BootloaderInfo(efiBootloaderInfo):
     def setPassword(self, val, isCrypted = 1):
         if not val:
@@ -42,24 +45,26 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # This finds a list of devices on which the given device name resides.
         # Accepted values for "device" are raid1 md devices (i.e. "md0"),
         # physical disks ("hda"), and real partitions on physical disks
-        # ("hda1").  Volume groups/logical volumes are not accepted.
+        # ("hda1"). Anything else gets ignored.
         dev = self.storage.devicetree.getDeviceByName(device)
-        path = dev.path[5:]
-
-        if device in map (lambda x: x.name, self.storage.lvs + self.storage.vgs):
-            return []
-
-        if path.startswith("mapper/luks-"):
-            return []
-
         if dev.type == "mdarray":
-            bootable = 0
-            parts = checkbootloader.getRaidDisks(device, self.storage,
-                                             raidLevel=1, stripPart=0)
-            parts.sort()
-            return parts
+            if dev.level != 1:
+                log.error("x86BootloaderInfo.getPhysicalDevices ignoring non "
+                          "level 1 raid array %s" % dev.name)
+                return []
+            devs = dev.parents
+        else:
+            devs = [ dev ]
 
-        return [device]
+        physicalDevices = []
+        for dev in devs:
+            if dev in self.storage.disks or dev.type == "partition":
+                physicalDevices.append(dev.name)
+            else:
+                log.error("x86BootloaderInfo.getPhysicalDevices ignoring %s" %
+                          dev.name)
+
+        return physicalDevices
 
     def runGrubInstall(self, instRoot, bootDev, cmds, cfPath):
         if cfPath == "/":
