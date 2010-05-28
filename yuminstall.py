@@ -644,7 +644,7 @@ class AnacondaYum(YumSorter):
     def _getReleasever(self):
         c = ConfigParser()
 
-        treeinfo = self._getTreeinfo(self.anaconda.methodstr)
+        treeinfo = self._getTreeinfo(self._baseRepoURL)
         if not treeinfo:
             return productVersion
 
