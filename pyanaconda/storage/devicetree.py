@@ -1311,6 +1311,10 @@ class DeviceTree(object):
 
     def handleUdevDiskLabelFormat(self, info, device):
         log_method_call(self, device=device.name)
+        if udev_device_get_format(info):
+            log.debug("device %s does not contain a disklabel" % device.name)
+            return
+
         if device.partitioned:
             # this device is already set up
             log.debug("disklabel format on %s already set up" % device.name)
