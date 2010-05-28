@@ -1640,15 +1640,15 @@ class FSSet(object):
                                                                 fstype))
             raise UnrecognizedFSTabEntryError()
 
-        if device.format.type is None:
+        fmt = getFormat(fstype, device=device.path)
+        if fstype != "auto" and None in (device.format.type, fmt.type):
             log.info("Unrecognized filesystem type for %s (%s)"
                      % (device.name, fstype))
             raise UnrecognizedFSTabEntryError()
 
         # make sure, if we're using a device from the tree, that
         # the device's format we found matches what's in the fstab
-        fmt = getFormat(fstype, device=device.path)
-        if fmt.type != device.format.type:
+        if fstype != "auto" and fmt.type != device.format.type:
             raise StorageError("scanned format (%s) differs from fstab "
                         "format (%s)" % (device.format.type, fstype))
 
