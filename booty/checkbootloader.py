@@ -26,63 +26,21 @@ liloConfigFile = "/etc/lilo.conf"
 yabootConfigFile = "/etc/yaboot.conf"
 siloConfigFile = "/etc/silo.conf"
 
-def getRaidDisks(raidDevice, storage, raidLevel=None):
-    rc = []
-    if raidLevel is not None:
-        try:
-            raidLevel = "raid%d" % (int(raidLevel),)
-        except ValueError:
-            pass
-
-    try:
-        f = open("/proc/mdstat", "r")
-        lines = f.readlines()
-        f.close()
-    except:
-        return rc
-    
-    for line in lines:
-        fields = string.split(line, ' ')
-        if fields[0] == raidDevice:
-            if raidLevel is not None and fields[3] != raidLevel:
-                continue
-            for field in fields[4:]:
-                if string.find(field, "[") == -1:
-                    continue
-                dev = string.split(field, '[')[0]
-                if len(dev) == 0:
-                    continue
-                rc.append(dev)
-
-    return rc
-
-def getBootBlock(bootDev, instRoot, storage, seekBlocks=0):
+def getBootBlock(bootDev, instRoot, seekBlocks=0):
     """Get the boot block from bootDev.  Return a 512 byte string."""
     block = " " * 512
     if bootDev is None:
         return block
 
-    # get the devices in the raid device
-    if bootDev[5:7] == "md":
-        bootDevs = getRaidDisks(bootDev[5:], storage)
-        bootDevs.sort()
-    else:
-        bootDevs = [ bootDev[5:] ]
+    try:
+        fd = os.open("%s%s" % (instRoot, bootDev), os.O_RDONLY)
+        if seekBlocks > 0:
+            os.lseek(fd, seekBlocks * 512, 0)
+        block = os.read(fd, 512)
+        os.close(fd)
+    except:
+        pass
 
-    # FIXME: this is kind of a hack
-    # look at all of the devs in the raid device until we can read the
-    # boot block for one of them.  should do this better at some point
-    # by looking at all of the drives properly
-    for dev in bootDevs:
-        try:
-            fd = os.open("%s/dev/%s" % (instRoot, dev), os.O_RDONLY)
-            if seekBlocks > 0:
-                os.lseek(fd, seekBlocks * 512, 0)
-            block = os.read(fd, 512)
-            os.close(fd)
-            return block
-        except:
-            pass
     return block
 
 # takes a line like #boot=/dev/hda and returns /dev/hda
@@ -144,7 +102,7 @@ def getBootloaderTypeAndBoot(instRoot, storage):
             return ("GRUB", bootDev)
 
         if bootDev is not None:
-            block = getBootBlock(bootDev, instRoot, storage)
+            block = getBootBlock(bootDev, instRoot)
             # XXX I don't like this, but it's what the maintainer suggested :(
             if string.find(block, "GRUB") >= 0:
                 return ("GRUB", bootDev)
@@ -157,7 +115,7 @@ def getBootloaderTypeAndBoot(instRoot, storage):
                 bootDev = getBootDevString(line)
                 break
 
-        block = getBootBlock(bootDev, instRoot, storage)
+        block = getBootBlock(bootDev, instRoot)
         # this at least is well-defined
         if block[6:10] == "LILO":
             return ("LILO", bootDev)
@@ -196,7 +154,7 @@ def getBootloaderTypeAndBoot(instRoot, storage):
             # XXX SILO sucks just like grub.
             dev = storage.devicetree.getDeviceByName(bootDev)
             if getDiskPart(dev)[1] != 4:
-                block = getBootBlock(bootDev, instRoot, storage, 1)
+                block = getBootBlock(bootDev, instRoot, 1)
                 if block[24:28] == "SILO":
                     return ("SILO", bootDev)
 
