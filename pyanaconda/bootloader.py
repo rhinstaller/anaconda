@@ -125,9 +125,10 @@ def fixedMdraidGrubTarget(anaconda, grubTarget):
     try:
         if float(version) < 12:
             stage1Devs = anaconda.bootloader.getPhysicalDevices(grubTarget)
-            fixedGrubTarget = getDiskPart(stage1Devs[0], anaconda.storage)[0]
-            log.info("Mdraid grub upgrade: %s -> %s" % (grubTarget,
-                                                       fixedGrubTarget))
+            disk = getDiskPart(stage1Devs[0].name, anaconda.storage)[0]
+            fixedGrubTarget = anaconda.storage.devicetree.getDeviceByName(disk)
+            log.info("Mdraid grub upgrade: %s -> %s" % (grubTarget.name,
+                                                        fixedGrubTarget.name))
     except ValueError:
         log.warning("Can't decide mdraid grub upgrade fix, product: %s, version: %s" % (product, version))
 
@@ -147,13 +148,13 @@ def writeBootloader(anaconda):
         
         anaconda.bootloader.doUpgradeonly = 1
         if bootType == "GRUB":
-            if theDev.startswith('/dev/md'):
-                theDev = fixedMdraidGrubTarget(anaconda,
-                                               devicePathToName(theDev))
+            grubTarget = anaconda.storage.devicetree.getDeviceByPath(theDev)
+            if grubTarget.type == "mdarray":
+                grubTarget = fixedMdraidGrubTarget(anaconda, grubTarget)
             anaconda.bootloader.useGrubVal = 1
-            anaconda.bootloader.setDevice(devicePathToName(theDev))
+            anaconda.bootloader.setDevice(grubTarget.name)
         else:
-            anaconda.bootloader.doUpgradeOnly = 0    
+            anaconda.bootloader.doUpgradeOnly = 0
 
     w = anaconda.intf.waitWindow(_("Bootloader"), _("Installing bootloader."))
 

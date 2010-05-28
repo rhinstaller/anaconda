@@ -41,12 +41,11 @@ class x86BootloaderInfo(efiBootloaderInfo):
     def setUseGrub(self, val):
         self.useGrubVal = val
 
-    def getPhysicalDevices(self, device):
+    def getPhysicalDevices(self, dev):
         # This finds a list of devices on which the given device name resides.
         # Accepted values for "device" are raid1 md devices (i.e. "md0"),
         # physical disks ("hda"), and real partitions on physical disks
         # ("hda1"). Anything else gets ignored.
-        dev = self.storage.devicetree.getDeviceByName(device)
         if dev.type == "mdarray":
             if dev.level != 1:
                 log.error("x86BootloaderInfo.getPhysicalDevices ignoring non "
@@ -59,7 +58,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         physicalDevices = []
         for dev in devs:
             if dev in self.storage.disks or dev.type == "partition":
-                physicalDevices.append(dev.name)
+                physicalDevices.append(dev)
             else:
                 log.error("x86BootloaderInfo.getPhysicalDevices ignoring %s" %
                           dev.name)
@@ -127,16 +126,18 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
         args = "--stage2=/boot/grub/stage2 "
 
-        stage1Devs = self.getPhysicalDevices(grubTarget)
-        bootDevs = self.getPhysicalDevices(bootDev.name)
+        stage1Devs = self.getPhysicalDevices(
+                          self.storage.devicetree.getDeviceByName(grubTarget))
+        bootDevs = self.getPhysicalDevices(bootDev)
 
         installs = [(None,
-                     self.grubbyPartitionName(stage1Devs[0]),
-                     self.grubbyPartitionName(bootDevs[0]))]
+                     self.grubbyPartitionName(stage1Devs[0].name),
+                     self.grubbyPartitionName(bootDevs[0].name))]
 
         if bootDev.type == "mdarray":
 
-            matches = self.matchingBootTargets(stage1Devs, bootDevs)
+            matches = self.matchingBootTargets([d.name for d in stage1Devs],
+                                               [d.name for d in bootDevs])
 
             # If the stage1 target disk contains member of boot raid array (mbr
             # case) or stage1 target partition is member of boot raid array
@@ -161,7 +162,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
                 # if target is mbr, we want to install also to mbr of other
                 # members, so extend the matching list
-                matches = self.addMemberMbrs(matches, bootDevs)
+                matches = self.addMemberMbrs(matches, [d.name for d in bootDevs])
                 for stage1Target, mdMemberBootPart in matches[1:]:
                     # prepare special device mapping corresponding to member removal
                     mdMemberBootDisk = getDiskPart(mdMemberBootPart, self.storage)[0]
@@ -225,8 +226,9 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
         # keep track of which devices are used for the device.map
         usedDevs = set()
-        usedDevs.update(self.getPhysicalDevices(grubTarget))
-        usedDevs.update(self.getPhysicalDevices(bootDev.name))
+        usedDevs.update([d.name for d in self.getPhysicalDevices(
+                          self.storage.devicetree.getDeviceByName(grubTarget))])
+        usedDevs.update([d.name for d in self.getPhysicalDevices(bootDev)])
         usedDevs.update([dev for (label, longlabel, dev) in chainList if longlabel])
 
         if not upgrade:
@@ -238,7 +240,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
     def writeGrubConf(self, instRoot, bootDev, rootDev, defaultDev, kernelList,
                       chainList, grubTarget, grubPath, cfPath):
 
-        bootDevs = self.getPhysicalDevices(bootDev.name)
+        bootDevs = self.getPhysicalDevices(bootDev)
 
         # XXX old config file should be read here for upgrade
 
@@ -266,7 +268,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write("#          all kernel and initrd paths are relative "
                     "to /, eg.\n")            
         
-        f.write('#          root %s\n' % self.grubbyPartitionName(bootDevs[0]))
+        f.write('#          root %s\n' % self.grubbyPartitionName(bootDevs[0].name))
         f.write("#          kernel %svmlinuz-version ro root=%s\n" % (cfPath, rootDev.path))
         f.write("#          initrd %sinitrd-[generic-]version.img\n" % (cfPath))
         f.write("#boot=/dev/%s\n" % (grubTarget))
@@ -309,7 +311,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             # we only want splashimage if they're not using a serial console
             if os.access("%s/boot/grub/splash.xpm.gz" %(instRoot,), os.R_OK):
                 f.write('splashimage=%s%sgrub/splash.xpm.gz\n'
-                        % (self.grubbyPartitionName(bootDevs[0]), cfPath))
+                        % (self.grubbyPartitionName(bootDevs[0].name), cfPath))
                 f.write("hiddenmenu\n")
 
             
@@ -323,7 +325,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
             initrd = self.makeInitrd(kernelTag, instRoot)
 
             f.write('title %s (%s)\n' % (longlabel, version))
-            f.write('\troot %s\n' % self.grubbyPartitionName(bootDevs[0]))
+            f.write('\troot %s\n' % self.grubbyPartitionName(bootDevs[0].name))
 
             realroot = " root=%s" % rootDev.fstabSpec
 
