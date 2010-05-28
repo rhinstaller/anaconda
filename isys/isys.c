@@ -716,6 +716,7 @@ static PyObject * doIsWirelessDevice(PyObject * s, PyObject * args) {
     }
 
     return PyBool_FromLong(0);
+}
 
 static PyObject * doTotalMemory(PyObject * s) {
     int tm = totalMemory();
