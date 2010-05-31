@@ -28,6 +28,7 @@
 #include <string.h>
 #include <sys/reboot.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 #include "init.h"
@@ -50,12 +51,31 @@ static void performTerminations(void) {
 
 static void performUnmounts(void) {
 	int ignore;
+	struct stat st_buf;
 
 	printf("disabling swap...\n");
 	disableSwap();
 
 	printf("unmounting filesystems...\n"); 
 	unmountFilesystems();
+
+	/* We've lost /mnt/runtime where /lib is a link to put the old
+	   /lib back so that our mdadm invocation below works. */
+	if (stat("/lib64", &st_buf) == 0) {
+		if (unlink("/lib64"))
+			perror("unlink /lib64");
+		if (rename("/lib64_old", "/lib64"))
+			perror("rename /lib64_old /lib64");
+	} else {
+		if (unlink("/lib"))
+			perror("unlink /lib");
+		if (rename("/lib_old", "/lib"))
+			perror("rename /lib_old /lib");
+	}
+	if (unlink("/usr"))
+		perror("unlink /usr");
+	if (rename("/usr_old", "/usr"))
+		perror("rename /usr_old /usr");
 
 	printf("waiting for mdraid sets to become clean...\n"); 
 	ignore = system("/sbin/mdadm --wait-clean --scan");
