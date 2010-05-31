@@ -495,62 +495,6 @@ class ProgressWindow:
         self.window.destroy ()
         rootPopBusyCursor()
 
-class InstallKeyWindow:
-    def __init__(self, anaconda, key):
-        (keyxml, self.win) = getGladeWidget("instkey.glade", "instkeyDialog")
-        if anaconda.instClass.instkeydesc is not None:
-            w = keyxml.get_widget("instkeyLabel")
-            w.set_text(_(anaconda.instClass.instkeydesc))
-
-        if not anaconda.instClass.allowinstkeyskip:
-            keyxml.get_widget("skipRadio").hide()
-
-        keyName = _(anaconda.instClass.instkeyname)
-        if anaconda.instClass.instkeyname is None:
-            keyName = _("Installation Key")
-
-        # set the install key name based on the installclass
-        for l in ("instkeyLabel", "keyEntryLabel", "skipLabel"):
-            w = keyxml.get_widget(l)
-            t = w.get_text()
-            w.set_text(t % {"instkey": keyName})
-
-        self.entry = keyxml.get_widget("keyEntry")
-        self.entry.set_text(key)
-        self.entry.set_sensitive(True)
-
-        self.keyradio = keyxml.get_widget("keyRadio")
-        self.skipradio = keyxml.get_widget("skipRadio")
-        self.rc = 0
-
-        if anaconda.instClass.skipkey:
-            self.skipradio.set_active(True)
-        else:
-            self.entry.grab_focus()
-
-        self.win.connect("key-release-event", self.keyRelease)
-        addFrame(self.win, title=keyName)        
-
-    def keyRelease(self, window, event):
-        # XXX hack: remove this, too, when the accelerators work again
-        if event.keyval == gtk.keysyms.F12:
-            window.response(1)
-
-    def run(self):
-        self.win.show()
-        self.rc = self.win.run()
-        return self.rc
-
-    def get_key(self):
-        if self.skipradio.get_active():
-            return SKIP_KEY
-        key = self.entry.get_text()
-        key.strip()
-        return key
-
-    def destroy(self):
-        self.win.destroy()
-
 class luksPassphraseWindow:
     def __init__(self, passphrase=None, preexist = False, parent = None):
         luksxml = gtk.glade.XML(findGladeFile("lukspassphrase.glade"),
