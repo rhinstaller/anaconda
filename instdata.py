@@ -149,8 +149,10 @@ class InstallData:
         except RuntimeError, msg:
                 log.error("Error running %s: %s", args, msg)
 
-        self.network.write(anaconda=self.anaconda)
+        self.network.write()
         self.network.copyConfigToPath(instPath=self.anaconda.rootPath)
+        self.network.disableNMForStorageDevices(self.anaconda,
+                                                instPath=self.anaconda.rootPath)
         self.firewall.write (self.anaconda.rootPath)
         self.security.write (self.anaconda.rootPath)
         self.desktop.write(self.anaconda.rootPath)
