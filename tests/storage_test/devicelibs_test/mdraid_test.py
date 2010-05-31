@@ -2,6 +2,7 @@
 import baseclass
 import unittest
 import time
+from mock import acceptance
 
 class MDRaidTestCase(baseclass.DevicelibsTestCase):
 
@@ -11,6 +12,8 @@ class MDRaidTestCase(baseclass.DevicelibsTestCase):
 
         import storage.devicelibs.mdraid as mdraid
 
+    @acceptance
+    def testMDRaid(self):
         ##
         ## getRaidLevels
         ##

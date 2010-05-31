@@ -1,11 +1,14 @@
 #!/usr/bin/python
 import baseclass
 import unittest
+from mock import acceptance
 
 class MPathTestCase(baseclass.DevicelibsTestCase):
     def testMPath(self):
         import storage.devicelibs.mpath as mpath
 
+    @acceptance
+    def testMPath(self):
         ##
         ## parseMultipathOutput
         ## 

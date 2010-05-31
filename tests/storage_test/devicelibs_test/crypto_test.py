@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import baseclass
 import unittest
+from mock import acceptance
 
 import tempfile
 import os
@@ -13,6 +14,9 @@ class CryptoTestCase(baseclass.DevicelibsTestCase):
 
         import storage.devicelibs.crypto as crypto
 
+
+    @acceptance
+    def testCrypto(self):
         ##
         ## is_luks
         ##

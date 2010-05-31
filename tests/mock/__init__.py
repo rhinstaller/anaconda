@@ -24,6 +24,16 @@ from disk import *
 from mock import *
 import unittest
 
+def slow(f):
+    """Decorates a test method as being slow, usefull for python-nose filtering"""
+    f.slow = True
+    return f
+
+def acceptance(f):
+    """Decorates test as belonging to acceptance testing and not useable in common devellopment unit testing. To be used with python-nose filtering."""
+    f.acceptance = True
+    return f
+
 class TestCase(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         unittest.TestCase.__init__(self, *args, **kwargs)

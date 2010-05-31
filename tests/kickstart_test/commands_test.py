@@ -18,7 +18,7 @@
 # Author: Chris Lumens <clumens@redhat.com>
 import unittest
 import sys
-from mock import Mock, patch, TestCase
+from mock import Mock, patch, TestCase, acceptance
 
 class O(object):
     pass
@@ -60,9 +60,9 @@ class CommandVersionTestCase(TestCase):
     def tearDown(self):
         self.tearDownModules()
 
-    def runTest(self):
-        from pyanaconda import kickstart
 
+    @acceptance
+    def commands_test(self):
         for (commandName, commandObj) in kickstart.commandMap.iteritems():
             baseClass = commandObj().__class__.__bases__[0]
             pykickstartClass = self.handler.commands[commandName].__class__
@@ -79,9 +79,8 @@ class DataVersionTestCase(unittest.TestCase):
 
         self.handler = pykickstart.version.makeVersion(kickstart.ver)
 
-    def runTest(self):
-        from pyanaconda import kickstart
-
+    @acceptance
+    def data_test(self):
         for (dataName, dataObj) in kickstart.dataMap.iteritems():
             baseClass = dataObj().__class__.__bases__[0]
 

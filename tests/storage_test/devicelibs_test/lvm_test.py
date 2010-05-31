@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import baseclass
 import unittest
+from mock import acceptance
 
 class LVMTestCase(baseclass.DevicelibsTestCase):
 
@@ -10,6 +11,9 @@ class LVMTestCase(baseclass.DevicelibsTestCase):
 
         import storage.devicelibs.lvm as lvm
 
+
+    @acceptance
+    def testLVM(self):
         ##
         ## pvcreate
         ##

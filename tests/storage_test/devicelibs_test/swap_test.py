@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import baseclass
 import unittest
+from mock import acceptance
 
 class SwapTestCase(baseclass.DevicelibsTestCase):
 
@@ -10,6 +11,8 @@ class SwapTestCase(baseclass.DevicelibsTestCase):
 
         import storage.devicelibs.swap as swap
 
+    @acceptance
+    def testSwap(self):
         ##
         ## mkswap
         ##
