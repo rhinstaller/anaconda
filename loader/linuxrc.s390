@@ -43,8 +43,10 @@
 
 if [ "${0##*/}" = "reboot" ]; then
     kill -USR2 1
+    exit
 elif [ "${0##*/}" = "halt" ]; then
     kill -USR1 1
+    exit
 fi
 
 VERSION=1.2
