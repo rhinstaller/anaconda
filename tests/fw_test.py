@@ -2,7 +2,7 @@ import mock
 
 class ImportTest(mock.TestCase):
     def setUp(self):
-        self.setupModules([])
+        self.setupModules(["_isys", "block"])
         
         self.fs = mock.DiskIO()
         
