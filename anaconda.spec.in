@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sun May 30 2010 David Cantrell <dcantrell@redhat.com> - 13.21.49-1
+- Add more sanity checks to the mountpoint (bcl)
+  Resolves: rhbz#592185
+- Make sure the product.img directory is mounted before copying (clumens).
+  Resolves: rhbz#587696
+
 * Wed May 26 2010 David Cantrell <dcantrell@redhat.com> - 13.21.48-1
 - Fixed the setting of LD_LIBRARY_PATH in rescue (mgracik)
   Resolves: rhbz#594034

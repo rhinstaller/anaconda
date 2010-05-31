@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.47\n"
+"Project-Id-Version: anaconda 13.21.48\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-05-26 05:21-1000\n"
+"POT-Creation-Date: 2010-05-30 15:00-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,7 @@ msgstr ""
 #: loader/modules.c:382 loader/modules.c:398 loader/net.c:580 loader/net.c:951
 #: loader/net.c:1559 loader/net.c:1580 loader/net.c:1860 loader/net.c:1879
 #: loader/net.c:1891 loader/nfsinstall.c:91 loader/nfsinstall.c:279
-#: loader/nfsinstall.c:296 loader/nfsinstall.c:377 loader/telnetd.c:92
+#: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
 #: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
 #: loader/urlinstall.c:372 loader/urlinstall.c:383 loader/urlinstall.c:390
 #: loader/urls.c:259 loader/urls.c:330 loader/urls.c:336
@@ -114,7 +114,7 @@ msgid ""
 msgstr ""
 
 #: backend.py:185 image.py:289 livecd.py:198 livecd.py:440
-#: partIntfHelpers.py:218 text.py:351 text.py:355 yuminstall.py:408
+#: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:408
 #: yuminstall.py:839 yuminstall.py:957 yuminstall.py:962 yuminstall.py:1237
 #: yuminstall.py:1303 yuminstall.py:1493 yuminstall.py:1515
 #: iw/advanced_storage.py:89 iw/advanced_storage.py:99
@@ -301,7 +301,7 @@ msgid ""
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: gui.py:734 gui.py:1487 partIntfHelpers.py:138 partIntfHelpers.py:323
+#: gui.py:734 gui.py:1487 partIntfHelpers.py:153 partIntfHelpers.py:338
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:408 loader/kickstart.c:331 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
@@ -927,41 +927,41 @@ msgid ""
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
 
-#: partIntfHelpers.py:90
+#: partIntfHelpers.py:105
 #, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
 "end with '/', and must contain printable characters and no spaces."
 msgstr ""
 
-#: partIntfHelpers.py:102 partIntfHelpers.py:109
+#: partIntfHelpers.py:117 partIntfHelpers.py:124
 msgid "Unable To Delete"
 msgstr ""
 
-#: partIntfHelpers.py:103
+#: partIntfHelpers.py:118
 msgid "You must first select a partition to delete."
 msgstr ""
 
-#: partIntfHelpers.py:134 partIntfHelpers.py:322 iw/lvm_dialog_gui.py:877
+#: partIntfHelpers.py:149 partIntfHelpers.py:337 iw/lvm_dialog_gui.py:877
 msgid "Confirm Delete"
 msgstr ""
 
-#: partIntfHelpers.py:135
+#: partIntfHelpers.py:150
 #, python-format
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr ""
 
-#: partIntfHelpers.py:138 partIntfHelpers.py:323 iw/lvm_dialog_gui.py:880
+#: partIntfHelpers.py:153 partIntfHelpers.py:338 iw/lvm_dialog_gui.py:880
 #: iw/lvm_dialog_gui.py:1449 iw/osbootwidget.py:104 iw/partition_gui.py:1793
 #: iw/partition_gui.py:1805
 msgid "_Delete"
 msgstr ""
 
-#: partIntfHelpers.py:185
+#: partIntfHelpers.py:200
 msgid "Notice"
 msgstr ""
 
-#: partIntfHelpers.py:186
+#: partIntfHelpers.py:201
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -969,11 +969,11 @@ msgid ""
 "%s"
 msgstr ""
 
-#: partIntfHelpers.py:201
+#: partIntfHelpers.py:216
 msgid "Format as Swap?"
 msgstr ""
 
-#: partIntfHelpers.py:202
+#: partIntfHelpers.py:217
 #, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -982,12 +982,12 @@ msgid ""
 "Would you like to format this partition as a swap partition?"
 msgstr ""
 
-#: partIntfHelpers.py:217
+#: partIntfHelpers.py:232
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr ""
 
-#: partIntfHelpers.py:222
+#: partIntfHelpers.py:237
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -997,23 +997,23 @@ msgid ""
 "continue without formatting this partition."
 msgstr ""
 
-#: partIntfHelpers.py:230
+#: partIntfHelpers.py:245
 msgid "Format?"
 msgstr ""
 
-#: partIntfHelpers.py:230 iw/partition_gui.py:1578
+#: partIntfHelpers.py:245 iw/partition_gui.py:1578
 msgid "_Modify Partition"
 msgstr ""
 
-#: partIntfHelpers.py:230
+#: partIntfHelpers.py:245
 msgid "Do _Not Format"
 msgstr ""
 
-#: partIntfHelpers.py:238
+#: partIntfHelpers.py:253
 msgid "Error with Partitioning"
 msgstr ""
 
-#: partIntfHelpers.py:239
+#: partIntfHelpers.py:254
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1023,11 +1023,11 @@ msgid ""
 "%(errorstr)s"
 msgstr ""
 
-#: partIntfHelpers.py:255
+#: partIntfHelpers.py:270
 msgid "Partitioning Warning"
 msgstr ""
 
-#: partIntfHelpers.py:256
+#: partIntfHelpers.py:271
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1037,23 +1037,23 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: partIntfHelpers.py:270
+#: partIntfHelpers.py:285
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: partIntfHelpers.py:273
+#: partIntfHelpers.py:288
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
 
-#: partIntfHelpers.py:279
+#: partIntfHelpers.py:294
 msgid "Format Warning"
 msgstr ""
 
-#: partIntfHelpers.py:306
+#: partIntfHelpers.py:321
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1061,30 +1061,30 @@ msgid ""
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
 
-#: partIntfHelpers.py:310
+#: partIntfHelpers.py:325
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr ""
 
-#: partIntfHelpers.py:313
+#: partIntfHelpers.py:328
 msgid "You are about to delete a RAID device."
 msgstr ""
 
-#: partIntfHelpers.py:315
+#: partIntfHelpers.py:330
 #, python-format
 msgid "You are about to delete the %s partition."
 msgstr ""
 
-#: partIntfHelpers.py:319
+#: partIntfHelpers.py:334
 #, python-format
 msgid "You are about to delete the %(type)s %(name)s"
 msgstr ""
 
-#: partIntfHelpers.py:330
+#: partIntfHelpers.py:345
 msgid "Confirm Reset"
 msgstr ""
 
-#: partIntfHelpers.py:331
+#: partIntfHelpers.py:346
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
@@ -3502,7 +3502,7 @@ msgstr ""
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
 #: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
-#: loader/nfsinstall.c:377 loader/urlinstall.c:372 loader/urlinstall.c:383
+#: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
 msgstr ""
@@ -4071,7 +4071,7 @@ msgstr ""
 msgid "That directory does not seem to contain a %s installation image."
 msgstr ""
 
-#: loader/nfsinstall.c:378
+#: loader/nfsinstall.c:385
 #, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
 msgstr ""
