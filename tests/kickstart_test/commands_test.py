@@ -69,7 +69,7 @@ class CommandVersionTestCase(TestCase):
             self.assertEqual(baseClass.__name__, pykickstartClass.__name__)
 
 # Do the same thing as CommandVersionTestCase, but for data objects.
-class DataVersionTestCase(unittest.TestCase):
+class DataVersionTestCase(TestCase):
     def setUp(self):
         import pyanaconda.anaconda_log
         pyanaconda.anaconda_log.init()
@@ -90,11 +90,4 @@ class DataVersionTestCase(unittest.TestCase):
 
             self.assertEqual(baseClass.__name__, pykickstartClass.__name__)
 
-def suite():
-    suite = unittest.TestSuite()
-    suite.addTest(CommandVersionTestCase())
-    suite.addTest(DataVersionTestCase())
-    return suite
 
-s = suite()
-unittest.TextTestRunner(verbosity=2).run(s)
