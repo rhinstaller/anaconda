@@ -496,6 +496,7 @@ EOF
     instbin $IMGPATH /sbin/nologin $MBD_DIR /sbin/nologin
     instbin $IMGPATH /bin/login $MBD_DIR /sbin/login
     instbin $IMGPATH /usr/sbin/sshd $MBD_DIR /sbin/sshd
+    cp -a $IMGPATH/usr/sbin/.sshd.hmac $MBD_DIR/sbin/
     instbin $IMGPATH /usr/bin/ssh-keygen $MBD_DIR /sbin/ssh-keygen
 }
 
