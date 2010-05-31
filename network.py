@@ -445,10 +445,11 @@ class Network:
             else:
                 device.set(('ONBOOT', 'yes'))
 
-    def getOnbootIfaces(self):
+    def getOnbootControlledIfaces(self):
         ifaces = []
         for iface, device in self.netdevices.items():
-            if device.get('ONBOOT') == "yes":
+            if (device.get('ONBOOT') == "yes" and
+                device.get('NM_CONTROLLED' == "yes")):
                 ifaces.append(iface)
         return ifaces
 

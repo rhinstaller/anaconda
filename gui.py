@@ -989,7 +989,7 @@ class InstallInterface(InstallInterfaceBase):
             self.anaconda.id.network.update()
 
             if just_setup:
-                waited_devs = self.anaconda.id.network.getOnbootIfaces()
+                waited_devs = self.anaconda.id.network.getOnbootControlledIfaces()
             else:
                 waited_devs = [install_device]
 
