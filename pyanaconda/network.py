@@ -345,6 +345,17 @@ class NetworkDevice(IfcfgFile):
         lf.close()
         f.close()
 
+    def isStorageDevice(self, anaconda):
+        import storage
+        rootdev = anaconda.storage.rootDevice
+        # FIXME: use d.host_address to only add "NM_CONTROLLED=no"
+        # for interfaces actually used enroute to the device
+        for d in anaconda.storage.devices:
+            if isinstance(d, storage.devices.NetworkStorageDevice) and\
+               (rootdev.dependsOn(d) or d.nic == self.iface):
+                return True
+        return False
+
 
 class Network:
 
@@ -596,7 +607,21 @@ class Network:
         self._copyFileToPath("/etc/udev/rules.d/70-persistent-net.rules",
                              instPath, overwrite=flags.livecdInstall)
 
-    def write(self, anaconda=None):
+    def disableNMForStorageDevices(self, anaconda, instPath=''):
+        for devName, device in self.netdevices.items():
+            if device.isStorageDevice(anaconda):
+                dev = NetworkDevice(instPath + netscriptsDir, devName)
+                if os.access(dev.path, os.R_OK):
+                    dev.loadIfcfgFile()
+                    dev.set(('NM_CONTROLLED', 'no'))
+                    dev.writeIfcfgFile()
+                    log.info("network device %s used by storage will not be "
+                             "controlled by NM" % device.path)
+                else:
+                    log.warning("disableNMForStorageDevices: %s file not found" %
+                                device.path)
+
+    def write(self):
 
         devices = self.netdevices.values()
 
@@ -613,19 +638,6 @@ class Network:
             if (bootproto == 'dhcp' and self.hostname and
                 self.overrideDHCPhostname):
                 dev.set(('DHCP_HOSTNAME', self.hostname))
-
-            # tell NetworkManager not to touch any interfaces used during
-            # installation when / is on a network backed device.
-            if anaconda is not None:
-                import storage
-                rootdev = anaconda.storage.rootDevice
-                # FIXME: use d.host_address to only add "NM_CONTROLLED=no"
-                # for interfaces actually used enroute to the device
-                for d in anaconda.storage.devices:
-                    if isinstance(d, storage.devices.NetworkStorageDevice) and\
-                       (rootdev.dependsOn(d) or d.nic == device):
-                        dev.set(('NM_CONTROLLED', 'no'))
-                        break
 
             dev.writeIfcfgFile()
 

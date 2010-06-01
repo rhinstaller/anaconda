@@ -1589,7 +1589,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             if os.access("/etc/modprobe.d/anaconda.conf", os.R_OK):
                 shutil.copyfile("/etc/modprobe.d/anaconda.conf", 
                                 anaconda.rootPath + "/etc/modprobe.d/anaconda.conf")
-            anaconda.network.write(anaconda=anaconda)
+            anaconda.network.write()
             anaconda.network.copyConfigToPath(instPath=anaconda.rootPath)
             anaconda.storage.write(anaconda.rootPath)
             if not anaconda.isHeadless:
