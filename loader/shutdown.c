@@ -29,6 +29,7 @@
 #include <sys/reboot.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include "init.h"
@@ -50,7 +51,7 @@ static void performTerminations(void) {
 }
 
 static void performUnmounts(void) {
-	int ignore;
+	int status;
 	struct stat st_buf;
 
 	printf("disabling swap...\n");
@@ -62,23 +63,22 @@ static void performUnmounts(void) {
 	/* We've lost /mnt/runtime where /lib is a link to put the old
 	   /lib back so that our mdadm invocation below works. */
 	if (stat("/lib64", &st_buf) == 0) {
-		if (unlink("/lib64"))
-			perror("unlink /lib64");
-		if (rename("/lib64_old", "/lib64"))
-			perror("rename /lib64_old /lib64");
+		unlink("/lib64");
+		rename("/lib64_old", "/lib64");
 	} else {
-		if (unlink("/lib"))
-			perror("unlink /lib");
-		if (rename("/lib_old", "/lib"))
-			perror("rename /lib_old /lib");
+		unlink("/lib");
+		rename("/lib_old", "/lib");
 	}
-	if (unlink("/usr"))
-		perror("unlink /usr");
-	if (rename("/usr_old", "/usr"))
-		perror("rename /usr_old /usr");
+	unlink("/usr");
+	rename("/usr_old", "/usr");
 
 	printf("waiting for mdraid sets to become clean...\n"); 
-	ignore = system("/sbin/mdadm --wait-clean --scan");
+	status = system("/sbin/mdadm --wait-clean --scan");
+	if (!WIFEXITED(status))
+		printf("Error: mdadm did not terminate normally\n");
+	else if (WEXITSTATUS(status))
+		printf("Error: mdadm exited with status: %d\n",
+		       WEXITSTATUS(status));
 }
 
 static void performReboot(reboot_action rebootAction) {
