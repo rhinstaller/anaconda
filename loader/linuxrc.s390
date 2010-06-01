@@ -727,19 +727,6 @@ function syntax_check_domainname() {
     return 1
 }
 
-function modprobe_alias() {
-    if [ ":$NETTYPE" = ":ctc" ]; then
-        echo "alias $DEVICE ctcm" >> /tmp/modprobe.conf
-    else
-        echo "alias $DEVICE $NETTYPE" >> /tmp/modprobe.conf
-    fi
-    if [ $? -ne 0 ]; then
-        echo $"Could not append alias for network device $DEVICE to modprobe.conf"
-        return 1
-    fi
-    return 0
-}
-
 function disable_ipv6_autoconf() {
     sysctl -w net.ipv6.conf.all.accept_ra=0 > /dev/null
     sysctl -w net.ipv6.conf.all.accept_redirects=0 > /dev/null
@@ -2923,7 +2910,6 @@ while : ; do
         fi
     fi
 
-    modprobe_alias
     do_dns
     [ -n "$DNS" ] && do_searchdns
 
