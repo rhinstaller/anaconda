@@ -1142,12 +1142,22 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
 }
 
 /* make sure they have enough ram */
-static void checkForRam(void) {
-    if (totalMemory() < MIN_RAM) {
+static void checkForRam(int install_method) {
+    const char *reason_no = "";
+    const char *reason_method = " using this install method";
+    const char *reason = reason_no;
+    int needed = MIN_RAM;
+
+    if (install_method == METHOD_URL) {
+        needed += URL_INSTALL_EXTRA_RAM;
+        reason = reason_method;
+    }
+    
+    if (totalMemory() < needed) {
         char *buf;
 
         checked_asprintf(&buf, _("You do not have enough RAM to install %s "
-                                 "on this machine."), getProductName());
+                                 "on this machine%s."), getProductName(), reason);
 
         startNewt();
         newtWinMessage(_("Error"), _("OK"), buf);
@@ -1535,6 +1545,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 }
 
                 logMessage(INFO, "starting STEP_STAGE2");
+                checkForRam(loaderData->method);
                 url = installMethods[validMethods[loaderData->method]].mountImage(
                                           installMethods + validMethods[loaderData->method],
                                           "/mnt/stage2", loaderData);
@@ -1949,7 +1960,7 @@ int main(int argc, char ** argv) {
     }
     initializeConsole();
 
-    checkForRam();
+    checkForRam(-1);
 
     /* iSeries vio console users will be ssh'ing in to the primary
        partition, so use a terminal type that is appripriate */
