@@ -222,6 +222,29 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jun 01 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-1
+- Replace the Serial Number column with an Identifier column (clumens).
+  Resolves: rhbz#560666
+- Adjust mdraid size estimates (bcl)
+  Resolves: rhbz#587442
+- Extra debugging output (bcl)
+  Related: rhbz#587442
+  Resolves: rhbz#587442
+- Require newer pykickstart (dcantrell)
+  Related: rhbz#596804
+- Give blkid the final word on device format detection. (dlehman)
+  Resolves: rhbz#593637
+- Set NM_CONTROLLED=no iscsi for storage devices only on system (rvykydal)
+  Resolves: rhbz#598070
+- Allow ignoredisk to be interactive without the rest of the UI (pjones)
+  Resolves: rhbz#596804
+- booty: Make getPhysicalDevices only return physical devices (hdegoede)
+  Resolves: rhbz#593718
+- booty: Don't create device.map entries for devices backing / (hdegoede)
+  Related: rhbz#593718
+- Do not allow editing of extended partitions (hdegoede)
+  Resolves: rhbz#593754
+
 * Sun May 30 2010 David Cantrell <dcantrell@redhat.com> - 13.21.49-1
 - Add more sanity checks to the mountpoint (bcl)
   Resolves: rhbz#592185
