@@ -344,11 +344,12 @@ def runVNC():
                 break
 
         while True:
-            # s390/s390x are the only places we /really/ need a shell on tty1,
+            # Not having a virtual terminal or otherwise free console
+            # are the only places we /really/ need a shell on tty1,
             # and everywhere else this just gets in the way of pdb.  But we
             # don't want to return, because that'll return try to start X
             # a second time.
-            if iutil.isConsoleOnVirtualTerminal():
+            if iutil.isConsoleOnVirtualTerminal() or iutil.isS390():
                     time.sleep(10000)
             else:
                     print _("Press <enter> for a shell")
