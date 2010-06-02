@@ -5,7 +5,7 @@
 
 <widget class="GtkWindow" id="window1">
   <property name="visible">True</property>
-  <property name="title" translatable="yes" context="yes"></property>
+  <property name="title" translatable="yes"></property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -32,7 +32,7 @@
 	<widget class="GtkLabel" id="mainLabel">
 	  <property name="width_request">600</property>
 	  <property name="visible">True</property>
-	  <property name="label" translatable="yes" context="yes">The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to support?</property>
+	  <property name="label" translatable="yes">The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to support?</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">False</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -107,7 +107,7 @@
 	    <widget class="GtkLabel" id="label2">
 	      <property name="width_request">600</property>
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">You can further customize the software selection now, or after install via the software management application.</property>
+	      <property name="label" translatable="yes">You can further customize the software selection now, or after install via the software management application.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -138,7 +138,7 @@
 	      <child>
 		<widget class="GtkRadioButton" id="laterRadio">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">Customize _later</property>
+		  <property name="label" translatable="yes">Customize _later</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -156,7 +156,7 @@
 	      <child>
 		<widget class="GtkRadioButton" id="customRadio">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">_Customize now</property>
+		  <property name="label" translatable="yes">_Customize now</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>

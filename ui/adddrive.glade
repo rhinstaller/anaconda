@@ -5,7 +5,7 @@
 
 <widget class="GtkDialog" id="addDriveDialog">
   <property name="visible">True</property>
-  <property name="title" translatable="yes" context="yes">Advanced Storage Options</property>
+  <property name="title" translatable="yes">Advanced Storage Options</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
   <property name="modal">False</property>
@@ -135,7 +135,7 @@
 	  <child>
 	    <widget class="GtkLabel" id="label1">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">How would you like to modify your drive configuration?</property>
+	      <property name="label" translatable="yes">How would you like to modify your drive configuration?</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -166,7 +166,7 @@
 	      <child>
 		<widget class="GtkRadioButton" id="iscsiRadio">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">Add _iSCSI target</property>
+		  <property name="label" translatable="yes">Add _iSCSI target</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -185,7 +185,7 @@
 	      <child>
 		<widget class="GtkRadioButton" id="zfcpRadio">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">Add _ZFCP LUN</property>
+		  <property name="label" translatable="yes">Add _ZFCP LUN</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -204,7 +204,7 @@
 	      <child>
 		<widget class="GtkRadioButton" id="fcoeRadio">
 		  <property name="visible">True</property>
-                  <property name="label" translatable="yes" context="yes">Add _FCoE SAN</property>
+		  <property name="label" translatable="yes">Add _FCoE SAN</property>
 		  <property name="use_underline">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
 		  <property name="focus_on_click">True</property>
@@ -219,7 +219,6 @@
 		  <property name="fill">True</property>
 		</packing>
 	      </child>
-
 	    </widget>
 	    <packing>
 	      <property name="padding">0</property>
