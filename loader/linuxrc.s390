@@ -1994,6 +1994,7 @@ function do_network() {
     echo $"The NETWORK parameter isn't used anymore and will be ignored."
     echo $" It is sufficient to specify IPADDR and NETMASK."
     echo
+    unset NETWORK
 }
 
 ### BROADCAST
@@ -2003,6 +2004,7 @@ function do_broadcast() {
     echo $"The BROADCAST parameter isn't used anymore and will be ignored."
     echo $" It is sufficient to specify IPADDR and NETMASK."
     echo
+    unset BROADCAST
 }
 
 ### NETMASK (IPv6)
