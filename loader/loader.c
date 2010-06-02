@@ -760,6 +760,8 @@ static void readNetInfo(struct loaderData_s ** ld) {
 #endif
                 } else if (!g_strcmp0(pair[0], "DNS")) {
                     loaderData->dns = strdup(val);
+                } else if (!g_strcmp0(pair[0], "DOMAIN")) {
+                    loaderData->domain = strdup(val);
                 } else if (!g_strcmp0(pair[0], "MTU")) {
                     errno = 0;
                     loaderData->mtu = strtol(val, NULL, 10);
