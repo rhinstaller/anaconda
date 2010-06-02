@@ -53,6 +53,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
+iutil.setup_translations(gtk.glade)
 
 class StayOnScreen(Exception):
     pass

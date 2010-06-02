@@ -275,25 +275,6 @@ def setupPythonPath():
 
     sys.path.append('/usr/share/system-config-date')
 
-def addPoPath(dir):
-    """ Looks to see what translations are under a given path and tells
-    the gettext module to use that path as the base dir """
-    for d in os.listdir(dir):
-        if not os.path.isdir("%s/%s" %(dir,d)):
-            continue
-        if not os.path.exists("%s/%s/LC_MESSAGES" %(dir,d)):
-            continue
-        for basename in os.listdir("%s/%s/LC_MESSAGES" %(dir,d)):
-            if not basename.endswith(".mo"):
-                continue
-            log.info("setting %s as translation source for %s" %(dir, basename[:-3]))
-            gettext.bindtextdomain(basename[:-3], dir)
-
-def setupTranslations():
-    if os.path.isdir("/tmp/updates/po"):
-        addPoPath("/tmp/updates/po")
-    gettext.textdomain("anaconda")
-
 def setupEnvironment():
     # Silly GNOME stuff
     if os.environ.has_key('HOME') and not os.environ.has_key("XAUTHORITY"):
@@ -679,7 +660,7 @@ if __name__ == "__main__":
 
     warnings.showwarning = AnacondaShowWarning
 
-    setupTranslations()
+    iutil.setup_translations(gettext)
 
     # reset python's default SIGINT handler
     signal.signal(signal.SIGINT, signal.SIG_DFL)

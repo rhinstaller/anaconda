@@ -1058,3 +1058,22 @@ def parseNfsUrl(nfsurl):
         else:
             host = s[0]
     return (options, host, path)
+
+def add_po_path(module, dir):
+    """ Looks to see what translations are under a given path and tells
+    the gettext module to use that path as the base dir """
+    for d in os.listdir(dir):
+        if not os.path.isdir("%s/%s" %(dir,d)):
+            continue
+        if not os.path.exists("%s/%s/LC_MESSAGES" %(dir,d)):
+            continue
+        for basename in os.listdir("%s/%s/LC_MESSAGES" %(dir,d)):
+            if not basename.endswith(".mo"):
+                continue
+            log.info("setting %s as translation source for %s" %(dir, basename[:-3]))
+            module.bindtextdomain(basename[:-3], dir)
+
+def setup_translations(module):
+    if os.path.isdir(TRANSLATIONS_UPDATE_DIR):
+        add_po_path(module, TRANSLATIONS_UPDATE_DIR)
+    module.textdomain("anaconda")

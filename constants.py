@@ -87,3 +87,4 @@ else:
 DD_EXTRACTED = "/tmp/DD"
 DD_RPMS = "/tmp/DD-*"
 
+TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
