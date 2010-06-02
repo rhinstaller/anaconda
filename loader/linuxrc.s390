@@ -2984,6 +2984,11 @@ fi
 cat > /etc/sysconfig/network << EOF
 HOSTNAME=$HOSTNAME
 EOF
+if [ "$ipv6" ]; then
+    echo "NETWORKING_IPV6=yes" >> /etc/sysconfig/network
+else
+    echo "NETWORKING=yes" >> /etc/sysconfig/network
+fi
 
 cat > $IFCFGFILE << EOF
 DEVICE=$DEVICE
