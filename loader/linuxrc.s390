@@ -3026,8 +3026,16 @@ BROADCAST=$BROADCAST
 GATEWAY=$GATEWAY
 EOF
 fi
+# real DNS config for NetworkManager to generate /etc/resolv.conf
 [ "$DNS1" != "" ] && echo "DNS1=$DNS1" >> $IFCFGFILE
 [ "$DNS2" != "" ] && echo "DNS2=$DNS2" >> $IFCFGFILE
+# just to please loader's readNetInfo && writeEnabledNetInfo
+# which eats DNS1,DNS2,... and generates it themselves based on DNS
+if [ "$ipv6" ]; then
+    [ "$DNS" != "" ] && echo "DNS=\"$DNS\"" >> $IFCFGFILE
+else
+    [ "$DNS" != "" ] && echo "DNS=\"$(echo $DNS|sed -e 's/:/,/g')\"" >> $IFCFGFILE
+fi
 # colons in SEARCHDNS already replaced with spaces above for /etc/resolv.conf
 [ "$SEARCHDNS" != "" ] && echo "DOMAIN=\"$SEARCHDNS\"" >> $IFCFGFILE
 [ "$NETTYPE" != "" ] && echo "NETTYPE=$NETTYPE" >> $IFCFGFILE
