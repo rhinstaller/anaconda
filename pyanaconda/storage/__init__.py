@@ -84,7 +84,7 @@ def storageInitialize(anaconda):
     # ignore, etc.  Luckily that's all in the kickstart data.
     if anaconda.ksdata:
         anaconda.storage.zeroMbr = anaconda.ksdata.zerombr.zerombr
-        anaconda.storage.ignoreDiskInteractive = ksdata.ignoredisk.interactive
+        anaconda.storage.ignoreDiskInteractive = anaconda.ksdata.ignoredisk.interactive
         anaconda.storage.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
         anaconda.storage.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
 
