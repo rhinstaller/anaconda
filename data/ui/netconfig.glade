@@ -75,7 +75,7 @@
 	  <child>
 	    <widget class="GtkLabel" id="label1">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">This requires that you have an active network connection during the installation process.  Please configure a network interface.</property>
+	      <property name="label" translatable="yes">This requires that you have an active network connection during the installation process.  Please configure a network interface.</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -106,7 +106,7 @@
 	      <child>
 		<widget class="GtkLabel" id="interfaceLabel">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">&lt;b&gt;_Interface:&lt;/b&gt;</property>
+		  <property name="label" translatable="yes">&lt;b&gt;_Interface:&lt;/b&gt;</property>
 		  <property name="use_underline">True</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -152,7 +152,7 @@
 	  <child>
 	    <widget class="GtkCheckButton" id="dhcpCheckbutton">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">Use _dynamic IP configuration (DHCP)</property>
+	      <property name="label" translatable="yes">Use _dynamic IP configuration (DHCP)</property>
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
@@ -171,7 +171,7 @@
 	  <child>
 	    <widget class="GtkCheckButton" id="ipv4Checkbutton">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes" context="yes">Enable IPv_4 support</property>
+	      <property name="label" translatable="yes">Enable IPv_4 support</property>
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
@@ -189,7 +189,7 @@
 
 	  <child>
 	    <widget class="GtkCheckButton" id="ipv6Checkbutton">
-	      <property name="label" translatable="yes" context="yes">Enable IPv_6 support</property>
+	      <property name="label" translatable="yes">Enable IPv_6 support</property>
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
@@ -214,7 +214,7 @@
 	      <child>
 		<widget class="GtkLabel" id="ipv4Label">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">&lt;b&gt;IPv4 Address:&lt;/b&gt;</property>
+		  <property name="label" translatable="yes">&lt;b&gt;IPv4 Address:&lt;/b&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -258,7 +258,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label10">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">/</property>
+		  <property name="label" translatable="yes">/</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -315,7 +315,7 @@
 	      <child>
 		<widget class="GtkLabel" id="ipv6Label">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">&lt;b&gt;IPv6 Address:&lt;/b&gt;</property>
+		  <property name="label" translatable="yes">&lt;b&gt;IPv6 Address:&lt;/b&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -359,7 +359,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label11">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">/</property>
+		  <property name="label" translatable="yes">/</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">False</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -416,7 +416,7 @@
 	      <child>
 		<widget class="GtkLabel" id="gatewayLabel">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">&lt;b&gt;Gateway:&lt;/b&gt;</property>
+		  <property name="label" translatable="yes">&lt;b&gt;Gateway:&lt;/b&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -473,7 +473,7 @@
 	      <child>
 		<widget class="GtkLabel" id="nameserverLabel">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes" context="yes">&lt;b&gt;Nameserver:&lt;/b&gt;</property>
+		  <property name="label" translatable="yes">&lt;b&gt;Nameserver:&lt;/b&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>

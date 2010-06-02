@@ -5,7 +5,7 @@
 
 <widget class="GtkWindow" id="unused1">
   <property name="border_width">18</property>
-  <property name="title" translatable="yes" context="yes"></property>
+  <property name="title" translatable="yes"></property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -105,7 +105,7 @@
 
 	  <child>
 	    <widget class="GtkCheckButton" id="reviewButton">
-	      <property name="label" translatable="yes" context="yes">Re_view and modify partitioning layout</property>
+	      <property name="label" translatable="yes">Re_view and modify partitioning layout</property>
 	      <property name="use_underline">True</property>
 	      <property name="relief">GTK_RELIEF_NORMAL</property>
 	      <property name="focus_on_click">True</property>
