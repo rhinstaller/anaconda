@@ -145,8 +145,13 @@ class UdevDevice(dict):
             name = libudev_udev_list_entry_get_name(property_entry)
             value = libudev_udev_list_entry_get_value(property_entry)
 
-            # XXX some of the strings contain a list of values in them,
+            # lvm outputs values for multiple lvs in one line
             # we want to split them and make a list
+            # if the first lv's value is empty we end up with a value starting
+            # with name=, prepend a space that our split does the right thing
+            if value.startswith("%s=" % name):
+                value = " " + value
+
             if value.count(" %s=" % name):
                 value = value.split(" %s=" % name)
 
