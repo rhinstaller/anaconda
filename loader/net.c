@@ -297,6 +297,24 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
         } else if (inet_pton(AF_INET6, loaderData->ipv6, &addr6) >= 1) {
             memcpy(&iface->ip6addr, &addr6, sizeof(struct in6_addr));
             iface->ipv6method = IPV6_MANUAL_METHOD;
+
+            iface->ip6prefix = 0;
+            if (loaderData->ipv6prefix) {
+                int prefix;
+
+                errno = 0;
+                prefix = strtol(loaderData->ipv6prefix, NULL, 10);
+                if ((errno == ERANGE && (prefix == LONG_MIN ||
+                                         prefix == LONG_MAX)) ||
+                    (errno != 0 && prefix == 0)) {
+                    logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
+                    abort();
+                }
+
+                if (prefix > 0 || prefix <= 128) {
+                    iface->ip6prefix = prefix;
+                }
+            }
         } else {
             iface->ipv6method = 0;
             loaderData->ipv6info_set = 0;
@@ -1360,6 +1378,7 @@ int writeEnabledNetInfo(iface_t *iface) {
             } else if (iface->ipv6method == IPV6_DHCP_METHOD) {
                 fprintf(fp, "DHCPV6C=yes\n");
             } else if (iface->ipv6method == IPV6_MANUAL_METHOD) {
+                fprintf(fp, "IPV6_AUTOCONF=no\n");
                 if (iface_have_in6_addr(&iface->ip6addr)) {
                     if (inet_ntop(AF_INET6, &iface->ip6addr, buf,
                                   INET6_ADDRSTRLEN) == NULL) {
