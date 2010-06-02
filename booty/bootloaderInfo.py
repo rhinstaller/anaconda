@@ -172,24 +172,9 @@ class KernelArguments:
 
     def __init__(self, instData):
         newArgs = []
-        cfgFilename = "/tmp/install.cfg"
 
         if iutil.isS390():
             self.cargs = []
-            f = open(cfgFilename)
-            for line in f:
-                try:
-                    (vname,vparm) = line.split('=', 1)
-                    vname = vname.strip()
-                    vparm = vparm.replace('"','')
-                    vparm = vparm.strip()
-                    if vname == "CHANDEV":
-                        self.cargs.append(vparm)
-                    if vname == "QETHPARM":
-                        self.cargs.append(vparm)
-                except Exception, e:
-                    pass
-            f.close()
 
         # look for kernel arguments we know should be preserved and add them
         ourargs = ["speakup_synth", "apic", "noapic", "apm", "ide", "noht",
