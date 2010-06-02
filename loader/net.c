@@ -1301,7 +1301,9 @@ int writeEnabledNetInfo(iface_t *iface) {
     }
 
     fprintf(fp, "DEVICE=%s\n", iface->device);
+#if !defined(__s390__) && !defined(__s390x__)
     fprintf(fp, "HWADDR=%s\n", iface_mac2str(iface->device));
+#endif
     fprintf(fp, "ONBOOT=yes\n");
 
     if (!FL_NOIPV4(flags)) {
