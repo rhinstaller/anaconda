@@ -648,6 +648,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
     loaderData->macaddr = NULL;
 #ifdef ENABLE_IPV6
     loaderData->ipv6 = NULL;
+    loaderData->ipv6prefix = NULL;
     loaderData->gateway6 = NULL;
 #endif
 
@@ -696,6 +697,24 @@ static void readNetInfo(struct loaderData_s ** ld) {
                     loaderData->netmask = strdup(val);
                 } else if (!g_strcmp0(pair[0], "GATEWAY")) {
                     loaderData->gateway = strdup(val);
+#ifdef ENABLE_IPV6
+                } else if (!g_strcmp0(pair[0], "IPV6ADDR")) {
+                    gchar **elements = g_strsplit(val, "/", 2);
+
+                    if (elements[0]) {
+                        loaderData->ipv6 = strdup(elements[0]);
+                        loaderData->ipv6info_set = 1;
+                        flags |= LOADER_FLAGS_IPV6_PARAM;
+                        if (elements[1]) {
+                            loaderData->ipv6prefix = strdup(elements[1]);
+                        }
+                    } else {
+                      logMessage(WARNING, "readNetInfo could not parse IPV6ADDR: %s", val);
+                    }
+                    g_strfreev(elements);
+                } else if (!g_strcmp0(pair[0], "IPV6_DEFAULTGW")) {
+                    loaderData->gateway6 = strdup(val);
+#endif
                 } else if (!g_strcmp0(pair[0], "DNS")) {
                     loaderData->dns = strdup(val);
                 } else if (!g_strcmp0(pair[0], "MTU")) {
