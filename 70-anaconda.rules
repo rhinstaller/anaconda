@@ -15,33 +15,6 @@ KERNEL=="dm-*", ENV{DM_NAME}!="?*", GOTO="anaconda_end"
 KERNEL=="dm-*", ENV{DM_SUSPENDED}=="1", GOTO="anaconda_end"
 KERNEL=="dm-*", ENV{DM_SUSPENDED}=="Suspended", GOTO="anaconda_end"
 
-IMPORT{program}="$env{ANACBIN}/blkid -o udev -p $tempnode"
-
-LABEL="anaconda_mdraid"
-KERNEL!="md*", GOTO="anaconda_mdraid_member"
-
-# container devices have a metadata version of e.g. 'external:ddf' and
-# never leave state 'inactive'
-ATTR{md/metadata_version}=="external:[A-Za-z]*", ATTR{md/array_state}=="inactive", GOTO="md_ignore_state"
-TEST!="md/array_state", GOTO="anaconda_mdraid_member"
-ATTR{md/array_state}=="|clear|inactive", GOTO="anaconda_mdraid_member"
-LABEL="md_ignore_state"
-
-IMPORT{program}="$env{ANACBIN}/mdadm --detail --export $tempnode"
-ENV{DEVTYPE}=="disk", ENV{MD_NAME}=="?*", SYMLINK+="disk/by-id/md-name-$env{MD_NAME}", OPTIONS+="string_escape=replace"
-ENV{DEVTYPE}=="disk", ENV{MD_UUID}=="?*", SYMLINK+="disk/by-id/md-uuid-$env{MD_UUID}"
-ENV{DEVTYPE}=="disk", ENV{MD_DEVNAME}=="?*", SYMLINK+="md/$env{MD_DEVNAME}"
-ENV{DEVTYPE}=="partition", ENV{MD_NAME}=="?*", SYMLINK+="disk/by-id/md-name-$env{MD_NAME}-part%n", OPTIONS+="string_escape=replace"
-ENV{DEVTYPE}=="partition", ENV{MD_UUID}=="?*", SYMLINK+="disk/by-id/md-uuid-$env{MD_UUID}-part%n"
-ENV{DEVTYPE}=="partition", ENV{MD_DEVNAME}=="*[^0-9]", SYMLINK+="md/$env{MD_DEVNAME}%n"
-ENV{DEVTYPE}=="partition", ENV{MD_DEVNAME}=="*[0-9]", SYMLINK+="md/$env{MD_DEVNAME}p%n"
-
-OPTIONS+="link_priority=100"
-OPTIONS+="watch"
-ENV{ID_FS_USAGE}=="filesystem|other|crypto", ENV{ID_FS_UUID_ENC}=="?*", SYMLINK+="disk/by-uuid/$env{ID_FS_UUID_ENC}"
-ENV{ID_FS_USAGE}=="filesystem|other", ENV{ID_FS_LABEL_ENC}=="?*", SYMLINK+="disk/by-label/$env{ID_FS_LABEL_ENC}"
-
-LABEL="anaconda_mdraid_member"
 # probe raid metadata of mdraid member devices
 ENV{ID_FS_TYPE}=="linux_raid_member", IMPORT{program}="$env{ANACBIN}/mdadm --examine --export $tempnode"
 ENV{ID_FS_TYPE}=="isw_raid_member", IMPORT{program}="$env{ANACBIN}/mdadm --examine --export $tempnode"
