@@ -633,20 +633,47 @@ static void writeVNCPasswordFile(char *pfile, char *password) {
  */
 static void readNetInfo(struct loaderData_s ** ld) {
     struct loaderData_s * loaderData = *ld;
-    char *cfgfile = NULL;
-    gchar *contents = NULL;
+    char *cfgfile = NULL, *devfile = "/tmp/s390net";
+    gchar *contents = NULL, *device = NULL;
     gchar **lines = NULL, **line = NULL;
     GError *e = NULL;
 
-    /* when this function is called, the DEVICE environment variable
+    /* when this function is called, /tmp/s390net
      * contains the device name whose ifcfg file we want to read
      */
-    if (!getenv("DEVICE")) {
+    if (!g_file_test(devfile, G_FILE_TEST_EXISTS)) {
+        logMessage(DEBUGLVL, "readNetInfo %s not found, early return", devfile);
         return;
+    }
+    if (!g_file_get_contents(devfile, &contents, NULL, &e)) {
+        logMessage(ERROR, "error reading %s: %s", devfile, e->message);
+        g_error_free(e);
+        abort();
+    }
+    line = lines = g_strsplit(contents, "\n", 0);
+    g_free(contents);
+    while (*line != NULL) {
+        gchar *tmp = g_strdup(*line);
+        tmp = g_strstrip(tmp);
+        logMessage(DEBUGLVL, "readNetInfo stripped line: %s", tmp);
+        if (strlen(tmp) > 0) {
+            device = strdup(tmp);
+            g_free(tmp);
+            logMessage(DEBUGLVL, "readNetInfo found device: %s", device);
+            break;
+        }
+        g_free(tmp);
+        line++;
+    }
+    g_strfreev(lines);
+    if (strlen(device) == 0) {
+        return;
+        logMessage(DEBUGLVL, "readNetInfo no device found");
     }
 
     checked_asprintf(&cfgfile, "/etc/sysconfig/network-scripts/ifcfg-%s",
-                     getenv("DEVICE"));
+                     device);
+    logMessage(INFO, "readNetInfo cfgfile: %s", cfgfile);
 
     /* make sure everything is NULL before we begin copying info */
     loaderData->ipv4 = NULL;
@@ -1514,7 +1541,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
                 logMessage(INFO, "going to do getNetConfig");
 
-                /* s390 provides all config info by way of the CMS conf file */
+                /* s390 provides all config info by way of linuxrc.s390 */
                 if (FL_HAVE_CMSCONF(flags)) {
                     loaderData->ipinfo_set = 1;
 #ifdef ENABLE_IPV6

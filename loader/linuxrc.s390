@@ -2959,49 +2959,18 @@ done
 #    [ "$ipv6" ] && echo "IPV6=yes"
 
 # transfer options into install environment
-cat > /tmp/install.cfg << EOF
-LANG="$LANG"
-S390ARCH="$S390ARCH"
-TEXTDOMAIN="$TEXTDOMAIN"
-TEXTDOMAINDIR="$TEXTDOMAINDIR"
-PORTNAME="$PORTNAME"
-HOSTNAME="$HOSTNAME"
-DEVICE="$DEVICE"
-NETTYPE="$NETTYPE"
-IPADDR="$IPADDR"
-GATEWAY="$GATEWAY"
-MTU="$MTU"
-NETWORK="$NETWORK"
-NETMASK="$NETMASK"
-BROADCAST="$BROADCAST"
-SEARCHDNS="$SEARCHDNS"
-PEERID="$PEERID"
-SUBCHANNELS="$SUBCHANNELS"
-ONBOOT="yes"
-CTCPROT="$CTCPROT"
-EOF
+# loader now uses ifcfg instead of install.cfg to receive our network config
+
+# additionally, loader's readNetInfo needs to know our DEVICE name
+echo $DEVICE > /tmp/s390net
+
 if [ "$ipv6" ]; then
     DNS1=$(echo $DNS | cut -d ',' -f 1)
-    echo DNS=\"$DNS1\" >> /tmp/install.cfg
-    echo DNS1=\"$DNS1\" >> /tmp/install.cfg
-    echo DNS2=\"$(echo $DNS | cut -d ',' -f 2)\" >> /tmp/install.cfg
+    DNS2=$(echo $DNS | cut -d ',' -f 2)
 else
     DNS1=$(echo $DNS | cut -d ':' -f 1)
-    echo DNS=\"$DNS1\" >> /tmp/install.cfg
-    echo DNS1=\"$DNS1\" >> /tmp/install.cfg
-    echo DNS2=\"$(echo $DNS | cut -d ':' -f 2)\" >> /tmp/install.cfg
+    DNS2=$(echo $DNS | cut -d ':' -f 2)
 fi
-cat >> /tmp/install.cfg << EOF
-export LANG PORTNAME S390ARCH TEXTDOMAIN TEXTDOMAINDIR
-export HOSTNAME DEVICE NETTYPE IPADDR GATEWAY MTU
-export NETWORK NETMASK BROADCAST DNS DNS1 DNS2 SEARCHDNS
-export PEERID ONBOOT SUBCHANNELS CTCPROT
-EOF
-# immediately read it in again to export these into the shell below
-. /tmp/install.cfg
-if [ -z "$testing" ]; then
-    cat /tmp/install.cfg >> /etc/profile
-fi # testing
 
 NETSCRIPTS="/etc/sysconfig/network-scripts"
 IFCFGFILE="$NETSCRIPTS/ifcfg-$DEVICE"
