@@ -418,12 +418,8 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
         parseEthtoolSettings(loaderData);
     }
 
-    if (loaderData->layer2) {
-        iface->layer2 = strdup(loaderData->layer2);
-    }
-
-    if (loaderData->portno) {
-        iface->portno = strdup(loaderData->portno);
+    if (loaderData->options) {
+        iface->options = strdup(loaderData->options);
     }
 
     if (loaderData->wepkey) {
@@ -1236,7 +1232,7 @@ int writeDisabledNetInfo(void) {
  *     /etc/sysconfig/network
  */
 int writeEnabledNetInfo(iface_t *iface) {
-    int i = 0, osa_layer2 = 0, osa_portno = 0;
+    int i = 0;
     mode_t mode = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
     FILE *fp = NULL;
     char buf[INET6_ADDRSTRLEN+1];
@@ -1449,30 +1445,8 @@ int writeEnabledNetInfo(iface_t *iface) {
         fprintf(fp, "CTCPROT=%s\n", iface->ctcprot);
     }
 
-    if (iface->layer2 && !strcmp(iface->layer2, "1")) {
-        osa_layer2 = 1;
-    }
-
-    if (iface->portno && !strcmp(iface->portno, "1")) {
-        osa_portno = 1;
-    }
-
-    if (osa_layer2 || osa_portno) {
-        fprintf(fp, "OPTIONS=\"");
-
-        if (osa_layer2) {
-            fprintf(fp, "layer2=1");
-        }
-
-        if (osa_layer2 && osa_portno) {
-            fprintf(fp, " ");
-        }
-
-        if (osa_portno) {
-            fprintf(fp, "portno=1");
-        }
-
-        fprintf(fp, "\"\n");
+    if (iface->options) {
+        fprintf(fp, "OPTIONS=\'%s\'\n", iface->options);
     }
 
     if (iface->macaddr) {

@@ -383,8 +383,7 @@ void iface_init_iface_t(iface_t *iface) {
     iface->peerid = NULL;
     iface->nettype = NULL;
     iface->ctcprot = NULL;
-    iface->layer2 = NULL;
-    iface->portno = NULL;
+    iface->options = NULL;
     iface->flags = 0;
     iface->ipv4method = IPV4_UNUSED_METHOD;
     iface->ipv6method = IPV6_UNUSED_METHOD;

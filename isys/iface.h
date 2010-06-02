@@ -95,8 +95,7 @@ typedef struct _iface_t {
     char *peerid;
     char *nettype;
     char *ctcprot;
-    char *layer2;
-    char *portno;
+    char *options;
 
     /* flags */
     uint64_t flags;

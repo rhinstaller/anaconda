@@ -685,8 +685,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
     loaderData->portname = NULL;
     loaderData->nettype = NULL;
     loaderData->ctcprot = NULL;
-    loaderData->layer2 = NULL;
-    loaderData->portno = NULL;
+    loaderData->options = NULL;
     loaderData->macaddr = NULL;
 #ifdef ENABLE_IPV6
     loaderData->ipv6 = NULL;
@@ -722,7 +721,7 @@ static void readNetInfo(struct loaderData_s ** ld) {
         }
 
         tmp = g_strstrip(tmp);
-        pair = g_strsplit(tmp, "=", 0);
+        pair = g_strsplit(tmp, "=", 2);
 
         if (g_strv_length(pair) == 2) {
             gchar *val = g_shell_unquote(pair[1], &e);
@@ -781,10 +780,8 @@ static void readNetInfo(struct loaderData_s ** ld) {
                     loaderData->nettype = strdup(val);
                 } else if (!g_strcmp0(pair[0], "CTCPROT")) {
                     loaderData->ctcprot = strdup(val);
-                } else if (!g_strcmp0(pair[0], "LAYER2")) {
-                    loaderData->layer2 = strdup(val);
-                } else if (!g_strcmp0(pair[0], "PORTNO")) {
-                    loaderData->portno = strdup(val);
+                } else if (!g_strcmp0(pair[0], "OPTIONS")) {
+                    loaderData->options = strdup(val);
                 } else if (!g_strcmp0(pair[0], "MACADDR")) {
                     loaderData->macaddr = strdup(val);
                 } else if (!g_strcmp0(pair[0], "HOSTNAME")) {
