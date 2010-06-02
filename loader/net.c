@@ -384,6 +384,11 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
         logMessage(INFO, "dnsservers is %s", loaderData->dns);
     }
 
+    if (loaderData->domain) {
+        logMessage(INFO, "dnsdomains is %s", loaderData->domain);
+        iface->domain = strdup(loaderData->domain);
+    }
+
     if (loaderData->hostname) {
         logMessage(INFO, "setting specified hostname of %s",
                    loaderData->hostname);
@@ -1402,7 +1407,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     }
 
     if (iface->domain) {
-        fprintf(fp, "DOMAIN=%s\n", iface->domain);
+        fprintf(fp, "DOMAIN=\"%s\"\n", iface->domain);
     }
 
     if (iface->mtu) {
