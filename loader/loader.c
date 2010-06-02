@@ -720,6 +720,8 @@ static void readNetInfo(struct loaderData_s ** ld) {
             } else {
                 if (!g_strcmp0(pair[0], "IPADDR")) {
                     loaderData->ipv4 = strdup(val);
+                    loaderData->ipinfo_set = 1;
+                    flags |= LOADER_FLAGS_IP_PARAM;
                 } else if (!g_strcmp0(pair[0], "NETMASK")) {
                     loaderData->netmask = strdup(val);
                 } else if (!g_strcmp0(pair[0], "GATEWAY")) {
