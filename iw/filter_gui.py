@@ -566,7 +566,7 @@ class FilterWindow(InstallWindow):
         # So that drives onlined by these show up in the filter UI
         storage.iscsi.iscsi().startup(anaconda.intf)
         storage.fcoe.fcoe().startup(anaconda.intf)
-        storage.zfcp.ZFCP().startup()
+        storage.zfcp.ZFCP().startup(anaconda.intf)
         storage.dasd.DASD().startup(anaconda.intf,
                                     anaconda.id.storage.exclusiveDisks,
                                     anaconda.id.storage.zeroMbr)
