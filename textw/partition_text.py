@@ -108,7 +108,7 @@ class PartitionTypeWindow:
                 if not cleardrives or len(cleardrives) < 1:
                     selected = 1
                 else:
-                    if disk in cleardrives:
+                    if disk.name in cleardrives:
                         selected = 1
                     else:
                         selected = 0
