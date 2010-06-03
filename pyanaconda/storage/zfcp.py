@@ -329,6 +329,7 @@ class ZFCP:
     """
 
     def __init__(self):
+        self.intf = None
         self.fcpdevs = set()
         self.hasReadConfig = False
         self.down = True
@@ -354,14 +355,26 @@ class ZFCP:
             fields = line.split()
 
             if len(fields) == 3:
-                self.addFCP(fields[0], fields[1], fields[2])
+                devnum = fields[0]
+                wwpn   = fields[1]
+                fcplun = fields[2]
             elif len(fields) == 5:
                 # support old syntax of:
                 # devno scsiid wwpn scsilun fcplun
-                self.addFCP(fields[0], fields[2], fields[4])
+                devnum = fields[0]
+                wwpn   = fields[2]
+                fcplun = fields[4]
             else:
                 log.warn("Invalid line found in %s: %s" % (zfcpconf, line,))
                 continue
+
+            try:
+                self.addFCP(devnum, wwpn, fcplun)
+            except ValueError, e:
+                if self.intf:
+                    self.intf.messageWindow(_("Error"), str(e))
+                else:
+                    log.warning(str(e))
 
     def addFCP(self, devnum, wwpn, fcplun):
         d = ZFCPDevice(devnum, wwpn, fcplun)
@@ -380,7 +393,8 @@ class ZFCP:
             except ValueError, e:
                 log.warn(str(e))
 
-    def startup(self):
+    def startup(self, intf):
+        self.intf = intf
         if not self.down:
             return
         self.down = False
