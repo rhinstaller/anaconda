@@ -20,6 +20,7 @@
 #            Michael Fulbright <msf@redhat.com>
 #
 
+import os
 import gobject
 import gtk
 import gtk.glade
@@ -51,6 +52,8 @@ from storage.partitioning import doPartitioning
 from storage.partitioning import hasFreeDiskSpace
 from storage.devicelibs import lvm
 from storage.devices import devicePathToName, PartitionDevice
+from storage.devices import deviceNameToDiskByPath
+from storage.errors import DeviceNotFoundError
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -1091,15 +1094,29 @@ class PartitionWindow(InstallWindow):
                 # whole-disk formatting
                 self.addDevice(disk, parent)
 
+            ident = None
+            try:
+                if disk.type == "dasd" or disk.type == "zfcp":
+                    ident = deviceNameToDiskByPath(disk.name)
+                    if ident.startswith("/dev/disk/by-path/"):
+                        ident = os.path.basename(ident)
+                elif disk.type == "dm-multipath":
+                    ident = disk.wwid
+            except DeviceNotFoundError:
+                ident = None
+
+            if not ident:
+                ident = disk.path
+
             # Insert a '\n' when device string is too long.  Usually when it
             # contains '/dev/mapper'.  First column should be around 20 chars.
-            if len(disk.name) + len(disk.path) > 20:
+            if len(disk.name) + len(ident) > 20:
                 separator = "\n"
             else:
                 separator= " "
             self.tree[parent]['Device'] = \
                     "%s%s<span size=\"small\" color=\"gray\">(%s)</span>" \
-                    % (disk.name, separator, disk.path)
+                    % (disk.name, separator, ident)
 
         self.treeView.expand_all()
         self.messageGraph.display()
