@@ -33,6 +33,7 @@ import parted
 import string
 import types
 import copy
+from decimal import Decimal
 
 import storage
 from iw_gui import *
@@ -375,10 +376,10 @@ class DiskStripeGraph(StripeGraph):
                 continue
 
             # Create the start and length for the slice.
-            xoffset = (float(part.geometry.start)
-                        / float(drive.partedDevice.length))
-            xlength = (float(part.geometry.length)
-                        / float(drive.partedDevice.length))
+            xoffset = (Decimal(part.geometry.start)
+                        / Decimal(drive.partedDevice.length))
+            xlength = (Decimal(part.geometry.length)
+                        / Decimal(drive.partedDevice.length))
 
             if part.type == parted.PARTITION_LOGICAL:
                 partstr = "%s\n%.0f MB" % (part.path, float(part.getSize()))
@@ -477,7 +478,7 @@ class LVMStripeGraph(StripeGraph):
         # Create the slices.
         # Since se don't have a start and length like in the partitions, we
         # put all the LVs next to each other and put the free space at the end.
-        curr_offset = float(0)
+        curr_offset = Decimal(0)
         for lv in vg.lvs:
             lvstr = "%s\n%.0f MB" % (lv.name, float(lv.size))
             stype = Slice.SLICE
@@ -486,7 +487,7 @@ class LVMStripeGraph(StripeGraph):
 
             #xoffset = float(curr_offset) / float(vg.size)
             xoffset = curr_offset
-            xlength = float(lv.size) / float(vg.size)
+            xlength = Decimal(lv.size) / Decimal(vg.size)
 
             slice = Slice(stripe, lvstr, stype, xoffset, xlength,
                     dcCB = self.dcCB, cCB = self.cCB, sel_col = sel_col,
@@ -503,7 +504,7 @@ class LVMStripeGraph(StripeGraph):
             unsel_col = self.part_type_colors["unsel_freespace"]
 
             xoffset = curr_offset
-            xlength = float(1 - curr_offset)
+            xlength = Decimal(1 - curr_offset)
 
             # with the xlength we give an approximate size
             freestr = "%s\n%.0f MB" % (_("Free"), float(vg.size*xlength))
