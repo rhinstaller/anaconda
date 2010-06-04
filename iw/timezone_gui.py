@@ -135,7 +135,7 @@ class AnacondaTZMap(TimezoneMap):
                     # York as the default.
                     self.fallbackEntry = entry
 
-            iter = self.tzStore.insert_after(iter, [gettext.ldgettext("system-config-date", entry.tz), entry.tz, entry])
+            iter = self.tzStore.insert_after(iter, [entry.translated_tz, entry.tz, entry])
 
     def timezone_list_init (self, default):
         self.hbox = gtk.HBox()
