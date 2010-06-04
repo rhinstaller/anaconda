@@ -49,6 +49,7 @@ NM_ACTIVE_CONNECTION_IFACE = "org.freedesktop.NetworkManager.Connection.Active"
 NM_CONNECTION_IFACE = "org.freedesktop.NetworkManagerSettings.Connection"
 NM_DEVICE_IFACE = "org.freedesktop.NetworkManager.Device"
 NM_IP4CONFIG_IFACE = "org.freedesktop.NetworkManager.IP4Config"
+NM_IP6CONFIG_IFACE = "org.freedesktop.NetworkManager.IP6Config"
 
 NM_STATE_UNKNOWN = 0
 NM_STATE_ASLEEP = 1
@@ -509,8 +510,11 @@ def isWireless(dev):
     else:
         return False
 
-# Get the IP address for a network device.
-def getIPAddress(dev):
+# Get IP addresses for a network device.
+# Returns list of ipv4 and ipv6 addresses.
+# With version=4 returns only ipv4 addresses,
+# with version=6 returns only ipv6 addresses.
+def getIPAddresses(dev, version=None):
     if dev == '' or dev is None:
        return None
 
@@ -518,16 +522,46 @@ def getIPAddress(dev):
     if device_props_iface is None:
         return None
 
-    # XXX: add support for IPv6 addresses when NM can do that
-    device_ip4addr = device_props_iface.Get(NM_DEVICE_IFACE, "Ip4Address")
+    bus = dbus.SystemBus()
 
-    try:
-        tmp = struct.pack('I', device_ip4addr)
-        address = socket.inet_ntop(socket.AF_INET, tmp)
-    except ValueError, e:
-        return None
+    addresses = []
 
-    return address
+    if not version == 6:
+        ip4_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip4Config')
+        if ip4_config_path != '/':
+            ip4_config_obj = bus.get_object(NM_SERVICE, ip4_config_path)
+            ip4_config_props = dbus.Interface(ip4_config_obj, DBUS_PROPS_IFACE)
+
+            # addresses (3-element list:  ipaddr, netmask, gateway)
+            addrs = ip4_config_props.Get(NM_IP4CONFIG_IFACE, "Addresses")
+            for addr in addrs:
+                try:
+                    tmp = struct.pack('I', addr[0])
+                    ipaddr = socket.inet_ntop(socket.AF_INET, tmp)
+                    addresses.append(ipaddr)
+                except ValueError as e:
+                    log.debug("Exception caught trying to convert IP address %s: %s" %
+                    (addr, e))
+
+    if not version == 4:
+        ip6_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip6Config')
+        if ip6_config_path != '/':
+            ip6_config_obj = bus.get_object(NM_SERVICE, ip6_config_path)
+            ip6_config_props = dbus.Interface(ip6_config_obj, DBUS_PROPS_IFACE)
+
+            addrs = ip6_config_props.Get(NM_IP6CONFIG_IFACE, "Addresses")
+            for addr in addrs:
+                try:
+                    addrstr = "".join(str(byte) for byte in addr[0])
+                    ipaddr = socket.inet_ntop(socket.AF_INET6, addrstr)
+                    # XXX - should we prefer Global or Site-Local types?
+                    #       does NM prefer them?
+                    addresses.append(ipaddr)
+                except ValueError as e:
+                    log.debug("Exception caught trying to convert IP address %s: %s" %
+                    (addr, e))
+
+    return addresses
 
 ## Get the correct context for a file from loaded policy.
 # @param fn The filename to query.
