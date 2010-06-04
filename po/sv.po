@@ -3,14 +3,14 @@
 # Magnus Larsson <fedoratrans@gmail.com>, 2007-2009.
 # Göran Uddeborg <goeran@uddeborg.se>, 2008-2010.
 #
-# $Id: anaconda.po,v 1.23 2010-06-01 12:28:54+02 göran Exp göran $
+# $Id: anaconda.po,v 1.20.1.4 2010-06-04 21:29:59+02 göran Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-05-26 16:59-0400\n"
-"PO-Revision-Date: 2010-06-01 12:24+0200\n"
+"PO-Revision-Date: 2010-06-03 21:47+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -364,30 +364,29 @@ msgstr "_Felsök"
 
 #: gui.py:985
 msgid "Wireless setup"
-msgstr ""
+msgstr "Uppsättning av trådlöst"
 
 #: gui.py:986
 msgid "Scanning access points for wireless devices"
-msgstr ""
+msgstr "Söker access-punkter för trådlösa enheter"
 
 #: gui.py:1011 textw/netconfig_text.py:276
 msgid "Waiting for NetworkManager"
 msgstr "Väntar på NetworkManager"
 
 #: gui.py:1012
-#, fuzzy, python-format
+#, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
-msgstr "Väntar på att NetworkManager skall konfigurera %s.\n"
+msgstr "Väntar på att NetworkManager skall aktivera dessa enheter: %s"
 
 #: gui.py:1033
-#, fuzzy, python-format
+#, python-format
 msgid "Failed to activate these network interfaces: %s"
-msgstr "Vill du starta nätverksgränssnitten på detta system?"
+msgstr "Det gick inte att aktivera dessa nätverksgränssnitt: %s"
 
 #: gui.py:1036
-#, fuzzy
 msgid "Network Configuration"
-msgstr "VNC-konfiguration"
+msgstr "Nätverkskonfiguration"
 
 #: gui.py:1045
 #, python-format
@@ -395,9 +394,8 @@ msgid "An error occurred trying to bring up the %s network interface."
 msgstr "Ett fel inträffade vid försök att ta upp nätverksgränssnittet %s."
 
 #: gui.py:1047
-#, fuzzy
 msgid "Error Enabling Network"
-msgstr "Fel vid konfigurering av nätverk"
+msgstr "Fel vid aktivering av nätverk"
 
 #: gui.py:1174 text.py:393
 msgid "Error Parsing Kickstart Config"
@@ -990,7 +988,7 @@ msgid "_File Bug"
 msgstr "_Rapportera fel"
 
 #: packages.py:314
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Warning!  This is pre-release software!\n"
 "\n"
@@ -1006,6 +1004,8 @@ msgid ""
 "\n"
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
+"Varning!  Detta är en förhandsutgåva av systemet!\n"
+"\n"
 "Tack för att du har hämtat denna förhandsutgåva av %(productName)s.\n"
 "\n"
 "Detta är inte en slutgiltig version och den är inte avsedd för användning på "
@@ -1016,10 +1016,9 @@ msgstr ""
 "\n"
 "    %(bugzillaUrl)s\n"
 "\n"
-"och fyller i en felrapport mot \"%(fileagainst)s\".\n"
+"och fyll i en felrapport mot \"%(fileagainst)s\".\n"
 
 #: packages.py:330
-#, fuzzy
 msgid "_Install Anyway"
 msgstr "_Installera ändå"
 
@@ -2208,7 +2207,7 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: installclasses/rhel.py:34
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
@@ -2278,9 +2277,8 @@ msgid "You have provided a weak password: %s"
 msgstr "Du har gett ett svagt lösenord: %s"
 
 #: iw/account_gui.py:131
-#, fuzzy
 msgid "_Use Anyway"
-msgstr "Använd ändå"
+msgstr "_Använd ändå"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
 msgid ""
@@ -2515,11 +2513,12 @@ msgid "Serial Number"
 msgstr "Serienummer"
 
 #: iw/cleardisks_gui.py:144
-#, fuzzy
 msgid ""
 "Boot\n"
 "Loader"
-msgstr "Startprogram"
+msgstr ""
+"Start-\n"
+"program"
 
 #: iw/cleardisks_gui.py:184
 msgid ""
@@ -2863,9 +2862,8 @@ msgstr "_Monteringspunkt:"
 
 #: iw/lvm_dialog_gui.py:601 iw/partition_dialog_gui.py:118
 #: iw/raid_dialog_gui.py:176
-#, fuzzy
 msgid "Mount Point Error"
-msgstr "Monteringspunkt"
+msgstr "Monteringspunktsfel"
 
 #: iw/lvm_dialog_gui.py:611
 msgid "Illegal Logical Volume Name"
@@ -2913,15 +2911,16 @@ msgstr ""
 "volymgrupp."
 
 #: iw/lvm_dialog_gui.py:719
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
 "size of the other logical volume(s) exceeds the size of the volume group (%"
 "(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
-"De logiska volymer du har konfigurerat kräver %(size)d MB, men volymgruppen "
-"har bara %(tempvgsize)d MB.  Gör antingen volymgruppen större eller gör de "
+"Storleken som angavs för denna logiska volym (%(size)d MB) kombinerat med "
+"storleken på de andra logiska volymerna överskrider storleken på "
+"volymgruppen (%(tempvgsize)d MB).  Gör volymgruppen större eller gör de "
 "logiska volymerna mindre."
 
 #: iw/lvm_dialog_gui.py:829
@@ -3071,9 +3070,8 @@ msgstr ""
 "%(herrors)s"
 
 #: iw/network_gui.py:133
-#, fuzzy
 msgid "Select network interfaces"
-msgstr "Slå på nätverksinterfacet"
+msgstr "Välj nätverksgränssnitt"
 
 #: iw/network_gui.py:142 textw/netconfig_text.py:91
 msgid ""
@@ -3085,16 +3083,15 @@ msgstr ""
 
 #: iw/network_gui.py:195
 msgid "Select which devices should be configured with NetworkManager."
-msgstr ""
+msgstr "Välj vilka enheter som skall konfigureras med NetworkManager."
 
 #: iw/network_gui.py:254
-#, fuzzy
 msgid "Select APs"
-msgstr "_Välj"
+msgstr "Välj AP:er"
 
 #: iw/network_gui.py:261
 msgid "Select APs for wireless devices"
-msgstr ""
+msgstr "Välj AP:er för trådlösa enheter"
 
 #: iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
@@ -4805,13 +4802,12 @@ msgstr ""
 "dina parametrar och försök igen."
 
 #: storage/__init__.py:119
-#, fuzzy
 msgid "No disks found"
-msgstr "Inga drivrutiner hittades"
+msgstr "Inga diskar hittade"
 
 #: storage/__init__.py:120
 msgid "No usable disks have been found."
-msgstr ""
+msgstr "Inga användbara diskar har hittats."
 
 #: storage/__init__.py:131
 msgid "Installation cannot continue."
@@ -4855,12 +4851,10 @@ msgstr ""
 "förlorade."
 
 #: storage/__init__.py:190
-#, fuzzy
 msgid "Go _Back"
 msgstr "Gå till_baka"
 
 #: storage/__init__.py:191
-#, fuzzy
 msgid "_Write Changes to Disk"
 msgstr "_Skriv ändringar till disk"
 
@@ -5399,12 +5393,11 @@ msgstr "Söker SCSI-noder"
 
 #: storage/iscsi.py:135
 msgid "Unable to change iSCSI initiator name once set"
-msgstr ""
+msgstr "Det går inte att ändra iSCSI-initierarnamn när det en gång är satt"
 
 #: storage/iscsi.py:137
-#, fuzzy
 msgid "Must provide an iSCSI initiator name"
-msgstr "Du måste ange ett initierarnamn."
+msgstr "Du måste ange ett iSCSI-initierarnamn"
 
 #: storage/iscsi.py:177 storage/iscsi.py:178
 msgid "Initializing iSCSI initiator"
@@ -6104,7 +6097,6 @@ msgstr ""
 "rensas på all data.  Se till att du har säkerhetskopior."
 
 #: ui/cleardisks.glade.h:4
-#, fuzzy
 msgid ""
 "Below are the storage devices you've selected to be a part of this "
 "installation.  Please indicate using the arrows below which devices you'd "
@@ -6114,9 +6106,10 @@ msgid ""
 "bootloader installed."
 msgstr ""
 "Nedan finns lagringsenheterna som du valt skall vara med i denna "
-"installation.  Indikera med pilarna nedan vilka enheter du vil använda som "
+"installation.  Indikera med pilarna nedan vilka enheter du vill använda som "
 "dataenheter (dessa formateras inte, monteras bara) och vilka enheter du vill "
-"använda som systemenheter (dessa kan komma att formateras)."
+"använda som målenheter för installationen (dessa kan komma att formateras).  "
+"Indikera också på vilken systemenhet du vill startprogrammet installerat."
 
 #: ui/create-storage.glade.h:1
 msgid ""
@@ -6706,378 +6699,3 @@ msgstr "Kymriska"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "Please specify a mount point for this partition."
-#~ msgstr "Ange en monteringspunkt för denna partition."
-
-#~ msgid "Desktop"
-#~ msgstr "Skrivbord"
-
-#~ msgid "Advanced Server"
-#~ msgstr "Avancerad server:"
-
-#~ msgid "Boot"
-#~ msgstr "Start"
-
-#~ msgid "A value is required for the field %s."
-#~ msgstr "Ett värde krävs i fältet \"%s\"."
-
-#~ msgid "Dynamic IP Address"
-#~ msgstr "Dynamisk IP-adress"
-
-#~ msgid "Sending request for IP address information for %s"
-#~ msgstr "Skickar förfrågan om IP-adressinformation för %s..."
-
-#~ msgid "Error configuring network device:"
-#~ msgstr "Fel vid konfigurering av nätverksenhet:"
-
-#~ msgid "Couldn't Create Drive Clone Editor"
-#~ msgstr "Kunde inte skapa hårddiskkloningsredigerare"
-
-#~ msgid "The drive clone editor could not be created for some reason."
-#~ msgstr "Hårddiskkloningsredigeraren kunde av någon anledning inte skapas."
-
-#~ msgid ""
-#~ "The source drive has no partitions to be cloned.  You must first define "
-#~ "partitions of type 'software RAID' on this drive before it can be cloned."
-#~ msgstr ""
-#~ "Källhårddisken har inga partitioner som kan klonas. Du måste först "
-#~ "definiera partitioner av typen \"programvaru-RAID\" på hårddisken innan "
-#~ "den kan klonas."
-
-#~ msgid "Source Drive Error"
-#~ msgstr "Källhårddiskfel"
-
-#~ msgid ""
-#~ "The source drive you selected has partitions which are not of type "
-#~ "'software RAID'.\n"
-#~ "\n"
-#~ "You must remove these partitions before this drive can be cloned. "
-#~ msgstr ""
-#~ "Källhårddisken som valdes har partitioner som inte är av typen "
-#~ "\"programvaru-RAID\".\n"
-#~ "\n"
-#~ "Du måste ta bort dessa partitioner innan hårddisken kan klonas. "
-
-#~ msgid ""
-#~ "The source drive you selected has partitions which are not constrained to "
-#~ "the drive %s.\n"
-#~ "\n"
-#~ "You must remove these partitions or restrict them to this drive before "
-#~ "this drive can be cloned. "
-#~ msgstr ""
-#~ "Källhårddisken du valt har partitioner som inte begränsas till enheten %"
-#~ "s.\n"
-#~ "\n"
-#~ "Du måste ta bort dessa partitioner eller begränsa dem till denna enhet "
-#~ "innan hårddisken kan klonas. "
-
-#~ msgid ""
-#~ "The source drive you selected has software RAID partition(s) which are "
-#~ "members of an active software RAID device.\n"
-#~ "\n"
-#~ "You must remove these partitions before this drive can be cloned."
-#~ msgstr ""
-#~ "Källenheten som valts har programvaru-RAID-partition(er) som är medlemmar "
-#~ "i en aktiv programvaru-RAID-enhet.\n"
-#~ "\n"
-#~ "Du måste ta bort dessa partitioner innan denna enhet kan klonas."
-
-#~ msgid "Target Drive Error"
-#~ msgstr "Målhårddiskfel"
-
-#~ msgid "Please select the target drives for the clone operation."
-#~ msgstr "Välj målhårddiskarna för kloningsåtgärden."
-
-#~ msgid "The source drive %s cannot be selected as a target drive as well."
-#~ msgstr "Källhårddisken %s kan inte även väljas som en målhårddisk också."
-
-#~ msgid ""
-#~ "The target drive %(path)s has a partition which cannot be removed for the "
-#~ "following reason:\n"
-#~ "\n"
-#~ "\"%(rc)s\"\n"
-#~ "\n"
-#~ "You must remove this partition before this drive can be a target."
-#~ msgstr ""
-#~ "Målhårddisken %(path)s har en partition som av följande skäl inte kan tas "
-#~ "bort:\n"
-#~ "\n"
-#~ "\"%(rc)s\"\n"
-#~ "\n"
-#~ "Du måste ta bort denna partition innan denna hårddisk kan vara ett mål."
-
-#~ msgid "Please select a source drive."
-#~ msgstr "Välj en källenhet."
-
-#~ msgid ""
-#~ "The drive %s will now be cloned to the following drives:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Hårddisken %s kommer nu att klonas till följande hårddiskar:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "VARNING! ALL DATA PÅ MÅLHÅRDDISKARNA KOMMER ATT FÖRSTÖRAS."
-
-#~ msgid "Final Warning"
-#~ msgstr "Slutgiltig varning"
-
-#~ msgid "Clone Drives"
-#~ msgstr "Klona hårddiskar"
-
-#~ msgid "There was an error clearing the target drives.  Cloning failed."
-#~ msgstr ""
-#~ "Ett fel inträffade vid tömning av målhårddiskarna. Kloning misslyckades."
-
-#~ msgid "Clone Drive Tool"
-#~ msgstr "Verltyg för att klona diskar"
-
-#~ msgid ""
-#~ "This tool clones the layout from a partitioned source onto other similar "
-#~ "sized drives. The source must have partitions which are restricted to "
-#~ "that drive and must ONLY contain unused software RAID partitions.  "
-#~ "EVERYTHING on the target drive(s) will be destroyed.\n"
-#~ msgstr ""
-#~ "Detta verktyg klonar en layout från en partitionerad källa till en disk "
-#~ "av liknande storlek.  Källan måste ha partitioner som är begränsade till "
-#~ "den disken och får BARA innehålla oanvända programvaru-RAID-partitioner.  "
-#~ "ALLT på måldiskarna kommer att förstöras.\n"
-
-#~ msgid "Source Drive:"
-#~ msgstr "Källhårddisk:"
-
-#~ msgid "Target Drive(s):"
-#~ msgstr "Målhårddisk(ar):"
-
-#~ msgid "Drives"
-#~ msgstr "Hårddiskar"
-
-#~ msgid "Writing storage configuration to disk"
-#~ msgstr "Skriver lagringskonfiguration till disk"
-
-#~ msgid ""
-#~ "Could not free zFCP device %(devnum)s from device ignore list (%(e)s)."
-#~ msgstr ""
-#~ "Kunde inte frigöra zFCP-enhet %(devnum)s från listan över ignorerade "
-#~ "enheter (%(e)s)."
-
-#~ msgid "Create new boot loader configuration"
-#~ msgstr "Skapa ny konfiguration av startprogram"
-
-#~ msgid "Add _FCoE SAN"
-#~ msgstr "Lägg till _FCoE SAN"
-
-#~ msgid "Add _ZFCP LUN"
-#~ msgstr "Lägg till _ZFCP LUN"
-
-#~ msgid "Add _iSCSI target"
-#~ msgstr "Lägg till _iSCSI destination"
-
-#~ msgid "Advanced Storage Options"
-#~ msgstr "Avancerade lagrings alternativ"
-
-#~ msgid "How would you like to modify your drive configuration?"
-#~ msgstr "Hur vill du modifiera din diskenhetskonfiguration?"
-
-#~ msgid "Re_view and modify partitioning layout"
-#~ msgstr "_Granska och ändra partitioneringslayouten"
-
-#~ msgid ""
-#~ "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</"
-#~ "span>"
-#~ msgstr ""
-#~ "<span size=\"small\" color=\"gray\">Möjliggör skapande av RAID-enhet</"
-#~ "span>"
-
-#~ msgid "RAID Clone"
-#~ msgstr "RAID-klon"
-
-#~ msgid "<b>Gateway:</b>"
-#~ msgstr "<b>Gateway:</b>"
-
-#~ msgid "<b>IPv4 Address:</b>"
-#~ msgstr "<b>IPv4-adress:</b>"
-
-#~ msgid "<b>IPv6 Address:</b>"
-#~ msgstr "<b>IPv6-adress:</b>"
-
-#~ msgid "<b>Nameserver:</b>"
-#~ msgstr "<b>Namnserver:</b>"
-
-#~ msgid "<b>_Interface:</b>"
-#~ msgstr "<b>_interface:</b>"
-
-#~ msgid "Enable IPv_4 support"
-#~ msgstr "Slå på IPv_4 stöd"
-
-#~ msgid "Enable IPv_6 support"
-#~ msgstr "Slå på IPv_6 stöd"
-
-#~ msgid "Use _dynamic IP configuration (DHCP)"
-#~ msgstr "Använd dynamisk IP-konfiguration (DHCP)"
-
-#~ msgid "Customize _later"
-#~ msgstr "Anpassa _senare"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of software applicable for "
-#~ "general internet usage.  What additional tasks would you like your system "
-#~ "to support?"
-#~ msgstr ""
-#~ "Standardinstallationen av %s inkluderar en samling program som är "
-#~ "lämpliga för allmän Internetanvändning. Vilka ytterligare uppgifter vill "
-#~ "du att systemet ska ha stöd för?"
-
-#~ msgid ""
-#~ "You can further customize the software selection now, or after install "
-#~ "via the software management application."
-#~ msgstr ""
-#~ "Ytterligare anpassningar av valet av programvara kan slutföras nu eller "
-#~ "efter installationen via programmet för programvaruhantering."
-
-#~ msgid "_Customize now"
-#~ msgstr "_Anpassa nu"
-
-#~ msgid "Install class forcing text mode installation"
-#~ msgstr "Installationsklassen påtvingar textlägesinstallation"
-
-#~ msgid "reipl configuration successful => reboot"
-#~ msgstr "reipl-konfigurationen lyckades => starta om"
-
-#~ msgid "reipl configuration failed => halt"
-#~ msgstr "reipl-konfigurationen misslyckades => stanna"
-
-#~ msgid "Office and Productivity"
-#~ msgstr "Kontor och produktivitet"
-
-#~ msgid "%s: %s"
-#~ msgstr "%s: %s"
-
-#~ msgid ""
-#~ "Do you really want to boot from a disk which is not used for installation?"
-#~ msgstr ""
-#~ "Vill du verkligen starta från en disk som inte används för installation?"
-
-#~ msgid "The following installed system will be upgraded:"
-#~ msgstr "Följande installerade system kommer att uppgraderas:"
-
-#~ msgid "Not supported"
-#~ msgstr "Stöds inte"
-
-#~ msgid "LVM is NOT supported on this platform."
-#~ msgstr "LVM stöds INTE på denna plattform."
-
-#~ msgid "Software RAID is NOT supported on this platform."
-#~ msgstr "Programvaru-RAID stöds INTE på denna plattform."
-
-#~ msgid "No RAID minor device numbers available"
-#~ msgstr "Inga undre RAID-enhetsnummer tillgängliga"
-
-#~ msgid ""
-#~ "A software RAID device cannot be created because all of the available "
-#~ "RAID minor device numbers have been used."
-#~ msgstr ""
-#~ "En programvaru-RAID-enhet kan inte skapas eftersom alla tillgängliga "
-#~ "undre RAID-enhetsnummer har använts."
-
-#~ msgid "Create a RAID _device [default=/dev/md%s]."
-#~ msgstr "Skapa en RAID-_enhet [standard=/dev/md%s]."
-
-#~ msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-#~ msgstr ""
-#~ "Klona en _hårddisk för att skapa en RAID-enhet [standard=/dev/md%s]."
-
-#~ msgid "Ne_w"
-#~ msgstr "N_y"
-
-#~ msgid "R_AID"
-#~ msgstr "R_AID"
-
-#~ msgid "_LVM"
-#~ msgstr "_LVM"
-
-#~ msgid "Hide RAID device/LVM Volume _Group members"
-#~ msgstr "Dölj RAID-enhetsmedlemmar/LVM-volym_gruppsmedlemmar"
-
-#~ msgid ""
-#~ "Clone Drive Tool\n"
-#~ "\n"
-#~ "This tool allows you to significantly reduce the amount of effort "
-#~ "required to setup RAID arrays.  This tool uses a source drive which has "
-#~ "been prepared with the desired partitioning layout, and clones this "
-#~ "layout onto other similar sized drives.  Then a RAID device can be "
-#~ "created.\n"
-#~ "\n"
-#~ "NOTE: The source drive must have partitions which are restricted to be on "
-#~ "that drive only, and can only contain unused software RAID partitions.  "
-#~ "Other partition types are not allowed.\n"
-#~ "\n"
-#~ "EVERYTHING on the target drive(s) will be destroyed by this process."
-#~ msgstr ""
-#~ "Enhetskloningsverktyg\n"
-#~ "\n"
-#~ "Detta verktyg låter dig avsevärt minska mängden arbete som krävs för att "
-#~ "konfigurera RAID-kedjor. Detta verktyg använder en källenhet som har "
-#~ "förberetts med den önskade partitionsstrukturen och klonar sedan denna "
-#~ "struktur till andra liknande enheter med samma storlek. Då kan en RAID-"
-#~ "enhet skapas.\n"
-#~ "\n"
-#~ "OBS: Källenheten måste ha partitioner som är begränsade till att endast "
-#~ "vara på den enheten, och får endast innehålla oanvända programvaru-RAID-"
-#~ "partitioner. Andra partitionstyper är inte tillåtna.\n"
-#~ "\n"
-#~ "ALLTING på målenheterna kommer att förstöras av denna process."
-
-#~ msgid ""
-#~ "Enter the device name for the NIC which is connected to the FCoE SAN. For "
-#~ "example \"eth0\"."
-#~ msgstr ""
-#~ "Ange enhetsnamnet för den NIC som är ansluten till FCoE SAN:et.  Till "
-#~ "exempel \"eth0\"."
-
-#~ msgid "Skip entering %(instkey)s"
-#~ msgstr "Hoppa över inmatning %(instkey)s"
-
-#~ msgid "Office"
-#~ msgstr "Kontor"
-
-#~ msgid "Multimedia"
-#~ msgstr "Multimedia"
-
-#~ msgid "Clustering"
-#~ msgstr "Klustring"
-
-#~ msgid "Storage Clustering"
-#~ msgstr "Lagringsklustring"
-
-#~ msgid ""
-#~ "Would you like to enter an Installation Number (sometimes called "
-#~ "Subscription Number) now? This feature enables the installer to access "
-#~ "any extra components included with your subscription.  If you skip this "
-#~ "step, additional components can be installed manually later.\n"
-#~ "\n"
-#~ "See http://www.redhat.com/InstNum/ for more information."
-#~ msgstr ""
-#~ "Vill du ange ett installationsnummer (ibland kallat prenumerationsnummer) "
-#~ "nu?  Denna funktion gör det möjligt för installeraren att komma åt "
-#~ "eventuella extra komponenter som ingår i din prenumeration.  Om du hoppar "
-#~ "över detta steg kan ytterligare komponenter installeras manuellt senare.\n"
-#~ "\n"
-#~ "Se http://www.redhat.com/InstNum/ för mer information."
-
-#~ msgid ""
-#~ "If you cannot locate the Installation Number, consult http://www.redhat."
-#~ "com/InstNum/"
-#~ msgstr ""
-#~ "Om du inte kan hitta installationsnumret, konsultera http://www.redhat."
-#~ "com/InstNum/"
-
-#~ msgid "%(instkey)s:"
-#~ msgstr "%(instkey)s:"
