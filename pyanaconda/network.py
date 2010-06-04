@@ -857,7 +857,7 @@ class Network:
             if netargs != "":
                 netargs += " "
 
-            netargs += "rd_CCW=%s,%s" % (nettype, subchannels)
+            netargs += "rd_ZNET=%s,%s" % (nettype, subchannels)
 
             options = dev.get("OPTIONS").strip("'\"")
             if options:
