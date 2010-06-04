@@ -108,14 +108,17 @@ class VncServer:
             dev = devices[active_devs[0]]
 
             try:
-                self.ip = isys.getIPAddress(dev.get("DEVICE"))
-                log.info("ip of %s is %s" % (dev.get("DEVICE"), self.ip))
+                devname = dev.get("DEVICE")
+                ips = (isys.getIPAddresses(devname, version=4) +
+                       isys.getIPAddresses(devname, version=6))
+                self.ip = ips[0]
+                log.info("IPs (using first) of device %s: %s" % (devname, ips))
 
                 if self.ip == "127.0.0.1" or self.ip == "::1":
                     self.ip = None
             except Exception, e:
                 log.warning("Got an exception trying to get the self.ip addr "
-                            "of %s: %s" % (dev.get("DEVICE"), e))
+                            "of %s: %s" % (devname, e))
         else:
             self.ip = None
 
