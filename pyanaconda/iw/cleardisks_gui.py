@@ -168,7 +168,7 @@ class ClearDisksWindow (InstallWindow):
             else:
                 ident = deviceNameToDiskByPath(d.name)
                 if ident.startswith("/dev/disk/by-path/"):
-                    ident.replace("/dev/disk/by-path/", "")
+                    ident = ident.replace("/dev/disk/by-path/", "")
 
             self.store.append(None, (d,
                                      leftVisible, True, False,
