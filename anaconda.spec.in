@@ -223,6 +223,73 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jun 04 2010 Chris Lumens <clumens@redhat.com> - 14.7-1
+- Assign the trimmed identifier so it gets used in the UI. (clumens)
+- Remember disk selections when going back to the text partition UI (#596113).
+  (clumens)
+- Fix typo in libblkid requires (#599821). (clumens)
+- Fix green strips showing up (#582744) (bcl)
+- Remember when IPv4 IPADDR has been read from ifcfg file in loader (#595388)
+  (maier)
+- Don't let loader write HWADDR to ifcfg file on s390. (#595388) (maier)
+- Tell which stacks to configure in /etc/sysconfig/network on s390 (#595388)
+  (maier)
+- Really ignore deprecated parm/conf file options in linuxrc.s390 (#595388)
+  (maier)
+- Correctly pass netdev name from linuxrc.s390 to loader (#595382) (maier)
+- Re-enable usable pdb with vnc on s390x (maier)
+- Fix most of what is necessary for install over IPv6 on s390 (#594090)
+  (dcantrell)
+- Remove long deprecated writing of alias for network in linuxrc.s390 (maier)
+- Fix backtrace when a vg starts with freespace (#597925) (hdegoede)
+- Only kill init for reboot/halt and then exit linuxrc.s390 (maier)
+- Fix a couple small errors found by checkbot. (clumens)
+- Retain user's UTC checkbox setting (#591125) (bcl)
+- Fix up pylint to work with the new source layout. (clumens)
+- Replace the Serial Number column with an Identifier column (#560666).
+  (clumens)
+- Adjust mdraid size estimates (#587442) (bcl)
+- Extra debugging output (#587442) (bcl)
+- Set NM_CONTROLLED=no iscsi for storage devices only on system (#598070)
+  (rvykydal)
+- Improve handling of auto and unknown types in fstab. (#577260) (dlehman)
+- Give blkid the final word on device format detection. (#593637) (dlehman)
+- Allow ignoredisk to be interactive without the rest of the UI (#596804)
+  (pjones)
+- memory: check for URL install in loader too (#596993). (akozumpl)
+- spec: python-pyblock has to be in BuildRequires too. (akozumpl)
+- Ignore errors upon restoring /lib and /usr after unmounting filesystems
+  (hdegoede)
+- Make sure we still have an elf interpreter after unmounting fs (#598222)
+  (hdegoede)
+- booty: remove hack city hack (hdegoede)
+- Remove booty/checkbootloader hacky raid set handling (hdegoede)
+- booty: make getDiskPart deal with devices instead of names (hdegoede)
+- booty: move grub specific mangling of partition number to the grub code
+  (hdegoede)
+- booty make getDiskPart use the devicetree (hdegoede)
+- booty: make grubbyPartitionName and grubbydiskName take a device (hdegoede)
+- booty: make matchingBootTargets and addMemberMbrs deal with devices instead
+  of names (hdegoede)
+- booty: make getPhysicalDevices take and return Devices rather then device
+  names (hdegoede)
+- booty: Make getPhysicalDevices only return physical devices (#593718)
+  (hdegoede)
+- booty: Don't create device.map entries for devices backing / (hdegoede)
+- Add simple firewall unit test (msivak)
+- Improve module cleanup in our TestCase class and fix issues in FS mock class.
+  (msivak)
+- Find tests using python-nose and create make unittest target (msivak)
+- Update .gitignore file to account for new directory structure. (dcantrell)
+- Update po/Rules-* files to account for new directory structure. (dcantrell)
+- Structure the repo layout so it matches final structure better and make isys
+  a real Python package. (msivak)
+- Add more sanity checks to the mountpoint (#592185) (bcl)
+- Make sure the product.img directory is mounted before copying (#587696).
+  (clumens)
+- Put a missing close brace back into isys.c. (clumens)
+- refactoring: put totalMemory() into isys. (akozumpl)
+
 * Wed May 26 2010 Chris Lumens <clumens@redhat.com> - 14.6-1
 - Set repository in kickstart harddrive command (#592239) (rvykydal)
 - nm-c-e integration: fix some leftovers from patch porting. (rvykydal)
