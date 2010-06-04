@@ -326,7 +326,7 @@ def runRescue(anaconda):
     import storage
     storage.storageInitialize(anaconda)
 
-    disks = upgrade.findExistingRoots(anaconda, upgradeany=True)
+    (disks, notUpgradable) = upgrade.findExistingRoots(anaconda, upgradeany=True)
 
     if not disks:
         root = None

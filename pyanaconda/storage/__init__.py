@@ -1262,8 +1262,12 @@ def getReleaseString(mountpoint):
     return (relName, relVer)
 
 def findExistingRootDevices(anaconda, upgradeany=False):
-    """ Return a list of all root filesystems in the device tree. """
+    """ Return a tuple of:
+        list of all root filesystems in the device tree.
+        list of previous installs that cannot be upgraded.
+    """
     rootDevs = []
+    notUpgradable = []
 
     if not os.path.exists(anaconda.rootPath):
         iutil.mkdirChain(anaconda.rootPath)
@@ -1298,13 +1302,14 @@ def findExistingRootDevices(anaconda, upgradeany=False):
                anaconda.instClass.productUpgradable(product, version):
                 rootDevs.append((device, "%s %s" % (product, version)))
             else:
+                notUpgradable.append((product, version, device.name))
                 log.info("product %s version %s found on %s is not upgradable"
-                         % (product, version, device.name))
+                         % notUpgradable[-1])
 
         # this handles unmounting the filesystem
         device.teardown(recursive=True)
 
-    return rootDevs
+    return (rootDevs, notUpgradable)
 
 def mountExistingSystem(anaconda, rootEnt,
                         allowDirty=None, warnDirty=None,

@@ -77,8 +77,24 @@ def findRootParts(anaconda):
     if anaconda.dir == DISPATCH_BACK:
         return
     if anaconda.rootParts is None:
-        anaconda.rootParts = findExistingRoots(anaconda,
+        (anaconda.rootParts, notUpgradable) = findExistingRoots(anaconda,
                                                flags.cmdline.has_key("upgradeany"))
+
+        if notUpgradable and not anaconda.rootParts:
+            oldInstalls = ""
+            for info in notUpgradable:
+                oldInstalls += " on ".join(info)
+                oldInstalls += "\n"
+            rc = anaconda.intf.messageWindow(_("Cannot Upgrade"),
+                    _("Your current installation cannot be upgraded. This "
+                      "is likely due to it being too old. Only the previous two "
+                      "release may be upgraded. To upgrade older releases "
+                      "you must first upgrade through all intermediate releases.\n\n"
+                      "%s" % (oldInstalls)),
+                type="custom", custom_icon=["error","error"],
+                custom_buttons=[_("_Exit installer"), _("_Continue")])
+            if rc == 0:
+                sys.exit(0)
 
     setUpgradeRoot(anaconda)
 
@@ -88,8 +104,7 @@ def findRootParts(anaconda):
         anaconda.dispatch.skipStep("findinstall", skip = 1)
 
 def findExistingRoots(anaconda, upgradeany=False):
-    rootparts = findExistingRootDevices(anaconda, upgradeany=upgradeany)
-    return rootparts
+    return findExistingRootDevices(anaconda, upgradeany=upgradeany)
 
 def bindMountDevDirectory(instPath):
     getFormat("bind",
