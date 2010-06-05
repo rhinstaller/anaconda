@@ -1338,6 +1338,32 @@ function handle_subchannels() {
     else
         driver=$NETTYPE
     fi
+    # if necessary,
+    # rebind hybrid devices (3088/08 and 3088/1f) to user specified driver
+    local curdrv
+    curdrv=$(readlink /sys/bus/ccw/devices/$SCH_R_DEVBUSID/driver)
+    curdrv=${curdrv##*/}
+    if [ "$curdrv" = "lcs" -a "$NETTYPE" = "ctc" ]; then
+        sysecho /sys/bus/ccw/drivers/lcs/unbind "$SCH_R_DEVBUSID"
+        sysecho /sys/bus/ccw/drivers/ctcm/bind "$SCH_R_DEVBUSID"
+    fi
+    if [ "$curdrv" = "ctcm" -a "$NETTYPE" = "lcs" ]; then
+        sysecho /sys/bus/ccw/drivers/ctcm/unbind "$SCH_R_DEVBUSID"
+        sysecho /sys/bus/ccw/drivers/lcs/bind "$SCH_R_DEVBUSID"
+    fi
+    local channel2
+    channel2=${SUBCHANNELS##*,}
+    curdrv=$(readlink /sys/bus/ccw/devices/$channel2/driver)
+    curdrv=${curdrv##*/}
+    if [ "$curdrv" = "lcs" -a "$NETTYPE" = "ctc" ]; then
+        sysecho /sys/bus/ccw/drivers/lcs/unbind "$channel2"
+        sysecho /sys/bus/ccw/drivers/ctcm/bind "$channel2"
+    fi
+    if [ "$curdrv" = "ctcm" -a "$NETTYPE" = "lcs" ]; then
+        sysecho /sys/bus/ccw/drivers/ctcm/unbind "$channel2"
+        sysecho /sys/bus/ccw/drivers/lcs/bind "$channel2"
+    fi
+    # create ccwgroup
     if sysecho /sys/bus/ccwgroup/drivers/${driver}/group "$SUBCHANNELS"; then
         udevadm settle
         case "$NETTYPE" in
