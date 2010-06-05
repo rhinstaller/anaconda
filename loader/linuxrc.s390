@@ -640,18 +640,11 @@ function set_device_online() {
         fi
     done
     if [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "ctc" ]; then
-        # KH FIXME: Workaround for missing sysfs interface
-        #   DEVICE=$(cat /sys/devices/lcs/${SUBCHANNELS//,*/}/if_name)
-        # replaced with flexible solution:
-        # https://bugzilla.redhat.com/show_bug.cgi?id=204803#c9
-        # "sys/bus/ccwgroup/devices/${SUBCHANNEL}/net\:*
-        # for lcs after setting online"
-        if [ ! -h /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/net:* ]; then
-            echo $"Device $SUBCHANNELS does not have required sysfs attribute 'net:*'"
+        if [ ! -d /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/net ]; then
+            echo $"Device $SUBCHANNELS does not have required sysfs directory 'net'"
             return 1
         fi
-        DEVICE=$(echo /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/net:*)
-        DEVICE=${DEVICE//*:/}
+        DEVICE=$(ls /sys/devices/${sysnettype}/$SCH_R_DEVBUSID/net/)
         if [ "$DEVICE" = "" ]; then
             echo $"Could not get device name for $SUBCHANNELS"
             return 1
