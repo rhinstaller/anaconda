@@ -232,6 +232,14 @@ blacklist {
                 ret += '\t\tvendor %s\n' % device.vendor
                 ret += '\t\tproduct %s\n' % device.model
                 ret += '\t}\n'
+        if self.mpaths:
+                ret += '\twwid "*"\n'
+                ret += '}\n'
+                ret += 'blacklist_exceptions {\n'
+                for mpath in self.mpaths:
+                    for k,v in mpath.config.items():
+                        if k == 'wwid':
+                            ret += '\twwid %s\n' % v
         ret += '}\n'
         ret += 'multipaths {\n'
         for mpath in self.mpaths:
