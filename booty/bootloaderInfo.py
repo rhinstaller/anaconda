@@ -30,10 +30,10 @@ N_ = lambda x: x
 
 from lilo import LiloConfigFile
 
-from flags import flags
-import iutil
-import isys
-from product import *
+from pyanaconda.flags import flags
+from pyanaconda import iutil
+from pyanaconda import isys
+from pyanaconda.product import *
 
 import booty
 import checkbootloader
@@ -99,7 +99,7 @@ class KernelArguments:
                 if s not in args:
                     args.append(s)
 
-                import storage
+                from pyanaconda import storage
                 if isinstance(d, storage.devices.NetworkStorageDevice):
                     s = self.anaconda.network.dracutSetupString(d)
                     if s not in args:

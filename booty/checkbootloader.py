@@ -19,7 +19,7 @@ import os
 import string
 
 from util import getDiskPart
-import iutil
+from pyanaconda import iutil
 
 grubConfigFile = "/etc/grub.conf"
 liloConfigFile = "/etc/lilo.conf"

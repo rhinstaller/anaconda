@@ -3,7 +3,7 @@ import os
 
 from booty import BootyNoKernelWarning
 from bootloaderInfo import *
-import iutil
+from pyanaconda import iutil
 
 class ppcBootloaderInfo(bootloaderInfo):
     def getBootDevs(self, bl):
@@ -138,7 +138,7 @@ class ppcBootloaderInfo(bootloaderInfo):
         os.chmod(instRoot + cf, 0600)
 
         # FIXME: hack to make sure things are written to disk
-        import isys
+        from pyanaconda import isys
         isys.sync()
         isys.sync()
         isys.sync()

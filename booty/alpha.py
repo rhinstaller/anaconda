@@ -1,5 +1,5 @@
 import os
-import iutil
+from pyanaconda import iutil
 
 from booty import BootyNoKernelWarning
 from bootloaderInfo import *

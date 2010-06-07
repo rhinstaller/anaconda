@@ -1,7 +1,7 @@
 import os
 
 from bootloaderInfo import *
-import iutil
+from pyanaconda import iutil
 
 class s390BootloaderInfo(bootloaderInfo):
     def getBootloaderConfig(self, instRoot, bl, kernelList,

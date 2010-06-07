@@ -4,9 +4,9 @@ import string
 from booty import BootyNoKernelWarning
 from util import getDiskPart
 from bootloaderInfo import *
-from flags import flags
+from pyanaconda.flags import flags
 import checkbootloader
-import iutil
+from pyanaconda import iutil
 
 import logging
 log = logging.getLogger("anaconda")

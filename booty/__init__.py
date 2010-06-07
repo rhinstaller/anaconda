@@ -16,9 +16,9 @@
 #
 """Module for manipulation and creation of boot loader configurations"""
 
-import iutil
+from pyanaconda import iutil
 from bootloaderInfo import *
-from bootloader import *
+from pyanaconda.bootloader import *
 
 class BootyNoKernelWarning(Exception):
     def __init__ (self, value=""):
