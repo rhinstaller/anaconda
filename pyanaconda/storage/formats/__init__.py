@@ -22,7 +22,7 @@
 
 import os
 
-from iutil import notify_kernel, get_sysfs_path_by_name
+from pyanaconda.iutil import notify_kernel, get_sysfs_path_by_name
 from ..storage_log import log_method_call
 from ..errors import *
 from ..devicelibs.dm import dm_node_from_name
@@ -45,7 +45,7 @@ def register_device_format(fmt_class):
 
 default_fstypes = ("ext4", "ext3", "ext2")
 def get_default_filesystem_type(boot=None):
-    import platform
+    from pyanaconda import platform
 
     if boot:
         fstypes = [platform.getPlatform(None).defaultBootFSType]

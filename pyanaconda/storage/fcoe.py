@@ -18,11 +18,11 @@
 #
 
 import os
-import iutil
-import isys
+from pyanaconda import iutil
+from pyanaconda import isys
 import logging
 import time
-from flags import flags
+from pyanaconda.flags import flags
 log = logging.getLogger("anaconda")
 
 import gettext

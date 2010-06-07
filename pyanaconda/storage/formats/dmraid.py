@@ -21,7 +21,7 @@
 #
 
 from ..storage_log import log_method_call
-from flags import flags
+from pyanaconda.flags import flags
 from ..errors import *
 from . import DeviceFormat, register_device_format
 

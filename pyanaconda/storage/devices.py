@@ -104,11 +104,10 @@ from devicelibs import lvm
 from devicelibs import dm
 import parted
 import _ped
-import platform
 import block
 
 from errors import *
-from iutil import notify_kernel, numeric_type
+from pyanaconda.iutil import notify_kernel, numeric_type
 from .storage_log import log_method_call
 from udev import *
 from formats import get_device_format_class, getFormat, DeviceFormat

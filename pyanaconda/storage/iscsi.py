@@ -18,11 +18,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from constants import *
+from pyanaconda.constants import *
 from udev import *
 import os
-import iutil
-from flags import flags
+from pyanaconda import iutil
+from pyanaconda.flags import flags
 import logging
 import shutil
 import time

@@ -24,10 +24,10 @@ import os
 import math
 import re
 
-import iutil
+from pyanaconda import iutil
 
 from ..errors import *
-from constants import *
+from pyanaconda.constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

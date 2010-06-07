@@ -22,7 +22,7 @@
 
 import os
 
-import iutil
+from pyanaconda import iutil
 from ..errors import *
 
 import gettext

@@ -37,7 +37,7 @@ import devicelibs.lvm
 import devicelibs.mpath
 from udev import *
 from .storage_log import log_method_call
-import iutil
+from pyanaconda import iutil
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

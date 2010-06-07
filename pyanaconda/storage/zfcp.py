@@ -21,13 +21,13 @@
 
 import string
 import os
-from constants import *
+from pyanaconda.constants import *
 from udev import udev_settle
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-import iutil
+from pyanaconda import iutil
 import logging
 log = logging.getLogger("anaconda")
 

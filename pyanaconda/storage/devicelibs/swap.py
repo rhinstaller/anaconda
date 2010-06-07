@@ -22,7 +22,7 @@
 
 import resource
 
-import iutil
+from pyanaconda import iutil
 import os
 
 from ..errors import *

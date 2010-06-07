@@ -1,5 +1,5 @@
 import logging
-import anaconda_log
+from pyanaconda import anaconda_log
 import inspect
 
 def log_method_call(d, *args, **kwargs):

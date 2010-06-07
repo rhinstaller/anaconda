@@ -2,7 +2,7 @@
 import re
 
 from ..udev import *
-import iutil
+from pyanaconda import iutil
 
 def parseMultipathOutput(output):
     # this function parses output from "multipath -d", so we can use its

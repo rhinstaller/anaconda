@@ -20,7 +20,7 @@
 # Red Hat Author(s): Dave Lehman <dlehman@redhat.com>
 #
 
-from iutil import numeric_type
+from pyanaconda.iutil import numeric_type
 from parted import PARTITION_SWAP, fileSystemType
 from ..storage_log import log_method_call
 from ..errors import *

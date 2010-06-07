@@ -30,11 +30,11 @@ import statvfs
 import nss.nss
 import parted
 
-import isys
-import iutil
-from constants import *
+from pyanaconda import isys
+from pyanaconda import iutil
+from pyanaconda.constants import *
 from pykickstart.constants import *
-from flags import flags
+from pyanaconda.flags import flags
 
 import storage_log
 from errors import *

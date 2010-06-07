@@ -26,7 +26,7 @@ import copy
 from ..storage_log import log_method_call
 import parted
 import _ped
-import platform
+from pyanaconda import platform
 from ..errors import *
 from ..udev import udev_settle
 from . import DeviceFormat, register_device_format

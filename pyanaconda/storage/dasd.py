@@ -19,13 +19,13 @@
 # Red Hat Author(s): David Cantrell <dcantrell@redhat.com>
 #
 
-import iutil
+from pyanaconda import iutil
 import sys
 import os
-from storage.errors import DasdFormatError
-from storage.devices import deviceNameToDiskByPath
-from constants import *
-from flags import flags
+from pyanaconda.storage.errors import DasdFormatError
+from pyanaconda.storage.devices import deviceNameToDiskByPath
+from pyanaconda.constants import *
+from pyanaconda.flags import flags
 
 import logging
 log = logging.getLogger("anaconda")

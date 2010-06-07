@@ -23,7 +23,7 @@
 import os
 
 from ..storage_log import log_method_call
-from flags import flags
+from pyanaconda.flags import flags
 from parted import PARTITION_RAID
 from ..errors import *
 from ..devicelibs import mdraid

@@ -27,7 +27,7 @@ from operator import add, sub, gt, lt
 import parted
 from pykickstart.constants import *
 
-from constants import *
+from pyanaconda.constants import *
 
 from errors import *
 from deviceaction import *

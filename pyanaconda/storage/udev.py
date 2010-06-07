@@ -22,9 +22,9 @@
 
 import os
 
-import iutil
+from pyanaconda import iutil
 from errors import *
-from baseudev import *
+from pyanaconda.baseudev import *
 
 import logging
 log = logging.getLogger("storage")
