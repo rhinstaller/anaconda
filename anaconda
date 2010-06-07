@@ -87,7 +87,7 @@ def doStartupX11Actions():
         log.error("Unable to start the window manager.")
 
     if wm_pid is not None:
-        import xutils
+        from pyanaconda import xutils
 
         try:
             xutils.setRootResource('Xcursor.size', '24')
@@ -98,7 +98,7 @@ def doStartupX11Actions():
             xutils.setRootResource('Xft.hinting', '1')
             xutils.setRootResource('Xft.hintstyle', 'hintslight')
             xutils.setRootResource('Xft.rgba', 'none')
-        except:
+        except Exception as e:
             sys.stderr.write("X SERVER STARTED, THEN FAILED");
             raise RuntimeError, "X server failed to start"
 
@@ -243,28 +243,6 @@ def parseOptions(argv = None):
     return op.parse_args(argv)
 
 def setupPythonPath():
-    haveUpdates = False
-    for ndx in range(len(sys.path)-1, -1, -1):
-        if sys.path[ndx].endswith('updates'):
-            haveUpdates = True
-            break
-
-    # With anaconda being a real module this isn't strictly necessary, but
-    # setting up the path now prevents having to change every import line in
-    # anaconda.
-    from distutils.sysconfig import get_python_lib
-    d = get_python_lib(plat_specific=1)
-
-    if haveUpdates:
-        sys.path.insert(ndx+1, "/tmp/updates/pyanaconda" )
-        sys.path.insert(ndx+2, "%s/pyanaconda" % d)
-        sys.path.insert(ndx+3, "%s/pyanaconda/textw" % d)
-        sys.path.insert(ndx+4, "%s/pyanaconda/iw" % d)
-    else:
-        sys.path.insert(0, "%s/pyanaconda" % d)
-        sys.path.insert(1, "%s/pyanaconda/textw" % d)
-        sys.path.insert(2, "%s/pyanaconda/iw" % d)
-
     sys.path.append('/usr/share/system-config-date')
 
 def setupEnvironment():
@@ -405,7 +383,7 @@ def handleSshPw(anaconda):
     if not anaconda.ksdata:
         return
 
-    import users
+    from pyanaconda import users
     u = users.Users(anaconda)
 
     userdata = anaconda.ksdata.sshpw.dataList()
@@ -477,7 +455,7 @@ if __name__ == "__main__":
 
     # Set up logging as early as possible.
     import logging
-    import anaconda_log
+    from pyanaconda import anaconda_log
     anaconda_log.init()
 
     log = logging.getLogger("anaconda")
@@ -488,22 +466,21 @@ if __name__ == "__main__":
         sys.exit(0)
 
     # pull this in to get product name and versioning
-    import product
+    from pyanaconda import product
 
-    # this handles setting up updates for pypackages to minimize the set needed
-    setupPythonUpdates()
-
-    import isys
+    from pyanaconda import isys
     isys.initLog()
 
-    import signal, string, iutil, time
+    import signal, string, time
     import warnings
-    import vnc
-    import users
-    import kickstart
-    import storage.storage_log
 
-    from flags import flags
+    from pyanaconda import iutil
+    from pyanaconda import vnc
+    from pyanaconda import users
+    from pyanaconda import kickstart
+    import pyanaconda.storage.storage_log
+
+    from pyanaconda.flags import flags
 
     # the following makes me very sad. -- katzj
     # we have a slightly different set of udev rules in the second 
@@ -511,7 +488,7 @@ if __name__ == "__main__":
     # automatically, I don't know.  but we need to trigger so that we
     # have all the information about netdevs that we care about for 
     # NetworkManager in the udev database
-    from baseudev import udev_trigger, udev_settle
+    from pyanaconda.baseudev import udev_trigger, udev_settle
     udev_trigger("net")
     udev_settle()
     # and for added fun, once doesn't seem to be enough?  so we 
@@ -680,7 +657,7 @@ if __name__ == "__main__":
     if opts.rescue:
         anaconda.rescue = True
 
-        import rescue
+        from pyanaconda import rescue
 
         if anaconda.ksdata:
             anaconda.instClass.configure(anaconda)
@@ -805,7 +782,7 @@ if __name__ == "__main__":
             os.environ["DISPLAY"] = ":1"
             doStartupX11Actions()
             xserver_pid = proc.pid
-        except (OSError, RuntimeError):
+        except (OSError, RuntimeError) as e:
             stdoutLog.warning(" X startup failed, falling back to text mode")
             anaconda.displayMode = 't'
             graphical_failed = 1
@@ -834,7 +811,7 @@ if __name__ == "__main__":
     anaconda.instClass.configure(anaconda)
 
     # comment out the next line to make exceptions non-fatal
-    from exception import initExceptionHandling
+    from pyanaconda.exception import initExceptionHandling
     anaconda.mehConfig = initExceptionHandling(anaconda)
 
     # add our own additional signal handlers
@@ -884,7 +861,7 @@ if __name__ == "__main__":
         anaconda.keyboard.activate()
 
     if anaconda.ksdata:
-        import storage
+        from pyanaconda import storage
         storage.storageInitialize(anaconda)
 
         # Now having initialized storage, we can apply all the other kickstart
