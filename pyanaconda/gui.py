@@ -44,7 +44,8 @@ from product import *
 import network
 from installinterfacebase import InstallInterfaceBase
 import xutils
-import imputil
+import imp
+import iw
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -1214,9 +1215,9 @@ class InstallControlWindow:
 
         while True:
             try:
-                found = imputil.imp.find_module(file)
-                loaded = imputil.imp.load_module(className, found[0], found[1],
-                                                 found[2])
+                found = imp.find_module(file, iw.__path__)
+                moduleName = 'pyanaconda.iw.%s' % file
+                loaded = imp.load_module(moduleName, *found)
                 newScreenClass = loaded.__dict__[className]
                 break
             except ImportError, e:

@@ -33,11 +33,12 @@ import product
 import string
 from language import expandLangs
 from flags import flags
-from constants_text import *
+from textw.constants_text import *
 from constants import *
 from network import hasActiveNetDev
 from installinterfacebase import InstallInterfaceBase
-import imputil
+import imp
+import textw
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -501,13 +502,12 @@ class InstallInterface(InstallInterfaceBase):
 
                 while 1:
                     try:
-                        found = imputil.imp.find_module(file)
-                        loaded = imputil.imp.load_module(classNames[step],
-                                                         found[0], found[1],
-                                                         found[2])
+                        found = imp.find_module(file, textw.__path__)
+                        moduleName = 'pyanaconda.textw.%s' % file
+                        loaded = imp.load_module(moduleName, *found)
                         nextWindow = loaded.__dict__[classNames[step]]
                         break
-                    except ImportError, e:
+                    except ImportError as e:
                         rc = ButtonChoiceWindow(self.screen, _("Error!"),
                                           _("An error occurred when attempting "
                                             "to load an installer interface "

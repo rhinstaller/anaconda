@@ -2221,8 +2221,6 @@ int main(int argc, char ** argv) {
     add_fw_search_dir(&loaderData, "/tmp/product/firmware");
 
     add_to_path_env("PYTHONPATH", "/tmp/updates");
-    add_to_path_env("PYTHONPATH", "/tmp/updates/iw");
-    add_to_path_env("PYTHONPATH", "/tmp/updates/textw");
     add_to_path_env("PYTHONPATH", "/tmp/product");
     add_to_path_env("LD_LIBRARY_PATH", "/tmp/updates");
     add_to_path_env("LD_LIBRARY_PATH", "/tmp/product");
