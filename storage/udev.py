@@ -506,28 +506,55 @@ def udev_device_get_iscsi_port(info):
     return path_components[1].split(":")[-1]
 
 # fcoe disks have ID_PATH in the form of:
+# For FCoE directly over the NIC (so no VLAN and thus no DCB):
 # pci-eth#-fc-${id}
+# For FCoE over a VLAN (the DCB case)
+# fc-${id}
 # fcoe parts look like this:
 # pci-eth#-fc-${id}-part#
-def udev_device_is_fcoe(info):
-    try:
-        path_components = udev_device_get_path(info).split("-")
+# fc-${id}-part#
 
-        if info["ID_BUS"] == "scsi" and len(path_components) >= 4 and \
-           path_components[0] == "pci" and path_components[2] == "fc" and \
-           path_components[1][0:3] == "eth":
-            return True
-    except LookupError:
-        pass
+# For the FCoE over VLAN case we also do some checks on the sysfs_path as
+# the ID_PATH does not contain all info we need there, the sysfs_path for
+# an fcoe disk over VLAN looks like this:
+# /devices/virtual/net/eth4.802-fcoe/host3/rport-3:0-4/target3:0:1/3:0:1:0/block/sde
+# And for a partition:
+# /devices/virtual/net/eth4.802-fcoe/host3/rport-3:0-4/target3:0:1/3:0:1:0/block/sde/sde1
+
+def udev_device_is_fcoe(info):
+    if info.get("ID_BUS") != "scsi":
+        return False
+
+    path = info.get("ID_PATH", "")
+    path_components = path.split("-")
+
+    if path.startswith("pci-eth") and len(path_components) >= 4 and \
+       path_components[2] == "fc":
+        return True
+
+    if path.startswith("fc-") and "fcoe" in info["sysfs_path"]:
+        return True
 
     return False
 
 def udev_device_get_fcoe_nic(info):
-    path_components = udev_device_get_path(info).split("-")
+    path = info.get("ID_PATH", "")
+    path_components = path.split("-")
 
-    return path_components[1]
+    if path.startswith("pci-eth") and len(path_components) >= 4 and \
+       path_components[2] == "fc":
+        return path_components[1]
+
+    if path.startswith("fc-") and "fcoe" in info["sysfs_path"]:
+        return info["sysfs_path"].split("/")[4].split(".")[0]
 
 def udev_device_get_fcoe_identifier(info):
-    path_components = udev_device_get_path(info).split("-")
+    path = info.get("ID_PATH", "")
+    path_components = path.split("-")
 
-    return path_components[3]
+    if path.startswith("pci-eth") and len(path_components) >= 4 and \
+       path_components[2] == "fc":
+        return path_components[3]
+
+    if path.startswith("fc-") and "fcoe" in info["sysfs_path"]:
+        return path_components[1]
