@@ -174,7 +174,12 @@ def doAutoPartition(anaconda):
     log.debug("storage.partitioned: %s" % [d.name for d in anaconda.id.storage.partitioned])
     log.debug("all names: %s" % [d.name for d in anaconda.id.storage.devices])
     if anaconda.dir == DISPATCH_BACK:
+        # temporarily unset storage.clearPartType so that all devices will be
+        # found during storage reset
+        clearPartType = anaconda.id.storage.clearPartType
+        anaconda.id.storage.clearPartType = None
         anaconda.id.storage.reset()
+        anaconda.id.storage.clearPartType = clearPartType
         return
 
     disks = []
