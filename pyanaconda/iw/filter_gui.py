@@ -23,6 +23,7 @@ import collections
 import gtk, gobject
 import gtk.glade
 import gui
+import iutil
 import parted
 import _ped
 from DeviceSelector import *
@@ -397,6 +398,15 @@ class NotebookPage(object):
 class FilterWindow(InstallWindow):
     windowTitle = N_("Device Filter")
 
+    def _device_size_is_nonzero(self, info):
+        path = udev_device_get_sysfs_path(info)
+        size = iutil.get_sysfs_attr(path, "size")
+
+        if not size:
+            return False
+
+        return True
+
     def getNext(self):
         # All pages use the same store, so we only need to use the first one.
         # However, we do need to make sure all paths from multipath devices
@@ -570,6 +580,7 @@ class FilterWindow(InstallWindow):
         # The device list could be really long, so we really only want to
         # iterate over it the bare minimum of times.  Dividing this list up
         # now means fewer elements to iterate over later.
+        singlepaths = filter(lambda info: self._device_size_is_nonzero(info), singlepaths)
         (raids, nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
                                             singlepaths)
 
@@ -674,10 +685,6 @@ class FilterWindow(InstallWindow):
             except (_ped.IOException, _ped.DeviceException):
                 continue
             d["XXX_SIZE"] = int(partedDevice.getSize())
-            # cciss controllers, without any sets defined, show up as a 0 size
-            # blockdev, ignore these
-            if d["XXX_SIZE"] == 0:
-                continue
 
             # This isn't so great, but iSCSI and s390 devices have an ID_PATH
             # that contains a lot of useful identifying info, so that should be
