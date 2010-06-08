@@ -1589,6 +1589,7 @@ class DMCryptDevice(DMDevice):
 class LUKSDevice(DMCryptDevice):
     """ A mapped LUKS device. """
     _type = "luks/dm-crypt"
+    _packages = ["cryptsetup-luks"]
 
     def __init__(self, name, format=None, size=None, uuid=None,
                  exists=None, sysfsPath='', parents=None):
@@ -1709,6 +1710,7 @@ class LVMVolumeGroupDevice(DMDevice):
             DMDevice since there's no actual device.
     """
     _type = "lvmvg"
+    _packages = ["lvm2"]
 
     def __init__(self, name, parents, size=None, free=None,
                  peSize=None, peCount=None, peFree=None, pvCount=None,
@@ -2153,6 +2155,7 @@ class LVMLogicalVolumeDevice(DMDevice):
     """ An LVM Logical Volume """
     _type = "lvmlv"
     _resizable = True
+    _packages = ["lvm2"]
 
     def __init__(self, name, vgdev, size=None, uuid=None,
                  stripes=1, logSize=0, snapshotSpace=0,
@@ -2429,6 +2432,7 @@ class LVMLogicalVolumeDevice(DMDevice):
 class MDRaidArrayDevice(StorageDevice):
     """ An mdraid (Linux RAID) device. """
     _type = "mdarray"
+    _packages = ["mdadm"]
 
     def __init__(self, name, level=None, major=None, minor=None, size=None,
                  memberDevices=None, totalDevices=None,
