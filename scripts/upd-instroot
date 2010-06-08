@@ -157,7 +157,7 @@ die () {
 
 PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bind-utils
-    bitmap-fonts-cjk
+    bitmap-fangsongti-fonts
     btrfs-progs bzip2 bzip2-libs ca-certificates cairo cjkuni-uming-fonts
     comps-extras coreutils cpio cracklib cracklib-dicts cracklib-python
     cryptsetup-luks cyrus-sasl-lib db4 dbus dbus-python dbus-x11 dejavu-sans-fonts
@@ -166,7 +166,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     dhclient dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme eject ethtool
     elfutils-libelf expat fcoe-utils fipscheck
-    firstboot fontconfig fonts-ISO8859-2 freetype gail gawk gdb-gdbserver
+    firstboot fontconfig freetype gail gawk gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
     gnome-themes gpm grep gtk2 gtk2-engines hal
     hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
@@ -196,7 +196,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     setup slang smc-meera-fonts specspo sqlite startup-notification 
     synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
-    sysvinit-tools taipeifonts tcp_wrappers tcp_wrappers-libs telnet
+    sysvinit-tools tcp_wrappers tcp_wrappers-libs telnet
     tzdata udev un-core-dotum-fonts urw-fonts util-linux-ng tigervnc-server
     tigervnc-server-module vconfig vlgothic-fonts vim-minimal
     wget wpa_supplicant xcb-util xkeyboard-config xfsprogs xorg-x11-xauth
@@ -658,9 +658,7 @@ usr/share/anaconda/anaconda.conf
 usr/share/cracklib
 usr/share/dbus-1
 usr/share/fontconfig
-usr/share/fonts/*/lklug.ttf
 usr/share/fonts/lohit*/*
-usr/share/fonts/*/lklug.ttf
 usr/share/fonts/cjkuni*/uming*.ttc
 usr/share/fonts/dejavu/DejaVuSans-Bold.ttf
 usr/share/fonts/dejavu/DejaVuSans.ttf
