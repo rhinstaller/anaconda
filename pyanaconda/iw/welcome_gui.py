@@ -55,7 +55,7 @@ class WelcomeWindow (InstallWindow):
         if self.anaconda.requiresNetworkInstall():
             self.anaconda.intf.messageWindow(_("Network Install Required"),
                                              _("Your installation source is set to "
-                                               "a network location, but no netork "
+                                               "a network location, but no network "
                                                "devices were found on your "
                                                "system.  To avoid a network "
                                                "installation, boot with the full "
