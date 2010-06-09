@@ -487,6 +487,8 @@ class Anaconda(object):
         self.proxy = None
         self.proxyUsername = None
         self.proxyPassword = None
+        self.clearPartTypeSelection = None      # User's GUI selection
+        self.clearPartTypeSystem = None         # System's selection
 
         # *sigh* we still need to be able to write this out
         self.xdriver = None
