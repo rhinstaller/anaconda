@@ -1359,6 +1359,7 @@ class PartitionDevice(StorageDevice):
             self.disk.originalFormat.commit()
         except DiskLabelCommitError:
             self.disk.originalFormat.addPartition(self.partedPartition)
+            self.partedPartition = self.disk.originalFormat.partedDisk.getPartitionByPath(self.path)
             raise
 
         self.exists = False
