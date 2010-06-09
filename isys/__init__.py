@@ -35,7 +35,6 @@ import warnings
 import resource
 import re
 import struct
-import block
 import dbus
 import selinux
 
