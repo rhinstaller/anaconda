@@ -49,7 +49,7 @@ def whichToShrink(storage, intf):
         requpper = long(math.floor(part.format.currentSize))
 
         adj = shrinkSB.get_adjustment()
-        adj.lower = reqlower
+        adj.lower = max(1,reqlower)
         adj.upper = requpper
         adj.set_value(reqlower)
 
