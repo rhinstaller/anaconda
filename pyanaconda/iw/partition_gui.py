@@ -376,10 +376,10 @@ class DiskStripeGraph(StripeGraph):
                 continue
 
             # Create the start and length for the slice.
-            xoffset = (Decimal(part.geometry.start)
-                        / Decimal(drive.partedDevice.length))
-            xlength = (Decimal(part.geometry.length)
-                        / Decimal(drive.partedDevice.length))
+            xoffset = (Decimal(str(part.geometry.start))
+                        / Decimal(str(drive.partedDevice.length)))
+            xlength = (Decimal(str(part.geometry.length))
+                        / Decimal(str(drive.partedDevice.length)))
 
             if part.type == parted.PARTITION_LOGICAL:
                 partstr = "%s\n%.0f MB" % (part.path, float(part.getSize()))
@@ -487,7 +487,7 @@ class LVMStripeGraph(StripeGraph):
 
             #xoffset = float(curr_offset) / float(vg.size)
             xoffset = curr_offset
-            xlength = Decimal(lv.size) / Decimal(vg.size)
+            xlength = Decimal(str(lv.size)) / Decimal(str(vg.size))
 
             slice = Slice(stripe, lvstr, stype, xoffset, xlength,
                     dcCB = self.dcCB, cCB = self.cCB, sel_col = sel_col,
