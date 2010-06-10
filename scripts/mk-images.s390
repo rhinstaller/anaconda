@@ -19,7 +19,7 @@
 
 # initrd.img load address for generic.ins LPAR booting
 # See https://bugzilla.redhat.com/show_bug.cgi?id=546422 for details.
-INITRD_ADDRESS=0x2000000
+INITRD_ADDRESS=0x02000000
 
 getAllS390ModuleNames() {
     s390dir="${KERNELROOT}/lib/modules/${version}/kernel/drivers/s390"
