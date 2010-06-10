@@ -124,7 +124,6 @@ Requires: util-linux-ng >= 2.15.1
 Requires: system-config-keyboard >= %{sckeyboardver}
 Requires: dbus-python
 Requires: cracklib-python
-Requires: python-bugzilla
 Requires: python-nss
 Requires: tigervnc-server
 %ifarch %livearches
