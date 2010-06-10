@@ -89,13 +89,10 @@ if iutil.isS390():
 #
 # Stuff for screenshots
 #
-screenshotDir = None
+screenshotDir = "/tmp/anaconda-screenshots"
 screenshotIndex = 0
 
 def copyScreenshots():
-    global screenshotIndex
-    global screenshotDir
-    
     # see if any screenshots taken
     if screenshotIndex == 0:
         return
@@ -110,12 +107,18 @@ def copyScreenshots():
                                      "to disk."), type="warning")
             return
 
-    # copy all png's over
-    for f in os.listdir(screenshotDir):
-        (path, fname) = os.path.split(f)
-        (b, ext) = os.path.splitext(f)
-        if ext == ".png":
-            shutil.copyfile(screenshotDir + '/' + f, destDir + '/' + fname)
+    # Now copy all the PNGs over. Since some pictures could have been taken
+    # under a root changed to /mnt/sysimage, we have to try to fetch files from
+    # there as well.
+    source_dirs = [screenshotDir, os.path.join("/mnt/sysimage", screenshotDir.lstrip('/'))]
+    for source_dir in source_dirs:
+        if not os.access(source_dir, os.X_OK):
+            continue
+        for f in os.listdir(source_dir):
+            (path, fname) = os.path.split(f)
+            (b, ext) = os.path.splitext(f)
+            if ext == ".png":
+                shutil.copyfile(source_dir + '/' + f, destDir + '/' + fname)
 
     window = MessageWindow(_("Screenshots Copied"), 
                            _("The screenshots have been saved in the "
@@ -126,16 +129,12 @@ def copyScreenshots():
 
 def takeScreenShot():
     global screenshotIndex
-    global screenshotDir
-
-    if screenshotDir is None:
-        screenshotDir = "/tmp/anaconda-screenshots"
 
     if not os.access(screenshotDir, os.R_OK):
         try:
             os.mkdir(screenshotDir)
-        except:
-            screenshotDir = None
+        except OSError as e:
+            log.error("os.mkdir() failed for %s: %s" % (screenshotDir, e.strerror))
             return
 
     try:
@@ -153,13 +152,13 @@ def takeScreenShot():
                 if not os.access(screenshotDir + '/' + sname, os.R_OK):
                     break
 
-                screenshotIndex = screenshotIndex + 1
+                screenshotIndex += 1
                 if screenshotIndex > 9999:
                     log.error("Too many screenshots!")
                     return
 
             screenshot.save (screenshotDir + '/' + sname, "png")
-            screenshotIndex = screenshotIndex + 1
+            screenshotIndex += 1
 
             window = MessageWindow(_("Saving Screenshot"), 
                _("A screenshot named '%s' has been saved.") % (sname,) ,
@@ -172,10 +171,9 @@ def takeScreenShot():
                                  "to try several times for it to succeed."),
                                type="warning")
 
-def handleShiftPrintScrnRelease (window, event):
-    if (event.keyval == gtk.keysyms.Print and event.state & gtk.gdk.SHIFT_MASK):
+def handlePrintScrnRelease (window, event):
+    if event.keyval == gtk.keysyms.Print:
         takeScreenShot()
-        
 #
 # HACK to make treeview work
 # 
@@ -309,7 +307,7 @@ def titleBarMotionEventCB(widget, event, data):
 
 def addFrame(dialog, title=None):
     # make screen shots work
-    dialog.connect ("key-release-event", handleShiftPrintScrnRelease)
+    dialog.connect ("key-release-event", handlePrintScrnRelease)
     if title:
         dialog.set_title(title)
 
@@ -1471,8 +1469,7 @@ class InstallControlWindow:
         elif (event.keyval == gtk.keysyms.F12
               and self.currentWindow.getICS().getNextEnabled()):
             self.nextClicked()
-        elif (event.keyval == gtk.keysyms.Print
-              and event.state & gtk.gdk.SHIFT_MASK):
+        elif event.keyval == gtk.keysyms.Print:
             takeScreenShot()
 
     def _doExit (self, *args):
@@ -1524,7 +1521,7 @@ class InstallControlWindow:
 
     def connectSignals(self):
         sigs = { "on_nextButton_clicked": self.nextClicked,
-            "on_rebootButton_clicked": self._doExit,
+            "on_rebootButton_clicked": self.nextClicked,
             "on_closeButton_clicked": self._doExit,                 
             "on_backButton_clicked": self.prevClicked,
             "on_debugButton_clicked": self.debugClicked,
