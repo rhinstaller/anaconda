@@ -26,6 +26,7 @@ import random
 import tempfile
 import os
 import os.path
+import iutil
 
 import logging
 log = logging.getLogger("anaconda")
@@ -136,7 +137,7 @@ class Users:
 
     def createUser (self, name=None, password=None, isCrypted=False, groups=[],
                     homedir=None, shell=None, uid=None, algo=None, lock=False,
-                    root="/mnt/sysimage", gecos=None):
+                    root="/mnt/sysimage", gecos=None, mkmailspool=True):
         childpid = os.fork()
 
         if not childpid:
@@ -159,6 +160,7 @@ class Users:
                             map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
 
                 if not homedir:
+                    iutil.mkdirChain('/home')
                     homedir = "/home/" + name
 
                 userEnt.set(libuser.HOMEDIRECTORY, homedir)
@@ -172,7 +174,7 @@ class Users:
                 if gecos:
                     userEnt.set(libuser.GECOS, gecos)
 
-                self.admin.addUser(userEnt)
+                self.admin.addUser(userEnt, mkmailspool=mkmailspool)
                 self.admin.addGroup(groupEnt)
 
                 if password:

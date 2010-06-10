@@ -1068,6 +1068,14 @@ directory = /mnt/sysimage/etc
 directory = /mnt/sysimage/etc
 EOF
 
+echo "Creating /etc/skel"
+# libuser needs this when it creates sshpw users
+mkdir -p $DEST/etc/skel
+
+echo "Creating empty /etc/gshadow"
+# libuser needs this when it creates sshpw users
+touch $DEST/etc/gshadow
+
 sed -i 's|\(installforallkernels\) = 0|\1 = 1|' $DEST/etc/yum/pluginconf.d/fedorakmod.conf
 
 #
