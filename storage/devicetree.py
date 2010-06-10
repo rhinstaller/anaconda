@@ -1627,6 +1627,7 @@ class DeviceTree(object):
                     # md_name can be either md# or md/#
                     if md_name.startswith("md/"):
                         minor = int(md_name[3:])     # strip off leading "md/"
+                        md_name = "md%d" % minor     # use a regular md# name
                     else:
                         minor = int(md_name[2:])     # strip off leading "md"
                 except (IndexError, ValueError):
