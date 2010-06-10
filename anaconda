@@ -416,7 +416,7 @@ def handleSshPw(ks):
         else:
             u.createUser(name=ud.username, password=ud.password,
                          isCrypted=ud.isCrypted, lock=ud.lock,
-                         root="/")
+                         root="/", mkmailspool=False)
 
     del u
 
