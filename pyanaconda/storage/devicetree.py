@@ -1059,6 +1059,12 @@ class DeviceTree(object):
         # try to get the device again now that we've got all the slaves
         device = self.getDeviceByName(name)
 
+        if device is None:
+            device = self.getDeviceByUuid(info.get("MD_UUID"))
+            if device:
+                raise DeviceTreeError("MD RAID device %s already in "
+                                      "devicetree as %s" % (name, device.name))
+
         # if we get here, we found all of the slave devices and
         # something must be wrong -- if all of the slaves we in
         # the tree, this device should be as well
