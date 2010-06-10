@@ -39,7 +39,7 @@ def parseMultipathOutput(output):
     devices = []
 
     policy = re.compile('^[|+` -]+policy')
-    device = re.compile('^[|+` -]+[0-9]+:[0-9]+:[0-9]+:[0-9]+ ([a-zA-Z0-9!/]+)')
+    device = re.compile('^[|+` -]+[0-9]+:[0-9]+:[0-9]+:[0-9]+ +([a-zA-Z0-9!/]+)')
 
     lines = output.split('\n')
     for line in lines:
