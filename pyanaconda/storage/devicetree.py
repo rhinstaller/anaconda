@@ -1069,24 +1069,8 @@ class DeviceTree(object):
         # something must be wrong -- if all of the slaves we in
         # the tree, this device should be as well
         if device is None:
-            log.warning("using MD RAID device for %s" % name)
-            try:
-                # level is reported as, eg: "raid1"
-                md_level = udev_device_get_md_level(info)
-                md_devices = int(udev_device_get_md_devices(info))
-                md_uuid = udev_device_get_md_uuid(info)
-            except (KeyError, IndexError, ValueError) as e:
-                log.warning("invalid data for %s: %s" % (name, e))
-                return
-
-            device = MDRaidArrayDevice(name,
-                                       level=md_level,
-                                       memberDevices=md_devices,
-                                       uuid=md_uuid,
-                                       exists=True,
-                                       parents=slaves)
-            self._addDevice(device)
-
+            raise DeviceTreeError("MD RAID device %s not in devicetree after "
+                                  "scanning all slaves" % name)
         return device
 
     def addUdevPartitionDevice(self, info, disk=None):
