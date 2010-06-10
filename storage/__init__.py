@@ -354,8 +354,8 @@ class Storage(object):
             if device.format.type == "luks" and device.format.exists:
                 self.__luksDevs[device.format.uuid] = device.format._LUKS__passphrase
 
-        w = self.anaconda.intf.waitWindow(_("Finding Devices"),
-                                          _("Finding storage devices"))
+        w = self.anaconda.intf.waitWindow(_("Examining Devices"),
+                                          _("Examining storage devices"))
         self.iscsi.startup(self.anaconda.intf)
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup()
