@@ -705,7 +705,7 @@ class AnacondaYum(YumSorter):
             rid = "anaconda-%s" % dirname
 
             repo = AnacondaYumRepo(rid)
-            repo.baseurl = [ "file:///%s" % d ]
+            repo.baseurl = [ "file://%s" % d ]
             repo.name = "Driver Disk %s" % dirname.split("-")[1]
             repo.enable()
             extraRepos.append(repo)
