@@ -236,7 +236,8 @@ def hasWindows(bl):
         return False
 
     foundWindows = False
-    for (dev, type) in bl.images.availableBootDevices(bl.storage):
+    # no point looking at the root device which won't be a dos type anyway
+    for (dev, type) in bl.images.availableBootDevices(bl.storage, addRoot=False):
         if type in booty.dosFilesystems:
             foundWindows = True
             break

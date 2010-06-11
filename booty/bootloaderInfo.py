@@ -256,7 +256,8 @@ class BootImages:
     # Return a list of (storage.Device, string) tuples that are bootable
     # devices.  The string is the type of the device, which is just a string
     # like "vfat" or "swap" or "lvm".
-    def availableBootDevices(self, storage):
+    # Appends information about the root device when addRoot is true.
+    def availableBootDevices(self, storage, addRoot=True):
         import parted
         retval = []
         foundDos = False
@@ -283,13 +284,13 @@ class BootImages:
                 # questionable for same reason as above, but on mac this time
                 retval.append((part, type))
 
-        rootDevice = storage.rootDevice
+        if addRoot:
+            rootDevice = storage.rootDevice
+            if not rootDevice or not rootDevice.format:
+                raise ValueError, ("Trying to pick boot devices but do not have a "
+                                   "sane root partition.  Aborting install.")
+            retval.append((rootDevice, rootDevice.format.type))
 
-        if not rootDevice or not rootDevice.format:
-            raise ValueError, ("Trying to pick boot devices but do not have a "
-                               "sane root partition.  Aborting install.")
-
-        retval.append((rootDevice, rootDevice.format.type))
         retval.sort()
         return retval
 
