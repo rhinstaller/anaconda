@@ -223,6 +223,55 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jun 11 2010 Chris Lumens <clumens@redhat.com> - 14.8-1
+- Rebind hybrid lcs/ctc network devices to correct driver if necessary
+  (#596826) (maier)
+- Get netdev name without CONFIG_SYSFS_DEPRECATED_V2 in linuxrc.s390 (#596826)
+  (maier)
+- Replace rd_CCW with final dracut option rd_ZNET for network-rootfs on s390
+  (maier)
+- Do parse DOMAIN for DNS search suffixes in loader (#595388) (maier)
+- Allow loader to parse DNS and write DNS1, DNS2, ... itself (again). (#595388)
+  (maier)
+- GATEWAY in linuxrc.s390's ifcfg is really IPv4 only (#595388) (maier)
+- Handle OPTIONS in ifcfg files transparently in loader (#595388) (maier)
+- If only (clumens)
+- Catch and display KickstartErrors coming from execute() cleanly (#603059).
+  (clumens)
+- Forcibly remove packages from deselected groups (#495621). (clumens)
+- Default to aes-xts-plain64 for new luks devices. (#600295) (dlehman)
+- Put another '/' in the rhinstall-install.img path (#601838). (clumens)
+- Fix driver disc repo baseurl (#602343) (msivak)
+- or -> and (clumens)
+- fix: do not check root devices from hasWindows (#592860). (akozumpl)
+- fix: kickstart sshpw command dysfunctional (#602308). (akozumpl)
+- Include /sbin/blkid in the initrd.img (dcantrell)
+- Correct initrd.img load address on s390 (dcantrell)
+- Remove duplicate md handling code from 70-anaconda.rules (#599197)
+  (dcantrell)
+- Add md arrays to the devicetree with a md# name rather then md/# (hdegoede)
+- "Finding" -> "Examining" storage devices (#594804). (clumens)
+- In the filter UI, also ignore devices that do not report a size (#594803).
+  (clumens)
+- translations: scdate can translate timezones better then us. (akozumpl)
+- fix: the po path has to be bound for gtk.glade too. (akozumpl)
+- translations: don't say context=yes if you don't mean it. (akozumpl)
+- translations: loader header files strings missing in anaconda.pot. (akozumpl)
+- fix error saving screenshots during package install (#594826). (akozumpl)
+- Re-get partedPartition after re-adding failed-to-remove partition. (dlehman)
+- Select default and mandatory packages when enabling repos. (dlehman)
+- do not import block from isys. not needed. (#601291). (akozumpl)
+- removal: gui.InstallKeyWindow. (akozumpl)
+- Make minimum shrink size 1 not 0 (#602442) (bcl)
+- Initialize Decimal for partition slices (#602376) (bcl)
+- Make sure lvm2 gets installed when we are using lvm (#601644) (hdegoede)
+- Handle FCoE over vlan properly (#486244) (hdegoede)
+- Tell user when nothing can be upgraded (#592605) (bcl)
+- netork -> network (clumens)
+- Redownload and extract updates.img during anaconda restart. (akozumpl)
+- Restarting anaconda. (akozumpl)
+- New version. (clumens)
+
 * Fri Jun 04 2010 Chris Lumens <clumens@redhat.com> - 14.7-1
 - Assign the trimmed identifier so it gets used in the UI. (clumens)
 - Remember disk selections when going back to the text partition UI (#596113).
