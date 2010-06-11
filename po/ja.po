@@ -13,6 +13,7 @@
 # Hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>, 2007, 2009.
 # Kiyoto Hashida <khashida@redhat.com>, 2007, 2008, 2009, 2010.
 # Makoto Mizukami <mmk9060@aol.com>, 2008.
+# Hajime Taira <htaira@redhat.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch\n"
@@ -1836,7 +1837,7 @@ msgstr "<b>%(pkgStr)s のインストール</b> (%(size)s)\n"
 #: yuminstall.py:213
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr "完了したパッケージ: %(numpkgs)d 個の内 %(donepkgs)d "
+msgstr "完了したパッケージ: %(numpkgs)d 個の中 %(donepkgs)d 個完了"
 
 #: yuminstall.py:228
 msgid "Finishing upgrade"
