@@ -1132,8 +1132,17 @@ class AnacondaKSHandler(superclass):
             self._dataObjs.append(obj)
 
     def execute(self):
-        for obj in filter(lambda o: hasattr(o, "execute"), self._dataObjs):
-            obj.execute(self.anaconda)
+        try:
+            for obj in filter(lambda o: hasattr(o, "execute"), self._dataObjs):
+                obj.execute(self.anaconda)
+        except KickstartError as e:
+            if self.anaconda.intf:
+                self.anaconda.intf.kickstartErrorWindow(e.__str__())
+                sys.exit(1)
+            else:
+                stderrLog.critical(_("The following error was found while parsing the kickstart "
+                                     "configuration file:\n\n%s") % e)
+                sys.exit(1)
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
