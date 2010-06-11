@@ -125,8 +125,7 @@ def copyUpdatedFiles(tag, updates, cwd):
             fields = file.split('/')
             subdir = fields[0]
 
-            if subdir == 'installclasses' or subdir == 'storage' or \
-               subdir == 'booty':
+            if subdir in ['booty', 'isys', 'pyanaconda']:
                 subupdates = os.path.realpath(updates + '/' + subdir)
                 if os.path.isdir(subupdates):
                     shutil.rmtree(subupdates)

@@ -256,9 +256,10 @@ def setupPythonPath():
     d = get_python_lib(plat_specific=1)
 
     if haveUpdates:
-        sys.path.insert(ndx+1, "%s/pyanaconda" % d)
-        sys.path.insert(ndx+2, "%s/pyanaconda/textw" % d)
-        sys.path.insert(ndx+3, "%s/pyanaconda/iw" % d)
+        sys.path.insert(ndx+1, "/tmp/updates/pyanaconda" )
+        sys.path.insert(ndx+2, "%s/pyanaconda" % d)
+        sys.path.insert(ndx+3, "%s/pyanaconda/textw" % d)
+        sys.path.insert(ndx+4, "%s/pyanaconda/iw" % d)
     else:
         sys.path.insert(0, "%s/pyanaconda" % d)
         sys.path.insert(1, "%s/pyanaconda/textw" % d)
