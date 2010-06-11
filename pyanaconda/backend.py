@@ -143,8 +143,8 @@ class AnacondaBackend:
         # Copy the install.img to the filesystem and switch loopback devices
         # to there.  Otherwise we won't be able to unmount and swap media.
         free = anaconda.storage.fsFreeSpace
-        self._loopbackFile = "%s%s/rhinstall-install.img" % (anaconda.rootPath,
-                                                             free[-1][0])
+        self._loopbackFile = "%s/%s/rhinstall-install.img" % (anaconda.rootPath,
+                                                              free[-1][0])
         try:
             log.info("transferring install image to install target")
             win = anaconda.intf.waitWindow(_("Copying File"),
