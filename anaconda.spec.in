@@ -221,6 +221,30 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jun 10 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-5
+- Remove duplicate md handling code from 70-anaconda.rules (dcantrell)
+  Resolves: rhbz#599197
+  Resolves: rhbz#591970
+- Correct initrd.img load address on s390 (dcantrell)
+  Related: rhbz#546422
+- Remove python-bugzilla requirement (dcantrell)
+  Resolves: rhbz#602793
+- Include /sbin/blkid in the initrd.img (dcantrell)
+  Related: rhbz#591970
+  Related: rhbz#599197
+
+* Mon Jun 07 2010 Chris Lumens <clumens@redhat.com> - 13.21.50-4
+- Fix the patch fuzz so the build system doesn't complain (clumens).
+  Related: rhbz#600225
+
+* Mon Jun 07 2010 Chris Lumens <clumens@redhat.com> - 13.21.50-3
+- Back out part of the previous patch that removed the call to blkid (clumens).
+  Resolves: rhbz#600225
+
+* Wed Jun 02 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-2
+- Remove duplicate md handling code from 70-anaconda.rules (dcantrell)
+  Resolves: rhbz#599197
+
 * Tue Jun 01 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-1
 - Replace the Serial Number column with an Identifier column (clumens).
   Resolves: rhbz#560666
