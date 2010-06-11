@@ -1849,12 +1849,12 @@ debuglevel=10
 
     def deselectGroup(self, group, *args):
         try:
-            self.ayum.deselectGroup(group)
+            self.ayum.deselectGroup(group, force=True)
         except yum.Errors.GroupsError, e:
             # try to find out if it's the name or translated name
             gid = self.__getGroupId(group)
             if gid is not None:
-                self.ayum.deselectGroup(gid)
+                self.ayum.deselectGroup(gid, force=True)
             else:
                 log.debug("no such group %s" %(group,))
 
