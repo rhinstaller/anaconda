@@ -1903,8 +1903,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         if len(self.ayum.tsInfo.instgroups) == 0 and len(txmbrNames) == 0:
             return
 
-        f.write("\n%packages\n")
-
         for grp in filter(lambda x: x.selected, self.ayum.comps.groups):
             groups.append(grp.groupid)
 
@@ -1916,6 +1914,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
             for pkg in filter(lambda x: x in txmbrNames, optionals):
                 installed.append(pkg)
+
+        if len(groups) == 1 and groups[0].lower() == "core":
+            f.write("\n%packages --nobase\n")
+        else:
+            f.write("\n%packages\n")
 
         for grp in groups:
             f.write("@%s\n" % grp)
