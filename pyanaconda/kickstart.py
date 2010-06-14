@@ -82,7 +82,7 @@ class AnacondaKSScript(Script):
             else:
                 messages = self.logfile
 
-            d = os.path.basename(messages)
+            d = os.path.dirname(messages)
             if not os.path.exists(d):
                 os.makedirs(d)
         else:
