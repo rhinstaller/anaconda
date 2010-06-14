@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jun 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-6
+- Select default and mandatory packages when enabling repos. (dlehman)
+  Related: rhbz#561164
+
 * Thu Jun 10 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-5
 - Remove duplicate md handling code from 70-anaconda.rules (dcantrell)
   Resolves: rhbz#599197
