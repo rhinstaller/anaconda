@@ -221,6 +221,145 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jun 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.51-1
+- Properly rescan storage with Reset in partition GUI (bcl)
+  Related: rhbz#595659
+  Resolves: rhbz#595659
+- Save the partition type selection when moving back (bcl)
+  Related: rhbz#595659
+  Resolves: rhbz#595659
+- Properly rescan disks when moving back (bcl)
+  Related: rhbz#595659
+  Resolves: rhbz#595659
+- Show zFCP errors in dialog boxes rather than tracebacks (maier)
+  Resolves: rhbz#598087
+- Show by-path names for DASD and zFCP, WWID for mpath (maier)
+  Resolves: rhbz#580507
+- Remember autopart UI choice when going back (dcantrell)
+  Resolves: rhbz#596146
+- Make parent directories for ks scriptlet log files (dcantrell)
+  Resolves: rhbz#597279
+- Do not ask for interface twice in stage 1 (rvykydal)
+  Resolves: rhbz#594802
+- Fix parsing of ifcfg OPTIONS parameter (rvykydal)
+  Resolves: rhbz#597205
+- Don't overwrite 70-persistent-net.rules (rvykydal)
+  Resolves: rhbz#597625
+- Wait only for activation of devices controlled by NM (rvykydal)
+  Resolves: rhbz#598432
+- Add the .sshd.hmac file to initrd (mgracik)
+  Resolves: rhbz#592186
+- Raise an exception when an md dev is in the tree under the wrong name
+  (hdegoede)
+  Related: rhbz#591970
+- Make sure lvm2 gets installed when we are using lvm (hdegoede)
+  Resolves: rhbz#601644
+- Fix backtrace when a vg starts with freespace (hdegoede)
+  Resolves: rhbz#597925
+- Add md arrays to the devicetree with a md# name rather then md/# (hdegoede)
+  Related: rhbz#591970
+- Handle FCoE over vlan properly (hdegoede)
+  Resolves: rhbz#486244
+- Ignore errors upon restoring /lib and /usr after unmounting filesystems
+  (hdegoede)
+  Related: rhbz#598222
+- Make sure we still have an elf interpreter after unmounting fs (hdegoede)
+  Resolves: rhbz#598222
+- Rebind hybrid lcs/ctc network devices to correct driver if necessary (maier)
+  Related: rhbz#561814
+  Resolves: rhbz#596826
+  Related: rhbz#557522
+- Get netdev name without CONFIG_SYSFS_DEPRECATED_V2 in linuxrc.s390 (maier)
+  Resolves: rhbz#596826
+- Replace rd_CCW with final dracut option rd_ZNET for network-rootfs on s390
+  (maier)
+  Related: rhbz#577193
+  Related: rhbz#600299
+  Related: rhbz#533494
+- Do parse DOMAIN for DNS search suffixes in loader (maier)
+  Resolves: rhbz#595388
+- Allow loader to parse DNS and write DNS1, DNS2, ... itself (again). (maier)
+  Resolves: rhbz#595388
+- GATEWAY in linuxrc.s390's ifcfg is really IPv4 only (maier)
+  Resolves: rhbz#595388
+- Handle OPTIONS in ifcfg files transparently in loader (dcantrell)
+  Resolves: rhbz#595388
+- Catch and display KickstartErrors coming from execute() cleanly (clumens).
+  Resolves: rhbz#603059
+- Forcibly remove packages from deselected groups (clumens).
+  Resolves: rhbz#495621
+- Default to aes-xts-plain64 for new luks devices. (dlehman)
+  Resolves: rhbz#600295
+- Make minimum shrink size 1 not 0 (bcl)
+  Resolves: rhbz#602442
+- Initialize Decimal for partition slices (bcl)
+  Related: rhbz#599614
+  Resolves: rhbz#602376
+- Fix driver disc repo baseurl (msivak)
+  Resolves: rhbz#602343
+- or -> and (clumens)
+  Related: rhbz#594803
+- fix: kickstart sshpw command dysfunctional (akozumpl).
+  Resolves: rhbz#602308
+- Include /sbin/blkid in the initrd.img (dcantrell)
+  Related: rhbz#599197
+  Related: rhbz#591970
+- Correct initrd.img load address on s390 (dcantrell)
+  Related: rhbz#546422
+- "Finding" -> "Examining" storage devices (clumens).
+  Resolves: rhbz#594804
+- In the filter UI, also ignore devices that do not report a size (clumens).
+  Resolves: rhbz#594803
+- translations: loader header files strings missing in anaconda.pot. (akozumpl)
+  Related: rhbz#598413
+- Re-get partedPartition after re-adding failed-to-remove partition. (dlehman)
+  Related: rhbz#592339
+  Resolves: rhbz#602351
+- Select default and mandatory packages when enabling repos. (dlehman)
+  Related: rhbz#561164
+- Minor fix for parsing of "multipath -d" (pjones)
+  Resolves: rhbz#592297
+- loader: con Newt into thinking LANG is always en_US.UTF-8 (akozumpl).
+  Resolves: rhbz#601101
+- translations: xgettext: _P for plural forms takes two arguments (akozumpl).
+  Resolves: rhbz#598413
+- fix: the po path has to be bound for gtk.glade too. (akozumpl)
+  Related: rhbz#598413
+- translations: don't say context=yes if you don't mean it. (akozumpl)
+  Related: rhbz#598413
+- fix error saving screenshots during package install (akozumpl).
+  Resolves: rhbz#594826
+- The keyboard object is in instdata on rhel6 (clumens).
+  Resolves: rhbz#601159
+- Remember disk selections when going back to the text partition UI (clumens).
+  Resolves: rhbz#596113
+- Fix green strips showing up in partition dialog (bcl)
+  Resolves: rhbz#599614
+- Assign the trimmed identifier so it gets used in the UI. (clumens)
+  Related: rhbz#560666
+- Remember when IPv4 IPADDR has been read from ifcfg file in loader (maier)
+  Resolves: rhbz#595388
+- Don't let loader write HWADDR to ifcfg file on s390. (maier)
+  Resolves: rhbz#595388
+- Tell which stacks to configure in /etc/sysconfig/network on s390 (maier)
+  Resolves: rhbz#595388
+- Really ignore deprecated parm/conf file options in linuxrc.s390 (maier)
+  Resolves: rhbz#595388
+- Correctly pass netdev name from linuxrc.s390 to loader (maier)
+  Resolves: rhbz#595382
+- Re-enable usable pdb with vnc on s390x (maier)
+  Related: rhbz#597223
+- Fix most of what is necessary for install over IPv6 on s390 (dcantrell)
+  Resolves: rhbz#594090
+- Only kill init for reboot/halt and then exit linuxrc.s390 (maier)
+  Related: rhbz#571370
+- If only @Core is installed, add --nobase to the anaconda-ks.cfg. (clumens)
+  Resolves: rhbz#593548
+- translations: scdate can translate timezones better then us. (akozumpl)
+  Related: rhbz#598413
+- Update font list (clumens)
+  Resolves: rhbz#601501
+
 * Fri Jun 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-6
 - Select default and mandatory packages when enabling repos. (dlehman)
   Related: rhbz#561164
