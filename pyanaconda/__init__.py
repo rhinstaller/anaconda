@@ -193,15 +193,8 @@ class Anaconda(object):
     def timezone(self):
         if not self._timezone:
             import timezone
-            from bootloader import hasWindows
-
             self._timezone = timezone.Timezone()
-            tz = self.instLanguage.getDefaultTimeZone(self.rootPath)
-            if not self.ksdata:
-                utc = not hasWindows(self.bootloader)
-            else:
-                utc = 0
-            self._timezone.setTimezoneInfo(tz, utc)
+            self._timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone(self.rootPath))
 
         return self._timezone
 
