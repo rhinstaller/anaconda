@@ -596,8 +596,6 @@ class Network:
             # handle the keys* files if we have those
             if dev.get("KEY"):
                 cfgfile = "%s/keys-%s" % (netscriptsDir, device,)
-                if not instPath == '' and os.path.isfile(cfgfile):
-                    continue
 
                 newkey = "%s/keys-%s.new" % (netscriptsDir, device,)
                 f = open(newkey, "w")
