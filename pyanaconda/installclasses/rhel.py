@@ -17,15 +17,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from installclass import BaseInstallClass
-from constants import *
-from product import *
-from flags import flags
+from pyanaconda.installclass import BaseInstallClass
+from pyanaconda.constants import *
+from pyanaconda.product import *
+from pyanaconda.flags import flags
 import os
 import types
 
-import installmethod
-import yuminstall
+from pyanaconda import installmethod
+from pyanaconda import yuminstall
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it

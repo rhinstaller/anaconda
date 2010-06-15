@@ -17,18 +17,18 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from installclass import BaseInstallClass
-from constants import *
-from product import *
-from flags import flags
-import os, types
-import iutil
+from pyanaconda.installclass import BaseInstallClass
+from pyanaconda.constants import *
+from pyanaconda.product import *
+from pyanaconda.flags import flags
+from pyanaconda import iutil
 
+import os, types
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-import installmethod
-import yuminstall
+from pyanaconda import installmethod
+from pyanaconda import yuminstall
 
 import rpmUtils.arch
 
@@ -84,8 +84,8 @@ class InstallClass(BaseInstallClass):
 
     def getBackend(self):
         if flags.livecdInstall:
-            import livecd
-            return livecd.LiveCDCopyBackend
+            import pyanaconda.livecd
+            return pyanaconda.livecd.LiveCDCopyBackend
         else:
             return yuminstall.YumBackend
 

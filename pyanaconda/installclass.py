@@ -257,9 +257,10 @@ def availableClasses(showHidden=0):
 	if done.has_key(mainName): continue
 	done[mainName] = 1
 
+
         try:
             found = imputil.imp.find_module(mainName)
-        except:
+        except ImportError as e:
             log.warning ("module import of %s failed: %s" % (mainName, sys.exc_type))
             continue
 
@@ -279,7 +280,7 @@ def availableClasses(showHidden=0):
                 
             if obj.hidden == 0 or showHidden == 1:
                 list.append(((obj.name, obj, obj.pixmap), sortOrder))
-        except:
+        except ImportError as e:
             log.warning ("module import of %s failed: %s" % (mainName, sys.exc_type))
             if flags.debug: raise
             else: continue
