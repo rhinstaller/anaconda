@@ -129,6 +129,8 @@ class s390BootloaderInfo(bootloaderInfo):
         f = open(instRoot + cf, "w+")        
 
         f.write('[defaultboot]\n')
+        if self.timeout:
+            f.write('timeout=%d\n' % self.timeout)
         f.write('default=' + kernelList[0][0] + '\n')
         f.write('target=%s\n' % (self.kernelLocation))
 
