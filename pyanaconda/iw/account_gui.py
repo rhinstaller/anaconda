@@ -26,7 +26,7 @@ from iw_gui import *
 from pyanaconda.flags import flags
 from pyanaconda.constants import *
 import cracklib
-import _isys
+from pyanaconda import _isys
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

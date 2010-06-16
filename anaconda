@@ -468,6 +468,9 @@ if __name__ == "__main__":
     # pull this in to get product name and versioning
     from pyanaconda import product
 
+    # this handles setting up updates for pypackages to minimize the set needed
+    setupPythonUpdates()
+
     from pyanaconda import isys
     isys.initLog()
 

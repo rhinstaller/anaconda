@@ -22,7 +22,7 @@
 #            Jeremy Katz <katzj@redhat.com>
 #
 
-import _isys
+from pyanaconda import _isys
 import string
 import os
 import os.path

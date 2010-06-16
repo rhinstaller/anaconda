@@ -3511,7 +3511,7 @@ class OpticalDevice(StorageDevice):
 
     def eject(self):
         """ Eject the drawer. """
-        import _isys
+        from pyanaconda import _isys
 
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
