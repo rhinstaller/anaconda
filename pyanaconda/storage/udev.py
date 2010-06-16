@@ -288,7 +288,7 @@ def udev_device_get_by_path(info):
             if link.startswith('/dev/disk/by-path/'):
                 return link
 
-    return None
+    return udev_device_get_name(info)
 
 def udev_device_get_sysfs_path(info):
     return info['sysfs_path']
