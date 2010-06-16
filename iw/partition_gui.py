@@ -443,7 +443,7 @@ class DiskStripeGraph(StripeGraph):
             sel_col = self.part_type_colors["sel_freespace"]
             xoffset = last_logical_offset
             xlength = last_extended_offset - last_logical_offset
-            slcstr = "%s\n%.0f MB" % (_("Free"), float(drive.size * xlength))
+            slcstr = "%s\n%.0f MB" % (_("Free"), Decimal(str(drive.size)) * xlength)
 
             slice = Slice(stripe, slcstr, stype, xoffset, xlength,
                     dcCB = self.dcCB, cCB = self.cCB, sel_col=sel_col,
@@ -510,7 +510,7 @@ class LVMStripeGraph(StripeGraph):
             xlength = Decimal(1 - curr_offset)
 
             # with the xlength we give an approximate size
-            freestr = "%s\n%.0f MB" % (_("Free"), float(vg.size*xlength))
+            freestr = "%s\n%.0f MB" % (_("Free"), Decimal(str(vg.size)) * xlength)
 
             # We append no object.
             slice = Slice(stripe, freestr, stype, xoffset, xlength,
