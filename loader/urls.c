@@ -342,6 +342,12 @@ int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
             ui->url = strdup(url);
 
             if (enableProxy == '*') {
+               if (strncmp(proxy, "http", 4) && strncmp(proxy, "ftp://", 6)) {
+                   newtWinMessage(_("Error"), _("OK"),
+                                  _("Proxy must be either an ftp or http URL"));
+                   continue;
+               }
+
                loaderData->proxy = strdup(proxy);
                loaderData->proxyUser = strdup(proxyUser);
                loaderData->proxyPassword = strdup(proxyPassword);
