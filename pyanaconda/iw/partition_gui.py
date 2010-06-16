@@ -29,31 +29,31 @@ try:
 except ImportError:
     import gnome.canvas as gnomecanvas
 import pango
-import gui
+from pyanaconda import gui
 import parted
 import string
 import types
 import copy
 from decimal import Decimal
 
-import storage
+from pyanaconda import storage
 from iw_gui import *
-from flags import flags
+from pyanaconda.flags import flags
 
 import datacombo
 import lvm_dialog_gui as l_d_g
 import raid_dialog_gui as r_d_g
 import partition_dialog_gui as p_d_g
 
-from partIntfHelpers import *
-from constants import *
+from pyanaconda.partIntfHelpers import *
+from pyanaconda.constants import *
 from partition_ui_helpers_gui import *
-from storage.partitioning import doPartitioning
-from storage.partitioning import hasFreeDiskSpace
-from storage.devicelibs import lvm
-from storage.devices import devicePathToName, PartitionDevice
-from storage.devices import deviceNameToDiskByPath
-from storage.errors import DeviceNotFoundError
+from pyanaconda.storage.partitioning import doPartitioning
+from pyanaconda.storage.partitioning import hasFreeDiskSpace
+from pyanaconda.storage.devicelibs import lvm
+from pyanaconda.storage.devices import devicePathToName, PartitionDevice
+from pyanaconda.storage.devices import deviceNameToDiskByPath
+from pyanaconda.storage.errors import DeviceNotFoundError
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

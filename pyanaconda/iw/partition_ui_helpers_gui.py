@@ -25,11 +25,11 @@ import gobject
 import gtk
 import checklist
 import datacombo
-import iutil
+from pyanaconda import iutil
 
-from constants import *
-from partIntfHelpers import *
-from storage.formats import *
+from pyanaconda.constants import *
+from pyanaconda.partIntfHelpers import *
+from pyanaconda.storage.formats import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

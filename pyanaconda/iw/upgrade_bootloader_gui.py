@@ -23,10 +23,10 @@
 from iw_gui import *
 
 import gtk
-from booty import checkbootloader
-from storage.devices import devicePathToName
+from pyanaconda.booty import checkbootloader
+from pyanaconda.storage.devices import devicePathToName
 
-from constants import *
+from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 

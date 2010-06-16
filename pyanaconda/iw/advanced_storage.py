@@ -22,11 +22,11 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import gobject
 import gtk
 import gtk.glade
-import gui
-import iutil
-import network
-import storage.fcoe
-import storage.iscsi
+from pyanaconda import gui
+from pyanaconda import iutil
+from pyanaconda import network
+import pyanaconda.storage.fcoe
+import pyanaconda.storage.iscsi
 
 def addFcoeDrive(anaconda):
     (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade", "fcoeDialog")
@@ -216,11 +216,11 @@ def addDrive(anaconda):
         dxml.get_widget("zfcpRadio").hide()
         dxml.get_widget("zfcpRadio").set_group(None)
 
-    if not storage.iscsi.has_iscsi():
+    if not pyanaconda.storage.iscsi.has_iscsi():
         dxml.get_widget("iscsiRadio").set_sensitive(False)
         dxml.get_widget("iscsiRadio").set_active(False)
 
-    if not storage.fcoe.has_fcoe():
+    if not pyanaconda.storage.fcoe.has_fcoe():
         dxml.get_widget("fcoeRadio").set_sensitive(False)
         dxml.get_widget("fcoeRadio").set_active(False)
 
@@ -237,9 +237,9 @@ def addDrive(anaconda):
     if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
         return False
 
-    if dxml.get_widget("iscsiRadio").get_active() and storage.iscsi.has_iscsi():
+    if dxml.get_widget("iscsiRadio").get_active() and pyanaconda.storage.iscsi.has_iscsi():
         rc = addIscsiDrive(anaconda)
-    elif dxml.get_widget("fcoeRadio").get_active() and storage.fcoe.has_fcoe():
+    elif dxml.get_widget("fcoeRadio").get_active() and pyanaconda.storage.fcoe.has_fcoe():
         rc = addFcoeDrive(anaconda)
     elif dxml.get_widget("zfcpRadio") is not None and dxml.get_widget("zfcpRadio").get_active():
         rc = addZfcpDrive(anaconda)

@@ -20,12 +20,12 @@
 #
 
 from iw_gui import *
-from constants import *
-from storage.formats import getFormat
-from storage.deviceaction import ActionMigrateFormat
+from pyanaconda.constants import *
+from pyanaconda.storage.formats import getFormat
+from pyanaconda.storage.deviceaction import ActionMigrateFormat
 import string
-import isys 
-import iutil
+from pyanaconda import isys
+from pyanaconda import iutil
 import gtk
 
 import gettext

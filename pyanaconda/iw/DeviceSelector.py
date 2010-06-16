@@ -20,7 +20,7 @@
 
 import gtk, gobject
 import gtk.glade
-import gui
+from pyanaconda import gui
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

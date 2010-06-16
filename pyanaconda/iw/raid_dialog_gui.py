@@ -27,13 +27,13 @@ import gobject
 import gtk
 import datacombo
 
-import gui
-import storage.devicelibs.mdraid as mdraidlib
-from storage.devices import *
-from storage.deviceaction import *
+from pyanaconda import gui
+import pyanaconda.storage.devicelibs.mdraid as mdraidlib
+from pyanaconda.storage.devices import *
+from pyanaconda.storage.deviceaction import *
 from partition_ui_helpers_gui import *
-from constants import *
-from partIntfHelpers import *
+from pyanaconda.constants import *
+from pyanaconda.partIntfHelpers import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

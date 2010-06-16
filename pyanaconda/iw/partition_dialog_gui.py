@@ -25,12 +25,12 @@ import copy
 import gobject
 import gtk
 
-import gui
-from storage.devices import PartitionDevice, LUKSDevice
-from storage.deviceaction import *
+from pyanaconda import gui
+from pyanaconda.storage.devices import PartitionDevice, LUKSDevice
+from pyanaconda.storage.deviceaction import *
 from partition_ui_helpers_gui import *
-from constants import *
-from partIntfHelpers import *
+from pyanaconda.constants import *
+from pyanaconda.partIntfHelpers import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

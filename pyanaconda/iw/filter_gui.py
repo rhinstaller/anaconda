@@ -22,22 +22,22 @@ import block
 import collections
 import gtk, gobject
 import gtk.glade
-import gui
-import iutil
+from pyanaconda import gui
+from pyanaconda import iutil
 import parted
 import _ped
 from DeviceSelector import *
-from baseudev import *
-from constants import *
+from pyanaconda.baseudev import *
+from pyanaconda.constants import *
 from iw_gui import *
-from storage.devices import devicePathToName
-from storage.udev import *
-from storage.devicelibs.mpath import *
-from flags import flags
-import storage.iscsi
-import storage.fcoe
-import storage.zfcp
-import storage.dasd
+from pyanaconda.storage.devices import devicePathToName
+from pyanaconda.storage.udev import *
+from pyanaconda.storage.devicelibs.mpath import *
+from pyanaconda.flags import flags
+import pyanaconda.storage.iscsi
+import pyanaconda.storage.fcoe
+import pyanaconda.storage.zfcp
+import pyanaconda.storage.dasd
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -562,10 +562,10 @@ class FilterWindow(InstallWindow):
 
         udev_trigger(subsystem="block", action="change")
         # So that drives onlined by these show up in the filter UI
-        storage.iscsi.iscsi().startup(anaconda.intf)
-        storage.fcoe.fcoe().startup(anaconda.intf)
-        storage.zfcp.ZFCP().startup(anaconda.intf)
-        storage.dasd.DASD().startup(anaconda.intf,
+        pyanaconda.storage.iscsi.iscsi().startup(anaconda.intf)
+        pyanaconda.storage.fcoe.fcoe().startup(anaconda.intf)
+        pyanaconda.storage.zfcp.ZFCP().startup(anaconda.intf)
+        pyanaconda.storage.dasd.DASD().startup(anaconda.intf,
                                     anaconda.storage.exclusiveDisks,
                                     anaconda.storage.zeroMbr)
         disks = filter(udev_device_is_disk, udev_get_block_devices())

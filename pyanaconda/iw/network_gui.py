@@ -23,16 +23,16 @@
 
 import string
 from iw_gui import *
-import gui
-import network
-import iutil
+from pyanaconda import gui
+from pyanaconda import network
+from pyanaconda import iutil
 import gobject
 import subprocess
 import gtk
-import isys
+from pyanaconda import isys
 import urlgrabber.grabber
 
-from constants import *
+from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 

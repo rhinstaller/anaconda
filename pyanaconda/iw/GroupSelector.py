@@ -31,7 +31,7 @@ try:
 except ImportError: # yum 2.9.x
     mdErrors = yum.Errors
 from yum.constants import *
-from compssort import *
+from pyanaconda.compssort import *
 
 I18N_DOMAIN="anaconda"
 

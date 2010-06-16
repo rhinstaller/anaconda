@@ -19,12 +19,12 @@
 #
 
 import gtk
-import gui
+from pyanaconda import gui
 from iw_gui import *
 from pixmapRadioButtonGroup_gui import pixmapRadioButtonGroup
-from constants import *
-import upgrade
-from flags import flags
+from pyanaconda.constants import *
+from pyanaconda import upgrade
+from pyanaconda.flags import flags
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

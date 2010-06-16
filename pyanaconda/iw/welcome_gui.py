@@ -18,11 +18,11 @@
 #
 
 import gtk
-import gui
+from pyanaconda import gui
 import sys
 from iw_gui import *
 
-from constants import *
+from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 

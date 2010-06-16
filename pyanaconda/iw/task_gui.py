@@ -20,21 +20,21 @@
 import gtk
 import gtk.glade
 import gobject
-import gui
+from pyanaconda import gui
 import gzip
 from iw_gui import *
-from image import *
-from constants import *
-import isys
+from pyanaconda.image import *
+from pyanaconda.constants import *
+from pyanaconda import isys
 import shutil
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-import network
-import iutil
+from pyanaconda import network
+from pyanaconda import iutil
 
-from yuminstall import AnacondaYumRepo
+from pyanaconda.yuminstall import AnacondaYumRepo
 import urlgrabber.grabber
 import yum.Errors
 

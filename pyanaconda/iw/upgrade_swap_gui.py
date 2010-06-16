@@ -19,15 +19,15 @@
 # Author(s): Mike Fulbright <msf@redhat.com>
 #
 
-import iutil
-import upgrade
-import gui
+from pyanaconda import iutil
+from pyanaconda import upgrade
+from pyanaconda import gui
 import gobject
 import gtk
 from iw_gui import *
-from flags import flags
+from pyanaconda.flags import flags
 
-from constants import *
+from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 

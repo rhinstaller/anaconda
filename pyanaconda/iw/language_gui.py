@@ -19,14 +19,14 @@
 
 import gobject
 import gtk
-import gui
+from pyanaconda import gui
 from iw_gui import *
-from constants import *
+from pyanaconda.constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
-from gui import setupTreeViewFixupIdleHandler, StayOnScreen
+from pyanaconda.gui import setupTreeViewFixupIdleHandler, StayOnScreen
 
 class LanguageWindow (InstallWindow):
 

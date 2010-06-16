@@ -19,13 +19,13 @@
 #
 
 import gtk, gobject
-import gui
+from pyanaconda import gui
 from DeviceSelector import *
-from constants import *
-import isys
+from pyanaconda.constants import *
+from pyanaconda import isys
 from iw_gui import *
-from storage.devices import deviceNameToDiskByPath
-from storage.udev import *
+from pyanaconda.storage.devices import deviceNameToDiskByPath
+from pyanaconda.storage.udev import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

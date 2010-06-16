@@ -21,9 +21,9 @@
 
 import gtk
 import gobject
-import gui
+from pyanaconda import gui
 from iw_gui import *
-from constants import *
+from pyanaconda.constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

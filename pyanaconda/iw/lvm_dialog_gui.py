@@ -26,12 +26,12 @@ import gobject
 import gtk
 import datacombo
 
-import gui
+from pyanaconda import gui
 from partition_ui_helpers_gui import *
-from constants import *
-from storage.devices import *
-from storage.deviceaction import *
-from partIntfHelpers import *
+from pyanaconda.constants import *
+from pyanaconda.storage.devices import *
+from pyanaconda.storage.deviceaction import *
+from pyanaconda.partIntfHelpers import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

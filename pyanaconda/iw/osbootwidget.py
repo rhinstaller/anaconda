@@ -21,12 +21,12 @@
 
 import gtk
 import gobject
-import iutil
+from pyanaconda import iutil
 import parted
-import gui
+from pyanaconda import gui
 import datacombo
-from constants import *
-from storage.devices import devicePathToName
+from pyanaconda.constants import *
+from pyanaconda.storage.devices import devicePathToName
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

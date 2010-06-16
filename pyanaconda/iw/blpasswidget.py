@@ -20,8 +20,8 @@
 #
 
 import gtk
-import gui
-from constants import *
+from pyanaconda import gui
+from pyanaconda.constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

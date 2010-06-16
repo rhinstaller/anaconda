@@ -21,10 +21,10 @@
 
 import gtk
 import string
-import gui
+from pyanaconda import gui
 from iw_gui import *
-from flags import flags
-from constants import *
+from pyanaconda.flags import flags
+from pyanaconda.constants import *
 import cracklib
 import _isys
 

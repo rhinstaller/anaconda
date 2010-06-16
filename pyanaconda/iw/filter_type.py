@@ -21,14 +21,14 @@ import gtk
 import gobject
 import math
 
-from constants import *
-import gui
+from pyanaconda.constants import *
+from pyanaconda import gui
 from partition_ui_helpers_gui import *
 from pixmapRadioButtonGroup_gui import pixmapRadioButtonGroup
 
 from iw_gui import *
-from flags import flags
-from storage.deviceaction import *
+from pyanaconda.flags import flags
+from pyanaconda.storage.deviceaction import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

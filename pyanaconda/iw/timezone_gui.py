@@ -29,10 +29,10 @@ import sys
 
 from timezone_map_gui import TimezoneMap, Enum
 from iw_gui import *
-from booty.bootloaderInfo import dosFilesystems
-from bootloader import hasWindows
+from pyanaconda.booty.bootloaderInfo import dosFilesystems
+from pyanaconda.bootloader import hasWindows
 
-from constants import *
+from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 

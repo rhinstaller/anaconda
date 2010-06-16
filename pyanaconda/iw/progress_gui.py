@@ -24,11 +24,11 @@ import glob
 import gtk
 import pango
 
-import gui
-from flags import flags
+from pyanaconda import gui
+from pyanaconda.flags import flags
 from iw_gui import *
-from constants import *
-import language
+from pyanaconda.constants import *
+from pyanaconda import language
 
 import logging
 log = logging.getLogger("anaconda")

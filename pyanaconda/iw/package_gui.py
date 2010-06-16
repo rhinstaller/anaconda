@@ -22,10 +22,10 @@
 # FIXME: group selection isn't currently backend independent
 from GroupSelector import GroupSelector
 
-import gui
+from pyanaconda import gui
 from iw_gui import *
 
-from constants import *
+from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 

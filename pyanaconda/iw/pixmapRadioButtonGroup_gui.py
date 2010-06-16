@@ -19,7 +19,7 @@
 #
 
 import gtk
-from constants import *
+from pyanaconda.constants import *
 
 class pixmapRadioButtonGroup:
 
