@@ -30,7 +30,7 @@ import socket
 import stat
 import posix
 import sys
-import pyanaconda.iutil as iutil
+from pyanaconda import iutil
 import warnings
 import resource
 import re
@@ -405,7 +405,7 @@ def getMacAddress(dev):
 
 # Get a description string for a network device (e.g., eth0)
 def getNetDevDesc(dev):
-    from baseudev import udev_get_device
+    from pyanaconda.baseudev import udev_get_device
     desc = "Network Interface"
 
     if dev == '' or dev is None:
