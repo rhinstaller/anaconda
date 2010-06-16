@@ -563,7 +563,7 @@ class Network:
 
     def hasWirelessDev(self):
         for dev in self.netdevices:
-            if isys.isWirelessDevice(dev)
+            if isys.isWirelessDevice(dev):
                 return True
         return False
 
