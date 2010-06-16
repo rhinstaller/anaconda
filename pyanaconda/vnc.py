@@ -23,7 +23,7 @@ import os, sys, string
 import time
 from snack import *
 from constants import *
-from constants_text import *
+from textw.constants_text import *
 import network
 import isys
 import product

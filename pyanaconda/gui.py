@@ -899,7 +899,7 @@ class InstallInterface(InstallInterfaceBase):
         if len(self.anaconda.network.netdevices) == 0:
             return False
 
-        from network_gui import (runNMCE,
+        from iw.network_gui import (runNMCE,
                                  selectNetDevicesDialog,
                                  selectSSIDsDialog)
 
@@ -1024,19 +1024,19 @@ class InstallInterface(InstallInterfaceBase):
         return rc
 
     def createRepoWindow(self):
-        from task_gui import RepoCreator
+        from iw.task_gui import RepoCreator
         dialog = RepoCreator(self.anaconda)
         dialog.createDialog()
         dialog.run()
 
     def editRepoWindow(self, repoObj):
-        from task_gui import RepoEditor
+        from iw.task_gui import RepoEditor
         dialog = RepoEditor(self.anaconda, repoObj)
         dialog.createDialog()
         dialog.run()
 
     def methodstrRepoWindow(self, methodstr):
-        from task_gui import RepoMethodstrEditor
+        from iw.task_gui import RepoMethodstrEditor
         dialog = RepoMethodstrEditor(self.anaconda, methodstr)
         dialog.createDialog()
         return dialog.run()

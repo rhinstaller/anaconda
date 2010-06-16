@@ -155,7 +155,7 @@ class Anaconda(object):
     @property
     def platform(self):
         if not self._platform:
-            import platform
+            from pyanaconda import platform
             self._platform = platform.getPlatform(self)
 
         return self._platform
