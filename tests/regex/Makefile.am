@@ -1,4 +1,4 @@
-# tests/Makefile.am for anaconda
+# tests/regex/Makefile.am for anaconda
 #
 # Copyright (C) 2009  Red Hat, Inc.
 #
@@ -15,9 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: David Cantrell <dcantrell@redhat.com>
-
-SUBDIRS = storage regex
+# Author: Brian C. Lane <bcl@redhat.com>
 
 EXTRA_DIST = *.py
 

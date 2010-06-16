@@ -288,6 +288,7 @@ AC_CONFIG_FILES([Makefile
                  tests/Makefile
                  tests/storage/Makefile
                  tests/storage/devicelibs/Makefile
+                 tests/regex/Makefile
                  textw/Makefile
                  ui/Makefile
                  utils/Makefile])
