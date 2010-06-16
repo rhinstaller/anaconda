@@ -65,7 +65,7 @@ int progress_cb(void *data, double dltotal, double dlnow, double ultotal, double
 
 int splitProxyParam(char *param, char **user, char **password, char **proxy) {
     /* proxy=[protocol://][username[:password]@]host[:port] */
-    char *pattern = "([[:alpha:]]+://)?(([[:alnum:]]+)(:[^:@]+)?@)?([^:]+)(:[[:digit:]]+)?(/.*)?";
+    char *pattern = "([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?";
     regex_t re;
     regmatch_t pmatch[NMATCH];
 
