@@ -19,7 +19,7 @@
 
 from snack import *
 from constants_text import *
-from constants import *
+from pyanaconda.constants import *
 import sys
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

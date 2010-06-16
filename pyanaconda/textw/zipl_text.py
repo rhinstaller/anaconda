@@ -22,8 +22,8 @@ import string
 from snack import *
 from constants_text import *
 
-from constants import *
-from storage.dasd import getDasdPorts
+from pyanaconda.constants import *
+from pyanaconda.storage.dasd import getDasdPorts
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

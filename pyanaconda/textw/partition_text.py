@@ -22,18 +22,15 @@
 #
 
 import os, sys
-import isys
+from pyanaconda import isys
 import string
 import copy
-import network
+from pyanaconda import network
 import parted
-import storage.iscsi
-import storage.fcoe
-import storage.zfcp
-from partIntfHelpers import *
+from pyanaconda.partIntfHelpers import *
 from snack import *
 from constants_text import *
-from constants import *
+from pyanaconda.constants import *
 from add_drive_text import addDriveDialog
 
 import gettext

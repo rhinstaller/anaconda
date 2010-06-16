@@ -20,9 +20,9 @@
 
 from snack import *
 from constants_text import *
-from constants import *
+from pyanaconda.constants import *
 import gettext
-import platform
+from pyanaconda import platform
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 class FinishedWindow:

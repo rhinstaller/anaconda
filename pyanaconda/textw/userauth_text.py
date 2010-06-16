@@ -21,7 +21,7 @@ from snack import *
 from constants_text import *
 import cracklib
 
-from constants import *
+from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 

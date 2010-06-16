@@ -18,10 +18,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from constants import *
+from pyanaconda.constants import *
 from snack import *
 from constants_text import *
-from iutil import strip_markup
+from pyanaconda.iutil import strip_markup
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

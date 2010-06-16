@@ -18,7 +18,7 @@
 #
 
 from constants_text import *
-from constants import *
+from pyanaconda.constants import *
 
 class TaskWindow:
     def __call__(self, screen, anaconda):

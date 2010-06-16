@@ -22,7 +22,7 @@
 #            David Cantrell <dcantrell@redhat.com>
 #
 from constants_text import *
-import network
+from pyanaconda import network
 
 class HostnameWindow:
     def __call__(self, screen, anaconda):

@@ -22,8 +22,8 @@
 #
 
 
-import isys
-import network
+from pyanaconda import isys
+from pyanaconda import network
 from snack import *
 from constants_text import *
 

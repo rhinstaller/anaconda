@@ -17,12 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import isys
+from pyanaconda import isys
 from snack import *
 from constants_text import *
-from flags import flags
+from pyanaconda.flags import flags
 
-from constants import *
+from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 

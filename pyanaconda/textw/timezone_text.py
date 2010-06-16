@@ -20,14 +20,14 @@
 
 import sys
 import string
-import iutil
+from pyanaconda import iutil
 from time import *
 from snack import *
 from constants_text import *
-from bootloader import hasWindows
+from pyanaconda.bootloader import hasWindows
 from scdate.core import zonetab
 
-from constants import *
+from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 

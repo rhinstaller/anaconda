@@ -17,14 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import isys
-import iutil
-import upgrade
+from pyanaconda import isys
+from pyanaconda import iutil
+from pyanaconda import upgrade
 from constants_text import *
 from snack import *
-from flags import flags
-from constants import *
-from storage.formats import getFormat
+from pyanaconda.flags import flags
+from pyanaconda.constants import *
+from pyanaconda.storage.formats import getFormat
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
