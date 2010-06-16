@@ -449,7 +449,7 @@ class Network:
         ifaces = []
         for iface, device in self.netdevices.items():
             if (device.get('ONBOOT') == "yes" and
-                device.get('NM_CONTROLLED' == "yes")):
+                device.get('NM_CONTROLLED') == "yes"):
                 ifaces.append(iface)
         return ifaces
 
