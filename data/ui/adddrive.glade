@@ -129,6 +129,7 @@
 		  <property name="active">False</property>
 		  <property name="inconsistent">False</property>
 		  <property name="draw_indicator">True</property>
+		  <property name="group">iscsiRadio</property>
 		  <signal name="group-changed" handler="on_radio_changed"/>
 		</widget>
 		<packing>
