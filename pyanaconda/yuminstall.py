@@ -683,8 +683,12 @@ class AnacondaYum(YumSorter):
             extraRepos.append(repo)
 
         if self.anaconda.ksdata:
-            # This is the same pattern as from loader/urls.c:splitProxyParam.
-            pattern = re.compile("([[:alpha:]]+://)?(([[:alnum:]]+)(:[^:@]+)?@)?([^:]+)(:[[:digit:]]+)?(/.*)?")
+            # This is the same pattern as from loader/urls.c:splitProxyParam except that
+            # the POSIX classes have been replaced with character ranges
+            # NOTE: If this changes, update tests/regex/proxy.py
+            #
+            # proxy=[protocol://][username[:password]@]host[:port][path]
+            pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
 
             for ksrepo in self.anaconda.ksdata.repo.repoList:
                 anacondaBaseURLs = [ksrepo.baseurl]
