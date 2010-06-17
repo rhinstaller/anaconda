@@ -221,6 +221,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jun 17 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-8
+- Add md arrays to the devicetree with a md# name rather then md/# (hdegoede)
+  Related: rhbz#591970
+- Handle FCoE over vlan properly (hdegoede)
+  Resolves: rhbz#486244
+- No longer remove persistent udev rules files (clumens)
+  Resolves: rhbz#605262
+
+* Wed Jun 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-7
+- Fall back on regular device name (dcantrell)
+  Resolves: rhbz#604776
+
 * Mon Jun 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.51-1
 - Properly rescan storage with Reset in partition GUI (bcl)
   Related: rhbz#595659
