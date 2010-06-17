@@ -1,6 +1,6 @@
-# tests/Makefile.am for anaconda
+# tests/regex/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2010  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: David Cantrell <dcantrell@redhat.com>
+# Author: Brian C. Lane <bcl@redhat.com>
 
-SUBDIRS = mock kickstart_test storage_test regex
+EXTRA_DIST = *.py
 
 MAINTAINERCLEANFILES = Makefile.in
