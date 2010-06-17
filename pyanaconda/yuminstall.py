@@ -749,16 +749,20 @@ class AnacondaYum(YumSorter):
                         # together using the colon at the beginning of the port
                         # match as a separator.  Otherwise, just use the host.
                         if m.group(6):
-                            repo.proxy = m.group(5) + m.group(6)
+                            proxy = m.group(5) + m.group(6)
                         else:
-                            repo.proxy = m.group(5)
+                            proxy = m.group(5)
 
                         # yum also requires a protocol.  If none was given,
                         # default to http.
                         if m.group(1):
-                            repo.proxy = m.group(1) + repo.proxy
+                            proxy = m.group(1) + proxy
                         else:
-                            repo.proxy = "http://" + repo.proxy
+                            proxy = "http://" + proxy
+
+                        # Set the repo proxy. NOTE: yum immediately parses this and
+                        # raises an error if it isn't correct
+                        repo.proxy = proxy
 
                     if m and m.group(3):
                         repo.proxy_username = m.group(3)
