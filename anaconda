@@ -148,23 +148,30 @@ def setupPythonUpdates():
             dest = "%s/%s" % (get_python_lib(1), pkg)
             if not os.access(dest, os.R_OK):
                 continue
-
-        contents = os.listdir(d)
-
         # Symlink over everything that's in the python libdir but not in
         # the updates directory.
-        for f in filter(lambda fn: fn not in contents, os.listdir(dest)):
-            if f.endswith(".pyc") or f.endswith(".pyo"):
-                continue
-
-            os.symlink("%s/%s" % (dest, f), "/tmp/updates/%s/%s" % (pkg, f))
-
+        symlink_updates(dest, d)
 
     import glob
     import shutil
     for rule in glob.glob("/tmp/updates/*.rules"):
         target = "/etc/udev/rules.d/" + rule.split('/')[-1]
         shutil.copyfile(rule, target)
+
+def symlink_updates(dest_dir, update_dir):    
+    contents = os.listdir(update_dir)
+
+    for f in os.listdir(dest_dir):
+        dest_path = os.path.join(dest_dir, f)
+        update_path = os.path.join(update_dir, f)
+        if f in contents:
+            # recurse into directories, there might be files missing in updates
+            if os.path.isdir(dest_path) and os.path.isdir(update_path):
+                symlink_updates(dest_path, update_path)
+        else:
+            if f.endswith(".pyc") or f.endswith(".pyo"):
+                continue
+            os.symlink(dest_path, update_path)
 
 def parseOptions(argv = None):
     op = OptionParser()
@@ -453,6 +460,9 @@ if __name__ == "__main__":
     except ImportError:
         pass
 
+    # this handles setting up updates for pypackages to minimize the set needed
+    setupPythonUpdates()
+
     # Set up logging as early as possible.
     import logging
     from pyanaconda import anaconda_log
@@ -467,9 +477,6 @@ if __name__ == "__main__":
 
     # pull this in to get product name and versioning
     from pyanaconda import product
-
-    # this handles setting up updates for pypackages to minimize the set needed
-    setupPythonUpdates()
 
     from pyanaconda import isys
     isys.initLog()
