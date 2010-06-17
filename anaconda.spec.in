@@ -221,6 +221,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jun 17 2010 David Cantrell <dcantrell@redhat.com> - 13.21.52-1
+- Set wireless devices to NM_CONTROLLED by default (rvykydal)
+  Resolves: rhbz#594881
+- gui: "_use anyway" mnemonic. (akozumpl)
+  Resolves: rhbz#603137
+- Add iSCSI radio button to button group (dcantrell)
+  Resolves: rhbz#603726
+- Honor --timeout=NUM from kickstart files on s390 (dcantrell)
+  Resolves: rhbz#603032
+- Use Decimal instead of float for label calculations (bcl)
+  Resolves: rhbz#604639
+- Fix a typo (rvykydal)
+  Resolves: rhbz#604628
+- fix: zfcp.startup() survives without an interface (akozumpl).
+  Resolves: rhbz#604542
+
 * Thu Jun 17 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-8
 - Add md arrays to the devicetree with a md# name rather then md/# (hdegoede)
   Related: rhbz#591970
