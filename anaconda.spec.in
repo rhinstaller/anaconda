@@ -302,7 +302,6 @@ update-desktop-database &> /dev/null || :
 - Replace rd_CCW with final dracut option rd_ZNET for network-rootfs on s390
   (maier)
   Related: rhbz#577193
-  Related: rhbz#600299
   Related: rhbz#533494
 - Do parse DOMAIN for DNS search suffixes in loader (maier)
   Resolves: rhbz#595388
