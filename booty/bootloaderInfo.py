@@ -35,7 +35,7 @@ from pyanaconda import iutil
 from pyanaconda import isys
 from pyanaconda.product import *
 
-import booty
+import pyanaconda.booty
 import checkbootloader
 from util import getDiskPart
 
@@ -473,7 +473,7 @@ class bootloaderInfo(object):
                                               defaultDev)
             rc = config.write(instRoot + self.configfile, perms = self.perms)
         else:
-            raise booty.BootyNoKernelWarning
+            raise pyanaconda.booty.BootyNoKernelWarning
 
         return rc
 

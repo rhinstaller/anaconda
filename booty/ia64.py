@@ -1,4 +1,4 @@
-from booty import BootyNoKernelWarning
+from pyanaconda.booty import BootyNoKernelWarning
 from bootloaderInfo import *
 
 class ia64BootloaderInfo(efiBootloaderInfo):

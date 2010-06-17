@@ -1,7 +1,7 @@
 import os
 import string
 
-from booty import BootyNoKernelWarning
+from pyanaconda.booty import BootyNoKernelWarning
 from util import getDiskPart
 from bootloaderInfo import *
 from pyanaconda.flags import flags
