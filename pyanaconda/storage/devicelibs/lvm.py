@@ -70,11 +70,11 @@ def _composeConfig():
     # accepts = config_args_data["filterAccepts"]
     # if len(accepts) > 0:
     #   for i in range(len(rejects)):
-    #       filter_string = filter_string + ("\"a|%s|\", " % accpets[i])
+    #       filter_string = filter_string + ("\"a|/%s$|\", " % accepts[i])
 
     if len(rejects) > 0:
         for i in range(len(rejects)):
-            filter_string = filter_string + ("\"r|%s|\"," % rejects[i])
+            filter_string = filter_string + ("\"r|/%s$|\"," % rejects[i])
 
 
     filter_string = " filter=[%s] " % filter_string.strip(",")
