@@ -3420,6 +3420,11 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
         if self.ibft:
             return "iscsi_firmware"
 
+        address = self.node.address
+        # surround ipv6 addresses with []
+        if ":" in address:
+            address = "[%s]" % address
+
         netroot="netroot=iscsi:"
         auth = self.node.getAuth()
         if auth:
@@ -3428,8 +3433,7 @@ class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):
                 netroot += ":%s:%s" % (auth.reverse_username,
                                        auth.reverse_password)
 
-        netroot += "@%s::%d::%s" % (self.node.address, self.node.port,
-                                    self.node.name)
+        netroot += "@%s::%d::%s" % (address, self.node.port, self.node.name)
 
         netroot += " iscsi_initiator=%s" % self.initiator
 
