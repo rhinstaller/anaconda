@@ -513,9 +513,6 @@ class TaskWindow(InstallWindow):
             map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
                                   "default", True), grps)
 
-        # now select default and mandatory packages from newly enabled repos
-        self.anaconda.backend.ayum.doGroupSetup()
-
     def _editRepo(self, *args):
         repo = None
 
