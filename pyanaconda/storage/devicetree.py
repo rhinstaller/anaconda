@@ -1021,6 +1021,7 @@ class DeviceTree(object):
             # something must be wrong -- if all of the slaves are in
             # the tree, this device should be as well
             if device is None:
+                lvm.lvm_cc_addFilterRejectRegexp(name)
                 log.warning("ignoring dm device %s" % name)
 
         return device
