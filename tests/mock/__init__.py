@@ -49,7 +49,7 @@ class TestCase(unittest.TestCase):
             oldname += m + "."
         self.injectedModules[mname] = mod    
 
-    def tearDown(self):
+    def tearDownModules(self):
         """Unload previously Mocked modules"""
 
         import sys
