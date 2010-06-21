@@ -220,7 +220,7 @@ def setFileCons(anaconda):
     if flags.selinux:
         log.info("setting SELinux contexts for anaconda created files")
 
-        files = ["/etc/rpm/macros",
+        files = ["/etc/rpm/macros", "/etc/dasd.conf", "/etc/zfcp.conf",
                  "/etc/lilo.conf.anaconda", "/lib64", "/usr/lib64",
                  "/etc/blkid.tab", "/etc/blkid.tab.old", 
                  "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
