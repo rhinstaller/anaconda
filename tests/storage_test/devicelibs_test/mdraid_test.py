@@ -5,11 +5,12 @@ import time
 
 class MDRaidTestCase(baseclass.DevicelibsTestCase):
 
-    def setUp(self):
-        baseclass.DevicelibsTestCase.setUp(self)
+    def testMDRaid(self):
+        _LOOP_DEV0 = self._loopMap[self._LOOP_DEVICES[0]]
+        _LOOP_DEV1 = self._loopMap[self._LOOP_DEVICES[1]]
+
         import storage.devicelibs.mdraid as mdraid
 
-    def testMDRaid(self):
         ##
         ## getRaidLevels
         ##
@@ -28,7 +29,7 @@ class MDRaidTestCase(baseclass.DevicelibsTestCase):
 
         # fail
         # unsupported raid
-        self.assertRaises(ValueError, mdraid.get_raid_min_members, 4)
+        self.assertRaises(ValueError, mdraid.get_raid_min_members, 8)
 
         ##
         ## get_raid_max_spares
@@ -42,13 +43,13 @@ class MDRaidTestCase(baseclass.DevicelibsTestCase):
 
         # fail
         # unsupported raid
-        self.assertRaises(ValueError, mdraid.get_raid_max_spares, 4, 5)
+        self.assertRaises(ValueError, mdraid.get_raid_max_spares, 8, 5)
 
         ##
         ## mdcreate
         ##
         # pass
-        self.assertEqual(mdraid.mdcreate("/dev/md0", 1, [self._LOOP_DEV0, self._LOOP_DEV1]), None)
+        self.assertEqual(mdraid.mdcreate("/dev/md0", 1, [_LOOP_DEV0, _LOOP_DEV1]), None)
         # wait for raid to settle
         time.sleep(2)
 
@@ -77,7 +78,7 @@ class MDRaidTestCase(baseclass.DevicelibsTestCase):
         ## mdactivate
         ##
         # pass
-        self.assertEqual(mdraid.mdactivate("/dev/md0", [self._LOOP_DEV0, self._LOOP_DEV1], super_minor=0), None)
+        self.assertEqual(mdraid.mdactivate("/dev/md0", [_LOOP_DEV0, _LOOP_DEV1], super_minor=0), None)
         # wait for raid to settle
         time.sleep(2)
 
@@ -93,8 +94,8 @@ class MDRaidTestCase(baseclass.DevicelibsTestCase):
         # deactivate first
         self.assertEqual(mdraid.mddeactivate("/dev/md0"), None)
 
-        self.assertEqual(mdraid.mddestroy(self._LOOP_DEV0), None)
-        self.assertEqual(mdraid.mddestroy(self._LOOP_DEV1), None)
+        self.assertEqual(mdraid.mddestroy(_LOOP_DEV0), None)
+        self.assertEqual(mdraid.mddestroy(_LOOP_DEV1), None)
 
         # fail
         # not a component

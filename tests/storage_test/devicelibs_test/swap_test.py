@@ -4,16 +4,17 @@ import unittest
 
 class SwapTestCase(baseclass.DevicelibsTestCase):
 
-    def setUp(self):
-        baseclass.DevicelibsTestCase.setUp(self)
+    def testSwap(self):
+        _LOOP_DEV0 = self._loopMap[self._LOOP_DEVICES[0]]
+        _LOOP_DEV1 = self._loopMap[self._LOOP_DEVICES[1]]
+
         import storage.devicelibs.swap as swap
 
-    def testSwap(self):
         ##
         ## mkswap
         ##
         # pass
-        self.assertEqual(swap.mkswap(self._LOOP_DEV0, "swap"), None)
+        self.assertEqual(swap.mkswap(_LOOP_DEV0, "swap"), None)
 
         # fail
         self.assertRaises(swap.SwapError, swap.mkswap, "/not/existing/device")
@@ -22,24 +23,24 @@ class SwapTestCase(baseclass.DevicelibsTestCase):
         ## swapon
         ##
         # pass
-        self.assertEqual(swap.swapon(self._LOOP_DEV0, 1), None)
+        self.assertEqual(swap.swapon(_LOOP_DEV0, 1), None)
 
         # fail
         self.assertRaises(swap.SwapError, swap.swapon, "/not/existing/device")
         # not a swap partition
-        self.assertRaises(swap.SwapError, swap.swapon, self._LOOP_DEV1)
+        self.assertRaises(swap.SwapError, swap.swapon, _LOOP_DEV1)
         
         # pass
         # make another swap
-        self.assertEqual(swap.mkswap(self._LOOP_DEV1, "another-swap"), None)
-        self.assertEqual(swap.swapon(self._LOOP_DEV1), None)
+        self.assertEqual(swap.mkswap(_LOOP_DEV1, "another-swap"), None)
+        self.assertEqual(swap.swapon(_LOOP_DEV1), None)
 
         ##
         ## swapstatus
         ##
         # pass
-        self.assertEqual(swap.swapstatus(self._LOOP_DEV0), True)
-        self.assertEqual(swap.swapstatus(self._LOOP_DEV1), True)
+        self.assertEqual(swap.swapstatus(_LOOP_DEV0), True)
+        self.assertEqual(swap.swapstatus(_LOOP_DEV1), True)
         
         # does not fail
         self.assertEqual(swap.swapstatus("/not/existing/device"), False)
@@ -48,18 +49,18 @@ class SwapTestCase(baseclass.DevicelibsTestCase):
         ## swapoff
         ##
         # pass
-        self.assertEqual(swap.swapoff(self._LOOP_DEV1), None)
+        self.assertEqual(swap.swapoff(_LOOP_DEV1), None)
 
         # check status
-        self.assertEqual(swap.swapstatus(self._LOOP_DEV0), True)
-        self.assertEqual(swap.swapstatus(self._LOOP_DEV1), False)
+        self.assertEqual(swap.swapstatus(_LOOP_DEV0), True)
+        self.assertEqual(swap.swapstatus(_LOOP_DEV1), False)
 
-        self.assertEqual(swap.swapoff(self._LOOP_DEV0), None)
+        self.assertEqual(swap.swapoff(_LOOP_DEV0), None)
 
         # fail
         self.assertRaises(swap.SwapError, swap.swapoff, "/not/existing/device")
         # already off
-        self.assertRaises(swap.SwapError, swap.swapoff, self._LOOP_DEV0)
+        self.assertRaises(swap.SwapError, swap.swapoff, _LOOP_DEV0)
 
 
 def suite():

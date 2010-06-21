@@ -3,11 +3,9 @@ import baseclass
 import unittest
 
 class MPathTestCase(baseclass.DevicelibsTestCase):
-    def setUp(self):
-        baseclass.DevicelibsTestCase.setUp(self)
+    def testMPath(self):
         import storage.devicelibs.mpath as mpath
 
-    def testMPath(self):
         ##
         ## parseMultipathOutput
         ## 

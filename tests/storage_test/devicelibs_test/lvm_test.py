@@ -4,16 +4,17 @@ import unittest
 
 class LVMTestCase(baseclass.DevicelibsTestCase):
 
-    def setUp(self):
-        baseclass.DevicelibsTestCase.setUp(self)
+    def testLVM(self):
+        _LOOP_DEV0 = self._loopMap[self._LOOP_DEVICES[0]]
+        _LOOP_DEV1 = self._loopMap[self._LOOP_DEVICES[1]]
+
         import storage.devicelibs.lvm as lvm
 
-    def testLVM(self):
         ##
         ## pvcreate
         ##
         # pass
-        for dev, file in self._LOOP_DEVICES:
+        for dev, file in self._loopMap.iteritems():
             self.assertEqual(lvm.pvcreate(dev), None)
 
         # fail
@@ -23,7 +24,7 @@ class LVMTestCase(baseclass.DevicelibsTestCase):
         ## pvresize
         ##
         # pass
-        for dev, file in self._LOOP_DEVICES:
+        for dev, file in self._loopMap.iteritems():
             self.assertEqual(lvm.pvresize(dev, 50), None)
             self.assertEqual(lvm.pvresize(dev, 100), None)
 
@@ -34,21 +35,21 @@ class LVMTestCase(baseclass.DevicelibsTestCase):
         ## vgcreate
         ##
         # pass
-        self.assertEqual(lvm.vgcreate("test-vg", [self._LOOP_DEV0, self._LOOP_DEV1], 4), None)
+        self.assertEqual(lvm.vgcreate("test-vg", [_LOOP_DEV0, _LOOP_DEV1], 4), None)
 
         # fail
         self.assertRaises(lvm.LVMError, lvm.vgcreate, "another-vg", ["/not/existing/device"], 4)
         # vg already exists
-        self.assertRaises(lvm.LVMError, lvm.vgcreate, "test-vg", [self._LOOP_DEV0], 4)
+        self.assertRaises(lvm.LVMError, lvm.vgcreate, "test-vg", [_LOOP_DEV0], 4)
         # pe size must be power of 2
-        self.assertRaises(lvm.LVMError, lvm.vgcreate, "another-vg", [self._LOOP_DEV0], 5)
+        self.assertRaises(lvm.LVMError, lvm.vgcreate, "another-vg", [_LOOP_DEV0], 5)
 
         ##
         ## pvremove
         ##
         # fail
         # cannot remove pv now with vg created
-        self.assertRaises(lvm.LVMError, lvm.pvremove, self._LOOP_DEV0)
+        self.assertRaises(lvm.LVMError, lvm.pvremove, _LOOP_DEV0)
 
         ##
         ## vgdeactivate
@@ -63,10 +64,10 @@ class LVMTestCase(baseclass.DevicelibsTestCase):
         ## vgreduce
         ##
         # pass
-        self.assertEqual(lvm.vgreduce("test-vg", [self._LOOP_DEV1]), None)
+        self.assertEqual(lvm.vgreduce("test-vg", [_LOOP_DEV1]), None)
 
         # fail
-        self.assertRaises(lvm.LVMError, lvm.vgreduce, "wrong-vg-name", [self._LOOP_DEV1])
+        self.assertRaises(lvm.LVMError, lvm.vgreduce, "wrong-vg-name", [_LOOP_DEV1])
         self.assertRaises(lvm.LVMError, lvm.vgreduce, "test-vg", ["/not/existing/device"])
 
         ##
@@ -82,9 +83,9 @@ class LVMTestCase(baseclass.DevicelibsTestCase):
         ## pvinfo
         ##
         # pass
-        self.assertEqual(lvm.pvinfo(self._LOOP_DEV0)["pv_name"], self._LOOP_DEV0)
+        self.assertEqual(lvm.pvinfo(_LOOP_DEV0)["pv_name"], _LOOP_DEV0)
         # no vg
-        self.assertEqual(lvm.pvinfo(self._LOOP_DEV1)["pv_name"], self._LOOP_DEV1)
+        self.assertEqual(lvm.pvinfo(_LOOP_DEV1)["pv_name"], _LOOP_DEV1)
 
         # fail
         self.assertRaises(lvm.LVMError, lvm.pvinfo, "/not/existing/device")
@@ -189,13 +190,13 @@ class LVMTestCase(baseclass.DevicelibsTestCase):
         ## pvremove
         ##
         # pass
-        for dev, file in self._LOOP_DEVICES:
+        for dev, file in self._loopMap.iteritems():
             self.assertEqual(lvm.pvremove(dev), None)
 
         # fail
         self.assertRaises(lvm.LVMError, lvm.pvremove, "/not/existing/device")
         # pv already removed
-        self.assertRaises(lvm.LVMError, lvm.pvremove, self._LOOP_DEV0)
+        self.assertRaises(lvm.LVMError, lvm.pvremove, _LOOP_DEV0)
 
     #def testGetPossiblePhysicalExtents(self):
         # pass
