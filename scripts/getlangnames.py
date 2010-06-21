@@ -19,7 +19,7 @@
 
 import sys
 sys.path.append("..")
-import pyanaconda.language as language
+import language as language
 
 import gettext
 

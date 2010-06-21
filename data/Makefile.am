@@ -32,5 +32,4 @@ dist_lang_DATA        = lang-table
 MAINTAINERCLEANFILES = Makefile.in
 
 lang-names: lang-table
-	PYTHONPATH="$(top_srcdir)/:$(top_srcdir)/isys/.libs" $(PYTHON) ../scripts/getlangnames.py > lang-names
-
+	PYTHONPATH="$(top_srcdir)/pyanaconda" $(PYTHON) ../scripts/getlangnames.py > lang-names
