@@ -874,6 +874,9 @@ class FS(DeviceFormat):
         if self.label:
             f.write(" --label=\"%s\"" % self.label)
 
+        if self.fsprofile:
+            f.write(" --fsprofile=\"%s\"" % self.fsprofile)
+
 
 class Ext2FS(FS):
     """ ext2 filesystem. """
