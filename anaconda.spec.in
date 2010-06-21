@@ -221,6 +221,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jun 18 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-9
+- Revert "Select default and mandatory packages when enabling repos."
+  (clumens).
+  Resolves: rhbz#605289
+
 * Thu Jun 17 2010 David Cantrell <dcantrell@redhat.com> - 13.21.52-1
 - Set wireless devices to NM_CONTROLLED by default (rvykydal)
   Resolves: rhbz#594881
