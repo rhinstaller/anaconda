@@ -48,8 +48,11 @@ class CommandVersionTestCase(TestCase):
             'parted',
             'block',
             'baseudev'])
-        
-        import pyanaconda.kickstart
+
+        import anaconda_log
+        anaconda_log.init()
+
+        from pyanaconda import kickstart
         import pykickstart.version
 
         self.handler = pykickstart.version.makeVersion(kickstart.ver)
@@ -58,6 +61,8 @@ class CommandVersionTestCase(TestCase):
         self.tearDownModules()
 
     def runTest(self):
+        from pyanaconda import kickstart
+
         for (commandName, commandObj) in kickstart.commandMap.iteritems():
             baseClass = commandObj().__class__.__bases__[0]
             pykickstartClass = self.handler.commands[commandName].__class__
@@ -66,12 +71,17 @@ class CommandVersionTestCase(TestCase):
 # Do the same thing as CommandVersionTestCase, but for data objects.
 class DataVersionTestCase(unittest.TestCase):
     def setUp(self):
-        import pyanaconda.kickstart
+        import anaconda_log
+        anaconda_log.init()
+
+        from pyanaconda import kickstart
         import pykickstart.version
 
         self.handler = pykickstart.version.makeVersion(kickstart.ver)
 
     def runTest(self):
+        from pyanaconda import kickstart
+
         for (dataName, dataObj) in kickstart.dataMap.iteritems():
             baseClass = dataObj().__class__.__bases__[0]
 
@@ -80,6 +90,7 @@ class DataVersionTestCase(unittest.TestCase):
             pykickstartClass = eval("self.handler.%s" % dataName)
 
             self.assertEqual(baseClass.__name__, pykickstartClass.__name__)
+
 def suite():
     suite = unittest.TestSuite()
     suite.addTest(CommandVersionTestCase())
