@@ -759,7 +759,7 @@ class AnacondaYum(YumSorter):
                     repo.exclude = ksrepo.excludepkgs
 
                 if ksrepo.includepkgs:
-                    repo.include = ksrepo.includepkgs
+                    repo.includepkgs = ksrepo.includepkgs
 
                 if ksrepo.proxy:
                     m = pattern.match(ksrepo.proxy)
@@ -1931,9 +1931,22 @@ debuglevel=10
             line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
 
             if repo.baseurl:
-                line += " --baseurl=%s\n" % repo.baseurl[0]
+                line += " --baseurl=%s" % repo.baseurl[0]
             else:
-                line += " --mirrorlist=%s\n" % repo.mirrorlist
+                line += " --mirrorlist=%s" % repo.mirrorlist
+
+            if repo.proxy:
+                line +=- " --proxy=\"%s\"" % repo.proxy
+
+            if repo.cost:
+                line += " --cost=%s" % repo.cost
+
+            if repo.includepkgs:
+                line += " --includepkgs=\"%s\"" % ",".join(repo.includepkgs)
+            if repo.excludepkgs:
+                line += " --excludepkgs=\"%s\"" % ",".join(repo.excludepkgs)
+
+            line += "\n"
 
             f.write(line)
 
