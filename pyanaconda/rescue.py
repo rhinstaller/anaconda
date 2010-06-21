@@ -276,7 +276,7 @@ def runRescue(anaconda):
     if not anaconda.rescue_mount:
         # the %post should be responsible for mounting all needed file systems
         # NOTE: 1st script must be bash or simple python as nothing else might be available in the rescue image
-        if anaconda.ksdata:
+        if anaconda.ksdata and anaconda.ksdata.scripts:
            from kickstart import runPostScripts
            runPostScripts(anaconda)
         else:
