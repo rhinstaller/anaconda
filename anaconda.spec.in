@@ -221,6 +221,39 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jun 22 2010 David Cantrell <dcantrell@redhat.com> - 13.21.53-1
+- Be specific when telling lvm to ignore devices. (dlehman)
+  Resolves: rhbz#594433
+  Related: rhbz#578813
+- Use baseurl instead of methodstr to get .treeinfo (rvykydal)
+  Resolves: rhbz#604246
+- rpm doesn't always give the callback a tuple (clumens).
+  Resolves: rhbz#605172
+- Handle questionInitializeDASD in cmdline mode (dcantrell)
+  Resolves: rhbz#605846
+- Set SELinux context on dasd.conf and zfcp.conf (dcantrell)
+  Resolves: rhbz#605597
+- Add --fsprofile= to the anaconda-ks.cfg (clumens).
+  Resolves: rhbz#605944
+- Check before running post scripts on kickstart rescue (atodorov).
+  Resolves: rhbz#605755
+- Automatic partitioning should yield no more than one PReP partition.
+  (dlehman)
+  Resolves: rhbz#579715
+- Put [] around ipv6 addr on the dracut cmdline (hdegoede)
+  Resolves: rhbz#605300
+- Set repo.proxy only after fully assembled (bcl)
+  Resolves: rhbz#602712
+  Related: rhbz#602712
+- Change proxy regex in loader to match python proxy regex (bcl)
+  Resolves: rhbz#602712
+  Related: rhbz#602712
+- Add test cases for proxy regex (bcl)
+  Resolves: rhbz#602712
+  Related: rhbz#602712
+- Replace POSIX regex classes with character ranges (bcl)
+  Resolves: rhbz#602712
+
 * Fri Jun 18 2010 David Cantrell <dcantrell@redhat.com> - 13.21.50-9
 - Revert "Select default and mandatory packages when enabling repos."
   (clumens).
