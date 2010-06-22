@@ -220,10 +220,30 @@ class MakeBumpVer:
                 rhbz = set()
 
                 # look for a bug in the summary line, validate if found
-                m = re.search("\(#\d+\)", summary)
+                m = re.search("\(#\d+(\,.*)*\)", summary)
                 if m:
                     fullbug = summary[m.start():m.end()]
-                    bug = summary[m.start()+2:m.end()-1]
+                    bugstr = summary[m.start()+2:m.end()-1]
+
+                    bug = ''
+                    for c in bugstr:
+                        if c.isdigit():
+                            bug += c
+                        else:
+                            break
+
+                    if len(bugstr) > len(bug):
+                        tmp = bugstr[len(bug):]
+
+                        for c in tmp:
+                            if not c.isalpha():
+                                tmp = tmp[1:]
+                            else:
+                                break
+
+                        if len(tmp) > 0:
+                            author = tmp
+
                     ckbug = self.bugmap.get(bug, bug)
                     valid = self._isRHELBug(ckbug, commit, summary)
 
