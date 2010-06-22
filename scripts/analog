@@ -156,9 +156,9 @@ if __name__ == "__main__":
         sys.exit(1)
     directory = os.path.join(os.getcwd(), options.log_root)
     directory = os.path.abspath(directory)
-    options.output = os.path.abspath(options.output)
     config = generate_rsyslog_config(options.port, directory)
     if options.output:
+        options.output = os.path.abspath(options.output)
         try:
             with open(options.output, 'w') as file:
                 file.write(config)
