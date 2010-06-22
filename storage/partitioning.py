@@ -640,6 +640,10 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
         else:
             free_geom = _range
 
+        if free_geom.start > disk.maxPartitionStartSector:
+            log.debug("free range start sector beyond max for new partitions")
+            continue
+
         log.debug("current free range is %d-%d (%dMB)" % (free_geom.start,
                                                           free_geom.end,
                                                           free_geom.getSize()))
