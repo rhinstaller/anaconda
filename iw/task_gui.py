@@ -505,6 +505,12 @@ class TaskWindow(InstallWindow):
         else:
             self.dispatch.skipStep("group-selection", skip = 1)
 
+        # If we've added repos, clear out the comps object.  This will force
+        # yum to reload it on the next access instead of using the cached value,
+        # which will not contain the group information for any repos selected
+        # through the UI.
+        self.ayum.comps = None
+
         tasks = self.xml.get_widget("taskList").get_model()
         for (cb, task, grps) in filter(lambda x: not x[0], tasks):
             map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
