@@ -2090,7 +2090,37 @@ int main(int argc, char ** argv) {
         logMessage(INFO, "Trying to detect vendor driver discs");
         dd = findDriverDiskByLabel();
         dditer = dd;
+
+        if (dd && !loaderData.ksFile) {
+            startNewt();
+        }
+
+
         while(dditer) {
+            /* If in interactive mode, ask for confirmation before loading the DD */
+            if (!loaderData.ksFile) {
+                char * buf;
+
+                checked_asprintf(&buf,
+                                 _("Driver disc was detected in %s. "
+                                   "Do you want to use it?."), dditer->data);
+
+                rc = newtWinChoice(_("Driver disc detected"), _("Use it"), _("Skip it"),
+                                   buf);
+                free(buf);
+                if (rc == 2) {
+                    logMessage(INFO, "Skipping driver disk %s.", (char*)(dditer->data));
+
+                    /* clean the device record */
+                    free((char*)(dditer->data));
+                    dditer->data = NULL;
+
+                    /* next DD */
+                    dditer = g_slist_next(dditer);
+                    continue;
+                }
+            }
+
             /* load the DD */
             if (loadDriverDiskFromPartition(&loaderData, (char*)(dditer->data))) {
                 logMessage(ERROR, "Automatic driver disk loader failed for %s.", (char*)(dditer->data));
@@ -2110,6 +2140,11 @@ int main(int argc, char ** argv) {
             /* next DD */
             dditer = g_slist_next(dditer);
         }
+
+        if (dd && !loaderData.ksFile) {
+            stopNewt();
+        }
+
         g_slist_free(dd);
     }
 
