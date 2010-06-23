@@ -307,17 +307,33 @@ class NetworkDevice(IfcfgFile):
         lf.close()
         f.close()
 
-    def isStorageDevice(self, anaconda):
+    def usedByFCoE(self, anaconda):
         import storage
-        rootdev = anaconda.id.storage.rootDevice
-        # FIXME: use d.host_address to only add "NM_CONTROLLED=no"
-        # for interfaces actually used enroute to the device
         for d in anaconda.id.storage.devices:
-            if isinstance(d, storage.devices.NetworkStorageDevice) and\
-               (rootdev.dependsOn(d) or d.nic == self.iface):
+            if (isinstance(d, storage.devices.NetworkStorageDevice) and
+                d.nic == self.iface):
                 return True
         return False
 
+    def usedByRootOnISCSI(self, anaconda):
+        import storage
+        rootdev = anaconda.id.storage.rootDevice
+        for d in anaconda.id.storage.devices:
+            if (isinstance(d, storage.devices.NetworkStorageDevice) and
+                d.host_address and
+                rootdev.dependsOn(d)):
+                if self.iface == ifaceForHostIP(d.host_address):
+                    return True
+        return False
+
+    def usedByISCSI(self, anaconda):
+        import storage
+        for d in anaconda.id.storage.devices:
+            if (isinstance(d, storage.devices.NetworkStorageDevice) and
+                d.host_address):
+                if self.iface == ifaceForHostIP(d.host_address):
+                    return True
+        return False
 
 class Network:
 
@@ -329,6 +345,12 @@ class Network:
         self.update()
         # We want wireless devices to be nm controlled by default
         self.controlWireless()
+
+        # Set all devices to be controlled by NM by default.
+        # We can filter out storage devices only after
+        # we have device tree populated. So we do it before
+        # running nm-c-e and before writing ifcfg files to system.
+        self.setNMControlledDevices(self.netdevices.keys())
 
     def update(self):
 
@@ -565,7 +587,8 @@ class Network:
 
     def disableNMForStorageDevices(self, anaconda, instPath=''):
         for devName, device in self.netdevices.items():
-            if device.isStorageDevice(anaconda):
+            if (device.usedByFCoE(anaconda) or
+                device.usedByRootOnISCSI(anaconda)):
                 dev = NetworkDevice(instPath + netscriptsDir, devName)
                 if os.access(dev.path, os.R_OK):
                     dev.loadIfcfgFile()
@@ -773,20 +796,9 @@ class Network:
             nic = networkStorageDevice.nic
         else:
             # Storage bound through ip, find out which interface leads to host
-            host = networkStorageDevice.host_address
-            route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
-            if not route:
-                log.error("Could net get interface for route to %s" % host)
+            nic = ifaceForHostIP(networkStorageDevice.host_address)
+            if not nic:
                 return ""
-
-            routeInfo = route.split()
-            if routeInfo[0] != host or len(routeInfo) < 5 or \
-               "dev" not in routeInfo or routeInfo.index("dev") > 3:
-                log.error('Unexpected "ip route get to %s" reply: %s' %
-                          (host, routeInfo))
-                return ""
-
-            nic = routeInfo[routeInfo.index("dev") + 1]
 
         if nic not in self.netdevices.keys():
             log.error('Unknown network interface: %s' % nic)
@@ -854,3 +866,19 @@ class Network:
                 netargs += ",%s" % (','.join(options))
 
         return netargs
+
+def ifaceForHostIP(host):
+    route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
+    if not route:
+        log.error("Could not get interface for route to %s" % host)
+        return ""
+
+    routeInfo = route.split()
+    if routeInfo[0] != host or len(routeInfo) < 5 or \
+       "dev" not in routeInfo or routeInfo.index("dev") > 3:
+        log.error('Unexpected "ip route get to %s" reply: %s' %
+                  (host, routeInfo))
+        return ""
+
+    return routeInfo[routeInfo.index("dev") + 1]
+

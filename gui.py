@@ -954,27 +954,31 @@ class InstallInterface(InstallInterfaceBase):
         pass
 
 
-    # TODORV: handle one device case - don't ask
     # just_setup is used for [Configure Network] button
     def enableNetwork(self, just_setup=False):
 
         if len(self.anaconda.id.network.netdevices) == 0:
             return False
 
+        nm_controlled_devices = [devname for (devname, dev)
+                                 in self.anaconda.id.network.netdevices.items()
+                                 if not dev.usedByFCoE(self.anaconda)]
+        if not just_setup and not nm_controlled_devices:
+            return False
+
         from network_gui import (runNMCE,
-                                 selectNetDevicesDialog)
+                                 selectInstallNetDeviceDialog)
 
         networkEnabled = False
         while not networkEnabled:
-            if just_setup and len(self.anaconda.id.network.netdevices) <= 1:
-                nm_controlled_devices = self.anaconda.id.network.netdevices.keys()
+
+            if just_setup:
                 install_device = None
             else:
-                choice = selectNetDevicesDialog(self.anaconda.id.network,
-                                                select_install_device=(not just_setup))
-                if not choice:
+                install_device = selectInstallNetDeviceDialog(self.anaconda.id.network,
+                                                              nm_controlled_devices)
+                if not install_device:
                     break
-                nm_controlled_devices, install_device = choice
 
             # update ifcfg files for nm-c-e
             self.anaconda.id.network.setNMControlledDevices(nm_controlled_devices)
