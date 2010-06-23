@@ -34,10 +34,10 @@ from pyanaconda.storage.devices import devicePathToName
 from pyanaconda.storage.udev import *
 from pyanaconda.storage.devicelibs.mpath import *
 from pyanaconda.flags import flags
-import pyanaconda.storage.iscsi
-import pyanaconda.storage.fcoe
-import pyanaconda.storage.zfcp
-import pyanaconda.storage.dasd
+from pyanaconda.storage import iscsi
+from pyanaconda.storage import fcoe
+from pyanaconda.storage import zfcp
+from pyanaconda.storage import dasd
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -562,10 +562,10 @@ class FilterWindow(InstallWindow):
 
         udev_trigger(subsystem="block", action="change")
         # So that drives onlined by these show up in the filter UI
-        pyanaconda.storage.iscsi.iscsi().startup(anaconda.intf)
-        pyanaconda.storage.fcoe.fcoe().startup(anaconda.intf)
-        pyanaconda.storage.zfcp.ZFCP().startup(anaconda.intf)
-        pyanaconda.storage.dasd.DASD().startup(anaconda.intf,
+        iscsi.iscsi().startup(anaconda.intf)
+        fcoe.fcoe().startup(anaconda.intf)
+        zfcp.ZFCP().startup(anaconda.intf)
+        dasd.DASD().startup(anaconda.intf,
                                     anaconda.storage.exclusiveDisks,
                                     anaconda.storage.zeroMbr)
         disks = filter(udev_device_is_disk, udev_get_block_devices())

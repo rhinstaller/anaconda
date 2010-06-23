@@ -1,8 +1,8 @@
 from pyanaconda import iutil
 from pyanaconda import network
-import pyanaconda.storage.iscsi
-import pyanaconda.storage.fcoe
-import pyanaconda.storage.zfcp
+from pyanaconda.storage import iscsi
+from pyanaconda.storage import fcoe
+from pyanaconda.storage import zfcp
 from snack import *
 from constants_text import *
 from pyanaconda.constants import *
@@ -19,11 +19,11 @@ class addDriveDialog(object):
 
     def addDriveDialog(self, screen):
         newdrv = []
-        if pyanaconda.storage.iscsi.has_iscsi():
+        if iscsi.has_iscsi():
             newdrv.append("Add iSCSI target")
         if iutil.isS390():
             newdrv.append( "Add zFCP LUN" )
-        if pyanaconda.storage.fcoe.has_fcoe():
+        if fcoe.has_fcoe():
             newdrv.append("Add FCoE SAN")
 
         if len(newdrv) == 0:
@@ -73,7 +73,7 @@ class addDriveDialog(object):
         fcplun = entries[2].strip()
 
         # This may throw a value error, which gets handled by addDriveDialog()
-        pyanaconda.storage.zfcp.ZFCP().addFCP(devnum, wwpn, fcplun)
+        zfcp.ZFCP().addFCP(devnum, wwpn, fcplun)
 
         return INSTALL_OK
 
@@ -121,7 +121,7 @@ class addDriveDialog(object):
         nic = interfaceList.current()
         dcb = dcbCheckbox.selected()
 
-        pyanaconda.storage.fcoe.fcoe().addSan(nic=nic, dcb=dcb,
+        fcoe.fcoe().addSan(nic=nic, dcb=dcb,
                                    intf=self.anaconda.intf)
 
         screen.popWindow()
@@ -135,7 +135,7 @@ class addDriveDialog(object):
                                "'linux asknetwork'")
             return INSTALL_BACK
         
-        iname = pyanaconda.storage.iscsi.iscsi().initiator
+        iname = iscsi.iscsi().initiator
         (button, entries) = EntryWindow(screen,
                                         _("Configure iSCSI Parameters"),
                                         _("To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."),
@@ -174,8 +174,8 @@ class addDriveDialog(object):
             raise ValueError, msg
 
         iname = entries[1].strip()
-        pyanacodna.storage.iscsi.iscsi().initiator = iname
-        pyanaconda.storage.iscsi.iscsi().addTarget(ip, port, user, pw, user_in, pw_in,
+        iscsi.iscsi().initiator = iname
+        iscsi.iscsi().addTarget(ip, port, user, pw, user_in, pw_in,
                                         intf=self.anaconda.intf)
 
         return INSTALL_OK
