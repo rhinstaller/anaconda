@@ -502,7 +502,7 @@ class Network:
 
     def controlWireless(self):
         for devname, device in self.netdevices.items():
-            if isys.isWireless(devname):
+            if isys.isWirelessDevice(devname):
                 device.set(('NM_CONTROLLED', 'yes'))
 
     def writeKS(self, f):
