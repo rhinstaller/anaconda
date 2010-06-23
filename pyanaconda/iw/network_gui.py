@@ -123,98 +123,62 @@ def runNMCE(anaconda=None, blocking=True):
         else:
             gobject.child_watch_add(proc.pid, NMCEExited, data=anaconda, priority=gobject.PRIORITY_DEFAULT)
 
-def selectNetDevicesDialog(network, select_install_device=True):
 
-    netdevs = network.netdevices
-    devs = netdevs.keys()
+def selectInstallNetDeviceDialog(network, devices = None):
+
+    devs = devices or network.netdevices.keys()
+    if not devs:
+        return None
     devs.sort()
 
-    rv = {}
-    dialog = gtk.Dialog(_("Select network interfaces"))
+    dialog = gtk.Dialog(_("Select network interface"))
     dialog.add_button('gtk-cancel', gtk.RESPONSE_CANCEL)
     dialog.add_button('gtk-ok', 1)
     dialog.set_position(gtk.WIN_POS_CENTER)
     gui.addFrame(dialog)
 
-    if select_install_device:
-
-        dialog.vbox.pack_start(gui.WrappingLabel(
-            _("This requires that you have an active "
-              "network connection during the installation "
-              "process.  Please configure a network interface.")))
-
-        combo = gtk.ComboBox()
-        cell = gtk.CellRendererText()
-        combo.pack_start(cell, True)
-        combo.set_attributes(cell, text = 0)
-        cell.set_property("wrap-width", 525)
-        combo.set_size_request(480, -1)
-        store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
-        combo.set_model(store)
-
-        ksdevice = network.getKSDevice()
-        if ksdevice:
-            ksdevice = ksdevice.get('DEVICE')
-        selected_interface_idx = 0
-
-        for idx, dev in enumerate(devs):
-            i = store.append(None)
-
-            desc = netdevs[dev].description
-            if desc:
-                desc = "%s - %s" %(dev, desc)
-            else:
-                desc = "%s" %(dev,)
-
-            hwaddr = netdevs[dev].get("HWADDR")
-
-            if hwaddr:
-                desc = "%s - %s" %(desc, hwaddr,)
-
-            if ksdevice and ksdevice == dev:
-                selected_interface_idx = idx
-
-            store[i] = (desc, dev)
-
-        # TODORV: simplify to use just indexes
-        combo.set_active(selected_interface_idx)
-
-        def installDevChanged(combo, dev_check_buttons):
-            active = combo.get_active()
-            for idx, (dev, cb) in enumerate(dev_check_buttons):
-                if idx == active:
-                    cb.set_active(True)
-                    cb.set_sensitive(False)
-                else:
-                    cb.set_sensitive(True)
-
-        dialog.vbox.pack_start(combo)
-
-
     dialog.vbox.pack_start(gui.WrappingLabel(
-        _("Select which devices should be configured with NetworkManager.")))
+        _("This requires that you have an active "
+          "network connection during the installation "
+          "process.  Please configure a network interface.")))
 
-    table = gtk.Table(len(devs), 1)
-    table.set_row_spacings(5)
-    table.set_col_spacings(5)
+    combo = gtk.ComboBox()
+    cell = gtk.CellRendererText()
+    combo.pack_start(cell, True)
+    combo.set_attributes(cell, text = 0)
+    cell.set_property("wrap-width", 525)
+    combo.set_size_request(480, -1)
+    store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+    combo.set_model(store)
 
-    dev_check_buttons = []
-    for i, dev in enumerate(devs):
-        cb = gtk.CheckButton(dev)
-        # TODORV: We want all devices controlled by nm by default,
-        # but we might want to add storage net devices filtering here
-        #if not (netdevs[dev].get("NM_CONTROLLED") == "no"):
-        cb.set_active(True)
-        table.attach(cb, 0, 1, i, i+1, gtk.FILL, gtk.FILL)
-        dev_check_buttons.append([dev, cb])
+    ksdevice = network.getKSDevice()
+    if ksdevice:
+        ksdevice = ksdevice.get('DEVICE')
+    preselected = None
 
-    dialog.vbox.pack_start(table)
+    for dev in devices:
+        i = store.append(None)
+        if not preselected:
+            preselected = i
 
-    if select_install_device:
-        selected_dev_cb = dev_check_buttons[selected_interface_idx][1]
-        selected_dev_cb.set_active(True)
-        selected_dev_cb.set_sensitive(False)
-        combo.connect("changed", installDevChanged, dev_check_buttons)
+        desc = network.netdevices[dev].description
+        if desc:
+            desc = "%s - %s" %(dev, desc)
+        else:
+            desc = "%s" %(dev,)
+
+        hwaddr = network.netdevices[dev].get("HWADDR")
+
+        if hwaddr:
+            desc = "%s - %s" %(desc, hwaddr,)
+
+        if ksdevice and ksdevice == dev:
+            preselected = i
+
+        store[i] = (desc, dev)
+
+    combo.set_active_iter(preselected)
+    dialog.vbox.pack_start(combo)
 
     dialog.show_all()
 
@@ -223,18 +187,11 @@ def selectNetDevicesDialog(network, select_install_device=True):
     if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
         retval = None
     else:
-        install_device = None
-        if select_install_device:
-            active = combo.get_active_iter()
-            install_device = combo.get_model().get_value(active, 1)
-
-        nm_controlled_devices = [dev for (dev, cb) in dev_check_buttons if
-                                 cb.get_active()]
-
-        retval = (nm_controlled_devices, install_device)
+        active = combo.get_active_iter()
+        install_device = combo.get_model().get_value(active, 1)
 
     dialog.destroy()
-    return retval
+    return install_device
 
 def selectSSIDsDialog(devssids):
     """Dialog for access point selection.
