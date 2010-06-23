@@ -44,8 +44,10 @@ if [ -n "$DISPLAY" -a -n "$LANG" ]; then
     INSTLANG="--lang $LANG"
 fi
 
-# eventually, we might want to allow a more "normal" install path
-ANACONDA="/usr/sbin/anaconda --liveinst --method=livecd://$LIVE_BLOCK $INSTLANG"
+# Allow running another command in the place of anaconda, but in this same
+# environment.  This allows storage testing to make use of all the module
+# loading and lvm control in this file, too.
+ANACONDA=${LIVECMD:=/usr/sbin/anaconda --liveinst --method=livecd://$LIVE_BLOCK $INSTLANG}
 
 if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
     current=$(cat /selinux/enforce)
@@ -57,8 +59,13 @@ if [ ! -e /selinux/load ]; then
 fi
 
 # devkit-disks is now mounting lots of stuff.  for now, let's just try to unmount it all
-umount /media/*
+umount /media/* 2>/dev/null
 tac /proc/mounts | grep ^/dev | grep -v live | while read dev mntpoint rest; do
+    # hack - don't unmount devices the storage test code requires
+    if [ "$mntpoint" = "/mnt/anactest" ]; then
+       continue
+    fi
+
     if [ -b $dev ]; then
        umount $mntpoint 2>/dev/null
     fi
