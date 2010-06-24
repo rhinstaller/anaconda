@@ -259,6 +259,7 @@ class AnacondaYumRepo(YumRepository):
     def __init__(self, *args, **kwargs):
         YumRepository.__init__(self, *args, **kwargs)
         self.enablegroups = True
+        self.sslverify = True
         self._anacondaBaseURLs = []
 
     def needsNetwork(self):
@@ -817,6 +818,9 @@ class AnacondaYum(YumSorter):
 
                 if ksrepo.includepkgs:
                     repo.includepkgs = ksrepo.includepkgs
+
+                if ksrepo.noverifyssl:
+                    repo.sslverify = False
 
                 if ksrepo.proxy:
                     repo.setProxy(ksrepo)
