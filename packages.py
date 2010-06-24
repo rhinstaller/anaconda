@@ -231,7 +231,7 @@ def setFileCons(anaconda):
                  "/etc/udev/rules.d/70-persistent-net.rules",
                  "/root/install.log", "/root/install.log.syslog",
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow"] + \
-                glob.glob('/etc/dhclient-*.conf')
+                glob.glob('/etc/dhcp/dhclient-*.conf')
 
         vgs = ["/dev/%s" % vg.name for vg in anaconda.id.storage.vgs]
 

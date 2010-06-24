@@ -544,11 +544,11 @@ class Network:
             return
 
         # /etc/sysconfig/network-scripts/ifcfg-DEVICE
-        # /etc/dhclient-DEVICE.conf
+        # /etc/dhcp/dhclient-DEVICE.conf
         # TODORV: do we really don't want overwrite on live cd?
         for devName, device in self.netdevices.items():
             self._copyFileToPath(device.path, instPath)
-            dhclientfile = os.path.join("/etc/dhclient-%s.conf" % devName)
+            dhclientfile = os.path.join("/etc/dhcp/dhclient-%s.conf" % devName)
             self._copyFileToPath(dhclientfile, instPath)
 
         # /etc/sysconfig/network
