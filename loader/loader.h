@@ -151,6 +151,7 @@ struct loaderData_s {
     char * dogtailurl;
     char * gdbServer;
     char * instRepo;
+    int instRepo_noverifyssl;
 
     pid_t fw_loader_pid;
     char *fw_search_pathz;
