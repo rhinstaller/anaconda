@@ -991,6 +991,20 @@ def allocatePartitions(storage, disks, partitions, freespace):
             if _part.req_grow:
                 current_free = None
 
+            problem = None
+            if _part.req_size > _part.format.maxSize:
+                problem = "large"
+            elif ((not _part.req_grow and
+                   _part.req_size < _part.format.minSize) or
+                  (_part.req_grow and _part.req_max_size and
+                   _part.req_max_size < _part.format.minSize)):
+                # format max/min size also enforced in growPartitions
+                problem = "small"
+
+            if problem:
+                raise PartitioningError("partition is too %s for %s formatting"
+                                        % (problem, _part.format.name))
+
             log.debug("checking freespace on %s" % _disk.name)
 
             new_part_type = getNextPartitionType(disklabel.partedDisk)
