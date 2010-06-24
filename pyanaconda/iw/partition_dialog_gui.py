@@ -185,6 +185,13 @@ class PartitionEditor:
                                 disks.append(disk)
 
                 format = fmt_class(mountpoint=mountpoint)
+
+                err = doUIRAIDLVMChecks(format, disks, self.storage)
+                if err:
+                    self.intf.messageWindow(_("Error With Request"),
+                                            err, custom_icon="error")
+                    continue
+
                 weight = self.anaconda.platform.weight(mountpoint=mountpoint,
                                                        fstype=format.type)
                 if self.isNew:
