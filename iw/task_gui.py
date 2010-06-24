@@ -509,7 +509,7 @@ class TaskWindow(InstallWindow):
         # yum to reload it on the next access instead of using the cached value,
         # which will not contain the group information for any repos selected
         # through the UI.
-        self.ayum.comps = None
+        self.backend.ayum.comps = None
 
         tasks = self.xml.get_widget("taskList").get_model()
         for (cb, task, grps) in filter(lambda x: not x[0], tasks):
