@@ -755,7 +755,7 @@ class AnacondaYum(YumSorter):
                 if ksrepo.cost:
                     repo.cost = ksrepo.cost
 
-                if ksrepo.excludepkgs:
+                if ksrepo.exclude:
                     repo.exclude = ksrepo.excludepkgs
 
                 if ksrepo.includepkgs:
