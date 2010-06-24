@@ -245,7 +245,7 @@ char *mountUrlImage(struct installMethod *method, char *location,
                  * the UI.
                  */
                 if (loaderData->method == METHOD_URL && stage2Data) {
-                    ui.url = strdup(stage2Data->url);
+                    urlinfo_copy(&ui, stage2Data);
                     logMessage(INFO, "URL_STAGE_MAIN: url is %s", ui.url);
 
                     if (!ui.url) {
@@ -354,11 +354,13 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 		    char ** argv) {
     char *substr = NULL;
     gchar *url = NULL, *proxy = NULL;
+    gboolean noverifyssl = FALSE;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
     GOptionEntry ksUrlOptions[] = {
         { "url", 0, 0, G_OPTION_ARG_STRING, &url, NULL, NULL },
         { "proxy", 0, 0, G_OPTION_ARG_STRING, &proxy, NULL, NULL },
+        { "noverifyssl", 0, 0, G_OPTION_ARG_NONE, &noverifyssl, NULL, NULL },
         { NULL },
     };
 
@@ -395,12 +397,14 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     substr = strstr(url, ".img");
     if (!substr || (substr && *(substr+4) != '\0')) {
         loaderData->instRepo = strdup(url);
+        loaderData->instRepo_noverifyssl = noverifyssl;
     } else {
         if ((loaderData->stage2Data = calloc(sizeof(urlInstallData), 1)) == NULL)
             return;
 
-        ((urlInstallData *)loaderData->stage2Data)->url = url;
         loaderData->method = METHOD_URL;
+        ((urlInstallData *)loaderData->stage2Data)->url = url;
+        ((urlInstallData *)loaderData->stage2Data)->noverifyssl = noverifyssl;
     }
 
     if (proxy) {
