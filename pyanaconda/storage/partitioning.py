@@ -42,7 +42,7 @@ log = logging.getLogger("storage")
 
 def _createFreeSpacePartitions(anaconda):
     # get a list of disks that have at least one free space region of at
-    # least 100MB
+    # least the default size for new partitions
     disks = []
     for disk in anaconda.storage.partitioned:
         if anaconda.storage.clearPartDisks and \
@@ -55,7 +55,7 @@ def _createFreeSpacePartitions(anaconda):
                 part = part.nextPartition()
                 continue
 
-            if part.getSize(unit="MB") > 100:
+            if part.getSize(unit="MB") > PartitionDevice.defaultSize:
                 disks.append(disk)
                 break
 
