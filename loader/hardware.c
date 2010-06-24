@@ -39,8 +39,8 @@
 /* FIXME: for turning off dma */
 #include <sys/ioctl.h>
 #include <linux/hdreg.h>
-#include "../isys/isys.h"
-#include "../isys/log.h"
+#include "../pyanaconda/isys/isys.h"
+#include "../pyanaconda/isys/log.h"
 
 /* boot flags */
 extern uint64_t flags;

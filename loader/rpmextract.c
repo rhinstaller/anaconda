@@ -39,7 +39,7 @@
 #include "loader.h"
 #include "rpmextract.h"
 
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 /*
  * internal structure to pass to libarchive callbacks

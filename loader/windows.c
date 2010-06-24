@@ -31,7 +31,7 @@
 #include <stdarg.h>
 #include <math.h>
 
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "windows.h"
 

@@ -39,7 +39,7 @@
 #include <errno.h>
 #include <curl/curl.h>
 
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "lang.h"
 #include "loader.h"

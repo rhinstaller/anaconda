@@ -30,7 +30,7 @@
 #include <newt.h>
 #include <libcheckisomd5.h>
 
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "lang.h"
 #include "windows.h"

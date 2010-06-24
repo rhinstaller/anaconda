@@ -21,6 +21,7 @@ SUBDIRS = mock kickstart_test storage_test regex
 
 MAINTAINERCLEANFILES = Makefile.in
 
-TESTS_ENVIRONMENT = PATH=/sbin:/usr/sbin:$$PATH PYTHONPATH=$(top_builddir)/tests:$(top_builddir)/isys/.libs:$(top_builddir)/isys:$(top_builddir)/pyanaconda
+ANACDIR = $(top_builddir)/pyanaconda
+TESTS_ENVIRONMENT = PATH=/sbin:/usr/sbin:$$PATH PYTHONPATH=$(top_builddir)/tests:$(ANACDIR)/isys/.libs:$(ANACDIR)/isys:$(ANACDIR)
 
 TESTS = fw_test.py

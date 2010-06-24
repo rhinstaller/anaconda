@@ -41,10 +41,10 @@
 #include <nm-client.h>
 #include <nm-device-wifi.h>
 
-#include "../isys/isys.h"
-#include "../isys/ethtool.h"
-#include "../isys/iface.h"
-#include "../isys/log.h"
+#include "../pyanaconda/isys/isys.h"
+#include "../pyanaconda/isys/ethtool.h"
+#include "../pyanaconda/isys/iface.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "lang.h"
 #include "loader.h"

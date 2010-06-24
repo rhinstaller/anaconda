@@ -32,7 +32,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "../isys/lang.h"
+#include "../pyanaconda/isys/lang.h"
 
 int main(int argc, char ** argv) {
     int console;

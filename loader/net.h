@@ -21,7 +21,7 @@
 #define H_LOADER_NET
 
 #include <newt.h>
-#include "../isys/iface.h"
+#include "../pyanaconda/isys/iface.h"
 #include "loader.h"
 
 #define DHCP_METHOD_STR   _("Dynamic IP configuration (DHCP)")

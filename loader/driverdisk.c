@@ -55,10 +55,10 @@
 
 #include "rpmextract.h"
 
-#include "../isys/isys.h"
-#include "../isys/imount.h"
-#include "../isys/eddsupport.h"
-#include "../isys/log.h"
+#include "../pyanaconda/isys/isys.h"
+#include "../pyanaconda/isys/imount.h"
+#include "../pyanaconda/isys/eddsupport.h"
+#include "../pyanaconda/isys/log.h"
 
 /* boot flags */
 extern uint64_t flags;

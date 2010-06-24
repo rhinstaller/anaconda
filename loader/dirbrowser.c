@@ -31,7 +31,7 @@
 #include <sys/stat.h>
 
 #ifndef STANDALONE
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "loader.h"
 #include "loadermisc.h"

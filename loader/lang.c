@@ -40,11 +40,11 @@
 #include "loadermisc.h"
 #include "windows.h"
 
-#include "../isys/stubs.h"
-#include "../isys/cpio.h"
-#include "../isys/lang.h"
-#include "../isys/isys.h"
-#include "../isys/log.h"
+#include "../pyanaconda/isys/stubs.h"
+#include "../pyanaconda/isys/cpio.h"
+#include "../pyanaconda/isys/lang.h"
+#include "../pyanaconda/isys/isys.h"
+#include "../pyanaconda/isys/log.h"
 
 /* boot flags */
 extern uint64_t flags;

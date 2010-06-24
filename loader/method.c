@@ -45,10 +45,10 @@
 #include "mediacheck.h"
 #include "method.h"
 
-#include "../isys/imount.h"
-#include "../isys/isys.h"
-#include "../isys/cpio.h"
-#include "../isys/log.h"
+#include "../pyanaconda/isys/imount.h"
+#include "../pyanaconda/isys/isys.h"
+#include "../pyanaconda/isys/cpio.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "devt.h"
 

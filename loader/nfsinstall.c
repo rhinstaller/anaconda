@@ -51,9 +51,9 @@
 #include "cdinstall.h"
 #include "windows.h"
 
-#include "../isys/imount.h"
-#include "../isys/iface.h"
-#include "../isys/log.h"
+#include "../pyanaconda/isys/imount.h"
+#include "../pyanaconda/isys/iface.h"
+#include "../pyanaconda/isys/log.h"
 
 /* boot flags */
 extern uint64_t flags;

@@ -22,7 +22,13 @@
 #            Jeremy Katz <katzj@redhat.com>
 #
 
-from pyanaconda import _isys
+try:
+    from pyanaconda import _isys
+except ImportError:
+    # We're running in some sort of testing mode, in which case we can fix
+    # up PYTHONPATH and just do this basic import.
+    import _isys
+
 import string
 import os
 import os.path

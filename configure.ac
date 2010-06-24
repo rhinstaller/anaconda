@@ -254,13 +254,11 @@ AC_CONFIG_FILES([Makefile
                  data/bootdisk/sparc/Makefile
                  data/bootdisk/s390x/Makefile
                  data/bootdisk/x86_64/Makefile
-                 booty/Makefile
                  data/command-stubs/Makefile
                  docs/Makefile
                  data/fonts/Makefile
                  gptsync/Makefile
                  pyanaconda/installclasses/Makefile
-                 isys/Makefile
                  pyanaconda/iw/Makefile
                  data/liveinst/Makefile
                  data/liveinst/console.apps/Makefile
@@ -282,6 +280,8 @@ AC_CONFIG_FILES([Makefile
                  po/Makefile.in
                  scripts/Makefile
                  pyanaconda/Makefile
+                 pyanaconda/booty/Makefile
+                 pyanaconda/isys/Makefile
                  pyanaconda/storage/Makefile
                  pyanaconda/storage/devicelibs/Makefile
                  pyanaconda/storage/formats/Makefile

@@ -36,7 +36,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "lang.h"
 #include "loader.h"

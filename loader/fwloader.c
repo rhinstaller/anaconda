@@ -41,7 +41,7 @@
 #include <asm/types.h>
 #include <linux/netlink.h>
 
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "loader.h"
 #include "fwloader.h"

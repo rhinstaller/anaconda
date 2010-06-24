@@ -17,7 +17,7 @@
 #
 # Author: Martin Sivak <msivak@redhat.com>
 
-SUBDIRS = installclasses iw textw storage 
+SUBDIRS = booty installclasses isys iw textw storage 
 
 MAINTAINERCLEANFILES = Makefile.in
 

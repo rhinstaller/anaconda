@@ -32,7 +32,7 @@
 
 #include "loader.h"
 #include "loadermisc.h"
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 int loadpolicy() {
     int pid, status;

@@ -41,7 +41,7 @@
 #include <glib/gprintf.h>
 #include <assert.h>
 
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "loader.h"
 #include "modules.h"

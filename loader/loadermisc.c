@@ -35,7 +35,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 #include "windows.h"
 
 int copyFileFd(int infd, char * dest, progressCB pbcb,

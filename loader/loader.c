@@ -93,13 +93,13 @@
 #include <selinux/selinux.h>
 #include "selinux.h"
 
-#include "../isys/imount.h"
-#include "../isys/isys.h"
-#include "../isys/stubs.h"
-#include "../isys/lang.h"
-#include "../isys/eddsupport.h"
-#include "../isys/log.h"
-#include "../isys/mem.h"
+#include "../pyanaconda/isys/imount.h"
+#include "../pyanaconda/isys/isys.h"
+#include "../pyanaconda/isys/stubs.h"
+#include "../pyanaconda/isys/lang.h"
+#include "../pyanaconda/isys/eddsupport.h"
+#include "../pyanaconda/isys/log.h"
+#include "../pyanaconda/isys/mem.h"
 
 /* maximum number of extra arguments that can be passed to the second stage */
 #define MAX_EXTRA_ARGS 128

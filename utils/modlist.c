@@ -22,7 +22,7 @@
 #include <string.h>
 #include <glib.h>
 
-#include "../isys/isys.h"
+#include "../pyanaconda/isys/isys.h"
 #include "moduleinfo.h"
 
 int main(int argc, char ** argv) {

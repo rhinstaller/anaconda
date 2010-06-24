@@ -28,7 +28,7 @@
 #include <unistd.h>
 #include <errno.h>
 
-#include "../isys/log.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "modules.h"
 #include "moduleinfo.h"

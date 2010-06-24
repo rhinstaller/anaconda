@@ -31,8 +31,8 @@
 #include <errno.h>
 #include <glib.h>
 
-#include "../isys/iface.h"
-#include "../isys/log.h"
+#include "../pyanaconda/isys/iface.h"
+#include "../pyanaconda/isys/log.h"
 
 #include "copy.h"
 #include "kickstart.h"
