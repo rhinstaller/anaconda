@@ -33,8 +33,8 @@ class PPCPRePBoot(DeviceFormat):
     _formattable = True                 # can be formatted
     _linuxNative = True                 # for clearpart
     _bootable = True                    # can be used as boot
-    _maxSize = 4                        # maximum size in MB
-    _minSize = 10                       # minimum size in MB
+    _maxSize = 10                       # maximum size in MB
+    _minSize = 4                        # minimum size in MB
 
     def __init__(self, *args, **kwargs):
         """ Create a PRePBoot instance.
