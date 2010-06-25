@@ -981,9 +981,10 @@ def allocatePartitions(storage, disks, partitions, freespace):
                 current_free = None
 
             problem = None
-            if _part.req_size > _part.format.maxSize:
+            if _part.format.maxSize and _part.req_size > _part.format.maxSize:
                 problem = "large"
-            elif ((not _part.req_grow and
+            elif (_part.format.minSize and
+                  (not _part.req_grow and
                    _part.req_size < _part.format.minSize) or
                   (_part.req_grow and _part.req_max_size and
                    _part.req_max_size < _part.format.minSize)):
