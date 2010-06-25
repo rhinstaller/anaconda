@@ -47,10 +47,6 @@ def addFcoeDrive(anaconda):
     keys.sort()
     selected_interface = None
     for dev in keys:
-        # Skip NICs which are connected (iow in use for a net install)
-        if dev in network.getActiveNetDevs():
-            continue
-
         i = store.append(None)
         desc = netdevs[dev].description
         if desc:
