@@ -838,26 +838,43 @@ class Network:
         dev = self.netdevices[nic]
 
         if networkStorageDevice.host_address:
-            if dev.get('bootproto').lower() == 'dhcp':
-                netargs += "ip=%s:dhcp" % nic
+            if self.hostname:
+                hostname = self.hostname
             else:
-                if dev.get('GATEWAY'):
-                    gateway = dev.get('GATEWAY')
+                hostname = ""
+
+            # if using ipv6
+            if ':' in networkStorageDevice.host_address:
+                if dev.get('DHCPV6C') == "yes":
+                    # XXX combination with autoconf not yet clear,
+                    # support for dhcpv6 is not yet implemented in NM/ifcfg-rh
+                    netargs += "ip=%s:dhcp6" % nic
+                elif dev.get('IPV6_AUTOCONF') == "yes":
+                    netargs += "ip=%s:auto6" % nic
+                elif dev.get('IPV6ADDR'):
+                    ipaddr = "[%s]" % dev.get('IPV6ADDR')
+                    if dev.get('IPV6_DEFAULTGW'):
+                        gateway = "[%s]" % dev.get('IPV6_DEFAULTGW')
+                    else:
+                        gateway = ""
+                    netargs += "ip=%s::%s:%s:%s:%s:none" % (ipaddr, gateway,
+                               dev.get('PREFIX'), hostname, nic)
+            else:
+                if dev.get('bootproto').lower() == 'dhcp':
+                    netargs += "ip=%s:dhcp" % nic
                 else:
-                    gateway = ""
+                    if dev.get('GATEWAY'):
+                        gateway = dev.get('GATEWAY')
+                    else:
+                        gateway = ""
 
-                if self.hostname:
-                    hostname = self.hostname
-                else:
-                    hostname = ""
+                    netmask = dev.get('netmask')
+                    prefix  = dev.get('prefix')
+                    if not netmask and prefix:
+                        netmask = isys.prefix2netmask(int(prefix))
 
-                netmask = dev.get('netmask')
-                prefix  = dev.get('prefix')
-                if not netmask and prefix:
-                    netmask = isys.prefix2netmask(int(prefix))
-
-                netargs += "ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
-                           gateway, netmask, hostname, nic)
+                    netargs += "ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
+                               gateway, netmask, hostname, nic)
 
         hwaddr = dev.get("HWADDR")
         if hwaddr:
