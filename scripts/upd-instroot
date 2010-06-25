@@ -394,6 +394,7 @@ etc/polkit-1/nullbackend.conf.d/*
 etc/prelink.conf
 etc/protocols
 etc/rc.d/init.d/functions
+etc/report.conf
 etc/report.d/*
 etc/rpm/macros.prelink
 etc/security/limits.conf
@@ -521,6 +522,7 @@ usr/$LIBDIR/libmetacity-private.so*
 usr/$LIBDIR/libsoftokn3.so
 usr/$LIBDIR/libsoftokn3.chk
 usr/$LIBDIR/libsqlite3.so*
+usr/$LIBDIR/libstrata_client*
 usr/$LIBDIR/xorg/modules
 usr/$LIBDIR/libnssdbm3.so
 usr/$LIBDIR/libnssdbm3.chk
@@ -566,6 +568,7 @@ usr/bin/python
 usr/bin/python?.?
 usr/bin/readlink
 usr/bin/reduce-font
+usr/bin/report
 usr/bin/setxkbmap
 usr/bin/sha1sum
 usr/bin/split
@@ -718,6 +721,7 @@ var/lib/polkit-1
 var/lib/dbus
 var/lib/hal
 var/lib/lldpad
+var/report
 var/run/dbus
 EOF
 
