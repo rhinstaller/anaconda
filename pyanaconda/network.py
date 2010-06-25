@@ -535,8 +535,12 @@ class Network:
                 else:
                     f.write(" --bootproto static --ip %s" % dev.get('ipaddr'))
 
-                    if dev.get('netmask'):
-                        f.write(" --netmask %s" % dev.get('netmask'))
+                    netmask = dev.get('netmask')
+                    prefix  = dev.get('prefix')
+                    if not netmask and prefix:
+                        netmask = isys.prefix2netmask(int(prefix))
+                    if netmask:
+                        f.write(" --netmask %s" % netmask)
 
                     if dev.get('GATEWAY'):
                         f.write(" --gateway %s" % (dev.get('GATEWAY'),))
@@ -847,8 +851,13 @@ class Network:
                 else:
                     hostname = ""
 
+                netmask = dev.get('netmask')
+                prefix  = dev.get('prefix')
+                if not netmask and prefix:
+                    netmask = isys.prefix2netmask(int(prefix))
+
                 netargs += "ip=%s::%s:%s:%s:%s:none" % (dev.get('ipaddr'),
-                           gateway, dev.get('netmask'), hostname, nic)
+                           gateway, netmask, hostname, nic)
 
         hwaddr = dev.get("HWADDR")
         if hwaddr:
