@@ -1882,7 +1882,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                 line += " --mirrorlist=%s" % repo.mirrorlist
 
             if repo.proxy:
-                line +=- " --proxy=\"%s\"" % repo.proxy
+                line += " --proxy=\"%s\"" % repo.proxy_dict['http']
 
             if repo.cost:
                 line += " --cost=%s" % repo.cost
