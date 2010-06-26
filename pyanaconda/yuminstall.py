@@ -299,6 +299,54 @@ class AnacondaYumRepo(YumRepository):
     anacondaBaseURLs = property(_getAnacondaBaseURLs, _setAnacondaBaseURLs,
                                 doc="Extends AnacondaYum.baseurl to store non-yum urls:")
 
+    def setProxy(self, obj):
+        """
+        Set the proxy settings from a string in obj.proxy
+        If the string includes un/pw use those, otherwise set the un/pw from
+        obj.proxyUsername and obj.proxyPassword
+        """
+        # This is the same pattern as from loader/urls.c:splitProxyParam
+        # except that the POSIX classes have been replaced with character
+        # ranges
+        # NOTE: If this changes, update tests/regex/proxy.py
+        #
+        # proxy=[protocol://][username[:password]@]host[:port][path]
+        pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
+
+        m = pattern.match(obj.proxy)
+
+        if m and m.group(5):
+            # If both a host and port was found, just paste them
+            # together using the colon at the beginning of the port
+            # match as a separator.  Otherwise, just use the host.
+            if m.group(6):
+                proxy = m.group(5) + m.group(6)
+            else:
+                proxy = m.group(5)
+
+            # yum also requires a protocol.  If none was given,
+            # default to http.
+            if m.group(1):
+                proxy = m.group(1) + proxy
+            else:
+                proxy = "http://" + proxy
+
+            # Set the repo proxy. NOTE: yum immediately parses this and
+            # raises an error if it isn't correct
+            self.proxy = proxy
+
+        if m and m.group(3):
+            self.proxy_username = m.group(3)
+        elif getattr(obj, "proxyUsername", None):
+            self.proxy_username = obj.proxyUsername
+
+        if m and m.group(4):
+            # Skip the leading colon.
+            self.proxy_password = m.group(4)[1:]
+        elif getattr(obj, "proxyPassword", None):
+            self.proxy_password = obj.proxyPassword
+
+
 class YumSorter(yum.YumBase):
     def _transactionDataFactory(self):
         return SplitMediaTransactionData()
@@ -532,6 +580,9 @@ class AnacondaYum(YumSorter):
                 repo.mediaid = getMediaId(self.tree)
                 log.info("set mediaid of repo %s to: %s" % (rid, repo.mediaid))
 
+            if self.anaconda.proxy:
+                repo.setProxy(self.anaconda)
+
             repo.enable()
             self.repos.add(repo)
 
@@ -683,13 +734,6 @@ class AnacondaYum(YumSorter):
             extraRepos.append(repo)
 
         if self.anaconda.ksdata:
-            # This is the same pattern as from loader/urls.c:splitProxyParam except that
-            # the POSIX classes have been replaced with character ranges
-            # NOTE: If this changes, update tests/regex/proxy.py
-            #
-            # proxy=[protocol://][username[:password]@]host[:port][path]
-            pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
-
             for ksrepo in self.anaconda.ksdata.repo.repoList:
                 anacondaBaseURLs = [ksrepo.baseurl]
 
@@ -742,34 +786,7 @@ class AnacondaYum(YumSorter):
                     repo.includepkgs = ksrepo.includepkgs
 
                 if ksrepo.proxy:
-                    m = pattern.match(ksrepo.proxy)
-
-                    if m and m.group(5):
-                        # If both a host and port was found, just paste them
-                        # together using the colon at the beginning of the port
-                        # match as a separator.  Otherwise, just use the host.
-                        if m.group(6):
-                            proxy = m.group(5) + m.group(6)
-                        else:
-                            proxy = m.group(5)
-
-                        # yum also requires a protocol.  If none was given,
-                        # default to http.
-                        if m.group(1):
-                            proxy = m.group(1) + proxy
-                        else:
-                            proxy = "http://" + proxy
-
-                        # Set the repo proxy. NOTE: yum immediately parses this and
-                        # raises an error if it isn't correct
-                        repo.proxy = proxy
-
-                    if m and m.group(3):
-                        repo.proxy_username = m.group(3)
-
-                    if m and m.group(4):
-                        # Skip the leading colon.
-                        repo.proxy_password = m.group(4)[1:]
+                    repo.setProxy(ksrepo)
 
                 repo.enable()
                 extraRepos.append(repo)
