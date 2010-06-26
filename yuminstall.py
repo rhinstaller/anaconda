@@ -1936,7 +1936,7 @@ debuglevel=10
                 line += " --mirrorlist=%s" % repo.mirrorlist
 
             if repo.proxy:
-                line +=- " --proxy=\"%s\"" % repo.proxy
+                line += " --proxy=\"%s\"" % repo.proxy_dict['http']
 
             if repo.cost:
                 line += " --cost=%s" % repo.cost
