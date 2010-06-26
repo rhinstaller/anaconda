@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.52\n"
+"Project-Id-Version: anaconda 13.21.53\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-06-22 11:01-1000\n"
+"POT-Creation-Date: 2010-06-26 11:55-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1864,19 +1864,19 @@ msgstr ""
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:2004
+#: yuminstall.py:2017
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:2005
+#: yuminstall.py:2018
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:2043
+#: yuminstall.py:2056
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:2044
+#: yuminstall.py:2057
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
@@ -2442,7 +2442,7 @@ msgstr ""
 msgid "_Logical Volume Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:458 iw/partition_dialog_gui.py:485
+#: iw/lvm_dialog_gui.py:458 iw/partition_dialog_gui.py:492
 msgid "_Size (MB):"
 msgstr ""
 
@@ -2451,17 +2451,17 @@ msgstr ""
 msgid "(Max size is %s MB)"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:537
+#: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:544
 #: iw/partition_ui_helpers_gui.py:336 iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:479 iw/partition_dialog_gui.py:467
+#: iw/lvm_dialog_gui.py:479 iw/partition_dialog_gui.py:474
 #: iw/raid_dialog_gui.py:461
 msgid "Original File System Type:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:484 iw/partition_dialog_gui.py:475
+#: iw/lvm_dialog_gui.py:484 iw/partition_dialog_gui.py:482
 #: iw/raid_dialog_gui.py:468
 msgid "Original File System Label:"
 msgstr ""
@@ -2474,7 +2474,7 @@ msgstr ""
 msgid "Size (MB):"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:520 iw/partition_dialog_gui.py:423
+#: iw/lvm_dialog_gui.py:520 iw/partition_dialog_gui.py:430
 #: iw/raid_dialog_gui.py:442
 msgid "_Mount Point:"
 msgstr ""
@@ -2769,24 +2769,28 @@ msgstr ""
 msgid "Fill to maximum _allowable size"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:393
+#: iw/partition_dialog_gui.py:191
+msgid "Error With Request"
+msgstr ""
+
+#: iw/partition_dialog_gui.py:400
 msgid "Add Partition"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:395
+#: iw/partition_dialog_gui.py:402
 #, python-format
 msgid "Edit Partition: %s"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:432
+#: iw/partition_dialog_gui.py:439
 msgid "File System _Type:"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:448
+#: iw/partition_dialog_gui.py:455
 msgid "Allowable _Drives:"
 msgstr ""
 
-#: iw/partition_dialog_gui.py:524
+#: iw/partition_dialog_gui.py:531
 msgid "Force to be a _primary partition"
 msgstr ""
 
@@ -3019,7 +3023,7 @@ msgstr ""
 msgid "_Resize"
 msgstr ""
 
-#: iw/partition_ui_helpers_gui.py:441
+#: iw/partition_ui_helpers_gui.py:433
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "

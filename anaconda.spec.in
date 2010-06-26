@@ -221,6 +221,33 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Sat Jun 26 2010 David Cantrell <dcantrell@redhat.com> - 13.21.54-1
+- Take into account the fact that some formats have no min/max size. (dlehman)
+  Related: rhbz#603188
+- Add more stuff to the install image for report (clumens).
+  Resolves: rhbz#605958
+- Put dhcp configuration files in /etc/dhcp (dcantrell)
+  Resolves: rhbz#607741
+- Enforce format min/max size for fixed-size requests. (dlehman)
+  Resolves: rhbz#603188
+- Fix min/max size definitions for PReP Boot format class. (dlehman)
+  Related: rhbz#603188
+- Constrain lvmpv, mdmember, and swap partitions to a single disk. (dlehman)
+  Resolves: rhbz#605756
+- Enforce maximum start sector for partitions. (dlehman)
+  Resolves: rhbz#604059
+- Handle nm-c-e using prefix instead of netmask (hdegoede)
+  Resolves: rhbz#607762
+- Fix repo --includepkgs=, and add more to anaconda-ks.cfg's repo line
+  (clumens).
+  Resolves: rhbz#602705
+- yum calls it "exclude" instead of "excludepkgs" (clumens).
+  Resolves: rhbz#607664
+- Force the comps object to be reloaded after adding repos (clumens).
+  Resolves: rhbz#606765
+- Remove reference to undefined variable (rvykydal)
+  Resolves: rhbz#604164
+
 * Tue Jun 22 2010 David Cantrell <dcantrell@redhat.com> - 13.21.53-1
 - Be specific when telling lvm to ignore devices. (dlehman)
   Resolves: rhbz#594433
