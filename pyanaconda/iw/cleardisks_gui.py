@@ -166,9 +166,12 @@ class ClearDisksWindow (InstallWindow):
             if hasattr(d, "wwid"):
                 ident = d.wwid
             else:
-                ident = deviceNameToDiskByPath(d.name)
-                if ident.startswith("/dev/disk/by-path/"):
-                    ident = ident.replace("/dev/disk/by-path/", "")
+                try:
+                    ident = deviceNameToDiskByPath(d.name)
+                    if ident.startswith("/dev/disk/by-path/"):
+                        ident = ident.replace("/dev/disk/by-path/", "")
+                except DeviceNotFoundError:
+                    ident = d.name
 
             self.store.append(None, (d,
                                      leftVisible, True, False,
