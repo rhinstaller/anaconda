@@ -232,7 +232,7 @@ class AutoStep(commands.autostep.FC3_AutoStep):
         flags.autostep = 1
         flags.autoscreenshot = self.autoscreenshot
 
-class Bootloader(commands.bootloader.F12_Bootloader):
+class Bootloader(commands.bootloader.F14_Bootloader):
     def execute(self, anaconda):
         if self.location == "none":
             location = None
@@ -340,7 +340,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
         return fc
 
-class Firewall(commands.firewall.F10_Firewall):
+class Firewall(commands.firewall.F14_Firewall):
     def execute(self, anaconda):
         anaconda.firewall.enabled = self.enabled
         anaconda.firewall.trustdevs = self.trusts
@@ -1030,7 +1030,7 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
 
             storage.createDevice(request)
 
-class XConfig(commands.xconfig.F10_XConfig):
+class XConfig(commands.xconfig.F14_XConfig):
     def execute(self, anaconda):
         if self.startX:
             anaconda.desktop.setDefaultRunLevel(5)
@@ -1042,9 +1042,9 @@ class ZeroMbr(commands.zerombr.F9_ZeroMbr):
     def execute(self, anaconda):
         anaconda.storage.zeroMbr = 1
 
-class ZFCP(commands.zfcp.F12_ZFCP):
+class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
-        fcp = commands.zfcp.F12_ZFCP.parse(self, args)
+        fcp = commands.zfcp.F14_ZFCP.parse(self, args)
         try:
             storage.zfcp.ZFCP().addFCP(fcp.devnum, fcp.wwpn, fcp.fcplun)
         except ValueError, e:
