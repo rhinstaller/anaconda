@@ -49,8 +49,8 @@ class CommandVersionTestCase(TestCase):
             'block',
             'baseudev'])
 
-        import anaconda_log
-        anaconda_log.init()
+        import pyanaconda.anaconda_log
+        pyanaconda.anaconda_log.init()
 
         from pyanaconda import kickstart
         import pykickstart.version
@@ -71,8 +71,8 @@ class CommandVersionTestCase(TestCase):
 # Do the same thing as CommandVersionTestCase, but for data objects.
 class DataVersionTestCase(unittest.TestCase):
     def setUp(self):
-        import anaconda_log
-        anaconda_log.init()
+        import pyanaconda.anaconda_log
+        pyanaconda.anaconda_log.init()
 
         from pyanaconda import kickstart
         import pykickstart.version
