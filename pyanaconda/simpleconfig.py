@@ -16,7 +16,6 @@
 
 import string
 import os
-import tempfile
 import shutil
 
 # use our own ASCII only uppercase function to avoid locale issues
@@ -122,9 +121,8 @@ class IfcfgFile(SimpleConfigFile):
 
         return len(self.info)
 
-    # This method has to write file in a particular
-    # way so that ifcfg-rh's inotify mechanism triggeres
-    # TODORV: check that it is still true.
+    # ifcfg-rh is using inotify IN_CLOSE_WRITE event
+    # so we don't use temporary file for new configuration.
     def write(self, dir=None):
         """Writes values into ifcfg file."""
 
@@ -133,15 +131,5 @@ class IfcfgFile(SimpleConfigFile):
         else:
             path = os.path.join(dir, os.path.basename(self.path))
 
-        fd, newifcfg = tempfile.mkstemp(prefix="ifcfg-%s" % self.iface, text=False)
-        os.write(fd, self.__str__())
-        os.close(fd)
-
-        os.chmod(newifcfg, 0644)
-        try:
-            os.remove(path)
-        except OSError, e:
-            if e.errno != 2:
-                raise
-        shutil.move(newifcfg, path)
+        SimpleConfigFile.write(self, path)
 
