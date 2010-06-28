@@ -223,6 +223,91 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jun 28 2010 Chris Lumens <clumens@redhat.com> - 14.9-1
+- Update to use the latest pykickstart. (clumens)
+- Import anaconda_log correctly to avoid the double import problem. (clumens)
+- Move isys and booty into the pyanaconda/ directory, adjust paths to match.
+  (clumens)
+- network.dracutSetupstring: properly handle ipv6 (#605232) (hdegoede)
+- Support for converged traffic during install to FCoE LUN (#604763) (hdegoede)
+- Take into account the fact that some formats have no min/max size. (dlehman)
+- Put dhcp configuration files in /etc/dhcp (#468436) (dcantrell)
+- Autopart PVs require enough space for a default-sized partition. (dlehman)
+- Enforce format min/max size for fixed-size requests. (dlehman)
+- Fix min/max size definitions for PReP Boot format class. (dlehman)
+- Constrain lvmpv, mdmember, and swap partitions to a single disk. (#605756)
+  (dlehman)
+- Enforce maximum start sector for partitions. (#604059) (dlehman)
+- Handle nm-c-e using prefix instead of netmask (#607762) (hdegoede)
+- Handle "(#BUGNUM, author)" in git log summary lines. (dcantrell)
+- Allow running an alternate program from liveinst. (clumens)
+- fix network.py syntax error. (akozumpl)
+- modules: make iscsi and similar imports look less ridiculous (akozumpl)
+- modules: fix getlangnames. (akozumpl)
+- updates: link files in also on lower directory levels. (akozumpl)
+- modules: dont treat booty special. (akozumpl)
+- modules: dont treat isys special. (akozumpl)
+- modules: necessary changes to the import statements under pyanaconda/textw
+  (akozumpl)
+- modules: a change to an import statements in isys/ (akozumpl)
+- modules: necessary changes to the import statements under pyanaconda/iw
+  (akozumpl)
+- modules: changes to the import statements directly under pyanaconda/
+  (akozumpl)
+- modules: necessary changes to the installclasses import statements.
+  (akozumpl)
+- modules: necessary changes to the import statements under booty/ (akozumpl)
+- modules: necessary changes to the import statements under storage/ (akozumpl)
+- modules: pyanaconda.textw and pyanaconda.iw are now regular modules.
+  (akozumpl)
+- modules: remove the hacks in setupPythonPath(). (akozumpl)
+- Be specific when telling lvm to ignore devices. (dlehman)
+- analog: fix options.output traceback (akozumpl)
+- Handle questionInitializeDASD in cmdline mode (#605846) (dcantrell)
+- Set SELinux context on dasd.conf and zfcp.conf (#605597) (dcantrell)
+- Add --fsprofile= to the anaconda-ks.cfg (#605944). (clumens)
+- Add the proxy tests to the top-level test framework. (clumens)
+- Fix pyanaconda.kickstart import, and init logging before doing anything else.
+  (clumens)
+- Do not assume /dev/loop0 and /dev/loop1 are available. (clumens)
+- tearDown -> tearDownModules. (clumens)
+- Fix test suite Makefile.am files. (clumens)
+- Check before running post scripts on kickstart rescue (#605754, atodorov).
+  (clumens)
+- Make sure lvm ignores unknown devicemapper devices (hdegoede)
+- Put [] around ipv6 addr on the dracut cmdline (#605300) (hdegoede)
+- Revert "Select default and mandatory packages when enabling repos."
+  (#605289). (clumens)
+- Fix the build. (clumens)
+- Set repo.proxy only after fully assembled (#602712) (bcl)
+- Change proxy regex in loader to match python proxy regex (#602712) (bcl)
+- Add test cases for proxy regex (#602712) (bcl)
+- Replace POSIX regex classes with character ranges (#602712) (bcl)
+- Set wireless devices to NM_CONTROLLED by default (#594881) (rvykydal)
+- Add iSCSI radio button to button group (#603726) (dcantrell)
+- Fall back on regular device name (#604776) (dcantrell)
+- Honor --timeout=NUM from kickstart files on s390 (#603032) (dcantrell)
+- Use Decimal instead of float for label calculations (#604639) (bcl)
+- Check for proper Proxy URL in loader (#604126) (bcl)
+- fix: syntax error in network.py (akozumpl)
+- fix: zfcp.startup() survives without an interface (#604542). (akozumpl)
+- Fix a typo (#604628) (rvykydal)
+- Revert "Retain user's UTC checkbox setting (#591125)" (bcl)
+- Use method from isys for wireless devs checking (#473803) (rvykydal)
+- Do not ask for interface twice in stage 1 (#594802) (rvykydal)
+- Fix parsing of ifcfg OPTIONS parameter (#597205) (rvykydal)
+- Don't overwrite 70-persistent-net.rules (#597625) (rvykydal)
+- Wait only for activation of devices controlled by NM (#598432) (rvykydal)
+- Show zFCP errors in dialog boxes rather than tracebacks (#598087) (maier)
+- Show by-path names for DASD and zFCP, WWID for mpath (#580507) (maier)
+- Remember autopart UI choice when going back (#596146) (dcantrell)
+- Make parent directories for ks scriptlet log files (#597279) (dcantrell)
+- Adjust the paths used for updates (bcl)
+- Raise an error when an md dev is not in the tree after scanning all slaves
+  (hdegoede)
+- Raise an exception when an md dev is in the tree under the wrong name
+  (hdegoede)
+
 * Fri Jun 11 2010 Chris Lumens <clumens@redhat.com> - 14.8-1
 - Rebind hybrid lcs/ctc network devices to correct driver if necessary
   (#596826) (maier)
