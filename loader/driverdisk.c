@@ -346,12 +346,12 @@ int getRemovableDevices(char *** devNames) {
 
     devs = getDevices(DEVICE_DISK | DEVICE_CDROM);
 
-    if (!devs)
-        return numDevices;
+    if(devs) for (i = 0; devs[i] ; i++) {
+            logMessage(DEBUGLVL, "Considering device %s (isremovable: %d)", devs[i]->device, devs[i]->priv.removable);
 
-    for (i = 0; devs[i] ; i++) {
-        logMessage(DEBUGLVL, "Considering device %s (isremovable: %d)", devs[i]->device, devs[i]->priv.removable);
-        if (devs[i]->priv.removable) {
+        /* XXX Filter out memory devices from the list for now, we have to come
+           up with smarter way of filtering someday.. */
+        if (strncmp(devs[i]->device, "ram", 3) && strncmp(devs[i]->device, "loop", 4)) {
             *devNames = realloc(*devNames, (numDevices + 2) * sizeof(char *));
             (*devNames)[numDevices] = strdup(devs[i]->device);
             (*devNames)[numDevices+1] = NULL;
