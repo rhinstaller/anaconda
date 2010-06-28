@@ -1,4 +1,4 @@
-# translation of anaconda.master.pa.po to Punjabi
+# translation of anaconda.rhel6-branch.pa.po to Punjabi
 # Copyright (C) 2004 THE anaconda'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the anaconda package.
 #
@@ -10,66 +10,67 @@
 # Jaswinder Singh <jsingh@redhat.com>, 2007, 2008, 2009, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.master.pa\n"
+"Project-Id-Version: anaconda.rhel6-branch.pa\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-05-03 11:29-1000\n"
-"PO-Revision-Date: 2010-05-07 11:02+0530\n"
+"POT-Creation-Date: 2010-06-01 08:25-1000\n"
+"PO-Revision-Date: 2010-06-28 14:39+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
-"Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
+"Language-Team: Punjabi <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: anaconda:345
+#: anaconda:371
 msgid "Press <enter> for a shell"
 msgstr "ਇੱਕ ਸ਼ੈੱਲ ਲਈ <enter> ਦਬਾਓ"
 
-#: anaconda:360 rescue.py:352 rescue.py:378 rescue.py:391 rescue.py:467
-#: rescue.py:479 text.py:654 loader/cdinstall.c:228 loader/cdinstall.c:232
-#: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:427
-#: loader/cdinstall.c:431 loader/cdinstall.c:504 loader/dirbrowser.c:128
-#: loader/driverdisk.c:266 loader/driverdisk.c:421 loader/driverdisk.c:459
-#: loader/driverdisk.c:490 loader/driverdisk.c:525 loader/driverdisk.c:541
-#: loader/driverdisk.c:553 loader/driverdisk.c:561 loader/driverdisk.c:721
-#: loader/driverdisk.c:760 loader/driverselect.c:78 loader/driverselect.c:178
-#: loader/hdinstall.c:115 loader/hdinstall.c:266 loader/hdinstall.c:325
-#: loader/hdinstall.c:359 loader/hdinstall.c:431 loader/hdinstall.c:474
-#: loader/hdinstall.c:487 loader/kbd.c:119 loader/kickstart.c:135
-#: loader/kickstart.c:145 loader/kickstart.c:187 loader/kickstart.c:192
-#: loader/kickstart.c:299 loader/kickstart.c:331 loader/kickstart.c:520
-#: loader/lang.c:114 loader/lang.c:373 loader/loader.c:414 loader/loader.c:450
-#: loader/loader.c:490 loader/loader.c:508 loader/loader.c:525
-#: loader/loader.c:562 loader/loader.c:1178 loader/loader.c:1361
-#: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
-#: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
-#: loader/method.c:351 loader/modules.c:381 loader/modules.c:397
-#: loader/net.c:579 loader/net.c:950 loader/net.c:1558 loader/net.c:1579
-#: loader/net.c:1851 loader/net.c:1870 loader/net.c:1882
-#: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
-#: loader/nfsinstall.c:366 loader/telnetd.c:92 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
-#: loader/urlinstall.c:383 loader/urlinstall.c:390 loader/urls.c:259
-#: loader/urls.c:330 loader/urls.c:336 textw/constants_text.py:44
+#: anaconda:402 rescue.py:353 rescue.py:379 rescue.py:392 rescue.py:470
+#: rescue.py:483 rescue.py:494 text.py:654 loader/cdinstall.c:228
+#: loader/cdinstall.c:232 loader/cdinstall.c:248 loader/cdinstall.c:251
+#: loader/cdinstall.c:427 loader/cdinstall.c:431 loader/cdinstall.c:504
+#: loader/dirbrowser.c:128 loader/driverdisk.c:228 loader/driverdisk.c:407
+#: loader/driverdisk.c:439 loader/driverdisk.c:470 loader/driverdisk.c:505
+#: loader/driverdisk.c:521 loader/driverdisk.c:533 loader/driverdisk.c:541
+#: loader/driverdisk.c:708 loader/driverdisk.c:747 loader/driverselect.c:78
+#: loader/driverselect.c:178 loader/hdinstall.c:115 loader/hdinstall.c:266
+#: loader/hdinstall.c:325 loader/hdinstall.c:360 loader/hdinstall.c:440
+#: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kbd.c:119
+#: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
+#: loader/kickstart.c:192 loader/kickstart.c:299 loader/kickstart.c:331
+#: loader/kickstart.c:520 loader/lang.c:114 loader/lang.c:373
+#: loader/loader.c:414 loader/loader.c:450 loader/loader.c:490
+#: loader/loader.c:508 loader/loader.c:525 loader/loader.c:562
+#: loader/loader.c:1137 loader/loader.c:1320 loader/mediacheck.c:46
+#: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/mediacheck.c:96
+#: loader/mediacheck.c:105 loader/method.c:277 loader/method.c:351
+#: loader/modules.c:382 loader/modules.c:398 loader/net.c:580 loader/net.c:951
+#: loader/net.c:1559 loader/net.c:1580 loader/net.c:1860 loader/net.c:1879
+#: loader/net.c:1891 loader/nfsinstall.c:91 loader/nfsinstall.c:279
+#: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
+#: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
+#: loader/urlinstall.c:372 loader/urlinstall.c:383 loader/urlinstall.c:390
+#: loader/urls.c:259 loader/urls.c:330 loader/urls.c:336
+#: textw/constants_text.py:44
 msgid "OK"
 msgstr "ਠੀਕ ਹੈ"
 
-#: anaconda:367
+#: anaconda:411
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr "ਤੁਹਾਡੇ ਕੋਲ ਗਰਾਫੀਕਲ ਇੰਸਟਾਲਰ ਲਈ ਲੋੜੀਂਦੀ RAM ਨਹੀਂ ਹੈ। ਟੈਕਸਟ ਮੋਡ ਹੀ ਸ਼ੁਰੂ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
 
-#: anaconda:500
+#: anaconda:544
 msgid "Starting graphical installation."
 msgstr "ਗਰਾਫੀਕਲ ਇੰਸਟਾਲੇਸ਼ਨ ਸ਼ੁਰੂ ਹੋ ਰਹੀ ਹੈ।"
 
-#: anaconda:854
+#: anaconda:901
 msgid "Would you like to use VNC?"
 msgstr "ਕੀ ਤੁਸੀਂ VNC ਵਰਤਣਾ ਚਾਹੋਗੇ?"
 
-#: anaconda:855
+#: anaconda:902
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -78,15 +79,15 @@ msgstr ""
 "ਪਾਠ ਢੰਗ ਵਿੱਚ ਇੰਸਟਾਲੇਸ਼ਨ ਚੋਣਾਂ ਸੀਮਿਤ ਹੁੰਦੀਆਂ ਹਨ।  ਇਹ ਤੁਹਾਨੂੰ ਆਪਣਾ ਵੱਖਰਾ ਵਿਭਾਗੀਕਰਨ ਖਾਕਾ ਜਾਂ "
 "ਪੈਕੇਜ ਚੋਣ ਨਿਰਧਾਰਤ ਨਹੀਂ ਕਰ ਦਿੰਦੀ।  ਕੀ ਤੁਸੀਂ VNC ਮੋਡ ਵਰਤਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: anaconda:882
+#: anaconda:930
 msgid "Install class forcing text mode installation"
 msgstr "ਇੰਸਟਾਲ ਕਲਾਸ ਮੋਡ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਮਜਬੂਰ ਕਰ ਰਹੀ ਹੈ"
 
-#: anaconda:901
+#: anaconda:949
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "ਗਰਾਫੀਕਲ ਇੰਸਟਾਲੇਸ਼ਨ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ। ਟੈਕਸਟ ਮੋਡ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ।"
 
-#: anaconda:909
+#: anaconda:957
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY ਵੇਰੀਏਬਲ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਟੈਕਸਟ ਮੋਡ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ!"
 
@@ -124,36 +125,36 @@ msgstr ""
 "ਇੰਸਟਾਲ ਈਮੇਜ਼ ਨੂੰ ਤੁਹਾਡੀ ਹਾਰਡ ਡਿਸਕ ਤੇ ਤਬਦੀਲ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ। ਤੁਹਾਡੀ ਡਿਸਕ ਉੱਤੇ ਖਾਲੀ "
 "ਥਾਂ ਹੀ ਨਹੀਂ ਹੈ।"
 
-#: backend.py:185 image.py:289 livecd.py:198 livecd.py:403
-#: partIntfHelpers.py:237 text.py:351 text.py:355 yuminstall.py:408
-#: yuminstall.py:835 yuminstall.py:953 yuminstall.py:958 yuminstall.py:1230
-#: yuminstall.py:1294 yuminstall.py:1484 yuminstall.py:1506
-#: iw/advanced_storage.py:90 iw/advanced_storage.py:100
-#: iw/advanced_storage.py:176 iw/advanced_storage.py:179
-#: iw/advanced_storage.py:207 iw/autopart_type.py:96 iw/cleardisks_gui.py:43
-#: iw/cleardisks_gui.py:53 iw/filter_gui.py:410 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:214 iw/raid_dialog_gui.py:795
-#: iw/raid_dialog_gui.py:834 iw/task_gui.py:52 iw/task_gui.py:153
-#: iw/task_gui.py:299 iw/task_gui.py:459 loader/cdinstall.c:228
-#: loader/cdinstall.c:504 loader/driverdisk.c:266 loader/driverdisk.c:490
-#: loader/driverdisk.c:525 loader/driverdisk.c:553 loader/driverdisk.c:561
-#: loader/driverdisk.c:625 loader/hdinstall.c:115 loader/hdinstall.c:325
-#: loader/hdinstall.c:431 loader/hdinstall.c:474 loader/hdinstall.c:487
-#: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:414
-#: loader/loader.c:525 loader/loader.c:1178 loader/mediacheck.c:46
-#: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/mediacheck.c:96
-#: loader/method.c:277 loader/method.c:351 loader/nfsinstall.c:279
-#: loader/nfsinstall.c:296 loader/telnetd.c:92 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urls.c:330
-#: loader/urls.c:336 storage/__init__.py:213 storage/__init__.py:1795
-#: storage/__init__.py:1882 textw/netconfig_text.py:282
-#: textw/upgrade_text.py:179 textw/upgrade_text.py:186
+#: backend.py:185 image.py:289 livecd.py:198 livecd.py:440
+#: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:408
+#: yuminstall.py:839 yuminstall.py:957 yuminstall.py:962 yuminstall.py:1237
+#: yuminstall.py:1303 yuminstall.py:1493 yuminstall.py:1515
+#: iw/advanced_storage.py:89 iw/advanced_storage.py:99
+#: iw/advanced_storage.py:172 iw/advanced_storage.py:175
+#: iw/advanced_storage.py:203 iw/autopart_type.py:96 iw/cleardisks_gui.py:44
+#: iw/cleardisks_gui.py:54 iw/filter_gui.py:410 iw/osbootwidget.py:211
+#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:53
+#: iw/task_gui.py:154 iw/task_gui.py:300 iw/task_gui.py:460
+#: loader/cdinstall.c:228 loader/cdinstall.c:504 loader/driverdisk.c:228
+#: loader/driverdisk.c:470 loader/driverdisk.c:505 loader/driverdisk.c:533
+#: loader/driverdisk.c:541 loader/driverdisk.c:608 loader/hdinstall.c:115
+#: loader/hdinstall.c:325 loader/hdinstall.c:440 loader/hdinstall.c:483
+#: loader/hdinstall.c:496 loader/kickstart.c:299 loader/lang.c:114
+#: loader/loader.c:414 loader/loader.c:525 loader/loader.c:1137
+#: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
+#: loader/mediacheck.c:96 loader/method.c:277 loader/method.c:351
+#: loader/nfsinstall.c:279 loader/nfsinstall.c:296 loader/telnetd.c:92
+#: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
+#: loader/urls.c:330 loader/urls.c:336 storage/__init__.py:213
+#: storage/__init__.py:1798 storage/__init__.py:1885
+#: textw/netconfig_text.py:282 textw/upgrade_text.py:179
+#: textw/upgrade_text.py:186
 msgid "Error"
 msgstr "ਗਲਤੀ"
 
-#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1098
-#: gui.py:1158 image.py:82 installinterfacebase.py:46 text.py:481 text.py:541
-#: yuminstall.py:1463 yuminstall.py:1672 yuminstall.py:1707
+#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1175
+#: gui.py:1235 image.py:82 installinterfacebase.py:46 text.py:481 text.py:541
+#: yuminstall.py:1472 yuminstall.py:1682 yuminstall.py:1717
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: textw/upgrade_text.py:191
@@ -171,19 +172,19 @@ msgstr ""
 "\n"
 "ਕੀ ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: bootloader.py:60 gui.py:1049 gui.py:1194 gui.py:1410 image.py:91
-#: installinterfacebase.py:74 kickstart.py:155 livecd.py:205 livecd.py:410
-#: packages.py:161 upgrade.py:58 upgrade.py:199 yuminstall.py:249
-#: yuminstall.py:955 yuminstall.py:960 yuminstall.py:1040 yuminstall.py:1046
-#: yuminstall.py:1201 yuminstall.py:1226 yuminstall.py:1284 yuminstall.py:1471
-#: yuminstall.py:1490 yuminstall.py:1513 storage/__init__.py:100
-#: storage/__init__.py:109 storage/__init__.py:217 storage/__init__.py:1976
+#: bootloader.py:60 gui.py:1126 gui.py:1271 gui.py:1487 image.py:91
+#: kickstart.py:155 livecd.py:205 livecd.py:447 packages.py:161 upgrade.py:58
+#: upgrade.py:199 yuminstall.py:249 yuminstall.py:959 yuminstall.py:964
+#: yuminstall.py:1044 yuminstall.py:1050 yuminstall.py:1206 yuminstall.py:1233
+#: yuminstall.py:1293 yuminstall.py:1480 yuminstall.py:1499 yuminstall.py:1522
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
+#: storage/__init__.py:1979
 msgid "_Exit installer"
 msgstr "ਇੰਸਟਾਲਰ ਬੰਦ ਕਰੋ(_E)"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1346
-#: kickstart.py:1385 upgrade.py:58 yuminstall.py:1289 yuminstall.py:1472
-#: iw/partition_gui.py:1608 storage/__init__.py:1977
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1350
+#: kickstart.py:1389 upgrade.py:58 yuminstall.py:1298 yuminstall.py:1481
+#: iw/partition_gui.py:1584 storage/__init__.py:1980
 msgid "_Continue"
 msgstr "ਜਾਰੀ ਰੱਖੋ(_C)"
 
@@ -215,8 +216,8 @@ msgstr "ਮੁਕੰਮਲ"
 msgid "In progress"
 msgstr "ਜਾਰੀ ਹੈ"
 
-#: cmdline.py:88 gui.py:1189 kickstart.py:1210 kickstart.py:1218
-#: kickstart.py:1256 kickstart.py:1264 text.py:388
+#: cmdline.py:88 gui.py:1266 kickstart.py:1214 kickstart.py:1222
+#: kickstart.py:1260 kickstart.py:1268 text.py:388
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -329,18 +330,45 @@ msgstr ""
 "ਜੰਤਰ %s ਇੰਕ੍ਰਿਪਟ ਕੀਤਾ ਹੈ। ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਜੰਤਰ ਦੇ ਸੰਖੇਪ ਵਰਤਣ ਲਈ ਤੁਹਾਨੂੰ ਹੇਠਾਂ ਜੰਤਰ ਦਾ ਪ੍ਹੈਰਾ "
 "ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: gui.py:734 gui.py:1410 partIntfHelpers.py:157 partIntfHelpers.py:342
+#: gui.py:734 gui.py:1487 partIntfHelpers.py:153 partIntfHelpers.py:338
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
-#: loader/driverdisk.c:422 loader/kickstart.c:331 loader/loader.c:450
+#: loader/driverdisk.c:408 loader/kickstart.c:331 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
 msgid "Cancel"
 msgstr "ਰੱਦ ਕਰੋ"
 
-#: gui.py:746 gui.py:747 gui.py:863 gui.py:864 ui/anaconda.glade.h:3
+#: gui.py:746 gui.py:747 gui.py:865 gui.py:866 ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "ਡੀਬੱਗ(_D)"
 
-#: gui.py:1099 text.py:482
+#: gui.py:1000 textw/netconfig_text.py:276
+msgid "Waiting for NetworkManager"
+msgstr "ਨੈੱਟਵਰਕ-ਮੈਨੇਜਰ ਲਈ ਉਡੀਕ ਜਾਰੀ"
+
+#: gui.py:1001
+#, python-format
+msgid "Waiting for NetworkManager to activate these devices: %s"
+msgstr "ਇਹਨਾਂ ਜੰਤਰਾਂ ਨੂੰ ਸਰਗਰਮ ਕਰਨ ਲਈ ਨੈੱਟਵਰਕ-ਮੈਨੇਜਰ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ: %s"
+
+#: gui.py:1022
+#, python-format
+msgid "Failed to activate these network interfaces: %s"
+msgstr "ਇਹਨਾਂ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸਾਂ ਨੂੰ ਸਰਗਰਮ ਕਰਨ ਵਿੱਚ ਫੇਲ ਹੋਇਆ: %s"
+
+#: gui.py:1025
+msgid "Network Configuration"
+msgstr "ਨੈੱਟਵਰਕ ਸੰਰਚਨਾ"
+
+#: gui.py:1034
+#, python-format
+msgid "An error occurred trying to bring up the %s network interface."
+msgstr "%s ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਚਾਲੂ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ ਹੈ।"
+
+#: gui.py:1036
+msgid "Error Enabling Network"
+msgstr "ਨੈੱਟਵਰਕ ਯੋਗ ਕਰਨ ਵਿੱਚ ਗਲਤੀ"
+
+#: gui.py:1176 text.py:482
 #, python-format
 msgid ""
 "Error processing drive:\n"
@@ -368,23 +396,23 @@ msgstr ""
 "\n"
 "ਇਹ ਕਾਰਵਾਈ ਮੁੜ-ਸ਼ੁਰੂ ਹੋਣ ਵਾਲੀਆਂ ਸਭ ਡਿਸਕਾਂ ਤੇ ਲਾਗੂ ਹੋ ਸਕਦੀ ਹੈ।!%(details)s"
 
-#: gui.py:1108 gui.py:1166 text.py:491 text.py:549
+#: gui.py:1185 gui.py:1243 installinterfacebase.py:74 text.py:491 text.py:549
 msgid "_Ignore"
 msgstr "ਅਣਡਿੱਠਾ(_I)"
 
-#: gui.py:1109 gui.py:1167 text.py:492 text.py:550
+#: gui.py:1186 gui.py:1244 text.py:492 text.py:550
 msgid "Ignore _all"
 msgstr "ਸਭ ਅਣਡਿੱਠੇ(_a)"
 
-#: gui.py:1110 gui.py:1168 text.py:493 text.py:551
+#: gui.py:1187 gui.py:1245 text.py:493 text.py:551
 msgid "_Re-initialize"
 msgstr "ਮੁੜ-ਸ਼ੁਰੂ(_R)"
 
-#: gui.py:1111 gui.py:1169 text.py:494 text.py:552
+#: gui.py:1188 gui.py:1246 text.py:494 text.py:552
 msgid "Re-ini_tialize all"
 msgstr "ਸਭ ਮੁੜ-ਸ਼ੁਰੂ(_t)"
 
-#: gui.py:1159 text.py:542
+#: gui.py:1236 text.py:542
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -398,19 +426,19 @@ msgstr ""
 "ਜੋ ਸਭ LVM ਮੈਟਾਡਾਟਾ ਨੂੰ ਹਟਾਏਗਾ। ਜਾਂ ਅਣਡਿੱਠਾ ਕਰ ਦਿਓ, ਜਿਸ ਨਾਲ ਡਾਟਾ ਸਹੀ ਸਲਾਮਤ ਰਹੇਗਾ। ਇਹ "
 "ਕਾਰਵਾਈ ਸਭ PVs ਤੇ ਲਾਗੂ ਕੀਤੀ ਜਾ ਸਕਦੀ ਹੈ ਜਿਨਾਂ ਤੇ ਨਾ-ਇੱਕਸਾਰ ਮੈਟਾਡਾਟਾ ਹੈ।"
 
-#: gui.py:1191 text.py:390
+#: gui.py:1268 text.py:390
 msgid "Error Parsing Kickstart Config"
 msgstr "ਗਲਤੀ ਕਿੱਕਸਟਾਰਟ ਸੰਰਚਨਾ ਨੂੰ ਪਾਰਸ ਕਰਨ ਦੌਰਾਨ"
 
-#: gui.py:1234
+#: gui.py:1311
 msgid "default:LTR"
 msgstr "default:LTR"
 
-#: gui.py:1314 text.py:619
+#: gui.py:1391 text.py:619
 msgid "Error!"
 msgstr "ਗਲਤੀ!"
 
-#: gui.py:1315 text.py:620
+#: gui.py:1392 text.py:620
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -421,46 +449,46 @@ msgstr ""
 "\n"
 "className= %s"
 
-#: gui.py:1320 image.py:164 image.py:194 packages.py:359
-#: storage/__init__.py:1794
+#: gui.py:1397 image.py:164 image.py:194 packages.py:360
+#: storage/__init__.py:1797
 msgid "_Exit"
 msgstr "ਬਾਹਰ(_E)"
 
-#: gui.py:1321 image.py:164 image.py:194 livecd.py:205 yuminstall.py:827
-#: yuminstall.py:1226 yuminstall.py:1284 yuminstall.py:1490
+#: gui.py:1398 image.py:164 image.py:194 livecd.py:205 yuminstall.py:829
+#: yuminstall.py:1233 yuminstall.py:1293 yuminstall.py:1499
 msgid "_Retry"
 msgstr "ਮੁਡ਼ ਕੋਸ਼ਿਸ਼(_R)"
 
-#: gui.py:1323 storage/partitioning.py:275
+#: gui.py:1400 storage/partitioning.py:277
 msgid "The system will now reboot."
 msgstr "ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼-ਚਾਲੂ ਹੋ ਜਾਵੇਗਾ।"
 
-#: gui.py:1324 image.py:251 packages.py:363 yuminstall.py:1531
+#: gui.py:1401 image.py:251 packages.py:364 yuminstall.py:1540
 msgid "_Reboot"
 msgstr "ਮੁਡ਼ ਚਾਲੂ(_R)"
 
-#: gui.py:1326
+#: gui.py:1403
 msgid "Exiting"
 msgstr "ਬੰਦ ਹੋ ਰਿਹਾ ਹੈ"
 
-#: gui.py:1407 livecd.py:126 text.py:267 upgrade.py:190
+#: gui.py:1484 livecd.py:126 text.py:267 upgrade.py:190
 msgid "Exit installer"
 msgstr "ਇੰਸਟਾਲਰ ਬੰਦ ਕਰੋ"
 
-#: gui.py:1408
+#: gui.py:1485
 msgid "Are you sure you wish to exit the installer?"
 msgstr "ਕੀ ਤੁਸੀਂ ਸਕੀਨਨ ਇੰਸਟਾਲੇਸ਼ਨ ਬੰਦ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: gui.py:1417
+#: gui.py:1494
 #, python-format
 msgid "%s Installer"
 msgstr "%s ਇੰਸਟਾਲਰ"
 
-#: gui.py:1423
+#: gui.py:1500
 msgid "Unable to load title bar"
 msgstr "ਟਾਈਟਲ ਬਾਰ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ"
 
-#: gui.py:1492
+#: gui.py:1569
 msgid "Install Window"
 msgstr "ਇੰਸਟਾਲ ਵਿੰਡੋ"
 
@@ -533,8 +561,8 @@ msgstr ""
 "ਕਿਰਪਾ ਕਰਕੇ ਇੰਸਟਾਲੇਸ਼ਨ ਨਾਲ ਜਾਰੀ ਰਹਿਣ ਤੋਂ ਪਹਿਲਾਂ ਤੁਸੀਂ ਇਹਨਾਂ ਨੂੰ ਤਿਆਰ ਕਰ ਲਵੋ। ਜੇਕਰ ਤੁਹਾਨੂੰ "
 "ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ ਛੱਡਣ ਦੀ ਜ਼ਰੂਰਤ ਹੈ ਤਾਂ ਮੁਡ਼ ਚਾਲ਼ੂ ਕਰਨ ਲਈ \"ਮੁਡ਼-ਚਾਲੂ\" ਨੂੰ ਦਬਾਓ।"
 
-#: image.py:251 livecd.py:409 packages.py:363 upgrade.py:198 yuminstall.py:960
-#: yuminstall.py:1046 yuminstall.py:1471 yuminstall.py:1513 yuminstall.py:1531
+#: image.py:251 livecd.py:446 packages.py:364 upgrade.py:198 yuminstall.py:964
+#: yuminstall.py:1050 yuminstall.py:1480 yuminstall.py:1522 yuminstall.py:1540
 #: ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr "ਪਿੱਛੇ(_B)"
@@ -689,7 +717,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Scriptlet ਅਸਫਲਤਾ"
 
-#: kickstart.py:149 rescue.py:261 yuminstall.py:1196 iw/task_gui.py:305
+#: kickstart.py:149 rescue.py:262 yuminstall.py:1201 iw/task_gui.py:306
 msgid "No Network Available"
 msgstr "ਕੋਈ ਨੈੱਟਵਰਕ ਉਪਲੱਬਧ ਨਹੀਂ"
 
@@ -713,37 +741,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: kickstart.py:1229
+#: kickstart.py:1233
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "%%ksappend ਸਤਰਾਂ ਖੋਲ੍ਹਣ ਵਿੱਚ ਗਲਤੀ: %s"
 
-#: kickstart.py:1232
+#: kickstart.py:1236
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "%%ksappend ਸਤਰਾਂ ਵਰਤਣ ਦੌਰਾਨ ਅਣਪਛਾਤੀ ਗਲਤੀ ਆਈ ਹੈ: %s"
 
-#: kickstart.py:1287 livecd.py:229
+#: kickstart.py:1291 livecd.py:228
 msgid "Post-Installation"
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲ"
 
-#: kickstart.py:1288
+#: kickstart.py:1292
 msgid "Running post-installation scripts"
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲੇਸ਼ਨ ਸਕਰਿਪਟਾਂ ਚੱਲ ਰਹੀਆਂ ਹਨ"
 
-#: kickstart.py:1304
+#: kickstart.py:1308
 msgid "Pre-Installation"
 msgstr "ਪਰੀ-ਇੰਸਟਾਲੇਸ਼ਨ"
 
-#: kickstart.py:1305
+#: kickstart.py:1309
 msgid "Running pre-installation scripts"
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲੇਸ਼ਨ ਸਕਰਿਪਟਾਂ ਚੱਲ ਰਹੀਆਂ ਹਨ"
 
-#: kickstart.py:1337
+#: kickstart.py:1341
 msgid "Missing Package"
 msgstr "ਗੈਰ-ਮੌਜੂਦ ਪੈਕੇਜ"
 
-#: kickstart.py:1338
+#: kickstart.py:1342
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -752,19 +780,19 @@ msgstr ""
 "ਤੁਸੀਂ ਚੁਣਿਆ ਹੈ ਕਿ ਪੈਕੇਜ '%s' ਇੰਸਟਾਲ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।  ਇਹ ਪੈਕੇਜ ਮੌਜੂਦ ਨਹੀਂ ਹੈ। ਕੀ ਤੁਸੀਂ ਅੱਗੇ ਜਾਣਾ "
 "ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਆਪਣੀ ਇੰਸਟਾਲੇਸ਼ਨ ਅਧੂਰੀ ਛੱਡਣੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: kickstart.py:1344 kickstart.py:1383
+#: kickstart.py:1348 kickstart.py:1387
 msgid "_Abort"
 msgstr "ਅਧੂਰਾ ਛੱਡੋ(_A)"
 
-#: kickstart.py:1345 kickstart.py:1384
+#: kickstart.py:1349 kickstart.py:1388
 msgid "_Ignore All"
 msgstr "ਸਭ ਅਣਡਿੱਠੇ(_I)"
 
-#: kickstart.py:1375
+#: kickstart.py:1379
 msgid "Missing Group"
 msgstr "ਗੈਰ-ਮੌਜੂਦ ਗਰੁੱਪ"
 
-#: kickstart.py:1376
+#: kickstart.py:1380
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -773,7 +801,7 @@ msgstr ""
 "ਤੁਸੀਂ '%s' ਗਰੁੱਪ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਦਿੱਤਾ ਹੈ।  ਇਹ ਗਰੁੱਪ ਮੌਜੂਦ ਨਹੀਂ ਹੈ। ਕੀ ਤੁਸੀਂ ਅੱਗੇ ਜਾਣਾ ਚਾਹੁੰਦੇ ਹੋ "
 "ਜਾਂ ਆਪਣੀ ਇੰਸਟਾਲੇਸ਼ਨ ਅਧੂਰੀ ਛੱਡਣੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: kickstart.py:1491
+#: kickstart.py:1496
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -812,38 +840,38 @@ msgstr ""
 "ਜੇਕਰ ਤੁਸੀਂ ਬੰਦ ਕਰ ਦਿੱਤਾ ਤਾਂ ਇਹ ਹੋ ਸਕਦਾ ਹੈ ਕਿ ਸਿਸਟਮ ਇਸ ਹਾਲਤ ਵਿੱਚ ਰਹਿ ਜਾਵੇ ਕਿ ਜਿਸ ਲਈ ਮੁੜ-"
 "ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ ਪਵੇ।"
 
-#: livecd.py:230
+#: livecd.py:229
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲੇਸ਼ਨ ਫਾਇਲ-ਸਿਸਟਮ ਬਦਲਾਅ ਜਾਰੀ ਹਨ।  ਇਸ ਨੂੰ ਕੁਝ ਮਿੰਟ ਲੱਗ ਸਕਦੇ ਹਨ।"
 
-#: livecd.py:404
+#: livecd.py:441
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr "ਰੂਟ ਫਾਇਲ-ਸਿਸਟਮ ਜੋ ਤੁਸੀਂ ਬਣਾਇਆ ਹੈ, ਇਸ ਲਾਈਨ ਇਮੇਜ਼ ਲਈ ਕਾਫੀ ਨਹੀਂ ਹੈ (%.2f MB ਦੀ ਲੋੜ ਹੈ)।"
 
-#: network.py:56
+#: network.py:62
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ 255  ਜਾਂ ਘੱਟ ਅੱਖਰਾਂ ਦਾ ਹੋਣਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
-#: network.py:62
+#: network.py:68
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
 msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ ਇਹਨਾਂ ਅੱਖਰਾ 'a-z' ਜਾਂ 'A-Z' ਜਾਂ '0-9' ਨਾਲ ਸ਼ੁਰੂ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ"
 
-#: network.py:67
+#: network.py:73
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "ਮੇਜ਼ਬਾਨ-ਨਾਂ ਦੇ ਨਾਂ ਵਿੱਚ ਸਿਰਫ 'a-z', 'A-Z', '0-9', '-', ਜਾਂ '.' ਅੱਖਰ ਹੀ ਵਰਤਣੇ ਚਾਹੀਦੇ ਹਨ।"
 
-#: network.py:176
+#: network.py:135
 msgid "IP address is missing."
 msgstr "IP ਐਡਰੈੱਸ ਨਹੀਂ ਹੈ।"
 
-#: network.py:180
+#: network.py:139
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
@@ -851,12 +879,12 @@ msgstr ""
 "IPv4 ਸਿਰਨਾਵੇਂ ਵਿੱਚ 0 ਅਤੇ 255 ਦੇ ਵਿੱਚੋਂ ਚਾਰ ਅੰਕ ਹੋਣੇ ਜ਼ਰੂਰੀ ਹਨ, ਜਿੰਨਾਂ ਨੂੰ ਬਿੰਦੀ ਰਾਹੀਂ ਵੱਖ ਕੀਤਾ "
 "ਹੁੰਦਾ ਹੈ।"
 
-#: network.py:183
+#: network.py:142
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' ਇੱਕ ਠੀਕ IPv6 ਐਡਰੈੱਸ ਨਹੀਂ ਹੈ।"
 
-#: network.py:185
+#: network.py:144
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' ਇੱਕ ਠੀਕ IP ਐਡਰੈੱਸ ਨਹੀਂ ਹੈ।"
@@ -936,11 +964,11 @@ msgstr "ਤੁਹਾਡੀ ਸਟੋਰੇਜ਼ ਸੰਰਚਨਾ ਨੂੰ �
 msgid "_File Bug"
 msgstr "ਬੱਗ ਦਿਓ(_F)"
 
-#: packages.py:343 packages.py:364
+#: packages.py:344 packages.py:365
 msgid "Warning! This is pre-release software!"
 msgstr "ਚੇਤਵਾਨੀ! ਇਹ ਪਹਿਲਾਂ-ਰੀਲਿਜ਼ ਸਾਫਟਵੇਅਰ ਹੈ!"
 
-#: packages.py:344
+#: packages.py:345
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %(productName)s.\n"
@@ -966,11 +994,11 @@ msgstr ""
 "\n"
 "'%(fileagainst)s' ਦੇ ਲਈ ਰਿਪੋਰਟ ਦਿਉ।\n"
 
-#: packages.py:359
+#: packages.py:360
 msgid "_Install anyway"
 msgstr "ਕਿਵੇਂ ਵੀ ਇੰਸਟਾਲ(_I)"
 
-#: packages.py:362
+#: packages.py:363
 msgid "Your system will now be rebooted..."
 msgstr "ਤੁਹਾਡਾ ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਚਾਲੂ ਹੋਵੇਗਾ..."
 
@@ -1016,7 +1044,7 @@ msgstr ""
 "ਗਲਤੀ - ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ ਵਿੱਚ ਗਲਤ ਅੱਖਰ ਜਾਂ ਖਾਲੀ ਥਾਂਵਾਂ ਹਨ। ਮੰਨਣਯੋਗ ਅੱਖਰ ਹਨ ਵਰਣਨਮਾਲਾ, "
 "ਅੰਕ , '.' ਜਾਂ '_'।"
 
-#: partIntfHelpers.py:101
+#: partIntfHelpers.py:105
 #, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
@@ -1025,38 +1053,34 @@ msgstr ""
 "ਮਾਊਂਟ ਪੁਆਇੰਟ %s ਗਲਤ ਹੈ।  ਮਾਊਂਟ ਪੁਆਇੰਟ '/' ਨਾਲ ਸ਼ੁਰੂ ਹੋਣੀ ਲਾਜ਼ਮੀ ਹੈ ਅਤੇ '/' ਨਾਲ ਖਤਮ ਨਹੀਂ ਹੋ "
 "ਸਕਦੀ ਹੈ, ਅਤੇ ਇਸ ਲਈ ਛਪਣਯੋਗ ਅੱਖਰ ਹੋਣੇ ਜ਼ਰੂਰੀ ਹਨ ਅਤੇ ਖਾਲੀ ਥਾਂ ਨਹੀਂ ਹੋਣੀ ਚਾਹੀਦੀ।"
 
-#: partIntfHelpers.py:108
-msgid "Please specify a mount point for this partition."
-msgstr "ਇਸ ਪਾਰਟੀਸ਼ਨ ਲਈ ਮਾਊਂਟ ਪੁਆਇੰਟ ਦਿਉ ਜੀ।"
-
-#: partIntfHelpers.py:121 partIntfHelpers.py:128
+#: partIntfHelpers.py:117 partIntfHelpers.py:124
 msgid "Unable To Delete"
 msgstr "ਹਟਾਉਣ ਵਿੱਚ ਅਸਮਰੱਥ"
 
-#: partIntfHelpers.py:122
+#: partIntfHelpers.py:118
 msgid "You must first select a partition to delete."
 msgstr "ਤੁਹਾਨੂੰ ਪਹਿਲਾਂ ਹਟਾਉਣ ਲਈ ਇੱਕ ਪਾਰਟੀਸ਼ਨ ਚੁਣਨਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
-#: partIntfHelpers.py:153 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:860
+#: partIntfHelpers.py:149 partIntfHelpers.py:337 iw/lvm_dialog_gui.py:877
 msgid "Confirm Delete"
 msgstr "ਹਟਾਉਣ ਦੀ ਪੁਸ਼ਟੀ"
 
-#: partIntfHelpers.py:154
+#: partIntfHelpers.py:150
 #, python-format
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr "ਤੁਸੀਂ ਜੰਤਰ '%s' ਉੱਤੇ ਸਭ ਪਾਰਟੀਸ਼ਨ ਹਟਾਉਣ ਲਈ ਤਿਆਰ ਹੋ।"
 
-#: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:863
-#: iw/lvm_dialog_gui.py:1432 iw/osbootwidget.py:104 iw/partition_gui.py:1821
-#: iw/partition_gui.py:1833
+#: partIntfHelpers.py:153 partIntfHelpers.py:338 iw/lvm_dialog_gui.py:880
+#: iw/lvm_dialog_gui.py:1449 iw/osbootwidget.py:104 iw/partition_gui.py:1797
+#: iw/partition_gui.py:1809
 msgid "_Delete"
 msgstr "ਹਟਾਓ(_D)"
 
-#: partIntfHelpers.py:204
+#: partIntfHelpers.py:200
 msgid "Notice"
 msgstr "ਸੂਚਨਾ"
 
-#: partIntfHelpers.py:205
+#: partIntfHelpers.py:201
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1067,11 +1091,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: partIntfHelpers.py:220
+#: partIntfHelpers.py:216
 msgid "Format as Swap?"
 msgstr "ਸਵੈਪ ਵਜੋਂ ਫਾਰਮੈਟ ਕਰਨਾ ਹੈ?"
 
-#: partIntfHelpers.py:221
+#: partIntfHelpers.py:217
 #, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1084,12 +1108,12 @@ msgstr ""
 "\n"
 "ਕੀ ਤੁਸੀਂ ਇਸ ਨੂੰ ਲੀਨਕਸ ਸਵੈਪ ਵਜੋਂ ਫਾਰਮੈਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: partIntfHelpers.py:236
+#: partIntfHelpers.py:232
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "ਤੁਹਾਨੂੰ %s ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਹਾਰਡ ਡਰਾਈਵ ਦੀ ਚੋਣ ਕਰਨੀ ਪਵੇਗੀ।"
 
-#: partIntfHelpers.py:241
+#: partIntfHelpers.py:237
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1103,23 +1127,23 @@ msgstr ""
 "ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ ਕੋਈ ਸਮੱਸਿਆ ਨਾ ਆਵੇ। ਪਰ ਜੇਕਰ ਤੁਸੀਂ ਇਸ ਪਾਰਟੀਸ਼ਨ ਉੱਤੇ ਕੁਝ ਫਾਇਲਾਂ, ਜਿਵੇਂ ਕਿ home "
 "ਡਾਇਰੈਕਟਰੀਆਂ ਆਦਿ ਨੂੰ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਬੇਸ਼ੱਕ ਇਸ ਭਾਗ ਨੂੰ ਫਾਰਮੈਟ ਕੀਤੇ ਬਿਨਾਂ ਹੀ ਜਾਰੀ ਰੱਖੋ।"
 
-#: partIntfHelpers.py:249
+#: partIntfHelpers.py:245
 msgid "Format?"
 msgstr "ਫਾਰਮੈਟ?"
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1606
+#: partIntfHelpers.py:245 iw/partition_gui.py:1582
 msgid "_Modify Partition"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਸੋਧ(_M)"
 
-#: partIntfHelpers.py:249
+#: partIntfHelpers.py:245
 msgid "Do _Not Format"
 msgstr "ਫਾਰਮੈਟ ਨਾ ਕਰੋ(_N)"
 
-#: partIntfHelpers.py:257
+#: partIntfHelpers.py:253
 msgid "Error with Partitioning"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: partIntfHelpers.py:258
+#: partIntfHelpers.py:254
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1133,11 +1157,11 @@ msgstr ""
 "\n"
 "%(errorstr)s"
 
-#: partIntfHelpers.py:274
+#: partIntfHelpers.py:270
 msgid "Partitioning Warning"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਚੇਤਾਵਨੀ"
 
-#: partIntfHelpers.py:275
+#: partIntfHelpers.py:271
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1152,13 +1176,13 @@ msgstr ""
 "\n"
 "ਕੀ ਤੁਸੀਂ ਆਪਣੀ ਦਿੱਤੀ ਪਾਰਟੀਸ਼ਨ ਸਕੀਮ ਨਾਲ ਜਾਰੀ ਰਹਿਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: partIntfHelpers.py:289
+#: partIntfHelpers.py:285
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr "ਇਹ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਪਾਰਟੀਸ਼ਨ ਫਾਰਮੈਟ ਲਈ ਚੁਣੇ ਗਏ ਹਨ, ਜਿਸ ਨਾਲ ਸਾਰਾ ਡਾਟਾ ਖਤਮ ਹੋ ਜਾਏਗਾ।"
 
-#: partIntfHelpers.py:292
+#: partIntfHelpers.py:288
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1166,11 +1190,11 @@ msgstr ""
 "ਜਾਰੀ ਰਹਿਣ ਲਈ 'ਹਾਂ' ਚੁਣੋ ਅਤੇ ਇਹਨਾਂ ਪਾਰਟੀਸ਼ਨ ਨੂੰ ਫਾਰਮੈਟ ਕਰੋ ਅਤੇ ਜਾਂ ਪਿੱਛੇ ਜਾਣ ਲਈ 'ਨਹੀਂ' ਚੁਣੋ ਅਤੇ "
 "ਇਹ ਸੈਟਿੰਗ ਬਦਲੋ।"
 
-#: partIntfHelpers.py:298
+#: partIntfHelpers.py:294
 msgid "Format Warning"
 msgstr "ਫਾਰਮੈਟ ਚੇਤਾਵਨੀ"
 
-#: partIntfHelpers.py:325
+#: partIntfHelpers.py:321
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1181,35 +1205,35 @@ msgstr ""
 "\n"
 "ਇਸ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ ਮੌਜੂਦ *ਸਭ* ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਖਤਮ ਹੋ ਜਾਣਗੇ!"
 
-#: partIntfHelpers.py:329
+#: partIntfHelpers.py:325
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "ਤੁਸੀਂ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ \"%s\" ਨੂੰ ਹਟਾਉਣ ਲਈ ਲਗਭਗ ਤਿਆਰ ਹੋ।"
 
-#: partIntfHelpers.py:332
+#: partIntfHelpers.py:328
 msgid "You are about to delete a RAID device."
 msgstr "ਤੁਸੀਂ ਰੇਡ (RAID) ਜੰਤਰ ਨੂੰ ਹਟਾਉਣ ਲਈ ਲਗਭਗ ਤਿਆਰ ਹੋ।"
 
-#: partIntfHelpers.py:334
+#: partIntfHelpers.py:330
 #, python-format
 msgid "You are about to delete the %s partition."
 msgstr "ਤੁਸੀਂ %s ਪਾਰਟੀਸ਼ਨ ਨੂੰ ਹਟਾਉਣ ਲਈ ਲਗਭਗ ਤਿਆਰ ਹੋ।"
 
-#: partIntfHelpers.py:338
+#: partIntfHelpers.py:334
 #, python-format
 msgid "You are about to delete the %(type)s %(name)s"
 msgstr "ਤੁਸੀਂ %(type)s %(name)s ਨੂੰ ਹਟਾਉਣ ਲਈ ਲਗਭਗ ਤਿਆਰ ਹੋ।"
 
-#: partIntfHelpers.py:349
+#: partIntfHelpers.py:345
 msgid "Confirm Reset"
 msgstr "ਰੀਸੈੱਟ ਪੁਸ਼ਟੀ"
 
-#: partIntfHelpers.py:350
+#: partIntfHelpers.py:346
 msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "ਕੀ ਤੁਸੀਂ ਪਾਰਟੀਸ਼ਨ ਟੇਬਲ ਨੂੰ ਇਸ ਦੀ ਮੁੱਢਲੀ ਹਾਲਤ 'ਚ ਮੁੜ-ਸੈੱਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: platform.py:98 platform.py:339 platform.py:407 platform.py:514
-#: ui/create-storage.glade.h:17
+#: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "ਰੇਡ(RAID) ਜੰਤਰ"
 
@@ -1291,43 +1315,43 @@ msgstr "Apple ਬੂਟਸਟਰੇਪ"
 msgid "%s must have a mac disk label."
 msgstr "%s ਦਾ ਇੱਕ mac ਡਿਸਕ ਲੇਬਲ ਹੋਣਾ ਜਰੂਰੀ ਹੈ।"
 
-#: rescue.py:220
+#: rescue.py:221
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "ਜਦੋਂ ਵੀ ਸਮਾਪਤ ਹੋ ਗਿਆ ਤਾਂ ਸ਼ੈੱਲ ਵਿੱਚੋਂ ਬਾਹਰ ਆ ਜਾਉ ਅਤੇ ਤੁਹਾਡਾ ਸਿਸਟਮ ਮੁਡ਼ ਚਾਲੂ ਹੋ ਜਾਵੇਗਾ।"
 
-#: rescue.py:234
+#: rescue.py:235
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "ਚਲਾਉਣ ਲਈ /bin/sh ਨੂੰ ਲੱਭ ਨਹੀਂ ਸਕਿਆ! ਸ਼ੈੱਟ ਚਾਲੂ ਨਹੀਂ ਕਰ ਰਿਹਾ"
 
-#: rescue.py:253
+#: rescue.py:254
 msgid "Setup Networking"
 msgstr "ਨੈੱਟਵਰਕ ਸੈੱਟਅੱਪ"
 
-#: rescue.py:254
+#: rescue.py:255
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "ਕੀ ਤੁਸੀਂ ਸਿਸਟਮ ਉੱਤੇ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਸ਼ੁਰੂ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: rescue.py:255 loader/driverdisk.c:665 loader/driverdisk.c:675
+#: rescue.py:256 loader/driverdisk.c:648 loader/driverdisk.c:658
 #: loader/hdinstall.c:212 textw/constants_text.py:56
 msgid "Yes"
 msgstr "ਹਾਂ"
 
-#: rescue.py:255 rescue.py:257 loader/driverdisk.c:665 loader/driverdisk.c:675
+#: rescue.py:256 rescue.py:258 loader/driverdisk.c:648 loader/driverdisk.c:658
 #: textw/constants_text.py:60
 msgid "No"
 msgstr "ਨਹੀਂ"
 
-#: rescue.py:262
+#: rescue.py:263
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
 msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ ਐਕਟੀਵੇਟ ਕਰਨ ਲਈ ਅਸਮੱਰਥ ਹੈ।  ਸੰਕਟਕਾਲੀਨ ਮੋਡ ਵਿੱਚ ਨੈੱਟਵਰਕ ਉਪਲੱਬਧ ਨਹੀਂ ਹੋਵੇਗਾ।"
 
-#: rescue.py:298 rescue.py:373 rescue.py:384 rescue.py:462
+#: rescue.py:299 rescue.py:374 rescue.py:385 rescue.py:465 rescue.py:494
 msgid "Rescue"
 msgstr "ਸੰਕਟਕਾਲੀਨ"
 
-#: rescue.py:299
+#: rescue.py:300
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1351,38 +1375,38 @@ msgstr ""
 "ਸਕਦੇ ਹੋ ਅਤੇ ਕਮਾਂਡ ਸ਼ੈੱਲ ਤੇ ਕੰਮ ਕਰ ਸਕਦੇ ਹੋ।\n"
 "\n"
 
-#: rescue.py:310 iw/partition_gui.py:781 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:626 storage/__init__.py:155
+#: rescue.py:311 iw/partition_gui.py:781 loader/cdinstall.c:206
+#: loader/cdinstall.c:214 loader/driverdisk.c:609 storage/__init__.py:155
 #: storage/devicetree.py:90
 msgid "Continue"
 msgstr "ਜਾਰੀ ਰੱਖੋ"
 
-#: rescue.py:310 rescue.py:319
+#: rescue.py:311 rescue.py:320
 msgid "Read-Only"
 msgstr "ਕੇਵਲ ਪੜ੍ਹਨ ਲਈ"
 
-#: rescue.py:310 rescue.py:312 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1794 textw/upgrade_text.py:137
+#: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
+#: loader/method.c:324 storage/__init__.py:1797 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "ਵਿਚੇ ਛੱਡੋ"
 
-#: rescue.py:310 rescue.py:315
+#: rescue.py:311 rescue.py:316
 msgid "Advanced"
 msgstr "ਤਕਨੀਕੀ"
 
-#: rescue.py:349
+#: rescue.py:350
 msgid "System to Rescue"
 msgstr "ਸੰਕਟਕਾਲੀਨ ਲਈ ਸਿਸਟਮ"
 
-#: rescue.py:350
+#: rescue.py:351
 msgid "Which device holds the root partition of your installation?"
 msgstr "ਕਿਹਡ਼ਾ ਪਾਰਟੀਸ਼ਨ ਤੁਹਾਡੀ ਇੰਸਟਾਲੇਸ਼ਨ ਦੇ ਰੂਟ (root) ਪਾਰਟੀਸ਼ਨ ਰੱਖਦਾ ਹੈ?"
 
-#: rescue.py:352 rescue.py:356 text.py:624 text.py:626
+#: rescue.py:353 rescue.py:357 text.py:624 text.py:626
 msgid "Exit"
 msgstr "ਬਾਹਰ"
 
-#: rescue.py:374
+#: rescue.py:375
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1392,7 +1416,7 @@ msgstr ""
 "ਵਿੱਚ ਜਾਉ ਅਤੇ fsck ਨਾਲ ਆਪਣੇ ਪਾਰਟੀਸ਼ਨ ਮਾਊਂਟ ਕਰੋ। ਜਦੋਂ ਤੁਸੀਂ ਸ਼ੈੱਲ ਵਿਚੋਂ ਬਾਹਰ ਜਾਉਂਗੇ ਤਾਂ ਸਿਸਟਮ ਖੁਦ "
 "ਹੀ ਮੁਡ਼-ਚਾਲੂ ਹੋ ਜਾਵੇਗਾ।"
 
-#: rescue.py:385
+#: rescue.py:386
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -1413,7 +1437,7 @@ msgstr ""
 "\n"
 "ਜਦੋਂ ਤੁਸੀਂ ਸ਼ੈੱਲ ਵਿਚੋਂ ਬਾਹਰ ਜਾਉਗੇ ਤਾਂ ਸਿਸਟਮ ਖੁਦ ਹੀ ਮੁਡ਼-ਚਾਲੂ ਹੋ ਜਾਵੇਗਾ।"
 
-#: rescue.py:463
+#: rescue.py:466
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1428,15 +1452,15 @@ msgstr ""
 "ਸ਼ੈੱਲ ਵਿੱਚ ਜਾਣ ਲਈ <Enter> ਦਬਾਓ। ਜਦੋਂ ਤੁਸੀਂ ਸ਼ੈੱਲ ਵਿਚੋ ਬਾਹਰ ਜਾਉਗੇ ਤਾਂ ਸਿਸਟਮ ਖੁਦ ਹੀ ਮੁਡ਼-ਚਾਲੂ ਹੋ "
 "ਜਾਵੇਗਾ।"
 
-#: rescue.py:472
+#: rescue.py:476
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਲੀਨਕਸ ਭਾਗ ਨਹੀਂ ਹੈ।  ਮੁੜ-ਚਾਲੂ ਹੋ ਰਿਹਾ ਹੈ।\n"
 
-#: rescue.py:475
+#: rescue.py:479
 msgid "Rescue Mode"
 msgstr "ਸੰਕਟਕਾਲੀਨ ਮੋਡ"
 
-#: rescue.py:476
+#: rescue.py:480
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1444,7 +1468,7 @@ msgstr ""
 "ਤੁਹਾਡੇ ਕੋਲ ਕੋਈ ਲੀਨਕਸ ਭਾਗ ਨਹੀਂ ਹੈ। ਸ਼ੈੱਲ ਤੇ ਜਾਣ ਲਈ ਐਂਟਰ ਦਬਾਓ। ਸ਼ੈੱਲ ਤੋਂ ਬਾਹਰ ਆਉਣ ਸਮੇਂ ਸਿਸਟਮ ਮੁਡ਼ "
 "ਚਾਲੂ ਹੋ ਜਾਵੇਗਾ।"
 
-#: rescue.py:489
+#: rescue.py:493
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "ਤੁਹਾਡਾ ਸਿਸਟਮ %s ਡਾਇਰੈਕਟਰੀ ਦੇ ਅਧੀਨ ਮਾਊਂਟ ਹੈ।"
@@ -1490,8 +1514,8 @@ msgid ""
 "screen"
 msgstr "  <Tab>/<Alt-Tab> ਇਕਾਈਆਂ ਵਿੱਚ  |  <Space> ਚੋਣ   |  <F12> ਅਗਲਾ ਪਰਦਾ"
 
-#: text.py:624 loader/net.c:110 loader/net.c:471 loader/net.c:526
-#: loader/net.c:668 loader/net.c:676 loader/net.c:1097 loader/net.c:1105
+#: text.py:624 loader/net.c:110 loader/net.c:472 loader/net.c:527
+#: loader/net.c:669 loader/net.c:677 loader/net.c:1098 loader/net.c:1106
 msgid "Retry"
 msgstr "ਮੁਡ਼ ਕੋਸ਼ਿਸ਼"
 
@@ -1802,7 +1826,7 @@ msgstr ""
 "%s ਪੈਕੇਜ ਇੰਸਟਾਲ ਕਰਨ ਦੌਰਾਨ ਘਾਤਕ ਗਲਤੀ ਆਈ ਹੈ।  ਇਸ ਦਾ ਕਾਰਨ ਇੰਸਾਟਲੇਸ਼ਨ ਮੀਡੀਆ ਪੜਨ ਦੌਰਾਨ "
 "ਗਲਤੀ ਹੋ ਸਕਦੀ ਹੈ।  ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਰੀ ਨਹੀਂ ਹੈ ਸਕਦੀ।"
 
-#: yuminstall.py:345 iw/task_gui.py:317
+#: yuminstall.py:345 iw/task_gui.py:318
 msgid "Error Setting Up Repository"
 msgstr "ਰਿਪੋਜ਼ਟਰੀ ਸੈੱਟ ਕਰਨ ਵਿੱਚ ਗਲਤੀ ਆਈ ਹੈ"
 
@@ -1843,20 +1867,20 @@ msgstr "ਇਹ ਸਹੀ %s ਡਿਸਕ ਨਹੀਂ ਹੈ।"
 msgid "Unable to access the disc."
 msgstr "ਡਿਸਕ ਨੂੰ ਵਰਤਣ ਵਿੱਚ ਅਸਫਲ।"
 
-#: yuminstall.py:563
+#: yuminstall.py:567
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "ਰਿਪੋਜ਼ਟਰੀ %r ਦਾ ਨਾਂ ਸੰਰਚਨਾ ਵਿੱਚ ਨਹੀਂ ਹੈ, id ਵਰਤ ਰਿਹਾ ਹੈ"
 
-#: yuminstall.py:825 yuminstall.py:827
+#: yuminstall.py:827 yuminstall.py:829
 msgid "Re_boot"
 msgstr "ਮੁਡ਼ ਚਾਲੂ(_B)"
 
-#: yuminstall.py:825
+#: yuminstall.py:827
 msgid "_Eject"
 msgstr "ਬਾਹਰ ਕੱਢੋ(_E)"
 
-#: yuminstall.py:836
+#: yuminstall.py:840
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1873,60 +1897,60 @@ msgstr ""
 "ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ ਪਵੇ।\n"
 "\n"
 
-#: yuminstall.py:884
+#: yuminstall.py:888
 msgid "Retrying"
 msgstr "ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਜਾਰੀ"
 
-#: yuminstall.py:884
+#: yuminstall.py:888
 msgid "Retrying download."
 msgstr "ਡਾਊਨਲੋਡ ਦੀ ਮੁੜ-ਕੋਸ਼ਿਸ਼ ਜਾਰੀ।"
 
-#: yuminstall.py:949
+#: yuminstall.py:953
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "ਤੁਹਾਡੇ ਸੰਚਾਰ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ, ਕਾਰਨ ਅੱਗੇ ਦਿੱਤਾ ਹੈ: %s\n"
 
-#: yuminstall.py:992 yuminstall.py:993
+#: yuminstall.py:996 yuminstall.py:997
 msgid "file conflicts"
 msgstr "ਫਾਇਲ ਅਪਵਾਦ"
 
-#: yuminstall.py:994
+#: yuminstall.py:998
 msgid "older package(s)"
 msgstr "ਪੁਰਾਣੇ ਪੈਕੇਜ"
 
-#: yuminstall.py:995
+#: yuminstall.py:999
 msgid "insufficient disk space"
 msgstr "ਨਾ-ਲੋੜੀਂਦੀ ਡਿਸਕ ਥਾਂ"
 
-#: yuminstall.py:996
+#: yuminstall.py:1000
 msgid "insufficient disk inodes"
 msgstr "ਨਾ-ਲੋੜੀਂਦੀਆਂ ਡਿਸਕ inodes"
 
-#: yuminstall.py:997
+#: yuminstall.py:1001
 msgid "package conflicts"
 msgstr "ਪੈਕੇਜ ਅਪਵਾਦ"
 
-#: yuminstall.py:998
+#: yuminstall.py:1002
 msgid "package already installed"
 msgstr "ਪੈਕੇਜ ਪਹਿਲਾਂ ਹੀ ਇੰਸਟਾਲ ਹੈ"
 
-#: yuminstall.py:999
+#: yuminstall.py:1003
 msgid "required package"
 msgstr "ਲੋੜੀਂਦਾ ਪੈਕੇਜ"
 
-#: yuminstall.py:1000
+#: yuminstall.py:1004
 msgid "package for incorrect arch"
 msgstr "ਗਲਤ ਢਾਂਚੇ ਲਈ ਪੈਕੇਜ"
 
-#: yuminstall.py:1001
+#: yuminstall.py:1005
 msgid "package for incorrect os"
 msgstr "ਗਲਤ os ਲਈ ਪੈਕੇਜ"
 
-#: yuminstall.py:1015
+#: yuminstall.py:1019
 msgid "You need more space on the following file systems:\n"
 msgstr "ਤੁਹਾਨੂੰ ਹੇਠ ਦਿੱਤੇ ਫਾਇਲ ਸਿਸਟਮਾਂ ਉੱਤੇ ਹੋਰ ਥਾਂ ਲਈ ਹੈ:\n"
 
-#: yuminstall.py:1028
+#: yuminstall.py:1032
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -1935,18 +1959,18 @@ msgstr ""
 "ਇੰਸਟਾਲ ਕਰਨ ਵਾਲੇ ਪੈਕੇਜਾਂ ਦੀ ਜਾਂਚ ਦੌਰਾਨ ਫਾਇਲ ਅਪਵਾਦ ਆਇਆ ਹੈ:\n"
 "%s\n"
 
-#: yuminstall.py:1031
+#: yuminstall.py:1035
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr "ਤੁਹਾਡੇ ਸੰਚਾਰ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ, ਕਾਰਨ ਅੱਗੇ ਦਿੱਤਾ ਹੈ: %s\n"
 
-#: yuminstall.py:1038 yuminstall.py:1043
+#: yuminstall.py:1042 yuminstall.py:1047
 msgid "Error Running Transaction"
 msgstr "ਟਰਾਂਸੈਕਸ਼ਨ ਚਲਾਉਣ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: yuminstall.py:1197 iw/task_gui.py:306
+#: yuminstall.py:1202 iw/task_gui.py:307
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -1954,7 +1978,7 @@ msgstr ""
 "ਤੁਹਾਡੀਆਂ ਕੁਝ ਸਾਫਟਵੇਅਰ ਰਿਪੋਜ਼ਟਰੀਆਂ ਲਈ ਨੈੱਟਵਰਕਿੰਗ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਨੈੱਟਵਰਕਿੰਗ ਯੋਗ "
 "ਕਰਨ ਲਈ ਇੱਕ ਗਲਤੀ ਆਈ ਹੈ।"
 
-#: yuminstall.py:1231
+#: yuminstall.py:1238
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -1962,24 +1986,24 @@ msgstr ""
 "ਰਿਪੋਜ਼ਟਰੀਆਂ ਤੋਂ ਗਰੁੱਪ ਜਾਣਕਾਰੀ ਪੜ੍ਹਨ ਵਾਸਤੇ ਅਸਮਰੱਥ ਹੈ।  ਇਹ ਸਮੱਸਿਆ ਤੁਹਾਡੇ ਇੰਸਟਾਲ ਟਰੀ (ਲੜੀ) "
 "ਤਿਆਰ ਕਰਨ ਨਾਲ ਹੈ।"
 
-#: yuminstall.py:1267
+#: yuminstall.py:1274
 msgid "Retrieving installation information."
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਣਕਾਰੀ ਲਈ ਜਾ ਰਹੀ ਹੈ।"
 
-#: yuminstall.py:1269
+#: yuminstall.py:1276
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "%s ਲਈ ਇੰਸਟਾਲੇਸ਼ਨ ਜਾਣਕਾਰੀ ਲਈ ਜਾ ਰਹੀ ਹੈ।"
 
-#: yuminstall.py:1271
+#: yuminstall.py:1278
 msgid "Installation Progress"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਤਰੱਕੀ"
 
-#: yuminstall.py:1284 textw/constants_text.py:64
+#: yuminstall.py:1293 textw/constants_text.py:64
 msgid "Edit"
 msgstr "ਸੋਧ"
 
-#: yuminstall.py:1295 yuminstall.py:1485
+#: yuminstall.py:1304 yuminstall.py:1494
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1993,7 +2017,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1464
+#: yuminstall.py:1473
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2004,7 +2028,7 @@ msgstr ""
 "ਹੋ, ਪਿੱਛੇ ਜਾਓ ਅਤੇ ਆਪਣੀ ਪੈਕੇਜ ਚੋਣ ਤਬਦੀਲ ਕਰੋ. ਜਾਂ ਇਹਨਾਂ ਪੈਕੇਜਾਂ ਨੂੰ ਬਿਨਾਂ ਨਿਰਭਰਤਾ ਇੰਸਟਾਲ ਕਰਨ ਲਈ "
 "ਜਾਰੀ ਕਰ ਸਕਦੇ ਹੋ।"
 
-#: yuminstall.py:1507
+#: yuminstall.py:1516
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2014,15 +2038,15 @@ msgstr ""
 "ਤੁਹਾਡੇ ਚੁਣੇ ਪੈਕੇਜਾਂ ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ %d MB ਖਾਲੀ ਥਾਂ ਦੀ ਲੋੜ ਹੈ, ਪਰ ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਦੀ ਥਾਂ ਉਪਲੱਬਧ "
 "ਨਹੀਂ ਹੈ।  ਤੁਸੀਂ ਚੋਣ ਵਿੱਚ ਤਬਦੀਲੀਆਂ ਕਰ ਸਕਦੇ ਹੋ ਜਾਂ ਇੰਸਟਾਲਰ ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ।"
 
-#: yuminstall.py:1528
+#: yuminstall.py:1537
 msgid "Reboot?"
 msgstr "ਮੁਡ਼ ਚਾਲੂ ਕਰਨਾ?"
 
-#: yuminstall.py:1529
+#: yuminstall.py:1538
 msgid "The system will be rebooted now."
 msgstr "ਸਿਸਟਮ ਹੁਣ ਮੁਡ਼ ਚਾਲੂ ਹੋ ਜਾਵੇਗਾ।"
 
-#: yuminstall.py:1673
+#: yuminstall.py:1683
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2031,7 +2055,7 @@ msgstr ""
 "ਤੁਸੀਂ ਇੱਕ ਸਿਸਟਮ ਦਾ ਅੱਪਗਰੇਡ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ ਕਰ ਰਹੇ ਹੋ, ਜੋ ਕਿ %s ਦੇ ਇਸ ਵਰਜਨ ਲਈ ਬਹੁਤ ਪੁਰਾਣਾ ਹੈ। "
 "ਕੀ ਤੁਸੀਂ ਅੱਪਗਰੇਡ ਕਾਰਵਾਈ ਨੂੰ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੋਗੇ?"
 
-#: yuminstall.py:1708
+#: yuminstall.py:1718
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2043,35 +2067,35 @@ msgstr ""
 "ਤੁਹਾਡਾ %(arch)s ਦੇ ਪਿਛਲੇ ਇੰਸਟਾਲ ਢਾਂਚੇ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ। ਇਹ ਸਫਲ ਨਹੀਂ ਹੋਵੇਗਾ। ਕੀ ਤੁਸੀਂ "
 "ਅੱਪਗਰੇਡ ਕਾਰਵਾਈ ਨੂੰ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੋਗੇ?"
 
-#: yuminstall.py:1755
+#: yuminstall.py:1765
 msgid "Post Upgrade"
 msgstr "ਅੱਪਗਰੇਡ ਬਾਅਦ"
 
-#: yuminstall.py:1756
+#: yuminstall.py:1766
 msgid "Performing post-upgrade configuration"
 msgstr "ਅੱਪਗਰੇਡ ਦੇ ਬਾਅਦ ਸੰਰਚਨਾ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
-#: yuminstall.py:1758
+#: yuminstall.py:1768
 msgid "Post Installation"
 msgstr "ਪੋਸਟ ਇੰਸਟਾਲੇਸ਼ਨ"
 
-#: yuminstall.py:1759
+#: yuminstall.py:1769
 msgid "Performing post-installation configuration"
 msgstr "ਪੋਸਟ-ਇੰਸਟਾਲ ਸੰਰਚਨਾ ਜਾਰੀ ਹੈ"
 
-#: yuminstall.py:1980
+#: yuminstall.py:1990
 msgid "Installation Starting"
 msgstr "ਇੰਸਟਾਲ ਸ਼ੁਰੂ ਹੋ ਰਹੀ ਹੈ"
 
-#: yuminstall.py:1981
+#: yuminstall.py:1991
 msgid "Starting installation process"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਕਾਰਜ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ"
 
-#: yuminstall.py:2019
+#: yuminstall.py:2029
 msgid "Dependency Check"
 msgstr "ਨਿਰਭਰਤਾ ਜਾਂਚ"
 
-#: yuminstall.py:2020
+#: yuminstall.py:2030
 msgid "Checking dependencies in packages selected for installation"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਚੁਣੇ ਪੈਕੇਜਾਂ ਵਿੱਚ ਨਿਰਭਰਤਾ ਦੀ ਪੜਤਾਲ ਜਾਰੀ ਹੈ"
 
@@ -2121,17 +2145,17 @@ msgstr "%s ਦੀ ਡਿਫਾਲਟ ਇੰਸਟਾਲੇਸ਼ਨ ਘੱਟੋ
 msgid "Packages in %s"
 msgstr "%s ਵਿਚਲੇ ਪੈਕੇਜ"
 
-#: iw/GroupSelector.py:424
+#: iw/GroupSelector.py:433
 #, python-format
 msgid "Optional packages selected: %(inst)d of %(cnt)d"
 msgstr "ਚੁਣੇ ਗਏ ਚੋਣਵੇਂ ਪੈਕੇਜ: %(inst)d of %(cnt)d"
 
-#: iw/GroupSelector.py:426
+#: iw/GroupSelector.py:435
 #, python-format
 msgid "<i>%s</i>"
 msgstr "<i>%s</i>"
 
-#: iw/GroupSelector.py:486
+#: iw/GroupSelector.py:495
 msgid "Uncategorized"
 msgstr "ਬਿਨ-ਕੈਟਾਗਰੀ"
 
@@ -2185,19 +2209,19 @@ msgstr "ਕਿਸੇ ਤਰਾਂ ਵੀ ਵਰਤੋ"
 msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "ਲੋਡ਼ੀਂਦੇ ਪਾਸਵਰਡ ਵਿੱਚ ਗ਼ੈਰ-ASCII ਅੱਖਰ ਹਨ, ਜੋ ਕਿ ਨਹੀਂ ਵਰਤੇ ਜਾ ਸਕਦੇ ਹਨ।"
 
-#: iw/advanced_storage.py:91
+#: iw/advanced_storage.py:90
 msgid "You must select a NIC to use."
 msgstr "ਤੁਹਾਨੂੰ ਵਰਤਣ ਲਈ ਇੱਕ NIC ਚੁਣਨਾ ਜ਼ਰੂਰੀ ਹੈ।"
 
-#: iw/advanced_storage.py:138
+#: iw/advanced_storage.py:134
 msgid "Invalid Initiator Name"
 msgstr "ਅਢੁੱਕਵਾਂ Initiator ਨਾਂ"
 
-#: iw/advanced_storage.py:139
+#: iw/advanced_storage.py:135
 msgid "You must provide an initiator name."
 msgstr "ਤੁਹਾਨੂੰ initiator ਨਾਂ ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: iw/advanced_storage.py:168
+#: iw/advanced_storage.py:164
 msgid "Error with Data"
 msgstr "ਡਾਟੇ ਨਾਲ ਗਲਤੀ"
 
@@ -2255,8 +2279,8 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
-"ਸਿਰਫ ਲੀਨਕਸ ਭਾਗ (ਪਿਛਲੀ ਇੰਸਟਾਲੇਸ਼ਨ ਦੇ) ਹਟਾਉਂਦਾ ਹੈ। ਹੋਰ ਭਾਗ ਨਹੀਂ ਹਟਣਗੇ ਜੋ ਸਟੋਰੇਜ਼ ਜੰਤਰ ਤੇ ਹੋਣ (ਜਿਵੇਂ "
-"VFAT ਜਾਂ FAT32)।\n"
+"ਸਿਰਫ ਲੀਨਕਸ ਭਾਗ (ਪਿਛਲੀ ਇੰਸਟਾਲੇਸ਼ਨ ਦੇ) ਹਟਾਉਂਦਾ ਹੈ। ਹੋਰ ਭਾਗ ਨਹੀਂ ਹਟਣਗੇ ਜੋ ਸਟੋਰੇਜ਼ ਜੰਤਰ ਤੇ ਹੋਣ "
+"(ਜਿਵੇਂ VFAT ਜਾਂ FAT32)।\n"
 "<b>ਟਿੱਪਣੀ:</b> ਇਹ ਚੋਣ ਚੁਣੇ ਜੰਤਰਾਂ ਤੋਂ ਡਾਟਾ ਹਟਾਏਗੀ।  ਬੈਕਅੱਪ ਲੈਣਾ ਨਾ ਭੁੱਲੋ।"
 
 #: iw/autopart_type.py:246
@@ -2277,8 +2301,8 @@ msgid ""
 "space on the selected device(s), assuming you have enough free space "
 "available."
 msgstr ""
-"ਤੁਹਾਡਾ ਮੌਜੂਦਾ ਡਾਟਾ ਅਤੇ ਭਾਗ ਉਵੇਂ ਰੱਖਦਾ ਹੈ ਅਤੇ ਚੁਣੇ ਜੰਤਰ ਤੇ ਸਿਰਫ ਨਾ-ਵੰਡੀ ਸਪੇਸ ਹੀ "
-"ਵਰਤਦਾ ਹੈ, ਜੇ ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੀ ਥਾਂ ਹੋਵੇ।"
+"ਤੁਹਾਡਾ ਮੌਜੂਦਾ ਡਾਟਾ ਅਤੇ ਭਾਗ ਉਵੇਂ ਰੱਖਦਾ ਹੈ ਅਤੇ ਚੁਣੇ ਜੰਤਰ ਤੇ ਸਿਰਫ ਨਾ-ਵੰਡੀ ਸਪੇਸ ਹੀ ਵਰਤਦਾ ਹੈ, ਜੇ "
+"ਤੁਹਾਡੇ ਕੋਲ ਲੋੜੀਂਦੀ ਥਾਂ ਹੋਵੇ।"
 
 #: iw/autopart_type.py:256
 msgid "Create Custom Layout"
@@ -2298,8 +2322,7 @@ msgstr "ਬੂਟ-ਲੋਡਰ ਪਾਸਵਰਡ ਵਰਤੋਂ(_U)"
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
-msgstr ""
-"ਬੂਟ-ਲੋਡਰ ਪਾਸਵਰਡ, ਯੂਜ਼ਰਾਂ ਨੂੰ ਕਰਨਲ ਚੋਣਾਂ ਵਿੱਚ ਤਬਦੀਲੀ ਕਰਨ ਤੋਂ ਰੋਕਦਾ ਹੈ, ਜਿਸ ਨਾਲ ਸੁਰੱਖਿਆ ਵਧਦੀ ਹੈ।"
+msgstr "ਬੂਟ-ਲੋਡਰ ਪਾਸਵਰਡ, ਯੂਜ਼ਰਾਂ ਨੂੰ ਕਰਨਲ ਚੋਣਾਂ ਵਿੱਚ ਤਬਦੀਲੀ ਕਰਨ ਤੋਂ ਰੋਕਦਾ ਹੈ, ਜਿਸ ਨਾਲ ਸੁਰੱਖਿਆ ਵਧਦੀ ਹੈ।"
 
 #: iw/blpasswidget.py:76
 msgid "Change _password"
@@ -2358,45 +2381,45 @@ msgstr "/dev/%s ਉੱਤੇ ਬੂਟ ਲੋਡਰ ਇੰਸਟਾਲ ਕਰੋ
 msgid "_Change device"
 msgstr "ਜੰਤਰ ਬਦਲੋ(_C)"
 
-#: iw/cleardisks_gui.py:33
+#: iw/cleardisks_gui.py:34
 msgid "Clear Disks Selector"
 msgstr "ਡਿਸਕ ਚੋਣਕਾਰ ਵਰਤੋ"
 
-#: iw/cleardisks_gui.py:44 iw/filter_gui.py:411
+#: iw/cleardisks_gui.py:45 iw/filter_gui.py:411
 msgid "You must select at least one drive to be used for installation."
 msgstr "ਤੁਹਾਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਡਰਾਈਵ ਦੀ ਚੋਣ ਕਰਨੀ ਪਵੇਗੀ।"
 
-#: iw/cleardisks_gui.py:54
+#: iw/cleardisks_gui.py:55
 msgid "You must select one drive to boot from."
 msgstr "ਬੂਟ ਮੇਨੂ ਵਿੱਚੋਂ ਤੁਹਾਨੂੰ ਇੱਕ ਡਰਾਈਵ ਚੁਣਨੀ ਜ਼ਰੂਰੀ ਹੈ।"
 
-#: iw/cleardisks_gui.py:126 iw/cleardisks_gui.py:145 iw/filter_gui.py:446
-#: iw/filter_gui.py:458 iw/filter_gui.py:488
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:453
+#: iw/filter_gui.py:465 iw/filter_gui.py:495
 msgid "Model"
 msgstr "ਮਾਡਲ"
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:146 iw/filter_gui.py:447
-#: iw/filter_gui.py:459 iw/filter_gui.py:467 iw/filter_gui.py:478
-#: iw/filter_gui.py:489
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:454
+#: iw/filter_gui.py:466 iw/filter_gui.py:474 iw/filter_gui.py:485
+#: iw/filter_gui.py:496
 msgid "Capacity"
 msgstr "ਸਮਰੱਥਾ"
 
-#: iw/cleardisks_gui.py:128 iw/filter_gui.py:448 iw/filter_gui.py:468
-#: iw/filter_gui.py:479 iw/filter_gui.py:490
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:455 iw/filter_gui.py:475
+#: iw/filter_gui.py:486 iw/filter_gui.py:497
 msgid "Vendor"
 msgstr "ਵਿਕਰੇਤਾ"
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:449 iw/filter_gui.py:469
-#: iw/filter_gui.py:480 iw/filter_gui.py:491
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:458
+#: iw/filter_gui.py:473 iw/filter_gui.py:484 iw/filter_gui.py:500
+msgid "Identifier"
+msgstr "ਪਛਾਣਕਾਰ"
+
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:456 iw/filter_gui.py:476
+#: iw/filter_gui.py:487 iw/filter_gui.py:498
 msgid "Interconnect"
 msgstr "ਇੰਟਰਕੁਨੈਕਟ"
 
-#: iw/cleardisks_gui.py:130 iw/filter_gui.py:450 iw/filter_gui.py:481
-#: iw/filter_gui.py:492
-msgid "Serial Number"
-msgstr "ਸੀਰੀਅਲ ਨੰਬਰ"
-
-#: iw/cleardisks_gui.py:144
+#: iw/cleardisks_gui.py:145
 msgid ""
 "Boot\n"
 "Loader"
@@ -2404,7 +2427,7 @@ msgstr ""
 "ਬੂਟ\n"
 "ਲੋਡਰ"
 
-#: iw/cleardisks_gui.py:181
+#: iw/cleardisks_gui.py:192
 msgid ""
 "<b>Tip:</b> All Linux filesystems on install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
@@ -2412,7 +2435,7 @@ msgstr ""
 "<b>ਟਿੱਪਣੀ:</b> ਇੰਸਟਾਲ ਟਾਰਗਿਟ ਜੰਤਰ ਤੇ ਸਭ ਲੀਨਕਸ ਫਾਇਲ-ਸਿਸਟਮ ਮੁੜ-ਫਾਰਮੈਟ ਕੀਤੇ ਜਾਣਗੇ ਅਤੇ ਕੋਈ "
 "ਵੀ ਡਾਟਾ ਸਾਫ ਕੀਤਾ ਜਾਵੇਗਾ। ਬੈਕਅੱਪ ਲੈਣਾ ਨਾ ਭੁੱਲੋ।"
 
-#: iw/cleardisks_gui.py:183 ui/cleardisks.glade.h:3
+#: iw/cleardisks_gui.py:194 ui/cleardisks.glade.h:3
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
@@ -2420,7 +2443,7 @@ msgstr ""
 "<b>ਟਿੱਪਣੀ:</b> ਇੰਸਟਾਲ ਟਾਰਗਿਟ ਜੰਤਰ ਮੁੜ-ਫਾਰਮੈਟ ਕੀਤਾ ਜਾਵੇਗਾ ਅਤੇ ਕੋਈ ਵੀ ਡਾਟਾ ਸਾਫ ਕੀਤਾ "
 "ਜਾਵੇਗਾ। ਬੈਕਅੱਪ ਲੈਣਾ ਨਾ ਭੁੱਲੋ।"
 
-#: iw/cleardisks_gui.py:185
+#: iw/cleardisks_gui.py:196
 msgid ""
 "<b>Tip:</b> Your filesystems on install target devices will not be wiped "
 "unless you choose to do so during customization."
@@ -2530,30 +2553,29 @@ msgstr "<b>%s device(s) (%s MB) ਚੁਣਿਆ ਗਿਆ ਹੈ</b> %s device(s
 msgid "Device Filter"
 msgstr "ਜੰਤਰ ਫਿਲਟਰ"
 
-#: iw/filter_gui.py:451 iw/filter_gui.py:466 iw/filter_gui.py:477
-#: iw/filter_gui.py:493
-msgid "Identifier"
-msgstr "ਪਛਾਣਕਾਰ"
+#: iw/filter_gui.py:457 iw/filter_gui.py:488 iw/filter_gui.py:499
+msgid "Serial Number"
+msgstr "ਸੀਰੀਅਲ ਨੰਬਰ"
 
-#: iw/filter_gui.py:452 iw/filter_gui.py:460 iw/filter_gui.py:471
-#: iw/filter_gui.py:482 iw/filter_gui.py:497 iw/osbootwidget.py:66
+#: iw/filter_gui.py:459 iw/filter_gui.py:467 iw/filter_gui.py:478
+#: iw/filter_gui.py:489 iw/filter_gui.py:504 iw/osbootwidget.py:66
 #: iw/partition_gui.py:607
 msgid "Device"
 msgstr "ਜੰਤਰ"
 
-#: iw/filter_gui.py:470
+#: iw/filter_gui.py:477
 msgid "Paths"
 msgstr "ਮਾਰਗ"
 
-#: iw/filter_gui.py:494
+#: iw/filter_gui.py:501
 msgid "Port"
 msgstr "ਪੋਰਟ"
 
-#: iw/filter_gui.py:495
+#: iw/filter_gui.py:502
 msgid "Target"
 msgstr "ਟਾਰਗਿਟ"
 
-#: iw/filter_gui.py:496
+#: iw/filter_gui.py:503
 msgid "LUN"
 msgstr "LUN"
 
@@ -2593,13 +2615,13 @@ msgstr "ਭਾਸ਼ਾ ਚੋਣ"
 msgid "What language would you like to use during the installation process?"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਕਾਰਵਾਈ ਦੌਰਾਨ ਤੁਸੀਂ ਕਿਹਡ਼ੀ ਭਾਸ਼ਾ ਵਰਤਣੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: iw/lvm_dialog_gui.py:125 iw/lvm_dialog_gui.py:171 iw/lvm_dialog_gui.py:185
-#: iw/lvm_dialog_gui.py:224 iw/lvm_dialog_gui.py:301 iw/lvm_dialog_gui.py:688
-#: iw/lvm_dialog_gui.py:709
+#: iw/lvm_dialog_gui.py:126 iw/lvm_dialog_gui.py:172 iw/lvm_dialog_gui.py:186
+#: iw/lvm_dialog_gui.py:225 iw/lvm_dialog_gui.py:302 iw/lvm_dialog_gui.py:697
+#: iw/lvm_dialog_gui.py:718
 msgid "Not enough space"
 msgstr "ਲੋੜੀਂਦੀ ਥਾਂ ਨਹੀਂ ਹੈ"
 
-#: iw/lvm_dialog_gui.py:126
+#: iw/lvm_dialog_gui.py:127
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
@@ -2608,11 +2630,11 @@ msgstr ""
 "ਫਿਜ਼ੀਕਲ ਐਕਸਟੈਂਟ ਸਾਈਜ਼ ਨੂੰ ਤਬਦੀਲ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ, ਕਿਉਕਿ ਨਹੀਂ ਤਾਂ ਮੌਜੂਦਾ ਲਾਜ਼ੀਕਲ "
 "ਵਾਲੀਅਮ ਰਾਹੀਂ ਲੋੜੀਂਦੀ ਥਾਂ ਉਪਲੱਬਧ ਥਾਂ ਵੱਧ ਜਾਵੇਗੀ।"
 
-#: iw/lvm_dialog_gui.py:135
+#: iw/lvm_dialog_gui.py:136
 msgid "Confirm Physical Extent Change"
 msgstr "ਫਿਜ਼ੀਕਲ ਐਕਸਟੈਂਟ ਵਿੱਚ ਤਬਦੀਲੀ ਦੀ ਪੁਸ਼ਟੀ"
 
-#: iw/lvm_dialog_gui.py:136
+#: iw/lvm_dialog_gui.py:137
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2625,11 +2647,11 @@ msgstr ""
 "\n"
 "ਇਹ ਤਬਦੀਲੀ ਤਰੁੰਤ ਪ੍ਰਭਾਵੀ ਹੋ ਜਾਵੇਗੀ।"
 
-#: iw/lvm_dialog_gui.py:145 iw/lvm_dialog_gui.py:207
+#: iw/lvm_dialog_gui.py:146 iw/lvm_dialog_gui.py:208
 msgid "C_ontinue"
 msgstr "ਜਾਰੀ ਰੱਖੋ(_C)"
 
-#: iw/lvm_dialog_gui.py:172
+#: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2639,7 +2661,7 @@ msgstr ""
 "ਫਿਜ਼ੀਕਲ ਐਕਸਟੈਂਟ ਸਾਈਜ਼ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ, ਕਿਉਕਿ ਚੁਣਿਆ ਮੁੱਲ (%(curpe)10.2f MB) "
 "ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ (%(maxpvsize)10.2f MB) ਤੋਂ ਵੱਡਾ ਹੈ।"
 
-#: iw/lvm_dialog_gui.py:186
+#: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2649,11 +2671,11 @@ msgstr ""
 "ਫਿਜ਼ੀਕਲ ਐਕਸਟੈਂਟ ਸਾਈਜ਼ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ, ਕਿਉਂਕਿ ਚੁਣਿਆ ਮੁੱਲ (%(curpe)10.2f MB) "
 "ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ ਘੱਟੋ-ਘੱਟ ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ (%(maxpvsize)10.2f MB) ਤੋਂ ਬਹੁਤ ਜਿਆਦਾ ਵੱਡਾ ਹੈ।"
 
-#: iw/lvm_dialog_gui.py:200
+#: iw/lvm_dialog_gui.py:201
 msgid "Too small"
 msgstr "ਬਹੁਤ ਛੋਟਾ ਹੈ"
 
-#: iw/lvm_dialog_gui.py:201
+#: iw/lvm_dialog_gui.py:202
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
@@ -2661,7 +2683,7 @@ msgstr ""
 "ਫਿਜ਼ੀਕਲ ਐਕਸਟੈਂਟ ਦੇ ਮੁੱਲ ਵਿੱਚ ਤਬਦੀਲੀ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ ਇੱਕ ਜਾਂ ਦੋ ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮਾਂ ਉੱਤੇ "
 "ਮਹੱਤਵਪੂਰਨ ਥਾਂ ਨੂੰ ਖਰਾਬ ਕਰ ਦੇਵੇਗੀ।"
 
-#: iw/lvm_dialog_gui.py:225
+#: iw/lvm_dialog_gui.py:226
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -2671,7 +2693,7 @@ msgstr ""
 "ਫਿਜ਼ੀਕਲ ਐਕਸਟੈਂਟ ਸਾਈਜ਼ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ, ਕਿਉਕਿ ਪ੍ਰਾਪਤ ਅਧਿਕਤਮ ਵਾਲੀਅਮ ਸਾਈਜ਼ (%"
 "10.2f MB) ਇੱਕ ਜਾਂ ਜਿਆਦਾ ਮੌਜੂਦਾ ਦਿੱਤੇ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਤੋਂ ਛੋਟਾ ਹੈ।"
 
-#: iw/lvm_dialog_gui.py:302
+#: iw/lvm_dialog_gui.py:303
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -2679,93 +2701,98 @@ msgstr ""
 "ਤੁਸੀਂ ਇਸ ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨੂੰ ਹਟਾ ਨਹੀਂ ਸਕੇ ਹੋ, ਕਿਉਕਿ ਨਹੀਂ ਤਾਂ ਵਾਲੀਅਮ ਗਰੁੱਪ ਇੰਨਾ ਛੋਟਾ ਹੋ ਜਾਵੇਗਾ "
 "ਕਿ ਉਹ ਮੌਜੂਦਾ ਦਿੱਤੇ ਲਾਜ਼ੀਕਲ ਵਾਲ਼ੀਅਮ ਨੂੰ ਸੰਭਾਲ ਨਹੀਂ ਸਕੇਗਾ।"
 
-#: iw/lvm_dialog_gui.py:401
+#: iw/lvm_dialog_gui.py:402
 msgid "Make Logical Volume"
 msgstr "ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਬਣਾਓ"
 
-#: iw/lvm_dialog_gui.py:403
+#: iw/lvm_dialog_gui.py:404
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਸੋਧ: %s"
 
-#: iw/lvm_dialog_gui.py:442 iw/raid_dialog_gui.py:442
+#: iw/lvm_dialog_gui.py:443 iw/raid_dialog_gui.py:451
 msgid "_File System Type:"
 msgstr "ਫਾਇਲ ਸਿਸਟਮ ਟਾਈਪ(_F):"
 
-#: iw/lvm_dialog_gui.py:448
+#: iw/lvm_dialog_gui.py:449
 msgid "_Logical Volume Name:"
 msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ(_L):"
 
-#: iw/lvm_dialog_gui.py:457 iw/partition_dialog_gui.py:466
+#: iw/lvm_dialog_gui.py:458 iw/partition_dialog_gui.py:485
 msgid "_Size (MB):"
 msgstr "ਸਾਈਜ਼ (MB)(_S):"
 
-#: iw/lvm_dialog_gui.py:464
+#: iw/lvm_dialog_gui.py:465
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(ਵੱਧੋ-ਵੱਧ ਸਾਈਜ਼ %s MB ਹੈ)"
 
-#: iw/lvm_dialog_gui.py:469 iw/partition_dialog_gui.py:518
-#: iw/partition_ui_helpers_gui.py:331 iw/raid_dialog_gui.py:414
+#: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:537
+#: iw/partition_ui_helpers_gui.py:336 iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
 msgstr "ਇੰਕ੍ਰਿਪਟ(_E)"
 
-#: iw/lvm_dialog_gui.py:478 iw/partition_dialog_gui.py:448
-#: iw/raid_dialog_gui.py:452
+#: iw/lvm_dialog_gui.py:479 iw/partition_dialog_gui.py:467
+#: iw/raid_dialog_gui.py:461
 msgid "Original File System Type:"
 msgstr "ਅਸਲੀ ਫਾਇਲ ਸਿਸਟਮ ਟਾਈਪ:"
 
-#: iw/lvm_dialog_gui.py:483 iw/partition_dialog_gui.py:456
-#: iw/raid_dialog_gui.py:459
+#: iw/lvm_dialog_gui.py:484 iw/partition_dialog_gui.py:475
+#: iw/raid_dialog_gui.py:468
 msgid "Original File System Label:"
 msgstr "ਅਸਲੀ ਫਾਇਲ-ਸਿਸਟਮ ਲੇਬਲ:"
 
-#: iw/lvm_dialog_gui.py:488
+#: iw/lvm_dialog_gui.py:489
 msgid "Logical Volume Name:"
 msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ:"
 
-#: iw/lvm_dialog_gui.py:492
+#: iw/lvm_dialog_gui.py:493
 msgid "Size (MB):"
 msgstr "ਸਾਈਜ਼(MB):"
 
-#: iw/lvm_dialog_gui.py:519 iw/partition_dialog_gui.py:404
-#: iw/raid_dialog_gui.py:433
+#: iw/lvm_dialog_gui.py:520 iw/partition_dialog_gui.py:423
+#: iw/raid_dialog_gui.py:442
 msgid "_Mount Point:"
 msgstr "ਮਾਊਂਟ ਪੁਆਇੰਟ(_M):"
 
-#: iw/lvm_dialog_gui.py:602
+#: iw/lvm_dialog_gui.py:601 iw/partition_dialog_gui.py:118
+#: iw/raid_dialog_gui.py:176
+msgid "Mount Point Error"
+msgstr "ਮਾਊਸ ਪੁਆਇੰਟ ਗਲਤੀ"
+
+#: iw/lvm_dialog_gui.py:611
 msgid "Illegal Logical Volume Name"
 msgstr "ਗਲਤ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ"
 
-#: iw/lvm_dialog_gui.py:617
+#: iw/lvm_dialog_gui.py:626
 msgid "Illegal logical volume name"
 msgstr "ਗਲਤ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ"
 
-#: iw/lvm_dialog_gui.py:618
+#: iw/lvm_dialog_gui.py:627
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ \"%s\" ਪਹਿਲਾਂ ਹੀ ਵਰਤੋਂ ਅਧੀਨ ਹੈ। ਕੋਈ ਹੋਰ ਚੁਣੋ ਜੀ।"
 
-#: iw/lvm_dialog_gui.py:659 iw/partition_dialog_gui.py:124
-#: iw/raid_dialog_gui.py:182
+#: iw/lvm_dialog_gui.py:668 iw/partition_dialog_gui.py:133
+#: iw/raid_dialog_gui.py:191
 msgid "Mount point in use"
 msgstr "ਮਾਊਂਟ ਪੁਆਇੰਟ ਵਰਤੋਂ ਅਧੀਨ ਹੈ"
 
-#: iw/lvm_dialog_gui.py:660 iw/partition_dialog_gui.py:125
-#: iw/raid_dialog_gui.py:183
+#: iw/lvm_dialog_gui.py:669 iw/partition_dialog_gui.py:134
+#: iw/raid_dialog_gui.py:192
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "ਮਾਊਂਟ ਪੁਆਇੰਟ \"%s\" ਵਰਤੋਂ ਅਧੀਨ ਹੈ। ਹੋਰ ਚੁਣੋ ਜੀ।"
 
-#: iw/lvm_dialog_gui.py:675
+#: iw/lvm_dialog_gui.py:684
 msgid "Illegal size"
 msgstr "ਗਲਤ ਸਾਈਜ਼"
 
-#: iw/lvm_dialog_gui.py:676
+#: iw/lvm_dialog_gui.py:685
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "ਦਿੱਤਾ ਸਾਈਜ਼ ਇੱਕ ਠੀਕ 0 ਤੋ ਵੱਡਾ ਅੰਕ ਨਹੀਂ ਹੈ।"
 
-#: iw/lvm_dialog_gui.py:689
+#: iw/lvm_dialog_gui.py:698
 #, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
@@ -2777,31 +2804,32 @@ msgstr ""
 "MB) ਤੋਂ ਵੱਧ ਹੈ। ਇਸ ਲਿਮਟ ਨੂੰ ਵਧਾਉਣ ਲਈ ਤੁਸੀਂ ਨਾ-ਵੰਡੀ ਡਿਸਕ ਥਾਂ ਤੋਂ ਇਸ ਵਾਲੀਅਮ ਗਰੁੱਪ ਦੇ ਫਿਜ਼ੀਕਲ "
 "ਵਾਲੀਅਮ ਬਣਾ ਸਕਦੇ ਹੋ ਅਤੇ ਉਹਨਾਂ ਨੂੰ ਇਸ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ ਜੋੜ ਸਕਦੇ ਹੋ।"
 
-#: iw/lvm_dialog_gui.py:710
+#: iw/lvm_dialog_gui.py:719
 #, python-format
 msgid ""
-"The logical volumes you have configured require %(size)d MB, but the volume "
-"group only has %(tempvgsize)d MB.  Please either make the volume group "
-"larger or make the logical volume(s) smaller."
+"The size entered for this logical volume (%(size)d MB) combined with the "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"volume smaller."
 msgstr ""
 "ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਜੋ ਤੁਸੀਂ ਸੰਰਚਿਤ ਕੀਤਾ ਹੈ, ਲਈ %(size)d MB ਦੀ ਲੋੜ ਹੈ, ਪਰ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ "
 "ਸਿਰਫ %(tempvgsize)d MB ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਜਾਂ ਤਾਂ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵੱਡਾ ਕਰੇ ਜਾਂ ਲਾਜੀਕਲ ਵਾਲੀਅਮ "
 "ਛੋਟਾ ਬਣਾਓ।"
 
-#: iw/lvm_dialog_gui.py:812
+#: iw/lvm_dialog_gui.py:829
 msgid "No free slots"
 msgstr "ਖਾਲੀ ਥਾਂ ਨਹੀਂ ਹੈ"
 
-#: iw/lvm_dialog_gui.py:813
+#: iw/lvm_dialog_gui.py:830
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgstr "ਤੁਸੀਂ ਪ੍ਰਤੀ ਵਾਲੀਅਮ ਗਰੁੱਪ %d ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮਾਂ ਤੋਂ ਜਿਆਦਾ ਨਹੀਂ ਬਣਾ ਸਕਦੇ।"
 
-#: iw/lvm_dialog_gui.py:823
+#: iw/lvm_dialog_gui.py:840
 msgid "No free space"
 msgstr "ਕੋਈ ਖਾਲੀ ਥਾਂ ਨਹੀਂ ਹੈ"
 
-#: iw/lvm_dialog_gui.py:824
+#: iw/lvm_dialog_gui.py:841
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -2810,29 +2838,29 @@ msgstr ""
 "ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ ਨਵਾਂ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਬਣਾਉਣ ਲਈ ਕੋਈ ਥਾਂ ਬਾਕੀ ਨਹੀਂ ਹੈ। ਨਵਾਂ ਵਾਲੀਅਮ ਜੋਡ਼ਨ "
 "ਲਈ ਤੁਸੀਂ ਪਹਿਲਾਂ ਮੌਜੂਦ ਵਾਲੀਅਮ ਗਰੁੱਪ ਦਾ ਸਾਈਜ਼ ਤਬਦੀਲ ਕਰ ਦਿਉ।"
 
-#: iw/lvm_dialog_gui.py:861
+#: iw/lvm_dialog_gui.py:878
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "ਕੀ ਤੁਸੀਂ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ \"%s\" ਨੂੰ ਹਟਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: iw/lvm_dialog_gui.py:967
+#: iw/lvm_dialog_gui.py:984
 msgid "Invalid Volume Group Name"
 msgstr "ਗਲਤ ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ"
 
-#: iw/lvm_dialog_gui.py:976
+#: iw/lvm_dialog_gui.py:993
 msgid "Name in use"
 msgstr "ਨਾਂ ਵਰਤੋਂ ਵਿੱਚ ਹੈ"
 
-#: iw/lvm_dialog_gui.py:977
+#: iw/lvm_dialog_gui.py:994
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ \"%s\" ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਹੋਰ ਚੁਣੋ ਜੀ।"
 
-#: iw/lvm_dialog_gui.py:1263
+#: iw/lvm_dialog_gui.py:1280
 msgid "Not enough physical volumes"
 msgstr "ਲੋਡ਼ੀਂਦੇ ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਹੀਂ ਹਨ"
 
-#: iw/lvm_dialog_gui.py:1264
+#: iw/lvm_dialog_gui.py:1281
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2845,147 +2873,82 @@ msgstr ""
 "ਇੱਕ ਪਾਰਟੀਸ਼ਨ ਬਣਾਓ ਜਾਂ ਰੇਡ ਲਡ਼ੀ ਦੀ ਕਿਸਮ \"ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ (LVM)\" ਬਣਾਓ ਅਤੇ ਮੁਡ਼ \"LVM\" "
 "ਚੋਣ ਨੂੰ ਚੁਣੋ।"
 
-#: iw/lvm_dialog_gui.py:1275
+#: iw/lvm_dialog_gui.py:1292
 msgid "Make LVM Volume Group"
 msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਬਣਾਓ"
 
-#: iw/lvm_dialog_gui.py:1278
+#: iw/lvm_dialog_gui.py:1295
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਸੋਧ: %s"
 
-#: iw/lvm_dialog_gui.py:1280
+#: iw/lvm_dialog_gui.py:1297
 msgid "Edit LVM Volume Group"
 msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਸੋਧ"
 
-#: iw/lvm_dialog_gui.py:1296
+#: iw/lvm_dialog_gui.py:1313
 msgid "_Volume Group Name:"
 msgstr "ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ(_V):"
 
-#: iw/lvm_dialog_gui.py:1304
+#: iw/lvm_dialog_gui.py:1321
 msgid "Volume Group Name:"
 msgstr "ਵਾਲੀਅਮ ਗਰੁੱਪ ਨਾਂ:"
 
-#: iw/lvm_dialog_gui.py:1312
+#: iw/lvm_dialog_gui.py:1329
 msgid "_Physical Extent:"
 msgstr "ਫਿਜ਼ੀਕਲ ਐਕਸਟੈਂਟ(_P):"
 
-#: iw/lvm_dialog_gui.py:1327
+#: iw/lvm_dialog_gui.py:1344
 msgid "Physical Volumes to _Use:"
 msgstr "ਵਰਤਣ ਲਈ ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ(_U):"
 
-#: iw/lvm_dialog_gui.py:1333
+#: iw/lvm_dialog_gui.py:1350
 msgid "Used Space:"
 msgstr "ਵਰਤੀ ਥਾਂ:"
 
-#: iw/lvm_dialog_gui.py:1350
+#: iw/lvm_dialog_gui.py:1367
 msgid "Free Space:"
 msgstr "ਖਾਲੀ ਥਾਂ:"
 
-#: iw/lvm_dialog_gui.py:1368
+#: iw/lvm_dialog_gui.py:1385
 msgid "Total Space:"
 msgstr "ਕੁੱਲ ਥਾਂ:"
 
-#: iw/lvm_dialog_gui.py:1406
+#: iw/lvm_dialog_gui.py:1423
 msgid "Logical Volume Name"
 msgstr "ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਾਂ"
 
-#: iw/lvm_dialog_gui.py:1409 iw/partition_gui.py:610
+#: iw/lvm_dialog_gui.py:1426 iw/partition_gui.py:610
 #: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:122
 msgid "Mount Point"
 msgstr "ਮਾਊਸ ਪੁਆਇੰਟ"
 
-#: iw/lvm_dialog_gui.py:1412 iw/partition_gui.py:609
+#: iw/lvm_dialog_gui.py:1429 iw/partition_gui.py:609
 msgid "Size (MB)"
 msgstr "ਸਾਈਜ਼(MB)"
 
-#: iw/lvm_dialog_gui.py:1426 iw/osbootwidget.py:96
+#: iw/lvm_dialog_gui.py:1443 iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "ਸ਼ਾਮਲ(_A)"
 
-#: iw/lvm_dialog_gui.py:1429 iw/osbootwidget.py:100 iw/partition_gui.py:1820
-#: iw/partition_gui.py:1830
+#: iw/lvm_dialog_gui.py:1446 iw/osbootwidget.py:100 iw/partition_gui.py:1796
+#: iw/partition_gui.py:1806
 msgid "_Edit"
 msgstr "ਸੋਧ(_E)"
 
-#: iw/lvm_dialog_gui.py:1444
+#: iw/lvm_dialog_gui.py:1461
 msgid "_Logical Volumes"
 msgstr "ਲਾਜੀਕਲ ਵਾਲੀਅਮ(_L)"
 
-#: iw/netconfig_dialog.py:192 textw/netconfig_text.py:36
-#, python-format
-msgid ""
-"An error occurred converting the value entered for \"%(field)s\":\n"
-"%(errmsg)s"
-msgstr ""
-"\"%(field)s\" ਲਈ ਦਿੱਤੇ ਮੁੱਲ ਬਦਲਣ ਵਿੱਚ ਗਲਤੀ ਆਈ ਹੈ:\n"
-"%(errmsg)s"
-
-#: iw/netconfig_dialog.py:195 iw/netconfig_dialog.py:204
-#: textw/netconfig_text.py:35 textw/netconfig_text.py:42
-msgid "Error With Data"
-msgstr "ਡਾਟਾ ਨਾਲ ਗਲਤੀ"
-
-#: iw/netconfig_dialog.py:203
-#, python-format
-msgid "A value is required for the field %s."
-msgstr "%s ਖੇਤਰ ਲਈ ਮੁੱਲ ਲੋੜੀਂਦਾ ਹੈ।"
-
-#: iw/netconfig_dialog.py:213
-#, python-format
-msgid "An error occurred trying to bring up the %s network interface."
-msgstr "%s ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਚਾਲੂ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ ਹੈ।"
-
-#: iw/netconfig_dialog.py:215
-msgid "Error Configuring Network"
-msgstr "ਨੈੱਟਵਰਕ ਸੰਰਚਨਾ ਦੌਰਾਨ ਗਲਤੀ"
-
-#: iw/netconfig_dialog.py:241
-msgid "Dynamic IP Address"
-msgstr "ਡਾਇਨਾਮਿਕ IP ਐਡਰੈੱਸ"
-
-#: iw/netconfig_dialog.py:242
-#, python-format
-msgid "Sending request for IP address information for %s"
-msgstr "%s ਲਈ IP ਐਡਰੈੱਸ ਜਾਣਕਾਰੀ ਲਈ ਬੇਨਤੀ ਭੇਜੀ ਜਾ ਰਹੀ ਹੈ"
-
-#: iw/netconfig_dialog.py:257 iw/netconfig_dialog.py:260
-#: textw/netconfig_text.py:225 textw/netconfig_text.py:228
-msgid "IP Address"
-msgstr "IP ਐਡਰੈੱਸ"
-
-#: iw/netconfig_dialog.py:267 textw/netconfig_text.py:235
-msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4 CIDR ਪ੍ਰੀ-ਫਿਕਸ 0 ਤੋਂ 32 ਵਿੱਚ ਹੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
-
-#: iw/netconfig_dialog.py:268 iw/netconfig_dialog.py:274
-#: iw/netconfig_dialog.py:282 iw/netconfig_dialog.py:285
-#: textw/netconfig_text.py:236 textw/netconfig_text.py:242
-#: textw/netconfig_text.py:250
-msgid "IPv4 Network Mask"
-msgstr "IPv4 ਨੈੱਟਵਰਕ ਮਾਸਕ"
-
-#: iw/netconfig_dialog.py:295 textw/netconfig_text.py:263
-msgid "Gateway"
-msgstr "ਗੇਟਵੇ"
-
-#: iw/netconfig_dialog.py:305 textw/netconfig_text.py:273
-msgid "Nameserver"
-msgstr "ਨਾਂ-ਸਰਵਰ"
-
-#: iw/netconfig_dialog.py:314
-msgid "Error configuring network device:"
-msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ ਸੰਰਚਨਾ ਦੌਰਾਨ ਗਲਤੀ: "
-
-#: iw/network_gui.py:72 iw/network_gui.py:78
+#: iw/network_gui.py:83 iw/network_gui.py:89
 msgid "Error with Hostname"
 msgstr "ਹੋਸਟ-ਨਾਂ ਨਾਲ ਗਲਤੀ"
 
-#: iw/network_gui.py:73
+#: iw/network_gui.py:84
 msgid "You must enter a valid hostname for this computer."
 msgstr "ਤੁਹਾਨੂੰ ਇਸ ਕੰਪਿਊਟਰ ਲਈ ਢੁੱਕਵਾਂ ਹੋਸਟ-ਨਾਂ ਦੇਣਾ ਜਰੂਰੀ ਹੈ।"
 
-#: iw/network_gui.py:79
+#: iw/network_gui.py:90
 #, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
@@ -2995,6 +2958,22 @@ msgstr ""
 "ਹੋਸਟ ਨਾਂ \"%(hostname)s\" ਢੁੱਕਵਾਂ ਨਹੀਂ ਹੈ, ਇਸ ਦਾ ਕਾਰਨ ਹੇਠ ਦਿੱਤਾ ਹੈ :\n"
 "\n"
 "%(herrors)s"
+
+#: iw/network_gui.py:133
+msgid "Select network interfaces"
+msgstr "ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਚੁਣੋ"
+
+#: iw/network_gui.py:142 textw/netconfig_text.py:91
+msgid ""
+"This requires that you have an active network connection during the "
+"installation process.  Please configure a network interface."
+msgstr ""
+"ਇਸ ਲਈ ਤੁਹਾਡੇ ਕੋਲ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਇੱਕ ਸਰਗਰਮ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਦੀ ਲੋੜ ਹੈ।  ਇੱਕ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਦੀ "
+"ਸੰਰਚਨਾ ਕਰੋ ਜੀ।"
+
+#: iw/network_gui.py:195
+msgid "Select which devices should be configured with NetworkManager."
+msgstr "ਜੰਤਰ ਚੁਣੋ ਜੋ ਨੈੱਟਵਰਕ-ਮੈਨੇਜਰ ਨਾਲ ਸੰਰਚਿਤ ਕਰਨਾ ਹੈ।"
 
 #: iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
@@ -3069,40 +3048,40 @@ msgstr ""
 "ਬੂਟ ਨਿਸ਼ਾਨਾ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ, ਕਿਉਕਿ ਇਹ ਉਸ %s ਸਿਸਟਮ ਲਈ ਹੈ, ਜੋ ਕਿ ਤੁਸੀਂ ਇੰਸਟਾਲ ਕਰ "
 "ਰਹੇ ਹੋ।"
 
-#: iw/partition_dialog_gui.py:57
+#: iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
 msgstr "ਵਾਧੂ ਸਾਈਜ਼ ਚੋਣ"
 
-#: iw/partition_dialog_gui.py:62
+#: iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
 msgstr "ਸਥਿਰ ਸਾਈਜ਼(_F)"
 
-#: iw/partition_dialog_gui.py:64
+#: iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
 msgstr "ਇਸ ਤੱਕ ਸਾਰੀ ਥਾਂ ਭਰੋ(MB)(_u):"
 
-#: iw/partition_dialog_gui.py:71
+#: iw/partition_dialog_gui.py:72
 msgid "Fill to maximum _allowable size"
 msgstr "ਵੱਧ ਤੋਂ ਵੱਧ ਉਪਲਬੱਧ ਸਾਈਜ਼ ਭਰੋ(_a)"
 
-#: iw/partition_dialog_gui.py:374
+#: iw/partition_dialog_gui.py:393
 msgid "Add Partition"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਸ਼ਾਮਲ"
 
-#: iw/partition_dialog_gui.py:376
+#: iw/partition_dialog_gui.py:395
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਸੋਧ: %s"
 
-#: iw/partition_dialog_gui.py:413
+#: iw/partition_dialog_gui.py:432
 msgid "File System _Type:"
 msgstr "ਫਾਇਲ ਸਿਸਟਮ ਟਾਈਪ(_T):"
 
-#: iw/partition_dialog_gui.py:429
+#: iw/partition_dialog_gui.py:448
 msgid "Allowable _Drives:"
 msgstr "ਮਨਜ਼ੂਰ ਡਰਾਇਵ(_D):"
 
-#: iw/partition_dialog_gui.py:505
+#: iw/partition_dialog_gui.py:524
 msgid "Force to be a _primary partition"
 msgstr "ਪ੍ਰਾਇਮਰੀ ਪਾਰਟੀਸ਼ਨ ਲਈ ਮਜਬੂਰ ਕਰੋ(_P)"
 
@@ -3112,7 +3091,7 @@ msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
 msgstr "ਡਰਾਈਵ %(drive)s (%(size)-0.f MB) (ਮਾਡਲ: %(model)s)"
 
 #: iw/partition_gui.py:396 iw/partition_gui.py:442 iw/partition_gui.py:509
-#: iw/partition_gui.py:1000 iw/partition_gui.py:1067
+#: iw/partition_gui.py:1000 iw/partition_gui.py:1072
 msgid "Free"
 msgstr "ਖਾਲੀ"
 
@@ -3130,7 +3109,7 @@ msgstr "MD RAID ARRAY %s (%-0.f MB)"
 msgid "Type"
 msgstr "ਟਾਈਪ"
 
-#: iw/partition_gui.py:612 storage/__init__.py:1794
+#: iw/partition_gui.py:612 storage/__init__.py:1797
 msgid "Format"
 msgstr "ਫਾਰਮੈਟ"
 
@@ -3197,19 +3176,19 @@ msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ"
 msgid "RAID Devices"
 msgstr "ਰੇਡ ਜੰਤਰ"
 
-#: iw/partition_gui.py:1021 loader/hdinstall.c:212
+#: iw/partition_gui.py:1026 loader/hdinstall.c:212
 msgid "Hard Drives"
 msgstr "ਹਾਰਡ ਡਰਾਈਵ"
 
-#: iw/partition_gui.py:1071
+#: iw/partition_gui.py:1076
 msgid "Extended"
 msgstr "ਐਕਸਟੈਂਡਡ"
 
-#: iw/partition_gui.py:1350
+#: iw/partition_gui.py:1352
 msgid "Cannot perform any creation action"
 msgstr "ਕੋਈ ਬਣਾਉਣ ਕਾਰਵਾਈ ਨਹੀਂ ਕਰ ਸਕਿਆ"
 
-#: iw/partition_gui.py:1351
+#: iw/partition_gui.py:1353
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -3225,7 +3204,7 @@ msgstr ""
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 
-#: iw/partition_gui.py:1463
+#: iw/partition_gui.py:1456
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3237,7 +3216,7 @@ msgstr ""
 "ਵੱਖਰੀ ਡਰਾਈਵ ਨਾਲ ਜਿਆਦਾ ਗਤੀ ਅਤੇ ਭਰੋਸਾ ਦੇਣ ਕਰਕੇ ਸੰਰਚਿਤ ਕੀਤਾ ਜਾਂਦਾ ਹੈ। ਰੇਡ ਦੀ ਵਧੇਰੇ ਜਾਣਕਾਰੀ "
 "ਲਈ, %s ਦਸਤਾਵੇਜ਼ ਦੀ ਜਾਂਚ ਕਰੋ।\n"
 
-#: iw/partition_gui.py:1469
+#: iw/partition_gui.py:1462
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -3248,16 +3227,16 @@ msgstr ""
 "ਇੱਕ ਰੇਡ ਜੰਤਰ ਬਣਾਉਣਾ ਪਵੇਗਾ, ਜਿਸ ਨੂੰ ਕਿ ਫਾਰਮੈਟ ਕੀਤਾ ਜਾ ਸਕੇ ਅਤੇ ਜਿਸ ਨੂੰ ਮਾਊਂਟ ਕੀਤਾ ਜਾ ਸਕੇ।\n"
 "\n"
 
-#: iw/partition_gui.py:1473
+#: iw/partition_gui.py:1466
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgstr "ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਸਮੇ %d ਸਾਫਟਵੇਅਰ ਰੇਡ ਭਾਗ ਵਰਤਣ ਲਈ ਖਾਲੀ ਹਨ।"
 
-#: iw/partition_gui.py:1477
+#: iw/partition_gui.py:1470
 msgid "About RAID"
 msgstr "RAID ਬਾਰੇ"
 
-#: iw/partition_gui.py:1483
+#: iw/partition_gui.py:1476
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
@@ -3273,7 +3252,7 @@ msgstr ""
 "ਵਾਲੀਅਮ (LV) ਬਣਾਉਣ ਲਈ ਅਧਾਰ ਹੁੰਦਾ ਹੈ। ਯਾਦ ਰੱਖੋ ਕਿ VG ਬਹੁਤੀਆਂ ਭੌਤਿਕ ਡਿਸਕਾਂ ਤੋਂ PVs ਦਾ ਸਮੂਹ "
 "ਹੋ ਸਕਦਾ ਹੈ।  LVM ਵਰਤਣ ਬਾਰੇ ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ %s ਡੌਕੂਮੈਂਟੇਸ਼ਨ ਵੇਖੋ\n"
 
-#: iw/partition_gui.py:1491
+#: iw/partition_gui.py:1484
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create a LV you need a VG "
@@ -3285,47 +3264,39 @@ msgstr ""
 "ਦੀ ਲੋੜ ਹੈ।\n"
 "\n"
 
-#: iw/partition_gui.py:1495
+#: iw/partition_gui.py:1488
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgstr "ਤੁਹਾਡੇ ਕੋਲ ਇਸ ਸਮੇ %d PV ਵਰਤਣ ਲਈ ਖਾਲੀ ਹਨ।\n"
 
-#: iw/partition_gui.py:1499
+#: iw/partition_gui.py:1492
 msgid "You currently have free space to create PVs."
 msgstr "ਤੁਹਾਡੇ ਕੋਲ ਹੁਣ PV ਬਣਾਉਣ ਲਈ ਖਾਲੀ ਸਪੇਸ ਹੈ।"
 
-#: iw/partition_gui.py:1502
+#: iw/partition_gui.py:1495
 msgid "About LVM"
 msgstr "LVM ਬਾਰੇ"
 
-#: iw/partition_gui.py:1534
-msgid "Couldn't Create Drive Clone Editor"
-msgstr "ਡਰਾਈਵ ਕਲੋਨ ਸੰਪਾਦਕ ਨਹੀਂ ਬਣਾ ਸਕਿਆ"
-
-#: iw/partition_gui.py:1535
-msgid "The drive clone editor could not be created for some reason."
-msgstr "ਡਰਾਈਵ ਕਲੋਨ ਸੰਪਾਦਕ ਕੁਝ ਕਾਰਨਾਂ ਕਰਕੇ ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਿਆ ਹੈ।"
-
-#: iw/partition_gui.py:1594 storage/partitioning.py:197
-#: storage/partitioning.py:238
+#: iw/partition_gui.py:1570 storage/partitioning.py:197
+#: storage/partitioning.py:240
 msgid "Error Partitioning"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਗਲਤੀਆਂ"
 
-#: iw/partition_gui.py:1595
+#: iw/partition_gui.py:1571
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "ਲੋਡ਼ੀਂਦੇ ਪਾਰਟੀਸ਼ਨ ਨੂੰ ਜਾਰੀ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ: %s।"
 
-#: iw/partition_gui.py:1604
+#: iw/partition_gui.py:1580
 #, python-format
 msgid "Warning: %s."
 msgstr "ਚੇਤਾਵਨੀ: %s।"
 
-#: iw/partition_gui.py:1635
+#: iw/partition_gui.py:1611
 msgid "Unable To Edit"
 msgstr "ਸੋਧ ਕਰਨ ਵਿੱਚ ਅਸਮੱਰਥ"
 
-#: iw/partition_gui.py:1636
+#: iw/partition_gui.py:1612
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -3336,15 +3307,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/partition_gui.py:1819
+#: iw/partition_gui.py:1795
 msgid "_Create"
 msgstr "ਬਣਾਓ(_C)"
 
-#: iw/partition_gui.py:1822
+#: iw/partition_gui.py:1798
 msgid "Re_set"
 msgstr "ਮੁਡ਼-ਸੈੱਟ(_S)"
 
-#: iw/partition_gui.py:1845
+#: iw/partition_gui.py:1821
 msgid "Please Select A Device"
 msgstr "ਇੱਕ ਜੰਤਰ ਚੁਣੋ ਜੀ।"
 
@@ -3353,19 +3324,19 @@ msgstr "ਇੱਕ ਜੰਤਰ ਚੁਣੋ ਜੀ।"
 msgid "<Not Applicable>"
 msgstr "<Not Applicable>"
 
-#: iw/partition_ui_helpers_gui.py:312
+#: iw/partition_ui_helpers_gui.py:317
 msgid "_Format as:"
 msgstr "ਫਾਰਮੈਟ ਇੰਝ(_F):"
 
-#: iw/partition_ui_helpers_gui.py:334
+#: iw/partition_ui_helpers_gui.py:339
 msgid "Mi_grate filesystem to:"
 msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਮਾਈਗਰੇਟ ਕਰੋ(_G):"
 
-#: iw/partition_ui_helpers_gui.py:364
+#: iw/partition_ui_helpers_gui.py:369
 msgid "_Resize"
 msgstr "ਮੁੜ-ਸਾਈਜ਼(_R)"
 
-#: iw/partition_ui_helpers_gui.py:435
+#: iw/partition_ui_helpers_gui.py:441
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
@@ -3374,7 +3345,7 @@ msgstr ""
 "'%s' ਕਿਸਮ ਦੇ ਪਾਰਟੀਸ਼ਨ ਸਿਰਫ ਇੱਕ ਡਰਾਈਵ ਲਈ ਹੀ ਸੀਮਿਤ ਹਨ। ਇਹ ਕਰਨ ਲਈ, ਇਸ ਨੂੰ \"ਮਨਜ਼ੂਰ "
 "ਡਰਾਈਵਾਂ\" ਲਿਸਟ ਵਿੱਚੋਂ ਡਰਾਈਵ ਚੁਣ ਸਕਦੇ ਹੋ।"
 
-#: iw/raid_dialog_gui.py:381
+#: iw/raid_dialog_gui.py:390
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -3386,182 +3357,40 @@ msgstr ""
 "\n"
 "ਪਹਿਲਾਂ ਦੋ ਪਾਰਟੀਸ਼ਨ \"ਸਾਫਟਵੇਅਰ ਰੇਡ\" ਕਿਸਮ ਦੇ ਬਣਾਓ ਅਤੇ ਤਦ \"ਰੇਡ\" ਚੋਣ ਮੁਡ਼ ਚੁਣੋ।"
 
-#: iw/raid_dialog_gui.py:395
+#: iw/raid_dialog_gui.py:404
 msgid "Make RAID Device"
 msgstr "ਰੇਡ ਜੰਤਰ ਬਣਾਓ"
 
-#: iw/raid_dialog_gui.py:398
+#: iw/raid_dialog_gui.py:407
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr "ਰੇਡ ਜੰਤਰ ਸੋਧ: %s"
 
-#: iw/raid_dialog_gui.py:400
+#: iw/raid_dialog_gui.py:409
 msgid "Edit RAID Device"
 msgstr "ਰੇਡ ਜੰਤਰ ਸੋਧ"
 
-#: iw/raid_dialog_gui.py:467
+#: iw/raid_dialog_gui.py:476
 msgid "RAID _Device:"
 msgstr "ਰੇਡ ਜੰਤਰ(_D):"
 
-#: iw/raid_dialog_gui.py:485
+#: iw/raid_dialog_gui.py:494
 msgid "RAID _Level:"
 msgstr "ਰੇਡ ਲੇਬਲ(_L):"
 
-#: iw/raid_dialog_gui.py:527
+#: iw/raid_dialog_gui.py:536
 msgid "_RAID Members:"
 msgstr "ਰੇਡ ਮੈਂਬਰ(_R):"
 
-#: iw/raid_dialog_gui.py:544
+#: iw/raid_dialog_gui.py:553
 msgid "Number of _spares:"
 msgstr "ਸਪੇਅਰਾਂ ਦੀ ਗਿਣਤੀ(_S):"
 
-#: iw/raid_dialog_gui.py:554
+#: iw/raid_dialog_gui.py:563
 msgid "_Format partition?"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਫਾਰਮੈਟ ਕਰਨਾ(_F)?"
 
-#: iw/raid_dialog_gui.py:658
-msgid ""
-"The source drive has no partitions to be cloned.  You must first define "
-"partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr ""
-"ਸਰੋਤ ਡਰਾਈਵ ਤੇ ਕੋਈ ਪਾਰਟੀਸ਼ਨ ਸਮਰੂਪੀ ਕਰਨ ਲਈ ਨਹੀਂ ਹੈ। ਸਮਰੂਪੀ ਬਣਾਉਣ ਤੋਂ ਪਹਿਲਾਂ ਇਸ ਡਰਾਈਵ ਤੇ "
-"ਤੁਹਾਨੂੰ ਪਾਰਟੀਸ਼ਨ ਦੀ ਕਿਸਮ \"ਸਾਫਟਵੇਅਰ ਰੇਡ\" ਪ੍ਰਭਾਸ਼ਿਤ ਕਰਨੀ ਜਰੂਰੀ ਹੈ।"
-
-#: iw/raid_dialog_gui.py:662 iw/raid_dialog_gui.py:668
-#: iw/raid_dialog_gui.py:682 iw/raid_dialog_gui.py:695
-msgid "Source Drive Error"
-msgstr "ਸਰੋਤ ਡਰਾਈਵ ਗਲਤੀ"
-
-#: iw/raid_dialog_gui.py:669
-msgid ""
-"The source drive you selected has partitions which are not of type 'software "
-"RAID'.\n"
-"\n"
-"You must remove these partitions before this drive can be cloned. "
-msgstr ""
-"ਸਰੋਤ ਡਰਾਈਵ, ਜਿਸ ਦੀ ਤੁਸੀਂ ਚੋਣ ਕੀਤੀ ਹੈ, ਉੱਤੇ ਪਾਰਟੀਸ਼ਨਾਂ ਦੀ ਕਿਸਮ 'ਸਾਫਟਵੇਅਰ ਰੇਡ' ਨਹੀਂ ਹੈ।\n"
-"\n"
-"ਇਸ ਡਰਾਈਵ ਨੂੰ ਕਲੋਨ ਕਰਨ ਲਈ ਇਹਨਾਂ ਪਾਰਟੀਸ਼ਨਾਂ ਨੂੰ ਹਟਾਉਣਾ ਜਰੂਰੀ ਹੈ।"
-
-#: iw/raid_dialog_gui.py:683
-#, python-format
-msgid ""
-"The source drive you selected has partitions which are not constrained to "
-"the drive %s.\n"
-"\n"
-"You must remove these partitions or restrict them to this drive before this "
-"drive can be cloned. "
-msgstr ""
-"ਤੁਹਾਡੇ ਵਲੋਂ ਚੁਣੀ ਸਰੋਤ ਡਰਾਈਵ, ਜਿਸ ਉੱਤੇ ਭਾਗ ਹਨ, ਜੋ ਕਿ ਡਰਾਈਵ %s ਲਈ ਟਾਰਗਿਟ ਨਹੀਂ ਹਨ।\n"
-"\n"
-"ਇਸ ਡਰਾਈਵ ਨੂੰ ਕਲੋਨ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਇਹਨਾਂ ਭਾਗਾਂ ਨੂੰ ਹਟਾਉਣ ਜਰੂਰੀ ਹੈ ਜਾਂ ਇਹਨਾਂ ਨੂੰ ਸੀਮਿਤ ਕਰਨਾ "
-"ਪਵੇਗਾ।"
-
-#: iw/raid_dialog_gui.py:696
-msgid ""
-"The source drive you selected has software RAID partition(s) which are "
-"members of an active software RAID device.\n"
-"\n"
-"You must remove these partitions before this drive can be cloned."
-msgstr ""
-"ਚੁਣੀ ਸਰੋਤ ਡਰਾਈਵ ਉੱਤੇ ਸਾਫਟਵੇਅਰ RAID ਭਾਗ ਹਨ, ਜੋ ਕਿ ਸਰਗਰਮ ਸਾਫਟਵੇਅਰ ਰੇਡ ਜੰਤਰ ਦੇ ਮੈਂਬਰ ਹਨ।\n"
-"\n"
-"ਇਸ ਡਰਾਈਵ ਨੂੰ ਕਲੋਨ ਕਰਨ ਲਈ ਤੁਹਾਨੂੰ ਇਹਨਾਂ ਭਾਗਾਂ ਨੂੰ ਹਟਾਉਣਾ ਜਰੂਰੀ ਹੈ।"
-
-#: iw/raid_dialog_gui.py:710 iw/raid_dialog_gui.py:716
-#: iw/raid_dialog_gui.py:732
-msgid "Target Drive Error"
-msgstr "ਟਾਰਗੇਟ ਡਰਾਈਵ ਗਲਤੀ"
-
-#: iw/raid_dialog_gui.py:711
-msgid "Please select the target drives for the clone operation."
-msgstr "ਕਲੋਨ ਕਾਰਵਾਈ ਲਈ ਟਾਰਗੇਟ ਡਰਾਈਵਾਂ ਦੀ ਚੋਣ ਕਰੋ।"
-
-#: iw/raid_dialog_gui.py:717
-#, python-format
-msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "ਸਰੋਤ ਡਰਾਈਵ %s ਨੂੰ ਟਾਰਗਿਟ ਡਰਾਈਵ ਨਹੀਂ ਬਣਾਇਆ ਜਾ ਸਕਦਾ ਹੈ।"
-
-#: iw/raid_dialog_gui.py:733
-#, python-format
-msgid ""
-"The target drive %(path)s has a partition which cannot be removed for the "
-"following reason:\n"
-"\n"
-"\"%(rc)s\"\n"
-"\n"
-"You must remove this partition before this drive can be a target."
-msgstr ""
-"ਟਾਰਗਿਟ ਡਰਾਈਵ %(path)s ਤੇ ਇੱਕ ਭਾਗ ਹੈ, ਜੋ ਕਿ ਅੱਗੇ ਲਿਖੇ ਕਾਰਨਾਂ ਕਰਕੇ ਹਟਾਇਆ ਨਹੀਂ ਜਾ ਸਕਦਾ "
-"ਹੈ:\n"
-"\n"
-"\"%(rc)s\"\n"
-"\n"
-"ਇਹ ਡਰਾਈਵ ਨੂੰ ਇੱਕ ਟਾਰਗਿਟ ਵਜੋਂ ਵਰਤਣ ਲਈ ਇਹ ਭਾਗ ਹਟਾਉਣਾ ਲਾਜ਼ਮੀ ਹੈ।"
-
-#: iw/raid_dialog_gui.py:796
-msgid "Please select a source drive."
-msgstr "ਇੱਕ ਸਰੋਤ ਜੰਤਰ ਚੁਣੋ ਜੀ।"
-
-#: iw/raid_dialog_gui.py:816
-#, python-format
-msgid ""
-"The drive %s will now be cloned to the following drives:\n"
-"\n"
-msgstr ""
-"ਡਰਾਈਵ %s ਹੇਠ ਲਿਖੀਆਂ ਡਰਾਈਵਾਂ ਨਾਲ ਕਲੋਨ ਕੀਤੀ ਜਾਵੇਗੀ:\n"
-"\n"
-
-#: iw/raid_dialog_gui.py:821
-msgid ""
-"\n"
-"\n"
-"WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
-msgstr ""
-"\n"
-"\n"
-"*ਸਾਵਧਾਨ ! ਟਾਰਗੇਟ ਕੀਤੀਆਂ ਡਰਾਈਵਾਂ ਉੱਤੇ ਮੌਜੂਦ ਸਾਰਾ ਡਾਟਾ ਨਸ਼ਟ ਹੋ ਜਾਵੇਗਾ*।"
-
-#: iw/raid_dialog_gui.py:824
-msgid "Final Warning"
-msgstr "ਆਖਰੀ ਚੇਤਾਵਨੀ"
-
-#: iw/raid_dialog_gui.py:826
-msgid "Clone Drives"
-msgstr "ਕਲੋਨ ਡਰਾਈਵਾਂ"
-
-#: iw/raid_dialog_gui.py:835
-msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr "ਟਾਰਗੇਟ ਡਰਾਈਵਾਂ ਨੂੰ ਸਾਫ ਕਰਨ ਵਿੱਚ ਅਸਫਲ, ਸਮਰੂਪਤਾ ਅਸਫਲ।"
-
-#: iw/raid_dialog_gui.py:858
-msgid "Clone Drive Tool"
-msgstr "ਕਲੋਨ ਡਰਾਈਵ ਸੰਦ"
-
-#: iw/raid_dialog_gui.py:867
-msgid ""
-"This tool clones the layout from a partitioned source onto other similar "
-"sized drives. The source must have partitions which are restricted to that "
-"drive and must ONLY contain unused software RAID partitions.  EVERYTHING on "
-"the target drive(s) will be destroyed.\n"
-msgstr ""
-"ਇਹ ਜੰਤਰ ਵਿਭਾਗੀਕ੍ਰਿਤ ਸਰੋਤ ਤੋਂ ਖਾਕੇ ਨੂੰ ਹੋਰ ਉਸੇ ਅਕਾਰ ਦੀ ਡਰਾਈਵ ਤੇ ਕਲੋਨ ਕਰਦਾ ਹੈ। ਸਰੋਤ ਤੇ ਭਾਗ ਹੋਣੇ "
-"ਜਰੂਰੀ ਹਨ ਜੋ ਉਸ ਡਰਾਈਵ ਤੇ ਹਨ ਅਤੇ ਸਿਰਫ ਨਾ-ਵਰਤੇ ਸਾਫਟਵੇਅਰ RAID ਭਾਗ ਹਨ।  ਟਾਰਗਿਟ ਡਰਾਈਵ ਤੇ "
-"ਸਭ ਕੁਝ ਖਰਾਬ ਹੋ ਜਾਵੇਗਾ।\n"
-
-#: iw/raid_dialog_gui.py:878
-msgid "Source Drive:"
-msgstr "ਸੋਰਸ ਡਰਾਈਵ:"
-
-#: iw/raid_dialog_gui.py:886
-msgid "Target Drive(s):"
-msgstr "ਟਾਰਗੇਟ ਡਰਾਈਵਾਂ:"
-
-#: iw/raid_dialog_gui.py:894
-msgid "Drives"
-msgstr "ਡਰਾਈਵਾਂ"
-
-#: iw/task_gui.py:53
+#: iw/task_gui.py:54
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -3575,48 +3404,48 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:130
+#: iw/task_gui.py:131
 msgid "Edit Repository"
 msgstr "ਰਿਪੋਜ਼ਟਰੀ ਸੋਧ"
 
-#: iw/task_gui.py:154
+#: iw/task_gui.py:155
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr "ਰਿਪੋਜ਼ਟਰੀ %s ਪਹਿਲਾਂ ਹੀ ਸ਼ਾਮਿਲ ਕੀਤੀ ਜਾ ਚੁੱਕੀ ਹੈ।  ਇੱਕ ਵੱਖਰਾ ਰਿਪੋਜ਼ਟਰੀ ਨਾਂ ਅਤੇ URL ਵਰਤੋ।"
 
-#: iw/task_gui.py:234
+#: iw/task_gui.py:235
 msgid "Invalid Proxy URL"
 msgstr "ਅਢੁੱਕਵਾਂ ਪਰਾਕਸੀ URL"
 
-#: iw/task_gui.py:235
+#: iw/task_gui.py:236
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "ਤੁਹਾਨੂੰ ਪਰਾਕਸੀ ਲਈ ਇੱਕ HTTP, HTTPS, ਜਾਂ FTP URL ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: iw/task_gui.py:246 iw/task_gui.py:426
+#: iw/task_gui.py:247 iw/task_gui.py:427
 msgid "Invalid Repository URL"
 msgstr "ਅਢੁੱਕਵਾਂ ਰਿਪੋਜ਼ਟਰੀ URL"
 
-#: iw/task_gui.py:247 iw/task_gui.py:427
+#: iw/task_gui.py:248 iw/task_gui.py:428
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ ਰਿਪੋਜ਼ਟਰੀ ਲਈ ਇੱਕ HTTP, HTTPS, ਜਾਂ FTP URL ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: iw/task_gui.py:268 iw/task_gui.py:436
+#: iw/task_gui.py:269 iw/task_gui.py:437
 msgid "No Media Found"
 msgstr "ਕੋਈ ਮੀਡਿਆ ਨਹੀਂ ਲੱਭਿਆ"
 
-#: iw/task_gui.py:269 iw/task_gui.py:437
+#: iw/task_gui.py:270 iw/task_gui.py:438
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr "ਕੋਈ ਇੰਸਟਾਲੇਸ਼ਨ ਮੀਡੀਆ ਨਹੀਂ ਲੱਭਿਆ। ਆਪਣੀ ਡਰਾਈਵ ਵਿੱਚ ਡਿਸਕ ਪਾਓ ਅਤੇ ਫਿਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ ਜੀ।"
 
-#: iw/task_gui.py:300 iw/task_gui.py:460
+#: iw/task_gui.py:301 iw/task_gui.py:461
 msgid "Please enter an NFS server and path."
 msgstr "NFS ਸਰਵਰ ਨਾਂ ਅਤੇ ਮਾਰਗ ਦਿਓ ਜੀ।"
 
-#: iw/task_gui.py:318
+#: iw/task_gui.py:319
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3627,23 +3456,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:341
+#: iw/task_gui.py:342
 msgid "Invalid Repository Name"
 msgstr "ਰਿਪੋਜ਼ਟਰੀ ਨਾਂ ਠੀਕ ਨਹੀਂ ਹੈ"
 
-#: iw/task_gui.py:342
+#: iw/task_gui.py:343
 msgid "You must provide a repository name."
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ ਰਿਪੋਜ਼ਟਰੀ ਨਾਂ ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: iw/task_gui.py:492 ui/addrepo.glade.h:3
+#: iw/task_gui.py:493 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "ਰਿਪੋਜ਼ਟਰੀ ਸ਼ਾਮਲ"
 
-#: iw/task_gui.py:497
+#: iw/task_gui.py:498
 msgid "No Software Repos Enabled"
 msgstr "ਕੋਈ ਸਾਫਟਵੇਅਰ ਰਿਪੋ ਯੋਗ ਨਹੀਂ ਕੀਤੀ"
 
-#: iw/task_gui.py:498
+#: iw/task_gui.py:499
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3696,8 +3525,7 @@ msgstr "ਨਵੀਂ ਬੂਟ-ਲੋਡਰ ਸੰਰਚਨਾ ਬਣਾਓ(_C)"
 msgid ""
 "This option creates a new boot loader configuration.  If you wish to switch "
 "boot loaders, you should choose this."
-msgstr ""
-"ਇਹ ਚੋਣ ਇੱਕ ਨਵੀਂ ਬੂਟ ਲੋਡਰ ਸੰਰਚਨਾ ਬਣਾਏਗੀ। ਜੇਕਰ ਤੁਸੀਂ ਬੂਟ-ਲੋਡਰ ਬਦਲਣਾ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਇਸ ਦੀ ਚੋਣ ਕਰੋ।"
+msgstr "ਇਹ ਚੋਣ ਇੱਕ ਨਵੀਂ ਬੂਟ ਲੋਡਰ ਸੰਰਚਨਾ ਬਣਾਏਗੀ। ਜੇਕਰ ਤੁਸੀਂ ਬੂਟ-ਲੋਡਰ ਬਦਲਣਾ ਚਾਹੁੰਦੇ ਹੋ ਤਾਂ ਇਸ ਦੀ ਚੋਣ ਕਰੋ।"
 
 #: iw/upgrade_bootloader_gui.py:156
 msgid "_Skip boot loader updating"
@@ -3961,12 +3789,12 @@ msgstr ""
 msgid "Disc Not Found"
 msgstr "ਡਿਸਕ ਨਹੀਂ ਲੱਭੀ"
 
-#: loader/cdinstall.c:431 loader/driverdisk.c:422 loader/driverdisk.c:460
-#: loader/driverdisk.c:541 loader/driverselect.c:78 loader/driverselect.c:152
+#: loader/cdinstall.c:431 loader/driverdisk.c:408 loader/driverdisk.c:440
+#: loader/driverdisk.c:521 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:491 loader/loader.c:508
-#: loader/loader.c:1361 loader/loader.c:1394 loader/net.c:579 loader/net.c:950
-#: loader/net.c:1851 loader/net.c:1870 loader/nfsinstall.c:91
+#: loader/loader.c:1320 loader/loader.c:1353 loader/net.c:580 loader/net.c:951
+#: loader/net.c:1860 loader/net.c:1879 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -3981,19 +3809,19 @@ msgstr "CD-ROM ਤੇ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਨਹੀਂ ਲ�
 msgid "Failed to read directory %s: %m"
 msgstr "ਡਾਇਰੈਕਟਰੀ %s ਨੂੰ ਪੜ੍ਹਨ ਵਿੱਚ ਅਸਫ਼ਲ: %m"
 
-#: loader/driverdisk.c:304
+#: loader/driverdisk.c:274
 msgid "Loading"
 msgstr "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ"
 
-#: loader/driverdisk.c:304
+#: loader/driverdisk.c:274
 msgid "Reading driver disk"
 msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਪੜ੍ਹੀ ਜਾ ਰਹੀ ਹੈ"
 
-#: loader/driverdisk.c:416 loader/driverdisk.c:455
+#: loader/driverdisk.c:402 loader/driverdisk.c:435
 msgid "Driver Disk Source"
 msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਸਰੋਤ"
 
-#: loader/driverdisk.c:417
+#: loader/driverdisk.c:403
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -4001,7 +3829,7 @@ msgstr ""
 "ਤੁਹਾਡੇ ਕੋਲ ਇੱਕ ਤੋਂ ਵਧੇਰੇ ਜੰਤਰ ਹਨ, ਜੋ ਕਿ ਡਰਾਈਵਰ-ਡਿਸਕ ਲਈ ਸਰੋਤ ਦਾ ਕੰਮ ਕਰ ਸਕਦੇ ਹਨ। ਕਿਹਡ਼ਾ ਤੁਸੀਂ "
 "ਵਰਤਣਾ ਚਾਹੋਗੇ?"
 
-#: loader/driverdisk.c:456
+#: loader/driverdisk.c:436
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -4009,49 +3837,49 @@ msgstr ""
 "ਇਹ ਜੰਤਰ ਉੱਤੇ ਕਈ ਪਾਰਟੀਸ਼ਨ ਹਨ, ਜੋ ਕਿ ਡਰਾਈਵਰ-ਡਿਸਕ ਈਮੇਜ਼ ਰੱਖਦੇ ਹੋ ਸਕਦੇ ਹਨ। ਕਿਹਡ਼ਾ ਤੁਸੀਂ ਵਰਤਣਾ "
 "ਚਾਹੋਗੇ?"
 
-#: loader/driverdisk.c:491
+#: loader/driverdisk.c:471
 msgid "Failed to mount partition."
 msgstr "ਪਾਰਟੀਸ਼ਨ ਮਾਊਂਟ ਕਰਨ ਵਿੱਚ ਅਸਫ਼ਲ ਹੈ।"
 
-#: loader/driverdisk.c:496
+#: loader/driverdisk.c:476
 msgid "Select driver disk image"
 msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਈਮੇਜ਼ ਚੁਣੋ"
 
-#: loader/driverdisk.c:497
+#: loader/driverdisk.c:477
 msgid "Select the file which is your driver disk image."
 msgstr "ਫਾਇਲ, ਜੋ ਕਿ ਤੁਹਾਡੇ ਡਰਾਈਵਰ ਡਿਸਕ ਦਾ ਈਮੇਜ਼ ਹੈ।"
 
-#: loader/driverdisk.c:526
+#: loader/driverdisk.c:506
 msgid "Failed to load driver disk from file."
 msgstr "ਫਾਇਲ ਤੋਂ ਡਰਾਈਵਰ ਡਿਸਕ ਨੂੰ ਲੋਡ ਕਰਨ ਵਿੱਚ ਅਸਫਲ ਹੈ।"
 
-#: loader/driverdisk.c:538
+#: loader/driverdisk.c:518
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "ਆਪਣੀ ਡਰਾਈਵਰ ਡਿਸਕ ਨੂੰ /dev/%s ਵਿੱਚ ਪਾਉ ਅਤੇ ਜਾਰੀ ਰੱਖਣ ਲਈ \"ਠੀਕ ਹੈ \" ਦਬਾਓ।"
 
-#: loader/driverdisk.c:541
+#: loader/driverdisk.c:521
 msgid "Insert Driver Disk"
 msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਪਾਓ"
 
-#: loader/driverdisk.c:554
+#: loader/driverdisk.c:534
 msgid "Failed to mount driver disk."
 msgstr "ਡਰਾਈਵਰ ਡਿਸਕ ਨੂੰ ਮਾਊਂਟ ਕਰਨ ਵਿੱਚ ਅਸਫ਼ਲ"
 
-#: loader/driverdisk.c:562
+#: loader/driverdisk.c:542
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr "%s ਦੇ ਇਸ ਰੀਲਿਜ਼ ਲਈ ਡਰਾਈਵਰ ਡਿਸਕ ਗਲਤ ਹੈ।"
 
-#: loader/driverdisk.c:625
+#: loader/driverdisk.c:608
 msgid "Manually choose"
 msgstr "ਦਸਤੀ ਚੋਣ"
 
-#: loader/driverdisk.c:626
+#: loader/driverdisk.c:609
 msgid "Load another disk"
 msgstr "ਹੋਰ ਡਿਸਕ ਲੋਡ ਕਰੋ"
 
-#: loader/driverdisk.c:627
+#: loader/driverdisk.c:610
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -4060,37 +3888,37 @@ msgstr ""
 "ਡਰਾਈਵਰ-ਡਿਸਕ ਤੇ ਜੰਤਰ ਦੀ ਕੋਈ ਅਨੁਕੂਲ ਕਿਸਮ ਨਹੀਂ ਲੱਭੀ ਹੈ। ਕੀ ਤੁਸੀਂ ਦਸਤੀ ਡਰਾਈਵਰ ਦੀ ਚੋਣ ਕਰਨੀ "
 "ਚਾਹੁੰਦੇ ਹੋ, ਜਾਂ ਕਿਸੇ ਤਰਾਂ ਵੀ ਜਾਰੀ ਰਹਿਣਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਹੋਰ ਡਰਾਈਵਰ ਡਿਸਕ ਲੋਡ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: loader/driverdisk.c:665
+#: loader/driverdisk.c:648
 msgid "Driver disk"
 msgstr "ਡਰਾਈਵਰ ਡਿਸਕ"
 
-#: loader/driverdisk.c:666
+#: loader/driverdisk.c:649
 msgid "Do you have a driver disk?"
 msgstr "ਕੀ ਤੁਹਾਡੇ ਕੋਲ ਇੱਕ ਡਰਾਈਵਰ ਡਿਸਕ ਹੈ?"
 
-#: loader/driverdisk.c:675
+#: loader/driverdisk.c:658
 msgid "More Driver Disks?"
 msgstr "ਹੋਰ ਡਰਾਈਵਰ ਡਿਸਕਾਂ?"
 
-#: loader/driverdisk.c:676
+#: loader/driverdisk.c:659
 msgid "Do you wish to load any more driver disks?"
 msgstr "ਕੀ ਤੁਸੀਂ ਹੋਰ ਡਰਾਈਵਰ ਡਿਸਕਾਂ ਲੋਡ ਕਰਨੀਆਂ ਚਾਹੋਗੇ?"
 
-#: loader/driverdisk.c:721 loader/driverdisk.c:760 loader/hdinstall.c:359
+#: loader/driverdisk.c:708 loader/driverdisk.c:747 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
-#: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:381
-#: loader/modules.c:397 loader/net.c:1558 loader/net.c:1579
-#: loader/nfsinstall.c:366 loader/urlinstall.c:372 loader/urlinstall.c:383
+#: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
+#: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
+#: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
 msgstr "ਕਿੱਕਸਟਾਰਟ ਗਲਤੀ"
 
-#: loader/driverdisk.c:722
+#: loader/driverdisk.c:709
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "ਅਣਜਾਣ ਡਰਾਈਵਰ ਡਿਸਕ ਕਿੱਕਸਟਾਰਟ ਸਰੋਤ: %s"
 
-#: loader/driverdisk.c:761
+#: loader/driverdisk.c:748
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -4178,16 +4006,16 @@ msgstr "ਪਾਰਟੀਸ਼ਨ ਚੁਣੋ"
 msgid "Device %s does not appear to contain an installation image."
 msgstr "ਜੰਤਰ %s ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਈਮੇਜ਼ ਨਹੀਂ ਜਾਪਦੇ ਹਨ।"
 
-#: loader/hdinstall.c:360
+#: loader/hdinstall.c:361
 #, c-format
 msgid "Bad argument to HD kickstart method command: %s"
 msgstr "HD ਕਿੱਕਸਟਾਰਟ ਢੰਗ ਕਮਾਂਡ ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ: %s"
 
-#: loader/hdinstall.c:432 loader/hdinstall.c:488
+#: loader/hdinstall.c:441 loader/hdinstall.c:497
 msgid "Cannot find kickstart file on hard drive."
 msgstr "ਹਾਰਡ ਡਿਸਕ ਉੱਤੇ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਖੋਜ ਨਹੀਂ ਸਕੀ।"
 
-#: loader/hdinstall.c:475
+#: loader/hdinstall.c:484
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "BIOS ਡਿਸਕ %s ਲਈ ਹਾਰਡ ਡਰਾਈਵ ਲੱਭ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
@@ -4324,48 +4152,48 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr "ਅੱਪਡੇਟ ਈਮੇਜ਼ ਡਾਊਨਲੋਡ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: loader/loader.c:1174
+#: loader/loader.c:1133
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "ਤੁਹਾਡੀ ਮਸ਼ੀਨ ਉੱਤੇ %s ਨੂੰ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਲੋੜੀਂਦੀ ਰੈਮ (RAM) ਨਹੀਂ ਹੈ।"
 
-#: loader/loader.c:1228
+#: loader/loader.c:1187
 msgid "Media Detected"
 msgstr "ਮੀਡਿਆ ਖੋਜਿਆ"
 
-#: loader/loader.c:1229
+#: loader/loader.c:1188
 msgid "Found local installation media"
 msgstr "ਲੋਕਲ ਇੰਸਟਾਲੇਸ਼ਨ ਮੀਡਿਆ ਖੋਜਿਆ"
 
-#: loader/loader.c:1353
+#: loader/loader.c:1312
 msgid "Rescue Method"
 msgstr "ਸੰਕਟਕਾਲੀਨ ਢੰਗ"
 
-#: loader/loader.c:1354
+#: loader/loader.c:1313
 msgid "Installation Method"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਢੰਗ"
 
-#: loader/loader.c:1356
+#: loader/loader.c:1315
 msgid "What type of media contains the rescue image?"
 msgstr "ਸੰਕਟਕਾਲੀਨ ਈਮੇਜ਼ ਕਿਸ ਕਿਸਮ ਦੇ ਮੀਡਿਆ ਉੱਤੇ ਹਨ?"
 
-#: loader/loader.c:1358
+#: loader/loader.c:1317
 msgid "What type of media contains the installation image?"
 msgstr "ਇੰਸਾਟਲੇਸ਼ਨ ਈਮੇਜ਼ ਕਿਸ ਕਿਸਮ ਦੇ ਮੀਡਿਆ ਉੱਤੇ ਹਨ?"
 
-#: loader/loader.c:1393
+#: loader/loader.c:1352
 msgid "No driver found"
 msgstr "ਕੋਈ ਡਰਾਈਵਰ ਨਹੀਂ ਲੱਭਾ"
 
-#: loader/loader.c:1393
+#: loader/loader.c:1352
 msgid "Select driver"
 msgstr "ਡਰਾਈਵਰ ਚੁਣੋ"
 
-#: loader/loader.c:1394
+#: loader/loader.c:1353
 msgid "Use a driver disk"
 msgstr "ਇੱਕ ਡਰਾਈਵਰ ਡਿਸਕ ਵਰਤੋਂ"
 
-#: loader/loader.c:1395
+#: loader/loader.c:1354
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4373,40 +4201,39 @@ msgstr ""
 "ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਕਿਸਮ ਲਈ ਲੋੜੀਂਦੀ ਕੋਈ ਜੰਤਰ ਦੀ ਕਿਸਮ ਨੂੰ ਖੋਜਣ ਵਿੱਚ ਅਸਫਲ ਹੈ। ਤੁਸੀਂ ਡਰਾਈਵਰ ਨੂੰ ਦਸਤੀ "
 "ਚੁਣਨਾ ਚਾਹੁੰਦੇ ਹੋ ਜਾਂ ਜੰਤਰ-ਡਿਸਕ ਵਰਤਣੀ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: loader/loader.c:1623
+#: loader/loader.c:1582
 msgid "The following devices have been found on your system."
 msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਤੇ ਇਹ ਜੰਤਰ ਖੋਜੇ ਗਏ ਹਨ।"
 
-#: loader/loader.c:1625
+#: loader/loader.c:1584
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰਡਰਾਈਵਰ ਲੋਡ ਨਹੀਂ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀਂ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
+msgstr "ਤੁਹਾਡੇ ਸਿਸਟਮ ਲਈ ਕੋਈ ਜੰਤਰਡਰਾਈਵਰ ਲੋਡ ਨਹੀਂ ਕੀਤੇ ਗਏ ਹਨ। ਕੀ ਤੁਸੀਂ ਕਿਸੇ ਨੂੰ ਹੁਣ ਲੋਡ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: loader/loader.c:1629
+#: loader/loader.c:1588
 msgid "Devices"
 msgstr "ਜੰਤਰ"
 
-#: loader/loader.c:1630
+#: loader/loader.c:1589
 msgid "Done"
 msgstr "ਸਮਾਪਤ"
 
-#: loader/loader.c:1631
+#: loader/loader.c:1590
 msgid "Add Device"
 msgstr "ਜੰਤਰ ਸ਼ਾਮਲ"
 
-#: loader/loader.c:1908
+#: loader/loader.c:1868
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ਲੋਡਰ ਤਾਂ ਪਹਿਲਾਂ ਹੀ ਚੱਲ ਰਿਹਾ ਹੈ। ਸ਼ੈੱਲ ਸ਼ੁਰੂ ਹੋ ਰਹੀ ਹੈ।\n"
 
-#: loader/loader.c:2355
+#: loader/loader.c:2321
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "ਐਨਾਕਾਂਡਾ %s ਚੱਲ ਰਿਹਾ ਹੈ, %s ਸੰਕਟਕਾਲੀਨ ਢੰਗ - ਉਡੀਕ ਕਰੋ ਜੀ।\n"
 
-#: loader/loader.c:2357
+#: loader/loader.c:2323
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "ਐਨਾਕਾਂਡਾ %s ਚੱਲ ਰਿਹਾ ਹੈ, %s ਸਿਸਟਮ ਇੰਸਟਾਲਰ - ਉਡੀਕ ਕਰੋ ਜੀ।\n"
@@ -4428,10 +4255,10 @@ msgstr "ਹੁਣ ਮੀਡਿਆ ਦੀ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ।
 
 #: loader/mediacheck.c:86
 msgid ""
-"Unable to read the disc checksum from the primary volume descriptor.  This "
-"probably means the disc was created without adding the checksum."
+"Unable to find the checksum in the image.  This probably means the disc was "
+"created without adding the checksum."
 msgstr ""
-"ਪ੍ਰਾਇਮਰੀ ਵਾਲੀਅਮ ਵੇਰਵੇ ਤੋਂ ਡਿਸਕ ਚੈਕ-ਸਮ ਜਾਂਚਣ ਵਿੱਚ ਅਸਫਲ ਹੈ। ਇਸ ਦਾ ਅਰਥ ਹੈ ਕਿ ਡਿਸਕ ਨੂੰ ਚੈੱਕ-ਸਮ "
+"ਈਮੇਜ਼ ਵਿੱਚ ਚੈਕ-ਸਮ ਜਾਂਚਣ ਵਿੱਚ ਅਸਫਲ ਹੈ। ਇਸਇਸ ਦਾ ਅਰਥ ਹੈ ਕਿ ਡਿਸਕ ਨੂੰ ਚੈੱਕ-ਸਮ "
 "ਜੋਡ਼ੇ ਬਿਨਾਂ ਹੀ ਤਿਆਰ ਕੀਤਾ ਗਿਆ ਹੈ।"
 
 #: loader/mediacheck.c:93
@@ -4477,12 +4304,12 @@ msgstr ""
 msgid "Checksum Test"
 msgstr "ਚੈੱਕ-ਸਮ ਦੀ ਜਾਂਚ"
 
-#: loader/modules.c:382
+#: loader/modules.c:383
 #, c-format
 msgid "Bad argument to device kickstart method command: %s"
 msgstr "ਜੰਤਰ ਕਿੱਕਸਟਾਰਟ ਢੰਗ ਕਮਾਂਡ ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ ਹੈ: %s"
 
-#: loader/modules.c:398
+#: loader/modules.c:399
 msgid "A module name must be specified for the kickstart device command."
 msgstr "ਕਿੱਕਸਟਾਰਟ ਜੰਤਰ ਕਮਾਂਡ ਲਈ ਮੈਡਿਊਲ ਨਾਂ ਦੇਣਾ ਲਾਜ਼ਮੀ ਹੈ।"
 
@@ -4496,12 +4323,12 @@ msgid ""
 "IPv6 networks"
 msgstr "IPv4 ਨੈੱਟਵਰਕ ਲਈ ਪ੍ਰੀ-ਫਿਕਸ 1 ਤੋਂ 32 ਵਿੱਚ ਹੋਣਾ ਲਾਜ਼ਮੀ ਹੈ ਜਾਂ IPv6 ਲਈ 1 ਤੋਂ 128 ਤੱਕ"
 
-#: loader/net.c:464 loader/net.c:472 loader/net.c:527
+#: loader/net.c:465 loader/net.c:473 loader/net.c:528
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr "ਤੁਹਾਡੇ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਦੀ ਸੰਰਚਨਾ ਦੌਰਾਨ ਇੱਕ ਗਲਤੀ ਆਈ ਸੀ।"
 
-#: loader/net.c:466
+#: loader/net.c:467
 #, c-format
 msgid ""
 "\n"
@@ -4512,59 +4339,59 @@ msgstr ""
 "ਇਸਨੂੰ cmdline ਮੋਡ ਵਿੱਚ ਠੀਕ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ।\n"
 "ਰੋਕ ਰਿਹਾ ਹੈ।\n"
 
-#: loader/net.c:471 loader/net.c:526
+#: loader/net.c:472 loader/net.c:527
 msgid "Network Error"
 msgstr "ਨੈੱਟਵਰਕ ਗਲਤੀ"
 
-#: loader/net.c:557 textw/netconfig_text.py:133
+#: loader/net.c:558 textw/netconfig_text.py:133
 msgid "Enable IPv4 support"
 msgstr "IPv4 ਸਹਿਯੋਗ ਯੋਗ"
 
-#: loader/net.c:571
+#: loader/net.c:572
 msgid "Enable IPv6 support"
 msgstr "IPv6 ਸਹਿਯੋਗ ਯੋਗ"
 
-#: loader/net.c:611
+#: loader/net.c:612
 msgid "Configure TCP/IP"
 msgstr "TCP/IP ਸੰਰਚਨਾ"
 
-#: loader/net.c:668
+#: loader/net.c:669
 msgid "Missing Protocol"
 msgstr "ਗੈਰਮੌਜੂਦ ਪਰੋਟੋਕਾਲ"
 
-#: loader/net.c:669
+#: loader/net.c:670
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "ਤੁਹਾਨੂੰ ਘੱਟੋ-ਘੱਟ ਇੱਕ ਪਰੋਟੋਕਾਲ ਦੀ ਚੋਣ ਕਰਨੀ ਚਾਹੀਦੀ ਹੈ। (IPv4 ਜਾਂ IPv6)।"
 
-#: loader/net.c:676
+#: loader/net.c:677
 msgid "IPv4 Needed for NFS"
 msgstr "NFS ਲਈ IPv4 ਲੋੜੀਂਦਾ ਹੈ"
 
-#: loader/net.c:677
+#: loader/net.c:678
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS ਇੰਸਟਾਲੇਸ਼ਨ ਢੰਗ ਲਈ IPv4 ਸਹਿਯੋਗ ਦੀ ਲੋੜ ਹੈ।"
 
-#: loader/net.c:776
+#: loader/net.c:777
 msgid "IPv4 address:"
 msgstr "IPv4 ਐਡਰੈੱਸ:"
 
-#: loader/net.c:788 loader/net.c:855 ui/netconfig.glade.h:1
+#: loader/net.c:789 loader/net.c:856
 msgid "/"
 msgstr "/"
 
-#: loader/net.c:843
+#: loader/net.c:844
 msgid "IPv6 address:"
 msgstr "IPv6 ਐਡਰੈੱਸ:"
 
-#: loader/net.c:909 textw/netconfig_text.py:160
+#: loader/net.c:910 textw/netconfig_text.py:160
 msgid "Gateway:"
 msgstr "ਗੇਟਵੇ:"
 
-#: loader/net.c:917
+#: loader/net.c:918
 msgid "Name Server:"
 msgstr "ਨਾਂ-ਸਰਵਰ:"
 
-#: loader/net.c:956
+#: loader/net.c:957
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -4574,55 +4401,55 @@ msgstr ""
 "ਨੈਟਮਾਸਕ ਜਾਂ CIDR-ਸਟਾਈਲ ਪ੍ਰੀ-ਫਿਕਸ ਮੰਨਣਯੋਗ ਹਨ। ਗੇਟਵੇ ਅਤੇ ਨਾਂ ਸਰਵਰ ਖੇਤਰ IPv4 ਜਾਂ IPv6 ਐਡਰੈੱਸ "
 "ਦਿਓ।"
 
-#: loader/net.c:973
+#: loader/net.c:974
 msgid "Manual TCP/IP Configuration"
 msgstr "ਦਸਤੀ TCP/IP ਸੰਰਚਨਾ"
 
-#: loader/net.c:1097 loader/net.c:1105
+#: loader/net.c:1098 loader/net.c:1106
 msgid "Missing Information"
 msgstr "ਗੈਰਮੌਜੂਦ ਜਾਣਕਾਰੀ"
 
-#: loader/net.c:1098
+#: loader/net.c:1099
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "ਤੁਹਾਨੂੰ ਦੋਵੇਂ ਇੱਕ ਜਾਇਜ਼ IPv4 ਐਡਰੈੱਸ ਅਤੇ ਇੱਕ ਨੈੱਟਮਾਸਕ ਜਾਂ CIDR ਪ੍ਰੀਫਿਕਸ ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: loader/net.c:1106
+#: loader/net.c:1107
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "ਤੁਹਾਨੂੰ ਦੋਵੇਂ ਇੱਕ ਜਾਇਜ਼ IPv6 ਐਡਰੈੱਸ ਅਤੇ ਇੱਕ CIDR ਪ੍ਰੀਫਿਕਸ ਦੇਣਾ ਪਵੇਗਾ।"
 
-#: loader/net.c:1559
+#: loader/net.c:1560
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "ਕਿੱਕਸਟਾਰਟ ਨੈੱਟਵਰਕ ਕਮਾਂਡ ਲਈ ਨਕਾਰਾ ਆਰਗੂਮੈਂਟ: %s"
 
-#: loader/net.c:1580
+#: loader/net.c:1581
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "ਨੈੱਟਵਰਕ ਕਮਾਂਡ ਵਿੱਚ ਗਲਤ ਬੂਟ-ਪਰੋਟੋਕਾਲ %s ਦਿੱਤਾ"
 
-#: loader/net.c:1657
+#: loader/net.c:1658
 msgid "Seconds:"
 msgstr "ਸਕਿੰਟ:"
 
-#: loader/net.c:1846
+#: loader/net.c:1855
 msgid "Networking Device"
 msgstr "ਨੈੱਟਵਰਕ ਜੰਤਰ"
 
-#: loader/net.c:1847
+#: loader/net.c:1856
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr "ਇਹ ਸਿਸਟਮ ਉੱਤੇ ਕਈ ਨੈੱਟਵਰਕ ਜੰਤਰ ਹਨ, ਤੁਸੀਂ ਕਿਸ ਤੋਂ ਇੰਸਟਾਲ ਕਰਨਾ ਪਸੰਦ ਕਰੋਗੇ?"
 
-#: loader/net.c:1851
+#: loader/net.c:1860
 msgid "Identify"
 msgstr "ਪਛਾਣ ਕਰੋ"
 
-#: loader/net.c:1860
+#: loader/net.c:1869
 msgid "You can identify the physical port for"
 msgstr "ਤੁਸੀਂ ਇਸ ਲਈ ਫਿਜ਼ੀਕਲ ਪੋਰਟ ਦੇ ਸਕਦੇ ਹੋ"
 
-#: loader/net.c:1862
+#: loader/net.c:1871
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
@@ -4630,24 +4457,24 @@ msgstr ""
 "ਕੁਝ ਸਕਿੰਟਾਂ ਲਈ LED ਲਾਈਟਾਂ ਜਗਾ ਕੇ।  LED ਪੋਰਟ ਲਾਈਟਾਂ ਜਗਣ ਲਈ ਅੰਤਰਾਲ ਸੈੱਟ ਕਰਨ ਵਾਸਤੇ 1 ਅਤੇ 30 "
 "ਵਿਚਕਾਰ ਨੰਬਰ ਦਿਓ।"
 
-#: loader/net.c:1869
+#: loader/net.c:1878
 msgid "Identify NIC"
 msgstr "NIC ਪਛਾਣੋ"
 
-#: loader/net.c:1882
+#: loader/net.c:1891
 msgid "Invalid Duration"
 msgstr "ਅਢੁੱਕਵਾਂ ਅੰਤਰਾਲ"
 
-#: loader/net.c:1883
+#: loader/net.c:1892
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "ਤੁਹਾਨੂੰ 1 ਅਤੇ 30 ਵਿਚਕਾਰ ਪੂਰਨ ਅੰਕ ਦੇਣਾ ਜਰੂਰੀ ਹੈ।"
 
-#: loader/net.c:1895
+#: loader/net.c:1904
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "%s ਪੋਰਟ ਲਾਈਟਾਂ ਦੀ %d ਸਕਿੰਟਾਂ ਲਈ ਫਲੈਸ਼ਿੰਗ।"
 
-#: loader/net.c:2063 loader/net.c:2067
+#: loader/net.c:2072 loader/net.c:2076
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "%s ਦੀ ਸੰਰਚਨਾ ਲਈ ਨੈੱਟਵਰਕ ਮੈਨੇਜਰ ਦੀ ਉਡੀਕ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ।\n"
@@ -4685,7 +4512,7 @@ msgstr "ਉਸ ਡਾਇਰੈਕਟਰੀ ਨੂੰ ਸਰਵਰ ਤੋਂ ਮ�
 msgid "That directory does not seem to contain a %s installation image."
 msgstr "ਉਸ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ %s ਇੰਸਟਾਲੇਸ਼ਨ ਈਮੇਜ਼ ਨਹੀਂ ਜਾਪਦਾ ਹੈ।"
 
-#: loader/nfsinstall.c:367
+#: loader/nfsinstall.c:385
 #, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
 msgstr "NFS ਕਿੱਕਸਟਾਰਟ ਢੰਗ ਕਮਾਂਡ ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ ਹੈ: %s"
@@ -4851,41 +4678,41 @@ msgstr "ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਸੰਭਾਲ ਰਿਹਾ
 msgid "Error storing an encryption key: %s\n"
 msgstr "ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਸੰਭਾਲਣ ਦੌਰਾਨ ਗਲਤੀ: %s\n"
 
-#: storage/__init__.py:356
+#: storage/__init__.py:357
 msgid "Finding Devices"
 msgstr "ਜੰਤਰ ਲੱਭ ਰਿਹਾ ਹੈ"
 
-#: storage/__init__.py:357
+#: storage/__init__.py:358
 msgid "Finding storage devices"
 msgstr "ਸਟੋਰੇਜ਼ ਜੰਤਰ ਲੱਭ ਰਿਹਾ ਹੈ"
 
-#: storage/__init__.py:636
+#: storage/__init__.py:637
 msgid "This partition is holding the data for the hard drive install."
 msgstr "ਇਹ ਪਾਰਟੀਸ਼ਨ ਹਾਰਡ-ਡਰਾਈਵ ਤੇ ਇੰਸਟਾਲ ਲਈ ਡਾਟਾ ਸੰਭਾਲਦਾ ਹੈ।"
 
-#: storage/__init__.py:641
+#: storage/__init__.py:642
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "ਤੁਸੀਂ ਇੱਕ LDL ਦਾ DASD ਨਾਲ ਫਾਰਮੈਟ ਕੀਤਾ ਪਾਰਟੀਸ਼ਨ ਹਟਾ ਨਹੀਂ ਸਕਦੇ ਹੋ।"
 
-#: storage/__init__.py:647
+#: storage/__init__.py:648
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "ਇਹ ਜੰਤਰ ਰੇਡ ਜੰਤਰ %s ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: storage/__init__.py:650
+#: storage/__init__.py:651
 msgid "This device is part of a RAID device."
 msgstr "ਇਹ ਜੰਤਰ ਰੇਡ ਜੰਤਰ ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: storage/__init__.py:655
+#: storage/__init__.py:656
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "ਇਹ ਜੰਤਰ ਐਲਵੀਐਮ(LVM ) ਵਾਲੀਅਮ ਗਰੁੱਪ '%s' ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: storage/__init__.py:658
+#: storage/__init__.py:659
 msgid "This device is part of a LVM volume group."
 msgstr "ਇਹ ਜੰਤਰ LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: storage/__init__.py:674
+#: storage/__init__.py:675
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -4990,11 +4817,11 @@ msgstr ""
 "ਇੱਕ ਗਲਤੀ ਹੈ - ਕੋਈ ਵੀ ਜੰਤਰ ਨਹੀਂ ਲੱਭਾ, ਜਿਸ ਤੇ ਨਵਾਂ ਫਾਇਲ ਸਿਸਟਮ ਬਣਾਉਣਾ ਹੈ। ਇਸ ਸਮੱਸਿਆ ਲਈ "
 "ਆਪਣੇ ਜੰਤਰ (ਹਾਰਡਵੇਅਰ) ਦੀ ਜਾਂਚ ਕਰੋ ਜੀ।"
 
-#: storage/__init__.py:1341 storage/__init__.py:1350
+#: storage/__init__.py:1343 storage/__init__.py:1352
 msgid "Dirty File Systems"
 msgstr "ਗੰਦਾ ਫਾਇਲ ਸਿਸਟਮ"
 
-#: storage/__init__.py:1342
+#: storage/__init__.py:1344
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5007,7 +4834,7 @@ msgstr ""
 "ਕਰੋ।\n"
 "%s"
 
-#: storage/__init__.py:1351
+#: storage/__init__.py:1353
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5018,7 +4845,7 @@ msgstr ""
 "ਤੁਸੀਂ ਕਿਸੇ ਤਰਾਂ ਵੀ ਮਾਊਂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?\n"
 "%s"
 
-#: storage/__init__.py:1827
+#: storage/__init__.py:1830
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5035,7 +4862,7 @@ msgstr ""
 "ਇੱਕ ਪੁਰਾਣੇ-ਸਟਾਈਲ ਦਾ ਲੀਨਕਸ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਹੈ।  ਜੇ ਤੁਸੀਂ ਇਸ ਜੰਤਰ ਨੂੰ ਸਵੈਪ ਸਪੇਸ ਲਈ ਵਰਤਣਾ ਚਾਹੁੰਦੇ "
 "ਹੋ, ਤੁਹਾਨੂੰ ਨਵੇਂ-ਸਟਾਈਨ ਦੇ ਲੀਨਕਸ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਵਾਂਗ ਫਾਰਮੈਟ ਕਰਨਾ ਪਵੇਗਾ।"
 
-#: storage/__init__.py:1838
+#: storage/__init__.py:1841
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5054,7 +4881,7 @@ msgstr ""
 "ਕਿ ਤੁਹਾਡਾ ਸਿਸਟਮ ਹਾਈਬਰਨੇਟ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਅੱਪਗਰੇਡ ਕਰ ਰਹੇ ਹੋ ਤਾਂ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਹਾਈਬਰਨੇਟ ਕਰਨ "
 "ਦੀ ਬਜਾਏ ਪੂਰੀ ਤਰ੍ਹਾਂ ਬੰਦ ਕਰੋ ਜੀ।"
 
-#: storage/__init__.py:1846
+#: storage/__init__.py:1849
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5073,7 +4900,7 @@ msgstr ""
 "ਤੁਸੀਂ ਨਵੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਦੇ ਹੋ ਤਾਂ ਇਹ ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਇੰਸਟਾਲਰ ਨੂੰ ਸਭ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨਾਂ ਨੂੰ ਫਾਰਮੈਟ "
 "ਕਰਨ ਦੀ ਚੋਣ ਕੀਤੀ ਗਈ ਹੈ।"
 
-#: storage/__init__.py:1858
+#: storage/__init__.py:1861
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5090,7 +4917,7 @@ msgstr ""
 "ਉੱਪਰ ਇੱਕ ਸਹਿਯੋਗੀ ਸਵੈਪ ਵਾਲੀਅਮ ਨਹੀਂ ਹੈ।  ਇੰਸਾਟਲੇਸ਼ਨ ਜਾਰੀ ਕਰਨ ਲਈ, ਤੁਹਾਨੂੰ ਜੰਤਰ ਨੂੰ ਫਾਰਮੈਟ ਕਰਨਾ "
 "ਪਵੇਗਾ ਜਾਂ ਇਸ ਨੂੰ ਛੱਡਣਾ ਪਵੇਗਾ।"
 
-#: storage/__init__.py:1869
+#: storage/__init__.py:1872
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5106,7 +4933,7 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ"
 
-#: storage/__init__.py:1876
+#: storage/__init__.py:1879
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5121,11 +4948,11 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ।"
 
-#: storage/__init__.py:1939 storage/__init__.py:1951
+#: storage/__init__.py:1942 storage/__init__.py:1954
 msgid "Invalid mount point"
 msgstr "ਅਢੁੱਕਵੀਂ ਮਾਊਂਟ ਪੁਆਇੰਟ"
 
-#: storage/__init__.py:1940
+#: storage/__init__.py:1943
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5138,7 +4965,7 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ <Enter> ਦਬਾਓ।"
 
-#: storage/__init__.py:1952
+#: storage/__init__.py:1955
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5151,11 +4978,11 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ <Enter> ਦਬਾਓ।"
 
-#: storage/__init__.py:1968 storage/__init__.py:1992
+#: storage/__init__.py:1971 storage/__init__.py:1995
 msgid "Unable to mount filesystem"
 msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਮਾਊਂਟ ਕਰਨ ਲਈ ਅਸਮਰੱਥ"
 
-#: storage/__init__.py:1969
+#: storage/__init__.py:1972
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5164,7 +4991,7 @@ msgstr ""
 "ਜੰਤਰ %(path)s ਨੂੰ %(mountpoint)s ਵਾਂਗ ਮਾਊਂਟ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ। ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ "
 "ਜਾਰੀ ਰੱਖ ਸਕਦੇ ਹੋ, ਪਰ ਅੱਗੇ ਸਮੱਸਿਆਵਾਂ ਆ ਸਕਦੀਆਂ ਹਨ।"
 
-#: storage/__init__.py:1993
+#: storage/__init__.py:1996
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5177,11 +5004,11 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ <Enter> ਦਬਾਓ।"
 
-#: storage/dasd.py:141
+#: storage/dasd.py:138
 msgid "Formatting DASD Device"
 msgstr "DASD ਜੰਤਰ ਫਾਰਮੈਟ ਹੋ ਰਿਹਾ ਹੈ"
 
-#: storage/dasd.py:142
+#: storage/dasd.py:139
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgstr "%d DASD ਜੰਤਰ ਨੂੰ ਲੀਨਕਸ ਨਾਲ ਵਰਤਣ ਲਈ ਤਿਆਰ ਕਰ ਰਿਹਾ ਹੈ..."
@@ -5196,23 +5023,23 @@ msgstr "%s ਲਈ vginfo ਫੇਲ ਹੈ"
 msgid "lvs failed for %s"
 msgstr "%s ਲਈ lvs ਫੇਲ ਹੈ"
 
-#: storage/devices.py:1274 storage/devices.py:1945 storage/devices.py:2348
-#: storage/devices.py:2838 storage/devices.py:3311
+#: storage/devices.py:1264 storage/devices.py:1958 storage/devices.py:2373
+#: storage/devices.py:2865 storage/devices.py:3338
 msgid "Creating"
 msgstr "ਬਣਾਉਣਾ"
 
-#: storage/devices.py:1275 storage/devices.py:1946 storage/devices.py:2349
-#: storage/devices.py:2839
+#: storage/devices.py:1265 storage/devices.py:1959 storage/devices.py:2374
+#: storage/devices.py:2866
 #, python-format
 msgid "Creating device %s"
 msgstr "%s ਜੰਤਰ ਬਣਾਉਣਾ"
 
-#: storage/devices.py:2441
+#: storage/devices.py:2466
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "ਇੱਕ RAID%d ਸੈੱਟ ਵਈ ਘੱਟੋ-ਘੱਟ %d ਮੈਂਬਰ ਹੋਣੇ ਜਰੂਰੀ ਹਨ"
 
-#: storage/devices.py:3312
+#: storage/devices.py:3339
 #, python-format
 msgid "Creating file %s"
 msgstr "%s ਫਾਇਲ ਬਣਾਉਣਾ"
@@ -5233,15 +5060,15 @@ msgstr ""
 "\n"
 "ਜੇ ਤੁਸੀਂ ਇਹ ਪਗ ਛੱਡ ਦਿੱਤਾ ਤਾਂ ਜੰਤਰ ਦੇ ਸੰਖੇਪ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਉਪਲੱਬਧ ਨਹੀਂ ਹੋਣਗੇ।"
 
-#: storage/devicetree.py:1861 storage/devicetree.py:1909
+#: storage/devicetree.py:1897 storage/devicetree.py:1945
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "ਇਹ ਭਾਗ ਨਾ-ਅਨੁਕੂਲ LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: storage/fcoe.py:67 storage/fcoe.py:68
+#: storage/fcoe.py:66 storage/fcoe.py:67
 msgid "Connecting to FCoE SAN"
 msgstr "FCoE SAN ਨਾਲ ਜੁੜ ਰਿਹਾ ਹੈ"
 
-#: storage/fcoe.py:120
+#: storage/fcoe.py:111
 msgid "FCoE not available"
 msgstr "FCoE ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ"
 
@@ -5300,7 +5127,7 @@ msgstr ""
 "ਸਿਸਟਮ ਚਾਲੂ ਕਰੋ ਜੋ ਤੁਹਾਨੂੰ ਰਿਪੇਅਰ ਕਰਨ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ।  ਫਾਇਲ-ਸਿਸਟਮ ਦੀ ਸਮੱਸਿਆ ਹੱਲ ਕਰਨ ਤੋਂ "
 "ਬਾਅਦ ਇੰਸਟਾਲੇਸ਼ਨ ਮੁੜ-ਚਾਲੂ ਕਰੋ।"
 
-#: storage/formats/fs.py:535 storage/partitioning.py:274
+#: storage/formats/fs.py:535 storage/partitioning.py:276
 msgid "Unrecoverable Error"
 msgstr "ਨਾ-ਪ੍ਰਾਪਤੀਯੋਗ ਗਲਤੀ"
 
@@ -5351,6 +5178,14 @@ msgstr "%s ਨੂੰ %s ਉੱਪਰ ਬਣਾਉਣਾ"
 #: storage/iscsi.py:83 storage/iscsi.py:84
 msgid "Scanning iSCSI nodes"
 msgstr "iSCSI ਨੋਡਾਂ ਨੂੰ ਸਕੈਨ ਕਰ ਰਿਹਾ ਹੈ"
+
+#: storage/iscsi.py:135
+msgid "Unable to change iSCSI initiator name once set"
+msgstr "ਇੱਕ ਵਾਰ ਸੈੱਟ ਕੀਤੇ iSCSI initiator ਨੂੰ ਬਦਲਣ ਵਿੱਚ ਅਸਮਰਥ"
+
+#: storage/iscsi.py:137
+msgid "Must provide an iSCSI initiator name"
+msgstr "ਤੁਹਾਨੂੰ ਇੱਕ iSCSI initiator ਨਾਂ ਦੇਣਾ ਪਵੇਗਾ।"
 
 #: storage/iscsi.py:176 storage/iscsi.py:177
 msgid "Initializing iSCSI initiator"
@@ -5411,7 +5246,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: storage/partitioning.py:237 storage/partitioning.py:258
+#: storage/partitioning.py:239 storage/partitioning.py:260
 msgid ""
 "\n"
 "\n"
@@ -5421,7 +5256,7 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ।"
 
-#: storage/partitioning.py:239
+#: storage/partitioning.py:241
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5432,7 +5267,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: storage/partitioning.py:260
+#: storage/partitioning.py:262
 msgid ""
 "\n"
 "\n"
@@ -5442,11 +5277,11 @@ msgstr ""
 "\n"
 "ਇੱਕ ਵੱਖਰੇ ਪਾਰਟੀਸ਼ਨ ਦੀ ਚੋਣ ਕਰਨ ਲਈ 'ਠੀਕ ਹੈ' ਨੂੰ ਦਬਾਓ।"
 
-#: storage/partitioning.py:262
+#: storage/partitioning.py:264
 msgid "Automatic Partitioning Errors"
 msgstr "ਆਟੋਮੈਟਿਕ ਪਾਰਟੀਸ਼ਨ ਗਲਤੀਆਂ"
 
-#: storage/partitioning.py:263
+#: storage/partitioning.py:265
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5462,44 +5297,39 @@ msgstr ""
 "\n"
 "ਇਹ ਤਾਂ ਵਾਪਰਦਾ ਹੈ, ਜੇ ਤੁਹਾਡੀ ਹਾਰਡ-ਡਿਸਕ ਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਲੋੜੀਂਦੀ ਥਾਂ ਨਾ ਹੋਵੇ। %(extra)s"
 
-#: storage/zfcp.py:50
+#: storage/zfcp.py:51
 msgid "You have not specified a device number or the number is invalid"
 msgstr "ਤੁਸੀਂ ਜੰਤਰ ਨੰਬਰ ਨਹੀਂ ਦਿੱਤਾ ਹੈ ਜਾਂ ਨੰਬਰ ਗਲਤ ਹੈ"
 
-#: storage/zfcp.py:52
+#: storage/zfcp.py:53
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "ਤੁਸੀਂ ਵਰਡਵਾਈਡ ਪੋਰਟ ਨਾਂ ਨਹੀਂ ਦਿੱਤਾ ਹੈ ਜਾਂ ਨਾਂ ਜਾਇਜ਼ ਨਹੀਂ ਹੈ।"
 
-#: storage/zfcp.py:54
+#: storage/zfcp.py:55
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "ਤੁਸੀਂ FCP LUN ਨਾਂ ਨਹੀਂ ਦਿੱਤਾ ਹੈ ਜਾਂ ਨੰਬਰ ਠੀਕ ਨਹੀਂ ਹੈ।"
 
-#: storage/zfcp.py:131
-#, python-format
-msgid "Could not free zFCP device %(devnum)s from device ignore list (%(e)s)."
-msgstr "zFCP ਜੰਤਰ %(devnum)s ਨੂੰ ਜੰਤਰ ਰੱਦ ਸੂਚੀ (%(e)s) ਵਿੱਚੋਂ ਫਰੀ ਨਹੀਂ ਕਰ ਸਕਦਾ।"
-
-#: storage/zfcp.py:137
+#: storage/zfcp.py:133
 #, python-format
 msgid "zFCP device %s not found, not even in device ignore list."
 msgstr "zFCP ਜੰਤਰ %s ਲੱਭ ਨਹੀਂ ਸਕਿਆ, ਜੰਤਰ ਰੱਦ ਸੂਚੀ ਵਿੱਚ ਵੀ ਨਹੀਂ।"
 
-#: storage/zfcp.py:149
+#: storage/zfcp.py:143
 #, python-format
 msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
 msgstr "zFCP ਜੰਤਰ %(devnum)s ਨੂੰ ਆਨਲਾਈਨ ਜੰਤਰ (%(e)s) ਤੌਰ ਤੇ ਸੈੱਟ ਨਹੀਂ ਕਰ ਸਕਿਆ"
 
-#: storage/zfcp.py:160
+#: storage/zfcp.py:154
 #, python-format
 msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
 msgstr "WWPN %(wwpn)s ਨੂੰ zFCP ਜੰਤਰ %(devnum)s (%(e)s) ਤੌਰ ਤੇ ਸ਼ਾਮਿਲ ਨਹੀਂ ਕਰ ਸਕਿਆ।"
 
-#: storage/zfcp.py:167
+#: storage/zfcp.py:161
 #, python-format
 msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
 msgstr "WWPN %(wwpn)s ਨੂੰ zFCP ਜੰਤਰ %(devnum)s ਤੇ ਨਹੀਂ ਲੱਭਿਆ।"
 
-#: storage/zfcp.py:182
+#: storage/zfcp.py:176
 #, python-format
 msgid ""
 "Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
@@ -5508,12 +5338,12 @@ msgstr ""
 "LUN %(fcplun)s ਨੂੰ WWPN %(wwpn)s ਵਿੱਚ zFCP ਜੰਤਰ %(devnum)s (%(e)s) ਉੱਪਰ ਜੋੜ ਨਹੀਂ "
 "ਸਕਿਆ"
 
-#: storage/zfcp.py:188
+#: storage/zfcp.py:182
 #, python-format
 msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
 msgstr "LUN %(fcplun)s ਨੂੰ WWPN %(wwpn)s ਤੇ zFCP ਜੰਤਰ %(devnum)s ਉੱਪਰ ਪਹਿਲਾਂ ਹੀ ਸੰਰਚਿਤ ਹੈ।"
 
-#: storage/zfcp.py:200
+#: storage/zfcp.py:194
 #, python-format
 msgid ""
 "Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP "
@@ -5522,7 +5352,7 @@ msgstr ""
 "LUN %(fcplun)s ਦੇ ਫੇਲ ਹੋਏ ਐਟਰੀਬਿਊਟਾਂ ਨੂੰ WWPN %(wwpn)s ਤੇ zFCP ਜੰਤਰ %(devnum)s (%(e)"
 "s) ਉੱਪਰ ਪੜ ਨਹੀਂ ਸਕਦਾ।"
 
-#: storage/zfcp.py:209
+#: storage/zfcp.py:203
 #, python-format
 msgid ""
 "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
@@ -5531,7 +5361,7 @@ msgstr ""
 "LUN %(fcplun)s ਨੂੰ WWPN %(wwpn)s ਤੇ zFCP ਜੰਤਰ %(devnum)s ਉੱਪਰ ਫਿਰ ਹਟਾਉਣ ਵਿੱਚ ਫੇਲ "
 "ਹੋਇਆ।"
 
-#: storage/zfcp.py:266
+#: storage/zfcp.py:260
 #, python-format
 msgid ""
 "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
@@ -5540,7 +5370,7 @@ msgstr ""
 "zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s) ਦੇ SCSI ਜੰਤਰ ਨੂੰ ਠੀਕ ਤਰਾਂ ਹਟਾ ਨਹੀਂ "
 "ਸਕਦਾ।"
 
-#: storage/zfcp.py:275
+#: storage/zfcp.py:269
 #, python-format
 msgid ""
 "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
@@ -5549,12 +5379,12 @@ msgstr ""
 "LUN %(fcplun)s ਨੂੰ WWPN %(wwpn)s on zFCP ਜੰਤਰ %(devnum)s (%(e)s) ਉੱਪਰ ਹਟਾ ਨਹੀਂ "
 "ਸਕਿਆ।"
 
-#: storage/zfcp.py:293
+#: storage/zfcp.py:287
 #, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
 msgstr "WWPN %(wwpn)s ਨੂੰ zFCP ਜੰਤਰ %(devnum)s (%(e)s) ਤੇ ਹਟਾ ਨਹੀਂ ਕਰ ਸਕਿਆ।"
 
-#: storage/zfcp.py:319
+#: storage/zfcp.py:313
 #, python-format
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
 msgstr "zFCP ਜੰਤਰ %(devnum)s ਆਫਲਾਈਨ (%(e)s) ਸੈੱਟ ਨਹੀਂ ਕਰ ਸਕਿਆ।"
@@ -5579,22 +5409,27 @@ msgstr "ਕੀ-ਬੋਰਡ ਚੋਣ"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "ਤੁਹਾਡੇ ਕੰਪਿਊਟਰ ਨਾਲ ਕਿਹਡ਼ੇ ਮਾਡਲ ਦਾ ਕੀ-ਬੋਰਡ ਲੱਗਾ ਹੈ?"
 
+#: textw/netconfig_text.py:35 textw/netconfig_text.py:42
+msgid "Error With Data"
+msgstr "ਡਾਟਾ ਨਾਲ ਗਲਤੀ"
+
+#: textw/netconfig_text.py:36
+#, python-format
+msgid ""
+"An error occurred converting the value entered for \"%(field)s\":\n"
+"%(errmsg)s"
+msgstr ""
+"\"%(field)s\" ਲਈ ਦਿੱਤੇ ਮੁੱਲ ਬਦਲਣ ਵਿੱਚ ਗਲਤੀ ਆਈ ਹੈ:\n"
+"%(errmsg)s"
+
 #: textw/netconfig_text.py:43
 #, python-format
 msgid "A value is required for the field %s"
 msgstr "%s ਖੇਤਰ ਲਈ ਇੱਕ ਮੁੱਲ ਲੋੜੀਂਦਾ ਹੈ"
 
-#: textw/netconfig_text.py:88 ui/netconfig.glade.h:9
+#: textw/netconfig_text.py:88
 msgid "Enable network interface"
 msgstr "ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਚਾਲੂ"
-
-#: textw/netconfig_text.py:91 ui/netconfig.glade.h:10
-msgid ""
-"This requires that you have an active network connection during the "
-"installation process.  Please configure a network interface."
-msgstr ""
-"ਇਸ ਲਈ ਤੁਹਾਡੇ ਕੋਲ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਇੱਕ ਸਰਗਰਮ ਨੈੱਟਵਰਕ ਕੁਨੈਕਸ਼ਨ ਦੀ ਲੋੜ ਹੈ।  ਇੱਕ ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਦੀ "
-"ਸੰਰਚਨਾ ਕਰੋ ਜੀ।"
 
 #: textw/netconfig_text.py:130
 msgid "Use dynamic IP configuration (DHCP)"
@@ -5616,17 +5451,34 @@ msgstr "ਗੈਰ-ਮੌਜੂਦ ਜੰਤਰ"
 msgid "You must select a network device"
 msgstr "ਤੁਹਾਨੂੰ ਇੱਕ ਨੈੱਟਵਰਕ ਜੰਤਰ ਚੁਣਨਾ ਜ਼ਰੂਰੀ ਹੈ"
 
+#: textw/netconfig_text.py:225 textw/netconfig_text.py:228
+msgid "IP Address"
+msgstr "IP ਐਡਰੈੱਸ"
+
+#: textw/netconfig_text.py:235
+msgid "IPv4 CIDR prefix must be between 0 and 32."
+msgstr "IPv4 CIDR ਪ੍ਰੀ-ਫਿਕਸ 0 ਤੋਂ 32 ਵਿੱਚ ਹੀ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।"
+
+#: textw/netconfig_text.py:236 textw/netconfig_text.py:242
+#: textw/netconfig_text.py:250
+msgid "IPv4 Network Mask"
+msgstr "IPv4 ਨੈੱਟਵਰਕ ਮਾਸਕ"
+
 #: textw/netconfig_text.py:253
 msgid "IPv4 Network Mask "
 msgstr "IPv4 ਨੈੱਟਵਰਕ ਮਾਸਕ"
 
+#: textw/netconfig_text.py:263
+msgid "Gateway"
+msgstr "ਗੇਟਵੇ"
+
+#: textw/netconfig_text.py:273
+msgid "Nameserver"
+msgstr "ਨਾਂ-ਸਰਵਰ"
+
 #: textw/netconfig_text.py:276
 msgid "Configuring Network Interfaces"
 msgstr "ਨੈੱਟਵਰਕ ਇੰਟਰਫੇਸ ਸੰਰਚਨਾ"
-
-#: textw/netconfig_text.py:276
-msgid "Waiting for NetworkManager"
-msgstr "ਨੈੱਟਵਰਕ-ਮੈਨੇਜਰ ਲਈ ਉਡੀਕ ਜਾਰੀ"
 
 #: textw/netconfig_text.py:282
 msgid "Error configuring network device"
@@ -5872,26 +5724,6 @@ msgid ""
 msgstr "ਰੂਟ (root) ਅਕਾਊਂਟ ਤੁਹਾਡੇ ਸਿਸਟਮ ਦੇ ਪਰਸ਼ਾਸ਼ਨ ਵਾਸਤੇ ਵਰਤਿਆ ਜਾਂਦਾ ਹੈ। root ਯੂਜ਼ਰ ਲਈ ਪਾਸਵਰਡ ਭਰੋ।"
 
 #: ui/adddrive.glade.h:1
-msgid "Add _FCoE SAN"
-msgstr "_FCoE SAN ਸ਼ਾਮਿਲ"
-
-#: ui/adddrive.glade.h:2
-msgid "Add _ZFCP LUN"
-msgstr "_ZFCP LUN ਸ਼ਾਮਲ"
-
-#: ui/adddrive.glade.h:3
-msgid "Add _iSCSI target"
-msgstr "_iSCSI ਟਾਰਗਿਟ ਸ਼ਾਮਲ"
-
-#: ui/adddrive.glade.h:4
-msgid "Advanced Storage Options"
-msgstr "ਤਕਨੀਕੀ ਸਟੋਰੇਜ਼ ਚੋਣਾਂ"
-
-#: ui/adddrive.glade.h:5
-msgid "How would you like to modify your drive configuration?"
-msgstr "ਤੁਸੀਂ ਆਪਣੀ ਹਾਰਡ ਡਿਸਕ ਸੰਰਚਨਾ ਨੂੰ ਕਿਵੇਂ ਸੋਧਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ui/adddrive.glade.h:6
 msgid "_Add drive"
 msgstr "ਡਰਾਈਵ ਸ਼ਾਮਿਲ(_A)"
 
@@ -5980,26 +5812,22 @@ msgid "<b>Shrink partition _to size (in MB):</b>"
 msgstr "<b>ਭਾਗ ਨੂੰ ਇਸ ਅਕਾਰ (MB ਵਿੱਚ) ਤੱਕ ਸੰਘੁੜੋ(_t):</b>"
 
 #: ui/autopart.glade.h:2
-msgid "Re_view and modify partitioning layout"
-msgstr "ਪਾਰਟੀਸ਼ਨ ਲੇਆਉਟ ਦੀ ਪੜਚੋਲ ਅਤੇ ਸੋਧ(_v)"
-
-#: ui/autopart.glade.h:3
 msgid "Volume to Shrink"
 msgstr "ਘਟਾਉਣ ਲਈ ਵਾਲੀਅਮ"
 
-#: ui/autopart.glade.h:4
+#: ui/autopart.glade.h:3
 msgid "Which partition would you like to shrink to make room for your installation?"
 msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਥਾਂ ਬਣਾਉਣ ਲਈ ਤੁਸੀਂ ਕਿਹੜਾ ਪਾਰਟੀਸ਼ਨ ਮੁੜ-ਅਕਾਰ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
-#: ui/autopart.glade.h:5
+#: ui/autopart.glade.h:4
 msgid "Which type of installation would you like?"
 msgstr "ਤੁਸੀਂ ਕਿਸ ਕਿਸਮ ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਪਸੰਦ ਕਰਦੇ ਹੋ?"
 
-#: ui/autopart.glade.h:6
+#: ui/autopart.glade.h:5
 msgid "_Encrypt system"
 msgstr "ਇੰਕ੍ਰਿਪਟ ਸਿਸਟਮ(_E)"
 
-#: ui/autopart.glade.h:7
+#: ui/autopart.glade.h:6
 msgid "_Shrink"
 msgstr "ਮੁੜ-ਅਕਾਲ(_S)"
 
@@ -6077,14 +5905,10 @@ msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</spa
 msgstr "<span size=\"small\" color=\"gray\">ਇੱਕ LVM ਫਾਰਮੈਟ ਵਾਲਾ ਭਾਗ ਬਣਾਓ</span>"
 
 #: ui/create-storage.glade.h:4
-msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
-msgstr "<span size=\"small\" color=\"gray\">RAID ਜੰਤਰ ਬਣਾਉਣ ਵਿੱਚ ਮਦਦ ਕਰਦਾ ਹੈ</span>"
-
-#: ui/create-storage.glade.h:5
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">ਆਮ ਵਰਤੋ ਲਈ ਭਾਗ ਬਣਾਉਣਾ</span>"
 
-#: ui/create-storage.glade.h:6
+#: ui/create-storage.glade.h:5
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
 "partition</span>"
@@ -6092,7 +5916,7 @@ msgstr ""
 "<span size=\"small\" color=\"gray\">ਘੱਟੋ-ਘੱਟ 1 ਖਾਲੀ LVM ਫਾਰਮੈਟ ਵਾਲੇ ਭਾਗ ਦੀ ਲੋੜ ਹੈ</"
 "span>"
 
-#: ui/create-storage.glade.h:7
+#: ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated "
 "partitions</span>"
@@ -6100,47 +5924,43 @@ msgstr ""
 "<span size=\"small\" color=\"gray\">ਘੱਟੋ-ਘੱਟ 2 ਖਾਲੀ LVM ਫਾਰਮੈਟ ਵਾਲੇ ਭਾਗ ਦੀ ਲੋੜ "
 "ਹੈRequires at l</span>"
 
-#: ui/create-storage.glade.h:8
+#: ui/create-storage.glade.h:7
 msgid "Create"
 msgstr "ਬਣਾਓ"
 
-#: ui/create-storage.glade.h:9
+#: ui/create-storage.glade.h:8
 msgid "Create LVM"
 msgstr "LVM ਬਣਾਓ"
 
-#: ui/create-storage.glade.h:10
+#: ui/create-storage.glade.h:9
 msgid "Create Partition"
 msgstr "ਭਾਗ ਬਣਾਉਣਾ"
 
-#: ui/create-storage.glade.h:11
+#: ui/create-storage.glade.h:10
 msgid "Create Software RAID"
 msgstr "ਸਾਫਟਵੇਅਰ ਰੇਡ ਬਣਾਓ"
 
-#: ui/create-storage.glade.h:12
+#: ui/create-storage.glade.h:11
 msgid "Create Storage"
 msgstr "ਸਟੋਰੇਜ਼ ਬਣਾਓ"
 
-#: ui/create-storage.glade.h:13
+#: ui/create-storage.glade.h:12
 msgid "LVM Logical Volume"
 msgstr "LVM ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ"
 
-#: ui/create-storage.glade.h:14
+#: ui/create-storage.glade.h:13
 msgid "LVM Physical Volume"
 msgstr "LVM ਭੌਤਿਕ ਵਾਲੀਅਮ"
 
-#: ui/create-storage.glade.h:15
+#: ui/create-storage.glade.h:14
 msgid "LVM Volume Group"
 msgstr "LVM ਵਾਲੀਅਮ ਗਰੁੱਪ"
 
 #: ui/create-storage.glade.h:16
-msgid "RAID Clone"
-msgstr "ਰੇਡ ਕਲੋਨ"
-
-#: ui/create-storage.glade.h:18
 msgid "RAID Partition"
 msgstr "RAID ਭਾਗ"
 
-#: ui/create-storage.glade.h:19
+#: ui/create-storage.glade.h:17
 msgid "Standard Partition"
 msgstr "ਮਿਆਰੀ ਭਾਗ"
 
@@ -6346,38 +6166,6 @@ msgstr "ਇਨਕ੍ਰਿਪਟਡ ਪਾਰਟੀਸ਼ਨ ਲਈ ਪ੍ਹੈ
 msgid "Enter passphrase:"
 msgstr "ਪ੍ਹੈਰਾ ਦਿਓ:"
 
-#: ui/netconfig.glade.h:2
-msgid "<b>Gateway:</b>"
-msgstr "<b>ਗੇਟਵੇ:</b>"
-
-#: ui/netconfig.glade.h:3
-msgid "<b>IPv4 Address:</b>"
-msgstr "<b>IPv4 ਐਡਰੈੱਸ:</b>"
-
-#: ui/netconfig.glade.h:4
-msgid "<b>IPv6 Address:</b>"
-msgstr "<b>IPv6 ਐਡਰੈੱਸ:</b>"
-
-#: ui/netconfig.glade.h:5
-msgid "<b>Nameserver:</b>"
-msgstr "<b>ਨਾਂ-ਸਰਵਰ:</b>"
-
-#: ui/netconfig.glade.h:6
-msgid "<b>_Interface:</b>"
-msgstr "<b>ਇੰਟਰਫੇਸ(_I):</b>"
-
-#: ui/netconfig.glade.h:7
-msgid "Enable IPv_4 support"
-msgstr "IPv_4 ਸਹਿਯੋਗ ਚਾਲੂ"
-
-#: ui/netconfig.glade.h:8
-msgid "Enable IPv_6 support"
-msgstr "IPv_6 ਸਹਿਯੋਗ ਚਾਲੂ"
-
-#: ui/netconfig.glade.h:11
-msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "ਡਾਇਨੈਮਿਕ IP ਸੰਰਚਨਾ ਵਰਤੋ(_DHCP)"
-
 #: ui/network.glade.h:1
 msgid "Configure Network"
 msgstr "ਨੈੱਟਵਰਕ ਸੰਰਚਨਾ"
@@ -6393,42 +6181,16 @@ msgid ""
 msgstr "ਇਸ ਕੰਪਿਊਟਰ ਲਈ ਨਾਂ ਦਿਓ ਜੀ। ਹੋਸਟ-ਨਾਂ ਨੈੱਟਵਰਕ ਉੱਤੇ ਇਸ ਕੰਪਿਊਟਰ ਦੀ ਪਛਾਣ ਹੈ।"
 
 #: ui/tasksel.glade.h:1
-msgid "Customize _later"
-msgstr "ਬਾਅਦ 'ਚ ਬਦਲੋ(_l)"
-
-#: ui/tasksel.glade.h:2
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr "ਕੋਈ ਵੀ ਹੋਰ ਰਿਪੋਜ਼ਟਰੀ ਚੁਣੋ, ਜਿਸ ਦੀ ਤੁਸੀਂ ਸਾਫਟਵੇਅਰ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਵਰਤੋਂ ਕਰਨੀ ਚਾਹੁੰਦੇ ਹੋ।"
 
-#: ui/tasksel.glade.h:4
-#, no-c-format
-msgid ""
-"The default installation of %s includes a set of software applicable for "
-"general internet usage.  What additional tasks would you like your system to "
-"support?"
-msgstr ""
-"%s ਦੀ ਡਿਫਾਲਟ ਇੰਸਟਾਲੇਸ਼ਨ ਵਿੱਚ ਆਮ ਇੰਟਰਨੈੱਟ ਵਰਤੋਂ ਲਈ ਸਾਫਟਵੇਅਰ ਉਪਲੱਬਧ ਹਨ।  ਤੁਸੀਂ ਕਿਹੜੇ ਹੋਰ ਕੰਮਾਂ "
-"ਲਈ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਤਿਆਰ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#: ui/tasksel.glade.h:5
-msgid ""
-"You can further customize the software selection now, or after install via "
-"the software management application."
-msgstr ""
-"ਸਾਫਟਵੇਅਰ ਚੋਣ ਵਿੱਚ ਹੋਰ ਪਸੰਦ ਤੁਸੀਂ ਹੁਣ ਪੂਰੀ ਕਰ ਸਕਦੇ ਹੋ ਜਾਂ ਇੰਸਟਾਲ ਕਰਨ ਦੇ ਬਾਅਦ ਵੀ ਸਾਫਟਵੇਅਰ "
-"ਪਰਬੰਧ ਕਾਰਜ ਰਾਹੀਂ ਬਾਅਦ ਵਿੱਚ ਵੀ ਕਰ ਸਕਦੇ ਹੋ।"
-
-#: ui/tasksel.glade.h:6
+#: ui/tasksel.glade.h:2
 msgid "_Add additional software repositories"
 msgstr "ਹੋਰ ਸਾਫਟਵੇਅਰ ਰਿਪੋਜ਼ਟਰੀਆਂ ਸ਼ਾਮਲ(_A)"
 
-#: ui/tasksel.glade.h:7
-msgid "_Customize now"
-msgstr "ਹੁਣੇ ਬਦਲੋ(_C)"
-
-#: ui/tasksel.glade.h:8
+#: ui/tasksel.glade.h:3
 msgid "_Modify repository"
 msgstr "ਰਿਪੋਜ਼ਟਰੀ ਸੋਧ(_M)"
 
@@ -6701,284 +6463,3 @@ msgstr "ਵੈਲਸ਼"
 msgid "Zulu"
 msgstr "ਜ਼ੂਲੂ"
 
-#~ msgid "Boot"
-#~ msgstr "ਬੂਟ"
-
-#~ msgid "Basic Server"
-#~ msgstr "ਮੁਢਲਾ ਸਰਵਰ"
-
-#~ msgid "Database Server"
-#~ msgstr "ਡਾਟਾਬੇਸ ਸਰਵਰ"
-
-#~ msgid "Desktop"
-#~ msgstr "ਡੈਸਕਟਾਪ"
-
-#~ msgid "Software Development Workstation"
-#~ msgstr "ਸਾਫਟਵੇਅਰ ਡਿਵੈਲਪਮੈਂਟ ਵਰਕਸਟੇਸ਼ਨ"
-
-#~ msgid "Unknown"
-#~ msgstr "ਅਣਜਾਣ"
-
-#~ msgid "Add FCP Device"
-#~ msgstr "FCP ਜੰਤਰ ਸ਼ਾਮਲ"
-
-#~ msgid "No network cards present."
-#~ msgstr "ਕੋਈ ਨੈੱਟਵਰਕ ਕਾਰਡ ਮੌਜੂਦ ਨਹੀਂ।"
-
-#~ msgid "Add FCoE SAN"
-#~ msgstr "FCoE SAN ਸ਼ਾਮਿਲ"
-
-#~ msgid "Select which NIC is connected to the FCoE SAN."
-#~ msgstr "ਚੁਣੋ ਕਿਹੜਾ NIC, FCoE SAN ਨਾਲ ਜੁੜਨਾ ਹੈ।"
-
-#~ msgid "Target IP Address"
-#~ msgstr "ਟਾਰਗਿਟ IP ਐਡਰੈੱਸ"
-
-#~ msgid "iSCSI Initiator Name"
-#~ msgstr "iSCSI Initiator ਨਾਂ"
-
-#~ msgid "CHAP username"
-#~ msgstr "CHAP ਯੂਜ਼ਰ-ਨਾਂ"
-
-#~ msgid "CHAP password"
-#~ msgstr "CHAP ਪਾਸਵਰਡ"
-
-#~ msgid "Reverse CHAP username"
-#~ msgstr "ਉਲਟਾ CHAP ਯੂਜ਼ਰ-ਨਾਂ"
-
-#~ msgid "Reverse CHAP password"
-#~ msgstr "ਉਲਟਾ CHAP ਪਾਸਵਰਡ"
-
-#~ msgid "reipl configuration successful => reboot"
-#~ msgstr "reipl ਸੰਰਚਨਾ ਸਫਲ ਹੋਈ => ਮੁੜ-ਚਾਲੂ"
-
-#~ msgid "reipl configuration failed => halt"
-#~ msgstr "reipl ਸੰਰਚਨਾ ਫੇਲ ਹੋਈ => ਹਾਲਟ"
-
-#~ msgid "The installer will now exit."
-#~ msgstr "ਇੰਸਟਾਲਰ ਹੁਣ ਬੰਦ ਹੋ ਜਾਏਗਾ।"
-
-#~ msgid "The installer will now exit..."
-#~ msgstr "ਇੰਸਟਾਲਰ ਹੁਣ ਬੰਦ ਹੋ ਜਾਏਗਾ..."
-
-#~ msgid "/boot is not on an ext2 filesystem."
-#~ msgstr "/boot ਇੱਕ ext2 ਫਾਇਲ-ਸਿਸਟਮ ਨਹੀਂ ਹੈ।"
-
-#~ msgid "%s not found"
-#~ msgstr "%s ਨਹੀ ਲੱਭਾ"
-
-#~ msgid "%s %s installation"
-#~ msgstr "%s %s ਇੰਸਟਾਲੇਸ਼ਨ"
-
-#~ msgid ""
-#~ "The default installation of %s includes a set of software applicable for "
-#~ "general internet usage. What additional tasks would you like your system "
-#~ "to include support for?"
-#~ msgstr ""
-#~ "%s ਦੀ ਡਿਫਾਲਟ ਇੰਸਟਾਲੇਸ਼ਨ ਵਿੱਚ ਆਮ ਇੰਟਰਨੈੱਟ ਵਰਤੋਂ ਲਈ ਸਾਫਟਵੇਅਰ ਉਪਲੱਬਧ ਹਨ। ਤੁਸੀਂ ਕਿਹੜੇ ਹੋਰ "
-#~ "ਕੰਮਾਂ ਲਈ ਆਪਣੇ ਸਿਸਟਮ ਵਿੱਚ ਸਹਿਯੋਗ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#~ msgid "Office and Productivity"
-#~ msgstr "ਦਫ਼ਤਰ ਅਤੇ ਪਰੌਡਕਟਵਿਟੀ"
-
-#~ msgid "%s: %s"
-#~ msgstr "%s: %s"
-
-#~ msgid ""
-#~ "Do you really want to boot from a disk which is not used for installation?"
-#~ msgstr "ਕੀ ਤੁਸੀਂ ਡਿਸਕ ਤੋਂ ਹੀ ਬੂਟ ਕਰਾਉਣਾ ਚਾਹੁੰਦੇ ਹੋ, ਜੋ ਇੰਸਟਾਲੇਸ਼ਨ ਲਈ ਨਹੀਂ ਵਰਤੀ ਗਈ?"
-
-#~ msgid "Rescanning disks"
-#~ msgstr "ਡਿਸਕਾਂ ਮੁੜ-ਸਕੈਨ ਕੀਤੀਆਂ ਜਾ ਰਹੀਆਂ ਹਨ"
-
-#~ msgid "_Install %s"
-#~ msgstr "%s ਇੰਸਟਾਲ(_I)"
-
-#~ msgid "The following installed system will be upgraded:"
-#~ msgstr "ਹੇਠ ਦਿੱਤੇ ਇੰਸਟਾਲ ਸਿਸਟਮ ਨੂੰ ਅੱਪਗਰੇਡ ਕੀਤਾ ਜਾਵੇਗਾ:"
-
-#~ msgid "Not supported"
-#~ msgstr "ਸਹਾਇਕ ਨਹੀਂ"
-
-#~ msgid "LVM is NOT supported on this platform."
-#~ msgstr "LVM ਇਸ ਪਲੇਟਫਾਰਮ ਲਈ ਸਹਿਯੋਗੀ ਨਹੀਂ ਹੈ।"
-
-#~ msgid "Software RAID is NOT supported on this platform."
-#~ msgstr "ਸਾਫਟਵੇਅਰ ਰੇਡ ਇਸ ਪਲੇਟਫਾਰਮ ਲਈ ਸਹਿਯੋਗੀ ਨਹੀਂ ਹੈ।"
-
-#~ msgid "No RAID minor device numbers available"
-#~ msgstr "ਕੋਈ ਰੇਡ ਜੰਤਰ ਨੰਬਰ ਉਪਲੱਬਧ ਨਹੀਂ ਹੈ"
-
-#~ msgid ""
-#~ "A software RAID device cannot be created because all of the available "
-#~ "RAID minor device numbers have been used."
-#~ msgstr ""
-#~ "ਸਾਫਟਵੇਅਰ ਰੇਡ ਬਣਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ ਹੈ, ਕਿਉਂਕਿ ਸਾਰੇ ਉਪਲੱਬਧ ਰੇਡ ਜੰਤਰ ਵਰਤੇ ਜਾ ਰਹੇ ਹਨ।"
-
-#~ msgid "What do you want to do now?"
-#~ msgstr "ਹੁਣ ਤੁਸੀਂ ਕੀ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?"
-
-#~ msgid "Create a RAID _device [default=/dev/md%s]."
-#~ msgstr "ਰੇਡ ਜੰਤਰ ਬਣਾਓ [ਡਿਫਾਲਟ=/_dev/md%s]।"
-
-#~ msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-#~ msgstr "ਕਲੋਨ ਡਰਾਈਵ, ਰੇਡ ਜੰਤਰ ਬਣਾਉਣ ਲਈ [ਡਿਫਾਲਟ=/_dev/md%s]।"
-
-#~ msgid "Ne_w"
-#~ msgstr "ਨਵਾਂ(_W)"
-
-#~ msgid "R_AID"
-#~ msgstr "ਰੇਡ(_A)"
-
-#~ msgid "_LVM"
-#~ msgstr "_LVM"
-
-#~ msgid "Hide RAID device/LVM Volume _Group members"
-#~ msgstr "ਰੇਡ ਜੰਤਰ/LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਮੈਂਬਰ ਉਹਲੇ ਕਰੋ(_G)"
-
-#~ msgid "Installing Packages"
-#~ msgstr "ਪੈਕੇਜ ਇੰਸਟਾਲ ਹੋ ਰਹੇ ਹਨ"
-
-#~ msgid ""
-#~ "Clone Drive Tool\n"
-#~ "\n"
-#~ "This tool allows you to significantly reduce the amount of effort "
-#~ "required to setup RAID arrays.  This tool uses a source drive which has "
-#~ "been prepared with the desired partitioning layout, and clones this "
-#~ "layout onto other similar sized drives.  Then a RAID device can be "
-#~ "created.\n"
-#~ "\n"
-#~ "NOTE: The source drive must have partitions which are restricted to be on "
-#~ "that drive only, and can only contain unused software RAID partitions.  "
-#~ "Other partition types are not allowed.\n"
-#~ "\n"
-#~ "EVERYTHING on the target drive(s) will be destroyed by this process."
-#~ msgstr ""
-#~ "ਕਲੋਨ ਡਰਾਈਵ ਟੂਲ\n"
-#~ "\n"
-#~ "ਇਹ ਟੂਲ ਰੇਡ ਲਡ਼ੀ ਬਣਾਉਣ ਲਈ ਕਰਨ ਪੈਂਦੇ ਜਤਨਾਂ ਨੂੰ ਬਹੁਤ ਹੱਦ ਤੱਕ ਘਟਾਉਣ ਵਿੱਚ ਸਹਾਇਕ ਹੈ। ਤਰੀਕਾ ਇਹ "
-#~ "ਹੈ ਕਿ ਇੱਕ ਸਰੋਤ ਡਰਾਈਵ, ਜੋ ਕਿ ਪਸੰਦੀਦੇ ਭਾਗ ਖਾਕਾ ਨਾਲ ਤਿਆਰ ਕੀਤੀ ਜਾਦੀ ਹੈ ਅਤੇ ਇਸ ਦਾ ਕਲੋਨ "
-#~ "ਦੂਜੀ ਉਸੇ ਸਾਈਜ਼ ਦੀ ਡਰਾਈਵ ਉੱਤੇ ਤਿਆਰ ਕੀਤਾ ਜਾਂਦਾ ਹੈ, ਤਦ ਇੱਕ ਰੇਡ ਜੰਤਰ ਬਣਾਇਆ ਜਾਂਦਾ ਹੈ।\n"
-#~ "\n"
-#~ "ਟਿੱਪਣੀ: ਸਰੋਤ ਡਰਾਈਵ ਅਤੇ ਭਾਗ ਸਿਰਫ਼ ਉਸ ਡਰਾਈਵ ਉੱਤੇ ਹੋਣੇ ਜਰੂਰੀ ਹਨ ਅਤੇ ਸਿਰਫ ਨਾ ਵਰਤੇ "
-#~ "ਸਾਫਟਵੇਅਰ ਭਾਗ ਹੋਣੇ ਜਰੂਰੀ ਹਨ, ਹੋਰ ਭਾਗ ਦੀ ਇਜ਼ਾਜਤ ਨਹੀਂ ਹੈ।\n"
-#~ "\n"
-#~ "ਟਾਰਗਿਟ ਡਰਾਈਵ ਉੱਤੇ ਸਭ ਡਾਟਾ ਖਤਮ ਹੋ ਜਾਵੇਗਾ।"
-
-#~ msgid ""
-#~ "The following error occurred while setting up the installation "
-#~ "repository:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "Please provide the correct information for installing %s"
-#~ msgstr ""
-#~ "ਇੰਸਟਾਲੇਸ਼ਨ ਰਿਪੋਜ਼ਟਰੀ ਸੈੱਟ ਕਰਨ ਸਮੇਂ ਹੇਠਲੀ ਗਲਤੀ ਆਈ ਹੈ:\n"
-#~ "\n"
-#~ "%s\n"
-#~ "\n"
-#~ "ਕਿਰਪਾ ਕਰਕੇ %s ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਸਹੀ ਜਾਣਕਾਰੀ ਦਿਓ।"
-
-#~ msgid "Unknown Host"
-#~ msgstr "ਅਣਜਾਣ ਹੋਸਟ"
-
-#~ msgid "%s is not a valid hostname."
-#~ msgstr "%s ਇੱਕ ਠੀਕ ਹੋਸਟ ਨਾਂ ਨਹੀਂ ਹੈ।"
-
-#~ msgid "_Ignore drive"
-#~ msgstr "ਡਰਾਈਵ ਅਣਡਿੱਠੀ(_I)"
-
-#~ msgid "_Re-initialize drive"
-#~ msgstr "ਡਰਾਈਵ ਮੁੜ-ਸ਼ੁਰੂ(_R)"
-
-#~ msgid ""
-#~ "Enter the device name for the NIC which is connected to the FCoE SAN. For "
-#~ "example \"eth0\"."
-#~ msgstr "NIC ਲਈ ਜੰਤਰ ਨਾਂ ਦਿਓ ਜੋ FCoE SAN ਨਾਲ ਜੁੜਿਆ ਹੈ। ਉਦਾਹਰਨ ਲਈ \"eth0\"।"
-
-#~ msgid "NIC device name"
-#~ msgstr "NIC ਜੰਤਰ ਨਾਂ"
-
-#~ msgid "%s is not a valid NIC device name."
-#~ msgstr "%s ਇੱਕ ਠੀਕ NIC ਜੰਤਰ ਨਾਂ ਨਹੀਂ ਹੈ।"
-
-#~ msgid ""
-#~ "Installation requires partitioning of your hard drive.  The default "
-#~ "layout is suitable for most users.  Select what space to use and which "
-#~ "drives to use as the install target. You can also choose to create your "
-#~ "own custom layout."
-#~ msgstr ""
-#~ "ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ ਤੁਹਾਡੀ ਹਾਰਡ ਡਿਸਕ ਉੱਤੇ ਭਾਗ ਚਾਹੀਦੇ ਹਨ।  ਮੂਲ ਢਾਂਚਾ ਆਮ ਯੂਜ਼ਰ ਲਈ ਕਾਫ਼ੀ ਠੀਕ "
-#~ "ਰਹਿੰਦਾ ਹੈ। ਚੁਣੋ ਕਿ ਕਿਹੜੀ ਸਪੇਸ ਅਤੇ ਕਿਹੜੀ ਡਰਾਈਵ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਵਰਤਣੀ ਹੈ। ਤੁਸੀਂ ਇਹ ਚੋਣ "
-#~ "ਕਰ ਸਕਦੇ ਹੋ ਜਾਂ ਆਪਣੇ ਆਪ ਬਣਾ ਸਕਦੇ ਹੋ।"
-
-#~ msgid "What drive would you like to _boot this installation from?"
-#~ msgstr "ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ ਤੁਸੀਂ ਕਿਸ ਡਰਾਈਵ ਤੋਂ ਬੂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ (_B)?"
-
-#~ msgid "_Advanced storage configuration"
-#~ msgstr "ਤਕਨੀਕੀ ਸਟੋਰੇਜ਼ ਸੰਰਚਨਾ(_A)"
-
-#~ msgid "_Select the drive(s) to use for this installation."
-#~ msgstr "ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਦੌਰਾਨ ਵਰਤਣ ਲਈ ਡਰਾਈਵਾਂ ਚੁਣੋ(_S)।"
-
-#~ msgid "Invalid Key"
-#~ msgstr "ਗਲਤ ਕੁੰਜੀ"
-
-#~ msgid "The key you entered is invalid."
-#~ msgstr "ਤੁਹਾਡੇ ਵਲੋਂ ਦਿੱਤੀ ਕੁੰਜੀ ਗਲਤ ਹੈ।"
-
-#~ msgid "_Skip"
-#~ msgstr "ਵਿਚੇ ਛੱਡੋ(_S)"
-
-#~ msgid "Please enter your %(instkey)s"
-#~ msgstr "ਆਪਣੀ %(instkey)s ਕੁੰਜੀ ਦਿਓ ਜੀ"
-
-#~ msgid "Skip entering %(instkey)s"
-#~ msgstr "%(instkey)s ਦੇਣਾ ਛੱਡੋ"
-
-#~ msgid "Office"
-#~ msgstr "ਦਫ਼ਤਰ"
-
-#~ msgid "Multimedia"
-#~ msgstr "ਮਲਟੀਮੀਡਿਆ"
-
-#~ msgid "Web server"
-#~ msgstr "ਵੈੱਬ ਸਰਵਰ"
-
-#~ msgid "Virtualization"
-#~ msgstr "ਵਰਚੁਲਾਈਜ਼ੇਸ਼ਨ"
-
-#~ msgid "Clustering"
-#~ msgstr "ਕਲੱਸਟਰਿੰਗ"
-
-#~ msgid "Storage Clustering"
-#~ msgstr "ਸਟੋਰੇਜ਼ ਕਲੱਸਟਰਿੰਗ"
-
-#~ msgid "Installation Number"
-#~ msgstr "ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ"
-
-#~ msgid ""
-#~ "Would you like to enter an Installation Number (sometimes called "
-#~ "Subscription Number) now? This feature enables the installer to access "
-#~ "any extra components included with your subscription.  If you skip this "
-#~ "step, additional components can be installed manually later.\n"
-#~ "\n"
-#~ "See http://www.redhat.com/InstNum/ for more information."
-#~ msgstr ""
-#~ "ਕੀ ਹੁਣ ਤੁਸੀਂ ਇੱਕ ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ (ਕਈ ਵਾਰ ਮੈਂਬਰੀ ਨੰਬਰ) ਦੇਣਾ ਚਾਹੁੰਦੇ ਹੋ? ਇਸ ਸਹੂਲਤ ਨਾਲ ਇੰਸਟਾਲਰ "
-#~ "ਕਿਸੇ ਵਾਧੂ ਹਿੱਸੇ ਨੂੰ ਵਰਤ ਸਕਦਾ ਹੈ ਜੋ ਤੁਹਾਡੀ ਮੈਂਬਰੀ ਵਿੱਸ ਸ਼ਾਮਿਲ ਹੈ। ਜੇ ਤੁਸੀਂ ਇਹ ਪਗ ਛੱਡਣਾ ਹੈ, "
-#~ "ਵਾਧੂ ਹਿੱਸੇ ਬਾਅਦ ਵਿੱਚ ਦਸਤੀ ਇੰਸਟਾਲ ਕੀਤੇ ਜਾ ਸਕਦੇ ਹਨ।\n"
-#~ "\n"
-#~ "ਵਧੇਰੇ ਜਾਣਕਾਰੀ ਲਈ http://www.redhat.com/InstNum/ ਵੇਖੋ।"
-
-#~ msgid ""
-#~ "If you cannot locate the Installation Number, consult http://www.redhat."
-#~ "com/InstNum/"
-#~ msgstr ""
-#~ "ਜੇ ਤੁਹਾਨੂੰ ਇੰਸਟਾਲੇਸ਼ਨ ਨੰਬਰ ਨਹੀਂ ਲੱਭਿਆ, ਤਾਂ http://www.redhat.com/InstNum/ ਤੇ ਸੰਪਰਕ ਕਰੋ"
-
-#~ msgid "%(instkey)s:"
-#~ msgstr "%(instkey)s:"
-
-#~ msgid "Please enter your %(instkey)s."
-#~ msgstr "ਆਪਣੀ %(instkey)s ਕੁੰਜੀ ਦਿਓ ਜੀ"
