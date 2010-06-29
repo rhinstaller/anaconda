@@ -45,6 +45,8 @@
 #include <arpa/inet.h>
 
 #include <sys/ioctl.h>
+#include <sys/resource.h>
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/stat.h>
@@ -2383,6 +2385,13 @@ int main(int argc, char ** argv) {
     stopNewt();
     closeLog();
 
+    /* if anaconda dies suddenly we are doomed, so at least make a coredump */
+    struct rlimit corelimit = { RLIM_INFINITY,  RLIM_INFINITY};
+    ret = setrlimit(RLIMIT_CORE, &corelimit);
+    if (ret) {
+        perror("setrlimit failed");
+    }
+
     if (FL_RESCUE(flags)) {
         fmt = _("Running anaconda %s, the %s rescue mode - please wait.\n");
     } else {
@@ -2403,6 +2412,11 @@ int main(int argc, char ** argv) {
         rc = 1;
     } else {
         rc = 0;
+    }
+    /* investigate more how the anaconda process ended */
+    if (WIFSIGNALED(status)) {
+        ret = WTERMSIG(status);
+        fprintf(stderr, "Anaconda died after receiving signal %d.\n", ret);
     }
 
     if ((rc == 0) && (FL_POWEROFF(flags) || FL_HALT(flags))) {
