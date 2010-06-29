@@ -1614,6 +1614,7 @@ class LUKSDevice(DMCryptDevice):
 
     def writeKS(self, f, preexisting=False, noformat=False, s=None):
         self.slave.writeKS(f, preexisting=preexisting, noformat=noformat, s=s)
+        f.write(" ")
         self.format.writeKS(f)
         if s:
             f.write(" %s" % s)
