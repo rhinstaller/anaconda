@@ -118,7 +118,7 @@ class KernelArguments:
         args = ""
         bootArgs = []
         rootDev = self.id.storage.rootDevice
-        neededDevs = [ rootDev ]
+        neededDevs = [ rootDev ] + self.id.storage.swaps
 
         if flags.cmdline.get("fips") == "1":
             bootDev = self.id.storage.mountpoints.get("/boot", rootDev)
