@@ -36,6 +36,7 @@ from tempfile import mkstemp
 
 # keep up with process ID of the window manager if we start it
 wm_pid = None
+xserver_pid = None
 
 # Make sure messages sent through python's warnings module get logged.
 def AnacondaShowWarning(message, category, filename, lineno, file=sys.stderr, line=None):
@@ -121,11 +122,19 @@ def set_x_resolution(runres):
 
 def doShutdownX11Actions():
     global wm_pid
+    global xserver_pid
     
     if wm_pid is not None:
         try:
             os.kill(wm_pid, 15)
             os.waitpid(wm_pid, 0)
+        except:
+            pass
+
+    if xserver_pid is not None:
+        try:
+            os.kill(xserver_pid, 15)
+            os.waitpid(xserver_pid, 0)
         except:
             pass
 
@@ -685,7 +694,6 @@ if __name__ == "__main__":
     instClass = None                # the install class to use
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
-    xserver_pid = None
 
     (opts, args) = parseOptions()
 
@@ -971,7 +979,8 @@ if __name__ == "__main__":
 
             proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log",
                                      ":1", "vt6", "-s", "1440", "-ac",
-                                     "-nolisten", "tcp", "-dpi", "96"],
+                                     "-nolisten", "tcp", "-dpi", "96",
+                                     "-noreset"],
                                      close_fds=True, stdout=xout, stderr=xout,
                                      preexec_fn=preexec_fn)
 
