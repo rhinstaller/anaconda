@@ -540,7 +540,6 @@ if __name__ == "__main__":
     graphical_failed = 0
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
-    xserver_pid = None
 
     (opts, args) = parseOptions()
     anaconda.opts = opts
@@ -794,7 +793,8 @@ if __name__ == "__main__":
 
             proc = subprocess.Popen(["Xorg", "-br", "-logfile", "/tmp/X.log",
                                      ":1", "vt6", "-s", "1440", "-ac",
-                                     "-nolisten", "tcp", "-dpi", "96"],
+                                     "-nolisten", "tcp", "-dpi", "96",
+                                     "-noreset"],
                                      close_fds=True, stdout=xout, stderr=xout,
                                      preexec_fn=preexec_fn)
 
@@ -802,7 +802,6 @@ if __name__ == "__main__":
 
             os.environ["DISPLAY"] = ":1"
             doStartupX11Actions()
-            xserver_pid = proc.pid
         except (OSError, RuntimeError) as e:
             stdoutLog.warning(" X startup failed, falling back to text mode")
             anaconda.displayMode = 't'
