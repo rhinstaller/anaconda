@@ -45,6 +45,7 @@ def setupRepo(anaconda, repo):
     if repo.needsNetwork() and not network.hasActiveNetDev():
         if not anaconda.intf.enableNetwork():
             return False
+        urlgrabber.grabber.reset_curl_obj()
     try:
         anaconda.backend.doRepoSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         anaconda.backend.doSackSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
@@ -309,6 +310,7 @@ class RepoEditor:
                       "networking, but there was an error enabling the "
                       "network on your system."))
                 return False
+            urlgrabber.grabber.reset_curl_obj()
 
         import tempfile
         dest = tempfile.mkdtemp("", repo.name.replace(" ", ""), "/mnt")

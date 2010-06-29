@@ -726,17 +726,21 @@ class Network:
                 waited_devs_props[iface] = device_props_iface
 
         i = 0
+        reset_resolver = False
         while True:
             for dev, device_props_iface in waited_devs_props.items():
                 state = device_props_iface.Get(isys.NM_DEVICE_IFACE, "State")
                 if state == isys.NM_DEVICE_STATE_ACTIVATED:
                     waited_devs_props.pop(dev)
-            if len(waited_devs_props) == 0:
-                return []
-            if i >= CONNECTION_TIMEOUT:
-                return waited_devs_props.keys()
+                    reset_resolver = True
+            if len(waited_devs_props) == 0 or i >= CONNECTION_TIMEOUT:
+                break
             i += 1
             time.sleep(1)
+
+        if reset_resolver:
+            isys.resetResolv()
+        return waited_devs_props.keys()
 
     # write out current configuration state and wait for NetworkManager
     # to bring the device up, watch NM state and return to the caller

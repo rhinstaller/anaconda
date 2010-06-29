@@ -27,6 +27,7 @@ import iutil
 import network
 import storage.fcoe
 import storage.iscsi
+import urlgrabber.grabber
 
 def addFcoeDrive(anaconda):
     (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade", "fcoeDialog")
@@ -104,6 +105,7 @@ def addIscsiDrive(anaconda):
     if not network.hasActiveNetDev():
         if not anaconda.intf.enableNetwork():
             return gtk.RESPONSE_CANCEL
+        urlgrabber.grabber.reset_curl_obj()
 
     (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade", "iscsiDialog")
     gui.addFrame(dialog)

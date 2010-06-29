@@ -154,6 +154,7 @@ def getEscrowCertificate(anaconda, url):
                                         custom_icon="error",
                                         custom_buttons=[_("_Exit installer")])
             sys.exit(1)
+    urlgrabber.grabber.reset_curl_obj()
 
     log.info("escrow: downloading %s" % (url,))
 
