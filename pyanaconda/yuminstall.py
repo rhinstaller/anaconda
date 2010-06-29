@@ -735,7 +735,7 @@ class AnacondaYum(YumSorter):
                 if ksrepo.cost:
                     repo.cost = ksrepo.cost
 
-                if ksrepo.exclude:
+                if ksrepo.excludepkgs:
                     repo.exclude = ksrepo.excludepkgs
 
                 if ksrepo.includepkgs:
@@ -1889,8 +1889,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
             if repo.includepkgs:
                 line += " --includepkgs=\"%s\"" % ",".join(repo.includepkgs)
-            if repo.excludepkgs:
-                line += " --excludepkgs=\"%s\"" % ",".join(repo.excludepkgs)
+
+            if repo.exclude:
+                line += " --excludepkgs=\"%s\"" % ",".join(repo.exclude)
 
             line += "\n"
 
