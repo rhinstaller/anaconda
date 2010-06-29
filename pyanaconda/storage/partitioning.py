@@ -248,7 +248,7 @@ def doAutoPartition(anaconda):
         if anaconda.ksdata:
             sys.exit(0)
         else:
-            return
+            return DISPATCH_BACK
 
     # sanity check the collection of devices
     log.warning("not sanity checking storage config because I don't know how yet")
