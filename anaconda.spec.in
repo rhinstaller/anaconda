@@ -221,6 +221,47 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jun 29 2010 David Cantrell <dcantrell@redhat.com> - 13.21.55-1
+- Write out missing space on 'part' lines in ks file (dcantrell)
+  Resolves: rhbz#605938
+- Make sure swap devices are included in dracut args (dcantrell)
+  Resolves: rhbz#607646
+- Catch DeviceNotFoundError in cleardisks (dcantrell)
+  Resolves: rhbz#607661
+- anaconda: Disable X server regenerations (ajax)
+  Resolves: rhbz#609245
+- Do not proceed after partitioning errors in text mode (bcl)
+  Resolves: rhbz#599484
+- Add a slash to the path pointing to hdinstall dir (msivak)
+  Resolves: rhbz#592154
+- Check for proper Proxy URL in loader (bcl)
+  Resolves: rhbz#604126
+- Don't resize lv's formatting unless also resizing the lv. (dlehman)
+  Resolves: rhbz#575046
+- Use progressbar instead of waitwindow for repo setup (rvykydal)
+  Resolves: rhbz#584996
+- Account for ipv6 addresses too (rvykydal)
+  Resolves: rhbz#605659
+- Don't deactivate active device before running nm-c-e (rvykydal)
+  Resolves: rhbz#608773
+- Clean up proxy handling in yuminstall.py (bcl)
+  Resolves: rhbz#604137
+- Add full proxy URL to writeKS (bcl)
+  Related: rhbz#602705
+  Resolves: rhbz#602705
+- loader: print if anaconda was killed by a signal and dump core. (akozumpl)
+  Related: rhbz#607650
+- fixup exclude/excludepkgs usage (bcl)
+  Resolves: rhbz#607664
+- Control all devs by NM by default + filtering (iSCSI, FCoE) (rvykydal)
+  Resolves: rhbz#606745
+- network.dracutSetupstring: properly handle ipv6 (hdegoede)
+  Resolves: rhbz#605232
+- Support for converged traffic during install to FCoE LUN (hdegoede)
+  Resolves: rhbz#604763
+- Show sane non-removable drives too in the DD dialog (msivak)
+  Resolves: rhbz#594548
+
 * Sat Jun 26 2010 David Cantrell <dcantrell@redhat.com> - 13.21.54-1
 - Take into account the fact that some formats have no min/max size. (dlehman)
   Related: rhbz#603188
