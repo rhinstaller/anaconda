@@ -64,9 +64,9 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
     if (doPwMount(device, "/mnt/isodir", "auto", "ro", NULL))
         return NULL;
 
-    checked_asprintf(&dirspec, "/mnt/isodir%.*s",
+    checked_asprintf(&dirspec, "/mnt/isodir/%.*s",
                      (int) (strrchr(dirName, '/') - dirName), dirName);
-    checked_asprintf(&path, "/mnt/isodir%s", dirName);
+    checked_asprintf(&path, "/mnt/isodir/%s", dirName);
 
     if (path) {
         logMessage(INFO, "Path to stage2 image is %s", path);
