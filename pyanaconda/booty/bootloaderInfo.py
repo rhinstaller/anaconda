@@ -118,7 +118,7 @@ class KernelArguments:
         args = ""
         bootArgs = []
         rootDev = self.anaconda.storage.rootDevice
-        neededDevs = [ rootDev ]
+        neededDevs = [ rootDev ] + self.anaconda.storage.swaps
 
         if flags.cmdline.get("fips") == "1":
             bootDev = self.anaconda.storage.mountpoints.get("/boot", rootDev)
