@@ -1791,6 +1791,9 @@ int restart_anaconda(struct loaderData_s *loaderData) {
 }
 
 static int anaconda_trace_init(void) {
+    int isDevelMode = 0;
+    gchar *buf;
+
 #ifdef USE_MTRACE
     setenv("MALLOC_TRACE","/malloc",1);
     mtrace();
@@ -1800,8 +1803,17 @@ static int anaconda_trace_init(void) {
      * is well before we might take a SEGV, so they'll go to tty8 */
     initializeTtys();
 
-    /* set up signal handler */
-    setupBacktrace();
+    /* check for development mode early */
+    if (g_file_get_contents("/proc/cmdline", &buf, NULL, NULL) == TRUE) {
+        if (strstr(buf, "devel")) {
+            isDevelMode = 1;
+        }
+        g_free(buf);
+    }
+
+    /* set up signal handler unless we want it to crash in devel mode */
+    if(!isDevelMode)
+        setupBacktrace();
 
     return 0;
 }

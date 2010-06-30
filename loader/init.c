@@ -491,7 +491,7 @@ int main(int argc, char **argv) {
         fatal_error(1);
     printf("done\n");
 
-    /* unless the user specifies that they want utf8 */
+    /* check for development mode early */
     int fdn;
     if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
         int len = read(fdn, buf, sizeof(buf) - 1);
@@ -569,11 +569,13 @@ int main(int argc, char **argv) {
 
 #if !defined(__s390__) && !defined(__s390x__)
     static struct termios orig_cmode;
+    static int            orig_flags;
     struct termios cmode, mode;
     int cfd;
     
     cfd =  open("/dev/console", O_RDONLY);
     tcgetattr(cfd,&orig_cmode);
+    orig_flags = fcntl(cfd, F_GETFL);
     close(cfd);
 
     cmode = orig_cmode;
@@ -799,6 +801,13 @@ int main(int argc, char **argv) {
 
     if (!WIFEXITED(waitStatus) ||
         (WIFEXITED(waitStatus) && WEXITSTATUS(waitStatus))) {
+
+        /* Restore terminal */
+        cfd =  open("/dev/console", O_RDONLY);
+        tcsetattr(cfd, TCSANOW, &orig_cmode);
+        fcntl(cfd, F_SETFL, orig_flags);
+        close(cfd);
+
         shutdown_method = DELAYED_REBOOT;
         printf("install exited abnormally [%d/%d] ", WIFEXITED(waitStatus),
                                                      WEXITSTATUS(waitStatus));
