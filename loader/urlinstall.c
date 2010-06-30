@@ -396,7 +396,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     if (!substr || (substr && *(substr+4) != '\0')) {
         loaderData->instRepo = strdup(url);
     } else {
-        if ((loaderData->stage2Data = calloc(sizeof(urlInstallData *), 1)) == NULL)
+        if ((loaderData->stage2Data = calloc(sizeof(urlInstallData), 1)) == NULL)
             return;
 
         ((urlInstallData *)loaderData->stage2Data)->url = url;
