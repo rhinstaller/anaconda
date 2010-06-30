@@ -283,6 +283,7 @@ def vgreduce(vg_name, pv_list, rm=False):
     the --removemissing option.
     """
     args = ["vgreduce"]
+    args.extend(config_args)
     if rm:
         args.extend(["--removemissing", vg_name])
     else:
