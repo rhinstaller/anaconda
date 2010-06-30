@@ -436,7 +436,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
         logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
                    host, dir, mountOpts);
     } else {
-        loaderData->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
+        loaderData->stage2Data = calloc(sizeof(struct nfsInstallData), 1);
         ((struct nfsInstallData *)loaderData->stage2Data)->host = host;
         ((struct nfsInstallData *)loaderData->stage2Data)->directory = dir;
         ((struct nfsInstallData *)loaderData->stage2Data)->mountOpts = mountOpts;

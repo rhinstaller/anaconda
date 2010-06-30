@@ -526,7 +526,7 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
     if (!strncmp(arg, "nfs:", 4)) {
         ld->method = METHOD_NFS;
-        ld->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
+        ld->stage2Data = calloc(sizeof(struct nfsInstallData), 1);
 
         parseNfsHostPathOpts(arg + 4,
           &(((struct nfsInstallData *)ld->stage2Data)->host),
@@ -535,7 +535,7 @@ void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
         stripTrailingSlash(((struct nfsInstallData *)ld->stage2Data)->directory);
     } else if (!strncmp(arg, "nfsiso:", 7)) {
         ld->method = METHOD_NFS;
-        ld->stage2Data = calloc(sizeof(struct nfsInstallData *), 1);
+        ld->stage2Data = calloc(sizeof(struct nfsInstallData), 1);
 
         parseNfsHostPathOpts(arg + 7,
           &(((struct nfsInstallData *)ld->stage2Data)->host),
@@ -544,7 +544,7 @@ void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
     } else if (!strncmp(arg, "ftp:", 4) ||
                !strncmp(arg, "http", 4)) {
         ld->method = METHOD_URL;
-        ld->stage2Data = calloc(sizeof(struct urlInstallData *), 1);
+        ld->stage2Data = calloc(sizeof(urlInstallData), 1);
         ((urlInstallData *)ld->stage2Data)->url = strdup(arg);
     } else if (!strncmp(arg, "cdrom:", 6)) {
         ld->method = METHOD_CDROM;
@@ -559,7 +559,7 @@ void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
         offset = strcspn(arg, ":");
 
         ld->method = METHOD_HD;
-        ld->stage2Data = calloc(sizeof(struct hdInstallData *), 1);
+        ld->stage2Data = calloc(sizeof(struct hdInstallData), 1);
         ((struct hdInstallData *)ld->stage2Data)->partition = strndup(arg, offset);
 	arg += offset;
 	if (*arg && *(arg+1))

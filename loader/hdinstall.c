@@ -386,7 +386,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
     }
 
     loaderData->method = METHOD_HD;
-    loaderData->stage2Data = calloc(sizeof(struct hdInstallData *), 1);
+    loaderData->stage2Data = calloc(sizeof(struct hdInstallData), 1);
     if (partition)
         ((struct hdInstallData *)loaderData->stage2Data)->partition = partition;
     if (dir)
