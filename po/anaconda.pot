@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.54\n"
+"Project-Id-Version: anaconda 13.21.55\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-06-29 10:36-1000\n"
+"POT-Creation-Date: 2010-06-30 04:14-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,8 +169,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1359
-#: kickstart.py:1398 upgrade.py:58 yuminstall.py:1330 yuminstall.py:1513
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1370
+#: kickstart.py:1409 upgrade.py:58 yuminstall.py:1330 yuminstall.py:1513
 #: iw/partition_gui.py:1601 storage/__init__.py:1981
 msgid "_Continue"
 msgstr ""
@@ -203,8 +203,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1269 kickstart.py:1143 kickstart.py:1223
-#: kickstart.py:1231 kickstart.py:1269 kickstart.py:1277 text.py:388
+#: cmdline.py:88 gui.py:1269 kickstart.py:1154 kickstart.py:1234
+#: kickstart.py:1242 kickstart.py:1280 kickstart.py:1288 text.py:388
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -666,63 +666,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1242
+#: kickstart.py:1253
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1245
+#: kickstart.py:1256
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1300 livecd.py:228
+#: kickstart.py:1311 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1301
+#: kickstart.py:1312
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1317
+#: kickstart.py:1328
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1318
+#: kickstart.py:1329
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1350
+#: kickstart.py:1361
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1351
+#: kickstart.py:1362
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1357 kickstart.py:1396
+#: kickstart.py:1368 kickstart.py:1407
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1358 kickstart.py:1397
+#: kickstart.py:1369 kickstart.py:1408
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1388
+#: kickstart.py:1399
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1389
+#: kickstart.py:1400
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1505
+#: kickstart.py:1516
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -4547,12 +4547,12 @@ msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: storage/devicelibs/lvm.py:315
+#: storage/devicelibs/lvm.py:316
 #, python-format
 msgid "vginfo failed for %s"
 msgstr ""
 
-#: storage/devicelibs/lvm.py:344
+#: storage/devicelibs/lvm.py:345
 #, python-format
 msgid "lvs failed for %s"
 msgstr ""

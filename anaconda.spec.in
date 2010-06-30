@@ -221,6 +221,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jun 30 2010 David Cantrell <dcantrell@redhat.com> - 13.21.56-1
+- Translate MAC addresses to devices in the second stage, too. (clumens)
+  Related: rhbz#185522
+- Fix prototype of getIPAddresses (rvykydal)
+  Resolves: rhbz#605659
+- anaconda's lvm vgreduce invocation is not filtering out disks (hdegoede)
+  Resolves: rhbz#609479
+
 * Tue Jun 29 2010 David Cantrell <dcantrell@redhat.com> - 13.21.55-1
 - Write out missing space on 'part' lines in ks file (dcantrell)
   Resolves: rhbz#605938
