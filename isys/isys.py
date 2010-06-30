@@ -511,10 +511,9 @@ def isWireless(dev):
         return False
 
 # Get IP addresses for a network device.
-# Returns list of ipv4 and ipv6 addresses.
-# With version=4 returns only ipv4 addresses,
-# with version=6 returns only ipv6 addresses.
-def getIPAddresses(dev, version=None):
+# Returns list of ipv4 or ipv6 addresses, depending
+# on version parameter. ipv4 is default.
+def getIPAddresses(dev, version=4):
     if dev == '' or dev is None:
        return None
 
@@ -526,7 +525,7 @@ def getIPAddresses(dev, version=None):
 
     addresses = []
 
-    if not version == 6:
+    if version == 4:
         ip4_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip4Config')
         if ip4_config_path != '/':
             ip4_config_obj = bus.get_object(NM_SERVICE, ip4_config_path)
@@ -542,8 +541,7 @@ def getIPAddresses(dev, version=None):
                 except ValueError as e:
                     log.debug("Exception caught trying to convert IP address %s: %s" %
                     (addr, e))
-
-    if not version == 4:
+    elif version == 6:
         ip6_config_path = device_props_iface.Get(NM_DEVICE_IFACE, 'Ip6Config')
         if ip6_config_path != '/':
             ip6_config_obj = bus.get_object(NM_SERVICE, ip6_config_path)
@@ -560,6 +558,8 @@ def getIPAddresses(dev, version=None):
                 except ValueError as e:
                     log.debug("Exception caught trying to convert IP address %s: %s" %
                     (addr, e))
+    else:
+        raise ValueError, "invalid IP version %d" % version
 
     return addresses
 
