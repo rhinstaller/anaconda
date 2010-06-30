@@ -40,16 +40,15 @@ fi
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
 > pylint-log
-for i in booty pyanaconda/storage pyanaconda/installclasses/*.py pyanaconda/iw/*.py pyanaconda/textw/*.py isys/*.py pyanaconda/; do
+for i in pyanaconda/booty pyanaconda/storage pyanaconda/installclasses/*.py pyanaconda/iw/*.py pyanaconda/textw/*.py pyanaconda/isys/*.py pyanaconda/; do
   pylint --init-hook='import sys; \
-      sys.path.insert(1, ".libs"); \
-      sys.path.insert(2, "isys/.libs"); \
-      sys.path.insert(3, "isys"); \
-      sys.path.insert(4, "pyanaconda"); \
-      sys.path.insert(5, "pyanaconda/iw"); \
-      sys.path.insert(6, "pyanaconda/textw"); \
-      sys.path.insert(7, "/usr/share/system-config-date"); \
-      sys.path.insert(8, "/usr/share/system-config-keyboard")' \
+      sys.path.insert(1, "pyanaconda/isys/.libs"); \
+      sys.path.insert(2, "pyanaconda/isys"); \
+      sys.path.insert(3, "pyanaconda"); \
+      sys.path.insert(4, "pyanaconda/iw"); \
+      sys.path.insert(5, "pyanaconda/textw"); \
+      sys.path.insert(6, "/usr/share/system-config-date"); \
+      sys.path.insert(7, "/usr/share/system-config-keyboard")' \
     -i y -r n --disable-msg-cat=C,R --rcfile=/dev/null \
     --disable-msg=W0511,W0403,W0703,W0622,W0614,W0401,W0142,W0613,W0621,W0141 \
     --disable-msg=W0102,W0201,W0221,W0702,W0602,W0603,W0604,W1001,W0223 \
