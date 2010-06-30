@@ -1,3 +1,4 @@
+# translation of it_upstream-branch.po to
 # translation of it_upstream.po to
 # translation of it.po to
 # translation of anaconda.master.it.giallu.po to
@@ -20,10 +21,10 @@
 # mario_santagiuliana <mario at marionline.it>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: it_upstream\n"
+"Project-Id-Version: it_upstream-branch\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-05-07 16:43-1000\n"
-"PO-Revision-Date: 2010-05-11 10:19+1000\n"
+"POT-Creation-Date: 2010-06-01 08:25-1000\n"
+"PO-Revision-Date: 2010-06-30 15:33+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <it@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,40 +36,41 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: anaconda:359
+#: anaconda:371
 msgid "Press <enter> for a shell"
 msgstr "Premere <invio> per una shell"
 
-#: anaconda:390 rescue.py:352 rescue.py:378 rescue.py:391 rescue.py:467
-#: rescue.py:479 text.py:654 loader/cdinstall.c:228 loader/cdinstall.c:232
-#: loader/cdinstall.c:248 loader/cdinstall.c:251 loader/cdinstall.c:427
-#: loader/cdinstall.c:431 loader/cdinstall.c:504 loader/dirbrowser.c:128
-#: loader/driverdisk.c:232 loader/driverdisk.c:388 loader/driverdisk.c:420
-#: loader/driverdisk.c:451 loader/driverdisk.c:486 loader/driverdisk.c:502
-#: loader/driverdisk.c:514 loader/driverdisk.c:522 loader/driverdisk.c:689
-#: loader/driverdisk.c:728 loader/driverselect.c:78 loader/driverselect.c:178
-#: loader/hdinstall.c:115 loader/hdinstall.c:266 loader/hdinstall.c:325
-#: loader/hdinstall.c:359 loader/hdinstall.c:431 loader/hdinstall.c:474
-#: loader/hdinstall.c:487 loader/kbd.c:119 loader/kickstart.c:135
-#: loader/kickstart.c:145 loader/kickstart.c:187 loader/kickstart.c:192
-#: loader/kickstart.c:299 loader/kickstart.c:331 loader/kickstart.c:520
-#: loader/lang.c:114 loader/lang.c:373 loader/loader.c:414 loader/loader.c:450
-#: loader/loader.c:490 loader/loader.c:508 loader/loader.c:525
-#: loader/loader.c:562 loader/loader.c:1137 loader/loader.c:1320
-#: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
-#: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
-#: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:579 loader/net.c:950 loader/net.c:1558 loader/net.c:1579
-#: loader/net.c:1851 loader/net.c:1870 loader/net.c:1882
-#: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
-#: loader/nfsinstall.c:366 loader/telnetd.c:92 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
-#: loader/urlinstall.c:383 loader/urlinstall.c:390 loader/urls.c:259
-#: loader/urls.c:330 loader/urls.c:336 textw/constants_text.py:44
+#: anaconda:402 rescue.py:353 rescue.py:379 rescue.py:392 rescue.py:470
+#: rescue.py:483 rescue.py:494 text.py:654 loader/cdinstall.c:228
+#: loader/cdinstall.c:232 loader/cdinstall.c:248 loader/cdinstall.c:251
+#: loader/cdinstall.c:427 loader/cdinstall.c:431 loader/cdinstall.c:504
+#: loader/dirbrowser.c:128 loader/driverdisk.c:228 loader/driverdisk.c:407
+#: loader/driverdisk.c:439 loader/driverdisk.c:470 loader/driverdisk.c:505
+#: loader/driverdisk.c:521 loader/driverdisk.c:533 loader/driverdisk.c:541
+#: loader/driverdisk.c:708 loader/driverdisk.c:747 loader/driverselect.c:78
+#: loader/driverselect.c:178 loader/hdinstall.c:115 loader/hdinstall.c:266
+#: loader/hdinstall.c:325 loader/hdinstall.c:360 loader/hdinstall.c:440
+#: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kbd.c:119
+#: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
+#: loader/kickstart.c:192 loader/kickstart.c:299 loader/kickstart.c:331
+#: loader/kickstart.c:520 loader/lang.c:114 loader/lang.c:373
+#: loader/loader.c:414 loader/loader.c:450 loader/loader.c:490
+#: loader/loader.c:508 loader/loader.c:525 loader/loader.c:562
+#: loader/loader.c:1137 loader/loader.c:1320 loader/mediacheck.c:46
+#: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/mediacheck.c:96
+#: loader/mediacheck.c:105 loader/method.c:277 loader/method.c:351
+#: loader/modules.c:382 loader/modules.c:398 loader/net.c:580 loader/net.c:951
+#: loader/net.c:1559 loader/net.c:1580 loader/net.c:1860 loader/net.c:1879
+#: loader/net.c:1891 loader/nfsinstall.c:91 loader/nfsinstall.c:279
+#: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
+#: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
+#: loader/urlinstall.c:372 loader/urlinstall.c:383 loader/urlinstall.c:390
+#: loader/urls.c:259 loader/urls.c:330 loader/urls.c:336
+#: textw/constants_text.py:44
 msgid "OK"
 msgstr "OK"
 
-#: anaconda:399
+#: anaconda:411
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
@@ -76,15 +78,15 @@ msgstr ""
 "RAM insufficiente per l'utilizzo del programma di installazione grafico. "
 "Avvio della modalità testo."
 
-#: anaconda:532
+#: anaconda:544
 msgid "Starting graphical installation."
 msgstr "Avvio installazione grafica."
 
-#: anaconda:889
+#: anaconda:901
 msgid "Would you like to use VNC?"
 msgstr "Utilizzare VNC?"
 
-#: anaconda:890
+#: anaconda:902
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -94,15 +96,15 @@ msgstr ""
 "Essa non consente di specificare la propria tabella di partizionamento o la "
 "scelta dei pacchetti.  Usare la modalità VNC come alternativa?"
 
-#: anaconda:918
+#: anaconda:930
 msgid "Install class forcing text mode installation"
 msgstr "Installa classe forzando l'installazione in modalità di testo"
 
-#: anaconda:937
+#: anaconda:949
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Installazione grafica non disponibile. Avvio modalità testo."
 
-#: anaconda:945
+#: anaconda:957
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "Variabile DISPLAY non impostata. Avvio modalità testo."
 
@@ -142,36 +144,36 @@ msgstr ""
 "d'installazione sul disco fisso. Probabilmente lo spazio disponibile non è "
 "sufficiente."
 
-#: backend.py:185 image.py:289 livecd.py:198 livecd.py:403
-#: partIntfHelpers.py:237 text.py:351 text.py:355 yuminstall.py:408
-#: yuminstall.py:835 yuminstall.py:953 yuminstall.py:958 yuminstall.py:1231
-#: yuminstall.py:1295 yuminstall.py:1485 yuminstall.py:1507
-#: iw/advanced_storage.py:90 iw/advanced_storage.py:100
-#: iw/advanced_storage.py:176 iw/advanced_storage.py:179
-#: iw/advanced_storage.py:207 iw/autopart_type.py:96 iw/cleardisks_gui.py:43
-#: iw/cleardisks_gui.py:53 iw/filter_gui.py:410 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:214 iw/raid_dialog_gui.py:795
-#: iw/raid_dialog_gui.py:834 iw/task_gui.py:52 iw/task_gui.py:153
-#: iw/task_gui.py:299 iw/task_gui.py:459 loader/cdinstall.c:228
-#: loader/cdinstall.c:504 loader/driverdisk.c:232 loader/driverdisk.c:451
-#: loader/driverdisk.c:486 loader/driverdisk.c:514 loader/driverdisk.c:522
-#: loader/driverdisk.c:589 loader/hdinstall.c:115 loader/hdinstall.c:325
-#: loader/hdinstall.c:431 loader/hdinstall.c:474 loader/hdinstall.c:487
-#: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:414
-#: loader/loader.c:525 loader/loader.c:1137 loader/mediacheck.c:46
-#: loader/mediacheck.c:85 loader/mediacheck.c:92 loader/mediacheck.c:96
-#: loader/method.c:277 loader/method.c:351 loader/nfsinstall.c:279
-#: loader/nfsinstall.c:296 loader/telnetd.c:92 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urls.c:330
-#: loader/urls.c:336 storage/__init__.py:213 storage/__init__.py:1795
-#: storage/__init__.py:1882 textw/netconfig_text.py:282
-#: textw/upgrade_text.py:179 textw/upgrade_text.py:186
+#: backend.py:185 image.py:289 livecd.py:198 livecd.py:440
+#: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:408
+#: yuminstall.py:839 yuminstall.py:957 yuminstall.py:962 yuminstall.py:1237
+#: yuminstall.py:1303 yuminstall.py:1493 yuminstall.py:1515
+#: iw/advanced_storage.py:89 iw/advanced_storage.py:99
+#: iw/advanced_storage.py:172 iw/advanced_storage.py:175
+#: iw/advanced_storage.py:203 iw/autopart_type.py:96 iw/cleardisks_gui.py:44
+#: iw/cleardisks_gui.py:54 iw/filter_gui.py:410 iw/osbootwidget.py:211
+#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:53
+#: iw/task_gui.py:154 iw/task_gui.py:300 iw/task_gui.py:460
+#: loader/cdinstall.c:228 loader/cdinstall.c:504 loader/driverdisk.c:228
+#: loader/driverdisk.c:470 loader/driverdisk.c:505 loader/driverdisk.c:533
+#: loader/driverdisk.c:541 loader/driverdisk.c:608 loader/hdinstall.c:115
+#: loader/hdinstall.c:325 loader/hdinstall.c:440 loader/hdinstall.c:483
+#: loader/hdinstall.c:496 loader/kickstart.c:299 loader/lang.c:114
+#: loader/loader.c:414 loader/loader.c:525 loader/loader.c:1137
+#: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
+#: loader/mediacheck.c:96 loader/method.c:277 loader/method.c:351
+#: loader/nfsinstall.c:279 loader/nfsinstall.c:296 loader/telnetd.c:92
+#: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
+#: loader/urls.c:330 loader/urls.c:336 storage/__init__.py:213
+#: storage/__init__.py:1798 storage/__init__.py:1885
+#: textw/netconfig_text.py:282 textw/upgrade_text.py:179
+#: textw/upgrade_text.py:186
 msgid "Error"
 msgstr "Errore"
 
-#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1100
-#: gui.py:1160 image.py:82 installinterfacebase.py:46 text.py:481 text.py:541
-#: yuminstall.py:1464 yuminstall.py:1673 yuminstall.py:1708
+#: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1175
+#: gui.py:1235 image.py:82 installinterfacebase.py:46 text.py:481 text.py:541
+#: yuminstall.py:1472 yuminstall.py:1682 yuminstall.py:1717
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: textw/upgrade_text.py:191
@@ -190,19 +192,19 @@ msgstr ""
 "\n"
 "Continuare il processo di installazione?"
 
-#: bootloader.py:60 gui.py:1051 gui.py:1196 gui.py:1412 image.py:91
-#: installinterfacebase.py:74 kickstart.py:155 livecd.py:205 livecd.py:410
-#: packages.py:161 upgrade.py:58 upgrade.py:199 yuminstall.py:249
-#: yuminstall.py:955 yuminstall.py:960 yuminstall.py:1040 yuminstall.py:1046
-#: yuminstall.py:1202 yuminstall.py:1227 yuminstall.py:1285 yuminstall.py:1472
-#: yuminstall.py:1491 yuminstall.py:1514 storage/__init__.py:100
-#: storage/__init__.py:109 storage/__init__.py:217 storage/__init__.py:1976
+#: bootloader.py:60 gui.py:1126 gui.py:1271 gui.py:1487 image.py:91
+#: kickstart.py:155 livecd.py:205 livecd.py:447 packages.py:161 upgrade.py:58
+#: upgrade.py:199 yuminstall.py:249 yuminstall.py:959 yuminstall.py:964
+#: yuminstall.py:1044 yuminstall.py:1050 yuminstall.py:1206 yuminstall.py:1233
+#: yuminstall.py:1293 yuminstall.py:1480 yuminstall.py:1499 yuminstall.py:1522
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
+#: storage/__init__.py:1979
 msgid "_Exit installer"
 msgstr "_Esci dal programma d'installazione"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1346
-#: kickstart.py:1385 upgrade.py:58 yuminstall.py:1290 yuminstall.py:1473
-#: iw/partition_gui.py:1608 storage/__init__.py:1977
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1350
+#: kickstart.py:1389 upgrade.py:58 yuminstall.py:1298 yuminstall.py:1481
+#: iw/partition_gui.py:1584 storage/__init__.py:1980
 msgid "_Continue"
 msgstr "_Continua"
 
@@ -238,8 +240,8 @@ msgstr "Completato"
 msgid "In progress"
 msgstr "In corso"
 
-#: cmdline.py:88 gui.py:1191 kickstart.py:1210 kickstart.py:1218
-#: kickstart.py:1256 kickstart.py:1264 text.py:388
+#: cmdline.py:88 gui.py:1266 kickstart.py:1214 kickstart.py:1222
+#: kickstart.py:1260 kickstart.py:1268 text.py:388
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -360,9 +362,9 @@ msgstr ""
 "dispositivo durante l'installazione, si deve immettere la frase segreta del "
 "dispositivo qui sotto."
 
-#: gui.py:734 gui.py:1412 partIntfHelpers.py:157 partIntfHelpers.py:342
+#: gui.py:734 gui.py:1487 partIntfHelpers.py:153 partIntfHelpers.py:338
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
-#: loader/driverdisk.c:389 loader/kickstart.c:331 loader/loader.c:450
+#: loader/driverdisk.c:408 loader/kickstart.c:331 loader/loader.c:450
 #: loader/loader.c:562 textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Annulla"
@@ -371,7 +373,34 @@ msgstr "Annulla"
 msgid "_Debug"
 msgstr "_Debug"
 
-#: gui.py:1101 text.py:482
+#: gui.py:1000 textw/netconfig_text.py:276
+msgid "Waiting for NetworkManager"
+msgstr "In attesa di NetworkManager"
+
+#: gui.py:1001
+#, python-format
+msgid "Waiting for NetworkManager to activate these devices: %s"
+msgstr "In attesa di NetworkManager per l'attivazione di questi dispositivi: %s"
+
+#: gui.py:1022
+#, python-format
+msgid "Failed to activate these network interfaces: %s"
+msgstr "Attivazione di queste interfacce di rete fallita: %s"
+
+#: gui.py:1025
+msgid "Network Configuration"
+msgstr "Configurazione di rete"
+
+#: gui.py:1034
+#, python-format
+msgid "An error occurred trying to bring up the %s network interface."
+msgstr "Si è verificato un errore nell'attivazione dell'interfaccia di rete %s."
+
+#: gui.py:1036
+msgid "Error Enabling Network"
+msgstr "Errore abilitazione della rete"
+
+#: gui.py:1176 text.py:482
 #, python-format
 msgid ""
 "Error processing drive:\n"
@@ -400,23 +429,23 @@ msgstr ""
 "Tale azione può essere anche applicata a tutti gli altri dischi che "
 "necessitano una nuova inizializzazione.%(details)s"
 
-#: gui.py:1110 gui.py:1168 text.py:491 text.py:549
+#: gui.py:1185 gui.py:1243 installinterfacebase.py:74 text.py:491 text.py:549
 msgid "_Ignore"
 msgstr "_Ignora"
 
-#: gui.py:1111 gui.py:1169 text.py:492 text.py:550
+#: gui.py:1186 gui.py:1244 text.py:492 text.py:550
 msgid "Ignore _all"
 msgstr "Ignor_a Tutto"
 
-#: gui.py:1112 gui.py:1170 text.py:493 text.py:551
+#: gui.py:1187 gui.py:1245 text.py:493 text.py:551
 msgid "_Re-initialize"
 msgstr "_Re-inizializza"
 
-#: gui.py:1113 gui.py:1171 text.py:494 text.py:552
+#: gui.py:1188 gui.py:1246 text.py:494 text.py:552
 msgid "Re-ini_tialize all"
 msgstr "Re-inizializza _tutto"
 
-#: gui.py:1161 text.py:542
+#: gui.py:1236 text.py:542
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -431,19 +460,19 @@ msgstr ""
 "preservando i contenuti. Tale azione può essere applicata su tutti gli altri "
 "PV con metadati inconsistenti."
 
-#: gui.py:1193 text.py:390
+#: gui.py:1268 text.py:390
 msgid "Error Parsing Kickstart Config"
 msgstr "Errore durante l'analisi della configurazione del kickstart"
 
-#: gui.py:1236
+#: gui.py:1311
 msgid "default:LTR"
 msgstr "predefinito:LTR"
 
-#: gui.py:1316 text.py:619
+#: gui.py:1391 text.py:619
 msgid "Error!"
 msgstr "Errore!"
 
-#: gui.py:1317 text.py:620
+#: gui.py:1392 text.py:620
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -455,46 +484,46 @@ msgstr ""
 "\n"
 "Nome della classe = %s"
 
-#: gui.py:1322 image.py:164 image.py:194 packages.py:359
-#: storage/__init__.py:1794
+#: gui.py:1397 image.py:164 image.py:194 packages.py:360
+#: storage/__init__.py:1797
 msgid "_Exit"
 msgstr "_Esci"
 
-#: gui.py:1323 image.py:164 image.py:194 livecd.py:205 yuminstall.py:827
-#: yuminstall.py:1227 yuminstall.py:1285 yuminstall.py:1491
+#: gui.py:1398 image.py:164 image.py:194 livecd.py:205 yuminstall.py:829
+#: yuminstall.py:1233 yuminstall.py:1293 yuminstall.py:1499
 msgid "_Retry"
 msgstr "_Riprova"
 
-#: gui.py:1325 storage/partitioning.py:275
+#: gui.py:1400 storage/partitioning.py:277
 msgid "The system will now reboot."
 msgstr "Il sistema verrà ora riavviato."
 
-#: gui.py:1326 image.py:251 packages.py:363 yuminstall.py:1532
+#: gui.py:1401 image.py:251 packages.py:364 yuminstall.py:1540
 msgid "_Reboot"
 msgstr "_Riavvia"
 
-#: gui.py:1328
+#: gui.py:1403
 msgid "Exiting"
 msgstr "Uscita in corso"
 
-#: gui.py:1409 livecd.py:126 text.py:267 upgrade.py:190
+#: gui.py:1484 livecd.py:126 text.py:267 upgrade.py:190
 msgid "Exit installer"
 msgstr "Esci dall'installazione"
 
-#: gui.py:1410
+#: gui.py:1485
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Sei sicuro di voler uscire dall'installazione?"
 
-#: gui.py:1419
+#: gui.py:1494
 #, python-format
 msgid "%s Installer"
 msgstr "Programma di installazione di %s"
 
-#: gui.py:1425
+#: gui.py:1500
 msgid "Unable to load title bar"
 msgstr "Impossibile caricare la barra del titolo"
 
-#: gui.py:1494
+#: gui.py:1569
 msgid "Install Window"
 msgstr "Finestra di installazione"
 
@@ -572,8 +601,8 @@ msgstr ""
 "l'installazione.  Se è necessario annullare l'installazione ed uscire "
 "selezionare \"Riavvia\"."
 
-#: image.py:251 livecd.py:409 packages.py:363 upgrade.py:198 yuminstall.py:960
-#: yuminstall.py:1046 yuminstall.py:1472 yuminstall.py:1514 yuminstall.py:1532
+#: image.py:251 livecd.py:446 packages.py:364 upgrade.py:198 yuminstall.py:964
+#: yuminstall.py:1050 yuminstall.py:1480 yuminstall.py:1522 yuminstall.py:1540
 #: ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr "_Indietro"
@@ -732,7 +761,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Errore scriptlet"
 
-#: kickstart.py:149 rescue.py:261 yuminstall.py:1197 iw/task_gui.py:305
+#: kickstart.py:149 rescue.py:262 yuminstall.py:1201 iw/task_gui.py:306
 msgid "No Network Available"
 msgstr "Nessuna rete disponibile"
 
@@ -757,37 +786,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: kickstart.py:1229
+#: kickstart.py:1233
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Errore nell'elaborazione delle linee %%ksappend: %s "
 
-#: kickstart.py:1232
+#: kickstart.py:1236
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Errore sconosciuto nell'elaborazione delle linee %%ksappend: %s"
 
-#: kickstart.py:1287 livecd.py:229
+#: kickstart.py:1291 livecd.py:228
 msgid "Post-Installation"
 msgstr "Post-Installazione"
 
-#: kickstart.py:1288
+#: kickstart.py:1292
 msgid "Running post-installation scripts"
 msgstr "Esecuzione script post-installazione"
 
-#: kickstart.py:1304
+#: kickstart.py:1308
 msgid "Pre-Installation"
 msgstr "Pre-Installazione"
 
-#: kickstart.py:1305
+#: kickstart.py:1309
 msgid "Running pre-installation scripts"
 msgstr "Esecuzione script pre-installazione"
 
-#: kickstart.py:1337
+#: kickstart.py:1341
 msgid "Missing Package"
 msgstr "Pacchetto mancante"
 
-#: kickstart.py:1338
+#: kickstart.py:1342
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -796,19 +825,19 @@ msgstr ""
 "È stato specificato che il pacchetto '%s' dovrebbe essere installato.  "
 "Questo pacchetto non esiste. Continuare oppure interrompere l'installazione?"
 
-#: kickstart.py:1344 kickstart.py:1383
+#: kickstart.py:1348 kickstart.py:1387
 msgid "_Abort"
 msgstr "_Interrompi"
 
-#: kickstart.py:1345 kickstart.py:1384
+#: kickstart.py:1349 kickstart.py:1388
 msgid "_Ignore All"
 msgstr "_Ignora Tutto"
 
-#: kickstart.py:1375
+#: kickstart.py:1379
 msgid "Missing Group"
 msgstr "Gruppo mancante"
 
-#: kickstart.py:1376
+#: kickstart.py:1380
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -817,7 +846,7 @@ msgstr ""
 "È stato specificato che il gruppo '%s' dovrebbe essere installato.  Questo "
 "gruppo non esiste. Continuare oppure interrompere l'installazione?"
 
-#: kickstart.py:1491
+#: kickstart.py:1496
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -859,7 +888,7 @@ msgstr ""
 "Se si esce, il sistema verrà lasciato in uno stato inconsistente che "
 "richiederà un ulteriore installazione."
 
-#: livecd.py:230
+#: livecd.py:229
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
@@ -867,7 +896,7 @@ msgstr ""
 "Applicazione delle modifiche post-installazione al filesystem.  Potrebbero "
 "occorrere alcuni minuti."
 
-#: livecd.py:404
+#: livecd.py:441
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
@@ -876,11 +905,11 @@ msgstr ""
 "Il filesystem root appena creato non è abbastanza grande per questa immagine "
 "live (%.2f MB richiesti)."
 
-#: network.py:56
+#: network.py:62
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr "Il nome host può avere un massimo di 255 caratteri."
 
-#: network.py:62
+#: network.py:68
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
@@ -888,17 +917,17 @@ msgstr ""
 "Il nome host deve iniziare con un carattere valido compreso tra 'a-z', 'A-"
 "Z', oppure '0-9'"
 
-#: network.py:67
+#: network.py:73
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 "I nomi host possono contenere solo i caratteri 'a-z', 'A-Z', '0-9', '-', o "
 "'.'"
 
-#: network.py:176
+#: network.py:135
 msgid "IP address is missing."
 msgstr "Indirizzo IP mancante."
 
-#: network.py:180
+#: network.py:139
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
@@ -906,12 +935,12 @@ msgstr ""
 "Gli indirizzi IPv4 devono contenere quattro numeri compresi tra 0 e 255, "
 "separati da punti."
 
-#: network.py:183
+#: network.py:142
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' non è un indirizzo IPV6 valido."
 
-#: network.py:185
+#: network.py:144
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' non è un indirizzo IP valido."
@@ -995,11 +1024,11 @@ msgstr ""
 msgid "_File Bug"
 msgstr "_Segnalare Bug"
 
-#: packages.py:343 packages.py:364
+#: packages.py:344 packages.py:365
 msgid "Warning! This is pre-release software!"
 msgstr "Attenzione! Questo è un software pre-release!"
 
-#: packages.py:344
+#: packages.py:345
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %(productName)s.\n"
@@ -1027,11 +1056,11 @@ msgstr ""
 "\n"
 "ed inviare una segnalazione verso '%(fileagainst)s'.\n"
 
-#: packages.py:359
+#: packages.py:360
 msgid "_Install anyway"
 msgstr "_Installa comunque"
 
-#: packages.py:362
+#: packages.py:363
 msgid "Your system will now be rebooted..."
 msgstr "Il sistema verrà riavviato..."
 
@@ -1077,7 +1106,7 @@ msgstr ""
 "Errore - il nome del volume logico contiene caratteri illegali o spazi.  Si "
 "accettano solo lettere, cifre, '.' o '_'."
 
-#: partIntfHelpers.py:101
+#: partIntfHelpers.py:105
 #, python-format
 msgid ""
 "The mount point %s is invalid.  Mount points must start with '/' and cannot "
@@ -1087,38 +1116,34 @@ msgstr ""
 "cominciare con '/' , ma non può terminare con '/'. Inoltre deve contenere "
 "caratteri stampabili e nessuno spazio."
 
-#: partIntfHelpers.py:108
-msgid "Please specify a mount point for this partition."
-msgstr "Specificare un punto di montaggio per la partizione."
-
-#: partIntfHelpers.py:121 partIntfHelpers.py:128
+#: partIntfHelpers.py:117 partIntfHelpers.py:124
 msgid "Unable To Delete"
 msgstr "Impossibile rimuovere"
 
-#: partIntfHelpers.py:122
+#: partIntfHelpers.py:118
 msgid "You must first select a partition to delete."
 msgstr "Selezionare prima una partizione da eliminare."
 
-#: partIntfHelpers.py:153 partIntfHelpers.py:341 iw/lvm_dialog_gui.py:862
+#: partIntfHelpers.py:149 partIntfHelpers.py:337 iw/lvm_dialog_gui.py:877
 msgid "Confirm Delete"
 msgstr "Conferma rimozione"
 
-#: partIntfHelpers.py:154
+#: partIntfHelpers.py:150
 #, python-format
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr "Tutte le partizioni sul dispositivo '%s' verranno eliminate."
 
-#: partIntfHelpers.py:157 partIntfHelpers.py:342 iw/lvm_dialog_gui.py:865
-#: iw/lvm_dialog_gui.py:1434 iw/osbootwidget.py:104 iw/partition_gui.py:1821
-#: iw/partition_gui.py:1833
+#: partIntfHelpers.py:153 partIntfHelpers.py:338 iw/lvm_dialog_gui.py:880
+#: iw/lvm_dialog_gui.py:1449 iw/osbootwidget.py:104 iw/partition_gui.py:1797
+#: iw/partition_gui.py:1809
 msgid "_Delete"
 msgstr "_Elimina"
 
-#: partIntfHelpers.py:204
+#: partIntfHelpers.py:200
 msgid "Notice"
 msgstr "Nota"
 
-#: partIntfHelpers.py:205
+#: partIntfHelpers.py:201
 #, python-format
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
@@ -1129,11 +1154,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: partIntfHelpers.py:220
+#: partIntfHelpers.py:216
 msgid "Format as Swap?"
 msgstr "Formattare come swap?"
 
-#: partIntfHelpers.py:221
+#: partIntfHelpers.py:217
 #, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1146,12 +1171,12 @@ msgstr ""
 "\n"
 "Formattare questa partizione come partizione di swap?"
 
-#: partIntfHelpers.py:236
+#: partIntfHelpers.py:232
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
 msgstr "Selezionare almeno un disco fisso su cui installare %s."
 
-#: partIntfHelpers.py:241
+#: partIntfHelpers.py:237
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1167,23 +1192,23 @@ msgstr ""
 "contiene dei file che è necessario conservare, come ad esempio le cartelle "
 "home, è necessario continuare senza formattare la partizione."
 
-#: partIntfHelpers.py:249
+#: partIntfHelpers.py:245
 msgid "Format?"
 msgstr "Formattare?"
 
-#: partIntfHelpers.py:249 iw/partition_gui.py:1606
+#: partIntfHelpers.py:245 iw/partition_gui.py:1582
 msgid "_Modify Partition"
 msgstr "_Modifica partizione"
 
-#: partIntfHelpers.py:249
+#: partIntfHelpers.py:245
 msgid "Do _Not Format"
 msgstr "_Non formattare"
 
-#: partIntfHelpers.py:257
+#: partIntfHelpers.py:253
 msgid "Error with Partitioning"
 msgstr "Errore durante il partizionamento"
 
-#: partIntfHelpers.py:258
+#: partIntfHelpers.py:254
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1198,11 +1223,11 @@ msgstr ""
 "\n"
 "%(errorstr)s"
 
-#: partIntfHelpers.py:274
+#: partIntfHelpers.py:270
 msgid "Partitioning Warning"
 msgstr "Avviso di partizionamento"
 
-#: partIntfHelpers.py:275
+#: partIntfHelpers.py:271
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1217,7 +1242,7 @@ msgstr ""
 "\n"
 "Proseguire con lo stesso schema di partizionamento?"
 
-#: partIntfHelpers.py:289
+#: partIntfHelpers.py:285
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1225,7 +1250,7 @@ msgstr ""
 "Le seguenti partizioni preesistenti sono state selezionate per la "
 "formattazione, tutti i dati saranno distrutti."
 
-#: partIntfHelpers.py:292
+#: partIntfHelpers.py:288
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1233,11 +1258,11 @@ msgstr ""
 "Selezionare 'Sì' per continuare e formattare le partizioni oppure 'No' per "
 "tornare indietro e modificare queste impostazioni."
 
-#: partIntfHelpers.py:298
+#: partIntfHelpers.py:294
 msgid "Format Warning"
 msgstr "Avviso di formattazione"
 
-#: partIntfHelpers.py:325
+#: partIntfHelpers.py:321
 #, python-format
 msgid ""
 "You are about to delete the volume group \"%s\".\n"
@@ -1248,35 +1273,35 @@ msgstr ""
 "\n"
 "TUTTI i volumi logici di questo gruppo andranno persi!"
 
-#: partIntfHelpers.py:329
+#: partIntfHelpers.py:325
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
 msgstr "Il volume logico \"%s\" sta per essere eliminato."
 
-#: partIntfHelpers.py:332
+#: partIntfHelpers.py:328
 msgid "You are about to delete a RAID device."
 msgstr "Un dispositivo RAID sta per essere eliminato."
 
-#: partIntfHelpers.py:334
+#: partIntfHelpers.py:330
 #, python-format
 msgid "You are about to delete the %s partition."
 msgstr "La partizione %s sta per essere eliminata."
 
-#: partIntfHelpers.py:338
+#: partIntfHelpers.py:334
 #, python-format
 msgid "You are about to delete the %(type)s %(name)s"
 msgstr "%(type)s %(name)s sta per essere eliminata."
 
-#: partIntfHelpers.py:349
+#: partIntfHelpers.py:345
 msgid "Confirm Reset"
 msgstr "Conferma reimposta"
 
-#: partIntfHelpers.py:350
+#: partIntfHelpers.py:346
 msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Reimpostare la tabella delle partizioni secondo il suo stato originario?"
 
 #: platform.py:98 platform.py:339 platform.py:407 platform.py:514
-#: ui/create-storage.glade.h:17
+#: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "Dispositivo RAID"
 
@@ -1360,33 +1385,33 @@ msgstr "Apple bootstrap"
 msgid "%s must have a mac disk label."
 msgstr "%s deve possedere una etichetta del disco mac."
 
-#: rescue.py:220
+#: rescue.py:221
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Una volta terminato, uscire dalla shell ed il sistema si riavvierà."
 
-#: rescue.py:234
+#: rescue.py:235
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr "Impossibile trovare /bin/sh da eseguire!  Impossibile avviare la shell"
 
-#: rescue.py:253
+#: rescue.py:254
 msgid "Setup Networking"
 msgstr "Impostazione della rete"
 
-#: rescue.py:254
+#: rescue.py:255
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Avviare le interfacce di rete su questo sistema?"
 
-#: rescue.py:255 loader/driverdisk.c:629 loader/driverdisk.c:639
+#: rescue.py:256 loader/driverdisk.c:648 loader/driverdisk.c:658
 #: loader/hdinstall.c:212 textw/constants_text.py:56
 msgid "Yes"
 msgstr "Sì"
 
-#: rescue.py:255 rescue.py:257 loader/driverdisk.c:629 loader/driverdisk.c:639
+#: rescue.py:256 rescue.py:258 loader/driverdisk.c:648 loader/driverdisk.c:658
 #: textw/constants_text.py:60
 msgid "No"
 msgstr "No"
 
-#: rescue.py:262
+#: rescue.py:263
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
@@ -1394,11 +1419,11 @@ msgstr ""
 "Impossibile attivare un dispositivo per la rete.  La rete non sarà "
 "disponibile in modalità ripristino."
 
-#: rescue.py:298 rescue.py:373 rescue.py:384 rescue.py:462
+#: rescue.py:299 rescue.py:374 rescue.py:385 rescue.py:465 rescue.py:494
 msgid "Rescue"
 msgstr "Ripristino"
 
-#: rescue.py:299
+#: rescue.py:300
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1423,38 +1448,38 @@ msgstr ""
 "scegliere 'Salta' per passare direttamente alla shell dei comandi.\n"
 "\n"
 
-#: rescue.py:310 iw/partition_gui.py:781 loader/cdinstall.c:206
-#: loader/cdinstall.c:214 loader/driverdisk.c:590 storage/__init__.py:155
+#: rescue.py:311 iw/partition_gui.py:781 loader/cdinstall.c:206
+#: loader/cdinstall.c:214 loader/driverdisk.c:609 storage/__init__.py:155
 #: storage/devicetree.py:90
 msgid "Continue"
 msgstr "Continua"
 
-#: rescue.py:310 rescue.py:319
+#: rescue.py:311 rescue.py:320
 msgid "Read-Only"
 msgstr "Sola-lettura"
 
-#: rescue.py:310 rescue.py:312 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1794 textw/upgrade_text.py:137
+#: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
+#: loader/method.c:324 storage/__init__.py:1797 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "Salta"
 
-#: rescue.py:310 rescue.py:315
+#: rescue.py:311 rescue.py:316
 msgid "Advanced"
 msgstr "Avanzato"
 
-#: rescue.py:349
+#: rescue.py:350
 msgid "System to Rescue"
 msgstr "Sistema da ripristinare"
 
-#: rescue.py:350
+#: rescue.py:351
 msgid "Which device holds the root partition of your installation?"
 msgstr "Quale dispositivo contiene la partizione di root dell'installazione?"
 
-#: rescue.py:352 rescue.py:356 text.py:624 text.py:626
+#: rescue.py:353 rescue.py:357 text.py:624 text.py:626
 msgid "Exit"
 msgstr "Esci"
 
-#: rescue.py:374
+#: rescue.py:375
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1465,7 +1490,7 @@ msgstr ""
 "montare le partizioni.  Il sistema si riavvierà automaticamente una volta "
 "chiusa la shell."
 
-#: rescue.py:385
+#: rescue.py:386
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -1486,7 +1511,7 @@ msgstr ""
 "\n"
 "Il sistema si riavvierà automaticamente una volta chiusa la shell."
 
-#: rescue.py:463
+#: rescue.py:466
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1501,15 +1526,15 @@ msgstr ""
 "Premere <Invio> per aprire una shell. Il sistema si riavvierà "
 "automaticamente una volta chiusa la shell."
 
-#: rescue.py:472
+#: rescue.py:476
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "Non esistono partizioni Linux. Riavvio in corso.\n"
 
-#: rescue.py:475
+#: rescue.py:479
 msgid "Rescue Mode"
 msgstr "Modalità di ripristino"
 
-#: rescue.py:476
+#: rescue.py:480
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1517,7 +1542,7 @@ msgstr ""
 "Non sono state trovate partizioni Linux. Premere Invio per ottenere una "
 "shell. Il sistema si riavvierà automaticamente una volta chiusa la shell."
 
-#: rescue.py:489
+#: rescue.py:493
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Il sistema è stato montato sotto la cartella %s."
@@ -1567,8 +1592,8 @@ msgstr ""
 "  <Tab>/<Alt-Tab> fra elementi   |  <Space> seleziona   |  <F12> schermo "
 "succ."
 
-#: text.py:624 loader/net.c:110 loader/net.c:471 loader/net.c:526
-#: loader/net.c:668 loader/net.c:676 loader/net.c:1097 loader/net.c:1105
+#: text.py:624 loader/net.c:110 loader/net.c:472 loader/net.c:527
+#: loader/net.c:669 loader/net.c:677 loader/net.c:1098 loader/net.c:1106
 msgid "Retry"
 msgstr "Riprova"
 
@@ -1886,7 +1911,7 @@ msgstr ""
 "Questo può dipendere da errori nella lettura del media di installazione.   "
 "L'installazione non può continuare."
 
-#: yuminstall.py:345 iw/task_gui.py:317
+#: yuminstall.py:345 iw/task_gui.py:318
 msgid "Error Setting Up Repository"
 msgstr "Errore di impostazione repository"
 
@@ -1928,20 +1953,20 @@ msgstr "Questo non è il disco %s corretto."
 msgid "Unable to access the disc."
 msgstr "Impossibile accedere al disco."
 
-#: yuminstall.py:563
+#: yuminstall.py:567
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Manca il nome nella configurazione del repository %r, si utilizza l'id"
 
-#: yuminstall.py:825 yuminstall.py:827
+#: yuminstall.py:827 yuminstall.py:829
 msgid "Re_boot"
 msgstr "_Riavvia"
 
-#: yuminstall.py:825
+#: yuminstall.py:827
 msgid "_Eject"
 msgstr "_Espelli"
 
-#: yuminstall.py:836
+#: yuminstall.py:840
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1959,62 +1984,62 @@ msgstr ""
 "richiederà un ulteriore installazione.\n"
 "\n"
 
-#: yuminstall.py:884
+#: yuminstall.py:888
 msgid "Retrying"
 msgstr "Riprovare"
 
-#: yuminstall.py:884
+#: yuminstall.py:888
 msgid "Retrying download."
 msgstr "Nuovo tentativo di download."
 
-#: yuminstall.py:949
+#: yuminstall.py:953
 #, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 "Si è verificato un errore eseguendo la transazione per il seguente motivo: %"
 "s\n"
 
-#: yuminstall.py:992 yuminstall.py:993
+#: yuminstall.py:996 yuminstall.py:997
 msgid "file conflicts"
 msgstr "conflitti del file"
 
-#: yuminstall.py:994
+#: yuminstall.py:998
 msgid "older package(s)"
 msgstr "vecchio pacchetto(i)"
 
-#: yuminstall.py:995
+#: yuminstall.py:999
 msgid "insufficient disk space"
 msgstr "spazio disco insufficiente"
 
-#: yuminstall.py:996
+#: yuminstall.py:1000
 msgid "insufficient disk inodes"
 msgstr "inode disco insufficienti"
 
-#: yuminstall.py:997
+#: yuminstall.py:1001
 msgid "package conflicts"
 msgstr "conflitti del pacchetto"
 
-#: yuminstall.py:998
+#: yuminstall.py:1002
 msgid "package already installed"
 msgstr "pacchetto già installato"
 
-#: yuminstall.py:999
+#: yuminstall.py:1003
 msgid "required package"
 msgstr "pacchetto necessario"
 
-#: yuminstall.py:1000
+#: yuminstall.py:1004
 msgid "package for incorrect arch"
 msgstr "pacchetto per architettura incorretta"
 
-#: yuminstall.py:1001
+#: yuminstall.py:1005
 msgid "package for incorrect os"
 msgstr "pacchetto per os incorretto"
 
-#: yuminstall.py:1015
+#: yuminstall.py:1019
 msgid "You need more space on the following file systems:\n"
 msgstr "Si ha bisogno di più spazio sui seguenti file system:\n"
 
-#: yuminstall.py:1028
+#: yuminstall.py:1032
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2024,7 +2049,7 @@ msgstr ""
 "installare:\n"
 "%s\n"
 
-#: yuminstall.py:1031
+#: yuminstall.py:1035
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
@@ -2033,11 +2058,11 @@ msgstr ""
 "Si è verificato un errore eseguendo la transazione per il seguente motivo"
 "(i): %s\n"
 
-#: yuminstall.py:1038 yuminstall.py:1043
+#: yuminstall.py:1042 yuminstall.py:1047
 msgid "Error Running Transaction"
 msgstr "Errore nell'esecuzione della transazione"
 
-#: yuminstall.py:1198 iw/task_gui.py:306
+#: yuminstall.py:1202 iw/task_gui.py:307
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2045,7 +2070,7 @@ msgstr ""
 "Alcuni dei repository software richiedono la rete, ma si è verificato un "
 "errore nell'abilitazione della rete sul sistema."
 
-#: yuminstall.py:1232
+#: yuminstall.py:1238
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2053,24 +2078,24 @@ msgstr ""
 "Impossibile leggere le informazioni di gruppo dai repository.  Questo è un "
 "problema con la generazione dell'albero d'installazione."
 
-#: yuminstall.py:1268
+#: yuminstall.py:1274
 msgid "Retrieving installation information."
 msgstr "Ripristino delle informazioni d'installazione."
 
-#: yuminstall.py:1270
+#: yuminstall.py:1276
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Ripristino delle informazioni d'installazione per %s."
 
-#: yuminstall.py:1272
+#: yuminstall.py:1278
 msgid "Installation Progress"
 msgstr "Progresso installazione"
 
-#: yuminstall.py:1285 textw/constants_text.py:64
+#: yuminstall.py:1293 textw/constants_text.py:64
 msgid "Edit"
 msgstr "Modifica"
 
-#: yuminstall.py:1296 yuminstall.py:1486
+#: yuminstall.py:1304 yuminstall.py:1494
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2085,7 +2110,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1465
+#: yuminstall.py:1473
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2097,7 +2122,7 @@ msgstr ""
 "modificare la selezione dei pacchetti, oppure continuare l'installazione di "
 "questi pacchetti senza le rispettive dipendenze."
 
-#: yuminstall.py:1508
+#: yuminstall.py:1516
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2108,15 +2133,15 @@ msgstr ""
 "disposizione %d MB di spazio libero, che attualmente non è disponibile.  E' "
 "possibile modificare le selezioni o uscire dal programma d'installazione."
 
-#: yuminstall.py:1529
+#: yuminstall.py:1537
 msgid "Reboot?"
 msgstr "Riavvio?"
 
-#: yuminstall.py:1530
+#: yuminstall.py:1538
 msgid "The system will be rebooted now."
 msgstr "Il sistema verrà ora riavviato."
 
-#: yuminstall.py:1674
+#: yuminstall.py:1683
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2126,7 +2151,7 @@ msgstr ""
 "vecchio per essere aggiornato alla versione di %s. Si è sicuri di voler "
 "continuare il processo di aggiornamento?"
 
-#: yuminstall.py:1709
+#: yuminstall.py:1718
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2139,35 +2164,35 @@ msgstr ""
 "installata in precedenza.  E' probabile che non si avrà successo.  Si è "
 "certi di voler continuare il processo di aggiornamento?"
 
-#: yuminstall.py:1756
+#: yuminstall.py:1765
 msgid "Post Upgrade"
 msgstr "Post aggiornamento"
 
-#: yuminstall.py:1757
+#: yuminstall.py:1766
 msgid "Performing post-upgrade configuration"
 msgstr "Esecuzione configurazione post aggiornamento"
 
-#: yuminstall.py:1759
+#: yuminstall.py:1768
 msgid "Post Installation"
 msgstr "Post Installazione"
 
-#: yuminstall.py:1760
+#: yuminstall.py:1769
 msgid "Performing post-installation configuration"
 msgstr "Esecuzione configurazione post installazione"
 
-#: yuminstall.py:1981
+#: yuminstall.py:1990
 msgid "Installation Starting"
 msgstr "Inizio installazione"
 
-#: yuminstall.py:1982
+#: yuminstall.py:1991
 msgid "Starting installation process"
 msgstr "Inizio processo d'installazione"
 
-#: yuminstall.py:2020
+#: yuminstall.py:2029
 msgid "Dependency Check"
 msgstr "Controllo delle dipendenze"
 
-#: yuminstall.py:2021
+#: yuminstall.py:2030
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Controllo delle dipendenze dei pacchetti selezionati per l'installazione"
 
@@ -2220,17 +2245,17 @@ msgstr ""
 msgid "Packages in %s"
 msgstr "Pacchetti in %s"
 
-#: iw/GroupSelector.py:424
+#: iw/GroupSelector.py:433
 #, python-format
 msgid "Optional packages selected: %(inst)d of %(cnt)d"
 msgstr "Pacchetti opzionali selezionati: %(inst)d di %(cnt)d"
 
-#: iw/GroupSelector.py:426
+#: iw/GroupSelector.py:435
 #, python-format
 msgid "<i>%s</i>"
 msgstr "<i>%s</i>"
 
-#: iw/GroupSelector.py:486
+#: iw/GroupSelector.py:495
 msgid "Uncategorized"
 msgstr "Non categorizzato"
 
@@ -2286,19 +2311,19 @@ msgstr ""
 "La password richiesta contiene dei caratteri non-ASCII che non sono "
 "consentiti."
 
-#: iw/advanced_storage.py:91
+#: iw/advanced_storage.py:90
 msgid "You must select a NIC to use."
 msgstr "Selezionare un NIC da utilizzare."
 
-#: iw/advanced_storage.py:138
+#: iw/advanced_storage.py:134
 msgid "Invalid Initiator Name"
 msgstr "Nome inizializzatore non valido"
 
-#: iw/advanced_storage.py:139
+#: iw/advanced_storage.py:135
 msgid "You must provide an initiator name."
 msgstr "E' necessario fornire il nome di un inizializzatore."
 
-#: iw/advanced_storage.py:168
+#: iw/advanced_storage.py:164
 msgid "Error with Data"
 msgstr "Errore con i dati"
 
@@ -2473,45 +2498,45 @@ msgstr "_Installa il boot loader su /dev/%s."
 msgid "_Change device"
 msgstr "_Cambia dispositivo"
 
-#: iw/cleardisks_gui.py:33
+#: iw/cleardisks_gui.py:34
 msgid "Clear Disks Selector"
 msgstr "Cancella il selezionatore dei dischi"
 
-#: iw/cleardisks_gui.py:44 iw/filter_gui.py:411
+#: iw/cleardisks_gui.py:45 iw/filter_gui.py:411
 msgid "You must select at least one drive to be used for installation."
 msgstr "Selezionare almeno una unità da usare per l'installazione."
 
-#: iw/cleardisks_gui.py:54
+#: iw/cleardisks_gui.py:55
 msgid "You must select one drive to boot from."
 msgstr "You must select one drive to boot from."
 
-#: iw/cleardisks_gui.py:126 iw/cleardisks_gui.py:145 iw/filter_gui.py:446
-#: iw/filter_gui.py:458 iw/filter_gui.py:488
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:453
+#: iw/filter_gui.py:465 iw/filter_gui.py:495
 msgid "Model"
 msgstr "Modello"
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:146 iw/filter_gui.py:447
-#: iw/filter_gui.py:459 iw/filter_gui.py:467 iw/filter_gui.py:478
-#: iw/filter_gui.py:489
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:454
+#: iw/filter_gui.py:466 iw/filter_gui.py:474 iw/filter_gui.py:485
+#: iw/filter_gui.py:496
 msgid "Capacity"
 msgstr "Capacità"
 
-#: iw/cleardisks_gui.py:128 iw/filter_gui.py:448 iw/filter_gui.py:468
-#: iw/filter_gui.py:479 iw/filter_gui.py:490
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:455 iw/filter_gui.py:475
+#: iw/filter_gui.py:486 iw/filter_gui.py:497
 msgid "Vendor"
 msgstr "Rivenditore"
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:449 iw/filter_gui.py:469
-#: iw/filter_gui.py:480 iw/filter_gui.py:491
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:458
+#: iw/filter_gui.py:473 iw/filter_gui.py:484 iw/filter_gui.py:500
+msgid "Identifier"
+msgstr "Identificatore"
+
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:456 iw/filter_gui.py:476
+#: iw/filter_gui.py:487 iw/filter_gui.py:498
 msgid "Interconnect"
 msgstr "Interconnessione"
 
-#: iw/cleardisks_gui.py:130 iw/filter_gui.py:450 iw/filter_gui.py:481
-#: iw/filter_gui.py:492
-msgid "Serial Number"
-msgstr "Numero seriale"
-
-#: iw/cleardisks_gui.py:144
+#: iw/cleardisks_gui.py:145
 msgid ""
 "Boot\n"
 "Loader"
@@ -2519,7 +2544,7 @@ msgstr ""
 "Boot\n"
 "Loader"
 
-#: iw/cleardisks_gui.py:181
+#: iw/cleardisks_gui.py:192
 msgid ""
 "<b>Tip:</b> All Linux filesystems on install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
@@ -2528,7 +2553,7 @@ msgstr ""
 "destinazione per l'installazione verranno riformattati e tutti i dati "
 "cancellati.  È consigliato eseguire il loro backup."
 
-#: iw/cleardisks_gui.py:183 ui/cleardisks.glade.h:3
+#: iw/cleardisks_gui.py:194 ui/cleardisks.glade.h:3
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
@@ -2537,7 +2562,7 @@ msgstr ""
 "verranno riformattati ed i dati al loro interno cancellati. Assicurarsi di "
 "avere i backup necessari."
 
-#: iw/cleardisks_gui.py:185
+#: iw/cleardisks_gui.py:196
 msgid ""
 "<b>Tip:</b> Your filesystems on install target devices will not be wiped "
 "unless you choose to do so during customization."
@@ -2656,30 +2681,29 @@ msgstr ""
 msgid "Device Filter"
 msgstr "Filtro del dispositivo"
 
-#: iw/filter_gui.py:451 iw/filter_gui.py:466 iw/filter_gui.py:477
-#: iw/filter_gui.py:493
-msgid "Identifier"
-msgstr "Identificatore"
+#: iw/filter_gui.py:457 iw/filter_gui.py:488 iw/filter_gui.py:499
+msgid "Serial Number"
+msgstr "Numero seriale"
 
-#: iw/filter_gui.py:452 iw/filter_gui.py:460 iw/filter_gui.py:471
-#: iw/filter_gui.py:482 iw/filter_gui.py:497 iw/osbootwidget.py:66
+#: iw/filter_gui.py:459 iw/filter_gui.py:467 iw/filter_gui.py:478
+#: iw/filter_gui.py:489 iw/filter_gui.py:504 iw/osbootwidget.py:66
 #: iw/partition_gui.py:607
 msgid "Device"
 msgstr "Dispositivo"
 
-#: iw/filter_gui.py:470
+#: iw/filter_gui.py:477
 msgid "Paths"
 msgstr "Percorsi"
 
-#: iw/filter_gui.py:494
+#: iw/filter_gui.py:501
 msgid "Port"
 msgstr "Porta"
 
-#: iw/filter_gui.py:495
+#: iw/filter_gui.py:502
 msgid "Target"
 msgstr "Destinazione"
 
-#: iw/filter_gui.py:496
+#: iw/filter_gui.py:503
 msgid "LUN"
 msgstr "LUN"
 
@@ -2721,13 +2745,13 @@ msgstr "Selezione della lingua"
 msgid "What language would you like to use during the installation process?"
 msgstr "Quale lingua si desidera usare durante il processo d'installazione?"
 
-#: iw/lvm_dialog_gui.py:125 iw/lvm_dialog_gui.py:171 iw/lvm_dialog_gui.py:185
-#: iw/lvm_dialog_gui.py:224 iw/lvm_dialog_gui.py:301 iw/lvm_dialog_gui.py:688
-#: iw/lvm_dialog_gui.py:709
+#: iw/lvm_dialog_gui.py:126 iw/lvm_dialog_gui.py:172 iw/lvm_dialog_gui.py:186
+#: iw/lvm_dialog_gui.py:225 iw/lvm_dialog_gui.py:302 iw/lvm_dialog_gui.py:697
+#: iw/lvm_dialog_gui.py:718
 msgid "Not enough space"
 msgstr "Spazio non sufficiente"
 
-#: iw/lvm_dialog_gui.py:126
+#: iw/lvm_dialog_gui.py:127
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
@@ -2737,11 +2761,11 @@ msgstr ""
 "dai volumi logici attualmente definiti supererà la quantità di spazio "
 "disponibile."
 
-#: iw/lvm_dialog_gui.py:135
+#: iw/lvm_dialog_gui.py:136
 msgid "Confirm Physical Extent Change"
 msgstr "Conferma modifica estensione fisica"
 
-#: iw/lvm_dialog_gui.py:136
+#: iw/lvm_dialog_gui.py:137
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2755,11 +2779,11 @@ msgstr ""
 "\n"
 "Tale modifica avrà effetto immediato."
 
-#: iw/lvm_dialog_gui.py:145 iw/lvm_dialog_gui.py:207
+#: iw/lvm_dialog_gui.py:146 iw/lvm_dialog_gui.py:208
 msgid "C_ontinue"
 msgstr "C_ontinua"
 
-#: iw/lvm_dialog_gui.py:172
+#: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2770,7 +2794,7 @@ msgstr ""
 "(curpe)10.2f MB) è più grande del volume fisico più piccolo (%(maxpvsize) "
 "10.2f MB) nel gruppo di volumi."
 
-#: iw/lvm_dialog_gui.py:186
+#: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2781,11 +2805,11 @@ msgstr ""
 "(curpe)10.2f MB) è troppo grande rispetto alla grandezza del volume fisico "
 "più piccolo (%(maxpvsize)10.2f MB) nel gruppo di volumi."
 
-#: iw/lvm_dialog_gui.py:200
+#: iw/lvm_dialog_gui.py:201
 msgid "Too small"
 msgstr "Troppo piccolo"
 
-#: iw/lvm_dialog_gui.py:201
+#: iw/lvm_dialog_gui.py:202
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
@@ -2793,7 +2817,7 @@ msgstr ""
 "Questa modifica nel valore dell'estensione fisica occuperà parecchio spazio "
 "su uno o più volumi fisici del gruppo di volumi."
 
-#: iw/lvm_dialog_gui.py:225
+#: iw/lvm_dialog_gui.py:226
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -2804,7 +2828,7 @@ msgstr ""
 "del volume logico (%10.2f MB) è inferiore a quella di uno o più volumi "
 "logici definiti."
 
-#: iw/lvm_dialog_gui.py:302
+#: iw/lvm_dialog_gui.py:303
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -2813,93 +2837,98 @@ msgstr ""
 "di volumi sarà troppo piccolo per contenere i volumi logici attualmente "
 "definiti."
 
-#: iw/lvm_dialog_gui.py:401
+#: iw/lvm_dialog_gui.py:402
 msgid "Make Logical Volume"
 msgstr "Crea volume logico"
 
-#: iw/lvm_dialog_gui.py:403
+#: iw/lvm_dialog_gui.py:404
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Modifica volume logico: %s"
 
-#: iw/lvm_dialog_gui.py:442 iw/raid_dialog_gui.py:442
+#: iw/lvm_dialog_gui.py:443 iw/raid_dialog_gui.py:451
 msgid "_File System Type:"
 msgstr "Tipo di _file system:"
 
-#: iw/lvm_dialog_gui.py:448
+#: iw/lvm_dialog_gui.py:449
 msgid "_Logical Volume Name:"
 msgstr "Nome del volume _logico:"
 
-#: iw/lvm_dialog_gui.py:457 iw/partition_dialog_gui.py:466
+#: iw/lvm_dialog_gui.py:458 iw/partition_dialog_gui.py:485
 msgid "_Size (MB):"
 msgstr "Dimen_sioni (MB):"
 
-#: iw/lvm_dialog_gui.py:464
+#: iw/lvm_dialog_gui.py:465
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(La dimensione massima è %s MB)"
 
-#: iw/lvm_dialog_gui.py:469 iw/partition_dialog_gui.py:518
-#: iw/partition_ui_helpers_gui.py:336 iw/raid_dialog_gui.py:414
+#: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:537
+#: iw/partition_ui_helpers_gui.py:336 iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
 msgstr "_Cripta"
 
-#: iw/lvm_dialog_gui.py:478 iw/partition_dialog_gui.py:448
-#: iw/raid_dialog_gui.py:452
+#: iw/lvm_dialog_gui.py:479 iw/partition_dialog_gui.py:467
+#: iw/raid_dialog_gui.py:461
 msgid "Original File System Type:"
 msgstr "Tipo di file system originale:"
 
-#: iw/lvm_dialog_gui.py:483 iw/partition_dialog_gui.py:456
-#: iw/raid_dialog_gui.py:459
+#: iw/lvm_dialog_gui.py:484 iw/partition_dialog_gui.py:475
+#: iw/raid_dialog_gui.py:468
 msgid "Original File System Label:"
 msgstr "Etichetta originale del file system:"
 
-#: iw/lvm_dialog_gui.py:488
+#: iw/lvm_dialog_gui.py:489
 msgid "Logical Volume Name:"
 msgstr "Nome del volume logico:"
 
-#: iw/lvm_dialog_gui.py:492
+#: iw/lvm_dialog_gui.py:493
 msgid "Size (MB):"
 msgstr "Dimensioni (MB):"
 
-#: iw/lvm_dialog_gui.py:519 iw/partition_dialog_gui.py:404
-#: iw/raid_dialog_gui.py:433
+#: iw/lvm_dialog_gui.py:520 iw/partition_dialog_gui.py:423
+#: iw/raid_dialog_gui.py:442
 msgid "_Mount Point:"
 msgstr "_Mount Point:"
 
-#: iw/lvm_dialog_gui.py:602
+#: iw/lvm_dialog_gui.py:601 iw/partition_dialog_gui.py:118
+#: iw/raid_dialog_gui.py:176
+msgid "Mount Point Error"
+msgstr "Errore punto di montaggio"
+
+#: iw/lvm_dialog_gui.py:611
 msgid "Illegal Logical Volume Name"
 msgstr "Nome del volume logico non valido"
 
-#: iw/lvm_dialog_gui.py:617
+#: iw/lvm_dialog_gui.py:626
 msgid "Illegal logical volume name"
 msgstr "Nome del volume logico non valido"
 
-#: iw/lvm_dialog_gui.py:618
+#: iw/lvm_dialog_gui.py:627
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Il nome del volume logico \"%s\" è già in uso. Selezionarne un altro."
 
-#: iw/lvm_dialog_gui.py:659 iw/partition_dialog_gui.py:124
-#: iw/raid_dialog_gui.py:182
+#: iw/lvm_dialog_gui.py:668 iw/partition_dialog_gui.py:133
+#: iw/raid_dialog_gui.py:191
 msgid "Mount point in use"
 msgstr "Punto di montaggio in uso"
 
-#: iw/lvm_dialog_gui.py:660 iw/partition_dialog_gui.py:125
-#: iw/raid_dialog_gui.py:183
+#: iw/lvm_dialog_gui.py:669 iw/partition_dialog_gui.py:134
+#: iw/raid_dialog_gui.py:192
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Il punto di montaggio \"%s\" è già in uso. Selezionarne un altro."
 
-#: iw/lvm_dialog_gui.py:675
+#: iw/lvm_dialog_gui.py:684
 msgid "Illegal size"
 msgstr "Dimensione non consentita"
 
-#: iw/lvm_dialog_gui.py:676
+#: iw/lvm_dialog_gui.py:685
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "Il valore inserito non è un numero valido maggiore di 0."
 
-#: iw/lvm_dialog_gui.py:689
+#: iw/lvm_dialog_gui.py:698
 #, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
@@ -2912,7 +2941,7 @@ msgstr ""
 "possibile creare più volumi fisici dallo spazio del disco non partizionato,"
 "ed aggiungerli a questo gruppo di volumi."
 
-#: iw/lvm_dialog_gui.py:710
+#: iw/lvm_dialog_gui.py:719
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
@@ -2921,23 +2950,24 @@ msgid ""
 "volume smaller."
 msgstr ""
 "La dimensione inserita per questo volume logico (%(size)d MB) combinata con "
-"la dimensione dell'altro volume logico eccede la dimensione del gruppo di volumi (%"
-"(tempvgsize)d MB). Ingrandire il gruppo di volumi o di ridurre il volume logico."
+"la dimensione dell'altro volume logico eccede la dimensione del gruppo di "
+"volumi (%(tempvgsize)d MB). Ingrandire il gruppo di volumi o di ridurre il "
+"volume logico."
 
-#: iw/lvm_dialog_gui.py:814
+#: iw/lvm_dialog_gui.py:829
 msgid "No free slots"
 msgstr "Nessuno slot libero"
 
-#: iw/lvm_dialog_gui.py:815
+#: iw/lvm_dialog_gui.py:830
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgstr "Non è possibile creare più di %d volumi logici per gruppo di volumi."
 
-#: iw/lvm_dialog_gui.py:825
+#: iw/lvm_dialog_gui.py:840
 msgid "No free space"
 msgstr "Nessuno spazio libero disponibile"
 
-#: iw/lvm_dialog_gui.py:826
+#: iw/lvm_dialog_gui.py:841
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -2947,29 +2977,29 @@ msgstr ""
 "aggiungere un volume logico, è necessario ridurre le dimensioni di uno o più "
 "volumi logici esistenti"
 
-#: iw/lvm_dialog_gui.py:863
+#: iw/lvm_dialog_gui.py:878
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Si è sicuri di voler cancellare il volume logico \"%s\"?"
 
-#: iw/lvm_dialog_gui.py:969
+#: iw/lvm_dialog_gui.py:984
 msgid "Invalid Volume Group Name"
 msgstr "Nome del gruppo di volumi non valido"
 
-#: iw/lvm_dialog_gui.py:978
+#: iw/lvm_dialog_gui.py:993
 msgid "Name in use"
 msgstr "Nome in uso"
 
-#: iw/lvm_dialog_gui.py:979
+#: iw/lvm_dialog_gui.py:994
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "Il nome del gruppo di volumi \"%s\" è già in uso. Selezionarne un altro."
 
-#: iw/lvm_dialog_gui.py:1265
+#: iw/lvm_dialog_gui.py:1280
 msgid "Not enough physical volumes"
 msgstr "Volumi fisici insufficienti"
 
-#: iw/lvm_dialog_gui.py:1266
+#: iw/lvm_dialog_gui.py:1281
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2983,148 +3013,82 @@ msgstr ""
 "Creare una partizione o un array RAID del tipo \"volume fisico (LVM)\", "
 "quindi selezionare di nuovo l'opzione \"LVM\"."
 
-#: iw/lvm_dialog_gui.py:1277
+#: iw/lvm_dialog_gui.py:1292
 msgid "Make LVM Volume Group"
 msgstr "Crea gruppi di volumi LVM"
 
-#: iw/lvm_dialog_gui.py:1280
+#: iw/lvm_dialog_gui.py:1295
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Modifica gruppo di volumi LVM: %s"
 
-#: iw/lvm_dialog_gui.py:1282
+#: iw/lvm_dialog_gui.py:1297
 msgid "Edit LVM Volume Group"
 msgstr "Modifica gruppo di volumi LVM"
 
-#: iw/lvm_dialog_gui.py:1298
+#: iw/lvm_dialog_gui.py:1313
 msgid "_Volume Group Name:"
 msgstr "Nome gruppo di _volumi:"
 
-#: iw/lvm_dialog_gui.py:1306
+#: iw/lvm_dialog_gui.py:1321
 msgid "Volume Group Name:"
 msgstr "Nome gruppo di volumi:"
 
-#: iw/lvm_dialog_gui.py:1314
+#: iw/lvm_dialog_gui.py:1329
 msgid "_Physical Extent:"
 msgstr "_Estensioni fisiche:"
 
-#: iw/lvm_dialog_gui.py:1329
+#: iw/lvm_dialog_gui.py:1344
 msgid "Physical Volumes to _Use:"
 msgstr "Volumi fisici da _utilizzare:"
 
-#: iw/lvm_dialog_gui.py:1335
+#: iw/lvm_dialog_gui.py:1350
 msgid "Used Space:"
 msgstr "Spazio utilizzato:"
 
-#: iw/lvm_dialog_gui.py:1352
+#: iw/lvm_dialog_gui.py:1367
 msgid "Free Space:"
 msgstr "Spazio libero:"
 
-#: iw/lvm_dialog_gui.py:1370
+#: iw/lvm_dialog_gui.py:1385
 msgid "Total Space:"
 msgstr "Spazio totale:"
 
-#: iw/lvm_dialog_gui.py:1408
+#: iw/lvm_dialog_gui.py:1423
 msgid "Logical Volume Name"
 msgstr "Nome del volume logico"
 
-#: iw/lvm_dialog_gui.py:1411 iw/partition_gui.py:610
+#: iw/lvm_dialog_gui.py:1426 iw/partition_gui.py:610
 #: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:122
 msgid "Mount Point"
 msgstr "Punto di montaggio"
 
-#: iw/lvm_dialog_gui.py:1414 iw/partition_gui.py:609
+#: iw/lvm_dialog_gui.py:1429 iw/partition_gui.py:609
 msgid "Size (MB)"
 msgstr "Dimensione (MB)"
 
-#: iw/lvm_dialog_gui.py:1428 iw/osbootwidget.py:96
+#: iw/lvm_dialog_gui.py:1443 iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "_Aggiungi"
 
-#: iw/lvm_dialog_gui.py:1431 iw/osbootwidget.py:100 iw/partition_gui.py:1820
-#: iw/partition_gui.py:1830
+#: iw/lvm_dialog_gui.py:1446 iw/osbootwidget.py:100 iw/partition_gui.py:1796
+#: iw/partition_gui.py:1806
 msgid "_Edit"
 msgstr "_Modifica"
 
-#: iw/lvm_dialog_gui.py:1446
+#: iw/lvm_dialog_gui.py:1461
 msgid "_Logical Volumes"
 msgstr "Volumi _logici"
 
-#: iw/netconfig_dialog.py:192 textw/netconfig_text.py:36
-#, python-format
-msgid ""
-"An error occurred converting the value entered for \"%(field)s\":\n"
-"%(errmsg)s"
-msgstr ""
-"Si è verificato un errore durante la conversione del valore inserito per \"%"
-"(field)s\":\n"
-"%(errmsg)s"
-
-#: iw/netconfig_dialog.py:195 iw/netconfig_dialog.py:204
-#: textw/netconfig_text.py:35 textw/netconfig_text.py:42
-msgid "Error With Data"
-msgstr "Dati errati"
-
-#: iw/netconfig_dialog.py:203
-#, python-format
-msgid "A value is required for the field %s."
-msgstr "E' richiesto un valore per il campo %s."
-
-#: iw/netconfig_dialog.py:213
-#, python-format
-msgid "An error occurred trying to bring up the %s network interface."
-msgstr "Si è verificato un errore nell'attivazione dell'interfaccia di rete %s."
-
-#: iw/netconfig_dialog.py:215
-msgid "Error Configuring Network"
-msgstr "Errore durante la configurazione della rete."
-
-#: iw/netconfig_dialog.py:241
-msgid "Dynamic IP Address"
-msgstr "Indirizzo IP dinamico"
-
-#: iw/netconfig_dialog.py:242
-#, python-format
-msgid "Sending request for IP address information for %s"
-msgstr "Invio richiesta per le informazioni IP per %s"
-
-#: iw/netconfig_dialog.py:257 iw/netconfig_dialog.py:260
-#: textw/netconfig_text.py:225 textw/netconfig_text.py:228
-msgid "IP Address"
-msgstr "Indirizzo IP"
-
-#: iw/netconfig_dialog.py:267 textw/netconfig_text.py:235
-msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "Il prefisso IPv4 CIDR deve essere fra 0 e 32."
-
-#: iw/netconfig_dialog.py:268 iw/netconfig_dialog.py:274
-#: iw/netconfig_dialog.py:282 iw/netconfig_dialog.py:285
-#: textw/netconfig_text.py:236 textw/netconfig_text.py:242
-#: textw/netconfig_text.py:250
-msgid "IPv4 Network Mask"
-msgstr "Maschera di rete IPv4"
-
-#: iw/netconfig_dialog.py:295 textw/netconfig_text.py:263
-msgid "Gateway"
-msgstr "Gateway"
-
-#: iw/netconfig_dialog.py:305 textw/netconfig_text.py:273
-msgid "Nameserver"
-msgstr "Server DNS"
-
-#: iw/netconfig_dialog.py:314
-msgid "Error configuring network device:"
-msgstr "Si è verificato un errore durante la configurazione dell'interfaccia di rete:"
-
-#: iw/network_gui.py:72 iw/network_gui.py:78
+#: iw/network_gui.py:83 iw/network_gui.py:89
 msgid "Error with Hostname"
 msgstr "Errore con il nome host"
 
-#: iw/network_gui.py:73
+#: iw/network_gui.py:84
 msgid "You must enter a valid hostname for this computer."
 msgstr "E' necessario inserire un nome host valido per questo computer."
 
-#: iw/network_gui.py:79
+#: iw/network_gui.py:90
 #, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
@@ -3134,6 +3098,22 @@ msgstr ""
 "Il nome host \"%(hostname)s\" non è valido per la seguente ragione:\n"
 "\n"
 "%(herrors)s"
+
+#: iw/network_gui.py:133
+msgid "Select network interfaces"
+msgstr "Seleziona interfacce di rete"
+
+#: iw/network_gui.py:142 textw/netconfig_text.py:91
+msgid ""
+"This requires that you have an active network connection during the "
+"installation process.  Please configure a network interface."
+msgstr ""
+"E' necessario avere una connessione di rete attiva durante il processo "
+"d'installazione.  Configurare l'interfaccia di rete."
+
+#: iw/network_gui.py:195
+msgid "Select which devices should be configured with NetworkManager."
+msgstr "Seleziona quali dispositivi devono essere configurati con NetworkManager."
 
 #: iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
@@ -3209,40 +3189,40 @@ msgstr ""
 "La selezione di avvio non può essere eliminata perché appartiene al sistema %"
 "s che si sta installando."
 
-#: iw/partition_dialog_gui.py:57
+#: iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
 msgstr "Opzioni aggiuntive sulle dimensioni"
 
-#: iw/partition_dialog_gui.py:62
+#: iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
 msgstr "_Dimensioni stabilite"
 
-#: iw/partition_dialog_gui.py:64
+#: iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
 msgstr "Occupa t_utto lo spazio fino a (MB):"
 
-#: iw/partition_dialog_gui.py:71
+#: iw/partition_dialog_gui.py:72
 msgid "Fill to maximum _allowable size"
 msgstr "Occupa fino alle dimensioni m_assime consentite"
 
-#: iw/partition_dialog_gui.py:374
+#: iw/partition_dialog_gui.py:393
 msgid "Add Partition"
 msgstr "Aggiungi partizione"
 
-#: iw/partition_dialog_gui.py:376
+#: iw/partition_dialog_gui.py:395
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "Modifica partizione: %s"
 
-#: iw/partition_dialog_gui.py:413
+#: iw/partition_dialog_gui.py:432
 msgid "File System _Type:"
 msgstr "_Tipo di file system:"
 
-#: iw/partition_dialog_gui.py:429
+#: iw/partition_dialog_gui.py:448
 msgid "Allowable _Drives:"
 msgstr "Unità _disponibili:"
 
-#: iw/partition_dialog_gui.py:505
+#: iw/partition_dialog_gui.py:524
 msgid "Force to be a _primary partition"
 msgstr "Rendi la partizione _primaria"
 
@@ -3252,7 +3232,7 @@ msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
 msgstr "Unità %(drive)s (%(size)-0.f MB) (Modello: %(model)s)"
 
 #: iw/partition_gui.py:396 iw/partition_gui.py:442 iw/partition_gui.py:509
-#: iw/partition_gui.py:1000 iw/partition_gui.py:1067
+#: iw/partition_gui.py:1000 iw/partition_gui.py:1072
 msgid "Free"
 msgstr "Libero"
 
@@ -3270,7 +3250,7 @@ msgstr "ARRAY RAID MD %s (%-0.f MB)"
 msgid "Type"
 msgstr "Tipo"
 
-#: iw/partition_gui.py:612 storage/__init__.py:1794
+#: iw/partition_gui.py:612 storage/__init__.py:1797
 msgid "Format"
 msgstr "Formatta"
 
@@ -3339,19 +3319,19 @@ msgstr "Gruppi di volumi LVM"
 msgid "RAID Devices"
 msgstr "Dispositivi RAID"
 
-#: iw/partition_gui.py:1021 loader/hdinstall.c:212
+#: iw/partition_gui.py:1026 loader/hdinstall.c:212
 msgid "Hard Drives"
 msgstr "Dischi fissi"
 
-#: iw/partition_gui.py:1071
+#: iw/partition_gui.py:1076
 msgid "Extended"
 msgstr "Estesa"
 
-#: iw/partition_gui.py:1350
+#: iw/partition_gui.py:1352
 msgid "Cannot perform any creation action"
 msgstr "Impossibile eseguire alcuna azione di creazione"
 
-#: iw/partition_gui.py:1351
+#: iw/partition_gui.py:1353
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -3367,7 +3347,7 @@ msgstr ""
 "* Almeno una partizione del volume fisico (LVM) disponibile.\n"
 "* Almeno un gruppo di volumi con spazio disponibile."
 
-#: iw/partition_gui.py:1463
+#: iw/partition_gui.py:1456
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3380,7 +3360,7 @@ msgstr ""
 "affidabilità rispetto a una singola unità. Per maggiori informazioni "
 "sull'uso dei dispositivi RAID consultare la documentazione %s.\n"
 
-#: iw/partition_gui.py:1469
+#: iw/partition_gui.py:1462
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -3392,16 +3372,16 @@ msgstr ""
 "possa essere formattato e montato.\n"
 "\n"
 
-#: iw/partition_gui.py:1473
+#: iw/partition_gui.py:1466
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgstr "Attualmente è presente %d partizione software RAID disponibile da usare."
 
-#: iw/partition_gui.py:1477
+#: iw/partition_gui.py:1470
 msgid "About RAID"
 msgstr "Informazioni relative al RAID"
 
-#: iw/partition_gui.py:1483
+#: iw/partition_gui.py:1476
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
@@ -3420,7 +3400,7 @@ msgstr ""
 "dischi fisici multipli. Per maggiori informazioni su come utilizzare LVM "
 "consultare la documentazione di %s\n"
 
-#: iw/partition_gui.py:1491
+#: iw/partition_gui.py:1484
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create a LV you need a VG "
@@ -3432,47 +3412,39 @@ msgstr ""
 "disposizione un gruppo di volumi con spazio disponibile.\n"
 "\n"
 
-#: iw/partition_gui.py:1495
+#: iw/partition_gui.py:1488
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgstr "Attualmente sono disponibili all'utilizzo %d PV.\n"
 
-#: iw/partition_gui.py:1499
+#: iw/partition_gui.py:1492
 msgid "You currently have free space to create PVs."
 msgstr "Attualmente è presente spazio libero per la creazione dei Volumi fisici."
 
-#: iw/partition_gui.py:1502
+#: iw/partition_gui.py:1495
 msgid "About LVM"
 msgstr "Informazioni su LVM"
 
-#: iw/partition_gui.py:1534
-msgid "Couldn't Create Drive Clone Editor"
-msgstr "Impossibile creare un editor per la clonazione del disco"
-
-#: iw/partition_gui.py:1535
-msgid "The drive clone editor could not be created for some reason."
-msgstr "L'editor per la clonazione del disco non può essere creato."
-
-#: iw/partition_gui.py:1594 storage/partitioning.py:197
-#: storage/partitioning.py:238
+#: iw/partition_gui.py:1570 storage/partitioning.py:197
+#: storage/partitioning.py:240
 msgid "Error Partitioning"
 msgstr "Errore durante il partizionamento"
 
-#: iw/partition_gui.py:1595
+#: iw/partition_gui.py:1571
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Impossibile allocare le partizioni richieste: %s."
 
-#: iw/partition_gui.py:1604
+#: iw/partition_gui.py:1580
 #, python-format
 msgid "Warning: %s."
 msgstr "Avviso: %s."
 
-#: iw/partition_gui.py:1635
+#: iw/partition_gui.py:1611
 msgid "Unable To Edit"
 msgstr "Impossibile modificare"
 
-#: iw/partition_gui.py:1636
+#: iw/partition_gui.py:1612
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -3483,15 +3455,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/partition_gui.py:1819
+#: iw/partition_gui.py:1795
 msgid "_Create"
 msgstr "_Crea"
 
-#: iw/partition_gui.py:1822
+#: iw/partition_gui.py:1798
 msgid "Re_set"
 msgstr "Reimpo_sta"
 
-#: iw/partition_gui.py:1845
+#: iw/partition_gui.py:1821
 msgid "Please Select A Device"
 msgstr "Selezionare Dispositivo A"
 
@@ -3521,7 +3493,7 @@ msgstr ""
 "Le partizioni di tipo '%s' devono essere vincolate ad una singola unità. Per "
 "farlo, selezionare l'unità nell'elenco delle 'Unità ammissibili'."
 
-#: iw/raid_dialog_gui.py:381
+#: iw/raid_dialog_gui.py:390
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -3535,191 +3507,40 @@ msgstr ""
 "Creare innanzitutto due partizioni di tipo \"RAID software\", quindi "
 "selezionare nuovamente l'opzione \"RAID\"."
 
-#: iw/raid_dialog_gui.py:395
+#: iw/raid_dialog_gui.py:404
 msgid "Make RAID Device"
 msgstr "Crea dispositivo RAID"
 
-#: iw/raid_dialog_gui.py:398
+#: iw/raid_dialog_gui.py:407
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr "Modifica dispositivo RAID: %s"
 
-#: iw/raid_dialog_gui.py:400
+#: iw/raid_dialog_gui.py:409
 msgid "Edit RAID Device"
 msgstr "Modifica dispositivo RAID"
 
-#: iw/raid_dialog_gui.py:467
+#: iw/raid_dialog_gui.py:476
 msgid "RAID _Device:"
 msgstr "_Dispositivo RAID:"
 
-#: iw/raid_dialog_gui.py:485
+#: iw/raid_dialog_gui.py:494
 msgid "RAID _Level:"
 msgstr "_Livello RAID:"
 
-#: iw/raid_dialog_gui.py:527
+#: iw/raid_dialog_gui.py:536
 msgid "_RAID Members:"
 msgstr "Elementi _RAID:"
 
-#: iw/raid_dialog_gui.py:544
+#: iw/raid_dialog_gui.py:553
 msgid "Number of _spares:"
 msgstr "Numero di _spare:"
 
-#: iw/raid_dialog_gui.py:554
+#: iw/raid_dialog_gui.py:563
 msgid "_Format partition?"
 msgstr "_Formattare la partizione?"
 
-#: iw/raid_dialog_gui.py:658
-msgid ""
-"The source drive has no partitions to be cloned.  You must first define "
-"partitions of type 'software RAID' on this drive before it can be cloned."
-msgstr ""
-"L'unità sorgente non ha partizioni da clonare. E' innanzitutto necessario "
-"definire le partizioni di tipo 'RAID software' su questa unità prima di "
-"clonarla."
-
-#: iw/raid_dialog_gui.py:662 iw/raid_dialog_gui.py:668
-#: iw/raid_dialog_gui.py:682 iw/raid_dialog_gui.py:695
-msgid "Source Drive Error"
-msgstr "Errore dell'unità sorgente"
-
-#: iw/raid_dialog_gui.py:669
-msgid ""
-"The source drive you selected has partitions which are not of type 'software "
-"RAID'.\n"
-"\n"
-"You must remove these partitions before this drive can be cloned. "
-msgstr ""
-"L'unità sorgente selezionata contiene delle partizioni che non sono del tipo "
-"'RAID software'.\n"
-"\n"
-"Queste partizioni devono essere rimosse prima che l'unità venga clonata."
-
-#: iw/raid_dialog_gui.py:683
-#, python-format
-msgid ""
-"The source drive you selected has partitions which are not constrained to "
-"the drive %s.\n"
-"\n"
-"You must remove these partitions or restrict them to this drive before this "
-"drive can be cloned. "
-msgstr ""
-"L'unità sorgente selezionata contiene delle partizioni che non sono "
-"vincolate all'unità %s.\n"
-"\n"
-"Queste partizioni devono essere rimosse o ristrette a questa unità prima "
-"della clonazione."
-
-#: iw/raid_dialog_gui.py:696
-msgid ""
-"The source drive you selected has software RAID partition(s) which are "
-"members of an active software RAID device.\n"
-"\n"
-"You must remove these partitions before this drive can be cloned."
-msgstr ""
-"L'unità sorgente selezionata contiene delle partizioni RAID software che "
-"fanno parte di un dispositivo RAID software attivo.\n"
-"\n"
-"Queste partizioni devono essere rimosse prima della clonazione dell'unità."
-
-#: iw/raid_dialog_gui.py:710 iw/raid_dialog_gui.py:716
-#: iw/raid_dialog_gui.py:732
-msgid "Target Drive Error"
-msgstr "Errore dell'unità di destinazione"
-
-#: iw/raid_dialog_gui.py:711
-msgid "Please select the target drives for the clone operation."
-msgstr "Selezionare le unità di destinazione per l'operazione di clonazione."
-
-#: iw/raid_dialog_gui.py:717
-#, python-format
-msgid "The source drive %s cannot be selected as a target drive as well."
-msgstr "L'unità sorgente %s non può essere selezionata come unità di destinazione."
-
-#: iw/raid_dialog_gui.py:733
-#, python-format
-msgid ""
-"The target drive %(path)s has a partition which cannot be removed for the "
-"following reason:\n"
-"\n"
-"\"%(rc)s\"\n"
-"\n"
-"You must remove this partition before this drive can be a target."
-msgstr ""
-"L'unità di destinazione %(path)s ha una partizione che non può essere "
-"rimossa per il seguente motivo:\n"
-"\n"
-"\"%(rc)s\"\n"
-"\n"
-"Questa partizione deve essere rimossa prima che questa unità diventi la "
-"destinazione."
-
-#: iw/raid_dialog_gui.py:796
-msgid "Please select a source drive."
-msgstr "Selezionare un'unità sorgente."
-
-#: iw/raid_dialog_gui.py:816
-#, python-format
-msgid ""
-"The drive %s will now be cloned to the following drives:\n"
-"\n"
-msgstr ""
-"L'unità %s sarà ora clonata nelle seguenti unità:\n"
-"\n"
-
-#: iw/raid_dialog_gui.py:821
-msgid ""
-"\n"
-"\n"
-"WARNING! ALL DATA ON THE TARGET DRIVES WILL BE DESTROYED."
-msgstr ""
-"\n"
-"\n"
-"ATTENZIONE! TUTTI I DATI PRESENTI SULLE UNITA' DI DESTINAZIONE SARANNO "
-"DISTRUTTI."
-
-#: iw/raid_dialog_gui.py:824
-msgid "Final Warning"
-msgstr "Avviso finale"
-
-#: iw/raid_dialog_gui.py:826
-msgid "Clone Drives"
-msgstr "Clonazione unità"
-
-#: iw/raid_dialog_gui.py:835
-msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Si è verificato un errore durante la cancellazione delle unità di "
-"destinazione. Clonazione fallita."
-
-#: iw/raid_dialog_gui.py:858
-msgid "Clone Drive Tool"
-msgstr "Tool di clonazione unità"
-
-#: iw/raid_dialog_gui.py:867
-msgid ""
-"This tool clones the layout from a partitioned source onto other similar "
-"sized drives. The source must have partitions which are restricted to that "
-"drive and must ONLY contain unused software RAID partitions.  EVERYTHING on "
-"the target drive(s) will be destroyed.\n"
-msgstr ""
-"Questo tool clona il layout da un sorgente partizionato su altre unità con "
-"dimensione simile. Il sorgente deve avere partizioni limitate a quella unità "
-"e deve SOLO contenere partizioni software RAID non utilizzate. QUALSIASI "
-"COSA presente sulle unità di destinazione verrà distrutto.\n"
-
-#: iw/raid_dialog_gui.py:878
-msgid "Source Drive:"
-msgstr "Unità sorgente:"
-
-#: iw/raid_dialog_gui.py:886
-msgid "Target Drive(s):"
-msgstr "Unità di destinazione:"
-
-#: iw/raid_dialog_gui.py:894
-msgid "Drives"
-msgstr "Unità"
-
-#: iw/task_gui.py:53
+#: iw/task_gui.py:54
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -3734,11 +3555,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:130
+#: iw/task_gui.py:131
 msgid "Edit Repository"
 msgstr "Modifica repository"
 
-#: iw/task_gui.py:154
+#: iw/task_gui.py:155
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -3747,27 +3568,27 @@ msgstr ""
 "Il repository %s è già stato aggiunto.  Scegliere un nome di repository ed "
 "URL differenti."
 
-#: iw/task_gui.py:234
+#: iw/task_gui.py:235
 msgid "Invalid Proxy URL"
 msgstr "URL del proxy non valido"
 
-#: iw/task_gui.py:235
+#: iw/task_gui.py:236
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "Si deve fornire un URL HTTP, HTTPS o FTP ad un proxy."
 
-#: iw/task_gui.py:246 iw/task_gui.py:426
+#: iw/task_gui.py:247 iw/task_gui.py:427
 msgid "Invalid Repository URL"
 msgstr "URL del repository non valido"
 
-#: iw/task_gui.py:247 iw/task_gui.py:427
+#: iw/task_gui.py:248 iw/task_gui.py:428
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Si deve fornire un URL HTTP, HTTPS o FTP ad un repository."
 
-#: iw/task_gui.py:268 iw/task_gui.py:436
+#: iw/task_gui.py:269 iw/task_gui.py:437
 msgid "No Media Found"
 msgstr "Nessun supporto trovato"
 
-#: iw/task_gui.py:269 iw/task_gui.py:437
+#: iw/task_gui.py:270 iw/task_gui.py:438
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
@@ -3775,11 +3596,11 @@ msgstr ""
 "Non è stato trovato nessun supporto di installazione. Inserire un disco nel "
 "unità e riprovare."
 
-#: iw/task_gui.py:300 iw/task_gui.py:460
+#: iw/task_gui.py:301 iw/task_gui.py:461
 msgid "Please enter an NFS server and path."
 msgstr "Inserire un server NFS ed il percorso."
 
-#: iw/task_gui.py:318
+#: iw/task_gui.py:319
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3790,23 +3611,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:341
+#: iw/task_gui.py:342
 msgid "Invalid Repository Name"
 msgstr "Nome repository non valido"
 
-#: iw/task_gui.py:342
+#: iw/task_gui.py:343
 msgid "You must provide a repository name."
 msgstr "E' necessario fornire il nome di un repository."
 
-#: iw/task_gui.py:492 ui/addrepo.glade.h:3
+#: iw/task_gui.py:493 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "Aggiungi repository"
 
-#: iw/task_gui.py:497
+#: iw/task_gui.py:498
 msgid "No Software Repos Enabled"
 msgstr "Nessun repository software abilitato"
 
-#: iw/task_gui.py:498
+#: iw/task_gui.py:499
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -4141,12 +3962,12 @@ msgstr ""
 msgid "Disc Not Found"
 msgstr "Disco non trovato"
 
-#: loader/cdinstall.c:431 loader/driverdisk.c:389 loader/driverdisk.c:421
-#: loader/driverdisk.c:502 loader/driverselect.c:78 loader/driverselect.c:152
+#: loader/cdinstall.c:431 loader/driverdisk.c:408 loader/driverdisk.c:440
+#: loader/driverdisk.c:521 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:491 loader/loader.c:508
-#: loader/loader.c:1320 loader/loader.c:1353 loader/net.c:579 loader/net.c:950
-#: loader/net.c:1851 loader/net.c:1870 loader/nfsinstall.c:91
+#: loader/loader.c:1320 loader/loader.c:1353 loader/net.c:580 loader/net.c:951
+#: loader/net.c:1860 loader/net.c:1879 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -4161,19 +3982,19 @@ msgstr "Impossibile trovare il file kickstart sul CDROM."
 msgid "Failed to read directory %s: %m"
 msgstr "Impossibile leggere la cartella %s: %m"
 
-#: loader/driverdisk.c:270
+#: loader/driverdisk.c:274
 msgid "Loading"
 msgstr "Caricamento"
 
-#: loader/driverdisk.c:270
+#: loader/driverdisk.c:274
 msgid "Reading driver disk"
 msgstr "Lettura del disco dei driver"
 
-#: loader/driverdisk.c:383 loader/driverdisk.c:416
+#: loader/driverdisk.c:402 loader/driverdisk.c:435
 msgid "Driver Disk Source"
 msgstr "Sorgente del disco dei driver"
 
-#: loader/driverdisk.c:384
+#: loader/driverdisk.c:403
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -4181,7 +4002,7 @@ msgstr ""
 "Sono presenti più dispositivi che potrebbero essere usati come un disco dei "
 "driver. Quale si desidera usare?"
 
-#: loader/driverdisk.c:417
+#: loader/driverdisk.c:436
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -4189,49 +4010,49 @@ msgstr ""
 "Sono presenti su questo dispositivo partizioni multiple, che sono in grado "
 "di contenere l'immagine del disco driver.  Quale si desidera usare?"
 
-#: loader/driverdisk.c:452
+#: loader/driverdisk.c:471
 msgid "Failed to mount partition."
 msgstr "Impossibile montare la partizione."
 
-#: loader/driverdisk.c:457
+#: loader/driverdisk.c:476
 msgid "Select driver disk image"
 msgstr "Scegliere l'immagine del disco driver"
 
-#: loader/driverdisk.c:458
+#: loader/driverdisk.c:477
 msgid "Select the file which is your driver disk image."
 msgstr "Selezionare il file immagine del disco driver."
 
-#: loader/driverdisk.c:487
+#: loader/driverdisk.c:506
 msgid "Failed to load driver disk from file."
 msgstr "Impossibile montare dal file il disco del driver ."
 
-#: loader/driverdisk.c:499
+#: loader/driverdisk.c:518
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr "Inserire il disco dei driver in /dev/%s e premere \"OK\" per continuare."
 
-#: loader/driverdisk.c:502
+#: loader/driverdisk.c:521
 msgid "Insert Driver Disk"
 msgstr "Inserire il disco dei driver"
 
-#: loader/driverdisk.c:515
+#: loader/driverdisk.c:534
 msgid "Failed to mount driver disk."
 msgstr "Impossibile montare il disco dei driver."
 
-#: loader/driverdisk.c:523
+#: loader/driverdisk.c:542
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr "Il disco driver non è valido per questa versione di %s."
 
-#: loader/driverdisk.c:589
+#: loader/driverdisk.c:608
 msgid "Manually choose"
 msgstr "Scegliere manualmente"
 
-#: loader/driverdisk.c:590
+#: loader/driverdisk.c:609
 msgid "Load another disk"
 msgstr "Carica un altro disco"
 
-#: loader/driverdisk.c:591
+#: loader/driverdisk.c:610
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -4241,37 +4062,37 @@ msgstr ""
 "dei driver.  Selezionare manualmente il driver, continuare comunque, o "
 "caricare un altro disco dei driver?"
 
-#: loader/driverdisk.c:629
+#: loader/driverdisk.c:648
 msgid "Driver disk"
 msgstr "Disco del driver"
 
-#: loader/driverdisk.c:630
+#: loader/driverdisk.c:649
 msgid "Do you have a driver disk?"
 msgstr "Si dispone di un disco dei driver?"
 
-#: loader/driverdisk.c:639
+#: loader/driverdisk.c:658
 msgid "More Driver Disks?"
 msgstr "Ci sono altri Dischetti dei driver?"
 
-#: loader/driverdisk.c:640
+#: loader/driverdisk.c:659
 msgid "Do you wish to load any more driver disks?"
 msgstr "Caricare altri dischetti dei driver?"
 
-#: loader/driverdisk.c:689 loader/driverdisk.c:728 loader/hdinstall.c:359
+#: loader/driverdisk.c:708 loader/driverdisk.c:747 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1558 loader/net.c:1579
-#: loader/nfsinstall.c:366 loader/urlinstall.c:372 loader/urlinstall.c:383
+#: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
+#: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
 msgstr "Errore kickstart"
 
-#: loader/driverdisk.c:690
+#: loader/driverdisk.c:709
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Sorgente del disco driver del kickstart sconosciuta: %s"
 
-#: loader/driverdisk.c:729
+#: loader/driverdisk.c:748
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -4367,16 +4188,16 @@ msgstr "Selezionare la partizione"
 msgid "Device %s does not appear to contain an installation image."
 msgstr "Il dispositivo %s non sembra contenere una immagine di installazione."
 
-#: loader/hdinstall.c:360
+#: loader/hdinstall.c:361
 #, c-format
 msgid "Bad argument to HD kickstart method command: %s"
 msgstr "Argomento errato per il comando metodo HD di kickstart: %s"
 
-#: loader/hdinstall.c:432 loader/hdinstall.c:488
+#: loader/hdinstall.c:441 loader/hdinstall.c:497
 msgid "Cannot find kickstart file on hard drive."
 msgstr "Impossibile trovare il file kickstart sul disco fisso."
 
-#: loader/hdinstall.c:475
+#: loader/hdinstall.c:484
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Impossibile trovare un disco fisso per il disco BIOS %s"
@@ -4622,12 +4443,9 @@ msgstr "Controllo supporto in corso."
 
 #: loader/mediacheck.c:86
 msgid ""
-"Unable to read the disc checksum from the primary volume descriptor.  This "
-"probably means the disc was created without adding the checksum."
-msgstr ""
-"Impossibile leggere il checksum del disco dal descrittore di volume "
-"primario.  Il disco è stato probabilmente creato senza aggiungere il "
-"checksum."
+"Unable to find the checksum in the image.  This probably means the disc was "
+"created without adding the checksum."
+msgstr "Impossibile leggere il checksum nell'immagine.  Ciò probabilmente significa che il disco è stato creato senza aggiungere il checksum."
 
 #: loader/mediacheck.c:93
 msgid "Unable to open the image."
@@ -4696,12 +4514,12 @@ msgstr ""
 "I prefissi devono essere compresi fra 1 e 32 per le reti IPv4 o 1 e 128 per "
 "le reti IPv6"
 
-#: loader/net.c:464 loader/net.c:472 loader/net.c:527
+#: loader/net.c:465 loader/net.c:473 loader/net.c:528
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr "Si è verificato un errore durante la configurazione dell'interfaccia di rete."
 
-#: loader/net.c:466
+#: loader/net.c:467
 #, c-format
 msgid ""
 "\n"
@@ -4712,59 +4530,59 @@ msgstr ""
 "Ciò non può essere corretto in modalità cmdline.\n"
 "Arresto in corso.\n"
 
-#: loader/net.c:471 loader/net.c:526
+#: loader/net.c:472 loader/net.c:527
 msgid "Network Error"
 msgstr "Errore di rete"
 
-#: loader/net.c:557 textw/netconfig_text.py:133
+#: loader/net.c:558 textw/netconfig_text.py:133
 msgid "Enable IPv4 support"
 msgstr "Abilita il supporto IPv4"
 
-#: loader/net.c:571
+#: loader/net.c:572
 msgid "Enable IPv6 support"
 msgstr "Abilita il supporto IPv6"
 
-#: loader/net.c:611
+#: loader/net.c:612
 msgid "Configure TCP/IP"
 msgstr "Configurazione TCP/IP"
 
-#: loader/net.c:668
+#: loader/net.c:669
 msgid "Missing Protocol"
 msgstr "Protocollo mancante"
 
-#: loader/net.c:669
+#: loader/net.c:670
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Selezionare almeno un protocollo (IPv4 o IPv6)."
 
-#: loader/net.c:676
+#: loader/net.c:677
 msgid "IPv4 Needed for NFS"
 msgstr "IPv4 è necessario per NFS"
 
-#: loader/net.c:677
+#: loader/net.c:678
 msgid "NFS installation method requires IPv4 support."
 msgstr "Il metodo di installazione NFS richiede il supporto IPv4."
 
-#: loader/net.c:776
+#: loader/net.c:777
 msgid "IPv4 address:"
 msgstr "Indirizzo IPv4:"
 
-#: loader/net.c:788 loader/net.c:855 ui/netconfig.glade.h:1
+#: loader/net.c:789 loader/net.c:856
 msgid "/"
 msgstr "/"
 
-#: loader/net.c:843
+#: loader/net.c:844
 msgid "IPv6 address:"
 msgstr "Indirizzo IPv6:"
 
-#: loader/net.c:909 textw/netconfig_text.py:160
+#: loader/net.c:910 textw/netconfig_text.py:160
 msgid "Gateway:"
 msgstr "Gateway:"
 
-#: loader/net.c:917
+#: loader/net.c:918
 msgid "Name Server:"
 msgstr "Server DNS:"
 
-#: loader/net.c:956
+#: loader/net.c:957
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -4775,41 +4593,41 @@ msgstr ""
 "prefisso stile CIDR. Il gateway ed il campo server DNS devono essere "
 "indirizzi validi IPv4 o IPv6."
 
-#: loader/net.c:973
+#: loader/net.c:974
 msgid "Manual TCP/IP Configuration"
 msgstr "Configurazione manuale TCP/IP"
 
-#: loader/net.c:1097 loader/net.c:1105
+#: loader/net.c:1098 loader/net.c:1106
 msgid "Missing Information"
 msgstr "Informazioni mancanti"
 
-#: loader/net.c:1098
+#: loader/net.c:1099
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Inserire un indirizzo IPv4 valido ed una maschera di rete o prefisso CIDR."
 
-#: loader/net.c:1106
+#: loader/net.c:1107
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Inserire un indirizzo IPv6 valido ed un prefisso CIDR."
 
-#: loader/net.c:1559
+#: loader/net.c:1560
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "Argomento errato per il comando di rete di kickstart: %s"
 
-#: loader/net.c:1580
+#: loader/net.c:1581
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Bootproto %s errato specificato nel comando di rete"
 
-#: loader/net.c:1657
+#: loader/net.c:1658
 msgid "Seconds:"
 msgstr "Secondari:"
 
-#: loader/net.c:1846
+#: loader/net.c:1855
 msgid "Networking Device"
 msgstr "Dispositivo di rete"
 
-#: loader/net.c:1847
+#: loader/net.c:1856
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -4817,15 +4635,15 @@ msgstr ""
 "Sono presenti più dispositivi di rete su questo sistema. Attraverso quale si "
 "desidera effettuare l'installazione?"
 
-#: loader/net.c:1851
+#: loader/net.c:1860
 msgid "Identify"
 msgstr "Identificazione"
 
-#: loader/net.c:1860
+#: loader/net.c:1869
 msgid "You can identify the physical port for"
 msgstr "E' possibile identificare la porta fisica"
 
-#: loader/net.c:1862
+#: loader/net.c:1871
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
@@ -4834,24 +4652,24 @@ msgstr ""
 "compreso fra 1 e 30 per impostare la durata del flash delle luci LED della "
 "porta."
 
-#: loader/net.c:1869
+#: loader/net.c:1878
 msgid "Identify NIC"
 msgstr "Identificazione NIC"
 
-#: loader/net.c:1882
+#: loader/net.c:1891
 msgid "Invalid Duration"
 msgstr "Durata non corretta"
 
-#: loader/net.c:1883
+#: loader/net.c:1892
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Bisogna inserire il numero di secondi come intero compreso fra 1 e 30."
 
-#: loader/net.c:1895
+#: loader/net.c:1904
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "Luci intermittenti della porta %s per %d secondi."
 
-#: loader/net.c:2063 loader/net.c:2067
+#: loader/net.c:2072 loader/net.c:2076
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "Attesa per la configurazione di %s da parte del NetworkManager.\n"
@@ -4891,7 +4709,7 @@ msgstr "Non è stato possibile montare la cartella dal server."
 msgid "That directory does not seem to contain a %s installation image."
 msgstr "La cartella non sembra contenere un'immagine di installazione %s."
 
-#: loader/nfsinstall.c:367
+#: loader/nfsinstall.c:385
 #, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
 msgstr "Argomento errato per il comando metodo NFS di kickstart: %s"
@@ -5060,41 +4878,41 @@ msgstr "Memorizzazione delle chiavi di cifratura"
 msgid "Error storing an encryption key: %s\n"
 msgstr "Errore nella memorizzazione della chiave di cifratura: %s\n"
 
-#: storage/__init__.py:356
+#: storage/__init__.py:357
 msgid "Finding Devices"
 msgstr "Ricerca dispositivi"
 
-#: storage/__init__.py:357
+#: storage/__init__.py:358
 msgid "Finding storage devices"
 msgstr "Ricerca dei dispositivi di storage in corso."
 
-#: storage/__init__.py:636
+#: storage/__init__.py:637
 msgid "This partition is holding the data for the hard drive install."
 msgstr "Questa partizione contiene i dati per l'installazione del disco fisso."
 
-#: storage/__init__.py:641
+#: storage/__init__.py:642
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Non è possibile eliminare una partizione di un DASD formattato in LDL."
 
-#: storage/__init__.py:647
+#: storage/__init__.py:648
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "Questo dispositivo fa parte del dispositivo RAID %s."
 
-#: storage/__init__.py:650
+#: storage/__init__.py:651
 msgid "This device is part of a RAID device."
 msgstr "Questo dispositivo fa parte di un dispositivo RAID."
 
-#: storage/__init__.py:655
+#: storage/__init__.py:656
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "Questo dispositivo fa parte del gruppo di volumi LVM '%s'."
 
-#: storage/__init__.py:658
+#: storage/__init__.py:659
 msgid "This device is part of a LVM volume group."
 msgstr "Questo dispositivo fa parte di un gruppo di volumi LVM."
 
-#: storage/__init__.py:674
+#: storage/__init__.py:675
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -5211,11 +5029,11 @@ msgstr ""
 "quale creare nuovi filesystem. Controllare l'hardware per individuare la "
 "causa del problema."
 
-#: storage/__init__.py:1341 storage/__init__.py:1350
+#: storage/__init__.py:1343 storage/__init__.py:1352
 msgid "Dirty File Systems"
 msgstr "Filesystem corrotti"
 
-#: storage/__init__.py:1342
+#: storage/__init__.py:1344
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5229,7 +5047,7 @@ msgstr ""
 "aggiornamento.\n"
 "%s"
 
-#: storage/__init__.py:1351
+#: storage/__init__.py:1353
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5240,7 +5058,7 @@ msgstr ""
 "correttamente. Montarli comunque?\n"
 "%s"
 
-#: storage/__init__.py:1827
+#: storage/__init__.py:1830
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5258,7 +5076,7 @@ msgstr ""
 "dispositivo per lo spazio di swap, è necessario riformattarlo come "
 "partizione di swap Linux nuovo stile."
 
-#: storage/__init__.py:1838
+#: storage/__init__.py:1841
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5277,7 +5095,7 @@ msgstr ""
 "sospensione software, ciò significa che il sistema è stato ibernato. Per "
 "eseguire un aggiornamento, arrestare il sistema invece di ibernarlo."
 
-#: storage/__init__.py:1846
+#: storage/__init__.py:1849
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5298,7 +5116,7 @@ msgstr ""
 "d'installazione sia stato impostato in modo da formattare tutte le "
 "partizioni swap."
 
-#: storage/__init__.py:1858
+#: storage/__init__.py:1861
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5315,7 +5133,7 @@ msgstr ""
 "non contiene un volume di swap supportato.  Per continuare l'installazione è "
 "necessario formattare il dispositivo o ignorarlo."
 
-#: storage/__init__.py:1869
+#: storage/__init__.py:1872
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5333,7 +5151,7 @@ msgstr ""
 "\n"
 "Premere OK per uscire dal programma d'installazione"
 
-#: storage/__init__.py:1876
+#: storage/__init__.py:1879
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5349,11 +5167,11 @@ msgstr ""
 "\n"
 "Premere OK per uscire dal programma d'installazione."
 
-#: storage/__init__.py:1939 storage/__init__.py:1951
+#: storage/__init__.py:1942 storage/__init__.py:1954
 msgid "Invalid mount point"
 msgstr "Punto di montaggio non valido"
 
-#: storage/__init__.py:1940
+#: storage/__init__.py:1943
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5367,7 +5185,7 @@ msgstr ""
 "\n"
 "Premere <Invio> per uscire dal programma d'installazione."
 
-#: storage/__init__.py:1952
+#: storage/__init__.py:1955
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5381,11 +5199,11 @@ msgstr ""
 "\n"
 "Premere <Invio> per uscire dal programma d'installazione."
 
-#: storage/__init__.py:1968 storage/__init__.py:1992
+#: storage/__init__.py:1971 storage/__init__.py:1995
 msgid "Unable to mount filesystem"
 msgstr "Impossibile montare il filesystem"
 
-#: storage/__init__.py:1969
+#: storage/__init__.py:1972
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5395,7 +5213,7 @@ msgstr ""
 "s.  Si potrebbe continuare l'installazione, ma potrebbero verificarsi dei "
 "problemi."
 
-#: storage/__init__.py:1993
+#: storage/__init__.py:1996
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5409,11 +5227,11 @@ msgstr ""
 "\n"
 "Premere <Invio> per uscire dal programma d'installazione."
 
-#: storage/dasd.py:142
+#: storage/dasd.py:138
 msgid "Formatting DASD Device"
 msgstr "Formattazione del dispositivo DASD"
 
-#: storage/dasd.py:143
+#: storage/dasd.py:139
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgstr "Preparazione di %d dispositivo DASD per l'utilizzo con Linux..."
@@ -5428,23 +5246,23 @@ msgstr "vginfo fallito per %s"
 msgid "lvs failed for %s"
 msgstr "lvs fallito per %s"
 
-#: storage/devices.py:1260 storage/devices.py:1931 storage/devices.py:2334
-#: storage/devices.py:2824 storage/devices.py:3297
+#: storage/devices.py:1264 storage/devices.py:1958 storage/devices.py:2373
+#: storage/devices.py:2865 storage/devices.py:3338
 msgid "Creating"
 msgstr "Creazione in corso"
 
-#: storage/devices.py:1261 storage/devices.py:1932 storage/devices.py:2335
-#: storage/devices.py:2825
+#: storage/devices.py:1265 storage/devices.py:1959 storage/devices.py:2374
+#: storage/devices.py:2866
 #, python-format
 msgid "Creating device %s"
 msgstr "Creazione del dispositivo %s"
 
-#: storage/devices.py:2427
+#: storage/devices.py:2466
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "Un insieme RAID%d necessita di almeno %d membri"
 
-#: storage/devices.py:3298
+#: storage/devices.py:3339
 #, python-format
 msgid "Creating file %s"
 msgstr "Creazione file %s"
@@ -5467,7 +5285,7 @@ msgstr ""
 "Se si salta questo passo i contenuti del dispositivo non saranno disponibili "
 "durante l'installazione."
 
-#: storage/devicetree.py:1860 storage/devicetree.py:1908
+#: storage/devicetree.py:1897 storage/devicetree.py:1945
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Questa partizione è parte di un gruppo di volumi LVM incoerente."
 
@@ -5536,7 +5354,7 @@ msgstr ""
 "system. Riavviare l'installazione dopo aver corretto gli errori presenti sul "
 "file system."
 
-#: storage/formats/fs.py:535 storage/partitioning.py:274
+#: storage/formats/fs.py:535 storage/partitioning.py:276
 msgid "Unrecoverable Error"
 msgstr "Errore irrecuperabile"
 
@@ -5589,6 +5407,14 @@ msgstr "Creazione di %s su %s"
 #: storage/iscsi.py:83 storage/iscsi.py:84
 msgid "Scanning iSCSI nodes"
 msgstr "Scansione nodi iSCSI"
+
+#: storage/iscsi.py:135
+msgid "Unable to change iSCSI initiator name once set"
+msgstr "Impossibile modificare il nome dell'inizializzatore iSCSI una volta impostato"
+
+#: storage/iscsi.py:137
+msgid "Must provide an iSCSI initiator name"
+msgstr "È necessario fornire il nome di un inizializzatore iSCSI"
 
 #: storage/iscsi.py:176 storage/iscsi.py:177
 msgid "Initializing iSCSI initiator"
@@ -5649,7 +5475,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: storage/partitioning.py:237 storage/partitioning.py:258
+#: storage/partitioning.py:239 storage/partitioning.py:260
 msgid ""
 "\n"
 "\n"
@@ -5659,7 +5485,7 @@ msgstr ""
 "\n"
 "Premere 'OK' per uscire dal programma d'installazione."
 
-#: storage/partitioning.py:239
+#: storage/partitioning.py:241
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5670,7 +5496,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: storage/partitioning.py:260
+#: storage/partitioning.py:262
 msgid ""
 "\n"
 "\n"
@@ -5680,11 +5506,11 @@ msgstr ""
 "\n"
 "Premere 'OK' per scegliere una opzione di partizionamento differente."
 
-#: storage/partitioning.py:262
+#: storage/partitioning.py:264
 msgid "Automatic Partitioning Errors"
 msgstr "Errori di partizionamento automatico"
 
-#: storage/partitioning.py:263
+#: storage/partitioning.py:265
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5701,50 +5527,43 @@ msgstr ""
 "Tale comportamento può verificarsi quando non è disponibile spazio "
 "sufficiente sui dischi fissi per l'installazione. %(extra)s"
 
-#: storage/zfcp.py:50
+#: storage/zfcp.py:51
 msgid "You have not specified a device number or the number is invalid"
 msgstr "Non si è specificato il numero del dispositivo o il numero non è valido"
 
-#: storage/zfcp.py:52
+#: storage/zfcp.py:53
 msgid "You have not specified a worldwide port name or the name is invalid."
 msgstr "Non si è specificato il nome della porta worldwide o il nome non è valido."
 
-#: storage/zfcp.py:54
+#: storage/zfcp.py:55
 msgid "You have not specified a FCP LUN or the number is invalid."
 msgstr "Non si è specificato un LUN FCP o il numero non è valido."
 
-#: storage/zfcp.py:131
-#, python-format
-msgid "Could not free zFCP device %(devnum)s from device ignore list (%(e)s)."
-msgstr ""
-"Impossibile liberare il dispositivo zFCP %(devnum)s dall'elenco dei "
-"dispositivi da ignorare (%(e)s)."
-
-#: storage/zfcp.py:137
+#: storage/zfcp.py:133
 #, python-format
 msgid "zFCP device %s not found, not even in device ignore list."
 msgstr ""
 "Dispositivo zFCP %s non trovato, neanche all'interno dell'elenco dei "
 "dispositivi da ignorare."
 
-#: storage/zfcp.py:149
+#: storage/zfcp.py:143
 #, python-format
 msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
 msgstr "Impossibile impostare il dispositivo zFCP %(devnum)s online (%(e)s)."
 
-#: storage/zfcp.py:160
+#: storage/zfcp.py:154
 #, python-format
 msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
 msgstr ""
 "Impossibile aggiungere WWPN %(wwpn)s sul dispositivo zFCP %(devnum)s (%(e)"
 "s).."
 
-#: storage/zfcp.py:167
+#: storage/zfcp.py:161
 #, python-format
 msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
 msgstr "WWPN %(wwpn)s non trovato sul dispositivo zFCP %(devnum)s."
 
-#: storage/zfcp.py:182
+#: storage/zfcp.py:176
 #, python-format
 msgid ""
 "Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
@@ -5753,14 +5572,14 @@ msgstr ""
 "Impossibile aggiungere LUN %(fcplun)s su WWPN %(wwpn)s sul dispositivo zFCP %"
 "(devnum)s (%(e)s)."
 
-#: storage/zfcp.py:188
+#: storage/zfcp.py:182
 #, python-format
 msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
 msgstr ""
 "LUN %(fcplun)s su WWPN %(wwpn)s sul dispositivo zFCP %(devnum)s già "
 "configurato."
 
-#: storage/zfcp.py:200
+#: storage/zfcp.py:194
 #, python-format
 msgid ""
 "Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP "
@@ -5769,7 +5588,7 @@ msgstr ""
 "Impossibile leggere l'attributo fallito di LUN %(fcplun)s su WWPN %(wwpn)s "
 "sul dispositivo zFCP %(devnum)s (%(e)s)."
 
-#: storage/zfcp.py:209
+#: storage/zfcp.py:203
 #, python-format
 msgid ""
 "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
@@ -5778,7 +5597,7 @@ msgstr ""
 "LUN %(fcplun)s fallito su WWPN %(wwpn)s sul dispositivo zFCP %(devnum)s "
 "rimosso ancora."
 
-#: storage/zfcp.py:266
+#: storage/zfcp.py:260
 #, python-format
 msgid ""
 "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
@@ -5787,7 +5606,7 @@ msgstr ""
 "Impossibile cancellare correttamente il dispositivo SCSI di zFCP %(devnum)s %"
 "(wwpn)s %(fcplun)s (%(e)s)."
 
-#: storage/zfcp.py:275
+#: storage/zfcp.py:269
 #, python-format
 msgid ""
 "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
@@ -5796,12 +5615,12 @@ msgstr ""
 "Impossibile rimuovere LUN %(fcplun)s su WWPN %(wwpn)s sul dispositivo zFCP %"
 "(devnum)s (%(e)s)."
 
-#: storage/zfcp.py:293
+#: storage/zfcp.py:287
 #, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
 msgstr "Impossibile rimuovere WWPN %(wwpn)s sul dispositivo zFCP %(devnum)s (%(e)s)."
 
-#: storage/zfcp.py:319
+#: storage/zfcp.py:313
 #, python-format
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
 msgstr "Impossibile impostare il dispositivo zFCP %(devnum)s offline (%(e)s)."
@@ -5826,22 +5645,28 @@ msgstr "Selezione del tipo di tastiera"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Quale modello di tastiera è collegata al computer?"
 
+#: textw/netconfig_text.py:35 textw/netconfig_text.py:42
+msgid "Error With Data"
+msgstr "Dati errati"
+
+#: textw/netconfig_text.py:36
+#, python-format
+msgid ""
+"An error occurred converting the value entered for \"%(field)s\":\n"
+"%(errmsg)s"
+msgstr ""
+"Si è verificato un errore durante la conversione del valore inserito per \"%"
+"(field)s\":\n"
+"%(errmsg)s"
+
 #: textw/netconfig_text.py:43
 #, python-format
 msgid "A value is required for the field %s"
 msgstr "E' richiesto un valore per il campo %s."
 
-#: textw/netconfig_text.py:88 ui/netconfig.glade.h:9
+#: textw/netconfig_text.py:88
 msgid "Enable network interface"
 msgstr "Abilita interfaccia di rete"
-
-#: textw/netconfig_text.py:91 ui/netconfig.glade.h:10
-msgid ""
-"This requires that you have an active network connection during the "
-"installation process.  Please configure a network interface."
-msgstr ""
-"E' necessario avere una connessione di rete attiva durante il processo "
-"d'installazione.  Configurare l'interfaccia di rete."
 
 #: textw/netconfig_text.py:130
 msgid "Use dynamic IP configuration (DHCP)"
@@ -5863,17 +5688,34 @@ msgstr "Dispositivo mancante"
 msgid "You must select a network device"
 msgstr "Selezionare un dispositivo di rete"
 
+#: textw/netconfig_text.py:225 textw/netconfig_text.py:228
+msgid "IP Address"
+msgstr "Indirizzo IP"
+
+#: textw/netconfig_text.py:235
+msgid "IPv4 CIDR prefix must be between 0 and 32."
+msgstr "Il prefisso IPv4 CIDR deve essere fra 0 e 32."
+
+#: textw/netconfig_text.py:236 textw/netconfig_text.py:242
+#: textw/netconfig_text.py:250
+msgid "IPv4 Network Mask"
+msgstr "Maschera di rete IPv4"
+
 #: textw/netconfig_text.py:253
 msgid "IPv4 Network Mask "
 msgstr "Maschera di rete IPv4 "
 
+#: textw/netconfig_text.py:263
+msgid "Gateway"
+msgstr "Gateway"
+
+#: textw/netconfig_text.py:273
+msgid "Nameserver"
+msgstr "Server DNS"
+
 #: textw/netconfig_text.py:276
 msgid "Configuring Network Interfaces"
 msgstr "Configurazione interfaccia di rete in corso"
-
-#: textw/netconfig_text.py:276
-msgid "Waiting for NetworkManager"
-msgstr "In attesa di NetworkManager"
 
 #: textw/netconfig_text.py:282
 msgid "Error configuring network device"
@@ -6130,26 +5972,6 @@ msgstr ""
 "password per l'utente root."
 
 #: ui/adddrive.glade.h:1
-msgid "Add _FCoE SAN"
-msgstr "Aggiungere _FCoE SAN"
-
-#: ui/adddrive.glade.h:2
-msgid "Add _ZFCP LUN"
-msgstr "Aggiungere LUN _ZFCP"
-
-#: ui/adddrive.glade.h:3
-msgid "Add _iSCSI target"
-msgstr "Aggiungere target _iSCSI"
-
-#: ui/adddrive.glade.h:4
-msgid "Advanced Storage Options"
-msgstr "Opzioni avanzate per lo storage"
-
-#: ui/adddrive.glade.h:5
-msgid "How would you like to modify your drive configuration?"
-msgstr "Come si desidera modificare la configurazione del disco?"
-
-#: ui/adddrive.glade.h:6
 msgid "_Add drive"
 msgstr "_Aggiungi disco"
 
@@ -6238,26 +6060,22 @@ msgid "<b>Shrink partition _to size (in MB):</b>"
 msgstr "<b>Riduci par_tizione alla dimensione (in MB):</b>"
 
 #: ui/autopart.glade.h:2
-msgid "Re_view and modify partitioning layout"
-msgstr "Ri_vedere e modificare lo schema di partizionamento"
-
-#: ui/autopart.glade.h:3
 msgid "Volume to Shrink"
 msgstr "Volume da ridurre"
 
-#: ui/autopart.glade.h:4
+#: ui/autopart.glade.h:3
 msgid "Which partition would you like to shrink to make room for your installation?"
 msgstr "Quale partizione si desidera ridurre per fare spazio all'installazione?"
 
-#: ui/autopart.glade.h:5
+#: ui/autopart.glade.h:4
 msgid "Which type of installation would you like?"
 msgstr "Che tipo di installazione si desidera effettuare?"
 
-#: ui/autopart.glade.h:6
+#: ui/autopart.glade.h:5
 msgid "_Encrypt system"
 msgstr "_Crittazione del sistema"
 
-#: ui/autopart.glade.h:7
+#: ui/autopart.glade.h:6
 msgid "_Shrink"
 msgstr "_Riduci"
 
@@ -6341,18 +6159,12 @@ msgstr ""
 "span>"
 
 #: ui/create-storage.glade.h:4
-msgid "<span size=\"small\" color=\"gray\">Facilitates RAID device creation</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">Facilitare la creazione del dispositivo "
-"RAID"
-
-#: ui/create-storage.glade.h:5
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">Creazione partizione per scopi generici</"
 "span>"
 
-#: ui/create-storage.glade.h:6
+#: ui/create-storage.glade.h:5
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
 "partition</span>"
@@ -6360,7 +6172,7 @@ msgstr ""
 "<span size=\"small\" color=\"gray\">Necessita di almeno 1 partizione LVM "
 "formattata libera</span>"
 
-#: ui/create-storage.glade.h:7
+#: ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated "
 "partitions</span>"
@@ -6368,47 +6180,43 @@ msgstr ""
 "<span size=\"small\" color=\"gray\">Necessita di almeno 2 partizioni LVM "
 "formattate libere</span>"
 
-#: ui/create-storage.glade.h:8
+#: ui/create-storage.glade.h:7
 msgid "Create"
 msgstr "Crea"
 
-#: ui/create-storage.glade.h:9
+#: ui/create-storage.glade.h:8
 msgid "Create LVM"
 msgstr "Crea LVM"
 
-#: ui/create-storage.glade.h:10
+#: ui/create-storage.glade.h:9
 msgid "Create Partition"
 msgstr "Crea partizione"
 
-#: ui/create-storage.glade.h:11
+#: ui/create-storage.glade.h:10
 msgid "Create Software RAID"
 msgstr "Crea software RAID"
 
-#: ui/create-storage.glade.h:12
+#: ui/create-storage.glade.h:11
 msgid "Create Storage"
 msgstr "Crea Storage"
 
-#: ui/create-storage.glade.h:13
+#: ui/create-storage.glade.h:12
 msgid "LVM Logical Volume"
 msgstr "Volume logico LVM"
 
-#: ui/create-storage.glade.h:14
+#: ui/create-storage.glade.h:13
 msgid "LVM Physical Volume"
 msgstr "Volume fisico LVM"
 
-#: ui/create-storage.glade.h:15
+#: ui/create-storage.glade.h:14
 msgid "LVM Volume Group"
 msgstr "Gruppo di volumi LVM"
 
 #: ui/create-storage.glade.h:16
-msgid "RAID Clone"
-msgstr "Clone RAID"
-
-#: ui/create-storage.glade.h:18
 msgid "RAID Partition"
 msgstr "Partizione RAID"
 
-#: ui/create-storage.glade.h:19
+#: ui/create-storage.glade.h:17
 msgid "Standard Partition"
 msgstr "Partizione standard"
 
@@ -6621,38 +6429,6 @@ msgstr "Immettere la frase segreta per la partizione criptata"
 msgid "Enter passphrase:"
 msgstr "Inserire frase segreta:"
 
-#: ui/netconfig.glade.h:2
-msgid "<b>Gateway:</b>"
-msgstr "<b>Gateway:</b>"
-
-#: ui/netconfig.glade.h:3
-msgid "<b>IPv4 Address:</b>"
-msgstr "<b>Indirizzo IPv4:</b>"
-
-#: ui/netconfig.glade.h:4
-msgid "<b>IPv6 Address:</b>"
-msgstr "<b>Indirizzo IPv6:</b>"
-
-#: ui/netconfig.glade.h:5
-msgid "<b>Nameserver:</b>"
-msgstr "<b>Server DNS:</b>"
-
-#: ui/netconfig.glade.h:6
-msgid "<b>_Interface:</b>"
-msgstr "<b>_Interfaccia:</b>"
-
-#: ui/netconfig.glade.h:7
-msgid "Enable IPv_4 support"
-msgstr "Abilita supporto IPv_4"
-
-#: ui/netconfig.glade.h:8
-msgid "Enable IPv_6 support"
-msgstr "Abilita supporto IPv_6"
-
-#: ui/netconfig.glade.h:11
-msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Usa la configurazione IP _dinamica (DHCP)"
-
 #: ui/network.glade.h:1
 msgid "Configure Network"
 msgstr "Configura rete"
@@ -6670,10 +6446,6 @@ msgstr ""
 "rete."
 
 #: ui/tasksel.glade.h:1
-msgid "Customize _later"
-msgstr "Persona_lizza più tardi"
-
-#: ui/tasksel.glade.h:2
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
@@ -6681,35 +6453,11 @@ msgstr ""
 "Selezionare qualsiasi repository aggiuntivo si voglia usare per "
 "l'installazione del software."
 
-#: ui/tasksel.glade.h:4
-#, no-c-format
-msgid ""
-"The default installation of %s includes a set of software applicable for "
-"general internet usage.  What additional tasks would you like your system to "
-"support?"
-msgstr ""
-"L'installazione predefinita di %s include un insieme di software adatto per "
-"un uso generico di internet.  Di quali altri compiti si desidera che il "
-"sistema includa il supporto?"
-
-#: ui/tasksel.glade.h:5
-msgid ""
-"You can further customize the software selection now, or after install via "
-"the software management application."
-msgstr ""
-"Ulteriori personalizzazioni della selezione del software possono essere "
-"completate ora o dopo l'installazione mediante l'applicazione di gestione "
-"del software."
-
-#: ui/tasksel.glade.h:6
+#: ui/tasksel.glade.h:2
 msgid "_Add additional software repositories"
 msgstr "_Aggiungi ulteriori repository software"
 
-#: ui/tasksel.glade.h:7
-msgid "_Customize now"
-msgstr "_Personalizza ora"
-
-#: ui/tasksel.glade.h:8
+#: ui/tasksel.glade.h:3
 msgid "_Modify repository"
 msgstr "_Modifica repository"
 
