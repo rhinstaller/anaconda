@@ -45,6 +45,7 @@
 #include <sys/stat.h>
 #include <sys/swap.h>
 #include <sys/time.h>
+#include <sys/resource.h>
 #include <sys/types.h>
 #include <sys/un.h>
 #include <sys/wait.h>
@@ -442,13 +443,16 @@ int main(int argc, char **argv) {
     int doShutdown =0;
     reboot_action shutdown_method = HALT;
     int isSerial = 0;
+    int isDevelMode = 0;
     char * console = NULL;
     int doKill = 1;
     char * argvc[15];
+    char buf[1024];
     char ** argvp = argvc;
     char twelve = 12;
     struct serial_struct si;
     int i, disable_keys;
+    int ret;
 
     if (!strncmp(basename(argv[0]), "poweroff", 8)) {
         printf("Running poweroff...\n");
@@ -488,6 +492,25 @@ int main(int argc, char **argv) {
     if (mount("/proc", "/proc", "proc", 0, NULL))
         fatal_error(1);
     printf("done\n");
+
+    /* unless the user specifies that they want utf8 */
+    int fdn;
+    if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
+        int len = read(fdn, buf, sizeof(buf) - 1);
+        close(fdn);
+        if (len > 0 && strstr(buf, "devel")) {
+            printf("Enabling development mode - cores will be dumped\n");
+            isDevelMode = 1;
+        }
+    }
+
+    /* these args are only for testing from commandline */
+    for (i = 1; i < argc; i++) {
+        if (!strcmp (argv[i], "serial")) {
+            isSerial = 1;
+            break;
+        }
+    }
 
     printf("creating /dev filesystem... "); 
     fflush(stdout);
@@ -544,12 +567,11 @@ int main(int argc, char **argv) {
         fatal_error(1);
     printf("done\n");
 
-    /* these args are only for testing from commandline */
-    for (i = 1; i < argc; i++) {
-        if (!strcmp (argv[i], "serial")) {
-            isSerial = 1;
-            break;
-        }
+    /* if anaconda dies suddenly we are doomed, so at least make a coredump */
+    struct rlimit corelimit = { RLIM_INFINITY,  RLIM_INFINITY};
+    ret = setrlimit(RLIMIT_CORE, &corelimit);
+    if (ret) {
+        perror("setrlimit failed - no coredumps will be available");
     }
 
     doKill = getKillPolicy();
@@ -667,7 +689,6 @@ int main(int argc, char **argv) {
         tcsetattr(0, TCSANOW, &ts);
     }
 
-    int ret;
     ret = sethostname("localhost.localdomain", 21);
     /* the default domainname (as of 2.0.35) is "(none)", which confuses 
      glibc */
@@ -796,6 +817,25 @@ int main(int argc, char **argv) {
             printf("-- received signal %d", WTERMSIG(waitStatus));
         }
         printf("\n");
+
+        /* If debug mode was requested, spawn shell */
+        if(isDevelMode) {
+            pid_t shellpid;
+
+            printf("Development mode requested spawning shell...\n");
+
+            if ((shellpid = fork()) == 0) {
+                execl("/sbin/bash", "/sbin/bash", NULL);
+            }
+            else if (shellpid > 0) {
+                waitpid(shellpid, NULL, 0);
+            }
+            else {
+                perror("Execution of debug shell failed.");
+            }
+
+        }
+
     } else {
         shutdown_method = REBOOT;
     }
