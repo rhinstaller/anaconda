@@ -570,9 +570,20 @@ class NetworkData(commands.network.F8_NetworkData):
                 else:
                     device = self.device
 
-                try:
+                # If we were given a network device name, grab the device object.
+                # If we were given a MAC address, resolve that to a device name
+                # and then grab the device object.  Otherwise, errors.
+                dev = None
+
+                if devices.has_key(device):
                     dev = devices[device]
-                except KeyError:
+                else:
+                    for d in devices:
+                        if d.get("HWADDR") == device:
+                            dev = d
+                            break
+
+                if not dev:
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % device)
 
                 dev.set (("bootproto", self.bootProto))
