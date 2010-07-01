@@ -24,6 +24,7 @@ import gtk, gobject
 import gtk.glade
 from pyanaconda import gui
 from pyanaconda import iutil
+import itertools
 import parted
 import _ped
 from DeviceSelector import *
@@ -444,8 +445,19 @@ class FilterWindow(InstallWindow):
                                                     new_singlepaths)
 
         nonraids = filter(lambda d: d not in self._cachedDevices, new_nonraids)
-        mpaths = filter(lambda d: d not in self._cachedMPaths, new_mpaths)
         raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
+
+        # The end result of the loop below is that mpaths is a list of lists of
+        # components, just like new_mpaths.  That's what populate expects.
+        mpaths = []
+        for mp in new_mpaths:
+            for d in mp:
+                # If all components of this multipath device are in the
+                # cache, skip it.  Otherwise, it's a new device and needs to
+                # be populated into the UI.
+                if d not in self._cachedMPaths:
+                    mpaths.append(mp)
+                    break
 
         self.populate(nonraids, mpaths, raids, activeByDefault=True)
 
@@ -453,8 +465,12 @@ class FilterWindow(InstallWindow):
         self.pages[0].cb.update()
 
         self._cachedDevices.extend(nonraids)
-        self._cachedMPaths.extend(mpaths)
         self._cachedRaidDevices.extend(raids)
+
+        # And then we need to do the same list flattening trick here as in
+        # getScreen.
+        lst = list(itertools.chain(*mpaths))
+        self._cachedMPaths.extend(lst)
 
     def _makeBasic(self):
         np = NotebookPage(self.store, "basic", self.xml, Callbacks(self.xml))
@@ -608,8 +624,14 @@ class FilterWindow(InstallWindow):
         # can just add the new devices to the UI.  This is going to be slow,
         # but the user has to click a button to get to the slow part.
         self._cachedDevices = NameCache(singlepaths)
-        self._cachedMPaths = NameCache(mpaths)
         self._cachedRaidDevices = NameCache(raids)
+
+        # Multipath is a little more complicated.  Since mpaths is a list of
+        # lists, we can't directly store that into the cache.  Instead we want
+        # to flatten it into a single list of all components of all multipaths
+        # and store that.
+        lst = list(itertools.chain(*mpaths))
+        self._cachedMPaths = NameCache(lst)
 
         # Switch to the first notebook page that displays any devices.
         i = 0
