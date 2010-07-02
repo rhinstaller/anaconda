@@ -54,7 +54,7 @@ BuildRequires: elfutils-devel
 BuildRequires: gettext >= %{gettextver}
 BuildRequires: gtk2-devel
 BuildRequires: intltool >= %{intltoolver}
-BuildRequires: isomd5sum-devel >= %{isomd5sumver}
+BuildRequires: isomd5sum-static >= %{isomd5sumver}
 BuildRequires: libarchive-devel
 BuildRequires: libX11-devel
 BuildRequires: libXt-devel
