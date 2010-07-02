@@ -2375,6 +2375,10 @@ int main(int argc, char ** argv) {
             }
         }
 
+        if (loaderData.instRepo_noverifyssl) {
+            *argptr++ = "--noverifyssl";
+        }
+
         if (loaderData.proxy && strcmp("", loaderData.proxy)) {
             *argptr++ = "--proxy";
 

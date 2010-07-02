@@ -93,6 +93,7 @@ class Flags:
         self.__dict__['flags']['useIPv6'] = True
         self.__dict__['flags']['sshd'] = 0
         self.__dict__['flags']['preexisting_x11'] = False
+        self.__dict__['flags']['noverifyssl'] = False
         # for non-physical consoles like some ppc and sgi altix,
         # we need to preserve the console device and not try to
         # do things like bogl on them.  this preserves what that
