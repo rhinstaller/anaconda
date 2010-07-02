@@ -573,9 +573,9 @@ class NetworkData(commands.network.F8_NetworkData):
                 if devices.has_key(device):
                     dev = devices[device]
                 else:
-                    for d in devices:
-                        if d.get("HWADDR") == device:
-                            dev = d
+                    for (key, val) in devices.iteritems():
+                        if val.get("HWADDR") == device:
+                            dev = val
                             break
 
                 if not dev:
