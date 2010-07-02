@@ -580,6 +580,9 @@ class AnacondaYum(YumSorter):
             if self.anaconda.proxy:
                 repo.setProxy(self.anaconda)
 
+            if flags.noverifyssl:
+                repo.sslverify = False
+
             repo.enable()
             self.repos.add(repo)
 

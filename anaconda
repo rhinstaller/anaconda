@@ -214,6 +214,7 @@ def parseOptions():
     op.add_option("-m", "--method", dest="method", default=None)
     op.add_option("--repo", dest="method", default=None)
     op.add_option("--stage2", dest="stage2", default=None)
+    op.add_option("--noverifyssl", action="store_true", default=False)
 
     op.add_option("--liveinst", action="store_true", default=False)
 
@@ -749,6 +750,9 @@ if __name__ == "__main__":
             opts.stage2 = expandFTPMethod(opts.stage2)
 
         anaconda.stage2 = opts.stage2
+
+    if opts.noverifyssl:
+        flags.noverifyssl = True
 
     if opts.liveinst:
         flags.livecdInstall = True
