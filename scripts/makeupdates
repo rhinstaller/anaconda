@@ -121,27 +121,19 @@ def copyUpdatedFiles(tag, updates, cwd):
            file.endswith('.sh') or file == 'configure.ac':
             continue
 
-        if file.find('/') != -1:
+        if file.startswith('pyanaconda/'):
+            sys.stdout.write("Including %s\n" % (file,))
+            update_filename = os.path.realpath(os.path.join(updates, file))
+            update_dir = os.path.dirname(update_filename)
+            if not os.path.isdir(update_dir):
+                os.makedirs(update_dir)
+            shutil.copy2(file, update_dir)
+        elif file.find('/') != -1:
             fields = file.split('/')
             subdir = fields[0]
-
-            if subdir in ['booty', 'isys', 'pyanaconda']:
-                subupdates = os.path.realpath(updates + '/' + subdir)
-                if os.path.isdir(subupdates):
-                    shutil.rmtree(subupdates)
-
-                if not subdir in subdirs:
-                    sys.stdout.write("Including %s/\n" % (subdir,))
-                    subdirs.append(subdir)
-
-                shutil.copytree(os.path.realpath(cwd + '/' + subdir),
-                                subupdates, ignore=pruneFile)
-            elif subdir == 'loader' or subdir == 'po' or \
-                 subdir =='scripts' or subdir == 'command-stubs' or \
-                 subdir == 'tests' or subdir == 'bootdisk' or \
-                 subdir == 'docs' or subdir == 'fonts' or \
-                 subdir == 'utils' or subdir == 'gptsync' or \
-                 subdir == 'liveinst':
+            if subdir in ['loader', 'po', 'scripts','command-stubs', 'tests',
+                          'bootdisk', 'docs', 'fonts', 'utils', 'gptsync',
+                          'liveinst']:
                 continue
             else:
                 sys.stdout.write("Including %s\n" % (file,))
