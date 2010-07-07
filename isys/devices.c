@@ -187,6 +187,7 @@ storagedone:
                         buf[i] = '\0';
                     new->priv.hwaddr = strdup(buf);
                 }
+                close(fd);
             }
 
             if (new->priv.hwaddr) {
