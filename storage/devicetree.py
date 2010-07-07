@@ -1244,15 +1244,8 @@ class DeviceTree(object):
         #
         # The first step is to either look up or create the device
         #
-        if udev_device_is_multipath_member(info):
-            device = DiskDevice(name,
-                            major=udev_device_get_major(info),
-                            minor=udev_device_get_minor(info),
-                            sysfsPath=sysfs_path, exists=True,
-                            serial=udev_device_get_serial(info),
-                            vendor=udev_device_get_vendor(info),
-                            model=udev_device_get_model(info))
-            self._addDevice(device)
+        if udev_device_is_multipath_member(info) and device is None:
+            device = self.addUdevDiskDevice(info)
         elif udev_device_is_dm(info) and \
                devicelibs.dm.dm_is_multipath(info):
             log.debug("%s is a multipath device" % name)
