@@ -225,6 +225,7 @@ def addDrive(anaconda):
     for button in group:
         if button is not None and button.get_property("sensitive"):
             button.set_active(True)
+            button.grab_focus()
             break
 
     rc = dialog.run()
