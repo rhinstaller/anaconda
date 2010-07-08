@@ -223,6 +223,48 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jul 08 2010 Chris Lumens <clumens@redhat.com> - 14.10-1
+- Handle 16 digit hex strings for ID_SERIAL_SHORT (#611554) (dcantrell)
+- Focus default advanced storage type in add dialog (#603726) (dcantrell)
+- Add multipath member with addUdevDiskDevice instead of DiskDevice (#582254)
+  (dcantrell)
+- add mime.cache to the stage2 image (#609596). (akozumpl)
+- makeupdates: treat files under pyanaconda/ individually. (akozumpl)
+- ssl: propagate 'url --noverifyssl' into yum repo configuration (#599040).
+  (akozumpl)
+- ssl: support for 'url --noverifyssl' in loader. (akozumpl)
+- ssl: support --noverifyssl in the repo kickstart command. (akozumpl)
+- Fix a file descriptor leak in getDevices (#612153, mganisin). (clumens)
+- Pass size of structure not a size of pointer to calloc (#592227) (msivak)
+- Properly iterate over the netdevices list (#610769). (clumens)
+- Require the static package instead of the devel one (#610797). (clumens)
+- ui: C_reate mnemonics in Create Storage dialog. (akozumpl)
+- fix insensitivities of 0783c488 (akozumpl)
+- During an update don't erase old kernels (#594411) (bcl)
+- booty and isys have moved, so update runpylint.sh. (clumens)
+- Translate MAC addresses to devices in the second stage, too. (clumens)
+- Fix prototype of getIPAddresses (#605659) (rvykydal)
+- Account for ipv6 addresses too (#605659) (rvykydal)
+- Use progressbar instead of waitwindow for repo setup (#584996) (rvykydal)
+- Don't deactivate active device before running nm-c-e (#608773) (rvykydal)
+- Control all devs by NM by default + filtering (iSCSI, FCoE) (#606745)
+  (rvykydal)
+- anaconda's lvm vgreduce invocation is not filtering out disks (609479)
+  (hdegoede)
+- Clean up proxy handling in yuminstall.py (#604137) (bcl)
+- Write out missing space on 'part' lines in ks file (#605938) (dcantrell)
+- Make sure swap devices are included in dracut args (#607646) (dcantrell)
+- Catch DeviceNotFoundError in cleardisks (#607661) (dcantrell)
+- Do not proceed after partitioning errors in text mode (#599484) (bcl)
+- fixup exclude/excludepkgs usage (#607664) (bcl)
+- yum calls it "exclude" instead of "excludepkgs" (#607664). (clumens)
+- Add full proxy URL to writeKS (#602705) (bcl)
+- Fix repo --includepkgs=, and add more to anaconda-ks.cfg's repo line
+  (#602705). (clumens)
+- Add a slash to the path pointing to hdinstall dir (#592154) (msivak)
+- Don't resize lv's formatting unless also resizing the lv. (#575046) (dlehman)
+- Show sane non-removable drives too in the DD dialog (#594548) (msivak)
+
 * Mon Jun 28 2010 Chris Lumens <clumens@redhat.com> - 14.9-1
 - Update to use the latest pykickstart. (clumens)
 - Import anaconda_log correctly to avoid the double import problem. (clumens)
