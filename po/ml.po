@@ -12,10 +12,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-06-29 10:36-1000\n"
+"POT-Creation-Date: 2010-07-08 11:47-1000\n"
 "PO-Revision-Date: 2010-06-30 13:19+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -132,9 +133,9 @@ msgstr ""
 "നിങ്ങള്‍ക്കു് ഡിസ്ക്കില്‍ മതിയായ സ്ഥലം ഉണ്ടാവില്ല."
 
 #: backend.py:185 image.py:289 livecd.py:198 livecd.py:440
-#: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:459
-#: yuminstall.py:870 yuminstall.py:988 yuminstall.py:993 yuminstall.py:1268
-#: yuminstall.py:1335 yuminstall.py:1525 yuminstall.py:1547
+#: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:460
+#: yuminstall.py:871 yuminstall.py:989 yuminstall.py:994 yuminstall.py:1269
+#: yuminstall.py:1336 yuminstall.py:1526 yuminstall.py:1548
 #: iw/advanced_storage.py:85 iw/advanced_storage.py:95
 #: iw/advanced_storage.py:168 iw/advanced_storage.py:171
 #: iw/advanced_storage.py:199 iw/autopart_type.py:96 iw/cleardisks_gui.py:44
@@ -160,7 +161,7 @@ msgstr "പിശക്"
 
 #: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1178
 #: gui.py:1238 image.py:82 installinterfacebase.py:46 text.py:481 text.py:541
-#: yuminstall.py:1504 yuminstall.py:1714 yuminstall.py:1749
+#: yuminstall.py:1505 yuminstall.py:1715 yuminstall.py:1750
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: textw/upgrade_text.py:191
@@ -181,16 +182,16 @@ msgstr ""
 
 #: bootloader.py:60 gui.py:1129 gui.py:1274 gui.py:1489 image.py:91
 #: kickstart.py:155 livecd.py:205 livecd.py:447 packages.py:161 upgrade.py:58
-#: upgrade.py:199 yuminstall.py:252 yuminstall.py:990 yuminstall.py:995
-#: yuminstall.py:1075 yuminstall.py:1081 yuminstall.py:1237 yuminstall.py:1264
-#: yuminstall.py:1325 yuminstall.py:1512 yuminstall.py:1531 yuminstall.py:1554
+#: upgrade.py:199 yuminstall.py:252 yuminstall.py:991 yuminstall.py:996
+#: yuminstall.py:1076 yuminstall.py:1082 yuminstall.py:1238 yuminstall.py:1265
+#: yuminstall.py:1326 yuminstall.py:1513 yuminstall.py:1532 yuminstall.py:1555
 #: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
 #: storage/__init__.py:1980
 msgid "_Exit installer"
 msgstr "ഇന്‍സ്റ്റോളറില്‍ നിന്നും പുറത്ത് കടക്കുക (_E)"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1359
-#: kickstart.py:1398 upgrade.py:58 yuminstall.py:1330 yuminstall.py:1513
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1370
+#: kickstart.py:1409 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
 #: iw/partition_gui.py:1601 storage/__init__.py:1981
 msgid "_Continue"
 msgstr "തുടരുക (_C)"
@@ -207,7 +208,8 @@ msgstr "ബൂട്ട് ലോഡര്‍ ഇന്‍സ്റ്റോള�
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
-msgstr "ബൂട്ട്ലോഡര്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതില്‍ പിശക്.  സിസ്റ്റം ഒരു പക്ഷേ ബൂട്ട് ചെയ്യുവാന്‍ സാധ്യമാകുന്നതല്ല."
+msgstr ""
+"ബൂട്ട്ലോഡര്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതില്‍ പിശക്.  സിസ്റ്റം ഒരു പക്ഷേ ബൂട്ട് ചെയ്യുവാന്‍ സാധ്യമാകുന്നതല്ല."
 
 #: bootloader.py:228
 msgid ""
@@ -225,8 +227,8 @@ msgstr "പൂര്‍ണ്ണമായിരിക്കുന്നു"
 msgid "In progress"
 msgstr "പുരോഗമിക്കുന്നു"
 
-#: cmdline.py:88 gui.py:1269 kickstart.py:1143 kickstart.py:1223
-#: kickstart.py:1231 kickstart.py:1269 kickstart.py:1277 text.py:388
+#: cmdline.py:88 gui.py:1269 kickstart.py:1154 kickstart.py:1234
+#: kickstart.py:1242 kickstart.py:1280 kickstart.py:1288 text.py:388
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -395,8 +397,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization.%"
-"(details)s"
+"This action may also be applied to all other disks needing reinitialization."
+"%(details)s"
 msgstr ""
 "ഡ്രൈവ് പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ പിശക്.\n"
 "\n"
@@ -470,8 +472,8 @@ msgstr ""
 msgid "_Exit"
 msgstr "പുറത്തേക്ക് പോവുക(_E)"
 
-#: gui.py:1401 image.py:164 image.py:194 livecd.py:205 yuminstall.py:860
-#: yuminstall.py:1264 yuminstall.py:1325 yuminstall.py:1531
+#: gui.py:1401 image.py:164 image.py:194 livecd.py:205 yuminstall.py:861
+#: yuminstall.py:1265 yuminstall.py:1326 yuminstall.py:1532
 msgid "_Retry"
 msgstr "വീണ്ടും ശ്രമിക്കുക(_R)"
 
@@ -479,7 +481,7 @@ msgstr "വീണ്ടും ശ്രമിക്കുക(_R)"
 msgid "The system will now reboot."
 msgstr "കംപ്യൂട്ടര്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
-#: gui.py:1404 image.py:251 packages.py:364 yuminstall.py:1572
+#: gui.py:1404 image.py:251 packages.py:364 yuminstall.py:1573
 msgid "_Reboot"
 msgstr "വീണ്ടും കമ്പ്യൂട്ടര്‍ ഓണ്‍ ചെയ്യുക (_R)"
 
@@ -566,22 +568,22 @@ msgstr "മീഡിയ ഇന്‍സ്റ്റേള്‍ ചെയ്യ�
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following %"
-"(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following "
+"%(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"നിങ്ങള്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യുവാന്‍ തെരഞ്ഞെടുത്തിരിക്കുന്ന സോഫ്റ്റ്‌വെയറിനു് താഴെ പറഞ്ഞിരിക്കുന്ന %"
-"(productName)s %(productVersion)s ഡിസ്കുകള്‍ ആവശ്യമുണ്ടു്:\n"
+"നിങ്ങള്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യുവാന്‍ തെരഞ്ഞെടുത്തിരിക്കുന്ന സോഫ്റ്റ്‌വെയറിനു് താഴെ പറഞ്ഞിരിക്കുന്ന "
+"%(productName)s %(productVersion)s ഡിസ്കുകള്‍ ആവശ്യമുണ്ടു്:\n"
 "\n"
 "%(reqcdstr)s\n"
 "ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകുന്നതിനു് മുമ്പായി ഇവ ദയവായി തയ്യാറാക്കിവയ്ക്കുക. ഇന്‍സ്റ്റലേഷന്‍ "
 "നിര്‍ത്തലാക്കി പുറത്ത് കടക്കണമെങ്കില്‍ ദയവായി \"റീബൂട്ട് ചെയ്യുക\" തെരഞ്ഞെടുക്കുക."
 
-#: image.py:251 livecd.py:446 packages.py:364 upgrade.py:198 yuminstall.py:995
-#: yuminstall.py:1081 yuminstall.py:1512 yuminstall.py:1554 yuminstall.py:1572
+#: image.py:251 livecd.py:446 packages.py:364 upgrade.py:198 yuminstall.py:996
+#: yuminstall.py:1082 yuminstall.py:1513 yuminstall.py:1555 yuminstall.py:1573
 #: ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr "പുറകോട്ട് (_B)"
@@ -653,29 +655,29 @@ msgstr "ഫോര്‍മാറ്റ്(_F)"
 #: iutil.py:852
 #, python-format
 msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
-"s)"
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr ""
-"പിശക്: തുറക്കുമ്പോള്‍, reIPL രീതി %(reipl_type)s ആയി സജ്ജമാക്കുവാന്‍ സാധ്യമല്ല (%(filename)"
-"s: %(e)s)"
+"പിശക്: തുറക്കുമ്പോള്‍, reIPL രീതി %(reipl_type)s ആയി സജ്ജമാക്കുവാന്‍ സാധ്യമല്ല "
+"(%(filename)s: %(e)s)"
 
 #: iutil.py:863
 #, python-format
 msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
-"(e)s)"
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr ""
-"പിശക്: എഴുതുമ്പോള്‍, reIPL രീതി %(reipl_type)s ആയി സജ്ജമാക്കുവാന്‍ സാധ്യമല്ല (%(filename)"
-"s: %(e)s)"
+"പിശക്: എഴുതുമ്പോള്‍, reIPL രീതി %(reipl_type)s ആയി സജ്ജമാക്കുവാന്‍ സാധ്യമല്ല "
+"(%(filename)s: %(e)s)"
 
 #: iutil.py:872
 #, python-format
 msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
-"(e)s)"
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr ""
-"പിശക്: അടയ്ക്കുമ്പോള്‍ reIPL രീതി %(reipl_type)s ആയി സജ്ജമാക്കുവാന്‍ സാധ്യമല്ല (%(filename)"
-"s: %(e)s)"
+"പിശക്: അടയ്ക്കുമ്പോള്‍ reIPL രീതി %(reipl_type)s ആയി സജ്ജമാക്കുവാന്‍ സാധ്യമല്ല "
+"(%(filename)s: %(e)s)"
 
 #: iutil.py:891
 #, python-format
@@ -713,14 +715,16 @@ msgstr "പിശക്: reIPL-നുള്ള FCP വിശേഷത %(reipl_pr
 
 #: iutil.py:975
 #, python-format
-msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr "പിശക്: reIPL-നുള്ള സ്വതവേയുള്ള FCP വിശേഷത %(reipl_property)s സൂക്ഷിക്കുന്നു (%(e)s)"
+msgid ""
+"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgstr ""
+"പിശക്: reIPL-നുള്ള സ്വതവേയുള്ള FCP വിശേഷത %(reipl_property)s സൂക്ഷിക്കുന്നു (%(e)s)"
 
 #: iutil.py:990
 #, python-format
 msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
-"(wwpn)s and LUN %(lun)s to continue installation"
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
+"%(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 "അടച്ചുപൂട്ടിയതിനു് ശേഷം, ഇന്‍സ്റ്റലേഷന്‍ തുടരുന്നതിനായി WWPN %(wwpn)s and LUN %(lun)s "
 "ഉപയോഗിച്ചു് FCP %(device)s-ല്‍ നിന്നും ഒരു മാനുവല്‍ IPL നടത്തുക"
@@ -757,7 +761,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "സ്ക്ക്രിപ്റ്റ്ലെറ്റില്‍ പരാജയം"
 
-#: kickstart.py:149 rescue.py:262 yuminstall.py:1232 iw/task_gui.py:307
+#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:307
 msgid "No Network Available"
 msgstr "നെറ്റ്‌വര്‍ക്ക് ലഭ്യമല്ല"
 
@@ -782,37 +786,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: kickstart.py:1242
+#: kickstart.py:1253
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "%%ksappend വരികള്‍ പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ പിശക്: %s"
 
-#: kickstart.py:1245
+#: kickstart.py:1256
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "%%ksappend വരികള്‍ പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ അപരിചിതമായ പിശക്: %s"
 
-#: kickstart.py:1300 livecd.py:228
+#: kickstart.py:1311 livecd.py:228
 msgid "Post-Installation"
 msgstr "പോസ്റ്റ്-ഇന്‍സ്റ്റലേഷന്‍"
 
-#: kickstart.py:1301
+#: kickstart.py:1312
 msgid "Running post-installation scripts"
 msgstr "പോസ്റ്റ്-ഇന്‍സ്റ്റലേഷന്‍ സ്ക്ക്രിപ്റ്റുകള്‍ പ്രവര്‍ത്തിക്കുന്നു"
 
-#: kickstart.py:1317
+#: kickstart.py:1328
 msgid "Pre-Installation"
 msgstr "പ്രീ-ഇന്‍സ്റ്റലേഷന്‍"
 
-#: kickstart.py:1318
+#: kickstart.py:1329
 msgid "Running pre-installation scripts"
 msgstr "പ്രീ-ഇന്‍സ്റ്റലേഷന്‍ സ്ക്രി്‍സ്ക്ക്രിപ്റ്റുകള്‍ പ്രവര്‍ത്തിക്കുന്നു"
 
-#: kickstart.py:1350
+#: kickstart.py:1361
 msgid "Missing Package"
 msgstr "പാക്കേജ് ലഭ്യമല്ല"
 
-#: kickstart.py:1351
+#: kickstart.py:1362
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -821,19 +825,19 @@ msgstr ""
 "'%s' എന്ന പാക്കേജ് ഇന്‍സ്റ്റോള്‍ ചെയ്യണമെന്നു് നിങ്ങള്‍ ആവശ്യപ്പെട്ടിരിക്കുന്നു.  ഈ പാക്കേജ് "
 "നിലവിലില്ല. നിങ്ങള്‍ക്ക് ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകണമോ അതോ നിര്‍ത്തലാക്കണമോ?"
 
-#: kickstart.py:1357 kickstart.py:1396
+#: kickstart.py:1368 kickstart.py:1407
 msgid "_Abort"
 msgstr "വീണ്ടും കംപ്യൂട്ടര്‍ ഓണ്‍ ചെയ്യുക (_A)"
 
-#: kickstart.py:1358 kickstart.py:1397
+#: kickstart.py:1369 kickstart.py:1408
 msgid "_Ignore All"
 msgstr "എല്ലാം അവഗണിക്കുക (_I)"
 
-#: kickstart.py:1388
+#: kickstart.py:1399
 msgid "Missing Group"
 msgstr "ഗ്രൂപ്പ് കാണ്‍മാനില്ല"
 
-#: kickstart.py:1389
+#: kickstart.py:1400
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -842,7 +846,7 @@ msgstr ""
 "'%s' എന്ന ഗ്രൂപ്പ് ഇന്‍സ്റ്റോള്‍ ചെയ്യണമെന്ന് നിങ്ങള്‍ ആവശ്യപ്പെട്ടിരിക്കുന്നു.  ഈ ഗ്രൂപ്പ് നിലവിലില്ല. "
 "നിങ്ങള്‍ക്ക് ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകണമോ അതോ നിര്‍ത്തലാക്കണമോ?"
 
-#: kickstart.py:1505
+#: kickstart.py:1516
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -860,8 +864,10 @@ msgstr "ഇമേജ് ലഭ്യമാക്കുവാന്‍ സാധ�
 
 #: livecd.py:122
 #, python-format
-msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr "നല്‍കിയിരിക്കുന്ന സ്ഥാനം, ഇന്‍സ്റ്റലേഷനായി ഉപയോഗിക്കുവാന്‍ സാധിക്കുന്ന ഒരു %s live CD അല്ല."
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
+msgstr ""
+"നല്‍കിയിരിക്കുന്ന സ്ഥാനം, ഇന്‍സ്റ്റലേഷനായി ഉപയോഗിക്കുവാന്‍ സാധിക്കുന്ന ഒരു %s live CD അല്ല."
 
 #: livecd.py:180
 msgid "Copying live image to hard drive."
@@ -885,7 +891,8 @@ msgstr ""
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
-msgstr "പോസ്റ്റ്-ഇന്‍സ്റ്റലേഷന്‍ ഫയല്‍ സിസ്റ്റമില്‍ മാറ്റങ്ങള്‍ വരുത്തുന്നു.  ഇത് ഒരു പക്ഷേ അധികം സമയമെടുത്തേക്കാം."
+msgstr ""
+"പോസ്റ്റ്-ഇന്‍സ്റ്റലേഷന്‍ ഫയല്‍ സിസ്റ്റമില്‍ മാറ്റങ്ങള്‍ വരുത്തുന്നു.  ഇത് ഒരു പക്ഷേ അധികം സമയമെടുത്തേക്കാം."
 
 #: livecd.py:441
 #, python-format
@@ -902,14 +909,15 @@ msgstr "ഹോസ്റ്റിന്റെ നാമത്തില്‍ 255 
 
 #: network.py:68
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
-"9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
+"'0-9'"
 msgstr ""
 "ഹോസ്റ്റനെയിം തുടങ്ങുന്നതു് 'a-z', 'A-Z' അല്ലെങ്കില്‍ '0-9' എന്ന പരിധിയിലുളള "
 "അക്ഷരത്തിലായിരിക്കണം"
 
 #: network.py:73
-msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid ""
+"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "ഹോസ്റ്റ്നെയിമില്‍ 'a-z', 'A-Z', '0-9', '-', അല്ലെങ്കില്‍ '.'എന്നിവ മാത്രമേ പാടുളളൂ"
 
 #: network.py:117
@@ -1003,7 +1011,8 @@ msgstr "സംഭരണ സജ്ജീവമാക്കല്‍ പരാജ�
 
 #: packages.py:154
 msgid "An error was encountered while activating your storage configuration."
-msgstr "നിങ്ങളുടെ സംഭരണ ക്രമീകരണം സജീവമാക്കുന്നതിനിടയില്‍ കാണാനിടയായ ഒരു പിഴവാണു് താഴെ പറയുന്നതു്."
+msgstr ""
+"നിങ്ങളുടെ സംഭരണ ക്രമീകരണം സജീവമാക്കുന്നതിനിടയില്‍ കാണാനിടയായ ഒരു പിഴവാണു് താഴെ പറയുന്നതു്."
 
 #: packages.py:161
 msgid "_File Bug"
@@ -1194,13 +1203,13 @@ msgstr "പാര്‍ട്ടീഷനിംങില്‍ പിഴവ്"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of %"
-"(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of "
+"%(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
-"നിങ്ങള്‍ ആവശ്യപ്പെട്ട പാര്‍ട്ടീഷനിങ് സ്ക്കീമില്‍ താഴെ കാണുന്ന ഗുരുതരമായ പിഴവുകള്‍ ഉണ്ടു്. %"
-"(productName)s-ന്റെ ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകുന്നതിന് മുമ്പു് തന്നെ ഈ പിഴവുകള്‍ "
+"നിങ്ങള്‍ ആവശ്യപ്പെട്ട പാര്‍ട്ടീഷനിങ് സ്ക്കീമില്‍ താഴെ കാണുന്ന ഗുരുതരമായ പിഴവുകള്‍ ഉണ്ടു്. "
+"%(productName)s-ന്റെ ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകുന്നതിന് മുമ്പു് തന്നെ ഈ പിഴവുകള്‍ "
 "തിരുത്തേണ്ടതാണു്.\n"
 "\n"
 "%(errorstr)s"
@@ -1279,7 +1288,8 @@ msgid "Confirm Reset"
 msgstr "വീണ്ടും സജ്ജമാക്കണമെന്നു് ഉറപ്പുവരുത്തുക"
 
 #: partIntfHelpers.py:346
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "പാര്‍ട്ടീഷന്‍ ടേബിള്‍ യഥാര്‍ത്ഥ സ്ഥിതിയിലേക്കു് വീണ്ടും സജ്ജമാക്കണമെന്നു് നിങ്ങള്‍ക്ക് ഉറപ്പാണോ?"
 
 #: platform.py:98 platform.py:339 platform.py:407 platform.py:514
@@ -1397,7 +1407,8 @@ msgstr "ഇല്ല"
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
-msgstr "ഒരു നെറ്റ്‌വര്‍ക്കിങ് ഡിവൈസ് സജ്ജമാക്കുവാന്‍ സാധ്യമല്ല.  റെസ്ക്യൂ മോഡില്‍ നെറ്റ്‌വര്‍ക്കിങ് ലഭ്യമല്ല."
+msgstr ""
+"ഒരു നെറ്റ്‌വര്‍ക്കിങ് ഡിവൈസ് സജ്ജമാക്കുവാന്‍ സാധ്യമല്ല.  റെസ്ക്യൂ മോഡില്‍ നെറ്റ്‌വര്‍ക്കിങ് ലഭ്യമല്ല."
 
 #: rescue.py:299 rescue.py:374 rescue.py:385 rescue.py:465 rescue.py:494
 msgid "Rescue"
@@ -1583,7 +1594,8 @@ msgstr "റദ്ദാക്കപ്പെട്ടു"
 
 #: text.py:651
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "ഇവിടെ നിന്നും മുമ്പുള്ള സ്റ്റെപ്പിലേക്ക് പോകുവാന്‍ സാധിക്കില്ല. നിങ്ങള്‍ വീണ്ടും ശ്രമിക്കേണ്ടതാണ്."
+msgstr ""
+"ഇവിടെ നിന്നും മുമ്പുള്ള സ്റ്റെപ്പിലേക്ക് പോകുവാന്‍ സാധിക്കില്ല. നിങ്ങള്‍ വീണ്ടും ശ്രമിക്കേണ്ടതാണ്."
 
 #: upgrade.py:51
 msgid "Proceed with upgrade?"
@@ -1669,7 +1681,8 @@ msgstr "അസാധുവായ ഡയറക്ടറികള്‍"
 #: vnc.py:140
 #, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
-msgstr "%(productName)s %(productVersion)s ഇന്‍സ്റ്റലേഷന്‍ ഹോസ്റ്റ %(name)s-ല്‍ പുരോഗമിക്കുന്നു"
+msgstr ""
+"%(productName)s %(productVersion)s ഇന്‍സ്റ്റലേഷന്‍ ഹോസ്റ്റ %(name)s-ല്‍ പുരോഗമിക്കുന്നു"
 
 #: vnc.py:146
 #, python-format
@@ -1699,7 +1712,8 @@ msgstr[1] "%d തവണകള്‍ക്കു് ശേഷം കണക്ട�
 #: vnc.py:209
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr "ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതിനു വേണ്ടി ദയവായി നിങ്ങള്‍ തന്നെ vnc ക്ലൈന്റിനെ %s മായി കണക്ട് ചെയ്യുക."
+msgstr ""
+"ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതിനു വേണ്ടി ദയവായി നിങ്ങള്‍ തന്നെ vnc ക്ലൈന്റിനെ %s മായി കണക്ട് ചെയ്യുക."
 
 #: vnc.py:211
 msgid "Please manually connect your vnc client to begin the install."
@@ -1912,42 +1926,42 @@ msgstr ""
 "\n"
 "%(productName)s ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതിനാവശ്യമുള്ള ശരിയായ വിവരങ്ങള്‍ ദയവായി നല്‍കുക."
 
-#: yuminstall.py:441
+#: yuminstall.py:442
 msgid "Change Disc"
 msgstr "ഡിസ്ക് മാറ്റുക"
 
-#: yuminstall.py:442
+#: yuminstall.py:443
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ തുടരുവാന്‍ %(productName)s ഡിസ്ക് %(discnum)d ഇടുക."
 
-#: yuminstall.py:452
+#: yuminstall.py:453
 msgid "Wrong Disc"
 msgstr "തെറ്റായ ഡിസ്ക്"
 
-#: yuminstall.py:453
+#: yuminstall.py:454
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "ഇത് ശരിയായ %s ഡിസ്ക് അല്ല."
 
-#: yuminstall.py:460
+#: yuminstall.py:461
 msgid "Unable to access the disc."
 msgstr "ഡിസ്ക് ലഭ്യമാകുന്നില്ല."
 
-#: yuminstall.py:621
+#: yuminstall.py:622
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Repository %r is missing name in configuration, using id"
 
-#: yuminstall.py:858 yuminstall.py:860
+#: yuminstall.py:859 yuminstall.py:861
 msgid "Re_boot"
 msgstr "റീബൂട്ട് ചെയ്യുക(_b)"
 
-#: yuminstall.py:858
+#: yuminstall.py:859
 msgid "_Eject"
 msgstr "ഡിസ്ക് പുറത്തെടുക്കുക (_E)"
 
-#: yuminstall.py:871
+#: yuminstall.py:872
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1964,60 +1978,61 @@ msgstr ""
 "ചെയ്യേണ്ടി വരുന്നു.\n"
 "\n"
 
-#: yuminstall.py:919
+#: yuminstall.py:920
 msgid "Retrying"
 msgstr "വീണ്ടും ശ്രമിക്കുന്നു"
 
-#: yuminstall.py:919
+#: yuminstall.py:920
 msgid "Retrying download."
 msgstr "ഡൌണ്‍ലോട് ചെയ്യുവാന്‍ വീണ്ടും ശ്രമിക്കുന്നു."
 
-#: yuminstall.py:984
+#: yuminstall.py:985
 #, python-format
-msgid "There was an error running your transaction for the following reason: %s\n"
+msgid ""
+"There was an error running your transaction for the following reason: %s\n"
 msgstr "താഴെ പറയുന്ന കാരണങ്ങള്‍ കൊണ്ട് നിങ്ങളുടെ ഇടപാട് നടത്തുന്നതില്‍ പിശക്: %s\n"
 
-#: yuminstall.py:1027 yuminstall.py:1028
+#: yuminstall.py:1028 yuminstall.py:1029
 msgid "file conflicts"
 msgstr "ഫൈലിലെ പൊരുത്തക്കേടുകള്‍"
 
-#: yuminstall.py:1029
+#: yuminstall.py:1030
 msgid "older package(s)"
 msgstr "പഴയ പാക്കേജുകള്‍"
 
-#: yuminstall.py:1030
+#: yuminstall.py:1031
 msgid "insufficient disk space"
 msgstr "മതിയാകാത്ത ഡിസ്ക്ക് സ്പെയ്സ്"
 
-#: yuminstall.py:1031
+#: yuminstall.py:1032
 msgid "insufficient disk inodes"
 msgstr "മതിയാകാത്ത ഡിസ്ക്ക് ഐനോഡുകള്‍"
 
-#: yuminstall.py:1032
+#: yuminstall.py:1033
 msgid "package conflicts"
 msgstr "പാക്കേജിലെ പൊരുത്തക്കേടുകള്‍"
 
-#: yuminstall.py:1033
+#: yuminstall.py:1034
 msgid "package already installed"
 msgstr "പാക്കേജ് ഇന്‍സ്റ്റോള്‍ ചെയ്തിട്ടുളളതാണ്"
 
-#: yuminstall.py:1034
+#: yuminstall.py:1035
 msgid "required package"
 msgstr "ആവശ്യമുളള പാക്കേജ്"
 
-#: yuminstall.py:1035
+#: yuminstall.py:1036
 msgid "package for incorrect arch"
 msgstr "തെറ്റായ ആര്‍ക്കിനുളള പാക്കേജ്"
 
-#: yuminstall.py:1036
+#: yuminstall.py:1037
 msgid "package for incorrect os"
 msgstr "തെറ്റായ os നുളള പാക്കേജ്"
 
-#: yuminstall.py:1050
+#: yuminstall.py:1051
 msgid "You need more space on the following file systems:\n"
 msgstr "താഴെ കാണിക്കുന്ന ഫൈല്‍ സിസ്റ്റമുകളില്‍ നിങ്ങള്‍ക്ക് ഇനിയും സ്ഥലം ആവശ്യമുണ്ട്:\n"
 
-#: yuminstall.py:1063
+#: yuminstall.py:1064
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2026,18 +2041,18 @@ msgstr ""
 "ഇന്‍സ്റ്റോള്‍ ചെയ്യുവാനുളള പാക്കേജുകള്‍ പരിശോധിക്കുന്നതിനിടയില്‍ ചില ഫയല്‍ തകരാറുകള്‍ ഉണ്ടായി:\n"
 "%s\n"
 
-#: yuminstall.py:1066
+#: yuminstall.py:1067
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): %"
-"s.\n"
+"There was an error running your transaction for the following reason(s): "
+"%s.\n"
 msgstr "താഴെ പറയുന്ന കാരണങ്ങള്‍ കൊണ്ട് നിങ്ങളുടെ ഇടപാടുകള്‍ നടത്തുന്നതില്‍ പിശക്: % s.\n"
 
-#: yuminstall.py:1073 yuminstall.py:1078
+#: yuminstall.py:1074 yuminstall.py:1079
 msgid "Error Running Transaction"
 msgstr "ട്രാന്‍സാക്ഷന്‍ പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ പിഴവ് "
 
-#: yuminstall.py:1233 iw/task_gui.py:308
+#: yuminstall.py:1234 iw/task_gui.py:308
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2045,7 +2060,7 @@ msgstr ""
 "നിങ്ങളുടെ ചില സോഫ്റ്റ്‌വെയര്‍ റിപ്പോസിറ്ററികള്‍ക്ക് നെറ്റ്‌വര്‍ക്കിങ് ആവശ്യമുണ്ടു്. പക്ഷേ, നിങ്ങളുടെ "
 "സിസ്റ്റമില്‍ നെറ്റ്‌വര്‍ക്ക് സജ്ജമാക്കുന്നതില്‍ പിശക് ഉണ്ടായിരിക്കുന്നു."
 
-#: yuminstall.py:1269
+#: yuminstall.py:1270
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2053,11 +2068,11 @@ msgstr ""
 "റിപ്പോസിറ്ററികളില്‍ നിന്നും ഗ്റൂപ്പ് സംബന്ധിച്ചുളള വിവരങ്ങള്‍ ലഭ്യമാകുന്നില്ല.  ഇന്‍സ്റ്റോള്‍ ട്റീ "
 "ഉണ്ടാക്കിയതില്‍ ഉളള പിശകാവാം."
 
-#: yuminstall.py:1325 textw/constants_text.py:64
+#: yuminstall.py:1326 textw/constants_text.py:64
 msgid "Edit"
 msgstr "മാറ്റം വരുത്തുക"
 
-#: yuminstall.py:1336 yuminstall.py:1526
+#: yuminstall.py:1337 yuminstall.py:1527
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2071,7 +2086,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1505
+#: yuminstall.py:1506
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2082,7 +2097,7 @@ msgstr ""
 "നിങ്ങള്‍ക്കു് വേണമെങ്കില്‍ ഇന്‍സ്റ്റലേഷനില്‍ നിന്നും പുറത്തു് കടന്നു് തെരഞ്ഞെടുത്ത പാക്കേജുകള്‍ മാറ്റാം. "
 "അല്ലെങ്കില്‍ ഡിപെന്‍ഡന്‍സികളില്ലാതെ പാക്കേജുകള്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യാം."
 
-#: yuminstall.py:1548
+#: yuminstall.py:1549
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2093,15 +2108,15 @@ msgstr ""
 "പക്ഷേ, നിങ്ങള്‍ക്ക് ഇത്രയും ലഭ്യമല്ല. ഒന്നുകില്‍ നിങ്ങള്‍ തിരഞ്ഞെടുത്തവയില്‍ മാറ്റം വരുത്തുക അല്ലെങ്കില്‍ "
 "ഇതില്‍ നിന്നും പുറത്ത് കടക്കുക"
 
-#: yuminstall.py:1569
+#: yuminstall.py:1570
 msgid "Reboot?"
 msgstr "റീബൂട്ട് ചെയ്യണമോ?"
 
-#: yuminstall.py:1570
+#: yuminstall.py:1571
 msgid "The system will be rebooted now."
 msgstr "കംപ്യൂട്ടര്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
-#: yuminstall.py:1715
+#: yuminstall.py:1716
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2110,61 +2125,61 @@ msgstr ""
 "%s-ന്റെ വേര്‍ഷന്‍ അപ്ഗ്രേഡ് ചെയ്യുന്നത് ഒരു പഴയ സിസ്റ്റമില്‍ നിന്നാണ്. നിങ്ങള്‍ക്ക് ഈ അപ്ഗ്രേഡുമായി "
 "മുമ്പോട്ട് തുടരണമോ?"
 
-#: yuminstall.py:1750
+#: yuminstall.py:1751
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of %(arch)"
-"s.  This is likely to not succeed.  Are you sure you wish to continue the "
-"upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of "
+"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
+"the upgrade process?"
 msgstr ""
 "നിങ്ങള്‍ പരിഷ്കരിക്കുന്ന %(myarch)s ആര്‍ക്കിറ്റക്ചറിന്റെ ലക്കം %(productName)s ആകുന്നു. പക്ഷേ, "
 "ഇത് നിങ്ങള്‍ മുമ്പ് ഇന്‍സ്റ്റോള്‍ ചെയ്ത %(arch)s-ന്റെ ആര്‍ക്കിറ്റക്ചറുമായി പൊരുത്തപ്പെടുന്നില്ല.  ഇത് "
 "ശരിയാകുമെന്ന പ്രതീക്ഷ വളരെകുറവാണ്. നിങ്ങള്‍ക്ക് ഈ പരിഷ്കാര പ്രക്രിയയുമായി മുമ്പോട്ട് പോകണമെന്ന് "
 "ഉറപ്പാണോ?"
 
-#: yuminstall.py:1797
+#: yuminstall.py:1798
 msgid "Post Upgrade"
 msgstr "പോസ്റ്റ് അപ്രഗേഡ്"
 
-#: yuminstall.py:1798
+#: yuminstall.py:1799
 msgid "Performing post-upgrade configuration"
 msgstr "പോസ്റ്റ് അപ്രഗേഡ് ക്രമീകരണം നടത്തുന്നു"
 
-#: yuminstall.py:1800
+#: yuminstall.py:1801
 msgid "Post Installation"
 msgstr "പോസ്റ്റ് ഇന്‍സ്റ്റലേഷന്‍"
 
-#: yuminstall.py:1801
+#: yuminstall.py:1802
 msgid "Performing post-installation configuration"
 msgstr "പോസ്റ്റ് ഇന്‍സ്റ്റലേഷന്‍ ക്രമീകരണം നടത്തുന്നു"
 
-#: yuminstall.py:2039
+#: yuminstall.py:2040
 msgid "Installation Starting"
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ ആരംഭിക്കുന്നു"
 
-#: yuminstall.py:2040
+#: yuminstall.py:2041
 msgid "Starting installation process"
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ പ്രക്രിയ ആരംഭിക്കുന്നു"
 
-#: yuminstall.py:2078
+#: yuminstall.py:2079
 msgid "Dependency Check"
 msgstr "ഡിപഡന്‍സിയുടെ പരിശോധന"
 
-#: yuminstall.py:2079
+#: yuminstall.py:2080
 msgid "Checking dependencies in packages selected for installation"
 msgstr "ഇന്‍സ്റ്റലേഷനായി തെരഞ്ഞെടുത്തിരിക്കുന്ന പാക്കേജുകളില്‍ ഡിപഡന്‍സികളുടെ പരിശോധന നടത്തുന്നു"
 
-#: yuminstall.py:2135 yuminstall.py:2151
+#: yuminstall.py:2136 yuminstall.py:2152
 msgid "Retrieving installation information."
 msgstr "ഇന്‍സ്റ്റലേഷന്റെ വിവരങ്ങള്‍ ലഭ്യമാക്കുന്നു."
 
-#: yuminstall.py:2137 yuminstall.py:2153
+#: yuminstall.py:2138 yuminstall.py:2154
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "%s-നുളള ഇന്‍സ്റ്റലേഷന്‍ വിവരങ്ങള്‍ ലഭ്യമാക്കുന്നു."
 
-#: yuminstall.py:2138 yuminstall.py:2154
+#: yuminstall.py:2139 yuminstall.py:2155
 msgid "Installation Progress"
 msgstr "ഇന്‍സ്റ്റോലേഷന്റെ സ്ഥിതി"
 
@@ -2278,7 +2293,8 @@ msgid "_Use Anyway"
 msgstr "_എങ്ങനെയാണെങ്കിലും ഉപയോഗിക്കുക"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
-msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgid ""
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr "അടയാളവാക്കില്‍ ഉപയോഗിക്കുവാന്‍ പാടില്ലാത്ത non-ascii അക്ഷരങ്ങള്‍ നല്‍കിയിരിക്കുന്നു."
 
 #: iw/advanced_storage.py:86
@@ -2366,7 +2382,8 @@ msgid "Shrink Current System"
 msgstr "നിലവിലുള്ള സിസ്റ്റം ചെറുതാക്കുക"
 
 #: iw/autopart_type.py:262
-msgid "Shrinks existing partitions to create free space for the default layout."
+msgid ""
+"Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 "സ്വതവേയുള്ള ശൈലിയ്ക്കു് വേണ്ടി ഉപയോഗിക്കാത്ത സ്ഥലം സജ്ജമാക്കുന്നതിനായി നിലവിലുള്ള പാര്‍ട്ടീഷനുകള്‍ "
 "ചെറുതാക്കുക."
@@ -2737,9 +2754,9 @@ msgstr "മുന്നോട്ട് പോവുക(_o)"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
-"10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is larger than the smallest physical volume "
+"(%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 "തിരഞ്ഞെടുത്തിരിക്കുന്ന സംഖ്യ (%(curpe)10.2f MB) വോള്യം ഗ്രൂപ്പിലുളള ഏറ്റവും ചെറിയ ഫിസിക്കല്‍ "
 "വോള്യത്തിനേക്കാള്‍ (%(maxpvsize)10.2f MB) വലുതായതിനാല്‍ ഫിസിക്കല്‍ എക്സ്റ്റന്‍ഡ് വലിപ്പം "
@@ -2748,9 +2765,9 @@ msgstr ""
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
-"volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
+"physical volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 "തിരഞ്ഞെടുത്തിരിക്കുന്ന സംഖ്യ (%(curpe)10.2f MB) വോള്യം ഗ്രൂപ്പിലുളള ഏറ്റവും ചെറിയ ഫിസിക്കല്‍ "
 "വോള്യത്തിന്റെ (%(maxpvsize)10.2f MB) വലിപ്പത്തേക്കാള്‍ വലുതായതിനാല്‍ ഫിസിക്കല്‍ എക്സ്റ്റന്‍ഡ് "
@@ -2897,12 +2914,12 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group (%"
-"(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group "
+"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
-"ഈ %(size)d MB ലോജിക്കല്‍ വോള്യമും മറ്റു് ലോജിക്കല്‍ വോള്യമുകളും കൂടി ചേരുമ്പോഴുള്ള വ്യാപ്തി, %"
-"(tempvgsize)d MB വോള്യം ഗ്രൂപ്പിനേക്കാള്‍ കൂടുതലാണു്.  ദയവായി വോള്യം ഗ്രൂപ്പ് വലുതാക്കുക "
+"ഈ %(size)d MB ലോജിക്കല്‍ വോള്യമും മറ്റു് ലോജിക്കല്‍ വോള്യമുകളും കൂടി ചേരുമ്പോഴുള്ള വ്യാപ്തി, "
+"%(tempvgsize)d MB വോള്യം ഗ്രൂപ്പിനേക്കാള്‍ കൂടുതലാണു്.  ദയവായി വോള്യം ഗ്രൂപ്പ് വലുതാക്കുക "
 "അല്ലെങ്കില്‍ ലോജിക്കല്‍ വോള്യം ചെറുതാക്കുക."
 
 #: iw/lvm_dialog_gui.py:829
@@ -3228,12 +3245,14 @@ msgid "Partitioning"
 msgstr "പാര്‍ട്ടീഷനിങ്"
 
 #: iw/partition_gui.py:850
-msgid "The partitioning scheme you requested caused the following critical errors."
+msgid ""
+"The partitioning scheme you requested caused the following critical errors."
 msgstr "നിങ്ങള്‍ ആവശ്യപ്പെട്ട് പാര്‍ട്ടീഷനിങ് ഉപാധി താഴെ പറയുന്ന പിഴവുകള്‍ നല്‍കിയിരിക്കുന്നു."
 
 #: iw/partition_gui.py:852
 #, python-format
-msgid "You must correct these errors before you continue your installation of %s."
+msgid ""
+"You must correct these errors before you continue your installation of %s."
 msgstr "%s-ന്റെ ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകുന്നതിന് മുമ്പ് തന്നെ ഈ പിഴവുകള്‍ തിരുത്തിയിരിക്കണം."
 
 #: iw/partition_gui.py:858
@@ -3624,8 +3643,8 @@ msgstr ""
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on %"
-"(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on "
+"%(bootDev)s."
 msgstr ""
 "നിലവില്‍ %(bootDev)s-ല്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്തിട്ടുളള %(type)s ബൂട്ട് ലോഡര്‍ ഇന്‍സ്റ്റോളര്‍ "
 "കണ്ടുപിടിച്ചിരിക്കുന്നു."
@@ -3670,9 +3689,9 @@ msgstr "ഫയല്‍ സിസ്റ്റമുകള്‍ നീക്ക�
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in %(productName)"
-"s.  This installation program can migrate formatted partitions without data "
-"loss.\n"
+"several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -3690,8 +3709,8 @@ msgstr "Swap പാര്‍ട്ടീഷന്‍ പരിഷ്കരിക
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have "
+"%dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "മറ്റ് പഴയ കേര്‍ണലുകളേക്കാള്‍, RAM-ന്റെ രണ്ടിരട്ടി സ്ഥലം 2.4 അല്ലെങ്കില്‍ പുതിയ കേര്‍ണലുകളുടെ swap-"
@@ -3755,7 +3774,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "സ്വാപ്പ് ഫൈലിന്റെ വലിപ്പം "
 
 #: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:187
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "നിങ്ങള്‍ തിരഞ്ഞെടുത്ത swap പാര്‍ട്ടീഷന് ആവശ്യമുളള സ്ഥലം ഡിവൈസില്‍ ലഭ്യമല്ല."
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
@@ -3960,7 +3980,8 @@ msgstr "ഡ്രൈവര്‍ ഡിസ്ക്ക് സോഴ്സ്"
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr "ഒരു ഡ്രൈവര്‍ ഡിസ്കിന് ഉറവിടമായി അനേഘം ഡിവൈസുകള്‍ ലഭ്യമാണ്.  നിങ്ങള്‍ക്ക് ഇതില്‍ ഏത് ഉപയോഗിക്കണം?"
+msgstr ""
+"ഒരു ഡ്രൈവര്‍ ഡിസ്കിന് ഉറവിടമായി അനേഘം ഡിവൈസുകള്‍ ലഭ്യമാണ്.  നിങ്ങള്‍ക്ക് ഇതില്‍ ഏത് ഉപയോഗിക്കണം?"
 
 #: loader/driverdisk.c:439
 msgid ""
@@ -4085,7 +4106,8 @@ msgstr "ഡ്രൈവര്‍ ഡിസ്ക്ക് ലോഡ് ചെയ
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "നിങ്ങള്‍ക്ക് സ്വയം ചേര്‍ക്കുന്നതിനായി ഡ്രൈവുകള്‍ ലഭ്യമല്ല.  നിങ്ങള്‍ക്ക് ഒരു ഡ്രൈവര്‍ ഡിസ്ക് ഉപയോഗിക്കണമോ?"
+msgstr ""
+"നിങ്ങള്‍ക്ക് സ്വയം ചേര്‍ക്കുന്നതിനായി ഡ്രൈവുകള്‍ ലഭ്യമല്ല.  നിങ്ങള്‍ക്ക് ഒരു ഡ്രൈവര്‍ ഡിസ്ക് ഉപയോഗിക്കണമോ?"
 
 #: loader/driverselect.c:170
 msgid ""
@@ -4116,7 +4138,8 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr "നിങ്ങളുടെ സിസ്റ്റമില്‍ ഹാര്‍ഡ് ഡ്രൈവുകള്‍ ലഭ്യമല്ല! നിങ്ങള്‍ക്ക് അഡീഷണല്‍ ഡിവൈസുകള്‍ ക്രമീകരിക്കണമോ?"
+msgstr ""
+"നിങ്ങളുടെ സിസ്റ്റമില്‍ ഹാര്‍ഡ് ഡ്രൈവുകള്‍ ലഭ്യമല്ല! നിങ്ങള്‍ക്ക് അഡീഷണല്‍ ഡിവൈസുകള്‍ ക്രമീകരിക്കണമോ?"
 
 #: loader/hdinstall.c:226
 #, c-format
@@ -4217,8 +4240,10 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s-ലേക്ക് സ്വാഗതം, %s-നായി - റെസ്ക്യൂ മോഡ്"
 
 #: loader/lang.c:65 loader/loader.c:251
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 
 #: loader/lang.c:370
 msgid "Choose a Language"
@@ -4552,7 +4577,8 @@ msgid "Missing Information"
 msgstr "ലഭ്യമല്ലാത്ത വിവരം"
 
 #: loader/net.c:1118
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "നിങ്ങള്‍ ശരിയായ IPv4 അഡ്രസ്സും നെറ്റ്‌വര്‍ക്ക് മാസ്കും CIDR പ്രിഫിക്സും നല്‍കേണ്ടതാണ്."
 
 #: loader/net.c:1126
@@ -4704,7 +4730,8 @@ msgstr "ലഭ്യമാക്കുന്നു"
 
 #: loader/urls.c:262
 #, c-format
-msgid "Please enter the URL containing the %s installation image on your server."
+msgid ""
+"Please enter the URL containing the %s installation image on your server."
 msgstr "നിങ്ങളുടെ സര്‍വറില്‍ %s എന്ന ഇന്‍സ്റ്റലേഷന്‍ ചിത്രം അടങ്ങുന്ന യുആര്‍എല്‍ ദയവായി നല്‍കുക."
 
 #: loader/urls.c:280
@@ -4921,11 +4948,12 @@ msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
-"നിങ്ങളുടെ %(mount)s പാര്‍ട്ടീഷന്‍ %(size)s മെഗാബൈറ്റിനേക്കാള്‍ കുറവാണു്. ഒരു സാധാരണ %"
-"(productName)s ഇന്‍സ്റ്റോളിനു് ആവശ്യമുള്ളതിനേക്കാള്‍ കുറവാണിതു്."
+"നിങ്ങളുടെ %(mount)s പാര്‍ട്ടീഷന്‍ %(size)s മെഗാബൈറ്റിനേക്കാള്‍ കുറവാണു്. ഒരു സാധാരണ "
+"%(productName)s ഇന്‍സ്റ്റോളിനു് ആവശ്യമുള്ളതിനേക്കാള്‍ കുറവാണിതു്."
 
 #: storage/__init__.py:1013
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "ഒരു USB ഡിവൈസില്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യപ്പെടുന്നു.  ഒരു പ്രവര്‍ത്തിക്കുന്ന സിസ്റ്റം ഉണ്ടാക്കുവാന്‍ ഇത് "
 "സഹായിക്കുകയോ സഹായിക്കാതെയിരിക്കുകയോ ചെയ്യാം."
@@ -4956,7 +4984,8 @@ msgstr ""
 
 #: storage/__init__.py:1035
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ഈ മൌണ്ട് പോയിന്റ് അസാധുവാണു്.  %s ഡയറക്ടറി / ഫയല്‍ സിസ്റ്റത്തിലായിരിക്കണം."
 
 #: storage/__init__.py:1039
@@ -5179,12 +5208,12 @@ msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] "ലിനക്സിനൊപ്പം ഉപയോഗിക്കുവാന്‍ %d ഡിഎഎസ്ഡി ഡിവൈസ് തയ്യാറാക്കുന്നു..."
 msgstr[1] "ലിനക്സിനൊപ്പം ഉപയോഗിക്കുവാന്‍ %d ഡിഎഎസ്ഡി ഡിവൈസ് തയ്യാറാക്കുന്നു..."
 
-#: storage/devicelibs/lvm.py:315
+#: storage/devicelibs/lvm.py:316
 #, python-format
 msgid "vginfo failed for %s"
 msgstr "%s-ല്‍ vginfo പരാജയപ്പെട്ടു"
 
-#: storage/devicelibs/lvm.py:344
+#: storage/devicelibs/lvm.py:345
 #, python-format
 msgid "lvs failed for %s"
 msgstr "%s-ല്‍ lvs പരാജയപ്പെട്ടു"
@@ -5227,7 +5256,7 @@ msgstr ""
 "നിങ്ങള്‍ ഇത് വേണ്ടെന്ന് വച്ചാല്‍, ഇന്‍സ്റ്റലേഷന്‍ സമയത്ത് ഡിവൈസിന്റെ ഉള്ളടക്കം നിങ്ങള്‍ക്ക് "
 "ലഭ്യമാകുന്നതല്ല."
 
-#: storage/devicetree.py:1904 storage/devicetree.py:1952
+#: storage/devicetree.py:1897 storage/devicetree.py:1945
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "സ്ഥിരതയില്ലാത്ത ഒരു LVM വോള്യം ഗ്രൂപ്പിന്റെ ഭാഗമാണു് ഈ പാര്‍ട്ടീഷന്‍."
 
@@ -5502,15 +5531,16 @@ msgstr "WWPN %(wwpn)s zFCP ഡിവൈസ് %(devnum)s-ല്‍ ലഭ്യ�
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
-"s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
-"zFCP ഡിവൈസ് %(devnum)s-ല്‍ WWPN %(wwpn)s-ലേക്ക് LUN %(fcplun)s ചേര്‍ക്കുവാന്‍ സാധ്യമല്ല (%"
-"(e)s)."
+"zFCP ഡിവൈസ് %(devnum)s-ല്‍ WWPN %(wwpn)s-ലേക്ക് LUN %(fcplun)s ചേര്‍ക്കുവാന്‍ സാധ്യമല്ല "
+"(%(e)s)."
 
 #: storage/zfcp.py:182
 #, python-format
-msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgid ""
+"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
 msgstr ""
 "LUN %(fcplun)s, zFCP ഡിവൈസ് %(devnum)s-ലുള്ള WWPN %(wwpn)s നിലവില്‍ "
 "ക്രമീകരിച്ചിരിക്കുന്നു."
@@ -5536,8 +5566,8 @@ msgstr ""
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
-"s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
+"%(fcplun)s (%(e)s)."
 msgstr ""
 "zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s)-ന്റെ SCSI ഡിവൈസ് ശരിയായി വെട്ടി "
 "നീക്കുവാന്‍ സാധ്യമായില്ല."
@@ -5545,16 +5575,17 @@ msgstr ""
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
-"(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
-"LUN %(fcplun)s നീക്കം ചെയ്യുവാന്‍ സാധ്യമായില്ല. WWPN %(wwpn)s-ല്‍, zFCP ഡിവൈസ് %"
-"(devnum)s-ലാണിതു് (%(e)s)."
+"LUN %(fcplun)s നീക്കം ചെയ്യുവാന്‍ സാധ്യമായില്ല. WWPN %(wwpn)s-ല്‍, zFCP ഡിവൈസ് "
+"%(devnum)s-ലാണിതു് (%(e)s)."
 
 #: storage/zfcp.py:287
 #, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "zFCP ഡിവൈസ് %(devnum)s-ല്‍ നിന്നും WWPN %(wwpn)s നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല (%(e)s)."
+msgstr ""
+"zFCP ഡിവൈസ് %(devnum)s-ല്‍ നിന്നും WWPN %(wwpn)s നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല (%(e)s)."
 
 #: storage/zfcp.py:313
 #, python-format
@@ -5693,7 +5724,8 @@ msgstr "ഈ ഇന്‍സ്റ്റലേഷനു വേണ്ടി നി
 
 #: textw/partition_text.py:99
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> തിരഞ്ഞെടുക്കല്‍   |   <F2> ഡ്രൈവ് ചേര്‍ക്കുക   |   <F12> അടുത്ത് സ്ക്രീന്‍"
+msgstr ""
+"<Space>,<+>,<-> തിരഞ്ഞെടുക്കല്‍   |   <F2> ഡ്രൈവ് ചേര്‍ക്കുക   |   <F12> അടുത്ത് സ്ക്രീന്‍"
 
 #: textw/progress_text.py:46
 msgid "Package Installation"
@@ -5723,8 +5755,8 @@ msgstr "പുതിയ ബൂട്ട് ലോഡര്‍ കോണ്‍ഫ
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in %"
-"(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
@@ -5896,7 +5928,8 @@ msgstr "റൂട്ടിനുള്ള അടയാളവാക്ക്:"
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr "സിസ്റ്റം കൈകാര്യം ചെയ്യുന്നതിനാണു് റൂട്ട് അക്കൌണ്ട്. റൂട്ട് ഉപയോക്താവിനുള്ള അടയാളവാക്ക് നല്‍കുക."
+msgstr ""
+"സിസ്റ്റം കൈകാര്യം ചെയ്യുന്നതിനാണു് റൂട്ട് അക്കൌണ്ട്. റൂട്ട് ഉപയോക്താവിനുള്ള അടയാളവാക്ക് നല്‍കുക."
 
 #: ui/adddrive.glade.h:1
 msgid "Add _FCoE SAN"
@@ -5947,7 +5980,8 @@ msgstr ""
 "ഹാര്‍ഡ് ഡ്രൈവ്"
 
 #: ui/addrepo.glade.h:9
-msgid "Please provide the configuration information for this software repository."
+msgid ""
+"Please provide the configuration information for this software repository."
 msgstr "ദയവായി ഈ സോഫ്റ്റ്‌വെയര്‍ സംഭരണിയ്ക്കുല്ള ക്രമീകരണ വിവരങ്ങള്‍ വ്യക്തമാക്കുക."
 
 #: ui/addrepo.glade.h:10
@@ -6015,7 +6049,8 @@ msgid "Volume to Shrink"
 msgstr "മാറ്റം വരുത്തേണ്ട വോള്യം"
 
 #: ui/autopart.glade.h:4
-msgid "Which partition would you like to shrink to make room for your installation?"
+msgid ""
+"Which partition would you like to shrink to make room for your installation?"
 msgstr "ഇന്‍സ്റ്റലേഷന് വേണ്ടി നിങ്ങള്‍ക്ക് ഏത് പാര്‍ട്ടീഷന്റെ വ്യാപ്തി ആണ് മാറ്റേണ്ടത്?"
 
 #: ui/autopart.glade.h:5
@@ -6088,7 +6123,8 @@ msgstr ""
 "ഉപയോഗിച്ചു് ദയവായി സൂചിപ്പിക്കുക. ഒപ്പം ബൂട്ട്ലോഡര്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്തിട്ടുള്ള സിസ്റ്റം ഡ്രൈവും നല്‍കുക."
 
 #: ui/create-storage.glade.h:1
-msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">ഒരു RAID ശൈലിയിലുള്ള പാര്‍ട്ടീഷന്‍ തയ്യാറാക്കുക</"
 "span>"
@@ -6102,14 +6138,17 @@ msgstr ""
 "തയ്യാറാക്കുക</span>"
 
 #: ui/create-storage.glade.h:3
-msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">ഒരു എല്‍വിഎം ശൈലിയിലുള്ള പാര്‍ട്ടീഷന്‍ തയ്യാറാക്കുക</"
 "span>"
 
 #: ui/create-storage.glade.h:4
-msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr "<span size=\"small\" color=\"gray\">പൊതു ആവശ്യങ്ങള്‍ക്കുള്ള പാര്‍ട്ടീഷന്‍ സജ്ജമാക്കല്‍</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">പൊതു ആവശ്യങ്ങള്‍ക്കുള്ള പാര്‍ട്ടീഷന്‍ സജ്ജമാക്കല്‍</span>"
 
 #: ui/create-storage.glade.h:5
 msgid ""
@@ -6187,7 +6226,8 @@ msgstr "NIC:"
 msgid ""
 "Please select the network interface which is connected to\n"
 "your FCoE switch."
-msgstr "ദയവായി നിങ്ങളുടെ FCoE സ്വിച്ചിലേക്ക് കണക്ട് ചെയ്തിട്ടുള്ള നെറ്റ്‌വര്‍ക്ക് ഇന്റര്‍ഫെയിസ് തെരഞ്ഞെടുക്കുക."
+msgstr ""
+"ദയവായി നിങ്ങളുടെ FCoE സ്വിച്ചിലേക്ക് കണക്ട് ചെയ്തിട്ടുള്ള നെറ്റ്‌വര്‍ക്ക് ഇന്റര്‍ഫെയിസ് തെരഞ്ഞെടുക്കുക."
 
 #: ui/fcoe-config.glade.h:5
 msgid "Use DCB"
@@ -6415,8 +6455,8 @@ msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"ഒന്നുകില്‍ നിങ്ങള്‍ക്കു് തെരഞ്ഞെടുത്ത സോഫ്റ്റ്‌വെയര്‍ ഇപ്പോള്‍ ക്രമീകരിയ്ക്കാം, അല്ലെങ്കില്‍ "
-"സോഫ്റ്റ്‌വെയര്‍ മാനേജ്മെന്റ് പ്രയോഗം വഴി പിന്നീടു് ഇന്‍സ്റ്റോള്‍ ചെയ്യുക."
+"ഒന്നുകില്‍ നിങ്ങള്‍ക്കു് തെരഞ്ഞെടുത്ത സോഫ്റ്റ്‌വെയര്‍ ഇപ്പോള്‍ ക്രമീകരിയ്ക്കാം, അല്ലെങ്കില്‍ സോഫ്റ്റ്‌വെയര്‍ "
+"മാനേജ്മെന്റ് പ്രയോഗം വഴി പിന്നീടു് ഇന്‍സ്റ്റോള്‍ ചെയ്യുക."
 
 #: ui/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6699,4 +6739,3 @@ msgstr "വെല്‍ഷ്"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "സുളു"
-

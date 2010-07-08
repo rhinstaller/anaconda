@@ -1,7 +1,7 @@
 # translation of anaconda.rhel6-branch.po to Korean
 # translation of ko.po to
 # translation of ko.po to
-#
+# 
 # Michelle J Kim <mkim@redhat.com>, 2003,2004.
 # David Sungmin Joo <djoo@redhat.com>, 2004.
 # Michelle Ji Yeen Kim <mkim@redhat.com>, 2005, 2006.
@@ -11,10 +11,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-06-29 10:36-1000\n"
+"POT-Creation-Date: 2010-07-08 11:47-1000\n"
 "PO-Revision-Date: 2010-06-30 \n"
 "Last-Translator: Hyunsok Oh <hoh@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
+"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -142,9 +143,9 @@ msgstr ""
 "의 공간이 부족한 것 같습니다."
 
 #: backend.py:185 image.py:289 livecd.py:198 livecd.py:440
-#: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:459
-#: yuminstall.py:870 yuminstall.py:988 yuminstall.py:993 yuminstall.py:1268
-#: yuminstall.py:1335 yuminstall.py:1525 yuminstall.py:1547
+#: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:460
+#: yuminstall.py:871 yuminstall.py:989 yuminstall.py:994 yuminstall.py:1269
+#: yuminstall.py:1336 yuminstall.py:1526 yuminstall.py:1548
 #: iw/advanced_storage.py:85 iw/advanced_storage.py:95
 #: iw/advanced_storage.py:168 iw/advanced_storage.py:171
 #: iw/advanced_storage.py:199 iw/autopart_type.py:96 iw/cleardisks_gui.py:44
@@ -170,7 +171,7 @@ msgstr "오류"
 
 #: bootloader.py:55 bootloader.py:221 bootloader.py:227 gui.py:1178
 #: gui.py:1238 image.py:82 installinterfacebase.py:46 text.py:481 text.py:541
-#: yuminstall.py:1504 yuminstall.py:1714 yuminstall.py:1749
+#: yuminstall.py:1505 yuminstall.py:1715 yuminstall.py:1750
 #: iw/blpasswidget.py:148 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: textw/upgrade_text.py:191
@@ -191,16 +192,16 @@ msgstr ""
 
 #: bootloader.py:60 gui.py:1129 gui.py:1274 gui.py:1489 image.py:91
 #: kickstart.py:155 livecd.py:205 livecd.py:447 packages.py:161 upgrade.py:58
-#: upgrade.py:199 yuminstall.py:252 yuminstall.py:990 yuminstall.py:995
-#: yuminstall.py:1075 yuminstall.py:1081 yuminstall.py:1237 yuminstall.py:1264
-#: yuminstall.py:1325 yuminstall.py:1512 yuminstall.py:1531 yuminstall.py:1554
+#: upgrade.py:199 yuminstall.py:252 yuminstall.py:991 yuminstall.py:996
+#: yuminstall.py:1076 yuminstall.py:1082 yuminstall.py:1238 yuminstall.py:1265
+#: yuminstall.py:1326 yuminstall.py:1513 yuminstall.py:1532 yuminstall.py:1555
 #: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
 #: storage/__init__.py:1980
 msgid "_Exit installer"
 msgstr "설치 프로그램 종료(_E)"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1359
-#: kickstart.py:1398 upgrade.py:58 yuminstall.py:1330 yuminstall.py:1513
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1370
+#: kickstart.py:1409 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
 #: iw/partition_gui.py:1601 storage/__init__.py:1981
 msgid "_Continue"
 msgstr "계속 진행(_C)"
@@ -237,8 +238,8 @@ msgstr "완료됨"
 msgid "In progress"
 msgstr "진행 중"
 
-#: cmdline.py:88 gui.py:1269 kickstart.py:1143 kickstart.py:1223
-#: kickstart.py:1231 kickstart.py:1269 kickstart.py:1277 text.py:388
+#: cmdline.py:88 gui.py:1269 kickstart.py:1154 kickstart.py:1234
+#: kickstart.py:1242 kickstart.py:1280 kickstart.py:1288 text.py:388
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -406,8 +407,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization.%"
-"(details)s"
+"This action may also be applied to all other disks needing reinitialization."
+"%(details)s"
 msgstr ""
 "드라이브 처리중 오류 발생:\n"
 "\n"
@@ -419,8 +420,8 @@ msgstr ""
 "\n"
 "재 초기화시 모든 데이터는 사라지게 됩니다!\n"
 "\n"
-"재 초기화를 필요로 하는 모든 디스크에도 본 처리가 적용될 수도 있습니다.%"
-"(details)s"
+"재 초기화를 필요로 하는 모든 디스크에도 본 처리가 적용될 수도 있습니다."
+"%(details)s"
 
 #: gui.py:1188 gui.py:1246 installinterfacebase.py:74 text.py:491 text.py:549
 msgid "_Ignore"
@@ -481,8 +482,8 @@ msgstr ""
 msgid "_Exit"
 msgstr "종료(_E)"
 
-#: gui.py:1401 image.py:164 image.py:194 livecd.py:205 yuminstall.py:860
-#: yuminstall.py:1264 yuminstall.py:1325 yuminstall.py:1531
+#: gui.py:1401 image.py:164 image.py:194 livecd.py:205 yuminstall.py:861
+#: yuminstall.py:1265 yuminstall.py:1326 yuminstall.py:1532
 msgid "_Retry"
 msgstr "재시도(_R)"
 
@@ -490,7 +491,7 @@ msgstr "재시도(_R)"
 msgid "The system will now reboot."
 msgstr "이제 시스템을 재부팅합니다. "
 
-#: gui.py:1404 image.py:251 packages.py:364 yuminstall.py:1572
+#: gui.py:1404 image.py:251 packages.py:364 yuminstall.py:1573
 msgid "_Reboot"
 msgstr "재부팅(_R)"
 
@@ -577,8 +578,8 @@ msgstr "설치 매체가 필요합니다."
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following %"
-"(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following "
+"%(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
@@ -591,8 +592,8 @@ msgstr ""
 "설치를 계속하기 전에 위의 디스크들을 준비하십시오. 만약 설치를 중단하고 종료"
 "하시려면, \"Reboot\"를 선택하십시오."
 
-#: image.py:251 livecd.py:446 packages.py:364 upgrade.py:198 yuminstall.py:995
-#: yuminstall.py:1081 yuminstall.py:1512 yuminstall.py:1554 yuminstall.py:1572
+#: image.py:251 livecd.py:446 packages.py:364 upgrade.py:198 yuminstall.py:996
+#: yuminstall.py:1082 yuminstall.py:1513 yuminstall.py:1555 yuminstall.py:1573
 #: ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr "뒤로(_B)"
@@ -654,8 +655,8 @@ msgstr "포맷(_F)"
 #: iutil.py:852
 #, python-format
 msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
-"s)"
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr ""
 "오류 : 오픈시 reIPL 방식을 %(reipl_type)s (%(filename)s: %(e)s)에 설정할 수 "
 "없습니다."
@@ -663,8 +664,8 @@ msgstr ""
 #: iutil.py:863
 #, python-format
 msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
-"(e)s)"
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr ""
 "오류: 기록시 reIPL 방식을 %(reipl_type)s (%(filename)s: %(e)s)에 설정할 수 없"
 "습니다."
@@ -672,8 +673,8 @@ msgstr ""
 #: iutil.py:872
 #, python-format
 msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
-"(e)s)"
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr ""
 "오류: 종료시 reIPL 방식을 %(reipl_type)s (%(filename)s: %(e)s)에 설정할 수 없"
 "습니다."
@@ -721,8 +722,8 @@ msgstr "오류: reIPL (%(e)s)에 대한 FCP 특성 %(reipl_property)s을(를) �
 #: iutil.py:990
 #, python-format
 msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
-"(wwpn)s and LUN %(lun)s to continue installation"
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
+"%(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 "종료 후, WWPN %(wwpn)s 및 LUN %(lun)s를 사용하여 FCP %(device)s에서 수동으로 "
 "IPL을 실행하여 설치를 계속 진행하십시오 "
@@ -750,15 +751,15 @@ msgid ""
 "examine the output in %(msgs)s.  This is a fatal error and installation will "
 "be aborted.  Press the OK button to exit the installer."
 msgstr ""
-"%(lineno)s 행에서 킥스타트 스크립트를 실행하는 도중 오류가 발생되었습니다. %"
-"(msgs)s에서 출력된 내용을 살펴보시기 바랍니다. 치명적인 오류이므로 설치를 중"
+"%(lineno)s 행에서 킥스타트 스크립트를 실행하는 도중 오류가 발생되었습니다. "
+"%(msgs)s에서 출력된 내용을 살펴보시기 바랍니다. 치명적인 오류이므로 설치를 중"
 "지합니다. 확인 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: kickstart.py:122 kickstart.py:124
 msgid "Scriptlet Failure"
 msgstr "Scriptlet 실패"
 
-#: kickstart.py:149 rescue.py:262 yuminstall.py:1232 iw/task_gui.py:307
+#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:307
 msgid "No Network Available"
 msgstr "사용 가능한 네트워크가 없음 "
 
@@ -782,37 +783,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: kickstart.py:1242
+#: kickstart.py:1253
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "%%ksappend 행을 처리하는 도중 오류가 발생했습니다: %s "
 
-#: kickstart.py:1245
+#: kickstart.py:1256
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "%%ksappend 행을 처리하는 도중 알려지지 않은 오류가 발생했습니다: %s "
 
-#: kickstart.py:1300 livecd.py:228
+#: kickstart.py:1311 livecd.py:228
 msgid "Post-Installation"
 msgstr "설치후 설정"
 
-#: kickstart.py:1301
+#: kickstart.py:1312
 msgid "Running post-installation scripts"
 msgstr "설치후 스크립트를 실행 중 입니다 "
 
-#: kickstart.py:1317
+#: kickstart.py:1328
 msgid "Pre-Installation"
 msgstr "설치 전 설정"
 
-#: kickstart.py:1318
+#: kickstart.py:1329
 msgid "Running pre-installation scripts"
 msgstr "설치전 스크립트를 실행 중 입니다 "
 
-#: kickstart.py:1350
+#: kickstart.py:1361
 msgid "Missing Package"
 msgstr "패키지 없음"
 
-#: kickstart.py:1351
+#: kickstart.py:1362
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -821,19 +822,19 @@ msgstr ""
 "설치해야 할 '%s'팩키지를 지정해 주십시오. 이 팩키지는 존재하지 않습니다. 설치"
 "를 계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까? "
 
-#: kickstart.py:1357 kickstart.py:1396
+#: kickstart.py:1368 kickstart.py:1407
 msgid "_Abort"
 msgstr "중지(_A)"
 
-#: kickstart.py:1358 kickstart.py:1397
+#: kickstart.py:1369 kickstart.py:1408
 msgid "_Ignore All"
 msgstr "모두 무시(_I) "
 
-#: kickstart.py:1388
+#: kickstart.py:1399
 msgid "Missing Group"
 msgstr "그룹 없음"
 
-#: kickstart.py:1389
+#: kickstart.py:1400
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -842,7 +843,7 @@ msgstr ""
 "설치해야 할 '%s'그룹을 지정해 주십시오. 이 그룹은 존재하지 않습니다. 설치를 "
 "계속 진행하시겠습니까 아니면 설치를 중단하시겠습니까? "
 
-#: kickstart.py:1505
+#: kickstart.py:1516
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -904,8 +905,8 @@ msgstr "호스트명은 255자 이하의 문자로 구성되어야 합니다."
 
 #: network.py:68
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
-"9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
+"'0-9'"
 msgstr ""
 "호스트명의 첫 문자는 영문자 'a-z', 'A-Z' 또는 '0-9' 사이의 문자만을 이용하여 "
 "지정하셔야 합니다."
@@ -1200,14 +1201,14 @@ msgstr "파티션 설정 오류"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of %"
-"(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of "
+"%(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
-"요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니다. %"
-"(productName)s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시"
-"기 바랍니다.\n"
+"요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니다. "
+"%(productName)s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주"
+"시기 바랍니다.\n"
 "\n"
 "%(errorstr)s"
 
@@ -1909,43 +1910,43 @@ msgstr ""
 "\n"
 "%(productName)s 설치를 위해 올바른 정보를 제공해 주시기 바랍니다.  "
 
-#: yuminstall.py:441
+#: yuminstall.py:442
 msgid "Change Disc"
 msgstr "디스크 교체"
 
-#: yuminstall.py:442
+#: yuminstall.py:443
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
 msgstr ""
 "계속 진행하시려면 %(productName)s 디스크 %(discnum)d을(를) 넣어 주십시오."
 
-#: yuminstall.py:452
+#: yuminstall.py:453
 msgid "Wrong Disc"
 msgstr "부적절한 디스크"
 
-#: yuminstall.py:453
+#: yuminstall.py:454
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "올바른 %s 디스크가 아닙니다."
 
-#: yuminstall.py:460
+#: yuminstall.py:461
 msgid "Unable to access the disc."
 msgstr "디스크를 억세스할 수 없습니다."
 
-#: yuminstall.py:621
+#: yuminstall.py:622
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "%r 리포지터리는 설정에서 이름이 생략되어 있습니다. id를 사용합니다 "
 
-#: yuminstall.py:858 yuminstall.py:860
+#: yuminstall.py:859 yuminstall.py:861
 msgid "Re_boot"
 msgstr "재부팅(_B)"
 
-#: yuminstall.py:858
+#: yuminstall.py:859
 msgid "_Eject"
 msgstr "꺼내기(_E)"
 
-#: yuminstall.py:871
+#: yuminstall.py:872
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1961,61 +1962,61 @@ msgstr ""
 "시스템을 종료하면, 시스템 상태가 불안정하게 되어 다시 설치해야 합니다.\n"
 "\n"
 
-#: yuminstall.py:919
+#: yuminstall.py:920
 msgid "Retrying"
 msgstr "다시 시도 "
 
-#: yuminstall.py:919
+#: yuminstall.py:920
 msgid "Retrying download."
 msgstr "재 다운로드 중. "
 
-#: yuminstall.py:984
+#: yuminstall.py:985
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr "다음과 같은 이유로 트랜젝션 실행 도중 오류가 발생했습니다: %s\n"
 
-#: yuminstall.py:1027 yuminstall.py:1028
+#: yuminstall.py:1028 yuminstall.py:1029
 msgid "file conflicts"
 msgstr "파일 충돌"
 
-#: yuminstall.py:1029
+#: yuminstall.py:1030
 msgid "older package(s)"
 msgstr "이전 팩키지"
 
-#: yuminstall.py:1030
+#: yuminstall.py:1031
 msgid "insufficient disk space"
 msgstr "디스크 공간 부족"
 
-#: yuminstall.py:1031
+#: yuminstall.py:1032
 msgid "insufficient disk inodes"
 msgstr "디스크 inode 부족"
 
-#: yuminstall.py:1032
+#: yuminstall.py:1033
 msgid "package conflicts"
 msgstr "팩키지 충돌"
 
-#: yuminstall.py:1033
+#: yuminstall.py:1034
 msgid "package already installed"
 msgstr "이미 팩키지가 설치됨 "
 
-#: yuminstall.py:1034
+#: yuminstall.py:1035
 msgid "required package"
 msgstr "필요한 팩키지"
 
-#: yuminstall.py:1035
+#: yuminstall.py:1036
 msgid "package for incorrect arch"
 msgstr "아키텍쳐가 잘못된 팩키지"
 
-#: yuminstall.py:1036
+#: yuminstall.py:1037
 msgid "package for incorrect os"
 msgstr "운영체제가 잘못된 팩키지"
 
-#: yuminstall.py:1050
+#: yuminstall.py:1051
 msgid "You need more space on the following file systems:\n"
 msgstr "다음의 파일 시스템에서 더 많은 공간이 필요합니다:\n"
 
-#: yuminstall.py:1063
+#: yuminstall.py:1064
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2024,18 +2025,18 @@ msgstr ""
 "설치된 패키지를 확인할 때 파일 충돌이 발생했습니다:\n"
 "%s\n"
 
-#: yuminstall.py:1066
+#: yuminstall.py:1067
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): %"
-"s.\n"
+"There was an error running your transaction for the following reason(s): "
+"%s.\n"
 msgstr "다음과 같은 이유로 트랜젝션 실행 중 오류가 발생했습니다: %s.\n"
 
-#: yuminstall.py:1073 yuminstall.py:1078
+#: yuminstall.py:1074 yuminstall.py:1079
 msgid "Error Running Transaction"
 msgstr "트랜잭션 실행 중 오류 "
 
-#: yuminstall.py:1233 iw/task_gui.py:308
+#: yuminstall.py:1234 iw/task_gui.py:308
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2043,7 +2044,7 @@ msgstr ""
 "일부 소프트웨어 리포지터리는 네트워크를 필요로하나 시스템에서 네트워크를 활성"
 "화하는 중 오류가 발생했습니다."
 
-#: yuminstall.py:1269
+#: yuminstall.py:1270
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2051,11 +2052,11 @@ msgstr ""
 "리포지터리에서 그룹 정보를 읽을 수 없습니다. 설치 트리의 생성에 문제가 있습니"
 "다."
 
-#: yuminstall.py:1325 textw/constants_text.py:64
+#: yuminstall.py:1326 textw/constants_text.py:64
 msgid "Edit"
 msgstr "편집"
 
-#: yuminstall.py:1336 yuminstall.py:1526
+#: yuminstall.py:1337 yuminstall.py:1527
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2069,7 +2070,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: yuminstall.py:1505
+#: yuminstall.py:1506
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2080,7 +2081,7 @@ msgstr ""
 "다. 설치를 종료하고, 뒤로 가서 패키지 선택을 변경하거나, 의존성이 있는 패키지"
 "가 없는 상태로 설치과정을 계속할 수 있습니다."
 
-#: yuminstall.py:1548
+#: yuminstall.py:1549
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2090,15 +2091,15 @@ msgstr ""
 "선택하신 패키지를 설치하려면 %d MB의 여유 공간이 필요하나 충분한 공간이 없습"
 "니다. 패키지 선택을 바꾸거나 설치 프로그램을 종료하실 수 있습니다."
 
-#: yuminstall.py:1569
+#: yuminstall.py:1570
 msgid "Reboot?"
 msgstr "재부팅하겠습니까?"
 
-#: yuminstall.py:1570
+#: yuminstall.py:1571
 msgid "The system will be rebooted now."
 msgstr "이제 시스템을 재부팅합니다."
 
-#: yuminstall.py:1715
+#: yuminstall.py:1716
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2108,60 +2109,60 @@ msgstr ""
 "으로 보입니다. 따라서 업그레이드를 제대로 실행할 수 없습니다. 그래도 업그레이"
 "드를 계속 진행하시겠습니까?"
 
-#: yuminstall.py:1750
+#: yuminstall.py:1751
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of %(arch)"
-"s.  This is likely to not succeed.  Are you sure you wish to continue the "
-"upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of "
+"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
+"the upgrade process?"
 msgstr ""
 "업그레이그하려는 %(productName)s 릴리즈의 아키텍쳐는 이전에 설치된 %(arch)s "
 "버전 아키텍쳐와 일치하지 않는 %(myarch)s 입니다. 따라서 업그레이드를 제대로 "
 "실행할 수 없습니다. 그래도 업그레이드를 계속 진행하시겠습니까?  "
 
-#: yuminstall.py:1797
+#: yuminstall.py:1798
 msgid "Post Upgrade"
 msgstr "업그레이드후 설정"
 
-#: yuminstall.py:1798
+#: yuminstall.py:1799
 msgid "Performing post-upgrade configuration"
 msgstr "업그레이드 후 설정을 하고 있습니다 "
 
-#: yuminstall.py:1800
+#: yuminstall.py:1801
 msgid "Post Installation"
 msgstr "설치 후 설정 "
 
-#: yuminstall.py:1801
+#: yuminstall.py:1802
 msgid "Performing post-installation configuration"
 msgstr "설치 후 설정을 하고 있습니다  "
 
-#: yuminstall.py:2039
+#: yuminstall.py:2040
 msgid "Installation Starting"
 msgstr "설치 시작 "
 
-#: yuminstall.py:2040
+#: yuminstall.py:2041
 msgid "Starting installation process"
 msgstr "설치 프로세스 시작하기 "
 
-#: yuminstall.py:2078
+#: yuminstall.py:2079
 msgid "Dependency Check"
 msgstr "의존성 검사"
 
-#: yuminstall.py:2079
+#: yuminstall.py:2080
 msgid "Checking dependencies in packages selected for installation"
 msgstr "설치하기로 선택된 패키지의 의존성을 검사하고 있습니다 "
 
-#: yuminstall.py:2135 yuminstall.py:2151
+#: yuminstall.py:2136 yuminstall.py:2152
 msgid "Retrieving installation information."
 msgstr "설치 정보를 가져오고 있습니다. "
 
-#: yuminstall.py:2137 yuminstall.py:2153
+#: yuminstall.py:2138 yuminstall.py:2154
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "%s에 대한 설치 정보를 가저오고 있습니다."
 
-#: yuminstall.py:2138 yuminstall.py:2154
+#: yuminstall.py:2139 yuminstall.py:2155
 msgid "Installation Progress"
 msgstr "설치 절차"
 
@@ -2739,22 +2740,24 @@ msgstr "진행(_o)"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
-"10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is larger than the smallest physical volume "
+"(%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
-"선택하신 값 (%(curpe)10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨값 (%(maxpvsize)"
-"10.2f MB) 보다 큽니다. 물리적 할당 단위 용량을 변경할 수 없습니다."
+"선택하신 값 (%(curpe)10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨값 "
+"(%(maxpvsize)10.2f MB) 보다 큽니다. 물리적 할당 단위 용량을 변경할 수 없습니"
+"다."
 
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
-"volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
+"physical volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
-"선택하신 값 (%(curpe)10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨값 (%(maxpvsize)"
-"10.2f MB) 보다 큽니다. 물리적 할당 단위 용량을 변경할 수 없습니다."
+"선택하신 값 (%(curpe)10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨값 "
+"(%(maxpvsize)10.2f MB) 보다 큽니다. 물리적 할당 단위 용량을 변경할 수 없습니"
+"다."
 
 #: iw/lvm_dialog_gui.py:201
 msgid "Too small"
@@ -2894,8 +2897,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group (%"
-"(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group "
+"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 "이 논리 볼륨에 대해 입력된 크기(%(size)d MB)와 다른 논리 볼륨의 크기를 합하"
@@ -3615,8 +3618,8 @@ msgstr ""
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on %"
-"(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on "
+"%(bootDev)s."
 msgstr ""
 "설치 프로그램이 %(type)s 부트 로더가 현재 %(bootDev)s에 설치된 것을 발견했습"
 "니다."
@@ -3661,9 +3664,9 @@ msgstr "파일시스템 이전"
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in %(productName)"
-"s.  This installation program can migrate formatted partitions without data "
-"loss.\n"
+"several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -3682,8 +3685,8 @@ msgstr "스왑 파티션 업그레이드"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have "
+"%dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "최신 커널(2.4 이상) 부터는 이전의 커널에서 시스템 램 용량의 두배 이상을 스왑 "
@@ -4901,8 +4904,8 @@ msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s install."
 msgstr ""
-"/ 파티션의 용량이 %(min)s MB 보다 작습니다. 이 용량은 일반적으로 %"
-"(productName)s를 설치하기 위해 권장되는 용량보다 작습니다."
+"/ 파티션의 용량이 %(min)s MB 보다 작습니다. 이 용량은 일반적으로 "
+"%(productName)s를 설치하기 위해 권장되는 용량보다 작습니다."
 
 #: storage/__init__.py:969
 #, python-format
@@ -4924,8 +4927,8 @@ msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
-"설정하신 %(mount)s 파티션의 용량이 %(size)s MB 보다 작습니다. 이 용량은 %"
-"(productName)s를 설치하기 위해 권장되는 일반적인 용량보다 작습니다."
+"설정하신 %(mount)s 파티션의 용량이 %(size)s MB 보다 작습니다. 이 용량은 "
+"%(productName)s를 설치하기 위해 권장되는 일반적인 용량보다 작습니다."
 
 #: storage/__init__.py:1013
 msgid ""
@@ -5168,8 +5171,8 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%(path)s 장치를 %(mountpoint)s로 마운트하는 도중 오류가 발생하였습니다: %"
-"(msg)s.  이 는 매우 심각한 오류이므로 설치를 계속 진행할 수 없습니다.\n"
+"%(path)s 장치를 %(mountpoint)s로 마운트하는 도중 오류가 발생하였습니다: "
+"%(msg)s.  이 는 매우 심각한 오류이므로 설치를 계속 진행할 수 없습니다.\n"
 "\n"
 "<Enter> 키를 눌러 설치 프로그램을 종료합니다. "
 
@@ -5184,12 +5187,12 @@ msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] "Linux에서 사용하도록 %d개의 DASD 장치를 준비하는 중"
 
-#: storage/devicelibs/lvm.py:315
+#: storage/devicelibs/lvm.py:316
 #, python-format
 msgid "vginfo failed for %s"
 msgstr "%s에 대해 vginfo 실패 "
 
-#: storage/devicelibs/lvm.py:344
+#: storage/devicelibs/lvm.py:345
 #, python-format
 msgid "lvs failed for %s"
 msgstr "%s에 대해 lvs 실패 "
@@ -5231,7 +5234,7 @@ msgstr ""
 "\n"
 "이 단계를 생략하시면 설치 도중 장치 내용물을 사용할 수 없게 됩니다."
 
-#: storage/devicetree.py:1904 storage/devicetree.py:1952
+#: storage/devicetree.py:1897 storage/devicetree.py:1945
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "이 파티션은 일관성이 없는 LVM 볼륨 그룹의 일부분입니다."
 
@@ -5505,8 +5508,8 @@ msgstr "WWPN %(wwpn)s을(를) zFCP 장치 %(devnum)s에서 찾을 수 없습니�
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
-"s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
 "zFCP 장치 %(devnum)s (%(e)s)에서 LUN %(fcplun)s을(를) WWPN %(wwpn)s에 추가할 "
 "수 없습니다. "
@@ -5540,8 +5543,8 @@ msgstr ""
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
-"s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
+"%(fcplun)s (%(e)s)."
 msgstr ""
 "zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s)의 SCSI 장치를 올바르게 삭제할 수 "
 "없습니다.  "
@@ -5549,8 +5552,8 @@ msgstr ""
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
-"(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
 "zFCP 장치 %(devnum)s (%(e)s) 상의 WWPN %(wwpn)s에서 LUN %(fcplun)s을(를) 제거"
 "할 수 없습니다."
@@ -5728,8 +5731,8 @@ msgstr "새로운 부트로더 설정 작성하기"
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in %"
-"(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
