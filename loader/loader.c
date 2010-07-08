@@ -1824,9 +1824,7 @@ void loaderUsrXHandler(int signum) {
     init_sig = signum;
 }
 
-static int anaconda_trace_init(void) {
-    int isDevelMode = 0;
-    gchar *buf;
+static int anaconda_trace_init(int isDevelMode) {
 
 #ifdef USE_MTRACE
     setenv("MALLOC_TRACE","/malloc",1);
@@ -1836,14 +1834,6 @@ static int anaconda_trace_init(void) {
      * when setting fonts for different languages.  It's also best if this
      * is well before we might take a SEGV, so they'll go to tty8 */
     initializeTtys();
-
-    /* check for development mode early */
-    if (g_file_get_contents("/proc/cmdline", &buf, NULL, NULL) == TRUE) {
-        if (strstr(buf, "devel")) {
-            isDevelMode = 1;
-        }
-        g_free(buf);
-    }
 
     /* set up signal handler unless we want it to crash in devel mode */
     if(!isDevelMode)
@@ -1919,7 +1909,8 @@ static void loadScsiDhModules(void)
 }
 
 int main(int argc, char ** argv) {
-    int rc, ret, pid, status;
+    int i, rc, ret, pid, status;
+    int isDevelMode = 0;
 
     struct stat sb;
     struct serial_struct si;
@@ -1950,12 +1941,21 @@ int main(int argc, char ** argv) {
     GOptionEntry optionTable[] = {
         { "cmdline", 0, 0, G_OPTION_ARG_STRING, &cmdLine, NULL, NULL },
         { "ksfile", 0, 0, G_OPTION_ARG_STRING, &ksFile, NULL, NULL },
+        { "devel", 0, 0, G_OPTION_ARG_NONE, &isDevelMode, NULL, NULL },
         { "mediacheck", 0, 0, G_OPTION_ARG_NONE, &mediacheck, NULL, NULL },
         { "virtpconsole", 0, 0, G_OPTION_ARG_STRING, &virtpcon, NULL, NULL },
         { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
           NULL, NULL },
         { NULL },
     };
+
+    /* get possible devel mode flag very early */
+    for (i = 1; i < argc; i++) {
+        if (!strcmp(argv[i], "--devel")) {
+            isDevelMode++;
+            break;
+        }
+    }
 
     /* get init PID if we have it */
     if ((f = fopen("/var/run/init.pid", "r")) != NULL) {
@@ -1980,7 +1980,7 @@ int main(int argc, char ** argv) {
     setenv ("LC_COLLATE", "C", 1);	
 
     /* Very first thing, set up tracebacks and debug features. */
-    rc = anaconda_trace_init();
+    rc = anaconda_trace_init(isDevelMode);
 
     /* now we parse command line options */
     g_option_context_set_help_enabled(optCon, FALSE);
@@ -2220,8 +2220,6 @@ int main(int argc, char ** argv) {
 
     /* Disable all network interfaces in NetworkManager by default */
 #if !defined(__s390__) && !defined(__s390x__)
-    int i;
-
     if ((i = writeDisabledNetInfo()) != 0) {
         logMessage(ERROR, "writeDisabledNetInfo failure: %d", i);
     }
