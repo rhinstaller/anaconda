@@ -221,6 +221,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jul 08 2010 David Cantrell <dcantrell@redhat.com> - 13.21.57-1
+- Handle 16 digit hex strings for ID_SERIAL_SHORT (dcantrell)
+  Resolves: rhbz#611554
+- Focus default advanced storage type in add dialog (dcantrell)
+  Resolves: rhbz#603726
+- Add multipath member with addUdevDiskDevice instead of DiskDevice (dcantrell)
+  Resolves: rhbz#582254
+- Pass short type names for PartSpec ctor. (dlehman)
+  Related: rhbz#579715
+- During an update don't erase old kernels (bcl)
+  Resolves: rhbz#594411
+- Fix a file descriptor leak in getDevices (mganisin).
+  Resolves: rhbz#612153
+- Pass size of structure not a size of ointer to calloc (msivak)
+  Resolves: rhbz#592227
+- Properly iterate over the netdevices list (clumens).
+  Resolves: rhbz#610769
+
 * Wed Jun 30 2010 David Cantrell <dcantrell@redhat.com> - 13.21.56-1
 - Translate MAC addresses to devices in the second stage, too. (clumens)
   Related: rhbz#185522
