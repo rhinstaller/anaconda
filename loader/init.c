@@ -494,11 +494,37 @@ int main(int argc, char **argv) {
     /* check for development mode early */
     int fdn;
     if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
+
+        /* get cmdline info */
         int len = read(fdn, buf, sizeof(buf) - 1);
+        char *develstart;
         close(fdn);
-        if (len > 0 && strstr(buf, "devel")) {
-            printf("Enabling development mode - cores will be dumped\n");
-            isDevelMode = 1;
+
+        /* check the arguments */
+        if (len > 0) {
+            develstart = buf;
+            while (develstart && (*develstart) != '\0') {
+                
+                /* strip spaces */
+		while(*develstart == ' ') develstart++;
+		if(*develstart == '\0') break;
+                
+                /* not the word we are looking for */
+                if (strncmp(develstart, "devel", 5)) {
+                    develstart = strchr(develstart, ' ');
+                    continue;
+		}
+                
+                /* is it isolated? */
+                if(((*(develstart+5)) == ' ' || (*(develstart+5)) == '\0')) {
+                    printf("Enabling development mode - cores will be dumped\n");
+                    isDevelMode++;
+                    break;
+                }
+                
+                /* Find next argument */
+                develstart = strchr(develstart, ' ');
+            }
         }
     }
 
@@ -756,6 +782,10 @@ int main(int argc, char **argv) {
         if (isSerial == 3) {
             *argvp++ = "--virtpconsole";
             *argvp++ = console;
+        }
+
+        if (isDevelMode) {
+            *argvp++ = "--devel";
         }
 
         *argvp++ = NULL;
