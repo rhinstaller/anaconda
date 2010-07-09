@@ -26,6 +26,7 @@ import gtk
 import checklist
 import datacombo
 import iutil
+import math
 
 from constants import *
 from partIntfHelpers import *
@@ -378,16 +379,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
         else:
             value = origrequest.size
 
-        reqlower = 1
-        requpper = origrequest.maxSize
-
-        if origfs.exists:
-            reqlower = origrequest.minSize
-
-            if origrequest.type == "partition":
-                geomsize = origrequest.partedPartition.geometry.getSize(unit="MB")
-                if (geomsize != 0) and (requpper > geomsize):
-                    requpper = geomsize
+        (reqlower, requpper) = getResizeMinMax(origrequest)
 
         adj = gtk.Adjustment(value = value, lower = reqlower,
                              upper = requpper, step_incr = 1)
@@ -434,4 +426,19 @@ def doUIRAIDLVMChecks(format, req_disks, storage):
 		      "a single drive.  To do this, select the "
 		      "drive in the 'Allowable Drives' checklist.")
                     % format.name)
+
+def getResizeMinMax(part):
+    """ Return the minimum/maximum size for a selected partition
+
+        Assumes that it is resizable and that it exists.
+    """
+    reqlower = long(math.ceil(part.minSize))
+    requpper = long(math.floor(part.maxSize))
+
+    if part.type == "partition":
+        geomsize = part.partedPartition.geometry.getSize(unit="MB")
+        if (geomsize != 0) and (requpper > geomsize):
+            requpper =long(math.floor(geomsize))
+
+    return(reqlower, requpper)
 
