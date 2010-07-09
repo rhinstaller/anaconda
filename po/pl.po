@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-07-08 11:47-1000\n"
-"PO-Revision-Date: 2010-06-13 18:22+0200\n"
+"PO-Revision-Date: 2010-07-09 18:57+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "Language: pl\n"
@@ -609,7 +609,7 @@ msgid "Install on System"
 msgstr "Instalacja w systemie"
 
 #: installinterfacebase.py:47
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS "
 "RAID sets. Ignoring disk %s."
@@ -620,22 +620,21 @@ msgstr[0] ""
 "Dysk %s zawiera metadane RAID BIOS-u, ale nie jest częścią żadnego "
 "rozpoznanego zestawu RAID BIOS-u. Ignorowanie dysku %s."
 msgstr[1] ""
-"Dysk %s zawiera metadane RAID BIOS-u, ale nie jest częścią żadnego "
-"rozpoznanego zestawu RAID BIOS-u. Ignorowanie dysku %s."
+"Dyski %s zawierają metadane RAID BIOS-u, ale nie są częścią żadnego "
+"rozpoznanego zestawu RAID BIOS-u. Ignorowanie dysków %s."
 msgstr[2] ""
-"Dysk %s zawiera metadane RAID BIOS-u, ale nie jest częścią żadnego "
-"rozpoznanego zestawu RAID BIOS-u. Ignorowanie dysku %s."
+"Dyski %s zawierają metadane RAID BIOS-u, ale nie są częścią żadnego "
+"rozpoznanego zestawu RAID BIOS-u. Ignorowanie dysków %s."
 
 #: installinterfacebase.py:60
-#, fuzzy
 msgid "Unformatted DASD Device Found"
 msgid_plural "Unformatted DASD Devices Found"
 msgstr[0] "Odnaleziono niesformatowane urządzenie DASD"
-msgstr[1] "Odnaleziono niesformatowane urządzenie DASD"
-msgstr[2] "Odnaleziono niesformatowane urządzenie DASD"
+msgstr[1] "Odnaleziono niesformatowane urządzenia DASD"
+msgstr[2] "Odnaleziono niesformatowane urządzenia DASD"
 
 #: installinterfacebase.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Format uninitialized DASD device?\n"
 "\n"
@@ -655,17 +654,17 @@ msgstr[0] ""
 "instalację, urządzenie musi zostać sformatowane. Spowoduje to usunięcie "
 "wszystkich danych na tym urządzeniu."
 msgstr[1] ""
-"Sformatować niezainicjowane urządzenie DASD?\n"
+"Sformatować niezainicjowane urządzenia DASD?\n"
 "\n"
-"W systemie jest %d niezainicjowane urządzenie DASD. Aby kontynuować "
-"instalację, urządzenie musi zostać sformatowane. Spowoduje to usunięcie "
-"wszystkich danych na tym urządzeniu."
+"W systemie są %d niezainicjowane urządzenia DASD. Aby kontynuować "
+"instalację, urządzenia muszą zostać sformatowane. Spowoduje to usunięcie "
+"wszystkich danych na tych urządzeniach."
 msgstr[2] ""
-"Sformatować niezainicjowane urządzenie DASD?\n"
+"Sformatować niezainicjowane urządzenia DASD?\n"
 "\n"
-"W systemie jest %d niezainicjowane urządzenie DASD. Aby kontynuować "
-"instalację, urządzenie musi zostać sformatowane. Spowoduje to usunięcie "
-"wszystkich danych na tym urządzeniu."
+"W systemie jest %d niezainicjowanych urządzeń DASD. Aby kontynuować "
+"instalację, urządzenia muszą zostać sformatowane. Spowoduje to usunięcie "
+"wszystkich danych na tych urządzeniach."
 
 #: installinterfacebase.py:74 iw/partition_gui.py:898
 msgid "_Format"
@@ -1578,11 +1577,11 @@ msgid "Also add this passphrase to all existing encrypted devices"
 msgstr "Dodanie tego hasła do wszystkich istniejących zaszyfrowanej urządzeń"
 
 #: text.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
-msgstr[0] "Hasło musi zawierać co najmniej %d znaków."
-msgstr[1] "Hasło musi zawierać co najmniej %d znaków."
+msgstr[0] "Hasło musi zawierać co najmniej %d znak."
+msgstr[1] "Hasło musi zawierać co najmniej %d znaki."
 msgstr[2] "Hasło musi zawierać co najmniej %d znaków."
 
 #: text.py:232 ui/lukspassphrase.glade.h:6
@@ -1737,12 +1736,12 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "Kolejna próba połączenia nastąpi za 15 sekund..."
 
 #: vnc.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] "Po %d próbie połączenie zostanie porzucone.\n"
-msgstr[1] "Po %d próbie połączenie zostanie porzucone.\n"
-msgstr[2] "Po %d próbie połączenie zostanie porzucone.\n"
+msgstr[1] "Po %d próbach połączenie zostanie porzucone.\n"
+msgstr[2] "Po %d próbach połączenie zostanie porzucone.\n"
 
 #: vnc.py:209
 #, python-format
@@ -1894,12 +1893,12 @@ msgid "%s KB"
 msgstr "%s KB"
 
 #: yuminstall.py:91
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
 msgstr[0] "%s bajt"
-msgstr[1] "%s bajt"
-msgstr[2] "%s bajt"
+msgstr[1] "%s bajty"
+msgstr[2] "%s bajtów"
 
 #: yuminstall.py:135
 msgid "Preparing to install"
@@ -1915,10 +1914,10 @@ msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgstr "<b>Instalowanie %(pkgStr)s</b> (%(size)s)\n"
 
 #: yuminstall.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr[0] "Ukończone pakiety: %(donepkgs)d z %(numpkgs)d"
+msgstr[0] "Ukończony pakiet: %(donepkgs)d z %(numpkgs)d"
 msgstr[1] "Ukończone pakiety: %(donepkgs)d z %(numpkgs)d"
 msgstr[2] "Ukończone pakiety: %(donepkgs)d z %(numpkgs)d"
 
@@ -2328,9 +2327,8 @@ msgid "You have provided a weak password: %s"
 msgstr "Podano słabe hasło: %s"
 
 #: iw/account_gui.py:131
-#, fuzzy
 msgid "_Use Anyway"
-msgstr "Użyj mimo to"
+msgstr "_Użyj mimo to"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
 msgid ""
@@ -2981,11 +2979,11 @@ msgid "No free slots"
 msgstr "Brak wolnych miejsc"
 
 #: iw/lvm_dialog_gui.py:830
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
 msgstr[0] ""
-"Nie można utworzyć więcej niż %d woluminów logicznych na grupę woluminów."
+"Nie można utworzyć więcej niż %d woluminu logicznego na grupę woluminów."
 msgstr[1] ""
 "Nie można utworzyć więcej niż %d woluminów logicznych na grupę woluminów."
 msgstr[2] ""
@@ -3128,9 +3126,8 @@ msgstr ""
 "%(herrors)s"
 
 #: iw/network_gui.py:134
-#, fuzzy
 msgid "Select network interface"
-msgstr "Wybór interfejsów sieciowych"
+msgstr "Wybór interfejsu sieciowego"
 
 #: iw/network_gui.py:141 textw/netconfig_text.py:91
 msgid ""
@@ -3231,9 +3228,8 @@ msgid "Fill to maximum _allowable size"
 msgstr "Wypełnienie do m_aksymalnej dozwolonej wielkości"
 
 #: iw/partition_dialog_gui.py:191
-#, fuzzy
 msgid "Error With Request"
-msgstr "Błąd danych"
+msgstr "Błąd żądania"
 
 #: iw/partition_dialog_gui.py:400
 msgid "Add Partition"
@@ -3407,12 +3403,12 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1478
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
 msgstr[0] "Obecnie jest %d programowa partycja RAID możliwa do użycia."
-msgstr[1] "Obecnie jest %d programowa partycja RAID możliwa do użycia."
-msgstr[2] "Obecnie jest %d programowa partycja RAID możliwa do użycia."
+msgstr[1] "Obecnie są %d programowe partycje RAID możliwe do użycia."
+msgstr[2] "Obecnie jest %d programowych partycji RAID możliwych do użycia."
 
 #: iw/partition_gui.py:1482
 msgid "About RAID"
@@ -3451,12 +3447,13 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1500
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
 msgstr[0] "Obecnie jest %d dostępny wolumin fizyczny możliwy do użycia.\n"
-msgstr[1] "Obecnie jest %d dostępny wolumin fizyczny możliwy do użycia.\n"
-msgstr[2] "Obecnie jest %d dostępny wolumin fizyczny możliwy do użycia.\n"
+msgstr[1] "Obecnie są %d dostępne woluminy fizyczne możliwe do użycia.\n"
+msgstr[2] ""
+"Obecnie jest %d dostępnych woluminów fizycznych możliwych do użycia.\n"
 
 #: iw/partition_gui.py:1504
 msgid "You currently have free space to create PVs."
@@ -3912,23 +3909,20 @@ msgid "Chandev Parameters"
 msgstr "Parametry chandev"
 
 #: loader/net.h:27
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Użycie dynamicznej konfiguracji IP (DHCP)"
+msgstr "Dynamiczna konfiguracja IP (DHCP)"
 
 #: loader/net.h:28
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Ręczna konfiguracja TCP/IP"
+msgstr "Ręczna konfiguracja"
 
 #: loader/net.h:30
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Użycie dynamicznej konfiguracji IP (DHCP)"
+msgstr "Dynamiczna konfiguracja IP (DHCPv6)"
 
 #: loader/net.h:31
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automatyczne wykrywanie sąsiadów"
 
 #: loader/cdinstall.c:185 loader/cdinstall.c:206 loader/mediacheck.c:60
 msgid "Media Check"
@@ -4849,9 +4843,8 @@ msgid "URL must be either an ftp or http URL"
 msgstr "Adres URL musi być adresem ftp lub http"
 
 #: loader/urls.c:346
-#, fuzzy
 msgid "Proxy must be either an ftp or http URL"
-msgstr "Adres URL musi być adresem ftp lub http"
+msgstr "Pośrednik musi być adresem ftp lub http"
 
 #: loader/windows.c:65
 msgid "Loading SCSI driver"
@@ -4944,14 +4937,12 @@ msgid "Error storing an encryption key: %s\n"
 msgstr "Błąd podczas przechowywania klucza szyfrowania: %s\n"
 
 #: storage/__init__.py:358
-#, fuzzy
 msgid "Examining Devices"
-msgstr "Wyszukiwanie urządzeń"
+msgstr "Sprawdzanie urządzeń"
 
 #: storage/__init__.py:359
-#, fuzzy
 msgid "Examining storage devices"
-msgstr "Wyszukiwanie urządzeń przechowywania danych"
+msgstr "Sprawdzanie urządzeń przechowywania danych"
 
 #: storage/__init__.py:638
 msgid "This partition is holding the data for the hard drive install."
@@ -5292,20 +5283,19 @@ msgstr ""
 "Proszę nacisnąć przycisk <Enter>, aby zakończyć instalator."
 
 #: storage/dasd.py:138
-#, fuzzy
 msgid "Formatting DASD Device"
 msgid_plural "Formatting DASD Devices"
 msgstr[0] "Formatowanie urządzenia DASD"
-msgstr[1] "Formatowanie urządzenia DASD"
-msgstr[2] "Formatowanie urządzenia DASD"
+msgstr[1] "Formatowanie urządzeń DASD"
+msgstr[2] "Formatowanie urządzeń DASD"
 
 #: storage/dasd.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
-msgstr[0] "Przygotowywanie urządzenia DASD %d do użycia z systemem Linux..."
-msgstr[1] "Przygotowywanie urządzenia DASD %d do użycia z systemem Linux..."
-msgstr[2] "Przygotowywanie urządzenia DASD %d do użycia z systemem Linux..."
+msgstr[0] "Przygotowywanie %d urządzenia DASD do użycia z systemem Linux..."
+msgstr[1] "Przygotowywanie %d urządzeń DASD do użycia z systemem Linux..."
+msgstr[2] "Przygotowywanie %d urządzeń DASD do użycia z systemem Linux..."
 
 #: storage/devicelibs/lvm.py:316
 #, python-format
@@ -6037,27 +6027,24 @@ msgstr ""
 "hasło dla konta root."
 
 #: ui/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _FCoE SAN"
-msgstr "Dod_anie dysków FCoE"
+msgstr "Dodanie SAN _FCoE"
 
 #: ui/adddrive.glade.h:2
 msgid "Add _ZFCP LUN"
-msgstr ""
+msgstr "Dodanie LUN _ZFCP"
 
 #: ui/adddrive.glade.h:3
-#, fuzzy
 msgid "Add _iSCSI target"
-msgstr "Dod_aj cel"
+msgstr "Dodanie celu _iSCSI"
 
 #: ui/adddrive.glade.h:4
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Dodatkowe opcje rozmiaru"
+msgstr "Zaawansowane opcje urządzeń przechowywania danych"
 
 #: ui/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr ""
+msgstr "Jak zmodyfikować konfigurację dysku?"
 
 #: ui/adddrive.glade.h:6
 msgid "_Add drive"
@@ -6151,7 +6138,7 @@ msgstr "<b>Zmniejszenie par_tycji do rozmiaru (w MB):</b>"
 
 #: ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr ""
+msgstr "_Przejrzenie i zmodyfikowanie układu partycjonowania"
 
 #: ui/autopart.glade.h:3
 msgid "Volume to Shrink"
@@ -6541,7 +6528,7 @@ msgstr "Proszę nazwać komputer. Nazwa komputera identyfikuje go w sieci."
 
 #: ui/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "Dos_tosowanie później"
 
 #: ui/tasksel.glade.h:2
 msgid ""
@@ -6552,20 +6539,22 @@ msgstr ""
 "oprogramowania."
 
 #: ui/tasksel.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
 "Domyśla instalacja systemu %s zawiera zestaw oprogramowania odpowiedni do "
-"ogólnego używania Internetu. Można teraz opcjonalnie wybrać inny zestaw."
+"ogólnego używania Internetu. Jakie dodatkowe zadania system ma obsługiwać?"
 
 #: ui/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
+"Można dostosować wybór oprogramowania teraz lub po instalacji przez "
+"aplikację zarządzania oprogramowaniem."
 
 #: ui/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6573,7 +6562,7 @@ msgstr "Dod_aj dodatkowe repozytoria oprogramowania"
 
 #: ui/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr ""
+msgstr "_Dostosowanie teraz"
 
 #: ui/tasksel.glade.h:8
 msgid "_Modify repository"
@@ -6848,8 +6837,3 @@ msgstr "walijski"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "zulu"
-
-#~ msgid "Select which devices should be configured with NetworkManager."
-#~ msgstr ""
-#~ "Proszę wybrać, które urządzenia powinny zostać skonfigurowane za pomocą "
-#~ "Menedżera sieci."
