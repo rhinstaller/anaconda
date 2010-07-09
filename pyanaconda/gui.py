@@ -900,7 +900,7 @@ class InstallInterface(InstallInterfaceBase):
             return False
 
         nm_controlled_devices = [devname for (devname, dev)
-                                 in self.anaconda.id.network.netdevices.items()
+                                 in self.anaconda.network.netdevices.items()
                                  if not dev.usedByFCoE(self.anaconda)]
         if not just_setup and not nm_controlled_devices:
             return False

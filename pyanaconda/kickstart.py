@@ -1120,7 +1120,6 @@ class AnacondaKSHandler(superclass):
         self.skipSteps = []
         self.showSteps = []
         self.anaconda = anaconda
-        self.id = self.anaconda.id
         self.onPart = {}
 
         # All the KickstartCommand and KickstartData objects that

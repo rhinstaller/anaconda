@@ -907,7 +907,7 @@ class AnacondaYum(YumSorter):
         if rpmUtils.arch.isMultiLibArch():
             self.ts.ts.setColor(3)
 
-    def run(self, instLog, cb, intf, id):
+    def run(self, instLog, cb, intf):
         def mediasort(a, b):
             # sort so that first CD comes first, etc.  -99 is a magic number
             # to tell us that the cd should be last
@@ -1727,7 +1727,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                               self.instLog, self.modeText)
         cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
 
-        rc = self.ayum.run(self.instLog, cb, anaconda.intf, anaconda.id)
+        rc = self.ayum.run(self.instLog, cb, anaconda.intf)
 
         if cb.initWindow is not None:
             cb.initWindow.pop()
