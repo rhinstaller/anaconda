@@ -45,8 +45,7 @@ def whichToShrink(storage, intf):
         newSize = shrinkSB.get_value_as_int()
 
         part = getActive(combo)
-        reqlower = long(math.ceil(part.format.minSize))
-        requpper = long(math.floor(part.format.currentSize))
+        (reqlower, requpper) = getResizeMinMax(part)
 
         adj = shrinkSB.get_adjustment()
         adj.lower = max(1,reqlower)
