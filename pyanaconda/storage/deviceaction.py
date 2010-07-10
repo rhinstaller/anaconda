@@ -22,6 +22,7 @@
 #
 
 from udev import *
+import math
 
 from devices import StorageDevice, PartitionDevice
 from formats import getFormat
@@ -229,14 +230,15 @@ class ActionResizeDevice(DeviceAction):
     obj = ACTION_OBJECT_DEVICE
 
     def __init__(self, device, newsize):
-        if device.currentSize == newsize:
+        currentSize = long(math.floor(device.currentSize))
+        if currentSize == newsize:
             raise ValueError("new size same as old size")
 
         if not device.resizable:
             raise ValueError("device is not resizable")
 
         DeviceAction.__init__(self, device)
-        if newsize > device.currentSize:
+        if newsize > currentSize:
             self.dir = RESIZE_GROW
         else:
             self.dir = RESIZE_SHRINK
@@ -337,11 +339,11 @@ class ActionResizeFormat(DeviceAction):
     obj = ACTION_OBJECT_FORMAT
 
     def __init__(self, device, newsize):
-        if device.format.targetSize == newsize:
+        if long(math.floor(device.format.targetSize)) == newsize:
             raise ValueError("new size same as old size")
 
         DeviceAction.__init__(self, device)
-        if newsize > device.format.currentSize:
+        if newsize > long(math.floor(device.format.currentSize)):
             self.dir = RESIZE_GROW
         else:
             self.dir = RESIZE_SHRINK
