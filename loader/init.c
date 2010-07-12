@@ -61,6 +61,7 @@
 #include "copy.h"
 #include "devt.h"
 #include "devices.h"
+#include "modules.h"
 
 #endif
 
@@ -115,7 +116,7 @@ char * env[] = {
 
 void shutDown(int doKill, reboot_action rebootAction);
 static int getKillPolicy(void);
-static void getSyslog(char*);
+static void getSyslog(char *, char *);
 struct termios ts;
 
 static int expected_exit = 0;
@@ -146,21 +147,43 @@ static void startSyslog(void) {
     int conf_fd;
     int ret;
     char addr[128];
-    char forwardtcp[] = "*.* @@";
+    char virtiolog[128];
+    const char *forward_tcp = "*.* @@";
+    const char *forward_format_tcp = "\n";
+    const char *forward_virtio = "*.* /dev/virtio-ports/";
+    const char *forward_format_virtio = ";virtio_ForwardFormat\n";
     
     /* update the config file with command line arguments first */
-    getSyslog(addr);
-    if (strlen(addr) > 0) {
+    getSyslog(addr, virtiolog);
+    if (strlen(addr) > 0 || strlen(virtiolog) > 0) {
         conf_fd = open("/etc/rsyslog.conf", O_WRONLY|O_APPEND);
         if (conf_fd < 0) {
             printf("error opening /etc/rsyslog.conf: %d\n", errno);
             printf("syslog forwarding will not be enabled\n");
             sleep(5);
         } else {
-            ret = write(conf_fd, forwardtcp, strlen(forwardtcp));
-            ret = write(conf_fd, addr, strlen(addr));
-            ret = write(conf_fd, "\n", 1);
+            if (strlen(addr) > 0) {
+                ret = write(conf_fd, forward_tcp, strlen(forward_tcp));
+                ret = write(conf_fd, addr, strlen(addr));
+                ret = write(conf_fd, forward_format_tcp, strlen(forward_format_tcp));
+            }
+            if (strlen(virtiolog) > 0) {
+                ret = write(conf_fd, forward_virtio, strlen(forward_virtio));
+                ret = write(conf_fd, virtiolog, strlen(virtiolog));
+                ret = write(conf_fd, forward_format_virtio, strlen(forward_format_virtio));
+            }
             close(conf_fd);
+        }
+    }
+    
+    if (strlen(virtiolog)) {
+        printf("Loading virtio_pci module... ");
+        if (mlLoadModule("virtio_pci", NULL)) {
+            printf("Error loading virtio_pci module. ");
+            printf("Virtio logging will not work.\n.");
+            sleep(5);
+        } else {
+            printf("done.\n");            
         }
     }
 
@@ -319,13 +342,14 @@ static int getKillPolicy(void) {
 }
 
 /* Looks through /proc/cmdline for remote syslog paramters. */
-static void getSyslog(char *addr) {
+static void getSyslog(char *addr, char *virtiolog) {
     int fd;
     int len;
     char buf[1024];
 
     /* assume nothing gets found */
     addr[0] = '\0';
+    virtiolog[0] = '\0';
     if ((fd = open("/proc/cmdline", O_RDONLY,0)) <= 0) {
         return;
     }
@@ -347,7 +371,12 @@ static void getSyslog(char *addr) {
         if (!strncmp(argv[i], "syslog=", 7)) {
             strncpy(addr, argv[i] + 7, 127);
             addr[127] = '\0';
-            break;
+            continue;
+        }
+        if (!strncmp(argv[i], "virtiolog=", 10)) {
+            strncpy(virtiolog, argv[i] + 10, 127);
+            virtiolog[127] = '\0';
+            continue;
         }
     }
     g_strfreev(argv);
@@ -363,6 +392,14 @@ static void getSyslog(char *addr) {
         sleep(5);
     }
 
+    /* virtiolog can only be letters and digits, dots, dashes and underscores */
+    if (!g_regex_match_simple("^[\\w.-_]*$", addr, 0, 0)) {
+        /* the parameter is malformed, disable its use */
+        virtiolog[0] = '\0';
+        printf("The virtiolog= command line parameter is malformed and will\n");
+        printf("be ignored by the installer.\n");
+        sleep(5);
+    }
 }
 
 static int getInitPid(void) {

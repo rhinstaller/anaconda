@@ -57,8 +57,8 @@ loader_SOURCES     = loader.c copy.c moduleinfo.c loadermisc.c \
                      rpmextract.c
 
 init_CFLAGS        = $(COMMON_CFLAGS) $(GLIB_CFLAGS)
-init_LDADD	   = $(GLIB_LIBS)
-init_SOURCES       = init.c undomounts.c shutdown.c copy.c
+init_LDADD	   = $(GLIB_LIBS) $(top_srcdir)/pyanaconda/isys/libisys.la
+init_SOURCES       = init.c undomounts.c shutdown.c copy.c modules.c
 
 shutdown_CFLAGS    = $(COMMON_CFLAGS) -DAS_SHUTDOWN=1
 shutdown_SOURCES   = shutdown.c undomounts.c

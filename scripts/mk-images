@@ -812,6 +812,7 @@ $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 
 $template anaconda_tty4, "%syslogseverity-text:::uppercase% %programname%:%msg%\n"
 $template anaconda_syslog, "%timestamp:8:$:date-rfc3164%,%timestamp:1:3:date-subseconds% %syslogseverity-text:::uppercase% %programname%:%msg%\n"
+$template virtio_ForwardFormat, "<%PRI%>%TIMESTAMP:::date-rfc3339% %syslogtag:1:32%%msg:::sp-if-no-1st-sp%%msg%"
 
 #### RULES ####
 # log everything except anaconda-specific records from local1 (those are stored
