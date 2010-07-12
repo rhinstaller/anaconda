@@ -257,9 +257,12 @@ def udev_device_get_wwid(udev_info):
     """ The WWID of a device is typically just its serial number, but with
         colons in the name to make it more readable. """
     serial = udev_device_get_serial(udev_info)
+    if not serial:
+        return ""
+
     serial_len = len(serial)
 
-    if serial and (serial_len == 32 or serial_len == 16):
+    if serial_len == 32 or serial_len == 16:
         retval = ""
         for i in range(0, (serial_len / 2)):
             retval += serial[i*2:i*2+2] + ":"
