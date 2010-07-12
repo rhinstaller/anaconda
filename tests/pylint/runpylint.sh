@@ -9,7 +9,7 @@
 # warnings are found it exits with a status of 0
 
 FALSE_POSITIVES=tests/pylint/pylint-false-positives
-NON_STRICT_OPTIONS="--disable-msg=W0612,W0212,W0312,W0611,W0402,W0108,W0107,W0311,W0710"
+NON_STRICT_OPTIONS="--disable=W0612,W0212,W0312,W0611,W0402,W0108,W0107,W0311,W0710"
 
 usage () {
   echo "usage: `basename $0` [--strict] [--help]"
@@ -49,10 +49,10 @@ for i in pyanaconda/booty pyanaconda/storage pyanaconda/installclasses/*.py pyan
       sys.path.insert(5, "pyanaconda/textw"); \
       sys.path.insert(6, "/usr/share/system-config-date"); \
       sys.path.insert(7, "/usr/share/system-config-keyboard")' \
-    -i y -r n --disable-msg-cat=C,R --rcfile=/dev/null \
-    --disable-msg=W0511,W0403,W0703,W0622,W0614,W0401,W0142,W0613,W0621,W0141 \
-    --disable-msg=W0102,W0201,W0221,W0702,W0602,W0603,W0604,W1001,W0223 \
-    --disable-msg=W0231,W0232,W0233 \
+    -i y -r n --disable=C,R --rcfile=/dev/null \
+    --disable=W0511,W0403,W0703,W0622,W0614,W0401,W0142,W0613,W0621,W0141 \
+    --disable=W0102,W0201,W0221,W0702,W0602,W0603,W0604,W1001,W0223 \
+    --disable=W0231,W0232,W0233 \
     $NON_STRICT_OPTIONS $i | \
     egrep -v "`cat $FALSE_POSITIVES | tr '\n' '|'`" > pylint-tmp-log
   if grep -q -v '************* Module ' pylint-tmp-log; then
