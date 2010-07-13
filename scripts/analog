@@ -35,13 +35,18 @@ DEFAULT_PORT = 6080
 DEFAULT_ANALOG_DIR = '.analog'
 USAGE = "%prog [options] <log directory root>"
 HINT = "/sbin/rsyslogd -c 4 -f %(conf)s -i %(pid)s"
-PID_LOCATION = "/tmp/%(username)s/rsyslogd_%(port)s.pid"
+PID_LOCATION = "/tmp/%(username)s/rsyslogd_%(unique_id)s.pid"
+
+INPUT_TCP_TEMPLATE = "$InputTCPServerRun %(port)s"
+INPUT_SOCKET_TEMPLATE = "$AddUnixListenSocket %(socket)s"
 
 RSYSLOG_TEMPLATE ="""
 #### MODULES ####
 # Provides TCP syslog reception
 $ModLoad imtcp.so  
-$InputTCPServerRun %(port)s
+$ModLoad imuxsock
+$OmitLocalLogging on
+%(input_directive)s
 
 #### GLOBAL DIRECTIVES ####
 
@@ -56,19 +61,20 @@ $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 #### RULES ####
 
 $template anaconda_tty4, "%%timestamp:8:$:date-rfc3164%%,%%timestamp:1:3:date-subseconds%% %%syslogseverity-text:::uppercase%% %%programname%%:%%msg%%\\n"
-$template anaconda_debug, "%%syslogfacility-text%%|%%hostname%%|%%syslogseverity-text%%|%%syslogtag%%|%%msg%%\\n"
+$template anaconda_debug, "%%rawmsg%%\\n"
 $template anaconda_syslog, "%%timestamp:8:$:date-rfc3164%%,%%timestamp:1:3:date-subseconds%% %%syslogseverity-text:::uppercase%% %%programname%%:%%msg%%\\n"
 
-$template path_syslog, "%(directory)s/%%FROMHOST-IP%%/syslog
-$template path_anaconda, "%(directory)s/%%FROMHOST-IP%%/anaconda.log"
-$template path_program, "%(directory)s/%%FROMHOST-IP%%/program.log"
-$template path_storage, "%(directory)s/%%FROMHOST-IP%%/storage.log"
-$template path_sysimage, "%(directory)s/%%FROMHOST-IP%%/install.log.syslog"
+$template path_syslog, "%(directory)s/%(subdirectory)s/syslog
+$template path_anaconda, "%(directory)s/%(subdirectory)s/anaconda.log"
+$template path_program, "%(directory)s/%(subdirectory)s/program.log"
+$template path_storage, "%(directory)s/%(subdirectory)s/storage.log"
+$template path_sysimage, "%(directory)s/%(subdirectory)s/install.log.syslog"
 
 *.*                                                  %(directory)s/debug_all.log;anaconda_debug
 
 kern.*;\\
-daemon.*                                             ?path_syslog;anaconda_syslog
+daemon.*;\\
+authpriv.*                                           ?path_syslog;anaconda_syslog
 
 :programname, contains, "loader"                     ?path_anaconda;anaconda_syslog
 :programname, contains, "anaconda"                   ?path_anaconda;anaconda_syslog
@@ -85,6 +91,7 @@ daemon.*                                             ?path_syslog;anaconda_syslo
 :hostname, contains, "sysimage"                      ~
 kern.*                                               ~
 daemon.*                                             ~
+authpriv.*                                           ~
 # dump the rest
 *.*                                                  %(directory)s/debug_unknown_source.log;anaconda_debug
 
@@ -98,27 +105,50 @@ class OptParserError(Exception):
     @property
     def parser(self):
         return self.args[1]
-    
+
+def absolute_path(input_path):
+    """
+    If the path doesn't start with a slash, consider it relative to the current
+    working directory.
+
+    Returns aboslute path of 'path'.
+    """
+    path = os.path.join(os.getcwd(), input_path)
+    path = os.path.abspath(path)
+    return path
+
+def build_unique_id(options):
+    unique_id = options.unix_socket or str(options.port)
+    # could be full path to the socket, strip everything before the last slash
+    unique_id = unique_id.rsplit('/', 2)[-1]
+    return unique_id
+
 def get_opts():
     parser = optparse.OptionParser(usage=USAGE,
                                    add_help_option=False)
     parser.add_option ('-h', '--help', action="callback", callback=help_and_exit,
                        help="Display this help")
-    parser.add_option ('-p', type="int", dest="port", 
-                       default=DEFAULT_PORT, 
-                       help="TCP port the rsyslog daemon will listen on")
     parser.add_option ('-o', type="string", dest="output", 
                        default=None, 
                        help="Output file")
+    parser.add_option ('-p', type="int", dest="port", 
+                       default=DEFAULT_PORT, 
+                       help="TCP port the rsyslog daemon will listen on")
     parser.add_option ('-s', action="store_true", dest="stdout",
                        default=False, 
                        help="Generate bash command to run rsyslogd on stdout (only valid when -o is also specified)")
+    parser.add_option ('-u', type="string", dest="unix_socket",
+                       default=None,
+                       help="Unix socket the rsyslog daemon will listen on. Using this option turns off listening for TCP connections.")
+
     (options, args) = parser.parse_args()
     if len(args) < 1:
         raise OptParserError("no log root directory given", parser)
     if options.stdout and not options.output:
         raise OptParserError("-s only valid with -o", parser)
-    options.log_root = args[0]
+    options.log_root = absolute_path(args[0])
+    if options.unix_socket:
+        options.unix_socket = absolute_path(options.unix_socket)
     args = args[1:]
     return (options, args)
 
@@ -126,20 +156,26 @@ def help_and_exit(option, opt, value, parser):
     parser.print_help()
     sys.exit(0)
 
-def generate_rsyslog_config(port, directory):
+def generate_rsyslog_config(options, unique_id):
     values = {
-        "directory" : directory,
-        "port"      : port
+        "input_directive" : INPUT_TCP_TEMPLATE % {'port' : options.port},
+        "directory" : options.log_root,
+        "subdirectory" : "%FROMHOST-IP%"
         }
+
+    if options.unix_socket:
+        values["input_directive"] = INPUT_SOCKET_TEMPLATE % {'socket' : options.unix_socket}
+        values["subdirectory"] = unique_id
+        
     config = RSYSLOG_TEMPLATE % values
     return config
 
-def pid_location(port):
+def pid_location(unique_id):
     # find the target location
     name = getpass.getuser()
     values = {
         "username" : name,
-        "port" : port
+        "unique_id" : unique_id
         }
     location = PID_LOCATION % values
     # now make sure the directory exists
@@ -154,9 +190,8 @@ if __name__ == "__main__":
     except OptParserError as exc:
         exc.parser.error(str(exc))
         sys.exit(1)
-    directory = os.path.join(os.getcwd(), options.log_root)
-    directory = os.path.abspath(directory)
-    config = generate_rsyslog_config(options.port, directory)
+    unique_id = build_unique_id(options)
+    config = generate_rsyslog_config(options, unique_id)
     if options.output:
         options.output = os.path.abspath(options.output)
         try:
@@ -166,7 +201,7 @@ if __name__ == "__main__":
             print("Can't write into file %s" % options.output, file=sys.stderr)
             sys.exit(1)
         if options.stdout:
-            pid = pid_location(options.port)
+            pid = pid_location(unique_id)
             print(HINT % {
                     "conf" : options.output,
                     "pid" : pid
