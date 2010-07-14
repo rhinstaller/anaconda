@@ -223,6 +223,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 14 2010 Chris Lumens <clumens@redhat.com> - 14.11-1
+- Add the gobject-introspection package (#613695) (mgracik)
+- Update pylint test for pylint 0.20.1 (bcl)
+- Use long ints for comparisons, not floats (#608172) (bcl)
+- Enforce the same logic on autopart shrink as on resize (#608172) (bcl)
+- Don't crash when putting mpath devices into the filter name cache (#597223).
+  (clumens)
+- Handle serial = None in the right place (#613623). (clumens)
+- There's still no instdata on master (#613075). (clumens)
+
 * Thu Jul 08 2010 Chris Lumens <clumens@redhat.com> - 14.10-1
 - Handle 16 digit hex strings for ID_SERIAL_SHORT (#611554) (dcantrell)
 - Focus default advanced storage type in add dialog (#603726) (dcantrell)
