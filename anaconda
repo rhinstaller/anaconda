@@ -118,16 +118,6 @@ def set_x_resolution(runres):
                                    ["-d", ":1", "-q"],
                                    stdout="/dev/tty5", stderr="/dev/tty5")
 
-def doShutdownX11Actions():
-    global wm_pid
-    
-    if wm_pid is not None:
-        try:
-            os.kill(wm_pid, 15)
-            os.waitpid(wm_pid, 0)
-        except:
-            pass
-
 def setupPythonUpdates():
     from distutils.sysconfig import get_python_lib
 
