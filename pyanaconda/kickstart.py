@@ -1426,7 +1426,6 @@ def setSteps(anaconda):
 
     dispatch = anaconda.dispatch
     ksdata = anaconda.ksdata
-    interactive = ksdata.interactive.interactive
 
     if ksdata.upgrade.upgrade:
         upgrade.setSteps(anaconda)
@@ -1443,29 +1442,25 @@ def setSteps(anaconda):
         anaconda.instClass.setSteps(anaconda)
         dispatch.skipStep("findrootparts")
 
+    dispatch.skipStep("welcome")
     dispatch.skipStep("betanag")
     dispatch.skipStep("network")
 
     # Storage is initialized for us right when kickstart processing starts.
     dispatch.skipStep("storageinit")
 
-    if not interactive:
-        # Don't show confirmation screens on non-interactive installs.
-        dispatch.skipStep("welcome")
-
-    if not interactive and not anaconda.storage.ignoreDiskInteractive:
+    if not anaconda.storage.ignoreDiskInteractive:
         # Since ignoredisk is optional and not specifying it means you want to
         # consider all possible disks, we should not stop on the filter steps
-        # unless it's an interactive install.
+        # unless we've been told to.
         dispatch.skipStep("filter")
         dispatch.skipStep("filtertype")
 
-    # Make sure to automatically reboot even in interactive if told to.
-    if interactive and ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+    # Make sure to automatically reboot if told to.
+    if ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
         dispatch.skipStep("complete")
 
-    # If the package section included anything, skip group selection unless
-    # they're in interactive.
+    # If the package section included anything, skip group selection.
     if ksdata.upgrade.upgrade:
         ksdata.skipSteps.extend(["tasksel", "group-selection"])
 
@@ -1473,21 +1468,17 @@ def setSteps(anaconda):
         if ksdata.packages.seen:
             warnings.warn("Ignoring contents of %packages section due to upgrade.")
     elif havePackages(ksdata.packages):
-        if interactive:
-            ksdata.showSteps.extend(["tasksel", "group-selection"])
-        else:
-            ksdata.skipSteps.extend(["tasksel", "group-selection"])
+        ksdata.skipSteps.extend(["tasksel", "group-selection"])
     else:
         if ksdata.packages.seen:
             ksdata.skipSteps.extend(["tasksel", "group-selection"])
         else:
             ksdata.showSteps.extend(["tasksel", "group-selection"])
 
-    if not interactive:
-        for n in ksdata.skipSteps:
-            dispatch.skipStep(n)
-        for n in ksdata.permanentSkipSteps:
-            dispatch.skipStep(n, permanent=1)
+    for n in ksdata.skipSteps:
+        dispatch.skipStep(n)
+    for n in ksdata.permanentSkipSteps:
+        dispatch.skipStep(n, permanent=1)
     for n in ksdata.showSteps:
         dispatch.skipStep(n, skip = 0)
 
