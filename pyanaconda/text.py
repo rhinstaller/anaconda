@@ -54,10 +54,10 @@ stepToClasses = {
     "parttype" : ("partition_text", "PartitionTypeWindow"),
     "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),
-    "zfcpconfig": ("zfcp_text", ("ZFCPWindow")),
-    "findinstall" : ("upgrade_text", ("UpgradeExamineWindow")),
+    "zfcpconfig": ("zfcp_text", "ZFCPWindow"),
+    "findinstall" : ("upgrade_text", "UpgradeExamineWindow"),
     "upgbootloader": ("upgrade_bootloader_text", "UpgradeBootloaderWindow"),
-    "network" : ("network_text", ("HostnameWindow")),
+    "network" : ("network_text", "HostnameWindow"),
     "timezone" : ("timezone_text", "TimezoneWindow"),
     "accounts" : ("userauth_text", "RootPasswordWindow"),
     "tasksel": ("task_text", "TaskWindow"),
@@ -482,62 +482,33 @@ class InstallInterface(InstallInterfaceBase):
         # draw the frame after setting up the fallback
         self.drawFrame()
 
-	lastrc = INSTALL_OK
-	(step, instance) = anaconda.dispatch.currentStep()
+        (step, instance) = anaconda.dispatch.currentStep()
 	while step:
-	    (file, classNames) = stepToClasses[step]
+            (file, className) = stepToClasses[step]
+            while 1:
+                try:
+                    found = imp.find_module(file, textw.__path__)
+                    moduleName = 'pyanaconda.textw.%s' % file
+                    loaded = imp.load_module(moduleName, *found)
+                    nextWindow = loaded.__dict__[className]
+                    break
+                except ImportError as e:
+                    rc = ButtonChoiceWindow(self.screen, _("Error!"),
+                                      _("An error occurred when attempting "
+                                        "to load an installer interface "
+                                        "component.\n\nclassName = %s")
+                                      % className,
+                                      buttons=[_("Exit"), _("Retry")])
 
-	    if type(classNames) != type(()):
-		classNames = (classNames,)
+                    if rc == string.lower(_("Exit")):
+                        sys.exit(0)
 
-	    if lastrc == INSTALL_OK:
-		step = 0
-	    else:
-		step = len(classNames) - 1
+            win = nextWindow()
+            rc = win(self.screen, instance)
 
-	    while step >= 0 and step < len(classNames):
-                # reget the args.  they could change (especially direction)
-                (foo, args) = anaconda.dispatch.currentStep()
-                nextWindow = None
-
-                while 1:
-                    try:
-                        found = imp.find_module(file, textw.__path__)
-                        moduleName = 'pyanaconda.textw.%s' % file
-                        loaded = imp.load_module(moduleName, *found)
-                        nextWindow = loaded.__dict__[classNames[step]]
-                        break
-                    except ImportError as e:
-                        rc = ButtonChoiceWindow(self.screen, _("Error!"),
-                                          _("An error occurred when attempting "
-                                            "to load an installer interface "
-                                            "component.\n\nclassName = %s")
-                                          % (classNames[step],),
-                                          buttons=[_("Exit"), _("Retry")])
-
-                        if rc == string.lower(_("Exit")):
-                            sys.exit(0)
-
-		win = nextWindow()
-
-		#log.info("TUI running step %s (class %s, file %s)" % 
-			 #(step, file, classNames))
-
-                rc = win(self.screen, instance)
-
-		if rc == INSTALL_NOOP:
-		    rc = lastrc
-
-		if rc == INSTALL_BACK:
-		    step = step - 1
-                    anaconda.dispatch.dir = DISPATCH_BACK
-		elif rc == INSTALL_OK:
-		    step = step + 1
-                    anaconda.dispatch.dir = DISPATCH_FORWARD
-
-		lastrc = rc
-
-            if step == -1:
+            if rc in [INSTALL_OK, INSTALL_NOOP]:
+                anaconda.dispatch.gotoNext()
+            elif rc == INSTALL_BACK:
                 if anaconda.dispatch.canGoBack():
                     anaconda.dispatch.gotoPrev()
                 else:
@@ -546,10 +517,7 @@ class InstallInterface(InstallInterfaceBase):
                                          "from here. You will have to try "
                                          "again."),
                                        buttons=[_("OK")])
-	    else:
-		anaconda.dispatch.gotoNext()
-
-	    (step, args) = anaconda.dispatch.currentStep()
+            (step, instance) = anaconda.dispatch.currentStep()
 
         self.screen.finish()
 
