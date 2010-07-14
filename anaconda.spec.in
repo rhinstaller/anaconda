@@ -221,6 +221,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.58-1
+- Use long ints for comparisons, not floats (bcl)
+  Related: rhbz#608172
+- Enforce the same logic on autopart shrink as on resize (bcl)
+  Related: rhbz#608172
+- Don't crash when putting mpath devices into the filter name cache (clumens).
+  Resolves: rhbz#597223
+
 * Thu Jul 08 2010 David Cantrell <dcantrell@redhat.com> - 13.21.57-1
 - Handle 16 digit hex strings for ID_SERIAL_SHORT (dcantrell)
   Resolves: rhbz#611554
