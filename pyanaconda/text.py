@@ -537,14 +537,15 @@ class InstallInterface(InstallInterfaceBase):
 
 		lastrc = rc
 
-	    if step == -1:
-                if not anaconda.dispatch.canGoBack():
+            if step == -1:
+                if anaconda.dispatch.canGoBack():
+                    anaconda.dispatch.gotoPrev()
+                else:
                     ButtonChoiceWindow(self.screen, _("Cancelled"),
                                        _("I can't go to the previous step "
                                          "from here. You will have to try "
                                          "again."),
                                        buttons=[_("OK")])
-		anaconda.dispatch.gotoPrev()
 	    else:
 		anaconda.dispatch.gotoNext()
 
