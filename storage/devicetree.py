@@ -2026,6 +2026,11 @@ class DeviceTree(object):
         for mp in mpaths:
             log.info("adding mpath device %s" % mp.name)
             mp.setup()
+            mp_info = udev_get_block_device(mp.sysfs_path)
+            if self.isIgnored(mp_info):
+                mp.teardown()
+                continue
+
             whitelist.append(mp.name)
             for p in mp.parents:
                 whitelist.append(p.name)
