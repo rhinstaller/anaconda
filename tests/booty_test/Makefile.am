@@ -1,6 +1,6 @@
-# tests/Makefile.am for anaconda
+# tests/booty_test/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2010  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,8 +15,15 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: David Cantrell <dcantrell@redhat.com>
+# Author: Tomas Mlcoch <tmlcoch@redhat.com>
 
-SUBDIRS = mock kickstart_test storage_test regex pyanaconda_test pylint booty_test logpicker_test
+EXTRA_DIST = *.py
 
 MAINTAINERCLEANFILES = Makefile.in
+
+ANACDIR = $(top_builddir)/pyanaconda
+TESTS_ENVIRONMENT = PYTHONPATH=$(top_builddir)/tests:$(ANACDIR)/isys/.libs:$(ANACDIR):$(top_builddir)
+
+TESTS = checkbootloader_test.py \
+    lilo_test.py \
+    x86_test.py
