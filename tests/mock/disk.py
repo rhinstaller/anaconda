@@ -36,6 +36,18 @@ class DiskIO(object):
         def close(self):
             self.flush()
             return StringIO.close(self)
+            
+        def __del__(self):
+            try:
+                self.close()
+            except (AttributeError):
+                pass
+        
+        def __enter__(self):
+            return self
+            
+        def __exit__(self, *_):
+            self.close()
 
     class Dir(object):
         pass
@@ -65,6 +77,9 @@ class DiskIO(object):
         content = self.fs.get(path, None)
         if content == self.Dir:
             raise IOError("[Errno 21] Is a directory: '%s'" % (path))
+        elif mode == "w":
+            self.fs[path] = ""
+            f = self.TestFile(self.fs, path, self.fs[path])
         elif not content and mode.startswith("w"):
             self.fs[path] = ""
             f = self.TestFile(self.fs, path, self.fs[path])
@@ -74,7 +89,7 @@ class DiskIO(object):
             f = self.TestFile(self.fs, path, content)
             f.seek(0, os.SEEK_END)
         else:
-            f = self.IO(self.fs, path, content)
+            f = self.TestFile(self.fs, path, content)
         
         return f
             
