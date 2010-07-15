@@ -933,11 +933,19 @@ class DeviceTree(object):
                     self.exclusiveDisks[i] = name
                     return False
 
+        # We want exclusiveDisks to operate on anything that could be
+        # considered a directly usable disk, ie: fwraid array, mpath, or disk.
+        #
+        # Unfortunately, since so many things are represented as disks by
+        # udev/sysfs, we have to define what is a disk in terms of what is
+        # not a disk.
         if udev_device_is_disk(info) and \
-                not udev_device_is_md(info) and \
-                not udev_device_is_dm(info) and \
-                not udev_device_is_biosraid(info) and \
-                not udev_device_is_multipath_member(info):
+           not udev_device_is_dmraid_partition(info) and \
+           not udev_device_is_multipath_partition(info) and \
+           not udev_device_is_dm_lvm(info) and \
+           not udev_device_is_dm_crypt(info) and \
+           not (udev_device_is_md(info) and
+                not udev_device_get_md_container(info)):
             if self.exclusiveDisks and name not in self.exclusiveDisks:
                 self.addIgnoredDisk(name)
                 return True
