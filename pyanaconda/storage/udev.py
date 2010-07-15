@@ -388,6 +388,41 @@ def udev_device_get_lv_attr(info):
         attr = [attr]
     return attr
 
+def udev_device_dm_subsystem_match(info, subsystem):
+    """ Return True if the device matches a given device-mapper subsystem. """
+    uuid = info.get("DM_UUID", "")
+    _subsystem = uuid.split("-")[0]
+    if _subsystem == uuid or not _subsystem:
+        return False
+
+    return _subsystem.lower() == subsystem.lower()
+
+def udev_device_is_dm_lvm(info):
+    """ Return True if the device is an LVM logical volume. """
+    return udev_device_dm_subsystem_match(info, "lvm")
+
+def udev_device_is_dm_crypt(info):
+    """ Return True if the device is a mapped dm-crypt device. """
+    return udev_device_dm_subsystem_match(info, "crypt")
+
+def udev_device_is_dm_luks(info):
+    """ Return True if the device is a mapped LUKS device. """
+    is_crypt = udev_device_dm_subsystem_match(info, "crypt")
+    try:
+        _type = info.get("DM_UUID", "").split("-")[1].lower()
+    except IndexError:
+        _type = ""
+
+    return is_crypt and _type.startswith("luks")
+
+def udev_device_is_dm_raid(info):
+    """ Return True if the device is a dmraid array device. """
+    return udev_device_dm_subsystem_match(info, "dmraid")
+
+def udev_device_is_dm_mpath(info):
+    """ Return True if the device is an. """
+    return udev_device_dm_subsystem_match(info, "mpath")
+
 def udev_device_is_biosraid(info):
     # Note that this function does *not* identify raid sets.
     # Tests to see if device is parto of a dmraid set.
