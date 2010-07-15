@@ -1,4 +1,4 @@
-8-15-2005
+07-15-2010
 ---------
 
 Boot time command args:
@@ -145,7 +145,8 @@ dns=<dns>	Comma separated list of nameservers to use for a network
 dhcptimeout=<sec> Set different dhcp timeout to workaround STP delays
                   with some Cisco switches
 
-method=nfs:<path> Use <path> for an NFS installation.
+method=nfs(:options):<path> Use <path> for an NFS installation. NFS mount 
+                options are optional.
 
 method=http://<path> Use <path> for an HTTP installation
 

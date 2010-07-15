@@ -1687,13 +1687,13 @@ Making the Kickstart File Available on the Network
 
    Other options to start a kickstart installation are as follows:
 
-   ks=nfs:<server>:/<path>
+   ks=nfs(:options):<server>:/<path>
 
-       The installation program will look for the kickstart file on the
-       NFS server <server>, as file <path>. The installation program will
-       use DHCP to configure the Ethernet card. For example, if your NFS
-       server is server.example.com and the kickstart file is in the NFS
-       share /mydir/ks.cfg, the correct boot command would be
+       The installation program will look for the kickstart file on the NFS
+       server <server>, as file <path>. The (:options) part is optional. The
+       installation program will use DHCP to configure the Ethernet card. For
+       example, if your NFS server is server.example.com and the kickstart file
+       is in the NFS share /mydir/ks.cfg, the correct boot command would be
        ks=nfs:server.example.com:/mydir/ks.cfg.
 
    ks=http://<server>/<path>
