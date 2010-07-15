@@ -432,7 +432,11 @@ class FilterWindow(InstallWindow):
             return
 
         udev_trigger(subsystem="block", action="change")
-        new_disks = filter(udev_device_is_disk, udev_get_block_devices())
+        new_disks = filter(lambda d: udev_device_is_disk(d) and \
+                                     not udev_device_is_dm(d) and \
+                                     not udev_device_is_md(d) and \
+                                     not udev_device_get_md_container(d),
+                           udev_get_block_devices())
 
         mcw = MultipathConfigWriter()
         cfg = mcw.write()
@@ -573,6 +577,7 @@ class FilterWindow(InstallWindow):
                                    gobject.TYPE_STRING)
         self.store.set_sort_column_id(MODEL_COL, gtk.SORT_ASCENDING)
 
+        anaconda.storage.devicetree.teardownAll()
         udev_trigger(subsystem="block", action="change")
         # So that drives onlined by these show up in the filter UI
         iscsi.iscsi().startup(anaconda.intf)
@@ -581,7 +586,11 @@ class FilterWindow(InstallWindow):
         dasd.DASD().startup(anaconda.intf,
                                     anaconda.storage.exclusiveDisks,
                                     anaconda.storage.zeroMbr)
-        disks = filter(udev_device_is_disk, udev_get_block_devices())
+        disks = filter(lambda d: udev_device_is_disk(d) and \
+                                 not udev_device_is_dm(d) and \
+                                 not udev_device_is_md(d) and \
+                                 not udev_device_get_md_container(d),
+                       udev_get_block_devices())
 
         mcw = MultipathConfigWriter()
         cfg = mcw.write()
