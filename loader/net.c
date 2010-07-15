@@ -738,24 +738,21 @@ int configureTCPIP(char * device, iface_t * iface,
 
         /* do interface configuration (call DHCP here, or return for manual) */
 #ifdef ENABLE_IPV6
-        if ((!FL_NOIPV4(flags) && iface->ipv4method == IPV4_DHCP_METHOD) ||
-            (!FL_NOIPV6(flags) && (iface->ipv6method == IPV6_AUTO_METHOD ||
-                                   iface->ipv6method == IPV6_DHCP_METHOD))) {
+        if ((!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD) ||
+            (!FL_NOIPV6(flags) && iface->ipv6method == IPV6_MANUAL_METHOD)) {
 #else
-        if (!FL_NOIPV4(flags) && iface->ipv4method == IPV4_DHCP_METHOD) {
+        if (!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD) {
 #endif
-            /* DHCP selected, exit the loop */
-            ret = LOADER_NOOP;
-            i = 1;
-#ifdef ENABLE_IPV6
-        } else if ((!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD) ||
-                   (!FL_NOIPV6(flags) && iface->ipv6method == IPV6_MANUAL_METHOD)) {
-#else
-        } else if (!FL_NOIPV4(flags) && iface->ipv4method == IPV4_MANUAL_METHOD) {
-#endif
-
             /* manual IP configuration selected */
             ret = LOADER_OK;
+            i = 1;
+#ifdef ENABLE_IPV6
+        } else if (!FL_NOIPV4(flags) || !FL_NOIPV6(flags)) {
+#else
+        } else if (!FL_NOIPV4(flags)) {
+#endif
+            /* only auto configuration selected, exit the loop */
+            ret = LOADER_NOOP;
             i = 1;
         }
     } while (i != 1);
