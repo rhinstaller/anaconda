@@ -22,6 +22,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import gobject
 import gtk
 import gtk.glade
+import urlgrabber.grabber
 from pyanaconda import gui
 from pyanaconda import iutil
 from pyanaconda import network
@@ -104,6 +105,7 @@ def addIscsiDrive(anaconda):
     if not network.hasActiveNetDev():
         if not anaconda.intf.enableNetwork():
             return gtk.RESPONSE_CANCEL
+        urlgrabber.grabber.reset_curl_obj()
 
     (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade", "iscsiDialog")
     gui.addFrame(dialog)
