@@ -1582,18 +1582,26 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                          char ** argv) {
     iface_t iface;
     gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
-    gchar *essid = NULL, *wepkey = NULL, *onboot = NULL;
+    gchar *essid = NULL, *wepkey = NULL, *onboot = NULL, *gateway = NULL;
     gint mtu = 1500, dhcpTimeout = -1;
     gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
+    struct in_addr addr;
+#ifdef ENABLE_IPV6
+    struct in6_addr addr6;
+#endif
+    int rc;
     GOptionEntry ksOptions[] = {
         { "bootproto", 0, 0, G_OPTION_ARG_STRING, &bootProto, NULL, NULL },
         { "device", 0, 0, G_OPTION_ARG_STRING, &device, NULL, NULL },
         { "dhcpclass", 0, 0, G_OPTION_ARG_STRING, &class, NULL, NULL },
-        { "gateway", 'g', 0, G_OPTION_ARG_STRING, &loaderData->gateway,
+        { "gateway", 'g', 0, G_OPTION_ARG_STRING, &gateway,
           NULL, NULL },
         { "ip", 'i', 0, G_OPTION_ARG_STRING, &loaderData->ipv4, NULL, NULL },
+#ifdef ENABLE_IPV6
+        { "ipv6", 0, 0, G_OPTION_ARG_STRING, &loaderData->ipv6, NULL, NULL },
+#endif
         { "mtu", 0, 0, G_OPTION_ARG_INT, &mtu, NULL, NULL },
         { "nameserver", 'n', 0, G_OPTION_ARG_STRING, &loaderData->dns,
           NULL, NULL },
@@ -1645,6 +1653,30 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                        bootProto);
     }
 
+    /* --gateway is common for ipv4 and ipv6, same as in loader UI */
+    if (gateway) {
+        if ((rc = inet_pton(AF_INET, gateway, &addr)) == 1) {
+            loaderData->gateway = strdup(gateway);
+        } else if (rc == 0) {
+#ifdef ENABLE_IPV6
+            if ((rc = inet_pton(AF_INET6, gateway, &addr6)) == 1) {
+                loaderData->gateway6 = strdup(gateway);
+            } else if (rc == 0) {
+#endif
+                logMessage(WARNING,
+                           "invalid address in kickstart --gateway");
+#ifdef ENABLE_IPV6
+            } else {
+                 logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                               strerror(errno));
+            }
+#endif
+        } else {
+            logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                       strerror(errno));
+        }
+    }
+
     if (!noksdev) {
         if (device) {
             /* If --device=MAC was given, translate into a device name now. */
@@ -1692,6 +1724,10 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 #ifdef ENABLE_IPV6
         if (noipv6)
             flags |= LOADER_FLAGS_NOIPV6;
+
+        if (loaderData->ipv6) {
+            loaderData->ipv6info_set = 1;
+        }
 #endif
     }
 
