@@ -638,6 +638,14 @@ def getBestFreeSpaceRegion(disk, part_type, req_size,
             log.debug("free range start sector beyond max for new partitions")
             continue
 
+        if boot:
+            free_start_mb = sectorsToSize(free_geom.start,
+                                          disk.device.sectorSize)
+            req_end_mb = free_start_mb + req_size
+            if req_end_mb > 2*1024*1024:
+                log.debug("free range position would place boot req above 2TB")
+                continue
+
         log.debug("current free range is %d-%d (%dMB)" % (free_geom.start,
                                                           free_geom.end,
                                                           free_geom.getSize()))
@@ -1239,6 +1247,11 @@ class Chunk(object):
 
                 requests -- list of Request instances allocated from this chunk
 
+
+            Note: We will limit partition growth based on disklabel
+            limitations for partition end sector, so a 10TB disk with an
+            msdos disklabel will be treated like a 2TB disk.
+
         """
         self.geometry = geometry            # parted.Geometry
         self.pool = self.geometry.length    # free sector count
@@ -1267,6 +1280,25 @@ class Chunk(object):
     def addRequest(self, req):
         """ Add a Request to this chunk. """
         log.debug("adding request %d to chunk %s" % (req.partition.id, self))
+        if not self.requests:
+            # when adding the first request to the chunk, adjust the pool
+            # size to reflect any disklabel-specific limits on end sector
+            max_sector = req.partition.partedPartition.disk.maxPartitionStartSector
+            chunk_end = min(max_sector, self.geometry.end)
+            if chunk_end <= self.geometry.start:
+                # this should clearly never be possible, but if the chunk's
+                # start sector is beyond the maximum allowed end sector, we
+                # cannot continue
+                log.error("chunk start sector is beyond disklabel maximum")
+                raise PartitioningError("partitions allocated outside "
+                                        "disklabel limits")
+
+            new_pool = chunk_end - self.geometry.start + 1
+            if new_pool != self.pool:
+                log.debug("adjusting pool to %d based on disklabel limits"
+                            % new_pool)
+                self.pool = new_pool
+
         self.requests.append(req)
         self.pool -= req.base
 
@@ -1304,16 +1336,49 @@ class Chunk(object):
 
     def trimOverGrownRequest(self, req, base=None):
         """ Enforce max growth and return extra sectors to the pool. """
-        if req.max_growth and req.growth >= req.max_growth:
-            if req.growth > req.max_growth:
+        req_end = req.partition.partedPartition.geometry.end
+        req_start = req.partition.partedPartition.geometry.start
+
+        # Establish the current total number of sectors of growth for requests
+        # that lie before this one within this chunk. We add the total count
+        # to this request's end sector to obtain the end sector for this
+        # request, including growth of earlier requests but not including
+        # growth of this request. Maximum growth values are obtained using
+        # this end sector and various values for maximum end sector.
+        growth = 0
+        for request in self.requests:
+            if request.partition.partedPartition.geometry.start < req_start:
+                growth += request.growth
+        req_end += growth
+
+        # obtain the set of possible maximum sectors-of-growth values for this
+        # request and use the smallest
+        limits = []
+
+        # disklabel-specific maximum sector
+        max_sector = req.partition.partedPartition.disk.maxPartitionStartSector
+        limits.append(max_sector - req_end)
+
+        # 2TB limit on bootable partitions, regardless of disklabel
+        if req.partition.req_bootable:
+            limits.append(sizeToSectors(2*1024*1024, self.sectorSize) - req_end)
+
+        # request-specific maximum (see Request.__init__, above, for details)
+        if req.max_growth:
+            limits.append(req.max_growth)
+
+        max_growth = min(limits)
+
+        if max_growth and req.growth >= max_growth:
+            if req.growth > max_growth:
                 # we've grown beyond the maximum. put some back.
-                extra = req.growth - req.max_growth
+                extra = req.growth - max_growth
                 log.debug("taking back %d (%dMB) from %d (%s)" %
                             (extra,
                              sectorsToSize(extra, self.sectorSize),
                              req.partition.id, req.partition.name))
                 self.pool += extra
-                req.growth = req.max_growth
+                req.growth = max_growth
 
             # We're done growing this partition, so it no longer
             # factors into the growable base used to determine
