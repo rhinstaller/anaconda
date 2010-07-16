@@ -575,7 +575,7 @@ class NetworkData(commands.network.F8_NetworkData):
                     dev = devices[device]
                 else:
                     for (key, val) in devices.iteritems():
-                        if val.get("HWADDR") == device:
+                        if val.get("HWADDR").lower() == device.lower():
                             dev = val
                             break
 
