@@ -461,12 +461,19 @@ Creating the Kickstart File
 
    ignoredisk (optional)
 
-       Used to specify disks that anaconda should not touch when
-       partitioning, formatting, and clearing.  This command has a single
-       required argument, which takes a comma-separated list of drive
-       names to ignore.
+       Controls anaconda's access to disks attached to the system.  Only
+       one of the following options may be used.  Both take a comma-separated
+       list of drive names.
 
        ignoredisk --drives=[disk1,disk2,...]
+
+            Specifies those disks that anaconda should not touch when
+            partitioning, formatting, and clearing.
+
+       ignoredisk --only-use=[disk1,disk2,...]
+
+            Specifies the opposite - only disks listed here will be used
+            during installation.
 
    interactive (optional)
 
