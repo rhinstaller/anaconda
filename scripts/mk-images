@@ -826,6 +826,7 @@ makeinitrd() {
     instbin $IMGPATH /usr/bin/touch $MBD_DIR /sbin/touch
     instbin $IMGPATH /usr/bin/wget $MBD_DIR /sbin/wget
     instbin $IMGPATH /usr/sbin/blkid $MBD_DIR /sbin/blkid
+    instbin $IMGPATH /usr/bin/uname $MBD_DIR /sbin/uname
 
     # Indirect dependencies
     for nsslib in freebl3 softokn3 nssdbm3 ; do
