@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.57\n"
+"Project-Id-Version: anaconda 13.21.58\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-14 06:16-1000\n"
+"POT-Creation-Date: 2010-07-16 15:47-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:599 loader/net.c:970 loader/net.c:1559 loader/net.c:1580
-#: loader/net.c:1860 loader/net.c:1879 loader/net.c:1891
+#: loader/net.c:599 loader/net.c:967 loader/net.c:1556 loader/net.c:1577
+#: loader/net.c:1857 loader/net.c:1876 loader/net.c:1888
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
@@ -120,12 +120,12 @@ msgstr ""
 #: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:460
 #: yuminstall.py:871 yuminstall.py:989 yuminstall.py:994 yuminstall.py:1269
 #: yuminstall.py:1336 yuminstall.py:1526 yuminstall.py:1548
-#: iw/advanced_storage.py:85 iw/advanced_storage.py:95
-#: iw/advanced_storage.py:168 iw/advanced_storage.py:171
-#: iw/advanced_storage.py:199 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
+#: iw/advanced_storage.py:86 iw/advanced_storage.py:96
+#: iw/advanced_storage.py:170 iw/advanced_storage.py:173
+#: iw/advanced_storage.py:201 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:421 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:53
-#: iw/task_gui.py:154 iw/task_gui.py:301 iw/task_gui.py:461
+#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:54
+#: iw/task_gui.py:155 iw/task_gui.py:302 iw/task_gui.py:463
 #: loader/windows.h:31 loader/cdinstall.c:228 loader/cdinstall.c:504
 #: loader/driverdisk.c:228 loader/driverdisk.c:473 loader/driverdisk.c:508
 #: loader/driverdisk.c:536 loader/driverdisk.c:544 loader/driverdisk.c:611
@@ -170,8 +170,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1370
-#: kickstart.py:1409 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1371
+#: kickstart.py:1410 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
 #: iw/partition_gui.py:1601 storage/__init__.py:1981
 msgid "_Continue"
 msgstr ""
@@ -204,8 +204,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1269 kickstart.py:1154 kickstart.py:1234
-#: kickstart.py:1242 kickstart.py:1280 kickstart.py:1288 text.py:388
+#: cmdline.py:88 gui.py:1269 kickstart.py:1155 kickstart.py:1235
+#: kickstart.py:1243 kickstart.py:1281 kickstart.py:1289 text.py:388
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -648,7 +648,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr ""
 
-#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:307
+#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:308
 msgid "No Network Available"
 msgstr ""
 
@@ -658,7 +658,7 @@ msgid ""
 "the network on your system."
 msgstr ""
 
-#: kickstart.py:163
+#: kickstart.py:164
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -667,63 +667,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1253
+#: kickstart.py:1254
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1256
+#: kickstart.py:1257
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1311 livecd.py:228
+#: kickstart.py:1312 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1312
+#: kickstart.py:1313
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1328
+#: kickstart.py:1329
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1329
+#: kickstart.py:1330
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1361
+#: kickstart.py:1362
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1362
+#: kickstart.py:1363
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1368 kickstart.py:1407
+#: kickstart.py:1369 kickstart.py:1408
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1369 kickstart.py:1408
+#: kickstart.py:1370 kickstart.py:1409
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1399
+#: kickstart.py:1400
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1400
+#: kickstart.py:1401
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1516
+#: kickstart.py:1517
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1364,7 +1364,7 @@ msgid ""
 msgstr ""
 
 #: text.py:624 loader/net.c:110 loader/net.c:491 loader/net.c:546
-#: loader/net.c:688 loader/net.c:696 loader/net.c:1117 loader/net.c:1125
+#: loader/net.c:688 loader/net.c:696 loader/net.c:1114 loader/net.c:1122
 msgid "Retry"
 msgstr ""
 
@@ -1639,7 +1639,7 @@ msgid ""
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
 
-#: yuminstall.py:396 iw/task_gui.py:319
+#: yuminstall.py:396 iw/task_gui.py:321
 msgid "Error Setting Up Repository"
 msgstr ""
 
@@ -1771,7 +1771,7 @@ msgstr ""
 msgid "Error Running Transaction"
 msgstr ""
 
-#: yuminstall.py:1234 iw/task_gui.py:308
+#: yuminstall.py:1234 iw/task_gui.py:309
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -1989,19 +1989,19 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 
-#: iw/advanced_storage.py:86
+#: iw/advanced_storage.py:87
 msgid "You must select a NIC to use."
 msgstr ""
 
-#: iw/advanced_storage.py:130
+#: iw/advanced_storage.py:132
 msgid "Invalid Initiator Name"
 msgstr ""
 
-#: iw/advanced_storage.py:131
+#: iw/advanced_storage.py:133
 msgid "You must provide an initiator name."
 msgstr ""
 
-#: iw/advanced_storage.py:160
+#: iw/advanced_storage.py:162
 msgid "Error with Data"
 msgstr ""
 
@@ -3070,7 +3070,7 @@ msgstr ""
 msgid "_Format partition?"
 msgstr ""
 
-#: iw/task_gui.py:54
+#: iw/task_gui.py:55
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -3080,48 +3080,48 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/task_gui.py:131
+#: iw/task_gui.py:132
 msgid "Edit Repository"
 msgstr ""
 
-#: iw/task_gui.py:155
+#: iw/task_gui.py:156
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
 
-#: iw/task_gui.py:235
+#: iw/task_gui.py:236
 msgid "Invalid Proxy URL"
 msgstr ""
 
-#: iw/task_gui.py:236
+#: iw/task_gui.py:237
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr ""
 
-#: iw/task_gui.py:248 iw/task_gui.py:428
+#: iw/task_gui.py:249 iw/task_gui.py:430
 msgid "Invalid Repository URL"
 msgstr ""
 
-#: iw/task_gui.py:249 iw/task_gui.py:429
+#: iw/task_gui.py:250 iw/task_gui.py:431
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr ""
 
-#: iw/task_gui.py:270 iw/task_gui.py:438
+#: iw/task_gui.py:271 iw/task_gui.py:440
 msgid "No Media Found"
 msgstr ""
 
-#: iw/task_gui.py:271 iw/task_gui.py:439
+#: iw/task_gui.py:272 iw/task_gui.py:441
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
 
-#: iw/task_gui.py:302 iw/task_gui.py:462
+#: iw/task_gui.py:303 iw/task_gui.py:464
 msgid "Please enter an NFS server and path."
 msgstr ""
 
-#: iw/task_gui.py:320
+#: iw/task_gui.py:322
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3129,23 +3129,23 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/task_gui.py:343
+#: iw/task_gui.py:345
 msgid "Invalid Repository Name"
 msgstr ""
 
-#: iw/task_gui.py:344
+#: iw/task_gui.py:346
 msgid "You must provide a repository name."
 msgstr ""
 
-#: iw/task_gui.py:494 ui/addrepo.glade.h:3
+#: iw/task_gui.py:496 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr ""
 
-#: iw/task_gui.py:499
+#: iw/task_gui.py:501
 msgid "No Software Repos Enabled"
 msgstr ""
 
-#: iw/task_gui.py:500
+#: iw/task_gui.py:502
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3439,8 +3439,8 @@ msgstr ""
 #: loader/driverdisk.c:524 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
-#: loader/loader.c:1386 loader/loader.c:1419 loader/net.c:599 loader/net.c:970
-#: loader/net.c:1860 loader/net.c:1879 loader/nfsinstall.c:91
+#: loader/loader.c:1386 loader/loader.c:1419 loader/net.c:599 loader/net.c:967
+#: loader/net.c:1857 loader/net.c:1876 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -3547,7 +3547,7 @@ msgstr ""
 #: loader/driverdisk.c:711 loader/driverdisk.c:750 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
+#: loader/modules.c:398 loader/net.c:1556 loader/net.c:1577
 #: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
@@ -3980,106 +3980,106 @@ msgstr ""
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: loader/net.c:796
+#: loader/net.c:793
 msgid "IPv4 address:"
 msgstr ""
 
-#: loader/net.c:808 loader/net.c:875
+#: loader/net.c:805 loader/net.c:872
 msgid "/"
 msgstr ""
 
-#: loader/net.c:863
+#: loader/net.c:860
 msgid "IPv6 address:"
 msgstr ""
 
-#: loader/net.c:929 textw/netconfig_text.py:160
+#: loader/net.c:926 textw/netconfig_text.py:160
 msgid "Gateway:"
 msgstr ""
 
-#: loader/net.c:937
+#: loader/net.c:934
 msgid "Name Server:"
 msgstr ""
 
-#: loader/net.c:976
+#: loader/net.c:973
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: loader/net.c:993
+#: loader/net.c:990
 msgid "Manual TCP/IP Configuration"
 msgstr ""
 
-#: loader/net.c:1117 loader/net.c:1125
+#: loader/net.c:1114 loader/net.c:1122
 msgid "Missing Information"
 msgstr ""
 
-#: loader/net.c:1118
+#: loader/net.c:1115
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1126
+#: loader/net.c:1123
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1560
+#: loader/net.c:1557
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1581
+#: loader/net.c:1578
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1658
+#: loader/net.c:1655
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1855
+#: loader/net.c:1852
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1856
+#: loader/net.c:1853
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1860
+#: loader/net.c:1857
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1869
+#: loader/net.c:1866
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1871
+#: loader/net.c:1868
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1878
+#: loader/net.c:1875
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1891
+#: loader/net.c:1888
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1892
+#: loader/net.c:1889
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:1904
+#: loader/net.c:1901
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2072 loader/net.c:2076
+#: loader/net.c:2069 loader/net.c:2073
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""

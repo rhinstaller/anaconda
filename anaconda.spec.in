@@ -221,6 +221,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jul 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.59-1
+- Add uname to initrd.img (dcantrell)
+  Resolves: rhbz#614770
+- Permanently skip the filter UI steps in text mode (clumens).
+  Resolves: rhbz#611000
+- Fix indentypo (rvykydal)
+  Resolves: rhbz#614001
+- Fix config of ipv6 and ipv4 (auto + manual) in loader (rvykydal)
+  Resolves: rhbz#609576
+- Reset resolver after network device activation (rvykydal)
+  Resolves: rhbz#614001
+- Use blacklist_exceptions for mpath devices (mfuruta)
+  Resolves: rhbz#612399
+- Revert "Skip the bootloader placement window if we're on UEFI (pjones)"
+  Resolves: rhbz#582143
+- Some people like to specify MAC addresses in lower case. (clumens)
+  Related: rhbz#185522
+
 * Wed Jul 14 2010 David Cantrell <dcantrell@redhat.com> - 13.21.58-1
 - Use long ints for comparisons, not floats (bcl)
   Related: rhbz#608172
