@@ -24,6 +24,7 @@ import upgrade
 from snack import *
 from constants import *
 from textw.constants_text import *
+from textw.add_drive_text import addDriveDialog
 from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow, stepToClasses
 from flags import flags
 import sys
@@ -31,7 +32,6 @@ import os
 import isys
 from storage import mountExistingSystem
 from installinterfacebase import InstallInterfaceBase
-from add_drive_text import addDriveDialog
 import iutil
 import shutil
 import time
