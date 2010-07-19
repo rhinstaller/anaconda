@@ -6,11 +6,9 @@ image=/ppc/ppc64/vmlinuz
 	label=linux64
 	alias=linux
 	initrd=/ppc/ppc64/ramdisk.image.gz
-	append="askmethod"
 	read-only
 
 image=/ppc/ppc32/vmlinuz
 	label=linux32
 	initrd=/ppc/ppc32/ramdisk.image.gz
-	append="askmethod"
 	read-only

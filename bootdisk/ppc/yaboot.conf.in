@@ -5,5 +5,4 @@ default=linux
 image=/ppc/ppc%BITS%/vmlinuz
 	label=linux
 	initrd=/ppc/ppc%BITS%/ramdisk.image.gz
-	append="askmethod"
 	read-only
