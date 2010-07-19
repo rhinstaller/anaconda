@@ -44,6 +44,7 @@ void openLog();
 void closeLog(void);
 void setLogLevel(int minLevel);
 int getLogLevel(void);
+int loggingReady(void);
 
 extern int tty_logfd;
 extern int file_logfd;

@@ -201,12 +201,16 @@ static gboolean _doLoadModule(const gchar *module, gchar **args) {
         gint fd = -1;
 
         if ((argv = g_malloc0(3 * sizeof(*argv))) == NULL) {
-            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            if (loggingReady()) {
+                logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            }
             abort();
         }
 
         if ((fd = open("/dev/tty3", O_RDWR)) == -1) {
-            logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            if (loggingReady()) {
+                logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
+            }
         } else {
             dup2(fd, 0);
             dup2(fd, 1);

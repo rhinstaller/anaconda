@@ -222,4 +222,10 @@ int getLogLevel(void) {
     return minLevel;
 }
 
+/* returns non-null if logging has been initialized */
+int loggingReady(void)
+{
+    return main_log_tty != NULL;
+}
+
 /* vim:set shiftwidth=4 softtabstop=4: */
