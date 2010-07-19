@@ -552,6 +552,8 @@ int is_wireless_device(char *ifname){
     const char *iface;
     int i;
 
+    g_type_init();
+
     client = nm_client_new();
     if (!client) {
         return 0;
