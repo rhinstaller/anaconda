@@ -2535,9 +2535,11 @@ function parse_dasd() {
                 # now apply $attrs and set DASDs $lo to $hi online
                 [ -z "$hi" ] && hi=$lo
                 local devno lodevno=$((0x${lo##*.})) hidevno=$((0x${hi##*.}))
+                local dasdconf="/etc/dasd.conf"
                 for ((devno=$lodevno; $devno <= $hidevno; ++devno)); do
                     local devbusid=$(printf "%s.%04x" ${lo%.*} $devno)
                     local sys="/sys/bus/ccw/devices/"$devbusid
+                    echo -n "$devbusid" >> $dasdconf
                     for attr in $attrs; do
                         if [ "$attr" = "use_diag" ]; then
                             # diag discipline cannot be auto-loaded
@@ -2550,6 +2552,7 @@ function parse_dasd() {
                         if ! sysecho $sys/$attr 1; then
                             echo $"Could not set attribute $attr for DASD $devbusid"
                         fi
+                        echo -n " $attr=1" >> $dasdconf
                     done
                     if [ ! -f $sys/online ]; then
                         echo $"DASD $devbusid not found"
@@ -2558,6 +2561,7 @@ function parse_dasd() {
                     if ! sysecho $sys/online 1; then
                         echo $"Could not set DASD $devbusid online"
                     fi
+                    echo >> $dasdconf
                 done
                 ;;
         esac
