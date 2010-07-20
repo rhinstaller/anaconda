@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.58\n"
+"Project-Id-Version: anaconda 13.21.59\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-16 15:47-1000\n"
+"POT-Creation-Date: 2010-07-20 10:56-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,12 +38,12 @@ msgstr ""
 #: loader/kickstart.c:331 loader/kickstart.c:520 loader/lang.c:114
 #: loader/lang.c:373 loader/loader.c:433 loader/loader.c:469
 #: loader/loader.c:509 loader/loader.c:527 loader/loader.c:544
-#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1386
+#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1393
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:599 loader/net.c:967 loader/net.c:1556 loader/net.c:1577
-#: loader/net.c:1857 loader/net.c:1876 loader/net.c:1888
+#: loader/net.c:599 loader/net.c:967 loader/net.c:1564 loader/net.c:1585
+#: loader/net.c:1893 loader/net.c:1912 loader/net.c:1924
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
@@ -3439,8 +3439,8 @@ msgstr ""
 #: loader/driverdisk.c:524 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
-#: loader/loader.c:1386 loader/loader.c:1419 loader/net.c:599 loader/net.c:967
-#: loader/net.c:1857 loader/net.c:1876 loader/nfsinstall.c:91
+#: loader/loader.c:1393 loader/loader.c:1426 loader/net.c:599 loader/net.c:967
+#: loader/net.c:1893 loader/net.c:1912 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -3547,7 +3547,7 @@ msgstr ""
 #: loader/driverdisk.c:711 loader/driverdisk.c:750 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1556 loader/net.c:1577
+#: loader/modules.c:398 loader/net.c:1564 loader/net.c:1585
 #: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
@@ -3782,81 +3782,81 @@ msgstr ""
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: loader/loader.c:1253
+#: loader/loader.c:1259
 msgid "Media Detected"
 msgstr ""
 
-#: loader/loader.c:1254
+#: loader/loader.c:1260
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1378
+#: loader/loader.c:1385
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1379
+#: loader/loader.c:1386
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1381
+#: loader/loader.c:1388
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1383
+#: loader/loader.c:1390
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1418
+#: loader/loader.c:1425
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1418
+#: loader/loader.c:1425
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1419
+#: loader/loader.c:1426
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1420
+#: loader/loader.c:1427
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1650
+#: loader/loader.c:1657
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1652
+#: loader/loader.c:1659
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1656
+#: loader/loader.c:1663
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1657
+#: loader/loader.c:1664
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1658
+#: loader/loader.c:1665
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1936
+#: loader/loader.c:1943
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2396
+#: loader/loader.c:2403
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2398
+#: loader/loader.c:2405
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4024,62 +4024,62 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1557
+#: loader/net.c:1565
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1578
+#: loader/net.c:1586
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1655
+#: loader/net.c:1691
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1852
+#: loader/net.c:1888
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1853
+#: loader/net.c:1889
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1857
+#: loader/net.c:1893
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1866
+#: loader/net.c:1902
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1868
+#: loader/net.c:1904
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1875
+#: loader/net.c:1911
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1888
+#: loader/net.c:1924
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1889
+#: loader/net.c:1925
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:1901
+#: loader/net.c:1937
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2069 loader/net.c:2073
+#: loader/net.c:2105 loader/net.c:2109
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""

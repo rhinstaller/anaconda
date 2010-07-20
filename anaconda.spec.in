@@ -221,6 +221,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jul 20 2010 David Cantrell <dcantrell@redhat.com> - 13.21.60-1
+- Support for ks: --ipv6 command, and ipv6 values for --gateway (rvykydal)
+  Resolves: rhbz#490794
+- Enforce limits on partition start/end sectors. (dlehman)
+  Related: rhbz#604059
+- Revert "Add "askmethod" as a default argument." (clumens)
+  Related: rhbz#611154
+- Don't skip method selection if using media with no packages (clumens).
+  Resolves: rhbz#611154
+- Handle serial = None in the right place (clumens).
+  Resolves: rhbz#615936
+
 * Fri Jul 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.59-1
 - Add uname to initrd.img (dcantrell)
   Resolves: rhbz#614770
