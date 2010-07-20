@@ -449,6 +449,10 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
 
     iface->dhcptimeout = loaderData->dhcpTimeout;
 
+    if (loaderData->macaddr) {
+        iface->macaddr = strdup(loaderData->macaddr);
+    }
+
     return;
 }
 
