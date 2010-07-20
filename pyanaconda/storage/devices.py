@@ -3572,9 +3572,24 @@ class DASDDevice(DiskDevice):
         return map(lambda (k, v): "%s=%s" % (k, v,), self.opts.items())
 
     def dracutSetupString(self):
-        args = ["rd_DASD=%s" % (self.busid,)] + self.getOpts()
-        return ",".join(args)
+        conf = "/etc/dasd.conf"
+        opts = {}
 
+        if os.path.isfile(conf):
+            f = open(conf)
+            lines = filter(lambda y: not y.startswith('#') and y != '',
+                           map(lambda x: x.strip(), f.readlines()))
+            f.close()
+
+            for line in lines:
+                parts = line.split()
+                if parts != []:
+                    opts[parts[0]] = parts
+
+        if self.busid in opts.keys():
+            return "rd_DASD=%s" % ",".join(opts[self.busid])
+        else:
+            return "rd_DASD=%s" % ",".join([self.busid] + self.getOpts())
 
 class NFSDevice(StorageDevice, NetworkStorageDevice):
     """ An NFS device """
