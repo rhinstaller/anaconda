@@ -829,7 +829,7 @@ class AnacondaYum(YumSorter):
                 continue
 
     def _handleFailure(self, package):
-        if not self.isodir and self.currentMedia:
+        if package.repo.anacondaBaseURLs[0].startswith("cdrom:"):
             buttons = [_("Re_boot"), _("_Eject")]
         else:
             buttons = [_("Re_boot"), _("_Retry")]
@@ -851,7 +851,7 @@ class AnacondaYum(YumSorter):
             if os.path.exists(package.localPkg()):
                 os.unlink(package.localPkg())
 
-            if not self.isodir and self.currentMedia:
+            if package.repo.anacondaBaseURLs[0].startswith("cdrom:"):
                 self._switchCD(self.currentMedia)
             else:
                 return
@@ -862,12 +862,12 @@ class AnacondaYum(YumSorter):
         # which mirror we were on when we started this particular download. 
         # Whenever we have run out of mirrors the grabber's get/open/retrieve
         # method will raise a URLGrabError exception with errno 256.
-        grab = self.repos.getRepo(kwargs["repo"]).grab
+        repo = self.repos.getRepo(kwargs["repo"])
         log.warning("Failed to get %s from mirror %d/%d, "
-                    "or downloaded file is corrupt" % (obj.url, grab._next + 1,
-                                                       len(grab.mirrors)))
+                    "or downloaded file is corrupt" % (obj.url, repo.grab._next + 1,
+                                                       len(repo.grab.mirrors)))
 
-        if self.currentMedia:
+        if repo.anacondaBaseURLs[0].startswith("cdrom:"):
             dev = self.anaconda.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
             dev.format.mountpoint = self.tree
             unmountCD(dev, self.anaconda.intf.messageWindow)
