@@ -426,35 +426,6 @@ makeinitrd() {
     fi
 }
 
-makeinstimage () {
-    imagename=$1
-    type=$2
-    tmp=$TMPDIR/instimage.dir.$$
-
-    rm -rf $tmpimage $tmp
-    mkdir -p $mntpoint $tmp
-
-    mkdir -p $tmp
-    (cd $IMGPATH; find . | cpio --quiet -p $tmp)
-    makeproductfile $tmp
-
-    if [ -z "$type" -o "$type" = "cramfs" ]; then
-        echo "Running mkcramfs $CRAMBS $tmp $INSTIMGPATH/${imagename}2.img"
-        mkfs.cramfs $CRAMBS $tmp $TMPDIR/${imagename}2.img.$$
-    elif [ "$type" = "squashfs" ]; then
-        echo "Running mksquashfs $tmp $TMPDIR/${imagename}2.img -no-fragments -no-progress"
-        mksquashfs $tmp $TMPDIR/${imagename}2.img.$$ -no-fragments -no-progress
-        chmod 0644 $TMPDIR/${imagename}2.img.$$
-    fi
-    cp $TMPDIR/${imagename}2.img.$$ $INSTIMGPATH/${imagename}2.img
-    size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
-    size=$(expr $size / 1024)
-    echo "Wrote $INSTIMGPATH/${imagename}2.img (${size}k)..."
-    relpath=${INSTIMGPATH#$TOPDESTPATH/}
-    echo "instimage = ${relpath}/${imagename}2.img" >> $TOPDESTPATH/.treeinfo
-    rm -rf $tmp
-}
-
 makemainimage () {
     imagename=$1
     type=$2
