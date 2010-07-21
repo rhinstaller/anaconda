@@ -1123,27 +1123,6 @@ if [ -f $DEST/bin/gawk ]; then
     ln -sf $DEST/bin/gawk awk
 fi
 
-[ -d $DEST/bin ] || die "ERROR: directory missing: $DEST/bin"
-[ -d $DEST/sbin ] || die "ERROR: directory missing: $DEST/sbin"
-(cd $DEST/bin; find) | (cd $DEST/bin; /bin/cpio --quiet -pdmu $DEST/usr/bin)
-(cd $DEST/sbin; find) | (cd $DEST/sbin; /bin/cpio --quiet -pdmu $DEST/usr/sbin)
-rm -rf $DEST/bin
-rm -rf $DEST/sbin
-
-# Fix relative links like /usr/bin/udevinfo -> ../../sbin/udevadm
-for brokenlink in $(find $DEST/usr/{bin,sbin} -follow -lname '*') ; do
-    target="$(readlink $brokenlink)"
-    for pathbit in bin sbin; do
-        # if it starts with "../../sbin/", remove that
-        newtarget="${target##../../$pathbit/}"
-        # if we removed something, replace it with the proper path
-        if [ "$newtarget" != "$target" ]; then
-            # make it ../sbin/ instead
-            ln -sf "../$pathbit/$newtarget" "$brokenlink"
-        fi
-    done
-done
-
 # copy bootloader files for sparc
 if [ $ARCH = sparc -o $ARCH = sparcv9 -o $ARCH = sparc64 ]; then
     mkdir -p $DEST/usr/share/anaconda/boot

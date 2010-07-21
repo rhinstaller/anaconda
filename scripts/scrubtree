@@ -46,10 +46,10 @@ touch $p/etc/ld.so.conf
 mkdir $p/proc
 mount -t proc proc $p/proc
 echo /usr/kerberos/$LIBDIR > $p/etc/ld.so.conf
-(cd $p; /usr/sbin/chroot $p usr/sbin/ldconfig )
+(cd $p; /usr/sbin/chroot $p /sbin/ldconfig )
 
 if [ $ARCH != s390 -a $ARCH != s390x ]; then
-    rm -f $p/usr/sbin/ldconfig 
+    rm -f $p/sbin/ldconfig 
 fi
 rm $p/etc/ld.so.conf
 
