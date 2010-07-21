@@ -120,7 +120,6 @@ makeBootImages() {
     export AMITFTP=0
 
     makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
-	--loaderbin loader \
 	--modules "$INITRDMODS $SPARCMODS"
     [ $? = 0 ] || exit 1
     echo "Building special tftpinitrd.img"
@@ -128,7 +127,6 @@ makeBootImages() {
     export AMITFTP=1
 
     makeinitrd --initrdto $TOPDESTPATH/images/tftpinitrd.img \
-	--loaderbin loader \
 	--modules "$TFTPINITRDMODS $SPARCMODS"
     [ $? = 0 ] || exit 1
     if [ -f $IMGPATH/usr/share/anaconda/boot/second.b ]; then

@@ -34,7 +34,6 @@ getAllS390ModuleNames() {
 
 makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
-	    --loaderbin loader \
 	    --modules "$INITRDMODS $(getAllS390ModuleNames)"
 	$ADDRSIZE $INITRD_ADDRESS $TOPDESTPATH/images/initrd.img $TOPDESTPATH/images/initrd.addrsize
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img

@@ -25,7 +25,6 @@ makeBootImages() {
 	mkdir -p $TOPDESTPATH/ppc/ppc64
 	echo "Building $KERNELARCH initrd"
 	makeinitrd --initrdto $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz \
-	    --loaderbin loader \
 	    --modules "$INITRDMODS spufs viocd gpio_mdio"
 
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/ppc64/vmlinuz
@@ -71,7 +70,6 @@ __EOT__
 
         echo "Building ppc initrd"
         makeinitrd --initrdto $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz \
-            --loaderbin loader \
             --modules "$INITRDMODS"
 
         cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/ppc32/vmlinuz
