@@ -117,6 +117,7 @@ char * env[] = {
 void shutDown(int doKill, reboot_action rebootAction);
 static int getKillPolicy(void);
 static void getSyslog(char *, char *);
+static int onQEMU(void);
 struct termios ts;
 
 static int expected_exit = 0;
@@ -150,7 +151,7 @@ static void startSyslog(void) {
     char virtiolog[128];
     const char *forward_tcp = "*.* @@";
     const char *forward_format_tcp = "\n";
-    const char *forward_virtio = "*.* /dev/virtio-ports/";
+    const char *forward_virtio = "*.* ";
     const char *forward_format_virtio = ";virtio_ForwardFormat\n";
     
     /* update the config file with command line arguments first */
@@ -176,17 +177,6 @@ static void startSyslog(void) {
         }
     }
     
-    if (strlen(virtiolog)) {
-        printf("Loading virtio_pci module... ");
-        if (mlLoadModule("virtio_pci", NULL)) {
-            printf("Error loading virtio_pci module. ");
-            printf("Virtio logging will not work.\n.");
-            sleep(5);
-        } else {
-            printf("done.\n");            
-        }
-    }
-
     /* rsyslog is going to take care of things, so disable console logging */
     klogctl(8, NULL, 1);
     /* now we really start the daemon. */
@@ -341,8 +331,16 @@ static int getKillPolicy(void) {
     return 1;
 }
 
-/* Looks through /proc/cmdline for remote syslog paramters. */
-static void getSyslog(char *addr, char *virtiolog) {
+/* 
+ * Detects the non-static part of rsyslog configuration. 
+ * 
+ * Remote TCP logging is enabled if syslog= is found on the kernel command line.
+ * Remote virtio-serial logging is enabled if the declared virtio port exists.
+ */
+static void getSyslog(char *addr, char *virtiolog)
+{
+    const char *virtio_port = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0";
+
     int fd;
     int len;
     char buf[1024];
@@ -373,13 +371,24 @@ static void getSyslog(char *addr, char *virtiolog) {
             addr[127] = '\0';
             continue;
         }
-        if (!strncmp(argv[i], "virtiolog=", 10)) {
-            strncpy(virtiolog, argv[i] + 10, 127);
-            virtiolog[127] = '\0';
-            continue;
-        }
     }
     g_strfreev(argv);
+    
+    if (onQEMU()) {
+        /* look for virtio-serial logging on a QEMU machine. */
+        printf("Loading virtio_pci module... ");
+        if (mlLoadModule("virtio_pci", NULL)) {
+            fprintf(stderr, "Error loading virtio_pci module.\n");
+            sleep(5);
+        } else {
+            printf("done.\n");            
+        }
+        if (!access(virtio_port, W_OK)) {
+            /* that means we really have virtio-serial logging */
+            strncpy(virtiolog, virtio_port, 127);
+            virtiolog[127] = '\0';
+        }
+    }
 
     /* address can be either a hostname or IPv4 or IPv6, with or without port;
        thus we only allow the following characters in the address: letters and
@@ -391,15 +400,29 @@ static void getSyslog(char *addr, char *virtiolog) {
         printf("ignored by the installer.\n");
         sleep(5);
     }
+}
 
-    /* virtiolog can only be letters and digits, dots, dashes and underscores */
-    if (!g_regex_match_simple("^[\\w.-_]*$", addr, 0, 0)) {
-        /* the parameter is malformed, disable its use */
-        virtiolog[0] = '\0';
-        printf("The virtiolog= command line parameter is malformed and will\n");
-        printf("be ignored by the installer.\n");
+/* 
+ * Use anything you can find to determine if we are running on a QEMU virtual
+ * machine.
+ */
+static int onQEMU(void)
+{
+    const gchar *lookfor = "QEMU Virtual CPU";
+    gchar *contents = NULL;
+    GError *fileErr = NULL;
+    int ret = 0;
+
+    if (!g_file_get_contents("/proc/cpuinfo", &contents, NULL, &fileErr)) {
+        fprintf(stderr, "Unable to read /proc/cpuinfo.\n");
         sleep(5);
+        return 0;
     }
+    if (strstr(contents, lookfor)) {
+        ret = 1;
+    }
+    g_free(contents);
+    return ret;
 }
 
 static int getInitPid(void) {
