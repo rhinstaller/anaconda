@@ -155,6 +155,77 @@ die () {
     exit 1
 }
 
+setupSshd() {
+    echo "sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin" \
+    	>> $DEST/etc/passwd
+
+    # enable root shell logins
+    echo "root::14438:0:99999:7:::" >> $DEST/etc/shadow
+
+    # enable 'install' account that starts anaconda on login
+    echo "install:x:0:0:root:/root:/sbin/loader" >> $DEST/etc/passwd
+    echo "install::14438:0:99999:7:::" >> $DEST/etc/shadow
+
+    chmod 0400 $DEST/etc/shadow
+
+    cat > $DEST/etc/pam.d/login << EOF
+#%PAM-1.0
+auth        required      pam_env.so
+auth        sufficient    pam_unix.so likeauth nullok
+auth        required      pam_deny.so
+account     required      pam_unix.so
+password    sufficient    pam_unix.so nullok use_authtok md5 shadow
+password    required      pam_deny.so
+session     required      pam_limits.so
+session     required      pam_unix.so
+EOF
+    cp -f $DEST/etc/pam.d/login $DEST/etc/pam.d/sshd
+    cp -f $DEST/etc/pam.d/login $DEST/etc/pam.d/remote
+
+    mkdir -m 0700 -p $DEST/etc/ssh
+    if [ "$ARCH" = "s390" -o "$ARCH" = "s390x" ]; then
+        # key generation takes ages on s390, you really don't want this
+        # for every installation attempt. These are NOT the keys of the
+        # installed system!
+        echo -n "Generating SSH1 RSA host key: "
+        /usr/bin/ssh-keygen -q -t rsa1 -f $DEST/etc/ssh/ssh_host_key \
+                            -C '' -N '' >&/dev/null
+        echo
+        echo -n "Generating SSH2 RSA host key: "
+        /usr/bin/ssh-keygen -q -t rsa -f $DEST/etc/ssh/ssh_host_rsa_key \
+                            -C '' -N '' >&/dev/null
+        echo
+        echo -n "Generating SSH2 DSA host key: "
+        /usr/bin/ssh-keygen -q -t dsa -f $DEST/etc/ssh/ssh_host_dsa_key \
+                            -C '' -N '' >&/dev/null
+        echo
+        (cd $DEST/etc/ssh; \
+         chmod 600 ssh_host_key ssh_host_rsa_key ssh_host_dsa_key; \
+         chmod 644 ssh_host_key.pub ssh_host_rsa_key.pub ssh_host_dsa_key.pub; )
+    fi
+
+    cat > $DEST/etc/ssh/sshd_config.anaconda <<EOF
+Port 22
+HostKey /etc/ssh/ssh_host_key
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_dsa_key
+PermitRootLogin yes
+IgnoreRhosts yes
+StrictModes yes
+X11Forwarding yes
+X11DisplayOffset 10
+PrintMotd yes
+XAuthLocation /sbin/xauth
+KeepAlive yes
+SyslogFacility AUTHPRIV
+RSAAuthentication yes
+PasswordAuthentication yes
+PermitEmptyPasswords yes
+PermitUserEnvironment yes
+EOF
+    chmod 600 $DEST/etc/ssh/sshd_config.anaconda
+}
+
 PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     anaconda-yum-plugins at-spi atk attr audit-libs bash bind-utils
     bitmap-fonts-cjk
@@ -923,8 +994,36 @@ echo "Assembling package list..."
 RPMS="$PACKAGES $PACKAGESRESCUE"
 [ -n "$DEBUG" ] && echo "RPMS are $RPMS"
 
-rm -rf $DEST; mkdir -p $DEST/usr/sbin $DEST/var/lib $DEST/boot
+rm -rf $DEST
+
+# Create a bunch of empty directories that are important for a running system.
+mkdir -p $DEST/boot
+mkdir -p $DEST/dev
+mkdir -p $DEST/etc/dhcp
+mkdir -p $DEST/etc/modprobe.d
+mkdir -p $DEST/firmware
+mkdir -p $DEST/lib
+mkdir -p $DEST/modules
+mkdir -p $DEST/proc
+mkdir -m 0700 $DEST/root
+mkdir -p $DEST/selinux
+mkdir -p $DEST/sys
+mkdir -p $DEST/tmp
+mkdir -p $DEST/usr/lib/rpm
+mkdir -p $DEST/usr/sbin
+mkdir -m 111 -p $DEST/var/empty/sshd
+mkdir -p $DEST/var/lib/dbus
+mkdir -p $DEST/var/lib/dhclient
+mkdir -p $DEST/var/lib/rpm
+mkdir -p $DEST/var/lock/rpm
+mkdir -p $DEST/var/run
+mkdir -p $DEST/var/run/dbus
+mkdir -p $DEST/var/run/NetworkManager
+mkdir -p $DEST/var/run/wpa_supplicant
+mkdir -p $DEST/var/state
+
 ln -s /tmp $DEST/var/lib/xkb
+ln -s /tmp $DEST/var/state/xkb
 
 #
 # concat KEEPFILE and KEEPFILERESCUE lists
@@ -938,6 +1037,31 @@ mkdir -p $YUMDIR/var/lib/yum
 
 expandPackageSet $yumconf $YUMDIR "$RPMS" $DEST $KEEPFILE
 echo `date` "Done Expanding packages..."
+
+# Install the anaconda portions.
+install -m 755 $DEST/usr/libexec/anaconda/auditd $DEST/sbin/auditd
+install -m 755 $DEST/usr/$LIBDIR/anaconda/loader $DEST/sbin/loader
+install -m 644 $DEST/usr/share/anaconda/loader.tr $DEST/etc/loader.tr
+
+cp $DEST/usr/share/anaconda/raidstart-stub $DEST/usr/bin/raidstart
+cp $DEST/usr/share/anaconda/raidstop-stub $DEST/usr/bin/raidstop
+cp $DEST/usr/share/anaconda/losetup-stub $DEST/usr/bin/losetup
+cp $DEST/usr/share/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
+cp $DEST/usr/share/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
+cp $DEST/usr/share/anaconda/mknod-stub $DEST/usr/bin/mknod
+cp $DEST/usr/share/anaconda/restart-anaconda $DEST/usr/bin/restart-anaconda
+mv $DEST/usr/$LIBDIR/python?.?/site-packages/pyanaconda/sitecustomize.py $DEST/usr/$LIBDIR/python?.?/site-packages
+
+if [ $ARCH = "s390" -o $ARCH = "s390x" ]; then
+    mv $DEST/usr/libexec/anaconda/shutdown $DEST/sbin
+    mv $DEST/usr/share/anaconda/linuxrc.s390 $DEST/sbin/init
+    ( cd $DEST/sbin && ln -sf init reboot && ln -sf init halt )
+else
+    mv $DEST/usr/$LIBDIR/anaconda/init $DEST/sbin/init
+    ( cd $DEST/sbin && ln -s init reboot && ln -s init halt && ln -s init poweroff )
+
+    install -m 644 $DEST/usr/share/anaconda/screenfont-$ARCH.gz $DEST/etc/screenfont.gz
+fi
 
 # Dogtail will check this
 echo "Creating customized GConf2 settings for root"
@@ -1005,7 +1129,15 @@ rm -rf $YUMDIR
 chown -R root:root $DEST
 chmod -R a+rX-w $DEST
 
+# Some files need very particular permissions.
+chmod 04755 $DEST/usr/libexec/polkit-1/polkit-agent-helper-1
+chown root:dbus $DEST/$LIBDIR/dbus-1/dbus-daemon-launch-helper
+chmod 04750 $DEST/$LIBDIR/dbus-1/dbus-daemon-launch-helper
+
 # Remove locales unused during the install
+install -m 644 $DEST/usr/share/anaconda/lang-table $DEST/etc/lang-table
+localedef -c -i en_US -f UTF-8 --prefix $DEST en_US
+
 cat $DEST/usr/share/anaconda/lang-table* | awk '
 { gsub("-", "", $4);
   print $4;
@@ -1046,7 +1178,61 @@ SELINUXTYPE=targeted
 EOF
 fi
 
-echo "Creating libuser.conf"
+echo "Creating config files"
+touch $DEST/etc/resolv.conf
+
+# \EOF has a quote in the first character on purpose; see man bash on here documents
+cat > $DEST/etc/rsyslog.conf <<\EOF
+#### MODULES ####
+$ModLoad imuxsock.so     # provides support for local system logging
+$ModLoad imklog.so       # provides kernel logging support
+
+$ModLoad imfile
+$InputFileName /tmp/X.log
+$InputFileTag xserver:
+$InputFileStateFile xserver-statefile
+$InputFileFacility local1
+$InputRunFileMonitor
+$InputFileName /tmp/anaconda-tb-all.log
+$InputFileTag anaconda-tb:
+$InputFileStateFile anaconda-tb-statefile
+$InputFileFacility local1
+$InputRunFileMonitor
+
+#### GLOBAL DIRECTIVES ####
+# Use default timestamp format
+$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
+
+#### TEMPLATES ####
+
+$template anaconda_tty4, "%syslogseverity-text:::uppercase% %programname%:%msg%\n"
+$template anaconda_syslog, "%timestamp:8:$:date-rfc3164%,%timestamp:1:3:date-subseconds% %syslogseverity-text:::uppercase% %programname%:%msg%\n"
+$template virtio_ForwardFormat, "<%PRI%>%TIMESTAMP:::date-rfc3339% %HOSTNAME% %syslogtag:1:32%%msg:::sp-if-no-1st-sp%%msg%\n"
+
+#### RULES ####
+# log everything except anaconda-specific records from local1 (those are stored
+# directly into files via python logging)
+*.*;\
+authpriv.none;\
+local1.none             /tmp/syslog;anaconda_syslog
+                        & /dev/tty4;anaconda_tty4
+
+# ### begin forwarding rule ###
+# The statement between the begin ... end define a SINGLE forwarding
+# rule. They belong together, do NOT split them. If you create multiple
+# forwarding rules, duplicate the whole block!
+#
+# An on-disk queue is created for this action. If the remote host is
+# down, messages are spooled to disk and sent when it is up again.
+$ActionQueueMaxDiskSpace 1m     # space limit (use as much as possible)
+$ActionQueueSaveOnShutdown off  # do not save messages to disk on shutdown
+$ActionQueueType LinkedList     # run asynchronously
+$ActionResumeRetryCount -1      # infinite retries if host is down
+# remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional
+# ### end of the forwarding rule ###
+
+EOF
+
 cat > $DEST/etc/libuser.conf <<EOF
 [defaults]
 skeleton = /mnt/sysimage/etc/skel
@@ -1060,6 +1246,22 @@ directory = /mnt/sysimage/etc
 directory = /mnt/sysimage/etc
 EOF
 
+cat > $DEST/root/.profile <<EOF
+PS1="[anaconda \u@\h \W]\\\\$ "
+PATH=/bin:/usr/bin:/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
+export PATH PS1
+EOF
+
+cat > $DEST/root/.bash_history <<EOF
+kill -USR2 \`cat /var/run/anaconda.pid\`
+kill -HUP \`cat /var/run/anaconda.pid\`
+udevadm info --export-db | less
+tail -f /tmp/storage.log
+echo b > /proc/sysrq-trigger
+dmsetup table
+multipath -d
+EOF
+
 echo "Creating /etc/skel"
 # libuser needs this when it creates sshpw users
 mkdir -p $DEST/etc/skel
@@ -1067,6 +1269,8 @@ mkdir -p $DEST/etc/skel
 echo "Creating empty /etc/gshadow"
 # libuser needs this when it creates sshpw users
 touch $DEST/etc/gshadow
+
+setupSshd
 
 sed -i 's|\(installforallkernels\) = 0|\1 = 1|' $DEST/etc/yum/pluginconf.d/fedorakmod.conf
 
@@ -1089,19 +1293,8 @@ sed -i "s,^MANPATH[^_MAP][ \t]*,&/mnt/sysimage," $DEST/etc/man_db.conf
 sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DEST/etc/man_db.conf
 
 echo "Scrubbing tree..." "$DEST"
-mkdir -p $DEST/lib
-mkdir -p $DEST/firmware
 ln -snf /modules $DEST/lib/modules
 ln -snf /firmware $DEST/lib/firmware
-cp $DEST/usr/share/anaconda/raidstart-stub $DEST/usr/bin/raidstart
-cp $DEST/usr/share/anaconda/raidstop-stub $DEST/usr/bin/raidstop
-cp $DEST/usr/share/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
-cp $DEST/usr/share/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
-cp $DEST/usr/share/anaconda/mknod-stub $DEST/usr/bin/mknod
-cp $DEST/usr/share/anaconda/restart-anaconda $DEST/usr/bin/restart-anaconda
-mv $DEST/usr/sbin/anaconda $DEST/usr/bin/anaconda
-mv $DEST/usr/sbin/logpicker $DEST/usr/bin/logpicker
-mv $DEST/usr/$LIBDIR/python?.?/site-packages/pyanaconda/sitecustomize.py $DEST/usr/$LIBDIR/python?.?/site-packages
 
 mv $DEST/etc/yum.repos.d $DEST/etc/anaconda.repos.d
 
@@ -1111,6 +1304,8 @@ rm -f $DEST/usr/sbin/build-locale-archive
 
 find $DEST -type d | xargs chmod 755
 
+cp $DEST/usr/share/doc/python-devel-*/gdbinit $DEST/.gdbinit
+
 if [ -f $DEST/bin/bash ]; then
     rm -f $DEST/bin/ash
     ln -s bash $DEST/bin/sh
@@ -1119,6 +1314,10 @@ fi
 if [ -f $DEST/bin/gawk ]; then
     ln -sf $DEST/bin/gawk awk
 fi
+
+( cd $DEST/etc && ln -sf /etc/rc.d/init.d init.d )
+ln -sf /sbin/init $DEST/init
+ln -sf /proc/mounts $DEST/etc/mtab
 
 # copy bootloader files for sparc
 if [ $ARCH = sparc -o $ARCH = sparcv9 -o $ARCH = sparc64 ]; then
@@ -1151,10 +1350,12 @@ if [ $ARCH = i386 -o $ARCH = i586 -o $ARCH = i686 -o $ARCH = x86_64 ]; then
     cp -af $DEST/boot/memtest* $DEST/usr/share/anaconda/boot
 fi
 
-rm -rf $DEST/boot $DEST/home $DEST/root $DEST/tmp
+rm -rf $DEST/boot $DEST/home
 
+# Remove a bunch of stuff we don't want in the final image.
 find $DEST -name "*.a" | grep -v kernel-wrapper/wrapper.a | xargs rm -rf
 find $DEST -name "lib*.la" |grep -v "usr/$LIBDIR/gtk-2.0" | xargs rm -rf
+rm -f $DEST/lib/udev/rules.d/*generator*
 
 # nuke some python stuff we don't need
 for d in idle distutils bsddb lib-old hotshot doctest.py pydoc.py site-packages/japanese site-packages/japanese.pth ; do

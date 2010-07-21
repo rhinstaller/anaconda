@@ -171,7 +171,6 @@ LIBEXECBINDIR=$IMGPATH/usr/libexec/anaconda
 ADDRSIZE=$IMGPATH/usr/$LIBDIR/anaconda/addrsize
 MKS390CDBOOT=$IMGPATH/usr/$LIBDIR/anaconda/mk-s390-cdboot
 GENMODINFO=$IMGPATH/usr/libexec/anaconda/genmodinfo
-KEYMAPS=$TMPDIR/keymaps-$BUILDARCH.$$
 SCREENFONT=$IMGPATH/usr/share/anaconda/screenfont-${BASEARCH}.gz
 MODLIST=$IMGPATH/usr/libexec/anaconda/modlist
 MODINFO=$TMPDIR/modinfo-$BUILDARCH.$$
@@ -206,10 +205,10 @@ if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
     # go ahead and create the keymaps so we only have to do it once
     if [ -f $IMGPATH/usr/share/anaconda/keymaps-override-$BASEARCH ]; then
         echo "Found keymap override, using it"
-        cp $IMGPATH/usr/share/anaconda/keymaps-override-$BASEARCH $KEYMAPS
+        cp $IMGPATH/usr/share/anaconda/keymaps-override-$BASEARCH $IMGPATH/etc/keymaps.gz
     else
         echo "Running: $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH"
-        $GETKEYMAPS $BUILDARCH $KEYMAPS $IMGPATH
+        $GETKEYMAPS $BUILDARCH $IMGPATH/etc/keymaps.gz $IMGPATH
         if [ $? != 0 ]; then
             echo "Unable to create keymaps and thus can't create initrd."
             exit 1
@@ -422,85 +421,11 @@ instbin() {
     fi
 }
 
-setupSshd() {
-    echo "sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin" \
-    	>> $MBD_DIR/etc/passwd
-
-    # enable root shell logins
-    echo "root::14438:0:99999:7:::" >> $MBD_DIR/etc/shadow
-
-    # enable 'install' account that starts anaconda on login
-    echo "install:x:0:0:root:/root:/sbin/loader" >> $MBD_DIR/etc/passwd
-    echo "install::14438:0:99999:7:::" >> $MBD_DIR/etc/shadow
-
-    chmod 0400 $MBD_DIR/etc/shadow
-
-    cat > $MBD_DIR/etc/pam.d/login << EOF
-#%PAM-1.0
-auth        required      pam_env.so
-auth        sufficient    pam_unix.so likeauth nullok
-auth        required      pam_deny.so
-account     required      pam_unix.so
-password    sufficient    pam_unix.so nullok use_authtok md5 shadow
-password    required      pam_deny.so
-session     required      pam_limits.so
-session     required      pam_unix.so
-EOF
-    cp -f $MBD_DIR/etc/pam.d/login $MBD_DIR/etc/pam.d/sshd
-    cp -f $MBD_DIR/etc/pam.d/login $MBD_DIR/etc/pam.d/remote
-
-    mkdir -m 0700 -p $MBD_DIR/etc/ssh
-    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-        # key generation takes ages on s390, you really don't want this
-        # for every installation attempt. These are NOT the keys of the
-        # installed system!
-        echo -n "Generating SSH1 RSA host key: "
-        /usr/bin/ssh-keygen -q -t rsa1 -f $MBD_DIR/etc/ssh/ssh_host_key \
-                            -C '' -N '' >&/dev/null
-        echo
-        echo -n "Generating SSH2 RSA host key: "
-        /usr/bin/ssh-keygen -q -t rsa -f $MBD_DIR/etc/ssh/ssh_host_rsa_key \
-                            -C '' -N '' >&/dev/null
-        echo
-        echo -n "Generating SSH2 DSA host key: "
-        /usr/bin/ssh-keygen -q -t dsa -f $MBD_DIR/etc/ssh/ssh_host_dsa_key \
-                            -C '' -N '' >&/dev/null
-        echo
-        (cd $MBD_DIR/etc/ssh; \
-         chmod 600 ssh_host_key ssh_host_rsa_key ssh_host_dsa_key; \
-         chmod 644 ssh_host_key.pub ssh_host_rsa_key.pub ssh_host_dsa_key.pub; )
-    fi
-
-    cat > $MBD_DIR/etc/ssh/sshd_config.anaconda <<EOF
-Port 22
-HostKey /etc/ssh/ssh_host_key
-HostKey /etc/ssh/ssh_host_rsa_key
-HostKey /etc/ssh/ssh_host_dsa_key
-PermitRootLogin yes
-IgnoreRhosts yes
-StrictModes yes
-X11Forwarding yes
-X11DisplayOffset 10
-PrintMotd yes
-XAuthLocation /sbin/xauth
-KeepAlive yes
-SyslogFacility AUTHPRIV
-RSAAuthentication yes
-PasswordAuthentication yes
-PermitEmptyPasswords yes
-PermitUserEnvironment yes
-EOF
-    chmod 600 $MBD_DIR/etc/ssh/sshd_config.anaconda
-}
-
-
 makeinitrd() {
     EXTRAINITRDPATH=""
     KEEP=""
     PADSIZE=""
     INITRDMODULES=""
-    MYLANGTABLE=$LANGTABLE
-    MYLOADERTR=loader.tr
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
         if [ $1 = "--initrdto" ]; then
             EXTRAINITRDPATH=$2
@@ -526,156 +451,12 @@ makeinitrd() {
     MBD_FSIMAGE=$TMPDIR/makebootdisk.initrdimage.$$
     MBD_BOOTTREE=$TMPDIR/makebootdisk.tree.$$
 
-    rm -rf $MBD_DIR $MBD_FSIMAGE
-    mkdir -p $MBD_DIR/modules
-    mkdir -p $MBD_DIR/dev
-    mkdir -p $MBD_DIR/proc
-    mkdir -p $MBD_DIR/selinux
-    mkdir -p $MBD_DIR/sys
-    mkdir -p $MBD_DIR/tmp
-    mkdir -p $MBD_DIR/var/lib/dbus
-    mkdir -p $MBD_DIR/var/lib/dhclient
-    mkdir -p $MBD_DIR/etc/dhcp
-    mkdir -p $MBD_DIR/var/lock/rpm
-    mkdir -p $MBD_DIR/var/run
-    mkdir -p $MBD_DIR/var/run/dbus
-    mkdir -p $MBD_DIR/var/run/NetworkManager
-    mkdir -p $MBD_DIR/etc/modprobe.d
-    mkdir -p $MBD_DIR/var/run/wpa_supplicant
-    mkdir -m 111 -p $MBD_DIR/var/empty/sshd
-    mkdir -p $MBD_DIR/usr/lib/rpm
-    mkdir -p $MBD_DIR/var/lib/rpm
-
-    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-        ln -s /tmp $MBD_DIR/var/state/xkb
-    fi
-
     if [ -n "$INITRDMODULES" ]; then
         MODSET=`expandModuleSet "$INITRDMODULES"`
         makemoduletree $MBD_DIR "$MODSET"
     fi
 
-    # set up the arch bits
-    echo $arch > $MBD_DIR/etc/arch
-
-    echo "Setting up arch bits"
-    instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/loader $MBD_DIR /sbin/loader
-    if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
-        instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/init $MBD_DIR /sbin/init
-        ln -s ./init $MBD_DIR/sbin/reboot
-        ln -s ./init $MBD_DIR/sbin/halt
-        ln -s ./init $MBD_DIR/sbin/poweroff
-    else
-        instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/shutdown $MBD_DIR /sbin/shutdown
-        instbin $IMGPATH /usr/share/anaconda/linuxrc.s390 $MBD_DIR /sbin/init
-        ( cd $MBD_DIR/sbin
-          ln -sf init reboot
-          ln -sf init halt
-        )
-    fi
-    instbin $IMGPATH ${LIBEXECBINDIR##$IMGPATH}/auditd $MBD_DIR /sbin/auditd
-
-    if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
-       install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
-       install -m 644 $SCREENFONT $MBD_DIR/etc/screenfont.gz
-    fi
-
-    install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
-    mkdir -p $MBD_DIR/usr/lib/locale
-    localedef -c -i en_US -f UTF-8 --prefix $MBD_DIR en_US
-
-    ( cd $MBD_DIR/etc ; ln -sf /etc/rc.d/init.d init.d )
-
-    # DHCP and DHCPv6 client daemons and support programs
-    touch $MBD_DIR/etc/resolv.conf
-
-    # rsyslog
-    # \EOF has a quote in the first character on purpose; see man bash on here documents
-    cat > $MBD_DIR/etc/rsyslog.conf <<\EOF
-#### MODULES ####
-$ModLoad imuxsock.so     # provides support for local system logging
-$ModLoad imklog.so       # provides kernel logging support
-
-$ModLoad imfile
-$InputFileName /tmp/X.log
-$InputFileTag xserver:
-$InputFileStateFile xserver-statefile
-$InputFileFacility local1
-$InputRunFileMonitor
-$InputFileName /tmp/anaconda-tb-all.log
-$InputFileTag anaconda-tb:
-$InputFileStateFile anaconda-tb-statefile
-$InputFileFacility local1
-$InputRunFileMonitor
-
-#### GLOBAL DIRECTIVES ####
-# Use default timestamp format
-$ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
-
-#### TEMPLATES ####
-
-$template anaconda_tty4, "%syslogseverity-text:::uppercase% %programname%:%msg%\n"
-$template anaconda_syslog, "%timestamp:8:$:date-rfc3164%,%timestamp:1:3:date-subseconds% %syslogseverity-text:::uppercase% %programname%:%msg%\n"
-$template virtio_ForwardFormat, "<%PRI%>%TIMESTAMP:::date-rfc3339% %HOSTNAME% %syslogtag:1:32%%msg:::sp-if-no-1st-sp%%msg%\n"
-
-#### RULES ####
-# log everything except anaconda-specific records from local1 (those are stored
-# directly into files via python logging)
-*.*;\
-authpriv.none;\
-local1.none             /tmp/syslog;anaconda_syslog
-                        & /dev/tty4;anaconda_tty4
-
-# ### begin forwarding rule ###
-# The statement between the begin ... end define a SINGLE forwarding
-# rule. They belong together, do NOT split them. If you create multiple
-# forwarding rules, duplicate the whole block!
-#
-# An on-disk queue is created for this action. If the remote host is
-# down, messages are spooled to disk and sent when it is up again.
-$ActionQueueMaxDiskSpace 1m     # space limit (use as much as possible)
-$ActionQueueSaveOnShutdown off  # do not save messages to disk on shutdown
-$ActionQueueType LinkedList     # run asynchronously
-$ActionResumeRetryCount -1      # infinite retries if host is down
-# remote host is: name/ip:port, e.g. 192.168.0.1:514, port optional
-# ### end of the forwarding rule ###
-
-EOF
-
-    rm -f $MBD_DIR/lib/udev/rules.d/*generator*
-
-    install -m 644 $IMGPATH/usr/share/anaconda/$MYLOADERTR $MBD_DIR/etc/loader.tr
-
     makeproductfile $MBD_DIR
-
-    ln -s /sbin/init $MBD_DIR/init
-    ln -s /proc/mounts $MBD_DIR/etc/mtab
-    mkdir -p $MBD_DIR/var/lib
-    ln -s ../../tmp $MBD_DIR/var/lib/xkb
-
-    setupSshd
-
-    mkdir $MBD_DIR/root
-    chmod 0700 $MBD_DIR/root
-    chown root:root $MBD_DIR/root
-
-    cat > $MBD_DIR/root/.profile <<EOF
-PS1="[anaconda \u@\h \W]\\\\$ "
-PATH=/bin:/usr/bin:/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
-export PATH PS1
-EOF
-
-    cat > $MBD_DIR/root/.bash_history <<EOF
-kill -USR2 \`cat /var/run/anaconda.pid\`
-kill -HUP \`cat /var/run/anaconda.pid\`
-udevadm info --export-db | less
-tail -f /tmp/storage.log
-echo b > /proc/sysrq-trigger
-dmsetup table
-multipath -d
-EOF
-
-    cp /usr/share/doc/python-devel-*/gdbinit $MBD_DIR/root/.gdbinit
 
     rm -f $MBD_FSIMAGE
     (cd $MBD_DIR; find . |cpio --quiet -c -o) |gzip -9 > $MBD_FSIMAGE
