@@ -21,13 +21,6 @@
  *            Jeremy Katz (katzj@redhat.com)
  */
 
-#if USE_MINILIBC
-#include "minilibc.h"
-#ifndef SOCK_STREAM
-# define SOCK_STREAM 1
-#endif 
-#define klogctl syslog
-#else
 #include <ctype.h>
 #include <dirent.h>
 #include <errno.h>
@@ -62,8 +55,6 @@
 #include "devt.h"
 #include "devices.h"
 #include "modules.h"
-
-#endif
 
 #include <asm/types.h>
 #include <linux/serial.h>
