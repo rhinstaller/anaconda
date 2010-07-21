@@ -44,6 +44,7 @@
 #include "../pyanaconda/isys/log.h"
 
 #include "modules.h"
+#include "readvars.h"
 
 /* boot flags */
 extern uint64_t flags;
@@ -244,60 +245,40 @@ static gboolean _doLoadModule(const gchar *module, gchar **args) {
 }
 
 gboolean mlInitModuleConfig(void) {
-    gint i = 0;
-    gchar *cmdline = NULL;
-    gchar **options = NULL;
-    GError *readErr = NULL;
+    GHashTableIter iter;
+    gpointer key = NULL, value = NULL;
+    GHashTable *cmdline = readvars_parse_file("/proc/cmdline");
 
-    /* read module options out of /proc/cmdline and into a structure */
-    if (!g_file_get_contents("/proc/cmdline", &cmdline, NULL, &readErr)) {
-        logMessage(ERROR, "unable to read /proc/cmdline: %s", readErr->message);
-        g_error_free(readErr);
+    if (cmdline == NULL) {
         return _writeModulesConf(MODULES_CONF);
     }
 
-    cmdline = g_strchomp(cmdline);
-    options = g_strsplit(cmdline, " ", 0);
-    g_free(cmdline);
+    g_hash_table_iter_init(&iter, cmdline);
 
-    if (options == NULL) {
-        return _writeModulesConf(MODULES_CONF);
-    }
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        gchar *k = (gchar *) key;
+        gchar *v = (gchar *) value;
 
-    while (options[i] != NULL) {
-        gchar *tmpmod = NULL;
-        gchar **fields = NULL;
-
-        if (g_strstr_len(options[i], -1, "=") == NULL) {
-            i++;
+        if (v == NULL) {
             continue;
-        }
+        } else if (!strcasecmp(k, "blacklist")) {
+            gchar *tmpmod = g_strdup(v);
+            blacklist = g_slist_append(blacklist, tmpmod);
+        } else if (!strstr(k, ".")) {
+            gchar **fields = g_strsplit(k, ".", 0);
 
-        if (!strncmp(options[i], "blacklist=", 10)) {
-            if ((fields = g_strsplit(options[i], "=", 0)) != NULL) {
-                if (g_strv_length(fields) == 2) {
-                    tmpmod = g_strdup(fields[1]);
-                    blacklist = g_slist_append(blacklist, tmpmod);
-                }
+            if (g_strv_length(fields) == 2 && _isValidModule(fields[0])) {
+                GString *tmp = g_string_new(fields[1]);
+                g_string_append_printf(tmp, "=%s", v);
+                _addOption(fields[0], tmp->str);
+                g_string_free(tmp, TRUE);
             }
-        } else if ((fields = g_strsplit(options[i], ".", 0)) != NULL) {
-            if (g_strv_length(fields) == 2) {
-                if (_isValidModule(fields[0])) {
-                    _addOption(fields[0], fields[1]);
-                }
-            }
-        }
 
-        if (fields != NULL) {
             g_strfreev(fields);
         }
-
-        i++;
     }
 
-    if (options != NULL) {
-        g_strfreev(options);
-    }
+    g_hash_table_destroy(cmdline);
 
     return _writeModulesConf(MODULES_CONF);
 }
