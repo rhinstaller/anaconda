@@ -60,7 +60,7 @@ $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
 
 #### RULES ####
 
-$template anaconda_tty4, "%%timestamp:8:$:date-rfc3164%%,%%timestamp:1:3:date-subseconds%% %%syslogseverity-text:::uppercase%% %%programname%%:%%msg%%\\n"
+$template anaconda_justmsg, "%%msg%%\\n"
 $template anaconda_debug, "%%rawmsg%%\\n"
 $template anaconda_syslog, "%%timestamp:8:$:date-rfc3164%%,%%timestamp:1:3:date-subseconds%% %%syslogseverity-text:::uppercase%% %%programname%%:%%msg%%\\n"
 
@@ -68,6 +68,7 @@ $template path_syslog, "%(directory)s/%(subdirectory)s/syslog
 $template path_anaconda, "%(directory)s/%(subdirectory)s/anaconda.log"
 $template path_program, "%(directory)s/%(subdirectory)s/program.log"
 $template path_storage, "%(directory)s/%(subdirectory)s/storage.log"
+$template path_xserver, "%(directory)s/%(subdirectory)s/X.log"
 $template path_sysimage, "%(directory)s/%(subdirectory)s/install.log.syslog"
 
 *.*                                                  %(directory)s/debug_all.log;anaconda_debug
@@ -80,6 +81,7 @@ authpriv.*                                           ?path_syslog;anaconda_syslo
 :programname, contains, "anaconda"                   ?path_anaconda;anaconda_syslog
 :programname, contains, "program"                    ?path_program;anaconda_syslog
 :programname, contains, "storage"                    ?path_storage;anaconda_syslog
+:programname, contains, "xserver"                    ?path_xserver;anaconda_justmsg
 :hostname, contains, "sysimage"                      ?path_sysimage;anaconda_syslog
 
 # discard those that we logged
@@ -88,6 +90,7 @@ authpriv.*                                           ?path_syslog;anaconda_syslo
 :programname, contains, "anaconda"                   ~
 :programname, contains, "program"                    ~
 :programname, contains, "storage"                    ~
+:programname, contains, "xserver"                    ~
 :hostname, contains, "sysimage"                      ~
 kern.*                                               ~
 daemon.*                                             ~

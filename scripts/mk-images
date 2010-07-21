@@ -804,6 +804,12 @@ makeinitrd() {
 $ModLoad imuxsock.so     # provides support for local system logging
 $ModLoad imklog.so       # provides kernel logging support
 
+$ModLoad imfile
+$InputFileName /tmp/X.log
+$InputFileTag xserver:
+$InputFileStateFile xserver-statefile
+$InputRunFileMonitor
+
 #### GLOBAL DIRECTIVES ####
 # Use default timestamp format
 $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
