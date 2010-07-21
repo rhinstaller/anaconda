@@ -25,7 +25,6 @@ makeBootImages() {
 	mkdir -p $TOPDESTPATH/ppc/ppc64
 	echo "Building $KERNELARCH initrd"
 	makeinitrd --initrdto $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz \
-	    --initrdsize 8192 \
 	    --loaderbin loader \
 	    --modules "$INITRDMODS spufs viocd gpio_mdio"
 
@@ -72,7 +71,6 @@ __EOT__
 
         echo "Building ppc initrd"
         makeinitrd --initrdto $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz \
-            --initrdsize 8192 \
             --loaderbin loader \
             --modules "$INITRDMODS"
 

@@ -504,7 +504,6 @@ EOF
 
 makeinitrd() {
     EXTRAINITRDPATH=""
-    INITRDSIZE=""
     KEEP=""
     PADSIZE=""
     LOADERBIN=""
@@ -519,10 +518,6 @@ makeinitrd() {
         elif [ $1 = "--keep" ]; then
             KEEP=yes
             shift
-            continue
-        elif [ $1 = "--initrdsize" ]; then
-            INITRDSIZE=$2
-            shift; shift
             continue
         elif [ $1 = "--loaderbin" ]; then
             LOADERBIN=$2
@@ -542,10 +537,6 @@ makeinitrd() {
     fi
     if [ -z "$INITRDMODULES" ]; then
         echo "warning: no loader modules specified!" >&2
-    fi
-    if [ -z "$INITRDSIZE" ]; then
-        echo "I don't know how big to make the initrd image!" >&2
-        exit 1
     fi
 
     MBD_DIR=$TMPDIR/makebootdisk.dir.$$

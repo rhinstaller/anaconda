@@ -86,7 +86,6 @@ makeBootImages() {
 
   echo "Building $initrd"
   makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/$initrd \
-	--initrdsize 8192 \
 	--loaderbin loader \
 	--modules "$INITRDMODS"
   [ $? = 0 ] || exit 1

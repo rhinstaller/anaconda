@@ -128,14 +128,12 @@ makeBootImages() {
     makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
 	--imagename boot.img \
 	--initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
-		     	    --initrdsize 12288 \
 			    --loaderbin loader \
 			    --modules "$INITRDMODS sgiioc4" '
 
 
     mkdir -p $TOPDESTPATH/images/pxeboot
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-	--initrdsize 12288 \
 	--loaderbin loader \
 	--modules "$INITRDMODS sgiioc4"
     [ $? = 0 ] || exit 1

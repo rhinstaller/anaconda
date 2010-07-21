@@ -34,7 +34,6 @@ getAllS390ModuleNames() {
 
 makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
-	    --initrdsize 20000 \
 	    --loaderbin loader \
 	    --modules "$INITRDMODS $(getAllS390ModuleNames)"
 	$ADDRSIZE $INITRD_ADDRESS $TOPDESTPATH/images/initrd.img $TOPDESTPATH/images/initrd.addrsize

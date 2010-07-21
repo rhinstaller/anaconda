@@ -94,14 +94,12 @@ EOF
     cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/kernels/vmlinux.gz
 
     makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.img \
-	--initrdsize 8192 \
 	--loaderbin loader \
 	--modules "$NETMODULES $SCSIMODULES"
 
     echo "List of init modules: $INITRDMODS"
 
     makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
-	--initrdsize 8192 \
 	--loaderbin loader \
 	--modules "$INITRDMODS"
 
