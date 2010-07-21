@@ -1523,12 +1523,6 @@ class InstallControlState:
     def getNextEnabled (self):
         return self.nextEnabled
 
-    def setScreenPrev (self):
-        self.cw.prevClicked ()
-
-    def setScreenNext (self):
-        self.cw.nextClicked ()
-
     def setGrabNext (self, value):
         self.grabNext = value
         self.cw.update (self)
