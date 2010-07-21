@@ -117,9 +117,3 @@ EOF
 #    makedriverdisk --padsize 1440 "Supplemental Block Device Drivers" "drvblock" "$SCSIMODULES $EXTRASCSI +scsi"
 #    makedriverdisk --padsize 1440 "Supplemental Network Device Drivers" "drvnet" "$NETMODULES $EXTRANET  +net"
 }
-
-#makeSecondStage() {
-#     makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODS =scsi =net"
-#     makemainimage "install" "cramfs"
-#}
-

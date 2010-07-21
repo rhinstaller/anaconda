@@ -426,67 +426,6 @@ makeinitrd() {
     fi
 }
 
-makemainimage () {
-    imagename=$1
-    type=$2
-    mmi_tmpimage=$TMPDIR/instimage.img.$$
-    mmi_mntpoint=$TMPDIR/instimage.mnt.$$
-
-    rm -rf $mmi_tmpimage $mmi_mntpoint
-    mkdir $mmi_mntpoint
-
-    if [ $type = "ext2" ]; then
-        SIZE=$(du -sk $IMGPATH | awk '{ print int($1 * 1.1) }')
-        if [ -d $IMGPATH/usr/share/anaconda]; then
-            ERROR=$(du -sk $IMGPATH/usr/share/anaconda | awk '{ print $1 }')
-            SIZE=$(expr $SIZE - $ERROR)
-        fi
-        if [ -d $IMGPATH/usr/share/syslinux ]; then
-            ERROR=$(du -sk $IMGPATH/usr/share/syslinux | awk '{ print $1 }')
-            SIZE=$(expr $SIZE - $ERROR)
-        fi
-        dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage 2>/dev/null
-        mke2fs -q -F $mmi_tmpimage > /dev/null
-        tune2fs -c0 -i0 $mmi_tmpimage >/dev/null
-        mount -o loop $mmi_tmpimage $mmi_mntpoint
-
-        (cd $IMGPATH; find . |
-            fgrep -v "./usr/share/anaconda" |
-            fgrep -v "./usr/share/syslinux"
-            cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
-        makeproductfile $mmi_mntpoint
-        umount $mmi_mntpoint
-        rmdir $mmi_mntpoint
-    elif [ $type = "squashfs" ]; then
-        makeproductfile $IMGPATH
-        echo "Running mksquashfs $IMGPATH $mmi_tmpimage -no-fragments -no-progress"
-        mksquashfs $IMGPATH $mmi_tmpimage -no-fragments -no-progress
-        chmod 0644 $mmi_tmpimage
-        SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
-    elif [ $type = "cramfs" ]; then
-        makeproductfile $IMGPATH
-        echo "Running mkcramfs $CRAMBS $IMGPATH $mmi_tmpimage"
-        mkfs.cramfs $CRAMBS $IMGPATH $mmi_tmpimage
-        SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
-    fi
-
-    cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
-    chmod 644 $INSTIMGPATH/${imagename}.img
-
-    echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
-    relpath=${INSTIMGPATH#$TOPDESTPATH/}
-    echo "mainimage = ${relpath}/${imagename}.img" >> $TOPDESTPATH/.treeinfo
-
-    rm $mmi_tmpimage
-}
-
-makeSecondStage() {
-    echo "[stage2]" >> $TOPDESTPATH/.treeinfo
-    echo "Building install.img"
-    makemainimage "install" "squashfs"
-    [ $? = 0 ] || exit 1
-}
-
 doPostImages() {
    /bin/true
 }
@@ -602,11 +541,6 @@ for KERNELARCH in $arches; do
         makeEfiImages $yumconf
     done
 done
-
-if [ -n "$foundakernel" ]; then
-    makeSecondStage
-    rm -rf $KERNELBASE
-fi
 
 doPostImages
 

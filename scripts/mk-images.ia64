@@ -154,7 +154,7 @@ __EOT__
 
 doPostImages() {
     if [ -n "$BOOTISO" ]; then
-        mkisofs -quiet -o $TOPDESTPATH/images/$BOOTISO -b boot.img -no-emul-boot -R -J -V "$PRODUCT" -T -graft-points boot.img=$TOPDESTPATH/images/boot.img images/install.img=$TOPDESTPATH/images/install.img
+        mkisofs -quiet -o $TOPDESTPATH/images/$BOOTISO -b boot.img -no-emul-boot -R -J -V "$PRODUCT" -T -graft-points boot.img=$TOPDESTPATH/images/boot.img
         implantisomd5 $TOPDESTPATH/images/$BOOTISO
     fi
 }

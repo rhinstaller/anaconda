@@ -168,8 +168,7 @@ doPostImages() {
 	-V "PBOOT" -volset "$VERSION" -volset-size 1 -volset-seqno 1 \
 	$MACBOOT \
 	-map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic \
-	-no-desktop -allow-multidot -graft-points $TOPDESTPATH/isopath \
-	images/install.img=$TOPDESTPATH/images/install.img
+	-no-desktop -allow-multidot -graft-points $TOPDESTPATH/isopath
     implantisomd5 $TOPDESTPATH/images/$BOOTISO
     rm -rf $TOPDESTPATH/isopath
 }
