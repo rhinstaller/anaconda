@@ -756,7 +756,7 @@ class ext4FileSystem(extFileSystem):
         if rc:
             raise SystemError
         entry.setLabel(label)
-        
+
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
@@ -765,7 +765,7 @@ class ext4FileSystem(extFileSystem):
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
 
-	log.info("Format command:  %s\n" % str(args))
+        log.info("Format command:  %s\n" % str(args))
 
         rc = ext2FormatFilesystem(args, "/dev/tty5",
                                   progress,
@@ -773,8 +773,21 @@ class ext4FileSystem(extFileSystem):
         if rc:
             raise SystemError
 
-        extFileSystem.setExt3Options(self, entry, progress, chroot)
- 
+        self.setExt4Options(entry, progress, chroot)
+
+    def setExt4Options(self, entry, message, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+
+        # if no journal, don't turn off the fsck
+        if not isys.ext2HasJournal(devicePath, makeDevNode = 0):
+            return
+
+        rc = iutil.execWithRedirect("/usr/sbin/tune4fs",
+                                    ["-c0", "-i0", "-Odir_index",
+                                     "-ouser_xattr,acl", devicePath],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+
 fileSystemTypeRegister(ext4FileSystem())
 
 class raidMemberDummyFileSystem(FileSystemType):
