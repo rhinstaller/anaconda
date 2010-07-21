@@ -24,7 +24,7 @@ makeBootImages() {
     if [ "$KERNELARCH" = "ppc64" ]; then
 	mkdir -p $TOPDESTPATH/ppc/ppc64
 	echo "Building $KERNELARCH initrd"
-	makeinitrd --initrdto $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz \
+	makeinitrd --dest $TOPDESTPATH/ppc/ppc64/ramdisk.image.gz \
 	    --modules "$INITRDMODS spufs viocd gpio_mdio"
 
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/ppc64/vmlinuz
@@ -69,7 +69,7 @@ __EOT__
 	mkdir -p $TOPDESTPATH/ppc/mac
 
         echo "Building ppc initrd"
-        makeinitrd --initrdto $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz \
+        makeinitrd --dest $TOPDESTPATH/ppc/ppc32/ramdisk.image.gz \
             --modules "$INITRDMODS"
 
         cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/ppc32/vmlinuz

@@ -98,7 +98,7 @@ EOF
 
     echo "List of init modules: $INITRDMODS"
 
-    makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
+    makeinitrd --dest $TOPDESTPATH/images/initrd.img \
 	--modules "$INITRDMODS"
 
 #    makebootdisk --bootdisksize 4096 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \

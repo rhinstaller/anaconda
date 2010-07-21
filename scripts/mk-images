@@ -422,13 +422,13 @@ instbin() {
 }
 
 makeinitrd() {
-    EXTRAINITRDPATH=""
-    KEEP=""
-    PADSIZE=""
     INITRDMODULES=""
+    KEEP=""
+    OUTFILE=""
+
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
-        if [ $1 = "--initrdto" ]; then
-            EXTRAINITRDPATH=$2
+        if [ $1 = "--dest" ]; then
+            OUTFILE=$2
             shift; shift
             continue
         elif [ $1 = "--keep" ]; then
@@ -443,31 +443,31 @@ makeinitrd() {
         echo "Unknown option passed to makeinitrd"
         exit 1
     done
+
     if [ -z "$INITRDMODULES" ]; then
         echo "warning: no loader modules specified!" >&2
     fi
 
-    MBD_DIR=$TMPDIR/makebootdisk.dir.$$
     MBD_FSIMAGE=$TMPDIR/makebootdisk.initrdimage.$$
     MBD_BOOTTREE=$TMPDIR/makebootdisk.tree.$$
 
     if [ -n "$INITRDMODULES" ]; then
         MODSET=`expandModuleSet "$INITRDMODULES"`
-        makemoduletree $MBD_DIR "$MODSET"
+        makemoduletree $IMGPATH "$MODSET"
     fi
 
-    makeproductfile $MBD_DIR
+    makeproductfile $IMGPATH
 
     rm -f $MBD_FSIMAGE
-    (cd $MBD_DIR; find . |cpio --quiet -c -o) |gzip -9 > $MBD_FSIMAGE
+    (cd $IMGPATH; find . |cpio --quiet -c -o) |gzip -9 > $MBD_FSIMAGE
 
     size=$(du $MBD_FSIMAGE | awk '{ print $1 }')
 
     echo "Wrote $MBD_FSIMAGE (${size}k compressed)"
 
-    if [ -n "$EXTRAINITRDPATH" ]; then
-        mkdir -p `dirname $EXTRAINITRDPATH`
-        cp -a $MBD_FSIMAGE $EXTRAINITRDPATH
+    if [ -n "$OUTFILE" ]; then
+        mkdir -p `dirname $OUTFILE`
+        cp -a $MBD_FSIMAGE $OUTFILE
     fi
 
     if [ -z "$KEEP" ]; then

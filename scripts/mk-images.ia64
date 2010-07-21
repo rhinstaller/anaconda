@@ -127,12 +127,12 @@ makeBootImages() {
     echo "making boot.img for EFI bootloader"
     makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
 	--imagename boot.img \
-	--initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
+	--initrdflags '--dest $TOPDESTPATH/images/ramdisk.img \
 			    --modules "$INITRDMODS sgiioc4" '
 
 
     mkdir -p $TOPDESTPATH/images/pxeboot
-    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
+    makeinitrd --dest $TOPDESTPATH/images/pxeboot/initrd.img \
 	--modules "$INITRDMODS sgiioc4"
     [ $? = 0 ] || exit 1
     mv $TOPDESTPATH/kernels/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
