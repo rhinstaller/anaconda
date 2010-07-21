@@ -298,6 +298,7 @@ $LIBDIR/dbus-1
 $LIBDIR/libaio.so*
 $LIBDIR/libfreebl3.so
 $LIBDIR/libfreebl3.chk
+$LIBDIR/libgcc_s*
 $LIBDIR/libmultipath.so*
 $LIBDIR/libnss_dns*
 $LIBDIR/libnss_files*
@@ -473,8 +474,7 @@ sbin/mkofboot
 sbin/mkraid
 sbin/mkreiserfs
 sbin/mkswap
-sbin/mount.nfs*
-sbin/mount.ntfs*
+sbin/mount*
 sbin/multipath
 sbin/nologin
 sbin/ofpath
@@ -497,7 +497,7 @@ sbin/swapoff
 sbin/swapon
 sbin/tune2fs
 sbin/udev*
-sbin/umount.nfs*
+sbin/umount*
 sbin/vconfig
 sbin/xfs_repair
 sbin/xfsrestore
@@ -528,6 +528,7 @@ usr/$LIBDIR/libnssckbi.so
 usr/$LIBDIR/libnssdbm3.so
 usr/$LIBDIR/libnssdbm3.chk
 usr/$LIBDIR/libnsspem.so
+usr/$LIBDIR/libpolkit-backend-1.so.0.*
 usr/$LIBDIR/libsmime3.so
 usr/$LIBDIR/libsoftokn3.so
 usr/$LIBDIR/libsoftokn3.chk
@@ -540,7 +541,6 @@ usr/bin/Xvnc
 usr/bin/chattr*
 usr/bin/chvt
 usr/bin/clear
-usr/bin/dbus-launch
 usr/bin/dbus-launch
 usr/bin/du
 usr/bin/eject
@@ -701,12 +701,18 @@ usr/share/python-meh/*
 usr/share/system-config-date
 usr/share/system-config-date/zonetab.py*
 usr/share/system-config-keyboard
+usr/share/terminfo/a/ansi
+usr/share/terminfo/d/dumb
+usr/share/terminfo/g/gnome
 usr/share/terminfo/l/linux
+usr/share/terminfo/s/screen
 usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt100-nav
+usr/share/terminfo/v/vt102
 usr/share/terminfo/v/vt320
 usr/share/terminfo/v/vt320-w
 usr/share/terminfo/x/xterm
+usr/share/terminfo/x/xterm-color
 usr/share/themes/Atlanta/metacity-1
 usr/share/xorg/extramodes
 usr/share/xorg/vesamodes
@@ -784,15 +790,6 @@ usr/bin/wc
 usr/bin/xauth
 usr/sbin/glibc_post_upgrade
 usr/sbin/lsreipl
-usr/share/terminfo/a/ansi
-usr/share/terminfo/d/dumb
-usr/share/terminfo/k/kterm
-usr/share/terminfo/s/screen
-usr/share/terminfo/v/vt102
-usr/share/terminfo/v/vt320
-usr/share/terminfo/v/vt320-w
-usr/share/terminfo/x/xterm
-usr/share/terminfo/x/xterm-color
 EOF
 fi
 

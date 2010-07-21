@@ -423,7 +423,6 @@ instbin() {
 }
 
 setupSshd() {
-    cp -f $IMGPATH/etc/protocols $MBD_DIR/etc/protocols
     echo "sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin" \
     	>> $MBD_DIR/etc/passwd
 
@@ -436,12 +435,6 @@ setupSshd() {
 
     chmod 0400 $MBD_DIR/etc/shadow
 
-    # PAM configuration
-    for i in pam_limits.so pam_env.so pam_unix.so pam_deny.so; do
-        cp -f $IMGPATH/$LIBDIR/security/$i $MBD_DIR/$LIBDIR/security
-    done
-
-    cp -f $IMGPATH/etc/pam.d/other $MBD_DIR/etc/pam.d
     cat > $MBD_DIR/etc/pam.d/login << EOF
 #%PAM-1.0
 auth        required      pam_env.so
@@ -455,8 +448,6 @@ session     required      pam_unix.so
 EOF
     cp -f $MBD_DIR/etc/pam.d/login $MBD_DIR/etc/pam.d/sshd
     cp -f $MBD_DIR/etc/pam.d/login $MBD_DIR/etc/pam.d/remote
-
-    cp -f $IMGPATH/etc/security/{limits.conf,pam_env.conf} $MBD_DIR/etc/security/
 
     mkdir -m 0700 -p $MBD_DIR/etc/ssh
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
@@ -500,12 +491,6 @@ PermitEmptyPasswords yes
 PermitUserEnvironment yes
 EOF
     chmod 600 $MBD_DIR/etc/ssh/sshd_config.anaconda
-
-    # copy in the binaries
-    instbin $IMGPATH /sbin/nologin $MBD_DIR /sbin/nologin
-    instbin $IMGPATH /bin/login $MBD_DIR /sbin/login
-    instbin $IMGPATH /usr/sbin/sshd $MBD_DIR /sbin/sshd
-    instbin $IMGPATH /usr/bin/ssh-keygen $MBD_DIR /sbin/ssh-keygen
 }
 
 
@@ -543,21 +528,11 @@ makeinitrd() {
 
     rm -rf $MBD_DIR $MBD_FSIMAGE
     mkdir -p $MBD_DIR/modules
-    mkdir -p $MBD_DIR/sbin
     mkdir -p $MBD_DIR/dev
-    mkdir -p $MBD_DIR/etc
-    mkdir -p $MBD_DIR/etc/udev/rules.d
-    mkdir -p $MBD_DIR/lib/udev/rules.d
     mkdir -p $MBD_DIR/proc
     mkdir -p $MBD_DIR/selinux
     mkdir -p $MBD_DIR/sys
-    mkdir -p $MBD_DIR/etc/terminfo/{a,b,d,l,s,v,x}
     mkdir -p $MBD_DIR/tmp
-    mkdir -p $MBD_DIR/usr/libexec
-    mkdir -p $MBD_DIR/usr/libexec/polkit-1
-    mkdir -p $MBD_DIR/usr/$LIBDIR/NetworkManager
-    mkdir -p $MBD_DIR/$LIBDIR/rsyslog
-    mkdir -p $MBD_DIR/usr/share/dbus-1/system-services
     mkdir -p $MBD_DIR/var/lib/dbus
     mkdir -p $MBD_DIR/var/lib/dhclient
     mkdir -p $MBD_DIR/etc/dhcp
@@ -565,75 +540,14 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/run/dbus
     mkdir -p $MBD_DIR/var/run/NetworkManager
-    mkdir -p $MBD_DIR/etc/dbus-1/system.d
     mkdir -p $MBD_DIR/etc/modprobe.d
-    mkdir -p $MBD_DIR/etc/NetworkManager/dispatcher.d
-    mkdir -p $MBD_DIR/$LIBDIR/dbus-1
-    mkdir -p $MBD_DIR/etc/sysconfig/network-scripts
-    mkdir -p $MBD_DIR/usr/share/polkit-1/actions
-    mkdir -p $MBD_DIR/etc/polkit-1/localauthority.conf.d
-    mkdir -p $MBD_DIR/etc/polkit-1/nullbackend.conf.d
-    mkdir -p $MBD_DIR/usr/share/hwdata
-    mkdir -p $MBD_DIR/etc/rc.d/init.d
-    mkdir -p $MBD_DIR/usr/sbin
     mkdir -p $MBD_DIR/var/run/wpa_supplicant
     mkdir -m 111 -p $MBD_DIR/var/empty/sshd
-    mkdir -p $MBD_DIR/etc/{pam.d,security}
-    mkdir -p $MBD_DIR/$LIBDIR/security
     mkdir -p $MBD_DIR/usr/lib/rpm
     mkdir -p $MBD_DIR/var/lib/rpm
 
-    for x in $IMGPATH/$LIBDIR/security/* ; do
-	y=$(basename $x)
-        instbin $IMGPATH $LIBDIR/security/$y $MBD_DIR $LIBDIR/security/$y
-    done
-
-    cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
-    cp $IMGPATH/$LIBDIR/libwrap*.so* $MBD_DIR/$LIBDIR/
-    cp $IMGPATH/usr/$LIBDIR/libpolkit-backend-1.so.0.* $MBD_DIR/$LIBDIR/libpolkit-backend-1.so.0
-
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
         ln -s /tmp $MBD_DIR/var/state/xkb
-        instbin $IMGPATH /usr/bin/xauth $MBD_DIR /sbin/xauth
-        local cmsfsbin cmd
-        for cmsfsbin in $IMGPATH/usr/sbin/cmsfs*; do
-            cmd="$(basename $cmsfsbin)"
-            instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
-        done
-
-        # lsznet requirements
-        mkdir -p $MBD_DIR/lib/s390-tools
-        for lsznetbin in lsznet.raw znetcontrolunits ; do
-            target="/lib/s390-tools/$lsznetbin"
-            instbin $IMGPATH $target $MBD_DIR $target
-        done
-
-        # required for lsznet
-        instbin $IMGPATH /usr/bin/sort $MBD_DIR /sbin/sort
-
-        # required for lsznet and linuxrc.s390
-        instbin $IMGPATH /usr/bin/uname $MBD_DIR /sbin/uname
-        instbin $IMGPATH /usr/bin/find $MBD_DIR /sbin/find
-
-        # required for linuxrc.s390 (and other commands)
-        for cmd in ping ping6 cat head tr wc echo printf cut mknod ; do
-            instbin $IMGPATH /usr/bin/$cmd $MBD_DIR /sbin/$cmd
-        done
-        instbin $IMGPATH /usr/sbin/cmsfscat $MBD_DIR /sbin/cmsfscat
-        instbin $IMGPATH /usr/sbin/sysctl $MBD_DIR /sbin/sysctl
-
-        # required for *_cio_free
-        instbin $IMGPATH /usr/bin/seq $MBD_DIR /sbin/seq
-
-        # usability and problem determination
-        for cmd in cp chown chmod date dmesg ps ls less vi gzip tar scp \
-                   ldd nslookup expr getopt basename dirname lsscsi ; do
-            instbin $IMGPATH /usr/bin/$cmd $MBD_DIR /sbin/$cmd
-        done
-        for cmd in arp qetharp qetharp-2.6 qethconf lsqeth lscss lschp \
-                   lsreipl lsdasd dasdview dasdinfo lszfcp ; do
-            instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
-        done
     fi
 
     if [ -n "$INITRDMODULES" ]; then
@@ -658,8 +572,6 @@ makeinitrd() {
           ln -sf init reboot
           ln -sf init halt
         )
-        instbin $IMGPATH /usr/sbin/dasdfmt $MBD_DIR /sbin/dasdfmt
-        cp -a $IMGPATH/usr/sbin/*_cio_free $MBD_DIR/sbin
     fi
     instbin $IMGPATH ${LIBEXECBINDIR##$IMGPATH}/auditd $MBD_DIR /sbin/auditd
 
@@ -669,136 +581,15 @@ makeinitrd() {
     fi
 
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
-    install -m 644 $IMGPATH/etc/passwd $MBD_DIR/etc/passwd
-    install -m 644 $IMGPATH/etc/group $MBD_DIR/etc/group
-    install -m 644 $IMGPATH/etc/netconfig $MBD_DIR/etc/netconfig
-    install -m 644 $IMGPATH/etc/nsswitch.conf $MBD_DIR/etc/nsswitch.conf
-    install -m 644 $IMGPATH/etc/hosts $MBD_DIR/etc/hosts
     mkdir -p $MBD_DIR/usr/lib/locale
     localedef -c -i en_US -f UTF-8 --prefix $MBD_DIR en_US
-
-    if [ -f $IMGPATH/etc/modprobe.d/libmlx4.conf ]; then
-        install -m 644 $IMGPATH/etc/modprobe.d/libmlx4.conf \
-                       $MBD_DIR/etc/modprobe.d/libmlx4.conf
-    fi
-
-    instbin $IMGPATH /usr/bin/mount $MBD_DIR /sbin/mount
-    for mountcmd in $IMGPATH/usr/sbin/mount.* ; do
-        cmd="$(basename $mountcmd)"
-        instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
-    done
-    instbin $IMGPATH /usr/bin/umount $MBD_DIR /sbin/umount
-    for umountcmd in $IMGPATH/usr/sbin/umount.* ; do
-        cmd="$(basename $umountcmd)"
-        instbin $IMGPATH /usr/sbin/$cmd $MBD_DIR /sbin/$cmd
-    done
-
-    instbin $IMGPATH /usr/sbin/udevd $MBD_DIR /sbin/udevd
-    instbin $IMGPATH /usr/sbin/udevadm $MBD_DIR /sbin/udevadm
-    instbin $IMGPATH /usr/bin/udevinfo $MBD_DIR /sbin/udevinfo
-
-    instbin $IMGPATH /usr/bin/bash $MBD_DIR /sbin/bash
-    ( cd $MBD_DIR/sbin ; ln -sf bash sh )
-    instbin $IMGPATH /usr/sbin/consoletype $MBD_DIR /sbin/consoletype
-    instbin $IMGPATH /usr/bin/logger $MBD_DIR /sbin/logger
-
-    ( cd $IMGPATH/etc/rc.d/init.d
-      cp -a functions $MBD_DIR/etc/rc.d/init.d
-    )
-
-    ( cd $IMGPATH/etc/sysconfig/network-scripts
-      cp -a network-functions $MBD_DIR/etc/sysconfig/network-scripts
-      cp -a network-functions-ipv6 $MBD_DIR/etc/sysconfig/network-scripts
-    )
 
     ( cd $MBD_DIR/etc ; ln -sf /etc/rc.d/init.d init.d )
 
     # DHCP and DHCPv6 client daemons and support programs
-    instbin $IMGPATH /usr/sbin/dhclient $MBD_DIR /sbin/dhclient
-    cp -a $IMGPATH/usr/sbin/dhclient-script $MBD_DIR/sbin/dhclient-script
-    chmod 0755 $MBD_DIR/sbin/dhclient-script
-    instbin $IMGPATH /usr/sbin/dhcp6c $MBD_DIR /sbin/dhcp6c
-    instbin $IMGPATH /usr/sbin/arping $MBD_DIR /sbin/arping
-    instbin $IMGPATH /usr/sbin/ifconfig $MBD_DIR /sbin/ifconfig
-    instbin $IMGPATH /usr/sbin/ip $MBD_DIR /sbin/ip
-    instbin $IMGPATH /usr/bin/ipcalc $MBD_DIR /sbin/ipcalc
-    instbin $IMGPATH /usr/bin/hostname $MBD_DIR /sbin/hostname
-    instbin $IMGPATH /usr/sbin/ethtool $MBD_DIR /sbin/ethtool
-    instbin $IMGPATH /usr/sbin/route $MBD_DIR /sbin/route
     touch $MBD_DIR/etc/resolv.conf
 
-    # hwdata
-    cp -a $IMGPATH/usr/share/hwdata/pci.ids $MBD_DIR/usr/share/hwdata/pci.ids
-    cp -a $IMGPATH/usr/share/hwdata/usb.ids $MBD_DIR/usr/share/hwdata/usb.ids
-
-    # PolicyKit
-    ( cd $IMGPATH/etc/polkit-1
-      cp -a localauthority.conf.d/50-localauthority.conf $MBD_DIR/etc/polkit-1/localauthority.conf.d
-      cp -a localauthority.conf.d/60-desktop-policy.conf $MBD_DIR/etc/polkit-1/localauthority.conf.d
-      cp -a nullbackend.conf.d/50-nullbackend.conf $MBD_DIR/etc/polkit-1/nullbackend.conf.d
-    )
-    ( cd $IMGPATH/usr/share/dbus-1/system-services
-      cp -a org.freedesktop.PolicyKit1.service $MBD_DIR/usr/share/dbus-1/system-services
-    )
-    ( cd $IMGPATH/usr/share/polkit-1/actions
-      cp -a org.freedesktop.NetworkManager.policy $MBD_DIR/usr/share/polkit-1/actions
-      cp -a org.freedesktop.consolekit.policy $MBD_DIR/usr/share/polkit-1/actions
-      cp -a org.freedesktop.modem-manager.policy $MBD_DIR/usr/share/polkit-1/actions
-      cp -a org.freedesktop.network-manager-settings.system.policy $MBD_DIR/usr/share/polkit-1/actions
-      cp -a org.freedesktop.policykit.policy $MBD_DIR/usr/share/polkit-1/actions
-    )
-    cp -a $IMGPATH/etc/dbus-1/system.d/org.freedesktop.PolicyKit1.conf $MBD_DIR/etc/dbus-1/system.d
-    cp -a $IMGPATH/etc/dbus-1/system.d/ConsoleKit.conf $MBD_DIR/etc/dbus-1/system.d
-    chmod 04755 $IMGPATH/usr/libexec/polkit-1/polkit-agent-helper-1
-    cp -a $IMGPATH/usr/libexec/polkit-1/polkitd $MBD_DIR/usr/libexec/polkit-1
-
-    # dbus
-    instbin $IMGPATH /usr/bin/dbus-uuidgen $MBD_DIR /sbin/dbus-uuidgen
-    instbin $IMGPATH /usr/bin/dbus-daemon $MBD_DIR /sbin/dbus-daemon
-    cp -a $IMGPATH/etc/dbus-1/system.conf $MBD_DIR/etc/dbus-1/system.conf
-    chown root:dbus $IMGPATH/$LIBDIR/dbus-1/dbus-daemon-launch-helper
-    chmod 04750 $IMGPATH/$LIBDIR/dbus-1/dbus-daemon-launch-helper
-    cp -a $IMGPATH/$LIBDIR/dbus-1/dbus-daemon-launch-helper $MBD_DIR/$LIBDIR/dbus-1
-
-    # wpa_supplicant
-    instbin $IMGPATH /usr/sbin/wpa_passphrase $MBD_DIR /usr/sbin/wpa_passphrase
-    instbin $IMGPATH /usr/sbin/wpa_supplicant $MBD_DIR /usr/sbin/wpa_supplicant
-    cp -a $IMGPATH/etc/dbus-1/system.d/wpa_supplicant.conf $MBD_DIR/etc/dbus-1/system.d
-    cp -a $IMGPATH/etc/wpa_supplicant/wpa_supplicant.conf $MBD_DIR/etc/wpa_supplicant
-    ( cd $IMGPATH/usr/share/dbus-1/system-services
-      cp -a fi.epitest.hostap.WPASupplicant.service $MBD_DIR/usr/share/dbus-1/system-services
-    )
-
-    # NetworkManager
-    instbin $IMGPATH /usr/sbin/NetworkManager $MBD_DIR /usr/sbin/NetworkManager
-    cp -a $IMGPATH/etc/dbus-1/system.d/nm-*.conf $MBD_DIR/etc/dbus-1/system.d
-    cp -a $IMGPATH/etc/dbus-1/system.d/NetworkManager.conf $MBD_DIR/etc/dbus-1/system.d
-    cp -a $IMGPATH/etc/NetworkManager/NetworkManager.conf $MBD_DIR/etc/NetworkManager
-    ( cd $IMGPATH/usr/$LIBDIR/NetworkManager
-      for f in *.so ; do
-          instbin $IMGPATH /usr/$LIBDIR/NetworkManager/$f $MBD_DIR /usr/$LIBDIR/NetworkManager/$f
-      done
-    )
-    ( cd $IMGPATH/usr/libexec
-      for f in nm-* ; do
-          instbin $IMGPATH /usr/libexec/$f $MBD_DIR /usr/libexec/$f
-      done
-    )
-    ( cd $IMGPATH/usr/share/dbus-1/system-services
-      cp -a org.freedesktop.nm_dispatcher.service $MBD_DIR/usr/share/dbus-1/system-services
-    )
-
-    # mdadm
-    instbin $IMGPATH /usr/sbin/mdadm $MBD_DIR /sbin/mdadm
-    instbin $IMGPATH /usr/sbin/mdmon $MBD_DIR /sbin/mdmon
-
     # rsyslog
-    instbin $IMGPATH /usr/sbin/rsyslogd $MBD_DIR /sbin/rsyslogd
-    ( cd $IMGPATH/$LIBDIR/rsyslog
-      for f in *.so; do
-          instbin $IMGPATH /$LIBDIR/rsyslog/$f $MBD_DIR /$LIBDIR/rsyslog/$f
-      done
-    )
     # \EOF has a quote in the first character on purpose; see man bash on here documents
     cat > $MBD_DIR/etc/rsyslog.conf <<\EOF
 #### MODULES ####
@@ -851,75 +642,14 @@ $ActionResumeRetryCount -1      # infinite retries if host is down
 
 EOF
 
-    # Misc
-    instbin $IMGPATH /usr/sbin/dmidecode $MBD_DIR /sbin/dmidecode
-    instbin $IMGPATH /usr/bin/egrep $MBD_DIR /sbin/egrep
-    instbin $IMGPATH /usr/bin/fgrep $MBD_DIR /sbin/fgrep
-    instbin $IMGPATH /usr/bin/gawk $MBD_DIR /sbin/gawk
-    ( cd $MBD_DIR/sbin ; ln -sf gawk awk )
-    instbin $IMGPATH /usr/bin/grep $MBD_DIR /sbin/grep
-    instbin $IMGPATH /usr/bin/kill $MBD_DIR /sbin/kill
-    instbin $IMGPATH /usr/bin/ln $MBD_DIR /sbin/ln
-    instbin $IMGPATH /usr/sbin/load_policy $MBD_DIR /sbin/load_policy
-    instbin $IMGPATH /usr/bin/mkdir $MBD_DIR /sbin/mkdir
-    instbin $IMGPATH /usr/bin/readlink $MBD_DIR /sbin/readlink
-    instbin $IMGPATH /usr/bin/rm $MBD_DIR /sbin/rm
-    instbin $IMGPATH /usr/bin/rmdir $MBD_DIR /sbin/rmdir
-    instbin $IMGPATH /usr/bin/sed $MBD_DIR /sbin/sed
-    instbin $IMGPATH /usr/bin/sleep $MBD_DIR /sbin/sleep
-    instbin $IMGPATH /usr/bin/strace $MBD_DIR /sbin/strace
-    instbin $IMGPATH /usr/bin/touch $MBD_DIR /sbin/touch
-    instbin $IMGPATH /usr/bin/wget $MBD_DIR /sbin/wget
-    instbin $IMGPATH /usr/sbin/lsof $MBD_DIR /sbin/lsof
-    instbin $IMGPATH /usr/sbin/blkid $MBD_DIR /sbin/blkid
-    instbin $IMGPATH /usr/bin/uname $MBD_DIR /sbin/uname
-
-    # Indirect dependencies
-    for nsslib in freebl3 softokn3 nssdbm3 ; do
-        if [ -f $IMGPATH/$LIBDIR/lib$nsslib.so ]; then
-            install -m 755 $IMGPATH/$LIBDIR/lib$nsslib.so $MBD_DIR/$LIBDIR/
-        elif [ -f $IMGPATH/usr/$LIBDIR/lib$nsslib.so ]; then
-            install -m 755 $IMGPATH/usr/$LIBDIR/lib$nsslib.so $MBD_DIR/$LIBDIR/
-        else
-            echo "ERROR: *** Missing lib$nsslib.so" >&2
-        fi
-    done
-
-    install -m 755 $IMGPATH/usr/$LIBDIR/libsqlite3.so.0 $MBD_DIR/usr/$LIBDIR/
-    install -m 755 $IMGPATH/$LIBDIR/libnss_dns.so.2 $MBD_DIR/$LIBDIR/
-    install -m 755 $IMGPATH/$LIBDIR/libnss_files.so.2 $MBD_DIR/$LIBDIR/
-    install -m 755 $IMGPATH/$LIBDIR/libgcc_s.so.1 $MBD_DIR/$LIBDIR/
-
-    install -m 644 $IMGPATH/etc/udev/udev.conf $MBD_DIR/etc/udev/udev.conf
-    for i in $IMGPATH/lib/udev/rules.d/*.rules ; do
-       install -m 644 $i $MBD_DIR/lib/udev/rules.d/${i##*/}
-    done
-    for i in $IMGPATH/etc/udev/rules.d/*.rules ; do
-       install -m 644 $i $MBD_DIR/etc/udev/rules.d/${i##*/}
-    done
-    for i in $IMGPATH/lib/udev/*; do
-       if [ -f $i ]; then install -m 755 $i $MBD_DIR/lib/udev/${i##*/}; fi
-    done
     rm -f $MBD_DIR/lib/udev/rules.d/*generator*
 
     install -m 644 $IMGPATH/usr/share/anaconda/$MYLOADERTR $MBD_DIR/etc/loader.tr
-    for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color g/gnome ; do
-        [ -f $IMGPATH/usr/share/terminfo/$i ] && \
-        install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
-    done
-
-    cp -a $IMGPATH/usr/lib/rpm/rpmrc $MBD_DIR/usr/lib/rpm
-    cp -a $IMGPATH/usr/lib/rpm/macros $MBD_DIR/usr/lib/rpm
 
     makeproductfile $MBD_DIR
 
-    for n in insmod rmmod modprobe depmod; do
-        instbin $IMGPATH /usr/sbin/$n $MBD_DIR /sbin/$n
-    done
-
     ln -s /sbin/init $MBD_DIR/init
     ln -s /proc/mounts $MBD_DIR/etc/mtab
-    ln -s sbin $MBD_DIR/bin
     mkdir -p $MBD_DIR/var/lib
     ln -s ../../tmp $MBD_DIR/var/lib/xkb
 
