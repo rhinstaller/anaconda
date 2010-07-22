@@ -64,10 +64,11 @@ class FilterTypeWindow(InstallWindow):
                                           "which option is right for you, this is "
                                           "probably it."))
         self.buttonGroup.addEntry("complex", _("Specialized Storage Devices"),
-                                  descr=_("Installs or upgrades to devices such as "
-                                          "Storage Area Networks (SANs) or mainframe "
-                                          "attached disks (DASD), usually in an "
-                                          "enterprise environment"))
+                                  descr=_("Installs or upgrades to enterprise devices "
+                                          "such as Storage Area Networks (SANs). This "
+                                          "option will allow you to add FCoE / iSCSI "
+                                          "/ zFCP disks and to filter out devices "
+                                          "the installer should ignore."))
 
         widget = self.buttonGroup.render()
         vbox.pack_start(widget, expand=True, fill=True)
