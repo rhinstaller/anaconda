@@ -808,6 +808,12 @@ $ModLoad imfile
 $InputFileName /tmp/X.log
 $InputFileTag xserver:
 $InputFileStateFile xserver-statefile
+$InputFileFacility local1
+$InputRunFileMonitor
+$InputFileName /tmp/anaconda-tb-all.log
+$InputFileTag anaconda-tb:
+$InputFileStateFile anaconda-tb-statefile
+$InputFileFacility local1
 $InputRunFileMonitor
 
 #### GLOBAL DIRECTIVES ####

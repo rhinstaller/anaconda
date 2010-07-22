@@ -66,6 +66,7 @@ $template anaconda_syslog, "%%timestamp:8:$:date-rfc3164%%,%%timestamp:1:3:date-
 
 $template path_syslog, "%(directory)s/%(subdirectory)s/syslog
 $template path_anaconda, "%(directory)s/%(subdirectory)s/anaconda.log"
+$template path_anaconda_tb, "%(directory)s/%(subdirectory)s/anaconda-tb-all.log"
 $template path_program, "%(directory)s/%(subdirectory)s/program.log"
 $template path_storage, "%(directory)s/%(subdirectory)s/storage.log"
 $template path_xserver, "%(directory)s/%(subdirectory)s/X.log"
@@ -75,23 +76,25 @@ $template path_sysimage, "%(directory)s/%(subdirectory)s/install.log.syslog"
 
 kern.*;\\
 daemon.*;\\
-authpriv.*                                           ?path_syslog;anaconda_syslog
+authpriv.*                                          ?path_syslog;anaconda_syslog
 
-:programname, contains, "loader"                     ?path_anaconda;anaconda_syslog
-:programname, contains, "anaconda"                   ?path_anaconda;anaconda_syslog
-:programname, contains, "program"                    ?path_program;anaconda_syslog
-:programname, contains, "storage"                    ?path_storage;anaconda_syslog
-:programname, contains, "xserver"                    ?path_xserver;anaconda_justmsg
-:hostname, contains, "sysimage"                      ?path_sysimage;anaconda_syslog
+:programname, isequal, "loader"                     ?path_anaconda;anaconda_syslog
+:programname, isequal, "anaconda"                   ?path_anaconda;anaconda_syslog
+:programname, isequal, "anaconda-tb"                ?path_anaconda_tb;anaconda_justmsg
+:programname, isequal, "program"                    ?path_program;anaconda_syslog
+:programname, isequal, "storage:"                   ?path_storage;anaconda_syslog
+:programname, isequal, "xserver"                    ?path_xserver;anaconda_justmsg
+:hostname, isequal, "sysimage"                      ?path_sysimage;anaconda_syslog
 
 # discard those that we logged
-:programname, contains, "rsyslogd"                   ~
-:programname, contains, "loader"                     ~
-:programname, contains, "anaconda"                   ~
-:programname, contains, "program"                    ~
-:programname, contains, "storage"                    ~
-:programname, contains, "xserver"                    ~
-:hostname, contains, "sysimage"                      ~
+:programname, isequal, "rsyslogd"                    ~
+:programname, isequal, "loader"                      ~
+:programname, isequal, "anaconda"                    ~
+:programname, isequal, "anaconda-tb"                 ~
+:programname, isequal, "program"                     ~
+:programname, isequal, "storage"                     ~
+:programname, isequal, "xserver"                     ~
+:hostname, isequal, "sysimage"                       ~
 kern.*                                               ~
 daemon.*                                             ~
 authpriv.*                                           ~

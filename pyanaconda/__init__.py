@@ -207,10 +207,18 @@ class Anaconda(object):
         stack.reverse()
         exn = ReverseExceptionDump((None, None, stack), self.mehConfig)
 
+        # dump to a unique file
         (fd, filename) = mkstemp("", "anaconda-tb-", "/tmp")
         fo = os.fdopen(fd, "w")
-
         exn.write(self, fo)
+        fo.close()
+
+        #append to a given file
+        with open(filename, "r") as f:
+            content = f.readlines()
+        with open("/tmp/anaconda-tb-all.log", "a+") as f:
+            f.write("--- traceback: %s ---\n" % filename)
+            f.writelines(content)
 
     def initInterface(self):
         if self._intf:
