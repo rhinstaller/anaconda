@@ -536,20 +536,17 @@ class FilterWindow(InstallWindow):
         for line in self.store:
             line[VISIBLE_COL] = self.pages[page_num].cb.isMember(line[OBJECT_COL])
 
-    def _show_buttons(self, *args, **kwargs):
-        if self.anaconda.simpleFilter:
-            self.buttonBox.hide()
-            self.buttonBox.set_no_show_all(True)
-        else:
-            self.buttonBox.show_all()
-
     def getScreen(self, anaconda):
+        # We skip the filter UI in basic storage mode
+        if anaconda.simpleFilter:
+            anaconda.storage.exclusiveDisks = []
+            return None
+
         (self.xml, self.vbox) = gui.getGladeWidget("filter.glade", "vbox")
         self.buttonBox = self.xml.get_widget("buttonBox")
         self.notebook = self.xml.get_widget("notebook")
         self.addAdvanced = self.xml.get_widget("addAdvancedButton")
 
-        self.buttonBox.connect("realize", self._show_buttons)
         self.notebook.connect("switch-page", self._page_switched)
         self.addAdvanced.connect("clicked", self._add_advanced_clicked)
 
@@ -600,22 +597,9 @@ class FilterWindow(InstallWindow):
         (raids, nonraids) = self.split_list(lambda d: isRAID(d) and not isCCISS(d),
                                             singlepaths)
 
-        if anaconda.simpleFilter:
-            # In the typical use case, the user likely only has one drive and
-            # there's no point showing either the filtering UI or the
-            # cleardisks UI.  Unfortunately, that means we need to duplicate
-            # some of the getNext method.
-            if len(singlepaths) == 1:
-                anaconda.storage.exclusiveDisks = [udev_device_get_name(singlepaths[0])]
-                return None
-
-            self.pages = [self._makeBasic()]
-            self.notebook.set_show_border(False)
-            self.notebook.set_show_tabs(False)
-        else:
-            self.pages = [self._makeBasic(), self._makeRAID(),
-                          self._makeMPath(), self._makeOther(),
-                          self._makeSearch()]
+        self.pages = [self._makeBasic(), self._makeRAID(),
+                      self._makeMPath(), self._makeOther(),
+                      self._makeSearch()]
 
         self.populate(nonraids, mpaths, raids)
 
