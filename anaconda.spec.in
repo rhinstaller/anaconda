@@ -223,6 +223,34 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jul 22 2010 Ales Kozumplik <akozumpl@redhat.com> - 14.12-1
+- Only write changed DASD attributes to rd_DASD params (#606783) (dcantrell)
+- Propagate MACADDR from loaderData to iface (#595388) (dcantrell)
+- Deal with media only for media repo package failures (#573492) (rvykydal)
+- Support for ks: --ipv6 command, and ipv6 values for --gateway (#490794)
+  (rvykydal)
+- analog: support reading the installation logs from a unix socket. (akozumpl)
+- logging: support logging through virtio-serial (#576439). (akozumpl)
+- modules.c: only log from _doLoadModule() if logging has been initialized.
+  (akozumpl)
+- break the dependency of modules.c on loader.h (akozumpl)
+- Enforce limits on partition start/end sectors. (dlehman)
+- Fix up import to make rescue mode work again (#616090). (clumens)
+- Init g_type in is_wireless_device. (rvykydal)
+- Add resolver reset to some network enablement places (#614001) (rvykydal)
+- Fix config of ipv6 and ipv4 (auto + manual) in loader (#609576) (rvykydal)
+- text: remove the needless complexity in the screen switching loop. (akozumpl)
+- text.py: do not traceback when can't go back (#598493). (akozumpl)
+- remove doShutdownX11Actions(). (akozumpl)
+- Add uname to initrd.img (#614770) (dcantrell)
+- Some people like to specify MAC addresses in lower case. (clumens)
+- Remove support for interactive kickstart installs. (clumens)
+- Improve parsing and pass the devel flag to loader through the command line
+  (msivak)
+- When in devel mode, do not catch tracebacks, we want the core file (msivak)
+- Add better debugging capabilities to loader (msivak)
+- Add confirmation dialog when loading dlabel DDs (#570053) (msivak)
+
 * Wed Jul 14 2010 Chris Lumens <clumens@redhat.com> - 14.11-1
 - Add the gobject-introspection package (#613695) (mgracik)
 - Update pylint test for pylint 0.20.1 (bcl)
