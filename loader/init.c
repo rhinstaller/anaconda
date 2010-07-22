@@ -890,6 +890,8 @@ int main(int argc, char **argv) {
             printf("Development mode requested spawning shell...\n");
 
             if ((shellpid = fork()) == 0) {
+                chdir("/root");
+                setenv("HOME", "/root", 1);
                 execl("/sbin/bash", "/sbin/bash", NULL);
             }
             else if (shellpid > 0) {

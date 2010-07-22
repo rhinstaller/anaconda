@@ -912,13 +912,17 @@ EOF
 
     setupSshd
 
-    cat > $MBD_DIR/.profile <<EOF
+    mkdir $MBD_DIR/root
+    chmod 0700 $MBD_DIR/root
+    chown root:root $MBD_DIR/root
+
+    cat > $MBD_DIR/root/.profile <<EOF
 PS1="[anaconda \u@\h \W]\\\\$ "
 PATH=/bin:/usr/bin:/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
 export PATH PS1
 EOF
 
-    cat > $MBD_DIR/.bash_history <<EOF
+    cat > $MBD_DIR/root/.bash_history <<EOF
 kill -USR2 \`cat /var/run/anaconda.pid\`
 kill -HUP \`cat /var/run/anaconda.pid\`
 udevadm info --export-db | less
@@ -928,7 +932,7 @@ dmsetup table
 multipath -d
 EOF
 
-    cp /usr/share/doc/python-devel-*/gdbinit $MBD_DIR/.gdbinit
+    cp /usr/share/doc/python-devel-*/gdbinit $MBD_DIR/root/.gdbinit
 
     rm -f $MBD_FSIMAGE
     (cd $MBD_DIR; find . |cpio --quiet -c -o) |gzip -9 > $MBD_FSIMAGE
