@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.59\n"
+"Project-Id-Version: anaconda 13.21.60\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-20 10:56-1000\n"
+"POT-Creation-Date: 2010-07-23 12:04-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:599 loader/net.c:967 loader/net.c:1564 loader/net.c:1585
-#: loader/net.c:1893 loader/net.c:1912 loader/net.c:1924
+#: loader/net.c:603 loader/net.c:971 loader/net.c:1568 loader/net.c:1589
+#: loader/net.c:1897 loader/net.c:1916 loader/net.c:1928
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
@@ -1363,8 +1363,8 @@ msgid ""
 "screen"
 msgstr ""
 
-#: text.py:624 loader/net.c:110 loader/net.c:491 loader/net.c:546
-#: loader/net.c:688 loader/net.c:696 loader/net.c:1114 loader/net.c:1122
+#: text.py:624 loader/net.c:110 loader/net.c:495 loader/net.c:550
+#: loader/net.c:692 loader/net.c:700 loader/net.c:1118 loader/net.c:1126
 msgid "Retry"
 msgstr ""
 
@@ -2345,8 +2345,9 @@ msgstr ""
 
 #: iw/filter_type.py:67
 msgid ""
-"Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-"mainframe attached disks (DASD), usually in an enterprise environment"
+"Installs or upgrades to enterprise devices such as Storage Area Networks "
+"(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
+"filter out devices the installer should ignore."
 msgstr ""
 
 #: iw/language_gui.py:33 textw/language_text.py:46
@@ -3439,8 +3440,8 @@ msgstr ""
 #: loader/driverdisk.c:524 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
-#: loader/loader.c:1393 loader/loader.c:1426 loader/net.c:599 loader/net.c:967
-#: loader/net.c:1893 loader/net.c:1912 loader/nfsinstall.c:91
+#: loader/loader.c:1393 loader/loader.c:1426 loader/net.c:603 loader/net.c:971
+#: loader/net.c:1897 loader/net.c:1916 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -3547,7 +3548,7 @@ msgstr ""
 #: loader/driverdisk.c:711 loader/driverdisk.c:750 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1564 loader/net.c:1585
+#: loader/modules.c:398 loader/net.c:1568 loader/net.c:1589
 #: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
@@ -3935,12 +3936,12 @@ msgid ""
 "IPv6 networks"
 msgstr ""
 
-#: loader/net.c:484 loader/net.c:492 loader/net.c:547
+#: loader/net.c:488 loader/net.c:496 loader/net.c:551
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr ""
 
-#: loader/net.c:486
+#: loader/net.c:490
 #, c-format
 msgid ""
 "\n"
@@ -3948,138 +3949,138 @@ msgid ""
 "Halting.\n"
 msgstr ""
 
-#: loader/net.c:491 loader/net.c:546
+#: loader/net.c:495 loader/net.c:550
 msgid "Network Error"
 msgstr ""
 
-#: loader/net.c:577 textw/netconfig_text.py:133
+#: loader/net.c:581 textw/netconfig_text.py:133
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: loader/net.c:591
+#: loader/net.c:595
 msgid "Enable IPv6 support"
 msgstr ""
 
-#: loader/net.c:631
+#: loader/net.c:635
 msgid "Configure TCP/IP"
 msgstr ""
 
-#: loader/net.c:688
+#: loader/net.c:692
 msgid "Missing Protocol"
 msgstr ""
 
-#: loader/net.c:689
+#: loader/net.c:693
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 
-#: loader/net.c:696
+#: loader/net.c:700
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: loader/net.c:697
+#: loader/net.c:701
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: loader/net.c:793
+#: loader/net.c:797
 msgid "IPv4 address:"
 msgstr ""
 
-#: loader/net.c:805 loader/net.c:872
+#: loader/net.c:809 loader/net.c:876
 msgid "/"
 msgstr ""
 
-#: loader/net.c:860
+#: loader/net.c:864
 msgid "IPv6 address:"
 msgstr ""
 
-#: loader/net.c:926 textw/netconfig_text.py:160
+#: loader/net.c:930 textw/netconfig_text.py:160
 msgid "Gateway:"
 msgstr ""
 
-#: loader/net.c:934
+#: loader/net.c:938
 msgid "Name Server:"
 msgstr ""
 
-#: loader/net.c:973
+#: loader/net.c:977
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: loader/net.c:990
+#: loader/net.c:994
 msgid "Manual TCP/IP Configuration"
 msgstr ""
 
-#: loader/net.c:1114 loader/net.c:1122
+#: loader/net.c:1118 loader/net.c:1126
 msgid "Missing Information"
 msgstr ""
 
-#: loader/net.c:1115
+#: loader/net.c:1119
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1123
+#: loader/net.c:1127
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1565
+#: loader/net.c:1569
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1586
+#: loader/net.c:1590
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1691
+#: loader/net.c:1695
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1888
+#: loader/net.c:1892
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1889
+#: loader/net.c:1893
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1893
+#: loader/net.c:1897
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1902
+#: loader/net.c:1906
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1904
+#: loader/net.c:1908
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1911
+#: loader/net.c:1915
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1924
+#: loader/net.c:1928
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1925
+#: loader/net.c:1929
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:1937
+#: loader/net.c:1941
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2105 loader/net.c:2109
+#: loader/net.c:2109 loader/net.c:2113
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""

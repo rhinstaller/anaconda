@@ -221,6 +221,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jul 23 2010 David Cantrell <dcantrell@redhat.com> - 13.21.61-1
+- does not properly recognize hpt45x_raid_member (hdegoede)
+  Resolves: rhbz#617438
+- Show allowable prepboot size range in exception (dcantrell)
+  Resolves: rhbz#603188
+- Skip the Filter UI in Basic Storage mode (hdegoede)
+  Resolves: rhbz#605544
+- Propagate MACADDR from loaderData to iface (dcantrell)
+  Resolves: rhbz#595388
+- Only write changed DASD attributes to rd_DASD params (dcantrell)
+  Resolves: rhbz#606783
+
 * Tue Jul 20 2010 David Cantrell <dcantrell@redhat.com> - 13.21.60-1
 - Support for ks: --ipv6 command, and ipv6 values for --gateway (rvykydal)
   Resolves: rhbz#490794
