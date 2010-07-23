@@ -380,9 +380,6 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
         return retval
 
     def execute(self, anaconda):
-        anaconda.storage.ignoreDiskInteractive = self.interactive
-        anaconda.storage.ignoredDisks = self.ignoredisk
-        anaconda.storage.exclusiveDisks = self.onlyuse
         if not self.interactive:
             anaconda.ksdata.skipSteps.extend(["filter", "filtertype"])
 
