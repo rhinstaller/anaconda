@@ -301,7 +301,7 @@ makemoduletree() {
     echo "Copying required firmware..."
     find $MMB_DIR/lib/modules/ -name *.ko | while read module ; do
         for fw in $(modinfo -F firmware $module); do
-            dest=$MBD_DIR/firmware/$fw
+            dest=$MMB_DIR/firmware/$fw
             destdir=$(dirname $dest)
 
             # Some firmware files are expected to be in their own directories.
@@ -319,19 +319,19 @@ makemoduletree() {
     for module in $MODSET ; do
         case $module in
             ipw2100)
-                cp $KERNELROOT/lib/firmware/ipw2100* $MBD_DIR/firmware
+                cp $KERNELROOT/lib/firmware/ipw2100* $MMB_DIR/firmware
             ;;
             ipw2200)
-                cp $KERNELROOT/lib/firmware/ipw2200* $MBD_DIR/firmware
+                cp $KERNELROOT/lib/firmware/ipw2200* $MMB_DIR/firmware
             ;;
             iwl3945)
-                cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MBD_DIR/firmware
+                cp $KERNELROOT/lib/firmware/iwlwifi-3945* $MMB_DIR/firmware
             ;;
             atmel)
-                cp $KERNELROOT/lib/firmware/atmel_*.bin $MBD_DIR/firmware
+                cp $KERNELROOT/lib/firmware/atmel_*.bin $MMB_DIR/firmware
             ;;
             zd1211rw)
-                cp -r $KERNELROOT/lib/firmware/zd1211 $MBD_DIR/firmware
+                cp -r $KERNELROOT/lib/firmware/zd1211 $MMB_DIR/firmware
             ;;
         esac
     done

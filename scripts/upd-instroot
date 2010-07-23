@@ -1293,8 +1293,6 @@ sed -i "s,^MANPATH[^_MAP][ \t]*,&/mnt/sysimage," $DEST/etc/man_db.conf
 sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DEST/etc/man_db.conf
 
 echo "Scrubbing tree..." "$DEST"
-ln -snf /modules $DEST/lib/modules
-ln -snf /firmware $DEST/lib/firmware
 
 mv $DEST/etc/yum.repos.d $DEST/etc/anaconda.repos.d
 
