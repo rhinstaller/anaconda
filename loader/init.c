@@ -807,12 +807,12 @@ int main(int argc, char **argv) {
 
     /* D-Bus */
     if (fork() == 0) {
-        execl("/sbin/dbus-uuidgen", "/sbin/dbus-uuidgen", "--ensure", NULL);
+        execl("/bin/dbus-uuidgen", "/bin/dbus-uuidgen", "--ensure", NULL);
         doExit(1);
     }
 
     if (fork() == 0) {
-        execl("/sbin/dbus-daemon", "/sbin/dbus-daemon", "--system", NULL);
+        execl("/bin/dbus-daemon", "/bin/dbus-daemon", "--system", NULL);
         doExit(1);
     }
 
@@ -908,7 +908,7 @@ int main(int argc, char **argv) {
 
             if ((shellpid = fork()) == 0) {
                 if (chdir("/root") == 0) {
-                    execl("/sbin/bash", "/sbin/bash", NULL);
+                    execl("/bin/bash", "/bin/bash", NULL);
                 } else {
                     perror("Unable to chdir to /root");
                 }

@@ -93,12 +93,12 @@ static char **headers() {
         }
     }
 
-    if (FL_KICKSTART_SEND_SERIAL(flags) && !access("/sbin/dmidecode", X_OK)) {
+    if (FL_KICKSTART_SEND_SERIAL(flags) && !access("/usr/sbin/dmidecode", X_OK)) {
         FILE *f;
         char sn[1024];
         size_t sn_len;
 
-        if ((f = popen("/sbin/dmidecode -s system-serial-number", "r")) == NULL) {
+        if ((f = popen("/usr/sbin/dmidecode -s system-serial-number", "r")) == NULL) {
             logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }

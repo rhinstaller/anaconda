@@ -91,7 +91,7 @@ function checkipv6()
 {
     local ip=$1
     [ -z "$ip" ] && return 1
-    /sbin/ipcalc -c -6 "$ip" >/dev/null 2>&1
+    /bin/ipcalc -c -6 "$ip" >/dev/null 2>&1
     return $?
 }
 
@@ -99,7 +99,7 @@ function checkipv4()
 {
     local ip=$1
     [ -z "$ip" ] && return 1
-    /sbin/ipcalc -c -4 "$ip" >/dev/null 2>&1
+    /bin/ipcalc -c -4 "$ip" >/dev/null 2>&1
     return $?
 }
 
@@ -182,7 +182,7 @@ function startinetd()
         echo >> /etc/motd
     fi # testing
 
-    /sbin/sshd -f /etc/ssh/sshd_config.anaconda
+    /usr/sbin/sshd -f /etc/ssh/sshd_config.anaconda
     if [ -z "$RUNKS" ]; then
         echo
         echo $"Connect now to $IPADDR and log in as user install to start the installation."
@@ -339,10 +339,10 @@ function init_main() {
         echo -e "127.0.0.1\tlocalhost.localdomain localhost localhost4 localhost4.localdomain4" > /etc/hosts
         echo -e     "::1\t\tlocalhost.localdomain localhost localhost6 localhost6.localdomain6" >> /etc/hosts
 
-        /sbin/dbus-uuidgen --ensure &
-        [ $? != 0 ] && echo "error on calling /sbin/dbus-uuidgen --ensure"
-        /sbin/dbus-daemon --system &
-        [ $? != 0 ] && echo "error on calling /sbin/dbus-daemon --system"
+        /bin/dbus-uuidgen --ensure &
+        [ $? != 0 ] && echo "error on calling /bin/dbus-uuidgen --ensure"
+        /bin/dbus-daemon --system &
+        [ $? != 0 ] && echo "error on calling /bin/dbus-daemon --system"
 
     fi # testing
 }
