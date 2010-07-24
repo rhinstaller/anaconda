@@ -1440,6 +1440,10 @@ class DeviceTree(object):
                         % device.format.mapName)
 
     def handleVgLvs(self, vg_device):
+        """ Handle setup of the LV's in the vg_device
+            return True if an LV was setup
+            return False if there was an error, or no more LV's to setup
+        """
         ret = False
         vg_name = vg_device.name
         lv_names = vg_device.lv_names
@@ -1513,6 +1517,7 @@ class DeviceTree(object):
                                                    exists=True)
                 self._addDevice(lv_device)
                 lv_device.setup()
+                ret = True
 
         return ret
 
