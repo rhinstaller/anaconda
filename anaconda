@@ -527,6 +527,7 @@ if __name__ == "__main__":
     xserver_pid = None
 
     (opts, args) = parseOptions()
+    anaconda.opts = opts
 
     # check memory, just the text mode for now:
     check_memory(anaconda, opts, 't')

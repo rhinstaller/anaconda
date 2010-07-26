@@ -65,6 +65,7 @@ class Anaconda(object):
         self.mediaDevice = None
         self.methodstr = None
         self._network = None
+        self.opts = None
         self._platform = None
         self.proxy = None
         self.proxyUsername = None

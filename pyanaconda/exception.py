@@ -99,6 +99,9 @@ def initExceptionHandling(anaconda):
     else:
         fileList.extend(["/tmp/syslog"])
 
+    if anaconda.opts and anaconda.opts.ksfile:
+        fileList.extend([anaconda.opts.ksfile])
+
     conf = Config(programName="anaconda",
                   programVersion=isys.getAnacondaVersion(),
                   attrSkipList=[ "backend.ayum",
