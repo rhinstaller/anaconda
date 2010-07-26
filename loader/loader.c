@@ -1261,10 +1261,14 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 sleep(3);
                 newtPopWindow();
             }
+            else
+                logMessage(DEBUG, "This appears to be a boot.iso.");
 
             skipLangKbd = 1;
             flags |= LOADER_FLAGS_NOPASS;
-        } else if (!loaderData->stage2Data && loaderData->instRepo) {
+        }
+
+        if (!loaderData->stage2Data && loaderData->instRepo) {
             /* If no CD/DVD with a stage2 image was found and we were given a
              * repo=/method= parameter, try to piece together a valid setting
              * for the stage2= parameter based on that.
@@ -1289,13 +1293,15 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             if (loaderData->method != -1) {
                 skipMethodDialog = 1;
             }
-        } else if (loaderData->stage2Data) {
+        } else if (!url && loaderData->stage2Data) {
+            logMessage(DEBUG, "Have stage2 location, so skipping method dialog");
             skipMethodDialog = 1;
         }
     } else {
         /* Needed because they have already been set when parsing cmdline.
          * (Leaks a little.)
          */
+        logMessage(DEBUG, "askmethod parameter given");
         loaderData->method = -1;
         loaderData->stage2Data = NULL;
     }
@@ -1361,15 +1367,18 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_METHOD: {
-                if (loaderData->method != -1)
+                logMessage(INFO, "starting STEP_METHOD");
+                if (loaderData->method != -1) {
+                    logMessage(DEBUG, "loaderData->method is set, adding skipMethodDialog");
                     skipMethodDialog = 1;
-                else if (FL_CMDLINE(flags)) {
+                } else if (FL_CMDLINE(flags)) {
                     fprintf(stderr, "No method given for cmdline mode, aborting\n");
                     doExit(EXIT_FAILURE);
                 }
 
                 /* If we already found a stage2 image, skip the prompt. */
                 if (skipMethodDialog) {
+                    logMessage(DEBUG, "skipMethodDialog is set");
                     if (dir == 1)
                         rc = 1;
                     else
