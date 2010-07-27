@@ -199,6 +199,7 @@ class Device(object):
 
     _type = "generic device"
     _packages = []
+    _services = []
 
     def __init__(self, name, parents=None):
         """ Create a Device instance.
@@ -370,6 +371,20 @@ class Device(object):
         return packages
 
     @property
+    def services(self):
+        """ List of services required to manage devices of this type.
+
+            This list includes the services required by its parent devices."
+        """
+        services = self._services
+        for parent in self.parents:
+            for service in parent.services:
+                if service not in services:
+                    services.append(service)
+
+        return services
+
+    @property
     def mediaPresent(self):
         return True
 
@@ -485,6 +500,23 @@ class StorageDevice(Device):
                     packages.append(package)
 
         return packages
+
+    @property
+    def services(self):
+        """ List of services required to manage devices of this type.
+
+            This list includes the services required by this device's
+            format type as well those required by all of its parent
+            devices.
+        """
+        services = super(StorageDevice, self).services
+        services.extend(self.format.services)
+        for parent in self.parents:
+            for service in parent.format.services:
+                if service not in services:
+                    services.append(service)
+
+        return services
 
     @property
     def partedDevice(self):
@@ -3067,6 +3099,7 @@ class MultipathDevice(DMDevice):
     """ A multipath device """
     _type = "dm-multipath"
     _packages = ["device-mapper-multipath"]
+    _services = ["multipathd"]
     _partitionable = True
     _isDisk = True
 

@@ -169,16 +169,14 @@ class InstallData:
                                    self.rootPassword["lock"],
                                    algo=self.getPassAlgo())
 
+        services = list(self.storage.services)
+
         if self.anaconda.isKickstart:
+            services.extend(self.ksdata.services.enabled)
+
             for svc in self.ksdata.services.disabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
                                        [svc, "off"],
-                                       stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root=self.anaconda.rootPath)
-
-            for svc in self.ksdata.services.enabled:
-                iutil.execWithRedirect("/sbin/chkconfig",
-                                       [svc, "on"],
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=self.anaconda.rootPath)
 
@@ -201,6 +199,12 @@ class InstallData:
                                              root=self.anaconda.rootPath,
                                              gecos=ud.gecos):
                     log.error("User %s already exists, not creating." % ud.name)
+
+        for svc in services:
+            iutil.execWithRedirect("/sbin/chkconfig",
+                                   [svc, "on"],
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=self.anaconda.rootPath)
 
 
     def writeKS(self, filename):

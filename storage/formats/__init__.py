@@ -145,6 +145,7 @@ class DeviceFormat(object):
     _supported = False                  # is supported
     _linuxNative = False                # for clearpart
     _packages = []                      # required packages
+    _services = []                      # required services
     _resizable = False                  # can be resized
     _bootable = False                   # can be used as boot
     _migratable = False                 # can be migrated
@@ -339,6 +340,11 @@ class DeviceFormat(object):
     def packages(self):
         """ Packages required to manage formats of this type. """
         return self._packages
+
+    @property
+    def services(self):
+        """ Services required to manage formats of this type. """
+        return self._services
 
     @property
     def resizable(self):

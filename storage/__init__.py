@@ -165,6 +165,9 @@ def storageComplete(anaconda):
             if dev.format.type == "luks" and not dev.format.exists:
                 dev.format.passphrase = anaconda.id.storage.encryptionPassphrase
 
+    map(lambda d: anaconda.id.storage.services.add(d.services),
+        anaconda.id.storage.fsset)
+
     if anaconda.isKickstart:
         return
 
@@ -289,6 +292,7 @@ class Storage(object):
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
+        self.services = set()
 
     def doIt(self):
         self.devicetree.processActions()
