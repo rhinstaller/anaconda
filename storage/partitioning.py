@@ -191,6 +191,7 @@ def doAutoPartition(anaconda):
 
     if anaconda.id.storage.doAutoPart:
         clearPartitions(anaconda.id.storage)
+        anaconda.id.bootloader.updateDriveList()
 
     if anaconda.id.storage.doAutoPart:
         (disks, devs) = _createFreeSpacePartitions(anaconda)
@@ -967,7 +968,8 @@ def allocatePartitions(storage, disks, partitions, freespace):
         req_disks.sort(key=lambda d: d.name, cmp=storage.compareDisks)
         boot_index = None
         for disk in req_disks:
-            if disk.name == storage.anaconda.id.bootloader.drivelist[0]:
+            if disk.name in storage.anaconda.id.bootloader.drivelist and \
+               disk.name == storage.anaconda.id.bootloader.drivelist[0]:
                 boot_index = req_disks.index(disk)
 
         if boot_index is not None and len(req_disks) > 1:
