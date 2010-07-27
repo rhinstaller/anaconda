@@ -1137,7 +1137,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                      !strncasecmp(argv[i], "dmraid", 6) ||
                      !strncasecmp(argv[i], "nodmraid", 8) ||
                      !strncasecmp(argv[i], "xdriver=", 8) ||
-                     !strncasecmp(argv[i], "vesa", 4) ||
                      !strncasecmp(argv[i], "syslog=", 7)) { 
 
                 /* vnc implies graphical */
@@ -1161,16 +1160,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
 
-                if (!strncasecmp(argv[i], "vesa", 4)) {
-                    checked_asprintf(&extraArgs[numExtraArgs],
-                                     "--xdriver=vesa");
-
-                    logMessage(WARNING, "\"vesa\" command line argument is deprecated.  use \"xdriver=vesa\".");
-                } else {
-                    checked_asprintf(&extraArgs[numExtraArgs],"--%s",
-                                     argv[i]);
-                }
-
+                checked_asprintf(&extraArgs[numExtraArgs],"--%s", argv[i]);
                 numExtraArgs += 1;
 
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
