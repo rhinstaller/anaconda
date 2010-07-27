@@ -18,7 +18,6 @@
 #
 
 SYSLINUX=$IMGPATH/usr/share/syslinux/syslinux-nomtools
-CDLABEL=$PRODUCT
 
 if [ ! -f $SYSLINUX ]; then
   echo "Warning: nomtools syslinux doesn't exist"
@@ -95,9 +94,6 @@ makeBootImages() {
 	# isolinux needs the config file to be isolinux.cfg
 	mv $MBD_BOOTTREE/syslinux.cfg $MBD_BOOTTREE/isolinux.cfg
 
-	# set up the label for finding stage2 with a hybrid iso
-	sed -i "s/initrd=initrd.img/initrd=initrd.img stage2=hd:LABEL=\"$CDLABEL\"/" $MBD_BOOTTREE/isolinux.cfg
-
 	# copy in memtest if present
 	if [ -f $IMGPATH/usr/lib/anaconda-runtime/boot/memtest* ]; then
            cp $IMGPATH/usr/lib/anaconda-runtime/boot/memtest* $MBD_BOOTTREE/memtest
@@ -143,7 +139,7 @@ doPostImages() {
             echo "No efiboot.img found, making BIOS-only boot.iso"
         fi
         BIOSARGS="-b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table"
-        mkisocmd="mkisofs -v -o $TOPDESTPATH/images/$BOOTISO $BIOSARGS $EFIARGS -R -J -V '$CDLABEL' -T -graft-points isolinux=$TOPDESTPATH/isolinux images=$TOPDESTPATH/images $EFIGRAFT"
+        mkisocmd="mkisofs -v -o $TOPDESTPATH/images/$BOOTISO $BIOSARGS $EFIARGS -R -J -V "$PRODUCT" -T -graft-points isolinux=$TOPDESTPATH/isolinux images=$TOPDESTPATH/images $EFIGRAFT"
         echo $PWD:\$ $mkisocmd
         eval $mkisocmd
         if [ -x /usr/bin/isohybrid ]; then
