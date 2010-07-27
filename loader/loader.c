@@ -89,6 +89,7 @@
 
 #include "net.h"
 #include "telnetd.h"
+#include "readvars.h"
 
 #include <selinux/selinux.h>
 #include "selinux.h"
@@ -824,7 +825,12 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
         char *start, *end;
 
         /* IP */
-        start = argv + 3;
+        if (!strncmp(argv, "ip=", 3)) {
+            start = argv + 3;
+        } else {
+            start = argv;
+        }
+
         end = strstr(start, ":");
         loaderData->ipv4 = strndup(start, end-start);
         loaderData->ipinfo_set = 1;
@@ -890,12 +896,12 @@ static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
 }
 #endif
 
-static long argToLong(char *arg, int offset) {
+static long argToLong(char *arg) {
     long retval;
 
     errno = 0;
 
-    retval = strtol(arg+offset, NULL, 10);
+    retval = strtol(arg, NULL, 10);
     if ((errno == ERANGE && (retval == LONG_MIN || retval == LONG_MAX)) ||
         (errno != 0 && retval == 0)) {
         logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
@@ -910,15 +916,10 @@ static long argToLong(char *arg, int offset) {
  */
 static void parseCmdLineFlags(struct loaderData_s * loaderData,
                               char * cmdLine) {
-    int fd;
-    char buf[1024];
-    int len;
-    gint argc = 0;
-    gchar **argv = NULL;
-    GError *optErr = NULL;
     int numExtraArgs = 0;
-    int i;
-    char *front;
+    GHashTable *args = NULL;
+    GHashTableIter iter;
+    gpointer key = NULL, value = NULL;
 
     /* we want to default to graphical and allow override with 'text' */
     flags |= LOADER_FLAGS_GRAPHICAL;
@@ -926,224 +927,236 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
     /* if we have any explicit cmdline (probably test mode), we don't want
      * to parse /proc/cmdline */
     if (!cmdLine) {
-        if ((fd = open("/proc/cmdline", O_RDONLY)) < 0) return;
-        len = read(fd, buf, sizeof(buf) - 1);
-        close(fd);
-        if (len <= 0) {
-            logMessage(INFO, "kernel command line was empty");
-            return;
-        }
-        
-        buf[len] = '\0';
-        cmdLine = buf;
+        args = readvars_parse_file("/proc/cmdline");
+    } else {
+        args = readvars_parse_string(cmdLine);
     }
 
-    logMessage(INFO, "kernel command line: %s", cmdLine);
-    
-    if (!g_shell_parse_argv(cmdLine, &argc, &argv, &optErr)) {
-        g_error_free(optErr);
+    if (args == NULL) {
+        logMessage(INFO, "kernel command line was empty");
         return;
     }
 
-    for (i=0; i < argc; i++) {
-        if (!strcasecmp(argv[i], "askmethod"))
+    logMessage(INFO, "kernel command line:");
+    g_hash_table_iter_init(&iter, args);
+
+    while (g_hash_table_iter_next(&iter, &key, &value)) {
+        gchar *k = (gchar *) key;
+        gchar *v = (gchar *) value;
+
+        if (v == NULL) {
+            logMessage(INFO, "    %s", k);
+        } else {
+            logMessage(INFO, "    %s=%s", k, v);
+        }
+
+        /* handle installer boot arguments */
+        if (!strcasecmp(k, "askmethod")) {
             flags |= LOADER_FLAGS_ASKMETHOD;
-        else if (!strcasecmp(argv[i], "asknetwork"))
+        } else if (!strcasecmp(k, "asknetwork")) {
             flags |= LOADER_FLAGS_ASKNETWORK;
-        else if (!strcasecmp(argv[i], "noshell"))
+        } else if (!strcasecmp(k, "noshell")) {
             flags |= LOADER_FLAGS_NOSHELL;
-        else if (!strcasecmp(argv[i], "nokill"))
+        } else if (!strcasecmp(k, "nokill")) {
             flags |= LOADER_FLAGS_NOKILL;
-        else if (!strcasecmp(argv[i], "mediacheck"))
+        } else if (!strcasecmp(k, "mediacheck")) {
             flags |= LOADER_FLAGS_MEDIACHECK;
-        else if (!strcasecmp(argv[i], "allowwireless"))
+        } else if (!strcasecmp(k, "allowwireless")) {
             flags |= LOADER_FLAGS_ALLOW_WIRELESS;
-        else if (!strcasecmp(argv[i], "telnet"))
+        } else if (!strcasecmp(k, "telnet")) {
             flags |= LOADER_FLAGS_TELNETD;
-        else if (!strcasecmp(argv[i], "noprobe"))
+        } else if (!strcasecmp(k, "noprobe")) {
             flags |= LOADER_FLAGS_NOPROBE;
-        else if (!strcasecmp(argv[i], "text")) {
+        } else if (!strcasecmp(k, "text")) {
             logMessage(INFO, "text mode forced from cmdline");
             flags |= LOADER_FLAGS_TEXT;
             flags &= ~LOADER_FLAGS_GRAPHICAL;
-        }
-        else if (!strcasecmp(argv[i], "graphical")) {
+        } else if (!strcasecmp(k, "graphical")) {
             logMessage(INFO, "graphical mode forced from cmdline");
             flags |= LOADER_FLAGS_GRAPHICAL;
-        } else if (!strcasecmp(argv[i], "cmdline")) {
+        } else if (!strcasecmp(k, "cmdline")) {
             logMessage(INFO, "cmdline mode forced from cmdline");
             flags |= LOADER_FLAGS_CMDLINE;
-        } else if (!strncasecmp(argv[i], "updates=", 8))
-            loaderData->updatessrc = strdup(argv[i] + 8);
-        else if (!strncasecmp(argv[i], "updates", 7))
-            flags |= LOADER_FLAGS_UPDATES;
-        else if (!strncasecmp(argv[i], "dogtail=", 8))
-            loaderData->dogtailurl = strdup(argv[i] + 8);
-        else if (!strncasecmp(argv[i], "dd=", 3) || 
-                 !strncasecmp(argv[i], "driverdisk=", 11)) {
-            loaderData->ddsrc = strdup(argv[i] + 
-                                       (argv[i][1] == 'r' ? 11 : 3));
-        }
-        else if (!strcasecmp(argv[i], "dd") || 
-                 !strcasecmp(argv[i], "driverdisk"))
-            flags |= LOADER_FLAGS_MODDISK;
-        else if (!strcasecmp(argv[i], "dlabel=on"))
-            flags |= LOADER_FLAGS_AUTOMODDISK;
-        else if (!strcasecmp(argv[i], "dlabel=off"))
-            flags &= ~LOADER_FLAGS_AUTOMODDISK;
-        else if (!strcasecmp(argv[i], "rescue"))
+        } else if (!strcasecmp(k, "updates")) {
+            if (v != NULL) {
+                loaderData->updatessrc = g_strdup(v);
+            } else {
+                flags |= LOADER_FLAGS_UPDATES;
+            }
+        } else if (!strcasecmp(k, "dd") || !strcasecmp(k, "driverdisk")) {
+            if (v != NULL) {
+                loaderData->ddsrc = g_strdup(v);
+            } else {
+                flags |= LOADER_FLAGS_MODDISK;
+            }
+        } else if (!strcasecmp(k, "rescue")) {
             flags |= LOADER_FLAGS_RESCUE;
-        else if (!strcasecmp(argv[i], "nopass"))
+        } else if (!strcasecmp(k, "nopass")) {
             flags |= LOADER_FLAGS_NOPASS;
-        else if (!strcasecmp(argv[i], "serial")) 
+        } else if (!strcasecmp(k, "serial")) {
             flags |= LOADER_FLAGS_SERIAL;
-        else if (!strcasecmp(argv[i], "noipv4"))
+        } else if (!strcasecmp(k, "noipv4")) {
             flags |= LOADER_FLAGS_NOIPV4;
 #ifdef ENABLE_IPV6
-        else if (!strcasecmp(argv[i], "noipv6"))
+        } else if (!strcasecmp(k, "noipv6")) {
             flags |= LOADER_FLAGS_NOIPV6;
 #endif
-        else if (!strcasecmp(argv[i], "kssendmac"))
+        } else if (!strcasecmp(k, "kssendmac")) {
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
-        else if (!strcasecmp(argv[i], "kssendsn"))
+        } else if (!strcasecmp(k, "kssendsn")) {
             flags |= LOADER_FLAGS_KICKSTART_SEND_SERIAL;
         /* deprecated hardware bits */
-        else if (!strcasecmp(argv[i], "nousbstorage"))
+        } else if (!strcasecmp(k, "nousbstorage")) {
             mlAddBlacklist("usb-storage");
-        else if (!strcasecmp(argv[i], "nousb")) {
+        } else if (!strcasecmp(k, "nousb")) {
             mlAddBlacklist("ehci-hcd");
             mlAddBlacklist("ohci-hcd");
             mlAddBlacklist("uhci-hcd");
-        } else if (!strcasecmp(argv[i], "nofirewire"))
+        } else if (!strcasecmp(k, "nofirewire")) {
             mlAddBlacklist("firewire-ohci");
-        else if (!strncasecmp(argv[i], "loglevel=", 9)) {
-            if (!strcasecmp(argv[i]+9, "debug")) {
-                loaderData->logLevel = strdup(argv[i]+9);
-                setLogLevel(DEBUGLVL);
-            }
-            else if (!strcasecmp(argv[i]+9, "info")) {
-                loaderData->logLevel = strdup(argv[i]+9);
-                setLogLevel(INFO);
-            }
-            else if (!strcasecmp(argv[i]+9, "warning")) {
-                loaderData->logLevel = strdup(argv[i]+9);
-                setLogLevel(WARNING);
-            }
-            else if (!strcasecmp(argv[i]+9, "error")) {
-                loaderData->logLevel = strdup(argv[i]+9);
-                setLogLevel(ERROR);
-            }
-            else if (!strcasecmp(argv[i]+9, "critical")) {
-                loaderData->logLevel = strdup(argv[i]+9);
-                setLogLevel(CRITICAL);
-            }
-        }
-        else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
-            loaderData->netDev = strdup(argv[i] + 9);
-            loaderData->netDev_set = 1;
-        }
-        else if (!strncmp(argv[i], "BOOTIF=", 7)) {
-            /* +10 so that we skip over the leading 01- */
-            loaderData->bootIf = strdup(argv[i] + 10);
+        } else if (!strcasecmp(k, "ks")) {
+            GString *tmp = g_string_new("ks");
 
-            /* scan the BOOTIF value and replace '-' with ':' */
-            front = loaderData->bootIf;
-            if (front) {
-                while (*front != '\0') {
-                    if (*front == '-')
-                        *front = ':';
-                    front++;
+            if (v != NULL) {
+                g_string_append_printf(tmp, "=%s", v);
+            }
+
+            loaderData->ksFile = g_strdup(tmp->str);
+            g_string_free(tmp, TRUE);
+        } else if (!strcasecmp(k, "selinux")) {
+            if (v != NULL && !strcasecmp(v, "0")) {
+                flags &= ~LOADER_FLAGS_SELINUX;
+            } else {
+                flags |= LOADER_FLAGS_SELINUX;
+            }
+        } else if (v != NULL) {
+            /* boot arguments that are of the form name=value */
+            /* all arguments in this block require the value  */
+
+            if (!strcasecmp(k, "dogtail")) {
+                loaderData->dogtailurl = g_strdup(v);
+            } else if (!strcasecmp(k, "dlabel")) {
+                if (!strcasecmp(v, "on")) {
+                    flags |= LOADER_FLAGS_AUTOMODDISK;
+                } else if (!strcasecmp(v, "off")) {
+                    flags &= ~LOADER_FLAGS_AUTOMODDISK;
                 }
-            }
+            } else if (!strcasecmp(k, "loglevel")) {
+                if (!strcasecmp(v, "debug")) {
+                    loaderData->logLevel = g_strdup(v);
+                    setLogLevel(DEBUGLVL);
+                } else if (!strcasecmp(v, "info")) {
+                    loaderData->logLevel = g_strdup(v);
+                    setLogLevel(INFO);
+                } else if (!strcasecmp(v, "warning")) {
+                    loaderData->logLevel = g_strdup(v);
+                    setLogLevel(WARNING);
+                } else if (!strcasecmp(v, "error")) {
+                    loaderData->logLevel = g_strdup(v);
+                    setLogLevel(ERROR);
+                } else if (!strcasecmp(v, "critical")) {
+                    loaderData->logLevel = g_strdup(v);
+                    setLogLevel(CRITICAL);
+                }
+            } else if (!strcasecmp(k, "ksdevice")) {
+                loaderData->netDev = g_strdup(v);
+                loaderData->netDev_set = 1;
+            } else if (!strcmp(k, "BOOTIF")) {
+                /* trim leading '01-' if it exists */
+                if (!strncmp(v, "01-", 3)) {
+                    loaderData->bootIf = g_strdup(v + 3);
+                } else {
+                    loaderData->bootIf = g_strdup(v);
+                }
 
-            loaderData->bootIf_set = 1;
-        } else if (!strncasecmp(argv[i], "dhcpclass=", 10)) {
-            loaderData->netCls = strdup(argv[i] + 10);
-            loaderData->netCls_set = 1;
-        }
-        else if (!strcasecmp(argv[i], "ks") || !strncasecmp(argv[i], "ks=", 3))
-            loaderData->ksFile = strdup(argv[i]);
-        else if (!strncasecmp(argv[i], "display=", 8))
-            setenv("DISPLAY", argv[i] + 8, 1);
-        else if ((!strncasecmp(argv[i], "lang=", 5)) && 
-                 (strlen(argv[i]) > 5))  {
-            loaderData->lang = strdup(argv[i] + 5);
-            loaderData->lang_set = 1;
-        }
-        else if (!strncasecmp(argv[i], "keymap=", 7) &&
-                   (strlen(argv[i]) > 7)) {
-            loaderData->kbd = strdup(argv[i] + 7);
-            loaderData->kbd_set = 1;
-        }
-        else if (!strncasecmp(argv[i], "method=", 7)) {
-            logMessage(WARNING, "method= is deprecated.  Please use repo= instead.");
-            loaderData->instRepo = strdup(argv[i] + 7);
-        }
-        else if (!strncasecmp(argv[i], "repo=", 5))
-            loaderData->instRepo = strdup(argv[i] + 5);
-        else if (!strncasecmp(argv[i], "stage2=", 7))
-            setStage2LocFromCmdline(argv[i] + 7, loaderData);
-        else if (!strncasecmp(argv[i], "hostname=", 9))
-            loaderData->hostname = strdup(argv[i] + 9);
-        else if (!strncasecmp(argv[i], "ip=", 3))
-            parseCmdLineIp(loaderData, argv[i]);
+                loaderData->bootIf_set = 1;
+
+                /* scan the BOOTIF value and replace '-' with ':' */
+                char *front = loaderData->bootIf;
+                if (front) {
+                    while (*front != '\0') {
+                        if (*front == '-') {
+                            *front = ':';
+                        }
+
+                        front++;
+                    }
+                }
+            } else if (!strcasecmp(k, "dhcpclass")) {
+                loaderData->netCls = g_strdup(v);
+                loaderData->netCls_set = 1;
+            } else if (!strcasecmp(k, "display")) {
+                setenv("DISPLAY", v, 1);
+            } else if (!strcasecmp(k, "lang")) {
+                loaderData->lang = g_strdup(v);
+                loaderData->lang_set = 1;
+            } else if (!strcasecmp(k, "keymap")) {
+                loaderData->kbd = g_strdup(v);
+                loaderData->kbd_set = 1;
+             } else if (!strcasecmp(k, "method")) {
+                logMessage(WARNING, "method= is deprecated.  Please use repo= instead.");
+                loaderData->instRepo = g_strdup(v);
+            } else if (!strcasecmp(k, "repo")) {
+                loaderData->instRepo = g_strdup(v);
+            } else if (!strcasecmp(k, "stage2")) {
+                setStage2LocFromCmdline(v, loaderData);
+            } else if (!strcasecmp(k, "hostname")) {
+                loaderData->hostname = g_strdup(v);
+            } else if (!strcasecmp(k, "ip")) {
+                parseCmdLineIp(loaderData, v);
 #ifdef ENABLE_IPV6
-        else if (!strncasecmp(argv[i], "ipv6=", 5))
-            parseCmdLineIpv6(loaderData, argv[i]);
+            } else if (!strcasecmp(k, "ipv6")) {
+                parseCmdLineIpv6(loaderData, v);
 #endif
-        else if (!strncasecmp(argv[i], "netmask=", 8))
-            loaderData->netmask = strdup(argv[i] + 8);
-        else if (!strncasecmp(argv[i], "gateway=", 8))
-            loaderData->gateway = strdup(argv[i] + 8);
-        else if (!strncasecmp(argv[i], "dns=", 4))
-            loaderData->dns = strdup(argv[i] + 4);
-        else if (!strncasecmp(argv[i], "ethtool=", 8))
-            loaderData->ethtool = strdup(argv[i] + 8);
-        else if (!strncasecmp(argv[i], "essid=", 6))
-            loaderData->essid = strdup(argv[i] + 6);
-        else if (!strncasecmp(argv[i], "mtu=", 4))
-            loaderData->mtu = argToLong(argv[i], 4);
-        else if (!strncasecmp(argv[i], "wepkey=", 7))
-            loaderData->wepkey = strdup(argv[i] + 7);
-        else if (!strncasecmp(argv[i], "linksleep=", 10))
-            num_link_checks = argToLong(argv[i], 10);
-        else if (!strncasecmp(argv[i], "nicdelay=", 9))
-            post_link_sleep = argToLong(argv[i], 9);
-        else if (!strncasecmp(argv[i], "dhcptimeout=", 12))
-            loaderData->dhcpTimeout = argToLong(argv[i], 12);
-        else if (!strncasecmp(argv[i], "selinux=0", 9))
-            flags &= ~LOADER_FLAGS_SELINUX;
-        else if (!strncasecmp(argv[i], "selinux", 7))
-            flags |= LOADER_FLAGS_SELINUX;
-        else if (!strncasecmp(argv[i], "gdb=", 4))
-            loaderData->gdbServer = strdup(argv[i] + 4);
-        else if (!strncasecmp(argv[i], "proxy=", 6))
-            splitProxyParam(argv[i]+6, &loaderData->proxyUser,
-                            &loaderData->proxyPassword, &loaderData->proxy);
-        else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
-            /* go through and append args we just want to pass on to */
-            /* the anaconda script, but don't want to represent as a */
-            /* LOADER_FLAGS_XXX since loader doesn't care about these */
-            /* particular options.                                   */
-            /* do vncpassword case first */
-            if (!strncasecmp(argv[i], "vncpassword=", 12)) {
-                writeVNCPasswordFile("/tmp/vncpassword.dat", argv[i]+12);
+            } else if (!strcasecmp(k, "netmask")) {
+                loaderData->netmask = g_strdup(v);
+            } else if (!strcasecmp(k, "gateway")) {
+                loaderData->gateway = g_strdup(v);
+            } else if (!strcasecmp(k, "dns")) {
+                loaderData->dns = g_strdup(v);
+            } else if (!strcasecmp(k, "ethtool")) {
+                loaderData->ethtool = g_strdup(v);
+            } else if (!strcasecmp(k, "essid")) {
+                loaderData->essid = g_strdup(v);
+            } else if (!strcasecmp(k, "mtu")) {
+                loaderData->mtu = argToLong(v);
+            } else if (!strcasecmp(k, "wepkey")) {
+                loaderData->wepkey = g_strdup(v);
+            } else if (!strcasecmp(k, "linksleep")) {
+                num_link_checks = argToLong(v);
+            } else if (!strcasecmp(k, "nicdelay")) {
+                post_link_sleep = argToLong(v);
+            } else if (!strcasecmp(k, "dhcptimeout")) {
+                loaderData->dhcpTimeout = argToLong(v);
+            } else if (!strcasecmp(k, "gdb")) {
+                loaderData->gdbServer = g_strdup(v);
+            } else if (!strcasecmp(k, "proxy")) {
+                splitProxyParam(v, &loaderData->proxyUser,
+                                &loaderData->proxyPassword, &loaderData->proxy);
             }
-            else if (!strncasecmp(argv[i], "resolution=", 11) ||
-                     !strncasecmp(argv[i], "nomount", 7) ||
-                     !strncasecmp(argv[i], "vnc", 3) ||
-                     !strncasecmp(argv[i], "vncconnect=", 11) ||
-                     !strncasecmp(argv[i], "headless", 8) ||
-                     !strncasecmp(argv[i], "usefbx", 6) ||
-                     !strncasecmp(argv[i], "mpath", 6) ||
-                     !strncasecmp(argv[i], "nompath", 8) ||
-                     !strncasecmp(argv[i], "dmraid", 6) ||
-                     !strncasecmp(argv[i], "nodmraid", 8) ||
-                     !strncasecmp(argv[i], "xdriver=", 8) ||
-                     !strncasecmp(argv[i], "syslog=", 7)) { 
+        } else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
+            /* go through and append args we just want to pass on to  */
+            /* the anaconda script, but don't want to represent as a  */
+            /* LOADER_FLAGS_XXX since loader doesn't care about these */
+            /* particular options.                                    */
+            /* do vncpassword case first */
+            if (!strcasecmp(k, "vncpassword") && v != NULL) {
+                writeVNCPasswordFile("/tmp/vncpassword.dat", v);
+            } else if (!strcasecmp(k, "resolution") ||
+                       !strcasecmp(k, "nomount") ||
+                       !strcasecmp(k, "vnc") ||
+                       !strcasecmp(k, "vncconnect") ||
+                       !strcasecmp(k, "headless") ||
+                       !strcasecmp(k, "usefbx") ||
+                       !strcasecmp(k, "mpath") ||
+                       !strcasecmp(k, "nompath") ||
+                       !strcasecmp(k, "dmraid") ||
+                       !strcasecmp(k, "nodmraid") ||
+                       !strcasecmp(k, "xdriver") ||
+                       !strcasecmp(k, "syslog")) {
 
                 /* vnc implies graphical */
-                if (!strncasecmp(argv[i], "vnc", 3)) {
+                if (!strcasecmp(k, "vnc")) {
                     logMessage(INFO, "vnc forced graphical mode from cmdline");
                     flags |= LOADER_FLAGS_GRAPHICAL;
                 }
@@ -1152,18 +1165,17 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                  * by loader, so an active connection is ready once we get
                  * to anaconda
                  */
-                if (!strncasecmp(argv[i], "syslog", 6) ||
-                    !strncasecmp(argv[i], "vnc", 3)) {
-                    logMessage(INFO, "early networking required for %s",
-                               argv[i]);
+                if (!strcasecmp(k, "syslog") || !strcasecmp(k, "vnc")) {
+                    logMessage(INFO, "early networking required for %s", k);
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
+
                 if (isKickstartFileRemote(loaderData->ksFile)) {
                     logMessage(INFO, "early networking required for remote kickstart configuration");
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
 
-                checked_asprintf(&extraArgs[numExtraArgs],"--%s", argv[i]);
+                checked_asprintf(&extraArgs[numExtraArgs],"--%s", k);
                 numExtraArgs += 1;
 
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
@@ -1175,6 +1187,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         }
     }
 
+    g_hash_table_destroy(args);
     readNetInfo(&loaderData);
 
     /* NULL terminates the array of extra args */
