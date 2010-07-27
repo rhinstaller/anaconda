@@ -904,9 +904,12 @@ int main(int argc, char **argv) {
             printf("Development mode requested spawning shell...\n");
 
             if ((shellpid = fork()) == 0) {
-                chdir("/root");
-                setenv("HOME", "/root", 1);
-                execl("/sbin/bash", "/sbin/bash", NULL);
+                if (chdir("/root") == 0) {
+                    setenv("HOME", "/root", 1);
+                    execl("/sbin/bash", "/sbin/bash", NULL);
+                } else {
+                    perror("Unable to chdir to /root");
+                }
             }
             else if (shellpid > 0) {
                 waitpid(shellpid, NULL, 0);
