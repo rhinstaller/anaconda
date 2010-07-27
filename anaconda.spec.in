@@ -223,6 +223,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jul 27 2010 Ales Kozumplik <akozumpl@redhat.com> - 14.13-1
+- Use readvars_parse_file in loader/init.c (dcantrell)
+- Use readvars_parse_*() in loader/loader.c (dcantrell)
+- Use readvars_parse_file() in loader/modules.c (dcantrell)
+- Add readvars.c for parsing command line args and shell vars. (dcantrell)
+- Check return value of chdir() (dcantrell)
+- Remove handling for the "vesa" boot argument. (dcantrell)
+- Remove USE_MINILIBC cruft from loader/init.c (dcantrell)
+- Whitespace cleanup in loader/Makefile.am (dcantrell)
+- logging: remote logging for traceback dumps. (akozumpl)
+- logging: also log X.log remotely (akozumpl)
+- logging: autodetect the virtio-serial port. (akozumpl)
+- does not properly recognize hpt45x_raid_member (#617438) (hdegoede)
+- Show allowable prepboot size range in exception (#603188) (dcantrell)
+- Remove storage init duplication (#6176512). (clumens)
+- Skip the Filter UI in Basic Storage mode (#598420) (hdegoede)
+- Make the shell in tty2 and ssh all go to /root like on a real system.
+  (pjones)
+
 * Thu Jul 22 2010 Ales Kozumplik <akozumpl@redhat.com> - 14.12-1
 - Only write changed DASD attributes to rd_DASD params (#606783) (dcantrell)
 - Propagate MACADDR from loaderData to iface (#595388) (dcantrell)
