@@ -690,6 +690,11 @@ makeinitrd() {
     mkdir -p $MBD_DIR/usr/lib/locale
     localedef -c -i en_US -f UTF-8 --prefix $MBD_DIR en_US
 
+    if [ -f $IMGPATH/etc/modprobe.d/libmlx4.conf ]; then
+        install -m 644 $IMGPATH/etc/modprobe.d/libmlx4.conf \
+                       $MBD_DIR/etc/modprobe.d/libmlx4.conf
+    fi
+
     instbin $IMGPATH /usr/bin/mount $MBD_DIR /sbin/mount
     for mountcmd in $IMGPATH/usr/sbin/mount.* ; do
         cmd="$(basename $mountcmd)"
