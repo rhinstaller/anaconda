@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-22 13:23+0200\n"
-"PO-Revision-Date: 2010-07-22 19:04+0200\n"
+"POT-Creation-Date: 2010-07-27 10:09+0200\n"
+"PO-Revision-Date: 2010-07-27 22:20+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "Language: pl\n"
@@ -45,9 +45,9 @@ msgstr "Naciśnięcie klawisza <enter> spowoduje przejście do powłoki"
 #: loader/kickstart.c:187 loader/kickstart.c:192 loader/kickstart.c:299
 #: loader/kickstart.c:339 loader/kickstart.c:355 loader/kickstart.c:382
 #: loader/kickstart.c:571 loader/lang.c:114 loader/lang.c:373
-#: loader/loader.c:429 loader/loader.c:465 loader/loader.c:505
-#: loader/loader.c:523 loader/loader.c:540 loader/loader.c:577
-#: loader/loader.c:1210 loader/loader.c:1395 loader/mediacheck.c:47
+#: loader/loader.c:435 loader/loader.c:471 loader/loader.c:511
+#: loader/loader.c:529 loader/loader.c:546 loader/loader.c:583
+#: loader/loader.c:1218 loader/loader.c:1403 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/mediacheck.c:106 loader/method.c:286 loader/method.c:360
 #: loader/net.c:619 loader/net.c:987 loader/net.c:1634 loader/net.c:1655
@@ -163,8 +163,8 @@ msgstr ""
 #: loader/driverdisk.c:506 loader/driverdisk.c:534 loader/driverdisk.c:542
 #: loader/driverdisk.c:609 loader/hdinstall.c:115 loader/hdinstall.c:325
 #: loader/hdinstall.c:440 loader/hdinstall.c:483 loader/hdinstall.c:496
-#: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:429
-#: loader/loader.c:540 loader/loader.c:1210 loader/mediacheck.c:47
+#: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:435
+#: loader/loader.c:546 loader/loader.c:1218 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/method.c:286 loader/method.c:360 loader/nfsinstall.c:309
 #: loader/nfsinstall.c:326 loader/telnetd.c:93 loader/urlinstall.c:137
@@ -216,7 +216,7 @@ msgid "_Exit installer"
 msgstr "_Zakończ instalator"
 
 #: pyanaconda/bootloader.py:60 pyanaconda/image.py:92 pyanaconda/image.py:251
-#: pyanaconda/kickstart.py:1374 pyanaconda/kickstart.py:1413
+#: pyanaconda/kickstart.py:1371 pyanaconda/kickstart.py:1410
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:95
 #: pyanaconda/yuminstall.py:1280 pyanaconda/yuminstall.py:1464
 #: pyanaconda/iw/partition_gui.py:1600 pyanaconda/storage/__init__.py:1996
@@ -256,9 +256,9 @@ msgid "In progress"
 msgstr "W trakcie wykonywania"
 
 #: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1120
-#: pyanaconda/kickstart.py:1158 pyanaconda/kickstart.py:1238
-#: pyanaconda/kickstart.py:1246 pyanaconda/kickstart.py:1284
-#: pyanaconda/kickstart.py:1292 pyanaconda/text.py:392
+#: pyanaconda/kickstart.py:1155 pyanaconda/kickstart.py:1235
+#: pyanaconda/kickstart.py:1243 pyanaconda/kickstart.py:1281
+#: pyanaconda/kickstart.py:1289 pyanaconda/text.py:392
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -380,8 +380,8 @@ msgstr ""
 #: pyanaconda/partIntfHelpers.py:153 pyanaconda/partIntfHelpers.py:338
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:129
-#: loader/driverdisk.c:409 loader/kickstart.c:382 loader/loader.c:465
-#: loader/loader.c:577 pyanaconda/textw/constants_text.py:48
+#: loader/driverdisk.c:409 loader/kickstart.c:382 loader/loader.c:471
+#: loader/loader.c:583 pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Anuluj"
 
@@ -854,37 +854,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/kickstart.py:1257
+#: pyanaconda/kickstart.py:1254
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Błąd podczas przetwarzania wierszy %%ksappend: %s"
 
-#: pyanaconda/kickstart.py:1260
+#: pyanaconda/kickstart.py:1257
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Nieznany błąd podczas przetwarzania wierszy %%ksappend: %s"
 
-#: pyanaconda/kickstart.py:1315 pyanaconda/livecd.py:228
+#: pyanaconda/kickstart.py:1312 pyanaconda/livecd.py:228
 msgid "Post-Installation"
 msgstr "Po instalacji"
 
-#: pyanaconda/kickstart.py:1316
+#: pyanaconda/kickstart.py:1313
 msgid "Running post-installation scripts"
 msgstr "Wykonywanie skryptów poinstalacyjnych"
 
-#: pyanaconda/kickstart.py:1332
+#: pyanaconda/kickstart.py:1329
 msgid "Pre-Installation"
 msgstr "Przed instalacją"
 
-#: pyanaconda/kickstart.py:1333
+#: pyanaconda/kickstart.py:1330
 msgid "Running pre-installation scripts"
 msgstr "Wykonywanie skryptów przedinstalacyjnych"
 
-#: pyanaconda/kickstart.py:1365
+#: pyanaconda/kickstart.py:1362
 msgid "Missing Package"
 msgstr "Brak pakietu"
 
-#: pyanaconda/kickstart.py:1366
+#: pyanaconda/kickstart.py:1363
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -893,19 +893,19 @@ msgstr ""
 "Podano, że pakiet \"%s\" powinien zostać zainstalowany. Ten pakiet nie "
 "istnieje. Kontynuować, czy przerwać tę instalację?"
 
-#: pyanaconda/kickstart.py:1372 pyanaconda/kickstart.py:1411
+#: pyanaconda/kickstart.py:1369 pyanaconda/kickstart.py:1408
 msgid "_Abort"
 msgstr "_Przerwij"
 
-#: pyanaconda/kickstart.py:1373 pyanaconda/kickstart.py:1412
+#: pyanaconda/kickstart.py:1370 pyanaconda/kickstart.py:1409
 msgid "_Ignore All"
 msgstr "Z_ignoruj wszystko"
 
-#: pyanaconda/kickstart.py:1403
+#: pyanaconda/kickstart.py:1400
 msgid "Missing Group"
 msgstr "Brak grupy"
 
-#: pyanaconda/kickstart.py:1404
+#: pyanaconda/kickstart.py:1401
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -914,7 +914,7 @@ msgstr ""
 "Podano, że grupa \"%s\" powinna zostać zainstalowana. Ta grupa nie istnieje. "
 "Kontynuować, czy przerwać tę instalację?"
 
-#: pyanaconda/kickstart.py:1502
+#: pyanaconda/kickstart.py:1499
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -2799,12 +2799,13 @@ msgstr "Wyspecjalizowane urządzenia przechowywania danych"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid ""
-"Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-"mainframe attached disks (DASD), usually in an enterprise environment"
+"Installs or upgrades to enterprise devices such as Storage Area Networks "
+"(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
+"filter out devices the installer should ignore."
 msgstr ""
-"Instalacja lub aktualizacja na urządzeniach takich, jak sieć pamięci masowej "
-"SAN lub dyski podłączone do komputerów typu mainframe (DASD), zwykle w "
-"środowiskach firmowych."
+"Instalacja lub aktualizacja na urządzeniach klasy enterprise, takich jak "
+"sieci pamięci masowych SAN. Ta opcja umożliwia dodanie dysków "
+"FCoE/iSCSI/zFCP i filtrowanie urządzeń, które instalator ma ignorować."
 
 #: pyanaconda/iw/language_gui.py:33 pyanaconda/textw/language_text.py:45
 msgid "Language Selection"
@@ -4156,8 +4157,8 @@ msgstr "Nie odnaleziono płyty"
 #: loader/cdinstall.c:432 loader/driverdisk.c:409 loader/driverdisk.c:441
 #: loader/driverdisk.c:522 loader/driverselect.c:79 loader/driverselect.c:153
 #: loader/driverselect.c:179 loader/hdinstall.c:212 loader/hdinstall.c:266
-#: loader/kbd.c:119 loader/loader.c:506 loader/loader.c:523
-#: loader/loader.c:1395 loader/loader.c:1428 loader/net.c:619 loader/net.c:987
+#: loader/kbd.c:119 loader/loader.c:512 loader/loader.c:529
+#: loader/loader.c:1403 loader/loader.c:1436 loader/net.c:619 loader/net.c:987
 #: loader/net.c:1961 loader/net.c:1980 loader/nfsinstall.c:116
 #: loader/urls.c:269 pyanaconda/storage/__init__.py:123
 #: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:90
@@ -4455,7 +4456,7 @@ msgstr "Błąd podczas pobierania pliku kickstart"
 msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr "Błędny parametr polecenia shutdown metody kickstart %s"
 
-#: loader/lang.c:63 loader/loader.c:223
+#: loader/lang.c:63 loader/loader.c:229
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr "Witaj w systemie %s dla %s"
@@ -4465,7 +4466,7 @@ msgstr "Witaj w systemie %s dla %s"
 msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Witaj w trybie ratunkowym systemu %s dla %s"
 
-#: loader/lang.c:65 loader/loader.c:247
+#: loader/lang.c:65 loader/loader.c:253
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -4475,23 +4476,23 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "Wybór języka"
 
-#: loader/loader.c:131
+#: loader/loader.c:132
 msgid "Local CD/DVD"
 msgstr "Lokalny napęd CD/DVD"
 
-#: loader/loader.c:132
+#: loader/loader.c:133
 msgid "Hard drive"
 msgstr "Dysk twardy"
 
-#: loader/loader.c:133
+#: loader/loader.c:134
 msgid "NFS directory"
 msgstr "Katalog NFS"
 
-#: loader/loader.c:460 loader/loader.c:501
+#: loader/loader.c:466 loader/loader.c:507
 msgid "Update Disk Source"
 msgstr "Źródło dysku aktualizacji"
 
-#: loader/loader.c:461
+#: loader/loader.c:467
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -4499,7 +4500,7 @@ msgstr ""
 "Jest wiele urządzeń, na których może znajdować się dysk aktualizacji. "
 "Którego użyć?"
 
-#: loader/loader.c:502
+#: loader/loader.c:508
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
@@ -4507,30 +4508,30 @@ msgstr ""
 "Jest wiele partycji na tym urządzeniu, które mogą zawierać obraz dysku "
 "aktualizacji. Której użyć?"
 
-#: loader/loader.c:520
+#: loader/loader.c:526
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr ""
 "Proszę włożyć dysk aktualizacji do %s i nacisnąć przycisk \"OK\", aby "
 "kontynuować."
 
-#: loader/loader.c:523
+#: loader/loader.c:529
 msgid "Updates Disk"
 msgstr "Dysk aktualizacji"
 
-#: loader/loader.c:541
+#: loader/loader.c:547
 msgid "Failed to mount updates disk"
 msgstr "Zamontowanie dysku aktualizacji nie powiodło się"
 
-#: loader/loader.c:546
+#: loader/loader.c:552
 msgid "Updates"
 msgstr "Aktualizacje"
 
-#: loader/loader.c:546
+#: loader/loader.c:552
 msgid "Reading anaconda updates"
 msgstr "Odczytywanie aktualizacji programu anaconda"
 
-#: loader/loader.c:582
+#: loader/loader.c:588
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
@@ -4538,52 +4539,52 @@ msgstr ""
 "Nie można pobrać obrazu aktualizacji. Proszę zmodyfikować poniższe położenie "
 "aktualizacji lub nacisnąć przycisk Anuluj, aby kontynuować bez aktualizacji."
 
-#: loader/loader.c:591
+#: loader/loader.c:597
 msgid "Error downloading updates image"
 msgstr "Błąd podczas pobierania obrazu aktualizacji"
 
-#: loader/loader.c:1206
+#: loader/loader.c:1214
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine%s."
 msgstr "Za mało pamięci RAM, aby zainstalować system %s na tym komputerze%s."
 
-#: loader/loader.c:1260
+#: loader/loader.c:1268
 msgid "Media Detected"
 msgstr "Wykryto nośniki"
 
-#: loader/loader.c:1261
+#: loader/loader.c:1269
 msgid "Found local installation media"
 msgstr "Odnaleziono lokalny nośnik instalacji"
 
-#: loader/loader.c:1387
+#: loader/loader.c:1395
 msgid "Rescue Method"
 msgstr "Metoda ratunkowa"
 
-#: loader/loader.c:1388
+#: loader/loader.c:1396
 msgid "Installation Method"
 msgstr "Metoda instalacji"
 
-#: loader/loader.c:1390
+#: loader/loader.c:1398
 msgid "What type of media contains the rescue image?"
 msgstr "Jakiego typu nośnik zawiera obraz ratunkowy?"
 
-#: loader/loader.c:1392
+#: loader/loader.c:1400
 msgid "What type of media contains the installation image?"
 msgstr "Jakiego typu nośnik zawiera obraz instalacji?"
 
-#: loader/loader.c:1427
+#: loader/loader.c:1435
 msgid "No driver found"
 msgstr "Nie odnaleziono sterownika"
 
-#: loader/loader.c:1427
+#: loader/loader.c:1435
 msgid "Select driver"
 msgstr "Wybór sterownika"
 
-#: loader/loader.c:1428
+#: loader/loader.c:1436
 msgid "Use a driver disk"
 msgstr "Użycie dysku ze sterownikami"
 
-#: loader/loader.c:1429
+#: loader/loader.c:1437
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4591,59 +4592,59 @@ msgstr ""
 "Nie można odnaleźć żadnych urządzeń potrzebnych do tego typu instalacji. "
 "Ręcznie wybrać sterownik lub użyć dysku ze sterownikami?"
 
-#: loader/loader.c:1660
+#: loader/loader.c:1668
 msgid "The following devices have been found on your system."
 msgstr "W systemie odnaleziono następujące urządzenia."
 
-#: loader/loader.c:1662
+#: loader/loader.c:1670
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Nie wczytano żadnych sterowników urządzeń dla systemu. Dodać jakieś teraz?"
 
-#: loader/loader.c:1666
+#: loader/loader.c:1674
 msgid "Devices"
 msgstr "Urządzenia"
 
-#: loader/loader.c:1667
+#: loader/loader.c:1675
 msgid "Done"
 msgstr "Ukończono"
 
-#: loader/loader.c:1668
+#: loader/loader.c:1676
 msgid "Add Device"
 msgstr "Dodanie urządzenia"
 
-#: loader/loader.c:1973
+#: loader/loader.c:1981
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "program wczytujący został już uruchomiony. Uruchamianie powłoki.\n"
 
-#: loader/loader.c:2117
+#: loader/loader.c:2125
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "Wykryto płytę ze sterownikami w %s. Użyć jej?"
 
-#: loader/loader.c:2120
+#: loader/loader.c:2128
 msgid "Driver disc detected"
 msgstr "Wykryto płytę ze sterownikami"
 
-#: loader/loader.c:2120
+#: loader/loader.c:2128
 msgid "Use it"
 msgstr "Użyj płyty"
 
-#: loader/loader.c:2120
+#: loader/loader.c:2128
 msgid "Skip it"
 msgstr "Pomiń płytę"
 
-#: loader/loader.c:2458
+#: loader/loader.c:2466
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 "Uruchamianie programu anaconda %s, trybu ratunkowego systemu %s - proszę "
 "czekać.\n"
 
-#: loader/loader.c:2460
+#: loader/loader.c:2468
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
