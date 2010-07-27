@@ -48,8 +48,10 @@ struct intfconfig_s {
 
 struct netconfopts {
     char ipv4Choice;
+    int v4Method;
 #ifdef ENABLE_IPV6
     char ipv6Choice;
+    int v6Method;
 #endif
 };
 

@@ -478,8 +478,10 @@ int readNetConfig(char * device, iface_t * iface,
 
     /* init opts */
     opts.ipv4Choice = 0;
+    opts.v4Method = 0;
 #ifdef ENABLE_IPV6
     opts.ipv6Choice = 0;
+    opts.v6Method = 0;
 #endif
 
     /* JKFIXME: we really need a way to override this and be able to change
@@ -596,8 +598,8 @@ int configureTCPIP(char * device, iface_t * iface,
 
     ipv4Checkbox = newtCheckbox(-1, -1, _("Enable IPv4 support"),
                                 opts->ipv4Choice, NULL, &(opts->ipv4Choice));
-    v4Method[0] = newtRadiobutton(-1, -1, DHCP_METHOD_STR, 1, NULL);
-    v4Method[1] = newtRadiobutton(-1, -1, MANUAL_METHOD_STR, 0, v4Method[0]);
+    v4Method[0] = newtRadiobutton(-1, -1, DHCP_METHOD_STR, (opts->v4Method == 0), NULL);
+    v4Method[1] = newtRadiobutton(-1, -1, MANUAL_METHOD_STR, (opts->v4Method == 1), v4Method[0]);
 
 #ifdef ENABLE_IPV6
     /* IPv6 checkbox */
@@ -610,9 +612,9 @@ int configureTCPIP(char * device, iface_t * iface,
 
     ipv6Checkbox = newtCheckbox(-1, -1, _("Enable IPv6 support"),
                                 opts->ipv6Choice, NULL, &(opts->ipv6Choice));
-    v6Method[0] = newtRadiobutton(-1, -1, AUTO_METHOD_STR, 1, NULL);
-    v6Method[1] = newtRadiobutton(-1, -1, DHCPV6_METHOD_STR, 0, v6Method[0]);
-    v6Method[2] = newtRadiobutton(-1, -1, MANUAL_METHOD_STR, 0, v6Method[1]);
+    v6Method[0] = newtRadiobutton(-1, -1, AUTO_METHOD_STR, (opts->v6Method == 0), NULL);
+    v6Method[1] = newtRadiobutton(-1, -1, DHCPV6_METHOD_STR, (opts->v6Method == 1), v6Method[0]);
+    v6Method[2] = newtRadiobutton(-1, -1, MANUAL_METHOD_STR, (opts->v6Method == 2), v6Method[1]);
 #endif
 
     /* button bar at the bottom of the window */
@@ -737,6 +739,18 @@ int configureTCPIP(char * device, iface_t * iface,
                     iface->ipv6method = z;
         } else {
             flags |= LOADER_FLAGS_NOIPV6;
+        }
+#endif
+
+        /* update opts keeping method choice for UI */
+        for (z = IPV4_FIRST_METHOD; z <= IPV4_LAST_METHOD; z++) {
+            if (newtRadioGetCurrent(v4Method[0]) == v4Method[z-1])
+                opts->v4Method = z-1;
+        }
+#ifdef ENABLE_IPV6
+        for (z = IPV6_FIRST_METHOD; z <= IPV6_LAST_METHOD; z++) {
+            if (newtRadioGetCurrent(v6Method[0]) == v6Method[z-1])
+                opts->v6Method = z-1;
         }
 #endif
 
