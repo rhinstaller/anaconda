@@ -175,7 +175,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
     libXxf86misc libacl libaio libart_lgpl libattr
     libbonobo libcanberra libcanberra-gtk2 libcurl libfontenc libidn libgcc
-    libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libnl libogg
+    libglade2 libgnomecanvas libgcrypt libgpg-error libjpeg libmlx4 libnl libogg
     libpng libselinux libselinux-python libsemanage
     libsemanage-python libsepol libssh2 libstdc++ libtdb libthai libtirpc 
     libtool-ltdl libuser
@@ -381,6 +381,7 @@ etc/imrc
 etc/iscsid.conf
 etc/man.config
 etc/mke2fs.conf
+etc/modprobe.d/libmlx4.conf
 etc/netconfig
 etc/nsswitch.conf
 etc/pam.d/other
