@@ -55,6 +55,7 @@
 #include "devt.h"
 #include "devices.h"
 #include "modules.h"
+#include "readvars.h"
 
 #include <asm/types.h>
 #include <linux/serial.h>
@@ -107,11 +108,12 @@ char * env[] = {
 
 void shutDown(int doKill, reboot_action rebootAction);
 static int getKillPolicy(void);
-static void getSyslog(char *, char *);
+static gchar *getSyslog(gchar **);
 static int onQEMU(void);
 struct termios ts;
 
 static int expected_exit = 0;
+static GHashTable *cmdline = NULL;
 
 static void doExit(int) __attribute__ ((noreturn));
 static void doExit(int result)
@@ -138,36 +140,37 @@ static void fatal_error(int usePerror) {
 static void startSyslog(void) {
     int conf_fd;
     int ret;
-    char addr[128];
-    char virtiolog[128];
+    gchar *addr = NULL, *virtiolog = NULL;
     const char *forward_tcp = "*.* @@";
     const char *forward_format_tcp = "\n";
     const char *forward_virtio = "*.* ";
     const char *forward_format_virtio = ";virtio_ForwardFormat\n";
-    
+
     /* update the config file with command line arguments first */
-    getSyslog(addr, virtiolog);
-    if (strlen(addr) > 0 || strlen(virtiolog) > 0) {
+    addr = getSyslog(&virtiolog);
+    if (addr != NULL) {
         conf_fd = open("/etc/rsyslog.conf", O_WRONLY|O_APPEND);
         if (conf_fd < 0) {
             printf("error opening /etc/rsyslog.conf: %d\n", errno);
             printf("syslog forwarding will not be enabled\n");
             sleep(5);
         } else {
-            if (strlen(addr) > 0) {
-                ret = write(conf_fd, forward_tcp, strlen(forward_tcp));
-                ret = write(conf_fd, addr, strlen(addr));
-                ret = write(conf_fd, forward_format_tcp, strlen(forward_format_tcp));
-            }
-            if (strlen(virtiolog) > 0) {
+            ret = write(conf_fd, forward_tcp, strlen(forward_tcp));
+            ret = write(conf_fd, addr, strlen(addr));
+            ret = write(conf_fd, forward_format_tcp, strlen(forward_format_tcp));
+
+            if (virtiolog != NULL) {
                 ret = write(conf_fd, forward_virtio, strlen(forward_virtio));
                 ret = write(conf_fd, virtiolog, strlen(virtiolog));
                 ret = write(conf_fd, forward_format_virtio, strlen(forward_format_virtio));
             }
+
             close(conf_fd);
         }
+
+        g_free(addr);
     }
-    
+
     /* rsyslog is going to take care of things, so disable console logging */
     klogctl(8, NULL, 1);
     /* now we really start the daemon. */
@@ -183,8 +186,7 @@ static void startSyslog(void) {
 
 static int setupTerminal(int fd) {
     struct winsize winsize;
-    int fdn, len;
-    char buf[65535];
+    gpointer value = NULL;
 
     if (ioctl(fd, TIOCGWINSZ, &winsize)) {
         printf("failed to get winsize");
@@ -207,11 +209,8 @@ static int setupTerminal(int fd) {
         env[ENV_TERM] = "TERM=vt100-nav";
 
         /* unless the user specifies that they want utf8 */
-        if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
-            len = read(fdn, buf, sizeof(buf) - 1);
-            close(fdn);
-            if (len > 0 && strstr(buf, "utf8"))
-                env[ENV_TERM] = "TERM=vt100";
+        if (g_hash_table_lookup_extended(cmdline, "utf8", NULL, &value)) {
+            env[ENV_TERM] = "TERM=vt100";
         }
     }
 
@@ -308,63 +307,49 @@ static void sigUsr2Handler(int signum) {
 }
 
 static int getKillPolicy(void) {
-    int fd;
-    int len;
-    char buf[1024];
+    gpointer value = NULL;
 
-    /* look through /proc/cmdline for special options */
-    if ((fd = open("/proc/cmdline", O_RDONLY,0)) > 0) {
-        len = read(fd, buf, sizeof(buf) - 1);
-        close(fd);
-        if ((len > 0) && strstr(buf, "nokill"))
-            return 0;
+    if (g_hash_table_lookup_extended(cmdline, "nokill", NULL, &value)) {
+        return 0;
     }
+
     return 1;
 }
 
-/* 
- * Detects the non-static part of rsyslog configuration. 
- * 
- * Remote TCP logging is enabled if syslog= is found on the kernel command line.
- * Remote virtio-serial logging is enabled if the declared virtio port exists.
+/*
+ * Detects the non-static part of rsyslog configuration.
+ *
+ * Remote TCP logging is enabled if syslog= is found on the kernel command
+ * line.  Remote virtio-serial logging is enabled if the declared virtio port
+ * exists.
  */
-static void getSyslog(char *addr, char *virtiolog)
-{
+static gchar *getSyslog(gchar **virtiolog) {
+    gpointer value = NULL;
+    gchar *addr = NULL;
     const char *virtio_port = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0";
 
-    int fd;
-    int len;
-    char buf[1024];
+    if (!g_hash_table_lookup_extended(cmdline, "syslog", NULL, &value)) {
+        return NULL;
+    } else {
+        addr = (gchar *) value;
+    }
 
-    /* assume nothing gets found */
-    addr[0] = '\0';
-    virtiolog[0] = '\0';
-    if ((fd = open("/proc/cmdline", O_RDONLY,0)) <= 0) {
-        return;
-    }
-    len = read(fd, buf, sizeof(buf) - 1);
-    close(fd);
-    buf[len] = '\0';
-    
-    /* Parse the command line into argument vector using glib */
-    int i;
-    int argc;
-    char** argv;
-    GError* err = NULL;
-    if (!g_shell_parse_argv(buf, &argc, &argv, &err )) {
-        g_error_free(err);
-        return;
-    }
-    for (i = 0; i < argc; ++i) {
-        /* find what we are looking for */
-        if (!strncmp(argv[i], "syslog=", 7)) {
-            strncpy(addr, argv[i] + 7, 127);
-            addr[127] = '\0';
-            continue;
+    if (!g_hash_table_lookup_extended(cmdline, "virtiolog", NULL, &value)) {
+        *virtiolog = NULL;
+    } else {
+        *virtiolog = (gchar *) value;
+
+        /* virtiolog can only be letters and digits, dots, dashes
+         * and underscores */
+        if (!g_regex_match_simple("^[\\w.-_]*$", *virtiolog, 0, 0)) {
+            /* the parameter is malformed, disable its use */
+            *virtiolog = NULL;
+            printf("The virtiolog= command line parameter is malformed and will\n");
+            printf("be ignored by the installer.\n");
+            sleep(5);
         }
     }
-    g_strfreev(argv);
-    
+
     if (onQEMU()) {
         /* look for virtio-serial logging on a QEMU machine. */
         printf("Loading virtio_pci module... ");
@@ -372,12 +357,12 @@ static void getSyslog(char *addr, char *virtiolog)
             fprintf(stderr, "Error loading virtio_pci module.\n");
             sleep(5);
         } else {
-            printf("done.\n");            
+            printf("done.\n");
         }
         if (!access(virtio_port, W_OK)) {
             /* that means we really have virtio-serial logging */
-            strncpy(virtiolog, virtio_port, 127);
-            virtiolog[127] = '\0';
+            g_free(*virtiolog);
+            *virtiolog = g_strdup(virtio_port);
         }
     }
 
@@ -386,11 +371,13 @@ static void getSyslog(char *addr, char *virtiolog)
        digits, dots, colons, slashes, dashes and square brackets */
     if (!g_regex_match_simple("^[\\w.:/\\-\\[\\]]*$", addr, 0, 0)) {
         /* the parameter is malformed, disable its use */
-        addr[0] = '\0';
+        addr = NULL;
         printf("The syslog= command line parameter is malformed and will be\n");
         printf("ignored by the installer.\n");
         sleep(5);
     }
+
+    return addr;
 }
 
 /* 
@@ -493,16 +480,16 @@ int main(int argc, char **argv) {
     int doShutdown =0;
     reboot_action shutdown_method = HALT;
     int isSerial = 0;
-    int isDevelMode = 0;
+    gboolean isDevelMode = FALSE;
     char * console = NULL;
     int doKill = 1;
     char * argvc[15];
-    char buf[1024];
     char ** argvp = argvc;
     char twelve = 12;
     struct serial_struct si;
     int i, disable_keys;
     int ret;
+    gpointer value = NULL;
 
     if (!strncmp(basename(argv[0]), "poweroff", 8)) {
         printf("Running poweroff...\n");
@@ -542,41 +529,12 @@ int main(int argc, char **argv) {
         fatal_error(1);
     printf("done\n");
 
+    cmdline = readvars_parse_file("/proc/cmdline");
+
     /* check for development mode early */
-    int fdn;
-    if ((fdn = open("/proc/cmdline", O_RDONLY, 0)) != -1) {
-
-        /* get cmdline info */
-        int len = read(fdn, buf, sizeof(buf) - 1);
-        char *develstart;
-        close(fdn);
-
-        /* check the arguments */
-        if (len > 0) {
-            develstart = buf;
-            while (develstart && (*develstart) != '\0') {
-                
-                /* strip spaces */
-		while(*develstart == ' ') develstart++;
-		if(*develstart == '\0') break;
-                
-                /* not the word we are looking for */
-                if (strncmp(develstart, "devel", 5)) {
-                    develstart = strchr(develstart, ' ');
-                    continue;
-		}
-                
-                /* is it isolated? */
-                if(((*(develstart+5)) == ' ' || (*(develstart+5)) == '\0')) {
-                    printf("Enabling development mode - cores will be dumped\n");
-                    isDevelMode++;
-                    break;
-                }
-                
-                /* Find next argument */
-                develstart = strchr(develstart, ' ');
-            }
-        }
+    if (g_hash_table_lookup_extended(cmdline, "devel", NULL, &value)) {
+        printf("Enabling development mode - cores will be dumped\n");
+        isDevelMode = TRUE;
     }
 
     /* these args are only for testing from commandline */
