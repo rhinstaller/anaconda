@@ -221,6 +221,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 28 2010 David Cantrell <dcantrell@redhat.com> - 13.21.63-1
+- DEBUG -> DEBUGLVL (dcantrell)
+  Related: rhbz#611154
+- Make sure multipathd starts on systems using mpath storage (dcantrell)
+  Resolves: rhbz#615040
+
 * Wed Jul 28 2010 David Cantrell <dcantrell@redhat.com> - 13.21.62-1
 - Check if an mpath should be ignored before adding it to the devicetree.
   (dlehman)
