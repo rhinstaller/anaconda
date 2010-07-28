@@ -1262,7 +1262,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 newtPopWindow();
             }
             else
-                logMessage(DEBUG, "This appears to be a boot.iso.");
+                logMessage(DEBUGLVL, "This appears to be a boot.iso.");
 
             skipLangKbd = 1;
             flags |= LOADER_FLAGS_NOPASS;
@@ -1294,14 +1294,14 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 skipMethodDialog = 1;
             }
         } else if (!url && loaderData->stage2Data) {
-            logMessage(DEBUG, "Have stage2 location, so skipping method dialog");
+            logMessage(DEBUGLVL, "Have stage2 location, so skipping method dialog");
             skipMethodDialog = 1;
         }
     } else {
         /* Needed because they have already been set when parsing cmdline.
          * (Leaks a little.)
          */
-        logMessage(DEBUG, "askmethod parameter given");
+        logMessage(DEBUGLVL, "askmethod parameter given");
         loaderData->method = -1;
         loaderData->stage2Data = NULL;
     }
@@ -1369,7 +1369,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             case STEP_METHOD: {
                 logMessage(INFO, "starting STEP_METHOD");
                 if (loaderData->method != -1) {
-                    logMessage(DEBUG, "loaderData->method is set, adding skipMethodDialog");
+                    logMessage(DEBUGLVL, "loaderData->method is set, adding skipMethodDialog");
                     skipMethodDialog = 1;
                 } else if (FL_CMDLINE(flags)) {
                     fprintf(stderr, "No method given for cmdline mode, aborting\n");
@@ -1378,7 +1378,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
 
                 /* If we already found a stage2 image, skip the prompt. */
                 if (skipMethodDialog) {
-                    logMessage(DEBUG, "skipMethodDialog is set");
+                    logMessage(DEBUGLVL, "skipMethodDialog is set");
                     if (dir == 1)
                         rc = 1;
                     else
