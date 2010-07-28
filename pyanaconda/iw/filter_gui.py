@@ -105,7 +105,7 @@ def isCCISS(info):
 
 def isRAID(info):
     if flags.dmraid:
-        return udev_device_is_biosraid(info)
+        return udev_device_is_biosraid_member(info)
 
     return False
 

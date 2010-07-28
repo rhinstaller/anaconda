@@ -1264,7 +1264,7 @@ class DeviceTree(object):
             log.debug("%s is a cdrom" % name)
             if device is None:
                 device = self.addUdevOpticalDevice(info)
-        elif udev_device_is_biosraid(info) and udev_device_is_disk(info):
+        elif udev_device_is_biosraid_member(info) and udev_device_is_disk(info):
             log.debug("%s is part of a biosraid" % name)
             if device is None:
                 device = DiskDevice(name,
@@ -1738,7 +1738,7 @@ class DeviceTree(object):
         # Now, if the device is a disk, see if there is a usable disklabel.
         # If not, see if the user would like to create one.
         # XXX ignore disklabels on multipath or biosraid member disks
-        if not udev_device_is_biosraid(info) and \
+        if not udev_device_is_biosraid_member(info) and \
            not udev_device_is_multipath_member(info):
             self.handleUdevDiskLabelFormat(info, device)
             if device.partitioned or self.isIgnored(info) or \
@@ -1777,7 +1777,7 @@ class DeviceTree(object):
                 kwargs["mdUuid"] = udev_device_get_md_uuid(info)
             except KeyError:
                 log.debug("mdraid member %s has no md uuid" % name)
-            kwargs["biosraid"] = udev_device_is_biosraid(info)
+            kwargs["biosraid"] = udev_device_is_biosraid_member(info)
         elif format_type == "LVM2_member":
             # lvm
             try:
