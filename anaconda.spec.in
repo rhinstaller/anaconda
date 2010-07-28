@@ -221,6 +221,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 28 2010 David Cantrell <dcantrell@redhat.com> - 13.21.62-1
+- Check if an mpath should be ignored before adding it to the devicetree.
+  (dlehman)
+  Resolves: rhbz#596468
+- Add handling for mpath and fwraid devices in exclusiveDisks. (dlehman)
+  Related: rhbz#596468
+- Add functions to identify specific types of device-mapper devices. (dlehman)
+  Related: rhbz#596468
+- Ignore active fwraids and mpaths when setting up the filter ui. (dlehman)
+  Related: rhbz#596468
+- Handle systems where all disks have a whole disk format (dcantrell)
+  Resolves: rhbz#617554
+- Include modprobe file for Mellanox 10GB driver (dcantrell)
+  Resolves: rhbz#611997
+- Revert "Set stage2= on x86 boot.iso" (clumens)
+  Related: rhbz#611154
+- Skip the askmethod dialog on boot.iso+method= (clumens).
+  Resolves: rhbz#611154
+
 * Fri Jul 23 2010 David Cantrell <dcantrell@redhat.com> - 13.21.61-1
 - does not properly recognize hpt45x_raid_member (hdegoede)
   Resolves: rhbz#617438

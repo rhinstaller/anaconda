@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.60\n"
+"Project-Id-Version: anaconda 13.21.61\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-23 12:04-1000\n"
+"POT-Creation-Date: 2010-07-28 06:09-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 #: loader/kickstart.c:331 loader/kickstart.c:520 loader/lang.c:114
 #: loader/lang.c:373 loader/loader.c:433 loader/loader.c:469
 #: loader/loader.c:509 loader/loader.c:527 loader/loader.c:544
-#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1393
+#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1402
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
@@ -416,7 +416,7 @@ msgstr ""
 msgid "_Retry"
 msgstr ""
 
-#: gui.py:1403 storage/partitioning.py:286
+#: gui.py:1403 storage/partitioning.py:287
 msgid "The system will now reboot."
 msgstr ""
 
@@ -2160,29 +2160,29 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:479
-#: iw/filter_gui.py:491 iw/filter_gui.py:521
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:483
+#: iw/filter_gui.py:495 iw/filter_gui.py:525
 msgid "Model"
 msgstr ""
 
-#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:480
-#: iw/filter_gui.py:492 iw/filter_gui.py:500 iw/filter_gui.py:511
-#: iw/filter_gui.py:522
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:484
+#: iw/filter_gui.py:496 iw/filter_gui.py:504 iw/filter_gui.py:515
+#: iw/filter_gui.py:526
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:481 iw/filter_gui.py:501
-#: iw/filter_gui.py:512 iw/filter_gui.py:523
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:485 iw/filter_gui.py:505
+#: iw/filter_gui.py:516 iw/filter_gui.py:527
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:484
-#: iw/filter_gui.py:499 iw/filter_gui.py:510 iw/filter_gui.py:526
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:488
+#: iw/filter_gui.py:503 iw/filter_gui.py:514 iw/filter_gui.py:530
 msgid "Identifier"
 msgstr ""
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:482 iw/filter_gui.py:502
-#: iw/filter_gui.py:513 iw/filter_gui.py:524
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:486 iw/filter_gui.py:506
+#: iw/filter_gui.py:517 iw/filter_gui.py:528
 msgid "Interconnect"
 msgstr ""
 
@@ -2299,29 +2299,29 @@ msgstr ""
 msgid "Device Filter"
 msgstr ""
 
-#: iw/filter_gui.py:483 iw/filter_gui.py:514 iw/filter_gui.py:525
+#: iw/filter_gui.py:487 iw/filter_gui.py:518 iw/filter_gui.py:529
 msgid "Serial Number"
 msgstr ""
 
-#: iw/filter_gui.py:485 iw/filter_gui.py:493 iw/filter_gui.py:504
-#: iw/filter_gui.py:515 iw/filter_gui.py:530 iw/osbootwidget.py:66
+#: iw/filter_gui.py:489 iw/filter_gui.py:497 iw/filter_gui.py:508
+#: iw/filter_gui.py:519 iw/filter_gui.py:534 iw/osbootwidget.py:66
 #: iw/partition_gui.py:611
 msgid "Device"
 msgstr ""
 
-#: iw/filter_gui.py:503
+#: iw/filter_gui.py:507
 msgid "Paths"
 msgstr ""
 
-#: iw/filter_gui.py:527
+#: iw/filter_gui.py:531
 msgid "Port"
 msgstr ""
 
-#: iw/filter_gui.py:528
+#: iw/filter_gui.py:532
 msgid "Target"
 msgstr ""
 
-#: iw/filter_gui.py:529
+#: iw/filter_gui.py:533
 msgid "LUN"
 msgstr ""
 
@@ -2966,8 +2966,8 @@ msgstr ""
 msgid "About LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1587 storage/partitioning.py:206
-#: storage/partitioning.py:249
+#: iw/partition_gui.py:1587 storage/partitioning.py:207
+#: storage/partitioning.py:250
 msgid "Error Partitioning"
 msgstr ""
 
@@ -3440,7 +3440,7 @@ msgstr ""
 #: loader/driverdisk.c:524 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
-#: loader/loader.c:1393 loader/loader.c:1426 loader/net.c:603 loader/net.c:971
+#: loader/loader.c:1402 loader/loader.c:1435 loader/net.c:603 loader/net.c:971
 #: loader/net.c:1897 loader/net.c:1916 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
@@ -3791,73 +3791,73 @@ msgstr ""
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1385
+#: loader/loader.c:1394
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1386
+#: loader/loader.c:1395
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1388
+#: loader/loader.c:1397
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1390
+#: loader/loader.c:1399
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1425
+#: loader/loader.c:1434
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1425
+#: loader/loader.c:1434
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1426
+#: loader/loader.c:1435
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1427
+#: loader/loader.c:1436
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1657
+#: loader/loader.c:1666
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1659
+#: loader/loader.c:1668
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1663
+#: loader/loader.c:1672
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1664
+#: loader/loader.c:1673
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1665
+#: loader/loader.c:1674
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1943
+#: loader/loader.c:1952
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2403
+#: loader/loader.c:2412
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2405
+#: loader/loader.c:2414
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4593,7 +4593,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1897 storage/devicetree.py:1945
+#: storage/devicetree.py:1905 storage/devicetree.py:1953
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
@@ -4656,7 +4656,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:535 storage/partitioning.py:285
+#: storage/formats/fs.py:535 storage/partitioning.py:286
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4744,23 +4744,23 @@ msgstr ""
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
-#: storage/partitioning.py:200
+#: storage/partitioning.py:201
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:203
+#: storage/partitioning.py:204
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:232
+#: storage/partitioning.py:233
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: storage/partitioning.py:234
+#: storage/partitioning.py:235
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4768,14 +4768,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/partitioning.py:248 storage/partitioning.py:269
+#: storage/partitioning.py:249 storage/partitioning.py:270
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:250
+#: storage/partitioning.py:251
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4783,18 +4783,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: storage/partitioning.py:271
+#: storage/partitioning.py:272
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: storage/partitioning.py:273
+#: storage/partitioning.py:274
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: storage/partitioning.py:274
+#: storage/partitioning.py:275
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
