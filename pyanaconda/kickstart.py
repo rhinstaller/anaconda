@@ -1047,10 +1047,6 @@ class XConfig(commands.xconfig.F14_XConfig):
         if self.defaultdesktop:
             anaconda.desktop.setDefaultDesktop(self.defaultdesktop)
 
-class ZeroMbr(commands.zerombr.F9_ZeroMbr):
-    def execute(self, anaconda):
-        anaconda.storage.zeroMbr = 1
-
 class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
         fcp = commands.zfcp.F14_ZFCP.parse(self, args)
@@ -1095,7 +1091,6 @@ commandMap = {
         "timezone": Timezone,
         "upgrade": Upgrade,
         "xconfig": XConfig,
-        "zerombr": ZeroMbr,
         "zfcp": ZFCP,
 }
 
