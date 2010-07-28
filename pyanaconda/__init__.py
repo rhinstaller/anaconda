@@ -318,6 +318,8 @@ class Anaconda(object):
         self.security.write(self.rootPath)
         self.firewall.write(self.rootPath)
 
+        services = list(self.storage.services)
+
         if self.ksdata:
             for svc in self.ksdata.services.disabled:
                 iutil.execWithRedirect("/sbin/chkconfig",
@@ -325,11 +327,13 @@ class Anaconda(object):
                                        stdout="/dev/tty5", stderr="/dev/tty5",
                                        root=self.rootPath)
 
-            for svc in self.ksdata.services.enabled:
-                iutil.execWithRedirect("/sbin/chkconfig",
-                                       [svc, "on"],
-                                       stdout="/dev/tty5", stderr="/dev/tty5",
-                                       root=self.rootPath)
+            services.extend(self.ksdata.services.enabled)
+
+        for svc in services:
+            iutil.execWithRedirect("/sbin/chkconfig",
+                                   [svc, "on"],
+                                   stdout="/dev/tty5", stderr="/dev/tty5",
+                                   root=self.rootPath)
 
     def writeKS(self, filename):
         import urllib
