@@ -408,6 +408,14 @@ class FilterWindow(InstallWindow):
 
         return True
 
+    def _getFilterDisks(self):
+        """ Return a list of disks to pass to identifyMultipaths. """
+        return filter(lambda d: udev_device_is_disk(d) and \
+                                not udev_device_is_dm(d) and \
+                                not udev_device_is_md(d) and \
+                                not udev_device_get_md_container(d),
+                      udev_get_block_devices())
+
     def getNext(self):
         # All pages use the same store, so we only need to use the first one.
         # However, we do need to make sure all paths from multipath devices
@@ -432,11 +440,7 @@ class FilterWindow(InstallWindow):
             return
 
         udev_trigger(subsystem="block", action="change")
-        new_disks = filter(lambda d: udev_device_is_disk(d) and \
-                                     not udev_device_is_dm(d) and \
-                                     not udev_device_is_md(d) and \
-                                     not udev_device_get_md_container(d),
-                           udev_get_block_devices())
+        new_disks = self._getFilterDisks()
 
         mcw = MultipathConfigWriter()
         cfg = mcw.write()
@@ -577,6 +581,8 @@ class FilterWindow(InstallWindow):
                                    gobject.TYPE_STRING)
         self.store.set_sort_column_id(MODEL_COL, gtk.SORT_ASCENDING)
 
+        # if we've already populated the device tree at least once we should
+        # do our best to make sure any active devices get deactivated
         anaconda.storage.devicetree.teardownAll()
         udev_trigger(subsystem="block", action="change")
         # So that drives onlined by these show up in the filter UI
@@ -586,11 +592,7 @@ class FilterWindow(InstallWindow):
         dasd.DASD().startup(anaconda.intf,
                                     anaconda.storage.exclusiveDisks,
                                     anaconda.storage.zeroMbr)
-        disks = filter(lambda d: udev_device_is_disk(d) and \
-                                 not udev_device_is_dm(d) and \
-                                 not udev_device_is_md(d) and \
-                                 not udev_device_get_md_container(d),
-                       udev_get_block_devices())
+        disks = self._getFilterDisks()
 
         mcw = MultipathConfigWriter()
         cfg = mcw.write()
