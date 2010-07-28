@@ -505,8 +505,8 @@ int myCpioInstallArchive(gzFile stream, struct cpioFileMapping * mappings,
 
     do {
         if ((rc = getNextHeader(&fd, &ch, NULL))) {
-            logMessage( WARNING, _("error %d reading header: %s\n"), rc,
-            myCpioStrerror(rc));
+            logMessage( WARNING, "error %d reading header: %s\n", rc,
+                        myCpioStrerror(rc));
             return CPIOERR_BAD_HEADER;
         }
 
@@ -672,11 +672,11 @@ const char * myCpioStrerror(int rc)
     switch (rc) {
     default:
         s = msg + strlen(msg);
-        sprintf(s, _("(error 0x%x)"), rc);
+        sprintf(s, "(error 0x%x)", rc);
         s = NULL;
         break;
-    case CPIOERR_BAD_MAGIC:             s = _("Bad magic");     break;
-    case CPIOERR_BAD_HEADER:            s = _("Bad header");    break;
+    case CPIOERR_BAD_MAGIC:             s = "Bad magic";        break;
+    case CPIOERR_BAD_HEADER:            s = "Bad header";       break;
     case CPIOERR_OPEN_FAILED:           s = "open";             break;
     case CPIOERR_CHMOD_FAILED:          s = "chmod";            break;
     case CPIOERR_CHOWN_FAILED:          s = "chown";            break;
@@ -692,9 +692,9 @@ const char * myCpioStrerror(int rc)
     case CPIOERR_READLINK_FAILED:       s = "readlink";         break;
     case CPIOERR_READ_FAILED:           s = "read";             break;
     case CPIOERR_COPY_FAILED:           s = "copy";             break;
-    case CPIOERR_INTERNAL:              s = _("Internal error");break;
-    case CPIOERR_HDR_SIZE:              s = _("Header size too big");break;
-    case CPIOERR_UNKNOWN_FILETYPE:      s = _("Unknown file type");break;
+    case CPIOERR_INTERNAL:              s = "Internal error";   break;
+    case CPIOERR_HDR_SIZE:              s = "Header size too big";break;
+    case CPIOERR_UNKNOWN_FILETYPE:      s = "Unknown file type";break;
     }
 
     l = sizeof(msg) - strlen(msg) - 1;
@@ -703,7 +703,7 @@ const char * myCpioStrerror(int rc)
         l -= strlen(s);
     }
     if (rc & CPIOERR_CHECK_ERRNO) {
-        s = _(" failed - ");
+        s = " failed - ";
         if (l > 0) strncat(msg, s, l);
         l -= strlen(s);
         if (l > 0) strncat(msg, strerror(myerrno), l);
@@ -754,8 +754,8 @@ int myCpioFilterArchive(gzFile inStream, gzFile outStream, char ** patterns) {
 
     do {
         if ((rc = getNextHeader(&inFd, &ch, &pHeader))) {
-            logMessage( WARNING, _("error %d reading header: %s\n"), rc,
-                    myCpioStrerror(rc));
+            logMessage( WARNING, "error %d reading header: %s\n", rc,
+                        myCpioStrerror(rc));
             return CPIOERR_BAD_HEADER;
         }
 
