@@ -1027,12 +1027,12 @@ class DeviceTree(object):
             device = self.getDeviceByName(name)
 
             if device is None:
-                if udev_device_is_multipath_partition(info, self):
-                    diskname = udev_device_get_multipath_partition_disk(info)
+                if udev_device_is_multipath_partition(info):
+                    diskname = udev_device_get_dm_partition_disk(info)
                     disk = self.getDeviceByName(diskname)
                     return self.addUdevPartitionDevice(info, disk=disk)
-                elif udev_device_is_dmraid_partition(info, self):
-                    diskname = udev_device_get_dmraid_partition_disk(info)
+                elif udev_device_is_dmraid_partition(info):
+                    diskname = udev_device_get_dm_partition_disk(info)
                     disk = self.getDeviceByName(diskname)
                     return self.addUdevPartitionDevice(info, disk=disk)
 

@@ -457,7 +457,7 @@ def udev_device_is_biosraid(info):
 
     return False
 
-def udev_device_get_dmraid_partition_disk(info):
+def udev_device_get_dm_partition_disk(info):
     try:
         p_index = info["DM_NAME"].rindex("p")
     except (KeyError, AttributeError, ValueError):
@@ -468,43 +468,20 @@ def udev_device_get_dmraid_partition_disk(info):
 
     return info["DM_NAME"][:p_index]
 
-def udev_device_is_dmraid_partition(info, devicetree):
-    diskname = udev_device_get_dmraid_partition_disk(info)
-    dmraid_devices = devicetree.getDevicesByType("dm-raid array")
+def udev_device_is_dmraid_partition(info):
+    if not udev_device_is_dm_raid(info):
+        return False
 
-    for device in dmraid_devices:
-        if diskname == device.name:
-            return True
+    diskname = udev_device_get_dm_partition_disk(info)
+    return diskname not in ("", None)
 
-    return False
-
-def udev_device_is_multipath_partition(info, devicetree):
+def udev_device_is_multipath_partition(info):
     """ Return True if the device is a partition of a multipath device. """
-    if not udev_device_is_dm(info):
-        return False
-    if not info["DM_NAME"].startswith("mpath"):
-        return False
-    diskname = udev_device_get_dmraid_partition_disk(info)
-    if diskname is None:
+    if not udev_device_is_dm_mpath(info):
         return False
 
-    # this is sort of a lame check, but basically, if diskname gave us "mpath0"
-    # and we start with "mpath" but we're not "mpath0", then we must be
-    # "mpath0" plus some non-numeric crap.
-    if diskname != info["DM_NAME"]:
-        return True
-
-    return False
-
-def udev_device_get_multipath_partition_disk(info):
-    """ Return True if the device is a partition of a multipath device. """
-    # XXX PJFIX This whole function is crap.
-    if not udev_device_is_dm(info):
-        return False
-    if not info["DM_NAME"].startswith("mpath"):
-        return False
-    diskname = udev_device_get_dmraid_partition_disk(info)
-    return diskname
+    diskname = udev_device_get_dm_partition_disk(info)
+    return diskname not in ("", None)
 
 def udev_device_is_multipath_member(info):
     """ Return True if the device is part of a multipath. """
