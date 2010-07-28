@@ -349,6 +349,9 @@ class AnacondaKSHandlers(KickstartHandlers):
 
     def doMonitor(self, args):
         KickstartHandlers.doMonitor(self, args)
+        if self.id.isHeadless:
+            return
+
         dict = self.ksdata.monitor
         self.skipSteps.extend(["monitor", "checkmonitorok"])
         self.id.instClass.setMonitor(self.id, dict["hsync"], dict["vsync"],
@@ -724,6 +727,9 @@ class AnacondaKSHandlers(KickstartHandlers):
 
     def doXConfig(self, args):
         KickstartHandlers.doXConfig(self, args)
+        if self.id.isHeadless:
+            return
+
         dict = self.ksdata.xconfig
 
         self.id.instClass.configureX(self.id, dict["driver"], dict["videoRam"],

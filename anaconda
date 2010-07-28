@@ -926,14 +926,18 @@ if __name__ == "__main__":
 
             anaconda.id.setXSetup(xsetup)
 
+    anaconda.setDispatch()
+
+    if opts.isHeadless == 1:
+        anaconda.id.setHeadless(opts.isHeadless)
+        instClass.setAsHeadless(anaconda.dispatch, opts.isHeadless)
+
     anaconda.id.setDisplayMode(opts.display_mode)
     instClass.setInstallData(anaconda)
 
     # We need to copy the VNC-related kickstart stuff into the new ksdata
     if opts.ksfile is not None:
         instClass.ksdata.vnc = vncksdata
-
-    anaconda.setDispatch()
 
     if opts.lang:
         anaconda.dispatch.skipStep("language", permanent = 1)
@@ -960,10 +964,6 @@ if __name__ == "__main__":
         anaconda.dispatch.skipStep("bootloadersetup", permanent = 1)
         anaconda.dispatch.skipStep("instbootloader", permanent = 1)
 
-    # set up the headless case
-    if opts.isHeadless == 1:
-        anaconda.id.setHeadless(opts.isHeadless)
-        instClass.setAsHeadless(anaconda.dispatch, opts.isHeadless)
 
     instClass.setSteps(anaconda.dispatch)
 
