@@ -394,6 +394,17 @@ class Network:
     def setHostname(self, hn):
         self.hostname = hn
 
+    def unsetDNS(self, devname):
+        """Unset all DNS* ifcfg parameters."""
+        i = 1
+        dev = self.netdevices[devname]
+        while True:
+            if dev.get("DNS%d" % i):
+                dev.unset("DNS%d" %i)
+            else:
+                break
+            i += 1
+
     def setDNS(self, ns, device):
         dns = ns.split(',')
         i = 1
