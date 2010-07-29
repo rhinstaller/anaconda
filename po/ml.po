@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-08 11:47-1000\n"
+"POT-Creation-Date: 2010-07-29 04:08-1000\n"
 "PO-Revision-Date: 2010-06-30 13:19+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -45,12 +45,12 @@ msgstr "ഒരു ഷെല്ലിനായി <enter> അമര്‍ത്�
 #: loader/kickstart.c:331 loader/kickstart.c:520 loader/lang.c:114
 #: loader/lang.c:373 loader/loader.c:433 loader/loader.c:469
 #: loader/loader.c:509 loader/loader.c:527 loader/loader.c:544
-#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1386
+#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1402
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:599 loader/net.c:970 loader/net.c:1559 loader/net.c:1580
-#: loader/net.c:1860 loader/net.c:1879 loader/net.c:1891
+#: loader/net.c:603 loader/net.c:971 loader/net.c:1568 loader/net.c:1589
+#: loader/net.c:1897 loader/net.c:1916 loader/net.c:1928
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
@@ -136,12 +136,12 @@ msgstr ""
 #: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:460
 #: yuminstall.py:871 yuminstall.py:989 yuminstall.py:994 yuminstall.py:1269
 #: yuminstall.py:1336 yuminstall.py:1526 yuminstall.py:1548
-#: iw/advanced_storage.py:85 iw/advanced_storage.py:95
-#: iw/advanced_storage.py:168 iw/advanced_storage.py:171
-#: iw/advanced_storage.py:199 iw/autopart_type.py:96 iw/cleardisks_gui.py:44
-#: iw/cleardisks_gui.py:54 iw/filter_gui.py:420 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:53
-#: iw/task_gui.py:154 iw/task_gui.py:301 iw/task_gui.py:461
+#: iw/advanced_storage.py:86 iw/advanced_storage.py:96
+#: iw/advanced_storage.py:170 iw/advanced_storage.py:173
+#: iw/advanced_storage.py:201 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
+#: iw/cleardisks_gui.py:54 iw/filter_gui.py:421 iw/osbootwidget.py:211
+#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:54
+#: iw/task_gui.py:155 iw/task_gui.py:302 iw/task_gui.py:463
 #: loader/windows.h:31 loader/cdinstall.c:228 loader/cdinstall.c:504
 #: loader/driverdisk.c:228 loader/driverdisk.c:473 loader/driverdisk.c:508
 #: loader/driverdisk.c:536 loader/driverdisk.c:544 loader/driverdisk.c:611
@@ -153,8 +153,8 @@ msgstr ""
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:330 loader/urls.c:336
-#: loader/urls.c:345 storage/__init__.py:213 storage/__init__.py:1799
-#: storage/__init__.py:1886 storage/zfcp.py:375 textw/netconfig_text.py:282
+#: loader/urls.c:345 storage/__init__.py:216 storage/__init__.py:1803
+#: storage/__init__.py:1890 storage/zfcp.py:375 textw/netconfig_text.py:282
 #: textw/upgrade_text.py:179 textw/upgrade_text.py:186
 msgid "Error"
 msgstr "പിശക്"
@@ -185,14 +185,14 @@ msgstr ""
 #: upgrade.py:199 yuminstall.py:252 yuminstall.py:991 yuminstall.py:996
 #: yuminstall.py:1076 yuminstall.py:1082 yuminstall.py:1238 yuminstall.py:1265
 #: yuminstall.py:1326 yuminstall.py:1513 yuminstall.py:1532 yuminstall.py:1555
-#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
-#: storage/__init__.py:1980
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:220
+#: storage/__init__.py:1984
 msgid "_Exit installer"
 msgstr "ഇന്‍സ്റ്റോളറില്‍ നിന്നും പുറത്ത് കടക്കുക (_E)"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1370
-#: kickstart.py:1409 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
-#: iw/partition_gui.py:1601 storage/__init__.py:1981
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1371
+#: kickstart.py:1410 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
+#: iw/partition_gui.py:1601 storage/__init__.py:1985
 msgid "_Continue"
 msgstr "തുടരുക (_C)"
 
@@ -227,8 +227,8 @@ msgstr "പൂര്‍ണ്ണമായിരിക്കുന്നു"
 msgid "In progress"
 msgstr "പുരോഗമിക്കുന്നു"
 
-#: cmdline.py:88 gui.py:1269 kickstart.py:1154 kickstart.py:1234
-#: kickstart.py:1242 kickstart.py:1280 kickstart.py:1288 text.py:388
+#: cmdline.py:88 gui.py:1269 kickstart.py:1155 kickstart.py:1235
+#: kickstart.py:1243 kickstart.py:1281 kickstart.py:1289 text.py:388
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -468,7 +468,7 @@ msgstr ""
 "ക്ലാസിന്റെ പേര് = %s"
 
 #: gui.py:1400 image.py:164 image.py:194 packages.py:360
-#: storage/__init__.py:1798
+#: storage/__init__.py:1802
 msgid "_Exit"
 msgstr "പുറത്തേക്ക് പോവുക(_E)"
 
@@ -477,7 +477,7 @@ msgstr "പുറത്തേക്ക് പോവുക(_E)"
 msgid "_Retry"
 msgstr "വീണ്ടും ശ്രമിക്കുക(_R)"
 
-#: gui.py:1403 storage/partitioning.py:286
+#: gui.py:1403 storage/partitioning.py:287
 msgid "The system will now reboot."
 msgstr "കംപ്യൂട്ടര്‍ ഇപ്പോള്‍ റീബൂട്ട് ചെയ്യപ്പെടും."
 
@@ -761,7 +761,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "സ്ക്ക്രിപ്റ്റ്ലെറ്റില്‍ പരാജയം"
 
-#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:307
+#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "നെറ്റ്‌വര്‍ക്ക് ലഭ്യമല്ല"
 
@@ -773,7 +773,7 @@ msgstr ""
 "എന്‍ക്രിപ്ഷന്‍ കീ എസ്ക്രോയ്ക്ക് നെറ്റ്‌വര്‍ക്കിങ് ആവശ്യമുണ്ടു്. പക്ഷേ, നിങ്ങളുടെ സിസ്റ്റമില്‍ നെറ്റ്‌വര്‍ക്ക് "
 "സജ്ജമാക്കുന്നതില്‍ പിശക് ഉണ്ടായിരിക്കുന്നു."
 
-#: kickstart.py:163
+#: kickstart.py:164
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -786,37 +786,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: kickstart.py:1253
+#: kickstart.py:1254
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "%%ksappend വരികള്‍ പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ പിശക്: %s"
 
-#: kickstart.py:1256
+#: kickstart.py:1257
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "%%ksappend വരികള്‍ പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ അപരിചിതമായ പിശക്: %s"
 
-#: kickstart.py:1311 livecd.py:228
+#: kickstart.py:1312 livecd.py:228
 msgid "Post-Installation"
 msgstr "പോസ്റ്റ്-ഇന്‍സ്റ്റലേഷന്‍"
 
-#: kickstart.py:1312
+#: kickstart.py:1313
 msgid "Running post-installation scripts"
 msgstr "പോസ്റ്റ്-ഇന്‍സ്റ്റലേഷന്‍ സ്ക്ക്രിപ്റ്റുകള്‍ പ്രവര്‍ത്തിക്കുന്നു"
 
-#: kickstart.py:1328
+#: kickstart.py:1329
 msgid "Pre-Installation"
 msgstr "പ്രീ-ഇന്‍സ്റ്റലേഷന്‍"
 
-#: kickstart.py:1329
+#: kickstart.py:1330
 msgid "Running pre-installation scripts"
 msgstr "പ്രീ-ഇന്‍സ്റ്റലേഷന്‍ സ്ക്രി്‍സ്ക്ക്രിപ്റ്റുകള്‍ പ്രവര്‍ത്തിക്കുന്നു"
 
-#: kickstart.py:1361
+#: kickstart.py:1362
 msgid "Missing Package"
 msgstr "പാക്കേജ് ലഭ്യമല്ല"
 
-#: kickstart.py:1362
+#: kickstart.py:1363
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -825,19 +825,19 @@ msgstr ""
 "'%s' എന്ന പാക്കേജ് ഇന്‍സ്റ്റോള്‍ ചെയ്യണമെന്നു് നിങ്ങള്‍ ആവശ്യപ്പെട്ടിരിക്കുന്നു.  ഈ പാക്കേജ് "
 "നിലവിലില്ല. നിങ്ങള്‍ക്ക് ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകണമോ അതോ നിര്‍ത്തലാക്കണമോ?"
 
-#: kickstart.py:1368 kickstart.py:1407
+#: kickstart.py:1369 kickstart.py:1408
 msgid "_Abort"
 msgstr "വീണ്ടും കംപ്യൂട്ടര്‍ ഓണ്‍ ചെയ്യുക (_A)"
 
-#: kickstart.py:1369 kickstart.py:1408
+#: kickstart.py:1370 kickstart.py:1409
 msgid "_Ignore All"
 msgstr "എല്ലാം അവഗണിക്കുക (_I)"
 
-#: kickstart.py:1399
+#: kickstart.py:1400
 msgid "Missing Group"
 msgstr "ഗ്രൂപ്പ് കാണ്‍മാനില്ല"
 
-#: kickstart.py:1400
+#: kickstart.py:1401
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -846,7 +846,7 @@ msgstr ""
 "'%s' എന്ന ഗ്രൂപ്പ് ഇന്‍സ്റ്റോള്‍ ചെയ്യണമെന്ന് നിങ്ങള്‍ ആവശ്യപ്പെട്ടിരിക്കുന്നു.  ഈ ഗ്രൂപ്പ് നിലവിലില്ല. "
 "നിങ്ങള്‍ക്ക് ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകണമോ അതോ നിര്‍ത്തലാക്കണമോ?"
 
-#: kickstart.py:1516
+#: kickstart.py:1517
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1450,7 +1450,7 @@ msgid "Read-Only"
 msgstr "റീഡ്-ഒണ്‍ലി"
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1798 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1802 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "വിട്ടുകളയുക"
 
@@ -1583,8 +1583,8 @@ msgstr ""
 "  <Tab>/<Alt-Tab> എലമെന്റുകളുടെ ഇടയ്ക്ക്   |  <Space> selects   |  <F12> അടുത്ത "
 "സ്ക്രീനിനായി"
 
-#: text.py:624 loader/net.c:110 loader/net.c:491 loader/net.c:546
-#: loader/net.c:688 loader/net.c:696 loader/net.c:1117 loader/net.c:1125
+#: text.py:624 loader/net.c:110 loader/net.c:495 loader/net.c:550
+#: loader/net.c:692 loader/net.c:700 loader/net.c:1118 loader/net.c:1126
 msgid "Retry"
 msgstr "വിണ്ടും ശ്രമിക്കുക"
 
@@ -1906,7 +1906,7 @@ msgstr ""
 "%s പാക്കേജ് ഇന്‍സ്റ്റോള്‍ ചെയ്യുമ്പോള്‍ ഗുരുതരമായ ഒരു പിശകുണ്ടായിരിക്കുന്നു. ഇന്‍സ്റ്റലേഷന്‍ മീഡിയ "
 "ലഭ്യമാക്കുമ്പോഴുള്ള പിശകുകളായി ഇവ സൂചിപ്പിക്കാം. അതിനാല്‍ ഇന്‍സ്റ്റലേഷന്‍ തുടരുവാന്‍ സാധ്യമല്ല."
 
-#: yuminstall.py:396 iw/task_gui.py:319
+#: yuminstall.py:396 iw/task_gui.py:321
 msgid "Error Setting Up Repository"
 msgstr "സംഭരണിയില്‍ ക്രമീരിക്കുന്നതില്‍ പിശക്"
 
@@ -2052,7 +2052,7 @@ msgstr "താഴെ പറയുന്ന കാരണങ്ങള്‍ കൊ
 msgid "Error Running Transaction"
 msgstr "ട്രാന്‍സാക്ഷന്‍ പ്രവര്‍ത്തിപ്പിക്കുന്നതില്‍ പിഴവ് "
 
-#: yuminstall.py:1234 iw/task_gui.py:308
+#: yuminstall.py:1234 iw/task_gui.py:309
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2297,23 +2297,23 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "അടയാളവാക്കില്‍ ഉപയോഗിക്കുവാന്‍ പാടില്ലാത്ത non-ascii അക്ഷരങ്ങള്‍ നല്‍കിയിരിക്കുന്നു."
 
-#: iw/advanced_storage.py:86
+#: iw/advanced_storage.py:87
 msgid "You must select a NIC to use."
 msgstr "ഉപയോഗിക്കുന്നതിനായി ഒരു NIC തെരഞ്ഞെടുക്കണം."
 
-#: iw/advanced_storage.py:130
+#: iw/advanced_storage.py:132
 msgid "Invalid Initiator Name"
 msgstr "അസാധുവായ ഇനിഷ്യേറ്ററിന്റെ പേര്"
 
-#: iw/advanced_storage.py:131
+#: iw/advanced_storage.py:133
 msgid "You must provide an initiator name."
 msgstr "ഇനിഷ്യേറ്ററിന ഒരു പേര് നല്‍കേണ്ടതാണ്."
 
-#: iw/advanced_storage.py:160
+#: iw/advanced_storage.py:162
 msgid "Error with Data"
 msgstr "ഡേറ്റായില്‍ പിഴവ്"
 
-#: iw/autopart_type.py:97
+#: iw/autopart_type.py:96
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
@@ -2321,29 +2321,29 @@ msgstr ""
 "വ്യാപ്തി മാറ്റുന്നതിനായി പാര്‍ട്ടീഷനുകള്‍ ലഭ്യമല്ല.  ചില പ്രത്യേക ഫയല്‍സിസ്റ്റമുള്ള ഫിസിക്കല്‍ "
 "പാര്‍ട്ടീഷനുകളുടെ വ്യാപ്തി മാത്രമേ മാറ്റുവാന്‍ സാധിക്കുകയുള്ളൂ."
 
-#: iw/autopart_type.py:120
+#: iw/autopart_type.py:119
 msgid "Resize FileSystem Error"
 msgstr "ഫയല്‍സിസ്റ്റം പിശകിന്റെ വ്യാപ്തി മാറ്റുക."
 
-#: iw/autopart_type.py:121
+#: iw/autopart_type.py:120
 #, python-format
 msgid "%(device)s: %(msg)s"
 msgstr "%(device)s: %(msg)s"
 
-#: iw/autopart_type.py:130
+#: iw/autopart_type.py:129
 msgid "Resize Device Error"
 msgstr "ഡിവൈസ് വ്യാപ്തി മാറ്റുന്നതില്‍ പിശക്"
 
-#: iw/autopart_type.py:131
+#: iw/autopart_type.py:130
 #, python-format
 msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
-#: iw/autopart_type.py:242
+#: iw/autopart_type.py:241
 msgid "Use All Space"
 msgstr "എല്ലാ സ്ഥലവും ഉപയോഗിക്കുക"
 
-#: iw/autopart_type.py:244
+#: iw/autopart_type.py:243
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2357,11 +2357,11 @@ msgstr ""
 "<b>സൂചന:</b> തെരഞ്ഞെടുത്ത ഡിവൈസുകളില്‍ നിന്നും ഈ ഉപാധി ഡേറ്റാ നീക്കം ചെയ്യുന്നു. ബാക്കപ്പുകള്‍ "
 "ഉണ്ടെന്നുറപ്പാക്കുക."
 
-#: iw/autopart_type.py:250
+#: iw/autopart_type.py:249
 msgid "Replace Existing Linux System(s)"
 msgstr "നിലവിലുള്ള ലിനക്സ് സിസ്റ്റം മാറ്റുക"
 
-#: iw/autopart_type.py:252
+#: iw/autopart_type.py:251
 msgid ""
 "Removes only Linux partitions (created from a previous Linux installation).  "
 "This does not remove other partitions you may have on your storage device(s) "
@@ -2377,22 +2377,22 @@ msgstr ""
 "<b>സൂചന:</b> തെരഞ്ഞെടുത്ത ഡിവൈസില്‍ നിന്നും ഈ ഉപാധി ഡേറ്റാ നീക്കം ചെയ്യുന്നു. ബാക്കപ്പുകള്‍ "
 "ഉണ്ടെന്നുറപ്പാക്കുക."
 
-#: iw/autopart_type.py:260
+#: iw/autopart_type.py:259
 msgid "Shrink Current System"
 msgstr "നിലവിലുള്ള സിസ്റ്റം ചെറുതാക്കുക"
 
-#: iw/autopart_type.py:262
+#: iw/autopart_type.py:261
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 "സ്വതവേയുള്ള ശൈലിയ്ക്കു് വേണ്ടി ഉപയോഗിക്കാത്ത സ്ഥലം സജ്ജമാക്കുന്നതിനായി നിലവിലുള്ള പാര്‍ട്ടീഷനുകള്‍ "
 "ചെറുതാക്കുക."
 
-#: iw/autopart_type.py:264
+#: iw/autopart_type.py:263
 msgid "Use Free Space"
 msgstr "ഉപയോഗത്തിലല്ലാത്ത സ്ഥലം ഉപയോഗിക്കുക"
 
-#: iw/autopart_type.py:266
+#: iw/autopart_type.py:265
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
@@ -2401,11 +2401,11 @@ msgstr ""
 "നിലവിലുള്ള ഡേറ്റയും പാര്‍ട്ടീഷനുകളും വീണ്ടെടുക്കുന്നു. ആവശ്യത്തിനുള്ള സ്ഥലം ലഭ്യമാണെന്ന രീതിയില്‍, "
 "തെരഞ്ഞെടുത്ത ഡിവൈസിലുള്ള പാര്‍ട്ടീഷന്‍ ചെയ്യാത്ത സ്ഥലം ഉപയോഗിക്കുന്നു."
 
-#: iw/autopart_type.py:270
+#: iw/autopart_type.py:269
 msgid "Create Custom Layout"
 msgstr "യഥേഷ്ടമുള്ള ശൈലി തയ്യാറാക്കുക"
 
-#: iw/autopart_type.py:272
+#: iw/autopart_type.py:271
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
@@ -2487,7 +2487,7 @@ msgstr "ഡിവൈസ് മാറ്റുക (_C)"
 msgid "Clear Disks Selector"
 msgstr "ഡിസ്ക് തെരഞ്ഞെടുക്കുന്ന പ്രയോഗം വെടിപ്പാക്കുന്നു"
 
-#: iw/cleardisks_gui.py:45 iw/filter_gui.py:421
+#: iw/cleardisks_gui.py:45 iw/filter_gui.py:422
 msgid "You must select at least one drive to be used for installation."
 msgstr "ഇന്‍സ്റ്റലേഷനായി ഒരു ഡ്രൈവ് എങ്കിലും തെരഞ്ഞെടുക്കേണ്ടതാണു്."
 
@@ -2495,29 +2495,29 @@ msgstr "ഇന്‍സ്റ്റലേഷനായി ഒരു ഡ്രൈ�
 msgid "You must select one drive to boot from."
 msgstr "ബൂട്ട് ചെയ്യുന്നതിനായി ഒരു ഡ്രൈവ് എങ്കിലും തെരഞ്ഞെടുക്കണം."
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:463
-#: iw/filter_gui.py:475 iw/filter_gui.py:505
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:483
+#: iw/filter_gui.py:495 iw/filter_gui.py:525
 msgid "Model"
 msgstr "മാതൃക"
 
-#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:464
-#: iw/filter_gui.py:476 iw/filter_gui.py:484 iw/filter_gui.py:495
-#: iw/filter_gui.py:506
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:484
+#: iw/filter_gui.py:496 iw/filter_gui.py:504 iw/filter_gui.py:515
+#: iw/filter_gui.py:526
 msgid "Capacity"
 msgstr "വ്യാപ്തി"
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:465 iw/filter_gui.py:485
-#: iw/filter_gui.py:496 iw/filter_gui.py:507
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:485 iw/filter_gui.py:505
+#: iw/filter_gui.py:516 iw/filter_gui.py:527
 msgid "Vendor"
 msgstr "വില്‍പ്പനക്കാരന്‍"
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:468
-#: iw/filter_gui.py:483 iw/filter_gui.py:494 iw/filter_gui.py:510
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:488
+#: iw/filter_gui.py:503 iw/filter_gui.py:514 iw/filter_gui.py:530
 msgid "Identifier"
 msgstr "ഐഡന്റിഫയര്‍"
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:466 iw/filter_gui.py:486
-#: iw/filter_gui.py:497 iw/filter_gui.py:508
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:486 iw/filter_gui.py:506
+#: iw/filter_gui.py:517 iw/filter_gui.py:528
 msgid "Interconnect"
 msgstr "ഇന്റര്‍കണക്ട്"
 
@@ -2644,38 +2644,38 @@ msgstr "<b>നിങ്ങള്‍ക്കു് ഏതു് %s ഇന്‍�
 msgid "Unknown Linux system"
 msgstr "അപരിചിതമായ ലിനക്സ് സിസ്റ്റം"
 
-#: iw/filter_gui.py:150
+#: iw/filter_gui.py:151
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr "<b>%s ഡിവൈസുകള്‍ (%s MB) തെരഞ്ഞെടുത്തിരിക്കുന്നു</b>, മൊത്തം %s ഡിവൈസുകള്‍ %s MB)."
 
-#: iw/filter_gui.py:400
+#: iw/filter_gui.py:401
 msgid "Device Filter"
 msgstr "ഡിവൈസ് ഫില്‍‌റ്റര്‍"
 
-#: iw/filter_gui.py:467 iw/filter_gui.py:498 iw/filter_gui.py:509
+#: iw/filter_gui.py:487 iw/filter_gui.py:518 iw/filter_gui.py:529
 msgid "Serial Number"
 msgstr "സീരിയല്‍ നംബര്‍"
 
-#: iw/filter_gui.py:469 iw/filter_gui.py:477 iw/filter_gui.py:488
-#: iw/filter_gui.py:499 iw/filter_gui.py:514 iw/osbootwidget.py:66
+#: iw/filter_gui.py:489 iw/filter_gui.py:497 iw/filter_gui.py:508
+#: iw/filter_gui.py:519 iw/filter_gui.py:534 iw/osbootwidget.py:66
 #: iw/partition_gui.py:611
 msgid "Device"
 msgstr "ഡിവൈസ്"
 
-#: iw/filter_gui.py:487
+#: iw/filter_gui.py:507
 msgid "Paths"
 msgstr "പാഥുകള്‍"
 
-#: iw/filter_gui.py:511
+#: iw/filter_gui.py:531
 msgid "Port"
 msgstr "പോര്‍ട്ട്"
 
-#: iw/filter_gui.py:512
+#: iw/filter_gui.py:532
 msgid "Target"
 msgstr "ലക്ഷ്യം"
 
-#: iw/filter_gui.py:513
+#: iw/filter_gui.py:533
 msgid "LUN"
 msgstr "LUN"
 
@@ -2701,11 +2701,10 @@ msgstr "പ്രത്യേക സ്റ്റോറേജ് ഡിവൈസ�
 
 #: iw/filter_type.py:67
 msgid ""
-"Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-"mainframe attached disks (DASD), usually in an enterprise environment"
+"Installs or upgrades to enterprise devices such as Storage Area Networks "
+"(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
+"filter out devices the installer should ignore."
 msgstr ""
-"സ്റ്റോറേജ് ഏരിയാ നെറ്റ്‌വര്‍ക്കുകള്‍ (SANs) അല്ലെങ്കില്‍ മെയിന്‍ഫ്രെയിം ചേര്‍ത്തിട്ടുള്ള ഡിസ്കുകള്‍ "
-"(DASD) പോലുള്ള ഡിവൈസുകളിലേക്ക് ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നു അല്ലെങ്കില്‍ പരിഷ്കരിക്കുന്നു.‌ "
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2831,7 +2830,7 @@ msgid "(Max size is %s MB)"
 msgstr "%s MB ആണ് ഏറ്റവും കൂടിയ വലിപ്പം"
 
 #: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:544
-#: iw/partition_ui_helpers_gui.py:336 iw/raid_dialog_gui.py:423
+#: iw/partition_ui_helpers_gui.py:337 iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
 msgstr "എന്‍ക്രിപ്റ്റ് ചെയ്യുക (_E)"
 
@@ -3220,7 +3219,7 @@ msgstr "MD RAID ARRAY %s (%-0.f MB)"
 msgid "Type"
 msgstr "ടൈപ്പ്"
 
-#: iw/partition_gui.py:616 storage/__init__.py:1798
+#: iw/partition_gui.py:616 storage/__init__.py:1802
 msgid "Format"
 msgstr "ഫോര്‍മാറ്റ് ചെയ്യുക"
 
@@ -3399,8 +3398,8 @@ msgstr "പിവി തയ്യാറാക്കുവാന്‍ നിങ�
 msgid "About LVM"
 msgstr "എല്‍വിഎം സംബന്ധിച്ചു്"
 
-#: iw/partition_gui.py:1587 storage/partitioning.py:206
-#: storage/partitioning.py:249
+#: iw/partition_gui.py:1587 storage/partitioning.py:207
+#: storage/partitioning.py:250
 msgid "Error Partitioning"
 msgstr "പാര്‍ട്ടീഷനിങ് പിശകുകള്‍"
 
@@ -3441,24 +3440,24 @@ msgstr "റീസെറ്റ്(_s)"
 msgid "Please Select A Device"
 msgstr "ദയവായി ഒരു ഡ്രൈവ് തിരഞ്ഞെടുക്കുക"
 
-#: iw/partition_ui_helpers_gui.py:109 iw/partition_ui_helpers_gui.py:131
-#: iw/partition_ui_helpers_gui.py:133
+#: iw/partition_ui_helpers_gui.py:110 iw/partition_ui_helpers_gui.py:132
+#: iw/partition_ui_helpers_gui.py:134
 msgid "<Not Applicable>"
 msgstr "<Not Applicable>"
 
-#: iw/partition_ui_helpers_gui.py:317
+#: iw/partition_ui_helpers_gui.py:318
 msgid "_Format as:"
 msgstr "ഫോര്‍മാറ്റ് ചെയ്യേണ്ടത് (_F):"
 
-#: iw/partition_ui_helpers_gui.py:339
+#: iw/partition_ui_helpers_gui.py:340
 msgid "Mi_grate filesystem to:"
 msgstr "ഫയല്‍ സിസ്റ്റമുകള്‍ എങ്ങോട്ട് നീക്കേണം (_g):"
 
-#: iw/partition_ui_helpers_gui.py:369
+#: iw/partition_ui_helpers_gui.py:370
 msgid "_Resize"
 msgstr "വ്യാപ്തി മാറ്റുക (_R)"
 
-#: iw/partition_ui_helpers_gui.py:433
+#: iw/partition_ui_helpers_gui.py:425
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
@@ -3514,7 +3513,7 @@ msgstr "സ്പെയറുകളുടെ എണ്ണം: (_s)"
 msgid "_Format partition?"
 msgstr "ഫോര്‍മാറ്റ്(_F) പാര്‍ട്ടീഷന്‍ ചെയ്യണമോ?"
 
-#: iw/task_gui.py:54
+#: iw/task_gui.py:55
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -3529,11 +3528,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:131
+#: iw/task_gui.py:132
 msgid "Edit Repository"
 msgstr "സംഭരണിയില്‍ മാറ്റം വരുത്തുക"
 
-#: iw/task_gui.py:155
+#: iw/task_gui.py:156
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -3542,37 +3541,37 @@ msgstr ""
 "റിപോസിറ്ററി %s നിലവില്‍ ചേര്‍ത്തിട്ടുണ്ട്.  ദയവായി മറ്റൊരു റിപോസിറ്ററി പേരും URL-ഉം "
 "തിരഞ്ഞെടുക്കുക."
 
-#: iw/task_gui.py:235
+#: iw/task_gui.py:236
 msgid "Invalid Proxy URL"
 msgstr "അസാധുവായ പ്രോക്സി യുആര്‍എല്‍"
 
-#: iw/task_gui.py:236
+#: iw/task_gui.py:237
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "ഒരു പ്രോക്സിയ്ക്ക് HTTP, HTTPS, അല്ലെങ്കില്‍ FTP URL ലഭ്യമായിരിക്കണം."
 
-#: iw/task_gui.py:248 iw/task_gui.py:428
+#: iw/task_gui.py:249 iw/task_gui.py:430
 msgid "Invalid Repository URL"
 msgstr "അസാധുവായ റിപോസിറ്ററിയുടെ URL"
 
-#: iw/task_gui.py:249 iw/task_gui.py:429
+#: iw/task_gui.py:250 iw/task_gui.py:431
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "ഒരു സംഭരണിയ്ക്ക് HTTP, HTTPS,  അല്ലെങ്കില്‍ FTP URL ലഭ്യമായിരിക്കണം."
 
-#: iw/task_gui.py:270 iw/task_gui.py:438
+#: iw/task_gui.py:271 iw/task_gui.py:440
 msgid "No Media Found"
 msgstr "മീഡിയ ലഭ്യമല്ല"
 
-#: iw/task_gui.py:271 iw/task_gui.py:439
+#: iw/task_gui.py:272 iw/task_gui.py:441
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ മീഡിയ ലഭ്യമല്ല. ദയവായി ഡ്രൈവിലേക്കു് ഒരു ഡിസ്കിട്ട് വീണ്ടും ശ്രമിക്കുക."
 
-#: iw/task_gui.py:302 iw/task_gui.py:462
+#: iw/task_gui.py:303 iw/task_gui.py:464
 msgid "Please enter an NFS server and path."
 msgstr "ദയവായി ഒരു NFS സര്‍വറും അതിലേക്കുള്ള പാഥും നല്‍കുക."
 
-#: iw/task_gui.py:320
+#: iw/task_gui.py:322
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3584,23 +3583,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:343
+#: iw/task_gui.py:345
 msgid "Invalid Repository Name"
 msgstr "അസാധുവായ റിപോസിറ്ററിയുടെ പേര്"
 
-#: iw/task_gui.py:344
+#: iw/task_gui.py:346
 msgid "You must provide a repository name."
 msgstr "ശരിയായ ഒരു റിപ്പോസിറ്ററി നാമം നല്‍കേണ്ടതാണ്."
 
-#: iw/task_gui.py:494 ui/addrepo.glade.h:3
+#: iw/task_gui.py:496 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "റിപോസിറ്ററി ചേര്‍ക്കുക"
 
-#: iw/task_gui.py:499
+#: iw/task_gui.py:501
 msgid "No Software Repos Enabled"
 msgstr "സോഫ്റ്റ്‌വെയര്‍ സംഭരണികള്‍ സജ്ജമാക്കിയിട്ടില്ല"
 
-#: iw/task_gui.py:500
+#: iw/task_gui.py:502
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3948,8 +3947,8 @@ msgstr "ഡിസ്ക് കണ്ടുകിട്ടിയില്ല"
 #: loader/driverdisk.c:524 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
-#: loader/loader.c:1386 loader/loader.c:1419 loader/net.c:599 loader/net.c:970
-#: loader/net.c:1860 loader/net.c:1879 loader/nfsinstall.c:91
+#: loader/loader.c:1402 loader/loader.c:1435 loader/net.c:603 loader/net.c:971
+#: loader/net.c:1897 loader/net.c:1916 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -4061,7 +4060,7 @@ msgstr "നിങ്ങള്‍ ഇനിയും ഡ്രൈവര്‍ ഡ
 #: loader/driverdisk.c:711 loader/driverdisk.c:750 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
+#: loader/modules.c:398 loader/net.c:1568 loader/net.c:1589
 #: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
@@ -4320,43 +4319,43 @@ msgstr "പരിഷ്കരിച്ച ഇമേജ് ഡൌണ്‍ലോ�
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "ഈ കംപ്യൂട്ടറില്‍ %s ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നതിന് ആവശ്യമുളള RAM നിങ്ങള്‍ക്ക് ലഭ്യമല്ല."
 
-#: loader/loader.c:1253
+#: loader/loader.c:1259
 msgid "Media Detected"
 msgstr "മീഡിയ കണ്ടുകിട്ടി"
 
-#: loader/loader.c:1254
+#: loader/loader.c:1260
 msgid "Found local installation media"
 msgstr "ലോക്കല്‍ ഇന്‍സ്റ്റലേഷന്‍ മീഡിയ കണ്ടുകിട്ടി"
 
-#: loader/loader.c:1378
+#: loader/loader.c:1394
 msgid "Rescue Method"
 msgstr "റെസ്ക്യൂ മെഥേഡ്"
 
-#: loader/loader.c:1379
+#: loader/loader.c:1395
 msgid "Installation Method"
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ മെഥേഡ്"
 
-#: loader/loader.c:1381
+#: loader/loader.c:1397
 msgid "What type of media contains the rescue image?"
 msgstr "റെസ്ക്യൂ ഇമേജ് ഏത് തരത്തിലുളള മീഡിയായില്‍ ലഭ്യമാണ്?"
 
-#: loader/loader.c:1383
+#: loader/loader.c:1399
 msgid "What type of media contains the installation image?"
 msgstr "ഇന്‍സ്റ്റലേഷന്‍ ചിത്രം ഏത് തരത്തിലുള്ള മീഡിയായിലാണു് ലഭ്യമാകുന്നതു്?"
 
-#: loader/loader.c:1418
+#: loader/loader.c:1434
 msgid "No driver found"
 msgstr "ഡ്രൈവര്‍ ലഭ്യമല്ല"
 
-#: loader/loader.c:1418
+#: loader/loader.c:1434
 msgid "Select driver"
 msgstr "ഡ്രൈവര്‍ തിരഞ്ഞെടുക്കുക"
 
-#: loader/loader.c:1419
+#: loader/loader.c:1435
 msgid "Use a driver disk"
 msgstr "ഡ്രൈവര്‍ ഡിസ്ക്ക് ഉപയോഗിക്കുക"
 
-#: loader/loader.c:1420
+#: loader/loader.c:1436
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4364,11 +4363,11 @@ msgstr ""
 "ഈ ഇന്‍സ്റ്റലേഷന്‍ രീതിയ്ക്ക് ആവശ്യമുളള തരത്തിലുളള ഒരു ഡിവൈസുകളും ലഭ്യമല്ല.  നിങ്ങള്‍ക്ക് നിങ്ങളുടെ "
 "ഡ്രൈവര്‍ തനിയേ തിരഞ്ഞെടുക്കുകയോ ഒരു ഡ്രൈവര്‍ ഡിസ്ക് ഉപയോഗിക്കുകയോ ചെയ്യണമോ?"
 
-#: loader/loader.c:1650
+#: loader/loader.c:1666
 msgid "The following devices have been found on your system."
 msgstr "ഇവയാണ് നിങ്ങളുടെ സിസ്റ്റത്തില്‍ ലഭ്യമായ ഡിവൈസുകള്‍."
 
-#: loader/loader.c:1652
+#: loader/loader.c:1668
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -4376,29 +4375,29 @@ msgstr ""
 "നിങ്ങളുടെ സിസ്റ്റത്തിന് ആവശ്യമുളള ഡിവൈസ് ഡ്രൈവറുകള്‍ ലോഡ് ചെയ്തിട്ടില്ല. നിങ്ങള്‍ക്ക് അവ ഏതേലും "
 "ഇപ്പോള്‍ ലോഡ് ചെയ്യണമോ?"
 
-#: loader/loader.c:1656
+#: loader/loader.c:1672
 msgid "Devices"
 msgstr "ഡിവൈസുകള്‍"
 
-#: loader/loader.c:1657
+#: loader/loader.c:1673
 msgid "Done"
 msgstr "ചെയ്ത് കഴിഞ്ഞിരിക്കുന്നു"
 
-#: loader/loader.c:1658
+#: loader/loader.c:1674
 msgid "Add Device"
 msgstr "ഡിവൈസ് ചേര്‍ക്കുക"
 
-#: loader/loader.c:1936
+#: loader/loader.c:1952
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ലോഡര്‍ പ്രവര്‍ത്തനത്തിലാണ്.  ഷെല്‍ ആരംഭിക്കുന്നു.\n"
 
-#: loader/loader.c:2396
+#: loader/loader.c:2412
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "അനക്കോന്‍ഡാ %s പ്രവര്‍ത്തിക്കുന്നു, %s റെസ്ക്യൂ മോഡ് - ദയവായി കാത്തിരിക്കുക.\n"
 
-#: loader/loader.c:2398
+#: loader/loader.c:2414
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "അനക്കോന്‍ഡാ %s പ്രവര്‍ത്തിക്കുന്നു, %s സിസ്റ്റം ഇന്‍സ്റ്റോളര്‍ - ദയവായി കാത്തിരിക്കുക.\n"
@@ -4490,12 +4489,12 @@ msgstr ""
 "IPv4 നെറ്റ്‌വര്‍ക്കുകള്‍ക്കുള്ള പ്രിഫിക്സ് 1-നും 32-നും മദ്ധ്യത്തിലും IPv6 നെറ്റ്‌വര്‍ക്കുകള്‍‍ 1-നും 128-നും "
 "മദ്ധ്യത്തിലും ആയിരിക്കേണ്ടതാണ്."
 
-#: loader/net.c:484 loader/net.c:492 loader/net.c:547
+#: loader/net.c:488 loader/net.c:496 loader/net.c:551
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr "നിങ്ങളുടെ നെറ്റ്‌വര്‍ക്കിനുള്ളള സംയോജക ഘടകം ക്രമീകരിക്കുന്നതില്‍ പിശക്."
 
-#: loader/net.c:486
+#: loader/net.c:490
 #, c-format
 msgid ""
 "\n"
@@ -4506,59 +4505,59 @@ msgstr ""
 "ഇതു് cmdline മോഡില്‍ തിരുത്തുവാന്‍ സാധ്യമല്ല.\n"
 "അതിനാല്‍ നിര്‍ത്തുന്നു.\n"
 
-#: loader/net.c:491 loader/net.c:546
+#: loader/net.c:495 loader/net.c:550
 msgid "Network Error"
 msgstr "നെറ്റ്‌വര്‍ക്ക് പിശക്"
 
-#: loader/net.c:577 textw/netconfig_text.py:133
+#: loader/net.c:581 textw/netconfig_text.py:133
 msgid "Enable IPv4 support"
 msgstr "IPv4-നുളള പിന്തുണ സജ്ജമാക്കുക"
 
-#: loader/net.c:591
+#: loader/net.c:595
 msgid "Enable IPv6 support"
 msgstr "IPv6-നുളള പിന്തുണ സജ്ജമാക്കുക"
 
-#: loader/net.c:631
+#: loader/net.c:635
 msgid "Configure TCP/IP"
 msgstr "TCP/IP കോണ്‍ഫിഗര്‍ ചെയ്യുക"
 
-#: loader/net.c:688
+#: loader/net.c:692
 msgid "Missing Protocol"
 msgstr "സമ്പ്രദായം ലഭ്യമല്ല"
 
-#: loader/net.c:689
+#: loader/net.c:693
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "നിങ്ങള്‍ ഒരു സമ്പ്രദായം (IPv4 അല്ലെങ്കില്‍ IPv6) എങ്കിലും തിരഞ്ഞെടുക്കേണ്ടതുണ്ട്."
 
-#: loader/net.c:696
+#: loader/net.c:700
 msgid "IPv4 Needed for NFS"
 msgstr "NFS-ന് ആവശ്യമുളള IPv4"
 
-#: loader/net.c:697
+#: loader/net.c:701
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS ഇന്‍സ്റ്റലേഷന്‍ രീതിയ്ക്ക് IPv4 പിന്തുണ ആവശ്യമുണ്ട്."
 
-#: loader/net.c:796
+#: loader/net.c:797
 msgid "IPv4 address:"
 msgstr "IPv4 അഡ്രസ്സ്:"
 
-#: loader/net.c:808 loader/net.c:875
+#: loader/net.c:809 loader/net.c:876
 msgid "/"
 msgstr "/"
 
-#: loader/net.c:863
+#: loader/net.c:864
 msgid "IPv6 address:"
 msgstr "IPv6 അഡ്രസ്സ്:"
 
-#: loader/net.c:929 textw/netconfig_text.py:160
+#: loader/net.c:930 textw/netconfig_text.py:160
 msgid "Gateway:"
 msgstr "ഗേറ്റ്വേ:"
 
-#: loader/net.c:937
+#: loader/net.c:938
 msgid "Name Server:"
 msgstr "നെയിം സര്‍വര്‍:"
 
-#: loader/net.c:976
+#: loader/net.c:977
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -4568,42 +4567,42 @@ msgstr ""
 "dotted-quad നെറ്റ്മാസ്ക് അല്ലെങ്കില്‍ CIDR-മാതൃകയിലുളള പ്രിഫിക്സ് സ്വീകാര്യമാണ്. ഗേറ്റ് വേയും "
 "നെയിം സര്‍വറിനുമുള്ള ഫീള്‍ഡുകള്‍ IPv4 അല്ലെങ്കില്‍ IPv6 വിലാസങ്ങള്‍ക്ക് ശരിയായിരിക്കണം."
 
-#: loader/net.c:993
+#: loader/net.c:994
 msgid "Manual TCP/IP Configuration"
 msgstr "മാനുവല്‍ TCP/IP ക്രമീകരണം"
 
-#: loader/net.c:1117 loader/net.c:1125
+#: loader/net.c:1118 loader/net.c:1126
 msgid "Missing Information"
 msgstr "ലഭ്യമല്ലാത്ത വിവരം"
 
-#: loader/net.c:1118
+#: loader/net.c:1119
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "നിങ്ങള്‍ ശരിയായ IPv4 അഡ്രസ്സും നെറ്റ്‌വര്‍ക്ക് മാസ്കും CIDR പ്രിഫിക്സും നല്‍കേണ്ടതാണ്."
 
-#: loader/net.c:1126
+#: loader/net.c:1127
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "നിങ്ങള്‍ ശരിയായ IPv6 വിലാസവും ഒരു CIDR പ്രിഫിക്സും നല്‍കേണ്ടതാണ്."
 
-#: loader/net.c:1560
+#: loader/net.c:1569
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "നെറ്റ്‌വര്‍ക്ക് കമാന്‍ഡ് കിക്ക് സ്റ്റാര്‍ട്ട് ചെയ്യുന്നതിനായി തെറ്റായ ആര്‍ഗ്യുമെന്റ്: %s"
 
-#: loader/net.c:1581
+#: loader/net.c:1590
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "നെറ്റ്‌വര്‍ക്ക് കമാന്‍ഡില്‍ തെറ്റായ bootproto %s പറഞ്ഞിരിക്കുന്നു"
 
-#: loader/net.c:1658
+#: loader/net.c:1695
 msgid "Seconds:"
 msgstr "നിമിഷങ്ങള്‍:"
 
-#: loader/net.c:1855
+#: loader/net.c:1892
 msgid "Networking Device"
 msgstr "നെറ്റ്‌വര്‍ക്കിങ് ഡിവൈസ്"
 
-#: loader/net.c:1856
+#: loader/net.c:1893
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -4611,15 +4610,15 @@ msgstr ""
 "നിങ്ങളുടെ സിസ്റ്റത്തില്‍ ഒന്നില്‍ കൂടുതല്‍ നെറ്റ്‌വര്‍ക്ക് ഡിവൈസുകള്‍ ലഭ്യമാണ്. ഏതില്‍ കൂടിയാണ് നിങ്ങള്‍ക്ക് "
 "ഇന്‍സ്റ്റോള്‍ ചെയ്യേണ്ടത്?"
 
-#: loader/net.c:1860
+#: loader/net.c:1897
 msgid "Identify"
 msgstr "തിരിച്ചറിയുക"
 
-#: loader/net.c:1869
+#: loader/net.c:1906
 msgid "You can identify the physical port for"
 msgstr "ഫിസിക്കല്‍ പോര്‍ട്ട് നിങ്ങള്‍ക്കു് തിരിച്ചറിയുന്നതിനായി"
 
-#: loader/net.c:1871
+#: loader/net.c:1908
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
@@ -4627,24 +4626,24 @@ msgstr ""
 "കുറച്ചു സമയത്തേക്കു എല്‍ഇഡി ലൈറ്റുകള്‍ കത്തിക്കുക.  എല്‍ഇഡി പോര്‍ട്ട് ലൈറ്റുകള്‍ കത്തുന്നതിനുള്ള സമയമായി 1 "
 "മുതല്‍ 30 വരെയുള്ള ഒരു അക്കം നല്‍കുക."
 
-#: loader/net.c:1878
+#: loader/net.c:1915
 msgid "Identify NIC"
 msgstr "എന്‍ഐസി തിരിച്ചറിയുക"
 
-#: loader/net.c:1891
+#: loader/net.c:1928
 msgid "Invalid Duration"
 msgstr "തെറ്റായ സമയദൈര്‍ഘ്യം"
 
-#: loader/net.c:1892
+#: loader/net.c:1929
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "എത്ര നിമിഷം എന്നതു് 1 മുതല്‍ 30 വരെയുള്ള ഒരു അക്കമായി നല്‍കേണ്ടതാണു്."
 
-#: loader/net.c:1904
+#: loader/net.c:1941
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "%s പോര്‍ട്ട് ലൈറ്റുകള്‍ %d നിമഷത്തേക്ക് കത്തുന്നു."
 
-#: loader/net.c:2072 loader/net.c:2076
+#: loader/net.c:2109 loader/net.c:2113
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "%s ക്രമീകരിക്കുന്നതിനു് നെറ്റ്‌വര്‍ക്ക് മാനേജറിനായി കാത്തിരിക്കുന്നു.\n"
@@ -4824,11 +4823,11 @@ msgstr ""
 "പാസ്ഫ്രെയിസ് നല്‍കിയിട്ടില്ല. ആയതിനാല്‍, പുറകോട്ട് പോയി ഒരു പാസ്ഫ്രെയിസ് നല്‍കിയില്ല എങ്കില്‍ "
 "ബ്ലോക്ക് ഡിവൈസ് എന്‍ക്രിപ്ഷന്‍ പ്രവര്‍ത്തന രഹിതമാകുന്നു."
 
-#: storage/__init__.py:171
+#: storage/__init__.py:174
 msgid "Writing storage configuration to disk"
 msgstr "ഡിസ്കിലേക്കു് സംഭരിക്കുന്നതിനുള്ള ക്രമീകരണം സൂക്ഷിക്കുന്നു"
 
-#: storage/__init__.py:172
+#: storage/__init__.py:175
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -4836,62 +4835,62 @@ msgstr ""
 "നിങ്ങള്‍ തിരഞ്ഞെടുത്ത പാര്‍ട്ടീഷനിങ് ഉപാധികള്‍ ഇപ്പോള്‍ ഡിസ്കിലേക്ക് സൂക്ഷിക്കുന്നു.  നീക്കം ചെയ്ത "
 "അല്ലെങ്കില്‍ റീഫോര്‍മാറ്റ് ചെയ്ത പാര്‍ട്ടീഷനിലുള്ള ‍ഡേറ്റാ നഷ്ടമാകുന്നുതാണു്."
 
-#: storage/__init__.py:177
+#: storage/__init__.py:180
 msgid "Go _back"
 msgstr "പുറകോട്ട് പോകുക (_b)"
 
-#: storage/__init__.py:178
+#: storage/__init__.py:181
 msgid "_Write changes to disk"
 msgstr "ഡിസ്കിലേക്ക് മാറ്റങ്ങള്‍ എഴുതുക (_W)"
 
-#: storage/__init__.py:197
+#: storage/__init__.py:200
 msgid "Running..."
 msgstr "പ്രവര്‍ത്തിക്കുന്നു..."
 
-#: storage/__init__.py:198
+#: storage/__init__.py:201
 msgid "Storing encryption keys"
 msgstr "എന്‍ക്രിപ്ഷന്‍ കീകള്‍ സൂക്ഷിക്കുന്നു"
 
-#: storage/__init__.py:214
+#: storage/__init__.py:217
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "ഒരു എന്‍ക്രിപ്ഷന്‍ കീ സൂക്ഷിക്കുന്നതില്‍ പിശക്: %s\n"
 
-#: storage/__init__.py:358
+#: storage/__init__.py:362
 msgid "Examining Devices"
 msgstr "ഡിവൈസുകള്‍ പരിശോധിയ്ക്കുന്നു"
 
-#: storage/__init__.py:359
+#: storage/__init__.py:363
 msgid "Examining storage devices"
 msgstr "സംഭരണ ഡിവൈസുകള്‍ പരിശോധിയ്ക്കുന്നു"
 
-#: storage/__init__.py:638
+#: storage/__init__.py:642
 msgid "This partition is holding the data for the hard drive install."
 msgstr "ഹാര്‍ഡ് ഡ്രൈവ് ഇന്‍സ്റ്റോള്‍ ചെയ്യുവാനുളള ഡാറ്റാ ആണു് ഈ പാര്‍ട്ടീഷനില്‍."
 
-#: storage/__init__.py:643
+#: storage/__init__.py:647
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "LDL ഫോര്‍മാറ്റഡ് DASD ആയ ഒരു പാര്‍ട്ടീഷന്‍ നിങ്ങള്‍ക്ക് നീക്കം ചെയ്യുവാന്‍ സാധ്യമല്ല."
 
-#: storage/__init__.py:649
+#: storage/__init__.py:653
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "RAID ഡിവൈസ് /dev/md%s-ന്റെ ഒരു ഭാഗമാണു് ഈ ഡിവൈസ്."
 
-#: storage/__init__.py:652
+#: storage/__init__.py:656
 msgid "This device is part of a RAID device."
 msgstr "ഒരു RAID ഡിവൈസിന്റെ ഭാഗമാണു് ഈ ഡിവൈസ്."
 
-#: storage/__init__.py:657
+#: storage/__init__.py:661
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "'%s' എന്ന LVM വോള്യം ഗ്രൂപ്പിന്റെ ഭാഗമാണു് ഈ ഡിവൈസ്."
 
-#: storage/__init__.py:660
+#: storage/__init__.py:664
 msgid "This device is part of a LVM volume group."
 msgstr "ഒരു LVM വോള്യം ഗ്രൂപ്പിന്റെ ഭാഗമാണു് ഈ ഡിവൈസ്."
 
-#: storage/__init__.py:676
+#: storage/__init__.py:680
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -4901,7 +4900,7 @@ msgstr ""
 "പാര്‍ട്ടീഷനുകള്‍ അടങ്ങുന്നു:\n"
 "\n"
 
-#: storage/__init__.py:951
+#: storage/__init__.py:955
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -4910,7 +4909,7 @@ msgstr ""
 "നിങ്ങള്‍ റൂട്ട് പാര്‍ട്ടീഷന്‍(/) ഡിഫൈന്‍ ചെയ്തിട്ടില്ല,%s-ന്റെ ഇന്‍സ്റ്റലേഷനുമായി മുന്നോട്ട് പോകുന്നതിന് "
 "ഇത് വളരെ അത്യാവശ്യമാണ്."
 
-#: storage/__init__.py:956
+#: storage/__init__.py:960
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -4919,7 +4918,7 @@ msgstr ""
 "നിങ്ങളുടെ റൂട്ട് പാര്‍ട്ടീഷന്‍ 250 മെഗബൈറ്റിനേക്കാള്‍ കുറവാണ്, %s ഇന്‍സ്റ്റോള്‍ ചെയ്യുവാന്‍ ഇത് "
 "മതിയാവില്ല."
 
-#: storage/__init__.py:962
+#: storage/__init__.py:966
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -4928,12 +4927,12 @@ msgstr ""
 "%(min)s MB-യിലും കുറവാണു് നിങ്ങളുടെ / പാര്‍ട്ടീഷന്‍. ഒരു സാധാരണ %(productName)s "
 "ഇന്‍സ്റ്റോളിനു് ആവശ്യമുള്ളതിനേക്കാള്‍ കുറവാണിതു്."
 
-#: storage/__init__.py:969
+#: storage/__init__.py:973
 #, python-format
 msgid "Placing the root partition on an XFS filesystem is not supported in %s."
 msgstr "ഒരു എക്സ്എഫ്എസ് ഫയല്‍സിസ്റ്റത്തില്‍ റൂട്ട് പാര്‍ട്ടീഷന്‍ നല്‍കുന്നതു് %s-ല്‍ പിന്തുണയ്ക്കുന്നില്ല."
 
-#: storage/__init__.py:977
+#: storage/__init__.py:981
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -4942,7 +4941,7 @@ msgstr ""
 "നിങ്ങള്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്ന ലൈവ് ഇമേജുമായി നിങ്ങളുടെ / പാര്‍ട്ടീഷന്‍ ചേരുന്നില്ല.  അതു് %s ആയി "
 "ഫോര്‍മാറ്റ് ചെയ്യേണ്ടതാകുന്നു."
 
-#: storage/__init__.py:984
+#: storage/__init__.py:988
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -4951,14 +4950,14 @@ msgstr ""
 "നിങ്ങളുടെ %(mount)s പാര്‍ട്ടീഷന്‍ %(size)s മെഗാബൈറ്റിനേക്കാള്‍ കുറവാണു്. ഒരു സാധാരണ "
 "%(productName)s ഇന്‍സ്റ്റോളിനു് ആവശ്യമുള്ളതിനേക്കാള്‍ കുറവാണിതു്."
 
-#: storage/__init__.py:1013
+#: storage/__init__.py:1017
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "ഒരു USB ഡിവൈസില്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യപ്പെടുന്നു.  ഒരു പ്രവര്‍ത്തിക്കുന്ന സിസ്റ്റം ഉണ്ടാക്കുവാന്‍ ഇത് "
 "സഹായിക്കുകയോ സഹായിക്കാതെയിരിക്കുകയോ ചെയ്യാം."
 
-#: storage/__init__.py:1016
+#: storage/__init__.py:1020
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -4966,7 +4965,7 @@ msgstr ""
 "ഒരു FireWire ഡിവൈസില്‍ ഇന്‍സ്റ്റോള്‍ ചെയ്യപ്പെടുന്നു.  ഒരു പ്രവര്‍ത്തിക്കുന്ന സിസ്റ്റം ഉണ്ടാക്കുവാന്‍ ഇത് "
 "സഹായിക്കുകയോ സഹായിക്കാതെയിരിക്കുകയോ ചെയ്യാം."
 
-#: storage/__init__.py:1023
+#: storage/__init__.py:1027
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
@@ -4974,7 +4973,7 @@ msgstr ""
 "നിങ്ങള്‍ ഒരു സ്വാപ്പ് പാര്‍ട്ടീഷന്‍ നിര്‍ദ്ദേശിച്ചിട്ടില്ല.  ലഭ്യമായ മെമ്മറി കാരണം, ഇന്‍സ്റ്റലേഷന്‍ "
 "പൂര്‍ത്തിയാക്കുന്നതിനായി ഒരു സ്വാപ്പ് പാര്‍ട്ടീഷന്‍ ആവശ്യമുണ്ടു്."
 
-#: storage/__init__.py:1028
+#: storage/__init__.py:1032
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -4982,22 +4981,22 @@ msgstr ""
 "നിങ്ങള്‍ ഒരു സ്വാപ്പ് പാര്‍ട്ടീഷന്‍ നിര്‍ദ്ദേശിച്ചിട്ടില്ല.  എല്ലായ്പ്പോഴും ഇത് ആവശ്യമില്ല എങ്കിലും, "
 "മിക്ക ഇന്‍സ്റ്റലേഷനുകളുടേയും പ്രവര്‍ത്തനശേഷി ഇവ വര്‍ദ്ദിപ്പിക്കുന്നു."
 
-#: storage/__init__.py:1035
+#: storage/__init__.py:1039
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ഈ മൌണ്ട് പോയിന്റ് അസാധുവാണു്.  %s ഡയറക്ടറി / ഫയല്‍ സിസ്റ്റത്തിലായിരിക്കണം."
 
-#: storage/__init__.py:1039
+#: storage/__init__.py:1043
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "%s എന്ന മൌണ്ട് പോയിന്റ് ഉപയോഗത്തില്‍ ആണ്, ദയവായി മറ്റൊന്ന് തിരഞ്ഞെടുക്കുക."
 
-#: storage/__init__.py:1050
+#: storage/__init__.py:1054
 msgid "No Drives Found"
 msgstr "ഡ്രൈവുകള്‍ കാണ്മാനില്ല"
 
-#: storage/__init__.py:1051
+#: storage/__init__.py:1055
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -5006,11 +5005,11 @@ msgstr ""
 "ഒന്നും ലഭ്യമല്ല. ദയവായി ഈ പ്രശ്നത്തിന്റെ കാരണം കണ്ടുപിടിക്കുന്നതിനായി നിങ്ങളുടെ ഹാര്‍ഡ്വയര്‍ "
 "പരിശോധിക്കുക."
 
-#: storage/__init__.py:1344 storage/__init__.py:1353
+#: storage/__init__.py:1348 storage/__init__.py:1357
 msgid "Dirty File Systems"
 msgstr "ഡേര്‍ട്ടി ഫൈല്‍ സിസ്റ്റമുകള്‍"
 
-#: storage/__init__.py:1345
+#: storage/__init__.py:1349
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5023,7 +5022,7 @@ msgstr ""
 "സിസ്റ്റമുകള്‍ എല്ലാം പരിശോധനയ്ക്ക് ശേഷം ഷട്ട് ഡൌണ്‍ ചെയ്യപ്പെടട്ടെ.\n"
 "%s"
 
-#: storage/__init__.py:1354
+#: storage/__init__.py:1358
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5034,7 +5033,7 @@ msgstr ""
 "ചെയ്തിരുന്നില്ല.  അവ മൌണ്ട് ചെയ്യുവാന്‍ നിങ്ങള്‍ ആഗ്രഹിക്കുന്നുവോ?\n"
 "%s"
 
-#: storage/__init__.py:1831
+#: storage/__init__.py:1835
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5051,7 +5050,7 @@ msgstr ""
 "പഴയ രീതിയിലുള്ള ഒരു ലിനക്സ് സ്വാപ്പ് പാര്‍ട്ടീഷനാണു്.  നിങ്ങള്‍ക്കീ ഡിവൈസ് സ്വാപ്പ് സ്പെയിസായി "
 "ഉപയോഗിക്കണമെങ്കില്‍, പുതിയ രീതിയിലുള്ള ലിനക്സ് സ്വാപ്പ് പാര്‍ട്ടീഷനായി മാറ്റേണം."
 
-#: storage/__init__.py:1842
+#: storage/__init__.py:1846
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5070,7 +5069,7 @@ msgstr ""
 "ഉപയോഗിക്കുന്നു. ഇതിനര്‍ത്ഥം നിങ്ങളുടെ സിസ്റ്റം ഹൈബര്‍ണേറ്റ് ചെയ്യുന്നു എന്നാണു്. പുതുക്കണമെങ്കില്‍, "
 "സിസ്റ്റം അടച്ചു പൂട്ടുന്നതാണു് ഉചിതം."
 
-#: storage/__init__.py:1850
+#: storage/__init__.py:1854
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5090,7 +5089,7 @@ msgstr ""
 "ഇന്‍സ്റ്റോള്‍ ചെയ്യുകയാണു് എങ്കില്‍, എല്ലാ swap പാര്‍ട്ടീഷനുകളും ഫോര്‍മാറ്റ് ചെയ്യുന്നതിനു് ഇന്‍സ്റ്റോളര്‍  "
 "ക്രമീകരിച്ചിട്ടുണ്ടു് എന്നുറപ്പ് വരുത്തുക."
 
-#: storage/__init__.py:1862
+#: storage/__init__.py:1866
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5107,7 +5106,7 @@ msgstr ""
 "പിന്തുണയ്ക്കുന്ന ഒരു സ്വാപ്പ് വോള്യം ലഭ്യമല്ല.  ഇന്‍സ്റ്റലേഷന്‍ തുടരുന്നതിനായി, നിങ്ങള്‍ ഡിവൈസ് "
 "ഫോര്‍മാറ്റ് ചെയ്യണം അല്ലെങ്കില്‍ ഇതു് ഉപേക്ഷിക്കുക."
 
-#: storage/__init__.py:1873
+#: storage/__init__.py:1877
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5124,7 +5123,7 @@ msgstr ""
 "\n"
 "ഇന്‍സ്റ്റോളറില്‍ നിന്നും പുറത്ത് കടക്കുന്നതിനായി ശരി അമര്‍ത്തുക."
 
-#: storage/__init__.py:1880
+#: storage/__init__.py:1884
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5139,11 +5138,11 @@ msgstr ""
 "\n"
 "ഇന്‍സ്റ്റോളറില്‍ നിന്നും പുറത്ത് കടക്കുന്നതിനായി <Enter> അമര്‍ത്തുക."
 
-#: storage/__init__.py:1943 storage/__init__.py:1955
+#: storage/__init__.py:1947 storage/__init__.py:1959
 msgid "Invalid mount point"
 msgstr "തെറ്റായ മൌണ്ട് പോയിന്റ്"
 
-#: storage/__init__.py:1944
+#: storage/__init__.py:1948
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5156,7 +5155,7 @@ msgstr ""
 "\n"
 "ഇന്‍സ്റ്റോളറില്‍ നിന്നും പുറത്ത് കടക്കുന്നതിനായി <Enter> അമര്‍ത്തുക."
 
-#: storage/__init__.py:1956
+#: storage/__init__.py:1960
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5169,11 +5168,11 @@ msgstr ""
 "\n"
 "ഇന്‍സ്റ്റോളറില്‍ നിന്നും പുറത്ത് കടക്കുന്നതിനായി <Enter> അമര്‍ത്തുക."
 
-#: storage/__init__.py:1972 storage/__init__.py:1996
+#: storage/__init__.py:1976 storage/__init__.py:2000
 msgid "Unable to mount filesystem"
 msgstr "ഫൈല്‍ സിസ്റ്റം മൌണ്ട് ചെയ്യുവാന്‍ സാധ്യമല്ല"
 
-#: storage/__init__.py:1973
+#: storage/__init__.py:1977
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5182,7 +5181,7 @@ msgstr ""
 "ഡിവൈസ് %(path)s %(mountpoint)s ആയി മൌണ്ട് ചെയ്യുന്നതില്‍ പിശക്.  നിങ്ങള്‍ക്കു് ഇന്‍സ്റ്റലേഷന്‍ "
 "തുടരാം, പക്ഷേ പ്രശ്നങ്ങള്‍ ഉണ്ടാകാന്‍ സാധ്യതയുണ്ട്."
 
-#: storage/__init__.py:1997
+#: storage/__init__.py:2001
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5218,23 +5217,23 @@ msgstr "%s-ല്‍ vginfo പരാജയപ്പെട്ടു"
 msgid "lvs failed for %s"
 msgstr "%s-ല്‍ lvs പരാജയപ്പെട്ടു"
 
-#: storage/devices.py:1264 storage/devices.py:1962 storage/devices.py:2378
-#: storage/devices.py:2871 storage/devices.py:3344
+#: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
+#: storage/devices.py:2903 storage/devices.py:3377
 msgid "Creating"
 msgstr "ഉണ്ടാക്കുന്നു"
 
-#: storage/devices.py:1265 storage/devices.py:1963 storage/devices.py:2379
-#: storage/devices.py:2872
+#: storage/devices.py:1297 storage/devices.py:1995 storage/devices.py:2411
+#: storage/devices.py:2904
 #, python-format
 msgid "Creating device %s"
 msgstr "%s ഡിവൈസ് ഉണ്ടാക്കുന്നു"
 
-#: storage/devices.py:2472
+#: storage/devices.py:2504
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "ഒരു RAID%d സെറ്റിനു് കുറഞ്ഞതു് %d അംഗങ്ങളെങ്കിലും ആവശ്യമുണ്ടു്"
 
-#: storage/devices.py:3345
+#: storage/devices.py:3378
 #, python-format
 msgid "Creating file %s"
 msgstr "%s ഫയല്‍ ഉണ്ടാക്കുന്നു"
@@ -5256,7 +5255,7 @@ msgstr ""
 "നിങ്ങള്‍ ഇത് വേണ്ടെന്ന് വച്ചാല്‍, ഇന്‍സ്റ്റലേഷന്‍ സമയത്ത് ഡിവൈസിന്റെ ഉള്ളടക്കം നിങ്ങള്‍ക്ക് "
 "ലഭ്യമാകുന്നതല്ല."
 
-#: storage/devicetree.py:1897 storage/devicetree.py:1945
+#: storage/devicetree.py:1905 storage/devicetree.py:1953
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "സ്ഥിരതയില്ലാത്ത ഒരു LVM വോള്യം ഗ്രൂപ്പിന്റെ ഭാഗമാണു് ഈ പാര്‍ട്ടീഷന്‍."
 
@@ -5323,7 +5322,7 @@ msgstr ""
 "ഫയല്‍ സിസ്റ്റം തിരുത്തുന്ന മറ്റൊരു സിസ്റ്റത്തിലേക്ക് വീണ്ടും റീബൂട്ട് ചെയ്യുക. ഈ പിശകുകള്‍ തിരുത്തിയ "
 "ശേഷം ഇന്‍സ്റ്റലേഷന്‍ വീണ്ടും ആരംഭിക്കുക."
 
-#: storage/formats/fs.py:535 storage/partitioning.py:285
+#: storage/formats/fs.py:535 storage/partitioning.py:286
 msgid "Unrecoverable Error"
 msgstr "പരിഹരിക്കാനാവാത്ത പിഴവ്"
 
@@ -5413,7 +5412,7 @@ msgstr "പുതിയ iSCSI നോഡുകള്‍ ലഭ്യമല്ല"
 msgid "Could not log in to any of the discovered nodes"
 msgstr "ലഭ്യമായ ഒരു നോഡുകളിലേക്കും പ്രവേശിക്കുവാന്‍ സാധ്യമായില്ല"
 
-#: storage/partitioning.py:200
+#: storage/partitioning.py:201
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
@@ -5421,7 +5420,7 @@ msgstr ""
 "ഓട്ടോമാറ്റിക് പാര്‍ട്ടീഷനിങിനുള്ള സ്ഥലം ലഭ്യമല്ല. ഇന്‍സ്റ്റോളറില്‍ നിന്നും പുറത്തു് കടക്കുന്നതിനായി "
 "'ശരി' അമര്‍ത്തുക."
 
-#: storage/partitioning.py:203
+#: storage/partitioning.py:204
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
@@ -5429,11 +5428,11 @@ msgstr ""
 "ഓട്ടോമാറ്റിക് പാര്‍ട്ടീഷനിങിനുള്ള സ്ഥലം ലഭ്യമല്ല. അതിനാല്‍ മറ്റൊരു പാര്‍ട്ടീഷനിങ് രീതി ദയവായി "
 "ഉപയോഗിക്കുക."
 
-#: storage/partitioning.py:232
+#: storage/partitioning.py:233
 msgid "Warnings During Automatic Partitioning"
 msgstr "ഓട്ടോമാറ്റിക്ക് പാര്‍ട്ടീഷനിങ് സമയത്തുള്ള മുന്നറിയിപ്പുകള്‍"
 
-#: storage/partitioning.py:234
+#: storage/partitioning.py:235
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5444,7 +5443,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: storage/partitioning.py:248 storage/partitioning.py:269
+#: storage/partitioning.py:249 storage/partitioning.py:270
 msgid ""
 "\n"
 "\n"
@@ -5454,7 +5453,7 @@ msgstr ""
 "\n"
 "ഇന്‍സ്റ്റോളറില്‍ നിന്നും പുറത്ത് കടക്കുന്നതിനായി 'ശരി' അമര്‍ത്തുക."
 
-#: storage/partitioning.py:250
+#: storage/partitioning.py:251
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5465,7 +5464,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: storage/partitioning.py:271
+#: storage/partitioning.py:272
 msgid ""
 "\n"
 "\n"
@@ -5475,11 +5474,11 @@ msgstr ""
 "\n"
 "പാര്‍ട്ടീഷനിങ്ങിനുളള മറ്റൊരു ഉപാധിയ്ക്കായി 'ശരി' അമര്‍ത്തുക."
 
-#: storage/partitioning.py:273
+#: storage/partitioning.py:274
 msgid "Automatic Partitioning Errors"
 msgstr "ഓട്ടോമാറ്റിക്ക് പാര്‍ട്ടീഷനിങ് പിശകുകള്‍"
 
-#: storage/partitioning.py:274
+#: storage/partitioning.py:275
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -6739,3 +6738,10 @@ msgstr "വെല്‍ഷ്"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "സുളു"
+
+#~ msgid ""
+#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
+#~ "mainframe attached disks (DASD), usually in an enterprise environment"
+#~ msgstr ""
+#~ "സ്റ്റോറേജ് ഏരിയാ നെറ്റ്‌വര്‍ക്കുകള്‍ (SANs) അല്ലെങ്കില്‍ മെയിന്‍ഫ്രെയിം ചേര്‍ത്തിട്ടുള്ള ഡിസ്കുകള്‍ "
+#~ "(DASD) പോലുള്ള ഡിവൈസുകളിലേക്ക് ഇന്‍സ്റ്റോള്‍ ചെയ്യുന്നു അല്ലെങ്കില്‍ പരിഷ്കരിക്കുന്നു.‌ "

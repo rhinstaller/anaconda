@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-08 11:47-1000\n"
+"POT-Creation-Date: 2010-07-29 04:08-1000\n"
 "PO-Revision-Date: 2009-10-05 18:36+0200\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian\n"
@@ -40,12 +40,12 @@ msgstr "Shtypni <enter> për shell"
 #: loader/kickstart.c:331 loader/kickstart.c:520 loader/lang.c:114
 #: loader/lang.c:373 loader/loader.c:433 loader/loader.c:469
 #: loader/loader.c:509 loader/loader.c:527 loader/loader.c:544
-#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1386
+#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1402
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:599 loader/net.c:970 loader/net.c:1559 loader/net.c:1580
-#: loader/net.c:1860 loader/net.c:1879 loader/net.c:1891
+#: loader/net.c:603 loader/net.c:971 loader/net.c:1568 loader/net.c:1589
+#: loader/net.c:1897 loader/net.c:1916 loader/net.c:1928
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
@@ -130,12 +130,12 @@ msgstr ""
 #: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:460
 #: yuminstall.py:871 yuminstall.py:989 yuminstall.py:994 yuminstall.py:1269
 #: yuminstall.py:1336 yuminstall.py:1526 yuminstall.py:1548
-#: iw/advanced_storage.py:85 iw/advanced_storage.py:95
-#: iw/advanced_storage.py:168 iw/advanced_storage.py:171
-#: iw/advanced_storage.py:199 iw/autopart_type.py:96 iw/cleardisks_gui.py:44
-#: iw/cleardisks_gui.py:54 iw/filter_gui.py:420 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:53
-#: iw/task_gui.py:154 iw/task_gui.py:301 iw/task_gui.py:461
+#: iw/advanced_storage.py:86 iw/advanced_storage.py:96
+#: iw/advanced_storage.py:170 iw/advanced_storage.py:173
+#: iw/advanced_storage.py:201 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
+#: iw/cleardisks_gui.py:54 iw/filter_gui.py:421 iw/osbootwidget.py:211
+#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:54
+#: iw/task_gui.py:155 iw/task_gui.py:302 iw/task_gui.py:463
 #: loader/windows.h:31 loader/cdinstall.c:228 loader/cdinstall.c:504
 #: loader/driverdisk.c:228 loader/driverdisk.c:473 loader/driverdisk.c:508
 #: loader/driverdisk.c:536 loader/driverdisk.c:544 loader/driverdisk.c:611
@@ -147,8 +147,8 @@ msgstr ""
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:330 loader/urls.c:336
-#: loader/urls.c:345 storage/__init__.py:213 storage/__init__.py:1799
-#: storage/__init__.py:1886 storage/zfcp.py:375 textw/netconfig_text.py:282
+#: loader/urls.c:345 storage/__init__.py:216 storage/__init__.py:1803
+#: storage/__init__.py:1890 storage/zfcp.py:375 textw/netconfig_text.py:282
 #: textw/upgrade_text.py:179 textw/upgrade_text.py:186
 msgid "Error"
 msgstr "Gabim"
@@ -180,14 +180,14 @@ msgstr ""
 #: upgrade.py:199 yuminstall.py:252 yuminstall.py:991 yuminstall.py:996
 #: yuminstall.py:1076 yuminstall.py:1082 yuminstall.py:1238 yuminstall.py:1265
 #: yuminstall.py:1326 yuminstall.py:1513 yuminstall.py:1532 yuminstall.py:1555
-#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
-#: storage/__init__.py:1980
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:220
+#: storage/__init__.py:1984
 msgid "_Exit installer"
 msgstr "_Dil prej instaluesit"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1370
-#: kickstart.py:1409 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
-#: iw/partition_gui.py:1601 storage/__init__.py:1981
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1371
+#: kickstart.py:1410 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
+#: iw/partition_gui.py:1601 storage/__init__.py:1985
 msgid "_Continue"
 msgstr "_Vazhdo"
 
@@ -222,8 +222,8 @@ msgstr "U bë"
 msgid "In progress"
 msgstr "Në ecje e sipër"
 
-#: cmdline.py:88 gui.py:1269 kickstart.py:1154 kickstart.py:1234
-#: kickstart.py:1242 kickstart.py:1280 kickstart.py:1288 text.py:388
+#: cmdline.py:88 gui.py:1269 kickstart.py:1155 kickstart.py:1235
+#: kickstart.py:1243 kickstart.py:1281 kickstart.py:1289 text.py:388
 #, fuzzy, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -455,7 +455,7 @@ msgstr ""
 "className = %s"
 
 #: gui.py:1400 image.py:164 image.py:194 packages.py:360
-#: storage/__init__.py:1798
+#: storage/__init__.py:1802
 msgid "_Exit"
 msgstr "_Dil"
 
@@ -464,7 +464,7 @@ msgstr "_Dil"
 msgid "_Retry"
 msgstr "_Riprovo"
 
-#: gui.py:1403 storage/partitioning.py:286
+#: gui.py:1403 storage/partitioning.py:287
 msgid "The system will now reboot."
 msgstr "Sistemi tani do të riniset."
 
@@ -721,7 +721,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Dështim Programthi"
 
-#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:307
+#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "Pa Rrjet të Passhëm"
 
@@ -731,7 +731,7 @@ msgid ""
 "the network on your system."
 msgstr ""
 
-#: kickstart.py:163
+#: kickstart.py:164
 #, fuzzy, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -743,37 +743,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: kickstart.py:1253
+#: kickstart.py:1254
 #, fuzzy, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Gabim gjatë trajtimit të ngjarjes ose përgjigjes (%s)."
 
-#: kickstart.py:1256
+#: kickstart.py:1257
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Gabim i panjohur gjatë përpunimit të rreshtave %%ksappend: %s"
 
-#: kickstart.py:1311 livecd.py:228
+#: kickstart.py:1312 livecd.py:228
 msgid "Post-Installation"
 msgstr "Pasinstalim"
 
-#: kickstart.py:1312
+#: kickstart.py:1313
 msgid "Running post-installation scripts"
 msgstr "Po xhirohen programthe pas-instalimi"
 
-#: kickstart.py:1328
+#: kickstart.py:1329
 msgid "Pre-Installation"
 msgstr "Para-Instalim"
 
-#: kickstart.py:1329
+#: kickstart.py:1330
 msgid "Running pre-installation scripts"
 msgstr "Po xhirohen programthe parainstalimi"
 
-#: kickstart.py:1361
+#: kickstart.py:1362
 msgid "Missing Package"
 msgstr "Paketë që Mungon"
 
-#: kickstart.py:1362
+#: kickstart.py:1363
 #, fuzzy, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -782,19 +782,19 @@ msgstr ""
 "Keni treguar që do të duhej instaluar paketa '%s'.  Kjo paketë nuk gjendet. "
 "Doni ta vazhdoni apo ta ndërprisni instalimin tuaj?"
 
-#: kickstart.py:1368 kickstart.py:1407
+#: kickstart.py:1369 kickstart.py:1408
 msgid "_Abort"
 msgstr "_Ndërprite"
 
-#: kickstart.py:1369 kickstart.py:1408
+#: kickstart.py:1370 kickstart.py:1409
 msgid "_Ignore All"
 msgstr "_Shpërfilli të Tëra"
 
-#: kickstart.py:1399
+#: kickstart.py:1400
 msgid "Missing Group"
 msgstr "Grup që Mungon"
 
-#: kickstart.py:1400
+#: kickstart.py:1401
 #, fuzzy, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -803,7 +803,7 @@ msgstr ""
 "Keni treguar që grupi '%s' do të duhej instaluar. Ky grup nuk ekziston. Doni "
 "ta vazhdoni apo ta ndërprisni instalimin tuaj?"
 
-#: kickstart.py:1516
+#: kickstart.py:1517
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1423,7 +1423,7 @@ msgid "Read-Only"
 msgstr "Vetëm-Lexim"
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1798 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1802 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "Anashkalo"
 
@@ -1559,8 +1559,8 @@ msgstr ""
 "  <Tab>/<Alt-Tab> ndërmjet elementësh   |  <Space> përzgjedh   |  <F12> "
 "skena pasuese"
 
-#: text.py:624 loader/net.c:110 loader/net.c:491 loader/net.c:546
-#: loader/net.c:688 loader/net.c:696 loader/net.c:1117 loader/net.c:1125
+#: text.py:624 loader/net.c:110 loader/net.c:495 loader/net.c:550
+#: loader/net.c:692 loader/net.c:700 loader/net.c:1118 loader/net.c:1126
 msgid "Retry"
 msgstr "Riprovo"
 
@@ -1882,7 +1882,7 @@ msgid ""
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
 
-#: yuminstall.py:396 iw/task_gui.py:319
+#: yuminstall.py:396 iw/task_gui.py:321
 msgid "Error Setting Up Repository"
 msgstr "Gabim Në Përgatitjen e Depos"
 
@@ -2031,7 +2031,7 @@ msgstr ""
 msgid "Error Running Transaction"
 msgstr "Gabim në Xhirim Ndërveprimi"
 
-#: yuminstall.py:1234 iw/task_gui.py:308
+#: yuminstall.py:1234 iw/task_gui.py:309
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2281,24 +2281,24 @@ msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "Fjalëkalimi i nevojshëm përmban shenja jo ASCII, të cilat nuk lejohen."
 
-#: iw/advanced_storage.py:86
+#: iw/advanced_storage.py:87
 #, fuzzy
 msgid "You must select a NIC to use."
 msgstr "Duhet të zgjidhni një ndarje për përpunim"
 
-#: iw/advanced_storage.py:130
+#: iw/advanced_storage.py:132
 msgid "Invalid Initiator Name"
 msgstr "Emër i Pavlefshëm Gatitësi"
 
-#: iw/advanced_storage.py:131
+#: iw/advanced_storage.py:133
 msgid "You must provide an initiator name."
 msgstr "Duhet të jepni një emër gatitësi."
 
-#: iw/advanced_storage.py:160
+#: iw/advanced_storage.py:162
 msgid "Error with Data"
 msgstr "Gabim me Të dhëna"
 
-#: iw/autopart_type.py:97
+#: iw/autopart_type.py:96
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
@@ -2306,32 +2306,32 @@ msgstr ""
 "Nuk ka ndarje për ripërmasim. Mund të ripërmasohen vetëm ndarje fizike me "
 "sistem të përcaktuar kartelash. "
 
-#: iw/autopart_type.py:120
+#: iw/autopart_type.py:119
 #, fuzzy
 msgid "Resize FileSystem Error"
 msgstr "Gabim"
 
-#: iw/autopart_type.py:121
+#: iw/autopart_type.py:120
 #, python-format
 msgid "%(device)s: %(msg)s"
 msgstr ""
 
-#: iw/autopart_type.py:130
+#: iw/autopart_type.py:129
 #, fuzzy
 msgid "Resize Device Error"
 msgstr "Error mounting device"
 
-#: iw/autopart_type.py:131
+#: iw/autopart_type.py:130
 #, python-format
 msgid "%(name)s: %(msg)s"
 msgstr ""
 
-#: iw/autopart_type.py:242
+#: iw/autopart_type.py:241
 #, fuzzy
 msgid "Use All Space"
 msgstr "Hapësirë e Përdorur:"
 
-#: iw/autopart_type.py:244
+#: iw/autopart_type.py:243
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2340,11 +2340,11 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: iw/autopart_type.py:250
+#: iw/autopart_type.py:249
 msgid "Replace Existing Linux System(s)"
 msgstr ""
 
-#: iw/autopart_type.py:252
+#: iw/autopart_type.py:251
 msgid ""
 "Removes only Linux partitions (created from a previous Linux installation).  "
 "This does not remove other partitions you may have on your storage device(s) "
@@ -2354,34 +2354,34 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: iw/autopart_type.py:260
+#: iw/autopart_type.py:259
 #, fuzzy
 msgid "Shrink Current System"
 msgstr "Rrudh sistemin e tanishëm"
 
-#: iw/autopart_type.py:262
+#: iw/autopart_type.py:261
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 
-#: iw/autopart_type.py:264
+#: iw/autopart_type.py:263
 #, fuzzy
 msgid "Use Free Space"
 msgstr "Përdor hapësirën e lirë"
 
-#: iw/autopart_type.py:266
+#: iw/autopart_type.py:265
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
 "available."
 msgstr ""
 
-#: iw/autopart_type.py:270
+#: iw/autopart_type.py:269
 #, fuzzy
 msgid "Create Custom Layout"
 msgstr "Krijo skemë të përshtatur"
 
-#: iw/autopart_type.py:272
+#: iw/autopart_type.py:271
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
@@ -2462,7 +2462,7 @@ msgstr "_Ndrysho pajisje"
 msgid "Clear Disks Selector"
 msgstr ""
 
-#: iw/cleardisks_gui.py:45 iw/filter_gui.py:421
+#: iw/cleardisks_gui.py:45 iw/filter_gui.py:422
 #, fuzzy
 msgid "You must select at least one drive to be used for installation."
 msgstr ""
@@ -2473,30 +2473,30 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr "Duhet të zgjidhni një ndarje për përpunim"
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:463
-#: iw/filter_gui.py:475 iw/filter_gui.py:505
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:483
+#: iw/filter_gui.py:495 iw/filter_gui.py:525
 msgid "Model"
 msgstr ""
 
-#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:464
-#: iw/filter_gui.py:476 iw/filter_gui.py:484 iw/filter_gui.py:495
-#: iw/filter_gui.py:506
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:484
+#: iw/filter_gui.py:496 iw/filter_gui.py:504 iw/filter_gui.py:515
+#: iw/filter_gui.py:526
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:465 iw/filter_gui.py:485
-#: iw/filter_gui.py:496 iw/filter_gui.py:507
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:485 iw/filter_gui.py:505
+#: iw/filter_gui.py:516 iw/filter_gui.py:527
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:468
-#: iw/filter_gui.py:483 iw/filter_gui.py:494 iw/filter_gui.py:510
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:488
+#: iw/filter_gui.py:503 iw/filter_gui.py:514 iw/filter_gui.py:530
 #, fuzzy
 msgid "Identifier"
 msgstr "Identifikojeni"
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:466 iw/filter_gui.py:486
-#: iw/filter_gui.py:497 iw/filter_gui.py:508
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:486 iw/filter_gui.py:506
+#: iw/filter_gui.py:517 iw/filter_gui.py:528
 msgid "Interconnect"
 msgstr ""
 
@@ -2618,40 +2618,40 @@ msgstr "Çfarë do të donit të bëni?"
 msgid "Unknown Linux system"
 msgstr "Sistem Linux i panjohur "
 
-#: iw/filter_gui.py:150
+#: iw/filter_gui.py:151
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr ""
 
-#: iw/filter_gui.py:400
+#: iw/filter_gui.py:401
 #, fuzzy
 msgid "Device Filter"
 msgstr "Dështova në importimin e {0}"
 
-#: iw/filter_gui.py:467 iw/filter_gui.py:498 iw/filter_gui.py:509
+#: iw/filter_gui.py:487 iw/filter_gui.py:518 iw/filter_gui.py:529
 msgid "Serial Number"
 msgstr ""
 
-#: iw/filter_gui.py:469 iw/filter_gui.py:477 iw/filter_gui.py:488
-#: iw/filter_gui.py:499 iw/filter_gui.py:514 iw/osbootwidget.py:66
+#: iw/filter_gui.py:489 iw/filter_gui.py:497 iw/filter_gui.py:508
+#: iw/filter_gui.py:519 iw/filter_gui.py:534 iw/osbootwidget.py:66
 #: iw/partition_gui.py:611
 msgid "Device"
 msgstr "Pajisje"
 
-#: iw/filter_gui.py:487
+#: iw/filter_gui.py:507
 #, fuzzy
 msgid "Paths"
 msgstr "_Shteg"
 
-#: iw/filter_gui.py:511
+#: iw/filter_gui.py:531
 msgid "Port"
 msgstr ""
 
-#: iw/filter_gui.py:512
+#: iw/filter_gui.py:532
 msgid "Target"
 msgstr ""
 
-#: iw/filter_gui.py:513
+#: iw/filter_gui.py:533
 msgid "LUN"
 msgstr ""
 
@@ -2678,8 +2678,9 @@ msgstr "Formësoni pajisjeje futjesh"
 
 #: iw/filter_type.py:67
 msgid ""
-"Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-"mainframe attached disks (DASD), usually in an enterprise environment"
+"Installs or upgrades to enterprise devices such as Storage Area Networks "
+"(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
+"filter out devices the installer should ignore."
 msgstr ""
 
 #: iw/language_gui.py:33 textw/language_text.py:46
@@ -2808,7 +2809,7 @@ msgid "(Max size is %s MB)"
 msgstr "(Madhësia më e madhe është %s MB)"
 
 #: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:544
-#: iw/partition_ui_helpers_gui.py:336 iw/raid_dialog_gui.py:423
+#: iw/partition_ui_helpers_gui.py:337 iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
 msgstr "_Kodoje"
 
@@ -3206,7 +3207,7 @@ msgstr ""
 msgid "Type"
 msgstr "Tip"
 
-#: iw/partition_gui.py:616 storage/__init__.py:1798
+#: iw/partition_gui.py:616 storage/__init__.py:1802
 msgid "Format"
 msgstr "Format"
 
@@ -3376,8 +3377,8 @@ msgstr ""
 msgid "About LVM"
 msgstr ""
 
-#: iw/partition_gui.py:1587 storage/partitioning.py:206
-#: storage/partitioning.py:249
+#: iw/partition_gui.py:1587 storage/partitioning.py:207
+#: storage/partitioning.py:250
 msgid "Error Partitioning"
 msgstr "Gabim Pjesëzimi"
 
@@ -3419,24 +3420,24 @@ msgstr "Riktheje"
 msgid "Please Select A Device"
 msgstr "Ju lutem përzgjidhni një ''drive'' burim."
 
-#: iw/partition_ui_helpers_gui.py:109 iw/partition_ui_helpers_gui.py:131
-#: iw/partition_ui_helpers_gui.py:133
+#: iw/partition_ui_helpers_gui.py:110 iw/partition_ui_helpers_gui.py:132
+#: iw/partition_ui_helpers_gui.py:134
 msgid "<Not Applicable>"
 msgstr "<Nuk Zbatohet Për Këtë Rast>"
 
-#: iw/partition_ui_helpers_gui.py:317
+#: iw/partition_ui_helpers_gui.py:318
 msgid "_Format as:"
 msgstr "_Formatoje si:"
 
-#: iw/partition_ui_helpers_gui.py:339
+#: iw/partition_ui_helpers_gui.py:340
 msgid "Mi_grate filesystem to:"
 msgstr "Mi_groje sistemin e kartelave te:"
 
-#: iw/partition_ui_helpers_gui.py:369
+#: iw/partition_ui_helpers_gui.py:370
 msgid "_Resize"
 msgstr "_Ripërmasoje"
 
-#: iw/partition_ui_helpers_gui.py:433
+#: iw/partition_ui_helpers_gui.py:425
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
@@ -3493,7 +3494,7 @@ msgstr "Numër tel.:"
 msgid "_Format partition?"
 msgstr "Të _formatoj ndarjen?"
 
-#: iw/task_gui.py:54
+#: iw/task_gui.py:55
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -3507,11 +3508,11 @@ msgstr ""
 "prodhuar saktë. \n"
 "%s"
 
-#: iw/task_gui.py:131
+#: iw/task_gui.py:132
 msgid "Edit Repository"
 msgstr "Përpunoni Depon"
 
-#: iw/task_gui.py:155
+#: iw/task_gui.py:156
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -3520,27 +3521,27 @@ msgstr ""
 "Depoja %s është e shtuar tashmë. Ju lutem zgjidhni një tjetër emër dhe URL "
 "depoje."
 
-#: iw/task_gui.py:235
+#: iw/task_gui.py:236
 msgid "Invalid Proxy URL"
 msgstr "URL Ndërmjetësi të Pavlefshëm"
 
-#: iw/task_gui.py:236
+#: iw/task_gui.py:237
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "Duhet të jepni një URL HTTP, HTTPS, ose FTP për te një ndërmjetës."
 
-#: iw/task_gui.py:248 iw/task_gui.py:428
+#: iw/task_gui.py:249 iw/task_gui.py:430
 msgid "Invalid Repository URL"
 msgstr "URL Depoje e Pavlefshme"
 
-#: iw/task_gui.py:249 iw/task_gui.py:429
+#: iw/task_gui.py:250 iw/task_gui.py:431
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Duhet të jepni një URL HTTP, HTTPS, ose FTP për te një depo."
 
-#: iw/task_gui.py:270 iw/task_gui.py:438
+#: iw/task_gui.py:271 iw/task_gui.py:440
 msgid "No Media Found"
 msgstr "S'u Gjet Media"
 
-#: iw/task_gui.py:271 iw/task_gui.py:439
+#: iw/task_gui.py:272 iw/task_gui.py:441
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
@@ -3548,11 +3549,11 @@ msgstr ""
 "Nuk u gjet media instalimi. Ju lutem fusni një disk te vendi dhe provoni "
 "sërish."
 
-#: iw/task_gui.py:302 iw/task_gui.py:462
+#: iw/task_gui.py:303 iw/task_gui.py:464
 msgid "Please enter an NFS server and path."
 msgstr "Ju lutem jepni shërbyes NFS dhe shteg për të."
 
-#: iw/task_gui.py:320
+#: iw/task_gui.py:322
 #, fuzzy, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3563,23 +3564,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:343
+#: iw/task_gui.py:345
 msgid "Invalid Repository Name"
 msgstr "Emër i Pavlefshëm Depoje"
 
-#: iw/task_gui.py:344
+#: iw/task_gui.py:346
 msgid "You must provide a repository name."
 msgstr "Duhet të jepni një emër depoje."
 
-#: iw/task_gui.py:494 ui/addrepo.glade.h:3
+#: iw/task_gui.py:496 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "Shto Depo"
 
-#: iw/task_gui.py:499
+#: iw/task_gui.py:501
 msgid "No Software Repos Enabled"
 msgstr "Pa Depo \"Software\" të Aktivizuar"
 
-#: iw/task_gui.py:500
+#: iw/task_gui.py:502
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3936,8 +3937,8 @@ msgstr "Disku Nuk u Gjet"
 #: loader/driverdisk.c:524 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
-#: loader/loader.c:1386 loader/loader.c:1419 loader/net.c:599 loader/net.c:970
-#: loader/net.c:1860 loader/net.c:1879 loader/nfsinstall.c:91
+#: loader/loader.c:1402 loader/loader.c:1435 loader/net.c:603 loader/net.c:971
+#: loader/net.c:1897 loader/net.c:1916 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -4054,7 +4055,7 @@ msgstr "Doni të ngarkoni disqe të tjerë përudhësash?"
 #: loader/driverdisk.c:711 loader/driverdisk.c:750 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
+#: loader/modules.c:398 loader/net.c:1568 loader/net.c:1589
 #: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
@@ -4317,44 +4318,44 @@ msgstr "Gabim në shkarkim pamjeje përditësimi."
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nuk keni RAM të mjaftueshëm që të instalohet %s në këtë makinë."
 
-#: loader/loader.c:1253
+#: loader/loader.c:1259
 msgid "Media Detected"
 msgstr "U zbulua Media"
 
-#: loader/loader.c:1254
+#: loader/loader.c:1260
 #, fuzzy
 msgid "Found local installation media"
 msgstr "U zbulua media vendore instalimi..."
 
-#: loader/loader.c:1378
+#: loader/loader.c:1394
 msgid "Rescue Method"
 msgstr "Metodë Shpëtimi"
 
-#: loader/loader.c:1379
+#: loader/loader.c:1395
 msgid "Installation Method"
 msgstr "Metodë Instalimi"
 
-#: loader/loader.c:1381
+#: loader/loader.c:1397
 msgid "What type of media contains the rescue image?"
 msgstr "Ç'tip media e përmban pamjen e shpëtimit?"
 
-#: loader/loader.c:1383
+#: loader/loader.c:1399
 msgid "What type of media contains the installation image?"
 msgstr "Ç'lloj media përmban pamjen e instalimit?"
 
-#: loader/loader.c:1418
+#: loader/loader.c:1434
 msgid "No driver found"
 msgstr "Nuk u gjet përudhës"
 
-#: loader/loader.c:1418
+#: loader/loader.c:1434
 msgid "Select driver"
 msgstr "Përzgjidhni përudhës"
 
-#: loader/loader.c:1419
+#: loader/loader.c:1435
 msgid "Use a driver disk"
 msgstr "Përdor disk përudhësash"
 
-#: loader/loader.c:1420
+#: loader/loader.c:1436
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4363,11 +4364,11 @@ msgstr ""
 "instalimi.  Do të donit ta përzgjidhni përudhësin tuaj dorazi ose të "
 "përdornit një disk përudhësash?"
 
-#: loader/loader.c:1650
+#: loader/loader.c:1666
 msgid "The following devices have been found on your system."
 msgstr "Në sistemin tuaj janë gjetur pajisjet vijuese."
 
-#: loader/loader.c:1652
+#: loader/loader.c:1668
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -4375,29 +4376,29 @@ msgstr ""
 "Nuk janë ngarkuar përudhësa pajisjesh për sistemin tuaj  Do të donit të "
 "ngarkoni ndonjë tani?"
 
-#: loader/loader.c:1656
+#: loader/loader.c:1672
 msgid "Devices"
 msgstr "Pajisje"
 
-#: loader/loader.c:1657
+#: loader/loader.c:1673
 msgid "Done"
 msgstr "Kryer"
 
-#: loader/loader.c:1658
+#: loader/loader.c:1674
 msgid "Add Device"
 msgstr "Shto Pajisje"
 
-#: loader/loader.c:1936
+#: loader/loader.c:1952
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ngarkuesi ka mbaruar punë tashmë.  Po niset një shell.\n"
 
-#: loader/loader.c:2396
+#: loader/loader.c:2412
 #, fuzzy, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "Po xhiroj anaconda-n, mënyra shpëtim e %s - ju lutem prisni...\n"
 
-#: loader/loader.c:2398
+#: loader/loader.c:2414
 #, fuzzy, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "Po xhiroj anaconda-n, instaluesi i sistemit %s - ju lutem prisni...\n"
@@ -4493,12 +4494,12 @@ msgstr ""
 "Parashtesa duhet të jetë midis 1 dhe 32 për rrjete IPv4 ose midis 1 dhe 128 "
 "për rrjete IPv6"
 
-#: loader/net.c:484 loader/net.c:492 loader/net.c:547
+#: loader/net.c:488 loader/net.c:496 loader/net.c:551
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr "Pati një gabim gjatë formësimit të ndërfaqe suaj të rrjetit."
 
-#: loader/net.c:486
+#: loader/net.c:490
 #, c-format
 msgid ""
 "\n"
@@ -4506,59 +4507,59 @@ msgid ""
 "Halting.\n"
 msgstr ""
 
-#: loader/net.c:491 loader/net.c:546
+#: loader/net.c:495 loader/net.c:550
 msgid "Network Error"
 msgstr "Gabim Rrjeti"
 
-#: loader/net.c:577 textw/netconfig_text.py:133
+#: loader/net.c:581 textw/netconfig_text.py:133
 msgid "Enable IPv4 support"
 msgstr "Aktivizo mbulim IPv4"
 
-#: loader/net.c:591
+#: loader/net.c:595
 msgid "Enable IPv6 support"
 msgstr "Aktivizo mbulim IPv6"
 
-#: loader/net.c:631
+#: loader/net.c:635
 msgid "Configure TCP/IP"
 msgstr "Formësoni TCP/IP"
 
-#: loader/net.c:688
+#: loader/net.c:692
 msgid "Missing Protocol"
 msgstr "Mungon Protokolli"
 
-#: loader/net.c:689
+#: loader/net.c:693
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Duhet të përzgjidhni të paktën një protokoll (IPv4 ose IPv6)."
 
-#: loader/net.c:696
+#: loader/net.c:700
 msgid "IPv4 Needed for NFS"
 msgstr "Lypset IPv4 për NFS"
 
-#: loader/net.c:697
+#: loader/net.c:701
 msgid "NFS installation method requires IPv4 support."
 msgstr "Metoda e instalimit NFS lyp mbulim të IPv4-s."
 
-#: loader/net.c:796
+#: loader/net.c:797
 msgid "IPv4 address:"
 msgstr "Vendndodhje IPv4:"
 
-#: loader/net.c:808 loader/net.c:875
+#: loader/net.c:809 loader/net.c:876
 msgid "/"
 msgstr "/"
 
-#: loader/net.c:863
+#: loader/net.c:864
 msgid "IPv6 address:"
 msgstr "Vendndodhje IPv6:"
 
-#: loader/net.c:929 textw/netconfig_text.py:160
+#: loader/net.c:930 textw/netconfig_text.py:160
 msgid "Gateway:"
 msgstr ""
 
-#: loader/net.c:937
+#: loader/net.c:938
 msgid "Name Server:"
 msgstr "Shërbyes Emrash"
 
-#: loader/net.c:976
+#: loader/net.c:977
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -4569,45 +4570,45 @@ msgstr ""
 "stil CIDR. Fushat për \"gateway\" dhe shërbyes emrash duhet të jenë "
 "vendndodhje të vlefshme IPv4 ose IPv6."
 
-#: loader/net.c:993
+#: loader/net.c:994
 msgid "Manual TCP/IP Configuration"
 msgstr "Formësim TCP/IP-je dorazi"
 
-#: loader/net.c:1117 loader/net.c:1125
+#: loader/net.c:1118 loader/net.c:1126
 msgid "Missing Information"
 msgstr "Mungojnë Të dhëna"
 
-#: loader/net.c:1118
+#: loader/net.c:1119
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Duhet të jepni edhe vendndodhje IPv4 të vlefshme, edhe maskë rrjeti ose "
 "parashtesë CIDR."
 
-#: loader/net.c:1126
+#: loader/net.c:1127
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 "Duhet të jepni edhe vendndodhje IPv6 të vlefshme, edhe parashtesë CIDR."
 
-#: loader/net.c:1560
+#: loader/net.c:1569
 #, fuzzy, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "Argument i gabuar te urdhër %s \"kickstart\" rrjeti: %s"
 
-#: loader/net.c:1581
+#: loader/net.c:1590
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "\"Bootproto\" %s e gabuar dhënë në urdhër rrjeti"
 
-#: loader/net.c:1658
+#: loader/net.c:1695
 msgid "Seconds:"
 msgstr "Sekonda:"
 
-#: loader/net.c:1855
+#: loader/net.c:1892
 msgid "Networking Device"
 msgstr "Pajisje Rrjeti"
 
-#: loader/net.c:1856
+#: loader/net.c:1893
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -4615,15 +4616,15 @@ msgstr ""
 "Keni disa pajisje rrjeti në këtë sistem. Përmes cilës do të donit të bëhet "
 "instalimi?"
 
-#: loader/net.c:1860
+#: loader/net.c:1897
 msgid "Identify"
 msgstr "Identifikojeni"
 
-#: loader/net.c:1869
+#: loader/net.c:1906
 msgid "You can identify the physical port for"
 msgstr "Mund të identifikoni portën fizike për"
 
-#: loader/net.c:1871
+#: loader/net.c:1908
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
@@ -4631,24 +4632,24 @@ msgstr ""
 "duke xixëlluar dritëzat LED për një numër sekondash. Jepni një numër nga 1 "
 "deri në 30 për të caktuar zgjatjen e xixëllimit të dritëzave LED të portës."
 
-#: loader/net.c:1878
+#: loader/net.c:1915
 msgid "Identify NIC"
 msgstr "Identifikoni NIC-un"
 
-#: loader/net.c:1891
+#: loader/net.c:1928
 msgid "Invalid Duration"
 msgstr "Kohëzgjatje e Pavlefshme"
 
-#: loader/net.c:1892
+#: loader/net.c:1929
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Numrin e sekondave duhet ta jepni si numër të plotë nga 1 deri në 30."
 
-#: loader/net.c:1904
+#: loader/net.c:1941
 #, fuzzy, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "Po xixëllohen dritëzat e portës %s për %d sekonda..."
 
-#: loader/net.c:2072 loader/net.c:2076
+#: loader/net.c:2109 loader/net.c:2113
 #, fuzzy, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "Po pres të fillojë shpërngulja"
@@ -4837,12 +4838,12 @@ msgstr ""
 "ndonjë fjalëkalim. Nëse nuk ktheheni mbrapsht e të jepni një fjalëkalim, "
 "kodimi për pajisje blloku do të çaktivizohet."
 
-#: storage/__init__.py:171
+#: storage/__init__.py:174
 #, fuzzy
 msgid "Writing storage configuration to disk"
 msgstr "Pjesëzimi po shkruhet te disku"
 
-#: storage/__init__.py:172
+#: storage/__init__.py:175
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -4850,74 +4851,74 @@ msgstr ""
 "Mundësitë e pjesëzimit që përzgjodhët tani do të shkruhen në disk. Çfarëdo "
 "të dhënash te ndarjet e fshira apo të riformatuara do të humbin.  "
 
-#: storage/__init__.py:177
+#: storage/__init__.py:180
 msgid "Go _back"
 msgstr "Shko _prapa"
 
-#: storage/__init__.py:178
+#: storage/__init__.py:181
 msgid "_Write changes to disk"
 msgstr "_Shkruaji ndryshimet në disk"
 
-#: storage/__init__.py:197
+#: storage/__init__.py:200
 msgid "Running..."
 msgstr "Po xhiron..."
 
-#: storage/__init__.py:198
+#: storage/__init__.py:201
 #, fuzzy
 msgid "Storing encryption keys"
 msgstr "Aktivizo butonat shigjetë"
 
-#: storage/__init__.py:214
+#: storage/__init__.py:217
 #, fuzzy, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "Gabim"
 
-#: storage/__init__.py:358
+#: storage/__init__.py:362
 #, fuzzy
 msgid "Examining Devices"
 msgstr "Pajisje Futjeje "
 
-#: storage/__init__.py:359
+#: storage/__init__.py:363
 #, fuzzy
 msgid "Examining storage devices"
 msgstr "Formësoni pajisjeje futjesh"
 
-#: storage/__init__.py:638
+#: storage/__init__.py:642
 msgid "This partition is holding the data for the hard drive install."
 msgstr "Kjo ndarje përmban të dhënat për instalim në hard disk."
 
-#: storage/__init__.py:643
+#: storage/__init__.py:647
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Nuk mund të fshini një ndarje të një DASD-je të formatuar si LDL."
 
-#: storage/__init__.py:649
+#: storage/__init__.py:653
 #, fuzzy, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "Kjo ndarje është pjesë e një pajisje RAID."
 
-#: storage/__init__.py:652
+#: storage/__init__.py:656
 #, fuzzy
 msgid "This device is part of a RAID device."
 msgstr "Kjo ndarje është pjesë e një pajisje RAID."
 
-#: storage/__init__.py:657
+#: storage/__init__.py:661
 #, fuzzy, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "Kjo ndarje është pjesë e një grupi vëllimesh."
 
-#: storage/__init__.py:660
+#: storage/__init__.py:664
 #, fuzzy
 msgid "This device is part of a LVM volume group."
 msgstr "Kjo ndarje është pjesë e një grupi vëllimesh."
 
-#: storage/__init__.py:676
+#: storage/__init__.py:680
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
 "\n"
 msgstr ""
 
-#: storage/__init__.py:951
+#: storage/__init__.py:955
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -4926,7 +4927,7 @@ msgstr ""
 "Nuk keni përcaktuar një ndarje rrënjë (/), e cila është e domosdoshme që të "
 "vazhdojë instalimi i %s."
 
-#: storage/__init__.py:956
+#: storage/__init__.py:960
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -4935,7 +4936,7 @@ msgstr ""
 "Ndarja juaj rrënjë është më pak se 250 megabajt çka zakonisht është shumë e "
 "pakët për instalim %s."
 
-#: storage/__init__.py:962
+#: storage/__init__.py:966
 #, fuzzy, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -4944,19 +4945,19 @@ msgstr ""
 "Ndarja juaj %s është më pak se %s megabajt çka është më pak se sa e "
 "këshillueshmja për një instalim normal të %s."
 
-#: storage/__init__.py:969
+#: storage/__init__.py:973
 #, python-format
 msgid "Placing the root partition on an XFS filesystem is not supported in %s."
 msgstr ""
 
-#: storage/__init__.py:977
+#: storage/__init__.py:981
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr ""
 
-#: storage/__init__.py:984
+#: storage/__init__.py:988
 #, fuzzy, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -4965,14 +4966,14 @@ msgstr ""
 "Ndarja juaj %s është më pak se %s megabajt çka është më pak se sa e "
 "këshillueshmja për një instalim normal të %s."
 
-#: storage/__init__.py:1013
+#: storage/__init__.py:1017
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Po instalohet në një pajisje USB. Kjo mundet edhe të mos prodhojë një sistem "
 "funksionues."
 
-#: storage/__init__.py:1016
+#: storage/__init__.py:1020
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -4980,7 +4981,7 @@ msgstr ""
 "Po instalohet në një pajisje FireWire.  Kjo mundet edhe të mos prodhojë një "
 "sistem funksionues."
 
-#: storage/__init__.py:1023
+#: storage/__init__.py:1027
 #, fuzzy
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
@@ -4990,7 +4991,7 @@ msgstr ""
 "tëra rastet, ajo do të përmirësojë në mënyrë domethënëse punimin për "
 "shumicën e instalimeve."
 
-#: storage/__init__.py:1028
+#: storage/__init__.py:1032
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -4999,7 +5000,7 @@ msgstr ""
 "tëra rastet, ajo do të përmirësojë në mënyrë domethënëse punimin për "
 "shumicën e instalimeve."
 
-#: storage/__init__.py:1035
+#: storage/__init__.py:1039
 #, fuzzy, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
@@ -5007,16 +5008,16 @@ msgstr ""
 "Kjo pikë montimi është e pavlefshme.  Drejtoria %s duhet të jetë në "
 "sistemin / e kartelave."
 
-#: storage/__init__.py:1039
+#: storage/__init__.py:1043
 #, fuzzy, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "Kjo pikë montimi duhet të jetë në një sistem linux kartelash."
 
-#: storage/__init__.py:1050
+#: storage/__init__.py:1054
 msgid "No Drives Found"
 msgstr "Nuk u Gjetën \"Drive\"-e"
 
-#: storage/__init__.py:1051
+#: storage/__init__.py:1055
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -5025,11 +5026,11 @@ msgstr ""
 "rinj kartelash. Rreth shkakut të këtij problemi ju lutem kontrolloni "
 "hardware-in tuaj."
 
-#: storage/__init__.py:1344 storage/__init__.py:1353
+#: storage/__init__.py:1348 storage/__init__.py:1357
 msgid "Dirty File Systems"
 msgstr "Sisteme të Ndotur Kartelash"
 
-#: storage/__init__.py:1345
+#: storage/__init__.py:1349
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5042,7 +5043,7 @@ msgstr ""
 "lërini të kontrollohen sistemet e kartelave dhe fikeni si duhet.\n"
 "%s"
 
-#: storage/__init__.py:1354
+#: storage/__init__.py:1358
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5053,7 +5054,7 @@ msgstr ""
 "pastër. Doni të montohen sido që të jetë?\n"
 "%s"
 
-#: storage/__init__.py:1831
+#: storage/__init__.py:1835
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5064,7 +5065,7 @@ msgid ""
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
 
-#: storage/__init__.py:1842
+#: storage/__init__.py:1846
 #, fuzzy, python-format
 msgid ""
 "The swap device:\n"
@@ -5084,7 +5085,7 @@ msgstr ""
 "të kryer një përditësim, ju lutem fikeni sistemin tuaj në vend që ta kini në "
 "\"hibernating\"."
 
-#: storage/__init__.py:1850
+#: storage/__init__.py:1854
 #, fuzzy, python-format
 msgid ""
 "The swap device:\n"
@@ -5104,7 +5105,7 @@ msgstr ""
 "po kryeni një instalim të ri, sigurohuni që instaluesi juaj është rregulluar "
 "të formatojë tërë ndarjet \"swap\"."
 
-#: storage/__init__.py:1862
+#: storage/__init__.py:1866
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5115,7 +5116,7 @@ msgid ""
 "installation, you will need to format the device or skip it."
 msgstr ""
 
-#: storage/__init__.py:1873
+#: storage/__init__.py:1877
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5132,7 +5133,7 @@ msgstr ""
 "\n"
 "Shtypni OK për të rinisur sistemin tuaj."
 
-#: storage/__init__.py:1880
+#: storage/__init__.py:1884
 #, fuzzy, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5147,11 +5148,11 @@ msgstr ""
 "\n"
 "Shtypni OK për të rinisur sistemin tuaj."
 
-#: storage/__init__.py:1943 storage/__init__.py:1955
+#: storage/__init__.py:1947 storage/__init__.py:1959
 msgid "Invalid mount point"
 msgstr "Pikë montimi e pavlefshme"
 
-#: storage/__init__.py:1944
+#: storage/__init__.py:1948
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5165,7 +5166,7 @@ msgstr ""
 "\n"
 "Shtypni <Enter> për të dalë nga instaluesi."
 
-#: storage/__init__.py:1956
+#: storage/__init__.py:1960
 #, fuzzy, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5178,11 +5179,11 @@ msgstr ""
 "\n"
 "Shtypni <Enter> për të dalë nga instaluesi."
 
-#: storage/__init__.py:1972 storage/__init__.py:1996
+#: storage/__init__.py:1976 storage/__init__.py:2000
 msgid "Unable to mount filesystem"
 msgstr "I pazoti të montoj sistem kartelash."
 
-#: storage/__init__.py:1973
+#: storage/__init__.py:1977
 #, fuzzy, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5191,7 +5192,7 @@ msgstr ""
 "Ndodhi një gabim gjatë montimit të pajisjes %s si %s.  Mund të vazhdoni "
 "instalimin, por mund të ketë probleme."
 
-#: storage/__init__.py:1997
+#: storage/__init__.py:2001
 #, fuzzy, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5228,24 +5229,24 @@ msgstr "gethostbyname dështoi për %s\n"
 msgid "lvs failed for %s"
 msgstr "gethostbyname dështoi për %s\n"
 
-#: storage/devices.py:1264 storage/devices.py:1962 storage/devices.py:2378
-#: storage/devices.py:2871 storage/devices.py:3344
+#: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
+#: storage/devices.py:2903 storage/devices.py:3377
 #, fuzzy
 msgid "Creating"
 msgstr "Po formatohet"
 
-#: storage/devices.py:1265 storage/devices.py:1963 storage/devices.py:2379
-#: storage/devices.py:2872
+#: storage/devices.py:1297 storage/devices.py:1995 storage/devices.py:2411
+#: storage/devices.py:2904
 #, fuzzy, python-format
 msgid "Creating device %s"
 msgstr "_Ndrysho pajisje"
 
-#: storage/devices.py:2472
+#: storage/devices.py:2504
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3345
+#: storage/devices.py:3378
 #, fuzzy, python-format
 msgid "Creating file %s"
 msgstr "Krijo drejtori të re në sistem kartelash"
@@ -5268,7 +5269,7 @@ msgstr ""
 "Nëse anashkalohet ky hap, lënda e pajisjes nuk do të jetë e passhme gjatë "
 "instalimit."
 
-#: storage/devicetree.py:1897 storage/devicetree.py:1945
+#: storage/devicetree.py:1905 storage/devicetree.py:1953
 #, fuzzy
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Kjo ndarje është pjesë e një grupi vëllimesh."
@@ -5334,7 +5335,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:535 storage/partitioning.py:285
+#: storage/formats/fs.py:535 storage/partitioning.py:286
 msgid "Unrecoverable Error"
 msgstr "Gabim i Pandreqshëm"
 
@@ -5428,23 +5429,23 @@ msgstr ""
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
-#: storage/partitioning.py:200
+#: storage/partitioning.py:201
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:203
+#: storage/partitioning.py:204
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:232
+#: storage/partitioning.py:233
 msgid "Warnings During Automatic Partitioning"
 msgstr "Sinjalizime Gjatë Pjesëzimit Automatik"
 
-#: storage/partitioning.py:234
+#: storage/partitioning.py:235
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5455,7 +5456,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: storage/partitioning.py:248 storage/partitioning.py:269
+#: storage/partitioning.py:249 storage/partitioning.py:270
 msgid ""
 "\n"
 "\n"
@@ -5465,7 +5466,7 @@ msgstr ""
 "\n"
 "Shtypni 'OK' për të mbyllur instaluesin."
 
-#: storage/partitioning.py:250
+#: storage/partitioning.py:251
 #, fuzzy, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5476,7 +5477,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: storage/partitioning.py:271
+#: storage/partitioning.py:272
 msgid ""
 "\n"
 "\n"
@@ -5486,11 +5487,11 @@ msgstr ""
 "\n"
 "Shtypni 'OK' për të zgjedhur një mundësi tjetër pjesëzimi."
 
-#: storage/partitioning.py:273
+#: storage/partitioning.py:274
 msgid "Automatic Partitioning Errors"
 msgstr "Gabime Pjesëzimi Automatik"
 
-#: storage/partitioning.py:274
+#: storage/partitioning.py:275
 #, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"

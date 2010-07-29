@@ -23,16 +23,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch.te\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-08 11:59-1000\n"
+"POT-Creation-Date: 2010-07-29 04:08-1000\n"
 "PO-Revision-Date: 2010-07-23 16:38+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
+"Language: te\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: te\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -75,12 +76,12 @@ msgstr "షెల్ కోసం <enter> నొక్కండి"
 #: loader/kickstart.c:331 loader/kickstart.c:520 loader/lang.c:114
 #: loader/lang.c:373 loader/loader.c:433 loader/loader.c:469
 #: loader/loader.c:509 loader/loader.c:527 loader/loader.c:544
-#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1386
+#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1402
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:599 loader/net.c:970 loader/net.c:1559 loader/net.c:1580
-#: loader/net.c:1860 loader/net.c:1879 loader/net.c:1891
+#: loader/net.c:603 loader/net.c:971 loader/net.c:1568 loader/net.c:1589
+#: loader/net.c:1897 loader/net.c:1916 loader/net.c:1928
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
@@ -155,18 +156,19 @@ msgstr ""
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr "సంస్థాపిత ప్రతిబింబాన్ని మీ హార్డ్ డ్రైవుకి బదిలీ చేస్తున్నప్పుడు దోషం సంభవించింది. మీ డిస్కులో ఖాళీ లేకపోవచ్చు."
+msgstr ""
+"సంస్థాపిత ప్రతిబింబాన్ని మీ హార్డ్ డ్రైవుకి బదిలీ చేస్తున్నప్పుడు దోషం సంభవించింది. మీ డిస్కులో ఖాళీ లేకపోవచ్చు."
 
 #: backend.py:185 image.py:289 livecd.py:198 livecd.py:440
 #: partIntfHelpers.py:233 text.py:351 text.py:355 yuminstall.py:460
 #: yuminstall.py:871 yuminstall.py:989 yuminstall.py:994 yuminstall.py:1269
 #: yuminstall.py:1336 yuminstall.py:1526 yuminstall.py:1548
-#: iw/advanced_storage.py:85 iw/advanced_storage.py:95
-#: iw/advanced_storage.py:168 iw/advanced_storage.py:171
-#: iw/advanced_storage.py:199 iw/autopart_type.py:96 iw/cleardisks_gui.py:44
-#: iw/cleardisks_gui.py:54 iw/filter_gui.py:420 iw/osbootwidget.py:211
-#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:53
-#: iw/task_gui.py:154 iw/task_gui.py:301 iw/task_gui.py:461
+#: iw/advanced_storage.py:86 iw/advanced_storage.py:96
+#: iw/advanced_storage.py:170 iw/advanced_storage.py:173
+#: iw/advanced_storage.py:201 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
+#: iw/cleardisks_gui.py:54 iw/filter_gui.py:421 iw/osbootwidget.py:211
+#: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:54
+#: iw/task_gui.py:155 iw/task_gui.py:302 iw/task_gui.py:463
 #: loader/windows.h:31 loader/cdinstall.c:228 loader/cdinstall.c:504
 #: loader/driverdisk.c:228 loader/driverdisk.c:473 loader/driverdisk.c:508
 #: loader/driverdisk.c:536 loader/driverdisk.c:544 loader/driverdisk.c:611
@@ -178,8 +180,8 @@ msgstr "సంస్థాపిత ప్రతిబింబాన్ని �
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:330 loader/urls.c:336
-#: loader/urls.c:345 storage/__init__.py:213 storage/__init__.py:1799
-#: storage/__init__.py:1886 storage/zfcp.py:375 textw/netconfig_text.py:282
+#: loader/urls.c:345 storage/__init__.py:216 storage/__init__.py:1803
+#: storage/__init__.py:1890 storage/zfcp.py:375 textw/netconfig_text.py:282
 #: textw/upgrade_text.py:179 textw/upgrade_text.py:186
 msgid "Error"
 msgstr "దోషం"
@@ -209,14 +211,14 @@ msgstr ""
 #: upgrade.py:199 yuminstall.py:252 yuminstall.py:991 yuminstall.py:996
 #: yuminstall.py:1076 yuminstall.py:1082 yuminstall.py:1238 yuminstall.py:1265
 #: yuminstall.py:1326 yuminstall.py:1513 yuminstall.py:1532 yuminstall.py:1555
-#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
-#: storage/__init__.py:1980
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:220
+#: storage/__init__.py:1984
 msgid "_Exit installer"
 msgstr "సంస్థాపకి నిష్క్రమించుము (_E)"
 
-#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1370
-#: kickstart.py:1409 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
-#: iw/partition_gui.py:1601 storage/__init__.py:1981
+#: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1371
+#: kickstart.py:1410 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
+#: iw/partition_gui.py:1601 storage/__init__.py:1985
 msgid "_Continue"
 msgstr "కొనసాగించు(_C)"
 
@@ -248,8 +250,8 @@ msgstr "పూర్తయ్యింది"
 msgid "In progress"
 msgstr "పురోగతినందు వుంది"
 
-#: cmdline.py:88 gui.py:1269 kickstart.py:1154 kickstart.py:1234
-#: kickstart.py:1242 kickstart.py:1280 kickstart.py:1288 text.py:388
+#: cmdline.py:88 gui.py:1269 kickstart.py:1155 kickstart.py:1235
+#: kickstart.py:1243 kickstart.py:1281 kickstart.py:1289 text.py:388
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -416,8 +418,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization.%"
-"(details)s"
+"This action may also be applied to all other disks needing reinitialization."
+"%(details)s"
 msgstr ""
 "డ్రైవును ప్రోసెస్ చేయుటలో దోషము:\n"
 "\n"
@@ -457,8 +459,8 @@ msgid ""
 "with inconsistent metadata."
 msgstr ""
 "LVM ప్రోసెస్ చేయుటలో దోషము.\n"
-"%(msg)s పైన స్థిరత్వంలేని LVM డాటా వుంది. మీరు LVM మెటాడాటాను చెరిపివేసే అన్ని సంభందిత PVలను (%"
-"(pvs)s) పునఃసిద్దీకరించవచ్చు, లేదా విడిచిపెడితే అది సారములను నిలిపివుంచుతుంది.  ఈ చర్య అనునది "
+"%(msg)s పైన స్థిరత్వంలేని LVM డాటా వుంది. మీరు LVM మెటాడాటాను చెరిపివేసే అన్ని సంభందిత PVలను "
+"(%(pvs)s) పునఃసిద్దీకరించవచ్చు, లేదా విడిచిపెడితే అది సారములను నిలిపివుంచుతుంది.  ఈ చర్య అనునది "
 "అస్థిరమైన మెటాడాటాతో వున్న అన్ని యితర PVలకు ఆపాదించబడవచ్చును."
 
 #: gui.py:1271 text.py:390
@@ -485,7 +487,7 @@ msgstr ""
 "className = %s"
 
 #: gui.py:1400 image.py:164 image.py:194 packages.py:360
-#: storage/__init__.py:1798
+#: storage/__init__.py:1802
 msgid "_Exit"
 msgstr "బయటకి (_E)"
 
@@ -494,7 +496,7 @@ msgstr "బయటకి (_E)"
 msgid "_Retry"
 msgstr "పునఃప్రయత్నం(_R)"
 
-#: gui.py:1403 storage/partitioning.py:286
+#: gui.py:1403 storage/partitioning.py:287
 msgid "The system will now reboot."
 msgstr "ఇప్పుడు కంప్యూటరు పునఃప్రారంభించబడుతుంది."
 
@@ -583,15 +585,15 @@ msgstr "మాధ్యమాన్ని సంస్థాపించవల�
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following %"
-"(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following "
+"%(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"మీరు సంస్థాపించటానికి ఎన్నుకున్న సాఫ్టువేరుకు ఈ క్రింది డిస్కులు %(productName)s %"
-"(productVersion)s కావలసివుంది:\n"
+"మీరు సంస్థాపించటానికి ఎన్నుకున్న సాఫ్టువేరుకు ఈ క్రింది డిస్కులు %(productName)s "
+"%(productVersion)s కావలసివుంది:\n"
 "\n"
 "%(reqcdstr)s\n"
 "సంస్థాపనకు ఉపక్రమించేముందు వీటిని సిద్ధంగా కలిగి ఉండండి.  మీరు సంస్థాపనను నిర్వీర్యం చేసి నిష్క్రమించ "
@@ -669,25 +671,27 @@ msgstr "రూపాంతరము (_F)"
 #: iutil.py:852
 #, python-format
 msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
-"s)"
-msgstr "దోషము: తెరుచుటలో, reIPL పద్దతిను %(reipl_type)sకు అమర్చ లేము (%(filename)s: %(e)s)"
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
+msgstr ""
+"దోషము: తెరుచుటలో, reIPL పద్దతిను %(reipl_type)sకు అమర్చ లేము (%(filename)s: %(e)s)"
 
 #: iutil.py:863
 #, python-format
 msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
-"(e)s)"
-msgstr "దోషము: వ్రాయుట నందు, reIPL పద్దతిను %(reipl_type)sకు అమర్చలేము (%(filename)s: %(e)s)"
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
+msgstr ""
+"దోషము: వ్రాయుట నందు, reIPL పద్దతిను %(reipl_type)sకు అమర్చలేము (%(filename)s: %(e)s)"
 
 #: iutil.py:872
 #, python-format
 msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
-"(e)s)"
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr ""
-"దోషము: మూయుట నందు, reIPL పద్దతిను %(reipl_type)s కు అమర్చలేము (%(filename)s: %(e)"
-"s)"
+"దోషము: మూయుట నందు, reIPL పద్దతిను %(reipl_type)s కు అమర్చలేము (%(filename)s: "
+"%(e)s)"
 
 #: iutil.py:891
 #, python-format
@@ -709,7 +713,8 @@ msgstr "హెచ్చరిక: parm (%s)ను తిరిగివుంచ
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
-msgstr "మూసివేత తర్వాత, సంస్థాపనను కొనసాగించుటకు దయచేసి మానవీయ IPLను DASD పరికరము %s నుండి జరుపుము"
+msgstr ""
+"మూసివేత తర్వాత, సంస్థాపనను కొనసాగించుటకు దయచేసి మానవీయ IPLను DASD పరికరము %s నుండి జరుపుము"
 
 #: iutil.py:945
 #, python-format
@@ -723,14 +728,15 @@ msgstr "దోషము: reIPL (%(e)s) కొరకు FCP లక్షణము
 
 #: iutil.py:975
 #, python-format
-msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgid ""
+"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr "దోషము: reIPL (%(e)s) కొరకు అప్రమేయ FCP లక్షణము %(reipl_property)s వ్రాయుచున్నది"
 
 #: iutil.py:990
 #, python-format
 msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
-"(wwpn)s and LUN %(lun)s to continue installation"
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
+"%(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 "మూసివేత తర్వాత, సంస్థాపనను కొనసాగించుటకు దయచేసి FCP %(device)s నుండి WWPN %(wwpn)s మరియు "
 "LUN %(lun)s తో మానవీయ IPL నిర్వహించండి."
@@ -766,7 +772,7 @@ msgstr ""
 msgid "Scriptlet Failure"
 msgstr "Scriptlet వైఫల్యం"
 
-#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:307
+#: kickstart.py:149 rescue.py:262 yuminstall.py:1233 iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "ఏ నెట్వర్కు అందుబాటులోలేదు"
 
@@ -778,7 +784,7 @@ msgstr ""
 "ఎన్క్రిప్షన్ కీ escrowకు నెట్వర్కు అవసరము, అయితే మీ సిస్టమ్‌నందు నెట్వర్కు చేతనము చేయుటలో అక్కడవొక "
 "దోషము వుంది."
 
-#: kickstart.py:163
+#: kickstart.py:164
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -790,37 +796,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: kickstart.py:1253
+#: kickstart.py:1254
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "%%ksappend వరుసలను నిర్వర్తించుటలో దోషము: %s"
 
-#: kickstart.py:1256
+#: kickstart.py:1257
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "తెలియని %%ksappend వరుసలు నిర్వర్తించుటలో తెలియని దోషము: %s"
 
-#: kickstart.py:1311 livecd.py:228
+#: kickstart.py:1312 livecd.py:228
 msgid "Post-Installation"
 msgstr "సంస్థాపన-తరువాత"
 
-#: kickstart.py:1312
+#: kickstart.py:1313
 msgid "Running post-installation scripts"
 msgstr "సంస్థాపన-తర్వాతి స్క్రిప్టులను నడుపుతోంది"
 
-#: kickstart.py:1328
+#: kickstart.py:1329
 msgid "Pre-Installation"
 msgstr "సంస్థాపన-ముందు"
 
-#: kickstart.py:1329
+#: kickstart.py:1330
 msgid "Running pre-installation scripts"
 msgstr "ముందస్తు-సంస్థాపనా స్క్రిప్టులు నడుస్తున్నాయి"
 
-#: kickstart.py:1361
+#: kickstart.py:1362
 msgid "Missing Package"
 msgstr "Package కనపడటంలేదు"
 
-#: kickstart.py:1362
+#: kickstart.py:1363
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -829,19 +835,19 @@ msgstr ""
 "ప్యాకేజి '%s' సంస్థాపించాలి అని మీరు తెలిపినారు.  ఈ ప్యాకేజీ లేదు. మీరు కొనసాగించదలచారా లేక మీ సంస్థాపనను "
 "విరమించ దలిచినారా?"
 
-#: kickstart.py:1368 kickstart.py:1407
+#: kickstart.py:1369 kickstart.py:1408
 msgid "_Abort"
 msgstr "నిష్ఫలం (_A)"
 
-#: kickstart.py:1369 kickstart.py:1408
+#: kickstart.py:1370 kickstart.py:1409
 msgid "_Ignore All"
 msgstr "అన్నిటిని వదిలివేయి (_I)"
 
-#: kickstart.py:1399
+#: kickstart.py:1400
 msgid "Missing Group"
 msgstr "కనిపించని సమూహం"
 
-#: kickstart.py:1400
+#: kickstart.py:1401
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -850,7 +856,7 @@ msgstr ""
 "సమూహం '%s' సంస్థాపించాలి అని మీరు తెలిపినారు.  ఈ సమూహం లేదు. మీరు కొనసాగించదలచారా లేక మీ "
 "సంస్థాపనను విరమించ దలిచినారా?"
 
-#: kickstart.py:1516
+#: kickstart.py:1517
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -868,7 +874,8 @@ msgstr "ప్రతిబింబాన్ని కనుగొనలేమ�
 
 #: livecd.py:122
 #, python-format
-msgid "The given location isn't a valid %s live CD to use as an installation source."
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
 msgstr "సంస్థాపనా మూలంకొరకు ఇచ్చిన స్థానం సరియైన %s లైవ్ CD ది కాదు."
 
 #: livecd.py:180
@@ -909,12 +916,14 @@ msgstr "హోస్టునామము తప్పక 255 లేదా త�
 
 #: network.py:68
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
-"9'"
-msgstr "హోస్టునామము తప్పక 'a-z, 'A-Z', లేదా '0-9' పరిధిలమధ్యలో వొక విలువైన అక్షరముతో ప్రారంభమవ్వాలి"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
+"'0-9'"
+msgstr ""
+"హోస్టునామము తప్పక 'a-z, 'A-Z', లేదా '0-9' పరిధిలమధ్యలో వొక విలువైన అక్షరముతో ప్రారంభమవ్వాలి"
 
 #: network.py:73
-msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid ""
+"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "హోస్టునామము 'a-z', 'A-Z', '0-9', '-', లేదా '.' అక్షరాలను మాత్రమే కలిగివుండగలదు."
 
 #: network.py:117
@@ -1195,8 +1204,8 @@ msgstr "విభజనతో దోషం"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of %"
-"(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of "
+"%(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
@@ -1228,7 +1237,8 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr "ఇంతకు ముందే ఉన్న ఈ కింది విభజన రూపాంతరము చేయుటకు ఎన్నికచేయబడింది, సమాచారమంతటినీ పోగొడుతోంది."
+msgstr ""
+"ఇంతకు ముందే ఉన్న ఈ కింది విభజన రూపాంతరము చేయుటకు ఎన్నికచేయబడింది, సమాచారమంతటినీ పోగొడుతోంది."
 
 #: partIntfHelpers.py:288
 msgid ""
@@ -1277,7 +1287,8 @@ msgid "Confirm Reset"
 msgstr "తిరిగి అమర్చుటను ఖాయపరుచుము"
 
 #: partIntfHelpers.py:346
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "మీరు నిజంగా విభజన పట్టికను దాని నిజ స్థితికి తిరిగి అమర్చాలనుకుంటున్నారా?"
 
 #: platform.py:98 platform.py:339 platform.py:407 platform.py:514
@@ -1393,7 +1404,8 @@ msgstr "కాదు"
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
-msgstr "నెట్వర్కింగు పరికరాన్ని క్రియాశీలము చేయలేక పోయింది.  పరిరక్షణ రీతినందు నెట్వర్కింగు అందుబాటులో వుండదు."
+msgstr ""
+"నెట్వర్కింగు పరికరాన్ని క్రియాశీలము చేయలేక పోయింది.  పరిరక్షణ రీతినందు నెట్వర్కింగు అందుబాటులో వుండదు."
 
 #: rescue.py:299 rescue.py:374 rescue.py:385 rescue.py:465 rescue.py:494
 msgid "Rescue"
@@ -1434,7 +1446,7 @@ msgid "Read-Only"
 msgstr "చదవటానికి-మాత్రమే"
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1798 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1802 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "వదిలివేయి"
 
@@ -1563,8 +1575,8 @@ msgid ""
 "screen"
 msgstr "  <Tab>/<Alt-Tab> మూలకాల మధ్య   |  <Space> ఎన్నికలు   |  <F12> తదుపరి తెర"
 
-#: text.py:624 loader/net.c:110 loader/net.c:491 loader/net.c:546
-#: loader/net.c:688 loader/net.c:696 loader/net.c:1117 loader/net.c:1125
+#: text.py:624 loader/net.c:110 loader/net.c:495 loader/net.c:550
+#: loader/net.c:692 loader/net.c:700 loader/net.c:1118 loader/net.c:1126
 msgid "Retry"
 msgstr "పునఃప్రయత్నించు"
 
@@ -1880,7 +1892,7 @@ msgstr ""
 "%s ప్యాకేజీను సంస్థాపించునప్పుడు ప్రమాదకరమైన దోషము యెదురైంది.  సంస్థాపనా మాధ్యమంనుండి "
 "చదువుచున్నప్పుడు దోషములను యిది సూచించగలదు.  సంస్థాపన కొనసాగించబడలేదు."
 
-#: yuminstall.py:396 iw/task_gui.py:319
+#: yuminstall.py:396 iw/task_gui.py:321
 msgid "Error Setting Up Repository"
 msgstr "రిపోజిటరీని అమర్చుటలో దోషము"
 
@@ -1960,7 +1972,8 @@ msgstr "డౌనులోడను పునఃప్రయత్నిస్�
 
 #: yuminstall.py:985
 #, python-format
-msgid "There was an error running your transaction for the following reason: %s\n"
+msgid ""
+"There was an error running your transaction for the following reason: %s\n"
 msgstr "ఈ కింది కారణం కొరకు మీ వ్యవహారం నడుపుటలో దోషము ఉంది: %s\n"
 
 #: yuminstall.py:1028 yuminstall.py:1029
@@ -2015,15 +2028,15 @@ msgstr ""
 #: yuminstall.py:1067
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): %"
-"s.\n"
+"There was an error running your transaction for the following reason(s): "
+"%s.\n"
 msgstr "ఈ కింది కారణము(ల) కొరకు మీ వ్యవహారం నడుపుతున్నప్పుడు దోషము ఉంది: %s.\n"
 
 #: yuminstall.py:1074 yuminstall.py:1079
 msgid "Error Running Transaction"
 msgstr "వ్యవహారం నడుపుటలో దోషము"
 
-#: yuminstall.py:1234 iw/task_gui.py:308
+#: yuminstall.py:1234 iw/task_gui.py:309
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2097,9 +2110,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of %(arch)"
-"s.  This is likely to not succeed.  Are you sure you wish to continue the "
-"upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of "
+"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
+"the upgrade process?"
 msgstr ""
 "మీరు నవీకరించబడుచున్న %(productName)s యొక్క విడుదల యొక్క arch %(myarch)s లాగా అనిపిస్తోంది "
 "యిది మీ గత సంస్థాపిత %(arch)s తో సరిపోలడంలేదు.  ఇది సఫలం అయ్యేటట్లు లేదు.  మీరు ఖచ్చితంగా నవీకరణ "
@@ -2233,7 +2246,8 @@ msgstr "సంకేతపదంతో దోషం"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr "మీరు మీ root అనుమతి పదాన్ని ప్రవేశపెట్టండి మరియూ రెండోసారి కొనసాగించటానికి దాన్ని ముద్రించి నిర్ధారణ చెసుకోండి."
+msgstr ""
+"మీరు మీ root అనుమతి పదాన్ని ప్రవేశపెట్టండి మరియూ రెండోసారి కొనసాగించటానికి దాన్ని ముద్రించి నిర్ధారణ చెసుకోండి."
 
 #: iw/account_gui.py:111
 msgid "The passwords you entered were different.  Please try again."
@@ -2257,26 +2271,27 @@ msgid "_Use Anyway"
 msgstr "ఏమైనాసరే వుపయోగించుము (_U)"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
-msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgid ""
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr "కావలసిన సంకేతపదం ASCII-కాని అక్షరాలను కలిగి ఉంది, ఇవి అంగీకరించబడవు."
 
-#: iw/advanced_storage.py:86
+#: iw/advanced_storage.py:87
 msgid "You must select a NIC to use."
 msgstr "మీరు వుపయోగించుటకు తప్పక వొక NICను యెంపికచేయవలెను."
 
-#: iw/advanced_storage.py:130
+#: iw/advanced_storage.py:132
 msgid "Invalid Initiator Name"
 msgstr "సరికాని ప్రారంభకుని నామము"
 
-#: iw/advanced_storage.py:131
+#: iw/advanced_storage.py:133
 msgid "You must provide an initiator name."
 msgstr "మీరు తప్పక ఒక ప్రారంభకుని నామమును సమకూర్చాలి."
 
-#: iw/advanced_storage.py:160
+#: iw/advanced_storage.py:162
 msgid "Error with Data"
 msgstr "సమాచారంతో దోషం"
 
-#: iw/autopart_type.py:97
+#: iw/autopart_type.py:96
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
@@ -2284,29 +2299,29 @@ msgstr ""
 "పునఃపరిమాణం చేయుటకు ఏ విభజనలు అందుబాటులో లేవు.  ప్రత్యేక దస్త్రవ్యవస్థతో భౌతిక విభజనలు మాత్రమే "
 "పునఃపరిమాణం కాగలవు."
 
-#: iw/autopart_type.py:120
+#: iw/autopart_type.py:119
 msgid "Resize FileSystem Error"
 msgstr "దస్త్రవ్యవస్థ దోషమును పునఃపరిమాణము చేయుము"
 
-#: iw/autopart_type.py:121
+#: iw/autopart_type.py:120
 #, python-format
 msgid "%(device)s: %(msg)s"
 msgstr "%(device)s: %(msg)s"
 
-#: iw/autopart_type.py:130
+#: iw/autopart_type.py:129
 msgid "Resize Device Error"
 msgstr "పరికరము దోషమును పునఃపరిమాణము చేయుము"
 
-#: iw/autopart_type.py:131
+#: iw/autopart_type.py:130
 #, python-format
 msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
-#: iw/autopart_type.py:242
+#: iw/autopart_type.py:241
 msgid "Use All Space"
 msgstr "అన్ని ఖాళీలను వుపయోగించుము"
 
-#: iw/autopart_type.py:244
+#: iw/autopart_type.py:243
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2320,11 +2335,11 @@ msgstr ""
 "<b>చిట్కా:</b> ఈ ఐచ్చికము యెంపికైన డ్రైవు(ల) నుండి డాటాను తీసివేయును.  మీరు బ్యాకప్స్ "
 "కలిగివుండునట్లు చూచుకొనుము."
 
-#: iw/autopart_type.py:250
+#: iw/autopart_type.py:249
 msgid "Replace Existing Linux System(s)"
 msgstr "ఇప్పటికేవున్న లైనక్స్  సిస్టము(ల)ను పునఃస్థాపించుము"
 
-#: iw/autopart_type.py:252
+#: iw/autopart_type.py:251
 msgid ""
 "Removes only Linux partitions (created from a previous Linux installation).  "
 "This does not remove other partitions you may have on your storage device(s) "
@@ -2339,19 +2354,20 @@ msgstr ""
 "<b>చిట్కా:</b> ఈ ఐచ్చికము డాటాను యెంపికచేసిన పరికరము(ల) నుండి తీసివేయును.  మీరు బ్యాకప్‌లను కలిగి "
 "వుండునట్లు చూచుకొనుము.)"
 
-#: iw/autopart_type.py:260
+#: iw/autopart_type.py:259
 msgid "Shrink Current System"
 msgstr "ప్రస్తుత సిస్టమును కుదించుము"
 
-#: iw/autopart_type.py:262
-msgid "Shrinks existing partitions to create free space for the default layout."
+#: iw/autopart_type.py:261
+msgid ""
+"Shrinks existing partitions to create free space for the default layout."
 msgstr "అప్రమేయ నమూనా కొరకు ఖాళీ జాగాను సృష్టించుటకు యిప్పటికే వున్న విభజనలను కుదించుము."
 
-#: iw/autopart_type.py:264
+#: iw/autopart_type.py:263
 msgid "Use Free Space"
 msgstr "ఖాళీ జాగాను వుపయోగించుము"
 
-#: iw/autopart_type.py:266
+#: iw/autopart_type.py:265
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
@@ -2360,11 +2376,11 @@ msgstr ""
 "మీ ప్రస్తుత డాటా మరియు విభజనలను అలానేవుంచును మరియు యెంపికచేసిన డ్రైవు(ల) నందలి విభజన చేయని జాగాను "
 "మాత్రమే వుపయోగించును, మీ దగ్గర సరిపోవునంత ఖాళీ జాగా వుందని భావిస్తూ."
 
-#: iw/autopart_type.py:270
+#: iw/autopart_type.py:269
 msgid "Create Custom Layout"
 msgstr "మలచుకొనిన లేఅవుట్‌ను సృష్టించుము"
 
-#: iw/autopart_type.py:272
+#: iw/autopart_type.py:271
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
@@ -2380,7 +2396,8 @@ msgstr "boot loader అనుమతిపదాన్ని ఉపయోగి�
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
-msgstr "బూట్ లోడర్ సంకేతపదం కెర్నల్ ఐచ్ఛికాలను వినియోగదారుడు మార్చటాన్న నిరోదిస్తుంది, రక్షణను పెంచుతుంది."
+msgstr ""
+"బూట్ లోడర్ సంకేతపదం కెర్నల్ ఐచ్ఛికాలను వినియోగదారుడు మార్చటాన్న నిరోదిస్తుంది, రక్షణను పెంచుతుంది."
 
 #: iw/blpasswidget.py:76
 msgid "Change _password"
@@ -2444,7 +2461,7 @@ msgstr "పరికరమును మార్చుము(_C)"
 msgid "Clear Disks Selector"
 msgstr "డిస్కు సెలక్టార్‌ను శుబ్రపరచుము"
 
-#: iw/cleardisks_gui.py:45 iw/filter_gui.py:421
+#: iw/cleardisks_gui.py:45 iw/filter_gui.py:422
 msgid "You must select at least one drive to be used for installation."
 msgstr "మీరు సంస్థాపన కొరకు వుపయోగించుటకు కనీసం వొక డ్రైవునైనా తప్పక యెంపికచేయవలెను."
 
@@ -2452,29 +2469,29 @@ msgstr "మీరు సంస్థాపన కొరకు వుపయోగ
 msgid "You must select one drive to boot from."
 msgstr "దానినుండి బూట్ కావడానికి మీరు తప్పక వొక డ్రైవును యెంపికచేయాలి."
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:463
-#: iw/filter_gui.py:475 iw/filter_gui.py:505
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:483
+#: iw/filter_gui.py:495 iw/filter_gui.py:525
 msgid "Model"
 msgstr "రకము"
 
-#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:464
-#: iw/filter_gui.py:476 iw/filter_gui.py:484 iw/filter_gui.py:495
-#: iw/filter_gui.py:506
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:484
+#: iw/filter_gui.py:496 iw/filter_gui.py:504 iw/filter_gui.py:515
+#: iw/filter_gui.py:526
 msgid "Capacity"
 msgstr "సామర్థ్యము"
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:465 iw/filter_gui.py:485
-#: iw/filter_gui.py:496 iw/filter_gui.py:507
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:485 iw/filter_gui.py:505
+#: iw/filter_gui.py:516 iw/filter_gui.py:527
 msgid "Vendor"
 msgstr "అమ్మకందారి"
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:468
-#: iw/filter_gui.py:483 iw/filter_gui.py:494 iw/filter_gui.py:510
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:488
+#: iw/filter_gui.py:503 iw/filter_gui.py:514 iw/filter_gui.py:530
 msgid "Identifier"
 msgstr "గుర్తించునది"
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:466 iw/filter_gui.py:486
-#: iw/filter_gui.py:497 iw/filter_gui.py:508
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:486 iw/filter_gui.py:506
+#: iw/filter_gui.py:517 iw/filter_gui.py:528
 msgid "Interconnect"
 msgstr "ఇంటర్‌కనెక్ట్"
 
@@ -2592,7 +2609,8 @@ msgstr ""
 msgid ""
 "At least one existing installation has been detected on your system.  What "
 "would you like to do?"
-msgstr "మీ సిస్టమ్ పైన కనీసం యిప్పటికే వున్న వొక సంస్థాపన గుర్తించబడెను.  మీరు యేమిచేయాలని అనుకొనుచున్నారు?"
+msgstr ""
+"మీ సిస్టమ్ పైన కనీసం యిప్పటికే వున్న వొక సంస్థాపన గుర్తించబడెను.  మీరు యేమిచేయాలని అనుకొనుచున్నారు?"
 
 #: iw/examine_gui.py:124
 #, python-format
@@ -2603,38 +2621,38 @@ msgstr "<b>మీరు యే %s సంస్థాపనను నవీకర
 msgid "Unknown Linux system"
 msgstr "తెలియని Linux విధానం"
 
-#: iw/filter_gui.py:150
+#: iw/filter_gui.py:151
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
 msgstr "<b>%s పరికము(లు) (%s MB) యెంపికకాబడెను</b> మొత్తం %s పరికము(ల) (%s MB)లో."
 
-#: iw/filter_gui.py:400
+#: iw/filter_gui.py:401
 msgid "Device Filter"
 msgstr "పరికర ఫిల్టర్"
 
-#: iw/filter_gui.py:467 iw/filter_gui.py:498 iw/filter_gui.py:509
+#: iw/filter_gui.py:487 iw/filter_gui.py:518 iw/filter_gui.py:529
 msgid "Serial Number"
 msgstr "వరుస సంఖ్య"
 
-#: iw/filter_gui.py:469 iw/filter_gui.py:477 iw/filter_gui.py:488
-#: iw/filter_gui.py:499 iw/filter_gui.py:514 iw/osbootwidget.py:66
+#: iw/filter_gui.py:489 iw/filter_gui.py:497 iw/filter_gui.py:508
+#: iw/filter_gui.py:519 iw/filter_gui.py:534 iw/osbootwidget.py:66
 #: iw/partition_gui.py:611
 msgid "Device"
 msgstr "పరికరం"
 
-#: iw/filter_gui.py:487
+#: iw/filter_gui.py:507
 msgid "Paths"
 msgstr "పాత్స్"
 
-#: iw/filter_gui.py:511
+#: iw/filter_gui.py:531
 msgid "Port"
 msgstr "పోర్ట్"
 
-#: iw/filter_gui.py:512
+#: iw/filter_gui.py:532
 msgid "Target"
 msgstr "టర్గెట్"
 
-#: iw/filter_gui.py:513
+#: iw/filter_gui.py:533
 msgid "LUN"
 msgstr "LUN"
 
@@ -2660,11 +2678,10 @@ msgstr "ప్రత్యేకించిన నిల్వ పరికర�
 
 #: iw/filter_type.py:67
 msgid ""
-"Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-"mainframe attached disks (DASD), usually in an enterprise environment"
+"Installs or upgrades to enterprise devices such as Storage Area Networks "
+"(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
+"filter out devices the installer should ignore."
 msgstr ""
-"సాధారణంగా యెంటర్‌ప్రైజ్ వాతావరణంనందు, స్టోరేజ్ యేరియా నెట్వర్క్సు (SANs) లేదా మెయిన్‌ఫ్రేమ్ యెటాచ్‌డ్ డిస్క్స్ "
-"(DASD) వంటి పరికరములకు సంస్థాపించును లేదా ననీకరించును."
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2713,9 +2730,9 @@ msgstr "కొనసాగింపు(_C)"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
-"10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is larger than the smallest physical volume "
+"(%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 "ఈ భౌతిక విలువ మార్చబడదు ఎందుకంటే వాల్యూము సమూహంలో ఎన్నుకున్న విలువ (%(curpe)10.2f MB) "
 "చిన్న ఫిజికల్ వాల్యూము (%(maxpvsize)10.2f MB) కంటే పెద్దదిగాఉంది."
@@ -2723,12 +2740,12 @@ msgstr ""
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected (%"
-"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
-"volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
+"physical volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
-"భౌతికంగా ఉన్న పరిమాణం మార్చటానికి కుదరదు ఎందుకంటే వాల్యూము సమూహంలో ఎన్నుకున్న విలువ (%(curpe)"
-"10.2f MB) చిన్న ఫిజికల్ వాల్యూము (%(maxpvsize)10.2f MB) కంటే చాలా పెద్దగా ఉంది."
+"భౌతికంగా ఉన్న పరిమాణం మార్చటానికి కుదరదు ఎందుకంటే వాల్యూము సమూహంలో ఎన్నుకున్న విలువ "
+"(%(curpe)10.2f MB) చిన్న ఫిజికల్ వాల్యూము (%(maxpvsize)10.2f MB) కంటే చాలా పెద్దగా ఉంది."
 
 #: iw/lvm_dialog_gui.py:201
 msgid "Too small"
@@ -2787,7 +2804,7 @@ msgid "(Max size is %s MB)"
 msgstr "(గరిష్ఠ పరిమాణం %s MB)"
 
 #: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:544
-#: iw/partition_ui_helpers_gui.py:336 iw/raid_dialog_gui.py:423
+#: iw/partition_ui_helpers_gui.py:337 iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
 msgstr "ఎన్క్రిప్ట్‍ (_E)"
 
@@ -2867,8 +2884,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group (%"
-"(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group "
+"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 "ఈ తార్కిక వాల్యూమ్ కొరకు మీరు ప్రవేశపెట్టిన పరిమాణము (%(size)d MB) యితర తార్కిక వాల్యూమ్(ల)తో "
@@ -3167,7 +3184,7 @@ msgstr "MD RAID ARRAY %s (%-0.f MB)"
 msgid "Type"
 msgstr "రకము"
 
-#: iw/partition_gui.py:616 storage/__init__.py:1798
+#: iw/partition_gui.py:616 storage/__init__.py:1802
 msgid "Format"
 msgstr "రూపాంతరము"
 
@@ -3192,12 +3209,14 @@ msgid "Partitioning"
 msgstr "విభజనం"
 
 #: iw/partition_gui.py:850
-msgid "The partitioning scheme you requested caused the following critical errors."
+msgid ""
+"The partitioning scheme you requested caused the following critical errors."
 msgstr "మీరు అభ్యర్దించిన విభజన విధానం క్రింది క్లిష్టమైన దోషాలకు కారణమౌతుంది."
 
 #: iw/partition_gui.py:852
 #, python-format
-msgid "You must correct these errors before you continue your installation of %s."
+msgid ""
+"You must correct these errors before you continue your installation of %s."
 msgstr "మీరు %s సంస్థాపనను కొనసాగించుటకు ముందుగానే ఈ దోషాలను తప్పక సరిచేయాలి."
 
 #: iw/partition_gui.py:858
@@ -3220,7 +3239,8 @@ msgstr "విభజనా హెచ్చరికలు"
 msgid ""
 "The following pre-existing devices have been selected to be formatted, "
 "destroying all data."
-msgstr "ఇంతకు ముందే ఉన్న ఈ కింది పరకరములు ఫార్మాట్ చేయుటకు ఎన్నికచేయబడినవి, సమాచారమంతటినీ పోగొడుతోంది."
+msgstr ""
+"ఇంతకు ముందే ఉన్న ఈ కింది పరకరములు ఫార్మాట్ చేయుటకు ఎన్నికచేయబడినవి, సమాచారమంతటినీ పోగొడుతోంది."
 
 #: iw/partition_gui.py:893
 msgid "Format Warnings"
@@ -3340,8 +3360,8 @@ msgstr "PVలను సృష్టించుటకు మీరు ప్ర�
 msgid "About LVM"
 msgstr "LVM గురించి"
 
-#: iw/partition_gui.py:1587 storage/partitioning.py:206
-#: storage/partitioning.py:249
+#: iw/partition_gui.py:1587 storage/partitioning.py:207
+#: storage/partitioning.py:250
 msgid "Error Partitioning"
 msgstr "విభజన దోషం"
 
@@ -3382,24 +3402,24 @@ msgstr "తిరిగి అమర్చు (_s)"
 msgid "Please Select A Device"
 msgstr "దయచేసి ఒక డ్రైవుని ఎన్నుకోండి"
 
-#: iw/partition_ui_helpers_gui.py:109 iw/partition_ui_helpers_gui.py:131
-#: iw/partition_ui_helpers_gui.py:133
+#: iw/partition_ui_helpers_gui.py:110 iw/partition_ui_helpers_gui.py:132
+#: iw/partition_ui_helpers_gui.py:134
 msgid "<Not Applicable>"
 msgstr "<అనువర్తించదగ్గదికాదు>"
 
-#: iw/partition_ui_helpers_gui.py:317
+#: iw/partition_ui_helpers_gui.py:318
 msgid "_Format as:"
 msgstr "దీనివలే రూపాంతరించు (_F):"
 
-#: iw/partition_ui_helpers_gui.py:339
+#: iw/partition_ui_helpers_gui.py:340
 msgid "Mi_grate filesystem to:"
 msgstr "ఫైలు వ్యవస్థని వలస పంపు(_g):"
 
-#: iw/partition_ui_helpers_gui.py:369
+#: iw/partition_ui_helpers_gui.py:370
 msgid "_Resize"
 msgstr "పునఃపరిమాణము(_R)"
 
-#: iw/partition_ui_helpers_gui.py:433
+#: iw/partition_ui_helpers_gui.py:425
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
@@ -3454,7 +3474,7 @@ msgstr "మిగిలిన సభ్యులు: (_s)"
 msgid "_Format partition?"
 msgstr "విభజన రూపాంతరించాలా? (_F)"
 
-#: iw/task_gui.py:54
+#: iw/task_gui.py:55
 #, python-format
 msgid ""
 "Unable to read package metadata from repository.  This may be due to a "
@@ -3468,11 +3488,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:131
+#: iw/task_gui.py:132
 msgid "Edit Repository"
 msgstr "రిపోజిటరిని సరికూర్చు"
 
-#: iw/task_gui.py:155
+#: iw/task_gui.py:156
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
@@ -3481,37 +3501,37 @@ msgstr ""
 "ఈ %s సురక్షిత స్థానం ఇప్పటికే కలపబడింది.  దయచేసి వేరొక సురక్షిత స్థానం నామమును మరియూ URLను "
 "ఎన్నుకోండి."
 
-#: iw/task_gui.py:235
+#: iw/task_gui.py:236
 msgid "Invalid Proxy URL"
 msgstr "చెల్లని ప్రోక్సీ URL"
 
-#: iw/task_gui.py:236
+#: iw/task_gui.py:237
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "మీరు HTTP, HTTPS, లేదా FTP URL ను ప్రోక్సీకి తప్పక సమకూర్చాలి."
 
-#: iw/task_gui.py:248 iw/task_gui.py:428
+#: iw/task_gui.py:249 iw/task_gui.py:430
 msgid "Invalid Repository URL"
 msgstr "చెల్లని సురక్షిత URL"
 
-#: iw/task_gui.py:249 iw/task_gui.py:429
+#: iw/task_gui.py:250 iw/task_gui.py:431
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "మీరు HTTP, HTTPS, లేదా FTP URL ను రిపోజిటరికి సమకూర్చాలి."
 
-#: iw/task_gui.py:270 iw/task_gui.py:438
+#: iw/task_gui.py:271 iw/task_gui.py:440
 msgid "No Media Found"
 msgstr "ఏ మాధ్యమం కనబడలేదు"
 
-#: iw/task_gui.py:271 iw/task_gui.py:439
+#: iw/task_gui.py:272 iw/task_gui.py:441
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr "ఎటువంటి సంస్థాపనా మాధ్యమం కనబడలేదు. దయచేసి మీడ్రైవులోకి డిస్కును పెట్టితిరిగి ప్రయత్నించండి."
 
-#: iw/task_gui.py:302 iw/task_gui.py:462
+#: iw/task_gui.py:303 iw/task_gui.py:464
 msgid "Please enter an NFS server and path."
 msgstr "దయచేసి NFS సేవికను మరియు పాత్‌ను ప్రవేశపెట్టండి."
 
-#: iw/task_gui.py:320
+#: iw/task_gui.py:322
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3522,23 +3542,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: iw/task_gui.py:343
+#: iw/task_gui.py:345
 msgid "Invalid Repository Name"
 msgstr "చెల్లని సురక్షిత స్థానం నామము"
 
-#: iw/task_gui.py:344
+#: iw/task_gui.py:346
 msgid "You must provide a repository name."
 msgstr "మీరు తప్పకుండా సురక్షిత స్థానం నామమును సమకూర్చాలి."
 
-#: iw/task_gui.py:494 ui/addrepo.glade.h:3
+#: iw/task_gui.py:496 ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "సురక్షిత స్థానాన్ని కలుపు"
 
-#: iw/task_gui.py:499
+#: iw/task_gui.py:501
 msgid "No Software Repos Enabled"
 msgstr "ఎటువంటి సాఫ్టువేరు రెపోలు చేతనం చేయబడిలేవు."
 
-#: iw/task_gui.py:500
+#: iw/task_gui.py:502
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3575,8 +3595,8 @@ msgstr "ఈ సంస్థాపిక ప్రస్తుతం మీ క�
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on %"
-"(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on "
+"%(bootDev)s."
 msgstr "ఈ సంస్థాపిక ప్రస్తుతం %(bootDev)sలో సంస్థాపించబడిన %(type)s బూట్ లోడర్‌ను గుర్తించినది."
 
 #: iw/upgrade_bootloader_gui.py:142
@@ -3619,14 +3639,14 @@ msgstr "ఫైలు వ్యవస్థని వలస పంపు"
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in %(productName)"
-"s.  This installation program can migrate formatted partitions without data "
-"loss.\n"
+"several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
+"without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%(productName)s యొక్క ఈ విడుదల నవీకరించిన దస్త్ర విధానానికి మద్దతిస్తుంది,  ఇది సాంప్రదాయకంగా %"
-"(productName)s లోకి మార్చబడిన దస్త్ర విధానంకన్నా పెక్కు లాభాలను కలిగి ఉంది.  ఈ సంస్థాపనా ప్రోగ్రామ్ "
+"%(productName)s యొక్క ఈ విడుదల నవీకరించిన దస్త్ర విధానానికి మద్దతిస్తుంది,  ఇది సాంప్రదాయకంగా "
+"%(productName)s లోకి మార్చబడిన దస్త్ర విధానంకన్నా పెక్కు లాభాలను కలిగి ఉంది.  ఈ సంస్థాపనా ప్రోగ్రామ్ "
 "రూపీకరించిన విభజనలను డాటా నష్టపోకుండా వలస పంపగలదు.\n"
 "\n"
 "ఈ విభజనలలో దేన్ని మీరు వలస పంపాలనుకుంటున్నారు?"
@@ -3639,8 +3659,8 @@ msgstr "Swap విభజనని నవీకరించు"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have %"
-"dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have "
+"%dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "(2.4 కెర్నల్ లేక క్రొత్త) పాత కెర్నల్ కంటే గుర్తించదగ్గ ఎక్కువ swap అవసరమౌతుంది,కంప్యూటర్లో ఉన్న "
@@ -3679,7 +3699,8 @@ msgstr "వాడని ఖాళీ (MB)"
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
-msgstr "మీ swap file కనీసం %d MB ఉండటానికి ఆమోదించబడిందా.  దయచేసి swap file పరిమాణాన్ని ప్రవేశపెట్టండి:"
+msgstr ""
+"మీ swap file కనీసం %d MB ఉండటానికి ఆమోదించబడిందా.  దయచేసి swap file పరిమాణాన్ని ప్రవేశపెట్టండి:"
 
 #: iw/upgrade_swap_gui.py:171
 msgid "Swap file _size (MB):"
@@ -3702,7 +3723,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap ఫైలు పరిమాణంలో తప్పక 1 మరియూ 2000MBల మధ్య ఉండాలి."
 
 #: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:187
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "swap విభజనకు మీరు ఎన్నుకున్న సాధనంలో తగినంత ఖాళీ లేదు."
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
@@ -3823,7 +3845,8 @@ msgstr ""
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
-msgstr "%s CD మీ ఏ CDROM డ్రైవులోనూ కనుగొనబడలేదు.దయచేసి %s CDని ఉంచిపునఃప్రారంభించటానికి %s ను నొక్కండి."
+msgstr ""
+"%s CD మీ ఏ CDROM డ్రైవులోనూ కనుగొనబడలేదు.దయచేసి %s CDని ఉంచిపునఃప్రారంభించటానికి %s ను నొక్కండి."
 
 #: loader/cdinstall.c:248
 msgid "Disc Found"
@@ -3859,7 +3882,8 @@ msgstr "CD పరికరము %sపైన సంస్థాపనా ప్�
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
-msgstr "%s CD మీ ఏ CDROM డ్రైవులోనూ కనుగొనబడలేదు.దయచేసి %s CDని ఉంచిపునఃప్రారంభించటానికి %s ను నొక్కండి."
+msgstr ""
+"%s CD మీ ఏ CDROM డ్రైవులోనూ కనుగొనబడలేదు.దయచేసి %s CDని ఉంచిపునఃప్రారంభించటానికి %s ను నొక్కండి."
 
 #: loader/cdinstall.c:430
 msgid "Disc Not Found"
@@ -3869,8 +3893,8 @@ msgstr "డిస్కు కనుగొనబడలేదు"
 #: loader/driverdisk.c:524 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
-#: loader/loader.c:1386 loader/loader.c:1419 loader/net.c:599 loader/net.c:970
-#: loader/net.c:1860 loader/net.c:1879 loader/nfsinstall.c:91
+#: loader/loader.c:1402 loader/loader.c:1435 loader/net.c:603 loader/net.c:971
+#: loader/net.c:1897 loader/net.c:1916 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -3901,7 +3925,8 @@ msgstr "డ్రైవర్ డిస్కు మూలం"
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr "డ్రైవర్ డిస్కు మూలాలుగా పనిచేసే సాధనా బాహుళ్యాన్ని మీరు కలిగి ఉన్నారు.  మీరు దేన్ని ఉపయోగించాలనుకుంటున్నారు?"
+msgstr ""
+"డ్రైవర్ డిస్కు మూలాలుగా పనిచేసే సాధనా బాహుళ్యాన్ని మీరు కలిగి ఉన్నారు.  మీరు దేన్ని ఉపయోగించాలనుకుంటున్నారు?"
 
 #: loader/driverdisk.c:439
 msgid ""
@@ -3981,7 +4006,7 @@ msgstr "మీరు ఏమైనా డ్రైవర్ డిస్కుల
 #: loader/driverdisk.c:711 loader/driverdisk.c:750 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1559 loader/net.c:1580
+#: loader/modules.c:398 loader/net.c:1568 loader/net.c:1589
 #: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
@@ -4025,7 +4050,8 @@ msgstr "డ్రైవర్ డిస్కును లోడు చేయి
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "మానవీయంగా చొప్పించటానికి ఏ డ్రైవరులూ కనుగొనబడలేదు.  మీరు డ్రైవర్ డిస్కును ఉపయోగించాలనుకుంటున్నారా?"
+msgstr ""
+"మానవీయంగా చొప్పించటానికి ఏ డ్రైవరులూ కనుగొనబడలేదు.  మీరు డ్రైవర్ డిస్కును ఉపయోగించాలనుకుంటున్నారా?"
 
 #: loader/driverselect.c:170
 msgid ""
@@ -4157,7 +4183,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s కు %s కొరకు స్వాగతము - పరిరక్షణ రీతిన"
 
 #: loader/lang.c:65 loader/loader.c:251
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> మూలకాలమద్య  | <Space> ఎన్నికలు | <F12> తదుపరి screen "
 
 #: loader/lang.c:370
@@ -4234,43 +4261,43 @@ msgstr "నవీకరణాల ప్రతిబింబాన్ని ద�
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "కంప్యూటరులో %sను సంస్థాపించటానికి మీరు తగినంత RAMని కలిగిలేరు."
 
-#: loader/loader.c:1253
+#: loader/loader.c:1259
 msgid "Media Detected"
 msgstr "మాధ్యమం కనిపెట్టబడింది"
 
-#: loader/loader.c:1254
+#: loader/loader.c:1260
 msgid "Found local installation media"
 msgstr "స్థానిక సంస్థాపనా మాధ్యమాన్ని కనుగొన్నది"
 
-#: loader/loader.c:1378
+#: loader/loader.c:1394
 msgid "Rescue Method"
 msgstr "పరిరక్షణ పద్దతి"
 
-#: loader/loader.c:1379
+#: loader/loader.c:1395
 msgid "Installation Method"
 msgstr "సంస్థాపనా విధానం"
 
-#: loader/loader.c:1381
+#: loader/loader.c:1397
 msgid "What type of media contains the rescue image?"
 msgstr "ఏ మాధ్యమ వర్గం పరిరక్షణ ప్రతిబింబాన్ని కలిగిఉంది?"
 
-#: loader/loader.c:1383
+#: loader/loader.c:1399
 msgid "What type of media contains the installation image?"
 msgstr "ఏ మాధ్యమ వర్గం పరిరక్షణ ప్రతిబింబాన్ని కలిగిఉంది?"
 
-#: loader/loader.c:1418
+#: loader/loader.c:1434
 msgid "No driver found"
 msgstr "డ్రైవరు కనుగొనబడలేదు"
 
-#: loader/loader.c:1418
+#: loader/loader.c:1434
 msgid "Select driver"
 msgstr "డ్రైవరును ఎన్నుకో"
 
-#: loader/loader.c:1419
+#: loader/loader.c:1435
 msgid "Use a driver disk"
 msgstr "ఒక డ్రైవర్ డిస్కును ఉపయోగించు"
 
-#: loader/loader.c:1420
+#: loader/loader.c:1436
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4278,39 +4305,40 @@ msgstr ""
 "ఈ సంస్థాపనా రకానికి కావలసిన సాధనా వర్గాన్ని కనుగొన లేము.  మీరు మీ డ్రైవరును మానవీయంగానే "
 "ఎన్నుకోవాలనుకుంటున్నారా లేక ఒక డ్రైవర్ డిస్కును ఉపయోగించాలనుకుంటున్నారా?"
 
-#: loader/loader.c:1650
+#: loader/loader.c:1666
 msgid "The following devices have been found on your system."
 msgstr "మీ కంప్యూటరులో కింది డ్రైవులు కనుగొనబడుతున్నాయి."
 
-#: loader/loader.c:1652
+#: loader/loader.c:1668
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr "మీ కంప్యూటరులో ఏ ఉపకరణ డ్రైవులూ లోడుచేయబడలేదు.  వేటినైనా మీరు ఇప్పుడు లోడు చేయాలనుకుంటున్నారా?"
+msgstr ""
+"మీ కంప్యూటరులో ఏ ఉపకరణ డ్రైవులూ లోడుచేయబడలేదు.  వేటినైనా మీరు ఇప్పుడు లోడు చేయాలనుకుంటున్నారా?"
 
-#: loader/loader.c:1656
+#: loader/loader.c:1672
 msgid "Devices"
 msgstr "పరికరములు"
 
-#: loader/loader.c:1657
+#: loader/loader.c:1673
 msgid "Done"
 msgstr "అయినది"
 
-#: loader/loader.c:1658
+#: loader/loader.c:1674
 msgid "Add Device"
 msgstr "పరికరాన్ని కలుపుము"
 
-#: loader/loader.c:1936
+#: loader/loader.c:1952
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "లోడర్ ఇప్పటికే నడుస్తోంది.  షెల్‌ని ప్రారంభిస్తోంది.\n"
 
-#: loader/loader.c:2396
+#: loader/loader.c:2412
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "anaconda %s నడుస్తున్నది, %s పరిరక్షణ రీతిన - దయచేసి వేచివుండండి.\n"
 
-#: loader/loader.c:2398
+#: loader/loader.c:2414
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "anaconda %s నడుస్తున్నది, %s సిస్టమ్ సంస్థాపకి - దయచేసి వేచివుండండి.\n"
@@ -4401,12 +4429,12 @@ msgstr ""
 "IPv4 నెట్వర్కుల కోసం Prefix  తప్పక 1 మరియూ 32ల మధ్య ఉండాలి లేదా IPv6 నెట్వర్కుల కోసం 1 మరియూ "
 "128ల మధ్య ఉండాలి"
 
-#: loader/net.c:484 loader/net.c:492 loader/net.c:547
+#: loader/net.c:488 loader/net.c:496 loader/net.c:551
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr "మీ నెట్వర్కు అంతర్ముఖాన్ని ఆకృతీకరించటంలో ఒక దోషం."
 
-#: loader/net.c:486
+#: loader/net.c:490
 #, c-format
 msgid ""
 "\n"
@@ -4417,59 +4445,59 @@ msgstr ""
 "ఇది cmdline రీతినందు సరిదిద్దబడలేదు.\n"
 "నిలిపివేయబడుతోంది.\n"
 
-#: loader/net.c:491 loader/net.c:546
+#: loader/net.c:495 loader/net.c:550
 msgid "Network Error"
 msgstr "నెట్వర్కు దోషం"
 
-#: loader/net.c:577 textw/netconfig_text.py:133
+#: loader/net.c:581 textw/netconfig_text.py:133
 msgid "Enable IPv4 support"
 msgstr "IPv4 మద్దతు అసాధ్యం"
 
-#: loader/net.c:591
+#: loader/net.c:595
 msgid "Enable IPv6 support"
 msgstr "IPv6 మద్దతు అసాధ్యం"
 
-#: loader/net.c:631
+#: loader/net.c:635
 msgid "Configure TCP/IP"
 msgstr "నిర్ధారణ TCP/IP"
 
-#: loader/net.c:688
+#: loader/net.c:692
 msgid "Missing Protocol"
 msgstr "తప్పిన ఒడంబడిక"
 
-#: loader/net.c:689
+#: loader/net.c:693
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "మీరు తప్పక కనీసం ఒక ఒడంబడిక(IPv4 or IPv6)ను ఎన్నుకోవాలి."
 
-#: loader/net.c:696
+#: loader/net.c:700
 msgid "IPv4 Needed for NFS"
 msgstr "NFS కోసం IPv4 అవసరం"
 
-#: loader/net.c:697
+#: loader/net.c:701
 msgid "NFS installation method requires IPv4 support."
 msgstr "NFS సంస్థాపనా విధానానికి IPv4 మద్దతు అవసరం."
 
-#: loader/net.c:796
+#: loader/net.c:797
 msgid "IPv4 address:"
 msgstr "IPv4 చిరునామాలు:"
 
-#: loader/net.c:808 loader/net.c:875
+#: loader/net.c:809 loader/net.c:876
 msgid "/"
 msgstr "/"
 
-#: loader/net.c:863
+#: loader/net.c:864
 msgid "IPv6 address:"
 msgstr "IPv6 చిరునామాలు:"
 
-#: loader/net.c:929 textw/netconfig_text.py:160
+#: loader/net.c:930 textw/netconfig_text.py:160
 msgid "Gateway:"
 msgstr "గేట్‌వే:"
 
-#: loader/net.c:937
+#: loader/net.c:938
 msgid "Name Server:"
 msgstr "నేమ్ సర్వర్"
 
-#: loader/net.c:976
+#: loader/net.c:977
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -4479,43 +4507,44 @@ msgstr ""
 "డాటెడ్-క్వాడ్ నెట్మాస్కు లేదా CIDR-స్టైల్ పురస్సర్గ సరైనవి.గేట్వే మరియు నేమ్ సర్వర్ క్షేత్రాలు IPv4 లేక IPv6 "
 "చిరునామాలను తప్పక సరిచూడాలి."
 
-#: loader/net.c:993
+#: loader/net.c:994
 msgid "Manual TCP/IP Configuration"
 msgstr "మానవీయ TCP/IP ఆకృతీకరణ"
 
-#: loader/net.c:1117 loader/net.c:1125
+#: loader/net.c:1118 loader/net.c:1126
 msgid "Missing Information"
 msgstr "తప్పిపోయిన సమాచారం"
 
-#: loader/net.c:1118
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+#: loader/net.c:1119
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "ఒక విలువైన IPv4 చిరునామాలూ మరియూ ఒక నెట్వర్కు మాస్కు లేదా CIDR prefix మీరు తప్పక రెంతినీ "
 "ప్రవేశపెట్టాలి."
 
-#: loader/net.c:1126
+#: loader/net.c:1127
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "మీరు తప్పక సరైన IPv6 మరియూ CIDR పురస్సర్గలను ప్రవేశపెట్టాలి."
 
-#: loader/net.c:1560
+#: loader/net.c:1569
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "కిక్‌స్టార్ట్ నెట్వర్కు కమాండ్‌కు చెడ్డ ఆర్గుమెంట్: %s"
 
-#: loader/net.c:1581
+#: loader/net.c:1590
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "చెడ్డ bootproto %s నెట్వర్కు ఆదేశంలో తెలుపబడింది"
 
-#: loader/net.c:1658
+#: loader/net.c:1695
 msgid "Seconds:"
 msgstr "సెకనులు:"
 
-#: loader/net.c:1855
+#: loader/net.c:1892
 msgid "Networking Device"
 msgstr "నెట్వర్కింగు సాధనం"
 
-#: loader/net.c:1856
+#: loader/net.c:1893
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -4523,15 +4552,15 @@ msgstr ""
 "మీరు ఈ కంప్యూటరులో పెక్కు నెట్వర్కు సాధనాలను కలిగి ఉన్నారు. మీరు దెనిగుండా సంస్థాపన "
 "చేయాలనుకుంటున్నారు?"
 
-#: loader/net.c:1860
+#: loader/net.c:1897
 msgid "Identify"
 msgstr "గుర్తింపు"
 
-#: loader/net.c:1869
+#: loader/net.c:1906
 msgid "You can identify the physical port for"
 msgstr "దీని ఫిజికల్ పోర్టును మీరు గుర్తించగలరు"
 
-#: loader/net.c:1871
+#: loader/net.c:1908
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
@@ -4539,24 +4568,24 @@ msgstr ""
 "కొన్ని సెకనులపాటు LED లేటులను మెరిపించుట ద్వారా.  LED పోర్టు లైటులను మెరిపించుకాలపరిమాణమును "
 "అమర్చుటకు 1 మరియు 30 మద్య సంఖ్యను ప్రవేశపెట్టుము."
 
-#: loader/net.c:1878
+#: loader/net.c:1915
 msgid "Identify NIC"
 msgstr "NIC గుర్తించుము"
 
-#: loader/net.c:1891
+#: loader/net.c:1928
 msgid "Invalid Duration"
 msgstr "చెల్లని కాలపరిమాణము"
 
-#: loader/net.c:1892
+#: loader/net.c:1929
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "మీరు సెకనుల సంఖ్యను తప్పక పూర్ణాంకమువలె 1 మరియు 30 మద్య ప్రవేశపెట్టవలెను."
 
-#: loader/net.c:1904
+#: loader/net.c:1941
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "%s పోర్టు లైటులను %d సెకనుల పాటు మెరిపించుచున్నది."
 
-#: loader/net.c:2072 loader/net.c:2076
+#: loader/net.c:2109 loader/net.c:2113
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "%sను ఆకృతీకరించుటకు నెట్వర్కునిర్వాహిక కొరకు వేచిచూస్తోంది.\n"
@@ -4642,7 +4671,8 @@ msgstr "పునఃసమ్పాదన"
 
 #: loader/urls.c:262
 #, c-format
-msgid "Please enter the URL containing the %s installation image on your server."
+msgid ""
+"Please enter the URL containing the %s installation image on your server."
 msgstr "మీ సేవికనందు %s ప్రతిబింబములను కలిగివున్న URLను దయచేసి ప్రవేశపెట్టండి."
 
 #: loader/urls.c:280
@@ -4733,11 +4763,11 @@ msgstr ""
 "మీరు బ్లాక్ పరికరము ఎన్క్రిప్షన్‌ను చేతనపరచాలని తెలిపినారు, అయితే మీరు సంకేతపదమను ప్రవేశపెట్టలేదు.మీరు "
 "వెనుకకు వెళ్ళి సంకేతపదమును యివ్వకపోతే, బ్లాక్ పరికరము ఎన్క్రిప్షన్ అచేతనము చేయబడుతుంది."
 
-#: storage/__init__.py:171
+#: storage/__init__.py:174
 msgid "Writing storage configuration to disk"
 msgstr "నిల్వ ఆకృతీకరణను డిస్కునకు వ్రాయుచున్నది"
 
-#: storage/__init__.py:172
+#: storage/__init__.py:175
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -4745,62 +4775,62 @@ msgstr ""
 "మీరు ఎంపికచేసుకొనిన విభజనీకరణ ఐచ్చికాలు ఇప్పుడు డిస్కుకు వ్రాయబడతాయి.  తొలగించిన లేదా పునఃరూపాతరం "
 "చేసిన విభజనల నందలి ఏడాటాయైనా పోతుంది"
 
-#: storage/__init__.py:177
+#: storage/__init__.py:180
 msgid "Go _back"
 msgstr "వెనుకకు వెళ్ళు(_b)"
 
-#: storage/__init__.py:178
+#: storage/__init__.py:181
 msgid "_Write changes to disk"
 msgstr "మార్పులను డిస్క్‍‌కు వ్రాయుము(_W)"
 
-#: storage/__init__.py:197
+#: storage/__init__.py:200
 msgid "Running..."
 msgstr "నడుచుచున్నది..."
 
-#: storage/__init__.py:198
+#: storage/__init__.py:201
 msgid "Storing encryption keys"
 msgstr "ఎన్క్రిప్షన్ కీలను నిల్వవుంచుతోంది"
 
-#: storage/__init__.py:214
+#: storage/__init__.py:217
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "ఎన్క్రిప్షన్ కీను నిల్వవుంచుటలో దోషము: %s\n"
 
-#: storage/__init__.py:358
+#: storage/__init__.py:362
 msgid "Examining Devices"
 msgstr "పరికరాలను పరీక్షించుచున్నది"
 
-#: storage/__init__.py:359
+#: storage/__init__.py:363
 msgid "Examining storage devices"
 msgstr "నిల్వ పరికరాలను పరీక్షించుచున్నది"
 
-#: storage/__init__.py:638
+#: storage/__init__.py:642
 msgid "This partition is holding the data for the hard drive install."
 msgstr "హార్డ్ డ్రైవు సంస్థాపనకు ఈ విభజన సమాచారాన్ని కలిగిఉంది."
 
-#: storage/__init__.py:643
+#: storage/__init__.py:647
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "LDLచే రూపాంతరము చేసిన DASD విభాగాన్ని మీరు తొలగించలెరు."
 
-#: storage/__init__.py:649
+#: storage/__init__.py:653
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "ఈ పరికము RAID పరికరము %s నందు భాగము"
 
-#: storage/__init__.py:652
+#: storage/__init__.py:656
 msgid "This device is part of a RAID device."
 msgstr "ఈ పరికరము RAID పరికరము నందు భాగము."
 
-#: storage/__init__.py:657
+#: storage/__init__.py:661
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "ఈ పరికరము LVM వాల్యూమ్ సమూహము '%s' నందు బాగము."
 
-#: storage/__init__.py:660
+#: storage/__init__.py:664
 msgid "This device is part of a LVM volume group."
 msgstr "ఈ పరికరము LVM వాల్యూమ్ సమూహము నందు బాగము."
 
-#: storage/__init__.py:676
+#: storage/__init__.py:680
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -4809,21 +4839,21 @@ msgstr ""
 "ఈ పరికరము తొలగించుటకు వీలుకాని లాజికల్ విభజనలను కలిగివున్న పొడిగింపు విభజనది:\n"
 "\n"
 
-#: storage/__init__.py:951
+#: storage/__init__.py:955
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr "%s సంస్థాపన కొనసాగింపుకి అవసరమైన, root విభజన (/)ను మీరు నిర్వచించలేదు."
 
-#: storage/__init__.py:956
+#: storage/__init__.py:960
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "మీ మూల(root) విభజన 250 మెగాబైట్లకన్నా తక్కువగా ఉంది. ఇది సంస్థాపనకు చాలా తక్కువైంది.%s."
 
-#: storage/__init__.py:962
+#: storage/__init__.py:966
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -4832,12 +4862,12 @@ msgstr ""
 "మీ / విభజన %(min)s MB కన్నా తక్కువగావుంది అది సాదారణ %(productName)s సంస్థాపనకు సిఫారసు "
 "చేయబడిన దానికన్నా తక్కువ."
 
-#: storage/__init__.py:969
+#: storage/__init__.py:973
 #, python-format
 msgid "Placing the root partition on an XFS filesystem is not supported in %s."
 msgstr "root విభజనను XFS ఫైల్‌సిస్టమ్ నందు వుంచుట %s నందు మద్దతించబడదు."
 
-#: storage/__init__.py:977
+#: storage/__init__.py:981
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -4846,7 +4876,7 @@ msgstr ""
 "మీరు సంస్థాపించునటువంటి లైవ్ ప్రతిబింబము(ఇమేజ్)తో మీ / విభజన సరిపోలదు.  ఇది తప్పక %s వలె ఫార్మాట్ "
 "చేయబడివుండాలి."
 
-#: storage/__init__.py:984
+#: storage/__init__.py:988
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -4855,11 +4885,13 @@ msgstr ""
 "మీ %(mount)s విభజన %(size)s మెగాబైట్లకంటె తక్కువ ఉంది. %(productName)s సాధారణ సంస్థాపనకు "
 "తక్కువ మద్దతిచ్చేది."
 
-#: storage/__init__.py:1013
-msgid "Installing on a USB device.  This may or may not produce a working system."
-msgstr "USB ఉపకరణంలో సంస్థాపిస్తోంది.  ఇది పనిచేసే కంప్యూటరుని సమకూర్చనూవచ్చు, సమకూర్చకుండానూ ఉండవచ్చు."
+#: storage/__init__.py:1017
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
+msgstr ""
+"USB ఉపకరణంలో సంస్థాపిస్తోంది.  ఇది పనిచేసే కంప్యూటరుని సమకూర్చనూవచ్చు, సమకూర్చకుండానూ ఉండవచ్చు."
 
-#: storage/__init__.py:1016
+#: storage/__init__.py:1020
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -4867,7 +4899,7 @@ msgstr ""
 "Fire Wire ఉపకరణంలో సంస్థాపిస్తోంది.  ఇది పనిచేసే కంప్యూటరుని సమకూర్చనూవచ్చు, సమకూర్చకుండానూ "
 "ఉండవచ్చు.స్"
 
-#: storage/__init__.py:1023
+#: storage/__init__.py:1027
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
@@ -4875,7 +4907,7 @@ msgstr ""
 "మీరు swap విభజనను తెలుపలేదు.  ఉన్నటువంటి మెమొరీ ప్రకారంగా, సంస్థాపనను పూర్తిచేయుటకు swap విభజన "
 "అవసరము."
 
-#: storage/__init__.py:1028
+#: storage/__init__.py:1032
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -4883,21 +4915,22 @@ msgstr ""
 "మీరు swap విభజనను తెలుపలేదు.  అన్ని సమయాలలోనూ తప్పక అవసరంకాకపోవచ్చు, ఇది ఎక్కువ సంస్థాపనలకు "
 "గుర్తించదగ్గ పాత్రని కలిగి ఉంది."
 
-#: storage/__init__.py:1035
+#: storage/__init__.py:1039
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ఈ మరల్పు కేంద్రము చెల్లనిది. %s డైరెక్టరీ తప్పక / దస్త్ర వ్యవస్థనందు వుండాలి."
 
-#: storage/__init__.py:1039
+#: storage/__init__.py:1043
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "మరల్పు కేంద్రము %s తప్పక లైనక్సు దస్త్ర వ్యవస్థనందు వుండాలి."
 
-#: storage/__init__.py:1050
+#: storage/__init__.py:1054
 msgid "No Drives Found"
 msgstr "ఏ డ్రైవులు కనుగొనబడలేదు"
 
-#: storage/__init__.py:1051
+#: storage/__init__.py:1055
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -4905,11 +4938,11 @@ msgstr ""
 "దోషం సంభవించింది - కొత్త ఫైల్ వ్యవస్థని సృష్టించే సాధనం కనుగొనబడలేదు. దయచేసి మీ హర్డువేరుని ఈ కారణంగా "
 "ఒకసారి పరిశీలించండి."
 
-#: storage/__init__.py:1344 storage/__init__.py:1353
+#: storage/__init__.py:1348 storage/__init__.py:1357
 msgid "Dirty File Systems"
 msgstr "చెడ్ద ఫైళ్ల విధానం"
 
-#: storage/__init__.py:1345
+#: storage/__init__.py:1349
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4921,7 +4954,7 @@ msgstr ""
 "చేయండి, ఫైలు వ్యవస్థని పరిశీలించనివ్వండి మరియూ నవీకరణలను పూర్తిగా మూసివేయండి.\n"
 "%s"
 
-#: storage/__init__.py:1354
+#: storage/__init__.py:1358
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4932,7 +4965,7 @@ msgstr ""
 "మరల్చాలనుకుంటున్నారా?\n"
 "%s"
 
-#: storage/__init__.py:1831
+#: storage/__init__.py:1835
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4948,7 +4981,7 @@ msgstr ""
 "అనునది పాత-శైలి లైనక్సు స్వాప్ విభజన.  మీరు ఈ పరికరమును స్వాప్ జాగా కొరకు వుపయోగించాలని అనుకొంటే, "
 "మీరు కొత్త-శైలి లైనక్సు స్వాప్ విభజనవలె రీఫార్మాట్ చేయవలసివుంటుంది."
 
-#: storage/__init__.py:1842
+#: storage/__init__.py:1846
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4966,7 +4999,7 @@ msgstr ""
 "మీ /etc/fstab ఫైలులో ప్రస్తుతానికి సాఫ్టువేరు చేత బహిష్కరింపబడ్డ విభజనగా ఉపయోగంలో ఉంది, అంటే మీ "
 "సిస్టము హైబర్నెటు అవుచున్నది. నవీకరణను జరుపుటకు, దాన్ని హైబర్నేటింగులో ఉంచేకంటే మూసివేయండి.మూయండి."
 
-#: storage/__init__.py:1850
+#: storage/__init__.py:1854
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4985,7 +5018,7 @@ msgstr ""
 "కంప్యూటరు క్రియాసూన్యంగా ఉంది. మీరు కొత్త సంస్థాపన చేయాలనుకుంటే, సంస్థాపిక అన్ని swap విభజనల్నీ "
 "రూపాంతరించి అమర్చవలసి ఉంటుంది."
 
-#: storage/__init__.py:1862
+#: storage/__init__.py:1866
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5002,7 +5035,7 @@ msgstr ""
 "మద్దతు swap వాల్యూమ్‌ను కలిగిలేదు.  సంస్థాపనను కొనసాగించుటకు, మీరు పరికరమును ఫార్మాట్ "
 "చేయవలసివుంటుంది లేదా దానిని దాటవేయండి."
 
-#: storage/__init__.py:1873
+#: storage/__init__.py:1877
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5018,7 +5051,7 @@ msgstr ""
 "\n"
 "సంస్థాపికను నిష్క్రమించుటకు సరేను వత్తండి"
 
-#: storage/__init__.py:1880
+#: storage/__init__.py:1884
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5033,11 +5066,11 @@ msgstr ""
 "\n"
 "సంస్థాపికనుండి బయటకు వచ్చుటకు సరే నొక్కండి."
 
-#: storage/__init__.py:1943 storage/__init__.py:1955
+#: storage/__init__.py:1947 storage/__init__.py:1959
 msgid "Invalid mount point"
 msgstr "చెల్లని మరల్పు కేంద్రం"
 
-#: storage/__init__.py:1944
+#: storage/__init__.py:1948
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5050,7 +5083,7 @@ msgstr ""
 "\n"
 "మీ కంప్యూటరును పునఃప్రారంభించటానికి <Enter> నొక్కండి."
 
-#: storage/__init__.py:1956
+#: storage/__init__.py:1960
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5063,11 +5096,11 @@ msgstr ""
 "\n"
 "సంస్థాపికను నిష్క్రమించుటకు <Enter> నొక్కండి."
 
-#: storage/__init__.py:1972 storage/__init__.py:1996
+#: storage/__init__.py:1976 storage/__init__.py:2000
 msgid "Unable to mount filesystem"
 msgstr "పైళ్లవిధానం మరల్పు అసాధ్యం"
 
-#: storage/__init__.py:1973
+#: storage/__init__.py:1977
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5076,7 +5109,7 @@ msgstr ""
 "%(path)s సాధనాన్ని %(mountpoint)s గా మరల్చటంలో ఒక దోషం సంభవించింది.  మీరు సంస్థాపనను "
 "కొనసాగించవచ్చు, కానీ అక్కడ యిబ్బందులు వుండవచ్చు."
 
-#: storage/__init__.py:1997
+#: storage/__init__.py:2001
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5112,23 +5145,23 @@ msgstr "%s కొరకు vginfo విఫలమైంది"
 msgid "lvs failed for %s"
 msgstr "%s కొరకు lvs విఫలమైంది"
 
-#: storage/devices.py:1264 storage/devices.py:1962 storage/devices.py:2378
-#: storage/devices.py:2871 storage/devices.py:3344
+#: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
+#: storage/devices.py:2903 storage/devices.py:3377
 msgid "Creating"
 msgstr "సృష్టించుచున్నది"
 
-#: storage/devices.py:1265 storage/devices.py:1963 storage/devices.py:2379
-#: storage/devices.py:2872
+#: storage/devices.py:1297 storage/devices.py:1995 storage/devices.py:2411
+#: storage/devices.py:2904
 #, python-format
 msgid "Creating device %s"
 msgstr "పరికరము %sను సృష్టించుచున్నది"
 
-#: storage/devices.py:2472
+#: storage/devices.py:2504
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "RAID%d సమితికి కనీసం %d సభ్యులు కావలెను"
 
-#: storage/devices.py:3345
+#: storage/devices.py:3378
 #, python-format
 msgid "Creating file %s"
 msgstr "%s ఫైలును సృష్టించుట"
@@ -5149,7 +5182,7 @@ msgstr ""
 "\n"
 "మీరు ఈ అంచెను వదిలివేసినట్లైతే పరికరం యొక్క సారములు సంస్థాపనా సమయమందు అందుబాటులో ఉండవు."
 
-#: storage/devicetree.py:1897 storage/devicetree.py:1945
+#: storage/devicetree.py:1905 storage/devicetree.py:1953
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "ఈ విభజన వొక స్థిరత్వంలేని LVM వాల్యూమ్ సమూహంయొక్క భాగము."
 
@@ -5216,7 +5249,7 @@ msgstr ""
 "మిమ్ములను అనుమతించు వేరకొ సిస్టమ్‌కు కాని లేదా రెస్క్యూ మోడ్‌కు గాని పునఃప్రారంభించుము.  ఫైల్‌సిస్టమ్ పైని "
 "సమస్యలను మీరు సరిచేసిన తర్వాత సంస్థాపనను పునఃప్రారంభించుము."
 
-#: storage/formats/fs.py:535 storage/partitioning.py:285
+#: storage/formats/fs.py:535 storage/partitioning.py:286
 msgid "Unrecoverable Error"
 msgstr "తిరిగి సరిచేసుకోలేని దోషం"
 
@@ -5304,7 +5337,7 @@ msgstr "ఏ క్రొత్త iSCSI నోడులు కనుగొనబ
 msgid "Could not log in to any of the discovered nodes"
 msgstr "కనుగొనబడిన ఏ నోడుల లోనికి లాగిన్ కాలేక పోయింది"
 
-#: storage/partitioning.py:200
+#: storage/partitioning.py:201
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
@@ -5312,7 +5345,7 @@ msgstr ""
 "స్వయంచాలక విభజనీకరణ కొరకు సరిపోవునంత ఖాళీ జాగాను కనుగొనలేక పోయింది.  సంస్థాపకి నుండి నిష్క్రమించుటకు "
 "'సరే' నొక్కండి."
 
-#: storage/partitioning.py:203
+#: storage/partitioning.py:204
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
@@ -5320,11 +5353,11 @@ msgstr ""
 "స్వయంచాలక విభజనీకరణ కొరకు సరిపోవునంత ఖాళీ జాగాను కనుగొనలేక పోయింది, దయచేసి వేరొక విభజనీకరణ పద్దతిని "
 "వుపయోగించండి."
 
-#: storage/partitioning.py:232
+#: storage/partitioning.py:233
 msgid "Warnings During Automatic Partitioning"
 msgstr "స్వయంచాలక విభజనప్పుడు దోషాలు"
 
-#: storage/partitioning.py:234
+#: storage/partitioning.py:235
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5335,7 +5368,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: storage/partitioning.py:248 storage/partitioning.py:269
+#: storage/partitioning.py:249 storage/partitioning.py:270
 msgid ""
 "\n"
 "\n"
@@ -5345,7 +5378,7 @@ msgstr ""
 "\n"
 "సంస్థాపననుండి బయటకు వచ్చుటకు 'సరే'ని నొక్కండి."
 
-#: storage/partitioning.py:250
+#: storage/partitioning.py:251
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5356,7 +5389,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: storage/partitioning.py:271
+#: storage/partitioning.py:272
 msgid ""
 "\n"
 "\n"
@@ -5366,11 +5399,11 @@ msgstr ""
 "\n"
 "వేరొక విభజన ఐచ్ఛికాన్ని ఎన్నుకోటానికి 'సరే'ను నొక్కండి."
 
-#: storage/partitioning.py:273
+#: storage/partitioning.py:274
 msgid "Automatic Partitioning Errors"
 msgstr "స్వయంచాలక విభజన దోషాలు"
 
-#: storage/partitioning.py:274
+#: storage/partitioning.py:275
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5421,15 +5454,16 @@ msgstr "WWPN %(wwpn)s అనునది zFCP పరికరము %(devnum)s�
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
-"s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
 "LUN %(fcplun)s ను WWPN %(wwpn)sకు zFCP పరికరము %(devnum)s (%(e)s) పైన "
 "జతచేయలేకపోయింది."
 
 #: storage/zfcp.py:182
 #, python-format
-msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgid ""
+"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
 msgstr ""
 "zFCP పరికరము %(devnum)s పైని WWPN %(wwpn)s వద్ద LUN %(fcplun)s యిప్పటికే "
 "ఆకృతీకరించివుంది."
@@ -5455,20 +5489,20 @@ msgstr ""
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
-"s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
+"%(fcplun)s (%(e)s)."
 msgstr ""
-"zFCP %(devnum)s %(wwpn)s %(fcplun)s యొక్క SCSI పరికరమును సరిగా తొలగించలేకపోయింది (%(e)"
-"s)."
+"zFCP %(devnum)s %(wwpn)s %(fcplun)s యొక్క SCSI పరికరమును సరిగా తొలగించలేకపోయింది "
+"(%(e)s)."
 
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
-"(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
 msgstr ""
-"zFCP పరికరము %(devnum)s పైని WWPN %(wwpn)s వద్దని LUN %(fcplun)sను తీసివేయలేకపోయింది (%"
-"(e)s)."
+"zFCP పరికరము %(devnum)s పైని WWPN %(wwpn)s వద్దని LUN %(fcplun)sను తీసివేయలేకపోయింది "
+"(%(e)s)."
 
 #: storage/zfcp.py:287
 #, python-format
@@ -5641,14 +5675,14 @@ msgstr "కొత్త boot loader ఆకృతీకరణను సృష్�
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in %"
-"(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%(productName)s యొక్క ఈ విడుదల నవీకరించిన దస్త్ర విధానానికి మద్దతిస్తుంది,  ఇది సాంప్రదాయకంగా %"
-"(productName)s లోకి మార్చబడిన దస్త్ర విధానంకన్నా పెక్కు లాభాలను కలిగి ఉంది.  ఈ సంస్థాపనా ప్రోగ్రామ్ "
+"%(productName)s యొక్క ఈ విడుదల నవీకరించిన దస్త్ర విధానానికి మద్దతిస్తుంది,  ఇది సాంప్రదాయకంగా "
+"%(productName)s లోకి మార్చబడిన దస్త్ర విధానంకన్నా పెక్కు లాభాలను కలిగి ఉంది.  ఈ సంస్థాపనా ప్రోగ్రామ్ "
 "రూపీకరించిన విభజనలను డాటా నష్టపోకుండా వలస పంపగలదు.\n"
 "\n"
 "ఈ విభజనలలో దేన్ని మీరు వలస పంపాలనుకుంటున్నారు?"
@@ -5812,7 +5846,8 @@ msgstr "Root సంకేతపదం:"
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr "ఈ root ఖాతా కంప్యూటరు నిర్వహణకు ఉపయోగించబడుతోంది. root వినియోగదారునికోసం సంకేతపదముప్రవేశపెట్టండి."
+msgstr ""
+"ఈ root ఖాతా కంప్యూటరు నిర్వహణకు ఉపయోగించబడుతోంది. root వినియోగదారునికోసం సంకేతపదముప్రవేశపెట్టండి."
 
 #: ui/adddrive.glade.h:1
 msgid "Add _FCoE SAN"
@@ -5863,7 +5898,8 @@ msgstr ""
 "Hard Drive"
 
 #: ui/addrepo.glade.h:9
-msgid "Please provide the configuration information for this software repository."
+msgid ""
+"Please provide the configuration information for this software repository."
 msgstr "దయచేసి ఈ సాఫ్టువేరు రిపోజిటరీకు ఆకృతీకరణ సమాచారమును అందివ్వుము."
 
 #: ui/addrepo.glade.h:10
@@ -5931,7 +5967,8 @@ msgid "Volume to Shrink"
 msgstr "కుదింపవలసిన వాల్యూమ్"
 
 #: ui/autopart.glade.h:4
-msgid "Which partition would you like to shrink to make room for your installation?"
+msgid ""
+"Which partition would you like to shrink to make room for your installation?"
 msgstr "మీ సంస్థాపనకు జాగా కొరకు ఏ విభజనను కుదింప వలెనని అనుకొనుచున్నారు?"
 
 #: ui/autopart.glade.h:5
@@ -6004,8 +6041,10 @@ msgstr ""
 "సూచించుము. ఏ సిస్టమ్ డ్రైవు బూట్‌లోడర్ సంస్థాపనను కలిగివుండాలో దయచేసి సూచించుము."
 
 #: ui/create-storage.glade.h:1
-msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
-msgstr "<span size=\"small\" color=\"gray\">ఒక RAID ఫార్మాటెడ్ విభజనను సృష్టించుము</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">ఒక RAID ఫార్మాటెడ్ విభజనను సృష్టించుము</span>"
 
 #: ui/create-storage.glade.h:2
 msgid ""
@@ -6016,24 +6055,29 @@ msgstr ""
 "సృష్టించుము</span>"
 
 #: ui/create-storage.glade.h:3
-msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
-msgstr "<span size=\"small\" color=\"gray\">ఒక LVM ఫార్మాటెడ్ విభజనను సృష్టించుము</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">ఒక LVM ఫార్మాటెడ్ విభజనను సృష్టించుము</span>"
 
 #: ui/create-storage.glade.h:4
-msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">సాధారణ ప్రయోజనాత్మక విభజన సృష్టీకరణ</span>"
 
 #: ui/create-storage.glade.h:5
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
 "partition</span>"
-msgstr "<span size=\"small\" color=\"gray\">LVM ఫార్మాట్ చేసిన ఖాళీ విభజన కనీసం 1 కావాలి</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">LVM ఫార్మాట్ చేసిన ఖాళీ విభజన కనీసం 1 కావాలి</span>"
 
 #: ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated "
 "partitions</span>"
-msgstr "<span size=\"small\" color=\"gray\">RAID ఫార్మాట్ చేసిన ఖాళీ విభజనలు కనీసం 2 కావాలి</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">RAID ఫార్మాట్ చేసిన ఖాళీ విభజనలు కనీసం 2 కావాలి</span>"
 
 #: ui/create-storage.glade.h:7
 msgid "Create"
@@ -6257,7 +6301,8 @@ msgstr "లక్ష్యాన్ని కలుపు(_A)"
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr "boot కార్యక్రమమును స్ట్రీమ్‌లైను చేయుటకు ఈ సంకేతపదమును అన్ని ఎన్క్రిప్టెడ్ పరికరములకు జతచేయుము"
+msgstr ""
+"boot కార్యక్రమమును స్ట్రీమ్‌లైను చేయుటకు ఈ సంకేతపదమును అన్ని ఎన్క్రిప్టెడ్ పరికరములకు జతచేయుము"
 
 #: ui/lukspassphrase.glade.h:2
 msgid ""
@@ -6291,7 +6336,8 @@ msgstr "హోస్టునామము:"
 msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
-msgstr "దయచేసి ఈ కంప్యూటరుకు నామమును వుంచండి. హోస్టునామము ఈ కంప్యూటరును నెట్వర్కు నందు గుర్తిస్తుంది."
+msgstr ""
+"దయచేసి ఈ కంప్యూటరుకు నామమును వుంచండి. హోస్టునామము ఈ కంప్యూటరును నెట్వర్కు నందు గుర్తిస్తుంది."
 
 #: ui/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6603,3 +6649,9 @@ msgstr "వెల్ష్"
 msgid "Zulu"
 msgstr "జులు"
 
+#~ msgid ""
+#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
+#~ "mainframe attached disks (DASD), usually in an enterprise environment"
+#~ msgstr ""
+#~ "సాధారణంగా యెంటర్‌ప్రైజ్ వాతావరణంనందు, స్టోరేజ్ యేరియా నెట్వర్క్సు (SANs) లేదా మెయిన్‌ఫ్రేమ్ యెటాచ్‌డ్ డిస్క్స్ "
+#~ "(DASD) వంటి పరికరములకు సంస్థాపించును లేదా ననీకరించును."
