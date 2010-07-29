@@ -940,8 +940,8 @@ class DeviceTree(object):
         # udev/sysfs, we have to define what is a disk in terms of what is
         # not a disk.
         if udev_device_is_disk(info) and \
-           not udev_device_is_dmraid_partition(info) and \
-           not udev_device_is_multipath_partition(info) and \
+           not udev_device_is_dmraid_partition(info, self) and \
+           not udev_device_is_multipath_partition(info, self) and \
            not udev_device_is_dm_lvm(info) and \
            not udev_device_is_dm_crypt(info) and \
            not (udev_device_is_md(info) and
