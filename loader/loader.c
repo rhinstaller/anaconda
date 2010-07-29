@@ -91,6 +91,7 @@
 #include "urls.h"
 #include "urlinstall.h"
 
+#include "ibft.h"
 #include "net.h"
 #include "telnetd.h"
 
@@ -1480,7 +1481,8 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 if (((installMethods[validMethods[loaderData->method]].type !=
                        DEVICE_NETWORK) && (!hasGraphicalOverride()) &&
                       !FL_ASKNETWORK(flags) &&
-                      !FL_EARLY_NETWORKING(flags)) ||
+                      !FL_EARLY_NETWORKING(flags) && 
+                      !ibft_present()) ||
                      (is_nm_connected())) {
                     needsNetwork = 0;
                     if (dir == 1) 
