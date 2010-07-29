@@ -249,7 +249,7 @@ fi
 # these packages are combined with the PACKAGES for big stage 2
 #
 PACKAGESRESCUE="bzip2 bzip2-libs dump
-                findutils ftp gzip iputils joe krb5-libs less man
+                findutils ftp gzip iputils joe krb5-libs less man-db
                 modutils mtools mt-st mtr net-tools smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
                 device-mapper device-mapper-libs dmraid ntfsprogs samba-client
@@ -379,7 +379,7 @@ etc/hosts
 etc/im_palette.pal
 etc/imrc
 etc/iscsid.conf
-etc/man.config
+etc/man_db.conf
 etc/mke2fs.conf
 etc/modprobe.d/libmlx4.conf
 etc/netconfig
@@ -1086,20 +1086,20 @@ sed -i 's|\(installforallkernels\) = 0|\1 = 1|' $DEST/etc/yum/pluginconf.d/fedor
 #
 # Manual pages in rescue: We dont have man pages in the image, so we point everything (The pages
 # and the man scripts to the /mnt/sysimage.  We want the man command to depend only on the
-# man.conf file, so we don't use the $MANPATH env variable.  The executables stay unchanged as
+# man_db.conf file, so we don't use the $MANPATH env variable.  The executables stay unchanged as
 # they will be soft links to /mnt/sysimage.
 #
-echo "Fixing up /etc/man.config to point into /mnt/sysimage"
+echo "Fixing up /etc/man_db.conf to point into /mnt/sysimage"
 
 #
 # Lets avoid the lines with MANPATH_MAP for now
 #
-sed -i "s,^MANPATH[^_MAP][ \t]*,&/mnt/sysimage," $DEST/etc/man.config
+sed -i "s,^MANPATH[^_MAP][ \t]*,&/mnt/sysimage," $DEST/etc/man_db.conf
 
 #
 # Lets change the lines with MANPATH_MAP.  Don't know how much of a difference this will make.
 #
-sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DEST/etc/man.config
+sed -i "s,^MANPATH_MAP[ \t]*[a-zA-Z0-9/]*[ \t]*,&/mnt/sysimage," $DEST/etc/man_db.conf
 
 echo "Scrubbing tree..." "$DEST"
 mkdir -p $DEST/lib
