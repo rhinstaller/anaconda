@@ -433,7 +433,10 @@ class Network:
             i += 1
 
     def setGateway(self, gw, device):
-        self.netdevices[device].set(('GATEWAY', gw))
+        if ':' in gw:
+            self.netdevices[device].set(('IPV6_DEFAULTGW', gw))
+        else:
+            self.netdevices[device].set(('GATEWAY', gw))
 
     def lookupHostname(self):
         # can't look things up if they don't exist!
