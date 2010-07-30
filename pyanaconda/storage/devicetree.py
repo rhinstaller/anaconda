@@ -1833,6 +1833,9 @@ class DeviceTree(object):
             if device is None:
                 log.error("failed to resolve device %s" % devspec)
         elif devspec.startswith("/dev/"):
+            if devspec.startswith("/dev/disk/"):
+                devspec = os.path.realpath(devspec)
+
             # device path
             device = self.getDeviceByPath(devspec)
             if device is None:
