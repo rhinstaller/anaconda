@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: test\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-29 04:08-1000\n"
+"POT-Creation-Date: 2010-07-28 06:09-1000\n"
 "PO-Revision-Date: 2010-07-21 11:42+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi/Panjabi <kde-i18n-doc@kde.org>\n"
@@ -148,8 +148,8 @@ msgstr ""
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:330 loader/urls.c:336
-#: loader/urls.c:345 storage/__init__.py:216 storage/__init__.py:1803
-#: storage/__init__.py:1890 storage/zfcp.py:375 textw/netconfig_text.py:282
+#: loader/urls.c:345 storage/__init__.py:213 storage/__init__.py:1799
+#: storage/__init__.py:1886 storage/zfcp.py:375 textw/netconfig_text.py:282
 #: textw/upgrade_text.py:179 textw/upgrade_text.py:186
 msgid "Error"
 msgstr "ਗਲਤੀ"
@@ -179,14 +179,14 @@ msgstr ""
 #: upgrade.py:199 yuminstall.py:252 yuminstall.py:991 yuminstall.py:996
 #: yuminstall.py:1076 yuminstall.py:1082 yuminstall.py:1238 yuminstall.py:1265
 #: yuminstall.py:1326 yuminstall.py:1513 yuminstall.py:1532 yuminstall.py:1555
-#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:220
-#: storage/__init__.py:1984
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
+#: storage/__init__.py:1980
 msgid "_Exit installer"
 msgstr "ਇੰਸਟਾਲਰ ਬੰਦ ਕਰੋ(_E)"
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1371
 #: kickstart.py:1410 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
-#: iw/partition_gui.py:1601 storage/__init__.py:1985
+#: iw/partition_gui.py:1601 storage/__init__.py:1981
 msgid "_Continue"
 msgstr "ਜਾਰੀ ਰੱਖੋ(_C)"
 
@@ -453,7 +453,7 @@ msgstr ""
 "className= %s"
 
 #: gui.py:1400 image.py:164 image.py:194 packages.py:360
-#: storage/__init__.py:1802
+#: storage/__init__.py:1798
 msgid "_Exit"
 msgstr "ਬਾਹਰ(_E)"
 
@@ -1416,7 +1416,7 @@ msgid "Read-Only"
 msgstr "ਕੇਵਲ ਪੜ੍ਹਨ ਲਈ"
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1802 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1798 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "ਵਿਚੇ ਛੱਡੋ"
 
@@ -3154,7 +3154,7 @@ msgstr "MD RAID ARRAY %s (%-0.f MB)"
 msgid "Type"
 msgstr "ਟਾਈਪ"
 
-#: iw/partition_gui.py:616 storage/__init__.py:1802
+#: iw/partition_gui.py:616 storage/__init__.py:1798
 msgid "Format"
 msgstr "ਫਾਰਮੈਟ"
 
@@ -4725,11 +4725,11 @@ msgstr ""
 "ਬਲਾਕ ਜੰਤਰ ਇੰਕ੍ਰਿਪਸ਼ਨ ਜੋ ਤੁਸੀਂ ਦਿੱਤੀ ਹੈ ਯੋਗ ਹੋਣੀ ਚਾਹੀਦੀ ਹੈ, ਪਰ ਤੁਸੀਂ ਪ੍ਹੈਰਾ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਜੇ ਤੁਸੀਂ "
 "ਪਿੱਛੇ ਨਹੀਂ ਜਾਂਦੇ ਅਤੇ ਪ੍ਹੈਰਾ ਨਹੀਂ ਦਿੰਦੇ, ਤਾਂ ਬਲਾਕ ਜੰਤਰ ਇੰਕ੍ਰਿਪਸ਼ਨ ਅਯੋਗ ਹੋ ਜਾਵੇਗੀ।"
 
-#: storage/__init__.py:174
+#: storage/__init__.py:171
 msgid "Writing storage configuration to disk"
 msgstr "ਸਟੋਰੇਜ਼ ਸੰਰਚਨਾ ਡਿਸਕ ਉੱਤੇ ਲਿਖੀ ਜਾ ਰਹੀ ਹੈ"
 
-#: storage/__init__.py:175
+#: storage/__init__.py:172
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -4737,62 +4737,62 @@ msgstr ""
 "ਪਾਰਟੀਸ਼ਨ ਚੋਣਾਂ, ਜੋ ਤੁਸੀਂ ਚੁਣੀਆਂ ਹਨ, ਹੁਣ ਡਿਸਕ ਉੱਤੇ ਲਿਖੀਆਂ ਜਾਣਗੀਆਂ। ਹਟਾਏ ਜਾਂ ਮੁੜ-ਫਾਰਮੈਟ ਕੀਤੇ "
 "ਪਾਰਟੀਸ਼ਨ ਦਾ ਡਾਟਾ ਨਸ਼ਟ ਹੋ ਜਾਵੇਗਾ।"
 
-#: storage/__init__.py:180
+#: storage/__init__.py:177
 msgid "Go _back"
 msgstr "ਪਿੱਛੇ ਜਾਓ(_b)"
 
-#: storage/__init__.py:181
+#: storage/__init__.py:178
 msgid "_Write changes to disk"
 msgstr "ਤਬਦੀਲੀ ਡਿਸਕ ਉੱਤੇ ਲਿਖੋ(_W)"
 
-#: storage/__init__.py:200
+#: storage/__init__.py:197
 msgid "Running..."
 msgstr "ਚੱਲ ਰਿਹਾ ਹੈ..."
 
-#: storage/__init__.py:201
+#: storage/__init__.py:198
 msgid "Storing encryption keys"
 msgstr "ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਸੰਭਾਲ ਰਿਹਾ ਹੈ"
 
-#: storage/__init__.py:217
+#: storage/__init__.py:214
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "ਇਨਕ੍ਰਿਪਸ਼ਨ ਕੁੰਜੀ ਸੰਭਾਲਣ ਦੌਰਾਨ ਗਲਤੀ: %s\n"
 
-#: storage/__init__.py:362
+#: storage/__init__.py:358
 msgid "Examining Devices"
 msgstr "ਜੰਤਰ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ"
 
-#: storage/__init__.py:363
+#: storage/__init__.py:359
 msgid "Examining storage devices"
 msgstr "ਸਟੋਰੇਜ਼ ਜੰਤਰ ਜਾਂਚ ਹੋ ਰਹੀ ਹੈ"
 
-#: storage/__init__.py:642
+#: storage/__init__.py:638
 msgid "This partition is holding the data for the hard drive install."
 msgstr "ਇਹ ਪਾਰਟੀਸ਼ਨ ਹਾਰਡ-ਡਰਾਈਵ ਤੇ ਇੰਸਟਾਲ ਲਈ ਡਾਟਾ ਸੰਭਾਲਦਾ ਹੈ।"
 
-#: storage/__init__.py:647
+#: storage/__init__.py:643
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "ਤੁਸੀਂ ਇੱਕ LDL ਦਾ DASD ਨਾਲ ਫਾਰਮੈਟ ਕੀਤਾ ਪਾਰਟੀਸ਼ਨ ਹਟਾ ਨਹੀਂ ਸਕਦੇ ਹੋ।"
 
-#: storage/__init__.py:653
+#: storage/__init__.py:649
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "ਇਹ ਜੰਤਰ ਰੇਡ ਜੰਤਰ %s ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: storage/__init__.py:656
+#: storage/__init__.py:652
 msgid "This device is part of a RAID device."
 msgstr "ਇਹ ਜੰਤਰ ਰੇਡ ਜੰਤਰ ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: storage/__init__.py:661
+#: storage/__init__.py:657
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "ਇਹ ਜੰਤਰ ਐਲਵੀਐਮ(LVM ) ਵਾਲੀਅਮ ਗਰੁੱਪ '%s' ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: storage/__init__.py:664
+#: storage/__init__.py:660
 msgid "This device is part of a LVM volume group."
 msgstr "ਇਹ ਜੰਤਰ LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਦਾ ਹਿੱਸਾ ਹੈ।"
 
-#: storage/__init__.py:680
+#: storage/__init__.py:676
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -4801,7 +4801,7 @@ msgstr ""
 "ਇਹ ਜੰਤਰ ਇੱਕ ਫੈਲਿਆ ਭਾਗ ਹੈ ਜਿਸ ਵਿੱਚ ਲਾਜ਼ੀਕਲ ਭਾਗ ਹਨ ਜੋ ਹਟਾਏ ਨਹੀਂ ਜਾ ਸਕਦੇ:\n"
 "\n"
 
-#: storage/__init__.py:955
+#: storage/__init__.py:951
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -4810,14 +4810,14 @@ msgstr ""
 "ਤੁਸੀਂ ਇੱਕ ਰੂਟ (root)ਪਾਰਟੀਸ਼ਨ (/) ਨਹੀਂ ਦਿੱਤਾ ਹੈ, ਜੋ ਕਿ %s ਦੀ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ ਜਾਰੀ ਰੱਖਣ ਲਈ "
 "ਜ਼ਰੂਰੀ ਹੈ।"
 
-#: storage/__init__.py:960
+#: storage/__init__.py:956
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "ਤੁਸੀਂ ਰੂਟ (root) ਪਾਰਟੀਸ਼ਨ 250 ਮੈਗਾਬਾਈਟ ਤੋਂ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਇੰਸਟਾਲ %s ਲਈ ਬਹੁਤ ਘੱਟ ਹੈ।"
 
-#: storage/__init__.py:966
+#: storage/__init__.py:962
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -4826,12 +4826,12 @@ msgstr ""
 "ਤੁਹਾਡਾ / ਭਾਗ %(min)s ਮੈਗਾਬਾਈਟ ਤੋਂ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਸਧਾਰਨ %(productName)s ਇੰਸਟਾਲ ਕਰਨ ਲਈ "
 "ਸਿਫ਼ਾਰਸ ਕੀਤੇ ਨਾਲੋਂ ਘੱਟ ਹੈ।"
 
-#: storage/__init__.py:973
+#: storage/__init__.py:969
 #, python-format
 msgid "Placing the root partition on an XFS filesystem is not supported in %s."
 msgstr "ਰੂਟ (root) ਭਾਗ ਨੂੰ XFS ਫਾਇਲ-ਸਿਸਟਮ ਤੇ ਰੱਖਣ ਨੂੰ %s ਵਿੱਚ ਸਹਿਯੋਗ ਨਹੀਂ ਹੈ।"
 
-#: storage/__init__.py:981
+#: storage/__init__.py:977
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -4840,7 +4840,7 @@ msgstr ""
 "ਤੁਹਾਡਾ / ਭਾਗ ਲਾਈਵ ਈਮੇਜ਼ ਨਾਲ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ ਜਿਸ ਤੋਂ ਤੁਸੀਂ ਇੰਸਟਾਲ ਕਰ ਰਹੇ ਹੋ। ਇਸ ਨੂੰ %s ਤੌਰ ਤੇ "
 "ਫਾਰਮੈਟ ਕਰਨਾ ਪਵੇਗਾ।"
 
-#: storage/__init__.py:988
+#: storage/__init__.py:984
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -4849,20 +4849,20 @@ msgstr ""
 "ਤੁਹਾਡਾ %(mount)s ਪਾਰਟੀਸ਼ਨ %(size)s ਮੈਗਾਬਾਈਟ ਤੋਂ ਘੱਟ ਹੈ, ਜੋ ਕਿ ਸਧਾਰਨ %(productName)s "
 "ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਸਿਫ਼ਾਰਸ ਕੀਤਾ ਜਾਂਦਾ ਹੈ।"
 
-#: storage/__init__.py:1017
+#: storage/__init__.py:1013
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "ਇੱਕ USB ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਸ ਨਾਲ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਤਿਆਰ ਹੋ ਵੀ ਸਕਦਾ ਹੈ ਅਤੇ ਨਹੀਂ ਵੀ।"
 
-#: storage/__init__.py:1020
+#: storage/__init__.py:1016
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr ""
 "ਇੱਕ ਫਾਇਰਵਾਇਰ ਜੰਤਰ ਉੱਤੇ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਨੀ।  ਇਹ ਇੱਕ ਚੱਲਦਾ ਸਿਸਟਮ ਬਣਾ ਵੀ ਸਕਦਾ ਹੈ ਜਾਂ ਨਹੀਂ।"
 
-#: storage/__init__.py:1027
+#: storage/__init__.py:1023
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
@@ -4870,7 +4870,7 @@ msgstr ""
 "ਤੁਸੀਂ ਇੱਕ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਭਾਵੇਂ ਕਿ ਇਹ ਹਰ ਹਾਲਤ ਵਿੱਚ ਕੋਈ ਜ਼ਰੂਰੀ ਨਹੀਂ ਹੈ, ਪਰ ਇਹ ਸਭ "
 "ਇੰਸਟਾਲੇਸ਼ਨ ਵਿੱਚ ਵਧੀਆ ਕਾਰਗੁਜ਼ਾਰੀ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
 
-#: storage/__init__.py:1032
+#: storage/__init__.py:1028
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -4878,22 +4878,22 @@ msgstr ""
 "ਤੁਸੀਂ ਇੱਕ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਨਹੀਂ ਦਿੱਤਾ ਹੈ। ਭਾਵੇਂ ਕਿ ਇਹ ਹਰ ਹਾਲਤ ਵਿੱਚ ਕੋਈ ਜ਼ਰੂਰੀ ਨਹੀਂ ਹੈ, ਪਰ ਇਹ ਸਭ "
 "ਇੰਸਟਾਲੇਸ਼ਨ ਵਿੱਚ ਵਧੀਆ ਕਾਰਗੁਜ਼ਾਰੀ ਲਈ ਮਹੱਤਵਪੂਰਨ ਹੈ।"
 
-#: storage/__init__.py:1039
+#: storage/__init__.py:1035
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ਇਹ ਮਾਊਂਟ ਪੁਆਂਇਟ ਗਲਤ ਹੈ।  %s ਡਾਇਰੈਕਟਰੀ / ਫਾਇਲ ਸਿਸਟਮ ਤੇ ਹੋਣੀ ਜਰੂਰੀ ਹੈ।"
 
-#: storage/__init__.py:1043
+#: storage/__init__.py:1039
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "ਮਾਊਂਟ ਪੁਆਇੰਟ %s ਲੀਨਕਸ ਫਾਇਲ ਸਿਸਟਮ ਤੇ ਹੋਣਾ ਜਰੂਰੀ ਹੈ।"
 
-#: storage/__init__.py:1054
+#: storage/__init__.py:1050
 msgid "No Drives Found"
 msgstr "ਕੋਈ ਡਰਾਈਵ ਨਹੀਂ ਲੱਭੀ"
 
-#: storage/__init__.py:1055
+#: storage/__init__.py:1051
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -4901,11 +4901,11 @@ msgstr ""
 "ਇੱਕ ਗਲਤੀ ਹੈ - ਕੋਈ ਵੀ ਜੰਤਰ ਨਹੀਂ ਲੱਭਾ, ਜਿਸ ਤੇ ਨਵਾਂ ਫਾਇਲ ਸਿਸਟਮ ਬਣਾਉਣਾ ਹੈ। ਇਸ ਸਮੱਸਿਆ ਲਈ "
 "ਆਪਣੇ ਜੰਤਰ (ਹਾਰਡਵੇਅਰ) ਦੀ ਜਾਂਚ ਕਰੋ ਜੀ।"
 
-#: storage/__init__.py:1348 storage/__init__.py:1357
+#: storage/__init__.py:1344 storage/__init__.py:1353
 msgid "Dirty File Systems"
 msgstr "ਗੰਦਾ ਫਾਇਲ ਸਿਸਟਮ"
 
-#: storage/__init__.py:1349
+#: storage/__init__.py:1345
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4918,7 +4918,7 @@ msgstr ""
 "ਕਰੋ।\n"
 "%s"
 
-#: storage/__init__.py:1358
+#: storage/__init__.py:1354
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4929,7 +4929,7 @@ msgstr ""
 "ਤੁਸੀਂ ਕਿਸੇ ਤਰਾਂ ਵੀ ਮਾਊਂਟ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?\n"
 "%s"
 
-#: storage/__init__.py:1835
+#: storage/__init__.py:1831
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4946,7 +4946,7 @@ msgstr ""
 "ਇੱਕ ਪੁਰਾਣੇ-ਸਟਾਈਲ ਦਾ ਲੀਨਕਸ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਹੈ।  ਜੇ ਤੁਸੀਂ ਇਸ ਜੰਤਰ ਨੂੰ ਸਵੈਪ ਸਪੇਸ ਲਈ ਵਰਤਣਾ ਚਾਹੁੰਦੇ "
 "ਹੋ, ਤੁਹਾਨੂੰ ਨਵੇਂ-ਸਟਾਈਨ ਦੇ ਲੀਨਕਸ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨ ਵਾਂਗ ਫਾਰਮੈਟ ਕਰਨਾ ਪਵੇਗਾ।"
 
-#: storage/__init__.py:1846
+#: storage/__init__.py:1842
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4965,7 +4965,7 @@ msgstr ""
 "ਕਿ ਤੁਹਾਡਾ ਸਿਸਟਮ ਹਾਈਬਰਨੇਟ ਹੈ। ਜੇਕਰ ਤੁਸੀਂ ਅੱਪਗਰੇਡ ਕਰ ਰਹੇ ਹੋ ਤਾਂ ਆਪਣੇ ਸਿਸਟਮ ਨੂੰ ਹਾਈਬਰਨੇਟ ਕਰਨ "
 "ਦੀ ਬਜਾਏ ਪੂਰੀ ਤਰ੍ਹਾਂ ਬੰਦ ਕਰੋ ਜੀ।"
 
-#: storage/__init__.py:1854
+#: storage/__init__.py:1850
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4984,7 +4984,7 @@ msgstr ""
 "ਤੁਸੀਂ ਨਵੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਕਰਦੇ ਹੋ ਤਾਂ ਇਹ ਯਕੀਨੀ ਬਣਾਓ ਕਿ ਇੰਸਟਾਲਰ ਨੂੰ ਸਭ ਸਵੈਪ ਪਾਰਟੀਸ਼ਨਾਂ ਨੂੰ ਫਾਰਮੈਟ "
 "ਕਰਨ ਦੀ ਚੋਣ ਕੀਤੀ ਗਈ ਹੈ।"
 
-#: storage/__init__.py:1866
+#: storage/__init__.py:1862
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5001,7 +5001,7 @@ msgstr ""
 "ਉੱਪਰ ਇੱਕ ਸਹਿਯੋਗੀ ਸਵੈਪ ਵਾਲੀਅਮ ਨਹੀਂ ਹੈ।  ਇੰਸਾਟਲੇਸ਼ਨ ਜਾਰੀ ਕਰਨ ਲਈ, ਤੁਹਾਨੂੰ ਜੰਤਰ ਨੂੰ ਫਾਰਮੈਟ ਕਰਨਾ "
 "ਪਵੇਗਾ ਜਾਂ ਇਸ ਨੂੰ ਛੱਡਣਾ ਪਵੇਗਾ।"
 
-#: storage/__init__.py:1877
+#: storage/__init__.py:1873
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5017,7 +5017,7 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ"
 
-#: storage/__init__.py:1884
+#: storage/__init__.py:1880
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5032,11 +5032,11 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ 'ਠੀਕ ਹੈ' ਦਬਾਓ।"
 
-#: storage/__init__.py:1947 storage/__init__.py:1959
+#: storage/__init__.py:1943 storage/__init__.py:1955
 msgid "Invalid mount point"
 msgstr "ਅਢੁੱਕਵੀਂ ਮਾਊਂਟ ਪੁਆਇੰਟ"
 
-#: storage/__init__.py:1948
+#: storage/__init__.py:1944
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5049,7 +5049,7 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ <Enter> ਦਬਾਓ।"
 
-#: storage/__init__.py:1960
+#: storage/__init__.py:1956
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5062,11 +5062,11 @@ msgstr ""
 "\n"
 "ਇੰਸਟਾਲਰ ਤੋਂ ਬਾਹਰ ਆਉਣ ਲਈ <Enter> ਦਬਾਓ।"
 
-#: storage/__init__.py:1976 storage/__init__.py:2000
+#: storage/__init__.py:1972 storage/__init__.py:1996
 msgid "Unable to mount filesystem"
 msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਮਾਊਂਟ ਕਰਨ ਲਈ ਅਸਮਰੱਥ"
 
-#: storage/__init__.py:1977
+#: storage/__init__.py:1973
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5075,7 +5075,7 @@ msgstr ""
 "ਜੰਤਰ %(path)s ਨੂੰ %(mountpoint)s ਵਾਂਗ ਮਾਊਂਟ ਕਰਨ ਦੌਰਾਨ ਗਲਤੀ ਆਈ ਹੈ। ਤੁਸੀਂ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ "
 "ਜਾਰੀ ਰੱਖ ਸਕਦੇ ਹੋ, ਪਰ ਅੱਗੇ ਸਮੱਸਿਆਵਾਂ ਆ ਸਕਦੀਆਂ ਹਨ।"
 
-#: storage/__init__.py:2001
+#: storage/__init__.py:1997
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5111,23 +5111,23 @@ msgstr "%s ਲਈ vginfo ਫੇਲ ਹੈ"
 msgid "lvs failed for %s"
 msgstr "%s ਲਈ lvs ਫੇਲ ਹੈ"
 
-#: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
-#: storage/devices.py:2903 storage/devices.py:3377
+#: storage/devices.py:1264 storage/devices.py:1962 storage/devices.py:2378
+#: storage/devices.py:2871 storage/devices.py:3344
 msgid "Creating"
 msgstr "ਬਣਾਉਣਾ"
 
-#: storage/devices.py:1297 storage/devices.py:1995 storage/devices.py:2411
-#: storage/devices.py:2904
+#: storage/devices.py:1265 storage/devices.py:1963 storage/devices.py:2379
+#: storage/devices.py:2872
 #, python-format
 msgid "Creating device %s"
 msgstr "%s ਜੰਤਰ ਬਣਾਉਣਾ"
 
-#: storage/devices.py:2504
+#: storage/devices.py:2472
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "ਇੱਕ RAID%d ਸੈੱਟ ਵਈ ਘੱਟੋ-ਘੱਟ %d ਮੈਂਬਰ ਹੋਣੇ ਜਰੂਰੀ ਹਨ"
 
-#: storage/devices.py:3378
+#: storage/devices.py:3345
 #, python-format
 msgid "Creating file %s"
 msgstr "%s ਫਾਇਲ ਬਣਾਉਣਾ"
