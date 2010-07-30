@@ -12,14 +12,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-29 04:08-1000\n"
-"PO-Revision-Date: 2010-07-27 12:42+0530\n"
+"POT-Creation-Date: 2010-07-28 06:09-1000\n"
+"PO-Revision-Date: 2010-07-30 11:00+0530\n"
 "Last-Translator: Sandeep Shedmake <sshedmak@redhat.com>\n"
 "Language-Team: Marathi <fedora-trans-mr@redhat.com>\n"
-"Language: mr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: mr\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "X-Generator: KBabel 1.11.4\n"
 
@@ -150,8 +150,8 @@ msgstr ""
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:330 loader/urls.c:336
-#: loader/urls.c:345 storage/__init__.py:216 storage/__init__.py:1803
-#: storage/__init__.py:1890 storage/zfcp.py:375 textw/netconfig_text.py:282
+#: loader/urls.c:345 storage/__init__.py:213 storage/__init__.py:1799
+#: storage/__init__.py:1886 storage/zfcp.py:375 textw/netconfig_text.py:282
 #: textw/upgrade_text.py:179 textw/upgrade_text.py:186
 msgid "Error"
 msgstr "त्रुटी"
@@ -181,14 +181,14 @@ msgstr ""
 #: upgrade.py:199 yuminstall.py:252 yuminstall.py:991 yuminstall.py:996
 #: yuminstall.py:1076 yuminstall.py:1082 yuminstall.py:1238 yuminstall.py:1265
 #: yuminstall.py:1326 yuminstall.py:1513 yuminstall.py:1532 yuminstall.py:1555
-#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:220
-#: storage/__init__.py:1984
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
+#: storage/__init__.py:1980
 msgid "_Exit installer"
 msgstr "प्रतिष्ठापकातून बाहेर पडा (_E)"
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1371
 #: kickstart.py:1410 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
-#: iw/partition_gui.py:1601 storage/__init__.py:1985
+#: iw/partition_gui.py:1601 storage/__init__.py:1981
 msgid "_Continue"
 msgstr "पुढे चला (_C)"
 
@@ -210,8 +210,7 @@ msgstr "बूटलोडर प्रतिष्ठापीत करते�
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
-msgstr ""
-"प्रणालीवर कोणतेही कर्नल संकूल प्रतिष्ठापीत केले नाही. बूटलोडर संयोजना बदलणार नाही."
+msgstr "प्रणालीवर कोणतेही कर्नल संकूल प्रतिष्ठापीत केले नाही. बूटलोडर संयोजना बदलणार नाही."
 
 #: cmdline.py:56
 msgid "Completed"
@@ -389,8 +388,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
+"This action may also be applied to all other disks needing reinitialization.%"
+"(details)s"
 msgstr ""
 "ड्राइव्ह्ह विश्लेषीत करतेवेळी त्रुटी:\n"
 "\n"
@@ -457,7 +456,7 @@ msgstr ""
 "className = %s"
 
 #: gui.py:1400 image.py:164 image.py:194 packages.py:360
-#: storage/__init__.py:1802
+#: storage/__init__.py:1798
 msgid "_Exit"
 msgstr "बाहेर(_E)"
 
@@ -555,15 +554,15 @@ msgstr "आवश्यक प्रतिष्ठापक माध्यम�
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following "
-"%(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following %"
+"(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"तुम्ही निवडलेले सॉफ्टवेअर प्रतिष्ठापीत करण्यासाठी खालील %(productName)s "
-"%(productVersion)s डीस्कची आवश्यकता आहे:\n"
+"तुम्ही निवडलेले सॉफ्टवेअर प्रतिष्ठापीत करण्यासाठी खालील %(productName)s %"
+"(productVersion)s डीस्कची आवश्यकता आहे:\n"
 "\n"
 "%(reqcdstr)s\n"
 "प्रतिष्ठापन पुढे चालू ठेवण्याआधी कृपया हे तयार ठेवा.  जर तुम्हास प्रतिष्ठापन सोडून द्यायचे "
@@ -641,8 +640,8 @@ msgstr "रूपण (_F)"
 #: iutil.py:852
 #, python-format
 msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
+"s)"
 msgstr ""
 "त्रुटी: उघडल्यावर, reIPL पद्धतीला %(reipl_type)s (%(filename)s: %(e)s) असे सेट करणे "
 "अशक्य"
@@ -650,8 +649,8 @@ msgstr ""
 #: iutil.py:863
 #, python-format
 msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
 "त्रुटी: लिहील्यावर, reIPL पद्धतीला %(reipl_type)s (%(filename)s: %(e)s) सेट करणे "
 "अशक्य"
@@ -659,8 +658,8 @@ msgstr ""
 #: iutil.py:872
 #, python-format
 msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
 "त्रुटी: बंद केल्यावर, reIPL पद्धतीला %(reipl_type)s (%(filename)s: %(e)s) असे सेट "
 "करणे अशक्य"
@@ -701,16 +700,14 @@ msgstr "त्रुटी: reIPL (%(e)s) करीता FCP गुणधर्
 
 #: iutil.py:975
 #, python-format
-msgid ""
-"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr ""
-"त्रुटी: reIPL (%(e)s) करीता पूर्वनिर्धारीत FCP गुणधर्म %(reipl_property)s लिहीत आहे"
+msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgstr "त्रुटी: reIPL (%(e)s) करीता पूर्वनिर्धारीत FCP गुणधर्म %(reipl_property)s लिहीत आहे"
 
 #: iutil.py:990
 #, python-format
 msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
-"%(wwpn)s and LUN %(lun)s to continue installation"
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
+"(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 "पूर्णपणे बंद केल्यावर, प्रतिष्ठापन पुढे चालविण्याकरीता कृपया WWPN %(wwpn)s व LUN %(lun)s "
 "सह FCP %(device)s पासून IPL स्वहस्ते चालवा"
@@ -848,8 +845,7 @@ msgstr "प्रतिष्ठापन प्रतिमा शोधण्�
 
 #: livecd.py:122
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "प्रतिष्ठापन स्त्रोत स्वरूपास वापरण्याकरीता उपलब्ध स्थान वैध %s live CD नाही."
 
 #: livecd.py:180
@@ -891,15 +887,14 @@ msgstr "आयोजकनावाची लांबी 255 किंवा �
 
 #: network.py:68
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
+"9'"
 msgstr ""
 "यजमाननावचे प्रारंभ वैध अक्षर क्षेत्र जसे कि 'a-z', 'A-Z', किंवा '0-9'  यानुरूप सुरू व्हायला "
 "हवे"
 
 #: network.py:73
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "यजमाननावात 'a-z', 'A-Z', '0-9', '-', किंवा '.' नुरूपच अक्षर असायला हवे"
 
 #: network.py:117
@@ -910,8 +905,7 @@ msgstr "IP पत्ता सापडला नाही."
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
-msgstr ""
-"IPv4 पत्त्यांमध्ये 0 ते 255 दरम्यानच्याच संख्या असायला हव्यात, त्याही बिंदूंनी विलग केलेल्या."
+msgstr "IPv4 पत्त्यांमध्ये 0 ते 255 दरम्यानच्याच संख्या असायला हव्यात, त्याही बिंदूंनी विलग केलेल्या."
 
 #: network.py:124
 #, python-format
@@ -1182,13 +1176,13 @@ msgstr "विभाजन करताना त्रुटी"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of "
-"%(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
-"तुमच्या निवेदित विभाजन योजनेत खालील गंभीर चुका अस्तित्वात आहेत. या चुका "
-"%(productName)s चे प्रतिष्ठापन चालू करण्यापूर्वीच सुधारल्या जाव्यात.\n"
+"तुमच्या निवेदित विभाजन योजनेत खालील गंभीर चुका अस्तित्वात आहेत. या चुका %(productName)"
+"s चे प्रतिष्ठापन चालू करण्यापूर्वीच सुधारल्या जाव्यात.\n"
 "\n"
 "%(errorstr)s"
 
@@ -1215,8 +1209,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"खालील पूर्व-उपस्थित विभाजने स्वरूपित करण्यासाठी निवडली आहेत, सर्व माहिती नष्ट करत आहे."
+msgstr "खालील पूर्व-उपस्थित विभाजने स्वरूपित करण्यासाठी निवडली आहेत, सर्व माहिती नष्ट करत आहे."
 
 #: partIntfHelpers.py:288
 msgid ""
@@ -1265,8 +1258,7 @@ msgid "Confirm Reset"
 msgstr "पुनर्निर्धारण निश्चिती"
 
 #: partIntfHelpers.py:346
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "तुमची खात्री आहे तुम्ही विभाजन तक्ता त्यच्या मुळ अवस्थेत पुनर्निर्धारित करू इच्छिता?"
 
 #: platform.py:98 platform.py:339 platform.py:407 platform.py:514
@@ -1423,7 +1415,7 @@ msgid "Read-Only"
 msgstr "फक्त वाचण्याजोगा"
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1802 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1798 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "टाळा"
 
@@ -1953,8 +1945,7 @@ msgstr "डाऊनलोडकरीता पुनः प्रयत्न 
 
 #: yuminstall.py:985
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "खालील कारणास्तव कार्य चालवितेवेळी त्रुटी आढळली: %s\n"
 
 #: yuminstall.py:1028 yuminstall.py:1029
@@ -2009,8 +2000,8 @@ msgstr ""
 #: yuminstall.py:1067
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): "
-"%s.\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr "खालील कारणास्तव कार्य कार्यरत असतेवेळी त्रुटी आढळली: % s.\n"
 
 #: yuminstall.py:1074 yuminstall.py:1079
@@ -2093,12 +2084,12 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of "
-"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
-"the upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of %(arch)"
+"s.  This is likely to not succeed.  Are you sure you wish to continue the "
+"upgrade process?"
 msgstr ""
-"सुधारीत करण्याजोगी %(productName)s च्या प्रकाशनचे आर्किटेक्चर %(myarch)s आढळते जे "
-"%(arch)s च्या पूर्वीच्या प्रतिष्ठापीत आर्किटेक्चरसह जुळत नाही.  हे संभाव्यतया यशस्वी ठरणार "
+"सुधारीत करण्याजोगी %(productName)s च्या प्रकाशनचे आर्किटेक्चर %(myarch)s आढळते जे %"
+"(arch)s च्या पूर्वीच्या प्रतिष्ठापीत आर्किटेक्चरसह जुळत नाही.  हे संभाव्यतया यशस्वी ठरणार "
 "नाही.  तुम्हाला नक्की सुधारणा क्रिया पुढे चालू ठेवायचे?"
 
 #: yuminstall.py:1798
@@ -2255,8 +2246,7 @@ msgid "_Use Anyway"
 msgstr "तरिही वापर करा (_U)"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "निवेदित पासवर्डात ascii-नसलेली अक्षरे आहेत, जी पासवर्डात वापरण्यास मज्जाव आहे."
 
 #: iw/advanced_storage.py:87
@@ -2343,10 +2333,8 @@ msgid "Shrink Current System"
 msgstr "सध्याची प्रणाली आंकुचीत करा"
 
 #: iw/autopart_type.py:261
-msgid ""
-"Shrinks existing partitions to create free space for the default layout."
-msgstr ""
-"मोकळी जागा निर्माण करण्यासाठी पूर्वनिर्धारीत मांडणीकरीता सध्याचे विभाजने आंकुचीत करतो."
+msgid "Shrinks existing partitions to create free space for the default layout."
+msgstr "मोकळी जागा निर्माण करण्यासाठी पूर्वनिर्धारीत मांडणीकरीता सध्याचे विभाजने आंकुचीत करतो."
 
 #: iw/autopart_type.py:263
 msgid "Use Free Space"
@@ -2666,7 +2654,7 @@ msgid ""
 "Installs or upgrades to enterprise devices such as Storage Area Networks "
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
-msgstr ""
+msgstr "स्टोरेज एरीया नेटवर्कस् (SANs) प्रमाणे एंटरप्राइज साधने प्रतिष्ठापीत किंवा सुधारीत करतो. हा पर्याय तुम्हाला FCoE / iSCSI / zFCP डिस्क्स् समावेश करायला व इंस्टॉलरद्वारे दुर्लक्ष करण्याजोगी साधनांची चाचणी करण्यास परवानगी देतो."
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2715,9 +2703,9 @@ msgstr "चालू ठेवा (_o)"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is larger than the smallest physical volume "
-"(%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
 "भौतिक विस्ताराचा आकार बदलता येणार नाही कारण निवडलेले मूल्य (%(curpe)10.2f MB) खंड "
 "संचातील सर्वांत लहान खंडापेक्षा (%(maxpvsize)10.2f MB) मोठे आहे."
@@ -2725,9 +2713,9 @@ msgstr ""
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
-"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
+"volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 "भौतिक विस्ताराचा आकार बदलता येणार नाही कारण निवडलेले मूल्य (%(curpe)10.2f MB) खंड "
 "संचातील सर्वांत लहान खंडापेक्षा (%(maxpvsize)10.2f MB) खूप मोठे आहे."
@@ -2751,8 +2739,8 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
-"भौतिक विस्ताराचा आकार बदलता येणार नाही कारण याचा फलस्वरूप कमाल तार्किक आकार "
-"(%10.2f MB) हा वर्तमानक्षणी स्पष्ट केलेल्या तार्किक खंडांपैकी एका किंवा अधिकापेक्षा कमी आहे."
+"भौतिक विस्ताराचा आकार बदलता येणार नाही कारण याचा फलस्वरूप कमाल तार्किक आकार (%"
+"10.2f MB) हा वर्तमानक्षणी स्पष्ट केलेल्या तार्किक खंडांपैकी एका किंवा अधिकापेक्षा कमी आहे."
 
 #: iw/lvm_dialog_gui.py:303
 msgid ""
@@ -2861,16 +2849,16 @@ msgid ""
 "create more Physical Volumes from unpartitioned disk space and add them to "
 "this Volume Group."
 msgstr ""
-"सध्या निवेदित आकार (%(size)10.2f MB) तार्किक खंडाच्या कमाल आकारापेक्षा "
-"(%(maxlv)10.2f MB) अधिक आहे. ही मर्यादा वाढवण्यासाठी तुम्ही अविभाजित डिस्क जागेमध्ये "
-"अधिक भौतिक खंड निर्माण करू शकता आणि त्यांना या खंड संचात जमा करू शकता."
+"सध्या निवेदित आकार (%(size)10.2f MB) तार्किक खंडाच्या कमाल आकारापेक्षा (%(maxlv)"
+"10.2f MB) अधिक आहे. ही मर्यादा वाढवण्यासाठी तुम्ही अविभाजित डिस्क जागेमध्ये अधिक "
+"भौतिक खंड निर्माण करू शकता आणि त्यांना या खंड संचात जमा करू शकता."
 
 #: iw/lvm_dialog_gui.py:719
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group "
-"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 "या लॉजीकल वॉल्यूम (%(size)d MB) करीता दिलेले आकार इतर लॉजीकल वॉल्यूमच्या आकाराशी "
@@ -2885,10 +2873,8 @@ msgstr "मुक्त खोबणी नाहीत"
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
-msgstr[0] ""
-"प्रत्येक वॉल्यूम ग्रूपसाठी तुम्ही %d पेक्षा जास्त लॉजीकल वॉल्यूम निर्माण करू शकत नाही."
-msgstr[1] ""
-"प्रत्येक वॉल्यूम ग्रूपसाठी तुम्ही %d पेक्षा जास्त लॉजीकल वॉल्यूम्स् निर्माण करू शकत नाही."
+msgstr[0] "प्रत्येक वॉल्यूम ग्रूपसाठी तुम्ही %d पेक्षा जास्त लॉजीकल वॉल्यूम निर्माण करू शकत नाही."
+msgstr[1] "प्रत्येक वॉल्यूम ग्रूपसाठी तुम्ही %d पेक्षा जास्त लॉजीकल वॉल्यूम्स् निर्माण करू शकत नाही."
 
 #: iw/lvm_dialog_gui.py:840
 msgid "No free space"
@@ -3174,7 +3160,7 @@ msgstr "MD RAID ARRAY %s (%-0.f MB)"
 msgid "Type"
 msgstr "प्रकार"
 
-#: iw/partition_gui.py:616 storage/__init__.py:1802
+#: iw/partition_gui.py:616 storage/__init__.py:1798
 msgid "Format"
 msgstr "स्वरुप(फॉरमॅट)"
 
@@ -3199,14 +3185,12 @@ msgid "Partitioning"
 msgstr "विभाजन करत आहे"
 
 #: iw/partition_gui.py:850
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "आपण विनंतीकेल्या विभाजन मांडणीस खालील लक्ष्यवेधी त्रूटी उदयास आले."
 
 #: iw/partition_gui.py:852
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "तुमची %sची प्रतिष्ठापना चालू ठेवण्यापूर्वी या चुका दुरूस्त व्हायलाच हव्यात."
 
 #: iw/partition_gui.py:858
@@ -3585,8 +3569,8 @@ msgstr "प्रतिष्ठापक तुमच्याप्रणा�
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on "
-"%(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on %"
+"(bootDev)s."
 msgstr "इंस्टॉलरने सध्या %(bootDev)s वरील प्रतिष्ठापीत %(type)s बूट लोडर ओळखले."
 
 #: iw/upgrade_bootloader_gui.py:142
@@ -3629,9 +3613,9 @@ msgstr "फाइल प्रणाली स्थानांतरित क
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
+"several benefits over the file system traditionally shipped in %(productName)"
+"s.  This installation program can migrate formatted partitions without data "
+"loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -3649,8 +3633,8 @@ msgstr "स्वॅप विभाजन सुधारीत करा"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have "
-"%dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "2.4 किंवा त्यापुढील कर्नलला पुर्वीच्या कर्नलपेक्षा बरीच जास्त स्वॅप जागा लागते, जवळपास "
@@ -3714,8 +3698,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "स्वॅप फाइलचा आकार १ ते २००० MB च्या दरम्यानच असावा."
 
 #: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:187
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "स्वॅप विभाजनासाठी निवडलेल्या यंत्रावर पुरेशी जागा नाही."
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
@@ -3951,8 +3934,7 @@ msgstr "ड्राइव्ह्हर डिस्क फाइलमधू�
 #: loader/driverdisk.c:521
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"तुमची ड्राइव्ह्हर डिस्क /dev/%s मध्ये दाखल करा आणि पुढे जाण्यासाठी \"OK\" वर दाबा."
+msgstr "तुमची ड्राइव्ह्हर डिस्क /dev/%s मध्ये दाखल करा आणि पुढे जाण्यासाठी \"OK\" वर दाबा."
 
 #: loader/driverdisk.c:524
 msgid "Insert Driver Disk"
@@ -4047,8 +4029,7 @@ msgstr "ड्राइव्ह्हर डिस्क भारित कर
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"स्वहस्ते दाखल करण्यासाठी उपकरन आढळले नाहीत? तुम्हास ड्राइव्ह्हर डिस्क वापरायला आवडेल काय?"
+msgstr "स्वहस्ते दाखल करण्यासाठी उपकरन आढळले नाहीत? तुम्हास ड्राइव्ह्हर डिस्क वापरायला आवडेल काय?"
 
 #: loader/driverselect.c:170
 msgid ""
@@ -4078,8 +4059,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"तुमच्या प्रणालीवर एकही हार्ड ड्राइव्ह असल्याचे वाटत नाही! तुम्हास अतिरिक्त यंत्रे रचणे आवडेल?"
+msgstr "तुमच्या प्रणालीवर एकही हार्ड ड्राइव्ह असल्याचे वाटत नाही! तुम्हास अतिरिक्त यंत्रे रचणे आवडेल?"
 
 #: loader/hdinstall.c:226
 #, c-format
@@ -4178,8 +4158,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s करीता %s वर आपले स्वागत आहे - बचाव पध्दती"
 
 #: loader/lang.c:65 loader/loader.c:251
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab>तत्वांदरम्यान  | <Space> निवडतो | <F12> पुढील पटल "
 
 #: loader/lang.c:370
@@ -4308,8 +4287,7 @@ msgstr "खालील यंत्रे तुमच्या प्रणा
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"तुमच्या प्रणालीसाठी कोणताही यंत्र चालक भारित केलेला नाही? तुम्हास आता भारित करणे आवडेल?"
+msgstr "तुमच्या प्रणालीसाठी कोणताही यंत्र चालक भारित केलेला नाही? तुम्हास आता भारित करणे आवडेल?"
 
 #: loader/loader.c:1672
 msgid "Devices"
@@ -4357,8 +4335,7 @@ msgstr "मिडीया तपासत आहे."
 msgid ""
 "Unable to find the checksum in the image.  This probably means the disc was "
 "created without adding the checksum."
-msgstr ""
-"प्रतिमामध्ये चेकसम् शोधणे अशक्य.  याचा अर्थ चेकसम समाविष्ट न करताच डिस्कचे निर्माण झाले."
+msgstr "प्रतिमामध्ये चेकसम् शोधणे अशक्य.  याचा अर्थ चेकसम समाविष्ट न करताच डिस्कचे निर्माण झाले."
 
 #: loader/mediacheck.c:93
 msgid "Unable to open the image."
@@ -4511,8 +4488,7 @@ msgid "Missing Information"
 msgstr "हरवलेली माहिती"
 
 #: loader/net.c:1119
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "तुम्ही एक वैध IPv4 पत्ता आणि जाळ मास्क किंवा CIDR पुर्वपद दाखल करायलाच हवे."
 
 #: loader/net.c:1127
@@ -4662,8 +4638,7 @@ msgstr "हुडकून काढत आहे"
 
 #: loader/urls.c:262
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "सर्वरवरील %s प्रतिष्ठापन प्रतिमा समाविष्टीत असलेले URL प्रविष्ट करा."
 
 #: loader/urls.c:280
@@ -4755,11 +4730,11 @@ msgstr ""
 "प्रविष्ट केले नाही. गुप्तवाक्यरचना प्रविष्ट न केल्यास, ब्लॉक उपकरन एन्क्रिप्शन अकार्यान्वीत "
 "केले जाईल."
 
-#: storage/__init__.py:174
+#: storage/__init__.py:171
 msgid "Writing storage configuration to disk"
 msgstr "डीस्कवर साठा संयोजनी लिहीत आहे"
 
-#: storage/__init__.py:175
+#: storage/__init__.py:172
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -4767,62 +4742,62 @@ msgstr ""
 "तुम्ही निवडलेले विभाजन पर्याय आता डिस्कवर लिहीले जाईल.  कुठलेही काढून टाकलेले किंवा "
 "पुन्हस्वरूपन विभाजन माहिती नष्ट होईल."
 
-#: storage/__init__.py:180
+#: storage/__init__.py:177
 msgid "Go _back"
 msgstr "पाठीमागे जा (_b)"
 
-#: storage/__init__.py:181
+#: storage/__init__.py:178
 msgid "_Write changes to disk"
 msgstr "बदल डिस्कवर लिहा (_W)"
 
-#: storage/__init__.py:200
+#: storage/__init__.py:197
 msgid "Running..."
 msgstr "चालवत आहे..."
 
-#: storage/__init__.py:201
+#: storage/__init__.py:198
 msgid "Storing encryption keys"
 msgstr "एनक्रिप्शन किज् साठवत आहे"
 
-#: storage/__init__.py:217
+#: storage/__init__.py:214
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "एनक्रिप्शन कि साठवतेवेळी त्रुटी: %s\n"
 
-#: storage/__init__.py:362
+#: storage/__init__.py:358
 msgid "Examining Devices"
 msgstr "उपकरणांची चौकशी करत आहे"
 
-#: storage/__init__.py:363
+#: storage/__init__.py:359
 msgid "Examining storage devices"
 msgstr "स्टोरेज उपकरणांची चौकशी करत आहे"
 
-#: storage/__init__.py:642
+#: storage/__init__.py:638
 msgid "This partition is holding the data for the hard drive install."
 msgstr "या विभाजनात हार्ड ड्राइव्ह प्रतिष्ठापनेची माहिती सामावली आहे."
 
-#: storage/__init__.py:647
+#: storage/__init__.py:643
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "तुम्ही LDL संरुपित DASD चे विभाजन नष्ट करू शकत नाही."
 
-#: storage/__init__.py:653
+#: storage/__init__.py:649
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "हे उपकरन RAID उपकरन %s चा भाग आहे."
 
-#: storage/__init__.py:656
+#: storage/__init__.py:652
 msgid "This device is part of a RAID device."
 msgstr "हे उपकरन RAID उपकरनचा भाग आहे."
 
-#: storage/__init__.py:661
+#: storage/__init__.py:657
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "हे उपकरन LVM खंड घट %s चा भाग आहे."
 
-#: storage/__init__.py:664
+#: storage/__init__.py:660
 msgid "This device is part of a LVM volume group."
 msgstr "हे विभाजन LVM खंड गटाचे एक भाग आहे."
 
-#: storage/__init__.py:680
+#: storage/__init__.py:676
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -4831,7 +4806,7 @@ msgstr ""
 "हे उपकरन वाढिव विभाजन आहे ज्यात तर्क विभाजनचे समावेष आहे ज्यांस नष्ट करणे शक्य नाही:\n"
 "\n"
 
-#: storage/__init__.py:955
+#: storage/__init__.py:951
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -4840,15 +4815,14 @@ msgstr ""
 "तुम्ही रूट विभाजन (/) जे %s ची प्रतिष्ठापना चालू राहण्यासाठी आवश्यक असते, निश्चित केलेले "
 "नाही."
 
-#: storage/__init__.py:960
+#: storage/__init__.py:956
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"तुमचे रूट विभाजन 250 मेगाबाइट्स पेक्षा कमी आहे जे %s प्रतिष्ठापीत करण्यासाठी खूपच लहान आहे."
+msgstr "तुमचे रूट विभाजन 250 मेगाबाइट्स पेक्षा कमी आहे जे %s प्रतिष्ठापीत करण्यासाठी खूपच लहान आहे."
 
-#: storage/__init__.py:966
+#: storage/__init__.py:962
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -4857,12 +4831,12 @@ msgstr ""
 "तुमचे / विभाजन %(min)s MB पेक्षा कमी आहे, जे साधारण %(productName)s प्रतिष्ठापन "
 "करीता सूचवलेल्यापेक्षा कमी आहे."
 
-#: storage/__init__.py:973
+#: storage/__init__.py:969
 #, python-format
 msgid "Placing the root partition on an XFS filesystem is not supported in %s."
 msgstr "रूट विभाजनला XFS फाइलप्रणालीवर स्थीत करणे %s मध्ये समर्थीत नाही."
 
-#: storage/__init__.py:981
+#: storage/__init__.py:977
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -4871,7 +4845,7 @@ msgstr ""
 "तुमची / विभाजन प्रतिष्ठापीत करत असलेल्या लाइव्ह प्रतिमाशी जुळत नाही.  त्याचे %s प्रमाणे "
 "रूपण करा."
 
-#: storage/__init__.py:988
+#: storage/__init__.py:984
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -4880,14 +4854,13 @@ msgstr ""
 "तुमचे %(mount)s विभाजन %(size)s मेगाबाईट्सपेक्षा कमी आहे, जे सामान्य %(productName)s "
 "प्रतिष्ठापनजोगी संकेतपेक्षा कमी आहे."
 
-#: storage/__init__.py:1017
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+#: storage/__init__.py:1013
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB यंत्रावर प्रतिष्ठापना करत आहे. यातून एक कार्यक्षम प्रणाली निर्माण होऊ शकते किंवा "
 "नाहीपण होऊ शकत."
 
-#: storage/__init__.py:1020
+#: storage/__init__.py:1016
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -4895,7 +4868,7 @@ msgstr ""
 "FireWire यंत्रावर प्रतिष्ठापना करत आहे. यातून एक कार्यक्षम प्रणाली निर्माण होऊ शकते "
 "किंवा नाहीपण होऊ शकत."
 
-#: storage/__init__.py:1027
+#: storage/__init__.py:1023
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
@@ -4903,7 +4876,7 @@ msgstr ""
 "तुम्ही स्वॅप विभाजन निर्देशीत केले नाही.  उपलब्ध मेमरीचे स्तरमुळे, पूर्णतया प्रतिष्ठापनकरीता "
 "स्वॅप विभाजन आवश्यक आहे."
 
-#: storage/__init__.py:1032
+#: storage/__init__.py:1028
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -4911,22 +4884,21 @@ msgstr ""
 "तुम्ही स्वॅप विभाजन दर्शविलेले नाही. जरी ते नेहमी काटेकोरपणे आवश्यक नसले, तरीही बऱ्याच "
 "प्रतिष्ठापनांसाठी त्यामुळे कृतीशीलतेत उठावदार सुधारणा होइल."
 
-#: storage/__init__.py:1039
+#: storage/__init__.py:1035
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "माउंट पॉइंट अवैध आहे.  %s डिरेक्ट्री / फाइल प्रणालीवर असायला हवे."
 
-#: storage/__init__.py:1043
+#: storage/__init__.py:1039
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "माऊंट पॉइंट %s linux फाइल प्रणालीवर असायला हवी."
 
-#: storage/__init__.py:1054
+#: storage/__init__.py:1050
 msgid "No Drives Found"
 msgstr "ड्राइव्ह्स सापडल्या नाहीत"
 
-#: storage/__init__.py:1055
+#: storage/__init__.py:1051
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -4934,11 +4906,11 @@ msgstr ""
 "एक त्रुटी उद्भवली आहे - नवीन फाइल प्रणाली ज्यावर निर्माण करावी असे वैध यंत्र सापडले "
 "नाही. कृपया समस्येच्या कारणासाठी आपला यंत्रभाग(हार्डवेयर) तपासून पहा."
 
-#: storage/__init__.py:1348 storage/__init__.py:1357
+#: storage/__init__.py:1344 storage/__init__.py:1353
 msgid "Dirty File Systems"
 msgstr "घाणेरड्या फाइल प्रणाली"
 
-#: storage/__init__.py:1349
+#: storage/__init__.py:1345
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4951,7 +4923,7 @@ msgstr ""
 "बंद(शट डाउन) करा.\n"
 "%s"
 
-#: storage/__init__.py:1358
+#: storage/__init__.py:1354
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4962,7 +4934,7 @@ msgstr ""
 "तरीही त्यांस आरोहित करणे तुम्हास आवडेल काय?\n"
 "%s"
 
-#: storage/__init__.py:1835
+#: storage/__init__.py:1831
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4979,7 +4951,7 @@ msgstr ""
 "जुण्या-शैलीचे Linux स्वॅप विभाजन आहे.  या उपकरनाला स्वॅप स्पेस् म्हणून वापरायचे असल्यास, "
 "तुम्ही नवीन-शैलीचे Linux स्वॅप विभाजन प्रमाणे रूपण कारयला हवे."
 
-#: storage/__init__.py:1846
+#: storage/__init__.py:1842
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4998,7 +4970,7 @@ msgstr ""
 "याचा अर्थ तुमची प्रणाली शीतनिद्रेत आहे. सुधारणा राबवण्यासाठी, कृपया तुमची प्रणाली "
 "शीतनिद्रित करण्याऐवजी पूर्णपणे बंद करा."
 
-#: storage/__init__.py:1854
+#: storage/__init__.py:1850
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5017,7 +4989,7 @@ msgstr ""
 "याचा अर्थ तुमची प्रणाली शीतनिद्रेत आहे. नवीन प्रतिष्ठापन करत असल्यास, प्रतिष्ठापक सर्व "
 "स्वॅप विभाजने स्वरूपीत करण्यासाठी निश्चित केले आहे याती खात्री करा."
 
-#: storage/__init__.py:1866
+#: storage/__init__.py:1862
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5034,7 +5006,7 @@ msgstr ""
 "समर्थीत स्वॅप खंड समाविष्ट करत नाही.  प्रतिष्ठापन पुढे चालू ठेवण्यासाठी, तुम्हाला उपकरनचे "
 "रूपण करणे किंवा त्यांस वगळावे लागेल."
 
-#: storage/__init__.py:1877
+#: storage/__init__.py:1873
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5050,7 +5022,7 @@ msgstr ""
 "\n"
 "प्रतिष्ठापक पासून बाहेर पडण्याकरीता ठिक आहे दाबा"
 
-#: storage/__init__.py:1884
+#: storage/__init__.py:1880
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5065,11 +5037,11 @@ msgstr ""
 "\n"
 "प्रतिष्ठापक पासून बाहेर पडण्याकरीता ठिक आहे दाबा."
 
-#: storage/__init__.py:1947 storage/__init__.py:1959
+#: storage/__init__.py:1943 storage/__init__.py:1955
 msgid "Invalid mount point"
 msgstr "अवैध माऊन्ट पॉईन्ट"
 
-#: storage/__init__.py:1948
+#: storage/__init__.py:1944
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5082,7 +5054,7 @@ msgstr ""
 "\n"
 "प्रतिष्ठापक पासून बाहेर पडण्याकरीता <Enter> दाबा."
 
-#: storage/__init__.py:1960
+#: storage/__init__.py:1956
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5095,11 +5067,11 @@ msgstr ""
 "\n"
 "प्रतिष्ठापक पासून बाहेर पडण्याकरीता <Enter> दाबा."
 
-#: storage/__init__.py:1976 storage/__init__.py:2000
+#: storage/__init__.py:1972 storage/__init__.py:1996
 msgid "Unable to mount filesystem"
 msgstr "फाइल प्रणाली भारित करण्यास असमर्थ"
 
-#: storage/__init__.py:1977
+#: storage/__init__.py:1973
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5108,7 +5080,7 @@ msgstr ""
 "%(path)s यंत्रास %(mountpoint)s म्हणून माऊंट करताना त्रुटी उद्भवली. तुम्ही प्रतिष्ठापन "
 "चालू ठेवू शकता, परंतु त्यात समस्या येऊ शकतात."
 
-#: storage/__init__.py:2001
+#: storage/__init__.py:1997
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5144,23 +5116,23 @@ msgstr "%s करीता vginfo अपयशी ठरले"
 msgid "lvs failed for %s"
 msgstr "%s करीता lvs अपयशी ठरले"
 
-#: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
-#: storage/devices.py:2903 storage/devices.py:3377
+#: storage/devices.py:1264 storage/devices.py:1962 storage/devices.py:2378
+#: storage/devices.py:2871 storage/devices.py:3344
 msgid "Creating"
 msgstr "निर्माण करत आहे"
 
-#: storage/devices.py:1297 storage/devices.py:1995 storage/devices.py:2411
-#: storage/devices.py:2904
+#: storage/devices.py:1265 storage/devices.py:1963 storage/devices.py:2379
+#: storage/devices.py:2872
 #, python-format
 msgid "Creating device %s"
 msgstr "उपकरण %s निर्माण करत आहे"
 
-#: storage/devices.py:2504
+#: storage/devices.py:2472
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "RAID%d संचाला किमान %d सदस्य आवश्यक आहे"
 
-#: storage/devices.py:3378
+#: storage/devices.py:3345
 #, python-format
 msgid "Creating file %s"
 msgstr "फाइल %s निर्माण करत आहे"
@@ -5348,8 +5320,7 @@ msgstr ""
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
-msgstr ""
-"स्वयं विभाजन करीता अतिरिक्त मोकळी जागा आढळली नाही, कृपया इतर विभाजन पद्धत वापरा."
+msgstr "स्वयं विभाजन करीता अतिरिक्त मोकळी जागा आढळली नाही, कृपया इतर विभाजन पद्धत वापरा."
 
 #: storage/partitioning.py:233
 msgid "Warnings During Automatic Partitioning"
@@ -5442,8 +5413,7 @@ msgstr "zFCP उपकरण %(devnum)s यांस ऑनलाइन (%(e)s) 
 #: storage/zfcp.py:154
 #, python-format
 msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
-msgstr ""
-"WWPN %(wwpn)s यांस zFCP उपकरण %(devnum)s (%(e)s) करीता समावेश करण्यास अशक्य."
+msgstr "WWPN %(wwpn)s यांस zFCP उपकरण %(devnum)s (%(e)s) करीता समावेश करण्यास अशक्य."
 
 #: storage/zfcp.py:161
 #, python-format
@@ -5453,16 +5423,15 @@ msgstr "WWPN %(wwpn)s हे zFCP उपकरण %(devnum)s येथे आढ
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
+"s)."
 msgstr ""
 "LUN %(fcplun)s यांस WWPN %(wwpn)s करीता zFCP उपकरण %(devnum)s (%(e)s) येथे "
 "समावेश करणे अशक्य."
 
 #: storage/zfcp.py:182
 #, python-format
-msgid ""
-"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
 msgstr ""
 "LUN %(fcplun)s यांस WWPN %(wwpn)s येथील zFCP उपकरण %(devnum)s वर आधिपासूनच "
 "संरचीत केले आहे."
@@ -5473,8 +5442,8 @@ msgid ""
 "Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP "
 "device %(devnum)s (%(e)s)."
 msgstr ""
-"LUN %(fcplun)s चे अपयशी गुणधर्म WWPN %(wwpn)s येथील, zFCP उपकरन %(devnum)s "
-"(%(e)s) वरील, वाचण्यास अशक्य."
+"LUN %(fcplun)s चे अपयशी गुणधर्म WWPN %(wwpn)s येथील, zFCP उपकरन %(devnum)s (%(e)"
+"s) वरील, वाचण्यास अशक्य."
 
 #: storage/zfcp.py:203
 #, python-format
@@ -5488,8 +5457,8 @@ msgstr ""
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
 msgstr ""
 "zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s) चे SCSI उपकरण योग्यप्रकारे नष्ट "
 "करण्यास अशक्य."
@@ -5497,8 +5466,8 @@ msgstr ""
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
+"(e)s)."
 msgstr ""
 "LUN %(fcplun)s यांस WWPN %(wwpn)s करीता, zFCP उपकरन %(devnum)s (%(e)s) काढून "
 "टाकण्यास अशक्य."
@@ -5675,8 +5644,8 @@ msgstr "नवीन बूट लोडर संरचना निर्म�
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in %"
+"(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
@@ -5739,8 +5708,7 @@ msgstr "रूट पासवर्ड"
 msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
-msgstr ""
-"रूट पासवर्ड निवडा. तुम्ही त्यास दोनवेळा प्रविष्ट करा व प्रविष्ट करतेवेळी त्रुटी करू नका. "
+msgstr "रूट पासवर्ड निवडा. तुम्ही त्यास दोनवेळा प्रविष्ट करा व प्रविष्ट करतेवेळी त्रुटी करू नका. "
 
 #: textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
@@ -5846,8 +5814,7 @@ msgstr "रूट पासवर्ड:"
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"रूट खाते हे प्रणाली प्रशासित करण्यास वापरले जाते. रूट उपयोक्त्यासाठी पासवर्ड दाखल करा."
+msgstr "रूट खाते हे प्रणाली प्रशासित करण्यास वापरले जाते. रूट उपयोक्त्यासाठी पासवर्ड दाखल करा."
 
 #: ui/adddrive.glade.h:1
 msgid "Add _FCoE SAN"
@@ -5898,8 +5865,7 @@ msgstr ""
 "हार्ड ड्राइव्ह"
 
 #: ui/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "कृपया या सॉफ्टवेअर रेपॉजीटरी करीता संयोजना माहिती प्रविष्ट करा."
 
 #: ui/addrepo.glade.h:10
@@ -5967,8 +5933,7 @@ msgid "Volume to Shrink"
 msgstr "आकुंचनजोगी खंड"
 
 #: ui/autopart.glade.h:4
-msgid ""
-"Which partition would you like to shrink to make room for your installation?"
+msgid "Which partition would you like to shrink to make room for your installation?"
 msgstr "प्रतिष्ठापनसाठी जागा बनवण्यासाठी तुम्हाला कुठले विभाजन आकुंचीत करायला आवडेल?"
 
 #: ui/autopart.glade.h:5
@@ -6042,8 +6007,7 @@ msgstr ""
 "ड्राइव्हर दाखवा."
 
 #: ui/create-storage.glade.h:1
-msgid ""
-"<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">RAID प्रमाणे रूपण केलेले विभाजन निर्माण करा</"
 "span>"
@@ -6057,15 +6021,13 @@ msgstr ""
 "करा</span>"
 
 #: ui/create-storage.glade.h:3
-msgid ""
-"<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">LVM प्रमाणे रूपण केलेले विभाजन निर्माण करा</"
 "span>"
 
 #: ui/create-storage.glade.h:4
-msgid ""
-"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">सर्वसाधारण विभाजनचे निर्माण</span>"
 
 #: ui/create-storage.glade.h:5
@@ -6314,8 +6276,7 @@ msgstr ""
 msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
-msgstr ""
-"या एनक्रिप्ट विभाजन करीता गुप्तवाक्यरचना निवडा. प्रणाली बूटवेळी तुम्हाला विचारले जाईल."
+msgstr "या एनक्रिप्ट विभाजन करीता गुप्तवाक्यरचना निवडा. प्रणाली बूटवेळी तुम्हाला विचारले जाईल."
 
 #: ui/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
@@ -6654,9 +6615,3 @@ msgstr "वेल्श"
 msgid "Zulu"
 msgstr "झुलू"
 
-#~ msgid ""
-#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-#~ "mainframe attached disks (DASD), usually in an enterprise environment"
-#~ msgstr ""
-#~ "सहसा एनटरप्राइज एनवार्यनमेंटमध्ये स्टोरेज एरीया नेटवर्क्स् (SANs) किंवा मेनफ्रेम्स् अटॅच्ड् "
-#~ "डिस्क्स् (DASD), आधारीत साधणांकरीता प्रतिष्ठापन किंवा सुधारणा करतो"
