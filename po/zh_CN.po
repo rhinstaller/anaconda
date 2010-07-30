@@ -564,7 +564,7 @@ msgid "Install on System"
 msgstr "在系统上安装"
 
 #: installinterfacebase.py:47
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS "
 "RAID sets. Ignoring disk %s."
@@ -583,7 +583,7 @@ msgstr[0] "发现未格式化的 DASD 设备"
 msgstr[1] ""
 
 #: installinterfacebase.py:62
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Format uninitialized DASD device?\n"
 "\n"
@@ -1444,7 +1444,7 @@ msgid "Also add this passphrase to all existing encrypted devices"
 msgstr "为所有当前加密的设备添加这个密码短语"
 
 #: text.py:198
-#, python-format
+#, fuzzy, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
 msgstr[0] "密码至少应包含 %d 个字符。"
@@ -1743,7 +1743,7 @@ msgid "%s KB"
 msgstr "%s KB"
 
 #: yuminstall.py:91
-#, python-format
+#, fuzzy, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
 msgstr[0] "%s B"
@@ -2761,7 +2761,7 @@ msgid "No free slots"
 msgstr "无空闲插槽"
 
 #: iw/lvm_dialog_gui.py:830
-#, python-format
+#, fuzzy, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
 msgstr[0] "您不能在一个巻组中创建多于 %d 个逻辑巻。"
@@ -3165,7 +3165,7 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1478
-#, python-format
+#, fuzzy, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
 msgstr[0] "您目前有 %d 个空闲的 RAID 分区可用。"
@@ -4915,7 +4915,7 @@ msgstr[0] "格式化 DASD 设备"
 msgstr[1] ""
 
 #: storage/dasd.py:139
-#, python-format
+#, fuzzy, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] "为使用 Linux 准备 %d DASD 设备......"
