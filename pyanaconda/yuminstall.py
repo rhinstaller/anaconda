@@ -1903,7 +1903,7 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             line = "repo --name=\"%s\" " % (repo.name or repo.repoid)
 
             if repo.baseurl:
-                line += " --baseurl=%s" % repo.baseurl[0]
+                line += " --baseurl=%s" % repo.anacondaBaseURLs[0]
             else:
                 line += " --mirrorlist=%s" % repo.mirrorlist
 
