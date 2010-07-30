@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jul 29 2010 David Cantrell <dcantrell@redhat.com> - 13.21.65-1
+- Fix quoting that was causing boot.iso to not be made (dgregor).
+  Resolves: rhbz#619279
+
 * Thu Jul 29 2010 David Cantrell <dcantrell@redhat.com> - 13.21.64-1
 - Add missing parameter (rvykydal)
   Resolves: rhbz#619269
