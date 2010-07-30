@@ -165,8 +165,8 @@ def storageComplete(anaconda):
             if dev.format.type == "luks" and not dev.format.exists:
                 dev.format.passphrase = anaconda.id.storage.encryptionPassphrase
 
-    map(lambda d: anaconda.id.storage.services.add(d.services),
-        anaconda.id.storage.fsset)
+    map(lambda d: anaconda.id.storage.services.update(d.services),
+        anaconda.id.storage.fsset.devices)
 
     if anaconda.isKickstart:
         return
