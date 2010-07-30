@@ -1,17 +1,16 @@
-# translation of anaconda.rhel6-branch.anaconda.po to Wei Liu
+# translation of anaconda.rhel6-branch.zh_CN-new.po to Wei Liu
 # Copyright (C) YEAR Red Hat, Inc.
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Leah Liu <lliu@redhat.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.rhel6-branch.anaconda\n"
+"Project-Id-Version: anaconda.rhel6-branch.zh_CN-new\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-29 04:08-1000\n"
-"PO-Revision-Date: 2010-06-30 13:44+1000\n"
+"POT-Creation-Date: 2010-07-28 06:09-1000\n"
+"PO-Revision-Date: 2010-07-30 16:27+1000\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Wei Liu\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -110,8 +109,7 @@ msgstr "正在将安装映像传输到硬盘"
 msgid ""
 "An error occurred transferring the install image to your hard drive.  This "
 "is often cause by damaged or low quality media."
-msgstr ""
-"将安装映像传送到您的硬盘时出错。这通常是由介质损坏或者低质量介质造成的。"
+msgstr "将安装映像传送到您的硬盘时出错。这通常是由介质损坏或者低质量介质造成的。"
 
 #: backend.py:181
 msgid ""
@@ -140,8 +138,8 @@ msgstr "将安装映像传输到硬盘时出错，很可能是磁盘空间不够
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urls.c:330 loader/urls.c:336
-#: loader/urls.c:345 storage/__init__.py:216 storage/__init__.py:1803
-#: storage/__init__.py:1890 storage/zfcp.py:375 textw/netconfig_text.py:282
+#: loader/urls.c:345 storage/__init__.py:213 storage/__init__.py:1799
+#: storage/__init__.py:1886 storage/zfcp.py:375 textw/netconfig_text.py:282
 #: textw/upgrade_text.py:179 textw/upgrade_text.py:186
 msgid "Error"
 msgstr "错误"
@@ -171,14 +169,14 @@ msgstr ""
 #: upgrade.py:199 yuminstall.py:252 yuminstall.py:991 yuminstall.py:996
 #: yuminstall.py:1076 yuminstall.py:1082 yuminstall.py:1238 yuminstall.py:1265
 #: yuminstall.py:1326 yuminstall.py:1513 yuminstall.py:1532 yuminstall.py:1555
-#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:220
-#: storage/__init__.py:1984
+#: storage/__init__.py:100 storage/__init__.py:109 storage/__init__.py:217
+#: storage/__init__.py:1980
 msgid "_Exit installer"
 msgstr "(_E)退出安装程序"
 
 #: bootloader.py:60 image.py:92 image.py:251 kickstart.py:1371
 #: kickstart.py:1410 upgrade.py:58 yuminstall.py:1331 yuminstall.py:1514
-#: iw/partition_gui.py:1601 storage/__init__.py:1985
+#: iw/partition_gui.py:1601 storage/__init__.py:1981
 msgid "_Continue"
 msgstr "继续（_C）"
 
@@ -290,8 +288,7 @@ msgstr "保存屏幕快照时出错"
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
-msgstr ""
-"保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
+msgstr "保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
 
 #: gui.py:509
 msgid "Installation Key"
@@ -320,8 +317,7 @@ msgstr "密码至少应包含八个字符。"
 msgid ""
 "Device %s is encrypted. In order to access the device's contents during "
 "installation you must enter the device's passphrase below."
-msgstr ""
-"设备 %s 是加密的。为了要在安装过程中访问设备的内容，您必须输入以下设备密码。"
+msgstr "设备 %s 是加密的。为了要在安装过程中访问设备的内容，您必须输入以下设备密码。"
 
 #: gui.py:733 gui.py:1489 partIntfHelpers.py:153 partIntfHelpers.py:338
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
@@ -374,8 +370,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
+"This action may also be applied to all other disks needing reinitialization.%"
+"(details)s"
 msgstr ""
 "处理驱动器时出错：\n"
 "\n"
@@ -442,7 +438,7 @@ msgstr ""
 "className = %s"
 
 #: gui.py:1400 image.py:164 image.py:194 packages.py:360
-#: storage/__init__.py:1802
+#: storage/__init__.py:1798
 msgid "_Exit"
 msgstr "退出（_）"
 
@@ -537,8 +533,8 @@ msgstr "需要的安装介质"
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following "
-"%(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following %"
+"(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
@@ -561,8 +557,7 @@ msgstr "返回（_B）"
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
-msgstr ""
-"卸载光盘时出错。请确定您不是从 tty2 上的命令行访问 %s，然后点击确定来重试。"
+msgstr "卸载光盘时出错。请确定您不是从 tty2 上的命令行访问 %s，然后点击确定来重试。"
 
 #: installclass.py:71
 msgid "Install on System"
@@ -580,8 +575,6 @@ msgstr[0] ""
 "磁盘 %s 中包含 BIOS RAID 元数据，但该数据不包含在任何可识别 BIOS RAID 组中。"
 "忽略磁盘 %s。"
 msgstr[1] ""
-"磁盘 %s 中包含 BIOS RAID 元数据，但该数据不包含在任何可识别 BIOS RAID 组中。"
-"忽略磁盘 %s。"
 
 #: installinterfacebase.py:60
 msgid "Unformatted DASD Device Found"
@@ -609,10 +602,6 @@ msgstr[0] ""
 "这个系统中有 %d 未初始化的 DASD 设备。要继续安装就必须格式化该设备。格式化将"
 "删除这个设备中的所有数据。"
 msgstr[1] ""
-"格式化未初始化的 DASD 设备？\n"
-"\n"
-"这个系统中有 %d 未初始化的 DASD 设备。要继续安装就必须格式化该设备。格式化将"
-"删除这个设备中的所有数据。"
 
 #: installinterfacebase.py:74 iw/partition_gui.py:898
 msgid "_Format"
@@ -621,26 +610,23 @@ msgstr "格式化(_F)"
 #: iutil.py:852
 #, python-format
 msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
-msgstr ""
-"错误：打开时无法将 reIPL 方法设定为 %(reipl_type)s (%(filename)s: %(e)s)"
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
+"s)"
+msgstr "错误：打开时无法将 reIPL 方法设定为 %(reipl_type)s (%(filename)s: %(e)s)"
 
 #: iutil.py:863
 #, python-format
 msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
-msgstr ""
-"错误：写入时无法将 reIPL 方法设定为 %(reipl_type)s (%(filename)s: %(e)s)"
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
+msgstr "错误：写入时无法将 reIPL 方法设定为 %(reipl_type)s (%(filename)s: %(e)s)"
 
 #: iutil.py:872
 #, python-format
 msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
-msgstr ""
-"错误：关闭时无法将 reIPL 方法设定为 %(reipl_type)s (%(filename)s: %(e)s)"
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
+msgstr "错误：关闭时无法将 reIPL 方法设定为 %(reipl_type)s (%(filename)s: %(e)s)"
 
 #: iutil.py:891
 #, python-format
@@ -676,15 +662,14 @@ msgstr "错误：为 reIPL (%(e)s) 写入 FCP 属性 %(reipl_property)s"
 
 #: iutil.py:975
 #, python-format
-msgid ""
-"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr "错误：为 reIPL (%(e)s) 写入默认 FCP 属性 %(reipl_property)s"
 
 #: iutil.py:990
 #, python-format
 msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
-"%(wwpn)s and LUN %(lun)s to continue installation"
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
+"(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 "关机后, 请在 FCP %(device)s（有 WWPN %(wwpn)s 和 LUN %(lun)s）执行手动 IPL 以"
 "便继续安装"
@@ -793,8 +778,7 @@ msgstr "缺少软件包组"
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
-msgstr ""
-"您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
+msgstr "您已指定要安装 '%s' 软件包组。该软件包组不存在。您想要继续还是中止安装？"
 
 #: kickstart.py:1517
 #, python-format
@@ -814,8 +798,7 @@ msgstr "找不到安装映像"
 
 #: livecd.py:122
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "给出的位置不是一个有效的%s liveCD使用的安装源。"
 
 #: livecd.py:180
@@ -854,13 +837,12 @@ msgstr "主机名的长度必须小于 255 个字符。"
 
 #: network.py:68
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
+"9'"
 msgstr "主机名只能以“a-z”、“A-Z”或者“0-9”范围内的有效字符开头"
 
 #: network.py:73
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "主机名只能包含字符“a-z”、“A-Z”、“0-9”、“-”、或“.”。"
 
 #: network.py:117
@@ -1013,8 +995,7 @@ msgstr "错误 - 卷组名 %s 无效。"
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
+msgstr "错误 - 卷组名包含不合法字符或空格。可被使用的字符是字母、数字、“.”或“_”。"
 
 #: partIntfHelpers.py:63
 msgid "Please enter a logical volume name."
@@ -1033,8 +1014,7 @@ msgstr "错误 - 逻辑卷名称 %s 无效。"
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
+msgstr "错误 - 逻辑卷名包含不合法字符或空格。可使用的字符是字母、数字、“.”或“_”。"
 
 #: partIntfHelpers.py:105
 #, python-format
@@ -1138,8 +1118,8 @@ msgstr "分区出错"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of "
-"%(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
@@ -1218,8 +1198,7 @@ msgid "Confirm Reset"
 msgstr "确认重设"
 
 #: partIntfHelpers.py:346
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "是否确定要将分区表还原至其最初状态？"
 
 #: platform.py:98 platform.py:339 platform.py:407 platform.py:514
@@ -1375,7 +1354,7 @@ msgid "Read-Only"
 msgstr "只读"
 
 #: rescue.py:311 rescue.py:313 loader/cdinstall.c:248 loader/cdinstall.c:251
-#: loader/method.c:324 storage/__init__.py:1802 textw/upgrade_text.py:137
+#: loader/method.c:324 storage/__init__.py:1798 textw/upgrade_text.py:137
 msgid "Skip"
 msgstr "跳过"
 
@@ -1449,9 +1428,7 @@ msgstr "救援模式"
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
-msgstr ""
-"您没有任何 Linux 分区，请按 <return> 键进入 shell。当您退出 shell 时，系统将"
-"会自动被重新引导。"
+msgstr "您没有任何 Linux 分区，请按返回键进入 shell。当您退出 shell 时，系统将自动重启。"
 
 #: rescue.py:493
 #, python-format
@@ -1471,7 +1448,7 @@ msgstr "为所有当前加密的设备添加这个密码短语"
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
 msgstr[0] "密码至少应包含 %d 个字符。"
-msgstr[1] "密码至少应包含 %d 个字符。"
+msgstr[1] ""
 
 #: text.py:232 ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
@@ -1558,8 +1535,7 @@ msgstr "未发现用于之前安装的系统的 root。"
 msgid ""
 "The root for the previously installed system was not found.  You can exit "
 "installer or backtrack to choose installation instead of upgrade."
-msgstr ""
-"没有找到之前安装系统的 root。您可退出安装程序或者后退选择安装而不是升级。"
+msgstr "没有找到之前安装系统的 root。您可退出安装程序或者后退选择安装而不是升级。"
 
 #: upgrade.py:217
 msgid ""
@@ -1771,7 +1747,7 @@ msgstr "%s KB"
 msgid "%s Byte"
 msgid_plural "%s Bytes"
 msgstr[0] "%s B"
-msgstr[1] "%s B"
+msgstr[1] ""
 
 #: yuminstall.py:135
 msgid "Preparing to install"
@@ -1892,8 +1868,7 @@ msgstr "重试下载。"
 
 #: yuminstall.py:985
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "在执行处理时出现错误，原因如下：%s\n"
 
 #: yuminstall.py:1028 yuminstall.py:1029
@@ -1948,8 +1923,8 @@ msgstr ""
 #: yuminstall.py:1067
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): "
-"%s.\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr "在执行处理时出现错误，原因如下：%s\n"
 
 #: yuminstall.py:1074 yuminstall.py:1079
@@ -2027,9 +2002,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of "
-"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
-"the upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of %(arch)"
+"s.  This is likely to not succeed.  Are you sure you wish to continue the "
+"upgrade process?"
 msgstr ""
 "您所升级的发行版本 %(productName)s 构架显示为 %(myarch)s，这与您之前安装的构"
 "架 %(arch)s 不匹配。升级将无法成功，您确定要继续升级过程吗？"
@@ -2184,8 +2159,7 @@ msgid "_Use Anyway"
 msgstr "无论如何都使用（_U）"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "所要求的密码包含非 ASCII 字符，它们不允许被用在密码中。"
 
 #: iw/advanced_storage.py:87
@@ -2208,8 +2182,7 @@ msgstr "数据错误"
 msgid ""
 "No partitions are available to resize.  Only physical partitions with "
 "specific filesystems can be resized."
-msgstr ""
-"没有可以重新定义大小的分区。只有带特定文件系统的物理分区可重新定义大小。"
+msgstr "没有可以重新定义大小的分区。只有带特定文件系统的物理分区可重新定义大小。"
 
 #: iw/autopart_type.py:119
 msgid "Resize FileSystem Error"
@@ -2268,8 +2241,7 @@ msgid "Shrink Current System"
 msgstr "缩小现有系统"
 
 #: iw/autopart_type.py:261
-msgid ""
-"Shrinks existing partitions to create free space for the default layout."
+msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr "缩小现有分区以便为默认布局生成剩余空间。"
 
 #: iw/autopart_type.py:263
@@ -2420,8 +2392,7 @@ msgstr ""
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
-msgstr ""
-"<b>提示：</b>将重新格式化安装目标设备并删除所有数据。确定您进行了备份。"
+msgstr "<b>提示：</b>将重新格式化安装目标设备并删除所有数据。确定您进行了备份。"
 
 #: iw/cleardisks_gui.py:199
 msgid ""
@@ -2502,8 +2473,7 @@ msgstr "升级现有安装"
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your storage device(s)."
-msgstr ""
-"如果您想升级现有的 %s 系统，选择该选项。该选项会保留您存储设备中的现有数据。"
+msgstr "如果您想升级现有的 %s 系统，选择该选项。该选项会保留您存储设备中的现有数据。"
 
 #: iw/examine_gui.py:105
 msgid ""
@@ -2514,7 +2484,7 @@ msgstr "在您的系统中探测到至少一个现有安装。您想要如何操
 #: iw/examine_gui.py:124
 #, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "   您要升级哪个 %s 安装？</b>   <b>"
+msgstr "<b>您要升级哪个 %s 安装？</b>"
 
 #: iw/examine_gui.py:138
 msgid "Unknown Linux system"
@@ -2580,7 +2550,7 @@ msgid ""
 "Installs or upgrades to enterprise devices such as Storage Area Networks "
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
-msgstr ""
+msgstr "安装或者升级到企业级设备，比如存储局域网（SAN）。这个选项可让您添加 FCoE / iSCSI / zFCP 磁盘并过滤掉安装程序应该忽略的设备。"
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2629,9 +2599,9 @@ msgstr "继续(_o)"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is larger than the smallest physical volume "
-"(%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
 "物理范围大小无法被改变，因为选定的值（%(curpe)10.2f MB）大于该卷组中最小的物"
 "理卷（%(maxpvsize)10.2f MB）。"
@@ -2639,9 +2609,9 @@ msgstr ""
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
-"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
+"volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 "物理范围大小无法被改变，因为选定的值 (%(curpe)10.2f MB) 大于该卷组中最小的物"
 "理卷 (%(maxpvsize)10.2f MB)。"
@@ -2771,20 +2741,20 @@ msgid ""
 "create more Physical Volumes from unpartitioned disk space and add them to "
 "this Volume Group."
 msgstr ""
-"目前设定的磁盘空间（%(size)10.2f MB）大于逻辑卷磁盘空间的最大值"
-"（%(maxlv)10.2f MB）。要提高上限，您可以从未分区的磁盘空间中生成更多物理逻辑"
-"卷，并将其加入该逻辑卷组。"
+"目前设定的磁盘空间（%(size)10.2f MB）大于逻辑卷磁盘空间的最大值（%(maxlv)"
+"10.2f MB）。要提高上限，您可以从未分区的磁盘空间中生成更多物理逻辑卷，并将其"
+"加入该逻辑卷组。"
 
 #: iw/lvm_dialog_gui.py:719
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group "
-"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
-"为这个逻辑卷（%(size)d MB）输入的大小与其它逻辑卷之和超过了卷组"
-"（%(tempvgsize)d MB）的大小。请增大卷组或者缩小逻辑卷。"
+"为这个逻辑卷（%(size)d MB）输入的大小与其它逻辑卷之和超过了卷组（%"
+"(tempvgsize)d MB）的大小。请增大卷组或者缩小逻辑卷。"
 
 #: iw/lvm_dialog_gui.py:829
 msgid "No free slots"
@@ -2795,7 +2765,7 @@ msgstr "无空闲插槽"
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
 msgstr[0] "您不能在一个巻组中创建多于 %d 个逻辑巻。"
-msgstr[1] "您不能在一个巻组中创建多于 %d 个逻辑巻。"
+msgstr[1] ""
 
 #: iw/lvm_dialog_gui.py:840
 msgid "No free space"
@@ -3076,7 +3046,7 @@ msgstr "MD RAID 阵列 %s (%-0.f MB)"
 msgid "Type"
 msgstr "类型"
 
-#: iw/partition_gui.py:616 storage/__init__.py:1802
+#: iw/partition_gui.py:616 storage/__init__.py:1798
 msgid "Format"
 msgstr "格式"
 
@@ -3101,14 +3071,12 @@ msgid "Partitioning"
 msgstr "分区"
 
 #: iw/partition_gui.py:850
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "您的分区方法产生了如下关键错误。"
 
 #: iw/partition_gui.py:852
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "在继续安装 %s 前您必须更正这些错误。"
 
 #: iw/partition_gui.py:858
@@ -3201,7 +3169,7 @@ msgstr ""
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
 msgstr[0] "您目前有 %d 个空闲的 RAID 分区可用。"
-msgstr[1] "您目前有 %d 个空闲的 RAID 分区可用。"
+msgstr[1] ""
 
 #: iw/partition_gui.py:1482
 msgid "About RAID"
@@ -3478,8 +3446,8 @@ msgstr "安装程序无法在您的系统上检测到目前使用的引导装载
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on "
-"%(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on %"
+"(bootDev)s."
 msgstr "安装程序检测到 %(type)s 引导装载程序目前安装在 %(bootDev)s 上。"
 
 #: iw/upgrade_bootloader_gui.py:142
@@ -3522,15 +3490,15 @@ msgstr "迁移文件系统"
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
+"several benefits over the file system traditionally shipped in %(productName)"
+"s.  This installation program can migrate formatted partitions without data "
+"loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%(productName)s 的本次发行版支持更新的文件系统，该文件系统和之前通常在 "
-"%(productName)s 中使用的文件系统相比有几个优点。这个安装程序可在不丢失数据的"
-"情况下迁移格式化的分区。\n"
+"%(productName)s 的本次发行版支持更新的文件系统，该文件系统和之前通常在 %"
+"(productName)s 中使用的文件系统相比有几个优点。这个安装程序可在不丢失数据的情"
+"况下迁移格式化的分区。\n"
 "\n"
 "您想迁移哪些分区？"
 
@@ -3542,8 +3510,8 @@ msgstr "升级交换分区"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have "
-"%dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "2.4 以上内核所需交换区要比老版内核大得多，大至您系统内存的两倍。您目前配置了 "
@@ -3595,16 +3563,14 @@ msgstr "我不想创建交换文件(_d)"
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
-msgstr ""
-"强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
+msgstr "强烈建议您创建一个交换文件，否则会导致安装程序非正常中止。您确定要继续么？"
 
 #: iw/upgrade_swap_gui.py:199 textw/upgrade_text.py:192
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "交换文件的大小必须在 1MB 到 2000MB 之间。"
 
 #: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:187
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "您所选的交换分区在该设备上空间不够。"
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
@@ -4049,9 +4015,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "欢迎为 %s 使用 %s - 援救模式"
 
 #: loader/lang.c:65 loader/loader.c:251
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "<Tab>/<Alt-Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕 "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "<Tab>/<Alt-Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏"
 
 #: loader/lang.c:370
 msgid "Choose a Language"
@@ -4110,8 +4075,7 @@ msgstr "正在读取 anaconda 更新"
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
-msgstr ""
-"无法下载更新映像。请修改以下更新位置，或者按取消键在不更新的情况下进行..."
+msgstr "无法下载更新映像。请修改以下更新位置，或者按取消键在不更新的情况下进行..."
 
 #: loader/loader.c:595
 msgid "Error downloading updates image"
@@ -4371,8 +4335,7 @@ msgid "Missing Information"
 msgstr "缺少信息"
 
 #: loader/net.c:1119
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "必须输入有效的 IPv4 地址和子网掩码或CIDR代码。"
 
 #: loader/net.c:1127
@@ -4415,8 +4378,7 @@ msgstr "您可确认物理端口"
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
-msgstr ""
-"通过让 LED 灯闪几秒。输入一个 1-30 之间的数字设定 LED 端口灯闪烁的时间。"
+msgstr "通过让 LED 灯闪几秒。输入一个 1-30 之间的数字设定 LED 端口灯闪烁的时间。"
 
 #: loader/net.c:1915
 msgid "Identify NIC"
@@ -4519,8 +4481,7 @@ msgstr "检索"
 
 #: loader/urls.c:262
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "请在您的服务器中输入包含 %s 安装映像的 URL。"
 
 #: loader/urls.c:280
@@ -4607,11 +4568,11 @@ msgstr ""
 "您指定的块设备加密应该启用，但您还没有提供密码短语。如果您不返回上一步并提供"
 "密码短语，则会禁用块设备加密。"
 
-#: storage/__init__.py:174
+#: storage/__init__.py:171
 msgid "Writing storage configuration to disk"
 msgstr "将存储配置写入磁盘"
 
-#: storage/__init__.py:175
+#: storage/__init__.py:172
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -4619,128 +4580,125 @@ msgstr ""
 "现在会将您选择的分区选项写入磁盘。所有在被删除或者被重新格式化的分区中的数据"
 "都会丢失。"
 
-#: storage/__init__.py:180
+#: storage/__init__.py:177
 msgid "Go _back"
 msgstr "返回（_b）"
 
-#: storage/__init__.py:181
+#: storage/__init__.py:178
 msgid "_Write changes to disk"
 msgstr "将修改写入磁盘（_W）"
 
-#: storage/__init__.py:200
+#: storage/__init__.py:197
 msgid "Running..."
 msgstr "正在运行……"
 
-#: storage/__init__.py:201
+#: storage/__init__.py:198
 msgid "Storing encryption keys"
 msgstr "正在储存加密密钥"
 
-#: storage/__init__.py:217
+#: storage/__init__.py:214
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "储存加密密钥时出错：%s\n"
 
-#: storage/__init__.py:362
+#: storage/__init__.py:358
 msgid "Examining Devices"
 msgstr "检查设备"
 
-#: storage/__init__.py:363
+#: storage/__init__.py:359
 msgid "Examining storage devices"
 msgstr "正在检查存储设备"
 
-#: storage/__init__.py:642
+#: storage/__init__.py:638
 msgid "This partition is holding the data for the hard drive install."
 msgstr "该分区含有硬盘安装的信息。"
 
-#: storage/__init__.py:647
+#: storage/__init__.py:643
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "您不能删除 LDL 格式的 DASD 上的分区。"
 
-#: storage/__init__.py:653
+#: storage/__init__.py:649
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "这个设备是 RAID 设备 %s 的一部分。"
 
-#: storage/__init__.py:656
+#: storage/__init__.py:652
 msgid "This device is part of a RAID device."
 msgstr "这个设备是 RAID 设备的一部分。"
 
-#: storage/__init__.py:661
+#: storage/__init__.py:657
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "这个设备是 LVM 卷组 '%s' 的一部分。"
 
-#: storage/__init__.py:664
+#: storage/__init__.py:660
 msgid "This device is part of a LVM volume group."
 msgstr "这个设备是 LVM 卷组的一部分。"
 
-#: storage/__init__.py:680
+#: storage/__init__.py:676
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
 "\n"
 msgstr "这个设备是一个扩展分区，其中包含无法删除的逻辑分区：n\n"
 
-#: storage/__init__.py:955
+#: storage/__init__.py:951
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr "您还没有指定继续安装 %s 所需的根分区（/）。"
 
-#: storage/__init__.py:960
+#: storage/__init__.py:956
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "您的根分区小于 250 MB，这个空间通常太小，不足以安装 %s。"
 
-#: storage/__init__.py:966
+#: storage/__init__.py:962
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s install."
 msgstr "您的 / 分区小于 %(min)s MB，小于一般 %(productName)s 安装的推荐值。"
 
-#: storage/__init__.py:973
+#: storage/__init__.py:969
 #, python-format
 msgid "Placing the root partition on an XFS filesystem is not supported in %s."
 msgstr "在 %s 中不支持在 XFS 文件系统中放置 root 分区。"
 
-#: storage/__init__.py:981
+#: storage/__init__.py:977
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
 "It must be formatted as %s."
 msgstr "您的 / 分区与您要安装的实时影响不匹配。必须将其格式化为 %s。"
 
-#: storage/__init__.py:988
+#: storage/__init__.py:984
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
-msgstr ""
-"您的 %(mount)s 分区小于 %(size)s MB，小于正常安装 %(productName)s 的建议值。"
+msgstr "您的 %(mount)s 分区小于 %(size)s MB，小于正常安装 %(productName)s 的建议值。"
 
-#: storage/__init__.py:1017
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+#: storage/__init__.py:1013
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr "正在一个 USB 设备上安装。不能保证可以成功安装。"
 
-#: storage/__init__.py:1020
+#: storage/__init__.py:1016
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
 msgstr "正在一个 FireWire 设备上安装。不能保证可以成功安装。"
 
-#: storage/__init__.py:1027
+#: storage/__init__.py:1023
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
-msgstr ""
-"您还没有指定一个交换分区。根据所显示的内存量，需要有交换分区才可完成安装。"
+msgstr "您还没有指定一个交换分区。根据所显示的内存量，需要有交换分区才可完成安装。"
 
-#: storage/__init__.py:1032
+#: storage/__init__.py:1028
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -4748,22 +4706,21 @@ msgstr ""
 "您还没有指定一个交换分区。虽然在大多情况下这并非必不可少，但若有一个交换分区"
 "的话，系统性能会显著提高。"
 
-#: storage/__init__.py:1039
+#: storage/__init__.py:1035
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "这个挂载点无效。%s 目录必须在 / 文件系统中。"
 
-#: storage/__init__.py:1043
+#: storage/__init__.py:1039
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "挂载点 %s 必须在 linux 文件系统中。"
 
-#: storage/__init__.py:1054
+#: storage/__init__.py:1050
 msgid "No Drives Found"
 msgstr "未找到任何驱动器"
 
-#: storage/__init__.py:1055
+#: storage/__init__.py:1051
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -4771,11 +4728,11 @@ msgstr ""
 "出现错误 - 未找到要在其中创建新文件系统的有效设备。请检查您的硬件以找到问题的"
 "起因。"
 
-#: storage/__init__.py:1348 storage/__init__.py:1357
+#: storage/__init__.py:1344 storage/__init__.py:1353
 msgid "Dirty File Systems"
 msgstr "有问题的文件系统"
 
-#: storage/__init__.py:1349
+#: storage/__init__.py:1345
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4787,7 +4744,7 @@ msgstr ""
 "查验文件系统，正常关机后再进行系统升级。\n"
 "%s"
 
-#: storage/__init__.py:1358
+#: storage/__init__.py:1354
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -4797,7 +4754,7 @@ msgstr ""
 "您的 Linux 系统中下列文件系统没有被完整地卸载下来，您仍要挂载它们吗？\n"
 "%s"
 
-#: storage/__init__.py:1835
+#: storage/__init__.py:1831
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4814,7 +4771,7 @@ msgstr ""
 "是一个旧格式的 Linux 交换分区。如果您要用此设备用于交换分区空间，您必须用新格"
 "式重新格式化。"
 
-#: storage/__init__.py:1846
+#: storage/__init__.py:1842
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4832,7 +4789,7 @@ msgstr ""
 "位于您的 /etc/fstab 文件中，目前作为软件挂起设备，意味着您的系统正处于睡眠状"
 "态。如果要执行升级，请关闭您的系统，而不是使系统进入睡眠状态。"
 
-#: storage/__init__.py:1854
+#: storage/__init__.py:1850
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4850,7 +4807,7 @@ msgstr ""
 "位于您的 /etc/fstab 文件中，目前作为软件挂起设备，意味着您的系统正处于睡眠状"
 "态。如果要执行新的安装，请确定将安装程序设定为格式化所有交换设备。"
 
-#: storage/__init__.py:1866
+#: storage/__init__.py:1862
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -4866,7 +4823,7 @@ msgstr ""
 "\n"
 "不包含受支持的交换分区巻。为了继续安装，您需要将其格式化或跳过。"
 
-#: storage/__init__.py:1877
+#: storage/__init__.py:1873
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4882,7 +4839,7 @@ msgstr ""
 "\n"
 "请按「确定」退出安装程序。"
 
-#: storage/__init__.py:1884
+#: storage/__init__.py:1880
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -4897,11 +4854,11 @@ msgstr ""
 "\n"
 "请按「确定」退出安装程序。"
 
-#: storage/__init__.py:1947 storage/__init__.py:1959
+#: storage/__init__.py:1943 storage/__init__.py:1955
 msgid "Invalid mount point"
 msgstr "挂载点无效"
 
-#: storage/__init__.py:1948
+#: storage/__init__.py:1944
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -4909,12 +4866,11 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"在创建 %s 时出错。这个路径中的一些元素不是目录。这是一个严重错误，无法继续安"
-"装。\n"
+"在创建 %s 时出错。这个路径中的一些元素不是目录。这是一个严重错误，无法继续安装。\n"
 "\n"
 "请按 <Enter> 退出安装程序。"
 
-#: storage/__init__.py:1960
+#: storage/__init__.py:1956
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -4922,15 +4878,15 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"在创建 %(mountpoint)s: %(msg)s 时出错.致命错误,安装无法继续.\n"
+"在创建 %(mountpoint)s: %(msg)s 时出错。这是一个致命错误。安装无法继续。\n"
 "\n"
-"请按 <Enter> 退出安装."
+"请按 <Enter> 退出安装。"
 
-#: storage/__init__.py:1976 storage/__init__.py:2000
+#: storage/__init__.py:1972 storage/__init__.py:1996
 msgid "Unable to mount filesystem"
 msgstr "无法载入文件系统！"
 
-#: storage/__init__.py:1977
+#: storage/__init__.py:1973
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -4939,7 +4895,7 @@ msgstr ""
 "在把设备 %(path)s 挂载为 %(mountpoint)s 时出错。您仍可继续安装，但可能无法正"
 "常运行。"
 
-#: storage/__init__.py:2001
+#: storage/__init__.py:1997
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -4963,7 +4919,7 @@ msgstr[1] ""
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] "为使用 Linux 准备 %d DASD 设备......"
-msgstr[1] "为使用 Linux 准备 %d DASD 设备......"
+msgstr[1] ""
 
 #: storage/devicelibs/lvm.py:316
 #, python-format
@@ -4975,23 +4931,23 @@ msgstr "为 %s 查看 vginfo 失败"
 msgid "lvs failed for %s"
 msgstr "为 %s 查看 lvs 失败"
 
-#: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
-#: storage/devices.py:2903 storage/devices.py:3377
+#: storage/devices.py:1264 storage/devices.py:1962 storage/devices.py:2378
+#: storage/devices.py:2871 storage/devices.py:3344
 msgid "Creating"
 msgstr "创建中"
 
-#: storage/devices.py:1297 storage/devices.py:1995 storage/devices.py:2411
-#: storage/devices.py:2904
+#: storage/devices.py:1265 storage/devices.py:1963 storage/devices.py:2379
+#: storage/devices.py:2872
 #, python-format
 msgid "Creating device %s"
 msgstr "创建设备 %s"
 
-#: storage/devices.py:2504
+#: storage/devices.py:2472
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr "一个 RAID%d 组至少需要 %d 个成员"
 
-#: storage/devices.py:3378
+#: storage/devices.py:3345
 #, python-format
 msgid "Creating file %s"
 msgstr "创建文件 %s"
@@ -5279,18 +5235,16 @@ msgstr "在 zFCP 设备 %(devnum)s 中没有找到 WWPN %(wwpn)s。"
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
+"s)."
 msgstr ""
-"无法在 zFCP 设备 %(devnum)s 中将 LUN %(fcplun)s 添加到 WWPN %(wwpn)s 中 "
-"(%(e)s)。"
+"无法在 zFCP 设备 %(devnum)s 中将 LUN %(fcplun)s 添加到 WWPN %(wwpn)s 中 (%(e)"
+"s)。"
 
 #: storage/zfcp.py:182
 #, python-format
-msgid ""
-"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
-msgstr ""
-"已经在 zFCP 设备 %(devnum)s 上的 WWPN %(wwpn)s 中配置了 LUN %(fcplun)s。"
+msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgstr "已经在 zFCP 设备 %(devnum)s 上的 WWPN %(wwpn)s 中配置了 LUN %(fcplun)s。"
 
 #: storage/zfcp.py:194
 #, python-format
@@ -5306,25 +5260,23 @@ msgstr ""
 msgid ""
 "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
 "again."
-msgstr ""
-"再次删除在 zFCP 设备 %(devnum)s 的 WWPN %(wwpn)s 中失败的 LUN %(fcplun)s。"
+msgstr "再次删除在 zFCP 设备 %(devnum)s 的 WWPN %(wwpn)s 中失败的 LUN %(fcplun)s。"
 
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
-msgstr ""
-"无法正确删除 zFCP %(devnum)s %(wwpn)s %(fcplun)s 的 SCSI 设备 (%(e)s)。"
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
+msgstr "无法正确删除 zFCP %(devnum)s %(wwpn)s %(fcplun)s 的 SCSI 设备 (%(e)s)。"
 
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
+"(e)s)."
 msgstr ""
-"无法在 zFCP 设备 %(devnum)s 上的 WWPN %(wwpn)s 中删除 LUN %(fcplun)s "
-"(%(e)s)。"
+"无法在 zFCP 设备 %(devnum)s 上的 WWPN %(wwpn)s 中删除 LUN %(fcplun)s (%(e)"
+"s)。"
 
 #: storage/zfcp.py:287
 #, python-format
@@ -5467,7 +5419,7 @@ msgstr "本次安装，您想使用哪些驱动器？"
 
 #: textw/partition_text.py:99
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Space>,<+>,<-> 选择   |   <F2> 添加驱动器  |   <F12> 下一屏幕"
+msgstr "<Space>,<+>,<-> 选择   |   <F2> 添加驱动器  |   <F12> 下一屏"
 
 #: textw/progress_text.py:46
 msgid "Package Installation"
@@ -5497,15 +5449,15 @@ msgstr "创建新的引导装载程序配置"
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in %"
+"(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%(productName)s 的本次发行版支持已更新的文件系统，该文件系统和之前通常在 "
-"%(productName)s 中使用的文件系统相比有几个有点。这个安装程序可在不丢失数据的"
-"情况下迁移格式化的分区。\n"
+"%(productName)s 的本次发行版支持已更新的文件系统，该文件系统和之前通常在 %"
+"(productName)s 中使用的文件系统相比有几个有点。这个安装程序可在不丢失数据的情"
+"况下迁移格式化的分区。\n"
 "\n"
 "您想迁移哪些分区？"
 
@@ -5716,8 +5668,7 @@ msgstr ""
 "Hard Drive"
 
 #: ui/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "请为这个软件存储库提供配置信息。"
 
 #: ui/addrepo.glade.h:10
@@ -5785,8 +5736,7 @@ msgid "Volume to Shrink"
 msgstr "要缩小的卷"
 
 #: ui/autopart.glade.h:4
-msgid ""
-"Which partition would you like to shrink to make room for your installation?"
+msgid "Which partition would you like to shrink to make room for your installation?"
 msgstr "您想缩小哪个分区来为安装提供空间？"
 
 #: ui/autopart.glade.h:5
@@ -5858,8 +5808,7 @@ msgstr ""
 "格式化）。还请指定在哪个系统驱动器中安装引导装载程序。"
 
 #: ui/create-storage.glade.h:1
-msgid ""
-"<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">生成 RAID 格式化分区</span>"
 
 #: ui/create-storage.glade.h:2
@@ -5869,28 +5818,24 @@ msgid ""
 msgstr "<span size=\"small\" color=\"gray\">在所选卷组中生成逻辑卷</span>"
 
 #: ui/create-storage.glade.h:3
-msgid ""
-"<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">生成 LVM 格式化分区</span>"
 
 #: ui/create-storage.glade.h:4
-msgid ""
-"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">生成分区的一般目的</span>"
 
 #: ui/create-storage.glade.h:5
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formated "
 "partition</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">需要至少一个可用 LVM 格式化分区</span>"
+msgstr "<span size=\"small\" color=\"gray\">需要至少一个可用 LVM 格式化分区</span>"
 
 #: ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formated "
 "partitions</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">需要至少两个可用 RAID 格式化分区</span>"
+msgstr "<span size=\"small\" color=\"gray\">需要至少两个可用 RAID 格式化分区</span>"
 
 #: ui/create-storage.glade.h:7
 msgid "Create"
@@ -6099,8 +6044,7 @@ msgstr "配置iSCSI参数"
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
-msgstr ""
-"使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
+msgstr "使用iSCSI磁盘时，您必须提供您在主机上设置的iSCSI目标及iSCSI启动器名称的地址。"
 
 #: ui/iscsi-config.glade.h:9
 msgid "_Add target"
@@ -6450,9 +6394,3 @@ msgstr "威尔士文"
 msgid "Zulu"
 msgstr "祖鲁"
 
-#~ msgid ""
-#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-#~ "mainframe attached disks (DASD), usually in an enterprise environment"
-#~ msgstr ""
-#~ "安装或者升级到类似存储区域网络（SAN）或者附加主框架的磁盘（DASD）的设备，"
-#~ "通常是在企业级环境中进行。"
