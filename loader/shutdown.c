@@ -62,7 +62,7 @@ static void performUnmounts(void) {
 
 	/* We've lost /mnt/runtime where /lib is a link to put the old
 	   /lib back so that our mdadm invocation below works. */
-	if (stat("/lib64", &st_buf) == 0) {
+	if (lstat("/lib64", &st_buf) == 0) {
 		unlink("/lib64");
 		rename("/lib64_old", "/lib64");
 	} else {
