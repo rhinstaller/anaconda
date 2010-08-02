@@ -1,5 +1,6 @@
 import logging
 from pyanaconda import anaconda_log
+import os
 import inspect
 
 def log_method_call(d, *args, **kwargs):
@@ -25,7 +26,8 @@ def log_method_call(d, *args, **kwargs):
 logger = logging.getLogger("storage")
 logger.setLevel(logging.DEBUG)
 anaconda_log.logger.addFileHandler("/tmp/storage.log", logger, logging.DEBUG)
-anaconda_log.logger.addFileHandler("/dev/tty3", logger,
+if os.access(anaconda_log.MAIN_LOG_TTY, os.W_OK):
+    anaconda_log.logger.addFileHandler(anaconda_log.MAIN_LOG_TTY, logger,
                                    anaconda_log.DEFAULT_TTY_LEVEL,
                                    anaconda_log.TTY_FORMAT,
                                    autoLevel=True)
