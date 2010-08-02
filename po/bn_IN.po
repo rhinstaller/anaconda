@@ -14,13 +14,13 @@ msgstr ""
 "Project-Id-Version: anaconda.rhel6-branch\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-07-29 04:08-1000\n"
-"PO-Revision-Date: 2010-07-21 17:24+0530\n"
+"PO-Revision-Date: 2010-08-02 14:55+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali INDIA <anubad@lists.ankur.org.in>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
@@ -223,8 +223,7 @@ msgstr "বুট-লোডার ইনস্টল করা হচ্ছে�
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
-msgstr ""
-"বুট-লোডার ইনস্টল করতে সমস্যা দেখা দিয়েছে। সিস্টেমটি বুট করা সম্ভব না হতে পারে।"
+msgstr "বুট-লোডার ইনস্টল করতে সমস্যা দেখা দিয়েছে। সিস্টেমটি বুট করা সম্ভব না হতে পারে।"
 
 # modified for RHEL
 #: bootloader.py:228
@@ -424,8 +423,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
+"This action may also be applied to all other disks needing reinitialization.%"
+"(details)s"
 msgstr ""
 "ড্রাইভ প্রসেস করতে সমস্যা\n"
 "\n"
@@ -603,15 +602,15 @@ msgstr "আবশ্যক ইনস্টলেশন মিডিয়া"
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following "
-"%(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following %"
+"(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"আপনার নির্বাচিত সফ্টওয়্যারগুলি ইনস্টল করার জন্য নিম্নলিখিত %(productName)s "
-"%(productVersion)s ডিস্কগুলি প্রয়োজন:\n"
+"আপনার নির্বাচিত সফ্টওয়্যারগুলি ইনস্টল করার জন্য নিম্নলিখিত %(productName)s %"
+"(productVersion)s ডিস্কগুলি প্রয়োজন:\n"
 "\n"
 "%(reqcdstr)s\n"
 "অনুগ্রহ করে ইনস্টলেশন আরম্ভ করার পূর্বে CD-গুলি প্রস্তুত রাখুন।  ইনস্টলেশন প্রক্রিয়া বাতিল "
@@ -693,8 +692,8 @@ msgstr "ফরম্যাট (_F)"
 #: iutil.py:852
 #, python-format
 msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
+"s)"
 msgstr ""
 "ত্রুটি: open নির্ধারিত হলে, reIPL-র পদ্ধতি %(reipl_type)s (%(filename)s রূপে ধার্য "
 "করা সম্ভব নয়: %(e)s)"
@@ -702,8 +701,8 @@ msgstr ""
 #: iutil.py:863
 #, python-format
 msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
 "ত্রুটি: write নির্ধারিত হলে, reIPL-র পদ্ধতি %(reipl_type)s (%(filename)s রূপে "
 "ধার্য করা সম্ভব নয়: %(e)s)"
@@ -711,8 +710,8 @@ msgstr ""
 #: iutil.py:872
 #, python-format
 msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
 "ত্রুটি: close নির্ধারিত হলে, reIPL-র পদ্ধতি %(reipl_type)s (%(filename)s রূপে "
 "ধার্য করা সম্ভব নয়: %(e)s)"
@@ -737,8 +736,7 @@ msgstr "সতর্কবার্তা: parm পুনরায় নির্�
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
-msgstr ""
-"বন্ধ করার পরে, ইনস্টলেশন চালিয়ে যাওয়ার জন্য DASD ডিভাইস %s থেকে স্বয়ং IPL করুন"
+msgstr "বন্ধ করার পরে, ইনস্টলেশন চালিয়ে যাওয়ার জন্য DASD ডিভাইস %s থেকে স্বয়ং IPL করুন"
 
 #: iutil.py:945
 #, python-format
@@ -752,18 +750,17 @@ msgstr "ত্রুটি: reIPL-র জন্য FCP বৈশিষ্ট্�
 
 #: iutil.py:975
 #, python-format
-msgid ""
-"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr "ত্রুটি: reIPL-র জন্য ডিফল্ট FCP বৈশিষ্ট্য %(reipl_property)s লিখতে (%(e)s)"
 
 #: iutil.py:990
 #, python-format
 msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
-"%(wwpn)s and LUN %(lun)s to continue installation"
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
+"(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
-"বন্ধ করার পরে, ইনস্টলেশন চালিয়ে যাওয়ার জন্য WWPN %(wwpn)s ও LUN %(lun)s সহ FCP "
-"%(device)s  থেকে স্বয়ং IPL করুন।"
+"বন্ধ করার পরে, ইনস্টলেশন চালিয়ে যাওয়ার জন্য WWPN %(wwpn)s ও LUN %(lun)s সহ FCP %"
+"(device)s  থেকে স্বয়ং IPL করুন।"
 
 #: iutil.py:1007
 msgid ""
@@ -903,8 +900,7 @@ msgstr "ইমেজ পাওয়া যায়নি"
 
 #: livecd.py:122
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "প্রদত্ত অবস্থানটি ইনস্টলেশনের উৎসস্থল রূপে ব্যবহারযোগ্য বৈধ %s লাইভ CD নয়।"
 
 # modified for RHEL
@@ -953,16 +949,15 @@ msgstr "হোস্ট-নেম ২৫৫ অক্ষরের মধ্য�
 # modified for RHEL
 #: network.py:68
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
+"9'"
 msgstr ""
 "হোস্ট-নেমের প্রারম্ভে 'a-z', 'A-Z' অথবা '0-9' সীমার মধ্যে বৈধ অক্ষর ব্যবহার করা "
 "আবশ্যক"
 
 # modified for RHEL
 #: network.py:73
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 "হোস্ট-নেম লেখার জন্য শুধুমাত্র 'a-z', 'A-Z', '0-9', '-' অথবা '.' অক্ষরগুলি ব্যবহার "
 "করা যাবে"
@@ -1279,13 +1274,13 @@ msgstr "পার্টিশন নির্মাণে সমস্যা"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of "
-"%(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
-"অনুরো করা পার্টিশন বিন্যাসের মধ্যে নিম্নলিখিত গুরুতর সমস্যাগুলি সনাক্ত করা হয়েছে।  "
-"%(productName)s ইনস্টল করার পূর্বে এই সমস্যাগুলির সমাধান করা আবশ্যক।\n"
+"অনুরো করা পার্টিশন বিন্যাসের মধ্যে নিম্নলিখিত গুরুতর সমস্যাগুলি সনাক্ত করা হয়েছে।  %"
+"(productName)s ইনস্টল করার পূর্বে এই সমস্যাগুলির সমাধান করা আবশ্যক।\n"
 "\n"
 "%(errorstr)s"
 
@@ -1371,8 +1366,7 @@ msgstr "রিসেট করার পূর্বে নিশ্চায়ন
 
 # modified for RHEL
 #: partIntfHelpers.py:346
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "আপনি কি নিশ্চিতরূপে পার্টিশন টেবিলটি মূল অবস্থায় প্রত্যাবর্তন করতে ইচ্ছুক?"
 
 # modified for RHEL
@@ -1420,8 +1414,7 @@ msgstr "Boot করতে ব্যবহৃত পার্টিশনগু�
 # modified for RHEL
 #: platform.py:135 platform.py:140
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr ""
-"Boot করতে ব্যবহৃত পার্টিশনগুলি এনক্রিপ্ট করা বুট-ডিভাইসের উপর স্থাপন করা যাবে না।"
+msgstr "Boot করতে ব্যবহৃত পার্টিশনগুলি এনক্রিপ্ট করা বুট-ডিভাইসের উপর স্থাপন করা যাবে না।"
 
 #: platform.py:212
 msgid "EFI System Partition"
@@ -1523,8 +1516,8 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"রেসকিউ (Rescue) পরিবেশ এখন আপনার সিস্টেমে উপস্থিত Linux ইনস্টলেশন অনুসন্ধান করে "
-"%s ডিরেক্টরিতে সেটি মাউন্ট করার চেষ্টা করবে।  এর পরে  আপনি সিস্টেমের মধ্যে "
+"রেসকিউ (Rescue) পরিবেশ এখন আপনার সিস্টেমে উপস্থিত Linux ইনস্টলেশন অনুসন্ধান করে %"
+"s ডিরেক্টরিতে সেটি মাউন্ট করার চেষ্টা করবে।  এর পরে  আপনি সিস্টেমের মধ্যে "
 "প্রয়োজনীয় পরিবর্তন করতে পারবেন। এই প্রক্রিয়া এগিয়ে নেওয়ার জন্য 'এগিয়ে চলুন' বেছে "
 "নিন। 'পড়া-লেখার' বৈশিষ্ট্য প্রয়োগ না করে ফাইল-সিস্টেমগুলি আপনি শুধুমাত্র 'শুধুমাত্র "
 "পাঠযোগ্য' বৈশিষ্ট্যসহ মাউন্ট করতে পারবেন। এর ফলে এইগুলির মধ্যে কোনো পরবর্তন করা "
@@ -1688,8 +1681,7 @@ msgstr "বাতিল করা হয়েছে"
 
 #: text.py:651
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"এই স্থান থেকে পূর্ববর্তী ধাপে প্রত্যাবর্তন করা সম্ভব নয়। পুনরায় প্রচেষ্টা করা আবশ্যক।"
+msgstr "এই স্থান থেকে পূর্ববর্তী ধাপে প্রত্যাবর্তন করা সম্ভব নয়। পুনরায় প্রচেষ্টা করা আবশ্যক।"
 
 #: upgrade.py:51
 msgid "Proceed with upgrade?"
@@ -1813,8 +1805,7 @@ msgstr[1] "%d বার সংযোগের প্রচেষ্টা কর
 #: vnc.py:209
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"ইনস্টলেশন প্রক্রিয়া আরম্ভ করার জন্য অনুগ্রহ করে %s-র সাথে vnc ক্লায়েন্ট সংযুক্ত করুন।"
+msgstr "ইনস্টলেশন প্রক্রিয়া আরম্ভ করার জন্য অনুগ্রহ করে %s-র সাথে vnc ক্লায়েন্ট সংযুক্ত করুন।"
 
 # modified for RHEL
 #: vnc.py:211
@@ -2041,8 +2032,7 @@ msgstr "ডিস্ক পরিবর্তন করুন"
 #: yuminstall.py:443
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
-msgstr ""
-"ইনস্টলেশন প্রক্রিয়া এগিয়ে নিয়ে যেতে %(productName)s-র ডিস্ক %(discnum)d ঢোকান।"
+msgstr "ইনস্টলেশন প্রক্রিয়া এগিয়ে নিয়ে যেতে %(productName)s-র ডিস্ক %(discnum)d ঢোকান।"
 
 # modified for RHEL
 #: yuminstall.py:453
@@ -2102,8 +2092,7 @@ msgstr "পুনরায় ডাউনলোডের প্রচেষ্ট�
 
 #: yuminstall.py:985
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "নিম্নলিখিত কারণে আপনার ট্রানস্যাকসন সঞ্চালন করতে সমস্যা হয়েছে: %s\n"
 
 #: yuminstall.py:1028 yuminstall.py:1029
@@ -2158,8 +2147,8 @@ msgstr ""
 #: yuminstall.py:1067
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): "
-"%s.\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr "নিম্নলিখিত কারণে আপনার ট্রানস্যাকশান সঞ্চালন করতে সমস্যা হয়েছে: %s \n"
 
 # modified for RHEL
@@ -2245,9 +2234,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of "
-"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
-"the upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of %(arch)"
+"s.  This is likely to not succeed.  Are you sure you wish to continue the "
+"upgrade process?"
 msgstr ""
 "%(productName)s-র রিলিজের %(myarch)s আর্কিটেকচার আপগ্রেড করা হচ্ছে কিন্তু এটি "
 "পূর্বে ইনস্টল করা %(arch)s.-র আর্কিটেকচারের সাথে সুসংগত নয়।  এই কর্ম বিফল হওয়ার "
@@ -2410,8 +2399,7 @@ msgid "_Use Anyway"
 msgstr "তথাপি প্রয়োগ করা হবে (_U)"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "উল্লিখিত পাসওয়ার্ডের মধ্যে ASCII বহির্ভূত (non-ASCII) অক্ষর উপস্থিত রয়েছে। "
 "পাসওয়ার্ডের ক্ষেত্রে এই অক্ষরগুলি গ্রহণযোগ্য নয়।"
@@ -2502,8 +2490,7 @@ msgid "Shrink Current System"
 msgstr "বর্তমান সিস্টেম সংকুচিত করা হবে"
 
 #: iw/autopart_type.py:261
-msgid ""
-"Shrinks existing partitions to create free space for the default layout."
+msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 "ডিফল্ট বিন্যাস স্থাপনের উদ্দেশ্যে ডিস্কে স্থান মুক্ত করার জন্য, উপস্থিত পার্টিশনগুলি "
 "সঙ্কুচিত করা হবে।"
@@ -2780,8 +2767,7 @@ msgstr "অজ্ঞাত Linux সিস্টেম"
 #: iw/filter_gui.py:151
 #, python-format
 msgid "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
-msgstr ""
-"<b>%s-টি ডিভাইস (%s MB) নির্বাচিত হয়েছে</b> সর্বমোট %s-টি ডিভাইস (%s MB)।"
+msgstr "<b>%s-টি ডিভাইস (%s MB) নির্বাচিত হয়েছে</b> সর্বমোট %s-টি ডিভাইস (%s MB)।"
 
 #: iw/filter_gui.py:401
 msgid "Device Filter"
@@ -2839,7 +2825,7 @@ msgid ""
 "Installs or upgrades to enterprise devices such as Storage Area Networks "
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
-msgstr ""
+msgstr "প্রতিষ্ঠানিক স্তরে ব্যবহৃত ডিভাইস যেমন স্টোরেজ এরিয়া নেটওয়ার্ক (SAN)-র মধ্যে ইনস্টল অথবা আপগ্রেড করতে ব্যবহৃত হয়। এই বিকল্পের ফলে FCoE / iSCSI / zFCP ডিস্ক যোগ করা যাবে ও ইনস্টলার দ্বারা উপেক্ষা করার উদ্দেশ্যে ডিভাইস ফিল্টার করা সম্ভব হবে।"
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2890,9 +2876,9 @@ msgstr "এগিয়ে চলুন (_o)"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is larger than the smallest physical volume "
-"(%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
 "প্রকৃত এক্সটেন্টের (PE) মাপ পরিবর্তন করা যায়নি কারণ নির্বাচিত মানটি (%(curpe)10.2f "
 "মেগাবাইট), ভলিউম গ্রুপের সবচেয়ে ছোট প্রকৃত ভলিউমের মাপ (%(maxpvsize)10.2f "
@@ -2901,9 +2887,9 @@ msgstr ""
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
-"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
+"volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 "প্রকৃত এক্সটেন্টের (PE) মাপ পরিবর্তন করে চিহ্নিত নতুন মান ((%(curpe)10.2f মেগাবাইট) "
 "ভলিউম গ্রুপের সবচেয়ে ছোট প্রকৃত ভলিউমের মাপের (%(maxpvsize)10.2f মেগাবাইট) থেকেও "
@@ -3053,8 +3039,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group "
-"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 "কনফিগার করা লজিক্যাল ভলিউমগুলির জন্য (%(size)d মেগাবাইট) আবশ্যক, কিন্তু ভলিউম "
@@ -3386,14 +3372,12 @@ msgid "Partitioning"
 msgstr "পার্টিশন নির্মাণ ব্যবস্থা"
 
 #: iw/partition_gui.py:850
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "অনুরোধ করা পার্টিশন বিন্যাসের কারণে নিম্নলিখিত গুরুতর সমস্যাগুলি উৎপন্ন হয়েছে।"
 
 #: iw/partition_gui.py:852
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "%s ইনস্টল করার পূর্বে এই সমস্যাগুলি সমাধান করা আবশ্যক।"
 
 #: iw/partition_gui.py:858
@@ -3749,8 +3733,7 @@ msgstr "কোনো সফ্টওয়্যার সংগ্রহস্থ�
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
-msgstr ""
-"ইনস্টলেশন চালিয়া যাওয়ার জন্য অন্তত একটি সফ্টওয়্যার সংগ্রহস্থল সক্রিয় থাকা আবশ্যক।"
+msgstr "ইনস্টলেশন চালিয়া যাওয়ার জন্য অন্তত একটি সফ্টওয়্যার সংগ্রহস্থল সক্রিয় থাকা আবশ্যক।"
 
 #: iw/timezone_gui.py:63 textw/timezone_text.py:95
 msgid "Time Zone Selection"
@@ -3785,8 +3768,8 @@ msgstr "ইনস্টলেশন প্রোগ্রাম দ্বার�
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on "
-"%(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on %"
+"(bootDev)s."
 msgstr ""
 "ইনস্টলার দ্বারা সনাক্ত করা হয়েছে %(type)s বুট-লোডারটি বর্তমানে %(bootDev)s-এ "
 "ইনস্টল করা রয়েছে।"
@@ -3831,14 +3814,14 @@ msgstr "ফাইল-সিস্টেম মাইগ্রেট করুন
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
+"several benefits over the file system traditionally shipped in %(productName)"
+"s.  This installation program can migrate formatted partitions without data "
+"loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%(productName)s-র এই সংস্করণে উন্নত মানের ফাইল-সিস্টেম ব্যবহার করা যাবে। "
-"%(productName)s-এ এতদিন যাবৎ ব্যবহৃত ফাইল-সিস্টেমের তুলনায় এটি অনেক সুবিধাজনক।  "
+"%(productName)s-র এই সংস্করণে উন্নত মানের ফাইল-সিস্টেম ব্যবহার করা যাবে। %"
+"(productName)s-এ এতদিন যাবৎ ব্যবহৃত ফাইল-সিস্টেমের তুলনায় এটি অনেক সুবিধাজনক।  "
 "কোনো উপস্থিত তথ্য না হারিয়ে, ফরম্যাট করা পার্টিশনগুলি ইনস্টলেশন প্রোগ্রাম দ্বারা "
 "মাইগ্রেট করা যাবে।\n"
 "\n"
@@ -3852,13 +3835,13 @@ msgstr "Swap পার্টিশন আপগ্রেড করুন"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have "
-"%dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "সাম্প্রতিক কার্নেল সংস্করণগুলির (২.৪ অথবা ঊর্ধ্বতন) জন্য পুরোনো কার্নেলগুলির তুলনায় অধিক "
-"Swap-র প্রয়োজন হবে, প্রায় সিস্টেমে উপস্থিত RAM-র দ্বিগুণ।  বর্তমানে আপনার সিস্টেমে "
-"%d মেগাবাইট swap ব্যবহৃত হচ্ছে। কিন্তু উপস্থিত কোনো একটি ফাইল-সিস্টেমে অতিরিক্ত swap "
+"Swap-র প্রয়োজন হবে, প্রায় সিস্টেমে উপস্থিত RAM-র দ্বিগুণ।  বর্তমানে আপনার সিস্টেমে %"
+"d মেগাবাইট swap ব্যবহৃত হচ্ছে। কিন্তু উপস্থিত কোনো একটি ফাইল-সিস্টেমে অতিরিক্ত swap "
 "তৈরি করা যাবে।"
 
 #: iw/upgrade_swap_gui.py:99
@@ -3920,8 +3903,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swap ফাইলের মাপ ১ থেকে ২০০০ মেগাবাইটের মধ্যে সীমাবদ্ধ রাখা আবশ্যক।"
 
 #: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:187
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Swap পার্টিশনের জন্য নির্ধারিত ডিভাইসে পর্যাপ্ত স্থান উপস্থিত নেই।"
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
@@ -4227,8 +4209,7 @@ msgstr "অজানা ড্রাইভার-ডিস্কের kickstart
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s"
-msgstr ""
-"kickstart ড্রাইভার-ডিস্কের কমান্ডের সাথে নিম্নলিখিত অবৈধ কমান্ড উল্লিখিত হয়েছে: %s"
+msgstr "kickstart ড্রাইভার-ডিস্কের কমান্ডের সাথে নিম্নলিখিত অবৈধ কমান্ড উল্লিখিত হয়েছে: %s"
 
 #: loader/driverselect.c:67
 #, c-format
@@ -4289,8 +4270,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"আপনার সিস্টেমে কোনো হার্ড-ড্রাইভ পাওয়া যায়নি! অতিরিক্ত ডিভাইস কনফিগার করা হবে কি?"
+msgstr "আপনার সিস্টেমে কোনো হার্ড-ড্রাইভ পাওয়া যায়নি! অতিরিক্ত ডিভাইস কনফিগার করা হবে কি?"
 
 #: loader/hdinstall.c:226
 #, c-format
@@ -4392,8 +4372,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%2$s-র জন্য নির্মিত %1$s-এ স্বাগতম - রেসকিউ মোড"
 
 #: loader/lang.c:65 loader/loader.c:251
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> অদল বদল  | <Space> নির্বাচন | <F12> পরবর্তী পর্দা "
 
 #: loader/lang.c:370
@@ -4729,10 +4708,8 @@ msgid "Missing Information"
 msgstr "অনুপস্থিত তথ্য"
 
 #: loader/net.c:1119
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"বৈধ IPv4 ঠিকানা ও একটি নেটওয়ার্ক মাস্ক অথবা CIDR প্রেফিক্স উল্লেখ করা আবশ্যক।"
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "বৈধ IPv4 ঠিকানা ও একটি নেটওয়ার্ক মাস্ক অথবা CIDR প্রেফিক্স উল্লেখ করা আবশ্যক।"
 
 #: loader/net.c:1127
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
@@ -4883,8 +4860,7 @@ msgstr "উদ্ধার করা হচ্ছে"
 
 #: loader/urls.c:262
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "অনুগ্রহ করে সার্ভারের মধ্যে %s ইনস্টলেশন-ইমেজ চিহ্নকারী URL উল্লেখ করুন।"
 
 #: loader/urls.c:280
@@ -5113,12 +5089,11 @@ msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
-"আপনার %(mount)s পার্টিশনের মাপ %(size)s মেগাবাইটের থেকে কম, যা "
-"%(productName)s-র স্বাভাবিক ইনস্টলেশনের জন্য আবশ্যক মাপের থেকেও কম।"
+"আপনার %(mount)s পার্টিশনের মাপ %(size)s মেগাবাইটের থেকে কম, যা %(productName)"
+"s-র স্বাভাবিক ইনস্টলেশনের জন্য আবশ্যক মাপের থেকেও কম।"
 
 #: storage/__init__.py:1017
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB ডিভাইসে ইনস্টল করা হচ্ছে। এর ফলে সিস্টেমে স্বাভাবিক কর্মসঞ্চালন করা সম্ভব নাও "
 "হতে পারে।"
@@ -5151,10 +5126,8 @@ msgstr ""
 
 #: storage/__init__.py:1039
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"এই মাউন্ট-পয়েন্ট বৈধ নয়।  %s ডিরেক্টরিটি / ফাইল-সিস্টেমের মধ্যে স্থাপিত হওয়া আবশ্যক।"
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "এই মাউন্ট-পয়েন্ট বৈধ নয়।  %s ডিরেক্টরিটি / ফাইল-সিস্টেমের মধ্যে স্থাপিত হওয়া আবশ্যক।"
 
 #: storage/__init__.py:1043
 #, python-format
@@ -5719,16 +5692,15 @@ msgstr "WWPN %(wwpn)s-কে, zFCP ডিভাইস %(devnum)s-এ পাও�
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
+"s)."
 msgstr ""
 "LUN %(fcplun)s-কে, WWPN %(wwpn)s-এ যোগ করা যায়নি, যা zFCP ডিভাইস %(devnum)s-"
 "র উপর স্থাপিত রয়েছে (%(e)s)।"
 
 #: storage/zfcp.py:182
 #, python-format
-msgid ""
-"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
 msgstr ""
 "LUN %(fcplun)s, WWPN %(wwpn)s-এ স্থাপিত রয়েছে ও পূর্বেই কনফিগার করা হয়েছে। এটি "
 "zFCP ডিভাইসে %(devnum)s অবস্থিত।"
@@ -5748,23 +5720,23 @@ msgid ""
 "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
 "again."
 msgstr ""
-"বিফল LUN %(fcplun)s WWPN %(wwpn)s থেকে মুছে ফেলা হয়েছে। এটি zFCP ডিভাইসে "
-"%(devnum)s স্থাপিত ছিল।"
+"বিফল LUN %(fcplun)s WWPN %(wwpn)s থেকে মুছে ফেলা হয়েছে। এটি zFCP ডিভাইসে %"
+"(devnum)s স্থাপিত ছিল।"
 
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
 msgstr ""
-"zFCP %(devnum)s %(wwpn)s %(fcplun)s-র SCSI ডিভাইস সঠিকভাবে মুছে ফেলা যায়নি "
-"(%(e)s)।"
+"zFCP %(devnum)s %(wwpn)s %(fcplun)s-র SCSI ডিভাইস সঠিকভাবে মুছে ফেলা যায়নি (%"
+"(e)s)।"
 
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
+"(e)s)."
 msgstr ""
 "LUN %(fcplun)s WWPN %(wwpn)s থেকে মুছে ফেলা যায়নি। এটি zFCP ডিভাইস %(devnum)s-"
 "এ স্থাপিত (%(e)s)।"
@@ -5773,8 +5745,8 @@ msgstr ""
 #, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
 msgstr ""
-"WWPN %(wwpn)s, zFCP ডিভাইসের %(devnum)s উপর স্থাপিত। এটি মুছে ফেলা যায়নি "
-"(%(e)s)।"
+"WWPN %(wwpn)s, zFCP ডিভাইসের %(devnum)s উপর স্থাপিত। এটি মুছে ফেলা যায়নি (%(e)"
+"s)।"
 
 #: storage/zfcp.py:313
 #, python-format
@@ -5914,8 +5886,7 @@ msgstr "বর্তমান ইনস্টলেশনের জন্য ক
 
 #: textw/partition_text.py:99
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> নির্বাচন   |   <F2> ড্রাইভ সংযোজন   |   <F12> পরবর্তী পর্দা"
+msgstr "<Space>,<+>,<-> নির্বাচন   |   <F2> ড্রাইভ সংযোজন   |   <F12> পরবর্তী পর্দা"
 
 #: textw/progress_text.py:46
 msgid "Package Installation"
@@ -5945,14 +5916,14 @@ msgstr "নতুন বুট-লোডার কনফিগারেশন �
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in %"
+"(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"%(productName)s-র এই সংস্করণে উন্নত মানের ফাইল-সিস্টেম ব্যবহার করা যাবে। "
-"%(productName)s-এ এতদিন যাবৎ ব্যবহৃত ফাইল-সিস্টেমের তুলনায় এটি অনেক সুবিধাজনক।  "
+"%(productName)s-র এই সংস্করণে উন্নত মানের ফাইল-সিস্টেম ব্যবহার করা যাবে। %"
+"(productName)s-এ এতদিন যাবৎ ব্যবহৃত ফাইল-সিস্টেমের তুলনায় এটি অনেক সুবিধাজনক।  "
 "কোনো উপস্থিত তথ্য না হারিয়ে, ফরম্যাট করা পার্টিশনগুলি ইনস্টলেশন প্রোগ্রাম দ্বারা "
 "মাইগ্রেট করা যাবে।\n"
 "\n"
@@ -6176,8 +6147,7 @@ msgstr ""
 "হার্ড-ড্রাইভ"
 
 #: ui/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "অনুগ্রহ করে চিহ্নিত সফ্টওয়্যার সংগ্রহস্থলের কনফিগারেশন সংক্রান্ত তথ্য উল্লেখ করুন।"
 
 #: ui/addrepo.glade.h:10
@@ -6246,8 +6216,7 @@ msgid "Volume to Shrink"
 msgstr "মাপ হ্রাস উদ্দেশ্যে চিহ্নিত ভলিউম"
 
 #: ui/autopart.glade.h:4
-msgid ""
-"Which partition would you like to shrink to make room for your installation?"
+msgid "Which partition would you like to shrink to make room for your installation?"
 msgstr ""
 "ইনস্টলেশন ধারণ করার উদ্দেশ্যে স্থান উপলব্ধ করার জন্য কোন পার্টিশনের মাপ হ্রাস করা "
 "হবে?"
@@ -6323,8 +6292,7 @@ msgstr ""
 "তা চিহ্নিত করুন।"
 
 #: ui/create-storage.glade.h:1
-msgid ""
-"<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">RAID রূপে ফরম্যাট করা একটি পার্টিশন নির্মাণ "
 "করুন</span>"
@@ -6338,15 +6306,13 @@ msgstr ""
 "ভলিউম নির্মাণ করুন</span>"
 
 #: ui/create-storage.glade.h:3
-msgid ""
-"<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
 msgstr ""
 "<span size=\"small\" color=\"gray\">LVM রূপে ফরম্যাট করা একটি পার্টিশন নির্মাণ "
 "করুন</span>"
 
 #: ui/create-storage.glade.h:4
-msgid ""
-"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">সাধারণ পার্টিশন নির্মাণ</span>"
 
 #: ui/create-storage.glade.h:5
@@ -6946,10 +6912,3 @@ msgstr "ওয়েলশ"
 msgid "Zulu"
 msgstr "জুলু"
 
-#~ msgid ""
-#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-#~ "mainframe attached disks (DASD), usually in an enterprise environment"
-#~ msgstr ""
-#~ "স্টোরেজ এরিয়া নেটওয়ার্ক (SAN) অথবা মেইনফ্রেমের সাথে যুক্ত ডিস্ক (DASD) প্রভৃতি "
-#~ "ডিভাইসের মধ্যে ইনস্টল অথবা আপগ্রেড করা হয়। সাধারণত প্রাতিষ্ঠানিক পরিবেশের "
-#~ "ক্ষেত্রে প্রযোজ্য।"
