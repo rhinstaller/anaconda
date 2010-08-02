@@ -24,4 +24,4 @@ MAINTAINERCLEANFILES = Makefile.in
 ANACDIR = $(top_builddir)/pyanaconda
 TESTS_ENVIRONMENT = PATH=/sbin:/usr/sbin:$$PATH PYTHONPATH=$(top_builddir)/tests:$(ANACDIR)/isys/.libs:$(ANACDIR)/isys:$(ANACDIR)
 
-TESTS = fw_test.py
+TESTS = fw_test.py tsort_test.py
