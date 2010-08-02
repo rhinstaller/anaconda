@@ -500,52 +500,73 @@ class Network:
         for devName in devNames:
             dev = self.netdevices[devName]
 
-            if dev.get('bootproto').lower() == 'dhcp' or dev.get('ipaddr'):
-                f.write("network --device %s" % dev.get('device'))
+            line = "network"
 
-                if dev.get('MTU') and dev.get('MTU') != 0:
-                    f.write(" --mtu=%s" % dev.get('MTU'))
+            # ipv4 and ipv6
+            if dev.get("ONBOOT"):
+                line += " --onboot %s" % dev.get("ONBOOT")
+            line += " --device %s" % dev.get("DEVICE")
+            if dev.get('MTU') and dev.get('MTU') != "0":
+                line += " --mtu=%s" % dev.get('MTU')
 
-                onboot = dev.get("onboot")
-                if onboot and onboot == "no":
-                    f.write(" --onboot no")
-                if dev.get('bootproto').lower() == 'dhcp':
-                    f.write(" --bootproto dhcp")
-                    if dev.get('dhcpclass'):
-                        f.write(" --dhcpclass %s" % dev.get('dhcpclass'))
-                    if self.overrideDHCPhostname:
-                        if (self.hostname and
-                            self.hostname != "localhost.localdomain"):
-                            f.write(" --hostname %s" % self.hostname)
-                else:
-                    f.write(" --bootproto static --ip %s" % dev.get('ipaddr'))
-
-                    netmask = dev.get('netmask')
-                    prefix  = dev.get('prefix')
+            # ipv4
+            if not dev.get('BOOTPROTO'):
+                line += " --noipv4"
+            else:
+                if dev.get('BOOTPROTO').lower() == 'dhcp':
+                    line += " --bootproto dhcp"
+                    if dev.get('DHCPCLASS'):
+                        line += " --dhcpclass %s" % dev.get('DHCPCLASS')
+                elif dev.get('IPADDR'):
+                    line += " --bootproto static --ip %s" % dev.get('IPADDR')
+                    netmask = dev.get('NETMASK')
+                    prefix  = dev.get('PREFIX')
                     if not netmask and prefix:
                         netmask = isys.prefix2netmask(int(prefix))
                     if netmask:
-                        f.write(" --netmask %s" % netmask)
-
+                        line += " --netmask %s" % netmask
+                    # note that --gateway is common for ipv4 and ipv6
                     if dev.get('GATEWAY'):
-                        f.write(" --gateway %s" % (dev.get('GATEWAY'),))
+                        line += " --gateway %s" % dev.get('GATEWAY')
 
-                    dnsline = ''
-                    for key in dev.info.keys():
-                        if key.upper().startswith('DNS'):
-                            if dnsline == '':
-                                dnsline = dev.get(key)
-                            else:
-                                dnsline += "," + dev.get(key)
+            # ipv6
+            if (not dev.get('IPV6INIT') or
+                dev.get('IPV6INIT') == "no"):
+                line += " --noipv6"
+            else:
+                if dev.get('IPV6_AUTOCONF') == "yes":
+                    line += " --ipv6 auto"
+                else:
+                    if dev.get('IPV6ADDR'):
+                        line += " --ipv6 %s" % dev.get('IPV6ADDR')
+                        if dev.get('IPV6_DEFAULTGW'):
+                            line += " --gateway %s" % dev.get('IPV6_DEFAULTGW')
+                    if dev.get('DHCPV6') == "yes":
+                        line += " --ipv6 dhcp"
 
-                    if dnsline != '':
-                        f.write(" --nameserver %s" % (dnsline,))
+            # ipv4 and ipv6
+            dnsline = ''
+            for key in dev.info.keys():
+                if key.upper().startswith('DNS'):
+                    if dnsline == '':
+                        dnsline = dev.get(key)
+                    else:
+                        dnsline += "," + dev.get(key)
+            if dnsline:
+                line += " --nameserver %s" % dnsline
 
-                    if (self.hostname and
-                        self.hostname != "localhost.localdomain"):
-                        f.write(" --hostname %s" % self.hostname)
+            if dev.get("ETHTOOL_OPTS"):
+                line += " --ethtool %s" % dev.get("ETHTOOL_OPTS")
 
-                f.write("\n")
+            # hostname
+            if (self.overrideDHCPhostname or
+                dev.get('BOOTPROTO').lower() != "dhcp"):
+                if (self.hostname and
+                    self.hostname != "localhost.localdomain"):
+                    line += " --hostname %s" % self.hostname
+
+            line += "\n"
+            f.write(line)
 
     def hasNameServers(self, hash):
         if hash.keys() == []:
