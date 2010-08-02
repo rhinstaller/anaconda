@@ -157,27 +157,35 @@ class DeviceAction(object):
         """ cancel the action """
         pass
 
+    @property
     def isDestroy(self):
         return self.type == ACTION_TYPE_DESTROY
 
+    @property
     def isCreate(self):
         return self.type == ACTION_TYPE_CREATE
 
+    @property
     def isMigrate(self):
         return self.type == ACTION_TYPE_MIGRATE
 
+    @property
     def isResize(self):
         return self.type == ACTION_TYPE_RESIZE
 
+    @property
     def isShrink(self):
         return (self.type == ACTION_TYPE_RESIZE and self.dir == RESIZE_SHRINK)
 
+    @property
     def isGrow(self):
         return (self.type == ACTION_TYPE_RESIZE and self.dir == RESIZE_GROW)
 
+    @property
     def isDevice(self):
         return self.obj == ACTION_OBJECT_DEVICE
 
+    @property
     def isFormat(self):
         return self.obj == ACTION_OBJECT_FORMAT
 
@@ -188,11 +196,11 @@ class DeviceAction(object):
     def __str__(self):
         s = "[%d] %s %s" % (self.id, action_strings[self.type],
                             object_strings[self.obj])
-        if self.isResize():
+        if self.isResize:
             s += " (%s)" % resize_strings[self.dir]
-        if self.isFormat():
+        if self.isFormat:
             s += " %s on" % self.format.type
-        if self.isMigrate():
+        if self.isMigrate:
             s += " to %s" % self.format.migrationTarget
         s += " %s %s (id %d)" % (self.device.type, self.device.name,
                                  self.device.id)

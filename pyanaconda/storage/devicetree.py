@@ -781,11 +781,11 @@ class DeviceTree(object):
             Modifications to the Device instance are handled before we
             get here.
         """
-        if (action.isDestroy() or action.isResize() or \
-            (action.isCreate() and action.isFormat())) and \
+        if (action.isDestroy or action.isResize or \
+            (action.isCreate and action.isFormat)) and \
            action.device not in self._devices:
             raise DeviceTreeError("device is not in the tree")
-        elif (action.isCreate() and action.isDevice()):
+        elif (action.isCreate and action.isDevice):
             # this allows multiple create actions w/o destroy in between;
             # we will clean it up before processing actions
             #raise DeviceTreeError("device is already in the tree")
@@ -795,11 +795,11 @@ class DeviceTree(object):
                 if d.path == action.device.path:
                     self._removeDevice(d)
 
-        if action.isCreate() and action.isDevice():
+        if action.isCreate and action.isDevice:
             self._addDevice(action.device)
-        elif action.isDestroy() and action.isDevice():
+        elif action.isDestroy and action.isDevice:
             self._removeDevice(action.device)
-        elif action.isCreate() and action.isFormat():
+        elif action.isCreate and action.isFormat:
             if isinstance(action.device.format, formats.fs.FS) and \
                action.device.format.mountpoint in self.filesystems:
                 raise DeviceTreeError("mountpoint already in use")
@@ -816,14 +816,14 @@ class DeviceTree(object):
             Actions all operate on a Device, so we can use the devices
             to determine dependencies.
         """
-        if action.isCreate() and action.isDevice():
+        if action.isCreate and action.isDevice:
             # remove the device from the tree
             self._removeDevice(action.device)
-        elif action.isDestroy() and action.isDevice():
+        elif action.isDestroy and action.isDevice:
             # add the device back into the tree
             self._addDevice(action.device)
-        elif action.isFormat() and \
-             (action.isCreate() or action.isMigrate() or action.isResize()):
+        elif action.isFormat and \
+             (action.isCreate or action.isMigrate or action.isResize):
             action.cancel()
 
         self._actions.remove(action)
