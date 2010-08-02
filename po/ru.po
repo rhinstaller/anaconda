@@ -14,17 +14,16 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-07-29 04:08-1000\n"
-"PO-Revision-Date: 2010-07-20 09:11\n"
+"PO-Revision-Date: 2010-08-02 10:00\n"
 "Last-Translator: Yulia <ypoyarko@redhat.com>\n"
 "Language-Team: Russian\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Date: 1999-04-03 12:20+0200\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: anaconda:362
 msgid "Press <enter> for a shell"
@@ -400,8 +399,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
+"This action may also be applied to all other disks needing reinitialization.%"
+"(details)s"
 msgstr ""
 "Ошибка обработки диска:\n"
 "\n"
@@ -566,8 +565,8 @@ msgstr ""
 "Программа установки попыталась смонтировать образ #%s, но он не найден на "
 "жестком диске.\n"
 "\n"
-"Скопируйте данный образ на накопитель и нажмите «Повторить». Нажмите "
-"«Выход», чтобы прервать установку."
+"Скопируйте данный образ на накопитель и нажмите «Повторить». Нажмите «Выход», "
+"чтобы прервать установку."
 
 #: image.py:241
 msgid "Required Install Media"
@@ -576,8 +575,8 @@ msgstr "Требуемый установочный носитель"
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following "
-"%(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following %"
+"(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
@@ -673,35 +672,34 @@ msgstr "_Форматировать"
 #: iutil.py:852
 #, python-format
 msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
+"s)"
 msgstr ""
-"Ошибка: при операции открытия невозможно определить reIPL-метод как "
-"%(reipl_type)s (%(filename)s: %(e)s)"
+"Ошибка: при операции открытия невозможно определить reIPL-метод как %"
+"(reipl_type)s (%(filename)s: %(e)s)"
 
 #: iutil.py:863
 #, python-format
 msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
-"Ошибка: при операции записи невозможно определить reIPL-метод как "
-"%(reipl_type)s (%(filename)s: %(e)s)"
+"Ошибка: при операции записи невозможно определить reIPL-метод как %"
+"(reipl_type)s (%(filename)s: %(e)s)"
 
 #: iutil.py:872
 #, python-format
 msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
-"Ошибка: при операции закрытия невозможно определить reIPL-метод как "
-"%(reipl_type)s (%(filename)s: %(e)s)"
+"Ошибка: при операции закрытия невозможно определить reIPL-метод как %"
+"(reipl_type)s (%(filename)s: %(e)s)"
 
 #: iutil.py:891
 #, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
-msgstr ""
-"Ошибка: не удалось задать %(device)s в качестве reIPL-устройства (%(e)s)"
+msgstr "Ошибка: не удалось задать %(device)s в качестве reIPL-устройства (%(e)s)"
 
 #: iutil.py:901
 #, python-format
@@ -734,19 +732,17 @@ msgstr "Ошибка: запись свойства FCP %(reipl_property)s дл�
 
 #: iutil.py:975
 #, python-format
-msgid ""
-"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr ""
-"Ошибка: запись стандартного свойства FCP %(reipl_property)s для reIPL (%(e)s)"
+msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgstr "Ошибка: запись стандартного свойства FCP %(reipl_property)s для reIPL (%(e)s)"
 
 #: iutil.py:990
 #, python-format
 msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
-"%(wwpn)s and LUN %(lun)s to continue installation"
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
+"(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
-"После выключения выполните загрузку IPL вручную с FCP %(device)s c WWPN "
-"%(wwpn)s и LUN %(lun)s для продолжения установки "
+"После выключения выполните загрузку IPL вручную с FCP %(device)s c WWPN %"
+"(wwpn)s и LUN %(lun)s для продолжения установки "
 
 #: iutil.py:1007
 msgid ""
@@ -884,8 +880,7 @@ msgstr "Не удается найти образ"
 
 #: livecd.py:122
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "Указанный путь не является корректным %s Live CD для установки."
 
 #: livecd.py:180
@@ -930,13 +925,12 @@ msgstr "Имя узла не может содержать более 255 сим
 
 #: network.py:68
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
+"9'"
 msgstr "Имя узла должно начинаться с символов a-z, A-Z, 0-9."
 
 #: network.py:73
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "Имя узла может содержать только символы a-z, A-Z, 0-9, дефис и точку."
 
 #: network.py:117
@@ -1058,8 +1052,8 @@ msgstr ""
 "Благодарим за загрузку предварительного выпуска %(productName)s.\n"
 "\n"
 "Этот выпуск не является окончательным и не предназначен для повседневного и "
-"корпоративного использования. Цель этого выпуска — сбор отчётов от "
-"тестировщиков.\n"
+"корпоративного использования. Его цель — сбор отчётов от "
+"экспериментальной группы.\n"
 "\n"
 "Чтобы сообщить о найденных проблемах, посетите\n"
 "\n"
@@ -1223,8 +1217,8 @@ msgstr "Ошибка разбиения"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of "
-"%(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
@@ -1256,8 +1250,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"Следующие существующие разделы будут отформатированы с удалением всех данных."
+msgstr "Следующие существующие разделы будут отформатированы с удалением всех данных."
 
 #: partIntfHelpers.py:288
 msgid ""
@@ -1306,10 +1299,8 @@ msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
 #: partIntfHelpers.py:346
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Вы уверены, что хотите вернуть таблицу разделов в первоначальное состояние?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Вы уверены, что хотите вернуть таблицу разделов в первоначальное состояние?"
 
 #: platform.py:98 platform.py:339 platform.py:407 platform.py:514
 #: ui/create-storage.glade.h:15
@@ -1348,8 +1339,7 @@ msgstr "Загружаемые разделы не могут находитьс
 
 #: platform.py:135 platform.py:140
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr ""
-"Загружаемые разделы не могут находиться на зашифрованных блочных устройствах."
+msgstr "Загружаемые разделы не могут находиться на зашифрованных блочных устройствах."
 
 #: platform.py:212
 msgid "EFI System Partition"
@@ -1376,8 +1366,7 @@ msgstr "%s должен быть меткой диска bsd."
 #: platform.py:296
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
-msgstr ""
-"Изначально потребуется как минимум 1 Мб свободного пространства на диске %s."
+msgstr "Изначально потребуется как минимум 1 Мб свободного пространства на диске %s."
 
 #: platform.py:342
 msgid "PPC PReP Boot"
@@ -1600,8 +1589,7 @@ msgstr "Добро пожаловать в %s"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: text.py:624 loader/net.c:110 loader/net.c:495 loader/net.c:550
 #: loader/net.c:692 loader/net.c:700 loader/net.c:1118 loader/net.c:1126
@@ -2015,8 +2003,7 @@ msgstr "Повтор попытки загрузки."
 
 #: yuminstall.py:985
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "При выполнении транзакции произошла ошибка по следующим причинам: %s\n"
 
 #: yuminstall.py:1028 yuminstall.py:1029
@@ -2071,8 +2058,8 @@ msgstr ""
 #: yuminstall.py:1067
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): "
-"%s.\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr "При выполнении транзакции произошла ошибка по следующим причинам: %s\n"
 
 #: yuminstall.py:1074 yuminstall.py:1079
@@ -2157,9 +2144,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of "
-"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
-"the upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of %(arch)"
+"s.  This is likely to not succeed.  Are you sure you wish to continue the "
+"upgrade process?"
 msgstr ""
 "Вы выполняете обновление системы до версии %(productName)s для%(myarch)s "
 "архитектуры , которая не соответствует установленной архитектуре %(arch)s. "
@@ -2320,8 +2307,7 @@ msgid "_Use Anyway"
 msgstr "_Всё равно использовать"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
 "Запрошенный пароль содержит символы, не являющиеся кодами ASCII. В паролях "
 "такие символы не допускаются."
@@ -2410,8 +2396,7 @@ msgid "Shrink Current System"
 msgstr "Уменьшить существующую систему"
 
 #: iw/autopart_type.py:261
-msgid ""
-"Shrinks existing partitions to create free space for the default layout."
+msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 "Сокращает существующие разделы с целью освобождения места для стандартного "
 "разбиения."
@@ -2735,14 +2720,14 @@ msgstr ""
 
 #: iw/filter_type.py:66
 msgid "Specialized Storage Devices"
-msgstr "Специализированные накопители"
+msgstr "Специальные накопители"
 
 #: iw/filter_type.py:67
 msgid ""
 "Installs or upgrades to enterprise devices such as Storage Area Networks "
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
-msgstr ""
+msgstr "Позволяет установить и обновить устройства SAN (Storage Area Network), добавить диски FCoE, iSCSI, zFCP и задать устройства, которые установщик должен будет пропустить."
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2793,20 +2778,20 @@ msgstr "Продолжить"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is larger than the smallest physical volume "
-"(%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
 "Размер физического экстента не может быть изменён, потому что выбранная "
-"величина (%(curpe)10.2f МБ) больше размера наименьшего физического тома "
-"(%(maxpvsize)10.2f МБ) в группе томов."
+"величина (%(curpe)10.2f МБ) больше размера наименьшего физического тома (%"
+"(maxpvsize)10.2f МБ) в группе томов."
 
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
-"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
+"volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 "Размер физического экстента не может быть изменён, потому что выбранная "
 "величина (%(curpe)10.2f МБ) слишком велика по сравнению с размером "
@@ -2925,8 +2910,7 @@ msgstr "Точка монтирования используется"
 #: iw/raid_dialog_gui.py:192
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
-msgstr ""
-"Точка монтирования «%s» уже используется. Выберите другую точку монтирования."
+msgstr "Точка монтирования «%s» уже используется. Выберите другую точку монтирования."
 
 #: iw/lvm_dialog_gui.py:684
 msgid "Illegal size"
@@ -2953,8 +2937,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group "
-"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 "Требуемый объём пространства для этого логического тома (размером %(size)d "
@@ -3286,14 +3270,12 @@ msgid "Partitioning"
 msgstr "Разбиение"
 
 #: iw/partition_gui.py:850
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "Выбранная схема разбиения вызвала следующие критические ошибки."
 
 #: iw/partition_gui.py:852
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "Эти ошибки должны быть исправлены до продолжения установки %s."
 
 #: iw/partition_gui.py:858
@@ -3678,17 +3660,16 @@ msgstr ""
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"Программе установки не удается определить загрузчик, установленный в системе."
+msgstr "Программе установки не удается определить загрузчик, установленный в системе."
 
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on "
-"%(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on %"
+"(bootDev)s."
 msgstr ""
-"Программа установки обнаружила загрузчик %(type)s, установленный на "
-"%(bootDev)s."
+"Программа установки обнаружила загрузчик %(type)s, установленный на %"
+"(bootDev)s."
 
 #: iw/upgrade_bootloader_gui.py:142
 msgid "This is the recommended option."
@@ -3730,15 +3711,15 @@ msgstr "Преобразование файловых систем"
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
+"several benefits over the file system traditionally shipped in %(productName)"
+"s.  This installation program can migrate formatted partitions without data "
+"loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "Эта версия %(productName)s поддерживает обновлённую файловую систему, "
-"которая обладает преимуществами по сравнению с традиционно поставляемой с "
-"%(productName)s файловой системой. Программа установки может выполнить "
+"которая обладает преимуществами по сравнению с традиционно поставляемой с %"
+"(productName)s файловой системой. Программа установки может выполнить "
 "преобразование существующих разделов без потери данных.\n"
 "\n"
 "Какие разделы вы хотите преобразовать?"
@@ -3751,8 +3732,8 @@ msgstr "Обновление раздела подкачки"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have "
-"%dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "Последним ядрам (2.4 и новее) требуется значительно больше пространства "
@@ -3818,10 +3799,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Размер файла подкачки должен быть в диапазоне между 1 и 2000 МБ."
 
 #: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:187
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"Недостаточно места на устройстве, выбранном для создания раздела подкачки."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "Недостаточно места на устройстве, выбранном для создания раздела подкачки."
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
 msgid "Network Install Required"
@@ -4158,8 +4137,7 @@ msgstr "Загрузка диска драйверов"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
+msgstr "Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
 
 #: loader/driverselect.c:170
 msgid ""
@@ -4291,10 +4269,8 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Добро пожаловать в %s для %s -- Режим восстановления"
 
 #: loader/lang.c:65 loader/loader.c:251
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: loader/lang.c:370
 msgid "Choose a Language"
@@ -4446,14 +4422,12 @@ msgstr "Загрузчик уже выполнялся. Запускается �
 #: loader/loader.c:2412
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
-msgstr ""
-"Запускается Anaconda %s, режим восстановления %s, подождите, пожалуйста.\n"
+msgstr "Запускается Anaconda %s, режим восстановления %s, подождите, пожалуйста.\n"
 
 #: loader/loader.c:2414
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr ""
-"Запускается Anaconda %s, программа установки %s, подождите, пожалуйста.\n"
+msgstr "Запускается Anaconda %s, программа установки %s, подождите, пожалуйста.\n"
 
 #: loader/mediacheck.c:46
 #, c-format
@@ -4627,8 +4601,7 @@ msgid "Missing Information"
 msgstr "Недостаточно информации"
 
 #: loader/net.c:1119
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Необходимо ввести корректный адрес IPv4 и маску сети или префикс CIDR."
 
 #: loader/net.c:1127
@@ -4781,8 +4754,7 @@ msgstr "Получение"
 
 #: loader/urls.c:262
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "Введите URL установочного образа %s на сервере."
 
 #: loader/urls.c:280
@@ -4981,8 +4953,7 @@ msgstr ""
 #: storage/__init__.py:973
 #, python-format
 msgid "Placing the root partition on an XFS filesystem is not supported in %s."
-msgstr ""
-"%s не поддерживает размещение корневого раздела в файловой системе XFS."
+msgstr "%s не поддерживает размещение корневого раздела в файловой системе XFS."
 
 #: storage/__init__.py:981
 #, python-format
@@ -5003,8 +4974,7 @@ msgstr ""
 "размера для нормальной установки %(productName)s. "
 
 #: storage/__init__.py:1017
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Установка на USB-устройство. Существует вероятность получения нерабочей "
 "системы."
@@ -5036,8 +5006,7 @@ msgstr ""
 
 #: storage/__init__.py:1039
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Неверная точка монтирования. Каталог %s должен располагаться в файловой "
 "системе /."
@@ -5244,8 +5213,8 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Произошла ошибка при монтировании устройства %(path)s как %(mountpoint)s: "
-"%(msg)s. Это неисправимая ошибка и установка не может быть продолжена.\n"
+"Произошла ошибка при монтировании устройства %(path)s как %(mountpoint)s: %"
+"(msg)s. Это неисправимая ошибка и установка не может быть продолжена.\n"
 "\n"
 "Нажмите <Enter> для выхода из программы установки."
 
@@ -5551,8 +5520,8 @@ msgstr ""
 "\n"
 "%(errortxt)s\n"
 "\n"
-"Возможная причина ошибки -- недостаточно свободного места для установки. "
-"%(extra)s"
+"Возможная причина ошибки -- недостаточно свободного места для установки. %"
+"(extra)s"
 
 #: storage/zfcp.py:51
 msgid "You have not specified a device number or the number is invalid"
@@ -5574,14 +5543,12 @@ msgstr "Устройство zFCP %s не найдено, даже в списк
 #: storage/zfcp.py:143
 #, python-format
 msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
-msgstr ""
-"Не удалось перевести устройство zFCP %(devnum)s  в режим онлайн (%(e)s)."
+msgstr "Не удалось перевести устройство zFCP %(devnum)s  в режим онлайн (%(e)s)."
 
 #: storage/zfcp.py:154
 #, python-format
 msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
-msgstr ""
-"Не удалось добавить WWPN %(wwpn)s для устройства zFCP %(devnum)s (%(e)s)."
+msgstr "Не удалось добавить WWPN %(wwpn)s для устройства zFCP %(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:161
 #, python-format
@@ -5591,18 +5558,16 @@ msgstr "WWPN %(wwpn)s не найден в устройстве zFCP %(devnum)s.
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
+"s)."
 msgstr ""
-"Не удалось добавить LUN %(fcplun)s к WWPN %(wwpn)s в устройстве zFCP "
-"%(devnum)s (%(e)s)."
+"Не удалось добавить LUN %(fcplun)s к WWPN %(wwpn)s в устройстве zFCP %"
+"(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:182
 #, python-format
-msgid ""
-"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
-msgstr ""
-"LUN %(fcplun)s на WWPN %(wwpn)s в устройстве zFCP %(devnum)s уже настроен."
+msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgstr "LUN %(fcplun)s на WWPN %(wwpn)s в устройстве zFCP %(devnum)s уже настроен."
 
 #: storage/zfcp.py:194
 #, python-format
@@ -5619,26 +5584,26 @@ msgid ""
 "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
 "again."
 msgstr ""
-"Снова удалён ошибочный LUN %(fcplun)s на WWPN %(wwpn)s в устройстве zFCP "
-"%(devnum)s."
+"Снова удалён ошибочный LUN %(fcplun)s на WWPN %(wwpn)s в устройстве zFCP %"
+"(devnum)s."
 
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
 msgstr ""
-"Не удалось корректно удалить SCSI-устройство zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Не удалось корректно удалить SCSI-устройство zFCP %(devnum)s %(wwpn)s %"
+"(fcplun)s (%(e)s)."
 
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
+"(e)s)."
 msgstr ""
-"Не удалось удалить LUN %(fcplun)s на WWPN %(wwpn)s в устройстве zFCP "
-"%(devnum)s (%(e)s)."
+"Не удалось удалить LUN %(fcplun)s на WWPN %(wwpn)s в устройстве zFCP %"
+"(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:287
 #, python-format
@@ -5648,8 +5613,7 @@ msgstr "Не удалось удалить WWPN %(wwpn)s в устройстве
 #: storage/zfcp.py:313
 #, python-format
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
-msgstr ""
-"Не удалось перевести устройство zFCP %(devnum)s в автономный режим (%(e)s)."
+msgstr "Не удалось перевести устройство zFCP %(devnum)s в автономный режим (%(e)s)."
 
 #: textw/complete_text.py:32
 msgid "Reboot"
@@ -5813,15 +5777,15 @@ msgstr "Создать новую конфигурацию загрузчика"
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in %"
+"(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "Эта версия %(productName)s поддерживает обновленную версию файловой системы, "
-"которая обладает преимуществами по сравнению с традиционно поставляемой с "
-"%(productName)s файловой системой. Возможно преобразовать существующие "
+"которая обладает преимуществами по сравнению с традиционно поставляемой с %"
+"(productName)s файловой системой. Возможно преобразовать существующие "
 "разделы без потери данных.\n"
 "\n"
 "Какие из этих разделов вы хотите преобразовать?"
@@ -5867,8 +5831,8 @@ msgid ""
 msgstr ""
 "В системе найдена одна или несколько установок Linux.\n"
 "\n"
-"Выберите одну из них для обновления, или выберите «Переустановка системы» "
-"для установки новой системы."
+"Выберите одну из них для обновления, или выберите «Переустановка системы» для "
+"установки новой системы."
 
 #: textw/userauth_text.py:30
 msgid "Root Password"
@@ -6040,8 +6004,7 @@ msgstr ""
 "Жёсткий диск"
 
 #: ui/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "Укажите настройки для этого программного репозитория."
 
 #: ui/addrepo.glade.h:10
@@ -6109,8 +6072,7 @@ msgid "Volume to Shrink"
 msgstr "Уменьшить том"
 
 #: ui/autopart.glade.h:4
-msgid ""
-"Which partition would you like to shrink to make room for your installation?"
+msgid "Which partition would you like to shrink to make room for your installation?"
 msgstr ""
 "Укажите раздел, размер которого вы хотите уменьшить, чтобы освободить место "
 "для установки."
@@ -6186,8 +6148,7 @@ msgstr ""
 "котором следует установить загрузчик."
 
 #: ui/create-storage.glade.h:1
-msgid ""
-"<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">Создать раздел RAID</span>"
 
 #: ui/create-storage.glade.h:2
@@ -6199,15 +6160,12 @@ msgstr ""
 "группе томов</span>"
 
 #: ui/create-storage.glade.h:3
-msgid ""
-"<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">Создать раздел LVM</span>"
 
 #: ui/create-storage.glade.h:4
-msgid ""
-"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">Создание раздела общего назначения</span>"
+msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgstr "<span size=\"small\" color=\"gray\">Создание раздела общего назначения</span>"
 
 #: ui/create-storage.glade.h:5
 msgid ""
@@ -6797,9 +6755,3 @@ msgstr "Валлийский"
 msgid "Zulu"
 msgstr "Зулу"
 
-#~ msgid ""
-#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-#~ "mainframe attached disks (DASD), usually in an enterprise environment"
-#~ msgstr ""
-#~ "Установка или обновление в сетях SAN или на подключенных к мэйнфрейму "
-#~ "дисках (DASD). Обычно используется в корпоративной среде"
