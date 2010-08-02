@@ -152,6 +152,7 @@ void unmountFilesystems(void) {
 	*chptr++ = '\0';
 
 	if (strcmp(start, "/") && strcmp(start, "/tmp") &&
+	    strcmp(start, "/proc") && strcmp(start, "/sys") &&
             strcmp(start, "/dev")) {
 	    filesystems[numFilesystems].name = strdup(start);
 	    filesystems[numFilesystems].what = FS;
