@@ -223,6 +223,31 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 02 2010 Chris Lumens <clumens@redhat.com> - 14.14-1
+- Write out correct nfs url for repo= in /root/anaconda-ks.cfg (#584580)
+  (rvykydal)
+- mdadm -I no longer accepts --no-degraded (#620359) (hdegoede)
+- Update buildinstall because of new man package name (mgracik)
+- Clarify name of function that identifies biosraid member devices. (dlehman)
+- Use dm subsystem functions to identify dmraid,mpath partitions. (dlehman)
+- Move disk enumeration to a method of FilterWindow. (dlehman)
+- Check if an mpath should be ignored before adding it to the devicetree.
+  (dlehman)
+- Add handling for mpath and fwraid devices in exclusiveDisks. (dlehman)
+- Add functions to identify specific types of device-mapper devices. (dlehman)
+- Ignore active fwraids and mpaths when setting up the filter ui. (dlehman)
+- Include pyconfig*.h so that we can actually run python2.7 . (pjones)
+- Remove translation of error strings in uncpio.c (bcl)
+- Clean up tabs in uncpio.c (bcl)
+- Redirect uncpio errors to syslog (#618181) (bcl)
+- Make sure multipathd starts on systems using mpath storage (#615040)
+  (dcantrell)
+- Handle systems where all disks have a whole disk format (#617554) (dcantrell)
+- Include modprobe file for Mellanox 10GB driver (#611997) (dcantrell)
+- Remove some more kickstart duplication (#617512). (clumens)
+- Fix setup of LVs (bcl)
+- Include the kickstart file in the traceback (bcl)
+
 * Tue Jul 27 2010 Ales Kozumplik <akozumpl@redhat.com> - 14.13-1
 - Use readvars_parse_file in loader/init.c (dcantrell)
 - Use readvars_parse_*() in loader/loader.c (dcantrell)
