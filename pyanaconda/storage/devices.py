@@ -1081,16 +1081,6 @@ class PartitionDevice(StorageDevice):
                                       start=geometry.start, end=geometry.end)
 
     @property
-    def path(self):
-        """ Device node representing this device. """
-        if not self.parents:
-            # Bogus, but code in various places compares devices by path
-            # So we must return something unique
-            return self.name
-
-        return "%s/%s" % (self.parents[0]._devDir, self.name)
-
-    @property
     def partType(self):
         """ Get the partition's type (as parted constant). """
         try:
