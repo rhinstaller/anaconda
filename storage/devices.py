@@ -2743,7 +2743,7 @@ class MDRaidArrayDevice(StorageDevice):
         device.setup()
         udev_settle()
         try:
-            mdraid.mdadd(device.path, len(self.devices) < self.memberDevices)
+            mdraid.mdadd(device.path)
             # mdadd causes udev events
             udev_settle()
         except MDRaidError as e:

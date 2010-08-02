@@ -165,10 +165,8 @@ def mddestroy(device):
     except MDRaidError as msg:
         raise MDRaidError("mddestroy failed for %s: %s" % (device, msg))
 
-def mdadd(device, no_degraded=False):
+def mdadd(device):
     args = ["--incremental", "--quiet"]
-    if no_degraded:
-        args.append("--no-degraded")
     args.append(device)
 
     try:
