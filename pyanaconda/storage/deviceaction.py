@@ -136,12 +136,18 @@ class DeviceAction(object):
 """
     type = ACTION_TYPE_NONE
     obj = ACTION_OBJECT_NONE
+    _id = 0
 
     def __init__(self, device):
         if not isinstance(device, StorageDevice):
             raise ValueError("arg 1 must be a StorageDevice instance")
         self.device = device
 
+        # Establish a unique id for each action instance. Making shallow or
+        # deep copyies of DeviceAction instances will require __copy__ and
+        # __deepcopy__ methods to handle incrementing the id in the copy
+        self.id = DeviceAction._id
+        DeviceAction._id += 1
 
     def execute(self, intf=None):
         """ perform the action """
@@ -180,7 +186,8 @@ class DeviceAction(object):
         return self.device.format
 
     def __str__(self):
-        s = "%s %s" % (action_strings[self.type], object_strings[self.obj])
+        s = "[%d] %s %s" % (self.id, action_strings[self.type],
+                            object_strings[self.obj])
         if self.isResize():
             s += " (%s)" % resize_strings[self.dir]
         if self.isFormat():
