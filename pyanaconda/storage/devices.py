@@ -433,7 +433,7 @@ class StorageDevice(Device):
     _partitionable = False
     _isDisk = False
 
-    def __init__(self, device, format=None,
+    def __init__(self, name, format=None,
                  size=None, major=None, minor=None,
                  sysfsPath='', parents=None, exists=None, serial=None,
                  vendor="", model="", bus=""):
@@ -441,7 +441,7 @@ class StorageDevice(Device):
 
             Arguments:
 
-                device -- the device name (generally a device node's basename)
+                name -- the device name (generally a device node's basename)
 
             Keyword Arguments:
 
@@ -462,7 +462,7 @@ class StorageDevice(Device):
             parents = [parents]
 
         self.exists = exists
-        Device.__init__(self, device, parents=parents)
+        Device.__init__(self, name, parents=parents)
 
         self.uuid = None
         self._format = None
@@ -804,7 +804,7 @@ class DiskDevice(StorageDevice):
     _partitionable = True
     _isDisk = True
 
-    def __init__(self, device, format=None,
+    def __init__(self, name, format=None,
                  size=None, major=None, minor=None, sysfsPath='',
                  parents=None, serial=None, vendor="", model="", bus="",
                  exists=True):
@@ -812,7 +812,7 @@ class DiskDevice(StorageDevice):
 
             Arguments:
 
-                device -- the device name (generally a device node's basename)
+                name -- the device name (generally a device node's basename)
 
             Keyword Arguments:
 
@@ -831,7 +831,7 @@ class DiskDevice(StorageDevice):
 
             DiskDevices always exist.
         """
-        StorageDevice.__init__(self, device, format=format, size=size,
+        StorageDevice.__init__(self, name, format=format, size=size,
                                major=major, minor=minor, exists=exists,
                                sysfsPath=sysfsPath, parents=parents,
                                serial=serial, model=model,
