@@ -188,11 +188,11 @@ class DeviceTree(object):
         self._ignoredDisks = []
         for disk in ignored:
             self.addIgnoredDisk(disk)
-        lvm.lvm_cc_resetFilter()
+        devicelibs.lvm.lvm_cc_resetFilter()
 
     def addIgnoredDisk(self, disk):
         self._ignoredDisks.append(disk)
-        lvm.lvm_cc_addFilterRejectRegexp(disk)
+        devicelibs.lvm.lvm_cc_addFilterRejectRegexp(disk)
 
     def pruneActions(self):
         """ Prune loops and redundant actions from the queue. """
@@ -1033,7 +1033,7 @@ class DeviceTree(object):
             # something must be wrong -- if all of the slaves are in
             # the tree, this device should be as well
             if device is None:
-                lvm.lvm_cc_addFilterRejectRegexp(name)
+                devicelibs.lvm.lvm_cc_addFilterRejectRegexp(name)
                 log.warning("ignoring dm device %s" % name)
 
         return device
@@ -1109,7 +1109,7 @@ class DeviceTree(object):
                 # if the current device is still not in
                 # the tree, something has gone wrong
                 log.error("failure scanning device %s" % disk_name)
-                lvm.lvm_cc_addFilterRejectRegexp(name)
+                devicelibs.lvm.lvm_cc_addFilterRejectRegexp(name)
                 return
 
         # Check that the disk has partitions. If it does not, we must have
@@ -1123,7 +1123,7 @@ class DeviceTree(object):
             # format (ie a biosraid member), or because it is not
             # partitionable we want LVM to ignore this partition too
             if disk.format.type != "disklabel" or not disk.partitionable:
-                lvm.lvm_cc_addFilterRejectRegexp(name)
+                devicelibs.lvm.lvm_cc_addFilterRejectRegexp(name)
             log.debug("ignoring partition %s" % name)
             return
 
@@ -1900,8 +1900,8 @@ class DeviceTree(object):
                     # The user chose not to reinitialize.
                     # hopefully this will ignore the vg components too.
                     self._removeDevice(device)
-                    lvm.lvm_cc_addFilterRejectRegexp(device.name)
-                    lvm.blacklistVG(device.name)
+                    devicelibs.lvm.lvm_cc_addFilterRejectRegexp(device.name)
+                    devicelibs.lvm.blacklistVG(device.name)
                     for parent in device.parents:
                         if parent.type == "partition":
                             parent.immutable = \
@@ -1909,7 +1909,7 @@ class DeviceTree(object):
                         else:
                             self._removeDevice(parent, moddisk=False)
                             self.addIgnoredDisk(parent.name)
-                        lvm.lvm_cc_addFilterRejectRegexp(parent.name)
+                        devicelibs.lvm.lvm_cc_addFilterRejectRegexp(parent.name)
 
         # Address the inconsistencies present in the tree leaves.
         for leaf in self.leaves:
