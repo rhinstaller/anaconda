@@ -38,6 +38,7 @@ import devicelibs.mpath
 from udev import *
 from .storage_log import log_method_call
 from pyanaconda import iutil
+from pyanaconda import tsort
 import parted
 import _ped
 
@@ -195,461 +196,53 @@ class DeviceTree(object):
         devicelibs.lvm.lvm_cc_addFilterRejectRegexp(disk)
 
     def pruneActions(self):
-        """ Prune loops and redundant actions from the queue. """
-        # handle device destroy actions
-        actions = self.findActions(type="destroy", object="device")
-        for a in actions:
-            if a not in self._actions:
-                # we may have removed some of the actions in a previous
-                # iteration of this loop
+        """ Remove redundant/obsolete actions from the action list. """
+        for action in reversed(self._actions[:]):
+            if action not in self._actions:
+                log.debug("action '%s' already pruned" % action)
                 continue
 
-            log.debug("action '%s' (%s)" % (a, id(a)))
-            destroys = self.findActions(devid=a.device.id,
-                                        type="destroy",
-                                        object="device")
+            log.debug("checking for actions obsoleted by '%s'" % action)
+            for obsolete in self._actions[:]:
+                log.debug(" checking action '%s'" % obsolete)
+                if action.obsoletes(obsolete):
+                    log.debug("  removing obsolete action '%s'" % obsolete)
+                    self._actions.remove(obsolete)
 
-            creates = self.findActions(devid=a.device.id,
-                                       type="create",
-                                       object="device")
-            log.debug("found %d create and %d destroy actions for device id %d"
-                        % (len(creates), len(destroys), a.device.id))
+    def sortActions(self):
+        """ Sort actions based on dependencies. """
+        edges = []
 
-            # If the device is not preexisting, we remove all actions up
-            # to and including the last destroy action.
-            # If the device is preexisting, we remove all actions from
-            # after the first destroy action up to and including the last
-            # destroy action.
-            # If the device is preexisting and there is only one device
-            # destroy action we remove all resize and format create/migrate
-            # actions on that device that precede the destroy action.
-            loops = []
-            first_destroy_idx = None
-            first_create_idx = None
-            stop_action = None
-            start = None
-            if len(destroys) > 1:
-                # there are multiple destroy actions for this device
-                loops = destroys
-                first_destroy_idx = self._actions.index(loops[0])
-                start = self._actions.index(a) + 1
-                stop_action = destroys[-1]
-
-            if creates:
-                first_create_idx = self._actions.index(creates[0])
-                if not loops or first_destroy_idx > first_create_idx:
-                    # this device is not preexisting
-                    start = first_create_idx
-                    stop_action = destroys[-1]
-
-            dev_actions = self.findActions(devid=a.device.id)
-            if start is None:
-                # only one device destroy, so prune preceding resizes and
-                # format creates and migrates
-                for _a in dev_actions[:]:
-                    if _a.isResize() or (_a.isFormat() and not _a.isDestroy()):
-                        continue
-
-                    dev_actions.remove(_a)
-
-                if not dev_actions:
-                    # nothing to prune
+        # collect all ordering requirements for the actions
+        for action in self._actions:
+            action_idx = self._actions.index(action)
+            children = []
+            for _action in self._actions:
+                if _action == action:
                     continue
 
-                start = self._actions.index(dev_actions[0])
-                stop_action = dev_actions[-1]
+                # create edges based on both action type and dependencies.
+                if action.type > _action.type or _action.requires(action):
+                    children.append(_action)
 
-            # now we remove all actions on this device between the start
-            # index (into self._actions) and stop_action.
-            for rem in dev_actions:
-                end = self._actions.index(stop_action)
-                if start <= self._actions.index(rem) <= end:
-                    log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
-                    self._actions.remove(rem)
+            for child in children:
+                child_idx = self._actions.index(child)
+                edges.append((action_idx, child_idx))
 
-                if rem == stop_action:
-                    break
+        # create a graph reflecting the ordering information we have
+        graph = tsort.create_graph(range(len(self._actions)), edges)
 
-        # device create actions
-        actions = self.findActions(type="create", object="device")
-        for a in actions:
-            if a not in self._actions:
-                # we may have removed some of the actions in a previous
-                # iteration of this loop
-                continue
+        # perform a topological sort based on the graph's contents
+        order = tsort.tsort(graph)
 
-            log.debug("action '%s' (%s)" % (a, id(a)))
-            creates = self.findActions(devid=a.device.id,
-                                       type="create",
-                                       object="device")
-
-            destroys = self.findActions(devid=a.device.id,
-                                        type="destroy",
-                                        object="device")
-
-            # If the device is preexisting, we remove everything between
-            # the first destroy and the last create.
-            # If the device is not preexisting, we remove everything up to
-            # the last create.
-            loops = []
-            first_destroy_idx = None
-            first_create_idx = None
-            stop_action = None
-            start = None
-            if len(creates) > 1:
-                # there are multiple create actions for this device
-                loops = creates
-                first_create_idx = self._actions.index(loops[0])
-                start = 0
-                stop_action = creates[-1]
-
-            if destroys:
-                first_destroy_idx = self._actions.index(destroys[0])
-                if not loops or first_create_idx > first_destroy_idx:
-                    # this device is preexisting
-                    start = first_destroy_idx + 1
-                    stop_action = creates[-1]
-
-            if start is None:
-                continue
-
-            # remove all actions on this from after the first destroy up
-            # to the last create
-            dev_actions = self.findActions(devid=a.device.id)
-            for rem in dev_actions:
-                if rem == stop_action:
-                    break
-
-                end = self._actions.index(stop_action)
-                if start <= self._actions.index(rem) < end:
-                    log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
-                    self._actions.remove(rem)
-
-        # device resize actions
-        actions = self.findActions(type="resize", object="device")
-        for a in actions:
-            if a not in self._actions:
-                # we may have removed some of the actions in a previous
-                # iteration of this loop
-                continue
-
-            log.debug("action '%s' (%s)" % (a, id(a)))
-            loops = self.findActions(devid=a.device.id,
-                                     type="resize",
-                                     object="device")
-
-            if len(loops) == 1:
-                continue
-
-            # remove all but the last resize action on this device
-            for rem in loops[:-1]:
-                log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
-                self._actions.remove(rem)
-
-        # format destroy
-        # XXX I don't think there's a way for these loops to happen
-        actions = self.findActions(type="destroy", object="format")
-        for a in actions:
-            if a not in self._actions:
-                # we may have removed some of the actions in a previous
-                # iteration of this loop
-                continue
-
-            log.debug("action '%s' (%s)" % (a, id(a)))
-            destroys = self.findActions(devid=a.device.id,
-                                        type="destroy",
-                                        object="format")
-
-            creates = self.findActions(devid=a.device.id,
-                                       type="create",
-                                       object="format")
-
-            # If the format is not preexisting, we remove all actions up
-            # to and including the last destroy action.
-            # If the format is preexisting, we remove all actions from
-            # after the first destroy action up to and including the last
-            # destroy action.
-            loops = []
-            first_destroy_idx = None
-            first_create_idx = None
-            stop_action = None
-            start = None
-            if len(destroys) > 1:
-                # there are multiple destroy actions for this format
-                loops = destroys
-                first_destroy_idx = self._actions.index(loops[0])
-                start = self._actions.index(a) + 1
-                stop_action = destroys[-1]
-
-            if creates:
-                first_create_idx = self._actions.index(creates[0])
-                if not loops or first_destroy_idx > first_create_idx:
-                    # this format is not preexisting
-                    start = first_create_idx
-                    stop_action = destroys[-1]
-
-            if start is None:
-                continue
-
-            # now we remove all actions on this device's format between
-            # the start index (into self._actions) and stop_action.
-            dev_actions = self.findActions(devid=a.device.id,
-                                           object="format")
-            for rem in dev_actions:
-                end = self._actions.index(stop_action)
-                if start <= self._actions.index(rem) <= end:
-                    log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
-                    self._actions.remove(rem)
-
-                if rem == stop_action:
-                    break
-
-        # format create
-        # XXX I don't think there's a way for these loops to happen
-        actions = self.findActions(type="create", object="format")
-        for a in actions:
-            if a not in self._actions:
-                # we may have removed some of the actions in a previous
-                # iteration of this loop
-                continue
-
-            log.debug("action '%s' (%s)" % (a, id(a)))
-            creates = self.findActions(devid=a.device.id,
-                                       type="create",
-                                       object="format")
-
-            destroys = self.findActions(devid=a.device.id,
-                                        type="destroy",
-                                        object="format")
-
-            # If the format is preexisting, we remove everything between
-            # the first destroy and the last create.
-            # If the format is not preexisting, we remove everything up to
-            # the last create.
-            loops = []
-            first_destroy_idx = None
-            first_create_idx = None
-            stop_action = None
-            start = None
-            if len(creates) > 1:
-                # there are multiple create actions for this format
-                loops = creates
-                first_create_idx = self._actions.index(loops[0])
-                start = 0
-                stop_action = creates[-1]
-
-            if destroys:
-                first_destroy_idx = self._actions.index(destroys[0])
-                if not loops or first_create_idx > first_destroy_idx:
-                    # this format is preexisting
-                    start = first_destroy_idx + 1
-                    stop_action = creates[-1]
-
-            if start is None:
-                continue
-
-            # remove all actions on this from after the first destroy up
-            # to the last create
-            dev_actions = self.findActions(devid=a.device.id,
-                                           object="format")
-            for rem in dev_actions:
-                if rem == stop_action:
-                    break
-
-                end = self._actions.index(stop_action)
-                if start <= self._actions.index(rem) < end:
-                    log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
-                    self._actions.remove(rem)
-
-        # format resize
-        actions = self.findActions(type="resize", object="format")
-        for a in actions:
-            if a not in self._actions:
-                # we may have removed some of the actions in a previous
-                # iteration of this loop
-                continue
-
-            log.debug("action '%s' (%s)" % (a, id(a)))
-            loops = self.findActions(devid=a.device.id,
-                                     type="resize",
-                                     object="format")
-
-            if len(loops) == 1:
-                continue
-
-            # remove all but the last resize action on this format
-            for rem in loops[:-1]:
-                log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
-                self._actions.remove(rem)
-
-        # format migrate
-        # XXX I don't think there's away for these loops to occur
-        actions = self.findActions(type="migrate", object="format")
-        for a in actions:
-            if a not in self._actions:
-                # we may have removed some of the actions in a previous
-                # iteration of this loop
-                continue
-
-            log.debug("action '%s' (%s)" % (a, id(a)))
-            loops = self.findActions(devid=a.device.id,
-                                     type="migrate",
-                                     object="format")
-
-            if len(loops) == 1:
-                continue
-
-            # remove all but the last migrate action on this format
-            for rem in loops[:-1]:
-                log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
-                self._actions.remove(rem)
+        # now replace self._actions with a sorted version of the same list
+        actions = []
+        for idx in order:
+            actions.append(self._actions[idx])
+        self._actions = actions
 
     def processActions(self, dryRun=None):
         """ Execute all registered actions. """
-        # in most cases the actions will already be sorted because of the
-        # rules for registration, but let's not rely on that
-        def cmpActions(a1, a2):
-            ret = 0
-            if a1.isDestroy() and a2.isDestroy():
-                if a1.device.path == a2.device.path:
-                    # if it's the same device, destroy the format first
-                    if a1.isFormat() and a2.isFormat():
-                        ret = 0
-                    elif a1.isFormat() and not a2.isFormat():
-                        ret = -1
-                    elif not a1.isFormat() and a2.isFormat():
-                        ret = 1
-                elif a1.device.dependsOn(a2.device):
-                    ret = -1
-                elif a2.device.dependsOn(a1.device):
-                    ret = 1
-                # generally destroy partitions after lvs, vgs, &c
-                elif isinstance(a1.device, PartitionDevice) and \
-                     isinstance(a2.device, PartitionDevice):
-                    if a1.device.disk == a2.device.disk:
-                        ret = cmp(a2.device.partedPartition.number,
-                                  a1.device.partedPartition.number)
-                    else:
-                        ret = cmp(a2.device.name, a1.device.name)
-                elif isinstance(a1.device, PartitionDevice) and \
-                     a2.device.partitioned:
-                    ret = -1
-                elif isinstance(a2.device, PartitionDevice) and \
-                     a1.device.partitioned:
-                    ret = 1
-                # remove partitions before unpartitioned non-partition
-                # devices
-                elif isinstance(a1.device, PartitionDevice) and \
-                     not isinstance(a2.device, PartitionDevice):
-                    ret = 1
-                elif isinstance(a2.device, PartitionDevice) and \
-                     not isinstance(a1.device, PartitionDevice):
-                    ret = -1
-                else:
-                    ret = 0
-            elif a1.isDestroy():
-                ret = -1
-            elif a2.isDestroy():
-                ret = 1
-            elif a1.isResize() and a2.isResize():
-                if a1.device.path == a2.device.path:
-                    if a1.obj == a2.obj:
-                        ret = 0
-                    elif a1.isFormat() and not a2.isFormat():
-                        # same path, one device, one format
-                        if a1.isGrow():
-                            ret = 1
-                        else:
-                            ret = -1
-                    elif not a1.isFormat() and a2.isFormat():
-                        # same path, one device, one format
-                        if a1.isGrow():
-                            ret = -1
-                        else:
-                            ret = 1
-                    else:
-                        ret = cmp(a1.device.name, a2.device.name)
-                elif a1.device.dependsOn(a2.device):
-                    if a1.isGrow():
-                        ret = 1
-                    else:
-                        ret = -1
-                elif a2.device.dependsOn(a1.device):
-                    if a1.isGrow():
-                        ret = -1
-                    else:
-                        ret = 1
-                elif isinstance(a1.device, PartitionDevice) and \
-                     isinstance(a2.device, PartitionDevice):
-                    ret = cmp(a1.device.name, a2.device.name)
-                else:
-                    ret = 0
-            elif a1.isResize():
-                ret = -1
-            elif a2.isResize():
-                ret = 1
-            elif a1.isCreate() and a2.isCreate():
-                if a1.device.path == a2.device.path:
-                    if a1.obj == a2.obj:
-                        ret = 0
-                    if a1.isFormat():
-                        ret = 1
-                    elif a2.isFormat():
-                        ret = -1
-                    else:
-                        ret = 0
-                elif a1.device.dependsOn(a2.device):
-                    ret = 1
-                elif a2.device.dependsOn(a1.device):
-                    ret = -1
-                # generally create partitions before other device types
-                elif isinstance(a1.device, PartitionDevice) and \
-                     isinstance(a2.device, PartitionDevice):
-                    if a1.device.disk == a2.device.disk:
-                        ret = cmp(a1.device.partedPartition.number,
-                                  a2.device.partedPartition.number)
-                    else:
-                        ret = cmp(a1.device.name, a2.device.name)
-                elif isinstance(a1.device, PartitionDevice) and \
-                     a2.device.partitioned:
-                    ret = 1
-                elif isinstance(a2.device, PartitionDevice) and \
-                     a1.device.partitioned:
-                    ret = -1
-                elif isinstance(a1.device, PartitionDevice) and \
-                     not isinstance(a2.device, PartitionDevice):
-                    ret = -1
-                elif isinstance(a2.device, PartitionDevice) and \
-                     not isinstance(a1.device, PartitionDevice):
-                    ret = 1
-                else:
-                    ret = 0
-            elif a1.isCreate():
-                ret = -1
-            elif a2.isCreate():
-                ret = 1
-            elif a1.isMigrate() and a2.isMigrate():
-                if a1.device.path == a2.device.path:
-                    ret = 0
-                elif a1.device.dependsOn(a2.device):
-                    ret = 1
-                elif a2.device.dependsOn(a1.device):
-                    ret = -1
-                elif isinstance(a1.device, PartitionDevice) and \
-                     isinstance(a2.device, PartitionDevice):
-                    if a1.device.disk == a2.device.disk:
-                        ret = cmp(a1.device.partedPartition.number,
-                                  a2.device.partedPartition.number)
-                    else:
-                        ret = cmp(a1.device.name, a2.device.name)
-                else:
-                    ret = 0
-            else:
-                ret = 0
-
-            log.debug("cmp: %d -- %s | %s" % (ret, a1, a2))
-            return ret
-
         log.debug("resetting parted disks...")
         for device in self.devices:
             if device.partitioned:
@@ -691,7 +284,7 @@ class DeviceTree(object):
             log.debug("action: %s" % action)
 
         log.debug("sorting actions...")
-        self._actions.sort(cmp=cmpActions)
+        self.sortActions()
         for action in self._actions:
             log.debug("action: %s" % action)
 
