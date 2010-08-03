@@ -1,7 +1,7 @@
-# translation of anaconda.rhel6-branch.po to Korean
+# translation of anaconda.rhel6-branch.ko.po to Korean
 # translation of ko.po to
 # translation of ko.po to
-# 
+#
 # Michelle J Kim <mkim@redhat.com>, 2003,2004.
 # David Sungmin Joo <djoo@redhat.com>, 2004.
 # Michelle Ji Yeen Kim <mkim@redhat.com>, 2005, 2006.
@@ -9,16 +9,16 @@
 # Hyunsok Oh <hoh@redhat.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.rhel6-branch\n"
+"Project-Id-Version: anaconda.rhel6-branch.ko\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-07-29 04:08-1000\n"
-"PO-Revision-Date: 2010-06-30 \n"
-"Last-Translator: Hyunsok Oh <hoh@redhat.com>\n"
-"Language-Team: Korean <ko@li.org>\n"
-"Language: ko\n"
+"PO-Revision-Date: 2010-08-03 14:59+1000\n"
+"Last-Translator: \n"
+"Language-Team: Korean <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: ko\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=1; plural=0;\n"
 "\n"
@@ -255,8 +255,7 @@ msgstr ""
 msgid ""
 "Command line mode requires all choices to be specified in a kickstart "
 "configuration file."
-msgstr ""
-"명령행 모드에서는 킥스타트 설정 파일에 모든 사항이 지정되어 있어야 합니다."
+msgstr "명령행 모드에서는 킥스타트 설정 파일에 모든 사항이 지정되어 있어야 합니다."
 
 #: cmdline.py:119 cmdline.py:126 cmdline.py:133 cmdline.py:143 cmdline.py:153
 #: cmdline.py:160
@@ -407,8 +406,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
+"This action may also be applied to all other disks needing reinitialization.%"
+"(details)s"
 msgstr ""
 "드라이브 처리중 오류 발생:\n"
 "\n"
@@ -420,8 +419,8 @@ msgstr ""
 "\n"
 "재 초기화시 모든 데이터는 사라지게 됩니다!\n"
 "\n"
-"재 초기화를 필요로 하는 모든 디스크에도 본 처리가 적용될 수도 있습니다."
-"%(details)s"
+"재 초기화를 필요로 하는 모든 디스크에도 본 처리가 적용될 수도 있습니다.%"
+"(details)s"
 
 #: gui.py:1188 gui.py:1246 installinterfacebase.py:74 text.py:491 text.py:549
 msgid "_Ignore"
@@ -578,8 +577,8 @@ msgstr "설치 매체가 필요합니다."
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following "
-"%(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following %"
+"(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
@@ -655,8 +654,8 @@ msgstr "포맷(_F)"
 #: iutil.py:852
 #, python-format
 msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
+"s)"
 msgstr ""
 "오류 : 오픈시 reIPL 방식을 %(reipl_type)s (%(filename)s: %(e)s)에 설정할 수 "
 "없습니다."
@@ -664,8 +663,8 @@ msgstr ""
 #: iutil.py:863
 #, python-format
 msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
 "오류: 기록시 reIPL 방식을 %(reipl_type)s (%(filename)s: %(e)s)에 설정할 수 없"
 "습니다."
@@ -673,8 +672,8 @@ msgstr ""
 #: iutil.py:872
 #, python-format
 msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
 "오류: 종료시 reIPL 방식을 %(reipl_type)s (%(filename)s: %(e)s)에 설정할 수 없"
 "습니다."
@@ -699,14 +698,12 @@ msgstr "경고: parm (%s)을(를) 다시 설정할 수 없습니다  "
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
-msgstr ""
-"종료 후, DASD 장치 %s에서 수동으로 IPL을 실행하여 설치를 계속 진행하십시오 "
+msgstr "종료 후, DASD 장치 %s에서 수동으로 IPL을 실행하여 설치를 계속 진행하십시오 "
 
 #: iutil.py:945
 #, python-format
 msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
-msgstr ""
-"오류: reIPL (%(e)s)에 대한 FCP 특성 %(syspath_property)s을(를) 읽는 중."
+msgstr "오류: reIPL (%(e)s)에 대한 FCP 특성 %(syspath_property)s을(를) 읽는 중."
 
 #: iutil.py:960
 #, python-format
@@ -715,15 +712,14 @@ msgstr "오류: reIPL (%(e)s)에 대한 FCP 특성 %(reipl_property)s을(를) �
 
 #: iutil.py:975
 #, python-format
-msgid ""
-"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr "오류: reIPL (%(e)s)에 대한 FCP 특성 %(reipl_property)s을(를) 쓰는 중."
 
 #: iutil.py:990
 #, python-format
 msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
-"%(wwpn)s and LUN %(lun)s to continue installation"
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
+"(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 "종료 후, WWPN %(wwpn)s 및 LUN %(lun)s를 사용하여 FCP %(device)s에서 수동으로 "
 "IPL을 실행하여 설치를 계속 진행하십시오 "
@@ -751,8 +747,8 @@ msgid ""
 "examine the output in %(msgs)s.  This is a fatal error and installation will "
 "be aborted.  Press the OK button to exit the installer."
 msgstr ""
-"%(lineno)s 행에서 킥스타트 스크립트를 실행하는 도중 오류가 발생되었습니다. "
-"%(msgs)s에서 출력된 내용을 살펴보시기 바랍니다. 치명적인 오류이므로 설치를 중"
+"%(lineno)s 행에서 킥스타트 스크립트를 실행하는 도중 오류가 발생되었습니다. %"
+"(msgs)s에서 출력된 내용을 살펴보시기 바랍니다. 치명적인 오류이므로 설치를 중"
 "지합니다. 확인 버튼을 눌러 설치 프로그램을 종료합니다."
 
 #: kickstart.py:122 kickstart.py:124
@@ -861,8 +857,7 @@ msgstr "이미지를 찾을 수 없습니다"
 
 #: livecd.py:122
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "설치에 사용할 %s 라이브 CD의 경로가 올바르지 않습니다."
 
 #: livecd.py:180
@@ -905,15 +900,14 @@ msgstr "호스트명은 255자 이하의 문자로 구성되어야 합니다."
 
 #: network.py:68
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
+"9'"
 msgstr ""
 "호스트명의 첫 문자는 영문자 'a-z', 'A-Z' 또는 '0-9' 사이의 문자만을 이용하여 "
 "지정하셔야 합니다."
 
 #: network.py:73
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 "호스트명은 영문자 'a-z', 'A-Z', '0-9'와 기호 '-', '.' 만을 이용하여 지정하셔"
 "야 합니다."
@@ -1201,14 +1195,14 @@ msgstr "파티션 설정 오류"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of "
-"%(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
-"요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니다. "
-"%(productName)s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주"
-"시기 바랍니다.\n"
+"요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니다. %"
+"(productName)s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시"
+"기 바랍니다.\n"
 "\n"
 "%(errorstr)s"
 
@@ -1286,8 +1280,7 @@ msgid "Confirm Reset"
 msgstr "재설정 확인"
 
 #: partIntfHelpers.py:346
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "정말로 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: platform.py:98 platform.py:339 platform.py:407 platform.py:514
@@ -1701,8 +1694,7 @@ msgstr[0] "%d번 시도한 다음 연결을 포기합니다!\n"
 #: vnc.py:209
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"설치를 시작하기 위해 %s에 vnc 클라이언트를 수동으로 연결하시기 바랍니다."
+msgstr "설치를 시작하기 위해 %s에 vnc 클라이언트를 수동으로 연결하시기 바랍니다."
 
 #: vnc.py:211
 msgid "Please manually connect your vnc client to begin the install."
@@ -1917,8 +1909,7 @@ msgstr "디스크 교체"
 #: yuminstall.py:443
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
-msgstr ""
-"계속 진행하시려면 %(productName)s 디스크 %(discnum)d을(를) 넣어 주십시오."
+msgstr "계속 진행하시려면 %(productName)s 디스크 %(discnum)d을(를) 넣어 주십시오."
 
 #: yuminstall.py:453
 msgid "Wrong Disc"
@@ -1972,8 +1963,7 @@ msgstr "재 다운로드 중. "
 
 #: yuminstall.py:985
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "다음과 같은 이유로 트랜젝션 실행 도중 오류가 발생했습니다: %s\n"
 
 #: yuminstall.py:1028 yuminstall.py:1029
@@ -2028,8 +2018,8 @@ msgstr ""
 #: yuminstall.py:1067
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): "
-"%s.\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr "다음과 같은 이유로 트랜젝션 실행 중 오류가 발생했습니다: %s.\n"
 
 #: yuminstall.py:1074 yuminstall.py:1079
@@ -2113,9 +2103,9 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of "
-"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
-"the upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of %(arch)"
+"s.  This is likely to not succeed.  Are you sure you wish to continue the "
+"upgrade process?"
 msgstr ""
 "업그레이그하려는 %(productName)s 릴리즈의 아키텍쳐는 이전에 설치된 %(arch)s "
 "버전 아키텍쳐와 일치하지 않는 %(myarch)s 입니다. 따라서 업그레이드를 제대로 "
@@ -2273,10 +2263,8 @@ msgid "_Use Anyway"
 msgstr "어쨌든 사용(_U)"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
-msgstr ""
-"요청된 암호에는 암호로 사용할 수 없는 ASCII가 아닌 문자가 포함되어 있습니다."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgstr "요청된 암호에는 암호로 사용할 수 없는 ASCII가 아닌 문자가 포함되어 있습니다."
 
 #: iw/advanced_storage.py:87
 msgid "You must select a NIC to use."
@@ -2362,8 +2350,7 @@ msgid "Shrink Current System"
 msgstr "현재 시스템 축소하기"
 
 #: iw/autopart_type.py:261
-msgid ""
-"Shrinks existing partitions to create free space for the default layout."
+msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 "기본 레이아웃을 위해 필요한 여유 공간을 만들기 위해 기존 파티션의 크기를 줄입"
 "니다."
@@ -2689,6 +2676,9 @@ msgid ""
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
 msgstr ""
+"저장소 지역 네트워크(Storage Area Network, SANs)과 같은 엔터프라이즈 장치를 설치하거나 "
+"업그레이드 합니다. 이 옵션을 사용하면 FCoE / iSCSI / zFCP 디스크를 추가하거나, "
+"설치 프로그램이 무시해야하는 장치를 지정할 수 있습니다."
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2738,24 +2728,22 @@ msgstr "진행(_o)"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is larger than the smallest physical volume "
-"(%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
-"선택하신 값 (%(curpe)10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨값 "
-"(%(maxpvsize)10.2f MB) 보다 큽니다. 물리적 할당 단위 용량을 변경할 수 없습니"
-"다."
+"선택하신 값 (%(curpe)10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨값 (%(maxpvsize)"
+"10.2f MB) 보다 큽니다. 물리적 할당 단위 용량을 변경할 수 없습니다."
 
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
-"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
+"volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
-"선택하신 값 (%(curpe)10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨값 "
-"(%(maxpvsize)10.2f MB) 보다 큽니다. 물리적 할당 단위 용량을 변경할 수 없습니"
-"다."
+"선택하신 값 (%(curpe)10.2f MB)이 볼륨 그룹의 최소 물리적 볼륨값 (%(maxpvsize)"
+"10.2f MB) 보다 큽니다. 물리적 할당 단위 용량을 변경할 수 없습니다."
 
 #: iw/lvm_dialog_gui.py:201
 msgid "Too small"
@@ -2895,8 +2883,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group "
-"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 "이 논리 볼륨에 대해 입력된 크기(%(size)d MB)와 다른 논리 볼륨의 크기를 합하"
@@ -2942,8 +2930,7 @@ msgstr "이름이 사용되고 있습니다."
 #: iw/lvm_dialog_gui.py:994
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr "\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: iw/lvm_dialog_gui.py:1281
 msgid "Not enough physical volumes"
@@ -3222,14 +3209,12 @@ msgid "Partitioning"
 msgstr "파티션 설정"
 
 #: iw/partition_gui.py:850
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "요청한 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니다."
 
 #: iw/partition_gui.py:852
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "%s 설치에 앞서 현재 발생한 모든 오류를 해결해 주시기 바랍니다."
 
 #: iw/partition_gui.py:858
@@ -3603,21 +3588,19 @@ msgstr "이것은 현재의 부트 로더를 업데이트 할 것입니다."
 msgid ""
 "Due to system changes, your boot loader configuration can not be "
 "automatically updated."
-msgstr ""
-"시스템이 변경되기 때문에, 부트 로더 설정이 자동으로 업데이트될 수 없습니다."
+msgstr "시스템이 변경되기 때문에, 부트 로더 설정이 자동으로 업데이트될 수 없습니다."
 
 #: iw/upgrade_bootloader_gui.py:131 textw/upgrade_bootloader_text.py:112
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"설치 프로그램이 시스템에서 현재 사용중인 부트 로더를 찾는데 실패했습니다."
+msgstr "설치 프로그램이 시스템에서 현재 사용중인 부트 로더를 찾는데 실패했습니다."
 
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on "
-"%(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on %"
+"(bootDev)s."
 msgstr ""
 "설치 프로그램이 %(type)s 부트 로더가 현재 %(bootDev)s에 설치된 것을 발견했습"
 "니다."
@@ -3662,9 +3645,9 @@ msgstr "파일시스템 이전"
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
+"several benefits over the file system traditionally shipped in %(productName)"
+"s.  This installation program can migrate formatted partitions without data "
+"loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
@@ -3683,8 +3666,8 @@ msgstr "스왑 파티션 업그레이드"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have "
-"%dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "최신 커널(2.4 이상) 부터는 이전의 커널에서 시스템 램 용량의 두배 이상을 스왑 "
@@ -3750,8 +3733,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일의 크기는 1에서 2000 MB 사이로 지정해 주셔야 합니다."
 
 #: iw/upgrade_swap_gui.py:206 textw/upgrade_text.py:187
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: iw/welcome_gui.py:56 textw/welcome_text.py:36
@@ -4118,8 +4100,7 @@ msgstr ""
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr ""
-"시스템에서 하드 드라이브를 찾을 수 없습니다! 추가로 장치를 설정하시겠습니까?"
+msgstr "시스템에서 하드 드라이브를 찾을 수 없습니다! 추가로 장치를 설정하시겠습니까?"
 
 #: loader/hdinstall.c:226
 #, c-format
@@ -4219,8 +4200,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s(%s용)에 오신것을 환영합니다 - 복구 모드"
 
 #: loader/lang.c:65 loader/loader.c:251
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: loader/lang.c:370
@@ -4378,8 +4358,7 @@ msgstr "anaconda %s를 %s 복구 모드로 실행 중 - 잠시만 기다려 주�
 #: loader/loader.c:2414
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
-msgstr ""
-"anaconda %s, %s 시스템 설치 프로그램, 실행 중 - 잠시만 기다려 주십시오.\n"
+msgstr "anaconda %s, %s 시스템 설치 프로그램, 실행 중 - 잠시만 기다려 주십시오.\n"
 
 #: loader/mediacheck.c:46
 #, c-format
@@ -4555,10 +4534,8 @@ msgid "Missing Information"
 msgstr "정보 없음"
 
 #: loader/net.c:1119
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
-msgstr ""
-"올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgstr "올바른 IPv4 주소와 넷마스크 또는 CIDR 접두부(prefix)를 입력해 주십시오."
 
 #: loader/net.c:1127
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
@@ -4709,8 +4686,7 @@ msgstr "읽는 중"
 
 #: loader/urls.c:262
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "서버에서 %s 설치 이미지가 있는 URL을 입력해 주시기 바랍니다.   "
 
 #: loader/urls.c:280
@@ -4902,8 +4878,8 @@ msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s install."
 msgstr ""
-"/ 파티션의 용량이 %(min)s MB 보다 작습니다. 이 용량은 일반적으로 "
-"%(productName)s를 설치하기 위해 권장되는 용량보다 작습니다."
+"/ 파티션의 용량이 %(min)s MB 보다 작습니다. 이 용량은 일반적으로 %"
+"(productName)s를 설치하기 위해 권장되는 용량보다 작습니다."
 
 #: storage/__init__.py:973
 #, python-format
@@ -4925,12 +4901,11 @@ msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
-"설정하신 %(mount)s 파티션의 용량이 %(size)s MB 보다 작습니다. 이 용량은 "
-"%(productName)s를 설치하기 위해 권장되는 일반적인 용량보다 작습니다."
+"설정하신 %(mount)s 파티션의 용량이 %(size)s MB 보다 작습니다. 이 용량은 %"
+"(productName)s를 설치하기 위해 권장되는 일반적인 용량보다 작습니다."
 
 #: storage/__init__.py:1017
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
+msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB 디바이스에 설치중입니다. 설치된 시스템이 동작할 수도 있고 그렇지 않을수"
 "도 있습니다."
@@ -4962,8 +4937,7 @@ msgstr ""
 
 #: storage/__init__.py:1039
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "이 마운트 지점은 올바르지 않습니다. %s 디렉토리는 / 파일 시스템에 있어야 합니"
 "다."
@@ -5169,8 +5143,8 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"%(path)s 장치를 %(mountpoint)s로 마운트하는 도중 오류가 발생하였습니다: "
-"%(msg)s.  이 는 매우 심각한 오류이므로 설치를 계속 진행할 수 없습니다.\n"
+"%(path)s 장치를 %(mountpoint)s로 마운트하는 도중 오류가 발생하였습니다: %"
+"(msg)s.  이 는 매우 심각한 오류이므로 설치를 계속 진행할 수 없습니다.\n"
 "\n"
 "<Enter> 키를 눌러 설치 프로그램을 종료합니다. "
 
@@ -5327,8 +5301,7 @@ msgstr "공유 라이브러리 오류."
 msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
-msgstr ""
-"복구 가능한 오류가 발견되거나, dosfsck가 내부적인 불일치를 발견했습니다."
+msgstr "복구 가능한 오류가 발견되거나, dosfsck가 내부적인 불일치를 발견했습니다."
 
 #: storage/formats/fs.py:1043
 msgid "Usage error."
@@ -5506,16 +5479,15 @@ msgstr "WWPN %(wwpn)s을(를) zFCP 장치 %(devnum)s에서 찾을 수 없습니�
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
+"s)."
 msgstr ""
 "zFCP 장치 %(devnum)s (%(e)s)에서 LUN %(fcplun)s을(를) WWPN %(wwpn)s에 추가할 "
 "수 없습니다. "
 
 #: storage/zfcp.py:182
 #, python-format
-msgid ""
-"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
 msgstr ""
 "zFCP 장치 %(devnum)s에서 WWPN %(wwpn)s에 LUN %(fcplun)s이(가) 이미 설정되어 "
 "있습니다."
@@ -5541,8 +5513,8 @@ msgstr ""
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
 msgstr ""
 "zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s)의 SCSI 장치를 올바르게 삭제할 수 "
 "없습니다.  "
@@ -5550,8 +5522,8 @@ msgstr ""
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
+"(e)s)."
 msgstr ""
 "zFCP 장치 %(devnum)s (%(e)s) 상의 WWPN %(wwpn)s에서 LUN %(fcplun)s을(를) 제거"
 "할 수 없습니다."
@@ -5559,8 +5531,7 @@ msgstr ""
 #: storage/zfcp.py:287
 #, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr ""
-"zFCP 장치 %(devnum)s (%(e)s)에서 WWPN %(wwpn)s을(를) 제거할 수 없습니다.  "
+msgstr "zFCP 장치 %(devnum)s (%(e)s)에서 WWPN %(wwpn)s을(를) 제거할 수 없습니다.  "
 
 #: storage/zfcp.py:313
 #, python-format
@@ -5698,8 +5669,7 @@ msgstr "어떤 드라이브를 설치에 사용하겠습니까?"
 
 #: textw/partition_text.py:99
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> 선택     |    <F2> 드라이브 추가      |    <F12> 다음 화면"
+msgstr "<Space>,<+>,<-> 선택     |    <F2> 드라이브 추가      |    <F12> 다음 화면"
 
 #: textw/progress_text.py:46
 msgid "Package Installation"
@@ -5729,8 +5699,8 @@ msgstr "새로운 부트로더 설정 작성하기"
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in %"
+"(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
@@ -5954,8 +5924,7 @@ msgstr ""
 "하드 드라이브 "
 
 #: ui/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "소프트웨어 리포지터리에 대한 설정 정보를 지정하기 바랍니다. "
 
 #: ui/addrepo.glade.h:10
@@ -6023,8 +5992,7 @@ msgid "Volume to Shrink"
 msgstr "축소할 볼륨 "
 
 #: ui/autopart.glade.h:4
-msgid ""
-"Which partition would you like to shrink to make room for your installation?"
+msgid "Which partition would you like to shrink to make room for your installation?"
 msgstr "설치에 필요한 공간을 마련하기 위해 어떤 파티션 크기를 줄이시겠습니까?"
 
 #: ui/autopart.glade.h:5
@@ -6097,8 +6065,7 @@ msgstr ""
 "또한 어떤 시스템 드라이브에 부트로더를 설치할지를 지정하십시오."
 
 #: ui/create-storage.glade.h:1
-msgid ""
-"<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create a RAID formated partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">RAID 포맷된 파티션 만들기</span>"
 
 #: ui/create-storage.glade.h:2
@@ -6110,13 +6077,11 @@ msgstr ""
 "span>"
 
 #: ui/create-storage.glade.h:3
-msgid ""
-"<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
+msgid "<span size=\"small\" color=\"gray\">Create an LVM formated partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">LVM 포맷된 파티션 만들기</span>"
 
 #: ui/create-storage.glade.h:4
-msgid ""
-"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">일반 목적의 파티션 만들기</span>"
 
 #: ui/create-storage.glade.h:5
@@ -6405,8 +6370,7 @@ msgstr "나중에 변경(_L)"
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
-msgstr ""
-"소프트웨어 설치에 사용하시고자 하는 추가적인 리포지터리를 선택해 주십시오."
+msgstr "소프트웨어 설치에 사용하시고자 하는 추가적인 리포지터리를 선택해 주십시오."
 
 #: ui/tasksel.glade.h:4
 #, no-c-format
@@ -6708,13 +6672,3 @@ msgstr "웨일스어"
 msgid "Zulu"
 msgstr "줄루어"
 
-#~ msgid ""
-#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-#~ "mainframe attached disks (DASD), usually in an enterprise environment"
-#~ msgstr ""
-#~ "저장소 지역 네트워크(Storage Area Network, SANs)나 메인프레임에 장착된 디"
-#~ "스크(DASD) 등의 장치에서 설치나 업그레이드를 진행합니다. 보통 엔터프라이"
-#~ "즈 환경에서 사용됩니다."
-
-#~ msgid "Select which devices should be configured with NetworkManager."
-#~ msgstr "네트워크 관리자로 설정할 장치를 선택하십시오."
