@@ -191,7 +191,10 @@ def doAutoPartition(anaconda):
 
     if anaconda.id.storage.doAutoPart:
         clearPartitions(anaconda.id.storage)
-        anaconda.id.bootloader.updateDriveList()
+        # update the bootloader's drive list to add disks which have their
+        # whole disk format replaced by a disklabel. Make sure to keep any
+        # previous boot order selection from clearpart_gui or kickstart
+        anaconda.id.bootloader.updateDriveList(anaconda.id.bootloader.drivelist)
 
     if anaconda.id.storage.doAutoPart:
         (disks, devs) = _createFreeSpacePartitions(anaconda)
