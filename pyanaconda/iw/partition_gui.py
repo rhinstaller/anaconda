@@ -1076,7 +1076,7 @@ class PartitionWindow(InstallWindow):
                             devstring = _("Free")
                             ptype = ""
                         else:
-                            devstring = device.name
+                            devstring = partName
                             ptype = _("Extended")
 
                         self.tree[iter]['Device'] = devstring
