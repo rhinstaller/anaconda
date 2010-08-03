@@ -206,6 +206,22 @@ class DeviceAction(object):
                                  self.device.id)
         return s
 
+    def requires(self, action):
+        """ Return True if self requires action. """
+        return False
+
+    def obsoletes(self, action):
+        """ Return True is self obsoletes action.
+
+            DeviceAction instances obsolete other DeviceAction instances with
+            lower id and same device.
+        """
+        return (self.device.id == action.device.id and
+                self.type == action.type and
+                self.obj == action.obj and
+                self.id > action.id)
+
+
 class ActionCreateDevice(DeviceAction):
     """ Action representing the creation of a new device. """
     type = ACTION_TYPE_CREATE
@@ -217,6 +233,30 @@ class ActionCreateDevice(DeviceAction):
 
     def execute(self, intf=None):
         self.device.create(intf=intf)
+
+    def requires(self, action):
+        """ Return True if self requires action.
+
+            Device create actions require other actions when either of the
+            following is true:
+
+                - this action's device depends on the other action's device
+                - both actions are partition create actions on the same disk
+                  and this partition has a higher number
+        """
+        rc = False
+        if self.device.dependsOn(action.device):
+            rc = True
+        elif (action.isCreate and action.isDevice and
+              isinstance(self.device, PartitionDevice) and
+              isinstance(action.device, PartitionDevice) and
+              self.device.disk == action.device.disk):
+            # create partitions in ascending numerical order
+            selfNum = self.device.partedPartition.number
+            otherNum = action.device.partedPartition.number
+            if selfNum > otherNum:
+                rc = True
+        return rc
 
 
 class ActionDestroyDevice(DeviceAction):
@@ -237,6 +277,54 @@ class ActionDestroyDevice(DeviceAction):
         # and returns it when we create a new device with the same name
         if self.device.partedDevice:
             self.device.partedDevice.removeFromCache()
+
+    def requires(self, action):
+        """ Return True if self requires action.
+
+            Device destroy actions require other actions when either of the
+            following is true:
+
+                - the other action's device depends on this action's device
+                - both actions are partition create actions on the same disk
+                  and this partition has a lower number
+        """
+        rc = False
+        if action.device.dependsOn(self.device):
+            rc = True
+        elif (action.isDestroy and action.isDevice and
+              isinstance(self.device, PartitionDevice) and
+              isinstance(action.device, PartitionDevice) and
+              self.device.disk == action.device.disk):
+            # remove partitions in descending numerical order
+            selfNum = self.device.partedPartition.number
+            otherNum = action.device.partedPartition.number
+            if selfNum < otherNum:
+                rc = True
+        elif (action.isDestroy and action.isFormat and
+              action.device.id == self.device.id):
+            # device destruction comes after destruction of device's format
+            rc = True
+        return rc
+
+    def obsoletes(self, action):
+        """ Return True if self obsoletes action.
+
+            - obsoletes all actions w/ lower id that act on the same device,
+              including self, if device does not exist
+
+            - obsoletes all but ActionDestroyFormat actions w/ lower id on the
+              same device if device exists
+        """
+        rc = False
+        if action.device.id == self.device.id:
+            if self.id >= action.id and not self.device.exists:
+                rc = True
+            elif self.id > action.id and \
+                 self.device.exists and \
+                 not (action.isDestroy and action.isFormat):
+                rc = True
+
+        return rc
 
 
 class ActionResizeDevice(DeviceAction):
@@ -265,6 +353,31 @@ class ActionResizeDevice(DeviceAction):
 
     def cancel(self):
         self.device.targetSize = self.origsize
+
+    def requires(self, action):
+        """ Return True if self requires action.
+
+            A device resize action requires another action if:
+
+                - the other action is a format resize on the same device and
+                  both are shrink operations
+                - the other action grows a device (or format it contains) that
+                  this action's device depends on
+                - the other action shrinks a device (or format it contains)
+                  that depends on this action's device
+        """
+        retval = False
+        if action.isResize:
+            if self.device.id == action.device.id and \
+               self.dir == action.dir and \
+               action.isFormat and self.isShrink:
+                retval = True
+            elif action.isGrow and self.device.dependsOn(action.device):
+                retval = True
+            elif action.isShrink and action.device.dependsOn(self.device):
+                retval = True
+
+        return retval
 
 
 class ActionCreateFormat(DeviceAction):
@@ -312,6 +425,32 @@ class ActionCreateFormat(DeviceAction):
     def cancel(self):
         self.device.format = self.origFormat
 
+    def requires(self, action):
+        """ Return True if self requires action.
+
+            Format create action can require another action if:
+
+                - this action's device depends on the other action's device
+                  and the other action is not a device destroy action
+                - the other action is a create or resize of this action's
+                  device
+        """
+        return ((self.device.dependsOn(action.device) and
+                 not (action.isDestroy and action.isDevice)) or
+                (action.isDevice and (action.isCreate or action.isResize) and
+                 self.device.id == action.device.id))
+
+    def obsoletes(self, action):
+        """ Return True if this action obsoletes action.
+
+            Format create actions obsolete the following actions:
+
+                - format actions w/ lower id on this action's device
+        """
+        return (self.device.id == action.device.id and
+                self.obj == action.obj and
+                self.id > action.id)
+
 
 class ActionDestroyFormat(DeviceAction):
     """ An action representing the removal of an existing filesystem.
@@ -343,6 +482,29 @@ class ActionDestroyFormat(DeviceAction):
     def format(self):
         return self.origFormat
 
+    def requires(self, action):
+        """ Return True if self requires action.
+
+            Format destroy actions require other actions when:
+
+                - the other action's device depends on this action's device
+                  and the other action is a destroy action
+        """
+        return action.device.dependsOn(self.device) and action.isDestroy
+
+    def obsoletes(self, action):
+        """ Return True if this action obsoletes action.
+
+            Format destroy actions obsolete the following actions:
+
+            - format actions w/ lower id on same device, including self if
+              format does not exist
+        """
+        return (self.device.id == action.device.id and
+                self.obj == self.obj and
+                (self.id > action.id or
+                 self.id == action.id and not self.device.exists))
+
 
 class ActionResizeFormat(DeviceAction):
     """ An action representing the resizing of an existing filesystem.
@@ -371,6 +533,32 @@ class ActionResizeFormat(DeviceAction):
 
     def cancel(self):
         self.device.format.targetSize = self.origSize
+
+    def requires(self, action):
+        """ Return True if self requires action.
+
+            A format resize action requires another action if:
+
+                - the other action is a device resize on the same device and
+                  both are grow operations
+                - the other action shrinks a device (or format it contains)
+                  that depends on this action's device
+                - the other action grows a device (or format) that this
+                  action's device depends on
+        """
+        retval = False
+        if action.isResize:
+            if self.device.id == action.device.id and \
+               self.dir == action.dir and \
+               action.isDevice and self.isGrow:
+                retval = True
+            elif action.isShrink and action.device.dependsOn(self.device):
+                retval = True
+            elif action.isGrow and self.device.dependsOn(action.device):
+                retval = True
+
+        return retval
+
 
 class ActionMigrateFormat(DeviceAction):
     """ An action representing the migration of an existing filesystem. """
