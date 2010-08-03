@@ -154,6 +154,8 @@ class fcoe(object):
                 os.write(fd, 'DCB_REQUIRED="yes"\n')
             else:
                 os.write(fd, 'DCB_REQUIRED="no"\n')
+            os.write(fd, '# Indicate if VLAN discovery should be handled by fcoemon\n')
+            os.write(fd, 'AUTO_VLAN="yes"\n')
             os.close(fd)
 
         return
