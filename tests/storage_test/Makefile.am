@@ -26,4 +26,4 @@ MAINTAINERCLEANFILES = Makefile.in
 ANACDIR = $(top_builddir)/pyanaconda
 TESTS_ENVIRONMENT = PATH=/sbin:/usr/sbin:$$PATH PYTHONPATH=$(top_builddir)/tests:$(ANACDIR)/isys/.libs:$(ANACDIR):$(top_builddir)
 
-TESTS = size_test.py
+TESTS = action_test.py size_test.py
