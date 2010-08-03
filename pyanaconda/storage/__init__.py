@@ -179,8 +179,8 @@ def storageComplete(anaconda):
             if dev.format.type == "luks" and not dev.format.exists:
                 dev.format.passphrase = anaconda.storage.encryptionPassphrase
 
-    map(lambda d: anaconda.storage.services.add(d.services),
-        anaconda.storage.fsset)
+    map(lambda d: anaconda.storage.services.update(d.services),
+        anaconda.storage.devices)
 
     if anaconda.ksdata:
         return
