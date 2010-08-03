@@ -221,6 +221,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 03 2010 David Cantrell <dcantrell@redhat.com> - 13.21.67-1
+- Honor bootdrive selection when autopartitioning (hdegoede)
+  Resolves: rhbz#620442
+- mdadm -I no longer accepts --no-degraded (hdegoede)
+  Resolves: rhbz#620359
+- Set AUTO_VLAN=yes in fcoe config files (dcantrell)
+  Resolves: rhbz#618875
+- ibft: always configure network devices if there's ibft available (akozumpl).
+  Resolves: rhbz#617860
+
 * Fri Jul 30 2010 Chris Lumens <clumens@redhat.com> - 13.21.66-1
 - fix typo in 7c540b2cd19db3e098e768f88ac8a42272b22e06 (akozumpl)
   Resolves: rhbz#619659
