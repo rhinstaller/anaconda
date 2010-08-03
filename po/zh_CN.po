@@ -575,6 +575,8 @@ msgstr[0] ""
 "磁盘 %s 中包含 BIOS RAID 元数据，但该数据不包含在任何可识别 BIOS 组中。"
 "忽略磁盘 %s。"
 msgstr[1] ""
+"磁盘 %s 中包含 BIOS RAID 元数据，但该数据不包含在任何可识别 BIOS 组中。"
+"忽略磁盘 %s。"
 
 #: installinterfacebase.py:60
 msgid "Unformatted DASD Device Found"
@@ -602,6 +604,10 @@ msgstr[0] ""
 "这个系统中有 %d 未初始化的 DASD 设备。要继续安装就必须格式化该设备。格式化将"
 "删除这个设备中的所有数据。"
 msgstr[1] ""
+"要格式化未初始化的 DASD 设备吗？\n"
+"\n"
+"这个系统中有 %d 未初始化的 DASD 设备。要继续安装就必须格式化该设备。格式化将"
+"删除这个设备中的所有数据。"
 
 #: installinterfacebase.py:74 iw/partition_gui.py:898
 msgid "_Format"
@@ -1450,7 +1456,7 @@ msgstr "为所有当前加密的设备添加这个密码短语"
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
 msgstr[0] "密码长度不得少于 %d 个字符。"
-msgstr[1] ""
+msgstr[1] "密码长度不得少于 %d 个字符。"
 
 #: text.py:232 ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
@@ -1749,7 +1755,7 @@ msgstr "%s KB"
 msgid "%s Byte"
 msgid_plural "%s Bytes"
 msgstr[0] "%s 字节"
-msgstr[1] ""
+msgstr[1] "%s 字节"
 
 #: yuminstall.py:135
 msgid "Preparing to install"
@@ -2769,7 +2775,7 @@ msgstr "无空闲插槽"
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
 msgstr[0] "每个卷组中的的逻辑卷数量不能超过 %d。"
-msgstr[1] ""
+msgstr[1] "每个卷组中的的逻辑卷数量不能超过 %d。"
 
 #: iw/lvm_dialog_gui.py:840
 msgid "No free space"
@@ -3173,7 +3179,7 @@ msgstr ""
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
 msgstr[0] "您目前有 %d 个空闲的软件 RAID 分区可用。"
-msgstr[1] ""
+msgstr[1] "您目前有 %d 个空闲的软件 RAID 分区可用。"
 
 #: iw/partition_gui.py:1482
 msgid "About RAID"
@@ -4924,7 +4930,7 @@ msgstr[1] ""
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] "为使用 Linux 准备 %d DASD 设备......"
-msgstr[1] ""
+msgstr[1] "为使用 Linux 准备 %d DASD 设备......"
 
 #: storage/devicelibs/lvm.py:316
 #, python-format
