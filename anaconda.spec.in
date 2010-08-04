@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 04 2010 David Cantrell <dcantrell@redhat.com> - 13.21.68-1
+- Fix typo and set mpaths' sysfs path before querying udevdb. (dlehman)
+  Resolves: rhbz#620712
+
 * Tue Aug 03 2010 David Cantrell <dcantrell@redhat.com> - 13.21.67-1
 - Honor bootdrive selection when autopartitioning (hdegoede)
   Resolves: rhbz#620442
