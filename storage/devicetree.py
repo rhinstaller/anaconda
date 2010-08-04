@@ -2026,8 +2026,9 @@ class DeviceTree(object):
         for mp in mpaths:
             log.info("adding mpath device %s" % mp.name)
             mp.setup()
-            mp_info = udev_get_block_device(mp.sysfs_path)
-            if self.isIgnored(mp_info):
+            mp.updateSysfsPath()
+            mp_info = udev_get_block_device(mp.sysfsPath)
+            if mp_info is None or self.isIgnored(mp_info):
                 mp.teardown()
                 continue
 
