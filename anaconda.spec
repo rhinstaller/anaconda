@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.209
+Version: 11.1.2.210
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,18 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 04 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.210-1
+- Add Chelsio T4 10Gb driver to install (bcl)
+  Resolves: rhbz#562913
+- Fix traceback on headless installs with xconfig --startxonboot (clumens)
+  Resolves: rhbz#517051
+- Install the right arch of anaconda's required packages (clumens)
+  Resolves: rhbz#541323
+- Document options of nfs boot parameter (akozumpl)
+  Resolves: rhbz#559200
+- Document ignoredisk --only-use kickstart option (clumens)
+  Resolves: rhbz#586576
+
 * Mon Mar 22 2010 Martin Sivak <msivak@redhat.com> 11.1.2.209-1
 - Add a missing patch to make dlabel work again
   Related: rhbz#485060
