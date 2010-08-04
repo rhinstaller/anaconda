@@ -2307,6 +2307,11 @@ class DeviceTree(object):
             if devspec.startswith("/dev/disk/"):
                 devspec = os.path.realpath(devspec)
 
+                if devspec.startswith("/dev/dm-"):
+                    dm_name = devicelibs.dm.name_from_dm_node(devspec[5:])
+                    if dm_name:
+                        devspec = "/dev/mapper/" + dm_name
+
             # device path
             device = self.getDeviceByPath(devspec)
             if device is None:
