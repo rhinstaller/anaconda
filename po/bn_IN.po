@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-06-11 16:53-0400\n"
-"PO-Revision-Date: 2010-06-28 16:48+0530\n"
+"PO-Revision-Date: 2010-08-04 16:45+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali INDIA <anubad@lists.ankur.org.in>\n"
 "MIME-Version: 1.0\n"
@@ -65,11 +65,8 @@ msgstr "ঠিক আছে"
 
 # modified for RHEL
 #: anaconda:372
-#, fuzzy
 msgid "You do not have enough RAM to use the graphical installer."
-msgstr ""
-"গ্রাফিক্যাল ইনস্টলার চালানোর জন্য পর্যাপ্ত RAM কম্পিউটারে উপস্থিত নেই।  পরিবর্তে "
-"টেক্সট মোড আরম্ভ করা হচ্ছে।"
+msgstr "গ্রাফিক্যাল ইনস্টলার চালানোর জন্য পর্যাপ্ত RAM কম্পিউটারে উপস্থিত নেই।"
 
 #: anaconda:376
 msgid ""
@@ -79,16 +76,19 @@ msgid ""
 "\n"
 " from a root terminal."
 msgstr ""
+"root টার্মিন্যালের মধ্যে নিম্নলিখিত কমান্ড প্রয়োগ করুন:\n"
+"\n"
+"'/usr/bin/liveinst -T'\n"
+"\n"
+" এবং টেক্সট মোড আরম্ভ করুন।"
 
 #: anaconda:379
-#, fuzzy
 msgid "Not enough RAM"
-msgstr "যথেষ্ট স্থান ফাঁকা নেই"
+msgstr "পর্যাপ্ত RAM উপস্থিত নেই"
 
 #: anaconda:389
-#, fuzzy
 msgid "Starting text mode."
-msgstr "টেক্সট মোড ব্যবহার করা হবে"
+msgstr "টেক্সট মোড আরম্ভ করা হচ্ছে।"
 
 #: anaconda:730
 msgid "Would you like to use VNC?"
@@ -407,30 +407,29 @@ msgstr "ডিবাগ করুন (_D)"
 
 #: pyanaconda/gui.py:928
 msgid "Wireless setup"
-msgstr ""
+msgstr "বেতার ব্যবস্থা প্রস্তুতি"
 
 #: pyanaconda/gui.py:929
 msgid "Scanning access points for wireless devices"
-msgstr ""
+msgstr "বেতার ডিভাইসের জন্য অ্যাকসেস পয়েন্ট সন্ধান করা হচ্ছে"
 
 #: pyanaconda/gui.py:954 pyanaconda/textw/netconfig_text.py:276
 msgid "Waiting for NetworkManager"
 msgstr "NetworkManager-র অপেক্ষা করা হচ্ছে"
 
 #: pyanaconda/gui.py:955
-#, fuzzy, python-format
+#, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
-msgstr "NetworkManager দ্বারা %s কনফিগার করার অপেক্ষা করা হচ্ছে।\n"
+msgstr "NetworkManager দ্বারা এই ডিভাইসগুলি সক্রিয় করার অপেক্ষা করা হচ্ছে: %s"
 
 #: pyanaconda/gui.py:976
-#, fuzzy, python-format
+#, python-format
 msgid "Failed to activate these network interfaces: %s"
-msgstr "আপনি কি এই সিস্টেমের নেটওয়ার্ক ইন্টারফেস সক্রিয় করতে ইচ্ছুক?"
+msgstr "চিহ্নিত নেটওয়ার্ক ইন্টারফেস সক্রিয় করতে ব্যর্থ: %s"
 
 #: pyanaconda/gui.py:979
-#, fuzzy
 msgid "Network Configuration"
-msgstr "VNC কনফিগারেশন পদ্ধতি"
+msgstr "নেটওয়ার্ক কনফিগারেশন"
 
 # modified for RHEL
 #: pyanaconda/gui.py:988 pyanaconda/iw/netconfig_dialog.py:213
@@ -439,9 +438,8 @@ msgid "An error occurred trying to bring up the %s network interface."
 msgstr "%s নেটওয়ার্ক ইন্টারফেস আরম্ভ করতে একটি সমস্যা দেখা দিয়েছে।"
 
 #: pyanaconda/gui.py:990
-#, fuzzy
 msgid "Error Enabling Network"
-msgstr "নেটওয়ার্ক কনফিগার করতে সমস্যা"
+msgstr "নেটওয়ার্ক সক্রিয় করতে সমস্যা"
 
 # modified for RHEL
 #: pyanaconda/gui.py:1117 pyanaconda/text.py:393
@@ -623,7 +621,11 @@ msgid_plural ""
 "Disks %s contain BIOS RAID metadata, but are not part of any recognized BIOS "
 "RAID sets. Ignoring disks %s."
 msgstr[0] ""
+"%s ডিস্কের মধ্যে BIOS RAID-র মিটাডাটা উপস্থিত রয়েছে, কিন্তু কিন্তু এটি কোনো পরিচিত "
+"BIOS RAID সংকলনের অংশ নয়। %s ডিস্ক উপেক্ষা করা হচ্ছে।"
 msgstr[1] ""
+"%s ডিস্কের মধ্যে BIOS RAID-র মিটাডাটা উপস্থিত রয়েছে, কিন্তু কিন্তু এটি কোনো পরিচিত "
+"BIOS RAID সংকলনের অংশ নয়। %s ডিস্ক উপেক্ষা করা হচ্ছে।"
 
 #: pyanaconda/installinterfacebase.py:83
 #, python-format
@@ -695,8 +697,8 @@ msgstr ""
 #: pyanaconda/installinterfacebase.py:171
 msgid "Unformatted DASD Device Found"
 msgid_plural "Unformatted DASD Devices Found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ফরম্যাট না করা DASD ডিভাইস পাওয়া গিয়েছে"
+msgstr[1] "ফরম্যাট না করা DASD ডিভাইস পাওয়া গিয়েছে"
 
 #: pyanaconda/installinterfacebase.py:173
 #, python-format
@@ -713,7 +715,17 @@ msgid_plural ""
 "installation, the devices must be formatted.  Formatting will remove any "
 "data on these devices."
 msgstr[0] ""
+"আরম্ভ না করা DASD ডিভাইস ফরম্যাট করা হবে কি?\n"
+"\n"
+"এই সিস্টেমের মধ্যে আরম্ভ না করা %d-টি DASD ডিভাইস উপস্থিত রয়েছে। ইনস্টলেশন এগিয়ে "
+"নেওয়ার জন্য এই ডিভাইসটি ফরম্যাট করা আবশ্যক। এর ফলে, এই ডিভাইসের মধ্যে উপস্থিত সকল "
+"তথ্য মুছে যাবে।"
 msgstr[1] ""
+"আরম্ভ না করা DASD ডিভাইস ফরম্যাট করা হবে কি?\n"
+"\n"
+"এই সিস্টেমের মধ্যে আরম্ভ না করা %d-টি DASD ডিভাইস উপস্থিত রয়েছে। ইনস্টলেশন এগিয়ে "
+"নেওয়ার জন্য এই ডিভাইসটি ফরম্যাট করা আবশ্যক। এর ফলে, এই ডিভাইসের মধ্যে উপস্থিত সকল "
+"তথ্য মুছে যাবে।"
 
 #: pyanaconda/installinterfacebase.py:184 pyanaconda/iw/partition_gui.py:895
 msgid "_Format"
@@ -840,14 +852,14 @@ msgstr ""
 
 # modified for RHEL
 #: pyanaconda/kickstart.py:164
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
 "certificate:\n"
 "\n"
 "%s"
 msgstr ""
-"পার্স করার সময় kickstart কনফিগারেশনে নিম্নলিখিত ত্রুটি সনাক্ত হয়েছে:\n"
+"escrow সার্টিফিকেট ডাউনলোড করার সময় নিম্নলিখিত সমস্যা দেখা দিয়েছে:\n"
 "\n"
 "%s"
 
@@ -1072,7 +1084,6 @@ msgstr ""
 
 # modified for RHEL
 #: pyanaconda/packages.py:330
-#, fuzzy
 msgid "_Install Anyway"
 msgstr "তথাপি ইনস্টল করা হবে (_I)"
 
@@ -1388,7 +1399,7 @@ msgstr "Boot করতে ব্যবহৃত পার্টিশনগু�
 
 #: pyanaconda/platform.py:124
 msgid "Bootable RAID1 set members must be partitions."
-msgstr ""
+msgstr "Boot করতে ব্যবহৃত RAID1 সংকলনের সদস্য রূপে পার্টিশন ব্যবহার করা আবশ্যক।"
 
 # modified for RHEL
 #: pyanaconda/platform.py:129
@@ -1494,7 +1505,7 @@ msgid "Rescue"
 msgstr "Rescue"
 
 #: pyanaconda/rescue.py:300
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -1507,14 +1518,9 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"রেসকিউ (Rescue) পরিবেশ এখন আপনার সিস্টেমে উপস্থিত Linux ইনস্টলেশন অনুসন্ধান করে %"
-"s ডিরেক্টরিতে সেটি মাউন্ট করার চেষ্টা করবে।  এর পরে  আপনি সিস্টেমের মধ্যে "
-"প্রয়োজনীয় পরিবর্তন করতে পারবেন। এই প্রক্রিয়া এগিয়ে নেওয়ার জন্য 'এগিয়ে চলুন' বেছে "
-"নিন। ফাইল-সিস্টেমগুলি আপনি শুধুমাত্র 'শুধুমাত্র পাঠযোগ্য' বৈশিষ্ট্যসহ মাউন্ট করতে "
-"পারবেন। এর ফলে এইগুলির মধ্যে কোনো পরবর্তন করা সম্ভব হবে না।\n"
+"রেসকিউ (Rescue) পরিবেশ এখন আপনার সিস্টেমে উপস্থিত Linux ইনস্টলেশন অনুসন্ধান করে %s ডিরেক্টরিতে সেটি মাউন্ট করার চেষ্টা করবে।  এর পরে  আপনি সিস্টেমের মধ্যে প্রয়োজনীয় পরিবর্তন করতে পারবেন। এই প্রক্রিয়া এগিয়ে নেওয়ার জন্য 'এগিয়ে চলুন' বেছে নিন। ফাইল-সিস্টেমগুলি আপনি শুধুমাত্র 'শুধুমাত্র পাঠযোগ্য' বৈশিষ্ট্যসহ মাউন্ট করতে পারবেন।  SAN ডিভাইস সক্রিয় করা আবশ্যক হলে 'উন্নত' নির্বাচন করুন।\n"
 "\n"
-"কোনো কারণে এই প্রক্রিয়া ব্যর্থ হলে 'উপেক্ষা করুন' চেপে এই ধাপটি এড়িয়ে আপনি সরাসরি "
-"কমান্ড শেল আরম্ভ করতে পারবেন।\n"
+"কোনো কারণে এই প্রক্রিয়া ব্যর্থ হলে 'উপেক্ষা করুন' চেপে এই ধাপটি এড়িয়ে আপনি সরাসরি কমান্ড শেল আরম্ভ করতে পারবেন।\n"
 "\n"
 
 #: pyanaconda/rescue.py:311 pyanaconda/iw/partition_gui.py:782
@@ -1534,9 +1540,8 @@ msgid "Skip"
 msgstr "উপেক্ষা করুন"
 
 #: pyanaconda/rescue.py:311 pyanaconda/rescue.py:316
-#, fuzzy
 msgid "Advanced"
-msgstr "Advanced Server"
+msgstr "উন্নত"
 
 #: pyanaconda/rescue.py:350
 msgid "System to Rescue"
@@ -1628,11 +1633,11 @@ msgid "Also add this passphrase to all existing encrypted devices"
 msgstr "উপরন্তু এনক্রিপ্ট করা সকল ডিভাইসের জন্য এই পরিচয়-পংক্তি ব্যবহার করা হবে"
 
 #: pyanaconda/text.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
-msgstr[0] "পরিচয়-পংক্তি অন্তত %d অক্ষর বিশিষ্ট হওয়া আবশ্যক।"
-msgstr[1] "পরিচয়-পংক্তি অন্তত %d অক্ষর বিশিষ্ট হওয়া আবশ্যক।"
+msgstr[0] "পরিচয়-পংক্তি অন্তত %d-টি অক্ষর বিশিষ্ট হওয়া আবশ্যক।"
+msgstr[1] "পরিচয়-পংক্তি অন্তত %d-টি অক্ষর বিশিষ্ট হওয়া আবশ্যক।"
 
 #: pyanaconda/text.py:232 data/ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
@@ -1698,9 +1703,8 @@ msgid "Would you like to continue with the upgrade?"
 msgstr "আপনি কি আপগ্রেড করতে ইচ্ছুক?"
 
 #: pyanaconda/upgrade.py:88
-#, fuzzy
 msgid "Cannot Upgrade"
-msgstr "আপগ্রেডের পরে"
+msgstr "আপগ্রেড করা সম্ভব নয়"
 
 #: pyanaconda/upgrade.py:89
 #, python-format
@@ -1711,6 +1715,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"সম্ভবত অতিমাত্রা পুরোনো সংস্করণ ব্যবহার হওয়ার ফলে বর্তমান ইনস্টলেশন আপগ্রেড করা সম্ভব নয়। শুধুমাত্র পূর্ববর্তী দুটি সংস্করণ থেকে আপগ্রেড করা যাবে। এর আগের কোনো সংস্করণ থেকে আপগ্রেড করার জন্য মধ্যবর্তী কোনো সংস্করণে প্রথমে আপগ্রেড করা আবশ্যক হবে।\n"
+"\n"
+"%s"
 
 #: pyanaconda/upgrade.py:229
 msgid "Mount failed"
@@ -1803,7 +1810,7 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "১৫ সেকেন্ডের মধ্যে পুনরায় সংযোগ স্থাপনের প্রচেষ্টা করা হবে..."
 
 #: pyanaconda/vnc.py:195
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] "%d-বার প্রচেষ্টা পরে সংযোগের প্রয়াস পরিত্যাগ করা হচ্ছে!\n"
@@ -1968,7 +1975,7 @@ msgid "%s KB"
 msgstr "%s কিলোবাইট"
 
 #: pyanaconda/yuminstall.py:90
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
 msgstr[0] "%s বাইট"
@@ -1988,7 +1995,7 @@ msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgstr "<b>%(pkgStr)s ইনস্টল করা হচ্ছে</b> (%(size)s)\n"
 
 #: pyanaconda/yuminstall.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgstr[0] "সমাপ্ত প্যাকেজের সংখ্যা: %(donepkgs)d, সর্বমোট %(numpkgs)d"
@@ -2219,17 +2226,13 @@ msgstr ""
 "%s"
 
 #: pyanaconda/yuminstall.py:1421
-#, fuzzy
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
 "package selections, or continue installing these packages without their "
 "dependencies.  If you continue, these packages may not work correctly due to "
 "missing components."
-msgstr ""
-"ইনস্টলেশনের জন্য নির্বাচিত কয়েকটি প্যাকেজের ক্ষেত্রে কয়েকটি প্যাকেজের নির্ভরতা পূরণ "
-"করা হয়নি।  ইনস্টলেশন থেকে প্রস্থান করে নির্বাচিত প্যাকেজের তালিকা পরিবর্তন করুন "
-"অথবা নির্ভরতা মীমাংসা না করে প্যাকেজ ইনস্টল করুন।"
+msgstr "ইনস্টলেশনের জন্য নির্বাচিত কয়েকটি প্যাকেজের ক্ষেত্রে কয়েকটি প্যাকেজের নির্ভরতা পূরণ করা হয়নি।  ইনস্টলেশন থেকে প্রস্থান করে নির্বাচিত প্যাকেজের তালিকা পরিবর্তন করুন অথবা নির্ভরতা মীমাংসা না করে প্যাকেজ ইনস্টল করুন।  নির্ভরতা মীমাংসা না করে ইনস্টলেশন এগিয়ে নেওয়া হলে, অনুপস্থিত প্যাকেজের কারণে এই প্যাকেজগুলির ভুল সঞ্চালনার সম্ভাবনা থাকে।"
 
 #: pyanaconda/yuminstall.py:1465
 #, python-format
@@ -2341,7 +2344,7 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: pyanaconda/installclasses/rhel.py:34
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
@@ -2412,9 +2415,8 @@ msgid "You have provided a weak password: %s"
 msgstr "উল্লিখিত পাসওয়ার্ডটি অত্যন্ত দুর্বল: %s"
 
 #: pyanaconda/iw/account_gui.py:131
-#, fuzzy
 msgid "_Use Anyway"
-msgstr "তথাপি প্রয়োগ করা হবে"
+msgstr "তথাপি প্রয়োগ করা হবে (_U)"
 
 #: pyanaconda/iw/account_gui.py:139 pyanaconda/textw/userauth_text.py:75
 msgid "Requested password contains non-ASCII characters, which are not allowed."
@@ -2424,22 +2426,18 @@ msgstr ""
 
 # modified for RHEL
 #: pyanaconda/iw/advanced_storage.py:90
-#, fuzzy
 msgid "You must select a NIC to use."
-msgstr "একটি নেটওয়ার্ক ডিভাইস নির্বাচন করা আবশ্যক"
+msgstr "ব্যবহারযোগ্য NIC নির্বাচন করা আবশ্যক।"
 
 #: pyanaconda/iw/advanced_storage.py:134
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "iSCSI ইনিশিয়েটরের নাম"
+msgstr "ইনিশিয়েটরের নাম বৈধ নয়"
 
 #: pyanaconda/iw/advanced_storage.py:135
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "সংগ্রহস্থলের নাম উল্লেখ করা আবশ্যক।"
+msgstr "ইনিশিয়েটরের নাম উল্লেখ করা আবশ্যক।"
 
 #: pyanaconda/iw/advanced_storage.py:164
-#, fuzzy
 msgid "Error with Data"
 msgstr "সমস্যাযুক্ত তথ্য"
 
@@ -2492,7 +2490,6 @@ msgid "Replace Existing Linux System(s)"
 msgstr "উপস্থিত Linux সিস্টেম প্রতিস্থাপন করা হবে"
 
 #: pyanaconda/iw/autopart_type.py:237
-#, fuzzy
 msgid ""
 "Removes all Linux partitions on the selected device(s). This does not remove "
 "other partitions you may have on your storage device(s) (such as VFAT or "
@@ -2501,7 +2498,7 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
-"শুধুমাত্র Linux পার্টিশন (পূর্ববর্তী Linux ইনস্টলেশন দ্বারা নির্মিত) মুছে ফেলা হয়। এট "
+"নির্বাচিত ডিভাইসের মধ্যে উপস্থিত সকল Linux পার্টিশন মুছে ফেলা হবে। এর "
 "ফলে, সংগ্রহস্থলের মধ্যে উপস্থিত অন্যান্য পার্টিশন (যেমন VFAT অথবা FAT32) মুছে ফেলা "
 "হবে না।\n"
 "\n"
@@ -2617,43 +2614,39 @@ msgstr "ডিভাইস পরিবর্তন করুন (_C)"
 
 #: pyanaconda/iw/cleardisks_gui.py:34
 msgid "Clear Disks Selector"
-msgstr ""
+msgstr "ডিস্ক নির্বাচন পরিশ্রুত করুন"
 
 #: pyanaconda/iw/cleardisks_gui.py:45 pyanaconda/iw/filter_gui.py:420
-#, fuzzy
 msgid "You must select at least one drive to be used for installation."
-msgstr "%s ইনস্টল করার জন্য অন্তত একটি হার্ড-ড্রাইভ নির্বাচন করা আবশ্যক।"
+msgstr "ইনস্টল করার জন্য অন্তত একটি হার্ড-ড্রাইভ নির্বাচন করা আবশ্যক।"
 
 # modified for RHEL
 #: pyanaconda/iw/cleardisks_gui.py:55
-#, fuzzy
 msgid "You must select one drive to boot from."
-msgstr "একটি নেটওয়ার্ক ডিভাইস নির্বাচন করা আবশ্যক"
+msgstr "বুট করার জন্য একটি ড্রাইভ নির্বাচন করা আবশ্যক।"
 
 #: pyanaconda/iw/cleardisks_gui.py:127 pyanaconda/iw/cleardisks_gui.py:147
 #: pyanaconda/iw/filter_gui.py:462 pyanaconda/iw/filter_gui.py:473
 #: pyanaconda/iw/filter_gui.py:503
 msgid "Model"
-msgstr ""
+msgstr "মডেল"
 
 #: pyanaconda/iw/cleardisks_gui.py:128 pyanaconda/iw/cleardisks_gui.py:148
 #: pyanaconda/iw/filter_gui.py:463 pyanaconda/iw/filter_gui.py:474
 #: pyanaconda/iw/filter_gui.py:482 pyanaconda/iw/filter_gui.py:493
 #: pyanaconda/iw/filter_gui.py:504
 msgid "Capacity"
-msgstr ""
+msgstr "ধারণক্ষমতা"
 
 #: pyanaconda/iw/cleardisks_gui.py:129 pyanaconda/iw/filter_gui.py:464
 #: pyanaconda/iw/filter_gui.py:483 pyanaconda/iw/filter_gui.py:494
 #: pyanaconda/iw/filter_gui.py:505
-#, fuzzy
 msgid "Vendor"
-msgstr "_Fedora"
+msgstr "বিক্রেতা"
 
 #: pyanaconda/iw/cleardisks_gui.py:130 pyanaconda/iw/cleardisks_gui.py:149
 #: pyanaconda/iw/filter_gui.py:481 pyanaconda/iw/filter_gui.py:492
 #: pyanaconda/iw/filter_gui.py:508
-#, fuzzy
 msgid "Identifier"
 msgstr "সনাক্তকরণ"
 
@@ -2661,32 +2654,40 @@ msgstr "সনাক্তকরণ"
 #: pyanaconda/iw/filter_gui.py:484 pyanaconda/iw/filter_gui.py:495
 #: pyanaconda/iw/filter_gui.py:506
 msgid "Interconnect"
-msgstr ""
+msgstr "ইন্টার-কানেক্ট"
 
 #: pyanaconda/iw/cleardisks_gui.py:145
-#, fuzzy
 msgid ""
 "Boot\n"
 "Loader"
-msgstr "বুট-লোডার"
+msgstr ""
+"বুট\n"
+"লোডার"
 
 #: pyanaconda/iw/cleardisks_gui.py:193
 msgid ""
 "<b>Tip:</b> All Linux filesystems on the install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
 msgstr ""
+"<b>সূত্র:</b> ইনস্টলেশনের জন্য চিহ্নিত উদ্দিষ্ট ডিভাইসগুলির মধ্যে উপস্থিত Linux ফাইল-"
+"সিস্টেমগুলি পুনরায় ফরম্যাট করা হবে ও এর মধ্যে উপস্থিত সকল তথ্য মুছে যাবে।  অনুগ্রহ করে "
+"এই সকল তথ্যের ব্যাক-আপ সংরক্ষণ করুন।"
 
 #: pyanaconda/iw/cleardisks_gui.py:195
 msgid ""
 "<b>Tip:</b> The install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
+"<b>সূত্র:</b> ইনস্টলেশনের জন্য চিহ্নিত উদ্দিষ্ট ডিভাইসগুলি পুনরায় ফরম্যাট করা হবে ও এর "
+"মধ্যে উপস্থিত সকল তথ্য মুছে যাবে।  অনুগ্রহ করে এই সকল তথ্যের ব্যাক-আপ সংরক্ষণ করুন।"
 
 #: pyanaconda/iw/cleardisks_gui.py:197
 msgid ""
 "<b>Tip:</b> Your filesystems on the install target devices will not be "
 "reformatted unless you choose to do so during customization."
 msgstr ""
+"<b>সূত্র:</b> ব্যবহারকারী দ্বারা ধার্য না করা হলে, ইনস্টলেশনের জন্য চিহ্নিত উদ্দিষ্ট "
+"ডিভাইসের মধ্যে উপস্থিত ফাইল-সিস্টেমগুলি মুছে ফেলা হবে না।"
 
 #: pyanaconda/iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2790,17 +2791,16 @@ msgstr "অজ্ঞাত Linux সিস্টেম"
 #: pyanaconda/iw/filter_gui.py:149
 #, python-format
 msgid "Selected devices: %s (%s MB) out of %s (%s MB)."
-msgstr ""
+msgstr "নির্বাচিত ডিভাইস: %s (%s মেগাবাইট), সর্বমোট %s (%s মেগাবাইট)।"
 
 #: pyanaconda/iw/filter_gui.py:399
-#, fuzzy
 msgid "Device Filter"
-msgstr "ডিভাইস প্রস্তুত করতে ব্যর্থ"
+msgstr "ডিভাইস ফিল্টার"
 
 #: pyanaconda/iw/filter_gui.py:466 pyanaconda/iw/filter_gui.py:496
 #: pyanaconda/iw/filter_gui.py:507
 msgid "Serial Number"
-msgstr ""
+msgstr "ক্রমিক সংখ্যা"
 
 #: pyanaconda/iw/filter_gui.py:467 pyanaconda/iw/filter_gui.py:475
 #: pyanaconda/iw/filter_gui.py:486 pyanaconda/iw/filter_gui.py:497
@@ -2810,9 +2810,8 @@ msgid "Device"
 msgstr "ডিভাইস"
 
 #: pyanaconda/iw/filter_gui.py:485
-#, fuzzy
 msgid "Paths"
-msgstr "পাথ (_P)"
+msgstr "পাথ"
 
 # modified for RHEL
 #: pyanaconda/iw/filter_gui.py:509
@@ -2820,40 +2819,36 @@ msgid "Port"
 msgstr "পোর্ট"
 
 #: pyanaconda/iw/filter_gui.py:510
-#, fuzzy
 msgid "Target"
-msgstr "পরীক্ষা করুন"
+msgstr "টার্গেট"
 
 #: pyanaconda/iw/filter_gui.py:511
 msgid "LUN"
-msgstr ""
+msgstr "LUN"
 
 #: pyanaconda/iw/filter_type.py:55
-#, fuzzy
 msgid "What type of devices will your installation involve?"
-msgstr "ইনস্টলেশন-ইমেজটি কী ধরনের মিডিয়ার মধ্যে উপস্থিত রয়েছে?"
+msgstr "ইনস্টলেশনের ক্ষেত্রে কী ধরনের ডিভাইস ব্যবহার করা হবে?"
 
 #: pyanaconda/iw/filter_type.py:61
-#, fuzzy
 msgid "Basic Storage Devices"
-msgstr "সংগ্রহস্থল রূপে ব্যবহারযোগ্য ডিভাইস অনুসন্ধান করা হচ্ছে"
+msgstr "সংগ্রহস্থল রূপে ব্যবহারযোগ্য মৌলিক ডিভাইস"
 
 #: pyanaconda/iw/filter_type.py:62
 msgid ""
 "Installs or upgrades to typical types of storage devices.  If you're not "
 "sure which option is right for you, this is probably it."
-msgstr ""
+msgstr "সাধারণ সংগ্রহস্থল ডিভাইসের মধ্যে ইনস্টল অথবা আপগ্রেড করা হয়।  সঠিক বিকল্প সম্বন্ধে নিশ্চিত না হলে এই বিকল্পটি বাছাই করা যাবে।"
 
 #: pyanaconda/iw/filter_type.py:66
-#, fuzzy
 msgid "Specialized Storage Devices"
-msgstr "সংগ্রহস্থল রূপে ব্যবহারযোগ্য ডিভাইস অনুসন্ধান করা হচ্ছে"
+msgstr "সংগ্রহস্থল রূপে ব্যবহারযোগ্য বিশেষ ডিভাইস"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid ""
 "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
 "mainframe attached disks (DASD), usually in an enterprise environment"
-msgstr ""
+msgstr "স্টোরেজ এরিয়া নেটওয়ার্ক (SAN) অথবা মেইনফ্রেমের সাথে যুক্ত ডিস্ক (DASD) মধ্যে ইনস্টল অথবা আপগ্রেড করা হয়।  সঠিক বিকল্প সম্বন্ধে নিশ্চিত না হলে এই বিকল্পটি বাছাই করা যাবে।"
 
 #: pyanaconda/iw/language_gui.py:33 pyanaconda/textw/language_text.py:45
 msgid "Language Selection"
@@ -3020,9 +3015,8 @@ msgstr "মাউন্ট-পয়েন্ট: (_M)"
 #: pyanaconda/iw/lvm_dialog_gui.py:601
 #: pyanaconda/iw/partition_dialog_gui.py:118
 #: pyanaconda/iw/raid_dialog_gui.py:176
-#, fuzzy
 msgid "Mount Point Error"
-msgstr "মাউন্ট পয়েন্ট"
+msgstr "মাউন্ট পয়েন্ট সংক্রান্ত ত্রুটি"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:611
 msgid "Illegal Logical Volume Name"
@@ -3076,15 +3070,15 @@ msgstr ""
 "যোগ করুন।"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:719
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
 "size of the other logical volume(s) exceeds the size of the volume group (%"
 "(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
-"কনফিগার করা লজিক্যাল ভলিউমগুলির জন্য %(size)d মেগাবাইট আবশ্যক, কিন্তু ভলিউম গ্রুপের "
-"মধ্যে শুধুমাত্র %(tempvgsize)d মেগাবাইট স্থান উপস্থিত রয়েছে।  অনুগ্রহ করে ভলিউম "
+"চিহ্নিত লজিক্যাল ভলিউম ও উপস্থিত অন্যান্য লজিক্যাল ভলিউমগুলির জন্য (%(size)d মেগাবাইট) আবশ্যক, কিন্তু ভলিউম গ্রুপের "
+"মধ্যে শুধুমাত্র (%(tempvgsize)d) মেগাবাইট স্থান উপস্থিত রয়েছে।  অনুগ্রহ করে ভলিউম "
 "গ্রুপের মাপ বৃদ্ধি করুন অথবা লজিক্যাল ভলিউমের মাপ কম করুন।"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:829
@@ -3092,7 +3086,7 @@ msgid "No free slots"
 msgstr "কোনো ফাঁকা স্লট নেই"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:830
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
 msgstr[0] "প্রতিটি ভলিউম গ্রুপের মধ্যে %d-টির বেশি লজিক্যাল ভলিউম নির্মাণ করা সম্ভব নয়।"
@@ -3302,9 +3296,8 @@ msgstr ""
 "%(herrors)s"
 
 #: pyanaconda/iw/network_gui.py:133
-#, fuzzy
 msgid "Select network interfaces"
-msgstr "নেটওয়ার্ক ইন্টারফেস সক্রিয় করা হবে"
+msgstr "নেটওয়ার্ক ইন্টারফেস নির্বাচন করুন"
 
 #: pyanaconda/iw/network_gui.py:142 pyanaconda/textw/netconfig_text.py:91
 #: data/ui/netconfig.glade.h:10
@@ -3317,17 +3310,16 @@ msgstr ""
 
 #: pyanaconda/iw/network_gui.py:195
 msgid "Select which devices should be configured with NetworkManager."
-msgstr ""
+msgstr "NetworkManager-র সাথে কনফিগার করার যোগ্য ডিভাইসগুলি নির্বাচন করুন"
 
 # modified for RHEL
 #: pyanaconda/iw/network_gui.py:254
-#, fuzzy
 msgid "Select APs"
-msgstr "নির্বাচন করুন (_S)"
+msgstr "AP নির্বাচন করুন"
 
 #: pyanaconda/iw/network_gui.py:261
 msgid "Select APs for wireless devices"
-msgstr ""
+msgstr "বেতার ডিভাইসের জন্য AP নির্বাচন করুন"
 
 #: pyanaconda/iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
@@ -3589,7 +3581,7 @@ msgstr ""
 "\n"
 
 #: pyanaconda/iw/partition_gui.py:1467
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
 msgstr[0] "ব্যবহারের জন্য বর্তমানে %d-টি সফ্টওয়্যার RAID পার্টিশন মুক্ত রয়েছে।"
@@ -3617,7 +3609,6 @@ msgstr ""
 "সম্পর্কে অধিক তথ্য প্রাপ্ত করার জন্য অনুগ্রহ করে %s-র নথিপত্র পরিদর্শন করুন।\n"
 
 #: pyanaconda/iw/partition_gui.py:1485
-#, fuzzy
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create an LV you need a "
@@ -3630,10 +3621,10 @@ msgstr ""
 "\n"
 
 #: pyanaconda/iw/partition_gui.py:1489
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
-msgstr[0] "ব্যবহারের জন্য বর্তমানে %d PV মুক্ত রয়েছে।\n"
+msgstr[0] "ব্যবহারের জন্য বর্তমানে %d-টি PV মুক্ত রয়েছে।\n"
 msgstr[1] "ব্যবহারের জন্য বর্তমানে %d PV মুক্ত রয়েছে।\n"
 
 #: pyanaconda/iw/partition_gui.py:1493
@@ -4037,7 +4028,6 @@ msgid "Network Install Required"
 msgstr "নেটওয়ার্ক ইনস্টলেশন আবশ্যক"
 
 #: pyanaconda/iw/welcome_gui.py:57 pyanaconda/textw/welcome_text.py:37
-#, fuzzy
 msgid ""
 "Your installation source is set to a network location, but no network "
 "devices were found on your system.  To avoid a network installation, boot "
@@ -4099,23 +4089,20 @@ msgid "Chandev Parameters"
 msgstr "Chandev পরামিতি"
 
 #: loader/net.h:27
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "ডাইনামিক IP কনফিগারেশন ব্যবস্থা ব্যবহার করা হবে (DHCP)"
+msgstr "ডাইনামিক IP কনফিগারেশন ব্যবস্থা (DHCP)"
 
 #: loader/net.h:28
-#, fuzzy
 msgid "Manual configuration"
-msgstr "ব্যবহারকারী দ্বারা TCP/IP কনফিগারেশন"
+msgstr "ব্যবহারকারী দ্বারা কনফিগারেশন"
 
 #: loader/net.h:30
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "ডাইনামিক IP কনফিগারেশন ব্যবস্থা ব্যবহার করা হবে (DHCP)"
+msgstr "ডাইনামিক IP কনফিগারেশন ব্যবস্থা (DHCPv6)"
 
 #: loader/net.h:31
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "স্বয়ংক্রিয়ভাবে পার্শ্ববর্তী কম্পিউটার সনাক্তকরণ"
 
 #: loader/cdinstall.c:186 loader/cdinstall.c:207 loader/mediacheck.c:61
 msgid "Media Check"
@@ -4575,9 +4562,9 @@ msgid "Error downloading updates image"
 msgstr "আপডেট-ইমেজ ডাউনলোড করতে সমস্যা"
 
 #: loader/loader.c:1206
-#, fuzzy, c-format
+#, c-format
 msgid "You do not have enough RAM to install %s on this machine%s."
-msgstr "এই কম্পিউটারে %s ইনস্টল করার উদ্দেশ্যে পর্যাপ্ত RAM উপস্থিত নেই।"
+msgstr "%s ইনস্টল করার উদ্দেশ্যে %s কম্পিউটারে পর্যাপ্ত RAM উপস্থিত নেই।"
 
 #: loader/loader.c:1260
 msgid "Media Detected"
@@ -4679,18 +4666,16 @@ msgid "Checking media."
 msgstr "মিডিয়া পরীক্ষা করা হচ্ছে।"
 
 #: loader/mediacheck.c:87
-#, fuzzy
 msgid ""
 "Unable to find the checksum in the image.  This probably means the disc was "
 "created without adding the checksum."
 msgstr ""
-"প্রধান ভলিউম ডেসক্রিপ্টর থেকে checksum পড়তে ব্যর্থ।  সম্ভবত ডিস্ক নির্মাণের সময় "
+"ইমেজের মধ্যে checksum পড়তে ব্যর্থ।  সম্ভবত ডিস্ক নির্মাণের সময় "
 "checksum যোগ না করে ডিস্ক নির্মিত হয়েছে।"
 
 #: loader/mediacheck.c:94
-#, fuzzy
 msgid "Unable to open the image."
-msgstr "ইমেজ পাওয়া যায়নি"
+msgstr "ইমেজ খুলতে ব্যর্থ।"
 
 #: loader/mediacheck.c:98
 msgid ""
@@ -5045,13 +5030,12 @@ msgstr ""
 "পরীক্ষা করে পুনরায় প্রচেষ্টা করুন।"
 
 #: pyanaconda/storage/__init__.py:120
-#, fuzzy
 msgid "No disks found"
-msgstr "কোনো ড্রাইভার পাওয়া যায়নি"
+msgstr "ডিস্ক পাওয়া যায়নি"
 
 #: pyanaconda/storage/__init__.py:121
 msgid "No usable disks have been found."
-msgstr ""
+msgstr "ব্যবহারযোগ্য কোনো ডিস্ক পাওয়া যায়নি।"
 
 # modified for RHEL
 #: pyanaconda/storage/__init__.py:132
@@ -5096,12 +5080,10 @@ msgstr ""
 "করার জন্য চিহ্নিত পার্টিশনের মধ্যে উপস্থিত তথ্য এর ফলে হারিয়ে যাবে।"
 
 #: pyanaconda/storage/__init__.py:191
-#, fuzzy
 msgid "Go _Back"
-msgstr "পূর্ববর্তী (_b)"
+msgstr "পূর্ববর্তী (_B)"
 
 #: pyanaconda/storage/__init__.py:192
-#, fuzzy
 msgid "_Write Changes to Disk"
 msgstr "পরিবর্তনগুলি ডিস্কে লেখা হবে (_W)"
 
@@ -5119,14 +5101,12 @@ msgid "Error storing an encryption key: %s\n"
 msgstr "একটি এনক্রিপশন-কি সংরক্ষণ করতে ত্রুটি: %s\n"
 
 #: pyanaconda/storage/__init__.py:372
-#, fuzzy
 msgid "Examining Devices"
-msgstr "ডিভাইস অনুসন্ধান"
+msgstr "ডিভাইস পরীক্ষা করা হচ্ছে"
 
 #: pyanaconda/storage/__init__.py:373
-#, fuzzy
 msgid "Examining storage devices"
-msgstr "সংগ্রহস্থল রূপে ব্যবহারযোগ্য ডিভাইস অনুসন্ধান করা হচ্ছে"
+msgstr "সংগ্রহস্থল রূপে ব্যবহারযোগ্য ডিভাইস পরীক্ষা করা হচ্ছে"
 
 # modified for RHEL
 #: pyanaconda/storage/__init__.py:652
@@ -5471,18 +5451,17 @@ msgstr ""
 "<Enter> টিপে ইনস্টলার থেকে প্রস্থান করুন।"
 
 #: pyanaconda/storage/dasd.py:155
-#, fuzzy
 msgid "Formatting DASD Device"
 msgid_plural "Formatting DASD Devices"
-msgstr[0] "ফরম্যাট করতে ব্যর্থ"
-msgstr[1] "ফরম্যাট করতে ব্যর্থ"
+msgstr[0] "DASD ডিভাইস ফরম্যাট করা হচ্ছে"
+msgstr[1] "DASD ডিভাইস ফরম্যাট করা হচ্ছে"
 
 #: pyanaconda/storage/dasd.py:156
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Linux-র সাথে ব্যবহারের উদ্দেশ্যে %d DASD ডিভাইস প্রস্তুত করা হচ্ছে..."
+msgstr[1] "Linux-র সাথে ব্যবহারের উদ্দেশ্যে %d DASD ডিভাইস প্রস্তুত করা হচ্ছে..."
 
 #: pyanaconda/storage/devicelibs/lvm.py:308
 #, python-format
@@ -5508,11 +5487,11 @@ msgid "Creating device %s"
 msgstr "%s ডিভাইস নির্মাণ করা হচ্ছে"
 
 #: pyanaconda/storage/devices.py:2476
-#, fuzzy, python-format
+#, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
-msgstr[0] "একটি RAID%d সংকলের জন্য অন্তত %d-টি সদস্য উপস্থিত থাকা আবশ্যক"
-msgstr[1] "একটি RAID%d সংকলের জন্য অন্তত %d-টি সদস্য উপস্থিত থাকা আবশ্যক"
+msgstr[0] "একটি RAID%d সংকলনের জন্য অন্তত %d-টি সদস্য উপস্থিত থাকা আবশ্যক"
+msgstr[1] "একটি RAID%d সংকলনের জন্য অন্তত %d-টি সদস্য উপস্থিত থাকা আবশ্যক"
 
 # modified for RHEL
 #: pyanaconda/storage/devices.py:3351
@@ -5540,12 +5519,11 @@ msgstr "এই ডিভাইসটি একটি বিসংগত LVM ভ�
 
 #: pyanaconda/storage/fcoe.py:66 pyanaconda/storage/fcoe.py:67
 msgid "Connecting to FCoE SAN"
-msgstr ""
+msgstr "FCoE SAN-র সাথে সংযোগ স্থাপন"
 
 #: pyanaconda/storage/fcoe.py:111
-#, fuzzy
 msgid "FCoE not available"
-msgstr "iSCSI উপলব্ধ নয়"
+msgstr "FCoE উপলব্ধ নয়"
 
 #: pyanaconda/storage/formats/fs.py:102
 msgid "filesystem configuration missing a type"
@@ -5642,21 +5620,20 @@ msgid "Usage error."
 msgstr "ব্যবহার সংক্রান্ত ত্রুটি।"
 
 #: pyanaconda/storage/formats/luks.py:48
-#, fuzzy
 msgid "Encrypted"
-msgstr "এনক্রিপ্ট করা হবে (_E)"
+msgstr "এনক্রিপ্ট করা"
 
 #: pyanaconda/storage/formats/luks.py:195
-#, fuzzy, python-format
+#, python-format
 msgid "Encrypting %s"
-msgstr "এনক্রিপ্ট করা হবে (_E)"
+msgstr "%s এনক্রিপ্ট করা হচ্ছে"
 
 # modified for RHEL
 #: pyanaconda/storage/formats/lvmpv.py:104
 #: pyanaconda/storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %s on %s"
-msgstr "%s ফাইল-সিস্টেম নির্মাণ করা হচ্ছে, %s-র মধ্যে"
+msgstr "%s নির্মাণ করা হচ্ছে, %s-র মধ্যে"
 
 #: pyanaconda/storage/iscsi.py:83 pyanaconda/storage/iscsi.py:84
 msgid "Scanning iSCSI nodes"
@@ -5664,12 +5641,11 @@ msgstr "iSCSI নোড স্ক্যান করার হচ্ছে"
 
 #: pyanaconda/storage/iscsi.py:135
 msgid "Unable to change iSCSI initiator name once set"
-msgstr ""
+msgstr "iSCSI ইনিশিয়েটরের নাম নির্ধারণের পরে তা পরিবর্তন করা সম্ভব নয়"
 
 #: pyanaconda/storage/iscsi.py:137
-#, fuzzy
 msgid "Must provide an iSCSI initiator name"
-msgstr "সংগ্রহস্থলের নাম উল্লেখ করা আবশ্যক।"
+msgstr "iSCSI ইনিশিয়েটরের নাম উল্লেখ করা আবশ্যক"
 
 # modified for RHEL
 #: pyanaconda/storage/iscsi.py:177 pyanaconda/storage/iscsi.py:178
@@ -6126,9 +6102,8 @@ msgstr "হার্ড-ড্রাইভের মধ্যে ইনস্ট
 
 # modified for RHEL
 #: liveinst:5
-#, fuzzy
 msgid "Starting Install to Hard Drive"
-msgstr "হার্ড-ড্রাইভের মধ্যে ইনস্টল করুন"
+msgstr "হার্ড-ড্রাইভের মধ্যে ইনস্টলেশন আরম্ভ করা হচ্ছে"
 
 #: data/ui/GroupSelector.glade.h:1
 msgid ""
@@ -6355,17 +6330,19 @@ msgstr "সিস্টেমের বুট-লোডারটি কোথা
 
 #: data/ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
+msgstr "<b>তথ্য সংরক্ষণের ডিভাইস</b> (শুধুমাত্র মাউন্ট করা যাবে)"
 
 #: data/ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
-msgstr ""
+msgstr "<b>ইনস্টলেশনের জন্য উদ্দিষ্ট ডিভাইস</b>"
 
 #: data/ui/cleardisks.glade.h:3
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
+"<b>সূত্র:</b> ইনস্টলেশনের জন্য চিহ্নিত উদ্দিষ্ট ডিভাইসগুলি পুনরায় ফরম্যাট করা হবে ও এর "
+"মধ্যে উপস্থিত সকল তথ্য মুছে যাবে।  অনুগ্রহ করে এই সকল তথ্যের ব্যাক-আপ সংরক্ষণ করুন।"
 
 #: data/ui/cleardisks.glade.h:4
 msgid ""
@@ -6376,84 +6353,81 @@ msgid ""
 "formatted).  Please also indicate which system drive will have the "
 "bootloader installed."
 msgstr ""
+"এই ইনস্টলেশনের জন্য নির্বাচিত সংরক্ষণের ডিভাইসগুলি নীচে চিহ্নিত করা হয়েছে। তথ্য "
+"ধারণকারী ড্রাইভ (এইগুলি ফরম্যাট করা হবে না, শুধুমাত্র মাউন্ট করা হবে) এবং সিস্টেম "
+"ড্রাইভ (এইগুলি ফরম্যাট করা হবে) রূপে ব্যবহারযোগ্য ডিভাইসগুলি, নীচে উপস্থিত তীর চিহ্ন "
+"সহযোগে চিহ্নিত করুন। উপরন্তু, বুট-লোডারটি কোন সিস্টেম ড্রাইভের মধ্যে স্থাপন করা হবে "
+"তা চিহ্নিত করুন।"
 
 #: data/ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">RAID ফরম্যাট সহ একটি পার্টিশন নির্মাণ করুন</span>"
 
 #: data/ui/create-storage.glade.h:2
 msgid ""
 "<span size=\"small\" color=\"gray\">Create a logical volume on selected "
 "volume group</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">নির্বাচিত বলিউম গ্রুপের মধ্যে একটি লজিক্যাল ভলিউম তৈরি করুন</span>"
 
 #: data/ui/create-storage.glade.h:3
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">LVM ফরম্যাট সহ একটি পার্টিশন তৈরি করুন</span>"
 
 #: data/ui/create-storage.glade.h:4
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">সাধারণ কাজের জন্য পার্টিশন নির্মাণ</span>"
 
 #: data/ui/create-storage.glade.h:5
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted "
 "partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">LVM ফরম্যাটের অন্তত ১-টি মুক্ত পার্টিশন উপস্থিত থাকা আবশ্যক</span>"
 
 #: data/ui/create-storage.glade.h:6
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted "
 "partitions</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">RAID ফরম্যাটের অন্তত ২-টি মুক্ত পার্টিশন উপস্থিত থাকা আবশ্যক</span>"
 
 #: data/ui/create-storage.glade.h:7
-#, fuzzy
 msgid "Create"
-msgstr "নির্মাণ করুন (_C)"
+msgstr "নির্মাণ করুন"
 
 #: data/ui/create-storage.glade.h:8
-#, fuzzy
 msgid "Create LVM"
-msgstr "নির্মাণ করুন (_C)"
+msgstr "LVM তৈরি করুন"
 
 #: data/ui/create-storage.glade.h:9
-#, fuzzy
 msgid "Create Partition"
-msgstr "পার্টিশন বাছাই করুন"
+msgstr "পার্টিশন তৈরি করুন"
 
 #: data/ui/create-storage.glade.h:10
 msgid "Create Software RAID"
-msgstr ""
+msgstr "সফ্টওয়্যার RAID তৈরি করুন"
 
 #: data/ui/create-storage.glade.h:11
 msgid "Create Storage"
-msgstr ""
+msgstr "সংগ্রহস্থল তৈরি করুন"
 
 #: data/ui/create-storage.glade.h:12
-#, fuzzy
 msgid "LVM Logical Volume"
-msgstr "লজিক্যাল ভলিউম নির্মাণ"
+msgstr "LVM লজিক্যাল ভলিউম নির্মাণ"
 
 #: data/ui/create-storage.glade.h:13
-#, fuzzy
 msgid "LVM Physical Volume"
-msgstr "লজিক্যাল ভলিউম (_L)"
+msgstr "LVM প্রকৃত ভলিউম"
 
 #: data/ui/create-storage.glade.h:14
-#, fuzzy
 msgid "LVM Volume Group"
 msgstr "LVM ভলিউম গ্রুপ"
 
 #: data/ui/create-storage.glade.h:16
-#, fuzzy
 msgid "RAID Partition"
-msgstr "পার্টিশন যোগ করুন"
+msgstr "RAID পার্টিশন"
 
 #: data/ui/create-storage.glade.h:17
-#, fuzzy
 msgid "Standard Partition"
-msgstr "পার্টিশন যোগ করুন"
+msgstr "সাধারণ পার্টিশন"
 
 # modified for RHEL
 #: data/ui/detailed-dialog.glade.h:1
@@ -6494,30 +6468,30 @@ msgid ""
 "later during installation.  Also, note that post-installation you may mount "
 "drives you did not select here by modifying your /etc/fstab file."
 msgstr ""
+"<b>সূত্র:</b> এই পর্দায় নির্বাচিত ড্রাইভগুলি, ইনস্টলেশনের সময় স্বয়ংক্রিয়ভাবে মুছে ফেলা "
+"হবে না।  উপরন্তু, এই পর্দায় নির্বাচন না করা ড্রাইভগুলি, ইনস্টলেশনের পরে মাউন্ট করার "
+"প্রয়োজন দেখা দিতে পারে। এর জন্য /etc/fstab ফাইলের মধ্যে প্রযোজ্য পরিবর্তন করা "
+"আবশ্যক।"
 
 #: data/ui/filter.glade.h:2
-#, fuzzy
 msgid "Add Advanced Target"
-msgstr "Advanced Server"
+msgstr "উন্নত বৈশিষ্ট্যের টার্গেট যোগ করুন"
 
 #: data/ui/filter.glade.h:3
-#, fuzzy
 msgid "Basic Devices"
-msgstr "ডিভাইস"
+msgstr "মৌলিক ডিভাইস"
 
 #: data/ui/filter.glade.h:4
-#, fuzzy
 msgid "Filter By:"
-msgstr "বাগ দায়ের করুন (_F)"
+msgstr "ফিল্টার করার সূত্র:"
 
 #: data/ui/filter.glade.h:5
 msgid "Firmware RAID"
-msgstr ""
+msgstr "ফার্মওয়্যার RAID"
 
 #: data/ui/filter.glade.h:6
-#, fuzzy
 msgid "Identifier:"
-msgstr "সনাক্তকরণ"
+msgstr "সনাক্তকারী:"
 
 #: data/ui/filter.glade.h:7
 msgid ""
@@ -6525,72 +6499,76 @@ msgid ""
 "Vendor\n"
 "Identifier"
 msgstr ""
+"Interconnect\n"
+"বিক্রেতা\n"
+"সনাক্তকারী চিহ্ন"
 
 #: data/ui/filter.glade.h:10
 msgid "LUN:"
-msgstr ""
+msgstr "LUN:"
 
 #: data/ui/filter.glade.h:11
-#, fuzzy
 msgid "Multipath Devices"
-msgstr "প্রতিরূপ ডিভাইস"
+msgstr "মাল্টি-পাথ ডিভাইস"
 
 #: data/ui/filter.glade.h:12
-#, fuzzy
 msgid "Other SAN Devices"
-msgstr "RAID ডিভাইস"
+msgstr "অন্যান্য SAN ডিভাইস"
 
 #: data/ui/filter.glade.h:13
 msgid ""
 "Please select the drives you'd like to install the operating system on, as "
 "well as any drives you'd like to automatically mount on your system:"
 msgstr ""
+"অপারেটিং সিস্টেম ইনস্টলেশনের জন্য ব্যবহারযোগ্য ড্রাইভগুলি অনুগ্রহ করে নির্বাচন করুন। "
+"উপরন্তু, সিস্টেমের মধ্যে স্বয়ংক্রিভাবে মাউন্ট করার উদ্দেশ্যে ধার্য ড্রাইভগুলিও নীচে "
+"নির্বাচন করুন:"
 
 #: data/ui/filter.glade.h:14
 msgid ""
 "Port / Target / LUN\n"
 "Target Identifier"
 msgstr ""
+"পোর্ট / টার্গেট / LUN\n"
+"টার্গেট সনাক্তকারী"
 
 # modified for RHEL
 #: data/ui/filter.glade.h:16
-#, fuzzy
 msgid "Port:"
-msgstr "পোর্ট"
+msgstr "পোর্ট:"
 
 #: data/ui/filter.glade.h:17
 msgid "Search"
-msgstr ""
+msgstr "অনুসন্ধান"
 
 #: data/ui/filter.glade.h:18
 msgid "Search By:"
-msgstr ""
+msgstr "অনুসন্ধানের ভিত্তি:"
 
 #: data/ui/filter.glade.h:19
 msgid "Search Results:"
-msgstr ""
+msgstr "অনুসন্ধানের ফলাফল:"
 
 #: data/ui/filter.glade.h:21
 #, no-c-format
 msgid "Selected devices: %s (%s) out of %s (%s)."
-msgstr ""
+msgstr "নির্বাচিত ডিভাইস: %s (%s), সর্বমোট %s (%s)।"
 
 #: data/ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
-msgstr ""
+msgstr "চিহ্নিত বস্তু বিশিষ্ট সনাক্তকারী চিহ্ন প্রদর্শন:"
 
 #: data/ui/filter.glade.h:23
 msgid "Show Only Devices From:"
-msgstr ""
+msgstr "শুধুমাত্র সংশ্লিষ্ট উৎসের মধ্যে উপস্থিত ডিভাইস প্রদর্শন:"
 
 #: data/ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr ""
+msgstr "শুধুমাত্র চিহ্নিত বস্তুসহ ডিভাইসের প্রদর্শন:"
 
 #: data/ui/filter.glade.h:25
-#, fuzzy
 msgid "Target:"
-msgstr "উদ্দিষ্ট ড্রাইভ:"
+msgstr "টার্গেট:"
 
 #: data/ui/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
@@ -6694,9 +6672,8 @@ msgid "Use _dynamic IP configuration (DHCP)"
 msgstr "ডাইনামিক IP কনফিগারেশন ব্যবস্থা ব্যবহার করা হবে (DHCP) (_d)"
 
 #: data/ui/network.glade.h:1
-#, fuzzy
 msgid "Configure Network"
-msgstr "নেটওয়ার্ক কনফিগার করতে সমস্যা"
+msgstr "নেটওয়ার্ক কনফিগার করুন"
 
 #: data/ui/network.glade.h:2
 msgid "Hostname:"
