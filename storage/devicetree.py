@@ -2037,6 +2037,7 @@ class DeviceTree(object):
                 whitelist.append(p.name)
             self.__multipathConfigWriter.addMultipathDevice(mp)
             self._addDevice(mp)
+            self.addUdevDevice(mp_info)
         for d in self.devices:
             if not d.name in whitelist:
                 self.__multipathConfigWriter.addBlacklistDevice(d)
