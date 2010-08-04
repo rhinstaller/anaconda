@@ -21,6 +21,7 @@
 #
 
 import os
+import re
 
 from pyanaconda import iutil
 from errors import *
@@ -140,10 +141,11 @@ def udev_device_get_format(udev_info):
 
 def udev_device_get_uuid(udev_info):
     """ Get the UUID from the device's format as reported by udev. """
-    md_uuid = udev_info.get("MD_UUID")
-    uuid = udev_info.get("ID_FS_UUID")
+    md_uuid = udev_info.get("MD_UUID", '')
+    uuid = udev_info.get("ID_FS_UUID", '')
     # we don't want to return the array's uuid as a member's uuid
-    if uuid and not md_uuid == uuid:
+    if len(uuid) > 0 and \
+            re.sub(r'\W', '', md_uuid) != re.sub(r'\W', '', uuid):
         return udev_info.get("ID_FS_UUID")
 
 def udev_device_get_label(udev_info):
