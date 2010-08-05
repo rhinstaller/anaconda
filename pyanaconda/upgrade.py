@@ -83,7 +83,10 @@ def findRootParts(anaconda):
         if notUpgradable and not anaconda.rootParts:
             oldInstalls = ""
             for info in notUpgradable:
-                oldInstalls += " on ".join(info)
+                if None in info[:2]:
+                    oldInstalls += "on %s" % (info[2])
+                else:
+                    oldInstalls += "%s %s on %s" % (info)
                 oldInstalls += "\n"
             rc = anaconda.intf.messageWindow(_("Cannot Upgrade"),
                     _("Your current installation cannot be upgraded. This "
