@@ -3205,6 +3205,14 @@ class MultipathDevice(DMDevice):
         if not self.exists and not recursive:
             raise DeviceError("device has not been created", self.name)
 
+        if self.status:
+            # in case format is not a disklabel but a filesystem
+            if self.originalFormat.exists:
+                self.originalFormat.teardown()
+            if self.format.exists:
+                self.format.teardown()
+            udev_settle()
+
         if self.exists and os.path.exists(self.path):
             #self.teardownPartitions()
             #rc = iutil.execWithRedirect("multipath",
