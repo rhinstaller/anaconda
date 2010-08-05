@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-07-27 10:09+0200\n"
-"PO-Revision-Date: 2010-08-04 10:55+1000\n"
+"PO-Revision-Date: 2010-08-05 15:33+1000\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -2408,7 +2408,7 @@ msgstr ""
 "Удаляет все разделы на выбранных устройствах, в том числе разделы, "
 "созданные другими операционными системами.\n"
 "\n"
-"<b>Совет:</b> Это приведет к удалению данных на выбранных "
+"<b>Совет:</b> Это приведёт к удалению данных на выбранных "
 "устройствах. Убедитесь, что у вас есть резервные копии."
 
 #: pyanaconda/iw/autopart_type.py:236
@@ -2567,7 +2567,7 @@ msgstr "Объем"
 #: pyanaconda/iw/filter_gui.py:499 pyanaconda/iw/filter_gui.py:510
 #: pyanaconda/iw/filter_gui.py:521
 msgid "Vendor"
-msgstr "Поставщик"
+msgstr "Производитель"
 
 #: pyanaconda/iw/cleardisks_gui.py:130 pyanaconda/iw/cleardisks_gui.py:149
 #: pyanaconda/iw/filter_gui.py:497 pyanaconda/iw/filter_gui.py:508
@@ -2579,7 +2579,7 @@ msgstr "Идентификатор"
 #: pyanaconda/iw/filter_gui.py:500 pyanaconda/iw/filter_gui.py:511
 #: pyanaconda/iw/filter_gui.py:522
 msgid "Interconnect"
-msgstr "Взаимосвязь"
+msgstr "Соединение"
 
 #: pyanaconda/iw/cleardisks_gui.py:145
 msgid ""
@@ -6245,9 +6245,8 @@ msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
 msgstr ""
-"<b>Совет:</b> Устройства на намеченной для установки системы будут "
-"переформатированы, и с них будут удалены все данные.  Убедитесь, что есть "
-"резервные копии."
+"<b>Совет:</b> Устройства в устанавливаемой системе будут отформатированы с "
+"потерей данных.  Проверьте наличие резервных копий."
 
 #: data/ui/cleardisks.glade.h:4
 msgid ""
@@ -6392,7 +6391,7 @@ msgstr "Стандартные устройства"
 
 #: data/ui/filter.glade.h:4
 msgid "Filter By:"
-msgstr "Фильтр по:"
+msgstr "Фильтр:"
 
 #: data/ui/filter.glade.h:5
 msgid "Firmware RAID"
@@ -6408,8 +6407,8 @@ msgid ""
 "Vendor\n"
 "Identifier"
 msgstr ""
-"Взаимосвязь\n"
-"Поставщик\n"
+"Соединения\n"
+"Производитель\n"
 "Идентификатор"
 
 #: data/ui/filter.glade.h:10
@@ -6461,17 +6460,20 @@ msgstr "Результаты поиска:"
 msgid "Selected devices: %s (%s) out of %s (%s)."
 msgstr "Выбраны устройства: %s (%s) из %s (%s)."
 
+# KEEP SHORT, otherwise Russian translation won't fit the screen
 #: data/ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
-msgstr "Показывать идентификаторы, которые содержат:"
+msgstr "Идентификаторы, содержащие:"
 
+# KEEP SHORT, otherwise Russian translation won't fit the screen
 #: data/ui/filter.glade.h:23
 msgid "Show Only Devices From:"
-msgstr "Показывать только устройства от:"
+msgstr "Только устройства от:"
 
+# KEEP SHORT, otherwise Russian translation won't fit the screen
 #: data/ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr "Показывать только устройства, использующие:"
+msgstr "Только устройства, использующие:"
 
 #: data/ui/filter.glade.h:25
 msgid "Target:"
