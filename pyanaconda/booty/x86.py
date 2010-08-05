@@ -220,9 +220,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
             grubPath = "/boot/grub"
             cfPath = "/boot/"
 
-        if not upgrade:
-            self.writeGrubConf(instRoot, bootDev, rootDev, defaultDev, kernelList,
-                               chainList, grubTarget, grubPath, cfPath)
+        if not upgrade and not iutil.isEfi():
+            self.writeGrubConf(instRoot, bootDev, rootDev, defaultDev,
+                               kernelList, chainList, grubTarget, grubPath,
+                               cfPath)
 
         # keep track of which devices are used for the device.map
         usedDevs = set()
@@ -236,7 +237,12 @@ class x86BootloaderInfo(efiBootloaderInfo):
             self.writeDeviceMap(instRoot, usedDevs, upgrade)
             self.writeSysconfig(instRoot, grubTarget, upgrade)
 
-        return self.installGrub(instRoot, bootDev, grubTarget, grubPath, cfPath)
+        ret = self.installGrub(instRoot, bootDev, grubTarget, grubPath, cfPath)
+        if iutil.isEfi():
+            self.writeGrubConf(instRoot, bootDev, rootDev, defaultDev,
+                               kernelList, chainList, grubTarget, grubPath,
+                               cfPath)
+        return ret
 
     def writeGrubConf(self, instRoot, bootDev, rootDev, defaultDev, kernelList,
                       chainList, grubTarget, grubPath, cfPath):
@@ -267,12 +273,19 @@ class x86BootloaderInfo(efiBootloaderInfo):
             f.write("# NOTICE:  You do not have a /boot partition.  "
                     "This means that\n")
             f.write("#          all kernel and initrd paths are relative "
-                    "to /, eg.\n")            
-        
+                    "to /, eg.\n")
+
         f.write('#          root %s\n' % self.grubbyPartitionName(bootDevs[0]))
         f.write("#          kernel %svmlinuz-version ro root=%s\n" % (cfPath, rootDev.path))
         f.write("#          initrd %sinitrd-[generic-]version.img\n" % (cfPath))
         f.write("#boot=/dev/%s\n" % (grubTarget))
+
+        if iutil.isEfi():
+            from product import productName
+            # Map the target device to the full EFI path
+            if self.getEfiProductPath(productName):
+                (n, pn) = getDiskPart(bootDevs[0], self.storage)
+                f.write("device (%s) %s\n" % (self.grubbyDiskName(n), self.getEfiProductPath(productName)))
 
         # get the default image to boot... we have to walk and find it
         # since grub indexes by where it is in the config file
