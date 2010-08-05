@@ -1262,8 +1262,12 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 sleep(3);
                 newtPopWindow();
             }
-            else
+            else {
                 logMessage(DEBUGLVL, "This appears to be a boot.iso.");
+                umountStage2();
+                free(url);
+                url = NULL;
+            }
 
             skipLangKbd = 1;
             flags |= LOADER_FLAGS_NOPASS;
