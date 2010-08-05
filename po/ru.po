@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-07-29 04:08-1000\n"
-"PO-Revision-Date: 2010-08-04 10:47+1000\n"
+"PO-Revision-Date: 2010-08-05 15:25+1000\n"
 "Last-Translator: \n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -2523,7 +2523,7 @@ msgstr "Объём"
 #: iw/cleardisks_gui.py:129 iw/filter_gui.py:485 iw/filter_gui.py:505
 #: iw/filter_gui.py:516 iw/filter_gui.py:527
 msgid "Vendor"
-msgstr "Поставщик"
+msgstr "Производитель"
 
 #: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:488
 #: iw/filter_gui.py:503 iw/filter_gui.py:514 iw/filter_gui.py:530
@@ -2533,7 +2533,7 @@ msgstr "Идентификатор"
 #: iw/cleardisks_gui.py:131 iw/filter_gui.py:486 iw/filter_gui.py:506
 #: iw/filter_gui.py:517 iw/filter_gui.py:528
 msgid "Interconnect"
-msgstr "Взаимосвязь"
+msgstr "Соединение"
 
 #: iw/cleardisks_gui.py:145
 msgid ""
@@ -6265,7 +6265,7 @@ msgid ""
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
 msgstr ""
-"<b>Подсказка:</b> Выбор диска на этом экране не означает, что он будет очищен в "
+"<b>Подсказка:</b> выбор диска на этом экране не означает, что он будет очищен в "
 "процессе установки. Если диски не выбраны на этом этапе, их можно будет подключить после установки, отредактировав файл /etc/fstab."
 
 # KEEP SHORT, full translation does not fit the screen!
@@ -6279,7 +6279,7 @@ msgstr "Стандартные устройства"
 
 #: ui/filter.glade.h:6
 msgid "Filter By:"
-msgstr "Фильтр по:"
+msgstr "Фильтр:"
 
 #: ui/filter.glade.h:7
 msgid "Firmware RAID"
@@ -6295,8 +6295,8 @@ msgid ""
 "Vendor\n"
 "Identifier"
 msgstr ""
-"Взаимосвязь\n"
-"Поставщик\n"
+"Соединения\n"
+"Производитель\n"
 "Идентификатор"
 
 #: ui/filter.glade.h:12
@@ -6341,17 +6341,20 @@ msgstr "Искать по:"
 msgid "Search Results:"
 msgstr "Результаты поиска:"
 
+# KEEP SHORT, otherwise Russian translation does not fit the screen
 #: ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
-msgstr "Показывать идентификаторы, которые содержат:"
+msgstr "Идентификаторы, содержащие:"
 
+# KEEP SHORT, otherwise Russian translation does not fit the screen
 #: ui/filter.glade.h:23
 msgid "Show Only Devices From:"
-msgstr "Показывать только устройства от:"
+msgstr "Только устройства от:"
 
+# KEEP SHORT, otherwise Russian translation does not fit the screen
 #: ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr "Показывать только устройства, использующие:"
+msgstr "Только устройства, использующие:"
 
 #: ui/filter.glade.h:25
 msgid "Target:"
