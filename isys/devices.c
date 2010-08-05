@@ -30,6 +30,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <limits.h>
+#include <net/if_arp.h>
 
 #include "devices.h"
 
@@ -171,7 +172,7 @@ storagedone:
                 return NULL;
             }
 
-            if (type != 1)
+            if (type != ARPHRD_ETHER && type != ARPHRD_SLIP)
                 continue;
 
             new = calloc(1, sizeof(struct device));
