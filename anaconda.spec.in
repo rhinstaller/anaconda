@@ -223,6 +223,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Aug 05 2010 Chris Lumens <clumens@redhat.com> - 14.15-1
+- Fix typo and set mpaths' sysfs path before querying udevdb. (#620712)
+  (dlehman)
+- services is a set, not a list (#620900, akozumpl). (clumens)
+- Honor bootdrive selection when autopartitioning (#620442) (hdegoede)
+- shutdown: Use lstat to test for /lib64 (hdegoede)
+- shutdown: don't unmount /sys and /proc (hdegoede)
+
 * Mon Aug 02 2010 Chris Lumens <clumens@redhat.com> - 14.14-1
 - Write out correct nfs url for repo= in /root/anaconda-ks.cfg (#584580)
   (rvykydal)

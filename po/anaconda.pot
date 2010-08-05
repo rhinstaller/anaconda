@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 14.13\n"
+"Project-Id-Version: anaconda 14.14\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-08-02 12:29-0400\n"
+"POT-Creation-Date: 2010-08-05 16:19-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -408,7 +408,7 @@ msgstr ""
 msgid "_Retry"
 msgstr ""
 
-#: pyanaconda/gui.py:1239 pyanaconda/storage/partitioning.py:281
+#: pyanaconda/gui.py:1239 pyanaconda/storage/partitioning.py:284
 msgid "The system will now reboot."
 msgstr ""
 
@@ -3086,8 +3086,8 @@ msgstr ""
 msgid "About LVM"
 msgstr ""
 
-#: pyanaconda/iw/partition_gui.py:1586 pyanaconda/storage/partitioning.py:201
-#: pyanaconda/storage/partitioning.py:244
+#: pyanaconda/iw/partition_gui.py:1586 pyanaconda/storage/partitioning.py:204
+#: pyanaconda/storage/partitioning.py:247
 msgid "Error Partitioning"
 msgstr ""
 
@@ -4796,7 +4796,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: pyanaconda/storage/formats/fs.py:545 pyanaconda/storage/partitioning.py:280
+#: pyanaconda/storage/formats/fs.py:545 pyanaconda/storage/partitioning.py:283
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4885,23 +4885,23 @@ msgstr ""
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:195
+#: pyanaconda/storage/partitioning.py:198
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:198
+#: pyanaconda/storage/partitioning.py:201
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:227
+#: pyanaconda/storage/partitioning.py:230
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:229
+#: pyanaconda/storage/partitioning.py:232
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4909,15 +4909,15 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:243
-#: pyanaconda/storage/partitioning.py:264
+#: pyanaconda/storage/partitioning.py:246
+#: pyanaconda/storage/partitioning.py:267
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:245
+#: pyanaconda/storage/partitioning.py:248
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4925,18 +4925,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:266
+#: pyanaconda/storage/partitioning.py:269
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:268
+#: pyanaconda/storage/partitioning.py:271
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: pyanaconda/storage/partitioning.py:269
+#: pyanaconda/storage/partitioning.py:272
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
