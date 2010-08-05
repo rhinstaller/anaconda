@@ -914,6 +914,7 @@ class DeviceTree(object):
             return None
 
         if name in self._ignoredDisks:
+            log.debug("device '%s' in ignoredDisks" % name)
             return True
 
         # Special handling for mdraid external metadata sets (mdraid BIOSRAID):
@@ -947,6 +948,7 @@ class DeviceTree(object):
            not (udev_device_is_md(info) and
                 not udev_device_get_md_container(info)):
             if self.exclusiveDisks and name not in self.exclusiveDisks:
+                log.debug("device '%s' not in exclusiveDisks" % name)
                 self.addIgnoredDisk(name)
                 return True
 
@@ -1916,6 +1918,8 @@ class DeviceTree(object):
 
     def populate(self):
         """ Locate all storage devices. """
+        log.debug("DeviceTree.populate: ignoredDisks is %s ; exclusiveDisks is %s"
+                    % (self._ignoredDisks, self.exclusiveDisks))
 
         # mark the tree as unpopulated so exception handlers can tell the
         # exception originated while finding storage devices
