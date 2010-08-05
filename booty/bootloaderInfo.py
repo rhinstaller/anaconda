@@ -599,7 +599,7 @@ class efiBootloaderInfo(bootloaderInfo):
     # XXX wouldn't it be nice to have a real interface to use efibootmgr from?
     def removeOldEfiEntries(self, instRoot):
         p = os.pipe()
-        rc = iutil.execWithRedirect('/usr/sbin/efibootmgr', [],
+        rc = iutil.execWithRedirect('efibootmgr', [],
                                     root = instRoot, stdout = p[1])
         os.close(p[1])
         if rc:
@@ -618,7 +618,7 @@ class efiBootloaderInfo(bootloaderInfo):
                 continue
             if string.join(fields[1:], " ") == productName:
                 entry = fields[0][4:8]
-                rc = iutil.execWithRedirect('/usr/sbin/efibootmgr',
+                rc = iutil.execWithRedirect('efibootmgr',
                                             ["-b", entry, "-B"],
                                             root = instRoot,
                                             stdout="/dev/tty5", stderr="/dev/tty5")
@@ -650,13 +650,47 @@ class efiBootloaderInfo(bootloaderInfo):
             bootdisk.startswith('rd/') or bootdisk.startswith('sx8/')):
             bootdisk = bootdisk[:-1]
 
-        argv = [ "/usr/sbin/efibootmgr", "-c" , "-w", "-L",
+        argv = [ "efibootmgr", "-c" , "-w", "-L",
                  productName, "-d", "/dev/%s" % bootdisk,
                  "-p", bootpart, "-l", "\\EFI\\redhat\\" + self.bootloader ]
         rc = iutil.execWithRedirect(argv[0], argv[1:], root = instRoot,
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
         return rc
+
+    def getEfiProductPath(self, productName, force=False):
+        """ Return the full EFI path of the installed product.
+            eg. HD(4,2c8800,64000,902c1655-2677-4455-b2a5-29d0ce835610)
+
+            pass force=True to skip the cache and rerun efibootmgr
+        """
+        if not force and self._efiProductPath:
+            return self._efiProductPath
+
+        argv = [ "efibootmgr", "-v" ]
+        buf = iutil.execWithCapture(argv[0], argv[1:],
+                                    stderr="/dev/tty5")
+
+        efiProductPath = None
+        for line in buf.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            if productName in line:
+                efiProductPath = line[line.rfind(productName)+len(productName):].strip()
+                break
+
+        if efiProductPath:
+            # Grab just the drive path
+            import re
+            m = re.match("(.*?\(.*?\)).*", efiProductPath)
+            if m:
+                efiProductPath = m.group(1)
+            else:
+                efiProductPath = None
+
+        self._efiProductPath = efiProductPath
+        return self._efiProductPath
 
     def installGrub(self, instRoot, bootDev, grubTarget, grubPath, cfPath):
         if not iutil.isEfi():
@@ -671,6 +705,8 @@ class efiBootloaderInfo(bootloaderInfo):
             bootloaderInfo.__init__(self, instData)
         else:
             self.storage = instData.storage
+
+        self._efiProductPath = None
 
         if iutil.isEfi():
             self._configdir = "/boot/efi/EFI/redhat"
