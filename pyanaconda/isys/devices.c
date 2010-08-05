@@ -30,6 +30,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <limits.h>
+#include <net/if_arp.h>
 
 #include "devices.h"
 
@@ -172,7 +173,8 @@ storagedone:
             }
 
             /* S390 channel-to-channnel devices have type 256 */
-            if ((type != 1) && !((type == 256) && !strncmp(ent->d_name, "ctc", 3)))
+            if ((type != ARPHRD_ETHER) &&
+                !((type == ARPHRD_SLIP) && !strncmp(ent->d_name, "ctc", 3)))
                 continue;
 
             new = calloc(1, sizeof(struct device));
