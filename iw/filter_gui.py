@@ -50,7 +50,7 @@ VENDOR_COL = 7
 INTERCONNECT_COL = 8
 SERIAL_COL = 9
 ID_COL = 10
-PATHS_COL = 11
+MEMBERS_COL = 11
 PORT_COL = 12
 TARGET_COL = 13
 LUN_COL = 14
@@ -416,6 +416,9 @@ class FilterWindow(InstallWindow):
         selected = set()
         for dev in self.pages[0].ds.getSelected():
             selected.add(udev_device_get_name(dev[OBJECT_COL]))
+            if isMultipath(dev[OBJECT_COL]) or isRAID(dev[OBJECT_COL]):
+                members = dev[MEMBERS_COL].split("\n")
+                selected.update(set(members))
 
         if len(selected) == 0:
             self.anaconda.intf.messageWindow(_("Error"),
@@ -504,7 +507,7 @@ class FilterWindow(InstallWindow):
         np.ds.addColumn(_("Capacity"), CAPACITY_COL)
         np.ds.addColumn(_("Vendor"), VENDOR_COL)
         np.ds.addColumn(_("Interconnect"), INTERCONNECT_COL)
-        np.ds.addColumn(_("Paths"), PATHS_COL)
+        np.ds.addColumn(_("Paths"), MEMBERS_COL)
         np.ds.addColumn(_("Device"), DEVICE_COL, displayed=False)
         return np
 
@@ -750,7 +753,8 @@ class FilterWindow(InstallWindow):
 
                 model = "BIOS RAID set (%s)" % rs.rs.set_type
                 tuple = (data, True, _active(data), _isProtected(data), rs.name,
-                         model, str(size) + " MB", "", "", "", "", "", "", "", "")
+                         model, str(size) + " MB", "", "", "", "",
+                         "\n".join(members), "", "", "")
                 _addTuple(tuple)
 
             unused_raidmembers = []
