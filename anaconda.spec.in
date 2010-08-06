@@ -221,6 +221,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Aug 06 2010 David Cantrell <david.l.cantrell@gmail.com> - 13.21.70-1
+- Require newest pykickstart. (david.l.cantrell)
+  Related: rhbz#620855
+- Correct processing of driverdisk --biospart=. (clumens)
+  Related: rhbz#620855
+- Log exclusiveDisks, ignoredDisks, and reasons for ignoring devices. (dlehman)
+  Related: rhbz#616273
+  Related: rhbz#596468
+- Include mpath/fwraid member devices in exclusiveDisks. (dlehman)
+  Related: rhbz#616273
+  Resolves: rhbz#596468
+- Use full EFI path to map drives for grub (bcl)
+  Resolves: rhbz#598572
+
 * Thu Aug 05 2010 David Cantrell <david.l.cantrell@gmail.com> - 13.21.69-1
 - Use part instead of device in PartitionWindow.populate() (dcantrell)
   Resolves: rhbz#575749

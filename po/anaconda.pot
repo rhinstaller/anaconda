@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.68\n"
+"Project-Id-Version: anaconda 13.21.69\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-08-05 11:30-1000\n"
+"POT-Creation-Date: 2010-08-06 10:53-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -123,7 +123,7 @@ msgstr ""
 #: iw/advanced_storage.py:86 iw/advanced_storage.py:96
 #: iw/advanced_storage.py:170 iw/advanced_storage.py:173
 #: iw/advanced_storage.py:201 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
-#: iw/cleardisks_gui.py:54 iw/filter_gui.py:421 iw/osbootwidget.py:211
+#: iw/cleardisks_gui.py:54 iw/filter_gui.py:424 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:220 iw/raid_dialog_gui.py:223 iw/task_gui.py:54
 #: iw/task_gui.py:155 iw/task_gui.py:302 iw/task_gui.py:463
 #: loader/windows.h:31 loader/cdinstall.c:228 loader/cdinstall.c:504
@@ -2152,7 +2152,7 @@ msgstr ""
 msgid "Clear Disks Selector"
 msgstr ""
 
-#: iw/cleardisks_gui.py:45 iw/filter_gui.py:422
+#: iw/cleardisks_gui.py:45 iw/filter_gui.py:425
 msgid "You must select at least one drive to be used for installation."
 msgstr ""
 
@@ -2160,29 +2160,29 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:483
-#: iw/filter_gui.py:495 iw/filter_gui.py:525
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:486
+#: iw/filter_gui.py:498 iw/filter_gui.py:528
 msgid "Model"
 msgstr ""
 
-#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:484
-#: iw/filter_gui.py:496 iw/filter_gui.py:504 iw/filter_gui.py:515
-#: iw/filter_gui.py:526
+#: iw/cleardisks_gui.py:128 iw/cleardisks_gui.py:148 iw/filter_gui.py:487
+#: iw/filter_gui.py:499 iw/filter_gui.py:507 iw/filter_gui.py:518
+#: iw/filter_gui.py:529
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:485 iw/filter_gui.py:505
-#: iw/filter_gui.py:516 iw/filter_gui.py:527
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:488 iw/filter_gui.py:508
+#: iw/filter_gui.py:519 iw/filter_gui.py:530
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:488
-#: iw/filter_gui.py:503 iw/filter_gui.py:514 iw/filter_gui.py:530
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:491
+#: iw/filter_gui.py:506 iw/filter_gui.py:517 iw/filter_gui.py:533
 msgid "Identifier"
 msgstr ""
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:486 iw/filter_gui.py:506
-#: iw/filter_gui.py:517 iw/filter_gui.py:528
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:489 iw/filter_gui.py:509
+#: iw/filter_gui.py:520 iw/filter_gui.py:531
 msgid "Interconnect"
 msgstr ""
 
@@ -2299,29 +2299,29 @@ msgstr ""
 msgid "Device Filter"
 msgstr ""
 
-#: iw/filter_gui.py:487 iw/filter_gui.py:518 iw/filter_gui.py:529
+#: iw/filter_gui.py:490 iw/filter_gui.py:521 iw/filter_gui.py:532
 msgid "Serial Number"
 msgstr ""
 
-#: iw/filter_gui.py:489 iw/filter_gui.py:497 iw/filter_gui.py:508
-#: iw/filter_gui.py:519 iw/filter_gui.py:534 iw/osbootwidget.py:66
+#: iw/filter_gui.py:492 iw/filter_gui.py:500 iw/filter_gui.py:511
+#: iw/filter_gui.py:522 iw/filter_gui.py:537 iw/osbootwidget.py:66
 #: iw/partition_gui.py:611
 msgid "Device"
 msgstr ""
 
-#: iw/filter_gui.py:507
+#: iw/filter_gui.py:510
 msgid "Paths"
 msgstr ""
 
-#: iw/filter_gui.py:531
+#: iw/filter_gui.py:534
 msgid "Port"
 msgstr ""
 
-#: iw/filter_gui.py:532
+#: iw/filter_gui.py:535
 msgid "Target"
 msgstr ""
 
-#: iw/filter_gui.py:533
+#: iw/filter_gui.py:536
 msgid "LUN"
 msgstr ""
 
@@ -4593,7 +4593,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1905 storage/devicetree.py:1953
+#: storage/devicetree.py:1907 storage/devicetree.py:1955
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
