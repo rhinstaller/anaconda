@@ -227,10 +227,8 @@ update-desktop-database &> /dev/null || :
 - Correct processing of driverdisk --biospart=. (clumens)
   Related: rhbz#620855
 - Log exclusiveDisks, ignoredDisks, and reasons for ignoring devices. (dlehman)
-  Related: rhbz#616273
   Related: rhbz#596468
 - Include mpath/fwraid member devices in exclusiveDisks. (dlehman)
-  Related: rhbz#616273
   Resolves: rhbz#596468
 - Use full EFI path to map drives for grub (bcl)
   Resolves: rhbz#598572
