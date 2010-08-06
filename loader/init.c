@@ -96,6 +96,8 @@ char * env[] = {
     NULL
 };
 
+static char *VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0";
+
 /* 
  * this needs to handle the following cases:
  *
@@ -108,7 +110,7 @@ char * env[] = {
 
 void shutDown(int doKill, reboot_action rebootAction);
 static int getKillPolicy(void);
-static gchar *getSyslog(gchar **);
+static int getSyslog(gchar **, gchar **);
 static int onQEMU(void);
 struct termios ts;
 
@@ -147,28 +149,26 @@ static void startSyslog(void) {
     const char *forward_format_virtio = ";virtio_ForwardFormat\n";
 
     /* update the config file with command line arguments first */
-    addr = getSyslog(&virtiolog);
-    if (addr != NULL) {
+    
+    if (getSyslog(&addr, &virtiolog)) {
         conf_fd = open("/etc/rsyslog.conf", O_WRONLY|O_APPEND);
         if (conf_fd < 0) {
             printf("error opening /etc/rsyslog.conf: %d\n", errno);
             printf("syslog forwarding will not be enabled\n");
             sleep(5);
         } else {
-            ret = write(conf_fd, forward_tcp, strlen(forward_tcp));
-            ret = write(conf_fd, addr, strlen(addr));
-            ret = write(conf_fd, forward_format_tcp, strlen(forward_format_tcp));
-
+            if (addr != NULL) {
+                ret = write(conf_fd, forward_tcp, strlen(forward_tcp));
+                ret = write(conf_fd, addr, strlen(addr));
+                ret = write(conf_fd, forward_format_tcp, strlen(forward_format_tcp));
+            }
             if (virtiolog != NULL) {
                 ret = write(conf_fd, forward_virtio, strlen(forward_virtio));
                 ret = write(conf_fd, virtiolog, strlen(virtiolog));
                 ret = write(conf_fd, forward_format_virtio, strlen(forward_format_virtio));
             }
-
             close(conf_fd);
         }
-
-        g_free(addr);
     }
 
     /* rsyslog is going to take care of things, so disable console logging */
@@ -323,29 +323,22 @@ static int getKillPolicy(void) {
  * line.  Remote virtio-serial logging is enabled if the declared virtio port
  * exists.
  */
-static gchar *getSyslog(gchar **virtiolog) {
+static int getSyslog(gchar **addr, gchar **virtiolog) {
     gpointer value = NULL;
-    gchar *addr = NULL;
-    const char *virtio_port = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0";
+    int ret = 0;
 
-    if (!g_hash_table_lookup_extended(cmdline, "syslog", NULL, &value)) {
-        return NULL;
-    } else {
-        addr = (gchar *) value;
-    }
-
-    if (!g_hash_table_lookup_extended(cmdline, "virtiolog", NULL, &value)) {
-        *virtiolog = NULL;
-    } else {
-        *virtiolog = (gchar *) value;
-
-        /* virtiolog can only be letters and digits, dots, dashes
-         * and underscores */
-        if (!g_regex_match_simple("^[\\w.-_]*$", *virtiolog, 0, 0)) {
-            /* the parameter is malformed, disable its use */
-            *virtiolog = NULL;
-            printf("The virtiolog= command line parameter is malformed and will\n");
-            printf("be ignored by the installer.\n");
+    if (g_hash_table_lookup_extended(cmdline, "syslog", NULL, &value)) {
+        *addr = (gchar *) value;
+        /* address can be either a hostname or IPv4 or IPv6, with or without port;
+           thus we only allow the following characters in the address: letters and
+           digits, dots, colons, slashes, dashes and square brackets */
+        if (g_regex_match_simple("^[\\w.:/\\-\\[\\]]*$", *addr, 0, 0)) {
+            ++ret;
+        } else {
+            /* malformed, disable use */
+            *addr = NULL;
+            printf("The syslog= command line parameter is malformed and will be\n");
+            printf("ignored by the installer.\n");
             sleep(5);
         }
     }
@@ -359,25 +352,14 @@ static gchar *getSyslog(gchar **virtiolog) {
         } else {
             printf("done.\n");
         }
-        if (!access(virtio_port, W_OK)) {
+        if (!access(VIRTIO_PORT, W_OK)) {
             /* that means we really have virtio-serial logging */
-            g_free(*virtiolog);
-            *virtiolog = g_strdup(virtio_port);
+            *virtiolog = VIRTIO_PORT;
+            ++ret;
         }
     }
 
-    /* address can be either a hostname or IPv4 or IPv6, with or without port;
-       thus we only allow the following characters in the address: letters and
-       digits, dots, colons, slashes, dashes and square brackets */
-    if (!g_regex_match_simple("^[\\w.:/\\-\\[\\]]*$", addr, 0, 0)) {
-        /* the parameter is malformed, disable its use */
-        addr = NULL;
-        printf("The syslog= command line parameter is malformed and will be\n");
-        printf("ignored by the installer.\n");
-        sleep(5);
-    }
-
-    return addr;
+    return ret;
 }
 
 /* 
