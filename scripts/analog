@@ -82,7 +82,7 @@ authpriv.*                                          ?path_syslog;anaconda_syslog
 :programname, isequal, "anaconda"                   ?path_anaconda;anaconda_syslog
 :programname, isequal, "anaconda-tb"                ?path_anaconda_tb;anaconda_justmsg
 :programname, isequal, "program"                    ?path_program;anaconda_syslog
-:programname, isequal, "storage:"                   ?path_storage;anaconda_syslog
+:programname, isequal, "storage"                    ?path_storage;anaconda_syslog
 :programname, isequal, "xserver"                    ?path_xserver;anaconda_justmsg
 :hostname, isequal, "sysimage"                      ?path_sysimage;anaconda_syslog
 
