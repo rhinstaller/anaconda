@@ -727,9 +727,9 @@ static void getDDFromDev(struct loaderData_s * loaderData, char * dev, GTree *mo
 void useKickstartDD(struct loaderData_s * loaderData,
                     int argc, char ** argv) {
     char * dev = NULL;
-    char * biospart = NULL, * p = NULL; 
+    char * p = NULL; 
     gchar *fstype = NULL, *src = NULL;
-    gint usebiosdev = 0;
+    gchar *biospart = NULL;
     gchar **remaining = NULL;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
@@ -737,7 +737,7 @@ void useKickstartDD(struct loaderData_s * loaderData,
         /* The --type option is deprecated and now has no effect. */
         { "type", 0, 0, G_OPTION_ARG_STRING, &fstype, NULL, NULL },
         { "source", 0, 0, G_OPTION_ARG_STRING, &src, NULL, NULL },
-        { "biospart", 0, 0, G_OPTION_ARG_INT, &usebiosdev, NULL, NULL },
+        { "biospart", 0, 0, G_OPTION_ARG_STRING, &biospart, NULL, NULL },
         { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
           NULL, NULL },
         { NULL },
@@ -763,25 +763,27 @@ void useKickstartDD(struct loaderData_s * loaderData,
         dev = remaining[0];
     }
 
-    if (!dev && !src) {
+    if (!dev && !biospart && !src) {
         logMessage(ERROR, "bad arguments to kickstart driver disk command");
         return;
     }
 
-    if (usebiosdev != 0) {
-        p = strchr(dev,'p');
+    if (biospart) {
+        char *disk = NULL;
+
+        p = strchr(biospart,'p');
         if (!p){
             logMessage(ERROR, "Bad argument for biospart");
             return;
         }
         *p = '\0';
-        
-        biospart = getBiosDisk(dev);
-        if (biospart == NULL) {
-            logMessage(ERROR, "Unable to locate BIOS dev %s",dev);
+
+        disk = getBiosDisk(biospart);
+        if (disk == NULL) {
+            logMessage(ERROR, "Unable to locate BIOS dev %s", biospart);
             return;
         }
-        dev = malloc(strlen(biospart) + strlen(p + 1) + 2);
+        dev = malloc(strlen(disk) + strlen(p + 1) + 2);
         sprintf(dev, "%s%s", biospart, p + 1);
     }
 
