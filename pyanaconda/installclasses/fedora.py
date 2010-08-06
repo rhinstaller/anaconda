@@ -121,7 +121,7 @@ class InstallClass(BaseInstallClass):
 
         # This line means we do not support upgrading from anything older
         # than two versions ago!
-        return newVer > oldVer and newVer - oldVer <= 2
+        return newVer >= oldVer and newVer - oldVer <= 2
 
     def __init__(self):
 	BaseInstallClass.__init__(self)
