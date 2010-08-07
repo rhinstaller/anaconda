@@ -1546,7 +1546,7 @@ int doDhcp(struct networkDeviceConfig *dev) {
     pid_t pid;
     key_t key;
     int mturet;
-    int culvert[2];
+    int culvert[2], domainp[2];
     char buf[PATH_MAX];
 
     /* clear existing IP addresses */
@@ -1613,7 +1613,11 @@ int doDhcp(struct networkDeviceConfig *dev) {
         strncpy(pumpdev->device, dev->dev.device, IF_NAMESIZE);
 
         if (pipe(culvert) == -1) {
-            logMessage(ERROR, "%s: pipe(): %s", __func__, strerror(errno));
+            logMessage(ERROR, "%s: culvert pipe(): %s", __func__, strerror(errno));
+            return 1;
+        }
+        if (pipe(domainp) == -1) {
+            logMessage(ERROR, "%s: domainp pipe(): %s", __func__, strerror(errno));
             return 1;
         }
 
@@ -1621,6 +1625,7 @@ int doDhcp(struct networkDeviceConfig *dev) {
         pid = fork();
         if (pid == 0) {
             close(culvert[0]);
+            close(domainp[0]);
 
             if (pumpdev->set & PUMP_INTFINFO_HAS_MTU) {
                 mturet = nl_set_device_mtu((char *) pumpdev->device, pumpdev->mtu);
@@ -1667,10 +1672,11 @@ int doDhcp(struct networkDeviceConfig *dev) {
 
             if (pumpdev->set & PUMP_NETINFO_HAS_DOMAIN) {
                 if (pumpdev->domain) {
-                    if (setdomainname(pumpdev->domain,
-                                      strlen(pumpdev->domain)) == -1) {
-                        logMessage(ERROR, "failed to set domain name in %s: %s",
-                                   __func__, strerror(errno));
+                    if (write(domainp[1], pumpdev->domain,
+                              strlen(pumpdev->domain) + 1) == -1) {
+                        logMessage(ERROR, "failed to send domain name to parent "
+                                          "in %s: %s", __func__,
+                                   strerror(errno));
                     }
                 }
             }
@@ -1687,11 +1693,13 @@ int doDhcp(struct networkDeviceConfig *dev) {
             }
 
             close(culvert[1]);
+            close(domainp[1]);
             exit(0);
         } else if (pid == -1) {
             logMessage(CRITICAL, "dhcp client failed to start");
         } else {
             close(culvert[1]);
+            close(domainp[1]);
 
             if (waitpid(pid, &status, 0) == -1) {
                 logMessage(ERROR, "waitpid() failure in %s", __func__);
@@ -1743,20 +1751,32 @@ int doDhcp(struct networkDeviceConfig *dev) {
             }
 
             if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN) {
+                memset(&buf, '\0', sizeof(buf));
                 if (dev->dev.domain) {
                     free(dev->dev.domain);
                     dev->dev.domain = NULL;
                 }
 
-                memset(namebuf, '\0', HOST_NAME_MAX);
+                while ((sz = read(domainp[0], &buf, sizeof(buf))) > 0) {
+                    if (dev->dev.domain == NULL) {
+                        dev->dev.domain = calloc(sizeof(char), sz + 1);
+                        if (dev->dev.domain == NULL) {
+                            logMessage(ERROR, "unable to read domain name");
+                            break;
+                        }
 
-                if (getdomainname(namebuf, HOST_NAME_MAX) == -1) {
-                    logMessage(ERROR, "unable to get domain name %s: %s",
-                               __func__, strerror(errno));
-                }
+                        dev->dev.domain = strncpy(dev->dev.domain, buf, sz);
+                    } else {
+                        dev->dev.domain = realloc(dev->dev.domain,
+                                                    strlen(dev->dev.domain) +
+                                                    sz + 1);
+                        if (dev->dev.domain == NULL) {
+                            logMessage(ERROR, "unable to read domain name");
+                            break;
+                        }
 
-                if (namebuf != NULL) {
-                    dev->dev.domain = strdup(namebuf);
+                        dev->dev.domain = strncat(dev->dev.domain, buf, sz);
+                    }
                 }
             }
 
@@ -1789,6 +1809,7 @@ int doDhcp(struct networkDeviceConfig *dev) {
             }
 
             close(culvert[0]);
+            close(domainp[0]);
 
             if (shmdt(pumpdev) == -1) {
                 logMessage(ERROR, "%s: shmdt() pumpdev: %s", __func__,
