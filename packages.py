@@ -209,6 +209,7 @@ def setFileCons(anaconda):
                  "/etc/blkid.tab", "/etc/blkid.tab.old", 
                  "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
+                 "/etc/modprobe.d/noipv6",
                  "/var/log/wtmp", "/var/run/utmp",
                  "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab",
                  "/etc/mdadm.conf", "/etc/hosts", "/etc/sysconfig/network",
