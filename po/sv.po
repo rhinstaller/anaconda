@@ -3,17 +3,16 @@
 # Magnus Larsson <fedoratrans@gmail.com>, 2007-2009.
 # Göran Uddeborg <goeran@uddeborg.se>, 2008-2010.
 #
-# $Id: anaconda.po,v 1.20.1.6 2010-06-04 21:50:35+02 göran Exp göran $
+# $Id: anaconda.po,v 1.20.1.7 2010-08-08 13:27:40+02 göran Exp $
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-29 04:08-1000\n"
-"PO-Revision-Date: 2010-06-04 21:50+0200\n"
+"POT-Creation-Date: 2010-08-05 11:30-1000\n"
+"PO-Revision-Date: 2010-08-08 13:26+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
-"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -37,9 +36,9 @@ msgstr "Tryck <retur> för ett skal"
 #: loader/kbd.c:119 loader/kickstart.c:135 loader/kickstart.c:145
 #: loader/kickstart.c:187 loader/kickstart.c:192 loader/kickstart.c:299
 #: loader/kickstart.c:331 loader/kickstart.c:520 loader/lang.c:114
-#: loader/lang.c:373 loader/loader.c:433 loader/loader.c:469
-#: loader/loader.c:509 loader/loader.c:527 loader/loader.c:544
-#: loader/loader.c:581 loader/loader.c:1203 loader/loader.c:1402
+#: loader/lang.c:373 loader/loader.c:434 loader/loader.c:470
+#: loader/loader.c:510 loader/loader.c:528 loader/loader.c:545
+#: loader/loader.c:582 loader/loader.c:1204 loader/loader.c:1407
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
@@ -142,8 +141,8 @@ msgstr ""
 #: loader/driverdisk.c:536 loader/driverdisk.c:544 loader/driverdisk.c:611
 #: loader/hdinstall.c:115 loader/hdinstall.c:325 loader/hdinstall.c:440
 #: loader/hdinstall.c:483 loader/hdinstall.c:496 loader/kickstart.c:299
-#: loader/lang.c:114 loader/loader.c:433 loader/loader.c:544
-#: loader/loader.c:1203 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/lang.c:114 loader/loader.c:434 loader/loader.c:545
+#: loader/loader.c:1204 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
@@ -344,8 +343,8 @@ msgstr ""
 
 #: gui.py:733 gui.py:1489 partIntfHelpers.py:153 partIntfHelpers.py:338
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
-#: loader/driverdisk.c:411 loader/kickstart.c:331 loader/loader.c:469
-#: loader/loader.c:581 textw/constants_text.py:48
+#: loader/driverdisk.c:411 loader/kickstart.c:331 loader/loader.c:470
+#: loader/loader.c:582 textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -393,8 +392,8 @@ msgid ""
 "\n"
 "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
 "\n"
-"This action may also be applied to all other disks needing reinitialization."
-"%(details)s"
+"This action may also be applied to all other disks needing reinitialization.%"
+"(details)s"
 msgstr ""
 "Fel vid bearbetning av disk:\n"
 "\n"
@@ -475,7 +474,7 @@ msgstr "_Avsluta"
 msgid "_Retry"
 msgstr "_Försök igen"
 
-#: gui.py:1403 storage/partitioning.py:287
+#: gui.py:1403 storage/partitioning.py:290
 msgid "The system will now reboot."
 msgstr "Systemet kommer nu att startas om."
 
@@ -566,15 +565,15 @@ msgstr "Nödvändiga installationsmedia"
 #: image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following "
-"%(productName)s %(productVersion)s discs:\n"
+"The software you have selected to install will require the following %"
+"(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"Programvaran du har valt att installera kommer att kräva följande "
-"%(productName)s %(productVersion)s-skivor:\n"
+"Programvaran du har valt att installera kommer att kräva följande %"
+"(productName)s %(productVersion)s-skivor:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Ha dessa till hands innan du fortsätter med installationen. Om du måste "
@@ -601,29 +600,24 @@ msgid "Install on System"
 msgstr "Installera på system"
 
 #: installinterfacebase.py:47
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS "
 "RAID sets. Ignoring disk %s."
 msgid_plural ""
 "Disks %s contain BIOS RAID metadata, but are not part of any recognized BIOS "
 "RAID sets. Ignoring disks %s."
-msgstr[0] ""
-"Disk %s innehåller BIOS RAID-metadata, men är inte del av någon igenkänd "
-"BIOS RAID-kedja.  Ignorerar disk %s."
-msgstr[1] ""
-"Disk %s innehåller BIOS RAID-metadata, men är inte del av någon igenkänd "
-"BIOS RAID-kedja.  Ignorerar disk %s."
+msgstr[0] "Disken %s innehåller BIOS RAID-metadata, men är inte del av någon igenkänd BIOS RAID-kedja.  Ignorerar disk %s."
+msgstr[1] "Diskarna %s innehåller BIOS RAID-metadata, men är inte del av någon igenkänd BIOS RAID-kedja.  Ignorerar diskarna %s."
 
 #: installinterfacebase.py:60
-#, fuzzy
 msgid "Unformatted DASD Device Found"
 msgid_plural "Unformatted DASD Devices Found"
 msgstr[0] "Oformaterad DASD-enhet funnen"
-msgstr[1] "Oformaterad DASD-enhet funnen"
+msgstr[1] "Oformaterade DASD-enheter funna"
 
 #: installinterfacebase.py:62
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Format uninitialized DASD device?\n"
 "\n"
@@ -639,15 +633,11 @@ msgid_plural ""
 msgstr[0] ""
 "Formatera oinitierad DASD-enhet?\n"
 "\n"
-"Det finns %d oinitierad DASD-enhet på detta system.  För att fortsätta "
-"installationen behöver enheten formateras.  Formatering kommmer ta bort "
-"eventuella data på denna enhet."
+"Det finns %d oinitierad DASD-enhet på detta system.  För att fortsätta installationen behöver enheten formateras.  Formatering kommmer ta bort eventuella data på denna enhet."
 msgstr[1] ""
-"Formatera oinitierad DASD-enhet?\n"
+"Formatera oinitierade DASD-enheter?\n"
 "\n"
-"Det finns %d oinitierad DASD-enhet på detta system.  För att fortsätta "
-"installationen behöver enheten formateras.  Formatering kommmer ta bort "
-"eventuella data på denna enhet."
+"Det finns %d oinitierade DASD-enheter på detta system.  För att fortsätta installationen behöver enheterna formateras.  Formatering kommmer ta bort eventuella data på dessa enheter."
 
 #: installinterfacebase.py:74 iw/partition_gui.py:898
 msgid "_Format"
@@ -656,29 +646,29 @@ msgstr "_Formatera"
 #: iutil.py:852
 #, python-format
 msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
+"s)"
 msgstr ""
-"Fel: Vid öppning, kan inte ställa in reIPL-metod till %(reipl_type)s "
-"(%(filename)s: %(e)s)"
+"Fel: Vid öppning, kan inte ställa in reIPL-metod till %(reipl_type)s (%"
+"(filename)s: %(e)s)"
 
 #: iutil.py:863
 #, python-format
 msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
-"Fel: Vid skrivning, kan inte ställa in reIPL-metod till %(reipl_type)s "
-"(%(filename)s: %(e)s)"
+"Fel: Vid skrivning, kan inte ställa in reIPL-metod till %(reipl_type)s (%"
+"(filename)s: %(e)s)"
 
 #: iutil.py:872
 #, python-format
 msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
-"%(e)s)"
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+"(e)s)"
 msgstr ""
-"Fel: Vid stängning, kan inte ställa in reIPL-metod till %(reipl_type)s "
-"(%(filename)s: %(e)s)"
+"Fel: Vid stängning, kan inte ställa in reIPL-metod till %(reipl_type)s (%"
+"(filename)s: %(e)s)"
 
 #: iutil.py:891
 #, python-format
@@ -724,8 +714,8 @@ msgstr ""
 #: iutil.py:990
 #, python-format
 msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
-"%(wwpn)s and LUN %(lun)s to continue installation"
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
+"(wwpn)s and LUN %(lun)s to continue installation"
 msgstr ""
 "Utför efter avstängning en manuell IPL från FCP %(device)s med WWPN %(wwpn)s "
 "och LUN %(lun)s för att fortsätta installationen"
@@ -912,8 +902,8 @@ msgstr "Värdnamnet får vara högst 255 tecken långt."
 
 #: network.py:68
 msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
+"9'"
 msgstr ""
 "Värdnamnet måste börja med ett giltigt tecken i något av intervallen \"a-z"
 "\", \"A-Z\" eller \"0-9\""
@@ -1043,15 +1033,13 @@ msgid ""
 msgstr ""
 "Tack för att du har hämtat denna förhandsutgåva av %(productName)s.\n"
 "\n"
-"Detta är inte en slutgiltig version och den är inte avsedd för användning på "
-"system i produktion.  Ändamålet med denna utgåva är att samla information "
-"från testare, och den är inte lämplig för daglig användning.\n"
+"Detta är inte en slutgiltig version och den är inte avsedd för användning på system i produktion.  Ändamålet med denna utgåva är att samla information från testare, och den är inte lämplig för daglig användning.\n"
 "\n"
 "För att skicka återkoppling, besök:\n"
 "\n"
 "    %(bugzillaUrl)s\n"
 "\n"
-"och fyller i en felrapport mot \"%(fileagainst)s\".\n"
+"och fyll i en felrapport mot \"%(fileagainst)s\".\n"
 
 #: packages.py:360
 msgid "_Install anyway"
@@ -1210,14 +1198,14 @@ msgstr "Fel vid partitionering"
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
-"These errors must be corrected prior to continuing with your install of "
-"%(productName)s.\n"
+"These errors must be corrected prior to continuing with your install of %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
 "De följande ödesdigra felen finns i ditt begärda partitioneringsschema.  "
-"Dessa fel måste rättas innan du kan fortsätta med installationen av "
-"%(productName)s.\n"
+"Dessa fel måste rättas innan du kan fortsätta med installationen av %"
+"(productName)s.\n"
 "\n"
 "%(errorstr)s"
 
@@ -1557,7 +1545,7 @@ msgid "Also add this passphrase to all existing encrypted devices"
 msgstr "Lägg också till detta lösenord för alla befintliga krypterade enheter"
 
 #: text.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
 msgstr[0] "Lösenfrasen måste vara minst %d tecken lång."
@@ -1714,7 +1702,7 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "Försöker igen om 15 sekunder..."
 
 #: vnc.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] "Ger upp försök att ansluta efter %d försök!\n"
@@ -1870,7 +1858,7 @@ msgid "%s KB"
 msgstr "%s kB"
 
 #: yuminstall.py:91
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
 msgstr[0] "%s byte"
@@ -1890,7 +1878,7 @@ msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgstr "<b>Installerar %(pkgStr)s</b> (%(size)s)\n"
 
 #: yuminstall.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgstr[0] "Avklarade paket: %(donepkgs)d av %(numpkgs)d"
@@ -2055,8 +2043,8 @@ msgstr ""
 #: yuminstall.py:1067
 #, python-format
 msgid ""
-"There was an error running your transaction for the following reason(s): "
-"%s.\n"
+"There was an error running your transaction for the following reason(s): %"
+"s.\n"
 msgstr "Ett fel uppstod när din transaktion kördes av följande skäl: %s\n"
 
 #: yuminstall.py:1074 yuminstall.py:1079
@@ -2142,12 +2130,12 @@ msgstr ""
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
-"be %(myarch)s which does not match your previously installed arch of "
-"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
-"the upgrade process?"
+"be %(myarch)s which does not match your previously installed arch of %(arch)"
+"s.  This is likely to not succeed.  Are you sure you wish to continue the "
+"upgrade process?"
 msgstr ""
-"Arkitekturen på den utgåva av %(productName)s du uppgraderar verkar vara "
-"%(myarch)s vilket inte stämmer överens med din tidigare installerade "
+"Arkitekturen på den utgåva av %(productName)s du uppgraderar verkar vara %"
+"(myarch)s vilket inte stämmer överens med din tidigare installerade "
 "arkitektur %(arch)s.  Detta kommer antagligen inte att lyckas.  Är du säker "
 "på att du vill fortsätta uppgraderingsprocessen?"
 
@@ -2302,9 +2290,8 @@ msgid "You have provided a weak password: %s"
 msgstr "Du har gett ett svagt lösenord: %s"
 
 #: iw/account_gui.py:131
-#, fuzzy
 msgid "_Use Anyway"
-msgstr "Använd ändå"
+msgstr "_Använd ändå"
 
 #: iw/account_gui.py:139 textw/userauth_text.py:75
 msgid ""
@@ -2716,9 +2703,7 @@ msgstr "Normala lagringsenheter"
 msgid ""
 "Installs or upgrades to typical types of storage devices.  If you're not "
 "sure which option is right for you, this is probably it."
-msgstr ""
-"Installerar eller uppgraderar på typeska lagringsenheter.  Om du inte är "
-"säker på vilket alternativ som är rätt för dig, är det formodligen detta."
+msgstr "Installerar eller uppgraderar på typiska lagringsenheter.  Om du inte är säker på vilket alternativ som är rätt för dig, är det formodligen detta."
 
 #: iw/filter_type.py:66
 msgid "Specialized Storage Devices"
@@ -2729,7 +2714,7 @@ msgid ""
 "Installs or upgrades to enterprise devices such as Storage Area Networks "
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
-msgstr ""
+msgstr "Installerar eller uppgraderar på enheter för stora organisationer, såsom SAN (Storage Area Network).  Med detta alternativ kan du lägga till FCoE- / iSCSI- / zFCP-diskar och filtrera bort enheter installeraren skall bortse ifrån."
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2780,23 +2765,23 @@ msgstr "F_ortsätt"
 #: iw/lvm_dialog_gui.py:173
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is larger than the smallest physical volume "
-"(%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)"
+"10.2f MB) in the volume group."
 msgstr ""
-"Storleken på den fysiska ytan kan inte ändras eftersom det värde som valts "
-"(%(curpe)10.2f MB) är större än den minsta fysiska volymen "
-"(%(maxpvsize)10.2f MB) i volymgruppen."
+"Storleken på den fysiska ytan kan inte ändras eftersom det värde som valts (%"
+"(curpe)10.2f MB) är större än den minsta fysiska volymen (%(maxpvsize)"
+"10.2f MB) i volymgruppen."
 
 #: iw/lvm_dialog_gui.py:187
 #, python-format
 msgid ""
-"The physical extent size cannot be changed because the value selected "
-"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
-"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+"The physical extent size cannot be changed because the value selected (%"
+"(curpe)10.2f MB) is too large compared to the size of the smallest physical "
+"volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
-"Storleken på den fysiska ytan kan inte ändras eftersom det värde som valts "
-"(%(curpe)10.2f MB) är för stor jämfört med storleken på den minsta fysiska "
+"Storleken på den fysiska ytan kan inte ändras eftersom det värde som valts (%"
+"(curpe)10.2f MB) är för stor jämfört med storleken på den minsta fysiska "
 "volymen (%(maxpvsize)10.2f MB) i volymgruppen."
 
 #: iw/lvm_dialog_gui.py:201
@@ -2939,8 +2924,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
-"size of the other logical volume(s) exceeds the size of the volume group "
-"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"size of the other logical volume(s) exceeds the size of the volume group (%"
+"(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
 "Storleken som angavs för denna logiska volym (%(size)d MB) kombinerat med "
@@ -2953,10 +2938,10 @@ msgid "No free slots"
 msgstr "Inga lediga platser"
 
 #: iw/lvm_dialog_gui.py:830
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
-msgstr[0] "Du kan inte skapa mer än %d logiska volymer per volymgrupp."
+msgstr[0] "Du kan inte skapa mer än %d logisk volym per volymgrupp."
 msgstr[1] "Du kan inte skapa mer än %d logiska volymer per volymgrupp."
 
 #: iw/lvm_dialog_gui.py:840
@@ -3095,7 +3080,6 @@ msgstr ""
 "%(herrors)s"
 
 #: iw/network_gui.py:134
-#, fuzzy
 msgid "Select network interface"
 msgstr "Välj nätverksgränssnitt"
 
@@ -3197,9 +3181,8 @@ msgid "Fill to maximum _allowable size"
 msgstr "Fyll till största ti_llåtna storlek"
 
 #: iw/partition_dialog_gui.py:191
-#, fuzzy
 msgid "Error With Request"
-msgstr "Fel med data"
+msgstr "Fel med begäran"
 
 #: iw/partition_dialog_gui.py:400
 msgid "Add Partition"
@@ -3372,11 +3355,10 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1478
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
-msgstr[0] ""
-"Du har för närvarande %d programvaru-RAID-partitioner lediga att använda."
+msgstr[0] "Du har för närvarande %d programvaru-RAID-partition ledig att använda."
 msgstr[1] ""
 "Du har för närvarande %d programvaru-RAID-partitioner lediga att använda."
 
@@ -3416,10 +3398,10 @@ msgstr ""
 "\n"
 
 #: iw/partition_gui.py:1500
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
-msgstr[0] "Du har för närvarande %d tillgängliga PV:er lediga att använda.\n"
+msgstr[0] "Du har för närvarande %d tillgänglig PV:er ledig att använda.\n"
 msgstr[1] "Du har för närvarande %d tillgängliga PV:er lediga att använda.\n"
 
 #: iw/partition_gui.py:1504
@@ -3430,8 +3412,8 @@ msgstr "Du har för närvarande ledigt utrymme att skapa PV:er."
 msgid "About LVM"
 msgstr "Om LVM"
 
-#: iw/partition_gui.py:1587 storage/partitioning.py:207
-#: storage/partitioning.py:250
+#: iw/partition_gui.py:1587 storage/partitioning.py:210
+#: storage/partitioning.py:253
 msgid "Error Partitioning"
 msgstr "Fel vid partitionering"
 
@@ -3672,8 +3654,8 @@ msgstr ""
 #: iw/upgrade_bootloader_gui.py:138 textw/upgrade_bootloader_text.py:121
 #, python-format
 msgid ""
-"The installer has detected the %(type)s boot loader currently installed on "
-"%(bootDev)s."
+"The installer has detected the %(type)s boot loader currently installed on %"
+"(bootDev)s."
 msgstr ""
 "Installationsprogrammet har detekterat startprogrammet %(type)s som är "
 "installerat på %(bootDev)s."
@@ -3719,16 +3701,16 @@ msgstr "Migrera filsystem"
 #, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has "
-"several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
-"without data loss.\n"
+"several benefits over the file system traditionally shipped in %(productName)"
+"s.  This installation program can migrate formatted partitions without data "
+"loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "Denna utgåva av %(productName)s stödjer ett uppdaterat filsystem, som har "
-"flera fördelar jämfört med filsystemet som normalt använts i "
-"%(productName)s.  Detta installationsprogram kan migrera formaterade "
-"partitioner utan förlust av data.\n"
+"flera fördelar jämfört med filsystemet som normalt använts i %(productName)"
+"s.  Detta installationsprogram kan migrera formaterade partitioner utan "
+"förlust av data.\n"
 "\n"
 "Vilka av dessa partitioner vill du migrera?"
 
@@ -3740,8 +3722,8 @@ msgstr "Uppgradera växlingspartition"
 #, python-format
 msgid ""
 "Recent kernels (2.4 or newer) need significantly more swap than older "
-"kernels, up to twice the amount of RAM on the system.  You currently have "
-"%dMB of swap configured, but you may create additional swap space on one of "
+"kernels, up to twice the amount of RAM on the system.  You currently have %"
+"dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
 "Nyare kärnor (2.4 eller nyare) behöver avsevärt mer växlingsutrymme (swap) "
@@ -3880,23 +3862,20 @@ msgid "Chandev Parameters"
 msgstr "Chandev-parametrar"
 
 #: loader/net.h:27
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Använd dynamisk IP-konfiguration (DHCP)"
+msgstr "Dynamisk IP-konfiguration (DHCP)"
 
 #: loader/net.h:28
-#, fuzzy
 msgid "Manual configuration"
-msgstr "Manuell TCP/IP-konfiguration"
+msgstr "Manuell konfiguration"
 
 #: loader/net.h:30
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Använd dynamisk IP-konfiguration (DHCP)"
+msgstr "Dynamisk IP-konfiguration (DHCPv6)"
 
 #: loader/net.h:31
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "Automatisk upptäckt av grannar"
 
 #: loader/cdinstall.c:185 loader/cdinstall.c:206 loader/mediacheck.c:60
 msgid "Media Check"
@@ -3941,8 +3920,8 @@ msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
 msgstr ""
-"Skivan med %s kunde inte hittas i någon av dina enheter. Sätt i skivan med "
-"%s och tryck %s för att försöka igen."
+"Skivan med %s kunde inte hittas i någon av dina enheter. Sätt i skivan med %"
+"s och tryck %s för att försöka igen."
 
 #: loader/cdinstall.c:248
 msgid "Disc Found"
@@ -3989,8 +3968,8 @@ msgstr "Skiva hittades inte"
 #: loader/cdinstall.c:431 loader/driverdisk.c:411 loader/driverdisk.c:443
 #: loader/driverdisk.c:524 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
-#: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
-#: loader/loader.c:1402 loader/loader.c:1435 loader/net.c:603 loader/net.c:971
+#: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
+#: loader/loader.c:1407 loader/loader.c:1440 loader/net.c:603 loader/net.c:971
 #: loader/net.c:1897 loader/net.c:1916 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
@@ -4278,7 +4257,7 @@ msgstr "Fel vid nedladdning av uppstartsfil"
 msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr "Felaktigt argument till kickstartmetodkommandot för nedstängning: %s"
 
-#: loader/lang.c:63 loader/loader.c:227
+#: loader/lang.c:63 loader/loader.c:228
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr "Välkommen till %s för %s"
@@ -4288,7 +4267,7 @@ msgstr "Välkommen till %s för %s"
 msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Välkommen till %s för %s - räddningsläge"
 
-#: loader/lang.c:65 loader/loader.c:251
+#: loader/lang.c:65 loader/loader.c:252
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -4298,23 +4277,23 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "Välj ett språk"
 
-#: loader/loader.c:134
+#: loader/loader.c:135
 msgid "Local CD/DVD"
 msgstr "Lokal CD/DVD"
 
-#: loader/loader.c:135
+#: loader/loader.c:136
 msgid "Hard drive"
 msgstr "Hårddisk"
 
-#: loader/loader.c:136
+#: loader/loader.c:137
 msgid "NFS directory"
 msgstr "NFS-katalog"
 
-#: loader/loader.c:464 loader/loader.c:505
+#: loader/loader.c:465 loader/loader.c:506
 msgid "Update Disk Source"
 msgstr "Diskkälla för uppdatering"
 
-#: loader/loader.c:465
+#: loader/loader.c:466
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -4322,7 +4301,7 @@ msgstr ""
 "Du har flera enheter som skulle kunna vara källor för en uppdateringsdisk. "
 "Vilken vill du använda?"
 
-#: loader/loader.c:506
+#: loader/loader.c:507
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
@@ -4330,28 +4309,28 @@ msgstr ""
 "Det finns flera partitioner på denna enhet som kan innehålla diskavbilden "
 "uppdatering.  Vilken vill du använda?"
 
-#: loader/loader.c:524
+#: loader/loader.c:525
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr "Sätt in din uppdateringsdisk i %s och tryck \"OK\" för att fortsätta."
 
-#: loader/loader.c:527
+#: loader/loader.c:528
 msgid "Updates Disk"
 msgstr "Uppdateringsdisk"
 
-#: loader/loader.c:545
+#: loader/loader.c:546
 msgid "Failed to mount updates disk"
 msgstr "Montering av uppdateringsdisk misslyckades."
 
-#: loader/loader.c:550
+#: loader/loader.c:551
 msgid "Updates"
 msgstr "Uppdateringar"
 
-#: loader/loader.c:550
+#: loader/loader.c:551
 msgid "Reading anaconda updates"
 msgstr "Läser anaconda-uppdateringar"
 
-#: loader/loader.c:586
+#: loader/loader.c:587
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
@@ -4359,53 +4338,53 @@ msgstr ""
 "Kunde inte ladda ner uppdateringsavbilden.  Modifiera uppdateringsplatsen "
 "nedan eller tryck Avbryt för att fortsätta utan uppdateringar."
 
-#: loader/loader.c:595
+#: loader/loader.c:596
 msgid "Error downloading updates image"
 msgstr "Fel vid nedladdning av uppdateringsavbild"
 
-#: loader/loader.c:1199
+#: loader/loader.c:1200
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Du har inte tillräckligt med minne för att installera %s på denna maskin."
 
-#: loader/loader.c:1259
+#: loader/loader.c:1260
 msgid "Media Detected"
 msgstr "Medium detekterades"
 
-#: loader/loader.c:1260
+#: loader/loader.c:1261
 msgid "Found local installation media"
 msgstr "Lokalt installationsmedium detekterades"
 
-#: loader/loader.c:1394
+#: loader/loader.c:1399
 msgid "Rescue Method"
 msgstr "Räddningsmetod"
 
-#: loader/loader.c:1395
+#: loader/loader.c:1400
 msgid "Installation Method"
 msgstr "Installationsmetod"
 
-#: loader/loader.c:1397
+#: loader/loader.c:1402
 msgid "What type of media contains the rescue image?"
 msgstr "Vilket medium innehåller räddningsavbilden?"
 
-#: loader/loader.c:1399
+#: loader/loader.c:1404
 msgid "What type of media contains the installation image?"
 msgstr "Vilket sorts medium innehåller installationsavbilden?"
 
-#: loader/loader.c:1434
+#: loader/loader.c:1439
 msgid "No driver found"
 msgstr "Ingen drivrutin hittades"
 
-#: loader/loader.c:1434
+#: loader/loader.c:1439
 msgid "Select driver"
 msgstr "Välj drivrutin"
 
-#: loader/loader.c:1435
+#: loader/loader.c:1440
 msgid "Use a driver disk"
 msgstr "Använd en drivrutinsdiskett"
 
-#: loader/loader.c:1436
+#: loader/loader.c:1441
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4414,11 +4393,11 @@ msgstr ""
 "installationstyp. Vill du välja din drivrutin manuellt eller använda en "
 "drivrutinsdiskett?"
 
-#: loader/loader.c:1666
+#: loader/loader.c:1672
 msgid "The following devices have been found on your system."
 msgstr "Följande enheter har hittats i ditt system."
 
-#: loader/loader.c:1668
+#: loader/loader.c:1674
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -4426,29 +4405,29 @@ msgstr ""
 "Inga enhetsdrivrutiner för ditt system har lästs in. Vill du läsa in några "
 "nu?"
 
-#: loader/loader.c:1672
+#: loader/loader.c:1678
 msgid "Devices"
 msgstr "Enheter"
 
-#: loader/loader.c:1673
+#: loader/loader.c:1679
 msgid "Done"
 msgstr "Färdig"
 
-#: loader/loader.c:1674
+#: loader/loader.c:1680
 msgid "Add Device"
 msgstr "Lägg till enhet"
 
-#: loader/loader.c:1952
+#: loader/loader.c:1958
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "inläsaren har redan körts. Startar skal.\n"
 
-#: loader/loader.c:2412
+#: loader/loader.c:2418
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "Kör anaconda %s, räddningsläget för %s - var vänlig vänta.\n"
 
-#: loader/loader.c:2414
+#: loader/loader.c:2420
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4818,9 +4797,8 @@ msgid "URL must be either an ftp or http URL"
 msgstr "URL:en måste antingen vara en ftp- eller en http-URL"
 
 #: loader/urls.c:346
-#, fuzzy
 msgid "Proxy must be either an ftp or http URL"
-msgstr "URL:en måste antingen vara en ftp- eller en http-URL"
+msgstr "Proxy:n måste antingen vara en ftp- eller en http-URL"
 
 #: loader/windows.c:65
 msgid "Loading SCSI driver"
@@ -4915,14 +4893,12 @@ msgid "Error storing an encryption key: %s\n"
 msgstr "Fel när krypteringsnycklel lagrades: %s\n"
 
 #: storage/__init__.py:362
-#, fuzzy
 msgid "Examining Devices"
-msgstr "Letar efter enheter"
+msgstr "Undersöker enheter"
 
 #: storage/__init__.py:363
-#, fuzzy
 msgid "Examining storage devices"
-msgstr "Letar efter lagringsenheter"
+msgstr "Undersöker lagringsenheter"
 
 #: storage/__init__.py:642
 msgid "This partition is holding the data for the hard drive install."
@@ -5255,25 +5231,23 @@ msgid ""
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"Ett fel inträffade vid montering av enhet %(path)s som %(mountpoint)s: "
-"%(msg)s.  Detta är ett ödesdigert fel och installationen kan inte "
-"fortsätta.\n"
+"Ett fel inträffade vid montering av enhet %(path)s som %(mountpoint)s: %(msg)"
+"s.  Detta är ett ödesdigert fel och installationen kan inte fortsätta.\n"
 "\n"
 "Tryck <Retur> för att för att avsluta installationsprogrammet."
 
 #: storage/dasd.py:138
-#, fuzzy
 msgid "Formatting DASD Device"
 msgid_plural "Formatting DASD Devices"
 msgstr[0] "Formaterar DASD-enhet"
-msgstr[1] "Formaterar DASD-enhet"
+msgstr[1] "Formaterar DASD-enheter"
 
 #: storage/dasd.py:139
-#, fuzzy, python-format
+#, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] "Förbereder %d DASD-enhet för att användas med Linux ..."
-msgstr[1] "Förbereder %d DASD-enhet för att användas med Linux ..."
+msgstr[1] "Förbereder %d DASD-enheter för att användas med Linux ..."
 
 #: storage/devicelibs/lvm.py:316
 #, python-format
@@ -5391,7 +5365,7 @@ msgstr ""
 "låter dig laga filsystemet interaktivt.  Starta om installationen efter att "
 "du har rättat problemen på filsystemet."
 
-#: storage/formats/fs.py:535 storage/partitioning.py:286
+#: storage/formats/fs.py:535 storage/partitioning.py:289
 msgid "Unrecoverable Error"
 msgstr "Olösligt fel"
 
@@ -5481,7 +5455,7 @@ msgstr "Inga nya iSCSI-noder upptäcktes"
 msgid "Could not log in to any of the discovered nodes"
 msgstr "Kunde inte logga in till någon av de upptäckta noderna"
 
-#: storage/partitioning.py:201
+#: storage/partitioning.py:204
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
@@ -5489,7 +5463,7 @@ msgstr ""
 "Hittade inte tillräckligt med fritt utrymme för automatisk partitionering.  "
 "Tryck \"OK\" för att avsluta installationsprogrammet."
 
-#: storage/partitioning.py:204
+#: storage/partitioning.py:207
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
@@ -5497,11 +5471,11 @@ msgstr ""
 "Kunde inte hitta tillräckligt med utrymme för automatisk partitionering, "
 "använd en annan partitioneringsmetod."
 
-#: storage/partitioning.py:233
+#: storage/partitioning.py:236
 msgid "Warnings During Automatic Partitioning"
 msgstr "Varningar under automatisk partitionering"
 
-#: storage/partitioning.py:235
+#: storage/partitioning.py:238
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5512,7 +5486,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: storage/partitioning.py:249 storage/partitioning.py:270
+#: storage/partitioning.py:252 storage/partitioning.py:273
 msgid ""
 "\n"
 "\n"
@@ -5522,7 +5496,7 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att avsluta installationsprogrammet."
 
-#: storage/partitioning.py:251
+#: storage/partitioning.py:254
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5533,7 +5507,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: storage/partitioning.py:272
+#: storage/partitioning.py:275
 msgid ""
 "\n"
 "\n"
@@ -5543,11 +5517,11 @@ msgstr ""
 "\n"
 "Tryck 'OK' för att välja en annan partitioneringsalternativ."
 
-#: storage/partitioning.py:274
+#: storage/partitioning.py:277
 msgid "Automatic Partitioning Errors"
 msgstr "Fel vid automatisk partitionering"
 
-#: storage/partitioning.py:275
+#: storage/partitioning.py:278
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -5603,11 +5577,11 @@ msgstr "WWPN %(wwpn)s finns inte på zFCP-enhet %(devnum)s."
 #: storage/zfcp.py:176
 #, python-format
 msgid ""
-"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)"
+"s)."
 msgstr ""
-"Kunde inte lägga till LUN %(fcplun)s till WWPN %(wwpn)s på zFCP-enhet "
-"%(devnum)s (%(e)s)."
+"Kunde inte lägga till LUN %(fcplun)s till WWPN %(wwpn)s på zFCP-enhet %"
+"(devnum)s (%(e)s)."
 
 #: storage/zfcp.py:182
 #, python-format
@@ -5638,8 +5612,8 @@ msgstr ""
 #: storage/zfcp.py:260
 #, python-format
 msgid ""
-"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
-"%(fcplun)s (%(e)s)."
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)"
+"s (%(e)s)."
 msgstr ""
 "Kunde inte korrekt radera SCSI-enhet på zFCP %(devnum)s %(wwpn)s %(fcplun)s "
 "(%(e)s)."
@@ -5647,8 +5621,8 @@ msgstr ""
 #: storage/zfcp.py:269
 #, python-format
 msgid ""
-"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
-"(%(e)s)."
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%"
+"(e)s)."
 msgstr ""
 "Kunde inte ta bort LUN %(fcplun)s på WWPN %(wwpn)s på zFCP-enhet %(devnum)s "
 "(%(e)s)."
@@ -5827,15 +5801,15 @@ msgstr "Skapa ny konfiguration av startprogram"
 #, python-format
 msgid ""
 "This release of %(productName)s supports the an updated file system, which "
-"has several benefits over the file system traditionally shipped in "
-"%(productName)s.  This installation program can migrate formatted partitions "
+"has several benefits over the file system traditionally shipped in %"
+"(productName)s.  This installation program can migrate formatted partitions "
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
 "Denna utgåva av %(productName)s stödjer ett uppdaterat filsystem, som har "
-"flera fördelar jämfört med filsystemet som traditionellt kommit med "
-"%(productName)s.  Detta installationsprogram kan migrera formaterade "
+"flera fördelar jämfört med filsystemet som traditionellt kommit med %"
+"(productName)s.  Detta installationsprogram kan migrera formaterade "
 "partitioner utan förlust av data.\n"
 "\n"
 "Vilka av dessa partitioner vill du migrera?"
@@ -6005,27 +5979,24 @@ msgstr ""
 "root-användaren."
 
 #: ui/adddrive.glade.h:1
-#, fuzzy
 msgid "Add _FCoE SAN"
-msgstr "_Lägg till FCoE-disk(ar)"
+msgstr "Lägg till _FCoE-SAN"
 
 #: ui/adddrive.glade.h:2
 msgid "Add _ZFCP LUN"
-msgstr ""
+msgstr "Lägg till _ZFCP LUN"
 
 #: ui/adddrive.glade.h:3
-#, fuzzy
 msgid "Add _iSCSI target"
-msgstr "_Lägg till destination"
+msgstr "Lägg till _iSCSI-mål"
 
 #: ui/adddrive.glade.h:4
-#, fuzzy
 msgid "Advanced Storage Options"
-msgstr "Ytterligare storleksalternativ"
+msgstr "Avancerade storleksalternativ"
 
 #: ui/adddrive.glade.h:5
 msgid "How would you like to modify your drive configuration?"
-msgstr ""
+msgstr "Hur vill du ändra din enhetskonfiguration?"
 
 #: ui/adddrive.glade.h:6
 msgid "_Add drive"
@@ -6118,7 +6089,7 @@ msgstr "<b>Krymp partition _till storlek (i MB):</b>"
 
 #: ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr ""
+msgstr "_Granska och modifiera partitioneringslayouten"
 
 #: ui/autopart.glade.h:3
 msgid "Volume to Shrink"
@@ -6505,7 +6476,7 @@ msgstr "Namnge din dator. Värdnamnet identifierar datorn i ett nätverk."
 
 #: ui/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr ""
+msgstr "Anpassa _senare"
 
 #: ui/tasksel.glade.h:2
 msgid ""
@@ -6515,21 +6486,18 @@ msgstr ""
 "Välj de ytterligare förråd du vill använda för installation av mjukvara."
 
 #: ui/tasksel.glade.h:4
-#, fuzzy, no-c-format
+#, no-c-format
 msgid ""
 "The default installation of %s includes a set of software applicable for "
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
-msgstr ""
-"Standardinstallationen av %s inkluderar en samling program som är lämpliga "
-"för allmän internetanvändning.  Du har möjlighet att välja en annan "
-"uppsättning program nu."
+msgstr "Standardinstallationen av %s inkluderar en samling program som är lämpliga för allmän internetanvändning.  Vilka ytterligare uppgifter vill du att ditt system skall stödja?"
 
 #: ui/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
-msgstr ""
+msgstr "Du kan anpassa programvaruvalet ytterligare nu, eller efter installationen via programmet för programvaruhantering."
 
 #: ui/tasksel.glade.h:6
 msgid "_Add additional software repositories"
@@ -6537,7 +6505,7 @@ msgstr "_Lägg till fler mjukvaru-repositories"
 
 #: ui/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr ""
+msgstr "_Anpassa nu"
 
 #: ui/tasksel.glade.h:8
 msgid "_Modify repository"
@@ -6814,14 +6782,3 @@ msgstr "Kymriska"
 #: lang-table.h:61
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid ""
-#~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
-#~ "mainframe attached disks (DASD), usually in an enterprise environment"
-#~ msgstr ""
-#~ "Installerar eller uppgraderar till enheter såsom nätverkslagringsenheter "
-#~ "(SAN) eller stordatorers tillkopplade diskar (DASD), vanligen i "
-#~ "företagsmiljö"
-
-#~ msgid "Select which devices should be configured with NetworkManager."
-#~ msgstr "Välj vilka enheter som skall konfigureras med NetworkManager."
