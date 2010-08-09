@@ -19,6 +19,7 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
+import re
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
@@ -84,7 +85,7 @@ else:
     exceptionText += _(" against anaconda at %s") %(bugzillaUrl,)
 
 # DriverDisc Paths
-DD_EXTRACTED = "/tmp/DD"
+DD_EXTRACTED = re.compile("/lib/modules/[^/]+/updates/DD/(?P<modulename>.+)")
 DD_RPMS = "/tmp/DD-*"
 
 TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
