@@ -77,17 +77,22 @@ class DiskIO(object):
         content = self.fs.get(path, None)
         if content == self.Dir:
             raise IOError("[Errno 21] Is a directory: '%s'" % (path))
-        elif mode == "w":
+        elif mode.startswith("w"):
             self.fs[path] = ""
             f = self.TestFile(self.fs, path, self.fs[path])
-        elif not content and mode.startswith("w"):
-            self.fs[path] = ""
+        elif mode.endswith("a"):
+            if not path in self.fs:
+                self.fs[path] = ""
             f = self.TestFile(self.fs, path, self.fs[path])
-        elif not content:
-            raise IOError("[Errno 2] No such file or directory: '%s'" % (path,))
-        elif mode.endswith("+") or mode.endswith("a"):
-            f = self.TestFile(self.fs, path, content)
             f.seek(0, os.SEEK_END)
+        elif content == None:
+            raise IOError("[Errno 2] No such file or directory: '%s'" % (path,))
+        elif mode.endswith("+"):
+            f = self.TestFile(self.fs, path, content)
+            if mode.startswith('r'):
+                f.seek(0, os.SEEK_SET)
+            else:
+                f.seek(0, os.SEEK_END)
         else:
             f = self.TestFile(self.fs, path, content)
         
