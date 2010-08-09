@@ -1347,8 +1347,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         #We need to install the packages which contain modules from DriverDiscs
         for modPath in isys.modulesWithPaths():
-            if modPath.startswith(DD_EXTRACTED):
-                moduleProvides.append(modPath[len(DD_EXTRACTED):])
+            match = DD_EXTRACTED.match(modPath):
+            if match:
+                moduleProvides.append(match.group("modulename"))
             else:
                 continue
 
