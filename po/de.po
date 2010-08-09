@@ -17,7 +17,6 @@
 # Marcus Nitzschke <kenda@fedoraproject.org>, 2009,2010.
 # Cornelius Neckenig <tbull@fedoraproject.org>, 2010.
 # Thomas Spura <tomspur@fedoraproject.org>, 2010.
-# sknirT omiT <moc.tahder@sknirtt>, 2010.
 # translation of anaconda.master.po to
 # German translation of anaconda
 # Copyright (C) 2001 Red Hat, Inc.
@@ -29,6 +28,10 @@
 # "Auslagerungsgerät" etc. uebersetzt, aber jeweils
 # mit (Swap) als Zusatz. So koennen Windows-Benutzer wie auch
 # Unix/Linux-Benutzer erkennen, was damit gemeint ist.
+# HINWEIS 3: "Passphrase" wird auf Grund von GUI Platzproblemen im Englischen
+#            belassen. Bitte NICHT zurück in "Passwortsatz" ändern.
+#            Siehe auch Bugzilla #593202#c36
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.de\n"
@@ -373,13 +376,13 @@ msgid ""
 "Choose a passphrase for the encrypted devices. You will be prompted for this "
 "passphrase during system boot."
 msgstr ""
-"Wählen Sie einen Passwortsatz für die verschlüsselten Geräte. Sie werden "
-"während des Systemstarts nach dem Passwortsatz gefragt."
+"Passphrase für die verschlüsselten Geräte wählen. Sie werden während des "
+"Systemstarts nach dieser Passphrase gefragt."
 
 #: pyanaconda/gui.py:544 pyanaconda/gui.py:552 pyanaconda/text.py:188
 #: pyanaconda/text.py:198
 msgid "Error with passphrase"
-msgstr "Fehler mit dem Passwortsatz"
+msgstr "Fehler mit dem Passphrase"
 
 #: pyanaconda/gui.py:545 pyanaconda/text.py:189
 msgid "The passphrases you entered were different.  Please try again."
@@ -389,7 +392,7 @@ msgstr ""
 
 #: pyanaconda/gui.py:553
 msgid "The passphrase must be at least eight characters long."
-msgstr "Das Passwortsatz muss aus mindestens acht Zeichen bestehen."
+msgstr "Die Passphrase muss aus mindestens acht Zeichen bestehen."
 
 #: pyanaconda/gui.py:587 pyanaconda/text.py:226
 #, python-format
@@ -1611,26 +1614,26 @@ msgstr "Ihr System wurde unter dem Verzeichnis %s eingehängt."
 
 #: pyanaconda/text.py:155
 msgid "Passphrase for encrypted device"
-msgstr "Passwortsatz für das verschlüsselte Gerät"
+msgstr "Passphrase für das verschlüsselte Gerät"
 
 #: pyanaconda/text.py:168
 msgid "Also add this passphrase to all existing encrypted devices"
-msgstr "Diesen Passwortsatz für alle vorhandenen verschlüsselten Geräte hinzufügen"
+msgstr "Diese Passphrase für alle vorhandenen verschlüsselten Geräte hinzufügen"
 
 #: pyanaconda/text.py:199
 #, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
-msgstr[0] "Der Passwortsatz muss aus mindestens %d Zeichen bestehen."
-msgstr[1] "Der Passwortsatz muss aus mindestens %d Zeichen bestehen."
+msgstr[0] "Die Passphrase muss aus mindestens %d Zeichen bestehen."
+msgstr[1] "Der Passphrase muss aus mindestens %d Zeichen bestehen."
 
 #: pyanaconda/text.py:233 data/ui/lukspassphrase.glade.h:6
 msgid "Passphrase"
-msgstr "Passwortsatz"
+msgstr "Passphrase"
 
 #: pyanaconda/text.py:241 data/ui/lukspassphrase.glade.h:7
 msgid "This is a global passphrase"
-msgstr "Dies ist der globale Passwortsatz"
+msgstr "Dies ist die globale Passphrase"
 
 #: pyanaconda/text.py:356 pyanaconda/text.py:360
 msgid "Repository editing is not available in text mode."
@@ -5579,7 +5582,7 @@ msgid ""
 "If you skip this step the device's contents will not be available during "
 "installation."
 msgstr ""
-"Sind Sie sicher, dass Sie die Eingabe eines Passwortsatzes für dieses Gerät %"
+"Sind Sie sicher, dass Sie die Eingabe einer Passphrase für dieses Gerät %"
 "s überspringen wollen?\n"
 "\n"
 "Wenn Sie diesen Schritt überspringen, wird der Geräte-Inhalt während der "
@@ -6642,9 +6645,12 @@ msgstr "Bezeichner anzeigen, die Folgendes enthalten:"
 msgid "Show Only Devices From:"
 msgstr "Nur Geräte anzeigen von:"
 
+# translator-comments
+# HINWEIS: Auf Grund von Platzproblemen im UI wurde die Übersetzung etwas
+# abgeändert. Bitte NICHT modifizieren... Bugzilla #593202#c27
 #: data/ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr "Nur Geräte anzeigen, die Folgendes verwenden:"
+msgstr "Nur folgende Geräte anzeigen:"
 
 #: data/ui/filter.glade.h:25
 msgid "Target:"
@@ -6696,7 +6702,7 @@ msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
-"Fügen Sie diesen Passwortsatz für alle vorhandenen, verschlüsselten Geräte "
+"Fügen Sie diese Passphrase für alle vorhandenen, verschlüsselten Geräte "
 "hinzu, damit der Startprozess durchlaufen werden kann"
 
 #: data/ui/lukspassphrase.glade.h:2
@@ -6704,20 +6710,20 @@ msgid ""
 "Choose a passphrase for this encrypted partition. You will be prompted for "
 "the passphrase during system boot."
 msgstr ""
-"Wählen Sie ein Passwortsatz für diese verschlüsselte Partition. Sie werden "
-"während des Systemstarts nach den Passwortsatz gefragt."
+"Eine Passphrase für diese verschlüsselte Partition wählen. Sie werden "
+"während des Systemstarts nach dieser Passphrase gefragt."
 
 #: data/ui/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
-msgstr "Passwortsatz bestätigen:"
+msgstr "Passphrase bestätigen:"
 
 #: data/ui/lukspassphrase.glade.h:4
 msgid "Enter passphrase for encrypted partition"
-msgstr "Passwortsatz für die verschlüsselte Partition eingeben"
+msgstr "Passphrase für die verschlüsselte Partition eingeben"
 
 #: data/ui/lukspassphrase.glade.h:5
 msgid "Enter passphrase:"
-msgstr "Passwortsatz eingeben:"
+msgstr "Passphrase eingeben:"
 
 #: data/ui/netconfig.glade.h:2
 msgid "<b>Gateway:</b>"
