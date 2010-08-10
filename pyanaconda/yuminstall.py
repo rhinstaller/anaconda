@@ -690,7 +690,7 @@ class AnacondaYum(YumSorter):
                 continue
 
             url = "%s/%s" % (baseurl, c.get(addonSection, "repository"))
-            retval.append((addon, url))
+            retval.append((addon, c.get(addonSection, "name"), url))
 
         return retval
 
@@ -843,8 +843,8 @@ class AnacondaYum(YumSorter):
             addons = self._getAddons(repo.mirrorlist or repo.baseurl[0])
             for addon in addons:
                 addonRepo = AnacondaYumRepo(addon[0])
-                addonRepo.name = addon[0]
-                addonRepo.baseurl = [ addon[1] ]
+                addonRepo.name = addon[1]
+                addonRepo.baseurl = [ addon[2] ]
 
                 if repo.isEnabled():
                     addonRepo.enable()

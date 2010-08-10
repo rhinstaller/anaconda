@@ -623,7 +623,7 @@ class TaskWindow(InstallWindow):
                 continue
 
             enabled = self.backend.groupListDefault(grps)
-            store.append([not anyEnabled and enabled, _(txt), grps])
+            store.append([not anyEnabled and enabled, gettext.ldgettext("comps", txt), grps])
 
             if enabled:
                 anyEnabled = True
@@ -663,7 +663,9 @@ class TaskWindow(InstallWindow):
         tl.append_column(col)
 
         for (reponame, repo) in self.repos.repos.items():
-            store.append([repo.isEnabled(), repo.name, repo])
+            store.append([repo.isEnabled(),
+                         gettext.ldgettext("comps", repo.name),
+                         repo])
 
         store.set_sort_column_id(1, gtk.SORT_ASCENDING)
         store.set_sort_func(1, self.__sortRepos)
