@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 10 2010 David Cantrell <dcantrell@redhat.com> - 13.21.71-1
+- Rebuild to include latest translation updates
+  Resolves: rhbz#527925
+
 * Fri Aug 06 2010 David Cantrell <david.l.cantrell@gmail.com> - 13.21.70-1
 - Require newest pykickstart. (david.l.cantrell)
   Related: rhbz#620855
