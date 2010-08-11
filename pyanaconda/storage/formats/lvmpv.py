@@ -65,7 +65,7 @@ class LVMPhysicalVolume(DeviceFormat):
         self.vgUuid = kwargs.get("vgUuid")
         # liblvm may be able to tell us this at some point, even
         # for not-yet-created devices
-        self.peStart = kwargs.get("peStart", 0.1875)    # in MB
+        self.peStart = kwargs.get("peStart", 1.0)    # in MB
 
     def __str__(self):
         s = DeviceFormat.__str__(self)
