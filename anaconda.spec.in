@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.74-1
+- LVM and LUKS now align everything to 1MB boundaries. (dlehman)
+  Resolves: rhbz#623458
+
 * Wed Aug 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.73-1
 - Rebuild to include latest translation updates
   Resolves: rhbz#593202
