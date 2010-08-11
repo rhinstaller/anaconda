@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master.ta\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-07-29 04:08-1000\n"
-"PO-Revision-Date: 2010-08-05 15:07+0530\n"
+"PO-Revision-Date: 2010-08-11 16:29+0530\n"
 "Last-Translator: I Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -400,17 +400,18 @@ msgid ""
 "This action may also be applied to all other disks needing reinitialization.%"
 "(details)s"
 msgstr ""
-"பிழை செயல்படுத்தும் இயக்கி:\n"
+"இயக்கியை செயல்படுத்துவதில் பிழை:\n"
 "\n"
 "%(path)s\n"
 "%(size)-0.fMB\n"
 "%(description)s\n"
 "\n"
-"இந்த சாதனத்தை மறுதுவக்கப்பட வேண்டும்.\n"
+"இந்த சாதனம் மறுஆரம்பிக்கப்பட்ட வேண்டும்.\n"
 "\n"
-"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
+"மறுஆரம்பித்தல் அனைத்து தரவையும் இழக்க செய்யும்!\n"
 "\n"
-"இந்த செயல் மற்ற அனைத்து வட்டுகளுக்கு மறுதுவக்க செயல்படுத்தப்படலாம்.%(details)s"
+"இந்த நடவடிக்கை அனைத்து பிற வட்டுகளுக்கு மறுஆரம்பித்தல் செய்ய செயல்படுத்த வேண்டும்.%"
+"(details)s"
 
 #: gui.py:1188 gui.py:1246 installinterfacebase.py:74 text.py:491 text.py:549
 msgid "_Ignore"
@@ -5199,7 +5200,7 @@ msgstr "FCoE கிடைக்கவில்லை"
 
 #: storage/formats/fs.py:102
 msgid "filesystem configuration missing a type"
-msgstr "filesystem ஒரு வகையை விட்டுள்ளது"
+msgstr "கோப்பு முறைமை கட்டமைப்பு ஒரு வகையை விட்டுள்ளது"
 
 #: storage/formats/fs.py:354 storage/formats/luks.py:194
 #: storage/formats/lvmpv.py:103 storage/formats/swap.py:161
@@ -6020,7 +6021,7 @@ msgstr "உங்கள் கணினியில் boot loader ஐ எங்
 
 #: ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr "<b>Data Storage Devices</b> (ஏறக்கூடியது மட்டும்)"
+msgstr "<b>தரவு சேமிப்பக சாதனங்கள்</b> (ஏறக்கூடியது மட்டும்)"
 
 #: ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
@@ -6162,7 +6163,10 @@ msgid ""
 "will be wiped by the installation process.  Also, note that post-"
 "installation you may mount drives you did not select here by modifying your /"
 "etc/fstab file."
-msgstr " "
+msgstr ""
+"<b>துணுக்கு:</b> ஒரு இயக்கியை இந்த திரையில் தேர்ந்தெடுப்பது அது நிறுவல் செயலால் துடைக்கப்படும் "
+"என அர்த்தமில்லை.  மேலும், நிறுவலுக்கு பின் நீங்கள் தேர்ந்தெடுக்காத /etc/fstab கோப்பிற்கு "
+"இயக்கிகளை ஏற்றலாம்."
 
 #: ui/filter.glade.h:4
 msgid "Add Advanced Target"
