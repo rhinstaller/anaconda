@@ -57,9 +57,6 @@ def setupRepo(anaconda, repo):
                 "Please ensure that your repository has been "
                 "correctly generated.\n\n%s" % str(e)),
                                 type="ok", custom_icon="error")
-        repo.disable()
-        repo.close()
-        anaconda.backend.ayum.repos.delete(repo.id)
         return False
 
     return True
@@ -160,6 +157,12 @@ class RepoEditor:
 
         repo.enable()
         return True
+
+    def _disableAndRemoveRepo(self, repo):
+        repo.disable()
+        repo.close()
+        self.anaconda.backend.ayum.repos.delete(repo.id)
+
 
     def _validURL(self, url):
         return len(url) > 0 and (url.startswith("http://") or
@@ -365,8 +368,11 @@ class RepoEditor:
             newRepoObj.basecachedir = self.anaconda.backend.ayum.conf.cachedir
 
             type = self.typeComboBox.get_active()
-            if not applyFuncs[type](newRepoObj) or not self._addAndEnableRepo(newRepoObj) or not \
-                   setupRepo(self.anaconda, newRepoObj):
+            if (not applyFuncs[type](newRepoObj) or
+                not self._addAndEnableRepo(newRepoObj)):
+                continue
+            if not setupRepo(self.anaconda, newRepoObj):
+                self._disableAndRemoveRepo(newRepoObj)
                 continue
 
             if removeOld:
@@ -595,6 +601,8 @@ class TaskWindow(InstallWindow):
 
             repo.enable()
             if not setupRepo(self.anaconda, repo):
+                repo.disable()
+                repo.close()
                 return
         else:
             repo.disable()
