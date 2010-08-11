@@ -684,6 +684,9 @@ class PartitionData(commands.partition.F12_PartData):
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID partition defined multiple times")
 
+            if self.grow:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="--grow is not supported for RAID partitions")
+
             # store "raid." alias for other ks partitioning commands
             if self.onPart:
                 anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
