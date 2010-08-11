@@ -1305,7 +1305,8 @@ class DeviceTree(object):
 
     def handleUdevDiskLabelFormat(self, info, device):
         log_method_call(self, device=device.name)
-        if udev_device_get_format(info):
+        # if there is preexisting formatting on the device use it
+        if getFormat(udev_device_get_format(info)).type is not None:
             log.debug("device %s does not contain a disklabel" % device.name)
             return
 
@@ -1380,11 +1381,6 @@ class DeviceTree(object):
                                device=device.path,
                                exists=not initlabel)
         except InvalidDiskLabelError:
-            # if there is preexisting formatting on the device we will
-            # use it instead of ignoring the device
-            if not self.zeroMbr and \
-               getFormat(udev_device_get_format(info)).type is not None:
-                return
             # if we have a cb function use it. else we ignore the device.
             if initcb is not None and initcb():
                 format = getFormat("disklabel",
