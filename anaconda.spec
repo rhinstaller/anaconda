@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.210
+Version: 11.1.2.211
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Aug 11 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.211-1
+- Clean up sanityCheckHostname() in network.py (dcantrell)
+  Resolves: rhbz#559626
+- Support long 'option domain-name' values in loader (dcantrell)
+  Resolves: rhbz#578110
+- Prevent SIGSEGV in ipCallback and cidrCallback (dcantrell)
+  Resolves: rhbz#440498
+
 * Wed Aug 04 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.210-1
 - Add Chelsio T4 10Gb driver to install (bcl)
   Resolves: rhbz#562913
