@@ -1135,7 +1135,9 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                 splitProxyParam(v, &loaderData->proxyUser,
                                 &loaderData->proxyPassword, &loaderData->proxy);
             }
-        } else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
+        }
+
+        if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to  */
             /* the anaconda script, but don't want to represent as a  */
             /* LOADER_FLAGS_XXX since loader doesn't care about these */
@@ -1154,6 +1156,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                        !strcasecmp(k, "dmraid") ||
                        !strcasecmp(k, "nodmraid") ||
                        !strcasecmp(k, "xdriver") ||
+                       !strcasecmp(k, "nomodeset") ||
                        !strcasecmp(k, "syslog")) {
 
                 /* vnc implies graphical */
@@ -1176,7 +1179,12 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                     flags |= LOADER_FLAGS_EARLY_NETWORKING;
                 }
 
-                checked_asprintf(&extraArgs[numExtraArgs],"--%s", k);
+                if (v != NULL) {
+                    checked_asprintf(&extraArgs[numExtraArgs], "--%s=%s", k, v)
+                } else {
+                    checked_asprintf(&extraArgs[numExtraArgs],"--%s", k);
+                }
+
                 numExtraArgs += 1;
 
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
