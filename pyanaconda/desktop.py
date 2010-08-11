@@ -19,7 +19,7 @@
 # Author(s): Matt Wilson <msw@redhat.com>
 #
 
-import string
+import string, os
 from simpleconfig import SimpleConfigFile
 
 import logging
@@ -64,6 +64,14 @@ class Desktop (SimpleConfigFile):
                 line = string.join (fields, ':')
             inittab.write (line)
         inittab.close ()
+
+        if not os.path.isdir(instPath + '/etc/systemd/system'):
+            log.warning("there is no /etc/systemd/system directory, cannot update default.target!")
+            return
+        default_target = instPath + '/etc/systemd/system/default.target'
+        if os.path.islink(default_target):
+            os.unlink(default_target)
+        os.symlink('/etc/systemd/system/runlevel' + str(self.runlevel) + '.target', default_target)
 
         if self.getDefaultDesktop():
             f = open(instPath + "/etc/sysconfig/desktop", "w")
