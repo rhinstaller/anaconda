@@ -1279,7 +1279,7 @@ class YumBackend(AnacondaBackend):
 
     def doPreInstall(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
-            for d in ("/selinux", "/dev"):
+            for d in ("/selinux", "/dev", "/proc/bus/usb"):
                 try:
                     isys.umount(anaconda.rootPath + d, removeDir = 0)
                 except Exception, e:
@@ -1367,6 +1367,12 @@ class YumBackend(AnacondaBackend):
                     isys.mount("/selinux", anaconda.rootPath + "/selinux", "selinuxfs")
                 except Exception, e:
                     log.error("error mounting selinuxfs: %s" %(e,))
+
+            # For usbfs
+            try:
+                isys.mount("/proc/bus/usb", anaconda.rootPath + "/proc/bus/usb", "usbfs")
+            except Exception, e:
+                log.error("error mounting usbfs: %s" %(e,))
 
             # we need to have a /dev during install and now that udev is
             # handling /dev, it gets to be more fun.  so just bind mount the
