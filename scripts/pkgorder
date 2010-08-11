@@ -151,6 +151,12 @@ if __name__ == "__main__":
     if arch == "i386":
         arch = "i686"
 
+    # Boo x 2
+    if arch == "ppc":
+        kernel_arch = "ppc64"
+    else:
+        kernel_arch = arch
+
     packages = []
     for dir in ("%s/%s/RPMS" % (toppath, product),
                 "%s/%s" % (toppath, product),
@@ -160,14 +166,24 @@ if __name__ == "__main__":
             break
     packages.sort()
 
-    # print out kernel related packages first
-    printMatchingPkgs("kernel-*")
-
     testpath = "/tmp/pkgorder-%d" %(os.getpid(),)
     os.system("mkdir -p %s/var/lib/rpm" %(testpath,))
-    
-    ds = PackageOrderer(arch=arch)
+
+    ds = PackageOrderer(arch=kernel_arch)
     ds.setup(fn=config, excludes=options.excludeList, root = testpath)
+
+    # print out kernel related packages first
+    printMatchingPkgs("kernel-*")
+    # pull in kernel dependencies
+    for po in ds.pkgSack.returnPackages():
+        if po.name.find("kernel") == 0:
+            ds.tsInfo.addInstall(po)
+    ds.resolveDeps()
+    processTransaction(ds)
+
+    if arch != kernel_arch:
+        ds = PackageOrderer(arch=arch)
+        ds.setup(fn=config, excludes=options.excludeList, root = testpath)
 
     addGroups(ds, ["core", "base", "text-internet"])
 
