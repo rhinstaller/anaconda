@@ -185,7 +185,7 @@ def selectInstallNetDeviceDialog(network, devices = None):
     rc = dialog.run()
 
     if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
-        retval = None
+        install_device = None
     else:
         active = combo.get_active_iter()
         install_device = combo.get_model().get_value(active, 1)
