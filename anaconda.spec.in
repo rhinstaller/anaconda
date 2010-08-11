@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 11 2010 David Cantrell <dcantrell@redhat.com> - 13.21.73-1
+- Rebuild to include latest translation updates
+  Resolves: rhbz#593202
+
 * Tue Aug 10 2010 David Cantrell <dcantrell@redhat.com> - 13.21.72-1
 - Translate task and repo names based on the product.img (clumens).
   Resolves: rhbz#622064
