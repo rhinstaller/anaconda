@@ -1,0 +1,88 @@
+#!/bin/sh
+#
+# An example hook script to check the commit log message.
+# Called by git-commit with one argument, the name of the file
+# that has the commit message.  The hook should exit with non-zero
+# status after issuing an appropriate message if it wants to stop the
+# commit.  The hook is allowed to edit the commit message file.
+#
+# To enable this hook, make this file executable.
+
+# Uncomment the below to add a Signed-off-by line to the message.
+# SOB=$(git var GIT_AUTHOR_IDENT | sed -n 's/^\(.*>\).*$/Signed-off-by: \1/p')
+# grep -qs "^$SOB" "$1" || echo "$SOB" >> "$1"
+
+# This example catches duplicate Signed-off-by lines.
+
+test "" = "$(grep '^Signed-off-by: ' "$1" |
+	 sort | uniq -c | sed -e '/^[ 	]*1[ 	]/d')" || {
+	echo >&2 Duplicate Signed-off-by lines.
+	exit 1
+}
+
+# Make sure commits on RHEL branches reference RHEL bugs.
+RETVAL=0
+
+git branch | grep ^* | cut -c3- | grep -q ^rhel
+if [ $? -eq 1 ]; then
+    exit ${RETVAL}
+fi
+
+if [ -f "${HOME}/.rhbzauth" ]; then
+    . "${HOME}/.rhbzauth"
+fi
+
+if [ -z "${RHBZ_USER}" -o -z "${RHBZ_PASSWORD}" ]; then
+    bzcmd="bugzilla"
+else
+    bzcmd="bugzilla --user=${RHBZ_USER} --password=${RHBZ_PASSWORD}"
+fi
+
+${bzcmd} >/dev/null 2>&1
+if [ $? -eq 127 ]; then
+    echo "*** 'yum install python-bugzilla' to validate bug references." >&2
+
+    msg="$(mktemp $(pwd)/commit.msg.XXXXXXXXXX)"
+    cp "${1}" "${msg}"
+    echo
+    echo "Aborted commit message written to: $(basename ${msg})"
+    exit 1
+else
+    ${bzcmd} login
+fi
+
+summary="$(head -n 1 ${1})"
+for word in ${summary} ; do
+    echo "${word}" | grep -q -E "^.*(#[0-9]+).*"
+    if [ $? -eq 0 ]; then
+        bug="$(echo "${word}" | sed -e 's/^(#//g' -e 's/).*$//g')"
+        ${bzcmd} query --bug_id=${bug} --outputformat="%{product}" | grep -q "^Red Hat Enterprise Linux.*"
+        if [ $? -ne 0 ]; then
+            echo "*** BZ ${bug} is not a RHEL bug." >&2
+            RETVAL=1
+        fi
+    fi
+done
+
+last=$(($(wc -l < ${1}) - 2))
+if [ ${last} -gt 0 ]; then
+    tail -n ${last} ${1} | grep -v "^#" |
+    grep -E "^(Resolves|Related|Conflicts): rhbz#[0-9]+$" |
+    while read line ; do
+        bug="$(echo ${line} | cut -d '#' -f 2)"
+        ${bzcmd} query --bug_id=${bug} --outputformat="%{product}" | grep -q "^Red Hat Enterprise Linux.*"
+        if [ $? -ne 0 ]; then
+            echo "*** BZ ${bug} is not a RHEL bug." >&2
+            RETVAL=1
+        fi
+    done
+fi
+
+if [ ${RETVAL} -eq 1 ]; then
+    msg="$(mktemp $(pwd)/commit.msg.XXXXXXXXXX)"
+    cp "${1}" "${msg}"
+    echo
+    echo "Aborted commit message written to: $(basename ${msg})"
+fi
+
+exit ${RETVAL}
