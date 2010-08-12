@@ -223,6 +223,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Aug 12 2010 Chris Lumens <clumens@redhat.com> - 14.16-1
+- I don't need to pass "nomodeset" to stage2 after all. (clumens)
+- Make sure "nomodeset" and "xdriver=" get passed on to stage2 (#623129).
+  (clumens)
+- Do not support "part --grow raid.XX" (#577432). (clumens)
+- Update systemd's default.target for the desired runlevel (#623102, mschmidt).
+  (clumens)
+- Skip cleardiskssel on custom partitioning (#620647). (clumens)
+- logging: typo in analog (akozumpl)
+- logging: fix logic in getSyslog(). (akozumpl)
+- Use full EFI path to map drives for grub (#598572) (bcl)
+- Don't complain about upgrading the same release (#620953) (bcl)
+- Don't crash on unnamed installs (#621685) (bcl)
+- Log exclusiveDisks, ignoredDisks, and reasons for ignoring devices. (dlehman)
+- Include mpath/fwraid member devices in exclusiveDisks. (dlehman)
+
 * Thu Aug 05 2010 Chris Lumens <clumens@redhat.com> - 14.15-1
 - Fix typo and set mpaths' sysfs path before querying udevdb. (#620712)
   (dlehman)
