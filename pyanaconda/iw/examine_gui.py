@@ -85,13 +85,6 @@ class UpgradeExamineWindow (InstallWindow):
         global seenExamineScreen
         self.anaconda = anaconda
 
-        if not seenExamineScreen:
-	    # this is the first time we've entered this screen
-	    self.doupgrade = False
-            seenExamineScreen = True
-	else:
-	    self.doupgrade = self.anaconda.upgrade
-
         # we might get here after storage reset that obsoleted
         # root device objects we had found
         if not self.anaconda.rootParts:
@@ -100,6 +93,13 @@ class UpgradeExamineWindow (InstallWindow):
             upgrade.setUpgradeRoot(self.anaconda)
 
         self.parts = self.anaconda.rootParts
+
+        if not seenExamineScreen:
+            # this is the first time we've entered this screen
+            self.doupgrade = self.anaconda.upgrade or self.parts
+            seenExamineScreen = True
+        else:
+            self.doupgrade = self.anaconda.upgrade
 
         vbox = gtk.VBox (False, 12)
 	vbox.set_border_width (8)
