@@ -1155,7 +1155,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
                        !strcasecmp(k, "dmraid") ||
                        !strcasecmp(k, "nodmraid") ||
                        !strcasecmp(k, "xdriver") ||
-                       !strcasecmp(k, "nomodeset") ||
                        !strcasecmp(k, "syslog")) {
 
                 /* vnc implies graphical */
