@@ -42,4 +42,9 @@ GTree* mlSaveModuleState();
 void mlRestoreModuleState(GTree *state);
 void mlFreeModuleState(GTree *state);
 
+typedef GHashTable* VersionState;
+VersionState mlVersions();
+int mlDetectUpdate(VersionState a, VersionState b);
+void mlFreeVersions();
+
 #endif
