@@ -381,6 +381,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
     int rc, num = 0;
     int dir = 1;
     int found = 0, before = 0;
+    VersionState preDDstate, postDDstate;
 
     while (stage != DEV_DONE) {
         switch(stage) {
@@ -583,8 +584,6 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
         }
 
         case DEV_PROBE: {
-            struct device ** devices;
-
             /* if they didn't specify that we should probe, then we should
              * just fall out */
             if (noprobe) {
@@ -592,16 +591,23 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                 break;
             }
 
+            /* Get info about modules before the update */
+            preDDstate = mlVersions();
+
             /* Unload all devices and load them again to use the updated modules */
             logMessage(INFO, "Trying to refresh loaded drivers");
             mlRestoreModuleState(moduleState);
             busProbe(0);
 
-            devices = getDevices(class);
-            if (devices)
-                for(; devices[found]; found++);
+            /* Get info about modules after the update */
+            postDDstate = mlVersions();
+            found = mlDetectUpdate(preDDstate, postDDstate);
+            logMessage(DEBUGLVL, "mlDetectUpdate returned %d", found);
 
-            if (found > before) {
+            mlFreeVersions(postDDstate);
+            mlFreeVersions(preDDstate);
+
+            if (found) {
                 stage = DEV_DONE;
                 break;
             }

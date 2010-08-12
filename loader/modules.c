@@ -415,7 +415,8 @@ inline gint gcmp(gconstpointer a, gconstpointer b, gpointer userptr)
     return g_strcmp0(a, b);
 }
 
-int processModuleLines(GTree *data, int (*f)(gchar**, GTree*)){
+int processModuleLines(int (*f)(gchar**, void*), void *data)
+{
     char *line = NULL;
     size_t linesize = 0;
     gchar** lineparts = NULL;
@@ -449,8 +450,9 @@ int processModuleLines(GTree *data, int (*f)(gchar**, GTree*)){
     return count;
 }
 
-inline int cb_savestate(gchar** parts, GTree *data)
+inline int cb_savestate(gchar** parts, void *data0)
 {
+    GTree *data = data0;
     logMessage(DEBUGLVL, "Saving module %s", parts[0]);
     g_tree_insert(data, g_strdup(parts[0]), (gchar*)1);
     return 1;
@@ -464,13 +466,14 @@ GTree* mlSaveModuleState()
     if(!state)
         return NULL;
 
-    processModuleLines(state, cb_savestate);
+    processModuleLines(cb_savestate, state);
 
     return state;
 }
 
-inline int cb_restorestate(gchar** parts, GTree *data)
+inline int cb_restorestate(gchar** parts, void *data0)
 {
+    GTree *data = data0;
     pid_t pid;
     int status;
 
@@ -516,7 +519,7 @@ void mlRestoreModuleState(GTree *state)
     logMessage(INFO, "Restoring module state...");
 
     /* repeat until we can't remove anything else */
-    while (processModuleLines(state, cb_restorestate) > 0)
+    while (processModuleLines(cb_restorestate, state) > 0)
         /* noop */;
 }
 
@@ -526,4 +529,89 @@ void mlFreeModuleState(GTree *state)
         return;
 
     g_tree_destroy(state);
+}
+
+inline int cb_saveversions(gchar** parts, void *data0)
+{
+    GHashTable *ht = data0;
+    gchar *module = g_strdup(parts[0]);
+    char *versionfilename;
+    char *srcversionfilename;
+    gchar *version;
+    gchar *srcversion;
+    gchar *value, *value2;
+
+    checked_asprintf(&versionfilename, "/sys/module/%s/version", module);
+    checked_asprintf(&srcversionfilename, "/sys/module/%s/srcversion", module);
+
+    /* emty string */
+    value = g_new0(gchar, 1);
+
+    /* get possible version file */
+    if (g_file_get_contents(versionfilename, &version, NULL, NULL)) {
+        value2 = g_strconcat(value, version, "/", NULL);
+        g_free(value);
+        g_free(version);
+        value = value2;
+    }
+
+    /* get possible src version file */
+    if (g_file_get_contents(srcversionfilename, &srcversion, NULL, NULL)) {
+        value2 = g_strconcat(value, srcversion, NULL);
+        g_free(value);
+        g_free(srcversion);
+        value = value2;
+    }
+
+    free(versionfilename);
+    free(srcversionfilename);
+
+    g_hash_table_insert(ht, module, value);
+
+    return 1;
+}
+
+VersionState mlVersions()
+{
+    GHashTable *ht = NULL;
+    
+    ht = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, g_free);
+    if(!ht) return NULL;
+
+    /* read version info about all modules */
+    processModuleLines(cb_saveversions, ht);
+
+    return (VersionState)ht;
+}
+
+void mlFreeVersions(VersionState ht)
+{
+    g_hash_table_destroy((GHashTable*)ht);
+}
+
+int mlDetectUpdate(VersionState a, VersionState b)
+{
+    int rc = 0;
+
+    if(!a && !b) return 0;
+    if(!a) return 1;
+    if(!b) return 1;
+    
+    GList *modules = g_hash_table_get_keys(b);
+    if(!modules) return 0;
+
+    GList *iter = modules;
+    while (iter && !rc) {
+        gchar *va = g_hash_table_lookup(a, iter->data);
+        gchar *vb = g_hash_table_lookup(b, iter->data);
+
+        if (!va) rc = 1; // new module
+        else rc = strcmp(va, vb); // check versions for match
+
+        iter = iter->next;
+    }
+
+    g_list_free(modules);
+
+    return abs(rc);
 }
