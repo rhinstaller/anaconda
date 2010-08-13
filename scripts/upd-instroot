@@ -198,7 +198,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     specspo sqlite startup-notification strace
     synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
-    sysvinit-tools taipeifonts tcp_wrappers tcp_wrappers-libs telnet
+    sysvinit-tools taipeifonts tcp_wrappers tcp_wrappers-libs
     tigervnc-server tigervnc-server-module tzdata
     udev un-core-dotum-fonts urw-fonts usbutils util-linux-ng
     vconfig vlgothic-fonts vim-minimal
@@ -581,7 +581,6 @@ usr/bin/syslinux
 usr/bin/tac
 usr/bin/tail
 usr/bin/tee
-usr/bin/telnet
 usr/bin/tilo
 usr/bin/top
 usr/bin/wc

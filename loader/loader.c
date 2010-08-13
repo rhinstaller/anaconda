@@ -88,7 +88,6 @@
 #include "urlinstall.h"
 
 #include "net.h"
-#include "telnetd.h"
 #include "readvars.h"
 
 #include <selinux/selinux.h>
@@ -963,8 +962,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_MEDIACHECK;
         } else if (!strcasecmp(k, "allowwireless")) {
             flags |= LOADER_FLAGS_ALLOW_WIRELESS;
-        } else if (!strcasecmp(k, "telnet")) {
-            flags |= LOADER_FLAGS_TELNETD;
         } else if (!strcasecmp(k, "noprobe")) {
             flags |= LOADER_FLAGS_NOPROBE;
         } else if (!strcasecmp(k, "text")) {
@@ -2232,9 +2229,6 @@ int main(int argc, char ** argv) {
     if (FL_EARLY_NETWORKING(flags)) {
         kickstartNetworkUp(&loaderData, &iface);
     }
-
-    if (FL_TELNETD(flags))
-        startTelnetd(&loaderData);
 
     url = doLoaderMain(&loaderData, modInfo);
 
