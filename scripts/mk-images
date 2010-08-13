@@ -777,7 +777,7 @@ makeinitrd() {
     instbin $IMGPATH /usr/sbin/NetworkManager $MBD_DIR /usr/sbin/NetworkManager
     cp -a $IMGPATH/etc/dbus-1/system.d/nm-*.conf $MBD_DIR/etc/dbus-1/system.d
     cp -a $IMGPATH/etc/dbus-1/system.d/NetworkManager.conf $MBD_DIR/etc/dbus-1/system.d
-    cp -a $IMGPATH/etc/NetworkManager/nm-system-settings.conf $MBD_DIR/etc/NetworkManager
+    cp -a $IMGPATH/etc/NetworkManager/NetworkManager.conf $MBD_DIR/etc/NetworkManager
     ( cd $IMGPATH/usr/$LIBDIR/NetworkManager
       for f in *.so ; do
           instbin $IMGPATH /usr/$LIBDIR/NetworkManager/$f $MBD_DIR /usr/$LIBDIR/NetworkManager/$f
