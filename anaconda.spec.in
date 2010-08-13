@@ -221,6 +221,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Aug 13 2010 David Cantrell <dcantrell@redhat.com> - 13.21.76-1
+- NetworkManager uses a different config file now (clumens).
+  Resolves: rhbz#623937
+- mpath: teardown format from MultipathDevice.teardown() (akozumpl).
+  Resolves: rhbz#616273
+- Do not use autoconfiguration for DHCPv6 (rvykydal)
+  Resolves: rhbz#623216
+- Remove spurious colon (misvak)
+  Related: rhbz#619745
+
 * Thu Aug 12 2010 David Cantrell <dcantrell@redhat.com> - 13.21.75-1
 - Fix "Cancel" in stage 2 network enablement dialog (rvykydal)
   Resolves: rhbz#623151

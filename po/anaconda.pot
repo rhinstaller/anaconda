@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.74\n"
+"Project-Id-Version: anaconda 13.21.75\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-08-12 05:25-1000\n"
+"POT-Creation-Date: 2010-08-13 10:41-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:382 loader/modules.c:398
-#: loader/net.c:603 loader/net.c:971 loader/net.c:1568 loader/net.c:1589
-#: loader/net.c:1897 loader/net.c:1916 loader/net.c:1928
+#: loader/net.c:603 loader/net.c:971 loader/net.c:1569 loader/net.c:1590
+#: loader/net.c:1898 loader/net.c:1917 loader/net.c:1929
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:372
@@ -3441,7 +3441,7 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
 #: loader/loader.c:1407 loader/loader.c:1440 loader/net.c:603 loader/net.c:971
-#: loader/net.c:1897 loader/net.c:1916 loader/nfsinstall.c:91
+#: loader/net.c:1898 loader/net.c:1917 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
 #: storage/devicetree.py:90 textw/constants_text.py:52
 msgid "Back"
@@ -3548,7 +3548,7 @@ msgstr ""
 #: loader/driverdisk.c:717 loader/driverdisk.c:756 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:520 loader/modules.c:382
-#: loader/modules.c:398 loader/net.c:1568 loader/net.c:1589
+#: loader/modules.c:398 loader/net.c:1569 loader/net.c:1590
 #: loader/nfsinstall.c:384 loader/urlinstall.c:372 loader/urlinstall.c:383
 #: loader/urlinstall.c:390
 msgid "Kickstart Error"
@@ -4025,62 +4025,62 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1569
+#: loader/net.c:1570
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1590
+#: loader/net.c:1591
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1695
+#: loader/net.c:1696
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1892
+#: loader/net.c:1893
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1893
+#: loader/net.c:1894
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1897
+#: loader/net.c:1898
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1906
+#: loader/net.c:1907
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1908
+#: loader/net.c:1909
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1915
+#: loader/net.c:1916
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1928
+#: loader/net.c:1929
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1929
+#: loader/net.c:1930
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:1941
+#: loader/net.c:1942
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2109 loader/net.c:2113
+#: loader/net.c:2110 loader/net.c:2114
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4560,7 +4560,7 @@ msgid "lvs failed for %s"
 msgstr ""
 
 #: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
-#: storage/devices.py:2903 storage/devices.py:3377
+#: storage/devices.py:2903 storage/devices.py:3385
 msgid "Creating"
 msgstr ""
 
@@ -4575,7 +4575,7 @@ msgstr ""
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3378
+#: storage/devices.py:3386
 #, python-format
 msgid "Creating file %s"
 msgstr ""
