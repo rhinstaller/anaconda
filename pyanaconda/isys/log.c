@@ -62,40 +62,26 @@ static int mapLogLevel(int level)
     }
 }
 
+const char *log_level_to_str[] = {
+    [DEBUGLVL] = "DEBUG",
+    [INFO] = "INFO",
+    [WARNING] = "WARN",
+    [ERROR] = "ERR",
+    [CRITICAL] = "CRIT"
+};
+
 static void printLogHeader(int level, const char *tag, FILE *outfile) {
     struct timeval current_time;
     struct tm *t;
     int msecs;
+    const char *level_name;
 
     gettimeofday(&current_time, NULL);
     t = gmtime(&current_time.tv_sec);
     msecs = current_time.tv_usec / 1000;
-    switch (level) {
-        case DEBUGLVL:
-            fprintf (outfile, "%02d:%02d:%02d,%03d DEBUG %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, tag);
-            break;
-
-        case INFO:
-            fprintf (outfile, "%02d:%02d:%02d,%03d INFO %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, tag);
-            break;
-
-        case WARNING:
-            fprintf (outfile, "%02d:%02d:%02d,%03d WARN %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, tag);
-            break;
-
-        case ERROR:
-            fprintf (outfile, "%02d:%02d:%02d,%03d ERR %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, tag);
-            break;
-
-        case CRITICAL:
-            fprintf (outfile, "%02d:%02d:%02d,%03d CRIT %s: ", t->tm_hour,
-                     t->tm_min, t->tm_sec, msecs, tag);
-            break;
-    }
+    level_name = log_level_to_str[level];
+    fprintf(outfile, "%02d:%02d:%02d,%03d %s %s: ", t->tm_hour,
+            t->tm_min, t->tm_sec, msecs, level_name, tag);
 }
 
 static void printLogMessage(int level, const char *tag, FILE *outfile, const char *s, va_list ap)
