@@ -43,6 +43,7 @@
 
 #include "../pyanaconda/isys/log.h"
 
+#include "loader.h"
 #include "modules.h"
 #include "readvars.h"
 
