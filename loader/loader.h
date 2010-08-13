@@ -46,7 +46,7 @@
 /* #16 unused */
 #define LOADER_FLAGS_NOSHELL            (((uint64_t) 1) << 17)
 /* #18 unused */
-#define LOADER_FLAGS_TELNETD            (((uint64_t) 1) << 19)
+/* #19 unused */
 #define LOADER_FLAGS_NOPASS             (((uint64_t) 1) << 20)
 /* #21 unused */
 #define LOADER_FLAGS_MEDIACHECK         (((uint64_t) 1) << 22)
@@ -84,7 +84,6 @@
 #define FL_UPDATES(a)            ((a) & LOADER_FLAGS_UPDATES)
 #define FL_KSFILE(a)             ((a) & LOADER_FLAGS_KSFILE)
 #define FL_NOSHELL(a)            ((a) & LOADER_FLAGS_NOSHELL)
-#define FL_TELNETD(a)            ((a) & LOADER_FLAGS_TELNETD)
 #define FL_NOPASS(a)             ((a) & LOADER_FLAGS_NOPASS)
 #define FL_MEDIACHECK(a)         ((a) & LOADER_FLAGS_MEDIACHECK)
 #define FL_ASKMETHOD(a)          ((a) & LOADER_FLAGS_ASKMETHOD)

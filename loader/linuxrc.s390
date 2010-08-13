@@ -2963,7 +2963,8 @@ if [ -z "$testing" ]; then
         for i in $RESOLVDNS; do echo "nameserver $i"; done >> /etc/resolv.conf
     fi
 
-    # make sure we have an /etc/hosts file (originally required for telnetd)
+    # make sure we have an /etc/hosts file (originally required for telnetd,
+    # which is no longer included)
     if [ ! -z "$HOSTNAME" -a ! -z "$IPADDR" ]; then
         echo -e "$IPADDR\t$HOSTNAME $(echo $HOSTNAME | cut -d '.' -f 1)" >> /etc/hosts
     fi
