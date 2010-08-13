@@ -1292,8 +1292,10 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             logMessage(INFO, "no stage2= given, assuming %s", tmp);
             setStage2LocFromCmdline(tmp, loaderData);
             free(tmp);
-            ((urlInstallData*)loaderData->stage2Data)->noverifyssl = 
-                loaderData->instRepo_noverifyssl;
+
+            if (loaderData->method == METHOD_URL)
+                ((urlInstallData*)loaderData->stage2Data)->noverifyssl =
+                    loaderData->instRepo_noverifyssl;
 
             /* If we had to infer a stage2= location, but the repo= parameter
              * we based this guess on was wrong, we need to correct the typo
