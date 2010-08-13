@@ -1364,6 +1364,7 @@ int writeEnabledNetInfo(iface_t *iface) {
             if (iface->ipv6method == IPV6_AUTO_METHOD) {
                 fprintf(fp, "IPV6_AUTOCONF=yes\n");
             } else if (iface->ipv6method == IPV6_DHCP_METHOD) {
+                fprintf(fp, "IPV6_AUTOCONF=no\n");
                 fprintf(fp, "DHCPV6C=yes\n");
             } else if (iface->ipv6method == IPV6_MANUAL_METHOD) {
                 fprintf(fp, "IPV6_AUTOCONF=no\n");
