@@ -1398,7 +1398,7 @@ debuglevel=10
 
         #We need to install the packages which contain modules from DriverDiscs
         for modPath in isys.modulesWithPaths():
-            match = DD_EXTRACTED.match(modPath):
+            match = DD_EXTRACTED.match(modPath)
             if match:
                 moduleProvides.append(match.group("modulename"))
             else:
