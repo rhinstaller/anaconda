@@ -636,7 +636,7 @@ makeinitrd() {
     echo $arch > $MBD_DIR/etc/arch
 
     echo "Setting up arch bits"
-    instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/$LOADERBIN $MBD_DIR /sbin/loader
+    instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/loader $MBD_DIR /sbin/loader
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
         instbin $IMGPATH ${LOADERBINDIR##$IMGPATH}/init $MBD_DIR /sbin/init
         ln -s ./init $MBD_DIR/sbin/reboot
