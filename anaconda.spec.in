@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.77-1
+- Fix the paths for DD in postinstall phase (msivak)
+  Related: rhbz#619745
+
 * Fri Aug 13 2010 David Cantrell <dcantrell@redhat.com> - 13.21.76-1
 - NetworkManager uses a different config file now (clumens).
   Resolves: rhbz#623937
