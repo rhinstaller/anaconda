@@ -21,20 +21,15 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-07-29 04:08-1000\n"
-"PO-Revision-Date: 2010-07-30 15:54+0900\n"
-"Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
+"PO-Revision-Date: 2010-08-16 14:19+0900\n"
+"Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: \n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
-"\n"
-"\n"
-"\n"
-"\n"
-"\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: anaconda:362
 msgid "Press <enter> for a shell"
@@ -426,19 +421,19 @@ msgstr ""
 
 #: gui.py:1188 gui.py:1246 installinterfacebase.py:74 text.py:491 text.py:549
 msgid "_Ignore"
-msgstr "無視 (_I)"
+msgstr "無視(_I)"
 
 #: gui.py:1189 gui.py:1247 text.py:492 text.py:550
 msgid "Ignore _all"
-msgstr "全てを無視 (_A)"
+msgstr "全てを無視(_A)"
 
 #: gui.py:1190 gui.py:1248 text.py:493 text.py:551
 msgid "_Re-initialize"
-msgstr "再初期化 (_R)"
+msgstr "再初期化(_R)"
 
 #: gui.py:1191 gui.py:1249 text.py:494 text.py:552
 msgid "Re-ini_tialize all"
-msgstr "全てを再初期化 (_T)"
+msgstr "全てを再初期化(_T)"
 
 #: gui.py:1239 text.py:542
 #, python-format
@@ -842,7 +837,7 @@ msgstr "中止(_A)"
 
 #: kickstart.py:1370 kickstart.py:1409
 msgid "_Ignore All"
-msgstr "全てを無視 (_I)"
+msgstr "全てを無視(_I)"
 
 #: kickstart.py:1400
 msgid "Missing Group"
@@ -912,7 +907,7 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
-"作成したルートファイルシステムのサイズが、このライブイメージが必要としている"
+"作成した / (root) ファイルシステムのサイズが、このライブイメージが必要としている"
 "サイズより小さすぎます(最低 %.2f MB は必要です)。"
 
 #: network.py:62
@@ -1028,7 +1023,7 @@ msgstr "使用ストレージの設定をアクティベート中にエラーが
 
 #: packages.py:161
 msgid "_File Bug"
-msgstr "バグを記録する (_F)"
+msgstr "バグを記録する(_F)"
 
 #: packages.py:344 packages.py:365
 msgid "Warning! This is pre-release software!"
@@ -1970,7 +1965,7 @@ msgstr "再起動(_B)"
 
 #: yuminstall.py:859
 msgid "_Eject"
-msgstr "ディスクを取り出す (_E)"
+msgstr "ディスクを取り出す(_E)"
 
 #: yuminstall.py:872
 #, python-format
@@ -2204,9 +2199,9 @@ msgid ""
 "general internet usage. You can optionally select a different set of "
 "software now."
 msgstr ""
-"%s のデフォルトインストールには一般的なインターネット使用に適用できるソフト"
+"%s のデフォルトインストールには一般的なネットワーク環境で利用できるソフト"
 "ウェアのセットが含まれています。オプションとして異なる組み合わせのソフトウェ"
-"アを 今選択することができます。"
+"アを選択することができます。"
 
 #: installclasses/fedora.py:48
 msgid "Graphical Desktop"
@@ -2234,8 +2229,8 @@ msgid ""
 "The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
 msgstr ""
-"%s のデフォルトインストールは最小限インストールです。オプションとして 異なる"
-"組み合わせのソフトウェアを今選択することができます。"
+"%s のデフォルトインストールは最小限インストールです。オプションとして追加のソフトウェアを"
+"選択することができます。"
 
 #: iw/GroupSelector.py:147
 #, python-format
@@ -2258,11 +2253,11 @@ msgstr "カテゴリなし"
 
 #: iw/account_gui.py:52
 msgid "Root _Password:"
-msgstr "ルートパスワード (_P):"
+msgstr "root パスワード(_P):"
 
 #: iw/account_gui.py:54
 msgid "_Confirm:"
-msgstr "確認 (_C):"
+msgstr "確認(_C):"
 
 #: iw/account_gui.py:92
 msgid "Caps Lock is on."
@@ -2352,7 +2347,7 @@ msgstr "%(name)s: %(msg)s"
 
 #: iw/autopart_type.py:241
 msgid "Use All Space"
-msgstr "全ての領域を使用する"
+msgstr "すべての領域を使用する"
 
 #: iw/autopart_type.py:243
 msgid ""
@@ -2362,10 +2357,10 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
-"選択したデバイス上の全てのパーティションを削除します。これには、他のオペレー"
-"ティング システムで作成されたパーティションも含まれます。\n"
+"選択したデバイス上のすべてのパーティションを削除します。これには、他のオペレー"
+"ティングシステムで作成されたパーティションも含まれます。\n"
 "\n"
-"<b>ヒント:</b>このオプションは選択したデバイスからデータを削除します。 バック"
+"<b>注意:</b>このオプションは選択したデバイスからデータを削除します。バック"
 "アップがあることを確認してください。"
 
 #: iw/autopart_type.py:249
@@ -2382,11 +2377,11 @@ msgid ""
 "sure you have backups."
 msgstr ""
 "Linux のパーティションのみを削除します（以前の Linux インストールで作成したも"
-"の）。 これは、ストレージデバイス上に存在する他のパーティションは削除しませ"
-"ん （VFAT や FAT32 など）。\n"
+"の）。これは、ストレージデバイス上にすでに存在する他のパーティションは削除しませ"
+"ん （NTFS や FAT32 など）。\n"
 "\n"
-"<b>ヒント:</b> このオプションは、選択したデバイスからデータを削除します。バッ"
-"クアップが あることを確認して下さい。"
+"<b>注意:</b> このオプションは、選択したデバイスからデータを削除します。バッ"
+"クアップがあることを確認して下さい。"
 
 #: iw/autopart_type.py:259
 msgid "Shrink Current System"
@@ -2394,7 +2389,7 @@ msgstr "現在のシステムを縮小する"
 
 #: iw/autopart_type.py:261
 msgid "Shrinks existing partitions to create free space for the default layout."
-msgstr "現在のパーティションを縮小してデフォルトレイアウト用に空き領域を作成します。"
+msgstr "現在すでに存在するパーティションを縮小してデフォルトレイアウト用に空き領域を作成します。"
 
 #: iw/autopart_type.py:263
 msgid "Use Free Space"
@@ -2407,7 +2402,7 @@ msgid ""
 "available."
 msgstr ""
 "現在のデータとパーティションを維持して、選択したデバイスに十分な空き領域があ"
-"る限りは そのパーティション未設定領域のみを使用します。"
+"る場合は、その未設定領域のみを使用します。"
 
 #: iw/autopart_type.py:269
 msgid "Create Custom Layout"
@@ -2486,11 +2481,11 @@ msgstr "ブートローダーの設定"
 #: iw/bootloader_main_gui.py:223
 #, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "ブートローダーを /dev/%s にインストールする。 (_I)"
+msgstr "ブートローダーを /dev/%s にインストールする。(_I)"
 
 #: iw/bootloader_main_gui.py:229
 msgid "_Change device"
-msgstr "デバイスの変更 (_C)"
+msgstr "デバイスの変更(_C)"
 
 #: iw/cleardisks_gui.py:34
 msgid "Clear Disks Selector"
@@ -2607,9 +2602,9 @@ msgid ""
 msgstr ""
 "おめでとうございます。%s のインストールが完了しました。\n"
 "\n"
-"インストールしたシステムを使用するために再起動して下さい。ご使用の システムの"
-"正常な機能を確実にするために更新が利用できる可能性が あり、再起動の後にこの更"
-"新が推奨されます。"
+"インストールしたシステムを使用するために再起動してください。ご使用のシステムの機能が"
+"正常な動作を行うために更新パッケージが提供されている可能性があります。"
+"再起動の後にパッケージのアップデートを行うことが推奨されています。"
 
 #: iw/examine_gui.py:37
 msgid "Upgrade Examine"
@@ -2625,9 +2620,8 @@ msgid ""
 "Choose this option to install a fresh copy of %s on your system.  Existing "
 "software and data may be overwritten depending on your configuration choices."
 msgstr ""
-"システムに %s のコピーを新規インストールするにはこのオプションを選択します。"
-"既存のソフトウェアやデータは選択した設定によっては上書きされるかもしれませ"
-"ん。"
+"システムに %s を新規インストールするにはこのオプションを選択します。"
+"既存のソフトウェアやデータは選択した設定によっては上書きされるかもしれません。"
 
 #: iw/examine_gui.py:65
 msgid "Upgrade an Existing Installation"
@@ -2647,13 +2641,12 @@ msgid ""
 "At least one existing installation has been detected on your system.  What "
 "would you like to do?"
 msgstr ""
-"使用システム上に少なくとも１つの既存インストールが検出されました。どうしたい"
-"ですか?"
+"現在お使いのシステム上には既存のシステムがインストールされています。どのようになさいますか?"
 
 #: iw/examine_gui.py:124
 #, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "<b>どの %s インストールをアップグレードしたいですか?</b>"
+msgstr "<b>どちらの %s をアップグレードしますか?</b>"
 
 #: iw/examine_gui.py:138
 msgid "Unknown Linux system"
@@ -2696,7 +2689,7 @@ msgstr "LUN"
 
 #: iw/filter_type.py:55
 msgid "What type of devices will your installation involve?"
-msgstr "インストールはどんなタイプのデバイスを使用しますか?"
+msgstr "どちらのタイプのストレージデバイスにインストールしますか?"
 
 #: iw/filter_type.py:61
 msgid "Basic Storage Devices"
@@ -2707,12 +2700,12 @@ msgid ""
 "Installs or upgrades to typical types of storage devices.  If you're not "
 "sure which option is right for you, this is probably it."
 msgstr ""
-"標準タイプのストレージデバイスにインストール、又はアップグレードします。 どの"
+"一般的なストレージデバイスにインストール、またはアップグレードします。 どの"
 "オプションが正しいのか不明な場合は、これが適切でしょう。"
 
 #: iw/filter_type.py:66
 msgid "Specialized Storage Devices"
-msgstr "特殊化したストレージデバイス"
+msgstr "エンタープライズストレージデバイス"
 
 #: iw/filter_type.py:67
 msgid ""
@@ -2720,9 +2713,9 @@ msgid ""
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
 msgstr ""
-"SANs (Storage Area Networks) などのエンタープライズデバイスにインストールするか、又は "
-"アップグレードします。このオプションにより、FCoE / iSCSI / zFCP などのディスクを追加できて、 "
-"インストーラが無視すべきデバイスを選別します。"
+"SANs (Storage Area Networks) などのエンタープライズストレージデバイスにインストールするか、 "
+"またはアップグレードします。このオプションにより、FCoE / iSCSI / zFCP などのストレージデバイス"
+"を追加でき、インストーラが無視すべきデバイスを選別します。"
 
 #: iw/language_gui.py:33 textw/language_text.py:46
 msgid "Language Selection"
@@ -2766,7 +2759,7 @@ msgstr ""
 
 #: iw/lvm_dialog_gui.py:146 iw/lvm_dialog_gui.py:208
 msgid "C_ontinue"
-msgstr "続行 (_O)"
+msgstr "続行(_O)"
 
 #: iw/lvm_dialog_gui.py:173
 #, python-format
@@ -2850,7 +2843,7 @@ msgstr "(最大サイズは %s MB)"
 #: iw/lvm_dialog_gui.py:470 iw/partition_dialog_gui.py:544
 #: iw/partition_ui_helpers_gui.py:337 iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
-msgstr "暗号化 (_E)"
+msgstr "暗号化(_E)"
 
 #: iw/lvm_dialog_gui.py:479 iw/partition_dialog_gui.py:474
 #: iw/raid_dialog_gui.py:461
@@ -3065,7 +3058,7 @@ msgstr "編集(_E)"
 
 #: iw/lvm_dialog_gui.py:1462
 msgid "_Logical Volumes"
-msgstr "論理ボリューム (_L)"
+msgstr "論理ボリューム(_L)"
 
 #: iw/network_gui.py:83 iw/network_gui.py:89
 msgid "Error with Hostname"
@@ -3467,7 +3460,7 @@ msgstr "<適用外>"
 
 #: iw/partition_ui_helpers_gui.py:318
 msgid "_Format as:"
-msgstr "フォーマットする (_F):"
+msgstr "フォーマットする(_F):"
 
 #: iw/partition_ui_helpers_gui.py:340
 msgid "Mi_grate filesystem to:"
@@ -3475,7 +3468,7 @@ msgstr "ファイルシステムを移動する:"
 
 #: iw/partition_ui_helpers_gui.py:370
 msgid "_Resize"
-msgstr "サイズを変更 (_R)"
+msgstr "サイズを変更(_R)"
 
 #: iw/partition_ui_helpers_gui.py:425
 #, python-format
@@ -3515,7 +3508,7 @@ msgstr "RAID デバイスの編集"
 
 #: iw/raid_dialog_gui.py:476
 msgid "RAID _Device:"
-msgstr "RAID デバイス (_D):"
+msgstr "RAID デバイス(_D):"
 
 #: iw/raid_dialog_gui.py:494
 msgid "RAID _Level:"
@@ -4862,7 +4855,7 @@ msgstr "戻る(_B)"
 
 #: storage/__init__.py:181
 msgid "_Write changes to disk"
-msgstr "変更をディスクに書き込む (_W)"
+msgstr "変更をディスクに書き込む(_W)"
 
 #: storage/__init__.py:200
 msgid "Running..."
@@ -5756,7 +5749,7 @@ msgstr "どのタイムゾーンに位置しますか?"
 
 #: textw/timezone_text.py:92
 msgid "System clock uses UTC"
-msgstr "システムクロックに UTC を使用"
+msgstr "このコンピュータはシステムクロックに世界標準時間(UTC)を使用します。"
 
 #: textw/upgrade_bootloader_text.py:116 textw/upgrade_bootloader_text.py:126
 msgid "Update boot loader configuration"
@@ -5840,7 +5833,7 @@ msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
 msgstr ""
-"ルートパスワードを設定してください。パスワードを2回入力することで、パスワード"
+"root パスワードを設定してください。パスワードを2回入力することで、パスワード"
 "を覚えていて、タイプミスがないことを確認します。"
 
 #: textw/userauth_text.py:67
@@ -5914,23 +5907,23 @@ msgstr ""
 
 #: ui/GroupSelector.glade.h:2
 msgid "_Deselect"
-msgstr "選択解除 (_D)"
+msgstr "選択解除(_D)"
 
 #: ui/GroupSelector.glade.h:3
 msgid "_Deselect all optional packages"
-msgstr "すべての追加パッケージの選択を解除 (_D)"
+msgstr "すべての追加パッケージの選択を解除(_D)"
 
 #: ui/GroupSelector.glade.h:4
 msgid "_Optional packages"
-msgstr "追加パッケージ (_O)"
+msgstr "追加パッケージ(_O)"
 
 #: ui/GroupSelector.glade.h:5
 msgid "_Select"
-msgstr "選択 (_S)"
+msgstr "選択(_S)"
 
 #: ui/GroupSelector.glade.h:6
 msgid "_Select all optional packages"
-msgstr "すべての追加パッケージを選択 (_S)"
+msgstr "すべての追加パッケージを選択(_S)"
 
 #: ui/GroupSelector.glade.h:7
 msgid "dialog1"
@@ -5942,14 +5935,14 @@ msgstr "確認:"
 
 #: ui/account.glade.h:2
 msgid "Root Password:"
-msgstr "ルートパスワード:"
+msgstr "root パスワード:"
 
 #: ui/account.glade.h:3
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"root アカウントはシステムの管理に使用されます。 root ユーザーのパスワードを入"
+"root ユーザーはシステムの管理用に使用します。 root ユーザーのパスワードを入"
 "力してください。"
 
 #: ui/adddrive.glade.h:1
@@ -5974,11 +5967,11 @@ msgstr "ドライブ設定をどのように修正したいですか?"
 
 #: ui/adddrive.glade.h:6
 msgid "_Add drive"
-msgstr "ドライブ追加 (_A)"
+msgstr "ドライブ追加(_A)"
 
 #: ui/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
-msgstr "<b>リポジトリー名 (_N):</b>"
+msgstr "<b>リポジトリー名(_N):</b>"
 
 #: ui/addrepo.glade.h:2
 msgid "<b>Repository _type:</b>"
@@ -5986,7 +5979,7 @@ msgstr "<b>リポジトリータイプ（_T）:</b>"
 
 #: ui/addrepo.glade.h:4
 msgid "Configure _proxy"
-msgstr "プロキシーの設定 (_P) "
+msgstr "プロキシーの設定(_P) "
 
 #: ui/addrepo.glade.h:5
 msgid ""
@@ -6010,15 +6003,15 @@ msgstr "プロキシー U_RL (ホスト:ポート)"
 
 #: ui/addrepo.glade.h:11
 msgid "Proxy pass_word"
-msgstr "プロキシーのパスワード (_W)"
+msgstr "プロキシーのパスワード(_W)"
 
 #: ui/addrepo.glade.h:12
 msgid "Proxy u_sername"
-msgstr "プロキシーのユーザー名 (_S)"
+msgstr "プロキシーのユーザー名(_S)"
 
 #: ui/addrepo.glade.h:13
 msgid "Repository _URL"
-msgstr "リポジトリーの URL (_U)"
+msgstr "リポジトリーの URL(_U)"
 
 #: ui/addrepo.glade.h:14
 msgid "Select A Directory"
@@ -6062,7 +6055,7 @@ msgstr "<b>このサイズ（MB）までパーティションを縮小(_T):</b>"
 
 #: ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "パーティションのレイアウトを表示または修正(_V)"
+msgstr "パーティションのレイアウトをレビューまたは修正(_V)"
 
 #: ui/autopart.glade.h:3
 msgid "Volume to Shrink"
@@ -6078,7 +6071,7 @@ msgstr "どのタイプのインストールをしますか ?"
 
 #: ui/autopart.glade.h:6
 msgid "_Encrypt system"
-msgstr "システムを暗号化する (_E)"
+msgstr "システムを暗号化する(_E)"
 
 #: ui/autopart.glade.h:7
 msgid "_Shrink"
@@ -6228,7 +6221,7 @@ msgstr "情報"
 
 #: ui/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr "詳細 (_D)"
+msgstr "詳細(_D)"
 
 #: ui/fcoe-config.glade.h:1
 msgid "Configure FCoE Parameters"
@@ -6364,19 +6357,19 @@ msgstr "ターゲット:"
 
 #: ui/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>CHAP パスワード (_P):</b>"
+msgstr "<b>CHAP パスワード(_P):</b>"
 
 #: ui/iscsi-config.glade.h:2
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>CHAP ユーザー名 (_U):</b>"
+msgstr "<b>CHAP ユーザー名(_U):</b>"
 
 #: ui/iscsi-config.glade.h:3
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>逆順 CHAP パスワード (_A):</b>"
+msgstr "<b>逆順 CHAP パスワード(_A):</b>"
 
 #: ui/iscsi-config.glade.h:4
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>逆順 CHAP ユーザー名 (_S):</b>"
+msgstr "<b>逆順 CHAP ユーザー名(_S):</b>"
 
 #: ui/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -6400,14 +6393,14 @@ msgstr ""
 
 #: ui/iscsi-config.glade.h:9
 msgid "_Add target"
-msgstr "ターゲットの追加 (_A)"
+msgstr "ターゲットの追加(_A)"
 
 #: ui/lukspassphrase.glade.h:1
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
-"暗号化済みの全ての既存デバイスにこのパスフレーズを追加して、ブートプロセスを "
+"暗号化済みの全ての既存デバイスにこのパスフレーズを追加して、ブートプロセスを"
 "スムーズにします。"
 
 #: ui/lukspassphrase.glade.h:2
@@ -6443,8 +6436,8 @@ msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
 msgstr ""
-"このコンピュータに命名して下さい。ホスト名はネットワーク上でこのコンピュータ"
-"を 識別します。"
+"このコンピュータのホスト名を指定してください。ホスト名はネットワーク上でこのコンピュータ"
+"を識別するために必要です。"
 
 #: ui/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6455,8 +6448,7 @@ msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
-"ソフトウェアのインストールに使用する予定の追加リポジトリーを選択してくださ"
-"い。"
+"ソフトウェアのインストールに必要な追加リポジトリーを選択してください。"
 
 #: ui/tasksel.glade.h:4
 #, no-c-format
@@ -6465,8 +6457,8 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
-"%s のデフォルトインストールには一般的なインターネット使用に適用できるソフト"
-"ウェアのセットが含まれています。 システムに追加で対応させたいタスクは何です"
+"%s のデフォルトインストールには一般的なネットワーク環境での利用できるソフト"
+"ウェアのセットが含まれています。システムに追加で対応させたいタスクは何です"
 "か?"
 
 #: ui/tasksel.glade.h:5
@@ -6474,20 +6466,20 @@ msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"ここでソフトウェアの選択をさらにカスタマイズすることができます。 または、 イ"
-"ンストール後にソフトウェア管理アプリケーションで行うこともできます。"
+"次のステップでソフトウェアの選択を詳細にカスタマイズすることができます。 またはインストール後にソフトウェア"
+"管理アプリケーションでカスタマイズを行うこともできます。"
 
 #: ui/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "追加でソフトウェアリポジトリーを加える (_A)"
+msgstr "他のソフトウェアリポジトリーの追加(_A)"
 
 #: ui/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "今すぐカスタマイズする(_C)"
+msgstr "今すぐカスタマイズ(_C)"
 
 #: ui/tasksel.glade.h:8
 msgid "_Modify repository"
-msgstr "リポジトリーの編集 (_M)"
+msgstr "リポジトリーの編集(_M)"
 
 #: ui/zfcp-config.glade.h:1
 msgid "<b>Device number:</b>"
@@ -6686,7 +6678,7 @@ msgstr "ポルトガル語"
 
 #: lang-table.h:43
 msgid "Portuguese(Brazilian)"
-msgstr "ポルトガル語(ブラジル系)"
+msgstr "ポルトガル語 (ブラジル系)"
 
 #: lang-table.h:44
 msgid "Punjabi"
