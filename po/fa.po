@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-06-11 16:53-0400\n"
-"PO-Revision-Date: 2010-08-13 04:40+0330\n"
+"PO-Revision-Date: 2010-08-15 01:16+0330\n"
 "Last-Translator: Mostafa <info@mostafadaneshvar.com>\n"
 "Language-Team: Persian\n"
 "MIME-Version: 1.0\n"
@@ -176,9 +176,8 @@ msgid "Transferring install image to hard drive"
 msgstr "در حال انتقال تصویر نصب به دیسک‌سخت"
 
 #: pyanaconda/backend.py:161
-#, fuzzy
 msgid "An error occurred transferring the install image to your hard drive.  This is often cause by damaged or low quality media."
-msgstr "هنگام انتقال تصویر نصب به دیسک‌سخت شما خطایی رخ داد. احتمالاً دیسک‌تان جا ندارد."
+msgstr "هنگام انتقال تصویر نصب به دیسک‌سخت شما خطایی رخ داد. این اغلب به خاطر رسانه کیفیت پایین یا خراب روی می دهد."
 
 #: pyanaconda/backend.py:165
 msgid "An error occurred transferring the install image to your hard drive. You are probably out of disk space."
@@ -277,12 +276,14 @@ msgid "Warning"
 msgstr "اخطار"
 
 #: pyanaconda/bootloader.py:56
-#, fuzzy
 msgid ""
 "Filesystems have already been activated.  You cannot go back past this point.\n"
 "\n"
 "Would you like to continue with the installation?"
-msgstr "گزینه‌های افرازبندی‌ای که انتخاب کرده‌اید از قبل فعال شده‌اند. دیگر نمی‌توانید به صفحهٔ ویرایش دیسک بازگردید. آیا می‌خواهید روند نصب را ادامه دهید؟"
+msgstr ""
+"فایل های سیستمی فعال شده اند. شما نمی توانید در این نکته به عقب برگردید.\n"
+"\n"
+"آیا می‌خواهید روند نصب را ادامه دهید؟"
 
 #: pyanaconda/bootloader.py:60
 #: pyanaconda/gui.py:1083
@@ -342,7 +343,6 @@ msgid "There was an error installing the bootloader.  The system may not be boot
 msgstr "خطای در نصب بارکننده بووت وجود داشت. سیستم شاید قابل بووت نباشد."
 
 #: pyanaconda/bootloader.py:228
-#, fuzzy
 msgid "No kernel packages were installed on the system.  Bootloader configuration will not be changed."
 msgstr "هیچ‌کدام از بسته‌ها‌ی هسته روی سیستم شما نصب نشده است. پیکربندی بارکنندهٔ راه‌انداز شما تغییر داده نخواهد شد."
 
@@ -362,19 +362,19 @@ msgstr "در حال پیشرفت"
 #: pyanaconda/kickstart.py:1273
 #: pyanaconda/kickstart.py:1281
 #: pyanaconda/text.py:391
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration file:\n"
 "\n"
 "%s"
 msgstr ""
-"خطای زیر هنگام تجزیهٔ پیکربندی kickstart پیدا شد:\n"
+"خطای زیر هنگام تجزیهٔ فایل پیکربندی kickstart پیدا شد:\n"
 "\n"
-"‏%s"
+"%s"
 
 #: pyanaconda/cmdline.py:101
 msgid "Command line mode requires all choices to be specified in a kickstart configuration file."
-msgstr ""
+msgstr "حالت دستور نیاز دارد همه گزینه ها در فایل پیکره بندی kickstart مشخص شود."
 
 #: pyanaconda/cmdline.py:120
 #: pyanaconda/cmdline.py:127
@@ -404,7 +404,6 @@ msgid "Screenshots Copied"
 msgstr "عکس‌های ‌صفحه نسخه‌برداری شد"
 
 #: pyanaconda/gui.py:125
-#, fuzzy
 msgid ""
 "The screenshots have been saved in the directory:\n"
 "\n"
@@ -438,7 +437,7 @@ msgstr "هنگام ذخیرهٔ عکس‌صفحه خطایی رخ داد. اگر
 #: pyanaconda/gui.py:524
 #: pyanaconda/text.py:149
 msgid "Choose a passphrase for the encrypted devices. You will be prompted for this passphrase during system boot."
-msgstr ""
+msgstr "کلمه ی عبوری برای کدگذاری وسایل انتخاب کنید. در هنگام بار اندازی سیستم این کلمه عبور از شما پرسیده می شود."
 
 #: pyanaconda/gui.py:543
 #: pyanaconda/gui.py:551
@@ -449,20 +448,18 @@ msgstr "خطا با گذرواژه"
 
 #: pyanaconda/gui.py:544
 #: pyanaconda/text.py:188
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
 msgstr "گذرواژه‌هایی که وارد کردید فرق داشتند. لطفاً دوباره تلاش کنید."
 
 #: pyanaconda/gui.py:552
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "طول گذرواژه باید حداقل شش نویسه باشد."
+msgstr "طول گذرواژه باید حداقل هشت نویسه باشد."
 
 #: pyanaconda/gui.py:586
 #: pyanaconda/text.py:225
 #, python-format
 msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
-msgstr ""
+msgstr "وسیله ی %s کدگذاری شده است. برای دسترسی به محتوای این وسیله در هنگام نصب باید کلمه عبور وسیله را در پایین وارد کنید."
 
 #: pyanaconda/gui.py:677
 #: pyanaconda/gui.py:1321
@@ -502,9 +499,9 @@ msgid "Waiting for NetworkManager"
 msgstr "در انتظار NetworkManager"
 
 #: pyanaconda/gui.py:955
-#, fuzzy, python-format
+#, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
-msgstr "در انتظار برای اتصال تِلنِت..."
+msgstr "در انتظار برای NetworkManager فعالسازی این وسایل: %s"
 
 #: pyanaconda/gui.py:976
 #, python-format
@@ -517,9 +514,9 @@ msgstr "پیکربندی شبکه "
 
 #: pyanaconda/gui.py:988
 #: pyanaconda/iw/netconfig_dialog.py:213
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "هنگام نسخه‌برداری از عکس‌های ‌صفحه خطایی رخ داد."
+msgstr "هنگام بالا آوردن میانگر شبکه %s خطایی رخ داد."
 
 #: pyanaconda/gui.py:990
 msgid "Error Enabling Network"
@@ -617,6 +614,9 @@ msgid ""
 "\n"
 "It is recommended that you exit and abort your installation, but you can choose to continue if you think this is in error."
 msgstr ""
+"نصویر %s ایزو اندازه ای دارد که دوبرابر ۲۰۴۸ بایت نیست. این بدین معنی است ان در هنگام انتقال به این رایانه خراب شده است.\n"
+"\n"
+"توصیه می شود از برنامه نصب خارج شده و نصب را لغو کنید، اما اگر فکر می کنید این اشتباه است ادامه دهید."
 
 #: pyanaconda/image.py:156
 msgid "Couldn't Mount ISO Source"
@@ -625,7 +625,7 @@ msgstr "نه توانست منبع ایزو را بارگذاری کند"
 #: pyanaconda/image.py:157
 #, python-format
 msgid "An error occurred mounting the source device %s.  This may happen if your ISO images are located on an advanced storage device like LVM or RAID, or if there was a problem mounting a partition.  Click exit to abort the installation."
-msgstr ""
+msgstr "خطای در سوار کردن وسیله منبع %s روی داد. این شاید به خاطر این اتفاق است که تصاویر ایزوی شما در مکانی پیشرفته ذخیره سازی مانند LVM یا RAID یا مشکلی در سوار کردن پارتیشن وجود دارد. بر روی خروج جهت لغو نصب کلیک کنید."
 
 #: pyanaconda/image.py:185
 msgid "Missing ISO 9660 Image"
@@ -638,23 +638,26 @@ msgid ""
 "\n"
 "Please copy this image to the drive and click Retry.  Click Exit to abort the installation."
 msgstr ""
+"نصاب سعی کرده است تا تصویر  #%s را سوار کند،‌اما نمی آن را بر روی هارد دیسک پیدا کند.\n"
+"\n"
+"لطفا این تصویر را بر روی درایو کپی کرده و بار دیگر سعی کنید. برای خروج از نصب بر روی خروج کلیک کنید."
 
 #: pyanaconda/image.py:241
 msgid "Required Install Media"
 msgstr "رسانهٔ نصب مورد نیاز"
 
 #: pyanaconda/image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"نرم‌افزارهایی که شما برای نصب انتخاب کرده‌اید به سی‌دی‌های زیر نیاز خواهند داشت:\n"
+"نرم‌افزارهایی که شما برای نصب انتخاب کرده‌اید به سی‌دی‌های %(productName)s %(productVersion)s نیاز خواهند داشت:\n"
 "\n"
-"%s\n"
-"لطفاً قبل از ادامهٔ نصب آنها را آماده داشته باشید. اگر احتیاج به قطع کردن نصب و راه‌اندازی مجدد دارید لطفاً روی دکمهٔ «راه‌اندازی مجدد» کلیک کنید."
+"%(reqcdstr)s\n"
+"لطفاً قبل از ادامهٔ نصب آنها را آماده داشته باشید. اگر احتیاج به قطع کردن نصب و راه‌اندازی مجدد دارید لطفاً روی دکمهٔ \"Reboot\" کلیک کنید."
 
 #: pyanaconda/image.py:251
 #: pyanaconda/livecd.py:446
@@ -670,9 +673,9 @@ msgid "_Back"
 msgstr "_عقب"
 
 #: pyanaconda/image.py:290
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred unmounting the disc.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
-msgstr "هنگام پیاده کردن سی‌دی خطایی رخ داد. لطفاً مطمئن شوید که شما از طریق پوسته روی tty2 به %s دست‌یابی ندارید و سپس برای تلاش مجدد روی دکمهٔ «تأیید» کلیک کنید."
+msgstr "هنگام پیاده کردن دیسک خطایی رخ داد. لطفاً مطمئن شوید که شما از طریق پوسته روی tty2 به %s دست‌یابی ندارید و سپس برای تلاش مجدد روی دکمهٔ «تأیید» کلیک کنید."
 
 #: pyanaconda/installclass.py:67
 msgid "Install on System"
@@ -682,8 +685,7 @@ msgstr "نصب روی سیستم"
 #, python-format
 msgid "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS RAID sets. Ignoring disk %s."
 msgid_plural "Disks %s contain BIOS RAID metadata, but are not part of any recognized BIOS RAID sets. Ignoring disks %s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "دیسک شامل %s متادیتای RAID بایوس است، اما بخشی از مجموعه ی RAID بایوس شناخته شده نیست. نادیده گرفتن %s"
 
 #: pyanaconda/installinterfacebase.py:83
 #, python-format
@@ -700,6 +702,17 @@ msgid ""
 "\n"
 "This action may also be applied to all other disks needing reinitialization.%(details)s"
 msgstr ""
+"خطای پردازش درایو:\n"
+"\n"
+"%(path)s\n"
+"%(size)-0.fMB\n"
+"%(description)s\n"
+"\n"
+"این وسیله شاید نیاز به مقداردهی دوباره دارد.\n"
+"\n"
+"مقداری دهی مجدد باعث از بین رفتن همه داده ها می شود!\n"
+"\n"
+"این عمل شاید بر روی همه دیسک های دیگرر که به مقدار دهی مجدد نیاز دارند اعمال شود.%(details)s"
 
 #: pyanaconda/installinterfacebase.py:92
 #: pyanaconda/installinterfacebase.py:150
@@ -728,6 +741,8 @@ msgid ""
 "Error processing LVM.\n"
 "There is inconsistent LVM data on %(msg)s.  You can reinitialize all related PVs (%(pvs)s) which will erase the LVM metadata, or ignore which will preserve the contents.  This action may also be applied to all other PVs with inconsistent metadata."
 msgstr ""
+"خطای پردازش LVM.\n"
+"داده های ناپیوسته LVM در %(msg)s وجود دارد. شما می توانید همه ی PVs  مرتبط (%(pvs)s) باز مقدار دهی کنید که این باعث حذف متادیتا LVM می  شود، یا نادیده بگیرد محتوا حفظ خواهند شد. این کار شاید برای همه PVs دیگر با متادیتا ناپیوسته اعمال شود."
 
 #: pyanaconda/installinterfacebase.py:171
 msgid "Unformatted DASD Device Found"
@@ -754,17 +769,17 @@ msgstr "_قالب‌بندی"
 #: pyanaconda/iutil.py:867
 #, python-format
 msgid "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)s)"
-msgstr ""
+msgstr "خطا: در باز کردن، روش reIPL برای %(reipl_type)s (%(filename)s تنظیم کرد: %(e)s)"
 
 #: pyanaconda/iutil.py:878
 #, python-format
 msgid "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)s)"
-msgstr ""
+msgstr "خطا: در نوشتن، نمی توان reIPL برای روش  %(reipl_type)s (%(filename)s تنظیم کرد: %(e)s)"
 
 #: pyanaconda/iutil.py:887
 #, python-format
 msgid "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)s)"
-msgstr ""
+msgstr "خطا: در بستن، نمی توان روش reIPL برای %(reipl_type)s (%(filename)s تنظیم کند: %(e)s)"
 
 #: pyanaconda/iutil.py:906
 #, python-format
@@ -784,31 +799,31 @@ msgstr "اخطار: نمی تواند پارمتر (%s) را بازنشانی ک
 #: pyanaconda/iutil.py:938
 #, python-format
 msgid "After shutdown, please perform a manual IPL from DASD device %s to continue installation"
-msgstr ""
+msgstr "بعد از خاموش کردن، لطفا IPL دستی از وسیله DASD %s برای ادامه نصب انجام دهید"
 
 #: pyanaconda/iutil.py:960
 #, python-format
 msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
-msgstr ""
+msgstr "خطا: خواندن ویژگی های FPC %(syspath_property)s برای reIPL (%(e)s)"
 
 #: pyanaconda/iutil.py:975
 #, python-format
 msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr ""
+msgstr "خطا: نوشتن ویژگی FCP  %(reipl_property)s for reIPL (%(e)s)"
 
 #: pyanaconda/iutil.py:990
 #, python-format
 msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr ""
+msgstr "خطا: نوشتن پیشفرض ویژگی FCP %(reipl_property)s for reIPL (%(e)s)"
 
 #: pyanaconda/iutil.py:1005
 #, python-format
 msgid "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %(wwpn)s and LUN %(lun)s to continue installation"
-msgstr ""
+msgstr "بعد از خاموش کردن، لطفا IPL دستی از FCP %(device)s با WWPN %(wwpn)s و LUN %(lun)s برای ادامه نصب انجام دهید"
 
 #: pyanaconda/iutil.py:1022
 msgid "After shutdown, please perform a manual IPL from the device now containing /boot to continue installation"
-msgstr ""
+msgstr "بعد از خاموش کردن،‌لطفا IPL دستی از وسیله ای که شامل /boot برای ادامه نصب انجام دهید"
 
 #: pyanaconda/iutil.py:1033
 msgid "Error determining boot device's disk name"
@@ -816,15 +831,12 @@ msgstr "خطا در پیداکردن نام دیسک راه اندازی"
 
 #: pyanaconda/iutil.py:1037
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
-msgstr ""
+msgstr "نقطه سوار شدن  /boot یا / بر روی دیسکی است که برای ما آشنا نیست"
 
 #: pyanaconda/kickstart.py:115
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running the kickstart script at line %(lineno)s.  You may examine the output in %(msgs)s.  This is a fatal error and installation will be aborted.  Press the OK button to exit the installer."
-msgstr ""
-"در اجرای کدنوشتک خطایی پیش آمد. می‌توانید خروجی را در %s بررسی کنید. این خطا مهلک است و نصب شما قطع خواهد شد.\n"
-"\n"
-"برای راه‌اندازی مجدد سیستم روی دکمهٔ «تأیید» کلیک کنید."
+msgstr "در اجرای کدنوشتک kickstart در خط %(lineno)s خطایی پیش آمد. می‌توانید خروجی را در %(msgs)s.بررسی کنید. این خطا مهلک است و نصب شما قطع خواهد شد.برای راه‌اندازی مجدد سیستم و خروج از نصاب روی دکمهٔ «تأیید» کلیک کنید."
 
 #: pyanaconda/kickstart.py:123
 #: pyanaconda/kickstart.py:125
@@ -841,18 +853,18 @@ msgstr "هیچ شبکه ای موجود نیست"
 
 #: pyanaconda/kickstart.py:151
 msgid "Encryption key escrow requires networking, but there was an error enabling the network on your system."
-msgstr ""
+msgstr "سپردن رمزگذاری کلید نیاز به شبکه دارد ، اما خطای فعالسازی شبکه بر روی سیستم شما وجود دارد."
 
 #: pyanaconda/kickstart.py:164
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was encountered while downloading the escrow certificate:\n"
 "\n"
 "%s"
 msgstr ""
-"خطای زیر هنگام تجزیهٔ پیکربندی kickstart پیدا شد:\n"
+"خطای زیر هنگام دانلود گواهی نامه رخ داد:\n"
 "\n"
-"‏%s"
+"%s"
 
 #: pyanaconda/kickstart.py:1246
 #, python-format
@@ -862,7 +874,7 @@ msgstr "خطای پردازش %%ksappend خطوط: %s"
 #: pyanaconda/kickstart.py:1249
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
-msgstr ""
+msgstr "خطای ناشناس در پردازش %%ksappend lines: %s"
 
 #: pyanaconda/kickstart.py:1304
 #: pyanaconda/livecd.py:228
@@ -886,9 +898,9 @@ msgid "Missing Package"
 msgstr "بستهٔ ناموجود"
 
 #: pyanaconda/kickstart.py:1355
-#, fuzzy, python-format
+#, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort this installation?"
-msgstr "شما مشخص کرده‌اید که بستهٔ «%s» نصب شود. این بسته وجود ندارد. مایلید ادامه دهید یا نصب خود را قطع می‌کنید؟"
+msgstr "شما مشخص کرده‌اید که بستهٔ '%s' نصب شود. این بسته وجود ندارد. مایلید ادامه دهید یا نصب خود را قطع می‌کنید؟"
 
 #: pyanaconda/kickstart.py:1361
 #: pyanaconda/kickstart.py:1400
@@ -905,9 +917,9 @@ msgid "Missing Group"
 msgstr "گروه ناموجود"
 
 #: pyanaconda/kickstart.py:1393
-#, fuzzy, python-format
+#, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort this installation?"
-msgstr "شما مشخص کرده‌اید که بستهٔ «%s» نصب شود. این بسته وجود ندارد. مایلید ادامه دهید یا نصب خود را قطع می‌کنید؟"
+msgstr "شما مشخص کرده‌اید که گروه  '%s'  نصب شود. این گروه وجود ندارد. مایلید ادامه دهید یا نصب خود را قطع می‌کنید؟"
 
 #: pyanaconda/kickstart.py:1500
 #, python-format
@@ -915,6 +927,8 @@ msgid ""
 "The kickstart configuration file is missing required information that anaconda cannot prompt for.  Please add the following sections and try again:\n"
 "%s"
 msgstr ""
+"فایل پیکره بندی kickstart اطلاعات مورد نیاز برای فراخوانی آناکوندا نیاز است را گم کرده است. لطفا بخش های زیر را وارد کرده و بار دیگر سعی کنید:\n"
+"%s"
 
 #: pyanaconda/livecd.py:121
 msgid "Unable to find image"
@@ -923,7 +937,7 @@ msgstr "قادر  به پیدا کردن تصویر نیست"
 #: pyanaconda/livecd.py:122
 #, python-format
 msgid "The given location isn't a valid %s live CD to use as an installation source."
-msgstr ""
+msgstr "مکان مشخص شده یک سی‌دی %s  لایو معتبر برای استفاده به عنوان منبع نصب نیست."
 
 #: pyanaconda/livecd.py:180
 msgid "Copying live image to hard drive."
@@ -935,38 +949,38 @@ msgid ""
 "\n"
 "If you exit, your system will be left in an inconsistent state that will require reinstallation."
 msgstr ""
+"خطایی در نصب تصویر لایو بر روی هارد دیسک وجود داشت. این شاید به خاطر رسانه ی بد باشد. لطفا رسانه ی نصب خود را تایید کنید.\n"
+"\n"
+"اگر خارج شوید، سیستم شما در حالت ناقص باقی می ماند و نیاز به نصب مجدد خواهد داشت."
 
 #: pyanaconda/livecd.py:229
 msgid "Performing post-installation filesystem changes.  This may take several minutes."
-msgstr ""
+msgstr "اجرای تغییرات فایل سیستم پس-نصب. این ممکن است چندین دقیقه طول بکشد."
 
 #: pyanaconda/livecd.py:441
 #, python-format
 msgid "The root filesystem you created is not large enough for this live image (%.2f MB required)."
-msgstr ""
+msgstr "فایلی سیستم ریشه ای کخ شما ساخته اید به اندازه کافی بزرگ برای این تصویر لایو نیست. (%.2f MB مورد نیاز)"
 
 #: pyanaconda/network.py:63
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr "نام‌میزبان باید ۲۵۵ نویسه یا کوتاه‌تر باشد."
 
 #: pyanaconda/network.py:69
-#, fuzzy
 msgid "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-9'"
-msgstr "نام‌میزبان باید با نویسه‌ایی معتبر در محدودهٔ «a-z» یا «A-Z» آغاز شود"
+msgstr "نام‌میزبان باید با نویسه‌ایی معتبر در محدودهٔ 'a-z' یا 'A-Z'  یا '0-9' آغاز شود"
 
 #: pyanaconda/network.py:74
-#, fuzzy
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr "نام‌میزبان فقط می‌تواند شامل نویسه‌های «a‐z»، «A‐Z»، '-' یا «.» باشد"
+msgstr "نام‌میزبان فقط می‌تواند شامل نویسه‌های 'a‐z'، 'A‐Z' ،'0-9'، '-' یا '.' باشد"
 
 #: pyanaconda/network.py:136
 msgid "IP address is missing."
 msgstr "نشانی IP گم شده است"
 
 #: pyanaconda/network.py:140
-#, fuzzy
 msgid "IPv4 addresses must contain four numbers between 0 and 255, separated by periods."
-msgstr "نشانی‌های IP باید حاوی اعداد بین ۰ و ۲۵۵ باشند"
+msgstr "نشانی‌های IPv4 باید حاوی چهار عدد از اعداد بین ۰ و ۲۵۵ باشند که با نقطه از هم جدا شده اند."
 
 #: pyanaconda/network.py:143
 #, python-format
@@ -983,18 +997,18 @@ msgid "Resizing Failed"
 msgstr "تغییر اندازه دچار خطا شد"
 
 #: pyanaconda/packages.py:112
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error encountered while resizing the device %s."
-msgstr "هنگام پاک کردن دیسک‌گردان‌های هدف خطایی پیش آمد. همانندسازی شکست خورد."
+msgstr "هنگام تغییر اندازه ی %s خطایی رخ داد."
 
 #: pyanaconda/packages.py:120
 msgid "Migration Failed"
 msgstr "مهاجرت دچار اشکال شد"
 
 #: pyanaconda/packages.py:121
-#, fuzzy, python-format
+#, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
-msgstr "هنگام پاک کردن دیسک‌گردان‌های هدف خطایی پیش آمد. همانندسازی شکست خورد."
+msgstr "خطای هنگام مهاجرت فایل سیستم در وسیله %s رخ داد."
 
 #: pyanaconda/packages.py:130
 msgid "_File Bug"
@@ -1074,7 +1088,7 @@ msgstr "خطا ‐ نام جلد منطقی دارای نویسه‌های غی�
 #: pyanaconda/partIntfHelpers.py:105
 #, python-format
 msgid "The mount point %s is invalid.  Mount points must start with '/' and cannot end with '/', and must contain printable characters and no spaces."
-msgstr ""
+msgstr "نقطه سوار %s معتبر نیست. نقاط سوار کردن باید با '/' شروع شوند و با '/' خاتمه یابند و باید شامل نویسه های قابل پرینت و بدون فضای خالی باشد."
 
 #: pyanaconda/partIntfHelpers.py:117
 #: pyanaconda/partIntfHelpers.py:124
@@ -1126,15 +1140,15 @@ msgid "Format as Swap?"
 msgstr "به شکل حافظهٔ مبادله قالب‌بندی شود؟"
 
 #: pyanaconda/partIntfHelpers.py:217
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s has a partition type of 0x82 (Linux swap) but does not appear to be formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"‏‎/dev/%s دارای نوع افراز 0x82 (مبادله لینوکس) است ولی به‌نظر نمی‌رسد که به عنوان افراز حافظهٔ مبادلهٔ لینوکس قالب‌بندی شده باشد.\n"
+"‏‎%s دارای نوع افراز 0x82 (سووپ لینوکس) است ولی به‌نظر نمی‌رسد که به عنوان افراز حافظهٔ سووپ لینوکس قالب‌بندی شده باشد.\n"
 "\n"
-"آیا می‌خواهید این افراز را به عنوان افراز حافظهٔ مبادله قالب‌بندی کنید؟"
+"آیا می‌خواهید این افراز را به عنوان افراز حافظهٔ سووپ قالب‌بندی کنید؟"
 
 #: pyanaconda/partIntfHelpers.py:232
 #, python-format
@@ -1164,16 +1178,16 @@ msgid "Error with Partitioning"
 msgstr "خطا در افرازبندی"
 
 #: pyanaconda/partIntfHelpers.py:254
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. These errors must be corrected prior to continuing with your install of %(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
 "خطاهای بحرانی زیر در شِمای افرازبندی درخواست شدهٔ شما وجود دارند.\n"
-"پیش از ادامه به نصب %s این خطاها باید تصحیح شوند.\n"
+"پیش از ادامه به نصب %(productName)s این خطاها باید تصحیح شوند.\n"
 "\n"
-"‏%s"
+"%(errorstr)s"
 
 #: pyanaconda/partIntfHelpers.py:270
 msgid "Partitioning Warning"
@@ -1232,9 +1246,9 @@ msgid "You are about to delete the %s partition."
 msgstr "شما در آستانهٔ حذف پارتیشن ‎%s هستید."
 
 #: pyanaconda/partIntfHelpers.py:334
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %(type)s %(name)s"
-msgstr "شما در آستانهٔ حذف افراز ‎/dev/%s هستید."
+msgstr "شما در آستانهٔ حذف افراز%(type)s %(name)s هستید."
 
 #: pyanaconda/partIntfHelpers.py:345
 msgid "Confirm Reset"
@@ -1280,7 +1294,7 @@ msgstr "افرازهای قابل راه‌اندازی فقط می‌توانن
 
 #: pyanaconda/platform.py:124
 msgid "Bootable RAID1 set members must be partitions."
-msgstr ""
+msgstr "مجموعه  RAID1 قابل بووت باید پارتیشن باشند."
 
 #: pyanaconda/platform.py:129
 msgid "Bootable partitions cannot be on a logical volume."
@@ -1375,7 +1389,7 @@ msgstr "خیر"
 
 #: pyanaconda/rescue.py:263
 msgid "Unable to activate a networking device.  Networking will not be available in rescue mode."
-msgstr ""
+msgstr "قادر به فعال سازی وسیله شبکه نیست. دسترسی به شبکه در حالت نجات مقدور نیست."
 
 #: pyanaconda/rescue.py:299
 #: pyanaconda/rescue.py:374
@@ -1433,9 +1447,8 @@ msgid "System to Rescue"
 msgstr "نجات سیستم"
 
 #: pyanaconda/rescue.py:351
-#, fuzzy
 msgid "Which device holds the root partition of your installation?"
-msgstr "افراز ریشهٔ نصب شما در کدام افراز قرار دارد؟"
+msgstr "کدام وسیله پارتیشن ریشه نصب شما را خواهد داشت؟"
 
 #: pyanaconda/rescue.py:353
 #: pyanaconda/rescue.py:357
@@ -1449,7 +1462,7 @@ msgid "Your system had dirty file systems which you chose not to mount.  Press r
 msgstr "سیستم شما سیستم‌های پرونده‌ای کثیفی داشت که شما سوار کردن‌شان را انتخاب نکردید. برای دسترسی به پوسته‌ای که بتوانید از آن fsck کنید و افرازهایتان را سوار کنید کلید ورود را فشار دهید. هنگامی که از پوسته خارج شوید سیستم به طور خودکار مجدداً راه اندازی خواهد شد."
 
 #: pyanaconda/rescue.py:386
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1459,11 +1472,11 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"سیستم شما زیر %s سوار شده است.\n"
+"سیستم شما زیر %(rootPath)s سوار شده است.\n"
 "\n"
-"برای دسترسی به پوسته <ورود> را فشار دهید. اگر می‌خواهید سیستم تبدیل به محیط rootشود، فرمان زیر را اجرا کنید:\n"
+"برای دسترسی به پوسته <return> را فشار دهید. اگر می‌خواهید سیستم تبدیل به محیط rootشود، فرمان زیر را اجرا کنید:\n"
 " \n"
-"‏\tchroot %s\n"
+"\tchroot %(rootPath)s\n"
 "\n"
 "هنگامی که از پوسته خارج شوید سیستم به طور خودکار مجدداً راه اندازی خواهد شد."
 
@@ -1504,11 +1517,10 @@ msgid "Also add this passphrase to all existing encrypted devices"
 msgstr "همچنین این کلمه عبور را به همه ابزارهای کدگذاری شده اضافه کن"
 
 #: pyanaconda/text.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
-msgstr[0] "طول گذرواژه باید حداقل شش نویسه باشد."
-msgstr[1] "طول گذرواژه باید حداقل شش نویسه باشد."
+msgstr[0] "طول گذرواژه باید حداقل %d  نویسه باشد."
 
 #: pyanaconda/text.py:232
 #: data/ui/lukspassphrase.glade.h:6
@@ -1522,14 +1534,13 @@ msgstr "این کلمه عبور کلی است"
 
 #: pyanaconda/text.py:355
 #: pyanaconda/text.py:359
-#, fuzzy
 msgid "Repository editing is not available in text mode."
-msgstr "نصب گرافیکی ممکن نیست...  حالت متنی آغاز می‌شود."
+msgstr "اصلاح مخازن در حالت متنی موجود نیست"
 
 #: pyanaconda/text.py:421
-#, fuzzy, python-format
+#, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
-msgstr "به %s خوش آمدید"
+msgstr "به %(productName)s برای %(productArch)s خوش آمدید"
 
 #: pyanaconda/text.py:423
 #, python-format
@@ -1586,23 +1597,27 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"نصب کنونی شما نمی تواند ارتقا یابد. این شاید به خاطر آن که ان نسخه بسیار قدیمی است. فقط دو نسخه اخر می توانند ارتقا یابند. برای ارتقای نسخ قدیمی باید ابتدا به نسخ میانی قبلی ارتقا رسانی کنید.\n"
+"\n"
+"%s"
 
 #: pyanaconda/upgrade.py:229
 msgid "Mount failed"
 msgstr "سوار کردن شکست خورد"
 
 #: pyanaconda/upgrade.py:230
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
-msgstr "یک یا چندین سیستم پرونده‌ای فهرست شده در ‎/etc/fstab در سیستم لینوکس شما را نمی‌توان سوار کرد. لطفاً این اشکال را رفع کنید و دوباره برای ارتقاء تلاش کنید."
+msgstr ""
+"خطای ذیل هنگام سوار کردن فایل سیستم های لیست شده در /etc/fstab رخ داد. لطفاً این اشکال را رفع کنید و دوباره برای ارتقاء تلاش کنید.\n"
+"%s"
 
 #: pyanaconda/upgrade.py:238
 #: pyanaconda/upgrade.py:245
-#, fuzzy
 msgid "Upgrade root not found"
-msgstr "ارتقائی که آغاز شود"
+msgstr "ارتقائ رووت یافت نشد"
 
 #: pyanaconda/upgrade.py:239
 msgid "The root for the previously installed system was not found."
@@ -1610,7 +1625,7 @@ msgstr "شاخه رووت برای سیستم نصب شده قبلی یافت ن
 
 #: pyanaconda/upgrade.py:246
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
-msgstr ""
+msgstr "ریشه برای سیستم نصب شده ی قبلی یافت نشد. شما می تواند از نصاب خارج شوید یا برای ارتقا به جای نصب برگردید."
 
 #: pyanaconda/upgrade.py:269
 msgid ""
@@ -1637,9 +1652,9 @@ msgid "Invalid Directories"
 msgstr "شاخه‌های نامعتبر"
 
 #: pyanaconda/vnc.py:137
-#, fuzzy, python-format
+#, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
-msgstr "نصب %s %s در میزبان %s"
+msgstr "%(productName)s %(productVersion)s  نصب  در میزبان %(name)s"
 
 #: pyanaconda/vnc.py:143
 #, python-format
@@ -1660,11 +1675,10 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "۱۵ ثانیهٔ دیگر باز برای اتصال تلاش خواهد شد..."
 
 #: pyanaconda/vnc.py:195
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
-msgstr[0] "بعد از ۵۰ بار تلاش برای وصل شدن از این کار چشم پوشی شد!\n"
-msgstr[1] "بعد از ۵۰ بار تلاش برای وصل شدن از این کار چشم پوشی شد!\n"
+msgstr[0] "بعد از %d بار تلاش برای وصل شدن از این کار چشم پوشی شد!\n"
 
 #: pyanaconda/vnc.py:206
 #, python-format
@@ -1693,6 +1707,13 @@ msgid ""
 "to the vncviewer is unsuccessful\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"شما انتخاب کرده اید به یک گوشدهنده ی vncviewer متصل شوید.\n"
+"این نیاز به تنطیم کلمه عبور ندارد. اگر شما \n"
+"کلمه ی عبوری تنظیم کردید، هنگام اتصال استفاده خواهد شد \n"
+"برای vncviewer که ناموفق نیست\n"
+"\n"
 
 #: pyanaconda/vnc.py:254
 #, fuzzy
@@ -1722,13 +1743,16 @@ msgstr ""
 "شما باید اجرای وی‌ان‌سی با کلمه عبور انتخاب کنید\n"
 
 #: pyanaconda/vnc.py:260
-#, fuzzy
 msgid ""
 "\n"
 "\n"
 "Unknown Error.  Aborting. \n"
 "\n"
-msgstr "خطای نامعلوم"
+msgstr ""
+"\n"
+"\n"
+"خطای نامعلوم\n"
+"\n"
 
 #: pyanaconda/vnc.py:282
 #: pyanaconda/vnc.py:375
@@ -1822,9 +1846,9 @@ msgid "Preparing transaction from installation source"
 msgstr "آماده سازی اجرا از منبع نصب"
 
 #: pyanaconda/yuminstall.py:163
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
-msgstr "_نصب %s"
+msgstr "<b>نصب %(pkgStr)s</b> (%(size)s)\n"
 
 #: pyanaconda/yuminstall.py:212
 #, python-format
@@ -1846,16 +1870,15 @@ msgstr "خطا در نصب بسته‌"
 #: pyanaconda/yuminstall.py:252
 #, python-format
 msgid "A fatal error occurred when installing the %s package.  This could indicate errors when reading the installation media.  Installation cannot continue."
-msgstr ""
+msgstr "خطای جدی در هنگام نصب بسته %s رخ داده است. این می تواند نشانگر خطاهایی در هنگام خواندن رسانه ی نصب باشد. نصب نمی تواند ادامه یابد."
 
 #: pyanaconda/yuminstall.py:353
 #: pyanaconda/iw/task_gui.py:321
-#, fuzzy
 msgid "Error Setting Up Repository"
-msgstr "برچسب راه‌اندازی نامعتبر"
+msgstr "خطا در تنظیم مخزن"
 
 #: pyanaconda/yuminstall.py:354
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -1863,20 +1886,20 @@ msgid ""
 "\n"
 "Please provide the correct information for installing %(productName)s."
 msgstr ""
-"خطاهای زیر هنگام افرازبندی دیسک شما رخ داد:\n"
+"خطاهای زیر هنگام  پیکره بندی مخزن نصب روی داد:\n"
 "\n"
-"‏%s\n"
+"%(e)s\n"
 "\n"
-"برای راه‌اندازی مجدد سیستم خود روی دکمهٔ «تأیید» کلیک کنید."
+"برای نصب %(productName)s اطلاعات درست را وارد کنید."
 
 #: pyanaconda/yuminstall.py:398
 msgid "Change Disc"
 msgstr "تعویض دیسک"
 
 #: pyanaconda/yuminstall.py:399
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
-msgstr "برای ادامه لطفاً دیسک %s شمارهٔ %d را وارد کنید."
+msgstr "برای ادامه لطفاً دیسک %(productName)s شمارهٔ %(discnum)d را وارد کنید."
 
 #: pyanaconda/yuminstall.py:409
 msgid "Wrong Disc"
@@ -1900,7 +1923,7 @@ msgstr "مخزن  %r نام را در تنظیمات گم کرده است، در
 #: pyanaconda/yuminstall.py:1167
 #: pyanaconda/iw/task_gui.py:309
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
-msgstr ""
+msgstr "برخی مخازن نرم افزار نیاز به دسترسی شبکه دارند اما خطای در فعال سازی شبکه بر روی سیستم شما وجود دارد."
 
 #: pyanaconda/yuminstall.py:800
 #: pyanaconda/yuminstall.py:802
@@ -1919,6 +1942,10 @@ msgid ""
 "If you exit, your system will be left in an inconsistent state that will likely require reinstallation.\n"
 "\n"
 msgstr ""
+"فایل %s نمی تواند باز شود. این  شاید بخاطر گم شدن فایل، بسته خراب یا رسانه خراب باشد. لطفا منبع نصب را تایید کنید.\n"
+"\n"
+"اگر خارج شوید، سیستم شما ناقص خواهد ماند و احتمالا به نصب مجدد نیاز پیدا کند.\n"
+"\n"
 
 #: pyanaconda/yuminstall.py:854
 msgid "Retrying"
@@ -1929,12 +1956,9 @@ msgid "Retrying download."
 msgstr "سعی برای دانلود"
 
 #: pyanaconda/yuminstall.py:919
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction for the following reason: %s\n"
-msgstr ""
-"نام میزبان «%s» به دلایل زیر معتبر نیست:\n"
-"\n"
-"‏%s"
+msgstr "خطایی در اجرای نصب به دلیل ذیل رخ داد: %s\n"
 
 #: pyanaconda/yuminstall.py:962
 #: pyanaconda/yuminstall.py:963
@@ -1978,19 +2002,18 @@ msgid "You need more space on the following file systems:\n"
 msgstr "شما به فضا بیشتر برای فایل  سیستم های زیر نیاز دارید:\n"
 
 #: pyanaconda/yuminstall.py:998
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
-msgstr "چه نوع رسانه‌ای حاوی بسته‌هایی است که باید نصب شوند؟"
+msgstr ""
+"در هنگام کنترل بسته های که می خواهند نصب شوند تضاد فایلی به وجود آمد:\n"
+"%s\n"
 
 #: pyanaconda/yuminstall.py:1001
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running your transaction for the following reason(s): %s.\n"
-msgstr ""
-"نام میزبان «%s» به دلایل زیر معتبر نیست:\n"
-"\n"
-"‏%s"
+msgstr "خطایی در اجرا نصب به دلیل ذیل رخ داد: %s.\n"
 
 #: pyanaconda/yuminstall.py:1008
 #: pyanaconda/yuminstall.py:1013
@@ -1999,16 +2022,16 @@ msgstr "خطای اجرای نصب"
 
 #: pyanaconda/yuminstall.py:1193
 msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
-msgstr ""
+msgstr "قادر به خواندن اطلاعات گروه از مخازن نیست. این مشکل در ساختن شاخه ی نصب شما است."
 
 #: pyanaconda/yuminstall.py:1229
 msgid "Retrieving installation information."
 msgstr "بازخوانی اطلاعات نصب"
 
 #: pyanaconda/yuminstall.py:1231
-#, fuzzy, python-format
+#, python-format
 msgid "Retrieving installation information for %s."
-msgstr "در حال فرستادن درخواست برای اطلاعات IP‏ برای %s..."
+msgstr "در حال بازخوانی اطلاعات نصب برای %s."
 
 #: pyanaconda/yuminstall.py:1233
 msgid "Installation Progress"
@@ -2027,15 +2050,18 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"قادر به خواندن متادیتای بسته نمی باشد. این شاید به خاطر از دست دادن مسیر repodata است. لطفا مطمئن شوید که شاخه نصب شما به درستی ساخته شده است.\n"
+"\n"
+"%s"
 
 #: pyanaconda/yuminstall.py:1421
 msgid "Some of the packages you have selected for install are missing dependencies.  You can exit the installation, go back and change your package selections, or continue installing these packages without their dependencies.  If you continue, these packages may not work correctly due to missing components."
-msgstr ""
+msgstr "برخی از بسته هایی که شما برای نصب انتخاب کرده اید وابستگی شان یافت نشد. شما از برنامه نصاب خارج شوید، باز گردید و انتخاب بسته های را تغییر دهید،‌یا نصب این بسته ها را بدون وابستگی شان را ادامه دهید. اگر ادامه دهید، این بسته ها شاید به خاطر از دست دادن اجزا به درستی کار نکنند."
 
 #: pyanaconda/yuminstall.py:1465
 #, python-format
 msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
-msgstr ""
+msgstr "شما بسته هایی را انتخاب کرده اید که نیاز به %d MB فضای خالی جهت نصب دارد. اما شما فضای کافی ندارید. شما می توانید انتخاب خود را تغییر دهید یا از نصاب خارج شوید."
 
 #: pyanaconda/yuminstall.py:1486
 msgid "Reboot?"
@@ -2051,9 +2077,9 @@ msgid "You appear to be upgrading from a system which is too old to upgrade to t
 msgstr "به نظر می‌رسد سیستم شما قدیمی‌تر از آن است که بتوان آن را به این نسخهٔ %s ارتقاء داد. مطمئنید که می‌خواهید روند ارتقاء را ادامه دهید؟"
 
 #: pyanaconda/yuminstall.py:1664
-#, fuzzy, python-format
+#, python-format
 msgid "The arch of the release of %(productName)s you are upgrading to appears to be %(myarch)s which does not match your previously installed arch of %(arch)s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr "به نظر می‌رسد سیستم شما قدیمی‌تر از آن است که بتوان آن را به این نسخهٔ %s ارتقاء داد. مطمئنید که می‌خواهید روند ارتقاء را ادامه دهید؟"
+msgstr "معماری انتشار %(productName)s که شما در حال ارتقا هستید به نظر می رسد %(myarch)s باشد که با معماری نصب شده %(arch)s قبلی یکسان نیست.این به موفق به نظر نمی رسد . مطمئنید که می‌خواهید روند ارتقاء را ادامه دهید؟"
 
 #: pyanaconda/yuminstall.py:1711
 msgid "Post Upgrade"
@@ -2068,9 +2094,8 @@ msgid "Post Installation"
 msgstr "پس-نصب"
 
 #: pyanaconda/yuminstall.py:1715
-#, fuzzy
 msgid "Performing post-installation configuration"
-msgstr "در حال انجام پیکربندی پس از نصب..."
+msgstr "در حال انجام پیکربندی پس از نصب"
 
 #: pyanaconda/yuminstall.py:1942
 msgid "Installation Starting"
@@ -2085,9 +2110,8 @@ msgid "Dependency Check"
 msgstr "بررسی وابستگی"
 
 #: pyanaconda/yuminstall.py:1982
-#, fuzzy
 msgid "Checking dependencies in packages selected for installation"
-msgstr "در حال بررسی وابستگی‌ها در بسته‌های انتخاب شدهٔ برای نصب..."
+msgstr "در حال بررسی وابستگی‌ها در بسته‌های انتخاب شدهٔ برای نصب"
 
 #: pyanaconda/installclasses/fedora.py:38
 msgid "_Fedora"
@@ -2096,7 +2120,7 @@ msgstr "فدورا"
 #: pyanaconda/installclasses/fedora.py:39
 #, python-format
 msgid "The default installation of %s includes a set of software applicable for general internet usage. You can optionally select a different set of software now."
-msgstr ""
+msgstr "نصب پیشفرض %s شامل مجموعه ای از نصب افزار های کاربری برای استفاده عمومی اینترنتی می باشد. شما می توانید به طور دلخواه یک مجموعه ای متفاوت همین الان انتخاب کنید."
 
 #: pyanaconda/installclasses/fedora.py:48
 msgid "Graphical Desktop"
@@ -2122,7 +2146,7 @@ msgstr "لینوکس اینترپرایز ردهت"
 #: pyanaconda/installclasses/rhel.py:34
 #, python-format
 msgid "The default installation of %s is a minimum install. You can optionally select a different set of software now."
-msgstr ""
+msgstr "نصب پیشفرض %s یک نصب مختصر است. شما می توانید به طور دلخواه مجموعه ای متفاوت را همین الان انتخاب کنید."
 
 #: pyanaconda/iw/GroupSelector.py:147
 #, python-format
@@ -2191,24 +2215,20 @@ msgstr "استفاده به هر طریق"
 
 #: pyanaconda/iw/account_gui.py:139
 #: pyanaconda/textw/userauth_text.py:75
-#, fuzzy
 msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "گذرواژهٔ درخواست شده دارای نویسه‌های غیراَسکی است که استفاده از آنها در گذرواژه مجاز نیست."
 
 #: pyanaconda/iw/advanced_storage.py:90
-#, fuzzy
 msgid "You must select a NIC to use."
-msgstr "باید افرازی را برای ویرایش انتخاب کنید"
+msgstr "شما باید یک  NIC برای استفاده کنید."
 
 #: pyanaconda/iw/advanced_storage.py:134
-#, fuzzy
 msgid "Invalid Initiator Name"
-msgstr "نام نامعتبر گروه جلد"
+msgstr "نام نامعتبر آغازگر"
 
 #: pyanaconda/iw/advanced_storage.py:135
-#, fuzzy
 msgid "You must provide an initiator name."
-msgstr "باید نام کارگزاری وارد کنید."
+msgstr "باید نام آغازگری را وارد کنید."
 
 #: pyanaconda/iw/advanced_storage.py:164
 msgid "Error with Data"
@@ -2216,12 +2236,11 @@ msgstr "خطا با داده"
 
 #: pyanaconda/iw/autopart_type.py:97
 msgid "No partitions are available to resize.  Only physical partitions with specific filesystems can be resized."
-msgstr ""
+msgstr "هیچ پارتیشنی برای تغییر اندازه موجود نیست. فقط پارتیشن های فیزیکی با فایل سیستمی خاص می توانند تغییر اندازه داده شوند"
 
 #: pyanaconda/iw/autopart_type.py:120
-#, fuzzy
 msgid "Resize FileSystem Error"
-msgstr "در حال قالب‌بندی سیستم پرونده‌ای ‎%s..."
+msgstr "خطای تغییر اندازه ی فایل سیستم"
 
 #: pyanaconda/iw/autopart_type.py:121
 #, python-format
@@ -2247,6 +2266,9 @@ msgid ""
 "\n"
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
+"حذف همه پارتیشن های بر روی وسیله انتخاب شده. این شامل پارتیشن هایی که توسط سیستم های عامل دیگر ساخته شده اند می شود.\n"
+"\n"
+"<b>نکته:</b> این گزینه همه داده ها را از وسیله ی انتخابی حذف می کند. مطمئن شوید که فایل های پشتیبانی دارید."
 
 #: pyanaconda/iw/autopart_type.py:235
 msgid "Replace Existing Linux System(s)"
@@ -2258,15 +2280,17 @@ msgid ""
 "\n"
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
+"حذف همه پارتیشن های لینوکسی انتخاب شده. این باعث از بین رفتن پارتیشن های دیگر که شما بر روی دستگاه ذخیره سازی خود دارید ( مانند VFAT or FAT32) نمی شود.\n"
+"\n"
+"<b>نکته:</b> این گزینه همه ی داده ها از وسایل انتخاب شده را حذف خواهد کرد. مطمئن شوید که فایل پشتیبانی دارید."
 
 #: pyanaconda/iw/autopart_type.py:245
-#, fuzzy
 msgid "Shrink Current System"
-msgstr "کلید رمزنگاری"
+msgstr "کوچک کردن سیستم کنونی"
 
 #: pyanaconda/iw/autopart_type.py:247
 msgid "Shrinks existing partitions to create free space for the default layout."
-msgstr ""
+msgstr "جمع کردن پارتیشن های موجود برای ایجاد فضای آزاد برای طرح پیش فرض"
 
 #: pyanaconda/iw/autopart_type.py:249
 msgid "Use Free Space"
@@ -2274,7 +2298,7 @@ msgstr "استفاده از فضای خالی"
 
 #: pyanaconda/iw/autopart_type.py:251
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
-msgstr ""
+msgstr "بازخوانی داده های و پارتیشن های کنونی شما و استفاده فقط از فضای پارتیشن بندی نشده بر روی وسایل انتخاب شده، فرض بر این است که شما فضای خالی کافی دارید."
 
 #: pyanaconda/iw/autopart_type.py:255
 msgid "Create Custom Layout"
@@ -2282,16 +2306,15 @@ msgstr "ساخت ساختار دلخواه"
 
 #: pyanaconda/iw/autopart_type.py:257
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
-msgstr ""
+msgstr "به طور دستی ساختار دلخواه خود را بر روی وسیله (ها) انتخابی  با استفاده از وسیله پارتیشن بندی ما بسازید"
 
 #: pyanaconda/iw/blpasswidget.py:44
 msgid "_Use a boot loader password"
 msgstr "_استفاده از گذرواژهٔ بارکنندهٔ راه‌انداز"
 
 #: pyanaconda/iw/blpasswidget.py:45
-#, fuzzy
 msgid "A boot loader password prevents users from changing kernel options, increasing security."
-msgstr "گذرواژهٔ بارکنندهٔ راه‌انداز مانع از آن می‌شود که کاربران گزینه‌های رد شده به هسته را تغییر دهند. برای امنیت بیشتر سیستم، توصیه می‌شود گذرواژه‌ای تعیین کنید."
+msgstr "گذرواژهٔ بارکنندهٔ راه‌انداز مانع از آن می‌شود که کاربران گزینه‌های  هسته را تغییر دهند. برای امنیت بیشتر سیستم."
 
 #: pyanaconda/iw/blpasswidget.py:76
 msgid "Change _password"
@@ -2322,7 +2345,6 @@ msgid "Passwords do not match"
 msgstr "گذرواژه‌ها مطابقت نمی‌کنند."
 
 #: pyanaconda/iw/blpasswidget.py:149
-#, fuzzy
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a longer boot loader password.\n"
 "\n"
@@ -2339,9 +2361,9 @@ msgstr "پیکربندی بارکنندهٔ راه‌انداز"
 #: pyanaconda/iw/bootloader_main_gui.py:180
 #: pyanaconda/iw/bootloader_main_gui.py:185
 #: pyanaconda/iw/bootloader_main_gui.py:223
-#, fuzzy, python-format
+#, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "در حال نصب بارکنندهٔ راه‌انداز..."
+msgstr "در حال نصب بارکنندهٔ راه‌انداز برروی /dev/%s."
 
 #: pyanaconda/iw/bootloader_main_gui.py:229
 msgid "_Change device"
@@ -2353,9 +2375,8 @@ msgstr "پاک کردن انتخابگر دیسک ها"
 
 #: pyanaconda/iw/cleardisks_gui.py:45
 #: pyanaconda/iw/filter_gui.py:420
-#, fuzzy
 msgid "You must select at least one drive to be used for installation."
-msgstr "باید حداقل یک دیسک‌سخت انتخاب کنید تا %s روی آن نصب شود."
+msgstr "باید حداقل یک دیسک‌سخت انتخاب کنید تا  روی آن نصب شود."
 
 #: pyanaconda/iw/cleardisks_gui.py:55
 msgid "You must select one drive to boot from."
@@ -2413,15 +2434,15 @@ msgstr ""
 
 #: pyanaconda/iw/cleardisks_gui.py:193
 msgid "<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Tip:</b> همه فایل سیستم های لینوکس بر روی وسایل مقصد نصب بار دیگر قالب بندی شده و همه داده ها از بین خواهند رفت. مطمئن شوید فایل های پشتیبانی دارید."
 
 #: pyanaconda/iw/cleardisks_gui.py:195
 msgid "<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>نکته:</b> نصب وسایل مقصد باز قالب بندی شده و همه اطلاعات از بین خواهند رفت. مطئن شوید فایل های پیشتیبانی دارید."
 
 #: pyanaconda/iw/cleardisks_gui.py:197
 msgid "<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."
-msgstr ""
+msgstr "<b>نکته:</b> فایل های سیستمی بر روی وسایل مقصد نصب قالب بندی مجدد انجام نخواهد داد مگر آن که شما در طی مرحله تغییر آن را انتخاب کنید."
 
 #: pyanaconda/iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2429,14 +2450,13 @@ msgstr "تبریک"
 
 #: pyanaconda/iw/congrats_gui.py:74
 #: pyanaconda/textw/complete_text.py:39
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 msgstr ""
 "تبریک،  نصب %s شما تمام شد.\n"
 "\n"
-"‏%s%s"
 
 #: pyanaconda/iw/congrats_gui.py:77
 #: pyanaconda/textw/complete_text.py:42
@@ -2445,20 +2465,18 @@ msgstr "خاموش"
 
 #: pyanaconda/iw/congrats_gui.py:79
 #: pyanaconda/textw/complete_text.py:44
-#, fuzzy
 msgid "Please shutdown to use the installed system.\n"
-msgstr "برای شروع نصب لطفاً به %s متصل شوید..."
+msgstr "برای استفاده از سیستم نصب شده لطفا آن را خاموش کنید.\n"
 
 #: pyanaconda/iw/congrats_gui.py:81
 #: pyanaconda/textw/complete_text.py:46
-#, fuzzy
 msgid "Please reboot to use the installed system.\n"
-msgstr "برای شروع نصب لطفاً به %s متصل شوید..."
+msgstr "برای استفاده از سیستم نصب شده سیستم را مجددا راه اندازی کنید.\n"
 
 #: pyanaconda/iw/congrats_gui.py:86
 #: pyanaconda/textw/complete_text.py:51
 msgid "Note that updates may be available to ensure the proper functioning of your system and installation of these updates is recommended after the reboot."
-msgstr ""
+msgstr "توجه داشته باشد که به روزرسانی هایی شاید برای اطمینان ار عملکرد مناسب سیستم شما وجود داشته باشد و نصب این به روزرسانی ها بعد از راه اندازی مجدد توصیه می شود."
 
 #: pyanaconda/iw/congrats_gui.py:90
 #: pyanaconda/textw/complete_text.py:55
@@ -2468,6 +2486,9 @@ msgid ""
 "\n"
 "Please reboot to use the installed system.  Note that updates may be available to ensure the proper functioning of your system and installation of these updates is recommended after the reboot."
 msgstr ""
+"تبریک،‌ نصب %s کامل شد.\n"
+"\n"
+"لطفا برای استفاده از سیستم نصب شده سیستم را مجددا راه اندازی کنید. توجه داشته باشید شاید به روز رسانی هایی برای اطمینان از عملگری مناسب سیستم شما وجود داشته باشد که نصب این به روزرسانی ها بعد از راه اندازی مجددا توصیه می شود."
 
 #: pyanaconda/iw/examine_gui.py:39
 msgid "Upgrade Examine"
@@ -2478,29 +2499,27 @@ msgid "Fresh Installation"
 msgstr "نصب تازه"
 
 #: pyanaconda/iw/examine_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "Choose this option to install a fresh copy of %s on your system.  Existing software and data may be overwritten depending on your configuration choices."
-msgstr "برای نصب تازه روی سیستم‌تان این گزینه را انتخاب کنید. بسته به انتخاب‌های پیکربندی شما، ممکن است نرم‌افزارها و داده‌های موجود رونویسی شوند."
+msgstr "برای نصب تازه کپی از %s بر روی سیستم‌تان این گزینه را انتخاب کنید. بسته به انتخاب‌های پیکربندی شما، ممکن است نرم‌افزارها و داده‌های موجود رونویسی شوند."
 
 #: pyanaconda/iw/examine_gui.py:65
-#, fuzzy
 msgid "Upgrade an Existing Installation"
-msgstr "_ارتقاء دادن نصب موجود"
+msgstr "ارتقاء دادن نصب موجود"
 
 #: pyanaconda/iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your storage device(s)."
-msgstr "اگر می‌خواهید سیستم %s موجود خود را ارتقاء دهید این گزینه را انتخاب کنید. این گزینه داده‌های موجود در دیسک‌گردان‌های شما را حفظ خواهد کرد."
+msgstr "اگر می‌خواهید سیستم %s موجود خود را ارتقاء دهید این گزینه را انتخاب کنید. این گزینه داده‌های موجود در وسایل ذخیره سازی شما را حفظ خواهد کرد."
 
 #: pyanaconda/iw/examine_gui.py:107
-#, fuzzy
 msgid "At least one existing installation has been detected on your system.  What would you like to do?"
-msgstr "هیچ گردانندهٔ دستگاهی برای سیستم‌تان بار نشده است. آیا می‌خواهید حالا یک گرداننده بار کنید؟"
+msgstr "حداقل یک نصب پیشین در سیستم شما یافت شد. می خواهید چه کار انجام دهید؟"
 
 #: pyanaconda/iw/examine_gui.py:126
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "می‌خواهید چه‌کار کنید؟"
+msgstr "<b>کدام %s نصب را می خواهید ارتقا دهید?</b>"
 
 #: pyanaconda/iw/examine_gui.py:140
 msgid "Unknown Linux system"
@@ -2548,9 +2567,8 @@ msgid "LUN"
 msgstr "ال‌یو‌ان"
 
 #: pyanaconda/iw/filter_type.py:55
-#, fuzzy
 msgid "What type of devices will your installation involve?"
-msgstr "چه نوع رسانه‌ای حاوی تصویر نجات است؟"
+msgstr "چه نوع وسایل نصب شما شامل خواهد بود؟"
 
 #: pyanaconda/iw/filter_type.py:61
 msgid "Basic Storage Devices"
@@ -2558,7 +2576,7 @@ msgstr "دستگاه های ذخیره سازی اولیه"
 
 #: pyanaconda/iw/filter_type.py:62
 msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
-msgstr ""
+msgstr "نصب یا به روز رسانی به یک نوع معمولی دستگاه های ذخیره سازی. اگر مطمئن نیستید کدام گزینه برای شما مناسب نیست، این شاید مناسب باشد."
 
 #: pyanaconda/iw/filter_type.py:66
 msgid "Specialized Storage Devices"
@@ -2619,9 +2637,9 @@ msgid "The physical extent size cannot be changed because the value selected (%(
 msgstr "نمی‌توان اندازهٔ گسترهٔ فیزیکی را تغییر داد چون مقدار انتخاب شده (%10.2f مگابایت) بزرگتر از کوچکترین جلد فیزیکی در گروه جلدی (%10.2f مگابایت) است."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:187
-#, fuzzy, python-format
+#, python-format
 msgid "The physical extent size cannot be changed because the value selected (%(curpe)10.2f MB) is too large compared to the size of the smallest physical volume (%(maxpvsize)10.2f MB) in the volume group."
-msgstr "نمی‌توان اندازهٔ گسترهٔ فیزیکی را تغییر داد چون مقدار انتخاب شده (%10.2f مگابایت) در مقایسه با اندازهٔ کوچکترین جلد فیزیکی در گروه جلدی (%10.2f مگابایت) خیلی بزرگ است."
+msgstr "نمی‌توان اندازهٔ گسترهٔ فیزیکی را تغییر داد چون مقدار انتخاب شده (%(curpe)10.2f MB) در مقایسه با اندازهٔ کوچکترین جلد فیزیکی در گروه جلدی (%(maxpvsize)10.2f MB) خیلی بزرگ است."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:201
 msgid "Too small"
@@ -2756,20 +2774,18 @@ msgid "No free slots"
 msgstr "شکاف آزادی وجود ندارد"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:830
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
-msgstr[0] "نمی‌توانید در هر گروه جلد بیش از %s جلد منطقی ایجاد کنید."
-msgstr[1] "نمی‌توانید در هر گروه جلد بیش از %s جلد منطقی ایجاد کنید."
+msgstr[0] "نمی‌توانید در هر گروه جلد بیش از %d  جلد منطقی ایجاد کنید."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:840
 msgid "No free space"
 msgstr "فضای آزادی وجود ندارد"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:841
-#, fuzzy
 msgid "There is no room left in the volume group to create new logical volumes. To add a logical volume you must reduce the size of one or more of the currently existing logical volumes"
-msgstr "جایی برای ایجاد جلد منطقی در گروه جلدی باقی نمانده است. برای اضافه کردن یک جلد منطقی باید اندازهٔ یک یا چند جلد منطقی موجود فعلی را کم کنید."
+msgstr "جایی برای ایجاد جلد منطقی در گروه جلدی باقی نمانده است. برای اضافه کردن یک جلد منطقی باید اندازهٔ یک یا چند جلد منطقی موجود فعلی را کم کنید"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:878
 #, python-format
@@ -2878,13 +2894,13 @@ msgstr "جلد‌های منطقی"
 
 #: pyanaconda/iw/netconfig_dialog.py:192
 #: pyanaconda/textw/netconfig_text.py:36
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred converting the value entered for \"%(field)s\":\n"
 "%(errmsg)s"
 msgstr ""
-"در تبدیل مقدار وارد شده برای «%s» خطایی رخ داد:\n"
-"‏%s"
+"در تبدیل مقدار وارد شده برای \"%(field)s\" خطایی رخ داد:\n"
+"%(errmsg)s"
 
 #: pyanaconda/iw/netconfig_dialog.py:195
 #: pyanaconda/iw/netconfig_dialog.py:204
@@ -2894,23 +2910,22 @@ msgid "Error With Data"
 msgstr "خطای داده‌ها"
 
 #: pyanaconda/iw/netconfig_dialog.py:203
-#, fuzzy, python-format
+#, python-format
 msgid "A value is required for the field %s."
-msgstr "مقداری برای فیلد «%s» لازم است."
+msgstr "مقداری برای فیلد %s لازم است."
 
 #: pyanaconda/iw/netconfig_dialog.py:215
-#, fuzzy
 msgid "Error Configuring Network"
-msgstr "هنگام پاک کردن دیسک‌گردان‌های هدف خطایی پیش آمد. همانندسازی شکست خورد."
+msgstr "خطا پیکره بندی شبکه"
 
 #: pyanaconda/iw/netconfig_dialog.py:241
 msgid "Dynamic IP Address"
 msgstr "‏آدرسIP‏ پویا"
 
 #: pyanaconda/iw/netconfig_dialog.py:242
-#, fuzzy, python-format
+#, python-format
 msgid "Sending request for IP address information for %s"
-msgstr "در حال فرستادن درخواست برای اطلاعات IP‏ برای %s..."
+msgstr "در حال فرستادن درخواست برای اطلاعات IP‏ برای %s"
 
 #: pyanaconda/iw/netconfig_dialog.py:257
 #: pyanaconda/iw/netconfig_dialog.py:260
@@ -2921,9 +2936,8 @@ msgstr "نشانی IP"
 
 #: pyanaconda/iw/netconfig_dialog.py:267
 #: pyanaconda/textw/netconfig_text.py:235
-#, fuzzy
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "نشانی‌های IP باید حاوی اعداد بین ۱ و ۲۵۵ باشند"
+msgstr "پیشوند IPv4 CIDR باید بین ۰ و ۳۲ باشد."
 
 #: pyanaconda/iw/netconfig_dialog.py:268
 #: pyanaconda/iw/netconfig_dialog.py:274
@@ -2932,9 +2946,8 @@ msgstr "نشانی‌های IP باید حاوی اعداد بین ۱ و ۲۵۵ 
 #: pyanaconda/textw/netconfig_text.py:236
 #: pyanaconda/textw/netconfig_text.py:242
 #: pyanaconda/textw/netconfig_text.py:250
-#, fuzzy
 msgid "IPv4 Network Mask"
-msgstr "‏IP‏/نقاب شبکه"
+msgstr "‏IPv4 نقاب شبکه"
 
 #: pyanaconda/iw/netconfig_dialog.py:295
 #: pyanaconda/textw/netconfig_text.py:263
@@ -2947,9 +2960,8 @@ msgid "Nameserver"
 msgstr "کارگزار نام"
 
 #: pyanaconda/iw/netconfig_dialog.py:314
-#, fuzzy
 msgid "Error configuring network device:"
-msgstr "هنگام پاک کردن دیسک‌گردان‌های هدف خطایی پیش آمد. همانندسازی شکست خورد."
+msgstr "خطا در پیکره بندی ابزار شبکه:"
 
 #: pyanaconda/iw/network_gui.py:83
 #: pyanaconda/iw/network_gui.py:89
@@ -2957,49 +2969,45 @@ msgid "Error with Hostname"
 msgstr "خطای با نام‌میزبان"
 
 #: pyanaconda/iw/network_gui.py:84
-#, fuzzy
 msgid "You must enter a valid hostname for this computer."
-msgstr "باید نام کارگزاری وارد کنید."
+msgstr "باید نام میزبانی معتبر برای این رایانه وارد کنید."
 
 #: pyanaconda/iw/network_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
 "\n"
 "%(herrors)s"
 msgstr ""
-"نام میزبان «%s» به دلایل زیر معتبر نیست:\n"
+"نام میزبان \"%(hostname)s\" به دلایل زیر معتبر نیست:\n"
 "\n"
-"‏%s"
+"‏%(herrors)s"
 
 #: pyanaconda/iw/network_gui.py:133
-#, fuzzy
 msgid "Select network interfaces"
-msgstr "هنگام پاک کردن دیسک‌گردان‌های هدف خطایی پیش آمد. همانندسازی شکست خورد."
+msgstr "انتخاب میانگرهای شبکه"
 
 #: pyanaconda/iw/network_gui.py:142
 #: pyanaconda/textw/netconfig_text.py:91
 #: data/ui/netconfig.glade.h:10
 msgid "This requires that you have an active network connection during the installation process.  Please configure a network interface."
-msgstr ""
+msgstr "این نیاز به یک اتصال فعال شبکه ای در طول جریان نصب دارد. لطفا یک میانگر شبکه ای را پیکره بندی کنید."
 
 #: pyanaconda/iw/network_gui.py:195
 msgid "Select which devices should be configured with NetworkManager."
 msgstr "وسایلی را که می خواهید با NetworkManager با پیکره بندی شوند انتخاب کنید."
 
 #: pyanaconda/iw/network_gui.py:254
-#, fuzzy
 msgid "Select APs"
-msgstr "_حذف"
+msgstr "انتخاب APs"
 
 #: pyanaconda/iw/network_gui.py:261
 msgid "Select APs for wireless devices"
 msgstr "انتخاب نقاط دسترسی به ابزارهای بی سیم"
 
 #: pyanaconda/iw/osbootwidget.py:50
-#, fuzzy
 msgid "Boot loader operating system list"
-msgstr "گذرواژهٔ بارکنندهٔ راه‌انداز خیلی کوتاه است"
+msgstr "لیست سیستم عامل بارکننده ی راه انداز"
 
 #: pyanaconda/iw/osbootwidget.py:66
 msgid "Default"
@@ -3015,7 +3023,6 @@ msgid "Image"
 msgstr "تصویر"
 
 #: pyanaconda/iw/osbootwidget.py:137
-#, fuzzy
 msgid "Enter a label for the boot loader menu to display. The device (or hard drive and partition number) is the device from which it boots."
 msgstr "برچسبی را که در منوی بارکنندهٔ راه‌انداز نمایش داده می‌شود وارد کنید. دستگاه (یا دیسک سخت و شمارهٔ افراز) دستگاهی است که از آن راه‌اندازی می‌شود."
 
@@ -3115,9 +3122,9 @@ msgid "Free"
 msgstr "آزاد"
 
 #: pyanaconda/iw/partition_gui.py:475
-#, fuzzy, python-format
+#, python-format
 msgid "LVM Volume Group %s (%-0.f MB)"
-msgstr "گروه‌های جلد LVM"
+msgstr "گروه‌های جلد LVM %s (%-0.f MB)"
 
 #: pyanaconda/iw/partition_gui.py:541
 #, python-format
@@ -3158,7 +3165,7 @@ msgid "The partitioning scheme you requested caused the following critical error
 msgstr "ساختار پارتیشن بندی که شما درخواست کرده اید باعث خطاهای جدی ذیل خواهد شد."
 
 #: pyanaconda/iw/partition_gui.py:849
-#, fuzzy, python-format
+#, python-format
 msgid "You must correct these errors before you continue your installation of %s."
 msgstr "پیش از ادامهٔ نصب %s این خطاها باید برطرف شوند."
 
@@ -3168,7 +3175,7 @@ msgstr "خطاهای افرازبندی"
 
 #: pyanaconda/iw/partition_gui.py:862
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr ""
+msgstr "شمای پارتیشن بندی که شما درخواست کرده اید اخطارهای ذیل را تولید کرد."
 
 #: pyanaconda/iw/partition_gui.py:864
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -3228,12 +3235,11 @@ msgstr ""
 "\n"
 
 #: pyanaconda/iw/partition_gui.py:1463
-#, fuzzy
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device that can be formatted and mounted.\n"
 "\n"
 msgstr ""
-"برای استفاده از RAID باید اول حداقل دو افراز از نوع «RAID نرم‌افزاری» ایجاد کنید. سپس می‌توانید یک دستگاه RAID ایجاد کنید که می‌تواند قالب‌بندی و سوار شود.\n"
+"برای استفاده از RAID باید اول حداقل دو افراز از نوع 'RAID نرم‌افزاری' ایجاد کنید. سپس می‌توانید یک دستگاه RAID ایجاد کنید که می‌تواند قالب‌بندی و سوار شود.\n"
 "\n"
 
 #: pyanaconda/iw/partition_gui.py:1467
@@ -3255,6 +3261,8 @@ msgid ""
 "To create a PV you need a partition with free space.  To create a VG you need a PV that is not part of any existing VG.  To create an LV you need a VG with free space.\n"
 "\n"
 msgstr ""
+"برای ساخت یک PV شما نیاز به یک پارتیشن با فضای خالی دارید. برای ساخت یک VG شما نیاز به PV که بخشی از هیچ VG موجود نیست دارید. برای ساخت LV شما نیاز به VG با فضای خالی دارید.\n"
+"\n"
 
 #: pyanaconda/iw/partition_gui.py:1489
 #, python-format
@@ -3331,9 +3339,9 @@ msgid "_Resize"
 msgstr "تغییراندازه"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:441
-#, fuzzy, python-format
+#, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  To do this, select the drive in the 'Allowable Drives' checklist."
-msgstr "افرازهایی از نوع «%s» باید درون یک دیسک‌گردان جا بگیرند. این کار با انتخاب دیسک‌گردان در فهرست «دیسک‌گردان‌های مجاز» انجام می‌گیرد."
+msgstr "افرازهایی از نوع %s باید درون یک درایو جا بگیرند. این کار با انتخاب دیسک‌گردان در فهرست 'دیسک‌گردان‌های مجاز' انجام می‌گیرد."
 
 #: pyanaconda/iw/raid_dialog_gui.py:390
 msgid ""
@@ -3385,15 +3393,18 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"قادر به خواندن متادیتای بسته از مخزن نیست. این شاید به خاطر از گم کردن مسیر اطلاعات repodata باشد. لطفا مطمئن شوید که مخزن شما به درستی تولید شده است.\n"
+"\n"
+"%s"
 
 #: pyanaconda/iw/task_gui.py:132
 msgid "Edit Repository"
 msgstr "اصلاح مخزن"
 
 #: pyanaconda/iw/task_gui.py:156
-#, fuzzy, python-format
+#, python-format
 msgid "The repository %s has already been added.  Please choose a different repository name and URL."
-msgstr "نقطهٔ سوار کردن «%s» از قبل مورد استفاده است، لطفاً نقطهٔ سوار کردن دیگری انتخاب کنید."
+msgstr "مخزن %s قبلا اضافه شده است. لطفا یک آدرس و نام مخزن دیگری انتخاب کنید."
 
 #: pyanaconda/iw/task_gui.py:236
 msgid "Invalid Proxy URL"
@@ -3457,9 +3468,8 @@ msgid "No Software Repos Enabled"
 msgstr "هیچ مخزن نرم افزاری فعال نیست"
 
 #: pyanaconda/iw/task_gui.py:502
-#, fuzzy
 msgid "You must have at least one software repository enabled to continue installation."
-msgstr "پیش از ادامهٔ نصب %s این خطاها باید برطرف شوند."
+msgstr "باید حداقل یک مخزن نرم افزار فعال برای ادامه ی نصب داشته باشید."
 
 #: pyanaconda/iw/timezone_gui.py:62
 #: pyanaconda/textw/timezone_text.py:95
@@ -3482,7 +3492,7 @@ msgstr "این کار بارکنندهٔ راه‌انداز فعلی شما ر�
 #: pyanaconda/iw/upgrade_bootloader_gui.py:125
 #: pyanaconda/textw/upgrade_bootloader_text.py:103
 msgid "Due to system changes, your boot loader configuration can not be automatically updated."
-msgstr ""
+msgstr "به خاطر تغییرات سیستم،  پیکره بندی بارکننده ی راه انداز نمی تواند به طور خودکار به روزرسانی شود."
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:128
 #: pyanaconda/textw/upgrade_bootloader_text.py:107
@@ -3491,9 +3501,9 @@ msgstr "برنامهٔ نصب نمی‌تواند بارکنندهٔ راه‌ا
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:135
 #: pyanaconda/textw/upgrade_bootloader_text.py:116
-#, fuzzy, python-format
+#, python-format
 msgid "The installer has detected the %(type)s boot loader currently installed on %(bootDev)s."
-msgstr "برنامهٔ نصب، بارکنندهٔ راه‌انداز %s را که اکنون بر %s نصب شده تشخیص داد."
+msgstr "برنامهٔ نصب، بارکنندهٔ راه‌انداز %(type)sرا که اکنون بر %(bootDev)s نصب شده تشخیص داد."
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:139
 msgid "This is the recommended option."
@@ -3504,18 +3514,16 @@ msgid "_Create new boot loader configuration"
 msgstr "ای_جاد پیکربندی بارکنندهٔ راه‌انداز جدید"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:146
-#, fuzzy
 msgid "This option creates a new boot loader configuration.  If you wish to switch boot loaders, you should choose this."
-msgstr "این کار شما را قادر می‌سازد پیکربندی بارکنندهٔ راه‌انداز جدیدی ایجاد کنید. اگر می‌خواهید بتوانید بارکننده‌های راه‌انداز را تعویض کنید، باید این گزینه را انتخاب کنید."
+msgstr "این گزینه یک پیکربندی بارکنندهٔ راه‌انداز جدیدی ایجاد کنید. اگر می‌خواهید بتوانید بارکننده‌های راه‌انداز را تعویض کنید، باید این گزینه را انتخاب کنید."
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:153
 msgid "_Skip boot loader updating"
 msgstr "_پرش از روی به‌هنگام‌سازی بارکنندهٔ راه‌انداز"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:154
-#, fuzzy
 msgid "This option makes no changes to boot loader configuration.  If you are using a third party boot loader, you should choose this."
-msgstr "این کار هیچ تغییری در پیکربندی بارکنندهٔ راه‌انداز نخواهد داد. اگر از بارکنندهٔ راه‌اندازی طرف سومی استفاده می‌کنید، باید این را انتخاب کنید."
+msgstr "این گزینه هیچ تغییری در پیکربندی بارکنندهٔ راه‌انداز نخواهد داد. اگر از بارکنندهٔ راه‌اندازی طرف سومی استفاده می‌کنید، باید این را انتخاب کنید."
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:165
 msgid "What would you like to do?"
@@ -3590,9 +3598,8 @@ msgid "I _don't want to create a swap file"
 msgstr "_نمی خواهم پروندهٔ مبادله ایجاد کنم"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:191
-#, fuzzy
 msgid "A swap file is strongly recommended. Failure to create one could cause the installer to abort abnormally.  Are you sure you wish to continue?"
-msgstr "اکیداً توصیه می‌شود پروندهٔ مبادله‌ای ایجاد کنید. شکست در این کار ممکن است باعث شود برنامهٔ نصب به طور غیر عادی قطع شود. آیا مطمئنید که می‌خواهید ادامه دهید؟"
+msgstr "اکیداً توصیه می‌شود پروندهٔ سووپ ایجاد کنید. شکست در این کار ممکن است باعث شود برنامهٔ نصب به طور غیر عادی قطع شود. آیا مطمئنید که می‌خواهید ادامه دهید؟"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:199
 #: pyanaconda/textw/upgrade_text.py:194
@@ -3612,7 +3619,7 @@ msgstr "نصب شبکه نیاز است"
 #: pyanaconda/iw/welcome_gui.py:57
 #: pyanaconda/textw/welcome_text.py:37
 msgid "Your installation source is set to a network location, but no network devices were found on your system.  To avoid a network installation, boot with the full DVD, full CD set, or do not pass a repo= parameter that specifies a network source."
-msgstr ""
+msgstr "منبع نصب شما نیاز به تنظیم مکان شبکه دارد، اما وسایل شبکه ای در سیستم شما یافت نشد. برای جلوگیری از نصب شبکه ای، با یک دی‌وی‌دی کامل، یا سی دی کامل سیستم را راه اندازی کنید یا از پارامتر repo= که منبع شبکه ای نیاز دارد استفاده نکنید."
 
 #: pyanaconda/iw/welcome_gui.py:67
 msgid "E_xit Installer"
@@ -3694,9 +3701,9 @@ msgid "Eject Disc"
 msgstr "بیرون دادن دیسک"
 
 #: loader/cdinstall.c:187
-#, fuzzy, c-format
+#, c-format
 msgid "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject the disc and insert another for testing."
-msgstr "برای آزمایش سی‌دی داخل دیسک‌گردان روی دکمهٔ «%s»، و برای بیرون دادن سی‌دی و داخل کردن سی‌دی دیگری برای آزمایش روی دکمهٔ «%s» کلیک کنید."
+msgstr "برای آزمایش سی‌دی داخل دیسک‌گردان روی دکمهٔ  \"%s\"، و برای بیرون دادن سی‌دی و داخل کردن سی‌دی دیگری برای آزمایش روی دکمهٔ  \"%s\" کلیک کنید."
 
 #: loader/cdinstall.c:208
 #, c-format
@@ -3738,9 +3745,9 @@ msgid "Looking for installation images on CD device %s"
 msgstr "گشتن برای تصاویر نصب  بر روی ابزار سی‌دی %s"
 
 #: loader/cdinstall.c:425
-#, fuzzy, c-format
+#, c-format
 msgid "The %s disc was not found in any of your CDROM drives. Please insert the %s disc and press %s to retry."
-msgstr "سی‌دی %s در هیچ یک از سی‌دی‌گردان‌های شما پیدا نشد. لطفاً سی‌دی %s را وارد کنید و برای تلاش مجدد روی دکمهٔ «%s» کلیک کنید."
+msgstr "دیسک %s در هیچ یک از سی‌دی‌گردان‌های شما پیدا نشد. لطفاً دیسک%s را وارد کنید و برای تلاش مجدد روی دکمهٔ %s کلیک کنید."
 
 #: loader/cdinstall.c:431
 msgid "Disc Not Found"
@@ -3891,9 +3898,9 @@ msgid "Unknown driver disk kickstart source: %s"
 msgstr "مبدأ نامعلوم راه‌اندازی دیسک گرداننده: %s"
 
 #: loader/driverdisk.c:749
-#, fuzzy, c-format
+#, c-format
 msgid "The following invalid argument was specified for the kickstart driver disk command: %s"
-msgstr "آرگومان‌های نامعتبر زیر برای فرمان راه‌اندازی دیسک گرداننده مشخص شده بودند: %s:%s"
+msgstr "آرگومان‌های نامعتبر زیر برای فرمان kickstart دیسک گرداننده مشخص شده بودند:  %s"
 
 #: loader/driverselect.c:68
 #, c-format
@@ -3951,14 +3958,14 @@ msgid "Select Partition"
 msgstr "انتخاب افراز"
 
 #: loader/hdinstall.c:326
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain an installation image."
-msgstr "به‌نظر نمی‌رسد دستگاه %s حاوی تصاویر سی‌دی %s باشد."
+msgstr "به‌نظر نمی‌رسد دستگاه %s حاوی تصویر نصبی باشد."
 
 #: loader/hdinstall.c:361
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command: %s"
-msgstr "آرگومان بد برای فرمان روش راه‌اندازی دیسک سخت %s : %s"
+msgstr "آرگومان بد برای فرمان روش راه‌اندازی دیسک سخت: %s"
 
 #: loader/hdinstall.c:441
 #: loader/hdinstall.c:497
@@ -4186,9 +4193,8 @@ msgid "Checking media."
 msgstr "حالا در حال بررسی رسانه."
 
 #: loader/mediacheck.c:87
-#, fuzzy
 msgid "Unable to find the checksum in the image.  This probably means the disc was created without adding the checksum."
-msgstr "خواندن مجموعِ مقابله‌ای دیسک از توصیفگرِ جلدِ اصلی ممکن نیست. این احتمالاً به این معنیاست که دیسک بدون اضافه کردن مجموع مقابله‌ای ایجاد شده است."
+msgstr "قادر به پیدا کردن checksum در تصویر نیست. این احتمالاً به این معنی است که دیسک بدون اضافه کردن checksum ایجاد شده است."
 
 #: loader/mediacheck.c:94
 msgid "Unable to open the image."
@@ -4342,7 +4348,7 @@ msgstr "آرگومان بد برای فرمان شبکه‌ای راه‌اند�
 #: loader/net.c:1647
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "ساختار بد راه انداز %s در دستور شبکه مشخص شده است"
 
 #: loader/net.c:1724
 msgid "Seconds:"
@@ -4378,7 +4384,7 @@ msgstr "مدت نامعتبر"
 
 #: loader/net.c:1956
 msgid "You must enter the number of seconds as an integer between 1 and 30."
-msgstr ""
+msgstr "باید شمار ثانیه را  عددی صحیحی بین ا تا ۳۰ "
 
 #: loader/net.c:1968
 #, c-format
@@ -4407,7 +4413,7 @@ msgstr "گزینه های سوار کردن NFS (اختیاری):"
 #: loader/nfsinstall.c:107
 #, c-format
 msgid "Please enter the server and path to your %s installation image and optionally additional NFS mount options."
-msgstr ""
+msgstr "لطفا کارگذار و مسیر تصویر نصب %s را وارد کنید و همچنین گزینه های سوار کردن انتخابی NFS را"
 
 #: loader/nfsinstall.c:115
 msgid "NFS Setup"
@@ -4471,7 +4477,7 @@ msgstr "در حال بازیابی"
 #: loader/urls.c:263
 #, c-format
 msgid "Please enter the URL containing the %s installation image on your server."
-msgstr ""
+msgstr "لطفا آدرس شامل تصویر نصب %s بر روی کارگذار وارد کنید."
 
 #: loader/urls.c:281
 msgid "Enable HTTP proxy"
@@ -4515,9 +4521,9 @@ msgid "Unknown Device"
 msgstr "وسیله ناشناس"
 
 #: pyanaconda/storage/__init__.py:111
-#, fuzzy, python-format
+#, python-format
 msgid "The installation source given by device %s could not be found.  Please check your parameters and try again."
-msgstr "هنگام خواندن نصب از تصاویر ایزو خطایی رخ داد. لطفاً تصاویر ایزو خود را بررسی کرده و دوباره امتحان کنید."
+msgstr "منبع نصب داده شده به وسیله ی ابزار %s یافت نشد. لطفا پارامترهای خود را کنترل کرده و دوباره سعی کنید."
 
 #: pyanaconda/storage/__init__.py:120
 msgid "No disks found"
@@ -4542,7 +4548,7 @@ msgstr "رمزنگاری وسیله؟"
 
 #: pyanaconda/storage/__init__.py:162
 msgid "You specified block device encryption should be enabled, but you have not supplied a passphrase. If you do not go back and provide a passphrase, block device encryption will be disabled."
-msgstr ""
+msgstr "شما مشخص کرده اید که کدگذاری بلوک وسیله باید فعال شود اما کلمه ی عبور تعریف نکرده اید. اگر بر نگردید و کلمه ی عبوری تعریف نکنید کدگذاری بلوک وسیله غیرفعال خواهد شد."
 
 #: pyanaconda/storage/__init__.py:185
 #: pyanaconda/storage/devicetree.py:99
@@ -4613,6 +4619,8 @@ msgid ""
 "This device is an extended partition which contains logical partitions that cannot be deleted:\n"
 "\n"
 msgstr ""
+"این وسیله یک پارتیشن توسعه یافته است که شامل پارتیشن های منطقی است که نمی توانند حذف شوند::\n"
+"\n"
 
 #: pyanaconda/storage/__init__.py:965
 #, python-format
@@ -4632,12 +4640,12 @@ msgstr "افراز %s شما کوچکتر از %s مگابایت است که ک�
 #: pyanaconda/storage/__init__.py:986
 #, python-format
 msgid "Your / partition does not match the the live image you are installing from.  It must be formatted as %s."
-msgstr ""
+msgstr "پارتیشن / شما با تصویری لایوی که از آن نصب می کنید یکسان نیست. آن باید به عنوان %s قالب بندی شده باشد."
 
 #: pyanaconda/storage/__init__.py:993
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(mount)s partition is less than %(size)s megabytes which is lower than recommended for a normal %(productName)s install."
-msgstr "افراز %s شما کوچکتر از %s مگابایت است که کمتر از مقدار توصیه شده برای نصب معمولی %s است."
+msgstr "افراز%(mount)s شما کوچکتر از %(size)s مگابایت است که کمتر از مقدار توصیه شده برای نصب معمولی %(productName)sاست."
 
 #: pyanaconda/storage/__init__.py:1022
 msgid "Installing on a USB device.  This may or may not produce a working system."
@@ -4645,12 +4653,11 @@ msgstr ""
 
 #: pyanaconda/storage/__init__.py:1025
 msgid "Installing on a FireWire device.  This may or may not produce a working system."
-msgstr ""
+msgstr "در حال نصب وسیله دیواره ی آتش. این شاید و شاید نه باعث بوجود آمد سیستم کاری شود."
 
 #: pyanaconda/storage/__init__.py:1032
-#, fuzzy
 msgid "You have not specified a swap partition.  Due to the amount of memory present, a swap partition is required to complete installation."
-msgstr "شما افراز حافظهٔ مبادله‌ای مشخص نکرده‌اید. هرچند وجود چنین افرازی در همهٔ موارد اجباری نیست ولی وجود آن به نحو محسوسی کارآیی بیشتر نصب‌ها را بهبود خواهد بخشید."
+msgstr "شما افراز حافظهٔ سووپ مشخص نکرده‌اید. به خاطر مقدار حافظه ی موجود یک پارتیشن سووپ برای کامل شدن نصب لازم است."
 
 #: pyanaconda/storage/__init__.py:1037
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
@@ -4662,9 +4669,9 @@ msgid "This mount point is invalid.  The %s directory must be on the / file syst
 msgstr ""
 
 #: pyanaconda/storage/__init__.py:1048
-#, fuzzy, python-format
+#, python-format
 msgid "The mount point %s must be on a linux file system."
-msgstr "نقطهٔ سوار کردن «%s» مورد استفاده است، لطفاً یکی دیگر انتخاب کنید."
+msgstr "نقطهٔ سوار کردن %s باید فایل سیستمی لینوکس باشد."
 
 #: pyanaconda/storage/__init__.py:1059
 msgid "No Drives Found"
@@ -4736,6 +4743,11 @@ msgid ""
 "\n"
 "does not contain a supported swap volume.  In order to continue installation, you will need to format the device or skip it."
 msgstr ""
+"وسیله سووپ:\n"
+"\n"
+"     %s\n"
+"\n"
+"شامل هیچ نوع حجم سووپ قابل پشتیبانی نیست. به برای ادامه دادن نصب شما نیاز به قابل بندی وسیله یا رد کردن آن دارید."
 
 #: pyanaconda/storage/__init__.py:1887
 #, fuzzy, python-format
@@ -4802,7 +4814,7 @@ msgstr "قادر به سوارکردن فایل سیستم نمی باشد"
 #: pyanaconda/storage/__init__.py:1987
 #, python-format
 msgid "An error occurred mounting device %(path)s as %(mountpoint)s.  You may continue installation, but there may be problems."
-msgstr ""
+msgstr "خطایی در سوار کردن وسیله %(path)s as %(mountpoint)s رخ داد. شما شاید به نصب کردن ادامه دهید اما این باعث مشکلاتی شود."
 
 #: pyanaconda/storage/__init__.py:2011
 #, fuzzy, python-format
@@ -4816,23 +4828,20 @@ msgstr ""
 "برای راه‌اندازی مجدد سیستم خود <ورود> را فشار دهید."
 
 #: pyanaconda/storage/dasd.py:155
-#, fuzzy
 msgid "Formatting DASD Device"
 msgid_plural "Formatting DASD Devices"
 msgstr[0] "در حال قالب‌بندی"
-msgstr[1] "در حال قالب‌بندی"
 
 #: pyanaconda/storage/dasd.py:156
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "درحال آماده سازی %d وسیله DASD برای استفاده در لینوکس..."
 
 #: pyanaconda/storage/devicelibs/lvm.py:308
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "فیلد vginfo برای %s"
 
 #: pyanaconda/storage/devicelibs/lvm.py:337
 #, python-format
@@ -4859,8 +4868,7 @@ msgstr "درحال ساختن وسیله  %s"
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "یک مجموعه ی RAID%d حداقل به  %d  عضو نیاز دارد"
 
 #: pyanaconda/storage/devices.py:3351
 #, python-format
@@ -4874,11 +4882,13 @@ msgid ""
 "\n"
 "If you skip this step the device's contents will not be available during installation."
 msgstr ""
+"آیا مطمئن هستید ورود کلمه عبور برای وسیله %s رد کنید؟?\n"
+"\n"
+"اگر این مرحله را رد کنید محتوای وسیله در طول نصب قبل دسترسی نخواهند بود."
 
 #: pyanaconda/storage/devicetree.py:1892
-#, fuzzy
 msgid "This partition is part of an inconsistent LVM Volume Group."
-msgstr "این افراز بخشی از یک گروه جلدی LVM است."
+msgstr "این افراز بخشی از یک گروه جلدی LVM  ناپیوسته است."
 
 #: pyanaconda/storage/fcoe.py:66
 #: pyanaconda/storage/fcoe.py:67
@@ -4931,7 +4941,7 @@ msgstr "بررسی فایل سیستم برروی %s"
 #: pyanaconda/storage/formats/fs.py:531
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
-msgstr ""
+msgstr "کنترل فایل سیستمی %(type)s در %(device)s دچار مشکل شد:"
 
 #: pyanaconda/storage/formats/fs.py:537
 msgid "Errors like this usually mean there is a problem with the filesystem that will require user interaction to repair.  Before restarting installation, reboot to rescue mode or another system that allows you to repair the filesystem interactively.  Restart installation after you have corrected the problems on the filesystem."
@@ -4956,7 +4966,7 @@ msgstr "استفاده یا ساختار خطا"
 
 #: pyanaconda/storage/formats/fs.py:889
 msgid "e2fsck cancelled by user request."
-msgstr ""
+msgstr "با درخواست کاربر e2fsck معلق شد."
 
 #: pyanaconda/storage/formats/fs.py:890
 msgid "Shared library error."
@@ -4992,7 +5002,7 @@ msgstr "در حال اسکن کردن گره هایSCSI"
 
 #: pyanaconda/storage/iscsi.py:135
 msgid "Unable to change iSCSI initiator name once set"
-msgstr ""
+msgstr "قادر به تغییر نام آغازگر iSCSI تنظیم نیست"
 
 #: pyanaconda/storage/iscsi.py:137
 msgid "Must provide an iSCSI initiator name"
@@ -5117,12 +5127,12 @@ msgstr "شمارهٔ قطعهٔ منطقی FCP را مشخص نکرده‌اید
 #: pyanaconda/storage/zfcp.py:133
 #, python-format
 msgid "zFCP device %s not found, not even in device ignore list."
-msgstr ""
+msgstr "وسیله ی zFCP %s یافت نشد، حتی در لیست ابزار نادیده گرفته شده"
 
 #: pyanaconda/storage/zfcp.py:143
 #, python-format
 msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
-msgstr ""
+msgstr "نمی توان وسیله ی zFCP %(devnum)s online (%(e)s) تنظیم کند."
 
 #: pyanaconda/storage/zfcp.py:154
 #, python-format
@@ -5132,7 +5142,7 @@ msgstr ""
 #: pyanaconda/storage/zfcp.py:161
 #, python-format
 msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
-msgstr ""
+msgstr "WWPN %(wwpn)s در وسیله ی zFCP یافت نشد %(devnum)s."
 
 #: pyanaconda/storage/zfcp.py:176
 #, python-format
@@ -5157,22 +5167,22 @@ msgstr ""
 #: pyanaconda/storage/zfcp.py:260
 #, python-format
 msgid "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s)."
-msgstr ""
+msgstr "نه توانست به درستی ابزار SCSI را از FCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s) حذف کند."
 
 #: pyanaconda/storage/zfcp.py:269
 #, python-format
 msgid "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr ""
+msgstr "نمی تواند LUN %(fcplun)s را از WWPN %(wwpn)s در zFCP وسیله %(devnum)s (%(e)s) حذف کند."
 
 #: pyanaconda/storage/zfcp.py:287
 #, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr ""
+msgstr "نمی توان WWPN %(wwpn)s را از وسیله zFCP %(devnum)s (%(e)s) برداشت"
 
 #: pyanaconda/storage/zfcp.py:313
 #, python-format
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
-msgstr ""
+msgstr "نمی توان zFCP وسیله را %(devnum)s offline (%(e)s) تنظیم کند."
 
 #: pyanaconda/textw/complete_text.py:32
 msgid "Reboot"
@@ -5247,7 +5257,7 @@ msgstr "نوع پارتیشن"
 
 #: pyanaconda/textw/partition_text.py:64
 msgid "Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target."
-msgstr ""
+msgstr "نصب به پارتیشن بندی هارد دیسک شما نیاز دارد. شمای پیش فرض برای بیشتر کاربران مفید است. هر مقدار فضا برای استفاده و اینکه کدام وسایل برای استفاده مقصد نصب انتخاب کنید."
 
 #: pyanaconda/textw/partition_text.py:67
 msgid "Use entire drive"
@@ -5323,7 +5333,6 @@ msgid "System to Upgrade"
 msgstr "سیستمی که ارتقاء داده شود"
 
 #: pyanaconda/textw/upgrade_text.py:227
-#, fuzzy
 msgid ""
 "There seem to be one or more existing Linux installations on your system.\n"
 "\n"
@@ -5331,28 +5340,30 @@ msgid ""
 msgstr ""
 "یک یا چند نصب موجود لینوکس روی سیستم شما پیدا شده‌اند.\n"
 "\n"
-"لطفاً یکی از آنها را برای ارتقاء دادن انتخاب کنید یا برای نصب تازه روی سیستم خود، «نصب مجدد سیستم» را انتخاب کنید."
+"لطفاً یکی از آنها را برای ارتقاء دادن انتخاب کنید یا برای نصب تازه روی سیستم خود، 'نصب مجدد سیستم' را انتخاب کنید."
 
 #: pyanaconda/textw/userauth_text.py:30
 msgid "Root Password"
 msgstr "گذرواژهٔ root"
 
 #: pyanaconda/textw/userauth_text.py:33
-#, fuzzy
 msgid "Pick a root password. You must type it twice to ensure you know it and do not make a typing mistake. "
-msgstr "گذرواژهٔ root را انتخاب کنید. برای اطمینان از دانستن آن و عدم اشتباه در تایپ باید آن را دوبار تایپ کنید. به یاد داشته باشید که گذرواژهٔ root بخشی بحرانی از امنیت سیستم است!"
+msgstr "گذرواژهٔ root را انتخاب کنید. برای اطمینان از دانستن آن و عدم اشتباه در تایپ باید آن را دوبار تایپ کنید."
 
 #: pyanaconda/textw/userauth_text.py:67
 msgid "The root password must be at least 6 characters long."
 msgstr "گذرواژهٔ root باید دارای حداقل ۶ نویسه باشد."
 
 #: pyanaconda/textw/userauth_text.py:84
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have provided a weak password: %s\n"
 "\n"
 "Would you like to continue with this password?"
-msgstr "آیا مایلید به ارتقاء دادن ادامه دهید؟"
+msgstr ""
+"شما کلمه عبور ساده ای وارد کرده اید:%s\n"
+"\n"
+"آیا می خواهید با این کلمه عبور ادامه دهید؟"
 
 #: pyanaconda/textw/welcome_text.py:29
 #, python-format
@@ -5369,7 +5380,6 @@ msgstr ""
 "\n"
 
 #: pyanaconda/textw/zipl_text.py:36
-#, fuzzy
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup require."
 msgstr "بارکنندهٔ راه‌انداز z/IPL بعد از تمام شدن نصب روی سیستم شما نصب خواهد شد. اکنون می‌توانید هر پارامتر اضافی chandev و هسته را که رایانه یا برپاسازی شما ممکن است به آنها نیاز داشته باشد وارد کنید."
 
@@ -5400,7 +5410,7 @@ msgstr "آغاز نصب بر روی هارد دیسک"
 
 #: data/ui/GroupSelector.glade.h:1
 msgid "Some packages associated with this group are not required to be installed but may provide additional functionality.  Please choose the packages which you would like to have installed."
-msgstr ""
+msgstr "برخی بسته های همراه در این گروه نیاز به نصب شدن ندارند ولی می تواند باعث عملکرد بیشتر شود. لطفا بسته هایی که می خواهید نصب شوند را انتخاب کنید."
 
 #: data/ui/GroupSelector.glade.h:2
 msgid "_Deselect"
@@ -5488,7 +5498,7 @@ msgstr ""
 
 #: data/ui/addrepo.glade.h:9
 msgid "Please provide the configuration information for this software repository."
-msgstr ""
+msgstr "لطفا اطلاعات پیکره بندی برای این مخزن نرم افزار را وارد کنید"
 
 #: data/ui/addrepo.glade.h:10
 msgid "Proxy U_RL (host:port)"
@@ -5555,9 +5565,8 @@ msgid "Volume to Shrink"
 msgstr "حجم برای جمع کردن"
 
 #: data/ui/autopart.glade.h:4
-#, fuzzy
 msgid "Which partition would you like to shrink to make room for your installation?"
-msgstr "افراز ریشهٔ نصب شما در کدام افراز قرار دارد؟"
+msgstr "می خواهید کدام پارتیشن برای ایجاد فضا برای نصب جمع شود؟"
 
 #: data/ui/autopart.glade.h:5
 msgid "Which type of installation would you like?"
@@ -5617,7 +5626,7 @@ msgstr "<b>نصب دستگاه های مقصد</b>"
 
 #: data/ui/cleardisks.glade.h:3
 msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>نکته:</b> نصب وسایل مقصد باعث قالب بندی مجدد و حذف همه داده ها می شود. مطمئن شوید پشتیبانی های لازم را دارید."
 
 #: data/ui/cleardisks.glade.h:4
 msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data devices (these will not be formatted, only mounted) and which devices you'd like to use as installation target devices (these may be formatted).  Please also indicate which system drive will have the bootloader installed."
@@ -5625,27 +5634,27 @@ msgstr ""
 
 #: data/ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\"> ساخت یک پارتیشن قالب بندی شده ی RAID</span>"
 
 #: data/ui/create-storage.glade.h:2
 msgid "<span size=\"small\" color=\"gray\">Create a logical volume on selected volume group</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">ساخت یک جلد منطقی بر روی گروه جلدی انتخاب شده</span>"
 
 #: data/ui/create-storage.glade.h:3
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">ساخت یک پارتیشن قالب بندی شده LVM</span>"
 
 #: data/ui/create-storage.glade.h:4
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">ساخت پارتیشن با هدف عمومی</span>"
 
 #: data/ui/create-storage.glade.h:5
 msgid "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">نیاز به حداقل یک پارتیشن قالب بندی شده ی LVM است</span>"
 
 #: data/ui/create-storage.glade.h:6
 msgid "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted partitions</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">نیاز به حداقل ۲ پارتیشن قالب بندی شده ی RAID</span>"
 
 #: data/ui/create-storage.glade.h:7
 msgid "Create"
@@ -5708,6 +5717,8 @@ msgid ""
 "Please select the network interface which is connected to\n"
 "your FCoE switch."
 msgstr ""
+"لطفا میانگر شبکه ای که به\n"
+"متصل سویچ FCoE شما انتخاب کنید."
 
 #: data/ui/fcoe-config.glade.h:5
 msgid "Use DCB"
@@ -5719,7 +5730,7 @@ msgstr "افزودن دیسک FCoE"
 
 #: data/ui/filter.glade.h:1
 msgid "<b>Tip:</b> Selected drives will not be formatted unless you choose to do so later during installation.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
-msgstr ""
+msgstr "<b>نکته:</b> درایوهای انتخاب شده قالب بندی نمی شوند مگر آنکه شما در طی نصب انتخاب کنید که قالب بندی شوند. همچنین توجه داشته باشید که پس-نصب وقتی درایوها را سوار کنید که شمااینجا انتخاب نکرده اید با تغییر فایل /etc/fstab"
 
 #: data/ui/filter.glade.h:2
 msgid "Add Advanced Target"
@@ -5765,7 +5776,7 @@ msgstr "دستگاه‌های SAN دیگر"
 
 #: data/ui/filter.glade.h:13
 msgid "Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount on your system:"
-msgstr ""
+msgstr "لطفا درایوهایی را که می خواهید سیستم عامل بر روی آن نصب کنید انتخاب کنید، همچنین همه درایو هایی که می خواهید به طور خودکار بر روی سیستمتان سوار شوند"
 
 #: data/ui/filter.glade.h:14
 msgid ""
@@ -5842,7 +5853,7 @@ msgstr "پیکره بندی پارامترهای iSCSI"
 
 #: data/ui/iscsi-config.glade.h:8
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
-msgstr ""
+msgstr "برای استفاده از دیسک های iSCSI شما باید آدرس iSCSI مقصد و نام آغازگر iSCSI را که در میزبان خود تنظیم کرده اید وارد کنید."
 
 #: data/ui/iscsi-config.glade.h:9
 msgid "_Add target"
@@ -5850,11 +5861,11 @@ msgstr "افزودن مقصد"
 
 #: data/ui/lukspassphrase.glade.h:1
 msgid "Also add this passphrase to all existing encrypted devices to streamline the boot process"
-msgstr ""
+msgstr "همچنین این کلمه عبور را به همه ی ابزارهای کدگذاری شده برای تسهیل روند بارگذاری اضافه شود"
 
 #: data/ui/lukspassphrase.glade.h:2
 msgid "Choose a passphrase for this encrypted partition. You will be prompted for the passphrase during system boot."
-msgstr ""
+msgstr "یک کلمه عبور برای این پارتیشن کدگذاری شده انتخاب کنید. در هنگام راه اندازی سیستم کلمه عبور از شما خواسته می شود."
 
 #: data/ui/lukspassphrase.glade.h:3
 msgid "Confirm passphrase:"
@@ -5910,7 +5921,7 @@ msgstr "نام میزبان:"
 
 #: data/ui/network.glade.h:3
 msgid "Please name this computer.  The hostname identifies the computer on a network."
-msgstr ""
+msgstr "لطفا برای این رایانه نامی انتخاب کنید. نام‌میزبان رایانه را در شبکه می شناساند."
 
 #: data/ui/tasksel.glade.h:1
 msgid "Customize _later"
@@ -5918,16 +5929,16 @@ msgstr "تغییر بعدا"
 
 #: data/ui/tasksel.glade.h:2
 msgid "Please select any additional repositories that you want to use for software installation."
-msgstr ""
+msgstr "لطفا هر مخزن اضافی دیگری که می خواهید برای نصب برنامه استفاده کنید، استفاده کنید."
 
 #: data/ui/tasksel.glade.h:4
 #, no-c-format
 msgid "The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to support?"
-msgstr ""
+msgstr "نصب پیش فرض %s شامل مجموعه ای از برنامه های کاربردی برای استفاده عمومی در اینترنت است. چه وظایف اضافی می خواهید سیستم شما پشتیبانی کند؟"
 
 #: data/ui/tasksel.glade.h:5
 msgid "You can further customize the software selection now, or after install via the software management application."
-msgstr ""
+msgstr "شما می توانید انتخاب برنامه را اکنون تغییر دهید یا بعد از نصب از طریق مدیریت برنامه کنترل کنید."
 
 #: data/ui/tasksel.glade.h:6
 msgid "_Add additional software repositories"
