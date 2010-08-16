@@ -14,13 +14,14 @@
 # Hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>, 2007, 2009.
 # Kiyoto Hashida <khashida@redhat.com>, 2007, 2008, 2009, 2010.
 # Makoto Mizukami <mmk9060@aol.com>, 2008.
+# Hajime Taira <htaira@redhat.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: new_ja\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-02 12:29-0400\n"
-"PO-Revision-Date: 2010-08-03 14:22+0900\n"
-"Last-Translator: Kiyoto Hashida <khashida@redhat.com>\n"
+"PO-Revision-Date: 2010-08-16 14:19+0900\n"
+"Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -643,22 +644,22 @@ msgstr ""
 #: pyanaconda/installinterfacebase.py:150
 #: pyanaconda/installinterfacebase.py:184
 msgid "_Ignore"
-msgstr "無視 (_I)"
+msgstr "無視(_I)"
 
 #: pyanaconda/installinterfacebase.py:93
 #: pyanaconda/installinterfacebase.py:151
 msgid "Ignore _all"
-msgstr "全てを無視 (_A)"
+msgstr "全てを無視(_A)"
 
 #: pyanaconda/installinterfacebase.py:94
 #: pyanaconda/installinterfacebase.py:152
 msgid "_Re-initialize"
-msgstr "再初期化 (_R)"
+msgstr "再初期化(_R)"
 
 #: pyanaconda/installinterfacebase.py:95
 #: pyanaconda/installinterfacebase.py:153
 msgid "Re-ini_tialize all"
-msgstr "全てを再初期化 (_T)"
+msgstr "全てを再初期化(_T)"
 
 #: pyanaconda/installinterfacebase.py:143
 #, python-format
@@ -891,7 +892,7 @@ msgstr "中止(_A)"
 
 #: pyanaconda/kickstart.py:1365 pyanaconda/kickstart.py:1404
 msgid "_Ignore All"
-msgstr "全てを無視 (_I)"
+msgstr "全てを無視(_I)"
 
 #: pyanaconda/kickstart.py:1395
 msgid "Missing Group"
@@ -961,7 +962,7 @@ msgid ""
 "The root filesystem you created is not large enough for this live image "
 "(%.2f MB required)."
 msgstr ""
-"作成したルートファイルシステムのサイズが、このライブイメージが必要としている"
+"作成した / (root) ファイルシステムのサイズが、このライブイメージが必要としている"
 "サイズより小さすぎます(最低 %.2f MB は必要です)。"
 
 #: pyanaconda/network.py:63
@@ -1024,7 +1025,7 @@ msgstr "デバイス %s 上のファイルシステムを移行中にエラー�
 
 #: pyanaconda/packages.py:130
 msgid "_File Bug"
-msgstr "バグを記録する (_F)"
+msgstr "バグを記録する(_F)"
 
 #: pyanaconda/packages.py:314
 #, python-format
@@ -1059,7 +1060,7 @@ msgstr ""
 
 #: pyanaconda/packages.py:330
 msgid "_Install Anyway"
-msgstr "とにかくインストールする (_I)"
+msgstr "とにかくインストールする(_I)"
 
 #: pyanaconda/packages.py:333
 msgid "Your system will now be rebooted..."
@@ -2014,7 +2015,7 @@ msgstr "再起動(_B)"
 
 #: pyanaconda/yuminstall.py:833
 msgid "_Eject"
-msgstr "ディスクを取り出す (_E)"
+msgstr "ディスクを取り出す(_E)"
 
 #: pyanaconda/yuminstall.py:839
 #, python-format
@@ -2242,9 +2243,9 @@ msgid ""
 "general internet usage. You can optionally select a different set of "
 "software now."
 msgstr ""
-"%s のデフォルトインストールには一般的なインターネット使用に適用できるソフト"
+"%s のデフォルトインストールには一般的なネットワーク環境で利用できるソフト"
 "ウェアのセットが含まれています。オプションとして異なる組み合わせのソフトウェ"
-"アを 今選択することができます。"
+"アを選択することができます。"
 
 #: pyanaconda/installclasses/fedora.py:48
 msgid "Graphical Desktop"
@@ -2272,8 +2273,8 @@ msgid ""
 "The default installation of %s is a minimum install. You can optionally "
 "select a different set of software now."
 msgstr ""
-"%s のデフォルトインストールは最小限インストールです。オプションとして 異なる"
-"組み合わせのソフトウェアを今選択することができます。"
+"%s のデフォルトインストールは最小限インストールです。オプションとして追加のソフトウェアを"
+"選択することができます。"
 
 #: pyanaconda/iw/GroupSelector.py:147
 #, python-format
@@ -2296,11 +2297,11 @@ msgstr "カテゴリなし"
 
 #: pyanaconda/iw/account_gui.py:52
 msgid "Root _Password:"
-msgstr "ルートパスワード (_P):"
+msgstr "root パスワード(_P):"
 
 #: pyanaconda/iw/account_gui.py:54
 msgid "_Confirm:"
-msgstr "確認 (_C):"
+msgstr "確認(_C):"
 
 #: pyanaconda/iw/account_gui.py:92
 msgid "Caps Lock is on."
@@ -2339,7 +2340,7 @@ msgstr "あなたは弱いパスワードを与えています: %s"
 
 #: pyanaconda/iw/account_gui.py:131
 msgid "_Use Anyway"
-msgstr "常に使用する (_U)"
+msgstr "常に使用する(_U)"
 
 #: pyanaconda/iw/account_gui.py:139 pyanaconda/textw/userauth_text.py:75
 msgid "Requested password contains non-ASCII characters, which are not allowed."
@@ -2391,7 +2392,7 @@ msgstr "%(name)s: %(msg)s"
 
 #: pyanaconda/iw/autopart_type.py:228
 msgid "Use All Space"
-msgstr "全ての領域を使用する"
+msgstr "すべての領域を使用する"
 
 #: pyanaconda/iw/autopart_type.py:230
 msgid ""
@@ -2401,10 +2402,10 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
-"選択したデバイス上の全てのパーティションを削除します。これには、他のオペレー"
-"ティング システムで作成されたパーティションも含まれます。\n"
+"選択したデバイス上のすべてのパーティションを削除します。これには、他のオペレー"
+"ティングシステムで作成されたパーティションも含まれます。\n"
 "\n"
-"<b>ヒント:</b>このオプションは選択したデバイスからデータを削除します。 バック"
+"<b>注意:</b>このオプションは選択したデバイスからデータを削除します。バック"
 "アップがあることを確認してください。"
 
 #: pyanaconda/iw/autopart_type.py:236
@@ -2420,12 +2421,11 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
-"選択したデバイス上の全ての Linux のパーティションを削除します。これは、 スト"
-"レージデバイス上に存在する他のパーティション（VFAT や FAT32 など）は 削除しま"
-"せん。\n"
+"選択したデバイス上の全ての Linux のパーティションを削除します。これは、ストレージデバイス上"
+"にすでに存在する他のパーティション（VFAT や FAT32 など）は 削除しません。\n"
 "\n"
-"<b>ヒント:</b> このオプションは、選択したデバイスからデータを削除します。バッ"
-"クアップが あることを確認して下さい。"
+"<b>注意:</b> このオプションは、選択したデバイスからデータを削除します。バッ"
+"クアップがあることを確認して下さい。"
 
 #: pyanaconda/iw/autopart_type.py:246
 msgid "Shrink Current System"
@@ -2446,7 +2446,7 @@ msgid ""
 "available."
 msgstr ""
 "現在のデータとパーティションを維持して、選択したデバイスに十分な空き領域があ"
-"る限りは そのパーティション未設定領域のみを使用します。"
+"る場合は、その未設定領域のみを使用します。"
 
 #: pyanaconda/iw/autopart_type.py:256
 msgid "Create Custom Layout"
@@ -2526,11 +2526,11 @@ msgstr "ブートローダーの設定"
 #: pyanaconda/iw/bootloader_main_gui.py:223
 #, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "ブートローダーを /dev/%s にインストールする。 (_I)"
+msgstr "ブートローダーを /dev/%s にインストールする。(_I)"
 
 #: pyanaconda/iw/bootloader_main_gui.py:229
 msgid "_Change device"
-msgstr "デバイスの変更 (_C)"
+msgstr "デバイスの変更(_C)"
 
 #: pyanaconda/iw/cleardisks_gui.py:34
 msgid "Clear Disks Selector"
@@ -2652,9 +2652,9 @@ msgid ""
 msgstr ""
 "おめでとうございます。%s のインストールが完了しました。\n"
 "\n"
-"インストールしたシステムを使用するために再起動して下さい。ご使用の システムの"
-"正常な機能を確実にするために更新が利用できる可能性が あり、再起動の後にこの更"
-"新が推奨されます。"
+"インストールしたシステムを使用するために再起動してください。ご使用のシステムの機能が"
+"正常な動作を行うために更新パッケージが提供されている可能性があります。"
+"再起動の後にパッケージのアップデートを行うことが推奨されています。"
 
 #: pyanaconda/iw/examine_gui.py:39
 msgid "Upgrade Examine"
@@ -2670,9 +2670,8 @@ msgid ""
 "Choose this option to install a fresh copy of %s on your system.  Existing "
 "software and data may be overwritten depending on your configuration choices."
 msgstr ""
-"システムに %s のコピーを新規インストールするにはこのオプションを選択します。"
-"既存のソフトウェアやデータは選択した設定によっては上書きされるかもしれませ"
-"ん。"
+"システムに %s を新規インストールするにはこのオプションを選択します。"
+"既存のソフトウェアやデータは選択した設定によっては上書きされるかもしれません。"
 
 #: pyanaconda/iw/examine_gui.py:65
 msgid "Upgrade an Existing Installation"
@@ -2692,13 +2691,12 @@ msgid ""
 "At least one existing installation has been detected on your system.  What "
 "would you like to do?"
 msgstr ""
-"使用システム上に少なくとも１つの既存インストールが検出されました。どうしたい"
-"ですか?"
+"現在お使いのシステム上には既存のシステムがインストールされています。どのようになさいますか?"
 
 #: pyanaconda/iw/examine_gui.py:126
 #, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "<b>どの %s インストールをアップグレードしたいですか?</b>"
+msgstr "<b>どちらの %s をアップグレードしますか?</b>"
 
 #: pyanaconda/iw/examine_gui.py:140
 msgid "Unknown Linux system"
@@ -2743,7 +2741,7 @@ msgstr "LUN"
 
 #: pyanaconda/iw/filter_type.py:55
 msgid "What type of devices will your installation involve?"
-msgstr "インストールはどんなタイプのデバイスを使用しますか?"
+msgstr "どちらのタイプのストレージデバイスにインストールしますか?"
 
 #: pyanaconda/iw/filter_type.py:61
 msgid "Basic Storage Devices"
@@ -2754,12 +2752,12 @@ msgid ""
 "Installs or upgrades to typical types of storage devices.  If you're not "
 "sure which option is right for you, this is probably it."
 msgstr ""
-"標準タイプのストレージデバイスにインストール、又はアップグレードします。 どの"
+"一般的なストレージデバイスにインストール、またはアップグレードします。 どの"
 "オプションが正しいのか不明な場合は、これが適切でしょう。"
 
 #: pyanaconda/iw/filter_type.py:66
 msgid "Specialized Storage Devices"
-msgstr "特殊化したストレージデバイス"
+msgstr "エンタープライズストレージデバイス"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid ""
@@ -2767,9 +2765,9 @@ msgid ""
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
 msgstr ""
-"SANs (Storage Area Networks) などのエンタープライズデバイスにインストール、又は "
-"アップグレードします。このオプションにより、FCoE / iSCSI / zFCP などのディスクを "
-"追加して、インストーラが無視すべきデバイスを選別できるようになります。"
+"SANs (Storage Area Networks) などのエンタープライズデバイスにインストールするか、 "
+"またはアップグレードします。このオプションにより、FCoE / iSCSI / zFCP などのストレージデバイス"
+"を追加でき、インストーラが無視すべきデバイスを選別します。"
 
 #: pyanaconda/iw/language_gui.py:33 pyanaconda/textw/language_text.py:45
 msgid "Language Selection"
@@ -2815,7 +2813,7 @@ msgstr ""
 
 #: pyanaconda/iw/lvm_dialog_gui.py:146 pyanaconda/iw/lvm_dialog_gui.py:208
 msgid "C_ontinue"
-msgstr "続行 (_O)"
+msgstr "続行(_O)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:173
 #, python-format
@@ -2902,7 +2900,7 @@ msgstr "(最大サイズは %s MB)"
 #: pyanaconda/iw/partition_ui_helpers_gui.py:337
 #: pyanaconda/iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
-msgstr "暗号化 (_E)"
+msgstr "暗号化(_E)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:479
 #: pyanaconda/iw/partition_dialog_gui.py:474
@@ -3123,7 +3121,7 @@ msgstr "編集(_E)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1462
 msgid "_Logical Volumes"
-msgstr "論理ボリューム (_L)"
+msgstr "論理ボリューム(_L)"
 
 #: pyanaconda/iw/netconfig_dialog.py:192 pyanaconda/textw/netconfig_text.py:36
 #, python-format
@@ -3597,7 +3595,7 @@ msgstr "<適用外>"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:318
 msgid "_Format as:"
-msgstr "フォーマットする (_F):"
+msgstr "フォーマットする(_F):"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:340
 msgid "Mi_grate filesystem to:"
@@ -3605,7 +3603,7 @@ msgstr "ファイルシステムを移動する:"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:370
 msgid "_Resize"
-msgstr "サイズを変更 (_R)"
+msgstr "サイズを変更(_R)"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:425
 #, python-format
@@ -3645,7 +3643,7 @@ msgstr "RAID デバイスの編集"
 
 #: pyanaconda/iw/raid_dialog_gui.py:476
 msgid "RAID _Device:"
-msgstr "RAID デバイス (_D):"
+msgstr "RAID デバイス(_D):"
 
 #: pyanaconda/iw/raid_dialog_gui.py:494
 msgid "RAID _Level:"
@@ -5012,11 +5010,11 @@ msgstr ""
 
 #: pyanaconda/storage/__init__.py:194
 msgid "Go _Back"
-msgstr "戻る (_B)"
+msgstr "戻る(_B)"
 
 #: pyanaconda/storage/__init__.py:195
 msgid "_Write Changes to Disk"
-msgstr "変更をディスクに書き込む (_W)"
+msgstr "変更をディスクに書き込む(_W)"
 
 #: pyanaconda/storage/__init__.py:214
 msgid "Running..."
@@ -5871,7 +5869,7 @@ msgstr "どのタイムゾーンに位置しますか?"
 
 #: pyanaconda/textw/timezone_text.py:92
 msgid "System clock uses UTC"
-msgstr "システムクロックに UTC を使用"
+msgstr "このコンピュータはシステムクロックに世界標準時間(UTC)を使用します。"
 
 #: pyanaconda/textw/upgrade_bootloader_text.py:111
 #: pyanaconda/textw/upgrade_bootloader_text.py:121
@@ -5935,7 +5933,7 @@ msgid ""
 "Pick a root password. You must type it twice to ensure you know it and do "
 "not make a typing mistake. "
 msgstr ""
-"ルートパスワードを設定してください。パスワードを2回入力することで、パスワード"
+"root パスワードを設定してください。パスワードを2回入力することで、パスワード"
 "を覚えていて、タイプミスがないことを確認します。"
 
 #: pyanaconda/textw/userauth_text.py:67
@@ -6013,23 +6011,23 @@ msgstr ""
 
 #: data/ui/GroupSelector.glade.h:2
 msgid "_Deselect"
-msgstr "選択解除 (_D)"
+msgstr "選択解除(_D)"
 
 #: data/ui/GroupSelector.glade.h:3
 msgid "_Deselect all optional packages"
-msgstr "すべての追加パッケージの選択を解除 (_D)"
+msgstr "すべての追加パッケージの選択を解除(_D)"
 
 #: data/ui/GroupSelector.glade.h:4
 msgid "_Optional packages"
-msgstr "追加パッケージ (_O)"
+msgstr "追加パッケージ(_O)"
 
 #: data/ui/GroupSelector.glade.h:5
 msgid "_Select"
-msgstr "選択 (_S)"
+msgstr "選択(_S)"
 
 #: data/ui/GroupSelector.glade.h:6
 msgid "_Select all optional packages"
-msgstr "すべての追加パッケージを選択 (_S)"
+msgstr "すべての追加パッケージを選択(_S)"
 
 #: data/ui/GroupSelector.glade.h:7
 msgid "dialog1"
@@ -6041,14 +6039,14 @@ msgstr "確認:"
 
 #: data/ui/account.glade.h:2
 msgid "Root Password:"
-msgstr "ルートパスワード:"
+msgstr "root パスワード:"
 
 #: data/ui/account.glade.h:3
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
-"root アカウントはシステムの管理に使用されます。 root ユーザーのパスワードを入"
+"root ユーザーはシステムの管理用に使用します。 root ユーザーのパスワードを入"
 "力してください。"
 
 #: data/ui/adddrive.glade.h:1
@@ -6057,11 +6055,11 @@ msgstr "FCoE SAN を追加（_F）"
 
 #: data/ui/adddrive.glade.h:2
 msgid "Add _ZFCP LUN"
-msgstr "_ZFCP LUN を追加 (_Z)"
+msgstr "_ZFCP LUN を追加(_Z)"
 
 #: data/ui/adddrive.glade.h:3
 msgid "Add _iSCSI target"
-msgstr "iSCSI ターゲットを追加 (_I)"
+msgstr "iSCSI ターゲットを追加(_I)"
 
 #: data/ui/adddrive.glade.h:4
 msgid "Advanced Storage Options"
@@ -6073,11 +6071,11 @@ msgstr "どのように使用中のドライブ設定を変更したいですか
 
 #: data/ui/adddrive.glade.h:6
 msgid "_Add drive"
-msgstr "ドライブ追加 (_A)"
+msgstr "ドライブ追加(_A)"
 
 #: data/ui/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
-msgstr "<b>リポジトリー名 (_N):</b>"
+msgstr "<b>リポジトリー名(_N):</b>"
 
 #: data/ui/addrepo.glade.h:2
 msgid "<b>Repository _type:</b>"
@@ -6085,7 +6083,7 @@ msgstr "<b>リポジトリータイプ（_T）:</b>"
 
 #: data/ui/addrepo.glade.h:4
 msgid "Configure _proxy"
-msgstr "プロキシーの設定 (_P) "
+msgstr "プロキシーの設定(_P) "
 
 #: data/ui/addrepo.glade.h:5
 msgid ""
@@ -6109,15 +6107,15 @@ msgstr "プロキシー U_RL (ホスト:ポート)"
 
 #: data/ui/addrepo.glade.h:11
 msgid "Proxy pass_word"
-msgstr "プロキシーのパスワード (_W)"
+msgstr "プロキシーのパスワード(_W)"
 
 #: data/ui/addrepo.glade.h:12
 msgid "Proxy u_sername"
-msgstr "プロキシーのユーザー名 (_S)"
+msgstr "プロキシーのユーザー名(_S)"
 
 #: data/ui/addrepo.glade.h:13
 msgid "Repository _URL"
-msgstr "リポジトリーの URL (_U)"
+msgstr "リポジトリーの URL(_U)"
 
 #: data/ui/addrepo.glade.h:14
 msgid "Select A Directory"
@@ -6161,7 +6159,7 @@ msgstr "<b>このサイズ（MB）までパーティションを縮小(_T):</b>"
 
 #: data/ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "パーティション設定レイアウトを確認して修正 (_V)"
+msgstr "パーティションのレイアウトをレビューまたは修正(_V)"
 
 #: data/ui/autopart.glade.h:3
 msgid "Volume to Shrink"
@@ -6177,7 +6175,7 @@ msgstr "どのタイプのインストールをしますか ?"
 
 #: data/ui/autopart.glade.h:6
 msgid "_Encrypt system"
-msgstr "システムを暗号化する (_E)"
+msgstr "システムを暗号化する(_E)"
 
 #: data/ui/autopart.glade.h:7
 msgid "_Shrink"
@@ -6292,7 +6290,7 @@ msgstr ""
 
 #: data/ui/create-storage.glade.h:7
 msgid "C_reate"
-msgstr "作成する (_R)"
+msgstr "作成する(_R)"
 
 #: data/ui/create-storage.glade.h:8
 msgid "Create LVM"
@@ -6336,7 +6334,7 @@ msgstr "情報"
 
 #: data/ui/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr "詳細 (_D)"
+msgstr "詳細(_D)"
 
 #: data/ui/fcoe-config.glade.h:1
 msgid "Configure FCoE Parameters"
@@ -6469,19 +6467,19 @@ msgstr "ターゲット:"
 
 #: data/ui/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
-msgstr "<b>CHAP パスワード (_P):</b>"
+msgstr "<b>CHAP パスワード(_P):</b>"
 
 #: data/ui/iscsi-config.glade.h:2
 msgid "<b>CHAP _Username:</b>"
-msgstr "<b>CHAP ユーザー名 (_U):</b>"
+msgstr "<b>CHAP ユーザー名(_U):</b>"
 
 #: data/ui/iscsi-config.glade.h:3
 msgid "<b>Reverse CHAP P_assword:</b>"
-msgstr "<b>逆順 CHAP パスワード (_A):</b>"
+msgstr "<b>逆順 CHAP パスワード(_A):</b>"
 
 #: data/ui/iscsi-config.glade.h:4
 msgid "<b>Reverse CHAP U_sername:</b>"
-msgstr "<b>逆順 CHAP ユーザー名 (_S):</b>"
+msgstr "<b>逆順 CHAP ユーザー名(_S):</b>"
 
 #: data/ui/iscsi-config.glade.h:5
 msgid "<b>_Target IP Address:</b>"
@@ -6505,14 +6503,14 @@ msgstr ""
 
 #: data/ui/iscsi-config.glade.h:9
 msgid "_Add target"
-msgstr "ターゲットの追加 (_A)"
+msgstr "ターゲットの追加(_A)"
 
 #: data/ui/lukspassphrase.glade.h:1
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
-"暗号化済みの全ての既存デバイスにこのパスフレーズを追加して、ブートプロセスを "
+"暗号化済みの全ての既存デバイスにこのパスフレーズを追加して、ブートプロセスを"
 "スムーズにします。"
 
 #: data/ui/lukspassphrase.glade.h:2
@@ -6553,19 +6551,19 @@ msgstr "<b>ネームサーバー:</b>"
 
 #: data/ui/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr "<b>インターフェイス (_I):</b>"
+msgstr "<b>インターフェイス(_I):</b>"
 
 #: data/ui/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr "IPv4 サポートを有効にする (_4)"
+msgstr "IPv4 サポートを有効にする(_4)"
 
 #: data/ui/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr "IPv6 サポートを有効にする (_6)"
+msgstr "IPv6 サポートを有効にする(_6)"
 
 #: data/ui/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "DHCP (動的 IP 設定) を使用 (_D)"
+msgstr "DHCP (動的 IP 設定) を使用(_D)"
 
 #: data/ui/network.glade.h:1
 msgid "Configure Network"
@@ -6580,20 +6578,19 @@ msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
 msgstr ""
-"このコンピュータに命名して下さい。ホスト名はネットワーク上でこのコンピュータ"
-"を 識別します。"
+"このコンピュータのホスト名を指定してください。ホスト名はネットワーク上でこのコンピュータ"
+"を識別するために必要です。"
 
 #: data/ui/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "後でカスタマイズ (_L)"
+msgstr "後でカスタマイズ(_L)"
 
 #: data/ui/tasksel.glade.h:2
 msgid ""
 "Please select any additional repositories that you want to use for software "
 "installation."
 msgstr ""
-"ソフトウェアのインストールに使用する予定の追加リポジトリーを選択してくださ"
-"い。"
+"ソフトウェアのインストールに必要な追加リポジトリーを選択してください。"
 
 #: data/ui/tasksel.glade.h:4
 #, no-c-format
@@ -6602,29 +6599,29 @@ msgid ""
 "general internet usage.  What additional tasks would you like your system to "
 "support?"
 msgstr ""
-"%s のデフォルトインストールには一般的なインターネット使用に適用できるソフト"
-"ウェアのセットが含まれています。他にどんなタスクをシステムにサポートさせたい "
-"ですか？"
+"%s のデフォルトインストールには一般的なネットワーク環境での利用できるソフト"
+"ウェアのセットが含まれています。システムに追加で対応させたいタスクは何です"
+"か?"
 
 #: data/ui/tasksel.glade.h:5
 msgid ""
 "You can further customize the software selection now, or after install via "
 "the software management application."
 msgstr ""
-"ソフトウェアの選択の更なるカスタマイズは今するか、又はインストールの後で ソフ"
-"トウェア管理アプリケーションを介して実行できます。"
+"次のステップでソフトウェアの選択を詳細にカスタマイズすることができます。 またはインストール後にソフトウェア"
+"管理アプリケーションでカスタマイズを行うこともできます。"
 
 #: data/ui/tasksel.glade.h:6
 msgid "_Add additional software repositories"
-msgstr "追加でソフトウェアリポジトリーを加える (_A)"
+msgstr "他のソフトウェアリポジトリーの追加(_A)"
 
 #: data/ui/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "今カスタマイズする (_C)"
+msgstr "今すぐカスタマイズ(_C)"
 
 #: data/ui/tasksel.glade.h:8
 msgid "_Modify repository"
-msgstr "リポジトリーの編集 (_M)"
+msgstr "リポジトリーの編集(_M)"
 
 #: data/ui/zfcp-config.glade.h:1
 msgid "<b>Device number:</b>"
@@ -6823,7 +6820,7 @@ msgstr "ポルトガル語"
 
 #: data/lang-table.h:43
 msgid "Portuguese(Brazilian)"
-msgstr "ポルトガル語(ブラジル系)"
+msgstr "ポルトガル語 (ブラジル系)"
 
 #: data/lang-table.h:44
 msgid "Punjabi"
@@ -6843,7 +6840,7 @@ msgstr "セルビア語"
 
 #: data/lang-table.h:48
 msgid "Serbian(Latin)"
-msgstr "セルビア語(ラテン系)"
+msgstr "セルビア語 (ラテン系)"
 
 #: data/lang-table.h:49
 msgid "Sinhala"
