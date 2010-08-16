@@ -747,10 +747,6 @@ class PartitionData(commands.partition.F12_PartData):
             anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
-        # Size specification checks.
-        if not self.size and not self.onPart:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Partition requires a size specification")
-
         # Now get a format to hold a lot of these extra values.
         kwargs["format"] = getFormat(type,
                                      mountpoint=self.mountpoint,
