@@ -85,7 +85,9 @@ else:
     exceptionText += _(" against anaconda at %s") %(bugzillaUrl,)
 
 # DriverDisc Paths
+DD_ALL = "/tmp/DD"
 DD_EXTRACTED = re.compile("/lib/modules/[^/]+/updates/DD/(?P<modulename>.+)")
+DD_FIRMWARE = "/tmp/DD/lib/firmware"
 DD_RPMS = "/tmp/DD-*"
 
 TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
