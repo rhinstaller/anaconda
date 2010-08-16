@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.211
+Version: 11.1.2.212
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Aug 16 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.212-1
+- Mount /proc/bus/usb under /mnt/sysimage (hdegoede)
+  Resolves: rhbz#532397
+- Update kickstart-docs iscsi commands information (hdegoede)
+  Resolves: rhbz#525136
+
 * Wed Aug 11 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.211-1
 - Clean up sanityCheckHostname() in network.py (dcantrell)
   Resolves: rhbz#559626
