@@ -822,14 +822,8 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
 {
     /* Detect pxelinux */
     if (strstr(argv, ":") != NULL) {
-        char *start, *end;
-
-        /* IP */
-        if (!strncmp(argv, "ip=", 3)) {
-            start = argv + 3;
-        } else {
-            start = argv;
-        }
+        char *start = argv;
+        char *end;
 
         end = strstr(start, ":");
         loaderData->ipv4 = strndup(start, end-start);
@@ -861,7 +855,7 @@ static void parseCmdLineIp(struct loaderData_s * loaderData, char *argv)
         start = end + 1;
         loaderData->netmask = strdup(start);
     } else {
-        loaderData->ipv4 = strdup(argv + 3);
+        loaderData->ipv4 = strdup(argv);
         loaderData->ipinfo_set = 1;
     }
 
@@ -881,9 +875,9 @@ static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
      */
     loaderData->ipv6 = NULL;
 
-    if (!strncasecmp(argv, "ipv6=dhcp", 9)) {
+    if (!strncasecmp(argv, "dhcp", 4)) {
         loaderData->ipv6 = strdup("dhcp");
-    } else if (!strncasecmp(argv, "ipv6=auto", 9)) {
+    } else if (!strncasecmp(argv, "auto", 4)) {
         loaderData->ipv6 = strdup("auto");
     }
 
@@ -891,8 +885,6 @@ static void parseCmdLineIpv6(struct loaderData_s * loaderData, char *argv)
         loaderData->ipv6info_set = 1;
         flags |= LOADER_FLAGS_IPV6_PARAM;
     }
-
-    return;
 }
 #endif
 
