@@ -37,13 +37,13 @@
 static FILE * main_log_tty = NULL;
 static FILE * main_log_file = NULL;
 static FILE * program_log_file = NULL;
-static int minLevel = INFO;
+static loglevel_t minLevel = INFO;
 static const char * main_tag = "loader";
 static const char * program_tag = "program";
 static const int syslog_facility = LOG_LOCAL1;
 
 /* maps our loglevel to syslog loglevel */
-static int mapLogLevel(int level)
+static int mapLogLevel(loglevel_t level)
 {
     switch (level) {
     case DEBUGLVL:
@@ -70,7 +70,7 @@ const char *log_level_to_str[] = {
     [CRITICAL] = "CRIT"
 };
 
-static void printLogHeader(int level, const char *tag, FILE *outfile) {
+static void printLogHeader(loglevel_t level, const char *tag, FILE *outfile) {
     struct timeval current_time;
     struct tm *t;
     int msecs;
@@ -84,7 +84,7 @@ static void printLogHeader(int level, const char *tag, FILE *outfile) {
             t->tm_min, t->tm_sec, msecs, level_name, tag);
 }
 
-static void printLogMessage(int level, const char *tag, FILE *outfile, const char *s, va_list ap)
+static void printLogMessage(loglevel_t level, const char *tag, FILE *outfile, const char *s, va_list ap)
 {
     printLogHeader(level, tag, outfile);
 
@@ -103,7 +103,7 @@ static void retagSyslog(const char* new_tag)
     openlog(new_tag, 0, syslog_facility);
 }
 
-void logMessageV(enum logger_t logger, int level, const char * s, va_list ap) {
+void logMessageV(enum logger_t logger, loglevel_t level, const char * s, va_list ap) {
     FILE *log_tty = main_log_tty;
     FILE *log_file = main_log_file;
     const char *tag = main_tag;
@@ -137,7 +137,7 @@ void logMessageV(enum logger_t logger, int level, const char * s, va_list ap) {
         retagSyslog(main_tag);
 }
 
-void logMessage(int level, const char * s, ...) {
+void logMessage(loglevel_t level, const char * s, ...) {
     va_list args;
 
     va_start(args, s);
@@ -145,7 +145,7 @@ void logMessage(int level, const char * s, ...) {
     va_end(args);
 }
 
-void logProgramMessage(int level, const char * s, ...) {
+void logProgramMessage(loglevel_t level, const char * s, ...) {
     va_list args;
 
     va_start(args, s);
@@ -200,11 +200,11 @@ void closeLog(void) {
 }
 
 /* set the level.  higher means you see more verbosity */
-void setLogLevel(int level) {
+void setLogLevel(loglevel_t level) {
     minLevel = level;
 }
 
-int getLogLevel(void) {
+loglevel_t getLogLevel(void) {
     return minLevel;
 }
 

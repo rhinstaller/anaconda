@@ -23,27 +23,29 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#define DEBUGLVL 10
-#define INFO     20
-#define WARNING  30
-#define ERROR    40
-#define CRITICAL 50
+typedef enum {
+    DEBUGLVL,
+    INFO,
+    WARNING,
+    ERROR,
+    CRITICAL
+} loglevel_t;
 
 enum logger_t {
     MAIN_LOG = 1,
     PROGRAM_LOG = 2
 };
 
-void logMessageV(enum logger_t logger, int level, const char * s, va_list ap)
+void logMessageV(enum logger_t logger, loglevel_t level, const char * s, va_list ap)
     __attribute__ ((format (printf, 3, 0)));
-void logMessage(int level, const char * s, ...)
+void logMessage(loglevel_t level, const char * s, ...)
     __attribute__ ((format (printf, 2, 3)));
-void logProgramMessage(int level, const char * s, ...)
+void logProgramMessage(loglevel_t level, const char * s, ...)
     __attribute__ ((format (printf, 2, 3)));
 void openLog();
 void closeLog(void);
-void setLogLevel(int minLevel);
-int getLogLevel(void);
+void setLogLevel(loglevel_t minLevel);
+loglevel_t getLogLevel(void);
 int loggingReady(void);
 
 extern int tty_logfd;
