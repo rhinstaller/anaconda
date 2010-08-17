@@ -3213,6 +3213,16 @@ class MultipathDevice(DMDevice):
                 self.format.teardown()
             udev_settle()
 
+        if recursive:
+            self.teardownParents(recursive=recursive)
+
+    def deactivate(self):
+        """ 
+        This is never called, included just for documentation.
+
+        If we called this during teardown(), we wouldn't be able to get parted
+        object because /dev/mapper/mpathX wouldn't exist.
+        """
         if self.exists and os.path.exists(self.path):
             #self.teardownPartitions()
             #rc = iutil.execWithRedirect("multipath",
@@ -3231,9 +3241,6 @@ class MultipathDevice(DMDevice):
             except Exception as e:
                 raise MPathError("failed to tear down multipath device %s: %s"
                                 % (self.name, e))
-
-        if recursive:
-            self.teardownParents(recursive=recursive)
 
     def setup(self, intf=None, orig=False):
         """ Open, or set up, a device. """
