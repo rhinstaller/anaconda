@@ -1004,8 +1004,6 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         } else if (!strcasecmp(k, "kssendsn")) {
             flags |= LOADER_FLAGS_KICKSTART_SEND_SERIAL;
         /* deprecated hardware bits */
-        } else if (!strcasecmp(k, "nousbstorage")) {
-            mlAddBlacklist("usb-storage");
         } else if (!strcasecmp(k, "nousb")) {
             mlAddBlacklist("ehci-hcd");
             mlAddBlacklist("ohci-hcd");
