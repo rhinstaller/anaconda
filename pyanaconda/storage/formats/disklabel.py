@@ -151,17 +151,21 @@ class DiskLabel(DeviceFormat):
 
     @property
     def partedDevice(self):
-        if not self._partedDevice and self.device and \
-           os.path.exists(self.device):
-            # We aren't guaranteed to be able to get a device.  In
-            # particular, built-in USB flash readers show up as devices but
-            # do not always have any media present, so parted won't be able
-            # to find a device.
-            try:
-                 self._partedDevice = parted.Device(path=self.device)
-            except (_ped.IOException, _ped.DeviceException):
-                 pass
+        if not self._partedDevice and self.device:
+            if os.path.exists(self.device):
+                # We aren't guaranteed to be able to get a device.  In
+                # particular, built-in USB flash readers show up as devices but
+                # do not always have any media present, so parted won't be able
+                # to find a device.
+                try:
+                    self._partedDevice = parted.Device(path=self.device)
+                except (_ped.IOException, _ped.DeviceException) as e:
+                    log.error("DiskLabel.partedDevice: Parted exception: %s" % e)
+            else:
+                log.info("DiskLabel.partedDevice: %s does not exist" % self.device)
 
+        if not self._partedDevice:
+            log.info("DiskLabel.partedDevice returning None")
         return self._partedDevice
 
     @property
