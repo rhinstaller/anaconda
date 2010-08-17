@@ -367,7 +367,6 @@ class Network:
 
         self.netdevices = {}
         self.ksdevice = None
-        self.domains = []
 
         # populate self.netdevices
         devhash = isys.getDeviceProperties(dev=None)
@@ -380,8 +379,6 @@ class Network:
                          device.path)
                 continue
 
-            if device.get('DOMAIN'):
-                self.domains.append(device.get('DOMAIN'))
             # TODORV - the last iface in loop wins, might be ok,
             #          not worthy of special juggling
             if device.get('HOSTNAME'):
@@ -719,45 +716,7 @@ class Network:
         f.close()
         shutil.move(newnetwork, networkConfFile)
 
-        # If the hostname was not looked up, but typed in by the user,
-        # domain might not be computed, so do it now.
-        domainname = None
-        if "." in self.hostname:
-            fqdn = self.hostname
-        else:
-            fqdn = socket.getfqdn(self.hostname)
-
-        if fqdn in [ "localhost.localdomain", "localhost",
-                     "localhost6.localdomain6", "localhost6",
-                     self.hostname ] or "." not in fqdn:
-            fqdn = None
-
-        if fqdn:
-            domainname = fqdn.split('.', 1)[1]
-            if domainname in [ "localdomain", "localdomain6" ]:
-                domainname = None
-        else:
-            domainname = None
-
-        if self.domains == ["localdomain"] or not self.domains:
-            if domainname:
-                self.domains = [domainname]
-
-        # /etc/resolv.conf
-        if (self.domains != ['localdomain'] and self.domains) or \
-            self.hasNameServers(dev.info):
-            resolv = "/etc/resolv.conf"
-
-            f = open(resolv, "w")
-
-            if self.domains != ['localdomain'] and self.domains:
-                f.write("search %s\n" % (string.joinfields(self.domains, ' '),))
-
-            for key in dev.info.keys():
-                if key.upper().startswith('DNS'):
-                    f.write("nameserver %s\n" % (dev.get(key),))
-
-            f.close()
+        # /etc/resolv.conf is managed by NM
 
         # /etc/udev/rules.d/70-persistent-net.rules
         rules = "/etc/udev/rules.d/70-persistent-net.rules"
