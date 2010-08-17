@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 17 2010 David Cantrell <dcantrell@redhat.com> - 13.21.78-1
+- Fix the provides we look for when installing DUD (msivak)
+  Resolves: rhbz#618862
+
 * Mon Aug 16 2010 David Cantrell <dcantrell@redhat.com> - 13.21.77-1
 - Fix the paths for DD in postinstall phase (msivak)
   Related: rhbz#619745
