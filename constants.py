@@ -86,7 +86,7 @@ else:
 
 # DriverDisc Paths
 DD_ALL = "/tmp/DD"
-DD_EXTRACTED = re.compile("/lib/modules/[^/]+/updates/DD/(?P<modulename>.+)")
+DD_EXTRACTED = re.compile("/lib/modules/[^/]+/updates/DD/(?P<moduledir>.*/)?(?P<modulename>[^/.]+).ko.*")
 DD_FIRMWARE = "/tmp/DD/lib/firmware"
 DD_RPMS = "/tmp/DD-*"
 

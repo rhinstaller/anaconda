@@ -1398,9 +1398,11 @@ debuglevel=10
 
         #We need to install the packages which contain modules from DriverDiscs
         for modPath in isys.modulesWithPaths():
+            log.debug("Checking for DUD module "+modPath)
             match = DD_EXTRACTED.match(modPath)
             if match:
-                moduleProvides.append(match.group("modulename"))
+                log.info("Requesting install of kmod-%s" % (match.group("modulename")))
+                moduleProvides.append("kmod-"+match.group("modulename"))
             else:
                 continue
 
