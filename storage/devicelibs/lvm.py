@@ -23,6 +23,7 @@
 import os
 import math
 import re
+import string
 
 import iutil
 
@@ -65,17 +66,23 @@ def _composeConfig():
     config_args = []
 
     filter_string = ""
-    rejects = config_args_data["filterRejects"]
     # we don't need the accept for now.
     # accepts = config_args_data["filterAccepts"]
     # if len(accepts) > 0:
     #   for i in range(len(rejects)):
     #       filter_string = filter_string + ("\"a|/%s$|\", " % accepts[i])
 
-    if len(rejects) > 0:
-        for i in range(len(rejects)):
-            filter_string = filter_string + ("\"r|/%s$|\"," % rejects[i])
-
+    rejects = config_args_data["filterRejects"]
+    for reject in rejects:
+        # If reject is "sda" we want both "sda" and "sda10" rejected but not
+        # "sdab". If reject is "sda1" we want precisely "sda1" rejected and not
+        # "sda10"
+        if reject[-1] in string.digits:
+            # ends with a digit
+            filter_string += ("\"r|/%s$|\"," % reject)
+        else:
+            # doesn't end with a digit so also match any number of digits
+            filter_string += ("\"r|/%s%s$|\"," % (reject, r'p?[0-9]*'))
 
     filter_string = " filter=[%s] " % filter_string.strip(",")
 
