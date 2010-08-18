@@ -23,6 +23,7 @@
 #            Jeremy Katz <katzj@redhat.com>
 #
 
+import itertools
 import glob
 import iutil
 import isys
@@ -186,41 +187,41 @@ def setupTimezone(anaconda):
 # FIXME: this is a huge gross hack.  hard coded list of files
 # created by anaconda so that we can not be killed by selinux
 def setFileCons(anaconda):
+    def contextCB(arg, directory, files):
+        for file in files:
+            path = os.path.join(directory, file)
+
+            if not os.access(path, os.R_OK):
+                log.warning("%s doesn't exist" % path)
+                continue
+
+            # If the path begins with rootPath, matchPathCon will never match
+            # anything because policy doesn't contain that path.
+            if path.startswith(anaconda.rootPath):
+                path = path.replace(anaconda.rootPath, "")
+
+            ret = isys.resetFileContext(path, anaconda.rootPath)
+            log.info("set fc of %s to %s" % (path, ret))
+
     if flags.selinux:
         log.info("setting SELinux contexts for anaconda created files")
 
-        files = ["/etc/rpm/macros", "/etc/dasd.conf", "/etc/zfcp.conf",
-                 "/etc/lilo.conf.anaconda", "/lib64", "/usr/lib64",
-                 "/etc/blkid.tab", "/etc/blkid.tab.old", 
-                 "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
-                 "/etc/modprobe.conf", "/etc/modprobe.conf~",
-                 "/var/log/wtmp", "/var/run/utmp", "/etc/crypttab",
-                 "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab",
-                 "/etc/mdadm.conf", "/etc/sysconfig/network",
-                 "/etc/udev/rules.d/70-persistent-net.rules",
-                 "/root/install.log", "/root/install.log.syslog",
-                 "/etc/shadow", "/etc/shadow-", "/etc/gshadow"] + \
-                glob.glob('/etc/dhcp/dhclient-*.conf')
+        # Add "/mnt/sysimage" to the front of every path so the glob works.
+        # Then run glob on each element of the list and flatten it into a
+        # single list we can run contextCB across.
+        files = itertools.chain(*map(lambda f: glob.glob("%s/%s" % (anaconda.rootPath, f)),
+                                     relabelFiles))
+        contextCB(None, "", files)
 
-        vgs = ["/dev/%s" % vg.name for vg in anaconda.storage.vgs]
+        for dir in relabelDirs + ["/dev/%s" % vg.name for vg in anaconda.storage.vgs]:
+            # Add "/mnt/sysimage" for similar reasons to above.
+            dir = "%s/%s" % (anaconda.rootPath, dir)
 
-        # ugh, this is ugly
-        for dir in ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ] + vgs:
-            def addpath(x): return dir + "/" + x
+            os.path.walk(dir, contextCB, None)
 
-            if not os.path.isdir(anaconda.rootPath + dir):
-                continue
-            dirfiles = os.listdir(anaconda.rootPath + dir)
-            files.extend(map(addpath, dirfiles))
-            files.append(dir)
-
-        for f in files:
-            if not os.access("%s/%s" %(anaconda.rootPath, f), os.R_OK):
-                log.warning("%s doesn't exist" %(f,))
-                continue
-            ret = isys.resetFileContext(os.path.normpath(f),
-                                        anaconda.rootPath)
-            log.info("set fc of %s to %s" %(f, ret))
+            # os.path.walk won't include the directory we start walking at,
+            # so that needs its context set separtely.
+            contextCB(None, "", [dir])
 
     return
 
