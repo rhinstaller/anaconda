@@ -91,3 +91,19 @@ DD_FIRMWARE = "/tmp/DD/lib/firmware"
 DD_RPMS = "/tmp/DD-*"
 
 TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
+
+relabelFiles = ["/etc/rpm/macros", "/etc/dasd.conf", "/etc/zfcp.conf",
+                 "/etc/lilo.conf.anaconda", "/lib64", "/usr/lib64",
+                 "/etc/blkid.tab", "/etc/blkid.tab.old", 
+                 "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
+                 "/etc/modprobe.conf", "/etc/modprobe.conf~",
+                 "/var/log/wtmp", "/var/run/utmp", "/etc/crypttab",
+                 "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab",
+                 "/etc/mdadm.conf", "/etc/sysconfig/network",
+                 "/etc/udev/rules.d/70-persistent-net.rules",
+                 "/root/install.log", "/root/install.log.syslog",
+                 "/etc/shadow", "/etc/shadow-", "/etc/gshadow",
+                 "/etc/dhcp/dhclient-*.conf"]
+relabelDirs  = ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm",
+                "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root",
+                "/var/log", "/etc/modprobe.d", "/etc/sysconfig", "/var/cache/yum" ]
