@@ -1253,7 +1253,8 @@ class Partitions:
             mem = mem + (16384 - rem)
         mem = mem / 1024
 
-        if foundSwap and (swapSize < (mem - 8)) and (mem < 1024):
+        if foundSwap and rhpl.getArch() != "s390" and \
+           (swapSize < (mem - 8)) and (mem < 1024):
             warnings.append(_("You have allocated less swap space (%dM) than "
                               "available RAM (%dM) on your system.  This "
                               "could negatively impact performance.")
