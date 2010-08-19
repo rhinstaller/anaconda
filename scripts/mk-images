@@ -47,7 +47,7 @@ LVMMODS="dm-mod dm-zero dm-snapshot dm-mirror dm-multipath dm-round-robin dm-emc
 RAIDMODS="md raid0 raid1 raid10 raid5 raid6 raid456 dm-raid45 dm-mem-cache dm-region_hash dm-message"
 SECSTAGE="$RAIDMODS $LVMMODS $FSMODS $IDEMODS $SCSIMODS"
 BTERMMODS="vga16fb"
-CRYPTOMODS="sha256 aes_generic"
+CRYPTOMODS="sha256 xts aes_generic"
 PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
 INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $BTERMMODS $COMMONMODS $PCMCIASOCKMODS =scsi =net"
 
