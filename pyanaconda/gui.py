@@ -944,9 +944,11 @@ class InstallInterface(InstallInterfaceBase):
                 self.anaconda.network.updateIfcfgsSSID(dev_ssids)
 
             self.anaconda.network.writeIfcfgFiles()
-            network.logIfcfgFiles(header="========== before nm-c-e run\n")
+            # Logging can race here with ifcfg-rh updating the file
+            network.logIfcfgFiles(message="Dump before nm-c-e (can race "
+                                           "with ifcfg updating). ")
             runNMCE(self.anaconda)
-            network.logIfcfgFiles(header="========== after nm-c-e run\n")
+            network.logIfcfgFiles(message="Dump after nm-c-e. ")
 
             self.anaconda.network.update()
 

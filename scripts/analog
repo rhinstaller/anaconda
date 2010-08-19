@@ -70,6 +70,7 @@ $template path_anaconda_tb, "%(directory)s/%(subdirectory)s/anaconda-tb-all.log"
 $template path_program, "%(directory)s/%(subdirectory)s/program.log"
 $template path_storage, "%(directory)s/%(subdirectory)s/storage.log"
 $template path_xserver, "%(directory)s/%(subdirectory)s/X.log"
+$template path_ifcfg, "%(directory)s/%(subdirectory)s/ifcfg.log"
 $template path_sysimage, "%(directory)s/%(subdirectory)s/install.log.syslog"
 
 *.*                                                  %(directory)s/debug_all.log;anaconda_debug
@@ -84,6 +85,7 @@ authpriv.*                                          ?path_syslog;anaconda_syslog
 :programname, isequal, "program"                    ?path_program;anaconda_syslog
 :programname, isequal, "storage"                    ?path_storage;anaconda_syslog
 :programname, isequal, "xserver"                    ?path_xserver;anaconda_justmsg
+:programname, isequal, "ifcfg"                      ?path_ifcfg;anaconda_syslog
 :hostname, isequal, "sysimage"                      ?path_sysimage;anaconda_syslog
 
 # discard those that we logged
@@ -94,6 +96,7 @@ authpriv.*                                          ?path_syslog;anaconda_syslog
 :programname, isequal, "program"                     ~
 :programname, isequal, "storage"                     ~
 :programname, isequal, "xserver"                     ~
+:programname, isequal, "ifcfg"                      ~
 :hostname, isequal, "sysimage"                       ~
 kern.*                                               ~
 daemon.*                                             ~
