@@ -1649,15 +1649,51 @@ int main(int argc, char ** argv) {
       logMessage(INFO, "Trying to detect vendor driver discs");
       dd = findDriverDiskByLabel();
       dditer = dd;
+
+      if (dd && !loaderData.ksFile) {
+          startNewt();
+      }
+
       while(dditer){
+          /* If in interactive mode, ask for confirmation before loading the DD */
+          if (!loaderData.ksFile) {
+              char *buf = NULL;
+              if (asprintf(&buf,
+                          _("Driver disc was detected in %s. "
+                            "Do you want to use it?."),
+                           dditer->device) == -1) {
+                  logMessage(ERROR, "asprintf error in Driver Disc code");
+                  break;
+              };
+
+              rc = newtWinChoice(_("Driver disc detected"), _("Use it"), _("Skip it"),
+                                 buf);
+              free(buf);
+              if (rc == 2) {
+                  logMessage(INFO, "Skipping driver disk %s.", (char*)(dditer->device));
+                  
+                  /* next DD */
+                  dditer = dditer->next;
+                  continue;
+              }
+          }
+
+
 	if(loadDriverDiskFromPartition(&loaderData, dditer->device)){
 	  logMessage(ERROR, "Automatic driver disk loader failed for %s.", dditer->device);
 	}
 	else{
 	  logMessage(INFO, "Automatic driver disk loader succeeded for %s.", dditer->device);
 	}
+
+        /* Next DD */
 	dditer = dditer->next;
       }
+
+      if (dd && !loaderData.ksFile) {
+          stopNewt();
+      }
+
       ddlist_free(dd);
     }
     
