@@ -221,6 +221,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Aug 19 2010 David Cantrell <dcantrell@redhat.com> - 13.21.79-1
+- lvm: filter 'sda[0-9]*' when filtering 'sda' (akozumpl)
+  Resolves: rhbz#624175
+- mpath: do not deactivate mpath device upon its teardown. (akozumpl)
+  Related: rhbz#624175
+
 * Tue Aug 17 2010 David Cantrell <dcantrell@redhat.com> - 13.21.78-1
 - Fix the provides we look for when installing DUD (msivak)
   Resolves: rhbz#618862

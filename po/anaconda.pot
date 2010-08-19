@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.77\n"
+"Project-Id-Version: anaconda 13.21.78\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-08-17 11:14-1000\n"
+"POT-Creation-Date: 2010-08-19 10:32-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -4549,18 +4549,18 @@ msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: storage/devicelibs/lvm.py:319
+#: storage/devicelibs/lvm.py:326
 #, python-format
 msgid "vginfo failed for %s"
 msgstr ""
 
-#: storage/devicelibs/lvm.py:348
+#: storage/devicelibs/lvm.py:355
 #, python-format
 msgid "lvs failed for %s"
 msgstr ""
 
 #: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
-#: storage/devices.py:2903 storage/devices.py:3385
+#: storage/devices.py:2903 storage/devices.py:3392
 msgid "Creating"
 msgstr ""
 
@@ -4575,7 +4575,7 @@ msgstr ""
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3386
+#: storage/devices.py:3393
 #, python-format
 msgid "Creating file %s"
 msgstr ""
