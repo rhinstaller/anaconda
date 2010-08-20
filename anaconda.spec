@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.212
+Version: 11.1.2.213
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,26 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Aug 20 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.213-1
+- Do not check size of swap partition(s) on s390 (dcantrell)
+  Resolves: rhbz#475358
+- Make parent directories for ks scriptlet log files (dcantrell)
+  Resolves: rhbz#568861
+- Add dlabel confirmation dialog to interactive installs (msivak)
+  Resolves: rhbz#570053
+- Add xts module to initrd (msivak)
+  Resolves: rhbz#553411
+- Add support for LSI 3ware 97xx SAS/SATA RAID Controller (msivak)
+  Resolves: rhbz#572341
+- Add support for QLogic Corp cLOM8214 1/10GbE Controller (msivak)
+  Resolves: rhbz#571895
+- Support for Brocade FCoE/CEE to PCIe CNAs (msivak)
+  Resolves: rhbz#549677
+- Disable ipv6 kernel modules if user disables IPv6 (dcantrell)
+  Resolves: rhbz#537887
+
+
+
 * Mon Aug 16 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.212-1
 - Mount /proc/bus/usb under /mnt/sysimage (hdegoede)
   Resolves: rhbz#532397
