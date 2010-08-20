@@ -49,8 +49,12 @@ def udev_resolve_devspec(devspec):
             ret = dev
             break
         else:
+            spec = devspec
+            if not spec.startswith("/dev/"):
+                spec = os.path.normpath("/dev/" + spec)
+
             for link in dev["symlinks"]:
-                if devspec == link:
+                if spec == link:
                     ret = dev
                     break
 
