@@ -1402,16 +1402,23 @@ class PartitionDevice(StorageDevice):
                 self.originalFormat.teardown()
             if self.format.exists:
                 self.format.teardown()
-            if self.parents[0].type == 'dm-multipath':
-                devmap = block.getMap(major=self.major, minor=self.minor)
-                if devmap:
-                    try:
-                        block.removeDeviceMap(devmap)
-                    except Exception as e:
-                        raise DeviceTeardownError("failed to tear down device-mapper partition %s: %s" % (self.name, e))
-                udev_settle()
 
         StorageDevice.teardown(self, recursive=recursive)
+
+    def deactivate(self):
+        """
+        This is never called. For instructional purposes only.
+
+        We do not want multipath partitions disappearing upon their teardown().
+        """
+        if self.parents[0].type == 'dm-multipath':
+            devmap = block.getMap(major=self.major, minor=self.minor)
+            if devmap:
+                try:
+                    block.removeDeviceMap(devmap)
+                except Exception as e:
+                    raise DeviceTeardownError("failed to tear down device-mapper partition %s: %s" % (self.name, e))
+            udev_settle()
 
     def _getSize(self):
         """ Get the device's size. """
