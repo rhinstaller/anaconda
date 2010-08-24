@@ -185,7 +185,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     lohit-kashmiri-fonts lohit-kannada-fonts lohit-maithili-fonts lohit-marathi-fonts
     lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
     lohit-telugu-fonts lsof lvm2 madan-fonts mdadm
-    mesa-dri-drivers metacity module-init-tools ncurses neon net-tools
+    metacity module-init-tools ncurses neon net-tools
     newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g
     openldap openssh openssh-server
     pam pango parted pciutils pcre psmisc
@@ -500,7 +500,6 @@ sbin/xfsrestore
 sbin/ybin
 usr/include/python?.?/pyconfig*.h
 usr/$LIBDIR/NetworkManager
-usr/$LIBDIR/dri
 usr/$LIBDIR/gconv
 usr/$LIBDIR/gdk-pixbuf/loaders/*la*
 usr/$LIBDIR/gdk-pixbuf/loaders/*png*
