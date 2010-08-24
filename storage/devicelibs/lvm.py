@@ -23,9 +23,10 @@
 import os
 import math
 import re
-import string
 
 import iutil
+import logging
+log = logging.getLogger("storage")
 
 from ..errors import *
 from constants import *
@@ -74,15 +75,7 @@ def _composeConfig():
 
     rejects = config_args_data["filterRejects"]
     for reject in rejects:
-        # If reject is "sda" we want both "sda" and "sda10" rejected but not
-        # "sdab". If reject is "sda1" we want precisely "sda1" rejected and not
-        # "sda10"
-        if reject[-1] in string.digits:
-            # ends with a digit
-            filter_string += ("\"r|/%s$|\"," % reject)
-        else:
-            # doesn't end with a digit so also match any number of digits
-            filter_string += ("\"r|/%s%s$|\"," % (reject, r'p?[0-9]*'))
+        filter_string += ("\"r|/%s$|\"," % reject)
 
     filter_string = " filter=[%s] " % filter_string.strip(",")
 
@@ -101,6 +94,7 @@ def _composeConfig():
 def lvm_cc_addFilterRejectRegexp(regexp):
     """ Add a regular expression to the --config string."""
     global config_args_data
+    log.debug("lvm filter: adding %s to the reject list" % regexp)
     config_args_data["filterRejects"].append(regexp)
 
     # compoes config once more.
