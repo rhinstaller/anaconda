@@ -618,6 +618,7 @@ usr/libexec/polkit*
 usr/sbin/NetworkManager
 usr/sbin/addRamDisk
 usr/sbin/anaconda
+usr/sbin/build-locale-archive
 usr/sbin/chroot
 usr/sbin/dcbtool
 usr/sbin/ddcprobe
@@ -1022,7 +1023,7 @@ cat $DEST/usr/share/anaconda/lang-table* | awk '
   };
   print $2;
 }
-' | sed -e 's/latn/Latn/g' | LC_ALL=C sort -u > $DEST/locales
+' | grep -v Sotho | grep -v latarcyrhebsun16 | sed -e 's/latn/Latn/g' | LC_ALL=C sort -u > $DEST/locales
 for p in lib share; do (
     cd $DEST/usr/$p/locale && {
         ls | grep -v locale.alias | grep -v locale-archive | LC_ALL=C sort > $DEST/locales.list
@@ -1030,7 +1031,14 @@ for p in lib share; do (
     }
 ); done
 
-rm -f $DEST/locales $DEST/locales.list
+# Now shrink the locale-archive to contain just the minimum.
+localedef --prefix $DEST --list-archive > $DEST/locales.glibc
+LC_ALL=C unsupported="$(comm -13 $DEST/locales $DEST/locales.glibc)"
+localedef --prefix $DEST --delete-from-archive $unsupported
+mv $DEST/usr/lib/locale/locale-archive $DEST/usr/lib/locale/locale-archive.tmpl
+/usr/sbin/chroot $DEST /usr/sbin/build-locale-archive
+
+rm -f $DEST/locales $DEST/locales.list $DEST/locales.glibc
 
 # fix up some links for man page related stuff
 for file in nroff groff iconv geqn gtbl gpic grefer ; do
@@ -1106,6 +1114,7 @@ mv $DEST/etc/yum.repos.d $DEST/etc/anaconda.repos.d
 
 rm -f $DEST/usr/$LIBDIR/libunicode-lite*
 rm -f $DEST/usr/share/icons/*/icon-theme.cache
+rm -f $DEST/usr/sbin/build-locale-archive
 
 find $DEST -type d | xargs chmod 755
 
