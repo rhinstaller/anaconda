@@ -3152,8 +3152,7 @@ class MultipathDevice(DMDevice):
         
             May be overridden by a sub-class for e.g. RDAC handling.
         """
-        self._identity_short = self._info['ID_SERIAL_SHORT']
-        self._identity = self._info['ID_SERIAL']
+        self._identity = self._info.get("ID_SERIAL_RAW", self._info.get("ID_SERIAL_SHORT"))
 
     @property
     def identity(self):
@@ -3167,7 +3166,7 @@ class MultipathDevice(DMDevice):
 
     @property
     def wwid(self):
-        identity = self._identity_short
+        identity = self.identity
         ret = []
         while identity:
             ret.append(identity[:2])
