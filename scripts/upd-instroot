@@ -400,7 +400,10 @@ etc/report.d/*
 etc/rpm/macros.prelink
 etc/security/limits.conf
 etc/security/pam_env.conf
-etc/selinux/targeted
+etc/selinux/targeted/policy
+etc/selinux/targeted/contexts
+etc/selinux/targeted/*conf
+etc/selinux/targeted/seusers
 etc/services
 etc/shells
 etc/sysconfig/network-scripts/network-functions*
