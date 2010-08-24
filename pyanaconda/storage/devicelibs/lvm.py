@@ -25,6 +25,8 @@ import math
 import re
 
 from pyanaconda import iutil
+import logging
+log = logging.getLogger("storage")
 
 from ..errors import *
 from pyanaconda.constants import *
@@ -66,16 +68,9 @@ def _composeConfig():
 
     filter_string = ""
     rejects = config_args_data["filterRejects"]
-    # we don't need the accept for now.
-    # accepts = config_args_data["filterAccepts"]
-    # if len(accepts) > 0:
-    #   for i in range(len(rejects)):
-    #       filter_string = filter_string + ("\"a|/%s$|\", " % accepts[i])
-
-    if len(rejects) > 0:
-        for i in range(len(rejects)):
-            filter_string = filter_string + ("\"r|/%s$|\"," % rejects[i])
-
+    rejects = config_args_data["filterRejects"]
+    for reject in rejects:
+        filter_string += ("\"r|/%s$|\"," % reject)
 
     filter_string = " filter=[%s] " % filter_string.strip(",")
 
@@ -94,6 +89,7 @@ def _composeConfig():
 def lvm_cc_addFilterRejectRegexp(regexp):
     """ Add a regular expression to the --config string."""
     global config_args_data
+    log.debug("lvm filter: adding %s to the reject list" % regexp)
     config_args_data["filterRejects"].append(regexp)
 
     # compoes config once more.

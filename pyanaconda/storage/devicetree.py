@@ -38,6 +38,7 @@ import devicelibs.mpath
 from udev import *
 from .storage_log import log_method_call
 from pyanaconda import iutil
+import parted
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -1231,6 +1232,25 @@ class DeviceTree(object):
 
         if self.isIgnored(info):
             log.debug("ignoring %s (%s)" % (name, sysfs_path))
+            if udev_device_is_multipath_member(info):
+                # last time we are seeing this mpath member is now, so make sure
+                # LVM ignores its partitions too else a duplicate VG name could
+                # harm us later during partition creation:
+                if udev_device_is_dm(info):
+                    path = "/dev/mapper/%s" % name
+                else:
+                    path = "/dev/%s" % name
+                log.debug("adding partitions on %s to the lvm ignore list" % path)
+                partitions_paths = []
+                try:
+                    partitions_paths = [p.path
+                                       for p in parted.Disk(device=parted.Device(path=path)).partitions]
+                except (_ped.IOException, _ped.DeviceException) as e:
+                    log.error("Parted error scanning partitions on %s:" % path)
+                    log.error(str(e))
+                # slice off the "/dev/" part, lvm filter cares only about the rest
+                partitions_paths = [p[5:] for p in partitions_paths]
+                map(lvm.lvm_cc_addFilterRejectRegexp, partitions_paths)
             return
 
         log.debug("scanning %s (%s)..." % (name, sysfs_path))
