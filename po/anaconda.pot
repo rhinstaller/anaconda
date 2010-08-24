@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.78\n"
+"Project-Id-Version: anaconda 13.21.79\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-08-19 10:32-1000\n"
+"POT-Creation-Date: 2010-08-24 08:57-1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1242,7 +1242,7 @@ msgstr ""
 
 #: rescue.py:311 iw/partition_gui.py:785 loader/cdinstall.c:206
 #: loader/cdinstall.c:214 loader/driverdisk.c:618 storage/__init__.py:155
-#: storage/devicetree.py:90
+#: storage/devicetree.py:91
 msgid "Continue"
 msgstr ""
 
@@ -3443,7 +3443,7 @@ msgstr ""
 #: loader/loader.c:1407 loader/loader.c:1440 loader/net.c:603 loader/net.c:971
 #: loader/net.c:1898 loader/net.c:1917 loader/nfsinstall.c:91
 #: loader/urls.c:259 storage/__init__.py:109 storage/__init__.py:155
-#: storage/devicetree.py:90 textw/constants_text.py:52
+#: storage/devicetree.py:91 textw/constants_text.py:52
 msgid "Back"
 msgstr ""
 
@@ -4549,42 +4549,42 @@ msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: storage/devicelibs/lvm.py:326
+#: storage/devicelibs/lvm.py:320
 #, python-format
 msgid "vginfo failed for %s"
 msgstr ""
 
-#: storage/devicelibs/lvm.py:355
+#: storage/devicelibs/lvm.py:349
 #, python-format
 msgid "lvs failed for %s"
 msgstr ""
 
-#: storage/devices.py:1296 storage/devices.py:1994 storage/devices.py:2410
-#: storage/devices.py:2903 storage/devices.py:3392
+#: storage/devices.py:1296 storage/devices.py:2001 storage/devices.py:2417
+#: storage/devices.py:2910 storage/devices.py:3399
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1297 storage/devices.py:1995 storage/devices.py:2411
-#: storage/devices.py:2904
+#: storage/devices.py:1297 storage/devices.py:2002 storage/devices.py:2418
+#: storage/devices.py:2911
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2504
+#: storage/devices.py:2511
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3393
+#: storage/devices.py:3400
 #, python-format
 msgid "Creating file %s"
 msgstr ""
 
-#: storage/devicetree.py:99
+#: storage/devicetree.py:100
 msgid "Confirm"
 msgstr ""
 
-#: storage/devicetree.py:100
+#: storage/devicetree.py:101
 #, python-format
 msgid ""
 "Are you sure you want to skip entering a passphrase for device %s?\n"
@@ -4593,7 +4593,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1907 storage/devicetree.py:1955
+#: storage/devicetree.py:1927 storage/devicetree.py:1975
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
