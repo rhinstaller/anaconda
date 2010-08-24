@@ -1105,6 +1105,7 @@ mv $DEST/usr/$LIBDIR/python?.?/site-packages/pyanaconda/sitecustomize.py $DEST/u
 mv $DEST/etc/yum.repos.d $DEST/etc/anaconda.repos.d
 
 rm -f $DEST/usr/$LIBDIR/libunicode-lite*
+rm -f $DEST/usr/share/icons/*/icon-theme.cache
 
 find $DEST -type d | xargs chmod 755
 
