@@ -126,7 +126,7 @@ Requires: dbus-python
 Requires: cracklib-python
 Requires: python-bugzilla
 Requires: python-nss
-Requires: tigervnc-server
+Requires: tigervnc-server-minimal
 %ifarch %livearches
 Requires: usermode
 Requires: zenity
