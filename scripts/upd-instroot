@@ -249,7 +249,7 @@ fi
 # these packages are combined with the PACKAGES for big stage 2
 #
 PACKAGESRESCUE="bzip2 bzip2-libs dump
-                findutils ftp gzip iputils joe krb5-libs less man-db
+                findutils ftp gzip iputils krb5-libs less man-db
                 modutils mtools mt-st mtr net-tools smartmontools
                 openssh openssh-clients pciutils rsh traceroute tar rsync
                 device-mapper device-mapper-libs dmraid ntfsprogs samba-client
@@ -827,7 +827,6 @@ bin/ping
 bin/sync
 bin/tar
 bin/zcat
-etc/joe
 sbin/arp
 sbin/blkid
 sbin/depmod
@@ -852,9 +851,6 @@ usr/bin/bzip2
 usr/bin/emacs
 usr/bin/find
 usr/bin/ftp
-usr/bin/jmacs
-usr/bin/joe
-usr/bin/jpico
 usr/bin/less
 usr/bin/mattrib
 usr/bin/mbadblocks
@@ -1033,17 +1029,6 @@ for p in lib share; do (
 ); done
 
 rm -f $DEST/locales $DEST/locales.list
-
-# fixup joe links
-if [ -d "$DESTDIR"/etc/joe ]; then
-    ln -fs jpicorc $DEST/etc/joe/picorc
-    ln -fs jpicorc $DEST/etc/joe/jnanorc
-    ln -fs jpicorc $DEST/etc/joe/nanorc
-    ln -fs jmacsrc $DEST/etc/joe/emacsrc
-    ln -fs jmacs $DEST/usr/bin/emacs
-    ln -fs jpico $DEST/usr/bin/pico
-    ln -fs jpico $DEST/usr/bin/nano
-fi
 
 # fix up some links for man page related stuff
 for file in nroff groff iconv geqn gtbl gpic grefer ; do
