@@ -221,6 +221,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 25 2010 David Cantrell <dcantrell@redhat.com> - 13.21.81-1
+- mpath: put quotes around the wwids, they can have spaces. (akozumpl)
+  Related: rhbz#626842
+- filtering UI: don't be picky about udev wwid length. (akozumpl)
+  Related: rhbz#626842
+- Use ID_SERIAL_RAW for multipath, if available (clumens).
+  Resolves: rhbz#626842
+
 * Tue Aug 24 2010 David Cantrell <dcantrell@redhat.com> - 13.21.80-1
 - mpath: filter member partitions wiser in lvm. (akozumpl)
   Related: rhbz#624175
