@@ -268,20 +268,15 @@ def udev_device_get_serial(udev_info):
 def udev_device_get_wwid(udev_info):
     """ The WWID of a device is typically just its serial number, but with
         colons in the name to make it more readable. """
+    def insert_colons(a_string):
+        suffix = a_string[-2:]
+        if len(a_string) > 2:
+            return insert_colons(a_string[:-2]) + ':' + suffix
+        else:
+            return suffix
+
     serial = udev_device_get_serial(udev_info)
-    if not serial:
-        return ""
-
-    serial_len = len(serial)
-
-    if serial_len == 32 or serial_len == 16:
-        retval = ""
-        for i in range(0, (serial_len / 2)):
-            retval += serial[i*2:i*2+2] + ":"
-
-        return retval[0:-1]
-
-    return ""
+    return insert_colons(serial) if serial else ""
 
 def udev_device_get_vendor(udev_info):
     """ Get the vendor of the device as reported by udev. """
