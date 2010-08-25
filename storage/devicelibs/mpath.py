@@ -226,7 +226,7 @@ blacklist {
 """
         for device in self.blacklist_devices:
             if device.serial:
-                ret += '\twwid %s\n' % device.serial
+                ret += '\twwid "%s"\n' % device.serial
             elif device.vendor and device.model:
                 ret += '\tdevice {\n'
                 ret += '\t\tvendor %s\n' % device.vendor
@@ -239,13 +239,16 @@ blacklist {
                 for mpath in self.mpaths:
                     for k,v in mpath.config.items():
                         if k == 'wwid':
-                            ret += '\twwid %s\n' % v
+                            ret += '\twwid "%s"\n' % v
         ret += '}\n'
         ret += 'multipaths {\n'
         for mpath in self.mpaths:
             ret += '\tmultipath {\n'
             for k,v in mpath.config.items():
-                ret += '\t\t%s %s\n' % (k, v)
+                if k == 'wwid':
+                    ret += '\t\twwid "%s"\n' % v
+                else:
+                    ret += '\t\t%s %s\n' % (k, v)
             ret += '\t}\n'
         ret += '}\n'
 
