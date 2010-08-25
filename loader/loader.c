@@ -1193,9 +1193,10 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
 
 /* make sure they have enough ram */
 static void checkForRam(int install_method) {
-    const char *reason_no = "";
-    const char *reason_method = " using this install method";
-    const char *reason = reason_no;
+    char *reason_none = _("You do not have enough RAM to install %s on this machine.");
+    char *reason_method = _("You do not have enough RAM to install %s on this machine using this install method.");
+
+    char* reason = reason_none;
     int needed = MIN_RAM;
 
     if (install_method == METHOD_URL) {
@@ -1205,9 +1206,7 @@ static void checkForRam(int install_method) {
     
     if (totalMemory() < needed) {
         char *buf;
-
-        checked_asprintf(&buf, _("You do not have enough RAM to install %s "
-                                 "on this machine%s."), getProductName(), reason);
+        checked_asprintf(&buf, reason, getProductName());
 
         startNewt();
         newtWinMessage(_("Error"), _("OK"), buf);
