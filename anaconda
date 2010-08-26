@@ -314,57 +314,72 @@ def runVNC():
                     sys.stdin.readline()
                     iutil.execConsole()
 
+def gtk_warning(title, reason):
+    import gtk
+    dialog = gtk.MessageDialog(type = gtk.MESSAGE_ERROR,
+                               buttons = gtk.BUTTONS_CLOSE,
+                               message_format=reason)
+    dialog.set_title(title)
+    dialog.run()
+    dialog.destroy()
+
 def check_memory(anaconda, opts, display_mode=None):
+    reason_strict = _('You do not have enough RAM to install %s '
+                      'on this machine.\n' % product.productName)
+    reason_method = _('You do not have enough RAM to install %s '
+                      'on this machine using this install method.\n' %
+                      product.productName)
+    reason_graphical = _('You do not have enough RAM to use the graphical '
+                         'installer.')
+    reboot_extra = _('\n'
+                     'Press <return> to reboot your system.\n')
+    livecd_title = _("Not enough RAM")
+    livecd_extra =_(" Try the text mode installer by running:\n\n"
+                    "'/usr/bin/liveinst -T'\n\n from a root "
+                    "terminal.")
+    nolivecd_extra = _(" Starting text mode.")
 
     if not display_mode:
         display_mode = anaconda.displayMode
 
     extra_ram = 0
-    reason = ''
+    reason = reason_strict
     if opts.stage2 and opts.stage2.startswith(('http', 'ftp', '@')):
         extra_ram += isys.URL_INSTALL_EXTRA_RAM
-        reason = " using this install method"
+        reason = reason_method
 
     total_ram = isys.total_memory()
-
     needed_ram = isys.MIN_RAM + extra_ram
+
     if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
-        screen = SnackScreen()
-        ButtonChoiceWindow(screen, _('Fatal Error'),
-                            _('You do not have enough RAM to install %s '
-                              'on this machine%s.\n'
-                              '\n'
-                              'Press <return> to reboot your system.\n')
-                           %(product.productName, reason),
-                           buttons = (_("OK"),))
-        screen.finish()
-        sys.exit(0)
+        if opts.liveinst:
+            stdoutLog.warning(reason)
+            gtk_warning(livecd_title, reason)
+        else:
+            reason += reboot_extra
+            screen = SnackScreen()
+            ButtonChoiceWindow(screen, _('Fatal Error'),
+                               reason,
+                               buttons = (_("OK"),))
+            screen.finish()
+        sys.exit(1)
 
     # override display mode if machine cannot nicely run X
     if display_mode not in ('t', 'c') and not flags.usevnc:
         needed_ram += isys.GUI_INSTALL_EXTRA_RAM
+        reason = reason_graphical
 
         if needed_ram > total_ram:
-            complain = _("You do not have enough RAM to use the graphical "
-                         "installer.")
-            if flags.livecdInstall:
-                stdoutLog.warning(complain)
-                recommendation = _("Try the text mode installer by running:\n\n"
-                                   "'/usr/bin/liveinst -T'\n\n from a root "
-                                   "terminal.")
-                title = _("Not enough RAM")
-                text = "%s %s" %(complain, recommendation)
-                import gtk
-                dialog = gtk.MessageDialog(type = gtk.MESSAGE_ERROR, 
-                                           buttons = gtk.BUTTONS_CLOSE,
-                                           message_format=text)
-                dialog.set_title(title)
-                dialog.run()
+            if opts.liveinst:
+                reason += livecd_extra
+                stdoutLog.warning(reason)
+                title = livecd_title
+                gtk_warning(title, reason)
                 sys.exit(1)
             else:
-                resolution = _("Starting text mode.")
-                stdoutLog.warning("%s %s" % (complain, resolution))
+                reason += nolivecd_extra
+                stdoutLog.warning(reason)
                 anaconda.displayMode = 't'
                 time.sleep(2)
 
