@@ -65,13 +65,13 @@ class Desktop (SimpleConfigFile):
             inittab.write (line)
         inittab.close ()
 
-        if not os.path.isdir(instPath + '/etc/systemd/system'):
-            log.warning("there is no /etc/systemd/system directory, cannot update default.target!")
+        if not os.path.isdir(instPath + '/lib/systemd/system'):
+            log.warning("there is no /lib/systemd/system directory, cannot update default.target!")
             return
-        default_target = instPath + '/etc/systemd/system/default.target'
+        default_target = instPath + '/lib/systemd/system/default.target'
         if os.path.islink(default_target):
             os.unlink(default_target)
-        os.symlink('/etc/systemd/system/runlevel' + str(self.runlevel) + '.target', default_target)
+        os.symlink('/lib/systemd/system/runlevel' + str(self.runlevel) + '.target', default_target)
 
         if self.getDefaultDesktop():
             f = open(instPath + "/etc/sysconfig/desktop", "w")
