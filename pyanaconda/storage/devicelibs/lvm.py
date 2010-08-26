@@ -68,7 +68,6 @@ def _composeConfig():
 
     filter_string = ""
     rejects = config_args_data["filterRejects"]
-    rejects = config_args_data["filterRejects"]
     for reject in rejects:
         filter_string += ("\"r|/%s$|\"," % reject)
 
