@@ -85,7 +85,7 @@ int totalMemory(void) {
     total = (total / 128 + 1) * 128;
     total *= 1024;
 
-    logMessage(INFO, "%d kB are available", total);
+    logMessage(INFO, "%d kB (%d MB) are available", total, total / 1024);
 
     return total;
 }
