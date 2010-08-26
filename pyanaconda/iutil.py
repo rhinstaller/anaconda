@@ -1074,6 +1074,19 @@ def parseNfsUrl(nfsurl):
             host = s[0]
     return (options, host, path)
 
+def insert_colons(a_string):
+    """
+    Insert colon between every second character.
+
+    E.g. creates 'al:go:ri:th:ms' from 'algoritms'. Useful for formatting MAC
+    addresses and wwids for output.
+    """
+    suffix = a_string[-2:]
+    if len(a_string) > 2:
+        return insert_colons(a_string[:-2]) + ':' + suffix
+    else:
+        return suffix
+
 def add_po_path(module, dir):
     """ Looks to see what translations are under a given path and tells
     the gettext module to use that path as the base dir """
