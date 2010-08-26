@@ -62,7 +62,7 @@ GHashTable *readvars_parse_string(gchar *contents) {
     }
 
     while (i < argc) {
-        gchar **tokens = g_strsplit(argv[i], "=", 0);
+        gchar **tokens = g_strsplit(argv[i], "=", 2);
         guint len = g_strv_length(tokens);
         gchar *key = NULL, *value = NULL;
         e = NULL;
