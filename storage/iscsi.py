@@ -202,6 +202,71 @@ class iscsi(object):
 
         self._startIBFT(intf)
         self.started = True
+        
+    def discover(self, ipaddr, port="3260", username=None, password=None,
+                  r_username=None, r_password=None, intf=None):
+        """
+        Discover iSCSI nodes on the target.
+
+        Returns list of new found nodes.
+        """
+        authinfo = None
+        found = 0
+        logged_in = 0
+
+        if not has_iscsi():
+            raise IOError, _("iSCSI not available")
+        if self._initiator == "":
+            raise ValueError, _("No initiator name set")
+
+        if username or password or r_username or r_password:
+            # Note may raise a ValueError
+            authinfo = libiscsi.chapAuthInfo(username=username, 
+                                             password=password,
+                                             reverse_username=r_username,
+                                             reverse_password=r_password)
+        self.startup(intf)
+
+        # Note may raise an IOError
+        found_nodes = libiscsi.discover_sendtargets(address=ipaddr,
+                                                    port=int(port),
+                                                    authinfo=authinfo)
+        # only return the nodes we are not logged into yet
+        return [n for n in found_nodes if n not in self.nodes]
+
+    def log_into_node(self, node, username=None, password=None,
+                  r_username=None, r_password=None, intf=None):
+        """
+        Raises IOError.
+        """
+        rc = False # assume failure
+        msg = ""
+
+        if intf:
+            w = intf.waitWindow(_("Logging in to iSCSI node"),
+                                _("Logging in to iSCSI node %s") % node.name)
+        try:
+            authinfo = None
+            if username or password or r_username or r_password:
+                # may raise a ValueError
+                authinfo = libiscsi.chapAuthInfo(username=username,
+                                                 password=password,
+                                                 reverse_username=r_username,
+                                                 reverse_password=r_password)
+            node.setAuth(authinfo)
+            node.login()
+            rc = True
+            log.info("iSCSI: logged into %s %s:%s" % (node.name, 
+                                                      node.address, 
+                                                      node.port))
+            self.nodes.append(node)
+        except (IOError, ValueError) as e:
+            msg = str(e)
+            log.warning("iSCSI: could not log into %s: %s" % (node.name, msg))
+        if intf:
+            w.pop()
+
+        return (rc, msg)
 
     def addTarget(self, ipaddr, port="3260", user=None, pw=None,
                   user_in=None, pw_in=None, intf=None):
