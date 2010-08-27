@@ -170,7 +170,8 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
     gnome-themes gobject-introspection gpm grep gtk2 gtk2-engines
     hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
-    jfsutils kbd kpartx keyutils-libs krb5-libs libICE libSM libX11 libXau
+    jfsutils kbd kacst-farsi-fonts kacst-qurn-fonts kpartx keyutils-libs
+    krb5-libs libICE libSM libX11 libXau
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
     libXi libXinerama libXmu libXpm libXrandr libXrender libXt libXtst
     libXxf86misc libacl libaio libart_lgpl libattr
@@ -513,18 +514,13 @@ usr/$LIBDIR/gtk-2.0/*/loaders/*la*
 usr/$LIBDIR/gtk-2.0/*/loaders/*png*
 usr/$LIBDIR/gtk-2.0/*/loaders/*xpm*
 usr/$LIBDIR/gtk-2.0/immodules
-usr/$LIBDIR/kernel-wrapper/*
 usr/$LIBDIR/libuser/*
 usr/$LIBDIR/pango
 usr/$LIBDIR/python?.?
-usr/$LIBDIR/rpm/rpmpopt
-usr/lib/rpm/rpmrc
-usr/lib/rpm/macros
 usr/$LIBDIR/libiscsi.so*
 usr/$LIBDIR/libmetacity-private.so*
 usr/$LIBDIR/libsqlite3.so*
 usr/$LIBDIR/xorg/modules
-usr/$LIBDIR/xserver/SecurityPolicy
 usr/$LIBDIR/libfreebl3.so
 usr/$LIBDIR/libfreebl3.chk
 usr/$LIBDIR/libnss3.so
@@ -598,7 +594,6 @@ usr/$LIBDIR/anaconda
 usr/lib/kernel-wrapper
 usr/lib/locale
 usr/lib/python?.?
-usr/lib/python?.?/site-packages/epdb/*.py
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
@@ -668,7 +663,7 @@ usr/share/fonts/dejavu/DejaVuSans-Bold.ttf
 usr/share/fonts/dejavu/DejaVuSans.ttf
 usr/share/fonts/dejavu/DejaVuSansMono.ttf
 usr/share/fonts/kacst/KacstFarsi.ttf
-usr/share/fonts/kacst/KacstQura.ttf
+usr/share/fonts/kacst/KacstQurn.ttf
 usr/share/fonts/madan/Madan.ttf
 usr/share/fonts/un-core/UnDotum.ttf
 usr/share/fonts/*/VL-Gothic-Regular.ttf
@@ -722,6 +717,12 @@ var/lib/dbus
 var/lib/lldpad
 var/run/dbus
 EOF
+
+if [ $ARCH = ppc -o $ARCH = ppc64 ]; then
+    cat >> $KEEPFILE <<EOF
+usr/$LIBDIR/kernel-wrapper/*
+EOF
+fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     cat >> $KEEPFILE <<EOF
@@ -804,10 +805,6 @@ usr/libexec/at-spi-registryd
 usr/$LIBDIR/bonobo/servers
 usr/libexec/gconfd-2
 usr/$LIBDIR/GConf/2/libgconfbackend-xml.so
-usr/$LIBDIR/python?.?/site-packages/gtk-2.0/atk.so
-usr/$LIBDIR/python?.?/site-packages/gtk-2.0/gconf.so
-usr/$LIBDIR/python?.?/site-packages/atspi.so
-usr/lib/python?.?/site-packages/dogtail/*.py
 EOF
 
 #
@@ -912,8 +909,7 @@ usr/sbin/ntfsundelete
 usr/sbin/mtr
 usr/sbin/smartctl
 usr/sbin/traceroute
-usr/$LIBDIR/firstaidkit/plugins/
-usr/lib/python?.?/site-packages/pyfirstaidkit/
+usr/$LIBDIR/firstaidkit/plugins/*
 usr/bin/whiptail
 usr/bin/firstaidkit-qs
 EOF
