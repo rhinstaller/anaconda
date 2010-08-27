@@ -117,17 +117,17 @@ def addIscsiDrive(anaconda):
 
     # get the initiator name if it exists and don't allow changing
     # once set
-    e = dxml.get_widget("iscsiInitiatorEntry")
-    e.set_text(anaconda.storage.iscsi.initiator)
+    initiator_entry = dxml.get_widget("iscsiInitiatorEntry")
+    initiator_entry.set_text(anaconda.storage.iscsi.initiator)
     if anaconda.storage.iscsi.initiatorSet:
-        e.set_sensitive(False)
+        initiator_entry.set_sensitive(False)
 
     while True:
         rc = dialog.run()
         if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
             break
 
-        initiator = e.get_text().strip()
+        initiator = initiator_entry.get_text().strip()
         if len(initiator) == 0:
             anaconda.intf.messageWindow(_("Invalid Initiator Name"),
                                         _("You must provide an initiator name."))
