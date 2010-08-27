@@ -1221,13 +1221,13 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                           moduleInfoSet modInfo) {
     enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_DRIVER,
            STEP_DRIVERDISK, STEP_NETWORK, STEP_IFACE,
-           STEP_IP, STEP_STAGE2, STEP_DONE } step;
+           STEP_IP, STEP_EXTRAS, STEP_DONE } step;
 
     char *url = NULL, *ret = NULL, *devName = NULL, *kbdtype = NULL;
     static iface_t iface;
     int i, rc = LOADER_NOOP, dir = 1;
     int needsNetwork = 0, class = -1;
-    int skipMethodDialog = 0, skipLangKbd = 0;
+    int skipLangKbd = 0;
 
     char *installNames[10];
     int numValidMethods = 0;
@@ -1238,64 +1238,6 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
         validMethods[numValidMethods] = i;
     }
     installNames[numValidMethods] = NULL;
-
-    /* Before anything else, see if there's a CD/DVD with a stage2 image on
-     * it.  However if stage2= was given, use that value as an override here.
-     * That will also then bypass any method selection UI in loader.
-     */
-    if (!FL_ASKMETHOD(flags)) {
-        url = findAnacondaCD("/mnt/stage2");
-        if (url) {
-            setStage2LocFromCmdline(url, loaderData);
-            skipMethodDialog = 1;
-
-            logMessage(INFO, "Detected stage 2 image on CD (url: %s)", url);
-            winStatus(50, 3, _("Media Detected"),
-                      _("Found local installation media"), 0);
-            sleep(3);
-            newtPopWindow();
-
-            skipLangKbd = 1;
-            flags |= LOADER_FLAGS_NOPASS;
-        } else if (!loaderData->stage2Data && loaderData->instRepo) {
-            /* If no CD/DVD with a stage2 image was found and we were given a
-             * repo=/method= parameter, try to piece together a valid setting
-             * for the stage2= parameter based on that.
-             */
-            char *tmp;
-
-            checked_asprintf(&tmp, "%s/images/install.img",
-                             loaderData->instRepo);
-
-            logMessage(INFO, "no stage2= given, assuming %s", tmp);
-            setStage2LocFromCmdline(tmp, loaderData);
-            free(tmp);
-
-            if (loaderData->method == METHOD_URL)
-                ((urlInstallData*)loaderData->stage2Data)->noverifyssl =
-                    loaderData->instRepo_noverifyssl;
-
-            /* If we had to infer a stage2= location, but the repo= parameter
-             * we based this guess on was wrong, we need to correct the typo
-             * in both places.  Unfortunately we can't really know what the
-             * user meant, so the best we can do is take the results of
-             * running stage2= through the UI and chop off any /images/whatever
-             * path that's at the end of it.
-             */
-            loaderData->inferredStage2 = 1;
-            if (loaderData->method != -1) {
-                skipMethodDialog = 1;
-            }
-        } else if (loaderData->stage2Data) {
-            skipMethodDialog = 1;
-        }
-    } else {
-        /* Needed because they have already been set when parsing cmdline.
-         * (Leaks a little.)
-         */
-        loaderData->method = -1;
-        loaderData->stage2Data = NULL;
-    }
 
     i = 0;
     step = STEP_LANG;
@@ -1358,39 +1300,36 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_METHOD: {
-                if (loaderData->method != -1)
-                    skipMethodDialog = 1;
-                else if (FL_CMDLINE(flags)) {
-                    fprintf(stderr, "No method given for cmdline mode, aborting\n");
-                    doExit(EXIT_FAILURE);
+                if (FL_ASKMETHOD(flags)) {
+                    loaderData->method = -1;
+
+                    if (FL_CMDLINE(flags)) {
+                        fprintf(stderr, "No method given for cmdline mode, aborting\n");
+                        doExit(EXIT_FAILURE);
+                    }
+                } else {
+                    step = (dir == -1) ? STEP_KBD : STEP_DRIVER;
+                    break;
                 }
 
-                /* If we already found a stage2 image, skip the prompt. */
-                if (skipMethodDialog) {
-                    if (dir == 1)
-                        rc = 1;
-                    else
-                        rc = -1;
-                } else {
-                    /* we need to set these each time through so that we get
-                     * updated for language changes (#83672) */
-                    for (i = 0; i < numMethods; i++) {
-                        installNames[i] = _(installMethods[i].name);
-                    }
-                    installNames[i] = NULL;
+                /* we need to set these each time through so that we get
+                 * updated for language changes (#83672) */
+                for (i = 0; i < numMethods; i++) {
+                    installNames[i] = _(installMethods[i].name);
+                }
+                installNames[i] = NULL;
 
-                    rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
-                                     _("Installation Method"),
-                                     FL_RESCUE(flags) ?
-                                     _("What type of media contains the rescue "
-                                       "image?") :
-                                     _("What type of media contains the installation "
-                                       "image?"),
-                                     30, 10, 20, 6, installNames, &loaderData->method,
-                                     _("OK"), _("Back"), NULL);
-                    if (rc == 2) {
-                        loaderData->method = -1;
-                    }
+                rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
+                                 _("Installation Method"),
+                                 FL_RESCUE(flags) ?
+                                 _("What type of media contains the rescue "
+                                   "image?") :
+                                 _("What type of media contains the installation "
+                                   "image?"),
+                                 30, 10, 20, 6, installNames, &loaderData->method,
+                                 _("OK"), _("Back"), NULL);
+                if (rc == 2) {
+                    loaderData->method = -1;
                 }
 
                 if (rc && (rc != 1)) {
@@ -1431,7 +1370,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                     break;
                 } else if (rc == 3) {
                     step = STEP_METHOD;
-                    loaderData->method = -1;
+                    flags |= LOADER_FLAGS_ASKMETHOD;
                     dir = -1;
                     break;
                 }
@@ -1473,7 +1412,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                      (is_nm_connected())) {
                     needsNetwork = 0;
                     if (dir == 1) 
-                        step = STEP_STAGE2;
+                        step = STEP_EXTRAS;
                     else if (dir == -1)
                         step = STEP_METHOD;
                     break;
@@ -1507,12 +1446,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 }
 
                 rc = chooseNetworkInterface(loaderData);
-                if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
-                    ((dir == -1) && (rc == LOADER_NOOP))) {
-                    /* don't skip method dialog iff we don't have url from ks or boot params */
-                    if (!loaderData->stage2Data) {
-                        loaderData->method = -1;
-                    }
+                if (rc == LOADER_BACK || rc == LOADER_ERROR || (dir == -1 && rc == LOADER_NOOP)) {
                     step = STEP_METHOD;
                     dir = -1;
                     break;
@@ -1564,8 +1498,7 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 free(ret);
                 ret = NULL;
 
-                if ((rc == LOADER_BACK) ||
-                    ((dir == -1) && (rc == LOADER_NOOP))) {
+                if (rc == LOADER_BACK || (dir == -1 && rc == LOADER_NOOP)) {
                     needsNetwork = 1;
                     step = STEP_IFACE;
                     dir = -1;
@@ -1580,53 +1513,16 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 writeEnabledNetInfo(&iface);
                 /* Prevent asking about interface for updates.img */
                 loaderData->netDev_set = 1;
-                step = STEP_STAGE2;
+                step = STEP_EXTRAS;
                 dir = 1;
                 break;
             }
 
-            case STEP_STAGE2: {
-                if (url) {
-                    logMessage(INFO, "stage2 url is %s", url);
-                    return url;
-                }
-
-                logMessage(INFO, "starting STEP_STAGE2");
-                checkForRam(loaderData->method);
-                url = installMethods[validMethods[loaderData->method]].mountImage(
-                                          installMethods + validMethods[loaderData->method],
-                                          "/mnt/stage2", loaderData);
-                if (!url) {
-                    step = STEP_IP;
-                    loaderData->ipinfo_set = 0;
-#ifdef ENABLE_IPV6
-                    loaderData->ipv6info_set = 0;
-#endif
-                    loaderData->method = -1;
-                    skipMethodDialog = 0;
-                    dir = -1;
-                } else {
-                    logMessage(INFO, "got stage2 at url %s", url);
-                    step = STEP_DONE;
-                    dir = 1;
-
-                    if (loaderData->invalidRepoParam) {
-                        char *newInstRepo;
-
-                        /* Doesn't contain /images?  Let's not even try. */
-                        if (strstr(url, "/images") == NULL)
-                            break;
-                        
-                        checked_asprintf(&newInstRepo, "%.*s",
-                                         (int) (strstr(url, "/images")-url), url);
-
-                        free(loaderData->instRepo);
-                        loaderData->instRepo = newInstRepo;
-                        logMessage(INFO, "reset repo= parameter to %s",
-                                   loaderData->instRepo);
-                    }
-                }
-
+            case STEP_EXTRAS: {
+                /* FIXME - this is where we need to look for product.img,
+                 * updates.img, etc.
+                 */
+                step = STEP_DONE;
                 break;
             }
 
