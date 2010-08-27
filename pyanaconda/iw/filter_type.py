@@ -58,12 +58,12 @@ class FilterTypeWindow(InstallWindow):
         vbox.pack_start(label, expand=False, fill=False)
 
         self.buttonGroup = pixmapRadioButtonGroup()
-        self.buttonGroup.addEntry("simple", _("Basic Storage Devices"),
+        self.buttonGroup.addEntry("simple", _("B_asic Storage Devices"),
                                   descr=_("Installs or upgrades to typical types "
                                           "of storage devices.  If you're not sure "
                                           "which option is right for you, this is "
                                           "probably it."))
-        self.buttonGroup.addEntry("complex", _("Specialized Storage Devices"),
+        self.buttonGroup.addEntry("complex", _("_Specialized Storage Devices"),
                                   descr=_("Installs or upgrades to enterprise devices "
                                           "such as Storage Area Networks (SANs). This "
                                           "option will allow you to add FCoE / iSCSI "
