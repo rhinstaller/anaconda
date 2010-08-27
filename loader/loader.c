@@ -1070,13 +1070,14 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             } else if (!strcasecmp(k, "keymap")) {
                 loaderData->kbd = g_strdup(v);
                 loaderData->kbd_set = 1;
-             } else if (!strcasecmp(k, "method")) {
+            } else if (!strcasecmp(k, "method")) {
                 logMessage(WARNING, "method= is deprecated.  Please use repo= instead.");
                 loaderData->instRepo = g_strdup(v);
             } else if (!strcasecmp(k, "repo")) {
                 loaderData->instRepo = g_strdup(v);
             } else if (!strcasecmp(k, "stage2")) {
-                setStage2LocFromCmdline(v, loaderData);
+                logMessage(WARNING, "stage2= is deprecated.  Please use repo= instead.");
+                flags |= LOADER_FLAGS_ASKMETHOD;
             } else if (!strcasecmp(k, "hostname")) {
                 loaderData->hostname = g_strdup(v);
             } else if (!strcasecmp(k, "ip")) {
@@ -1217,13 +1218,13 @@ static int haveDeviceOfType(int type) {
     return 0;
 }
 
-static char *doLoaderMain(struct loaderData_s *loaderData,
-                          moduleInfoSet modInfo) {
+static void doLoaderMain(struct loaderData_s *loaderData,
+                         moduleInfoSet modInfo) {
     enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_DRIVER,
            STEP_DRIVERDISK, STEP_NETWORK, STEP_IFACE,
            STEP_IP, STEP_EXTRAS, STEP_DONE } step;
 
-    char *url = NULL, *ret = NULL, *devName = NULL, *kbdtype = NULL;
+    char *ret = NULL, *devName = NULL, *kbdtype = NULL;
     static iface_t iface;
     int i, rc = LOADER_NOOP, dir = 1;
     int needsNetwork = 0, class = -1;
@@ -1530,8 +1531,6 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
                 break;
         }
     }
-
-    return url;
 }
 static int manualDeviceCheck(struct loaderData_s *loaderData) {
     char ** devices;
@@ -1754,8 +1753,6 @@ int main(int argc, char ** argv) {
 
     moduleInfoSet modInfo;
     iface_t iface;
-
-    char *url = NULL;
 
     char ** argptr, ** tmparg;
     char * anacondaArgs[50];
@@ -2083,7 +2080,7 @@ int main(int argc, char ** argv) {
         kickstartNetworkUp(&loaderData, &iface);
     }
 
-    url = doLoaderMain(&loaderData, modInfo);
+    doLoaderMain(&loaderData, modInfo);
 
     /* now load SELinux policy before exec'ing anaconda and the shell
      * (if we're using SELinux) */
@@ -2157,19 +2154,6 @@ int main(int argc, char ** argv) {
     }
 
     logMessage(INFO, "Running anaconda script %s", *(argptr-1));
-
-    *argptr++ = "--stage2";
-    if (strncmp(url, "ftp:", 4)) {
-        *argptr++ = url;
-    } else {
-        int fd, ret;
-
-        fd = open("/tmp/ftp-stage2", O_CREAT | O_TRUNC | O_RDWR, 0600);
-        ret = write(fd, url, strlen(url));
-        ret = write(fd, "\r", 1);
-        close(fd);
-        *argptr++ = "@/tmp/ftp-stage2";
-    }
 
     /* add extra args - this potentially munges extraArgs */
     tmparg = extraArgs;

@@ -105,9 +105,6 @@ makeBootImages() {
 	# isolinux needs the config file to be isolinux.cfg
 	mv $MBD_BOOTTREE/syslinux.cfg $MBD_BOOTTREE/isolinux.cfg
 
-	# set up the label for finding stage2 with a hybrid iso
-	sed -i "s/initrd=initrd.img/initrd=initrd.img stage2=hd:LABEL=\"$CDLABEL\"/" $MBD_BOOTTREE/isolinux.cfg
-
 	# copy in memtest if present
 	if [ -f $IMGPATH/usr/share/anaconda/boot/memtest* ]; then
            cp $IMGPATH/usr/share/anaconda/boot/memtest* $MBD_BOOTTREE/memtest
