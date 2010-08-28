@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-08-28 07:54+0100\n"
+"PO-Revision-Date: 2010-08-28 09:28+0100\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -123,7 +123,7 @@ msgstr "Premeu <retorn> per a un shell"
 #: loader/urls.c:355
 #: pyanaconda/textw/constants_text.py:44
 msgid "OK"
-msgstr "Acceptar"
+msgstr "D'acord"
 
 #: anaconda:349
 msgid "You do not have enough RAM to use the graphical installer."
@@ -321,7 +321,7 @@ msgstr ""
 #: pyanaconda/storage/__init__.py:234
 #: pyanaconda/storage/__init__.py:1999
 msgid "_Exit installer"
-msgstr "Abandonar l'instal·lador"
+msgstr "Abandona l'instal·lador"
 
 #: pyanaconda/bootloader.py:60
 #: pyanaconda/image.py:92
@@ -335,7 +335,7 @@ msgstr "Abandonar l'instal·lador"
 #: pyanaconda/iw/partition_gui.py:1600
 #: pyanaconda/storage/__init__.py:2000
 msgid "_Continue"
-msgstr "_Continuar"
+msgstr "_Continua"
 
 #: pyanaconda/bootloader.py:158
 msgid "Bootloader"
@@ -483,7 +483,7 @@ msgstr "El dispositiu %s està encriptat. Per poder accedir els continguts del d
 #: loader/loader.c:583
 #: pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
-msgstr "Cancel·lar"
+msgstr "Cancel·la"
 
 #: pyanaconda/gui.py:690
 #: pyanaconda/gui.py:691
@@ -491,7 +491,7 @@ msgstr "Cancel·lar"
 #: pyanaconda/gui.py:810
 #: data/ui/anaconda.glade.h:3
 msgid "_Debug"
-msgstr "_Depurar"
+msgstr "_Depura"
 
 #: pyanaconda/gui.py:933
 msgid "Wireless setup"
@@ -504,12 +504,12 @@ msgstr "S'estàn escanejant els punts d'accés per als dispositius inalàmbrics"
 #: pyanaconda/gui.py:959
 #: pyanaconda/textw/netconfig_text.py:276
 msgid "Waiting for NetworkManager"
-msgstr "S'està esperant el NetworkManager"
+msgstr "S'està esperant a NetworkManager"
 
 #: pyanaconda/gui.py:960
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
-msgstr "S'està esperant que el NetworkManager activi aquests dispositius %s"
+msgstr "S'està esperant que NetworkManager activi aquests dispositius %s"
 
 #: pyanaconda/gui.py:981
 #, python-format
@@ -562,7 +562,7 @@ msgstr ""
 #: pyanaconda/packages.py:330
 #: pyanaconda/storage/__init__.py:1817
 msgid "_Exit"
-msgstr "_Sortir"
+msgstr "_Surt"
 
 #: pyanaconda/gui.py:1237
 #: pyanaconda/image.py:164
@@ -573,7 +573,7 @@ msgstr "_Sortir"
 #: pyanaconda/yuminstall.py:1275
 #: pyanaconda/yuminstall.py:1482
 msgid "_Retry"
-msgstr "_Reintentar"
+msgstr "_Reintenta"
 
 #: pyanaconda/gui.py:1239
 #: pyanaconda/storage/partitioning.py:284
@@ -585,7 +585,7 @@ msgstr "El sistema es reiniciarà."
 #: pyanaconda/packages.py:334
 #: pyanaconda/yuminstall.py:1523
 msgid "_Reboot"
-msgstr "_Reiniciar"
+msgstr "_Reinicia"
 
 #: pyanaconda/gui.py:1242
 msgid "Exiting"
@@ -596,7 +596,7 @@ msgstr "S'està sortint"
 #: pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:242
 msgid "Exit installer"
-msgstr "Abandonar l'instal·lador"
+msgstr "Abandona l'instal·lador"
 
 #: pyanaconda/gui.py:1324
 msgid "Are you sure you wish to exit the installer?"
@@ -613,7 +613,7 @@ msgstr "No s'ha pogut carregar la barra del títol"
 
 #: pyanaconda/gui.py:1417
 msgid "Install Window"
-msgstr "Finestra d'instal·lació"
+msgstr "Finestra de la instal·lació"
 
 #: pyanaconda/image.py:83
 #, python-format
@@ -652,7 +652,7 @@ msgstr ""
 
 #: pyanaconda/image.py:241
 msgid "Required Install Media"
-msgstr "Medi d'instal·lació requerit"
+msgstr "Mitja necessari d'instal·lació requerit"
 
 #: pyanaconda/image.py:242
 #, fuzzy, python-format
@@ -683,11 +683,11 @@ msgstr "_Anterior"
 #: pyanaconda/image.py:290
 #, python-format
 msgid "An error occurred unmounting the disc.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
-msgstr "S'ha produït un error mentre es desmuntava el disc. Assegureu-vos que no esteu accedint a %s des del shell en tty2, i després cliqueu a Acceptar per a reintentar."
+msgstr "S'ha produït un error mentre es desmuntava el disc. Assegureu-vos que no esteu accedint a %s des del shell en tty2, i després cliqueu a D'acord per a reintentar."
 
 #: pyanaconda/installclass.py:67
 msgid "Install on System"
-msgstr "Instal·la al sistema"
+msgstr "Instal·la en el sistema"
 
 #: pyanaconda/installinterfacebase.py:52
 #, python-format
@@ -727,22 +727,22 @@ msgstr ""
 #: pyanaconda/installinterfacebase.py:150
 #: pyanaconda/installinterfacebase.py:184
 msgid "_Ignore"
-msgstr "_Ignorar"
+msgstr "_Ignora"
 
 #: pyanaconda/installinterfacebase.py:93
 #: pyanaconda/installinterfacebase.py:151
 msgid "Ignore _all"
-msgstr "Ignor_ar-ho tot"
+msgstr "Ignor_a-ho tot"
 
 #: pyanaconda/installinterfacebase.py:94
 #: pyanaconda/installinterfacebase.py:152
 msgid "_Re-initialize"
-msgstr "_Reinicialitzar"
+msgstr "_Reinicialitza"
 
 #: pyanaconda/installinterfacebase.py:95
 #: pyanaconda/installinterfacebase.py:153
 msgid "Re-ini_tialize all"
-msgstr "_Reinicialitzar-ho tot"
+msgstr "_Reinicialitza-ho tot"
 
 #: pyanaconda/installinterfacebase.py:143
 #, fuzzy, python-format
@@ -775,7 +775,7 @@ msgstr[1] ""
 #: pyanaconda/installinterfacebase.py:184
 #: pyanaconda/iw/partition_gui.py:898
 msgid "_Format"
-msgstr "_Formatar"
+msgstr "_Formata"
 
 #: pyanaconda/iutil.py:867
 #, fuzzy, python-format
@@ -805,12 +805,12 @@ msgstr "Error: no s'ha pogut reiniciar loadparam (%s)"
 #: pyanaconda/iutil.py:925
 #, python-format
 msgid "Warning: Could not reset parm (%s)"
-msgstr "Avís: no s'ha pogut reiniciar els paràmetres (%s)"
+msgstr "Advertència: no s'ha pogut reiniciar els paràmetres (%s)"
 
 #: pyanaconda/iutil.py:938
 #, python-format
 msgid "After shutdown, please perform a manual IPL from DASD device %s to continue installation"
-msgstr "Després d'apagar, realitzeu un IPL manual des del dispositiu DASD %s per a continuar la instal·lació"
+msgstr "Després de l'aturada, realitzeu un IPL manual des del dispositiu DASD %s per a continuar la instal·lació"
 
 #: pyanaconda/iutil.py:960
 #, fuzzy, python-format
@@ -830,7 +830,7 @@ msgstr "S'ha produït un error en escriure la propietat FCP predeterminada %s pe
 #: pyanaconda/iutil.py:1005
 #, python-format
 msgid "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %(wwpn)s and LUN %(lun)s to continue installation"
-msgstr "Després de l'apagada, feu un IPL manual des de l'FCP %(device)s amb WWPN %(wwpn)s i LUN %(lun)s per continuar amb la instal·lació"
+msgstr "Després de l'aturada, realitzeu un IPL manual des de l'FCP %(device)s amb WWPN %(wwpn)s i LUN %(lun)s per continuar amb la instal·lació"
 
 #: pyanaconda/iutil.py:1022
 msgid "After shutdown, please perform a manual IPL from the device now containing /boot to continue installation"
@@ -928,7 +928,7 @@ msgstr "_Ignora-ho tot"
 
 #: pyanaconda/kickstart.py:1395
 msgid "Missing Group"
-msgstr "Grup absent"
+msgstr "Falta grup"
 
 #: pyanaconda/kickstart.py:1396
 #, python-format
@@ -1057,7 +1057,7 @@ msgstr ""
 
 #: pyanaconda/packages.py:330
 msgid "_Install Anyway"
-msgstr "_Instal·lar-ho igualment"
+msgstr "_Instal·la-ho igualment"
 
 #: pyanaconda/packages.py:333
 msgid "Your system will now be rebooted..."
@@ -1065,7 +1065,7 @@ msgstr "Es reiniciarà el sistema..."
 
 #: pyanaconda/packages.py:335
 msgid "Warning! This is pre-release software!"
-msgstr "Avís! Aquest programari no és estable."
+msgstr "Advertència! Aquest programari no és estable."
 
 #: pyanaconda/partIntfHelpers.py:41
 msgid "Please enter a volume group name."
@@ -1119,12 +1119,12 @@ msgstr "Primer cal que seleccioneu una partició per suprimir."
 #: pyanaconda/partIntfHelpers.py:337
 #: pyanaconda/iw/lvm_dialog_gui.py:877
 msgid "Confirm Delete"
-msgstr "Confirmeu supressió"
+msgstr "Confirmació de l'eliminació"
 
 #: pyanaconda/partIntfHelpers.py:150
 #, python-format
 msgid "You are about to delete all partitions on the device '%s'."
-msgstr "Se suprimiran totes les particions del dispositiu '%s'."
+msgstr "S'eliminaran totes les particions del dispositiu '%s'."
 
 #: pyanaconda/partIntfHelpers.py:153
 #: pyanaconda/partIntfHelpers.py:338
@@ -1205,7 +1205,7 @@ msgstr ""
 
 #: pyanaconda/partIntfHelpers.py:270
 msgid "Partitioning Warning"
-msgstr "Avís en particionar"
+msgstr "Advertencia del particionat"
 
 #: pyanaconda/partIntfHelpers.py:271
 #, python-format
@@ -1232,7 +1232,7 @@ msgstr "Escolliu 'Sí' per continuar i formatar aquestes particions, o 'No' per 
 
 #: pyanaconda/partIntfHelpers.py:294
 msgid "Format Warning"
-msgstr "Avís en formatar"
+msgstr "Advertència de formatat"
 
 #: pyanaconda/partIntfHelpers.py:321
 #, python-format
@@ -1266,11 +1266,11 @@ msgstr "S'eliminarà la partició %s %s."
 
 #: pyanaconda/partIntfHelpers.py:345
 msgid "Confirm Reset"
-msgstr "Confirmeu reinici"
+msgstr "Confismació de restabliment"
 
 #: pyanaconda/partIntfHelpers.py:346
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr "Esteu segur que voleu reiniciar la taula de particions al seu estat original?"
+msgstr "Esteu segur que voleu restablir la taula de particions al seu estat originari?"
 
 #: pyanaconda/platform.py:98
 #: pyanaconda/platform.py:344
@@ -1575,7 +1575,7 @@ msgstr "  <Tab>/<Alt-Tab> moure's entre es elements   |  <Espai> seleccionar   |
 #: loader/net.c:1134
 #: loader/net.c:1142
 msgid "Retry"
-msgstr "Reintentar"
+msgstr "Reintenta"
 
 #: pyanaconda/text.py:515
 msgid "Cancelled"
@@ -1682,7 +1682,7 @@ msgstr "S'està intentant connectar el client vnc a l'ordinador %s..."
 
 #: pyanaconda/vnc.py:189
 msgid "Connected!"
-msgstr "Connectat"
+msgstr "Connectat!"
 
 #: pyanaconda/vnc.py:192
 msgid "Will try to connect again in 15 seconds..."
@@ -1740,7 +1740,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Avís: s'executarà el servidor VNC sense contrasenya.\n"
+"Advertència: s'executarà el servidor VNC sense contrasenya.\n"
 "Podeu fer servir l'opció d'arranc vncpassword=<contrasenya>\n"
 "si voleu proporcionar més seguretat al vostre servidor.\n"
 "\n"
@@ -1829,12 +1829,12 @@ msgstr "No s'ha pogut executar X en aquesta màquina. Voleu iniciar VNC per conn
 
 #: pyanaconda/vnc.py:367
 msgid "Start VNC"
-msgstr "Iniciar VNC"
+msgstr "Inicia VNC"
 
 #: pyanaconda/vnc.py:368
 #: pyanaconda/vnc.py:370
 msgid "Use text mode"
-msgstr "Utilitzar mode text"
+msgstr "Utilitza mode text"
 
 #: pyanaconda/yuminstall.py:85
 #, python-format
@@ -1946,7 +1946,7 @@ msgstr "Alguns dels vostres repositoris necessiten accés per xarxa, però s'ha 
 #: pyanaconda/yuminstall.py:833
 #: pyanaconda/yuminstall.py:835
 msgid "Re_boot"
-msgstr "Reiniciar"
+msgstr "Reinicia"
 
 #: pyanaconda/yuminstall.py:833
 msgid "_Eject"
@@ -2045,7 +2045,7 @@ msgstr "No s'ha pogut llegir la informació del grup del repositori. Aquest és 
 #: pyanaconda/yuminstall.py:1275
 #: pyanaconda/textw/constants_text.py:64
 msgid "Edit"
-msgstr "Editar"
+msgstr "Edita"
 
 #: pyanaconda/yuminstall.py:1286
 #: pyanaconda/yuminstall.py:1477
@@ -2070,7 +2070,7 @@ msgstr "Els paquets que heu seleccionat necessiten %d MB d'espai lliure, però n
 
 #: pyanaconda/yuminstall.py:1520
 msgid "Reboot?"
-msgstr "Reiniciar?"
+msgstr "Reinicia?"
 
 #: pyanaconda/yuminstall.py:1521
 msgid "The system will be rebooted now."
@@ -2212,7 +2212,7 @@ msgstr "S'ha produït un error amb la contrasenya"
 
 #: pyanaconda/iw/account_gui.py:103
 msgid "You must enter your root password and confirm it by typing it a second time to continue."
-msgstr "Per continuar, heu d'introduir la contrasenya del superusuari i confirmar-la escrivint-la de nou."
+msgstr "Per a continuar, heu d'introduir la contrasenya del superusuari i confirmar-la escrivint-la de nou."
 
 #: pyanaconda/iw/account_gui.py:111
 msgid "The passwords you entered were different.  Please try again."
@@ -2234,7 +2234,7 @@ msgstr "La contrasenya que heu proporcionat és massa feble: %s"
 
 #: pyanaconda/iw/account_gui.py:131
 msgid "_Use Anyway"
-msgstr "Utilitzar-ho igualment"
+msgstr "Utilitza-la igualment"
 
 #: pyanaconda/iw/account_gui.py:139
 #: pyanaconda/textw/userauth_text.py:75
@@ -2281,7 +2281,7 @@ msgstr "%(name)s: %(msg)s"
 
 #: pyanaconda/iw/autopart_type.py:228
 msgid "Use All Space"
-msgstr "Utilitzar tot l'epai"
+msgstr "Utilitza tot l'epai"
 
 #: pyanaconda/iw/autopart_type.py:230
 msgid ""
@@ -2292,7 +2292,7 @@ msgstr ""
 
 #: pyanaconda/iw/autopart_type.py:236
 msgid "Replace Existing Linux System(s)"
-msgstr "Substituir els sistemes Linux existents"
+msgstr "Substitueix els sistemes Linux existents"
 
 #: pyanaconda/iw/autopart_type.py:238
 msgid ""
@@ -2303,7 +2303,7 @@ msgstr ""
 
 #: pyanaconda/iw/autopart_type.py:246
 msgid "Shrink Current System"
-msgstr "Escongir el sistema actual"
+msgstr "Escongeix el sistema actual"
 
 #: pyanaconda/iw/autopart_type.py:248
 msgid "Shrinks existing partitions to create free space for the default layout."
@@ -2311,7 +2311,7 @@ msgstr ""
 
 #: pyanaconda/iw/autopart_type.py:250
 msgid "Use Free Space"
-msgstr "Utilitzar l'espai lliure"
+msgstr "Utilitza l'espai lliure"
 
 #: pyanaconda/iw/autopart_type.py:252
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
@@ -2319,7 +2319,7 @@ msgstr ""
 
 #: pyanaconda/iw/autopart_type.py:256
 msgid "Create Custom Layout"
-msgstr "Crear una disposició personalitzada"
+msgstr "Crea una disposició personalitzada"
 
 #: pyanaconda/iw/autopart_type.py:258
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
@@ -2327,7 +2327,7 @@ msgstr ""
 
 #: pyanaconda/iw/blpasswidget.py:44
 msgid "_Use a boot loader password"
-msgstr "_Utilitzar una contrasenya per al gestor d'arranc"
+msgstr "_Utilitza una contrasenya per al gestor d'arranc"
 
 #: pyanaconda/iw/blpasswidget.py:45
 msgid "A boot loader password prevents users from changing kernel options, increasing security."
@@ -2335,7 +2335,7 @@ msgstr "La contrasenya del gestor d'arranc impideix que els usuaris canviïn les
 
 #: pyanaconda/iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr "_Canviar la contrasenya"
+msgstr "_Canvia la contrasenya"
 
 #: pyanaconda/iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
@@ -2380,11 +2380,11 @@ msgstr "Configuració del gestor d'arranc"
 #: pyanaconda/iw/bootloader_main_gui.py:223
 #, python-format
 msgid "_Install boot loader on /dev/%s."
-msgstr "_Instal·lar el gestor d'arranc a /dev/%s."
+msgstr "_Instal·la el gestor d'arranc a /dev/%s."
 
 #: pyanaconda/iw/bootloader_main_gui.py:229
 msgid "_Change device"
-msgstr "_Canviar dispositiu"
+msgstr "_Canvia el dispositiu"
 
 #: pyanaconda/iw/cleardisks_gui.py:34
 msgid "Clear Disks Selector"
@@ -2441,7 +2441,7 @@ msgstr "Identificador"
 #: pyanaconda/iw/filter_gui.py:519
 #: pyanaconda/iw/filter_gui.py:530
 msgid "Interconnect"
-msgstr "Interconnectar"
+msgstr "Interconnexió"
 
 #: pyanaconda/iw/cleardisks_gui.py:145
 msgid ""
@@ -2480,7 +2480,7 @@ msgstr ""
 #: pyanaconda/iw/congrats_gui.py:77
 #: pyanaconda/textw/complete_text.py:42
 msgid "Shutdown"
-msgstr "Apagar"
+msgstr "Apaga"
 
 #: pyanaconda/iw/congrats_gui.py:79
 #: pyanaconda/textw/complete_text.py:44
@@ -2511,7 +2511,7 @@ msgstr ""
 
 #: pyanaconda/iw/examine_gui.py:39
 msgid "Upgrade Examine"
-msgstr "Examinar l'actualització"
+msgstr "Examina l'actualització"
 
 #: pyanaconda/iw/examine_gui.py:58
 msgid "Fresh Installation"
@@ -2686,7 +2686,7 @@ msgstr "Fes un volum lògic"
 #: pyanaconda/iw/lvm_dialog_gui.py:404
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr "Editar el volum lògic: %s"
+msgstr "Edita el volum lògic: %s"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:443
 #: pyanaconda/iw/raid_dialog_gui.py:451
@@ -2712,7 +2712,7 @@ msgstr "(La mida màxima és de %s MB)"
 #: pyanaconda/iw/partition_ui_helpers_gui.py:337
 #: pyanaconda/iw/raid_dialog_gui.py:423
 msgid "_Encrypt"
-msgstr "_Encriptar"
+msgstr "_Encripta"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:479
 #: pyanaconda/iw/partition_dialog_gui.py:474
@@ -2830,7 +2830,7 @@ msgstr "El nom del grup de volum «%s» ja s'utilitza. Escolliu-ne un altre."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1281
 msgid "Not enough physical volumes"
-msgstr "No hi ha prou volums físics"
+msgstr "No hi han prous volums físics"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1282
 msgid ""
@@ -2849,11 +2849,11 @@ msgstr "Fes un grup de volum LVM"
 #: pyanaconda/iw/lvm_dialog_gui.py:1296
 #, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr "Editar el grup de volum LVM: %s"
+msgstr "Edita el grup de volums LVM: %s"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1298
 msgid "Edit LVM Volume Group"
-msgstr "Editar el grup de volum LVM"
+msgstr "Edita el grup de volum LVM"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1314
 msgid "_Volume Group Name:"
@@ -2902,14 +2902,14 @@ msgstr "Mida (MB)"
 #: pyanaconda/iw/lvm_dialog_gui.py:1444
 #: pyanaconda/iw/osbootwidget.py:96
 msgid "_Add"
-msgstr "_Afegir"
+msgstr "_Afegeix"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1447
 #: pyanaconda/iw/osbootwidget.py:100
 #: pyanaconda/iw/partition_gui.py:1812
 #: pyanaconda/iw/partition_gui.py:1822
 msgid "_Edit"
-msgstr "_Editar"
+msgstr "_Edita"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1462
 msgid "_Logical Volumes"
@@ -3018,11 +3018,11 @@ msgstr "Us fa falta tenir una connexió de xarxa activa durant el procés d'inst
 
 #: pyanaconda/iw/network_gui.py:211
 msgid "Select APs"
-msgstr "Seleccionar APIs"
+msgstr "Selecciona les APIs"
 
 #: pyanaconda/iw/network_gui.py:218
 msgid "Select APs for wireless devices"
-msgstr "Seleccionar les APs per als dispositius inalàmbrics"
+msgstr "Selecciona les APs per als dispositius inalàmbrics"
 
 #: pyanaconda/iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
@@ -3112,7 +3112,7 @@ msgstr "Error amb la petició"
 
 #: pyanaconda/iw/partition_dialog_gui.py:400
 msgid "Add Partition"
-msgstr "Afegir partició"
+msgstr "Afegeix partició"
 
 #: pyanaconda/iw/partition_dialog_gui.py:402
 #, python-format
@@ -3206,7 +3206,7 @@ msgstr "Voleu continuar amb aquest esquema de particionat?"
 
 #: pyanaconda/iw/partition_gui.py:872
 msgid "Partitioning Warnings"
-msgstr "Avisos quant al particionat"
+msgstr "Advertències del particionat"
 
 #: pyanaconda/iw/partition_gui.py:881
 #, fuzzy
@@ -3215,7 +3215,7 @@ msgstr "Es destruiran les dades de les particions existents que heu seleccionat 
 
 #: pyanaconda/iw/partition_gui.py:893
 msgid "Format Warnings"
-msgstr "Avisos quant al formatat"
+msgstr "Advertències del formatat"
 
 #: pyanaconda/iw/partition_gui.py:992
 msgid "LVM Volume Groups"
@@ -3228,7 +3228,7 @@ msgstr "Dispositius RAID"
 #: pyanaconda/iw/partition_gui.py:1030
 #: loader/hdinstall.c:212
 msgid "Hard Drives"
-msgstr "Discos durs"
+msgstr "Discs durs"
 
 #: pyanaconda/iw/partition_gui.py:1080
 msgid "Extended"
@@ -3331,11 +3331,11 @@ msgstr ""
 
 #: pyanaconda/iw/partition_gui.py:1811
 msgid "_Create"
-msgstr "_Crear"
+msgstr "_Crea"
 
 #: pyanaconda/iw/partition_gui.py:1814
 msgid "Re_set"
-msgstr "Re_stablir"
+msgstr "Re_stableix"
 
 #: pyanaconda/iw/partition_gui.py:1837
 msgid "Please Select A Device"
@@ -3349,15 +3349,15 @@ msgstr "<No aplicable>"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:318
 msgid "_Format as:"
-msgstr "_Formatar com:"
+msgstr "_Formata com:"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:340
 msgid "Mi_grate filesystem to:"
-msgstr "Mi_grar el sistema de fitxers a:"
+msgstr "Mi_gra el sistema de fitxers a:"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:370
 msgid "_Resize"
-msgstr "Canvia_r la mida"
+msgstr "Canvia la mida"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:425
 #, python-format
@@ -3380,11 +3380,11 @@ msgstr "Fer dispositiu RAID"
 #: pyanaconda/iw/raid_dialog_gui.py:407
 #, python-format
 msgid "Edit RAID Device: %s"
-msgstr "Editar dispositiu RAID: %s"
+msgstr "Edita el dispositiu RAID: %s"
 
 #: pyanaconda/iw/raid_dialog_gui.py:409
 msgid "Edit RAID Device"
-msgstr "Editar dispositiu RAID"
+msgstr "Edita el dispositiu RAID"
 
 #: pyanaconda/iw/raid_dialog_gui.py:476
 msgid "RAID _Device:"
@@ -3404,7 +3404,7 @@ msgstr "Número de di_scs de recanvi:"
 
 #: pyanaconda/iw/raid_dialog_gui.py:563
 msgid "_Format partition?"
-msgstr "_Formatar la partició"
+msgstr "_Formata la partició?"
 
 #: pyanaconda/iw/task_gui.py:55
 #, python-format
@@ -3419,7 +3419,7 @@ msgstr ""
 
 #: pyanaconda/iw/task_gui.py:132
 msgid "Edit Repository"
-msgstr "Editar repositori"
+msgstr "Edita el repositori"
 
 #: pyanaconda/iw/task_gui.py:156
 #, python-format
@@ -3481,7 +3481,7 @@ msgstr "Heu de proporcionar un nom de repositori."
 #: pyanaconda/iw/task_gui.py:496
 #: data/ui/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr "Afegir repositori"
+msgstr "Afegeix repositori"
 
 #: pyanaconda/iw/task_gui.py:501
 msgid "No Software Repos Enabled"
@@ -3499,11 +3499,11 @@ msgstr "Selecció de franja horària"
 #: pyanaconda/iw/upgrade_bootloader_gui.py:37
 #: pyanaconda/textw/upgrade_bootloader_text.py:129
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Actualitzar configuració del gestor d'arranc"
+msgstr "Actualitza la configuració del gestor d'arranc"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:120
 msgid "_Update boot loader configuration"
-msgstr "Act_ualitzar configuració del gestor d'arranc"
+msgstr "Act_ualitza la configuració del gestor d'arranc"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:121
 msgid "This will update your current boot loader."
@@ -3539,7 +3539,7 @@ msgstr "Aquesta opció crea una nova configuració del gestor d'arranc. Si voleu
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:153
 msgid "_Skip boot loader updating"
-msgstr "_Saltar-se l'actualització del gestor d'arranc"
+msgstr "_Salta l'actualització del gestor d'arranc"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:154
 msgid "This option makes no changes to boot loader configuration.  If you are using a third party boot loader, you should choose this."
@@ -3552,7 +3552,7 @@ msgstr "Que voleu fer?"
 #: pyanaconda/iw/upgrade_migratefs_gui.py:38
 #: pyanaconda/textw/upgrade_text.py:42
 msgid "Migrate File Systems"
-msgstr "Migrar sistemes de fitxers"
+msgstr "Migra sistemes de fitxers"
 
 #: pyanaconda/iw/upgrade_migratefs_gui.py:69
 #: pyanaconda/textw/upgrade_text.py:44
@@ -3568,7 +3568,7 @@ msgstr ""
 
 #: pyanaconda/iw/upgrade_swap_gui.py:35
 msgid "Upgrade Swap Partition"
-msgstr "Actualitzar la partició d'intercanvi"
+msgstr "Actualitza la partició d'intercanvi"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:92
 #: pyanaconda/textw/upgrade_text.py:107
@@ -3644,7 +3644,7 @@ msgstr "La vostra font d'instal·lació està establerta a una ubicació de xarx
 
 #: pyanaconda/iw/welcome_gui.py:67
 msgid "E_xit Installer"
-msgstr "Abandonar l'_instal·lador"
+msgstr "Abandona l'_instal·lador"
 
 #: pyanaconda/iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -3716,12 +3716,12 @@ msgstr "Comprovació del mitjà"
 #: loader/cdinstall.c:215
 #: loader/method.c:333
 msgid "Test"
-msgstr "Comprovar"
+msgstr "Comprova"
 
 #: loader/cdinstall.c:186
 #: loader/cdinstall.c:190
 msgid "Eject Disc"
-msgstr "Expulsar el disc"
+msgstr "Expulsa el disc"
 
 #: loader/cdinstall.c:187
 #, c-format
@@ -3853,7 +3853,7 @@ msgstr "No s'ha pogut carregar el disc de controladors des del fitxer."
 #: loader/driverdisk.c:519
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Inseriu el vostre disc de controladors a /dev/%s i premeu \"Acceptar\" per a continuar."
+msgstr "Inseriu el vostre disc de controladors a /dev/%s i premeu «D'acord» per a continuar."
 
 #: loader/driverdisk.c:522
 msgid "Insert Driver Disk"
@@ -3928,7 +3928,7 @@ msgstr "S'ha especificat el següent argument invàlid de la comanda per al disc
 #: loader/driverselect.c:68
 #, c-format
 msgid "Please enter any parameters which you wish to pass to the %s module separated by spaces.  If you don't know what parameters to supply, skip this screen by pressing the \"OK\" button."
-msgstr "Introduïu separats amb espais qualsevol paràmetre que vulgueu passar al mòdul %s. Si no sabeu els paràmetres a proporcionar, deixeu-ho en blanc i premeu el botó \"Acceptar\"."
+msgstr "Introduïu separats amb espais qualsevol paràmetre que vulgueu passar al mòdul %s. Si no sabeu els paràmetres a proporcionar, deixeu-ho en blanc i premeu el botó «D'acord»."
 
 #: loader/driverselect.c:89
 msgid "Enter Module Parameters"
@@ -4062,7 +4062,7 @@ msgstr "Benvinguts a %s per a %s"
 #: loader/lang.c:64
 #, c-format
 msgid "Welcome to %s for %s - Rescue Mode"
-msgstr "Benvingut a %s per a %s - Mode de rescat"
+msgstr "Benvinguts a %s per a %s - Mode de rescat"
 
 #: loader/lang.c:65
 #: loader/loader.c:253
@@ -4101,7 +4101,7 @@ msgstr "Hi ha diverses particions en aquest dispositiu que podrien contenir la i
 #: loader/loader.c:526
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
-msgstr "Inseriu el disc d'actualitzacions a %s i premeu \"Acceptar\" per a continuar."
+msgstr "Inseriu el disc d'actualitzacions a %s i premeu «D'acord» per a continuar."
 
 #: loader/loader.c:529
 msgid "Updates Disk"
@@ -4166,7 +4166,7 @@ msgstr "Seleccioneu el controlador"
 
 #: loader/loader.c:1436
 msgid "Use a driver disk"
-msgstr "Utilitzar un disc de controladors"
+msgstr "Utilitza un disc de controladors"
 
 #: loader/loader.c:1437
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
@@ -4190,12 +4190,12 @@ msgstr "Fet"
 
 #: loader/loader.c:1676
 msgid "Add Device"
-msgstr "Afegir dispositiu"
+msgstr "Afegeix un dispositiu"
 
 #: loader/loader.c:1981
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "ja s'ha executat el carregador. S'està iniciant l'intèrpret d'ordres.\n"
+msgstr "ja s'ha executat el gestor. S'està iniciant el shell.\n"
 
 #: loader/loader.c:2125
 #, c-format
@@ -4213,7 +4213,7 @@ msgstr ""
 
 #: loader/loader.c:2128
 msgid "Skip it"
-msgstr "Ometre-ho"
+msgstr "Salta-t'ho"
 
 #: loader/loader.c:2466
 #, c-format
@@ -4308,15 +4308,15 @@ msgstr "Error de xarxa"
 #: loader/net.c:597
 #: pyanaconda/textw/netconfig_text.py:133
 msgid "Enable IPv4 support"
-msgstr "Habilitar compatibilitat amb IPv4"
+msgstr "Habilita la compatibilitat amb IPv4"
 
 #: loader/net.c:611
 msgid "Enable IPv6 support"
-msgstr "Habilitar compatibilitat amb IPv6"
+msgstr "Habilita la compatibilitat amb IPv6"
 
 #: loader/net.c:651
 msgid "Configure TCP/IP"
-msgstr "Configurar TCP/IP"
+msgstr "Configura el TCP/IP"
 
 #: loader/net.c:708
 msgid "Missing Protocol"
@@ -4402,7 +4402,7 @@ msgstr "Hi han diversos dispositius de xarxa en aquest sistema. Amb quin voleu c
 
 #: loader/net.c:1961
 msgid "Identify"
-msgstr "Identificar"
+msgstr "Identifica"
 
 #: loader/net.c:1970
 msgid "You can identify the physical port for"
@@ -4414,7 +4414,7 @@ msgstr "encenent els llums LED durant uns segons. Introduïu un nombre entre 1 i
 
 #: loader/net.c:1979
 msgid "Identify NIC"
-msgstr "Identificar NIC"
+msgstr "Identifica el NIC"
 
 #: loader/net.c:1992
 msgid "Invalid Duration"
@@ -4521,7 +4521,7 @@ msgstr "Introduïu la URL que conté la imatge d'instal·lació %s en el vostre 
 
 #: loader/urls.c:290
 msgid "Enable HTTP proxy"
-msgstr "Habilitar el servidor intermediari HTTP"
+msgstr "Habilita el servidor intermediari HTTP"
 
 #: loader/urls.c:304
 msgid "Proxy URL"
@@ -4588,7 +4588,7 @@ msgstr "S'han activat les opcions d'emmagatzematge que heu escollit. Ja no podeu
 
 #: pyanaconda/storage/__init__.py:161
 msgid "Encrypt device?"
-msgstr "Voleu xifrar-lo?"
+msgstr "Encripta el dispositiu?"
 
 #: pyanaconda/storage/__init__.py:162
 msgid "You specified block device encryption should be enabled, but you have not supplied a passphrase. If you do not go back and provide a passphrase, block device encryption will be disabled."
@@ -4609,7 +4609,7 @@ msgstr "Vés endarrere"
 
 #: pyanaconda/storage/__init__.py:195
 msgid "_Write Changes to Disk"
-msgstr "Escriure canvis al disc"
+msgstr "Escriu els canvis al disc"
 
 #: pyanaconda/storage/__init__.py:214
 msgid "Running..."
@@ -5103,7 +5103,7 @@ msgstr "No s'ha pogut entrar a cap dels nodes descoberts"
 
 #: pyanaconda/storage/partitioning.py:198
 msgid "Could not find enough free space for automatic partitioning.  Press 'OK' to exit the installer."
-msgstr "No s'ha trobat prou espai lliure per al particionat automàtic. Premeu 'Acceptar' per a abandonar l'instal·lador."
+msgstr "No s'ha trobat prou espai lliure per al particionat automàtic. Premeu «D'acord» per a abandonar l'instal·lador."
 
 #: pyanaconda/storage/partitioning.py:201
 msgid "Could not find enough free space for automatic partitioning, please use another partitioning method."
@@ -5111,7 +5111,7 @@ msgstr "No s'ha trobat prou espai lliure per al particionat automàtic. Feu serv
 
 #: pyanaconda/storage/partitioning.py:230
 msgid "Warnings During Automatic Partitioning"
-msgstr "Avisos durant el particionat automàtic"
+msgstr "Advertències durant el particionat automàtic"
 
 #: pyanaconda/storage/partitioning.py:232
 #, python-format
@@ -5133,7 +5133,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Premeu 'Acceptar' per a abandonar l'instal·lador."
+"Premeu «D'acord» per a abandonar l'instal·lador."
 
 #: pyanaconda/storage/partitioning.py:248
 #, fuzzy, python-format
@@ -5154,7 +5154,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Premeu 'Acceptar' per a triar una opció diferent de particionat."
+"Premeu «D'acord» per a triar una opció diferent de particionat."
 
 #: pyanaconda/storage/partitioning.py:271
 msgid "Automatic Partitioning Errors"
@@ -5249,7 +5249,7 @@ msgstr "No s'ha pogut posar fora de línia el dispositiu zFCP %s (%s)."
 
 #: pyanaconda/textw/complete_text.py:32
 msgid "Reboot"
-msgstr "Reiniciar"
+msgstr "Reinicia"
 
 #: pyanaconda/textw/complete_text.py:34
 msgid "<Enter> to exit"
@@ -5275,11 +5275,11 @@ msgstr "Es requereix un valor per al camp %s"
 #: pyanaconda/textw/netconfig_text.py:88
 #: data/ui/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr "Habilitar la intefície de xarxa"
+msgstr "Habilita la intefície de xarxa"
 
 #: pyanaconda/textw/netconfig_text.py:130
 msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Utilitzar configuració d'IP dinàmica (DHCP)"
+msgstr "Utilitza la configuració d'IP dinàmica (DHCP)"
 
 #: pyanaconda/textw/netconfig_text.py:140
 msgid "IPv4 Address:"
@@ -5328,11 +5328,11 @@ msgstr "Utilitza tota la unitat"
 
 #: pyanaconda/textw/partition_text.py:65
 msgid "Replace existing Linux system"
-msgstr "Substituir els sistemes de Linux existents"
+msgstr "Substitueix els sistemes de Linux existents"
 
 #: pyanaconda/textw/partition_text.py:66
 msgid "Use free space"
-msgstr "Utilitzar l'espai lliure"
+msgstr "Utilitza l'espai lliure"
 
 #: pyanaconda/textw/partition_text.py:81
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5340,7 +5340,7 @@ msgstr "Quines unitats voleu utilitzar per a aquesta instal·lació?"
 
 #: pyanaconda/textw/partition_text.py:96
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
-msgstr "<Espai>,<+>,<-> selecció  | <F2> Afegir unitat | <F12> Pantalla següent"
+msgstr "<Espai>,<+>,<-> selecció  | <F2> Afegeix unitat | <F12> Pantalla següent"
 
 #: pyanaconda/textw/progress_text.py:46
 msgid "Package Installation"
@@ -5357,11 +5357,11 @@ msgstr "El rellotge del sistema utilitza UTC"
 #: pyanaconda/textw/upgrade_bootloader_text.py:111
 #: pyanaconda/textw/upgrade_bootloader_text.py:121
 msgid "Update boot loader configuration"
-msgstr "Actualitzar configuració del gestor d'arranc"
+msgstr "Actualitza la configuració del gestor d'arranc"
 
 #: pyanaconda/textw/upgrade_bootloader_text.py:124
 msgid "Skip boot loader updating"
-msgstr "Saltar-se l'actualització del gestor d'arranc"
+msgstr "Salta't l'actualització del gestor d'arranc"
 
 #: pyanaconda/textw/upgrade_text.py:125
 msgid "Free Space"
@@ -5381,7 +5381,7 @@ msgstr "Mida del fitxer d'intercanvi (MB):"
 
 #: pyanaconda/textw/upgrade_text.py:157
 msgid "Add Swap"
-msgstr "Afegir fitxer d'intercanvi"
+msgstr "Afegeix un fitxer d'intercanvi"
 
 #: pyanaconda/textw/upgrade_text.py:182
 msgid "The value you entered is not a valid number."
@@ -5389,7 +5389,7 @@ msgstr "El valor que heu indicat no és un número vàlid."
 
 #: pyanaconda/textw/upgrade_text.py:214
 msgid "Reinstall System"
-msgstr "Reinstal·lar el sistema"
+msgstr "Reinstal·la el sistema"
 
 #: pyanaconda/textw/upgrade_text.py:226
 msgid "System to Upgrade"
@@ -5457,15 +5457,15 @@ msgstr "Línia chandev"
 
 #: data/liveinst/liveinst.desktop.in.h:1
 msgid "Install"
-msgstr "_Instal·lar"
+msgstr "_Instal·la"
 
 #: data/liveinst/liveinst.desktop.in.h:2
 msgid "Install the live CD to your hard disk"
-msgstr "Instal·lar el CD autònom al vostre disc dur"
+msgstr "Instal·la el CD autònom al vostre disc dur"
 
 #: data/liveinst/liveinst.desktop.in.h:3
 msgid "Install to Hard Drive"
-msgstr "Instal·lar al disc dur"
+msgstr "Instal·la al disc dur"
 
 #: liveinst:5
 msgid "Starting Install to Hard Drive"
@@ -5477,7 +5477,7 @@ msgstr "Alguns paquets associats amb aquest grup no són requerits per a la inst
 
 #: data/ui/GroupSelector.glade.h:2
 msgid "_Deselect"
-msgstr "_Des-seleccionar"
+msgstr "_Des-selecciona"
 
 #: data/ui/GroupSelector.glade.h:3
 msgid "_Deselect all optional packages"
@@ -5489,11 +5489,11 @@ msgstr "Paquets _opcionals"
 
 #: data/ui/GroupSelector.glade.h:5
 msgid "_Select"
-msgstr "_Seleccionar"
+msgstr "_Selecciona"
 
 #: data/ui/GroupSelector.glade.h:6
 msgid "_Select all optional packages"
-msgstr "_Seleccionar tots els paquets opcionals"
+msgstr "_Selecciona tots els paquets opcionals"
 
 #: data/ui/GroupSelector.glade.h:7
 msgid "dialog1"
@@ -5513,15 +5513,15 @@ msgstr "El compte del superusuari (root) s'utilitza per a l'administració del s
 
 #: data/ui/adddrive.glade.h:1
 msgid "Add _FCoE SAN"
-msgstr "Afegir SAN _FCoE"
+msgstr "Afegeix SAN _FCoE"
 
 #: data/ui/adddrive.glade.h:2
 msgid "Add _ZFCP LUN"
-msgstr "Afegir LUN _ZFCP"
+msgstr "Afegeix LUN _ZFCP"
 
 #: data/ui/adddrive.glade.h:3
 msgid "Add _iSCSI target"
-msgstr "Afegir destí _iSCSI"
+msgstr "Afegeix destí _iSCSI"
 
 #: data/ui/adddrive.glade.h:4
 msgid "Advanced Storage Options"
@@ -5533,7 +5533,7 @@ msgstr "Com voleu modificar la configuració de la vostra unitat?"
 
 #: data/ui/adddrive.glade.h:6
 msgid "_Add drive"
-msgstr "_Afegir unitat"
+msgstr "_Afegeix unitat"
 
 #: data/ui/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
@@ -5545,7 +5545,7 @@ msgstr "<b>_Tipus de repositori:</b>"
 
 #: data/ui/addrepo.glade.h:4
 msgid "Configure _proxy"
-msgstr "Configurar el _servidor intermediari"
+msgstr "Configura el _servidor intermediari"
 
 #: data/ui/addrepo.glade.h:5
 msgid ""
@@ -5638,7 +5638,7 @@ msgstr ""
 
 #: data/ui/autopart.glade.h:6
 msgid "_Encrypt system"
-msgstr "_Xifra el sistema"
+msgstr "_Encripta el sistema"
 
 #: data/ui/autopart.glade.h:7
 msgid "_Shrink"
@@ -5723,23 +5723,23 @@ msgstr ""
 
 #: data/ui/create-storage.glade.h:7
 msgid "C_reate"
-msgstr "C_rear"
+msgstr "C_rea"
 
 #: data/ui/create-storage.glade.h:8
 msgid "Create LVM"
-msgstr "Crear LVM"
+msgstr "Crea LVM"
 
 #: data/ui/create-storage.glade.h:9
 msgid "Create Partition"
-msgstr "Crear partició"
+msgstr "Crea partició"
 
 #: data/ui/create-storage.glade.h:10
 msgid "Create Software RAID"
-msgstr "Crear RAID de programari"
+msgstr "Crea RAID de programari"
 
 #: data/ui/create-storage.glade.h:11
 msgid "Create Storage"
-msgstr "Crear emmagatzegament"
+msgstr "Crea emmagatzegament"
 
 #: data/ui/create-storage.glade.h:12
 msgid "LVM Logical Volume"
@@ -5785,11 +5785,11 @@ msgstr "Seleccioneu la interfície de xarxa connectada al vostre switch FCoE."
 
 #: data/ui/fcoe-config.glade.h:5
 msgid "Use DCB"
-msgstr "Utilitzar DCB"
+msgstr "Utilitza DCB"
 
 #: data/ui/fcoe-config.glade.h:6
 msgid "_Add FCoE Disk(s)"
-msgstr "_Afegir discs FCoE"
+msgstr "_Afegeix discs FCoE"
 
 #: data/ui/filter.glade.h:1
 msgid "<b>Tip:</b> Selected drives will not be formatted unless you choose to do so later during installation.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
@@ -5806,7 +5806,7 @@ msgstr "Dispsitius estàndards"
 
 #: data/ui/filter.glade.h:4
 msgid "Filter By:"
-msgstr "Filtrar per:"
+msgstr "Filtra per:"
 
 #: data/ui/filter.glade.h:5
 #, fuzzy
@@ -5852,11 +5852,11 @@ msgstr "Port:"
 
 #: data/ui/filter.glade.h:17
 msgid "Search"
-msgstr "Cercar"
+msgstr "Cerca"
 
 #: data/ui/filter.glade.h:18
 msgid "Search By:"
-msgstr "Cercar per:"
+msgstr "Cerca per:"
 
 #: data/ui/filter.glade.h:19
 msgid "Search Results:"
@@ -5869,15 +5869,15 @@ msgstr "Dispositius seleccionats: %s (%s) d'un total de %s (%s)."
 
 #: data/ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
-msgstr "Mostrar identificadors que incloguin:"
+msgstr "Mostra els identificadors que incloguin:"
 
 #: data/ui/filter.glade.h:23
 msgid "Show Only Devices From:"
-msgstr "Mostrar únicament dispositius de:"
+msgstr "Mostra únicament dispositius de:"
 
 #: data/ui/filter.glade.h:24
 msgid "Show Only Devices Using:"
-msgstr "Mostrar únicament dispositius que utilitzin:"
+msgstr "Mostra únicament dispositius que utilitzin:"
 
 #: data/ui/filter.glade.h:25
 #, fuzzy
@@ -5918,11 +5918,11 @@ msgstr "Per fer servir discs iSCSI, heu de proporcionar l'adreça del vostre des
 
 #: data/ui/iscsi-config.glade.h:9
 msgid "_Add target"
-msgstr "_Afegir objectiu"
+msgstr "_Afegeix objectiu"
 
 #: data/ui/lukspassphrase.glade.h:1
 msgid "Also add this passphrase to all existing encrypted devices to streamline the boot process"
-msgstr "Afegir també aquesta frase de pas per a tots els dispositius encriptats per accelerar el procés d'arranc"
+msgstr "Afegeix també aquesta frase de pas per a tots els dispositius encriptats per accelerar el procés d'arranc"
 
 #: data/ui/lukspassphrase.glade.h:2
 msgid "Choose a passphrase for this encrypted partition. You will be prompted for the passphrase during system boot."
@@ -5962,19 +5962,19 @@ msgstr "<b>_Interfície:</b>"
 
 #: data/ui/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
-msgstr "Habilitar compatibilitat per a IPv_4"
+msgstr "Habilitar la compatibilitat per a IPv_4"
 
 #: data/ui/netconfig.glade.h:8
 msgid "Enable IPv_6 support"
-msgstr "Habilitar compatibilitat per a IPv_6"
+msgstr "Habilita la compatibilitat per a IPv_6"
 
 #: data/ui/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Utilitzar la configuració d'IP _dinàmica (DHCP)"
+msgstr "Utilitza la configuració d'IP _dinàmica (DHCP)"
 
 #: data/ui/network.glade.h:1
 msgid "Configure Network"
-msgstr "Configurar la xarxa"
+msgstr "Configura la xarxa"
 
 #: data/ui/network.glade.h:2
 msgid "Hostname:"
@@ -5986,7 +5986,7 @@ msgstr "Doneu un nom per a aquest ordinador. El nom d'equip identifica l'ordinad
 
 #: data/ui/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "Persona_litzar més tard"
+msgstr "Persona_litza més tard"
 
 #: data/ui/tasksel.glade.h:2
 msgid "Please select any additional repositories that you want to use for software installation."
@@ -6007,11 +6007,11 @@ msgstr "_Afegir més repositoris"
 
 #: data/ui/tasksel.glade.h:7
 msgid "_Customize now"
-msgstr "Personalitzar _ara"
+msgstr "Personalitza _ara"
 
 #: data/ui/tasksel.glade.h:8
 msgid "_Modify repository"
-msgstr "_Modificar repositori"
+msgstr "_Modifica el repositori"
 
 #: data/ui/zfcp-config.glade.h:1
 msgid "<b>Device number:</b>"
@@ -6027,7 +6027,7 @@ msgstr "<b>WWPN:</b>"
 
 #: data/ui/zfcp-config.glade.h:4
 msgid "Add FCP device"
-msgstr "Afegir dispositiu FCP"
+msgstr "Afegeix dispositiu FCP"
 
 #: data/ui/zfcp-config.glade.h:5
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port Name (WWPN), and a 64 bit FCP LUN for each device."
