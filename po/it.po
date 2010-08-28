@@ -15,13 +15,13 @@
 # Mario Santagiuliana <mario at marionline.it>, 2009.
 # Francesco Tombolini <tombo@adamantio.net>, 2006, 2007, 2008, 2009, 2010.
 # Gianluca Sforna <giallu@gmail.com>, 2010.
-#
+# Guido Grazioli <guido.grazioli@gmail.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.it\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-08-28 01:06+0200\n"
+"PO-Revision-Date: 2010-08-28 12:16+0200\n"
 "Last-Translator: Gianluca Sforna <giallu@gmail.com>\n"
 "Language-Team: Italian <trans-it@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
@@ -1077,7 +1077,7 @@ msgstr ""
 "\n"
 "   %(bugzillaUrl)s\n"
 "\n"
-"ed inviare una segnalazione verso '%(fileagainst)s'.\n"
+"ed inviare una segnalazione per il componente '%(fileagainst)s'.\n"
 
 #: pyanaconda/packages.py:330
 msgid "_Install Anyway"
@@ -1130,8 +1130,8 @@ msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Errore - il nome del volume logico contiene caratteri illegali o spazi.  Si "
-"accettano solo lettere, cifre, '.' o '_'."
+"Errore - il nome del volume logico contiene caratteri illegali o spazi.  Sono "
+"accettate solo lettere, cifre, '.' o '_'."
 
 #: pyanaconda/partIntfHelpers.py:105
 #, python-format
@@ -1214,7 +1214,7 @@ msgid ""
 "contains files that you need to keep, such as home directories, then "
 "continue without formatting this partition."
 msgstr ""
-"Per·questa installazione si è scelto di utilizzare una partizione pre-"
+"Per questa installazione si è scelto di utilizzare una partizione pre-"
 "esistente senza formattarla. Si raccomanda di formattare la partizione per "
 "essere certi che i file di un sistema operativo precedente non causino "
 "problemi con questa installazione di Linux. Tuttavia, se questa partizione "
@@ -1580,7 +1580,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Non sono state trovate partizioni Linux. Premere Invio per ottenere una "
+"Non sono state trovate partizioni Linux. Premere Invio per aprire una "
 "shell. Il sistema si riavvierà automaticamente una volta chiusa la shell."
 
 #: pyanaconda/rescue.py:498
@@ -1631,8 +1631,7 @@ msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> fra elementi   |  <Space> seleziona   |  <F12> schermo "
-"succ."
+"  <Tab>/<Alt-Tab> fra elementi   |  <Space> seleziona   |  <F12> schermo succ."
 
 #: pyanaconda/text.py:501 loader/net.c:110 loader/net.c:511 loader/net.c:566
 #: loader/net.c:708 loader/net.c:716 loader/net.c:1134 loader/net.c:1142
@@ -1641,7 +1640,7 @@ msgstr "Riprova"
 
 #: pyanaconda/text.py:515
 msgid "Cancelled"
-msgstr "Cancellato"
+msgstr "Annullato"
 
 #: pyanaconda/text.py:516
 msgid "I can't go to the previous step from here. You will have to try again."
@@ -1681,7 +1680,7 @@ msgstr ""
 "L'installazione corrente non può essere aggiornata. Questo è probabilmente "
 "dovuto al fatto di essere troppo vecchia. Solo le due release precedenti "
 "possono essere aggiornate. Per aggiornare release più vecchie è necessario "
-"aggiornare a tutte quelle intermedie.\n"
+"prima aggiornare a tutte quelle intermedie.\n"
 "\n"
 "%s"
 
@@ -1706,7 +1705,7 @@ msgstr "Aggiornamento root non trovato"
 
 #: pyanaconda/upgrade.py:239
 msgid "The root for the previously installed system was not found."
-msgstr "Non è stato trovato root per il sistema precedentemente installato."
+msgstr "Non è stata trovata la root del sistema precedentemente installato."
 
 #: pyanaconda/upgrade.py:246
 msgid ""
@@ -1947,7 +1946,7 @@ msgstr "Preparazione all'installazione"
 
 #: pyanaconda/yuminstall.py:135
 msgid "Preparing transaction from installation source"
-msgstr "Preparazione della transazione dal sorgente d'installazione"
+msgstr "Preparazione della transazione dalla sorgente d'installazione"
 
 #: pyanaconda/yuminstall.py:163
 #, python-format
@@ -2328,7 +2327,7 @@ msgstr "Pacchetti in %s"
 #: pyanaconda/iw/GroupSelector.py:433
 #, python-format
 msgid "Optional packages selected: %(inst)d of %(cnt)d"
-msgstr "Pacchetti opzionali selezionati: %(inst)d di %(cnt)d"
+msgstr "Pacchetti opzionali selezionati: %(inst)d su %(cnt)d"
 
 #: pyanaconda/iw/GroupSelector.py:435
 #, python-format
@@ -2890,7 +2889,7 @@ msgid ""
 "volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 "L'estensione fisica non può essere modificata perché il valore selezionato (%"
-"(curpe)10.2f MB) è troppo largo rispetto alla grandezza del volume fisico "
+"(curpe)10.2f MB) è troppo grande rispetto alla dimensione del volume fisico "
 "più piccolo (%(maxpvsize)10.2f MB) nel gruppo di volumi."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:201
@@ -3048,7 +3047,7 @@ msgid ""
 msgstr ""
 "La dimensione selezionate per questo volume logico (%(size)d MB) combinata "
 "con la dimensione degli altri volumi logici eccede la dimensione del gruppo "
-"di volumi (%(tempvgsize)d MB).  Ingrandire il gruppo di volumi o di ridurre "
+"di volumi (%(tempvgsize)d MB).  Ingrandire il gruppo di volumi o ridurre "
 "i volumi logici."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:829
@@ -3328,7 +3327,7 @@ msgstr "_Target di avvio predefinito"
 
 #: pyanaconda/iw/osbootwidget.py:212
 msgid "You must specify a label for the entry"
-msgstr "Selezionare un etichetta per la voce"
+msgstr "Selezionare una etichetta per la voce"
 
 #: pyanaconda/iw/osbootwidget.py:221
 msgid "Boot label contains illegal characters"
@@ -3446,7 +3445,7 @@ msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
-"Dimensioni\n"
+"Dimensione\n"
 "(MB)"
 
 #: pyanaconda/iw/partition_gui.py:760
@@ -3762,7 +3761,7 @@ msgstr "URL del proxy non valido"
 
 #: pyanaconda/iw/task_gui.py:237
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "Si deve fornire un URL HTTP, HTTPS o FTP ad un proxy."
+msgstr "Si deve fornire un URL HTTP, HTTPS o FTP di un proxy."
 
 #: pyanaconda/iw/task_gui.py:249 pyanaconda/iw/task_gui.py:430
 msgid "Invalid Repository URL"
@@ -3781,7 +3780,7 @@ msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
-"Non è stato trovato nessun supporto di installazione. Inserire un disco nel "
+"Non è stato trovato nessun supporto di installazione. Inserire un disco nell'"
 "unità e riprovare."
 
 #: pyanaconda/iw/task_gui.py:303 pyanaconda/iw/task_gui.py:464
@@ -4220,7 +4219,7 @@ msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Sono presenti su questo dispositivo partizioni multiple, che sono in grado "
+"Su questo dispositivo sono presenti partizioni multiple, che sono in grado "
 "di contenere l'immagine del disco driver.  Quale si desidera usare?"
 
 #: loader/driverdisk.c:472
@@ -4237,7 +4236,7 @@ msgstr "Selezionare il file immagine del disco driver."
 
 #: loader/driverdisk.c:507
 msgid "Failed to load driver disk from file."
-msgstr "Impossibile montare dal file il disco del driver ."
+msgstr "Impossibile montare dal file il disco del driver."
 
 #: loader/driverdisk.c:519
 #, c-format
@@ -4286,7 +4285,7 @@ msgstr "Si dispone di un disco dei driver?"
 
 #: loader/driverdisk.c:659
 msgid "More Driver Disks?"
-msgstr "Ci sono altri Dischetti dei driver?"
+msgstr "Ci sono altri dischi dei driver?"
 
 #: loader/driverdisk.c:660
 msgid "Do you wish to load any more driver disks?"
@@ -4343,7 +4342,7 @@ msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"Nessun driver trovato per l'inserimento manuale.  Usare un'altro disco dei "
+"Nessun driver trovato per l'inserimento manuale.  Usare un altro disco dei "
 "driver?"
 
 #: loader/driverselect.c:171
@@ -4405,7 +4404,7 @@ msgstr "Il dispositivo %s non sembra contenere una immagine di installazione."
 #: loader/hdinstall.c:361
 #, c-format
 msgid "Bad argument to HD kickstart method command: %s"
-msgstr "Argomento errato per il comando metodo HD del kickstart %s"
+msgstr "Argomento errato per il comando metodo HD del kickstart: %s"
 
 #: loader/hdinstall.c:441 loader/hdinstall.c:497
 msgid "Cannot find kickstart file on hard drive."
@@ -4451,7 +4450,7 @@ msgstr "Impossibile trovare ks.cfg sul supporto rimovibile."
 #: loader/kickstart.c:340
 #, c-format
 msgid "Bad argument to device kickstart method command: %s"
-msgstr "Argomento errato per il comando metodo dispositivo del kickstart %s"
+msgstr "Argomento errato per il comando metodo dispositivo del kickstart: %s"
 
 #: loader/kickstart.c:356
 msgid "A module name must be specified for the kickstart device command."
@@ -4465,7 +4464,7 @@ msgid ""
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
 "Impossibile scaricare il file kickstart.  Modificare il parametro kickstart "
-"qui sotto o premere Cancella per procedere come un installazione interattiva."
+"qui sotto o premere Annulla per procedere come un'installazione interattiva."
 
 #: loader/kickstart.c:396
 msgid "Error downloading kickstart file"
@@ -4613,7 +4612,7 @@ msgid ""
 msgstr ""
 "Impossibile rilevare un qualsiasi dispositivo del tipo richiesto per questo "
 "tipo d'installazione.  Selezionare un driver manualmente oppure utilizzare "
-"un discetto dei driver?"
+"un disco dei driver?"
 
 #: loader/loader.c:1668
 msgid "The following devices have been found on your system."
@@ -4697,7 +4696,7 @@ msgstr ""
 
 #: loader/mediacheck.c:94
 msgid "Unable to open the image."
-msgstr "Impossibile aprire l'immagine"
+msgstr "Impossibile aprire l'immagine."
 
 #: loader/mediacheck.c:98
 msgid ""
@@ -4861,7 +4860,7 @@ msgstr "Bootproto %s errato specificato nel comando di rete"
 
 #: loader/net.c:1761
 msgid "Seconds:"
-msgstr "Secondari:"
+msgstr "Secondi:"
 
 #: loader/net.c:1956
 msgid "Networking Device"
@@ -5038,7 +5037,7 @@ msgstr "Caricamento del driver SCSI"
 #: loader/windows.c:67
 #, c-format
 msgid "Loading %s driver"
-msgstr "Caricamento del driver %s."
+msgstr "Caricamento del driver %s"
 
 #: pyanaconda/storage/__init__.py:110
 msgid "Unknown Device"
@@ -5059,7 +5058,7 @@ msgstr "Nessun disco trovato"
 
 #: pyanaconda/storage/__init__.py:121
 msgid "No usable disks have been found."
-msgstr "Nessun disco usabile è stato trovato."
+msgstr "Non è stato trovato alcun disco utilizzabile."
 
 #: pyanaconda/storage/__init__.py:132
 msgid "Installation cannot continue."
@@ -5173,7 +5172,7 @@ msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
-"Non è stata definita alcuna partizione root (/) che è necessaria per "
+"Non è stata definita alcuna partizione root (/), che è necessaria per "
 "continuare l'installazione di %s."
 
 #: pyanaconda/storage/__init__.py:975
@@ -5191,8 +5190,8 @@ msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
 "a normal %(productName)s install."
 msgstr ""
-"La capacità della partizione / è meno di %(min)s MB che è più bassa del "
-"valore consigliato per una normale installazione di %(productName)s."
+"La capacità della partizione / è meno di %(min)s MB, cioè del valore "
+"consigliato per una normale installazione di %(productName)s."
 
 #: pyanaconda/storage/__init__.py:991
 #, python-format
@@ -5209,8 +5208,8 @@ msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
 "recommended for a normal %(productName)s install."
 msgstr ""
-"La capacità della partizione %(mount)s è meno di %(size)s megabyte che è più "
-"bassa del valore consigliato per una normale installazione di %(productName)"
+"La capacità della partizione %(mount)s è meno di %(size)s megabyte, cioè "
+"del valore consigliato per una normale installazione di %(productName)"
 "s."
 
 #: pyanaconda/storage/__init__.py:1027
@@ -5594,9 +5593,9 @@ msgid ""
 "filesystem interactively.  Restart installation after you have corrected the "
 "problems on the filesystem."
 msgstr ""
-"Errori come questi di solito voglio dire che c'è un problema con il "
+"Errori come questo si verificano di solito quando c'è un problema con il "
 "filesystem che necessita dell'interazione dell'utente per essere riparato.  "
-"Prima di riavviare l'installazione, riavviare il sistema in modalità di "
+"Prima di rieseguire l'installazione, riavviare il sistema in modalità di "
 "ripristino o avviare da un altro sistema che permetta di riparare il "
 "filesystem in modo interattivo.  Ricominciare l'installazione dopo aver "
 "corretto i problemi sul filesystem."
@@ -5630,7 +5629,7 @@ msgid ""
 "Recoverable errors have been detected or dosfsck has discovered an internal "
 "inconsistency."
 msgstr ""
-"Sono stati rilevati degli errori recuperabili o dosfsck ha scoperto un "
+"Sono stati rilevati degli errori recuperabili o dosfsck ha scoperto una "
 "inconsistenza interna."
 
 #: pyanaconda/storage/formats/fs.py:1054
@@ -5663,7 +5662,7 @@ msgstr ""
 
 #: pyanaconda/storage/iscsi.py:137
 msgid "Must provide an iSCSI initiator name"
-msgstr "E' necessario fornire il nome di un inizializzatore iSCSI."
+msgstr "E' necessario fornire il nome di un inizializzatore iSCSI"
 
 #: pyanaconda/storage/iscsi.py:177 pyanaconda/storage/iscsi.py:178
 msgid "Initializing iSCSI initiator"
@@ -5691,7 +5690,7 @@ msgstr "Nessun nuovo nodo iSCSI rilevato"
 
 #: pyanaconda/storage/iscsi.py:263
 msgid "Could not log in to any of the discovered nodes"
-msgstr "Impossibile eseguire il log in nessuno dei nodi rilevati"
+msgstr "Impossibile eseguire il login in nessuno dei nodi rilevati"
 
 #: pyanaconda/storage/partitioning.py:198
 msgid ""
@@ -5901,7 +5900,7 @@ msgstr "Quale modello di tastiera è collegata al computer?"
 #: pyanaconda/textw/netconfig_text.py:43
 #, python-format
 msgid "A value is required for the field %s"
-msgstr "E' richiesto un valore per il campo %s."
+msgstr "E' richiesto un valore per il campo %s"
 
 #: pyanaconda/textw/netconfig_text.py:88 data/ui/netconfig.glade.h:9
 msgid "Enable network interface"
@@ -5943,8 +5942,7 @@ msgstr "Errore nella configurazione dell'interfaccia di rete"
 #, python-format
 msgid "Error configuring network device %s"
 msgstr ""
-"Si è verificato un errore durante la configurazione del dispositivo di rete %"
-"s"
+"Si è verificato un errore durante la configurazione del dispositivo di rete %s"
 
 #: pyanaconda/textw/partition_text.py:59
 msgid "Partitioning Type"
@@ -5979,8 +5977,7 @@ msgstr "Quale(i) unità si desidera utilizzare per l'installazione?"
 #: pyanaconda/textw/partition_text.py:96
 msgid "<Space>,<+>,<-> selection   |   <F2> Add drive   |   <F12> next screen"
 msgstr ""
-"<Spazio>,<+>,<-> selezione   |   <F2> Aggiungi disco   |   <F12> schermata "
-"succ."
+"<Spazio>,<+>,<-> selezione  |  <F2> Aggiungi disco  |  <F12> schermata succ."
 
 #: pyanaconda/textw/progress_text.py:46
 msgid "Package Installation"
@@ -6359,8 +6356,8 @@ msgid ""
 "data.  Make sure you have backups."
 msgstr ""
 "<b>Suggerimento:</b> I dispositivi di destinazione dell'installazione "
-"saranno riformattati e tutti i dati rimossi.  Install target devices will be "
-"reformatted and wiped of any data.  Make sure you have backups."
+"saranno riformattati e tutti i dati rimossi. Eseguire un backup dei dati "
+"se necessario prima di procedere."
 
 #: data/ui/cleardisks.glade.h:4
 msgid ""
@@ -6372,7 +6369,7 @@ msgid ""
 "bootloader installed."
 msgstr ""
 "I dispositivi di storage selezionati per fare parte dell'installazione sono "
-"di seguito riportati. Indicare usando le frecce quali dispositivi si vuole "
+"riportati di seguito. Indicare usando le frecce quali dispositivi si vuole "
 "usare solo per i dati (questi non saranno formattati, solo montati) e quali "
 "dispositivi si vuole usare come destinazione per l'installazione (questi "
 "potranno essere formattati).  Indicare anche su quale disco del sistema "
@@ -6497,7 +6494,7 @@ msgid ""
 "later during installation.  Also, note that post-installation you may mount "
 "drives you did not select here by modifying your /etc/fstab file."
 msgstr ""
-"<b>Suggerimento:</b> I dischi selezionati non saranno formattati eccetto si "
+"<b>Suggerimento:</b> I dischi selezionati non saranno formattati, eccetto che si "
 "scelga di farlo durante l'installazione.  Dopo l'installazione sarà comunque "
 "possibile montare dischi che non siano stati qui selezionati modificando il "
 "file /etc/fstab."
@@ -6549,8 +6546,8 @@ msgid ""
 "Please select the drives you'd like to install the operating system on, as "
 "well as any drives you'd like to automatically mount on your system:"
 msgstr ""
-"Selezionare i dischi sui quali installare il sistema operativo e quelli che "
-"si vuole siano montati automaticamente nel sistema:"
+"Selezionare i dischi sui quali installare il sistema operativo e quelli "
+"che devono essere montati automaticamente nel sistema:"
 
 #: data/ui/filter.glade.h:14
 msgid ""
@@ -6642,8 +6639,8 @@ msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
 msgstr ""
-"Aggiungere anche questa frase segreta a tutti i dispositivi cifrati "
-"esistenti per ottimizzare il processo d'avvio"
+"Aggiungere questa frase segreta anche a tutti i dispositivi cifrati "
+"esistenti, per ottimizzare il processo d'avvio"
 
 #: data/ui/lukspassphrase.glade.h:2
 msgid ""
@@ -6715,7 +6712,7 @@ msgstr ""
 
 #: data/ui/tasksel.glade.h:1
 msgid "Customize _later"
-msgstr "Persona_lizza più tardi"
+msgstr "Persona_lizza in seguito"
 
 #: data/ui/tasksel.glade.h:2
 msgid ""
@@ -6733,7 +6730,7 @@ msgid ""
 "support?"
 msgstr ""
 "L'installazione predefinita di %s include un insieme di software adatto per "
-"un uso generico di internet.  Di quali altri compiti si desidera che il "
+"un uso generico di internet. Per quali altri compiti si desidera che il "
 "sistema includa il supporto?"
 
 #: data/ui/tasksel.glade.h:5
@@ -6742,7 +6739,7 @@ msgid ""
 "the software management application."
 msgstr ""
 "Ulteriori personalizzazioni della selezione del software possono essere "
-"completate ora o dopo l'installazione mediante l'applicazione di gestione "
+"completate ora, o dopo l'installazione mediante l'applicazione di gestione "
 "del software."
 
 #: data/ui/tasksel.glade.h:6
@@ -7017,11 +7014,11 @@ msgstr "Ucraino"
 
 #: data/lang-table.h:59
 msgid "Vietnamese"
-msgstr "Vietnamese"
+msgstr "Vietnamita"
 
 #: data/lang-table.h:60
 msgid "Welsh"
-msgstr "Welsh"
+msgstr "Gallese"
 
 #: data/lang-table.h:61
 msgid "Zulu"
