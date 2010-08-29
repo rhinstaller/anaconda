@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-08-28 09:28+0100\n"
+"PO-Revision-Date: 2010-08-29 02:46+0100\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -655,17 +655,17 @@ msgid "Required Install Media"
 msgstr "Mitja necessari d'instal·lació requerit"
 
 #: pyanaconda/image.py:242
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The software you have selected to install will require the following %(productName)s %(productVersion)s discs:\n"
 "\n"
 "%(reqcdstr)s\n"
 "Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"El programari que heu seleccionat per instal·lar requereix els següents discos de %s %s:\n"
+"El programari que heu seleccionat per instal·lar requereix els següents discos de %(productName)s %(productVersion)s:\n"
 "\n"
-"%s\n"
-"Tingueu-los a punt abans de continuar amb la instal·lació. Si heu de cancel·lar la instal·lació i arrencar de nou, seleccioneu «Arrenca de nou»."
+"%(reqcdstr)s\n"
+"Tingueu-los a punt abans de continuar amb la instal·lació. Si heu de cancel·lar la instal·lació i arrencar de nou, seleccioneu «Reinicia»."
 
 #: pyanaconda/image.py:251
 #: pyanaconda/livecd.py:446
@@ -745,13 +745,13 @@ msgid "Re-ini_tialize all"
 msgstr "_Reinicialitza-ho tot"
 
 #: pyanaconda/installinterfacebase.py:143
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error processing LVM.\n"
 "There is inconsistent LVM data on %(msg)s.  You can reinitialize all related PVs (%(pvs)s) which will erase the LVM metadata, or ignore which will preserve the contents.  This action may also be applied to all other PVs with inconsistent metadata."
 msgstr ""
 "S'ha produït un error en processar el gestor de volums lògics (LVM).\n"
-"Sembla que hi ha dades LVM inconsistents a %s. Podeu reinicialitzar tots els volums físics relacionats (%s), la qual cosa suprimirà totes les metadades del LVM, o bé ignorar-ho, i així es conservaran els continguts."
+"Sembla que hi ha dades LVM inconsistents a %(msg)s. Podeu reinicialitzar tots els volums físics relacionats (%(pvs)s) , la qual cosa suprimirà totes les metadades del LVM, o bé ignorar-ho, i així es conservaran els continguts."
 
 #: pyanaconda/installinterfacebase.py:171
 msgid "Unformatted DASD Device Found"
@@ -778,24 +778,24 @@ msgid "_Format"
 msgstr "_Formata"
 
 #: pyanaconda/iutil.py:867
-#, fuzzy, python-format
+#, python-format
 msgid "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)s)"
-msgstr "Error: en obrir, no es pot establir el mètode reIPL a %s (%s: %s)"
+msgstr "Error: en obrir, no es pot establir el mètode reIPL a %(reipl_type)s (%(filename)s: %(e)s)"
 
 #: pyanaconda/iutil.py:878
-#, fuzzy, python-format
+#, python-format
 msgid "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)s)"
-msgstr "Error: en escriure, no es pot establir el mètode reIPL a %s (%s: %s)"
+msgstr "Error: en escriure, no es pot establir el mètode reIPL a %(reipl_type)s (%(filename)s: %(e)s)"
 
 #: pyanaconda/iutil.py:887
-#, fuzzy, python-format
+#, python-format
 msgid "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)s)"
-msgstr "Error: en tancar, no es pot establir el mètode reIPL a %s (%s: %s)"
+msgstr "Error: en tancar, no es pot establir el mètode reIPL a %(reipl_type)s (%(filename)s: %(e)s)"
 
 #: pyanaconda/iutil.py:906
-#, fuzzy, python-format
+#, python-format
 msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
-msgstr "Error: no s'ha pogut establir %s com a dispositiu reIPL (%s)"
+msgstr "Error: no s'ha pogut establir %(device)s com a dispositiu reIPL  (%(e)s)"
 
 #: pyanaconda/iutil.py:916
 #, python-format
@@ -813,19 +813,19 @@ msgid "After shutdown, please perform a manual IPL from DASD device %s to contin
 msgstr "Després de l'aturada, realitzeu un IPL manual des del dispositiu DASD %s per a continuar la instal·lació"
 
 #: pyanaconda/iutil.py:960
-#, fuzzy, python-format
+#, python-format
 msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
-msgstr "S'ha produït un error en llegir la propietat FCP %s per a reIPL (%s)"
+msgstr "S'ha produït un error en llegir la propietat FCP %(syspath_property)s per a reIPL (%(e)s)"
 
 #: pyanaconda/iutil.py:975
-#, fuzzy, python-format
+#, python-format
 msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr "S'ha produït un error en escriure la propietat FCP %s per a reIPL (%s)"
+msgstr "S'ha produït un error en escriure la propietat FCP %(reipl_property)s per a reIPL (%(e)s)"
 
 #: pyanaconda/iutil.py:990
-#, fuzzy, python-format
+#, python-format
 msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr "S'ha produït un error en escriure la propietat FCP predeterminada %s per a reIPL (%s)"
+msgstr "S'ha produït un error en escriure la propietat FCP predeterminada %(reipl_property)s per a reIPL (%(e)s)"
 
 #: pyanaconda/iutil.py:1005
 #, python-format
@@ -837,9 +837,8 @@ msgid "After shutdown, please perform a manual IPL from the device now containin
 msgstr "Després de l'aturada, realitzaeu un IPL manual des del dispositiu que contingui /boot per continuar la instal·lació"
 
 #: pyanaconda/iutil.py:1033
-#, fuzzy
 msgid "Error determining boot device's disk name"
-msgstr "S'ha produït un error en determinar el tipus de punt de muntatge"
+msgstr "S'ha produït un error en determinar el nom del disc del dispositiu d'arranc"
 
 #: pyanaconda/iutil.py:1037
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
@@ -847,9 +846,9 @@ msgstr "El punt de muntatge /boot o / està a un disc que no coneixem"
 
 # FIXME (josep)
 #: pyanaconda/kickstart.py:115
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error running the kickstart script at line %(lineno)s.  You may examine the output in %(msgs)s.  This is a fatal error and installation will be aborted.  Press the OK button to exit the installer."
-msgstr "S'ha produït un error en executar l'script del kickstart a la línia %s. En podeu examinar la sortida a %s. Aquest és un error greu i s'interromprà la instal·lació. Premeu «D'acord» per a sortir de l'instal·lador."
+msgstr "S'ha produït un error en executar l'script del kickstart a la línia %(lineno)s. En podeu examinar la sortida a %(msgs)s. Aquest és un error greu i s'interromprà la instal·lació. Premeu «D'acord» per a sortir de l'instal·lador."
 
 # FIXME (josep)
 #: pyanaconda/kickstart.py:123
@@ -870,13 +869,13 @@ msgid "Encryption key escrow requires networking, but there was an error enablin
 msgstr "Cal disposar de xarxa per a la clau d'encriptació de custòdia, no obstant s'ha produït un error en habilitar la xarxa en el vostre sistema."
 
 #: pyanaconda/kickstart.py:165
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was encountered while downloading the escrow certificate:\n"
 "\n"
 "%s"
 msgstr ""
-"S'ha trobat el següent error en analitzar el fitxer de configuració del kickstart:\n"
+"S'ha trobat el següent error mentre es baixava el certificat de custòdia:\n"
 "\n"
 "%s"
 
@@ -1193,15 +1192,15 @@ msgid "Error with Partitioning"
 msgstr "Error en particionar"
 
 #: pyanaconda/partIntfHelpers.py:254
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. These errors must be corrected prior to continuing with your install of %(productName)s.\n"
 "\n"
 "%(errorstr)s"
 msgstr ""
-"L'esquema de particions que heu demanat conté els següents errors greus. Aquests errors s'han de corregir abans de continuar amb la instal·lació de %s.\n"
+"L'esquema de particions que heu demanat conté els següents errors greus. Aquests errors s'han de corregir abans de continuar amb la instal·lació de %(productName)s.\n"
 "\n"
-"%s"
+"%(errorstr)s"
 
 #: pyanaconda/partIntfHelpers.py:270
 msgid "Partitioning Warning"
@@ -1260,9 +1259,9 @@ msgid "You are about to delete the %s partition."
 msgstr "S'eliminarà la partició %s."
 
 #: pyanaconda/partIntfHelpers.py:334
-#, fuzzy, python-format
+#, python-format
 msgid "You are about to delete the %(type)s %(name)s"
-msgstr "S'eliminarà la partició %s %s."
+msgstr "S'eliminarà la partició %(type)s %(name)s"
 
 #: pyanaconda/partIntfHelpers.py:345
 msgid "Confirm Reset"
@@ -1337,9 +1336,9 @@ msgid "/boot/efi is not EFI."
 msgstr "/boot/efi no és EFI."
 
 #: pyanaconda/platform.py:251
-#, fuzzy, python-format
+#, python-format
 msgid "%s must have a %s disk label."
-msgstr "%s ha de tenir una etiqueta de disk bsd."
+msgstr "%s ha de tenir una etiqueta de disc %s."
 
 #: pyanaconda/platform.py:289
 #, python-format
@@ -1414,16 +1413,16 @@ msgid "Rescue"
 msgstr "Rescat"
 
 #: pyanaconda/rescue.py:300
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and mount it under the directory %s.  You can then make any changes required to your system.  If you want to proceed with this step choose 'Continue'.  You can also choose to mount your file systems read-only instead of read-write by choosing 'Read-Only'.  If you need to activate SAN devices choose 'Advanced'.\n"
 "\n"
 "If for some reason this process fails you can choose 'Skip' and this step will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"L'entorn de rescat intentarà trobar la instal·lació de Linux i muntar-la sota el directori %s. Un cop fet això podreu fer tots els canvis necessaris en el sistema. Si voleu continuar amb aquest pas escolliu 'Continua'. Escolliu 'Només lectura' si voleu muntar el sistema de fitxers només de lectura enlloc de lectura i escriptura.\n"
+"L'entorn de rescat intentarà trobar la instal·lació de Linux i muntar-la sota el directori %s. Un cop fet això podreu fer tots els canvis necessaris en el sistema. Si voleu continuar amb aquest pas trieu 'Continua'. Trieu 'Només lectura' si voleu muntar el sistema de fitxers només de lectura enlloc de lectura i escriptura. Si necessiteu activar dispositius SAN trieu 'Avançat'.\n"
 "\n"
-"Si el procés falla, podeu escollir 'Omet': aquest pas s'ometrà i s'anirà a l'intèrpret d'ordres.\n"
+"Si el procés falla, podeu triar 'Omet': aquest pas s'ometrà i s'anirà a l'intèrpret d'ordres.\n"
 "\n"
 
 #: pyanaconda/rescue.py:311
@@ -1531,11 +1530,11 @@ msgid "Also add this passphrase to all existing encrypted devices"
 msgstr "Afegir aquesta frase de pas a tots els dispositius encriptats"
 
 #: pyanaconda/text.py:199
-#, fuzzy, python-format
+#, python-format
 msgid "The passphrase must be at least %d character long."
 msgid_plural "The passphrase must be at least %d characters long."
-msgstr[0] "La frase de pas ha de tenir almenys %d caràcters."
-msgstr[1] "La frase de pas ha de tenir almenys %d caràcters."
+msgstr[0] "La frase de pas ha de tenir almenys %d caràcters de longitud."
+msgstr[1] "La frase de pas ha de tenir almenys %d caràcters de longitud."
 
 #: pyanaconda/text.py:233
 #: data/ui/lukspassphrase.glade.h:6
@@ -1553,9 +1552,9 @@ msgid "Repository editing is not available in text mode."
 msgstr "No es pot editar els repositoris en mode text."
 
 #: pyanaconda/text.py:422
-#, fuzzy, python-format
+#, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
-msgstr "Benvinguts a %s per a %s"
+msgstr "Benvinguts a %(productName)s per a %(productArch)s"
 
 #: pyanaconda/text.py:424
 #, python-format
@@ -1666,9 +1665,9 @@ msgid "Invalid Directories"
 msgstr "Directoris no vàlids"
 
 #: pyanaconda/vnc.py:140
-#, fuzzy, python-format
+#, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
-msgstr "Instal·lació de %s %s a l'ordinador %s"
+msgstr "Instal·lació de %(productName)s %(productVersion)s a l'equip %(name)s"
 
 #: pyanaconda/vnc.py:146
 #, python-format
@@ -1915,9 +1914,9 @@ msgid "Change Disc"
 msgstr "Canvieu el disc"
 
 #: pyanaconda/yuminstall.py:449
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
-msgstr "Inseriu %s disc %d per a continuar."
+msgstr ""
 
 #: pyanaconda/yuminstall.py:459
 msgid "Wrong Disc"
@@ -2177,9 +2176,9 @@ msgid "Packages in %s"
 msgstr "Paquets a %s"
 
 #: pyanaconda/iw/GroupSelector.py:433
-#, fuzzy, python-format
+#, python-format
 msgid "Optional packages selected: %(inst)d of %(cnt)d"
-msgstr "Paquets opcionals seleccionats: %d de %d"
+msgstr "Paquets opcionals seleccionats: %(inst)d de %(cnt)d"
 
 #: pyanaconda/iw/GroupSelector.py:435
 #, python-format
@@ -2392,14 +2391,12 @@ msgstr ""
 
 #: pyanaconda/iw/cleardisks_gui.py:45
 #: pyanaconda/iw/filter_gui.py:429
-#, fuzzy
 msgid "You must select at least one drive to be used for installation."
-msgstr "Heu de seleccionar almenys un disc dur on instal·lar %s."
+msgstr "Heu de seleccionar com a mínim un disc per a utilitza'l en la instal·lació."
 
 #: pyanaconda/iw/cleardisks_gui.py:55
-#, fuzzy
 msgid "You must select one drive to boot from."
-msgstr "Heu de seleccionar una unitat a editar"
+msgstr "Heu de seleccionar una unitat des d'on arrencar."
 
 #: pyanaconda/iw/cleardisks_gui.py:127
 #: pyanaconda/iw/cleardisks_gui.py:147
@@ -2523,9 +2520,8 @@ msgid "Choose this option to install a fresh copy of %s on your system.  Existin
 msgstr "Escolliu aquesta opció per a una instal·lació nova. Es podrien sobreescriure dades o esborrar programari existent depenent de les opcions de configuració."
 
 #: pyanaconda/iw/examine_gui.py:65
-#, fuzzy
 msgid "Upgrade an Existing Installation"
-msgstr "Act_ualitza una instal·lació existent"
+msgstr "Actualitza una instal·lació existent"
 
 #: pyanaconda/iw/examine_gui.py:67
 #, fuzzy, python-format
@@ -2538,9 +2534,9 @@ msgid "At least one existing installation has been detected on your system.  Wha
 msgstr "No s'ha carregat cap controlador al sistema. Voleu carregar-ne algun ara?"
 
 #: pyanaconda/iw/examine_gui.py:126
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
-msgstr "Escolliu què voleu fer"
+msgstr "<b>Quina instal·lació %s voleu actualitzar?</b>"
 
 #: pyanaconda/iw/examine_gui.py:140
 msgid "Unknown Linux system"
@@ -2580,9 +2576,8 @@ msgid "Port"
 msgstr "Port"
 
 #: pyanaconda/iw/filter_gui.py:534
-#, fuzzy
 msgid "Target"
-msgstr "Comprova"
+msgstr "Ojectiu"
 
 #: pyanaconda/iw/filter_gui.py:535
 msgid "LUN"
@@ -2743,9 +2738,8 @@ msgstr "Punt de _muntatge:"
 #: pyanaconda/iw/lvm_dialog_gui.py:601
 #: pyanaconda/iw/partition_dialog_gui.py:118
 #: pyanaconda/iw/raid_dialog_gui.py:176
-#, fuzzy
 msgid "Mount Point Error"
-msgstr "Punt de muntatge"
+msgstr "S'ha produït un error de punt de muntatge"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:611
 msgid "Illegal Logical Volume Name"
@@ -2996,15 +2990,15 @@ msgid "You must enter a valid hostname for this computer."
 msgstr "Heu d'introduir un nom de màquina vàlid per a aquest ordinador."
 
 #: pyanaconda/iw/network_gui.py:90
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
 "\n"
 "%(herrors)s"
 msgstr ""
-"El nom d'ordinador «%s» no és vàlid pels següents motius:\n"
+"El nom d'equip \"%(hostname)s\" no és vàlid pels següents motius:\n"
 "\n"
-"%s"
+"%(herrors)s"
 
 #: pyanaconda/iw/network_gui.py:134
 msgid "Select network interface"
@@ -3145,9 +3139,9 @@ msgid "Free"
 msgstr "Lliure"
 
 #: pyanaconda/iw/partition_gui.py:478
-#, fuzzy, python-format
+#, python-format
 msgid "LVM Volume Group %s (%-0.f MB)"
-msgstr "Grups del volum LVM"
+msgstr "Grup de volums LVM %s (%-0.f MB)"
 
 #: pyanaconda/iw/partition_gui.py:544
 #, python-format
@@ -3687,18 +3681,16 @@ msgid "Chandev Parameters"
 msgstr "Paràmetres del chandev"
 
 #: loader/net.h:27
-#, fuzzy
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "Configura la IP dinàmicament (DHCP)"
+msgstr "Configurcióa d'IP dinàmica (DHCP)"
 
 #: loader/net.h:28
 msgid "Manual configuration"
 msgstr "Configuració manual"
 
 #: loader/net.h:30
-#, fuzzy
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "Configura la IP dinàmicament (DHCP)"
+msgstr "Configurcióa d'IP dinàmica (DHCP)"
 
 #: loader/net.h:31
 msgid "Automatic neighbor discovery"
@@ -3985,9 +3977,9 @@ msgid "Device %s does not appear to contain an installation image."
 msgstr "El dispositiu %s no sembla que contingui una imatge d'instal·lació."
 
 #: loader/hdinstall.c:361
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command: %s"
-msgstr "Argument erroni per a l'ordre HD del kickstart %s: %s"
+msgstr "Argument erroni per a l'ordre HD del kickstart: %s"
 
 #: loader/hdinstall.c:441
 #: loader/hdinstall.c:497
@@ -4023,18 +4015,18 @@ msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Hi ha un error a %s a la línia %d del fitxer kickstart %s."
 
 #: loader/kickstart.c:193
-#, fuzzy, c-format
+#, c-format
 msgid "Missing options on line %d of kickstart file %s."
-msgstr "Hi ha un error a %s a la línia %d del fitxer kickstart %s."
+msgstr "Falten opcions en la línia %d del fitxer de kickstart %s."
 
 #: loader/kickstart.c:300
 msgid "Cannot find ks.cfg on removable media."
 msgstr "No s'ha pogut trobar ks.cfg en el dispositiu extraïble."
 
 #: loader/kickstart.c:340
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command: %s"
-msgstr "Argument erroni al dispositiu de l'ordre del mètode del kickstart %s: %s"
+msgstr "Argument erroni al dispositiu de l'ordre del mètode del kickstart: %s"
 
 #: loader/kickstart.c:356
 msgid "A module name must be specified for the kickstart device command."
@@ -4049,9 +4041,9 @@ msgid "Error downloading kickstart file"
 msgstr "S'ha produït un error en baixar el fitxer kickstart"
 
 #: loader/kickstart.c:572
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command: %s"
-msgstr "Argument erroni per aturar l'ordre del mètode del kickstart %s: %s"
+msgstr "Argument erroni per aturar l'ordre del mètode del kickstart: %s"
 
 #: loader/lang.c:63
 #: loader/loader.c:229
@@ -4128,9 +4120,9 @@ msgid "Error downloading updates image"
 msgstr "S'ha produït un error en baixar la imatge d'actualitzacions"
 
 #: loader/loader.c:1214
-#, fuzzy, c-format
+#, c-format
 msgid "You do not have enough RAM to install %s on this machine%s."
-msgstr "Aquest ordinador no té prou memòria RAM per a instal·lar-hi %s."
+msgstr "No teniu prouta memòria RAM en l'ordinador %s per a instal·lar-hi %s."
 
 #: loader/loader.c:1268
 msgid "Media Detected"
@@ -4200,16 +4192,15 @@ msgstr "ja s'ha executat el gestor. S'està iniciant el shell.\n"
 #: loader/loader.c:2125
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
-msgstr ""
+msgstr "S'ha detectat un disc de controladors a %s. Voloeu utilitzar-lo?."
 
 #: loader/loader.c:2128
-#, fuzzy
 msgid "Driver disc detected"
-msgstr "S'ha detectat el medi"
+msgstr "S'ha detectat un disc de controladors"
 
 #: loader/loader.c:2128
 msgid "Use it"
-msgstr ""
+msgstr "Utilitza'l"
 
 #: loader/loader.c:2128
 msgid "Skip it"
@@ -4246,9 +4237,8 @@ msgid "Unable to find the checksum in the image.  This probably means the disc w
 msgstr "No s'ha pogut llegir la suma de verificació del disc des del descriptor de volum primari. Molt probablement això indica que el disc es va crear sense afegir la suma de verificació."
 
 #: loader/mediacheck.c:94
-#, fuzzy
 msgid "Unable to open the image."
-msgstr "No s'ha pogut trobar la imatge"
+msgstr "No s'ha pogut obrir la imatge"
 
 #: loader/mediacheck.c:98
 msgid "The image which was just tested has errors. This could be due to a corrupt download or a bad disc.  If applicable, please clean the disc and try again.  If this test continues to fail you should not continue the install."
@@ -4299,6 +4289,9 @@ msgid ""
 "This cannot be corrected in cmdline mode.\n"
 "Halting.\n"
 msgstr ""
+"\n"
+"No es pot corregir des de la línia de comandes.\n"
+"Abortant.\n"
 
 #: loader/net.c:511
 #: loader/net.c:566
@@ -4379,9 +4372,9 @@ msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Heu d'indicar una adreça IPv6 i un prefix CIDR vàlids."
 
 #: loader/net.c:1635
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command: %s"
-msgstr "Argument erroni per a l'ordre de xarxa del kickstart %s: %s"
+msgstr "Argument erroni per a l'ordre de xarxa del kickstart: %s"
 
 #: loader/net.c:1656
 #, c-format
@@ -4467,9 +4460,9 @@ msgid "That directory does not seem to contain a %s installation image."
 msgstr "Aquell directori no sembla contenir una imatge d'instal·lació %s."
 
 #: loader/nfsinstall.c:415
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "Argument erroni per a l'ordre del kickstart NFS %s: %s"
+msgstr "Argument erroni per a l'ordre del kickstart NFS: %s"
 
 #: loader/telnetd.c:90
 #: loader/telnetd.c:129
@@ -4487,18 +4480,18 @@ msgstr "S'està executant l'anaconda mitjançant telnet."
 #  Traducció "retrieve" per "descarregar" enlloc de "recuperar"
 #  Feta a posta, ja que en aquest cas s'hi escau millor.
 #: loader/urlinstall.c:138
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s."
-msgstr "No s'ha pogut descarregar %s://%s%s."
+msgstr "No s'ha pogut descarregar %s."
 
 #: loader/urlinstall.c:222
 msgid "Unable to retrieve the install image."
 msgstr "No s'ha pogut descarregar la imatge d'instal·lació."
 
 #: loader/urlinstall.c:375
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to URL kickstart method command: %s"
-msgstr "Argument erroni per a l'ordre Url del mètode del kickstart %s: %s"
+msgstr "Argument erroni per a l'ordre URL del mètode del kickstart: %s"
 
 #: loader/urlinstall.c:386
 msgid "Must supply a --url argument to Url kickstart method."
@@ -4548,9 +4541,8 @@ msgid "URL must be either an ftp or http URL"
 msgstr "La URL ha de ser una URL d'ftp o bé d'http"
 
 #: loader/urls.c:356
-#, fuzzy
 msgid "Proxy must be either an ftp or http URL"
-msgstr "L'URL ha de ser una URL d'ftp o http"
+msgstr "L'URL del servidor intermediari ha de ser una URL d'ftp o d'http"
 
 #: loader/windows.c:66
 msgid "Loading SCSI driver"
@@ -4576,7 +4568,7 @@ msgstr "No s'han trobat cap disc"
 
 #: pyanaconda/storage/__init__.py:121
 msgid "No usable disks have been found."
-msgstr ""
+msgstr "No s'ha trobac cap disc que es pugui utilitzar."
 
 #: pyanaconda/storage/__init__.py:132
 msgid "Installation cannot continue."
@@ -4896,8 +4888,8 @@ msgstr[1] "S'estan formatejant els dispositius DASD"
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "S'està preparant %d dispositiu DASD per a uttlitzar-lo amb Linux..."
+msgstr[1] "S'estàn preparant %d dispositius DASD per a uttlitzar-los amb Linux..."
 
 #: pyanaconda/storage/devicelibs/lvm.py:309
 #, python-format
@@ -4929,8 +4921,8 @@ msgstr "S'està creant e disopistiu %s"
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Un conjunt RAID%d necessita com a mínim %d membre"
+msgstr[1] "Un conjunt RAID%d necessita com a mínim %d membres"
 
 #: pyanaconda/storage/devices.py:3384
 #, python-format
@@ -4955,7 +4947,7 @@ msgstr "Aquesta partició és part d'un grup de volum LVM inconsistent."
 #: pyanaconda/storage/fcoe.py:66
 #: pyanaconda/storage/fcoe.py:67
 msgid "Connecting to FCoE SAN"
-msgstr ""
+msgstr "S'està connectant a FCoE SAN"
 
 #: pyanaconda/storage/fcoe.py:111
 msgid "FCoE not available"
@@ -5003,7 +4995,7 @@ msgstr "S'està verificant el sistema de fitxers a %s"
 #: pyanaconda/storage/formats/fs.py:531
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
-msgstr ""
+msgstr "S'ha produït un error en la verificació del sistema de fitxers %(type)s de %(device)s: "
 
 #: pyanaconda/storage/formats/fs.py:537
 msgid "Errors like this usually mean there is a problem with the filesystem that will require user interaction to repair.  Before restarting installation, reboot to rescue mode or another system that allows you to repair the filesystem interactively.  Restart installation after you have corrected the problems on the filesystem."
@@ -5028,7 +5020,7 @@ msgstr "Error d'utilització o de sintaxis."
 
 #: pyanaconda/storage/formats/fs.py:892
 msgid "e2fsck cancelled by user request."
-msgstr ""
+msgstr "A petició de l'usuari s'ha cancel·lat e2fsck."
 
 #: pyanaconda/storage/formats/fs.py:893
 msgid "Shared library error."
@@ -5067,9 +5059,8 @@ msgid "Unable to change iSCSI initiator name once set"
 msgstr ""
 
 #: pyanaconda/storage/iscsi.py:137
-#, fuzzy
 msgid "Must provide an iSCSI initiator name"
-msgstr "Heu de proporcionar un nom per a l'iniciador."
+msgstr "Heu de proporcionar un nom d'iniciador iSCSI."
 
 #: pyanaconda/storage/iscsi.py:177
 #: pyanaconda/storage/iscsi.py:178
@@ -5136,7 +5127,7 @@ msgstr ""
 "Premeu «D'acord» per a abandonar l'instal·lador."
 
 #: pyanaconda/storage/partitioning.py:248
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
@@ -5144,7 +5135,7 @@ msgid ""
 msgstr ""
 "No s'han pogut ubicar les particions sol·licitades: \n"
 "\n"
-"%s.%s"
+"%(msg)s.%(extra)s"
 
 #: pyanaconda/storage/partitioning.py:269
 msgid ""
@@ -5193,19 +5184,19 @@ msgid "zFCP device %s not found, not even in device ignore list."
 msgstr "No s'ha trobat el dispositiu zFCP %s, tampoc a la llista de dispositius ignorats."
 
 #: pyanaconda/storage/zfcp.py:143
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
-msgstr "No s'ha pogut posar en línia el dispositiu zFCP %s (%s)."
+msgstr "No s'ha pogut posar en línia el dispositiu zFCP %(devnum)s  (%(e)s)."
 
 #: pyanaconda/storage/zfcp.py:154
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
-msgstr "No s'ha pogut afegir el WWPN %s al dispositiu zFCP %s (%s)."
+msgstr "No s'ha pogut afegir el WWPN %(wwpn)s al dispositiu zFCP %(devnum)s (%(e)s)."
 
 #: pyanaconda/storage/zfcp.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
-msgstr "No s'ha trobat el WWPN %s al dispositiu zFCP %s."
+msgstr "No s'ha trobat el WWPN %(wwpn)s al dispositiu zFCP %(devnum)s."
 
 #: pyanaconda/storage/zfcp.py:176
 #, fuzzy, python-format
@@ -5233,19 +5224,19 @@ msgid "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcpl
 msgstr "No s'ha pogut suprimir correctament el dispositiu SCSI del zFCP %s %s %s (%s)."
 
 #: pyanaconda/storage/zfcp.py:269
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "No s'ha pogut suprimir el LUN %s al WWPN %s al dispositiu zFCP %s (%s)."
+msgstr "No s'ha pogut suprimir el LUN %(fcplun)s al WWPN %(wwpn)s al dispositiu zFCP %(devnum)s (%(e)s)."
 
 #: pyanaconda/storage/zfcp.py:287
-#, fuzzy, python-format
+#, python-format
 msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "No s'ha pogut suprimir el WWPN %s al dispositiu zFCP %s (%s)."
+msgstr "No s'ha pogut suprimir el WWPN %(wwpn)s al dispositiu zFCP %(devnum)s (%(e)s)."
 
 #: pyanaconda/storage/zfcp.py:313
-#, fuzzy, python-format
+#, python-format
 msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
-msgstr "No s'ha pogut posar fora de línia el dispositiu zFCP %s (%s)."
+msgstr "No s'ha pogut posar fora de línia el dispositiu zFCP %(devnum)s  (%(e)s)."
 
 #: pyanaconda/textw/complete_text.py:32
 msgid "Reboot"
@@ -5616,9 +5607,8 @@ msgid "_Next"
 msgstr "Següe_nt"
 
 #: data/ui/autopart.glade.h:1
-#, fuzzy
 msgid "<b>Shrink partition _to size (in MB):</b>"
-msgstr "<b>Encon_geix (en MB):</b>"
+msgstr "<b>Encongeix la mida de la partició (en MB):</b>"
 
 #: data/ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
@@ -5796,9 +5786,8 @@ msgid "<b>Tip:</b> Selected drives will not be formatted unless you choose to do
 msgstr ""
 
 #: data/ui/filter.glade.h:2
-#, fuzzy
 msgid "Add Advanced Target"
-msgstr "Opcions d'emmagatzemament avançades"
+msgstr "Afegeix destí avançat"
 
 #: data/ui/filter.glade.h:3
 msgid "Basic Devices"
@@ -5880,9 +5869,8 @@ msgid "Show Only Devices Using:"
 msgstr "Mostra únicament dispositius que utilitzin:"
 
 #: data/ui/filter.glade.h:25
-#, fuzzy
 msgid "Target:"
-msgstr "Unitats destí:"
+msgstr "Destí:"
 
 #: data/ui/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
