@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-08-23 12:31+0200\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2010-08-29 12:14+0200\n"
+"Last-Translator: elad <el.il@doom.co.il>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -143,7 +143,7 @@ msgstr "האם ברצונך להשתמש ב־VNC?"
 
 #: anaconda:714
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
-msgstr ""
+msgstr "מצב טקסט מספק סט מוגבל של אפשרויות להתקנה. הוא לא מאפשר לך לקבוע פריסת מחיצות מותאמת אישית או לבחור חבילות. האם תרצה להשתמש במצב VNC במקום?"
 
 #: anaconda:740
 msgid "Graphical installation is not available. Starting text mode."
@@ -350,7 +350,7 @@ msgstr "מתקין מנהל אתחול..."
 
 #: pyanaconda/bootloader.py:222
 msgid "There was an error installing the bootloader.  The system may not be bootable."
-msgstr ""
+msgstr "התרחשה שגיאה בעת התקנת מנהל האתחול. יתכן ולא יהיה ניתן לאתחל את המערכת."
 
 #: pyanaconda/bootloader.py:228
 msgid "No kernel packages were installed on the system.  Bootloader configuration will not be changed."
@@ -517,7 +517,7 @@ msgstr "הגדרות קישור אלחוטי"
 
 #: pyanaconda/gui.py:934
 msgid "Scanning access points for wireless devices"
-msgstr ""
+msgstr "סורק נקודות גישה להתקנים אלחוטיים"
 
 #: pyanaconda/gui.py:959
 #: pyanaconda/textw/netconfig_text.py:276
@@ -525,15 +525,15 @@ msgid "Waiting for NetworkManager"
 msgstr "ממתין ל-NetworkManager"
 
 #: pyanaconda/gui.py:960
-#, fuzzy, python-format
+#, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
-msgstr "ממתין ש-NetworkManager יבצע הגדרות ל־%s‏.\n"
+msgstr "ממתין למנהל הרשתות שיפעיל את ההתקנים האלו: ‎%s"
 
 #
 #: pyanaconda/gui.py:981
-#, fuzzy, python-format
+#, python-format
 msgid "Failed to activate these network interfaces: %s"
-msgstr "האם להפעיל את ממשקי הרשת במערכת זו?"
+msgstr "כישלון בהפעלת ממשקי הרשת הבאים: ‎%s"
 
 #
 #: pyanaconda/gui.py:984
@@ -1089,7 +1089,7 @@ msgstr "_דיווח על שגיאה"
 
 #
 #: pyanaconda/packages.py:314
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Warning!  This is pre-release software!\n"
 "\n"
@@ -1103,7 +1103,9 @@ msgid ""
 "\n"
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
-"תודה על הורדת גרסת טרום שחרור של %(productName)s.\n"
+"אזהרה! זוהי תוכנת קדם־שחרור!\n"
+"\n"
+"תודה על הורדת גרסת טרום שחרור של ‎%(productName)s.\n"
 "\n"
 "זו לא גרסה סופית והיא אינה מיועדת לשימוש יום יומי. מטרת השחרור היא לקבל משוב ממשתמשים הבודקים את המערכת.\n"
 "\n"
@@ -1111,7 +1113,7 @@ msgstr ""
 "\n"
 "   %(bugzillaUrl)s\n"
 "\n"
-"ולדווח על שגיאות ברכיב '%(fileagainst)s'.\n"
+"ולדווח על שגיאות ברכיב '‎%(fileagainst)s'.\n"
 
 #
 #: pyanaconda/packages.py:330
@@ -1750,6 +1752,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"לא ניתן לשדרג את ההתקנה הנוכחית שלך. רוב הסיכויים שזה בגלל שהיא ישנה מדי. ניתן לשדרג רק את שתי הגרסאות הקודמות. כדי לשדרג גרסה ישנה יותר, אתה חייב לשדרג קודם דרך כל גרסאות הביניים.\n"
+"\n"
+"%s"
 
 #
 #: pyanaconda/upgrade.py:229
@@ -1835,11 +1840,11 @@ msgstr "ניסיון התחברות נוסף תוך 15 שניות..."
 
 #
 #: pyanaconda/vnc.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
-msgstr[0] "מוותר על ניסיונות התקשרות לאחר %d פעמים!\n"
-msgstr[1] "מוותר על ניסיונות התקשרות לאחר %d פעמים!\n"
+msgstr[0] "מוותר על ניסיונות התקשרות לאחר הניסיון הראשון\n"
+msgstr[1] "מוותר על ניסיונות התקשרות לאחר %d ניסיונות!\n"
 
 #
 #: pyanaconda/vnc.py:209
@@ -2039,11 +2044,11 @@ msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgstr "<b>מתקין את %(pkgStr)s</b> (%(size)s)\n"
 
 #: pyanaconda/yuminstall.py:212
-#, fuzzy, python-format
+#, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr[0] "חבילות שהושלמו: %(donepkgs)d חבילות מתוך %(numpkgs)d חבילות"
-msgstr[1] "חבילות שהושלמו: %(donepkgs)d חבילות מתוך %(numpkgs)d חבילות"
+msgstr[0] "חבילות שהושלמו: ‎%(donepkgs)d חבילות מתוך ‎%(numpkgs)d חבילות"
+msgstr[1] "חבילות שהושלמו: ‎%(donepkgs)d חבילות מתוך ‎%(numpkgs)d חבילות"
 
 #
 #: pyanaconda/yuminstall.py:227
@@ -2261,9 +2266,8 @@ msgstr ""
 "%s"
 
 #: pyanaconda/yuminstall.py:1455
-#, fuzzy
 msgid "Some of the packages you have selected for install are missing dependencies.  You can exit the installation, go back and change your package selections, or continue installing these packages without their dependencies.  If you continue, these packages may not work correctly due to missing components."
-msgstr "חסרות תלויות לחלק מהחבילות שבחרת להתקנה. אתה יכול לצאת מההתקנה, לחזור חזרה ולשנות את החבילות שבחרת, או להתקין את החבילות האלו בלי התלויות שלהן."
+msgstr "חסרות תלויות לחלק מהחבילות שבחרת להתקנה. אתה יכול לצאת מההתקנה, לחזור חזרה ולשנות את החבילות שבחרת, או להתקין את החבילות האלו בלי התלויות שלהן. אם תמשיך בהתקנה, החבילות האלו עלולות לא לעבוד כראוי בגלל רכיבים חסרים."
 
 #
 #: pyanaconda/yuminstall.py:1499
@@ -2381,7 +2385,7 @@ msgid "Red Hat Enterprise Linux"
 msgstr "Red Hat Enterprise Linux"
 
 #: pyanaconda/installclasses/rhel.py:34
-#, fuzzy, python-format
+#, python-format
 msgid "The default installation of %s is a minimum install. You can optionally select a different set of software now."
 msgstr "התקנת ברירת המחדל של %s היא התקנה מינימלית. באפשרותך לבחור סט אחר של תוכנה עכשיו."
 
@@ -2702,17 +2706,14 @@ msgstr ""
 "אתחול"
 
 #: pyanaconda/iw/cleardisks_gui.py:196
-#, fuzzy
 msgid "<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."
 msgstr "‏<b>עצה:</b> כל מערכות הקבצים מסוג לינוקס על יעד ההתקנה יפורמטו מחדש וכל המידע שעליהם ימחק. וודא שיש לך גיבויים."
 
 #: pyanaconda/iw/cleardisks_gui.py:198
-#, fuzzy
 msgid "<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."
 msgstr "‏<b>עצה:</b> התקני היעד להתקני יפורמטו מחדש וכל המידע שעליהם ימחק. וודא שיש לך גיבויים."
 
 #: pyanaconda/iw/cleardisks_gui.py:200
-#, fuzzy
 msgid "<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."
 msgstr "‏<b>עצה:</b> מערכות הקבצים שעל התקני היעד להתקנה לא ימחקו אלא אם תבחר לעשות כן בזמן ההתאמה האישית."
 
@@ -4701,17 +4702,16 @@ msgstr ""
 #: loader/loader.c:2125
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
-msgstr ""
+msgstr "דיסק מנהל התקן התגלה ב־%s. האם ברצונך להשתמש בו?"
 
 #
 #: loader/loader.c:2128
-#, fuzzy
 msgid "Driver disc detected"
-msgstr "זוהתה מדיה"
+msgstr "זוהה דיסק מנהל ־התקן"
 
 #: loader/loader.c:2128
 msgid "Use it"
-msgstr ""
+msgstr "השתמש בו"
 
 #
 #: loader/loader.c:2128
@@ -4746,7 +4746,7 @@ msgstr "בודק את המדיה."
 
 #: loader/mediacheck.c:87
 msgid "Unable to find the checksum in the image.  This probably means the disc was created without adding the checksum."
-msgstr ""
+msgstr "לא ניתן למצוא את החתימה בתמונה. רוב הסיכויים שזה אומר שהתקליטור נוצר ללא הוספת חתימה."
 
 #
 #: loader/mediacheck.c:94
@@ -4755,7 +4755,7 @@ msgstr "לא ניתן לפתוח את התמונה."
 
 #: loader/mediacheck.c:98
 msgid "The image which was just tested has errors. This could be due to a corrupt download or a bad disc.  If applicable, please clean the disc and try again.  If this test continues to fail you should not continue the install."
-msgstr ""
+msgstr "התמונה שנבדקה כעת מכילה שגיאות. יכול להיות שזה בגלל הורדה פגומה או תקליטור פגום. אם ניתן, נקה את התקליטור ונסה שנית. אם הבדיקה הזו ממשיכה להיכשל לא כדאי שתמשיך בהתקנה."
 
 #
 #: loader/mediacheck.c:106
@@ -4764,7 +4764,7 @@ msgstr "הצלחה"
 
 #: loader/mediacheck.c:107
 msgid "The image which was just tested was successfully verified.  It should be OK to install from this media.  Note that not all media/drive errors can be detected by the media check."
-msgstr ""
+msgstr "התמונה שנבדקה כעת אומתה בהצלחה. זה צריך להיות בסדר להתקין מהמדיה הזו. שים לב שלא כל שגיאות המדיה או הכונן ניתנים לזיהוי ע\"י בדיקת המדיה."
 
 #
 #: loader/method.c:330
@@ -5101,9 +5101,8 @@ msgstr "הכתובת חייבת להיות כתובת ftp או http"
 
 #
 #: loader/urls.c:356
-#, fuzzy
 msgid "Proxy must be either an ftp or http URL"
-msgstr "הכתובת חייבת להיות כתובת ftp או http"
+msgstr "כתובת שרת הפרוקסי חייבת להיות כתובת ftp או http"
 
 #
 #: loader/windows.c:66
@@ -5133,7 +5132,7 @@ msgstr "לא נמצאו כוננים"
 
 #: pyanaconda/storage/__init__.py:121
 msgid "No usable disks have been found."
-msgstr ""
+msgstr "לא נמצאו דיסקים שניתן להשתמש בהם"
 
 #
 #: pyanaconda/storage/__init__.py:132
@@ -5635,9 +5634,9 @@ msgstr "%s בהצפנה"
 
 #: pyanaconda/storage/formats/lvmpv.py:104
 #: pyanaconda/storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %s on %s"
-msgstr "יוצר מערכת קבצים %s על %s"
+msgstr "יוצר %s על %s"
 
 #: pyanaconda/storage/iscsi.py:83
 #: pyanaconda/storage/iscsi.py:84
@@ -6369,9 +6368,8 @@ msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any d
 msgstr "‏<b>עצה:</b> התקני היעד להתקני יפורמטו מחדש וכל המידע שעליהם ימחק. וודא שיש לך גיבויים."
 
 #: data/ui/cleardisks.glade.h:4
-#, fuzzy
 msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data devices (these will not be formatted, only mounted) and which devices you'd like to use as installation target devices (these may be formatted).  Please also indicate which system drive will have the bootloader installed."
-msgstr "להלן התקני האחסון שבהם בחרת להיות חלק מהתקנה זו. אנא ציין באמצעות החצים באילו התקנים אתה רוצה להשתמש ככונני מידע (אלה לא יפורמטו, רק יעוגנו) ובאילו התקנים אתה רוצה להשתמש ככונני מערכת (אלו אולי יפורמטו)."
+msgstr "להלן התקני האחסון שבהם בחרת להיות חלק מהתקנה זו. אנא ציין באמצעות החצים באילו התקנים אתה רוצה להשתמש ככונני מידע (אלה לא יפורמטו, רק יעוגנו) ובאילו התקנים אתה רוצה להשתמש ככונני יעד להתקנה (אלו אולי יפורמטו). אנא ציין בנוסף באיזה התקן מערכת יותקן מנהל האתחול."
 
 #: data/ui/create-storage.glade.h:1
 #, fuzzy
