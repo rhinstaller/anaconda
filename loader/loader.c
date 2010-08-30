@@ -129,10 +129,10 @@ static int init_sig = SIGUSR1; /* default to shutdown=halt */
 static const char *LANG_DEFAULT = "en_US.UTF-8";
 
 static struct installMethod installMethods[] = {
-    { N_("Local CD/DVD"), 0, DEVICE_CDROM, mountCdromImage },
-    { N_("Hard drive"), 0, DEVICE_DISK, mountHardDrive },
-    { N_("NFS directory"), 1, DEVICE_NETWORK, mountNfsImage },
-    { "URL", 1, DEVICE_NETWORK, mountUrlImage },
+    { N_("Local CD/DVD"), 0, DEVICE_CDROM, NULL, NULL },
+    { N_("Hard drive"), 0, DEVICE_DISK, NULL, NULL },
+    { N_("NFS directory"), 1, DEVICE_NETWORK, NULL, NULL },
+    { "URL", 1, DEVICE_NETWORK, promptForUrl, loadUrlImages},
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -1302,8 +1302,6 @@ static void doLoaderMain(struct loaderData_s *loaderData,
 
             case STEP_METHOD: {
                 if (FL_ASKMETHOD(flags)) {
-                    loaderData->method = -1;
-
                     if (FL_CMDLINE(flags)) {
                         fprintf(stderr, "No method given for cmdline mode, aborting\n");
                         doExit(EXIT_FAILURE);
@@ -1330,17 +1328,25 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                                  30, 10, 20, 6, installNames, &loaderData->method,
                                  _("OK"), _("Back"), NULL);
                 if (rc == 2) {
-                    loaderData->method = -1;
+                    flags |= LOADER_FLAGS_ASKMETHOD;
                 }
 
                 if (rc && (rc != 1)) {
                     step = STEP_KBD;
                     dir = -1;
                 } else {
+                    /* Now prompt for the method-specific config info. */
+                    rc = installMethods[validMethods[loaderData->method]].prompt(loaderData);
+
+                    /* Just go back to the method selection screen. */
+                    if (rc == LOADER_BACK)
+                        break;
+
                     class = installMethods[validMethods[loaderData->method]].type;
                     step = STEP_DRIVER;
                     dir = 1;
                 }
+
                 break;
             }
 
@@ -1523,6 +1529,7 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                 /* FIXME - this is where we need to look for product.img,
                  * updates.img, etc.
                  */
+                installMethods[validMethods[loaderData->method]].findExtras(loaderData);
                 step = STEP_DONE;
                 break;
             }

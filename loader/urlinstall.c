@@ -160,28 +160,17 @@ static void copyErrorFn (char *msg) {
    newtWinMessage(_("Error"), _("OK"), _(msg));
 }
 
-static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
-    char *oldUrl, *path, *dest, *slash;
-    int rc;
+int loadUrlImages(struct loaderData_s *loaderData) {
+    char *url;
 
-    oldUrl = strdup(ui->url);
-    free(ui->url);
-
-    /* Figure out the path where updates.img and product.img files are
-     * kept.  Since ui->url points to a stage2 image file, we just need
-     * to trim off the file name and look in the same directory.
-     */
-    if ((slash = strrchr(oldUrl, '/')) == NULL)
+    if (!loaderData->instRepo)
         return 0;
-
-    if ((path = strndup(oldUrl, slash-oldUrl)) == NULL)
-        path = oldUrl;
 
     /* grab the updates.img before install.img so that we minimize our
      * ramdisk usage */
-    checked_asprintf(&ui->url, "%s/%s", path, "updates.img");
+    checked_asprintf(&url, "%s/images/%s", loaderData->instRepo, "updates.img");
 
-    if (!loadSingleUrlImage(loaderData, ui->url, "/tmp/updates-disk.img", "/tmp/update-disk", 1)) {
+    if (!loadSingleUrlImage(loaderData, url, "/tmp/updates-disk.img", "/tmp/update-disk", 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
                       copyErrorFn);
         umount("/tmp/update-disk");
@@ -192,13 +181,13 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
         unlink("/tmp/updates-disk.img");
     }
 
-    free(ui->url);
+    free(url);
 
     /* grab the product.img before install.img so that we minimize our
      * ramdisk usage */
-    checked_asprintf(&ui->url, "%s/%s", path, "product.img");
+    checked_asprintf(&url, "%s/images/%s", loaderData->instRepo, "product.img");
 
-    if (!loadSingleUrlImage(loaderData, ui->url, "/tmp/product-disk.img", "/tmp/product-disk", 1)) {
+    if (!loadSingleUrlImage(loaderData, url, "/tmp/product-disk.img", "/tmp/product-disk", 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
                       copyErrorFn);
         umount("/tmp/product-disk");
@@ -206,23 +195,33 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
         unlink("/tmp/product-disk");
     }
 
-    free(ui->url);
-    ui->url = strdup(oldUrl);
-
-    checked_asprintf(&dest, "/tmp/install.img");
-
-    rc = loadSingleUrlImage(loaderData, ui->url, dest, "/mnt/runtime", 0);
-    free(dest);
-    free(oldUrl);
-
-    if (rc) {
-        if (rc != 2) 
-            newtWinMessage(_("Error"), _("OK"),
-                           _("Unable to retrieve the install image."));
-        return 1;
-    }
-
+    free(url);
     return 0;
+}
+
+int promptForUrl(struct loaderData_s *loaderData) {
+    char *url;
+
+    do {
+        if (urlMainSetupPanel(loaderData) == LOADER_BACK) {
+            loaderData->instRepo = NULL;
+            return LOADER_BACK;
+        }
+
+        checked_asprintf(&url, "%s/.treeinfo", loaderData->instRepo);
+
+        if (getFileFromUrl(url, "/tmp/.treeinfo", loaderData)) {
+            newtWinMessage(_("Error"), _("OK"),
+                           _("The URL provided does not contain installation media."));
+            free(url);
+            continue;
+        }
+
+        free(url);
+        break;
+    } while (1);
+
+    return LOADER_OK;
 }
 
 char *mountUrlImage(struct installMethod *method, char *location,
@@ -289,7 +288,7 @@ char *mountUrlImage(struct installMethod *method, char *location,
             }
 
             case URL_STAGE_FETCH: {
-                if (loadUrlImages(loaderData, &ui)) {
+                if (loadUrlImages(loaderData)) {
                     stage = URL_STAGE_MAIN;
 
                     if (loaderData->method >= 0)

@@ -35,8 +35,8 @@ struct installMethod {
     char * name;
     int network;
     enum deviceType type;
-    char * (*mountImage)(struct installMethod * method,
-                         char * location, struct loaderData_s * loaderData);
+    int (*prompt)(struct loaderData_s *loaderData);
+    int (*findExtras)(struct loaderData_s *loaderData);
 };
 
 int readStampFileFromIso(char *file, char **descr, char **timestamp);
