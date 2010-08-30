@@ -1078,6 +1078,19 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             } else if (!strcasecmp(k, "stage2")) {
                 logMessage(WARNING, "stage2= is deprecated.  Please use repo= instead.");
                 flags |= LOADER_FLAGS_ASKMETHOD;
+            } else if (!strcasecmp(k, "repo")) {
+                loaderData->instRepo = g_strdup(v);
+
+                /* We still have to set the method in case repo= was used so we
+                 * know how to get updates.img and product.img, and it only
+                 * gets set elsewhere on interactive installs.
+                 */
+                if (!strncmp(v, "nfs:", 4))
+                    loaderData->method = METHOD_NFS;
+                else if (!strncmp(v, "hd:", 3))
+                    loaderData->method = METHOD_HD;
+                else if (!strncmp(v, "cd:", 3))
+                    loaderData->method = METHOD_CDROM;
             } else if (!strcasecmp(k, "hostname")) {
                 loaderData->hostname = g_strdup(v);
             } else if (!strcasecmp(k, "ip")) {
@@ -1881,7 +1894,7 @@ int main(int argc, char ** argv) {
     }
 
     memset(&loaderData, 0, sizeof(loaderData));
-    loaderData.method = -1;
+    loaderData.method = METHOD_URL;
     loaderData.fw_loader_pid = -1;
     loaderData.fw_search_pathz_len = -1;
     loaderData.dhcpTimeout = -1;
