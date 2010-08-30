@@ -31,7 +31,7 @@ struct iurlinfo {
 void urlinfo_copy(struct iurlinfo *dst, const struct iurlinfo *src);
 
 int splitProxyParam(char *param, char **user, char **password, char **proxy);
-int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui);
+int urlMainSetupPanel(struct loaderData_s *loaderData);
 int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
                     char **extraHeaders, char *dest);
 

@@ -242,7 +242,7 @@ static void setProxySensitivity(newtComponent co, void *dptr) {
     return;
 }
 
-int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
+int urlMainSetupPanel(struct loaderData_s *loaderData) {
     newtComponent form, okay, cancel, urlEntry, proxyCheckbox;
     newtComponent proxyEntries[3];
     newtComponent answer, text;
@@ -254,8 +254,8 @@ int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
     char * buf = NULL;
 
     /* Populate the UI with whatever initial value we've got. */
-    if (ui && ui->url)
-        url = ui->url;
+    if (loaderData->instRepo)
+       url = loaderData->instRepo;
 
     if (loaderData->proxy)
         proxy = loaderData->proxy;
@@ -342,13 +342,13 @@ int urlMainSetupPanel(struct loaderData_s *loaderData, struct iurlinfo * ui) {
                 continue;
             }
 
+            loaderData->instRepo = strdup(url);
+
             if (strncmp(url, "http", 4) && strncmp(url, "ftp://", 6)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("URL must be either an ftp or http URL"));
                 continue;
             }
-
-            ui->url = strdup(url);
 
             if (enableProxy == '*') {
                if (strncmp(proxy, "http", 4) && strncmp(proxy, "ftp://", 6)) {
