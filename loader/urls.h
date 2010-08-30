@@ -23,13 +23,6 @@
 #include "loader.h"
 #include "windows.h"
 
-struct iurlinfo {
-    char * url;
-    int noverifyssl;
-};
-
-void urlinfo_copy(struct iurlinfo *dst, const struct iurlinfo *src);
-
 int splitProxyParam(char *param, char **user, char **password, char **proxy);
 int urlMainSetupPanel(struct loaderData_s *loaderData);
 int urlinstTransfer(struct loaderData_s *loaderData, const char *src,

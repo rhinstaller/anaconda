@@ -23,8 +23,6 @@
 #include "method.h"
 #include "urls.h"
 
-typedef struct iurlinfo urlInstallData;
-
 void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 		     char ** argv);
 int kickstartFromUrl(char * url, struct loaderData_s * loaderData);

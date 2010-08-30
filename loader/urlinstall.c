@@ -226,7 +226,6 @@ int promptForUrl(struct loaderData_s *loaderData) {
 
 int getFileFromUrl(char * url, char * dest, 
                    struct loaderData_s * loaderData) {
-    struct iurlinfo ui;
     char **ehdrs = NULL;
     int rc;
     iface_t iface;
@@ -238,18 +237,15 @@ int getFileFromUrl(char * url, char * dest,
         return 1;
     }
 
-    memset(&ui, 0, sizeof(ui));
-    ui.url = url;
-
     logMessage(INFO, "file location: %s", url);
 
     if (!strncmp(url, "http", 4)) {
         ehdrs = headers();
     }
 
-    rc = urlinstTransfer(loaderData, ui.url, ehdrs, dest);
+    rc = urlinstTransfer(loaderData, url, ehdrs, dest);
     if (rc) {
-        logMessage(ERROR, "failed to retrieve %s", ui.url);
+        logMessage(ERROR, "failed to retrieve %s", url);
         return 1;
     }
 
@@ -263,7 +259,6 @@ int kickstartFromUrl(char * url, struct loaderData_s * loaderData) {
 
 void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 		    char ** argv) {
-    char *substr = NULL;
     gchar *url = NULL, *proxy = NULL;
     gboolean noverifyssl = FALSE;
     GOptionContext *optCon = g_option_context_new(NULL);
@@ -305,18 +300,9 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
         return;
     }
 
-    substr = strstr(url, ".img");
-    if (!substr || (substr && *(substr+4) != '\0')) {
-        loaderData->instRepo = strdup(url);
-        loaderData->instRepo_noverifyssl = noverifyssl;
-    } else {
-        if ((loaderData->stage2Data = calloc(sizeof(urlInstallData), 1)) == NULL)
-            return;
-
-        loaderData->method = METHOD_URL;
-        ((urlInstallData *)loaderData->stage2Data)->url = url;
-        ((urlInstallData *)loaderData->stage2Data)->noverifyssl = noverifyssl;
-    }
+    loaderData->instRepo = strdup(url);
+    loaderData->instRepo_noverifyssl = noverifyssl;
+    loaderData->method = METHOD_URL;
 
     if (proxy) {
         splitProxyParam(proxy, &loaderData->proxyUser,
