@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-08-29 12:14+0200\n"
+"PO-Revision-Date: 2010-08-30 12:11+0200\n"
 "Last-Translator: elad <el.il@doom.co.il>\n"
 "Language-Team: Hebrew <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -5530,9 +5530,8 @@ msgid "Connecting to FCoE SAN"
 msgstr ""
 
 #: pyanaconda/storage/fcoe.py:111
-#, fuzzy
 msgid "FCoE not available"
-msgstr "‏iSCSI לא זמין"
+msgstr "‏FCoE לא זמין"
 
 #: pyanaconda/storage/formats/fs.py:102
 msgid "filesystem configuration missing a type"
@@ -5579,11 +5578,11 @@ msgstr "בדיקת מערכת קבצים על %s"
 #: pyanaconda/storage/formats/fs.py:531
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
-msgstr ""
+msgstr "בדיקת מערכת הקבצים מסוג ‎%(type)s נכשלה על ‎%(device)s: "
 
 #: pyanaconda/storage/formats/fs.py:537
 msgid "Errors like this usually mean there is a problem with the filesystem that will require user interaction to repair.  Before restarting installation, reboot to rescue mode or another system that allows you to repair the filesystem interactively.  Restart installation after you have corrected the problems on the filesystem."
-msgstr ""
+msgstr "שגיאות כגון זו בדרך כלל אומורת שיש בעיה עם מערכת הקבצים שתדרוש אינטרקציית משתמש לתיקון. לפני שתתחיל מחדש את ההתקנה, אתחל למצב הצלה או למערכת אחרת שתאפשר לך לתקן את מערכת הקבצים באופן אינטראקטיבי. התחל מחדש את ההתקנה אחרי שתתקן את השגיאות במערכת הקבצים."
 
 #
 #: pyanaconda/storage/formats/fs.py:545
@@ -6372,16 +6371,14 @@ msgid "Below are the storage devices you've selected to be a part of this instal
 msgstr "להלן התקני האחסון שבהם בחרת להיות חלק מהתקנה זו. אנא ציין באמצעות החצים באילו התקנים אתה רוצה להשתמש ככונני מידע (אלה לא יפורמטו, רק יעוגנו) ובאילו התקנים אתה רוצה להשתמש ככונני יעד להתקנה (אלו אולי יפורמטו). אנא ציין בנוסף באיזה התקן מערכת יותקן מנהל האתחול."
 
 #: data/ui/create-storage.glade.h:1
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr "‏<span size=\"small\" color=\"gray\">צור מחיצת LVM מפורמטת</span>"
+msgstr "‏<span size=\"small\" color=\"gray\">צור מחיצת RAID מפורמטת</span>"
 
 #: data/ui/create-storage.glade.h:2
 msgid "<span size=\"small\" color=\"gray\">Create a logical volume on selected volume group</span>"
 msgstr ""
 
 #: data/ui/create-storage.glade.h:3
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
 msgstr "‏<span size=\"small\" color=\"gray\">צור מחיצת LVM מפורמטת</span>"
 
@@ -6390,14 +6387,12 @@ msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</s
 msgstr "<span size=\"small\" color=\"gray\">יצירת מחיצה למטרות כלליות</span>"
 
 #: data/ui/create-storage.glade.h:5
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted partition</span>"
-msgstr "‏<span size=\"small\" color=\"gray\">צור מחיצת LVM מפורמטת</span>"
+msgstr "‏<span size=\"small\" color=\"gray\">דורש לפחות מחיצת LVM מפורמטת אחת</span>"
 
 #: data/ui/create-storage.glade.h:6
-#, fuzzy
 msgid "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted partitions</span>"
-msgstr "‏<span size=\"small\" color=\"gray\">צור מחיצת LVM מפורמטת</span>"
+msgstr "‏<span size=\"small\" color=\"gray\">דורש לפחות שתי מחיצות RAID מפורמטות</span>"
 
 #: data/ui/create-storage.glade.h:7
 msgid "C_reate"
@@ -6544,7 +6539,7 @@ msgstr "תוצאות חיפוש:"
 #: data/ui/filter.glade.h:21
 #, no-c-format
 msgid "Selected devices: %s (%s) out of %s (%s)."
-msgstr ""
+msgstr "התקנים שנבחרו: ‎%s (%s) מתוך ‎%s (%s)"
 
 #: data/ui/filter.glade.h:22
 msgid "Show Identifiers that Include:"
