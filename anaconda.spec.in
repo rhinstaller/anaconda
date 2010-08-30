@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 30 2010 David Cantrell <dcantrell@redhat.com> - 13.21.82-1
+- Disable BETANAG for RHEL6 (clumens).
+  Resolves: rhbz#628459
+
 * Wed Aug 25 2010 David Cantrell <dcantrell@redhat.com> - 13.21.81-1
 - mpath: put quotes around the wwids, they can have spaces. (akozumpl)
   Related: rhbz#626842
