@@ -121,7 +121,7 @@ int splitProxyParam(char *param, char **user, char **password, char **proxy) {
     return 1;
 }
 
-int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
+int urlinstTransfer(struct loaderData_s *loaderData, const char *src,
                     char **extraHeaders, char *dest) {
     struct progressCBdata *cb_data;
     CURL *curl = NULL;
@@ -130,7 +130,7 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
     char *version;
     FILE *f = NULL;
 
-    logMessage(INFO, "transferring %s", ui->url);
+    logMessage(INFO, "transferring %s", src);
 
     f = fopen(dest, "w");
 
@@ -141,7 +141,7 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
     checked_asprintf(&version, "anaconda/%s", VERSION);
 
     curl_easy_setopt(curl, CURLOPT_USERAGENT, version);
-    curl_easy_setopt(curl, CURLOPT_URL, ui->url);
+    curl_easy_setopt(curl, CURLOPT_URL, src);
     curl_easy_setopt(curl, CURLOPT_WRITEDATA, f);
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
     curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 10);
@@ -169,19 +169,19 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
     }
     
-    if (ui->noverifyssl) {
+    if (loaderData->instRepo_noverifyssl) {
         curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
     }
 
     /* Only set up the progress bar if we've got a UI to display it. */
     if (FL_CMDLINE(flags)) {
-        printf("%s %s...\n", _("Retrieving"), ui->url);
+        printf("%s %s...\n", _("Retrieving"), src);
     } else {
-        char *filename;
+        const char *filename;
 
-        filename = strrchr(ui->url, '/');
+        filename = strrchr(src, '/');
         if (!filename)
-           filename = ui->url;
+           filename = src;
 
         cb_data = winProgressBar(70, 5, _("Retrieving"), "%s %s...", _("Retrieving"), filename);
 
@@ -193,7 +193,7 @@ int urlinstTransfer(struct loaderData_s *loaderData, struct iurlinfo *ui,
     /* Finally, do the transfer. */
     status = curl_easy_perform(curl);
     if (status)
-        logMessage(ERROR, "Error downloading %s: %s", ui->url, curl_easy_strerror(status));
+        logMessage(ERROR, "Error downloading %s: %s", src, curl_easy_strerror(status));
 
     if (!FL_CMDLINE(flags))
        newtPopWindow();

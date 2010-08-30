@@ -124,19 +124,19 @@ static char **headers() {
     return extraHeaders;
 }
 
-static int loadSingleUrlImage(struct loaderData_s *loaderData, struct iurlinfo *ui,
+static int loadSingleUrlImage(struct loaderData_s *loaderData, const char *src,
                               char *dest, char *mntpoint, int silentErrors) {
     char **ehdrs = NULL;
     int status;
 
-    if (!strncmp(ui->url, "http", 4))
+    if (!strncmp(src, "http", 4))
         ehdrs = headers();
 
-    status = urlinstTransfer(loaderData, ui, ehdrs, dest);
+    status = urlinstTransfer(loaderData, src, ehdrs, dest);
     if (status) {
         if (!silentErrors) {
             newtWinMessage(_("Error"), _("OK"),
-                           _("Unable to retrieve %s."), ui->url);
+                           _("Unable to retrieve %s."), src);
         }
 
         return 2;
@@ -181,7 +181,7 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
      * ramdisk usage */
     checked_asprintf(&ui->url, "%s/%s", path, "updates.img");
 
-    if (!loadSingleUrlImage(loaderData, ui, "/tmp/updates-disk.img", "/tmp/update-disk", 1)) {
+    if (!loadSingleUrlImage(loaderData, ui->url, "/tmp/updates-disk.img", "/tmp/update-disk", 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
                       copyErrorFn);
         umount("/tmp/update-disk");
@@ -198,7 +198,7 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
      * ramdisk usage */
     checked_asprintf(&ui->url, "%s/%s", path, "product.img");
 
-    if (!loadSingleUrlImage(loaderData, ui, "/tmp/product-disk.img", "/tmp/product-disk", 1)) {
+    if (!loadSingleUrlImage(loaderData, ui->url, "/tmp/product-disk.img", "/tmp/product-disk", 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
                       copyErrorFn);
         umount("/tmp/product-disk");
@@ -211,7 +211,7 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
 
     checked_asprintf(&dest, "/tmp/install.img");
 
-    rc = loadSingleUrlImage(loaderData, ui, dest, "/mnt/runtime", 0);
+    rc = loadSingleUrlImage(loaderData, ui->url, dest, "/mnt/runtime", 0);
     free(dest);
     free(oldUrl);
 
@@ -335,7 +335,7 @@ int getFileFromUrl(char * url, char * dest,
         ehdrs = headers();
     }
 
-    rc = urlinstTransfer(loaderData, &ui, ehdrs, dest);
+    rc = urlinstTransfer(loaderData, ui.url, ehdrs, dest);
     if (rc) {
         logMessage(ERROR, "failed to retrieve %s", ui.url);
         return 1;
