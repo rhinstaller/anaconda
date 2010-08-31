@@ -25,6 +25,7 @@
 
 #include <ctype.h>
 #include <errno.h>
+#include <dirent.h>
 #include <fcntl.h>
 #include <newt.h>
 #include <stdlib.h>
@@ -33,6 +34,7 @@
 #include <unistd.h>
 #include <glib.h>
 
+#include "dirbrowser.h"
 #include "driverdisk.h"
 #include "hdinstall.h"
 #include "getparts.h"
@@ -54,76 +56,85 @@
 /* boot flags */
 extern uint64_t flags;
 
-/* given a partition device and directory, tries to mount hd install image */
-static char * setupIsoImages(char * device, char * dirName, char * location) {
-    int rc = 0;
-    char *url = NULL, *dirspec, *updpath, *path;
+/* format is hd:device:/path */
+static void parseDeviceAndDir(char *url, char **device, char **dir) {
+    char *token, *src = NULL;
 
-    logMessage(INFO, "mounting device %s for hard drive install", device);
+    if (!url)
+        return;
 
-    if (doPwMount(device, "/mnt/isodir", "auto", "ro", NULL))
-        return NULL;
+    /* Skip over the leading hd: if present. */
+    if (!strncmp(url, "hd:", 3))
+        url += 3;
 
-    checked_asprintf(&dirspec, "/mnt/isodir/%.*s",
-                     (int) (strrchr(dirName, '/') - dirName), dirName);
-    checked_asprintf(&path, "/mnt/isodir/%s", dirName);
+    logMessage(DEBUGLVL, "parseDeviceAndDir url: |%s|", url);
 
-    if (path) {
-        logMessage(INFO, "Path to stage2 image is %s", path);
+    src = strdup(url);
+    token = strtok(src, ":");
+    if (!token)
+        return;
 
-        rc = copyFile(path, "/tmp/install.img");
-        rc = mountStage2("/tmp/install.img");
+    *device = strdup(token);
 
-        free(path);
+    token = strtok(NULL, ":");
+    if (!token)
+        *dir = strdup("/");
+    else
+        *dir = strdup(token);
 
-        if (rc) {
-            umount("/mnt/runtime");
-            umount("/mnt/isodir");
-            goto err;
-        }
-
-        checked_asprintf(&updpath, "%s/updates.img", dirspec);
-
-        logMessage(INFO, "Looking for updates for HD in %s", updpath);
-        copyUpdatesImg(updpath);
-        free(updpath);
-
-        checked_asprintf(&updpath, "%s/product.img", dirspec);
-
-        logMessage(INFO, "Looking for product for HD in %s", updpath);
-        copyProductImg(updpath);
-
-        free(updpath);
-        free(dirspec);
-        umount("/mnt/isodir");
-
-        checked_asprintf(&url, "hd:%s:/%s", device,
-                         dirName ? dirName : ".");
-
-        return url;
-    } else {
-        free(dirspec);
-        free(path);
-
-        if (rc) {
-            umount("/mnt/isodir");
-            return NULL;
-        }
-    }
-
-err:
-    newtWinMessage(_("Error"), _("OK"),
-                   _("An error occured finding the installation image "
-                     "on your hard drive.  Please check your images and "
-                     "try again."));
-    return NULL;
+    logMessage(DEBUGLVL, "parseDeviceAndDir device: |%s|", *device);
+    logMessage(DEBUGLVL, "parseDeviceAndDir dir: |%s|", *dir);
 }
 
-/* setup hard drive based install from a partition with a filesystem and
- * ISO images on that filesystem
- */
-char * mountHardDrive(struct installMethod * method,
-		      char * location, struct loaderData_s * loaderData) {
+static int ends_with_iso(char *dirname, struct dirent *ent) {
+    char *suffix;
+
+    if (ent->d_type != DT_REG)
+        return 0;
+
+    suffix = rindex(ent->d_name, '.');
+    return (!strcmp(suffix, "iso"));
+}
+
+int loadHdImages(struct loaderData_s *loaderData) {
+    char *device = NULL, *dir = NULL, *path;
+
+    if (!loaderData->instRepo)
+        return 0;
+
+    parseDeviceAndDir(loaderData->instRepo, &device, &dir);
+
+    if (doPwMount(device, "/mnt/isodir", "auto", "ro", NULL))
+        return 0;
+
+    if (dir[0] == '/') {
+        checked_asprintf(&path, "/mnt/isodir%s/updates.img", dir);
+    } else {
+        checked_asprintf(&path, "/mnt/isodir/%s/updates.img", dir);
+    }
+
+    logMessage(INFO, "Looking for updates for HD in %s", path);
+    copyUpdatesImg(path);
+    free(path);
+
+    if (dir[0] == '/') {
+        checked_asprintf(&path, "/mnt/isodir%s/product.img", dir);
+    } else {
+        checked_asprintf(&path, "/mnt/isodir/%s/product.img", dir);
+    }
+
+    logMessage(INFO, "Looking for product for HD in %s", path);
+    copyProductImg(path);
+
+    free(device);
+    free(dir);
+    free(path);
+    umount("/mnt/isodir");
+
+    return 1;
+}
+
+int promptForHardDrive(struct loaderData_s *loaderData) {
     int rc;
     int i;
 
@@ -131,75 +142,18 @@ char * mountHardDrive(struct installMethod * method,
     struct newtExitStruct es;
     newtGrid entryGrid, grid, buttons;
 
-    int done = 0;
     char * dir = g_strdup("");
     char * tmpDir;
-    char * url = NULL;
     char * buf;
     int numPartitions;
 
+    char **files;
     char **partition_list;
     char *selpart;
     char *kspartition = NULL, *ksdirectory = NULL;
-    char *imgpath = "/images/install.img";
-
-    /* handle kickstart/stage2= data first if available */
-    if (loaderData->method == METHOD_HD && loaderData->stage2Data) {
-        kspartition = ((struct hdInstallData *)loaderData->stage2Data)->partition;
-        if (kspartition) {
-            kspartition = g_strdup(kspartition);
-        }
-
-        ksdirectory = ((struct hdInstallData *)loaderData->stage2Data)->directory;
-        if (ksdirectory) {
-            if (g_str_has_suffix(ksdirectory, ".img")) {
-                ksdirectory = g_strdup(ksdirectory);
-            } else {
-                ksdirectory = g_strconcat(ksdirectory, imgpath, NULL);
-            }
-        } else {
-            ksdirectory = g_strdup(imgpath);
-        }
-
-        logMessage(INFO, "partition is %s, dir is %s", kspartition, ksdirectory);
-
-        if (!kspartition || !ksdirectory) {
-            logMessage(ERROR, "missing partition or directory specification");
-            loaderData->method = -1;
-
-            if (loaderData->inferredStage2)
-                loaderData->invalidRepoParam = 1;
-        } else {
-            /* if we start with /dev, strip it (#121486) */
-            char *kspart = kspartition;
-            if (!strncmp(kspart, "/dev/", 5))
-                kspart = kspart + 5;
-
-            url = setupIsoImages(kspart, ksdirectory, location);
-            if (!url) {
-                logMessage(ERROR, "unable to find %s installation images on hd",
-                           getProductName());
-                loaderData->method = -1;
-
-                if (loaderData->inferredStage2)
-                    loaderData->invalidRepoParam = 1;
-            } else {
-                g_free(kspartition);
-                g_free(ksdirectory);
-                return url;
-            }
-        }
-    } else {
-        kspartition = NULL;
-        ksdirectory = NULL;
-    }
-
-    /* if we're here its either because this is interactive, or the */
-    /* hd kickstart directive was faulty and we have to prompt for  */
-    /* location of harddrive image                                  */
 
     partition_list = NULL;
-    while (!done) {
+    while (1) {
         /* if we're doing another pass free this up first */
         if (partition_list)
             freePartitionsList(partition_list);
@@ -214,8 +168,8 @@ char * mountHardDrive(struct installMethod * method,
                                  "your system! Would you like to configure "
                                  "additional devices?"));
             if (rc == 2) {
-                loaderData->stage2Data = NULL;
-                return NULL;
+                loaderData->instRepo = NULL;
+                return LOADER_BACK;
             }
 
             rc = loadDriverFromMedia(DEVICE_DISK, loaderData, 0, 0, NULL);
@@ -300,8 +254,8 @@ char * mountHardDrive(struct installMethod * method,
         newtPopWindow();
 
         if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
-            loaderData->stage2Data = NULL;
-            return NULL;
+            loaderData->instRepo = NULL;
+            return LOADER_BACK;
         } else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
             rc = loadDriverFromMedia(DEVICE_DISK, loaderData, 0, 0, NULL);
             continue;
@@ -309,37 +263,69 @@ char * mountHardDrive(struct installMethod * method,
 
         logMessage(INFO, "partition %s selected", selpart);
 
-        /* If the user-provided URL points at a repo instead of a stage2
-         * image, fix that up now.
-         */
-        if (!g_str_has_suffix(dir, ".img")) {
-            char *tmp = g_strconcat(dir, imgpath, NULL);
-            g_free(dir);
-            dir = tmp;
-        }
-
-        loaderData->invalidRepoParam = 1;
-
-        url = setupIsoImages(selpart, dir, location);
-        if (!url) {
-            newtWinMessage(_("Error"), _("OK"), 
-                           _("Device %s does not appear to contain "
-                             "an installation image."), selpart, getProductName());
+        /* Now verify the ISO images pointed to contain an installation source. */
+        if (doPwMount(selpart, "/mnt/isodir", "auto", "ro", NULL)) {
+            logMessage(ERROR, "couldn't mount %s to verify images", selpart);
             continue;
         }
 
-        done = 1; 
+        if (dir[0] == '/') {
+            checked_asprintf(&buf, "/mnt/isodir%s", dir);
+        } else {
+            checked_asprintf(&buf, "/mnt/isodir/%s", dir);
+        }
+
+        files = get_file_list(buf, ends_with_iso);
+        if (!files) {
+            newtWinMessage(_("Error"), _("OK"),
+                           _("That directory does not contain installation media."));
+            umount("/mnt/isodir");
+            free(buf);
+            continue;
+        }
+
+        free(buf);
+
+        /* mount the first image and check for a .treeinfo file */
+        if (dir[0] == '/') {
+            checked_asprintf(&buf, "/mnt/isodir%s/%s", dir, files[0]);
+        } else {
+            checked_asprintf(&buf, "/mnt/isodir/%s/%s", dir, files[0]);
+        }
+
+        if (doPwMount(buf, "/tmp/testmnt", "auto", "ro", NULL)) {
+            free(buf);
+            newtWinMessage(_("Error"), _("OK"),
+                           _("That directory does not contain installation media."));
+            umount("/mnt/isodir");
+            continue;
+        }
+
+        free(buf);
+
+        if (access("/tmp/testmnt/.treeinfo", R_OK)) {
+            newtWinMessage(_("Error"), _("OK"),
+                           _("That directory does not contain installation media."));
+            umount("/tmp/testmnt");
+            umount("/mnt/isodir");
+            continue;
+        }
+
+        umount("/tmp/testmnt");
+        umount("/mnt/isodir");
+        break;
     }
 
+    checked_asprintf(&loaderData->instRepo, "hd:%s:/%s", selpart, dir);
     g_free(dir);
+    loaderData->method = METHOD_HD;
 
-    return url;
+    return LOADER_OK;
 }
 
 void setKickstartHD(struct loaderData_s * loaderData, int argc,
                      char ** argv) {
     char *p;
-    char *substr = NULL;
     gchar *biospart = NULL, *partition = NULL, *dir = NULL;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
@@ -386,19 +372,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
     }
 
     loaderData->method = METHOD_HD;
-    loaderData->stage2Data = calloc(sizeof(struct hdInstallData), 1);
-    if (partition)
-        ((struct hdInstallData *)loaderData->stage2Data)->partition = partition;
-    if (dir)
-        ((struct hdInstallData *)loaderData->stage2Data)->directory = dir;
-
-    if (partition && dir) {
-        /* set repo only if location of stage 2 is not specified explicitly in --dir */
-        substr = strstr(dir, ".img");
-        if (!substr || (substr && *(substr+4) != '\0')) {
-            checked_asprintf(&(loaderData->instRepo), "hd:%s:%s", partition, dir);
-        }
-    }
+    checked_asprintf(&loaderData->instRepo, "hd:%s:%s", partition, dir);
 
     logMessage(INFO, "results of hd ks, partition is %s, dir is %s", partition,
                dir);

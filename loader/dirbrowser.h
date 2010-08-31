@@ -22,7 +22,11 @@
 
 #include <dirent.h>
 
+typedef int (*filterfunc_t)(char *, struct dirent *);
+
+char **get_file_list(char *dirname, filterfunc_t filterfunc);
+
 char * newt_select_file(char * title, char * text, char * dirname,
-                        int (*filterfunc)(char *, struct dirent *));
+                        filterfunc_t filterfunc);
 
 #endif

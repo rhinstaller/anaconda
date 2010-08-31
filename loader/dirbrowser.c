@@ -30,6 +30,8 @@
 #include <string.h>
 #include <sys/stat.h>
 
+#include "dirbrowser.h"
+
 #ifndef STANDALONE
 #include "../pyanaconda/isys/log.h"
 
@@ -51,8 +53,7 @@ static int simpleStringCmp(const void * a, const void * b) {
 
 #define FSTEP 10
 
-static char ** get_file_list(char * dirname, 
-                             int (*filterfunc)(char *, struct dirent *)) {
+char ** get_file_list(char * dirname, filterfunc_t filterfunc) {
     DIR * dir;
     struct dirent *entry;
     char ** files;
@@ -100,7 +101,7 @@ static char ** get_file_list(char * dirname,
  *             the dirent for the file.
  */
 char * newt_select_file(char * title, char * text, char * dirname,
-                        int (*filterfunc)(char *, struct dirent *)) {
+                        filterfunc_t filterfunc) {
     char ** files;
     char * fn = NULL;
     int i, done = 0;
