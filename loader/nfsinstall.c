@@ -129,16 +129,28 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr, char ** optsptr) {
     if (*hostptr) free(*hostptr);
     if (*dirptr) free(*dirptr);
     if (*optsptr) free(*optsptr);
+
     *hostptr = newServer;
     *dirptr = newDir;
-    *optsptr = newMountOpts;
 
-    return 0;
+    /* The rest of loader expects opts to be NULL if there are none, but newt
+     * gives us "" instead.
+     */
+    if (newMountOpts && strcmp(newMountOpts, ""))
+        *optsptr = newMountOpts;
+    else
+        *optsptr = NULL;
+
+    return LOADER_OK;
 }
 
 void parseNfsHostPathOpts(char *url, char **host, char **path, char **opts) {
     char *tmp;
     char *hostsrc;
+
+    /* Skip over the leading nfs: if present. */
+    if (!strncmp(url, "nfs:", 4))
+        url += 4;
 
     logMessage(DEBUGLVL, "parseNfsHostPathOpts url: |%s|", url);
 
@@ -156,10 +168,10 @@ void parseNfsHostPathOpts(char *url, char **host, char **path, char **opts) {
     }
 
     tmp = strchr(*path, ':');
-    if (tmp && (strlen(tmp) > 1)) {
+    if (tmp && strlen(tmp) > 1) {
 	char * c = tmp;
-        *opts = *host;
-        *host = *path;
+
+        *opts = *path;
 	*path = strdup(c + 1);
 	*c = '\0';
     } else {
@@ -182,6 +194,88 @@ static void addDefaultKickstartFile(char **file, char *ip) {
     }
 }
 
+int promptForNfs(struct loaderData_s *loaderData) {
+    char *url = NULL;
+    char *host = NULL;
+    char *directory = NULL;
+    char *mountOpts = NULL;
+
+    do {
+        if (nfsGetSetup(&host, &directory, &mountOpts) == LOADER_BACK) {
+            loaderData->instRepo = NULL;
+            return LOADER_BACK;
+        }
+
+        if (mountOpts) {
+            checked_asprintf(&loaderData->instRepo, "nfs:%s:%s:%s", host, mountOpts,
+                             directory);
+        } else {
+            checked_asprintf(&loaderData->instRepo, "nfs:%s:%s", host, directory);
+        }
+
+        checked_asprintf(&url, "%s/.treeinfo", loaderData->instRepo);
+
+        if (getFileFromNfs(url, "/tmp/.treeinfo", loaderData)) {
+            newtWinMessage(_("Error"), _("OK"),
+                           _("The URL provided does not contain installation media."));
+            free(url);
+            continue;
+        }
+
+        free(url);
+        break;
+    } while (1);
+
+    loaderData->method = METHOD_NFS;
+    return LOADER_OK;
+}
+
+int loadNfsImages(struct loaderData_s *loaderData) {
+    char *host, *path, *opts;
+    char *url;
+
+    if (!loaderData->instRepo)
+        return 0;
+
+    parseNfsHostPathOpts(loaderData->instRepo, &host, &path, &opts);
+
+    checked_asprintf(&url, "%s:%s/RHupdates", host, path);
+    logMessage(INFO, "Looking for updates in %s", url);
+
+    if (!doPwMount(url, "/tmp/update-disk", "nfs", opts, NULL)) {
+        logMessage(INFO, "Using RHupdates/ for NFS install");
+        copyDirectory("/tmp/update-disk", "/tmp/updates", NULL, NULL);
+        umount("/tmp/update-disk");
+        unlink("/tmp/update-disk");
+    } else {
+        logMessage(INFO, "No RHupdates/ directory found, skipping");
+    }
+
+    free(url);
+    checked_asprintf(&url, "%s:%s", host, path);
+
+    if (!doPwMount(url, "/tmp/disk-image", "nfs", opts, NULL)) {
+        free(url);
+
+        logMessage(INFO, "Looking for updates in %s/updates.img", loaderData->instRepo);
+        copyUpdatesImg("/tmp/disk-image/updates.img");
+
+        logMessage(INFO, "Looking for product in %s/product.img", loaderData->instRepo);
+        copyProductImg("/tmp/disk-image/product.img");
+
+        umount("/tmp/disk-image");
+        unlink("/tmp/disk-image");
+    } else {
+        logMessage(INFO, "Couldn't mount %s for updates and product", loaderData->instRepo);
+        free(url);
+    }
+
+    free(host);
+    free(path);
+    free(opts);
+    return 1;
+}
+
 char * mountNfsImage(struct installMethod * method,
                      char * location, struct loaderData_s * loaderData) {
     char * host = NULL;
@@ -190,8 +284,7 @@ char * mountNfsImage(struct installMethod * method,
     char * fullPath = NULL;
     char * url = NULL;
 
-    enum { NFS_STAGE_NFS, NFS_STAGE_MOUNT, NFS_STAGE_DONE,
-           NFS_STAGE_UPDATES } stage = NFS_STAGE_NFS;
+    enum { NFS_STAGE_NFS, NFS_STAGE_MOUNT, NFS_STAGE_DONE } stage = NFS_STAGE_NFS;
 
     int rc;
 
@@ -290,7 +383,7 @@ char * mountNfsImage(struct installMethod * method,
                     }
 
                     if (rc == 0) {
-                        stage = NFS_STAGE_UPDATES;
+                        stage = NFS_STAGE_DONE;
                         checked_asprintf(&url, "nfs:%s:%s", host,
                                          directory);
                         free(buf);
@@ -332,46 +425,6 @@ char * mountNfsImage(struct installMethod * method,
             if (loaderData->inferredStage2)
                 loaderData->invalidRepoParam = 1;
 
-            break;
-        }
-
-        case NFS_STAGE_UPDATES: {
-            char *buf;
-
-            checked_asprintf(&buf, "%.*s/RHupdates",
-                             (int) (strrchr(fullPath, '/')-fullPath),
-                             fullPath);
-            logMessage(INFO, "Looking for updates in %s", buf);
-
-            if (!doPwMount(buf, "/tmp/update-disk", "nfs", mountOpts, NULL)) {
-                logMessage(INFO, "Using RHupdates/ for NFS install");
-                copyDirectory("/tmp/update-disk", "/tmp/updates", NULL, NULL);
-                umount("/tmp/update-disk");
-                unlink("/tmp/update-disk");
-            } else {
-                logMessage(INFO, "No RHupdates/ directory found, skipping");
-            }
-
-            free(buf);
-
-            if (!doPwMount(fullPath, "/tmp/disk-image", "nfs", mountOpts, NULL)) {
-                logMessage(INFO, "Looking for updates in %s/updates.img", fullPath);
-                checked_asprintf(&buf, "/tmp/disk-image/updates.img");
-                copyUpdatesImg(buf);
-                free(buf);
-
-                logMessage(INFO, "Looking for product in %s/product.img", fullPath);
-                checked_asprintf(&buf, "/tmp/disk-image/product.img");
-                copyProductImg(buf);
-                free(buf);
-
-                umount("/tmp/disk-image");
-                unlink("/tmp/disk-image");
-            } else {
-                logMessage(INFO, "Couldn't mount %s for updates and product", fullPath);
-            }
-
-            stage = NFS_STAGE_DONE;
             break;
         }
 
@@ -426,28 +479,16 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
         return;
     }
 
+    logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
+               host, dir, mountOpts);
+
     loaderData->method = METHOD_NFS;
-    loaderData->stage2Data = NULL;
-
-    substr = strstr(dir, ".img");
-    if (!substr || (substr && *(substr+4) != '\0')) {
-        checked_asprintf(&(loaderData->instRepo), "nfs:%s:%s", host, dir);
-
-        logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
-                   host, dir, mountOpts);
+    if (mountOpts) {
+        checked_asprintf(&loaderData->instRepo, "nfs:%s:%s:%s", host, mountOpts, dir);
     } else {
-        loaderData->stage2Data = calloc(sizeof(struct nfsInstallData), 1);
-        ((struct nfsInstallData *)loaderData->stage2Data)->host = host;
-        ((struct nfsInstallData *)loaderData->stage2Data)->directory = dir;
-        ((struct nfsInstallData *)loaderData->stage2Data)->mountOpts = mountOpts;
-
-        logMessage(INFO, "results of nfs, host is %s, dir is %s, opts are '%s'",
-                   ((struct nfsInstallData *) loaderData->stage2Data)->host,
-                   ((struct nfsInstallData *) loaderData->stage2Data)->directory,
-                   ((struct nfsInstallData *) loaderData->stage2Data)->mountOpts);
+        checked_asprintf(&loaderData->instRepo, "nfs:%s:%s", host, dir);
     }
 }
-
 
 int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
