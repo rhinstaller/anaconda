@@ -50,6 +50,4 @@ int unpackCpioBall(char * ballPath, char * rootDir);
 void copyUpdatesImg(char * path);
 void copyProductImg(char * path);
 
-void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld);
-
 #endif

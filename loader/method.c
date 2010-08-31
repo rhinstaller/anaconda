@@ -59,15 +59,6 @@
 /* boot flags */
 extern uint64_t flags;
 
-static void stripTrailingSlash(char *path) {
-    size_t len = strlen(path);
-
-    if (len == 0)
-        return;
-    if (path[len-1] == '/')
-        path[len-1] = '\0';
-}
-
 /* returns the *absolute* path (malloced) to the #1 iso image */
 /* get timestamp and description of ISO image from stamp file */
 /* returns 0 on success, -1 otherwise                         */
@@ -443,66 +434,4 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
     umount("/tmp/mnt");
     unlink("/tmp/mnt");
     return rc;
-}
-
-void setStage2LocFromCmdline(char * arg, struct loaderData_s * ld) {
-    logMessage(INFO, "Setting stage2 from %s", arg);
-
-    if (!strncmp(arg, "nfs:", 4)) {
-        ld->method = METHOD_NFS;
-        ld->stage2Data = calloc(sizeof(struct nfsInstallData), 1);
-
-        parseNfsHostPathOpts(arg + 4,
-          &(((struct nfsInstallData *)ld->stage2Data)->host),
-          &(((struct nfsInstallData *)ld->stage2Data)->directory),
-          &(((struct nfsInstallData *)ld->stage2Data)->mountOpts));
-        stripTrailingSlash(((struct nfsInstallData *)ld->stage2Data)->directory);
-
-        logMessage(INFO, "method nfs - %s | %s | %s",
-                          (((struct nfsInstallData *)ld->stage2Data)->host),
-                          (((struct nfsInstallData *)ld->stage2Data)->directory),
-                          (((struct nfsInstallData *)ld->stage2Data)->mountOpts)
-                    );
-    } else if (!strncmp(arg, "nfsiso:", 7)) {
-        ld->method = METHOD_NFS;
-        ld->stage2Data = calloc(sizeof(struct nfsInstallData), 1);
-
-        parseNfsHostPathOpts(arg + 7,
-          &(((struct nfsInstallData *)ld->stage2Data)->host),
-          &(((struct nfsInstallData *)ld->stage2Data)->directory),
-          &(((struct nfsInstallData *)ld->stage2Data)->mountOpts));
-
-        logMessage(INFO, "method nfsiso - %s | %s | %s",
-                          (((struct nfsInstallData *)ld->stage2Data)->host),
-                          (((struct nfsInstallData *)ld->stage2Data)->directory),
-                          (((struct nfsInstallData *)ld->stage2Data)->mountOpts)
-                    );
-    } else if (!strncmp(arg, "cdrom:", 6)) {
-        ld->method = METHOD_CDROM;
-
-        logMessage(INFO, "method cdrom");
-    } else if (!strncmp(arg, "harddrive:", 10) ||
-               !strncmp(arg, "hd:", 3)) {
-        size_t offset;
-
-        arg += strcspn(arg, ":");
-        if (!*arg || !*(arg+1))
-            return;
-        arg += 1;
-        offset = strcspn(arg, ":");
-
-        ld->method = METHOD_HD;
-        ld->stage2Data = calloc(sizeof(struct hdInstallData), 1);
-        ((struct hdInstallData *)ld->stage2Data)->partition = strndup(arg, offset);
-        arg += offset;
-        if (*arg && *(arg+1))
-            ((struct hdInstallData *)ld->stage2Data)->directory = strdup(arg+1);
-        else
-            ((struct hdInstallData *)ld->stage2Data)->directory = NULL;
-
-        logMessage(INFO, "method hd - %s | %s",
-                        ((struct hdInstallData *)ld->stage2Data)->partition,
-                        ((struct hdInstallData *)ld->stage2Data)->directory
-                    );
-    }
 }
