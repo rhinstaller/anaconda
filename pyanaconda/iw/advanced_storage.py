@@ -23,11 +23,322 @@ import gobject
 import gtk
 import gtk.glade
 import urlgrabber.grabber
+import datacombo
+import DeviceSelector
 from pyanaconda import gui
 from pyanaconda import iutil
 from pyanaconda import network
 import pyanaconda.storage.fcoe
 import pyanaconda.storage.iscsi
+
+import logging
+log = logging.getLogger("anaconda")
+
+class iSCSICredentialsDialog(object):
+    CRED_NONE   = (0, _("No credentials (discovery authentication disabled)"))
+    CRED_ONE    = (1, _("CHAP pair"))
+    CRED_BOTH   = (2, _("CHAP pair and a reverse pair"))
+    CRED_REUSE  = (3, _("Use the credentials from the discovery step."))
+
+    def __init__(self):
+        pass
+
+    def _authentication_kind_changed(self,
+                                     combobox,
+                                     credentials,
+                                     rev_credentials):
+        active_value = combobox.get_active_value()
+        if active_value in [self.CRED_NONE[0], self.CRED_REUSE[0]]:
+            map(lambda w : w.hide(), credentials)
+            map(lambda w : w.hide(), rev_credentials)
+        elif active_value == self.CRED_ONE[0]:
+            map(lambda w : w.show(), credentials)
+            map(lambda w : w.hide(), rev_credentials)
+        elif active_value == self.CRED_BOTH[0]:
+            map(lambda w : w.show(), credentials)
+            map(lambda w : w.show(), rev_credentials)
+
+    def _combo_box(self, entries, credentials, rev_credentials):
+        combo_store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_INT)
+        combo = datacombo.DataComboBox(store=combo_store)
+        for entry in entries:
+            combo.append(entry[1], entry[0])
+        if len(entries) > 0:
+            combo.set_active(0)
+        combo.show_all()
+        combo.connect("changed", 
+                      self._authentication_kind_changed, 
+                      credentials,
+                      rev_credentials)
+        return combo
+
+    def _credentials_widgets(self, xml):
+        credentials = [xml.get_widget(w_name) for w_name in 
+                       ['username_label',
+                        'username_entry',
+                        'password_label', 
+                        'password_entry']]
+        rev_credentials = [xml.get_widget(w_name) for w_name in 
+                           ['r_username_label',
+                            'r_username_entry',
+                            'r_password_label', 
+                            'r_password_entry']]
+        return (credentials, rev_credentials)
+    
+    def _extract_credentials(self, xml):
+        return {
+            'username'   : xml.get_widget("username_entry").get_text(),
+            'password'   : xml.get_widget("password_entry").get_text(),
+            'r_username' : xml.get_widget("r_username_entry").get_text(),
+            'r_password' : xml.get_widget("r_password_entry").get_text()
+        }
+
+class iSCSIDiscoveryDialog(iSCSICredentialsDialog):
+
+    def __init__(self, initiator, initiator_set):
+        super(iSCSIDiscoveryDialog, self).__init__()
+        (self.xml, self.dialog) = gui.getGladeWidget("iscsi-dialogs.glade", "discovery_dialog")
+
+        self.initiator = self.xml.get_widget("initiator")
+        self.initiator.set_text(initiator)
+        if initiator_set:
+            self.initiator.set_sensitive(False)
+
+        (credentials, rev_credentials) = self._credentials_widgets(self.xml)
+        self.combobox = self._combo_box([
+                self.CRED_NONE,
+                self.CRED_ONE,
+                self.CRED_BOTH,
+                ], credentials, rev_credentials)
+        vbox = self.xml.get_widget("d_discovery_vbox")
+        vbox.pack_start(self.combobox, expand=False)
+
+    def _parse_ip(self, string_ip):
+        """
+        May rise network.IPMissing or network.IPError
+        
+        Returns (ip, port) tuple.
+        """
+        count = len(string_ip.split(":"))
+        idx = string_ip.rfind("]:")
+        # Check for IPV6 [IPV6-ip]:port
+        if idx != -1:
+            ip = string_ip[1:idx]
+            port = string_ip[idx+2:]
+        # Check for IPV4 aaa.bbb.ccc.ddd:port
+        elif count == 2:
+            idx = string_ip.rfind(":")
+            ip = string_ip[:idx]
+            port = string_ip[idx+1:]
+        else:
+            ip = string_ip
+            port = "3260"
+        network.sanityCheckIPString(ip)
+        
+        return (ip, port)
+
+    def discovery_dict(self):
+        dct = self._extract_credentials(self.xml)
+
+        auth_kind = self.combobox.get_active_value()
+        if auth_kind == self.CRED_NONE[0]:
+            dct["username"] = dct["password"] = \
+                dct["r_username"] = dct["r_password"] = None
+        elif auth_kind == self.CRED_ONE[0]:
+            dct["r_username"] = dct["r_password"] = None
+
+        entered_ip = self.xml.get_widget("target_ip").get_text()
+        (ip, port) = self._parse_ip(entered_ip)
+        dct["ipaddr"] = ip
+        dct["port"]   = port
+        
+        return dct
+
+    def get_initiator(self):
+        return self.initiator.get_text()
+
+class iSCSILoginDialog(iSCSICredentialsDialog):
+
+    def __init__(self):
+        super(iSCSILoginDialog, self).__init__()
+        (xml, self.dialog) = gui.getGladeWidget("iscsi-dialogs.glade", "login_dialog")
+        # take credentials from the discovery dialog
+        (self.credentials_xml, credentials_table) = gui.getGladeWidget("iscsi-dialogs.glade", "table_credentials")
+        (credentials, rev_credentials) = self._credentials_widgets(self.credentials_xml)
+        # and put them into the login dialog alignment
+        alignment = xml.get_widget("login_credentials_alignment")
+        alignment.add(credentials_table)
+        # setup the combobox
+        self.combobox = self._combo_box([
+                self.CRED_NONE,
+                self.CRED_ONE,
+                self.CRED_BOTH,
+                self.CRED_REUSE
+                ], credentials, rev_credentials)
+        vbox = xml.get_widget("d_login_vbox")
+        vbox.pack_start(self.combobox, expand=False)
+
+    def login_dict(self, discovery_dict):
+        dct = self._extract_credentials(self.credentials_xml)
+
+        auth_kind = self.combobox.get_active_value()
+        if auth_kind == self.CRED_NONE[0]:
+            dct["username"] = dct["password"] = \
+                dct["r_username"] = dct["r_password"] = None
+        elif auth_kind == self.CRED_ONE[0]:
+            dct["r_username"] = dct["r_password"] = None
+        elif auth_kind == self.CRED_REUSE[0]:
+            # only keep what we'll really use:
+            discovery_dict = dict((k,discovery_dict[k]) for k in discovery_dict if k in 
+                                  ['username', 
+                                   'password', 
+                                   'r_username', 
+                                   'r_password'])
+            dct.update(discovery_dict)
+
+        return dct
+
+class iSCSIWizard(object):
+    NODE_NAME_COL = DeviceSelector.IMMUTABLE_COL + 1
+
+    def __init__(self):
+        self.login_dialog = None
+        self.discovery_dialog = None
+        
+    def _destroy_when_dialog(self, dialog):
+        if dialog and dialog.dialog:
+            dialog.dialog.destroy()
+
+    def _normalize_dialog_response(self, value):
+        """
+        One can not use named GTK constants in glade, but we can get them by
+        filtering through this method.
+        """
+        if value == 1:
+            return gtk.RESPONSE_OK
+        elif value == -6:
+            return gtk.RESPONSE_CANCEL
+        elif value == gtk.RESPONSE_DELETE_EVENT: 
+            # escape pressed to dismiss the dialog
+            return gtk.RESPONSE_CANCEL
+        else:
+            raise ValueError("Unexpected dialog box return value: %d" % value)
+        
+    def _run_dialog(self, dialog):
+        gui.addFrame(dialog)
+        dialog.show()
+        rc = dialog.run()
+        dialog.hide()
+        return self._normalize_dialog_response(rc)
+    
+    def destroy_dialogs(self):
+        self._destroy_when_dialog(self.discovery_dialog)
+        self._destroy_when_dialog(self.login_dialog)
+    
+    def display_discovery_dialog(self, initiator, initiator_set):
+        self._destroy_when_dialog(self.discovery_dialog)
+        self.discovery_dialog = iSCSIDiscoveryDialog(initiator, initiator_set)
+
+        return self._run_dialog(self.discovery_dialog.dialog)
+
+    def display_login_dialog(self):
+        self._destroy_when_dialog(self.login_dialog)
+        self.login_dialog = iSCSILoginDialog()
+
+        return self._run_dialog(self.login_dialog.dialog)
+
+    def display_nodes_dialog(self, found_nodes):
+        (xml, dialog) = gui.getGladeWidget("iscsi-dialogs.glade", "nodes_dialog")
+        store = gtk.TreeStore(
+            gobject.TYPE_PYOBJECT, # teh object
+            gobject.TYPE_BOOLEAN,  # visible
+            gobject.TYPE_BOOLEAN,  # active (checked)
+            gobject.TYPE_BOOLEAN,  # immutable
+            gobject.TYPE_STRING    # node name
+            )
+        log.debug("iscsi: adding %d nodes in nodes_dialog()" % len(found_nodes))
+        map(lambda node : store.append(None, (
+                    node,        # the object
+                    True,        # visible
+                    True,        # active
+                    False,       # not immutable
+                    node.name)),  # node's name
+            found_nodes)
+        
+        # create and setup the device selector
+        model = store.filter_new()
+        view = gtk.TreeView(model)
+        ds = DeviceSelector.DeviceSelector(
+            store,
+            model,
+            view)
+        ds.createSelectionCol()
+        ds.addColumn(_("Node Name"), self.NODE_NAME_COL)
+        # attach the treeview to the dialog
+        sw = xml.get_widget("nodes_scrolled_window")
+        sw.add(view)
+        sw.show_all()
+
+        # run the dialog
+        rc = self._run_dialog(dialog)
+        # filter out selected nodes:
+        selected_nodes = map(lambda raw : raw[0], ds.getSelected())
+        map(lambda node: log.debug("iscsi: node selected for login: %s" % node.name),
+            selected_nodes)
+        dialog.destroy()
+        return (rc, selected_nodes)
+
+    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason):
+        (xml, dialog) = gui.getGladeWidget("iscsi-dialogs.glade", "success_dialog")
+        w_success = xml.get_widget("label_success")
+        w_success_win = xml.get_widget("scroll_window_success")
+        w_success_val = xml.get_widget("text_success")
+        w_fail = xml.get_widget("label_fail")
+        w_fail_win = xml.get_widget("scroll_window_fail")
+        w_fail_val = xml.get_widget("text_fail")
+        w_reason = xml.get_widget("label_reason")
+        w_reason_val = xml.get_widget("label_reason_val")
+        w_retry = xml.get_widget("button_retry")
+        w_separator = xml.get_widget("separator")
+
+        if success_nodes:
+            markup = "\n".join(map(lambda n: n.name, success_nodes))
+            buf = gtk.TextBuffer()
+            buf.set_text(markup)
+            w_success.show()
+            w_success_val.set_buffer(buf)
+            w_success_win.show()
+        if fail_nodes:
+            markup = "\n".join(map(lambda n: n.name, fail_nodes))
+            buf = gtk.TextBuffer()
+            buf.set_text(markup)
+            w_fail.show()
+            w_fail_val.set_buffer(buf)
+            w_fail_win.show()
+            w_retry.show()
+        if fail_reason:
+            w_reason.show()
+            w_reason_val.set_markup(fail_reason)
+            w_reason_val.show()
+        if success_nodes and fail_nodes:
+            # only if there's anything to be separated display the separator
+            w_separator.show()
+        
+        rc = self._run_dialog(dialog)
+        dialog.destroy()
+        return rc
+    
+    def get_discovery_dict(self):
+        return self.discovery_dialog.discovery_dict()
+
+    def get_initiator(self):
+        return self.discovery_dialog.get_initiator()
+    
+    def get_login_dict(self):
+        return self.login_dialog.login_dict(self.get_discovery_dict())
+    
+    def set_initiator(self, initiator, initiator_set):
+        (self.initiator, self.initiator_set) = initiator, initiator_set
 
 def addFcoeDrive(anaconda):
     (dxml, dialog) = gui.getGladeWidget("fcoe-config.glade", "fcoeDialog")
@@ -102,81 +413,104 @@ def addFcoeDrive(anaconda):
     return rc
 
 def addIscsiDrive(anaconda):
+    """
+    Displays a series of dialogs that walk the user through discovering and
+    logging into iscsi nodes.
+    
+    Returns gtk.RESPONSE_OK if at least one iscsi node has been logged into.
+    """
+
+    STEP_DISCOVERY = 0
+    STEP_NODES     = 1
+    STEP_LOGIN     = 2
+    STEP_SUMMARY   = 3
+    STEP_DONE      = 10
+
+    # make sure the network is up
     if not network.hasActiveNetDev():
         if not anaconda.intf.enableNetwork():
             return gtk.RESPONSE_CANCEL
         urlgrabber.grabber.reset_curl_obj()
 
-    (dxml, dialog) = gui.getGladeWidget("iscsi-config.glade", "iscsiDialog")
-    gui.addFrame(dialog)
-    dialog.show_all()
-    sg = gtk.SizeGroup(gtk.SIZE_GROUP_HORIZONTAL)
-    for w in ["iscsiAddrEntry", "iscsiInitiatorEntry", "userEntry",
-              "passEntry", "userinEntry", "passinEntry"]:
-        sg.add_widget(dxml.get_widget(w))
-
-    # get the initiator name if it exists and don't allow changing
-    # once set
-    initiator_entry = dxml.get_widget("iscsiInitiatorEntry")
-    initiator_entry.set_text(anaconda.storage.iscsi.initiator)
-    if anaconda.storage.iscsi.initiatorSet:
-        initiator_entry.set_sensitive(False)
-
-    while True:
-        rc = dialog.run()
-        if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
-            break
-
-        initiator = initiator_entry.get_text().strip()
-        if len(initiator) == 0:
-            anaconda.intf.messageWindow(_("Invalid Initiator Name"),
-                                        _("You must provide an initiator name."))
-            continue
-
-        anaconda.storage.iscsi.initiator = initiator
-
-        target = dxml.get_widget("iscsiAddrEntry").get_text().strip()
-        user = dxml.get_widget("userEntry").get_text().strip()
-        pw = dxml.get_widget("passEntry").get_text().strip()
-        user_in = dxml.get_widget("userinEntry").get_text().strip()
-        pw_in = dxml.get_widget("passinEntry").get_text().strip()
-
+    # go through the wizard's dialogs, read the user input (selected nodes,
+    # login credentials) and provide it to the iscsi subsystem
+    wizard = iSCSIWizard()
+    step = STEP_DISCOVERY
+    login_ok_nodes = []
+    while step != STEP_DONE:
         try:
-            count = len(target.split(":"))
-            idx = target.rfind("]:")
-            # Check for IPV6 [IPV6-ip]:port
-            if idx != -1:
-                ip = target[1:idx]
-                port = target[idx+2:]
-            # Check for IPV4 aaa.bbb.ccc.ddd:port
-            elif count == 2:
-                idx = target.rfind(":")
-                ip = target[:idx]
-                port = target[idx+1:]
-            else:
-                ip = target
-                port = "3260"
+            if step == STEP_DISCOVERY:
+                rc = wizard.display_discovery_dialog(
+                    anaconda.storage.iscsi.initiator,
+                    anaconda.storage.iscsi.initiatorSet)
+                if rc == gtk.RESPONSE_CANCEL:
+                    break
+                anaconda.storage.iscsi.initiator = wizard.get_initiator()
+                discovery_dict = wizard.get_discovery_dict()
+                discovery_dict["intf"] = anaconda.intf
+                log.critical("discovering with %s" % discovery_dict)
+                found_nodes = anaconda.storage.iscsi.discover(**discovery_dict)
+                map(lambda node: log.info("discovered iSCSI node: %s" % node.name),
+                    found_nodes)
+                step = STEP_NODES
+            elif step == STEP_NODES:
+                if len(found_nodes) < 1:
+                    log.debug("iscsi: no new iscsi nodes discovered")
+                    anaconda.intf.messageWindow(_("iSCSI Nodes"), 
+                                                _("No new iSCSI nodes discovered"))
+                    break
+                (rc, selected_nodes) = wizard.display_nodes_dialog(found_nodes)
+                if rc == gtk.RESPONSE_CANCEL or len(selected_nodes) == 0:
+                    break
+                step = STEP_LOGIN
+            elif step == STEP_LOGIN:
+                rc = wizard.display_login_dialog()
+                if rc == gtk.RESPONSE_CANCEL:
+                    break;
+                login_dict = wizard.get_login_dict()
+                log.critical("logging with %s" % login_dict)
+                login_dict["intf"] = anaconda.intf
+                login_fail_nodes = []
+                login_fail_msg = ""
+                for node in selected_nodes:
+                    (rc, msg) = anaconda.storage.iscsi.log_into_node(node,
+                                                                     **login_dict)
+                    if rc:
+                        login_ok_nodes.append(node)
+                    else:
+                        login_fail_nodes.append(node)
+                    if msg:
+                        # only remember the last message:
+                        login_fail_msg = msg
+                step = STEP_SUMMARY
+            elif step == STEP_SUMMARY:
+                rc = wizard.display_success_dialog(login_ok_nodes, 
+                                                   login_fail_nodes,
+                                                   login_fail_msg)
+                if rc == gtk.RESPONSE_OK:
+                    step = STEP_DONE
+                else:
+                    # user wants to try logging into the failed nodes again
+                    found_nodes = login_fail_nodes
+                    step = STEP_NODES
 
-            network.sanityCheckIPString(ip)
         except (network.IPMissing, network.IPError) as msg:
-            anaconda.intf.messageWindow(_("Error with Data"), msg)
-            continue
+            log.debug("addIscsiDrive() cancelled due to an invalid IP address.")
+            anaconda.intf.messageWindow(_("iSCSI Error"), msg)
+            if step != STEP_DISCOVERY:
+                break
+        except (ValueError, IOError) as e:
+            log.debug("addIscsiDrive() IOError exception: %s" % e)
+            step_str = _("Discovery") if step == STEP_DISCOVERY else _("Login")
+            anaconda.intf.messageWindow(_("iSCSI %s Error") % step_str, str(e))
+            break
+    
+    wizard.destroy_dialogs()
 
-        try:
-            anaconda.storage.iscsi.addTarget(ip, port, user, pw,
-                                             user_in, pw_in,
-                                             anaconda.intf)
-        except ValueError as e:
-            anaconda.intf.messageWindow(_("Error"), str(e))
-            continue
-        except IOError as e:
-            anaconda.intf.messageWindow(_("Error"), str(e))
-            rc = gtk.RESPONSE_CANCEL
-
-        break
-
-    dialog.destroy()
-    return rc
+    if len(login_ok_nodes):
+        return gtk.RESPONSE_OK
+    log.info("addIscsiDrive(): no new nodes added")
+    return gtk.RESPONSE_CANCEL
 
 def addZfcpDrive(anaconda):
     (dxml, dialog) = gui.getGladeWidget("zfcp-config.glade", "zfcpDialog")
