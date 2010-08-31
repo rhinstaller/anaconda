@@ -222,9 +222,9 @@ def addDrive(anaconda):
         dxml.get_widget("fcoeRadio").set_sensitive(False)
         dxml.get_widget("fcoeRadio").set_active(False)
 
-    #figure out what advanced devices we have available and set sensible default
+    #figure out what advanced devices we have available and put focus on the first one
     group = dxml.get_widget("iscsiRadio").get_group()
-    for button in group:
+    for button in reversed(group):
         if button is not None and button.get_property("sensitive"):
             button.set_active(True)
             button.grab_focus()
