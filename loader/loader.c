@@ -1572,31 +1572,6 @@ static int manualDeviceCheck(struct loaderData_s *loaderData) {
     return 0;
 }
 
-/* JKFIXME: I don't really like this, but at least it isolates the ifdefs */
-/* Either move dirname to %s_old or unlink depending on arch (unlink on all
- * !s390{,x} arches).  symlink to /mnt/runtime/dirname.  dirname *MUST* start
- * with a '/' */
-static void migrate_runtime_directory(char * dirname) {
-    char * runtimedir;
-    int ret;
-
-    checked_asprintf(&runtimedir, "/mnt/runtime%s", dirname);
-
-    if (!access(runtimedir, X_OK)) {
-        if (unlink(dirname) == -1) {
-            char * olddir;
-            
-            checked_asprintf(&olddir, "%s_old", dirname);
-
-            ret = rename(dirname, olddir);
-            free(olddir);
-        }
-        ret = symlink(runtimedir, dirname);
-    }
-    free(runtimedir);
-}
-
-
 static int hasGraphicalOverride() {
     int i;
 
@@ -1767,7 +1742,7 @@ static void loadScsiDhModules(void)
 }
 
 int main(int argc, char ** argv) {
-    int i, rc, ret, pid, status;
+    int i, rc, pid, status;
     int isDevelMode = 0;
 
     struct stat sb;
@@ -2110,14 +2085,6 @@ int main(int argc, char ** argv) {
 
     url = doLoaderMain(&loaderData, modInfo);
 
-    /* unlink dirs and link to the ones in /mnt/runtime */
-    migrate_runtime_directory("/usr");
-    migrate_runtime_directory("/lib");
-    migrate_runtime_directory("/lib64");
-    ret = symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
-    copyDirectory("/mnt/runtime/etc","/etc", NULL, copyErrorFn);
-    copyDirectory("/mnt/runtime/var","/var", NULL, copyErrorFn);
-
     /* now load SELinux policy before exec'ing anaconda and the shell
      * (if we're using SELinux) */
     if (FL_SELINUX(flags)) {
@@ -2167,11 +2134,6 @@ int main(int argc, char ** argv) {
     start_fw_loader(&loaderData);
 
     mlLoadModuleSet("raid0:raid1:raid5:raid6:raid456:raid10:linear:dm-mod:dm-zero:dm-mirror:dm-snapshot:dm-multipath:dm-round-robin:dm-crypt:cbc:sha256:lrw:xts");
-
-    if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
-        setenv("LD_PRELOAD", "/mnt/runtime/usr/lib/libunicode-lite.so.1", 1);
-    if (!access("/mnt/runtime/usr/lib64/libunicode-lite.so.1", R_OK))
-        setenv("LD_PRELOAD", "/mnt/runtime/usr/lib64/libunicode-lite.so.1", 1);
 
     argptr = anacondaArgs;
 
