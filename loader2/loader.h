@@ -48,6 +48,7 @@
 #define LOADER_FLAGS_IS_KICKSTART       (((uint64_t) 1) << 35)
 #define LOADER_FLAGS_HAVE_CMSCONF       (((uint64_t) 1) << 36)
 #define LOADER_FLAGS_AUTOMODDISK        (((uint64_t) 1) << 37)
+#define LOADER_FLAGS_NOEJECT            (((uint64_t) 1) << 38)
 
 #define FL_TESTING(a)            ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)             ((a) & LOADER_FLAGS_EXPERT)
@@ -91,6 +92,7 @@
 #define FL_IS_KICKSTART(a)       ((a) & LOADER_FLAGS_IS_KICKSTART)
 #define FL_HAVE_CMSCONF(a)       ((a) & LOADER_FLAGS_HAVE_CMSCONF)
 #define FL_AUTOMODDISK(a)        ((a) & LOADER_FLAGS_AUTOMODDISK)
+#define FL_NOEJECT(a)            ((a) & LOADER_FLAGS_NOEJECT)
 
 void startNewt(void);
 void stopNewt(void);

@@ -708,9 +708,11 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOIPV4;
         } else if (!strcasecmp(argv[i], "noipv6")) {
             flags |= LOADER_FLAGS_NOIPV6;
-        } else if (!strcasecmp(argv[i], "kssendmac"))
+        } else if (!strcasecmp(argv[i], "kssendmac")) {
             flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
-        else if (!strncasecmp(argv[i], "loglevel=", 9)) {
+        } else if (!strcasecmp(argv[i], "noeject")) {
+            flags |= LOADER_FLAGS_NOEJECT;
+        } else if (!strncasecmp(argv[i], "loglevel=", 9)) {
             if (!strcasecmp(argv[i]+9, "debug")) {
                 loaderData->logLevel = strdup(argv[i]+9);
                 setLogLevel(DEBUGLVL);
