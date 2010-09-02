@@ -380,32 +380,15 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
 
 int kickstartFromHD(char *kssrc) {
     int rc;
-    char *p, *np = NULL, *tmpstr, *ksdev, *kspath;
+    char *ksdev, *kspath;
 
     logMessage(INFO, "getting kickstart file from harddrive");
+    parseDeviceAndDir(kssrc, &ksdev, &kspath);
 
-    /* format is hd:[device]:/path/to/ks.cfg */
-    /* split up pieces */
-    tmpstr = strdup(kssrc);
-    p = strchr(tmpstr, ':');
-    if (p)
-        np = strchr(p+1, ':');
-    
-    /* no second colon, assume its the old format of                     */
-    /*        hd:[device]/path/to/ks.cfg                                 */
-    /* this format is bad however because some devices have '/' in them! */
-    if (!np)
-        np = strchr(p+1, '/');
-
-    if (!p || !np) {
+    if (!ksdev || !kspath) {
         logMessage(WARNING, "Format of command line is ks=hd:[device]:/path/to/ks.cfg");
-        free(tmpstr);
         return 1;
     }
-
-    *np = '\0';
-    ksdev = p+1;
-    kspath = np+1;
 
     logMessage(INFO, "Loading ks from device %s on path %s", ksdev, kspath);
     if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
@@ -414,49 +397,47 @@ int kickstartFromHD(char *kssrc) {
             newtWinMessage(_("Error"), _("OK"),
                            _("Cannot find kickstart file on hard drive."));
         }
+
+        free(ksdev);
+        free(kspath);
         return 1;
     }
 
+    free(ksdev);
+    free(kspath);
     return 0;
 }
 
 
 int kickstartFromBD(char *kssrc) {
     int rc;
-    char *p, *np = NULL, *r = NULL, *tmpstr, *ksdev, *kspath, *biosksdev;
+    char *r = NULL, *ksdev, *kspath, *biosksdev;
 
     logMessage(INFO, "getting kickstart file from biosdrive");
+    parseDeviceAndDir(kssrc, &ksdev, &kspath);
 
-    /* format is bd:[device]:/path/to/ks.cfg */
-    /* split of pieces */
-    tmpstr = strdup(kssrc);
-    p = strchr(tmpstr, ':');
-    if (p)
-        np = strchr(p+1, ':');
-    
-    if (!p || !np) {
+    if (!ksdev || !kspath) {
         logMessage(WARNING, "Format of command line is ks=bd:device:/path/to/ks.cfg");
-        free(tmpstr);
         return 1;
     }
 
-    *np = '\0';
-    kspath = np+1;
-
-    r = strchr(p+1,'p');
-    if(!r){
+    r = strchr(ksdev, 'p');
+    if (!r) {
         logMessage(INFO, "Format of biosdisk is 80p1");
-        free(tmpstr);
+        free(ksdev);
+        free(kspath);
         return 1;
-    }                                                          
+    }
 
     *r = '\0';
-    biosksdev = getBiosDisk((p + 1));
+    biosksdev = getBiosDisk(ksdev);
     if(!biosksdev){
         startNewt();
         newtWinMessage(_("Error"), _("OK"),
                        _("Cannot find hard drive for BIOS disk %s"),
-                       p + 1);
+                       ksdev);
+        free(ksdev);
+        free(kspath);
         return 1;
     }
 
