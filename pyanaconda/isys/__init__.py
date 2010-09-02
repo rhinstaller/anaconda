@@ -80,24 +80,6 @@ EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
 def pathSpaceAvailable(path):
     return _isys.devSpaceFree(path)
 
-## Set up an already existing device node to be used as a loopback device.
-# @param device The full path to a device node to set up as a loopback device.
-# @param file The file to mount as loopback on device.
-# @param readOnly Should this loopback device be used read-only?
-def losetup(device, file, readOnly = 0):
-    # FIXME: implement this as a storage.devices.Device subclass
-    if readOnly:
-	mode = os.O_RDONLY
-    else:
-	mode = os.O_RDWR
-    targ = os.open(file, mode)
-    loop = os.open(device, mode)
-    try:
-        _isys.losetup(loop, targ, file)
-    finally:
-        os.close(loop)
-        os.close(targ)
-
 def lochangefd(device, file):
     # FIXME: implement this as a storage.devices.Device subclass
     loop = os.open(device, os.O_RDONLY)
@@ -107,16 +89,6 @@ def lochangefd(device, file):
     finally:
         os.close(loop)
         os.close(targ)
-
-## Disable a previously setup loopback device.
-# @param device The full path to an existing loopback device node.
-def unlosetup(device):
-    # FIXME: implement this as a storage.devices.Device subclass
-    loop = os.open(device, os.O_RDONLY)
-    try:
-        _isys.unlosetup(loop)
-    finally:
-        os.close(loop)
 
 ## Mount a filesystem, similar to the mount system call.
 # @param device The device to mount.  If bindMount is True, this should be an
