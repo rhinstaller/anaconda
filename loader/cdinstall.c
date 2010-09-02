@@ -451,17 +451,6 @@ err:
     return retbuf;
 }
 
-/* try to find a install CD non-interactively */
-char * findAnacondaCD(char *location) {
-    return setupCdrom(location, NULL, 0, 1);
-}
-
-/* look for a CD and mount it.  if we have problems, ask */
-char * mountCdromImage(struct installMethod * method,
-                       char * location, struct loaderData_s * loaderData) {
-    return setupCdrom(location, loaderData, 1, 1);
-}
-
 void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {
 
     logMessage(INFO, "kickstartFromCD");

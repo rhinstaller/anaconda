@@ -22,12 +22,6 @@
 
 #include "method.h"
 
-struct hdInstallData {
-    char * partition;
-    char * directory;
-};
-
-
 void setKickstartHD(struct loaderData_s * loaderData, int argc,
 		    char ** argv);
 int promptForHardDrive(struct loaderData_s *loaderData);

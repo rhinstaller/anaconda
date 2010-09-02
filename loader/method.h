@@ -42,8 +42,6 @@ struct installMethod {
 int readStampFileFromIso(char *file, char **descr, char **timestamp);
 void queryIsoMediaCheck(char * isoDir);
 
-int mountStage2(char *stage2path);
-int mountStage2Direct(char *stage2path);
 int getFileFromBlockDevice(char *device, char *path, char * dest);
 
 int unpackCpioBall(char * ballPath, char * rootDir);

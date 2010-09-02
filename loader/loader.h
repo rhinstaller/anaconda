@@ -146,7 +146,6 @@ struct loaderData_s {
     char * ksFile;
     int method;
     char * ddsrc;
-    void * stage2Data;
     char * logLevel;
     char * updatessrc;
     char * dogtailurl;
@@ -159,8 +158,6 @@ struct loaderData_s {
     size_t fw_search_pathz_len;
 
     moduleInfoSet modInfo;
-
-    int inferredStage2, invalidRepoParam;
 
     /* Proxy info needs to be in the loaderData so we can get these
      * settings off the command line, too.

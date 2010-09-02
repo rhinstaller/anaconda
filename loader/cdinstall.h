@@ -22,11 +22,6 @@
 
 #include "method.h"
 
-char * mountCdromImage(struct installMethod * method,
-                       char * location, struct loaderData_s * loaderData);
-
-char * findAnacondaCD(char * location);
-
 void setKickstartCD(struct loaderData_s * loaderData, int argc,
 		    char ** argv);
 

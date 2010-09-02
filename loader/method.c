@@ -359,41 +359,6 @@ void copyProductImg(char * path) {
     }
 }
 
-/** Bind the uncompressed second stage to /mnt/runtime.
- *
- * return 0 on success, 1 on failure to mount.
- */
-int mountStage2Direct(char *stage2Path) {
-    if (access(stage2Path, R_OK)) {
-        return 1;
-    }
-
-    char *target = "/mnt/runtime";
-    char *error = NULL;
-    if (doBindMount(stage2Path, target, &error)) {
-        logMessage(ERROR, "failed to bind %s to %s: %s",
-                   stage2Path, target, error);
-        free(error);
-        return 1;
-    }
-    logMessage(INFO, "successfully bound %s to %s", stage2Path, target);
-    return 0;
-}
-
-/* mount a second stage, verify the stamp file, copy updates 
- * Returns 0 on success, 1 on failure to mount, -1 on bad stamp */
-int mountStage2(char *stage2path) {
-    if (access(stage2path, R_OK)) {
-        return 1;
-    }
-
-    if (doPwMount(stage2path, "/mnt/runtime", "auto", "ro", NULL)) {
-        return 1;
-    }
-
-    return 0;
-}
-
 /* given a device name (w/o '/dev' on it), try to get a file */
 /* Error codes: 
       1 - could not create device node
