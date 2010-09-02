@@ -129,7 +129,7 @@ static int init_sig = SIGUSR1; /* default to shutdown=halt */
 static const char *LANG_DEFAULT = "en_US.UTF-8";
 
 static struct installMethod installMethods[] = {
-    { N_("Local CD/DVD"), 0, DEVICE_CDROM, NULL, NULL },
+    { N_("Local CD/DVD"), 0, DEVICE_CDROM, promptForCdrom, loadCdromImages},
     { N_("Hard drive"), 0, DEVICE_DISK, promptForHardDrive, loadHdImages },
     { N_("NFS directory"), 1, DEVICE_NETWORK, promptForNfs, loadNfsImages },
     { "URL", 1, DEVICE_NETWORK, promptForUrl, loadUrlImages},

@@ -200,7 +200,6 @@ static void mediaCheckCdrom(char *cddriver) {
         }
 
         if (!ejectcd) {
-            /* XXX MSFFIXME: should check return code for error */
             readStampFileFromIso(cddriver, &tstamp, &descr);
             doMediaCheck(cddriver, descr);
 
@@ -240,9 +239,8 @@ static void wrongCDMessage(void) {
 }
 
 /* ask about doing media check */
-static void queryCDMediaCheck(char *dev, char *location) {
+static void queryCDMediaCheck(char *dev) {
     int rc;
-    char *stage2loc;
 
     /* dont bother to test in automated installs */
     if (FL_KICKSTART(flags) && !FL_MEDIACHECK(flags))
@@ -258,63 +256,44 @@ static void queryCDMediaCheck(char *dev, char *location) {
              _("OK"), _("Skip"));
 
         if (rc != 2) {
-            /* We already mounted the CD earlier to verify there's at least a
-             * stage2 image.  Now we need to unmount to perform the check, then
+            /* We already mounted the CD earlier to verify there's installation
+             * media.  Now we need to unmount it to perform the check, then
              * remount to pretend nothing ever happened.
              */
-            umount(location);
+            umount("/mnt/source");
             mediaCheckCdrom(dev);
 
             do {
-                if (doPwMount(dev, location, "iso9660", "ro", NULL)) {
+                if (doPwMount(dev, "/mnt/source", "iso9660", "ro", NULL)) {
                     ejectCdrom(dev);
                     wrongCDMessage();
                     continue;
                 }
 
-                checked_asprintf(&stage2loc, "%s/images/install.img",
-                                 location);
-
-                if (access(stage2loc, R_OK)) {
-                    free(stage2loc);
-                    umount(location);
+                if (access("/mnt/source/.discinfo", R_OK)) {
+                    umount("/mnt/source");
                     ejectCdrom(dev);
                     wrongCDMessage();
                     continue;
                 }
 
-                free(stage2loc);
                 break;
             } while (1);
         }
     }
 }
 
-/* Set up a CD/DVD drive to mount the stage2 image from.  If successful, the
- * stage2 image will be left mounted on /mnt/runtime.
- *
- * location:     Where to mount the media at (usually /mnt/stage2)
- * loaderData:   The usual, can be NULL if no info
- * interactive:  Whether or not to prompt about questions/errors
- * mediaCheck:   Do we run media check or not?
- */
-static char *setupCdrom(char *location, struct loaderData_s *loaderData,
-                        int interactive, int mediaCheck) {
+int promptForCdrom(struct loaderData_s *loaderData) {
     int i, rc;
-    int stage2inram = 0;
-    char *retbuf = NULL, *stage2loc, *stage2img;
-    struct device ** devices;
     char *cddev = NULL;
+    struct device ** devices;
 
     devices = getDevices(DEVICE_CDROM);
     if (!devices) {
-        logMessage(ERROR, "got to setupCdrom without a CD device");
-        return NULL;
+        logMessage(ERROR, "got to promptForCdrom without a CD device");
+        return LOADER_ERROR;
     }
 
-    checked_asprintf(&stage2loc, "%s/images/install.img", location);
-
-    /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
         for (i = 0; devices[i]; i++) {
             char *tmp = NULL;
@@ -330,13 +309,13 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
                 devices[i]->device = tmp;
             }
 
-            logMessage(INFO, "trying to mount CD device %s on %s",
-                       devices[i]->device, location);
+            logMessage(INFO, "trying to mount CD device %s on /mnt/source",
+                       devices[i]->device);
 
             if (!FL_CMDLINE(flags))
-                winStatus(60, 3, _("Scanning"), _("Looking for installation images on CD device %s\n"), devices[i]->device);
+                winStatus(60, 3, _("Scanning"), _("Looking for installation media on CD device %s\n"), devices[i]->device);
             else
-                printf(_("Looking for installation images on CD device %s"), devices[i]->device);
+                printf(_("Looking for installation media on CD device %s"), devices[i]->device);
 
             fd = open(devices[i]->device, O_RDONLY | O_NONBLOCK);
             if (fd < 0) {
@@ -366,89 +345,64 @@ static char *setupCdrom(char *location, struct loaderData_s *loaderData,
             if (!FL_CMDLINE(flags))
                 newtPopWindow();
 
-            if (!(rc=doPwMount(devices[i]->device, location, "iso9660", "ro", NULL))) {
+            if ((rc = doPwMount(devices[i]->device, "/mnt/source", "iso9660", "ro", NULL)) == 0) {
                 cddev = devices[i]->device;
-                if (!access(stage2loc, R_OK)) {
-                    char *updpath;
-
-                    if (mediaCheck)
-                        queryCDMediaCheck(devices[i]->device, location);
-
-                    /* if in rescue mode lets copy stage 2 into RAM so we can */
-                    /* free up the CD drive and user can have it avaiable to  */
-                    /* aid system recovery.                                   */
-                    if (FL_RESCUE(flags) && !FL_TEXT(flags) &&
-                        totalMemory() > MIN_GUI_RAM ) {
-                        rc = copyFile(stage2loc, "/tmp/install.img");
-                        stage2img = strdup("/tmp/install.img");
-                        stage2inram = 1;
-                    } else {
-                        stage2img = strdup(stage2loc);
-                        stage2inram = 0;
-                    }
-
-                    rc = mountStage2(stage2img);
-                    free(stage2img);
-
-                    if (rc) {
-                        logMessage(INFO, "mounting stage2 failed");
-                        umount(location);
-                        continue;
-                    }
-
-                    checked_asprintf(&updpath, "%s/images/updates.img", location);
-
-                    logMessage(INFO, "Looking for updates in %s", updpath);
-                    copyUpdatesImg(updpath);
-                    free(updpath);
-
-                    checked_asprintf(&updpath, "%s/images/product.img", location);
-
-                    logMessage(INFO, "Looking for product in %s", updpath);
-                    copyProductImg(updpath);
-                    free(updpath);
-
-                    /* if in rescue mode and we copied stage2 to RAM */
-                    /* we can now unmount the CD                     */
-                    if (FL_RESCUE(flags) && stage2inram) {
-                        umount(location);
-                    }
-
-                    checked_asprintf(&retbuf, "cdrom://%s:%s",
-                                     devices[i]->device, location);
+                if (!access("/mnt/source/.treeinfo", R_OK)) {
+                     queryCDMediaCheck(devices[i]->device);
+                     loaderData->method = METHOD_CDROM;
+                     checked_asprintf(&loaderData->instRepo, "cdrom://%s:/mnt/source", devices[i]->device);
+                     return LOADER_OK;
                 } else {
-                    /* this wasnt the CD we were looking for, clean up and */
-                    /* try the next CD drive                               */
-                    umount(location);
+                    /* This wasn't the CD we were looking for.  Clean up and
+                     * try the next drive.
+                     */
+                    umount("/mnt/source");
                 }
             }
         }
 
-        if (!retbuf) {
-            if (interactive) {
-                char * buf;
+        if (!loaderData->instRepo) {
+            char * buf;
 
-                checked_asprintf(&buf, _("The %s disc was not found in any of your "
-                                         "CDROM drives. Please insert the %s disc "
-                                         "and press %s to retry."),
-                                 getProductName(), getProductName(), _("OK"));
+            checked_asprintf(&buf, _("The %s disc was not found in any of your "
+                                     "CDROM drives. Please insert the %s disc "
+                                     "and press %s to retry."),
+                             getProductName(), getProductName(), _("OK"));
 
-                ejectCdrom(cddev);
-                rc = newtWinChoice(_("Disc Not Found"),
-                                   _("OK"), _("Back"), buf, _("OK"));
-                free(buf);
-                if (rc == 2)
-                    goto err;
-            } else {
-                /* we can't ask them about it, so just return not found */
-                goto err;
-            }
+            ejectCdrom(cddev);
+            rc = newtWinChoice(_("Disc Not Found"),
+                               _("OK"), _("Back"), buf, _("OK"));
+            free(buf);
+            if (rc == 2)
+                return LOADER_BACK;
         }
-    } while (!retbuf);
+    } while (!loaderData->instRepo);
 
-err:
-    free(stage2loc);
-    return retbuf;
+    return LOADER_OK;
+}
+
+int loadCdromImages(struct loaderData_s *loaderData) {
+    char *device = NULL;
+    char *tmp;
+
+    if (!loaderData->instRepo)
+        return 0;
+
+    /* Skip over the leading "cdrom://". */
+    tmp = loaderData->instRepo+8;
+    checked_asprintf(&device, "%.*s", (int) (strchr(tmp, ':')-tmp), tmp);
+
+    if (doPwMount(device, "/mnt/source", "auto", "ro", NULL))
+        return 0;
+
+    logMessage(INFO, "Looking for updates in /mnt/source/images/updates.img");
+    copyUpdatesImg("/mnt/source/images/updates.img");
+
+    logMessage(INFO, "Looking for product in /mnt/source/images/product.img");
+    copyProductImg("/mnt/source/images/product.img");
+
+    umount("/mnt/source");
+    return 1;
 }
 
 void setKickstartCD(struct loaderData_s * loaderData, int argc, char ** argv) {

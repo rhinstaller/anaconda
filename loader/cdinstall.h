@@ -22,6 +22,8 @@
 
 #include "method.h"
 
+int promptForCdrom(struct loaderData_s *loaderData);
+int loadCdromImages(struct loaderData_s *loaderData);
 void setKickstartCD(struct loaderData_s * loaderData, int argc,
 		    char ** argv);
 
