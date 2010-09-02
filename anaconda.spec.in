@@ -223,6 +223,44 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Sep 01 2010 David Lehman <dlehman@redhat.com> - 14.17-1
+- i18n: do not build translatable sentences from parts (#622545). (akozumpl)
+- memory: install.img is now >150 MB so count 192 MB extra for it. (akozumpl)
+- memory: check_memory() displays GUI dialog on livecd (#624534). (akozumpl)
+- readvars should split variables into at most 2 pieces (bcl)
+- Adding output to method selection process (bcl)
+- systemd symlinks now reside in /lib (#627401). (clumens)
+- loader: parseCmdLineIp* takes just the value as an argument now. (akozumpl)
+- And change the tigervnc requires in the spec file too. (clumens)
+- Require tigervnc-server-minimal to remove perl from livecd (#627280).
+  (clumens)
+- Do disklabel handling for whole disk formats unknown to anaconda (#619721)
+  (hdegoede)
+- Don't touch resolv.conf which is handled by NM (#622927) (rvykydal)
+- Do not use autoconfiguration for DHCPv6 (#623216) (rvykydal)
+- After cancelled stage 2 network enablement remove temporary repo (#623639)
+  (rvykydal)
+- Fix traceback when using duplicate name for added/edited repo (#623080)
+  (rvykydal)
+- Fix traceback after Cancel in stage 2 network enablement dialog (#623017)
+  (rvykydal)
+- Add support for ipv6 to text UI network enablement (#612476) (rvykydal)
+- Remember user's choice when going back in Configure TCP/IP (#609570)
+  (rvykydal)
+- Update generating of anaconda-ks.cfg for ipv6. (rvykydal)
+- Update ks network command for ipv6 in anaconda. (rvykydal)
+- Fix comparison between /dev/disk/* paths and udev symlinks (#621515).
+  (clumens)
+- Remove telnetd.h from POTFILES.in so make works again. (clumens)
+- Reset labels on /var/cache/yum as well (#623434). (clumens)
+- NetworkManager uses a different config file now (#623937). (clumens)
+- Remove telnet support. (dlehman)
+- Allow omission of --size for partitions, use default size. (dlehman)
+- LVM and LUKS now align everything to 1MB boundaries. (#623458) (dlehman)
+- Clearing of formatting from unpartitioned disks belongs in clearPartitions.
+  (dlehman)
+- Only set noverifyssl on URL installs (#621469). (clumens)
+
 * Thu Aug 12 2010 Chris Lumens <clumens@redhat.com> - 14.16-1
 - I don't need to pass "nomodeset" to stage2 after all. (clumens)
 - Make sure "nomodeset" and "xdriver=" get passed on to stage2 (#623129).

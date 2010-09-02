@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 14.15\n"
+"Project-Id-Version: anaconda 14.16\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-08-12 14:13-0400\n"
+"POT-Creation-Date: 2010-09-01 20:52-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,7 +22,24 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr ""
 
-#: anaconda:340 pyanaconda/rescue.py:353 pyanaconda/rescue.py:379
+#: anaconda:336
+msgid "Not enough RAM"
+msgstr ""
+
+#: anaconda:337
+msgid ""
+" Try the text mode installer by running:\n"
+"\n"
+"'/usr/bin/liveinst -T'\n"
+"\n"
+" from a root terminal."
+msgstr ""
+
+#: anaconda:340
+msgid " Starting text mode."
+msgstr ""
+
+#: anaconda:364 pyanaconda/rescue.py:353 pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:392 pyanaconda/rescue.py:475 pyanaconda/rescue.py:488
 #: pyanaconda/rescue.py:499 pyanaconda/text.py:519 loader/windows.h:31
 #: loader/cdinstall.c:229 loader/cdinstall.c:233 loader/cdinstall.c:249
@@ -38,59 +55,37 @@ msgstr ""
 #: loader/kickstart.c:187 loader/kickstart.c:192 loader/kickstart.c:299
 #: loader/kickstart.c:339 loader/kickstart.c:355 loader/kickstart.c:382
 #: loader/kickstart.c:571 loader/lang.c:114 loader/lang.c:373
-#: loader/loader.c:435 loader/loader.c:471 loader/loader.c:511
-#: loader/loader.c:529 loader/loader.c:546 loader/loader.c:583
-#: loader/loader.c:1225 loader/loader.c:1410 loader/mediacheck.c:47
+#: loader/loader.c:434 loader/loader.c:470 loader/loader.c:510
+#: loader/loader.c:528 loader/loader.c:545 loader/loader.c:582
+#: loader/loader.c:1213 loader/loader.c:1400 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/mediacheck.c:106 loader/method.c:286 loader/method.c:360
-#: loader/net.c:619 loader/net.c:987 loader/net.c:1634 loader/net.c:1655
-#: loader/net.c:1961 loader/net.c:1980 loader/net.c:1992
+#: loader/net.c:621 loader/net.c:1001 loader/net.c:1649 loader/net.c:1670
+#: loader/net.c:1976 loader/net.c:1995 loader/net.c:2007
 #: loader/nfsinstall.c:116 loader/nfsinstall.c:309 loader/nfsinstall.c:326
-#: loader/nfsinstall.c:414 loader/telnetd.c:93 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
-#: loader/urlinstall.c:385 loader/urlinstall.c:392 loader/urls.c:269
-#: loader/urls.c:340 loader/urls.c:346 loader/urls.c:355
-#: pyanaconda/textw/constants_text.py:44
+#: loader/nfsinstall.c:414 loader/urlinstall.c:137 loader/urlinstall.c:159
+#: loader/urlinstall.c:221 loader/urlinstall.c:374 loader/urlinstall.c:385
+#: loader/urlinstall.c:392 loader/urls.c:269 loader/urls.c:340
+#: loader/urls.c:346 loader/urls.c:355 pyanaconda/textw/constants_text.py:44
 msgid "OK"
 msgstr ""
 
-#: anaconda:349
-msgid "You do not have enough RAM to use the graphical installer."
-msgstr ""
-
-#: anaconda:353
-msgid ""
-"Try the text mode installer by running:\n"
-"\n"
-"'/usr/bin/liveinst -T'\n"
-"\n"
-" from a root terminal."
-msgstr ""
-
-#: anaconda:356
-msgid "Not enough RAM"
-msgstr ""
-
-#: anaconda:366
-msgid "Starting text mode."
-msgstr ""
-
-#: anaconda:713
+#: anaconda:728
 msgid "Would you like to use VNC?"
 msgstr ""
 
-#: anaconda:714
+#: anaconda:729
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
 "you like to use VNC mode instead?"
 msgstr ""
 
-#: anaconda:740
+#: anaconda:755
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:748
+#: anaconda:763
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
@@ -137,29 +132,29 @@ msgstr ""
 #: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:431
 #: pyanaconda/iw/osbootwidget.py:211 pyanaconda/iw/osbootwidget.py:220
 #: pyanaconda/iw/raid_dialog_gui.py:223 pyanaconda/iw/task_gui.py:54
-#: pyanaconda/iw/task_gui.py:155 pyanaconda/iw/task_gui.py:302
-#: pyanaconda/iw/task_gui.py:463 loader/windows.h:31 loader/cdinstall.c:229
+#: pyanaconda/iw/task_gui.py:152 pyanaconda/iw/task_gui.py:305
+#: pyanaconda/iw/task_gui.py:469 loader/windows.h:31 loader/cdinstall.c:229
 #: loader/cdinstall.c:505 loader/driverdisk.c:228 loader/driverdisk.c:471
 #: loader/driverdisk.c:506 loader/driverdisk.c:534 loader/driverdisk.c:542
 #: loader/driverdisk.c:609 loader/hdinstall.c:115 loader/hdinstall.c:325
 #: loader/hdinstall.c:440 loader/hdinstall.c:483 loader/hdinstall.c:496
-#: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:435
-#: loader/loader.c:546 loader/loader.c:1225 loader/mediacheck.c:47
+#: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:434
+#: loader/loader.c:545 loader/loader.c:1213 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/method.c:286 loader/method.c:360 loader/nfsinstall.c:309
-#: loader/nfsinstall.c:326 loader/telnetd.c:93 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urls.c:340
-#: loader/urls.c:346 loader/urls.c:355 pyanaconda/storage/__init__.py:230
+#: loader/nfsinstall.c:326 loader/urlinstall.c:137 loader/urlinstall.c:159
+#: loader/urlinstall.c:221 loader/urls.c:340 loader/urls.c:346
+#: loader/urls.c:355 pyanaconda/storage/__init__.py:230
 #: pyanaconda/storage/__init__.py:1818 pyanaconda/storage/__init__.py:1905
-#: pyanaconda/storage/zfcp.py:375 pyanaconda/textw/netconfig_text.py:282
-#: pyanaconda/textw/upgrade_text.py:181 pyanaconda/textw/upgrade_text.py:188
+#: pyanaconda/storage/zfcp.py:375 pyanaconda/textw/upgrade_text.py:181
+#: pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
 msgstr ""
 
 #: pyanaconda/bootloader.py:55 pyanaconda/bootloader.py:221
 #: pyanaconda/bootloader.py:227 pyanaconda/image.py:82
 #: pyanaconda/installinterfacebase.py:51 pyanaconda/installinterfacebase.py:82
-#: pyanaconda/installinterfacebase.py:142 pyanaconda/packages.py:313
+#: pyanaconda/installinterfacebase.py:142 pyanaconda/packages.py:314
 #: pyanaconda/yuminstall.py:1454 pyanaconda/yuminstall.py:1662
 #: pyanaconda/yuminstall.py:1697 pyanaconda/iw/blpasswidget.py:148
 #: pyanaconda/iw/upgrade_swap_gui.py:190 pyanaconda/iw/upgrade_swap_gui.py:198
@@ -178,7 +173,7 @@ msgstr ""
 #: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1088 pyanaconda/gui.py:1125
 #: pyanaconda/gui.py:1326 pyanaconda/image.py:91 pyanaconda/kickstart.py:156
 #: pyanaconda/livecd.py:205 pyanaconda/livecd.py:447
-#: pyanaconda/packages.py:130 pyanaconda/upgrade.py:58
+#: pyanaconda/packages.py:131 pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
 #: pyanaconda/yuminstall.py:257 pyanaconda/yuminstall.py:756
 #: pyanaconda/yuminstall.py:958 pyanaconda/yuminstall.py:963
@@ -192,7 +187,7 @@ msgid "_Exit installer"
 msgstr ""
 
 #: pyanaconda/bootloader.py:60 pyanaconda/image.py:92 pyanaconda/image.py:251
-#: pyanaconda/kickstart.py:1369 pyanaconda/kickstart.py:1408
+#: pyanaconda/kickstart.py:1383 pyanaconda/kickstart.py:1422
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1280 pyanaconda/yuminstall.py:1464
 #: pyanaconda/iw/partition_gui.py:1600 pyanaconda/storage/__init__.py:2000
@@ -228,9 +223,9 @@ msgid "In progress"
 msgstr ""
 
 #: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1120
-#: pyanaconda/kickstart.py:1153 pyanaconda/kickstart.py:1233
-#: pyanaconda/kickstart.py:1241 pyanaconda/kickstart.py:1279
-#: pyanaconda/kickstart.py:1287 pyanaconda/text.py:392
+#: pyanaconda/kickstart.py:1167 pyanaconda/kickstart.py:1247
+#: pyanaconda/kickstart.py:1255 pyanaconda/kickstart.py:1293
+#: pyanaconda/kickstart.py:1301 pyanaconda/text.py:392
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -331,8 +326,8 @@ msgstr ""
 #: pyanaconda/partIntfHelpers.py:153 pyanaconda/partIntfHelpers.py:338
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:129
-#: loader/driverdisk.c:409 loader/kickstart.c:382 loader/loader.c:471
-#: loader/loader.c:583 pyanaconda/textw/constants_text.py:48
+#: loader/driverdisk.c:409 loader/kickstart.c:382 loader/loader.c:470
+#: loader/loader.c:582 pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr ""
 
@@ -349,7 +344,7 @@ msgstr ""
 msgid "Scanning access points for wireless devices"
 msgstr ""
 
-#: pyanaconda/gui.py:959 pyanaconda/textw/netconfig_text.py:276
+#: pyanaconda/gui.py:959 pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr ""
 
@@ -397,7 +392,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/gui.py:1236 pyanaconda/image.py:164 pyanaconda/image.py:194
-#: pyanaconda/packages.py:330 pyanaconda/storage/__init__.py:1817
+#: pyanaconda/packages.py:331 pyanaconda/storage/__init__.py:1817
 msgid "_Exit"
 msgstr ""
 
@@ -412,7 +407,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: pyanaconda/gui.py:1240 pyanaconda/image.py:251 pyanaconda/packages.py:334
+#: pyanaconda/gui.py:1240 pyanaconda/image.py:251 pyanaconda/packages.py:335
 #: pyanaconda/yuminstall.py:1523
 msgid "_Reboot"
 msgstr ""
@@ -495,7 +490,7 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 
-#: pyanaconda/image.py:251 pyanaconda/livecd.py:446 pyanaconda/packages.py:334
+#: pyanaconda/image.py:251 pyanaconda/livecd.py:446 pyanaconda/packages.py:335
 #: pyanaconda/upgrade.py:253 pyanaconda/yuminstall.py:963
 #: pyanaconda/yuminstall.py:1049 pyanaconda/yuminstall.py:1463
 #: pyanaconda/yuminstall.py:1505 pyanaconda/yuminstall.py:1523
@@ -694,7 +689,7 @@ msgstr ""
 
 #: pyanaconda/kickstart.py:150 pyanaconda/rescue.py:262
 #: pyanaconda/yuminstall.py:751 pyanaconda/yuminstall.py:1199
-#: pyanaconda/iw/task_gui.py:308
+#: pyanaconda/iw/task_gui.py:311
 msgid "No Network Available"
 msgstr ""
 
@@ -713,63 +708,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1252
+#: pyanaconda/kickstart.py:1266
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1255
+#: pyanaconda/kickstart.py:1269
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1310 pyanaconda/livecd.py:228
+#: pyanaconda/kickstart.py:1324 pyanaconda/livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1311
+#: pyanaconda/kickstart.py:1325
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1327
+#: pyanaconda/kickstart.py:1341
 msgid "Pre-Installation"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1328
+#: pyanaconda/kickstart.py:1342
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1360
+#: pyanaconda/kickstart.py:1374
 msgid "Missing Package"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1361
+#: pyanaconda/kickstart.py:1375
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1367 pyanaconda/kickstart.py:1406
+#: pyanaconda/kickstart.py:1381 pyanaconda/kickstart.py:1420
 msgid "_Abort"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1368 pyanaconda/kickstart.py:1407
+#: pyanaconda/kickstart.py:1382 pyanaconda/kickstart.py:1421
 msgid "_Ignore All"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1398
+#: pyanaconda/kickstart.py:1412
 msgid "Missing Group"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1399
+#: pyanaconda/kickstart.py:1413
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1497
+#: pyanaconda/kickstart.py:1511
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -849,29 +844,29 @@ msgstr ""
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: pyanaconda/packages.py:111
+#: pyanaconda/packages.py:112
 msgid "Resizing Failed"
 msgstr ""
 
-#: pyanaconda/packages.py:112
+#: pyanaconda/packages.py:113
 #, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr ""
 
-#: pyanaconda/packages.py:120
+#: pyanaconda/packages.py:121
 msgid "Migration Failed"
 msgstr ""
 
-#: pyanaconda/packages.py:121
+#: pyanaconda/packages.py:122
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
 msgstr ""
 
-#: pyanaconda/packages.py:130
+#: pyanaconda/packages.py:131
 msgid "_File Bug"
 msgstr ""
 
-#: pyanaconda/packages.py:314
+#: pyanaconda/packages.py:315
 #, python-format
 msgid ""
 "Warning!  This is pre-release software!\n"
@@ -889,15 +884,15 @@ msgid ""
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
 
-#: pyanaconda/packages.py:330
+#: pyanaconda/packages.py:331
 msgid "_Install Anyway"
 msgstr ""
 
-#: pyanaconda/packages.py:333
+#: pyanaconda/packages.py:334
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: pyanaconda/packages.py:335
+#: pyanaconda/packages.py:336
 msgid "Warning! This is pre-release software!"
 msgstr ""
 
@@ -1369,8 +1364,8 @@ msgid ""
 "screen"
 msgstr ""
 
-#: pyanaconda/text.py:501 loader/net.c:110 loader/net.c:511 loader/net.c:566
-#: loader/net.c:708 loader/net.c:716 loader/net.c:1134 loader/net.c:1142
+#: pyanaconda/text.py:501 loader/net.c:110 loader/net.c:513 loader/net.c:568
+#: loader/net.c:710 loader/net.c:718 loader/net.c:1148 loader/net.c:1156
 msgid "Retry"
 msgstr ""
 
@@ -1664,7 +1659,7 @@ msgid ""
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
 
-#: pyanaconda/yuminstall.py:402 pyanaconda/iw/task_gui.py:321
+#: pyanaconda/yuminstall.py:402 pyanaconda/iw/task_gui.py:324
 msgid "Error Setting Up Repository"
 msgstr ""
 
@@ -1706,7 +1701,7 @@ msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
 #: pyanaconda/yuminstall.py:752 pyanaconda/yuminstall.py:1200
-#: pyanaconda/iw/task_gui.py:309
+#: pyanaconda/iw/task_gui.py:312
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2735,31 +2730,24 @@ msgid "Sending request for IP address information for %s"
 msgstr ""
 
 #: pyanaconda/iw/netconfig_dialog.py:257 pyanaconda/iw/netconfig_dialog.py:260
-#: pyanaconda/textw/netconfig_text.py:225
-#: pyanaconda/textw/netconfig_text.py:228
 msgid "IP Address"
 msgstr ""
 
 #: pyanaconda/iw/netconfig_dialog.py:267
-#: pyanaconda/textw/netconfig_text.py:235
+#: pyanaconda/textw/netconfig_text.py:290
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr ""
 
 #: pyanaconda/iw/netconfig_dialog.py:268 pyanaconda/iw/netconfig_dialog.py:274
 #: pyanaconda/iw/netconfig_dialog.py:282 pyanaconda/iw/netconfig_dialog.py:285
-#: pyanaconda/textw/netconfig_text.py:236
-#: pyanaconda/textw/netconfig_text.py:242
-#: pyanaconda/textw/netconfig_text.py:250
 msgid "IPv4 Network Mask"
 msgstr ""
 
 #: pyanaconda/iw/netconfig_dialog.py:295
-#: pyanaconda/textw/netconfig_text.py:263
 msgid "Gateway"
 msgstr ""
 
 #: pyanaconda/iw/netconfig_dialog.py:305
-#: pyanaconda/textw/netconfig_text.py:273
 msgid "Nameserver"
 msgstr ""
 
@@ -2787,8 +2775,7 @@ msgstr ""
 msgid "Select network interface"
 msgstr ""
 
-#: pyanaconda/iw/network_gui.py:141 pyanaconda/textw/netconfig_text.py:91
-#: data/ui/netconfig.glade.h:10
+#: pyanaconda/iw/network_gui.py:141 data/ui/netconfig.glade.h:10
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
@@ -3202,48 +3189,48 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:132
+#: pyanaconda/iw/task_gui.py:129
 msgid "Edit Repository"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:156
+#: pyanaconda/iw/task_gui.py:153
 #, python-format
 msgid ""
 "The repository %s has already been added.  Please choose a different "
 "repository name and URL."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:236
+#: pyanaconda/iw/task_gui.py:239
 msgid "Invalid Proxy URL"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:237
+#: pyanaconda/iw/task_gui.py:240
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:249 pyanaconda/iw/task_gui.py:430
+#: pyanaconda/iw/task_gui.py:252 pyanaconda/iw/task_gui.py:436
 msgid "Invalid Repository URL"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:250 pyanaconda/iw/task_gui.py:431
+#: pyanaconda/iw/task_gui.py:253 pyanaconda/iw/task_gui.py:437
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:271 pyanaconda/iw/task_gui.py:440
+#: pyanaconda/iw/task_gui.py:274 pyanaconda/iw/task_gui.py:446
 msgid "No Media Found"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:272 pyanaconda/iw/task_gui.py:441
+#: pyanaconda/iw/task_gui.py:275 pyanaconda/iw/task_gui.py:447
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:303 pyanaconda/iw/task_gui.py:464
+#: pyanaconda/iw/task_gui.py:306 pyanaconda/iw/task_gui.py:470
 msgid "Please enter an NFS server and path."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:322
+#: pyanaconda/iw/task_gui.py:325
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3251,23 +3238,23 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:345
+#: pyanaconda/iw/task_gui.py:348
 msgid "Invalid Repository Name"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:346
+#: pyanaconda/iw/task_gui.py:349
 msgid "You must provide a repository name."
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:496 data/ui/addrepo.glade.h:3
+#: pyanaconda/iw/task_gui.py:502 data/ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:501
+#: pyanaconda/iw/task_gui.py:507
 msgid "No Software Repos Enabled"
 msgstr ""
 
-#: pyanaconda/iw/task_gui.py:502
+#: pyanaconda/iw/task_gui.py:508
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3473,7 +3460,7 @@ msgstr ""
 msgid "Chandev Parameters"
 msgstr ""
 
-#: loader/net.h:27
+#: loader/net.h:27 pyanaconda/textw/netconfig_text.py:164
 msgid "Dynamic IP configuration (DHCP)"
 msgstr ""
 
@@ -3485,7 +3472,7 @@ msgstr ""
 msgid "Dynamic IP configuration (DHCPv6)"
 msgstr ""
 
-#: loader/net.h:31
+#: loader/net.h:31 pyanaconda/textw/netconfig_text.py:201
 msgid "Automatic neighbor discovery"
 msgstr ""
 
@@ -3566,12 +3553,12 @@ msgstr ""
 #: loader/cdinstall.c:432 loader/driverdisk.c:409 loader/driverdisk.c:441
 #: loader/driverdisk.c:522 loader/driverselect.c:79 loader/driverselect.c:153
 #: loader/driverselect.c:179 loader/hdinstall.c:212 loader/hdinstall.c:266
-#: loader/kbd.c:119 loader/loader.c:512 loader/loader.c:529
-#: loader/loader.c:1410 loader/loader.c:1443 loader/net.c:619 loader/net.c:987
-#: loader/net.c:1961 loader/net.c:1980 loader/nfsinstall.c:116
-#: loader/urls.c:269 pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:90
-#: pyanaconda/textw/constants_text.py:52
+#: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
+#: loader/loader.c:1400 loader/loader.c:1433 loader/net.c:621
+#: loader/net.c:1001 loader/net.c:1976 loader/net.c:1995
+#: loader/nfsinstall.c:116 loader/urls.c:269
+#: pyanaconda/storage/__init__.py:123 pyanaconda/storage/__init__.py:169
+#: pyanaconda/storage/devicetree.py:90 pyanaconda/textw/constants_text.py:52
 msgid "Back"
 msgstr ""
 
@@ -3676,7 +3663,7 @@ msgstr ""
 #: loader/driverdisk.c:709 loader/driverdisk.c:748 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:339 loader/kickstart.c:355
-#: loader/kickstart.c:571 loader/net.c:1634 loader/net.c:1655
+#: loader/kickstart.c:571 loader/net.c:1649 loader/net.c:1670
 #: loader/nfsinstall.c:414 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -3837,7 +3824,7 @@ msgstr ""
 msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr ""
 
-#: loader/lang.c:63 loader/loader.c:229
+#: loader/lang.c:63 loader/loader.c:228
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr ""
@@ -3847,7 +3834,7 @@ msgstr ""
 msgid "Welcome to %s for %s - Rescue Mode"
 msgstr ""
 
-#: loader/lang.c:65 loader/loader.c:253
+#: loader/lang.c:65 loader/loader.c:252
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -3856,162 +3843,169 @@ msgstr ""
 msgid "Choose a Language"
 msgstr ""
 
-#: loader/loader.c:132
+#: loader/loader.c:131
 msgid "Local CD/DVD"
 msgstr ""
 
-#: loader/loader.c:133
+#: loader/loader.c:132
 msgid "Hard drive"
 msgstr ""
 
-#: loader/loader.c:134
+#: loader/loader.c:133
 msgid "NFS directory"
 msgstr ""
 
-#: loader/loader.c:466 loader/loader.c:507
+#: loader/loader.c:465 loader/loader.c:506
 msgid "Update Disk Source"
 msgstr ""
 
-#: loader/loader.c:467
+#: loader/loader.c:466
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: loader/loader.c:508
+#: loader/loader.c:507
 msgid ""
 "There are multiple partitions on this device which could contain the update "
 "disk image.  Which would you like to use?"
 msgstr ""
 
-#: loader/loader.c:526
+#: loader/loader.c:525
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr ""
 
-#: loader/loader.c:529
+#: loader/loader.c:528
 msgid "Updates Disk"
 msgstr ""
 
-#: loader/loader.c:547
+#: loader/loader.c:546
 msgid "Failed to mount updates disk"
 msgstr ""
 
-#: loader/loader.c:552
+#: loader/loader.c:551
 msgid "Updates"
 msgstr ""
 
-#: loader/loader.c:552
+#: loader/loader.c:551
 msgid "Reading anaconda updates"
 msgstr ""
 
-#: loader/loader.c:588
+#: loader/loader.c:587
 msgid ""
 "Unable to download the updates image.  Please modify the updates location "
 "below or press Cancel to proceed without updates.."
 msgstr ""
 
-#: loader/loader.c:597
+#: loader/loader.c:596
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1221
+#: loader/loader.c:1197
 #, c-format
-msgid "You do not have enough RAM to install %s on this machine%s."
+msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: loader/loader.c:1275
+#: loader/loader.c:1198
+#, c-format
+msgid ""
+"You do not have enough RAM to install %s on this machine using this install "
+"method."
+msgstr ""
+
+#: loader/loader.c:1263
 msgid "Media Detected"
 msgstr ""
 
-#: loader/loader.c:1276
+#: loader/loader.c:1264
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1402
+#: loader/loader.c:1392
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1403
+#: loader/loader.c:1393
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1405
+#: loader/loader.c:1395
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1407
+#: loader/loader.c:1397
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1442
+#: loader/loader.c:1432
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1442
+#: loader/loader.c:1432
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1443
+#: loader/loader.c:1433
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1444
+#: loader/loader.c:1434
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1675
+#: loader/loader.c:1665
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1677
+#: loader/loader.c:1667
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1681
+#: loader/loader.c:1671
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1682
+#: loader/loader.c:1672
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1683
+#: loader/loader.c:1673
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:1988
+#: loader/loader.c:1978
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2132
+#: loader/loader.c:2122
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2135
+#: loader/loader.c:2125
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2135
+#: loader/loader.c:2125
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2135
+#: loader/loader.c:2125
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2473
+#: loader/loader.c:2460
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2475
+#: loader/loader.c:2462
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4081,12 +4075,12 @@ msgid ""
 "IPv6 networks"
 msgstr ""
 
-#: loader/net.c:504 loader/net.c:512 loader/net.c:567
+#: loader/net.c:506 loader/net.c:514 loader/net.c:569
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr ""
 
-#: loader/net.c:506
+#: loader/net.c:508
 #, c-format
 msgid ""
 "\n"
@@ -4094,138 +4088,139 @@ msgid ""
 "Halting.\n"
 msgstr ""
 
-#: loader/net.c:511 loader/net.c:566
+#: loader/net.c:513 loader/net.c:568 pyanaconda/textw/netconfig_text.py:403
 msgid "Network Error"
 msgstr ""
 
-#: loader/net.c:597 pyanaconda/textw/netconfig_text.py:133
+#: loader/net.c:599
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: loader/net.c:611
+#: loader/net.c:613
 msgid "Enable IPv6 support"
 msgstr ""
 
-#: loader/net.c:651
+#: loader/net.c:653
 msgid "Configure TCP/IP"
 msgstr ""
 
-#: loader/net.c:708
+#: loader/net.c:710
 msgid "Missing Protocol"
 msgstr ""
 
-#: loader/net.c:709
+#: loader/net.c:711
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 
-#: loader/net.c:716
+#: loader/net.c:718
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: loader/net.c:717
+#: loader/net.c:719
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: loader/net.c:813
+#: loader/net.c:827
 msgid "IPv4 address:"
 msgstr ""
 
-#: loader/net.c:825 loader/net.c:892 data/ui/netconfig.glade.h:1
+#: loader/net.c:839 loader/net.c:906 data/ui/netconfig.glade.h:1
 msgid "/"
 msgstr ""
 
-#: loader/net.c:880
+#: loader/net.c:894
 msgid "IPv6 address:"
 msgstr ""
 
-#: loader/net.c:946 pyanaconda/textw/netconfig_text.py:160
+#: loader/net.c:960 pyanaconda/textw/netconfig_text.py:184
+#: pyanaconda/textw/netconfig_text.py:224
 msgid "Gateway:"
 msgstr ""
 
-#: loader/net.c:954
+#: loader/net.c:968
 msgid "Name Server:"
 msgstr ""
 
-#: loader/net.c:993
+#: loader/net.c:1007
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: loader/net.c:1010
+#: loader/net.c:1024
 msgid "Manual TCP/IP Configuration"
 msgstr ""
 
-#: loader/net.c:1134 loader/net.c:1142
+#: loader/net.c:1148 loader/net.c:1156
 msgid "Missing Information"
 msgstr ""
 
-#: loader/net.c:1135
+#: loader/net.c:1149
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1143
+#: loader/net.c:1157
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1635
+#: loader/net.c:1650
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1656
+#: loader/net.c:1671
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1761
+#: loader/net.c:1776
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1956
+#: loader/net.c:1971
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1957
+#: loader/net.c:1972
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1961
+#: loader/net.c:1976
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1970
+#: loader/net.c:1985
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1972
+#: loader/net.c:1987
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1979
+#: loader/net.c:1994
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:1992
+#: loader/net.c:2007
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:1993
+#: loader/net.c:2008
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2005
+#: loader/net.c:2020
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2175 loader/net.c:2179
+#: loader/net.c:2190 loader/net.c:2194
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4266,18 +4261,6 @@ msgstr ""
 #: loader/nfsinstall.c:415
 #, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
-msgstr ""
-
-#: loader/telnetd.c:90 loader/telnetd.c:129
-msgid "Telnet"
-msgstr ""
-
-#: loader/telnetd.c:90
-msgid "Waiting for telnet connection."
-msgstr ""
-
-#: loader/telnetd.c:129
-msgid "Running anaconda via telnet."
 msgstr ""
 
 #: loader/urlinstall.c:138
@@ -4689,12 +4672,12 @@ msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/storage/devicelibs/lvm.py:309
+#: pyanaconda/storage/devicelibs/lvm.py:312
 #, python-format
 msgid "vginfo failed for %s"
 msgstr ""
 
-#: pyanaconda/storage/devicelibs/lvm.py:338
+#: pyanaconda/storage/devicelibs/lvm.py:341
 #, python-format
 msgid "lvs failed for %s"
 msgstr ""
@@ -4732,7 +4715,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: pyanaconda/storage/devicetree.py:1891
+#: pyanaconda/storage/devicetree.py:1887
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
@@ -5055,45 +5038,107 @@ msgstr ""
 msgid "A value is required for the field %s"
 msgstr ""
 
-#: pyanaconda/textw/netconfig_text.py:88 data/ui/netconfig.glade.h:9
+#: pyanaconda/textw/netconfig_text.py:126
+#: pyanaconda/textw/netconfig_text.py:152 data/ui/netconfig.glade.h:9
 msgid "Enable network interface"
 msgstr ""
 
-#: pyanaconda/textw/netconfig_text.py:130
-msgid "Use dynamic IP configuration (DHCP)"
+#: pyanaconda/textw/netconfig_text.py:129
+msgid ""
+"This requires that you have an active network connection during the "
+"installation process.  Please select network interface to configure."
 msgstr ""
 
-#: pyanaconda/textw/netconfig_text.py:140
+#: pyanaconda/textw/netconfig_text.py:155
+#, python-format
+msgid "Configure interface %s to be used during installation process."
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:160
+msgid "Enable IPv4 Support"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:167
+#: pyanaconda/textw/netconfig_text.py:207
+msgid "Manual Configuration"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:175
 msgid "IPv4 Address:"
 msgstr ""
 
-#: pyanaconda/textw/netconfig_text.py:163
+#: pyanaconda/textw/netconfig_text.py:189
+#: pyanaconda/textw/netconfig_text.py:229
 msgid "Nameserver:"
 msgstr ""
 
-#: pyanaconda/textw/netconfig_text.py:193
-msgid "Missing Device"
+#: pyanaconda/textw/netconfig_text.py:197
+msgid "Enable IPv6 Support"
 msgstr ""
 
-#: pyanaconda/textw/netconfig_text.py:194
-msgid "You must select a network device"
+#: pyanaconda/textw/netconfig_text.py:204
+msgid "Dynamic IP Configuration (DHCPv6)"
 msgstr ""
 
-#: pyanaconda/textw/netconfig_text.py:253
-msgid "IPv4 Network Mask "
+#: pyanaconda/textw/netconfig_text.py:215
+msgid "IPv6 Address:"
 msgstr ""
 
-#: pyanaconda/textw/netconfig_text.py:276
+#: pyanaconda/textw/netconfig_text.py:270
+msgid "Missing protocol"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:271
+msgid "You must select at least one protocol version"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:279
+#: pyanaconda/textw/netconfig_text.py:282
+msgid "IPv4 Address"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:286
+#: pyanaconda/textw/netconfig_text.py:291
+msgid "IPv4 Prefix"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:298
+msgid "IPv4 Gateway"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:307
+msgid "IPv4 Nameserver"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:315
+#: pyanaconda/textw/netconfig_text.py:318
+msgid "IPv6 Address"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:322
+#: pyanaconda/textw/netconfig_text.py:327
+msgid "IPv6 Prefix"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:326
+msgid "IPv6 CIDR prefix must be between 0 and 128."
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:334
+msgid "IPv6 Gateway"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:342
+msgid "IPv6 Nameserver"
+msgstr ""
+
+#: pyanaconda/textw/netconfig_text.py:399
 msgid "Configuring Network Interfaces"
 msgstr ""
 
-#: pyanaconda/textw/netconfig_text.py:282
-msgid "Error configuring network device"
-msgstr ""
-
-#: pyanaconda/textw/netconfig_text.py:282
+#: pyanaconda/textw/netconfig_text.py:404
 #, python-format
-msgid "Error configuring network device %s"
+msgid "There was an error configuring network device %s"
 msgstr ""
 
 #: pyanaconda/textw/partition_text.py:59
