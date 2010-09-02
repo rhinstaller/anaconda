@@ -1103,7 +1103,6 @@ ln -snf /modules $DEST/lib/modules
 ln -snf /firmware $DEST/lib/firmware
 cp $DEST/usr/share/anaconda/raidstart-stub $DEST/usr/bin/raidstart
 cp $DEST/usr/share/anaconda/raidstop-stub $DEST/usr/bin/raidstop
-cp $DEST/usr/share/anaconda/losetup-stub $DEST/usr/bin/losetup
 cp $DEST/usr/share/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
 cp $DEST/usr/share/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
 cp $DEST/usr/share/anaconda/mknod-stub $DEST/usr/bin/mknod
