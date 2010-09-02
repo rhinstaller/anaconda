@@ -43,8 +43,12 @@ anaconda_descendants() {
 touch $RESTART_FILE
 
 # kill all anaconda descendants and anaconda itself
-RESTART_VICTIMS=`anaconda_descendants` 
+RESTART_VICTIMS=`anaconda_descendants`
 RESTART_VICTIMS+=' '$ANACONDA_PID
+if [[ -f /var/run/iscsid.pid ]]; then
+    # iscsid must die else it will cause us troubles on the next run
+    RESTART_VICTIMS+=' '`cat /var/run/iscsid.pid`
+fi
 echo "killing processes: " $RESTART_VICTIMS
 for child in $RESTART_VICTIMS; do
     kill -s KILL $child &>/dev/null
