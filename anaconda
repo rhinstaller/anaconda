@@ -241,6 +241,8 @@ def parseOptions():
     op.add_option("--noiscsi", dest="iscsi", action="store_false", default=False)
     op.add_option("--iscsi", action="store_true")
 
+    op.add_option("--noeject", action="store_true", default=False)
+
     # Miscellaneous
     op.add_option("--module", action="append", default=[])
     op.add_option("--nomount", dest="rescue_nomount", action="store_true", default=False)
@@ -482,6 +484,7 @@ class Anaconda:
         self.updateSrc = None
         self.canReIPL = False
         self.reIPLMessage = None
+        self.noeject = False
 
     def setDispatch(self):
         self.dispatch = dispatch.Dispatcher(self)
@@ -522,7 +525,7 @@ class Anaconda:
     def setMethod(self):
         if self.methodstr.startswith('cdrom://'):
             from image import CdromInstallMethod
-            self.method =  CdromInstallMethod(self.methodstr, self.rootPath, self.intf)
+            self.method =  CdromInstallMethod(self.methodstr, self.rootPath, self.intf, self.noeject)
         elif self.methodstr.startswith('nfs:/'):
             from image import NfsInstallMethod
             self.method =  NfsInstallMethod(self.methodstr, self.rootPath, self.intf)
@@ -668,6 +671,9 @@ if __name__ == "__main__":
         flags.serial = True
     if opts.virtpconsole:
         flags.virtpconsole = opts.virtpconsole
+
+    if opts.noeject:
+        anaconda.noeject = True
 
     # probing for hardware on an s390 seems silly...
     if rhpl.getArch() == "s390":

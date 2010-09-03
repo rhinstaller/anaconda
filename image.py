@@ -140,7 +140,10 @@ class CdromInstallMethod(ImageInstallMethod):
                                    % ("/mnt/source",))
 
     def ejectCD(self):
-        isys.ejectCdrom(self.device, makeDevice=1)
+        if self.noeject:
+            log.info("noeject in effect, not ejecting cdrom")
+        else:
+            isys.ejectCdrom(self.device, makeDevice=1)
 
     def badPackageError(self, pkgname):
         return _("The file %s cannot be opened.  This is due to a missing "
@@ -257,7 +260,10 @@ class CdromInstallMethod(ImageInstallMethod):
                 break
 
         if not done:
-            isys.ejectCdrom(self.device)
+            if self.noeject:
+                log.info("noeject in effect, not ejecting cdrom")
+            else:
+                isys.ejectCdrom(self.device)
 
         while not done:
             if self.intf is not None:
@@ -303,7 +309,10 @@ class CdromInstallMethod(ImageInstallMethod):
                             _("That's not the correct %s CDROM.")
                                        % (productName,))
                     isys.umount("/mnt/source")
-                    isys.ejectCdrom(self.device)
+                    if self.noeject:
+                        log.info("noeject in effect, not ejecting cdrom")
+                    else:
+                        isys.ejectCdrom(self.device)
             except:
                 self.messageWindow(_("Error"), 
                         _("Unable to access the CDROM."))
@@ -327,7 +336,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	except SystemError:
 	    pass
 
-    def __init__(self, method, rootPath, intf):
+    def __init__(self, method, rootPath, intf, noeject=False):
         """@param method cdrom://device:/path"""
         url = method[8:]
 	(self.device, tree) = string.split(url, ":", 1)
@@ -337,6 +346,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	self.progressWindow = intf.progressWindow
 	self.waitWindow = intf.waitWindow
         self.loopbackFile = None
+        self.noeject = noeject
 
         # figure out which disc is in.  if we fail for any reason,
         # assume it's just disc1.
