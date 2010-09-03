@@ -24,8 +24,8 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-08-29 02:46+0100\n"
-"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
+"PO-Revision-Date: 2010-09-04 00:32+0100\n"
+"Last-Translator: Josep Sànchez Mesegué <papapep@gmx.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -137,6 +137,11 @@ msgid ""
 "\n"
 " from a root terminal."
 msgstr ""
+"Proveu l'instal·lador en mode text executant:\n"
+"\n"
+"'/usr/bin/liveinst -T'\n"
+"\n"
+" des d'un terminal com a root."
 
 #: anaconda:356
 msgid "Not enough RAM"
@@ -693,8 +698,8 @@ msgstr "Instal·la en el sistema"
 #, python-format
 msgid "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS RAID sets. Ignoring disk %s."
 msgid_plural "Disks %s contain BIOS RAID metadata, but are not part of any recognized BIOS RAID sets. Ignoring disks %s."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "El disc %s conté metadades de RAID per BIOS, però no forma part de cap conjunt reconegut de RAID per BIOS. S'ignora el disc %s."
+msgstr[1] "ElS discS %s contenen metadades de RAID per BIOS, però no formen part de cap conjunt reconegut de RAID per BIOS. S'ignora els discs %s."
 
 #: pyanaconda/installinterfacebase.py:83
 #, python-format
@@ -756,8 +761,8 @@ msgstr ""
 #: pyanaconda/installinterfacebase.py:171
 msgid "Unformatted DASD Device Found"
 msgid_plural "Unformatted DASD Devices Found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "S'ha trobat un dispositiu DASD sense formatar"
+msgstr[1] "S'han trobat dispositius DASD sense formatar"
 
 #: pyanaconda/installinterfacebase.py:173
 #, python-format
@@ -770,7 +775,13 @@ msgid_plural ""
 "\n"
 "There are %d uninitialized DASD devices on this system.  To continue installation, the devices must be formatted.  Formatting will remove any data on these devices."
 msgstr[0] ""
+"Voleu formatar el dispositiu DASD que no ha estat inicialitzat?\n"
+"\n"
+"S'ha trobat %d dispositiu DASD sense inicialitzar en aquest sistema.  Per a continuar la instal·lació, s'ha de formatar el dispositiu. Aquest procés esborrarà qualsevol dada que contingui aquest dispositiu."
 msgstr[1] ""
+"Voleu formatar els dispositius DASD que no han estat inicialitzats?\n"
+"\n"
+"S'han trobat %d dispositius DASD sense inicialitzar en aquest sistema.  Per a continuar la instal·lació, s'han de formatar els dispositius. Aquest procés esborrarà qualsevol dada que continguin aquests dispositius."
 
 #: pyanaconda/installinterfacebase.py:184
 #: pyanaconda/iw/partition_gui.py:898
@@ -1307,7 +1318,7 @@ msgstr "Les particions d'arrenc únicament poden estar en dispositius RAID1."
 
 #: pyanaconda/platform.py:124
 msgid "Bootable RAID1 set members must be partitions."
-msgstr ""
+msgstr "El joc de membres RAID1 arrencables han de ser particions."
 
 #: pyanaconda/platform.py:129
 msgid "Bootable partitions cannot be on a logical volume."
@@ -1475,7 +1486,7 @@ msgid "Your system had dirty file systems which you chose not to mount.  Press r
 msgstr "El sistema tenia sistemes de fitxers bruts els quals heu triat no muntar. Premeu la tecla de retorn per anar al shell, on podreu executar l'fsck i muntar les vostres particions. El sistema es reiniciarà quan sortiu del shell."
 
 #: pyanaconda/rescue.py:386
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1485,11 +1496,11 @@ msgid ""
 "\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"S'ha muntat el sistema a %s.\n"
+"S'ha muntat el sistema a  %(rootPath)s.\n"
 "\n"
 "Premeu <retorn> per anar a l'intèrpret d'ordres. Si voleu que el sistema sigui l'entorn arrel, executeu l'ordre:\n"
 "\n"
-"\tchroot %s\n"
+"\tchroot %(rootPath)s\n"
 "\n"
 "El sistema arrencarà de nou quan sortiu de l'intèrpret d'ordres."
 
@@ -1613,6 +1624,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"No es pot actualitzar la vostra instal·lació actual, probablement per ser massa antiga. Només es poden actualitzar les dues versions anteriors. Per a actualitzar versions anteriors, heu d'actualitzar abans passant per totes les versions intermitges.\n"
+"\n"
+"%s"
 
 #: pyanaconda/upgrade.py:229
 msgid "Mount failed"
@@ -1672,7 +1686,7 @@ msgstr "Instal·lació de %(productName)s %(productVersion)s a l'equip %(name)s"
 #: pyanaconda/vnc.py:146
 #, python-format
 msgid "%(productName)s %(productVersion)s installation"
-msgstr ""
+msgstr "Instal·lació de %(productName)s %(productVersion)s"
 
 #: pyanaconda/vnc.py:175
 #, python-format
@@ -1688,7 +1702,7 @@ msgid "Will try to connect again in 15 seconds..."
 msgstr "Es tornarà a intentar la connexió d'aquí a 15 segons..."
 
 #: pyanaconda/vnc.py:198
-#, fuzzy, python-format
+#, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] "No s'ha pogut establir cap connexió després de %d intents.\n"
@@ -1869,8 +1883,8 @@ msgstr "<b>S'està instal·lant %(pkgStr)s</b> (%(size)s)\n"
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Paquets completats: %(donepkgs)d de %(numpkgs)d"
+msgstr[1] "Paquets completats: %(donepkgs)d de %(numpkgs)d"
 
 #: pyanaconda/yuminstall.py:227
 msgid "Finishing upgrade"
@@ -1895,7 +1909,7 @@ msgid "Error Setting Up Repository"
 msgstr "S'ha produït un error mentre es configurava el repositori"
 
 #: pyanaconda/yuminstall.py:403
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
 "\n"
@@ -1905,9 +1919,9 @@ msgid ""
 msgstr ""
 "S'ha produït el següent error en configurar el repositori d'instal·lació:\n"
 "\n"
-"%s\n"
+"%(e)s\n"
 "\n"
-"Proporcioneu la informació correcta per a instal·lar %s."
+"Proporcioneu la informació correcta per a instal·lar %(productName)s."
 
 #: pyanaconda/yuminstall.py:448
 msgid "Change Disc"
@@ -1916,7 +1930,7 @@ msgstr "Canvieu el disc"
 #: pyanaconda/yuminstall.py:449
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
-msgstr ""
+msgstr "Inseriu el disc %(discnum)d de %(productName)s per a continuar."
 
 #: pyanaconda/yuminstall.py:459
 msgid "Wrong Disc"
@@ -2060,7 +2074,7 @@ msgstr ""
 
 #: pyanaconda/yuminstall.py:1455
 msgid "Some of the packages you have selected for install are missing dependencies.  You can exit the installation, go back and change your package selections, or continue installing these packages without their dependencies.  If you continue, these packages may not work correctly due to missing components."
-msgstr ""
+msgstr "Algun/s dels paquets que heu seleccionat per a instal·lar té problemes de dependències. Podeu sortir de l'instal·lació, tornar enrera i canviar la selecció de paquets, o continuar instal·lant els paquets esmentats sense les seves dependències. Si continueu, és possible que aquests paquets no funcionin com cal per causa d'aquesta mancança."
 
 #: pyanaconda/yuminstall.py:1499
 #, python-format
@@ -2081,9 +2095,9 @@ msgid "You appear to be upgrading from a system which is too old to upgrade to t
 msgstr "El sistema des del que esteu fent servir és massa antic per actualitzar-lo a aquesta versió de %s. Esteu segur que voleu continuar amb el procés d'actualització?"
 
 #: pyanaconda/yuminstall.py:1698
-#, fuzzy, python-format
+#, python-format
 msgid "The arch of the release of %(productName)s you are upgrading to appears to be %(myarch)s which does not match your previously installed arch of %(arch)s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr "L'arquitectura de la versió de %s que esteu actualitzant sembla ser %s, però no concorda amb l'arquitectura que vau instal·lar amb anterioritat (%s). És molt probable que el procés falli. Esteu segur que voleu continuar amb l'actualització?"
+msgstr "L'arquitectura de la versió de %(productName)s que esteu actualitzant sembla ser %(myarch)s, però no concorda amb l'arquitectura que vau instal·lar amb anterioritat %(arch)s. És molt probable que el procés falli. Esteu segur que voleu continuar amb l'actualització?"
 
 # XC: la traducció fa referència a la configuració després de l'actualització,
 # segons diu el missatge a continuació
@@ -2140,7 +2154,7 @@ msgid "_Fedora"
 msgstr "_Fedora"
 
 #: pyanaconda/installclasses/fedora.py:39
-#, fuzzy, python-format
+#, python-format
 msgid "The default installation of %s includes a set of software applicable for general internet usage. You can optionally select a different set of software now."
 msgstr "La instal·lació per defecte de %s inclou un conjunt de programari aplicable a l'ús general d'Internet. Quines altres tasques addicionals voldríeu incloure en aquest sistema?"
 
@@ -2159,7 +2173,7 @@ msgstr "Servidor web"
 #: pyanaconda/installclasses/fedora.py:63
 #: pyanaconda/installclasses/rhel.py:44
 msgid "Minimal"
-msgstr ""
+msgstr "Mínim"
 
 #: pyanaconda/installclasses/rhel.py:33
 msgid "Red Hat Enterprise Linux"
@@ -2168,7 +2182,7 @@ msgstr "Red Hat Enterprise Linux"
 #: pyanaconda/installclasses/rhel.py:34
 #, python-format
 msgid "The default installation of %s is a minimum install. You can optionally select a different set of software now."
-msgstr ""
+msgstr "La instal·lació predeterminada de %s és una instal·lació mínima. Ara podeu seleccionar un joc de programari diferent."
 
 #: pyanaconda/iw/GroupSelector.py:147
 #, python-format
@@ -2288,6 +2302,9 @@ msgid ""
 "\n"
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
+"Aquesta opció esborra totes les particions del(s) dispositiu(s) seleccionat(s). Això inclou particions creades per altres sistemes operatius.\n"
+"\n"
+"<b>Consell:</b> aquesta opció esborrarà totes les dades del(s) dispositiu(s) seleccionat(s). Assegureu-vos de tenir-ne còpies de seguretat."
 
 #: pyanaconda/iw/autopart_type.py:236
 msgid "Replace Existing Linux System(s)"
@@ -2299,6 +2316,9 @@ msgid ""
 "\n"
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
+"Aquesta opció esborra totes les particions Linux del(s) dispositiu(s) seleccionat(s). Això no esborra altres particions que pugui haver al(s) vostre(s) dispositiu(s) d'emmagatzematge (com les VFAT o FAT32).\n"
+"\n"
+"<b>Tip:</b> Aquesta opció esborrarà totes les dades del(s) dispositiu(s) seleccionat(s). Assegureu-vos de tenir-ne còpies de seguretat."
 
 #: pyanaconda/iw/autopart_type.py:246
 msgid "Shrink Current System"
@@ -2306,7 +2326,7 @@ msgstr "Escongeix el sistema actual"
 
 #: pyanaconda/iw/autopart_type.py:248
 msgid "Shrinks existing partitions to create free space for the default layout."
-msgstr ""
+msgstr "Reduexi les particions existents per a crear espai lliure per a l'esquema per defecte."
 
 #: pyanaconda/iw/autopart_type.py:250
 msgid "Use Free Space"
@@ -2314,7 +2334,7 @@ msgstr "Utilitza l'espai lliure"
 
 #: pyanaconda/iw/autopart_type.py:252
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
-msgstr ""
+msgstr "Conserva les vostres dades i particions actuals i només empra l'espai sense particionar del(s) dispositiu(s) seleccionat(s), assumint que teniu prou espai lliure."
 
 #: pyanaconda/iw/autopart_type.py:256
 msgid "Create Custom Layout"
@@ -2322,7 +2342,7 @@ msgstr "Crea una disposició personalitzada"
 
 #: pyanaconda/iw/autopart_type.py:258
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
-msgstr ""
+msgstr "Crear manualment el vostre esquema personalitzat al(s) dispositiu(s) seleccionat(s) amb la nostra eina de particionat."
 
 #: pyanaconda/iw/blpasswidget.py:44
 msgid "_Use a boot loader password"
@@ -2387,7 +2407,7 @@ msgstr "_Canvia el dispositiu"
 
 #: pyanaconda/iw/cleardisks_gui.py:34
 msgid "Clear Disks Selector"
-msgstr ""
+msgstr "Buida el selector de discs"
 
 #: pyanaconda/iw/cleardisks_gui.py:45
 #: pyanaconda/iw/filter_gui.py:429
@@ -2450,15 +2470,15 @@ msgstr ""
 
 #: pyanaconda/iw/cleardisks_gui.py:196
 msgid "<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Consell:</b> es reformatarà i s'esborraran les dades de tots els sistemes de fitxers Linux dels dispositius destí de la instal·lació. Assegureu-vos de tenir-ne còpia de seguretat."
 
 #: pyanaconda/iw/cleardisks_gui.py:198
 msgid "<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Consell:</b> es reformataran i s'esborraran totes les dades dels dispositius destí. Assegureu-vos de tenir-ne còpia de seguretat."
 
 #: pyanaconda/iw/cleardisks_gui.py:200
 msgid "<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."
-msgstr ""
+msgstr "<b>Consell:</b> No es reformatarà el sistema de fitxers dels dispositius destí de l'instal·lació, excepte si ho indiqueu durant la personalització."
 
 #: pyanaconda/iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2515,23 +2535,22 @@ msgid "Fresh Installation"
 msgstr "Instal·lació neta"
 
 #: pyanaconda/iw/examine_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "Choose this option to install a fresh copy of %s on your system.  Existing software and data may be overwritten depending on your configuration choices."
-msgstr "Escolliu aquesta opció per a una instal·lació nova. Es podrien sobreescriure dades o esborrar programari existent depenent de les opcions de configuració."
+msgstr "Escolliu aquesta opció per a una instal·lació nova de %s. Es podrien sobreescriure dades o esborrar programari existent depenent de les opcions de configuració."
 
 #: pyanaconda/iw/examine_gui.py:65
 msgid "Upgrade an Existing Installation"
 msgstr "Actualitza una instal·lació existent"
 
 #: pyanaconda/iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your storage device(s)."
 msgstr "Escolliu aquesta opció si voleu actualitzar el sistema %s. Aquesta opció conservarà les dades existents a les unitats."
 
 #: pyanaconda/iw/examine_gui.py:107
-#, fuzzy
 msgid "At least one existing installation has been detected on your system.  What would you like to do?"
-msgstr "No s'ha carregat cap controlador al sistema. Voleu carregar-ne algun ara?"
+msgstr "S'ha detectat una o més instal·lacions anteriors al vostre sistema. Què voleu fer?"
 
 #: pyanaconda/iw/examine_gui.py:126
 #, python-format
@@ -2648,14 +2667,14 @@ msgid "C_ontinue"
 msgstr "C_ontinua"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:173
-#, fuzzy, python-format
+#, python-format
 msgid "The physical extent size cannot be changed because the value selected (%(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)10.2f MB) in the volume group."
-msgstr "No es pot canviar l'extensió física ja que el valor seleccionat (%10.2f MB) és més gran que el menor volum físic (%10.2f MB) dins el grup de volum."
+msgstr "No es pot canviar l'extensió física ja que el valor seleccionat (%(curpe)10.2f MB) és més gran que el menor volum físic  (%(maxpvsize)10.2f MB) dins el grup de volum."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:187
-#, fuzzy, python-format
+#, python-format
 msgid "The physical extent size cannot be changed because the value selected (%(curpe)10.2f MB) is too large compared to the size of the smallest physical volume (%(maxpvsize)10.2f MB) in the volume group."
-msgstr "No es pot canviar l'extensió física ja que el valor seleccionat (%10.2f MB) és massa gran comparat amb la mida del volum físic més petit (%10.2f MB) en el grup de volum."
+msgstr "No es pot canviar l'extensió física ja que el valor seleccionat (%(curpe)10.2f MB) és massa gran comparat amb la mida del volum físic més petit (%(maxpvsize)10.2f MB) en el grup de volum."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:201
 msgid "Too small"
@@ -2776,25 +2795,25 @@ msgid "The requested size as entered is not a valid number greater than 0."
 msgstr "La mida sol·licitada que s'ha introduït no és un número vàlid més gran que 0."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:698
-#, fuzzy, python-format
+#, python-format
 msgid "The current requested size (%(size)10.2f MB) is larger than the maximum logical volume size (%(maxlv)10.2f MB). To increase this limit you can create more Physical Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr "La mida sol·licitada (%10.2f MB) és més gran que la mida màxima del volum lògic (%10.2f MB). Per incrementar aquest límit podeu crear més volums físics a partir d'espai de disc sense partir, i afegir-los a aquest grup de volum."
+msgstr "La mida sol·licitada (%(size)10.2f MB) és més gran que la mida màxima del volum lògic (%(maxlv)10.2f MB). Per incrementar aquest límit podeu crear més volums físics a partir d'espai de disc sense partir, i afegir-los a aquest grup de volum."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:719
-#, fuzzy, python-format
+#, python-format
 msgid "The size entered for this logical volume (%(size)d MB) combined with the size of the other logical volume(s) exceeds the size of the volume group (%(tempvgsize)d MB). Please make the volume group larger or make the logical volume smaller."
-msgstr "Els volums lògics que heu configurat necessiten %d MB, però el grup de volum només en té %d. Feu més gran el grup de volum o feu els volums més petits."
+msgstr "Els volums lògics que heu configurat necessiten (%(size)d MB), però el grup de volum només en té (%(tempvgsize)d MB). Feu més gran el grup de volum o feu els volums més petits."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:829
 msgid "No free slots"
 msgstr "No hi ha zones lliures"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:830
-#, fuzzy, python-format
+#, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
-msgstr[0] "No podeu crear més de %s volums lògics per grup de volum."
-msgstr[1] "No podeu crear més de %s volums lògics per grup de volum."
+msgstr[0] "No podeu crear més de %d volums lògics per grup de volums."
+msgstr[1] "No podeu crear més de %d volums lògics per grup de volums."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:840
 msgid "No free space"
@@ -2911,13 +2930,13 @@ msgstr "Volums _lògics"
 
 #: pyanaconda/iw/netconfig_dialog.py:192
 #: pyanaconda/textw/netconfig_text.py:36
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred converting the value entered for \"%(field)s\":\n"
 "%(errmsg)s"
 msgstr ""
-"S'ha produït un error en convertir el valor entrat per a «%s»:\n"
-"%s"
+"S'ha produït un error en convertir el valor entrat per a \"%(field)s\":\n"
+"%(errmsg)s"
 
 #: pyanaconda/iw/netconfig_dialog.py:195
 #: pyanaconda/iw/netconfig_dialog.py:204
@@ -3203,7 +3222,6 @@ msgid "Partitioning Warnings"
 msgstr "Advertències del particionat"
 
 #: pyanaconda/iw/partition_gui.py:881
-#, fuzzy
 msgid "The following pre-existing devices have been selected to be formatted, destroying all data."
 msgstr "Es destruiran les dades de les particions existents que heu seleccionat per formatar."
 
@@ -3241,11 +3259,17 @@ msgid ""
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 msgstr ""
+"Tingueu present que per a l'acció de crear cal una de les següents opcions:\n"
+"\n"
+"* Espai lliure a un dels discs durs.\n"
+"* Un mínim de dues particions RAID lliures.\n"
+"* Un mínim d'una partició de volum físic (LVM) lliure.\n"
+"* Un mínim d'un grup de volums amb espai lliure."
 
 #: pyanaconda/iw/partition_gui.py:1474
-#, fuzzy, python-format
+#, python-format
 msgid "Software RAID allows you to combine several disks into a larger RAID device.  A RAID device can be configured to provide additional speed and reliability compared to using an individual drive.  For more information on using RAID devices please consult the %s documentation.\n"
-msgstr "Un RAID de programari us permet combinar múltiples discos en un únic dispositiu RAID més gran. Es pot configurar un dispositiu RAID per obtenir velocitat i robustesa addicionals, en comparació amb utilitzar només una unitat. Consulteu la documentació de %s per obtenir més informació quant a l'ús de dispositius RAID."
+msgstr "Un RAID de programari us permet combinar múltiples discos en un únic dispositiu RAID més gran. Es pot configurar un dispositiu RAID per obtenir velocitat i robustesa addicionals, en comparació amb utilitzar només una unitat. Consulteu la documentació de %s per obtenir més informació quant a l'ús de dispositius RAID.\n"
 
 #: pyanaconda/iw/partition_gui.py:1480
 msgid ""
@@ -3256,11 +3280,11 @@ msgstr ""
 "\n"
 
 #: pyanaconda/iw/partition_gui.py:1484
-#, fuzzy, python-format
+#, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
-msgstr[0] "Crea una _partició RAID de programari."
-msgstr[1] "Crea una _partició RAID de programari."
+msgstr[0] "Actualment teniu %d partició disponible de RAID per programari."
+msgstr[1] "Actualment teniu %d particions lliures de RAID per programari."
 
 #: pyanaconda/iw/partition_gui.py:1488
 msgid "About RAID"
@@ -3269,24 +3293,26 @@ msgstr "Quant a RAID"
 #: pyanaconda/iw/partition_gui.py:1494
 #, python-format
 msgid "Logical Volume Manager (LVM) is a 3 level construct. The first level is made up of disks or partitions formatted with LVM metadata called Physical Volumes (PV).  A Volume Group (VG) sits on top of one or more PVs. The VG, in turn, is the base to create one or more Logical Volumes (LV).  Note that a VG can be an aggregate of PVs from multiple physical disks.  For more information on using LVM please consult the %s documentation\n"
-msgstr ""
+msgstr "El Gestor de Volums Lògics (LVM) és una estructura de 3 nivells. El primer nivell està composat de discs o particions formatats amb metadades LVM, anomenats Volums Físics (PV). Un Grup de Volums (VG) és damunt un o més PV. Els VG, al seu torn, són la base per a crear un o més Volums Lògics (LV). Tingueu present que un VG pot ser una agrupació de PV de diversos discs. Per a més informació sobre com emprar LVM, consulteu la documentació %s\n"
 
 #: pyanaconda/iw/partition_gui.py:1502
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you need a PV that is not part of any existing VG.  To create an LV you need a VG with free space.\n"
 "\n"
 msgstr ""
+"Per a crear un PV necessiteu una partició amb espai lliure. Per a crear un VG necessiteu un PV que no formi part de cap VG. Per a crear un LV us cal un VG amb espai lliure.\n"
+"\n"
 
 #: pyanaconda/iw/partition_gui.py:1506
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "En aquest moment disposeu de %d PV lliure per a utilitzar.\n"
+msgstr[1] "En aquest moment disposeu de %d PV lliures pera  utilitzar.\n"
 
 #: pyanaconda/iw/partition_gui.py:1510
 msgid "You currently have free space to create PVs."
-msgstr ""
+msgstr "En aquest moment disposeu d'espai lliure per a crear PV."
 
 #: pyanaconda/iw/partition_gui.py:1513
 msgid "About LVM"
@@ -3550,13 +3576,13 @@ msgstr "Migra sistemes de fitxers"
 
 #: pyanaconda/iw/upgrade_migratefs_gui.py:69
 #: pyanaconda/textw/upgrade_text.py:44
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This release of %(productName)s supports an updated file system, which has several benefits over the file system traditionally shipped in %(productName)s.  This installation program can migrate formatted partitions without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Aquesta versió de %s pot fer servir un sistema de fitxers que proporciona alguns beneficis comparat amb el sistema de fitxers que s'ha fet servir tradicionalment en %s. Es pot convertir les particions formatades sense que se'n perdin les dades.\n"
+"Aquesta versió de %(productName)s pot fer servir un sistema de fitxers que proporciona alguns beneficis comparat amb el sistema de fitxers que s'ha fet servir tradicionalment en %(productName)s. Es pot convertir les particions formatades sense que se'n perdin les dades.\n"
 "\n"
 "Quines d'aquestes particions voleu convertir?"
 
@@ -3632,9 +3658,8 @@ msgstr "Es requereix instal·lar per xarxa"
 
 #: pyanaconda/iw/welcome_gui.py:57
 #: pyanaconda/textw/welcome_text.py:37
-#, fuzzy
 msgid "Your installation source is set to a network location, but no network devices were found on your system.  To avoid a network installation, boot with the full DVD, full CD set, or do not pass a repo= parameter that specifies a network source."
-msgstr "La vostra font d'instal·lació està establerta a una ubicació de xarxa, però no s'han trobat dispositius en el vostre sistema. Per evitar una instal·lació en xarxa, arrenqueu amb tot el DVD o tots els CD, o no indiqueu el paràmetre repo= que especifica una font de xarxa."
+msgstr "La vostra font d'instal·lació està establerta a una ubicació de xarxa, però no s'han trobat dispositius de xarxa en el vostre sistema. Per evitar una instal·lació en xarxa, arrenqueu amb el DVD, tots els CD, o no indiqueu el paràmetre repo= que especifica una font de xarxa."
 
 #: pyanaconda/iw/welcome_gui.py:67
 msgid "E_xit Installer"
@@ -3913,9 +3938,9 @@ msgid "Unknown driver disk kickstart source: %s"
 msgstr "No es coneix cap font de discos de controladors del kickstart: %s"
 
 #: loader/driverdisk.c:749
-#, fuzzy, c-format
+#, c-format
 msgid "The following invalid argument was specified for the kickstart driver disk command: %s"
-msgstr "S'ha especificat el següent argument invàlid de la comanda per al disc de controladors del kickstart: %s:%s"
+msgstr "S'ha especificat el següent argument invàlid de la comanda per al disc de controladors del kickstart: %s"
 
 #: loader/driverselect.c:68
 #, c-format
@@ -4232,7 +4257,6 @@ msgid "Checking media."
 msgstr "S'està comprovant el medi."
 
 #: loader/mediacheck.c:87
-#, fuzzy
 msgid "Unable to find the checksum in the image.  This probably means the disc was created without adding the checksum."
 msgstr "No s'ha pogut llegir la suma de verificació del disc des del descriptor de volum primari. Molt probablement això indica que el disc es va crear sense afegir la suma de verificació."
 
@@ -4442,9 +4466,9 @@ msgid "NFS mount options (optional):"
 msgstr "Opcions de muntatge d'NFS (opcional):"
 
 #: loader/nfsinstall.c:107
-#, fuzzy, c-format
+#, c-format
 msgid "Please enter the server and path to your %s installation image and optionally additional NFS mount options."
-msgstr "Introduïu el nom de servidor i el camí a la vostra imatge d'instal·lació %s."
+msgstr "Introduïu el nom de servidor i el camí a la vostra imatge d'instal·lació del %s i, opcionalment, les opcions addicionals de muntatge del NFS."
 
 #: loader/nfsinstall.c:115
 msgid "NFS Setup"
@@ -4669,9 +4693,9 @@ msgid "Your root partition is less than 250 megabytes which is usually too small
 msgstr "La partició arrel té menys de 250 MB, normalment massa petita per instal·lar-hi %s."
 
 #: pyanaconda/storage/__init__.py:981
-#, fuzzy, python-format
+#, python-format
 msgid "Your / partition is less than %(min)s MB which is lower than recommended for a normal %(productName)s install."
-msgstr "La partició / té menys de %s MB, menys del necessari per a una instal·lació normal de %s."
+msgstr "La partició / té menys de %(min)s MB, menys del necessari per a una instal·lació normal de %(productName)s install."
 
 #: pyanaconda/storage/__init__.py:991
 #, python-format
@@ -4679,9 +4703,9 @@ msgid "Your / partition does not match the the live image you are installing fro
 msgstr "La vostra partició / no concorda amb la imatge autònoma des d'on esteu instal·lant. S'ha de formatar com a %s."
 
 #: pyanaconda/storage/__init__.py:998
-#, fuzzy, python-format
+#, python-format
 msgid "Your %(mount)s partition is less than %(size)s megabytes which is lower than recommended for a normal %(productName)s install."
-msgstr "La partició %s té menys de %s MB, menor que la recomanada per a una instal·lació normal de %s."
+msgstr "La partició %(mount)s té menys de %(size)s MB, mida menor que la recomanada per a una instal·lació normal de %(productName)s install."
 
 #: pyanaconda/storage/__init__.py:1027
 msgid "Installing on a USB device.  This may or may not produce a working system."
@@ -4786,7 +4810,7 @@ msgstr ""
 "al vostre fitxer /etc/fstab s'està fent servir com a dispositiu per a suspensió de programari, per tant el vostre sistema està hibernant. Si esteu fent una nova instal·lació, assegureu-vos que l'instal·lador està configurat per formatar totes les particions d'intercanvi."
 
 #: pyanaconda/storage/__init__.py:1881
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4798,10 +4822,10 @@ msgstr ""
 "\n"
 "     %s\n"
 "\n"
-"no conté un volum d'intercanvi vàlid. Per continuar amb la instal·lació, haureu de formatar el dispositiu o ignorar-ho."
+"no conté un volum d'intercanvi vàlid. Per a continuar amb la instal·lació, haureu de formatar el dispositiu o ignorar-ho."
 
 #: pyanaconda/storage/__init__.py:1892
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -4809,14 +4833,14 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"S'ha produït un error en activar el dispositiu d'intercanvi %s: %s\n"
+"S'ha produït un error en activar el dispositiu d'intercanvi %(name)s: %(msg)s\n"
 "\n"
 "El fitxer /etc/fstab de la partició des d'on s'actualitza no fa referència a cap partició d'intercanvi vàlida.\n"
 "\n"
 "Premeu «D'acord» per a sortir de l'instal·lador."
 
 #: pyanaconda/storage/__init__.py:1899
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
 "\n"
@@ -4824,7 +4848,7 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"S'ha produït un error en activar el dispositiu de la memòria d'intercanvi %s: %s\n"
+"S'ha produït un error en activar el dispositiu de la memòria d'intercanvi %(name)s: %(msg)s\n"
 "\n"
 "Aquesta partició no deu haver estat degudament inicialitzada.\n"
 "\n"
@@ -4847,13 +4871,13 @@ msgstr ""
 "Premeu <tecla de retorn> per a sortir de l'instal·lador."
 
 #: pyanaconda/storage/__init__.py:1975
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"S'ha produït un error en intentar crear %s: %s. Aquest és un error fatal i la instal·lació no pot continuar.\n"
+"S'ha produït un error en intentar crear %(mountpoint)s: %(msg)s. Aquest és un error fatal i la instal·lació no pot continuar.\n"
 "\n"
 "Premeu <tecla de retorn> per a sortir de l'instal·lador."
 
@@ -4863,18 +4887,18 @@ msgid "Unable to mount filesystem"
 msgstr "No s'ha pogut muntar el sistema de fitxers"
 
 #: pyanaconda/storage/__init__.py:1992
-#, fuzzy, python-format
+#, python-format
 msgid "An error occurred mounting device %(path)s as %(mountpoint)s.  You may continue installation, but there may be problems."
-msgstr "S'ha produït un error en muntar el dispositiu %s com a %s. Encara que podeu continuar amb la instal·lació, poden haver-hi més problemes."
+msgstr "S'ha produït un error en muntar el dispositiu %(path)s com a %(mountpoint)s. Encara que podeu continuar amb la instal·lació, poden haver-hi més problemes."
 
 #: pyanaconda/storage/__init__.py:2016
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"S'ha produït un error en muntar el dispositiu %s com a %s: %s. Aquest és un error fatal i la instal·lació no pot continuar.\n"
+"S'ha produït un error en muntar el dispositiu %(path)s com a %(mountpoint)s: %(msg)s. Aquest és un error fatal i la instal·lació no pot continuar.\n"
 "\n"
 "Premeu <tecla de retorn> per a sortir de l'instal·lador."
 
@@ -4999,7 +5023,7 @@ msgstr "S'ha produït un error en la verificació del sistema de fitxers %(type)
 
 #: pyanaconda/storage/formats/fs.py:537
 msgid "Errors like this usually mean there is a problem with the filesystem that will require user interaction to repair.  Before restarting installation, reboot to rescue mode or another system that allows you to repair the filesystem interactively.  Restart installation after you have corrected the problems on the filesystem."
-msgstr ""
+msgstr "Aquesta mena d'errors solen indicar que hi ha un problema al sistema de fitxers que requereix interacció de l'usuari per a ser reparat. Abans de tornar a iniciar la instal·lació, reinicieu en mode de rescat o en un altre sistema que us permeti reparar el sistema de fitxers de manera interactiva. Reinicieu la instal·lació un cop hagueu corregit els problemes del sistema de fitxers."
 
 #: pyanaconda/storage/formats/fs.py:545
 #: pyanaconda/storage/partitioning.py:283
@@ -5028,7 +5052,7 @@ msgstr "Error de biblioteca compartida."
 
 #: pyanaconda/storage/formats/fs.py:1052
 msgid "Recoverable errors have been detected or dosfsck has discovered an internal inconsistency."
-msgstr ""
+msgstr "S'ha detectat errors irresolubles o dosfsck ha trobat inconsistències internes."
 
 #: pyanaconda/storage/formats/fs.py:1054
 msgid "Usage error."
@@ -5056,7 +5080,7 @@ msgstr "S'està escanejant els nodes iSCSI"
 
 #: pyanaconda/storage/iscsi.py:135
 msgid "Unable to change iSCSI initiator name once set"
-msgstr ""
+msgstr "No s'ha pogut canviar el nom de l'iniciador iSCSI un cop definit"
 
 #: pyanaconda/storage/iscsi.py:137
 msgid "Must provide an iSCSI initiator name"
@@ -5152,7 +5176,7 @@ msgid "Automatic Partitioning Errors"
 msgstr "Errors del particionat automàtic"
 
 #: pyanaconda/storage/partitioning.py:272
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -5162,9 +5186,9 @@ msgid ""
 msgstr ""
 "S'han produït els següents errors en fer les particions:\n"
 "\n"
-"%s\n"
+"%(errortxt)s\n"
 "\n"
-"Això pot passar si no hi ha prou espai als discos durs per a la instal·lació. %s"
+"Això pot passar si no hi ha prou espai al(s) disc(s) dur(s) per a la instal·lació. %(extra)s"
 
 #: pyanaconda/storage/zfcp.py:51
 msgid "You have not specified a device number or the number is invalid"
@@ -5199,29 +5223,29 @@ msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
 msgstr "No s'ha trobat el WWPN %(wwpn)s al dispositiu zFCP %(devnum)s."
 
 #: pyanaconda/storage/zfcp.py:176
-#, fuzzy, python-format
+#, python-format
 msgid "Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "No s'ha pogut afegir el LUN %s al WWPN %s al dispositiu zFCP %s (%s)."
+msgstr "No s'ha pogut afegir el LUN %(fcplun)s al WWPN %(wwpn)s al dispositiu zFCP %(devnum)s (%(e)s)."
 
 #: pyanaconda/storage/zfcp.py:182
-#, fuzzy, python-format
+#, python-format
 msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
-msgstr "El LUN %s al WWPN %s en el dispositiu zFCP %s ja està configurat."
+msgstr "El LUN %(fcplun)s al WWPN %(wwpn)s en el dispositiu zFCP %(devnum)s ja està configurat."
 
 #: pyanaconda/storage/zfcp.py:194
-#, fuzzy, python-format
+#, python-format
 msgid "Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "No s'ha pogut llegir l'atribut fallit del LUN %s al WWPN %s en el dispositiu zFCP %s (%s)."
+msgstr "No s'ha pogut llegir l'atribut fallit del LUN %(fcplun)s al WWPN %(wwpn)s en el dispositiu zFCP %(devnum)s (%(e)s)."
 
 #: pyanaconda/storage/zfcp.py:203
-#, fuzzy, python-format
+#, python-format
 msgid "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed again."
-msgstr "S'ha suprimit una altra vegada el LUN %s fallit al WWPN %s en el dispositiu zFCP %s."
+msgstr "S'ha suprimit una altra vegada el LUN %(fcplun)s fallit al WWPN %(wwpn)s en el dispositiu zFCP %(devnum)s."
 
 #: pyanaconda/storage/zfcp.py:260
-#, fuzzy, python-format
+#, python-format
 msgid "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s)."
-msgstr "No s'ha pogut suprimir correctament el dispositiu SCSI del zFCP %s %s %s (%s)."
+msgstr "No s'ha pogut suprimir correctament el dispositiu SCSI del zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s)."
 
 #: pyanaconda/storage/zfcp.py:269
 #, python-format
@@ -5624,7 +5648,7 @@ msgstr "Quina partició voleu encongir per a fer lloc a la vostra instal·lació
 
 #: data/ui/autopart.glade.h:5
 msgid "Which type of installation would you like?"
-msgstr ""
+msgstr "Quin tipus d'instal·lació voleu?"
 
 #: data/ui/autopart.glade.h:6
 msgid "_Encrypt system"
@@ -5672,44 +5696,43 @@ msgstr "On voleu que s'instali el gestor d'arranc per al vostre sistema?"
 
 #: data/ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
+msgstr "<b>Dispositius d'emmagatzematge de dades</b> (només per a ser muntats)"
 
 #: data/ui/cleardisks.glade.h:2
-#, fuzzy
 msgid "<b>Install Target Devices</b>"
-msgstr "<b>S'està instal·lant %s</b> (%s)\n"
+msgstr "<b>Instal·leu els dispositius destí</b>"
 
 #: data/ui/cleardisks.glade.h:3
 msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Consell:</b> es reformataran els dispositius destí de l'instal·lació i se n'esborrarà totes les dades. Assegureu-vos de tenir-ne còpia de seguretat."
 
 #: data/ui/cleardisks.glade.h:4
 msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data devices (these will not be formatted, only mounted) and which devices you'd like to use as installation target devices (these may be formatted).  Please also indicate which system drive will have the bootloader installed."
-msgstr ""
+msgstr "Aquí sota teniu els dispositius d'emmagatzematge que heu seleccionat per a formar part d'aquesta instal·lació. Indiqueu emprant les fletxes quins dispositius voleu emprar com a dispositius de dades (aquests no es formataran, només es muntaran) i quins voleu emprar com a destí de la instal·lació (aquests potser seran formatats). Indiqueu també quina unitat de sistema tindrà l'indicador d'arrencada."
 
 #: data/ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Crea una partició formatada com a RAID</span>"
 
 #: data/ui/create-storage.glade.h:2
 msgid "<span size=\"small\" color=\"gray\">Create a logical volume on selected volume group</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Crea un volum lògic al grup de volums seleccionat</span>"
 
 #: data/ui/create-storage.glade.h:3
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Crea una partició formatada com a LVM</span>"
 
 #: data/ui/create-storage.glade.h:4
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Creació de particions de propòsit general</span>"
 
 #: data/ui/create-storage.glade.h:5
 msgid "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Requereix un mínim d'una partició formatada com a LVM lliure</span>"
 
 #: data/ui/create-storage.glade.h:6
 msgid "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted partitions</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Requereix un mínim de dues particions lliures formatades com a RAID</span>"
 
 #: data/ui/create-storage.glade.h:7
 msgid "C_reate"
@@ -5783,7 +5806,7 @@ msgstr "_Afegeix discs FCoE"
 
 #: data/ui/filter.glade.h:1
 msgid "<b>Tip:</b> Selected drives will not be formatted unless you choose to do so later during installation.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
-msgstr ""
+msgstr "<b>Consell:</b> no es formatarà les unitats seleccionades excepte que ho indiqueu explícitament durant la instal·lació. A més, tingueu present que després de la instal·lació podreu muntar els dispositius que no heu triat aquí modificant el fitxer /etc/fstab."
 
 #: data/ui/filter.glade.h:2
 msgid "Add Advanced Target"
@@ -5798,7 +5821,6 @@ msgid "Filter By:"
 msgstr "Filtra per:"
 
 #: data/ui/filter.glade.h:5
-#, fuzzy
 msgid "Firmware RAID"
 msgstr "RAID de programari"
 
@@ -5812,6 +5834,9 @@ msgid ""
 "Vendor\n"
 "Identifier"
 msgstr ""
+"Interconnecta\n"
+"Venedor\n"
+"Identificador"
 
 #: data/ui/filter.glade.h:10
 msgid "LUN:"
@@ -5827,13 +5852,15 @@ msgstr "Altres dispositius SAN"
 
 #: data/ui/filter.glade.h:13
 msgid "Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount on your system:"
-msgstr ""
+msgstr "Seleccioneu les unitats on voleu instal·lar el sistema operatiu, així com qualsevol unitat que volgueu muntar automàticament al vostre sistema:"
 
 #: data/ui/filter.glade.h:14
 msgid ""
 "Port / Target / LUN\n"
 "Target Identifier"
 msgstr ""
+"Port / Destí / LUN\n"
+"Identificador del destí"
 
 #: data/ui/filter.glade.h:16
 msgid "Port:"
