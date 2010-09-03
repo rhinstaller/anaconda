@@ -61,7 +61,7 @@ class DeviceDisplayer(object):
         cell = gtk.CellRendererText()
         cell.set_property("yalign", 0)
 
-        col = gtk.TreeViewColumn(title, cell, text=num, active=self.active)
+        col = gtk.TreeViewColumn(title, cell, text=num)
         col.set_visible(displayed)
         col.set_expand(True)
         col.set_resizable(True)
