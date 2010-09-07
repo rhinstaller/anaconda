@@ -25,16 +25,15 @@ from constants import *
 class Flags:
 
     def __getattr__(self, attr):
-	if self.__dict__['flags'].has_key(attr):
-	    return self.__dict__['flags'][attr]
-
-	raise AttributeError, attr
+        if self.__dict__['flags'].has_key(attr):
+            return self.__dict__['flags'][attr]
+        raise AttributeError, attr
 
     def __setattr__(self, attr, val):
-	if self.__dict__['flags'].has_key(attr):
-	    self.__dict__['flags'][attr] = val
-	else:
-	    raise AttributeError, attr
+        if self.__dict__['flags'].has_key(attr):
+            self.__dict__['flags'][attr] = val
+        else:
+            raise AttributeError, attr
 
     def get(self, attr, val=None):
         if self.__dict__['flags'].has_key(attr):
@@ -70,24 +69,24 @@ class Flags:
                 and not self.__dict__['flags']['cmdline'].has_key("no" + flag) \
                 and self.__dict__['flags']['cmdline'][flag] != "0":
             self.__dict__['flags'][flag] = 1
-	
+
     def __init__(self):
-	self.__dict__['flags'] = {}
-	self.__dict__['flags']['test'] = 0
-	self.__dict__['flags']['livecdInstall'] = 0
+        self.__dict__['flags'] = {}
+        self.__dict__['flags']['test'] = 0
+        self.__dict__['flags']['livecdInstall'] = 0
         self.__dict__['flags']['dlabel'] = 0
-	self.__dict__['flags']['ibft'] = 1
-	self.__dict__['flags']['iscsi'] = 0
-	self.__dict__['flags']['serial'] = 0
-	self.__dict__['flags']['autostep'] = 0
-	self.__dict__['flags']['autoscreenshot'] = 0
-	self.__dict__['flags']['usevnc'] = 0
-	self.__dict__['flags']['vncquestion'] = True
+        self.__dict__['flags']['ibft'] = 1
+        self.__dict__['flags']['iscsi'] = 0
+        self.__dict__['flags']['serial'] = 0
+        self.__dict__['flags']['autostep'] = 0
+        self.__dict__['flags']['autoscreenshot'] = 0
+        self.__dict__['flags']['usevnc'] = 0
+        self.__dict__['flags']['vncquestion'] = True
         self.__dict__['flags']['mpath'] = 1
-	self.__dict__['flags']['dmraid'] = 1
-	self.__dict__['flags']['selinux'] = SELINUX_DEFAULT
+        self.__dict__['flags']['dmraid'] = 1
+        self.__dict__['flags']['selinux'] = SELINUX_DEFAULT
         self.__dict__['flags']['debug'] = 0
-	self.__dict__['flags']['targetarch'] = None
+        self.__dict__['flags']['targetarch'] = None
         self.__dict__['flags']['cmdline'] = self.createCmdlineDict()
         self.__dict__['flags']['useIPv4'] = True
         self.__dict__['flags']['useIPv6'] = True
@@ -113,11 +112,11 @@ class Flags:
             self.__dict__['flags']['debug'] = self.__dict__['flags']['cmdline']['debug']
 
         if self.__dict__['flags']['cmdline'].has_key("rpmarch"):
-            self.__dict__['flags']['targetarch'] = self.__dict__['flags']['cmdline']['rpmarch']             
+            self.__dict__['flags']['targetarch'] = self.__dict__['flags']['cmdline']['rpmarch']
 
         if not os.path.exists("/selinux/load"):
             self.__dict__['flags']['selinux'] = 0
 
-                
 global flags
 flags = Flags()
+
