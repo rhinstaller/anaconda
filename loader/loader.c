@@ -1005,6 +1005,8 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
             } else {
                 flags |= LOADER_FLAGS_SELINUX;
             }
+        } else if (!strcasecmp(k, "noeject")) {
+            flags |= LOADER_FLAGS_NOEJECT;
         } else if (v != NULL) {
             /* boot arguments that are of the form name=value */
             /* all arguments in this block require the value  */

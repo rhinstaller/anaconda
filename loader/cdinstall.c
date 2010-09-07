@@ -69,6 +69,12 @@ static void ejectCdrom(char *device) {
     int ejectfd;
 
     if (!device) return;
+
+    if (FL_NOEJECT(flags)) {
+        logMessage(INFO, "noeject in effect, not ejecting cdrom");
+        return;
+    }
+
     logMessage(INFO, "ejecting %s...",device);
     if ((ejectfd = open(device, O_RDONLY | O_NONBLOCK, 0)) >= 0) {
         ioctl(ejectfd, CDROM_LOCKDOOR, 0);

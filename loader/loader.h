@@ -71,6 +71,7 @@
 #define LOADER_FLAGS_NOKILL		(((uint64_t) 1) << 38)
 #define LOADER_FLAGS_KICKSTART_SEND_SERIAL   (((uint64_t) 1) << 39)
 #define LOADER_FLAGS_AUTOMODDISK        (((uint64_t) 1) << 40)
+#define LOADER_FLAGS_NOEJECT            (((uint64_t) 1) << 41)
 
 #define FL_TEXT(a)               ((a) & LOADER_FLAGS_TEXT)
 #define FL_RESCUE(a)             ((a) & LOADER_FLAGS_RESCUE)
@@ -107,6 +108,7 @@
 #define FL_NOKILL(a)		 ((a) & LOADER_FLAGS_NOKILL)
 #define FL_KICKSTART_SEND_SERIAL(a) ((a) & LOADER_FLAGS_KICKSTART_SEND_SERIAL)
 #define FL_AUTOMODDISK(a)        ((a) & LOADER_FLAGS_AUTOMODDISK)
+#define FL_NOEJECT(a)            ((a) & LOADER_FLAGS_NOEJECT)
 
 void doExit(int) __attribute__ ((noreturn));
 void startNewt(void);
