@@ -1560,9 +1560,7 @@ class InstallControlWindow:
             i.hide()
             self.window.set_resizable(True)
             self.window.set_size_request(-1, -1)
-            self.window.fullscreen()
         else:
-            self.window.set_size_request(800, 600)
             # if we're running in the live mode and the dpi is something weird,
             # give ourselves as much space as we can.  this gets things to fit
             # with a dpi of up to 147
@@ -1574,6 +1572,8 @@ class InstallControlWindow:
             else:
                 # normal graphical install or a VNC session
                 self.window.set_type_hint(gtk.gdk.WINDOW_TYPE_HINT_DESKTOP)
+
+        self.window.maximize()
 
         if flags.debug:
             self.mainxml.get_widget("debugButton").show_now()
