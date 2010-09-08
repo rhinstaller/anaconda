@@ -68,16 +68,20 @@ def writeKSConfiguration(anaconda):
 
 def copyAnacondaLogs(anaconda):
     log.info("Copying anaconda logs")
+    if not os.path.isdir (anaconda.rootPath + '/var/log/anaconda'):
+        os.mkdir(anaconda.rootPath + '/var/log/anaconda')
+
     for (fn, dest) in (("/tmp/anaconda.log", "anaconda.log"),
                        ("/tmp/syslog", "anaconda.syslog"),
                        ("/tmp/X.log", "anaconda.xlog"),
                        ("/tmp/program.log", "anaconda.program.log"),
                        ("/tmp/storage.log", "anaconda.storage.log"),
+                       ("/tmp/ifcfg.log", "anaconda.ifcfg.log"),
                        ("/tmp/yum.log", "anaconda.yum.log")):
         if os.access(fn, os.R_OK):
             try:
-                shutil.copyfile(fn, "%s/var/log/%s" %(anaconda.rootPath, dest))
-                os.chmod("%s/var/log/%s" %(anaconda.rootPath, dest), 0600)
+                shutil.copyfile(fn, "%s/var/log/anaconda/%s" %(anaconda.rootPath, dest))
+                os.chmod("%s/var/log/anaconda/%s" %(anaconda.rootPath, dest), 0600)
             except:
                 pass
 
