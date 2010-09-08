@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.213
+Version: 11.1.2.214
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 8 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.214-1
+- Add noeject support to cdrom eject handling (bcl)
+  Resolves: rhbz#477887
+- Add noeject support to loader2 (bcl)
+  Related: rhbz#477887
+- Resolve kernel dependencies in pkgorder (mgracik)
+  Resolves: rhbz#491136
+
 * Fri Aug 20 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.213-1
 - Do not check size of swap partition(s) on s390 (dcantrell)
   Resolves: rhbz#475358
@@ -145,8 +153,6 @@ fi
   Resolves: rhbz#549677
 - Disable ipv6 kernel modules if user disables IPv6 (dcantrell)
   Resolves: rhbz#537887
-
-
 
 * Mon Aug 16 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.212-1
 - Mount /proc/bus/usb under /mnt/sysimage (hdegoede)
