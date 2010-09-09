@@ -32,6 +32,7 @@ usage () {
 DEBUG=""
 BUILDARCH=`uname -m`
 BOOTISO="boot.iso"
+ISBETA="false"
 
 while [ $# -gt 0 ]; do
     case $1 in
@@ -41,6 +42,10 @@ while [ $# -gt 0 ]; do
         ;;
         --noiso)
             BOOTISO=""
+            shift
+        ;;
+        --isbeta)
+            ISBETA="true"
             shift
         ;;
         --arch)
@@ -361,6 +366,7 @@ makeproductfile() {
     cat > $root/.buildstamp << EOF
 [Main]
 BugURL=$BUGURL
+IsBeta=$ISBETA
 Product=$PRODUCT
 UUID=$IMAGEUUID
 Version=$VERSION

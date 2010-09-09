@@ -24,8 +24,6 @@ import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 
-BETANAG = 1
-
 SELINUX_DEFAULT = 1
 
 DISPATCH_BACK = -1
@@ -68,6 +66,7 @@ productName = product.productName
 productVersion = product.productVersion
 productArch = product.productArch
 bugzillaUrl = product.bugUrl
+isBeta = product.isBeta
 
 lvmErrorOutput = "/tmp/lvmout"
 

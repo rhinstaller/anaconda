@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # Simple script to kick off an install from a live CD
 #
@@ -37,6 +37,13 @@ for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snap
 export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.*//' )
 export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
 export ANACONDA_BUGURL=${ANACONDA_BUGURL:="https://bugzilla.redhat.com/bugzilla/"}
+
+RELEASE=$(rpm -q --qf '%{Release}' fedora-release)
+if [ "${RELEASE:0:2}" = "0." ]; then
+    export ANACONDA_ISBETA="true"
+else
+    export ANACONDA_ISBETA="false"
+fi
 
 export PATH=/sbin:/usr/sbin:$PATH
 

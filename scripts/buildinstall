@@ -33,6 +33,7 @@ usage() {
 }
 
 CWD="$(pwd)"
+ISBETA="false"
 
 while [ $# -gt 0 ]; do
     case $1 in
@@ -86,6 +87,10 @@ while [ $# -gt 0 ]; do
         --mirrorlist)
             MIRRORLIST="$MIRRORLIST $2"
             shift; shift
+        ;;
+        --isbeta)
+            ISBETA="true"
+            shift
         ;;
 
         *)
@@ -239,8 +244,8 @@ $MK_TREEINFO --family="$PRODUCTSTR" ${VARIANT:+--variant="$VARIANT"} --version=$
 
 # FIXME: need to update mk-images to take the yumconf
 echo "Making images: $PWD"
-echo $MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf
-$MK_IMAGES $DEBUGSTR $NOGRSTR --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
+echo $MK_IMAGES $DEBUGSTR $NOGRSTR --isbeta=$ISBETA --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf
+$MK_IMAGES $DEBUGSTR $NOGRSTR --isbeta=$ISBETA --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
 
 echo "Writing .discinfo file"
 $MK_STAMP --releasestr="$RELEASESTR" --arch=$BASEARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
