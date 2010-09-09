@@ -234,8 +234,12 @@ def mountptchangeCB(widget, fstypecombo):
 
 def resizeOptionCB(widget, data):
     (formatcb, resizesb) = data
-    formatcb.set_sensitive(not widget.get_active())
-    resizesb.set_sensitive(widget.get_active())
+
+    if formatcb:
+        formatcb.set_sensitive(not widget.get_active())
+
+    if resizesb:
+        resizesb.set_sensitive(widget.get_active())
 
 def formatOptionResizeCB(widget, data):
     (resizecb, resizesb, fmt) = data
