@@ -266,48 +266,48 @@ void stopNewt(void) {
 static gchar *productName = NULL;
 static gchar *productArch = NULL;
 
+/* The product info comes from ./.buildstamp, which is an .ini-style file
+ * written out by scripts/mk-images and put into every initrd.  It contains
+ * information about the product being booted, which is what differentiates it
+ * from .treeinfo.  A valid file looks like this:
+ *
+ * [Main]
+ * BugURL=http://bugzilla.redhat.com
+ * IsBeta=true|false
+ * Product=<name of the product - Fedora, RHEL, etc.>
+ * UUID=<time and date stamp, then a dot, then the architecture>
+ * Version=<version of the product - 6.0, 14, etc.>
+ *
+ * Any other key/value pairs will be silently ignored.
+ */
 static void initProductInfo(void) {
-    gchar *contents = NULL;
-    gchar **lines = NULL, **stamp = NULL;
-    GError *fileErr = NULL;
+    GKeyFile *key_file = g_key_file_new();
+    GError *loadErr = NULL;
 
-    if (!g_file_get_contents("/.buildstamp", &contents, NULL, &fileErr)) {
-        logMessage(ERROR, "error reading .buildstamp: %s", fileErr->message);
-        g_error_free(fileErr);
+    if (!g_key_file_load_from_file(key_file, "/.buildstamp", G_KEY_FILE_NONE, &loadErr)) {
+        logMessage(ERROR, "error reading .buildstamp: %s", loadErr->message);
+        g_error_free(loadErr);
         productName = g_strdup("anaconda");
         productArch = g_strdup("unknown architecture");
         return;
     }
 
-    /* .buildstamp uses the first 3 lines in this format:
-     *     STAMP.productArch
-     *     productName
-     */
-    lines = g_strsplit(contents, "\n", 0);
-    g_free(contents);
-
-    if ((lines != NULL) && (g_strv_length(lines) >= 3)) {
-        /* STAMP.productArch */
-        stamp = g_strsplit(lines[0], ".", 0);
-
-        if ((stamp != NULL) && (g_strv_length(stamp) == 2)) {
-            productArch = g_strdup(stamp[1]);
-        } else {
-            productArch = g_strdup("unknown architecture");
-        }
-
-        if (stamp) {
-            g_strfreev(stamp);
-        }
-
-        productName = g_strdup(lines[1]);
-    } else {
+    if (g_key_file_has_key(key_file, "Main", "Product", NULL))
+        productName = g_key_file_get_string(key_file, "Main", "Product", NULL);
+    else
         productName = g_strdup("anaconda");
-        productArch = g_strdup("unknown architecture");
-    }
 
-    if (lines) {
-        g_strfreev(lines);
+    if (g_key_file_has_key(key_file, "Main", "UUID", NULL)) {
+        gchar **parts = g_strsplit(g_key_file_get_string(key_file, "Main", "UUID", NULL), ".", 0);
+
+        if (parts != NULL && g_strv_length(parts) == 2)
+            productArch = g_strdup(parts[1]);
+        else
+            productArch = g_strdup("unknown architecture");
+
+        g_strfreev(parts);
+    } else {
+        productArch = g_strdup("unknown architecture");
     }
 
     return;

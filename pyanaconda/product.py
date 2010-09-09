@@ -17,44 +17,31 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import ConfigParser
 import os
 
-if os.access("/tmp/product/.buildstamp", os.R_OK):
-    path = "/tmp/product/.buildstamp"
-elif os.access("/.buildstamp", os.R_OK):
-    path = "/.buildstamp"
-elif os.environ.has_key("PRODBUILDPATH") and \
-         os.access(os.environ["PRODBUILDPATH"], os.R_OK):
-    path = os.environ["PRODBUILDPATH"]
-else:
-    path = None
+# First, load in the defaults.  In order of precedence:  contents of
+# .buildstamp, environment, stupid last ditch hardcoded defaults.
+config = ConfigParser.ConfigParser({"Arch": os.environ.get("ANACONDA_PRODUCTARCH", ""),
+                                    "BugURL": os.environ.get("ANACONDA_BUGURL", "your distribution provided bug reporting tool"),
+                                    "IsBeta": os.environ.get("ANACONDA_ISBETA", "true").lower() == "true",
+                                    "Product": os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"),
+                                    "UUID": "",
+                                    "Version": os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky")}
+                                  )
 
-productStamp = ""
-productName = "anaconda"
-productVersion = "bluesky"
-productArch = None
-bugUrl = "your distribution provided bug reporting tool."
+# Now read in the .buildstamp file, wherever it may be.
+config.read(["/tmp/product/.buildstamp", "/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
 
-if path is not None:
-    f = open(path, "r")
-    lines = f.readlines()
-    del f
-    if len(lines) >= 3:
-        productStamp = lines[0][:-1]
-        productArch = productStamp[productStamp.index(".")+1:]
-        productName = lines[1][:-1]
-        productVersion = lines[2][:-1]
-    if len(lines) >= 4:
-        bugUrl = lines[3][:-1]
+# Set up some variables we import throughout, applying a couple transforms as necessary.
+bugUrl = config.get("Main", "BugURL")
+isBeta = config.get("Main", "IsBeta").lower() != "false"
+productArch = config.get("Main", "Arch")
+productName = config.get("Main", "Product")
+productStamp = config.get("Main", "UUID")
+productVersion = config.get("Main", "Version")
 
-if os.environ.has_key("ANACONDA_PRODUCTNAME"):
-    productName = os.environ["ANACONDA_PRODUCTNAME"]
-if os.environ.has_key("ANACONDA_PRODUCTVERSION"):
-    productVersion = os.environ["ANACONDA_PRODUCTVERSION"]
-if os.environ.has_key("ANACONDA_PRODUCTARCH"):
-    productArch = os.environ["ANACONDA_PRODUCTARCH"]
-if os.environ.has_key("ANACONDA_BUGURL"):
-    bugUrl = os.environ["ANACONDA_BUGURL"]
-
-if productVersion == "development": # hack to transform for now
+if not productArch:
+    productArch = productStamp[productStamp.index(".")+1:]
+if productVersion == "development":
     productVersion = "rawhide"

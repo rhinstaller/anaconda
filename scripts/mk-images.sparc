@@ -37,12 +37,14 @@ makeproductfile() {
     root=$1
 
     rm -f $root/.buildstamp
-    echo $IMAGEUUID > $root/.buildstamp
-    echo $PRODUCT >> $root/.buildstamp
-    echo $VERSION >> $root/.buildstamp
-    if [ -n "$BUGURL" ]; then
-        echo $BUGURL >> $root/.buildstamp
-    fi
+    cat > $root/.buildstamp << EOF
+[Main]
+BugURL=$BUGURL
+Product=$PRODUCT
+UUID=$IMAGEUUID
+Version=$VERSION
+EOF
+
     if [ "$AMITFTP" = "1" ]; then
 	rm -rf $root/modules/*/kernel/drivers/isdn/i4l/isdn.ko*
 	rm -rf $root/modules/*/kernel/drivers/isdn/isdnloop/isdnloop.ko*
