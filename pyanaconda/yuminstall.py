@@ -1175,6 +1175,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         # unhappy (#496961)
         iutil.resetRpmDb(anaconda.rootPath)
 
+        if os.access(anaconda.rootPath + "/tmp/yum.log", os.R_OK):
+            os.unlink(anaconda.rootPath + "/tmp/yum.log")
+
     def doBackendSetup(self, anaconda):
         if anaconda.dir == DISPATCH_BACK:
             return DISPATCH_BACK
