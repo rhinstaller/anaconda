@@ -25,7 +25,7 @@ IMAGEUUID=$(date +%Y%m%d%H%M).$(uname -i)
 TMPDIR=${TMPDIR:-/tmp}
 
 usage () {
-    echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version> [<productpath>]"
+    echo "usage: mk-images <pkgsrc> <toplevel> <template> <imgdir> <buildarch> <productname> <version>"
     exit 0
 }
 

@@ -68,12 +68,6 @@ def findIsoImages(path, messageWindow):
                         os.access("/mnt/cdimage/images/install.img", os.R_OK)):
                         log.warning("%s doesn't have a install.img, skipping" %(what,))
                         continue
-                    # we only install binary packages, so let's look for a
-                    # product/ dir and hope that this avoids getting
-                    # discs from the src.rpm set
-                    if not os.path.isdir("/mnt/cdimage/%s" %(productPath,)):
-                        log.warning("%s doesn't have binary RPMS, skipping" %(what,))
-                        continue
 
                     # warn user if images appears to be wrong size
                     if os.stat(what)[stat.ST_SIZE] % 2048:

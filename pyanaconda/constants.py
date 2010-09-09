@@ -67,7 +67,6 @@ import product
 productName = product.productName
 productVersion = product.productVersion
 productArch = product.productArch
-productPath = product.productPath
 bugzillaUrl = product.bugUrl
 
 lvmErrorOutput = "/tmp/lvmout"

@@ -264,7 +264,6 @@ void stopNewt(void) {
 }
 
 static gchar *productName = NULL;
-static gchar *productPath = NULL;
 static gchar *productArch = NULL;
 
 static void initProductInfo(void) {
@@ -277,14 +276,12 @@ static void initProductInfo(void) {
         g_error_free(fileErr);
         productName = g_strdup("anaconda");
         productArch = g_strdup("unknown architecture");
-        productPath = g_strdup("anaconda");
         return;
     }
 
     /* .buildstamp uses the first 3 lines in this format:
      *     STAMP.productArch
      *     productName
-     *     productPath
      */
     lines = g_strsplit(contents, "\n", 0);
     g_free(contents);
@@ -304,11 +301,9 @@ static void initProductInfo(void) {
         }
 
         productName = g_strdup(lines[1]);
-        productPath = g_strdup(lines[2]);
     } else {
         productName = g_strdup("anaconda");
         productArch = g_strdup("unknown architecture");
-        productPath = g_strdup("anaconda");
     }
 
     if (lines) {
@@ -330,13 +325,6 @@ char * getProductArch(void) {
        initProductInfo();
     }
     return productArch;
-}
-
-char * getProductPath(void) {
-    if (!productPath) {
-       initProductInfo();
-    }
-    return productPath;
 }
 
 void initializeConsole() {

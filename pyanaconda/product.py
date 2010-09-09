@@ -32,7 +32,6 @@ else:
 productStamp = ""
 productName = "anaconda"
 productVersion = "bluesky"
-productPath = "Packages"
 productArch = None
 bugUrl = "your distribution provided bug reporting tool."
 
@@ -52,8 +51,6 @@ if os.environ.has_key("ANACONDA_PRODUCTNAME"):
     productName = os.environ["ANACONDA_PRODUCTNAME"]
 if os.environ.has_key("ANACONDA_PRODUCTVERSION"):
     productVersion = os.environ["ANACONDA_PRODUCTVERSION"]
-if os.environ.has_key("ANACONDA_PRODUCTPATH"):
-    productPath = os.environ["ANACONDA_PRODUCTPATH"]
 if os.environ.has_key("ANACONDA_PRODUCTARCH"):
     productArch = os.environ["ANACONDA_PRODUCTARCH"]
 if os.environ.has_key("ANACONDA_BUGURL"):

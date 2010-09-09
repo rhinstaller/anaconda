@@ -112,7 +112,6 @@ void doExit(int) __attribute__ ((noreturn));
 void startNewt(void);
 void stopNewt(void);
 char * getProductName(void);
-char * getProductPath(void);
 char * getProductArch(void);
 
 #include "moduleinfo.h"
