@@ -223,6 +223,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Sep 09 2010 David Lehman <dlehman@redhat.com> - 14.17.1-1
+- Re-fix systemd default link (#627401, mschmidt). (clumens)
+
 * Wed Sep 01 2010 David Lehman <dlehman@redhat.com> - 14.17-1
 - i18n: do not build translatable sentences from parts (#622545). (akozumpl)
 - memory: install.img is now >150 MB so count 192 MB extra for it. (akozumpl)
