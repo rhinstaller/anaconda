@@ -1239,19 +1239,19 @@ def preScriptPass(anaconda, file):
 
     try:
         ksparser.readKickstart(file)
-    except IOError, e:
-        if anaconda.intf:
-            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
-            sys.exit(1)
-        else:
-            stderrLog.critical(_("The following error was found while parsing the kickstart "
-                              "configuration file:\n\n%s") % e)
-            sys.exit(1)
-    except KickstartError, e:
+    except (KickstartValueError, KickstartParseError) as e:
        if anaconda.intf:
            anaconda.intf.kickstartErrorWindow(e.__str__())
            sys.exit(1)
        else:
+            stderrLog.critical(_("The following error was found while parsing the kickstart "
+                              "configuration file:\n\n%s") % e)
+            sys.exit(1)
+    except KickstartError as e:
+        if anaconda.intf:
+            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % file)
+            sys.exit(1)
+        else:
             stderrLog.critical(_("The following error was found while parsing the kickstart "
                               "configuration file:\n\n%s") % e)
             sys.exit(1)
@@ -1283,19 +1283,19 @@ def parseKickstart(anaconda, file):
 
     try:
         ksparser.readKickstart(file)
-    except IOError, e:
-        # We may not have an intf now, but we can do better than just raising
-        # the exception.
+    except (KickstartValueError, KickstartParseError) as e:
         if anaconda.intf:
-            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % e.filename)
+            anaconda.intf.kickstartErrorWindow(e.__str__())
             sys.exit(1)
         else:
             stderrLog.critical(_("The following error was found while parsing the kickstart "
                               "configuration file:\n\n%s") % e)
             sys.exit(1)
-    except KickstartError, e:
+    except KickstartError as e:
+        # We may not have an intf now, but we can do better than just raising
+        # the exception.
         if anaconda.intf:
-            anaconda.intf.kickstartErrorWindow(e.__str__())
+            anaconda.intf.kickstartErrorWindow("Could not open kickstart file or included file named %s" % file)
             sys.exit(1)
         else:
             stderrLog.critical(_("The following error was found while parsing the kickstart "
