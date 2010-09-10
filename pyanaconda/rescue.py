@@ -94,7 +94,7 @@ class RescueInterface(InstallInterfaceBase):
     def enableNetwork(self, anaconda):
         if len(anaconda.network.netdevices) == 0:
             return False
-        from netconfig_text import NetworkConfiguratorText
+        from textw.netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, anaconda)
         ret = w.run()
         return ret != INSTALL_BACK
