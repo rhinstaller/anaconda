@@ -65,6 +65,15 @@ if [ ! -e /selinux/load ]; then
     ANACONDA="$ANACONDA --noselinux"
 fi
 
+# Process cmdline args
+for opt in `cat /proc/cmdline`; do
+    case $opt in
+    xdriver=*)
+        ANACONDA="$ANACONDA --$opt"
+        ;;
+    esac
+done
+
 # devkit-disks is now mounting lots of stuff.  for now, let's just try to unmount it all
 umount /media/* 2>/dev/null
 tac /proc/mounts | grep ^/dev | grep -v live | while read dev mntpoint rest; do
