@@ -49,6 +49,11 @@ class Desktop (SimpleConfigFile):
         self.runlevel = 3
 
     def write (self, instPath):
+        if self.getDefaultDesktop():
+            f = open(instPath + "/etc/sysconfig/desktop", "w")
+            f.write(str (self))
+            f.close()
+
         try:
             inittab = open (instPath + '/etc/inittab', 'r')
         except IOError:
@@ -73,7 +78,3 @@ class Desktop (SimpleConfigFile):
             os.unlink(default_target)
         os.symlink('/lib/systemd/system/runlevel' + str(self.runlevel) + '.target', default_target)
 
-        if self.getDefaultDesktop():
-            f = open(instPath + "/etc/sysconfig/desktop", "w")
-            f.write(str (self))
-            f.close()
