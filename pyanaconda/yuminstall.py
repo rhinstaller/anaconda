@@ -408,7 +408,7 @@ class AnacondaYum(YumSorter):
                 self.anaconda.methodstr = self.anaconda.intf.methodstrRepoWindow(self.anaconda.methodstr or "cdrom:")
 
         self.doConfigSetup(root=self.anaconda.rootPath)
-        if not self.anaconda.upgrade:
+        if not self.anaconda.bootloader.doUpgradeOnly:
             self.conf.installonlypkgs = []
 
     def _switchCD(self, discnum):
