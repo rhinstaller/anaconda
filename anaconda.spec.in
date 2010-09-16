@@ -223,6 +223,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Sep 15 2010 David Lehman <dlehman@redhat.com> - 14.17.2-1
+- Remove old kernels with new bootloader (#633234) (bcl)
+- Pass xdriver to anaconda in liveinst (#633827) (bcl)
+- Reset resolver after network device activation (#632489) (rvykydal)
+- Fix importing the netconfig UI in rescue mode (#632510). (clumens)
+
 * Thu Sep 09 2010 David Lehman <dlehman@redhat.com> - 14.17.1-1
 - Re-fix systemd default link (#627401, mschmidt). (clumens)
 
