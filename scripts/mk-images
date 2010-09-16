@@ -565,6 +565,7 @@ makeinitrd() {
     mkdir -p $MBD_DIR/etc/terminfo/{a,b,d,l,s,v,x}
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/usr/libexec
+    mkdir -p $MBD_DIR/usr/libexec/polkit-1
     mkdir -p $MBD_DIR/usr/$LIBDIR/NetworkManager
     mkdir -p $MBD_DIR/$LIBDIR/rsyslog
     mkdir -p $MBD_DIR/usr/share/dbus-1/system-services
@@ -600,6 +601,7 @@ makeinitrd() {
 
     cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
     cp $IMGPATH/$LIBDIR/libwrap*.so* $MBD_DIR/$LIBDIR/
+    cp $IMGPATH/usr/$LIBDIR/libpolkit-backend-1.so.0.* $MBD_DIR/$LIBDIR/libpolkit-backend-1.so.0
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
         ln -s /tmp $MBD_DIR/var/state/xkb
@@ -749,12 +751,17 @@ makeinitrd() {
     ( cd $IMGPATH/usr/share/dbus-1/system-services
       cp -a org.freedesktop.PolicyKit1.service $MBD_DIR/usr/share/dbus-1/system-services
     )
-    ( cd $IMGPATH/usr/share/polkit/actions
+    ( cd $IMGPATH/usr/share/polkit-1/actions
+      cp -a org.freedesktop.NetworkManager.policy $MBD_DIR/usr/share/polkit-1/actions
+      cp -a org.freedesktop.consolekit.policy $MBD_DIR/usr/share/polkit-1/actions
+      cp -a org.freedesktop.modem-manager.policy $MBD_DIR/usr/share/polkit-1/actions
+      cp -a org.freedesktop.network-manager-settings.system.policy $MBD_DIR/usr/share/polkit-1/actions
       cp -a org.freedesktop.policykit.policy $MBD_DIR/usr/share/polkit-1/actions
     )
     cp -a $IMGPATH/etc/dbus-1/system.d/org.freedesktop.PolicyKit1.conf $MBD_DIR/etc/dbus-1/system.d
     cp -a $IMGPATH/etc/dbus-1/system.d/ConsoleKit.conf $MBD_DIR/etc/dbus-1/system.d
     chmod 04755 $IMGPATH/usr/libexec/polkit-1/polkit-agent-helper-1
+    cp -a $IMGPATH/usr/libexec/polkit-1/polkitd $MBD_DIR/usr/libexec/polkit-1
 
     # dbus
     instbin $IMGPATH /usr/bin/dbus-uuidgen $MBD_DIR /sbin/dbus-uuidgen
