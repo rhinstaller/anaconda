@@ -478,6 +478,8 @@ class ProgressWindow:
             delta -= 0.05
 
     def set (self, amount):
+        amount = min(amount, self.total)
+
         # only update widget if we've changed by 5% or our timeout has
         # expired
         curval = self.progress.get_fraction()
