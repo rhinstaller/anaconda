@@ -223,6 +223,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Sep 17 2010 David Lehman <dlehman@redhat.com> - 14.17.3-1
+- Add files for polkit to initrd.img (#633315) (rvykydal)
+
 * Wed Sep 15 2010 David Lehman <dlehman@redhat.com> - 14.17.2-1
 - Remove old kernels with new bootloader (#633234) (bcl)
 - Pass xdriver to anaconda in liveinst (#633827) (bcl)
