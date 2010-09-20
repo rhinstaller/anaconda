@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.214
+Version: 11.1.2.215
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Sep 20 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.215-1
+- Add python-libs package, python package has been split (rvykydal)
+  Resolves: rhbz#634827
+
 * Wed Sep 8 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.214-1
 - Add noeject support to cdrom eject handling (bcl)
   Resolves: rhbz#477887
