@@ -281,10 +281,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
         f.write("#boot=/dev/%s\n" % (grubTarget))
 
         if iutil.isEfi():
-            from product import productName
+            from pyanaconda.product import productName
             # Map the target device to the full EFI path
             if self.getEfiProductPath(productName):
-                (n, pn) = getDiskPart(bootDevs[0], self.storage)
+                (n, pn) = getDiskPart(bootDevs[0])
                 f.write("device (%s) %s\n" % (self.grubbyDiskName(n), self.getEfiProductPath(productName)))
 
         # get the default image to boot... we have to walk and find it
