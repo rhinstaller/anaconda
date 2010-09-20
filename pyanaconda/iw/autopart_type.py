@@ -175,6 +175,7 @@ class PartitionTypeWindow(InstallWindow):
                 self.storage.clearPartType = CLEARPART_TYPE_NONE
 
             self.dispatch.skipStep("autopartitionexecute", skip = 0)
+            self.dispatch.skipStep("cleardiskssel", skip = 0)
 
             if self.encryptButton.get_active():
                 self.storage.encryptedAutoPart = True
