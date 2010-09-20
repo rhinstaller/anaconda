@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 14.17.2\n"
+"Project-Id-Version: anaconda 14.17.3\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-09-17 14:38-0500\n"
+"POT-Creation-Date: 2010-09-20 17:54-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2052,11 +2052,11 @@ msgstr ""
 msgid "%(name)s: %(msg)s"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:229
+#: pyanaconda/iw/autopart_type.py:230
 msgid "Use All Space"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:231
+#: pyanaconda/iw/autopart_type.py:232
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2065,11 +2065,11 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:237
+#: pyanaconda/iw/autopart_type.py:238
 msgid "Replace Existing Linux System(s)"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:239
+#: pyanaconda/iw/autopart_type.py:240
 msgid ""
 "Removes all Linux partitions on the selected device(s). This does not remove "
 "other partitions you may have on your storage device(s) (such as VFAT or "
@@ -2079,31 +2079,31 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:247
+#: pyanaconda/iw/autopart_type.py:248
 msgid "Shrink Current System"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:249
+#: pyanaconda/iw/autopart_type.py:250
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:251
+#: pyanaconda/iw/autopart_type.py:252
 msgid "Use Free Space"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:253
+#: pyanaconda/iw/autopart_type.py:254
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
 "available."
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:257
+#: pyanaconda/iw/autopart_type.py:258
 msgid "Create Custom Layout"
 msgstr ""
 
-#: pyanaconda/iw/autopart_type.py:259
+#: pyanaconda/iw/autopart_type.py:260
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."

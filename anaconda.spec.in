@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Sep 20 2010 David Lehman <dlehman@redhat.com> - 14.17.4-1
+- Re-add cleardiskssel step when autopart is chosen. (#635332) (dlehman)
+- Pull boot splash image from correct location (#635330) (bcl)
+
 * Fri Sep 17 2010 David Lehman <dlehman@redhat.com> - 14.17.3-1
 - Add files for polkit to initrd.img (#633315) (rvykydal)
 
