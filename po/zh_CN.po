@@ -1,4 +1,4 @@
-# Translation of anaconda.master.po 
+# Translation of anaconda.master.po
 # Simplified Chinese Verstion of anaconda file
 # Copyright (C) 2002, Red Hat, Inc.
 # Sarah Wang <sarahs@redhat.com>, 2003,2004.
@@ -9,20 +9,22 @@
 # Guokai Han <dev.hgk@gmail.com>, 2008.
 # Tommy He <tommy.he@linux.com>, 2010.
 # Tian Shixiong <tiansworld@gmail.com>, 2010.
+# Chen Huan <chenhuan.gt@gmail.com>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-09-01 20:52-0500\n"
-"PO-Revision-Date: 2010-09-17 23:19+0800\n"
-"Last-Translator: Tian Shixiong <tiansworld@gmail.com>\n"
-"Language-Team: Wei Liu\n"
+"PO-Revision-Date: 2010-09-16 20:59+0800\n"
+"Last-Translator: Chen Huan <chenhuan.gt@gmail.com>\n"
+"Language-Team: fedora-trans-zh_cn@redhat.com\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"X-Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Virtaal 0.6.1\n"
+"X-Language: zh_CN\n"
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: CHINA\n"
 "X-Poedit-SourceCharset: utf-8\n"
@@ -281,7 +283,7 @@ msgid ""
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"文件系统已经激活。在此之后您将无法后退。\n"
+"文件系统已经激活。再次之后您将无法后退。\n"
 "\n"
 "您要继续安装吗？"
 
@@ -1393,7 +1395,7 @@ msgstr "否"
 
 #: pyanaconda/rescue.py:263
 msgid "Unable to activate a networking device.  Networking will not be available in rescue mode."
-msgstr "无法激活网络连接设备。网络在救援模式下不可用。"
+msgstr "无法激活联网设备。联网在救援模式下不可用。"
 
 #: pyanaconda/rescue.py:299
 #: pyanaconda/rescue.py:374
@@ -1929,7 +1931,7 @@ msgstr "存储库 %r 在配置中没有名称，请使用 id"
 #: pyanaconda/yuminstall.py:1200
 #: pyanaconda/iw/task_gui.py:312
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
-msgstr "一些软件仓库需要联网，但在启用系统网络时出错。"
+msgstr "您的一些软件存储库需要联网，但在启用您系统的网络时出错。"
 
 #: pyanaconda/yuminstall.py:833
 #: pyanaconda/yuminstall.py:835
@@ -2124,7 +2126,7 @@ msgstr "安装过程"
 
 #: pyanaconda/installclasses/fedora.py:38
 msgid "_Fedora"
-msgstr "Fedora (_F)"
+msgstr "Fedora(_F)"
 
 #: pyanaconda/installclasses/fedora.py:39
 #, python-format
@@ -2277,7 +2279,7 @@ msgid ""
 msgstr ""
 "移除选定设备上的所有分区。这包括其它操作系统创建的分区。\n"
 "\n"
-"<b>提示：</b> 该选项将移除选定设备上的数据。请您确保留有备份。"
+"<b>提示：</b> 该选项将移除选定设备上的数据。请确认您保留有备份。"
 
 #: pyanaconda/iw/autopart_type.py:237
 msgid "Replace Existing Linux System(s)"
@@ -2291,7 +2293,7 @@ msgid ""
 msgstr ""
 "移除选定设备上的所有 Linux 分区。该操作将不会移除您存储设备上的其它分区（比如 VFAT 或 FAT32）。\n"
 "\n"
-"<b>提示：</b> 该选项将移除选定设备上的数据。请您确保留有备份。"
+"<b>提示：</b> 该选项将移除选定设备上的数据。请确认您保留有备份。"
 
 #: pyanaconda/iw/autopart_type.py:247
 msgid "Shrink Current System"
@@ -2443,11 +2445,11 @@ msgstr ""
 
 #: pyanaconda/iw/cleardisks_gui.py:196
 msgid "<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>提示：</b> 在安装目标设备上的所有 Linux 文件系统都将重新格式化并删除所有数据。 请您确保留有备份。"
+msgstr "<b>提示：</b> 在安装目标设备上的所有 Linux 文件系统都将重新格式化并删除所有数据。 请确认您保留有备份。"
 
 #: pyanaconda/iw/cleardisks_gui.py:198
 msgid "<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>提示：</b> 安装目标设备将重新格式化并删除全部数据。 请您确保留有备份。"
+msgstr "<b>提示：</b> 安装目标设备将重新格式化并删除全部数据。 请确认您保留有备份。"
 
 #: pyanaconda/iw/cleardisks_gui.py:200
 msgid "<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."
@@ -3003,7 +3005,7 @@ msgstr "为无线设备选择 AP"
 
 #: pyanaconda/iw/osbootwidget.py:50
 msgid "Boot loader operating system list"
-msgstr "引导程序操作系统列表"
+msgstr "引导装载程序操作系统列表"
 
 #: pyanaconda/iw/osbootwidget.py:66
 msgid "Default"
@@ -3020,7 +3022,7 @@ msgstr "映像"
 
 #: pyanaconda/iw/osbootwidget.py:137
 msgid "Enter a label for the boot loader menu to display. The device (or hard drive and partition number) is the device from which it boots."
-msgstr "输入要在引导程序菜单中显示的标签。该设备（或硬盘驱动器和分区号码）是它用来引导的设备。"
+msgstr "输入要在引导装载程序菜单中显示的标签。该设备（或硬盘驱动器和分区号码）是它引导的设备。"
 
 #: pyanaconda/iw/osbootwidget.py:145
 msgid "_Label"
@@ -3073,11 +3075,11 @@ msgstr "其它大小选项"
 
 #: pyanaconda/iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr "固定大小 (_F)"
+msgstr "固定大小(_F)"
 
 #: pyanaconda/iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "使用空间到 (MB) (_u)："
+msgstr "指定空间大小(MB)(_u)："
 
 #: pyanaconda/iw/partition_dialog_gui.py:72
 msgid "Fill to maximum _allowable size"
@@ -3098,20 +3100,20 @@ msgstr "编辑分区：%s"
 
 #: pyanaconda/iw/partition_dialog_gui.py:439
 msgid "File System _Type:"
-msgstr "文件系统类型 (_T)："
+msgstr "文件系统类型(_T)："
 
 #: pyanaconda/iw/partition_dialog_gui.py:455
 msgid "Allowable _Drives:"
-msgstr "允许的驱动器 (_D)："
+msgstr "允许的驱动器(_D)："
 
 #: pyanaconda/iw/partition_dialog_gui.py:531
 msgid "Force to be a _primary partition"
-msgstr "强制设为主分区 (_p)"
+msgstr "强制为主分区(_p)"
 
 #: pyanaconda/iw/partition_gui.py:360
 #, python-format
 msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
-msgstr "驱动器 %(drive)s (%(size)-0.f MB) (型号: %(model)s)"
+msgstr "Drive %(drive)s (%(size)-0.f MB) (型号: %(model)s)"
 
 #: pyanaconda/iw/partition_gui.py:400
 #: pyanaconda/iw/partition_gui.py:446
@@ -3162,7 +3164,7 @@ msgstr "分区"
 
 #: pyanaconda/iw/partition_gui.py:850
 msgid "The partitioning scheme you requested caused the following critical errors."
-msgstr "您的分区方法造成以下严重错误。"
+msgstr "您的分区方法产生了如下关键错误。"
 
 #: pyanaconda/iw/partition_gui.py:852
 #, python-format
@@ -3175,11 +3177,11 @@ msgstr "分区错误"
 
 #: pyanaconda/iw/partition_gui.py:865
 msgid "The partitioning scheme you requested generated the following warnings."
-msgstr "您的分区方法造成以下警告。"
+msgstr "您的分区方法产生了如下的警告。"
 
 #: pyanaconda/iw/partition_gui.py:867
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr "是否继续执行您所提交的分区方案？"
+msgstr "是否要继续执行您所申请的分区方案？"
 
 #: pyanaconda/iw/partition_gui.py:872
 msgid "Partitioning Warnings"
@@ -3187,7 +3189,7 @@ msgstr "分区警告"
 
 #: pyanaconda/iw/partition_gui.py:881
 msgid "The following pre-existing devices have been selected to be formatted, destroying all data."
-msgstr "下列选择的已有分区将被格式化，这会损坏所有数据。"
+msgstr "下列被选择的已存在分区将被格式化，这会破坏所有数据。"
 
 #: pyanaconda/iw/partition_gui.py:893
 msgid "Format Warnings"
@@ -3212,7 +3214,7 @@ msgstr "扩展分区"
 
 #: pyanaconda/iw/partition_gui.py:1370
 msgid "Cannot perform any creation action"
-msgstr "无法执行创建操作"
+msgstr "无法执行创建动作"
 
 #: pyanaconda/iw/partition_gui.py:1371
 msgid ""
@@ -3223,7 +3225,7 @@ msgid ""
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 msgstr ""
-"请注意创建操作需要以下条件之一：\n"
+"请注意创建动作需要以下条件之一：\n"
 "\n"
 "* 有一个硬盘上存在空闲空间。\n"
 "* 至少有两个空闲的软件 RAID 分区。\n"
@@ -3240,7 +3242,7 @@ msgid ""
 "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device that can be formatted and mounted.\n"
 "\n"
 msgstr ""
-"要使用 RAID，您必须先创建至少两个类型为“软件 RAID”的分区。然后您才可以创建可格式化并挂载的 RAID 设备。\n"
+"要使用 RAID，首先，您必须至少创建两个类型为“软件 RAID”的分区。然后，您才可以创建能被格式化并挂载的 RAID 设备。\n"
 "\n"
 
 #: pyanaconda/iw/partition_gui.py:1484
@@ -3289,7 +3291,7 @@ msgstr "分区出错"
 #: pyanaconda/iw/partition_gui.py:1587
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "无法分配所提交分区：%s。"
+msgstr "无法拨发所申请分区：%s。"
 
 #: pyanaconda/iw/partition_gui.py:1596
 #, python-format
@@ -3313,11 +3315,11 @@ msgstr ""
 
 #: pyanaconda/iw/partition_gui.py:1811
 msgid "_Create"
-msgstr "创建 (_C)"
+msgstr "创建(_C)"
 
 #: pyanaconda/iw/partition_gui.py:1814
 msgid "Re_set"
-msgstr "重设 (_s)"
+msgstr "重设(_s)"
 
 #: pyanaconda/iw/partition_gui.py:1837
 msgid "Please Select A Device"
@@ -3331,11 +3333,11 @@ msgstr "<不适用>"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:318
 msgid "_Format as:"
-msgstr "格式化为 (_F)："
+msgstr "格式化成（_F）："
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:340
 msgid "Mi_grate filesystem to:"
-msgstr "迁移文件系统至 (_g)："
+msgstr "迁移文件系统至（_g）："
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:370
 msgid "_Resize"
@@ -3344,7 +3346,7 @@ msgstr "重新定义大小（_R）"
 #: pyanaconda/iw/partition_ui_helpers_gui.py:425
 #, python-format
 msgid "Partitions of type '%s' must be constrained to a single drive.  To do this, select the drive in the 'Allowable Drives' checklist."
-msgstr "类型为 '%s' 的分区必须处于一个驱动器上。您可在“允许的驱动器”列表上选择该驱动器来实现这个目的。"
+msgstr "类型为'%s' 的分区必须局限于一个驱动器上。您可在“允许的驱动器”检查表上选择该驱动器来达到这个目的。"
 
 #: pyanaconda/iw/raid_dialog_gui.py:390
 msgid ""
@@ -3352,9 +3354,9 @@ msgid ""
 "\n"
 "First create at least two partitions of type \"software RAID\", and then select the \"RAID\" option again."
 msgstr ""
-"至少需要两个未用的软 RAID 分区来创建 RAID 设备。\n"
+"至少需要两个未用的 RAID 分区来创建 RAID 设备。\n"
 "\n"
-"首先，创建至少两个类型为“软 RAID”的分区，然后再选择“RAID”选项。"
+"首先，至少创建两个类型为“软件 RAID”的分区，然后再选择“RAID”选项。"
 
 #: pyanaconda/iw/raid_dialog_gui.py:404
 msgid "Make RAID Device"
@@ -3371,23 +3373,23 @@ msgstr "编辑 RAID 设备"
 
 #: pyanaconda/iw/raid_dialog_gui.py:476
 msgid "RAID _Device:"
-msgstr "RAID 设备 (_D)："
+msgstr "RAID 设备(_D)："
 
 #: pyanaconda/iw/raid_dialog_gui.py:494
 msgid "RAID _Level:"
-msgstr "RAID 级别 (_L)："
+msgstr "RAID 级别(_L)："
 
 #: pyanaconda/iw/raid_dialog_gui.py:536
 msgid "_RAID Members:"
-msgstr "RAID 成员 (_R)："
+msgstr "RAID 成员(_R)："
 
 #: pyanaconda/iw/raid_dialog_gui.py:553
 msgid "Number of _spares:"
-msgstr "备件数量 (_s)："
+msgstr "备件数量(_s)："
 
 #: pyanaconda/iw/raid_dialog_gui.py:563
 msgid "_Format partition?"
-msgstr "格式化分区吗 (_F)？"
+msgstr "格式化分区吗(_F)？"
 
 #: pyanaconda/iw/task_gui.py:55
 #, python-format
@@ -3395,10 +3397,7 @@ msgid ""
 "Unable to read package metadata from repository.  This may be due to a missing repodata directory.  Please ensure that your repository has been correctly generated.\n"
 "\n"
 "%s"
-msgstr ""
-"无法读取数据库的元数据。这可能是因为缺少 repodata 目录。请确定您已经正确建立了安装树。\n"
-"\n"
-"%s"
+msgstr "无法读取数据库的元数据。这可能是因为缺少 repodata 目录。请确定您已经正确建立了安装树。%s"
 
 #: pyanaconda/iw/task_gui.py:129
 msgid "Edit Repository"
@@ -3407,7 +3406,7 @@ msgstr "编辑库"
 #: pyanaconda/iw/task_gui.py:153
 #, python-format
 msgid "The repository %s has already been added.  Please choose a different repository name and URL."
-msgstr "库 %s 已添加，请另选一个仓库名和 URL。"
+msgstr "存储库 %s 已被使用，请另选一个存储库名和 URL。"
 
 #: pyanaconda/iw/task_gui.py:239
 msgid "Invalid Proxy URL"
@@ -3415,17 +3414,17 @@ msgstr "无效代理服务器 URL"
 
 #: pyanaconda/iw/task_gui.py:240
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
-msgstr "您必须提供 HTTP、HTTPS 或者或 FTP URL 的代理地址。"
+msgstr "您必须为代理服务器提供一个 HTTP、HTTPS 或者或 FTP 链接（URL）。"
 
 #: pyanaconda/iw/task_gui.py:252
 #: pyanaconda/iw/task_gui.py:436
 msgid "Invalid Repository URL"
-msgstr "无效仓库 URL"
+msgstr "无效主机地址"
 
 #: pyanaconda/iw/task_gui.py:253
 #: pyanaconda/iw/task_gui.py:437
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
-msgstr "您必须为库提供一个 HTTP、HTTPS 或者或 FTP 地址（URL）。"
+msgstr "您必须为库提供一个 HTTP、HTTPS 或者或 FTP 链接（URL）。"
 
 #: pyanaconda/iw/task_gui.py:274
 #: pyanaconda/iw/task_gui.py:446
@@ -3435,7 +3434,7 @@ msgstr "未找到介质"
 #: pyanaconda/iw/task_gui.py:275
 #: pyanaconda/iw/task_gui.py:447
 msgid "No installation media was found. Please insert a disc into your drive and try again."
-msgstr "没有找到安装介质。请将光盘插入驱动器然后重试。"
+msgstr "没有找到安装介质。请将磁盘插入您的驱动器中再试一次。"
 
 #: pyanaconda/iw/task_gui.py:306
 #: pyanaconda/iw/task_gui.py:470
@@ -3449,22 +3448,22 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"设置该库时出现以下错误：\n"
+"设置该存储库时出现以下错误：\n"
 "\n"
 "%s"
 
 #: pyanaconda/iw/task_gui.py:348
 msgid "Invalid Repository Name"
-msgstr "无效仓库名"
+msgstr "无效主机名"
 
 #: pyanaconda/iw/task_gui.py:349
 msgid "You must provide a repository name."
-msgstr "您必须输入库名称。"
+msgstr "您必须输入存储库名称。"
 
 #: pyanaconda/iw/task_gui.py:502
 #: data/ui/addrepo.glade.h:3
 msgid "Add Repository"
-msgstr "添加库"
+msgstr "添加主机"
 
 #: pyanaconda/iw/task_gui.py:507
 msgid "No Software Repos Enabled"
@@ -3472,7 +3471,7 @@ msgstr "没有启用软件存储库"
 
 #: pyanaconda/iw/task_gui.py:508
 msgid "You must have at least one software repository enabled to continue installation."
-msgstr "在继续安装前您至少要有一个软件仓库。"
+msgstr "在继续安装前您必须至少有一个软件存储库。"
 
 #: pyanaconda/iw/timezone_gui.py:63
 #: pyanaconda/textw/timezone_text.py:95
@@ -3482,15 +3481,15 @@ msgstr "时区选择"
 #: pyanaconda/iw/upgrade_bootloader_gui.py:37
 #: pyanaconda/textw/upgrade_bootloader_text.py:129
 msgid "Upgrade Boot Loader Configuration"
-msgstr "升级引导程序配置"
+msgstr "升级引导装载程序配置"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:120
 msgid "_Update boot loader configuration"
-msgstr "更新引导程序配置 (_U)"
+msgstr "更新引导装载程序配置(_U)"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:121
 msgid "This will update your current boot loader."
-msgstr "这将会更新您当前的引导程序。"
+msgstr "这将会更新您目前的引导装载程序。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:125
 #: pyanaconda/textw/upgrade_bootloader_text.py:103
@@ -3500,13 +3499,13 @@ msgstr "因系统改变,您的启动配置不能自动更新."
 #: pyanaconda/iw/upgrade_bootloader_gui.py:128
 #: pyanaconda/textw/upgrade_bootloader_text.py:107
 msgid "The installer is unable to detect the boot loader currently in use on your system."
-msgstr "安装程序无法检测到您系统当前使用的引导程序。"
+msgstr "安装程序无法在您的系统上检测到目前使用的引导装载程序。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:135
 #: pyanaconda/textw/upgrade_bootloader_text.py:116
 #, python-format
 msgid "The installer has detected the %(type)s boot loader currently installed on %(bootDev)s."
-msgstr "安装程序检测到 %(type)s 引导程序目前安装在 %(bootDev)s 上。"
+msgstr "安装程序检测到 %(type)s 引导装载程序目前安装在 %(bootDev)s 上。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:139
 msgid "This is the recommended option."
@@ -3514,19 +3513,19 @@ msgstr "这是一个推荐的选项。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:144
 msgid "_Create new boot loader configuration"
-msgstr "创建新的引导程序配置 (_C)"
+msgstr "创建新的引导装载程序配置(_C)"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:146
 msgid "This option creates a new boot loader configuration.  If you wish to switch boot loaders, you should choose this."
-msgstr "这将会创建一个新的引导程序配置。如果您想更换引导程序，应该选择该选项。"
+msgstr "这将会创建一个新的引导装载程序配置。如果您想更换引导装载程序，应该选择该选项。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:153
 msgid "_Skip boot loader updating"
-msgstr "跳过引导程序的更新 (_S)"
+msgstr "跳过引导装载程序的更新(_S)"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:154
 msgid "This option makes no changes to boot loader configuration.  If you are using a third party boot loader, you should choose this."
-msgstr "这不会修改您的引导程序。如果您使用的是第三方引导程序，您应该选择该选项。"
+msgstr "这将不会对您的引导装载程序做任何改变。如果您使用的是第三方引导装载程序，您应该选择该选项。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:165
 msgid "What would you like to do?"
@@ -3630,11 +3629,11 @@ msgstr "退出安装程序（_x ）"
 
 #: pyanaconda/iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
-msgstr "z/IPL 引导程序配置"
+msgstr "z/IPL 引导装载程序配置"
 
 #: pyanaconda/iw/zipl_gui.py:61
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "z/IPL 引导程序将会安装在您的系统上。"
+msgstr "z/IPL 引导装载程序将会被安装在您的系统上。"
 
 #: pyanaconda/iw/zipl_gui.py:63
 msgid ""
@@ -3648,15 +3647,15 @@ msgid ""
 "\n"
 "You can now enter any additional kernel parameters which your machine or your setup may require."
 msgstr ""
-"现在将在您的计算机上安装 z/IPL 引导程序。\n"
+"z/IPL 引导装载程序现在将会被安装到您的系统上。\n"
 "\n"
-"根分区是您在前面的分区设置中选择的分区。\n"
+"根分区将会是您在前面的分区设置中选择的分区。\n"
 "\n"
-"用来启动该计算机的内核将会是默认安装的内核。\n"
+"用来启动该机器的内核将会是默认安装的内核。\n"
 "\n"
-"如果您想在安装完成后进行修改，请修改 /etc/zipl.conf 配置文件。\n"
+"如果您想在安装后再做改变，请随意改变 /etc/zipl.conf 配置文件。\n"
 "\n"
-"现在您可以输入您的计算机或设置所需的任何额外内核参数。"
+"现在您可以输入任何您的机器或设置所需的额外内核参数。"
 
 #: pyanaconda/iw/zipl_gui.py:90
 #: pyanaconda/textw/zipl_text.py:72
@@ -4942,7 +4941,7 @@ msgstr "正在格式化"
 #: pyanaconda/storage/formats/fs.py:355
 #, python-format
 msgid "Creating %s filesystem on %s"
-msgstr "正在 %s 上创建文件系统 %s"
+msgstr "正在 %s 中创建文件系统 %s"
 
 #: pyanaconda/storage/formats/fs.py:463
 msgid "Resizing"
@@ -5383,11 +5382,11 @@ msgstr "系统时钟使用 UTC"
 #: pyanaconda/textw/upgrade_bootloader_text.py:111
 #: pyanaconda/textw/upgrade_bootloader_text.py:121
 msgid "Update boot loader configuration"
-msgstr "更新引导程序配置"
+msgstr "更新引导装载程序配置"
 
 #: pyanaconda/textw/upgrade_bootloader_text.py:124
 msgid "Skip boot loader updating"
-msgstr "跳过引导程序更新"
+msgstr "跳过引导装载程序的更新"
 
 #: pyanaconda/textw/upgrade_text.py:125
 msgid "Free Space"
@@ -5470,7 +5469,7 @@ msgstr ""
 
 #: pyanaconda/textw/zipl_text.py:36
 msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup require."
-msgstr "z/IPL 引导程序会在系统安装完成后安装。您现在可以输入您的计算机或设置可能需要的附加内核和 chandev 参数。"
+msgstr "z/IPL 引导装载程序将会在安装完成后在您的系统上被安装。您现在可以输入您的机器或设置可能需要的附加内核和 chandev 参数。"
 
 #: pyanaconda/textw/zipl_text.py:68
 msgid "z/IPL Configuration"
@@ -5507,19 +5506,19 @@ msgstr "取消选择（_D）"
 
 #: data/ui/GroupSelector.glade.h:3
 msgid "_Deselect all optional packages"
-msgstr "取消选择所有可选软件包 (_D)"
+msgstr "取消对所有任选软件包的选择（_D）"
 
 #: data/ui/GroupSelector.glade.h:4
 msgid "_Optional packages"
-msgstr "可选软件包 (_O)"
+msgstr "任选软件包（_O）"
 
 #: data/ui/GroupSelector.glade.h:5
 msgid "_Select"
-msgstr "选择 (_S)"
+msgstr "选择（_S）"
 
 #: data/ui/GroupSelector.glade.h:6
 msgid "_Select all optional packages"
-msgstr "选择所有可选软件包 (_S)"
+msgstr "选择所有任选软件包（_S）"
 
 #: data/ui/GroupSelector.glade.h:7
 msgid "dialog1"
@@ -5559,19 +5558,19 @@ msgstr "您想如何修改驱动配置？"
 
 #: data/ui/adddrive.glade.h:6
 msgid "_Add drive"
-msgstr "添加驱动器 (_A)"
+msgstr "(_A)添加驱动器"
 
 #: data/ui/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
-msgstr "<b>仓库名称 (_n)：</b>"
+msgstr "<b>主机（_n）名称:</b>"
 
 #: data/ui/addrepo.glade.h:2
 msgid "<b>Repository _type:</b>"
-msgstr "<b>仓库类型 (_t)：</b>"
+msgstr "<b>存储库类型（_t）：</b>"
 
 #: data/ui/addrepo.glade.h:4
 msgid "Configure _proxy"
-msgstr "配置代理 (_p)"
+msgstr "配置代理服务器（_p）"
 
 #: data/ui/addrepo.glade.h:5
 msgid ""
@@ -5587,23 +5586,23 @@ msgstr ""
 
 #: data/ui/addrepo.glade.h:9
 msgid "Please provide the configuration information for this software repository."
-msgstr "请提供此软件仓库配置信息。"
+msgstr "请为这个软件存储库提供配置信息。"
 
 #: data/ui/addrepo.glade.h:10
 msgid "Proxy U_RL (host:port)"
-msgstr "代理服务器 URL (_R)（主机:端口）"
+msgstr "代理服务器 URL（_R）（主机:端口）"
 
 #: data/ui/addrepo.glade.h:11
 msgid "Proxy pass_word"
-msgstr "代理服务器密码 (_w)"
+msgstr "代理服务器密码（_w）"
 
 #: data/ui/addrepo.glade.h:12
 msgid "Proxy u_sername"
-msgstr "代理服务器用户名 (_s)"
+msgstr "代理服务器用户名（_s）"
 
 #: data/ui/addrepo.glade.h:13
 msgid "Repository _URL"
-msgstr "软件库 URL（_U）"
+msgstr "库 URL（_U）"
 
 #: data/ui/addrepo.glade.h:14
 msgid "Select A Directory"
@@ -5643,11 +5642,11 @@ msgstr "下一步（_N）"
 
 #: data/ui/autopart.glade.h:1
 msgid "<b>Shrink partition _to size (in MB):</b>"
-msgstr "<b>缩小分区到 (MB) (_t)：</b>"
+msgstr "<b>缩小分区 (MB) (_t)：</b>"
 
 #: data/ui/autopart.glade.h:2
 msgid "Re_view and modify partitioning layout"
-msgstr "检验及修改分区方案 (_v)"
+msgstr "检验和修改分区方案(_v)"
 
 #: data/ui/autopart.glade.h:3
 msgid "Volume to Shrink"
@@ -5659,7 +5658,7 @@ msgstr "您想缩小哪个分区来为安装提供空间？"
 
 #: data/ui/autopart.glade.h:5
 msgid "Which type of installation would you like?"
-msgstr "您要使用那种类型的安装？"
+msgstr "您使用那种类型的安装？"
 
 #: data/ui/autopart.glade.h:6
 msgid "_Encrypt system"
@@ -5679,7 +5678,7 @@ msgstr "BIOS 驱动器顺序"
 
 #: data/ui/blwhere.glade.h:3
 msgid "Boot loader device"
-msgstr "引导程序设备"
+msgstr "引导装载程序设备"
 
 #: data/ui/blwhere.glade.h:4
 msgid "First BIOS drive:"
@@ -5703,23 +5702,23 @@ msgstr "第三 BISO 驱动器："
 
 #: data/ui/blwhere.glade.h:9
 msgid "Where would you like to install the boot loader for your system?"
-msgstr "您想在何处安装引导程序？"
+msgstr "您想在何处为系统安装引导装载程序？"
 
 #: data/ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr "<b>数据存储设备<b> （仅限可被挂载的）"
+msgstr "<b>数据存储设备</b> （仅限可被挂载的）"
 
 #: data/ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
-msgstr "<b>安装目标设备<b>"
+msgstr "<b>安装目标设备</b>"
 
 #: data/ui/cleardisks.glade.h:3
 msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>提示：</b> 安装目标设备将重新格式化并移除所有数据。 请您确保留有备份。"
+msgstr "<b>提示：</b> 安装目标设备将被重新格式化并移除所有数据。 请确认您保留有备份。"
 
 #: data/ui/cleardisks.glade.h:4
 msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data devices (these will not be formatted, only mounted) and which devices you'd like to use as installation target devices (these may be formatted).  Please also indicate which system drive will have the bootloader installed."
-msgstr "下面是您选择作为本次安装一部分的存储设备。 请用下面的箭头指出哪些设备您将做为数据设备使用（不会被格式化，仅是挂载）和哪些设备您将做为安装目标设备（这些将被格式化）使用。还请指定在哪个系统驱动器中安装引导程序。"
+msgstr "下面是您选择作为本次安装一部分的存储设备。 请用下面的箭头指出哪些设备您将做为数据设备使用（不会被格式化，仅是挂载）和哪些设备您将做为安装目标设备（这些将被格式化）使用。还请指定在哪个系统驱动器中安装引导装载程序。"
 
 #: data/ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
@@ -5817,7 +5816,9 @@ msgstr "添加 FCoE 磁盘(_A)"
 
 #: data/ui/filter.glade.h:1
 msgid "<b>Tip:</b> Selected drives will not be formatted unless you choose to do so later during installation.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
-msgstr "<b>提示：</b> 除非您在之后的安装过程中选择格式化，否则所选驱动器将不会被格式化。 另外，您可以在安装后通过修改 /etc/fstab 文件来挂载没有在这里选中的驱动器。"
+msgstr ""
+"<b>提示：</b> 选择驱动器将不会被格式化除非您在安装后选择这样作。 另外，注意在安装后您可以通过修改您的 /etc/fstab "
+"文件来挂载没有在这里选中的驱动器。"
 
 # Fuzzy
 #: data/ui/filter.glade.h:2
@@ -5985,7 +5986,7 @@ msgstr "<b>名称服务器：</b>"
 
 #: data/ui/netconfig.glade.h:6
 msgid "<b>_Interface:</b>"
-msgstr "<b>界面 (_I):</b>"
+msgstr "<b>(_I)界面:</b>"
 
 #: data/ui/netconfig.glade.h:7
 msgid "Enable IPv_4 support"
@@ -5997,7 +5998,7 @@ msgstr "启动IPv_6支持"
 
 #: data/ui/netconfig.glade.h:11
 msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "使用动态 (_d）IP 配置 (DHCP)"
+msgstr "使用(_d）动态 IP 配置(DHCP)"
 
 #: data/ui/network.glade.h:1
 msgid "Configure Network"
@@ -6306,30 +6307,40 @@ msgstr "祖鲁"
 
 #~ msgid "You do not have enough RAM to use the graphical installer."
 #~ msgstr "您没有足够的内存来使用图形化安装程序。"
+
 #~ msgid ""
 #~ "Installs or upgrades to devices such as Storage Area Networks (SANs) or "
 #~ "mainframe attached disks (DASD), usually in an enterprise environment"
 #~ msgstr ""
 #~ "安装或升级存储区域网络 (SANs) 或者大型计算机直接存储设备 (DASD) ，通常在企"
 #~ "业环境中"
+
 #~ msgid "Select which devices should be configured with NetworkManager."
 #~ msgstr "选择要使用 NetworkManager 配置的设备。"
+
 #~ msgid "Telnet"
 #~ msgstr "Telnet"
+
 #~ msgid "Waiting for telnet connection."
 #~ msgstr "正在等待 telnet 连接。"
+
 #~ msgid "Running anaconda via telnet."
 #~ msgstr "通过 telnet 运行 anaconda。"
+
 #~ msgid "Use dynamic IP configuration (DHCP)"
 #~ msgstr "请使用动态 IP 配置（DHCP）"
+
 #~ msgid "Missing Device"
 #~ msgstr "缺少设备"
+
 #~ msgid "You must select a network device"
 #~ msgstr "您必须选择一个网络设备"
+
 #~ msgid "IPv4 Network Mask "
 #~ msgstr "IPv4 子网掩码"
+
 #~ msgid "Error configuring network device"
 #~ msgstr "配置网络界面时出错"
+
 #~ msgid "Error configuring network device %s"
 #~ msgstr "配置网络设备 %s 时出错"
-
