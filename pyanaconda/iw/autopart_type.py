@@ -202,6 +202,12 @@ class PartitionTypeWindow(InstallWindow):
 
         return None
 
+    def getPrev(self):
+        # Save the user's selection and restore system selection
+        if self.storage.clearPartType is not None:
+            self.anaconda.clearPartTypeSelection = self.storage.clearPartType
+        self.storage.clearPartType = self.anaconda.clearPartTypeSystem
+
     def typeChanged(self, *args):
         if self.buttonGroup.getCurrent() == "custom":
             if not self.prevrev:
@@ -223,6 +229,12 @@ class PartitionTypeWindow(InstallWindow):
         self.storage = anaconda.storage
         self.intf = anaconda.intf
         self.dispatch = anaconda.dispatch
+
+        if self.anaconda.dir == DISPATCH_FORWARD:
+            # Save system's partition type setting and restore user's
+            self.anaconda.clearPartTypeSystem = self.storage.clearPartType
+            if self.anaconda.clearPartTypeSelection is not None:
+                self.storage.clearPartType = self.anaconda.clearPartTypeSelection
 
         (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeTable")
         self.encryptButton = self.xml.get_widget("encryptButton")
