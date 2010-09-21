@@ -177,7 +177,6 @@ def doAutoPartition(anaconda):
     log.debug("storage.partitioned: %s" % [d.name for d in anaconda.storage.partitioned])
     log.debug("all names: %s" % [d.name for d in anaconda.storage.devices])
     if anaconda.dir == DISPATCH_BACK:
-        anaconda.storage.reset()
         return
 
     disks = []
