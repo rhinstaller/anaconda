@@ -906,12 +906,6 @@ class PartitionWindow(InstallWindow):
 
     def getPrev(self):
         self.stripeGraph.shutDown()
-        # temporarily unset storage.clearPartType so that all devices will be
-        # found during storage reset
-        clearPartType = self.storage.clearPartType
-        self.storage.clearPartType = None
-        self.storage.reset()
-        self.storage.clearPartType = clearPartType
         self.tree.clear()
         del self.parent
         return None
