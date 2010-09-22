@@ -204,6 +204,7 @@ update-desktop-database &> /dev/null || :
 %doc docs/anaconda-release-notes.txt
 /lib/udev/rules.d/70-anaconda.rules
 %{_sbindir}/anaconda
+%{_sbindir}/logpicker
 %ifarch i386 i486 i586 i686 x86_64
 %{_sbindir}/gptsync
 %{_sbindir}/showpart
@@ -211,6 +212,7 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
+%{_libdir}/python*/site-packages/log_picker/*
 %{_libdir}/anaconda*
 %ifarch %livearches
 %{_bindir}/liveinst

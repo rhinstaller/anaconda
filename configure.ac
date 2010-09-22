@@ -293,5 +293,7 @@ AC_CONFIG_FILES([Makefile
                  tests/regex/Makefile
                  pyanaconda/textw/Makefile
                  data/ui/Makefile
-                 utils/Makefile])
+                 utils/Makefile
+                 utils/log_picker/Makefile
+                 utils/log_picker/sending/Makefile])
 AC_OUTPUT

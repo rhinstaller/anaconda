@@ -1,6 +1,6 @@
-# utils/Makefile.am for anaconda
+# log_picker/Makefile.am
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2010  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -14,25 +14,11 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Author: David Cantrell <dcantrell@redhat.com>
 
-SUBDIRS = log_picker
+SUBDIRS = sending
 
-utilsdir            = $(libexecdir)/$(PACKAGE_NAME)
-
-dist_sbin_SCRIPTS    = logpicker
-utils_PROGRAMS      = modlist mapshdr readmap
-dist_utils_SCRIPTS  = genmodinfo trimpciids
-noinst_PROGRAMS     = snarffont
-dist_noinst_SCRIPTS = filtermoddeps
-
-if IS_S390
-utils_PROGRAMS      += addrsize mk-s390-cdboot
-endif
-
-modlist_CFLAGS      = -I$(top_srcdir)/loader $(GLIB_CFLAGS)
-modlist_LDADD       = $(GLIB_LIBS)
-modlist_SOURCES     = modlist.c $(top_srcdir)/loader/moduleinfo.c
+pkgpyexecdir = $(pyexecdir)/log_picker
+logpickerdir = $(pkgpyexecdir)
+logpicker_PYTHON = *.py
 
 MAINTAINERCLEANFILES = Makefile.in
