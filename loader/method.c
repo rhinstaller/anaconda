@@ -100,13 +100,12 @@ int mountLoopback(char *fsystem, char *mntpoint, char *device) {
 
     checked_asprintf(&opts, "ro,loop=%s", device);
 
+    logMessage(INFO, "attempting to attach file %s to loopback device %s and mount on %s", fsystem, mntpoint, device);
+
     if (doPwMount(fsystem, mntpoint, "auto", opts, &err)) {
-        logMessage(ERROR, "failed to mount loopback device %s on %s as %s: %s",
-                   device, mntpoint, fsystem, err);
+        logMessage(ERROR, "failed loopback mount: %s", err);
         return LOADER_ERROR;
     }
-
-    logMessage(INFO, "mounted loopback device %s on %s as %s", mntpoint, device, fsystem);
 
     return 0;
 }
