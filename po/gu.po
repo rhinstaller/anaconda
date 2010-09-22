@@ -1,4 +1,4 @@
-# translation of anaconda.master.gu.po to Gujarati
+# translation of anaconda.f14-branch.gu.po to Gujarati
 # Gujarati translations for PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -8,10 +8,10 @@
 # Sweta Kothari <swkothar@redhat.com>, 2008, 2009, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.master.gu\n"
+"Project-Id-Version: anaconda.f14-branch.gu\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-07-27 10:09+0200\n"
-"PO-Revision-Date: 2010-08-02 18:04+0530\n"
+"POT-Creation-Date: 2010-08-05 16:19-0400\n"
+"PO-Revision-Date: 2010-09-22 11:17+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -108,11 +108,11 @@ msgstr "પૂરતી જગ્યા નથી"
 msgid "Starting text mode."
 msgstr "લખાણ સ્થિતિને શરૂ કરી રહ્યા છે."
 
-#: anaconda:712
+#: anaconda:713
 msgid "Would you like to use VNC?"
 msgstr "તમે શું VNC ને વાપરવા માંગો છો?"
 
-#: anaconda:713
+#: anaconda:714
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -122,11 +122,11 @@ msgstr ""
 "લેઆઉટ અથવા પેકેજ પસંદગીઓને સ્પષ્ટ કરવા માટે તમને પરવાનગી આપતુ નથી.  શું તેને બદલે તમે VNC "
 "સ્થિતિને વાપરવા માંગો છો?"
 
-#: anaconda:739
+#: anaconda:740
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "ગ્રાફિકવાળુ સ્થાપન ઉપ્લબ્ધ નથી. લખાણ સ્થિતિ શરૂ કરી રહ્યા છીએ."
 
-#: anaconda:747
+#: anaconda:748
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY ચલ સુયોજિત નથી. લખાણ સ્થિતિ શરૂ કરી રહ્યા છીએ."
 
@@ -174,7 +174,7 @@ msgstr ""
 #: pyanaconda/iw/advanced_storage.py:96 pyanaconda/iw/advanced_storage.py:170
 #: pyanaconda/iw/advanced_storage.py:173 pyanaconda/iw/advanced_storage.py:201
 #: pyanaconda/iw/autopart_type.py:95 pyanaconda/iw/cleardisks_gui.py:44
-#: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:420
+#: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:428
 #: pyanaconda/iw/osbootwidget.py:211 pyanaconda/iw/osbootwidget.py:220
 #: pyanaconda/iw/raid_dialog_gui.py:223 pyanaconda/iw/task_gui.py:54
 #: pyanaconda/iw/task_gui.py:155 pyanaconda/iw/task_gui.py:302
@@ -189,8 +189,8 @@ msgstr ""
 #: loader/method.c:286 loader/method.c:360 loader/nfsinstall.c:309
 #: loader/nfsinstall.c:326 loader/telnetd.c:93 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urls.c:340
-#: loader/urls.c:346 loader/urls.c:355 pyanaconda/storage/__init__.py:227
-#: pyanaconda/storage/__init__.py:1814 pyanaconda/storage/__init__.py:1901
+#: loader/urls.c:346 loader/urls.c:355 pyanaconda/storage/__init__.py:230
+#: pyanaconda/storage/__init__.py:1818 pyanaconda/storage/__init__.py:1905
 #: pyanaconda/storage/zfcp.py:375 pyanaconda/textw/netconfig_text.py:282
 #: pyanaconda/textw/upgrade_text.py:181 pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
@@ -230,15 +230,15 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1275 pyanaconda/yuminstall.py:1463
 #: pyanaconda/yuminstall.py:1482 pyanaconda/yuminstall.py:1505
 #: pyanaconda/storage/__init__.py:114 pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:231 pyanaconda/storage/__init__.py:1995
+#: pyanaconda/storage/__init__.py:234 pyanaconda/storage/__init__.py:1999
 msgid "_Exit installer"
 msgstr "સ્થાપકમાંથી બહાર નીકળો (_E)"
 
 #: pyanaconda/bootloader.py:60 pyanaconda/image.py:92 pyanaconda/image.py:251
-#: pyanaconda/kickstart.py:1371 pyanaconda/kickstart.py:1410
+#: pyanaconda/kickstart.py:1366 pyanaconda/kickstart.py:1405
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:95
 #: pyanaconda/yuminstall.py:1280 pyanaconda/yuminstall.py:1464
-#: pyanaconda/iw/partition_gui.py:1600 pyanaconda/storage/__init__.py:1996
+#: pyanaconda/iw/partition_gui.py:1600 pyanaconda/storage/__init__.py:2000
 msgid "_Continue"
 msgstr "ચાલુ રાખો (_C)"
 
@@ -271,9 +271,9 @@ msgid "In progress"
 msgstr "પ્રગતિમાં છે"
 
 #: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1120
-#: pyanaconda/kickstart.py:1155 pyanaconda/kickstart.py:1235
-#: pyanaconda/kickstart.py:1243 pyanaconda/kickstart.py:1281
-#: pyanaconda/kickstart.py:1289 pyanaconda/text.py:392
+#: pyanaconda/kickstart.py:1150 pyanaconda/kickstart.py:1230
+#: pyanaconda/kickstart.py:1238 pyanaconda/kickstart.py:1276
+#: pyanaconda/kickstart.py:1284 pyanaconda/text.py:392
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -459,7 +459,7 @@ msgstr ""
 "className = %s"
 
 #: pyanaconda/gui.py:1236 pyanaconda/image.py:164 pyanaconda/image.py:194
-#: pyanaconda/packages.py:330 pyanaconda/storage/__init__.py:1813
+#: pyanaconda/packages.py:330 pyanaconda/storage/__init__.py:1817
 msgid "_Exit"
 msgstr "બહાર નીકળો (_E)"
 
@@ -470,7 +470,7 @@ msgstr "બહાર નીકળો (_E)"
 msgid "_Retry"
 msgstr "પુનઃપ્રયાસ (_R)"
 
-#: pyanaconda/gui.py:1239 pyanaconda/storage/partitioning.py:280
+#: pyanaconda/gui.py:1239 pyanaconda/storage/partitioning.py:284
 msgid "The system will now reboot."
 msgstr "સિસ્ટમ હવે રીબુટ થશે."
 
@@ -840,37 +840,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/kickstart.py:1254
+#: pyanaconda/kickstart.py:1249
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "%%ksappend લીટીઓ પર પ્રક્રિયા કરવામાં ભૂલ: %s"
 
-#: pyanaconda/kickstart.py:1257
+#: pyanaconda/kickstart.py:1252
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "%%ksappend લીટીઓ પર પ્રક્રિયા કરવામાં અજ્ઞાત ભૂલ: %s"
 
-#: pyanaconda/kickstart.py:1312 pyanaconda/livecd.py:228
+#: pyanaconda/kickstart.py:1307 pyanaconda/livecd.py:228
 msgid "Post-Installation"
 msgstr "સ્થાપન પછી"
 
-#: pyanaconda/kickstart.py:1313
+#: pyanaconda/kickstart.py:1308
 msgid "Running post-installation scripts"
 msgstr "સ્થાપન-પછીની સ્ક્રિપ્ટો ચાલી રહી છે"
 
-#: pyanaconda/kickstart.py:1329
+#: pyanaconda/kickstart.py:1324
 msgid "Pre-Installation"
 msgstr "સ્થાપન પહેલા"
 
-#: pyanaconda/kickstart.py:1330
+#: pyanaconda/kickstart.py:1325
 msgid "Running pre-installation scripts"
 msgstr "પૂર્વ-સ્થાપન સ્ક્રિપ્ટો ચાલી રહી છે"
 
-#: pyanaconda/kickstart.py:1362
+#: pyanaconda/kickstart.py:1357
 msgid "Missing Package"
 msgstr "ગુમ થયેલ પેકેજ"
 
-#: pyanaconda/kickstart.py:1363
+#: pyanaconda/kickstart.py:1358
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -879,19 +879,19 @@ msgstr ""
 "તમે સ્પષ્ટ કરેલ છે કે પેકેજ '%s' એ સ્થાપિત થયેલ હોવું જોઈએ.  આ પેકેજ અસ્તિત્વમાં નથી. શું તમે "
 "ચાલુ રાખવા માંગો છો અથવા તમારું સ્થાપન અડધેથી બંધ કરવા માંગો છો?"
 
-#: pyanaconda/kickstart.py:1369 pyanaconda/kickstart.py:1408
+#: pyanaconda/kickstart.py:1364 pyanaconda/kickstart.py:1403
 msgid "_Abort"
 msgstr "અડધેથી બંધ કરો (_A)"
 
-#: pyanaconda/kickstart.py:1370 pyanaconda/kickstart.py:1409
+#: pyanaconda/kickstart.py:1365 pyanaconda/kickstart.py:1404
 msgid "_Ignore All"
 msgstr "બધુ અવગણો (_I)"
 
-#: pyanaconda/kickstart.py:1400
+#: pyanaconda/kickstart.py:1395
 msgid "Missing Group"
 msgstr "ગુમ થયેલ જૂથ"
 
-#: pyanaconda/kickstart.py:1401
+#: pyanaconda/kickstart.py:1396
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -900,7 +900,7 @@ msgstr ""
 "તમે સ્પષ્ટ કરેલ છે કે જૂથ '%s' સ્થાપિત થયેલ હોવું જોઈએ. આ જૂથ અસ્તિત્વમાં નથી. શું તમે ચાલુ "
 "રાખવા માંગો છો અથવા તમારું સ્થાપન અડધેથી બંધ કરવા માંગો છો?"
 
-#: pyanaconda/kickstart.py:1499
+#: pyanaconda/kickstart.py:1494
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -1405,7 +1405,7 @@ msgstr "ના"
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
-msgstr "નેટવર્કીંગ ઉપકરણને સક્રિય કરવામાં નિષ્ફળ.  નેટવર્કીંગ બચાવ સ્થિતિમાં ઉપલ્બધ હશે નહિં."
+msgstr "નેટવર્કીંગ ઉપકરણને સક્રિય કરવામાં નિષ્ફળ.  નેટવર્કીંગ બચાવ સ્થિતિમાં ઉપલબ્ધ હશે નહિં."
 
 #: pyanaconda/rescue.py:299 pyanaconda/rescue.py:374 pyanaconda/rescue.py:385
 #: pyanaconda/rescue.py:470 pyanaconda/rescue.py:499
@@ -1448,7 +1448,7 @@ msgstr "માત્ર વાંચી શકાય તેવું"
 
 #: pyanaconda/rescue.py:311 pyanaconda/rescue.py:313 loader/cdinstall.c:249
 #: loader/cdinstall.c:252 loader/method.c:333
-#: pyanaconda/storage/__init__.py:1813 pyanaconda/textw/upgrade_text.py:139
+#: pyanaconda/storage/__init__.py:1817 pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
 msgstr "છોડી દો"
 
@@ -1517,7 +1517,7 @@ msgstr ""
 
 #: pyanaconda/rescue.py:481
 msgid "You don't have any Linux partitions.  Rebooting.\n"
-msgstr "તમારી પાસે કોઇપણ Linux પાર્ટીશનો નથી. પુન:બુટ કરી રહ્યા છે.\n"
+msgstr "તમારી પાસે કોઇપણ Linux પાર્ટીશનો નથી. રીબુટ કરી રહ્યા છે.\n"
 
 #: pyanaconda/rescue.py:484
 msgid "Rescue Mode"
@@ -2489,7 +2489,7 @@ msgstr "ઉપકરણ બદલો (_C)"
 msgid "Clear Disks Selector"
 msgstr "ડિસ્ક પસંદકર્તાને સાફ કરો"
 
-#: pyanaconda/iw/cleardisks_gui.py:45 pyanaconda/iw/filter_gui.py:421
+#: pyanaconda/iw/cleardisks_gui.py:45 pyanaconda/iw/filter_gui.py:429
 msgid "You must select at least one drive to be used for installation."
 msgstr "સ્થાપન માટે વાપરવા માટે તમારે ઓછામાં ઓછી એક ડ્રાઇવને પસંદ કરવુ જ પડશે."
 
@@ -2498,33 +2498,33 @@ msgid "You must select one drive to boot from."
 msgstr "તેમાંથી બુટ કરવા માટે તમારે એક ડ્રાઇવને પસંદ કરવુ જ પડશે."
 
 #: pyanaconda/iw/cleardisks_gui.py:127 pyanaconda/iw/cleardisks_gui.py:147
-#: pyanaconda/iw/filter_gui.py:478 pyanaconda/iw/filter_gui.py:489
-#: pyanaconda/iw/filter_gui.py:519
+#: pyanaconda/iw/filter_gui.py:486 pyanaconda/iw/filter_gui.py:497
+#: pyanaconda/iw/filter_gui.py:527
 msgid "Model"
 msgstr "મોડેલ"
 
 #: pyanaconda/iw/cleardisks_gui.py:128 pyanaconda/iw/cleardisks_gui.py:148
-#: pyanaconda/iw/filter_gui.py:479 pyanaconda/iw/filter_gui.py:490
-#: pyanaconda/iw/filter_gui.py:498 pyanaconda/iw/filter_gui.py:509
-#: pyanaconda/iw/filter_gui.py:520
+#: pyanaconda/iw/filter_gui.py:487 pyanaconda/iw/filter_gui.py:498
+#: pyanaconda/iw/filter_gui.py:506 pyanaconda/iw/filter_gui.py:517
+#: pyanaconda/iw/filter_gui.py:528
 msgid "Capacity"
 msgstr "ક્ષમતા"
 
-#: pyanaconda/iw/cleardisks_gui.py:129 pyanaconda/iw/filter_gui.py:480
-#: pyanaconda/iw/filter_gui.py:499 pyanaconda/iw/filter_gui.py:510
-#: pyanaconda/iw/filter_gui.py:521
+#: pyanaconda/iw/cleardisks_gui.py:129 pyanaconda/iw/filter_gui.py:488
+#: pyanaconda/iw/filter_gui.py:507 pyanaconda/iw/filter_gui.py:518
+#: pyanaconda/iw/filter_gui.py:529
 msgid "Vendor"
 msgstr "વેન્ડર"
 
 #: pyanaconda/iw/cleardisks_gui.py:130 pyanaconda/iw/cleardisks_gui.py:149
-#: pyanaconda/iw/filter_gui.py:497 pyanaconda/iw/filter_gui.py:508
-#: pyanaconda/iw/filter_gui.py:524
+#: pyanaconda/iw/filter_gui.py:505 pyanaconda/iw/filter_gui.py:516
+#: pyanaconda/iw/filter_gui.py:532
 msgid "Identifier"
 msgstr "ઓળખનાર"
 
-#: pyanaconda/iw/cleardisks_gui.py:131 pyanaconda/iw/filter_gui.py:481
-#: pyanaconda/iw/filter_gui.py:500 pyanaconda/iw/filter_gui.py:511
-#: pyanaconda/iw/filter_gui.py:522
+#: pyanaconda/iw/cleardisks_gui.py:131 pyanaconda/iw/filter_gui.py:489
+#: pyanaconda/iw/filter_gui.py:508 pyanaconda/iw/filter_gui.py:519
+#: pyanaconda/iw/filter_gui.py:530
 msgid "Interconnect"
 msgstr "જોડાવું"
 
@@ -2590,8 +2590,8 @@ msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
 msgstr ""
-"નોંધો કે જે સુધારાઓ તમારી સિસ્ટમને બરાબર રીતે કાર્ય કરવાનું ખાતરી કરવા માટે ઉપલ્બધ હોઇ "
-"શકે છે અને આ સુધારાઓનું સ્થાપન એ પુન:બુટ કરવા પછી અગ્રહણીય છે."
+"નોંધો કે જે સુધારાઓ તમારી સિસ્ટમને બરાબર રીતે કાર્ય કરવાનું ખાતરી કરવા માટે ઉપલબ્ધ હોઇ "
+"શકે છે અને આ સુધારાઓનું સ્થાપન એ રીબુટ કરવા પછી અગ્રહણીય છે."
 
 #: pyanaconda/iw/congrats_gui.py:90 pyanaconda/textw/complete_text.py:55
 #, python-format
@@ -2604,9 +2604,9 @@ msgid ""
 msgstr ""
 "અભિનંદન, તમારુ %s સ્થાપન પૂર્ણ થઇ ગયુ છે.\n"
 "\n"
-"મહેરબાની કરીને સ્થાપિત થયેલ સિસ્ટમને વાપરવા માટે પુન:બુટ કરો.  નોંધો કે જે સુધારાઓ તમારી "
-"સિસ્ટમનો બરાબર રીતે કાર્ય કરવાનું ખાતરી કરવા માટે ઉપલ્બધ હોઇ શકે છે અને આ સુધારાઓનું "
-"સ્થાપન પુન:બુટ પછી અગ્રહણીય છે."
+"મહેરબાની કરીને સ્થાપિત થયેલ સિસ્ટમને વાપરવા માટે રીબુટ કરો.  નોંધો કે જે સુધારાઓ તમારી "
+"સિસ્ટમનો બરાબર રીતે કાર્ય કરવાનું ખાતરી કરવા માટે ઉપલબ્ધ હોઇ શકે છે અને આ સુધારાઓનું "
+"સ્થાપન રીબુટ પછી અગ્રહણીય છે."
 
 #: pyanaconda/iw/examine_gui.py:39
 msgid "Upgrade Examine"
@@ -2662,31 +2662,31 @@ msgstr "પસંદ થયેલ ઉપકરણોS %s (%s MB) માંથી
 msgid "Device Filter"
 msgstr "ઉપકરણ ગાળક"
 
-#: pyanaconda/iw/filter_gui.py:482 pyanaconda/iw/filter_gui.py:512
-#: pyanaconda/iw/filter_gui.py:523
+#: pyanaconda/iw/filter_gui.py:490 pyanaconda/iw/filter_gui.py:520
+#: pyanaconda/iw/filter_gui.py:531
 msgid "Serial Number"
 msgstr "શ્રેણી નંબર"
 
-#: pyanaconda/iw/filter_gui.py:483 pyanaconda/iw/filter_gui.py:491
-#: pyanaconda/iw/filter_gui.py:502 pyanaconda/iw/filter_gui.py:513
-#: pyanaconda/iw/filter_gui.py:528 pyanaconda/iw/osbootwidget.py:66
+#: pyanaconda/iw/filter_gui.py:491 pyanaconda/iw/filter_gui.py:499
+#: pyanaconda/iw/filter_gui.py:510 pyanaconda/iw/filter_gui.py:521
+#: pyanaconda/iw/filter_gui.py:536 pyanaconda/iw/osbootwidget.py:66
 #: pyanaconda/iw/partition_gui.py:611
 msgid "Device"
 msgstr "ઉપકરણ"
 
-#: pyanaconda/iw/filter_gui.py:501
+#: pyanaconda/iw/filter_gui.py:509
 msgid "Paths"
 msgstr "પાથો"
 
-#: pyanaconda/iw/filter_gui.py:525
+#: pyanaconda/iw/filter_gui.py:533
 msgid "Port"
 msgstr "પોર્ટ"
 
-#: pyanaconda/iw/filter_gui.py:526
+#: pyanaconda/iw/filter_gui.py:534
 msgid "Target"
 msgstr "લક્ષ્ય"
 
-#: pyanaconda/iw/filter_gui.py:527
+#: pyanaconda/iw/filter_gui.py:535
 msgid "LUN"
 msgstr "LUN"
 
@@ -2715,7 +2715,10 @@ msgid ""
 "Installs or upgrades to enterprise devices such as Storage Area Networks "
 "(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
 "filter out devices the installer should ignore."
-msgstr "એન્ટરપ્રાઇઝ ઉપકરણોને સુધારે છે અથવા સ્થાપિત કરે છે જેવાં કે Storage Area Networks (SANs). આ વિકલ્પ FCoE / iSCSI / zFCP ડિસ્કોને ઉમેરવા માટે તમને પરવાનગી આપશે અને ઉપકરણોને ગાળવા માટે સ્થાપકને અવગણવુ જોઇએ."
+msgstr ""
+"એન્ટરપ્રાઇઝ ઉપકરણોને સુધારે છે અથવા સ્થાપિત કરે છે જેવાં કે Storage Area Networks "
+"(SANs). આ વિકલ્પ FCoE / iSCSI / zFCP ડિસ્કોને ઉમેરવા માટે તમને પરવાનગી આપશે અને "
+"ઉપકરણોને ગાળવા માટે સ્થાપકને અવગણવુ જોઇએ."
 
 #: pyanaconda/iw/language_gui.py:33 pyanaconda/textw/language_text.py:45
 msgid "Language Selection"
@@ -3307,7 +3310,7 @@ msgstr "MD RAID ARRAY %s (%-0.f MB)"
 msgid "Type"
 msgstr "પ્રકાર"
 
-#: pyanaconda/iw/partition_gui.py:616 pyanaconda/storage/__init__.py:1813
+#: pyanaconda/iw/partition_gui.py:616 pyanaconda/storage/__init__.py:1817
 msgid "Format"
 msgstr "બંધારણ"
 
@@ -3480,8 +3483,8 @@ msgstr "PVs ને બનાવવા માટે હાલમાં તમા�
 msgid "About LVM"
 msgstr "LVM વિશે"
 
-#: pyanaconda/iw/partition_gui.py:1586 pyanaconda/storage/partitioning.py:200
-#: pyanaconda/storage/partitioning.py:243
+#: pyanaconda/iw/partition_gui.py:1586 pyanaconda/storage/partitioning.py:204
+#: pyanaconda/storage/partitioning.py:247
 msgid "Error Partitioning"
 msgstr "પાર્ટીશન કરતી વખતે ભૂલ"
 
@@ -4908,11 +4911,11 @@ msgstr ""
 "પાડતા નથી. જો તમે પાછા જતા નથી અને પાસફ્રેઝ ને પૂરો પાડો, બ્લોક ઉપકરણ એન્ક્રિપ્સન "
 "નિષ્ક્રિય થઇ જશે."
 
-#: pyanaconda/storage/__init__.py:185 pyanaconda/storage/devicetree.py:99
+#: pyanaconda/storage/__init__.py:188 pyanaconda/storage/devicetree.py:99
 msgid "Confirm"
 msgstr "ખાતરી"
 
-#: pyanaconda/storage/__init__.py:186
+#: pyanaconda/storage/__init__.py:189
 msgid ""
 "The partitioning options you have selected will now be written to disk.  Any "
 "data on deleted or reformatted partitions will be lost."
@@ -4920,62 +4923,62 @@ msgstr ""
 "તમે પસંદ કરેલ પાર્ટીશનીંગ વિકલ્પો હવે ડિસ્કમાં લખાઈ જશે.  કાઢી નંખાયેલ કે પુનઃબંધારણ ઘડાયેલ "
 "પાર્ટીશનો પરની કોઈપણ માહિતી નષ્ટ થઈ જશે."
 
-#: pyanaconda/storage/__init__.py:191
+#: pyanaconda/storage/__init__.py:194
 msgid "Go _Back"
 msgstr "પાછળ જાવ (_B)"
 
-#: pyanaconda/storage/__init__.py:192
+#: pyanaconda/storage/__init__.py:195
 msgid "_Write Changes to Disk"
 msgstr "ડિસ્કમાં બદલાવોને લખો (_W)"
 
-#: pyanaconda/storage/__init__.py:211
+#: pyanaconda/storage/__init__.py:214
 msgid "Running..."
 msgstr "ચાલી રહ્યુ છે..."
 
-#: pyanaconda/storage/__init__.py:212
+#: pyanaconda/storage/__init__.py:215
 msgid "Storing encryption keys"
 msgstr "અનક્રિપ્શન કીઓનો સંગ્રહ કરી રહ્યા છે"
 
-#: pyanaconda/storage/__init__.py:228
+#: pyanaconda/storage/__init__.py:231
 #, python-format
 msgid "Error storing an encryption key: %s\n"
 msgstr "એનક્રિપ્શન કી ને સંગ્રહ કરી રહ્યા હોય ત્યારે ભૂલ: %s\n"
 
-#: pyanaconda/storage/__init__.py:373
+#: pyanaconda/storage/__init__.py:377
 msgid "Examining Devices"
 msgstr "ઉપકરણોનું પરિક્ષણ કરી રહ્યા છે"
 
-#: pyanaconda/storage/__init__.py:374
+#: pyanaconda/storage/__init__.py:378
 msgid "Examining storage devices"
 msgstr "સંગ્રહ ઉપકરણોનું પરિક્ષણ કરી રહ્યા છે"
 
-#: pyanaconda/storage/__init__.py:653
+#: pyanaconda/storage/__init__.py:657
 msgid "This partition is holding the data for the hard drive install."
 msgstr "આ પાર્ટીશન હાર્ડ ડ્રાઈવ પર સ્થાપન કરવા માટે માહિતી ધરાવે છે."
 
-#: pyanaconda/storage/__init__.py:658
+#: pyanaconda/storage/__init__.py:662
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "તમે LDL ના પાર્ટીશન કે જે DASD થી ફોર્મેટ થયેલ છે તેને કાઢી શકસો નહિં."
 
-#: pyanaconda/storage/__init__.py:664
+#: pyanaconda/storage/__init__.py:668
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "આ ઉપકરણ એ RAID ઉપકરણ %s નો ભાગ છે."
 
-#: pyanaconda/storage/__init__.py:667
+#: pyanaconda/storage/__init__.py:671
 msgid "This device is part of a RAID device."
 msgstr "આ ઉપકરણ એ RAID ઉપકરણનો ભાગ છે."
 
-#: pyanaconda/storage/__init__.py:672
+#: pyanaconda/storage/__init__.py:676
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "આ ઉપકરણ એ LVM વોલ્યુમ જૂથ '%s' નો ભાગ છે."
 
-#: pyanaconda/storage/__init__.py:675
+#: pyanaconda/storage/__init__.py:679
 msgid "This device is part of a LVM volume group."
 msgstr "આ ઉપકરણ એ LVM વોલ્યુમ જૂથનો ભાગ છે."
 
-#: pyanaconda/storage/__init__.py:691
+#: pyanaconda/storage/__init__.py:695
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -4984,21 +4987,21 @@ msgstr ""
 "આ ઉપકરણ એ વિસ્તરેલ પાર્ટીશન છે કે જે લોજિકલ પાર્ટીશનો ને સમાવે છે કે જે કાઢી શકાતુ નથી:\n"
 "\n"
 
-#: pyanaconda/storage/__init__.py:966
+#: pyanaconda/storage/__init__.py:970
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr "તમે રુટ પાર્ટીશન (/) વ્યાખ્યાયિત નથી કર્યું, કે જે %s નું સ્થાપન ચાલુ રાખવા માટે જરુરી છે."
 
-#: pyanaconda/storage/__init__.py:971
+#: pyanaconda/storage/__init__.py:975
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr "તમારુ રુટ પાર્ટીશન એ ૨૫૦ મેગાબાઈટ કરતાં ઓછું છે કે જે %s સ્થાપિત કરવા માટે ખૂબ નાનું છે."
 
-#: pyanaconda/storage/__init__.py:977
+#: pyanaconda/storage/__init__.py:981
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -5007,7 +5010,7 @@ msgstr ""
 "તમારુ / પાર્ટીશન એ %(min)s MB કરતા ઓછુ છે કે જે સામાન્ય %(productName)s ના સ્થાપન "
 "માટે સ્વીકારેલ છે તેના કરતાં નાનું છે."
 
-#: pyanaconda/storage/__init__.py:987
+#: pyanaconda/storage/__init__.py:991
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -5016,7 +5019,7 @@ msgstr ""
 "તમારુ / પાર્ટીશન જીવંત ચિત્ર જે તેમાંથી સ્થાપિત કરી છે તે બંધબેસતુ નથી.  તેને %s તરીકે "
 "બંધારિત કરવુ જ જોઇએ."
 
-#: pyanaconda/storage/__init__.py:994
+#: pyanaconda/storage/__init__.py:998
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -5025,13 +5028,13 @@ msgstr ""
 "તમારુ %(mount)s પાર્ટીશન એ %(size)s મેગાબાઈટ કે જે સામાન્ય %(productName)s ના "
 "સ્થાપન માટે જરુરી છે તેના કરતાં નાનું છે."
 
-#: pyanaconda/storage/__init__.py:1023
+#: pyanaconda/storage/__init__.py:1027
 msgid "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "USB ઉપકરણ પર સ્થાપિત કરી રહ્યા છીએ.  આ કામ આપતી સિસ્ટમ પેદા કરી શકશે અથવા નાપણ "
 "કરી શકશે."
 
-#: pyanaconda/storage/__init__.py:1026
+#: pyanaconda/storage/__init__.py:1030
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -5039,7 +5042,7 @@ msgstr ""
 "FireWire ઉપકરણ પર સ્થાપિત કરી રહ્યા છીએ.  આ કામ આપતી સિસ્ટમ પેદા કરી શકશે અથવા "
 "નહિં પણ કરી શકશે."
 
-#: pyanaconda/storage/__init__.py:1033
+#: pyanaconda/storage/__init__.py:1037
 msgid ""
 "You have not specified a swap partition.  Due to the amount of memory "
 "present, a swap partition is required to complete installation."
@@ -5047,7 +5050,7 @@ msgstr ""
 "તમે સ્વેપ પાર્ટીશન સ્પષ્ટ કરેલ નથી.  હાલની મેમરીની સંખ્યા દરમ્યાન, સ્વેપ પાર્ટીશનને સ્થાપન "
 "સમાપ્ત કરવા માટે જરૂરી છે."
 
-#: pyanaconda/storage/__init__.py:1038
+#: pyanaconda/storage/__init__.py:1042
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -5055,21 +5058,21 @@ msgstr ""
 "તમે સ્વેપ પાર્ટીશન સ્પષ્ટ કરેલ નથી. પરંતુ બધા કિસ્સાઓમાં તે જરુરી નથી, તે સાંકેતિક રીતે મોટા "
 "ભાગના સ્થાપનોનું પરિણામ સુધારે છે."
 
-#: pyanaconda/storage/__init__.py:1045
+#: pyanaconda/storage/__init__.py:1049
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "આ માઉન્ટ બિંદુ અયોગ્ય છે.  %s ડિરેક્ટરી / file સિસ્ટમ પર હોવી જ જોઇએ."
 
-#: pyanaconda/storage/__init__.py:1049
+#: pyanaconda/storage/__init__.py:1053
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "માઉન્ટ બિંદુ %s એ linux ફાઇલ સિસ્ટમ પર હોવુ જ જોઇએ."
 
-#: pyanaconda/storage/__init__.py:1060
+#: pyanaconda/storage/__init__.py:1064
 msgid "No Drives Found"
 msgstr "કોઈ ડ્રાઈવો મળી નહિં"
 
-#: pyanaconda/storage/__init__.py:1061
+#: pyanaconda/storage/__init__.py:1065
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -5077,11 +5080,11 @@ msgstr ""
 "ભૂલ ઉદ્ભવી - કોઈ માન્ય ઉપકરણો મળ્યા નથી કે જેના ઉપર નવી ફાઈલ સિસ્ટમ બનાવી શકાય. આ "
 "સમસ્યાને ટાળવા માટે મહેરબાની કરીને તમારા હાર્ડવેરને ચકાસો."
 
-#: pyanaconda/storage/__init__.py:1359 pyanaconda/storage/__init__.py:1368
+#: pyanaconda/storage/__init__.py:1363 pyanaconda/storage/__init__.py:1372
 msgid "Dirty File Systems"
 msgstr "ગંદી ફાઈલ સિસ્ટમો"
 
-#: pyanaconda/storage/__init__.py:1360
+#: pyanaconda/storage/__init__.py:1364
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5094,7 +5097,7 @@ msgstr ""
 "કર્યા પછી સુધારો કરો.\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1369
+#: pyanaconda/storage/__init__.py:1373
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5105,7 +5108,7 @@ msgstr ""
 "કોઈ પણ રીતે માઉન્ટ કરવા માંગો છો?\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1846
+#: pyanaconda/storage/__init__.py:1850
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5122,7 +5125,7 @@ msgstr ""
 "જૂની શૈલીનું સ્વેપ પાર્ટીશન છે.  જો સ્વેપ જગ્યા માટે તમે આ ઉપકરણને વાપરવા માંગો તો, તમારે "
 "નવી શૈલી Linux સ્વેપ પાર્ટીશન તરીકે પુન:બંધારણ કરવુ જ જોઇએ."
 
-#: pyanaconda/storage/__init__.py:1857
+#: pyanaconda/storage/__init__.py:1861
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5141,7 +5144,7 @@ msgstr ""
 "જેનો અર્થ એ થાય કે તમારી સિસ્ટમ hibernating છે. સુધારો લાગુ કરવા માટે, મહેરબાની કરીને "
 "તમારી સિસ્ટમને hibernating કરવા કરતાં બંધ કરો."
 
-#: pyanaconda/storage/__init__.py:1865
+#: pyanaconda/storage/__init__.py:1869
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5160,7 +5163,7 @@ msgstr ""
 "જેનો અર્થ એ થાય કે તમારી સિસ્ટમ હાયબરનેટ કરી રહી છે. જો તમે નવું સ્થાપન કરી રહ્યા હોય, "
 "તો ખાતરી કરો કે સ્થાપક બધા સ્વેપ પાર્ટીશનોનું બંધારણ ઘડવા માટે સુયોજિત થયેલ છે."
 
-#: pyanaconda/storage/__init__.py:1877
+#: pyanaconda/storage/__init__.py:1881
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5177,7 +5180,7 @@ msgstr ""
 "આધાર સ્વેપ વોલ્યુમને સમાવતુ નથી.  સ્થાપનને ચાલુ રાખવા માટે ક્રમમાં, તમારે ઉપકરણને બંધારણ "
 "કરવાની જરૂર હશે અથવા તેને છોડો."
 
-#: pyanaconda/storage/__init__.py:1888
+#: pyanaconda/storage/__init__.py:1892
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5193,7 +5196,7 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે બરાબર દબાવો"
 
-#: pyanaconda/storage/__init__.py:1895
+#: pyanaconda/storage/__init__.py:1899
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5208,11 +5211,11 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે બરાબર બટન દબાવો."
 
-#: pyanaconda/storage/__init__.py:1958 pyanaconda/storage/__init__.py:1970
+#: pyanaconda/storage/__init__.py:1962 pyanaconda/storage/__init__.py:1974
 msgid "Invalid mount point"
 msgstr "અયોગ્ય માઉન્ટ બિંદુ"
 
-#: pyanaconda/storage/__init__.py:1959
+#: pyanaconda/storage/__init__.py:1963
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5225,7 +5228,7 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે <Enter> દબાવો."
 
-#: pyanaconda/storage/__init__.py:1971
+#: pyanaconda/storage/__init__.py:1975
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5238,11 +5241,11 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે <Enter> દબાવો."
 
-#: pyanaconda/storage/__init__.py:1987 pyanaconda/storage/__init__.py:2011
+#: pyanaconda/storage/__init__.py:1991 pyanaconda/storage/__init__.py:2015
 msgid "Unable to mount filesystem"
 msgstr "ફાઈલસિસ્ટમ માઉન્ટ કરવા માટે અસમર્થ"
 
-#: pyanaconda/storage/__init__.py:1988
+#: pyanaconda/storage/__init__.py:1992
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5251,7 +5254,7 @@ msgstr ""
 "ઉપકરણ %(path)s ને %(mountpoint)s તરીકે માઉન્ટ કરતી વખતે ભૂલ.  તમે સ્થાપન ચાલુ રાખી "
 "શકશો, પરંતુ ત્યાં સમસ્યાઓ હોઈ શકે."
 
-#: pyanaconda/storage/__init__.py:2012
+#: pyanaconda/storage/__init__.py:2016
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5287,26 +5290,26 @@ msgstr "%s માટે vginfo નિષ્ફળ"
 msgid "lvs failed for %s"
 msgstr "%s માટે lvs નિષ્ફળ"
 
-#: pyanaconda/storage/devices.py:1268 pyanaconda/storage/devices.py:1966
-#: pyanaconda/storage/devices.py:2382 pyanaconda/storage/devices.py:2877
-#: pyanaconda/storage/devices.py:3350
+#: pyanaconda/storage/devices.py:1300 pyanaconda/storage/devices.py:1998
+#: pyanaconda/storage/devices.py:2414 pyanaconda/storage/devices.py:2909
+#: pyanaconda/storage/devices.py:3383
 msgid "Creating"
 msgstr "બનાવી રહ્યા છે"
 
-#: pyanaconda/storage/devices.py:1269 pyanaconda/storage/devices.py:1967
-#: pyanaconda/storage/devices.py:2383 pyanaconda/storage/devices.py:2878
+#: pyanaconda/storage/devices.py:1301 pyanaconda/storage/devices.py:1999
+#: pyanaconda/storage/devices.py:2415 pyanaconda/storage/devices.py:2910
 #, python-format
 msgid "Creating device %s"
 msgstr "ઉપકરણ %s ને બનાવી રહ્યા છે"
 
-#: pyanaconda/storage/devices.py:2476
+#: pyanaconda/storage/devices.py:2508
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
 msgstr[0] "RAID%d સમૂહ ને ઓછામાં ઓછા %d સભ્યની જરૂર છે"
 msgstr[1] "RAID%d સમૂહ ને ઓછામાં ઓછા %d સભ્યોની જરૂર છે"
 
-#: pyanaconda/storage/devices.py:3351
+#: pyanaconda/storage/devices.py:3384
 #, python-format
 msgid "Creating file %s"
 msgstr "ફાઇલ %s ને બનાવી રહ્યા છે"
@@ -5323,7 +5326,7 @@ msgstr ""
 "\n"
 "જો તમે આ પગલું છોડી દો તો ઉપકરણના સમાવિષ્ટો સ્થાપન દરમ્યાન ઉપલબ્ધ રહેશે નહિં."
 
-#: pyanaconda/storage/devicetree.py:1876
+#: pyanaconda/storage/devicetree.py:1889
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "અસુસંગત LVM વોલ્યુમ જૂથનો આ પાર્ટીશન ભાગ છે."
 
@@ -5333,7 +5336,7 @@ msgstr "FCoE SAN ને જોડી રહ્યા છે"
 
 #: pyanaconda/storage/fcoe.py:111
 msgid "FCoE not available"
-msgstr "FCoE ઉપલ્બધ નથી"
+msgstr "FCoE ઉપલબ્ધ નથી"
 
 #: pyanaconda/storage/formats/fs.py:102
 msgid "filesystem configuration missing a type"
@@ -5388,10 +5391,10 @@ msgid ""
 msgstr ""
 "ભૂલો કે સામાન્ય રીતે એનો મતલબ એ કે ફાઇલસિસ્ટમ સાથે સમસ્યા છે કે જેને સુધારવા માટે "
 "વપરાશકર્તા સંપર્કની જરૂર પડશે.  સ્થાપનને પુન:શરૂ કરતા પહેલાં, રિસ્ક્યૂ સ્થિતિ અથવા બીજી "
-"સિસ્ટમને પુન:બુટ કરો કે જે અરસપરસ ફાઇલસિસ્ટમને સુધારવા તમને પરવાનગી આપે છે.  તમે "
+"સિસ્ટમને રીબુટ કરો કે જે અરસપરસ ફાઇલસિસ્ટમને સુધારવા તમને પરવાનગી આપે છે.  તમે "
 "ફાઇલસિસ્ટમ પર સમસ્યાઓ સુધારો તે પછી સ્થાપનને પુન:શરૂ કરો."
 
-#: pyanaconda/storage/formats/fs.py:545 pyanaconda/storage/partitioning.py:279
+#: pyanaconda/storage/formats/fs.py:545 pyanaconda/storage/partitioning.py:283
 msgid "Unrecoverable Error"
 msgstr "સુધારી નહિં શકાય તેવી ભૂલ"
 
@@ -5458,7 +5461,7 @@ msgstr "iSCSI આરંભ કરનારનો આરંભ કરી રહ�
 
 #: pyanaconda/storage/iscsi.py:214
 msgid "iSCSI not available"
-msgstr "iSCSI ઉપલ્બધ નથી"
+msgstr "iSCSI ઉપલબ્ધ નથી"
 
 #: pyanaconda/storage/iscsi.py:216
 msgid "No initiator name set"
@@ -5480,7 +5483,7 @@ msgstr "નવા iSCSI નોડો કાઢી નાંખેલ નથી"
 msgid "Could not log in to any of the discovered nodes"
 msgstr "કોઇપણ શોધી કાઢેલ નોડોમાં લોગ કરી શકાયુ નહિં"
 
-#: pyanaconda/storage/partitioning.py:194
+#: pyanaconda/storage/partitioning.py:198
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
@@ -5488,7 +5491,7 @@ msgstr ""
 "આપમેળે પાર્ટીશનીંગ કરવામાં પૂરતી ખાલી જગ્યા શોધી શક્યા નહિં,  મહેરબાની કરીને સ્થાપકમાંથી "
 "બહાર નીકાળવા માટે 'બરાબર' ને દબાવો."
 
-#: pyanaconda/storage/partitioning.py:197
+#: pyanaconda/storage/partitioning.py:201
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
@@ -5496,11 +5499,11 @@ msgstr ""
 "આપમેળે પાર્ટીશનીંગ કરવામાં પૂરતી ખાલી જગ્યા શોધી શક્યા નહિં, મહેરબાની કરીને બીજી "
 "પાર્ટીશનીંગ પદ્દતિને વાપરો."
 
-#: pyanaconda/storage/partitioning.py:226
+#: pyanaconda/storage/partitioning.py:230
 msgid "Warnings During Automatic Partitioning"
 msgstr "આપોઆપ પાર્ટીશન કરતી વખતે આવતી ચેતવણીઓ"
 
-#: pyanaconda/storage/partitioning.py:228
+#: pyanaconda/storage/partitioning.py:232
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5511,8 +5514,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/storage/partitioning.py:242
-#: pyanaconda/storage/partitioning.py:263
+#: pyanaconda/storage/partitioning.py:246
+#: pyanaconda/storage/partitioning.py:267
 msgid ""
 "\n"
 "\n"
@@ -5522,7 +5525,7 @@ msgstr ""
 "\n"
 "સ્થાપકમાંથી બહાર નીકળવા માટે 'બરાબર' દબાવો."
 
-#: pyanaconda/storage/partitioning.py:244
+#: pyanaconda/storage/partitioning.py:248
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5533,7 +5536,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: pyanaconda/storage/partitioning.py:265
+#: pyanaconda/storage/partitioning.py:269
 msgid ""
 "\n"
 "\n"
@@ -5543,11 +5546,11 @@ msgstr ""
 "\n"
 "અલગ પાર્ટીશનીંગ વિકલ્પ પસંદ કરવા માટે 'બરાબર' દબાવો."
 
-#: pyanaconda/storage/partitioning.py:267
+#: pyanaconda/storage/partitioning.py:271
 msgid "Automatic Partitioning Errors"
 msgstr "આપોઆપ પાર્ટીશન કરતાં ભૂલો"
 
-#: pyanaconda/storage/partitioning.py:268
+#: pyanaconda/storage/partitioning.py:272
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
