@@ -1,4 +1,4 @@
-# translation of anaconda.rhel6-branch.te.po to Telugu
+# translation of mast-te.po to Telugu
 # translation of te.po to
 # translation of te.po to
 # translation of te.po to
@@ -21,17 +21,17 @@
 # Krishna Babu K <kkrothap@redhat.com>, 2007, 2008, 2009, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.rhel6-branch.te\n"
+"Project-Id-Version: mast-te\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-06-28 13:26-0400\n"
-"PO-Revision-Date: 2010-06-29 19:40+0530\n"
+"PO-Revision-Date: 2010-09-23 12:14+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -165,8 +165,7 @@ msgstr ""
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr ""
-"సంస్థాపిత ప్రతిబింబాన్ని మీ హార్డ్ డ్రైవుకి బదిలీ చేస్తున్నప్పుడు దోషం సంభవించింది. మీ డిస్కులో ఖాళీ లేకపోవచ్చు."
+msgstr "సంస్థాపిత ప్రతిబింబాన్ని మీ హార్డ్ డ్రైవుకి బదిలీ చేస్తున్నప్పుడు దోషం సంభవించింది. మీ డిస్కులో ఖాళీ లేకపోవచ్చు."
 
 #: pyanaconda/backend.py:169 pyanaconda/image.py:289 pyanaconda/livecd.py:198
 #: pyanaconda/livecd.py:440 pyanaconda/partIntfHelpers.py:233
@@ -718,16 +717,14 @@ msgstr "రూపాంతరము (_F)"
 msgid ""
 "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
 "s)"
-msgstr ""
-"దోషము: తెరుచుటలో, reIPL పద్దతిను %(reipl_type)sకు అమర్చ లేము (%(filename)s: %(e)s)"
+msgstr "దోషము: తెరుచుటలో, reIPL పద్దతిను %(reipl_type)sకు అమర్చ లేము (%(filename)s: %(e)s)"
 
 #: pyanaconda/iutil.py:878
 #, python-format
 msgid ""
 "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
 "(e)s)"
-msgstr ""
-"దోషము: వ్రాయుట నందు, reIPL పద్దతిను %(reipl_type)sకు అమర్చలేము (%(filename)s: %(e)s)"
+msgstr "దోషము: వ్రాయుట నందు, reIPL పద్దతిను %(reipl_type)sకు అమర్చలేము (%(filename)s: %(e)s)"
 
 #: pyanaconda/iutil.py:887
 #, python-format
@@ -758,8 +755,7 @@ msgstr "హెచ్చరిక: parm (%s)ను తిరిగివుంచ
 msgid ""
 "After shutdown, please perform a manual IPL from DASD device %s to continue "
 "installation"
-msgstr ""
-"మూసివేత తర్వాత, సంస్థాపనను కొనసాగించుటకు దయచేసి మానవీయ IPLను DASD పరికరము %s నుండి జరుపుము"
+msgstr "మూసివేత తర్వాత, సంస్థాపనను కొనసాగించుటకు దయచేసి మానవీయ IPLను DASD పరికరము %s నుండి జరుపుము"
 
 #: pyanaconda/iutil.py:960
 #, python-format
@@ -773,8 +769,7 @@ msgstr "దోషము: reIPL (%(e)s) కొరకు FCP లక్షణము
 
 #: pyanaconda/iutil.py:990
 #, python-format
-msgid ""
-"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr "దోషము: reIPL (%(e)s) కొరకు అప్రమేయ FCP లక్షణము %(reipl_property)s వ్రాయుచున్నది"
 
 #: pyanaconda/iutil.py:1005
@@ -921,8 +916,7 @@ msgstr "ప్రతిబింబాన్ని కనుగొనలేమ�
 
 #: pyanaconda/livecd.py:122
 #, python-format
-msgid ""
-"The given location isn't a valid %s live CD to use as an installation source."
+msgid "The given location isn't a valid %s live CD to use as an installation source."
 msgstr "సంస్థాపనా మూలంకొరకు ఇచ్చిన స్థానం సరియైన %s లైవ్ CD ది కాదు."
 
 #: pyanaconda/livecd.py:180
@@ -965,12 +959,10 @@ msgstr "హోస్టునామము తప్పక 255 లేదా త�
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
-msgstr ""
-"హోస్టునామము తప్పక 'a-z, 'A-Z', లేదా '0-9' పరిధిలమధ్యలో వొక విలువైన అక్షరముతో ప్రారంభమవ్వాలి"
+msgstr "హోస్టునామము తప్పక 'a-z, 'A-Z', లేదా '0-9' పరిధిలమధ్యలో వొక విలువైన అక్షరముతో ప్రారంభమవ్వాలి"
 
 #: pyanaconda/network.py:74
-msgid ""
-"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "హోస్టునామము 'a-z', 'A-Z', '0-9', '-', లేదా '.' అక్షరాలను మాత్రమే కలిగివుండగలదు."
 
 #: pyanaconda/network.py:136
@@ -1236,8 +1228,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"ఇంతకు ముందే ఉన్న ఈ కింది విభజన రూపాంతరము చేయుటకు ఎన్నికచేయబడింది, సమాచారమంతటినీ పోగొడుతోంది."
+msgstr "ఇంతకు ముందే ఉన్న ఈ కింది విభజన రూపాంతరము చేయుటకు ఎన్నికచేయబడింది, సమాచారమంతటినీ పోగొడుతోంది."
 
 #: pyanaconda/partIntfHelpers.py:288
 msgid ""
@@ -1286,8 +1277,7 @@ msgid "Confirm Reset"
 msgstr "తిరిగి అమర్చుటను ఖాయపరుచుము"
 
 #: pyanaconda/partIntfHelpers.py:346
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "మీరు నిజంగా విభజన పట్టికను దాని నిజ స్థితికి తిరిగి అమర్చాలనుకుంటున్నారా?"
 
 #: pyanaconda/platform.py:98 pyanaconda/platform.py:344
@@ -1409,8 +1399,7 @@ msgstr "కాదు"
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
-msgstr ""
-"నెట్వర్కింగు పరికరాన్ని క్రియాశీలము చేయలేక పోయింది.  పరిరక్షణ రీతినందు నెట్వర్కింగు అందుబాటులో వుండదు."
+msgstr "నెట్వర్కింగు పరికరాన్ని క్రియాశీలము చేయలేక పోయింది.  పరిరక్షణ రీతినందు నెట్వర్కింగు అందుబాటులో వుండదు."
 
 #: pyanaconda/rescue.py:299 pyanaconda/rescue.py:374 pyanaconda/rescue.py:385
 #: pyanaconda/rescue.py:470 pyanaconda/rescue.py:499
@@ -2009,8 +1998,7 @@ msgstr "డౌనులోడను పునఃప్రయత్నిస్�
 
 #: pyanaconda/yuminstall.py:927
 #, python-format
-msgid ""
-"There was an error running your transaction for the following reason: %s\n"
+msgid "There was an error running your transaction for the following reason: %s\n"
 msgstr "ఈ కింది కారణం కొరకు మీ వ్యవహారం నడుపుటలో దోషము ఉంది: %s\n"
 
 #: pyanaconda/yuminstall.py:970 pyanaconda/yuminstall.py:971
@@ -2278,8 +2266,7 @@ msgstr "సంకేతపదంతో దోషం"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"మీరు మీ root అనుమతి పదాన్ని ప్రవేశపెట్టండి మరియూ రెండోసారి కొనసాగించటానికి దాన్ని ముద్రించి నిర్ధారణ చెసుకోండి."
+msgstr "మీరు మీ root అనుమతి పదాన్ని ప్రవేశపెట్టండి మరియూ రెండోసారి కొనసాగించటానికి దాన్ని ముద్రించి నిర్ధారణ చెసుకోండి."
 
 #: pyanaconda/iw/account_gui.py:111
 msgid "The passwords you entered were different.  Please try again."
@@ -2303,8 +2290,7 @@ msgid "_Use Anyway"
 msgstr "ఏమైనాసరే వుపయోగించుము (_U)"
 
 #: pyanaconda/iw/account_gui.py:139 pyanaconda/textw/userauth_text.py:75
-msgid ""
-"Requested password contains non-ASCII characters, which are not allowed."
+msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "కావలసిన సంకేతపదం ASCII-కాని అక్షరాలను కలిగి ఉంది, ఇవి అంగీకరించబడవు."
 
 #: pyanaconda/iw/advanced_storage.py:86
@@ -2372,7 +2358,6 @@ msgid "Replace Existing Linux System(s)"
 msgstr "ఇప్పటికేవున్న లైనక్స్  సిస్టము(ల)ను పునఃస్థాపించుము"
 
 #: pyanaconda/iw/autopart_type.py:239
-#, fuzzy
 msgid ""
 "Removes all Linux partitions on the selected device(s). This does not remove "
 "other partitions you may have on your storage device(s) (such as VFAT or "
@@ -2381,7 +2366,7 @@ msgid ""
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make "
 "sure you have backups."
 msgstr ""
-"లైనక్సు విభజనలనుు (గత లైనక్స్ సంస్థాపననందు సృష్టించబడినవి మాత్రమే తీసివేయును.  మీరు మీ నిల్వ పరికరము"
+"లైనక్సు విభజనలను (గత లైనక్స్ సంస్థాపననందు సృష్టించబడినవి మాత్రమే తీసివేయును.  మీరు మీ నిల్వ పరికరము"
 "(ల) నందలి (VFAT లేదా FAT32 వంటిని) విభజనలను యిది తీసివేయదు.\n"
 "\n"
 "<b>చిట్కా:</b> ఈ ఐచ్చికము డాటాను యెంపికచేసిన పరికరము(ల) నుండి తీసివేయును.  మీరు బ్యాకప్‌లను కలిగి "
@@ -2392,8 +2377,7 @@ msgid "Shrink Current System"
 msgstr "ప్రస్తుత సిస్టమును కుదించుము"
 
 #: pyanaconda/iw/autopart_type.py:249
-msgid ""
-"Shrinks existing partitions to create free space for the default layout."
+msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr "అప్రమేయ నమూనా కొరకు ఖాళీ జాగాను సృష్టించుటకు యిప్పటికే వున్న విభజనలను కుదించుము."
 
 #: pyanaconda/iw/autopart_type.py:251
@@ -2429,8 +2413,7 @@ msgstr "boot loader అనుమతిపదాన్ని ఉపయోగి�
 msgid ""
 "A boot loader password prevents users from changing kernel options, "
 "increasing security."
-msgstr ""
-"బూట్ లోడర్ సంకేతపదం కెర్నల్ ఐచ్ఛికాలను వినియోగదారుడు మార్చటాన్న నిరోదిస్తుంది, రక్షణను పెంచుతుంది."
+msgstr "బూట్ లోడర్ సంకేతపదం కెర్నల్ ఐచ్ఛికాలను వినియోగదారుడు మార్చటాన్న నిరోదిస్తుంది, రక్షణను పెంచుతుంది."
 
 #: pyanaconda/iw/blpasswidget.py:76
 msgid "Change _password"
@@ -2651,8 +2634,7 @@ msgstr ""
 msgid ""
 "At least one existing installation has been detected on your system.  What "
 "would you like to do?"
-msgstr ""
-"మీ సిస్టమ్ పైన కనీసం యిప్పటికే వున్న వొక సంస్థాపన గుర్తించబడెను.  మీరు యేమిచేయాలని అనుకొనుచున్నారు?"
+msgstr "మీ సిస్టమ్ పైన కనీసం యిప్పటికే వున్న వొక సంస్థాపన గుర్తించబడెను.  మీరు యేమిచేయాలని అనుకొనుచున్నారు?"
 
 #: pyanaconda/iw/examine_gui.py:126
 #, python-format
@@ -3348,14 +3330,12 @@ msgid "Partitioning"
 msgstr "విభజనం"
 
 #: pyanaconda/iw/partition_gui.py:850
-msgid ""
-"The partitioning scheme you requested caused the following critical errors."
+msgid "The partitioning scheme you requested caused the following critical errors."
 msgstr "మీరు అభ్యర్దించిన విభజన విధానం క్రింది క్లిష్టమైన దోషాలకు కారణమౌతుంది."
 
 #: pyanaconda/iw/partition_gui.py:852
 #, python-format
-msgid ""
-"You must correct these errors before you continue your installation of %s."
+msgid "You must correct these errors before you continue your installation of %s."
 msgstr "మీరు %s సంస్థాపనను కొనసాగించుటకు ముందుగానే ఈ దోషాలను తప్పక సరిచేయాలి."
 
 #: pyanaconda/iw/partition_gui.py:858
@@ -3378,8 +3358,7 @@ msgstr "విభజనా హెచ్చరికలు"
 msgid ""
 "The following pre-existing devices have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"ఇంతకు ముందే ఉన్న ఈ కింది పరకరములు ఫార్మాట్ చేయుటకు ఎన్నికచేయబడినవి, సమాచారమంతటినీ పోగొడుతోంది."
+msgstr "ఇంతకు ముందే ఉన్న ఈ కింది పరకరములు ఫార్మాట్ చేయుటకు ఎన్నికచేయబడినవి, సమాచారమంతటినీ పోగొడుతోంది."
 
 #: pyanaconda/iw/partition_gui.py:893
 msgid "Format Warnings"
@@ -3846,8 +3825,7 @@ msgstr "వాడని ఖాళీ (MB)"
 msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
-msgstr ""
-"మీ swap file కనీసం %d MB ఉండటానికి ఆమోదించబడిందా.  దయచేసి swap file పరిమాణాన్ని ప్రవేశపెట్టండి:"
+msgstr "మీ swap file కనీసం %d MB ఉండటానికి ఆమోదించబడిందా.  దయచేసి swap file పరిమాణాన్ని ప్రవేశపెట్టండి:"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:171
 msgid "Swap file _size (MB):"
@@ -3870,8 +3848,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap ఫైలు పరిమాణంలో తప్పక 1 మరియూ 2000MBల మధ్య ఉండాలి."
 
 #: pyanaconda/iw/upgrade_swap_gui.py:206 pyanaconda/textw/upgrade_text.py:189
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "swap విభజనకు మీరు ఎన్నుకున్న సాధనంలో తగినంత ఖాళీ లేదు."
 
 #: pyanaconda/iw/welcome_gui.py:56 pyanaconda/textw/welcome_text.py:36
@@ -3993,8 +3970,7 @@ msgstr ""
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
 "and press %s to retry."
-msgstr ""
-"%s CD మీ ఏ CDROM డ్రైవులోనూ కనుగొనబడలేదు.దయచేసి %s CDని ఉంచిపునఃప్రారంభించటానికి %s ను నొక్కండి."
+msgstr "%s CD మీ ఏ CDROM డ్రైవులోనూ కనుగొనబడలేదు.దయచేసి %s CDని ఉంచిపునఃప్రారంభించటానికి %s ను నొక్కండి."
 
 #: loader/cdinstall.c:249
 msgid "Disc Found"
@@ -4030,8 +4006,7 @@ msgstr "CD పరికరము %sపైన సంస్థాపనా ప్�
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
 "disc and press %s to retry."
-msgstr ""
-"%s CD మీ ఏ CDROM డ్రైవులోనూ కనుగొనబడలేదు.దయచేసి %s CDని ఉంచిపునఃప్రారంభించటానికి %s ను నొక్కండి."
+msgstr "%s CD మీ ఏ CDROM డ్రైవులోనూ కనుగొనబడలేదు.దయచేసి %s CDని ఉంచిపునఃప్రారంభించటానికి %s ను నొక్కండి."
 
 #: loader/cdinstall.c:431
 msgid "Disc Not Found"
@@ -4074,8 +4049,7 @@ msgstr "డ్రైవర్ డిస్కు మూలం"
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr ""
-"డ్రైవర్ డిస్కు మూలాలుగా పనిచేసే సాధనా బాహుళ్యాన్ని మీరు కలిగి ఉన్నారు.  మీరు దేన్ని ఉపయోగించాలనుకుంటున్నారు?"
+msgstr "డ్రైవర్ డిస్కు మూలాలుగా పనిచేసే సాధనా బాహుళ్యాన్ని మీరు కలిగి ఉన్నారు.  మీరు దేన్ని ఉపయోగించాలనుకుంటున్నారు?"
 
 #: loader/driverdisk.c:437
 msgid ""
@@ -4199,8 +4173,7 @@ msgstr "డ్రైవర్ డిస్కును లోడు చేయి
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"మానవీయంగా చొప్పించటానికి ఏ డ్రైవరులూ కనుగొనబడలేదు.  మీరు డ్రైవర్ డిస్కును ఉపయోగించాలనుకుంటున్నారా?"
+msgstr "మానవీయంగా చొప్పించటానికి ఏ డ్రైవరులూ కనుగొనబడలేదు.  మీరు డ్రైవర్ డిస్కును ఉపయోగించాలనుకుంటున్నారా?"
 
 #: loader/driverselect.c:171
 msgid ""
@@ -4332,8 +4305,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s కు %s కొరకు స్వాగతము - పరిరక్షణ రీతిన"
 
 #: loader/lang.c:65 loader/loader.c:247
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> మూలకాలమద్య  | <Space> ఎన్నికలు | <F12> తదుపరి screen "
 
 #: loader/lang.c:370
@@ -4462,8 +4434,7 @@ msgstr "మీ కంప్యూటరులో కింది డ్రైవ
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"మీ కంప్యూటరులో ఏ ఉపకరణ డ్రైవులూ లోడుచేయబడలేదు.  వేటినైనా మీరు ఇప్పుడు లోడు చేయాలనుకుంటున్నారా?"
+msgstr "మీ కంప్యూటరులో ఏ ఉపకరణ డ్రైవులూ లోడుచేయబడలేదు.  వేటినైనా మీరు ఇప్పుడు లోడు చేయాలనుకుంటున్నారా?"
 
 #: loader/loader.c:1664
 msgid "Devices"
@@ -4665,8 +4636,7 @@ msgid "Missing Information"
 msgstr "తప్పిపోయిన సమాచారం"
 
 #: loader/net.c:1134
-msgid ""
-"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "ఒక విలువైన IPv4 చిరునామాలూ మరియూ ఒక నెట్వర్కు మాస్కు లేదా CIDR prefix మీరు తప్పక రెంతినీ "
 "ప్రవేశపెట్టాలి."
@@ -4820,8 +4790,7 @@ msgstr "పునఃసమ్పాదన"
 
 #: loader/urls.c:263
 #, c-format
-msgid ""
-"Please enter the URL containing the %s installation image on your server."
+msgid "Please enter the URL containing the %s installation image on your server."
 msgstr "మీ సేవికనందు %s ప్రతిబింబములను కలిగివున్న URLను దయచేసి ప్రవేశపెట్టండి."
 
 #: loader/urls.c:281
@@ -5033,10 +5002,8 @@ msgstr ""
 "తక్కువ మద్దతిచ్చేది."
 
 #: pyanaconda/storage/__init__.py:1023
-msgid ""
-"Installing on a USB device.  This may or may not produce a working system."
-msgstr ""
-"USB ఉపకరణంలో సంస్థాపిస్తోంది.  ఇది పనిచేసే కంప్యూటరుని సమకూర్చనూవచ్చు, సమకూర్చకుండానూ ఉండవచ్చు."
+msgid "Installing on a USB device.  This may or may not produce a working system."
+msgstr "USB ఉపకరణంలో సంస్థాపిస్తోంది.  ఇది పనిచేసే కంప్యూటరుని సమకూర్చనూవచ్చు, సమకూర్చకుండానూ ఉండవచ్చు."
 
 #: pyanaconda/storage/__init__.py:1026
 msgid ""
@@ -5064,8 +5031,7 @@ msgstr ""
 
 #: pyanaconda/storage/__init__.py:1045
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ఈ మరల్పు కేంద్రము చెల్లనిది. %s డైరెక్టరీ తప్పక / దస్త్ర వ్యవస్థనందు వుండాలి."
 
 #: pyanaconda/storage/__init__.py:1049
@@ -5611,8 +5577,7 @@ msgstr ""
 
 #: pyanaconda/storage/zfcp.py:182
 #, python-format
-msgid ""
-"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
 msgstr ""
 "zFCP పరికరము %(devnum)s పైని WWPN %(wwpn)s వద్ద LUN %(fcplun)s యిప్పటికే "
 "ఆకృతీకరించివుంది."
@@ -5947,8 +5912,7 @@ msgstr "Root సంకేతపదం:"
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
-"ఈ root ఖాతా కంప్యూటరు నిర్వహణకు ఉపయోగించబడుతోంది. root వినియోగదారునికోసం సంకేతపదముప్రవేశపెట్టండి."
+msgstr "ఈ root ఖాతా కంప్యూటరు నిర్వహణకు ఉపయోగించబడుతోంది. root వినియోగదారునికోసం సంకేతపదముప్రవేశపెట్టండి."
 
 #: data/ui/adddrive.glade.h:1
 msgid "Add _FCoE SAN"
@@ -5999,8 +5963,7 @@ msgstr ""
 "Hard Drive"
 
 #: data/ui/addrepo.glade.h:9
-msgid ""
-"Please provide the configuration information for this software repository."
+msgid "Please provide the configuration information for this software repository."
 msgstr "దయచేసి ఈ సాఫ్టువేరు రిపోజిటరీకు ఆకృతీకరణ సమాచారమును అందివ్వుము."
 
 #: data/ui/addrepo.glade.h:10
@@ -6068,8 +6031,7 @@ msgid "Volume to Shrink"
 msgstr "కుదింపవలసిన వాల్యూమ్"
 
 #: data/ui/autopart.glade.h:4
-msgid ""
-"Which partition would you like to shrink to make room for your installation?"
+msgid "Which partition would you like to shrink to make room for your installation?"
 msgstr "మీ సంస్థాపనకు జాగా కొరకు ఏ విభజనను కుదింప వలెనని అనుకొనుచున్నారు?"
 
 #: data/ui/autopart.glade.h:5
@@ -6153,10 +6115,8 @@ msgstr ""
 
 #: data/ui/create-storage.glade.h:1
 #, fuzzy
-msgid ""
-"<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">ఒక RAID ఫార్మాటెడ్ విభజనను సృష్టించుము</span>"
+msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
+msgstr "<span size=\"small\" color=\"gray\">ఒక RAID ఫార్మాటెడ్ విభజనను సృష్టించుము</span>"
 
 #: data/ui/create-storage.glade.h:2
 msgid ""
@@ -6168,14 +6128,11 @@ msgstr ""
 
 #: data/ui/create-storage.glade.h:3
 #, fuzzy
-msgid ""
-"<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">ఒక LVM ఫార్మాటెడ్ విభజనను సృష్టించుము</span>"
+msgid "<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
+msgstr "<span size=\"small\" color=\"gray\">ఒక LVM ఫార్మాటెడ్ విభజనను సృష్టించుము</span>"
 
 #: data/ui/create-storage.glade.h:4
-msgid ""
-"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">సాధారణ ప్రయోజనాత్మక విభజన సృష్టీకరణ</span>"
 
 #: data/ui/create-storage.glade.h:5
@@ -6183,16 +6140,14 @@ msgstr "<span size=\"small\" color=\"gray\">సాధారణ ప్రయో�
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted "
 "partition</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">LVM ఫార్మాట్ చేసిన ఖాళీ విభజన కనీసం 1 కావాలి</span>"
+msgstr "<span size=\"small\" color=\"gray\">LVM ఫార్మాట్ చేసిన ఖాళీ విభజన కనీసం 1 కావాలి</span>"
 
 #: data/ui/create-storage.glade.h:6
 #, fuzzy
 msgid ""
 "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted "
 "partitions</span>"
-msgstr ""
-"<span size=\"small\" color=\"gray\">RAID ఫార్మాట్ చేసిన ఖాళీ విభజనలు కనీసం 2 కావాలి</span>"
+msgstr "<span size=\"small\" color=\"gray\">RAID ఫార్మాట్ చేసిన ఖాళీ విభజనలు కనీసం 2 కావాలి</span>"
 
 #: data/ui/create-storage.glade.h:7
 msgid "Create"
@@ -6417,8 +6372,7 @@ msgstr "లక్ష్యాన్ని కలుపు(_A)"
 msgid ""
 "Also add this passphrase to all existing encrypted devices to streamline the "
 "boot process"
-msgstr ""
-"boot కార్యక్రమమును స్ట్రీమ్‌లైను చేయుటకు ఈ సంకేతపదమును అన్ని ఎన్క్రిప్టెడ్ పరికరములకు జతచేయుము"
+msgstr "boot కార్యక్రమమును స్ట్రీమ్‌లైను చేయుటకు ఈ సంకేతపదమును అన్ని ఎన్క్రిప్టెడ్ పరికరములకు జతచేయుము"
 
 #: data/ui/lukspassphrase.glade.h:2
 msgid ""
@@ -6492,8 +6446,7 @@ msgstr "హోస్టునామము:"
 msgid ""
 "Please name this computer.  The hostname identifies the computer on a "
 "network."
-msgstr ""
-"దయచేసి ఈ కంప్యూటరుకు నామమును వుంచండి. హోస్టునామము ఈ కంప్యూటరును నెట్వర్కు నందు గుర్తిస్తుంది."
+msgstr "దయచేసి ఈ కంప్యూటరుకు నామమును వుంచండి. హోస్టునామము ఈ కంప్యూటరును నెట్వర్కు నందు గుర్తిస్తుంది."
 
 #: data/ui/tasksel.glade.h:1
 msgid "Customize _later"
@@ -6805,79 +6758,3 @@ msgstr "వెల్ష్"
 msgid "Zulu"
 msgstr "జులు"
 
-#~ msgid "Starting graphical installation."
-#~ msgstr "గ్రాఫికల్(చిత్రాత్మక) సంస్థాపనను ప్రారంభిస్తోంది..."
-
-#~ msgid "Install class forcing text mode installation"
-#~ msgstr "class forcing పాఠ్య రీతి సంస్థాపనను సంస్థాపించుము"
-
-#~ msgid "Installation Key"
-#~ msgstr "సంస్థాపనా కీ"
-
-#~ msgid "Device Resize Failed"
-#~ msgstr "పరికరము పునఃపరిమాణం విఫలమైంది"
-
-#~ msgid "An error was encountered while resizing device %s."
-#~ msgstr "పరికరం %sను పునఃపరిమాణం చేయుటలో అక్కడ ఒకదోషం ఎదురైంది."
-
-#~ msgid "Device Creation Failed"
-#~ msgstr "పరికరము సృష్టీకరణ విఫలమైంది"
-
-#~ msgid "An error was encountered while creating device %s."
-#~ msgstr "పరికరం %sను సృష్టిస్తున్నప్పుడు ఒకదోషం ఎదురైంది."
-
-#~ msgid "Device Removal Failed"
-#~ msgstr "పరికరము తీసివేయుట విఫలమైంది"
-
-#~ msgid "An error was encountered while removing device %s."
-#~ msgstr "పరికరం %sను తీసివేయుచున్నప్పుడు ఒకదోషం ఎదురైంది."
-
-#~ msgid "Device Setup Failed"
-#~ msgstr "పరికరము అమర్పు విఫలమైంది"
-
-#~ msgid "An error was encountered while setting up device %s."
-#~ msgstr "పరికరం %sను అమర్చుతున్నప్పుడు ఒకదోషం ఎదురైంది."
-
-#~ msgid "Formatting Failed"
-#~ msgstr "రూపాంతరీకరణ విఫలమైంది"
-
-#~ msgid "An error was encountered while formatting device %s."
-#~ msgstr "పరికరం %s ను రూపాంతరీకరణ చేయుటలో అక్కడ ఒకదోషం ఎదురైంది."
-
-#~ msgid "Storage Activation Failed"
-#~ msgstr "నిల్వ క్రియాశీలత విఫలమైంది"
-
-#~ msgid ""
-#~ "An error was encountered while activating your storage configuration."
-#~ msgstr "మీ నిల్వ ఆకృతికరణను క్రియాశీలపరచునప్పుడు ఒక దోషము యెదురైంది."
-
-#~ msgid ""
-#~ "<b>%s device(s) (%s MB) selected</b> out of %s device(s) (%s MB) total."
-#~ msgstr "<b>%s పరికము(లు) (%s MB) యెంపికకాబడెను</b> మొత్తం %s పరికము(ల) (%s MB)లో."
-
-#~ msgid "Writing storage configuration to disk"
-#~ msgstr "నిల్వ ఆకృతీకరణను డిస్కునకు వ్రాయుచున్నది"
-
-#~ msgid ""
-#~ "Placing the root partition on an XFS filesystem is not supported in %s."
-#~ msgstr "root విభజనను XFS ఫైల్‌సిస్టమ్ నందు వుంచుట %s నందు మద్దతించబడదు."
-
-#~ msgid "Create new boot loader configuration"
-#~ msgstr "కొత్త boot loader ఆకృతీకరణను సృష్టించు"
-
-#~ msgid ""
-#~ "This release of %(productName)s supports the an updated file system, "
-#~ "which has several benefits over the file system traditionally shipped in %"
-#~ "(productName)s.  This installation program can migrate formatted "
-#~ "partitions without data loss.\n"
-#~ "\n"
-#~ "Which of these partitions would you like to migrate?"
-#~ msgstr ""
-#~ "%(productName)s యొక్క ఈ విడుదల నవీకరించిన దస్త్ర విధానానికి మద్దతిస్తుంది,  ఇది సాంప్రదాయకంగా %"
-#~ "(productName)s లోకి మార్చబడిన దస్త్ర విధానంకన్నా పెక్కు లాభాలను కలిగి ఉంది.  ఈ సంస్థాపనా ప్రోగ్రామ్ "
-#~ "రూపీకరించిన విభజనలను డాటా నష్టపోకుండా వలస పంపగలదు.\n"
-#~ "\n"
-#~ "ఈ విభజనలలో దేన్ని మీరు వలస పంపాలనుకుంటున్నారు?"
-
-#~ msgid "<b>%s devices (%s) selected</b> out of %s devices (%s) total."
-#~ msgstr "%3$s పరికరముల (%4$s) మొత్తంలో <b>%1$s పరికరములు (%2$s) యెంపికైనవి.</b>"
