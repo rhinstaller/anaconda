@@ -682,6 +682,13 @@ class AnacondaYum(YumSorter):
         return retval
 
     def _getTreeinfo(self, baseurl):
+        if baseurl.startswith("http") or baseurl.startswith("ftp"):
+            if not network.hasActiveNetDev():
+                if not self.anaconda.intf.enableNetwork():
+                    log.error("Error downloading %s/.treeinfo: network enablement failed" % (baseurl))
+                    return None
+                urlgrabber.grabber.reset_curl_obj()
+
         try:
             ug = URLGrabber()
             ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo", copy_local=1)
