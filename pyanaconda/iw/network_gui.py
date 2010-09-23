@@ -30,7 +30,6 @@ import gobject
 import subprocess
 import gtk
 from pyanaconda import isys
-import urlgrabber.grabber
 
 from pyanaconda.constants import *
 import gettext
@@ -65,8 +64,6 @@ class NetworkWindow(InstallWindow):
 
     def _setupNetwork(self, *args):
         self.intf.enableNetwork(just_setup=True)
-        if network.hasActiveNetDev():
-            urlgrabber.grabber.reset_curl_obj()
 
     def focus(self):
         self.hostnameEntry.grab_focus()

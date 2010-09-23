@@ -36,6 +36,7 @@ import dbus
 import tempfile
 from flags import flags
 from simpleconfig import IfcfgFile
+import urlgrabber.grabber
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -77,7 +78,7 @@ def sanityCheckHostname(hostname):
 
 # Try to determine what the hostname should be for this system
 def getDefaultHostname(anaconda):
-    isys.resetResolv()
+    resetResolver()
 
     hn = None
 
@@ -766,20 +767,16 @@ class Network:
                 waited_devs_props[iface] = device_props_iface
 
         i = 0
-        reset_resolver = False
         while True:
             for dev, device_props_iface in waited_devs_props.items():
                 state = device_props_iface.Get(isys.NM_DEVICE_IFACE, "State")
                 if state == isys.NM_DEVICE_STATE_ACTIVATED:
                     waited_devs_props.pop(dev)
-                    reset_resolver = True
             if len(waited_devs_props) == 0 or i >= CONNECTION_TIMEOUT:
                 break
             i += 1
             time.sleep(1)
 
-        if reset_resolver:
-            isys.resetResolv()
         return waited_devs_props.keys()
 
     # write out current configuration state and wait for NetworkManager
@@ -794,14 +791,12 @@ class Network:
         while i < CONNECTION_TIMEOUT:
             state = props.Get(isys.NM_SERVICE, "State")
             if int(state) == isys.NM_STATE_CONNECTED:
-                isys.resetResolv()
                 return True
             i += 1
             time.sleep(1)
 
         state = props.Get(isys.NM_SERVICE, "State")
         if int(state) == isys.NM_STATE_CONNECTED:
-            isys.resetResolv()
             return True
 
         return False
@@ -811,7 +806,11 @@ class Network:
     # once we have a state
     def bringUp(self):
         self.write()
-        return self.waitForConnection()
+        if self.waitForConnection():
+            resetResolver()
+            return True
+        else:
+            return False
 
     # get a kernel cmdline string for dracut needed for access to host host
     def dracutSetupString(self, networkStorageDevice):
@@ -948,4 +947,8 @@ def ifaceForHostIP(host):
         return ""
 
     return routeInfo[routeInfo.index("dev") + 1]
+
+def resetResolver():
+    isys.resetResolv()
+    urlgrabber.grabber.reset_curl_obj()
 

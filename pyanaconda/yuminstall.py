@@ -513,8 +513,6 @@ class AnacondaYum(YumSorter):
                         self._baseRepoURL = None
                         return
 
-                    urlgrabber.grabber.reset_curl_obj()
-
                 self._switchImage(1)
                 self.mediagrabber = self.mediaHandler
             elif m.startswith("http") or m.startswith("ftp:"):
@@ -523,8 +521,6 @@ class AnacondaYum(YumSorter):
                 if not network.hasActiveNetDev():
                     if not self.anaconda.intf.enableNetwork():
                         self._baseRepoURL = None
-
-                    urlgrabber.grabber.reset_curl_obj()
 
                 (opts, server, path) = iutil.parseNfsUrl(m)
                 isys.mount(server+":"+path, self.tree, "nfs", options=opts)
@@ -755,8 +751,6 @@ class AnacondaYum(YumSorter):
                             type="custom", custom_icon="error",
                             custom_buttons=[_("_Exit installer")])
                         sys.exit(1)
-
-                    urlgrabber.grabber.reset_curl_obj()
 
                     dest = tempfile.mkdtemp("", ksrepo.name.replace(" ", ""), "/mnt")
 
@@ -1206,8 +1200,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                         type="custom", custom_icon="error",
                         custom_buttons=[_("_Exit installer")])
                     sys.exit(1)
-
-                urlgrabber.grabber.reset_curl_obj()
                 break
 
         self.doRepoSetup(anaconda)

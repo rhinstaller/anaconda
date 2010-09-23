@@ -967,6 +967,10 @@ class InstallInterface(InstallInterfaceBase):
                 if just_setup:
                     if failed_devs:
                         self._handleDeviceActivationFail(failed_devs)
+                    if len(failed_devs) < len(waited_devs):
+                        # if any device was activated, remember to reset
+                        # resolver
+                        networkEnabled = True
                 else:
                     networkEnabled = install_device not in failed_devs
                     if not networkEnabled:
@@ -975,6 +979,8 @@ class InstallInterface(InstallInterfaceBase):
             if just_setup:
                 break
 
+        if networkEnabled:
+            network.resetResolver()
         return networkEnabled
 
     def _handleDeviceActivationFail(self, devices):

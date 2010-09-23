@@ -35,7 +35,6 @@ from pyanaconda import network
 from pyanaconda import iutil
 
 from pyanaconda.yuminstall import AnacondaYumRepo
-import urlgrabber.grabber
 import yum.Errors
 
 import logging
@@ -45,7 +44,6 @@ def setupRepo(anaconda, repo):
     if repo.needsNetwork() and not network.hasActiveNetDev():
         if not anaconda.intf.enableNetwork():
             return False
-        urlgrabber.grabber.reset_curl_obj()
     try:
         anaconda.backend.doRepoSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
         anaconda.backend.doSackSetup(anaconda, thisrepo=repo.id, fatalerrors=False)
@@ -313,7 +311,6 @@ class RepoEditor:
                       "networking, but there was an error enabling the "
                       "network on your system."))
                 return False
-            urlgrabber.grabber.reset_curl_obj()
 
         import tempfile
         dest = tempfile.mkdtemp("", repo.name.replace(" ", ""), "/mnt")
@@ -540,7 +537,6 @@ class TaskWindow(InstallWindow):
             if not self.anaconda.intf.enableNetwork():
                 return gtk.RESPONSE_CANCEL
 
-            urlgrabber.grabber.reset_curl_obj()
 
         dialog = RepoEditor(self.anaconda, repo)
         dialog.createDialog()
@@ -590,8 +586,6 @@ class TaskWindow(InstallWindow):
             if repo.needsNetwork() and not network.hasActiveNetDev():
                 if not self.anaconda.intf.enableNetwork():
                     return
-
-                urlgrabber.grabber.reset_curl_obj()
 
             repo.enable()
             if not setupRepo(self.anaconda, repo):

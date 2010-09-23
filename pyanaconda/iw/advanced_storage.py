@@ -22,7 +22,6 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import gobject
 import gtk
 import gtk.glade
-import urlgrabber.grabber
 import datacombo
 import DeviceSelector
 from pyanaconda import gui
@@ -430,7 +429,6 @@ def addIscsiDrive(anaconda):
     if not network.hasActiveNetDev():
         if not anaconda.intf.enableNetwork():
             return gtk.RESPONSE_CANCEL
-        urlgrabber.grabber.reset_curl_obj()
 
     # go through the wizard's dialogs, read the user input (selected nodes,
     # login credentials) and provide it to the iscsi subsystem
