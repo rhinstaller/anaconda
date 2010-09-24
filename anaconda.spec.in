@@ -223,6 +223,60 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Sep 24 2010 Chris Lumens <clumens@redhat.com> - 15.1-1
+- Properly rescan storage with Reset in partition GUI (#635778) (bcl)
+- Save the partition type selection when moving back (#635778) (bcl)
+- Properly rescan disks when moving back (#635778) (bcl)
+- Reset resolver after network device activation (#632489) (rvykydal)
+- Don't include the product name in the translation (#636415). (clumens)
+- Clarify loopback mount log message (#633444). (clumens)
+- pykickstart now raises KickstartError instead of IOError. (clumens)
+- Fix EFI bootloader install problems (#635873, #635887) (bcl)
+- Re-add cleardiskssel step when autopart is chosen. (#635332) (dlehman)
+- Pull boot splash image from correct location (#635330) (bcl)
+- Add files for polkit to initrd.img (#633315) (rvykydal)
+- Remove old kernels with new bootloader (#633234) (bcl)
+- Both the inittab and systemd sections can return. Move this part earlier.
+  (notting)
+- iscsi: discovery and node login wizard. (akozumpl)
+- Pass xdriver to anaconda in liveinst (#633827) (bcl)
+- Add test cases for the new Size class. (dcantrell)
+- Add exceptions specific to the new Size class. (dcantrell)
+- Create Size class for specifying device and fs sizes. (dcantrell)
+- Fix importing the netconfig UI in rescue mode (#632510). (clumens)
+- Add noeject support to cdrom eject handling (#477887) (bcl)
+- Cleanup tabs in flags.py (bcl)
+- Add noeject support to loader (#477887) (bcl)
+- Remove BETANAG, instead reading it from .buildstamp (#628688). (clumens)
+- Convert .buildstamp into a .ini-style file. (clumens)
+- Remove productPath. (clumens)
+- Remove any /tmp/yum.log that may be present on the installed system
+  (#630327). (clumens)
+- If the filesystem doesn't support resize, there's no resizesb (#627153).
+  (clumens)
+- Run anaconda in fullscreen mode. (clumens)
+- minor: gtk.CellRendererText has no property 'active'. (akozumpl)
+- restart-anaconda: kill iscsid too (akozumpl)
+- ui: fix the default choice in the 'advanced storage options' dialog.
+  (akozumpl)
+- iscsi: rename variable in addIscsiDrive. (akozumpl)
+- ui: a couple of storage mnemonics. (akozumpl)
+- updates: .glade files are in data/ui now. (akozumpl)
+- Re-fix systemd default link (#627401, mschmidt). (clumens)
+- Remove losetup and unlosetup from isys (bcl)
+- Remove losetup usage (bcl)
+- Various upd-instroot cleanups, most importantly for firstaidkit (#627758).
+  (clumens)
+- Shrink locale-archive down to just what we support. (clumens)
+- Remove the icon-theme.cache file from the initrd. (clumens)
+- Remove /etc/selinux/targeted/modules/active from the initrd (clumens)
+- Remove the DRI modules from the initrd. (clumens)
+- i18n: do not build translatable sentences from parts (#622545). (akozumpl)
+- memory: install.img is now >150 MB so count 192 MB extra for it. (akozumpl)
+- memory: check_memory() displays GUI dialog on livecd (#624534). (akozumpl)
+- readvars should split variables into at most 2 pieces (bcl)
+- Adding output to method selection process (bcl)
+
 * Fri Aug 27 2010 Chris Lumens <clumens@redhat.com> - 15.0-1
 - systemd symlinks now reside in /lib (#627401). (clumens)
 - filtering UI: don't be picky about udev wwid length. (akozumpl)
