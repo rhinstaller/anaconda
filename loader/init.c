@@ -86,7 +86,7 @@ char * env[] = {
 #else
     "LD_LIBRARY_PATH=/lib:/usr/lib",
 #endif
-    "HOME=/",
+    "HOME=/root",
     "TERM=linux",
     "DEBUG=",
     "TERMINFO=/etc/linux-terminfo",
@@ -845,7 +845,6 @@ int main(int argc, char **argv) {
 
             if ((shellpid = fork()) == 0) {
                 if (chdir("/root") == 0) {
-                    setenv("HOME", "/root", 1);
                     execl("/sbin/bash", "/sbin/bash", NULL);
                 } else {
                     perror("Unable to chdir to /root");

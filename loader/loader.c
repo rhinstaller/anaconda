@@ -157,7 +157,6 @@ void doShell(void) {
 
     if (child == 0) {
         if (chdir("/root") == 0) {
-            setenv("HOME", "/root", 1);
             if (execl("/sbin/bash", "/sbin/bash", "-i", NULL) == -1) {
                 logMessage(ERROR, "%s (%d): %m", __func__, __LINE__);
                 _exit(1);
