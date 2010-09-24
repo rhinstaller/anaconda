@@ -23,10 +23,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-09-17 06:09+0100\n"
+"POT-Creation-Date: 2010-09-01 20:52-0500\n"
+"PO-Revision-Date: 2010-09-24 18:10+0100\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
+"Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,7 +37,29 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr "Premeu <retorn> per a un shell"
 
+#: anaconda:336
+msgid "Not enough RAM"
+msgstr "No hi ha prouta RAM"
+
+#: anaconda:337
+msgid ""
+" Try the text mode installer by running:\n"
+"\n"
+"'/usr/bin/liveinst -T'\n"
+"\n"
+" from a root terminal."
+msgstr ""
+" Proveu l'instal·lador en mode text executant:\n"
+"\n"
+"'/usr/bin/liveinst -T'\n"
+"\n"
+" des d'un terminal com a root."
+
 #: anaconda:340
+msgid " Starting text mode."
+msgstr " S'esta iniciant en mode text."
+
+#: anaconda:364
 #: pyanaconda/rescue.py:353
 #: pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:392
@@ -84,14 +107,14 @@ msgstr "Premeu <retorn> per a un shell"
 #: loader/kickstart.c:571
 #: loader/lang.c:114
 #: loader/lang.c:373
-#: loader/loader.c:435
-#: loader/loader.c:471
-#: loader/loader.c:511
-#: loader/loader.c:529
-#: loader/loader.c:546
-#: loader/loader.c:583
-#: loader/loader.c:1218
-#: loader/loader.c:1403
+#: loader/loader.c:434
+#: loader/loader.c:470
+#: loader/loader.c:510
+#: loader/loader.c:528
+#: loader/loader.c:545
+#: loader/loader.c:582
+#: loader/loader.c:1213
+#: loader/loader.c:1400
 #: loader/mediacheck.c:47
 #: loader/mediacheck.c:86
 #: loader/mediacheck.c:93
@@ -99,18 +122,17 @@ msgstr "Premeu <retorn> per a un shell"
 #: loader/mediacheck.c:106
 #: loader/method.c:286
 #: loader/method.c:360
-#: loader/net.c:619
-#: loader/net.c:987
-#: loader/net.c:1634
-#: loader/net.c:1655
-#: loader/net.c:1961
-#: loader/net.c:1980
-#: loader/net.c:1992
+#: loader/net.c:621
+#: loader/net.c:1001
+#: loader/net.c:1649
+#: loader/net.c:1670
+#: loader/net.c:1976
+#: loader/net.c:1995
+#: loader/net.c:2007
 #: loader/nfsinstall.c:116
 #: loader/nfsinstall.c:309
 #: loader/nfsinstall.c:326
 #: loader/nfsinstall.c:414
-#: loader/telnetd.c:93
 #: loader/urlinstall.c:137
 #: loader/urlinstall.c:159
 #: loader/urlinstall.c:221
@@ -125,45 +147,19 @@ msgstr "Premeu <retorn> per a un shell"
 msgid "OK"
 msgstr "D'acord"
 
-#: anaconda:349
-msgid "You do not have enough RAM to use the graphical installer."
-msgstr "No disposeu de prouta memòria RAM per a utilitzar l'instal·lador gràfic."
-
-#: anaconda:353
-msgid ""
-"Try the text mode installer by running:\n"
-"\n"
-"'/usr/bin/liveinst -T'\n"
-"\n"
-" from a root terminal."
-msgstr ""
-"Proveu l'instal·lador en mode text executant:\n"
-"\n"
-"'/usr/bin/liveinst -T'\n"
-"\n"
-" des d'un terminal com a root."
-
-#: anaconda:356
-msgid "Not enough RAM"
-msgstr "No hi ha prouta RAM"
-
-#: anaconda:366
-msgid "Starting text mode."
-msgstr "S'esta iniciant en mode text."
-
-#: anaconda:713
+#: anaconda:728
 msgid "Would you like to use VNC?"
 msgstr "Voleu utilitzar VNC?"
 
-#: anaconda:714
+#: anaconda:729
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
-msgstr "El mode de text proporciona un conjunt limitat d'opcions d'instal·lació. No us permet especificar la disposició de les particions ni la selecció de paquets. Preferiu fer servir el mode VNC?"
+msgstr "El mode de text proporciona un conjunt limitat d'opcions d'instal·lació. No us permet especificar la disposició de les particions ni la selecció de paquets. Preferiu utilitzar el mode VNC?"
 
-#: anaconda:740
+#: anaconda:755
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "La instal·lació gràfica no està disponible. S'està iniciant el mode text."
 
-#: anaconda:748
+#: anaconda:763
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "No s'ha establert la variable DISPLAY. S'iniciarà el mode text."
 
@@ -216,14 +212,14 @@ msgstr "S'ha produït un error en transferir la imatge al disc dur. És possible
 #: pyanaconda/iw/autopart_type.py:95
 #: pyanaconda/iw/cleardisks_gui.py:44
 #: pyanaconda/iw/cleardisks_gui.py:54
-#: pyanaconda/iw/filter_gui.py:428
+#: pyanaconda/iw/filter_gui.py:431
 #: pyanaconda/iw/osbootwidget.py:211
 #: pyanaconda/iw/osbootwidget.py:220
 #: pyanaconda/iw/raid_dialog_gui.py:223
 #: pyanaconda/iw/task_gui.py:54
-#: pyanaconda/iw/task_gui.py:155
-#: pyanaconda/iw/task_gui.py:302
-#: pyanaconda/iw/task_gui.py:463
+#: pyanaconda/iw/task_gui.py:152
+#: pyanaconda/iw/task_gui.py:305
+#: pyanaconda/iw/task_gui.py:469
 #: loader/windows.h:31
 #: loader/cdinstall.c:229
 #: loader/cdinstall.c:505
@@ -240,9 +236,9 @@ msgstr "S'ha produït un error en transferir la imatge al disc dur. És possible
 #: loader/hdinstall.c:496
 #: loader/kickstart.c:299
 #: loader/lang.c:114
-#: loader/loader.c:435
-#: loader/loader.c:546
-#: loader/loader.c:1218
+#: loader/loader.c:434
+#: loader/loader.c:545
+#: loader/loader.c:1213
 #: loader/mediacheck.c:47
 #: loader/mediacheck.c:86
 #: loader/mediacheck.c:93
@@ -251,7 +247,6 @@ msgstr "S'ha produït un error en transferir la imatge al disc dur. És possible
 #: loader/method.c:360
 #: loader/nfsinstall.c:309
 #: loader/nfsinstall.c:326
-#: loader/telnetd.c:93
 #: loader/urlinstall.c:137
 #: loader/urlinstall.c:159
 #: loader/urlinstall.c:221
@@ -262,7 +257,6 @@ msgstr "S'ha produït un error en transferir la imatge al disc dur. És possible
 #: pyanaconda/storage/__init__.py:1818
 #: pyanaconda/storage/__init__.py:1905
 #: pyanaconda/storage/zfcp.py:375
-#: pyanaconda/textw/netconfig_text.py:282
 #: pyanaconda/textw/upgrade_text.py:181
 #: pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
@@ -275,7 +269,7 @@ msgstr "Error"
 #: pyanaconda/installinterfacebase.py:51
 #: pyanaconda/installinterfacebase.py:82
 #: pyanaconda/installinterfacebase.py:142
-#: pyanaconda/packages.py:313
+#: pyanaconda/packages.py:314
 #: pyanaconda/yuminstall.py:1454
 #: pyanaconda/yuminstall.py:1662
 #: pyanaconda/yuminstall.py:1697
@@ -305,10 +299,10 @@ msgstr ""
 #: pyanaconda/kickstart.py:156
 #: pyanaconda/livecd.py:205
 #: pyanaconda/livecd.py:447
-#: pyanaconda/packages.py:130
+#: pyanaconda/packages.py:131
 #: pyanaconda/upgrade.py:58
-#: pyanaconda/upgrade.py:95
-#: pyanaconda/upgrade.py:251
+#: pyanaconda/upgrade.py:98
+#: pyanaconda/upgrade.py:254
 #: pyanaconda/yuminstall.py:257
 #: pyanaconda/yuminstall.py:756
 #: pyanaconda/yuminstall.py:958
@@ -331,10 +325,10 @@ msgstr "Abandona l'instal·lador"
 #: pyanaconda/bootloader.py:60
 #: pyanaconda/image.py:92
 #: pyanaconda/image.py:251
-#: pyanaconda/kickstart.py:1366
-#: pyanaconda/kickstart.py:1405
+#: pyanaconda/kickstart.py:1383
+#: pyanaconda/kickstart.py:1422
 #: pyanaconda/upgrade.py:58
-#: pyanaconda/upgrade.py:95
+#: pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1280
 #: pyanaconda/yuminstall.py:1464
 #: pyanaconda/iw/partition_gui.py:1600
@@ -368,11 +362,11 @@ msgstr "En progrés"
 
 #: pyanaconda/cmdline.py:89
 #: pyanaconda/gui.py:1120
-#: pyanaconda/kickstart.py:1150
-#: pyanaconda/kickstart.py:1230
-#: pyanaconda/kickstart.py:1238
-#: pyanaconda/kickstart.py:1276
-#: pyanaconda/kickstart.py:1284
+#: pyanaconda/kickstart.py:1167
+#: pyanaconda/kickstart.py:1247
+#: pyanaconda/kickstart.py:1255
+#: pyanaconda/kickstart.py:1293
+#: pyanaconda/kickstart.py:1301
 #: pyanaconda/text.py:392
 #, python-format
 msgid ""
@@ -484,8 +478,8 @@ msgstr "El dispositiu %s està encriptat. Per poder accedir els continguts del d
 #: loader/dirbrowser.c:129
 #: loader/driverdisk.c:409
 #: loader/kickstart.c:382
-#: loader/loader.c:471
-#: loader/loader.c:583
+#: loader/loader.c:470
+#: loader/loader.c:582
 #: pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Cancel·la"
@@ -507,7 +501,7 @@ msgid "Scanning access points for wireless devices"
 msgstr "S'estàn escanejant els punts d'accés per als dispositius inalàmbrics"
 
 #: pyanaconda/gui.py:959
-#: pyanaconda/textw/netconfig_text.py:276
+#: pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "S'està esperant a NetworkManager"
 
@@ -564,7 +558,7 @@ msgstr ""
 #: pyanaconda/gui.py:1236
 #: pyanaconda/image.py:164
 #: pyanaconda/image.py:194
-#: pyanaconda/packages.py:330
+#: pyanaconda/packages.py:331
 #: pyanaconda/storage/__init__.py:1817
 msgid "_Exit"
 msgstr "_Surt"
@@ -587,7 +581,7 @@ msgstr "El sistema es reiniciarà."
 
 #: pyanaconda/gui.py:1240
 #: pyanaconda/image.py:251
-#: pyanaconda/packages.py:334
+#: pyanaconda/packages.py:335
 #: pyanaconda/yuminstall.py:1523
 msgid "_Reboot"
 msgstr "_Reinicia"
@@ -599,13 +593,13 @@ msgstr "S'està sortint"
 #: pyanaconda/gui.py:1323
 #: pyanaconda/livecd.py:126
 #: pyanaconda/text.py:271
-#: pyanaconda/upgrade.py:242
+#: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "Abandona l'instal·lador"
 
 #: pyanaconda/gui.py:1324
 msgid "Are you sure you wish to exit the installer?"
-msgstr "Esteu segur que voleu abandonar de la instal·lació?"
+msgstr "Esteu segurs que voleu abandonar la instal·lació?"
 
 #: pyanaconda/gui.py:1333
 #, python-format
@@ -674,8 +668,8 @@ msgstr ""
 
 #: pyanaconda/image.py:251
 #: pyanaconda/livecd.py:446
-#: pyanaconda/packages.py:334
-#: pyanaconda/upgrade.py:250
+#: pyanaconda/packages.py:335
+#: pyanaconda/upgrade.py:253
 #: pyanaconda/yuminstall.py:963
 #: pyanaconda/yuminstall.py:1049
 #: pyanaconda/yuminstall.py:1463
@@ -871,7 +865,7 @@ msgstr "S'ha produït un error en la seqüència"
 #: pyanaconda/rescue.py:262
 #: pyanaconda/yuminstall.py:751
 #: pyanaconda/yuminstall.py:1199
-#: pyanaconda/iw/task_gui.py:308
+#: pyanaconda/iw/task_gui.py:311
 msgid "No Network Available"
 msgstr "Xarxa no disponible"
 
@@ -890,62 +884,62 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/kickstart.py:1249
+#: pyanaconda/kickstart.py:1266
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "S'ha produït un error en processar %%ksappend línies: %s"
 
-#: pyanaconda/kickstart.py:1252
+#: pyanaconda/kickstart.py:1269
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "S'ha produït un error desconegut en processar %%ksappend línies: %s"
 
-#: pyanaconda/kickstart.py:1307
+#: pyanaconda/kickstart.py:1324
 #: pyanaconda/livecd.py:228
 msgid "Post-Installation"
 msgstr "Post-instal·lació"
 
-#: pyanaconda/kickstart.py:1308
+#: pyanaconda/kickstart.py:1325
 msgid "Running post-installation scripts"
 msgstr "S'estan executant les seqüències posteriors a la instal·lació"
 
-#: pyanaconda/kickstart.py:1324
+#: pyanaconda/kickstart.py:1341
 msgid "Pre-Installation"
 msgstr "Pre-instal·lació"
 
-#: pyanaconda/kickstart.py:1325
+#: pyanaconda/kickstart.py:1342
 msgid "Running pre-installation scripts"
 msgstr "S'estan executant les seqüències prèvies a la instal·lació"
 
-#: pyanaconda/kickstart.py:1357
+#: pyanaconda/kickstart.py:1374
 msgid "Missing Package"
 msgstr "Paquet absent"
 
-#: pyanaconda/kickstart.py:1358
+#: pyanaconda/kickstart.py:1375
 #, python-format
 msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort this installation?"
 msgstr "Heu indicat que s'ha d'instal·lar el paquet '%s', però aquest paquet no existeix. Voleu continuar o anul·lar la instal·lació?"
 
-#: pyanaconda/kickstart.py:1364
-#: pyanaconda/kickstart.py:1403
+#: pyanaconda/kickstart.py:1381
+#: pyanaconda/kickstart.py:1420
 msgid "_Abort"
 msgstr "_Anul·la"
 
-#: pyanaconda/kickstart.py:1365
-#: pyanaconda/kickstart.py:1404
+#: pyanaconda/kickstart.py:1382
+#: pyanaconda/kickstart.py:1421
 msgid "_Ignore All"
 msgstr "_Ignora-ho tot"
 
-#: pyanaconda/kickstart.py:1395
+#: pyanaconda/kickstart.py:1412
 msgid "Missing Group"
 msgstr "Falta grup"
 
-#: pyanaconda/kickstart.py:1396
+#: pyanaconda/kickstart.py:1413
 #, python-format
 msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort this installation?"
 msgstr "Heu indicat que s'ha d'instal·lar el grup '%s', però aquest grup no existeix. Voleu continuar o preferiu anul·lar la instal·lació?"
 
-#: pyanaconda/kickstart.py:1494
+#: pyanaconda/kickstart.py:1511
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that anaconda cannot prompt for.  Please add the following sections and try again:\n"
@@ -1016,29 +1010,29 @@ msgstr "«%s» no és una adreça IPv6 vàlida."
 msgid "'%s' is an invalid IP address."
 msgstr "«%s» no és una adreça IP vàlida."
 
-#: pyanaconda/packages.py:111
+#: pyanaconda/packages.py:112
 msgid "Resizing Failed"
 msgstr "No s'ha pogut canviar la mida"
 
-#: pyanaconda/packages.py:112
+#: pyanaconda/packages.py:113
 #, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "S'ha produït un error en canviar la mida del dispositiu %s."
 
-#: pyanaconda/packages.py:120
+#: pyanaconda/packages.py:121
 msgid "Migration Failed"
 msgstr "Ha fallat la migració"
 
-#: pyanaconda/packages.py:121
+#: pyanaconda/packages.py:122
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
 msgstr "S'ha produït un error en migrar el sistema de fitxers al dispositiu %s."
 
-#: pyanaconda/packages.py:130
+#: pyanaconda/packages.py:131
 msgid "_File Bug"
 msgstr "_Envia un error"
 
-#: pyanaconda/packages.py:314
+#: pyanaconda/packages.py:315
 #, python-format
 msgid ""
 "Warning!  This is pre-release software!\n"
@@ -1065,15 +1059,15 @@ msgstr ""
 "\n"
 "i informeu a favor de '%(fileagainst)s'.\n"
 
-#: pyanaconda/packages.py:330
+#: pyanaconda/packages.py:331
 msgid "_Install Anyway"
 msgstr "_Instal·la-ho igualment"
 
-#: pyanaconda/packages.py:333
+#: pyanaconda/packages.py:334
 msgid "Your system will now be rebooted..."
 msgstr "Es reiniciarà el sistema..."
 
-#: pyanaconda/packages.py:335
+#: pyanaconda/packages.py:336
 msgid "Warning! This is pre-release software!"
 msgstr "Advertència! Aquest programari no és estable."
 
@@ -1578,12 +1572,12 @@ msgstr "  <Tab>/<Alt-Tab> moure's entre es elements   |  <Espai> seleccionar   |
 
 #: pyanaconda/text.py:501
 #: loader/net.c:110
-#: loader/net.c:511
-#: loader/net.c:566
-#: loader/net.c:708
-#: loader/net.c:716
-#: loader/net.c:1134
-#: loader/net.c:1142
+#: loader/net.c:513
+#: loader/net.c:568
+#: loader/net.c:710
+#: loader/net.c:718
+#: loader/net.c:1148
+#: loader/net.c:1156
 msgid "Retry"
 msgstr "Reintenta"
 
@@ -1613,11 +1607,11 @@ msgstr "Voleu continuar amb l'actualització?"
 
 # XC: la traducció fa referència a la configuració després de l'actualització,
 # segons diu el missatge a continuació
-#: pyanaconda/upgrade.py:88
+#: pyanaconda/upgrade.py:91
 msgid "Cannot Upgrade"
 msgstr "No es pot actualitzar"
 
-#: pyanaconda/upgrade.py:89
+#: pyanaconda/upgrade.py:92
 #, python-format
 msgid ""
 "Your current installation cannot be upgraded. This is likely due to it being too old. Only the previous two release may be upgraded. To upgrade older releases you must first upgrade through all intermediate releases.\n"
@@ -1628,11 +1622,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/upgrade.py:229
+#: pyanaconda/upgrade.py:232
 msgid "Mount failed"
 msgstr "No s'ha pogut muntar"
 
-#: pyanaconda/upgrade.py:230
+#: pyanaconda/upgrade.py:233
 #, python-format
 msgid ""
 "The following error occurred when mounting the file systems listed in /etc/fstab.  Please fix this problem and try to upgrade again.\n"
@@ -1641,20 +1635,20 @@ msgstr ""
 "No s'ha pogut muntar un o més dels sistemes de fitxers llistats a /etc/fstab. Resoleu el problema i intenteu actualitzar de nou.\n"
 "%s"
 
-#: pyanaconda/upgrade.py:238
-#: pyanaconda/upgrade.py:245
+#: pyanaconda/upgrade.py:241
+#: pyanaconda/upgrade.py:248
 msgid "Upgrade root not found"
 msgstr "No s'ha trobat l'arrel per a l'actualització"
 
-#: pyanaconda/upgrade.py:239
+#: pyanaconda/upgrade.py:242
 msgid "The root for the previously installed system was not found."
 msgstr "No s'ha trobat l'arrel del sistema instal·lat anteriorment."
 
-#: pyanaconda/upgrade.py:246
+#: pyanaconda/upgrade.py:249
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
 msgstr "No s'ha trobat l'arrel del sistema instal·lat anteriorment. Podeu abandonar l'instal·lador o tornar enrere per a triar la instal·lació en comptes de l'actualització."
 
-#: pyanaconda/upgrade.py:269
+#: pyanaconda/upgrade.py:272
 msgid ""
 "The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n"
 "\n"
@@ -1662,11 +1656,11 @@ msgstr ""
 "Els següents fitxers són enllaços simbòlics absoluts, els quals no es poden utilitzar durant l'actualització. Canvieu-los a enllaços simbòlics relatius i reinicieu l'actualització.\n"
 "\n"
 
-#: pyanaconda/upgrade.py:275
+#: pyanaconda/upgrade.py:278
 msgid "Absolute Symlinks"
 msgstr "Enllaços simbòlics absoluts"
 
-#: pyanaconda/upgrade.py:286
+#: pyanaconda/upgrade.py:289
 msgid ""
 "The following are directories which should instead be symbolic links, which will cause problems with the upgrade.  Please return them to their original state as symbolic links and restart the upgrade.\n"
 "\n"
@@ -1674,7 +1668,7 @@ msgstr ""
 "Aquests són directoris que haurien de ser enllaços simbòlics, que causaran problemes durant l'actualització. Torneu-los al seu estat original d'enllaços simbòlics i reinicieu l'actualització.\n"
 "\n"
 
-#: pyanaconda/upgrade.py:292
+#: pyanaconda/upgrade.py:295
 msgid "Invalid Directories"
 msgstr "Directoris no vàlids"
 
@@ -1754,7 +1748,7 @@ msgstr ""
 "\n"
 "\n"
 "Advertència: s'executarà el servidor VNC sense contrasenya.\n"
-"Podeu fer servir l'opció d'arranc vncpassword=<contrasenya>\n"
+"Podeu utilitzar l'opció d'arranc vncpassword=<contrasenya>\n"
 "si voleu proporcionar més seguretat al vostre servidor.\n"
 "\n"
 
@@ -1904,7 +1898,7 @@ msgid "A fatal error occurred when installing the %s package.  This could indica
 msgstr "S'ha produït un error greu mentre s'instal·lava el paquet %s. Això pot indicar errors quan es llegeix des del mitjà d'instal·lació. La instal·lació no pot continuar."
 
 #: pyanaconda/yuminstall.py:402
-#: pyanaconda/iw/task_gui.py:321
+#: pyanaconda/iw/task_gui.py:324
 msgid "Error Setting Up Repository"
 msgstr "S'ha produït un error mentre es configurava el repositori"
 
@@ -1952,7 +1946,7 @@ msgstr "Al repositori %r li manca el nom en la configuració, es farà servir l'
 
 #: pyanaconda/yuminstall.py:752
 #: pyanaconda/yuminstall.py:1200
-#: pyanaconda/iw/task_gui.py:309
+#: pyanaconda/iw/task_gui.py:312
 msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
 msgstr "Alguns dels vostres repositoris necessiten accés per xarxa, però s'ha produït un error en habilitar la xarxa en el sistema."
 
@@ -2292,11 +2286,11 @@ msgstr "Error en canviar la mida del dispositiu"
 msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
-#: pyanaconda/iw/autopart_type.py:228
+#: pyanaconda/iw/autopart_type.py:229
 msgid "Use All Space"
 msgstr "Utilitza tot l'epai"
 
-#: pyanaconda/iw/autopart_type.py:230
+#: pyanaconda/iw/autopart_type.py:231
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions created by other operating systems.\n"
 "\n"
@@ -2306,11 +2300,11 @@ msgstr ""
 "\n"
 "<b>Consell:</b> aquesta opció esborrarà totes les dades del(s) dispositiu(s) seleccionat(s). Assegureu-vos de tenir-ne còpies de seguretat."
 
-#: pyanaconda/iw/autopart_type.py:236
+#: pyanaconda/iw/autopart_type.py:237
 msgid "Replace Existing Linux System(s)"
 msgstr "Substitueix els sistemes Linux existents"
 
-#: pyanaconda/iw/autopart_type.py:238
+#: pyanaconda/iw/autopart_type.py:239
 msgid ""
 "Removes all Linux partitions on the selected device(s). This does not remove other partitions you may have on your storage device(s) (such as VFAT or FAT32).\n"
 "\n"
@@ -2320,27 +2314,27 @@ msgstr ""
 "\n"
 "<b>Tip:</b> Aquesta opció esborrarà totes les dades del(s) dispositiu(s) seleccionat(s). Assegureu-vos de tenir-ne còpies de seguretat."
 
-#: pyanaconda/iw/autopart_type.py:246
+#: pyanaconda/iw/autopart_type.py:247
 msgid "Shrink Current System"
 msgstr "Escongeix el sistema actual"
 
-#: pyanaconda/iw/autopart_type.py:248
+#: pyanaconda/iw/autopart_type.py:249
 msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr "Reduexi les particions existents per a crear espai lliure per a l'esquema per defecte."
 
-#: pyanaconda/iw/autopart_type.py:250
+#: pyanaconda/iw/autopart_type.py:251
 msgid "Use Free Space"
 msgstr "Utilitza l'espai lliure"
 
-#: pyanaconda/iw/autopart_type.py:252
+#: pyanaconda/iw/autopart_type.py:253
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
 msgstr "Conserva les vostres dades i particions actuals i només empra l'espai sense particionar del(s) dispositiu(s) seleccionat(s), assumint que teniu prou espai lliure."
 
-#: pyanaconda/iw/autopart_type.py:256
+#: pyanaconda/iw/autopart_type.py:257
 msgid "Create Custom Layout"
 msgstr "Crea una disposició personalitzada"
 
-#: pyanaconda/iw/autopart_type.py:258
+#: pyanaconda/iw/autopart_type.py:259
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
 msgstr "Crear manualment el vostre esquema personalitzat al(s) dispositiu(s) seleccionat(s) amb la nostra eina de particionat."
 
@@ -2410,7 +2404,7 @@ msgid "Clear Disks Selector"
 msgstr "Buida el selector de discs"
 
 #: pyanaconda/iw/cleardisks_gui.py:45
-#: pyanaconda/iw/filter_gui.py:429
+#: pyanaconda/iw/filter_gui.py:432
 msgid "You must select at least one drive to be used for installation."
 msgstr "Heu de seleccionar com a mínim un disc per a utilitza'l en la instal·lació."
 
@@ -2420,43 +2414,43 @@ msgstr "Heu de seleccionar una unitat des d'on arrencar."
 
 #: pyanaconda/iw/cleardisks_gui.py:127
 #: pyanaconda/iw/cleardisks_gui.py:147
-#: pyanaconda/iw/filter_gui.py:486
-#: pyanaconda/iw/filter_gui.py:497
-#: pyanaconda/iw/filter_gui.py:527
+#: pyanaconda/iw/filter_gui.py:489
+#: pyanaconda/iw/filter_gui.py:500
+#: pyanaconda/iw/filter_gui.py:530
 msgid "Model"
 msgstr "Model"
 
 #: pyanaconda/iw/cleardisks_gui.py:128
 #: pyanaconda/iw/cleardisks_gui.py:148
-#: pyanaconda/iw/filter_gui.py:487
-#: pyanaconda/iw/filter_gui.py:498
-#: pyanaconda/iw/filter_gui.py:506
-#: pyanaconda/iw/filter_gui.py:517
-#: pyanaconda/iw/filter_gui.py:528
+#: pyanaconda/iw/filter_gui.py:490
+#: pyanaconda/iw/filter_gui.py:501
+#: pyanaconda/iw/filter_gui.py:509
+#: pyanaconda/iw/filter_gui.py:520
+#: pyanaconda/iw/filter_gui.py:531
 msgid "Capacity"
 msgstr "Capacitat"
 
 #: pyanaconda/iw/cleardisks_gui.py:129
-#: pyanaconda/iw/filter_gui.py:488
-#: pyanaconda/iw/filter_gui.py:507
-#: pyanaconda/iw/filter_gui.py:518
-#: pyanaconda/iw/filter_gui.py:529
+#: pyanaconda/iw/filter_gui.py:491
+#: pyanaconda/iw/filter_gui.py:510
+#: pyanaconda/iw/filter_gui.py:521
+#: pyanaconda/iw/filter_gui.py:532
 msgid "Vendor"
 msgstr "Fabricant"
 
 #: pyanaconda/iw/cleardisks_gui.py:130
 #: pyanaconda/iw/cleardisks_gui.py:149
-#: pyanaconda/iw/filter_gui.py:505
-#: pyanaconda/iw/filter_gui.py:516
-#: pyanaconda/iw/filter_gui.py:532
+#: pyanaconda/iw/filter_gui.py:508
+#: pyanaconda/iw/filter_gui.py:519
+#: pyanaconda/iw/filter_gui.py:535
 msgid "Identifier"
 msgstr "Identificador"
 
 #: pyanaconda/iw/cleardisks_gui.py:131
-#: pyanaconda/iw/filter_gui.py:489
-#: pyanaconda/iw/filter_gui.py:508
-#: pyanaconda/iw/filter_gui.py:519
-#: pyanaconda/iw/filter_gui.py:530
+#: pyanaconda/iw/filter_gui.py:492
+#: pyanaconda/iw/filter_gui.py:511
+#: pyanaconda/iw/filter_gui.py:522
+#: pyanaconda/iw/filter_gui.py:533
 msgid "Interconnect"
 msgstr "Interconnexió"
 
@@ -2524,7 +2518,7 @@ msgid ""
 msgstr ""
 "Enhorabona, s'ha completat la instal·lació de %s.\n"
 "\n"
-"Reinicieu ara per fer servir el sistema instal·lat. Poden haver actualitzacions disponibles per a assegurar el bon funcionament del vostre sistema. Es recomana la instal·lació de les actualitzacions després del reinici."
+"Reinicieu ara per a utilitzar el sistema instal·lat. Poden haver actualitzacions disponibles per a assegurar el bon funcionament del vostre sistema. Es recomana la instal·lació de les actualitzacions després del reinici."
 
 #: pyanaconda/iw/examine_gui.py:39
 msgid "Upgrade Examine"
@@ -2570,35 +2564,35 @@ msgstr "Dispositius seleccionats: %s (%s MB) d'un total de %s (%s MB)."
 msgid "Device Filter"
 msgstr "Filtratge de dispositius"
 
-#: pyanaconda/iw/filter_gui.py:490
-#: pyanaconda/iw/filter_gui.py:520
-#: pyanaconda/iw/filter_gui.py:531
+#: pyanaconda/iw/filter_gui.py:493
+#: pyanaconda/iw/filter_gui.py:523
+#: pyanaconda/iw/filter_gui.py:534
 msgid "Serial Number"
 msgstr "Número de série"
 
-#: pyanaconda/iw/filter_gui.py:491
-#: pyanaconda/iw/filter_gui.py:499
-#: pyanaconda/iw/filter_gui.py:510
-#: pyanaconda/iw/filter_gui.py:521
-#: pyanaconda/iw/filter_gui.py:536
+#: pyanaconda/iw/filter_gui.py:494
+#: pyanaconda/iw/filter_gui.py:502
+#: pyanaconda/iw/filter_gui.py:513
+#: pyanaconda/iw/filter_gui.py:524
+#: pyanaconda/iw/filter_gui.py:539
 #: pyanaconda/iw/osbootwidget.py:66
 #: pyanaconda/iw/partition_gui.py:611
 msgid "Device"
 msgstr "Dispositiu"
 
-#: pyanaconda/iw/filter_gui.py:509
+#: pyanaconda/iw/filter_gui.py:512
 msgid "Paths"
 msgstr "Rutes"
 
-#: pyanaconda/iw/filter_gui.py:533
+#: pyanaconda/iw/filter_gui.py:536
 msgid "Port"
 msgstr "Port"
 
-#: pyanaconda/iw/filter_gui.py:534
+#: pyanaconda/iw/filter_gui.py:537
 msgid "Target"
 msgstr "Ojectiu"
 
-#: pyanaconda/iw/filter_gui.py:535
+#: pyanaconda/iw/filter_gui.py:538
 msgid "LUN"
 msgstr "LUN"
 
@@ -2631,7 +2625,7 @@ msgstr "Selecció de l'idioma"
 #: loader/lang.c:371
 #: pyanaconda/textw/language_text.py:46
 msgid "What language would you like to use during the installation process?"
-msgstr "Quin idioma voleu fer servir durant el procés d'instal·lació?"
+msgstr "Quin idioma voleu utilitzar durant el procés d'instal·lació?"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:126
 #: pyanaconda/iw/lvm_dialog_gui.py:172
@@ -2965,13 +2959,11 @@ msgstr "S'està enviant una sol·licitud d'informació d'IP per a %s"
 
 #: pyanaconda/iw/netconfig_dialog.py:257
 #: pyanaconda/iw/netconfig_dialog.py:260
-#: pyanaconda/textw/netconfig_text.py:225
-#: pyanaconda/textw/netconfig_text.py:228
 msgid "IP Address"
 msgstr "Adreça IP"
 
 #: pyanaconda/iw/netconfig_dialog.py:267
-#: pyanaconda/textw/netconfig_text.py:235
+#: pyanaconda/textw/netconfig_text.py:290
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr "Els prefixos IPv4 CIDR han de ser entre 0 i 32."
 
@@ -2979,19 +2971,14 @@ msgstr "Els prefixos IPv4 CIDR han de ser entre 0 i 32."
 #: pyanaconda/iw/netconfig_dialog.py:274
 #: pyanaconda/iw/netconfig_dialog.py:282
 #: pyanaconda/iw/netconfig_dialog.py:285
-#: pyanaconda/textw/netconfig_text.py:236
-#: pyanaconda/textw/netconfig_text.py:242
-#: pyanaconda/textw/netconfig_text.py:250
 msgid "IPv4 Network Mask"
 msgstr "Màscara de xarxa IPv4"
 
 #: pyanaconda/iw/netconfig_dialog.py:295
-#: pyanaconda/textw/netconfig_text.py:263
 msgid "Gateway"
 msgstr "Passarel·la"
 
 #: pyanaconda/iw/netconfig_dialog.py:305
-#: pyanaconda/textw/netconfig_text.py:273
 msgid "Nameserver"
 msgstr "Servidor de noms"
 
@@ -3024,7 +3011,6 @@ msgid "Select network interface"
 msgstr "Seleccionat intefície de xarxa"
 
 #: pyanaconda/iw/network_gui.py:141
-#: pyanaconda/textw/netconfig_text.py:91
 #: data/ui/netconfig.glade.h:10
 msgid "This requires that you have an active network connection during the installation process.  Please configure a network interface."
 msgstr "Us fa falta tenir una connexió de xarxa activa durant el procés d'instal·lació. Configureu una interfície de xarxa."
@@ -3437,49 +3423,49 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/iw/task_gui.py:132
+#: pyanaconda/iw/task_gui.py:129
 msgid "Edit Repository"
 msgstr "Edita el repositori"
 
-#: pyanaconda/iw/task_gui.py:156
+#: pyanaconda/iw/task_gui.py:153
 #, python-format
 msgid "The repository %s has already been added.  Please choose a different repository name and URL."
 msgstr "Ja s'ha afegit el repositori %s. Escolliu un nom i una URL diferents."
 
-#: pyanaconda/iw/task_gui.py:236
+#: pyanaconda/iw/task_gui.py:239
 msgid "Invalid Proxy URL"
 msgstr "La URL del servidor intermediari no és vàlida"
 
-#: pyanaconda/iw/task_gui.py:237
+#: pyanaconda/iw/task_gui.py:240
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "Heu de proporcionar una URL d'HTTP, d'HTTPS o d'FTP d'un servidor d'intercanvi."
 
-#: pyanaconda/iw/task_gui.py:249
-#: pyanaconda/iw/task_gui.py:430
+#: pyanaconda/iw/task_gui.py:252
+#: pyanaconda/iw/task_gui.py:436
 msgid "Invalid Repository URL"
 msgstr "La URL del repositori no és vàlida"
 
-#: pyanaconda/iw/task_gui.py:250
-#: pyanaconda/iw/task_gui.py:431
+#: pyanaconda/iw/task_gui.py:253
+#: pyanaconda/iw/task_gui.py:437
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Heu de proporcionar una URL HTTP, HTTPS o FTP a un repositori."
 
-#: pyanaconda/iw/task_gui.py:271
-#: pyanaconda/iw/task_gui.py:440
+#: pyanaconda/iw/task_gui.py:274
+#: pyanaconda/iw/task_gui.py:446
 msgid "No Media Found"
 msgstr "No s'ha trobat cap mitjà"
 
-#: pyanaconda/iw/task_gui.py:272
-#: pyanaconda/iw/task_gui.py:441
+#: pyanaconda/iw/task_gui.py:275
+#: pyanaconda/iw/task_gui.py:447
 msgid "No installation media was found. Please insert a disc into your drive and try again."
 msgstr "No s'ha trobat cap disc d'instal·lació. Inseriu un disc en la vostra unitat i proveu de nou."
 
-#: pyanaconda/iw/task_gui.py:303
-#: pyanaconda/iw/task_gui.py:464
+#: pyanaconda/iw/task_gui.py:306
+#: pyanaconda/iw/task_gui.py:470
 msgid "Please enter an NFS server and path."
 msgstr "Introduïu el nom d'un servidor NFS i la ruta."
 
-#: pyanaconda/iw/task_gui.py:322
+#: pyanaconda/iw/task_gui.py:325
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3490,24 +3476,24 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/iw/task_gui.py:345
+#: pyanaconda/iw/task_gui.py:348
 msgid "Invalid Repository Name"
 msgstr "El nom del repositori no és vàlid"
 
-#: pyanaconda/iw/task_gui.py:346
+#: pyanaconda/iw/task_gui.py:349
 msgid "You must provide a repository name."
 msgstr "Heu de proporcionar un nom de repositori."
 
-#: pyanaconda/iw/task_gui.py:496
+#: pyanaconda/iw/task_gui.py:502
 #: data/ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "Afegeix repositori"
 
-#: pyanaconda/iw/task_gui.py:501
+#: pyanaconda/iw/task_gui.py:507
 msgid "No Software Repos Enabled"
 msgstr "No s'ha habilitat cap repositori de programari"
 
-#: pyanaconda/iw/task_gui.py:502
+#: pyanaconda/iw/task_gui.py:508
 msgid "You must have at least one software repository enabled to continue installation."
 msgstr "Com a mínim heu de tenir habilitat un repositori de programari per a poder continuar amb la instal·lació"
 
@@ -3582,7 +3568,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Aquesta versió de %(productName)s pot fer servir un sistema de fitxers que proporciona alguns beneficis comparat amb el sistema de fitxers que s'ha fet servir tradicionalment en %(productName)s. Es pot convertir les particions formatades sense que se'n perdin les dades.\n"
+"Aquesta versió de %(productName)s pot utilitzar un sistema de fitxers que proporciona alguns beneficis comparat amb el sistema de fitxers que s'ha fet servir tradicionalment en %(productName)s. Es pot convertir les particions formatades sense que se'n perdin les dades.\n"
 "\n"
 "Quines d'aquestes particions voleu convertir?"
 
@@ -3706,6 +3692,7 @@ msgid "Chandev Parameters"
 msgstr "Paràmetres del chandev"
 
 #: loader/net.h:27
+#: pyanaconda/textw/netconfig_text.py:164
 msgid "Dynamic IP configuration (DHCP)"
 msgstr "Configurcióa d'IP dinàmica (DHCP)"
 
@@ -3718,6 +3705,7 @@ msgid "Dynamic IP configuration (DHCPv6)"
 msgstr "Configurcióa d'IP dinàmica (DHCP)"
 
 #: loader/net.h:31
+#: pyanaconda/textw/netconfig_text.py:201
 msgid "Automatic neighbor discovery"
 msgstr "Descobriment automàtic de veins"
 
@@ -3803,14 +3791,14 @@ msgstr "No s'ha trobat el disc"
 #: loader/hdinstall.c:212
 #: loader/hdinstall.c:266
 #: loader/kbd.c:119
-#: loader/loader.c:512
-#: loader/loader.c:529
-#: loader/loader.c:1403
-#: loader/loader.c:1436
-#: loader/net.c:619
-#: loader/net.c:987
-#: loader/net.c:1961
-#: loader/net.c:1980
+#: loader/loader.c:511
+#: loader/loader.c:528
+#: loader/loader.c:1400
+#: loader/loader.c:1433
+#: loader/net.c:621
+#: loader/net.c:1001
+#: loader/net.c:1976
+#: loader/net.c:1995
 #: loader/nfsinstall.c:116
 #: loader/urls.c:269
 #: pyanaconda/storage/__init__.py:123
@@ -3845,11 +3833,11 @@ msgstr "Font del disquet de controladors"
 
 #: loader/driverdisk.c:404
 msgid "You have multiple devices which could serve as sources for a driver disk.  Which would you like to use?"
-msgstr "Hi ha diversos dispositius que poden servir com a fonts per al disquet de controladors. Quin voleu fer servir?"
+msgstr "Hi ha diversos dispositius que poden servir com a fonts per al disquet de controladors. Quin voleu utilitzar?"
 
 #: loader/driverdisk.c:437
 msgid "There are multiple partitions on this device which could contain the driver disk image.  Which would you like to use?"
-msgstr "Hi ha diverses particions en aquest dispositiu que podrien contenir la imatge del disquet de controladors. Quina voleu fer servir?"
+msgstr "Hi ha diverses particions en aquest dispositiu que podrien contenir la imatge del disquet de controladors. Quina voleu utilitzar?"
 
 #: loader/driverdisk.c:472
 msgid "Failed to mount partition."
@@ -3923,8 +3911,8 @@ msgstr "Voleu carregar més discos de controladors?"
 #: loader/kickstart.c:339
 #: loader/kickstart.c:355
 #: loader/kickstart.c:571
-#: loader/net.c:1634
-#: loader/net.c:1655
+#: loader/net.c:1649
+#: loader/net.c:1670
 #: loader/nfsinstall.c:414
 #: loader/urlinstall.c:374
 #: loader/urlinstall.c:385
@@ -3961,7 +3949,7 @@ msgstr "Carrega el disc de controladors"
 
 #: loader/driverselect.c:153
 msgid "No drivers were found to manually insert.  Would you like to use a driver disk?"
-msgstr "No s'han trobat controladors per inserir manualment. Voleu fer servir un disc de controladors?"
+msgstr "No s'han trobat controladors per inserir manualment. Voleu utilitzar un disc de controladors?"
 
 #: loader/driverselect.c:171
 msgid "Please select the driver below which you wish to load.  If it does not appear and you have a driver disk, press F2."
@@ -4071,7 +4059,7 @@ msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr "Argument erroni per aturar l'ordre del mètode del kickstart: %s"
 
 #: loader/lang.c:63
-#: loader/loader.c:229
+#: loader/loader.c:228
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr "Benvinguts a %s per a %s"
@@ -4082,7 +4070,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Benvinguts a %s per a %s - Mode de rescat"
 
 #: loader/lang.c:65
-#: loader/loader.c:253
+#: loader/loader.c:252
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> mou | <Espai> selecciona | <F12> següent "
 
@@ -4090,153 +4078,158 @@ msgstr "  <Tab>/<Alt-Tab> mou | <Espai> selecciona | <F12> següent "
 msgid "Choose a Language"
 msgstr "Escolliu l'idioma"
 
-#: loader/loader.c:132
+#: loader/loader.c:131
 msgid "Local CD/DVD"
 msgstr "CD/DVD local"
 
-#: loader/loader.c:133
+#: loader/loader.c:132
 msgid "Hard drive"
 msgstr "Disc dur"
 
-#: loader/loader.c:134
+#: loader/loader.c:133
 msgid "NFS directory"
 msgstr "Directori NFS"
 
-#: loader/loader.c:466
-#: loader/loader.c:507
+#: loader/loader.c:465
+#: loader/loader.c:506
 msgid "Update Disk Source"
 msgstr "Actualitza el disc font"
 
-#: loader/loader.c:467
+#: loader/loader.c:466
 msgid "You have multiple devices which could serve as sources for an update disk.  Which would you like to use?"
-msgstr "Teniu diversos dispositius que poden servir de fonts per a un disc d'actualització. Quin voleu fer servir?"
+msgstr "Teniu diversos dispositius que poden servir de fonts per a un disc d'actualització. Quin voleu utilitzar?"
 
-#: loader/loader.c:508
+#: loader/loader.c:507
 msgid "There are multiple partitions on this device which could contain the update disk image.  Which would you like to use?"
-msgstr "Hi ha diverses particions en aquest dispositiu que podrien contenir la imatge del disc d'actualització. Quina voleu fer servir?"
+msgstr "Hi ha diverses particions en aquest dispositiu que podrien contenir la imatge del disc d'actualització. Quina voleu utilitzar?"
 
-#: loader/loader.c:526
+#: loader/loader.c:525
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr "Inseriu el disc d'actualitzacions a %s i premeu «D'acord» per a continuar."
 
-#: loader/loader.c:529
+#: loader/loader.c:528
 msgid "Updates Disk"
 msgstr "Disc d'actualitzacions"
 
-#: loader/loader.c:547
+#: loader/loader.c:546
 msgid "Failed to mount updates disk"
 msgstr "S'ha produït un error en muntar el disc d'actualitzacions"
 
-#: loader/loader.c:552
+#: loader/loader.c:551
 msgid "Updates"
 msgstr "Actualitzacions"
 
-#: loader/loader.c:552
+#: loader/loader.c:551
 msgid "Reading anaconda updates"
 msgstr "S'estan llegint les actualitzacions de l'anaconda"
 
-#: loader/loader.c:588
+#: loader/loader.c:587
 msgid "Unable to download the updates image.  Please modify the updates location below or press Cancel to proceed without updates.."
 msgstr "No s'ha pogut baixar la imatge d'actualització. Modifiqueu la ubicació de sota o premeu Cancel·la per continuar sense actualitzar."
 
-#: loader/loader.c:597
+#: loader/loader.c:596
 msgid "Error downloading updates image"
 msgstr "S'ha produït un error en baixar la imatge d'actualitzacions"
 
-#: loader/loader.c:1214
+#: loader/loader.c:1197
 #, c-format
-msgid "You do not have enough RAM to install %s on this machine%s."
-msgstr "No teniu prouta memòria RAM en l'ordinador %s per a instal·lar-hi %s."
+msgid "You do not have enough RAM to install %s on this machine."
+msgstr "No teniu prouta memòria RAM en aquest ordinador per a instal·lar-hi %s."
 
-#: loader/loader.c:1268
+#: loader/loader.c:1198
+#, c-format
+msgid "You do not have enough RAM to install %s on this machine using this install method."
+msgstr "No teniu prouta memòria RAM en aquest ordinador per a instal·lar-hi %s mitjançant aquest mètode d'instal·lació."
+
+#: loader/loader.c:1263
 msgid "Media Detected"
 msgstr "S'ha detectat el medi"
 
-#: loader/loader.c:1269
+#: loader/loader.c:1264
 msgid "Found local installation media"
 msgstr "S'ha detectat el medi local per a la instal·lació"
 
-#: loader/loader.c:1395
+#: loader/loader.c:1392
 msgid "Rescue Method"
 msgstr "Mètode de rescat"
 
-#: loader/loader.c:1396
+#: loader/loader.c:1393
 msgid "Installation Method"
 msgstr "Mètode d'instal·lació"
 
-#: loader/loader.c:1398
+#: loader/loader.c:1395
 msgid "What type of media contains the rescue image?"
 msgstr "Quin tipus de medi conté la imatge de rescat?"
 
-#: loader/loader.c:1400
+#: loader/loader.c:1397
 msgid "What type of media contains the installation image?"
 msgstr "Quin tipus de medi conté la imatge d'instal·lació?"
 
-#: loader/loader.c:1435
+#: loader/loader.c:1432
 msgid "No driver found"
 msgstr "No s'ha trobat cap controlador"
 
-#: loader/loader.c:1435
+#: loader/loader.c:1432
 msgid "Select driver"
 msgstr "Seleccioneu el controlador"
 
-#: loader/loader.c:1436
+#: loader/loader.c:1433
 msgid "Use a driver disk"
 msgstr "Utilitza un disc de controladors"
 
-#: loader/loader.c:1437
+#: loader/loader.c:1434
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
 msgstr "No s'ha pogut trobar cap dispositiu adequat per a aquest tipus d'instal·lació. Voleu seleccionar manualment el controlador, o utilitzar un disc?"
 
-#: loader/loader.c:1668
+#: loader/loader.c:1665
 msgid "The following devices have been found on your system."
 msgstr "S'han trobat els següents dispositius en aquest sistema."
 
-#: loader/loader.c:1670
+#: loader/loader.c:1667
 msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
 msgstr "No s'ha carregat cap controlador al sistema. Voleu carregar-ne algun ara?"
 
-#: loader/loader.c:1674
+#: loader/loader.c:1671
 msgid "Devices"
 msgstr "Dispositius"
 
-#: loader/loader.c:1675
+#: loader/loader.c:1672
 msgid "Done"
 msgstr "Fet"
 
-#: loader/loader.c:1676
+#: loader/loader.c:1673
 msgid "Add Device"
 msgstr "Afegeix un dispositiu"
 
-#: loader/loader.c:1981
+#: loader/loader.c:1978
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ja s'ha executat el gestor. S'està iniciant el shell.\n"
 
-#: loader/loader.c:2125
+#: loader/loader.c:2122
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "S'ha detectat un disc de controladors a %s. Voloeu utilitzar-lo?."
 
-#: loader/loader.c:2128
+#: loader/loader.c:2125
 msgid "Driver disc detected"
 msgstr "S'ha detectat un disc de controladors"
 
-#: loader/loader.c:2128
+#: loader/loader.c:2125
 msgid "Use it"
 msgstr "Utilitza'l"
 
-#: loader/loader.c:2128
+#: loader/loader.c:2125
 msgid "Skip it"
 msgstr "Salta-t'ho"
 
-#: loader/loader.c:2466
+#: loader/loader.c:2460
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "S'està executant l'anaconda %s, el mode de rescat de %s. Espereu.\n"
 
-#: loader/loader.c:2468
+#: loader/loader.c:2462
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "S'està executant l'anaconda %s, l'instal·lador del sistema %s. Espereu.\n"
@@ -4274,7 +4267,7 @@ msgstr "Èxit"
 
 #: loader/mediacheck.c:107
 msgid "The image which was just tested was successfully verified.  It should be OK to install from this media.  Note that not all media/drive errors can be detected by the media check."
-msgstr "La comprovació de la imatge ha terminat amb èxit. Hauríeu de poder fer servir aquest disc per a instal·lar. Tingueu en compte que la comprovació del medi no és capaç de detectar tots els errors possibles."
+msgstr "La comprovació de la imatge ha finalitzat amb èxit. Hauríeu de poder utilitzar aquest disc per a la instal·lació. Tingueu en compte que la comprovació del medi no és capaç de detectar tots els errors possibles."
 
 #: loader/method.c:330
 #, c-format
@@ -4299,14 +4292,14 @@ msgstr "El prefix no és vàlid"
 msgid "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
 msgstr "Els prefixos ha de ser entre 1 i 32 per a xarxes IPv4 i entre 1 i 128 per a xarxes IPv6."
 
-#: loader/net.c:504
-#: loader/net.c:512
-#: loader/net.c:567
+#: loader/net.c:506
+#: loader/net.c:514
+#: loader/net.c:569
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr "S'ha produït un error en configurar la vostra interfície de xarxa."
 
-#: loader/net.c:506
+#: loader/net.c:508
 #, c-format
 msgid ""
 "\n"
@@ -4317,137 +4310,138 @@ msgstr ""
 "No es pot corregir des de la línia de comandes.\n"
 "Abortant.\n"
 
-#: loader/net.c:511
-#: loader/net.c:566
+#: loader/net.c:513
+#: loader/net.c:568
+#: pyanaconda/textw/netconfig_text.py:403
 msgid "Network Error"
 msgstr "Error de xarxa"
 
-#: loader/net.c:597
-#: pyanaconda/textw/netconfig_text.py:133
+#: loader/net.c:599
 msgid "Enable IPv4 support"
 msgstr "Habilita la compatibilitat amb IPv4"
 
-#: loader/net.c:611
+#: loader/net.c:613
 msgid "Enable IPv6 support"
 msgstr "Habilita la compatibilitat amb IPv6"
 
-#: loader/net.c:651
+#: loader/net.c:653
 msgid "Configure TCP/IP"
 msgstr "Configura el TCP/IP"
 
-#: loader/net.c:708
+#: loader/net.c:710
 msgid "Missing Protocol"
 msgstr "Falta protocol"
 
-#: loader/net.c:709
+#: loader/net.c:711
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Heu de seleccionar com a mínim un protocol (IPv4 o IPv6)."
 
-#: loader/net.c:716
+#: loader/net.c:718
 msgid "IPv4 Needed for NFS"
 msgstr "Es necessita IPv4 per a NFS"
 
-#: loader/net.c:717
+#: loader/net.c:719
 msgid "NFS installation method requires IPv4 support."
 msgstr "El mètode d'instal·lació per NFS requereix IPv4."
 
-#: loader/net.c:813
+#: loader/net.c:827
 msgid "IPv4 address:"
 msgstr "Adreça IPv4:"
 
-#: loader/net.c:825
-#: loader/net.c:892
+#: loader/net.c:839
+#: loader/net.c:906
 #: data/ui/netconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: loader/net.c:880
+#: loader/net.c:894
 msgid "IPv6 address:"
 msgstr "Adreça IPv6:"
 
-#: loader/net.c:946
-#: pyanaconda/textw/netconfig_text.py:160
+#: loader/net.c:960
+#: pyanaconda/textw/netconfig_text.py:184
+#: pyanaconda/textw/netconfig_text.py:224
 msgid "Gateway:"
 msgstr "Passarel·la:"
 
-#: loader/net.c:954
+#: loader/net.c:968
 msgid "Name Server:"
 msgstr "Servidor de noms:"
 
-#: loader/net.c:993
+#: loader/net.c:1007
 msgid "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr "Introduïu l'adreça i el prefix IPv4 i/o IPv6 (adreça / prefix). Per a IPv4, es pot indicar una màscara de xarxara de quatre nombres separats per punts, o bé fent servir l'estil CIDR. Les adreces de la passarel·la i del servidor de noms han de ser vàlides."
 
-#: loader/net.c:1010
+#: loader/net.c:1024
 msgid "Manual TCP/IP Configuration"
 msgstr "Configuració manual de TCP/IP"
 
-#: loader/net.c:1134
-#: loader/net.c:1142
+#: loader/net.c:1148
+#: loader/net.c:1156
 msgid "Missing Information"
 msgstr "Falta informació"
 
-#: loader/net.c:1135
+#: loader/net.c:1149
 msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "Heu d'indicar una adreça IPv4 i una màscara de xarxa o CIDR vàlides."
 
-#: loader/net.c:1143
+#: loader/net.c:1157
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Heu d'indicar una adreça IPv6 i un prefix CIDR vàlids."
 
-#: loader/net.c:1635
+#: loader/net.c:1650
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "Argument erroni per a l'ordre de xarxa del kickstart: %s"
 
-#: loader/net.c:1656
+#: loader/net.c:1671
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "El protocol d'arranc %s en la comanda de xarxa que heu especificat no és vàlid"
 
-#: loader/net.c:1761
+#: loader/net.c:1776
 msgid "Seconds:"
 msgstr "Segons:"
 
-#: loader/net.c:1956
+#: loader/net.c:1971
 msgid "Networking Device"
 msgstr "Dispositius de xarxa"
 
-#: loader/net.c:1957
+#: loader/net.c:1972
 msgid "You have multiple network devices on this system. Which would you like to install through?"
 msgstr "Hi han diversos dispositius de xarxa en aquest sistema. Amb quin voleu continuar la instal·lació?"
 
-#: loader/net.c:1961
+#: loader/net.c:1976
 msgid "Identify"
 msgstr "Identifica"
 
-#: loader/net.c:1970
+#: loader/net.c:1985
 msgid "You can identify the physical port for"
 msgstr "Podeu identificar el port físic de"
 
-#: loader/net.c:1972
+#: loader/net.c:1987
 msgid "by flashing the LED lights for a number of seconds.  Enter a number between 1 and 30 to set the duration to flash the LED port lights."
 msgstr "encenent els llums LED durant uns segons. Introduïu un nombre entre 1 i 30 per a establir la durada del flaix de les llums LED del port."
 
-#: loader/net.c:1979
+#: loader/net.c:1994
 msgid "Identify NIC"
 msgstr "Identifica el NIC"
 
-#: loader/net.c:1992
+#: loader/net.c:2007
 msgid "Invalid Duration"
 msgstr "La durada no és vàlida"
 
-#: loader/net.c:1993
+#: loader/net.c:2008
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Heu d'introduir un número enter de segons entre 1 i 30."
 
-#: loader/net.c:2005
+#: loader/net.c:2020
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "S'encendran els llums del port %s durant %d segons."
 
-#: loader/net.c:2175
-#: loader/net.c:2179
+#: loader/net.c:2190
+#: loader/net.c:2194
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "S'està esperant que el NetworkManager configuri %s.\n"
@@ -4487,19 +4481,6 @@ msgstr "Aquell directori no sembla contenir una imatge d'instal·lació %s."
 #, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
 msgstr "Argument erroni per a l'ordre del kickstart NFS: %s"
-
-#: loader/telnetd.c:90
-#: loader/telnetd.c:129
-msgid "Telnet"
-msgstr "Telnet"
-
-#: loader/telnetd.c:90
-msgid "Waiting for telnet connection."
-msgstr "S'està esperant la connexió telnet."
-
-#: loader/telnetd.c:129
-msgid "Running anaconda via telnet."
-msgstr "S'està executant l'anaconda mitjançant telnet."
 
 #  Traducció "retrieve" per "descarregar" enlloc de "recuperar"
 #  Feta a posta, ja que en aquest cas s'hi escau millor.
@@ -4915,12 +4896,12 @@ msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] "S'està preparant %d dispositiu DASD per a uttlitzar-lo amb Linux..."
 msgstr[1] "S'estàn preparant %d dispositius DASD per a uttlitzar-los amb Linux..."
 
-#: pyanaconda/storage/devicelibs/lvm.py:309
+#: pyanaconda/storage/devicelibs/lvm.py:312
 #, python-format
 msgid "vginfo failed for %s"
 msgstr "vginfo ha fallat per a %s"
 
-#: pyanaconda/storage/devicelibs/lvm.py:338
+#: pyanaconda/storage/devicelibs/lvm.py:341
 #, python-format
 msgid "lvs failed for %s"
 msgstr "lvs ha fallat per a %s"
@@ -4964,7 +4945,7 @@ msgstr ""
 "\n"
 "Si ignoreu aquest pas, els contiguts del dispositiu no estaran disponibles durant la instal·lació."
 
-#: pyanaconda/storage/devicetree.py:1889
+#: pyanaconda/storage/devicetree.py:1887
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Aquesta partició és part d'un grup de volum LVM inconsistent."
 
@@ -5287,47 +5268,107 @@ msgstr "Quin model de teclat teniu connectat a l'ordinador?"
 msgid "A value is required for the field %s"
 msgstr "Es requereix un valor per al camp %s"
 
-#: pyanaconda/textw/netconfig_text.py:88
+#: pyanaconda/textw/netconfig_text.py:126
+#: pyanaconda/textw/netconfig_text.py:152
 #: data/ui/netconfig.glade.h:9
 msgid "Enable network interface"
 msgstr "Habilita la intefície de xarxa"
 
-#: pyanaconda/textw/netconfig_text.py:130
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "Utilitza la configuració d'IP dinàmica (DHCP)"
+#: pyanaconda/textw/netconfig_text.py:129
+msgid "This requires that you have an active network connection during the installation process.  Please select network interface to configure."
+msgstr "Es necessita disposar d'una connexió de xarxa activa durant el procés d'instal·lació. Configureu una interfície de xarxa."
 
-#: pyanaconda/textw/netconfig_text.py:140
+#: pyanaconda/textw/netconfig_text.py:155
+#, python-format
+msgid "Configure interface %s to be used during installation process."
+msgstr "Configura la interfície %s per a utilitzar-la durant el procés d'instal·lació?"
+
+#: pyanaconda/textw/netconfig_text.py:160
+msgid "Enable IPv4 Support"
+msgstr "Habilita la compatibilitat amb IPv4"
+
+#: pyanaconda/textw/netconfig_text.py:167
+#: pyanaconda/textw/netconfig_text.py:207
+msgid "Manual Configuration"
+msgstr "Configuració manual"
+
+#: pyanaconda/textw/netconfig_text.py:175
 msgid "IPv4 Address:"
 msgstr "Adreça IPv4:"
 
-#: pyanaconda/textw/netconfig_text.py:163
+#: pyanaconda/textw/netconfig_text.py:189
+#: pyanaconda/textw/netconfig_text.py:229
 msgid "Nameserver:"
 msgstr "Servidor de noms:"
 
-#: pyanaconda/textw/netconfig_text.py:193
-msgid "Missing Device"
-msgstr "Falta dispositiu"
+#: pyanaconda/textw/netconfig_text.py:197
+msgid "Enable IPv6 Support"
+msgstr "Habilita la compatibilitat amb IPv6"
 
-#: pyanaconda/textw/netconfig_text.py:194
-msgid "You must select a network device"
-msgstr "Heu de seleccionar un dispositiu de xarxa"
+#: pyanaconda/textw/netconfig_text.py:204
+msgid "Dynamic IP Configuration (DHCPv6)"
+msgstr "Configurcióa d'IP dinàmica (DHCPv6)"
 
-#: pyanaconda/textw/netconfig_text.py:253
-msgid "IPv4 Network Mask "
-msgstr "Màscara de xarxa IPv4 "
+#: pyanaconda/textw/netconfig_text.py:215
+msgid "IPv6 Address:"
+msgstr "Adreça IPv6:"
 
-#: pyanaconda/textw/netconfig_text.py:276
+#: pyanaconda/textw/netconfig_text.py:270
+msgid "Missing protocol"
+msgstr "Falta protocol"
+
+#: pyanaconda/textw/netconfig_text.py:271
+msgid "You must select at least one protocol version"
+msgstr "Heu de seleccionar com a mínim una versió de protocol."
+
+#: pyanaconda/textw/netconfig_text.py:279
+#: pyanaconda/textw/netconfig_text.py:282
+msgid "IPv4 Address"
+msgstr "Adreça IPv4"
+
+#: pyanaconda/textw/netconfig_text.py:286
+#: pyanaconda/textw/netconfig_text.py:291
+msgid "IPv4 Prefix"
+msgstr "Prefix IPv4"
+
+#: pyanaconda/textw/netconfig_text.py:298
+msgid "IPv4 Gateway"
+msgstr "Passarel·la IPv4"
+
+#: pyanaconda/textw/netconfig_text.py:307
+msgid "IPv4 Nameserver"
+msgstr "Servidor de noms IPv4"
+
+#: pyanaconda/textw/netconfig_text.py:315
+#: pyanaconda/textw/netconfig_text.py:318
+msgid "IPv6 Address"
+msgstr "Adreça IPv6"
+
+#: pyanaconda/textw/netconfig_text.py:322
+#: pyanaconda/textw/netconfig_text.py:327
+msgid "IPv6 Prefix"
+msgstr "Prefix IPv6"
+
+#: pyanaconda/textw/netconfig_text.py:326
+msgid "IPv6 CIDR prefix must be between 0 and 128."
+msgstr "Els prefixos IPv6 CIDR han de ser entre 0 i 128."
+
+#: pyanaconda/textw/netconfig_text.py:334
+msgid "IPv6 Gateway"
+msgstr "Passarel·la IPv6"
+
+#: pyanaconda/textw/netconfig_text.py:342
+msgid "IPv6 Nameserver"
+msgstr "Servidor de noms IPv6"
+
+#: pyanaconda/textw/netconfig_text.py:399
 msgid "Configuring Network Interfaces"
 msgstr "S'està configurant les intefícies de xarxa"
 
-#: pyanaconda/textw/netconfig_text.py:282
-msgid "Error configuring network device"
-msgstr "S'ha produït un error en configurar la interfície de xarxa"
-
-#: pyanaconda/textw/netconfig_text.py:282
+#: pyanaconda/textw/netconfig_text.py:404
 #, python-format
-msgid "Error configuring network device %s"
-msgstr "S'ha produït un error en configurar el dispositiu de xarxa %s"
+msgid "There was an error configuring network device %s"
+msgstr "S'ha produït un error en configurar la vostra interfície de xarxa %s"
 
 #: pyanaconda/textw/partition_text.py:59
 msgid "Partitioning Type"
@@ -5335,7 +5376,7 @@ msgstr "Tipus de particionat"
 
 #: pyanaconda/textw/partition_text.py:61
 msgid "Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target."
-msgstr "La instal·lació requereix que es parteixi el disc dur. Per defecte, es fa un esquema de particions vàlid per a la majoria d'usuaris. Seleccioneu quin espai fer servir i quines unitats com a destí d'instal·lació."
+msgstr "La instal·lació requereix que es parteixi el disc dur. Per defecte, es ealitza un esquema de particions vàlid per a la majoria d'usuaris. Seleccioneu quin espai s'utilitzarà i les unitats destí per a la instal·lació."
 
 #: pyanaconda/textw/partition_text.py:64
 msgid "Use entire drive"
@@ -5929,7 +5970,7 @@ msgstr "Configura els paràmetres iSCSI"
 
 #: data/ui/iscsi-config.glade.h:8
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
-msgstr "Per fer servir discs iSCSI, heu de proporcionar l'adreça del vostre destí iSCSI i el nom de l'iniciador iSCSI que heu configurat per a la vostra màquina."
+msgstr "Per a utilitzar discs iSCSI, heu de proporcionar l'adreça del vostre destí iSCSI i el nom de l'iniciador iSCSI que heu configurat per a la vostra màquina."
 
 #: data/ui/iscsi-config.glade.h:9
 msgid "_Add target"
@@ -6291,6 +6332,37 @@ msgstr "Gal·lès"
 #: data/lang-table.h:61
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid "You do not have enough RAM to use the graphical installer."
+#~ msgstr ""
+#~ "No disposeu de prouta memòria RAM per a utilitzar l'instal·lador gràfic."
+
+#~ msgid "Telnet"
+#~ msgstr "Telnet"
+
+#~ msgid "Waiting for telnet connection."
+#~ msgstr "S'està esperant la connexió telnet."
+
+#~ msgid "Running anaconda via telnet."
+#~ msgstr "S'està executant l'anaconda mitjançant telnet."
+
+#~ msgid "Use dynamic IP configuration (DHCP)"
+#~ msgstr "Utilitza la configuració d'IP dinàmica (DHCP)"
+
+#~ msgid "Missing Device"
+#~ msgstr "Falta dispositiu"
+
+#~ msgid "You must select a network device"
+#~ msgstr "Heu de seleccionar un dispositiu de xarxa"
+
+#~ msgid "IPv4 Network Mask "
+#~ msgstr "Màscara de xarxa IPv4 "
+
+#~ msgid "Error configuring network device"
+#~ msgstr "S'ha produït un error en configurar la interfície de xarxa"
+
+#~ msgid "Error configuring network device %s"
+#~ msgstr "S'ha produït un error en configurar el dispositiu de xarxa %s"
 
 #~ msgid "Starting graphical installation."
 #~ msgstr "S'esta iniciant la instal·lació gràfica."
