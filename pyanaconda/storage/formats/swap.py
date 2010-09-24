@@ -159,9 +159,8 @@ class SwapSpace(DeviceFormat):
         w = None
         if intf:
             w = intf.progressWindow(_("Formatting"),
-                                    _("Creating %s on %s")
-                                    % (self.type,
-                                       kwargs.get("device", self.device)),
+                                    _("Creating %(type)s on %(device)s")
+                                    % {"type": self.type, "device": kwargs.get("device", self.device)},
                                     100, pulse = True)
 
         try:
