@@ -1101,7 +1101,7 @@ class BTRFS(FS):
     _linuxNative = True
     _bootable = False
     _maxLabelChars = 256
-    _supported = False
+    _supported = True
     _dump = True
     _check = True
     _packages = ["btrfs-progs"]
@@ -1124,15 +1124,6 @@ class BTRFS(FS):
     def resizeArgs(self):
         argv = ["-r", "%dm" % (self.targetSize,), self.device]
         return argv
-
-    @property
-    def supported(self):
-        """ Is this filesystem a supported type? """
-        supported = self._supported
-        if flags.cmdline.has_key("btrfs"):
-            supported = self.utilsAvailable
-
-        return supported
 
 register_device_format(BTRFS)
 
