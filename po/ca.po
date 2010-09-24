@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-09-01 20:52-0500\n"
-"PO-Revision-Date: 2010-09-24 18:10+0100\n"
+"PO-Revision-Date: 2010-09-24 19:29+0100\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "Language: ca\n"
@@ -32,6 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Catalan\n"
 
 #: anaconda:313
 msgid "Press <enter> for a shell"
@@ -1151,7 +1152,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Les següents particions no s'han suprimit perquè s'estan fent servir:\n"
+"Les següents particions no s'han eliminat perquè s'estan utilitzat:\n"
 "\n"
 "%s"
 
@@ -1733,7 +1734,7 @@ msgstr ""
 "\n"
 "Heu escollit connectar-vos a un visualitzador de vnc.\n"
 "No us cal establir una contrasenya. Si establiu una contrasenya,\n"
-"es farà servir en cas que no es pugui connectar al visualitzador\n"
+"s'utilitzarà en cas que no es pugui connectar al visualitzador\n"
 "\n"
 
 #: pyanaconda/vnc.py:257
@@ -1789,7 +1790,7 @@ msgstr "Sense contrasenya"
 #: pyanaconda/vnc.py:290
 #: pyanaconda/vnc.py:385
 msgid "A password will prevent unauthorized listeners connecting and monitoring your installation progress.  Please enter a password to be used for the installation"
-msgstr "La contrasenya previndrà accessos i/o escoltes no autoritzades durant el procés d'instal·lació. Indiqueu la contrasenya que es farà servir per a la instal·lació"
+msgstr "La contrasenya evitarà els accessos i/o les escoltes no autoritzades durant el procés d'instal·lació. Indiqueu la contrasenya que s'utilitzarà per a la instal·lació"
 
 #: pyanaconda/vnc.py:298
 #: pyanaconda/vnc.py:393
@@ -1942,7 +1943,7 @@ msgstr "No s'ha pogut accedir al disc."
 #: pyanaconda/yuminstall.py:631
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
-msgstr "Al repositori %r li manca el nom en la configuració, es farà servir l'id"
+msgstr "Al repositori %r li manca el nom en la configuració, s'utilitzarà l'id"
 
 #: pyanaconda/yuminstall.py:752
 #: pyanaconda/yuminstall.py:1200
@@ -2086,7 +2087,7 @@ msgstr "Ara es reiniciarà el sistema."
 #: pyanaconda/yuminstall.py:1663
 #, python-format
 msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr "El sistema des del que esteu fent servir és massa antic per actualitzar-lo a aquesta versió de %s. Esteu segur que voleu continuar amb el procés d'actualització?"
+msgstr "El sistema des del qual esteu realitzant l'actualització és massa antic per actualitzar-lo a aquesta versió de %s. Esteu segurs que voleu continuar amb el procés d'actualització?"
 
 #: pyanaconda/yuminstall.py:1698
 #, python-format
@@ -3070,7 +3071,7 @@ msgstr "Etiqueta duplicada"
 
 #: pyanaconda/iw/osbootwidget.py:246
 msgid "This label is already in use for another boot entry."
-msgstr "Ja s'està fent servir aquesta etiqueta en una altra entrada d'arranc."
+msgstr "Ja s'està utilitzant aquesta etiqueta en una altra entrada de l'arranc."
 
 #: pyanaconda/iw/osbootwidget.py:259
 msgid "Duplicate Device"
@@ -3078,7 +3079,7 @@ msgstr "Dispositiu duplicat"
 
 #: pyanaconda/iw/osbootwidget.py:260
 msgid "This device is already being used for another boot entry."
-msgstr "Ja s'està fent servir aquest dispositiu en una altra entrada d'arranc."
+msgstr "Ja s'està utilitzant aquest dispositiu en una altra entrada de l'arranc."
 
 #: pyanaconda/iw/osbootwidget.py:322
 msgid "Cannot Delete"
@@ -3568,7 +3569,7 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Aquesta versió de %(productName)s pot utilitzar un sistema de fitxers que proporciona alguns beneficis comparat amb el sistema de fitxers que s'ha fet servir tradicionalment en %(productName)s. Es pot convertir les particions formatades sense que se'n perdin les dades.\n"
+"Aquesta versió de %(productName)s és compatible amb un sistema de fitxers actualitzat, el qual proporciona alguns beneficis en comparació amb el sistema de fitxers que s'incloïa tradicionalment amb %(productName)s. Aquest programa d'instal·lació pot convertir les particions formatades sense que se'n perdin les dades.\n"
 "\n"
 "Quines d'aquestes particions voleu convertir?"
 
@@ -3974,7 +3975,7 @@ msgstr "Sembla que no hi ha cap disc dur al sistema. Voleu configurar dispositiu
 #: loader/hdinstall.c:226
 #, c-format
 msgid "What partition and directory on that partition holds the installation image for %s?  If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "Quina partició i directori en aquella partició conté les imatges per a %s? Si no veieu la unitat de disc que feu servir llistada aquí, premeu F2 per configurar dispositius addicionals."
+msgstr "En quina partició i i en quin directori d'aquella partició hi han les imatges per a %s? Si no veieu la unitat de disc que feu servir llistada aquí, premeu F2 per a configurar dispositius addicionals."
 
 #: loader/hdinstall.c:250
 msgid "Directory holding image:"
@@ -4370,7 +4371,7 @@ msgstr "Servidor de noms:"
 
 #: loader/net.c:1007
 msgid "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr "Introduïu l'adreça i el prefix IPv4 i/o IPv6 (adreça / prefix). Per a IPv4, es pot indicar una màscara de xarxara de quatre nombres separats per punts, o bé fent servir l'estil CIDR. Les adreces de la passarel·la i del servidor de noms han de ser vàlides."
+msgstr "Introduïu l'adreça i el prefix IPv4 i/o IPv6 (adreça / prefix). Per a IPv4, es pot indicar una màscara de xarxa de quatre números separats per punts, o bé es pot utilitzar l'estil CIDR. Les adreces de la passarel·la i del servidor de noms han de ser adreces vàlides d'IPv4 o d'IPv6."
 
 #: loader/net.c:1024
 msgid "Manual TCP/IP Configuration"
@@ -4773,7 +4774,7 @@ msgstr ""
 "\n"
 "     %s\n"
 "\n"
-"al vostre fitxer /etc/fstab s'està fent servir com a partició de suspensió del programari, el que significa que el vostre sistema està aturat temporalment. Per realitzar una actualització, apagueu el vostre sistema en comptes d'aturar-lo temporalment."
+"en el vostre fitxer /etc/fstab s'està utilitzant com a partició de suspensió de programari, el que significa que el vostre sistema està aturat temporalment. Per a realitzar una actualització, apagueu el vostre sistema en comptes d'aturar-lo temporalment."
 
 #: pyanaconda/storage/__init__.py:1869
 #, python-format
@@ -4788,7 +4789,7 @@ msgstr ""
 "\n"
 "     /dev/%s\n"
 "\n"
-"al vostre fitxer /etc/fstab s'està fent servir com a dispositiu per a suspensió de programari, per tant el vostre sistema està hibernant. Si esteu fent una nova instal·lació, assegureu-vos que l'instal·lador està configurat per formatar totes les particions d'intercanvi."
+"en el vostre fitxer /etc/fstab s'està utilitzant com a dispositiu de suspensió de programari, per tant el vostre sistema està hibernant. Si esteu fent una nova instal·lació, assegureu-vos que l'instal·lador està configurat per formatar totes les particions d'intercanvi."
 
 #: pyanaconda/storage/__init__.py:1881
 #, python-format
@@ -5103,7 +5104,7 @@ msgstr "No s'ha trobat prou espai lliure per al particionat automàtic. Premeu �
 
 #: pyanaconda/storage/partitioning.py:201
 msgid "Could not find enough free space for automatic partitioning, please use another partitioning method."
-msgstr "No s'ha trobat prou espai lliure per al particionat automàtic. Feu servir un altre mètode."
+msgstr "No s'ha trobat prou espai lliure per al particionat automàtic, utilitzeu un altre mètode de particionat."
 
 #: pyanaconda/storage/partitioning.py:230
 msgid "Warnings During Automatic Partitioning"
