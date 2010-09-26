@@ -13,12 +13,13 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 14.17.2\n"
+"Project-Id-Version: anaconda 14.17.4\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-09-26 19:57+0800\n"
+"POT-Creation-Date: 2010-09-01 20:52-0500\n"
+"PO-Revision-Date: 2010-09-26 21:57+0800\n"
 "Last-Translator: Wei-Lun Chao <chaoweilun@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,7 +29,29 @@ msgstr ""
 msgid "Press <enter> for a shell"
 msgstr "按下 <enter> 以啟動 shell"
 
-#: anaconda:340 pyanaconda/rescue.py:353 pyanaconda/rescue.py:379
+#: anaconda:336
+msgid "Not enough RAM"
+msgstr "記憶體不足"
+
+#: anaconda:337
+msgid ""
+" Try the text mode installer by running:\n"
+"\n"
+"'/usr/bin/liveinst -T'\n"
+"\n"
+" from a root terminal."
+msgstr ""
+" 嘗試文字模式安裝程式經由執行：\n"
+"\n"
+"「/usr/bin/liveinst -T」\n"
+"\n"
+" 於 root 身分登入的終端機。"
+
+#: anaconda:340
+msgid " Starting text mode."
+msgstr " 啟動文字模式。"
+
+#: anaconda:364 pyanaconda/rescue.py:353 pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:392 pyanaconda/rescue.py:475 pyanaconda/rescue.py:488
 #: pyanaconda/rescue.py:499 pyanaconda/text.py:519 loader/windows.h:31
 #: loader/cdinstall.c:229 loader/cdinstall.c:233 loader/cdinstall.c:249
@@ -44,57 +67,39 @@ msgstr "按下 <enter> 以啟動 shell"
 #: loader/kickstart.c:187 loader/kickstart.c:192 loader/kickstart.c:299
 #: loader/kickstart.c:339 loader/kickstart.c:355 loader/kickstart.c:382
 #: loader/kickstart.c:571 loader/lang.c:114 loader/lang.c:373
-#: loader/loader.c:435 loader/loader.c:471 loader/loader.c:511
-#: loader/loader.c:529 loader/loader.c:546 loader/loader.c:583
-#: loader/loader.c:1218 loader/loader.c:1403 loader/mediacheck.c:47
+#: loader/loader.c:434 loader/loader.c:470 loader/loader.c:510
+#: loader/loader.c:528 loader/loader.c:545 loader/loader.c:582
+#: loader/loader.c:1213 loader/loader.c:1400 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/mediacheck.c:106 loader/method.c:286 loader/method.c:360
-#: loader/net.c:619 loader/net.c:987 loader/net.c:1634 loader/net.c:1655
-#: loader/net.c:1961 loader/net.c:1980 loader/net.c:1992
+#: loader/net.c:621 loader/net.c:1001 loader/net.c:1649 loader/net.c:1670
+#: loader/net.c:1976 loader/net.c:1995 loader/net.c:2007
 #: loader/nfsinstall.c:116 loader/nfsinstall.c:309 loader/nfsinstall.c:326
-#: loader/nfsinstall.c:414 loader/telnetd.c:93 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
-#: loader/urlinstall.c:385 loader/urlinstall.c:392 loader/urls.c:269
-#: loader/urls.c:340 loader/urls.c:346 loader/urls.c:355
-#: pyanaconda/textw/constants_text.py:44
+#: loader/nfsinstall.c:414 loader/urlinstall.c:137 loader/urlinstall.c:159
+#: loader/urlinstall.c:221 loader/urlinstall.c:374 loader/urlinstall.c:385
+#: loader/urlinstall.c:392 loader/urls.c:269 loader/urls.c:340
+#: loader/urls.c:346 loader/urls.c:355 pyanaconda/textw/constants_text.py:44
 msgid "OK"
 msgstr "確定"
 
-#: anaconda:349
-msgid "You do not have enough RAM to use the graphical installer."
-msgstr "您沒有足夠的記憶體以使用圖形安裝程式。"
-
-#: anaconda:353
-msgid ""
-"Try the text mode installer by running:\n\n"
-"'/usr/bin/liveinst -T'\n\n"
-" from a root terminal."
-msgstr ""
-"嘗試文字模式安裝程式經由執行：\n\n"
-"「/usr/bin/liveinst -T」\n\n"
-"於 root 終端機。"
-
-#: anaconda:356
-msgid "Not enough RAM"
-msgstr "記憶體不足"
-
-#: anaconda:366
-msgid "Starting text mode."
-msgstr "開始文字模式。"
-
-#: anaconda:713
+#: anaconda:728
 msgid "Would you like to use VNC?"
 msgstr "您希望使用 VNC 嗎？"
 
-#: anaconda:714
-msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
-msgstr "文字模式提供了一組安裝選項。它不允許您指定您自己的分割區格式或套件選擇。您是否希望使用 VNC 模式來代替？"
+#: anaconda:729
+msgid ""
+"Text mode provides a limited set of installation options.  It does not allow "
+"you to specify your own partitioning layout or package selections.  Would "
+"you like to use VNC mode instead?"
+msgstr ""
+"文字模式提供了一組安裝選項。它不允許您指定您自己的分割區格式或套件選擇。您是"
+"否希望使用 VNC 模式來代替？"
 
-#: anaconda:740
+#: anaconda:755
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "無法使用圖形模式安裝。即將進入文字模式。"
 
-#: anaconda:748
+#: anaconda:763
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY 變數尚未設定。即將啟動文字模式。"
 
@@ -117,11 +122,17 @@ msgid "Transferring install image to hard drive"
 msgstr "正在傳送安裝映像檔至硬碟"
 
 #: pyanaconda/backend.py:161
-msgid "An error occurred transferring the install image to your hard drive.  This is often cause by damaged or low quality media."
-msgstr "傳送安裝映像檔到您的硬碟時發生了錯誤。這一般是因為低品質的媒介或是媒介損毀所造成的。"
+msgid ""
+"An error occurred transferring the install image to your hard drive.  This "
+"is often cause by damaged or low quality media."
+msgstr ""
+"傳送安裝映像檔到您的硬碟時發生了錯誤。這一般是因為低品質的媒體或是媒體損毀所"
+"造成的。"
 
 #: pyanaconda/backend.py:165
-msgid "An error occurred transferring the install image to your hard drive. You are probably out of disk space."
+msgid ""
+"An error occurred transferring the install image to your hard drive. You are "
+"probably out of disk space."
 msgstr "傳送安裝映像檔到硬碟時發生錯誤。你的硬碟空間可能不夠。"
 
 #: pyanaconda/backend.py:169 pyanaconda/image.py:289 pyanaconda/livecd.py:198
@@ -134,32 +145,32 @@ msgstr "傳送安裝映像檔到硬碟時發生錯誤。你的硬碟空間可能
 #: pyanaconda/iw/advanced_storage.py:96 pyanaconda/iw/advanced_storage.py:170
 #: pyanaconda/iw/advanced_storage.py:173 pyanaconda/iw/advanced_storage.py:201
 #: pyanaconda/iw/autopart_type.py:95 pyanaconda/iw/cleardisks_gui.py:44
-#: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:428
+#: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:431
 #: pyanaconda/iw/osbootwidget.py:211 pyanaconda/iw/osbootwidget.py:220
 #: pyanaconda/iw/raid_dialog_gui.py:223 pyanaconda/iw/task_gui.py:54
-#: pyanaconda/iw/task_gui.py:155 pyanaconda/iw/task_gui.py:302
-#: pyanaconda/iw/task_gui.py:463 loader/windows.h:31 loader/cdinstall.c:229
+#: pyanaconda/iw/task_gui.py:152 pyanaconda/iw/task_gui.py:305
+#: pyanaconda/iw/task_gui.py:469 loader/windows.h:31 loader/cdinstall.c:229
 #: loader/cdinstall.c:505 loader/driverdisk.c:228 loader/driverdisk.c:471
 #: loader/driverdisk.c:506 loader/driverdisk.c:534 loader/driverdisk.c:542
 #: loader/driverdisk.c:609 loader/hdinstall.c:115 loader/hdinstall.c:325
 #: loader/hdinstall.c:440 loader/hdinstall.c:483 loader/hdinstall.c:496
-#: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:435
-#: loader/loader.c:546 loader/loader.c:1218 loader/mediacheck.c:47
+#: loader/kickstart.c:299 loader/lang.c:114 loader/loader.c:434
+#: loader/loader.c:545 loader/loader.c:1213 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/method.c:286 loader/method.c:360 loader/nfsinstall.c:309
-#: loader/nfsinstall.c:326 loader/telnetd.c:93 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urls.c:340
-#: loader/urls.c:346 loader/urls.c:355 pyanaconda/storage/__init__.py:230
+#: loader/nfsinstall.c:326 loader/urlinstall.c:137 loader/urlinstall.c:159
+#: loader/urlinstall.c:221 loader/urls.c:340 loader/urls.c:346
+#: loader/urls.c:355 pyanaconda/storage/__init__.py:230
 #: pyanaconda/storage/__init__.py:1818 pyanaconda/storage/__init__.py:1905
-#: pyanaconda/storage/zfcp.py:375 pyanaconda/textw/netconfig_text.py:282
-#: pyanaconda/textw/upgrade_text.py:181 pyanaconda/textw/upgrade_text.py:188
+#: pyanaconda/storage/zfcp.py:375 pyanaconda/textw/upgrade_text.py:181
+#: pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
 msgstr "錯誤"
 
 #: pyanaconda/bootloader.py:55 pyanaconda/bootloader.py:221
 #: pyanaconda/bootloader.py:227 pyanaconda/image.py:82
 #: pyanaconda/installinterfacebase.py:51 pyanaconda/installinterfacebase.py:82
-#: pyanaconda/installinterfacebase.py:142 pyanaconda/packages.py:313
+#: pyanaconda/installinterfacebase.py:142 pyanaconda/packages.py:314
 #: pyanaconda/yuminstall.py:1454 pyanaconda/yuminstall.py:1662
 #: pyanaconda/yuminstall.py:1697 pyanaconda/iw/blpasswidget.py:148
 #: pyanaconda/iw/upgrade_swap_gui.py:190 pyanaconda/iw/upgrade_swap_gui.py:198
@@ -169,17 +180,20 @@ msgstr "警告"
 
 #: pyanaconda/bootloader.py:56
 msgid ""
-"Filesystems have already been activated.  You cannot go back past this point.\n\n"
+"Filesystems have already been activated.  You cannot go back past this "
+"point.\n"
+"\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"您的檔案系統已經啟動了。在這之後您將無法再回到磁碟編輯視窗。\n\n"
+"您的檔案系統已經啟動了。在這之後您將無法再回到磁碟編輯視窗。\n"
+"\n"
 "您想要繼續進行安裝嗎？"
 
 #: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1088 pyanaconda/gui.py:1125
 #: pyanaconda/gui.py:1326 pyanaconda/image.py:91 pyanaconda/kickstart.py:156
 #: pyanaconda/livecd.py:205 pyanaconda/livecd.py:447
-#: pyanaconda/packages.py:130 pyanaconda/upgrade.py:58
-#: pyanaconda/upgrade.py:95 pyanaconda/upgrade.py:251
+#: pyanaconda/packages.py:131 pyanaconda/upgrade.py:58
+#: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
 #: pyanaconda/yuminstall.py:257 pyanaconda/yuminstall.py:756
 #: pyanaconda/yuminstall.py:958 pyanaconda/yuminstall.py:963
 #: pyanaconda/yuminstall.py:1043 pyanaconda/yuminstall.py:1049
@@ -192,8 +206,8 @@ msgid "_Exit installer"
 msgstr "退出安裝程式(_E)"
 
 #: pyanaconda/bootloader.py:60 pyanaconda/image.py:92 pyanaconda/image.py:251
-#: pyanaconda/kickstart.py:1366 pyanaconda/kickstart.py:1405
-#: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:95
+#: pyanaconda/kickstart.py:1383 pyanaconda/kickstart.py:1422
+#: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1280 pyanaconda/yuminstall.py:1464
 #: pyanaconda/iw/partition_gui.py:1600 pyanaconda/storage/__init__.py:2000
 msgid "_Continue"
@@ -208,11 +222,15 @@ msgid "Installing bootloader."
 msgstr "正在安裝開機管理程式。"
 
 #: pyanaconda/bootloader.py:222
-msgid "There was an error installing the bootloader.  The system may not be bootable."
+msgid ""
+"There was an error installing the bootloader.  The system may not be "
+"bootable."
 msgstr "安裝開機管理程式時發生了錯誤。系統可能將無法啟動。"
 
 #: pyanaconda/bootloader.py:228
-msgid "No kernel packages were installed on the system.  Bootloader configuration will not be changed."
+msgid ""
+"No kernel packages were installed on the system.  Bootloader configuration "
+"will not be changed."
 msgstr "您的系統上未安裝核心套件。您的開機管理程式設定將不會變動。"
 
 #: pyanaconda/cmdline.py:56
@@ -224,19 +242,24 @@ msgid "In progress"
 msgstr "正在進行中"
 
 #: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1120
-#: pyanaconda/kickstart.py:1150 pyanaconda/kickstart.py:1230
-#: pyanaconda/kickstart.py:1238 pyanaconda/kickstart.py:1276
-#: pyanaconda/kickstart.py:1284 pyanaconda/text.py:392
+#: pyanaconda/kickstart.py:1167 pyanaconda/kickstart.py:1247
+#: pyanaconda/kickstart.py:1255 pyanaconda/kickstart.py:1293
+#: pyanaconda/kickstart.py:1301 pyanaconda/text.py:392
 #, python-format
 msgid ""
-"The following error was found while parsing the kickstart configuration file:\n\n"
+"The following error was found while parsing the kickstart configuration "
+"file:\n"
+"\n"
 "%s"
 msgstr ""
-"以下為剖析 kickstart 設定檔時所發現的錯誤：\n\n"
+"以下為剖析 kickstart 設定檔時所發現的錯誤：\n"
+"\n"
 "%s"
 
 #: pyanaconda/cmdline.py:101
-msgid "Command line mode requires all choices to be specified in a kickstart configuration file."
+msgid ""
+"Command line mode requires all choices to be specified in a kickstart "
+"configuration file."
 msgstr "指令列模式將需要所有選項都指定於 kickstart 設定檔中。"
 
 #: pyanaconda/cmdline.py:120 pyanaconda/cmdline.py:127
@@ -245,8 +268,12 @@ msgid "Can't have a question in command line mode!"
 msgstr "在指令列模式中不能輸入問題！"
 
 #: pyanaconda/constants.py:74
-msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report"
-msgstr "發生無法處理的例外狀況。這極可能是一個程式錯誤。請複製一份完整的文字敘述，並回報程式錯誤"
+msgid ""
+"An unhandled exception has occurred.  This is most likely a bug.  Please "
+"save a copy of the detailed exception and file a bug report"
+msgstr ""
+"發生無法處理的例外狀況。這極可能是一個程式錯誤。請複製一份完整的文字敘述，並"
+"回報程式錯誤"
 
 #: pyanaconda/constants.py:80
 msgid " with the provider of this software."
@@ -267,10 +294,16 @@ msgstr "螢幕截圖已複製完畢"
 
 #: pyanaconda/gui.py:126
 msgid ""
-"The screenshots have been saved in the directory:\n\n\t/root/anaconda-screenshots/\n\n"
+"The screenshots have been saved in the directory:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
 "You can access these when you reboot and login as root."
 msgstr ""
-"螢幕截圖已儲存到以下目錄：\n\n\t/root/anaconda-screenshots/\n\n"
+"螢幕截圖已儲存到以下目錄：\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
 "在您重新開機並登入為 root 後，您即可存取這些檔案。"
 
 #: pyanaconda/gui.py:165
@@ -287,11 +320,17 @@ msgid "Error Saving Screenshot"
 msgstr "儲存螢幕截圖時發生錯誤"
 
 #: pyanaconda/gui.py:170
-msgid "An error occurred while saving the screenshot.  If this occurred during package installation, you may need to try several times for it to succeed."
-msgstr "儲存螢幕截圖時發生錯誤。假如這發生在套件安裝階段，您也許需要多試幾次才能成功。"
+msgid ""
+"An error occurred while saving the screenshot.  If this occurred during "
+"package installation, you may need to try several times for it to succeed."
+msgstr ""
+"儲存螢幕截圖時發生錯誤。假如這發生在套件安裝階段，您也許需要多試幾次才能成"
+"功。"
 
 #: pyanaconda/gui.py:525 pyanaconda/text.py:150
-msgid "Choose a passphrase for the encrypted devices. You will be prompted for this passphrase during system boot."
+msgid ""
+"Choose a passphrase for the encrypted devices. You will be prompted for this "
+"passphrase during system boot."
 msgstr "請為您的加密裝置選擇一組密碼。您將會在系統啟動時被要求輸入這組密碼。"
 
 #: pyanaconda/gui.py:544 pyanaconda/gui.py:552 pyanaconda/text.py:188
@@ -309,15 +348,17 @@ msgstr "密碼長度不得少於八個字元。"
 
 #: pyanaconda/gui.py:587 pyanaconda/text.py:226
 #, python-format
-msgid "Device %s is encrypted. In order to access the device's contents during installation you must enter the device's passphrase below."
+msgid ""
+"Device %s is encrypted. In order to access the device's contents during "
+"installation you must enter the device's passphrase below."
 msgstr "%s 裝置已加密。若要在安裝時存取該裝置的內容，您必須輸入裝置的密碼。"
 
 #: pyanaconda/gui.py:678 pyanaconda/gui.py:1326
 #: pyanaconda/partIntfHelpers.py:153 pyanaconda/partIntfHelpers.py:338
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:129
-#: loader/driverdisk.c:409 loader/kickstart.c:382 loader/loader.c:471
-#: loader/loader.c:583 pyanaconda/textw/constants_text.py:48
+#: loader/driverdisk.c:409 loader/kickstart.c:382 loader/loader.c:470
+#: loader/loader.c:582 pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr "取消"
 
@@ -334,7 +375,7 @@ msgstr "無線網路設定"
 msgid "Scanning access points for wireless devices"
 msgstr "掃描存取點用於無線網路裝置"
 
-#: pyanaconda/gui.py:959 pyanaconda/textw/netconfig_text.py:276
+#: pyanaconda/gui.py:959 pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "正在等候 NetworkManager"
 
@@ -350,7 +391,7 @@ msgstr "啟用這些網路介面時失敗：%s"
 
 #: pyanaconda/gui.py:984
 msgid "Network Configuration"
-msgstr "網路組態"
+msgstr "網路設定"
 
 #: pyanaconda/gui.py:993 pyanaconda/iw/netconfig_dialog.py:213
 #, python-format
@@ -376,14 +417,16 @@ msgstr "錯誤！"
 #: pyanaconda/gui.py:1231 pyanaconda/text.py:497
 #, python-format
 msgid ""
-"An error occurred when attempting to load an installer interface component.\n\n"
+"An error occurred when attempting to load an installer interface component.\n"
+"\n"
 "className = %s"
 msgstr ""
-"當試著要載入一個安裝程式的介面元件時發生錯誤。\n\n"
+"當試著要載入一個安裝程式的介面元件時發生錯誤。\n"
+"\n"
 "className = %s"
 
 #: pyanaconda/gui.py:1236 pyanaconda/image.py:164 pyanaconda/image.py:194
-#: pyanaconda/packages.py:330 pyanaconda/storage/__init__.py:1817
+#: pyanaconda/packages.py:331 pyanaconda/storage/__init__.py:1817
 msgid "_Exit"
 msgstr "離開(_E)"
 
@@ -398,7 +441,7 @@ msgstr "重試(_R)"
 msgid "The system will now reboot."
 msgstr "系統現在將重新啟動。"
 
-#: pyanaconda/gui.py:1240 pyanaconda/image.py:251 pyanaconda/packages.py:334
+#: pyanaconda/gui.py:1240 pyanaconda/image.py:251 pyanaconda/packages.py:335
 #: pyanaconda/yuminstall.py:1523
 msgid "_Reboot"
 msgstr "重新開機(_R)"
@@ -408,7 +451,7 @@ msgid "Exiting"
 msgstr "退出"
 
 #: pyanaconda/gui.py:1323 pyanaconda/livecd.py:126 pyanaconda/text.py:271
-#: pyanaconda/upgrade.py:242
+#: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "退出安裝程式"
 
@@ -432,10 +475,15 @@ msgstr "安裝視窗"
 #: pyanaconda/image.py:83
 #, python-format
 msgid ""
-"The ISO image %s has a size which is not a multiple of 2048 bytes.  This may mean it was corrupted on transfer to this computer.\n\n"
-"It is recommended that you exit and abort your installation, but you can choose to continue if you think this is in error."
+"The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
+"mean it was corrupted on transfer to this computer.\n"
+"\n"
+"It is recommended that you exit and abort your installation, but you can "
+"choose to continue if you think this is in error."
 msgstr ""
-"ISO 映像檔 %s 擁有一個非 2048 位元組倍數的大小。這可能代表它傳輸至此電腦時損毀了。\n\n"
+"ISO 映像檔 %s 擁有一個非 2048 位元組倍數的大小。這可能代表它傳輸至此電腦時損"
+"毀了。\n"
+"\n"
 "我們建議您退出並結束您的安裝程序，但若您希望的話，您也可選擇繼續進行。"
 
 #: pyanaconda/image.py:156
@@ -444,8 +492,15 @@ msgstr "無法掛載 ISO 來源"
 
 #: pyanaconda/image.py:157
 #, python-format
-msgid "An error occurred mounting the source device %s.  This may happen if your ISO images are located on an advanced storage device like LVM or RAID, or if there was a problem mounting a partition.  Click exit to abort the installation."
-msgstr "掛載來源裝置 %s 時發生了錯誤。若您的 ISO 映像檔位於一個像是 LVM 或是磁碟陣列的進階儲存裝置上，或是掛載分割區時發生問題的話，這就有可能會發生。請按下「退出」來終止安裝程序。"
+msgid ""
+"An error occurred mounting the source device %s.  This may happen if your "
+"ISO images are located on an advanced storage device like LVM or RAID, or if "
+"there was a problem mounting a partition.  Click exit to abort the "
+"installation."
+msgstr ""
+"掛載來源裝置 %s 時發生了錯誤。若您的 ISO 映像檔位於一個像是 LVM 或是磁碟陣列"
+"的進階儲存裝置上，或是掛載分割區時發生問題的話，這就有可能會發生。請按下「退"
+"出」來終止安裝程序。"
 
 #: pyanaconda/image.py:185
 msgid "Missing ISO 9660 Image"
@@ -454,10 +509,14 @@ msgstr "找不到 ISO 9660 映像檔"
 #: pyanaconda/image.py:186
 #, python-format
 msgid ""
-"The installer has tried to mount image #%s, but cannot find it on the hard drive.\n\n"
-"Please copy this image to the drive and click Retry.  Click Exit to abort the installation."
+"The installer has tried to mount image #%s, but cannot find it on the hard "
+"drive.\n"
+"\n"
+"Please copy this image to the drive and click Retry.  Click Exit to abort "
+"the installation."
 msgstr ""
-"安裝程式試圖掛載映像檔 #%s，但在硬碟上找不到該映像檔。\n\n"
+"安裝程式試圖掛載映像檔 #%s，但在硬碟上找不到該映像檔。\n"
+"\n"
 "請將此映像檔複製至硬碟中，然後按下「重試」。請按下「退出」來中止安裝程序。"
 
 #: pyanaconda/image.py:241
@@ -467,16 +526,21 @@ msgstr "需要的安裝媒體"
 #: pyanaconda/image.py:242
 #, python-format
 msgid ""
-"The software you have selected to install will require the following %(productName)s %(productVersion)s discs:\n\n"
+"The software you have selected to install will require the following "
+"%(productName)s %(productVersion)s discs:\n"
+"\n"
 "%(reqcdstr)s\n"
-"Please have these ready before proceeding with the installation.  If you need to abort the installation and exit please select \"Reboot\"."
+"Please have these ready before proceeding with the installation.  If you "
+"need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
-"您所選取要安裝的軟體需要下列的 %(productName)s %(productVersion)s 光碟片：\n\n"
+"您所選取要安裝的軟體需要下列的 %(productName)s %(productVersion)s 光碟片：\n"
+"\n"
 "%(reqcdstr)s\n"
-"請在開始安裝之前準備好這些光碟片。假如您需要放棄安裝並且重新開機，請選擇「重新開機」。"
+"請在開始安裝之前準備好這些光碟片。假如您需要放棄安裝並且重新開機，請選擇「重"
+"新開機」。"
 
-#: pyanaconda/image.py:251 pyanaconda/livecd.py:446 pyanaconda/packages.py:334
-#: pyanaconda/upgrade.py:250 pyanaconda/yuminstall.py:963
+#: pyanaconda/image.py:251 pyanaconda/livecd.py:446 pyanaconda/packages.py:335
+#: pyanaconda/upgrade.py:253 pyanaconda/yuminstall.py:963
 #: pyanaconda/yuminstall.py:1049 pyanaconda/yuminstall.py:1463
 #: pyanaconda/yuminstall.py:1505 pyanaconda/yuminstall.py:1523
 #: data/ui/anaconda.glade.h:2
@@ -485,8 +549,12 @@ msgstr "上一步(_B)"
 
 #: pyanaconda/image.py:290
 #, python-format
-msgid "An error occurred unmounting the disc.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
-msgstr "卸載光碟時發生錯誤。請確定您沒有從 shell 存取 tty2 上的 %s，然後點選「確定」來再試一次。"
+msgid ""
+"An error occurred unmounting the disc.  Please make sure you're not "
+"accessing %s from the shell on tty2 and then click OK to retry."
+msgstr ""
+"卸載光碟時發生錯誤。請確定您沒有從 shell 存取 tty2 上的 %s，然後點選「確定」"
+"來再試一次。"
 
 #: pyanaconda/installclass.py:67
 msgid "Install on System"
@@ -494,27 +562,42 @@ msgstr "安裝到系統"
 
 #: pyanaconda/installinterfacebase.py:52
 #, python-format
-msgid "Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS RAID sets. Ignoring disk %s."
-msgid_plural "Disks %s contain BIOS RAID metadata, but are not part of any recognized BIOS RAID sets. Ignoring disks %s."
-msgstr[0] "磁碟 %s 含有 BIOS 磁碟陣列後設資料，但是不是任何已識別 BIOS 磁碟陣列集合的一部份。將會忽略磁碟 %s。"
+msgid ""
+"Disk %s contains BIOS RAID metadata, but is not part of any recognized BIOS "
+"RAID sets. Ignoring disk %s."
+msgid_plural ""
+"Disks %s contain BIOS RAID metadata, but are not part of any recognized BIOS "
+"RAID sets. Ignoring disks %s."
+msgstr[0] ""
+"磁碟 %s 含有 BIOS 磁碟陣列後設資料，但是不是任何已識別 BIOS 磁碟陣列集合的一"
+"部份。將會忽略磁碟 %s。"
 
 #: pyanaconda/installinterfacebase.py:83
 #, python-format
 msgid ""
-"Error processing drive:\n\n"
+"Error processing drive:\n"
+"\n"
 "%(path)s\n"
 "%(size)-0.fMB\n"
-"%(description)s\n\n"
-"This device may need to be reinitialized.\n\n"
-"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n\n"
-"This action may also be applied to all other disks needing reinitialization.%(details)s"
+"%(description)s\n"
+"\n"
+"This device may need to be reinitialized.\n"
+"\n"
+"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
+"\n"
+"This action may also be applied to all other disks needing reinitialization."
+"%(details)s"
 msgstr ""
-"處理磁碟時發生錯誤：\n\n"
+"處理磁碟時發生錯誤：\n"
+"\n"
 "%(path)s\n"
 "%(size)-0.fMB\n"
-"%(description)s\n\n"
-"這個裝置可能需要重新初始化。\n\n"
-"重新初始化將會失去所有資料！\n\n"
+"%(description)s\n"
+"\n"
+"這個裝置可能需要重新初始化。\n"
+"\n"
+"重新初始化將會失去所有資料！\n"
+"\n"
 "這個動作也可能要套用到其他所有需要重新初始化的磁碟。%(details)s"
 
 #: pyanaconda/installinterfacebase.py:92
@@ -542,10 +625,15 @@ msgstr "全部重新初始化(_T)"
 #, python-format
 msgid ""
 "Error processing LVM.\n"
-"There is inconsistent LVM data on %(msg)s.  You can reinitialize all related PVs (%(pvs)s) which will erase the LVM metadata, or ignore which will preserve the contents.  This action may also be applied to all other PVs with inconsistent metadata."
+"There is inconsistent LVM data on %(msg)s.  You can reinitialize all related "
+"PVs (%(pvs)s) which will erase the LVM metadata, or ignore which will "
+"preserve the contents.  This action may also be applied to all other PVs "
+"with inconsistent metadata."
 msgstr ""
 "處理 LVM 時發生錯誤。\n"
-"%(msg)s 上的 LVM 資料不一致。 您可以重新初始化所有相關的 PVs (%(pvs)s)，這將會清除掉所有的 LVM 後設資料，或是忽略該項以保留內容。 這個動作也可能套用到其他所有後設資料不一致的 PVs。"
+"%(msg)s 上的 LVM 資料不一致。 您可以重新初始化所有相關的 PVs (%(pvs)s)，這將"
+"會清除掉所有的 LVM 後設資料，或是忽略該項以保留內容。 這個動作也可能套用到其"
+"他所有後設資料不一致的 PVs。"
 
 #: pyanaconda/installinterfacebase.py:171
 msgid "Unformatted DASD Device Found"
@@ -555,13 +643,22 @@ msgstr[0] "找到尚未格式化的 DASD 裝置"
 #: pyanaconda/installinterfacebase.py:173
 #, python-format
 msgid ""
-"Format uninitialized DASD device?\n\n"
-"There is %d uninitialized DASD device on this system.  To continue installation, the device must be formatted.  Formatting will remove any data on this device."
-msgid_plural "Format uninitialized DASD devices?\n\n"
-"There are %d uninitialized DASD devices on this system.  To continue installation, the devices must be formatted.  Formatting will remove any data on these devices."
+"Format uninitialized DASD device?\n"
+"\n"
+"There is %d uninitialized DASD device on this system.  To continue "
+"installation, the device must be formatted.  Formatting will remove any data "
+"on this device."
+msgid_plural ""
+"Format uninitialized DASD devices?\n"
+"\n"
+"There are %d uninitialized DASD devices on this system.  To continue "
+"installation, the devices must be formatted.  Formatting will remove any "
+"data on these devices."
 msgstr[0] ""
-"要格式化未經初始的 DASD 裝置？\n\n"
-"系統上有 %d 個未經初始的 DASD 裝置。 要繼續安裝，裝置就必須格式化。 格式化將會移除這個裝置上的任何資料。"
+"要格式化未經初始的 DASD 裝置？\n"
+"\n"
+"系統上有 %d 個未經初始的 DASD 裝置。 要繼續安裝，裝置就必須格式化。 格式化將"
+"會移除這個裝置上的任何資料。"
 
 #: pyanaconda/installinterfacebase.py:184 pyanaconda/iw/partition_gui.py:898
 msgid "_Format"
@@ -569,17 +666,23 @@ msgstr "格式化(_F)"
 
 #: pyanaconda/iutil.py:867
 #, python-format
-msgid "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)s)"
+msgid ""
+"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr "錯誤：開啟時無法將 reIPL 方法設為 %(reipl_type)s (%(filename)s：%(e)s)"
 
 #: pyanaconda/iutil.py:878
 #, python-format
-msgid "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)s)"
+msgid ""
+"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr "錯誤：寫入時無法將 reIPL 方法設為 %(reipl_type)s (%(filename)s：%(e)s)"
 
 #: pyanaconda/iutil.py:887
 #, python-format
-msgid "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)s)"
+msgid ""
+"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+"%(e)s)"
 msgstr "錯誤：關閉時無法將 reIPL 方法設為 %(reipl_type)s (%(filename)s：%(e)s)"
 
 #: pyanaconda/iutil.py:906
@@ -599,7 +702,9 @@ msgstr "警告：無法重新啟用 parm (%s)"
 
 #: pyanaconda/iutil.py:938
 #, python-format
-msgid "After shutdown, please perform a manual IPL from DASD device %s to continue installation"
+msgid ""
+"After shutdown, please perform a manual IPL from DASD device %s to continue "
+"installation"
 msgstr "關閉之後，請由 DASD 裝置 %s 進行手動式的 IPL 以繼續進行安裝程序"
 
 #: pyanaconda/iutil.py:960
@@ -614,16 +719,23 @@ msgstr "錯誤：寫入 reIPL(%(e)s) 的 FCP 內容 %(reipl_property)s"
 
 #: pyanaconda/iutil.py:990
 #, python-format
-msgid "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+msgid ""
+"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
 msgstr "錯誤：寫入 reIPL(%(e)s) 的預設 FCP 內容 %(reipl_property)s"
 
 #: pyanaconda/iutil.py:1005
 #, python-format
-msgid "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %(wwpn)s and LUN %(lun)s to continue installation"
-msgstr "關閉後，請由 FCP %(device)s 搭配 WWPN %(wwpn)s 和 LUN %(lun)s 來進行手動式的 IPL 以繼續進行安裝程序"
+msgid ""
+"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
+"%(wwpn)s and LUN %(lun)s to continue installation"
+msgstr ""
+"關閉後，請由 FCP %(device)s 搭配 WWPN %(wwpn)s 和 LUN %(lun)s 來進行手動式的 "
+"IPL 以繼續進行安裝程序"
 
 #: pyanaconda/iutil.py:1022
-msgid "After shutdown, please perform a manual IPL from the device now containing /boot to continue installation"
+msgid ""
+"After shutdown, please perform a manual IPL from the device now containing /"
+"boot to continue installation"
 msgstr "關閉後，請由包含著 /boot 的裝置來進行手動式的 IPL 以繼續進行安裝程序"
 
 #: pyanaconda/iutil.py:1033
@@ -636,8 +748,13 @@ msgstr "掛載點 /boot 或 / 位於一個我們不熟悉的磁碟上"
 
 #: pyanaconda/kickstart.py:115
 #, python-format
-msgid "There was an error running the kickstart script at line %(lineno)s.  You may examine the output in %(msgs)s.  This is a fatal error and installation will be aborted.  Press the OK button to exit the installer."
-msgstr "在執行 kickstart 命令稿第 %(lineno)s 列時發生了錯誤。請檢查 %(msgs)s 中的輸出。這是個嚴重的錯誤，因而安裝程序即將中止。請按下「確定」來退出安裝程序。"
+msgid ""
+"There was an error running the kickstart script at line %(lineno)s.  You may "
+"examine the output in %(msgs)s.  This is a fatal error and installation will "
+"be aborted.  Press the OK button to exit the installer."
+msgstr ""
+"在執行 kickstart 命令稿第 %(lineno)s 列時發生了錯誤。請檢查 %(msgs)s 中的輸"
+"出。這是個嚴重的錯誤，因而安裝程序即將中止。請按下「確定」來退出安裝程序。"
 
 #: pyanaconda/kickstart.py:123 pyanaconda/kickstart.py:125
 msgid "Scriptlet Failure"
@@ -645,82 +762,96 @@ msgstr "小型程序檔失敗"
 
 #: pyanaconda/kickstart.py:150 pyanaconda/rescue.py:262
 #: pyanaconda/yuminstall.py:751 pyanaconda/yuminstall.py:1199
-#: pyanaconda/iw/task_gui.py:308
+#: pyanaconda/iw/task_gui.py:311
 msgid "No Network Available"
 msgstr "沒有可用的網路"
 
 #: pyanaconda/kickstart.py:151
-msgid "Encryption key escrow requires networking, but there was an error enabling the network on your system."
+msgid ""
+"Encryption key escrow requires networking, but there was an error enabling "
+"the network on your system."
 msgstr "加密金鑰 escrow 需要網路作業，不過在您的系統上啟用網路時發生了錯誤。"
 
 #: pyanaconda/kickstart.py:165
 #, python-format
 msgid ""
-"The following error was encountered while downloading the escrow certificate:\n\n"
+"The following error was encountered while downloading the escrow "
+"certificate:\n"
+"\n"
 "%s"
 msgstr ""
-"下列為下載 escrow 憑證時所遇到的錯誤：\n\n"
+"下列為下載 escrow 憑證時所遇到的錯誤：\n"
+"\n"
 "%s"
 
-#: pyanaconda/kickstart.py:1249
+#: pyanaconda/kickstart.py:1266
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "處理 %%ksappend 行時發生錯誤：%s"
 
-#: pyanaconda/kickstart.py:1252
+#: pyanaconda/kickstart.py:1269
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "處理 %%ksappend 行時發生不明錯誤：%s"
 
-#: pyanaconda/kickstart.py:1307 pyanaconda/livecd.py:228
+#: pyanaconda/kickstart.py:1324 pyanaconda/livecd.py:228
 msgid "Post-Installation"
 msgstr "安裝後的階段"
 
-#: pyanaconda/kickstart.py:1308
+#: pyanaconda/kickstart.py:1325
 msgid "Running post-installation scripts"
 msgstr "執行安裝後的程序檔"
 
-#: pyanaconda/kickstart.py:1324
+#: pyanaconda/kickstart.py:1341
 msgid "Pre-Installation"
 msgstr "安裝前的階段"
 
-#: pyanaconda/kickstart.py:1325
+#: pyanaconda/kickstart.py:1342
 msgid "Running pre-installation scripts"
 msgstr "執行安裝前的程序檔"
 
-#: pyanaconda/kickstart.py:1357
+#: pyanaconda/kickstart.py:1374
 msgid "Missing Package"
 msgstr "找不到套件"
 
-#: pyanaconda/kickstart.py:1358
+#: pyanaconda/kickstart.py:1375
 #, python-format
-msgid "You have specified that the package '%s' should be installed.  This package does not exist. Would you like to continue or abort this installation?"
-msgstr "您已經指定安裝「%s」套件。這套件並不存在。請問您要繼續，還是要放棄安裝？"
+msgid ""
+"You have specified that the package '%s' should be installed.  This package "
+"does not exist. Would you like to continue or abort this installation?"
+msgstr ""
+"您已經指定安裝「%s」套件。這套件並不存在。請問您要繼續，還是要放棄安裝？"
 
-#: pyanaconda/kickstart.py:1364 pyanaconda/kickstart.py:1403
+#: pyanaconda/kickstart.py:1381 pyanaconda/kickstart.py:1420
 msgid "_Abort"
 msgstr "放棄(_A)"
 
-#: pyanaconda/kickstart.py:1365 pyanaconda/kickstart.py:1404
+#: pyanaconda/kickstart.py:1382 pyanaconda/kickstart.py:1421
 msgid "_Ignore All"
 msgstr "忽略全部(_I)"
 
-#: pyanaconda/kickstart.py:1395
+#: pyanaconda/kickstart.py:1412
 msgid "Missing Group"
 msgstr "找不到群組"
 
-#: pyanaconda/kickstart.py:1396
-#, python-format
-msgid "You have specified that the group '%s' should be installed. This group does not exist. Would you like to continue or abort this installation?"
-msgstr "您已經指定安裝「%s」群組。該群組並不存在。請問您要繼續，還是要放棄安裝？"
-
-#: pyanaconda/kickstart.py:1494
+#: pyanaconda/kickstart.py:1413
 #, python-format
 msgid ""
-"The kickstart configuration file is missing required information that anaconda cannot prompt for.  Please add the following sections and try again:\n"
+"You have specified that the group '%s' should be installed. This group does "
+"not exist. Would you like to continue or abort this installation?"
+msgstr ""
+"您已經指定安裝「%s」群組。該群組並不存在。請問您要繼續，還是要放棄安裝？"
+
+#: pyanaconda/kickstart.py:1511
+#, python-format
+msgid ""
+"The kickstart configuration file is missing required information that "
+"anaconda cannot prompt for.  Please add the following sections and try "
+"again:\n"
 "%s"
 msgstr ""
-"您的 kickstart 檔案缺少了必要的資訊，anaconda 無法提示這項資訊。請附加下列部份並重新嘗試：:\n"
+"您的 kickstart 檔案缺少了必要的資訊，anaconda 無法提示這項資訊。請附加下列部"
+"份並重新嘗試：:\n"
 "%s"
 
 #: pyanaconda/livecd.py:121
@@ -729,7 +860,8 @@ msgstr "找不到安裝映像檔"
 
 #: pyanaconda/livecd.py:122
 #, python-format
-msgid "The given location isn't a valid %s live CD to use as an installation source."
+msgid ""
+"The given location isn't a valid %s live CD to use as an installation source."
 msgstr "提供的位置並非可使用來作為安裝來源的有效 %s live CD。"
 
 #: pyanaconda/livecd.py:180
@@ -738,19 +870,28 @@ msgstr "正在傳送即時映像檔到硬碟。"
 
 #: pyanaconda/livecd.py:199
 msgid ""
-"There was an error installing the live image to your hard drive.  This could be due to bad media.  Please verify your installation media.\n\n"
-"If you exit, your system will be left in an inconsistent state that will require reinstallation."
+"There was an error installing the live image to your hard drive.  This could "
+"be due to bad media.  Please verify your installation media.\n"
+"\n"
+"If you exit, your system will be left in an inconsistent state that will "
+"require reinstallation."
 msgstr ""
-"將即時安裝映像檔安裝至您的硬碟時發生了問題。這可能是因為媒介上的錯誤。請檢查您的安裝媒介？\n\n"
+"將即時安裝映像檔安裝至您的硬碟時發生了問題。這可能是因為媒體上的錯誤。請檢查"
+"您的安裝媒體？\n"
+"\n"
 "若您退出的話，電腦將會處於不一致的狀態，並且可能需要重新安裝。"
 
 #: pyanaconda/livecd.py:229
-msgid "Performing post-installation filesystem changes.  This may take several minutes."
+msgid ""
+"Performing post-installation filesystem changes.  This may take several "
+"minutes."
 msgstr "正在進行安裝後的檔案系統變更。這也許會花上數分鐘。"
 
 #: pyanaconda/livecd.py:441
 #, python-format
-msgid "The root filesystem you created is not large enough for this live image (%.2f MB required)."
+msgid ""
+"The root filesystem you created is not large enough for this live image "
+"(%.2f MB required)."
 msgstr "您所建立的 root 檔案系統的大小不足以容納此即時映像檔 (需要 %.2f MB)。"
 
 #: pyanaconda/network.py:63
@@ -758,11 +899,14 @@ msgid "Hostname must be 255 or fewer characters in length."
 msgstr "主機名稱長度必須為 255 個或更少個字元。"
 
 #: pyanaconda/network.py:69
-msgid "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-9'"
+msgid ""
+"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
+"'0-9'"
 msgstr "主機名稱必須以「a-z」、「A-Z」或「0-9」等有效字元作為起始"
 
 #: pyanaconda/network.py:74
-msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
+msgid ""
+"Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr "主機名稱只能包含「a-z」、「A-Z」、「0-9」、「-」或「.」等字元"
 
 #: pyanaconda/network.py:118
@@ -770,7 +914,9 @@ msgid "IP address is missing."
 msgstr "缺少 IP 位址。"
 
 #: pyanaconda/network.py:122
-msgid "IPv4 addresses must contain four numbers between 0 and 255, separated by periods."
+msgid ""
+"IPv4 addresses must contain four numbers between 0 and 255, separated by "
+"periods."
 msgstr "IPv4 位址必須包含四組以小數點分隔，介乎 0 到 255 之間的號碼。"
 
 #: pyanaconda/network.py:125
@@ -783,54 +929,67 @@ msgstr "「%s」不是有效的 IPv6 位址。"
 msgid "'%s' is an invalid IP address."
 msgstr "「%s」是個無效的 IP 位址。"
 
-#: pyanaconda/packages.py:111
+#: pyanaconda/packages.py:112
 msgid "Resizing Failed"
 msgstr "重設大小失敗"
 
-#: pyanaconda/packages.py:112
+#: pyanaconda/packages.py:113
 #, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "重設裝置 %s 的大小時發生了錯誤。"
 
-#: pyanaconda/packages.py:120
+#: pyanaconda/packages.py:121
 msgid "Migration Failed"
 msgstr "遷移失敗"
 
-#: pyanaconda/packages.py:121
+#: pyanaconda/packages.py:122
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
 msgstr "遷移裝置 %s 上的檔案系統時發生了錯誤。"
 
-#: pyanaconda/packages.py:130
+#: pyanaconda/packages.py:131
 msgid "_File Bug"
 msgstr "提交錯誤(_F)"
 
-#: pyanaconda/packages.py:314
+#: pyanaconda/packages.py:315
 #, python-format
 msgid ""
-"Warning!  This is pre-release software!\n\n"
-"Thank you for downloading this pre-release of %(productName)s.\n\n"
-"This is not a final release and is not intended for use on production systems.  The purpose of this release is to collect feedback from testers, and it is not suitable for day to day usage.\n\n"
-"To report feedback, please visit:\n\n"
-"   %(bugzillaUrl)s\n\n"
+"Warning!  This is pre-release software!\n"
+"\n"
+"Thank you for downloading this pre-release of %(productName)s.\n"
+"\n"
+"This is not a final release and is not intended for use on production "
+"systems.  The purpose of this release is to collect feedback from testers, "
+"and it is not suitable for day to day usage.\n"
+"\n"
+"To report feedback, please visit:\n"
+"\n"
+"   %(bugzillaUrl)s\n"
+"\n"
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
-"警告！ 這是軟體的測試版本！\n\n"
-"感謝您下載 %(productName)s 的測試版本。\n\n"
-"這不是最後的完整版本，所以不適用在需要生產力的系統上。這個版本的目的是從測試者收集回應與使用心得，並不適合日常的用途。\n\n"
-"如要回報程式問題或錯誤，請造訪：\n\n"
-"   %(bugzillaUrl)s\n\n"
-"並針對「%(fileagainst)s 」提出一份報告。\n"
+"警告！ 這是軟體的測試版本！\n"
+"\n"
+"感謝您下載 %(productName)s 的測試版本。\n"
+"\n"
+"這不是最後的完整版本，所以不適用在需要生產力的系統上。這個版本的目的是從測試"
+"者收集回應與使用心得，並不適合日常的用途。\n"
+"\n"
+"如要回報程式問題或錯誤，請造訪：\n"
+"\n"
+"   %(bugzillaUrl)s\n"
+"\n"
+"並針對「%(fileagainst)s」提出一份報告。\n"
 
-#: pyanaconda/packages.py:330
+#: pyanaconda/packages.py:331
 msgid "_Install Anyway"
 msgstr "還是繼續安裝(_I)"
 
-#: pyanaconda/packages.py:333
+#: pyanaconda/packages.py:334
 msgid "Your system will now be rebooted..."
 msgstr "您的系統現在將重新開機..."
 
-#: pyanaconda/packages.py:335
+#: pyanaconda/packages.py:336
 msgid "Warning! This is pre-release software!"
 msgstr "警告！這是測試版的軟體！"
 
@@ -848,8 +1007,12 @@ msgid "Error - the volume group name %s is not valid."
 msgstr "錯誤 - 卷冊群組名稱 %s 無效。"
 
 #: pyanaconda/partIntfHelpers.py:53
-msgid "Error - the volume group name contains illegal characters or spaces.  Acceptable characters are letters, digits, '.' or '_'."
-msgstr "錯誤 - 卷冊群組名稱包含不合規格的字元或空白。可使用的字元是字母、數字、'.' 或 '_'。"
+msgid ""
+"Error - the volume group name contains illegal characters or spaces.  "
+"Acceptable characters are letters, digits, '.' or '_'."
+msgstr ""
+"錯誤 - 卷冊群組名稱包含不合規格的字元或空白。可使用的字元是字母、數字、'.' "
+"或 '_'。"
 
 #: pyanaconda/partIntfHelpers.py:63
 msgid "Please enter a logical volume name."
@@ -865,13 +1028,21 @@ msgid "Error - the logical volume name %s is not valid."
 msgstr "錯誤 - 邏輯卷冊名稱 %s 無效。"
 
 #: pyanaconda/partIntfHelpers.py:77
-msgid "Error - the logical volume name contains illegal characters or spaces.  Acceptable characters are letters, digits, '.' or '_'."
-msgstr "錯誤 - 邏輯卷冊名稱包含不合規格的字元或空白。可使用的字元是字母、數字、'.' 或 '_'。"
+msgid ""
+"Error - the logical volume name contains illegal characters or spaces.  "
+"Acceptable characters are letters, digits, '.' or '_'."
+msgstr ""
+"錯誤 - 邏輯卷冊名稱包含不合規格的字元或空白。可使用的字元是字母、數字、'.' "
+"或 '_'。"
 
 #: pyanaconda/partIntfHelpers.py:105
 #, python-format
-msgid "The mount point %s is invalid.  Mount points must start with '/' and cannot end with '/', and must contain printable characters and no spaces."
-msgstr "掛載點 %s 無效。掛載點必須以 '/' 開始而且不能以 '/' 結尾，並只能包含可列印字元，不包括空白。"
+msgid ""
+"The mount point %s is invalid.  Mount points must start with '/' and cannot "
+"end with '/', and must contain printable characters and no spaces."
+msgstr ""
+"掛載點 %s 無效。掛載點必須以 '/' 開始而且不能以 '/' 結尾，並只能包含可列印字"
+"元，不包括空白。"
 
 #: pyanaconda/partIntfHelpers.py:117 pyanaconda/partIntfHelpers.py:124
 msgid "Unable To Delete"
@@ -905,10 +1076,12 @@ msgstr "提示"
 #: pyanaconda/partIntfHelpers.py:201
 #, python-format
 msgid ""
-"The following partitions were not deleted because they are in use:\n\n"
+"The following partitions were not deleted because they are in use:\n"
+"\n"
 "%s"
 msgstr ""
-"以下的分割區無法刪除因為它們正在使用中：\n\n"
+"以下的分割區無法刪除因為它們正在使用中：\n"
+"\n"
 "%s"
 
 #: pyanaconda/partIntfHelpers.py:216
@@ -918,10 +1091,13 @@ msgstr "要格式化成 Swap 分割區嗎？"
 #: pyanaconda/partIntfHelpers.py:217
 #, python-format
 msgid ""
-"%s has a partition type of 0x82 (Linux swap) but does not appear to be formatted as a Linux swap partition.\n\n"
+"%s has a partition type of 0x82 (Linux swap) but does not appear to be "
+"formatted as a Linux swap partition.\n"
+"\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"%s 的分割區類型為 0x82 (Linux swap)，但尚未格式化為 Linux swap 分割區。\n\n"
+"%s 的分割區類型為 0x82 (Linux swap)，但尚未格式化為 Linux swap 分割區。\n"
+"\n"
 "您希望將此分割區格式化為 swap 分割區嗎？"
 
 #: pyanaconda/partIntfHelpers.py:232
@@ -930,8 +1106,18 @@ msgid "You need to select at least one hard drive to install %s."
 msgstr "您至少需選擇一部硬碟以便安裝 %s。"
 
 #: pyanaconda/partIntfHelpers.py:237
-msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then continue without formatting this partition."
-msgstr "您已經選擇使用一個既有的分割區來進行安裝，且選擇不格式化，我們建議您格式化此分割區，以確保之前安裝的作業系統檔案不會影響到這次的 Linux 安裝。然而，假如該分割區含有您想要保留的檔案 (例如家目錄)，您可以選擇繼續而不對此分割區進行格式化。"
+msgid ""
+"You have chosen to use a pre-existing partition for this installation "
+"without formatting it. We recommend that you format this partition to make "
+"sure files from a previous operating system installation do not cause "
+"problems with this installation of Linux. However, if this partition "
+"contains files that you need to keep, such as home directories, then "
+"continue without formatting this partition."
+msgstr ""
+"您已經選擇使用一個既有的分割區來進行安裝，且選擇不格式化，我們建議您格式化此"
+"分割區，以確保之前安裝的作業系統檔案不會影響到這次的 Linux 安裝。然而，假如該"
+"分割區含有您想要保留的檔案 (例如家目錄)，您可以選擇繼續而不對此分割區進行格式"
+"化。"
 
 #: pyanaconda/partIntfHelpers.py:245
 msgid "Format?"
@@ -952,10 +1138,15 @@ msgstr "磁碟分割錯誤"
 #: pyanaconda/partIntfHelpers.py:254
 #, python-format
 msgid ""
-"The following critical errors exist with your requested partitioning scheme. These errors must be corrected prior to continuing with your install of %(productName)s.\n\n"
+"The following critical errors exist with your requested partitioning scheme. "
+"These errors must be corrected prior to continuing with your install of "
+"%(productName)s.\n"
+"\n"
 "%(errorstr)s"
 msgstr ""
-"您所要求的磁碟分割方式發生下列嚴重錯誤。這些錯誤必須在您繼續安裝 %(productName)s 前先更正。\n\n"
+"您所要求的磁碟分割方式發生下列嚴重錯誤。這些錯誤必須在您繼續安裝 "
+"%(productName)s 前先更正。\n"
+"\n"
 "%(errorstr)s"
 
 #: pyanaconda/partIntfHelpers.py:270
@@ -965,20 +1156,28 @@ msgstr "磁碟分割警告"
 #: pyanaconda/partIntfHelpers.py:271
 #, python-format
 msgid ""
-"The following warnings exist with your requested partition scheme.\n\n"
-"%s\n\n"
+"The following warnings exist with your requested partition scheme.\n"
+"\n"
+"%s\n"
+"\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"您的磁碟分割架構出現以下的警告訊息。\n\n"
-"%s\n\n"
+"您的磁碟分割架構出現以下的警告訊息。\n"
+"\n"
+"%s\n"
+"\n"
 "您確定要繼續嗎？"
 
 #: pyanaconda/partIntfHelpers.py:285
-msgid "The following pre-existing partitions have been selected to be formatted, destroying all data."
+msgid ""
+"The following pre-existing partitions have been selected to be formatted, "
+"destroying all data."
 msgstr "下列已存在的分割區要被格式化，將會刪除所有資料。"
 
 #: pyanaconda/partIntfHelpers.py:288
-msgid "Select 'Yes' to continue and format these partitions, or 'No' to go back and change these settings."
+msgid ""
+"Select 'Yes' to continue and format these partitions, or 'No' to go back and "
+"change these settings."
 msgstr "選擇「是」以繼續格式化這些分割區，或「否」回到上一步並更改設定。"
 
 #: pyanaconda/partIntfHelpers.py:294
@@ -988,10 +1187,12 @@ msgstr "格式化警告"
 #: pyanaconda/partIntfHelpers.py:321
 #, python-format
 msgid ""
-"You are about to delete the volume group \"%s\".\n\n"
+"You are about to delete the volume group \"%s\".\n"
+"\n"
 "ALL logical volumes in this volume group will be lost!"
 msgstr ""
-"您即將要刪除卷冊群組「%s」。\n\n"
+"您即將要刪除卷冊群組「%s」。\n"
+"\n"
 "在這個卷冊群組中的所有邏輯卷冊將會消失！"
 
 #: pyanaconda/partIntfHelpers.py:325
@@ -1018,7 +1219,8 @@ msgid "Confirm Reset"
 msgstr "確認還原"
 
 #: pyanaconda/partIntfHelpers.py:346
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr "您確定要將磁碟分割表重設至原來的狀態？"
 
 #: pyanaconda/platform.py:98 pyanaconda/platform.py:344
@@ -1137,7 +1339,9 @@ msgid "No"
 msgstr "否"
 
 #: pyanaconda/rescue.py:263
-msgid "Unable to activate a networking device.  Networking will not be available in rescue mode."
+msgid ""
+"Unable to activate a networking device.  Networking will not be available in "
+"rescue mode."
 msgstr "無法啟用網路裝置。救援模式中將無法使用網路。"
 
 #: pyanaconda/rescue.py:299 pyanaconda/rescue.py:374 pyanaconda/rescue.py:385
@@ -1148,11 +1352,24 @@ msgstr "救援模式"
 #: pyanaconda/rescue.py:300
 #, python-format
 msgid ""
-"The rescue environment will now attempt to find your Linux installation and mount it under the directory %s.  You can then make any changes required to your system.  If you want to proceed with this step choose 'Continue'.  You can also choose to mount your file systems read-only instead of read-write by choosing 'Read-Only'.  If you need to activate SAN devices choose 'Advanced'.\n\n"
-"If for some reason this process fails you can choose 'Skip' and this step will be skipped and you will go directly to a command shell.\n\n"
+"The rescue environment will now attempt to find your Linux installation and "
+"mount it under the directory %s.  You can then make any changes required to "
+"your system.  If you want to proceed with this step choose 'Continue'.  You "
+"can also choose to mount your file systems read-only instead of read-write "
+"by choosing 'Read-Only'.  If you need to activate SAN devices choose "
+"'Advanced'.\n"
+"\n"
+"If for some reason this process fails you can choose 'Skip' and this step "
+"will be skipped and you will go directly to a command shell.\n"
+"\n"
 msgstr ""
-"救援模式會自動尋找 Linux 安裝的地方並掛載在 %s 目錄下。您可以視需求做任何的變更。若您想要執行這個步驟，請選擇「繼續」。您也可以選取「唯讀」來掛載您的檔案系統為只能讀取而不是可以讀寫。如果您需要啟用 SAN 裝置選擇「進階」。\n\n"
-"若有其他原因造成執行失敗，您可以選擇「跳過」，系統將會帶您直接進入命令列狀態。\n\n"
+"救援模式會自動尋找 Linux 安裝的地方並掛載在 %s 目錄下。您可以視需求做任何的變"
+"更。若您想要執行這個步驟，請選擇「繼續」。您也可以選取「唯讀」來掛載您的檔案"
+"系統為只能讀取而不是可以讀寫。如果您需要啟用 SAN 裝置選擇「進階」。\n"
+"\n"
+"若有其他原因造成執行失敗，您可以選擇「跳過」，系統將會帶您直接進入命令列狀"
+"態。\n"
+"\n"
 
 #: pyanaconda/rescue.py:311 pyanaconda/iw/partition_gui.py:785
 #: loader/cdinstall.c:207 loader/cdinstall.c:215 loader/driverdisk.c:610
@@ -1188,27 +1405,46 @@ msgid "Exit"
 msgstr "離開"
 
 #: pyanaconda/rescue.py:375
-msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions.  The system will reboot automatically when you exit from the shell."
-msgstr "您選擇不要掛載在系統的分割區有問題。按 return 鍵以取得 shell，您可以執行 fsck 然後掛載分割區。當您退出 shell 後，系統將自動重新啟動。"
+msgid ""
+"Your system had dirty file systems which you chose not to mount.  Press "
+"return to get a shell from which you can fsck and mount your partitions.  "
+"The system will reboot automatically when you exit from the shell."
+msgstr ""
+"您選擇不要掛載在系統的分割區有問題。按 return 鍵以取得 shell，您可以執行 "
+"fsck 然後掛載分割區。當您退出 shell 後，系統將自動重新啟動。"
 
 #: pyanaconda/rescue.py:386
 #, python-format
 msgid ""
-"Your system has been mounted under %(rootPath)s.\n\n"
-"Press <return> to get a shell. If you would like to make your system the root environment, run the command:\n\n\tchroot %(rootPath)s\n\n"
+"Your system has been mounted under %(rootPath)s.\n"
+"\n"
+"Press <return> to get a shell. If you would like to make your system the "
+"root environment, run the command:\n"
+"\n"
+"\tchroot %(rootPath)s\n"
+"\n"
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"您的系統已被掛載於 %(rootPath)s 之下。\n\n"
-"按下 <return> 以進入命令列模式。如果您想讓系統成為 root 環境，請執行下列指令：\n\n\tchroot %(rootPath)s\n\n"
+"您的系統已被掛載於 %(rootPath)s 之下。\n"
+"\n"
+"按下 <return> 以進入命令列模式。如果您想讓系統成為 root 環境，請執行下列指"
+"令：\n"
+"\n"
+"\tchroot %(rootPath)s\n"
+"\n"
 "當您離開命令列模式時，系統將會自動重新啟動。"
 
 #: pyanaconda/rescue.py:471
 #, python-format
 msgid ""
-"An error occurred trying to mount some or all of your system. Some of it may be mounted under %s.\n\n"
-"Press <return> to get a shell. The system will reboot automatically when you exit from the shell."
+"An error occurred trying to mount some or all of your system. Some of it may "
+"be mounted under %s.\n"
+"\n"
+"Press <return> to get a shell. The system will reboot automatically when you "
+"exit from the shell."
 msgstr ""
-"在掛載您的系統時發生錯誤。有些分割區可能已經掛載於 %s。\n\n"
+"在掛載您的系統時發生錯誤。有些分割區可能已經掛載於 %s。\n"
+"\n"
 "請按 <return> 取得 shell。當您離開 shell 時，系統將會自動重新啟動。"
 
 #: pyanaconda/rescue.py:481
@@ -1220,8 +1456,12 @@ msgid "Rescue Mode"
 msgstr "救援模式"
 
 #: pyanaconda/rescue.py:485
-msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
-msgstr "您沒有任何的 Linux 分割區。按 return 鍵以取得 shell。當您退出 shell 後，系統將自動重新啟動。"
+msgid ""
+"You don't have any Linux partitions. Press return to get a shell. The system "
+"will reboot automatically when you exit from the shell."
+msgstr ""
+"您沒有任何的 Linux 分割區。按 return 鍵以取得 shell。當您退出 shell 後，系統"
+"將自動重新啟動。"
 
 #: pyanaconda/rescue.py:498
 #, python-format
@@ -1265,11 +1505,15 @@ msgid "Welcome to %s"
 msgstr "歡迎使用 %s"
 
 #: pyanaconda/text.py:426
-msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
-msgstr "     <Tab>/<Alt-Tab>  移動游標          | <Space>  選取     | <F12>  下一個畫面"
+msgid ""
+"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
+"screen"
+msgstr ""
+"     <Tab>/<Alt-Tab>  移動游標          | <Space>  選取     | <F12>  下一個畫"
+"面"
 
-#: pyanaconda/text.py:501 loader/net.c:110 loader/net.c:511 loader/net.c:566
-#: loader/net.c:708 loader/net.c:716 loader/net.c:1134 loader/net.c:1142
+#: pyanaconda/text.py:501 loader/net.c:110 loader/net.c:513 loader/net.c:568
+#: loader/net.c:710 loader/net.c:718 loader/net.c:1148 loader/net.c:1156
 msgid "Retry"
 msgstr "重試"
 
@@ -1286,64 +1530,93 @@ msgid "Proceed with upgrade?"
 msgstr "確定要升級？"
 
 #: pyanaconda/upgrade.py:52
-msgid "The file systems of the Linux installation you have chosen to upgrade have already been mounted. You cannot go back past this point. \n\n"
-msgstr "您選擇要升級的檔案系統已經掛載了。過了這步安裝階段，將無法再來這裡。\n\n"
+msgid ""
+"The file systems of the Linux installation you have chosen to upgrade have "
+"already been mounted. You cannot go back past this point. \n"
+"\n"
+msgstr ""
+"您選擇要升級的檔案系統已經掛載了。過了這步安裝階段，將無法再來這裡。\n"
+"\n"
 
 #: pyanaconda/upgrade.py:56
 msgid "Would you like to continue with the upgrade?"
 msgstr "您想要繼續升級系統嗎？"
 
-#: pyanaconda/upgrade.py:88
+#: pyanaconda/upgrade.py:91
 msgid "Cannot Upgrade"
 msgstr "無法升級"
 
-#: pyanaconda/upgrade.py:89
+#: pyanaconda/upgrade.py:92
 #, python-format
 msgid ""
-"Your current installation cannot be upgraded. This is likely due to it being too old. Only the previous two release may be upgraded. To upgrade older releases you must first upgrade through all intermediate releases.\n\n"
+"Your current installation cannot be upgraded. This is likely due to it being "
+"too old. Only the previous two release may be upgraded. To upgrade older "
+"releases you must first upgrade through all intermediate releases.\n"
+"\n"
 "%s"
 msgstr ""
-"您目前的安裝無法升級，似乎是由於它太舊了。只有上兩次釋出版本可以升級。要升級舊的釋出版本您必須先升級過所有中間的釋出版本。\n\n"
+"您目前的安裝無法升級，似乎是由於它太舊了。只有上兩次釋出版本可以升級。要升級"
+"舊的釋出版本您必須先升級過所有中間的釋出版本。\n"
+"\n"
 "%s"
 
-#: pyanaconda/upgrade.py:229
+#: pyanaconda/upgrade.py:232
 msgid "Mount failed"
 msgstr "掛載失敗"
 
-#: pyanaconda/upgrade.py:230
+#: pyanaconda/upgrade.py:233
 #, python-format
 msgid ""
-"The following error occurred when mounting the file systems listed in /etc/fstab.  Please fix this problem and try to upgrade again.\n"
+"The following error occurred when mounting the file systems listed in /etc/"
+"fstab.  Please fix this problem and try to upgrade again.\n"
 "%s"
 msgstr ""
-"當掛載列在 /etc/fstab 中的檔案系統時發生了下列錯誤。請修正這個問題並嘗試再升級一次。\n"
+"當掛載列在 /etc/fstab 中的檔案系統時發生了下列錯誤。請修正這個問題並嘗試再升"
+"級一次。\n"
 "%s"
 
-#: pyanaconda/upgrade.py:238 pyanaconda/upgrade.py:245
+#: pyanaconda/upgrade.py:241 pyanaconda/upgrade.py:248
 msgid "Upgrade root not found"
 msgstr "找不到升級的 root"
 
-#: pyanaconda/upgrade.py:239
+#: pyanaconda/upgrade.py:242
 msgid "The root for the previously installed system was not found."
 msgstr "找不到先前安裝的系統的 root。"
 
-#: pyanaconda/upgrade.py:246
-msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
-msgstr "找不到先前安裝的系統的 root。您可退出安裝程式或是退回並選擇安裝而不是升級。"
+#: pyanaconda/upgrade.py:249
+msgid ""
+"The root for the previously installed system was not found.  You can exit "
+"installer or backtrack to choose installation instead of upgrade."
+msgstr ""
+"找不到先前安裝的系統的 root。您可退出安裝程式或是退回並選擇安裝而不是升級。"
 
-#: pyanaconda/upgrade.py:269
-msgid "The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n\n"
-msgstr "下列檔案為絕對符號連結 (absolute symbolic links)，在升級時並不支援。請改成相對符號連結 (relative symbolic links)後再重新執行升級。\n\n"
+#: pyanaconda/upgrade.py:272
+msgid ""
+"The following files are absolute symbolic links, which we do not support "
+"during an upgrade. Please change them to relative symbolic links and restart "
+"the upgrade.\n"
+"\n"
+msgstr ""
+"下列檔案為絕對符號連結 (absolute symbolic links)，在升級時並不支援。請改成相"
+"對符號連結 (relative symbolic links)後再重新執行升級。\n"
+"\n"
 
-#: pyanaconda/upgrade.py:275
+#: pyanaconda/upgrade.py:278
 msgid "Absolute Symlinks"
 msgstr "絕對符號連結"
 
-#: pyanaconda/upgrade.py:286
-msgid "The following are directories which should instead be symbolic links, which will cause problems with the upgrade.  Please return them to their original state as symbolic links and restart the upgrade.\n\n"
-msgstr "下列的目錄應該改為符號連結，如不是的話將會導致系統升級時發生問題，請將它們改成原本的符號連結狀態後，再重新執行升級。\n\n"
+#: pyanaconda/upgrade.py:289
+msgid ""
+"The following are directories which should instead be symbolic links, which "
+"will cause problems with the upgrade.  Please return them to their original "
+"state as symbolic links and restart the upgrade.\n"
+"\n"
+msgstr ""
+"下列的目錄應該改為符號連結，如不是的話將會導致系統升級時發生問題，請將它們改"
+"成原本的符號連結狀態後，再重新執行升級。\n"
+"\n"
 
-#: pyanaconda/upgrade.py:292
+#: pyanaconda/upgrade.py:295
 msgid "Invalid Directories"
 msgstr "目錄無效"
 
@@ -1395,45 +1668,61 @@ msgstr "VNC 伺服器現在正在執行。"
 
 #: pyanaconda/vnc.py:252
 msgid ""
-"\n\n"
+"\n"
+"\n"
 "You chose to connect to a listening vncviewer. \n"
 "This does not require a password to be set.  If you \n"
 "set a password, it will be used in case the connection \n"
-"to the vncviewer is unsuccessful\n\n"
+"to the vncviewer is unsuccessful\n"
+"\n"
 msgstr ""
-"\n\n"
+"\n"
+"\n"
 "您選擇連至一個監聽中的 vncviewer. \n"
 "您無須設置密碼。若您 \n"
 "設了一組密碼，這組密碼將會在連至 vncviewer 不成功 \n"
-"情況下被使用\n\n"
+"情況下被使用\n"
+"\n"
 
 #: pyanaconda/vnc.py:257
 msgid ""
-"\n\n"
+"\n"
+"\n"
 "WARNING!!! VNC server running with NO PASSWORD!\n"
 "You can use the vncpassword=<password> boot option\n"
-"if you would like to secure the server.\n\n"
+"if you would like to secure the server.\n"
+"\n"
 msgstr ""
-"\n\n"
+"\n"
+"\n"
 "警告！！！VNC 伺服器正以無密碼的方式執行！\n"
 "假如您想要保護伺服器的安全，您可以\n"
-"使用 vncpassword=<password> 這個開機選項。\n\n"
+"使用 vncpassword=<password> 這個開機選項。\n"
+"\n"
 
 #: pyanaconda/vnc.py:261
 msgid ""
-"\n\n"
-"You chose to execute vnc with a password. \n\n"
+"\n"
+"\n"
+"You chose to execute vnc with a password. \n"
+"\n"
 msgstr ""
-"\n\n"
-"您選擇了利用一組密碼來執行 vnc。\n\n"
+"\n"
+"\n"
+"您選擇了利用一組密碼來執行 vnc。\n"
+"\n"
 
 #: pyanaconda/vnc.py:263
 msgid ""
-"\n\n"
-"Unknown Error.  Aborting. \n\n"
+"\n"
+"\n"
+"Unknown Error.  Aborting. \n"
+"\n"
 msgstr ""
-"\n\n"
-"不知名錯誤。進行終止。\n\n"
+"\n"
+"\n"
+"不知名錯誤。進行終止。\n"
+"\n"
 
 #: pyanaconda/vnc.py:285 pyanaconda/vnc.py:378
 msgid "VNC Configuration"
@@ -1444,8 +1733,12 @@ msgid "No password"
 msgstr "不設定密碼"
 
 #: pyanaconda/vnc.py:290 pyanaconda/vnc.py:385
-msgid "A password will prevent unauthorized listeners connecting and monitoring your installation progress.  Please enter a password to be used for the installation"
-msgstr "密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
+msgid ""
+"A password will prevent unauthorized listeners connecting and monitoring "
+"your installation progress.  Please enter a password to be used for the "
+"installation"
+msgstr ""
+"密碼可以避免其他人連接到您的電腦，監控您的安裝過程。請為安裝過程輸入密碼"
 
 #: pyanaconda/vnc.py:298 pyanaconda/vnc.py:393
 #: pyanaconda/textw/userauth_text.py:47
@@ -1481,8 +1774,13 @@ msgid "Unable to Start X"
 msgstr "無法啟動 X"
 
 #: pyanaconda/vnc.py:348
-msgid "X was unable to start on your machine.  Would you like to start VNC to connect to this computer from another computer and perform a graphical install or continue with a text mode install?"
-msgstr "X 無法在您的機器上執行。您要啟動 VNC 使其他電腦可以連進來執行圖形模式安裝或是使用文字模式繼續安裝？"
+msgid ""
+"X was unable to start on your machine.  Would you like to start VNC to "
+"connect to this computer from another computer and perform a graphical "
+"install or continue with a text mode install?"
+msgstr ""
+"X 無法在您的機器上執行。您要啟動 VNC 使其他電腦可以連進來執行圖形模式安裝或是"
+"使用文字模式繼續安裝？"
 
 #: pyanaconda/vnc.py:367
 msgid "Start VNC"
@@ -1541,22 +1839,30 @@ msgstr "安裝套件時發生了錯誤"
 
 #: pyanaconda/yuminstall.py:252
 #, python-format
-msgid "A fatal error occurred when installing the %s package.  This could indicate errors when reading the installation media.  Installation cannot continue."
-msgstr "當安裝 %s 套件時發生了嚴重錯誤。這可能表示讀取安裝媒介時發生了問題。安裝程序無法繼續進行。"
+msgid ""
+"A fatal error occurred when installing the %s package.  This could indicate "
+"errors when reading the installation media.  Installation cannot continue."
+msgstr ""
+"當安裝 %s 套件時發生了嚴重錯誤。這可能表示讀取安裝媒體時發生了問題。安裝程序"
+"無法繼續進行。"
 
-#: pyanaconda/yuminstall.py:402 pyanaconda/iw/task_gui.py:321
+#: pyanaconda/yuminstall.py:402 pyanaconda/iw/task_gui.py:324
 msgid "Error Setting Up Repository"
 msgstr "設定套件庫時發生錯誤"
 
 #: pyanaconda/yuminstall.py:403
 #, python-format
 msgid ""
-"The following error occurred while setting up the installation repository:\n\n"
-"%(e)s\n\n"
+"The following error occurred while setting up the installation repository:\n"
+"\n"
+"%(e)s\n"
+"\n"
 "Please provide the correct information for installing %(productName)s."
 msgstr ""
-"設定安裝套件庫時發生了下列錯誤：\n\n"
-"%(e)s\n\n"
+"設定安裝套件庫時發生了下列錯誤：\n"
+"\n"
+"%(e)s\n"
+"\n"
 "請提供安裝 %(productName)s 的正確資訊。"
 
 #: pyanaconda/yuminstall.py:448
@@ -1587,8 +1893,10 @@ msgid "Repository %r is missing name in configuration, using id"
 msgstr "套件庫 %r 在設定中缺少名稱，使用 id"
 
 #: pyanaconda/yuminstall.py:752 pyanaconda/yuminstall.py:1200
-#: pyanaconda/iw/task_gui.py:309
-msgid "Some of your software repositories require networking, but there was an error enabling the network on your system."
+#: pyanaconda/iw/task_gui.py:312
+msgid ""
+"Some of your software repositories require networking, but there was an "
+"error enabling the network on your system."
 msgstr "您的一些套件庫需要網路作業，不過在您的系統上啟用網路時發生了錯誤。"
 
 #: pyanaconda/yuminstall.py:833 pyanaconda/yuminstall.py:835
@@ -1602,11 +1910,18 @@ msgstr "退出光碟片(_E)"
 #: pyanaconda/yuminstall.py:839
 #, python-format
 msgid ""
-"The file %s cannot be opened.  This is due to a missing file, a corrupt package or corrupt media.  Please verify your installation source.\n\n"
-"If you exit, your system will be left in an inconsistent state that will likely require reinstallation.\n\n"
+"The file %s cannot be opened.  This is due to a missing file, a corrupt "
+"package or corrupt media.  Please verify your installation source.\n"
+"\n"
+"If you exit, your system will be left in an inconsistent state that will "
+"likely require reinstallation.\n"
+"\n"
 msgstr ""
-"無法開啟 %s 檔案。這是因為檔案遺失、套件毀損，或是媒介損毀。請驗證您的安裝來源。\n\n"
-"如果您重新開機的話，您的系統將會處於不一致的狀態，並且可能會需要重新安裝。\n\n"
+"無法開啟 %s 檔案。這是因為檔案遺失、套件毀損，或是媒體損毀。請驗證您的安裝來"
+"源。\n"
+"\n"
+"如果您重新開機的話，您的系統將會處於不一致的狀態，並且可能會需要重新安裝。\n"
+"\n"
 
 #: pyanaconda/yuminstall.py:887
 msgid "Retrying"
@@ -1618,7 +1933,8 @@ msgstr "正在重新嘗試下載。"
 
 #: pyanaconda/yuminstall.py:952
 #, python-format
-msgid "There was an error running your transaction for the following reason: %s\n"
+msgid ""
+"There was an error running your transaction for the following reason: %s\n"
 msgstr "由於下列原因，您的傳輸發生了錯誤：%s\n"
 
 #: pyanaconda/yuminstall.py:995 pyanaconda/yuminstall.py:996
@@ -1672,7 +1988,9 @@ msgstr ""
 
 #: pyanaconda/yuminstall.py:1034
 #, python-format
-msgid "There was an error running your transaction for the following reason(s): %s.\n"
+msgid ""
+"There was an error running your transaction for the following reason(s): "
+"%s.\n"
 msgstr "由於下列原因，您的傳輸發生了錯誤：%s。\n"
 
 #: pyanaconda/yuminstall.py:1041 pyanaconda/yuminstall.py:1046
@@ -1680,7 +1998,9 @@ msgid "Error Running Transaction"
 msgstr "執行傳輸時發生錯誤"
 
 #: pyanaconda/yuminstall.py:1226
-msgid "Unable to read group information from repositories.  This is a problem with the generation of your install tree."
+msgid ""
+"Unable to read group information from repositories.  This is a problem with "
+"the generation of your install tree."
 msgstr "無法由套件庫讀取群組讀取群組資訊。這是個您安裝樹在產生上所發生的問題。"
 
 #: pyanaconda/yuminstall.py:1275 pyanaconda/textw/constants_text.py:64
@@ -1690,20 +2010,38 @@ msgstr "修改"
 #: pyanaconda/yuminstall.py:1286 pyanaconda/yuminstall.py:1477
 #, python-format
 msgid ""
-"Unable to read package metadata. This may be due to a missing repodata directory.  Please ensure that your install tree has been correctly generated.\n\n"
+"Unable to read package metadata. This may be due to a missing repodata "
+"directory.  Please ensure that your install tree has been correctly "
+"generated.\n"
+"\n"
 "%s"
 msgstr ""
-"無法讀取套件的後設資料。可能是因為缺少了套件庫的目錄。請確定您的安裝樹已正確產生。\n\n"
+"無法讀取套件的後設資料。可能是因為缺少了套件庫的目錄。請確定您的安裝樹已正確"
+"產生。\n"
+"\n"
 "%s"
 
 #: pyanaconda/yuminstall.py:1455
-msgid "Some of the packages you have selected for install are missing dependencies.  You can exit the installation, go back and change your package selections, or continue installing these packages without their dependencies.  If you continue, these packages may not work correctly due to missing components."
-msgstr "某些您已選取的安裝套件缺少相依套件。 您可以離開安裝、前往上一步和變更您的套件選擇，或是繼續安裝這些套件而不需滿足它們的相依性。 如果您繼續，這些套件由於缺少組成可能無法正確作用。"
+msgid ""
+"Some of the packages you have selected for install are missing "
+"dependencies.  You can exit the installation, go back and change your "
+"package selections, or continue installing these packages without their "
+"dependencies.  If you continue, these packages may not work correctly due to "
+"missing components."
+msgstr ""
+"某些您已選取的安裝套件缺少相依套件。 您可以離開安裝、前往上一步和變更您的套件"
+"選擇，或是繼續安裝這些套件而不需滿足它們的相依性。 如果您繼續，這些套件由於缺"
+"少組成可能無法正確作用。"
 
 #: pyanaconda/yuminstall.py:1499
 #, python-format
-msgid "Your selected packages require %d MB of free space for installation, but you do not have enough available.  You can change your selections or exit the installer."
-msgstr "您所選擇安裝的套件需要 %d MB 的磁碟空間；但電腦上沒有足夠的空間。您可以變更選擇，或退出安裝程式。"
+msgid ""
+"Your selected packages require %d MB of free space for installation, but you "
+"do not have enough available.  You can change your selections or exit the "
+"installer."
+msgstr ""
+"您所選擇安裝的套件需要 %d MB 的磁碟空間；但電腦上沒有足夠的空間。您可以變更選"
+"擇，或退出安裝程式。"
 
 #: pyanaconda/yuminstall.py:1520
 msgid "Reboot?"
@@ -1715,13 +2053,22 @@ msgstr "系統現在將重新開機。"
 
 #: pyanaconda/yuminstall.py:1663
 #, python-format
-msgid "You appear to be upgrading from a system which is too old to upgrade to this version of %s.  Are you sure you wish to continue the upgrade process?"
+msgid ""
+"You appear to be upgrading from a system which is too old to upgrade to this "
+"version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr "您正打算從太舊而不適合升級的系統，升級到 %s。您確定要繼續升級程序嗎？"
 
 #: pyanaconda/yuminstall.py:1698
 #, python-format
-msgid "The arch of the release of %(productName)s you are upgrading to appears to be %(myarch)s which does not match your previously installed arch of %(arch)s.  This is likely to not succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr "您正打算從先前安裝的架構升級至 %(productName)s 版本的架構 %(myarch)s，不過這和您先前所安裝的架構 %(arch)s 並不相符。這很可能無法成功。您確定要繼續進行升級程序嗎？"
+msgid ""
+"The arch of the release of %(productName)s you are upgrading to appears to "
+"be %(myarch)s which does not match your previously installed arch of "
+"%(arch)s.  This is likely to not succeed.  Are you sure you wish to continue "
+"the upgrade process?"
+msgstr ""
+"您正打算從先前安裝的架構升級至 %(productName)s 版本的架構 %(myarch)s，不過這"
+"和您先前所安裝的架構 %(arch)s 並不相符。這很可能無法成功。您確定要繼續進行升"
+"級程序嗎？"
 
 #: pyanaconda/yuminstall.py:1745
 msgid "Post Upgrade"
@@ -1774,8 +2121,13 @@ msgstr "_Fedora(_F)"
 
 #: pyanaconda/installclasses/fedora.py:39
 #, python-format
-msgid "The default installation of %s includes a set of software applicable for general internet usage. You can optionally select a different set of software now."
-msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。現在您可以選擇性地選取不同的軟體集合。"
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage. You can optionally select a different set of "
+"software now."
+msgstr ""
+"%s 的預設安裝包括使用網際網路的一般性軟體。現在您可以選擇性地選取不同的軟體集"
+"合。"
 
 #: pyanaconda/installclasses/fedora.py:48
 msgid "Graphical Desktop"
@@ -1799,7 +2151,9 @@ msgstr "Red Hat Enterprise Linux"
 
 #: pyanaconda/installclasses/rhel.py:34
 #, python-format
-msgid "The default installation of %s is a minimum install. You can optionally select a different set of software now."
+msgid ""
+"The default installation of %s is a minimum install. You can optionally "
+"select a different set of software now."
 msgstr "%s 的預設安裝是最小安裝。現在您可以選擇性地選取不同的軟體集合。"
 
 #: pyanaconda/iw/GroupSelector.py:147
@@ -1840,7 +2194,9 @@ msgid "Error with Password"
 msgstr "密碼發生錯誤"
 
 #: pyanaconda/iw/account_gui.py:103
-msgid "You must enter your root password and confirm it by typing it a second time to continue."
+msgid ""
+"You must enter your root password and confirm it by typing it a second time "
+"to continue."
 msgstr "您必須輸入您的 root 密碼，並再輸入一次以作確認，才能繼續安裝過程。"
 
 #: pyanaconda/iw/account_gui.py:111
@@ -1865,7 +2221,8 @@ msgid "_Use Anyway"
 msgstr "照樣使用(_U)"
 
 #: pyanaconda/iw/account_gui.py:139 pyanaconda/textw/userauth_text.py:75
-msgid "Requested password contains non-ASCII characters, which are not allowed."
+msgid ""
+"Requested password contains non-ASCII characters, which are not allowed."
 msgstr "所要求的密碼含有非 ASCII 的字元，這些字元不允許使用在密碼上。"
 
 #: pyanaconda/iw/advanced_storage.py:87
@@ -1885,7 +2242,9 @@ msgid "Error with Data"
 msgstr "資料錯誤"
 
 #: pyanaconda/iw/autopart_type.py:96
-msgid "No partitions are available to resize.  Only physical partitions with specific filesystems can be resized."
+msgid ""
+"No partitions are available to resize.  Only physical partitions with "
+"specific filesystems can be resized."
 msgstr "沒有可變更大小的分割區。只有含有特定檔案系統的實體分割區可改變大小。"
 
 #: pyanaconda/iw/autopart_type.py:119
@@ -1906,52 +2265,70 @@ msgstr "重設裝置大小時發生了錯誤"
 msgid "%(name)s: %(msg)s"
 msgstr "%(name)s：%(msg)s"
 
-#: pyanaconda/iw/autopart_type.py:228
+#: pyanaconda/iw/autopart_type.py:229
 msgid "Use All Space"
 msgstr "使用所有空間"
 
-#: pyanaconda/iw/autopart_type.py:230
+#: pyanaconda/iw/autopart_type.py:231
 msgid ""
-"Removes all partitions on the selected device(s).  This includes partitions created by other operating systems.\n\n"
-"<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
+"Removes all partitions on the selected device(s).  This includes partitions "
+"created by other operating systems.\n"
+"\n"
+"<b>Tip:</b> This option will remove data from the selected device(s).  Make "
+"sure you have backups."
 msgstr ""
-"移除已選裝置上的所有分割區。 這包含由其他作業系統所建立的分割區。\n\n"
+"移除已選裝置上的所有分割區。 這包含由其他作業系統所建立的分割區。\n"
+"\n"
 "<b>祕訣：</b>這個選項將從已選裝置移除資料。 請確定您已經備份。"
 
-#: pyanaconda/iw/autopart_type.py:236
+#: pyanaconda/iw/autopart_type.py:237
 msgid "Replace Existing Linux System(s)"
 msgstr "置換現有的 Linux 系統"
 
-#: pyanaconda/iw/autopart_type.py:238
+#: pyanaconda/iw/autopart_type.py:239
 msgid ""
-"Removes all Linux partitions on the selected device(s). This does not remove other partitions you may have on your storage device(s) (such as VFAT or FAT32).\n\n"
-"<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
+"Removes all Linux partitions on the selected device(s). This does not remove "
+"other partitions you may have on your storage device(s) (such as VFAT or "
+"FAT32).\n"
+"\n"
+"<b>Tip:</b> This option will remove data from the selected device(s).  Make "
+"sure you have backups."
 msgstr ""
-"移除已選裝置上的所有 Linux 分割區。這不會移除在您的儲存裝置上其他可能存在的分割區 (像是 VFAT 或 FAT32)。\n\n"
+"移除已選裝置上的所有 Linux 分割區。這不會移除在您的儲存裝置上其他可能存在的分"
+"割區 (像是 VFAT 或 FAT32)。\n"
+"\n"
 "<b>祕訣:</b>這個選項將從已選裝置移除資料。 請確定您有做備份。"
 
-#: pyanaconda/iw/autopart_type.py:246
+#: pyanaconda/iw/autopart_type.py:247
 msgid "Shrink Current System"
 msgstr "縮小目前的系統"
 
-#: pyanaconda/iw/autopart_type.py:248
-msgid "Shrinks existing partitions to create free space for the default layout."
+#: pyanaconda/iw/autopart_type.py:249
+msgid ""
+"Shrinks existing partitions to create free space for the default layout."
 msgstr "縮減現有分割到建立剩餘空間用於預設版面配置。"
 
-#: pyanaconda/iw/autopart_type.py:250
+#: pyanaconda/iw/autopart_type.py:251
 msgid "Use Free Space"
 msgstr "使用剩餘空間"
 
-#: pyanaconda/iw/autopart_type.py:252
-msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
-msgstr "假設您有足夠剩餘空間可用的話，將保留您目前的資料與分割區並只使用已選裝置上未被分割的空間。"
+#: pyanaconda/iw/autopart_type.py:253
+msgid ""
+"Retains your current data and partitions and uses only the unpartitioned "
+"space on the selected device(s), assuming you have enough free space "
+"available."
+msgstr ""
+"假設您有足夠剩餘空間可用的話，將保留您目前的資料與分割區並只使用已選裝置上未"
+"被分割的空間。"
 
-#: pyanaconda/iw/autopart_type.py:256
+#: pyanaconda/iw/autopart_type.py:257
 msgid "Create Custom Layout"
 msgstr "建立自訂版面配置"
 
-#: pyanaconda/iw/autopart_type.py:258
-msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
+#: pyanaconda/iw/autopart_type.py:259
+msgid ""
+"Manually create your own custom layout on the selected device(s) using our "
+"partitioning tool."
 msgstr "在已選裝置上使用我們的分割工具，手動建立您自己的訂製版面配置。"
 
 #: pyanaconda/iw/blpasswidget.py:44
@@ -1959,7 +2336,9 @@ msgid "_Use a boot loader password"
 msgstr "使用開機載入程式密碼(_U)"
 
 #: pyanaconda/iw/blpasswidget.py:45
-msgid "A boot loader password prevents users from changing kernel options, increasing security."
+msgid ""
+"A boot loader password prevents users from changing kernel options, "
+"increasing security."
 msgstr "開機載入程式密碼可以防止使用者更改核心選項，並增強安全性。"
 
 #: pyanaconda/iw/blpasswidget.py:76
@@ -1971,8 +2350,12 @@ msgid "Enter Boot Loader Password"
 msgstr "輸入開機管理程式密碼"
 
 #: pyanaconda/iw/blpasswidget.py:105
-msgid "Enter a boot loader password and then confirm it.  (Note that your BIOS keymap may be different than the actual keymap you are used to.)"
-msgstr "請輸入開機管理程式的密碼，然後再輸入一次以作確認。 (請注意您的 BIOS 鍵盤配置 也許與您平時使用的實際鍵盤配置不一樣。)"
+msgid ""
+"Enter a boot loader password and then confirm it.  (Note that your BIOS "
+"keymap may be different than the actual keymap you are used to.)"
+msgstr ""
+"請輸入開機管理程式的密碼，然後再輸入一次以作確認。 (請注意您的 BIOS 鍵盤配置 "
+"也許與您平時使用的實際鍵盤配置不一樣。)"
 
 #: pyanaconda/iw/blpasswidget.py:112
 msgid "_Password:"
@@ -1992,10 +2375,13 @@ msgstr "密碼不符"
 
 #: pyanaconda/iw/blpasswidget.py:149
 msgid ""
-"Your boot loader password is shorter than six characters.  We recommend a longer boot loader password.\n\n"
+"Your boot loader password is shorter than six characters.  We recommend a "
+"longer boot loader password.\n"
+"\n"
 "Would you like to continue with this password?"
 msgstr ""
-"您的開機載入程式密碼少於 6 個字元。建議您使用長一點的密碼。\n\n"
+"您的開機載入程式密碼少於 6 個字元。建議您使用長一點的密碼。\n"
+"\n"
 "您想要繼續使用這組密碼嗎？"
 
 #: pyanaconda/iw/bootloader_main_gui.py:36
@@ -2017,7 +2403,7 @@ msgstr "改變裝置(_C)"
 msgid "Clear Disks Selector"
 msgstr "清空磁碟選擇器"
 
-#: pyanaconda/iw/cleardisks_gui.py:45 pyanaconda/iw/filter_gui.py:429
+#: pyanaconda/iw/cleardisks_gui.py:45 pyanaconda/iw/filter_gui.py:432
 msgid "You must select at least one drive to be used for installation."
 msgstr "您必須選取至少一個磁碟以便安裝。"
 
@@ -2026,33 +2412,33 @@ msgid "You must select one drive to boot from."
 msgstr "您必須選取一個用來開機的磁碟。"
 
 #: pyanaconda/iw/cleardisks_gui.py:127 pyanaconda/iw/cleardisks_gui.py:147
-#: pyanaconda/iw/filter_gui.py:486 pyanaconda/iw/filter_gui.py:497
-#: pyanaconda/iw/filter_gui.py:527
+#: pyanaconda/iw/filter_gui.py:489 pyanaconda/iw/filter_gui.py:500
+#: pyanaconda/iw/filter_gui.py:530
 msgid "Model"
 msgstr "型號"
 
 #: pyanaconda/iw/cleardisks_gui.py:128 pyanaconda/iw/cleardisks_gui.py:148
-#: pyanaconda/iw/filter_gui.py:487 pyanaconda/iw/filter_gui.py:498
-#: pyanaconda/iw/filter_gui.py:506 pyanaconda/iw/filter_gui.py:517
-#: pyanaconda/iw/filter_gui.py:528
+#: pyanaconda/iw/filter_gui.py:490 pyanaconda/iw/filter_gui.py:501
+#: pyanaconda/iw/filter_gui.py:509 pyanaconda/iw/filter_gui.py:520
+#: pyanaconda/iw/filter_gui.py:531
 msgid "Capacity"
 msgstr "容量"
 
-#: pyanaconda/iw/cleardisks_gui.py:129 pyanaconda/iw/filter_gui.py:488
-#: pyanaconda/iw/filter_gui.py:507 pyanaconda/iw/filter_gui.py:518
-#: pyanaconda/iw/filter_gui.py:529
+#: pyanaconda/iw/cleardisks_gui.py:129 pyanaconda/iw/filter_gui.py:491
+#: pyanaconda/iw/filter_gui.py:510 pyanaconda/iw/filter_gui.py:521
+#: pyanaconda/iw/filter_gui.py:532
 msgid "Vendor"
 msgstr "供應商"
 
 #: pyanaconda/iw/cleardisks_gui.py:130 pyanaconda/iw/cleardisks_gui.py:149
-#: pyanaconda/iw/filter_gui.py:505 pyanaconda/iw/filter_gui.py:516
-#: pyanaconda/iw/filter_gui.py:532
+#: pyanaconda/iw/filter_gui.py:508 pyanaconda/iw/filter_gui.py:519
+#: pyanaconda/iw/filter_gui.py:535
 msgid "Identifier"
 msgstr "識別碼"
 
-#: pyanaconda/iw/cleardisks_gui.py:131 pyanaconda/iw/filter_gui.py:489
-#: pyanaconda/iw/filter_gui.py:508 pyanaconda/iw/filter_gui.py:519
-#: pyanaconda/iw/filter_gui.py:530
+#: pyanaconda/iw/cleardisks_gui.py:131 pyanaconda/iw/filter_gui.py:492
+#: pyanaconda/iw/filter_gui.py:511 pyanaconda/iw/filter_gui.py:522
+#: pyanaconda/iw/filter_gui.py:533
 msgid "Interconnect"
 msgstr "內部連接"
 
@@ -2065,16 +2451,27 @@ msgstr ""
 "管理程式"
 
 #: pyanaconda/iw/cleardisks_gui.py:196
-msgid "<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>祕訣：</b>在安裝目標裝置上的所有 Linux 檔案系統，將被重新格式化並抹去任何資料。 請確定您有做備份。"
+msgid ""
+"<b>Tip:</b> All Linux filesystems on the install target devices will be "
+"reformatted and wiped of any data.  Make sure you have backups."
+msgstr ""
+"<b>祕訣：</b>在安裝目標裝置上的所有 Linux 檔案系統，將被重新格式化並抹去任何"
+"資料。 請確定您有做備份。"
 
 #: pyanaconda/iw/cleardisks_gui.py:198
-msgid "<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>祕訣：</b>安裝目標裝置將被重新格式化並抹去任何資料。 請確定您有做備份。"
+msgid ""
+"<b>Tip:</b> The install target devices will be reformatted and wiped of any "
+"data.  Make sure you have backups."
+msgstr ""
+"<b>祕訣：</b>安裝目標裝置將被重新格式化並抹去任何資料。 請確定您有做備份。"
 
 #: pyanaconda/iw/cleardisks_gui.py:200
-msgid "<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."
-msgstr "<b>祕訣：</b>您在安裝目標裝置上的檔案系統將無法被重新格式化，除非您選擇在客製化期間這樣做。"
+msgid ""
+"<b>Tip:</b> Your filesystems on the install target devices will not be "
+"reformatted unless you choose to do so during customization."
+msgstr ""
+"<b>祕訣：</b>您在安裝目標裝置上的檔案系統將無法被重新格式化，除非您選擇在客製"
+"化期間這樣做。"
 
 #: pyanaconda/iw/congrats_gui.py:33
 msgid "Congratulations"
@@ -2082,8 +2479,12 @@ msgstr "恭喜您"
 
 #: pyanaconda/iw/congrats_gui.py:74 pyanaconda/textw/complete_text.py:39
 #, python-format
-msgid "Congratulations, your %s installation is complete.\n\n"
-msgstr "恭喜您，您的 %s 安裝已完成。\n\n"
+msgid ""
+"Congratulations, your %s installation is complete.\n"
+"\n"
+msgstr ""
+"恭喜您，您的 %s 安裝已完成。\n"
+"\n"
 
 #: pyanaconda/iw/congrats_gui.py:77 pyanaconda/textw/complete_text.py:42
 msgid "Shutdown"
@@ -2098,17 +2499,26 @@ msgid "Please reboot to use the installed system.\n"
 msgstr "請重新啟動系統來使用已安裝的系統。\n"
 
 #: pyanaconda/iw/congrats_gui.py:86 pyanaconda/textw/complete_text.py:51
-msgid "Note that updates may be available to ensure the proper functioning of your system and installation of these updates is recommended after the reboot."
-msgstr "請注意，可能會有可用的更新以確保您的系統可正常運作，我們建議您在重新啟動系統後安裝這些更新。"
+msgid ""
+"Note that updates may be available to ensure the proper functioning of your "
+"system and installation of these updates is recommended after the reboot."
+msgstr ""
+"請注意，可能會有可用的更新以確保您的系統可正常運作，我們建議您在重新啟動系統"
+"後安裝這些更新。"
 
 #: pyanaconda/iw/congrats_gui.py:90 pyanaconda/textw/complete_text.py:55
 #, python-format
 msgid ""
-"Congratulations, your %s installation is complete.\n\n"
-"Please reboot to use the installed system.  Note that updates may be available to ensure the proper functioning of your system and installation of these updates is recommended after the reboot."
+"Congratulations, your %s installation is complete.\n"
+"\n"
+"Please reboot to use the installed system.  Note that updates may be "
+"available to ensure the proper functioning of your system and installation "
+"of these updates is recommended after the reboot."
 msgstr ""
-"恭喜您，您的 %s 的安裝程序已完成。\n\n"
-"請重新啟動系統以使用安裝的系統。請注意，可能會有可用的更新以確保您的系統可正常運作，我們建議您在重新啟動系統後安裝這些更新。"
+"恭喜您，您的 %s 的安裝程序已完成。\n"
+"\n"
+"請重新啟動系統以使用安裝的系統。請注意，可能會有可用的更新以確保您的系統可正"
+"常運作，我們建議您在重新啟動系統後安裝這些更新。"
 
 #: pyanaconda/iw/examine_gui.py:39
 msgid "Upgrade Examine"
@@ -2120,8 +2530,12 @@ msgstr "乾淨安裝"
 
 #: pyanaconda/iw/examine_gui.py:60
 #, python-format
-msgid "Choose this option to install a fresh copy of %s on your system.  Existing software and data may be overwritten depending on your configuration choices."
-msgstr "選擇這個選項以在您的系統上乾淨安裝 %s。 已有的軟體和資料可能會依據您的不同組態選擇而被覆寫。"
+msgid ""
+"Choose this option to install a fresh copy of %s on your system.  Existing "
+"software and data may be overwritten depending on your configuration choices."
+msgstr ""
+"選擇這個選項以在您的系統上乾淨安裝 %s。 已有的軟體和資料可能會依據您的不同組"
+"態選擇而被覆寫。"
 
 #: pyanaconda/iw/examine_gui.py:65
 msgid "Upgrade an Existing Installation"
@@ -2129,11 +2543,17 @@ msgstr "升級現有已安裝系統"
 
 #: pyanaconda/iw/examine_gui.py:67
 #, python-format
-msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your storage device(s)."
-msgstr "假如您想要升級您目前的 %s 系統，請選擇這個選項。此選項將會保留您儲存裝置上現有的資料。"
+msgid ""
+"Choose this option if you would like to upgrade your existing %s system.  "
+"This option will preserve the existing data on your storage device(s)."
+msgstr ""
+"假如您想要升級您目前的 %s 系統，請選擇這個選項。此選項將會保留您儲存裝置上現"
+"有的資料。"
 
 #: pyanaconda/iw/examine_gui.py:107
-msgid "At least one existing installation has been detected on your system.  What would you like to do?"
+msgid ""
+"At least one existing installation has been detected on your system.  What "
+"would you like to do?"
 msgstr "在您的系統上偵測到至少一個已有安裝。 您想要如何進行？"
 
 #: pyanaconda/iw/examine_gui.py:126
@@ -2154,31 +2574,31 @@ msgstr "已選裝置：%s (%s MB) 超出 %s (%s MB)。"
 msgid "Device Filter"
 msgstr "裝置篩選器"
 
-#: pyanaconda/iw/filter_gui.py:490 pyanaconda/iw/filter_gui.py:520
-#: pyanaconda/iw/filter_gui.py:531
+#: pyanaconda/iw/filter_gui.py:493 pyanaconda/iw/filter_gui.py:523
+#: pyanaconda/iw/filter_gui.py:534
 msgid "Serial Number"
 msgstr "序號"
 
-#: pyanaconda/iw/filter_gui.py:491 pyanaconda/iw/filter_gui.py:499
-#: pyanaconda/iw/filter_gui.py:510 pyanaconda/iw/filter_gui.py:521
-#: pyanaconda/iw/filter_gui.py:536 pyanaconda/iw/osbootwidget.py:66
+#: pyanaconda/iw/filter_gui.py:494 pyanaconda/iw/filter_gui.py:502
+#: pyanaconda/iw/filter_gui.py:513 pyanaconda/iw/filter_gui.py:524
+#: pyanaconda/iw/filter_gui.py:539 pyanaconda/iw/osbootwidget.py:66
 #: pyanaconda/iw/partition_gui.py:611
 msgid "Device"
 msgstr "裝置"
 
-#: pyanaconda/iw/filter_gui.py:509
+#: pyanaconda/iw/filter_gui.py:512
 msgid "Paths"
 msgstr "路徑"
 
-#: pyanaconda/iw/filter_gui.py:533
+#: pyanaconda/iw/filter_gui.py:536
 msgid "Port"
 msgstr "通訊埠"
 
-#: pyanaconda/iw/filter_gui.py:534
+#: pyanaconda/iw/filter_gui.py:537
 msgid "Target"
 msgstr "目標"
 
-#: pyanaconda/iw/filter_gui.py:535
+#: pyanaconda/iw/filter_gui.py:538
 msgid "LUN"
 msgstr "LUN"
 
@@ -2191,16 +2611,25 @@ msgid "Basic Storage Devices"
 msgstr "基本儲存裝置"
 
 #: pyanaconda/iw/filter_type.py:62
-msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
-msgstr "安裝或升級於標準類型的儲存裝置。 如果您不確定哪一個選項是對的，那麼就大概是它了。"
+msgid ""
+"Installs or upgrades to typical types of storage devices.  If you're not "
+"sure which option is right for you, this is probably it."
+msgstr ""
+"安裝或升級於標準類型的儲存裝置。 如果您不確定哪一個選項是對的，那麼就大概是它"
+"了。"
 
 #: pyanaconda/iw/filter_type.py:66
 msgid "Specialized Storage Devices"
 msgstr "專用的儲存裝置"
 
 #: pyanaconda/iw/filter_type.py:67
-msgid "Installs or upgrades to enterprise devices such as Storage Area Networks (SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to filter out devices the installer should ignore."
-msgstr "安裝或升級於像是儲存裝置區域網路 (SANs) 的企業裝置。這個選項將允許您加入 FCoE/iSCSI/zFCP 磁碟，並且篩選出安裝程式應該忽略的裝置。"
+msgid ""
+"Installs or upgrades to enterprise devices such as Storage Area Networks "
+"(SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to "
+"filter out devices the installer should ignore."
+msgstr ""
+"安裝或升級於像是儲存裝置區域網路 (SANs) 的企業裝置。這個選項將允許您加入 "
+"FCoE/iSCSI/zFCP 磁碟，並且篩選出安裝程式應該忽略的裝置。"
 
 #: pyanaconda/iw/language_gui.py:33 pyanaconda/textw/language_text.py:45
 msgid "Language Selection"
@@ -2219,8 +2648,13 @@ msgid "Not enough space"
 msgstr "空間不足"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:127
-msgid "The physical extent size cannot be changed because otherwise the space required by the currently defined logical volumes will be increased to more than the available space."
-msgstr "無法更改實體容量的大小，因為目前定義的邏輯卷冊所需的空間將會增大至超過可使用的空間。"
+msgid ""
+"The physical extent size cannot be changed because otherwise the space "
+"required by the currently defined logical volumes will be increased to more "
+"than the available space."
+msgstr ""
+"無法更改實體容量的大小，因為目前定義的邏輯卷冊所需的空間將會增大至超過可使用"
+"的空間。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:136
 msgid "Confirm Physical Extent Change"
@@ -2228,10 +2662,15 @@ msgstr "確認變更實體容量"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:137
 msgid ""
-"This change in the value of the physical extent will require the sizes of the current logical volume requests to be rounded up in size to an integer multiple of the physical extent.\n\n"
+"This change in the value of the physical extent will require the sizes of "
+"the current logical volume requests to be rounded up in size to an integer "
+"multiple of the physical extent.\n"
+"\n"
 "This change will take effect immediately."
 msgstr ""
-"這個實體容量數值的變更將需要目前的邏輯卷冊大小調整為一個整數乘以實體容量的大小。\n\n"
+"這個實體容量數值的變更將需要目前的邏輯卷冊大小調整為一個整數乘以實體容量的大"
+"小。\n"
+"\n"
 "這個變更會立即生效。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:146 pyanaconda/iw/lvm_dialog_gui.py:208
@@ -2240,30 +2679,52 @@ msgstr "繼續(_O)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:173
 #, python-format
-msgid "The physical extent size cannot be changed because the value selected (%(curpe)10.2f MB) is larger than the smallest physical volume (%(maxpvsize)10.2f MB) in the volume group."
-msgstr "無法變更實體延伸的大小，因為選取的數值 (%(curpe)10.2f MB) 大於卷冊群組中的最小實體卷冊 (%(maxpvsize)10.2f MB)。"
+msgid ""
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is larger than the smallest physical volume "
+"(%(maxpvsize)10.2f MB) in the volume group."
+msgstr ""
+"無法變更實體延伸的大小，因為選取的數值 (%(curpe)10.2f MB) 大於卷冊群組中的最"
+"小實體卷冊 (%(maxpvsize)10.2f MB)。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:187
 #, python-format
-msgid "The physical extent size cannot be changed because the value selected (%(curpe)10.2f MB) is too large compared to the size of the smallest physical volume (%(maxpvsize)10.2f MB) in the volume group."
-msgstr "無法變更實體延伸的大小，因為選取的數值 (%(curpe)10.2f MB) 遠大於卷冊群組中的最小實體卷冊容量 (%(maxpvsize)10.2f MB)。"
+msgid ""
+"The physical extent size cannot be changed because the value selected "
+"(%(curpe)10.2f MB) is too large compared to the size of the smallest "
+"physical volume (%(maxpvsize)10.2f MB) in the volume group."
+msgstr ""
+"無法變更實體延伸的大小，因為選取的數值 (%(curpe)10.2f MB) 遠大於卷冊群組中的"
+"最小實體卷冊容量 (%(maxpvsize)10.2f MB)。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:201
 msgid "Too small"
 msgstr "太小"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:202
-msgid "This change in the value of the physical extent will waste substantial space on one or more of the physical volumes in the volume group."
-msgstr "這個實體容量數值的變更將會浪費在卷冊群組中一或更多的實體卷冊上相當大的空間。"
+msgid ""
+"This change in the value of the physical extent will waste substantial space "
+"on one or more of the physical volumes in the volume group."
+msgstr ""
+"這個實體容量數值的變更將會浪費在卷冊群組中一或更多的實體卷冊上相當大的空間。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:226
 #, python-format
-msgid "The physical extent size cannot be changed because the resulting maximum logical volume size (%10.2f MB) is smaller than one or more of the currently defined logical volumes."
-msgstr "無法變更實體容量的大小，因為結果最大的邏輯卷冊大小 (%10.2f MB)小於一或多個目前已定義的邏輯卷冊。"
+msgid ""
+"The physical extent size cannot be changed because the resulting maximum "
+"logical volume size (%10.2f MB) is smaller than one or more of the currently "
+"defined logical volumes."
+msgstr ""
+"無法變更實體容量的大小，因為結果最大的邏輯卷冊大小 (%10.2f MB)小於一或多個目"
+"前已定義的邏輯卷冊。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:303
-msgid "You cannot remove this physical volume because otherwise the volume group will be too small to hold the currently defined logical volumes."
-msgstr "您不能移除這個實體卷冊，因為這樣會導致卷冊群組將會太小而無法容納目前已定義的邏輯卷冊。"
+msgid ""
+"You cannot remove this physical volume because otherwise the volume group "
+"will be too small to hold the currently defined logical volumes."
+msgstr ""
+"您不能移除這個實體卷冊，因為這樣會導致卷冊群組將會太小而無法容納目前已定義的"
+"邏輯卷冊。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:402
 msgid "Make Logical Volume"
@@ -2367,13 +2828,26 @@ msgstr "您必須輸入一個有效的、大於零的數字。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:698
 #, python-format
-msgid "The current requested size (%(size)10.2f MB) is larger than the maximum logical volume size (%(maxlv)10.2f MB). To increase this limit you can create more Physical Volumes from unpartitioned disk space and add them to this Volume Group."
-msgstr "目前要求的大小 (%(size)10.2f MB)大於邏輯卷冊大小的最大值 (%(maxlv)10.2f MB)。如要增加這個容量限制，您可以從未分割的磁碟空間中，建立更多實體卷冊，然後將這些卷冊加入卷冊群組中。"
+msgid ""
+"The current requested size (%(size)10.2f MB) is larger than the maximum "
+"logical volume size (%(maxlv)10.2f MB). To increase this limit you can "
+"create more Physical Volumes from unpartitioned disk space and add them to "
+"this Volume Group."
+msgstr ""
+"目前要求的大小 (%(size)10.2f MB)大於邏輯卷冊大小的最大值 (%(maxlv)10.2f MB)。"
+"如要增加這個容量限制，您可以從未分割的磁碟空間中，建立更多實體卷冊，然後將這"
+"些卷冊加入卷冊群組中。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:719
 #, python-format
-msgid "The size entered for this logical volume (%(size)d MB) combined with the size of the other logical volume(s) exceeds the size of the volume group (%(tempvgsize)d MB). Please make the volume group larger or make the logical volume smaller."
-msgstr "所輸入的邏輯卷冊大小 (%(size)d MB) 與其他邏輯卷冊的大小合併之後，超出了卷冊群組的大小 (%(tempvgsize)d MB)。請製作較大的卷冊群組或較小的邏輯卷冊。"
+msgid ""
+"The size entered for this logical volume (%(size)d MB) combined with the "
+"size of the other logical volume(s) exceeds the size of the volume group "
+"(%(tempvgsize)d MB). Please make the volume group larger or make the logical "
+"volume smaller."
+msgstr ""
+"所輸入的邏輯卷冊大小 (%(size)d MB) 與其他邏輯卷冊的大小合併之後，超出了卷冊群"
+"組的大小 (%(tempvgsize)d MB)。請製作較大的卷冊群組或較小的邏輯卷冊。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:829
 msgid "No free slots"
@@ -2390,8 +2864,13 @@ msgid "No free space"
 msgstr "沒有剩餘空間"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:841
-msgid "There is no room left in the volume group to create new logical volumes. To add a logical volume you must reduce the size of one or more of the currently existing logical volumes"
-msgstr "這個卷冊群組已經沒有剩餘的空間來建立邏輯卷冊。如要新增一個邏輯卷冊，您必須要縮小一或多個目前現有的邏輯卷冊空間"
+msgid ""
+"There is no room left in the volume group to create new logical volumes. To "
+"add a logical volume you must reduce the size of one or more of the "
+"currently existing logical volumes"
+msgstr ""
+"這個卷冊群組已經沒有剩餘的空間來建立邏輯卷冊。如要新增一個邏輯卷冊，您必須要"
+"縮小一或多個目前現有的邏輯卷冊空間"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:878
 #, python-format
@@ -2417,11 +2896,16 @@ msgstr "實體卷冊不足"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1282
 msgid ""
-"At least one unused physical volume partition is needed to create an LVM Volume Group.\n\n"
-"Create a partition or RAID array of type \"physical volume (LVM)\" and then select the \"LVM\" option again."
+"At least one unused physical volume partition is needed to create an LVM "
+"Volume Group.\n"
+"\n"
+"Create a partition or RAID array of type \"physical volume (LVM)\" and then "
+"select the \"LVM\" option again."
 msgstr ""
-"需要至少一個未使用的實體卷冊分割區，以用來建立一個 LVM 卷冊群組。\n\n"
-"首先，建立一個分割區或「實體卷冊 (LVM)」類型的磁碟陣列，然後再選擇「LVM」選項。"
+"需要至少一個未使用的實體卷冊分割區，以用來建立一個 LVM 卷冊群組。\n"
+"\n"
+"首先，建立一個分割區或「實體卷冊 (LVM)」類型的磁碟陣列，然後再選擇「LVM」選"
+"項。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1293
 msgid "Make LVM Volume Group"
@@ -2523,31 +3007,24 @@ msgid "Sending request for IP address information for %s"
 msgstr "正在傳送 %s 之 IP 位址資訊的請求"
 
 #: pyanaconda/iw/netconfig_dialog.py:257 pyanaconda/iw/netconfig_dialog.py:260
-#: pyanaconda/textw/netconfig_text.py:225
-#: pyanaconda/textw/netconfig_text.py:228
 msgid "IP Address"
 msgstr "IP 位址"
 
 #: pyanaconda/iw/netconfig_dialog.py:267
-#: pyanaconda/textw/netconfig_text.py:235
+#: pyanaconda/textw/netconfig_text.py:290
 msgid "IPv4 CIDR prefix must be between 0 and 32."
 msgstr "IPv4 CIDR 的前置數字必須介於 0 與 32 之間。"
 
 #: pyanaconda/iw/netconfig_dialog.py:268 pyanaconda/iw/netconfig_dialog.py:274
 #: pyanaconda/iw/netconfig_dialog.py:282 pyanaconda/iw/netconfig_dialog.py:285
-#: pyanaconda/textw/netconfig_text.py:236
-#: pyanaconda/textw/netconfig_text.py:242
-#: pyanaconda/textw/netconfig_text.py:250
 msgid "IPv4 Network Mask"
 msgstr "IPv4 網路遮罩"
 
 #: pyanaconda/iw/netconfig_dialog.py:295
-#: pyanaconda/textw/netconfig_text.py:263
 msgid "Gateway"
 msgstr "閘道器 (Gateway)"
 
 #: pyanaconda/iw/netconfig_dialog.py:305
-#: pyanaconda/textw/netconfig_text.py:273
 msgid "Nameserver"
 msgstr "名稱伺服器"
 
@@ -2566,19 +3043,22 @@ msgstr "您必須為此電腦輸入一組有效的主機名稱。"
 #: pyanaconda/iw/network_gui.py:90
 #, python-format
 msgid ""
-"The hostname \"%(hostname)s\" is not valid for the following reason:\n\n"
+"The hostname \"%(hostname)s\" is not valid for the following reason:\n"
+"\n"
 "%(herrors)s"
 msgstr ""
-"主機名稱「%(hostname)s」由於下列原因而無效：\n\n"
+"主機名稱「%(hostname)s」由於下列原因而無效：\n"
+"\n"
 "%(herrors)s"
 
 #: pyanaconda/iw/network_gui.py:134
 msgid "Select network interface"
 msgstr "選取網路介面"
 
-#: pyanaconda/iw/network_gui.py:141 pyanaconda/textw/netconfig_text.py:91
-#: data/ui/netconfig.glade.h:10
-msgid "This requires that you have an active network connection during the installation process.  Please configure a network interface."
+#: pyanaconda/iw/network_gui.py:141 data/ui/netconfig.glade.h:10
+msgid ""
+"This requires that you have an active network connection during the "
+"installation process.  Please configure a network interface."
 msgstr "在安裝過程中，您需要可用的網路連線。請設定網路介面。"
 
 #: pyanaconda/iw/network_gui.py:211
@@ -2606,8 +3086,12 @@ msgid "Image"
 msgstr "映像"
 
 #: pyanaconda/iw/osbootwidget.py:137
-msgid "Enter a label for the boot loader menu to display. The device (or hard drive and partition number) is the device from which it boots."
-msgstr "請輸入要顯示在開機載入程式中的標籤。這裡的裝置 (或硬碟與分割區號碼)就是要用來開機的裝置。"
+msgid ""
+"Enter a label for the boot loader menu to display. The device (or hard drive "
+"and partition number) is the device from which it boots."
+msgstr ""
+"請輸入要顯示在開機載入程式中的標籤。這裡的裝置 (或硬碟與分割區號碼)就是要用來"
+"開機的裝置。"
 
 #: pyanaconda/iw/osbootwidget.py:145
 msgid "_Label"
@@ -2651,7 +3135,9 @@ msgstr "無法刪除"
 
 #: pyanaconda/iw/osbootwidget.py:323
 #, python-format
-msgid "This boot target cannot be deleted because it is for the %s system you are about to install."
+msgid ""
+"This boot target cannot be deleted because it is for the %s system you are "
+"about to install."
 msgstr "無法刪除這個開機目標，因為它是用於您將要安裝的 %s 系統。"
 
 #: pyanaconda/iw/partition_dialog_gui.py:58
@@ -2745,12 +3231,14 @@ msgid "Partitioning"
 msgstr "設定分割區"
 
 #: pyanaconda/iw/partition_gui.py:850
-msgid "The partitioning scheme you requested caused the following critical errors."
+msgid ""
+"The partitioning scheme you requested caused the following critical errors."
 msgstr "您所進行的分割區設定造成了下列重大錯誤。"
 
 #: pyanaconda/iw/partition_gui.py:852
 #, python-format
-msgid "You must correct these errors before you continue your installation of %s."
+msgid ""
+"You must correct these errors before you continue your installation of %s."
 msgstr "在您繼續安裝 %s 之前，您必須先更正這些錯誤。"
 
 #: pyanaconda/iw/partition_gui.py:858
@@ -2770,7 +3258,9 @@ msgid "Partitioning Warnings"
 msgstr "磁碟分割警告"
 
 #: pyanaconda/iw/partition_gui.py:881
-msgid "The following pre-existing devices have been selected to be formatted, destroying all data."
+msgid ""
+"The following pre-existing devices have been selected to be formatted, "
+"destroying all data."
 msgstr "下列存在裝置已被選為進行格式化，即將銷毀所有資料。"
 
 #: pyanaconda/iw/partition_gui.py:893
@@ -2799,13 +3289,15 @@ msgstr "無法實施任何建立動作"
 
 #: pyanaconda/iw/partition_gui.py:1371
 msgid ""
-"Note that the creation action requires one of the following:\n\n"
+"Note that the creation action requires one of the following:\n"
+"\n"
 "* Free space in one of the Hard Drives.\n"
 "* At least two free Software RAID partitions.\n"
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 msgstr ""
-"要注意的是，建立的動作需要下列條件之一：\n\n"
+"要注意的是，建立的動作需要下列條件之一：\n"
+"\n"
 "* 任一硬碟中還有剩餘空間。\n"
 "* 至少兩個可用的軟體磁碟陣列分割區。\n"
 "* 至少一個可用的實體卷冊 (LVM) 分割區。\n"
@@ -2813,12 +3305,26 @@ msgstr ""
 
 #: pyanaconda/iw/partition_gui.py:1474
 #, python-format
-msgid "Software RAID allows you to combine several disks into a larger RAID device.  A RAID device can be configured to provide additional speed and reliability compared to using an individual drive.  For more information on using RAID devices please consult the %s documentation.\n"
-msgstr "軟體磁碟陣列允許您合併多個磁碟以成為較大的磁碟陣列裝置。 磁碟陣列裝置可以被設定為比使用個別磁碟還能提供額外速度和可靠度。 要獲得更多關於使用磁碟陣列裝置的資訊，請參閱 %s 說明文件。\n"
+msgid ""
+"Software RAID allows you to combine several disks into a larger RAID "
+"device.  A RAID device can be configured to provide additional speed and "
+"reliability compared to using an individual drive.  For more information on "
+"using RAID devices please consult the %s documentation.\n"
+msgstr ""
+"軟體磁碟陣列允許您合併多個磁碟以成為較大的磁碟陣列裝置。 磁碟陣列裝置可以被設"
+"定為比使用個別磁碟還能提供額外速度和可靠度。 要獲得更多關於使用磁碟陣列裝置的"
+"資訊，請參閱 %s 說明文件。\n"
 
 #: pyanaconda/iw/partition_gui.py:1480
-msgid "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device that can be formatted and mounted.\n\n"
-msgstr "如要使用磁碟陣列，您必須首先建立至少兩個「軟體磁碟陣列」類型的分割區。然後您便可以建立可格式化與被掛載的磁碟陣列裝置。\n\n"
+msgid ""
+"To use RAID you must first create at least two partitions of type 'software "
+"RAID'.  Then you can create a RAID device that can be formatted and "
+"mounted.\n"
+"\n"
+msgstr ""
+"如要使用磁碟陣列，您必須首先建立至少兩個「軟體磁碟陣列」類型的分割區。然後您"
+"便可以建立可格式化與被掛載的磁碟陣列裝置。\n"
+"\n"
 
 #: pyanaconda/iw/partition_gui.py:1484
 #, python-format
@@ -2832,12 +3338,29 @@ msgstr "關於磁碟陣列"
 
 #: pyanaconda/iw/partition_gui.py:1494
 #, python-format
-msgid "Logical Volume Manager (LVM) is a 3 level construct. The first level is made up of disks or partitions formatted with LVM metadata called Physical Volumes (PV).  A Volume Group (VG) sits on top of one or more PVs. The VG, in turn, is the base to create one or more Logical Volumes (LV).  Note that a VG can be an aggregate of PVs from multiple physical disks.  For more information on using LVM please consult the %s documentation\n"
-msgstr "邏輯卷冊管理員 (LVM) 是三層的架構。第一層是由以 LVM 後設資料格式化的磁碟或分割區所組成的實體卷冊 (PV)。 卷冊群組 (VG) 則位於一個或更多 PVs 之上。而 VG 又是建立一個或更多邏輯卷冊 (LV) 的基礎。 要注意的是， VG 可以是從多重實體磁碟所彙總的 PVs。 要獲得更多關於使用 LVM 的資訊請參閱 %s 文件\n"
+msgid ""
+"Logical Volume Manager (LVM) is a 3 level construct. The first level is made "
+"up of disks or partitions formatted with LVM metadata called Physical "
+"Volumes (PV).  A Volume Group (VG) sits on top of one or more PVs. The VG, "
+"in turn, is the base to create one or more Logical Volumes (LV).  Note that "
+"a VG can be an aggregate of PVs from multiple physical disks.  For more "
+"information on using LVM please consult the %s documentation\n"
+msgstr ""
+"邏輯卷冊管理員 (LVM) 是三層的架構。第一層是由以 LVM 後設資料格式化的磁碟或分"
+"割區所組成的實體卷冊 (PV)。 卷冊群組 (VG) 則位於一個或更多 PVs 之上。而 VG 又"
+"是建立一個或更多邏輯卷冊 (LV) 的基礎。 要注意的是， VG 可以是從多重實體磁碟所"
+"彙總的 PVs。 要獲得更多關於使用 LVM 的資訊請參閱 %s 文件\n"
 
 #: pyanaconda/iw/partition_gui.py:1502
-msgid "To create a PV you need a partition with free space.  To create a VG you need a PV that is not part of any existing VG.  To create an LV you need a VG with free space.\n\n"
-msgstr "要建立 PV 您需要具有剩餘空間的分割區。 要建立 VG 您需要不是任何現有 VG 一部份的 PV。 要建立 LV 您需要具有剩餘空間的 VG。\n\n"
+msgid ""
+"To create a PV you need a partition with free space.  To create a VG you "
+"need a PV that is not part of any existing VG.  To create an LV you need a "
+"VG with free space.\n"
+"\n"
+msgstr ""
+"要建立 PV 您需要具有剩餘空間的分割區。 要建立 VG 您需要不是任何現有 VG 一部份"
+"的 PV。 要建立 LV 您需要具有剩餘空間的 VG。\n"
+"\n"
 
 #: pyanaconda/iw/partition_gui.py:1506
 #, python-format
@@ -2875,10 +3398,12 @@ msgstr "無法編輯"
 #: pyanaconda/iw/partition_gui.py:1628
 #, python-format
 msgid ""
-"You cannot edit this device:\n\n"
+"You cannot edit this device:\n"
+"\n"
 "%s"
 msgstr ""
-"您無法編輯這個裝置：\n\n"
+"您無法編輯這個裝置：\n"
+"\n"
 "%s"
 
 #: pyanaconda/iw/partition_gui.py:1811
@@ -2913,15 +3438,23 @@ msgstr "重設大小(_R)"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:425
 #, python-format
-msgid "Partitions of type '%s' must be constrained to a single drive.  To do this, select the drive in the 'Allowable Drives' checklist."
-msgstr "「%s」類型的分割區必須限制在單一的磁碟中。這可藉由在「可使用的磁碟」清單中選擇磁碟來做到。"
+msgid ""
+"Partitions of type '%s' must be constrained to a single drive.  To do this, "
+"select the drive in the 'Allowable Drives' checklist."
+msgstr ""
+"「%s」類型的分割區必須限制在單一的磁碟中。這可藉由在「可使用的磁碟」清單中選"
+"擇磁碟來做到。"
 
 #: pyanaconda/iw/raid_dialog_gui.py:390
 msgid ""
-"At least two unused software RAID partitions are needed to create a RAID device.\n\n"
-"First create at least two partitions of type \"software RAID\", and then select the \"RAID\" option again."
+"At least two unused software RAID partitions are needed to create a RAID "
+"device.\n"
+"\n"
+"First create at least two partitions of type \"software RAID\", and then "
+"select the \"RAID\" option again."
 msgstr ""
-"需要至少兩個未使用的軟體磁碟陣列分割區來建立磁碟陣列裝置。\n\n"
+"需要至少兩個未使用的軟體磁碟陣列分割區來建立磁碟陣列裝置。\n"
+"\n"
 "首先建立至少兩個「軟體磁碟陣列」類型的分割區，然後再選擇「磁碟陣列」選項。"
 
 #: pyanaconda/iw/raid_dialog_gui.py:404
@@ -2960,76 +3493,89 @@ msgstr "格式化分割區(_F)？"
 #: pyanaconda/iw/task_gui.py:55
 #, python-format
 msgid ""
-"Unable to read package metadata from repository.  This may be due to a missing repodata directory.  Please ensure that your repository has been correctly generated.\n\n"
+"Unable to read package metadata from repository.  This may be due to a "
+"missing repodata directory.  Please ensure that your repository has been "
+"correctly generated.\n"
+"\n"
 "%s"
 msgstr ""
-"無法從套件庫讀取套件的後設資料。可能是因為缺少了 repodata 目錄的關係。請確定您的套件庫已經正確產生。\n\n"
+"無法從套件庫讀取套件的後設資料。可能是因為缺少了 repodata 目錄的關係。請確定"
+"您的套件庫已經正確產生。\n"
+"\n"
 "%s"
 
-#: pyanaconda/iw/task_gui.py:132
+#: pyanaconda/iw/task_gui.py:129
 msgid "Edit Repository"
 msgstr "編輯套件庫"
 
-#: pyanaconda/iw/task_gui.py:156
+#: pyanaconda/iw/task_gui.py:153
 #, python-format
-msgid "The repository %s has already been added.  Please choose a different repository name and URL."
+msgid ""
+"The repository %s has already been added.  Please choose a different "
+"repository name and URL."
 msgstr "已加入套件庫 %s，請選擇另一個套件庫名稱與網址。"
 
-#: pyanaconda/iw/task_gui.py:236
+#: pyanaconda/iw/task_gui.py:239
 msgid "Invalid Proxy URL"
 msgstr "Proxy URL 無效"
 
-#: pyanaconda/iw/task_gui.py:237
+#: pyanaconda/iw/task_gui.py:240
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "您必須為 proxy 提供 HTTP、HTTPS 或 FTP 網址。"
 
-#: pyanaconda/iw/task_gui.py:249 pyanaconda/iw/task_gui.py:430
+#: pyanaconda/iw/task_gui.py:252 pyanaconda/iw/task_gui.py:436
 msgid "Invalid Repository URL"
 msgstr "套件庫 URL 無效"
 
-#: pyanaconda/iw/task_gui.py:250 pyanaconda/iw/task_gui.py:431
+#: pyanaconda/iw/task_gui.py:253 pyanaconda/iw/task_gui.py:437
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "您必須為套件庫提供 HTTP、HTTPS 或 FTP 網址。"
 
-#: pyanaconda/iw/task_gui.py:271 pyanaconda/iw/task_gui.py:440
+#: pyanaconda/iw/task_gui.py:274 pyanaconda/iw/task_gui.py:446
 msgid "No Media Found"
-msgstr "找不到媒介"
+msgstr "找不到媒體"
 
-#: pyanaconda/iw/task_gui.py:272 pyanaconda/iw/task_gui.py:441
-msgid "No installation media was found. Please insert a disc into your drive and try again."
-msgstr "找不到安裝媒介。請將光碟插入您的光碟機並重新嘗試。"
+#: pyanaconda/iw/task_gui.py:275 pyanaconda/iw/task_gui.py:447
+msgid ""
+"No installation media was found. Please insert a disc into your drive and "
+"try again."
+msgstr "找不到安裝媒體。請將光碟插入您的光碟機並重新嘗試。"
 
-#: pyanaconda/iw/task_gui.py:303 pyanaconda/iw/task_gui.py:464
+#: pyanaconda/iw/task_gui.py:306 pyanaconda/iw/task_gui.py:470
 msgid "Please enter an NFS server and path."
 msgstr "請輸入一個 NFS 伺服器與路徑。"
 
-#: pyanaconda/iw/task_gui.py:322
+#: pyanaconda/iw/task_gui.py:325
 #, python-format
 msgid ""
-"The following error occurred while setting up the repository:\n\n"
+"The following error occurred while setting up the repository:\n"
+"\n"
 "%s"
 msgstr ""
-"設定套件庫時發生了下列錯誤：\n\n"
+"設定套件庫時發生了下列錯誤：\n"
+"\n"
 "%s"
 
-#: pyanaconda/iw/task_gui.py:345
+#: pyanaconda/iw/task_gui.py:348
 msgid "Invalid Repository Name"
 msgstr "套件庫名稱無效"
 
-#: pyanaconda/iw/task_gui.py:346
+#: pyanaconda/iw/task_gui.py:349
 msgid "You must provide a repository name."
 msgstr "您必須提供一組套件庫名稱。"
 
-#: pyanaconda/iw/task_gui.py:496 data/ui/addrepo.glade.h:3
+#: pyanaconda/iw/task_gui.py:502 data/ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "新增套件庫"
 
-#: pyanaconda/iw/task_gui.py:501
+#: pyanaconda/iw/task_gui.py:507
 msgid "No Software Repos Enabled"
 msgstr "未啟用任何軟體套件庫"
 
-#: pyanaconda/iw/task_gui.py:502
-msgid "You must have at least one software repository enabled to continue installation."
+#: pyanaconda/iw/task_gui.py:508
+msgid ""
+"You must have at least one software repository enabled to continue "
+"installation."
 msgstr "在您繼續進行安裝之前，您必須擁有至少一個軟體儲存庫。"
 
 #: pyanaconda/iw/timezone_gui.py:63 pyanaconda/textw/timezone_text.py:95
@@ -3051,18 +3597,24 @@ msgstr "這將會更新您目前的開機管理程式。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:125
 #: pyanaconda/textw/upgrade_bootloader_text.py:103
-msgid "Due to system changes, your boot loader configuration can not be automatically updated."
+msgid ""
+"Due to system changes, your boot loader configuration can not be "
+"automatically updated."
 msgstr "基於系統的變更，您的開機載入程式設定無法自動地更新。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:128
 #: pyanaconda/textw/upgrade_bootloader_text.py:107
-msgid "The installer is unable to detect the boot loader currently in use on your system."
+msgid ""
+"The installer is unable to detect the boot loader currently in use on your "
+"system."
 msgstr "安裝程式偵測不到目前在您系統使用的開機管理程式。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:135
 #: pyanaconda/textw/upgrade_bootloader_text.py:116
 #, python-format
-msgid "The installer has detected the %(type)s boot loader currently installed on %(bootDev)s."
+msgid ""
+"The installer has detected the %(type)s boot loader currently installed on "
+"%(bootDev)s."
 msgstr "安裝程式已偵測到 %(type)s 開機管理程式已安裝於 %(bootDev)s。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:139
@@ -3074,16 +3626,24 @@ msgid "_Create new boot loader configuration"
 msgstr "建立新的開機管理程式設定(_C)"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:146
-msgid "This option creates a new boot loader configuration.  If you wish to switch boot loaders, you should choose this."
-msgstr "這將會讓您建立一個新的開機載入程式設定。如果您希望轉換為不同的開機載入程式，您應該選取此選項。"
+msgid ""
+"This option creates a new boot loader configuration.  If you wish to switch "
+"boot loaders, you should choose this."
+msgstr ""
+"這將會讓您建立一個新的開機載入程式設定。如果您希望轉換為不同的開機載入程式，"
+"您應該選取此選項。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:153
 msgid "_Skip boot loader updating"
 msgstr "略過更新開機管理程式(_S)"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:154
-msgid "This option makes no changes to boot loader configuration.  If you are using a third party boot loader, you should choose this."
-msgstr "這將不會改變開機載入程式設定。如果您使用第三方的開機載入程式，您應該選取此選項。"
+msgid ""
+"This option makes no changes to boot loader configuration.  If you are using "
+"a third party boot loader, you should choose this."
+msgstr ""
+"這將不會改變開機載入程式設定。如果您使用第三方的開機載入程式，您應該選取此選"
+"項。"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:165
 msgid "What would you like to do?"
@@ -3098,10 +3658,17 @@ msgstr "轉換檔案系統"
 #: pyanaconda/textw/upgrade_text.py:44
 #, python-format
 msgid ""
-"This release of %(productName)s supports an updated file system, which has several benefits over the file system traditionally shipped in %(productName)s.  This installation program can migrate formatted partitions without data loss.\n\n"
+"This release of %(productName)s supports an updated file system, which has "
+"several benefits over the file system traditionally shipped in "
+"%(productName)s.  This installation program can migrate formatted partitions "
+"without data loss.\n"
+"\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"這個 %(productName)s 版本支援更新的檔案系統，這比之前 %(productName)s 所附的傳統檔案系統多出許多新的功能。此安裝程式可將格式化的分割區進行遷移而不流失資料。\n\n"
+"這個 %(productName)s 版本支援更新的檔案系統，這比之前 %(productName)s 所附的"
+"傳統檔案系統多出許多新的功能。此安裝程式可將格式化的分割區進行遷移而不流失資"
+"料。\n"
+"\n"
 "您想要遷移哪些分割區？"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:35
@@ -3110,16 +3677,25 @@ msgstr "升級 Swap 分割區"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:92 pyanaconda/textw/upgrade_text.py:107
 #, python-format
-msgid "Recent kernels (2.4 or newer) need significantly more swap than older kernels, up to twice the amount of RAM on the system.  You currently have %dMB of swap configured, but you may create additional swap space on one of your file systems now."
-msgstr "2.4 (或更新)版核心比舊版本的核心需要更多的 swap 空間，約為您系統記憶體大小的兩倍。您目前配置了 %dMB 的 swap 空間，您現在可以再新增額外的 swap 空間在您其中的一個檔案系統上。"
+msgid ""
+"Recent kernels (2.4 or newer) need significantly more swap than older "
+"kernels, up to twice the amount of RAM on the system.  You currently have "
+"%dMB of swap configured, but you may create additional swap space on one of "
+"your file systems now."
+msgstr ""
+"2.4 (或更新)版核心比舊版本的核心需要更多的 swap 空間，約為您系統記憶體大小的"
+"兩倍。您目前配置了 %dMB 的 swap 空間，您現在可以再新增額外的 swap 空間在您其"
+"中的一個檔案系統上。"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:99
 #, python-format
 msgid ""
-"\n\n"
+"\n"
+"\n"
 "The installer has detected %s MB of RAM.\n"
 msgstr ""
-"\n\n"
+"\n"
+"\n"
 "安裝程式偵測到 %s MB 的記憶體。\n"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:111
@@ -3140,7 +3716,9 @@ msgstr "剩餘空間 (MB)"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:156
 #, python-format
-msgid "A minimum swap file size of %d MB is recommended.  Please enter a size for the swap file:"
+msgid ""
+"A minimum swap file size of %d MB is recommended.  Please enter a size for "
+"the swap file:"
 msgstr "建議您的 swap 檔案大小至少要 %d MB。請輸入 swap 檔案的大小："
 
 #: pyanaconda/iw/upgrade_swap_gui.py:171
@@ -3152,15 +3730,20 @@ msgid "I _don't want to create a swap file"
 msgstr "我不想要建立 swap 檔案(_d)"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:191
-msgid "A swap file is strongly recommended. Failure to create one could cause the installer to abort abnormally.  Are you sure you wish to continue?"
-msgstr "強烈建議您建立一個 swap 檔案。若不建立將可能會造成安裝程式不正常中止。您確定要繼續？"
+msgid ""
+"A swap file is strongly recommended. Failure to create one could cause the "
+"installer to abort abnormally.  Are you sure you wish to continue?"
+msgstr ""
+"強烈建議您建立一個 swap 檔案。若不建立將可能會造成安裝程式不正常中止。您確定"
+"要繼續？"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:199 pyanaconda/textw/upgrade_text.py:194
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "swap 檔案的大小必須介於 1 至 2000 MB 之間。"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:206 pyanaconda/textw/upgrade_text.py:189
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "您所選擇的裝置空間不足以建立 swap 分割區。"
 
 #: pyanaconda/iw/welcome_gui.py:56 pyanaconda/textw/welcome_text.py:36
@@ -3168,8 +3751,15 @@ msgid "Network Install Required"
 msgstr "需要網路安裝"
 
 #: pyanaconda/iw/welcome_gui.py:57 pyanaconda/textw/welcome_text.py:37
-msgid "Your installation source is set to a network location, but no network devices were found on your system.  To avoid a network installation, boot with the full DVD, full CD set, or do not pass a repo= parameter that specifies a network source."
-msgstr "您的安裝來源已設定為一個網路位置，不過您的系統上找不到任何網路裝置。若要避免網路安裝，請以完整的 DVD、CD 集合來開機，或是不要傳遞一個指定網路來源的 repo= 參數。"
+msgid ""
+"Your installation source is set to a network location, but no network "
+"devices were found on your system.  To avoid a network installation, boot "
+"with the full DVD, full CD set, or do not pass a repo= parameter that "
+"specifies a network source."
+msgstr ""
+"您的安裝來源已設定為一個網路位置，不過您的系統上找不到任何網路裝置。若要避免"
+"網路安裝，請以完整的 DVD、CD 集合來開機，或是不要傳遞一個指定網路來源的 "
+"repo= 參數。"
 
 #: pyanaconda/iw/welcome_gui.py:67
 msgid "E_xit Installer"
@@ -3185,16 +3775,28 @@ msgstr "z/IPL 開機管理程式將會安裝在您的系統中。"
 
 #: pyanaconda/iw/zipl_gui.py:63
 msgid ""
-"The z/IPL Boot Loader will now be installed on your system.\n\n"
-"The root partition will be the one you selected previously in the partition setup.\n\n"
-"The kernel used to start the machine will be the one to be installed by default.\n\n"
-"If you wish to make changes later after the installation feel free to change the /etc/zipl.conf configuration file.\n\n"
-"You can now enter any additional kernel parameters which your machine or your setup may require."
+"The z/IPL Boot Loader will now be installed on your system.\n"
+"\n"
+"The root partition will be the one you selected previously in the partition "
+"setup.\n"
+"\n"
+"The kernel used to start the machine will be the one to be installed by "
+"default.\n"
+"\n"
+"If you wish to make changes later after the installation feel free to change "
+"the /etc/zipl.conf configuration file.\n"
+"\n"
+"You can now enter any additional kernel parameters which your machine or "
+"your setup may require."
 msgstr ""
-"現在將要安裝 z/IPL 開機管理程式。\n\n"
-"root 分割區將會是您之前在分割區設定中選擇的那個。\n\n"
-"使用來啟動機器的核心會是預設安裝的那個。\n\n"
-"假如您想要在安裝後作任何的變更，請更改 /etc/zipl.conf 設定檔案。\n\n"
+"現在將要安裝 z/IPL 開機管理程式。\n"
+"\n"
+"root 分割區將會是您之前在分割區設定中選擇的那個。\n"
+"\n"
+"使用來啟動機器的核心會是預設安裝的那個。\n"
+"\n"
+"假如您想要在安裝後作任何的變更，請更改 /etc/zipl.conf 設定檔案。\n"
+"\n"
 "現在您可以輸入任何您機器或設定所需的額外核心參數。"
 
 #: pyanaconda/iw/zipl_gui.py:90 pyanaconda/textw/zipl_text.py:72
@@ -3205,19 +3807,19 @@ msgstr "核心參數"
 msgid "Chandev Parameters"
 msgstr "Chandev 參數"
 
-#: loader/net.h:27
+#: loader/net.h:27 pyanaconda/textw/netconfig_text.py:164
 msgid "Dynamic IP configuration (DHCP)"
-msgstr "動態 IP 組態 (DHCP)"
+msgstr "動態 IP 設定 (DHCP)"
 
 #: loader/net.h:28
 msgid "Manual configuration"
-msgstr "手動組態"
+msgstr "手動設定"
 
 #: loader/net.h:30
 msgid "Dynamic IP configuration (DHCPv6)"
-msgstr "動態 IP 組態 (DHCPv6)"
+msgstr "動態 IP 設定 (DHCPv6)"
 
-#: loader/net.h:31
+#: loader/net.h:31 pyanaconda/textw/netconfig_text.py:201
 msgid "Automatic neighbor discovery"
 msgstr "自動鄰近節點探索"
 
@@ -3236,17 +3838,31 @@ msgstr "退出光碟片"
 
 #: loader/cdinstall.c:187
 #, c-format
-msgid "Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject the disc and insert another for testing."
-msgstr "選取「%s」來測試光碟機裡的光碟片，或選取「%s」來退出光碟片並放入另一片以進行測試。"
+msgid ""
+"Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
+"the disc and insert another for testing."
+msgstr ""
+"選取「%s」來測試光碟機裡的光碟片，或選取「%s」來退出光碟片並放入另一片以進行"
+"測試。"
 
 #: loader/cdinstall.c:208
 #, c-format
-msgid "If you would like to test additional media, insert the next disc and press \"%s\". Testing each disc is not strictly required, however it is highly recommended.  Minimally, the discs should be tested prior to using them for the first time. After they have been successfully tested, it is not required to retest each disc prior to using it again."
-msgstr "如果您想要測試額外的媒介，請插入下一張光碟，並按下「%s」。您不一定要測試每一張光碟；然而我們強烈建議您這麼做。最起碼，您在第一次使用光碟前，應該先進行測試。光碟測試成功後，您就不需要每次都進行測試。"
+msgid ""
+"If you would like to test additional media, insert the next disc and press "
+"\"%s\". Testing each disc is not strictly required, however it is highly "
+"recommended.  Minimally, the discs should be tested prior to using them for "
+"the first time. After they have been successfully tested, it is not required "
+"to retest each disc prior to using it again."
+msgstr ""
+"如果您想要測試額外的媒體，請插入下一張光碟，並按下「%s」。您不一定要測試每一"
+"張光碟；然而我們強烈建議您這麼做。最起碼，您在第一次使用光碟前，應該先進行測"
+"試。光碟測試成功後，您就不需要每次都進行測試。"
 
 #: loader/cdinstall.c:230
 #, c-format
-msgid "The %s disc was not found in any of your drives. Please insert the %s disc and press %s to retry."
+msgid ""
+"The %s disc was not found in any of your drives. Please insert the %s disc "
+"and press %s to retry."
 msgstr "在您的光碟機中找不到 %s 光碟片。請置入 %s 光碟片，並按下 %s 來重試。"
 
 #: loader/cdinstall.c:249
@@ -3256,10 +3872,12 @@ msgstr "找到光碟片"
 #: loader/cdinstall.c:250
 #, c-format
 msgid ""
-"To begin testing the media before installation press %s.\n\n"
+"To begin testing the media before installation press %s.\n"
+"\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"若在安裝前開始測試光碟媒體，請按下 %s。\n\n"
+"若在安裝前開始測試光碟媒體，請按下 %s。\n"
+"\n"
 "選取 %s 來略過媒體測試並開始安裝程式。"
 
 #: loader/cdinstall.c:331
@@ -3278,7 +3896,9 @@ msgstr "正在尋找 CD 裝置 %s 上的安裝映像檔"
 
 #: loader/cdinstall.c:425
 #, c-format
-msgid "The %s disc was not found in any of your CDROM drives. Please insert the %s disc and press %s to retry."
+msgid ""
+"The %s disc was not found in any of your CDROM drives. Please insert the %s "
+"disc and press %s to retry."
 msgstr "在您的光碟機中找不到 %s 光碟片。請置入 %s 光碟片，並按下 %s 來重試。"
 
 #: loader/cdinstall.c:431
@@ -3288,12 +3908,12 @@ msgstr "找不到光碟片"
 #: loader/cdinstall.c:432 loader/driverdisk.c:409 loader/driverdisk.c:441
 #: loader/driverdisk.c:522 loader/driverselect.c:79 loader/driverselect.c:153
 #: loader/driverselect.c:179 loader/hdinstall.c:212 loader/hdinstall.c:266
-#: loader/kbd.c:119 loader/loader.c:512 loader/loader.c:529
-#: loader/loader.c:1403 loader/loader.c:1436 loader/net.c:619 loader/net.c:987
-#: loader/net.c:1961 loader/net.c:1980 loader/nfsinstall.c:116
-#: loader/urls.c:269 pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:90
-#: pyanaconda/textw/constants_text.py:52
+#: loader/kbd.c:119 loader/loader.c:511 loader/loader.c:528
+#: loader/loader.c:1400 loader/loader.c:1433 loader/net.c:621
+#: loader/net.c:1001 loader/net.c:1976 loader/net.c:1995
+#: loader/nfsinstall.c:116 loader/urls.c:269
+#: pyanaconda/storage/__init__.py:123 pyanaconda/storage/__init__.py:169
+#: pyanaconda/storage/devicetree.py:90 pyanaconda/textw/constants_text.py:52
 msgid "Back"
 msgstr "上一步"
 
@@ -3319,11 +3939,15 @@ msgid "Driver Disk Source"
 msgstr "驅動程式磁片來源"
 
 #: loader/driverdisk.c:404
-msgid "You have multiple devices which could serve as sources for a driver disk.  Which would you like to use?"
+msgid ""
+"You have multiple devices which could serve as sources for a driver disk.  "
+"Which would you like to use?"
 msgstr "你的系統有多個裝置可當作驅動程式磁片的來源。您想要使用那一個？"
 
 #: loader/driverdisk.c:437
-msgid "There are multiple partitions on this device which could contain the driver disk image.  Which would you like to use?"
+msgid ""
+"There are multiple partitions on this device which could contain the driver "
+"disk image.  Which would you like to use?"
 msgstr "這裝置中，有多個分割區包含驅動程式磁片的映像檔。您想要使用哪一個？"
 
 #: loader/driverdisk.c:472
@@ -3369,8 +3993,13 @@ msgid "Load another disk"
 msgstr "載入另一片磁片"
 
 #: loader/driverdisk.c:611
-msgid "No devices of the appropriate type were found on this driver disk.  Would you like to manually select the driver, continue anyway, or load another driver disk?"
-msgstr "在這片驅動程式磁片上找不到適當的裝置類型。您想要手動選取驅動程式或繼續進行，或者要放入另一片驅動程式磁片？"
+msgid ""
+"No devices of the appropriate type were found on this driver disk.  Would "
+"you like to manually select the driver, continue anyway, or load another "
+"driver disk?"
+msgstr ""
+"在這片驅動程式磁片上找不到適當的裝置類型。您想要手動選取驅動程式或繼續進行，"
+"或者要放入另一片驅動程式磁片？"
 
 #: loader/driverdisk.c:649
 msgid "Driver disk"
@@ -3391,7 +4020,7 @@ msgstr "您想要載入其他驅動程式磁片嗎？"
 #: loader/driverdisk.c:709 loader/driverdisk.c:748 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:339 loader/kickstart.c:355
-#: loader/kickstart.c:571 loader/net.c:1634 loader/net.c:1655
+#: loader/kickstart.c:571 loader/net.c:1649 loader/net.c:1670
 #: loader/nfsinstall.c:414 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -3404,13 +4033,20 @@ msgstr "不明的 kickstart 驅動程式磁片來源：%s"
 
 #: loader/driverdisk.c:749
 #, c-format
-msgid "The following invalid argument was specified for the kickstart driver disk command: %s"
+msgid ""
+"The following invalid argument was specified for the kickstart driver disk "
+"command: %s"
 msgstr "下列 kickstart 驅動程式碟片命令的引數無效：%s"
 
 #: loader/driverselect.c:68
 #, c-format
-msgid "Please enter any parameters which you wish to pass to the %s module separated by spaces.  If you don't know what parameters to supply, skip this screen by pressing the \"OK\" button."
-msgstr "請輸入您想要傳送到 %s 模組的任何參數 (請以空白分隔)。如果您不知道該加什麼參數， 請按「確定」鈕來跳過這個畫面。"
+msgid ""
+"Please enter any parameters which you wish to pass to the %s module "
+"separated by spaces.  If you don't know what parameters to supply, skip this "
+"screen by pressing the \"OK\" button."
+msgstr ""
+"請輸入您想要傳送到 %s 模組的任何參數 (請以空白分隔)。如果您不知道該加什麼參"
+"數， 請按「確定」鈕來跳過這個畫面。"
 
 #: loader/driverselect.c:89
 msgid "Enter Module Parameters"
@@ -3425,12 +4061,18 @@ msgid "Load driver disk"
 msgstr "載入驅動程式磁片"
 
 #: loader/driverselect.c:153
-msgid "No drivers were found to manually insert.  Would you like to use a driver disk?"
+msgid ""
+"No drivers were found to manually insert.  Would you like to use a driver "
+"disk?"
 msgstr "找不到驅動程式，您想要使用一片驅動程式磁片嗎？"
 
 #: loader/driverselect.c:171
-msgid "Please select the driver below which you wish to load.  If it does not appear and you have a driver disk, press F2."
-msgstr "請在以下選取您想要載入的驅動程式？ 如果在清單中找不到您要的，而且您有一片驅動程式磁片，請按 <F2>。"
+msgid ""
+"Please select the driver below which you wish to load.  If it does not "
+"appear and you have a driver disk, press F2."
+msgstr ""
+"請在以下選取您想要載入的驅動程式？ 如果在清單中找不到您要的，而且您有一片驅動"
+"程式磁片，請按 <F2>。"
 
 #: loader/driverselect.c:180
 msgid "Specify optional module arguments"
@@ -3441,17 +4083,26 @@ msgid "Select Device Driver to Load"
 msgstr "選擇要載入的裝置驅動程式"
 
 #: loader/hdinstall.c:116
-msgid "An error occured finding the installation image on your hard drive.  Please check your images and try again."
+msgid ""
+"An error occured finding the installation image on your hard drive.  Please "
+"check your images and try again."
 msgstr "搜尋您硬碟上的安裝映像檔時發生了錯誤。請檢查您的映像檔然後再試一次。"
 
 #: loader/hdinstall.c:213
-msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
 msgstr "您的系統似乎沒有硬碟！ 您想要設定其他裝置嗎？"
 
 #: loader/hdinstall.c:226
 #, c-format
-msgid "What partition and directory on that partition holds the installation image for %s?  If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "在該分割區上那一個分割區與目錄含有 %s 的映像檔？如果您在這裡沒有看到您使用中的硬碟，請按下 F2 來設定其它裝置。"
+msgid ""
+"What partition and directory on that partition holds the installation image "
+"for %s?  If you don't see the disk drive you're using listed here, press F2 "
+"to configure additional devices."
+msgstr ""
+"在該分割區上那一個分割區與目錄含有 %s 的映像檔？如果您在這裡沒有看到您使用中"
+"的硬碟，請按下 F2 來設定其它裝置。"
 
 #: loader/hdinstall.c:250
 msgid "Directory holding image:"
@@ -3510,7 +4161,7 @@ msgstr "在 kickstart 檔案 %2$s 的第 %1$d 列缺少選項。"
 
 #: loader/kickstart.c:300
 msgid "Cannot find ks.cfg on removable media."
-msgstr "卸除式媒介上找不到 ks.cfg 這個檔案。"
+msgstr "卸除式媒體上找不到 ks.cfg 這個檔案。"
 
 #: loader/kickstart.c:340
 #, c-format
@@ -3522,8 +4173,12 @@ msgid "A module name must be specified for the kickstart device command."
 msgstr "您必須為 kickstart 裝置指令指定一組模組名稱。"
 
 #: loader/kickstart.c:387
-msgid "Unable to download the kickstart file.  Please modify the kickstart parameter below or press Cancel to proceed as an interactive installation."
-msgstr "無法下載 kickstart 檔案。請在下列修改 kickstart 參數或按下「取消」來進行互動式安裝程序。"
+msgid ""
+"Unable to download the kickstart file.  Please modify the kickstart "
+"parameter below or press Cancel to proceed as an interactive installation."
+msgstr ""
+"無法下載 kickstart 檔案。請在下列修改 kickstart 參數或按下「取消」來進行互動"
+"式安裝程序。"
 
 #: loader/kickstart.c:396
 msgid "Error downloading kickstart file"
@@ -3534,7 +4189,7 @@ msgstr "下載 kickstart 檔案時發生錯誤"
 msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr "不當的引數被指定給關機 kickstart 的方法命令：%s"
 
-#: loader/lang.c:63 loader/loader.c:229
+#: loader/lang.c:63 loader/loader.c:228
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr "歡迎使用 %s 的 %s"
@@ -3544,160 +4199,182 @@ msgstr "歡迎使用 %s 的 %s"
 msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "歡迎使用 %s 的 %s - 救援模式"
 
-#: loader/lang.c:65 loader/loader.c:253
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+#: loader/lang.c:65 loader/loader.c:252
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "      <Tab>/<Alt-Tab> 移動游標 | <Space> 選取 | <F12> 下一個畫面"
 
 #: loader/lang.c:370
 msgid "Choose a Language"
 msgstr "選擇語言"
 
-#: loader/loader.c:132
+#: loader/loader.c:131
 msgid "Local CD/DVD"
 msgstr "本機 CD/DVD"
 
-#: loader/loader.c:133
+#: loader/loader.c:132
 msgid "Hard drive"
 msgstr "硬碟"
 
-#: loader/loader.c:134
+#: loader/loader.c:133
 msgid "NFS directory"
 msgstr "NFS 目錄"
 
-#: loader/loader.c:466 loader/loader.c:507
+#: loader/loader.c:465 loader/loader.c:506
 msgid "Update Disk Source"
 msgstr "更新磁片來源"
 
-#: loader/loader.c:467
-msgid "You have multiple devices which could serve as sources for an update disk.  Which would you like to use?"
+#: loader/loader.c:466
+msgid ""
+"You have multiple devices which could serve as sources for an update disk.  "
+"Which would you like to use?"
 msgstr "您的系統有多個裝置可以當作更新磁片的來源。您想要使用那一個？"
 
-#: loader/loader.c:508
-msgid "There are multiple partitions on this device which could contain the update disk image.  Which would you like to use?"
+#: loader/loader.c:507
+msgid ""
+"There are multiple partitions on this device which could contain the update "
+"disk image.  Which would you like to use?"
 msgstr "這裝置中，有多個分割區包含更新磁片的映像檔。您想要使用哪一個？"
 
-#: loader/loader.c:526
+#: loader/loader.c:525
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr "請放入您的更新磁片到 %s 中並按下「OK」繼續。"
 
-#: loader/loader.c:529
+#: loader/loader.c:528
 msgid "Updates Disk"
 msgstr "更新磁片"
 
-#: loader/loader.c:547
+#: loader/loader.c:546
 msgid "Failed to mount updates disk"
 msgstr "掛載更新磁片失敗"
 
-#: loader/loader.c:552
+#: loader/loader.c:551
 msgid "Updates"
 msgstr "更新"
 
-#: loader/loader.c:552
+#: loader/loader.c:551
 msgid "Reading anaconda updates"
 msgstr "正在讀取 anaconda 更新程式"
 
-#: loader/loader.c:588
-msgid "Unable to download the updates image.  Please modify the updates location below or press Cancel to proceed without updates.."
-msgstr "無法下載更新映像檔。請在下列修改更新位址或按下「取消」來在不更新的情況下繼續進行.."
+#: loader/loader.c:587
+msgid ""
+"Unable to download the updates image.  Please modify the updates location "
+"below or press Cancel to proceed without updates.."
+msgstr ""
+"無法下載更新映像檔。請在下列修改更新位址或按下「取消」來在不更新的情況下繼續"
+"進行.."
 
-#: loader/loader.c:597
+#: loader/loader.c:596
 msgid "Error downloading updates image"
 msgstr "下載更新映像檔時發生錯誤"
 
-#: loader/loader.c:1214
+#: loader/loader.c:1197
 #, c-format
-msgid "You do not have enough RAM to install %s on this machine%s."
-msgstr "您沒有足夠記憶體可安裝 %s 於這臺機器 %s。"
+msgid "You do not have enough RAM to install %s on this machine."
+msgstr "您沒有足夠記憶體可安裝 %s 於這臺機器。"
 
-#: loader/loader.c:1268
+#: loader/loader.c:1198
+#, c-format
+msgid ""
+"You do not have enough RAM to install %s on this machine using this install "
+"method."
+msgstr "您沒有足夠記憶體可使用此方法安裝 %s 於這臺機器。"
+
+#: loader/loader.c:1263
 msgid "Media Detected"
-msgstr "偵測到媒介"
+msgstr "偵測到媒體"
 
-#: loader/loader.c:1269
+#: loader/loader.c:1264
 msgid "Found local installation media"
-msgstr "已偵測到本機的安裝媒介"
+msgstr "已偵測到本機的安裝媒體"
 
-#: loader/loader.c:1395
+#: loader/loader.c:1392
 msgid "Rescue Method"
 msgstr "救援方式"
 
-#: loader/loader.c:1396
+#: loader/loader.c:1393
 msgid "Installation Method"
 msgstr "安裝方式"
 
-#: loader/loader.c:1398
+#: loader/loader.c:1395
 msgid "What type of media contains the rescue image?"
 msgstr "您的救援映像檔存放在那一種媒體上呢？"
 
-#: loader/loader.c:1400
+#: loader/loader.c:1397
 msgid "What type of media contains the installation image?"
-msgstr "包含著安裝映像檔的是哪一類型的媒介？"
+msgstr "包含著安裝映像檔的是哪一類型的媒體？"
 
-#: loader/loader.c:1435
+#: loader/loader.c:1432
 msgid "No driver found"
 msgstr "找不到驅動程式"
 
-#: loader/loader.c:1435
+#: loader/loader.c:1432
 msgid "Select driver"
 msgstr "選擇驅動程式"
 
-#: loader/loader.c:1436
+#: loader/loader.c:1433
 msgid "Use a driver disk"
 msgstr "使用驅動程式的磁片"
 
-#: loader/loader.c:1437
-msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
-msgstr "找不到這種安裝類型所需的任何裝置類型。您想要手動選取您的驅動程式或使用驅動程式磁片？"
+#: loader/loader.c:1434
+msgid ""
+"Unable to find any devices of the type needed for this installation type.  "
+"Would you like to manually select your driver or use a driver disk?"
+msgstr ""
+"找不到這種安裝類型所需的任何裝置類型。您想要手動選取您的驅動程式或使用驅動程"
+"式磁片？"
 
-#: loader/loader.c:1668
+#: loader/loader.c:1665
 msgid "The following devices have been found on your system."
 msgstr "已經在您的系統上找到下列裝置。"
 
-#: loader/loader.c:1670
-msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
+#: loader/loader.c:1667
+msgid ""
+"No device drivers have been loaded for your system.  Would you like to load "
+"any now?"
 msgstr "並沒有為您的系統載入任何的裝置驅動程式，您想要現在載入嗎？"
 
-#: loader/loader.c:1674
+#: loader/loader.c:1671
 msgid "Devices"
 msgstr "裝置"
 
-#: loader/loader.c:1675
+#: loader/loader.c:1672
 msgid "Done"
 msgstr "完成"
 
-#: loader/loader.c:1676
+#: loader/loader.c:1673
 msgid "Add Device"
 msgstr "新增裝置"
 
-#: loader/loader.c:1981
+#: loader/loader.c:1978
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "已經執行載入程式。正在啟動 shell 。\n"
 
-#: loader/loader.c:2125
+#: loader/loader.c:2122
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "驅動程式碟片在 %s 中被偵測到。您要使用它嗎？"
 
-#: loader/loader.c:2128
+#: loader/loader.c:2125
 msgid "Driver disc detected"
 msgstr "偵測到驅動程式碟片"
 
-#: loader/loader.c:2128
+#: loader/loader.c:2125
 msgid "Use it"
 msgstr "使用它"
 
-#: loader/loader.c:2128
+#: loader/loader.c:2125
 msgid "Skip it"
 msgstr "跳過它"
 
-#: loader/loader.c:2466
+#: loader/loader.c:2460
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "正在執行 anaconda %s，%s 救援模式 - 請稍候。\n"
 
-#: loader/loader.c:2468
+#: loader/loader.c:2462
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "正在執行 anaconda %s，%s 系統安裝程式 - 請稍候。\n"
@@ -3715,55 +4392,72 @@ msgstr "正在檢查「%s」。"
 #: loader/mediacheck.c:55
 #, c-format
 msgid "Checking media."
-msgstr "正在檢查媒介。"
+msgstr "正在檢查媒體。"
 
 #: loader/mediacheck.c:87
-msgid "Unable to find the checksum in the image.  This probably means the disc was created without adding the checksum."
-msgstr "無法在映像檔中找到總和檢查碼。 這大概表示碟片被建立時並未加入總和檢查碼。"
+msgid ""
+"Unable to find the checksum in the image.  This probably means the disc was "
+"created without adding the checksum."
+msgstr ""
+"無法在映像檔中找到總和檢查碼。 這大概表示碟片被建立時並未加入總和檢查碼。"
 
 #: loader/mediacheck.c:94
 msgid "Unable to open the image."
 msgstr "無法開啟映像檔。"
 
 #: loader/mediacheck.c:98
-msgid "The image which was just tested has errors. This could be due to a corrupt download or a bad disc.  If applicable, please clean the disc and try again.  If this test continues to fail you should not continue the install."
-msgstr "剛剛測試的影像檔的有錯誤，可能是下載檔或碟片已損壞。如果可能的話，請清潔您的碟片，然後再試一次。假如這個測試再次失敗，您就不應該繼續安裝。"
+msgid ""
+"The image which was just tested has errors. This could be due to a corrupt "
+"download or a bad disc.  If applicable, please clean the disc and try "
+"again.  If this test continues to fail you should not continue the install."
+msgstr ""
+"剛剛測試的影像檔的有錯誤，可能是下載檔或碟片已損壞。如果可能的話，請清潔您的"
+"碟片，然後再試一次。假如這個測試再次失敗，您就不應該繼續安裝。"
 
 #: loader/mediacheck.c:106
 msgid "Success"
 msgstr "成功"
 
 #: loader/mediacheck.c:107
-msgid "The image which was just tested was successfully verified.  It should be OK to install from this media.  Note that not all media/drive errors can be detected by the media check."
-msgstr "您方才測試的映像檔已成功驗證。您應可透過此媒介來進行安裝。請注意，並非所有媒介/驅動程式錯誤都可透過媒體測試來偵測到。"
+msgid ""
+"The image which was just tested was successfully verified.  It should be OK "
+"to install from this media.  Note that not all media/drive errors can be "
+"detected by the media check."
+msgstr ""
+"您方才測試的映像檔已成功驗證。您應可透過此媒體來進行安裝。請注意，並非所有媒"
+"體/驅動程式錯誤都可透過媒體測試來偵測到。"
 
 #: loader/method.c:330
 #, c-format
 msgid ""
-"Would you like to perform a checksum test of the ISO image:\n\n"
+"Would you like to perform a checksum test of the ISO image:\n"
+"\n"
 "   %s?"
 msgstr ""
-"您想要對 ISO 映像檔執行 Checksum 測試嗎：\n\n"
+"您想要對 ISO 映像檔執行總和檢查碼測試嗎：\n"
+"\n"
 "   %s？"
 
 #: loader/method.c:333
 msgid "Checksum Test"
-msgstr "Checksum 測試"
+msgstr "總和檢查碼測試"
 
 #: loader/net.c:110
 msgid "Invalid Prefix"
-msgstr "無效的前置"
+msgstr "無效的前置數字"
 
 #: loader/net.c:111
-msgid "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
+msgid ""
+"Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for "
+"IPv6 networks"
 msgstr "前置數字必須介於 1 到 32 之間 (IPv4)或介於 1 到 128 之間 (IPv6)。"
 
-#: loader/net.c:504 loader/net.c:512 loader/net.c:567
+#: loader/net.c:506 loader/net.c:514 loader/net.c:569
 #, c-format
 msgid "There was an error configuring your network interface."
-msgstr "設定網路界面時發生錯誤。"
+msgstr "設定網路介面時發生錯誤。"
 
-#: loader/net.c:506
+#: loader/net.c:508
 #, c-format
 msgid ""
 "\n"
@@ -3774,130 +4468,144 @@ msgstr ""
 "這個無法在命令列模式中修正。\n"
 "即將關機。\n"
 
-#: loader/net.c:511 loader/net.c:566
+#: loader/net.c:513 loader/net.c:568 pyanaconda/textw/netconfig_text.py:403
 msgid "Network Error"
 msgstr "網路錯誤"
 
-#: loader/net.c:597 pyanaconda/textw/netconfig_text.py:133
+#: loader/net.c:599
 msgid "Enable IPv4 support"
 msgstr "啟用 IPv4 支援"
 
-#: loader/net.c:611
+#: loader/net.c:613
 msgid "Enable IPv6 support"
 msgstr "啟用 IPv6 支援"
 
-#: loader/net.c:651
+#: loader/net.c:653
 msgid "Configure TCP/IP"
 msgstr "設定 TCP/IP"
 
-#: loader/net.c:708
+#: loader/net.c:710
 msgid "Missing Protocol"
 msgstr "缺少通訊協定"
 
-#: loader/net.c:709
+#: loader/net.c:711
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "您必須選擇至少一項通訊協定 (IPv4 或 IPv6)。"
 
-#: loader/net.c:716
+#: loader/net.c:718
 msgid "IPv4 Needed for NFS"
 msgstr "NFS 需要 IPv4"
 
-#: loader/net.c:717
+#: loader/net.c:719
 msgid "NFS installation method requires IPv4 support."
 msgstr "要使用 NFS 安裝，需要 IPv4 的支援。"
 
-#: loader/net.c:813
+#: loader/net.c:827
 msgid "IPv4 address:"
 msgstr "IPv4 位址："
 
-#: loader/net.c:825 loader/net.c:892 data/ui/netconfig.glade.h:1
+#: loader/net.c:839 loader/net.c:906 data/ui/netconfig.glade.h:1
 msgid "/"
 msgstr "/"
 
-#: loader/net.c:880
+#: loader/net.c:894
 msgid "IPv6 address:"
 msgstr "IPv6 位址："
 
-#: loader/net.c:946 pyanaconda/textw/netconfig_text.py:160
+#: loader/net.c:960 pyanaconda/textw/netconfig_text.py:184
+#: pyanaconda/textw/netconfig_text.py:224
 msgid "Gateway:"
 msgstr "閘道器："
 
-#: loader/net.c:954
+#: loader/net.c:968
 msgid "Name Server:"
 msgstr "名稱伺服器："
 
-#: loader/net.c:993
-msgid "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The gateway and name server fields must be valid IPv4 or IPv6 addresses."
-msgstr "請輸入 IPv4 與/或 IPv6 位址和前置字元 (位址 / 前置字元)。對於 IPv4 來說，您可使用網路遮罩或是 CIDR 形式的前置字元。閘道器和名稱伺服器欄位必須是有效的 IPv4 或 IPv6 位址。"
+#: loader/net.c:1007
+msgid ""
+"Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
+"IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
+"gateway and name server fields must be valid IPv4 or IPv6 addresses."
+msgstr ""
+"請輸入 IPv4 與/或 IPv6 位址和前置字元 (位址 / 前置字元)。對於 IPv4 來說，您可"
+"使用網路遮罩或是 CIDR 形式的前置字元。閘道器和名稱伺服器欄位必須是有效的 "
+"IPv4 或 IPv6 位址。"
 
-#: loader/net.c:1010
+#: loader/net.c:1024
 msgid "Manual TCP/IP Configuration"
 msgstr "手動 TCP/IP 設定"
 
-#: loader/net.c:1134 loader/net.c:1142
+#: loader/net.c:1148 loader/net.c:1156
 msgid "Missing Information"
 msgstr "資訊不足"
 
-#: loader/net.c:1135
-msgid "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
+#: loader/net.c:1149
+msgid ""
+"You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr "您必須輸入有效的 IPv4 位址及網路遮罩或 CIDR 前置字元。"
 
-#: loader/net.c:1143
+#: loader/net.c:1157
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "您必須輸入有效的 IPv6 位址以及 CIDR 前置字元。"
 
-#: loader/net.c:1635
+#: loader/net.c:1650
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "kickstart 網路指令的引數不正確：%s"
 
-#: loader/net.c:1656
+#: loader/net.c:1671
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "錯誤的開機網路命令 %s 設定"
 
-#: loader/net.c:1761
+#: loader/net.c:1776
 msgid "Seconds:"
 msgstr "秒："
 
-#: loader/net.c:1956
+#: loader/net.c:1971
 msgid "Networking Device"
 msgstr "網路裝置"
 
-#: loader/net.c:1957
-msgid "You have multiple network devices on this system. Which would you like to install through?"
+#: loader/net.c:1972
+msgid ""
+"You have multiple network devices on this system. Which would you like to "
+"install through?"
 msgstr "你的系統有多個網路裝置。您想要透過那一個安裝？"
 
-#: loader/net.c:1961
+#: loader/net.c:1976
 msgid "Identify"
 msgstr "辨識"
 
-#: loader/net.c:1970
+#: loader/net.c:1985
 msgid "You can identify the physical port for"
 msgstr "您可辨識實體通訊埠："
 
-#: loader/net.c:1972
-msgid "by flashing the LED lights for a number of seconds.  Enter a number between 1 and 30 to set the duration to flash the LED port lights."
-msgstr "透過使 LED 燈閃爍幾秒鐘。輸入一個介於 1 與 30 之間的數字來設置 LED port light 的閃爍時間。"
+#: loader/net.c:1987
+msgid ""
+"by flashing the LED lights for a number of seconds.  Enter a number between "
+"1 and 30 to set the duration to flash the LED port lights."
+msgstr ""
+"透過使 LED 燈閃爍幾秒鐘。輸入一個介於 1 與 30 之間的數字來設置 LED port "
+"light 的閃爍時間。"
 
-#: loader/net.c:1979
+#: loader/net.c:1994
 msgid "Identify NIC"
 msgstr "辨識 NIC"
 
-#: loader/net.c:1992
+#: loader/net.c:2007
 msgid "Invalid Duration"
 msgstr "無效的時間"
 
-#: loader/net.c:1993
+#: loader/net.c:2008
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "您必須以秒數為單位，並使用介於 1 與 30 之間的整數來將時間輸入。"
 
-#: loader/net.c:2005
+#: loader/net.c:2020
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "閃爍 %s 連接埠燈 %d 秒。"
 
-#: loader/net.c:2175 loader/net.c:2179
+#: loader/net.c:2190 loader/net.c:2194
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "正在等候 NetworkManager 設定 %s。\n"
@@ -3917,8 +4625,11 @@ msgstr "NFS 掛載選項 (可選)："
 
 #: loader/nfsinstall.c:107
 #, c-format
-msgid "Please enter the server and path to your %s installation image and optionally additional NFS mount options."
-msgstr "請輸入您的 %s 安裝映像檔的伺服器和路徑，以及選擇性地額外 NFS 掛載選項。"
+msgid ""
+"Please enter the server and path to your %s installation image and "
+"optionally additional NFS mount options."
+msgstr ""
+"請輸入您的 %s 安裝映像檔的伺服器和路徑，以及選擇性地額外 NFS 掛載選項。"
 
 #: loader/nfsinstall.c:115
 msgid "NFS Setup"
@@ -3937,18 +4648,6 @@ msgstr "該目錄並不包含一個 %s 安裝映像檔。"
 #, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
 msgstr "不當的引數被指定給 NFS kickstart 的方法命令：%s"
-
-#: loader/telnetd.c:90 loader/telnetd.c:129
-msgid "Telnet"
-msgstr "Telnet"
-
-#: loader/telnetd.c:90
-msgid "Waiting for telnet connection."
-msgstr "正在等候 telnet 連線。"
-
-#: loader/telnetd.c:129
-msgid "Running anaconda via telnet."
-msgstr "正在透過 telnet 執行 anaconda。"
 
 #: loader/urlinstall.c:138
 #, c-format
@@ -3979,7 +4678,8 @@ msgstr "正在擷取資訊"
 
 #: loader/urls.c:272
 #, c-format
-msgid "Please enter the URL containing the %s installation image on your server."
+msgid ""
+"Please enter the URL containing the %s installation image on your server."
 msgstr "請輸入包含著您伺服器上的 %s 安裝映像檔的 URL。"
 
 #: loader/urls.c:290
@@ -4029,8 +4729,10 @@ msgstr "不明的裝置"
 
 #: pyanaconda/storage/__init__.py:111
 #, python-format
-msgid "The installation source given by device %s could not be found.  Please check your parameters and try again."
-msgstr "找不到裝置 %s 所提供的安裝媒介。請檢查您的參數並重新嘗試。"
+msgid ""
+"The installation source given by device %s could not be found.  Please check "
+"your parameters and try again."
+msgstr "找不到裝置 %s 所提供的安裝媒體。請檢查您的參數並重新嘗試。"
 
 #: pyanaconda/storage/__init__.py:120
 msgid "No disks found"
@@ -4045,24 +4747,38 @@ msgid "Installation cannot continue."
 msgstr "安裝無法繼續。"
 
 #: pyanaconda/storage/__init__.py:133
-msgid "The storage configuration you have chosen has already been activated. You can no longer return to the disk editing screen. Would you like to continue with the installation process?"
-msgstr "您所選擇的儲存裝置設定已經啟用了。您無法再回到磁碟編輯畫面。您想要繼續進行安裝程序嗎？"
+msgid ""
+"The storage configuration you have chosen has already been activated. You "
+"can no longer return to the disk editing screen. Would you like to continue "
+"with the installation process?"
+msgstr ""
+"您所選擇的儲存裝置設定已經啟用了。您無法再回到磁碟編輯畫面。您想要繼續進行安"
+"裝程序嗎？"
 
 #: pyanaconda/storage/__init__.py:161
 msgid "Encrypt device?"
 msgstr "為裝置加密？"
 
 #: pyanaconda/storage/__init__.py:162
-msgid "You specified block device encryption should be enabled, but you have not supplied a passphrase. If you do not go back and provide a passphrase, block device encryption will be disabled."
-msgstr "您指定啟用了區塊裝置加密，不過您並未提供一組密碼。若您不退回上一步並提供密碼的話，區塊裝置加密將會被停用。"
+msgid ""
+"You specified block device encryption should be enabled, but you have not "
+"supplied a passphrase. If you do not go back and provide a passphrase, block "
+"device encryption will be disabled."
+msgstr ""
+"您指定啟用了區塊裝置加密，不過您並未提供一組密碼。若您不退回上一步並提供密碼"
+"的話，區塊裝置加密將會被停用。"
 
 #: pyanaconda/storage/__init__.py:188 pyanaconda/storage/devicetree.py:99
 msgid "Confirm"
 msgstr "確認"
 
 #: pyanaconda/storage/__init__.py:189
-msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost."
-msgstr "您所選擇的磁碟分割選項現在將被寫入磁碟中。任何位於即將被刪除或是格式化分割區上的資料都將會流失。"
+msgid ""
+"The partitioning options you have selected will now be written to disk.  Any "
+"data on deleted or reformatted partitions will be lost."
+msgstr ""
+"您所選擇的磁碟分割選項現在將被寫入磁碟中。任何位於即將被刪除或是格式化分割區"
+"上的資料都將會流失。"
 
 #: pyanaconda/storage/__init__.py:194
 msgid "Go _Back"
@@ -4120,53 +4836,83 @@ msgid "This device is part of a LVM volume group."
 msgstr "此裝置為 LVM 卷冊群組的一部份。"
 
 #: pyanaconda/storage/__init__.py:695
-msgid "This device is an extended partition which contains logical partitions that cannot be deleted:\n\n"
-msgstr "此裝置是個延伸的分割區，它包含了無法刪除的邏輯分割區：\n\n"
+msgid ""
+"This device is an extended partition which contains logical partitions that "
+"cannot be deleted:\n"
+"\n"
+msgstr ""
+"此裝置是個延伸的分割區，它包含了無法刪除的邏輯分割區：\n"
+"\n"
 
 #: pyanaconda/storage/__init__.py:970
 #, python-format
-msgid "You have not defined a root partition (/), which is required for installation of %s to continue."
+msgid ""
+"You have not defined a root partition (/), which is required for "
+"installation of %s to continue."
 msgstr "您還沒指定 root 分割區 (/)，為了讓 %s 安裝程式繼續，您必須先指定。"
 
 #: pyanaconda/storage/__init__.py:975
 #, python-format
-msgid "Your root partition is less than 250 megabytes which is usually too small to install %s."
+msgid ""
+"Your root partition is less than 250 megabytes which is usually too small to "
+"install %s."
 msgstr "您的 root 分割區小於 250 MB，空間太小不足以安裝 %s。"
 
 #: pyanaconda/storage/__init__.py:981
 #, python-format
-msgid "Your / partition is less than %(min)s MB which is lower than recommended for a normal %(productName)s install."
-msgstr "您的 / 分割區小於 %(min)s MB，這是低於正常 %(productName)s 安裝的建議值。"
+msgid ""
+"Your / partition is less than %(min)s MB which is lower than recommended for "
+"a normal %(productName)s install."
+msgstr ""
+"您的 / 分割區小於 %(min)s MB，這是低於正常 %(productName)s 安裝的建議值。"
 
 #: pyanaconda/storage/__init__.py:991
 #, python-format
-msgid "Your / partition does not match the the live image you are installing from.  It must be formatted as %s."
+msgid ""
+"Your / partition does not match the the live image you are installing from.  "
+"It must be formatted as %s."
 msgstr "您的 / 分割區和您正要從其進行安裝的即時映像不符。它必須被格式化為 %s。"
 
 #: pyanaconda/storage/__init__.py:998
 #, python-format
-msgid "Your %(mount)s partition is less than %(size)s megabytes which is lower than recommended for a normal %(productName)s install."
-msgstr "您的 %(mount)s 分割區小於 %(size)s MB，這是低於正常 %(productName)s 安裝的建議值。"
+msgid ""
+"Your %(mount)s partition is less than %(size)s megabytes which is lower than "
+"recommended for a normal %(productName)s install."
+msgstr ""
+"您的 %(mount)s 分割區小於 %(size)s MB，這是低於正常 %(productName)s 安裝的建"
+"議值。"
 
 #: pyanaconda/storage/__init__.py:1027
-msgid "Installing on a USB device.  This may or may not produce a working system."
+msgid ""
+"Installing on a USB device.  This may or may not produce a working system."
 msgstr "安裝至 USB 裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: pyanaconda/storage/__init__.py:1030
-msgid "Installing on a FireWire device.  This may or may not produce a working system."
+msgid ""
+"Installing on a FireWire device.  This may or may not produce a working "
+"system."
 msgstr "安裝至火線 (Firewire)裝置上。安裝後的系統可能會、也可能不會正常運作。"
 
 #: pyanaconda/storage/__init__.py:1037
-msgid "You have not specified a swap partition.  Due to the amount of memory present, a swap partition is required to complete installation."
-msgstr "您尚未指定 swap 分割區。根據所擁有的記憶體，您必須建立一個 swap 分割區才可完成安裝程序。"
+msgid ""
+"You have not specified a swap partition.  Due to the amount of memory "
+"present, a swap partition is required to complete installation."
+msgstr ""
+"您尚未指定 swap 分割區。根據所擁有的記憶體，您必須建立一個 swap 分割區才可完"
+"成安裝程序。"
 
 #: pyanaconda/storage/__init__.py:1042
-msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
-msgstr "您尚未指定 swap 分割區。雖然並沒有強制規定一定要有，但有的話對安裝效率會有很大的改善。"
+msgid ""
+"You have not specified a swap partition.  Although not strictly required in "
+"all cases, it will significantly improve performance for most installations."
+msgstr ""
+"您尚未指定 swap 分割區。雖然並沒有強制規定一定要有，但有的話對安裝效率會有很"
+"大的改善。"
 
 #: pyanaconda/storage/__init__.py:1049
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "此掛載點無效。%s 目錄必須位於 / 檔案系統上。"
 
 #: pyanaconda/storage/__init__.py:1053
@@ -4179,8 +4925,12 @@ msgid "No Drives Found"
 msgstr "找不到磁碟機"
 
 #: pyanaconda/storage/__init__.py:1065
-msgid "An error has occurred - no valid devices were found on which to create new file systems. Please check your hardware for the cause of this problem."
-msgstr "發生錯誤 - 找不到可用來建立新檔案系統的磁碟機。請檢查您的硬體以找出問題發生的原因。"
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"file systems. Please check your hardware for the cause of this problem."
+msgstr ""
+"發生錯誤 - 找不到可用來建立新檔案系統的磁碟機。請檢查您的硬體以找出問題發生的"
+"原因。"
 
 #: pyanaconda/storage/__init__.py:1363 pyanaconda/storage/__init__.py:1372
 msgid "Dirty File Systems"
@@ -4189,16 +4939,20 @@ msgstr "未經正常程序關機 (Dirty)的檔案系統"
 #: pyanaconda/storage/__init__.py:1364
 #, python-format
 msgid ""
-"The following file systems for your Linux system were not unmounted cleanly.  Please boot your Linux installation, let the file systems be checked and shut down cleanly to upgrade.\n"
+"The following file systems for your Linux system were not unmounted "
+"cleanly.  Please boot your Linux installation, let the file systems be "
+"checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"在你的 Linux 系統上有下列的檔案系統沒有完整的卸載。請重新開機繼續安裝程式，並且讓安裝程式自動檢查檔案系統，再來正常關機以進行系統升級。\n"
+"在你的 Linux 系統上有下列的檔案系統沒有完整的卸載。請重新開機繼續安裝程式，並"
+"且讓安裝程式自動檢查檔案系統，再來正常關機以進行系統升級。\n"
 "%s"
 
 #: pyanaconda/storage/__init__.py:1373
 #, python-format
 msgid ""
-"The following file systems for your Linux system were not unmounted cleanly.  Would you like to mount them anyway?\n"
+"The following file systems for your Linux system were not unmounted "
+"cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
 "在你的 Linux 系統上有下列的檔案系統沒有完整的卸載。您還是想要掛載它們嗎？\n"
@@ -4207,67 +4961,102 @@ msgstr ""
 #: pyanaconda/storage/__init__.py:1850
 #, python-format
 msgid ""
-"The swap device:\n\n"
-"     %s\n\n"
-"is an old-style Linux swap partition.  If you want to use this device for swap space, you must reformat as a new-style Linux swap partition."
+"The swap device:\n"
+"\n"
+"     %s\n"
+"\n"
+"is an old-style Linux swap partition.  If you want to use this device for "
+"swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
-"Swap 裝置：\n\n"
-"     %s\n\n"
-"是個老式的 Linux swap 分割區。若您希望使用此裝置來作為 swap 空間的話，您必須將其重新格式化為新式的 Linux swap 分割區。"
+"Swap 裝置：\n"
+"\n"
+"     %s\n"
+"\n"
+"是個老式的 Linux swap 分割區。若您希望使用此裝置來作為 swap 空間的話，您必須"
+"將其重新格式化為新式的 Linux swap 分割區。"
 
 #: pyanaconda/storage/__init__.py:1861
 #, python-format
 msgid ""
-"The swap device:\n\n"
-"     %s\n\n"
-"in your /etc/fstab file is currently in use as a software suspend device, which means your system is hibernating. To perform an upgrade, please shut down your system rather than hibernating it."
+"The swap device:\n"
+"\n"
+"     %s\n"
+"\n"
+"in your /etc/fstab file is currently in use as a software suspend device, "
+"which means your system is hibernating. To perform an upgrade, please shut "
+"down your system rather than hibernating it."
 msgstr ""
-"Swap 裝置：\n\n"
-"     %s\n\n"
-"這個在您 /etc/fstab 檔案中的裝置目前正被使用來作為軟體中止裝置，這表示您的系統正在休眠中。若要進行升級，請關閉您的系統，而不是使其處於休眠狀態中。"
+"Swap 裝置：\n"
+"\n"
+"     %s\n"
+"\n"
+"這個在您 /etc/fstab 檔案中的裝置目前正被使用來作為軟體中止裝置，這表示您的系"
+"統正在休眠中。若要進行升級，請關閉您的系統，而不是使其處於休眠狀態中。"
 
 #: pyanaconda/storage/__init__.py:1869
 #, python-format
 msgid ""
-"The swap device:\n\n"
-"     %s\n\n"
-"in your /etc/fstab file is currently in use as a software suspend device, which means your system is hibernating. If you are performing a new install, make sure the installer is set to format all swap devices."
+"The swap device:\n"
+"\n"
+"     %s\n"
+"\n"
+"in your /etc/fstab file is currently in use as a software suspend device, "
+"which means your system is hibernating. If you are performing a new install, "
+"make sure the installer is set to format all swap devices."
 msgstr ""
-"Swap 裝置：\n\n"
-"     %s\n\n"
-"這個在您 /etc/fstab 檔案中的裝置目前正被使用來作為軟體中止裝置，這表示您的系統正在休眠中。若您正要進行全新的安裝，請確認安裝程式已被設為會將所有 swap 裝置格式化。"
+"Swap 裝置：\n"
+"\n"
+"     %s\n"
+"\n"
+"這個在您 /etc/fstab 檔案中的裝置目前正被使用來作為軟體中止裝置，這表示您的系"
+"統正在休眠中。若您正要進行全新的安裝，請確認安裝程式已被設為會將所有 swap 裝"
+"置格式化。"
 
 #: pyanaconda/storage/__init__.py:1881
 #, python-format
 msgid ""
-"The swap device:\n\n"
-"     %s\n\n"
-"does not contain a supported swap volume.  In order to continue installation, you will need to format the device or skip it."
+"The swap device:\n"
+"\n"
+"     %s\n"
+"\n"
+"does not contain a supported swap volume.  In order to continue "
+"installation, you will need to format the device or skip it."
 msgstr ""
-"交換裝置：\n\n"
-"    %s\n\n"
+"交換裝置：\n"
+"\n"
+"    %s\n"
+"\n"
 "不包含支援的交換卷冊。 若要繼續進行安裝，您將需要格式化裝置或跳過它。"
 
 #: pyanaconda/storage/__init__.py:1892
 #, python-format
 msgid ""
-"Error enabling swap device %(name)s: %(msg)s\n\n"
-"The /etc/fstab on your upgrade partition does not reference a valid swap device.\n\n"
+"Error enabling swap device %(name)s: %(msg)s\n"
+"\n"
+"The /etc/fstab on your upgrade partition does not reference a valid swap "
+"device.\n"
+"\n"
 "Press OK to exit the installer"
 msgstr ""
-"啟用交換裝置 %(name)s 時發生錯誤：%(msg)s\n\n"
-"您升級分割區上的 /etc/fstab 並未參照有效的交換裝置。\n\n"
+"啟用交換裝置 %(name)s 時發生錯誤：%(msg)s\n"
+"\n"
+"您升級分割區上的 /etc/fstab 並未參照有效的交換裝置。\n"
+"\n"
 "請按下「確定」來退出安裝程式"
 
 #: pyanaconda/storage/__init__.py:1899
 #, python-format
 msgid ""
-"Error enabling swap device %(name)s: %(msg)s\n\n"
-"This most likely means this swap device has not been initialized.\n\n"
+"Error enabling swap device %(name)s: %(msg)s\n"
+"\n"
+"This most likely means this swap device has not been initialized.\n"
+"\n"
 "Press OK to exit the installer."
 msgstr ""
-"啟用交換裝置 %(name)s 時發生錯誤：%(msg)s\n\n"
-"很有可能是因為此交換裝置尚未初始化。\n\n"
+"啟用交換裝置 %(name)s 時發生錯誤：%(msg)s\n"
+"\n"
+"很有可能是因為此交換裝置尚未初始化。\n"
+"\n"
 "請按下「確定」來退出安裝程式。"
 
 #: pyanaconda/storage/__init__.py:1962 pyanaconda/storage/__init__.py:1974
@@ -4277,19 +5066,27 @@ msgstr "無效的掛載點"
 #: pyanaconda/storage/__init__.py:1963
 #, python-format
 msgid ""
-"An error occurred when trying to create %s.  Some element of this path is not a directory. This is a fatal error and the install cannot continue.\n\n"
+"An error occurred when trying to create %s.  Some element of this path is "
+"not a directory. This is a fatal error and the install cannot continue.\n"
+"\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"嘗試建立 %s 時發生錯誤。這個路徑的一些元素並不是目錄。這是個嚴重錯誤，安裝無法繼續。\n\n"
+"嘗試建立 %s 時發生錯誤。這個路徑的一些元素並不是目錄。這是個嚴重錯誤，安裝無"
+"法繼續。\n"
+"\n"
 "請按下 <Enter> 鍵來退出安裝程式。"
 
 #: pyanaconda/storage/__init__.py:1975
 #, python-format
 msgid ""
-"An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a fatal error and the install cannot continue.\n\n"
+"An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
+"fatal error and the install cannot continue.\n"
+"\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"嘗試建立 %(mountpoint)s 時發生錯誤：%(msg)s。 這是個嚴重錯誤，安裝無法繼續。\n\n"
+"嘗試建立 %(mountpoint)s 時發生錯誤：%(msg)s。 這是個嚴重錯誤，安裝無法繼"
+"續。\n"
+"\n"
 "請按下 <輸入> 鍵來退出安裝程式。"
 
 #: pyanaconda/storage/__init__.py:1991 pyanaconda/storage/__init__.py:2015
@@ -4298,16 +5095,24 @@ msgstr "無法掛載檔案系統"
 
 #: pyanaconda/storage/__init__.py:1992
 #, python-format
-msgid "An error occurred mounting device %(path)s as %(mountpoint)s.  You may continue installation, but there may be problems."
-msgstr "將裝置 %(path)s 掛載為 %(mountpoint)s 時發生錯誤。 您可以繼續安裝，但是可能會產生一些問題。"
+msgid ""
+"An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
+"continue installation, but there may be problems."
+msgstr ""
+"將裝置 %(path)s 掛載為 %(mountpoint)s 時發生錯誤。 您可以繼續安裝，但是可能會"
+"產生一些問題。"
 
 #: pyanaconda/storage/__init__.py:2016
 #, python-format
 msgid ""
-"An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This is a fatal error and the install cannot continue.\n\n"
+"An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
+"is a fatal error and the install cannot continue.\n"
+"\n"
 "Press <Enter> to exit the installer."
 msgstr ""
-"將裝置 %(path)s 掛載為 %(mountpoint)s 時發生錯誤：%(msg)s。這是項嚴重錯誤，安裝程序無法繼續進行。\n\n"
+"將裝置 %(path)s 掛載為 %(mountpoint)s 時發生錯誤：%(msg)s。這是項嚴重錯誤，安"
+"裝程序無法繼續進行。\n"
+"\n"
 "請按下 <輸入> 鍵來退出安裝程式。"
 
 #: pyanaconda/storage/dasd.py:155
@@ -4321,12 +5126,12 @@ msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] "準備 %d 個 DASD 裝置以用於 Linux…"
 
-#: pyanaconda/storage/devicelibs/lvm.py:309
+#: pyanaconda/storage/devicelibs/lvm.py:312
 #, python-format
 msgid "vginfo failed for %s"
 msgstr "%s 的 vginfo 已失敗"
 
-#: pyanaconda/storage/devicelibs/lvm.py:338
+#: pyanaconda/storage/devicelibs/lvm.py:341
 #, python-format
 msgid "lvs failed for %s"
 msgstr "%s 的 lvs 已失敗"
@@ -4357,13 +5162,16 @@ msgstr "建立檔案 %s"
 #: pyanaconda/storage/devicetree.py:100
 #, python-format
 msgid ""
-"Are you sure you want to skip entering a passphrase for device %s?\n\n"
-"If you skip this step the device's contents will not be available during installation."
+"Are you sure you want to skip entering a passphrase for device %s?\n"
+"\n"
+"If you skip this step the device's contents will not be available during "
+"installation."
 msgstr ""
-"您確定您希望跳過為 %s 裝置輸入密碼的步驟嗎？\n\n"
+"您確定您希望跳過為 %s 裝置輸入密碼的步驟嗎？\n"
+"\n"
 "若您跳過此步驟，裝置的內容在安裝時將無法使用。"
 
-#: pyanaconda/storage/devicetree.py:1889
+#: pyanaconda/storage/devicetree.py:1887
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "此分割區為不一致的 LVM 卷冊群組的一部份。"
 
@@ -4419,8 +5227,16 @@ msgid "%(type)s filesystem check failure on %(device)s: "
 msgstr "%(device)s 上的 %(type)s 檔案系統檢查失敗："
 
 #: pyanaconda/storage/formats/fs.py:537
-msgid "Errors like this usually mean there is a problem with the filesystem that will require user interaction to repair.  Before restarting installation, reboot to rescue mode or another system that allows you to repair the filesystem interactively.  Restart installation after you have corrected the problems on the filesystem."
-msgstr "像這樣的錯誤通常意味著檔案系統有問題，這需要使用者的互動操作才能修復。 在重新進行安裝之前，先重新開機進入救援模式或另外的系統，以便允許您互動地修復檔案系統。 當您已經修正檔案系統的問題之後再重新進入安裝。"
+msgid ""
+"Errors like this usually mean there is a problem with the filesystem that "
+"will require user interaction to repair.  Before restarting installation, "
+"reboot to rescue mode or another system that allows you to repair the "
+"filesystem interactively.  Restart installation after you have corrected the "
+"problems on the filesystem."
+msgstr ""
+"像這樣的錯誤通常意味著檔案系統有問題，這需要使用者的互動操作才能修復。 在重新"
+"進行安裝之前，先重新開機進入救援模式或另外的系統，以便允許您互動地修復檔案系"
+"統。 當您已經修正檔案系統的問題之後再重新進入安裝。"
 
 #: pyanaconda/storage/formats/fs.py:545 pyanaconda/storage/partitioning.py:283
 msgid "Unrecoverable Error"
@@ -4447,7 +5263,9 @@ msgid "Shared library error."
 msgstr "共用函式庫錯誤。"
 
 #: pyanaconda/storage/formats/fs.py:1052
-msgid "Recoverable errors have been detected or dosfsck has discovered an internal inconsistency."
+msgid ""
+"Recoverable errors have been detected or dosfsck has discovered an internal "
+"inconsistency."
 msgstr "偵測到可回復的錯誤或是 dosfsck 發現了內部的不一致。"
 
 #: pyanaconda/storage/formats/fs.py:1054
@@ -4510,11 +5328,15 @@ msgid "Could not log in to any of the discovered nodes"
 msgstr "無法登入至任何發現的節點中"
 
 #: pyanaconda/storage/partitioning.py:198
-msgid "Could not find enough free space for automatic partitioning.  Press 'OK' to exit the installer."
+msgid ""
+"Could not find enough free space for automatic partitioning.  Press 'OK' to "
+"exit the installer."
 msgstr "找不到足夠空間以用來進行自動分割，請按下「確定」來退出安裝程式。"
 
 #: pyanaconda/storage/partitioning.py:201
-msgid "Could not find enough free space for automatic partitioning, please use another partitioning method."
+msgid ""
+"Could not find enough free space for automatic partitioning, please use "
+"another partitioning method."
 msgstr "找不到可用於自動分割的足夠空間，請使用另一種分割方式。"
 
 #: pyanaconda/storage/partitioning.py:230
@@ -4524,36 +5346,44 @@ msgstr "自動分割磁碟時的警告"
 #: pyanaconda/storage/partitioning.py:232
 #, python-format
 msgid ""
-"Following warnings occurred during automatic partitioning:\n\n"
+"Following warnings occurred during automatic partitioning:\n"
+"\n"
 "%s"
 msgstr ""
-"自動分割時發生下列錯誤：\n\n"
+"自動分割時發生下列錯誤：\n"
+"\n"
 "%s"
 
 #: pyanaconda/storage/partitioning.py:246
 #: pyanaconda/storage/partitioning.py:267
 msgid ""
-"\n\n"
+"\n"
+"\n"
 "Press 'OK' to exit the installer."
 msgstr ""
-"\n\n"
+"\n"
+"\n"
 "請按下「確定」來退出安裝程式。"
 
 #: pyanaconda/storage/partitioning.py:248
 #, python-format
 msgid ""
-"Could not allocate requested partitions: \n\n"
+"Could not allocate requested partitions: \n"
+"\n"
 "%(msg)s.%(extra)s"
 msgstr ""
-"無法配置要求的分割區：\n\n"
+"無法配置要求的分割區：\n"
+"\n"
 "%(msg)s.%(extra)s"
 
 #: pyanaconda/storage/partitioning.py:269
 msgid ""
-"\n\n"
+"\n"
+"\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
-"\n\n"
+"\n"
+"\n"
 "請按下「確定」，選擇不同的分割區選項。"
 
 #: pyanaconda/storage/partitioning.py:271
@@ -4563,12 +5393,17 @@ msgstr "自動分割磁碟發生錯誤"
 #: pyanaconda/storage/partitioning.py:272
 #, python-format
 msgid ""
-"The following errors occurred with your partitioning:\n\n"
-"%(errortxt)s\n\n"
-"This can happen if there is not enough space on your hard drive(s) for the installation. %(extra)s"
+"The following errors occurred with your partitioning:\n"
+"\n"
+"%(errortxt)s\n"
+"\n"
+"This can happen if there is not enough space on your hard drive(s) for the "
+"installation. %(extra)s"
 msgstr ""
-"當您在分割時發生了下列錯誤：\n\n"
-"%(errortxt)s\n\n"
+"當您在分割時發生了下列錯誤：\n"
+"\n"
+"%(errortxt)s\n"
+"\n"
 "這有可能是因為您硬碟上的剩餘空間不足以讓安裝程式使用。%(extra)s"
 
 #: pyanaconda/storage/zfcp.py:51
@@ -4605,33 +5440,52 @@ msgstr "在 zFCP 裝置 %(devnum)s 上找不到 WWPN %(wwpn)s。"
 
 #: pyanaconda/storage/zfcp.py:176
 #, python-format
-msgid "Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "在 zFCP 裝置 %(devnum)s 上無法加入 LUN %(fcplun)s 到 WWPN %(wwpn)s (%(e)s)。"
+msgid ""
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
+msgstr ""
+"在 zFCP 裝置 %(devnum)s 上無法加入 LUN %(fcplun)s 到 WWPN %(wwpn)s (%(e)s)。"
 
 #: pyanaconda/storage/zfcp.py:182
 #, python-format
-msgid "LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
-msgstr "在 zFCP 裝置 %(devnum)s 上 WWPN %(wwpn)s 的 LUN %(fcplun)s 已經組配完成。"
+msgid ""
+"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgstr ""
+"在 zFCP 裝置 %(devnum)s 上 WWPN %(wwpn)s 的 LUN %(fcplun)s 已經設定完成。"
 
 #: pyanaconda/storage/zfcp.py:194
 #, python-format
-msgid "Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "無法讀取 zFCP 裝置 %(devnum)s 上 WWPN %(wwpn)s 的錯誤 LUN %(fcplun)s 屬性 (%(e)s)。"
+msgid ""
+"Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP "
+"device %(devnum)s (%(e)s)."
+msgstr ""
+"無法讀取 zFCP 裝置 %(devnum)s 上 WWPN %(wwpn)s 的錯誤 LUN %(fcplun)s 屬性 "
+"(%(e)s)。"
 
 #: pyanaconda/storage/zfcp.py:203
 #, python-format
-msgid "Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed again."
-msgstr "再次移除了位於 zFCP 裝置 %(devnum)s 上的 WWPN %(wwpn)s 的錯誤 LUN %(fcplun)s。"
+msgid ""
+"Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
+"again."
+msgstr ""
+"再次移除了位於 zFCP 裝置 %(devnum)s 上的 WWPN %(wwpn)s 的錯誤 LUN "
+"%(fcplun)s。"
 
 #: pyanaconda/storage/zfcp.py:260
 #, python-format
-msgid "Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s %(fcplun)s (%(e)s)."
-msgstr "無法正確刪除 zFCP %(devnum)s %(wwpn)s %(fcplun)s 的 SCSI 裝置 (%(e)s)。"
+msgid ""
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
+"%(fcplun)s (%(e)s)."
+msgstr ""
+"無法正確刪除 zFCP %(devnum)s %(wwpn)s %(fcplun)s 的 SCSI 裝置 (%(e)s)。"
 
 #: pyanaconda/storage/zfcp.py:269
 #, python-format
-msgid "Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
-msgstr "無法移除 zFCP 裝置 %(devnum)s 上的 WWPN %(wwpn)s 的 LUN %(fcplun)s (%(e)s)。"
+msgid ""
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
+msgstr ""
+"無法移除 zFCP 裝置 %(devnum)s 上的 WWPN %(wwpn)s 的 LUN %(fcplun)s (%(e)s)。"
 
 #: pyanaconda/storage/zfcp.py:287
 #, python-format
@@ -4668,54 +5522,121 @@ msgstr "您使用的是那一種鍵盤？"
 msgid "A value is required for the field %s"
 msgstr "欄位「%s」需要一個數值。"
 
-#: pyanaconda/textw/netconfig_text.py:88 data/ui/netconfig.glade.h:9
+#: pyanaconda/textw/netconfig_text.py:126
+#: pyanaconda/textw/netconfig_text.py:152 data/ui/netconfig.glade.h:9
 msgid "Enable network interface"
-msgstr "啟用網路界面"
+msgstr "啟用網路介面"
 
-#: pyanaconda/textw/netconfig_text.py:130
-msgid "Use dynamic IP configuration (DHCP)"
-msgstr "使用動態 IP 設定 (DHCP)"
+#: pyanaconda/textw/netconfig_text.py:129
+msgid ""
+"This requires that you have an active network connection during the "
+"installation process.  Please select network interface to configure."
+msgstr "在安裝過程中，您需要可用的網路連線。請選取要設定的網路介面。"
 
-#: pyanaconda/textw/netconfig_text.py:140
+#: pyanaconda/textw/netconfig_text.py:155
+#, python-format
+msgid "Configure interface %s to be used during installation process."
+msgstr "在安裝的過程將使用的設定介面為 %s。"
+
+#: pyanaconda/textw/netconfig_text.py:160
+msgid "Enable IPv4 Support"
+msgstr "啟用 IPv4 支援"
+
+#: pyanaconda/textw/netconfig_text.py:167
+#: pyanaconda/textw/netconfig_text.py:207
+msgid "Manual Configuration"
+msgstr "手動設定"
+
+#: pyanaconda/textw/netconfig_text.py:175
 msgid "IPv4 Address:"
 msgstr "IPv4 位址："
 
-#: pyanaconda/textw/netconfig_text.py:163
+#: pyanaconda/textw/netconfig_text.py:189
+#: pyanaconda/textw/netconfig_text.py:229
 msgid "Nameserver:"
 msgstr "名稱伺服器："
 
-#: pyanaconda/textw/netconfig_text.py:193
-msgid "Missing Device"
-msgstr "裝置遺失"
+#: pyanaconda/textw/netconfig_text.py:197
+msgid "Enable IPv6 Support"
+msgstr "啟用 IPv6 支援"
 
-#: pyanaconda/textw/netconfig_text.py:194
-msgid "You must select a network device"
-msgstr "您必須選擇網路裝置"
+#: pyanaconda/textw/netconfig_text.py:204
+msgid "Dynamic IP Configuration (DHCPv6)"
+msgstr "動態 IP 設定 (DHCPv6)"
 
-#: pyanaconda/textw/netconfig_text.py:253
-msgid "IPv4 Network Mask "
-msgstr "IPv4 網路遮罩"
+#: pyanaconda/textw/netconfig_text.py:215
+msgid "IPv6 Address:"
+msgstr "IPv6 位址："
 
-#: pyanaconda/textw/netconfig_text.py:276
+#: pyanaconda/textw/netconfig_text.py:270
+msgid "Missing protocol"
+msgstr "缺少通訊協定"
+
+#: pyanaconda/textw/netconfig_text.py:271
+msgid "You must select at least one protocol version"
+msgstr "您必須選擇至少一種通訊協定版本。"
+
+#: pyanaconda/textw/netconfig_text.py:279
+#: pyanaconda/textw/netconfig_text.py:282
+msgid "IPv4 Address"
+msgstr "IPv4 位址"
+
+#: pyanaconda/textw/netconfig_text.py:286
+#: pyanaconda/textw/netconfig_text.py:291
+msgid "IPv4 Prefix"
+msgstr "IPv4 前置數字"
+
+#: pyanaconda/textw/netconfig_text.py:298
+msgid "IPv4 Gateway"
+msgstr "IPv4 閘道器"
+
+#: pyanaconda/textw/netconfig_text.py:307
+msgid "IPv4 Nameserver"
+msgstr "IPv4 名稱伺服器"
+
+#: pyanaconda/textw/netconfig_text.py:315
+#: pyanaconda/textw/netconfig_text.py:318
+msgid "IPv6 Address"
+msgstr "IPv6 位址"
+
+#: pyanaconda/textw/netconfig_text.py:322
+#: pyanaconda/textw/netconfig_text.py:327
+msgid "IPv6 Prefix"
+msgstr "IPv6 前置數字"
+
+#: pyanaconda/textw/netconfig_text.py:326
+msgid "IPv6 CIDR prefix must be between 0 and 128."
+msgstr "IPv4 CIDR 的前置數字必須介於 0 與 128 之間。"
+
+#: pyanaconda/textw/netconfig_text.py:334
+msgid "IPv6 Gateway"
+msgstr "IPv6 閘道器"
+
+#: pyanaconda/textw/netconfig_text.py:342
+msgid "IPv6 Nameserver"
+msgstr "IPv6 名稱伺服器"
+
+#: pyanaconda/textw/netconfig_text.py:399
 msgid "Configuring Network Interfaces"
 msgstr "設定網路介面"
 
-#: pyanaconda/textw/netconfig_text.py:282
-msgid "Error configuring network device"
-msgstr "設定網路裝置時發生錯誤"
-
-#: pyanaconda/textw/netconfig_text.py:282
+#: pyanaconda/textw/netconfig_text.py:404
 #, python-format
-msgid "Error configuring network device %s"
-msgstr "設定網路裝置 %s 時發生錯誤"
+msgid "There was an error configuring network device %s"
+msgstr "設定網路裝置 %s 時發生了錯誤。"
 
 #: pyanaconda/textw/partition_text.py:59
 msgid "Partitioning Type"
 msgstr "分割類型"
 
 #: pyanaconda/textw/partition_text.py:61
-msgid "Installation requires partitioning of your hard drive.  The default layout is suitable for most users.  Select what space to use and which drives to use as the install target."
-msgstr "安裝過程需要分割您的硬碟。預設分割格式適用於大部份的使用者。請選擇欲使用的空間和作為安裝目標的磁碟。"
+msgid ""
+"Installation requires partitioning of your hard drive.  The default layout "
+"is suitable for most users.  Select what space to use and which drives to "
+"use as the install target."
+msgstr ""
+"安裝過程需要分割您的硬碟。預設分割格式適用於大部份的使用者。請選擇欲使用的空"
+"間和作為安裝目標的磁碟。"
 
 #: pyanaconda/textw/partition_text.py:64
 msgid "Use entire drive"
@@ -4792,10 +5713,13 @@ msgstr "要升級的系統"
 
 #: pyanaconda/textw/upgrade_text.py:227
 msgid ""
-"There seem to be one or more existing Linux installations on your system.\n\n"
-"Please choose one to upgrade, or select 'Reinstall System' to freshly install your system."
+"There seem to be one or more existing Linux installations on your system.\n"
+"\n"
+"Please choose one to upgrade, or select 'Reinstall System' to freshly "
+"install your system."
 msgstr ""
-"在您的系統上找到一個或更多舊的 Linux 安裝。\n\n"
+"在您的系統上找到一個或更多舊的 Linux 安裝。\n"
+"\n"
 "請選擇一個來做升級，或選擇「重新安裝系統」來完整安裝您的系統。"
 
 #: pyanaconda/textw/userauth_text.py:30
@@ -4803,7 +5727,9 @@ msgid "Root Password"
 msgstr "Root 密碼"
 
 #: pyanaconda/textw/userauth_text.py:33
-msgid "Pick a root password. You must type it twice to ensure you know it and do not make a typing mistake. "
+msgid ""
+"Pick a root password. You must type it twice to ensure you know it and do "
+"not make a typing mistake. "
 msgstr "輸入 root 密碼。您必須輸入兩次以做確認。"
 
 #: pyanaconda/textw/userauth_text.py:67
@@ -4813,10 +5739,12 @@ msgstr "root 密碼不得少於六個字元。"
 #: pyanaconda/textw/userauth_text.py:84
 #, python-format
 msgid ""
-"You have provided a weak password: %s\n\n"
+"You have provided a weak password: %s\n"
+"\n"
 "Would you like to continue with this password?"
 msgstr ""
-"您提供了一組安全性較弱的密碼：%s\n\n"
+"您提供了一組安全性較弱的密碼：%s\n"
+"\n"
 "您是否希望繼續使用這組密碼？"
 
 #: pyanaconda/textw/welcome_text.py:29
@@ -4826,12 +5754,21 @@ msgstr "%s"
 
 #: pyanaconda/textw/welcome_text.py:30
 #, python-format
-msgid "Welcome to %s!\n\n"
-msgstr "歡迎使用 %s!\n\n"
+msgid ""
+"Welcome to %s!\n"
+"\n"
+msgstr ""
+"歡迎使用 %s!\n"
+"\n"
 
 #: pyanaconda/textw/zipl_text.py:36
-msgid "The z/IPL Boot Loader will be installed on your system after installation is complete. You can now enter any additional kernel and chandev parameters which your machine or your setup require."
-msgstr "在完成安裝後，z/IPL 開機載入程式將會被安裝在您的系統上。現在您可以輸入您的機器或設定所需的任何其他核心或 chandev 參數。"
+msgid ""
+"The z/IPL Boot Loader will be installed on your system after installation is "
+"complete. You can now enter any additional kernel and chandev parameters "
+"which your machine or your setup require."
+msgstr ""
+"在完成安裝後，z/IPL 開機載入程式將會被安裝在您的系統上。現在您可以輸入您的機"
+"器或設定所需的任何其他核心或 chandev 參數。"
 
 #: pyanaconda/textw/zipl_text.py:68
 msgid "z/IPL Configuration"
@@ -4858,8 +5795,13 @@ msgid "Starting Install to Hard Drive"
 msgstr "開始安裝到硬碟"
 
 #: data/ui/GroupSelector.glade.h:1
-msgid "Some packages associated with this group are not required to be installed but may provide additional functionality.  Please choose the packages which you would like to have installed."
-msgstr "有些和此群組相聯的套件無須被安裝不過可能能夠提供額外的功能。請選擇您希望安裝的套件。"
+msgid ""
+"Some packages associated with this group are not required to be installed "
+"but may provide additional functionality.  Please choose the packages which "
+"you would like to have installed."
+msgstr ""
+"有些和此群組相聯的套件無須被安裝不過可能能夠提供額外的功能。請選擇您希望安裝"
+"的套件。"
 
 #: data/ui/GroupSelector.glade.h:2
 msgid "_Deselect"
@@ -4894,7 +5836,9 @@ msgid "Root Password:"
 msgstr "Root 密碼："
 
 #: data/ui/account.glade.h:3
-msgid "The root account is used for administering the system.  Enter a password for the root user."
+msgid ""
+"The root account is used for administering the system.  Enter a password for "
+"the root user."
 msgstr "root 是系統管理專用的帳號。請為 root 使用者輸入密碼。"
 
 #: data/ui/adddrive.glade.h:1
@@ -4946,7 +5890,8 @@ msgstr ""
 "Hard Drive"
 
 #: data/ui/addrepo.glade.h:9
-msgid "Please provide the configuration information for this software repository."
+msgid ""
+"Please provide the configuration information for this software repository."
 msgstr "請提供此套件庫的設定資訊。"
 
 #: data/ui/addrepo.glade.h:10
@@ -5014,7 +5959,8 @@ msgid "Volume to Shrink"
 msgstr "欲縮小的卷冊"
 
 #: data/ui/autopart.glade.h:4
-msgid "Which partition would you like to shrink to make room for your installation?"
+msgid ""
+"Which partition would you like to shrink to make room for your installation?"
 msgstr "您希望縮小哪個分割區以便空出空間來進行安裝？"
 
 #: data/ui/autopart.glade.h:5
@@ -5074,36 +6020,63 @@ msgid "<b>Install Target Devices</b>"
 msgstr "<b>安裝目標裝置</b>"
 
 #: data/ui/cleardisks.glade.h:3
-msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>祕訣：</b>安裝目標裝置將被重新格式並抹去任何資料。 請確定您已經備份。"
+msgid ""
+"<b>Tip:</b> Install target devices will be reformatted and wiped of any "
+"data.  Make sure you have backups."
+msgstr ""
+"<b>祕訣：</b>安裝目標裝置將被重新格式並抹去任何資料。 請確定您已經備份。"
 
 #: data/ui/cleardisks.glade.h:4
-msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data devices (these will not be formatted, only mounted) and which devices you'd like to use as installation target devices (these may be formatted).  Please also indicate which system drive will have the bootloader installed."
-msgstr "下列是您已選做此次安裝的部份儲存裝置。 請使用箭頭指出下列何項裝置您要用來做為資料裝置 (這些將不會格式化，只會被掛載)，以及何項裝置您要用來做為安裝目標裝置 (這些可能會格式化)。 同時也請指出何項系統磁碟將會安裝開機管理程式。"
+msgid ""
+"Below are the storage devices you've selected to be a part of this "
+"installation.  Please indicate using the arrows below which devices you'd "
+"like to use as data devices (these will not be formatted, only mounted) and "
+"which devices you'd like to use as installation target devices (these may be "
+"formatted).  Please also indicate which system drive will have the "
+"bootloader installed."
+msgstr ""
+"下列是您已選做此次安裝的部份儲存裝置。 請使用箭頭指出下列何項裝置您要用來做為"
+"資料裝置 (這些將不會格式化，只會被掛載)，以及何項裝置您要用來做為安裝目標裝"
+"置 (這些可能會格式化)。 同時也請指出何項系統磁碟將會安裝開機管理程式。"
 
 #: data/ui/create-storage.glade.h:1
-msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr "<span size=\"small\" color=\"gray\">建立以磁碟陣列格式化的分割區</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">建立以磁碟陣列格式化的分割區</span>"
 
 #: data/ui/create-storage.glade.h:2
-msgid "<span size=\"small\" color=\"gray\">Create a logical volume on selected volume group</span>"
-msgstr "<span size=\"small\" color=\"gray\">於已選卷冊群組上建立邏輯卷冊</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create a logical volume on selected "
+"volume group</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">於已選卷冊群組上建立邏輯卷冊</span>"
 
 #: data/ui/create-storage.glade.h:3
-msgid "<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
 msgstr "<span size=\"small\" color=\"gray\">建立 LVM 格式化的分割區</span>"
 
 #: data/ui/create-storage.glade.h:4
-msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
 msgstr "<span size=\"small\" color=\"gray\">建立一般用途分割區</span>"
 
 #: data/ui/create-storage.glade.h:5
-msgid "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted partition</span>"
-msgstr "<span size=\"small\" color=\"gray\">需要至少一塊 LVM 格式化的可用分割區</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted "
+"partition</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">需要至少一塊 LVM 格式化的可用分割區</"
+"span>"
 
 #: data/ui/create-storage.glade.h:6
-msgid "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted partitions</span>"
-msgstr "<span size=\"small\" color=\"gray\">需要至少兩塊磁碟陣列格式化的可用分割區</span>"
+msgid ""
+"<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted "
+"partitions</span>"
+msgstr ""
+"<span size=\"small\" color=\"gray\">需要至少兩塊磁碟陣列格式化的可用分割區</"
+"span>"
 
 #: data/ui/create-storage.glade.h:7
 msgid "C_reate"
@@ -5178,8 +6151,14 @@ msgid "_Add FCoE Disk(s)"
 msgstr "新增 FCoE 磁碟(_A)"
 
 #: data/ui/filter.glade.h:1
-msgid "<b>Tip:</b> Selected drives will not be formatted unless you choose to do so later during installation.  Also, note that post-installation you may mount drives you did not select here by modifying your /etc/fstab file."
-msgstr "<b>祕訣：</b>已選磁碟將不會格式化，除非您在稍後的安裝期間中選擇這樣做。 同時要注意的是，您可以在安裝之後經由修改您的 /etc/fstab 檔案去掛載您並未在此選取的磁碟。"
+msgid ""
+"<b>Tip:</b> Selected drives will not be formatted unless you choose to do so "
+"later during installation.  Also, note that post-installation you may mount "
+"drives you did not select here by modifying your /etc/fstab file."
+msgstr ""
+"<b>祕訣：</b>已選磁碟將不會格式化，除非您在稍後的安裝期間中選擇這樣做。 同時"
+"要注意的是，您可以在安裝之後經由修改您的 /etc/fstab 檔案去掛載您並未在此選取"
+"的磁碟。"
 
 #: data/ui/filter.glade.h:2
 msgid "Add Advanced Target"
@@ -5224,8 +6203,12 @@ msgid "Other SAN Devices"
 msgstr "其他 SAN 裝置"
 
 #: data/ui/filter.glade.h:13
-msgid "Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount on your system:"
-msgstr "請選取您想要將作業系統安裝於其上的磁碟，以及任何您想要自動地掛載於系統之上的磁碟："
+msgid ""
+"Please select the drives you'd like to install the operating system on, as "
+"well as any drives you'd like to automatically mount on your system:"
+msgstr ""
+"請選取您想要將作業系統安裝於其上的磁碟，以及任何您想要自動地掛載於系統之上的"
+"磁碟："
 
 #: data/ui/filter.glade.h:14
 msgid ""
@@ -5301,19 +6284,27 @@ msgid "Configure iSCSI Parameters"
 msgstr "設定 iSCSI 參數"
 
 #: data/ui/iscsi-config.glade.h:8
-msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
-msgstr "要使用 iSCSI 磁碟機，您必須提供已經為您的主機設定好的 iSCSI 目標位址與 iSCSI 起始名稱。"
+msgid ""
+"To use iSCSI disks, you must provide the address of your iSCSI target and "
+"the iSCSI initiator name you've configured for your host."
+msgstr ""
+"要使用 iSCSI 磁碟機，您必須提供已經為您的主機設定好的 iSCSI 目標位址與 iSCSI "
+"起始名稱。"
 
 #: data/ui/iscsi-config.glade.h:9
 msgid "_Add target"
 msgstr "新增目標(_A)"
 
 #: data/ui/lukspassphrase.glade.h:1
-msgid "Also add this passphrase to all existing encrypted devices to streamline the boot process"
+msgid ""
+"Also add this passphrase to all existing encrypted devices to streamline the "
+"boot process"
 msgstr "將此密碼套用在所有現有的加密裝置上以增加開機程序進行上的效率"
 
 #: data/ui/lukspassphrase.glade.h:2
-msgid "Choose a passphrase for this encrypted partition. You will be prompted for the passphrase during system boot."
+msgid ""
+"Choose a passphrase for this encrypted partition. You will be prompted for "
+"the passphrase during system boot."
 msgstr "請為此加密分割區選擇一組密碼。您將會在系統啟動時被要求輸入這組密碼。"
 
 #: data/ui/lukspassphrase.glade.h:3
@@ -5362,14 +6353,16 @@ msgstr "使用動態 IP 設定 - _DHCP"
 
 #: data/ui/network.glade.h:1
 msgid "Configure Network"
-msgstr "組配網路"
+msgstr "設定網路"
 
 #: data/ui/network.glade.h:2
 msgid "Hostname:"
 msgstr "主機名稱："
 
 #: data/ui/network.glade.h:3
-msgid "Please name this computer.  The hostname identifies the computer on a network."
+msgid ""
+"Please name this computer.  The hostname identifies the computer on a "
+"network."
 msgstr "請為此電腦命名。主機名稱可用來辨識網路上的某部電腦。"
 
 #: data/ui/tasksel.glade.h:1
@@ -5377,16 +6370,24 @@ msgid "Customize _later"
 msgstr "稍後自訂(_l)"
 
 #: data/ui/tasksel.glade.h:2
-msgid "Please select any additional repositories that you want to use for software installation."
+msgid ""
+"Please select any additional repositories that you want to use for software "
+"installation."
 msgstr "請選擇任何您想要使用軟體安裝的額外套件庫。"
 
 #: data/ui/tasksel.glade.h:4
 #, no-c-format
-msgid "The default installation of %s includes a set of software applicable for general internet usage.  What additional tasks would you like your system to support?"
-msgstr "%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
+msgid ""
+"The default installation of %s includes a set of software applicable for "
+"general internet usage.  What additional tasks would you like your system to "
+"support?"
+msgstr ""
+"%s 的預設安裝包括使用網際網路的一般性軟體。您希望系統還支援哪些東西呢？"
 
 #: data/ui/tasksel.glade.h:5
-msgid "You can further customize the software selection now, or after install via the software management application."
+msgid ""
+"You can further customize the software selection now, or after install via "
+"the software management application."
 msgstr "您可以現在進一步自訂要安裝的軟體，或在安裝後透過軟體管理程式進行。"
 
 #: data/ui/tasksel.glade.h:6
@@ -5418,8 +6419,14 @@ msgid "Add FCP device"
 msgstr "新增 FCP 裝置"
 
 #: data/ui/zfcp-config.glade.h:5
-msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port Name (WWPN), and a 64 bit FCP LUN for each device."
-msgstr "zSeries 的電腦可以透過光纖通道 (FCP，Fibre Channel)來存取符合業界標準的 SCSI 裝置。您需要為每個裝置設定五個參數：16 位元的裝置號碼、64 位元的 World Wide Port Number (WWPN)，以及 16 位元的 FCP LUN。"
+msgid ""
+"zSeries machines can access industry-standard SCSI devices via Fibre Channel "
+"(FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port "
+"Name (WWPN), and a 64 bit FCP LUN for each device."
+msgstr ""
+"zSeries 的電腦可以透過光纖通道 (FCP，Fibre Channel)來存取符合業界標準的 SCSI "
+"裝置。您需要為每個裝置設定五個參數：16 位元的裝置號碼、64 位元的 World Wide "
+"Port Number (WWPN)，以及 16 位元的 FCP LUN。"
 
 #: data/lang-table.h:1
 msgid "Afrikaans"
@@ -5664,3 +6671,33 @@ msgstr "威爾斯語"
 #: data/lang-table.h:61
 msgid "Zulu"
 msgstr "祖魯語"
+
+#~ msgid "You do not have enough RAM to use the graphical installer."
+#~ msgstr "您沒有足夠的記憶體以使用圖形安裝程式。"
+
+#~ msgid "Telnet"
+#~ msgstr "Telnet"
+
+#~ msgid "Waiting for telnet connection."
+#~ msgstr "正在等候 telnet 連線。"
+
+#~ msgid "Running anaconda via telnet."
+#~ msgstr "正在透過 telnet 執行 anaconda。"
+
+#~ msgid "Use dynamic IP configuration (DHCP)"
+#~ msgstr "使用動態 IP 設定 (DHCP)"
+
+#~ msgid "Missing Device"
+#~ msgstr "裝置遺失"
+
+#~ msgid "You must select a network device"
+#~ msgstr "您必須選擇網路裝置"
+
+#~ msgid "IPv4 Network Mask "
+#~ msgstr "IPv4 網路遮罩"
+
+#~ msgid "Error configuring network device"
+#~ msgstr "設定網路裝置時發生錯誤"
+
+#~ msgid "Error configuring network device %s"
+#~ msgstr "設定網路裝置 %s 時發生錯誤"
