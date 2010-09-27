@@ -374,8 +374,7 @@ class DeviceTree(object):
             Modifications to the Device instance are handled before we
             get here.
         """
-        if (action.isDestroy or action.isResize or \
-            (action.isCreate and action.isFormat)) and \
+        if not (action.isCreate and action.isDevice) and \
            action.device not in self._devices:
             raise DeviceTreeError("device is not in the tree")
         elif (action.isCreate and action.isDevice):
