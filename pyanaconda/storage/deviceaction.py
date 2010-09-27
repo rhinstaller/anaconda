@@ -228,6 +228,9 @@ class ActionCreateDevice(DeviceAction):
     obj = ACTION_OBJECT_DEVICE
 
     def __init__(self, device):
+        if device.exists:
+            raise ValueError("device already exists")
+
         # FIXME: assert device.fs is None
         DeviceAction.__init__(self, device)
 
@@ -333,15 +336,14 @@ class ActionResizeDevice(DeviceAction):
     obj = ACTION_OBJECT_DEVICE
 
     def __init__(self, device, newsize):
-        currentSize = long(math.floor(device.currentSize))
-        if currentSize == newsize:
-            raise ValueError("new size same as old size")
-
         if not device.resizable:
             raise ValueError("device is not resizable")
 
+        if long(math.floor(device.currentSize)) == newsize:
+            raise ValueError("new size same as old size")
+
         DeviceAction.__init__(self, device)
-        if newsize > currentSize:
+        if newsize > long(math.floor(device.currentSize)):
             self.dir = RESIZE_GROW
         else:
             self.dir = RESIZE_SHRINK
@@ -516,7 +518,10 @@ class ActionResizeFormat(DeviceAction):
     obj = ACTION_OBJECT_FORMAT
 
     def __init__(self, device, newsize):
-        if long(math.floor(device.format.targetSize)) == newsize:
+        if not device.format.resizable:
+            raise ValueError("format is not resizable")
+
+        if long(math.floor(device.format.currentSize)) == newsize:
             raise ValueError("new size same as old size")
 
         DeviceAction.__init__(self, device)
