@@ -119,6 +119,9 @@ installSteps = [
 class Dispatcher:
 
     def gotoPrev(self):
+        """
+        You should make sure canGoBack() returns True before attempting gotoPrev().
+        """
         self._setDir(DISPATCH_BACK)
 	self.moveStep()
 
