@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-09-01 20:52-0500\n"
-"PO-Revision-Date: 2010-09-24 19:29+0100\n"
+"PO-Revision-Date: 2010-09-29 01:45+0100\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "Language: ca\n"
@@ -2333,7 +2333,7 @@ msgstr "Conserva les vostres dades i particions actuals i només empra l'espai s
 
 #: pyanaconda/iw/autopart_type.py:257
 msgid "Create Custom Layout"
-msgstr "Crea una disposició personalitzada"
+msgstr "Creeu una disposició personalitzada"
 
 #: pyanaconda/iw/autopart_type.py:259
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
@@ -3538,7 +3538,7 @@ msgstr "Aquesta és l'opció recomanada."
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:144
 msgid "_Create new boot loader configuration"
-msgstr "_Crea una nova configuració per al gestor d'arranc"
+msgstr "_Creeu una nova configuració per al gestor d'arranc"
 
 #: pyanaconda/iw/upgrade_bootloader_gui.py:146
 msgid "This option creates a new boot loader configuration.  If you wish to switch boot loaders, you should choose this."
@@ -3975,7 +3975,7 @@ msgstr "Sembla que no hi ha cap disc dur al sistema. Voleu configurar dispositiu
 #: loader/hdinstall.c:226
 #, c-format
 msgid "What partition and directory on that partition holds the installation image for %s?  If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "En quina partició i i en quin directori d'aquella partició hi han les imatges per a %s? Si no veieu la unitat de disc que feu servir llistada aquí, premeu F2 per a configurar dispositius addicionals."
+msgstr "En quina partició i i en quin directori d'aquella partició hi han les imatges per a %s? Si no visualitzeu aquí la unitat de disc que esteu utilitzant, premeu F2 per a configurar dispositius addicionals."
 
 #: loader/hdinstall.c:250
 msgid "Directory holding image:"
@@ -4566,11 +4566,11 @@ msgstr "Dispositiu desconegut"
 #: pyanaconda/storage/__init__.py:111
 #, python-format
 msgid "The installation source given by device %s could not be found.  Please check your parameters and try again."
-msgstr "No s'ha trobat la font d'instal·lació donada pel dispositiu %s. Comproveu els paràmetres i proveu de nou."
+msgstr "No s'ha trobat la font d'instal·lació peoporcionada per al dispositiu %s. Comproveu els paràmetres i proveu de nou."
 
 #: pyanaconda/storage/__init__.py:120
 msgid "No disks found"
-msgstr "No s'han trobat cap disc"
+msgstr "No s'ha trobat cap disc"
 
 #: pyanaconda/storage/__init__.py:121
 msgid "No usable disks have been found."
@@ -4586,7 +4586,7 @@ msgstr "S'han activat les opcions d'emmagatzematge que heu escollit. Ja no podeu
 
 #: pyanaconda/storage/__init__.py:161
 msgid "Encrypt device?"
-msgstr "Encripta el dispositiu?"
+msgstr "Voleu encriptar el dispositiu?"
 
 #: pyanaconda/storage/__init__.py:162
 msgid "You specified block device encryption should be enabled, but you have not supplied a passphrase. If you do not go back and provide a passphrase, block device encryption will be disabled."
@@ -4615,12 +4615,12 @@ msgstr "S'està executant..."
 
 #: pyanaconda/storage/__init__.py:215
 msgid "Storing encryption keys"
-msgstr "S'estan emmagatzement les claus de l'encriptació"
+msgstr "S'estan emmagatzement les claus d'encriptació"
 
 #: pyanaconda/storage/__init__.py:231
 #, python-format
 msgid "Error storing an encryption key: %s\n"
-msgstr "S'ha produït un error mentre s'emmagatzemava la clau de l'encriptació: %s\n"
+msgstr "S'ha produït un error mentre s'emmagatzemava la clau d'encriptació: %s\n"
 
 #: pyanaconda/storage/__init__.py:377
 msgid "Examining Devices"
@@ -4759,7 +4759,7 @@ msgstr ""
 "\n"
 "     %s\n"
 "\n"
-"és una partició d'intercanvi antiga del Linux. Si voleu usar aquest dispositiu per a l'espai d'intercanvi, heu de formatar-ho com a una partició d'intercanvi recent del Linux."
+"és una partició d'intercanvi antiga de Linux. Si voleu utilitzar aquest dispositiu per a l'espai d'intercanvi, heu de formatar-ho com a una partició d'intercanvi recent del Linux."
 
 #: pyanaconda/storage/__init__.py:1861
 #, python-format
@@ -4921,7 +4921,7 @@ msgstr "S'està creant"
 #: pyanaconda/storage/devices.py:2910
 #, python-format
 msgid "Creating device %s"
-msgstr "S'està creant e disopistiu %s"
+msgstr "S'està creant el disopistiu %s"
 
 #: pyanaconda/storage/devices.py:2508
 #, python-format
@@ -5590,7 +5590,7 @@ msgstr "Com voleu modificar la configuració de la vostra unitat?"
 
 #: data/ui/adddrive.glade.h:6
 msgid "_Add drive"
-msgstr "_Afegeix unitat"
+msgstr "_Afegeix una unitat"
 
 #: data/ui/addrepo.glade.h:1
 msgid "<b>Repository _name:</b>"
@@ -5782,19 +5782,19 @@ msgstr "C_rea"
 
 #: data/ui/create-storage.glade.h:8
 msgid "Create LVM"
-msgstr "Crea LVM"
+msgstr "Crea un LVM"
 
 #: data/ui/create-storage.glade.h:9
 msgid "Create Partition"
-msgstr "Crea partició"
+msgstr "Crea una partició"
 
 #: data/ui/create-storage.glade.h:10
 msgid "Create Software RAID"
-msgstr "Crea RAID de programari"
+msgstr "Crea un RAID de programari"
 
 #: data/ui/create-storage.glade.h:11
 msgid "Create Storage"
-msgstr "Crea emmagatzegament"
+msgstr "Crea un emmagatzegament"
 
 #: data/ui/create-storage.glade.h:12
 msgid "LVM Logical Volume"
@@ -5852,7 +5852,7 @@ msgstr "<b>Consell:</b> no es formatarà les unitats seleccionades excepte que h
 
 #: data/ui/filter.glade.h:2
 msgid "Add Advanced Target"
-msgstr "Afegeix destí avançat"
+msgstr "Afegeix un destí avançat"
 
 #: data/ui/filter.glade.h:3
 msgid "Basic Devices"
