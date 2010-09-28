@@ -718,7 +718,7 @@ class AnacondaYum(YumSorter):
         spaceneeded = {}
 
         try:
-            self.runTransaction(cb=cb)
+            rc = self.runTransaction(cb=cb)
         except YumBaseError, probs:
             # FIXME: we need to actually look at these problems...
             probTypes = { rpm.RPMPROB_NEW_FILE_CONFLICT : _('file conflicts'),
@@ -767,6 +767,16 @@ class AnacondaYum(YumSorter):
                                type="custom", custom_icon="error",
                                custom_buttons=[_("Re_boot")])
             sys.exit(1)
+        else:
+            if rc.return_code == 1:
+                msg = _("An error occurred while installing packages.  Please "
+                        "examine /root/install.log on your installed system for "
+                        "detailed information.")
+                log.error(msg)
+
+                if not self.anaconda.isKickstart:
+                    intf.messageWindow(_("Error running transaction"),
+                                       msg, type="warning")
 
     def doMacros(self):
         for (key, val) in self.macros.items():
