@@ -3,27 +3,29 @@
 # Copyright (C) 2004 Hedayat Vatankhah
 # Copyright (C) 2005, 2006 Sharif FarsiWeb, Inc.
 # This file is distributed under the same license as the anaconda package.
+#
 # Abbas Izad <abbasizad@hotmail.com>, 2003, 2004.
 # Hedayat Vatankhah <hedavat@mail15.com>, 2004.
 # Roozbeh Pournader <roozbeh@farsiweb.info>, 2005, 2006.
 # Hamed Malek <hamed@farsiweb.info>, 2005.
 # Meelad Zakaria <meelad@farsiweb.info>, 2005, 2006.
 # Elnaz Sarbar <elnaz@farsiweb.info>, 2006.
-# Mostafa <lashar@fedoraproject.org> , 2010
-#
+# Mostafa <lashar@fedoraproject.org> , 2010.
+# Hedayat Vatankhah <hedayat@fedoraproject.org>, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-02 12:29-0400\n"
-"PO-Revision-Date: 2010-08-17 17:25+0330\n"
-"Last-Translator: Mostafa <info@mostafadaneshvar.com>\n"
-"Language-Team: Persian\n"
+"PO-Revision-Date: 2010-09-28 02:49+0330\n"
+"Last-Translator: Hedayat Vatankhah <hedayat@fedoraproject.org>\n"
+"Language-Team: Farsi (Persian) <trans-fa@lists.fedoraproject.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: anaconda:313
 msgid "Press <enter> for a shell"
@@ -120,7 +122,7 @@ msgstr "تأیید"
 
 #: anaconda:349
 msgid "You do not have enough RAM to use the graphical installer."
-msgstr "برای استفاده از نصب کنندهٔ گرافیکی به قدر کافی حافظهٔ RAM ندارید."
+msgstr "برای استفاده از نصب کننده‌ی گرافیکی به قدر کافی حافظه‌ی RAM ندارید."
 
 #: anaconda:353
 msgid ""
@@ -130,40 +132,40 @@ msgid ""
 "\n"
 " from a root terminal."
 msgstr ""
-"آزمایش حالت متنی نصاب با اجرای :\n"
+"نصاب حالت متنی را با اجرای :\n"
 "\n"
 "'/usr/bin/liveinst -T'\n"
 "\n"
-" در یک ترمینال رووت."
+" در یک ترمینال root امتحان کنید."
 
 #: anaconda:356
 msgid "Not enough RAM"
-msgstr "فضای کافی بر روی رم وجود ندارد"
+msgstr "RAM کافی وجود ندارد"
 
 #: anaconda:366
 msgid "Starting text mode."
-msgstr "شروع حالت متنی"
+msgstr "شروع حالت متنی."
 
 #: anaconda:713
 msgid "Would you like to use VNC?"
-msgstr "آیا می خواهید از VNC استفاده کنید؟"
+msgstr "آیا می‌خواهید از VNC استفاده کنید؟"
 
 #: anaconda:714
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
-msgstr "حالت متنی نصاب گزینه های محدودی برای نصب فراهم می کند. آن به شما اجازه نمی دهد ساختار پارتیشنی  یا انتخاب بست ها را تغییر دهید. آیا می خواهید به حالت VNCبه جای آن وارد شوید؟"
+msgstr "حالت متنی نصاب گزینه‌های محدودی برای نصب فراهم می کند. این حالت به شما اجازه نمی دهد ساختار پارتیشنی‌ها را مشخص کنید یا انتخاب بسته‌ها را تغییر دهید. می خواهید به جای آن به حالت VNC وارد شوید؟"
 
 #: anaconda:740
 msgid "Graphical installation is not available. Starting text mode."
-msgstr "نصب گرافیکی ممکن نیست..حالت متنی آغاز می‌شود."
+msgstr "نصب گرافیکی ممکن نیست. حالت متنی آغاز می‌شود."
 
 #: anaconda:748
 msgid "DISPLAY variable not set. Starting text mode."
-msgstr "متغیر نمایشگر تنظیم نشده است. آغاز مدل متنی"
+msgstr "متغیر DISPLAY تنظیم نشده است. آغاز حالت متنی."
 
 #: pyanaconda/backend.py:135
 #, python-format
 msgid "Upgrading %s\n"
-msgstr "در حال ارتقاء دادن %s\n"
+msgstr "در حال ارتقا دادن %s\n"
 
 #: pyanaconda/backend.py:137
 #, python-format
@@ -180,7 +182,7 @@ msgstr "در حال انتقال تصویر نصب به دیسک‌سخت"
 
 #: pyanaconda/backend.py:161
 msgid "An error occurred transferring the install image to your hard drive.  This is often cause by damaged or low quality media."
-msgstr "هنگام انتقال تصویر نصب به دیسک‌سخت شما خطایی رخ داد. این اغلب به خاطر رسانه کیفیت پایین یا خراب روی می دهد."
+msgstr "هنگام انتقال تصویر نصب به دیسک‌سخت شما خطایی رخ داد. این خطا اغلب به خاطر رسانه کیفیت پایین یا خراب روی می‌دهد."
 
 #: pyanaconda/backend.py:165
 msgid "An error occurred transferring the install image to your hard drive. You are probably out of disk space."
@@ -286,7 +288,7 @@ msgid ""
 "\n"
 "Would you like to continue with the installation?"
 msgstr ""
-"فایل های سیستمی فعال شده اند. شما نمی توانید در این نکته به عقب برگردید.\n"
+"سیستم‌های پرونده فعال شدهاند. شما نمی توانید از این نقطه به عقب برگردید.\n"
 "\n"
 "آیا می‌خواهید روند نصب را ادامه دهید؟"
 
@@ -319,7 +321,7 @@ msgstr ""
 #: pyanaconda/storage/__init__.py:234
 #: pyanaconda/storage/__init__.py:1999
 msgid "_Exit installer"
-msgstr "خروج نصاب"
+msgstr "_خروج از نصاب"
 
 #: pyanaconda/bootloader.py:60
 #: pyanaconda/image.py:92
@@ -337,19 +339,19 @@ msgstr "_ادامه"
 
 #: pyanaconda/bootloader.py:158
 msgid "Bootloader"
-msgstr "بارکنندهٔ راه‌انداز"
+msgstr "بارکننده‌ی راه‌انداز"
 
 #: pyanaconda/bootloader.py:158
 msgid "Installing bootloader."
-msgstr "نصب بووت کننده(راه انداز)."
+msgstr "نصب بارکننده‌ی راه انداز."
 
 #: pyanaconda/bootloader.py:222
 msgid "There was an error installing the bootloader.  The system may not be bootable."
-msgstr "خطای در نصب بارکننده بووت وجود داشت. سیستم شاید قابل بووت نباشد."
+msgstr "خطایی در نصب بارکننده‌ی راه‌انداز وجود داشت. سیستم شاید قابل راه‌اندازی نباشد."
 
 #: pyanaconda/bootloader.py:228
 msgid "No kernel packages were installed on the system.  Bootloader configuration will not be changed."
-msgstr "هیچ‌کدام از بسته‌ها‌ی هسته روی سیستم شما نصب نشده است. پیکربندی بارکنندهٔ راه‌انداز شما تغییر داده نخواهد شد."
+msgstr "هیچ‌کدام از بسته‌ها‌ی هسته روی سیستم شما نصب نشده است. پیکربندی بارکننده‌ی راه‌انداز شما تغییر داده نخواهد شد."
 
 #: pyanaconda/cmdline.py:56
 msgid "Completed"
@@ -373,13 +375,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"خطای زیر هنگام تجزیهٔ فایل پیکربندی kickstart پیدا شد:\n"
+"خطای زیر هنگام تجزیه‌ی فایل پیکربندی kickstart پیدا شد:\n"
 "\n"
 "%s"
 
 #: pyanaconda/cmdline.py:101
 msgid "Command line mode requires all choices to be specified in a kickstart configuration file."
-msgstr "حالت دستور نیاز دارد همه گزینه ها در فایل پیکره بندی kickstart مشخص شود."
+msgstr "حالت دستور نیاز دارد همه گزینه‌ها در فایل پیکربندی kickstart مشخص شود."
 
 #: pyanaconda/cmdline.py:120
 #: pyanaconda/cmdline.py:127
@@ -390,20 +392,20 @@ msgstr "در حالت سطر فرمان نمی‌شود سؤال پرسید!"
 
 #: pyanaconda/constants.py:74
 msgid "An unhandled exception has occurred.  This is most likely a bug.  Please save a copy of the detailed exception and file a bug report"
-msgstr "یک استثنای غیر قابل پیش بینی اتفاق افتاد. این شاید یک باگ باشد. لطفا نسخه ای از جزییات این ذخیره کرده و باگ را گزارش دهید"
+msgstr "یک استثنای پیش‌بینی نشده اتفاق افتاد. این به احتمال زیاد یک اشکال است. لطفا نسخه‌ای از جزییات این خطا ذخیره کرده و این اشکال را گزارش دهید"
 
 #: pyanaconda/constants.py:80
 msgid " with the provider of this software."
-msgstr "با فراهم آورنده ی این نرم افزار."
+msgstr " با فراهم‌آورنده‌ی این نرم افزار."
 
 #: pyanaconda/constants.py:84
 #, python-format
 msgid " against anaconda at %s"
-msgstr "در آناکوندا در  %s"
+msgstr " در آناکوندا در  %s"
 
 #: pyanaconda/gui.py:108
 msgid "An error occurred saving screenshots to disk."
-msgstr "هنگام ذخیره سازی  عکس‌های ‌صفحه بر روی دیسک خطایی رخ داد."
+msgstr "هنگام ذخیره‌سازی عکس‌های ‌صفحه بر روی دیسک خطایی رخ داد."
 
 #: pyanaconda/gui.py:125
 msgid "Screenshots Copied"
@@ -417,7 +419,7 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
-"عکس‌های صفحه در شاخهٔ زیر ذخیره شده‌اند:\n"
+"عکس‌های صفحه در شاخه‌ی زیر ذخیره شده‌اند:\n"
 "\n"
 "‏\t/root/anaconda-screenshots/\n"
 "\n"
@@ -425,7 +427,7 @@ msgstr ""
 
 #: pyanaconda/gui.py:165
 msgid "Saving Screenshot"
-msgstr "در حال ذخیرهٔ عکس‌صفحه"
+msgstr "در حال ذخیره‌ی عکس‌صفحه"
 
 #: pyanaconda/gui.py:166
 #, python-format
@@ -434,16 +436,16 @@ msgstr "عکس‌صفحه‌ای به نام «%s» ذخیره شد."
 
 #: pyanaconda/gui.py:169
 msgid "Error Saving Screenshot"
-msgstr "خطا در ذخیرهٔ عکس‌صفحه"
+msgstr "خطا در ذخیره‌ی عکس‌صفحه"
 
 #: pyanaconda/gui.py:170
 msgid "An error occurred while saving the screenshot.  If this occurred during package installation, you may need to try several times for it to succeed."
-msgstr "هنگام ذخیرهٔ عکس‌صفحه خطایی رخ داد. اگر خطا هنگام نصب بسته رخ داده است، شاید لازم باشد چندین بار تلاش کنید تا موفق شوید."
+msgstr "هنگام ذخیره‌ی عکس‌صفحه خطایی رخ داد. اگر خطا هنگام نصب بسته رخ داده است، شاید لازم باشد چندین بار تلاش کنید تا موفق شوید."
 
 #: pyanaconda/gui.py:525
 #: pyanaconda/text.py:150
 msgid "Choose a passphrase for the encrypted devices. You will be prompted for this passphrase during system boot."
-msgstr "کلمه ی عبوری برای کدگذاری وسایل انتخاب کنید. در هنگام بار اندازی سیستم این کلمه عبور از شما پرسیده می شود."
+msgstr "کلمه ی عبوری برای کدگذاری وسایل انتخاب کنید. در هنگام راه‌اندازی سیستم این کلمه عبور از شما پرسیده می شود."
 
 #: pyanaconda/gui.py:544
 #: pyanaconda/gui.py:552
@@ -493,11 +495,11 @@ msgstr "_اشکال‌زدایی"
 
 #: pyanaconda/gui.py:933
 msgid "Wireless setup"
-msgstr "تنظیمات بی سیم"
+msgstr "تنظیمات بی‌سیم"
 
 #: pyanaconda/gui.py:934
 msgid "Scanning access points for wireless devices"
-msgstr "درحال اسکن نقطه دستیابی برای وسایل بی سیم"
+msgstr "درحال پویش نقطه‌های دستیابی برای وسایل بی‌سیم"
 
 #: pyanaconda/gui.py:959
 #: pyanaconda/textw/netconfig_text.py:276
@@ -507,31 +509,31 @@ msgstr "در انتظار NetworkManager"
 #: pyanaconda/gui.py:960
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
-msgstr "در انتظار برای NetworkManager فعالسازی این وسایل: %s"
+msgstr "در انتظار NetworkManager برای فعال‌سازی این وسایل: %s"
 
 #: pyanaconda/gui.py:981
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
-msgstr "خطا در فعال سازی این میانگرهای شبکه: %s"
+msgstr "خطا در فعال‌سازی این واسط‌های شبکه: %s"
 
 #: pyanaconda/gui.py:984
 msgid "Network Configuration"
-msgstr "پیکربندی شبکه "
+msgstr "پیکربندی شبکه"
 
 #: pyanaconda/gui.py:993
 #: pyanaconda/iw/netconfig_dialog.py:213
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
-msgstr "هنگام بالا آوردن میانگر شبکه %s خطایی رخ داد."
+msgstr "هنگام بالا آوردن واسط شبکه %s خطایی رخ داد."
 
 #: pyanaconda/gui.py:995
 msgid "Error Enabling Network"
-msgstr "خطا در فعال سازی شبکه"
+msgstr "خطا در فعال‌سازی شبکه"
 
 #: pyanaconda/gui.py:1122
 #: pyanaconda/text.py:394
 msgid "Error Parsing Kickstart Config"
-msgstr "خطا در تجزیهٔ پیکربندی kickstart"
+msgstr "خطا در تجزیه‌ی پیکربندی kickstart"
 
 #: pyanaconda/gui.py:1150
 msgid "default:LTR"
@@ -550,7 +552,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"هنگام تلاش برای بار کردن مؤلفهٔ واسط نصب خطایی رخ داد.\n"
+"هنگام تلاش برای بار کردن یک مؤلفه‌ی واسط نصب خطایی رخ داد.\n"
 "\n"
 "className = %s"
 
@@ -571,7 +573,7 @@ msgstr "_خروج"
 #: pyanaconda/yuminstall.py:1275
 #: pyanaconda/yuminstall.py:1482
 msgid "_Retry"
-msgstr "_دوباره سعی شود"
+msgstr "_تلاش مجدد"
 
 #: pyanaconda/gui.py:1239
 #: pyanaconda/storage/partitioning.py:281
@@ -594,16 +596,16 @@ msgstr "خروج"
 #: pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:242
 msgid "Exit installer"
-msgstr "خروج نصاب"
+msgstr "خروج از نصاب"
 
 #: pyanaconda/gui.py:1324
 msgid "Are you sure you wish to exit the installer?"
-msgstr "آیا مطمئن هستید که می خواهید از نصاب خارج شوید"
+msgstr "آیا مطمئن هستید که می خواهید از نصاب خارج شوید؟"
 
 #: pyanaconda/gui.py:1333
 #, python-format
 msgid "%s Installer"
-msgstr "نصب کنندهٔ %s"
+msgstr "نصب کننده‌ی %s"
 
 #: pyanaconda/gui.py:1339
 msgid "Unable to load title bar"
@@ -611,7 +613,7 @@ msgstr "بار کردن نوار عنوان ممکن نیست"
 
 #: pyanaconda/gui.py:1417
 msgid "Install Window"
-msgstr "پنجرهٔ نصب"
+msgstr "پنجره‌ی نصب"
 
 #: pyanaconda/image.py:83
 #, python-format
@@ -620,18 +622,18 @@ msgid ""
 "\n"
 "It is recommended that you exit and abort your installation, but you can choose to continue if you think this is in error."
 msgstr ""
-"نصویر %s ایزو اندازه ای دارد که دوبرابر ۲۰۴۸ بایت نیست. این بدین معنی است ان در هنگام انتقال به این رایانه خراب شده است.\n"
+"اندازه‌ی تصویر ISOی %s ضریبی از ۲۰۴۸ بایت نیست. این نکته احتمالا بدین معنی است که تصویر در هنگام انتقال به این رایانه خراب شده است.\n"
 "\n"
-"توصیه می شود از برنامه نصب خارج شده و نصب را لغو کنید، اما اگر فکر می کنید این اشتباه است ادامه دهید."
+"توصیه می شود از برنامه نصب خارج شده و نصب را لغو کنید، اما اگر فکر می کنید این اشتباه است می‌توانید ادامه دهید."
 
 #: pyanaconda/image.py:156
 msgid "Couldn't Mount ISO Source"
-msgstr "نه توانست منبع ایزو را بارگذاری کند"
+msgstr "نتوانست منبع ISO را بارگذاری کند"
 
 #: pyanaconda/image.py:157
 #, python-format
 msgid "An error occurred mounting the source device %s.  This may happen if your ISO images are located on an advanced storage device like LVM or RAID, or if there was a problem mounting a partition.  Click exit to abort the installation."
-msgstr "خطای در سوار کردن وسیله منبع %s روی داد. این شاید به خاطر این اتفاق است که تصاویر ایزوی شما در مکانی پیشرفته ذخیره سازی مانند LVM یا RAID یا مشکلی در سوار کردن پارتیشن وجود دارد. بر روی خروج جهت لغو نصب کلیک کنید."
+msgstr "خطایی در سوار کردن وسیله منبع %s روی داد. این مسئله شاید به خاطر این است که تصاویر ISOی شما در مکان ذخیره‌سازی پیشرفته مانند LVM یا RAID قرار دارد، یا مشکلی در سوار کردن پارتیشن وجود دارد. جهت لغو نصب بر روی خروج کلیک کنید."
 
 #: pyanaconda/image.py:185
 msgid "Missing ISO 9660 Image"
@@ -650,7 +652,7 @@ msgstr ""
 
 #: pyanaconda/image.py:241
 msgid "Required Install Media"
-msgstr "رسانهٔ نصب مورد نیاز"
+msgstr "رسانه‌ی نصب مورد نیاز"
 
 #: pyanaconda/image.py:242
 #, python-format
@@ -724,22 +726,22 @@ msgstr ""
 #: pyanaconda/installinterfacebase.py:150
 #: pyanaconda/installinterfacebase.py:184
 msgid "_Ignore"
-msgstr "نادیده"
+msgstr "_نادیده گرفتن"
 
 #: pyanaconda/installinterfacebase.py:93
 #: pyanaconda/installinterfacebase.py:151
 msgid "Ignore _all"
-msgstr "نادیده گرفتن همه"
+msgstr "نادیده گرفتن _همه"
 
 #: pyanaconda/installinterfacebase.py:94
 #: pyanaconda/installinterfacebase.py:152
 msgid "_Re-initialize"
-msgstr "راه‌اندازی مجدد"
+msgstr "_راه‌اندازی مجدد"
 
 #: pyanaconda/installinterfacebase.py:95
 #: pyanaconda/installinterfacebase.py:153
 msgid "Re-ini_tialize all"
-msgstr "راه‌اندازی همه"
+msgstr "راه‌اندازی _مجدد همه"
 
 #: pyanaconda/installinterfacebase.py:143
 #, python-format
@@ -836,7 +838,7 @@ msgstr "بعد از خاموش کردن،‌لطفا IPL دستی از وسیل�
 
 #: pyanaconda/iutil.py:1033
 msgid "Error determining boot device's disk name"
-msgstr "خطا در پیداکردن نام دیسک راه اندازی"
+msgstr "خطا در پیداکردن نام دیسک راه‌اندازی"
 
 #: pyanaconda/iutil.py:1037
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
@@ -858,7 +860,7 @@ msgstr "خرابی کدنوشتک"
 #: pyanaconda/yuminstall.py:1199
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
-msgstr "هیچ شبکه ای موجود نیست"
+msgstr "هیچ شبکه‌ای موجود نیست"
 
 #: pyanaconda/kickstart.py:151
 msgid "Encryption key escrow requires networking, but there was an error enabling the network on your system."
@@ -904,7 +906,7 @@ msgstr "اجرای اسکریپ های پیش-نصب"
 
 #: pyanaconda/kickstart.py:1357
 msgid "Missing Package"
-msgstr "بستهٔ ناموجود"
+msgstr "بسته‌ی ناموجود"
 
 #: pyanaconda/kickstart.py:1358
 #, python-format
@@ -919,7 +921,7 @@ msgstr "_قطع شود"
 #: pyanaconda/kickstart.py:1365
 #: pyanaconda/kickstart.py:1404
 msgid "_Ignore All"
-msgstr "نادیده گرفتن همه"
+msgstr "_نادیده گرفتن همه"
 
 #: pyanaconda/kickstart.py:1395
 msgid "Missing Group"
@@ -985,7 +987,7 @@ msgstr "نام‌میزبان فقط می‌تواند شامل نویسه‌ه�
 
 #: pyanaconda/network.py:118
 msgid "IP address is missing."
-msgstr "نشانی IP گم شده است"
+msgstr "نشانی IP مشخص نشده است."
 
 #: pyanaconda/network.py:122
 msgid "IPv4 addresses must contain four numbers between 0 and 255, separated by periods."
@@ -1003,7 +1005,7 @@ msgstr "نام '%s' آدرس آی‌پی معتبری نیست."
 
 #: pyanaconda/packages.py:111
 msgid "Resizing Failed"
-msgstr "تغییر اندازه دچار خطا شد"
+msgstr "تغییر اندازه شکست خورد"
 
 #: pyanaconda/packages.py:112
 #, python-format
@@ -1021,7 +1023,7 @@ msgstr "خطای هنگام مهاجرت فایل سیستم در وسیله %s 
 
 #: pyanaconda/packages.py:130
 msgid "_File Bug"
-msgstr "نوشتن باگ"
+msgstr "ثبت اشکال"
 
 #: pyanaconda/packages.py:314
 #, python-format
@@ -1038,21 +1040,21 @@ msgid ""
 "\n"
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
-"اخطار! این نسخه ی برناهمه پیش از انتشار است.\n"
+"اخطار! این برنامه‌ی پیش از انتشار است!\n"
 "\n"
-"از شما برای دانلود %(productName)s پیش-نشر تشکر می کنیم.\n"
+"از شما برای دانلود این نسخه‌ی پیش‌از انتشار %(productName)s تشکر می کنیم.\n"
 "\n"
-"این نسخه نهایی نیست و قصد ندارد برای سیستم های تولید استفاده شود. هدف از این نشر جمعاوری بازخوردهای از آزمایش کنندگان است. این برنامه برای کار جهت استفاده روزمره مناسب نیست.\n"
+"این نسخه نهایی نیست و برای استفاده در سیستم‌های تولید آماده نشده است. هدف از این نشر جمع‌آوری بازخوردهای آزمایش کنندگان است، و برای استفاده روزمره مناسب نیست.\n"
 "\n"
 "برای گزارش بازخورد لطفا از سایت ذیل بازدید کنید:\n"
 "\n"
 "   %(bugzillaUrl)s\n"
 "\n"
-"و درباره ی '%(fileagainst)s' گزارش ارسال کنید.\n"
+"و درباره‌ی '%(fileagainst)s' گزارش ارسال کنید.\n"
 
 #: pyanaconda/packages.py:330
 msgid "_Install Anyway"
-msgstr "نصب به هر طریق"
+msgstr "انجام _نصب در هر صورت"
 
 #: pyanaconda/packages.py:333
 msgid "Your system will now be rebooted..."
@@ -1060,7 +1062,7 @@ msgstr "حالا سیستم شما مجدداً راه‌اندازی می‌ش�
 
 #: pyanaconda/packages.py:335
 msgid "Warning! This is pre-release software!"
-msgstr "اخطار! این نرم‌افزار نسخهٔ آزمایشی است!"
+msgstr "اخطار! این نرم‌افزار نسخه‌ی آزمایشی است!"
 
 #: pyanaconda/partIntfHelpers.py:41
 msgid "Please enter a volume group name."
@@ -1164,7 +1166,7 @@ msgstr ""
 #: pyanaconda/partIntfHelpers.py:232
 #, python-format
 msgid "You need to select at least one hard drive to install %s."
-msgstr "باید حداقل یک دیسک‌سخت انتخاب کنید تا %s بر رویش نصب شود"
+msgstr "باید حداقل یک دیسک‌سخت برای نصب %s انتخاب کنید."
 
 #: pyanaconda/partIntfHelpers.py:237
 msgid "You have chosen to use a pre-existing partition for this installation without formatting it. We recommend that you format this partition to make sure files from a previous operating system installation do not cause problems with this installation of Linux. However, if this partition contains files that you need to keep, such as home directories, then continue without formatting this partition."
