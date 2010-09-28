@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.215
+Version: 11.1.2.216
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,14 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 28 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.216-1
+- Don't immediately retry on downloading a package. (clumens)
+  Resolves: rhbz#544323
+- Make sure we can go back to a previous step before doing so (clumens)
+  Resolves: rhbz#537889
+- Check for and complain about package scriptlet errors (clumens)
+  Resolves: rhbz#531599
+
 * Mon Sep 20 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.215-1
 - Add python-libs package, python package has been split (rvykydal)
   Resolves: rhbz#634827
