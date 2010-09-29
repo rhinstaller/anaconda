@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-09-01 20:52-0500\n"
-"PO-Revision-Date: 2010-09-29 01:45+0100\n"
+"PO-Revision-Date: 2010-09-29 03:36+0100\n"
 "Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "Language: ca\n"
@@ -974,7 +974,7 @@ msgstr ""
 
 #: pyanaconda/livecd.py:229
 msgid "Performing post-installation filesystem changes.  This may take several minutes."
-msgstr "S'estan fent els canvis de la post-instal·lació al sistema de fitxers. Això pot trigar uns minuts."
+msgstr "S'estan realitzant els canvis de la post-instal·lació al sistema de fitxers. Això pot trigar uns minuts."
 
 #: pyanaconda/livecd.py:441
 #, python-format
@@ -1048,13 +1048,13 @@ msgid ""
 "\n"
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
-"Advertència!  Aquesta és una versió en proves!\n"
+"Advertència!  Aquesta és una versió fase de prova!\n"
 "\n"
-"Gracies per haver descarregat la versió de proves de %(productName)s.\n"
+"Gracies per haver descarregat la versió en fase de prova de %(productName)s.\n"
 "\n"
-"Aquesta no és la versió final i no s'hauria d'instal·lar en sistemes de producció.  El propòsit d'aquesta versió és recollir les opinions dels provadors, no sent útil per al seu ús diari.\n"
+"Aquesta no és la versió final i no s'hauria d'instal·lar en sistemes en fase de producció.  El propòsit d'aquesta versió és recollir les opinions dels provadors, no sent útil per al seu ús diari.\n"
 "\n"
-"Per a informar de les vostres sensacions, dirigiu-vos a:\n"
+"Per a informar de les vostres propostes, dirigiu-vos a:\n"
 "\n"
 "   %(bugzillaUrl)s\n"
 "\n"
@@ -1070,7 +1070,7 @@ msgstr "Es reiniciarà el sistema..."
 
 #: pyanaconda/packages.py:336
 msgid "Warning! This is pre-release software!"
-msgstr "Advertència! Aquest programari no és estable."
+msgstr "Advertència! Aquest programari està en fase de proves."
 
 #: pyanaconda/partIntfHelpers.py:41
 msgid "Please enter a volume group name."
@@ -2297,9 +2297,9 @@ msgid ""
 "\n"
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
-"Aquesta opció esborra totes les particions del(s) dispositiu(s) seleccionat(s). Això inclou particions creades per altres sistemes operatius.\n"
+"Aquesta opció esborra totes les particions dels dispositius seleccionats. Això inclou particions creades per altres sistemes operatius.\n"
 "\n"
-"<b>Consell:</b> aquesta opció esborrarà totes les dades del(s) dispositiu(s) seleccionat(s). Assegureu-vos de tenir-ne còpies de seguretat."
+"<b>Consell:</b> aquesta opció esborrarà totes les dades dels dispositius seleccionats. Assegureu-vos que teniu còpies de seguretat."
 
 #: pyanaconda/iw/autopart_type.py:237
 msgid "Replace Existing Linux System(s)"
@@ -2311,17 +2311,17 @@ msgid ""
 "\n"
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
-"Aquesta opció esborra totes les particions Linux del(s) dispositiu(s) seleccionat(s). Això no esborra altres particions que pugui haver al(s) vostre(s) dispositiu(s) d'emmagatzematge (com les VFAT o FAT32).\n"
+"Aquesta opció esborra totes les particions de Linux dels dispositius seleccionats. Això no esborra les altres particions que puguin haver-hi als vostres dispositius d'emmagatzegament (com per exemple VFAT o FAT32).\n"
 "\n"
-"<b>Tip:</b> Aquesta opció esborrarà totes les dades del(s) dispositiu(s) seleccionat(s). Assegureu-vos de tenir-ne còpies de seguretat."
+"<b>Consell:</b> Aquesta opció esborrarà totes les dades dels dispositius seleccionats. Assegureu-vos que teniu còpies de seguretat."
 
 #: pyanaconda/iw/autopart_type.py:247
 msgid "Shrink Current System"
-msgstr "Escongeix el sistema actual"
+msgstr "Redueix el sistema actual"
 
 #: pyanaconda/iw/autopart_type.py:249
 msgid "Shrinks existing partitions to create free space for the default layout."
-msgstr "Reduexi les particions existents per a crear espai lliure per a l'esquema per defecte."
+msgstr "Redueix les particions existents per a crear espai lliure per a l'esquema predeterminat."
 
 #: pyanaconda/iw/autopart_type.py:251
 msgid "Use Free Space"
@@ -2329,7 +2329,7 @@ msgstr "Utilitza l'espai lliure"
 
 #: pyanaconda/iw/autopart_type.py:253
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
-msgstr "Conserva les vostres dades i particions actuals i només empra l'espai sense particionar del(s) dispositiu(s) seleccionat(s), assumint que teniu prou espai lliure."
+msgstr "Conserva les vostres dades i particions actuals i únicament utilitza l'espai sense particionar en els dispositius seleccionats, assumint que teniu prou espai lliure."
 
 #: pyanaconda/iw/autopart_type.py:257
 msgid "Create Custom Layout"
@@ -2337,7 +2337,7 @@ msgstr "Creeu una disposició personalitzada"
 
 #: pyanaconda/iw/autopart_type.py:259
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
-msgstr "Crear manualment el vostre esquema personalitzat al(s) dispositiu(s) seleccionat(s) amb la nostra eina de particionat."
+msgstr "Creeu manualment el vostre esquema personalitzat en els dispositius seleccionats amb la nostra eina de particionat."
 
 #: pyanaconda/iw/blpasswidget.py:44
 msgid "_Use a boot loader password"
@@ -2465,11 +2465,11 @@ msgstr ""
 
 #: pyanaconda/iw/cleardisks_gui.py:196
 msgid "<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>Consell:</b> es reformatarà i s'esborraran les dades de tots els sistemes de fitxers Linux dels dispositius destí de la instal·lació. Assegureu-vos de tenir-ne còpia de seguretat."
+msgstr "<b>Consell:</b> Es reformatarà i s'esborraran les dades de tots els sistemes de fitxers Linux dels dispositius destí de la instal·lació. Assegureu-vos de tenir-ne còpia de seguretat."
 
 #: pyanaconda/iw/cleardisks_gui.py:198
 msgid "<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr "<b>Consell:</b> es reformataran i s'esborraran totes les dades dels dispositius destí. Assegureu-vos de tenir-ne còpia de seguretat."
+msgstr "<b>Consell:</b> Es reformataran i s'esborraran totes les dades dels dispositius destí. Assegureu-vos de tenir-ne còpia de seguretat."
 
 #: pyanaconda/iw/cleardisks_gui.py:200
 msgid "<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."
@@ -2519,7 +2519,7 @@ msgid ""
 msgstr ""
 "Enhorabona, s'ha completat la instal·lació de %s.\n"
 "\n"
-"Reinicieu ara per a utilitzar el sistema instal·lat. Poden haver actualitzacions disponibles per a assegurar el bon funcionament del vostre sistema. Es recomana la instal·lació de les actualitzacions després del reinici."
+"Reinicieu ara per a utilitzar el sistema instal·lat. Tingueu en compte que poden haver-hi disponibles actualitzacions que podrien assegurar el bon funcionament del vostre sistema. Es recomana la instal·lació d'aquestes actualitzacions després que es reinicii."
 
 #: pyanaconda/iw/examine_gui.py:39
 msgid "Upgrade Examine"
@@ -2599,7 +2599,7 @@ msgstr "LUN"
 
 #: pyanaconda/iw/filter_type.py:55
 msgid "What type of devices will your installation involve?"
-msgstr "Quins tipus de dispositius s'implicaran en la vostra instal·lació?"
+msgstr "Quins tipus de dispositius es veuran involucrats en la vostra instal·lació?"
 
 #: pyanaconda/iw/filter_type.py:61
 msgid "Basic Storage Devices"
@@ -2615,7 +2615,7 @@ msgstr "Dispositius especialitzats d'emmagatzemament"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid "Installs or upgrades to enterprise devices such as Storage Area Networks (SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to filter out devices the installer should ignore."
-msgstr "Instal·la o actualitza utilitzant dispositius empresarials com per exemple SANs (Storage Area Networks). Aquesta opció us permetrà afegir discs FCoE / iSCSI / zFCP i filtrar els dispositius que haurà d'ignorar l'instal·lador."
+msgstr "Instal·la o actualitza utilitzant dispositius empresarials com per exemple amb SAN (Storage Area Networks). Aquesta opció us permetrà afegir discs FCoE / iSCSI / zFCP i filtrar els dispositius que haurà d'ignorar l'instal·lador."
 
 #: pyanaconda/iw/language_gui.py:33
 #: pyanaconda/textw/language_text.py:45
@@ -3055,7 +3055,7 @@ msgstr "_Dispositiu"
 
 #: pyanaconda/iw/osbootwidget.py:183
 msgid "Default Boot _Target"
-msgstr "Objectiu prede_terminat d'arranc"
+msgstr "Element d'arranc prede_terminat"
 
 #: pyanaconda/iw/osbootwidget.py:212
 msgid "You must specify a label for the entry"
@@ -3161,7 +3161,7 @@ msgstr "Tipus"
 #: pyanaconda/iw/partition_gui.py:616
 #: pyanaconda/storage/__init__.py:1817
 msgid "Format"
-msgstr "Format"
+msgstr "Formata"
 
 #: pyanaconda/iw/partition_gui.py:653
 msgid ""
@@ -4599,7 +4599,7 @@ msgstr "Confirmació"
 
 #: pyanaconda/storage/__init__.py:189
 msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost."
-msgstr "S'escriuran les opcions de particionatge en el disc. Qualsevol informació a les particions esborrades o formatades s'esborrarà."
+msgstr "S'escriuran en el disc les opcions del particionatge. Es perdrà qualsevol informació que hi hagi en les particions suprimides o formatades."
 
 #: pyanaconda/storage/__init__.py:194
 msgid "Go _Back"
@@ -4628,7 +4628,7 @@ msgstr "Examinant dispositius"
 
 #: pyanaconda/storage/__init__.py:378
 msgid "Examining storage devices"
-msgstr "Examinant dispositius d'emmagatzematge"
+msgstr "S'estan examinant els dispositius d'emmagatzemament"
 
 #: pyanaconda/storage/__init__.py:657
 msgid "This partition is holding the data for the hard drive install."
@@ -4961,7 +4961,7 @@ msgstr "FCoE no disponible"
 
 #: pyanaconda/storage/formats/fs.py:102
 msgid "filesystem configuration missing a type"
-msgstr "manca un tipus a la configuració del sistema de fitxers"
+msgstr "falta un tipus en la configuració del sistema de fitxers"
 
 #: pyanaconda/storage/formats/fs.py:354
 #: pyanaconda/storage/formats/luks.py:194
@@ -4973,7 +4973,7 @@ msgstr "S'està formatant"
 #: pyanaconda/storage/formats/fs.py:355
 #, python-format
 msgid "Creating %s filesystem on %s"
-msgstr "S'estàn creant %s sistemes de fitxers a %s"
+msgstr "S'està creant el sistemes de fitxers %s a %s"
 
 #: pyanaconda/storage/formats/fs.py:463
 msgid "Resizing"
@@ -5690,7 +5690,7 @@ msgstr "Quina partició voleu encongir per a fer lloc a la vostra instal·lació
 
 #: data/ui/autopart.glade.h:5
 msgid "Which type of installation would you like?"
-msgstr "Quin tipus d'instal·lació voleu?"
+msgstr "Quin tipus d'instal·lació preferiu?"
 
 #: data/ui/autopart.glade.h:6
 msgid "_Encrypt system"
@@ -5710,7 +5710,7 @@ msgstr "Ordre de les unitats de la BIOS"
 
 #: data/ui/blwhere.glade.h:3
 msgid "Boot loader device"
-msgstr "Dispositiu del gestor d'arranc"
+msgstr "Dispositiu amb el gestor d'arranc"
 
 #: data/ui/blwhere.glade.h:4
 msgid "First BIOS drive:"
@@ -5734,7 +5734,7 @@ msgstr "Tercera unitat de la BIOS:"
 
 #: data/ui/blwhere.glade.h:9
 msgid "Where would you like to install the boot loader for your system?"
-msgstr "On voleu que s'instali el gestor d'arranc per al vostre sistema?"
+msgstr "On voleu que s'instal·li el gestor d'arranc per al vostre sistema?"
 
 #: data/ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
