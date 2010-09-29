@@ -39,6 +39,7 @@ from udev import *
 from .storage_log import log_method_call
 from pyanaconda import iutil
 import parted
+import _ped
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)

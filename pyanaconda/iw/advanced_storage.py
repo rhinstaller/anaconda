@@ -464,7 +464,7 @@ def addIscsiDrive(anaconda):
             elif step == STEP_LOGIN:
                 rc = wizard.display_login_dialog()
                 if rc == gtk.RESPONSE_CANCEL:
-                    break;
+                    break
                 login_dict = wizard.get_login_dict()
                 log.critical("logging with %s" % login_dict)
                 login_dict["intf"] = anaconda.intf
