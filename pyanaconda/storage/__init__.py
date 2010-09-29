@@ -1177,10 +1177,6 @@ class Storage(object):
         self.fsset.createSwapFile(device, size)
 
     @property
-    def fsFreeSpace(self):
-        return self.fsset.fsFreeSpace()
-
-    @property
     def mtab(self):
         return self.fsset.mtab()
 
@@ -1760,32 +1756,6 @@ class FSSet(object):
                     except ValueError:
                         # just write duplicates back out post-install
                         self.preserveLines.append(line)
-
-    def fsFreeSpace(self, chroot=None):
-        if not chroot:
-            chroot = self.rootpath
-
-        space = []
-        for device in self.devices:
-            if not device.format.mountable or \
-               not device.format.mountpoint or \
-               not device.format.status:
-                continue
-
-            path = "%s/%s" % (chroot, device.format.mountpoint)
-
-            ST_RDONLY = 1   # this should be in python's posix module
-            if not os.path.exists(path) or os.statvfs(path)[statvfs.F_FLAG] & ST_RDONLY:
-                continue
-
-            try:
-                space.append((device.format.mountpoint,
-                              isys.pathSpaceAvailable(path)))
-            except SystemError:
-                log.error("failed to calculate free space for %s" % (device.format.mountpoint,))
-
-        space.sort(key=lambda s: s[1])
-        return space
 
     def mtab(self):
         format = "%s %s %s %s 0 0\n"

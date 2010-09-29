@@ -80,16 +80,6 @@ EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
 def pathSpaceAvailable(path):
     return _isys.devSpaceFree(path)
 
-def lochangefd(device, file):
-    # FIXME: implement this as a storage.devices.Device subclass
-    loop = os.open(device, os.O_RDONLY)
-    targ = os.open(file, os.O_RDONLY)
-    try:
-        _isys.lochangefd(loop, targ)
-    finally:
-        os.close(loop)
-        os.close(targ)
-
 ## Mount a filesystem, similar to the mount system call.
 # @param device The device to mount.  If bindMount is True, this should be an
 #               already mounted directory.  Otherwise, it should be a device
