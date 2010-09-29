@@ -270,7 +270,7 @@ def setupLoggingFromOpts(opts):
         level = anaconda_log.logLevelMap[opts.loglevel]
         anaconda_log.logger.tty_loglevel = level
         anaconda_log.setHandlersLevel(log, level)
-        anaconda_log.setHandlersLevel(storage.storage_log.logger, level)
+        anaconda_log.setHandlersLevel(pyanaconda.storage.storage_log.logger, level)
 
     if opts.syslog:
         anaconda_log.logger.remote_syslog = opts.syslog
