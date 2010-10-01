@@ -446,6 +446,22 @@ class Network:
         else:
             self.netdevices[device].set(('GATEWAY', gw))
 
+    @property
+    def gateway(self):
+        """GATEWAY - last device in list wins"""
+        for dev in reversed(self.netdevices.values()):
+            if dev.get('GATEWAY'):
+                return dev.get('GATEWAY')
+        return ""
+
+    @property
+    def ipv6_defaultgw(self):
+        """IPV6_DEFAULTGW - last device in list wins"""
+        for dev in reversed(self.netdevices.values()):
+            if dev.get('IPV6_DEFAULTGW'):
+                return dev.get('IPV6_DEFAULTGW')
+        return ""
+
     def lookupHostname(self):
         # can't look things up if they don't exist!
         if not self.hostname or self.hostname == "localhost.localdomain":
@@ -635,9 +651,6 @@ class Network:
 
     def copyConfigToPath(self, instPath=''):
 
-        if len(self.netdevices) == 0:
-            return
-
         # /etc/sysconfig/network-scripts/ifcfg-DEVICE
         # /etc/sysconfig/network-scripts/keys-DEVICE
         # /etc/dhcp/dhclient-DEVICE.conf
@@ -679,9 +692,6 @@ class Network:
 
         devices = self.netdevices.values()
 
-        if len(devices) == 0:
-            return
-
         # /etc/sysconfig/network-scripts/ifcfg-*
         # /etc/sysconfig/network-scripts/keys-*
         for dev in devices:
@@ -712,11 +722,11 @@ class Network:
         else:
             f.write("localhost.localdomain\n")
 
-        if dev.get('GATEWAY'):
-            f.write("GATEWAY=%s\n" % (dev.get('GATEWAY'),))
+        if self.gateway:
+            f.write("GATEWAY=%s\n" % self.gateway)
 
-        if dev.get('IPV6_DEFAULTGW'):
-            f.write("IPV6_DEFAULTGW=%s\n" % (dev.get('IPV6_DEFAULTGW'),))
+        if self.ipv6_defaultgw:
+            f.write("IPV6_DEFAULTGW=%s\n" % self.ipv6_defaultgw)
 
         f.close()
         shutil.move(newnetwork, networkConfFile)
