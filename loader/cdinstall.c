@@ -283,85 +283,101 @@ static void queryCDMediaCheck(char *dev) {
     }
 }
 
-int promptForCdrom(struct loaderData_s *loaderData) {
+int findInstallCD(struct loaderData_s *loaderData) {
     int i, rc;
-    char *cddev = NULL;
-    struct device ** devices;
+    struct device **devices;
 
     devices = getDevices(DEVICE_CDROM);
     if (!devices) {
-        logMessage(ERROR, "got to promptForCdrom without a CD device");
+        logMessage(ERROR, "got to findInstallCD without a CD device");
         return LOADER_ERROR;
     }
 
-    do {
-        for (i = 0; devices[i]; i++) {
-            char *tmp = NULL;
-            int fd;
+    for (i = 0; devices[i]; i++) {
+        char *tmp = NULL;
+        int fd;
 
-            if (!devices[i]->device)
-                continue;
+        if (!devices[i]->device)
+            continue;
 
-            if (strncmp("/dev/", devices[i]->device, 5)) {
-                checked_asprintf(&tmp, "/dev/%s", devices[i]->device);
+        if (strncmp("/dev/", devices[i]->device, 5)) {
+            checked_asprintf(&tmp, "/dev/%s", devices[i]->device);
 
-                free(devices[i]->device);
-                devices[i]->device = tmp;
-            }
-
-            logMessage(INFO, "trying to mount CD device %s on /mnt/source",
-                       devices[i]->device);
-
-            if (!FL_CMDLINE(flags))
-                winStatus(60, 3, _("Scanning"), _("Looking for installation media on CD device %s\n"), devices[i]->device);
-            else
-                printf(_("Looking for installation media on CD device %s"), devices[i]->device);
-
-            fd = open(devices[i]->device, O_RDONLY | O_NONBLOCK);
-            if (fd < 0) {
-                logMessage(ERROR, "Couldn't open %s: %m", devices[i]->device);
-                if (!FL_CMDLINE(flags))
-                    newtPopWindow();
-                continue;
-            }
-
-            rc = waitForCdromTrayClose(fd);
-            close(fd);
-            switch (rc) {
-                case CDS_NO_INFO:
-                    logMessage(ERROR, "Drive tray reports CDS_NO_INFO");
-                    break;
-                case CDS_NO_DISC:
-                    if (!FL_CMDLINE(flags))
-                            newtPopWindow();
-                    continue;
-                case CDS_TRAY_OPEN:
-                    logMessage(ERROR, "Drive tray reports open when it should be closed");
-                    break;
-                default:
-                    break;
-            }
-
-            if (!FL_CMDLINE(flags))
-                newtPopWindow();
-
-            if ((rc = doPwMount(devices[i]->device, "/mnt/source", "iso9660", "ro", NULL)) == 0) {
-                cddev = devices[i]->device;
-                if (!access("/mnt/source/.treeinfo", R_OK)) {
-                     queryCDMediaCheck(devices[i]->device);
-                     loaderData->method = METHOD_CDROM;
-                     checked_asprintf(&loaderData->instRepo, "cdrom://%s:/mnt/source", devices[i]->device);
-                     return LOADER_OK;
-                } else {
-                    /* This wasn't the CD we were looking for.  Clean up and
-                     * try the next drive.
-                     */
-                    umount("/mnt/source");
-                }
-            }
+            free(devices[i]->device);
+            devices[i]->device = tmp;
         }
 
-        if (!loaderData->instRepo) {
+        logMessage(INFO, "trying to mount CD device %s on /mnt/source",
+                   devices[i]->device);
+
+        if (!FL_CMDLINE(flags))
+            winStatus(60, 3, _("Scanning"), _("Looking for installation media on CD device %s\n"), devices[i]->device);
+        else
+            printf(_("Looking for installation media on CD device %s"), devices[i]->device);
+
+        fd = open(devices[i]->device, O_RDONLY | O_NONBLOCK);
+        if (fd < 0) {
+            logMessage(ERROR, "Couldn't open %s: %m", devices[i]->device);
+            if (!FL_CMDLINE(flags))
+                newtPopWindow();
+            continue;
+        }
+
+        rc = waitForCdromTrayClose(fd);
+        close(fd);
+        switch (rc) {
+            case CDS_NO_INFO:
+                logMessage(ERROR, "Drive tray reports CDS_NO_INFO");
+                break;
+            case CDS_NO_DISC:
+                if (!FL_CMDLINE(flags))
+                        newtPopWindow();
+                continue;
+            case CDS_TRAY_OPEN:
+                logMessage(ERROR, "Drive tray reports open when it should be closed");
+                break;
+            default:
+                break;
+        }
+
+        if (!FL_CMDLINE(flags))
+            newtPopWindow();
+
+        if ((rc = doPwMount(devices[i]->device, "/mnt/source", "iso9660", "ro", NULL)) == 0) {
+            if (!access("/mnt/source/.treeinfo", R_OK) && !access("/mnt/source/.discinfo", R_OK)) {
+                 loaderData->method = METHOD_CDROM;
+                 checked_asprintf(&loaderData->instRepo, "cdrom://%s:/mnt/source", devices[i]->device);
+                 return LOADER_OK;
+            } else {
+                /* This wasn't the CD we were looking for.  Clean up and
+                 * try the next drive.
+                 */
+                umount("/mnt/source");
+            }
+        }
+    }
+
+    return LOADER_ERROR;
+}
+
+int promptForCdrom(struct loaderData_s *loaderData) {
+    int rc;
+    char *cddev = NULL, *colon, *start;
+
+    do {
+        rc = findInstallCD(loaderData);
+
+        if (loaderData->instRepo && rc == LOADER_OK) {
+            /* Skip over the leading cdrom:// */
+            start = loaderData->instRepo+8;
+            colon = strchr(start, ':');
+
+            /* Then grab just the device portion out of the instRepo string. */
+            cddev = strndup(start, colon-start);
+            queryCDMediaCheck(cddev);
+            free(cddev);
+            return rc;
+        } else {
             char * buf;
 
             checked_asprintf(&buf, _("The %s disc was not found in any of your "
@@ -369,7 +385,6 @@ int promptForCdrom(struct loaderData_s *loaderData) {
                                      "and press %s to retry."),
                              getProductName(), getProductName(), _("OK"));
 
-            ejectCdrom(cddev);
             rc = newtWinChoice(_("Disc Not Found"),
                                _("OK"), _("Back"), buf, _("OK"));
             free(buf);

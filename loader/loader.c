@@ -1256,6 +1256,15 @@ static void doLoaderMain(struct loaderData_s *loaderData,
     i = 0;
     step = STEP_LANG;
 
+    /* Before anything, check if we're installing from CD/DVD.  If so, we can
+     * skip right over most of these steps.  Note that askmethod or repo= will
+     * override this check.
+     */
+    if (!FL_ASKMETHOD(flags) && !loaderData->instRepo && findInstallCD(loaderData) == LOADER_OK) {
+        skipLangKbd = 1;
+        flags |= LOADER_FLAGS_NOPASS;
+    }
+
     while (step != STEP_DONE) {
         switch(step) {
             case STEP_LANG: {
