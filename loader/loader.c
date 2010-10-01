@@ -129,10 +129,10 @@ static int init_sig = SIGUSR1; /* default to shutdown=halt */
 static const char *LANG_DEFAULT = "en_US.UTF-8";
 
 static struct installMethod installMethods[] = {
-    { N_("Local CD/DVD"), 0, DEVICE_CDROM, promptForCdrom, loadCdromImages},
-    { N_("Hard drive"), 0, DEVICE_DISK, promptForHardDrive, loadHdImages },
-    { N_("NFS directory"), 1, DEVICE_NETWORK, promptForNfs, loadNfsImages },
-    { "URL", 1, DEVICE_NETWORK, promptForUrl, loadUrlImages},
+    { N_("Local CD/DVD"), "METHOD_CDROM", 0, DEVICE_CDROM, promptForCdrom, loadCdromImages},
+    { N_("Hard drive"), "METHOD_HD", 0, DEVICE_DISK, promptForHardDrive, loadHdImages },
+    { N_("NFS directory"), "METHOD_NFS", 1, DEVICE_NETWORK, promptForNfs, loadNfsImages },
+    { "URL", "METHOD_URL", 1, DEVICE_NETWORK, promptForUrl, loadUrlImages},
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -1261,6 +1261,7 @@ static void doLoaderMain(struct loaderData_s *loaderData,
      * override this check.
      */
     if (!FL_ASKMETHOD(flags) && !loaderData->instRepo && findInstallCD(loaderData) == LOADER_OK) {
+        logMessage(DEBUGLVL, "Found installation media, so skipping lang and kbd");
         skipLangKbd = 1;
         flags |= LOADER_FLAGS_NOPASS;
     }
@@ -1548,9 +1549,9 @@ static void doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_EXTRAS: {
-                /* FIXME - this is where we need to look for product.img,
-                 * updates.img, etc.
-                 */
+                logMessage(DEBUGLVL, "in STEP_EXTRAS, method = %s",
+                           installMethods[validMethods[loaderData->method]].desc);
+
                 installMethods[validMethods[loaderData->method]].findExtras(loaderData);
                 step = STEP_DONE;
                 break;

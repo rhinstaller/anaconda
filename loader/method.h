@@ -33,6 +33,7 @@ enum {
 
 struct installMethod {
     char * name;
+    char * desc;
     int network;
     enum deviceType type;
     int (*prompt)(struct loaderData_s *loaderData);

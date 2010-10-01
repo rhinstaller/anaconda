@@ -210,6 +210,8 @@ int loadNfsImages(struct loaderData_s *loaderData) {
     char *host, *path, *opts;
     char *url;
 
+    logMessage(DEBUGLVL, "looking for extras for NFS install");
+
     if (!loaderData->instRepo)
         return 0;
 

@@ -99,6 +99,8 @@ static int ends_with_iso(char *dirname, struct dirent *ent) {
 int loadHdImages(struct loaderData_s *loaderData) {
     char *device = NULL, *dir = NULL, *path;
 
+    logMessage(DEBUGLVL, "looking for extras for HD install");
+
     if (!loaderData->instRepo)
         return 0;
 

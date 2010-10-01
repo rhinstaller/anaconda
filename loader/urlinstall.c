@@ -163,6 +163,8 @@ static void copyErrorFn (char *msg) {
 int loadUrlImages(struct loaderData_s *loaderData) {
     char *url;
 
+    logMessage(DEBUGLVL, "looking for extras for HTTP/FTP install");
+
     if (!loaderData->instRepo)
         return 0;
 

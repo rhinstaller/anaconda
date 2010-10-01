@@ -400,6 +400,8 @@ int loadCdromImages(struct loaderData_s *loaderData) {
     char *device = NULL;
     char *tmp;
 
+    logMessage(DEBUGLVL, "looking for extras for CD/DVD install");
+
     if (!loaderData->instRepo)
         return 0;
 
