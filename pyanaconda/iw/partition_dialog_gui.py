@@ -190,6 +190,7 @@ class PartitionEditor:
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             err, custom_icon="error")
+                    self.dialog.present()
                     continue
 
                 weight = self.anaconda.platform.weight(mountpoint=mountpoint,
