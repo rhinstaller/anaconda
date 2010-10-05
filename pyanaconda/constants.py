@@ -30,11 +30,6 @@ DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
 DISPATCH_NOOP = None
 
-EXN_OK = 0
-EXN_DEBUG = 1
-EXN_SAVE = 2
-EXN_CANCEL = 3
-
 # different types of partition requests
 # REQUEST_PREEXIST is a placeholder for a pre-existing partition on the system
 # REQUEST_NEW is a request for a partition which will be automatically
