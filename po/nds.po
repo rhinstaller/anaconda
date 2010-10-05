@@ -1,4 +1,4 @@
-# translation of anaconda.master.nds.po to
+# translation of anaconda.master.nds.po to Low German
 # Nils-Christoph Fiedler <ncfiedler@fedoraproject.org>, 2010.
 #
 msgid ""
@@ -6,9 +6,9 @@ msgstr ""
 "Project-Id-Version: anaconda.master.nds\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-08-12 19:33+0100\n"
+"PO-Revision-Date: 2010-10-05 15:11+0100\n"
 "Last-Translator: Nils-Christoph Fiedler <ncfiedler@fedoraproject.org>\n"
-"Language-Team:  <nds-lowgerman@lists.sourceforge.net>\n"
+"Language-Team: Low German <nds-lowgerman@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -125,7 +125,7 @@ msgstr ""
 
 #: anaconda:356
 msgid "Not enough RAM"
-msgstr ""
+msgstr "Nich genug RAM"
 
 #: anaconda:366
 msgid "Starting text mode."
@@ -159,7 +159,7 @@ msgstr ""
 
 #: pyanaconda/backend.py:150
 msgid "Copying File"
-msgstr ""
+msgstr "Kopere Datei"
 
 #: pyanaconda/backend.py:151
 msgid "Transferring install image to hard drive"
@@ -265,7 +265,7 @@ msgstr "Fehler"
 #: pyanaconda/iw/upgrade_swap_gui.py:205
 #: pyanaconda/textw/upgrade_text.py:193
 msgid "Warning"
-msgstr ""
+msgstr "Warnung"
 
 #: pyanaconda/bootloader.py:56
 msgid ""
@@ -303,7 +303,7 @@ msgstr ""
 #: pyanaconda/storage/__init__.py:234
 #: pyanaconda/storage/__init__.py:1999
 msgid "_Exit installer"
-msgstr ""
+msgstr "_Installatschoon sluten"
 
 #: pyanaconda/bootloader.py:60
 #: pyanaconda/image.py:92
@@ -317,11 +317,11 @@ msgstr ""
 #: pyanaconda/iw/partition_gui.py:1600
 #: pyanaconda/storage/__init__.py:2000
 msgid "_Continue"
-msgstr ""
+msgstr "_Wieter"
 
 #: pyanaconda/bootloader.py:158
 msgid "Bootloader"
-msgstr ""
+msgstr "Bootloader"
 
 #: pyanaconda/bootloader.py:158
 msgid "Installing bootloader."
@@ -457,7 +457,7 @@ msgstr ""
 #: loader/loader.c:583
 #: pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
-msgstr ""
+msgstr "Avbreken"
 
 #: pyanaconda/gui.py:690
 #: pyanaconda/gui.py:691
@@ -469,7 +469,7 @@ msgstr ""
 
 #: pyanaconda/gui.py:933
 msgid "Wireless setup"
-msgstr ""
+msgstr "Instellen för kavelloses Netwark (WLAN)"
 
 #: pyanaconda/gui.py:934
 msgid "Scanning access points for wireless devices"
@@ -516,7 +516,7 @@ msgstr ""
 #: pyanaconda/gui.py:1230
 #: pyanaconda/text.py:496
 msgid "Error!"
-msgstr ""
+msgstr "Fehler!"
 
 #: pyanaconda/gui.py:1231
 #: pyanaconda/text.py:497
@@ -533,7 +533,7 @@ msgstr ""
 #: pyanaconda/packages.py:330
 #: pyanaconda/storage/__init__.py:1817
 msgid "_Exit"
-msgstr ""
+msgstr "_Sluten"
 
 #: pyanaconda/gui.py:1237
 #: pyanaconda/image.py:164
@@ -544,7 +544,7 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1275
 #: pyanaconda/yuminstall.py:1482
 msgid "_Retry"
-msgstr ""
+msgstr "_Nohmal versöken"
 
 #: pyanaconda/gui.py:1239
 #: pyanaconda/storage/partitioning.py:284
@@ -556,18 +556,18 @@ msgstr ""
 #: pyanaconda/packages.py:334
 #: pyanaconda/yuminstall.py:1523
 msgid "_Reboot"
-msgstr ""
+msgstr "_Nejstart"
 
 #: pyanaconda/gui.py:1242
 msgid "Exiting"
-msgstr ""
+msgstr "Slute"
 
 #: pyanaconda/gui.py:1323
 #: pyanaconda/livecd.py:126
 #: pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:242
 msgid "Exit installer"
-msgstr ""
+msgstr "Installatschoon sluten"
 
 #: pyanaconda/gui.py:1324
 msgid "Are you sure you wish to exit the installer?"
@@ -576,7 +576,7 @@ msgstr ""
 #: pyanaconda/gui.py:1333
 #, python-format
 msgid "%s Installer"
-msgstr ""
+msgstr "%s Installatschoon"
 
 #: pyanaconda/gui.py:1339
 msgid "Unable to load title bar"
@@ -639,7 +639,7 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1523
 #: data/ui/anaconda.glade.h:2
 msgid "_Back"
-msgstr ""
+msgstr "_Torügg"
 
 #: pyanaconda/image.py:290
 #, python-format
@@ -648,7 +648,7 @@ msgstr ""
 
 #: pyanaconda/installclass.py:67
 msgid "Install on System"
-msgstr ""
+msgstr "Op System installeren"
 
 #: pyanaconda/installinterfacebase.py:52
 #, python-format
@@ -723,7 +723,7 @@ msgstr[1] ""
 #: pyanaconda/installinterfacebase.py:184
 #: pyanaconda/iw/partition_gui.py:898
 msgid "_Format"
-msgstr ""
+msgstr "_Formateren"
 
 #: pyanaconda/iutil.py:867
 #, python-format
@@ -861,12 +861,12 @@ msgstr ""
 #: pyanaconda/kickstart.py:1364
 #: pyanaconda/kickstart.py:1403
 msgid "_Abort"
-msgstr ""
+msgstr "_Avbreken"
 
 #: pyanaconda/kickstart.py:1365
 #: pyanaconda/kickstart.py:1404
 msgid "_Ignore All"
-msgstr ""
+msgstr "_All ignoreren"
 
 #: pyanaconda/kickstart.py:1395
 msgid "Missing Group"
@@ -963,7 +963,7 @@ msgstr ""
 
 #: pyanaconda/packages.py:130
 msgid "_File Bug"
-msgstr ""
+msgstr "_Bug sennen"
 
 #: pyanaconda/packages.py:314
 #, python-format
@@ -983,7 +983,7 @@ msgstr ""
 
 #: pyanaconda/packages.py:330
 msgid "_Install Anyway"
-msgstr ""
+msgstr "_Trotzdem installeren"
 
 #: pyanaconda/packages.py:333
 msgid "Your system will now be rebooted..."
@@ -1060,7 +1060,7 @@ msgstr ""
 #: pyanaconda/iw/partition_gui.py:1813
 #: pyanaconda/iw/partition_gui.py:1825
 msgid "_Delete"
-msgstr ""
+msgstr "_Löschen"
 
 #: pyanaconda/partIntfHelpers.py:200
 msgid "Notice"
@@ -1097,16 +1097,16 @@ msgstr ""
 
 #: pyanaconda/partIntfHelpers.py:245
 msgid "Format?"
-msgstr ""
+msgstr "Formateren?"
 
 #: pyanaconda/partIntfHelpers.py:245
 #: pyanaconda/iw/partition_gui.py:1598
 msgid "_Modify Partition"
-msgstr ""
+msgstr "_Partitschoon ännern"
 
 #: pyanaconda/partIntfHelpers.py:245
 msgid "Do _Not Format"
-msgstr ""
+msgstr "_Nich formateren"
 
 #: pyanaconda/partIntfHelpers.py:253
 msgid "Error with Partitioning"
@@ -1187,7 +1187,7 @@ msgstr ""
 #: pyanaconda/platform.py:520
 #: data/ui/create-storage.glade.h:15
 msgid "RAID Device"
-msgstr ""
+msgstr "RAID Lööpwark"
 
 #: pyanaconda/platform.py:99
 #: pyanaconda/platform.py:102
@@ -1235,7 +1235,7 @@ msgstr ""
 
 #: pyanaconda/platform.py:217
 msgid "EFI System Partition"
-msgstr ""
+msgstr "EFI Systempartitschoon"
 
 #: pyanaconda/platform.py:229
 msgid "You have not created a /boot/efi partition."
@@ -1300,7 +1300,7 @@ msgstr ""
 #: loader/hdinstall.c:212
 #: pyanaconda/textw/constants_text.py:56
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: pyanaconda/rescue.py:256
 #: pyanaconda/rescue.py:258
@@ -1308,7 +1308,7 @@ msgstr ""
 #: loader/driverdisk.c:659
 #: pyanaconda/textw/constants_text.py:60
 msgid "No"
-msgstr ""
+msgstr "Nee"
 
 #: pyanaconda/rescue.py:263
 msgid "Unable to activate a networking device.  Networking will not be available in rescue mode."
@@ -1339,12 +1339,12 @@ msgstr ""
 #: pyanaconda/storage/__init__.py:169
 #: pyanaconda/storage/devicetree.py:90
 msgid "Continue"
-msgstr ""
+msgstr "Wieter"
 
 #: pyanaconda/rescue.py:311
 #: pyanaconda/rescue.py:320
 msgid "Read-Only"
-msgstr ""
+msgstr "Jüst lesen"
 
 #: pyanaconda/rescue.py:311
 #: pyanaconda/rescue.py:313
@@ -1354,7 +1354,7 @@ msgstr ""
 #: pyanaconda/storage/__init__.py:1817
 #: pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
-msgstr ""
+msgstr "Överhüppen"
 
 #: pyanaconda/rescue.py:311
 #: pyanaconda/rescue.py:316
@@ -1374,7 +1374,7 @@ msgstr ""
 #: pyanaconda/text.py:501
 #: pyanaconda/text.py:503
 msgid "Exit"
-msgstr ""
+msgstr "Sluten"
 
 #: pyanaconda/rescue.py:375
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions.  The system will reboot automatically when you exit from the shell."
@@ -1470,11 +1470,11 @@ msgstr ""
 #: loader/net.c:1134
 #: loader/net.c:1142
 msgid "Retry"
-msgstr ""
+msgstr "Nohmal versöken"
 
 #: pyanaconda/text.py:515
 msgid "Cancelled"
-msgstr ""
+msgstr "Avbreken"
 
 #: pyanaconda/text.py:516
 msgid "I can't go to the previous step from here. You will have to try again."
@@ -1567,7 +1567,7 @@ msgstr ""
 
 #: pyanaconda/vnc.py:189
 msgid "Connected!"
-msgstr ""
+msgstr "Verbunnen!"
 
 #: pyanaconda/vnc.py:192
 msgid "Will try to connect again in 15 seconds..."
@@ -1591,7 +1591,7 @@ msgstr ""
 
 #: pyanaconda/vnc.py:214
 msgid "Starting VNC..."
-msgstr ""
+msgstr "Starte VNC..."
 
 #: pyanaconda/vnc.py:239
 msgid "The VNC server is now running."
@@ -1642,7 +1642,7 @@ msgstr ""
 #: pyanaconda/vnc.py:288
 #: pyanaconda/vnc.py:382
 msgid "No password"
-msgstr ""
+msgstr "Keen Passwoord"
 
 #: pyanaconda/vnc.py:290
 #: pyanaconda/vnc.py:385
@@ -1653,19 +1653,19 @@ msgstr ""
 #: pyanaconda/vnc.py:393
 #: pyanaconda/textw/userauth_text.py:47
 msgid "Password:"
-msgstr ""
+msgstr "Passwoord:"
 
 #: pyanaconda/vnc.py:299
 #: pyanaconda/vnc.py:394
 #: pyanaconda/textw/userauth_text.py:49
 msgid "Password (confirm):"
-msgstr ""
+msgstr "Passwoord (nohmal):"
 
 #: pyanaconda/vnc.py:317
 #: pyanaconda/vnc.py:416
 #: pyanaconda/textw/userauth_text.py:70
 msgid "Password Mismatch"
-msgstr ""
+msgstr "Passwöör unnerscheedlich"
 
 #: pyanaconda/vnc.py:318
 #: pyanaconda/vnc.py:417
@@ -1686,7 +1686,7 @@ msgstr ""
 
 #: pyanaconda/vnc.py:346
 msgid "Unable to Start X"
-msgstr ""
+msgstr "Künn X nich starten"
 
 #: pyanaconda/vnc.py:348
 msgid "X was unable to start on your machine.  Would you like to start VNC to connect to this computer from another computer and perform a graphical install or continue with a text mode install?"
@@ -1694,29 +1694,29 @@ msgstr ""
 
 #: pyanaconda/vnc.py:367
 msgid "Start VNC"
-msgstr ""
+msgstr "VNC starten"
 
 #: pyanaconda/vnc.py:368
 #: pyanaconda/vnc.py:370
 msgid "Use text mode"
-msgstr ""
+msgstr "Textmodus bruken"
 
 #: pyanaconda/yuminstall.py:85
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s MB"
 
 #: pyanaconda/yuminstall.py:88
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s KB"
 
 #: pyanaconda/yuminstall.py:90
 #, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s Byte"
+msgstr[1] "%s Bytes"
 
 #: pyanaconda/yuminstall.py:134
 msgid "Preparing to install"
@@ -1806,11 +1806,11 @@ msgstr ""
 #: pyanaconda/yuminstall.py:833
 #: pyanaconda/yuminstall.py:835
 msgid "Re_boot"
-msgstr ""
+msgstr "Nej_start"
 
 #: pyanaconda/yuminstall.py:833
 msgid "_Eject"
-msgstr ""
+msgstr "_Utwarfen"
 
 #: pyanaconda/yuminstall.py:839
 #, python-format
@@ -2023,7 +2023,7 @@ msgstr ""
 #: pyanaconda/iw/GroupSelector.py:147
 #, python-format
 msgid "Packages in %s"
-msgstr ""
+msgstr "Pakete in %s"
 
 #: pyanaconda/iw/GroupSelector.py:433
 #, python-format
@@ -2057,7 +2057,7 @@ msgstr ""
 #: pyanaconda/iw/account_gui.py:138
 #: pyanaconda/textw/userauth_text.py:74
 msgid "Error with Password"
-msgstr ""
+msgstr "Fehler im Passwoord"
 
 #: pyanaconda/iw/account_gui.py:103
 msgid "You must enter your root password and confirm it by typing it a second time to continue."
@@ -2230,7 +2230,7 @@ msgstr ""
 
 #: pyanaconda/iw/bootloader_main_gui.py:229
 msgid "_Change device"
-msgstr ""
+msgstr "_Lööpwark wesseln"
 
 #: pyanaconda/iw/cleardisks_gui.py:34
 msgid "Clear Disks Selector"
@@ -2605,7 +2605,7 @@ msgstr ""
 
 #: pyanaconda/iw/lvm_dialog_gui.py:684
 msgid "Illegal size"
-msgstr ""
+msgstr "Falsche Gröte"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:685
 msgid "The requested size as entered is not a valid number greater than 0."
@@ -2964,7 +2964,7 @@ msgstr ""
 #: pyanaconda/iw/partition_gui.py:1004
 #: pyanaconda/iw/partition_gui.py:1076
 msgid "Free"
-msgstr ""
+msgstr "Frie"
 
 #: pyanaconda/iw/partition_gui.py:478
 #, python-format
@@ -2978,12 +2978,12 @@ msgstr ""
 
 #: pyanaconda/iw/partition_gui.py:615
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: pyanaconda/iw/partition_gui.py:616
 #: pyanaconda/storage/__init__.py:1817
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: pyanaconda/iw/partition_gui.py:653
 msgid ""
@@ -2996,6 +2996,8 @@ msgid ""
 "Size\n"
 "(MB)"
 msgstr ""
+"Gröte\n"
+"(MB)"
 
 #: pyanaconda/iw/partition_gui.py:760
 msgid "Partitioning"
@@ -3214,7 +3216,7 @@ msgstr ""
 
 #: pyanaconda/iw/raid_dialog_gui.py:563
 msgid "_Format partition?"
-msgstr ""
+msgstr "Partitschoon formateren?"
 
 #: pyanaconda/iw/task_gui.py:55
 #, python-format
@@ -4371,7 +4373,7 @@ msgstr ""
 #: pyanaconda/storage/__init__.py:188
 #: pyanaconda/storage/devicetree.py:99
 msgid "Confirm"
-msgstr ""
+msgstr "Tostimmen"
 
 #: pyanaconda/storage/__init__.py:189
 msgid "The partitioning options you have selected will now be written to disk.  Any data on deleted or reformatted partitions will be lost."
@@ -5425,15 +5427,15 @@ msgstr "LVM erstellen"
 
 #: data/ui/create-storage.glade.h:9
 msgid "Create Partition"
-msgstr ""
+msgstr "Partitschoon erstellen"
 
 #: data/ui/create-storage.glade.h:10
 msgid "Create Software RAID"
-msgstr ""
+msgstr "Programm RAID erstellen"
 
 #: data/ui/create-storage.glade.h:11
 msgid "Create Storage"
-msgstr ""
+msgstr "Spieker erstellen"
 
 #: data/ui/create-storage.glade.h:12
 msgid "LVM Logical Volume"
@@ -5461,7 +5463,7 @@ msgstr "Informatschoon"
 
 #: data/ui/detailed-dialog.glade.h:2
 msgid "_Details"
-msgstr ""
+msgstr "_Details:"
 
 #: data/ui/fcoe-config.glade.h:1
 msgid "Configure FCoE Parameters"
@@ -5469,7 +5471,7 @@ msgstr ""
 
 #: data/ui/fcoe-config.glade.h:2
 msgid "NIC:"
-msgstr ""
+msgstr "NIC:"
 
 #: data/ui/fcoe-config.glade.h:3
 msgid ""
@@ -5479,7 +5481,7 @@ msgstr ""
 
 #: data/ui/fcoe-config.glade.h:5
 msgid "Use DCB"
-msgstr ""
+msgstr "DCB bruken"
 
 #: data/ui/fcoe-config.glade.h:6
 msgid "_Add FCoE Disk(s)"
@@ -5499,7 +5501,7 @@ msgstr ""
 
 #: data/ui/filter.glade.h:4
 msgid "Filter By:"
-msgstr ""
+msgstr "Sorteren nah:"
 
 #: data/ui/filter.glade.h:5
 msgid "Firmware RAID"
@@ -5573,7 +5575,7 @@ msgstr ""
 
 #: data/ui/filter.glade.h:25
 msgid "Target:"
-msgstr ""
+msgstr "Tääl:"
 
 #: data/ui/iscsi-config.glade.h:1
 msgid "<b>CHAP _Password:</b>"
@@ -5609,7 +5611,7 @@ msgstr ""
 
 #: data/ui/iscsi-config.glade.h:9
 msgid "_Add target"
-msgstr ""
+msgstr "_Tääl hentofögen"
 
 #: data/ui/lukspassphrase.glade.h:1
 msgid "Also add this passphrase to all existing encrypted devices to streamline the boot process"
@@ -5669,7 +5671,7 @@ msgstr ""
 
 #: data/ui/network.glade.h:2
 msgid "Hostname:"
-msgstr ""
+msgstr "Hostnaam:"
 
 #: data/ui/network.glade.h:3
 msgid "Please name this computer.  The hostname identifies the computer on a network."
@@ -5726,245 +5728,245 @@ msgstr ""
 
 #: data/lang-table.h:1
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #: data/lang-table.h:2
 msgid "Arabic"
-msgstr ""
+msgstr "Arabisch"
 
 #: data/lang-table.h:3
 msgid "Assamese"
-msgstr ""
+msgstr "Assamesisch"
 
 #: data/lang-table.h:4
 msgid "Bengali"
-msgstr ""
+msgstr "Bengalisch"
 
 #: data/lang-table.h:5
 msgid "Bengali(India)"
-msgstr ""
+msgstr "Bengalisch (Indien)"
 
 #: data/lang-table.h:6
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bulgarisch"
 
 #: data/lang-table.h:7
 msgid "Catalan"
-msgstr ""
+msgstr "Katalanisch"
 
 #: data/lang-table.h:8
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "Chinesisch (Eenfach)"
 
 #: data/lang-table.h:9
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "Chinesisch (Traditionell)"
 
 #: data/lang-table.h:10
 msgid "Croatian"
-msgstr ""
+msgstr "Kroatisch"
 
 #: data/lang-table.h:11
 msgid "Czech"
-msgstr ""
+msgstr "Tschechisch"
 
 #: data/lang-table.h:12
 msgid "Danish"
-msgstr ""
+msgstr "Dänisch"
 
 #: data/lang-table.h:13
 msgid "Dutch"
-msgstr ""
+msgstr "Holländisch"
 
 #: data/lang-table.h:14
 msgid "English"
-msgstr ""
+msgstr "Engels"
 
 #: data/lang-table.h:15
 msgid "Estonian"
-msgstr ""
+msgstr "Estonisch"
 
 #: data/lang-table.h:16
 msgid "Finnish"
-msgstr ""
+msgstr "Finnisch"
 
 #: data/lang-table.h:17
 msgid "French"
-msgstr ""
+msgstr "Französisch"
 
 #: data/lang-table.h:18
 msgid "German"
-msgstr ""
+msgstr "Düütsch"
 
 #: data/lang-table.h:19
 msgid "Greek"
-msgstr ""
+msgstr "Griechisch"
 
 #: data/lang-table.h:20
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujaratisch"
 
 #: data/lang-table.h:21
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebräisch"
 
 #: data/lang-table.h:22
 msgid "Hindi"
-msgstr ""
+msgstr "Hindi"
 
 #: data/lang-table.h:23
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungarisch"
 
 #: data/lang-table.h:24
 msgid "Icelandic"
-msgstr ""
+msgstr "Isländisch"
 
 #: data/lang-table.h:25
 msgid "Iloko"
-msgstr ""
+msgstr "Iloko"
 
 #: data/lang-table.h:26
 msgid "Indonesian"
-msgstr ""
+msgstr "Indonesisch"
 
 #: data/lang-table.h:27
 msgid "Italian"
-msgstr ""
+msgstr "Italienisch"
 
 #: data/lang-table.h:28
 msgid "Japanese"
-msgstr ""
+msgstr "Japanisch"
 
 #: data/lang-table.h:29
 msgid "Kannada"
-msgstr ""
+msgstr "Kanadisch"
 
 #: data/lang-table.h:30
 msgid "Korean"
-msgstr ""
+msgstr "Koreanisch"
 
 #: data/lang-table.h:31
 msgid "Macedonian"
-msgstr ""
+msgstr "Mazedonisch"
 
 #: data/lang-table.h:32
 msgid "Maithili"
-msgstr ""
+msgstr "Maithili"
 
 #: data/lang-table.h:33
 msgid "Malay"
-msgstr ""
+msgstr "Malayisch"
 
 #: data/lang-table.h:34
 msgid "Malayalam"
-msgstr ""
+msgstr "Malayalam"
 
 #: data/lang-table.h:35
 msgid "Marathi"
-msgstr ""
+msgstr "Marathi"
 
 #: data/lang-table.h:36
 msgid "Nepali"
-msgstr ""
+msgstr "Nepalesisch"
 
 #: data/lang-table.h:37
 msgid "Norwegian(Bokmål)"
-msgstr ""
+msgstr "Norwegisch (Bokmål)"
 
 #: data/lang-table.h:38
 msgid "Northern Sotho"
-msgstr ""
+msgstr "Nördliches Sotho"
 
 #: data/lang-table.h:39
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #: data/lang-table.h:40
 msgid "Persian"
-msgstr ""
+msgstr "Persisch"
 
 #: data/lang-table.h:41
 msgid "Polish"
-msgstr ""
+msgstr "Polnisch"
 
 #: data/lang-table.h:42
 msgid "Portuguese"
-msgstr ""
+msgstr "Portuguiesisch"
 
 #: data/lang-table.h:43
 msgid "Portuguese(Brazilian)"
-msgstr ""
+msgstr "Portuguiesisch (Brasilianisch)"
 
 #: data/lang-table.h:44
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #: data/lang-table.h:45
 msgid "Romanian"
-msgstr ""
+msgstr "Rumänisch"
 
 #: data/lang-table.h:46
 msgid "Russian"
-msgstr ""
+msgstr "Russisch"
 
 #: data/lang-table.h:47
 msgid "Serbian"
-msgstr ""
+msgstr "Serbisch"
 
 #: data/lang-table.h:48
 msgid "Serbian(Latin)"
-msgstr ""
+msgstr "Serbisch (Latein)"
 
 #: data/lang-table.h:49
 msgid "Sinhala"
-msgstr ""
+msgstr "Sinhala"
 
 #: data/lang-table.h:50
 msgid "Slovak"
-msgstr ""
+msgstr "Slowakisch"
 
 #: data/lang-table.h:51
 msgid "Slovenian"
-msgstr ""
+msgstr "Slowenisch"
 
 #: data/lang-table.h:52
 msgid "Spanish"
-msgstr ""
+msgstr "Spanisch"
 
 #: data/lang-table.h:53
 msgid "Swedish"
-msgstr ""
+msgstr "Schwedisch"
 
 #: data/lang-table.h:54
 msgid "Tajik"
-msgstr ""
+msgstr "Tajik"
 
 #: data/lang-table.h:55
 msgid "Tamil"
-msgstr ""
+msgstr "Tamil"
 
 #: data/lang-table.h:56
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #: data/lang-table.h:57
 msgid "Turkish"
-msgstr ""
+msgstr "Türkisch"
 
 #: data/lang-table.h:58
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrainisch"
 
 #: data/lang-table.h:59
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamesisch"
 
 #: data/lang-table.h:60
 msgid "Welsh"
-msgstr ""
+msgstr "Walisisch"
 
 #: data/lang-table.h:61
 msgid "Zulu"
-msgstr ""
+msgstr "Zulu"
 
