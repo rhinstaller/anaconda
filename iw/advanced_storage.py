@@ -211,16 +211,19 @@ class iSCSIWizard(object):
 
     def _normalize_dialog_response(self, value):
         """
-        One can not use named GTK constants in glade, but we can get them by
-        filtering through this method.
+        Maps the glade return values to a boolean.
+
+        Returns True upon success.
         """
-        if value == 1:
-            return gtk.RESPONSE_OK
+        if value == 1: 
+            # gtk.RESPONSE_OK
+            return True 
         elif value == -6:
-            return gtk.RESPONSE_CANCEL
+            # gtk.RESPONSE_CANCEL
+            return False 
         elif value == gtk.RESPONSE_DELETE_EVENT: 
             # escape pressed to dismiss the dialog
-            return gtk.RESPONSE_CANCEL
+            return False
         else:
             raise ValueError("Unexpected dialog box return value: %d" % value)
         
@@ -443,7 +446,7 @@ def addIscsiDrive(anaconda):
                 rc = wizard.display_discovery_dialog(
                     anaconda.id.storage.iscsi.initiator,
                     anaconda.id.storage.iscsi.initiatorSet)
-                if rc == gtk.RESPONSE_CANCEL:
+                if not rc:
                     break
                 anaconda.id.storage.iscsi.initiator = wizard.get_initiator()
                 discovery_dict = wizard.get_discovery_dict()
@@ -460,12 +463,12 @@ def addIscsiDrive(anaconda):
                                                 _("No new iSCSI nodes discovered"))
                     break
                 (rc, selected_nodes) = wizard.display_nodes_dialog(found_nodes)
-                if rc == gtk.RESPONSE_CANCEL or len(selected_nodes) == 0:
+                if not rc or len(selected_nodes) == 0:
                     break
                 step = STEP_LOGIN
             elif step == STEP_LOGIN:
                 rc = wizard.display_login_dialog()
-                if rc == gtk.RESPONSE_CANCEL:
+                if not rc:
                     break;
                 login_dict = wizard.get_login_dict()
                 log.critical("logging with %s" % login_dict)
@@ -487,7 +490,7 @@ def addIscsiDrive(anaconda):
                 rc = wizard.display_success_dialog(login_ok_nodes, 
                                                    login_fail_nodes,
                                                    login_fail_msg)
-                if rc == gtk.RESPONSE_OK:
+                if rc:
                     step = STEP_DONE
                 else:
                     # user wants to try logging into the failed nodes again
