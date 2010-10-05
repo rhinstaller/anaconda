@@ -145,14 +145,13 @@ def getEscrowCertificate(anaconda, url):
 
     needs_net = not url.startswith("/") and not url.startswith("file:")
     if needs_net and not network.hasActiveNetDev():
-        if not anaconda.intf.enableNetwork(anaconda):
-            anaconda.intf.messageWindow(_("No Network Available"),
-                                        _("Encryption key escrow requires "
-                                          "networking, but there was an error "
-                                          "enabling the network on your "
-                                          "system."), type="custom",
-                                        custom_icon="error",
-                                        custom_buttons=[_("_Exit installer")])
+        msg = _("Escrow certificate with url %s requires network to be enabled "
+                "in loader or configured in kickstart file." % url)
+        if anaconda.intf:
+            anaconda.intf.kickstartErrorWindow(msg)
+            sys.exit(1)
+        else:
+            stderrLog.critical(msg)
             sys.exit(1)
         urlgrabber.grabber.reset_curl_obj()
 
