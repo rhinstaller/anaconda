@@ -223,6 +223,29 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Oct 06 2010 David Lehman <dlehman@redhat.com> - 14.18-1
+- Fix a storage logging import (#636621). (clumens)
+- Fix setting of $HOME (pjones)
+- Properly rescan storage with Reset in partition GUI (#635778) (bcl)
+- Save the partition type selection when moving back (#635778) (bcl)
+- Properly rescan disks when moving back (#635778) (bcl)
+- Fix EFI bootloader install problems (#635873, #635887) (bcl)
+- Re-add cleardiskssel step when autopart is chosen. (#635332) (dlehman)
+- Pull boot splash image from correct location (#635330) (bcl)
+- Add files for polkit to initrd.img (#633315) (rvykydal)
+- Remove old kernels with new bootloader (#633234) (bcl)
+- Both the inittab and systemd sections can return. Move this part earlier.
+  (notting)
+- Pass xdriver to anaconda in liveinst (#633827) (bcl)
+- Reset resolver after network device activation (#632489) (rvykydal)
+- Fix importing the netconfig UI in rescue mode (#632510). (clumens)
+- iscsi: rename variable in addIscsiDrive. (akozumpl)
+- Re-fix systemd default link (#627401, mschmidt). (clumens)
+- Remove losetup and unlosetup from isys (bcl)
+- Remove losetup usage (bcl)
+- Various upd-instroot cleanups, most importantly for firstaidkit (#627758).
+  (clumens)
+
 * Wed Sep 01 2010 David Lehman <dlehman@redhat.com> - 14.17-1
 - i18n: do not build translatable sentences from parts (#622545). (akozumpl)
 - memory: install.img is now >150 MB so count 192 MB extra for it. (akozumpl)
