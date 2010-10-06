@@ -24,6 +24,7 @@
 
 """Helper functions shared between partitioning interfaces."""
 
+from abc import ABCMeta, abstractmethod
 import string
 from constants import *
 import parted
@@ -354,7 +355,51 @@ def confirmResetPartitionState(intf):
     return rc
 
 
-""" iSCSI GUI helper functions """
+""" iSCSI GUI helper objects """
+
+class iSCSIWizard():
+    """
+    A base class for both the GUI and TUI iSCSI wizards.
+
+    To get an instantiable class, all its methods have to be overriden.
+    """
+    __metaclass__ = ABCMeta
+    
+    @abstractmethod
+    def destroy_dialogs(self):
+        pass
+
+    @abstractmethod
+    def display_discovery_dialog(self, initiator, initiator_set):
+        pass
+
+    @abstractmethod
+    def display_login_dialog(self):
+        pass
+
+    @abstractmethod
+    def display_nodes_dialog(self, found_nodes):
+        pass
+
+    @abstractmethod
+    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason):
+        pass
+
+    @abstractmethod
+    def get_discovery_dict(self):
+        pass
+
+    @abstractmethod
+    def get_initiator(self):
+        pass
+
+    @abstractmethod
+    def get_login_dict(self):
+        pass
+
+    @abstractmethod
+    def set_initiator(self, initiator, initiator_set):
+        pass
 
 def drive_iscsi_addition(anaconda, wizard):
     """
