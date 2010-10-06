@@ -37,7 +37,7 @@ class iSCSICredentialsDialog(object):
     CRED_NONE   = (0, _("No credentials (discovery authentication disabled)"))
     CRED_ONE    = (1, _("CHAP pair"))
     CRED_BOTH   = (2, _("CHAP pair and a reverse pair"))
-    CRED_REUSE  = (3, _("Use the credentials from the discovery step."))
+    CRED_REUSE  = (3, _("Use the credentials from the discovery step"))
 
     def __init__(self):
         pass
