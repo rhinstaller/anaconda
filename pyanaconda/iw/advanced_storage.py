@@ -27,6 +27,7 @@ import DeviceSelector
 from pyanaconda import gui
 from pyanaconda import iutil
 from pyanaconda import network
+from pyanaconda import partIntfHelpers
 import pyanaconda.storage.fcoe
 import pyanaconda.storage.iscsi
 
@@ -198,6 +199,9 @@ class iSCSILoginDialog(iSCSICredentialsDialog):
         return dct
 
 class iSCSIWizard(object):
+    pass
+
+class iSCSIGuiWizard(object):
     NODE_NAME_COL = DeviceSelector.IMMUTABLE_COL + 1
 
     def __init__(self):
@@ -422,92 +426,13 @@ def addIscsiDrive(anaconda):
     Returns gtk.RESPONSE_OK if at least one iscsi node has been logged into.
     """
 
-    STEP_DISCOVERY = 0
-    STEP_NODES     = 1
-    STEP_LOGIN     = 2
-    STEP_SUMMARY   = 3
-    STEP_DONE      = 10
-
     # make sure the network is up
     if not network.hasActiveNetDev():
         if not anaconda.intf.enableNetwork():
             return gtk.RESPONSE_CANCEL
 
-    # go through the wizard's dialogs, read the user input (selected nodes,
-    # login credentials) and provide it to the iscsi subsystem
-    wizard = iSCSIWizard()
-    step = STEP_DISCOVERY
-    login_ok_nodes = []
-    while step != STEP_DONE:
-        try:
-            if step == STEP_DISCOVERY:
-                rc = wizard.display_discovery_dialog(
-                    anaconda.storage.iscsi.initiator,
-                    anaconda.storage.iscsi.initiatorSet)
-                if not rc:
-                    break
-                anaconda.storage.iscsi.initiator = wizard.get_initiator()
-                discovery_dict = wizard.get_discovery_dict()
-                discovery_dict["intf"] = anaconda.intf
-                log.critical("discovering with %s" % discovery_dict)
-                found_nodes = anaconda.storage.iscsi.discover(**discovery_dict)
-                map(lambda node: log.info("discovered iSCSI node: %s" % node.name),
-                    found_nodes)
-                step = STEP_NODES
-            elif step == STEP_NODES:
-                if len(found_nodes) < 1:
-                    log.debug("iscsi: no new iscsi nodes discovered")
-                    anaconda.intf.messageWindow(_("iSCSI Nodes"), 
-                                                _("No new iSCSI nodes discovered"))
-                    break
-                (rc, selected_nodes) = wizard.display_nodes_dialog(found_nodes)
-                if not rc or len(selected_nodes) == 0:
-                    break
-                step = STEP_LOGIN
-            elif step == STEP_LOGIN:
-                rc = wizard.display_login_dialog()
-                if not rc:
-                    break
-                login_dict = wizard.get_login_dict()
-                log.critical("logging with %s" % login_dict)
-                login_dict["intf"] = anaconda.intf
-                login_fail_nodes = []
-                login_fail_msg = ""
-                for node in selected_nodes:
-                    (rc, msg) = anaconda.storage.iscsi.log_into_node(node,
-                                                                     **login_dict)
-                    if rc:
-                        login_ok_nodes.append(node)
-                    else:
-                        login_fail_nodes.append(node)
-                    if msg:
-                        # only remember the last message:
-                        login_fail_msg = msg
-                step = STEP_SUMMARY
-            elif step == STEP_SUMMARY:
-                rc = wizard.display_success_dialog(login_ok_nodes, 
-                                                   login_fail_nodes,
-                                                   login_fail_msg)
-                if rc:
-                    step = STEP_DONE
-                else:
-                    # user wants to try logging into the failed nodes again
-                    found_nodes = login_fail_nodes
-                    step = STEP_NODES
-
-        except (network.IPMissing, network.IPError) as msg:
-            log.debug("addIscsiDrive() cancelled due to an invalid IP address.")
-            anaconda.intf.messageWindow(_("iSCSI Error"), msg)
-            if step != STEP_DISCOVERY:
-                break
-        except (ValueError, IOError) as e:
-            log.debug("addIscsiDrive() IOError exception: %s" % e)
-            step_str = _("Discovery") if step == STEP_DISCOVERY else _("Login")
-            anaconda.intf.messageWindow(_("iSCSI %s Error") % step_str, str(e))
-            break
-    
-    wizard.destroy_dialogs()
-
+    wizard = iSCSIGuiWizard()
+    login_ok_nodes = partIntfHelpers.drive_iscsi_addition(anaconda, wizard)
     if len(login_ok_nodes):
         return gtk.RESPONSE_OK
     log.info("addIscsiDrive(): no new nodes added")
