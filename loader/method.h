@@ -39,16 +39,11 @@ struct installMethod {
                          char * location, struct loaderData_s * loaderData);
 };
 
-int umountLoopback(char * mntpoint, char * device);
-int mountLoopback(char * fsystem, char * mntpoint, char * device);
-
 int readStampFileFromIso(char *file, char **descr, char **timestamp);
 void queryIsoMediaCheck(char * isoDir);
 
 int mountStage2(char *stage2path);
 int mountStage2Direct(char *stage2path);
-int copyFileAndLoopbackMount(int fd, char *dest, char *device, char *mntpoint,
-                             progressCB pbcb, struct progressCBdata *data, long long total);
 int getFileFromBlockDevice(char *device, char *path, char * dest);
 
 int unpackCpioBall(char * ballPath, char * rootDir);

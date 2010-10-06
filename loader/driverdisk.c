@@ -497,13 +497,13 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                 break;
             }
             if (dir == -1) {
-                umountLoopback("/tmp/drivers", "/dev/loop6");
+                umount("/tmp/drivers");
                 unlink("/tmp/drivers");
                 ddfile = NULL;
                 stage = DEV_CHOOSEFILE;
                 break;
             }
-            if (mountLoopback(ddfile, "/tmp/drivers", "/dev/loop6")) {
+            if (doPwMount(ddfile, "/tmp/drivers", "auto", "ro", NULL)) {
                 newtWinMessage(_("Error"), _("OK"),
                                _("Failed to load driver disk from file."));
                 stage = DEV_CHOOSEFILE;
@@ -575,7 +575,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             stage = DEV_PROBE;
 
             if (ddfile != NULL) {
-                umountLoopback("/tmp/drivers", "/dev/loop6");
+                umount("/tmp/drivers");
                 unlink("/tmp/drivers");
                 umount("/tmp/dpart");
             }
@@ -717,9 +717,9 @@ void getDDFromSource(struct loaderData_s * loaderData, char * src, GTree *module
         return;
     }
 
-    if (!mountLoopback(path, "/tmp/drivers", "/dev/loop6")) {
+    if (!doPwMount(path, "/tmp/drivers", "auto", "ro", NULL)) {
         loadFromLocation(loaderData, "/tmp/drivers", moduleState);
-        umountLoopback("/tmp/drivers", "/dev/loop6");
+        umount("/tmp/drivers");
         unlink("/tmp/drivers");
         if (unlinkf) unlink(path);
     }

@@ -77,7 +77,7 @@ static char * setupIsoImages(char * device, char * dirName, char * location) {
         free(path);
 
         if (rc) {
-            umountLoopback("/mnt/runtime", "/dev/loop0");
+            umount("/mnt/runtime");
             umount("/mnt/isodir");
             goto err;
         }

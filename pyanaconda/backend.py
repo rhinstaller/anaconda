@@ -174,7 +174,19 @@ class AnacondaBackend:
 
             return 1
 
-        isys.lochangefd("/dev/loop0", self._loopbackFile)
+        # Figure out which loopback device is in use for lochangefd.
+        dev = "/dev/loop0"
+        f = open("/proc/mounts", "r")
+        lines = f.readlines()
+        f.close()
+
+        for line in lines:
+            parts = line.split()
+            if parts[1] == "/mnt/runtime":
+                dev = parts[0]
+                break
+
+        isys.lochangefd(dev, self._loopbackFile)
         if os.path.ismount("/mnt/stage2"):
             isys.umount("/mnt/stage2")
 

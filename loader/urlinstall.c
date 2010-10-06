@@ -32,6 +32,7 @@
 #include <glib.h>
 
 #include "../pyanaconda/isys/iface.h"
+#include "../pyanaconda/isys/imount.h"
 #include "../pyanaconda/isys/log.h"
 
 #include "copy.h"
@@ -124,7 +125,7 @@ static char **headers() {
 }
 
 static int loadSingleUrlImage(struct loaderData_s *loaderData, struct iurlinfo *ui,
-                              char *dest, char *mntpoint, char *device, int silentErrors) {
+                              char *dest, char *mntpoint, int silentErrors) {
     char **ehdrs = NULL;
     int status;
 
@@ -142,8 +143,8 @@ static int loadSingleUrlImage(struct loaderData_s *loaderData, struct iurlinfo *
     }
 
     if (dest != NULL) {
-        if (mountLoopback(dest, mntpoint, device)) {
-            logMessage(ERROR, "Error mounting %s on %s: %m", device, mntpoint);
+        if (doPwMount(dest, mntpoint, "auto", "ro", NULL)) {
+            logMessage(ERROR, "Error mounting %s: %m", dest);
             return 1;
         }
     }
@@ -180,11 +181,10 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
      * ramdisk usage */
     checked_asprintf(&ui->url, "%s/%s", path, "updates.img");
 
-    if (!loadSingleUrlImage(loaderData, ui, "/tmp/updates-disk.img", "/tmp/update-disk",
-                            "/dev/loop7", 1)) {
+    if (!loadSingleUrlImage(loaderData, ui, "/tmp/updates-disk.img", "/tmp/update-disk", 1)) {
         copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
                       copyErrorFn);
-        umountLoopback("/tmp/update-disk", "/dev/loop7");
+        umount("/tmp/update-disk");
         unlink("/tmp/updates-disk.img");
         unlink("/tmp/update-disk");
     } else if (!access("/tmp/updates-disk.img", R_OK)) {
@@ -198,11 +198,10 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
      * ramdisk usage */
     checked_asprintf(&ui->url, "%s/%s", path, "product.img");
 
-    if (!loadSingleUrlImage(loaderData, ui, "/tmp/product-disk.img", "/tmp/product-disk",
-                            "/dev/loop7", 1)) {
+    if (!loadSingleUrlImage(loaderData, ui, "/tmp/product-disk.img", "/tmp/product-disk", 1)) {
         copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
                       copyErrorFn);
-        umountLoopback("/tmp/product-disk", "/dev/loop7");
+        umount("/tmp/product-disk");
         unlink("/tmp/product-disk.img");
         unlink("/tmp/product-disk");
     }
@@ -212,7 +211,7 @@ static int loadUrlImages(struct loaderData_s *loaderData, struct iurlinfo *ui) {
 
     checked_asprintf(&dest, "/tmp/install.img");
 
-    rc = loadSingleUrlImage(loaderData, ui, dest, "/mnt/runtime", "/dev/loop0", 0);
+    rc = loadSingleUrlImage(loaderData, ui, dest, "/mnt/runtime", 0);
     free(dest);
     free(oldUrl);
 

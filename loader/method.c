@@ -68,48 +68,6 @@ static void stripTrailingSlash(char *path) {
         path[len-1] = '\0';
 }
 
-int umountLoopback(char * mntpoint, char * device) {
-    int loopfd;
-
-    umount(mntpoint);
-
-    logMessage(INFO, "umounting loopback %s %s", mntpoint, device);
-
-    loopfd = open(device, O_RDONLY);
-
-    if (ioctl(loopfd, LOOP_CLR_FD, 0) == -1)
-        logMessage(ERROR, "LOOP_CLR_FD failed for %s %s: %m", mntpoint, device);
-
-    close(loopfd);
-
-    return 0;
-}
-
-int mountLoopback(char *fsystem, char *mntpoint, char *device) {
-    char *opts, *err = NULL;
-
-    if (device == NULL) {
-        logMessage(ERROR, "no loopback device given");
-        return LOADER_ERROR;
-    }
-
-    if (access(fsystem, F_OK) != 0) {
-       logMessage(ERROR, "file %s is not accessible", fsystem);
-       return LOADER_ERROR;
-    }
-
-    checked_asprintf(&opts, "ro,loop=%s", device);
-
-    logMessage(INFO, "attempting to attach file %s to loopback device %s and mount on %s", fsystem, mntpoint, device);
-
-    if (doPwMount(fsystem, mntpoint, "auto", opts, &err)) {
-        logMessage(ERROR, "failed loopback mount: %s", err);
-        return LOADER_ERROR;
-    }
-
-    return 0;
-}
-
 /* returns the *absolute* path (malloced) to the #1 iso image */
 /* get timestamp and description of ISO image from stamp file */
 /* returns 0 on success, -1 otherwise                         */
@@ -121,20 +79,17 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
     char *stampfile;
     char *descr, *tstamp;
     char tmpstr[1024];
-    int  filetype;
     int  rc;
 
     lstat(file, &sb);
     if (S_ISBLK(sb.st_mode)) {
-	filetype = 1;
 	if (doPwMount(file, "/tmp/testmnt", "iso9660", "ro", NULL)) {
 	    logMessage(ERROR, "Failed to mount device %s to get description",
                        file);
 	    return -1;
 	}
     } else if (S_ISREG(sb.st_mode)) {
-	filetype = 2;
-	if (mountLoopback(file, "/tmp/testmnt", "/dev/loop6")) {
+	if (doPwMount(file, "/tmp/testmnt", "auto", "ro", NULL)) {
 	    logMessage(ERROR, "Failed to mount iso %s to get description",
                        file);
 	    return -1;
@@ -147,8 +102,6 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
 
     if (!(dir = opendir("/tmp/testmnt"))) {
 	umount("/tmp/testmnt");
-	if (filetype == 2)
-	    umountLoopback("/tmp/testmnt", "/dev/loop6");
 	return -1;
     }
 
@@ -223,8 +176,6 @@ int readStampFileFromIso(char *file, char **timestamp, char **releasedescr) {
     free(stampfile);
 
     umount("/tmp/testmnt");
-    if (filetype == 2)
-	umountLoopback("/tmp/testmnt", "/dev/loop6");
 
     if (descr != NULL && tstamp != NULL) {
 	descr[strlen(descr)-1] = '\0';
@@ -395,10 +346,10 @@ int unpackCpioBall(char * ballPath, char * rootDir) {
 
 void copyUpdatesImg(char * path) {
     if (!access(path, R_OK)) {
-        if (!mountLoopback(path, "/tmp/update-disk", "/dev/loop7")) {
+        if (!doPwMount(path, "/tmp/update-disk", "auto", "ro", NULL)) {
             copyDirectory("/tmp/update-disk", "/tmp/updates", copyWarnFn,
                           copyErrorFn);
-            umountLoopback("/tmp/update-disk", "/dev/loop7");
+            umount("/tmp/update-disk");
             unlink("/tmp/update-disk");
         } else {
             unpackCpioBall(path, "/tmp/updates");
@@ -408,10 +359,10 @@ void copyUpdatesImg(char * path) {
 
 void copyProductImg(char * path) {
     if (!access(path, R_OK)) {
-        if (!mountLoopback(path, "/tmp/product-disk", "/dev/loop7")) {
+        if (!doPwMount(path, "/tmp/product-disk", "auto", "ro", NULL)) {
             copyDirectory("/tmp/product-disk", "/tmp/product", copyWarnFn,
                           copyErrorFn);
-            umountLoopback("/tmp/product-disk", "/dev/loop7");
+            umount("/tmp/product-disk");
             unlink("/tmp/product-disk");
         }
     }
@@ -445,35 +396,7 @@ int mountStage2(char *stage2path) {
         return 1;
     }
 
-    if (mountLoopback(stage2path, "/mnt/runtime", "/dev/loop0")) {
-        return 1;
-    }
-
-    return 0;
-}
-
-
-/* copies a second stage from fd to dest and mounts on mntpoint */
-int copyFileAndLoopbackMount(int fd, char * dest, char * device, char * mntpoint,
-                             progressCB pbcb, struct progressCBdata *data,
-                             long long total) {
-    int rc;
-    struct stat sb;
-
-    rc = copyFileFd(fd, dest, pbcb, data, total);
-    stat(dest, &sb);
-    logMessage(DEBUGLVL, "copied %" PRId64 " bytes to %s (%s)", sb.st_size, dest, 
-               ((rc) ? " incomplete" : "complete"));
-    
-    if (rc) {
-	/* just to make sure */
-	unlink(dest);
-	return 1;
-    }
-
-    if (mountLoopback(dest, mntpoint, device)) {
-        /* JKFIXME: this used to be fatal, but that seems unfriendly */
-        logMessage(ERROR, "Error mounting %s on %s: %m", device, mntpoint);
+    if (doPwMount(stage2path, "/mnt/runtime", "auto", "ro", NULL)) {
         return 1;
     }
 
