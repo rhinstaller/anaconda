@@ -198,10 +198,7 @@ class iSCSILoginDialog(iSCSICredentialsDialog):
 
         return dct
 
-class iSCSIWizard(object):
-    pass
-
-class iSCSIGuiWizard(object):
+class iSCSIGuiWizard(partIntfHelpers.iSCSIWizard):
     NODE_NAME_COL = DeviceSelector.IMMUTABLE_COL + 1
 
     def __init__(self):
