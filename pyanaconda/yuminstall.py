@@ -94,6 +94,7 @@ def size_string (size):
 class AnacondaCallback:
 
     def __init__(self, ayum, anaconda, instLog, modeText):
+        self.anaconda = anaconda
         self.repos = ayum.repos
         self.ts = ayum.ts
         self.ayum = ayum
@@ -160,8 +161,14 @@ class AnacondaCallback:
             repo = self.repos.getRepo(po.repoid)
 
             pkgStr = "%s-%s-%s.%s" % (po.name, po.version, po.release, po.arch)
-            s = to_unicode(_("<b>Installing %(pkgStr)s</b> (%(size)s)\n")) \
-                    % {'pkgStr': pkgStr, 'size': size_string(hdr['size'])}
+
+            if self.anaconda.upgrade:
+                s = to_unicode(_("<b>Upgrading %(pkgStr)s</b> (%(size)s)\n")) \
+                        % {'pkgStr': pkgStr, 'size': size_string(hdr['size'])}
+            else:
+                s = to_unicode(_("<b>Installing %(pkgStr)s</b> (%(size)s)\n")) \
+                        % {'pkgStr': pkgStr, 'size': size_string(hdr['size'])}
+
             summary = to_unicode(gettext.ldgettext("redhat-dist", hdr['summary'] or ""))
             s += summary.strip()
             self.progress.set_label(s)
