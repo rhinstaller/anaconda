@@ -1033,11 +1033,16 @@ class Storage(object):
         errors.extend(self.anaconda.platform.checkBootRequest(boot))
 
         if not swaps:
-            if iutil.memInstalled() < isys.EARLY_SWAP_RAM:
+            from pyanaconda.storage.size import Size
+
+            installed = Size(spec="%s kb" % iutil.memInstalled())
+            required = Size(spec="%s kb" % isys.EARLY_SWAP_RAM)
+
+            if installed < required:
                 errors.append(_("You have not specified a swap partition.  "
-                                "Due to the amount of memory present, a "
-                                "swap partition is required to complete "
-                                "installation."))
+                                "%s MB of memory is required to continue installation "
+                                "without a swap partition, but you only have %s MB.")
+                              % (int(required.convertTo(spec="MB")), int(installed.convertTo(spec="MB"))))
             else:
                 warnings.append(_("You have not specified a swap partition.  "
                                   "Although not strictly required in all cases, "

@@ -1182,20 +1182,22 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
 
 /* make sure they have enough ram */
 static void checkForRam(int install_method) {
-    char *reason_none = _("You do not have enough RAM to install %s on this machine.");
-    char *reason_method = _("You do not have enough RAM to install %s on this machine using this install method.");
+    char *reason_none = _("%s requires %d MB of memory, to install, but you only have %d MB.");
+    char *reason_method = _("%s requires %d MB of memory to install using this installation "
+                            "method, but you only have %d MB on this machine.");
 
     char* reason = reason_none;
     int needed = MIN_RAM;
+    int installed = totalMemory();
 
     if (install_method == METHOD_URL) {
         needed += URL_INSTALL_EXTRA_RAM;
         reason = reason_method;
     }
-    
+
     if (totalMemory() < needed) {
         char *buf;
-        checked_asprintf(&buf, reason, getProductName());
+        checked_asprintf(&buf, reason, getProductName(), needed/1024, installed/1024);
 
         startNewt();
         newtWinMessage(_("Error"), _("OK"), buf);

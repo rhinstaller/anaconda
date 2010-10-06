@@ -324,13 +324,14 @@ def gtk_warning(title, reason):
     dialog.destroy()
 
 def check_memory(anaconda, opts, display_mode=None):
-    reason_strict = _('You do not have enough RAM to install %s '
-                      'on this machine.\n' % product.productName)
-    reason_method = _('You do not have enough RAM to install %s '
-                      'on this machine using this install method.\n' %
-                      product.productName)
-    reason_graphical = _('You do not have enough RAM to use the graphical '
-                         'installer.')
+    reason_strict = _("%s requires %s MB of memory to install, but you only have "
+                      "%s MB on this machine.\n")
+    reason_method = _("%s requires %s MB of memory to install using this "
+                      "installation method, but you only have %s MB on this "
+                      "machine.\n")
+    reason_graphical = _("The %s graphical installer requires %s MB of memory, but "
+                         "you only have %s MB.")
+
     reboot_extra = _('\n'
                      'Press <return> to reboot your system.\n')
     livecd_title = _("Not enough RAM")
@@ -348,38 +349,38 @@ def check_memory(anaconda, opts, display_mode=None):
         extra_ram += isys.URL_INSTALL_EXTRA_RAM
         reason = reason_method
 
-    total_ram = isys.total_memory()
-    needed_ram = isys.MIN_RAM + extra_ram
+    total_ram = int(isys.total_memory() / 1024)
+    needed_ram = int((isys.MIN_RAM + extra_ram) / 1024)
 
     if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
         if opts.liveinst:
-            stdoutLog.warning(reason)
-            gtk_warning(livecd_title, reason)
+            stdoutLog.warning(reason % (product.productName, needed_ram, total_ram))
+            gtk_warning(livecd_title, reason % (product.productName, needed_ram, total_ram))
         else:
             reason += reboot_extra
             screen = SnackScreen()
             ButtonChoiceWindow(screen, _('Fatal Error'),
-                               reason,
+                               reason % (product.productName, needed_ram, total_ram),
                                buttons = (_("OK"),))
             screen.finish()
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
     if display_mode not in ('t', 'c') and not flags.usevnc:
-        needed_ram += isys.GUI_INSTALL_EXTRA_RAM
+        needed_ram += int(isys.GUI_INSTALL_EXTRA_RAM / 1024)
         reason = reason_graphical
 
         if needed_ram > total_ram:
             if opts.liveinst:
                 reason += livecd_extra
-                stdoutLog.warning(reason)
+                stdoutLog.warning(reason % (product.productName, needed_ram, total_ram))
                 title = livecd_title
-                gtk_warning(title, reason)
+                gtk_warning(title, reason % (product.productName, needed_ram, total_ram))
                 sys.exit(1)
             else:
                 reason += nolivecd_extra
-                stdoutLog.warning(reason)
+                stdoutLog.warning(reason % (product.productName, needed_ram, total_ram))
                 anaconda.displayMode = 't'
                 time.sleep(2)
 
