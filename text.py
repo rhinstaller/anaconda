@@ -268,6 +268,7 @@ class InstallInterface(InstallInterfaceBase):
 
     def messageWindow(self, title, text, type="ok", default = None,
 		      custom_icon=None, custom_buttons=[]):
+        text = str(text)
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, title, text,
 			       buttons=[TEXT_OK_BUTTON])
