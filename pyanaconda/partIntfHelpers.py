@@ -357,6 +357,36 @@ def confirmResetPartitionState(intf):
 
 """ iSCSI GUI helper objects """
 
+# the credentials constants: are necessary to implement a concrete iSCSIWizard
+CRED_NONE   = (0, _("No credentials (discovery authentication disabled)"))
+CRED_ONE    = (1, _("CHAP pair"))
+CRED_BOTH   = (2, _("CHAP pair and a reverse pair"))
+CRED_REUSE  = (3, _("Use the credentials from the discovery step"))
+
+def parse_ip(string_ip):
+    """
+    May rise network.IPMissing or network.IPError
+
+    Returns (ip, port) tuple.
+    """
+    count = len(string_ip.split(":"))
+    idx = string_ip.rfind("]:")
+    # Check for IPV6 [IPV6-ip]:port
+    if idx != -1:
+        ip = string_ip[1:idx]
+        port = string_ip[idx+2:]
+    # Check for IPV4 aaa.bbb.ccc.ddd:port
+    elif count == 2:
+        idx = string_ip.rfind(":")
+        ip = string_ip[:idx]
+        port = string_ip[idx+1:]
+    else:
+        ip = string_ip
+        port = "3260"
+    network.sanityCheckIPString(ip)
+
+    return (ip, port)
+
 class iSCSIWizard():
     """
     A base class for both the GUI and TUI iSCSI wizards.

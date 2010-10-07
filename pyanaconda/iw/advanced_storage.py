@@ -27,7 +27,7 @@ import DeviceSelector
 from pyanaconda import gui
 from pyanaconda import iutil
 from pyanaconda import network
-from pyanaconda import partIntfHelpers
+from pyanaconda import partIntfHelpers as pih
 import pyanaconda.storage.fcoe
 import pyanaconda.storage.iscsi
 
@@ -35,11 +35,6 @@ import logging
 log = logging.getLogger("anaconda")
 
 class iSCSICredentialsDialog(object):
-    CRED_NONE   = (0, _("No credentials (discovery authentication disabled)"))
-    CRED_ONE    = (1, _("CHAP pair"))
-    CRED_BOTH   = (2, _("CHAP pair and a reverse pair"))
-    CRED_REUSE  = (3, _("Use the credentials from the discovery step"))
-
     def __init__(self):
         pass
 
@@ -48,13 +43,13 @@ class iSCSICredentialsDialog(object):
                                      credentials,
                                      rev_credentials):
         active_value = combobox.get_active_value()
-        if active_value in [self.CRED_NONE[0], self.CRED_REUSE[0]]:
+        if active_value in [pih.CRED_NONE[0], pih.CRED_REUSE[0]]:
             map(lambda w : w.hide(), credentials)
             map(lambda w : w.hide(), rev_credentials)
-        elif active_value == self.CRED_ONE[0]:
+        elif active_value == pih.CRED_ONE[0]:
             map(lambda w : w.show(), credentials)
             map(lambda w : w.hide(), rev_credentials)
-        elif active_value == self.CRED_BOTH[0]:
+        elif active_value == pih.CRED_BOTH[0]:
             map(lambda w : w.show(), credentials)
             map(lambda w : w.show(), rev_credentials)
 
@@ -106,49 +101,25 @@ class iSCSIDiscoveryDialog(iSCSICredentialsDialog):
 
         (credentials, rev_credentials) = self._credentials_widgets(self.xml)
         self.combobox = self._combo_box([
-                self.CRED_NONE,
-                self.CRED_ONE,
-                self.CRED_BOTH,
+                pih.CRED_NONE,
+                pih.CRED_ONE,
+                pih.CRED_BOTH,
                 ], credentials, rev_credentials)
         vbox = self.xml.get_widget("d_discovery_vbox")
         vbox.pack_start(self.combobox, expand=False)
-
-    def _parse_ip(self, string_ip):
-        """
-        May rise network.IPMissing or network.IPError
-        
-        Returns (ip, port) tuple.
-        """
-        count = len(string_ip.split(":"))
-        idx = string_ip.rfind("]:")
-        # Check for IPV6 [IPV6-ip]:port
-        if idx != -1:
-            ip = string_ip[1:idx]
-            port = string_ip[idx+2:]
-        # Check for IPV4 aaa.bbb.ccc.ddd:port
-        elif count == 2:
-            idx = string_ip.rfind(":")
-            ip = string_ip[:idx]
-            port = string_ip[idx+1:]
-        else:
-            ip = string_ip
-            port = "3260"
-        network.sanityCheckIPString(ip)
-        
-        return (ip, port)
 
     def discovery_dict(self):
         dct = self._extract_credentials(self.xml)
 
         auth_kind = self.combobox.get_active_value()
-        if auth_kind == self.CRED_NONE[0]:
+        if auth_kind == pih.CRED_NONE[0]:
             dct["username"] = dct["password"] = \
                 dct["r_username"] = dct["r_password"] = None
-        elif auth_kind == self.CRED_ONE[0]:
+        elif auth_kind == pih.CRED_ONE[0]:
             dct["r_username"] = dct["r_password"] = None
 
         entered_ip = self.xml.get_widget("target_ip").get_text()
-        (ip, port) = self._parse_ip(entered_ip)
+        (ip, port) = pih.parse_ip(entered_ip)
         dct["ipaddr"] = ip
         dct["port"]   = port
         
@@ -170,10 +141,10 @@ class iSCSILoginDialog(iSCSICredentialsDialog):
         alignment.add(credentials_table)
         # setup the combobox
         self.combobox = self._combo_box([
-                self.CRED_NONE,
-                self.CRED_ONE,
-                self.CRED_BOTH,
-                self.CRED_REUSE
+                pih.CRED_NONE,
+                pih.CRED_ONE,
+                pih.CRED_BOTH,
+                pih.CRED_REUSE
                 ], credentials, rev_credentials)
         vbox = xml.get_widget("d_login_vbox")
         vbox.pack_start(self.combobox, expand=False)
@@ -182,12 +153,12 @@ class iSCSILoginDialog(iSCSICredentialsDialog):
         dct = self._extract_credentials(self.credentials_xml)
 
         auth_kind = self.combobox.get_active_value()
-        if auth_kind == self.CRED_NONE[0]:
+        if auth_kind == pih.CRED_NONE[0]:
             dct["username"] = dct["password"] = \
                 dct["r_username"] = dct["r_password"] = None
-        elif auth_kind == self.CRED_ONE[0]:
+        elif auth_kind == pih.CRED_ONE[0]:
             dct["r_username"] = dct["r_password"] = None
-        elif auth_kind == self.CRED_REUSE[0]:
+        elif auth_kind == pih.CRED_REUSE[0]:
             # only keep what we'll really use:
             discovery_dict = dict((k,discovery_dict[k]) for k in discovery_dict if k in 
                                   ['username', 
@@ -198,7 +169,7 @@ class iSCSILoginDialog(iSCSICredentialsDialog):
 
         return dct
 
-class iSCSIGuiWizard(partIntfHelpers.iSCSIWizard):
+class iSCSIGuiWizard(pih.iSCSIWizard):
     NODE_NAME_COL = DeviceSelector.IMMUTABLE_COL + 1
 
     def __init__(self):
@@ -429,7 +400,7 @@ def addIscsiDrive(anaconda):
             return gtk.RESPONSE_CANCEL
 
     wizard = iSCSIGuiWizard()
-    login_ok_nodes = partIntfHelpers.drive_iscsi_addition(anaconda, wizard)
+    login_ok_nodes = pih.drive_iscsi_addition(anaconda, wizard)
     if len(login_ok_nodes):
         return gtk.RESPONSE_OK
     log.info("addIscsiDrive(): no new nodes added")
