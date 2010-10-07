@@ -922,8 +922,6 @@ class InstallInterface(InstallInterfaceBase):
 
             # update ifcfg files for nm-c-e
             self.anaconda.network.setNMControlledDevices(nm_controlled_devices)
-            if not just_setup:
-                self.anaconda.network.updateActiveDevices([install_device])
 
             # we might want to do this only once
             if self.anaconda.network.hasWirelessDev():
@@ -952,6 +950,7 @@ class InstallInterface(InstallInterfaceBase):
                 waited_devs = self.anaconda.network.getOnbootControlledIfaces()
             else:
                 waited_devs = [install_device]
+                self.anaconda.network.updateActiveDevices([install_device])
 
             self.anaconda.network.write()
 
