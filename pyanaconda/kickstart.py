@@ -57,6 +57,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("anaconda")
 stderrLog = logging.getLogger("anaconda.stderr")
+stdoutLog = logging.getLogger("anaconda.stdout")
 from anaconda_log import logger, logLevelMap, setHandlersLevel,\
     DEFAULT_TTY_LEVEL
 
@@ -1335,10 +1336,8 @@ def runPreScripts(anaconda, scripts):
         return
 
     log.info("Running kickstart %%pre script(s)")
-    if anaconda.intf is not None:
-        w = anaconda.intf.waitWindow(_("Pre-Installation"),
-                            _("Running pre-installation scripts"))
-    
+    stdoutLog.info(_("Running pre-installation scripts"))
+
     map (lambda s: s.run("/", flags.serial, anaconda.intf), preScripts)
 
     log.info("All kickstart %%pre script(s) have been run")
