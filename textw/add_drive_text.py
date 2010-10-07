@@ -23,12 +23,269 @@ import storage.zfcp
 from snack import *
 from constants_text import *
 from constants import *
+import partIntfHelpers as pih 
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
+
+# iSCSI Wizard classes and helpers
+
+class GridEntry(object):
+    def __init__(self, text, disabled=False, password=False, width=20):
+        self.text = text
+        self.disabled = disabled
+        self.password = password
+        self.width = width
+
+class iSCSITextWizard(pih.iSCSIWizard):
+    def __init__(self, screen):
+        self.screen = screen
+        self.entry_target_ip = None
+        self.entry_initiator = None
+        self.entry_disc_username = None
+        self.entry_disc_password = None
+        self.entry_disc_r_username = None
+        self.entry_disc_r_password = None
+        self.entry_login_username = None
+        self.entry_login_password = None
+        self.entry_login_r_username = None
+        self.entry_login_r_password = None
+        self.listbox_disc = None
+        self.listbox_login = None
+        self.listbox_nodes = None
+
+    @staticmethod
+    def _auth_entries(cred_type):
+        all_entries = [
+                GridEntry(_("CHAP Username:")),
+                GridEntry(_("CHAP Password:"), password=True),
+                GridEntry(_("Reverse CHAP Username:")),
+                GridEntry(_("Reverse CHAP Password:"), password=True)
+                ]
+
+        entries = [None for i in range(4)]
+        if cred_type == pih.CRED_ONE[0]:
+            entries = all_entries[0:2] + [None for i in range(2)]
+        elif cred_type == pih.CRED_BOTH[0]:
+            entries = all_entries
+        return entries
+
+    @staticmethod
+    def _build_grid(grid_entries):
+        entries = []
+        grid = Grid(2, len(grid_entries))
+        for (i, ge) in enumerate(grid_entries):
+            if ge:
+                grid.setField(Label(ge.text), 0, i)
+                entry = Entry(ge.width, password=ge.password)
+                if ge.disabled:
+                    entry.setFlags(FLAG_DISABLED, FLAGS_SET)
+                grid.setField(entry, 1, i)
+            else:
+                entry = None
+            # we want Nones in grid_entries result in Nones in return value
+            entries.append(entry)
+        return (grid, entries)
+
+    @staticmethod
+    def _value_when(entry):
+        return entry.value() if entry else None
+    
+    def _discovery_auth_dialog(self):
+        if self.listbox_disc.current() == pih.CRED_NONE[0]:
+            # we need not collect anything
+            return True
+
+        grid = GridForm(self.screen, _("iSCSI Discovery Credentials"), 1, 3)
+        grid.add(TextboxReflowed(50,
+                                 _("Please enter the iSCSI "
+                                   "discovery credentials.")),
+                 0, 0)
+        auth_entries = self._auth_entries(self.listbox_disc.current())
+        (basic_grid, entries) = self._build_grid(auth_entries)
+        (self.entry_disc_username,
+         self.entry_disc_password,
+         self.entry_disc_r_username,
+         self.entry_disc_r_password) = entries
+         
+        grid.add(basic_grid, 0, 1, padding=(0, 1, 0, 1))
+
+        grid.buttons = ButtonBar(self.screen, 
+                                 [TEXT_OK_BUTTON,TEXT_CANCEL_BUTTON])
+        grid.add(grid.buttons, 0, 2, padding=(0, 1, 0, -1))
+
+        return self._run_grid(grid)
+
+    def _discovery_setup_dialog(self, initiator, initiator_set):
+        grid = GridForm(self.screen, _("iSCSI Discovery"), 1, 7)
+        header_text = TextboxReflowed(60,
+                                      _("To use iSCSI disks, you must provide "
+                                        "the address of your iSCSI target and "
+                                        "the iSCSI initiator name you've "
+                                        "configured for your host."))
+        grid.add(header_text, 0, 0)
+        
+        entry_list = [
+            GridEntry(_("Target IP Address:"), width=40),
+            GridEntry(_("iSCSI Initiator Name:"), 
+                      disabled=initiator_set, 
+                      width=40)
+            ]
+        (basic_grid, (self.entry_target_ip, self.entry_initiator)) = \
+            self._build_grid(entry_list)
+        self.entry_initiator.set(initiator)
+        grid.add(basic_grid, 0, 1)
+
+        grid.add(TextboxReflowed(60,
+                                 _("What kind of iSCSI discovery "
+                                   "authentication you wish to perform:")), 
+                 0, 2, padding=(0, 1, 0, 0))
+        
+        self.listbox_disc = Listbox(3, scroll=1)
+        self.listbox_disc.append(*reversed(pih.CRED_NONE))
+        self.listbox_disc.append(*reversed(pih.CRED_ONE))
+        self.listbox_disc.append(*reversed(pih.CRED_BOTH))
+        grid.add(self.listbox_disc, 0, 3)
+
+        grid.add(TextboxReflowed(60,
+                                 _("What kind of iSCSI login authentication "
+                                   "you wish to perform:")), 
+                 0, 4, padding=(0, 1, 0, 0))
+
+        self.listbox_login = Listbox(3, scroll=1)
+        self.listbox_login.append(*reversed(pih.CRED_NONE))
+        self.listbox_login.append(*reversed(pih.CRED_ONE))
+        self.listbox_login.append(*reversed(pih.CRED_BOTH))
+        self.listbox_login.append(*reversed(pih.CRED_REUSE))
+        grid.add(self.listbox_login, 0, 5)
+
+        grid.buttons = ButtonBar(self.screen,
+                                 [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
+        grid.add(grid.buttons, 0, 6, padding=(0, 1, 0, -1))
+        
+        return self._run_grid(grid)
+
+    def _run_grid(self, grid):
+        result = grid.run()
+        button = grid.buttons.buttonPressed(result)
+        self.screen.popWindow()
+        return True if button == TEXT_OK_CHECK else False
+
+    def destroy_dialogs(self):
+        pass
+
+    def display_discovery_dialog(self, initiator, initiator_set):
+        # this is in fact two dialogs here due to limited screen space in TUI
+        return self._discovery_setup_dialog(initiator, initiator_set) and \
+            self._discovery_auth_dialog()
+
+    def display_login_dialog(self):
+        # in TUI, the login credentials are asked for with nodes list, so this
+        # should never stop us:
+        return True
+
+    def display_nodes_dialog(self, found_nodes):
+        grid_height = 4
+        basic_grid = None
+        if self.listbox_login.current() not in \
+                (pih.CRED_NONE[0], pih.CRED_REUSE[0]):
+            auth_entries = self._auth_entries(self.listbox_login.current())
+            (basic_grid, entries) = self._build_grid(auth_entries)
+            (self.entry_login_username,
+             self.entry_login_password,
+             self.entry_login_r_username,
+             self.entry_login_r_password) = entries
+
+            grid_height += 1
+
+        grid = GridForm(self.screen, _("iSCSI Discovered Nodes"), 1, 5)
+        grid.add(TextboxReflowed(50,
+                                 _("Check the nodes you wish to log into:")),
+                 0, 0)
+
+        listbox = CheckboxTree(5, scroll=1)
+        # unfortunately, Listbox.add won't accept node directly as the second
+        # argument, we have to remember the list and use an index
+        for i, node in enumerate(found_nodes):
+            listbox.append(node.name, i, selected=True)
+        grid.add(listbox, 0, 1, padding=(0, 1, 0, 1))
+
+        if basic_grid:
+            grid.add(TextboxReflowed(60,
+                                     _("Please enter iSCSI login credentials "
+                                       "for the selected nodes:")),
+                     0, 2)
+            grid.add(basic_grid, 0, 3, padding=(0, 1, 0, 1))
+
+        grid.buttons = ButtonBar(self.screen, 
+                                 [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
+        grid.add(grid.buttons, 0, 4, padding=(0, 0, 0, -1))
+
+        rc = self._run_grid(grid)
+        selected_nodes = [node for (i, node) in enumerate(found_nodes)
+                          if i in listbox.getSelection()]
+        return (rc, selected_nodes)
+
+    def display_success_dialog(self, success_nodes, fail_nodes, fail_reason):
+        buttons = [TEXT_OK_BUTTON]
+        msg = _("Successfully logged into all the selected nodes.")
+        msg_reason = _("Reason:")
+        if fail_nodes:
+            buttons.append(TEXT_RETRY_BUTTON)
+            msg = _("Could not log into the following nodes:\n")
+            msg = reduce(lambda s1, s2: "%s\n%s" % (s1, s2), fail_nodes, msg)
+        if fail_reason:
+            msg = "%s\n\n%s\n%s" % (msg, msg_reason, fail_reason)
+
+        rc = ButtonChoiceWindow(self.screen,
+                                _("iSCSI Login Results"),
+                                msg,
+                                buttons)
+        return True if rc == TEXT_OK_CHECK else False
+
+    def get_discovery_dict(self):
+
+        dct = {
+            'username' : self._value_when(self.entry_disc_username),
+            'password' : self._value_when(self.entry_disc_password),
+            'r_username' : self._value_when(self.entry_disc_r_username),
+            'r_password' : self._value_when(self.entry_disc_r_password)
+            }
+        entered_ip = self.entry_target_ip.value()
+        (ip, port) = pih.parse_ip(entered_ip)
+        dct["ipaddr"] = ip
+        dct["port"]   = port
+        return dct
+
+    def get_initiator(self):
+        return self.entry_initiator.value()
+
+    def get_login_dict(self):
+        auth_kind = self.listbox_login.current()
+        if auth_kind == pih.CRED_REUSE[0]:
+            discovery_dict = self.get_discovery_dict()
+            dct = dict((k,discovery_dict[k]) for k in discovery_dict if k in 
+                       ['username', 
+                        'password', 
+                        'r_username', 
+                        'r_password'])
+        else:
+            dct = {
+                'username' : self._value_when(self.entry_login_username),
+                'password' : self._value_when(self.entry_login_password),
+                'r_username' : self._value_when(self.entry_login_r_username),
+                'r_password' : self._value_when(self.entry_login_r_password)
+                }
+
+        return dct
+
+    def set_initiator(self, initiator, initiator_set):
+        pass
+
+# general add drive stuff
 
 class addDriveDialog(object):
     def __init__(self, anaconda):
@@ -151,48 +408,10 @@ class addDriveDialog(object):
                                "for iSCSI config.  Please boot with "
                                "'linux asknetwork'")
             return INSTALL_BACK
-        
-        iname = storage.iscsi.iscsi().initiator
-        (button, entries) = EntryWindow(screen,
-                                        _("Configure iSCSI Parameters"),
-                                        _("To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."),
-                                        prompts = [ _("Target IP Address"),
-                                                    (_("iSCSI Initiator Name"),
-                                                     iname),
-                                                    _("CHAP username"),
-                                                    _("CHAP password"),
-                                                    _("Reverse CHAP username"),
-                                                    _("Reverse CHAP password") ])
-        if button == TEXT_CANCEL_CHECK:
-            return INSTALL_BACK
 
-        (user, pw, user_in, pw_in) = entries[2:]
-
-        target = entries[0].strip()
-        try:
-            count = len(target.split(":"))
-            idx = target.rfind("]:")
-            # Check for IPV6 [IPV6-ip]:port
-            if idx != -1:
-                ip = target[1:idx]
-                port = target[idx+2:]
-            # Check for IPV4 aaa.bbb.ccc.ddd:port
-            elif count == 2:
-                idx = target.rfind(":")
-                ip = target[:idx]
-                port = target[idx+1:]
-            else:
-                ip = target
-                port = "3260"
-            network.sanityCheckIPString(ip)
-        except network.IPMissing, msg:
-            raise ValueError, msg
-        except network.IPError, msg:
-            raise ValueError, msg
-
-        iname = entries[1].strip()
-        storage.iscsi.iscsi().initiator = iname
-        storage.iscsi.iscsi().addTarget(ip, port, user, pw, user_in, pw_in,
-                                        intf=self.anaconda.intf)
-
-        return INSTALL_OK
+        wizard = iSCSITextWizard(screen)
+        login_ok_nodes = pih.drive_iscsi_addition(self.anaconda, wizard)
+        if len(login_ok_nodes):
+            return INSTALL_OK
+        log.info("addIscsiDriveDialog(): no new nodes added")
+        return INSTALL_BACK
