@@ -1521,11 +1521,16 @@ int writeEnabledNetInfo(iface_t *iface) {
 
         fprintf(fp, "KEY1=%s\n", iface->wepkey);
 
-
         if (fclose(fp) == EOF) {
             free(ofile);
             free(nfile);
             return 24;
+        }
+
+        if (chmod(ofile, S_IRUSR | S_IWUSR) == -1) {
+            free(ofile);
+            free(nfile);
+            return 26;
         }
 
         if (rename(ofile, nfile) == -1) {

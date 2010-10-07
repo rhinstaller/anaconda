@@ -278,7 +278,7 @@ class NetworkDevice(IfcfgFile):
         os.write(fd, "KEY1=%s\n" % self.wepkey)
         os.close(fd)
 
-        os.chmod(newifcfg, 0644)
+        os.chmod(newifcfg, 0600)
         try:
             os.remove(keyfile)
         except OSError as e:
