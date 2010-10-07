@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: anaconda master\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-06-11 16:53-0400\n"
-"PO-Revision-Date: 2010-08-12 15:19+0100\n"
+"PO-Revision-Date: 2010-10-07 06:28+0100\n"
 "Last-Translator: Zoltan Hoppar <zoltanh721@fedoraproject.org>\n"
 "Language-Team: Hungarian <Hungarian <fedora-trans-hu@redhat.com>>\n"
 "MIME-Version: 1.0\n"
@@ -387,7 +387,7 @@ msgstr "Kezeletlen kivétel történt.  A legvalószínűbb, hogy ez programhiba
 
 #: pyanaconda/constants.py:80
 msgid " with the provider of this software."
-msgstr " e szoftver szállítójának."
+msgstr " e szoftver készítőinek."
 
 #: pyanaconda/constants.py:84
 #, python-format
@@ -827,9 +827,8 @@ msgid "After shutdown, please perform a manual IPL from the device now containin
 msgstr "Leállás után, a telepítés folytatásához kérem végezzen IPL-t kézivezérléssel a /boot eszközéről"
 
 #: pyanaconda/iutil.py:1033
-#, fuzzy
 msgid "Error determining boot device's disk name"
-msgstr "Hiba a csatolási pont típusának meghatározása közben"
+msgstr "Hiba a rendszerindító eszközök nevének meghatározása közben"
 
 #: pyanaconda/iutil.py:1037
 msgid "The mount point /boot or / is on a disk that we are not familiar with"
@@ -1017,7 +1016,7 @@ msgid "_File Bug"
 msgstr "_Hiba iktatása"
 
 #: pyanaconda/packages.py:314
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Warning!  This is pre-release software!\n"
 "\n"
@@ -1031,15 +1030,17 @@ msgid ""
 "\n"
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
-"Köszönjük, hogy letöltötte %s rendszer előzetes kiadását.\n"
+"Figyelem! Ez csak ekőzetes kiadású szoftver!\n"
+"\n"
+"Köszönjük, hogy letöltötte %(productName)s rendszer előzetes kiadását.\n"
 "\n"
 "Ez még nem a végleges változat, nem ajánljuk használatát éles rendszerben.  Azért van, hogy visszajelzéseket kapjunak tesztelőktől, és nem való mindennapos használatra.\n"
 "\n"
 "A visszajelzéseket ide kérjük:\n"
 "\n"
-"   %s\n"
+"   %(bugzillaUrl)s\n"
 "\n"
-"Kérjük, hogy a hibákat „%s” címen jelentse be.\n"
+"Kérjük, hogy a hibákat '%(fileagainst)s' címen jelentse be.\n"
 
 #: pyanaconda/packages.py:330
 msgid "_Install Anyway"
@@ -1679,8 +1680,8 @@ msgstr "Újabb próbálkozás 15 másodperc múlva..."
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "További csatlakozási próbálkozások feladása %d kísérlet után!\n"
+msgstr[1] "További csatlakozási próbálkozások feladása %d kísérlet után!\n"
 
 #: pyanaconda/vnc.py:206
 #, python-format
@@ -1858,8 +1859,8 @@ msgstr "<b>Telepítés %(pkgStr)s</b> (%(size)s)\n"
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Befejezett csomagok száma: %(numpkgs)d - %(donepkgs)d"
+msgstr[1] "Befejezett csomagok száma: %(numpkgs)d - %(donepkgs)d"
 
 #: pyanaconda/yuminstall.py:227
 msgid "Finishing upgrade"
@@ -2161,9 +2162,9 @@ msgid "Packages in %s"
 msgstr "%s csomagok"
 
 #: pyanaconda/iw/GroupSelector.py:433
-#, fuzzy, python-format
+#, python-format
 msgid "Optional packages selected: %(inst)d of %(cnt)d"
-msgstr "%d / %d választható csomag bejelölve."
+msgstr "Opcipnális csomagok kijelölve: %(inst)d of %(cnt)d"
 
 #: pyanaconda/iw/GroupSelector.py:435
 #, python-format
@@ -2217,9 +2218,8 @@ msgid "You have provided a weak password: %s"
 msgstr "Gyenge jelszót adott meg: %s"
 
 #: pyanaconda/iw/account_gui.py:131
-#, fuzzy
 msgid "_Use Anyway"
-msgstr "Mégis használjuk"
+msgstr "Használj_uk mégis"
 
 #: pyanaconda/iw/account_gui.py:139
 #: pyanaconda/textw/userauth_text.py:75
@@ -2227,9 +2227,8 @@ msgid "Requested password contains non-ASCII characters, which are not allowed."
 msgstr "A kért jelszó tartalmaz nem ASCII jeleket, ami nem engedélyezett."
 
 #: pyanaconda/iw/advanced_storage.py:90
-#, fuzzy
 msgid "You must select a NIC to use."
-msgstr "Ki kell választani egy hálózat eszközt"
+msgstr "Ki kell választani egy NIC-et a használathoz."
 
 #: pyanaconda/iw/advanced_storage.py:134
 msgid "Invalid Initiator Name"
@@ -2289,6 +2288,9 @@ msgid ""
 "\n"
 "<b>Tip:</b> This option will remove data from the selected device(s).  Make sure you have backups."
 msgstr ""
+"Eltávolítja az összes Linux partíciót a kiválasztott eszköz(ök)ön. Ez a művelet nem távolítja el azon további partíciókat, amelyek a tárolóeszköz(ök)ön valószínűleg megtalálhatóak (mint pl. VFAT, vagy FAT32).\n"
+"\n"
+"<b>Tipp:</b> Ez az opció adatokat fog eltávolítani az eszköz(ok)ről.  Győződjön meg hogy vannak biztonsági mentései."
 
 #: pyanaconda/iw/autopart_type.py:245
 msgid "Shrink Current System"
@@ -2304,7 +2306,7 @@ msgstr "Szabad hely használata"
 
 #: pyanaconda/iw/autopart_type.py:251
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
-msgstr ""
+msgstr "Megtartja az összes adatát, és partíccióit és csak az üres partícionálatlan területet fogja a kiválasztott eszköz(ök)ről felhasználni, vállalva - hogy van elegendő szabad helye."
 
 #: pyanaconda/iw/autopart_type.py:255
 msgid "Create Custom Layout"
@@ -2385,7 +2387,6 @@ msgid "You must select at least one drive to be used for installation."
 msgstr "Legalább egy meghajtót ki kell választania, amelyet a telepítéshez használ."
 
 #: pyanaconda/iw/cleardisks_gui.py:55
-#, fuzzy
 msgid "You must select one drive to boot from."
 msgstr "Ki kell választania egy meghajtót a rendszerindításhoz."
 
@@ -2441,11 +2442,11 @@ msgstr ""
 
 #: pyanaconda/iw/cleardisks_gui.py:193
 msgid "<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Tipp:</b> Az összes Linux fájlrendszer a célmeghajtó(ko)n újraformázásra kerül és megsemmisít minden adatot.  Győződjön meg hogy vannak biztonsági mentései."
 
 #: pyanaconda/iw/cleardisks_gui.py:195
 msgid "<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."
-msgstr ""
+msgstr "<b>Tip:</b> A telepítésre kijlelölt eszközök újraformázásra kerülnek és az összes adat törlődik. Bizonyosodjon meg róla, hogy van biztonsági mentése."
 
 #: pyanaconda/iw/cleardisks_gui.py:197
 msgid "<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."
@@ -2506,9 +2507,9 @@ msgid "Fresh Installation"
 msgstr "Új telepítés"
 
 #: pyanaconda/iw/examine_gui.py:60
-#, fuzzy, python-format
+#, python-format
 msgid "Choose this option to install a fresh copy of %s on your system.  Existing software and data may be overwritten depending on your configuration choices."
-msgstr "Válassza ezt a lehetőséget, ha új rendszert szeretne. Az egyéb konfigurációs beállításoktól függően a meglévő szoftverek és fájlok felülírásra kerülhetnek."
+msgstr "Válassza ezt a lehetőséget, ha új %s másolatot szeretne rendszerére. Az egyéb konfigurációs beállításoktól függően a meglévő szoftverek és fájlok felülírásra kerülhetnek."
 
 #: pyanaconda/iw/examine_gui.py:65
 msgid "Upgrade an Existing Installation"
@@ -2585,7 +2586,7 @@ msgstr "Alapvető tárolóeszközök"
 
 #: pyanaconda/iw/filter_type.py:62
 msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
-msgstr ""
+msgstr "Telepít vagy frissít tipikus tárolóeszközökre. Ha nem biztos benne, melyik opció lehet megfelelő, valószínúleg ez az."
 
 #: pyanaconda/iw/filter_type.py:66
 msgid "Specialized Storage Devices"
@@ -2593,7 +2594,7 @@ msgstr "Specializált tárolóeszközök"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid "Installs or upgrades to devices such as Storage Area Networks (SANs) or mainframe attached disks (DASD), usually in an enterprise environment"
-msgstr ""
+msgstr "Telepít vagy frissít olyan eszközökre mint Tárolóhálózatok (SAN) vagy mainframe-hez kapcsolt lemezek (DASD), általában fejlesztői környezetben"
 
 #: pyanaconda/iw/language_gui.py:33
 #: pyanaconda/textw/language_text.py:45
@@ -2785,8 +2786,8 @@ msgstr "Nincs üres aljzat"
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Nem készíthet többet, mint %d logikai kötetet csoportonként."
+msgstr[1] "Nem készíthet többet, mint %d logikai kötetet csoportonként."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:840
 msgid "No free space"
@@ -3004,7 +3005,7 @@ msgstr "Ehhez szükséges, hogy a telepítés alatt legyen aktív hálózat kapc
 
 #: pyanaconda/iw/network_gui.py:195
 msgid "Select which devices should be configured with NetworkManager."
-msgstr ""
+msgstr "Kérem válassza ki az eszközöket, amik a NetworkManager segítségével állítana be."
 
 #: pyanaconda/iw/network_gui.py:254
 msgid "Select APs"
@@ -3233,6 +3234,12 @@ msgid ""
 "* At least one free physical volume (LVM) partition.\n"
 "* At least one Volume Group with free space."
 msgstr ""
+"Kérem vegye figyelembe, hogy ez a művelet valamelyikét igényli a következőkből:\n"
+"\n"
+"* Szabad tárhely az egyik HDD-n.\n"
+"* Legalább két szabad szoftveres RAID partíciót.\n"
+"* Legalább egy szabad fizikai kötetet (LVM).\n"
+"* Legalább egy Kötetcsoportot (VG) szabad tárhellyel."
 
 #: pyanaconda/iw/partition_gui.py:1457
 #, fuzzy, python-format
@@ -3261,7 +3268,7 @@ msgstr "A RAID-ről"
 #: pyanaconda/iw/partition_gui.py:1477
 #, python-format
 msgid "Logical Volume Manager (LVM) is a 3 level construct. The first level is made up of disks or partitions formatted with LVM metadata called Physical Volumes (PV).  A Volume Group (VG) sits on top of one or more PVs. The VG, in turn, is the base to create one or more Logical Volumes (LV).  Note that a VG can be an aggregate of PVs from multiple physical disks.  For more information on using LVM please consult the %s documentation\n"
-msgstr ""
+msgstr "Logikai Kötetkezelő (LVM) egy 3 szintű konstrukció. Az első szint lemezekből vagy LVM metaadattal formázott partíciókból áll össze, amit Fizikai Köteteknek (PV) hívnak. A Kötetcsoport (VG) egy vagy több PV tetejére ül. A VG, visszatérve, az alapja hogy egy vagy több Logikai Kötetet (LV) készíthessen. Ne feledje, hogy a VG lehet összesített több fizikai lemezről is. További információkért az LVM használatáról kérem olvassa el a %s dokumentációt.\n"
 
 #: pyanaconda/iw/partition_gui.py:1485
 msgid ""
@@ -3273,12 +3280,12 @@ msgstr "Ahhoz hogy PV-t készítsen szügsége lesz egy partícióra szabad hell
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Jelenleg %d elérhető szabadon felhasználható PV-je van.\n"
+msgstr[1] "Jelenleg %d elérhető szabadon felhasználható PV-je van.\n"
 
 #: pyanaconda/iw/partition_gui.py:1493
 msgid "You currently have free space to create PVs."
-msgstr ""
+msgstr "Jelenleg elegendő helye van, hogy PV-t készítsen."
 
 #: pyanaconda/iw/partition_gui.py:1496
 msgid "About LVM"
@@ -3970,9 +3977,9 @@ msgid "Device %s does not appear to contain an installation image."
 msgstr "Úgy tűnik %s eszköz nem tartalmaz telepítő képet."
 
 #: loader/hdinstall.c:361
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command: %s"
-msgstr "Hibás argumentum %s HD kickstart parancsnál: %s"
+msgstr "Hibás paraméter HDD kickstart metódus parancsnál: %s"
 
 #: loader/hdinstall.c:441
 #: loader/hdinstall.c:497
@@ -4104,9 +4111,9 @@ msgid "Error downloading updates image"
 msgstr "Hiba a frissítő képmás letöltése közben"
 
 #: loader/loader.c:1206
-#, fuzzy, c-format
+#, c-format
 msgid "You do not have enough RAM to install %s on this machine%s."
-msgstr "Nincs elég memória ebben a gépben %s telepítéséhez."
+msgstr "Nincs elég memória ebben a gépben %s %s telepítéséhez."
 
 #: loader/loader.c:1260
 msgid "Media Detected"
@@ -4436,9 +4443,9 @@ msgid "That directory does not seem to contain a %s installation image."
 msgstr "Úgy tűnik, az a mappa nem tartalmaz %s telepítő képet."
 
 #: loader/nfsinstall.c:415
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command: %s"
-msgstr "%s NFS kickstart parancsban hibás argumentum: %s"
+msgstr "NFS kickstart parancsban hibás paraméter: %s"
 
 #: loader/telnetd.c:90
 #: loader/telnetd.c:129
@@ -4454,9 +4461,9 @@ msgid "Running anaconda via telnet."
 msgstr "Anaconda futtatása telneten át."
 
 #: loader/urlinstall.c:138
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s."
-msgstr "Nem tudok letölteni %s://%s/%s helyről."
+msgstr "Nem tudok letölteni %s helyről."
 
 #: loader/urlinstall.c:222
 msgid "Unable to retrieve the install image."
@@ -4587,9 +4594,8 @@ msgid "Error storing an encryption key: %s\n"
 msgstr "Hiba egy titkosítási kulcs letárolása közben: %s\n"
 
 #: pyanaconda/storage/__init__.py:372
-#, fuzzy
 msgid "Examining Devices"
-msgstr "Eszközök keresése"
+msgstr "Eszközök felderítése"
 
 #: pyanaconda/storage/__init__.py:373
 msgid "Examining storage devices"
@@ -4640,9 +4646,9 @@ msgid "Your root partition is less than 250 megabytes which is usually too small
 msgstr "A gyökér rész mérete kisebb 250 MB-nál, ami általában nem elég %s telepítéséhez."
 
 #: pyanaconda/storage/__init__.py:976
-#, fuzzy, python-format
+#, python-format
 msgid "Your / partition is less than %(min)s MB which is lower than recommended for a normal %(productName)s install."
-msgstr "A / rész kisebb %s MB-nál, ami kevesebb, mint a normál %s telepítésre ajánlott minimum."
+msgstr "A / rész %(min)s Mbyte-tal kevesebb, mint a normál %(productName)s telepítésre ajánlott minimum."
 
 #: pyanaconda/storage/__init__.py:986
 #, python-format
@@ -4855,8 +4861,8 @@ msgstr[1] "DASD eszközök formázása"
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d DASD eszköz előkészítése Linux használatra..."
+msgstr[1] "%d DASD eszközök előkészítése Linux használatra..."
 
 #: pyanaconda/storage/devicelibs/lvm.py:308
 #, python-format
@@ -4888,8 +4894,8 @@ msgstr "%s eszköz létrehozása"
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "A RAID%d kötet legalább %d tagot igényel"
+msgstr[1] "A RAID%d kötet legalább %d tagot igényel"
 
 #: pyanaconda/storage/devices.py:3351
 #, python-format
@@ -4962,11 +4968,11 @@ msgstr "Fájlrendszer ellenőrzése %s partíción"
 #: pyanaconda/storage/formats/fs.py:531
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
-msgstr ""
+msgstr "%(type)s fájlrendszer hibaellenőrzés %(device)s: "
 
 #: pyanaconda/storage/formats/fs.py:537
 msgid "Errors like this usually mean there is a problem with the filesystem that will require user interaction to repair.  Before restarting installation, reboot to rescue mode or another system that allows you to repair the filesystem interactively.  Restart installation after you have corrected the problems on the filesystem."
-msgstr ""
+msgstr "Az olyan hibák, mint ez is általában azt jelenti, hogy probléma adódott a fájlrendszerrel ami felhasználói közbeavatkozást igényel a javításhoz. Mielőtt még újrakezdené a telepítést, indítson újra mentési módban vagy alkalmazzon más rendszert ami lehetővé teszi a fájlrendszer interakítv javítását. Csak akkor indítsa újra a telepítést, ha már kijavította a fájlrendszerben a hibákat."
 
 #: pyanaconda/storage/formats/fs.py:545
 #: pyanaconda/storage/partitioning.py:279
@@ -4995,7 +5001,7 @@ msgstr "Megosztott könyvtár hiba."
 
 #: pyanaconda/storage/formats/fs.py:1049
 msgid "Recoverable errors have been detected or dosfsck has discovered an internal inconsistency."
-msgstr ""
+msgstr "Javítható hibákat észleltünk, vagy dosfsck felfedezett egy belső inkonzisztenciát."
 
 #: pyanaconda/storage/formats/fs.py:1051
 msgid "Usage error."
@@ -5023,7 +5029,7 @@ msgstr "iSCSI elemek lekérése"
 
 #: pyanaconda/storage/iscsi.py:135
 msgid "Unable to change iSCSI initiator name once set"
-msgstr ""
+msgstr "Lehetetlen az iSCSI kezdeti nevének a cseréje, ha az már egyszer beállításra került"
 
 #: pyanaconda/storage/iscsi.py:137
 msgid "Must provide an iSCSI initiator name"
@@ -5651,27 +5657,27 @@ msgstr ""
 
 #: data/ui/cleardisks.glade.h:4
 msgid "Below are the storage devices you've selected to be a part of this installation.  Please indicate using the arrows below which devices you'd like to use as data devices (these will not be formatted, only mounted) and which devices you'd like to use as installation target devices (these may be formatted).  Please also indicate which system drive will have the bootloader installed."
-msgstr ""
+msgstr "Alább azok a kiválasztott tárolóeszközök találhatóak, amik résztvevői lesznek ennek a telepítésnek. Kérem jelölje meg a nyilakkal, melyeket szeretné adathordozóként használni (ezek nem kerülnek formázásra, csak felcsatolásra) és melyeket szeretné telepítésre (ezek formázásra kerülhetnek). Kérem jelezze azt is, hogy mely rendszermeghajtó fogja a rendszerbetöltőt tartalmazni."
 
 #: data/ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Egy RAID-re formázott partíció készítése</span>"
 
 #: data/ui/create-storage.glade.h:2
 msgid "<span size=\"small\" color=\"gray\">Create a logical volume on selected volume group</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Egy logikai kötet készítése a kiválaszott kötetcsoportban</span>"
 
 #: data/ui/create-storage.glade.h:3
 msgid "<span size=\"small\" color=\"gray\">Create an LVM formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Egy LVM-re formázott partíció készítése</span>"
 
 #: data/ui/create-storage.glade.h:4
 msgid "<span size=\"small\" color=\"gray\">General purpose partition creation</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Általános célú partíció készítése</span>"
 
 #: data/ui/create-storage.glade.h:5
 msgid "<span size=\"small\" color=\"gray\">Requires at least 1 free LVM formatted partition</span>"
-msgstr ""
+msgstr "<span size=\"small\" color=\"gray\">Szügséges legalább 1 szabad LVM-re formázott partíció</span>"
 
 #: data/ui/create-storage.glade.h:6
 msgid "<span size=\"small\" color=\"gray\">Requires at least 2 free RAID formatted partitions</span>"
@@ -5797,7 +5803,7 @@ msgstr "Egyéb SAN eszközök"
 
 #: data/ui/filter.glade.h:13
 msgid "Please select the drives you'd like to install the operating system on, as well as any drives you'd like to automatically mount on your system:"
-msgstr ""
+msgstr "Kérem válassza ki a meghajtókat, ahová az operációs rendszert telepítené, és ugyanúgy azokat a meghajtókat is amelyeket automatikusan csatolni szeretne a rendszerhez:"
 
 #: data/ui/filter.glade.h:14
 msgid ""
