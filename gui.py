@@ -982,9 +982,12 @@ class InstallInterface(InstallInterfaceBase):
 
             # update ifcfg files for nm-c-e
             self.anaconda.id.network.setNMControlledDevices(nm_controlled_devices)
+            if not just_setup:
+                self.anaconda.id.network.presetDefaultConfiguration([install_device])
 
             self.anaconda.id.network.writeIfcfgFiles()
             network.logIfcfgFiles(header="========== before nm-c-e run\n")
+
             runNMCE(self.anaconda)
             network.logIfcfgFiles(header="========== after nm-c-e run\n")
 
