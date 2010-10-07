@@ -505,6 +505,11 @@ class Network:
             else:
                 device.set(('ONBOOT', 'yes'))
 
+    def presetDefaultConfiguration(self, devices=None):
+        for devname, device in self.netdevices.items():
+            if not devices or devname in devices:
+                device.set(('BOOTPROTO', 'dhcp'))
+
     def getOnbootControlledIfaces(self):
         ifaces = []
         for iface, device in self.netdevices.items():
