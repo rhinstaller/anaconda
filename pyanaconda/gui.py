@@ -31,6 +31,7 @@ if flags.cmdline.has_key("dogtail"):
 
 import string
 import time
+import traceback
 import isys
 import iutil
 import sys
@@ -52,6 +53,7 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 
 import logging
 log = logging.getLogger("anaconda")
+stdout_log = logging.getLogger("anaconda.stdout")
 
 isys.bind_textdomain_codeset("redhat-dist", "UTF-8")
 iutil.setup_translations(gtk.glade)
@@ -1237,7 +1239,8 @@ class InstallControlWindow:
                 newScreenClass = loaded.__dict__[className]
                 break
             except ImportError, e:
-                print(e)
+                stdout_log.error("loading interface component %s" % className)
+                stdout_log.error(traceback.format_exc())
                 win = MessageWindow(_("Error!"),
                                     _("An error occurred when attempting "
                                       "to load an installer interface "

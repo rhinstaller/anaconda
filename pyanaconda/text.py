@@ -27,6 +27,7 @@ import os
 import isys
 import iutil
 import time
+import traceback
 import signal
 import parted
 import product
@@ -494,6 +495,8 @@ class InstallInterface(InstallInterfaceBase):
                     nextWindow = loaded.__dict__[className]
                     break
                 except ImportError as e:
+                    log.error("loading interface component %s" % className)
+                    log.error(traceback.format_exc())
                     rc = ButtonChoiceWindow(self.screen, _("Error!"),
                                       _("An error occurred when attempting "
                                         "to load an installer interface "
