@@ -230,7 +230,6 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
             gobject.TYPE_BOOLEAN,  # immutable
             gobject.TYPE_STRING    # node name
             )
-        log.debug("iscsi: adding %d nodes in nodes_dialog()" % len(found_nodes))
         map(lambda node : store.append(None, (
                     node,        # the object
                     True,        # visible
@@ -257,8 +256,6 @@ class iSCSIGuiWizard(pih.iSCSIWizard):
         rc = self._run_dialog(dialog)
         # filter out selected nodes:
         selected_nodes = map(lambda raw : raw[0], ds.getSelected())
-        map(lambda node: log.debug("iscsi: node selected for login: %s" % node.name),
-            selected_nodes)
         dialog.destroy()
         return (rc, selected_nodes)
 
@@ -397,6 +394,7 @@ def addIscsiDrive(anaconda):
     # make sure the network is up
     if not network.hasActiveNetDev():
         if not anaconda.intf.enableNetwork():
+            log.info("addIscsiDrive(): early exit, network disabled.")
             return gtk.RESPONSE_CANCEL
 
     wizard = iSCSIGuiWizard()

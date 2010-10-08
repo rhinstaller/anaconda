@@ -407,6 +407,7 @@ class addDriveDialog(object):
                                "Must have a network configuration set up "
                                "for iSCSI config.  Please boot with "
                                "'linux asknetwork'")
+            log.info("addIscsiDriveDialog(): early exit, network disabled.")
             return INSTALL_BACK
 
         wizard = iSCSITextWizard(screen)

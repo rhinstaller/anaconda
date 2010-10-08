@@ -461,9 +461,8 @@ def drive_iscsi_addition(anaconda, wizard):
                 anaconda.storage.iscsi.initiator = wizard.get_initiator()
                 discovery_dict = wizard.get_discovery_dict()
                 discovery_dict["intf"] = anaconda.intf
-                log.critical("discovering with %s" % discovery_dict)
                 found_nodes = anaconda.storage.iscsi.discover(**discovery_dict)
-                map(lambda node: log.info("discovered iSCSI node: %s" % node.name),
+                map(lambda node: log.debug("discovered iSCSI node: %s" % node.name),
                     found_nodes)
                 step = STEP_NODES
             elif step == STEP_NODES:
@@ -481,7 +480,6 @@ def drive_iscsi_addition(anaconda, wizard):
                 if not rc:
                     break
                 login_dict = wizard.get_login_dict()
-                log.critical("logging with %s" % login_dict)
                 login_dict["intf"] = anaconda.intf
                 login_fail_nodes = []
                 login_fail_msg = ""
@@ -508,12 +506,12 @@ def drive_iscsi_addition(anaconda, wizard):
                     step = STEP_NODES
 
         except (network.IPMissing, network.IPError) as msg:
-            log.debug("addIscsiDrive() cancelled due to an invalid IP address.")
+            log.info("addIscsiDrive() cancelled due to an invalid IP address.")
             anaconda.intf.messageWindow(_("iSCSI Error"), msg)
             if step != STEP_DISCOVERY:
                 break
         except (ValueError, IOError) as e:
-            log.debug("addIscsiDrive() IOError exception: %s" % e)
+            log.info("addIscsiDrive() IOError exception: %s" % e)
             step_str = _("Discovery") if step == STEP_DISCOVERY else _("Login")
             anaconda.intf.messageWindow(_("iSCSI %s Error") % step_str, str(e))
             break
