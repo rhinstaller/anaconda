@@ -77,18 +77,6 @@ def randomIname():
         s += dig[random.randrange(0, 32)]
     return s
 
-def stabilize(intf = None):
-    # Wait for udev to create the devices for the just added disks
-    if intf:
-        w = intf.waitWindow(_("Scanning iSCSI nodes"),
-                            _("Scanning iSCSI nodes"))
-    # It is possible when we get here the events for the new devices
-    # are not send yet, so sleep to make sure the events are fired
-    time.sleep(2)
-    udev_settle()
-    if intf:
-        w.pop()
-
 class iscsi(object):
     """ iSCSI utility class.
 
@@ -159,7 +147,19 @@ class iscsi(object):
                           (node.name, str(e)))
                 pass
 
-        stabilize(intf)
+        self.stabilize(intf)
+
+    def stabilize(self, intf = None):
+        # Wait for udev to create the devices for the just added disks
+        if intf:
+            w = intf.waitWindow(_("Scanning iSCSI nodes"),
+                                _("Scanning iSCSI nodes"))
+        # It is possible when we get here the events for the new devices
+        # are not send yet, so sleep to make sure the events are fired
+        time.sleep(2)
+        udev_settle()
+        if intf:
+            w.pop()
 
     def startup(self, intf = None):
         if self.started:
@@ -325,7 +325,7 @@ class iscsi(object):
         if logged_in == 0:
             raise IOError, _("Could not log in to any of the discovered nodes")
 
-        stabilize(intf)
+        self.stabilize(intf)
 
     def writeKS(self, f):
         if not self.initiatorSet:
