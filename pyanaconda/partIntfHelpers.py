@@ -444,6 +444,7 @@ def drive_iscsi_addition(anaconda, wizard):
     STEP_NODES     = 1
     STEP_LOGIN     = 2
     STEP_SUMMARY   = 3
+    STEP_STABILIZE = 4
     STEP_DONE      = 10
 
     login_ok_nodes = []
@@ -499,11 +500,14 @@ def drive_iscsi_addition(anaconda, wizard):
                                                    login_fail_nodes,
                                                    login_fail_msg)
                 if rc:
-                    step = STEP_DONE
+                    step = STEP_STABILIZE
                 else:
                     # user wants to try logging into the failed nodes again
                     found_nodes = login_fail_nodes
                     step = STEP_NODES
+            elif step == STEP_STABILIZE:
+                anaconda.storage.iscsi.stabilize(anaconda.intf)
+                step = STEP_DONE
 
         except (network.IPMissing, network.IPError) as msg:
             log.info("addIscsiDrive() cancelled due to an invalid IP address.")
