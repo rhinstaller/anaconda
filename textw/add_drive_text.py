@@ -141,7 +141,7 @@ class iSCSITextWizard(pih.iSCSIWizard):
 
         grid.add(TextboxReflowed(60,
                                  _("What kind of iSCSI discovery "
-                                   "authentication you wish to perform:")), 
+                                   "authentication do you wish to perform:")), 
                  0, 2, padding=(0, 1, 0, 0))
         
         self.listbox_disc = Listbox(3, scroll=1)
@@ -152,7 +152,7 @@ class iSCSITextWizard(pih.iSCSIWizard):
 
         grid.add(TextboxReflowed(60,
                                  _("What kind of iSCSI login authentication "
-                                   "you wish to perform:")), 
+                                   "do you wish to perform:")), 
                  0, 4, padding=(0, 1, 0, 0))
 
         self.listbox_login = Listbox(3, scroll=1)
