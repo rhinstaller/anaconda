@@ -35,7 +35,7 @@ from language import expandLangs
 from flags import flags
 from constants_text import *
 from constants import *
-from network import hasActiveNetDev
+import network
 from installinterfacebase import InstallInterfaceBase
 import imputil
 
@@ -387,7 +387,7 @@ class InstallInterface(InstallInterfaceBase):
     def enableNetwork(self):
         if len(self.anaconda.id.network.netdevices) == 0:
             return False
-        from netconfig_text import NetworkConfiguratorText
+        from textw.netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, self.anaconda)
         ret = w.run()
         return ret != INSTALL_BACK
@@ -409,6 +409,7 @@ class InstallInterface(InstallInterfaceBase):
 
     def saveExceptionWindow(self, accountManager, signature, *args, **kwargs):
         from meh.ui.text import SaveExceptionWindow
+        network.saveExceptionEnableNetwork(self)
         win = SaveExceptionWindow (accountManager, signature, screen=self.screen,
                                    *args, **kwargs)
         win.run()

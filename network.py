@@ -33,6 +33,7 @@ import struct
 import os
 import time
 import dbus
+import urlgrabber
 from flags import flags
 from simpleconfig import IfcfgFile
 import anaconda_log
@@ -820,3 +821,16 @@ def ifaceForHostIP(host):
 
     return routeInfo[routeInfo.index("dev") + 1]
 
+def saveExceptionEnableNetwork(intf):
+    if not hasActiveNetDev():
+        if intf.messageWindow(_("Warning"),
+               _("You do not have an active network connection.  This is "
+                 "required by some exception saving methods.  Would you "
+                 "like to configure your network now?"),
+               type = "yesno"):
+
+            if not intf.enableNetwork():
+                intf.messageWindow(_("No Network Available"),
+                                   _("Remote exception saving methods will not work."))
+            else:
+                urlgrabber.grabber.reset_curl_obj()

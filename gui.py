@@ -1174,6 +1174,7 @@ class InstallInterface(InstallInterfaceBase):
 
     def saveExceptionWindow(self, accountManager, signature):
         from meh.ui.gui import SaveExceptionWindow
+        network.saveExceptionEnableNetwork(self)
         win = SaveExceptionWindow (accountManager, signature)
         win.run()
 
