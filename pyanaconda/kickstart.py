@@ -1449,7 +1449,6 @@ def setSteps(anaconda):
         anaconda.instClass.setSteps(anaconda)
         dispatch.skipStep("findrootparts")
 
-    dispatch.skipStep("welcome")
     dispatch.skipStep("betanag")
     dispatch.skipStep("network")
 

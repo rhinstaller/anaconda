@@ -78,7 +78,6 @@ class BaseInstallClass(object):
 	dispatch.setStepList(
 		 "language",
 		 "keyboard",
-		 "welcome",
                  "filtertype",
                  "filter",
                  "storageinit",

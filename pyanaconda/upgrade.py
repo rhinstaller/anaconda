@@ -319,7 +319,6 @@ def setSteps(anaconda):
     dispatch.setStepList(
                 "language",
                 "keyboard",
-                "welcome",
                 "filtertype",
                 "filter",
                 "cleardiskssel",

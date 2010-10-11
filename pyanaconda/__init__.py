@@ -285,27 +285,6 @@ class Anaconda(object):
         else:
             self.methodstr = methodstr
 
-    def requiresNetworkInstall(self):
-        fail = False
-        numNetDevs = isys.getNetworkDeviceCount()
-
-        if self.methodstr is not None:
-            if (self.methodstr.startswith("http") or \
-                self.methodstr.startswith("ftp://") or \
-                self.methodstr.startswith("nfs:")) and \
-               numNetDevs == 0:
-                fail = True
-        elif self.stage2 is not None:
-            if self.stage2.startswith("cdrom://") and \
-               not os.path.isdir("/mnt/stage2/Packages") and \
-               numNetDevs == 0:
-                fail = True
-
-        if fail:
-            log.error("network install required, but no network devices available")
-
-        return fail
-
     def write(self):
         self.writeXdriver()
         self.instLanguage.write(self.rootPath)
