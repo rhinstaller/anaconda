@@ -274,6 +274,7 @@ class AnacondaYumRepo(YumRepository):
         self.enablegroups = True
         self.sslverify = True
         self._anacondaBaseURLs = []
+        self.proxy_url = None
 
     def needsNetwork(self):
         def _isURL(s):
@@ -307,54 +308,6 @@ class AnacondaYumRepo(YumRepository):
 
     anacondaBaseURLs = property(_getAnacondaBaseURLs, _setAnacondaBaseURLs,
                                 doc="Extends AnacondaYum.baseurl to store non-yum urls:")
-
-    def setProxy(self, obj):
-        """
-        Set the proxy settings from a string in obj.proxy
-        If the string includes un/pw use those, otherwise set the un/pw from
-        obj.proxyUsername and obj.proxyPassword
-        """
-        # This is the same pattern as from loader/urls.c:splitProxyParam
-        # except that the POSIX classes have been replaced with character
-        # ranges
-        # NOTE: If this changes, update tests/regex/proxy.py
-        #
-        # proxy=[protocol://][username[:password]@]host[:port][path]
-        pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
-
-        m = pattern.match(obj.proxy)
-
-        if m and m.group(5):
-            # If both a host and port was found, just paste them
-            # together using the colon at the beginning of the port
-            # match as a separator.  Otherwise, just use the host.
-            if m.group(6):
-                proxy = m.group(5) + m.group(6)
-            else:
-                proxy = m.group(5)
-
-            # yum also requires a protocol.  If none was given,
-            # default to http.
-            if m.group(1):
-                proxy = m.group(1) + proxy
-            else:
-                proxy = "http://" + proxy
-
-            # Set the repo proxy. NOTE: yum immediately parses this and
-            # raises an error if it isn't correct
-            self.proxy = proxy
-
-        if m and m.group(3):
-            self.proxy_username = m.group(3)
-        elif getattr(obj, "proxyUsername", None):
-            self.proxy_username = obj.proxyUsername
-
-        if m and m.group(4):
-            # Skip the leading colon.
-            self.proxy_password = m.group(4)[1:]
-        elif getattr(obj, "proxyPassword", None):
-            self.proxy_password = obj.proxyPassword
-
 
 class YumSorter(yum.YumBase):
     def _transactionDataFactory(self):
@@ -396,6 +349,14 @@ class AnacondaYum(YumSorter):
 
         self.updates = []
         self.localPackages = []
+
+        # Parse proxy values from anaconda
+        self.proxy = None
+        self.proxy_url = None
+        self.proxy_username = None
+        self.proxy_password = None
+        if self.anaconda.proxy:
+            self.setProxy(self.anaconda, self)
 
     def setup(self):
         # yum doesn't understand all our method URLs, so use this for all
@@ -587,7 +548,7 @@ class AnacondaYum(YumSorter):
                 log.info("set mediaid of repo %s to: %s" % (rid, repo.mediaid))
 
             if self.anaconda.proxy:
-                repo.setProxy(self.anaconda)
+                self.setProxy(self.anaconda, repo)
 
             if flags.noverifyssl:
                 repo.sslverify = False
@@ -662,14 +623,74 @@ class AnacondaYum(YumSorter):
 
         return repo
 
-    # Given the baseurl for a repository, see if it has any valid addon repos and
-    # if so, return a list of (repo name, repo URL).
-    def _getAddons(self, baseurl):
+    def setProxy(self, src, dest):
+        """
+        Set the proxy settings from a string in src.proxy
+        If the string includes un/pw use those, otherwise set the un/pw from
+        src.proxyUsername and src.proxyPassword
+
+        dest has dest.proxy set to the host and port (no un/pw)
+        dest.proxy_username and dest.proxy_password are set if present in src
+        """
+        # This is the same pattern as from loader/urls.c:splitProxyParam
+        # except that the POSIX classes have been replaced with character
+        # ranges
+        # NOTE: If this changes, update tests/regex/proxy.py
+        #
+        # proxy=[protocol://][username[:password]@]host[:port][path]
+        pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
+
+        m = pattern.match(src.proxy)
+
+        if m and m.group(3):
+            dest.proxy_username = m.group(3)
+        elif getattr(src, "proxyUsername", None):
+            dest.proxy_username = src.proxyUsername
+
+        if m and m.group(4):
+            # Skip the leading colon.
+            dest.proxy_password = m.group(4)[1:]
+        elif getattr(src, "proxyPassword", None):
+            dest.proxy_password = src.proxyPassword
+
+        if dest.proxy_username or dest.proxy_password:
+            proxy_auth = "%s:%s@" % (dest.proxy_username or '',
+                                     dest.proxy_password or '')
+        else:
+            proxy_auth = ""
+
+        if m and m.group(5):
+            # If both a host and port was found, just paste them
+            # together using the colon at the beginning of the port
+            # match as a separator.  Otherwise, just use the host.
+            if m.group(6):
+                proxy = m.group(5) + m.group(6)
+            else:
+                proxy = m.group(5)
+
+            # yum also requires a protocol.  If none was given,
+            # default to http.
+            if m.group(1):
+                dest.proxy_url = m.group(1) + proxy_auth + proxy
+                proxy = m.group(1) + proxy
+            else:
+                dest.proxy_url = "http://" + proxy_auth + proxy
+                proxy = "http://" + proxy
+
+            # Set the repo proxy. NOTE: yum immediately parses this and
+            # raises an error if it isn't correct
+            dest.proxy = proxy
+
+    def _getAddons(self, baseurl, proxy_url=None):
+        """
+        Check the baseurl or mirrorlist for a repository, see if it has any
+        valid addon repos and if so, return a list of (repo name, repo URL).
+        """
         retval = []
         c = ConfigParser()
 
         # If there's no .treeinfo for this repo, don't bother looking for addons.
-        treeinfo = self._getTreeinfo(baseurl)
+        treeinfo = self._getTreeinfo(baseurl, proxy_url)
         if not treeinfo:
             return retval
 
@@ -694,22 +715,34 @@ class AnacondaYum(YumSorter):
 
         return retval
 
-    def _getTreeinfo(self, baseurl):
+    def _getTreeinfo(self, baseurl, proxy_url=None):
+        """
+        Try to get .treeinfo file from baseurl, optionally using proxy_url
+        Saves the file into /tmp/.treeinfo
+        """
         try:
             ug = URLGrabber()
-            ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo", copy_local=1)
+            if proxy_url:
+                proxies = { 'http'  : proxy_url,
+                            'https' : proxy_url }
+            else:
+                proxies = {}
+            ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo",
+                       copy_local=1, proxies=proxies)
             return "/tmp/.treeinfo"
         except Exception as e:
             log.error("Error downloading %s/.treeinfo: %s" % (baseurl, e))
             return None
 
-    # We need to make sure $releasever gets set up before .repo files are
-    # read.  Since there's no redhat-release package in /mnt/sysimage (and
-    # won't be for quite a while), we need to do our own substutition.
     def _getReleasever(self):
+        """
+        We need to make sure $releasever gets set up before .repo files are
+        read.  Since there's no redhat-release package in /mnt/sysimage (and
+        won't be for quite a while), we need to do our own substutition.
+        """
         c = ConfigParser()
 
-        treeinfo = self._getTreeinfo(self._baseRepoURL)
+        treeinfo = self._getTreeinfo(self._baseRepoURL, self.proxy_url)
         if not treeinfo:
             return productVersion
 
@@ -833,14 +866,14 @@ class AnacondaYum(YumSorter):
                     repo.sslverify = False
 
                 if ksrepo.proxy:
-                    repo.setProxy(ksrepo)
+                    self.setProxy(ksrepo, repo)
 
                 repo.enable()
                 extraRepos.append(repo)
 
         initialRepos = self.repos.repos.values() + extraRepos
         for repo in initialRepos:
-            addons = self._getAddons(repo.mirrorlist or repo.baseurl[0])
+            addons = self._getAddons(repo.mirrorlist or repo.baseurl[0], repo.proxy_url)
             for addon in addons:
                 addonRepo = AnacondaYumRepo(addon[0])
                 addonRepo.name = addon[1]
@@ -848,6 +881,9 @@ class AnacondaYum(YumSorter):
 
                 if repo.isEnabled():
                     addonRepo.enable()
+
+                if self.anaconda.proxy:
+                    self.setProxy(self.anaconda, addonRepo)
 
                 extraRepos.append(addonRepo)
 
