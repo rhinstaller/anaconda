@@ -383,7 +383,7 @@ class InstallInterface(InstallInterfaceBase):
     def enableNetwork(self):
         if len(self.anaconda.network.netdevices) == 0:
             return False
-        from netconfig_text import NetworkConfiguratorText
+        from textw.netconfig_text import NetworkConfiguratorText
         w = NetworkConfiguratorText(self.screen, self.anaconda)
         ret = w.run()
         return ret != INSTALL_BACK
@@ -405,6 +405,21 @@ class InstallInterface(InstallInterfaceBase):
 
     def saveExceptionWindow(self, accountManager, signature, *args, **kwargs):
         from meh.ui.text import SaveExceptionWindow
+        import urlgrabber
+
+        if not hasActiveNetDev():
+            if self.messageWindow(_("Warning"), 
+                   _("You do not have an active network connection.  This is "
+                     "required by some exception saving methods.  Would you "
+                     "like to configure your network now?"),
+                   type = "yesno"):
+
+                if not self.enableNetwork():
+                    self.messageWindow(_("No Network Available"),
+                                       _("Remote exception saving methods will not work."))
+                else:
+                    urlgrabber.grabber.reset_curl_obj()
+
         win = SaveExceptionWindow (accountManager, signature, screen=self.screen,
                                    *args, **kwargs)
         win.run()
