@@ -223,6 +223,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 11 2010 David Lehman <dlehman@redhat.com> - 14.19-1
+- Attempt to bring the network up before saving a bug report (#635821).
+  (clumens)
+- Honor selected hostname on Live CD (#638634) (rvykydal)
+- Fix permissions of wepkey file to 0600 (#636099) (rvykydal)
+- Preset default config for immediate Close in nm-c-e enablement (#641308)
+  (rvykydal)
+- Fix non-dhcp network enablement in stage 2 (#640951) (rvykydal)
+
 * Wed Oct 06 2010 David Lehman <dlehman@redhat.com> - 14.18-1
 - Fix a storage logging import (#636621). (clumens)
 - Fix setting of $HOME (pjones)

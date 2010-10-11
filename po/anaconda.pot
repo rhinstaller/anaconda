@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 14.17\n"
+"Project-Id-Version: anaconda 14.18\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-10-06 16:35-0500\n"
+"POT-Creation-Date: 2010-10-11 15:59-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,7 +41,7 @@ msgstr ""
 
 #: anaconda:364 pyanaconda/rescue.py:353 pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:392 pyanaconda/rescue.py:475 pyanaconda/rescue.py:488
-#: pyanaconda/rescue.py:499 pyanaconda/text.py:519 loader/windows.h:31
+#: pyanaconda/rescue.py:499 pyanaconda/text.py:534 loader/windows.h:31
 #: loader/cdinstall.c:229 loader/cdinstall.c:233 loader/cdinstall.c:249
 #: loader/cdinstall.c:252 loader/cdinstall.c:428 loader/cdinstall.c:432
 #: loader/cdinstall.c:505 loader/dirbrowser.c:129 loader/driverdisk.c:228
@@ -60,8 +60,8 @@ msgstr ""
 #: loader/loader.c:1212 loader/loader.c:1399 loader/mediacheck.c:47
 #: loader/mediacheck.c:86 loader/mediacheck.c:93 loader/mediacheck.c:97
 #: loader/mediacheck.c:106 loader/method.c:286 loader/method.c:360
-#: loader/net.c:621 loader/net.c:1001 loader/net.c:1649 loader/net.c:1670
-#: loader/net.c:1976 loader/net.c:1995 loader/net.c:2007
+#: loader/net.c:621 loader/net.c:1001 loader/net.c:1654 loader/net.c:1675
+#: loader/net.c:1981 loader/net.c:2000 loader/net.c:2012
 #: loader/nfsinstall.c:116 loader/nfsinstall.c:309 loader/nfsinstall.c:326
 #: loader/nfsinstall.c:414 loader/urlinstall.c:137 loader/urlinstall.c:159
 #: loader/urlinstall.c:221 loader/urlinstall.c:374 loader/urlinstall.c:385
@@ -152,13 +152,14 @@ msgid "Error"
 msgstr ""
 
 #: pyanaconda/bootloader.py:55 pyanaconda/bootloader.py:221
-#: pyanaconda/bootloader.py:227 pyanaconda/image.py:80
+#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1081 pyanaconda/image.py:80
 #: pyanaconda/installinterfacebase.py:51 pyanaconda/installinterfacebase.py:82
 #: pyanaconda/installinterfacebase.py:142 pyanaconda/packages.py:314
-#: pyanaconda/yuminstall.py:1454 pyanaconda/yuminstall.py:1662
-#: pyanaconda/yuminstall.py:1697 pyanaconda/iw/blpasswidget.py:148
-#: pyanaconda/iw/upgrade_swap_gui.py:190 pyanaconda/iw/upgrade_swap_gui.py:198
-#: pyanaconda/iw/upgrade_swap_gui.py:205 pyanaconda/textw/upgrade_text.py:193
+#: pyanaconda/text.py:411 pyanaconda/yuminstall.py:1454
+#: pyanaconda/yuminstall.py:1662 pyanaconda/yuminstall.py:1697
+#: pyanaconda/iw/blpasswidget.py:148 pyanaconda/iw/upgrade_swap_gui.py:190
+#: pyanaconda/iw/upgrade_swap_gui.py:198 pyanaconda/iw/upgrade_swap_gui.py:205
+#: pyanaconda/textw/upgrade_text.py:193
 msgid "Warning"
 msgstr ""
 
@@ -170,8 +171,8 @@ msgid ""
 "Would you like to continue with the installation?"
 msgstr ""
 
-#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1088 pyanaconda/gui.py:1125
-#: pyanaconda/gui.py:1326 pyanaconda/image.py:89 pyanaconda/kickstart.py:156
+#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1104 pyanaconda/gui.py:1141
+#: pyanaconda/gui.py:1342 pyanaconda/image.py:89 pyanaconda/kickstart.py:156
 #: pyanaconda/livecd.py:205 pyanaconda/livecd.py:447
 #: pyanaconda/packages.py:131 pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
@@ -222,7 +223,7 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1120
+#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1136
 #: pyanaconda/kickstart.py:1167 pyanaconda/kickstart.py:1247
 #: pyanaconda/kickstart.py:1255 pyanaconda/kickstart.py:1293
 #: pyanaconda/kickstart.py:1301 pyanaconda/text.py:392
@@ -322,7 +323,7 @@ msgid ""
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: pyanaconda/gui.py:678 pyanaconda/gui.py:1326
+#: pyanaconda/gui.py:678 pyanaconda/gui.py:1342
 #: pyanaconda/partIntfHelpers.py:153 pyanaconda/partIntfHelpers.py:338
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:129
@@ -344,46 +345,62 @@ msgstr ""
 msgid "Scanning access points for wireless devices"
 msgstr ""
 
-#: pyanaconda/gui.py:959 pyanaconda/textw/netconfig_text.py:399
+#: pyanaconda/gui.py:960 pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr ""
 
-#: pyanaconda/gui.py:960
+#: pyanaconda/gui.py:961
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr ""
 
-#: pyanaconda/gui.py:981
+#: pyanaconda/gui.py:982
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr ""
 
-#: pyanaconda/gui.py:984
+#: pyanaconda/gui.py:985
 msgid "Network Configuration"
 msgstr ""
 
-#: pyanaconda/gui.py:993 pyanaconda/iw/netconfig_dialog.py:213
+#: pyanaconda/gui.py:994 pyanaconda/iw/netconfig_dialog.py:213
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr ""
 
-#: pyanaconda/gui.py:995
+#: pyanaconda/gui.py:996
 msgid "Error Enabling Network"
 msgstr ""
 
-#: pyanaconda/gui.py:1122 pyanaconda/text.py:394
+#: pyanaconda/gui.py:1082 pyanaconda/text.py:412
+msgid ""
+"You do not have an active network connection.  This is required by some "
+"exception saving methods.  Would you like to configure your network now?"
+msgstr ""
+
+#: pyanaconda/gui.py:1088 pyanaconda/kickstart.py:150 pyanaconda/rescue.py:262
+#: pyanaconda/text.py:418 pyanaconda/yuminstall.py:751
+#: pyanaconda/yuminstall.py:1199 pyanaconda/iw/task_gui.py:311
+msgid "No Network Available"
+msgstr ""
+
+#: pyanaconda/gui.py:1089 pyanaconda/text.py:419
+msgid "Remote exception saving methods will not work."
+msgstr ""
+
+#: pyanaconda/gui.py:1138 pyanaconda/text.py:394
 msgid "Error Parsing Kickstart Config"
 msgstr ""
 
-#: pyanaconda/gui.py:1150
+#: pyanaconda/gui.py:1166
 msgid "default:LTR"
 msgstr ""
 
-#: pyanaconda/gui.py:1230 pyanaconda/text.py:496
+#: pyanaconda/gui.py:1246 pyanaconda/text.py:511
 msgid "Error!"
 msgstr ""
 
-#: pyanaconda/gui.py:1231 pyanaconda/text.py:497
+#: pyanaconda/gui.py:1247 pyanaconda/text.py:512
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -391,50 +408,50 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: pyanaconda/gui.py:1236 pyanaconda/image.py:163 pyanaconda/image.py:192
+#: pyanaconda/gui.py:1252 pyanaconda/image.py:163 pyanaconda/image.py:192
 #: pyanaconda/packages.py:331 pyanaconda/storage/__init__.py:1817
 msgid "_Exit"
 msgstr ""
 
-#: pyanaconda/gui.py:1237 pyanaconda/image.py:163 pyanaconda/image.py:192
+#: pyanaconda/gui.py:1253 pyanaconda/image.py:163 pyanaconda/image.py:192
 #: pyanaconda/livecd.py:205 pyanaconda/yuminstall.py:835
 #: pyanaconda/yuminstall.py:1221 pyanaconda/yuminstall.py:1275
 #: pyanaconda/yuminstall.py:1482
 msgid "_Retry"
 msgstr ""
 
-#: pyanaconda/gui.py:1239 pyanaconda/storage/partitioning.py:283
+#: pyanaconda/gui.py:1255 pyanaconda/storage/partitioning.py:283
 msgid "The system will now reboot."
 msgstr ""
 
-#: pyanaconda/gui.py:1240 pyanaconda/image.py:249 pyanaconda/packages.py:335
+#: pyanaconda/gui.py:1256 pyanaconda/image.py:249 pyanaconda/packages.py:335
 #: pyanaconda/yuminstall.py:1523
 msgid "_Reboot"
 msgstr ""
 
-#: pyanaconda/gui.py:1242
+#: pyanaconda/gui.py:1258
 msgid "Exiting"
 msgstr ""
 
-#: pyanaconda/gui.py:1323 pyanaconda/livecd.py:126 pyanaconda/text.py:271
+#: pyanaconda/gui.py:1339 pyanaconda/livecd.py:126 pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr ""
 
-#: pyanaconda/gui.py:1324
+#: pyanaconda/gui.py:1340
 msgid "Are you sure you wish to exit the installer?"
 msgstr ""
 
-#: pyanaconda/gui.py:1333
+#: pyanaconda/gui.py:1349
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: pyanaconda/gui.py:1339
+#: pyanaconda/gui.py:1355
 msgid "Unable to load title bar"
 msgstr ""
 
-#: pyanaconda/gui.py:1417
+#: pyanaconda/gui.py:1433
 msgid "Install Window"
 msgstr ""
 
@@ -685,12 +702,6 @@ msgstr ""
 
 #: pyanaconda/kickstart.py:123 pyanaconda/kickstart.py:125
 msgid "Scriptlet Failure"
-msgstr ""
-
-#: pyanaconda/kickstart.py:150 pyanaconda/rescue.py:262
-#: pyanaconda/yuminstall.py:751 pyanaconda/yuminstall.py:1199
-#: pyanaconda/iw/task_gui.py:311
-msgid "No Network Available"
 msgstr ""
 
 #: pyanaconda/kickstart.py:151
@@ -1267,8 +1278,8 @@ msgstr ""
 msgid "Which device holds the root partition of your installation?"
 msgstr ""
 
-#: pyanaconda/rescue.py:353 pyanaconda/rescue.py:357 pyanaconda/text.py:501
-#: pyanaconda/text.py:503
+#: pyanaconda/rescue.py:353 pyanaconda/rescue.py:357 pyanaconda/text.py:516
+#: pyanaconda/text.py:518
 msgid "Exit"
 msgstr ""
 
@@ -1348,32 +1359,32 @@ msgstr ""
 msgid "Repository editing is not available in text mode."
 msgstr ""
 
-#: pyanaconda/text.py:422
+#: pyanaconda/text.py:437
 #, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
 msgstr ""
 
-#: pyanaconda/text.py:424
+#: pyanaconda/text.py:439
 #, python-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: pyanaconda/text.py:426
+#: pyanaconda/text.py:441
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: pyanaconda/text.py:501 loader/net.c:110 loader/net.c:513 loader/net.c:568
+#: pyanaconda/text.py:516 loader/net.c:110 loader/net.c:513 loader/net.c:568
 #: loader/net.c:710 loader/net.c:718 loader/net.c:1148 loader/net.c:1156
 msgid "Retry"
 msgstr ""
 
-#: pyanaconda/text.py:515
+#: pyanaconda/text.py:530
 msgid "Cancelled"
 msgstr ""
 
-#: pyanaconda/text.py:516
+#: pyanaconda/text.py:531
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
@@ -3555,7 +3566,7 @@ msgstr ""
 #: loader/driverselect.c:179 loader/hdinstall.c:212 loader/hdinstall.c:266
 #: loader/kbd.c:119 loader/loader.c:510 loader/loader.c:527
 #: loader/loader.c:1399 loader/loader.c:1432 loader/net.c:621
-#: loader/net.c:1001 loader/net.c:1976 loader/net.c:1995
+#: loader/net.c:1001 loader/net.c:1981 loader/net.c:2000
 #: loader/nfsinstall.c:116 loader/urls.c:269
 #: pyanaconda/storage/__init__.py:123 pyanaconda/storage/__init__.py:169
 #: pyanaconda/storage/devicetree.py:90 pyanaconda/textw/constants_text.py:52
@@ -3663,7 +3674,7 @@ msgstr ""
 #: loader/driverdisk.c:709 loader/driverdisk.c:748 loader/hdinstall.c:360
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:339 loader/kickstart.c:355
-#: loader/kickstart.c:571 loader/net.c:1649 loader/net.c:1670
+#: loader/kickstart.c:571 loader/net.c:1654 loader/net.c:1675
 #: loader/nfsinstall.c:414 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -4165,62 +4176,62 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1650
+#: loader/net.c:1655
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1671
+#: loader/net.c:1676
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1776
+#: loader/net.c:1781
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:1971
+#: loader/net.c:1976
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:1972
+#: loader/net.c:1977
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:1976
+#: loader/net.c:1981
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:1985
+#: loader/net.c:1990
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:1987
+#: loader/net.c:1992
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:1994
+#: loader/net.c:1999
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2007
+#: loader/net.c:2012
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2008
+#: loader/net.c:2013
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2020
+#: loader/net.c:2025
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2190 loader/net.c:2194
+#: loader/net.c:2195 loader/net.c:2199
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
