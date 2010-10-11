@@ -13,13 +13,13 @@ msgstr ""
 "Project-Id-Version: anaconda.master.pa\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-10-03 21:36+0530\n"
+"PO-Revision-Date: 2010-10-11 08:17+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: anaconda:313
@@ -984,7 +984,7 @@ msgid "_File Bug"
 msgstr "ਬੱਗ ਦਿਓ(_F)"
 
 #: pyanaconda/packages.py:314
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Warning!  This is pre-release software!\n"
 "\n"
@@ -1000,7 +1000,9 @@ msgid ""
 "\n"
 "and file a report against '%(fileagainst)s'.\n"
 msgstr ""
-"ਇਸ %(productName)s ਦੇ ਪਹਿਲਾਂ ਜਾਰੀ ਵਰਜਨ ਨੂੰ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ\n"
+"ਸਾਵਧਾਨ! ਇਸ ਪਹਿਲਾਂ ਜਾਰੀ ਵਰਜਨ ਹੈ!\n"
+"\n"
+"%(productName)s ਦੇ ਪਹਿਲਾਂ ਜਾਰੀ ਰੀਲਿਜ਼ ਨੂੰ ਡਾਊਨਲੋਡ ਕਰਨ ਲਈ ਤੁਹਾਡਾ ਧੰਨਵਾਦ\n"
 "\n"
 "ਇਹ ਮੁੱਖ ਜਾਰੀ ਵਰਜਨ ਨਹੀਂ ਹੈ ਅਤੇ ਇਸ ਨੂੰ ਉਤਪਾਦਨ ਲਈ ਨਹੀਂ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ। ਇਸ ਦਾ ਮੁੱਖ ਮੰਤਵ "
 "ਟੈਸਟਰਾਂ ਕੋਲੋਂ ਨਤੀਜੇ ਇੱਕਠੇ ਕਰਨੇ ਹਨ ਅਤੇ ਇਸ ਨੂੰ ਨਿੱਤ ਦੀਆਂ ਜਰੂਰਤਾਂ ਮੁਤਾਬਿਕ ਨਹੀਂ ਵਰਤਿਆ ਜਾ ਸਕਦਾ ਹੈ।\n"
@@ -1591,6 +1593,11 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"ਤੁਹਾਡੀ ਮੌਜਦਾ ਇੰਸਟਾਲੇਸ਼ਨ ਨੂੰ ਅੱਪਗਰੇਡ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ। ਇਹ ਸ਼ਾਇਦ ਬਹੁਤੀ ਪੁਰਾਣੀ ਹੋਣ ਕਰਕੇ "
+"ਹੋ ਸਕਦਾ ਹੈ। ਕੇਵਲ ਦੋ ਪੁਰਾਣੇ ਰੀਲਿਜ਼ ਤੋਂ ਹੀ ਅੱਪਗਰੇਡ ਕੀਤਾ ਜਾ ਸਕਦਾ ਹੈ। ਪੁਰਾਣੇ ਰੀਲਿਜ਼ ਤੋਂ ਅੱਪਗਰੇਡ "
+"ਕਰਨ ਲਈ ਪਹਿਲਾਂ ਤੁਹਾਨੂੰ ਕੁਝ ਵਿਚਲੇ ਰੀਲਿਜ਼ ਲਈ ਅਪਗਰੇਡ ਕਰਨਾ ਪਵੇਗਾ।\n"
+"\n"
+"%s"
 
 #: pyanaconda/upgrade.py:229
 msgid "Mount failed"
@@ -2889,15 +2896,15 @@ msgstr ""
 "ਵਾਲੀਅਮ ਬਣਾ ਸਕਦੇ ਹੋ ਅਤੇ ਉਹਨਾਂ ਨੂੰ ਇਸ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ ਜੋੜ ਸਕਦੇ ਹੋ।"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:719
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
 "size of the other logical volume(s) exceeds the size of the volume group (%"
 "(tempvgsize)d MB). Please make the volume group larger or make the logical "
 "volume smaller."
 msgstr ""
-"ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਜੋ ਤੁਸੀਂ ਸੰਰਚਿਤ ਕੀਤਾ ਹੈ, ਲਈ %(size)d MB ਦੀ ਲੋੜ ਹੈ, ਪਰ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ "
-"ਸਿਰਫ %(tempvgsize)d MB ਹੈ। ਕਿਰਪਾ ਕਰਕੇ ਜਾਂ ਤਾਂ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵੱਡਾ ਕਰੇ ਜਾਂ ਲਾਜੀਕਲ ਵਾਲੀਅਮ "
+"ਲਾਜੀਕਲ ਵਾਲੀਅਮ ਆਕਾਰ, ਜੋ ਤੁਸੀਂ ਦਿੱਤਾ ਹੈ, ਲਈ %(size)d MB ਦੀ ਲੋੜ ਹੈ, ਪਰ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚ "
+"ਸਿਰਫ %(tempvgsize)d MB ਹੈ। ਜਾਂ ਤਾਂ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵੱਡਾ ਕਰੋ ਜਾਂ ਲਾਜੀਕਲ ਵਾਲੀਅਮ "
 "ਛੋਟਾ ਬਣਾਓ।"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:829
@@ -3817,7 +3824,6 @@ msgid "Network Install Required"
 msgstr "ਨੈੱਟਵਰਕ ਇੰਸਟਾਲ ਲੋੜੀਦਾ ਹੈ"
 
 #: pyanaconda/iw/welcome_gui.py:57 pyanaconda/textw/welcome_text.py:37
-#, fuzzy
 msgid ""
 "Your installation source is set to a network location, but no network "
 "devices were found on your system.  To avoid a network installation, boot "
@@ -3890,7 +3896,7 @@ msgstr "ਡਾਇਨਾਮਿਕ IP ਸੰਰਚਨਾ (DHCPv6) "
 
 #: loader/net.h:31
 msgid "Automatic neighbor discovery"
-msgstr ""
+msgstr "ਆਟੋਮੈਟਿਕ ਗੁਆਂਢ ਖੋਜ"
 
 #: loader/cdinstall.c:186 loader/cdinstall.c:207 loader/mediacheck.c:61
 msgid "Media Check"
@@ -4432,7 +4438,7 @@ msgstr "ਲੋਡਰ ਤਾਂ ਪਹਿਲਾਂ ਹੀ ਚੱਲ ਰਿਹਾ 
 #: loader/loader.c:2125
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
-msgstr ""
+msgstr "%s ਵਿੱਚ ਡਰਾਇਵਰ ਡਿਸਕ ਖੋਜੀ ਗਈ ਹੈ। ਕੀ ਇਸ ਨੂੰ ਵਰਤਣਾ ਹੈ?"
 
 #: loader/loader.c:2128
 msgid "Driver disc detected"
@@ -4830,7 +4836,7 @@ msgstr "ਡਿਸਕ ਨਹੀਂ ਮਿਲੀ"
 
 #: pyanaconda/storage/__init__.py:121
 msgid "No usable disks have been found."
-msgstr ""
+msgstr "ਕੋਈ ਵਰਤੋਂਯੋਗ ਡਰਾਇਵ ਨਹੀਂ ਲੱਭੀ।"
 
 #: pyanaconda/storage/__init__.py:132
 msgid "Installation cannot continue."
@@ -5394,7 +5400,7 @@ msgstr "iSCSI ਨੋਡਾਂ ਨੂੰ ਸਕੈਨ ਕਰ ਰਿਹਾ ਹੈ"
 
 #: pyanaconda/storage/iscsi.py:135
 msgid "Unable to change iSCSI initiator name once set"
-msgstr ""
+msgstr "iSCSI initiator ਨਾਂ ਇੱਕ ਵਾਰ ਸੈੱਟ ਕਰਨ ਦੇ ਬਾਅਦ ਬਦਲਣਾ ਸੰਭਵ ਨਹੀਂ"
 
 #: pyanaconda/storage/iscsi.py:137
 msgid "Must provide an iSCSI initiator name"
@@ -6073,7 +6079,6 @@ msgstr ""
 "ਜਾਵੇਗਾ। ਬੈਕਅੱਪ ਲੈਣਾ ਨਾ ਭੁੱਲੋ।"
 
 #: data/ui/cleardisks.glade.h:4
-#, fuzzy
 msgid ""
 "Below are the storage devices you've selected to be a part of this "
 "installation.  Please indicate using the arrows below which devices you'd "
@@ -6082,10 +6087,10 @@ msgid ""
 "formatted).  Please also indicate which system drive will have the "
 "bootloader installed."
 msgstr ""
-"ਹੇਠਾਂ ਉਹ ਸਟੋਰੇਜ਼ ਜੰਤਰ ਹਨ ਜੋ ਤੁਸੀਂ ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਦਾ ਹਿੱਸਾ ਬਣਾਉਣ ਲਈ ਚੁਣੇ ਹਨ। ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਲਾ "
+"ਹੇਠਾਂ ਉਹ ਸਟੋਰੇਜ਼ ਜੰਤਰ ਹਨ, ਜੋ ਤੁਸੀਂ ਇਸ ਇੰਸਟਾਲੇਸ਼ਨ ਦਾ ਹਿੱਸਾ ਬਣਾਉਣ ਲਈ ਚੁਣੇ ਹਨ। ਕਿਰਪਾ ਕਰਕੇ ਹੇਠਲਾ "
 "ਤੀਰ ਵਰਤ ਕੇ ਜੰਤਰ ਚੁਣੋ ਜੋ ਤੁਸੀਂ ਡਾਟਾ ਡਰਾਈਵ ਤੌਰ ਤੇ ਵਰਤਣਾ ਹੈ (ਉਹ ਫਾਰਮੈਟ ਨਹੀਂ ਕੀਤੇ ਜਾਣਗੇ, ਸਿਰਫ "
-"ਮਾਊਂਟ ਕੀਤੇ ਜਾਣਗੇ) ਅਤੇ ਉਹ ਜੰਤਰ ਚੁਣੋ ਜੋ ਤੁਸੀਂ ਸਿਸਟਮ ਡਰਾਈਵ ਤੌਰ ਤੇ ਵਰਤਣੇ ਹਨ (ਇਹ ਫਾਰਮੈਟ ਕੀਤੇ ਜਾ "
-"ਸਕਦੇ ਹਨ)।"
+"ਮਾਊਂਟ ਕੀਤੇ ਜਾਣਗੇ) ਅਤੇ ਉਹ ਜੰਤਰ ਚੁਣੋ, ਜੋ ਤੁਸੀਂ ਸਿਸਟਮ ਡਰਾਈਵ ਤੌਰ ਤੇ ਵਰਤਣੇ ਹਨ (ਇਹ ਫਾਰਮੈਟ ਕੀਤੇ ਜਾ "
+"ਸਕਦੇ ਹਨ)। ਨਾਲੇ ਇਹ ਵੀ ਦਰਸਾਉ ਕਕਿ ਕਿਹੜੀ ਸਿਸਟਮ ਡਰਾਇਵ ਉੱਤੇ ਬੂਟ-ਲੋਡਰ ਇੰਸਟਾਲ ਕੀਤਾ ਜਾਵੇ।"
 
 #: data/ui/create-storage.glade.h:1
 msgid "<span size=\"small\" color=\"gray\">Create a RAID formatted partition</span>"
