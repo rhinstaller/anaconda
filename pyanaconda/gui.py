@@ -1086,6 +1086,21 @@ class InstallInterface(InstallInterfaceBase):
 
     def saveExceptionWindow(self, accountManager, signature):
         from meh.ui.gui import SaveExceptionWindow
+        import urlgrabber
+
+        if not network.hasActiveNetDev():
+            if self.messageWindow(_("Warning"),
+                   _("You do not have an active network connection.  This is "
+                     "required by some exception saving methods.  Would you "
+                     "like to configure your network now?"),
+                   type = "yesno"):
+
+                if not self.enableNetwork():
+                    self.messageWindow(_("No Network Available"),
+                                       _("Remote exception saving methods will not work."))
+                else:
+                    urlgrabber.grabber.reset_curl_obj()
+
         win = SaveExceptionWindow (accountManager, signature)
         win.run()
 
