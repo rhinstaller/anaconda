@@ -147,6 +147,14 @@ class PartitionTypeWindow(InstallWindow):
         if self.storage.checkNoDisks():
             raise gui.StayOnScreen
 
+        # reset storage, this is only done when moving forward, not back
+        # temporarily unset storage.clearPartType so that all devices will be
+        # found during storage reset
+        clearPartType = self.anaconda.id.storage.clearPartType
+        self.anaconda.id.storage.clearPartType = None
+        self.anaconda.id.storage.reset()
+        self.anaconda.id.storage.clearPartType = clearPartType
+
         self.storage.clearPartChoice = self.buttonGroup.getCurrent()
 
         if self.buttonGroup.getCurrent() == "custom":
