@@ -258,7 +258,7 @@ class NetworkDevice(IfcfgFile):
         ifcfglog.debug("%s:\n%s" % (self.path, self.fileContent()))
         ifcfglog.debug("NetworkDevice %s:\n%s" % (self.iface, self.__str__()))
         ifcfglog.debug("writeIfcfgFile %s to %s%s" % (self.iface, self.path,
-                                                  (self._dirty and "" or " not needed")))
+                                                  ("" if self._dirty else " not needed")))
 
         if self._dirty:
             IfcfgFile.write(self)
