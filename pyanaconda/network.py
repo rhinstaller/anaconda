@@ -523,7 +523,6 @@ class Network:
             if devname in devssids.keys() and devssids[devname]:
                 device.set(('ESSID', devssids[devname][0]))
                 device.writeIfcfgFile()
-                device.log_file("updateIfcfgSSID\n")
 
     def getSSIDs(self):
         return getSSIDs(self.netdevices.keys())
