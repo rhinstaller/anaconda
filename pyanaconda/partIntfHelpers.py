@@ -355,7 +355,7 @@ def confirmResetPartitionState(intf):
     return rc
 
 
-""" iSCSI GUI helper objects """
+# iSCSI GUI helper objects
 
 # the credentials constants: are necessary to implement a concrete iSCSIWizard
 CRED_NONE   = (0, _("No credentials (discovery authentication disabled)"))
