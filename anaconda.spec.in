@@ -223,6 +223,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Oct 14 2010 David Lehman <dlehman@redhat.com> - 14.20-1
+- Make sure we have the container before the member arrays. (#642765) (dlehman)
+- use different approach to tweak gconf settings in the image (#642358).
+  (akozumpl)
+- anaconda: Disable X server regenerations (#609245) (ajax)
+- Rescan disks when moving back through upgrade check (#635778) (bcl)
+- Turn off betanag. (#642483) (dlehman)
+
 * Mon Oct 11 2010 David Lehman <dlehman@redhat.com> - 14.19-1
 - Attempt to bring the network up before saving a bug report (#635821).
   (clumens)
