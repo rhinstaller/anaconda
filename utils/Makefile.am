@@ -25,7 +25,6 @@ dist_sbin_SCRIPTS    = logpicker
 utils_PROGRAMS      = modlist mapshdr readmap
 dist_utils_SCRIPTS  = genmodinfo trimpciids
 noinst_PROGRAMS     = snarffont
-dist_noinst_SCRIPTS = filtermoddeps
 
 if IS_S390
 utils_PROGRAMS      += addrsize mk-s390-cdboot
