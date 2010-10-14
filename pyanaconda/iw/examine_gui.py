@@ -43,42 +43,42 @@ class UpgradeExamineWindow (InstallWindow):
             upgrade.setSteps(self.anaconda)
             self.anaconda.upgrade = True
 
-	    rootfs = self.parts[self.upgradecombo.get_active()]
+            rootfs = self.parts[self.upgradecombo.get_active()]
             self.anaconda.upgradeRoot = [(rootfs[0], rootfs[1])]
             self.anaconda.rootParts = self.parts
 
             self.anaconda.upgrade = True
         else:
             self.anaconda.upgrade = False
-	
+
         return None
 
     def createUpgradeOption(self):
-	r = pixmapRadioButtonGroup()
-	r.addEntry(REINSTALL_STR, _("Fresh Installation"),
-		   pixmap=gui.readImageFromFile("install.png"),
+        r = pixmapRadioButtonGroup()
+        r.addEntry(REINSTALL_STR, _("Fresh Installation"),
+                   pixmap=gui.readImageFromFile("install.png"),
                    descr=_("Choose this option to install a fresh copy of %s "
                            "on your system.  Existing software and data may "
                            "be overwritten depending on your configuration "
                            "choices.") % productName)
 
-	r.addEntry(UPGRADE_STR, _("Upgrade an Existing Installation"),
-		   pixmap=gui.readImageFromFile("upgrade.png"),
+        r.addEntry(UPGRADE_STR, _("Upgrade an Existing Installation"),
+                   pixmap=gui.readImageFromFile("upgrade.png"),
                    descr=_("Choose this option if you would like to upgrade "
                            "your existing %s system.  This option will "
                            "preserve the existing data on your storage "
                            "device(s).") % productName)
 
-	return r
+        return r
 
     def upgradeOptionsSetSensitivity(self, state):
-	self.uplabel.set_sensitive(state)
-	self.upgradecombo.set_sensitive(state)
+        self.uplabel.set_sensitive(state)
+        self.upgradecombo.set_sensitive(state)
 
     def optionToggled(self, widget, name):
-	if name == UPGRADE_STR:
-	    self.upgradeOptionsSetSensitivity(widget.get_active())
-	    self.doupgrade = widget.get_active()
+        if name == UPGRADE_STR:
+            self.upgradeOptionsSetSensitivity(widget.get_active())
+            self.doupgrade = widget.get_active()
 
     #UpgradeExamineWindow tag = "upgrade"
     def getScreen (self, anaconda):
@@ -112,7 +112,7 @@ class UpgradeExamineWindow (InstallWindow):
             self.doupgrade = self.anaconda.upgrade
 
         vbox = gtk.VBox (False, 12)
-	vbox.set_border_width (8)
+        vbox.set_border_width (8)
 
         introLabel = gtk.Label(_("At least one existing installation has been "
                                  "detected on your system.  What would you "
@@ -120,37 +120,37 @@ class UpgradeExamineWindow (InstallWindow):
         introLabel.set_alignment(0, 0)
         vbox.pack_start(introLabel, False, False)
 
-	r = self.createUpgradeOption()
+        r = self.createUpgradeOption()
         self.r = r
 
-	b = self.r.render()
-	if self.doupgrade:
-	    self.r.setCurrent(UPGRADE_STR)
-	else:
-	    self.r.setCurrent(REINSTALL_STR)
+        b = self.r.render()
+        if self.doupgrade:
+            self.r.setCurrent(UPGRADE_STR)
+        else:
+            self.r.setCurrent(REINSTALL_STR)
 
-	self.r.setToggleCallback(self.optionToggled)
+        self.r.setToggleCallback(self.optionToggled)
         vbox.pack_start(b, False)
         self.root = self.parts[0]
 
-	uplabelstr = _("<b>Which %s installation would you like to upgrade?</b>") % productName
-	self.uplabel = gtk.Label(uplabelstr)
+        uplabelstr = _("<b>Which %s installation would you like to upgrade?</b>") % productName
+        self.uplabel = gtk.Label(uplabelstr)
         self.uplabel.set_use_markup(True)
         self.uplabel.set_alignment(0, 0)
         model = gtk.ListStore(str)
-	self.upgradecombo = gtk.ComboBox(model)
+        self.upgradecombo = gtk.ComboBox(model)
 
         cell = gtk.CellRendererText()
         self.upgradecombo.pack_start(cell, True)
         self.upgradecombo.set_attributes(cell, markup=0)
 
-	for (dev, desc) in self.parts:
+        for (dev, desc) in self.parts:
             iter = model.append()
-	    if (desc is None) or len(desc) < 1:
-		desc = _("Unknown Linux system")
+            if (desc is None) or len(desc) < 1:
+                desc = _("Unknown Linux system")
             model[iter][0] = "<small>%s <i>(installed on %s)</i></small>" %(desc, dev.path)
 
-	# hack hack hackity hack
+        # hack hack hackity hack
         alignment = gtk.Alignment(xalign=0.25)
         alignmentBox = gtk.VBox(False, 6)
         alignmentBox.pack_start(self.uplabel, False, False)
@@ -158,14 +158,15 @@ class UpgradeExamineWindow (InstallWindow):
         alignment.add(alignmentBox)
         vbox.pack_start(alignment, True, True)
 
-	# set default
-	idx = 0
-	for p in self.parts:
-	    if self.anaconda.upgradeRoot[0][0] == p[0]:
-	        self.upgradecombo.set_active(idx)
-	        break
-	    idx = idx + 1
+        # set default
+        idx = 0
+        for p in self.parts:
+            if self.anaconda.upgradeRoot[0][0] == p[0]:
+                self.upgradecombo.set_active(idx)
+                break
+            idx = idx + 1
 
-	self.upgradeOptionsSetSensitivity(self.doupgrade)
+        self.upgradeOptionsSetSensitivity(self.doupgrade)
 
         return vbox
+
