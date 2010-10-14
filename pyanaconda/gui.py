@@ -902,11 +902,6 @@ class InstallInterface(InstallInterfaceBase):
         if len(self.anaconda.network.netdevices) == 0:
             return False
 
-        nm_controlled_devices = [devname for (devname, dev)
-                                 in self.anaconda.network.netdevices.items()
-                                 if not dev.usedByFCoE(self.anaconda)]
-        if not just_setup and not nm_controlled_devices:
-            return False
 
         from iw.network_gui import (runNMCE,
                                  selectInstallNetDeviceDialog,
@@ -914,6 +909,14 @@ class InstallInterface(InstallInterfaceBase):
 
         networkEnabled = False
         while not networkEnabled:
+
+            # We need to do it in each iteration because user can
+            # delete ifcfg file in nm-c-e
+            nm_controlled_devices = [devname for (devname, dev)
+                                     in self.anaconda.network.netdevices.items()
+                                     if not dev.usedByFCoE(self.anaconda)]
+            if not just_setup and not nm_controlled_devices:
+                return False
 
             if just_setup:
                 install_device = None
