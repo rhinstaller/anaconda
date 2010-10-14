@@ -1078,52 +1078,20 @@ cat > $DEST/.gconf/desktop/gnome/interface/%gconf.xml <<EOF
 EOF
 
 # anaconda needs to change a couple of the default gconf entries
-GCONF_RULES_FILE=$DEST/etc/gconf/gconf.xml.defaults/anaconda.rules
-cat > $GCONF_RULES_FILE <<EOF
-<?xml version="1.0"?>
-<gconfentryfile>
-
-  <entrylist base="/apps">
-    <entry>
-      <key>metacity/general/button_layout</key>
-      <schema_key>/schemas/apps/metacity/general/button_layout</schema_key>
-      <value>
-        <string>:</string>
-      </value>
-    </entry>
-    <entry>
-      <key>metacity/general/action_right_click_titlebar</key>
-      <schema_key>/schemas/apps/metacity/general/action_right_click_titlebar</schema_key>
-      <value>
-        <string>none</string>
-      </value>
-    </entry>
-    <entry>
-      <key>metacity/window_keybindings/close</key>
-      <schema_key>/schemas/apps/metacity/window_keybindings/close</schema_key>
-      <value>
-        <string>disabled</string>
-      </value>
-    </entry>
-    <entry>
-      <key>metacity/global_keybindings/run_command_window_screenshot</key>
-      <schema_key>/metacity/global_keybindings/run_command_window_screenshot</schema_key>
-      <value>
-        <string>disabled</string>
-      </value>
-    </entry>
-    <entry>
-      <key>metacity/global_keybindings/run_command_screenshot</key>
-      <schema_key>/metacity/global_keybindings/run_command_screenshot</schema_key>
-      <value>
-        <string>disabled</string>
-      </value>
-    </entry>
-  </entrylist>
-
-</gconfentryfile>
-EOF
-gconftool-2 --direct --config-source="xml:readwrite:$DEST/etc/gconf/gconf.xml.defaults" --load $GCONF_RULES_FILE
+GCONF_CONFIG_SOURCE="xml:readwrite:$DEST/etc/gconf/gconf.xml.defaults"
+echo "Updating gconf at $GCONF_CONFIG_SOURCE"
+gconf_update() {
+    path=$1
+    entry_type=$2
+    value=$3
+    CMD="gconftool-2 --direct --config-source=$GCONF_CONFIG_SOURCE -s -t $entry_type $path $value"
+    $($CMD)
+}
+gconf_update /apps/metacity/general/button_layout string :
+gconf_update /apps/metacity/general/action_right_click_titlebar string none
+gconf_update /apps/metacity/window_keybindings/close string disabled
+gconf_update /apps/metacity/global_keybindings/run_command_window_screenshot string disabled
+gconf_update /apps/metacity/global_keybindings/run_command_screenshot string disabled
 
 rm -rf $YUMDIR
 
