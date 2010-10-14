@@ -106,7 +106,7 @@ class UpgradeExamineWindow (InstallWindow):
 
         if not seenExamineScreen:
             # this is the first time we've entered this screen
-            self.doupgrade = self.anaconda.upgrade or self.parts
+            self.doupgrade = self.anaconda.upgrade or bool(self.parts)
             seenExamineScreen = True
         else:
             self.doupgrade = self.anaconda.upgrade
