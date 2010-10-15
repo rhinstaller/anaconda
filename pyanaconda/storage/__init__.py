@@ -116,7 +116,7 @@ def storageInitialize(anaconda):
     else:
         storage.reset()
 
-    if not storage.disks:
+    if not filter(lambda d: not d.format.hidden, storage.disks):
         rc = anaconda.intf.messageWindow(_("No disks found"),
                 _("No usable disks have been found."),
                 type="custom",
