@@ -743,11 +743,11 @@ class AnacondaYum(YumSorter):
             self.preconf.fn = fn
             self.preconf.root = root
             self.preconf.releasever = self._getReleasever()
-            self.preconf.enabled_plugins = ["whiteout", "blacklist"]
+            self.preconf.enabled_plugins = ["whiteout", "blacklist", "pidplugin"]
             YumSorter._getConfig(self)
         else:
             YumSorter._getConfig(self, fn=fn, root=root,
-                                 enabled_plugins=["whiteout", "blacklist"])
+                                 enabled_plugins=["whiteout", "blacklist", "pidplugin"])
         self.configBaseRepo(root=root)
 
         extraRepos = []

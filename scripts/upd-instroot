@@ -194,7 +194,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     reiserfs-utils report-config-default report-gtk report-newt rpm rpm-libs
     rpm-python sed selinux-policy-targeted
     setup slang smc-meera-fonts specspo sqlite startup-notification 
-    synaptics system-config-date
+    subscription-manager synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
     sysvinit-tools tcp_wrappers tcp_wrappers-libs telnet
     tzdata udev un-core-dotum-fonts urw-fonts util-linux-ng tigervnc-server
@@ -398,6 +398,7 @@ etc/protocols
 etc/rc.d/init.d/functions
 etc/report.conf
 etc/report.d/*
+etc/rhsm
 etc/rpm/macros.prelink
 etc/security/limits.conf
 etc/security/pam_env.conf
@@ -408,9 +409,7 @@ etc/sysconfig/network-scripts/network-functions*
 etc/udev
 etc/wpa_supplicant/wpa_supplicant.conf
 etc/yum.repos.d/*
-etc/yum/pluginconf.d/blacklist.conf
-etc/yum/pluginconf.d/fedorakmod.conf
-etc/yum/pluginconf.d/whiteout.conf
+etc/yum/pluginconf.d/*.conf
 lib/terminfo
 lib/udev
 sbin/*gfs*
@@ -609,9 +608,7 @@ usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
 usr/share/syslinux
 usr/lib/yaboot
-usr/lib/yum-plugins/blacklist.py*
-usr/lib/yum-plugins/fedorakmod.py*
-usr/lib/yum-plugins/whiteout.py*
+usr/lib/yum-plugins/*.py*
 usr/libexec/convertdb1
 usr/libexec/fcoe/fcoe_edd.sh
 usr/libexec/hal*
@@ -704,6 +701,7 @@ usr/share/pixmaps/no.xpm
 usr/share/pixmaps/yes.xpm
 usr/share/ppc64-utils
 usr/share/python-meh/*
+usr/share/rhsm
 usr/share/system-config-date
 usr/share/system-config-date/zonetab.py*
 usr/share/system-config-keyboard
@@ -723,6 +721,7 @@ var/lib/polkit-1
 var/lib/dbus
 var/lib/hal
 var/lib/lldpad
+var/log/rhsm
 var/report
 var/run/dbus
 EOF
