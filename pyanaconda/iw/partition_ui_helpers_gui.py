@@ -70,7 +70,7 @@ def createAlignedLabel(text):
 
     return label
 
-defaultMountPoints = ['/', '/boot', '/home', '/tmp', '/usr',
+defaultMountPoints = ['/', '/boot', '/home', '/tmp',
                       '/var', '/usr/local', '/opt']
 
 if iutil.isS390():
