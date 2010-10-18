@@ -221,6 +221,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 18 2010 Chris Lumens <clumens@redhat.com> - 13.21.83-1
+- Add the subscription manager yum plugin (dgregor).
+  Resolves: rhbz#643438
+
 * Mon Aug 30 2010 David Cantrell <dcantrell@redhat.com> - 13.21.82-1
 - Disable BETANAG for RHEL6 (clumens).
   Resolves: rhbz#628459
