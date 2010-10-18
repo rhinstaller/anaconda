@@ -225,6 +225,54 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 18 2010 Chris Lumens <clumens@redhat.com> - 15.3-1
+- Don't recommend /usr as a mount point anymore (#643640). (clumens)
+- Add some debugging prints. (clumens)
+- Don't prompt for kbd, lang, or network on CD/DVD installs. (clumens)
+- We no longer need to copy the install.img over and lochangefd to it.
+  (clumens)
+- Also rework image loading for CD/DVD installs. (clumens)
+- Remove a bunch of unused support functions. (clumens)
+- Use parseDeviceAndDir instead of reimplementing the same things two more
+  times. (clumens)
+- Rework how image loading works for HD installs. (clumens)
+- Remove the unused mountNfsImage and all code that was only called by it.
+  (clumens)
+- Rework how image loading works for NFS installs. (clumens)
+- Remove the unused iurlinfo, urlInstallData, and fix up URL kickstarts.
+  (clumens)
+- Initialize loaderData->method. (clumens)
+- Remove the unused mountUrlImage function. (clumens)
+- Rework how loading images works for URL installs. (clumens)
+- urlinstTransfer and support functions do not operate on iurlinfo anymore.
+  (clumens)
+- urlMainSetupPanel no longer takes an iurlinfo. (clumens)
+- Deprecate stage2=, keep method= as it's been for a long time now. (clumens)
+- migrate_runtime_directory no longer does anything useful. (clumens)
+- Remove the method selection block from the beginning of doLoaderMain.
+  (clumens)
+- Fix up copying of firmware. (clumens)
+- Correct paths of things started by loader/init that have moved. (clumens)
+- Step 3 of merging installer images:  No longer create install.img. (clumens)
+- makeinstimage is no longer used. (clumens)
+- instbin is no longer used. (clumens)
+- A couple minor changes to mk-images. (clumens)
+- Step 2 of merging installer images:  Move most everything out of makeinitrd.
+  (clumens)
+- Step 1 of merging installer images:  Don't copy files into a new root.
+  (clumens)
+- No longer do the bin -> usr/bin copy song and dance. (clumens)
+- Fix typo in examine_gui.py (bcl)
+- Clean up tabs in examine_gui.py (bcl)
+- Rework proxy handling so that .treeinfo also uses proxy (#634655) (bcl)
+- Translate task and repo names based on the product.img (#622064). (clumens)
+- Use baseurl instead of methodstr to get .treeinfo (#604246) (rvykydal)
+- Be more resilient to config files missing sections and options (#590591).
+  (clumens)
+- Add repos for all addons in all enabled repositories (#580697). (clumens)
+- Add a method that fetches and returns the .treeinfo file. (clumens)
+- All uses of perl must die. (clumens)
+
 * Thu Oct 14 2010 Chris Lumens <clumens@redhat.com> - 15.2-1
 - And remove welcome_{gui,text}.py from the translations too. (clumens)
 - A block quote in the middle of a python file does nothing. (clumens)
