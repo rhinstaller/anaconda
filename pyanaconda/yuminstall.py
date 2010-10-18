@@ -1633,17 +1633,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
             f = open(anaconda.rootPath + "/etc/mtab", "w+")
             f.close()
 
-            # we really started writing modprobe.conf out before things were
-            # all completely ready.  so now we need to nuke old modprobe.conf's
-            # if you're upgrading from a 2.4 dist so that we can get the
-            # transition right
-            if (os.path.exists(anaconda.rootPath + "/etc/modules.conf") and
-                os.path.exists(anaconda.rootPath + "/etc/modprobe.conf") and
-                not os.path.exists(anaconda.rootPath + "/etc/modprobe.conf.anacbak")):
-                log.info("renaming old modprobe.conf -> modprobe.conf.anacbak")
-                os.rename(anaconda.rootPath + "/etc/modprobe.conf",
-                          anaconda.rootPath + "/etc/modprobe.conf.anacbak")
-
         dirList = ['/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
                    '/etc/sysconfig', '/etc/sysconfig/network-scripts',
                    '/etc/X11', '/root', '/var/tmp', '/etc/rpm', '/var/cache',
