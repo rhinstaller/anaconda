@@ -1314,6 +1314,10 @@ class NTFS(FS):
     _existingSizeFields = ["Cluster Size:", "Volume Size in Clusters:"]
     partedSystem = fileSystemType["ntfs"]
 
+    @property
+    def mountable(self):
+        return False
+
     def _fsckFailed(self, rc):
         if rc != 0:
             return True
