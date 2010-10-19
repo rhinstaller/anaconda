@@ -402,7 +402,13 @@ def udev_device_get_lv_attr(info):
 def udev_device_dm_subsystem_match(info, subsystem):
     """ Return True if the device matches a given device-mapper subsystem. """
     uuid = info.get("DM_UUID", "")
-    _subsystem = uuid.split("-")[0]
+    uuid_fields = uuid.split("-")
+    _subsystem = uuid_fields[0]
+    if _subsystem.lower().startswith("part") and len(uuid_fields) > 1:
+        # kpartx uses partN- as a subsystem prefix, which we ignore because
+        # we only care about the subsystem of the partitions' parent device.
+        _subsystem = uuid_fields[1]
+
     if _subsystem == uuid or not _subsystem:
         return False
 
