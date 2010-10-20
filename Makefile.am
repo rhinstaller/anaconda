@@ -106,7 +106,7 @@ archive-no-tag: dist
 
 # UNIT TESTING TARGETS
 unittest:
-	PYTHONPATH=tests/:. nosetests -w tests/ -a \!acceptance,\!slow
+	PYTHONPATH=tests/:. nosetests --exclude=logpicker -a \!acceptance,\!slow  tests/
 
-fulltest:
-	PYTHONPATH=tests/:. nosetests -w tests/
+unittests-logpicker:
+	PYTHONPATH=tests/:.:utils/ nosetests tests/logpicker_test
