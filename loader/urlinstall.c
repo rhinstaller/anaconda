@@ -168,8 +168,6 @@ int loadUrlImages(struct loaderData_s *loaderData) {
     if (!loaderData->instRepo)
         return 0;
 
-    /* grab the updates.img before install.img so that we minimize our
-     * ramdisk usage */
     checked_asprintf(&url, "%s/images/%s", loaderData->instRepo, "updates.img");
 
     if (!loadSingleUrlImage(loaderData, url, "/tmp/updates-disk.img", "/tmp/update-disk", 1)) {
@@ -185,8 +183,6 @@ int loadUrlImages(struct loaderData_s *loaderData) {
 
     free(url);
 
-    /* grab the product.img before install.img so that we minimize our
-     * ramdisk usage */
     checked_asprintf(&url, "%s/images/%s", loaderData->instRepo, "product.img");
 
     if (!loadSingleUrlImage(loaderData, url, "/tmp/product-disk.img", "/tmp/product-disk", 1)) {

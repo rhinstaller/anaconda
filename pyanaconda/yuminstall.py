@@ -896,13 +896,6 @@ class AnacondaYum(YumSorter):
 
         self.repos.setCacheDir(self.conf.cachedir)
 
-        if os.path.exists("%s/boot/upgrade/install.img" % self.anaconda.rootPath):
-            log.info("REMOVING stage2 image from %s /boot/upgrade" % self.anaconda.rootPath )
-            try:
-                os.unlink("%s/boot/upgrade/install.img" % self.anaconda.rootPath)
-            except:
-                log.warning("failed to clean /boot/upgrade")
-
     def downloadHeader(self, po):
         while True:
             # retrying version of download header

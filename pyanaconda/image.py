@@ -63,10 +63,10 @@ def findIsoImages(path, messageWindow):
                     if num not in discNum or discArch != arch:
                         continue
 
-                    # if it's disc1, it needs to have images/install.img
+                    # if it's disc1, it needs to have repodata.
                     if (num == 1 and not
-                        os.access("/mnt/cdimage/images/install.img", os.R_OK)):
-                        log.warning("%s doesn't have a install.img, skipping" %(what,))
+                        os.access("/mnt/cdimage/repodata", os.R_OK)):
+                        log.warning("%s doesn't have repodata, skipping" %(what,))
                         continue
 
                     # warn user if images appears to be wrong size
