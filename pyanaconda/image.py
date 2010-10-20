@@ -195,9 +195,8 @@ def scanForMedia(tree, storage):
 
     return None
 
-def umountImage(tree, currentMedia):
-    if currentMedia is not None:
-        isys.umount(tree, removeDir=False)
+def umountImage(tree):
+    isys.umount(tree, removeDir=False)
 
 def unmountCD(dev, messageWindow):
     if not dev:

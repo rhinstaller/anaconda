@@ -430,7 +430,7 @@ class AnacondaYum(YumSorter):
                         _("Unable to access the disc."))
 
     def _switchImage(self, discnum):
-        umountImage(self.tree, self.currentMedia)
+        umountImage(self.tree)
         self.currentMedia = None
 
         # mountDirectory checks before doing anything, so it's safe to
