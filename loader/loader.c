@@ -478,7 +478,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
                 part = NULL;
             }
 
-            if ((nump = lenPartitionsList(part_list)) == 0) {
+            if ((nump = g_strv_length(part_list)) == 0) {
                 if (dir == -1) {
                     stage = UPD_DEVICE;
                 } else {
@@ -499,7 +499,7 @@ void loadUpdates(struct loaderData_s *loaderData) {
                              _("Back"), NULL);
 
             if (rc == 2) {
-                freePartitionsList(part_list);
+                g_strfreev(part_list);
                 stage = UPD_DEVICE;
                 dir = -1;
                 break;

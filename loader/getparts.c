@@ -1,7 +1,7 @@
 /*
  * getparts.c - functions associated with getting partitions for a disk
  *
- * Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004  Red Hat, Inc.
+ * Copyright (C) 1997-2010  Red Hat, Inc.
  * All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,6 +19,7 @@
  *
  * Author(s): Michael Fulbright <msf@redhat.com>
  *            Jeremy Katz <katzj@redhat.com>
+ *            David Cantrell <dcantrell@redhat.com>
  */
 
 #include <stdio.h>
@@ -28,6 +29,7 @@
 #include <errno.h>
 #include <ctype.h>
 #include <string.h>
+#include <glib.h>
 
 #include "../pyanaconda/isys/log.h"
 
@@ -50,131 +52,80 @@ static int isPartitionName(char *pname) {
     }
 }
 
-/* return NULL terminated array of pointers to names of partitons in
- * /proc/partitions
- */
-char **getPartitionsList(char * disk) {
-    FILE *f;
-    int numfound = 0;
-    char **rc=NULL;
+/* Return array of the names of partitons in /proc/partitions */
+gchar **getPartitionsList(gchar *disk) {
+    guint i, j;
+    gchar *contents = NULL;
+    gchar *tokens[] = { NULL, NULL, NULL, NULL };
+    gchar **lines, **iter, **rc;
+    gsize len;
+    GError *e = NULL;
+    GSList *parts = NULL, *list = NULL;
 
-    f = fopen("/proc/partitions", "r");
-    if (!f) {
-	logMessage(ERROR, "getPartitionsList: could not open /proc/partitions");
-	return NULL;
+    /* read in /proc/partitions and split in to an array of lines */
+    if (!g_file_get_contents("/proc/partitions", &contents, &len, &e)) {
+        return NULL;
     }
 
-    /* read through /proc/partitions and parse out partitions */
-    while (1) {
-	char *tmpptr, *pptr;
-	char tmpstr[4096];
-
-	tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
-
-	if (tmpptr) {
-	    char *a, *b;
-	    int toknum = 0;
-
-	    a = tmpstr;
-	    while (1) {
-		b = strsep(&a, " \n");
-
-		/* if no fields left abort */
-		if (!b)
-		    break;
-
-		/* if field was empty means we hit another delimiter */
-		if (!*b)
-		    continue;
-
-		/* make sure this is a valid partition line, should start */
-		/* with a numeral */
-		if (toknum == 0) {
-		    if (!isdigit(*b))
-			break;
-		} else if (toknum == 2) {
-		    /* if size is exactly 1 then ignore it as an extended */
-		    if (!strcmp(b, "1"))
-			break;
-		} else if (toknum == 3) {
-		    /* this should be the partition name */
-		    /* now we need to see if this is the block device or */
-		    /* actually a partition name                         */
-		    if (!isPartitionName(b))
-			break;
-
-                    /* make sure that either we don't care about the disk
-                     * or it's this one */
-                    if ((disk != NULL) && (strncmp(disk, b, strlen(disk))))
-                        break;
-
-		    /* we found a partition! */
-		    pptr = (char *) malloc(strlen(b) + 7);
-		    sprintf(pptr, "/dev/%s", b);
-
-		    if (!rc) {
-			rc = (char **) malloc(2*sizeof(char *));
-		        rc[0] = pptr;
-			rc[1] = NULL;
-		    } else {
-			int idx;
-			
-			rc = (char **) realloc(rc, (numfound+2)*sizeof(char *));
-			idx = 0;
-			while (idx < numfound) {
-			    if (strcmp(pptr, rc[idx]) < 0)
-				break;
-
-			    idx++;
-			}
-
-			/* move existing out of way if necessary */
-			if (idx != numfound)
-			    memmove(rc+idx+1, rc+idx, (numfound-idx)*sizeof(char *));
-
-			rc[idx] = pptr;
-			rc[numfound+1] = NULL;
-		    }
-		    numfound++;
-		    break;
-		}
-		toknum++;
-	    }
-	} else {
-	    break;
-	}
+    if (contents == NULL) {
+        return NULL;
     }
 
-    fclose(f);
+    iter = lines = g_strsplit_set(contents, "\n", 0);
+    g_free(contents);
 
-    return rc;
-}
+    /* extract partition names from /proc/partitions lines */
+    while (*iter != NULL) {
+        /* split the line in to fields */
+        gchar **fields = g_strsplit_set(*iter, " ", 0);
+        i = j = 0;
 
-/* returns length of partitionlist */
-int lenPartitionsList(char **list) {
-    char **part;
-    int  rc;
+        if (g_strv_length(fields) > 0) {
+            /* if we're on a non-empty line, toss empty fields so we
+             * end up with the major, minor, #blocks, and name fields
+             * in positions 0, 1, 2, and 3
+             */
+            while ((j < g_strv_length(fields)) && (i < 4)) {
+                if (g_strcmp0(fields[j], "")) {
+                    tokens[i++] = fields[j];
+                }
 
-    if (!list) return 0;
-    for (rc = 0, part = list; *part; rc++, part++);
+                j++;
+            }
 
-    return rc;
-}
+            /* skip lines where:
+             * - the 'major' column is a non-digit
+             * - the '#blocks' column is '1' (indicates extended partition)
+             * - the 'name' column is not a valid partition name
+             */
+            if (isdigit(*tokens[0]) && g_strcmp0(tokens[2], "1") &&
+                isPartitionName(tokens[3])) {
+                /* if disk is specified, only return a list of partitions
+                 * for that device
+                 */
+                if (disk != NULL && !g_str_has_prefix(tokens[3], disk)) {
+                    g_strfreev(fields);
+                    iter++;
+                    continue;
+                }
 
-/* frees partition list */
-void freePartitionsList(char **list) {
-    char **part;
-
-    if (!list)
-        return;
-
-    for (part = list; *part; part++) {
-	if (*part) {
-            free(*part);
-            *part = NULL;
+                parts = g_slist_prepend(parts, g_strdup(tokens[3]));
+            }
         }
+
+        g_strfreev(fields);
+        iter++;
     }
 
-    free(list);
-    list = NULL;
+    i = g_slist_length(parts);
+    rc = g_new(gchar *, i + 1);
+    rc[i] = NULL;
+
+    for (list = parts; list != NULL; list = list->next) {
+        rc[--i] = list->data;
+    }
+
+    g_strfreev(lines);
+    g_slist_free(parts);
+    return rc;
 }

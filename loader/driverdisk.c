@@ -424,7 +424,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
             if (part != NULL)
                 free(part);
 
-            if ((nump = lenPartitionsList(part_list)) == 0) {
+            if ((nump = g_strv_length(part_list)) == 0) {
                 if (dir == -1)
                     stage = DEV_DEVICE;
                 else
@@ -442,7 +442,7 @@ int loadDriverFromMedia(int class, struct loaderData_s *loaderData,
                              _("Back"), NULL);
 
             if (rc == 2) {
-                freePartitionsList(part_list);
+                g_strfreev(part_list);
                 stage = DEV_DEVICE;
                 dir = -1;
                 break;

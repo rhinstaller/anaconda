@@ -158,10 +158,10 @@ int promptForHardDrive(struct loaderData_s *loaderData) {
     while (1) {
         /* if we're doing another pass free this up first */
         if (partition_list)
-            freePartitionsList(partition_list);
+            g_strfreev(partition_list);
 
         partition_list = getPartitionsList(NULL);
-        numPartitions = lenPartitionsList(partition_list);
+        numPartitions = g_strv_length(partition_list);
 
         /* no partitions found, try to load a device driver disk for storage */
         if (!numPartitions) {
