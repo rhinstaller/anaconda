@@ -49,7 +49,6 @@ from yum.misc import to_unicode
 from yum.yumRepo import YumRepository
 from backend import AnacondaBackend
 from product import isBeta, productName, productVersion, productStamp
-from sortedtransaction import SplitMediaTransactionData
 from constants import *
 from image import *
 from compssort import *
@@ -304,13 +303,9 @@ class AnacondaYumRepo(YumRepository):
     anacondaBaseURLs = property(_getAnacondaBaseURLs, _setAnacondaBaseURLs,
                                 doc="Extends AnacondaYum.baseurl to store non-yum urls:")
 
-class YumSorter(yum.YumBase):
-    def _transactionDataFactory(self):
-        return SplitMediaTransactionData()
-
-class AnacondaYum(YumSorter):
+class AnacondaYum(yum.YumBase):
     def __init__(self, anaconda):
-        YumSorter.__init__(self)
+        yum.YumBase.__init__(self)
         self.anaconda = anaconda
         self._timestamp = None
 
@@ -765,9 +760,9 @@ class AnacondaYum(YumSorter):
             self.preconf.root = root
             self.preconf.releasever = self._getReleasever()
             self.preconf.enabled_plugins = ["whiteout", "blacklist"]
-            YumSorter._getConfig(self)
+            yum.YumBase._getConfig(self)
         else:
-            YumSorter._getConfig(self, fn=fn, root=root,
+            yum.YumBase._getConfig(self, fn=fn, root=root,
                                  enabled_plugins=["whiteout", "blacklist"])
         self.configBaseRepo(root=root)
 
@@ -874,7 +869,7 @@ class AnacondaYum(YumSorter):
         while True:
             # retrying version of download header
             try:
-                YumSorter.downloadHeader(self, po)
+                yum.YumBase.downloadHeader(self, po)
                 break
             except yum.Errors.NoMoreMirrorsRepoError:
                 self._handleFailure(po)
@@ -962,68 +957,42 @@ class AnacondaYum(YumSorter):
             self.ts.ts.setColor(3)
 
     def run(self, instLog, cb, intf):
-        def mediasort(a, b):
-            # sort so that first CD comes first, etc.  -99 is a magic number
-            # to tell us that the cd should be last
-            if a == -99:
-                return 1
-            elif b == -99:
-                return -1
-            if a < b:
-                return -1
-            elif a > b:
-                return 1
-            return 0
-
         self.initActionTs()
         if self.anaconda.upgrade:
             self.ts.ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
         self.setColor()
 
-        # If we don't have any required media assume single disc
-        if self.tsInfo.reqmedia == {}:
-            self.tsInfo.reqmedia[0] = None
-        mkeys = self.tsInfo.reqmedia.keys()
-        mkeys.sort(mediasort)
+        try:
+            self.dsCallback = DownloadHeaderProgress(intf, self)
+            self.populateTs(keepold=0)
+            self.dsCallback.pop()
+            self.dsCallback = None
+        except RepoError, e:
+            msg = _("There was an error running your transaction for "
+                    "the following reason: %s\n") % str(e)
 
-        for i in mkeys:
-            self.tsInfo.curmedia = i
-            if i > 0:
-                pkgtup = self.tsInfo.reqmedia[i][0]
+            if self.anaconda.upgrade:
+                rc = intf.messageWindow(_("Error"), msg, type="custom",
+                                        custom_icon="error",
+                                        custom_buttons=[_("_Exit installer")])
+                sys.exit(1)
+            else:
+                rc = intf.messageWindow(_("Error"), msg,
+                        type="custom", custom_icon="error",
+                        custom_buttons=[_("_Back"), _("_Exit installer")])
 
-            try:
-                self.dsCallback = DownloadHeaderProgress(intf, self)
-                self.populateTs(keepold=0)
-                self.dsCallback.pop()
-                self.dsCallback = None
-            except RepoError, e:
-                msg = _("There was an error running your transaction for "
-                        "the following reason: %s\n") % str(e)
-
-                if self.anaconda.upgrade:
-                    rc = intf.messageWindow(_("Error"), msg, type="custom",
-                                            custom_icon="error",
-                                            custom_buttons=[_("_Exit installer")])
-                    sys.exit(1)
-                else:
-                    rc = intf.messageWindow(_("Error"), msg,
-                            type="custom", custom_icon="error",
-                            custom_buttons=[_("_Back"), _("_Exit installer")])
-
-                if rc == 1:
-                    sys.exit(1)
-                else:
-                    self.tsInfo.curmedia = None
-                    return DISPATCH_BACK
-
-            self.ts.check()
-            self.ts.order()
-
-            if self._run(instLog, cb, intf) == DISPATCH_BACK:
-                self.tsInfo.curmedia = None
+            if rc == 1:
+                sys.exit(1)
+            else:
                 return DISPATCH_BACK
 
-            self.ts.close()
+        self.ts.check()
+        self.ts.order()
+
+        if self._run(instLog, cb, intf) == DISPATCH_BACK:
+            return DISPATCH_BACK
+
+        self.ts.close()
 
     def _run(self, instLog, cb, intf):
         # set log fd.  FIXME: this is ugly.  see changelog entry from 2005-09-13
@@ -1961,16 +1930,8 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         allPkgNames = map(lambda pkg: pkg.name, self.ayum.pkgSack.returnPackages())
         allPkgNames.sort()
 
-        # On CD/DVD installs, we have one transaction per CD and will end up
-        # checking allPkgNames against a very short list of packages.  So we
-        # have to reset to media #0, which is an all packages transaction.
-        old = self.ayum.tsInfo.curmedia
-        self.ayum.tsInfo.curmedia = 0
-
         self.ayum.tsInfo.makelists()
         txmbrNames = map (lambda x: x.name, self.ayum.tsInfo.getMembers())
-
-        self.ayum.tsInfo.curmedia = old
 
         if len(self.ayum.tsInfo.instgroups) == 0 and len(txmbrNames) == 0:
             return
