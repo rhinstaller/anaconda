@@ -317,7 +317,6 @@ class AnacondaYum(YumSorter):
         self.repoIDcounter = itertools.count()
 
         # Only needed for hard drive and nfsiso installs.
-        self._discImages = {}
         self.isodir = None
 
         # Only needed for media installs.
@@ -436,12 +435,9 @@ class AnacondaYum(YumSorter):
 
         # mountDirectory checks before doing anything, so it's safe to
         # call this repeatedly.
-        mountDirectory(self.anaconda.methodstr,
-                       self.anaconda.intf.messageWindow)
+        mountDirectory(self.anaconda.methodstr, self.anaconda.intf.messageWindow)
 
-        self._discImages = mountImage(self.isodir, self.tree, discnum,
-                                      self.anaconda.intf.messageWindow,
-                                      discImages=self._discImages)
+        mountImage(self.isodir, self.tree, self.anaconda.intf.messageWindow)
         self.currentMedia = discnum
 
     def configBaseURL(self):
@@ -492,8 +488,8 @@ class AnacondaYum(YumSorter):
                 # This really should be fixed in loader instead but for now see
                 # if there's images and if so go with this being an NFSISO
                 # install instead.
-                images = findIsoImages(self.tree, self.anaconda.intf.messageWindow)
-                if images != {}:
+                image = findFirstIsoImage(self.tree, self.anaconda.intf.messageWindow)
+                if not image:
                     isys.umount(self.tree, removeDir=False)
                     self.anaconda.methodstr = "nfsiso:%s" % m[4:]
                     self.configBaseURL()

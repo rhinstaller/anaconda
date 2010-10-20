@@ -29,11 +29,10 @@ log = logging.getLogger("anaconda")
 
 _arch = iutil.getArch()
 
-def findIsoImages(path, messageWindow):
+def findFirstIsoImage(path, messageWindow):
     flush = os.stat(path)
     files = os.listdir(path)
     arch = _arch
-    discImages = {}
 
     for file in files:
         what = path + '/' + file
@@ -44,57 +43,54 @@ def findIsoImages(path, messageWindow):
         try:
             log.debug("mounting %s on /mnt/cdimage", what)
             isys.mount(what, "/mnt/cdimage", fstype = "iso9660", readOnly = True)
-            for num in range(1, 10):
-                if os.access("/mnt/cdimage/.discinfo", os.R_OK):
-                    log.debug("Reading .discinfo")
-                    f = open("/mnt/cdimage/.discinfo")
-                    try:
-                        f.readline() # skip timestamp
-                        f.readline() # skip release description
-                        discArch = string.strip(f.readline()) # read architecture
-                        discNum = getDiscNums(f.readline().strip())
-                    except:
-                        discArch = None
-                        discNum = [ 0 ]
 
-                    f.close()
+            if os.access("/mnt/cdimage/.discinfo", os.R_OK):
+                log.debug("Reading .discinfo")
+                f = open("/mnt/cdimage/.discinfo")
+                try:
+                    f.readline() # skip timestamp
+                    f.readline() # skip release description
+                    discArch = string.strip(f.readline()) # read architecture
+                except:
+                    discArch = None
 
-                    log.debug("discArch = %s | discNum = %s" % (discArch, discNum))
-                    if num not in discNum or discArch != arch:
-                        continue
+                f.close()
 
-                    # if it's disc1, it needs to have repodata.
-                    if (num == 1 and not
-                        os.access("/mnt/cdimage/repodata", os.R_OK)):
-                        log.warning("%s doesn't have repodata, skipping" %(what,))
-                        continue
+                log.debug("discArch = %s" % discArch)
+                if discArch != arch:
+                    isys.umount("/mnt/cdimage", removeDir=False)
+                    continue
 
-                    # warn user if images appears to be wrong size
-                    if os.stat(what)[stat.ST_SIZE] % 2048:
-                        rc = messageWindow(_("Warning"),
-                             _("The ISO image %s has a size which is not "
-                               "a multiple of 2048 bytes.  This may mean "
-                               "it was corrupted on transfer to this computer."
-                               "\n\n"
-                               "It is recommended that you exit and abort your "
-                               "installation, but you can choose to continue if "
-                               "you think this is in error.") % (file,),
-                               type="custom", custom_icon="warning",
-                               custom_buttons= [_("_Exit installer"),
-                                                _("_Continue")])
-                        if rc == 0:
-                            sys.exit(0)
+                # If there's no repodata, there's no point in trying to
+                # install from it.
+                if not os.access("/mnt/cdimage/repodata", os.R_OK):
+                    log.warning("%s doesn't have repodata, skipping" %(what,))
+                    isys.umount("/mnt/cdimage", removeDir=False)
+                    continue
 
-                    discImages[num] = file
-                    log.info("Found disc %d at %s" % (num, file))
+                # warn user if images appears to be wrong size
+                if os.stat(what)[stat.ST_SIZE] % 2048:
+                    rc = messageWindow(_("Warning"),
+                         _("The ISO image %s has a size which is not "
+                           "a multiple of 2048 bytes.  This may mean "
+                           "it was corrupted on transfer to this computer."
+                           "\n\n"
+                           "It is recommended that you exit and abort your "
+                           "installation, but you can choose to continue if "
+                           "you think this is in error.") % (file,),
+                           type="custom", custom_icon="warning",
+                           custom_buttons= [_("_Exit installer"),
+                                            _("_Continue")])
+                    if rc == 0:
+                        sys.exit(0)
 
-            log.info("unmounting /mnt/cdimage")
-            isys.umount("/mnt/cdimage", removeDir=False)
+                log.info("Found disc at %s" % file)
+                isys.umount("/mnt/cdimage", removeDir=False)
+                return file
         except SystemError:
             pass
 
-    log.info("Returning with %s" % (discImages))
-    return discImages
+    return None
 
 def getDiscNums(line):
     # get the disc numbers for this disc
@@ -161,35 +157,32 @@ def mountDirectory(methodstr, messageWindow):
             else:
                 continue
 
-def mountImage(isodir, tree, discnum, messageWindow, discImages={}):
+def mountImage(isodir, tree, messageWindow):
     if os.path.ismount(tree):
         raise SystemError, "trying to mount already-mounted iso image!"
 
-    if discImages == {}:
-        discImages = findIsoImages(isodir, messageWindow)
+    image = findFirstIsoImage(isodir, messageWindow)
 
     while True:
         try:
-            isoImage = "%s/%s" % (isodir, discImages[discnum])
+            isoImage = "%s/%s" % (isodir, image)
             isys.mount(isoImage, tree, fstype = 'iso9660', readOnly = True)
             break
         except:
             ans = messageWindow(_("Missing ISO 9660 Image"),
-                                _("The installer has tried to mount "
-                                  "image #%s, but cannot find it on "
+                                _("The installer has tried to mount the "
+                                  "installation image, but cannot find it on "
                                   "the hard drive.\n\n"
                                   "Please copy this image to the "
                                   "drive and click Retry.  Click Exit "
-                                  "to abort the installation.")
-                                  % (discnum,), type="custom",
+                                  "to abort the installation."),
+                                  type="custom",
                                   custom_icon="warning",
                                   custom_buttons=[_("_Exit"), _("_Retry")])
             if ans == 0:
                 sys.exit(0)
             elif ans == 1:
-                discImages = findIsoImages(isodir, messageWindow)
-
-    return discImages
+                image = findFirstIsoImage(isodir, messageWindow)
 
 # given groupset containing information about selected packages, use
 # the disc number info in the headers to come up with message describing
