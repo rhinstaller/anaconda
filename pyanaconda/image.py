@@ -92,16 +92,6 @@ def findFirstIsoImage(path, messageWindow):
 
     return None
 
-def getDiscNums(line):
-    # get the disc numbers for this disc
-    nums = line.split(",")
-    if nums == ['ALL']: # Treat "ALL" DVD as disc 1
-        return [1]
-    discNums = []
-    for num in nums:
-        discNums.append(int(num))
-    return discNums
-
 def getMediaId(path):
     if os.access("%s/.discinfo" % path, os.R_OK):
         f = open("%s/.discinfo" % path)
@@ -183,57 +173,6 @@ def mountImage(isodir, tree, messageWindow):
                 sys.exit(0)
             elif ans == 1:
                 image = findFirstIsoImage(isodir, messageWindow)
-
-# given groupset containing information about selected packages, use
-# the disc number info in the headers to come up with message describing
-# the required CDs
-#
-# dialog returns a value of 0 if user selected to abort install
-def presentRequiredMediaMessage(anaconda):
-    reqcds = anaconda.backend.getRequiredMedia()
-
-    # if only one CD required no need to pop up a message
-    if len(reqcds) < 2:
-        return
-
-    # check what discs our currently mounted one provides
-    if os.access("%s/.discinfo" % anaconda.backend.ayum.tree, os.R_OK):
-        discNums = []
-        try:
-            f = open("%s/.discinfo" % anaconda.backend.ayum.tree)
-            stamp = f.readline().strip()
-            descr = f.readline().strip()
-            arch = f.readline().strip()
-            discNums = getDiscNums(f.readline().strip())
-            f.close()
-        except Exception, e:
-            log.critical("Exception reading discinfo: %s" %(e,))
-
-        log.info("discNums is %s" %(discNums,))
-        haveall = 0
-        s = set(reqcds)
-        t = set(discNums)
-        if s.issubset(t):
-            haveall = 1
-
-        if haveall == 1:
-            return
-
-    reqcds.sort()
-    reqcds = map(lambda disc: "#%s" % disc, filter(lambda disc: disc != -99, reqcds))
-    reqcdstr = ", ".join(reqcds)
-
-    return anaconda.intf.messageWindow(_("Required Install Media"),
-               _("The software you have selected to install will require the "
-                 "following %(productName)s %(productVersion)s "
-                 "discs:\n\n%(reqcdstr)s\nPlease have these ready "
-                 "before proceeding with the installation.  If you need to "
-                 "abort the installation and exit please select "
-                 "\"Reboot\".") % {'productName': product.productName,
-                                   'productVersion': product.productVersion,
-                                   'reqcdstr': reqcdstr},
-                 type="custom", custom_icon="warning",
-                 custom_buttons=[_("_Reboot"), _("_Back"), _("_Continue")])
 
 # Find an attached CD/DVD drive with media in it that contains packages,
 # and return that device name.

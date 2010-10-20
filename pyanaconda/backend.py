@@ -193,10 +193,6 @@ class AnacondaBackend:
     def writeKS(self, f):
         pass
 
-    def getRequiredMedia(self):
-        log.warning("getRequiredMedia not implmented for backend!")
-        raise NotImplementedError
-
     def complete(self, anaconda):
         pass
 

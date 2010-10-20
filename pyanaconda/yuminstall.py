@@ -1106,7 +1106,7 @@ class AnacondaYum(YumSorter):
             spaceprob = to_unicode(spaceprob)
             fileprob = to_unicode(fileprob)
 
-            if len(self.anaconda.backend.getRequiredMedia()) > 1 or self.anaconda.upgrade:
+            if self.anaconda.upgrade:
                 intf.detailedMessageWindow(_("Error Running Transaction"),
                    msg, spaceprob + "\n" + fileprob, type="custom",
                    custom_icon="error", custom_buttons=[_("_Exit installer")])
@@ -1584,21 +1584,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
                     return DISPATCH_BACK
 
         dscb.pop()
-
-        if anaconda.mediaDevice and not anaconda.ksdata:
-           rc = presentRequiredMediaMessage(anaconda)
-           if rc == 0:
-               rc2 = anaconda.intf.messageWindow(_("Reboot?"),
-                                       _("The system will be rebooted now."),
-                                       type="custom", custom_icon="warning",
-                                       custom_buttons=[_("_Back"), _("_Reboot")])
-               if rc2 == 1:
-                   sys.exit(0)
-               else:
-                   return DISPATCH_BACK
-           elif rc == 1: # they asked to go back
-               return DISPATCH_BACK
-
         self.ayum.dsCallback = None
 
     def doPreInstall(self, anaconda):
@@ -2041,9 +2026,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
     def writeConfiguration(self):
         return
-
-    def getRequiredMedia(self):
-        return self.ayum.tsInfo.reqmedia.keys()
 
 class DownloadHeaderProgress:
     def __init__(self, intf, ayum=None):
