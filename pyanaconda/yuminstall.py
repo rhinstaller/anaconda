@@ -374,7 +374,7 @@ class AnacondaYum(YumSorter):
         if not self.anaconda.bootloader.doUpgradeOnly:
             self.conf.installonlypkgs = []
 
-    def _switchCD(self, discnum):
+    def _mountInstallCD(self):
         if os.access("%s/.discinfo" % self.tree, os.R_OK):
             f = open("%s/.discinfo" % self.tree)
             self._timestamp = f.readline().strip()
@@ -383,24 +383,24 @@ class AnacondaYum(YumSorter):
         dev = self.anaconda.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
         dev.format.mountpoint = self.tree
 
-        # If self.currentMedia is None, then there shouldn't be anything
-        # mounted.  Before going further, see if the correct disc is already
-        # in the drive.  This saves a useless eject and insert if the user
-        # has for some reason already put the disc in the drive.
-        if self.currentMedia is None:
+        # See if there's any media mounted on self.tree before continuing.
+        # This saves a useless eject and insert if the user has already put
+        # the disc in the drive.
+        if not self.anaconda.storage.fsset.mountpoints.has_key(self.tree):
             try:
                 dev.format.mount()
 
                 if verifyMedia(self.tree, None):
-                    self.currentMedia = discnum
                     return
 
                 dev.format.unmount()
             except:
                 pass
         else:
-            unmountCD(dev, self.anaconda.intf.messageWindow)
-            self.currentMedia = None
+            if verifyMedia(self.tree, None):
+                return
+
+            dev.format.unmount()
 
         dev.eject()
 
@@ -409,14 +409,13 @@ class AnacondaYum(YumSorter):
                 self.anaconda.intf.beep()
 
             self.anaconda.intf.messageWindow(_("Change Disc"),
-                _("Please insert %(productName)s disc %(discnum)d to continue.")
-                % {'productName': productName, 'discnum': discnum})
+                _("Please insert the %(productName)s disc to continue.")
+                % {'productName': productName})
 
             try:
                 dev.format.mount()
 
                 if verifyMedia(self.tree, self._timestamp):
-                    self.currentMedia = discnum
                     break
 
                 self.anaconda.intf.messageWindow(_("Wrong Disc"),
@@ -429,16 +428,13 @@ class AnacondaYum(YumSorter):
                 self.anaconda.intf.messageWindow(_("Error"),
                         _("Unable to access the disc."))
 
-    def _switchImage(self, discnum):
+    def _mountInstallImage(self):
         umountImage(self.tree)
-        self.currentMedia = None
 
         # mountDirectory checks before doing anything, so it's safe to
         # call this repeatedly.
         mountDirectory(self.anaconda.methodstr, self.anaconda.intf.messageWindow)
-
         mountImage(self.isodir, self.tree, self.anaconda.intf.messageWindow)
-        self.currentMedia = discnum
 
     def configBaseURL(self):
         # We only have a methodstr if method= or repo= was passed to
@@ -462,18 +458,18 @@ class AnacondaYum(YumSorter):
                 self.isodir = "/mnt/isodir/%s" % path
 
                 # This takes care of mounting /mnt/isodir first.
-                self._switchImage(1)
+                self._mountInstallImage()
                 self.mediagrabber = self.mediaHandler
             elif m.startswith("nfsiso:"):
                 self.isodir = "/mnt/isodir"
 
-                # Calling _switchImage takes care of mounting /mnt/isodir first.
+                # Calling _mountInstallImage takes care of mounting /mnt/isodir first.
                 if not network.hasActiveNetDev():
                     if not self.anaconda.intf.enableNetwork():
                         self._baseRepoURL = None
                         return
 
-                self._switchImage(1)
+                self._mountInstallImage()
                 self.mediagrabber = self.mediaHandler
             elif m.startswith("http") or m.startswith("ftp:"):
                 self._baseRepoURL = m
@@ -495,7 +491,7 @@ class AnacondaYum(YumSorter):
                     self.configBaseURL()
                     return
             elif m.startswith("cdrom:"):
-                self._switchCD(1)
+                self._mountInstallCD()
                 self.mediagrabber = self.mediaHandler
                 self._baseRepoURL = "file://%s" % self.tree
         else:
@@ -560,9 +556,9 @@ class AnacondaYum(YumSorter):
             # Unmount any currently mounted ISO images and mount the one
             # containing the requested packages.
             if self.isodir:
-                self._switchImage(discnum)
+                self._mountInstallImage()
             else:
-                self._switchCD(discnum)
+                self._mountInstallCD()
 
         ug = URLGrabber(checkfunc=kwargs["checkfunc"])
         ug.urlgrab("%s/%s" % (self.tree, kwargs["relative"]), kwargs["local"],
@@ -927,7 +923,7 @@ class AnacondaYum(YumSorter):
                 os.unlink(package.localPkg())
 
             if package.repo.anacondaBaseURLs[0].startswith("cdrom:"):
-                self._switchCD(self.currentMedia)
+                self._mountInstallCD()
             else:
                 return
 
