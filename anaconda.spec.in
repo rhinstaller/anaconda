@@ -223,6 +223,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 19 2010 Brian C. Lane <bcl@redhat.com> - 14.22-1
+- Properly identify device-mapper partitions set up by kpartx. (#644616)
+  (dlehman)
+- Don't ever try to mount ntfs filesystems. (#637319) (dlehman)
+
 * Mon Oct 18 2010 Brian C. Lane <bcl@redhat.com> - 14.21-1
 - Take into account hidden disks (#583906) (bcl)
 
