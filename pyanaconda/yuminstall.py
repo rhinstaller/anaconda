@@ -392,7 +392,7 @@ class AnacondaYum(YumSorter):
             try:
                 dev.format.mount()
 
-                if verifyMedia(self.tree, discnum, None):
+                if verifyMedia(self.tree, None):
                     self.currentMedia = discnum
                     return
 
@@ -416,7 +416,7 @@ class AnacondaYum(YumSorter):
             try:
                 dev.format.mount()
 
-                if verifyMedia(self.tree, discnum, self._timestamp):
+                if verifyMedia(self.tree, self._timestamp):
                     self.currentMedia = discnum
                     break
 

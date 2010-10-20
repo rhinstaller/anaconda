@@ -255,7 +255,7 @@ def scanForMedia(tree, storage):
         except:
             continue
 
-        if not verifyMedia(tree, 1):
+        if not verifyMedia(tree):
             dev.format.unmount()
             continue
 
@@ -284,7 +284,7 @@ def unmountCD(dev, messageWindow):
                             "and then click OK to retry.")
                           % (dev.path,))
 
-def verifyMedia(tree, discnum, timestamp=None):
+def verifyMedia(tree, timestamp=None):
     if os.access("%s/.discinfo" % tree, os.R_OK):
         f = open("%s/.discinfo" % tree)
 
@@ -300,18 +300,13 @@ def verifyMedia(tree, discnum, timestamp=None):
         except:
             arch = None
 
-        try:
-            discs = getDiscNums(f.readline().strip())
-        except:
-            discs = [ 0 ]
-
         f.close()
 
         if timestamp is not None:
-            if newStamp == timestamp and arch == _arch and discnum in discs:
+            if newStamp == timestamp and arch == _arch:
                 return True
         else:
-            if arch == _arch and discnum in discs:
+            if arch == _arch:
                 return True
 
     return False
