@@ -320,7 +320,6 @@ class AnacondaYum(YumSorter):
         self.isodir = None
 
         # Only needed for media installs.
-        self.currentMedia = None
         self.mediagrabber = None
 
         # Where is the source media mounted?  This is the directory
@@ -503,7 +502,6 @@ class AnacondaYum(YumSorter):
             if cdr:
                 self.mediagrabber = self.mediaHandler
                 self.anaconda.mediaDevice = cdr
-                self.currentMedia = 1
                 log.info("found installation media on %s" % cdr)
             else:
                 # No CD with media on it and no repo=/method= parameter, so
@@ -928,7 +926,6 @@ class AnacondaYum(YumSorter):
             dev = self.anaconda.storage.devicetree.getDeviceByName(self.anaconda.mediaDevice)
             dev.format.mountpoint = self.tree
             unmountCD(dev, self.anaconda.intf.messageWindow)
-            self.currentMedia = None
 
     def urlgrabberFailureCB (self, obj, *args, **kwargs):
         if hasattr(obj, "exception"):

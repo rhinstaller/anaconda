@@ -281,7 +281,6 @@ class RepoEditor:
         repo.baseurl = "file://%s" % ayum.tree
         ayum.mediagrabber = ayum.mediaHandler
         self.anaconda.mediaDevice = cdr
-        ayum.currentMedia = 1
         repo.mediaid = getMediaId(ayum.tree)
         log.info("set mediaid of repo %s to: %s" % (repo.name, repo.mediaid))
 
@@ -448,7 +447,6 @@ class RepoMethodstrEditor(RepoEditor):
 
         self.anaconda.backend.ayum.mediagrabber = self.anaconda.backend.ayum.mediaHandler
         self.anaconda.backend.ayum.anaconda.mediaDevice = cdr
-        self.anaconda.backend.ayum.currentMedia = 1
         log.info("found installation media on %s" % cdr)
         return "cdrom://%s:%s" % (cdr, self.anaconda.backend.ayum.tree)
 
