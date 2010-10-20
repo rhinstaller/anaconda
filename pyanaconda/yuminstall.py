@@ -544,21 +544,7 @@ class AnacondaYum(YumSorter):
             self.repos.add(repo)
 
     def mediaHandler(self, *args, **kwargs):
-        mediaid = kwargs["mediaid"]
-        discnum = kwargs["discnum"]
         relative = kwargs["relative"]
-
-        # The package exists on media other than what's mounted right now.
-        if discnum != self.currentMedia:
-            log.info("switching from media #%s to #%s for %s" %
-                     (self.currentMedia, discnum, relative))
-
-            # Unmount any currently mounted ISO images and mount the one
-            # containing the requested packages.
-            if self.isodir:
-                self._mountInstallImage()
-            else:
-                self._mountInstallCD()
 
         ug = URLGrabber(checkfunc=kwargs["checkfunc"])
         ug.urlgrab("%s/%s" % (self.tree, kwargs["relative"]), kwargs["local"],
