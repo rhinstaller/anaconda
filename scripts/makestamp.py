@@ -33,14 +33,11 @@ def usage():
 data = {"timestamp": None,
         "releasestr": None,
         "arch": None,
-        "discNum": None,
         "outfile": None}
-allDiscs = None
 
 opts = []
 for key in data.keys():
     opts.append("%s=" % (key,))
-opts.append("allDiscs")
 
 (args, extra) = getopt.getopt(sys.argv[1:], '', opts)
 if len(extra) > 0:
@@ -50,8 +47,6 @@ if len(extra) > 0:
 for (str, arg) in args:
     if str[2:] in data.keys():
         data[str[2:]] = arg
-    elif str == "--allDiscs":
-        allDiscs = 1
     else:
 	print("unknown str of ", str)
         usage()
@@ -69,10 +64,6 @@ if data["releasestr"] is None:
 if data["arch"] is None:
     print("What arch is this disc for?")
     data["arch"] = sys.stdin.readline()[:-1]
-    
-if data["discNum"] is None and allDiscs is None:
-    sys.stderr.write("No disc number specified; assuming disc 1\n")
-    data["discNum"] = "1"
 
 if data["outfile"] is None:
     f = sys.stdout
@@ -82,9 +73,3 @@ else:
 f.write("%f\n" % data["timestamp"])
 f.write("%s\n" % data["releasestr"])
 f.write("%s\n" % data["arch"])
-if allDiscs is None:
-    f.write("%s\n" % data["discNum"])
-else:
-    f.write("0\n")
-
-    

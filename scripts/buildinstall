@@ -28,7 +28,7 @@ die() {
 }
 
 usage() {
-    echo "Usage: buildinstall --version <version> --brand <brand> --product <product> --release <comment> [--output outputdir] [--discs <discstring>] <root>" >&2
+    echo "Usage: buildinstall --version <version> --brand <brand> --product <product> --release <comment> [--output outputdir] <root>" >&2
     exit 1
 }
 
@@ -248,7 +248,7 @@ echo $MK_IMAGES $DEBUGSTR $NOGRSTR --isbeta=$ISBETA --imgdir $TREEDIR/install --
 $MK_IMAGES $DEBUGSTR $NOGRSTR --isbeta=$ISBETA --imgdir $TREEDIR/install --arch $BASEARCH --product "$PRODUCTSTR" --version $VERSION --bugurl "$BUGURL" --output $OUTPUT $yumconf || die "image creation failed"
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BASEARCH --discNum="ALL"  --outfile=$OUTPUT/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BASEARCH --outfile=$OUTPUT/.discinfo
 
 rm -rf $TREEDIR $BUILDINSTDIR
 rm -f $yumconf

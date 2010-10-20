@@ -41,16 +41,12 @@ data = {"timestamp": time.time(),
         "variant": None,
         "version": None,
         "arch": None,
-        "discnum": None,
-        "totaldiscs": None,
         "packagedir": None,
         "outfile": None}
-allDiscs = None
 
 opts = []
 for key in data.keys():
     opts.append("%s=" % (key,))
-opts.append("allDiscs")
 
 (args, extra) = getopt.getopt(sys.argv[1:], '', opts)
 if len(extra) > 0:
@@ -60,8 +56,6 @@ if len(extra) > 0:
 for (str, arg) in args:
     if str[2:] in data.keys():
         data[str[2:]] = arg
-    elif str == "--allDiscs":
-        allDiscs = 1
     else:
 	print("unknown str of ", str)
         usage()
@@ -85,14 +79,6 @@ if data["version"] is None:
 if data["arch"] is None:
     sys.stderr.write("--arch missing! This is probably bad!\n")
     data["arch"] = ""
-
-if data["discnum"] is None and allDiscs is None:
-    sys.stderr.write("--discnum missing; assuming disc 1\n")
-    data["discnum"] = "1"
-
-if data["totaldiscs"] is None and allDiscs is None:
-    sys.stderr.write("--totaldiscs missing; assuming 1\n")
-    data["totaldiscs"] = "1"
 
 if data["packagedir"] is None:
     sys.stderr.write("--packagedir missing. This might cause some weirdness.\n")
