@@ -48,7 +48,7 @@ from yum.Errors import *
 from yum.misc import to_unicode
 from yum.yumRepo import YumRepository
 from backend import AnacondaBackend
-from product import *
+from product import isBeta, productName, productVersion, productStamp
 from sortedtransaction import SplitMediaTransactionData
 from constants import *
 from image import *
