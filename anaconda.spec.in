@@ -225,6 +225,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Oct 21 2010 Chris Lumens <clumens@redhat.com> - 15.4-1
+- Allow importing product.py in places where you won't have a .buildstamp.
+  (clumens)
+- Search for iscsid in the $PATH, not in a hardcoded list of places (#645523).
+  (clumens)
+- Use glib for getPartitionsList() (dcantrell)
+- Include the SELinux policy file, not just the directory. (clumens)
+- Remove the last references to install.img. (clumens)
+- Properly identify device-mapper partitions set up by kpartx. (#644616)
+  (dlehman)
+- Don't ever try to mount ntfs filesystems. (#637319) (dlehman)
+- We don't need to worry about 2.4 -> 2.6 updates anymore. (clumens)
+- scsiWindow is unused.  Kill it. (clumens)
+
 * Mon Oct 18 2010 Chris Lumens <clumens@redhat.com> - 15.3-1
 - Don't recommend /usr as a mount point anymore (#643640). (clumens)
 - Add some debugging prints. (clumens)
