@@ -22,26 +22,27 @@ import os
 
 # First, load in the defaults.  In order of precedence:  contents of
 # .buildstamp, environment, stupid last ditch hardcoded defaults.
-config = ConfigParser.ConfigParser({"Arch": os.environ.get("ANACONDA_PRODUCTARCH", ""),
-                                    "BugURL": os.environ.get("ANACONDA_BUGURL", "your distribution provided bug reporting tool"),
-                                    "IsBeta": os.environ.get("ANACONDA_ISBETA", "true").lower() == "true",
-                                    "Product": os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"),
-                                    "UUID": "",
-                                    "Version": os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky")}
-                                  )
+config = ConfigParser.ConfigParser()
+config.add_section("Main")
+config.set("Main", "Arch", os.environ.get("ANACONDA_PRODUCTARCH", os.uname()[4]))
+config.set("Main", "BugURL", os.environ.get("ANACONDA_BUGURL", "your distribution provided bug reporting tool"))
+config.set("Main", "IsBeta", os.environ.get("ANACONDA_ISBETA", "true"))
+config.set("Main", "Product", os.environ.get("ANACONDA_PRODUCTNAME", "anaconda"))
+config.set("Main", "UUID", "")
+config.set("Main", "Version", os.environ.get("ANACONDA_PRODUCTVERSION", "bluesky"))
 
 # Now read in the .buildstamp file, wherever it may be.
 config.read(["/tmp/product/.buildstamp", "/.buildstamp", os.environ.get("PRODBUILDPATH", "")])
 
 # Set up some variables we import throughout, applying a couple transforms as necessary.
 bugUrl = config.get("Main", "BugURL")
-isBeta = config.get("Main", "IsBeta").lower() != "false"
+isBeta = config.getboolean("Main", "isBeta")
 productArch = config.get("Main", "Arch")
 productName = config.get("Main", "Product")
 productStamp = config.get("Main", "UUID")
 productVersion = config.get("Main", "Version")
 
-if not productArch:
+if not productArch and productStamp.index(".") != -1:
     productArch = productStamp[productStamp.index(".")+1:]
 if productVersion == "development":
     productVersion = "rawhide"
