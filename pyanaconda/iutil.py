@@ -1119,3 +1119,11 @@ def get_sysfs_attr(path, attr):
         return None
 
     return open(attribute, "r").read().strip()
+
+def find_program_in_path(prog):
+    for d in os.environ["PATH"].split(":"):
+        full = "%s/%s" % (d, prog)
+        if os.access(full, os.X_OK):
+            return full
+
+    return None

@@ -43,16 +43,11 @@ except ImportError:
 ISCSID=""
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
-def find_iscsi_files():
-    global ISCSID
-    if ISCSID == "":
-        for dir in ("/usr/sbin", "/tmp/updates", "/mnt/source/RHupdates"):
-            path="%s/iscsid" % (dir,)
-            if os.access(path, os.X_OK):
-                ISCSID=path
-
 def has_iscsi():
-    find_iscsi_files()
+    location = iutil.find_program_in_path("iscsid")
+    if location:
+        ISCSID = location
+
     if ISCSID == "" or not has_libiscsi:
         return False
 

@@ -37,20 +37,12 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 MAX_LV_SLOTS = 256
 
 def has_lvm():
-    has_lvm = False
-    for path in os.environ["PATH"].split(":"):
-        if os.access("%s/lvm" % path, os.X_OK):
-            has_lvm = True
-            break
-
-    if has_lvm:
-        has_lvm = False
+    if iutil.find_program_in_path("lvm"):
         for line in open("/proc/devices").readlines():
             if "device-mapper" in line.split():
-                has_lvm = True
-                break
+                return True
 
-    return has_lvm
+    return False
 
 # Start config_args handling code
 #

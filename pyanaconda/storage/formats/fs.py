@@ -734,8 +734,7 @@ class FS(DeviceFormat):
             if not prog:
                 continue
 
-            if not filter(lambda d: os.access("%s/%s" % (d, prog), os.X_OK),
-                          os.environ["PATH"].split(":")):
+            if not iutil.find_program_in_path(prog):
                 return False
 
         return True
@@ -804,10 +803,7 @@ class FS(DeviceFormat):
     def _isMigratable(self):
         """ Can filesystems of this type be migrated? """
         return bool(self._migratable and self.migratefsProg and
-                    filter(lambda d: os.access("%s/%s"
-                                               % (d, self.migratefsProg,),
-                                               os.X_OK),
-                           os.environ["PATH"].split(":")) and
+                    iutil.find_program_in_path(self.migratefsProg) and
                     self.migrationTarget)
 
     migratable = property(_isMigratable)
