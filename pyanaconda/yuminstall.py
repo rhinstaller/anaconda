@@ -696,8 +696,11 @@ class AnacondaYum(YumSorter):
 
         # We need to know which variant is being installed so we know what addons
         # are valid options.
-        ConfigParser.read(c, treeinfo)
-        variant = c.get("general", "variant")
+        try:
+            ConfigParser.read(c, treeinfo)
+            variant = c.get("general", "variant")
+        except:
+            return retval
 
         section = "variant-%s" % variant
         if c.has_section(section) and c.has_option(section, "addons"):
