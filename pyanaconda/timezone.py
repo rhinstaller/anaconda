@@ -68,6 +68,7 @@ class Timezone:
         return (self.tz, self.utc)
 
     def setTimezoneInfo(self, timezone, asUtc = 0):
+        log.info("set timezone: %s, utc: %d" % (timezone, asUtc))
         self.tz = timezone
         self.utc = asUtc
 
