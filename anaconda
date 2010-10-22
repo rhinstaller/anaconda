@@ -450,8 +450,9 @@ def startSsh():
             }
         for (algorithm, keyfile) in ssh_keys.items():
             createSshKey(algorithm, keyfile)
-        args = ["/sbin/sshd", "-f", "/etc/ssh/sshd_config.anaconda"]
-        os.execv("/sbin/sshd", args)
+        sshd = iutil.find_program_in_path("sshd")
+        args = [sshd, "-f", "/etc/ssh/sshd_config.anaconda"]
+        os.execv(sshd, args)
         sys.exit(1)
 
 def startDebugger(signum, frame):
