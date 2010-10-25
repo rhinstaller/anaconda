@@ -247,7 +247,7 @@ class PartitionTypeWindow(InstallWindow):
         self.encryptButton.set_active(self.storage.encryptedAutoPart)
 
         self.buttonGroup = pixmapRadioButtonGroup()
-        self.buttonGroup.addEntry("all", _("Use All Space"),
+        self.buttonGroup.addEntry("all", _("Use _All Space"),
                                   pixmap=gui.readImageFromFile("partscheme-all.png"),
                                   descr=_("Removes all partitions on the selected "
                                           "device(s).  This includes partitions "
@@ -255,7 +255,7 @@ class PartitionTypeWindow(InstallWindow):
                                           "<b>Tip:</b> This option will remove "
                                           "data from the selected device(s).  Make "
                                           "sure you have backups."))
-        self.buttonGroup.addEntry("replace", _("Replace Existing Linux System(s)"),
+        self.buttonGroup.addEntry("replace", _("Replace Existing _Linux System(s)"),
                                   pixmap=gui.readImageFromFile("partscheme-replace.png"),
                                   descr=_("Removes all Linux partitions on the "
                                           "selected device(s). This does "
@@ -265,17 +265,17 @@ class PartitionTypeWindow(InstallWindow):
                                           "<b>Tip:</b> This option will remove "
                                           "data from the selected device(s).  Make "
                                           "sure you have backups."))
-        self.buttonGroup.addEntry("shrink", _("Shrink Current System"),
+        self.buttonGroup.addEntry("shrink", _("_Shrink Current System"),
                                   pixmap=gui.readImageFromFile("partscheme-shrink.png"),
                                   descr=_("Shrinks existing partitions to create free "
                                           "space for the default layout."))
-        self.buttonGroup.addEntry("freespace", _("Use Free Space"),
+        self.buttonGroup.addEntry("freespace", _("Use _Free Space"),
                                   pixmap=gui.readImageFromFile("partscheme-freespace.png"),
                                   descr=_("Retains your current data and partitions and "
                                           "uses only the unpartitioned space on the "
                                           "selected device(s), assuming you have enough "
                                           "free space available."))
-        self.buttonGroup.addEntry("custom", _("Create Custom Layout"),
+        self.buttonGroup.addEntry("custom", _("Create _Custom Layout"),
                                   pixmap=gui.readImageFromFile("partscheme-custom.png"),
                                   descr=_("Manually create your own custom layout on "
                                           "the selected device(s) using our partitioning "
