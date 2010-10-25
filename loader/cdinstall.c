@@ -167,65 +167,17 @@ static void closeCdromTray(char *device) {
  * checksum.
  */
 static void mediaCheckCdrom(char *cddriver) {
-    int rc;
-    int first;
+    char *descr, *tstamp;
 
-    first = 1;
-    do {
-        char *descr;
-        char *tstamp;
-        int ejectcd;
+    closeCdromTray(cddriver);
+    readStampFileFromIso(cddriver, &tstamp, &descr);
+    doMediaCheck(cddriver, descr);
 
-        /* init every pass */
-        ejectcd = 0;
-        descr = NULL;
+    if (descr)
+        free(descr);
 
-        closeCdromTray(cddriver);
-
-        /* if first time through, see if they want to eject the CD      */
-        /* currently in the drive (most likely the CD they booted from) */
-        /* and test a different disk.  Otherwise just test the disk in  */
-        /* the drive since it was inserted in the previous pass through */
-        /* this loop, so they want it tested.                           */
-        if (first) {
-            first = 0;
-            rc = newtWinChoice(_("Media Check"), _("Test"), _("Eject Disc"),
-                               _("Choose \"%s\" to test the disc currently in "
-                                 "the drive, or \"%s\" to eject the disc and "
-                                 "insert another for testing."), _("Test"),
-                               _("Eject Disc"));
-
-            if (rc == 2)
-                ejectcd = 1;
-        }
-
-        if (!ejectcd) {
-            readStampFileFromIso(cddriver, &tstamp, &descr);
-            doMediaCheck(cddriver, descr);
-
-            if (descr)
-                free(descr);
-        }
-
-        ejectCdrom(cddriver);
-
-        rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
-                       _("If you would like to test additional media, "
-                       "insert the next disc and press \"%s\". "
-                       "Testing each disc is not strictly required, however "
-                       "it is highly recommended.  Minimally, the discs should "
-                       "be tested prior to using them for the first time. "
-                       "After they have been successfully tested, it is not "
-                       "required to retest each disc prior to using it again."),
-                       _("Test"), _("Continue"));
-
-        if (rc == 2) {
-            closeCdromTray(cddriver);
-            return;
-        } else {
-            continue;
-        }
-    } while (1);
+    if (tstamp)
+        free(tstamp);
 }
 
 /* output an error message when CD in drive is not the correct one */
