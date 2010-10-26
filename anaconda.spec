@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.103
+Version: 10.1.1.104
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -77,6 +77,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 26 2010 David Cantrell <dcantrell@redhat.com> - 10.1.1.104-1
+- Initialize __libc_setlocale_lock (dcantrell)
+  Related: rhbz#523380
+
 * Tue Mar 31 2009 Joel Granados <jgranado@redhat.com> - 10.1.1.103-1
 - libwrap is now located in /LIBDIR/libwrap (msivak).
   Resolves: rhbz:#493005
