@@ -288,6 +288,8 @@ makemoduletree() {
     ln -snf ../firmware $MMB_DIR/lib/firmware
 
     echo "Copying kernel modules..."
+    # might not be the first kernel we are building the image for, remove the target dir's contents
+    rm -rf $MMB_DIR/lib/modules/*
     cp -a $KERNELROOT/lib/modules/* $MMB_DIR/lib/modules/
     echo "Removing extraneous modules..."
     find $MMB_DIR/lib/modules/ -name *.ko | while read module ; do
@@ -499,6 +501,7 @@ for KERNELARCH in $arches; do
 
         KERNELROOT=$KERNELBASE/$KERNELARCH
         mkdir -p $KERNELROOT
+        rm -rf $KERNELROOT/* # in case we already populated the dir for a previous kernel tag
 
         foundakernel="yes"
 
