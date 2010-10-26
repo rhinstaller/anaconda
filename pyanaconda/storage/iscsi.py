@@ -44,6 +44,7 @@ ISCSID=""
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
 def has_iscsi():
+    global ISCSID
     location = iutil.find_program_in_path("iscsid")
     if location:
         ISCSID = location
