@@ -182,7 +182,7 @@ def setupTimezone(anaconda):
         args.append("-u")
 
     try:
-        iutil.execWithRedirect("/usr/sbin/hwclock", args, stdin = None,
+        iutil.execWithRedirect("/sbin/hwclock", args, stdin = None,
                                stdout = "/dev/tty5", stderr = "/dev/tty5")
     except RuntimeError:
         log.error("Failed to set clock")

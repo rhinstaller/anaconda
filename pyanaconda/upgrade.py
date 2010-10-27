@@ -161,7 +161,7 @@ def restoreTime(anaconda):
         return
     args = [ "--hctosys" ]
     try:
-        iutil.execWithRedirect("/usr/sbin/hwclock", args,stdout = "/dev/tty5",
+        iutil.execWithRedirect("/sbin/hwclock", args,stdout = "/dev/tty5",
                                stderr = "/dev/tty5")
     except RuntimeError:
         log.error("Failed to set the clock.")
