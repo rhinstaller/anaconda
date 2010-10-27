@@ -45,18 +45,17 @@ INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
 def has_iscsi():
     global ISCSID
-    location = iutil.find_program_in_path("iscsid")
-    if location:
-        ISCSID = location
-
-    if ISCSID == "" or not has_libiscsi:
-        return False
-
-    log.info("ISCSID is %s" % (ISCSID,))
-
-    # make sure the module is loaded
+    
     if not os.access("/sys/module/iscsi_tcp", os.X_OK):
         return False
+
+    if not ISCSID:
+        location = iutil.find_program_in_path("iscsid")
+        if not location:
+            return False
+        ISCSID = location
+        log.info("ISCSID is %s" % (ISCSID,))
+
     return True
 
 def randomIname():
