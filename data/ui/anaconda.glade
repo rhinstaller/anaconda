@@ -6,8 +6,8 @@
     <property name="resizable">False</property>
     <property name="window_position">center</property>
     <property name="gravity">center</property>
-    <signal name="key_release_event" handler="on_mainWindow_key_release_event" swapped="no"/>
-    <signal name="delete_event" handler="on_mainWindow_delete_event" swapped="no"/>
+    <signal name="key_release_event" handler="on_mainWindow_key_release_event"/>
+    <signal name="delete_event" handler="on_mainWindow_delete_event"/>
     <child>
       <widget class="GtkVBox" id="mainBox">
         <property name="visible">True</property>
@@ -50,7 +50,7 @@
               <widget class="GtkButton" id="debugButton">
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <signal name="clicked" handler="on_debugButton_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_debugButton_clicked"/>
                 <child>
                   <widget class="GtkLabel" id="label4">
                     <property name="visible">True</property>
@@ -71,7 +71,7 @@
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
-                <signal name="clicked" handler="on_backButton_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_backButton_clicked"/>
                 <child>
                   <widget class="GtkLabel" id="label8">
                     <property name="visible">True</property>
@@ -92,7 +92,7 @@
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
-                <signal name="clicked" handler="on_nextButton_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_nextButton_clicked"/>
                 <child>
                   <widget class="GtkLabel" id="label6">
                     <property name="visible">True</property>
@@ -112,7 +112,7 @@
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
-                <signal name="clicked" handler="on_rebootButton_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_rebootButton_clicked"/>
                 <child>
                   <widget class="GtkLabel" id="label7">
                     <property name="visible">True</property>
@@ -134,7 +134,7 @@
                 <property name="can_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
-                <signal name="clicked" handler="on_closeButton_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_closeButton_clicked"/>
               </widget>
               <packing>
                 <property name="expand">False</property>
