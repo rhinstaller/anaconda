@@ -34,32 +34,12 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 sys.path.append("/usr/share/system-config-date")
 
 class TimezoneWindow:
-
     def getTimezoneList(self):
         zt = zonetab.ZoneTab()
         zoneList = [ x.tz for x in zt.getEntries() ]
         zoneList.sort()
         return zoneList
-
-    def updateSysClock(self):
-	args = ["--hctosys"]
-	if self.c.selected():
-	    args.append("--utc")
-
-	iutil.execWithRedirect("hwclock", args)
-	self.g.setTimer(500)
-	self.updateClock()
-
-    def updateClock(self):
-        # disable for now
-        return
         
-#	if os.access("/usr/share/zoneinfo/" + self.l.current(), os.R_OK):
-#	    os.environ['TZ'] = self.l.current()
-#	    self.label.setText(self.currentTime())
-#	else:
-#	    self.label.setText("")
-
     def currentTime(self):
 	return "Current time: " + strftime("%X %Z", localtime(time()))
 
@@ -76,41 +56,21 @@ class TimezoneWindow:
         if not anaconda.ksdata and not hasWindows(anaconda.bootloader):
             asUtc = True
 
-#
-# disabling this for now
-# 
-#	self.label = Label(self.currentTime())
-		
 	self.l = Listbox(5, scroll = 1, returnExit = 0)
 
         for tz in timezones:
 	    self.l.append(gettext.ldgettext("system-config-date", tz), tz)
 
 	self.l.setCurrent(default.replace("_", " "))
-#	self.l.setCallback(self.updateClock)
         
 	self.c = Checkbox(_("System clock uses UTC"), isOn = asUtc)
-#	self.c.setCallback(self.updateSysClock)
 
 	self.g = GridFormHelp(screen, _("Time Zone Selection"), "timezone",
 			      1, 5)
 	self.g.add(t, 0, 0)
-#	self.g.add(self.label, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	self.g.add(self.c, 0, 2, padding = (0, 1, 0, 1), anchorLeft = 1)
 	self.g.add(self.l, 0, 3, padding = (0, 0, 0, 1))
 	self.g.add(bb, 0, 4, growx = 1)
-
-# disabling for now
-#	self.updateClock()
-#	self.updateSysClock()
-#
-#	self.g.setTimer(500)
-#
-#	result = "TIMER"
-#	while result == "TIMER":
-#	    result = self.g.run()
-#	    if result == "TIMER":
-#		self.updateClock()
 
         result = ""
         while 1:
@@ -127,5 +87,3 @@ class TimezoneWindow:
 	anaconda.timezone.setTimezoneInfo(self.l.current().replace(" ", "_"), asUtc = self.c.selected())
 
 	return INSTALL_OK
-
-
