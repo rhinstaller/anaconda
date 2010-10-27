@@ -383,16 +383,35 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
             anaconda.ksdata.skipSteps.extend(["filter", "filtertype"])
 
 class Iscsi(commands.iscsi.F10_Iscsi):
+    class Login(object):
+        def __init__(self, iscsi_obj, tg_data):
+            self.iscsi_obj = iscsi_obj
+            self.tg_data = tg_data
+        
+        def login(self, node):
+            (rc, _) = self.iscsi_obj.log_into_node(
+                node, self.tg_data.user, self.tg_data.password,
+                self.tg_data.user_in, self.tg_data.password_in)
+            return rc
+
     def parse(self, args):
         tg = commands.iscsi.F10_Iscsi.parse(self, args)
 
         try:
-            storage.iscsi.iscsi().addTarget(tg.ipaddr, tg.port,
-                tg.user, tg.password, tg.user_in, tg.password_in)
-            log.info("added iscsi target: %s" %(tg.ipaddr,))
-        except (IOError, ValueError), e:
+            iscsi_obj = storage.iscsi.iscsi()
+            discovered_nodes = iscsi_obj.discover(
+                tg.ipaddr, tg.port, tg.user, tg.password, 
+                tg.user_in, tg.password_in)
+            login = self.Login(iscsi_obj, tg)
+            logged_into_nodes = filter(login.login, discovered_nodes)
+            if len(logged_into_nodes) < 1:
+                msg = _("Could not log into any iSCSI nodes at the portal.")
+                raise KickstartValueError, formatErrorMsg(self.lineno,
+                                                          msg=msg)
+        except (IOError, ValueError) as e:
             raise KickstartValueError, formatErrorMsg(self.lineno,
                                                       msg=str(e))
+
         return tg
 
 class IscsiName(commands.iscsiname.FC6_IscsiName):

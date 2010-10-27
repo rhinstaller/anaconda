@@ -79,7 +79,7 @@ class iscsi(object):
         This class will automatically discover and login to iBFT (or
         other firmware) configured iscsi devices when the startup() method
         gets called. It can also be used to manually configure iscsi devices
-        through the addTarget() method.
+        through the discover() and log_into_node() methods.
 
         As this class needs to make sure certain things like starting iscsid
         and logging in to firmware discovered disks only happens once 
@@ -264,66 +264,6 @@ class iscsi(object):
             w.pop()
 
         return (rc, msg)
-
-    def addTarget(self, ipaddr, port="3260", user=None, pw=None,
-                  user_in=None, pw_in=None, intf=None):
-        authinfo = None
-        found = 0
-        logged_in = 0
-
-        if not has_iscsi():
-            raise IOError, _("iSCSI not available")
-        if self._initiator == "":
-            raise ValueError, _("No initiator name set")
-
-        if user or pw or user_in or pw_in:
-            # Note may raise a ValueError
-            authinfo = libiscsi.chapAuthInfo(username=user, password=pw,
-                                             reverse_username=user_in,
-                                             reverse_password=pw_in)
-        self.startup(intf)
-
-        # Note may raise an IOError
-        found_nodes = libiscsi.discover_sendtargets(address=ipaddr,
-                                                    port=int(port),
-                                                    authinfo=authinfo)
-        if found_nodes == None:
-            raise IOError, _("No iSCSI nodes discovered")
-
-        if intf:
-            w = intf.waitWindow(_("Logging in to iSCSI nodes"),
-                                _("Logging in to iSCSI nodes"))
-
-        for node in found_nodes:
-            # skip nodes we already have
-            if node in self.nodes:
-                continue
-
-            found = found + 1
-            try:
-                if (authinfo):
-                    node.setAuth(authinfo)
-                node.login()
-                log.info("iscsi.addTarget logged in to %s %s %s" % (node.name, node.address, node.port))
-                self.nodes.append(node)
-                logged_in = logged_in + 1
-            except IOError, e:
-                log.warning(
-                    "Could not log into discovered iscsi target %s: %s" %
-                    (node.name, str(e)))
-                # some nodes may require different credentials
-                pass
-
-        if intf:
-            w.pop()
-
-        if found == 0:
-            raise IOError, _("No new iSCSI nodes discovered")
-
-        if logged_in == 0:
-            raise IOError, _("Could not log in to any of the discovered nodes")
-
-        self.stabilize(intf)
 
     def writeKS(self, f):
         if not self.initiatorSet:
