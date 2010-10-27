@@ -49,7 +49,7 @@ if [[ -f /var/run/iscsid.pid ]]; then
     # iscsid must die else it will cause us troubles on the next run
     RESTART_VICTIMS+=' '`cat /var/run/iscsid.pid`
     # log out of all nodes
-    iscsiadm -m node --logoutall=all
+    /sbin/iscsiadm -m node --logoutall=all
 fi
 echo "killing processes: " $RESTART_VICTIMS
 for child in $RESTART_VICTIMS; do
