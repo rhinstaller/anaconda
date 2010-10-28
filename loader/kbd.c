@@ -34,7 +34,6 @@
 #include "lang.h"
 #include "windows.h"
 
-#include "../pyanaconda/isys/stubs.h"
 #include "../pyanaconda/isys/lang.h"
 #include "../pyanaconda/isys/log.h"
 
@@ -79,15 +78,15 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
     if (!defkbd)
 	defkbd = "us";
 
-    f = gunzip_open("/etc/keymaps.gz");
+    f = gzopen("/etc/keymaps.gz", "r");
     if (!f) {
 	errorWindow("cannot open /etc/keymaps.gz: %s");
 	return LOADER_ERROR;
     }
 
-    if (gunzip_read(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
+    if (gzread(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
 	errorWindow("failed to read keymaps header: %s");
-	gunzip_close(f);
+	gzclose(f);
 	return LOADER_ERROR;
     }
 
@@ -95,9 +94,9 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
 
     i = hdr.numEntries * sizeof(*infoTable);
     infoTable = alloca(i);
-    if (gunzip_read(f, infoTable, i) != i) {
+    if (gzread(f, infoTable, i) != i) {
 	errorWindow("failed to read keymap information: %s");
-	gunzip_close(f);
+	gzclose(f);
 	return LOADER_ERROR;
     }
 
@@ -128,10 +127,10 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
     rc = 0;
 
     for (i = 0; i < num; i++) {
-	if (gunzip_read(f, buf, infoTable[i].size) != infoTable[i].size) {
+	if (gzread(f, buf, infoTable[i].size) != infoTable[i].size) {
 	    logMessage(ERROR, "error reading %d bytes from file: %m",
 		       infoTable[i].size);
-	    gunzip_close(f);
+	    gzclose(f);
 	    rc = LOADER_ERROR;
 	}
     }
@@ -145,7 +144,7 @@ int chooseKeyboard(struct loaderData_s * loaderData, char ** kbdtypep) {
     if (rc != 0)
 	rc = LOADER_ERROR;
     else
-        gunzip_close(f);
+        gzclose(f);
 
     loaderData->kbd = strdup(infoTable[num].name);
 

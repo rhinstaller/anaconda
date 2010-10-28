@@ -53,17 +53,17 @@ int isysLoadFont(void) {
 #if defined (__s390__) || defined (__s390x__)
     return 0;
 #endif
-    stream = gunzip_open("/etc/screenfont.gz");
+    stream = gzopen("/etc/screenfont.gz", "r");
     if (!stream)
 	return -EACCES;
 
-    gunzip_read(stream, &cfo, sizeof(cfo));
-    gunzip_read(stream, font, sizeof(font));
-    gunzip_read(stream, map, sizeof(map));
-    gunzip_read(stream, &d.entry_ct, sizeof(d.entry_ct));
+    gzread(stream, &cfo, sizeof(cfo));
+    gzread(stream, font, sizeof(font));
+    gzread(stream, map, sizeof(map));
+    gzread(stream, &d.entry_ct, sizeof(d.entry_ct));
     d.entries = desc;
-    gunzip_read(stream, desc, d.entry_ct * sizeof(desc[0]));
-    gunzip_close(stream);
+    gzread(stream, desc, d.entry_ct * sizeof(desc[0]));
+    gzclose(stream);
 
     cfo.data = font;
     cfo.op = KD_FONT_OP_SET;
@@ -119,12 +119,12 @@ int loadKeymap(gzFile stream) {
     if (major(sb.st_rdev) == 3 || major(sb.st_rdev) == 136)
 	return 0;
 
-    if (gunzip_read(stream, &magic, sizeof(magic)) != sizeof(magic))
+    if (gzread(stream, &magic, sizeof(magic)) != sizeof(magic))
 	return -EIO;
 
     if (magic != KMAP_MAGIC) return -EINVAL;
 
-    if (gunzip_read(stream, keymaps, sizeof(keymaps)) != sizeof(keymaps))
+    if (gzread(stream, keymaps, sizeof(keymaps)) != sizeof(keymaps))
 	return -EINVAL;
 
     console = open("/dev/tty0", O_RDWR);
@@ -134,7 +134,7 @@ int loadKeymap(gzFile stream) {
     for (kmap = 0; kmap < MAX_NR_KEYMAPS; kmap++) {
 	if (!keymaps[kmap]) continue;
 
-	if (gunzip_read(stream, keymap, sizeof(keymap)) != sizeof(keymap)) {
+	if (gzread(stream, keymap, sizeof(keymap)) != sizeof(keymap)) {
 	    close(console);
 	    return -EIO;
 	}
@@ -166,18 +166,18 @@ int isysLoadKeymap(char * keymap) {
     char buf[16384]; 			/* I hope this is big enough */
     int i;
 
-    f = gunzip_open("/etc/keymaps.gz");
+    f = gzopen("/etc/keymaps.gz", "r");
     if (!f) return -EACCES;
 
-    if (gunzip_read(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
-	gunzip_close(f);
+    if (gzread(f, &hdr, sizeof(hdr)) != sizeof(hdr)) {
+	gzclose(f);
 	return -EINVAL;
     }
 
     i = hdr.numEntries * sizeof(*infoTable);
     infoTable = alloca(i);
-    if (gunzip_read(f, infoTable, i) != i) {
-	gunzip_close(f);
+    if (gzread(f, infoTable, i) != i) {
+	gzclose(f);
 	return -EIO;
     }
 
@@ -188,20 +188,20 @@ int isysLoadKeymap(char * keymap) {
 	}
 
     if (num == -1) {
-	gunzip_close(f);
+	gzclose(f);
 	return -ENOENT;
     }
 
     for (i = 0; i < num; i++) {
-	if (gunzip_read(f, buf, infoTable[i].size) != infoTable[i].size) {
-	    gunzip_close(f);
+	if (gzread(f, buf, infoTable[i].size) != infoTable[i].size) {
+	    gzclose(f);
 	    return -EIO;
 	}
     }
 
     rc = loadKeymap(f);
 
-    gunzip_close(f);
+    gzclose(f);
 
     return rc;
 }

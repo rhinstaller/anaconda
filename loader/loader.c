@@ -96,7 +96,6 @@
 
 #include "../pyanaconda/isys/imount.h"
 #include "../pyanaconda/isys/isys.h"
-#include "../pyanaconda/isys/stubs.h"
 #include "../pyanaconda/isys/lang.h"
 #include "../pyanaconda/isys/eddsupport.h"
 #include "../pyanaconda/isys/log.h"

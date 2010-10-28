@@ -40,8 +40,6 @@
 #include "loadermisc.h"
 #include "windows.h"
 
-#include "../pyanaconda/isys/stubs.h"
-#include "../pyanaconda/isys/cpio.h"
 #include "../pyanaconda/isys/lang.h"
 #include "../pyanaconda/isys/isys.h"
 #include "../pyanaconda/isys/log.h"
@@ -161,7 +159,7 @@ void loadLanguage (char * file) {
         sprintf(filename, "/etc/loader.tr");
     }
 
-    stream = gunzip_open(file);
+    stream = gzopen(file, "r");
 
     if (!stream) {
         newtWinMessage("Error", "OK", "Translation for %s is not available.  "
@@ -172,7 +170,7 @@ void loadLanguage (char * file) {
     sprintf(filename, "%s.tr", key);
 
     rc = installCpioFile(stream, filename, "/tmp/translation", 1);
-    gunzip_close(stream);
+    gzclose(stream);
 
     if (rc || access("/tmp/translation", R_OK)) {
         newtWinMessage("Error", "OK", "Cannot get translation file %s.\n", 
