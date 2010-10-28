@@ -729,7 +729,7 @@ class AnacondaYum(YumSorter):
                        copy_local=1, proxies=proxies)
             return "/tmp/.treeinfo"
         except Exception as e:
-            log.error("Error downloading %s/.treeinfo: %s" % (baseurl, e))
+            log.info("Error downloading %s/.treeinfo: %s" % (baseurl, e))
             return None
 
     def _getReleasever(self):
