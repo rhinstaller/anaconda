@@ -229,14 +229,9 @@ class AnacondaCallback:
 
             self.inProgressPo = None
 
-        elif what in (rpm.RPMCALLBACK_UNINST_START,
-                      rpm.RPMCALLBACK_UNINST_STOP):
-            if self.initWindow is None:
-                self.initWindow = self.pulseWindow(_("Finishing upgrade"),
-                                                   _("Finishing upgrade process.  This may take a little while."),
-                                                   0, pulse=True)
-            else:
-                self.initWindow.pulse()
+        elif what == rpm.RPMCALLBACK_UNINST_START:
+            self.progress.set_text("")
+            self.progress.set_label(_("<b>Cleaning up %s</b>" % h))
 
         elif what in (rpm.RPMCALLBACK_CPIO_ERROR,
                       rpm.RPMCALLBACK_UNPACK_ERROR,
