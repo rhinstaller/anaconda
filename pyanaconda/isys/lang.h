@@ -20,7 +20,7 @@
 #ifndef ISYS_LANG_H
 #define ISYS_LANG_H
 
-#include "stubs.h"
+#include <zlib.h>
 
 /* define ask johnsonm@redhat.com where this came from */
 #define KMAP_MAGIC 0x8B39C07F

@@ -33,12 +33,12 @@
 #define NR_KEYS 128
 #endif
 
+#include <zlib.h>
+
 #include "linux/kd.h"
 
-#include "cpio.h"
 #include "isys.h"
 #include "lang.h"
-#include "stubs.h"
 
 int isysLoadFont(void) {
     unsigned char font[65536];
