@@ -1236,6 +1236,9 @@ static void doLoaderMain(struct loaderData_s *loaderData,
     enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_DRIVER,
            STEP_DRIVERDISK, STEP_NETWORK, STEP_IFACE,
            STEP_IP, STEP_EXTRAS, STEP_DONE } step;
+    char *step_names[] = { "STEP_LANG", "STEP_KBD", "STEP_METHOD", "STEP_DRIVER",
+                           "STEP_DRIVERDISK", "STEP_NETWORK", "STEP_IFACE",
+                           "STEP_IP", "STEP_EXTRAS", "STEP_DONE" };
 
     char *ret = NULL, *devName = NULL, *kbdtype = NULL;
     static iface_t iface;
@@ -1267,6 +1270,8 @@ static void doLoaderMain(struct loaderData_s *loaderData,
     }
 
     while (step != STEP_DONE) {
+        logMessage(DEBUGLVL, "in doLoaderMain, step = %s", step_names[step]);
+
         switch(step) {
             case STEP_LANG: {
                 if (loaderData->lang && (loaderData->lang_set == 1))
@@ -1462,8 +1467,6 @@ static void doLoaderMain(struct loaderData_s *loaderData,
             }
 
             case STEP_IFACE: {
-                logMessage(INFO, "going to pick interface");
-
                 /* skip configureTCPIP() screen for kickstart (#260621) */
                 if (loaderData->ksFile)
                     flags |= LOADER_FLAGS_IS_KICKSTART;
