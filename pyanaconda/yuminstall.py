@@ -1288,8 +1288,9 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
         while True:
             try:
                 self.ayum.doGroupSetup()
-            except (GroupsError, NoSuchGroup, RepoError), e:
+            except (GroupsError, NoSuchGroup, RepoError) as e:
                 buttons = [_("_Exit installer"), _("_Retry")]
+                log.error("Unable to read group information: %s" % e)
             else:
                 break # success
 
