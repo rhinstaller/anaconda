@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: anaconda.f14-branch.tr\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-05 16:19-0400\n"
-"PO-Revision-Date: 2010-10-24 01:31+0200\n"
+"PO-Revision-Date: 2010-10-28 08:08+0200\n"
 "Last-Translator: Hasan Alp iNAN <hasanalpinan@gmail.com>\n"
 "Language-Team: Turkish <none>\n"
 "MIME-Version: 1.0\n"
@@ -43,6 +43,11 @@ msgid ""
 "\n"
 " from a root terminal."
 msgstr ""
+" Bir root terminalinde\n"
+"\n"
+"'/usr/bin/liveinst -T'\n"
+"\n"
+"komutunu çalıştırarak metin modunda kurulum deneyin."
 
 #: anaconda:340
 msgid " Starting text mode."
@@ -150,7 +155,7 @@ msgstr "Grafik kipte kurulum yapılamıyor. Metin kipi kuruluma geçiliyor."
 
 #: anaconda:762
 msgid "DISPLAY variable not set. Starting text mode."
-msgstr ""
+msgstr "GÖRÜNTÜ değişkeni ayarlanmamış. Metin kipi başlatılıyor. "
 
 #: pyanaconda/backend.py:135
 #, python-format
@@ -398,7 +403,7 @@ msgstr ""
 
 #: pyanaconda/gui.py:108
 msgid "An error occurred saving screenshots to disk."
-msgstr ""
+msgstr "Ekran görüntüsü diske kaydedilirken bir hata oluştu."
 
 #: pyanaconda/gui.py:125
 msgid "Screenshots Copied"
@@ -439,26 +444,23 @@ msgstr "Görüntüler kaydedilirken bir hata oluştu. Eğer bu durum paket kurul
 #: pyanaconda/gui.py:525
 #: pyanaconda/text.py:150
 msgid "Choose a passphrase for the encrypted devices. You will be prompted for this passphrase during system boot."
-msgstr ""
+msgstr "Şifrelenmiş aygıtlar için bir parola seçin. Sistem açılışı sırasında bu parola sizden istenecektir."
 
 #: pyanaconda/gui.py:544
 #: pyanaconda/gui.py:552
 #: pyanaconda/text.py:188
 #: pyanaconda/text.py:198
-#, fuzzy
 msgid "Error with passphrase"
-msgstr "Parola Hatası"
+msgstr "Parola hatası"
 
 #: pyanaconda/gui.py:545
 #: pyanaconda/text.py:189
-#, fuzzy
 msgid "The passphrases you entered were different.  Please try again."
-msgstr "Verdiğiniz parolalar birbirini tutmuyor. Lütfen yeniden deneyin."
+msgstr "Girdiğiniz parolalar birbirinden farklı. Lütfen yeniden deneyin."
 
 #: pyanaconda/gui.py:553
-#, fuzzy
 msgid "The passphrase must be at least eight characters long."
-msgstr "Parola en az altı karakter uzunluğunda olmalı."
+msgstr "Parola en az sekiz karakter uzunluğunda olmalıdır."
 
 #: pyanaconda/gui.py:587
 #: pyanaconda/text.py:226
@@ -496,7 +498,7 @@ msgstr "Kablosuz ayarı"
 
 #: pyanaconda/gui.py:934
 msgid "Scanning access points for wireless devices"
-msgstr ""
+msgstr "Kablosuz aygıtlar için erişim noktaları aranıyor"
 
 #: pyanaconda/gui.py:960
 #: pyanaconda/textw/netconfig_text.py:399
@@ -506,7 +508,7 @@ msgstr "Ağ Yöneticisi Bekleniyor"
 #: pyanaconda/gui.py:961
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
-msgstr ""
+msgstr "Ağ Yöneticisinin bu aygıtları etkinleştirmesi için bekleniyor: %s"
 
 #: pyanaconda/gui.py:982
 #, python-format
@@ -540,7 +542,7 @@ msgstr ""
 #: pyanaconda/yuminstall.py:1199
 #: pyanaconda/iw/task_gui.py:311
 msgid "No Network Available"
-msgstr ""
+msgstr "Ağ Mevcut Değil"
 
 #: pyanaconda/gui.py:1089
 #: pyanaconda/text.py:419
@@ -665,7 +667,6 @@ msgstr ""
 "Lütfen·imajı·diske·kopyalayıp·Yeniden·Dene'ye·basınız.Yeniden·başlatmak·için·Yeniden·Başlat·butonunu·kullanabilirsiniz."
 
 #: pyanaconda/image.py:239
-#, fuzzy
 msgid "Required Install Media"
 msgstr "Gerekli Kurulum Ortamı"
 
@@ -960,15 +961,15 @@ msgstr ""
 
 #: pyanaconda/network.py:63
 msgid "Hostname must be 255 or fewer characters in length."
-msgstr ""
+msgstr "Konak Adı 255 veya daha az karakter uzunluğunda olmalıdır."
 
 #: pyanaconda/network.py:69
 msgid "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-9'"
-msgstr ""
+msgstr "Konak Adı  'a-z', 'A-Z', veya '0-9' aralığında olan geçerli bir karakter ile başlamalıdır."
 
 #: pyanaconda/network.py:74
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
-msgstr ""
+msgstr "Kona Adları sadece 'a-z', 'A-Z', '0-9', '-', veya '.' karakterlerini içerebilir."
 
 #: pyanaconda/network.py:118
 msgid "IP address is missing."
@@ -1268,15 +1269,15 @@ msgstr "Açılış bölümünün ilk sektörü"
 
 #: pyanaconda/platform.py:113
 msgid "You have not created a bootable partition."
-msgstr ""
+msgstr "Önyüklenebilen bir disk bölümü oluşturmadınız."
 
 #: pyanaconda/platform.py:118
 msgid "Bootable partitions cannot be on a RAID device."
-msgstr ""
+msgstr "Önyüklenebilen disk bölümleri bir RAID aygıtı üzerinde olamaz."
 
 #: pyanaconda/platform.py:120
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Önyükleme bölümleri sadece RAID1 aygıtlarda olabilir."
+msgstr "Önyükleme bölümleri sadece RAID1 aygıtları üzerinde olabilir."
 
 #: pyanaconda/platform.py:124
 msgid "Bootable RAID1 set members must be partitions."
@@ -1284,17 +1285,17 @@ msgstr ""
 
 #: pyanaconda/platform.py:129
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "Önyükleme bölümleri mantıksal oylumlarda olamaz."
+msgstr "Önyükleme bölümleri mantıksal oylumlar üzerinde olamaz."
 
 #: pyanaconda/platform.py:136
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
-msgstr ""
+msgstr "Önyüklenebilen disk bölümleri %s dosya sistemi üzerinde olamaz."
 
 #: pyanaconda/platform.py:140
 #: pyanaconda/platform.py:145
 msgid "Bootable partitions cannot be on an encrypted block device"
-msgstr ""
+msgstr "Önyüklenebilen disk bölümleri şifrelenmiş bir blok aygıtı üzerinde olamaz."
 
 #: pyanaconda/platform.py:217
 msgid "EFI System Partition"
@@ -1814,7 +1815,7 @@ msgstr[0] "%s Bayt"
 
 #: pyanaconda/yuminstall.py:134
 msgid "Preparing to install"
-msgstr ""
+msgstr "Yüklemek için hazırlanıyor"
 
 #: pyanaconda/yuminstall.py:135
 msgid "Preparing transaction from installation source"
@@ -2899,7 +2900,7 @@ msgstr "IP Adresi"
 #: pyanaconda/iw/netconfig_dialog.py:267
 #: pyanaconda/textw/netconfig_text.py:290
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4 CIDR öntakıları 0 ile 32 arasındaki sayılardan oluşmalıdır."
+msgstr "IPv4 CIDR öntakıları 0 ile 32 arasında olmalıdır."
 
 #: pyanaconda/iw/netconfig_dialog.py:268
 #: pyanaconda/iw/netconfig_dialog.py:274
@@ -3284,9 +3285,8 @@ msgid "_Format as:"
 msgstr "_Böyle biçimle:"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:340
-#, fuzzy
 msgid "Mi_grate filesystem to:"
-msgstr "Dosya Sistemlerini Dönüştür:"
+msgstr "Dosya sistemlerini buna dönüştür:"
 
 #: pyanaconda/iw/partition_ui_helpers_gui.py:370
 msgid "_Resize"
@@ -4137,7 +4137,7 @@ msgstr "yükleyici zaten çalıştırıldı. Kabuk başlatılıyor.\n"
 #: loader/loader.c:2121
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
-msgstr ""
+msgstr "%s içinde sürücü diski saptandı. Bunu kullanmak istiyor musunuz?."
 
 #: loader/loader.c:2124
 msgid "Driver disc detected"
@@ -4234,6 +4234,9 @@ msgid ""
 "This cannot be corrected in cmdline mode.\n"
 "Halting.\n"
 msgstr ""
+"\n"
+"Bu cmdline kipinde düzeltilemez.\n"
+"Durduruluyor.\n"
 
 #: loader/net.c:513
 #: loader/net.c:568
@@ -4364,13 +4367,13 @@ msgstr ""
 #: loader/net.c:2025
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
-msgstr ""
+msgstr "%s port ışıkları %d saniye için yanıp söner."
 
 #: loader/net.c:2195
 #: loader/net.c:2199
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
-msgstr ""
+msgstr "NetworkManager'ın %s 'i yapılandırması bekleniyor.\n"
 
 #: loader/nfsinstall.c:93
 msgid "NFS server name:"
@@ -4677,6 +4680,11 @@ msgid ""
 "\n"
 "is an old-style Linux swap partition.  If you want to use this device for swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
+"Takas aygıtı:\n"
+"\n"
+"     %s\n"
+"\n"
+"eski tip Linux takas bölümüdür. Eğer bu aygıtı takas alanı olarak kullanmak istiyorsanız, bu alanı yeni tip Linux takas bölümü olarak tekrar biçimlendirmelisiniz."
 
 #: pyanaconda/storage/__init__.py:1861
 #, python-format
@@ -4694,7 +4702,7 @@ msgstr ""
 "/etc/fstab dosyasındaki, şu an bir uyku moduna alma yazılımı tarafından kullanılıyor, bu sistemin uyku moduna alındığı anlamına gelir. Güncelleme yapmak için sistemi uyku moduna almak yerine kapatın."
 
 #: pyanaconda/storage/__init__.py:1869
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The swap device:\n"
 "\n"
@@ -4704,9 +4712,9 @@ msgid ""
 msgstr ""
 "/etc/fstab·dosyasındaki\n"
 "\n"
-"       /dev/%s\n"
+"       %s\n"
 "\n"
-"takas alanı uyku moduna alma yazılımı tarafından kullanılıyor. Bu sistemin uyku moduna alındığı anlamına·gelir. Yeni bir kurulum yapmak için tüm takas alanlarının biçimlendirlecek şekilde ayarlandığından emin olun."
+"takas alanı şu an bir uyku moduna alma yazılımı tarafından kullanılıyor, ki bu sistemin uyku modunda olduğu anlamına·gelir. Eğer yeni bir kurulum yapıyorsanız, kurulumda tüm takas alanlarının biçimlendirilecek şekilde ayarlandığından emin olun."
 
 #: pyanaconda/storage/__init__.py:1881
 #, python-format
@@ -4717,6 +4725,11 @@ msgid ""
 "\n"
 "does not contain a supported swap volume.  In order to continue installation, you will need to format the device or skip it."
 msgstr ""
+"Takas aygıtı:\n"
+"\n"
+"     %s\n"
+"\n"
+"desteklenen bir takas birimi içermiyor. Kuruluma devam etmek için, bu aygıtı biçimlendirmelisiniz veya bu işlemi atlamalısınız."
 
 #: pyanaconda/storage/__init__.py:1892
 #, python-format
@@ -4805,12 +4818,12 @@ msgstr[0] "DASD Aygıtı Biçimlendiriliyor"
 #, python-format
 msgid "Preparing %d DASD device for use with Linux..."
 msgid_plural "Preparing %d DASD devices for use with Linux..."
-msgstr[0] ""
+msgstr[0] "%d DASD aygıtı(ları)Linux ile kullanılmak üzere hazırlanıyor..."
 
 #: pyanaconda/storage/devicelibs/lvm.py:312
 #, python-format
 msgid "vginfo failed for %s"
-msgstr ""
+msgstr "vginfo %s için başarısız"
 
 #: pyanaconda/storage/devicelibs/lvm.py:341
 #, python-format
@@ -5258,7 +5271,7 @@ msgstr "IPv6 Öntakısı"
 
 #: pyanaconda/textw/netconfig_text.py:326
 msgid "IPv6 CIDR prefix must be between 0 and 128."
-msgstr ""
+msgstr "IPv6 CIDR öntakıları 0 ile 128 arasında olmalıdır."
 
 #: pyanaconda/textw/netconfig_text.py:334
 msgid "IPv6 Gateway"
@@ -5288,7 +5301,7 @@ msgstr "Kurulum diskinizde bölümlendirmeye gereksinim duyuyor. Öntanımlı ol
 
 #: pyanaconda/textw/partition_text.py:64
 msgid "Use entire drive"
-msgstr ""
+msgstr "Sürücünün tamamını kullan"
 
 #: pyanaconda/textw/partition_text.py:65
 msgid "Replace existing Linux system"
@@ -5646,11 +5659,11 @@ msgstr ""
 
 #: data/ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr ""
+msgstr "<b>Veri Depolama Aygıtları</b> (sadece bağlı olanlar)"
 
 #: data/ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
-msgstr ""
+msgstr "<b>Hedef Aygıtları Yükle</b>"
 
 #: data/ui/cleardisks.glade.h:3
 msgid "<b>Tip:</b> Install target devices will be reformatted and wiped of any data.  Make sure you have backups."
@@ -5702,7 +5715,7 @@ msgstr "Yazılımsal RAID Oluştur"
 
 #: data/ui/create-storage.glade.h:11
 msgid "Create Storage"
-msgstr ""
+msgstr "Depo Oluştur"
 
 #: data/ui/create-storage.glade.h:12
 msgid "LVM Logical Volume"
@@ -5760,7 +5773,7 @@ msgstr ""
 
 #: data/ui/filter.glade.h:2
 msgid "Add Advanced Target"
-msgstr ""
+msgstr "Gelişmiş Hedef Ekle"
 
 #: data/ui/filter.glade.h:3
 msgid "Basic Devices"
