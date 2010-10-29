@@ -81,7 +81,7 @@ BuildRequires: yum >= %{yumver}
 BuildRequires: zlib-devel
 BuildRequires: NetworkManager-devel >= %{nmver}
 BuildRequires: NetworkManager-glib-devel >= %{nmver}
-BuildRequires: dbus-devel >= %{dbusver}
+BuildRequires: dbus-devel >= %{dbusver}, dbus-python
 BuildRequires: system-config-keyboard >= %{sckeyboardver}
 %ifarch %livearches
 BuildRequires: desktop-file-utils
