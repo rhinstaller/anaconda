@@ -227,6 +227,9 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Oct 29 2010 Chris Lumens <clumens@redhat.com> - 15.6-1
+- We now need to BuildRequire dbus-python. (clumens)
+
 * Fri Oct 29 2010 Chris Lumens <clumens@redhat.com> - 15.5-1
 - ui: mnemonics for autopartitioning type. (akozumpl)
 - hwclock lives in /sbin now. (akozumpl)
