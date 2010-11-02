@@ -53,7 +53,8 @@ loader_SOURCES     = loader.c copy.c moduleinfo.c loadermisc.c \
                      selinux.c mediacheck.c kickstart.c driverselect.c \
                      getparts.c dirbrowser.c fwloader.c ibft.c hardware.c \
                      method.c cdinstall.c hdinstall.c nfsinstall.c \
-                     urlinstall.c net.c urls.c rpmextract.c readvars.c
+                     urlinstall.c net.c urls.c rpmextract.c readvars.c \
+                     unpack.c
 
 init_CFLAGS        = $(COMMON_CFLAGS) $(GLIB_CFLAGS)
 init_LDADD         = $(GLIB_LIBS) $(top_srcdir)/pyanaconda/isys/libisys.la
