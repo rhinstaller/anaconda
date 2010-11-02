@@ -39,6 +39,7 @@
 #include "lang.h"
 #include "loadermisc.h"
 #include "windows.h"
+#include "unpack.h"
 
 #include "../pyanaconda/isys/lang.h"
 #include "../pyanaconda/isys/isys.h"
@@ -141,7 +142,6 @@ int getLangInfo(struct langInfo ** langs) {
 
 void loadLanguage (char * file) {
     char filename[200];
-    gzFile stream;
     int fd, hash, rc;
     char * key = getenv("LANGKEY");
 
@@ -159,20 +159,16 @@ void loadLanguage (char * file) {
         sprintf(filename, "/etc/loader.tr");
     }
 
-    stream = gzopen(file, "r");
-
-    if (!stream) {
+    if (access(file, R_OK) == -1) {
         newtWinMessage("Error", "OK", "Translation for %s is not available.  "
                        "The Installation will proceed in English.", key);
         return ;
     }
     
     sprintf(filename, "%s.tr", key);
+    rc = unpack_archive_file(filename, "/tmp/translation");
 
-    rc = installCpioFile(stream, filename, "/tmp/translation", 1);
-    gzclose(stream);
-
-    if (rc || access("/tmp/translation", R_OK)) {
+    if (rc != ARCHIVE_OK || access("/tmp/translation", R_OK) == -1) {
         newtWinMessage("Error", "OK", "Cannot get translation file %s.\n", 
                         filename);
         return;

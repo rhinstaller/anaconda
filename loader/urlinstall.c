@@ -47,6 +47,7 @@
 #include "cdinstall.h"
 #include "urls.h"
 #include "windows.h"
+#include "unpack.h"
 
 /* boot flags */
 extern uint64_t flags;
@@ -177,7 +178,7 @@ int loadUrlImages(struct loaderData_s *loaderData) {
         unlink("/tmp/updates-disk.img");
         unlink("/tmp/update-disk");
     } else if (!access("/tmp/updates-disk.img", R_OK)) {
-        unpackCpioBall("/tmp/updates-disk.img", "/tmp/updates");
+        unpack_archive_file("/tmp/updates-disk.img", "/tmp/updates");
         unlink("/tmp/updates-disk.img");
     }
 

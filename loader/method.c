@@ -44,10 +44,10 @@
 #include "lang.h"
 #include "mediacheck.h"
 #include "method.h"
+#include "unpack.h"
 
 #include "../pyanaconda/isys/imount.h"
 #include "../pyanaconda/isys/isys.h"
-#include "../pyanaconda/isys/cpio.h"
 #include "../pyanaconda/isys/log.h"
 
 #include "devt.h"
@@ -310,7 +310,7 @@ void copyUpdatesImg(char * path) {
             umount("/tmp/update-disk");
             unlink("/tmp/update-disk");
         } else {
-            unpackCpioBall(path, "/tmp/updates");
+            unpack_archive_file(path, "/tmp/updates");
         }
     }
 }
