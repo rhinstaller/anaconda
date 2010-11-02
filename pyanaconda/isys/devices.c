@@ -171,7 +171,8 @@ storagedone:
                 return NULL;
             }
 
-            if (type != 1)
+            /* S390 channel-to-channnel devices have type 256 */
+            if (type != 1 && !strncmp(ent->d_name, "ctc", 3) && type != 256)
                 continue;
 
             new = calloc(1, sizeof(struct device));
