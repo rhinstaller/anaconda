@@ -38,7 +38,8 @@ int explodeRPM(const char* file,
                filterfunc filter,
                dependencyfunc provides,
                dependencyfunc deps,
-               void* userptr);
+               void* userptr,
+               char *destination);
 
 #endif
 

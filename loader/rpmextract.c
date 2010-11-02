@@ -38,6 +38,7 @@
 
 #include "loader.h"
 #include "rpmextract.h"
+#include "unpack.h"
 
 #include "../pyanaconda/isys/log.h"
 
@@ -93,7 +94,8 @@ int explodeRPM(const char *source,
         filterfunc filter,
         dependencyfunc provides,
         dependencyfunc deps,
-        void* userptr)
+        void* userptr,
+        char *destination)
 {
     char buffer[BUFFERSIZE+1]; /* make space for trailing \0 */
     FD_t fdi;
@@ -102,7 +104,6 @@ int explodeRPM(const char *source,
     rpmRC rc;
     FD_t gzdi;
     struct archive *cpio;
-    struct archive_entry *cpio_entry;
     struct cpio_mydata cpio_mydata;
 
     rpmts ts;
@@ -235,17 +236,15 @@ int explodeRPM(const char *source,
         return EXIT_FAILURE;
     }
 
+    cpio_mydata.gzdi = gzdi;
+    cpio_mydata.buffer = buffer;
+
     /* initialize cpio decompressor */
-    cpio = archive_read_new();
-    if (cpio==NULL) {
+    if (unpack_init(&cpio) != ARCHIVE_OK) {
         Fclose(gzdi);
         return -1;
     }
 
-    cpio_mydata.gzdi = gzdi;
-    cpio_mydata.buffer = buffer;
-    archive_read_support_compression_all(cpio);
-    archive_read_support_format_all(cpio);
     rc = archive_read_open(cpio, &cpio_mydata, NULL, rpm_myread, rpm_myclose);
 
     /* check the status of archive_open */
@@ -254,99 +253,8 @@ int explodeRPM(const char *source,
         return -1;
     }
 
-    /* read all files in cpio archive */
-    while ((rc = archive_read_next_header(cpio, &cpio_entry)) == ARCHIVE_OK){
-        const struct stat *fstat;
-        int64_t fsize;
-        const char* filename;
-        int needskip = 1; /* do we need to read the data to get to the next header? */
-        int offset = 0;
-        int towrite = 0;
-
-        filename = archive_entry_pathname(cpio_entry);
-        fstat = archive_entry_stat(cpio_entry);
-        fsize = archive_entry_size(cpio_entry);
-
-        /* Strip leading slashes */
-        while (filename[offset] == '/')
-            offset+=1;
-
-        /* Strip leading ./ */
-        while (filename[offset] == '.' && filename[offset+1] == '/')
-            offset+=2;
-
-        /* Other file type - we do not care except special cases */
-        if (!S_ISREG(fstat->st_mode))
-            towrite = 1;
-        else
-            towrite = 2;
-
-        if (filter && filter(filename+offset, fstat, userptr)) {
-            /* filter this file */
-            towrite = 0;
-        }
-
-        /* Create directories */
-        char* dirname = strdup(filename+offset);
-
-        /* If the dup fails, let's hope the dirs already exist */
-        if (dirname){
-            char* dirptr = dirname;
-            while (dirptr && *dirptr) {
-                dirptr = strchr(dirptr, '/');
-                if (dirptr) {
-                    *dirptr = 0;
-                    mkdir(dirname, 0700);
-                    *dirptr = '/';
-                    dirptr++;
-                }
-            }
-            free(dirname);
-        }
-
-        /* Regular file */
-        if (towrite>=2) {
-            FILE *fdout = fopen(filename+offset, "w");
-
-            if (fdout==NULL){
-                rc = 33;
-                break;
-            }
-            
-            rc = archive_read_data_into_fd(cpio, fileno(fdout));
-            if (rc!=ARCHIVE_OK) {
-                /* XXX We didn't get the file.. well.. */
-                needskip = 0;
-            } else {
-                needskip = 0;
-            }
-
-            fclose(fdout);
-        }
-
-        /* symlink, we assume that the path contained in symlink
-         * is shorter than BUFFERSIZE */
-        while (towrite && S_ISLNK(fstat->st_mode)) {
-            char symlinkbuffer[BUFFERSIZE-1];
-
-            needskip = 0;
-            if ((rc = archive_read_data(cpio, symlinkbuffer, fsize))!=ARCHIVE_OK) {
-                /* XXX We didn't get the file.. well.. */
-                break;
-            }
-
-            if (symlink(buffer, filename+offset)) {
-                logMessage(ERROR, "Failed to create symlink %s -> %s", filename+offset, buffer);
-            }
-
-            break;
-        }
-
-        if(needskip)
-            archive_read_data_skip(cpio);
-    }
-
-    rc = archive_read_finish(cpio); /* Also closes the RPM stream using callback */
+    /* read all files in cpio archive and close */
+    rc = unpack_members_and_finish(cpio, destination, filter, userptr);
 
     return rc != ARCHIVE_OK;
 }

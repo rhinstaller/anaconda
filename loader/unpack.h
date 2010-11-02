@@ -23,9 +23,11 @@
 #define UNPACK_H
 
 #include <archive.h>
+#include "rpmextract.h"
 
 int unpack_init(struct archive **);
-int unpack_members_and_finish(struct archive *, char *);
+int unpack_members_and_finish(struct archive *, char *,
+                              filterfunc, void *);
 int unpack_archive_file(char *, char *);
 
 #endif

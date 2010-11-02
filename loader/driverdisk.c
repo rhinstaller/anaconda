@@ -91,7 +91,8 @@ int dlabelFilter(const char* name, const struct stat *fstat, void *userptr)
     logMessage(DEBUGLVL, "Unpacking %s", name);
 
     /* we want firmware files */
-    if (!strncmp("lib/firmware/", name, 13)) return 0; 
+    if (strstr(name, "lib/firmware/") == NULL)
+        return 0;
 
     if (l<3)
         return 1;
@@ -145,23 +146,8 @@ int globErrFunc(const char *epath, int eerrno)
 
 int dlabelUnpackRPMDir(char* rpmdir, char* destination, char *kernelver)
 {
-    char *oldcwd;
     char *globpattern;
     int rc = 0;
-
-    /* get current working directory */ 
-    oldcwd = getcwd(NULL, 0);
-    if (!oldcwd) {
-        logMessage(ERROR, "getcwd() failed: %m");
-        return 1;
-    }
-
-    /* set the cwd to destination */
-    if (chdir(destination)) {
-        logMessage(ERROR, "We weren't able to CWD to \"%s\": %m", destination);
-        free(oldcwd);
-        return 1;
-    }
 
     checked_asprintf(&globpattern, "%s/*.rpm", rpmdir);
     glob_t globres;
@@ -170,7 +156,7 @@ int dlabelUnpackRPMDir(char* rpmdir, char* destination, char *kernelver)
         /* iterate over all rpm files */
         globitem = globres.gl_pathv;
         while (globres.gl_pathc>0 && globitem != NULL && *globitem != NULL) {
-            explodeRPM(*globitem, dlabelFilter, dlabelProvides, NULL, kernelver);
+            explodeRPM(*globitem, dlabelFilter, dlabelProvides, NULL, kernelver, destination);
             globitem++;
         }
         globfree(&globres);
@@ -178,13 +164,6 @@ int dlabelUnpackRPMDir(char* rpmdir, char* destination, char *kernelver)
     }
     free(globpattern);
 
-    /* restore CWD */
-    if (chdir(oldcwd)) {
-        logMessage(WARNING, "We weren't able to restore CWD to \"%s\": %m", oldcwd);
-    }
-
-    /* cleanup */
-    free(oldcwd);
     return rc;
 }
 

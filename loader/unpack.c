@@ -26,6 +26,8 @@
 #include <archive_entry.h>
 #include <glib.h>
 
+#include "rpmextract.h"
+
 #include "../pyanaconda/isys/log.h"
 
 /*
@@ -55,7 +57,8 @@ int unpack_init(struct archive **a) {
  * directory.  If dest is not NULL and does not exist as a directory,
  * create it first.  Return ARCHIVE_OK on success, ARCHIVE_* otherwise.
  */
-int unpack_members_and_finish(struct archive *a, char *dest) {
+int unpack_members_and_finish(struct archive *a, char *dest,
+                              filterfunc filter, void* userptr) {
     int restore = 0;
     char prevcwd[PATH_MAX];
     struct archive_entry *e = NULL;
@@ -83,9 +86,15 @@ int unpack_members_and_finish(struct archive *a, char *dest) {
     }
 
     while (archive_read_next_header(a, &e) == ARCHIVE_OK) {
+        const char *pathname = archive_entry_pathname(e);
+        const struct stat *fstat = archive_entry_stat(e);
+
+        if (filter && filter(pathname, fstat, userptr))
+            continue;
+
         if (archive_read_extract(a, e, 0) != ARCHIVE_OK) {
             logMessage(ERROR, "error unpacking %s (%s:%d): %s",
-                       archive_entry_pathname(e), __func__, __LINE__,
+                       pathname, __func__, __LINE__,
                        archive_error_string(a));
             return ARCHIVE_FATAL;
         }
@@ -138,5 +147,5 @@ int unpack_archive_file(char *filename, char *dest) {
         return rc;
     }
 
-    return unpack_members_and_finish(a, dest);
+    return unpack_members_and_finish(a, dest, NULL, NULL);
 }
