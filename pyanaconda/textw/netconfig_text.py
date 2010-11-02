@@ -74,7 +74,7 @@ class NetworkConfiguratorText:
         # Preselect device set in kickstart
         ksdevice = self.anaconda.network.getKSDevice()
         if ksdevice:
-            ksdevice = ksdevice.get("DEVICE")
+            ksdevice = ksdevice.iface
 
         for devname in devnames:
             hwaddr = self.netdevs[devname].get("HWADDR")
@@ -402,7 +402,7 @@ class NetworkConfiguratorText:
         if not result:
             self.anaconda.intf.messageWindow(_("Network Error"),
                                              _("There was an error configuring "
-                                               "network device %s") % dev.get('DEVICE'))
+                                               "network device %s") % dev.iface)
             dev.set(("ONBOOT", "no"))
             return False
 

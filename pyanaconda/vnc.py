@@ -108,7 +108,7 @@ class VncServer:
             dev = devices[active_devs[0]]
 
             try:
-                devname = dev.get("DEVICE")
+                devname = dev.iface
                 ips = (isys.getIPAddresses(devname, version=4) +
                        isys.getIPAddresses(devname, version=6))
                 self.ip = ips[0]

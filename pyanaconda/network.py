@@ -549,7 +549,7 @@ class Network:
             # ipv4 and ipv6
             if dev.get("ONBOOT"):
                 line += " --onboot %s" % dev.get("ONBOOT")
-            line += " --device %s" % dev.get("DEVICE")
+            line += " --device %s" % dev.iface
             if dev.get('MTU') and dev.get('MTU') != "0":
                 line += " --mtu=%s" % dev.get('MTU')
 
@@ -742,7 +742,7 @@ class Network:
                 addr = dev.get("HWADDR")
                 if not addr:
                     continue
-                devname = dev.get("DEVICE")
+                devname = dev.iface
                 basename = devname
                 while basename != "" and basename[-1] in string.digits:
                     basename = basename[:-1]

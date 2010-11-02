@@ -150,7 +150,7 @@ def selectInstallNetDeviceDialog(network, devices = None):
 
     ksdevice = network.getKSDevice()
     if ksdevice:
-        ksdevice = ksdevice.get('DEVICE')
+        ksdevice = ksdevice.iface
     preselected = None
 
     for dev in devices:
