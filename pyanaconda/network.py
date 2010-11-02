@@ -222,10 +222,6 @@ class NetworkDevice(IfcfgFile):
     def __str__(self):
         s = ""
         keys = self.info.keys()
-        keys.sort()
-        if ("DEVICE" in keys):
-            keys.remove("DEVICE")
-            keys.insert(0, "DEVICE")
         if iutil.isS390() and ("HWADDR" in keys):
             keys.remove("HWADDR")
         # make sure we include autoneg in the ethtool line
