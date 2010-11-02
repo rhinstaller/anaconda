@@ -694,7 +694,6 @@ class Network:
         # /etc/sysconfig/network-scripts/ifcfg-*
         # /etc/sysconfig/network-scripts/keys-*
         for dev in devices:
-            device = dev.get('DEVICE')
 
             bootproto = dev.get('BOOTPROTO').lower()
             # write out the hostname as DHCP_HOSTNAME if given (#81613)

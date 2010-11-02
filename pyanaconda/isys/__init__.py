@@ -320,41 +320,6 @@ def getDeviceProperties(dev=None):
     else:
         return None
 
-# Return true if method is currently 'dhcp' for the specified device.
-def isDeviceDHCP(dev=None):
-    if dev is None:
-        return False
-
-    bus = dbus.SystemBus()
-    nm = bus.get_object(NM_SERVICE, NM_MANAGER_PATH)
-    nm_props_iface = dbus.Interface(nm, DBUS_PROPS_IFACE)
-    active_connections = nm_props_iface.Get(NM_MANAGER_IFACE, "ActiveConnections")
-
-    for path in active_connections:
-        active = bus.get_object(NM_SERVICE, path)
-        active_props_iface = dbus.Interface(active, DBUS_PROPS_IFACE)
-
-        active_service_name = active_props_iface.Get(NM_ACTIVE_CONNECTION_IFACE, "ServiceName")
-        active_path = active_props_iface.Get(NM_ACTIVE_CONNECTION_IFACE, "Connection")
-        active_devices = active_props_iface.Get(NM_ACTIVE_CONNECTION_IFACE, "Devices")
-
-        device = bus.get_object(NM_SERVICE, active_devices[0])
-        device_props_iface = dbus.Interface(device, DBUS_PROPS_IFACE)
-        iface = device_props_iface.Get(NM_DEVICE_IFACE, "Interface")
-
-        if iface != dev:
-            continue
-
-        connection = bus.get_object(active_service_name, active_path)
-        connection_iface = dbus.Interface(connection, NM_CONNECTION_IFACE)
-        settings = connection_iface.GetSettings()
-
-        ip4_setting = settings.get('ipv4')
-        if not ip4_setting or not ip4_setting['method'] or ip4_setting['method'] == 'auto':
-            return True
-
-    return False
-
 # Get the MAC address for a network device.
 def getMacAddress(dev):
     if dev == '' or dev is None:
