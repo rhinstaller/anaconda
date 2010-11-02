@@ -513,7 +513,10 @@ int readNetConfig(char * device, iface_t * iface,
             newtWinMessage(_("Network Error"), _("Retry"),
                            _("There was an error configuring your network "
                              "interface."));
-            return LOADER_BACK;
+            /* Clear out ip selections to allow for re-entry */
+            iface->ipv4method = IPV4_UNUSED_METHOD;
+            iface->ipv6method = IPV6_UNUSED_METHOD;
+            return LOADER_ERROR;
         }
 
         return LOADER_NOOP;
@@ -568,6 +571,7 @@ int readNetConfig(char * device, iface_t * iface,
         newtWinMessage(_("Network Error"), _("Retry"),
                        _("There was an error configuring your network "
                          "interface."));
+        /* Clear out selections to allow for re-entry */
         iface->ipv4method = IPV4_UNUSED_METHOD;
         iface->ipv6method = IPV6_UNUSED_METHOD;
         return LOADER_ERROR;
@@ -676,17 +680,19 @@ int configureTCPIP(char * device, iface_t * iface,
      *     ip=<val> noipv6
      *     ipv6=<val> noipv4
      */
-    if ((FL_IP_PARAM(flags) && FL_IPV6_PARAM(flags)) ||
-        (FL_IP_PARAM(flags) && FL_NOIPV6(flags)) ||
-        (FL_IPV6_PARAM(flags) && FL_NOIPV4(flags)) ||
-        (FL_NOIPV4(flags) && FL_NOIPV6(flags))) {
+    if ((iface->ipv4method > IPV4_UNUSED_METHOD && iface->ipv6method > IPV6_UNUSED_METHOD) || /* both */
+        (iface->ipv4method > IPV4_UNUSED_METHOD && FL_NOIPV6(flags)) || /* only ipv4 */
+        (FL_NOIPV4(flags) && iface->ipv6method > IPV6_UNUSED_METHOD) || /* only ipv6 */
+        (FL_NOIPV4(flags) && FL_NOIPV6(flags))) { /* neither ipv4 or ipv6 -- what else? */
         skipForm = 1;
         newtPopWindow();
+        logMessage(DEBUGLVL, "in configureTCPIP(), detected network boot args, skipping form");
     }
 #else
-    if (FL_IP_PARAM(flags) || FL_NOIPV4(flags)) {
+    if (iface->ipv4method > IPV4_UNUSED_METHOD || FL_NOIPV4(flags)) {
         skipForm = 1;
         newtPopWindow();
+        logMessage(DEBUGLVL, "in configureTCPIP(), detected network boot args, skipping form");
     }
 #endif
 
@@ -2101,7 +2107,9 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
                            __func__, rc);
             }
 
+            /* Forget network device so we prompt the user */
             loaderData->netDev_set = 0;
+            /* Forget IP information so we prompt the user */
             loaderData->ipinfo_set = 0;
             free(loaderData->ipv4);
             loaderData->ipv4 = NULL;

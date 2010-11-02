@@ -1482,6 +1482,8 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                 if (rc == LOADER_BACK || rc == LOADER_ERROR || (dir == -1 && rc == LOADER_NOOP)) {
                     step = STEP_METHOD;
                     dir = -1;
+                    /* Clear current device selection so we prompt on re-entry to STEP_IFACE */
+                    loaderData->netDev_set = 0;
                     break;
                 }
 
@@ -1505,7 +1507,6 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                     doExit(EXIT_FAILURE);
                 }
 
-                logMessage(INFO, "going to do getNetConfig");
 
                 /* s390 provides all config info by way of linuxrc.s390 */
                 if (FL_HAVE_CMSCONF(flags)) {
@@ -1516,7 +1517,9 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                 }
 
                 /* populate netDev based on any kickstart data */
+                logMessage(DEBUGLVL, "in doLoaderMain, calling setupIfaceStruct()");
                 setupIfaceStruct(&iface, loaderData);
+                logMessage(DEBUGLVL, "in doLoaderMain, calling readNetConfig()");
                 rc = readNetConfig(devName, &iface, loaderData->netCls, loaderData->method);
 
                 /* set the hostname if we have that */
@@ -1531,15 +1534,37 @@ static void doLoaderMain(struct loaderData_s *loaderData,
                 free(ret);
                 ret = NULL;
 
+                /* Go to STEP_IFACE */
                 if (rc == LOADER_BACK || (dir == -1 && rc == LOADER_NOOP)) {
                     needsNetwork = 1;
                     step = STEP_IFACE;
                     dir = -1;
+
+                   /* Clear out netDev_set so we prompt the user in
+                    * STEP_IFACE */
+                   loaderData->netDev_set = 0;
+                   /* Clear ipinfo_set so we prompt the user in when they
+                    * return to STEP_IP */
+                   loaderData->ipinfo_set = 0;
+#ifdef ENABLE_IPV6
+                   loaderData->ipv6info_set = 0;
+#endif
+                   logMessage(DEBUGLVL, "in STEP_IP, going to STEP_IFACE (LOADER_BACK)");
+
                     break;
                 }
-                /* retry */
+                /* Retry STEP_IP */
                 if (rc == LOADER_ERROR) {
                     needsNetwork = 1;
+
+                   /* Don't retry the same failed settings.  Clear ipinfo-set
+                    * so the user can enter new data */
+                   loaderData->ipinfo_set = 0;
+#ifdef ENABLE_IPV6
+                   loaderData->ipv6info_set = 0;
+#endif
+                   logMessage(DEBUGLVL, "in STEP_IP, retry (LOADER_ERROR)");
+
                     break;
                 }
 
