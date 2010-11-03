@@ -90,7 +90,7 @@ struct device **getDevices(enum deviceType type) {
                 continue;
 
             if (devtype == DEVICE_DISK && !(caps & GENHD_FL_REMOVABLE)) {
-                int size;
+                long long int size;
 
                 snprintf(path, 64, "/sys/block/%s/size", ent->d_name);
                 fd = open(path, O_RDONLY);
@@ -104,10 +104,10 @@ struct device **getDevices(enum deviceType type) {
 
                 close(fd);
                 errno = 0;
-                size = strtol(buf, NULL, 10);
+                size = strtoll(buf, NULL, 10);
 
-                if ((errno == ERANGE && (size == LONG_MIN ||
-                                         size == LONG_MAX)) ||
+                if ((errno == ERANGE && (size == LLONG_MIN ||
+                                         size == LLONG_MAX)) ||
                     (errno != 0 && size == 0)) {
                     return NULL;
                 }
