@@ -21,25 +21,15 @@
 import string
 import gtk
 import gtk.glade
-import gtk.gdk
-import gobject
 from scdate.core import zonetab
-import pango
-import sys
 
 from timezone_map_gui import TimezoneMap
 from iw_gui import *
-from pyanaconda.booty.bootloaderInfo import dosFilesystems
 from pyanaconda.bootloader import hasWindows
 
 from pyanaconda.constants import *
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
-
-try:
-    import gnomecanvas
-except ImportError:
-    import gnome.canvas as gnomecanvas
 
 class TimezoneWindow(InstallWindow):
     def __init__(self, ics):
