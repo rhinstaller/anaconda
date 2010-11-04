@@ -232,7 +232,7 @@ class AutoStep(commands.autostep.FC3_AutoStep):
         flags.autostep = 1
         flags.autoscreenshot = self.autoscreenshot
 
-class Bootloader(commands.bootloader.F14_Bootloader):
+class Bootloader(commands.bootloader.F15_Bootloader):
     def execute(self, anaconda):
         if self.location == "none":
             location = None
@@ -257,10 +257,7 @@ class Bootloader(commands.bootloader.F14_Bootloader):
                 anaconda.bootloader.args.append(self.appendLine)
 
             if self.password:
-                anaconda.bootloader.setPassword(self.password, isCrypted = 0)
-
-            if self.md5pass:
-                anaconda.bootloader.setPassword(self.md5pass)
+                anaconda.bootloader.setPassword(self.password, isCrypted = self.isCrypted)
 
             if location != None:
                 anaconda.bootloader.defaultDevice = location

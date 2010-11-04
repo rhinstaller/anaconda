@@ -330,7 +330,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
 
             
         if self.password:
-            f.write('password --md5 %s\n' %(self.password))
+            f.write('password --encrypted %s\n' %(self.password))
         
         for (label, longlabel, version) in kernelList:
             kernelTag = "-" + version
@@ -540,7 +540,7 @@ class x86BootloaderInfo(efiBootloaderInfo):
         args = bootloaderInfo.getArgList(self)
 
         if self.password:
-            args.append("--md5pass=%s" %(self.password))
+            args.append("--password=%s" %(self.password))
 
         return args
 
