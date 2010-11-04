@@ -39,7 +39,7 @@ class TimezoneWindow(InstallWindow):
         # this won't work.
         gtk.glade.set_custom_handler(self.custom_widget_handler)
 
-        # Set the default now.  We'll fix it for real in getScreen.
+        # Set the default now.  We'll fix it for real in upon the first render.
         self.default = "America/New York"
 
         self.zonetab = zonetab.ZoneTab()
@@ -90,8 +90,6 @@ class TimezoneWindow(InstallWindow):
 
         self.default = self.default.replace("_", " ")
 
-        # Now fix the default we set when we made the timezone map widget.
-        self.tz.setCurrent(self.zonetab.findEntryByTZ(self.default))
         self.utcCheckbox.set_active(asUTC)
 
         if not anaconda.ksdata:
@@ -99,3 +97,10 @@ class TimezoneWindow(InstallWindow):
 
         self.notebook.remove(self.vbox)
         return self.vbox
+
+    def renderCallback(self):
+        # Now fix the default we set when we made the timezone map widget. Due
+        # to a GTK weirdness, this would not do what we desire if put in
+        # getScreen(): the element would get selected but stay outside of the
+        # visible part of the TreeView.
+        self.tz.setCurrent(self.zonetab.findEntryByTZ(self.default))
