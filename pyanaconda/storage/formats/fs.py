@@ -387,12 +387,6 @@ class FS(DeviceFormat):
         if not os.path.exists(self.device):
             raise FSError("device does not exist")
 
-        # if journal already exists skip
-        if isys.ext2HasJournal(self.device):
-            log.info("Skipping migration of %s, has a journal already."
-                     % self.device)
-            return
-
         argv = self._defaultMigrateOptions[:]
         argv.append(self.device)
         try:
@@ -926,6 +920,12 @@ class Ext2FS(FS):
         return msg.strip()
 
     def doMigrate(self, intf=None):
+        # if journal already exists skip
+        if isys.ext2HasJournal(self.device):
+            log.info("Skipping migration of %s, has a journal already."
+                     % self.device)
+            return
+
         FS.doMigrate(self, intf=intf)
         self.tuneFS()
 
