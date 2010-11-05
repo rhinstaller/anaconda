@@ -813,6 +813,7 @@ class AnacondaYum(yum.YumBase):
                     ksrepo.baseurl = "file://%s" % dest
 
                 repo = AnacondaYumRepo(ksrepo.name)
+                repo.yumvar.update(self.conf.yumvar)
                 repo.mirrorlist = ksrepo.mirrorlist
                 repo.name = ksrepo.name
 
