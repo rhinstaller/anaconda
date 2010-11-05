@@ -321,7 +321,6 @@ def setSteps(anaconda):
                 "keyboard",
                 "filtertype",
                 "filter",
-                "cleardiskssel",
                 "storageinit",
                 "findrootparts",
                 "findinstall",
@@ -353,4 +352,6 @@ def setSteps(anaconda):
         dispatch.skipStep("bootloader")
 
     if not iutil.isX86():
-        dispatch.skipStep("upgbootloader")            
+        dispatch.skipStep("upgbootloader")
+
+    dispatch.skipStep("cleardiskssel", permanent=1)
