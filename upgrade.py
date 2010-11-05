@@ -267,7 +267,6 @@ def setSteps(anaconda):
                 "welcome",
                 "filtertype",
                 "filter",
-                "cleardiskssel",
                 "installtype",
                 "storageinit",
                 "findrootparts",
@@ -298,6 +297,6 @@ def setSteps(anaconda):
 
     if not iutil.isX86():
         dispatch.skipStep("bootloader")
+        dispatch.skipStep("upgbootloader")
 
-    if not iutil.isX86():
-        dispatch.skipStep("upgbootloader")            
+    dispatch.skipStep("cleardiskssel", permanent=1)
