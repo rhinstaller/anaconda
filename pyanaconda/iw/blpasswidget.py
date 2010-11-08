@@ -30,14 +30,14 @@ class BootloaderPasswordWidget:
     def __init__(self, anaconda, parent):
         self.parent = parent
         self.intf = anaconda.intf
-        
+
         if anaconda.bootloader.getPassword():
             usePass = 1
             self.password = anaconda.bootloader.getPassword()
         else:
             usePass = 0
             self.password = None
-        
+
         vbox = gtk.VBox(False, 6)
 
         # password widgets + callback
@@ -53,7 +53,7 @@ class BootloaderPasswordWidget:
         self.usePassCb.connect("toggled", self.passCallback)
         self.passButton.connect("clicked", self.passButtonCallback)
         self.setPassLabel()
-            
+
         box = gtk.HBox(False, 12)
         box.pack_start(self.usePassCb, False)
         box.pack_start(self.passButton, False)
@@ -73,7 +73,7 @@ class BootloaderPasswordWidget:
 
     # set the label on the button for the bootloader password
     def setPassLabel(self):
-        self.passButton.set_label(_("Change _password"))        
+        self.passButton.set_label(_("Change _password"))
         if not self.usePassCb.get_active() or not self.password:
             self.passButton.set_sensitive(False)
         else:
@@ -85,8 +85,8 @@ class BootloaderPasswordWidget:
             self.passButton.set_sensitive(False)
             self.setPassLabel()
         else:
-            if self.passwordWindow() == 2:
-                widget.set_active(0)
+            if not self.passwordWindow() and not self.password:
+                self.usePassCb.set_active(False)
             self.setPassLabel()
 
     # callback for when the password button is clicked
@@ -101,7 +101,7 @@ class BootloaderPasswordWidget:
         dialog.add_button('gtk-ok', 1)
         dialog.set_position(gtk.WIN_POS_CENTER)
         gui.addFrame(dialog)
-        
+
         label = gui.WrappingLabel(_("Enter a boot loader password and then confirm it.  (Note that your BIOS keymap may be different than the actual keymap you are used to.)"))
         label.set_alignment(0.0, 0.0)
         dialog.vbox.pack_start(label)
@@ -115,8 +115,8 @@ class BootloaderPasswordWidget:
         pwEntry.set_visibility (False)
         label.set_mnemonic_widget(pwEntry)
         table.attach(pwEntry, 1, 2, 2, 3, gtk.FILL, 0, 10)
-        label = gui.MnemonicLabel(_("Con_firm:"))        
-        table.attach(label, 0, 1, 3, 4, gtk.FILL, 0, 10) 
+        label = gui.MnemonicLabel(_("Con_firm:"))
+        table.attach(label, 0, 1, 3, 4, gtk.FILL, 0, 10)
         confirmEntry = gtk.Entry (16)
         confirmEntry.set_visibility (False)
         label.set_mnemonic_widget(confirmEntry)
@@ -133,6 +133,7 @@ class BootloaderPasswordWidget:
         while 1:
             rc = dialog.run()
             if rc in [gtk.RESPONSE_CANCEL, gtk.RESPONSE_DELETE_EVENT]:
+                rc = False
                 break
 
             if pwEntry.get_text() != confirmEntry.get_text():
@@ -157,6 +158,7 @@ class BootloaderPasswordWidget:
                     continue
 
             self.password = thePass
+            rc = True
             break
 
         dialog.destroy()
