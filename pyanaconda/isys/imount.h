@@ -20,16 +20,9 @@
 #ifndef H_IMOUNT
 #define H_IMOUNT
 
-#define IMOUNT_ERR_ERRNO          1
-#define IMOUNT_ERR_OTHER          2
-#define IMOUNT_ERR_MODE           3
-#define IMOUNT_ERR_PERMISSIONS    4
-#define IMOUNT_ERR_SYSTEM         5
-#define IMOUNT_ERR_MOUNTINTERNAL  6
-#define IMOUNT_ERR_USERINTERRUPT  7
-#define IMOUNT_ERR_MTAB           8
-#define IMOUNT_ERR_MOUNTFAILURE   9
-#define IMOUNT_ERR_PARTIALSUCC    10
+#define IMOUNT_ERR_ERRNO          -1
+#define IMOUNT_ERR_OTHER          -2
+#define IMOUNT_ERR_MODE           -3
 
 #include <sys/mount.h>		/* for umount() */
 

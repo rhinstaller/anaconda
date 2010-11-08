@@ -223,27 +223,8 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
 
     if (!WIFEXITED(status))
         return IMOUNT_ERR_OTHER;
-    else if ( (rc = WEXITSTATUS(status)) ) {
-        /* Refer to 'man mount' for the meaning of the error codes. */
-        switch (rc) {
-        case 1:
-            return IMOUNT_ERR_PERMISSIONS;
-        case 2:
-            return IMOUNT_ERR_SYSTEM;
-        case 4:
-            return IMOUNT_ERR_MOUNTINTERNAL;
-        case 8:
-            return IMOUNT_ERR_USERINTERRUPT;
-        case 16:
-            return IMOUNT_ERR_MTAB;
-        case 32:
-            return IMOUNT_ERR_MOUNTFAILURE;
-        case 64:
-            return IMOUNT_ERR_PARTIALSUCC;
-        default:
-            return IMOUNT_ERR_OTHER;
-        }
-    }
+    else if ( (rc = WEXITSTATUS(status)) )
+        return rc;
 
     return 0;
 }
@@ -265,16 +246,10 @@ int doPwUmount(char *where, char **err) {
 
 /* Returns true iff it is possible that the mount command that have returned
  * 'errno' might succeed at a later time (think e.g. not yet initialized USB
- * device, etc.) */
-int mountMightSucceedLater(int mountRc)
 {
-    int rc;
-    switch (mountRc) {
-    case IMOUNT_ERR_MOUNTFAILURE:
-        rc = 1;
-        break;
-    default:
-        rc = 0;
-    }
-    return rc;
+    /* 32 is the mount exit code for "mount failure" */
+    if (mountRc > 0 && mountRc & 0x20)
+        return 1;
+    else
+        return 0;
 }
