@@ -143,7 +143,7 @@ PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 2.7.902a])
 
 # Set $RPM_OPT_FLAGS if we don't have it
 if test -z $RPM_OPT_FLAGS ; then
-    CFLAGS="$CFLAGS -O2 -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions"
+    CFLAGS="$CFLAGS -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions"
 else
     CFLAGS="$CFLAGS $RPM_OPT_FLAGS"
 fi
