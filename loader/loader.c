@@ -90,6 +90,7 @@
 #include "ibft.h"
 #include "net.h"
 #include "readvars.h"
+#include "unpack.h"
 
 #include <selinux/selinux.h>
 #include "selinux.h"
@@ -2171,17 +2172,16 @@ int main(int argc, char ** argv) {
 
     /* make sure /tmp/updates exists so that magic in anaconda to */
     /* symlink rhpl/ will work                                    */
-    if (access("/tmp/updates", F_OK))
-        mkdirChain("/tmp/updates");
+    if (unpack_mkpath("/tmp/updates") == ARCHIVE_OK) {
+        add_fw_search_dir(&loaderData, "/tmp/updates/firmware");
+        add_to_path_env("PYTHONPATH", "/tmp/updates");
+        add_to_path_env("LD_LIBRARY_PATH", "/tmp/updates");
+        add_to_path_env("PATH", "/tmp/updates");
+    }
 
-    add_fw_search_dir(&loaderData, "/tmp/updates/firmware");
     add_fw_search_dir(&loaderData, "/tmp/product/firmware");
-
-    add_to_path_env("PYTHONPATH", "/tmp/updates");
     add_to_path_env("PYTHONPATH", "/tmp/product");
-    add_to_path_env("LD_LIBRARY_PATH", "/tmp/updates");
     add_to_path_env("LD_LIBRARY_PATH", "/tmp/product");
-    add_to_path_env("PATH", "/tmp/updates");
     add_to_path_env("PATH", "/tmp/product");
 
     stop_fw_loader(&loaderData);

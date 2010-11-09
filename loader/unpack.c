@@ -31,6 +31,24 @@
 #include "../pyanaconda/isys/log.h"
 
 /*
+ * Wrapper for g_mkdir_with_parents()
+ */
+int unpack_mkpath(char *path) {
+    if (path == NULL)
+        return ARCHIVE_FATAL;
+
+    if (access(path, R_OK|W_OK|X_OK)) {
+        if (g_mkdir_with_parents(path, 0755) == -1) {
+            logMessage(ERROR, "unable to mkdir %s (%s:%d): %m",
+                       path, __func__, __LINE__);
+            return ARCHIVE_FATAL;
+        }
+    }
+
+    return ARCHIVE_OK;
+}
+
+/*
  * Initialize libarchive object for unpacking an archive file.
  * Args:
  *     struct archive **a      The archive object to use.
@@ -72,12 +90,8 @@ int unpack_members_and_finish(struct archive *a, char *dest,
     }
 
     if (dest != NULL) {
-        if (access(dest, R_OK|W_OK|X_OK)) {
-            if (g_mkdir_with_parents(dest, 0755) == -1) {
-                logMessage(ERROR, "unable to mkdir %s (%s:%d): %m",
-                           dest, __func__, __LINE__);
-                return ARCHIVE_FATAL;
-            }
+        if (unpack_mkpath(dest) != ARCHIVE_OK) {
+            return ARCHIVE_FATAL;
         } else if (chdir(dest) == -1) {
             logMessage(ERROR, "unable to chdir %s (%s:%d): %m",
                        dest, __func__, __LINE__);

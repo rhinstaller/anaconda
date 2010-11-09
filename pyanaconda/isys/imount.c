@@ -27,13 +27,12 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <glib.h>
 
 #include "imount.h"
 #include "log.h"
 
 #define _(foo) foo
-
-static int mkdirIfNone(char * directory);
 
 static int readFD(int fd, char **buf) {
     char *p;
@@ -88,7 +87,7 @@ int mountCommandWrapper(int mode, char *dev, char *where, char *fs,
     case IMOUNT_MODE_MOUNT:
     case IMOUNT_MODE_BIND:
         cmd = "/bin/mount";
-        if (mkdirChain(where))
+        if (g_mkdir_with_parents(where, 0755))
             return IMOUNT_ERR_ERRNO;
         break;
     case IMOUNT_MODE_UMOUNT:
@@ -264,31 +263,6 @@ int doPwUmount(char *where, char **err) {
                                NULL, where, NULL, NULL, err);
 }
 
-int mkdirChain(char * origChain) {
-    char * chain;
-    char * chptr;
-
-    chain = alloca(strlen(origChain) + 1);
-    strcpy(chain, origChain);
-    chptr = chain;
-
-    while ((chptr = strchr(chptr, '/'))) {
-	*chptr = '\0';
-	if (mkdirIfNone(chain)) {
-	    *chptr = '/';
-	    return IMOUNT_ERR_ERRNO;
-	}
-
-	*chptr = '/';
-	chptr++;
-    }
-
-    if (mkdirIfNone(chain))
-	return IMOUNT_ERR_ERRNO;
-
-    return 0;
-}
-
 /* Returns true iff it is possible that the mount command that have returned
  * 'errno' might succeed at a later time (think e.g. not yet initialized USB
  * device, etc.) */
@@ -303,26 +277,4 @@ int mountMightSucceedLater(int mountRc)
         rc = 0;
     }
     return rc;
-}
-
-static int mkdirIfNone(char * directory) {
-    int rc, mkerr;
-    char * chptr;
-
-    /* If the file exists it *better* be a directory -- I'm not going to
-       actually check or anything */
-    if (!access(directory, X_OK)) return 0;
-
-    /* if the path is '/' we get ENOFILE not found" from mkdir, rather
-       then EEXIST which is weird */
-    for (chptr = directory; *chptr; chptr++)
-        if (*chptr != '/') break;
-    if (!*chptr) return 0;
-
-    rc = mkdir(directory, 0755);
-    mkerr = errno;
-
-    if (!rc || mkerr == EEXIST) return 0;
-
-    return IMOUNT_ERR_ERRNO;
 }

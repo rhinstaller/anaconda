@@ -44,7 +44,6 @@
 int doBindMount(char* path, char *where, char **err);
 int doPwMount(char *dev, char *where, char *fs, char *options, char **err);
 int doPwUmount(char *where, char **err);
-int mkdirChain(char * origChain);
 int mountMightSucceedLater(int mountRc);
 
 #endif

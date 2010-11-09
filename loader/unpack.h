@@ -25,6 +25,7 @@
 #include <archive.h>
 #include "rpmextract.h"
 
+int unpack_mkpath(char *);
 int unpack_init(struct archive **);
 int unpack_members_and_finish(struct archive *, char *,
                               filterfunc, void *);

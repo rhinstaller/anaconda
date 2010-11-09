@@ -54,6 +54,7 @@
 #include "urlinstall.h"
 
 #include "rpmextract.h"
+#include "unpack.h"
 
 #include "../pyanaconda/isys/isys.h"
 #include "../pyanaconda/isys/imount.h"
@@ -244,9 +245,11 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
     logMessage(DEBUGLVL, "Kernel version: %s", kernelver);
 
     sprintf(file, DD_RPMDIR_TEMPLATE, disknum);
-    mkdirChain(file);
-    mkdirChain(DD_MODULES);
-    mkdirChain(DD_FIRMWARE);
+
+    if (unpack_mkpath(file) != ARCHIVE_OK ||
+        unpack_mkpath(DD_MODULES) != ARCHIVE_OK ||
+        unpack_mkpath(DD_FIRMWARE) != ARCHIVE_OK)
+        goto loadDriverDiscException;
 
     if (!FL_CMDLINE(flags)) {
         startNewt();
@@ -272,7 +275,8 @@ static int loadDriverDisk(struct loaderData_s *loaderData, char *mntpt) {
 
     /* ensure updates directory exists */
     sprintf(file, "/lib/modules/%s/updates", kernelver);
-    mkdirChain(file);
+    if (unpack_mkpath(file) != ARCHIVE_OK)
+        goto loadDriverDiscException;
 
     /* make sure driver update are referenced from system module dir
        but from a different subdir, initrd overlays use the main
