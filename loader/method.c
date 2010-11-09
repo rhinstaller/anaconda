@@ -268,40 +268,6 @@ static void copyErrorFn (char *msg) {
    newtWinMessage(_("Error"), _("OK"), _(msg));
 }
 
-/* 
- * unpack a gzipped cpio ball into a tree rooted at rootDir
- * returns 0 on success, 1 on failure
- */
-int unpackCpioBall(char * ballPath, char * rootDir) {
-    gzFile fd;
-    char *buf, *cwd;
-    int rc = 1;
-
-    if (access(ballPath, R_OK))
-        return 1;
-
-    if (access(rootDir, R_OK))
-        mkdirChain(rootDir);
-
-    buf = (char *)malloc(PATH_MAX);
-    cwd = getcwd(buf, PATH_MAX);
-    if ((rc = chdir(rootDir)) == 0) {
-        fd = gunzip_open(ballPath);
-        if (fd) {
-            if (!installCpioFile(fd, NULL, NULL, 0)) {
-                logMessage(INFO, "copied contents of %s into %s", ballPath,
-                           rootDir);
-                rc = chdir(cwd);
-                return 0;
-            }
-            gunzip_close(fd);
-        }
-        rc = chdir(cwd);
-    }
-
-    return 1;
-}
-
 void copyUpdatesImg(char * path) {
     if (!access(path, R_OK)) {
         if (!doPwMount(path, "/tmp/update-disk", "auto", "ro", NULL)) {

@@ -45,7 +45,6 @@ void queryIsoMediaCheck(char * isoDir);
 
 int getFileFromBlockDevice(char *device, char *path, char * dest);
 
-int unpackCpioBall(char * ballPath, char * rootDir);
 void copyUpdatesImg(char * path);
 void copyProductImg(char * path);
 
