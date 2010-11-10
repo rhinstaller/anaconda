@@ -16,13 +16,13 @@ class TopologicalSortTestCase(unittest.TestCase):
         edges = [(5, 4), (4, 3), (3, 2), (2, 1), (3, 5)]
         graph = tsort.create_graph(items, edges)
         self.failUnlessRaises(tsort.CyclicGraphError,
-                              tsort.tsort_dict,
+                              tsort.tsort,
                               graph)
 
         edges = [(5, 4), (4, 3), (3, 2), (2, 1), (2, 3)]
         graph = tsort.create_graph(items, edges)
         self.failUnlessRaises(tsort.CyclicGraphError,
-                              tsort.tsort_dict,
+                              tsort.tsort,
                               graph)
 
         items = ['a', 'b', 'c', 'd']
@@ -40,7 +40,7 @@ class TopologicalSortTestCase(unittest.TestCase):
             return True
 
         try:
-            order = tsort.tsort_dict(graph)
+            order = tsort.tsort(graph)
         except Exception as e:
             self.fail(e)
 
