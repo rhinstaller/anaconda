@@ -604,11 +604,10 @@ class Network:
 
         f.close()
 
-        # /etc/modprobe.d/noipv6
+        # /etc/modprobe.conf
         if useIPv6 == "no":
-            iutil.mkdirChain(instPath + "/etc/modprobe.d")
-            f = open(instPath + "/etc/modprobe.d/noipv6", "w")
-            f.write("# Disable IPv6 kernel modules (added by anaconda)\n")
+            iutil.mkdirChain(instPath + "/etc")
+            f = open(instPath + "/etc/modprobe.conf", "w")
             f.write("alias net-pf-10 off\n")
             f.write("alias ipv6 off\n")
             f.write("options ipv6 disable=1\n")
