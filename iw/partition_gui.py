@@ -443,12 +443,15 @@ class DiskStripeGraph(StripeGraph):
             sel_col = self.part_type_colors["sel_freespace"]
             xoffset = last_logical_offset
             xlength = last_extended_offset - last_logical_offset
-            slcstr = "%s\n%.0f MB" % (_("Free"), Decimal(str(drive.size)) * xlength)
+            # don't add a slice for free regions of <= 1MB
+            size = Decimal(str(drive.size)) * xlength
+            if size > 1:
+                slcstr = "%s\n%.0f MB" % (_("Free"), size)
 
-            slice = Slice(stripe, slcstr, stype, xoffset, xlength,
-                    dcCB = self.dcCB, cCB = self.cCB, sel_col=sel_col,
-                    unsel_col=unsel_col)
-            stripe.addSlice(slice)
+                slice = Slice(stripe, slcstr, stype, xoffset, xlength,
+                        dcCB = self.dcCB, cCB = self.cCB, sel_col=sel_col,
+                        unsel_col=unsel_col)
+                stripe.addSlice(slice)
 
         return stripe
 
