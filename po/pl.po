@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-10-29 10:25-0400\n"
-"PO-Revision-Date: 2010-10-29 16:49+0200\n"
+"POT-Creation-Date: 2010-11-09 11:38-0500\n"
+"PO-Revision-Date: 2010-11-10 03:53+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "Language: pl\n"
@@ -80,9 +80,9 @@ msgstr " Uruchamianie trybu tekstowego."
 #: anaconda:365 pyanaconda/rescue.py:353 pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:392 pyanaconda/rescue.py:475 pyanaconda/rescue.py:488
 #: pyanaconda/rescue.py:499 pyanaconda/text.py:537 loader/windows.h:30
-#: loader/cdinstall.c:234 loader/cdinstall.c:238 loader/cdinstall.c:253
-#: loader/cdinstall.c:256 loader/cdinstall.c:386 loader/cdinstall.c:389
-#: loader/cdinstall.c:471 loader/dirbrowser.c:130 loader/driverdisk.c:228
+#: loader/cdinstall.c:186 loader/cdinstall.c:190 loader/cdinstall.c:205
+#: loader/cdinstall.c:208 loader/cdinstall.c:338 loader/cdinstall.c:341
+#: loader/cdinstall.c:423 loader/dirbrowser.c:130 loader/driverdisk.c:228
 #: loader/driverdisk.c:409 loader/driverdisk.c:441 loader/driverdisk.c:472
 #: loader/driverdisk.c:507 loader/driverdisk.c:523 loader/driverdisk.c:535
 #: loader/driverdisk.c:543 loader/driverdisk.c:715 loader/driverdisk.c:754
@@ -97,9 +97,9 @@ msgstr " Uruchamianie trybu tekstowego."
 #: loader/loader.c:498 loader/loader.c:516 loader/loader.c:533
 #: loader/loader.c:570 loader/loader.c:1217 loader/loader.c:1357
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
-#: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:227
-#: loader/method.c:301 loader/net.c:621 loader/net.c:1001 loader/net.c:1649
-#: loader/net.c:1670 loader/net.c:1976 loader/net.c:1995 loader/net.c:2007
+#: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:194
+#: loader/method.c:268 loader/net.c:625 loader/net.c:1007 loader/net.c:1655
+#: loader/net.c:1676 loader/net.c:1982 loader/net.c:2001 loader/net.c:2013
 #: loader/nfsinstall.c:92 loader/nfsinstall.c:195 loader/nfsinstall.c:276
 #: loader/urlinstall.c:138 loader/urlinstall.c:160 loader/urlinstall.c:212
 #: loader/urlinstall.c:278 loader/urlinstall.c:289 loader/urlinstall.c:296
@@ -141,12 +141,12 @@ msgid "Installing %s\n"
 msgstr "Instalowanie %s\n"
 
 #: pyanaconda/bootloader.py:55 pyanaconda/bootloader.py:221
-#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1095 pyanaconda/image.py:74
+#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1095 pyanaconda/image.py:73
 #: pyanaconda/installinterfacebase.py:51 pyanaconda/installinterfacebase.py:82
 #: pyanaconda/installinterfacebase.py:142 pyanaconda/packages.py:318
-#: pyanaconda/text.py:412 pyanaconda/yuminstall.py:1529
-#: pyanaconda/yuminstall.py:1726 pyanaconda/yuminstall.py:1761
-#: pyanaconda/iw/blpasswidget.py:148 pyanaconda/iw/upgrade_swap_gui.py:190
+#: pyanaconda/text.py:412 pyanaconda/yuminstall.py:1474
+#: pyanaconda/yuminstall.py:1656 pyanaconda/yuminstall.py:1691
+#: pyanaconda/iw/blpasswidget.py:149 pyanaconda/iw/upgrade_swap_gui.py:190
 #: pyanaconda/iw/upgrade_swap_gui.py:198 pyanaconda/iw/upgrade_swap_gui.py:205
 #: pyanaconda/textw/upgrade_text.py:193
 msgid "Warning"
@@ -165,24 +165,24 @@ msgstr ""
 "Kontynuować instalację?"
 
 #: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1118 pyanaconda/gui.py:1155
-#: pyanaconda/gui.py:1357 pyanaconda/image.py:83 pyanaconda/livecd.py:205
+#: pyanaconda/gui.py:1357 pyanaconda/image.py:82 pyanaconda/livecd.py:205
 #: pyanaconda/livecd.py:447 pyanaconda/packages.py:135
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
-#: pyanaconda/yuminstall.py:260 pyanaconda/yuminstall.py:828
-#: pyanaconda/yuminstall.py:1031 pyanaconda/yuminstall.py:1036
-#: pyanaconda/yuminstall.py:1116 pyanaconda/yuminstall.py:1122
-#: pyanaconda/yuminstall.py:1277 pyanaconda/yuminstall.py:1292
-#: pyanaconda/yuminstall.py:1347 pyanaconda/yuminstall.py:1538
-#: pyanaconda/yuminstall.py:1557 pyanaconda/yuminstall.py:1580
+#: pyanaconda/yuminstall.py:259 pyanaconda/yuminstall.py:799
+#: pyanaconda/yuminstall.py:978 pyanaconda/yuminstall.py:983
+#: pyanaconda/yuminstall.py:1061 pyanaconda/yuminstall.py:1067
+#: pyanaconda/yuminstall.py:1222 pyanaconda/yuminstall.py:1237
+#: pyanaconda/yuminstall.py:1292 pyanaconda/yuminstall.py:1483
+#: pyanaconda/yuminstall.py:1502 pyanaconda/yuminstall.py:1525
 #: pyanaconda/storage/__init__.py:114 pyanaconda/storage/__init__.py:123
 #: pyanaconda/storage/__init__.py:234 pyanaconda/storage/__init__.py:1974
 msgid "_Exit installer"
 msgstr "_Zakończ instalator"
 
-#: pyanaconda/bootloader.py:60 pyanaconda/image.py:84 pyanaconda/image.py:243
-#: pyanaconda/kickstart.py:1380 pyanaconda/kickstart.py:1419
+#: pyanaconda/bootloader.py:60 pyanaconda/image.py:83
+#: pyanaconda/kickstart.py:1396 pyanaconda/kickstart.py:1435
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
-#: pyanaconda/yuminstall.py:1352 pyanaconda/yuminstall.py:1539
+#: pyanaconda/yuminstall.py:1297 pyanaconda/yuminstall.py:1484
 #: pyanaconda/iw/partition_gui.py:1599 pyanaconda/storage/__init__.py:1975
 msgid "_Continue"
 msgstr "_Kontynuuj"
@@ -220,9 +220,9 @@ msgid "In progress"
 msgstr "W trakcie wykonywania"
 
 #: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1150
-#: pyanaconda/kickstart.py:1166 pyanaconda/kickstart.py:1246
-#: pyanaconda/kickstart.py:1254 pyanaconda/kickstart.py:1290
-#: pyanaconda/kickstart.py:1300 pyanaconda/text.py:393
+#: pyanaconda/kickstart.py:1182 pyanaconda/kickstart.py:1262
+#: pyanaconda/kickstart.py:1270 pyanaconda/kickstart.py:1306
+#: pyanaconda/kickstart.py:1316 pyanaconda/text.py:393
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -380,7 +380,7 @@ msgstr "Aktywowanie tych interfejsów sieciowych się nie powiodło: %s"
 msgid "Network Configuration"
 msgstr "Konfiguracja sieci"
 
-#: pyanaconda/gui.py:1008 pyanaconda/iw/netconfig_dialog.py:213
+#: pyanaconda/gui.py:1008
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "Wystąpił błąd podczas próby podniesienia interfejsu sieciowego %s."
@@ -398,8 +398,8 @@ msgstr ""
 "metody zapisywania wyjątków. Skonfigurować teraz sieć?"
 
 #: pyanaconda/gui.py:1102 pyanaconda/rescue.py:262 pyanaconda/text.py:419
-#: pyanaconda/yuminstall.py:823 pyanaconda/yuminstall.py:1272
-#: pyanaconda/iw/task_gui.py:309
+#: pyanaconda/yuminstall.py:794 pyanaconda/yuminstall.py:1217
+#: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "Brak dostępnych sieci"
 
@@ -430,15 +430,15 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: pyanaconda/gui.py:1267 pyanaconda/image.py:157 pyanaconda/image.py:186
+#: pyanaconda/gui.py:1267 pyanaconda/image.py:143 pyanaconda/image.py:171
 #: pyanaconda/packages.py:335 pyanaconda/storage/__init__.py:1792
 msgid "_Exit"
 msgstr "_Zakończ"
 
-#: pyanaconda/gui.py:1268 pyanaconda/image.py:157 pyanaconda/image.py:186
-#: pyanaconda/livecd.py:205 pyanaconda/yuminstall.py:914
-#: pyanaconda/yuminstall.py:1292 pyanaconda/yuminstall.py:1347
-#: pyanaconda/yuminstall.py:1557
+#: pyanaconda/gui.py:1268 pyanaconda/image.py:143 pyanaconda/image.py:171
+#: pyanaconda/livecd.py:205 pyanaconda/yuminstall.py:886
+#: pyanaconda/yuminstall.py:1237 pyanaconda/yuminstall.py:1292
+#: pyanaconda/yuminstall.py:1502
 msgid "_Retry"
 msgstr "_Ponów"
 
@@ -446,8 +446,7 @@ msgstr "_Ponów"
 msgid "The system will now reboot."
 msgstr "System zostanie teraz ponownie uruchomiony."
 
-#: pyanaconda/gui.py:1271 pyanaconda/image.py:243 pyanaconda/packages.py:339
-#: pyanaconda/yuminstall.py:1598
+#: pyanaconda/gui.py:1271 pyanaconda/packages.py:339
 msgid "_Reboot"
 msgstr "U_ruchom ponownie"
 
@@ -477,7 +476,7 @@ msgstr "Nie można wczytać paska tytułowego"
 msgid "Install Window"
 msgstr "Okno instalacji"
 
-#: pyanaconda/image.py:75
+#: pyanaconda/image.py:74
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
@@ -492,11 +491,11 @@ msgstr ""
 "Zalecane jest zakończenie i przerwanie instalacji, ale można kontynuować, "
 "jeśli są podstawy do stwierdzenia, że jest to błąd."
 
-#: pyanaconda/image.py:149
+#: pyanaconda/image.py:135
 msgid "Couldn't Mount ISO Source"
 msgstr "Nie można zamontować źródła ISO"
 
-#: pyanaconda/image.py:150
+#: pyanaconda/image.py:136
 #, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
@@ -510,77 +509,46 @@ msgstr ""
 "podczas montowania partycji. Należy nacisnąć przycisk Zakończ, aby przerwać "
 "instalację."
 
-#: pyanaconda/image.py:177
+#: pyanaconda/image.py:162
 msgid "Missing ISO 9660 Image"
 msgstr "Brak obrazu ISO 9660"
 
-#: pyanaconda/image.py:178
-#, python-format
+#: pyanaconda/image.py:163
 msgid ""
-"The installer has tried to mount image #%s, but cannot find it on the hard "
-"drive.\n"
+"The installer has tried to mount the installation image, but cannot find it "
+"on the hard drive.\n"
 "\n"
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"Instalator spróbował zamontować obraz #%s, ale nie mógł odnaleźć go na dysku "
-"twardym.\n"
+"Instalator spróbował zamontować obraz instalacji, ale nie mógł odnaleźć go "
+"na dysku twardym.\n"
 "\n"
 "Proszę skopiować ten obraz na dysk i nacisnąć przycisk Ponów. Można nacisnąć "
 "przycisk Zakończ, aby przerwać instalację."
 
-#: pyanaconda/image.py:233
-msgid "Required Install Media"
-msgstr "Wymagany jest nośnik instalacji"
-
-#: pyanaconda/image.py:234
-#, python-format
-msgid ""
-"The software you have selected to install will require the following "
-"%(productName)s %(productVersion)s discs:\n"
-"\n"
-"%(reqcdstr)s\n"
-"Please have these ready before proceeding with the installation.  If you "
-"need to abort the installation and exit please select \"Reboot\"."
-msgstr ""
-"Oprogramowanie wybrane do zainstalowania wymaga następujących płyt systemu "
-"%(productName)s %(productVersion)s:\n"
-"\n"
-"%(reqcdstr)s\n"
-"Proszę przygotować je przed kontynuowaniem instalacji. Jeśli wymagane jest "
-"przerwanie instalacji i zakończenie, należy wybrać przycisk \"Uruchom "
-"ponownie\"."
-
-#: pyanaconda/image.py:243 pyanaconda/livecd.py:446 pyanaconda/packages.py:339
-#: pyanaconda/upgrade.py:253 pyanaconda/yuminstall.py:1036
-#: pyanaconda/yuminstall.py:1122 pyanaconda/yuminstall.py:1538
-#: pyanaconda/yuminstall.py:1580 pyanaconda/yuminstall.py:1598
-#: data/ui/anaconda.glade.h:2
-msgid "_Back"
-msgstr "_Wstecz"
-
-#: pyanaconda/image.py:280 pyanaconda/livecd.py:198 pyanaconda/livecd.py:440
+#: pyanaconda/image.py:211 pyanaconda/livecd.py:198 pyanaconda/livecd.py:440
 #: pyanaconda/partIntfHelpers.py:239 pyanaconda/text.py:356
-#: pyanaconda/text.py:360 pyanaconda/yuminstall.py:430
-#: pyanaconda/yuminstall.py:917 pyanaconda/yuminstall.py:1029
-#: pyanaconda/yuminstall.py:1034 pyanaconda/yuminstall.py:1297
-#: pyanaconda/yuminstall.py:1357 pyanaconda/yuminstall.py:1551
-#: pyanaconda/yuminstall.py:1573 pyanaconda/iw/advanced_storage.py:368
+#: pyanaconda/text.py:360 pyanaconda/yuminstall.py:422
+#: pyanaconda/yuminstall.py:889 pyanaconda/yuminstall.py:976
+#: pyanaconda/yuminstall.py:981 pyanaconda/yuminstall.py:1242
+#: pyanaconda/yuminstall.py:1302 pyanaconda/yuminstall.py:1496
+#: pyanaconda/yuminstall.py:1518 pyanaconda/iw/advanced_storage.py:368
 #: pyanaconda/iw/advanced_storage.py:378 pyanaconda/iw/advanced_storage.py:427
 #: pyanaconda/iw/autopart_type.py:95 pyanaconda/iw/cleardisks_gui.py:44
 #: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:431
 #: pyanaconda/iw/osbootwidget.py:211 pyanaconda/iw/osbootwidget.py:220
 #: pyanaconda/iw/raid_dialog_gui.py:223 pyanaconda/iw/task_gui.py:52
-#: pyanaconda/iw/task_gui.py:150 pyanaconda/iw/task_gui.py:303
-#: pyanaconda/iw/task_gui.py:466 loader/windows.h:30 loader/cdinstall.c:234
-#: loader/cdinstall.c:471 loader/driverdisk.c:228 loader/driverdisk.c:472
+#: pyanaconda/iw/task_gui.py:150 pyanaconda/iw/task_gui.py:302
+#: pyanaconda/iw/task_gui.py:464 loader/windows.h:30 loader/cdinstall.c:186
+#: loader/cdinstall.c:423 loader/driverdisk.c:228 loader/driverdisk.c:472
 #: loader/driverdisk.c:507 loader/driverdisk.c:535 loader/driverdisk.c:543
 #: loader/driverdisk.c:615 loader/hdinstall.c:282 loader/hdinstall.c:300
 #: loader/hdinstall.c:309 loader/hdinstall.c:399 loader/hdinstall.c:438
 #: loader/hdinstall.c:453 loader/kickstart.c:299 loader/lang.c:114
 #: loader/loader.c:422 loader/loader.c:533 loader/loader.c:1217
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
-#: loader/mediacheck.c:97 loader/method.c:227 loader/method.c:301
+#: loader/mediacheck.c:97 loader/method.c:194 loader/method.c:268
 #: loader/nfsinstall.c:195 loader/urlinstall.c:138 loader/urlinstall.c:160
 #: loader/urlinstall.c:212 loader/urls.c:335 loader/urls.c:343
 #: loader/urls.c:350 pyanaconda/storage/__init__.py:230
@@ -590,7 +558,7 @@ msgstr "_Wstecz"
 msgid "Error"
 msgstr "Błąd"
 
-#: pyanaconda/image.py:281
+#: pyanaconda/image.py:212
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
@@ -862,33 +830,37 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/kickstart.py:1265
+#: pyanaconda/kickstart.py:405
+msgid "Could not log into any iSCSI nodes at the portal."
+msgstr "Nie można zalogować się do żadnego węzła iSCSI w portalu."
+
+#: pyanaconda/kickstart.py:1281
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Błąd podczas przetwarzania wierszy %%ksappend: %s"
 
-#: pyanaconda/kickstart.py:1268
+#: pyanaconda/kickstart.py:1284
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Nieznany błąd podczas przetwarzania wierszy %%ksappend: %s"
 
-#: pyanaconda/kickstart.py:1323 pyanaconda/livecd.py:228
+#: pyanaconda/kickstart.py:1339 pyanaconda/livecd.py:228
 msgid "Post-Installation"
 msgstr "Po instalacji"
 
-#: pyanaconda/kickstart.py:1324
+#: pyanaconda/kickstart.py:1340
 msgid "Running post-installation scripts"
 msgstr "Wykonywanie skryptów poinstalacyjnych"
 
-#: pyanaconda/kickstart.py:1339
+#: pyanaconda/kickstart.py:1355
 msgid "Running pre-installation scripts"
 msgstr "Wykonywanie skryptów przedinstalacyjnych"
 
-#: pyanaconda/kickstart.py:1371
+#: pyanaconda/kickstart.py:1387
 msgid "Missing Package"
 msgstr "Brak pakietu"
 
-#: pyanaconda/kickstart.py:1372
+#: pyanaconda/kickstart.py:1388
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -897,19 +869,19 @@ msgstr ""
 "Podano, że pakiet \"%s\" powinien zostać zainstalowany. Ten pakiet nie "
 "istnieje. Kontynuować, czy przerwać tę instalację?"
 
-#: pyanaconda/kickstart.py:1378 pyanaconda/kickstart.py:1417
+#: pyanaconda/kickstart.py:1394 pyanaconda/kickstart.py:1433
 msgid "_Abort"
 msgstr "_Przerwij"
 
-#: pyanaconda/kickstart.py:1379 pyanaconda/kickstart.py:1418
+#: pyanaconda/kickstart.py:1395 pyanaconda/kickstart.py:1434
 msgid "_Ignore All"
 msgstr "Z_ignoruj wszystko"
 
-#: pyanaconda/kickstart.py:1409
+#: pyanaconda/kickstart.py:1425
 msgid "Missing Group"
 msgstr "Brak grupy"
 
-#: pyanaconda/kickstart.py:1410
+#: pyanaconda/kickstart.py:1426
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -918,7 +890,7 @@ msgstr ""
 "Podano, że grupa \"%s\" powinna zostać zainstalowana. Ta grupa nie istnieje. "
 "Kontynuować, czy przerwać tę instalację?"
 
-#: pyanaconda/kickstart.py:1507
+#: pyanaconda/kickstart.py:1523
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -976,6 +948,13 @@ msgid ""
 msgstr ""
 "Utworzony system plików root jest za mały dla tego obrazu Live (wymagane "
 "jest %.2f MB)."
+
+#: pyanaconda/livecd.py:446 pyanaconda/packages.py:339
+#: pyanaconda/upgrade.py:253 pyanaconda/yuminstall.py:983
+#: pyanaconda/yuminstall.py:1067 pyanaconda/yuminstall.py:1483
+#: pyanaconda/yuminstall.py:1525 data/ui/anaconda.glade.h:2
+msgid "_Back"
+msgstr "_Wstecz"
 
 #: pyanaconda/network.py:77
 msgid "Hostname must be 255 or fewer characters in length."
@@ -1343,7 +1322,7 @@ msgstr "Użycie danych uwierzytelniających z kroku wykrywania"
 msgid "iSCSI Nodes"
 msgstr "Węzły iSCSI"
 
-#: pyanaconda/partIntfHelpers.py:473 pyanaconda/storage/iscsi.py:321
+#: pyanaconda/partIntfHelpers.py:473
 msgid "No new iSCSI nodes discovered"
 msgstr "Nie wykryto nowych węzłów iSCSI"
 
@@ -1523,8 +1502,8 @@ msgstr ""
 "\n"
 
 #: pyanaconda/rescue.py:311 pyanaconda/iw/partition_gui.py:785
-#: loader/cdinstall.c:212 loader/cdinstall.c:220 loader/driverdisk.c:616
-#: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:93
+#: loader/driverdisk.c:616 pyanaconda/storage/__init__.py:169
+#: pyanaconda/storage/devicetree.py:93
 msgid "Continue"
 msgstr "Kontynuuj"
 
@@ -1532,8 +1511,8 @@ msgstr "Kontynuuj"
 msgid "Read-Only"
 msgstr "Tylko odczyt"
 
-#: pyanaconda/rescue.py:311 pyanaconda/rescue.py:313 loader/cdinstall.c:253
-#: loader/cdinstall.c:256 loader/method.c:274
+#: pyanaconda/rescue.py:311 pyanaconda/rescue.py:313 loader/cdinstall.c:205
+#: loader/cdinstall.c:208 loader/method.c:241
 #: pyanaconda/storage/__init__.py:1792 pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
 msgstr "Pomiń"
@@ -1670,8 +1649,8 @@ msgstr ""
 "  <Tab>/<Alt-Tab> między elementami   |  <Spacja> wybór   |  <F12> następny "
 "ekran"
 
-#: pyanaconda/text.py:519 loader/net.c:110 loader/net.c:513 loader/net.c:568
-#: loader/net.c:710 loader/net.c:718 loader/net.c:1148 loader/net.c:1156
+#: pyanaconda/text.py:519 loader/net.c:110 loader/net.c:513 loader/net.c:571
+#: loader/net.c:716 loader/net.c:724 loader/net.c:1154 loader/net.c:1162
 #: pyanaconda/textw/constants_text.py:68
 msgid "Retry"
 msgstr "Ponów"
@@ -1964,17 +1943,17 @@ msgstr "Uruchom VNC"
 msgid "Use text mode"
 msgstr "Użyj trybu tekstowego"
 
-#: pyanaconda/yuminstall.py:86
+#: pyanaconda/yuminstall.py:85
 #, python-format
 msgid "%s MB"
 msgstr "%s MB"
 
-#: pyanaconda/yuminstall.py:89
+#: pyanaconda/yuminstall.py:88
 #, python-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: pyanaconda/yuminstall.py:91
+#: pyanaconda/yuminstall.py:90
 #, python-format
 msgid "%s Byte"
 msgid_plural "%s Bytes"
@@ -1982,25 +1961,25 @@ msgstr[0] "%s bajt"
 msgstr[1] "%s bajty"
 msgstr[2] "%s bajtów"
 
-#: pyanaconda/yuminstall.py:136
+#: pyanaconda/yuminstall.py:135
 msgid "Preparing to install"
 msgstr "Przygotowywanie do instalacji"
 
-#: pyanaconda/yuminstall.py:137
+#: pyanaconda/yuminstall.py:136
 msgid "Preparing transaction from installation source"
 msgstr "Przygotowywanie transakcji ze źródła instalacji"
 
-#: pyanaconda/yuminstall.py:167
+#: pyanaconda/yuminstall.py:166
 #, python-format
 msgid "<b>Upgrading %(pkgStr)s</b> (%(size)s)\n"
 msgstr "<b>Aktualizowanie %(pkgStr)s</b> (%(size)s)\n"
 
-#: pyanaconda/yuminstall.py:170
+#: pyanaconda/yuminstall.py:169
 #, python-format
 msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgstr "<b>Instalowanie %(pkgStr)s</b> (%(size)s)\n"
 
-#: pyanaconda/yuminstall.py:220
+#: pyanaconda/yuminstall.py:219
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
@@ -2008,16 +1987,16 @@ msgstr[0] "Ukończone pakiety: %(donepkgs)d z %(numpkgs)d"
 msgstr[1] "Ukończone pakiety: %(donepkgs)d z %(numpkgs)d"
 msgstr[2] "Ukończone pakiety: %(donepkgs)d z %(numpkgs)d"
 
-#: pyanaconda/yuminstall.py:234
+#: pyanaconda/yuminstall.py:233
 #, python-format
 msgid "<b>Cleaning up %s</b>"
 msgstr "<b>Czyszczenie %s</b>"
 
-#: pyanaconda/yuminstall.py:254
+#: pyanaconda/yuminstall.py:253
 msgid "Error Installing Package"
 msgstr "Błąd podczas instalowania pakietu"
 
-#: pyanaconda/yuminstall.py:255
+#: pyanaconda/yuminstall.py:254
 #, python-format
 msgid ""
 "A fatal error occurred when installing the %s package.  This could indicate "
@@ -2027,11 +2006,11 @@ msgstr ""
 "na błędy podczas odczytywania nośnika instalacji. Nie można kontynuować "
 "instalacji."
 
-#: pyanaconda/yuminstall.py:366 pyanaconda/iw/task_gui.py:321
+#: pyanaconda/yuminstall.py:359 pyanaconda/iw/task_gui.py:320
 msgid "Error Setting Up Repository"
 msgstr "Błąd podczas ustawiania repozytorium"
 
-#: pyanaconda/yuminstall.py:367
+#: pyanaconda/yuminstall.py:360
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -2046,38 +2025,36 @@ msgstr ""
 "\n"
 "Proszę podać poprawne informacje, aby zainstalować system %(productName)s."
 
-#: pyanaconda/yuminstall.py:412
+#: pyanaconda/yuminstall.py:405
 msgid "Change Disc"
 msgstr "Zmiana płyty"
 
-#: pyanaconda/yuminstall.py:413
+#: pyanaconda/yuminstall.py:406
 #, python-format
-msgid "Please insert %(productName)s disc %(discnum)d to continue."
-msgstr ""
-"Proszę włożyć płytę systemu %(productName)s o numerze %(discnum)d, aby "
-"kontynuować."
+msgid "Please insert the %(productName)s disc to continue."
+msgstr "Proszę włożyć płytę systemu %(productName)s, aby kontynuować."
 
-#: pyanaconda/yuminstall.py:423
+#: pyanaconda/yuminstall.py:415
 msgid "Wrong Disc"
 msgstr "Błędna płyta"
 
-#: pyanaconda/yuminstall.py:424
+#: pyanaconda/yuminstall.py:416
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr "To nie jest poprawna płyta systemu %s."
 
-#: pyanaconda/yuminstall.py:431
+#: pyanaconda/yuminstall.py:423
 msgid "Unable to access the disc."
 msgstr "Brak dostępu do płyty."
 
-#: pyanaconda/yuminstall.py:591
+#: pyanaconda/yuminstall.py:562
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 "Repozytorium %r nie posiada nazwy w konfiguracji, używanie identyfikatora"
 
-#: pyanaconda/yuminstall.py:824 pyanaconda/yuminstall.py:1273
-#: pyanaconda/iw/task_gui.py:310
+#: pyanaconda/yuminstall.py:795 pyanaconda/yuminstall.py:1218
+#: pyanaconda/iw/task_gui.py:309
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
@@ -2085,15 +2062,15 @@ msgstr ""
 "Niektóre z repozytoriów oprogramowania wymagają sieci, ale wystąpił błąd "
 "podczas włączania jej w systemie."
 
-#: pyanaconda/yuminstall.py:912 pyanaconda/yuminstall.py:914
+#: pyanaconda/yuminstall.py:884 pyanaconda/yuminstall.py:886
 msgid "Re_boot"
 msgstr "U_ruchom ponownie"
 
-#: pyanaconda/yuminstall.py:912
+#: pyanaconda/yuminstall.py:884
 msgid "_Eject"
 msgstr "_Wysuń"
 
-#: pyanaconda/yuminstall.py:918
+#: pyanaconda/yuminstall.py:890
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2110,61 +2087,61 @@ msgstr ""
 "prawdopodobnie będzie wymagało ponownej instalacji.\n"
 "\n"
 
-#: pyanaconda/yuminstall.py:966
+#: pyanaconda/yuminstall.py:937
 msgid "Retrying"
 msgstr "Ponowna próba"
 
-#: pyanaconda/yuminstall.py:966
+#: pyanaconda/yuminstall.py:937
 msgid "Retrying download."
 msgstr "Ponowna próba pobrania."
 
-#: pyanaconda/yuminstall.py:1025
+#: pyanaconda/yuminstall.py:972
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr "Wystąpił błąd podczas wykonywania transakcji z powodu: %s\n"
 
-#: pyanaconda/yuminstall.py:1068 pyanaconda/yuminstall.py:1069
+#: pyanaconda/yuminstall.py:1013 pyanaconda/yuminstall.py:1014
 msgid "file conflicts"
 msgstr "konflikty plików"
 
-#: pyanaconda/yuminstall.py:1070
+#: pyanaconda/yuminstall.py:1015
 msgid "older package(s)"
 msgstr "starsze pakiety"
 
-#: pyanaconda/yuminstall.py:1071
+#: pyanaconda/yuminstall.py:1016
 msgid "insufficient disk space"
 msgstr "niewystarczająca ilość miejsca na dysku"
 
-#: pyanaconda/yuminstall.py:1072
+#: pyanaconda/yuminstall.py:1017
 msgid "insufficient disk inodes"
 msgstr "niewystarczająca ilość i-węzłów na dysku"
 
-#: pyanaconda/yuminstall.py:1073
+#: pyanaconda/yuminstall.py:1018
 msgid "package conflicts"
 msgstr "konflikty pakietów"
 
-#: pyanaconda/yuminstall.py:1074
+#: pyanaconda/yuminstall.py:1019
 msgid "package already installed"
 msgstr "pakiet jest już zainstalowany"
 
-#: pyanaconda/yuminstall.py:1075
+#: pyanaconda/yuminstall.py:1020
 msgid "required package"
 msgstr "wymagany pakiet"
 
-#: pyanaconda/yuminstall.py:1076
+#: pyanaconda/yuminstall.py:1021
 msgid "package for incorrect arch"
 msgstr "pakiet dla niepoprawnej architektury"
 
-#: pyanaconda/yuminstall.py:1077
+#: pyanaconda/yuminstall.py:1022
 msgid "package for incorrect os"
 msgstr "pakiet dla niepoprawnego systemu operacyjnego"
 
-#: pyanaconda/yuminstall.py:1091
+#: pyanaconda/yuminstall.py:1036
 msgid "You need more space on the following file systems:\n"
 msgstr "Wymagane jest więcej miejsca na następujących systemach plików:\n"
 
-#: pyanaconda/yuminstall.py:1104
+#: pyanaconda/yuminstall.py:1049
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2173,7 +2150,7 @@ msgstr ""
 "Wystąpił konflikt plików podczas sprawdzania instalowanych pakietów:\n"
 "%s\n"
 
-#: pyanaconda/yuminstall.py:1107
+#: pyanaconda/yuminstall.py:1052
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): "
@@ -2181,11 +2158,11 @@ msgid ""
 msgstr ""
 "Wystąpił błąd podczas wykonywania transakcji z następujących powodów: %s.\n"
 
-#: pyanaconda/yuminstall.py:1114 pyanaconda/yuminstall.py:1119
+#: pyanaconda/yuminstall.py:1059 pyanaconda/yuminstall.py:1064
 msgid "Error Running Transaction"
 msgstr "Błąd podczas wykonywania transakcji"
 
-#: pyanaconda/yuminstall.py:1298
+#: pyanaconda/yuminstall.py:1243
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2193,11 +2170,11 @@ msgstr ""
 "Nie można odczytać informacji o grupach z repozytoriów. Jest to problem z "
 "tworzeniem drzewa instalacji."
 
-#: pyanaconda/yuminstall.py:1347 pyanaconda/textw/constants_text.py:64
+#: pyanaconda/yuminstall.py:1292 pyanaconda/textw/constants_text.py:64
 msgid "Edit"
 msgstr "Zmodyfikuj"
 
-#: pyanaconda/yuminstall.py:1358 pyanaconda/yuminstall.py:1552
+#: pyanaconda/yuminstall.py:1303 pyanaconda/yuminstall.py:1497
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2212,7 +2189,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/yuminstall.py:1530
+#: pyanaconda/yuminstall.py:1475
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2226,7 +2203,7 @@ msgstr ""
 "zostanie kontynuowana, te pakiety mogą nie działać poprawnie z powodu braku "
 "ich składników."
 
-#: pyanaconda/yuminstall.py:1574
+#: pyanaconda/yuminstall.py:1519
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2236,15 +2213,7 @@ msgstr ""
 "Wybrane pakiety wymagają %d MB wolnego miejsca do instalacji, ale nie jest "
 "tyle dostępne. Można zmienić wybór lub zakończyć instalator."
 
-#: pyanaconda/yuminstall.py:1595
-msgid "Reboot?"
-msgstr "Uruchomić ponownie?"
-
-#: pyanaconda/yuminstall.py:1596
-msgid "The system will be rebooted now."
-msgstr "System zostanie teraz ponownie uruchomiony."
-
-#: pyanaconda/yuminstall.py:1727
+#: pyanaconda/yuminstall.py:1657
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2253,7 +2222,7 @@ msgstr ""
 "Aktualizowany jest system, który jest za stary, aby można było go "
 "zaktualizować do tej wersji systemu %s. Na pewno kontynuować aktualizację?"
 
-#: pyanaconda/yuminstall.py:1762
+#: pyanaconda/yuminstall.py:1692
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2265,48 +2234,48 @@ msgstr ""
 "która nie zgadza się z poprzednio zainstalowaną architekturą %(arch)s. "
 "Prawdopodobnie to się nie powiedzie. Na pewno kontynuować aktualizację?"
 
-#: pyanaconda/yuminstall.py:1809
+#: pyanaconda/yuminstall.py:1739
 msgid "Post Upgrade"
 msgstr "Po aktualizacji"
 
-#: pyanaconda/yuminstall.py:1810
+#: pyanaconda/yuminstall.py:1740
 msgid "Performing post-upgrade configuration"
 msgstr "Wykonywanie konfiguracji systemu po aktualizacji"
 
-#: pyanaconda/yuminstall.py:1812
+#: pyanaconda/yuminstall.py:1742
 msgid "Post Installation"
 msgstr "Po instalacji"
 
-#: pyanaconda/yuminstall.py:1813
+#: pyanaconda/yuminstall.py:1743
 msgid "Performing post-installation configuration"
 msgstr "Wykonywanie konfiguracji systemu po instalacji"
 
-#: pyanaconda/yuminstall.py:2054
+#: pyanaconda/yuminstall.py:1973
 msgid "Installation Starting"
 msgstr "Rozpoczynanie instalacji"
 
-#: pyanaconda/yuminstall.py:2055
+#: pyanaconda/yuminstall.py:1974
 msgid "Starting installation process"
 msgstr "Rozpoczynanie instalacji"
 
-#: pyanaconda/yuminstall.py:2093
+#: pyanaconda/yuminstall.py:2012
 msgid "Dependency Check"
 msgstr "Sprawdzanie zależności"
 
-#: pyanaconda/yuminstall.py:2094
+#: pyanaconda/yuminstall.py:2013
 msgid "Checking dependencies in packages selected for installation"
 msgstr "Sprawdzanie zależności pakietów wybranych do instalacji"
 
-#: pyanaconda/yuminstall.py:2150 pyanaconda/yuminstall.py:2166
+#: pyanaconda/yuminstall.py:2069 pyanaconda/yuminstall.py:2085
 msgid "Retrieving installation information."
 msgstr "Pobieranie informacji o instalacji."
 
-#: pyanaconda/yuminstall.py:2152 pyanaconda/yuminstall.py:2168
+#: pyanaconda/yuminstall.py:2071 pyanaconda/yuminstall.py:2087
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Pobieranie informacji o instalacji dla %s."
 
-#: pyanaconda/yuminstall.py:2153 pyanaconda/yuminstall.py:2169
+#: pyanaconda/yuminstall.py:2072 pyanaconda/yuminstall.py:2088
 msgid "Installation Progress"
 msgstr "Postęp instalacji"
 
@@ -2571,15 +2540,15 @@ msgstr "_Hasło:"
 msgid "Con_firm:"
 msgstr "_Potwierdzenie:"
 
-#: pyanaconda/iw/blpasswidget.py:139
+#: pyanaconda/iw/blpasswidget.py:140
 msgid "Passwords don't match"
 msgstr "Hasła różnią się"
 
-#: pyanaconda/iw/blpasswidget.py:140
+#: pyanaconda/iw/blpasswidget.py:141
 msgid "Passwords do not match"
 msgstr "Hasła różnią się"
 
-#: pyanaconda/iw/blpasswidget.py:149
+#: pyanaconda/iw/blpasswidget.py:150
 msgid ""
 "Your boot loader password is shorter than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -3207,64 +3176,6 @@ msgstr "Z_modyfikuj"
 msgid "_Logical Volumes"
 msgstr "Woluminy _logiczne"
 
-#: pyanaconda/iw/netconfig_dialog.py:192 pyanaconda/textw/netconfig_text.py:36
-#, python-format
-msgid ""
-"An error occurred converting the value entered for \"%(field)s\":\n"
-"%(errmsg)s"
-msgstr ""
-"Wystąpił błąd podczas konwertowania podanej wartości dla \"%(field)s\":\n"
-"%(errmsg)s"
-
-#: pyanaconda/iw/netconfig_dialog.py:195 pyanaconda/iw/netconfig_dialog.py:204
-#: pyanaconda/textw/netconfig_text.py:35 pyanaconda/textw/netconfig_text.py:42
-msgid "Error With Data"
-msgstr "Błąd danych"
-
-#: pyanaconda/iw/netconfig_dialog.py:203
-#, python-format
-msgid "A value is required for the field %s."
-msgstr "Wartość w polu %s jest wymagana."
-
-#: pyanaconda/iw/netconfig_dialog.py:215
-msgid "Error Configuring Network"
-msgstr "Błąd podczas konfigurowania sieci"
-
-#: pyanaconda/iw/netconfig_dialog.py:241
-msgid "Dynamic IP Address"
-msgstr "Dynamiczny adres IP"
-
-#: pyanaconda/iw/netconfig_dialog.py:242
-#, python-format
-msgid "Sending request for IP address information for %s"
-msgstr "Wysyłanie żądania informacji o IP do %s"
-
-#: pyanaconda/iw/netconfig_dialog.py:257 pyanaconda/iw/netconfig_dialog.py:260
-msgid "IP Address"
-msgstr "Adres IP"
-
-#: pyanaconda/iw/netconfig_dialog.py:267
-#: pyanaconda/textw/netconfig_text.py:290
-msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "Przedrostek CIDR IPv4 musi być między 0 a 32."
-
-#: pyanaconda/iw/netconfig_dialog.py:268 pyanaconda/iw/netconfig_dialog.py:274
-#: pyanaconda/iw/netconfig_dialog.py:282 pyanaconda/iw/netconfig_dialog.py:285
-msgid "IPv4 Network Mask"
-msgstr "Maska sieci IPv4"
-
-#: pyanaconda/iw/netconfig_dialog.py:295
-msgid "Gateway"
-msgstr "Brama"
-
-#: pyanaconda/iw/netconfig_dialog.py:305
-msgid "Nameserver"
-msgstr "Serwer nazw"
-
-#: pyanaconda/iw/netconfig_dialog.py:314
-msgid "Error configuring network device:"
-msgstr "Błąd podczas konfigurowania urządzenia sieciowego:"
-
 #: pyanaconda/iw/network_gui.py:80 pyanaconda/iw/network_gui.py:86
 msgid "Error with Hostname"
 msgstr "Błąd nazwy komputera"
@@ -3288,7 +3199,7 @@ msgstr ""
 msgid "Select network interface"
 msgstr "Wybór interfejsu sieciowego"
 
-#: pyanaconda/iw/network_gui.py:138 data/ui/netconfig.glade.h:10
+#: pyanaconda/iw/network_gui.py:138
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
@@ -3782,19 +3693,19 @@ msgstr "Nieprawidłowy adres URL pośrednika"
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a proxy."
 msgstr "Należy podać adres URL HTTP, HTTPS lub FTP pośrednika."
 
-#: pyanaconda/iw/task_gui.py:250 pyanaconda/iw/task_gui.py:433
+#: pyanaconda/iw/task_gui.py:250 pyanaconda/iw/task_gui.py:432
 msgid "Invalid Repository URL"
 msgstr "Nieprawidłowy adres URL repozytorium"
 
-#: pyanaconda/iw/task_gui.py:251 pyanaconda/iw/task_gui.py:434
+#: pyanaconda/iw/task_gui.py:251 pyanaconda/iw/task_gui.py:433
 msgid "You must provide an HTTP, HTTPS, or FTP URL to a repository."
 msgstr "Należy podać adres URL HTTP, HTTPS lub FTP repozytorium."
 
-#: pyanaconda/iw/task_gui.py:272 pyanaconda/iw/task_gui.py:443
+#: pyanaconda/iw/task_gui.py:272 pyanaconda/iw/task_gui.py:442
 msgid "No Media Found"
 msgstr "Nie odnaleziono nośników"
 
-#: pyanaconda/iw/task_gui.py:273 pyanaconda/iw/task_gui.py:444
+#: pyanaconda/iw/task_gui.py:273 pyanaconda/iw/task_gui.py:443
 msgid ""
 "No installation media was found. Please insert a disc into your drive and "
 "try again."
@@ -3802,11 +3713,11 @@ msgstr ""
 "Nie odnaleziono nośnika instalacji. Proszę włożyć płytę do napędu i "
 "spróbować ponownie."
 
-#: pyanaconda/iw/task_gui.py:304 pyanaconda/iw/task_gui.py:467
+#: pyanaconda/iw/task_gui.py:303 pyanaconda/iw/task_gui.py:465
 msgid "Please enter an NFS server and path."
 msgstr "Proszę podać serwer NFS i ścieżkę."
 
-#: pyanaconda/iw/task_gui.py:322
+#: pyanaconda/iw/task_gui.py:321
 #, python-format
 msgid ""
 "The following error occurred while setting up the repository:\n"
@@ -3817,23 +3728,23 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/iw/task_gui.py:345
+#: pyanaconda/iw/task_gui.py:344
 msgid "Invalid Repository Name"
 msgstr "Nieprawidłowa nazwa repozytorium"
 
-#: pyanaconda/iw/task_gui.py:346
+#: pyanaconda/iw/task_gui.py:345
 msgid "You must provide a repository name."
 msgstr "Należy podać nazwę repozytorium."
 
-#: pyanaconda/iw/task_gui.py:499 data/ui/addrepo.glade.h:3
+#: pyanaconda/iw/task_gui.py:497 data/ui/addrepo.glade.h:3
 msgid "Add Repository"
 msgstr "Dodanie repozytorium"
 
-#: pyanaconda/iw/task_gui.py:504
+#: pyanaconda/iw/task_gui.py:502
 msgid "No Software Repos Enabled"
 msgstr "Brak włączonych repozytoriów oprogramowania"
 
-#: pyanaconda/iw/task_gui.py:505
+#: pyanaconda/iw/task_gui.py:503
 msgid ""
 "You must have at least one software repository enabled to continue "
 "installation."
@@ -3841,7 +3752,7 @@ msgstr ""
 "Wymagane jest co najmniej jedno włączone repozytorium oprogramowania, aby "
 "kontynuować instalację."
 
-#: pyanaconda/iw/timezone_gui.py:63 pyanaconda/textw/timezone_text.py:68
+#: pyanaconda/iw/timezone_gui.py:53 pyanaconda/textw/timezone_text.py:68
 msgid "Time Zone Selection"
 msgstr "Wybór strefy czasowej"
 
@@ -4079,44 +3990,7 @@ msgstr "Dynamiczna konfiguracja adresu IP (DHCPv6)"
 msgid "Automatic neighbor discovery"
 msgstr "Automatyczne wykrywanie sąsiadów"
 
-#: loader/cdinstall.c:192 loader/cdinstall.c:212 loader/mediacheck.c:61
-msgid "Media Check"
-msgstr "Sprawdzanie nośników"
-
-#: loader/cdinstall.c:192 loader/cdinstall.c:195 loader/cdinstall.c:212
-#: loader/cdinstall.c:220 loader/method.c:274
-msgid "Test"
-msgstr "Przetestuj"
-
-#: loader/cdinstall.c:192 loader/cdinstall.c:196
-msgid "Eject Disc"
-msgstr "Wysuń płytę"
-
-#: loader/cdinstall.c:193
-#, c-format
-msgid ""
-"Choose \"%s\" to test the disc currently in the drive, or \"%s\" to eject "
-"the disc and insert another for testing."
-msgstr ""
-"Proszę wybrać \"%s\", aby przetestować płytę znajdującą się aktualnie w "
-"napędzie, lub \"%s\", aby wysunąć płytę i włożyć inną do przetestowania."
-
-#: loader/cdinstall.c:213
-#, c-format
-msgid ""
-"If you would like to test additional media, insert the next disc and press "
-"\"%s\". Testing each disc is not strictly required, however it is highly "
-"recommended.  Minimally, the discs should be tested prior to using them for "
-"the first time. After they have been successfully tested, it is not required "
-"to retest each disc prior to using it again."
-msgstr ""
-"Aby przetestować dodatkowe nośniki, należy włożyć następną płytę i nacisnąć "
-"\"%s\". Przetestowanie każdej płyty nie jest ściśle wymagane, ale jest "
-"wysoko zalecane. Płyty powinny zostać przetestowane przynajmniej przed ich "
-"pierwszym użyciem. Po pomyślnym przetestowaniu nie ma potrzeby ponownie "
-"testować każdej płyty, aby ją ponownie użyć."
-
-#: loader/cdinstall.c:235
+#: loader/cdinstall.c:187
 #, c-format
 msgid ""
 "The %s disc was not found in any of your drives. Please insert the %s disc "
@@ -4125,11 +3999,11 @@ msgstr ""
 "Nie odnaleziono płyty systemu %s w żadnym napędzie. Proszę włożyć płytę %s i "
 "nacisnąć %s, aby ponowić."
 
-#: loader/cdinstall.c:253
+#: loader/cdinstall.c:205
 msgid "Disc Found"
 msgstr "Odnaleziono płytę"
 
-#: loader/cdinstall.c:254
+#: loader/cdinstall.c:206
 #, c-format
 msgid ""
 "To begin testing the media before installation press %s.\n"
@@ -4140,21 +4014,21 @@ msgstr ""
 "\n"
 "Należy wybrać %s, aby pominąć test nośnika i rozpocząć instalację."
 
-#: loader/cdinstall.c:314
+#: loader/cdinstall.c:266
 msgid "Scanning"
 msgstr "Skanowanie"
 
-#: loader/cdinstall.c:314
+#: loader/cdinstall.c:266
 #, c-format
 msgid "Looking for installation media on CD device %s\n"
 msgstr "Wyszukiwanie nośnika instalacji na urządzeniu CD %s\n"
 
-#: loader/cdinstall.c:316
+#: loader/cdinstall.c:268
 #, c-format
 msgid "Looking for installation media on CD device %s"
 msgstr "Wyszukiwanie nośnika instalacji na urządzeniu CD %s"
 
-#: loader/cdinstall.c:383
+#: loader/cdinstall.c:335
 #, c-format
 msgid ""
 "The %s disc was not found in any of your CDROM drives. Please insert the %s "
@@ -4163,27 +4037,27 @@ msgstr ""
 "Nie odnaleziono płyty %s w żadnym napędzie CD-ROM. Proszę włożyć płytę %s i "
 "nacisnąć %s, aby ponowić."
 
-#: loader/cdinstall.c:388
+#: loader/cdinstall.c:340
 msgid "Disc Not Found"
 msgstr "Nie odnaleziono płyty"
 
-#: loader/cdinstall.c:389 loader/driverdisk.c:410 loader/driverdisk.c:442
+#: loader/cdinstall.c:341 loader/driverdisk.c:410 loader/driverdisk.c:442
 #: loader/driverdisk.c:523 loader/driverselect.c:79 loader/driverselect.c:153
 #: loader/driverselect.c:179 loader/hdinstall.c:168 loader/hdinstall.c:222
 #: loader/kbd.c:119 loader/loader.c:499 loader/loader.c:516
-#: loader/loader.c:1357 loader/loader.c:1397 loader/net.c:621
-#: loader/net.c:1001 loader/net.c:1976 loader/net.c:1995
+#: loader/loader.c:1357 loader/loader.c:1397 loader/net.c:625
+#: loader/net.c:1007 loader/net.c:1982 loader/net.c:2001
 #: loader/nfsinstall.c:92 loader/urls.c:264 pyanaconda/storage/__init__.py:123
 #: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:93
 #: pyanaconda/textw/constants_text.py:52
 msgid "Back"
 msgstr "Wstecz"
 
-#: loader/cdinstall.c:472
+#: loader/cdinstall.c:424
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Nie można odnaleźć pliku kickstart na płycie CD-ROM."
 
-#: loader/copy.c:51 loader/method.c:228
+#: loader/copy.c:51 loader/method.c:195
 #, c-format
 msgid "Failed to read directory %s: %m"
 msgstr "Odczytanie katalogu %s nie powiodło się: %m"
@@ -4289,7 +4163,7 @@ msgstr "Wczytać więcej dysków ze sterownikami?"
 #: loader/driverdisk.c:715 loader/driverdisk.c:754 loader/hdinstall.c:348
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:339 loader/kickstart.c:355
-#: loader/kickstart.c:571 loader/net.c:1649 loader/net.c:1670
+#: loader/kickstart.c:571 loader/net.c:1655 loader/net.c:1676
 #: loader/nfsinstall.c:276 loader/urlinstall.c:278 loader/urlinstall.c:289
 #: loader/urlinstall.c:296
 msgid "Kickstart Error"
@@ -4599,59 +4473,59 @@ msgstr ""
 "Nie można odnaleźć żadnych urządzeń potrzebnych do tego typu instalacji. "
 "Ręcznie wybrać sterownik lub użyć dysku ze sterownikami?"
 
-#: loader/loader.c:1584
+#: loader/loader.c:1609
 msgid "The following devices have been found on your system."
 msgstr "W systemie odnaleziono następujące urządzenia."
 
-#: loader/loader.c:1586
+#: loader/loader.c:1611
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 "Nie wczytano żadnych sterowników urządzeń dla systemu. Dodać jakieś teraz?"
 
-#: loader/loader.c:1590
+#: loader/loader.c:1615
 msgid "Devices"
 msgstr "Urządzenia"
 
-#: loader/loader.c:1591
+#: loader/loader.c:1616
 msgid "Done"
 msgstr "Ukończono"
 
-#: loader/loader.c:1592
+#: loader/loader.c:1617
 msgid "Add Device"
 msgstr "Dodanie urządzenia"
 
-#: loader/loader.c:1870
+#: loader/loader.c:1895
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "program wczytujący został już uruchomiony. Uruchamianie powłoki.\n"
 
-#: loader/loader.c:2014
+#: loader/loader.c:2039
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "Wykryto płytę ze sterownikami w %s. Użyć jej?"
 
-#: loader/loader.c:2017
+#: loader/loader.c:2042
 msgid "Driver disc detected"
 msgstr "Wykryto płytę ze sterownikami"
 
-#: loader/loader.c:2017
+#: loader/loader.c:2042
 msgid "Use it"
 msgstr "Użyj płyty"
 
-#: loader/loader.c:2017
+#: loader/loader.c:2042
 msgid "Skip it"
 msgstr "Pomiń płytę"
 
-#: loader/loader.c:2326
+#: loader/loader.c:2351
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 "Uruchamianie programu anaconda %s, trybu ratunkowego systemu %s - proszę "
 "czekać.\n"
 
-#: loader/loader.c:2328
+#: loader/loader.c:2353
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4671,6 +4545,10 @@ msgstr "Sprawdzanie \"%s\"."
 #, c-format
 msgid "Checking media."
 msgstr "Sprawdzanie nośnika."
+
+#: loader/mediacheck.c:61
+msgid "Media Check"
+msgstr "Sprawdzanie nośników"
 
 #: loader/mediacheck.c:87
 msgid ""
@@ -4709,7 +4587,7 @@ msgstr ""
 "się bez problemu. Proszę zauważyć, że nie wszystkie błędy nośnika/napędu "
 "mogą zostać wykryte."
 
-#: loader/method.c:271
+#: loader/method.c:238
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -4720,9 +4598,13 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: loader/method.c:274
+#: loader/method.c:241
 msgid "Checksum Test"
 msgstr "Sprawdzanie sumy kontrolnej"
+
+#: loader/method.c:241
+msgid "Test"
+msgstr "Przetestuj"
 
 #: loader/net.c:110
 msgid "Invalid Prefix"
@@ -4736,7 +4618,7 @@ msgstr ""
 "Przedrostek musi być między 1 a 32 dla sieci IPv4 lub między 1 a 128 dla "
 "sieci IPv6"
 
-#: loader/net.c:506 loader/net.c:514 loader/net.c:569
+#: loader/net.c:506 loader/net.c:514 loader/net.c:572
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr "Wystąpił błąd podczas konfigurowania interfejsu sieciowego."
@@ -4752,60 +4634,60 @@ msgstr ""
 "Nie można tego naprawić w trybie wiersza poleceń.\n"
 "Wyłączanie.\n"
 
-#: loader/net.c:513 loader/net.c:568 pyanaconda/textw/netconfig_text.py:403
+#: loader/net.c:513 loader/net.c:571 pyanaconda/textw/netconfig_text.py:403
 msgid "Network Error"
 msgstr "Błąd sieci"
 
-#: loader/net.c:599
+#: loader/net.c:603
 msgid "Enable IPv4 support"
 msgstr "Obsługa IPv4"
 
-#: loader/net.c:613
+#: loader/net.c:617
 msgid "Enable IPv6 support"
 msgstr "Obsługa IPv6"
 
-#: loader/net.c:653
+#: loader/net.c:657
 msgid "Configure TCP/IP"
 msgstr "Konfiguracja TCP/IP"
 
-#: loader/net.c:710
+#: loader/net.c:716
 msgid "Missing Protocol"
 msgstr "Brak protokołu"
 
-#: loader/net.c:711
+#: loader/net.c:717
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr "Należy wybrać co najmniej jeden protokół (IPv4 lub IPv6)."
 
-#: loader/net.c:718
+#: loader/net.c:724
 msgid "IPv4 Needed for NFS"
 msgstr "IPv4 jest wymagane dla NFS"
 
-#: loader/net.c:719
+#: loader/net.c:725
 msgid "NFS installation method requires IPv4 support."
 msgstr "Metoda instalacji NFS wymaga obsługi IPv4."
 
-#: loader/net.c:827
+#: loader/net.c:833
 msgid "IPv4 address:"
 msgstr "Adres IPv4:"
 
-#: loader/net.c:839 loader/net.c:906 data/ui/netconfig.glade.h:1
+#: loader/net.c:845 loader/net.c:912
 msgid "/"
 msgstr "/"
 
-#: loader/net.c:894
+#: loader/net.c:900
 msgid "IPv6 address:"
 msgstr "Adres IPv6:"
 
-#: loader/net.c:960 pyanaconda/textw/netconfig_text.py:184
+#: loader/net.c:966 pyanaconda/textw/netconfig_text.py:184
 #: pyanaconda/textw/netconfig_text.py:224
 msgid "Gateway:"
 msgstr "Brama:"
 
-#: loader/net.c:968
+#: loader/net.c:974
 msgid "Name Server:"
 msgstr "Serwer nazw:"
 
-#: loader/net.c:1007
+#: loader/net.c:1013
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
@@ -4816,58 +4698,58 @@ msgstr ""
 "oddzielonych kropkami lub CIDR. Brama i serwer nazw muszą być prawidłowymi "
 "adresami IPv4 lub IPv6."
 
-#: loader/net.c:1024
+#: loader/net.c:1030
 msgid "Manual TCP/IP Configuration"
 msgstr "Ręczna konfiguracja TCP/IP"
 
-#: loader/net.c:1148 loader/net.c:1156
+#: loader/net.c:1154 loader/net.c:1162
 msgid "Missing Information"
 msgstr "Brak informacji"
 
-#: loader/net.c:1149
+#: loader/net.c:1155
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 "Należy podać zarówno prawidłowy adres IPv4, jak i maskę sieci lub "
 "przedrostek CIDR."
 
-#: loader/net.c:1157
+#: loader/net.c:1163
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "Należy podać zarówno prawidłowy adres IPv6, jak i przedrostek CIDR."
 
-#: loader/net.c:1650
+#: loader/net.c:1656
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "Błędny parametr polecenia sieciowego kickstart %s"
 
-#: loader/net.c:1671
+#: loader/net.c:1677
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "Błędnie podany protokół startowy %s w poleceniu sieciowym"
 
-#: loader/net.c:1776
+#: loader/net.c:1782
 msgid "Seconds:"
 msgstr "Drugie:"
 
-#: loader/net.c:1971
+#: loader/net.c:1977
 msgid "Networking Device"
 msgstr "Urządzenie sieciowe"
 
-#: loader/net.c:1972
+#: loader/net.c:1978
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr "W systemie jest wiele urządzeń sieciowych. Którego użyć do instalacji?"
 
-#: loader/net.c:1976
+#: loader/net.c:1982
 msgid "Identify"
 msgstr "Identyfikacja"
 
-#: loader/net.c:1985
+#: loader/net.c:1991
 msgid "You can identify the physical port for"
 msgstr "Można zidentyfikować fizyczny port dla"
 
-#: loader/net.c:1987
+#: loader/net.c:1993
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
@@ -4875,24 +4757,24 @@ msgstr ""
 "przez świecenie diodami LED przez określoną liczbę sekund. Proszę podać "
 "liczbę między 1 a 30, aby ustawić czas świecenia diod LED portów."
 
-#: loader/net.c:1994
+#: loader/net.c:2000
 msgid "Identify NIC"
 msgstr "Identyfikacja NIC"
 
-#: loader/net.c:2007
+#: loader/net.c:2013
 msgid "Invalid Duration"
 msgstr "Nieprawidłowy czas trwania"
 
-#: loader/net.c:2008
+#: loader/net.c:2014
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "Należy podać liczbę sekund jako liczbę całkowitą między 1 a 30."
 
-#: loader/net.c:2020
+#: loader/net.c:2026
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "Świecenie diodami portu %s przez %d sekundy."
 
-#: loader/net.c:2190 loader/net.c:2194
+#: loader/net.c:2198 loader/net.c:2202
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "Oczekiwanie na Menedżera sieci, aby skonfigurować %s.\n"
@@ -5596,50 +5478,38 @@ msgstr "Szyfrowanie %s"
 msgid "Creating %(type)s on %(device)s"
 msgstr "Tworzenie %(type)s na %(device)s"
 
-#: pyanaconda/storage/iscsi.py:119
+#: pyanaconda/storage/iscsi.py:118
 msgid "Unable to change iSCSI initiator name once set"
 msgstr "Nie można zmienić nazwy inicjatora iSCSI po jej ustawieniu"
 
-#: pyanaconda/storage/iscsi.py:121
+#: pyanaconda/storage/iscsi.py:120
 msgid "Must provide an iSCSI initiator name"
 msgstr "Należy podać nazwę inicjatora iSCSI."
 
-#: pyanaconda/storage/iscsi.py:152 pyanaconda/storage/iscsi.py:153
+#: pyanaconda/storage/iscsi.py:151 pyanaconda/storage/iscsi.py:152
 msgid "Scanning iSCSI nodes"
 msgstr "Skanowanie węzłów iSCSI"
 
-#: pyanaconda/storage/iscsi.py:173 pyanaconda/storage/iscsi.py:174
+#: pyanaconda/storage/iscsi.py:172 pyanaconda/storage/iscsi.py:173
 msgid "Initializing iSCSI initiator"
 msgstr "Inicjowanie inicjatora iSCSI"
 
-#: pyanaconda/storage/iscsi.py:215 pyanaconda/storage/iscsi.py:275
+#: pyanaconda/storage/iscsi.py:214
 msgid "iSCSI not available"
 msgstr "iSCSI jest niedostępne"
 
-#: pyanaconda/storage/iscsi.py:217 pyanaconda/storage/iscsi.py:277
+#: pyanaconda/storage/iscsi.py:216
 msgid "No initiator name set"
 msgstr "Nie ustawiono nazwy inicjatora"
 
-#: pyanaconda/storage/iscsi.py:243
+#: pyanaconda/storage/iscsi.py:242
 msgid "Logging in to iSCSI node"
 msgstr "Logowanie do węzła iSCSI"
 
-#: pyanaconda/storage/iscsi.py:244
+#: pyanaconda/storage/iscsi.py:243
 #, python-format
 msgid "Logging in to iSCSI node %s"
 msgstr "Logowanie do węzła iSCSI %s"
-
-#: pyanaconda/storage/iscsi.py:291
-msgid "No iSCSI nodes discovered"
-msgstr "Nie wykryto węzłów iSCSI"
-
-#: pyanaconda/storage/iscsi.py:294 pyanaconda/storage/iscsi.py:295
-msgid "Logging in to iSCSI nodes"
-msgstr "Logowanie do węzłów iSCSI"
-
-#: pyanaconda/storage/iscsi.py:324
-msgid "Could not log in to any of the discovered nodes"
-msgstr "Nie można zalogować się do żadnego wykrytego węzła"
 
 #: pyanaconda/storage/partitioning.py:197
 msgid ""
@@ -5845,13 +5715,26 @@ msgstr "Wybór klawiatury"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Jaki jest model klawiatury podłączonej do komputera?"
 
+#: pyanaconda/textw/netconfig_text.py:35 pyanaconda/textw/netconfig_text.py:42
+msgid "Error With Data"
+msgstr "Błąd danych"
+
+#: pyanaconda/textw/netconfig_text.py:36
+#, python-format
+msgid ""
+"An error occurred converting the value entered for \"%(field)s\":\n"
+"%(errmsg)s"
+msgstr ""
+"Wystąpił błąd podczas konwertowania podanej wartości dla \"%(field)s\":\n"
+"%(errmsg)s"
+
 #: pyanaconda/textw/netconfig_text.py:43
 #, python-format
 msgid "A value is required for the field %s"
 msgstr "Wartość jest wymagana w polu %s"
 
 #: pyanaconda/textw/netconfig_text.py:126
-#: pyanaconda/textw/netconfig_text.py:152 data/ui/netconfig.glade.h:9
+#: pyanaconda/textw/netconfig_text.py:152
 msgid "Enable network interface"
 msgstr "Włączenie interfejsu sieciowego"
 
@@ -5915,6 +5798,10 @@ msgstr "Adres IPv4"
 #: pyanaconda/textw/netconfig_text.py:291
 msgid "IPv4 Prefix"
 msgstr "Przedrostek IPv4"
+
+#: pyanaconda/textw/netconfig_text.py:290
+msgid "IPv4 CIDR prefix must be between 0 and 32."
+msgstr "Przedrostek CIDR IPv4 musi być między 0 a 32."
 
 #: pyanaconda/textw/netconfig_text.py:298
 msgid "IPv4 Gateway"
@@ -6713,38 +6600,6 @@ msgstr "Proszę podać hasło dla zaszyfrowanej partycji"
 #: data/ui/lukspassphrase.glade.h:5
 msgid "Enter passphrase:"
 msgstr "Proszę podać hasło:"
-
-#: data/ui/netconfig.glade.h:2
-msgid "<b>Gateway:</b>"
-msgstr "<b>Brama:</b>"
-
-#: data/ui/netconfig.glade.h:3
-msgid "<b>IPv4 Address:</b>"
-msgstr "<b>Adres IPv4:</b>"
-
-#: data/ui/netconfig.glade.h:4
-msgid "<b>IPv6 Address:</b>"
-msgstr "<b>Adres IPv6:</b>"
-
-#: data/ui/netconfig.glade.h:5
-msgid "<b>Nameserver:</b>"
-msgstr "<b>Serwer nazw:</b>"
-
-#: data/ui/netconfig.glade.h:6
-msgid "<b>_Interface:</b>"
-msgstr "<b>_Interfejs:</b>"
-
-#: data/ui/netconfig.glade.h:7
-msgid "Enable IPv_4 support"
-msgstr "Obsługa IPv_4"
-
-#: data/ui/netconfig.glade.h:8
-msgid "Enable IPv_6 support"
-msgstr "Obsługa IPv_6"
-
-#: data/ui/netconfig.glade.h:11
-msgid "Use _dynamic IP configuration (DHCP)"
-msgstr "Użycie _dynamicznej konfiguracji IP (DHCP)"
 
 #: data/ui/network.glade.h:1
 msgid "Configure Network"
