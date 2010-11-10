@@ -20,5 +20,3 @@
 EXTRA_DIST = *.py
 
 MAINTAINERCLEANFILES = Makefile.in
-
-TESTS = proxy.py

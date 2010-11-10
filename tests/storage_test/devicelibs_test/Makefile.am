@@ -20,12 +20,3 @@
 EXTRA_DIST = *.py
 
 MAINTAINERCLEANFILES = Makefile.in
-
-ANACDIR = $(top_builddir)/pyanaconda
-TESTS_ENVIRONMENT = PATH=/sbin:/usr/sbin:$$PATH PYTHONPATH=$(top_builddir)/tests:$(ANACDIR)/isys/.libs:$(ANACDIR):$(top_builddir)
-
-TESTS = crypto_test.py \
-	lvm_test.py \
-	mdraid_test.py \
-	mpath_test.py \
-	swap_test.py

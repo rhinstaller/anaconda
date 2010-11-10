@@ -17,6 +17,6 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-EXTRA_DIST = *.py
+EXTRA_DIST = *pylint*
 
 MAINTAINERCLEANFILES = Makefile.in

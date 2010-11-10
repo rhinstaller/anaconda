@@ -290,6 +290,7 @@ AC_CONFIG_FILES([Makefile
                  tests/kickstart_test/Makefile
                  tests/storage_test/Makefile
                  tests/storage_test/devicelibs_test/Makefile
+                 tests/pylint/Makefile
                  tests/regex/Makefile
                  pyanaconda/textw/Makefile
                  data/ui/Makefile

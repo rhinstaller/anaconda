@@ -17,11 +17,6 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-SUBDIRS = mock kickstart_test storage_test regex
+SUBDIRS = mock kickstart_test storage_test regex pylint
 
 MAINTAINERCLEANFILES = Makefile.in
-
-ANACDIR = $(top_builddir)/pyanaconda
-TESTS_ENVIRONMENT = PATH=/sbin:/usr/sbin:$$PATH PYTHONPATH=$(top_builddir)/tests:$(ANACDIR)/isys/.libs:$(ANACDIR)/isys:$(top_builddir)
-
-TESTS = fw_test.py tsort_test.py
