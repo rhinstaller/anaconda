@@ -106,4 +106,4 @@ archive-no-tag: dist
 
 # UNIT TESTING TARGETS
 unittest:
-	PYTHONPATH=tests/:. nosetests -w tests/
+	PYTHONPATH=tests/:pyanaconda:pyanaconda/isys/.libs:. nosetests -w tests/
