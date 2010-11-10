@@ -181,3 +181,7 @@ ipv6=<method>   IPv6 configuration method to use, either 'auto' for
                 automatic neighbor discovery or 'dhcp' for DHCPv6.
 
 noipv6          Disable IPv6 networking during installation.
+
+noeject         Do not eject install media under any circumstances, including
+                media test and shutdown.
+
