@@ -1357,8 +1357,6 @@ def runPreScripts(anaconda, scripts):
     map (lambda s: s.run("/", flags.serial, anaconda.intf), preScripts)
 
     log.info("All kickstart %%pre script(s) have been run")
-    if anaconda.intf is not None:
-        w.pop()
 
 def runTracebackScripts(anaconda):
     log.info("Running kickstart %%traceback script(s)")
