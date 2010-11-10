@@ -1,3 +1,4 @@
+^F0002:[ 0-9]*: <type 'exceptions.RuntimeError'>: could not open display$
 ^F0401:[ 0-9]*: Unable to import 'gtk.gdk'$
 ^F0401:[ 0-9]*: Unable to import 'repomd.mdErrors'$
 ^F0401:[ 0-9]*: Unable to import 'volume_key'$
@@ -5,6 +6,8 @@
 ^W0122:[ 0-9]*:InstallInterface\.run: Use of the exec statement$
 ^E0602:[ 0-9]*:InstallInterface\.run: Undefined variable 'nextWin'$
 ^E0602:[ 0-9]*:sparcBootloaderInfo\.writeSilo: Undefined variable 'butil'$
+^E0611:[ 0-9]*: No name '_isys' in module 'pyanaconda'$
+^E0611:[ 0-9]*:.*: No name '_isys' in module 'pyanaconda'$
 ^E1101:[ 0-9]*:.*: Class 'vbox' has no 'pack_start' member$
 ^E1101:[ 0-9]*:.*: Instance of 'WideCheckList' has no 'get_model' member$
 ^E1101:[ 0-9]*:.*: Instance of 'WideCheckList' has no 'get_column' member$
@@ -15,6 +18,7 @@
 ^E1101:[ 0-9]*:AnacondaTZMap\.selectionChanged: Instance of 'Enum' has no 'ENTRY' member$
 ^E1101:[ 0-9]*:DeviceAction\..*: Instance of 'DeviceAction' has no 'dir' member$
 ^E1101:[ 0-9]*:VolumeGroupEditor\.editLogicalVolume: Class 'format' has no 'mountable' member$
+^E1101:[ 0-9]*:randomIname: Module 'hashlib' has no 'md5' member$
 ^E1101:[ 0-9]*:rpm.*: Instance of 'TransactionSet' has no 'dbMatch' member$
 ^E1101:[ 0-9]*:EntryWindow.__init__: Class 'child' has no 'pack_start' member$
 ^E1101:[ 0-9]*:.*: Instance of 'dict' has no 'Get' member$
