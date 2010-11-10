@@ -2085,10 +2085,15 @@ function configure_ipv4_gateway() {
     fi
     # BH FIXME: Workaround for manual MACADDR, need ping to update arp table
     echo $"Trying to reach gateway $GATEWAY..."
-    if ! ping -c 3 $GATEWAY >& /dev/null; then
-        echo $"Could not reach your default gateway $GATEWAY"
-        return 1
-    fi
+    local i=1
+    while : ; do
+        ping -c 3 $GATEWAY >& /dev/null && break
+        i=$((i+1))
+        if [ "$i" -gt 3 ]; then
+            echo $"Could not reach your default gateway $GATEWAY"
+            return 1
+        fi
+    done
     return 0
 }
 
