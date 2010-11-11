@@ -202,7 +202,6 @@ def doBackendSetup(anaconda):
 
     if anaconda.upgrade:
         anaconda.backend.checkSupportedUpgrade(anaconda)
-        iutil.writeRpmPlatform(anaconda.rootPath)
 
 def doPostSelection(anaconda):
     return anaconda.backend.doPostSelection(anaconda)

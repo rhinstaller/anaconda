@@ -394,9 +394,6 @@ class LiveCDCopyBackend(backend.AnacondaBackend):
 
         self._doFilesystemMangling(anaconda)
 
-        # setup /etc/rpm/ for the post-install environment
-        iutil.writeRpmPlatform(anaconda.rootPath)
-
         storage.writeEscrowPackets(anaconda)
 
         packages.rpmSetupGraphicalSystem(anaconda)

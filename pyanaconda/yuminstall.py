@@ -1202,7 +1202,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
            # FIXME: make sure that the rpmdb doesn't have stale locks :/
            iutil.resetRpmDb(anaconda.rootPath)
 
-        iutil.writeRpmPlatform()
         self.ayum = AnacondaYum(anaconda)
         self.ayum.setup()
 
@@ -1574,9 +1573,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 #            log.error("Error making directory %s: %s" % (i, msg))
 
         self.initLog(anaconda.rootPath)
-
-        # setup /etc/rpm/ for the post-install environment
-        iutil.writeRpmPlatform(anaconda.rootPath)
 
         try:
             # FIXME: making the /var/lib/rpm symlink here is a hack to

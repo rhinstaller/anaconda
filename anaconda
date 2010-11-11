@@ -534,10 +534,6 @@ if __name__ == "__main__":
     # add our own additional signal handlers
     signal.signal(signal.SIGHUP, startDebugger)
 
-    # we need to do this really early so we make sure its done before rpm
-    # is imported
-    iutil.writeRpmPlatform()
-
     graphical_failed = 0
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
