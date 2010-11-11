@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.216
+Version: 11.1.2.217
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 11 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.217-1
+- Fix generic.ins for s390 LPAR installations (dcantrell)
+  Resolves: rhbz#647827
+- Fix gateway ping test for layer3 vswitch users (dcantrell)
+  Resolves: rhbz#643961
+- Disable IPv6 modules for 'noipv6' in /etc/modprobe.conf (dcantrell)
+  Resolves: rhbz#537887
+- Document noeject (bcl)
+  Resolves: rhbz#647232
+
 * Tue Sep 28 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.216-1
 - Don't immediately retry on downloading a package. (clumens)
   Resolves: rhbz#544323
