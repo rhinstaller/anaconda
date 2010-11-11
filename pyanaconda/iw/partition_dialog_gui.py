@@ -378,7 +378,13 @@ class PartitionEditor:
                 if request.format.exists and \
                    getattr(request, "mountpoint", None) and \
                    self.storage.formatByDefault(request):
-                    if not queryNoFormatPreExisting(self.intf):
+                    reason = self.storage.mustFormat(request)
+                    if reason:
+                        self.intf.messageWindow(_("Error"),
+                                                reason,
+                                                custom_icon="error")
+                        continue
+                    elif not queryNoFormatPreExisting(self.intf):
                         continue
 
             # everything ok, fall out of loop

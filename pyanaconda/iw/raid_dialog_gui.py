@@ -347,7 +347,13 @@ class RaidEditor:
 
                 if self.origrequest.format.exists and not format and \
                    self.storage.formatByDefault(self.origrequest):
-                    if not queryNoFormatPreExisting(self.intf):
+                    reason = self.storage.mustFormat(self.origrequest)
+                    if reason:
+                        self.intf.messageWindow(_("Error"),
+                                                reason,
+                                                custom_icon="error")
+                        continue
+                    elif not queryNoFormatPreExisting(self.intf):
 		        continue
 
                 if format:

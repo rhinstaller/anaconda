@@ -927,6 +927,16 @@ class Storage(object):
         # be safe for anything else and default to off
         return False
 
+    def mustFormat(self, device):
+        """ Return a string explaining why the device must be reformatted.
+
+            Return None if the device need not be reformatted.
+        """
+        if device.format.mountable and device.format.mountpoint == "/":
+            return _("You must create a new filesystem on the root device.")
+
+        return None
+
     def extendedPartitionsSupported(self):
         """ Return whether any disks support extended partitions."""
         for disk in self.partitioned:
