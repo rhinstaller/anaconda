@@ -607,7 +607,7 @@ class Network:
         # /etc/modprobe.conf
         if useIPv6 == "no":
             iutil.mkdirChain(instPath + "/etc")
-            f = open(instPath + "/etc/modprobe.conf", "w")
+            f = open(instPath + "/etc/modprobe.conf", "a")
             f.write("alias net-pf-10 off\n")
             f.write("alias ipv6 off\n")
             f.write("options ipv6 disable=1\n")
