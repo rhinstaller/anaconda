@@ -786,9 +786,15 @@ class VolumeGroupEditor:
 
             if format.exists and format.mountable and format.mountpoint:
                 tempdev = StorageDevice('tmp', format=format)
-                if self.storage.formatByDefault(tempdev) and \
-                   not queryNoFormatPreExisting(self.intf):
-                    continue
+                if self.storage.formatByDefault(tempdev):
+                    reason = self.storage.mustFormat(tempdev)
+                    if reason:
+                        self.intf.messageWindow(_("Error"),
+                                                reason,
+                                                custom_icon="error")
+                        continue
+                    elif not queryNoFormatPreExisting(self.intf):
+                        continue
 
             # everything ok
             break
