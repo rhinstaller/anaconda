@@ -246,6 +246,8 @@ int doPwUmount(char *where, char **err) {
 
 /* Returns true iff it is possible that the mount command that have returned
  * 'errno' might succeed at a later time (think e.g. not yet initialized USB
+ * device, etc.) */
+int mountMightSucceedLater(int mountRc)
 {
     /* 32 is the mount exit code for "mount failure" */
     if (mountRc > 0 && mountRc & 0x20)
