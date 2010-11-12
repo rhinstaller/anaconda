@@ -46,6 +46,7 @@ class VolumeGroupEditor:
         pvs = [copy.deepcopy(pv) for pv in self.pvs]
         vg = LVMVolumeGroupDevice('tmp-%s' % self.vg.name,
                                   parents=pvs, peSize=self.peSize)
+        vg.voriginSnapshots = self.vg.voriginSnapshots.copy()
         for lv in self.lvs.values():
             _l = LVMLogicalVolumeDevice(lv['name'], vg, format=lv['format'],
                                    size=lv['size'], exists=lv['exists'],
