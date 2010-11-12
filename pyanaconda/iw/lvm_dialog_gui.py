@@ -65,7 +65,8 @@ class VolumeGroupEditor:
         vgsize = vg.size
         vgfree = vg.freeSpace
         vgused = vgsize - vgfree
-	return (vgsize, vgused, vgfree)
+        vgsnapshots = vg.snapshotSpace
+        return (vgsize, vgused, vgfree, vgsnapshots)
 
     def getPVWastedRatio(self, newpe):
         """ given a new pe value, return percentage of smallest PV wasted
@@ -836,7 +837,7 @@ class VolumeGroupEditor:
                 custom_icon="error")
             return
 
-        (total, used, free) = self.computeSpaceValues()
+        (total, used, free, snapshots) = self.computeSpaceValues()
 	if free <= 0:
 	    self.intf.messageWindow(_("No free space"),
 				    _("There is no room left in the "
@@ -942,7 +943,7 @@ class VolumeGroupEditor:
             self.logvolstore.set_value(iter, 2, "%Ld" % lv['size'])
 
     def updateVGSpaceLabels(self):
-        (total, used, free) = self.computeSpaceValues()
+        (total, used, free, snapshots) = self.computeSpaceValues()
 
 	self.totalSpaceLabel.set_text("%10.2f MB" % (total,))
 	self.usedSpaceLabel.set_text("%10.2f MB" % (used,))
@@ -961,6 +962,15 @@ class VolumeGroupEditor:
 	    freepercent = 0.0
 
 	self.freePercentLabel.set_text("(%4.1f %%)" % (freepercent,))
+
+        if snapshots:
+            self.snapshotSpaceLabel.set_text("%10.2f MB" % snapshots)
+            if total > 0:
+                snapshotpercent = (100.0*snapshots)/total
+            else:
+                snapshotpercent = 0.0
+
+            self.snapshotPercentLabel.set_text("(%4.1f %%)" % snapshotpercent)
 
 #
 # run the VG editor we created
@@ -1365,6 +1375,27 @@ class VolumeGroupEditor:
         maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	maintable.set_row_spacing(row, 0)
         row = row + 1
+
+        if self.vg.snapshotSpace:
+            maintable.attach(createAlignedLabel(_("Snapshot Total:")),
+                             0, 1, row, row + 1, gtk.EXPAND|gtk.FILL,
+                             gtk.SHRINK)
+            lbox = gtk.HBox()
+            self.snapshotSpaceLabel = gtk.Label("")
+            labelalign = gtk.Alignment()
+            labelalign.set(1.0, 0.5, 0.0, 0.0)
+            labelalign.add(self.snapshotSpaceLabel)
+            lbox.pack_start(labelalign, False, False)
+            self.snapshotPercentLabel = gtk.Label("")
+            labelalign = gtk.Alignment()
+            labelalign.set(1.0, 0.5, 0.0, 0.0)
+            labelalign.add(self.snapshotPercentLabel)
+            lbox.pack_start(labelalign, False, False, padding=10)
+
+            maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL,
+                             gtk.SHRINK)
+            maintable.set_row_spacing(row, 0)
+            row = row + 1
 
         maintable.attach(createAlignedLabel(_("Free Space:")), 0, 1, row,
 			 row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
