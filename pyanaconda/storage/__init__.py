@@ -83,16 +83,16 @@ def storageInitialize(anaconda):
     # Before we set up the storage system, we need to know which disks to
     # ignore, etc.  Luckily that's all in the kickstart data.
     if anaconda.ksdata:
-        anaconda.storage.zeroMbr = anaconda.ksdata.zerombr.zerombr
-        anaconda.storage.ignoreDiskInteractive = anaconda.ksdata.ignoredisk.interactive
-        anaconda.storage.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
-        anaconda.storage.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
+        anaconda.storage.config.zeroMbr = anaconda.ksdata.zerombr.zerombr
+        anaconda.storage.config.ignoreDiskInteractive = anaconda.ksdata.ignoredisk.interactive
+        anaconda.storage.config.ignoredDisks = anaconda.ksdata.ignoredisk.ignoredisk
+        anaconda.storage.config.exclusiveDisks = anaconda.ksdata.ignoredisk.onlyuse
 
         if anaconda.ksdata.clearpart.type is not None:
-            anaconda.storage.clearPartType = anaconda.ksdata.clearpart.type
-            anaconda.storage.clearPartDisks = anaconda.ksdata.clearpart.drives
+            anaconda.storage.config.clearPartType = anaconda.ksdata.clearpart.type
+            anaconda.storage.config.clearPartDisks = anaconda.ksdata.clearpart.drives
             if anaconda.ksdata.clearpart.initAll:
-                anaconda.storage.reinitializeDisks = anaconda.ksdata.clearpart.initAll
+                anaconda.storage.config.reinitializeDisks = anaconda.ksdata.clearpart.initAll
 
     anaconda.intf.resetInitializeDiskQuestion()
     anaconda.intf.resetReinitInconsistentLVMQuestion()
@@ -100,7 +100,7 @@ def storageInitialize(anaconda):
 
     # Set up the protected partitions list now.
     if anaconda.protected:
-        storage.protectedDevSpecs.extend(anaconda.protected)
+        storage.config.protectedDevSpecs.extend(anaconda.protected)
         storage.reset()
 
         if not flags.livecdInstall and not storage.protectedDevices:
@@ -257,17 +257,51 @@ def undoEncryption(storage):
         storage.devicetree.registerAction(ActionDestroyFormat(slave))
         storage.devicetree.registerAction(ActionCreateFormat(slave, format))
 
-class Storage(object):
-    def __init__(self, anaconda):
-        self.anaconda = anaconda
-
+class StorageDiscoveryConfig(object):
+    def __init__(self):
         # storage configuration variables
         self.ignoreDiskInteractive = False
         self.ignoredDisks = []
         self.exclusiveDisks = []
-        self.doAutoPart = False
         self.clearPartType = None
         self.clearPartDisks = []
+        self.reinitializeDisks = False
+        self.zeroMbr = None
+        self.protectedDevSpecs = []
+
+    def writeKS(self, f):
+        # clearpart
+        if self.clearPartType is None or self.clearPartType == CLEARPART_TYPE_NONE:
+            args = ["--none"]
+        elif self.clearPartType == CLEARPART_TYPE_LINUX:
+            args = ["--linux"]
+        else:
+            args = ["--all"]
+
+        if self.clearPartDisks:
+            args += ["--drives=%s" % ",".join(self.clearPartDisks)]
+        if self.reinitializeDisks:
+            args += ["--initlabel"]
+
+        f.write("#clearpart %s\n" % " ".join(args))
+
+        # ignoredisks
+        if self.ignoreDiskInteractive:
+            f.write("#ignoredisk --interactive\n")
+        elif self.ignoredDisks:
+            f.write("#ignoredisk --drives=%s\n" % ",".join(self.ignoredDisks))
+        elif self.exclusiveDisks:
+            f.write("#ignoredisk --only-use=%s\n" % ",".join(self.exclusiveDisks))
+
+
+class Storage(object):
+    def __init__(self, anaconda):
+        self.anaconda = anaconda
+
+        self.config = StorageDiscoveryConfig()
+
+        # storage configuration variables
+        self.doAutoPart = False
         self.clearPartChoice = None
         self.encryptedAutoPart = False
         self.encryptionPassphrase = None
@@ -275,9 +309,6 @@ class Storage(object):
         self.autoPartEscrowCert = None
         self.autoPartAddBackupPassphrase = False
         self.encryptionRetrofit = False
-        self.reinitializeDisks = False
-        self.zeroMbr = None
-        self.protectedDevSpecs = []
         self.autoPartitionRequests = []
         self.eddDict = {}
 
@@ -295,13 +326,7 @@ class Storage(object):
 
         # these will both be empty until our reset method gets called
         self.devicetree = DeviceTree(intf=self.anaconda.intf,
-                                     ignored=self.ignoredDisks,
-                                     exclusive=self.exclusiveDisks,
-                                     type=self.clearPartType,
-                                     clear=self.clearPartDisks,
-                                     reinitializeDisks=self.reinitializeDisks,
-                                     protected=self.protectedDevSpecs,
-                                     zeroMbr=self.zeroMbr,
+                                     conf=self.config,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
@@ -379,25 +404,21 @@ class Storage(object):
         self.iscsi.startup(self.anaconda.intf)
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup(self.anaconda.intf)
-        self.dasd.startup(self.anaconda.intf, self.exclusiveDisks, self.zeroMbr)
+        self.dasd.startup(self.anaconda.intf,
+                          self.config.exclusiveDisks,
+                          self.config.zeroMbr)
+        clearPartType = self.config.clearPartType # save this before overriding it
         if self.anaconda.upgrade:
-            clearPartType = CLEARPART_TYPE_NONE
-        else:
-            clearPartType = self.clearPartType
+            self.config.clearPartType = CLEARPART_TYPE_NONE
 
         self.devicetree = DeviceTree(intf=self.anaconda.intf,
-                                     ignored=self.ignoredDisks,
-                                     exclusive=self.exclusiveDisks,
-                                     type=clearPartType,
-                                     clear=self.clearPartDisks,
-                                     reinitializeDisks=self.reinitializeDisks,
-                                     protected=self.protectedDevSpecs,
-                                     zeroMbr=self.zeroMbr,
+                                     conf=self.config,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
                                      dasd=self.dasd)
         self.devicetree.populate()
+        self.config.clearPartType = clearPartType # set it back
         self.fsset = FSSet(self.devicetree, self.anaconda.rootPath)
         self.eddDict = get_edd_dict(self.partitioned)
         self.anaconda.rootParts = None
@@ -1106,28 +1127,7 @@ class Storage(object):
         f.write("# here so unless you clear all partitions first, this is\n")
         f.write("# not guaranteed to work\n")
 
-        # clearpart
-        if self.clearPartType is None or self.clearPartType == CLEARPART_TYPE_NONE:
-            args = ["--none"]
-        elif self.clearPartType == CLEARPART_TYPE_LINUX:
-            args = ["--linux"]
-        else:
-            args = ["--all"]
-
-        if self.clearPartDisks:
-            args += ["--drives=%s" % ",".join(self.clearPartDisks)]
-        if self.reinitializeDisks:
-            args += ["--initlabel"]
-
-        f.write("#clearpart %s\n" % " ".join(args))
-
-        # ignoredisks
-        if self.ignoreDiskInteractive:
-            f.write("#ignoredisk --interactive\n")
-        elif self.ignoredDisks:
-            f.write("#ignoredisk --drives=%s\n" % ",".join(self.ignoredDisks))
-        elif self.exclusiveDisks:
-            f.write("#ignoredisk --only-use=%s\n" % ",".join(self.exclusiveDisks))
+        self.config.writeKS(f)
 
         # the various partitioning commands
         dict = {}

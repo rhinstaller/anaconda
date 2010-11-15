@@ -61,7 +61,7 @@ class ClearDisksWindow (InstallWindow):
 
         cleardisks.sort(self.anaconda.storage.compareDisks)
 
-        self.anaconda.storage.clearPartDisks = cleardisks
+        self.anaconda.storage.config.clearPartDisks = cleardisks
         self.anaconda.bootloader.updateDriveList([bootDisk])
 
     def getScreen (self, anaconda):
@@ -75,7 +75,7 @@ class ClearDisksWindow (InstallWindow):
 
         # Skip this screen as well if there's only one disk to use.
         if len(disks) == 1:
-            anaconda.storage.clearPartDisks = [disks[0].name]
+            anaconda.storage.config.clearPartDisks = [disks[0].name]
             anaconda.bootloader.drivelist = [disks[0].name]
             return None
 
@@ -158,7 +158,7 @@ class ClearDisksWindow (InstallWindow):
         # look up some more information in the devicetree, and set up the
         # selector.
         for d in disks:
-            rightVisible = d.name in self.anaconda.storage.clearPartDisks
+            rightVisible = d.name in self.anaconda.storage.config.clearPartDisks
             rightActive = rightVisible and \
                           d.name in self.anaconda.bootloader.drivelist[:1]
             leftVisible = not rightVisible
@@ -192,9 +192,9 @@ class ClearDisksWindow (InstallWindow):
         self.leftTreeView.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
         self.rightTreeView.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
 
-        if self.anaconda.storage.clearPartType == CLEARPART_TYPE_LINUX:
+        if self.anaconda.storage.config.clearPartType == CLEARPART_TYPE_LINUX:
             self.installTargetTip.set_markup(_("<b>Tip:</b> All Linux filesystems on the install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
-        elif self.anaconda.storage.clearPartType == CLEARPART_TYPE_ALL:
+        elif self.anaconda.storage.config.clearPartType == CLEARPART_TYPE_ALL:
             self.installTargetTip.set_markup(_("<b>Tip:</b> The install target devices will be reformatted and wiped of any data.  Make sure you have backups."))
         else:
             self.installTargetTip.set_markup(_("<b>Tip:</b> Your filesystems on the install target devices will not be reformatted unless you choose to do so during customization."))

@@ -88,12 +88,12 @@ class UpgradeExamineWindow (InstallWindow):
         if anaconda.dir == DISPATCH_BACK:
             # reset storage to catch any changes since we only reset when
             # moving forward from autopart, not back.
-            # temporarily unset storage.clearPartType so that all devices will be
+            # temporarily unset storage.config.clearPartType so that all devices will be
             # found during storage reset
-            clearPartType = self.anaconda.storage.clearPartType
-            self.anaconda.storage.clearPartType = None
+            clearPartType = self.anaconda.storage.config.clearPartType
+            self.anaconda.storage.config.clearPartType = None
             self.anaconda.storage.reset()
-            self.anaconda.storage.clearPartType = clearPartType
+            self.anaconda.storage.config.clearPartType = clearPartType
 
         # we might get here after storage reset that obsoleted
         # root device objects we had found

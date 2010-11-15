@@ -148,12 +148,12 @@ class PartitionTypeWindow(InstallWindow):
             raise gui.StayOnScreen
 
         # reset storage, this is only done when moving forward, not back
-        # temporarily unset storage.clearPartType so that all devices will be
-        # found during storage reset
-        clearPartType = self.anaconda.storage.clearPartType
-        self.anaconda.storage.clearPartType = None
+        # temporarily unset storage.config.clearPartType so that all devices
+        # will be found during storage reset
+        clearPartType = self.anaconda.storage.config.clearPartType
+        self.anaconda.storage.config.clearPartType = None
         self.anaconda.storage.reset()
-        self.anaconda.storage.clearPartType = clearPartType
+        self.anaconda.storage.config.clearPartType = clearPartType
 
         self.storage.clearPartChoice = self.buttonGroup.getCurrent()
 
@@ -163,7 +163,7 @@ class PartitionTypeWindow(InstallWindow):
             self.dispatch.skipStep("partition", skip = 0)
             self.dispatch.skipStep("bootloader", skip = 0)
 
-            self.storage.clearPartType = CLEARPART_TYPE_NONE
+            self.storage.config.clearPartType = CLEARPART_TYPE_NONE
         else:
             if self.buttonGroup.getCurrent() == "shrink":
                 (rc, actions) = whichToShrink(self.storage, self.intf)
@@ -174,13 +174,13 @@ class PartitionTypeWindow(InstallWindow):
                     raise gui.StayOnScreen
 
                 # we're not going to delete any partitions in the resize case
-                self.storage.clearPartType = CLEARPART_TYPE_NONE
+                self.storage.config.clearPartType = CLEARPART_TYPE_NONE
             elif self.buttonGroup.getCurrent() == "all":
-                self.storage.clearPartType = CLEARPART_TYPE_ALL
+                self.storage.config.clearPartType = CLEARPART_TYPE_ALL
             elif self.buttonGroup.getCurrent() == "replace":
-                self.storage.clearPartType = CLEARPART_TYPE_LINUX
+                self.storage.config.clearPartType = CLEARPART_TYPE_LINUX
             elif self.buttonGroup.getCurrent() == "freespace":
-                self.storage.clearPartType = CLEARPART_TYPE_NONE
+                self.storage.config.clearPartType = CLEARPART_TYPE_NONE
 
             self.dispatch.skipStep("autopartitionexecute", skip = 0)
             self.dispatch.skipStep("cleardiskssel", skip = 0)
@@ -205,9 +205,9 @@ class PartitionTypeWindow(InstallWindow):
 
     def getPrev(self):
         # Save the user's selection and restore system selection
-        if self.storage.clearPartType is not None:
-            self.anaconda.clearPartTypeSelection = self.storage.clearPartType
-        self.storage.clearPartType = self.anaconda.clearPartTypeSystem
+        if self.storage.config.clearPartType is not None:
+            self.anaconda.clearPartTypeSelection = self.storage.config.clearPartType
+        self.storage.config.clearPartType = self.anaconda.clearPartTypeSystem
 
     def typeChanged(self, *args):
         if self.buttonGroup.getCurrent() == "custom":
@@ -233,9 +233,9 @@ class PartitionTypeWindow(InstallWindow):
 
         if self.anaconda.dir == DISPATCH_FORWARD:
             # Save system's partition type setting and restore user's
-            self.anaconda.clearPartTypeSystem = self.storage.clearPartType
+            self.anaconda.clearPartTypeSystem = self.storage.config.clearPartType
             if self.anaconda.clearPartTypeSelection is not None:
-                self.storage.clearPartType = self.anaconda.clearPartTypeSelection
+                self.storage.config.clearPartType = self.anaconda.clearPartTypeSelection
 
         (self.xml, vbox) = gui.getGladeWidget("autopart.glade", "parttypeTable")
         self.encryptButton = self.xml.get_widget("encryptButton")
@@ -290,11 +290,11 @@ class PartitionTypeWindow(InstallWindow):
         if self.storage.clearPartChoice:
             self.buttonGroup.setCurrent(self.storage.clearPartChoice)
         else:
-            if self.storage.clearPartType is None or self.storage.clearPartType == CLEARPART_TYPE_LINUX:
+            if self.storage.config.clearPartType in (None, CLEARPART_TYPE_LINUX):
                 self.buttonGroup.setCurrent("replace")
-            elif self.storage.clearPartType == CLEARPART_TYPE_NONE:
+            elif self.storage.config.clearPartType == CLEARPART_TYPE_NONE:
                 self.buttonGroup.setCurrent("freespace")
-            elif self.storage.clearPartType == CLEARPART_TYPE_ALL:
+            elif self.storage.config.clearPartType == CLEARPART_TYPE_ALL:
                 self.buttonGroup.setCurrent("all")
 
         if self.buttonGroup.getCurrent() == "custom":

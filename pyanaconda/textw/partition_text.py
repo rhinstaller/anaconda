@@ -68,10 +68,10 @@ class PartitionTypeWindow:
             for (txt, val) in opts:
                 typebox.append(txt, val)
 
-            if anaconda.storage.clearPartType is None:
+            if anaconda.storage.config.clearPartType is None:
                 preselection = CLEARPART_TYPE_LINUX
             else:
-                preselection = anaconda.storage.clearPartType
+                preselection = anaconda.storage.config.clearPartType
             typebox.setCurrent(preselection)
 
             g.add(typebox, 0, 1, (0, 1, 0, 0))
@@ -97,7 +97,7 @@ class PartitionTypeWindow:
 
             # restore the drive list each time
             disks = anaconda.storage.partitioned
-            cleardrives = anaconda.storage.clearPartDisks
+            cleardrives = anaconda.storage.config.clearPartDisks
 
             for disk in disks:
                 model = disk.model
@@ -147,8 +147,8 @@ class PartitionTypeWindow:
 
             anaconda.dispatch.skipStep("autopartitionexecute", skip = 0)
             anaconda.storage.doAutoPart = True
-            anaconda.storage.clearPartType = partmethod_ans
-            anaconda.storage.clearPartDisks = sel
+            anaconda.storage.config.clearPartType = partmethod_ans
+            anaconda.storage.config.clearPartDisks = sel
             break
 
         # ask to review autopartition layout - but only if it's not custom partitioning

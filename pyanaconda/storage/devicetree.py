@@ -152,9 +152,8 @@ class DeviceTree(object):
         except for resize actions.
     """
 
-    def __init__(self, intf=None, ignored=[], exclusive=[], type=CLEARPART_TYPE_NONE,
-                 clear=[], zeroMbr=None, reinitializeDisks=None, protected=[],
-                 passphrase=None, luksDict=None, iscsi=None, dasd=None):
+    def __init__(self, intf=None, conf=None, passphrase=None, luksDict=None,
+                 iscsi=None, dasd=None):
         # internal data members
         self._devices = []
         self._actions = []
@@ -163,16 +162,16 @@ class DeviceTree(object):
         self.populated = False
 
         self.intf = intf
-        self.exclusiveDisks = exclusive
-        self.clearPartType = type
-        self.clearPartDisks = clear
-        self.zeroMbr = zeroMbr
-        self.reinitializeDisks = reinitializeDisks
+        self.exclusiveDisks = getattr(conf, "exclusiveDisks", [])
+        self.clearPartType = getattr(conf, "clearPartType", CLEARPART_TYPE_NONE)
+        self.clearPartDisks = getattr(conf, "clearPartDisks", [])
+        self.zeroMbr = getattr(conf, "zeroMbr", False)
+        self.reinitializeDisks = getattr(conf, "reinitializeDisks", False)
         self.iscsi = iscsi
         self.dasd = dasd
 
         # protected device specs as provided by the user
-        self.protectedDevSpecs = protected
+        self.protectedDevSpecs = getattr(conf, "protectedDevSpecs", [])
 
         # names of protected devices at the time of tree population
         self.protectedDevNames = []
@@ -187,7 +186,7 @@ class DeviceTree(object):
         if luksDict and isinstance(luksDict, dict):
             self.__luksDevs = luksDict
         self._ignoredDisks = []
-        for disk in ignored:
+        for disk in getattr(conf, "ignoredDisks", []):
             self.addIgnoredDisk(disk)
         devicelibs.lvm.lvm_cc_resetFilter()
 

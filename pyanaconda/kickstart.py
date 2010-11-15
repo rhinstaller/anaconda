@@ -272,8 +272,8 @@ class Bootloader(commands.bootloader.F15_Bootloader):
             disks = anaconda.storage.disks
             partitioned = anaconda.storage.partitioned
             for disk in [d for d in disks if not d.partitioned]:
-                if shouldClear(disk, anaconda.storage.clearPartType,
-                               anaconda.storage.clearPartDisks):
+                if shouldClear(disk, anaconda.storage.config.clearPartType,
+                               anaconda.storage.config.clearPartDisks):
                     # add newly partitioned disks to the drivelist
                     anaconda.bootloader.drivelist.append(disk.name)
                 elif disk.name in anaconda.bootloader.drivelist:
@@ -318,10 +318,10 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
         return retval
 
     def execute(self, anaconda):
-        anaconda.storage.clearPartType = self.type
-        anaconda.storage.clearPartDisks = self.drives
+        anaconda.storage.config.clearPartType = self.type
+        anaconda.storage.config.clearPartDisks = self.drives
         if self.initAll:
-            anaconda.storage.reinitializeDisks = self.initAll
+            anaconda.storage.config.reinitializeDisks = self.initAll
 
         clearPartitions(anaconda.storage)
         anaconda.ksdata.skipSteps.append("cleardiskssel")
@@ -781,8 +781,8 @@ class PartitionData(commands.partition.F12_PartData):
                     raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % n)
 
                 should_clear = shouldClear(disk,
-                                           storage.clearPartType,
-                                           storage.clearPartDisks)
+                                           storage.config.clearPartType,
+                                           storage.config.clearPartDisks)
                 if disk and (disk.partitioned or should_clear):
                     kwargs["disks"] = [disk]
                     break
@@ -1470,7 +1470,7 @@ def setSteps(anaconda):
     # Storage is initialized for us right when kickstart processing starts.
     dispatch.skipStep("storageinit")
 
-    if not anaconda.storage.ignoreDiskInteractive:
+    if not anaconda.storage.config.ignoreDiskInteractive:
         # Since ignoredisk is optional and not specifying it means you want to
         # consider all possible disks, we should not stop on the filter steps
         # unless we've been told to.

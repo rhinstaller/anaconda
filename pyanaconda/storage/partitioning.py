@@ -45,8 +45,8 @@ def _createFreeSpacePartitions(anaconda):
     # least the default size for new partitions
     disks = []
     for disk in anaconda.storage.partitioned:
-        if anaconda.storage.clearPartDisks and \
-           (disk.name not in anaconda.storage.clearPartDisks):
+        if anaconda.storage.config.clearPartDisks and \
+           (disk.name not in anaconda.storage.config.clearPartDisks):
             continue
 
         part = disk.format.firstPartition
@@ -170,8 +170,8 @@ def _scheduleLVs(anaconda, devs):
 def doAutoPartition(anaconda):
     log.debug("doAutoPartition(%s)" % anaconda)
     log.debug("doAutoPart: %s" % anaconda.storage.doAutoPart)
-    log.debug("clearPartType: %s" % anaconda.storage.clearPartType)
-    log.debug("clearPartDisks: %s" % anaconda.storage.clearPartDisks)
+    log.debug("clearPartType: %s" % anaconda.storage.config.clearPartType)
+    log.debug("clearPartDisks: %s" % anaconda.storage.config.clearPartDisks)
     log.debug("autoPartitionRequests: %s" % anaconda.storage.autoPartitionRequests)
     log.debug("storage.disks: %s" % [d.name for d in anaconda.storage.disks])
     log.debug("storage.partitioned: %s" % [d.name for d in anaconda.storage.partitioned])
@@ -217,7 +217,7 @@ def doAutoPartition(anaconda):
     # run the autopart function to allocate and grow partitions
     try:
         doPartitioning(anaconda.storage,
-                       exclusiveDisks=anaconda.storage.clearPartDisks)
+                       exclusiveDisks=anaconda.storage.config.exclusiveDisks)
 
         if anaconda.storage.doAutoPart:
             _scheduleLVs(anaconda, devs)
@@ -351,7 +351,7 @@ def clearPartitions(storage):
             - Needs some error handling, especially for the parted bits.
 
     """
-    if storage.clearPartType is None or storage.clearPartType == CLEARPART_TYPE_NONE:
+    if storage.config.clearPartType in (None, CLEARPART_TYPE_NONE):
         # not much to do
         return
 
@@ -364,7 +364,7 @@ def clearPartitions(storage):
     partitions.sort(key=lambda p: p.partedPartition.number, reverse=True)
     for part in partitions:
         log.debug("clearpart: looking at %s" % part.name)
-        if not shouldClear(part, storage.clearPartType, storage.clearPartDisks):
+        if not shouldClear(part, storage.config.clearPartType, storage.config.clearPartDisks):
             continue
 
         log.debug("clearing %s" % part.name)
@@ -385,7 +385,7 @@ def clearPartitions(storage):
 
     for disk in [d for d in storage.disks if d not in storage.partitioned]:
         # clear any whole-disk formats that need clearing
-        if shouldClear(disk, storage.clearPartType, storage.clearPartDisks):
+        if shouldClear(disk, storage.config.clearPartType, storage.config.clearPartDisks):
             log.debug("clearing %s" % disk.name)
             devices = storage.deviceDeps(disk)
             while devices:
@@ -416,8 +416,9 @@ def clearPartitions(storage):
         if disk.name != storage.anaconda.bootloader.drivelist[0]:
             continue
 
-        if storage.clearPartType != CLEARPART_TYPE_ALL or \
-           (storage.clearPartDisks and disk.name not in storage.clearPartDisks):
+        if storage.config.clearPartType != CLEARPART_TYPE_ALL or \
+           (storage.config.clearPartDisks and
+            disk.name not in storage.config.clearPartDisks):
             continue
 
         # Don't touch immutable disks
