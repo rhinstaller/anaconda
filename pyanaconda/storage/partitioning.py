@@ -216,8 +216,7 @@ def doAutoPartition(anaconda):
 
     # run the autopart function to allocate and grow partitions
     try:
-        doPartitioning(anaconda.storage,
-                       exclusiveDisks=anaconda.storage.config.exclusiveDisks)
+        doPartitioning(anaconda.storage)
 
         if anaconda.storage.doAutoPart:
             _scheduleLVs(anaconda, devs)
@@ -804,7 +803,7 @@ def getFreeRegions(disks):
 
     return free
 
-def doPartitioning(storage, exclusiveDisks=None):
+def doPartitioning(storage):
     """ Allocate and grow partitions.
 
         When this function returns without error, all PartitionDevice
@@ -817,15 +816,11 @@ def doPartitioning(storage, exclusiveDisks=None):
 
             storage - Main anaconda Storage instance
 
-        Keyword arguments:
-
-            exclusiveDisks -- list of names of disks to use
-
     """
     anaconda = storage.anaconda
     disks = storage.partitioned
-    if exclusiveDisks:
-        disks = [d for d in disks if d.name in exclusiveDisks]
+    if storage.config.exclusiveDisks:
+        disks = [d for d in disks if d.name in storage.config.exclusiveDisks]
 
     for disk in disks:
         disk.setup()
