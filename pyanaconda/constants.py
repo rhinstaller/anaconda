@@ -96,7 +96,7 @@ relabelFiles = ["/etc/rpm/macros", "/etc/dasd.conf", "/etc/zfcp.conf",
                  "/etc/udev/rules.d/70-persistent-net.rules",
                  "/root/install.log", "/root/install.log.syslog",
                  "/etc/shadow", "/etc/shadow-", "/etc/gshadow",
-                 "/etc/dhcp/dhclient-*.conf"]
+                 "/etc/dhcp/dhclient-*.conf", "/etc/localtime"]
 relabelDirs  = ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm",
                 "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root",
                 "/var/log", "/etc/modprobe.d", "/etc/sysconfig", "/var/cache/yum" ]
