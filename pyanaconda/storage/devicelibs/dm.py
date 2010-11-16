@@ -32,6 +32,30 @@ _ = lambda x: gettext.ldgettext("anaconda", x)
 import logging
 log = logging.getLogger("storage")
 
+def dm_setup(args, progress=None):
+    ret = iutil.execWithPulseProgress("dmsetup", args,
+                                     stdout = "/dev/tty5",
+                                     stderr = "/dev/tty5",
+                                     progress=progress)
+    if ret.rc:
+        raise DMError(ret.stderr)
+
+def dm_create_linear(map_name, device, length, uuid):
+    table = "0 %d linear %s 0" % (length, device)
+    args = ["create", map_name, "--uuid", uuid, "--table", "%s" % table]
+    try:
+        dm_setup(args)
+    except DMError as msg:
+        raise DMError("dm_create_linear (%s, %d, %s) failed: %s"
+                                % (map_name, length, device, msg))
+
+def dm_remove(map_name):
+    args = ["remove", map_name]
+    try:
+        dm_setup(args)
+    except DMError as msg:
+        raise DMError("dm_remove (%s) failed: %s" % (map_name, msg))
+
 def name_from_dm_node(dm_node):
     name = block.getNameFromDmNode(dm_node)
     if name is not None:

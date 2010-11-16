@@ -1593,6 +1593,26 @@ class DMDevice(StorageDevice):
 
         return dm.dm_node_from_name(self.name)
 
+    def setupPartitions(self):
+        log_method_call(self, name=self.name, kids=self.kids)
+        rc = iutil.execWithRedirect("kpartx",
+                                ["-a", "-p", "p", "/dev/mapper/%s" % self.name],
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5")
+        if rc:
+            raise DMError("partition activation failed for '%s'" % self.name)
+        udev_settle()
+
+    def teardownPartitions(self):
+        log_method_call(self, name=self.name, kids=self.kids)
+        rc = iutil.execWithRedirect("kpartx",
+                                ["-d", "-p", "p", "/dev/mapper/%s" % self.name],
+                                stdout = "/dev/tty5",
+                                stderr = "/dev/tty5")
+        if rc:
+            raise DMError("partition deactivation failed for '%s'" % self.name)
+        udev_settle()
+
     def _setName(self, name):
         """ Set the device's map name. """
         log_method_call(self, self.name, status=self.status)
@@ -1604,6 +1624,94 @@ class DMDevice(StorageDevice):
 
     name = property(lambda d: d._name,
                     lambda d,n: d._setName(n))
+
+    @property
+    def slave(self):
+        """ This device's backing device. """
+        return self.parents[0]
+
+
+class DMLinearDevice(DMDevice):
+    _type = "dm-linear"
+    _partitionable = True
+    _isDisk = True
+
+    def __init__(self, name, format=None, size=None, dmUuid=None,
+                 exists=None, parents=None, sysfsPath=''):
+        """ Create a DMLinearDevice instance.
+
+            Arguments:
+
+                name -- the device name (generally a device node's basename)
+
+            Keyword Arguments:
+
+                size -- the device's size (units/format TBD)
+                dmUuid -- the device's device-mapper UUID
+                sysfsPath -- sysfs device path
+                format -- a DeviceFormat instance
+                parents -- a list of required Device instances
+                exists -- indicates whether this is an existing device
+        """
+        if not parents:
+            raise ValueError("DMLinearDevice requires a backing block device")
+
+        dmUuid = "ANACONDA-%s" % name
+
+        DMDevice.__init__(self, name, format=format, size=size,
+                          parents=parents, sysfsPath=sysfsPath,
+                          exists=exists, target="linear", dmUuid=dmUuid)
+
+    def setup(self, intf=None, orig=False):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, orig=orig, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created", self.name)
+
+        if self.status:
+            return
+
+        self.slave.setup(orig=orig)
+        udev_settle()
+
+        slave_length = self.slave.partedDevice.length
+        dm.dm_create_linear(self.name, self.slave.path, slave_length,
+                            self.dmUuid)
+        udev_settle()
+        self.setupPartitions()
+        udev_settle()
+
+        # we always probe since the device may not be set up when we want
+        # information about it
+        self._size = self.currentSize
+
+    def deactivate(self):
+        if not self.exists:
+            raise DeviceError("device has not been created", self.name)
+
+        if self.status:
+            if self.originalFormat.exists:
+                self.originalFormat.teardown()
+            if self.format.exists:
+                self.format.teardown()
+            udev_settle()
+
+        self.teardownPartitions()
+        udev_settle()
+        dm.dm_remove(self.name)
+        udev_settle()
+
+    def teardown(self, recursive=None):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists and not recursive:
+            raise DeviceError("device has not been created", self.name)
+
+        log.debug("not tearing down dm-linear device %s" % self.name)
+
+    @property
+    def description(self):
+        return self.model
 
 
 class DMCryptDevice(DMDevice):
@@ -1737,11 +1845,6 @@ class LUKSDevice(DMCryptDevice):
     @property
     def req_grow(self):
         return getattr(self.slave, "req_grow", None)
-
-    @property
-    def slave(self):
-        """ This device's backing device. """
-        return self.parents[0]
 
     def dracutSetupString(self):
         return "rd_LUKS_UUID=luks-%s" % self.slave.format.uuid
@@ -3212,17 +3315,6 @@ class MultipathDevice(DMDevice):
             self.setup()
         else:
             self.parents.append(parent)
-
-    def setupPartitions(self):
-        log_method_call(self, name=self.name, kids=self.kids)
-        rc = iutil.execWithRedirect("kpartx",
-                                ["-a", "-p", "p", "/dev/mapper/%s" % self.name],
-                                stdout = "/dev/tty5",
-                                stderr = "/dev/tty5")
-        if rc:
-            raise MPathError("multipath partition activation failed for '%s'" %
-                            self.name)
-        udev_settle()
 
     def teardown(self, recursive=None):
         """ Tear down the mpath device. """
