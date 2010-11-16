@@ -1081,6 +1081,15 @@ class PartitionDevice(StorageDevice):
                                       start=geometry.start, end=geometry.end)
 
     @property
+    def path(self):
+        if not self.parents:
+            devDir = StorageDevice._devDir
+        else:
+            devDir = self.parents[0]._devDir
+
+        return "%s/%s" % (devDir, self.name)
+
+    @property
     def partType(self):
         """ Get the partition's type (as parted constant). """
         try:
