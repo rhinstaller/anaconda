@@ -157,7 +157,7 @@ def turnOnFilesystems(anaconda):
 
 def setupTimezone(anaconda):
     # we don't need this on an upgrade or going backwards
-    if anaconda.upgrade or anaconda.dir == DISPATCH_BACK:
+    if anaconda.upgrade or flags.imageInstall or anaconda.dir == DISPATCH_BACK:
         return
 
     os.environ["TZ"] = anaconda.timezone.tz

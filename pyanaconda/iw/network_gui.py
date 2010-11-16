@@ -26,6 +26,7 @@ from iw_gui import *
 from pyanaconda import gui
 from pyanaconda import network
 from pyanaconda import iutil
+from pyanaconda.flags import flags
 import gobject
 import subprocess
 import gtk
@@ -50,7 +51,7 @@ class NetworkWindow(InstallWindow):
 
         self.netconfButton = self.xml.get_widget("netconfButton")
         self.netconfButton.connect("clicked", self._setupNetwork)
-        if len(self.anaconda.network.netdevices) == 0:
+        if len(self.anaconda.network.netdevices) == 0 or flags.imageInstall:
             self.netconfButton.set_sensitive(False)
 
         # pressing Enter in confirm == clicking Next

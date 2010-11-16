@@ -28,6 +28,8 @@ dist_noinst_SCRIPTS  = getlangnames.py upd-bootimage upd-initrd upd-kernel \
 analogdir = $(libexecdir)/$(PACKAGE_NAME)
 dist_analog_SCRIPTS = analog
 
+dist_bin_SCRIPTS = anaconda-image-cleanup
+
 stage2scriptsdir = $(datadir)/$(PACKAGE_NAME)
 dist_stage2scripts_SCRIPTS = restart-anaconda
 

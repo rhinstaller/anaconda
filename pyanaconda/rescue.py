@@ -169,6 +169,9 @@ def makeFStab(instPath = ""):
 
 # make sure they have a resolv.conf in the chroot
 def makeResolvConf(instPath):
+    if flags.imageInstall:
+        return
+
     if not os.access("/etc/resolv.conf", os.R_OK):
         return
 
@@ -218,8 +221,13 @@ def runShell(screen = None, msg=""):
     print
     if msg:
         print (msg)
-    print(_("When finished please exit from the shell and your "
-            "system will reboot."))
+
+    if flags.imageInstall:
+        print(_("Run anaconda-image-cleanup to unmount the system "
+                "when you are finished."))
+    else:
+        print(_("When finished please exit from the shell and your "
+                "system will reboot."))
     print
 
     proc = None
@@ -367,6 +375,13 @@ def runRescue(anaconda):
                                      allowDirty = 1, warnDirty = 1,
                                      readOnly = readOnly)
 
+            if not flags.imageInstall:
+                msg = _("The system will reboot automatically when you exit "
+                        "from the shell.")
+            else:
+                msg = _("Run anaconda-image-cleanup to unmount the system "
+                        "when you are finished.")
+
             if rc == -1:
                 if anaconda.ksdata:
                     log.error("System had dirty file systems which you chose not to mount")
@@ -374,9 +389,8 @@ def runRescue(anaconda):
                     ButtonChoiceWindow(screen, _("Rescue"),
                         _("Your system had dirty file systems which you chose not "
                           "to mount.  Press return to get a shell from which "
-                          "you can fsck and mount your partitions.  The system "
-                          "will reboot automatically when you exit from the "
-                          "shell."), [_("OK")], width = 50)
+                          "you can fsck and mount your partitions. %s") % msg,
+                        [_("OK")], width = 50)
                 rootmounted = 0
             else:
                 if anaconda.ksdata:
@@ -386,9 +400,9 @@ def runRescue(anaconda):
                        _("Your system has been mounted under %(rootPath)s.\n\n"
                          "Press <return> to get a shell. If you would like to "
                          "make your system the root environment, run the command:\n\n"
-                         "\tchroot %(rootPath)s\n\nThe system will reboot "
-                         "automatically when you exit from the shell.") %
-                                       {'rootPath': anaconda.rootPath},
+                         "\tchroot %(rootPath)s\n\n%(msg)s") %
+                                       {'rootPath': anaconda.rootPath,
+                                        'msg': msg},
                                        [_("OK")] )
                 rootmounted = 1
 
@@ -416,7 +430,7 @@ def runRescue(anaconda):
                         log.warning("cannot touch /.autorelabel")
 
                 # set a library path to use mounted fs
-                libdirs = os.environ["LD_LIBRARY_PATH"].split(":")
+                libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
                 mounted = map(lambda dir: "/mnt/sysimage%s" % dir, libdirs)
                 os.environ["LD_LIBRARY_PATH"] = ":".join(libdirs + mounted)
 
@@ -467,11 +481,18 @@ def runRescue(anaconda):
             if anaconda.ksdata:
                 log.error("An error occurred trying to mount some or all of your system")
             else:
+                if not flags.imageInstall:
+                    msg = _("The system will reboot automatically when you "
+                            "exit from the shell.")
+                else:
+                    msg = _("Run anaconda-image-cleanup to unmount the system "
+                            "when you are finished.")
+
                 ButtonChoiceWindow(screen, _("Rescue"),
                     _("An error occurred trying to mount some or all of your "
                       "system. Some of it may be mounted under %s.\n\n"
-                      "Press <return> to get a shell. The system will reboot "
-                      "automatically when you exit from the shell.") % (anaconda.rootPath,),
+                      "Press <return> to get a shell. %s")
+                      % (anaconda.rootPath, msg),
                       [_("OK")] )
     else:
         if anaconda.ksdata and \
@@ -481,10 +502,14 @@ def runRescue(anaconda):
             print(_("You don't have any Linux partitions.  Rebooting.\n"))
             sys.exit(0)
         else:
+            if not flags.imageInstall:
+                msg = _(" The system will reboot automatically when you exit "
+                        "from the shell.")
+            else:
+                msg = ""
             ButtonChoiceWindow(screen, _("Rescue Mode"),
                                _("You don't have any Linux partitions. Press "
-                                 "return to get a shell. The system will reboot "
-                                 "automatically when you exit from the shell."),
+                                 "return to get a shell.%s") % msg,
                                [ _("OK") ], width = 50)
 
     msgStr = ""

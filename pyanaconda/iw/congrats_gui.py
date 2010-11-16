@@ -22,6 +22,7 @@ import gtk
 from pyanaconda import gui
 from iw_gui import *
 from pyanaconda.constants import *
+from pyanaconda.flags import flags
 import os
 from pyanaconda import platform
 
@@ -45,7 +46,7 @@ class CongratulationWindow (InstallWindow):
         # this mucks around a bit, but it's the weird case and it's
         # better than adding a lot of complication to the normal
 	ics.cw.mainxml.get_widget("nextButton").hide()
-        if os.path.exists(os.environ.get("LIVE_BLOCK", "/dev/mapper/live-osimg-min")):
+        if flags.livecdInstall or flags.imageInstall:
             ics.cw.mainxml.get_widget("closeButton").show()
             ics.cw.mainxml.get_widget("closeButton").grab_focus()
         else:

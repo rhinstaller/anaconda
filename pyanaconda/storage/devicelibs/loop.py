@@ -46,7 +46,7 @@ def losetup(args, capture=False):
                         stderr="/dev/tty5",
                         **exec_kwargs)
     except RuntimeError as e:
-        raise LoopError(e.message)
+        raise LoopError(str(e))
 
     return ret
 
@@ -80,7 +80,7 @@ def loop_setup(path):
     try:
         msg = losetup(args)
     except LoopError as e:
-        msg = e.message
+        msg = str(e)
 
     if msg:
         raise LoopError("failed to set up loop for %s: %s" % (path, msg))
@@ -91,7 +91,7 @@ def loop_teardown(path):
     try:
         msg = losetup(args)
     except LoopError as e:
-        msg = e.message
+        msg = str(e)
 
     if msg:
         raise DeviceError("failed to tear down loop %s: %s" % (path, msg))

@@ -231,6 +231,7 @@ def parseOptions(argv = None):
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
     op.add_option("--dogtail", dest="dogtail",   action="store", type="string")
     op.add_option("--dlabel", action="store_true", default=False)
+    op.add_option("--image", action="append", dest="images", default=[])
 
     # Deprecated, unloved, unused
     op.add_option("-r", "--rootPath", dest="unsupportedMode",
@@ -471,6 +472,12 @@ if __name__ == "__main__":
     # this handles setting up updates for pypackages to minimize the set needed
     setupPythonUpdates()
 
+    # do this early so we can set flags before initializing logging
+    (opts, args) = parseOptions()
+    from pyanaconda.flags import flags
+    if opts.images:
+        flags.imageInstall = True
+
     # Set up logging as early as possible.
     import logging
     from pyanaconda import anaconda_log
@@ -497,8 +504,6 @@ if __name__ == "__main__":
     from pyanaconda import users
     from pyanaconda import kickstart
     import pyanaconda.storage.storage_log
-
-    from pyanaconda.flags import flags
 
     # the following makes me very sad. -- katzj
     # we have a slightly different set of udev rules in the second 
@@ -538,7 +543,6 @@ if __name__ == "__main__":
     vncS = vnc.VncServer()          # The vnc Server object.
     vncS.anaconda = anaconda
 
-    (opts, args) = parseOptions()
     anaconda.opts = opts
 
     # check memory, just the text mode for now:
@@ -606,6 +610,23 @@ if __name__ == "__main__":
             (path, name) = string.split(mod, ":")
             anaconda.extraModules.append((path, name))
 
+    image_count = 0
+    for image in opts.images:
+        image_spec = image.rsplit(":", 1)
+        path = image_spec[0]
+        if len(image_spec) == 2 and image_spec[1].strip():
+            name = image_spec[1].strip()
+        else:
+            name = os.path.splitext(os.path.basename(path))[0]
+
+        if "/" in name or name in anaconda.storage.config.diskImages.keys():
+            name = "diskimg%d" % image_count
+
+        log.info("naming disk image '%s' '%s'" % (path, name))
+        anaconda.storage.config.diskImages[name] = path
+        image_count += 1
+        flags.imageInstall = True
+
     if opts.vnc:
         flags.usevnc = 1
         anaconda.displayMode = 'g'
@@ -642,7 +663,7 @@ if __name__ == "__main__":
         anaconda.xdriver = opts.xdriver
         anaconda.writeXdriver(root="/")
 
-    if not flags.livecdInstall:
+    if not flags.livecdInstall and not flags.imageInstall:
         startAuditDaemon()
 
     # setup links required for all install types

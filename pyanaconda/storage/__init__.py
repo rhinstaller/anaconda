@@ -268,6 +268,7 @@ class StorageDiscoveryConfig(object):
         self.reinitializeDisks = False
         self.zeroMbr = None
         self.protectedDevSpecs = []
+        self.diskImages = {}
 
     def writeKS(self, f):
         # clearpart
@@ -382,9 +383,10 @@ class Storage(object):
         except Exception as e:
             log.error("failure tearing down device tree: %s" % e)
 
-        self.zfcp.shutdown()
+        if not flags.imageInstall:
+            self.zfcp.shutdown()
 
-        # TODO: iscsi.shutdown()
+            # TODO: iscsi.shutdown()
 
     def reset(self):
         """ Reset storage configuration to reflect actual system state.
@@ -401,12 +403,13 @@ class Storage(object):
 
         w = self.anaconda.intf.waitWindow(_("Examining Devices"),
                                           _("Examining storage devices"))
-        self.iscsi.startup(self.anaconda.intf)
-        self.fcoe.startup(self.anaconda.intf)
-        self.zfcp.startup(self.anaconda.intf)
-        self.dasd.startup(self.anaconda.intf,
-                          self.config.exclusiveDisks,
-                          self.config.zeroMbr)
+        if not flags.imageInstall:
+            self.iscsi.startup(self.anaconda.intf)
+            self.fcoe.startup(self.anaconda.intf)
+            self.zfcp.startup(self.anaconda.intf)
+            self.dasd.startup(self.anaconda.intf,
+                              self.config.exclusiveDisks,
+                              self.config.zeroMbr)
         clearPartType = self.config.clearPartType # save this before overriding it
         if self.anaconda.upgrade:
             self.config.clearPartType = CLEARPART_TYPE_NONE

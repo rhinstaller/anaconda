@@ -1686,7 +1686,7 @@ class DMLinearDevice(DMDevice):
         # information about it
         self._size = self.currentSize
 
-    def deactivate(self):
+    def deactivate(self, recursive=False):
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
 
@@ -1701,6 +1701,9 @@ class DMLinearDevice(DMDevice):
         udev_settle()
         dm.dm_remove(self.name)
         udev_settle()
+
+        if recursive:
+            self.teardownParents(recursive=recursive)
 
     def teardown(self, recursive=None):
         """ Close, or tear down, a device. """

@@ -18,6 +18,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+if [ -n "$DISPLAY" -a -n "$LANG" ]; then
+    INSTLANG="--lang $LANG"
+fi
+
+LIVE_INSTALL=0
+IMAGE_INSTALL=0
+RESCUE=0
+if [[ "$LIVECMD $*" =~ "--rescue" ]]; then
+    RESCUE=1
+fi
+
+if [ -z "$LIVECMD" ]; then
+    LIVE_INSTALL=1
+fi
+
+if [[ "$LIVECMD $*" =~ "--image" ]]; then
+    IMAGE_INSTALL=1
+fi
+
+if [[ "$LIVECMD $*" =~ "--liveinst" ]]; then
+    LIVE_INSTALL=1
+fi
+
+
 if [ -z "$LIVE_BLOCK" ]; then
     if [ -b "/dev/mapper/live-osimg-min" ]; then
        LIVE_BLOCK="/dev/mapper/live-osimg-min"
@@ -26,16 +50,25 @@ if [ -z "$LIVE_BLOCK" ]; then
     fi
 fi
 
-if [ ! -b $LIVE_BLOCK ]; then
+if [ $LIVE_INSTALL = 1 -a ! -b $LIVE_BLOCK ]; then
   zenity --error --title="Not a Live image" --text "Can't do live image installation unless running from a live image"
   exit 1
 fi
+
+# Allow running another command in the place of anaconda, but in this same
+# environment.  This allows storage testing to make use of all the module
+# loading and lvm control in this file, too.
+ANACONDA=${LIVECMD:=/usr/sbin/anaconda --liveinst --method=livecd://$LIVE_BLOCK $INSTLANG}
 
 # load modules that would get loaded by the loader... (#230945)
 for i in raid0 raid1 raid5 raid6 raid456 raid10 dm-mod dm-zero dm-mirror dm-snapshot dm-multipath dm-round-robin vfat dm-crypt cbc sha256 lrw xts iscsi_tcp iscsi_ibft; do /sbin/modprobe $i 2>/dev/null ; done
 
 export ANACONDA_PRODUCTNAME=$( cat /etc/system-release | sed -r -e 's/ *release.*//' )
-export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
+if [ $LIVE_INSTALL = 1 ]; then
+    export ANACONDA_PRODUCTVERSION=$( cat /etc/system-release | sed -r -e 's/^.* ([0-9\.]+).*$/\1/' )
+elif [ $IMAGE_INSTALL = 1 ]; then
+    export ANACONDA_PRODUCTVERSION=$(rpmquery -q --qf '%{VERSION}' anaconda | cut -d. -f1)
+fi
 export ANACONDA_BUGURL=${ANACONDA_BUGURL:="https://bugzilla.redhat.com/bugzilla/"}
 
 RELEASE=$(rpm -q --qf '%{Release}' fedora-release)
@@ -46,15 +79,6 @@ else
 fi
 
 export PATH=/sbin:/usr/sbin:$PATH
-
-if [ -n "$DISPLAY" -a -n "$LANG" ]; then
-    INSTLANG="--lang $LANG"
-fi
-
-# Allow running another command in the place of anaconda, but in this same
-# environment.  This allows storage testing to make use of all the module
-# loading and lvm control in this file, too.
-ANACONDA=${LIVECMD:=/usr/sbin/anaconda --liveinst --method=livecd://$LIVE_BLOCK $INSTLANG}
 
 if [ -x /usr/sbin/setenforce -a -e /selinux/enforce ]; then
     current=$(cat /selinux/enforce)
@@ -74,34 +98,38 @@ for opt in `cat /proc/cmdline`; do
     esac
 done
 
-# devkit-disks is now mounting lots of stuff.  for now, let's just try to unmount it all
-umount /media/* 2>/dev/null
-tac /proc/mounts | grep ^/dev | grep -v live | while read dev mntpoint rest; do
-    # hack - don't unmount devices the storage test code requires
-    if [ "$mntpoint" = "/mnt/anactest" ]; then
-       continue
-    fi
+if [ $IMAGE_INSTALL = 0 ]; then
+    # devkit-disks is now mounting lots of stuff.  for now, let's just try to
+    # unmount it all
+    umount /media/* 2>/dev/null
+    tac /proc/mounts | grep ^/dev | grep -v live | \
+    while read dev mntpoint rest; do
+        # hack - don't unmount devices the storage test code requires
+        if [ "$mntpoint" = "/mnt/anactest" ]; then
+           continue
+        fi
 
-    if [ -b $dev ]; then
-       umount $mntpoint 2>/dev/null
-    fi
-done
+        if [ -b $dev ]; then
+           umount $mntpoint 2>/dev/null
+        fi
+    done
 
-/sbin/swapoff -a
-/sbin/lvm vgchange -an --ignorelockingfailure
-for i in /dev/md*; do
-    if [ ! -b $i ]; then
-        continue
-    fi
+    /sbin/swapoff -a
+    /sbin/lvm vgchange -an --ignorelockingfailure
+    for i in /dev/md*; do
+        if [ ! -b $i ]; then
+            continue
+        fi
 
-    case "$i" in
-        /dev/md*p*)
-            ;;
-        *)
-            mdadm --stop $i >/dev/null 2>&1
-            ;;
-    esac
-done
+        case "$i" in
+            /dev/md*p*)
+                ;;
+            *)
+                mdadm --stop $i >/dev/null 2>&1
+                ;;
+        esac
+    done
+fi
 
 /sbin/udevadm control --env=ANACONDA=1
 
@@ -112,6 +140,13 @@ elif [ -x /usr/bin/hal-lock -a -e /var/lock/subsys/haldaemon ]; then
 else
     $ANACONDA $*
 fi
+
+# try to teardown the filesystems if this was an image install
+if [ $IMAGE_INSTALL = 1 -a $RESCUE = 0 ]; then
+    anaconda-image-cleanup
+fi
+
+rm -f /dev/.in_sysinit 2>/dev/null
 
 if [ -n "$current" ]; then
     /usr/sbin/setenforce $current

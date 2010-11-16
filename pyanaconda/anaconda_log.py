@@ -30,6 +30,7 @@ from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 import types
 
 import iutil
+from flags import flags
 
 DEFAULT_TTY_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
@@ -129,6 +130,10 @@ class AnacondaLog:
     def forwardToSyslog(self, logger):
         """Forward everything that goes in the logger to the syslog daemon.
         """
+        if flags.imageInstall:
+            # don't clutter up the system logs when doing an image install
+            return
+
         syslogHandler = AnacondaSyslogHandler(
             '/dev/log', 
             ANACONDA_SYSLOG_FACILITY,

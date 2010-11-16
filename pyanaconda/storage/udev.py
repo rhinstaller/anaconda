@@ -107,7 +107,7 @@ def udev_get_block_devices():
 
 def __is_blacklisted_blockdev(dev_name):
     """Is this a blockdev we never want for an install?"""
-    if dev_name.startswith("loop") or dev_name.startswith("ram") or dev_name.startswith("fd"):
+    if dev_name.startswith("ram") or dev_name.startswith("fd"):
         return True
 
     if os.path.exists("/sys/class/block/%s/device/model" %(dev_name,)):

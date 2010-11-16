@@ -24,6 +24,7 @@ import os
 import stat
 import block
 import re
+import shutil
 
 from errors import *
 from devices import *
@@ -35,6 +36,7 @@ import devicelibs.mdraid
 import devicelibs.dm
 import devicelibs.lvm
 import devicelibs.mpath
+import devicelibs.loop
 from udev import *
 from .storage_log import log_method_call
 from pyanaconda import iutil
@@ -169,6 +171,11 @@ class DeviceTree(object):
         self.reinitializeDisks = getattr(conf, "reinitializeDisks", False)
         self.iscsi = iscsi
         self.dasd = dasd
+
+        # disk image files are automatically exclusive
+        self.diskImages = getattr(conf, "diskImages", {})
+        if self.diskImages:
+            self.exclusiveDisks = self.diskImages.keys()
 
         # protected device specs as provided by the user
         self.protectedDevSpecs = getattr(conf, "protectedDevSpecs", [])
@@ -527,6 +534,11 @@ class DeviceTree(object):
                     self.exclusiveDisks[i] = name
                     return False
 
+        # never ignore mapped disk images. if you don't want to use them,
+        # don't specify them in the first place
+        if udev_device_is_dm_anaconda(info):
+            return False
+
         # We want exclusiveDisks to operate on anything that could be
         # considered a directly usable disk, ie: fwraid array, mpath, or disk.
         #
@@ -548,8 +560,13 @@ class DeviceTree(object):
         # udev.py: enumerate_block_devices(), but we can still end up trying
         # to add them to the tree when they are slaves of other devices, this
         # happens for example with the livecd
-        if name.startswith("loop") or name.startswith("ram"):
+        if name.startswith("ram"):
             return True
+
+        if name.startswith("loop"):
+            # ignore loop devices unless they're backed by a disk image file
+            backing_device = devicelibs.loop.get_device_path(name)
+            return (backing_device not in self.diskImages.values())
 
         # FIXME: check for virtual devices whose slaves are on the ignore list
 
@@ -1521,10 +1538,98 @@ class DeviceTree(object):
 
         return ret
 
+    def setupDiskImages(self):
+        for (name, path) in self.diskImages.items():
+            log.info("setting up disk image file '%s' as '%s'" % (path, name))
+            try:
+                filedev = FileDevice(path, exists=True)
+                filedev.setup()
+                log.debug("%s" % filedev)
+
+                loop_name = devicelibs.loop.get_loop_name(filedev.path)
+                loop_sysfs = None
+                if loop_name:
+                    loop_sysfs = "/class/block/%s" % loop_name
+                loopdev = LoopDevice(name=loop_name,
+                                     parents=[filedev],
+                                     sysfsPath=loop_sysfs,
+                                     exists=True)
+                loopdev.setup()
+                log.debug("%s" % loopdev)
+                dmdev = DMLinearDevice(name,
+                                       parents=[loopdev],
+                                       exists=True)
+                dmdev.setup()
+                dmdev.updateSysfsPath()
+                log.debug("%s" % dmdev)
+            except (ValueError, DeviceError) as e:
+                log.error("failed to set up disk image: %s" % e)
+            else:
+                self._addDevice(filedev)
+                self._addDevice(loopdev)
+                self._addDevice(dmdev)
+                info = udev_get_block_device(dmdev.sysfsPath)
+                self.addUdevDevice(info)
+
+    def backupConfigs(self, restore=False):
+        """ Create a backup copies of some storage config files. """
+        configs = ["/etc/mdadm.conf", "/etc/multipath.conf"]
+        for cfg in configs:
+            if restore:
+                src = cfg + ".anacbak"
+                dst = cfg
+                func = os.rename
+                op = "restore from backup"
+            else:
+                src = cfg
+                dst = cfg + ".anacbak"
+                func = shutil.copy2
+                op = "create backup copy"
+
+            if os.access(dst, os.W_OK):
+                try:
+                    os.unlink(dst)
+                except OSError as e:
+                    msg = str(e)
+                    log.info("failed to remove %s: %s" % (dst, msg))
+
+            if os.access(src, os.W_OK):
+                # copy the config to a backup with extension ".anacbak"
+                try:
+                    func(src, dst)
+                except (IOError, OSError) as e:
+                    msg = str(e)
+                    log.error("failed to %s of %s: %s" % (op, cfg, msg))
+            elif restore:
+                # remove the config since we created it
+                log.info("removing anaconda-created %s" % cfg)
+                try:
+                    os.unlink(cfg)
+                except OSError as e:
+                    msg = str(e)
+                    log.error("failed to remove %s: %s" % (cfg, msg))
+            else:
+                # don't try to backup non-existent configs
+                log.info("not going to %s of non-existent %s" % (op, cfg))
+
+    def restoreConfigs(self):
+        self.backupConfigs(restore=True)
+
     def populate(self):
         """ Locate all storage devices. """
+        self.backupConfigs()
+        try:
+            self._populate()
+        except Exception:
+            raise
+        finally:
+            self.restoreConfigs()
+
+    def _populate(self):
         log.debug("DeviceTree.populate: ignoredDisks is %s ; exclusiveDisks is %s"
                     % (self._ignoredDisks, self.exclusiveDisks))
+
+        self.setupDiskImages()
 
         # mark the tree as unpopulated so exception handlers can tell the
         # exception originated while finding storage devices
@@ -1622,10 +1727,6 @@ class DeviceTree(object):
         self._handleInconsistencies()
 
         self.teardownAll()
-        try:
-            os.unlink("/etc/mdadm.conf")
-        except OSError:
-            log.info("failed to unlink /etc/mdadm.conf")
 
     def teardownAll(self):
         """ Run teardown methods on all devices. """

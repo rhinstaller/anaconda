@@ -356,11 +356,13 @@ class Network:
         self.setNMControlledDevices(self.netdevices.keys())
 
     def update(self):
-
         ifcfglog.debug("Network.update() called")
 
         self.netdevices = {}
         self.ksdevice = None
+
+        if flags.imageInstall:
+            return
 
         # populate self.netdevices
         devhash = isys.getDeviceProperties(dev=None)
@@ -643,6 +645,14 @@ class Network:
         return True
 
     def copyConfigToPath(self, instPath=''):
+        if flags.imageInstall and instPath:
+            # for image installs we only want to write out
+            # /etc/sysconfig/network
+            destfile = os.path.normpath(instPath + networkConfFile)
+            if not os.path.isdir(os.path.dirname(destfile)):
+                iutil.mkdirChain(os.path.dirname(destfile))
+            shutil.move("/tmp/sysconfig-network", destfile)
+            return
 
         # /etc/sysconfig/network-scripts/ifcfg-DEVICE
         # /etc/sysconfig/network-scripts/keys-DEVICE
@@ -682,29 +692,14 @@ class Network:
                                 device.path)
 
     def write(self):
-
         ifcfglog.debug("Network.write() called")
 
-        devices = self.netdevices.values()
-
-        # /etc/sysconfig/network-scripts/ifcfg-*
-        # /etc/sysconfig/network-scripts/keys-*
-        for dev in devices:
-
-            bootproto = dev.get('BOOTPROTO').lower()
-            # write out the hostname as DHCP_HOSTNAME if given (#81613)
-            if (bootproto == 'dhcp' and self.hostname and
-                self.overrideDHCPhostname):
-                dev.set(('DHCP_HOSTNAME', self.hostname))
-
-            dev.writeIfcfgFile()
-
-            if dev.wepkey:
-                dev.writeWepkeyFile(dir=netscriptsDir, overwrite=False)
-
-
         # /etc/sysconfig/network
-        newnetwork = "%s.new" % (networkConfFile)
+        if flags.imageInstall:
+            # don't write files into host's /etc/sysconfig on image installs
+            newnetwork = "/tmp/sysconfig-network"
+        else:
+            newnetwork = "%s.new" % (networkConfFile)
 
         f = open(newnetwork, "w")
         f.write("NETWORKING=yes\n")
@@ -723,7 +718,30 @@ class Network:
             f.write("IPV6_DEFAULTGW=%s\n" % self.ipv6_defaultgw)
 
         f.close()
-        shutil.move(newnetwork, networkConfFile)
+        if flags.imageInstall:
+            # for image installs, all we want to write out is the contents of
+            # /etc/sysconfig/network
+            ifcfglog.debug("not writing per-device configs for image install")
+            return
+        else:
+            shutil.move(newnetwork, networkConfFile)
+
+        devices = self.netdevices.values()
+
+        # /etc/sysconfig/network-scripts/ifcfg-*
+        # /etc/sysconfig/network-scripts/keys-*
+        for dev in devices:
+
+            bootproto = dev.get('BOOTPROTO').lower()
+            # write out the hostname as DHCP_HOSTNAME if given (#81613)
+            if (bootproto == 'dhcp' and self.hostname and
+                self.overrideDHCPhostname):
+                dev.set(('DHCP_HOSTNAME', self.hostname))
+
+            dev.writeIfcfgFile()
+
+            if dev.wepkey:
+                dev.writeWepkeyFile(dir=netscriptsDir, overwrite=False)
 
         # /etc/resolv.conf is managed by NM
 
