@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: new_ja\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-09-01 20:52-0500\n"
-"PO-Revision-Date: 2010-09-19 22:05+0900\n"
+"POT-Creation-Date: 2010-10-19 17:52-0700\n"
+"PO-Revision-Date: 2010-11-16 14:48+0900\n"
 "Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "Language: ja\n"
@@ -63,7 +63,7 @@ msgstr "テキストモードで開始します。"
 #: pyanaconda/rescue.py:475
 #: pyanaconda/rescue.py:488
 #: pyanaconda/rescue.py:499
-#: pyanaconda/text.py:519
+#: pyanaconda/text.py:534
 #: loader/windows.h:31
 #: loader/cdinstall.c:229
 #: loader/cdinstall.c:233
@@ -104,14 +104,14 @@ msgstr "テキストモードで開始します。"
 #: loader/kickstart.c:571
 #: loader/lang.c:114
 #: loader/lang.c:373
-#: loader/loader.c:434
-#: loader/loader.c:470
-#: loader/loader.c:510
-#: loader/loader.c:528
-#: loader/loader.c:545
-#: loader/loader.c:582
-#: loader/loader.c:1213
-#: loader/loader.c:1400
+#: loader/loader.c:433
+#: loader/loader.c:469
+#: loader/loader.c:509
+#: loader/loader.c:527
+#: loader/loader.c:544
+#: loader/loader.c:581
+#: loader/loader.c:1212
+#: loader/loader.c:1399
 #: loader/mediacheck.c:47
 #: loader/mediacheck.c:86
 #: loader/mediacheck.c:93
@@ -121,11 +121,11 @@ msgstr "テキストモードで開始します。"
 #: loader/method.c:360
 #: loader/net.c:621
 #: loader/net.c:1001
-#: loader/net.c:1649
-#: loader/net.c:1670
-#: loader/net.c:1976
-#: loader/net.c:1995
-#: loader/net.c:2007
+#: loader/net.c:1654
+#: loader/net.c:1675
+#: loader/net.c:1981
+#: loader/net.c:2000
+#: loader/net.c:2012
 #: loader/nfsinstall.c:116
 #: loader/nfsinstall.c:309
 #: loader/nfsinstall.c:326
@@ -144,19 +144,19 @@ msgstr "テキストモードで開始します。"
 msgid "OK"
 msgstr "OK"
 
-#: anaconda:728
+#: anaconda:727
 msgid "Would you like to use VNC?"
 msgstr "VNC を使用しますか ?"
 
-#: anaconda:729
+#: anaconda:728
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
 msgstr "テキストモードは限定的なインストールオプションのセットを提供します。好みの パーティション設定やパッケージ選択の指定がありません。代わりに VNC モードを 使用しますか？"
 
-#: anaconda:755
+#: anaconda:754
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "グラフィカルインストールは使用できません。テキストモードを起動します。"
 
-#: anaconda:763
+#: anaconda:762
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY 変数がセットされていません。テキストモードで起動します。"
 
@@ -187,7 +187,7 @@ msgid "An error occurred transferring the install image to your hard drive. You 
 msgstr "インストールイメージをハードディスクへ転送中にエラーが発生しました。おそらくディスク容量が不足しています。"
 
 #: pyanaconda/backend.py:169
-#: pyanaconda/image.py:289
+#: pyanaconda/image.py:286
 #: pyanaconda/livecd.py:198
 #: pyanaconda/livecd.py:440
 #: pyanaconda/partIntfHelpers.py:233
@@ -233,9 +233,9 @@ msgstr "インストールイメージをハードディスクへ転送中にエ
 #: loader/hdinstall.c:496
 #: loader/kickstart.c:299
 #: loader/lang.c:114
-#: loader/loader.c:434
-#: loader/loader.c:545
-#: loader/loader.c:1213
+#: loader/loader.c:433
+#: loader/loader.c:544
+#: loader/loader.c:1212
 #: loader/mediacheck.c:47
 #: loader/mediacheck.c:86
 #: loader/mediacheck.c:93
@@ -262,11 +262,13 @@ msgstr "エラー"
 #: pyanaconda/bootloader.py:55
 #: pyanaconda/bootloader.py:221
 #: pyanaconda/bootloader.py:227
-#: pyanaconda/image.py:82
+#: pyanaconda/gui.py:1081
+#: pyanaconda/image.py:80
 #: pyanaconda/installinterfacebase.py:51
 #: pyanaconda/installinterfacebase.py:82
 #: pyanaconda/installinterfacebase.py:142
 #: pyanaconda/packages.py:314
+#: pyanaconda/text.py:411
 #: pyanaconda/yuminstall.py:1454
 #: pyanaconda/yuminstall.py:1662
 #: pyanaconda/yuminstall.py:1697
@@ -289,10 +291,10 @@ msgstr ""
 "インストールを続けますか?"
 
 #: pyanaconda/bootloader.py:60
-#: pyanaconda/gui.py:1088
-#: pyanaconda/gui.py:1125
-#: pyanaconda/gui.py:1326
-#: pyanaconda/image.py:91
+#: pyanaconda/gui.py:1104
+#: pyanaconda/gui.py:1141
+#: pyanaconda/gui.py:1342
+#: pyanaconda/image.py:89
 #: pyanaconda/kickstart.py:156
 #: pyanaconda/livecd.py:205
 #: pyanaconda/livecd.py:447
@@ -320,15 +322,15 @@ msgid "_Exit installer"
 msgstr "インストーラを終了する(_E)"
 
 #: pyanaconda/bootloader.py:60
-#: pyanaconda/image.py:92
-#: pyanaconda/image.py:251
+#: pyanaconda/image.py:90
+#: pyanaconda/image.py:249
 #: pyanaconda/kickstart.py:1383
 #: pyanaconda/kickstart.py:1422
 #: pyanaconda/upgrade.py:58
 #: pyanaconda/upgrade.py:98
 #: pyanaconda/yuminstall.py:1280
 #: pyanaconda/yuminstall.py:1464
-#: pyanaconda/iw/partition_gui.py:1600
+#: pyanaconda/iw/partition_gui.py:1599
 #: pyanaconda/storage/__init__.py:2000
 msgid "_Continue"
 msgstr "続行(_C)"
@@ -358,7 +360,7 @@ msgid "In progress"
 msgstr "進行中"
 
 #: pyanaconda/cmdline.py:89
-#: pyanaconda/gui.py:1120
+#: pyanaconda/gui.py:1136
 #: pyanaconda/kickstart.py:1167
 #: pyanaconda/kickstart.py:1247
 #: pyanaconda/kickstart.py:1255
@@ -466,7 +468,7 @@ msgid "Device %s is encrypted. In order to access the device's contents during i
 msgstr "デバイス %s は暗号化されています。インストール中にこのデバイスの内容にアクセスするには、以下にデバイスのパスフレーズを入力する必要があります。"
 
 #: pyanaconda/gui.py:678
-#: pyanaconda/gui.py:1326
+#: pyanaconda/gui.py:1342
 #: pyanaconda/partIntfHelpers.py:153
 #: pyanaconda/partIntfHelpers.py:338
 #: pyanaconda/text.py:101
@@ -475,8 +477,8 @@ msgstr "デバイス %s は暗号化されています。インストール中�
 #: loader/dirbrowser.c:129
 #: loader/driverdisk.c:409
 #: loader/kickstart.c:382
-#: loader/loader.c:470
-#: loader/loader.c:582
+#: loader/loader.c:469
+#: loader/loader.c:581
 #: pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr "取り消し"
@@ -497,51 +499,71 @@ msgstr "無線のセットアップ"
 msgid "Scanning access points for wireless devices"
 msgstr "無線デバイス用のアクセスポイントをスキャンしています"
 
-#: pyanaconda/gui.py:959
+#: pyanaconda/gui.py:960
 #: pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "NetworkManager を待っています。"
 
-#: pyanaconda/gui.py:960
+#: pyanaconda/gui.py:961
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "NetworkManager がこれらのデバイスを開始するのを待っています: %s"
 
-#: pyanaconda/gui.py:981
+#: pyanaconda/gui.py:982
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "これらのネットワークインターフェースの開始に失敗しました: %s"
 
-#: pyanaconda/gui.py:984
+#: pyanaconda/gui.py:985
 msgid "Network Configuration"
 msgstr "ネットワークの設定"
 
-#: pyanaconda/gui.py:993
+#: pyanaconda/gui.py:994
 #: pyanaconda/iw/netconfig_dialog.py:213
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "%s ネットワークインターフェイスを起動中にエラーが発生しました。"
 
-#: pyanaconda/gui.py:995
+#: pyanaconda/gui.py:996
 msgid "Error Enabling Network"
 msgstr "ネットワークの有効化でエラー"
 
-#: pyanaconda/gui.py:1122
+#: pyanaconda/gui.py:1082
+#: pyanaconda/text.py:412
+msgid "You do not have an active network connection.  This is required by some exception saving methods.  Would you like to configure your network now?"
+msgstr "アクティブなネットワーク接続がありません。いくつかの例外処理を保存するメソッドで昼用です。ネットワークの構成を行いますか？"
+
+#: pyanaconda/gui.py:1088
+#: pyanaconda/kickstart.py:150
+#: pyanaconda/rescue.py:262
+#: pyanaconda/text.py:418
+#: pyanaconda/yuminstall.py:751
+#: pyanaconda/yuminstall.py:1199
+#: pyanaconda/iw/task_gui.py:311
+msgid "No Network Available"
+msgstr "ネットワークは使用できません。"
+
+#: pyanaconda/gui.py:1089
+#: pyanaconda/text.py:419
+msgid "Remote exception saving methods will not work."
+msgstr "リモートの例外処理を保存するメソッドが機能しません。"
+
+#: pyanaconda/gui.py:1138
 #: pyanaconda/text.py:394
 msgid "Error Parsing Kickstart Config"
 msgstr "キックスタート設定ファイル解析エラー"
 
-#: pyanaconda/gui.py:1150
+#: pyanaconda/gui.py:1166
 msgid "default:LTR"
 msgstr "デフォルト:LTR"
 
-#: pyanaconda/gui.py:1230
-#: pyanaconda/text.py:496
+#: pyanaconda/gui.py:1246
+#: pyanaconda/text.py:511
 msgid "Error!"
 msgstr "エラー!"
 
-#: pyanaconda/gui.py:1231
-#: pyanaconda/text.py:497
+#: pyanaconda/gui.py:1247
+#: pyanaconda/text.py:512
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -552,17 +574,17 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: pyanaconda/gui.py:1236
-#: pyanaconda/image.py:164
-#: pyanaconda/image.py:194
+#: pyanaconda/gui.py:1252
+#: pyanaconda/image.py:163
+#: pyanaconda/image.py:192
 #: pyanaconda/packages.py:331
 #: pyanaconda/storage/__init__.py:1817
 msgid "_Exit"
 msgstr "終了(_E)"
 
-#: pyanaconda/gui.py:1237
-#: pyanaconda/image.py:164
-#: pyanaconda/image.py:194
+#: pyanaconda/gui.py:1253
+#: pyanaconda/image.py:163
+#: pyanaconda/image.py:192
 #: pyanaconda/livecd.py:205
 #: pyanaconda/yuminstall.py:835
 #: pyanaconda/yuminstall.py:1221
@@ -571,47 +593,47 @@ msgstr "終了(_E)"
 msgid "_Retry"
 msgstr "再試行(_R)"
 
-#: pyanaconda/gui.py:1239
-#: pyanaconda/storage/partitioning.py:284
+#: pyanaconda/gui.py:1255
+#: pyanaconda/storage/partitioning.py:283
 msgid "The system will now reboot."
 msgstr "システムが再起動します。"
 
-#: pyanaconda/gui.py:1240
-#: pyanaconda/image.py:251
+#: pyanaconda/gui.py:1256
+#: pyanaconda/image.py:249
 #: pyanaconda/packages.py:335
 #: pyanaconda/yuminstall.py:1523
 msgid "_Reboot"
 msgstr "再起動(_R)"
 
-#: pyanaconda/gui.py:1242
+#: pyanaconda/gui.py:1258
 msgid "Exiting"
 msgstr "終了"
 
-#: pyanaconda/gui.py:1323
+#: pyanaconda/gui.py:1339
 #: pyanaconda/livecd.py:126
 #: pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "インストーラーを終了する"
 
-#: pyanaconda/gui.py:1324
+#: pyanaconda/gui.py:1340
 msgid "Are you sure you wish to exit the installer?"
 msgstr "本当にインストーラーを終了しますか?"
 
-#: pyanaconda/gui.py:1333
+#: pyanaconda/gui.py:1349
 #, python-format
 msgid "%s Installer"
 msgstr "%s インストーラー"
 
-#: pyanaconda/gui.py:1339
+#: pyanaconda/gui.py:1355
 msgid "Unable to load title bar"
 msgstr "タイトルバーを読み込めません"
 
-#: pyanaconda/gui.py:1417
+#: pyanaconda/gui.py:1433
 msgid "Install Window"
 msgstr "インストールウィンドウ"
 
-#: pyanaconda/image.py:83
+#: pyanaconda/image.py:81
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may mean it was corrupted on transfer to this computer.\n"
@@ -622,20 +644,20 @@ msgstr ""
 "\n"
 "終了して、インストールを中止することをお勧めしますが、もしこれが間違いだと思う場合は、続行することができます。 "
 
-#: pyanaconda/image.py:156
+#: pyanaconda/image.py:155
 msgid "Couldn't Mount ISO Source"
 msgstr "ISO ソースをマウントできない"
 
-#: pyanaconda/image.py:157
+#: pyanaconda/image.py:156
 #, python-format
 msgid "An error occurred mounting the source device %s.  This may happen if your ISO images are located on an advanced storage device like LVM or RAID, or if there was a problem mounting a partition.  Click exit to abort the installation."
 msgstr "ソースデバイス %s のマウントでエラーが起きました。LVM や RAID のような進化したストレージデバイスに ISO イメージが置かれたときや、パーティションのマウントに問題がある場合に発生します。「終了」をクリックしてインストールを中止してください。"
 
-#: pyanaconda/image.py:185
+#: pyanaconda/image.py:183
 msgid "Missing ISO 9660 Image"
 msgstr "ISO 9660 イメージがありません"
 
-#: pyanaconda/image.py:186
+#: pyanaconda/image.py:184
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard drive.\n"
@@ -646,11 +668,11 @@ msgstr ""
 "\n"
 "このイメージをドライブにコピーしてから「再試行」をクリックしてください。「終了」をクリックするとインストールを中止します。"
 
-#: pyanaconda/image.py:241
+#: pyanaconda/image.py:239
 msgid "Required Install Media"
 msgstr "必要なインストールメディア"
 
-#: pyanaconda/image.py:242
+#: pyanaconda/image.py:240
 #, python-format
 msgid ""
 "The software you have selected to install will require the following %(productName)s %(productVersion)s discs:\n"
@@ -663,7 +685,7 @@ msgstr ""
 "%(reqcdstr)s\n"
 "インストールを続行する前にこれらのディスクを用意してください。インストールを中止して操作を終了する必要がある場合は「再起動」を選択します。"
 
-#: pyanaconda/image.py:251
+#: pyanaconda/image.py:249
 #: pyanaconda/livecd.py:446
 #: pyanaconda/packages.py:335
 #: pyanaconda/upgrade.py:253
@@ -676,7 +698,7 @@ msgstr ""
 msgid "_Back"
 msgstr "戻る(_B)"
 
-#: pyanaconda/image.py:290
+#: pyanaconda/image.py:287
 #, python-format
 msgid "An error occurred unmounting the disc.  Please make sure you're not accessing %s from the shell on tty2 and then click OK to retry."
 msgstr "ディスクをアンマウント中にエラーが発生しました。tty2 のシェルから %s にアクセスしていないことを確認してから [OK] をクリックして再試行してください。"
@@ -855,14 +877,6 @@ msgstr "キックスタートスクリプトの %(lineno)s 行目の実行中に
 #: pyanaconda/kickstart.py:125
 msgid "Scriptlet Failure"
 msgstr "Scriptlet の失敗"
-
-#: pyanaconda/kickstart.py:150
-#: pyanaconda/rescue.py:262
-#: pyanaconda/yuminstall.py:751
-#: pyanaconda/yuminstall.py:1199
-#: pyanaconda/iw/task_gui.py:311
-msgid "No Network Available"
-msgstr "ネットワークは使用できません。"
 
 #: pyanaconda/kickstart.py:151
 msgid "Encryption key escrow requires networking, but there was an error enabling the network on your system."
@@ -1130,8 +1144,8 @@ msgstr "デバイス %s 上のすべてのパーティションを削除しよ�
 #: pyanaconda/iw/lvm_dialog_gui.py:880
 #: pyanaconda/iw/lvm_dialog_gui.py:1450
 #: pyanaconda/iw/osbootwidget.py:104
-#: pyanaconda/iw/partition_gui.py:1813
-#: pyanaconda/iw/partition_gui.py:1825
+#: pyanaconda/iw/partition_gui.py:1812
+#: pyanaconda/iw/partition_gui.py:1824
 msgid "_Delete"
 msgstr "削除(_D)"
 
@@ -1179,7 +1193,7 @@ msgid "Format?"
 msgstr "フォーマットしますか?"
 
 #: pyanaconda/partIntfHelpers.py:245
-#: pyanaconda/iw/partition_gui.py:1598
+#: pyanaconda/iw/partition_gui.py:1597
 msgid "_Modify Partition"
 msgstr "パーティションの変更(_M)"
 
@@ -1465,8 +1479,8 @@ msgstr "どのデバイスにインストールの root パーティションを
 
 #: pyanaconda/rescue.py:353
 #: pyanaconda/rescue.py:357
-#: pyanaconda/text.py:501
-#: pyanaconda/text.py:503
+#: pyanaconda/text.py:516
+#: pyanaconda/text.py:518
 msgid "Exit"
 msgstr "終了"
 
@@ -1551,21 +1565,21 @@ msgstr "これはグローバルパスフレーズです。"
 msgid "Repository editing is not available in text mode."
 msgstr "リポジトリーの編集は、テキストモードではできません。"
 
-#: pyanaconda/text.py:422
+#: pyanaconda/text.py:437
 #, python-format
 msgid "Welcome to %(productName)s for %(productArch)s"
 msgstr "%(productArch)s の %(productName)s へようこそ"
 
-#: pyanaconda/text.py:424
+#: pyanaconda/text.py:439
 #, python-format
 msgid "Welcome to %s"
 msgstr "%s へようこそ"
 
-#: pyanaconda/text.py:426
+#: pyanaconda/text.py:441
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動   |  <Space> 選択   |  <F12> 次の画面"
 
-#: pyanaconda/text.py:501
+#: pyanaconda/text.py:516
 #: loader/net.c:110
 #: loader/net.c:513
 #: loader/net.c:568
@@ -1576,11 +1590,11 @@ msgstr "  <Tab>/<Alt-Tab> 項目間の移動   |  <Space> 選択   |  <F12> 次�
 msgid "Retry"
 msgstr "再試行"
 
-#: pyanaconda/text.py:515
+#: pyanaconda/text.py:530
 msgid "Cancelled"
 msgstr "取り消されました"
 
-#: pyanaconda/text.py:516
+#: pyanaconda/text.py:531
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "直前のステップに戻ることはできません。もう一度やり直してください。"
 
@@ -2276,11 +2290,11 @@ msgstr "デバイスリサイズエラー"
 msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
-#: pyanaconda/iw/autopart_type.py:229
+#: pyanaconda/iw/autopart_type.py:250
 msgid "Use All Space"
 msgstr "すべての領域を使用する"
 
-#: pyanaconda/iw/autopart_type.py:231
+#: pyanaconda/iw/autopart_type.py:252
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions created by other operating systems.\n"
 "\n"
@@ -2290,11 +2304,11 @@ msgstr ""
 "\n"
 "<b>注意:</b>このオプションは選択したデバイスからデータを削除します。バックアップがあることを確認してください。"
 
-#: pyanaconda/iw/autopart_type.py:237
+#: pyanaconda/iw/autopart_type.py:258
 msgid "Replace Existing Linux System(s)"
 msgstr "既存の Linux システムを入れ替える"
 
-#: pyanaconda/iw/autopart_type.py:239
+#: pyanaconda/iw/autopart_type.py:260
 msgid ""
 "Removes all Linux partitions on the selected device(s). This does not remove other partitions you may have on your storage device(s) (such as VFAT or FAT32).\n"
 "\n"
@@ -2304,27 +2318,27 @@ msgstr ""
 "\n"
 "<b>注意:</b> このオプションは、選択したデバイスからデータを削除します。バックアップがあることを確認して下さい。"
 
-#: pyanaconda/iw/autopart_type.py:247
+#: pyanaconda/iw/autopart_type.py:268
 msgid "Shrink Current System"
 msgstr "現在のシステムを縮小する"
 
-#: pyanaconda/iw/autopart_type.py:249
+#: pyanaconda/iw/autopart_type.py:270
 msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr "現在すでに存在するパーティションを縮小してデフォルトレイアウト用に空き領域を作成します。"
 
-#: pyanaconda/iw/autopart_type.py:251
+#: pyanaconda/iw/autopart_type.py:272
 msgid "Use Free Space"
 msgstr "空き領域を使用する"
 
-#: pyanaconda/iw/autopart_type.py:253
+#: pyanaconda/iw/autopart_type.py:274
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
 msgstr "現在のデータとパーティションを維持して、選択したデバイスに十分な空き領域がある場合は、その未設定領域のみを使用します。"
 
-#: pyanaconda/iw/autopart_type.py:257
+#: pyanaconda/iw/autopart_type.py:278
 msgid "Create Custom Layout"
 msgstr "カスタムレイアウトを作成する"
 
-#: pyanaconda/iw/autopart_type.py:259
+#: pyanaconda/iw/autopart_type.py:280
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
 msgstr "パーティション設定ツールを使用して選択したデバイス上に手動で個人設定のカスタムレイアウトを 作成します。"
 
@@ -2532,16 +2546,16 @@ msgstr "既存インストールのアップグレード"
 msgid "Choose this option if you would like to upgrade your existing %s system.  This option will preserve the existing data on your storage device(s)."
 msgstr "既存の %s システムをアップグレードする場合に、このオプションを選択します。 このオプションはストレージデバイス上の既存データを保持します。"
 
-#: pyanaconda/iw/examine_gui.py:107
+#: pyanaconda/iw/examine_gui.py:117
 msgid "At least one existing installation has been detected on your system.  What would you like to do?"
 msgstr "現在お使いのシステム上には既存のシステムがインストールされています。どのようになさいますか?"
 
-#: pyanaconda/iw/examine_gui.py:126
+#: pyanaconda/iw/examine_gui.py:136
 #, python-format
 msgid "<b>Which %s installation would you like to upgrade?</b>"
 msgstr "<b>どちらの %s をアップグレードしますか?</b>"
 
-#: pyanaconda/iw/examine_gui.py:140
+#: pyanaconda/iw/examine_gui.py:150
 msgid "Unknown Linux system"
 msgstr "不明な Linux システム"
 
@@ -2903,8 +2917,8 @@ msgstr "追加(_A)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1447
 #: pyanaconda/iw/osbootwidget.py:100
-#: pyanaconda/iw/partition_gui.py:1812
-#: pyanaconda/iw/partition_gui.py:1822
+#: pyanaconda/iw/partition_gui.py:1811
+#: pyanaconda/iw/partition_gui.py:1821
 msgid "_Edit"
 msgstr "編集(_E)"
 
@@ -3128,8 +3142,8 @@ msgstr "ドライブ %(drive)s (%(size)-0.f MB) (モデル: %(model)s)"
 #: pyanaconda/iw/partition_gui.py:400
 #: pyanaconda/iw/partition_gui.py:446
 #: pyanaconda/iw/partition_gui.py:513
-#: pyanaconda/iw/partition_gui.py:1004
-#: pyanaconda/iw/partition_gui.py:1076
+#: pyanaconda/iw/partition_gui.py:998
+#: pyanaconda/iw/partition_gui.py:1070
 msgid "Free"
 msgstr "空き"
 
@@ -3205,28 +3219,28 @@ msgstr "次の既存のデバイスをフォーマットするよう選択され
 msgid "Format Warnings"
 msgstr "フォーマットの警告"
 
-#: pyanaconda/iw/partition_gui.py:992
+#: pyanaconda/iw/partition_gui.py:986
 msgid "LVM Volume Groups"
 msgstr "LVM ボリュームグループ"
 
-#: pyanaconda/iw/partition_gui.py:1014
+#: pyanaconda/iw/partition_gui.py:1008
 msgid "RAID Devices"
 msgstr "RAID デバイス"
 
-#: pyanaconda/iw/partition_gui.py:1030
+#: pyanaconda/iw/partition_gui.py:1024
 #: loader/hdinstall.c:212
 msgid "Hard Drives"
 msgstr "ハードディスク"
 
-#: pyanaconda/iw/partition_gui.py:1080
+#: pyanaconda/iw/partition_gui.py:1074
 msgid "Extended"
 msgstr "拡張領域"
 
-#: pyanaconda/iw/partition_gui.py:1370
+#: pyanaconda/iw/partition_gui.py:1364
 msgid "Cannot perform any creation action"
 msgstr "作成作業を実行できません"
 
-#: pyanaconda/iw/partition_gui.py:1371
+#: pyanaconda/iw/partition_gui.py:1365
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -3242,12 +3256,12 @@ msgstr ""
 "* 物理ボリューム (LVM) に最低１つの空きパーティション。\n"
 "* 最低１つの空き領域を持つボリュームグループ。"
 
-#: pyanaconda/iw/partition_gui.py:1474
+#: pyanaconda/iw/partition_gui.py:1468
 #, python-format
 msgid "Software RAID allows you to combine several disks into a larger RAID device.  A RAID device can be configured to provide additional speed and reliability compared to using an individual drive.  For more information on using RAID devices please consult the %s documentation.\n"
 msgstr "ソフトウェア RAID を使用すれば、複数のディスクを結合して 1 つの大きな RAID デバイスとすることができます。RAID デバイスは、個別のドライブ使用に比べ速度と信頼性を高めるように設定することができます。RAID デバイスの詳細情報については %s ドキュメントを参照してください。\n"
 
-#: pyanaconda/iw/partition_gui.py:1480
+#: pyanaconda/iw/partition_gui.py:1474
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software RAID'.  Then you can create a RAID device that can be formatted and mounted.\n"
 "\n"
@@ -3255,23 +3269,23 @@ msgstr ""
 "RAIDを使用するには、まず「ソフトウェア RAID」タイプのパーティションを少くとも 2 つ作成する必要があります。そうすると、フォーマット及びマウントが可能な RAID デバイスが作成できるようになります。\n"
 "\n"
 
-#: pyanaconda/iw/partition_gui.py:1484
+#: pyanaconda/iw/partition_gui.py:1478
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
 msgstr[0] "%d 個のソフトウェア RAID パーティションの空き領域が使用できます。"
 msgstr[1] "%d 個のソフトウェア RAID パーティションの空き領域が使用できます。"
 
-#: pyanaconda/iw/partition_gui.py:1488
+#: pyanaconda/iw/partition_gui.py:1482
 msgid "About RAID"
 msgstr "RAID について"
 
-#: pyanaconda/iw/partition_gui.py:1494
+#: pyanaconda/iw/partition_gui.py:1488
 #, python-format
 msgid "Logical Volume Manager (LVM) is a 3 level construct. The first level is made up of disks or partitions formatted with LVM metadata called Physical Volumes (PV).  A Volume Group (VG) sits on top of one or more PVs. The VG, in turn, is the base to create one or more Logical Volumes (LV).  Note that a VG can be an aggregate of PVs from multiple physical disks.  For more information on using LVM please consult the %s documentation\n"
 msgstr "LVM (Logical Volume Manager) は３レベル構造になっています。最初のレベルは LVM メタデータでフォーマットされた物理ボリューム (PV) と呼ばれるディスク、又はパーティションの集合です。ボリュームグループ (VG) は単数、又は複数の PV から構成されます。そして次には VG が単数、又は複数の論理ボリューム (LV) を構成する土台となります。VG は複数の物理ディスクから出来る PV の総合体であることに留意して 下さい。LVM の使用法についての詳細には、%s ドキュメントをご覧下さい。\n"
 
-#: pyanaconda/iw/partition_gui.py:1502
+#: pyanaconda/iw/partition_gui.py:1496
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you need a PV that is not part of any existing VG.  To create an LV you need a VG with free space.\n"
 "\n"
@@ -3279,42 +3293,42 @@ msgstr ""
 "PV を作成するには、空き領域を持つパーティションが必要です。VG を作成するには、既存の VG の一部ではない PV が必要です。LV を作成するには、空き領域を持つ VG が必要になります。\n"
 "\n"
 
-#: pyanaconda/iw/partition_gui.py:1506
+#: pyanaconda/iw/partition_gui.py:1500
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
 msgstr[0] "現在、%d 個の PV の空き領域が使用できます。\n"
 msgstr[1] "現在、%d 個の PV の空き領域が使用できます。\n"
 
-#: pyanaconda/iw/partition_gui.py:1510
+#: pyanaconda/iw/partition_gui.py:1504
 msgid "You currently have free space to create PVs."
 msgstr "現在、PV を作成するための空き領域があります。"
 
-#: pyanaconda/iw/partition_gui.py:1513
+#: pyanaconda/iw/partition_gui.py:1507
 msgid "About LVM"
 msgstr "LVM について"
 
-#: pyanaconda/iw/partition_gui.py:1586
-#: pyanaconda/storage/partitioning.py:204
-#: pyanaconda/storage/partitioning.py:247
+#: pyanaconda/iw/partition_gui.py:1585
+#: pyanaconda/storage/partitioning.py:203
+#: pyanaconda/storage/partitioning.py:246
 msgid "Error Partitioning"
 msgstr "パーティション設定エラー"
 
-#: pyanaconda/iw/partition_gui.py:1587
+#: pyanaconda/iw/partition_gui.py:1586
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "要求されたパーティションを設定できませんでした: %s"
 
-#: pyanaconda/iw/partition_gui.py:1596
+#: pyanaconda/iw/partition_gui.py:1595
 #, python-format
 msgid "Warning: %s."
 msgstr "警告: %s"
 
-#: pyanaconda/iw/partition_gui.py:1627
+#: pyanaconda/iw/partition_gui.py:1626
 msgid "Unable To Edit"
 msgstr "編集できません"
 
-#: pyanaconda/iw/partition_gui.py:1628
+#: pyanaconda/iw/partition_gui.py:1627
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -3325,15 +3339,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/iw/partition_gui.py:1811
+#: pyanaconda/iw/partition_gui.py:1810
 msgid "_Create"
 msgstr "作成(_C)"
 
-#: pyanaconda/iw/partition_gui.py:1814
+#: pyanaconda/iw/partition_gui.py:1813
 msgid "Re_set"
 msgstr "リセット(_S)"
 
-#: pyanaconda/iw/partition_gui.py:1837
+#: pyanaconda/iw/partition_gui.py:1836
 msgid "Please Select A Device"
 msgstr "デバイスを １つ選択してください。"
 
@@ -3782,14 +3796,14 @@ msgstr "ディスクが見つかりません"
 #: loader/hdinstall.c:212
 #: loader/hdinstall.c:266
 #: loader/kbd.c:119
-#: loader/loader.c:511
-#: loader/loader.c:528
-#: loader/loader.c:1400
-#: loader/loader.c:1433
+#: loader/loader.c:510
+#: loader/loader.c:527
+#: loader/loader.c:1399
+#: loader/loader.c:1432
 #: loader/net.c:621
 #: loader/net.c:1001
-#: loader/net.c:1976
-#: loader/net.c:1995
+#: loader/net.c:1981
+#: loader/net.c:2000
 #: loader/nfsinstall.c:116
 #: loader/urls.c:269
 #: pyanaconda/storage/__init__.py:123
@@ -3902,8 +3916,8 @@ msgstr "他のドライバーディスクを読み込みますか?"
 #: loader/kickstart.c:339
 #: loader/kickstart.c:355
 #: loader/kickstart.c:571
-#: loader/net.c:1649
-#: loader/net.c:1670
+#: loader/net.c:1654
+#: loader/net.c:1675
 #: loader/nfsinstall.c:414
 #: loader/urlinstall.c:374
 #: loader/urlinstall.c:385
@@ -4050,7 +4064,7 @@ msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr "シャットダウンキックスタートメソッドコマンドに対する引数が不正です: %s"
 
 #: loader/lang.c:63
-#: loader/loader.c:228
+#: loader/loader.c:227
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr "%s (%s 用)へようこそ"
@@ -4061,7 +4075,7 @@ msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "%s (%s 用)へようこそ - レスキューモード"
 
 #: loader/lang.c:65
-#: loader/loader.c:252
+#: loader/loader.c:251
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動 | <Space> 選択 | <F12> 次の画面 "
 
@@ -4081,146 +4095,146 @@ msgstr "ハードディスク"
 msgid "NFS directory"
 msgstr "NFS ディレクトリー:"
 
-#: loader/loader.c:465
-#: loader/loader.c:506
+#: loader/loader.c:464
+#: loader/loader.c:505
 msgid "Update Disk Source"
 msgstr "ディスクソースの更新"
 
-#: loader/loader.c:466
+#: loader/loader.c:465
 msgid "You have multiple devices which could serve as sources for an update disk.  Which would you like to use?"
 msgstr "更新ディスク用のソースとして使用できるデバイスが複数あります。使用するデバイスを指定してください。"
 
-#: loader/loader.c:507
+#: loader/loader.c:506
 msgid "There are multiple partitions on this device which could contain the update disk image.  Which would you like to use?"
 msgstr "このデバイスにはアップデートディスクイメージを含んでいるかもしれないパーティションが複数あります。使用するパーティションを指定してください。"
 
-#: loader/loader.c:525
+#: loader/loader.c:524
 #, c-format
 msgid "Insert your updates disk into %s and press \"OK\" to continue."
 msgstr "更新ディスクを %s に挿入してから 「OK」 を押して続行します。"
 
-#: loader/loader.c:528
+#: loader/loader.c:527
 msgid "Updates Disk"
 msgstr "更新ディスク"
 
-#: loader/loader.c:546
+#: loader/loader.c:545
 msgid "Failed to mount updates disk"
 msgstr "更新ディスクのマウントに失敗しました"
 
-#: loader/loader.c:551
+#: loader/loader.c:550
 msgid "Updates"
 msgstr "更新"
 
-#: loader/loader.c:551
+#: loader/loader.c:550
 msgid "Reading anaconda updates"
 msgstr "anaconda の更新を読み込み中"
 
-#: loader/loader.c:587
+#: loader/loader.c:586
 msgid "Unable to download the updates image.  Please modify the updates location below or press Cancel to proceed without updates.."
 msgstr "アップデートイメージをダウンロードできません。以下のアップデートの場所を編集するか、キャンセルを押してアップデートを中止してください。"
 
-#: loader/loader.c:596
+#: loader/loader.c:595
 msgid "Error downloading updates image"
 msgstr "アップデートイメージのダウンロード中にエラー発生"
 
-#: loader/loader.c:1197
+#: loader/loader.c:1196
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "このマシンには %s のインストールに十分な RAM がありません。"
 
-#: loader/loader.c:1198
+#: loader/loader.c:1197
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine using this install method."
 msgstr "このマシンには %s のインストールに十分な RAM がありません。"
 
-#: loader/loader.c:1263
+#: loader/loader.c:1262
 msgid "Media Detected"
 msgstr "検出されたメディア"
 
-#: loader/loader.c:1264
+#: loader/loader.c:1263
 msgid "Found local installation media"
 msgstr "ローカルのインストールメディアが検出されました"
 
-#: loader/loader.c:1392
+#: loader/loader.c:1391
 msgid "Rescue Method"
 msgstr "レスキュー方法"
 
-#: loader/loader.c:1393
+#: loader/loader.c:1392
 msgid "Installation Method"
 msgstr "インストール方法"
 
-#: loader/loader.c:1395
+#: loader/loader.c:1394
 msgid "What type of media contains the rescue image?"
 msgstr "レスキューイメージが格納されているメディアタイプを指定してください。"
 
-#: loader/loader.c:1397
+#: loader/loader.c:1396
 msgid "What type of media contains the installation image?"
 msgstr "インストールイメージが格納されているメディアタイプを指定してください。"
 
-#: loader/loader.c:1432
+#: loader/loader.c:1431
 msgid "No driver found"
 msgstr "ドライバーが見つかりません"
 
-#: loader/loader.c:1432
+#: loader/loader.c:1431
 msgid "Select driver"
 msgstr "ドライバーを選択してください"
 
-#: loader/loader.c:1433
+#: loader/loader.c:1432
 msgid "Use a driver disk"
 msgstr "ドライバーディスクを使用する"
 
-#: loader/loader.c:1434
+#: loader/loader.c:1433
 msgid "Unable to find any devices of the type needed for this installation type.  Would you like to manually select your driver or use a driver disk?"
 msgstr "このインストールタイプに必要な種類のデバイスを見つけることができません。  手動でドライバーを選択しますか、またはドライバーディスクを使用しますか?"
 
-#: loader/loader.c:1665
+#: loader/loader.c:1664
 msgid "The following devices have been found on your system."
 msgstr "システム上で次のデバイスが検出されました。"
 
-#: loader/loader.c:1667
+#: loader/loader.c:1666
 msgid "No device drivers have been loaded for your system.  Would you like to load any now?"
 msgstr "デバイスドライバーはシステムにロードされていません。ドライバーをロードしますか?"
 
-#: loader/loader.c:1671
+#: loader/loader.c:1670
 msgid "Devices"
 msgstr "デバイス"
 
-#: loader/loader.c:1672
+#: loader/loader.c:1671
 msgid "Done"
 msgstr "終了"
 
-#: loader/loader.c:1673
+#: loader/loader.c:1672
 msgid "Add Device"
 msgstr "デバイスの追加"
 
-#: loader/loader.c:1978
+#: loader/loader.c:1977
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "ローダーはすでに実行されています。シェルの起動中です。\n"
 
-#: loader/loader.c:2122
+#: loader/loader.c:2121
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "ドライバーディスクが %s で検出されました。これを使用しますか？"
 
-#: loader/loader.c:2125
+#: loader/loader.c:2124
 msgid "Driver disc detected"
 msgstr "ドライバーディスクを検出しました"
 
-#: loader/loader.c:2125
+#: loader/loader.c:2124
 msgid "Use it"
 msgstr "それを使用する"
 
-#: loader/loader.c:2125
+#: loader/loader.c:2124
 msgid "Skip it"
 msgstr "それをスキップする"
 
-#: loader/loader.c:2460
+#: loader/loader.c:2459
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "anaconda %s を %s レスキューモードで実行中 - しばらくお待ちください。\n"
 
-#: loader/loader.c:2462
+#: loader/loader.c:2461
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "anaconda %s・%s システムインストーラーを実行中 - しばらくお待ちください。\n"
@@ -4380,59 +4394,59 @@ msgstr "有効な IPv4 アドレスとネットマスクまたは CIDR プレフ
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr "有効な IPv6 アドレスと CIDR プレフィックスの両方を入力する必要があります。"
 
-#: loader/net.c:1650
+#: loader/net.c:1655
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr "キックスタートネットワークコマンドに対する引数が不正です: %s"
 
-#: loader/net.c:1671
+#: loader/net.c:1676
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "ネットワークコマンドで不正な bootproto %s が指定されました"
 
-#: loader/net.c:1776
+#: loader/net.c:1781
 msgid "Seconds:"
 msgstr "2 番目:"
 
-#: loader/net.c:1971
+#: loader/net.c:1976
 msgid "Networking Device"
 msgstr "ネットワーク構築デバイス"
 
-#: loader/net.c:1972
+#: loader/net.c:1977
 msgid "You have multiple network devices on this system. Which would you like to install through?"
 msgstr "このシステムには複数のネットワークデバイスが存在します。インストールの際に使用するデバイスを選択してください。"
 
-#: loader/net.c:1976
+#: loader/net.c:1981
 msgid "Identify"
 msgstr "識別"
 
-#: loader/net.c:1985
+#: loader/net.c:1990
 msgid "You can identify the physical port for"
 msgstr "以下の為の物理ポートを識別できます"
 
-#: loader/net.c:1987
+#: loader/net.c:1992
 msgid "by flashing the LED lights for a number of seconds.  Enter a number between 1 and 30 to set the duration to flash the LED port lights."
 msgstr "数秒間だけ LED の光源を点滅することで達成します。１から30までの数字を挿入して LED ポートの光源を点滅する時間をセットします。"
 
-#: loader/net.c:1994
+#: loader/net.c:1999
 msgid "Identify NIC"
 msgstr "NIC の識別"
 
-#: loader/net.c:2007
+#: loader/net.c:2012
 msgid "Invalid Duration"
 msgstr "無効な期間"
 
-#: loader/net.c:2008
+#: loader/net.c:2013
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr "１から30までの整数で秒数を入力する必要があります。"
 
-#: loader/net.c:2020
+#: loader/net.c:2025
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr "%s ポートの光源を %d 秒だけ点滅しています。"
 
-#: loader/net.c:2190
-#: loader/net.c:2194
+#: loader/net.c:2195
+#: loader/net.c:2199
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr "NetworkManager の %s の設定を待っています。\n"
@@ -4934,7 +4948,7 @@ msgstr ""
 "\n"
 "このステップをスキップすると、インストール中のデバイス内のコンテンツへのアクセスはできません。"
 
-#: pyanaconda/storage/devicetree.py:1887
+#: pyanaconda/storage/devicetree.py:1897
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "このパーティションは一貫性のない LVM ボリュームグループの一部です。"
 
@@ -4996,7 +5010,7 @@ msgid "Errors like this usually mean there is a problem with the filesystem that
 msgstr "このようなエラーは通常、ファイルシステムに問題があることを意味しており、 その修正にはユーザーの介入を必要とします。インストールを再開始する前に レスキューモードで、又はファイルシステムを対話式で修正できる他のシステムで 再起動して下さい。ファイルシステムの問題を修正してからインストールを再開始 して下さい。"
 
 #: pyanaconda/storage/formats/fs.py:545
-#: pyanaconda/storage/partitioning.py:283
+#: pyanaconda/storage/partitioning.py:282
 msgid "Unrecoverable Error"
 msgstr "修復不能なエラー"
 
@@ -5086,19 +5100,19 @@ msgstr "新しい iSCSI ノードは見付かりません"
 msgid "Could not log in to any of the discovered nodes"
 msgstr "見付かったノードのいずれにもログインできませんでした"
 
-#: pyanaconda/storage/partitioning.py:198
+#: pyanaconda/storage/partitioning.py:197
 msgid "Could not find enough free space for automatic partitioning.  Press 'OK' to exit the installer."
 msgstr "自動パーティション設定用に十分な空き領域が見付かりません。インストーラーを抜け出すには'OK'を押してください。"
 
-#: pyanaconda/storage/partitioning.py:201
+#: pyanaconda/storage/partitioning.py:200
 msgid "Could not find enough free space for automatic partitioning, please use another partitioning method."
 msgstr "自動パーティション設定用に十分な空き領域が見付かりません。別の パーティションメソッドを使用して下さい。"
 
-#: pyanaconda/storage/partitioning.py:230
+#: pyanaconda/storage/partitioning.py:229
 msgid "Warnings During Automatic Partitioning"
 msgstr "自動パーティション設定中の警告"
 
-#: pyanaconda/storage/partitioning.py:232
+#: pyanaconda/storage/partitioning.py:231
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5109,8 +5123,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/storage/partitioning.py:246
-#: pyanaconda/storage/partitioning.py:267
+#: pyanaconda/storage/partitioning.py:245
+#: pyanaconda/storage/partitioning.py:266
 msgid ""
 "\n"
 "\n"
@@ -5120,7 +5134,7 @@ msgstr ""
 "\n"
 "「OK」を押すとインストーラを終了します。"
 
-#: pyanaconda/storage/partitioning.py:248
+#: pyanaconda/storage/partitioning.py:247
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5131,7 +5145,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: pyanaconda/storage/partitioning.py:269
+#: pyanaconda/storage/partitioning.py:268
 msgid ""
 "\n"
 "\n"
@@ -5141,11 +5155,11 @@ msgstr ""
 "\n"
 "「OK」を押して別のパーティション設定オプションを選択してください。"
 
-#: pyanaconda/storage/partitioning.py:271
+#: pyanaconda/storage/partitioning.py:270
 msgid "Automatic Partitioning Errors"
 msgstr "自動パーティション設定のエラーです"
 
-#: pyanaconda/storage/partitioning.py:272
+#: pyanaconda/storage/partitioning.py:271
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
