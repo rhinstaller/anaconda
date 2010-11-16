@@ -420,8 +420,12 @@ def udev_device_is_dm_raid(info):
     return udev_device_dm_subsystem_match(info, "dmraid")
 
 def udev_device_is_dm_mpath(info):
-    """ Return True if the device is an. """
+    """ Return True if the device is a multipath device. """
     return udev_device_dm_subsystem_match(info, "mpath")
+
+def udev_device_is_dm_anaconda(info):
+    """ Return True is the device is an anaconda disk image. """
+    return udev_device_dm_subsystem_match(info, "anaconda")
 
 def udev_device_is_biosraid_member(info):
     # Note that this function does *not* identify raid sets.
@@ -450,6 +454,13 @@ def udev_device_get_dm_partition_disk(info):
         return None
 
     return info["DM_NAME"][:p_index]
+
+def udev_device_is_dm_partition(info):
+    if not udev_device_is_dm(info):
+        return False
+
+    diskname = udev_device_get_dm_partition_disk(info)
+    return diskname not in ("", None)
 
 def udev_device_is_dmraid_partition(info):
     if not udev_device_is_dm_raid(info):

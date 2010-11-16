@@ -534,8 +534,7 @@ class DeviceTree(object):
         # udev/sysfs, we have to define what is a disk in terms of what is
         # not a disk.
         if udev_device_is_disk(info) and \
-           not udev_device_is_dmraid_partition(info) and \
-           not udev_device_is_multipath_partition(info) and \
+           not udev_device_is_dm_partition(info) and \
            not udev_device_is_dm_lvm(info) and \
            not udev_device_is_dm_crypt(info) and \
            not (udev_device_is_md(info) and
@@ -610,12 +609,7 @@ class DeviceTree(object):
             # try to get the device again now that we've got all the slaves
             device = self.getDeviceByName(name)
 
-            if device is None:
-                if udev_device_is_multipath_partition(info):
-                    diskname = udev_device_get_dm_partition_disk(info)
-                    disk = self.getDeviceByName(diskname)
-                    return self.addUdevPartitionDevice(info, disk=disk)
-                elif udev_device_is_dmraid_partition(info):
+            if device is None and udev_device_is_dm_partition(info):
                     diskname = udev_device_get_dm_partition_disk(info)
                     disk = self.getDeviceByName(diskname)
                     return self.addUdevPartitionDevice(info, disk=disk)
@@ -853,8 +847,7 @@ class DeviceTree(object):
         #
         if udev_device_is_multipath_member(info) and device is None:
             device = self.addUdevDiskDevice(info)
-        elif udev_device_is_dm(info) and \
-               devicelibs.dm.dm_is_multipath(info):
+        elif udev_device_is_dm(info) and udev_device_is_dm_mpath(info):
             log.debug("%s is a multipath device" % name)
             self.addUdevDMDevice(info)
         elif udev_device_is_dm(info):
