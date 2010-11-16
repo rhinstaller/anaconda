@@ -102,6 +102,7 @@ import time
 from devicelibs import mdraid
 from devicelibs import lvm
 from devicelibs import dm
+from devicelibs import loop
 import parted
 import _ped
 import block
@@ -3568,6 +3569,108 @@ class DirectoryDevice(FileDevice):
 
         os.unlink(self.path)
         self.exists = False
+
+
+class LoopDevice(StorageDevice):
+    """ A loop device. """
+    _type = "loop"
+
+    def __init__(self, name=None, format=None, size=None, sysfsPath=None,
+                 exists=None, parents=None):
+        """ Create a LoopDevice instance.
+
+            Arguments:
+
+                name -- the device's name
+
+            Keyword Arguments:
+
+                format -- a DeviceFormat instance
+                size -- the device's size in MB
+                parents -- a list of required devices (Device instances)
+                exists -- indicates whether this is an existing device
+
+
+            Loop devices always exist.
+        """
+        if not parents:
+            raise ValueError("LoopDevice requires a backing device")
+
+        if not name:
+            # set up a temporary name until we've activated the loop device
+            name = "tmploop%d" % Device._id
+
+        StorageDevice.__init__(self, name, format=format, size=size,
+                               exists=True, parents=parents)
+
+    def updateName(self):
+        """ Update this device's name. """
+        if not self.slave.status:
+            # if the backing device is inactive, so are we
+            return self.name
+
+        if self.name.startswith("loop"):
+            # if our name is loopN we must already be active
+            return self.name
+
+        name = loop.get_loop_name(self.slave.path)
+        if name.startswith("loop"):
+            self._name = name
+
+        return self.name
+
+    @property
+    def status(self):
+        #return (self.sysfsPath and
+        #        os.path.isdir("/sys" + self.sysfsPath) and
+        #        len(os.listdir("/sys" + self.sysfsPath + '/holders')) > 0)
+        return (self.slave.status and
+                self.name.startswith("loop") and
+                loop.get_loop_name(self.slave.path) == self.name)
+
+    @property
+    def size(self):
+        return self.slave.size
+
+    def setup(self, intf=None, orig=False):
+        """ Open, or set up, a device. """
+        log_method_call(self, self.name, orig=orig, status=self.status)
+        if not self.exists:
+            raise DeviceError("device has not been created", self.name)
+
+        if self.status:
+            return
+
+        loop.loop_setup(self.slave.path)
+        udev_settle()
+        self.updateName()
+        self.updateSysfsPath()
+        self._size = self.currentSize
+
+    def teardown(self, recursive=False):
+        """ Close, or tear down, a device. """
+        log_method_call(self, self.name, status=self.status)
+        if not self.exists and not recursive:
+            raise DeviceError("device has not been created", self.name)
+
+        if self.status:
+            if self.originalFormat.exists:
+                self.originalFormat.teardown()
+            if self.format.exists:
+                self.format.teardown()
+            udev_settle()
+
+        loop.loop_teardown(self.path)
+        udev_settle()
+        self.updateSysfsPath()
+        self._name = "tmploop%d" % self.id
+
+        if recursive:
+            self.teardownParents(recursive=recursive)
+
+    @property
+    def slave(self):
+        return self.parents[0]
 
 
 class iScsiDiskDevice(DiskDevice, NetworkStorageDevice):

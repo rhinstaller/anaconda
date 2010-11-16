@@ -125,6 +125,9 @@ class CryptoError(StorageError):
 class MPathError(StorageError):
     pass
 
+class LoopError(StorageError):
+    pass
+
 # DeviceTree
 class DeviceTreeError(StorageError):
     pass
