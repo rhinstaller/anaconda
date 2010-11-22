@@ -3454,6 +3454,9 @@ class FileDevice(StorageDevice):
                 parents -- a list of required devices (Device instances)
                 exists -- indicates whether this is an existing device
         """
+        if not path.startswith("/"):
+            raise ValueError("FileDevice requires an absolute path")
+
         StorageDevice.__init__(self, path, format=format, size=size,
                                exists=exists, parents=parents)
 
@@ -3467,25 +3470,26 @@ class FileDevice(StorageDevice):
 
     @property
     def path(self):
-        path = self.name
         root = ""
         try:
             status = self.parents[0].format.status
         except (AttributeError, IndexError):
-            status = False
-
-        if status: 
+            # either this device has no parents or something is wrong with
+            # the first one
+            status = (os.access(self.name, os.R_OK) and
+                      self.parents in ([], None))
+        else:
             # this is the actual active mountpoint
             root = self.parents[0].format._mountpoint
             # trim the mountpoint down to the chroot since we already have
             # the otherwise fully-qualified path
             mountpoint = self.parents[0].format.mountpoint
-            if mountpoint.endswith("/"):
+            while mountpoint.endswith("/"):
                 mountpoint = mountpoint[:-1]
             if mountpoint:
                 root = root[:-len(mountpoint)]
 
-        return os.path.normpath("%s/%s" % (root, path))
+        return os.path.normpath("%s%s" % (root, self.name))
 
     def setup(self, intf=None, orig=False):
         StorageDevice.setup(self, orig=orig)
