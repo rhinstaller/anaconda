@@ -43,6 +43,8 @@ except ImportError:
 ISCSID=""
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
+ISCSI_MODULES=['cxgb3i', 'bnx2i', 'be2iscsi']
+
 def find_iscsi_files():
     global ISCSID
     if ISCSID == "":
@@ -193,6 +195,15 @@ class iscsi(object):
                 os.makedirs(fulldir, 0755)
 
         log.info("iSCSI startup")
+        iutil.execWithRedirect('modprobe', ['-a'] + ISCSI_MODULES,
+                               stdout="/dev/tty5", stderr="/dev/tty5")
+        # this is needed by Broadcom offload cards (bnx2i)
+        brcm_iscsiuio = iutil.find_program_in_path('brcm_iscsiuio',
+                                                   raise_on_error=True)
+        log.debug("iscsi: brcm_iscsiuio is at %s" % brcm_iscsiuio)
+        iutil.execWithRedirect(brcm_iscsiuio, [],
+                               stdout="/dev/tty5", stderr="/dev/tty5")
+        # run the daemon
         iutil.execWithRedirect(ISCSID, [],
                                stdout="/dev/tty5", stderr="/dev/tty5")
         time.sleep(1)
