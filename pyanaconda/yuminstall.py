@@ -1580,22 +1580,6 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
 
         self.initLog(anaconda.rootPath)
 
-        try:
-            # FIXME: making the /var/lib/rpm symlink here is a hack to
-            # workaround db->close() errors from rpm
-            iutil.mkdirChain("/var/lib")
-            for path in ("/var/tmp", "/var/lib/rpm"):
-                if os.path.exists(path) and not os.path.islink(path):
-                    shutil.rmtree(path)
-                if not os.path.islink(path):
-                    os.symlink("%s/%s" %(anaconda.rootPath, path), "%s" %(path,))
-                else:
-                    log.warning("%s already exists as a symlink to %s" %(path, os.readlink(path),))
-        except Exception, e:
-            # how this could happen isn't entirely clear; log it in case
-            # it does and causes problems later
-            log.error("error creating symlink, continuing anyway: %s" %(e,))
-
         # SELinux hackery (#121369)
         if flags.selinux:
             try:
