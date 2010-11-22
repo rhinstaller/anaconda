@@ -864,7 +864,10 @@ class DeviceTree(object):
         #
         # The first step is to either look up or create the device
         #
-        if udev_device_is_multipath_member(info) and device is None:
+        if device:
+            # we successfully looked up the device. skip to format handling.
+            pass
+        elif udev_device_is_multipath_member(info):
             device = self.addUdevDiskDevice(info)
         elif udev_device_is_dm(info) and udev_device_is_dm_mpath(info):
             log.debug("%s is a multipath device" % name)
@@ -872,7 +875,7 @@ class DeviceTree(object):
         elif udev_device_is_dm(info):
             log.debug("%s is a device-mapper device" % name)
             # try to look up the device
-            if device is None and uuid:
+            if uuid:
                 # try to find the device by uuid
                 device = self.getDeviceByUuid(uuid)
 
@@ -880,7 +883,7 @@ class DeviceTree(object):
                 device = self.addUdevDMDevice(info)
         elif udev_device_is_md(info):
             log.debug("%s is an md device" % name)
-            if device is None and uuid:
+            if uuid:
                 # try to find the device by uuid
                 device = self.getDeviceByUuid(uuid)
 
@@ -888,23 +891,19 @@ class DeviceTree(object):
                 device = self.addUdevMDDevice(info)
         elif udev_device_is_cdrom(info):
             log.debug("%s is a cdrom" % name)
-            if device is None:
-                device = self.addUdevOpticalDevice(info)
+            device = self.addUdevOpticalDevice(info)
         elif udev_device_is_biosraid_member(info) and udev_device_is_disk(info):
             log.debug("%s is part of a biosraid" % name)
-            if device is None:
-                device = DiskDevice(name,
-                                major=udev_device_get_major(info),
-                                minor=udev_device_get_minor(info),
-                                sysfsPath=sysfs_path, exists=True)
-                self._addDevice(device)
+            device = DiskDevice(name,
+                            major=udev_device_get_major(info),
+                            minor=udev_device_get_minor(info),
+                            sysfsPath=sysfs_path, exists=True)
+            self._addDevice(device)
         elif udev_device_is_disk(info):
-            if device is None:
-                device = self.addUdevDiskDevice(info)
+            device = self.addUdevDiskDevice(info)
         elif udev_device_is_partition(info):
             log.debug("%s is a partition" % name)
-            if device is None:
-                device = self.addUdevPartitionDevice(info)
+            device = self.addUdevPartitionDevice(info)
         else:
             log.error("Unknown block device type for: %s" % name)
             return
