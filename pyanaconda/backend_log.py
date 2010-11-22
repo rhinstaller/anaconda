@@ -81,8 +81,15 @@ class BackendSyslog:
             with open(SYSLOG_PIDFILE, 'r') as pidfile:
                 pid = int(pidfile.read())
             os.kill(pid, signal.SIGKILL)
-        except:
-            return
-        global_log.info("Backend logger stopped.")
+        except Exception:
+            pass
+        else:
+            global_log.info("Backend logger stopped.")
+
+        try:
+            os.unlink(SYSLOG_CFGFILE)
+        except OSError as e:
+            global_log.error("Failed to unlink backend logger config file: %s"
+                             % e)
 
 log = BackendSyslog()
