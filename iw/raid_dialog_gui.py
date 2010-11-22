@@ -46,7 +46,8 @@ class RaidEditor:
 	store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			      gobject.TYPE_STRING,
 			      gobject.TYPE_STRING)
-	partlist = WideCheckList(2, store, 
+	columns = ['Drive', 'Size']
+	partlist = WideCheckList(columns, store, 
                                  clickCB=self.raidlist_toggle_callback)
 
 	sw = gtk.ScrolledWindow()

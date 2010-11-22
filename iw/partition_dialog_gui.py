@@ -466,7 +466,7 @@ class PartitionEditor:
             sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
             sw.set_shadow_type(gtk.SHADOW_IN)
             maintable.attach(sw, 1, 2, row, row + 1)
-            self.driveview.set_size_request(375, 80)
+            self.driveview.set_size_request(375, 120)
 
             row = row + 1
 
