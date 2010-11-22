@@ -31,15 +31,16 @@ class CheckList (gtk.TreeView):
     # override this to make your own columns if necessary
     def create_columns(self, columns):
         # add the string columns to the tree view widget
-        for i in range(1, columns + 1):
+        titles = [''] + columns
+        for i in range(1, len(titles)):
             renderer = gtk.CellRendererText()
-            column = gtk.TreeViewColumn('Text', renderer, text=i,
+            column = gtk.TreeViewColumn(titles[i], renderer, text=i,
                                         **self.sensitivity_args)
             column.set_clickable(False)
             self.append_column(column)
 
     # XXX need to handle the multicolumn case better still....
-    def __init__ (self, columns = 1, custom_store=None, sensitivity=False):
+    def __init__ (self, columns, custom_store=None, sensitivity=False):
 	if custom_store is None:
 	    self.store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 				       gobject.TYPE_STRING,
@@ -48,7 +49,7 @@ class CheckList (gtk.TreeView):
 	    self.store = custom_store
 	    
         gtk.TreeView.__init__ (self, self.store)
-        
+
         # XXX we only handle two text columns right now
         if custom_store is None and columns > 2:
             raise RuntimeError, "CheckList supports a maximum of 2 columns"
@@ -76,6 +77,11 @@ class CheckList (gtk.TreeView):
 #        column.set_fixed_width(40)
         column.set_clickable(True)
         self.checkboxrenderer.connect ("toggled", self.toggled_item)        
+        column.connect("clicked", self.select_deselect)
+        column.set_alignment(0.75)
+        self.allButton = gtk.ToggleButton()
+        column.set_widget(self.allButton)
+        self.allButton.show_all()
         self.append_column(column)
 
 	self.create_columns(columns)
@@ -88,6 +94,11 @@ class CheckList (gtk.TreeView):
         # keep track of the number of rows we have so we can
         # iterate over them all
         self.num_rows = 0
+        # remember what allButton should do. If this is True, it should select
+        # all items, if it's False it should unselect all items. None means
+        # uninitialized (we can't tell what the first action should be until
+        # there are some elemnts in the store
+        self.select_all = None
 
         self.tiptext = {}
         self.props.has_tooltip = True
@@ -117,7 +128,7 @@ class CheckList (gtk.TreeView):
 
         # add the text for the number of columns we have
         i = 1
-        for text in textList[:self.columns]:
+        for text in textList[:len(self.columns)]:
             self.store.set_value(iter, i, textList[i - 1])
             i = i + 1
 
@@ -203,9 +214,26 @@ class CheckList (gtk.TreeView):
         if col:
             col.set_sort_column_id(id)
 
+    def select_deselect (self, widget, data=None):
+        """Select/Deselect all checkboxes"""
+
+        if self.select_all is None:
+            # this is the first time someone clicked 'select all'
+            self.select_all = False
+            for i in xrange(self.num_rows):
+                if not self.get_active(i):
+                    # if there's at least one untoggled item, we'll select
+                    # all of them with this click
+                    self.select_all = True
+                    break
+
+        for i in xrange(self.num_rows):
+            self.set_active(i, self.select_all)
+        self.select_all = not self.select_all
+
 def main():
     win = gtk.Window()
-    cl = CheckList(1)
+    cl = CheckList(['Column'])
     for i in range(1, 10):
         cl.append_row("%s" %(i,), False, "foo: %d" %(i,))
 

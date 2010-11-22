@@ -55,7 +55,7 @@ class WideCheckList(checklist.CheckList):
                                      sensitivity=sensitivity)
 
         # make checkbox column wider
-        column = self.get_column(columns)
+        column = self.get_column(len(columns))
         self.set_expander_column(column)
         column = self.get_column(0)
         column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
@@ -171,7 +171,9 @@ def createAllowedDrivesList(disks, reqdrives, selectDrives=True, disallowDrives=
                           gobject.TYPE_STRING,
                           gobject.TYPE_STRING,
                           gobject.TYPE_BOOLEAN)
-    drivelist = WideCheckList(3, store, sensitivity=True)
+    columns = ['Drive', 'Size', 'Model']
+    drivelist = WideCheckList(columns, store, sensitivity=True)
+    drivelist.set_headers_visible(True)
     createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=selectDrives,
                              disallowDrives=disallowDrives)
 

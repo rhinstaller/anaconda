@@ -317,7 +317,8 @@ class VolumeGroupEditor:
 	store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 			      gobject.TYPE_STRING,
 			      gobject.TYPE_STRING)
-	partlist = WideCheckList(2, store, self.clickCB)
+	columns = ['Drive', 'Size']
+	partlist = WideCheckList(columns, store, self.clickCB)
 
 	sw = gtk.ScrolledWindow()
 	sw.add(partlist)
