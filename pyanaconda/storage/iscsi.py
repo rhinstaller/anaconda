@@ -43,9 +43,11 @@ except ImportError:
 ISCSID=""
 INITIATOR_FILE="/etc/iscsi/initiatorname.iscsi"
 
+ISCSI_MODULES=['cxgb3i', 'bnx2i', 'be2iscsi']
+
 def has_iscsi():
     global ISCSID
-    
+
     if not os.access("/sys/module/iscsi_tcp", os.X_OK):
         return False
 
@@ -60,14 +62,14 @@ def has_iscsi():
 
 def randomIname():
     """Generate a random initiator name the same way as iscsi-iname"""
-    
+
     s = "iqn.1994-05.com.domain:01."
     m = hashlib.md5()
     u = os.uname()
     for i in u:
         m.update(i)
     dig = m.hexdigest()
-    
+
     for i in range(0, 6):
         s += dig[random.randrange(0, 32)]
     return s
@@ -81,7 +83,7 @@ class iscsi(object):
         through the discover() and log_into_node() methods.
 
         As this class needs to make sure certain things like starting iscsid
-        and logging in to firmware discovered disks only happens once 
+        and logging in to firmware discovered disks only happens once
         and as it keeps a global list of all iSCSI devices it is implemented as
         a Singleton.
     """
@@ -189,6 +191,15 @@ class iscsi(object):
                 os.makedirs(fulldir, 0755)
 
         log.info("iSCSI startup")
+        iutil.execWithRedirect('modprobe', ['-a'] + ISCSI_MODULES,
+                               stdout="/dev/tty5", stderr="/dev/tty5")
+        # this is needed by Broadcom offload cards (bnx2i)
+        brcm_iscsiuio = iutil.find_program_in_path('brcm_iscsiuio',
+                                                   raise_on_error=True)
+        log.debug("iscsi: brcm_iscsiuio is at %s" % brcm_iscsiuio)
+        iutil.execWithRedirect(brcm_iscsiuio, [],
+                               stdout="/dev/tty5", stderr="/dev/tty5")
+        # run the daemon
         iutil.execWithRedirect(ISCSID, [],
                                stdout="/dev/tty5", stderr="/dev/tty5")
         time.sleep(1)
@@ -198,7 +209,7 @@ class iscsi(object):
 
         self._startIBFT(intf)
         self.started = True
-        
+
     def discover(self, ipaddr, port="3260", username=None, password=None,
                   r_username=None, r_password=None, intf=None):
         """
@@ -217,7 +228,7 @@ class iscsi(object):
 
         if username or password or r_username or r_password:
             # Note may raise a ValueError
-            authinfo = libiscsi.chapAuthInfo(username=username, 
+            authinfo = libiscsi.chapAuthInfo(username=username,
                                              password=password,
                                              reverse_username=r_username,
                                              reverse_password=r_password)
@@ -252,8 +263,8 @@ class iscsi(object):
             node.setAuth(authinfo)
             node.login()
             rc = True
-            log.info("iSCSI: logged into %s %s:%s" % (node.name, 
-                                                      node.address, 
+            log.info("iSCSI: logged into %s %s:%s" % (node.name,
+                                                      node.address,
                                                       node.port))
             self.nodes.append(node)
         except (IOError, ValueError) as e:

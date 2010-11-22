@@ -1074,10 +1074,12 @@ def get_sysfs_attr(path, attr):
 
     return open(attribute, "r").read().strip()
 
-def find_program_in_path(prog):
-    for d in os.environ["PATH"].split(":"):
-        full = "%s/%s" % (d, prog)
+def find_program_in_path(prog, raise_on_error=False):
+    for d in os.environ["PATH"].split(os.pathsep):
+        full = os.path.join(d, prog)
         if os.access(full, os.X_OK):
             return full
 
+    if raise_on_error:
+        raise RuntimeError("Unable to locate a needed executable: '%s'" % prog)
     return None
