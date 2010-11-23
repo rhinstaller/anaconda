@@ -93,7 +93,9 @@ def turnOnFilesystems(anaconda):
         return DISPATCH_NOOP
 
     if not anaconda.upgrade:
-        if not anaconda.storage.fsset.active:
+        if (flags.livecdInstall and
+            not flags.imageInstall and
+            not anaconda.storage.fsset.active):
             # turn off any swaps that we didn't turn on
             # needed for live installs
             iutil.execWithRedirect("swapoff", ["-a"],
