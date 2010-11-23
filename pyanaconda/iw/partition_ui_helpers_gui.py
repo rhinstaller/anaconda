@@ -140,19 +140,17 @@ def fstypechangeCB(widget, mountCombo):
     fstype = widget.get_active_value()
     setMntPtComboStateFromType(fstype, mountCombo)
 
-def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
-                             disallowDrives=[]):
+def createAllowedDrivesStore(disks, reqdrives, drivelist, disallowDrives,
+                             preselectAll):
     drivelist.clear()
     for disk in disks:
         selected = 0
 
-        if selectDrives:
-            if reqdrives:
-                if disk.name in reqdrives:
-                    selected = 1
-            else:
-                if disk.name not in disallowDrives:
-                    selected = 1
+        if reqdrives:
+            if disk.name in reqdrives:
+                selected = 1
+        elif preselectAll and (disk.name not in disallowDrives):
+                selected = 1
 
         sizestr = "%8.0f MB" % disk.size
         drivelist.append_row((disk.name,
@@ -165,7 +163,7 @@ def createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=True,
     else:
         drivelist.set_sensitive(True)
 
-def createAllowedDrivesList(disks, reqdrives, selectDrives=True, disallowDrives=[]):
+def createAllowedDrivesList(disks, reqdrives, disallowDrives, preselectAll):
     store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
                           gobject.TYPE_STRING,
                           gobject.TYPE_STRING,
@@ -174,12 +172,10 @@ def createAllowedDrivesList(disks, reqdrives, selectDrives=True, disallowDrives=
     columns = ['Drive', 'Size', 'Model']
     drivelist = WideCheckList(columns, store, sensitivity=True)
     drivelist.set_headers_visible(True)
-    createAllowedDrivesStore(disks, reqdrives, drivelist, selectDrives=selectDrives,
-                             disallowDrives=disallowDrives)
+    createAllowedDrivesStore(disks, reqdrives, drivelist, disallowDrives,
+                             preselectAll)
 
     return drivelist
-    
-    
 
 # pass in callback for when fs changes because of python scope issues
 def createFSTypeMenu(format, fstypechangeCB, mountCombo,
