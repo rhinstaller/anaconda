@@ -457,9 +457,14 @@ class PartitionEditor:
             maintable.attach(lbl, 0, 1, row, row + 1)
 
             req_disk_names = [d.name for d in self.origrequest.req_disks]
+            preselectAll = True
+            if restrictfs and 'mdmember' in restrictfs:
+                # do not preselect all available drives for new raid partitions
+                preselectAll = False
             self.driveview = createAllowedDrivesList(self.storage.partitioned,
                                                      req_disk_names,
-                                                     disallowDrives=[self.anaconda.updateSrc])
+                                                     disallowDrives=[self.anaconda.updateSrc],
+                                                     preselectAll=preselectAll)
             lbl.set_mnemonic_widget(self.driveview)
             sw = gtk.ScrolledWindow()
             sw.add(self.driveview)
