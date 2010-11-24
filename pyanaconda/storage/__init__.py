@@ -1542,6 +1542,8 @@ class FSSet(object):
         self._sysfs = None
         self._proc = None
         self._devshm = None
+        self._usb = None
+        self._selinux = None
         self.preserveLines = []     # lines we just ignore and preserve
 
     @property
@@ -1586,6 +1588,22 @@ class FSSet(object):
                                                      device="tmpfs",
                                                      mountpoint="/dev/shm"))
         return self._devshm
+
+    @property
+    def usb(self):
+        if not self._usb:
+            self._usb = NoDevice(format=getFormat("usbfs",
+                                                  device="usbfs",
+                                                  mountpoint="/proc/bus/usb"))
+        return self._usb
+
+    @property
+    def selinux(self):
+        if not self._selinux:
+            self._selinux = NoDevice(format=getFormat("selinuxfs",
+                                                      device="selinuxfs",
+                                                      mountpoint="/selinux"))
+        return self._selinux
 
     @property
     def devices(self):
@@ -1637,7 +1655,8 @@ class FSSet(object):
             device.format = getFormat("bind",
                                       device=device.path,
                                       exists=True)
-        elif mountpoint in ("/proc", "/sys", "/dev/shm", "/dev/pts"):
+        elif mountpoint in ("/proc", "/sys", "/dev/shm", "/dev/pts",
+                            "/selinux", "/proc/bus/usb"):
             # drop these now -- we'll recreate later
             return None
         else:
@@ -1889,7 +1908,8 @@ class FSSet(object):
                          skipRoot=False):
         intf = anaconda.intf
         devices = self.mountpoints.values() + self.swapDevices
-        devices.extend([self.dev, self.devshm, self.devpts, self.sysfs, self.proc])
+        devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
+                        self.proc, self.selinux, self.usb])
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
 
         for device in devices:
@@ -2004,7 +2024,8 @@ class FSSet(object):
 
     def umountFilesystems(self, ignoreErrors=True, swapoff=True):
         devices = self.mountpoints.values() + self.swapDevices
-        devices.extend([self.dev, self.devshm, self.devpts, self.sysfs, self.proc])
+        devices.extend([self.dev, self.devshm, self.devpts, self.sysfs,
+                        self.proc, self.usb, self.selinux])
         devices.sort(key=lambda d: getattr(d.format, "mountpoint", None))
         devices.reverse()
         for device in devices:

@@ -415,12 +415,6 @@ def runRescue(anaconda):
 
                 # and /selinux too
                 if flags.selinux and os.path.isdir("%s/selinux" %(anaconda.rootPath,)):
-                    try:
-                        isys.mount("/selinux", "%s/selinux" %(anaconda.rootPath,),
-                                   "selinuxfs")
-                    except Exception, e:
-                        log.error("error mounting selinuxfs: %s" %(e,))
-
                     # we have to catch the possible exception
                     # because we support read-only mounting
                     try:

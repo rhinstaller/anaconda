@@ -1480,3 +1480,18 @@ class BindFS(FS):
 register_device_format(BindFS)
 
 
+class SELinuxFS(NoDevFS):
+    _type = "selinuxfs"
+
+    @property
+    def mountable(self):
+        return flags.selinux and super(FS, self).mountable
+
+register_device_format(SELinuxFS)
+
+
+class USBFS(NoDevFS):
+    _type = "usbfs"
+
+register_device_format(USBFS)
+
