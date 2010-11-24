@@ -185,7 +185,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     lohit-oriya-fonts lohit-punjabi-fonts lohit-sindhi-fonts lohit-tamil-fonts
     lohit-telugu-fonts lvm2 madan-fonts mdadm
     mesa-dri-drivers metacity mkinitrd module-init-tools nash ncurses neon net-tools
-    newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g
+    newt newt-python nfs-utils nspr nss nss-softokn ntfs-3g ntpdate
     openldap openssh openssh-server
     pam pango parted pciutils pcre psmisc
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
@@ -632,6 +632,7 @@ usr/sbin/gptsync
 usr/sbin/hald
 usr/sbin/lldpad
 usr/sbin/lvm
+usr/sbin/ntpdate
 usr/sbin/prelink
 usr/sbin/semodule
 usr/sbin/showpart
