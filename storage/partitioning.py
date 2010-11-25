@@ -410,6 +410,10 @@ def clearPartitions(storage):
            (storage.clearPartDisks and disk.name not in storage.clearPartDisks):
             continue
 
+        # Don't touch immutable disks
+        if disk.immutable:
+            continue
+
         # don't reinitialize the disklabel if the disk contains install media
         if filter(lambda p: p.dependsOn(disk), storage.protectedDevices):
             continue
