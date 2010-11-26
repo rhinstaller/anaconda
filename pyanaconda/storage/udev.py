@@ -477,40 +477,73 @@ def udev_device_get_multipath_name(info):
         return info['ID_MPATH_NAME']
     return None
 
-# iscsi disks have ID_PATH in the form of:
+# iscsi disks' ID_PATH form depends on the driver:
+# for software iscsi:
 # ip-${iscsi_address}:${iscsi_port}-iscsi-${iscsi_tgtname}-lun-${lun}
+# for partial offload iscsi:
+# pci-${pci_address}-ip-${iscsi_address}:${iscsi_port}-iscsi-${iscsi_tgtname}-lun-${lun}
 # Note that in the case of IPV6 iscsi_address itself can contain :
 # too, but iscsi_port never contains :
-def udev_device_is_iscsi(info):
+
+def udev_device_is_sw_iscsi(info):
+    # software iscsi
     try:
         path_components = udev_device_get_path(info).split("-")
 
         if info["ID_BUS"] == "scsi" and len(path_components) >= 6 and \
-           path_components[0] == "ip" and path_components[2] == "iscsi":
+                path_components[0] == "ip" and path_components[2] == "iscsi":
             return True
     except KeyError:
         pass
 
     return False
 
+def udev_device_is_partoff_iscsi(info):
+    # partial offload iscsi
+    try:
+        path_components = udev_device_get_path(info).split("-")
+
+        if info["ID_BUS"] == "scsi" and len(path_components) >= 8 and \
+                path_components[2] == "ip" and path_components[4] == "iscsi":
+            return True
+    except KeyError:
+        pass
+
+    return False
+
+def udev_device_is_iscsi(info):
+    return udev_device_is_sw_iscsi(info) or udev_device_is_partoff_iscsi(info)
+
 def udev_device_get_iscsi_name(info):
+    name_field = 3
+    if udev_device_is_partoff_iscsi(info):
+        name_field = 5
+
     path_components = udev_device_get_path(info).split("-")
 
     # Tricky, the name itself contains atleast 1 - char
-    return "-".join(path_components[3:len(path_components)-2])
+    return "-".join(path_components[name_field:len(path_components)-2])
 
 def udev_device_get_iscsi_address(info):
+    address_field = 1
+    if udev_device_is_partoff_iscsi(info):
+        address_field = 3
+
     path_components = udev_device_get_path(info).split("-")
 
     # IPV6 addresses contain : within the address, so take everything
     # before the last : as address
-    return ":".join(path_components[1].split(":")[:-1])
+    return ":".join(path_components[address_field].split(":")[:-1])
 
 def udev_device_get_iscsi_port(info):
+    address_field = 1
+    if udev_device_is_partoff_iscsi(info):
+        address_field = 3
+
     path_components = udev_device_get_path(info).split("-")
 
     # IPV6 contains : within the address, the part after the last : is the port
-    return path_components[1].split(":")[-1]
+    return path_components[address_field].split(":")[-1]
 
 # fcoe disks have ID_PATH in the form of:
 # For FCoE directly over the NIC (so no VLAN and thus no DCB):
