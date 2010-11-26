@@ -576,7 +576,21 @@ class NetworkData(commands.network.F8_NetworkData):
 
         devices = anaconda.network.netdevices
 
-        device = self.device or min(devices.keys())
+        if not self.device:
+            if anaconda.network.ksdevice:
+                msg = "ksdevice boot parameter"
+                device = anaconda.network.ksdevice
+            elif network.hasActiveNetDev():
+                # device activated in stage 1 by network kickstart command
+                msg = "first active device"
+                device = network.getActiveNetDevs()[0]
+            else:
+                msg = "first device found"
+                device = min(devices.keys())
+            log.info("unspecified network --device in kickstart, using %s (%s)" %
+                     (device, msg))
+        else:
+            device = self.device
 
         # If we were given a network device name, grab the device object.
         # If we were given a MAC address, resolve that to a device name
