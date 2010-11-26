@@ -552,73 +552,85 @@ class Logging(commands.logging.FC6_Logging):
 
 class NetworkData(commands.network.F8_NetworkData):
     def execute(self, anaconda):
-        if self.bootProto:
-            devices = anaconda.id.network.netdevices
-            if (devices and self.bootProto):
-                if not self.device:
-                    list = devices.keys ()
-                    list.sort()
-                    device = list[0]
-                else:
-                    device = self.device
 
-                # If we were given a network device name, grab the device object.
-                # If we were given a MAC address, resolve that to a device name
-                # and then grab the device object.  Otherwise, errors.
-                dev = None
+        devices = anaconda.id.network.netdevices
 
-                if devices.has_key(device):
-                    dev = devices[device]
-                else:
-                    for (key, val) in devices.iteritems():
-                        if val.get("HWADDR").lower() == device.lower():
-                            dev = val
-                            break
+        device = self.device or min(devices.keys())
 
-                if not dev:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % device)
+        # If we were given a network device name, grab the device object.
+        # If we were given a MAC address, resolve that to a device name
+        # and then grab the device object.  Otherwise, errors.
+        dev = None
 
-                dev.set (("bootproto", self.bootProto))
-                dev.set (("dhcpclass", self.dhcpclass))
-
-                if self.onboot:
-                    dev.set (("onboot", "yes"))
-                else:
-                    dev.set (("onboot", "no"))
-
-                dev.set(("NM_CONTROLLED", "yes"))
-
-                if self.bootProto == "static":
-                    if (self.ip):
-                        dev.set (("ipaddr", self.ip))
-                    if (self.netmask):
-                        dev.set (("netmask", self.netmask))
-
-                if self.ethtool:
-                    dev.set (("ethtool_opts", self.ethtool))
-
-                if isys.isWireless(device):
-                    if self.essid:
-                        dev.set(("essid", self.essid))
-                    if self.wepkey:
-                        dev.set(("wepkey", self.wepkey))
+        if devices.has_key(device):
+            dev = devices[device]
+        else:
+            for (key, val) in devices.iteritems():
+                if val.get("HWADDR").lower() == device.lower():
+                    dev = val
+                    break
 
         if self.hostname != "":
             anaconda.id.network.setHostname(self.hostname)
             anaconda.id.network.overrideDHCPhostname = True
+            if not dev:
+                # Only set hostname
+                return
+        else:
+            if not dev:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % device)
+
+
+        # ipv4 settings
+        if not self.noipv4:
+            dev.set(("BOOTPROTO", self.bootProto))
+            dev.set(("DHCPCLASS", self.dhcpclass))
+
+            if self.bootProto == "static":
+                if (self.ip):
+                    dev.set(("IPADDR", self.ip))
+                if (self.netmask):
+                    dev.set(("NETMASK", self.netmask))
+
+        # ipv6 settings
+        if self.noipv6:
+            dev.set(("IPV6INIT", "no"))
+        else:
+            dev.set(("IPV6INIT", "yes"))
+            if self.ipv6 == "auto":
+                dev.set(("IPV6_AUTOCONF", "yes"))
+            elif self.ipv6 == "dhcp":
+                dev.set(("IPV6_AUTOCONF", "no"))
+                dev.set(("DHCPV6C", "yes"))
+            elif self.ipv6:
+                dev.set(("IPV6_AUTOCONF", "no"))
+                dev.set(("IPV6ADDR", "%s" % self.ipv6))
+        # settings common for ipv4 and ipv6
+        if not self.noipv6 or not self.noipv4:
+            if self.onboot:
+                dev.set (("ONBOOT", "yes"))
+            else:
+                dev.set (("ONBOOT", "no"))
+
+            if self.ethtool:
+                dev.set(("ETHTOOL_OPTS", self.ethtool))
 
         if self.nameserver != "":
-            anaconda.id.network.setDNS(self.nameserver, device)
+            anaconda.id.network.setDNS(self.nameserver, dev.iface)
 
         if self.gateway != "":
-            anaconda.id.network.setGateway(self.gateway, device)
+            anaconda.id.network.setGateway(self.gateway, dev.iface)
 
         needs_net = (anaconda.methodstr and
                      (anaconda.methodstr.startswith("http:") or
                       anaconda.methodstr.startswith("ftp:") or
                       anaconda.methodstr.startswith("nfs:")))
+        # First kickstart network command wins
+        # TODORV: document
         if needs_net and not network.hasActiveNetDev():
-            log.info("Bringing up network in stage2 kickstart ...")
+            log.info("Bringing up network device %s in stage2 kickstart ..." %
+                     dev.iface)
+            dev.set (("onboot", "yes"))
             rc = anaconda.id.network.bringUp()
             log.info("Network setup %s" % (rc and 'succeeded' or 'failed',))
 
