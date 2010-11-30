@@ -32,7 +32,7 @@ selinux_states = { SELINUX_DISABLED: "disabled",
 
 class Security:
     def __init__(self):
-        self.auth = "--enableshadow --passalgo=sha512 --enablefingerprint"
+        self.auth = "--enableshadow --passalgo=sha512"
 
         if flags.selinux == 1:
             self.selinux = SELINUX_ENFORCING
@@ -59,6 +59,13 @@ class Security:
         if self.auth.strip() != "":
             f.write("authconfig %s\n" % self.auth)
 
+    def _addFingerprint(self, instPath):
+        import rpm
+
+        iutil.resetRpmDb(rootPath)
+        ts = rpm.TransactionSet(rootPath)
+        return ts.dbMatch('provides', 'fprintd-pam').count()
+
     def write(self, instPath):
         args = []
 
@@ -78,6 +85,8 @@ class Security:
             log.error ("lokkit run failed: %s" % e.strerror)
 
         args = ["--update", "--nostart"] + shlex.split(self.auth)
+        if self._addFingerprint(instPath):
+            args += ["--enablefingerprint"]
 
         try:
             iutil.execWithRedirect("/usr/sbin/authconfig", args,
