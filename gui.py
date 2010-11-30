@@ -1306,11 +1306,15 @@ class InstallControlWindow:
 
         self.window.destroy()
         self.window = self.mainxml.get_widget("mainWindow")
-        
+
         self.createWidgets()
         self.connectSignals()
         self.setScreen()
         self.window.show()
+
+        # calling present() will focus the window in the window manager so
+        # the mnemonics work without additional clicking
+        self.window.present()
 
     def setLtR(self):
         ltrrtl = gettext.dgettext("gtk20", "default:LTR")
