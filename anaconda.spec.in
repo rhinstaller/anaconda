@@ -227,6 +227,47 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Nov 30 2010 Chris Lumens <clumens@redhat.com> - 15.8-1
+- Ignore immutable disks in clearPartitions (#657115) (bcl)
+- Add biosdevname to installer environment (Matt_Domsch)
+- Add ntpdate to install.img (#614399) (mgracik)
+- It's /usr/bin/gdbserver. (akozumpl)
+- Handle dm-N devices pointed to by /dev/disk/ paths (#605312) (bcl)
+- Resolve /dev/disk/ devices during rescue (#605312) (bcl)
+- Do not auto-check all drives when creating a RAID partition (#641910).
+  (akozumpl)
+- (Un)select all button in Partition Editor. (akozumpl)
+- Show the total amount of space used by snapshots in the VG editor dialog.
+  (dlehman)
+- Add support for detecting lvm vorigin snapshot volumes. (#633038) (dlehman)
+- Don't display free space at end of extended unless > 1MB. (#626025) (dlehman)
+- Set SELinux context on /etc/localtime (#653867). (clumens)
+- Get a little more output from the unittest runner. (clumens)
+- Remove writeRpmPlatform, adjust callers. (#651132, #650490) (notting)
+- Import as "pyanaconda.anaconda_log", not "anaconda_log". (clumens)
+- A little too much got deleted from imount.c. (clumens)
+- Remove the popping portion of kickstart %pre script notification. (clumens)
+- Add pyanaconda/.libs to the PYTHONPATH for pylint. (clumens)
+- Ignore several false positives and import errors while running pylint.
+  (clumens)
+- Remove the parts required to make "make tests" work. (clumens)
+- nosetests will only run tests if they are not executable and end in _test.py.
+  (clumens)
+- Set up the PYTHONPATH for running nosetests. (clumens)
+- tsort_dict -> tsort in the test case. (clumens)
+- Return mount's actual error codes instead of obfuscating them. (dlehman)
+- Remove log message saying we don't know how to sanity check storage.
+  (dlehman)
+- Move check for ext2 filesystem journal from FS to Ext2FS. (dlehman)
+- Remove mkdirChain() from isys, use g_mkdir_with_parents() (dcantrell)
+- Do not force -O2 in CFLAGS. (dcantrell)
+- Remove unused unpackCpioBall() function. (dcantrell)
+- Use unpack_archive_file() instead of unpackCpioBall() (dcantrell)
+- Use libarchive helper functions in explodeRPM() (dcantrell)
+- Add libarchive helper functions for loader in unpack.c (dcantrell)
+- Remove include lines for stubs.h from isys. (dcantrell)
+- Remove isys cpio extraction code. (dcantrell)
+
 * Tue Nov 09 2010 Chris Lumens <clumens@redhat.com> - 15.7-1
 - Unset bootloader password checkbox (#650865) (bcl)
 - Fix typo in my ctc commit (#648858) (bcl)
