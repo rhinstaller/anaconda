@@ -68,7 +68,7 @@ class InstallData:
         self.timezone.setTimezoneInfo(self.instLanguage.getDefaultTimeZone(self.anaconda.rootPath))
         self.users = None
         self.rootPassword = { "isCrypted": False, "password": "", "lock": False }
-        self.auth = "--enableshadow --passalgo=sha512 --enablefingerprint"
+        self.auth = "--enableshadow --passalgo=sha512"
         self.desktop = desktop.Desktop()
         self.upgrade = None
         if flags.cmdline.has_key("preupgrade"):
@@ -130,6 +130,13 @@ class InstallData:
         else:
             return None
 
+    def _addFingerprint(self):
+        import rpm
+
+        iutil.resetRpmDb(self.anaconda.rootPath)
+        ts = rpm.TransactionSet(self.anaconda.rootPath)
+        return ts.dbMatch('provides', 'fprintd-pam').count()
+
     def write(self):
         self.instLanguage.write (self.anaconda.rootPath)
 
@@ -141,6 +148,8 @@ class InstallData:
         self.timezone.write (self.anaconda.rootPath)
 
         args = ["--update", "--nostart"] + shlex.split(self.auth)
+        if self._addFingerprint():
+            args += ["--enablefingerprint"]
 
         try:
             iutil.execWithRedirect("/usr/sbin/authconfig", args,
