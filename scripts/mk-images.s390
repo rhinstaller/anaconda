@@ -8,8 +8,8 @@ makeBootImages() {
 	    --initrdsize 20000 \
 	    --loaderbin loader \
 	    --modules "$INITRDMODS $S390MODS"
-	sz=$(ls -l $TOPDESTPATH/images/initrd.img | awk '{print $5}')
-	$GENINITRDSZ $sz $TOPDESTPATH/images/initrd.size
+	addr=$(grep "/initrd.img" $BOOTDISKDIR/generic.ins | cut -d ' ' -f 2)
+	$GENINITRDSZ $addr $TOPDESTPATH/images/initrd.img $TOPDESTPATH/images/initrd.addrsize
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
 
 	cp -v $BOOTDISKDIR/generic.prm $TOPDESTPATH/images/generic.prm
@@ -26,7 +26,7 @@ makeBootImages() {
 [images-$KERNELARCH]
 kernel = images/kernel.img
 initrd = images/initrd.img
-initrd.size = images/initrd.size
+initrd.addrsize = images/initrd.addrsize
 generic.prm = images/generic.prm
 generic.ins = generic.ins
 cdboot.img = images/cdboot.img
