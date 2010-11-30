@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.218
+Version: 11.1.2.219
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 30 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.219-1
+- Generate correct initrd.addrsize file for System z (dcantrell)
+  Related: rhbz#647827
+
 * Tue Nov 16 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.218-1
 - Append to modprobe.conf rather than overwrite it (dcantrell)
   Related: rhbz#537887
