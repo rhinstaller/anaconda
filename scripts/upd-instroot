@@ -263,7 +263,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     pam pango parted pciutils pcre psmisc
     pygtk2-libglade pykickstart pyparted python python-bugzilla python-decorator
     python-libs python-nss python-pyblock python-sqlite python-epdb
-    python-urlgrabber python-volume_key pyxf86config readline redhat-artwork
+    python-urlgrabber python-volume_key pyxf86config rdate readline redhat-artwork
     reiserfs-utils report-config-default report-gtk report-newt rpm rpm-libs
     rpm-python rsyslog sed selinux-policy-targeted
     setup slang shared-mime-info smc-meera-fonts
@@ -274,7 +274,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     tigervnc-server-minimal tigervnc-server-module tzdata
     udev un-core-dotum-fonts urw-fonts usbutils util-linux-ng
     vconfig vlgothic-fonts vim-minimal
-    wget wpa_supplicant xcb-util xkeyboard-config xfsprogs xorg-x11-xauth
+    wget which wpa_supplicant xcb-util xkeyboard-config xfsprogs xorg-x11-xauth
     xorg-x11-drivers xorg-x11-font-utils xorg-x11-fonts-ethiopic
     xorg-x11-fonts-misc xorg-x11-server-utils
     xorg-x11-server-Xorg xorg-x11-xkb-utils xorg-x11-xfs yum
@@ -640,6 +640,7 @@ usr/bin/nslookup
 usr/bin/pango*
 usr/bin/python
 usr/bin/python?.?
+usr/bin/rdate
 usr/bin/readlink
 usr/bin/reduce-font
 usr/bin/setxkbmap
@@ -653,12 +654,14 @@ usr/bin/tail
 usr/bin/tee
 usr/bin/tilo
 usr/bin/top
+usr/bin/tty
 usr/bin/wc
 usr/bin/udev*
 usr/bin/uniq
 usr/bin/vncconfig
 usr/bin/vncpasswd
 usr/bin/wget
+usr/bin/which
 usr/bin/xkbcomp
 usr/bin/xrandr
 usr/bin/zenity
