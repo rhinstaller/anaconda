@@ -1221,6 +1221,29 @@ static void checkForRam(int install_method) {
     }
 }
 
+static void checkTaintFlag(void) {
+    gchar *contents = NULL;
+    GError *fileErr = NULL;
+
+    if (!g_file_get_contents("/proc/sys/kernel/tainted", &contents, NULL, &fileErr)) {
+        logMessage(ERROR, "error reading /proc/sys/kernel/tainted: %s", fileErr->message);
+        g_error_free(fileErr);
+        return;
+    }
+
+    if (g_ascii_strncasecmp(contents, "0", 1)) {
+        startNewt();
+        newtWinMessage(_("Unsupported Hardware Detected"), _("OK"),
+                       _("This hardware (or a combination thereof) is not "
+                         "supported by Red Hat.  For more information on "
+                         "supported hardware, please refer to "
+                         "http://www.redhat.com/hardware."));
+        stopNewt();
+    }
+
+    g_free(contents);
+}
+
 static int haveDeviceOfType(int type) {
     struct device ** devices;
 
@@ -2164,6 +2187,8 @@ int main(int argc, char ** argv) {
         startNewt();
         manualDeviceCheck(&loaderData);
     }
+
+    checkTaintFlag();
 
     if (loaderData.updatessrc)
         loadUpdatesFromRemote(loaderData.updatessrc, &loaderData);
