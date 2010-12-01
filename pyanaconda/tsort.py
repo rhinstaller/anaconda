@@ -27,6 +27,9 @@ class CyclicGraphError(Exception):
 def tsort(graph):
     order = []  # sorted list of items
 
+    if not graph or not graph['items']:
+        return order
+
     # determine which nodes have no incoming edges
     roots = [n for n in graph['items'] if graph['incoming'][n] == 0]
     if not roots:

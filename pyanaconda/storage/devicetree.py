@@ -217,6 +217,9 @@ class DeviceTree(object):
 
     def sortActions(self):
         """ Sort actions based on dependencies. """
+        if not self._actions:
+            return
+
         edges = []
 
         # collect all ordering requirements for the actions
