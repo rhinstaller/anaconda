@@ -1347,7 +1347,8 @@ def selectPackages(anaconda):
     # --default.  Otherwise, select whatever was given (even if it's nothing).
     if not ksdata.packages.seen or ksdata.packages.default:
         anaconda.id.instClass.setGroupSelection(anaconda)
-        return
+        if not ksdata.packages.seen:
+            return
 
     for pkg in ksdata.packages.packageList:
         num = anaconda.backend.selectPackage(pkg)
