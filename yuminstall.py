@@ -689,13 +689,18 @@ class AnacondaYum(YumSorter):
                     return None
                 urlgrabber.grabber.reset_curl_obj()
 
+        ug = URLGrabber()
+
         try:
-            ug = URLGrabber()
             ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo", copy_local=1)
-            return "/tmp/.treeinfo"
         except Exception as e:
-            log.error("Error downloading %s/.treeinfo: %s" % (baseurl, e))
-            return None
+            try:
+                ug.urlgrab("%s/treeinfo" % baseurl, "/tmp/.treeinfo", copy_local=1)
+            except Exception as e:
+                log.error("Error downloading treeinfo file: %s" % e)
+                return None
+
+        return "/tmp/.treeinfo"
 
     # We need to make sure $releasever gets set up before .repo files are
     # read.  Since there's no redhat-release package in /mnt/sysimage (and
