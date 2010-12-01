@@ -1581,6 +1581,7 @@ class DeviceTree(object):
                 loopdev.setup()
                 log.debug("%s" % loopdev)
                 dmdev = DMLinearDevice(name,
+                                       dmUuid="ANACONDA-%s" % name,
                                        parents=[loopdev],
                                        exists=True)
                 dmdev.setup()

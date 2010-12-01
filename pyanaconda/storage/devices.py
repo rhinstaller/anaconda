@@ -1656,8 +1656,6 @@ class DMLinearDevice(DMDevice):
         if not parents:
             raise ValueError("DMLinearDevice requires a backing block device")
 
-        dmUuid = "ANACONDA-%s" % name
-
         DMDevice.__init__(self, name, format=format, size=size,
                           parents=parents, sysfsPath=sysfsPath,
                           exists=exists, target="linear", dmUuid=dmUuid)
