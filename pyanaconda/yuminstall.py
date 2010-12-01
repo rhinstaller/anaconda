@@ -689,19 +689,25 @@ class AnacondaYum(yum.YumBase):
         Try to get .treeinfo file from baseurl, optionally using proxy_url
         Saves the file into /tmp/.treeinfo
         """
+        ug = URLGrabber()
+        if proxy_url:
+            proxies = { 'http'  : proxy_url,
+                        'https' : proxy_url }
+        else:
+            proxies = {}
+
         try:
-            ug = URLGrabber()
-            if proxy_url:
-                proxies = { 'http'  : proxy_url,
-                            'https' : proxy_url }
-            else:
-                proxies = {}
             ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo",
                        copy_local=1, proxies=proxies)
-            return "/tmp/.treeinfo"
         except Exception as e:
-            log.info("Error downloading %s/.treeinfo: %s" % (baseurl, e))
-            return None
+            try:
+                ug.urlgrab("%s/treeinfo" % baseurl, "/tmp/.treeinfo",
+                           copy_local=1, proxies=proxies)
+            except Exception as e:
+                log.info("Error downloading treeinfo: %s" % e)
+                return None
+
+        return "/tmp/.treeinfo"
 
     def _getReleasever(self):
         """
