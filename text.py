@@ -304,7 +304,7 @@ class InstallInterface(InstallInterfaceBase):
                               default=None, custom_icon=None,
                               custom_buttons=[], expanded=False):
         t = TextboxReflowed(60, text, maxHeight=8)
-        lt = Textbox(60, 6, longText, scroll=1, wrap=1)
+        lt = Textbox(60, 6, "\n".join(longText), scroll=1, wrap=1)
         g = GridFormHelp(self.screen, title, help, 1, 3)
         g.add(t, 0, 0)
         g.add(lt, 0, 1, padding = (0, 1, 0, 1))
