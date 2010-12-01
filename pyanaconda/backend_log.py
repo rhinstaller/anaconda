@@ -29,7 +29,7 @@ import iutil
 
 SYSLOG_PATH           = '/sbin/rsyslogd'
 SYSLOG_PIDFILE        = '/var/run/rsyslog_backend.pid'
-SYSLOG_CFGFILE        = '/etc/rsyslog_backend.conf'
+SYSLOG_CFGFILE        = '/tmp/rsyslog_backend.conf'
 
 CFG_TEMPLATE = """
 $ModLoad imuxsock
