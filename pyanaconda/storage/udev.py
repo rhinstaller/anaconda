@@ -467,21 +467,6 @@ def udev_device_is_dm_partition(info):
     diskname = udev_device_get_dm_partition_disk(info)
     return diskname not in ("", None)
 
-def udev_device_is_dmraid_partition(info):
-    if not udev_device_is_dm_raid(info):
-        return False
-
-    diskname = udev_device_get_dm_partition_disk(info)
-    return diskname not in ("", None)
-
-def udev_device_is_multipath_partition(info):
-    """ Return True if the device is a partition of a multipath device. """
-    if not udev_device_is_dm_mpath(info):
-        return False
-
-    diskname = udev_device_get_dm_partition_disk(info)
-    return diskname not in ("", None)
-
 def udev_device_is_multipath_member(info):
     """ Return True if the device is part of a multipath. """
     return info.get("ID_FS_TYPE") == "multipath_member"
