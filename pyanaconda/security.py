@@ -59,7 +59,7 @@ class Security:
         if self.auth.strip() != "":
             f.write("authconfig %s\n" % self.auth)
 
-    def _addFingerprint(self, instPath):
+    def _addFingerprint(self, rootPath):
         import rpm
 
         iutil.resetRpmDb(rootPath)
