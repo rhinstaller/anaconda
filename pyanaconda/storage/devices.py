@@ -1194,11 +1194,10 @@ class PartitionDevice(StorageDevice):
         if not self.parents:
             self.sysfsPath = ''
 
-        elif self.parents[0]._devDir == "/dev/mapper":
+        elif isinstance(self.parents[0], DMDevice):
             dm_node = dm.dm_node_from_name(self.name)
             path = os.path.join("/sys", self.sysfsBlockDir, dm_node)
             self.sysfsPath = os.path.realpath(path)[4:]
-
         else:
             StorageDevice.updateSysfsPath(self)
 
@@ -1597,7 +1596,7 @@ class DMDevice(StorageDevice):
     def setupPartitions(self):
         log_method_call(self, name=self.name, kids=self.kids)
         rc = iutil.execWithRedirect("kpartx",
-                                ["-a", "-p", "p", "/dev/mapper/%s" % self.name],
+                                ["-a", "-p", "p", self.path],
                                 stdout = "/dev/tty5",
                                 stderr = "/dev/tty5")
         if rc:
@@ -1607,7 +1606,7 @@ class DMDevice(StorageDevice):
     def teardownPartitions(self):
         log_method_call(self, name=self.name, kids=self.kids)
         rc = iutil.execWithRedirect("kpartx",
-                                ["-d", "-p", "p", "/dev/mapper/%s" % self.name],
+                                ["-d", "-p", "p", self.path],
                                 stdout = "/dev/tty5",
                                 stderr = "/dev/tty5")
         if rc:
