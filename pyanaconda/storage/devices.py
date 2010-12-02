@@ -3625,9 +3625,6 @@ class LoopDevice(StorageDevice):
 
     @property
     def status(self):
-        #return (self.sysfsPath and
-        #        os.path.isdir("/sys" + self.sysfsPath) and
-        #        len(os.listdir("/sys" + self.sysfsPath + '/holders')) > 0)
         return (self.slave.status and
                 self.name.startswith("loop") and
                 loop.get_loop_name(self.slave.path) == self.name)
