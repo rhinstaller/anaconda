@@ -1,0 +1,230 @@
+;<code>allowwireless</code>
+: Experimental option to allow use of wireless networking adapters in the loader.
+
+;<code>askmethod</code>
+: Do not automatically use the CD-ROM as the install source if we detect installation media in your CD-ROM drive.
+
+;<code>asknetwork</code>
+: Prompt for network configuration in the first stage of installation regardless of installation method.
+
+;<code>autostep</code>
+: Advance to the next screen automatically.  This is mostly useful for debugging.
+
+;<code>blacklist=<module></code>
+: Do not automatically load module <module>, even if the hardware exists on the system.
+
+;<code>btrfs</code>
+: Enable btrfs file system support in Fedora 13. Note that Btrfs is still a experimental filesystem in this release.  Feedback is welcome but take regular backups of your data if you are using it.
+
+;<code>cmdline</code>
+: Force command line install mode.  This mode simply prints out text and does not allow any interactivity.  All options must be specified either in a kickstart file or on the command line.
+
+;<code>dd</code> or <code>driverdisk</code>
+: Use a driver disk.
+
+;<code>debug=1</code>
+: Add a debug button to the UI that allows dropping into a python debugger.
+
+;<code>dhcpclass=<class></code>
+: Sends a custom DHCP vendor class identifier.  ISC's dhcpcd can inspect this value using "option vendor-class-identifier".
+
+;<code>dhcptimeout=<sec></code>
+: Stop attempting to get a DHCP lease after <sec> seconds.
+
+;<code>display=<DISPLAY></code>
+: Sets the $DISPLAY environment variable.
+
+;<code>dns=<dns></code>
+: Comma separated list of nameservers to use for a network installation.
+
+;<code>dogtail=<url></code>
+: Use the dogtail (automated UI testing framework) script found at <url>.  Only makes sense on graphical installs.
+
+;<code>essid=<essid></code>
+: Connect to the wireless network given by <essid> for a network installation.  Only makes sense with <code>allowwireless</code>.
+
+;<code>ethtool=<opts></code>
+: Specify certain additional network device settings.  Valid options are duplex={full,half} and speed={1000,100,10}.  Multiple options may be given as a string separated by spaces and surrounded by double quotes.
+
+;<code>ext4migrate</code>
+: In Fedora 11 or above, configure the system to mount ext3 partitions as ext4 and enable the extents format among other changes. 
+
+;<code>gateway=<gw></code>
+: Gateway to use for a network installation.
+
+;<code>graphical</code>
+: Force graphical install.  Required to have ftp/http use GUI.  A graphical install implies that the installed system will boot up into runlevel 5, using whichever display manager is in use by the default desktop (gdm for GNOME, kdm for KDE).
+
+;<code>headless</code>
+: Specify that the machine being installed onto does not have any display hardware, and that anaconda should not probe for it.
+
+;<code>ip=<ip></code>
+: IP to use for a network installation, use 'dhcp' for DHCP.
+
+;<code>ipv6=<ipv6></code>
+: IPv6 IP address to use for a network installation. Use 'auto' for automatic neighbor discovery.
+
+;<code>keymap=<keymap></code>
+: Keyboard layout to use.  Valid values are those which can be used for the <code>keyboard</code> kickstart command.
+
+;<code>ks</code>
+: Gives the location of the kickstart file to be used for installation.  If only <code>ks</code> is given, the file is assumed to be on NFS.  The ks parameter may take these other forms:
+:*<code>ks=cdrom:<device></code>
+:*<code>ks=file:<path></code>  (path = 'fd0/ks.cfg', for example)
+:*<code><nowiki>ks=ftp://<path></nowiki></code>
+:*<code>ks=hd:<dev>:<path></code>  (dev = 'hda1', for example)
+:*<code><nowiki>ks=http://<host>/<path></nowiki></code>
+:*<code>ks=nfs[:options]:<server>:<path></code>
+:*<code>ks=bd:<biosdev>:<path></code>  (biosdev = '80p1', for example, note this does not work for BIOS RAID sets)
+
+;<code>ksdevice</code>
+: Takes one of 4 types of argument which tells install what network device to use for kickstart from network:
+:* An argument like 'eth0' naming a specific interface
+:* An argument like 00:12:34:56:78:9a indicating the MAC address of a specific interface
+:* The keyword 'link' indicating that the first interface with link up
+:* The keyword 'bootif' indicating that the MAC address indicated by the BOOTIF command line option will be used to locate the boot interface.  BOOTIF is automagically supplied by pxelinux when you include the  option 'IPAPPEND 2' in your pxelinux.cfg file
+
+;<code>kssendmac</code>
+: Adds HTTP headers to ks=http:// requests that can be helpful for provisioning systems.  Includes MAC address of all network interfaces in HTTP headers of the form "X-RHN-Provisioning-MAC-0: eth0 01:23:45:67:89:ab".
+
+;<code>kssendsn</code>
+: Adds an HTTP header to ks=http:// requests that can be helpful for provisioning systems.  Includes the system's serial number (according to dmidecode) in an HTTP header of the form "X-System-Serial-Number: 1234567890".
+
+;<code>lang=<lang></code>
+: Language to use for the installation.  This should be a language which is valid to be used with the <code>lang</code> kickstart command.
+
+;<code>linksleep=<delay></code>
+: Check the network device for a link every second for <delay> seconds.
+
+;<code>loglevel=<level></code>
+: Set the minimum level required for messages to be logged on a terminal (log files always contain messages of all levels).  Values for <level> are debug, info, warning, error, and critical.  The default value is info.
+
+;<code>mediacheck</code>
+: Activates loader code to give user option of testing integrity of install source (if an ISO-based method).
+
+;<code>method=</code>
+: This option is deprecated in favor of repo=.  For now, it does the same thing as repo= but will be removed at a later date.
+
+;<code>mtu=<num></code>
+: Set the MTU (maximum transmission unit) used during network installs to the given number.  Uses the network stack default if this option is not specified.
+
+;<code>netmask=<nm></code>
+: Netmask to use for a network installation.
+
+;<code>nicdelay=<sec></code>
+: Sleep for <sec> seconds before trying again to bring up the network.
+
+;<code>nodmraid</code>
+: Disable support for dmraid.
+
+;<code>nofirewire</code>
+: Do not load support for firewire devices.
+
+;<code>noipv4</code>
+: Disable IPv4 networking during installation.
+
+;<code>noipv6</code>
+: Disable IPv6 networking during installation.
+
+;<code>nokill</code>
+: A debugging option that prevents anaconda from terminating all running programs when a fatal error occurs.
+
+;<code>nomount</code>
+: Don't automatically mount any installed Linux partitions in rescue mode.
+
+;<code>nompath</code>
+: Disable support for multipath devices.
+
+;<code>nopass</code>
+: Don't pass keyboard/mouse info to stage 2 installer, good for testing keyboard and mouse config screens in stage2 installer during network installs.
+
+;<code>noprobe</code>
+: Do not attempt to detect hw, prompts user instead.
+
+;<code>noselinux</code>
+: Disable SELinux on the installed system.
+
+;<code>noshell</code>
+: Do not put a shell on tty2 during install.
+
+;<code>nousb</code>
+: Do not load USB support (helps if install hangs early sometimes).
+
+;<code>proxy=[protocol://][username[:password]@]host[:port]</code>
+: Use the given proxy settings when performing an HTTP/HTTPS/FTP installation.
+
+;<code>repo=</code>
+: This option tells anaconda where to find the packages for installation.  This option must point to a valid yum repository.  It is analagous to the older method= option, but repo= makes it more clear exactly what is meant.  This option may appear only once on the command line.  It may appear multiple times inside a kickstart file.
+
+: The value passed to repo= can also be used to find the stage2 image if no CD or stage2= parameter is found.  In this case, the image is looked for by appending images/install.img to the repo parameter.
+
+: The following forms are accepted for repo=:
+:* <code>repo=cdrom:<device></code>
+:* <code>repo=ftp://[user:password@]<host>/<path></code>
+:* <code><nowiki>repo=http://<host>/<path></nowiki></code>
+:* <code>repo=hd:<device>:/<path></code>
+::Look for ISO images on the hard drive partition given by device (/dev/sda1, for instance).  This may not be a partition that will be formatted during installation later.  These should be ISO images, not an exploded tree on the hard drive.  anaconda will not look for the install.img file in any of the ISO images.  The install.img must be placed in <path>/images/, or a stage2= or CD must be provided.  device can be a device name, LABEL=, or UUID=.
+:* <code>repo=nfs[:options]:<server>:/<path></code>
+:* <code>repo=nfsiso[:options]:<server>:/<path></code>
+::Look for ISO images on the NFS volume with the given server and path.  These should be ISO images, not loopback mounted.  anaconda will not look for the install.img file in any of the ISO iamges.  The install.img must be placed in <path>/images/, or a stage2= or CD must be provided.
+
+;<code>rescue</code>
+: Run rescue environment.
+
+;<code>resolution=<mode></code>
+: Run installer in mode specified, '1024x768' for example.
+
+;<code>selinux[=0] </code>
+: Disables selinux entirely.  Defaults to on.
+
+;<code>serial</code>
+: Turns on serial console support.
+
+;<code>sshd</code>
+: Starts up sshd during system installation.  You can then ssh in while the installation progresses to debug or monitor.  Passwords are controlled via the kickstart sshd command.
+
+;<code>stage2=</code>
+: Specifies a path to a install.img file instead of to an installation source.  Otherwise, follows the same syntax as <code>repo=</code>.  If this parameter is provided, it takes precedence over all other methods of finding the install.img.  Otherwise, anaconda will attempt to find the install.img first on any existing CD, and then from the location given by repo=/method=.
+
+:If only stage2= is given without repo=/method=, anaconda will use whatever repos the installed system would have enabled by default for installation.  For instance, an install of a Fedora release will attempt to use the Fedora mirrorlist given by /etc/yum.repos.d/fedora.repo from that release.
+
+;<code>syslog=<host>[:<port>] </code>
+: Once installation is up and running, send log messages to the syslog process on <host>, and optionally, on TCP port <port>.  Requires the remote syslog process to accept incoming connections.
+
+;<code>text</code>
+: Force text mode install.  This will install only base packages for a minimal system and implies that the installed system will boot up in runlevel 3 instead of to the graphical login screen.
+
+;<code>updates</code>
+: Prompt for removable media containing updates (bug fixes).
+
+;<code>updates=<url></code>
+: Image containing updates over FTP or HTTP.
+
+;<code>upgradeany</code>
+: Don't require an /etc/redhat-release that matches the expected syntax to upgrade.
+
+;<code>usefbx</code>
+: Use the framebuffer X driver instead of attempting to use a hardware-specific one.
+
+;<code>utf8</code>
+: Set the TERM variable to vt100.
+
+{{Anchor|virtiolog}}
+;<code>virtiolog=<port_name></code>
+: Forward logs through the character device at /dev/virtio-ports/<port_name>. See also [[Anaconda/Logging]].
+
+{{Anchor|vnc}}
+;<code>vnc</code>
+: Enable vnc-based installation. You will need to connect to the machine using a vnc client application.  A vnc install implies that the installed system will boot up in runlevel 3 instead of to the graphical login screen.
+
+;<code>vncconnect=<host>[:<port>] </code>
+: Once installation is up and running, connect to the vnc client named <host>, and optionally use port <port>.
+
+;<code>vncpassword=<password></code>
+: Enable a password for the vnc connection. This will prevent someone from inadvertently connecting to the vnc-based installation.  Requires <code>vnc</code> option to be specified as well.  If you have specified <code>vncconnect</code> the <password> will not be used unless connection to host is not possible.
+
+;<code>wepkey=<key></code>
+: Use <key> as the wireless key when doing a network installation via a wireless network.  Requires use of <code>essid</code>.  Only makes sense with <code>allowwireless</code>.
+
+;<code>xdriver=<driver></code>
+: Use <driver> as the X driver to use during installation as well as on the installed system.

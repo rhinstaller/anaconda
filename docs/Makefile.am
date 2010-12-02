@@ -19,11 +19,8 @@
 
 EXTRA_DIST = install-methods.txt mediacheck.txt anaconda-release-notes.txt \
              lvm_sanity_checks.txt rescue-mode api.cfg making-screenshots \
-             threads.txt command-line.txt gettext.txt
+             threads.txt command-line.txt gettext.txt command-line.txt
 
 CLEANFILES = api *.xml
 
 MAINTAINERCLEANFILES = Makefile.in command-line.txt
-
-command-line.txt:
-	curl -4 -A "anaconda-build" -o command-line.txt "http://fedoraproject.org/w/index.php?title=Anaconda_Boot_Options&action=raw"
