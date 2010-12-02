@@ -555,7 +555,7 @@ class Logging(commands.logging.FC6_Logging):
         elif self.host != "":
             logger.addSysLogHandler(log, self.host)
 
-class NetworkData(commands.network.F8_NetworkData):
+class NetworkData(commands.network.RHEL6_NetworkData):
     def execute(self, anaconda):
 
         devices = anaconda.id.network.netdevices
@@ -1133,7 +1133,7 @@ dataMap = {
         "VolGroupData": VolGroupData,
 }
 
-superclass = returnClassForVersion()
+superclass = returnClassForVersion(RHEL6)
 
 class AnacondaKSHandler(superclass):
     def __init__ (self, anaconda):
