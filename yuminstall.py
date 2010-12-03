@@ -261,6 +261,7 @@ class AnacondaYumRepo(YumRepository):
         self.enablegroups = True
         self.sslverify = True
         self._anacondaBaseURLs = []
+        self.proxy_url = None
 
     def needsNetwork(self):
         def _isURL(s):
@@ -681,7 +682,7 @@ class AnacondaYum(YumSorter):
         c = ConfigParser()
 
         # If there's no .treeinfo for this repo, don't bother looking for addons.
-        treeinfo = self._getTreeinfo(baseurl)
+        treeinfo = self._getTreeinfo(baseurl, repo.proxy_url)
         if not treeinfo:
             return retval
 
@@ -706,7 +707,11 @@ class AnacondaYum(YumSorter):
 
         return retval
 
-    def _getTreeinfo(self, baseurl):
+    def _getTreeinfo(self, baseurl, proxy_url=None):
+        """
+        Try to get .treeinfo file from baseurl, optionally using proxy_url
+        Saves the file into /tmp/.treeinfo
+        """
         if baseurl.startswith("http") or baseurl.startswith("ftp"):
             if not network.hasActiveNetDev():
                 if not self.anaconda.intf.enableNetwork():
@@ -715,25 +720,36 @@ class AnacondaYum(YumSorter):
                 urlgrabber.grabber.reset_curl_obj()
 
         ug = URLGrabber()
+        if proxy_url and proxy_url.startswith("http"):
+            proxies = { 'http'  : proxy_url,
+                        'https' : proxy_url }
+        elif proxy_url and proxy_url.startswith("ftp"):
+            proxies = { 'ftp'   : proxy_url }
+        else:
+            proxies = {}
 
         try:
-            ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo", copy_local=1)
+            ug.urlgrab("%s/.treeinfo" % baseurl, "/tmp/.treeinfo",
+                       copy_local=1, proxies=proxies)
         except Exception as e:
             try:
-                ug.urlgrab("%s/treeinfo" % baseurl, "/tmp/.treeinfo", copy_local=1)
+                ug.urlgrab("%s/treeinfo" % baseurl, "/tmp/.treeinfo",
+                           copy_local=1, proxies=proxies)
             except Exception as e:
                 log.error("Error downloading treeinfo file: %s" % e)
                 return None
 
         return "/tmp/.treeinfo"
 
-    # We need to make sure $releasever gets set up before .repo files are
-    # read.  Since there's no redhat-release package in /mnt/sysimage (and
-    # won't be for quite a while), we need to do our own substutition.
     def _getReleasever(self):
+        """
+        We need to make sure $releasever gets set up before .repo files are
+        read.  Since there's no redhat-release package in /mnt/sysimage (and
+        won't be for quite a while), we need to do our own substutition.
+        """
         c = ConfigParser()
 
-        treeinfo = self._getTreeinfo(self._baseRepoURL)
+        treeinfo = self._getTreeinfo(self._baseRepoURL, self.proxy_url)
         if not treeinfo:
             return productVersion
 
