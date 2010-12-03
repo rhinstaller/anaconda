@@ -712,6 +712,8 @@ class AnacondaYum(YumSorter):
         Try to get .treeinfo file from baseurl, optionally using proxy_url
         Saves the file into /tmp/.treeinfo
         """
+        if not baseurl:
+            return None
         if baseurl.startswith("http") or baseurl.startswith("ftp"):
             if not network.hasActiveNetDev():
                 if not self.anaconda.intf.enableNetwork():
