@@ -689,6 +689,8 @@ class AnacondaYum(yum.YumBase):
         Try to get .treeinfo file from baseurl, optionally using proxy_url
         Saves the file into /tmp/.treeinfo
         """
+        if not baseurl:
+            return None
         ug = URLGrabber()
         if proxy_url:
             proxies = { 'http'  : proxy_url,
