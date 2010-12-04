@@ -18,6 +18,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+import os
 import sys
 import parted
 import _ped
@@ -26,20 +27,12 @@ def main(argv):
     lst = set()
 
     for dev in filter(lambda d: d.type != parted.DEVICE_DM, parted.getAllDevices()):
-        try:
-            disk = parted.Disk(dev)
-        except _ped.DiskLabelException:
-            continue
-
-        for part in disk.partitions:
-            lst.add("%s %s" % (part.path, int(part.getSize())))
-
-        print("%s %s" % (dev.path, int(dev.getSize())))
+        lst.add((os.path.basename(dev.path), dev.getSize()))
 
     lst = list(lst)
     lst.sort()
-    for entry in lst:
-        print entry
+    for dev, size in lst:
+        print dev, size
 
 if __name__ == "__main__":
     main(sys.argv)
