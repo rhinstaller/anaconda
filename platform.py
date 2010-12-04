@@ -459,6 +459,7 @@ class PS3(PPC):
         PPC.__init__(self, anaconda)
 
 class S390(Platform):
+    _bootFSTypes = ["ext4", "ext3", "ext2"]
     _packages = ["s390utils"]
 
     def __init__(self, anaconda):
