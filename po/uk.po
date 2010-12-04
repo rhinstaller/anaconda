@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-11-30 10:48-0500\n"
-"PO-Revision-Date: 2010-12-04 10:13+0200\n"
+"PO-Revision-Date: 2010-12-04 13:13+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,12 +37,15 @@ msgid ""
 "%s requires %s MB of memory to install using this installation method, but "
 "you only have %s MB on this machine.\n"
 msgstr ""
+"Для встановлення %s з використанням цього способу встановлення потрібно %s "
+"МБ, у цій системі виявлено лише %s МБ.\n"
 
 #: anaconda:332
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
+"Для встановлення %s у графічному режимі потрібно %s МБ, маємо лише %s МБ."
 
 #: anaconda:337
 msgid "Not enough RAM"
@@ -224,7 +227,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"При аналізі конфігурації kickstart-файлу виявлено наступну помилку:\n"
+"При аналізі конфігурації kickstart-файла виявлено наступну помилку:\n"
 "\n"
 "%s"
 
@@ -386,6 +389,9 @@ msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
+"Не встановлено з’єднання з мережею. Таке з’єднання необхідне для "
+"використання деяких зі способів збереження виключень. Бажаєте налаштувати "
+"з’єднання зараз?"
 
 #: pyanaconda/gui.py:1102 pyanaconda/rescue.py:262 pyanaconda/text.py:419
 #: pyanaconda/yuminstall.py:794 pyanaconda/yuminstall.py:1216
@@ -396,10 +402,11 @@ msgstr "Мережа недоступна"
 #: pyanaconda/gui.py:1103 pyanaconda/text.py:420
 msgid "Remote exception saving methods will not work."
 msgstr ""
+"Способи збереження виключень на віддалених комп’ютерах не працюватимуть."
 
 #: pyanaconda/gui.py:1152 pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
-msgstr "Помилка аналізу конфігураційного файлу Kickstart"
+msgstr "Помилка аналізу конфігураційного файла Kickstart"
 
 #: pyanaconda/gui.py:1180
 msgid "default:LTR"
@@ -504,7 +511,6 @@ msgid "Missing ISO 9660 Image"
 msgstr "Відсутній образ ISO 9660"
 
 #: pyanaconda/image.py:163
-#, fuzzy
 #| msgid ""
 #| "The installer has tried to mount image #%s, but cannot find it on the "
 #| "hard drive.\n"
@@ -518,11 +524,13 @@ msgid ""
 "Please copy this image to the drive and click Retry.  Click Exit to abort "
 "the installation."
 msgstr ""
-"Програма встановлення намагалась підключити образ #%s, але його не знайдено "
+"Програма встановлення намагалась підключити образ для встановлення, але його "
+"не було знайдено "
 "на жорсткому диску.\n"
 "\n"
-"Скопіюйте цей образ на накопичувач та натисніть \"Повторити\". Щоб перервати "
-"встановлення, натисніть \"Перервати встановлення\""
+"Скопіюйте цей образ на накопичувач та натисніть кнопку «Повторити». Щоб "
+"перервати "
+"встановлення, натисніть кнопку «Вийти»."
 
 #: pyanaconda/image.py:211 pyanaconda/livecd.py:198 pyanaconda/livecd.py:437
 #: pyanaconda/partIntfHelpers.py:239 pyanaconda/text.py:356
@@ -810,6 +818,9 @@ msgid ""
 "Escrow certificate with url %s requires network to be enabled in loader or "
 "configured in kickstart file."
 msgstr ""
+"Для використання сертифіката з умовним депонуванням за адресою %s слід "
+"увімкнути мережу у завантажувачі або налаштувати параметри мережі у файлі "
+"kickstart."
 
 #: pyanaconda/kickstart.py:164
 #, python-format
@@ -824,10 +835,9 @@ msgstr ""
 "%s"
 
 #: pyanaconda/kickstart.py:405
-#, fuzzy
 #| msgid "Could not log in to any of the discovered nodes"
 msgid "Could not log into any iSCSI nodes at the portal."
-msgstr "Не вдається зареєструватися на жодному з виявлених вузлів"
+msgstr "Не вдається увійти до жодного з вузлів iSCSI на порталі."
 
 #: pyanaconda/kickstart.py:1281
 #, python-format
@@ -1161,7 +1171,7 @@ msgstr ""
 "%s має тип розділу 0x82 (Linux swap), але він не форматований як розділ "
 "Linux swap.\n"
 "\n"
-"Форматувати цей розділ як розділ підкачки?"
+"Форматувати цей розділ як розділ резервної пам’яті?"
 
 #: pyanaconda/partIntfHelpers.py:238
 #, python-format
@@ -1293,7 +1303,7 @@ msgstr "Ви впевнені, що хочете відновити початк
 
 #: pyanaconda/partIntfHelpers.py:361
 msgid "No credentials (discovery authentication disabled)"
-msgstr ""
+msgstr "Без реєстраційних даних (розпізнавання з визначенням вимкнено)"
 
 #: pyanaconda/partIntfHelpers.py:362
 #| msgid "CHAP password"
@@ -1961,10 +1971,10 @@ msgid "Preparing transaction from installation source"
 msgstr "Підготовка транзакції з джерела встановлення"
 
 #: pyanaconda/yuminstall.py:166
-#, fuzzy, python-format
+#, python-format
 #| msgid "<b>Installing %(pkgStr)s</b> (%(size)s)\n"
 msgid "<b>Upgrading %(pkgStr)s</b> (%(size)s)\n"
-msgstr "<b>Встановлення %(pkgStr)s</b> (%(size)s)\n"
+msgstr "<b>Оновлення %(pkgStr)s</b> (%(size)s)\n"
 
 #: pyanaconda/yuminstall.py:169
 #, python-format
@@ -1975,7 +1985,7 @@ msgstr "<b>Встановлення %(pkgStr)s</b> (%(size)s)\n"
 #, python-format
 msgid "Packages completed: %(donepkgs)d of %(numpkgs)d"
 msgid_plural "Packages completed: %(donepkgs)d of %(numpkgs)d"
-msgstr[0] "Встановлено пакетів: %(donepkgs)d из %(numpkgs)d"
+msgstr[0] "Встановлено пакетів: %(donepkgs)d з %(numpkgs)d"
 msgstr[1] "Встановлено пакетів: %(donepkgs)d з %(numpkgs)d"
 msgstr[2] "Встановлено пакетів: %(donepkgs)d з %(numpkgs)d"
 
@@ -2021,10 +2031,10 @@ msgid "Change Disc"
 msgstr "Змінити диск"
 
 #: pyanaconda/yuminstall.py:406
-#, fuzzy, python-format
+#, python-format
 #| msgid "Please insert %(productName)s disc %(discnum)d to continue."
 msgid "Please insert the %(productName)s disc to continue."
-msgstr "Вставте %(productName)s диск %(discnum)d для продовження."
+msgstr "Вставте диск %(productName)s для продовження."
 
 #: pyanaconda/yuminstall.py:415
 msgid "Wrong Disc"
@@ -2426,10 +2436,9 @@ msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
 #: pyanaconda/iw/autopart_type.py:250
-#, fuzzy
 #| msgid "Use All Space"
 msgid "Use _All Space"
-msgstr "Весь простір"
+msgstr "В_есь простір"
 
 #: pyanaconda/iw/autopart_type.py:252
 msgid ""
@@ -2446,10 +2455,9 @@ msgstr ""
 "Перевірте, що є резервні копії."
 
 #: pyanaconda/iw/autopart_type.py:258
-#, fuzzy
 #| msgid "Replace Existing Linux System(s)"
 msgid "Replace Existing _Linux System(s)"
-msgstr "Замінити наявну систему Linux"
+msgstr "За_мінити поточні системи Linux"
 
 #: pyanaconda/iw/autopart_type.py:260
 msgid ""
@@ -2467,10 +2475,9 @@ msgstr ""
 "пристроях. Перевірте, що у вас є резервні копії."
 
 #: pyanaconda/iw/autopart_type.py:268
-#, fuzzy
 #| msgid "Shrink Current System"
 msgid "_Shrink Current System"
-msgstr "Зменшує наявну систему"
+msgstr "Ст_иснути поточну систему"
 
 #: pyanaconda/iw/autopart_type.py:270
 msgid ""
@@ -2480,10 +2487,9 @@ msgstr ""
 "розподілу."
 
 #: pyanaconda/iw/autopart_type.py:272
-#, fuzzy
 #| msgid "Use Free Space"
 msgid "Use _Free Space"
-msgstr "Використовувати вільний простір"
+msgstr "На ві_льному місці"
 
 #: pyanaconda/iw/autopart_type.py:274
 msgid ""
@@ -2495,10 +2501,9 @@ msgstr ""
 "область на обраних пристроях, вважається, що є достатньо вільного місця."
 
 #: pyanaconda/iw/autopart_type.py:278
-#, fuzzy
 #| msgid "Create Custom Layout"
 msgid "Create _Custom Layout"
-msgstr "Створити власний розподіл"
+msgstr "Ство_рити власний розподіл"
 
 #: pyanaconda/iw/autopart_type.py:280
 msgid ""
@@ -2807,10 +2812,9 @@ msgstr ""
 "не впевнені, який варіант підходить, тоді оберіть цей."
 
 #: pyanaconda/iw/filter_type.py:66
-#, fuzzy
 #| msgid "Specialized Storage Devices"
 msgid "_Specialized Storage Devices"
-msgstr "Спеціалізовані пристрої збереження"
+msgstr "Спе_ціалізовані пристрої зберігання"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid ""
@@ -3143,7 +3147,7 @@ msgstr "Використано:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1381
 msgid "Snapshot Total:"
-msgstr ""
+msgstr "Загальний об’єм знімка:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1401
 msgid "Free Space:"
@@ -3848,7 +3852,7 @@ msgstr ""
 
 #: pyanaconda/iw/upgrade_swap_gui.py:35
 msgid "Upgrade Swap Partition"
-msgstr "Оновлення розділу підкачки"
+msgstr "Оновлення розділу резервної пам’яті"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:92 pyanaconda/textw/upgrade_text.py:107
 #, python-format
@@ -3858,10 +3862,13 @@ msgid ""
 "dMB of swap configured, but you may create additional swap space on one of "
 "your file systems now."
 msgstr ""
-"Останні ядра ( 2.4 та новіші) вимагають значно більшого простору підкачки "
+"Останні ядра ( 2.4 та новіші) вимагають значно більшого простору резервної "
+"пам’яті "
 "ніж попередні версії, принаймні вдвічі більше ніж обсяг оперативної пам'яті "
-"вашого комп'ютера. Зараз у вас виділено %d МБ для підкачки, але зараз ви "
-"можете додати додатковий простір підкачки на одній з ваших файлових систем."
+"вашого комп'ютера. Зараз у вас виділено %d МБ для резервної пам’яті, але "
+"зараз ви "
+"можете додати додатковий простір резервної пам’яті на одній з ваших файлових "
+"систем."
 
 #: pyanaconda/iw/upgrade_swap_gui.py:99
 #, python-format
@@ -3876,11 +3883,11 @@ msgstr ""
 
 #: pyanaconda/iw/upgrade_swap_gui.py:111
 msgid "I _want to create a swap file"
-msgstr "_Створити файл підкачки"
+msgstr "_Створити файл резервної пам’яті"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:120
 msgid "Select the _partition to put the swap file on:"
-msgstr "Виберіть _розділ, на якому розмістити файл підкачки:"
+msgstr "Виберіть _розділ, на якому слід розмістити файл резервної пам’яті:"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:138 pyanaconda/textw/upgrade_text.py:125
 msgid "Partition"
@@ -3896,34 +3903,37 @@ msgid ""
 "A minimum swap file size of %d MB is recommended.  Please enter a size for "
 "the swap file:"
 msgstr ""
-"Рекомендується, щоб розмір файлу підкачки був принаймні %d МБ. Введіть "
-"розмір файлу підкачки:"
+"Рекомендується, щоб розмір файла резервної пам’яті був принаймні %d МБ. "
+"Введіть "
+"розмір файла резервної пам’яті:"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:171
 msgid "Swap file _size (MB):"
-msgstr "Р_озмір файла підкачки (МБ):"
+msgstr "Р_озмір файла резервної пам’яті (МБ):"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:181
 msgid "I _don't want to create a swap file"
-msgstr "Я _не бажаю створювати файл підкачки"
+msgstr "Я _не бажаю створювати файл резервної пам’яті"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:191
 msgid ""
 "A swap file is strongly recommended. Failure to create one could cause the "
 "installer to abort abnormally.  Are you sure you wish to continue?"
 msgstr ""
-"Наполегливо рекомендується створити файл підкачки.  У іншому випадку робота "
+"Наполегливо рекомендується створити файл резервної пам’яті. У іншому випадку "
+"робота "
 "програми встановлення може бути аварійно завершена. Ви впевнені, що бажаєте "
-"продовжити без файлу підкачки?"
+"продовжити без файла резервної пам’яті?"
 
 #: pyanaconda/iw/upgrade_swap_gui.py:199 pyanaconda/textw/upgrade_text.py:194
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Розмір фалу підкачки повинен бути між 1 і 2000 МБ."
+msgstr "Розмір файла резервної пам’яті повинен бути між 1 і 2000 МБ."
 
 #: pyanaconda/iw/upgrade_swap_gui.py:206 pyanaconda/textw/upgrade_text.py:189
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr "На пристрої, який ви вибрали для розділу підкачки, бракує місця."
+msgstr ""
+"На пристрої, який ви вибрали для розділу резервної пам’яті, бракує місця."
 
 #: pyanaconda/iw/zipl_gui.py:37
 msgid "z/IPL Boot Loader Configuration"
@@ -4100,7 +4110,7 @@ msgstr "Виберіть файл, який є вашим образом дис�
 
 #: loader/driverdisk.c:491
 msgid "Failed to load driver disk from file."
-msgstr "Помилка завантаження диска драйверів з файлу."
+msgstr "Помилка завантаження диска драйверів з файла."
 
 #: loader/driverdisk.c:503
 #, c-format
@@ -4251,10 +4261,9 @@ msgid "Select Partition"
 msgstr "Вибір розділу"
 
 #: loader/hdinstall.c:283 loader/hdinstall.c:301 loader/hdinstall.c:310
-#, fuzzy
 #| msgid "That directory does not seem to contain a %s installation image."
 msgid "That directory does not contain installation media."
-msgstr "Цей каталог не містить образ встановлення %s."
+msgstr "У каталозі не виявлено даних для встановлення."
 
 #: loader/hdinstall.c:349
 #, c-format
@@ -4281,26 +4290,26 @@ msgstr "Вкажіть тип клавіатури"
 #: loader/kickstart.c:136
 #, c-format
 msgid "Error opening kickstart file %s: %m"
-msgstr "Помилка при відкриванні файлу kickstart: %s: %m"
+msgstr "Помилка при відкриванні файла kickstart: %s: %m"
 
 #: loader/kickstart.c:146
 #, c-format
 msgid "Error reading contents of kickstart file %s: %m"
-msgstr "Помилка при читанні вмісту файлу kickstart %s: %m"
+msgstr "Помилка при читанні вмісту файла kickstart %s: %m"
 
 #: loader/kickstart.c:188
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Помилка в %s в рядку %d файлу kickstart %s."
+msgstr "Помилка в %s в рядку %d файла kickstart %s."
 
 #: loader/kickstart.c:193
 #, c-format
 msgid "Missing options on line %d of kickstart file %s."
-msgstr "Відсутні параметри у рядку %d kickstart-файлу %s."
+msgstr "Відсутні параметри у рядку %d kickstart-файла %s."
 
 #: loader/kickstart.c:300
 msgid "Cannot find ks.cfg on removable media."
-msgstr "Не вдається знайти ks.cfg на зйомному носії."
+msgstr "Не вдається знайти ks.cfg на портативному носії."
 
 #: loader/kickstart.c:340
 #, c-format
@@ -4321,7 +4330,7 @@ msgstr ""
 
 #: loader/kickstart.c:396
 msgid "Error downloading kickstart file"
-msgstr "Помилка відкривання файлу kickstart"
+msgstr "Помилка відкривання файла kickstart"
 
 #: loader/kickstart.c:572
 #, c-format
@@ -4416,7 +4425,7 @@ msgstr "Помилка при завантаженні образу оновле
 #: loader/loader.c:1199
 #, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
-msgstr ""
+msgstr "Для встановлення %s потрібно %d МБ, маємо лише %d МБ."
 
 #: loader/loader.c:1200
 #, c-format
@@ -4424,6 +4433,8 @@ msgid ""
 "%s requires %d MB of memory to install using this installation method, but "
 "you only have %d MB on this machine."
 msgstr ""
+"Для встановлення %s з використанням цього способу встановлення потрібно %d "
+"МБ, у цій системі виявлено лише %d МБ."
 
 #: loader/loader.c:1349
 msgid "Rescue Method"
@@ -4794,10 +4805,9 @@ msgid "NFS Setup"
 msgstr "Налаштовування NFS"
 
 #: loader/nfsinstall.c:196 loader/urlinstall.c:214
-#, fuzzy
 #| msgid "Device %s does not appear to contain an installation image."
 msgid "The URL provided does not contain installation media."
-msgstr "Пристрій %s не містить образи встановлення."
+msgstr "За вказаною адресою не виявлено даних для встановлення."
 
 #: loader/nfsinstall.c:277
 #, c-format
@@ -5051,7 +5061,7 @@ msgstr ""
 "непрацездатної системи."
 
 #: pyanaconda/storage/__init__.py:1042
-#, fuzzy, python-format
+#, python-format
 #| msgid ""
 #| "You have not specified a swap partition.  Due to the amount of memory "
 #| "present, a swap partition is required to complete installation."
@@ -5059,15 +5069,16 @@ msgid ""
 "You have not specified a swap partition.  %s MB of memory is required to "
 "continue installation without a swap partition, but you only have %s MB."
 msgstr ""
-"Ви не вказали розділ підкачки. З урахуванням доступної у системі пам'яті, "
-"розділ «swap» є необхідним для завершення встановлення.."
+"Вами не було вказано розділу резервної пам’яті. Для продовження встановлення "
+"без такого розділу потрібно %s МБ, маємо лише %s МБ."
 
 #: pyanaconda/storage/__init__.py:1047
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-"Ви не вказали розділ підкачки.  Хоча він не є обов'язковим для роботи, він "
+"Ви не вказали розділ резервної пам’яті.  Хоча він не є обов'язковим для "
+"роботи, він "
 "може суттєво поліпшити швидкодію системи."
 
 #: pyanaconda/storage/__init__.py:1054
@@ -5133,12 +5144,14 @@ msgid ""
 "is an old-style Linux swap partition.  If you want to use this device for "
 "swap space, you must reformat as a new-style Linux swap partition."
 msgstr ""
-"Пристрій підкачки:\n"
+"Пристрій резервної пам’яті:\n"
 "\n"
 "     %s\n"
 "\n"
-"є розділом підкачки Linux старого типу.  Якщо ви хочете використовувати цей "
-"пристрій для підкачки треба переформатувати його у розділ підкачки Linux "
+"є розділом резервної пам’яті Linux старого типу.  Якщо ви хочете "
+"використовувати цей "
+"пристрій для резервної пам’яті треба переформатувати його у розділ резервної "
+"пам’яті Linux "
 "нового типу."
 
 #: pyanaconda/storage/__init__.py:1836
@@ -5152,11 +5165,11 @@ msgid ""
 "which means your system is hibernating. To perform an upgrade, please shut "
 "down your system rather than hibernating it."
 msgstr ""
-"Пристрій підкачки:\n"
+"Пристрій резервної пам’яті:\n"
 "\n"
 "     %s\n"
 "\n"
-"з файлу /etc/fstab наразі використовується як розділ для призупинення роботи "
+"з файла /etc/fstab наразі використовується як розділ для призупинення роботи "
 "системи, це означає, що ваша система знаходиться у \"режим сну\". Щоб "
 "виконати оновлення повністю вимкніть вашу систему замість переведення її у "
 "\"режим сну\"."
@@ -5172,14 +5185,14 @@ msgid ""
 "which means your system is hibernating. If you are performing a new install, "
 "make sure the installer is set to format all swap devices."
 msgstr ""
-"Пристрій підкачки:\n"
+"Пристрій резервної пам’яті:\n"
 "\n"
 "     %s\n"
 "\n"
-"з файлу /etc/fstab наразі використовується як розділ для призупинення "
+"з файла /etc/fstab наразі використовується як розділ для призупинення "
 "системи, це означає, що ваша система знаходиться у \"режимі сну\". Якщо ви "
 "виконуєте нове встановлення, обов'язково вкажіть переформатування усіх "
-"розділів підкачки."
+"розділів резервної пам’яті."
 
 #: pyanaconda/storage/__init__.py:1856
 #, python-format
@@ -5191,11 +5204,11 @@ msgid ""
 "does not contain a supported swap volume.  In order to continue "
 "installation, you will need to format the device or skip it."
 msgstr ""
-"Пристрій підкачки:\n"
+"Пристрій резервної пам’яті:\n"
 "\n"
 "     %s\n"
 "\n"
-"не містить розділу підкачки.  Для продовження встановлення, слід "
+"не містить розділу резервної пам’яті. Для продовження встановлення, слід "
 "відформатувати пристрій або пропустити його."
 
 #: pyanaconda/storage/__init__.py:1867
@@ -5208,10 +5221,10 @@ msgid ""
 "\n"
 "Press OK to exit the installer"
 msgstr ""
-"Помилка при підключенні пристрою підкачки %(name)s: %(msg)s\n"
+"Помилка при підключенні пристрою резервної пам’яті %(name)s: %(msg)s\n"
 "\n"
 "Файл /etc/fstab у розділі, що оновлюється, не містить опису робочого "
-"пристрою підкачки.\n"
+"пристрою резервної пам’яті.\n"
 "\n"
 "Натисніть \"Гаразд\" переривання встановлення."
 
@@ -5224,9 +5237,9 @@ msgid ""
 "\n"
 "Press OK to exit the installer."
 msgstr ""
-"Помилка при підключенні пристрою підкачки %(name)s: %(msg)s\n"
+"Помилка при підключенні пристрою резервної пам’яті %(name)s: %(msg)s\n"
 "\n"
-"Найбільш ймовірна причина - розділ не було ініціалізовано.\n"
+"Найбільш ймовірна причина — розділ не було ініціалізовано.\n"
 "\n"
 "Натисніть \"Гаразд\" для переривання встановлення."
 
@@ -5334,7 +5347,7 @@ msgstr[2] "Для RAID%d-масиву потрібен принаймні %d е�
 #: pyanaconda/storage/devices.py:3410
 #, python-format
 msgid "Creating file %s"
-msgstr "Створення файлу %s"
+msgstr "Створення файла %s"
 
 #: pyanaconda/storage/devicetree.py:103
 #, python-format
@@ -5372,10 +5385,10 @@ msgid "Formatting"
 msgstr "Форматування"
 
 #: pyanaconda/storage/formats/fs.py:355
-#, fuzzy, python-format
+#, python-format
 #| msgid "Creating %s filesystem on %s"
 msgid "Creating %(type)s filesystem on %(device)s"
-msgstr "Створення файлової системи %s на %s"
+msgstr "Створення файлової системи %(type)s на %(device)s"
 
 #: pyanaconda/storage/formats/fs.py:457
 msgid "Resizing"
@@ -5464,10 +5477,10 @@ msgstr "Шифрування %s"
 
 #: pyanaconda/storage/formats/lvmpv.py:104
 #: pyanaconda/storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 #| msgid "Creating %s on %s"
 msgid "Creating %(type)s on %(device)s"
-msgstr "Створення %s на %s"
+msgstr "Створення %(type)s на %(device)s"
 
 #: pyanaconda/storage/iscsi.py:118
 msgid "Unable to change iSCSI initiator name once set"
@@ -5494,16 +5507,15 @@ msgid "No initiator name set"
 msgstr "Не вказано назву ініціатора iSCSI"
 
 #: pyanaconda/storage/iscsi.py:242
-#, fuzzy
 #| msgid "Logging in to iSCSI nodes"
 msgid "Logging in to iSCSI node"
-msgstr "Реєстрація на вузлі iSCSI"
+msgstr "Вхід до вузла iSCSI"
 
 #: pyanaconda/storage/iscsi.py:243
-#, fuzzy, python-format
+#, python-format
 #| msgid "Logging in to iSCSI nodes"
 msgid "Logging in to iSCSI node %s"
-msgstr "Реєстрація на вузлі iSCSI"
+msgstr "Вхід до вузла iSCSI %s"
 
 #: pyanaconda/storage/partitioning.py:197
 msgid ""
@@ -5731,7 +5743,6 @@ msgid "Enable network interface"
 msgstr "Увімкнути _мережний інтерфейс"
 
 #: pyanaconda/textw/netconfig_text.py:129
-#, fuzzy
 #| msgid ""
 #| "This requires that you have an active network connection during the "
 #| "installation process.  Please configure a network interface."
@@ -5740,13 +5751,14 @@ msgid ""
 "installation process.  Please select network interface to configure."
 msgstr ""
 "Для цього треба активне мережне з'єднання протягом процесу встановлення. "
-"Налаштуйте мережний інтерфейс."
+"Будь ласка, виберіть інтерфейс, який слід налаштувати."
 
 #: pyanaconda/textw/netconfig_text.py:155
-#, fuzzy, python-format
+#, python-format
 #| msgid "What language would you like to use during the installation process?"
 msgid "Configure interface %s to be used during installation process."
-msgstr "Яку мову ви хотіли б використовувати під час встановлення?"
+msgstr ""
+"Налаштування інтерфейсу %s, який буде використано під час встановлення."
 
 #: pyanaconda/textw/netconfig_text.py:160
 #| msgid "Enable IPv4 support"
@@ -5851,10 +5863,10 @@ msgid "Configuring Network Interfaces"
 msgstr "Налаштовування мережних інтерфейсів"
 
 #: pyanaconda/textw/netconfig_text.py:404
-#, fuzzy, python-format
+#, python-format
 #| msgid "There was an error configuring your network interface."
 msgid "There was an error configuring network device %s"
-msgstr "Помилка при налаштовуванні мережного інтерфейсу."
+msgstr "Під час спроби налаштування мережного пристрою %s сталася помилка"
 
 #: pyanaconda/textw/partition_text.py:59
 msgid "Partitioning Type"
@@ -5927,11 +5939,11 @@ msgstr "Запропонований розмір (Мб):"
 
 #: pyanaconda/textw/upgrade_text.py:149
 msgid "Swap file size (MB):"
-msgstr "Розмір файлу підкачки (Мб):"
+msgstr "Розмір файла резервної пам’яті (МБ):"
 
 #: pyanaconda/textw/upgrade_text.py:157
 msgid "Add Swap"
-msgstr "Додати підкачку"
+msgstr "Додати резервну пам’ять"
 
 #: pyanaconda/textw/upgrade_text.py:182
 msgid "The value you entered is not a valid number."
@@ -6507,7 +6519,7 @@ msgstr "Користувач CHAP:"
 
 #: data/ui/iscsi-dialogs.glade.h:3
 msgid "Check the nodes you wish to log into:"
-msgstr ""
+msgstr "Позначте вузли, до яких слід здійснити вхід:"
 
 #: data/ui/iscsi-dialogs.glade.h:4
 msgid "Reason:"
@@ -6534,7 +6546,7 @@ msgstr "Почати _визначення"
 
 #: data/ui/iscsi-dialogs.glade.h:9
 msgid "Successfully logged in and attached the following nodes:"
-msgstr ""
+msgstr "Здійснено успішний вхід зі встановлення з’єднання з такими вузлами:"
 
 #: data/ui/iscsi-dialogs.glade.h:10
 #| msgid "Target IP Address"
@@ -6553,10 +6565,13 @@ msgstr ""
 msgid ""
 "What kind of iSCSI <b>discovery authentication</b> do you wish to perform:"
 msgstr ""
+"Спосіб iSCSI <b>розпізнавання з визначенням</b>, яким ви бажаєте "
+"скористатися:"
 
 #: data/ui/iscsi-dialogs.glade.h:13
 msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
 msgstr ""
+"Спосіб iSCSI <b>розпізнавання з входом</b>, яким ви бажаєте скористатися:"
 
 #: data/ui/iscsi-dialogs.glade.h:14
 #| msgid "Cancel"
@@ -6583,10 +6598,9 @@ msgid "iSCSI Discovery Details"
 msgstr "Параметри визначення iSCSI"
 
 #: data/ui/iscsi-dialogs.glade.h:19
-#, fuzzy
 #| msgid "iSCSI Initiator Name"
 msgid "iSCSI Initiator Name:"
-msgstr "Назва ініціатора iSCSI"
+msgstr "Назва ініціатора iSCSI:"
 
 #: data/ui/iscsi-dialogs.glade.h:20
 msgid "iSCSI Login Results"
@@ -6838,7 +6852,7 @@ msgstr "Македонська"
 
 #: data/lang-table.h:32
 msgid "Maithili"
-msgstr "Маітілі"
+msgstr "Майтхілі"
 
 #: data/lang-table.h:33
 msgid "Malay"
@@ -6862,7 +6876,7 @@ msgstr "Норвезька(Бокмал)"
 
 #: data/lang-table.h:38
 msgid "Northern Sotho"
-msgstr "Пічнічне сото"
+msgstr "Північне сото"
 
 #: data/lang-table.h:39
 msgid "Oriya"
@@ -6906,7 +6920,7 @@ msgstr "Сербська(Латиниця"
 
 #: data/lang-table.h:49
 msgid "Sinhala"
-msgstr "Сінхала"
+msgstr "Сингальська"
 
 #: data/lang-table.h:50
 msgid "Slovak"
