@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.219
+Version: 11.1.2.220
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 6 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.220-1
+- Gtk package %post script has changed (rvykydal)
+  Resolves: rhbz#659309
+
 * Tue Nov 30 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.219-1
 - Generate correct initrd.addrsize file for System z (dcantrell)
   Related: rhbz#647827
