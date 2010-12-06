@@ -1618,10 +1618,16 @@ class FSSet(object):
         return filesystems
 
     def _parseOneLine(self, (devspec, mountpoint, fstype, options, dump, passno)):
+        # no sense in doing any legwork for a noauto entry
+        if "noauto" in options:
+            log.info("ignoring noauto entry")
+            raise UnrecognizedFSTabEntryError()
+
         # find device in the tree
         device = self.devicetree.resolveDevice(devspec,
                                                cryptTab=self.cryptTab,
                                                blkidTab=self.blkidTab)
+
         if device:
             # fall through to the bottom of this block
             pass
