@@ -72,6 +72,7 @@ def copyAnacondaLogs(anaconda):
                        ("/tmp/X.log", "anaconda.xlog"),
                        ("/tmp/program.log", "anaconda.program.log"),
                        ("/tmp/storage.log", "anaconda.storage.log"),
+                       ("/tmp/ifcfg.log", "anaconda.ifcfg.log"),
                        ("/tmp/yum.log", "anaconda.yum.log")):
         if os.access(fn, os.R_OK):
             try:

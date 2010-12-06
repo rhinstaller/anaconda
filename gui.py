@@ -986,10 +986,11 @@ class InstallInterface(InstallInterfaceBase):
                 self.anaconda.id.network.presetDefaultConfiguration([install_device])
 
             self.anaconda.id.network.writeIfcfgFiles()
-            network.logIfcfgFiles(header="========== before nm-c-e run\n")
+            network.logIfcfgFiles(message="Dump before nm-c-e (can race "
+                                           "with ifcfg updating). ")
 
             runNMCE(self.anaconda)
-            network.logIfcfgFiles(header="========== after nm-c-e run\n")
+            network.logIfcfgFiles(message="Dump after nm-c-e. ")
 
             self.anaconda.id.network.update()
 

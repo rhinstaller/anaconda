@@ -91,8 +91,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
 def initExceptionHandling(anaconda):
     fileList = [ "/tmp/anaconda.log", "/tmp/lvmout", "/tmp/resize.out",
-                 "/tmp/program.log", "/tmp/storage.log", "/tmp/yum.log",
-                 anaconda.rootPath + "/root/install.log",
+                 "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
+                 "/tmp/yum.log", anaconda.rootPath + "/root/install.log",
                  anaconda.rootPath + "/root/upgrade.log", "/proc/cmdline" ]
     if flags.livecdInstall:
         fileList.extend(["/var/log/dmesg"])

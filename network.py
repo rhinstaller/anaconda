@@ -35,6 +35,7 @@ import time
 import dbus
 from flags import flags
 from simpleconfig import IfcfgFile
+import anaconda_log
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -47,6 +48,13 @@ netscriptsDir = "%s/network-scripts" % (sysconfigDir)
 networkConfFile = "%s/network" % (sysconfigDir)
 ifcfgLogFile = "/tmp/ifcfg.log"
 CONNECTION_TIMEOUT = 45
+
+logger = logging.getLogger("ifcfg")
+logger.setLevel(logging.DEBUG)
+anaconda_log.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
+anaconda_log.logger.addFileHandler("/dev/tty3", logger, logging.DEBUG)
+
+ifcfglog = logging.getLogger("ifcfg")
 
 class IPError(Exception):
     pass
@@ -174,33 +182,24 @@ def getActiveNetDevs():
     ret.sort()
     return ret
 
-def logIfcfgFile(path, header="\n"):
-    logfile = ifcfgLogFile
-    if not os.access(path, os.R_OK):
-        return
-    f = open(path, 'r')
-    lf = open(logfile, 'a')
-    lf.write(header)
-    lf.write(f.read())
-    lf.close()
-    f.close()
+def logIfcfgFile(path, message=""):
+    content = ""
+    if os.access(path, os.R_OK):
+        f = open(path, 'r')
+        content = f.read()
+        f.close()
+    ifcfglog.debug("%s%s:\n%s" % (message, path, content))
 
-def logIfcfgFiles(header="\n"):
-
-    lf = open(ifcfgLogFile, 'a')
-    lf.write(header)
-    lf.close()
-
+def logIfcfgFiles(message=""):
     devprops = isys.getDeviceProperties(dev=None)
     for device in devprops:
         path = "%s/ifcfg-%s" % (netscriptsDir, device)
-        logIfcfgFile(path, "===== %s\n" % (path,))
+        logIfcfgFile(path, message)
 
 class NetworkDevice(IfcfgFile):
 
-    def __init__(self, dir, iface, logfile='/tmp/ifcfg.log'):
+    def __init__(self, dir, iface):
         IfcfgFile.__init__(self, dir, iface)
-        self.logfile = logfile
         if iface.startswith('ctc'):
             self.info["TYPE"] = "CTC"
         self.description = ""
@@ -215,8 +214,9 @@ class NetworkDevice(IfcfgFile):
         s = ""
         keys = self.info.keys()
         keys.sort()
-        keys.remove("DEVICE")
-        keys.insert(0, "DEVICE")
+        if ("DEVICE" in keys):
+            keys.remove("DEVICE")
+            keys.insert(0, "DEVICE")
         if "KEY" in keys:
             keys.remove("KEY")
         if iutil.isS390() and ("HWADDR" in keys):
@@ -234,22 +234,32 @@ class NetworkDevice(IfcfgFile):
         return s
 
     def loadIfcfgFile(self):
+        ifcfglog.debug("%s:\n%s" % (self.path, self.fileContent()))
+        ifcfglog.debug("NetworkDevice %s:\n%s" % (self.iface, self.__str__()))
+        ifcfglog.debug("loadIfcfgFile %s from %s" % (self.iface, self.path))
         self.clear()
         IfcfgFile.read(self)
-        self.log("NetworkDevice read from %s\n" % self.path)
         self._dirty = False
+
+        ifcfglog.debug("NetworkDevice %s:\n%s" % (self.iface, self.__str__()))
 
     def writeIfcfgFile(self):
         # Write out the file only if there is a key whose
         # value has been changed since last load of ifcfg file.
+        ifcfglog.debug("%s:\n%s" % (self.path, self.fileContent()))
+        ifcfglog.debug("NetworkDevice %s:\n%s" % (self.iface, self.__str__()))
+        ifcfglog.debug("writeIfcfgFile %s to %s%s" % (self.iface, self.path,
+                                                      ("" if self._dirty else " not needed")))
         if self._dirty:
             IfcfgFile.write(self)
-            self.log("NetworkDevice written to %s\n" % self.path)
             self._dirty = False
 
     def set(self, *args):
         # If we are changing value of a key set _dirty flag
         # informing that ifcfg file needs to be synced.
+        s = " ".join(["%s=%s" % key_val for key_val in args])
+        ifcfglog.debug("NetworkDevice %s set: %s" %
+                       (self.iface, s))
         for (key, data) in args:
             if self.get(key) != data:
                 break
@@ -258,36 +268,11 @@ class NetworkDevice(IfcfgFile):
         IfcfgFile.set(self, *args)
         self._dirty = True
 
-    def log(self, header="\n"):
-        lf = open(self.logfile, 'a')
-        lf.write(header)
-        lf.close()
-        self.log_file()
-        self.log_write_file()
-        self.log_values()
-
-    def log_values(self, header="\n"):
-        lf = open(self.logfile, 'a')
-        lf.write(header)
-        lf.write("== values for file %s\n" % self.path)
-        lf.write(IfcfgFile.__str__(self))
-        lf.close()
-
-    def log_write_file(self, header="\n"):
-        lf = open(self.logfile, 'a')
-        lf.write(header)
-        lf.write("== file to be written for %s\n" % self.path)
-        lf.write(self.__str__())
-        lf.close()
-
-    def log_file(self, header="\n"):
+    def fileContent(self):
         f = open(self.path, 'r')
-        lf = open(self.logfile, 'a')
-        lf.write(header)
-        lf.write("== file %s\n" % self.path)
-        lf.write(f.read())
-        lf.close()
+        content = f.read()
         f.close()
+        return content
 
     def usedByFCoE(self, anaconda):
         import storage
@@ -336,6 +321,8 @@ class Network:
 
     def update(self):
 
+        ifcfglog.debug("Network.update() called")
+
         self.netdevices = {}
         self.ksdevice = None
         self.domains = []
@@ -343,7 +330,7 @@ class Network:
         # populate self.netdevices
         devhash = isys.getDeviceProperties(dev=None)
         for iface in devhash.keys():
-            device = NetworkDevice(netscriptsDir, iface, logfile=ifcfgLogFile)
+            device = NetworkDevice(netscriptsDir, iface)
             if os.access(device.path, os.R_OK):
                 device.loadIfcfgFile()
             else:
@@ -630,6 +617,8 @@ class Network:
                                 device.path)
 
     def write(self):
+
+        ifcfglog.debug("Network.write() called")
 
         devices = self.netdevices.values()
 
