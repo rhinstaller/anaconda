@@ -48,7 +48,7 @@ os.system("udevadm control --env=ANACONDA=1")
 os.system("udevadm trigger --subsystem-match block")
 os.system("udevadm settle")
 devicetree = DeviceTree(intf=intf, conf=storage_config)
-devicetree.populate()
+devicetree.populate(cleanupOnly=True)
 devicetree.teardownAll()
 for name in devicetree.diskImages.keys():
     device = devicetree.getDeviceByName(name)

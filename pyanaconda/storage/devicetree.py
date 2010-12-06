@@ -197,6 +197,8 @@ class DeviceTree(object):
             self.addIgnoredDisk(disk)
         devicelibs.lvm.lvm_cc_resetFilter()
 
+        self._cleanup = False
+
     def addIgnoredDisk(self, disk):
         self._ignoredDisks.append(disk)
         devicelibs.lvm.lvm_cc_addFilterRejectRegexp(disk)
@@ -1073,11 +1075,21 @@ class DeviceTree(object):
             if passphrase:
                 device.format.passphrase = passphrase
             else:
-                (passphrase, isglobal) = getLUKSPassphrase(self.intf,
+                try:
+                    (passphrase, isglobal) = getLUKSPassphrase(self.intf,
                                                     device,
                                                     self.__passphrase)
-                if isglobal and device.format.status:
-                    self.__passphrase = passphrase
+                except RuntimeError as e:
+                    # if we're only building the devicetree so that we can
+                    # tear down all of the devices we don't need a passphrase
+                    if device.format.status and self._cleanup:
+                        # this makes device.configured return True
+                        device.format.passphrase = 'yabbadabbadoo'
+                    else:
+                        raise
+                else:
+                    if isglobal and device.format.status:
+                        self.__passphrase = passphrase
 
             luks_device = LUKSDevice(device.format.mapName,
                                      parents=[device],
@@ -1643,9 +1655,12 @@ class DeviceTree(object):
     def restoreConfigs(self):
         self.backupConfigs(restore=True)
 
-    def populate(self):
+    def populate(self, cleanupOnly=False):
         """ Locate all storage devices. """
         self.backupConfigs()
+        if cleanupOnly:
+            self._cleanup = True
+
         try:
             self._populate()
         except Exception:
