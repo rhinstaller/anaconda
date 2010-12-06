@@ -55,10 +55,11 @@ from pyanaconda import anaconda_log
 logger = logging.getLogger("ifcfg")
 logger.setLevel(logging.DEBUG)
 anaconda_log.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
-anaconda_log.logger.addFileHandler("/dev/tty3", logger,
-                                   anaconda_log.DEFAULT_TTY_LEVEL,
-                                   anaconda_log.TTY_FORMAT,
-                                   autoLevel=True)
+if os.access("/dev/tty3", os.W_OK):
+    anaconda_log.logger.addFileHandler("/dev/tty3", logger,
+                                       anaconda_log.DEFAULT_TTY_LEVEL,
+                                       anaconda_log.TTY_FORMAT,
+                                       autoLevel=True)
 anaconda_log.logger.forwardToSyslog(logger)
 
 ifcfglog = logging.getLogger("ifcfg")
