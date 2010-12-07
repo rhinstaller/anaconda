@@ -22,7 +22,9 @@
 
 import os
 
-from pyanaconda.iutil import notify_kernel, get_sysfs_path_by_name
+from pyanaconda.iutil import notify_kernel
+from pyanaconda.iutil import get_sysfs_path_by_name
+from pyanaconda.iutil import execWithRedirect
 from ..storage_log import log_method_call
 from ..errors import *
 from ..devicelibs.dm import dm_node_from_name
@@ -268,31 +270,20 @@ class DeviceFormat(object):
     def destroy(self, *args, **kwargs):
         log_method_call(self, device=self.device,
                         type=self.type, status=self.status)
-        # zero out the 1MB at the beginning and end of the device in the
-        # hope that it will wipe any metadata from filesystems that
-        # previously occupied this device
-        log.debug("zeroing out beginning and end of %s..." % self.device)
-        fd = None
-
         try:
-            fd = os.open(self.device, os.O_RDWR)
-            buf = '\0' * 1024 * 1024
-            os.write(fd, buf)
-            os.lseek(fd, -1024 * 1024, 2)
-            os.write(fd, buf)
-            os.close(fd)
-        except OSError as e:
-            if getattr(e, "errno", None) == 28: # No space left in device
-                pass
-            else:
-                log.error("error zeroing out %s: %s" % (self.device, e))
-
-            if fd:
-                os.close(fd)
+            rc = execWithRedirect("wipefs", ["-a", self.device],
+                                  stderr="/dev/tty5",
+                                  stdout="/dev/tty5")
         except Exception as e:
-            log.error("error zeroing out %s: %s" % (self.device, e))
-            if fd:
-                os.close(fd)
+            err = str(e)
+        else:
+            err = ""
+            if rc:
+                err = str(rc)
+
+        if err:
+            msg = "error wiping old signatures from %s: %s" % (self.device, err)
+            raise FormatDestroyError(msg)
 
         self.exists = False
 
