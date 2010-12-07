@@ -342,8 +342,6 @@ class Storage(object):
         except Exception as e:
             log.error("failure tearing down device tree: %s" % e)
 
-        self.zfcp.shutdown()
-
         # TODO: iscsi.shutdown()
 
     def reset(self):
