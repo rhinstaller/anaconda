@@ -185,8 +185,11 @@ function startinetd()
     /usr/sbin/sshd -f /etc/ssh/sshd_config.anaconda
     if [ -z "$RUNKS" ]; then
         echo
-        echo $"Connect now to $IPADDR and log in as user install to start the installation."
-        echo $"E.g. using: ssh -x install@$IPADDR"
+        echo $"Connect now to $IPADDR and log in as user 'install' to start the installation."
+        echo $"E.g. using: ssh [-x|-X] install@$IPADDR"
+        echo $"For VNC or text mode, disable X11 forwarding (recommended) with 'ssh -x'."
+        echo $"For X11, enable X11 forwarding with 'ssh -X'."
+        echo
         echo $"You may log in as the root user to start an interactive shell."
         read
         while : ; do
