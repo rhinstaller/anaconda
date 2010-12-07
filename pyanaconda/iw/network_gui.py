@@ -93,7 +93,7 @@ class NetworkWindow(InstallWindow):
                                     custom_icon="error")
             self.hostnameError()
 
-        self.anaconda.network.hostname = hostname
+        self.anaconda.network.setHostname(hostname)
         return None
 
 def NMCEExited(pid, condition, anaconda):

@@ -423,6 +423,9 @@ class Network:
 
     def setHostname(self, hn):
         self.hostname = hn
+        log.info("setting installation environment hostname to %s" % hn)
+        iutil.execWithRedirect("hostname", ["-v", hn ],
+                               stdout="/dev/tty5", stderr="/dev/tty5")
 
     def unsetDNS(self, devname):
         """Unset all DNS* ifcfg parameters."""
