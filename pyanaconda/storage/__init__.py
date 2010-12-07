@@ -383,11 +383,6 @@ class Storage(object):
         except Exception as e:
             log.error("failure tearing down device tree: %s" % e)
 
-        if not flags.imageInstall:
-            self.zfcp.shutdown()
-
-            # TODO: iscsi.shutdown()
-
     def reset(self):
         """ Reset storage configuration to reflect actual system state.
 
