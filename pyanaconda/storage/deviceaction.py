@@ -292,7 +292,7 @@ class ActionDestroyDevice(DeviceAction):
                   and this partition has a lower number
         """
         rc = False
-        if action.device.dependsOn(self.device):
+        if action.device.dependsOn(self.device) and action.isDestroy:
             rc = True
         elif (action.isDestroy and action.isDevice and
               isinstance(self.device, PartitionDevice) and
