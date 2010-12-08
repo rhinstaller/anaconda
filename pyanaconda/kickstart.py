@@ -1184,6 +1184,14 @@ class AnacondaKSHandler(superclass):
             # Data objects can be seen over and over again.
             self._dataObjs.append(obj)
 
+    def dispatcher(self, args, lineno):
+        cmd = args[0]
+
+        if self.commands.has_key(cmd):
+            self.commands[cmd].anaconda = self.anaconda
+
+        return superclass.dispatcher(self, args, lineno)
+
     def execute(self):
         try:
             for obj in filter(lambda o: hasattr(o, "execute"), self._dataObjs):
