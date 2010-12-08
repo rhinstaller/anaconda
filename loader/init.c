@@ -52,6 +52,7 @@
 #include <sys/reboot.h>
 #include <linux/vt.h>
 #include <termios.h>
+#include <time.h>
 #include <libgen.h>
 
 #include "init.h"
@@ -138,35 +139,103 @@ static void fatal_error(int usePerror) {
 #endif
 }
 
-static int logChunk(int len, char *inbuf, char *outbuf) {
-    int inctr, outctr;
+struct log_chunk_context {
+    int starts_message;
+    int log1_fd; /* always nonzero */
+    int log2_fd;
+};
 
-    for (inctr = 0, outctr = 0; inctr < len; inctr++) {
-        /* If the character is a NULL that's immediately followed by a open
-         * bracket, we've found the beginning of a new kernel message.  Put in
-         * a line separator.
+static char* get_time_string()
+{
+    struct timeval current_time;
+    struct tm *t;
+    int msecs;
+    char *ret_string;
+    int rc;
+
+    gettimeofday(&current_time, NULL);
+    t = gmtime(&current_time.tv_sec);
+    msecs = current_time.tv_usec / 1000;
+    rc = asprintf(&ret_string, "%02d:%02d:%02d,%03d ",
+                  t->tm_hour, t->tm_min, t->tm_sec, msecs);
+    if (rc < 0)
+        return NULL;
+    return ret_string;
+}
+
+static void log_chunk_context_init(struct log_chunk_context *context,
+                                  int log1, int log2)
+{
+    context->starts_message = 1;
+    context->log1_fd = log1;
+    context->log2_fd = log2;
+}
+
+static void log_chunk_flush(struct log_chunk_context *context,
+                           char *buf, int length)
+{
+    int rc;
+    rc = write(context->log1_fd, buf, length);
+    if (context->log2_fd > 0) {
+        rc = write(context->log2_fd, buf, length);
+    }
+}
+
+static void log_chunk(struct log_chunk_context *context,
+                     int len, char *inbuf)
+{
+    int inctr, outctr = 0;
+    const unsigned BSIZE = 4;
+    char outbuf[512];
+    char *time_str = NULL;
+
+
+    /* We finished the previous chunk on message boundary. Put in the time
+     * stamp.
+     */
+    if (context->starts_message) {
+        time_str = get_time_string(0);
+        log_chunk_flush(context, time_str, strlen(time_str));
+        context->starts_message = 0;
+        free(time_str);
+    }
+
+
+    for (inctr = 0; inctr < len; ++inctr) {
+        /* If the character is a NULL or a newline, immediately followed by an
+         * open bracket, we've found the beginning of a new kernel message.  Put
+         * in a line separator and the time stamp.
          */
-        if (inbuf[inctr] == '\0' && inctr+1 < len && inbuf[inctr+1] == '<') {
-            outbuf[outctr] = '\n';
-            outctr++;
+        if ((inbuf[inctr] == '\0' || inbuf[inctr] == '\n') &&
+            inctr+1 < len && inbuf[inctr+1] == '<') {
+            outbuf[outctr++] = '\n';
+            log_chunk_flush(context, outbuf, outctr);
+            outctr = 0;
+            time_str = get_time_string(0);
+            log_chunk_flush(context, time_str, strlen(time_str));
+            free(time_str);
+        }
+        /* Or, if we see a NULL or a newline right before the end of the chunk,
+           add a separator and remember timestamp should be added the next time.
+         */
+        else if ((inbuf[inctr] == '\0' || inbuf[inctr] == '\n') &&
+                 inctr+1 == len) {
+            outbuf[outctr++] = '\n';
+            context->starts_message = 1;
+        }
+        else {
+            outbuf[outctr++] = inbuf[inctr];
         }
 
-        /* Or, if we see a NULL right before the end of the chunk, that's also
-         * a good place to add a separator.
-         */
-        else if (inbuf[inctr] == '\0' && inctr+1 == len) {
-            outbuf[outctr] = '\n';
-            outctr++;
-        }
-
-        /* Otherwise, simply output the character as long as it's not NULL. */
-        else if (inbuf[inctr] != '\0') {
-            outbuf[outctr] = inbuf[inctr];
-            outctr++;
+        /* flush everything if we've filled up the buffer */
+        if (outctr == BSIZE) {
+            log_chunk_flush(context, outbuf, outctr);
+            outctr = 0;
         }
     }
 
-    return outctr;
+    /* flush everything */
+    log_chunk_flush(context, outbuf, outctr);
 }
 
 static void doklog(char * fn) {
@@ -176,7 +245,7 @@ static void doklog(char * fn) {
     socklen_t s;
     int sock = -1;
     struct sockaddr_un sockaddr;
-    char inbuf[1024], outbuf[1024];
+    char inbuf[1024];
     int readfd;
     int ret;
 
@@ -188,7 +257,7 @@ static void doklog(char * fn) {
     }
 
     out = open(fn, O_WRONLY, 0);
-    if (out < 0) 
+    if (out < 0)
         printf("couldn't open %s for syslog -- still using /tmp/syslog\n", fn);
 
     log = open("/tmp/syslog", O_WRONLY | O_CREAT, 0644);
@@ -196,7 +265,7 @@ static void doklog(char * fn) {
         /* FIXME: was perror */
         printstr("error opening /tmp/syslog");
         sleep(5);
-	
+
         close(in);
         return;
     }
@@ -210,7 +279,7 @@ static void doklog(char * fn) {
         close(log);
         return;
     }
-    close(0); 
+    close(0);
     close(1);
     close(2);
 
@@ -226,7 +295,7 @@ static void doklog(char * fn) {
         sleep(5);
     }
     printstr("got socket\n");
-    if (bind(sock, (struct sockaddr *) &sockaddr, sizeof(sockaddr.sun_family) + 
+    if (bind(sock, (struct sockaddr *) &sockaddr, sizeof(sockaddr.sun_family) +
 			strlen(sockaddr.sun_path))) {
         printf("bind error: %d\n", errno);
         sleep(5);
@@ -240,6 +309,9 @@ static void doklog(char * fn) {
 #endif
 
     syslog(8, NULL, 1);
+
+    struct log_chunk_context context;
+    log_chunk_context_init(&context, log, out);
 
     FD_ZERO(&unixs);
     while (1) {
@@ -256,24 +328,15 @@ static void doklog(char * fn) {
         if (FD_ISSET(in, &readset)) {
             i = read(in, inbuf, sizeof(inbuf));
             if (i > 0) {
-                int loggedLen = logChunk(i, inbuf, outbuf);
-
-                if (out >= 0)
-                    ret = write(out, outbuf, loggedLen);
-                ret = write(log, outbuf, loggedLen);
+                log_chunk(&context, i, inbuf);
             }
-        } 
+        }
 
         for (readfd = 0; readfd < 20; ++readfd) {
             if (FD_ISSET(readfd, &readset) && FD_ISSET(readfd, &unixs)) {
                 i = read(readfd, inbuf, sizeof(inbuf));
                 if (i > 0) {
-                    int loggedLen = logChunk(i, inbuf, outbuf);
-
-                    if (out >= 0)
-                        ret = write(out, outbuf, loggedLen);
-
-                    ret = write(log, outbuf, loggedLen);
+                    log_chunk(&context, i, inbuf);
                 } else if (i == 0) {
                     /* socket closed */
                     close(readfd);
@@ -295,7 +358,7 @@ static void doklog(char * fn) {
                 FD_SET(readfd, &unixs);
             }
         }
-    }    
+    }
 }
 
 static int setupTerminal(int fd) {
