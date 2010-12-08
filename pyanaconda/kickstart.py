@@ -573,6 +573,13 @@ class Logging(commands.logging.FC6_Logging):
 
 class NetworkData(commands.network.F8_NetworkData):
     def execute(self):
+        if flags.imageInstall:
+            if self.hostname != "":
+                self.anaconda.network.setHostname(self.hostname)
+                self.anaconda.network.overrideDHCPhostname = True
+
+            # Only set hostname
+            return
 
         devices = self.anaconda.network.netdevices
 
