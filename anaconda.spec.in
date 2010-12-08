@@ -229,6 +229,63 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Dec 08 2010 Chris Lumens <clumens@redhat.com> - 15.9-1
+- Set installer environment hostname for sw raid LABELs (#640743) (rvykydal)
+- Device destroy actions can only require other destroy actions. (#651589)
+  (dlehman)
+- Use wipefs from util-linux-ng instead of dd to wipe old sigs. (dlehman)
+- Add cleanup-only mode to DeviceTree.populate. (dlehman)
+- Add unit tests for storage.partitioning.getNextPartitionType. (dlehman)
+- Only try logging to tty3 if we have permission to do so. (dlehman)
+- Enable network when getting .treeinfo (#632526) (rvykydal)
+- Fix default of network --device option to match rhel5 (#647462). (rvykydal)
+- Do not backtrace if repo is specified through kickstart only (#659781).
+  (akozumpl)
+- Restore list-harddrives output to what users expect (#654436) (dcantrell)
+- Permit ext4 and ext2 for /boot on s390x (#638734) (dcantrell)
+- Check for ARPHRD_ETHER and ARPHRD_SLIP types in getDevices (#596826)
+  (dcantrell)
+- Preserve and otherwise ignore noauto fstab entries. (#660017) (dlehman)
+- Fix "logvol --percent=" (#651445, jruemker). (clumens)
+- Add chroot command to bash_history. (pjones)
+- support for partial offload in udev_*_iscsi() functions. (akozumpl)
+- iscsi: partial offload drivers. (akozumpl)
+- analog: put it under /usr/bin so it's on the path in an installed system.
+  (akozumpl)
+- Remove commented out broken code from LoopDevice.status. (dlehman)
+- Don't traceback when the action list is empty. (#657891) (dlehman)
+- Remove unused udev_device_is_{multipath,dmraid}_partition functions.
+  (dlehman)
+- Set dm-uuid for anaconda disk image devices from devicetree. (dlehman)
+- Remove some unnecessarily hard-coded "/dev/mapper" strings. (dlehman)
+- Put the backend logger's config file in /tmp. (dlehman)
+- Move handling of /proc/bus/usb and /selinux into storage. (dlehman)
+- swapoff -a is only needed for livecd, so only do it for livecd. (dlehman)
+- Unlink backend logger config file when stopping logger. (dlehman)
+- Make FileDevice.path more consistent. (dlehman)
+- Add support for detecting already-active lvm. (dlehman)
+- Fix addUdevDevice so we can actually handle already-in-tree devices.
+  (dlehman)
+- Make it possible to ignore md-fwraid member disks. (dlehman)
+- Revert rpmdb symlink hack. (dlehman)
+- Remove some unused code from storage.devicelibs.dm. (dlehman)
+- Add support for installing onto block device image files. (dlehman)
+- Generalize some of the device-mapper partition handling. (dlehman)
+- Add support for loop devices. (dlehman)
+- Add support for linear device-mapper devices. (dlehman)
+- Fix PartitionDevice.path to work with device-mapper disks. (dlehman)
+- There's no need to pass exclusiveDisks to doPartitioning separately.
+  (dlehman)
+- Move storage device scanning parameters into a separate class. (dlehman)
+- Don't ignore %packages if --default is given (#621349, dcantrell). (clumens)
+- Don't traceback when displaying %post error messages (#654074). (clumens)
+- Display a warning message on TAINT_HARDWARE_UNSUPPORTED (#623140). (clumens)
+- If getting .treeinfo fails, try treeinfo (#635065). (clumens)
+- instPath -> rootPath (clumens)
+- Add rdate, tty, which to install image (mgracik)
+- Don't add --enablefingerprint unless fprintd-pam is installed (#656434).
+  (clumens)
+
 * Tue Nov 30 2010 Chris Lumens <clumens@redhat.com> - 15.8-1
 - Ignore immutable disks in clearPartitions (#657115) (bcl)
 - Add biosdevname to installer environment (Matt_Domsch)
