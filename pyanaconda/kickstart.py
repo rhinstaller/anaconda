@@ -207,33 +207,33 @@ def removeExistingFormat(device, storage):
 ###
 
 class Authconfig(commands.authconfig.FC3_Authconfig):
-    def execute(self, anaconda):
-        anaconda.security.auth = self.authconfig
+    def execute(self):
+        self.anaconda.security.auth = self.authconfig
 
 class AutoPart(commands.autopart.F12_AutoPart):
-    def execute(self, anaconda):
+    def execute(self):
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
-        anaconda.instClass.setDefaultPartitioning(anaconda.storage, anaconda.platform)
-        anaconda.storage.doAutoPart = True
+        self.anaconda.instClass.setDefaultPartitioning(self.anaconda.storage, self.anaconda.platform)
+        self.anaconda.storage.doAutoPart = True
 
         if self.encrypted:
-            anaconda.storage.encryptedAutoPart = True
-            anaconda.storage.encryptionPassphrase = self.passphrase
-            anaconda.storage.autoPartEscrowCert = \
-                getEscrowCertificate(anaconda, self.escrowcert)
-            anaconda.storage.autoPartAddBackupPassphrase = \
+            self.anaconda.storage.encryptedAutoPart = True
+            self.anaconda.storage.encryptionPassphrase = self.passphrase
+            self.anaconda.storage.autoPartEscrowCert = \
+                getEscrowCertificate(self.anaconda, self.escrowcert)
+            self.anaconda.storage.autoPartAddBackupPassphrase = \
                 self.backuppassphrase
 
-        anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class AutoStep(commands.autostep.FC3_AutoStep):
-    def execute(self, anaconda):
+    def execute(self):
         flags.autostep = 1
         flags.autoscreenshot = self.autoscreenshot
 
 class Bootloader(commands.bootloader.F15_Bootloader):
-    def execute(self, anaconda):
+    def execute(self):
         if self.location == "none":
             location = None
         elif self.location == "partition":
@@ -241,60 +241,60 @@ class Bootloader(commands.bootloader.F15_Bootloader):
         else:
             location = self.location
 
-        if self.upgrade and not anaconda.upgrade:
+        if self.upgrade and not self.anaconda.upgrade:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Selected upgrade mode for bootloader but not doing an upgrade")
 
         if self.upgrade:
-            anaconda.bootloader.kickstart = 1
-            anaconda.bootloader.doUpgradeOnly = 1
+            self.anaconda.bootloader.kickstart = 1
+            self.anaconda.bootloader.doUpgradeOnly = 1
 
         if location is None:
-            anaconda.ksdata.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
+            self.anaconda.ksdata.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:
-            anaconda.ksdata.showSteps.append("bootloader")
+            self.anaconda.ksdata.showSteps.append("bootloader")
 
             if self.appendLine:
-                anaconda.bootloader.args.append(self.appendLine)
+                self.anaconda.bootloader.args.append(self.appendLine)
 
             if self.password:
-                anaconda.bootloader.setPassword(self.password, isCrypted = self.isCrypted)
+                self.anaconda.bootloader.setPassword(self.password, isCrypted = self.isCrypted)
 
             if location != None:
-                anaconda.bootloader.defaultDevice = location
+                self.anaconda.bootloader.defaultDevice = location
             else:
-                anaconda.bootloader.defaultDevice = -1
+                self.anaconda.bootloader.defaultDevice = -1
 
             if self.timeout:
-                anaconda.bootloader.timeout = self.timeout
+                self.anaconda.bootloader.timeout = self.timeout
 
             # add unpartitioned devices that will get partitioned into
             # bootloader.drivelist
-            disks = anaconda.storage.disks
-            partitioned = anaconda.storage.partitioned
+            disks = self.anaconda.storage.disks
+            partitioned = self.anaconda.storage.partitioned
             for disk in [d for d in disks if not d.partitioned]:
-                if shouldClear(disk, anaconda.storage.config.clearPartType,
-                               anaconda.storage.config.clearPartDisks):
+                if shouldClear(disk, self.anaconda.storage.config.clearPartType,
+                               self.anaconda.storage.config.clearPartDisks):
                     # add newly partitioned disks to the drivelist
-                    anaconda.bootloader.drivelist.append(disk.name)
-                elif disk.name in anaconda.bootloader.drivelist:
+                    self.anaconda.bootloader.drivelist.append(disk.name)
+                elif disk.name in self.anaconda.bootloader.drivelist:
                     # remove unpartitioned disks from the drivelist
-                    anaconda.bootloader.drivelist.remove(disk.name)
-            anaconda.bootloader.drivelist.sort(
-                cmp=anaconda.storage.compareDisks)
+                    self.anaconda.bootloader.drivelist.remove(disk.name)
+            self.anaconda.bootloader.drivelist.sort(
+                cmp=self.anaconda.storage.compareDisks)
 
             # Throw out drives specified that don't exist.
             if self.driveorder and len(self.driveorder) > 0:
                 new = []
                 for drive in self.driveorder:
-                    if drive in anaconda.bootloader.drivelist:
+                    if drive in self.anaconda.bootloader.drivelist:
                         new.append(drive)
                     else:
                         log.warning("requested drive %s in boot drive order "
                                     "doesn't exist" %(drive,))
 
-                anaconda.bootloader.updateDriveList(new)
+                self.anaconda.bootloader.updateDriveList(new)
 
-        anaconda.ksdata.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
+        self.anaconda.ksdata.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
 
 class ClearPart(commands.clearpart.FC3_ClearPart):
     def parse(self, args):
@@ -317,14 +317,14 @@ class ClearPart(commands.clearpart.FC3_ClearPart):
 
         return retval
 
-    def execute(self, anaconda):
-        anaconda.storage.config.clearPartType = self.type
-        anaconda.storage.config.clearPartDisks = self.drives
+    def execute(self):
+        self.anaconda.storage.config.clearPartType = self.type
+        self.anaconda.storage.config.clearPartDisks = self.drives
         if self.initAll:
-            anaconda.storage.config.reinitializeDisks = self.initAll
+            self.anaconda.storage.config.reinitializeDisks = self.initAll
 
-        clearPartitions(anaconda.storage)
-        anaconda.ksdata.skipSteps.append("cleardiskssel")
+        clearPartitions(self.anaconda.storage)
+        self.anaconda.ksdata.skipSteps.append("cleardiskssel")
 
 class Fcoe(commands.fcoe.F13_Fcoe):
     def parse(self, args):
@@ -338,15 +338,15 @@ class Fcoe(commands.fcoe.F13_Fcoe):
         return fc
 
 class Firewall(commands.firewall.F14_Firewall):
-    def execute(self, anaconda):
-        anaconda.firewall.enabled = self.enabled
-        anaconda.firewall.trustdevs = self.trusts
+    def execute(self):
+        self.anaconda.firewall.enabled = self.enabled
+        self.anaconda.firewall.trustdevs = self.trusts
 
         for port in self.ports:
-            anaconda.firewall.portlist.append (port)
+            self.anaconda.firewall.portlist.append (port)
 
         for svc in self.services:
-            anaconda.firewall.servicelist.append (svc)
+            self.anaconda.firewall.servicelist.append (svc)
 
 class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
     def parse(self, args):
@@ -375,9 +375,9 @@ class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
 
         return retval
 
-    def execute(self, anaconda):
+    def execute(self):
         if not self.interactive:
-            anaconda.ksdata.skipSteps.extend(["filter", "filtertype"])
+            self.anaconda.ksdata.skipSteps.extend(["filter", "filtertype"])
 
 class Iscsi(commands.iscsi.F10_Iscsi):
     class Login(object):
@@ -419,21 +419,21 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
         return retval
 
 class Keyboard(commands.keyboard.FC3_Keyboard):
-    def execute(self, anaconda):
-        anaconda.keyboard.set(self.keyboard)
-        anaconda.keyboard.beenset = 1
-        anaconda.ksdata.skipSteps.append("keyboard")
+    def execute(self):
+        self.anaconda.keyboard.set(self.keyboard)
+        self.anaconda.keyboard.beenset = 1
+        self.anaconda.ksdata.skipSteps.append("keyboard")
 
 class Lang(commands.lang.FC3_Lang):
-    def execute(self, anaconda):
-        anaconda.instLanguage.instLang = self.lang
-        anaconda.instLanguage.systemLang = self.lang
-        anaconda.ksdata.skipSteps.append("language")
+    def execute(self):
+        self.anaconda.instLanguage.instLang = self.lang
+        self.anaconda.instLanguage.systemLang = self.lang
+        self.anaconda.ksdata.skipSteps.append("language")
 
 class LogVolData(commands.logvol.F12_LogVolData):
-    def execute(self, anaconda):
-        storage = anaconda.storage
-        devicetree = storage.devicetree
+    def execute(self):
+        storage = self.anaconda.storage
+        devicetree = self.storage.devicetree
 
         storage.doAutoPart = False
 
@@ -470,7 +470,7 @@ class LogVolData(commands.logvol.F12_LogVolData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
         # Make sure this LV name is not already used in the requested VG.
@@ -533,7 +533,7 @@ class LogVolData(commands.logvol.F12_LogVolData):
             if self.passphrase and not storage.encryptionPassphrase:
                 storage.encryptionPassphrase = self.passphrase
 
-            cert = getEscrowCertificate(anaconda, self.escrowcert)
+            cert = getEscrowCertificate(self.anaconda, self.escrowcert)
             if self.preexist:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
@@ -552,10 +552,10 @@ class LogVolData(commands.logvol.F12_LogVolData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class Logging(commands.logging.FC6_Logging):
-    def execute(self, anaconda):
+    def execute(self):
         if logger.tty_loglevel == DEFAULT_TTY_LEVEL:
             # not set from the command line
             level = logLevelMap[self.level]
@@ -570,16 +570,16 @@ class Logging(commands.logging.FC6_Logging):
             if self.port:
                 remote_server = "%s:%s" %(self.host, self.port)
             logger.updateRemote(remote_server)
-    
-class NetworkData(commands.network.F8_NetworkData):
-    def execute(self, anaconda):
 
-        devices = anaconda.network.netdevices
+class NetworkData(commands.network.F8_NetworkData):
+    def execute(self):
+
+        devices = self.anaconda.network.netdevices
 
         if not self.device:
-            if anaconda.network.ksdevice:
+            if self.anaconda.network.ksdevice:
                 msg = "ksdevice boot parameter"
-                device = anaconda.network.ksdevice
+                device = self.anaconda.network.ksdevice
             elif network.hasActiveNetDev():
                 # device activated in stage 1 by network kickstart command
                 msg = "first active device"
@@ -606,8 +606,8 @@ class NetworkData(commands.network.F8_NetworkData):
                     break
 
         if self.hostname != "":
-            anaconda.network.setHostname(self.hostname)
-            anaconda.network.overrideDHCPhostname = True
+            self.anaconda.network.setHostname(self.hostname)
+            self.anaconda.network.overrideDHCPhostname = True
             if not dev:
                 # Only set hostname
                 return
@@ -659,22 +659,22 @@ class NetworkData(commands.network.F8_NetworkData):
                     dev.writeWepkeyFile()
 
             if self.nameserver != "":
-                anaconda.network.setDNS(self.nameserver, device)
+                self.anaconda.network.setDNS(self.nameserver, device)
 
             if self.gateway != "":
-                anaconda.network.setGateway(self.gateway, device)
+                self.anaconda.network.setGateway(self.gateway, device)
 
-        needs_net = (anaconda.methodstr and
-                     (anaconda.methodstr.startswith("http:") or
-                      anaconda.methodstr.startswith("ftp:") or
-                      anaconda.methodstr.startswith("nfs:")))
+        needs_net = (self.anaconda.methodstr and
+                     (self.anaconda.methodstr.startswith("http:") or
+                      self.anaconda.methodstr.startswith("ftp:") or
+                      self.anaconda.methodstr.startswith("nfs:")))
         # First kickstart network command wins
         # TODORV: document
         if needs_net and not network.hasActiveNetDev():
             log.info("Bringing up network device %s in stage2 kickstart ..." %
                      device)
             dev.set (("onboot", "yes"))
-            rc = anaconda.network.bringUp()
+            rc = self.anaconda.network.bringUp()
             log.info("Network setup %s" % (rc and 'succeeded' or 'failed',))
 
 class MultiPath(commands.multipath.FC6_MultiPath):
@@ -686,9 +686,9 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
 class PartitionData(commands.partition.F12_PartData):
-    def execute(self, anaconda):
-        storage = anaconda.storage
-        devicetree = storage.devicetree
+    def execute(self):
+        storage = self.anaconda.storage
+        devicetree = self.storage.devicetree
         kwargs = {}
 
         storage.doAutoPart = False
@@ -719,11 +719,11 @@ class PartitionData(commands.partition.F12_PartData):
         elif self.mountpoint == 'appleboot':
             type = "Apple Bootstrap"
             self.mountpoint = ""
-            kwargs["weight"] = anaconda.platform.weight(fstype="appleboot")
+            kwargs["weight"] = self.anaconda.platform.weight(fstype="appleboot")
         elif self.mountpoint == 'prepboot':
             type = "PPC PReP Boot"
             self.mountpoint = ""
-            kwargs["weight"] = anaconda.platform.weight(fstype="prepboot")
+            kwargs["weight"] = self.anaconda.platform.weight(fstype="prepboot")
         elif self.mountpoint.startswith("raid."):
             type = "mdmember"
             kwargs["name"] = self.mountpoint
@@ -736,7 +736,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             # store "raid." alias for other ks partitioning commands
             if self.onPart:
-                anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
+                self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint.startswith("pv."):
             type = "lvmpv"
@@ -747,17 +747,17 @@ class PartitionData(commands.partition.F12_PartData):
 
             # store "pv." alias for other ks partitioning commands
             if self.onPart:
-                anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
+                self.anaconda.ksdata.onPart[kwargs["name"]] = self.onPart
             self.mountpoint = ""
         elif self.mountpoint == "/boot/efi":
             type = "EFI System Partition"
             self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
-            kwargs["weight"] = anaconda.platform.weight(fstype="efi")
+            kwargs["weight"] = self.anaconda.platform.weight(fstype="efi")
         else:
             if self.fstype != "":
                 type = self.fstype
             elif self.mountpoint == "/boot":
-                type = anaconda.platform.defaultBootFSType
+                type = self.anaconda.platform.defaultBootFSType
             else:
                 type = storage.defaultFSType
 
@@ -773,7 +773,7 @@ class PartitionData(commands.partition.F12_PartData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
         # Now get a format to hold a lot of these extra values.
@@ -843,7 +843,7 @@ class PartitionData(commands.partition.F12_PartData):
             if self.passphrase and not storage.encryptionPassphrase:
                storage.encryptionPassphrase = self.passphrase
 
-            cert = getEscrowCertificate(anaconda, self.escrowcert)
+            cert = getEscrowCertificate(self.anaconda, self.escrowcert)
             if self.onPart:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
@@ -862,19 +862,19 @@ class PartitionData(commands.partition.F12_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class Reboot(commands.reboot.FC6_Reboot):
-    def execute(self, anaconda):
-        anaconda.ksdata.skipSteps.append("complete")
+    def execute(self):
+        self.anaconda.ksdata.skipSteps.append("complete")
 
 class RaidData(commands.raid.F12_RaidData):
-    def execute(self, anaconda):
+    def execute(self):
         raidmems = []
         devicename = "md%d" % self.device
 
-        storage = anaconda.storage
-        devicetree = storage.devicetree
+        storage = self.anaconda.storage
+        devicetree = self.storage.devicetree
         kwargs = {}
 
         storage.doAutoPart = False
@@ -885,7 +885,7 @@ class RaidData(commands.raid.F12_RaidData):
         elif self.mountpoint.startswith("pv."):
             type = "lvmpv"
             kwargs["name"] = self.mountpoint
-            anaconda.ksdata.onPart[kwargs["name"]] = devicename
+            self.anaconda.ksdata.onPart[kwargs["name"]] = devicename
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="PV partition defined multiple times")
@@ -894,8 +894,8 @@ class RaidData(commands.raid.F12_RaidData):
         else:
             if self.fstype != "":
                 type = self.fstype
-            elif self.mountpoint == "/boot" and anaconda.platform.supportsMdRaidBoot:
-                type = anaconda.platform.defaultBootFSType
+            elif self.mountpoint == "/boot" and self.anaconda.platform.supportsMdRaidBoot:
+                type = self.anaconda.platform.defaultBootFSType
             else:
                 type = storage.defaultFSType
 
@@ -915,13 +915,13 @@ class RaidData(commands.raid.F12_RaidData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
-            anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+            self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
             return
 
         # Get a list of all the RAID members.
         for member in self.members:
             # if member is using --onpart, use original device
-            member = anaconda.ksdata.onPart.get(member, member)
+            member = self.anaconda.ksdata.onPart.get(member, member)
             dev = devicetree.getDeviceByName(member)
             if dev and dev.format.type == "luks":
                 try:
@@ -988,7 +988,7 @@ class RaidData(commands.raid.F12_RaidData):
             if self.passphrase and not storage.encryptionPassphrase:
                storage.encryptionPassphrase = self.passphrase
 
-            cert = getEscrowCertificate(anaconda, self.escrowcert)
+            cert = getEscrowCertificate(self.anaconda, self.escrowcert)
             if self.preexist:
                 luksformat = format
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
@@ -1007,52 +1007,52 @@ class RaidData(commands.raid.F12_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-        anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
+        self.anaconda.ksdata.skipSteps.extend(["partition", "zfcpconfig", "parttype"])
 
 class RootPw(commands.rootpw.F8_RootPw):
-    def execute(self, anaconda):
-        anaconda.users.rootPassword["password"] = self.password
-        anaconda.users.rootPassword["isCrypted"] = self.isCrypted
-        anaconda.users.rootPassword["lock"] = self.lock
-        anaconda.ksdata.skipSteps.append("accounts")
+    def execute(self):
+        self.anaconda.users.rootPassword["password"] = self.password
+        self.anaconda.users.rootPassword["isCrypted"] = self.isCrypted
+        self.anaconda.users.rootPassword["lock"] = self.lock
+        self.anaconda.ksdata.skipSteps.append("accounts")
 
 class SELinux(commands.selinux.FC3_SELinux):
-    def execute(self, anaconda):
-        anaconda.security.setSELinux(self.selinux)
+    def execute(self):
+        self.anaconda.security.setSELinux(self.selinux)
 
 class SkipX(commands.skipx.FC3_SkipX):
-    def execute(self, anaconda):
-        if anaconda.desktop is not None:
-            anaconda.desktop.setDefaultRunLevel(3)
+    def execute(self):
+        if self.anaconda.desktop is not None:
+            self.anaconda.desktop.setDefaultRunLevel(3)
 
 class Timezone(commands.timezone.FC6_Timezone):
-    def execute(self, anaconda):
+    def execute(self):
         # check validity
         tab = zonetab.ZoneTab()
         if self.timezone not in (entry.tz.replace(' ','_') for entry in
                                  tab.getEntries()):
             log.warning("Timezone %s set in kickstart is not valid." % (self.timezone,))
 
-        anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
-        anaconda.ksdata.skipSteps.append("timezone")
+        self.anaconda.timezone.setTimezoneInfo(self.timezone, self.isUtc)
+        self.anaconda.ksdata.skipSteps.append("timezone")
 
 class Upgrade(commands.upgrade.F11_Upgrade):
-    def execute(self, anaconda):
-        anaconda.upgrade = self.upgrade
+    def execute(self):
+        self.anaconda.upgrade = self.upgrade
 
 class VolGroupData(commands.volgroup.FC3_VolGroupData):
-    def execute(self, anaconda):
+    def execute(self):
         pvs = []
 
-        storage = anaconda.storage
-        devicetree = storage.devicetree
+        storage = self.anaconda.storage
+        devicetree = self.storage.devicetree
 
         storage.doAutoPart = False
 
         # Get a list of all the physical volume devices that make up this VG.
         for pv in self.physvols:
             # if pv is using --onpart, use original device
-            pv = anaconda.ksdata.onPart.get(pv, pv)
+            pv = self.anaconda.ksdata.onPart.get(pv, pv)
             dev = devicetree.getDeviceByName(pv)
             if dev and dev.format.type == "luks":
                 try:
@@ -1086,12 +1086,12 @@ class VolGroupData(commands.volgroup.FC3_VolGroupData):
             storage.createDevice(request)
 
 class XConfig(commands.xconfig.F14_XConfig):
-    def execute(self, anaconda):
+    def execute(self):
         if self.startX:
-            anaconda.desktop.setDefaultRunLevel(5)
+            self.anaconda.desktop.setDefaultRunLevel(5)
 
         if self.defaultdesktop:
-            anaconda.desktop.setDefaultDesktop(self.defaultdesktop)
+            self.anaconda.desktop.setDefaultDesktop(self.defaultdesktop)
 
 class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
@@ -1195,7 +1195,7 @@ class AnacondaKSHandler(superclass):
     def execute(self):
         try:
             for obj in filter(lambda o: hasattr(o, "execute"), self._dataObjs):
-                obj.execute(self.anaconda)
+                obj.execute()
         except KickstartError as e:
             if self.anaconda.intf:
                 self.anaconda.intf.kickstartErrorWindow(e.__str__())
