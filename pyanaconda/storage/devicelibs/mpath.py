@@ -4,6 +4,9 @@ import re
 from ..udev import *
 from pyanaconda import iutil
 
+import logging
+log = logging.getLogger("storage")
+
 def parseMultipathOutput(output):
     # this function parses output from "multipath -d", so we can use its
     # logic for our topology.
