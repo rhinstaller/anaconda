@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.220
+Version: 11.1.2.221
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 9 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.221-1
+- Japanese translations were updated (transifex)
+  Resolves: rhbz#661199
+
 * Mon Dec 6 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.220-1
 - Gtk package %post script has changed (rvykydal)
   Resolves: rhbz#659309
