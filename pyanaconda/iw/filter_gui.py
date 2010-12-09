@@ -434,7 +434,7 @@ class FilterWindow(InstallWindow):
                                              custom_icon="error")
             raise gui.StayOnScreen
 
-        self.anaconda.storage.exclusiveDisks = list(selected)
+        self.anaconda.storage.config.exclusiveDisks = list(selected)
 
     def _add_advanced_clicked(self, button):
         from advanced_storage import addDrive
@@ -550,7 +550,7 @@ class FilterWindow(InstallWindow):
     def getScreen(self, anaconda):
         # We skip the filter UI in basic storage mode
         if anaconda.simpleFilter:
-            anaconda.storage.exclusiveDisks = []
+            anaconda.storage.config.exclusiveDisks = []
             return None
 
         (self.xml, self.vbox) = gui.getGladeWidget("filter.glade", "vbox")
@@ -593,8 +593,8 @@ class FilterWindow(InstallWindow):
         fcoe.fcoe().startup(anaconda.intf)
         zfcp.ZFCP().startup(anaconda.intf)
         dasd.DASD().startup(anaconda.intf,
-                                    anaconda.storage.exclusiveDisks,
-                                    anaconda.storage.zeroMbr)
+                                    anaconda.storage.config.exclusiveDisks,
+                                    anaconda.storage.config.zeroMbr)
         disks = self._getFilterDisks()
 
         mcw = MultipathConfigWriter()
@@ -684,11 +684,11 @@ class FilterWindow(InstallWindow):
 
             name = udev_device_get_name(info)
 
-            if self.anaconda.storage.exclusiveDisks and \
-               name in self.anaconda.storage.exclusiveDisks:
+            if self.anaconda.storage.config.exclusiveDisks and \
+               name in self.anaconda.storage.config.exclusiveDisks:
                 return True
-            elif self.anaconda.storage.ignoredDisks and \
-                name not in self.anaconda.storage.ignoredDisks:
+            elif self.anaconda.storage.config.ignoredDisks and \
+                name not in self.anaconda.storage.config.ignoredDisks:
                 return True
             else:
                 return False
