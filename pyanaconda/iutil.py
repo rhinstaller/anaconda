@@ -812,198 +812,45 @@ def numeric_type(num):
 
     return num
 
-def writeReiplMethod(reipl_path, reipl_type):
-    filename = "%s/reipl_type" % (reipl_path,)
-
-    try:
-        f = open(filename, "w")
-    except Exception, e:
-        message = _("Error: On open, cannot set reIPL method to %(reipl_type)s "
-                    "(%(filename)s: %(e)s)" % {'reipl_type': reipl_type,
-                                               'filename': filename,
-                                               'e': e})
-        log.warning(message)
-        raise Exception (message)
-
-    try:
-        f.write(reipl_type)
-        f.flush()
-    except Exception, e:
-        message = _("Error: On write, cannot set reIPL method to "
-                    "%(reipl_type)s (%(filename)s: %(e)s)" \
-                  % {'reipl_type': reipl_type, 'filename': filename, 'e': e})
-        log.warning(message)
-        raise Exception (message)
-
-    try:
-        f.close()
-    except Exception, e:
-        message = _("Error: On close, cannot set reIPL method to "
-                    "%(reipl_type)s (%(filename)s: %(e)s)" \
-                  % {'reipl_type': reipl_type, 'filename': filename, 'e': e})
-        log.warning(message)
-        raise Exception (message)
-
-def reIPLonCCW(iplsubdev, reipl_path):
-    device = "<unknown>"
-
-    try:
-        device = os.readlink("/sys/block/" + iplsubdev + "/device").split('/')[-1]
-
-        writeReiplMethod(reipl_path, 'ccw')
-
-        try:
-            f = open("%s/ccw/device" % (reipl_path,), "w")
-            f.write(device)
-            f.close()
-        except Exception, e:
-            message = _("Error: Could not set %(device)s as reIPL device "
-                        "(%(e)s)" % {'device': device, 'e': e})
-            log.warning(message)
-            raise Exception (message)
-
-        try:
-            f = open("%s/ccw/loadparm" % (reipl_path,), "w")
-            f.write("\n")
-            f.close()
-        except Exception, e:
-            message = _("Error: Could not reset loadparm (%s)" % (e,))
-            log.warning(message)
-            raise Exception (message)
-
-        try:
-            f = open("%s/ccw/parm" % (reipl_path,), "w")
-            f.write("\n")
-            f.close()
-        except Exception, e:
-            message = _("Warning: Could not reset parm (%s)" % (e,))
-            log.warning(message)
-            # do NOT raise an exception since this might not exist or not be writable
-
-        log.info("ccw reIPL using DASD %s" % (device,))
-
-    except Exception, e:
-        try:
-            message = e.args[0]
-        except:
-            message = e.__str__ ()
-        log.info("Caught exception %s", (message,))
-        return (message,
-                (_("After shutdown, please perform a manual IPL from DASD device %s to continue "
-                   "installation") % (device,)))
-
-    return None
-
-def reIPLonFCP(iplsubdev, reipl_path):
-    fcpvalue = { "device": "<unknown>", "wwpn": "<unknown>", "lun": "<unknown>" }
-
-    try:
-        syspath = "/sys/block/" + iplsubdev + "/device"
-
-        fcpprops = [ ("hba_id", "device"), ("wwpn", "wwpn"), ("fcp_lun", "lun") ]
-
-        # Read in values to change.
-        # This way, if we can't set FCP mode, we can tell the user what to manually reboot to.
-        for (syspath_property, reipl_property) in fcpprops:
-            try:
-                f = open(syspath + "/" + syspath_property, "r")
-                value = f.read().strip()
-                fcpvalue[reipl_property] = value
-                f.close()
-            except Exception, e:
-                message = _("Error: reading FCP property %(syspath_property)s "
-                            "for reIPL (%(e)s)" \
-                          % {'syspath_property': syspath_property, 'e': e})
-                log.warning(message)
-                raise Exception (message)
-
-        writeReiplMethod(reipl_path, 'fcp')
-
-        # Write out necessary parameters.
-        for (syspath_property, reipl_property) in fcpprops:
-            try:
-                f = open("%s/fcp/%s" % (reipl_path, reipl_property,), "w")
-                f.write(fcpvalue[reipl_property])
-                f.close()
-            except Exception, e:
-                message = _("Error: writing FCP property %(reipl_property)s "
-                            "for reIPL (%(e)s)" \
-                          % {'reipl_property': reipl_property, 'e': e})
-                log.warning(message)
-                raise Exception (message)
-
-        defaultprops = [ ("bootprog", "0"), ("br_lba", "0") ]
-
-        # Write out default parameters.
-        for (reipl_property, default_value) in defaultprops:
-            try:
-                f = open("%s/fcp/%s" % (reipl_path, reipl_property,), "w")
-                f.write (default_value)
-                f.close()
-            except Exception, e:
-                message = _("Error: writing default FCP property "
-                            "%(reipl_property)s for reIPL (%(e)s)" \
-                          % {'reipl_property': reipl_property, 'e': e})
-                log.warning(message)
-                raise Exception (message)
-
-        log.info("fcp reIPL using FCP %(device)s, WWPN %(wwpn)s, LUN %(lun)s" % (fcpvalue))
-
-    except Exception, e:
-        try:
-            message = e.args[0]
-        except:
-            message = e.__str__ ()
-        log.info("Caught exception %s", (message,))
-        return (message,
-                (_("After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %(wwpn)s "
-                   "and LUN %(lun)s to continue installation") % (fcpvalue)))
-
-    return None
-
-
-def reIPLtrigger(anaconda):
-    if not isS390():
-        return
-    if anaconda.canReIPL:
-        log.info("reIPL configuration successful => reboot")
-        os.kill(os.getppid(), signal.SIGUSR2)
-    else:
-        log.info("reIPL configuration failed => halt")
-        os.kill(os.getppid(), signal.SIGUSR1)
-
 def reIPL(anaconda, loader_pid):
-    instruction = _("After shutdown, please perform a manual IPL from the device "
-                    "now containing /boot to continue installation")
-
-    reipl_path = "/sys/firmware/reipl"
-
     try:
         ipldev = anaconda.platform.bootDevice().disk.name
     except:
-        ipldev = None
-
-    if ipldev is None:
         message = _("Error determining boot device's disk name")
         log.warning(message)
-        return (message, instruction)
+        return message
 
-    message = (_("The mount point /boot or / is on a disk that we are not familiar with"), instruction)
-    if ipldev.startswith("dasd"):
-        message = reIPLonCCW(ipldev, reipl_path)
-    elif ipldev.startswith("sd"):
-        message = reIPLonFCP(ipldev, reipl_path)
+    try:
+        rc = execWithRedirect("chreipl", ["node", "/dev/" + ipldev],
+                              stdout = "/dev/tty5",
+                              stderr = "/dev/tty5")
+    except Exception, e:
+        log.info("Unable to set reIPL device to %s: %s",
+                 ipldev, e.message)
 
-    if message is None:
-        anaconda.canReIPL = True
-    else:
+    if rc:
         anaconda.canReIPL = False
-        log.info(message)
+        devstring = None
 
-    reIPLtrigger(anaconda)
+        for disk in anaconda.id.storage.disks:
+            if disk.name == ipldev:
+                devstring = disk.reIPLDescription()
+                break
 
-    # the final return is either None if reipl configuration worked (=> reboot),
-    # or a two-item list with errorMessage and rebootInstr (=> shutdown)
+        if devstring is None:
+            devstring = _("the device containing /boot")
+
+        message = _("After shutdown, please perform a manual IPL from %s "
+                    "to continue installation." % devstring)
+
+        log.info("reIPL configuration failed => halt")
+        os.kill(os.getppid(), signal.SIGUSR1)
+    else:
+        anaconda.canReIPL = True
+        message = None
+        log.info("reIPL configuration successful => reboot")
+        os.kill(os.getppid(), signal.SIGUSR2)
+
     return message
 
 def resetRpmDb(rootdir):

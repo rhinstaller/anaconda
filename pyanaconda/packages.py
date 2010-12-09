@@ -349,20 +349,9 @@ def betaNagScreen(anaconda):
 	    break
 
 def doReIPL(anaconda):
-#   # This is here as an example to fix the screen during the TUI debugging path
-#   anaconda.intf.screen.suspend ()
-#   import pdb
-#   pdb.set_trace ()
-
     if not iutil.isS390() or anaconda.dir == DISPATCH_BACK:
         return DISPATCH_NOOP
 
-    messageInfo = iutil.reIPL(anaconda, os.getppid())
-
-    if messageInfo:
-        (errorMessage, rebootInstr) = messageInfo
-
-        # errorMessage intentionally not shown in UI
-        anaconda.reIPLMessage = rebootInstr
+    anaconda.reIPLMessage = iutil.reIPL(anaconda, os.getppid())
 
     return DISPATCH_FORWARD
