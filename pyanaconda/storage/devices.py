@@ -3801,7 +3801,15 @@ class OpticalDevice(StorageDevice):
         os.close(fd)
 
 
-class ZFCPDiskDevice(DiskDevice):
+class MainframeDiskDevice(DiskDevice):
+    """ Abstract mainframe disk. """
+    _type = "mainframe"
+
+    def reIPLDescription(self):
+        return self.desc
+
+
+class ZFCPDiskDevice(MainframeDiskDevice):
     """ A mainframe ZFCP disk. """
     _type = "zfcp"
 
@@ -3809,10 +3817,15 @@ class ZFCPDiskDevice(DiskDevice):
         self.hba_id = kwargs.pop("hba_id")
         self.wwpn = kwargs.pop("wwpn")
         self.fcp_lun = kwargs.pop("fcp_lun")
-        DiskDevice.__init__(self, device, **kwargs)
+        self.desc = _("FCP device %(device)s with WWPN %(wwpn)s "
+                      "and LUN %(lun)s"
+                      % {'device': self.hba_id,
+                         'wwpn': self.wwpn,
+                         'lun': self.fcp_lun})
+        MainframeDiskDevice.__init__(self, device, **kwargs)
 
     def __str__(self):
-        s = DiskDevice.__str__(self)
+        s = MainframeDiskDevice.__str__(self)
         s += ("  hba_id = %(hba_id)s  wwpn = %(wwpn)s  fcp_lun = %(fcp_lun)s" %
               {"hba_id": self.hba_id,
                "wwpn": self.wwpn,
@@ -3823,7 +3836,7 @@ class ZFCPDiskDevice(DiskDevice):
         return "rd_ZFCP=%s,%s,%s" % (self.hba_id, self.wwpn, self.fcp_lun,)
 
 
-class DASDDevice(DiskDevice):
+class DASDDevice(MainframeDiskDevice):
     """ A mainframe DASD. """
     _type = "dasd"
 
@@ -3831,7 +3844,8 @@ class DASDDevice(DiskDevice):
         self.busid = kwargs.pop('busid')
         self.opts = kwargs.pop('opts')
         self.dasd = kwargs.pop('dasd')
-        DiskDevice.__init__(self, device, **kwargs)
+        self.desc = _("DASD device %s" % self.busid)
+        MainframeDiskDevice.__init__(self, device, **kwargs)
 
         if self.dasd:
             self.dasd.addDASD(self)
