@@ -172,10 +172,7 @@ class DeviceTree(object):
         self.iscsi = iscsi
         self.dasd = dasd
 
-        # disk image files are automatically exclusive
-        self.diskImages = getattr(conf, "diskImages", {})
-        if self.diskImages:
-            self.exclusiveDisks = self.diskImages.keys()
+        self.setDiskImages(getattr(conf, "diskImages", {}))
 
         # protected device specs as provided by the user
         self.protectedDevSpecs = getattr(conf, "protectedDevSpecs", [])
@@ -198,6 +195,12 @@ class DeviceTree(object):
         devicelibs.lvm.lvm_cc_resetFilter()
 
         self._cleanup = False
+
+    def setDiskImages(self, images):
+        """ Set the disk images and reflect them in exclusiveDisks. """
+        self.diskImages = images
+        # disk image files are automatically exclusive
+        self.exclusiveDisks = self.diskImages.keys()
 
     def addIgnoredDisk(self, disk):
         self._ignoredDisks.append(disk)
@@ -1574,6 +1577,7 @@ class DeviceTree(object):
         return ret
 
     def setupDiskImages(self):
+        """ Set up devices to represent the disk image files. """
         for (name, path) in self.diskImages.items():
             log.info("setting up disk image file '%s' as '%s'" % (path, name))
             try:

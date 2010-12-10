@@ -626,6 +626,7 @@ if __name__ == "__main__":
         anaconda.storage.config.diskImages[name] = path
         image_count += 1
         flags.imageInstall = True
+    anaconda.storage.setupDiskImages()
 
     if opts.vnc:
         flags.usevnc = 1

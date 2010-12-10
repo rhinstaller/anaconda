@@ -961,6 +961,10 @@ class Storage(object):
                     log.error("failed to add new passphrase to existing "
                               "device %s" % device.path)
 
+    def setupDiskImages(self):
+        self.devicetree.setDiskImages(self.config.diskImages)
+        self.devicetree.setupDiskImages()
+
     def sanityCheck(self):
         """ Run a series of tests to verify the storage configuration.
 
