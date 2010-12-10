@@ -367,7 +367,7 @@ def runVNC():
 def within_available_memory(needed_ram):
     # kernel binary code estimate that is
     # not reported in MemTotal by /proc/meminfo:
-    epsilon = 15360 # 15 MB
+    epsilon = 32768 # 32 MB
     return needed_ram < (iutil.memInstalled() + epsilon)
 
 def check_memory(opts, display_mode=None):
