@@ -88,8 +88,6 @@ static PyObject * doMount(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doSwapoff(PyObject * s, PyObject * args);
-static PyObject * doLoSetup(PyObject * s, PyObject * args);
-static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
 static PyObject * doWipeRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doGetRaidChunkSize(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
@@ -123,8 +121,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
     { "wiperaidsb", (PyCFunction) doWipeRaidSuperblock, METH_VARARGS, NULL },
     { "getraidchunk", (PyCFunction) doGetRaidChunkSize, METH_VARARGS, NULL },
-    { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
-    { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
     { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
@@ -150,44 +146,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "total_memory", (PyCFunction) doTotalMemory, METH_NOARGS, NULL },
     { NULL, NULL, 0, NULL }
 } ;
-
-static PyObject * doUnLoSetup(PyObject * s, PyObject * args) {
-    int loopfd;
-
-    if (!PyArg_ParseTuple(args, "i", &loopfd)) return NULL;
-    if (ioctl(loopfd, LOOP_CLR_FD, 0)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
-
-static PyObject * doLoSetup(PyObject * s, PyObject * args) {
-    int loopfd;
-    int targfd;
-    struct loop_info loopInfo;
-    char * loopName;
-
-    if (!PyArg_ParseTuple(args, "iis", &loopfd, &targfd, &loopName)) 
-	return NULL;
-    if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    memset(&loopInfo, 0, sizeof(loopInfo));
-    strncpy(loopInfo.lo_name, basename(loopName), 63);
-
-    if (ioctl(loopfd, LOOP_SET_STATUS, &loopInfo)) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-
-    Py_INCREF(Py_None);
-    return Py_None;
-}
 
 static PyObject * doUMount(PyObject * s, PyObject * args) {
     char *err = NULL, *mntpoint = NULL;

@@ -529,6 +529,7 @@ sbin/killall5
 sbin/kpartx
 sbin/ldconfig
 sbin/load_policy
+sbin/losetup
 sbin/lspci
 sbin/lvm*
 sbin/mdadm
@@ -1054,7 +1055,6 @@ install -m 644 $DEST/usr/share/anaconda/loader.tr $DEST/etc/loader.tr
 
 cp $DEST/usr/share/anaconda/raidstart-stub $DEST/usr/bin/raidstart
 cp $DEST/usr/share/anaconda/raidstop-stub $DEST/usr/bin/raidstop
-cp $DEST/usr/share/anaconda/losetup-stub $DEST/usr/bin/losetup
 cp $DEST/usr/share/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
 cp $DEST/usr/share/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys
 cp $DEST/usr/share/anaconda/mknod-stub $DEST/usr/bin/mknod
