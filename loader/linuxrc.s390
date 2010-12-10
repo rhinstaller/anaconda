@@ -216,18 +216,10 @@ function readcmsfile() # $1=dasdport $2=filename
     local dev
     if [ $# -ne 2 ]; then return; fi
     # precondition: udevd created dasda block device node
-    if ! sysecho /proc/cio_ignore "free $1"; then
+    if ! dasd_cio_free -d $1 ; then
         echo $"DASD $1 could not be cleared from device blacklist"
         return 1
     fi
-    # /proc/cio_ignore won't block on freeing devices until resensing
-    # has been completed, so wait until the udev event queue depletes
-    # (without udevadm settle we could wait 2 seconds unconditionally)
-    #debug ls -laF /dev/.udev
-    udevadm settle
-    # even though the device might now be online, some of its
-    # sysfs attributes might not yet be available
-    sleep 1
     # precondition: dasd_eckd_mod driver incl. dependencies loaded,
     #               dasd_mod must be loaded without setting any DASD online
     dev=$(canonicalize_devno $1)
@@ -483,25 +475,7 @@ function dialog_network_table() {
         done
         if [ "$choice" = "c" ]; then
             echo $"Clearing device blacklist..."
-            if sysecho /proc/cio_ignore "free all"; then
-                cio_wc_bytes=0
-                # /proc/cio_ignore won't block on freeing devices
-                # until resensing has been completed, so wait until
-                # the udev event queue depletes.
-                # This may take a long time so we show "progress":
-                #( while true; do echo -n "."; sleep 3; done ) &
-                #local childpid=$!
-                #debug ls -laF /dev/.udev
-                udevadm settle
-                # (virtual) CTC/A takes some more time to appear in sysfs
-                # FIXME: how long to wait? 3 seconds seems to be enough.
-                sleep 3
-                #kill $childpid
-                #echo
-                continue
-            else
-                echo $"Device blacklist could not be cleared"
-            fi
+            cio_ignore -R || echo $"Device blacklist could not be cleared"
         fi
         [ "$choice" = "m" ] && break
         # finally extract config info from selected item
@@ -2805,14 +2779,8 @@ if [ -r /sys/firmware/ipl/ipl_type ]; then
                     read CD_DEVICE < /sys/firmware/ipl/device
                     read WWPN < /sys/firmware/ipl/wwpn
                     read LUN < /sys/firmware/ipl/lun
-                    if sysecho /proc/cio_ignore "free $CD_DEVICE"; then
-                        udevadm settle
-                        # even though device might now be online, some of its
-                        # sysfs attributes might not yet be available
-                        sleep 1
-                    else
-                        echo $"Device $CD_DEVICE could not be cleared from device blacklist"
-                    fi
+                    zfcp_cio_free -d $CD_DEVICE \
+                        || echo $"Device $CD_DEVICE could not be cleared from device blacklist"
                     sysecho /sys/bus/ccw/drivers/zfcp/$CD_DEVICE/online 1 \
                         || echo $"Could not set FCP device $CD_DEVICE online"
                     udevadm settle
