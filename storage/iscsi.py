@@ -136,12 +136,14 @@ class iscsi(object):
         try:
             found_nodes = libiscsi.discover_firmware()
         except:
-            # an exception here means there is no ibft firmware, just return
+            log.info("iscsi: No IBFT info found.");
             return
 
         for node in found_nodes:
             try:
                 node.login()
+                log.info("iscsi IBFT: logged into %s at %s:%s through %s" % (
+                    node.name, node.address, node.port, node.iface))
                 self.nodes.append(node)
                 self.ibftNodes.append(node)
             except IOError, e:
@@ -267,9 +269,8 @@ class iscsi(object):
             node.setAuth(authinfo)
             node.login()
             rc = True
-            log.info("iSCSI: logged into %s %s:%s" % (node.name, 
-                                                      node.address, 
-                                                      node.port))
+            log.info("iSCSI: logged into %s at %s:%s through %s" % (
+                    node.name, node.address, node.port, node.iface))
             self.nodes.append(node)
         except (IOError, ValueError) as e:
             msg = str(e)
