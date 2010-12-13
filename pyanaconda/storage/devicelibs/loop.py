@@ -57,7 +57,7 @@ def get_device_path(name):
         start = buf.index("(") + 1
         end = buf.rindex(")")
         path = buf[start:end]
-    except IndexError:
+    except (IndexError, ValueError):
         path = ""
 
     log.debug("get_device_path(%s) got '%s'" % (name, path))
