@@ -459,7 +459,6 @@ def startSsh():
         return
 
     if not fork_orphan():
-        os.mkdir("/var/log", 0755)
         os.open("/var/log/lastlog", os.O_RDWR | os.O_CREAT, 0644)
         ssh_keys = {
             'rsa1':'ssh_host_key',
@@ -679,6 +678,8 @@ if __name__ == "__main__":
     signal.signal(signal.SIGSEGV, isys.handleSegv)
 
     setupEnvironment()
+    # make sure we have /var/log soon, some programs fail to start without it
+    os.mkdir("/var/log", 0755)
 
     pidfile = open("/var/run/anaconda.pid", "w")
     pidfile.write("%s\n" % (os.getpid(),))
