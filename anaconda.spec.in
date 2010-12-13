@@ -221,6 +221,138 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Dec 13 2010 Martin Sivak <msivak@redhat.com> - 13.21.84-1
+- memory: bump epsilon in within_available_memory() (akozumpl).
+  Resolves: rhbz#624355
+- Use chreipl to set the IPL device on s390x (dcantrell)
+  Resolves: rhbz#632325
+- Add /usr/sbin/chreipl to KEEPFILE. (dcantrell)
+  Related: rhbz#632325
+- Create a MainframeDiskDevice class for common s390 attributes. (dcantrell)
+  Related: rhbz#632325
+- Do not shut down zFCP storage in Storage.shutdown() (dcantrell)
+  Resolves: rhbz#612626
+- Clarify the ssh modes for installation on s390x (dcantrell).
+  Resolves: rhbz#621590
+- Set installer environment hostname for sw raid LABELs (rvykydal)
+  Resolves: rhbz#640743
+- Improve network (ifcfg) logging (rvykydal).
+  Resolves: rhbz#642998
+- Do not backtrace if repo is specified through kickstart only (akozumpl).
+  Related: rhbz#632526
+  Resolves: rhbz#659781
+- Add proxy handling to .treeinfo (bcl)
+  Resolves: rhbz#634655
+- Move setProxy to AnacondaYum (bcl)
+  Related: rhbz#634655
+  Resolves: rhbz#634655
+- Restore list-harddrives output to what users expect (dcantrell)
+  Resolves: rhbz#654436
+- Permit ext4 and ext2 for /boot on s390x (dcantrell)
+  Resolves: rhbz#638734
+- Check for ARPHRD_ETHER and ARPHRD_SLIP types in getDevices (dcantrell)
+  Resolves: rhbz#596826
+- Fix "logvol --percent=" (jruemker).
+  Resolves: rhbz#651445
+- Update generating of anaconda-ks.cfg for ipv6 (rvykydal)
+  Resolves: rhbz#643008
+- Fix default of network --device option to match rhel5 (rvykydal).
+  Resolves: rhbz#647462
+- Update ks network command for ipv6 in stage 2 (rvykydal)
+  Resolves: rhbz#643005
+- gui: hide text in the proxy password field (akozumpl).
+  Resolves: rhbz#611825
+- support for partial offload in udev_*_iscsi() functions. (akozumpl)
+  Related: rhbz#442980
+- iscsi: partial offload drivers. (akozumpl)
+  Related: rhbz#442980
+- Add command-line.txt back into the package (clumens).
+  Resolves: rhbz#650316
+- Revert "Do not use _rnetdev as fstab option for network based /" (clumens)
+  Resolves: rhbz#644525
+- Don't ignore %packages if --default is given (dcantrell).
+  Resolves: rhbz#621349
+- Don't traceback when displaying %post error messages (clumens).
+  Resolves: rhbz#654074
+- Display a warning message on TAINT_HARDWARE_UNSUPPORTED (clumens).
+  Resolves: rhbz#623140
+- If getting .treeinfo fails, try treeinfo (clumens).
+  Resolves: rhbz#635065
+- Add rdate, tty, which to install image (mgracik)
+  Resolves: rhbz#654432
+- Fix a missing _ped import. (clumens)
+  Resolves: rhbz#640829
+- Focus the window after changing language (mgracik)
+  Resolves: rhbz#628426
+- Ignore immutable disks in clearPartitions (bcl)
+  Resolves: rhbz#657115
+  Related: rhbz#614812
+- Rescan disks when moving back through upgrade check (bcl)
+  Resolves: rhbz#614812
+- Enable network when getting .treeinfo (rvykydal)
+  Resolves: rhbz#632526
+- Preset default config for immediate Close in nm-c-e enablement (rvykydal)
+  Resolves: rhbz#636526
+- Write out correct nfs url for repo= in /root/anaconda-ks.cfg (rvykydal)
+  Resolves: rhbz#635201
+- Fix non-dhcp network enablement in stage 2 (rvykydal)
+  Resolves: rhbz#641324
+- Do not try to prompt for network for escrow in kickstart (rvykydal)
+  Resolves: rhbz#636533
+- After cancelled stage 2 network enablement remove temporary repo (rvykydal)
+  Resolves: rhbz#623641
+- Fix traceback when using duplicate name for added/edited repo (rvykydal)
+  Resolves: rhbz#623149
+- Add support for ipv6 to text UI network enablement (rvykydal)
+  Resolves: rhbz#612476
+- Remember user's choice when going back in Configure TCP/IP (rvykydal)
+  Resolves: rhbz#609570
+- It's /usr/bin/gdbserver. (akozumpl)
+  Related: rhbz#442980
+- Handle dm-N devices pointed to by /dev/disk/ paths (bcl)
+  Related: rhbz#605312
+  Resolves: rhbz#605312
+- Resolve /dev/disk/ devices during rescue (bcl)
+  Resolves: rhbz#605312
+- Add ntpdate to install.img (mgracik)
+  Resolves: rhbz#614399
+- Do not auto-check all drives when creating a RAID partition (akozumpl).
+  Resolves: rhbz#641910
+- (Un)select all button in Partition Editor. (akozumpl)
+  Related: rhbz#641910
+- iscsi, cosmetic: fix grammar in the iscsi dialogs. (akozumpl)
+  Related: rhbz#607827
+- iscsi: call iscsi.stabilize() at the end of the iscsi configuration.
+  (akozumpl)
+  Related: rhbz#607827
+- iscsi: consolidate logging in the UI (akozumpl)
+  Related: rhbz#607827
+- iscsi: allow separate discovery/login credentials in TUI. (akozumpl)
+  Related: rhbz#607827
+- iscsi: migrate the CRED_ constants and parse_ip() to partIntfHelpers.
+  (akozumpl)
+  Related: rhbz#607827
+- iscsi gui: use abstract methods in the iSCSIWizard interface. (akozumpl)
+  Related: rhbz#607827
+- iscsi gui: factor out the drive adding code. (akozumpl)
+  Related: rhbz#607827
+- iscsi gui: make the iSCSI wizard never return gtk constants. (akozumpl)
+  Related: rhbz#607827
+- text.messageWindow(): make it more resilient to the input. (akozumpl)
+  Related: rhbz#607827
+- iscsi: copyright notice in add_drive_text.py (akozumpl)
+  Related: rhbz#607827
+- iscsi: discovery and node login wizard. (akozumpl)
+  Related: rhbz#607827
+- ui: C_reate mnemonics in Create Storage dialog (akozumpl).
+  Resolves: rhbz#626600
+- Use SHA-512 for bootloader password encryption (mitr)
+  Related: rhbz#554874
+- Set focus after error message (tmlcoch)
+  Resolves: rhbz#611430
+- Fix support for "part --ondisk=/dev/disk/by-..." (clumens).
+  Resolves: rhbz#621515
+
 * Mon Oct 18 2010 Chris Lumens <clumens@redhat.com> - 13.21.83-1
 - Add the subscription manager yum plugin (dgregor).
   Resolves: rhbz#643438
