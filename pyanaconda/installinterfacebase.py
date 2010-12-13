@@ -79,21 +79,9 @@ class InstallInterfaceBase(object):
                      "using cached answer: %s" % self._initLabelAnswers["all"])
             return self._initLabelAnswers["all"]
 
-        rc = self.messageWindow(_("Warning"),
-                _("Error processing drive:\n\n"
-                  "%(path)s\n%(size)-0.fMB\n%(description)s\n\n"
-                  "This device may need to be reinitialized.\n\n"
-                  "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n\n"
-                  "This action may also be applied to all other disks "
-                  "needing reinitialization.%(details)s")
-                % {'path': path, 'size': size,
-                   'description': description, 'details': details},
-                type="custom",
-                custom_buttons = [ _("_Ignore"),
-                                   _("Ignore _all"),
-                                   _("_Re-initialize"),
-                                   _("Re-ini_tialize all") ],
-                custom_icon="question")
+        rc = self.reinitializeWindow(_("Storage Device Warning"),
+                                     path, size, description, details)
+
         if rc == 0:
             retVal = False
         elif rc == 1:

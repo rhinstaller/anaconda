@@ -758,6 +758,56 @@ class MessageWindow:
         except SystemError:
             pass
 
+class ReinitializeWindow(MessageWindow):
+
+    def __init__ (self, title, path, size, description, details,
+                  default=None, run=True, parent=None, destroyAfterRun=True):
+
+        self.debugRid = None
+        self.title = title
+        if flags.autostep:
+            self.rc = 1
+            return
+        self.rc = None
+        self.framed = False
+        self.doCustom = False
+
+        xml = gtk.glade.XML(findGladeFile("reinitialize-dialog.glade"),
+                            domain="anaconda")
+
+        self.dialog = xml.get_widget("reinitializeDialog")
+        self.apply_to_all = xml.get_widget("apply_to_all")
+
+        self.label = xml.get_widget("disk_label")
+        text = "<b>%s</b>\n%s MB\t%s" % (description, size, path)
+        self.label.set_markup(text)
+
+        if parent:
+            self.dialog.set_transient_for(parent)
+        self.dialog.set_position(gtk.WIN_POS_CENTER)
+
+        if flags.debug:
+            widget = self.dialog.add_button(_("_Debug"), 2)
+            self.debugRid = 2
+
+        defaultchoice = 0 #no
+        self.dialog.set_default_response(defaultchoice)
+
+        if run:
+            self.run(destroyAfterRun)
+
+    def run(self, destroy=False):
+        MessageWindow.run(self, destroy)
+        apply_all = self.apply_to_all.get_active()
+
+        # doCustom is false, so we will have self.rc set up as following:
+        # if "Yes, discard" was clicked - self.rc = 1
+        # if "No, keep" was clicked     - self.rc = 0
+        if self.rc == 1: #yes
+            self.rc = 3 if apply_all else 2
+        elif self.rc == 0: #no
+            self.rc = 1 if apply_all else 0
+
 class DetailedMessageWindow(MessageWindow):
     def __init__(self, title, text, longText=None, type="ok", default=None, custom_buttons=None, custom_icon=None, run=True, parent=None, destroyAfterRun=True, expanded=False):
         self.title = title
@@ -1041,6 +1091,16 @@ class InstallInterface(InstallInterfaceBase):
 
         rc = MessageWindow (title, text, type, default,
                 custom_buttons, custom_icon, run=True, parent=parent).getrc()
+        return rc
+
+    def reinitializeWindow(self, title, path, size, description, details):
+        if self.icw:
+            parent = self.icw.window
+        else:
+            parent = None
+
+        rc = ReinitializeWindow(title, path, size, description, details,
+                                parent=parent).getrc()
         return rc
 
     def createRepoWindow(self):
