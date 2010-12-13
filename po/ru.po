@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-11-09 11:38-0500\n"
-"PO-Revision-Date: 2010-12-13 20:15+0300\n"
+"PO-Revision-Date: 2010-12-13 20:30+0300\n"
 "Last-Translator: Andrey Zaytsev <andzaytsev@gmail.com>\n"
 "Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
@@ -1923,9 +1923,9 @@ msgstr[1] "Установлено пакетов: %(donepkgs)d из %(numpkgs)d"
 msgstr[2] "Установлено пакетов: %(donepkgs)d из %(numpkgs)d"
 
 #: pyanaconda/yuminstall.py:233
-#, python-format
+#, fuzzy, python-format
 msgid "<b>Cleaning up %s</b>"
-msgstr ""
+msgstr "<b>Очистка %s</b>"
 
 #: pyanaconda/yuminstall.py:253
 msgid "Error Installing Package"
@@ -4056,14 +4056,14 @@ msgid "Error downloading updates image"
 msgstr "Ошибка загрузки образа обновлений"
 
 #: loader/loader.c:1199
-#, c-format
+#, fuzzy, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
-msgstr ""
+msgstr "%s требует %s мегабайт памяти для установки, но у вас есть только %s мегабайт."
 
 #: loader/loader.c:1200
-#, c-format
+#, fuzzy, c-format
 msgid "%s requires %d MB of memory to install using this installation method, but you only have %d MB on this machine."
-msgstr ""
+msgstr "%s требует %s мегабайт памяти для установки данным методом, но у вас есть только %s мегабайт на данном компьютере."
 
 #: loader/loader.c:1349
 msgid "Rescue Method"
