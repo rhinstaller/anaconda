@@ -43,6 +43,9 @@ import storage.dasd
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
 
+import logging
+log = logging.getLogger("anaconda")
+
 DEVICE_COL = 4
 MODEL_COL = 5
 CAPACITY_COL = 6
@@ -602,6 +605,14 @@ class FilterWindow(InstallWindow):
         open("/etc/multipath.conf", "w+").write(cfg)
         del cfg
         del mcw
+
+        if anaconda.isKickstart:
+            # identifyMultipaths() uses 'multipath -d' to find mpath devices. In
+            # case this is an interactive kickstart install, it wouldn't display
+            # those already set up during the early storageInitialize() unless
+            # we flush them first.
+            log.info("filter_gui: flushing all multipath devices.")
+            iutil.execWithRedirect("multipath", ["-F"])
         (singlepaths, mpaths, partitions) = identifyMultipaths(disks)
 
         # The device list could be really long, so we really only want to
