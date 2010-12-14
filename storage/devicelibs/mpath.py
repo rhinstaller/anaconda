@@ -3,6 +3,9 @@ import re
 
 from ..udev import *
 import iutil
+import logging
+
+log = logging.getLogger("storage")
 
 def parseMultipathOutput(output):
     # this function parses output from "multipath -d", so we can use its
@@ -60,7 +63,7 @@ def parseMultipathOutput(output):
             pass
         elif dmatch:
             devices.append(dmatch.groups()[0].replace('!','/'))
-    
+
     if name and devices:
         mpaths[name] = devices
 
@@ -77,12 +80,17 @@ def identifyMultipaths(devices):
     # [sda, sdd], [[sdb, sdc]], [sr0, sda1, sdd1, sdd2]]
     log.info("devices to scan for multipath: %s" % [d['name'] for d in devices])
 
+    with open("/etc/multipath.conf") as conf:
+        log.debug("/etc/multipath.conf contents:")
+        map(lambda line: log.debug(line.rstrip()), conf)
+        log.debug("(end of /etc/multipath.conf)")
+
     topology = parseMultipathOutput(iutil.execWithCapture("multipath", ["-d",]))
     # find the devices that aren't in topology, and add them into it...
     topodevs = reduce(lambda x,y: x.union(y), topology.values(), set())
     for name in set([d['name'] for d in devices]).difference(topodevs):
         topology[name] = [name]
-    
+
     devmap = {}
     non_disk_devices = {}
     for d in devices:
