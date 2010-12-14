@@ -1,15 +1,7 @@
 # translation of anaconda.master.zh-CN.po to Wei Liu
 # translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
-# translation of zh_CN.po to
 # Simplified Chinese Verstion of anaconda file
 # Copyright (C) 2002, Red Hat, Inc.
-#
-#
 #
 # Sarah Wang <sarahs@redhat.com>, 2003,2004.
 # Yusuf Ma <yusufma77@yahoo.com>, 2004.
@@ -20,10 +12,10 @@
 # Tommy He <tommy.he@linux.com>, 2010.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.master.zh-CN\n"
+"Project-Id-Version: anaconda.master.zh_CN\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-08-27 12:03-0400\n"
-"PO-Revision-Date: 2010-08-31 12:27+1000\n"
+"PO-Revision-Date: 2010-12-14 14:05+0100\n"
 "Last-Translator: Leah Liu <lliu@redhat.com>\n"
 "Language-Team: Wei Liu\n"
 "MIME-Version: 1.0\n"
@@ -2269,7 +2261,7 @@ msgid ""
 msgstr ""
 "移除选定设备上的所有分区。这包括被其他操作系统创建的分区。\n"
 "\n"
-"<b>提示：<b> 该选项将移除选定设备上的数据。请确认您保留有备份。"
+"<b>提示：</b> 该选项将移除选定设备上的数据。请确认您保留有备份。"
 
 #: pyanaconda/iw/autopart_type.py:237
 msgid "Replace Existing Linux System(s)"
@@ -2287,7 +2279,7 @@ msgstr ""
 "移除选定设备上的所有 Linux 分区。该操作将不会移除在您存储设备上的其他分区（比"
 "如 VFAT 或 FAT32）。\n"
 "\n"
-"<b>提示：<b> 该选项将移除选定设备上的数据。请确认您保留有备份。"
+"<b>提示：</b> 该选项将移除选定设备上的数据。请确认您保留有备份。"
 
 #: pyanaconda/iw/autopart_type.py:247
 msgid "Shrink Current System"
@@ -2444,21 +2436,21 @@ msgid ""
 "<b>Tip:</b> All Linux filesystems on the install target devices will be "
 "reformatted and wiped of any data.  Make sure you have backups."
 msgstr ""
-"<b>提示：<b> 在安装目标设备上的所有 Linux 文件系统都将被重新格式化并移除所有"
+"<b>提示：</b> 在安装目标设备上的所有 Linux 文件系统都将被重新格式化并移除所有"
 "数据。 请确认您保留有备份。"
 
 #: pyanaconda/iw/cleardisks_gui.py:198
 msgid ""
 "<b>Tip:</b> The install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
-msgstr "<b>提示：<b> 安装目标设备将被重新格式化并移除全部数据。 请确认您保留有备份。"
+msgstr "<b>提示：</b> 安装目标设备将被重新格式化并移除全部数据。 请确认您保留有备份。"
 
 #: pyanaconda/iw/cleardisks_gui.py:200
 msgid ""
 "<b>Tip:</b> Your filesystems on the install target devices will not be "
 "reformatted unless you choose to do so during customization."
 msgstr ""
-"<b>提示：<b> 您在安装目标设备上的的文件系统将不会被重新格式化，除非您在自定义"
+"<b>提示：</b> 您在安装目标设备上的的文件系统将不会被重新格式化，除非您在自定义"
 "过程中明确选择。"
 
 #: pyanaconda/iw/congrats_gui.py:33
@@ -5947,17 +5939,17 @@ msgstr "您想在何处为系统安装引导装载程序？"
 
 #: data/ui/cleardisks.glade.h:1
 msgid "<b>Data Storage Devices</b> (to be mounted only)"
-msgstr "<b>数据存储设备<b> （仅限可被挂载的）"
+msgstr "<b>数据存储设备</b> （仅限可被挂载的）"
 
 #: data/ui/cleardisks.glade.h:2
 msgid "<b>Install Target Devices</b>"
-msgstr "<b>安装目标设备<b>"
+msgstr "<b>安装目标设备</b>"
 
 #: data/ui/cleardisks.glade.h:3
 msgid ""
 "<b>Tip:</b> Install target devices will be reformatted and wiped of any "
 "data.  Make sure you have backups."
-msgstr "<b>提示：<b> 安装目标设备将被重新格式化并移除所有数据。 请确认您保留有备份。"
+msgstr "<b>提示：</b> 安装目标设备将被重新格式化并移除所有数据。 请确认您保留有备份。"
 
 #: data/ui/cleardisks.glade.h:4
 msgid ""
@@ -6078,7 +6070,7 @@ msgid ""
 "later during installation.  Also, note that post-installation you may mount "
 "drives you did not select here by modifying your /etc/fstab file."
 msgstr ""
-"<b>提示：<b> 选择驱动器将不会被格式化除非您在安装后选择这样作。 另外，注意在"
+"<b>提示：</b> 选择驱动器将不会被格式化除非您在安装后选择这样作。 另外，注意在"
 "安装后您可以通过修改您的 /etc/fstab 文件来挂载没有在这里选中的驱动器。"
 
 # Fuzzy
