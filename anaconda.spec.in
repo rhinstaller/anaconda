@@ -229,6 +229,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Dec 14 2010 Chris Lumens <clumens@redhat.com> - 15.11-1
+- Don't crash if losetup doesn't know anything about a device. (#662513)
+  (dlehman)
+- Set up disk images earlier so kickstart device filtering works on them.
+  (dlehman)
+- Don't try to parse network device info when doing disk image installs.
+  (dlehman)
+- Fix DeviceTree cleanup w/ inactive luks devs in cmdline mode. (dlehman)
+- Add losetup to the install image, re-remove it from isys (#662183). (clumens)
+- "anaconda" -> "self.anaconda" in kickstart execute methods. (clumens)
+- Override the BaseHandler.dispatcher method. (clumens)
+- Use chreipl to set the IPL device on s390x (#632325) (dcantrell)
+- Add /usr/sbin/chreipl to KEEPFILE. (dcantrell)
+- Create a MainframeDiskDevice class for common s390 attributes. (dcantrell)
+- Do not shut down zFCP storage in Storage.shutdown() (#612626) (dcantrell)
+- Clarify the ssh modes for installation on s390x (#621590). (dcantrell)
+- devicelibs/mpath.py: do not rely on other modules to import logging.
+  (akozumpl)
+- filter_gui: device discovery configuration is under anaconda.storage.config.
+  (akozumpl)
+
 * Wed Dec 08 2010 Chris Lumens <clumens@redhat.com> - 15.10-1
 - Fix the build. (clumens)
 
