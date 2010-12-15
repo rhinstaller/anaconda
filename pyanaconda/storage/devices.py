@@ -1964,7 +1964,7 @@ class LVMVolumeGroupDevice(DMDevice):
         pvs = []
 
         for pv in self.pvs:
-            pvs.append("pv.%s" % pv.format.uuid)
+            pvs.append("pv.%s" % pv.format.majorminor)
 
         if preexisting:
             args.append("--useexisting")
@@ -2753,7 +2753,7 @@ class MDRaidArrayDevice(StorageDevice):
             args.append("--noformat")
 
         for mem in self.parents:
-            mems.append("raid.%s" % mem.format.uuid)
+            mems.append("raid.%s" % mem.format.majorminor)
 
         f.write("#raid ")
         self.format.writeKS(f)
