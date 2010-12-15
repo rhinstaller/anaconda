@@ -656,6 +656,7 @@ static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args) {
     XkbStateRec state;
 
     if ((d = XOpenDisplay(NULL)) == NULL) {
+        PyErr_SetString(PyExc_RuntimeError, "XOpenDisplay failed");
         return NULL;
     }
 
@@ -663,6 +664,7 @@ static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args) {
     XkbGetState(d, XkbUseCoreKbd, &state);
 
     if (XCloseDisplay(d)) {
+        PyErr_SetString(PyExc_RuntimeError, "XCloseDisplay failed");
         return NULL;
     }
 
