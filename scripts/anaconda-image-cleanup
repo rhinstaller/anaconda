@@ -1,6 +1,33 @@
 #!/usr/bin/python
+"""
+    image install:
+
+        - unmount everything under /mnt/sysimage
+        - populate a devicetree with only the image "disks"
+
+    live install:
+
+        - unmount everything under /mnt/sysimage
+        - unmount everything under /media
+        - populate a devicetree and tear everything down
+
+"""
 import os
 import sys
+
+live_install = "--liveinst" in sys.argv
+image_install = False
+
+# see if there are disk images to take down
+sys_class_block = "/sys/class/block"
+for dev in os.listdir(sys_class_block):
+    if not dev.startswith("dm-"):
+        continue
+
+    uuid = open("%s/%s/dm/uuid" % (sys_class_block, dev)).read().strip()
+    if uuid.startswith("ANACONDA-"):
+        image_install = True
+        break
 
 # set the imageInstall flag so the logger won't log to the syslog
 from pyanaconda.flags import flags
@@ -19,14 +46,7 @@ from pyanaconda.storage import devicelibs
 intf = InstallInterface()
 storage_config = StorageDiscoveryConfig()
 
-# unmount filesystems
-for mounted in reversed(open("/proc/mounts").readlines()):
-    (device, mountpoint, rest) = mounted.split(" ", 2)
-    if not mountpoint.startswith("/mnt/sysimage"):
-        continue
-    os.system("umount %s" % mountpoint)
-
-# tear down the devices representing the disk images
+# find devices representing disk images
 sys_class_block = "/sys/class/block"
 for dev in os.listdir(sys_class_block):
     if not dev.startswith("dm-"):
@@ -41,8 +61,29 @@ for dev in os.listdir(sys_class_block):
     path = devicelibs.loop.get_device_path(loop)
     storage_config.diskImages[name] = path
 
-if not storage_config.diskImages:
+if not image_install and not live_install:
+    print >> sys.stderr, "not a live install or an image install -- exiting"
     sys.exit(1)
+
+# unmount filesystems
+for mounted in reversed(open("/proc/mounts").readlines()):
+    (device, mountpoint, rest) = mounted.split(" ", 2)
+    if mountpoint.startswith("/mnt/anactest"):
+        continue
+
+    # If this is for an image install, only unmount all filesystems under
+    # /mnt/sysimage
+    if image_install and not mountpoint.startswith("/mnt/sysimage"):
+        continue
+
+    # If this is for a live install, unmount any non-nodev filesystem that
+    # isn't related to the live image.
+    if (not mountpoint.startswith("/media") and
+        not device.startswith("/dev") or
+        "live" in mounted):
+        continue
+
+    os.system("umount %s" % mountpoint)
 
 os.system("udevadm control --env=ANACONDA=1")
 os.system("udevadm trigger --subsystem-match block")
