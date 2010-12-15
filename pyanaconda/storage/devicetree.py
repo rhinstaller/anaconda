@@ -626,10 +626,12 @@ class DeviceTree(object):
                 log.debug("failed to find dm node for %s" % dmdev.name)
                 continue
 
+        cleanup_luks = udev_device_is_dm_luks(info) and self._cleanup
+        slave_dev = None
+        slave_info = None
         if device is None:
             # we couldn't find it, so create it
             # first, get a list of the slave devs and look them up
-            slaves = []
             dir = os.path.normpath("/sys/%s/slaves" % sysfs_path)
             slave_names = os.listdir(dir)
             for slave_name in slave_names:
@@ -639,27 +641,39 @@ class DeviceTree(object):
                 else:
                     dev_name = slave_name
                 slave_dev = self.getDeviceByName(dev_name)
-                if slave_dev:
-                    slaves.append(slave_dev)
-                else:
+                path = os.path.normpath("%s/%s" % (dir, slave_name))
+                new_info = udev_get_block_device(os.path.realpath(path)[4:])
+                if not slave_dev:
                     # we haven't scanned the slave yet, so do it now
-                    path = os.path.normpath("%s/%s" % (dir, slave_name))
-                    new_info = udev_get_block_device(os.path.realpath(path)[4:])
                     if new_info:
                         self.addUdevDevice(new_info)
-                        if self.getDeviceByName(dev_name) is None:
+                        slave_dev = self.getDeviceByName(dev_name)
+                        if slave_dev is None:
                             # if the current slave is still not in
                             # the tree, something has gone wrong
                             log.error("failure scanning device %s: could not add slave %s" % (name, dev_name))
                             return
 
+                if cleanup_luks:
+                    slave_dev = slave_dev
+                    slave_info = new_info
+
             # try to get the device again now that we've got all the slaves
             device = self.getDeviceByName(name)
 
             if device is None and udev_device_is_dm_partition(info):
-                    diskname = udev_device_get_dm_partition_disk(info)
-                    disk = self.getDeviceByName(diskname)
-                    return self.addUdevPartitionDevice(info, disk=disk)
+                diskname = udev_device_get_dm_partition_disk(info)
+                disk = self.getDeviceByName(diskname)
+                return self.addUdevPartitionDevice(info, disk=disk)
+
+            # if this is a luks device whose map name is not what we expect,
+            # fix up the map name and see if that sorts us out
+            if device is None and cleanup_luks and slave_info and slave_dev:
+                slave_dev.format.mapName = name
+                self.handleUdevLUKSFormat(slave_info, slave_dev)
+
+                # try once more to get the device
+                device = self.getDeviceByName(name)
 
             # if we get here, we found all of the slave devices and
             # something must be wrong -- if all of the slaves are in
