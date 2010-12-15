@@ -100,3 +100,5 @@ relabelFiles = ["/etc/rpm/macros", "/etc/dasd.conf", "/etc/zfcp.conf",
 relabelDirs  = ["/etc/sysconfig/network-scripts", "/var/lib/rpm", "/etc/lvm",
                 "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root",
                 "/var/log", "/etc/modprobe.d", "/etc/sysconfig", "/var/cache/yum" ]
+
+ANACONDA_CLEANUP = "anaconda-cleanup"

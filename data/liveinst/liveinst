@@ -98,38 +98,8 @@ for opt in `cat /proc/cmdline`; do
     esac
 done
 
-if [ $IMAGE_INSTALL = 0 ]; then
-    # devkit-disks is now mounting lots of stuff.  for now, let's just try to
-    # unmount it all
-    umount /media/* 2>/dev/null
-    tac /proc/mounts | grep ^/dev | grep -v live | \
-    while read dev mntpoint rest; do
-        # hack - don't unmount devices the storage test code requires
-        if [ "$mntpoint" = "/mnt/anactest" ]; then
-           continue
-        fi
-
-        if [ -b $dev ]; then
-           umount $mntpoint 2>/dev/null
-        fi
-    done
-
-    /sbin/swapoff -a
-    /sbin/lvm vgchange -an --ignorelockingfailure
-    for i in /dev/md*; do
-        if [ ! -b $i ]; then
-            continue
-        fi
-
-        case "$i" in
-            /dev/md*p*)
-                ;;
-            *)
-                mdadm --stop $i >/dev/null 2>&1
-                ;;
-        esac
-    done
-fi
+# unmount anything that shouldn't be mounted prior to install
+anaconda-cleanup $ANACONDA $*
 
 /sbin/udevadm control --env=ANACONDA=1
 
@@ -143,7 +113,7 @@ fi
 
 # try to teardown the filesystems if this was an image install
 if [ $IMAGE_INSTALL = 1 -a $RESCUE = 0 ]; then
-    anaconda-image-cleanup
+    anaconda-cleanup
 fi
 
 rm -f /dev/.in_sysinit 2>/dev/null

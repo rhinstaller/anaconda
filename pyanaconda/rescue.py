@@ -223,8 +223,8 @@ def runShell(screen = None, msg=""):
         print (msg)
 
     if flags.imageInstall:
-        print(_("Run anaconda-image-cleanup to unmount the system "
-                "when you are finished."))
+        print(_("Run %s to unmount the system when you are finished.")
+              % ANACONDA_CLEANUP)
     else:
         print(_("When finished please exit from the shell and your "
                 "system will reboot."))
@@ -379,8 +379,8 @@ def runRescue(anaconda):
                 msg = _("The system will reboot automatically when you exit "
                         "from the shell.")
             else:
-                msg = _("Run anaconda-image-cleanup to unmount the system "
-                        "when you are finished.")
+                msg = _("Run %s to unmount the system "
+                        "when you are finished.") % ANACONDA_CLEANUP
 
             if rc == -1:
                 if anaconda.ksdata:
@@ -479,8 +479,8 @@ def runRescue(anaconda):
                     msg = _("The system will reboot automatically when you "
                             "exit from the shell.")
                 else:
-                    msg = _("Run anaconda-image-cleanup to unmount the system "
-                            "when you are finished.")
+                    msg = _("Run %s to unmount the system "
+                            "when you are finished.") % ANACONDA_CLEANUP
 
                 ButtonChoiceWindow(screen, _("Rescue"),
                     _("An error occurred trying to mount some or all of your "

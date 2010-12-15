@@ -217,7 +217,7 @@ update-desktop-database &> /dev/null || :
 %{_libdir}/python*/site-packages/log_picker/*
 %{_libdir}/anaconda*
 %{_bindir}/analog
-%{_bindir}/anaconda-image-cleanup
+%{_bindir}/anaconda-cleanup
 %ifarch %livearches
 %{_bindir}/liveinst
 %{_sbindir}/liveinst
