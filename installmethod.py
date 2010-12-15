@@ -45,12 +45,3 @@ def doMethodComplete(anaconda):
     dev = _ejectDevice()
     if dev:
         dev.eject()
-
-    mtab = "/dev/root / ext3 ro 0 0\n"
-    rootDevice = anaconda.id.storage.rootDevice
-    if rootDevice:
-        mtab = "/dev/root / %s ro 0 0\n" % rootDevice.format.type
-
-    f = open(anaconda.rootPath + "/etc/mtab", "w+")
-    f.write(mtab)
-    f.close()
