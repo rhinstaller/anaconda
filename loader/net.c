@@ -482,7 +482,7 @@ int readNetConfig(char * device, iface_t * iface,
             return LOADER_BACK;
         }
 
-        i = get_connection(iface);
+        i = wait_for_iface_activation(iface->device);
         newtPopWindow();
 
         if (i > 0) {
@@ -545,7 +545,7 @@ int readNetConfig(char * device, iface_t * iface,
         return LOADER_BACK;
     }
 
-    i = get_connection(iface);
+    i = wait_for_iface_activation(iface->device);
     newtPopWindow();
 
     if (i > 0) {
@@ -2026,6 +2026,11 @@ int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
             break;
         } while (1);
 
+        if (is_iface_activated(iface->device)) {
+            logMessage(INFO, "device %s is already activated", iface->device);
+            return 0;
+        }
+
         /* we don't want to end up asking about interface more than once
          * if we're in a kickstart-ish case (#100724) */
         loaderData->netDev_set = 1;
@@ -2106,29 +2111,31 @@ void splitHostname (char *str, char **host, char **port)
 }
 
 /*
- * Start NetworkManager and wait for a valid link, return non-zero on error.
+ * Wait for activation of iface by NetworkManager, return non-zero on error.
  */
-int get_connection(iface_t *iface) {
-    int count = 0;
+int wait_for_iface_activation(char *ifname) {
+    int count = 0, i;
     NMClient *client = NULL;
     NMState state;
     GMainLoop *loop;
     GMainContext *ctx;
+    const GPtrArray *devices;
+    NMDevice *device = NULL;
 
-    if (iface == NULL) {
+    if (ifname == NULL) {
         return 1;
     }
 
-    logMessage(DEBUGLVL, "configuring device %s", iface->device);
+    logMessage(DEBUGLVL, "activating device %s", ifname);
 
     /* display status */
     if (FL_CMDLINE(flags)) {
         printf(_("Waiting for NetworkManager to configure %s.\n"),
-               iface->device);
+               ifname);
     } else {
         winStatus(55, 3, NULL,
                   _("Waiting for NetworkManager to configure %s.\n"),
-                  iface->device, 0);
+                  ifname, 0);
     }
 
     g_type_init();
@@ -2138,6 +2145,22 @@ int get_connection(iface_t *iface) {
         logMessage(ERROR, "%s (%d): could not connect to system bus",
                    __func__, __LINE__);
         return 2;
+    }
+
+    devices = nm_client_get_devices(client);
+    for (i = 0; i < devices->len; i++) {
+        NMDevice *candidate = g_ptr_array_index(devices, i);
+        const char *name = nm_device_get_iface(candidate);
+        if (!strcmp(name, ifname)) {
+            device = candidate;
+            break;
+        }
+    }
+    if (device == NULL) {
+        logMessage(ERROR, "%s (%d): network device %s not found",
+                   __func__, __LINE__, ifname);
+        g_object_unref(client);
+        return 3;
     }
 
     /* Create a loop for processing dbus signals */
@@ -2155,12 +2178,12 @@ int get_connection(iface_t *iface) {
         while (g_main_context_pending (ctx)) {
             g_main_context_iteration (ctx, FALSE);
         }
-        state = nm_client_get_state(client);
-
-        if (state == NM_STATE_CONNECTED) {
-            logMessage(INFO, "%s (%d): NetworkManager connected",
-                       __func__, __LINE__);
+        state = nm_device_get_state(device);
+        if (state == NM_DEVICE_STATE_ACTIVATED) {
+            logMessage(INFO, "%s (%d): device %s activated",
+                       __func__, __LINE__, ifname);
             res_init();
+            g_main_loop_unref(loop);
             g_object_unref(client);
             return 0;
         }

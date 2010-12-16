@@ -152,6 +152,8 @@ int iface_have_in6_addr(struct in6_addr *addr6);
  */
 gboolean is_nm_connected(void);
 
+gboolean is_iface_activated(char * ifname);
+
 /*
  * Start NetworkManager
  */
