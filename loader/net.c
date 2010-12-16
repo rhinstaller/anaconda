@@ -1537,7 +1537,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     gchar *bootProto = NULL, *device = NULL, *class = NULL, *ethtool = NULL;
     gchar *essid = NULL, *wepkey = NULL, *onboot = NULL, *gateway = NULL;
     gint mtu = 1500, dhcpTimeout = -1;
-    gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE;
+    gboolean noipv4 = FALSE, noipv6 = FALSE, noDns = FALSE, noksdev = FALSE, activate = FALSE;
     GOptionContext *optCon = g_option_context_new(NULL);
     GError *optErr = NULL;
     struct in_addr addr;
@@ -1570,6 +1570,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "wepkey", 0, 0, G_OPTION_ARG_STRING, &wepkey, NULL, NULL },
         { "onboot", 0, 0, G_OPTION_ARG_STRING, &onboot, NULL, NULL },
         { "notksdevice", 0, 0, G_OPTION_ARG_NONE, &noksdev, NULL, NULL },
+        { "activate", 0, 0, G_OPTION_ARG_NONE, &activate, NULL, NULL },
         { "dhcptimeout", 0, 0, G_OPTION_ARG_INT, &dhcpTimeout, NULL, NULL },
         { NULL },
     };
@@ -1639,6 +1640,9 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                 loaderData->netDev = strdup(device);
 
             loaderData->netDev_set = 1;
+            logMessage(INFO, "kickstart network command - device %s", loaderData->netDev);
+        } else {
+            logMessage(INFO, "kickstart network command - unspecified device");
         }
 
         if (class) {
@@ -1688,12 +1692,17 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         loaderData->noDns = 1;
     }
 
-    /* Make sure the network is always up if there's a network line in the
-     * kickstart file, as %post/%pre scripts might require that.
-     */
-    if (loaderData->method != METHOD_NFS && loaderData->method != METHOD_URL) {
-        if (kickstartNetworkUp(loaderData, &iface))
-            logMessage(ERROR, "unable to bring up network");
+    if (!is_nm_connected()) {
+        logMessage(INFO, "activating because no network connection is available");
+        activateDevice(loaderData, &iface);
+        return;
+    }
+
+    if (activate) {
+        logMessage(INFO, "activating because --activate flag is set");
+        activateDevice(loaderData, &iface);
+    } else {
+        logMessage(INFO, "not activating becuase --activate flag is not set");
     }
 }
 
@@ -1983,13 +1992,19 @@ int chooseNetworkInterface(struct loaderData_s * loaderData) {
  * kickstart install so that we can do things like grab the ks.cfg from
  * the network */
 int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
-    int rc, err;
 
     if ((is_nm_connected() == TRUE) &&
         (loaderData->netDev != NULL) && (loaderData->netDev_set == 1))
         return 0;
 
     memset(iface, 0, sizeof(*iface));
+
+    return activateDevice(loaderData, iface);
+
+}
+
+int activateDevice(struct loaderData_s * loaderData, iface_t * iface) {
+    int rc;
 
     do {
         do {
@@ -2026,12 +2041,13 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
                            loaderData->method);
 
         if (rc == LOADER_ERROR) {
-            logMessage(ERROR, "unable to setup networking");
+            logMessage(ERROR, "unable to activate device %s", iface->device);
             return -1;
         } else if (rc == LOADER_BACK) {
             /* Going back to the interface selection screen, so unset anything
              * we set before attempting to bring the incorrect interface up.
              */
+            logMessage(ERROR, "unable to activate device %s", iface->device);
             if ((rc = writeDisabledNetInfo()) != 0) {
                 logMessage(ERROR, "writeDisabledNetInfo failure (%s): %d",
                            __func__, rc);
@@ -2046,24 +2062,10 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
             break;
         }
 
-        err = writeEnabledNetInfo(iface);
-        if (err) {
-            logMessage(ERROR,
-                       "failed to write %s data for %s (%d)",
-                       SYSCONFIG_PATH, iface->device, err);
-            return -1;
-        }
-
-        err = get_connection(iface);
-        newtPopWindow();
-
-        if (err) {
-            logMessage(ERROR, "failed to start NetworkManager (%d)", err);
-            return -1;
-        }
     } while (1);
 
     return 0;
+
 }
 
 void splitHostname (char *str, char **host, char **port)

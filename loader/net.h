@@ -73,6 +73,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                          char ** argv);
 int kickstartNetworkUp(struct loaderData_s * loaderData,
                        iface_t * iface);
+int activateDevice(struct loaderData_s * loaderData,
+                       iface_t * iface);
 void splitHostname (char *str, char **host, char **port);
 int get_connection(iface_t * iface);
 
