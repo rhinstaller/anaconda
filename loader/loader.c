@@ -2278,6 +2278,9 @@ int main(int argc, char ** argv) {
     if (FL_SERIAL(flags))
         *argptr++ = "--serial";
 
+    if (FL_NOEJECT(flags))
+        *argptr++ = "--noeject";
+
     if (FL_RESCUE(flags)) {
         *argptr++ = "--rescue";
     } else {
