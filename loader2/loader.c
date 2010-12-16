@@ -1907,6 +1907,9 @@ int main(int argc, char ** argv) {
     if (FL_NOIPV6(flags))
         *argptr++ = "--noipv6";
 
+    if (FL_NOEJECT(flags))
+        *argptr++ = "--noeject";
+
     if (FL_RESCUE(flags)) {
         *argptr++ = "--rescue";
         if (FL_SERIAL(flags))
