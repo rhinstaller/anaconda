@@ -546,11 +546,15 @@ static void setMediaCheck(struct loaderData_s * loaderData, int argc,
 void runKickstart(struct loaderData_s * loaderData) {
     struct ksCommandNames * cmd;
     int argc;
-    char ** argv;
+    char ** argv = NULL;
 
     logMessage(INFO, "setting up kickstart");
     for (cmd = ksTable; cmd->name; cmd++) {
-        if ((!ksGetCommand(cmd->code, NULL, &argc, &argv)) && cmd->setupData) {
+        if (!strcmp(cmd->name, "network")) {
+            while ((!ksGetCommand(cmd->code, argv, &argc, &argv)) && cmd->setupData) {
+                cmd->setupData(loaderData, argc, argv);
+            }
+        } else if ((!ksGetCommand(cmd->code, NULL, &argc, &argv)) && cmd->setupData) {
             cmd->setupData(loaderData, argc, argv);
         }
     }
