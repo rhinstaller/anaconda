@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.nl\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-11-09 11:38-0500\n"
-"PO-Revision-Date: 2010-11-12 19:03+0200\n"
+"POT-Creation-Date: 2010-12-14 17:32-0500\n"
+"PO-Revision-Date: 2010-12-16 15:21+0200\n"
 "Last-Translator: Geert Warrink <geert.warrink@onsnet.nu>\n"
 "Language-Team: Fedora\n"
 "Language: nl\n"
@@ -30,27 +30,29 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.6.1\n"
 
-#: anaconda:313
+#: anaconda:314
 msgid "Press <enter> for a shell"
 msgstr "Druk op <Enter> om een shell prompt te krijgen"
 
-#: anaconda:327
+#: anaconda:328
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
-msgstr "%s vereist %s MB geheugen voor het installeren, maar je hebt op deze machine "
+msgstr ""
+"%s vereist %s MB geheugen voor het installeren, maar je hebt op deze machine "
 "slechts %s MB.\n"
 
-#: anaconda:329
+#: anaconda:330
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install using this installation method, but "
 "you only have %s MB on this machine.\n"
-msgstr "%s vereist %s MB geheugen voor het installeren met deze installatie methode, "
+msgstr ""
+"%s vereist %s MB geheugen voor het installeren met deze installatie methode, "
 "maar je hebt op deze machine slechts %s MB.\n"
 
-#: anaconda:332
+#: anaconda:333
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
@@ -58,11 +60,11 @@ msgstr ""
 "Het %s grafische installatie programma vereist %s MB geheugen, maar je hebt "
 "slechts %s MB."
 
-#: anaconda:337
+#: anaconda:338
 msgid "Not enough RAM"
 msgstr "Niet voldoende RAM"
 
-#: anaconda:338
+#: anaconda:339
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -76,46 +78,46 @@ msgstr ""
 "\n"
 " in een root terminal."
 
-#: anaconda:341
+#: anaconda:342
 msgid " Starting text mode."
 msgstr " Tekst mode wordt opgestart."
 
-#: anaconda:365 pyanaconda/rescue.py:353 pyanaconda/rescue.py:379
-#: pyanaconda/rescue.py:392 pyanaconda/rescue.py:475 pyanaconda/rescue.py:488
-#: pyanaconda/rescue.py:499 pyanaconda/text.py:537 loader/windows.h:30
+#: anaconda:366 pyanaconda/rescue.py:361 pyanaconda/rescue.py:393
+#: pyanaconda/rescue.py:406 pyanaconda/rescue.py:490 pyanaconda/rescue.py:507
+#: pyanaconda/rescue.py:518 pyanaconda/text.py:537 loader/windows.h:30
 #: loader/cdinstall.c:186 loader/cdinstall.c:190 loader/cdinstall.c:205
 #: loader/cdinstall.c:208 loader/cdinstall.c:338 loader/cdinstall.c:341
-#: loader/cdinstall.c:423 loader/dirbrowser.c:130 loader/driverdisk.c:228
-#: loader/driverdisk.c:409 loader/driverdisk.c:441 loader/driverdisk.c:472
-#: loader/driverdisk.c:507 loader/driverdisk.c:523 loader/driverdisk.c:535
-#: loader/driverdisk.c:543 loader/driverdisk.c:715 loader/driverdisk.c:754
+#: loader/cdinstall.c:423 loader/dirbrowser.c:130 loader/driverdisk.c:208
+#: loader/driverdisk.c:392 loader/driverdisk.c:424 loader/driverdisk.c:455
+#: loader/driverdisk.c:490 loader/driverdisk.c:506 loader/driverdisk.c:518
+#: loader/driverdisk.c:526 loader/driverdisk.c:698 loader/driverdisk.c:737
 #: loader/driverselect.c:79 loader/driverselect.c:179 loader/hdinstall.c:222
 #: loader/hdinstall.c:282 loader/hdinstall.c:300 loader/hdinstall.c:309
 #: loader/hdinstall.c:348 loader/hdinstall.c:399 loader/hdinstall.c:438
-#: loader/hdinstall.c:453 loader/kbd.c:119 loader/kickstart.c:135
+#: loader/hdinstall.c:453 loader/kbd.c:118 loader/kickstart.c:135
 #: loader/kickstart.c:145 loader/kickstart.c:187 loader/kickstart.c:192
 #: loader/kickstart.c:299 loader/kickstart.c:339 loader/kickstart.c:355
-#: loader/kickstart.c:382 loader/kickstart.c:571 loader/lang.c:114
-#: loader/lang.c:373 loader/loader.c:422 loader/loader.c:458
+#: loader/kickstart.c:382 loader/kickstart.c:571 loader/lang.c:113
+#: loader/lang.c:367 loader/loader.c:422 loader/loader.c:458
 #: loader/loader.c:498 loader/loader.c:516 loader/loader.c:533
-#: loader/loader.c:570 loader/loader.c:1217 loader/loader.c:1357
-#: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
-#: loader/mediacheck.c:97 loader/mediacheck.c:106 loader/method.c:194
-#: loader/method.c:268 loader/net.c:625 loader/net.c:1007 loader/net.c:1655
-#: loader/net.c:1676 loader/net.c:1982 loader/net.c:2001 loader/net.c:2013
-#: loader/nfsinstall.c:92 loader/nfsinstall.c:195 loader/nfsinstall.c:276
-#: loader/urlinstall.c:138 loader/urlinstall.c:160 loader/urlinstall.c:212
-#: loader/urlinstall.c:278 loader/urlinstall.c:289 loader/urlinstall.c:296
-#: loader/urls.c:264 loader/urls.c:335 loader/urls.c:343 loader/urls.c:350
-#: pyanaconda/textw/constants_text.py:44
+#: loader/loader.c:570 loader/loader.c:1217 loader/loader.c:1236
+#: loader/loader.c:1380 loader/mediacheck.c:47 loader/mediacheck.c:86
+#: loader/mediacheck.c:93 loader/mediacheck.c:97 loader/mediacheck.c:106
+#: loader/method.c:194 loader/method.c:268 loader/net.c:625 loader/net.c:1007
+#: loader/net.c:1655 loader/net.c:1676 loader/net.c:1982 loader/net.c:2001
+#: loader/net.c:2013 loader/nfsinstall.c:92 loader/nfsinstall.c:195
+#: loader/nfsinstall.c:276 loader/urlinstall.c:139 loader/urlinstall.c:161
+#: loader/urlinstall.c:213 loader/urlinstall.c:279 loader/urlinstall.c:290
+#: loader/urlinstall.c:297 loader/urls.c:264 loader/urls.c:335
+#: loader/urls.c:343 loader/urls.c:350 pyanaconda/textw/constants_text.py:44
 msgid "OK"
 msgstr "OK"
 
-#: anaconda:729
+#: anaconda:747
 msgid "Would you like to use VNC?"
 msgstr "Wil je VNC gebruiken?"
 
-#: anaconda:730
+#: anaconda:748
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -125,12 +127,12 @@ msgstr ""
 "niet in staat jouw eigen partitie indeling te maken of zelf je pakketten te "
 "kiezen. Wil je liever de VNC mode gebruiken?"
 
-#: anaconda:756
+#: anaconda:774
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 "Grafische installatie is niet beschikbaar. Tekst mode wordt nu opgestart."
 
-#: anaconda:764
+#: anaconda:782
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY variabele is niet ingesteld. Tekst mode wordt nu opgestart."
 
@@ -150,9 +152,9 @@ msgstr "Installeren van %s\n"
 #: pyanaconda/bootloader.py:55 pyanaconda/bootloader.py:221
 #: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1095 pyanaconda/image.py:73
 #: pyanaconda/installinterfacebase.py:51 pyanaconda/installinterfacebase.py:82
-#: pyanaconda/installinterfacebase.py:142 pyanaconda/packages.py:318
-#: pyanaconda/text.py:412 pyanaconda/yuminstall.py:1474
-#: pyanaconda/yuminstall.py:1656 pyanaconda/yuminstall.py:1691
+#: pyanaconda/installinterfacebase.py:142 pyanaconda/packages.py:320
+#: pyanaconda/text.py:412 pyanaconda/yuminstall.py:1486
+#: pyanaconda/yuminstall.py:1624 pyanaconda/yuminstall.py:1659
 #: pyanaconda/iw/blpasswidget.py:149 pyanaconda/iw/upgrade_swap_gui.py:190
 #: pyanaconda/iw/upgrade_swap_gui.py:198 pyanaconda/iw/upgrade_swap_gui.py:205
 #: pyanaconda/textw/upgrade_text.py:193
@@ -173,25 +175,25 @@ msgstr ""
 
 # Grafische of Tekst installatie
 #: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1118 pyanaconda/gui.py:1155
-#: pyanaconda/gui.py:1357 pyanaconda/image.py:82 pyanaconda/livecd.py:205
-#: pyanaconda/livecd.py:447 pyanaconda/packages.py:135
+#: pyanaconda/gui.py:1357 pyanaconda/image.py:82 pyanaconda/livecd.py:190
+#: pyanaconda/livecd.py:422 pyanaconda/packages.py:137
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
-#: pyanaconda/yuminstall.py:259 pyanaconda/yuminstall.py:799
-#: pyanaconda/yuminstall.py:978 pyanaconda/yuminstall.py:983
-#: pyanaconda/yuminstall.py:1061 pyanaconda/yuminstall.py:1067
-#: pyanaconda/yuminstall.py:1222 pyanaconda/yuminstall.py:1237
-#: pyanaconda/yuminstall.py:1292 pyanaconda/yuminstall.py:1483
-#: pyanaconda/yuminstall.py:1502 pyanaconda/yuminstall.py:1525
+#: pyanaconda/yuminstall.py:259 pyanaconda/yuminstall.py:812
+#: pyanaconda/yuminstall.py:991 pyanaconda/yuminstall.py:996
+#: pyanaconda/yuminstall.py:1074 pyanaconda/yuminstall.py:1080
+#: pyanaconda/yuminstall.py:1234 pyanaconda/yuminstall.py:1249
+#: pyanaconda/yuminstall.py:1304 pyanaconda/yuminstall.py:1495
+#: pyanaconda/yuminstall.py:1514 pyanaconda/yuminstall.py:1537
 #: pyanaconda/storage/__init__.py:114 pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:234 pyanaconda/storage/__init__.py:1974
+#: pyanaconda/storage/__init__.py:234 pyanaconda/storage/__init__.py:2002
 msgid "_Exit installer"
 msgstr "Installatieprogramma _afsluiten"
 
 #: pyanaconda/bootloader.py:60 pyanaconda/image.py:83
-#: pyanaconda/kickstart.py:1396 pyanaconda/kickstart.py:1435
+#: pyanaconda/kickstart.py:1424 pyanaconda/kickstart.py:1463
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98
-#: pyanaconda/yuminstall.py:1297 pyanaconda/yuminstall.py:1484
-#: pyanaconda/iw/partition_gui.py:1599 pyanaconda/storage/__init__.py:1975
+#: pyanaconda/yuminstall.py:1309 pyanaconda/yuminstall.py:1496
+#: pyanaconda/iw/partition_gui.py:1602 pyanaconda/storage/__init__.py:2003
 msgid "_Continue"
 msgstr "_Doorgaan"
 
@@ -228,9 +230,9 @@ msgid "In progress"
 msgstr "Bezig"
 
 #: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1150
-#: pyanaconda/kickstart.py:1182 pyanaconda/kickstart.py:1262
-#: pyanaconda/kickstart.py:1270 pyanaconda/kickstart.py:1306
-#: pyanaconda/kickstart.py:1316 pyanaconda/text.py:393
+#: pyanaconda/kickstart.py:1211 pyanaconda/kickstart.py:1291
+#: pyanaconda/kickstart.py:1299 pyanaconda/kickstart.py:1335
+#: pyanaconda/kickstart.py:1345 pyanaconda/text.py:393
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -357,7 +359,7 @@ msgstr ""
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:130
-#: loader/driverdisk.c:410 loader/kickstart.c:382 loader/loader.c:458
+#: loader/driverdisk.c:393 loader/kickstart.c:382 loader/loader.c:458
 #: loader/loader.c:570 pyanaconda/textw/constants_text.py:48
 msgid "Cancel"
 msgstr "Annuleren"
@@ -411,8 +413,8 @@ msgstr ""
 "Je hebt geen actieve netwerk verbinding.  Dit is nodig door sommige "
 "uitzondering opslag methodes.  Wil je jouw netwerk nu configureren?"
 
-#: pyanaconda/gui.py:1102 pyanaconda/rescue.py:262 pyanaconda/text.py:419
-#: pyanaconda/yuminstall.py:794 pyanaconda/yuminstall.py:1217
+#: pyanaconda/gui.py:1102 pyanaconda/rescue.py:270 pyanaconda/text.py:419
+#: pyanaconda/yuminstall.py:807 pyanaconda/yuminstall.py:1229
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "Geen netwerk beschikbaar"
@@ -446,22 +448,22 @@ msgstr ""
 "className = %s"
 
 #: pyanaconda/gui.py:1267 pyanaconda/image.py:143 pyanaconda/image.py:171
-#: pyanaconda/packages.py:335 pyanaconda/storage/__init__.py:1792
+#: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1819
 msgid "_Exit"
 msgstr "_Afsluiten"
 
 #: pyanaconda/gui.py:1268 pyanaconda/image.py:143 pyanaconda/image.py:171
-#: pyanaconda/livecd.py:205 pyanaconda/yuminstall.py:886
-#: pyanaconda/yuminstall.py:1237 pyanaconda/yuminstall.py:1292
-#: pyanaconda/yuminstall.py:1502
+#: pyanaconda/livecd.py:190 pyanaconda/yuminstall.py:899
+#: pyanaconda/yuminstall.py:1249 pyanaconda/yuminstall.py:1304
+#: pyanaconda/yuminstall.py:1514
 msgid "_Retry"
 msgstr "Op_nieuw"
 
-#: pyanaconda/gui.py:1270 pyanaconda/storage/partitioning.py:283
+#: pyanaconda/gui.py:1270 pyanaconda/storage/partitioning.py:280
 msgid "The system will now reboot."
 msgstr "Het systeem zal nu herstarten."
 
-#: pyanaconda/gui.py:1271 pyanaconda/packages.py:339
+#: pyanaconda/gui.py:1271 pyanaconda/packages.py:341
 msgid "_Reboot"
 msgstr "_Herstarten"
 
@@ -545,32 +547,32 @@ msgstr ""
 "Kopieer deze image naar de harde schijf en klik op Opnieuw. Klik op "
 "Afsluiten om de installatie af te breken."
 
-#: pyanaconda/image.py:211 pyanaconda/livecd.py:198 pyanaconda/livecd.py:440
+#: pyanaconda/image.py:211 pyanaconda/livecd.py:183 pyanaconda/livecd.py:415
 #: pyanaconda/partIntfHelpers.py:239 pyanaconda/text.py:356
 #: pyanaconda/text.py:360 pyanaconda/yuminstall.py:422
-#: pyanaconda/yuminstall.py:889 pyanaconda/yuminstall.py:976
-#: pyanaconda/yuminstall.py:981 pyanaconda/yuminstall.py:1242
-#: pyanaconda/yuminstall.py:1302 pyanaconda/yuminstall.py:1496
-#: pyanaconda/yuminstall.py:1518 pyanaconda/iw/advanced_storage.py:368
+#: pyanaconda/yuminstall.py:902 pyanaconda/yuminstall.py:989
+#: pyanaconda/yuminstall.py:994 pyanaconda/yuminstall.py:1254
+#: pyanaconda/yuminstall.py:1314 pyanaconda/yuminstall.py:1508
+#: pyanaconda/yuminstall.py:1530 pyanaconda/iw/advanced_storage.py:368
 #: pyanaconda/iw/advanced_storage.py:378 pyanaconda/iw/advanced_storage.py:427
 #: pyanaconda/iw/autopart_type.py:95 pyanaconda/iw/cleardisks_gui.py:44
 #: pyanaconda/iw/cleardisks_gui.py:54 pyanaconda/iw/filter_gui.py:431
 #: pyanaconda/iw/osbootwidget.py:211 pyanaconda/iw/osbootwidget.py:220
-#: pyanaconda/iw/raid_dialog_gui.py:223 pyanaconda/iw/task_gui.py:52
+#: pyanaconda/iw/raid_dialog_gui.py:224 pyanaconda/iw/task_gui.py:52
 #: pyanaconda/iw/task_gui.py:150 pyanaconda/iw/task_gui.py:302
 #: pyanaconda/iw/task_gui.py:464 loader/windows.h:30 loader/cdinstall.c:186
-#: loader/cdinstall.c:423 loader/driverdisk.c:228 loader/driverdisk.c:472
-#: loader/driverdisk.c:507 loader/driverdisk.c:535 loader/driverdisk.c:543
-#: loader/driverdisk.c:615 loader/hdinstall.c:282 loader/hdinstall.c:300
+#: loader/cdinstall.c:423 loader/driverdisk.c:208 loader/driverdisk.c:455
+#: loader/driverdisk.c:490 loader/driverdisk.c:518 loader/driverdisk.c:526
+#: loader/driverdisk.c:598 loader/hdinstall.c:282 loader/hdinstall.c:300
 #: loader/hdinstall.c:309 loader/hdinstall.c:399 loader/hdinstall.c:438
-#: loader/hdinstall.c:453 loader/kickstart.c:299 loader/lang.c:114
+#: loader/hdinstall.c:453 loader/kickstart.c:299 loader/lang.c:113
 #: loader/loader.c:422 loader/loader.c:533 loader/loader.c:1217
 #: loader/mediacheck.c:47 loader/mediacheck.c:86 loader/mediacheck.c:93
 #: loader/mediacheck.c:97 loader/method.c:194 loader/method.c:268
-#: loader/nfsinstall.c:195 loader/urlinstall.c:138 loader/urlinstall.c:160
-#: loader/urlinstall.c:212 loader/urls.c:335 loader/urls.c:343
+#: loader/nfsinstall.c:195 loader/urlinstall.c:139 loader/urlinstall.c:161
+#: loader/urlinstall.c:213 loader/urls.c:335 loader/urls.c:343
 #: loader/urls.c:350 pyanaconda/storage/__init__.py:230
-#: pyanaconda/storage/__init__.py:1793 pyanaconda/storage/__init__.py:1880
+#: pyanaconda/storage/__init__.py:1820 pyanaconda/storage/__init__.py:1907
 #: pyanaconda/storage/zfcp.py:375 pyanaconda/textw/upgrade_text.py:181
 #: pyanaconda/textw/upgrade_text.py:188
 msgid "Error"
@@ -703,107 +705,25 @@ msgstr[1] ""
 "gaan met de installatie, moeten de apparaten geformatteerd worden.  "
 "Formatteren zal alle data op deze apparaten verwijderen."
 
-#: pyanaconda/installinterfacebase.py:184 pyanaconda/iw/partition_gui.py:898
+#: pyanaconda/installinterfacebase.py:184 pyanaconda/iw/partition_gui.py:901
 msgid "_Format"
 msgstr "_Formatteren"
 
-#: pyanaconda/iutil.py:867
-#, python-format
-msgid ""
-"Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %(e)"
-"s)"
-msgstr ""
-"Fout: Op commando open kan de reIPL methode niet op %(reipl_type)s (%"
-"(filename)s: %(e)s) gezet worden."
-
-#: pyanaconda/iutil.py:878
-#, python-format
-msgid ""
-"Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
-"(e)s)"
-msgstr ""
-"Fout: Op commando write kan de reIPL methode niet op %(reipl_type)s (%"
-"(filename)s: %(e)s) gezet worden."
-
-#: pyanaconda/iutil.py:887
-#, python-format
-msgid ""
-"Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
-"(e)s)"
-msgstr ""
-"Fout: Op commando close kan de reIPL methode niet op %(reipl_type)s (%"
-"(filename)s: %(e)s) gezet worden."
-
-#: pyanaconda/iutil.py:906
-#, python-format
-msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
-msgstr "Fout: Kon van %(device)s geen reIPL apparaat (%(e)s) maken"
-
-#: pyanaconda/iutil.py:916
-#, python-format
-msgid "Error: Could not reset loadparm (%s)"
-msgstr "Fout: Kon loadparm (%s) niet resetten"
-
-#: pyanaconda/iutil.py:925
-#, python-format
-msgid "Warning: Could not reset parm (%s)"
-msgstr "Waarschuwing: Kon parm (%s) niet resetten"
-
-#: pyanaconda/iutil.py:938
-#, python-format
-msgid ""
-"After shutdown, please perform a manual IPL from DASD device %s to continue "
-"installation"
-msgstr ""
-"Na afsluiten a.u.b. een handmatige IPL van DASD device %s uitvoeren om de "
-"installatie te vervolgen"
-
-#: pyanaconda/iutil.py:960
-#, python-format
-msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
-msgstr ""
-"Fout: Lezen van FCP eigenschap %(syspath_property)s  voor reIPL (%(e)s)"
-
-#: pyanaconda/iutil.py:975
-#, python-format
-msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr ""
-"Fout: Schrijven van FCP eigenschap %(reipl_property)s voor reIPL (%(e)s)"
-
-#: pyanaconda/iutil.py:990
-#, python-format
-msgid ""
-"Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
-msgstr ""
-"Fout: Schrijven van standaard FCP eigenschap %(reipl_property)s voor reIPL (%"
-"(e)s)"
-
-#: pyanaconda/iutil.py:1005
-#, python-format
-msgid ""
-"After shutdown, please perform a manual IPL from FCP %(device)s with WWPN %"
-"(wwpn)s and LUN %(lun)s to continue installation"
-msgstr ""
-"Na afsluiten a.u.b. een handmatige IPL uitvoeren van FCP %(device)s met WWPN "
-"%(wwpn)s en LUN %(lun)s om de installatie te vervolgen"
-
-#: pyanaconda/iutil.py:1022
-msgid ""
-"After shutdown, please perform a manual IPL from the device now containing /"
-"boot to continue installation"
-msgstr ""
-"Na afsluiten a.u.b. een handmatige IPL uitvoeren van device waarop /boot "
-"staat om de installatie te vervolgen"
-
-#: pyanaconda/iutil.py:1033
+#: pyanaconda/iutil.py:819
 msgid "Error determining boot device's disk name"
 msgstr "Fout bij het bepalen van de schijf naam van het boot apparaat"
 
-#: pyanaconda/iutil.py:1037
-msgid "The mount point /boot or / is on a disk that we are not familiar with"
+#: pyanaconda/iutil.py:841
+msgid "the device containing /boot"
+msgstr "het apparaat dat /boot bevat"
+
+#: pyanaconda/iutil.py:843
+#, python-format
+msgid ""
+"After shutdown, please perform a manual IPL from %s to continue installation."
 msgstr ""
-"Het aankoppel punt /boot of / bevindt zich op een schijf waar we niet mee "
-"uit de voeten kunnen"
+"Na afsluiten een handmatige IPL van %s uitvoeren om de installatie te "
+"vervolgen."
 
 #: pyanaconda/kickstart.py:116
 #, python-format
@@ -847,33 +767,33 @@ msgstr ""
 msgid "Could not log into any iSCSI nodes at the portal."
 msgstr "Kon op geen enkele iSCSI node op het portaal inloggen"
 
-#: pyanaconda/kickstart.py:1281
+#: pyanaconda/kickstart.py:1310
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr "Fout bij het verwerken van %%ksappend regels: %s"
 
-#: pyanaconda/kickstart.py:1284
+#: pyanaconda/kickstart.py:1313
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr "Onbekende fout bij het verwerken van %%ksappend regels: %s"
 
-#: pyanaconda/kickstart.py:1339 pyanaconda/livecd.py:228
+#: pyanaconda/kickstart.py:1368 pyanaconda/livecd.py:213
 msgid "Post-Installation"
 msgstr "Post-installatie fase"
 
-#: pyanaconda/kickstart.py:1340
+#: pyanaconda/kickstart.py:1369
 msgid "Running post-installation scripts"
 msgstr "Uitvoeren van post-installatie scripts"
 
-#: pyanaconda/kickstart.py:1355
+#: pyanaconda/kickstart.py:1384
 msgid "Running pre-installation scripts"
 msgstr "Uitvoeren van pre-installatie scripts"
 
-#: pyanaconda/kickstart.py:1387
+#: pyanaconda/kickstart.py:1415
 msgid "Missing Package"
 msgstr "Ontbrekend pakket"
 
-#: pyanaconda/kickstart.py:1388
+#: pyanaconda/kickstart.py:1416
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -882,19 +802,19 @@ msgstr ""
 "Je hebt aangegeven dat het pakket '%s' moet worden geïnstalleerd.  Dit "
 "pakket bestaat niet. Wil je doorgaan met deze installatie of wil je afbreken?"
 
-#: pyanaconda/kickstart.py:1394 pyanaconda/kickstart.py:1433
+#: pyanaconda/kickstart.py:1422 pyanaconda/kickstart.py:1461
 msgid "_Abort"
 msgstr "_Afbreken"
 
-#: pyanaconda/kickstart.py:1395 pyanaconda/kickstart.py:1434
+#: pyanaconda/kickstart.py:1423 pyanaconda/kickstart.py:1462
 msgid "_Ignore All"
 msgstr "Alles _negeren"
 
-#: pyanaconda/kickstart.py:1425
+#: pyanaconda/kickstart.py:1453
 msgid "Missing Group"
 msgstr "Ontbrekende groep"
 
-#: pyanaconda/kickstart.py:1426
+#: pyanaconda/kickstart.py:1454
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
@@ -903,7 +823,7 @@ msgstr ""
 "Je hebt aangegeven dat de groep '%s' moet worden geïnstalleerd.  Deze groep "
 "bestaat niet. Wil je doorgaan met deze installatie of wil je afbreken?"
 
-#: pyanaconda/kickstart.py:1523
+#: pyanaconda/kickstart.py:1551
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -928,11 +848,11 @@ msgstr ""
 "De opgegeven locatie is geen geldige %s live CD om te gebruiken als "
 "installatie bron."
 
-#: pyanaconda/livecd.py:180
+#: pyanaconda/livecd.py:165
 msgid "Copying live image to hard drive."
 msgstr "De live image wordt naar de harde schijf gekopieerd."
 
-#: pyanaconda/livecd.py:199
+#: pyanaconda/livecd.py:184
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -947,7 +867,7 @@ msgstr ""
 "Als je het installatieprogramma afsluit, zal jouw systeem zich in een "
 "inconsistente toestand bevinden wat een herinstallatie zal vereisen."
 
-#: pyanaconda/livecd.py:229
+#: pyanaconda/livecd.py:214
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
@@ -955,7 +875,7 @@ msgstr ""
 "Uitvoeren van post-installatie veranderingen aan het bestandssysteem. Dit "
 "kan enkele minuten duren."
 
-#: pyanaconda/livecd.py:441
+#: pyanaconda/livecd.py:416
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
@@ -964,18 +884,18 @@ msgstr ""
 "Het root bestandssysteem dat je hebt aangemaakt is niet groot genoeg voor "
 "deze live image (%.2f MB vereist)."
 
-#: pyanaconda/livecd.py:446 pyanaconda/packages.py:339
-#: pyanaconda/upgrade.py:253 pyanaconda/yuminstall.py:983
-#: pyanaconda/yuminstall.py:1067 pyanaconda/yuminstall.py:1483
-#: pyanaconda/yuminstall.py:1525 data/ui/anaconda.glade.h:2
+#: pyanaconda/livecd.py:421 pyanaconda/packages.py:341
+#: pyanaconda/upgrade.py:253 pyanaconda/yuminstall.py:996
+#: pyanaconda/yuminstall.py:1080 pyanaconda/yuminstall.py:1495
+#: pyanaconda/yuminstall.py:1537 data/ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr "_Terug"
 
-#: pyanaconda/network.py:77
+#: pyanaconda/network.py:78
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr "Host naam moet 255 -of minder- karakters lang zijn."
 
-#: pyanaconda/network.py:83
+#: pyanaconda/network.py:84
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or '0-"
 "9'"
@@ -983,17 +903,17 @@ msgstr ""
 "Host naam moet beginnen met een geldig teken in de reeksen 'a-z', 'A-Z', of "
 "'0-9'"
 
-#: pyanaconda/network.py:88
+#: pyanaconda/network.py:89
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.'"
 msgstr ""
 "Host namen mogen alleen de karakters 'a-z', 'A-Z', '0-9', '-' of '.' bevatten"
 
-#: pyanaconda/network.py:132
+#: pyanaconda/network.py:133
 msgid "IP address is missing."
 msgstr "IP adres ontbreekt."
 
-#: pyanaconda/network.py:136
+#: pyanaconda/network.py:137
 msgid ""
 "IPv4 addresses must contain four numbers between 0 and 255, separated by "
 "periods."
@@ -1001,40 +921,40 @@ msgstr ""
 "IPv4 adressen moeten bestaan uit vier getallen tussen 0 en 255, gescheiden "
 "door punten."
 
-#: pyanaconda/network.py:139
+#: pyanaconda/network.py:140
 #, python-format
 msgid "'%s' is not a valid IPv6 address."
 msgstr "'%s' is geen geldig IPv6 adres."
 
-#: pyanaconda/network.py:141
+#: pyanaconda/network.py:142
 #, python-format
 msgid "'%s' is an invalid IP address."
 msgstr "'%s' is een ongeldig IP adres."
 
-#: pyanaconda/packages.py:116
+#: pyanaconda/packages.py:118
 msgid "Resizing Failed"
 msgstr "Aanpassen van de grootte is mislukt"
 
-#: pyanaconda/packages.py:117
+#: pyanaconda/packages.py:119
 #, python-format
 msgid "There was an error encountered while resizing the device %s."
 msgstr "Er was een fout bij het aanpassen van de grootte van het apparaat %s."
 
-#: pyanaconda/packages.py:125
+#: pyanaconda/packages.py:127
 msgid "Migration Failed"
 msgstr "Migratie mislukte"
 
-#: pyanaconda/packages.py:126
+#: pyanaconda/packages.py:128
 #, python-format
 msgid "An error was encountered while migrating filesystem on device %s."
 msgstr ""
 "Er was een fout bij het migreren van het bestandssysteem op apparaat %s."
 
-#: pyanaconda/packages.py:135
+#: pyanaconda/packages.py:137
 msgid "_File Bug"
 msgstr "Bug _indienen"
 
-#: pyanaconda/packages.py:319
+#: pyanaconda/packages.py:321
 #, python-format
 msgid ""
 "Warning!  This is pre-release software!\n"
@@ -1065,15 +985,15 @@ msgstr ""
 "\n"
 "en maak een bug rapport voor '%(fileagainst)s'.\n"
 
-#: pyanaconda/packages.py:335
+#: pyanaconda/packages.py:337
 msgid "_Install Anyway"
 msgstr "_Toch installeren"
 
-#: pyanaconda/packages.py:338
+#: pyanaconda/packages.py:340
 msgid "Your system will now be rebooted..."
 msgstr "Jouw systeem zal nu opnieuw opstarten..."
 
-#: pyanaconda/packages.py:340
+#: pyanaconda/packages.py:342
 msgid "Warning! This is pre-release software!"
 msgstr "Waarschuwing! Deze software is een proef versie!"
 
@@ -1138,7 +1058,7 @@ msgid "You must first select a partition to delete."
 msgstr "De te verwijderen partitie moet eerst geselecteerd worden."
 
 #: pyanaconda/partIntfHelpers.py:155 pyanaconda/partIntfHelpers.py:343
-#: pyanaconda/iw/lvm_dialog_gui.py:877
+#: pyanaconda/iw/lvm_dialog_gui.py:880
 msgid "Confirm Delete"
 msgstr "Verwijderen bevestigen"
 
@@ -1149,9 +1069,9 @@ msgstr ""
 "Je staat op het punt alle partities op het apparaat '%s' te verwijderen."
 
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
-#: pyanaconda/iw/lvm_dialog_gui.py:880 pyanaconda/iw/lvm_dialog_gui.py:1450
-#: pyanaconda/iw/osbootwidget.py:104 pyanaconda/iw/partition_gui.py:1812
-#: pyanaconda/iw/partition_gui.py:1824
+#: pyanaconda/iw/lvm_dialog_gui.py:883 pyanaconda/iw/lvm_dialog_gui.py:1483
+#: pyanaconda/iw/osbootwidget.py:104 pyanaconda/iw/partition_gui.py:1815
+#: pyanaconda/iw/partition_gui.py:1827
 msgid "_Delete"
 msgstr "Verwij_deren"
 
@@ -1213,7 +1133,7 @@ msgstr ""
 msgid "Format?"
 msgstr "Formatteren?"
 
-#: pyanaconda/partIntfHelpers.py:251 pyanaconda/iw/partition_gui.py:1597
+#: pyanaconda/partIntfHelpers.py:251 pyanaconda/iw/partition_gui.py:1600
 msgid "_Modify Partition"
 msgstr "Partitie _aanpassen"
 
@@ -1365,18 +1285,18 @@ msgid "iSCSI %s Error"
 msgstr "iSCSI %s fout"
 
 #: pyanaconda/platform.py:98 pyanaconda/platform.py:344
-#: pyanaconda/platform.py:412 pyanaconda/platform.py:520
+#: pyanaconda/platform.py:412 pyanaconda/platform.py:521
 #: data/ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr "RAID opstelling"
 
 #: pyanaconda/platform.py:99 pyanaconda/platform.py:102
 #: pyanaconda/platform.py:345 pyanaconda/platform.py:413
-#: pyanaconda/platform.py:521 pyanaconda/platform.py:524
+#: pyanaconda/platform.py:522 pyanaconda/platform.py:525
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: pyanaconda/platform.py:101 pyanaconda/platform.py:523
+#: pyanaconda/platform.py:101 pyanaconda/platform.py:524
 msgid "First sector of boot partition"
 msgstr "Eerste sector van de opstart partitie"
 
@@ -1454,35 +1374,41 @@ msgstr "Apple Bootstrap"
 msgid "%s must have a mac disk label."
 msgstr "%s moet een mac schijf label hebben."
 
-#: pyanaconda/rescue.py:221
+#: pyanaconda/rescue.py:226 pyanaconda/rescue.py:382 pyanaconda/rescue.py:482
+msgid "Run anaconda-image-cleanup to unmount the system when you are finished."
+msgstr ""
+"Draai anaconda-image-cleanup om het systeem af te koppelen als je klaar "
+"bent."
+
+#: pyanaconda/rescue.py:229
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Als je klaar bent, verlaat je de shell en jouw systeem zal herstarten."
 
-#: pyanaconda/rescue.py:235
+#: pyanaconda/rescue.py:243
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr ""
 "Niet in staat om /bin/sh te vinden om uit te voeren! Shell wordt niet gestart"
 
-#: pyanaconda/rescue.py:254
+#: pyanaconda/rescue.py:262
 msgid "Setup Networking"
 msgstr "Netwerk instellen"
 
 # Interfaces hier niet vertaald
-#: pyanaconda/rescue.py:255
+#: pyanaconda/rescue.py:263
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Wil je de netwerk interfaces in dit systeem starten?"
 
-#: pyanaconda/rescue.py:256 loader/driverdisk.c:655 loader/driverdisk.c:665
+#: pyanaconda/rescue.py:264 loader/driverdisk.c:638 loader/driverdisk.c:648
 #: loader/hdinstall.c:168 pyanaconda/textw/constants_text.py:56
 msgid "Yes"
 msgstr "Ja"
 
-#: pyanaconda/rescue.py:256 pyanaconda/rescue.py:258 loader/driverdisk.c:655
-#: loader/driverdisk.c:665 pyanaconda/textw/constants_text.py:60
+#: pyanaconda/rescue.py:264 pyanaconda/rescue.py:266 loader/driverdisk.c:638
+#: loader/driverdisk.c:648 pyanaconda/textw/constants_text.py:60
 msgid "No"
 msgstr "Nee"
 
-#: pyanaconda/rescue.py:263
+#: pyanaconda/rescue.py:271
 msgid ""
 "Unable to activate a networking device.  Networking will not be available in "
 "rescue mode."
@@ -1490,12 +1416,12 @@ msgstr ""
 "Niet in staat om een netwerk apparaat te activeren. Netwerk zal niet "
 "beschikbaar zijn in de redding mode."
 
-#: pyanaconda/rescue.py:299 pyanaconda/rescue.py:374 pyanaconda/rescue.py:385
-#: pyanaconda/rescue.py:470 pyanaconda/rescue.py:499
+#: pyanaconda/rescue.py:307 pyanaconda/rescue.py:389 pyanaconda/rescue.py:399
+#: pyanaconda/rescue.py:485 pyanaconda/rescue.py:518
 msgid "Rescue"
 msgstr "Redding"
 
-#: pyanaconda/rescue.py:300
+#: pyanaconda/rescue.py:308
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -1521,52 +1447,56 @@ msgstr ""
 "shell-prompt.\n"
 "\n"
 
-#: pyanaconda/rescue.py:311 pyanaconda/iw/partition_gui.py:785
-#: loader/driverdisk.c:616 pyanaconda/storage/__init__.py:169
-#: pyanaconda/storage/devicetree.py:93
+#: pyanaconda/rescue.py:319 pyanaconda/iw/partition_gui.py:788
+#: loader/driverdisk.c:599 pyanaconda/storage/__init__.py:169
+#: pyanaconda/storage/devicetree.py:95
 msgid "Continue"
 msgstr "Doorgaan"
 
-#: pyanaconda/rescue.py:311 pyanaconda/rescue.py:320
+#: pyanaconda/rescue.py:319 pyanaconda/rescue.py:328
 msgid "Read-Only"
 msgstr "Alleen-lezen"
 
-#: pyanaconda/rescue.py:311 pyanaconda/rescue.py:313 loader/cdinstall.c:205
+#: pyanaconda/rescue.py:319 pyanaconda/rescue.py:321 loader/cdinstall.c:205
 #: loader/cdinstall.c:208 loader/method.c:241
-#: pyanaconda/storage/__init__.py:1792 pyanaconda/textw/upgrade_text.py:139
+#: pyanaconda/storage/__init__.py:1819 pyanaconda/textw/upgrade_text.py:139
 msgid "Skip"
 msgstr "Overslaan"
 
-#: pyanaconda/rescue.py:311 pyanaconda/rescue.py:316
+#: pyanaconda/rescue.py:319 pyanaconda/rescue.py:324
 msgid "Advanced"
 msgstr "Geavanceerd"
 
-#: pyanaconda/rescue.py:350
+#: pyanaconda/rescue.py:358
 msgid "System to Rescue"
 msgstr "Te redden systeem"
 
-#: pyanaconda/rescue.py:351
+#: pyanaconda/rescue.py:359
 msgid "Which device holds the root partition of your installation?"
 msgstr "Welke schijf bevat de root partitie van jouw installatie?"
 
-#: pyanaconda/rescue.py:353 pyanaconda/rescue.py:357 pyanaconda/text.py:519
+#: pyanaconda/rescue.py:361 pyanaconda/rescue.py:365 pyanaconda/text.py:519
 #: pyanaconda/text.py:521
 msgid "Exit"
 msgstr "Afsluiten"
 
+# return -> enter
+#: pyanaconda/rescue.py:379 pyanaconda/rescue.py:479
+msgid "The system will reboot automatically when you exit from the shell."
+msgstr "Het systeem zal automatisch herstarten als je de shell verlaat."
+
 # return staat niet tussen haken. Waarom return en geen enter?
-#: pyanaconda/rescue.py:375
+#: pyanaconda/rescue.py:390
+#, python-format, 
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
-"return to get a shell from which you can fsck and mount your partitions.  "
-"The system will reboot automatically when you exit from the shell."
+"return to get a shell from which you can fsck and mount your partitions. %s"
 msgstr ""
-"Jouw systeem had beschadigde bestandssystemen. Je hebt gekozen om deze niet "
-"aan te koppelen. Druk op <Enter> om een shell prompt te krijgen waarin je de "
-"partities kunt controleren met fsck en vervolgens kunt aankoppelen. Het "
-"systeem zal automatisch opnieuw worden opgestart wanneer je de shell verlaat."
+"Jouw systeem had beschadigde bestandssystemen waarvoor je gekozen om deze "
+"niet aan te koppelen. Druk op <Enter> om een shell prompt te krijgen waarin "
+"je jouw partities kunt controleren met fsck en kunt aankoppelen. %s"
 
-#: pyanaconda/rescue.py:386
+#: pyanaconda/rescue.py:400
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -1576,51 +1506,51 @@ msgid ""
 "\n"
 "\tchroot %(rootPath)s\n"
 "\n"
-"The system will reboot automatically when you exit from the shell."
+"%(msg)s"
 msgstr ""
 "Jouw systeem is aangekoppeld onder %(rootPath)s.\n"
 "\n"
 "Druk op <Enter> om een shell prompt te krijgen. Als je jouw systeem in de "
-"root omgeving wilt zetten, voer dan deze opdracht uit:\n"
+"root omgeving wilt zetten, voer dan dit commando uit:\n"
 "\n"
 "\tchroot %(rootPath)s\n"
 "\n"
-"Het systeem zal automatisch herstarten wanneer je de shell verlaat."
+"%(msg)s"
 
 # return -> enter
-#: pyanaconda/rescue.py:471
+#: pyanaconda/rescue.py:486
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
 "\n"
-"Press <return> to get a shell. The system will reboot automatically when you "
-"exit from the shell."
+"Press <return> to get a shell. %s"
 msgstr ""
 "Er is een fout opgetreden tijdens het aankoppelen van (een deel van) jouw "
 "systeem. Een deel is mogelijk aangekoppeld onder %s.\n"
 "\n"
-"Druk op <Enter> om een shell prompt te krijgen. Het systeem zal automatisch "
-"herstarten als je de shell verlaat."
+"Druk op <Enter> om een shell prompt te krijgen. %s"
 
-#: pyanaconda/rescue.py:481
+#: pyanaconda/rescue.py:496
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "Je hebt geen Linux partities. Systeem zal nu herstarten.\n"
 
-#: pyanaconda/rescue.py:484
+# return -> enter
+#: pyanaconda/rescue.py:500
+msgid " The system will reboot automatically when you exit from the shell."
+msgstr "Het systeem zal automatisch herstarten als je de shell verlaat."
+
+#: pyanaconda/rescue.py:504
 msgid "Rescue Mode"
 msgstr "Redding mode"
 
-# return -> enter
-#: pyanaconda/rescue.py:485
-msgid ""
-"You don't have any Linux partitions. Press return to get a shell. The system "
-"will reboot automatically when you exit from the shell."
+#: pyanaconda/rescue.py:505
+#, python-format
+msgid "You don't have any Linux partitions. Press return to get a shell.%s"
 msgstr ""
-"Je hebt geen Linux partities. Druk op <Enter> om een shell prompt te "
-"krijgen. Het systeem zal automatisch herstarten als je de shell verlaat."
+"Je hebt geen Linux partities. Druk op <Enter> om een shell te krijgen.%s"
 
-#: pyanaconda/rescue.py:498
+#: pyanaconda/rescue.py:517
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Jouw systeem is aangekoppeld onder de map %s."
@@ -2076,7 +2006,7 @@ msgstr "Niet in staat om toegang tot de schijf te krijgen."
 msgid "Repository %r is missing name in configuration, using id"
 msgstr "Naam ontbreekt in configuratie van repository %r, id wordt gebruikt"
 
-#: pyanaconda/yuminstall.py:795 pyanaconda/yuminstall.py:1218
+#: pyanaconda/yuminstall.py:808 pyanaconda/yuminstall.py:1230
 #: pyanaconda/iw/task_gui.py:309
 msgid ""
 "Some of your software repositories require networking, but there was an "
@@ -2086,15 +2016,15 @@ msgstr ""
 "noodzakelijk, maar er trad een probleem op met het aanzetten van het netwerk "
 "op jouw systeem."
 
-#: pyanaconda/yuminstall.py:884 pyanaconda/yuminstall.py:886
+#: pyanaconda/yuminstall.py:897 pyanaconda/yuminstall.py:899
 msgid "Re_boot"
 msgstr "_Herstarten"
 
-#: pyanaconda/yuminstall.py:884
+#: pyanaconda/yuminstall.py:897
 msgid "_Eject"
 msgstr "_Uitwerpen"
 
-#: pyanaconda/yuminstall.py:890
+#: pyanaconda/yuminstall.py:903
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -2113,15 +2043,15 @@ msgstr ""
 "vereisen.\n"
 "\n"
 
-#: pyanaconda/yuminstall.py:937
+#: pyanaconda/yuminstall.py:950
 msgid "Retrying"
 msgstr "Opnieuw proberen"
 
-#: pyanaconda/yuminstall.py:937
+#: pyanaconda/yuminstall.py:950
 msgid "Retrying download."
 msgstr "Opnieuw proberen te downloaden."
 
-#: pyanaconda/yuminstall.py:972
+#: pyanaconda/yuminstall.py:985
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
@@ -2129,47 +2059,47 @@ msgstr ""
 "Er was een fout bij het uitvoeren van jouw transactie, de volgende reden "
 "was: %s\n"
 
-#: pyanaconda/yuminstall.py:1013 pyanaconda/yuminstall.py:1014
+#: pyanaconda/yuminstall.py:1026 pyanaconda/yuminstall.py:1027
 msgid "file conflicts"
 msgstr "bestand conflicteert"
 
-#: pyanaconda/yuminstall.py:1015
+#: pyanaconda/yuminstall.py:1028
 msgid "older package(s)"
 msgstr "ouder(e) pakket(ten)"
 
-#: pyanaconda/yuminstall.py:1016
+#: pyanaconda/yuminstall.py:1029
 msgid "insufficient disk space"
 msgstr "onvoldoende schijfruimte"
 
-#: pyanaconda/yuminstall.py:1017
+#: pyanaconda/yuminstall.py:1030
 msgid "insufficient disk inodes"
 msgstr "onvoldoende schijf inodes"
 
-#: pyanaconda/yuminstall.py:1018
+#: pyanaconda/yuminstall.py:1031
 msgid "package conflicts"
 msgstr "pakket conflicteert"
 
-#: pyanaconda/yuminstall.py:1019
+#: pyanaconda/yuminstall.py:1032
 msgid "package already installed"
 msgstr "pakket is al geïnstalleerd"
 
-#: pyanaconda/yuminstall.py:1020
+#: pyanaconda/yuminstall.py:1033
 msgid "required package"
 msgstr "vereist pakket"
 
-#: pyanaconda/yuminstall.py:1021
+#: pyanaconda/yuminstall.py:1034
 msgid "package for incorrect arch"
 msgstr "pakket is voor incorrecte architectuur"
 
-#: pyanaconda/yuminstall.py:1022
+#: pyanaconda/yuminstall.py:1035
 msgid "package for incorrect os"
 msgstr "pakket is voor incorrect besturingssysteem"
 
-#: pyanaconda/yuminstall.py:1036
+#: pyanaconda/yuminstall.py:1049
 msgid "You need more space on the following file systems:\n"
 msgstr "Je hebt meer ruimte nodig op de volgende bestandssystemen:\n"
 
-#: pyanaconda/yuminstall.py:1049
+#: pyanaconda/yuminstall.py:1062
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
@@ -2179,7 +2109,7 @@ msgstr ""
 "pakketten:\n"
 "%s\n"
 
-#: pyanaconda/yuminstall.py:1052
+#: pyanaconda/yuminstall.py:1065
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
@@ -2188,11 +2118,11 @@ msgstr ""
 "Er was een fout bij het uitvoeren van jouw transactie, de volgende reden(en) "
 "was: %s.\n"
 
-#: pyanaconda/yuminstall.py:1059 pyanaconda/yuminstall.py:1064
+#: pyanaconda/yuminstall.py:1072 pyanaconda/yuminstall.py:1077
 msgid "Error Running Transaction"
 msgstr "Fout bij het uitvoeren van transactie"
 
-#: pyanaconda/yuminstall.py:1243
+#: pyanaconda/yuminstall.py:1255
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
@@ -2200,11 +2130,11 @@ msgstr ""
 "Niet in staat om de groep informatie te lezen vanuit de repository. Dit is "
 "een probleem met de samenstelling van jouw installatie boom."
 
-#: pyanaconda/yuminstall.py:1292 pyanaconda/textw/constants_text.py:64
+#: pyanaconda/yuminstall.py:1304 pyanaconda/textw/constants_text.py:64
 msgid "Edit"
 msgstr "Bewerken"
 
-#: pyanaconda/yuminstall.py:1303 pyanaconda/yuminstall.py:1497
+#: pyanaconda/yuminstall.py:1315 pyanaconda/yuminstall.py:1509
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -2219,7 +2149,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/yuminstall.py:1475
+#: pyanaconda/yuminstall.py:1487
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -2233,7 +2163,7 @@ msgstr ""
 "pakketten zonder hun afhankelijkheden.  Als je verdergaat zullen deze "
 "pakketten misschien niet goed werken door ontbrekende onderdelen."
 
-#: pyanaconda/yuminstall.py:1519
+#: pyanaconda/yuminstall.py:1531
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -2244,7 +2174,7 @@ msgstr ""
 "installatie, maar je hebt niet genoeg vrije ruimte beschikbaar. Je kunt jouw "
 "selecties aanpassen of het installatieprogramma afsluiten."
 
-#: pyanaconda/yuminstall.py:1657
+#: pyanaconda/yuminstall.py:1625
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
@@ -2254,7 +2184,7 @@ msgstr ""
 "voor een upgrade naar deze versie van %s.  Weet je zeker dat je door wilt "
 "gaan met het upgrade proces?"
 
-#: pyanaconda/yuminstall.py:1692
+#: pyanaconda/yuminstall.py:1660
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -2267,48 +2197,48 @@ msgstr ""
 "vorige geïnstalleerde architectuur van %(arch)s.  Dit zal waarschijnlijk "
 "niet slagen.  Weet je zeker dat je wilt doorgaan met het upgrade proces?"
 
-#: pyanaconda/yuminstall.py:1739
+#: pyanaconda/yuminstall.py:1707
 msgid "Post Upgrade"
 msgstr "Post-upgrade fase"
 
-#: pyanaconda/yuminstall.py:1740
+#: pyanaconda/yuminstall.py:1708
 msgid "Performing post-upgrade configuration"
 msgstr "Uitvoeren van post-upgrade configuratie"
 
-#: pyanaconda/yuminstall.py:1742
+#: pyanaconda/yuminstall.py:1710
 msgid "Post Installation"
 msgstr "Post-installatie fase"
 
-#: pyanaconda/yuminstall.py:1743
+#: pyanaconda/yuminstall.py:1711
 msgid "Performing post-installation configuration"
 msgstr "Uitvoeren van post-installatie configuratie"
 
-#: pyanaconda/yuminstall.py:1973
+#: pyanaconda/yuminstall.py:1941
 msgid "Installation Starting"
 msgstr "Installatie gaat nu beginnen"
 
-#: pyanaconda/yuminstall.py:1974
+#: pyanaconda/yuminstall.py:1942
 msgid "Starting installation process"
 msgstr "Beginnen met installatie proces"
 
-#: pyanaconda/yuminstall.py:2012
+#: pyanaconda/yuminstall.py:1980
 msgid "Dependency Check"
 msgstr "Controle van afhankelijkheden"
 
-#: pyanaconda/yuminstall.py:2013
+#: pyanaconda/yuminstall.py:1981
 msgid "Checking dependencies in packages selected for installation"
 msgstr "De afhankelijkheden in de geselecteerde pakketten worden gecontroleerd"
 
-#: pyanaconda/yuminstall.py:2069 pyanaconda/yuminstall.py:2085
+#: pyanaconda/yuminstall.py:2037 pyanaconda/yuminstall.py:2053
 msgid "Retrieving installation information."
 msgstr "Bezig met ophalen van installatie informatie."
 
-#: pyanaconda/yuminstall.py:2071 pyanaconda/yuminstall.py:2087
+#: pyanaconda/yuminstall.py:2039 pyanaconda/yuminstall.py:2055
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr "Bezig met ophalen van installatie informatie voor %s."
 
-#: pyanaconda/yuminstall.py:2072 pyanaconda/yuminstall.py:2088
+#: pyanaconda/yuminstall.py:2040 pyanaconda/yuminstall.py:2056
 msgid "Installation Progress"
 msgstr "Installatie voortgang"
 
@@ -2504,8 +2434,8 @@ msgstr ""
 "verwijdert geen andere partities die je op jouw opslag apparaten hebt (zoals "
 "VFAT of FAT32).\n"
 "\n"
-"<b>Tip:</b> Deze optie zal data verwijderen van de geselecteerde apparaten. "
-" Wees er zeker van dat je back-ups gemaakt hebt."
+"<b>Tip:</b> Deze optie zal data verwijderen van de geselecteerde apparaten.  "
+"Wees er zeker van dat je back-ups gemaakt hebt."
 
 #: pyanaconda/iw/autopart_type.py:268
 msgid "_Shrink Current System"
@@ -2694,11 +2624,11 @@ msgstr ""
 "zullen niet opnieuw geformatteerd worden behalve als je hiervoor gekozen "
 "hebt tijdens het aanpassen."
 
-#: pyanaconda/iw/congrats_gui.py:33
+#: pyanaconda/iw/congrats_gui.py:34
 msgid "Congratulations"
 msgstr "Gefeliciteerd"
 
-#: pyanaconda/iw/congrats_gui.py:74 pyanaconda/textw/complete_text.py:39
+#: pyanaconda/iw/congrats_gui.py:75 pyanaconda/textw/complete_text.py:39
 #, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
@@ -2707,23 +2637,23 @@ msgstr ""
 "Gefeliciteerd, jouw %s installatie is voltooid.\n"
 "\n"
 
-#: pyanaconda/iw/congrats_gui.py:77 pyanaconda/textw/complete_text.py:42
+#: pyanaconda/iw/congrats_gui.py:78 pyanaconda/textw/complete_text.py:42
 msgid "Shutdown"
 msgstr "Afsluiten"
 
-#: pyanaconda/iw/congrats_gui.py:79 pyanaconda/textw/complete_text.py:44
+#: pyanaconda/iw/congrats_gui.py:80 pyanaconda/textw/complete_text.py:44
 msgid "Please shutdown to use the installed system.\n"
 msgstr ""
 "Sluit het systeem a.u.b. af om gebruik te maken van het geïnstalleerde "
 "systeem.\n"
 
-#: pyanaconda/iw/congrats_gui.py:81 pyanaconda/textw/complete_text.py:46
+#: pyanaconda/iw/congrats_gui.py:82 pyanaconda/textw/complete_text.py:46
 msgid "Please reboot to use the installed system.\n"
 msgstr ""
 "Start het systeem a.u.b. opnieuw op om gebruik te maken van het "
 "geïnstalleerde systeem.\n"
 
-#: pyanaconda/iw/congrats_gui.py:86 pyanaconda/textw/complete_text.py:51
+#: pyanaconda/iw/congrats_gui.py:87 pyanaconda/textw/complete_text.py:51
 msgid ""
 "Note that updates may be available to ensure the proper functioning of your "
 "system and installation of these updates is recommended after the reboot."
@@ -2732,7 +2662,7 @@ msgstr ""
 "van jouw systeem te waarborgen. Installatie van deze vernieuwingen na "
 "opnieuw opstarten wordt aanbevolen."
 
-#: pyanaconda/iw/congrats_gui.py:90 pyanaconda/textw/complete_text.py:55
+#: pyanaconda/iw/congrats_gui.py:91 pyanaconda/textw/complete_text.py:55
 #, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
@@ -2813,7 +2743,7 @@ msgstr "Serie nummer"
 #: pyanaconda/iw/filter_gui.py:494 pyanaconda/iw/filter_gui.py:502
 #: pyanaconda/iw/filter_gui.py:513 pyanaconda/iw/filter_gui.py:524
 #: pyanaconda/iw/filter_gui.py:539 pyanaconda/iw/osbootwidget.py:66
-#: pyanaconda/iw/partition_gui.py:611
+#: pyanaconda/iw/partition_gui.py:614
 msgid "Device"
 msgstr "Apparaat"
 
@@ -2868,19 +2798,19 @@ msgstr ""
 msgid "Language Selection"
 msgstr "Taalkeuze"
 
-#: pyanaconda/iw/language_gui.py:81 loader/lang.c:371
+#: pyanaconda/iw/language_gui.py:81 loader/lang.c:365
 #: pyanaconda/textw/language_text.py:46
 msgid "What language would you like to use during the installation process?"
 msgstr "Welke taal wil je gebruiken tijdens het installatieproces?"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:126 pyanaconda/iw/lvm_dialog_gui.py:172
-#: pyanaconda/iw/lvm_dialog_gui.py:186 pyanaconda/iw/lvm_dialog_gui.py:225
-#: pyanaconda/iw/lvm_dialog_gui.py:302 pyanaconda/iw/lvm_dialog_gui.py:697
-#: pyanaconda/iw/lvm_dialog_gui.py:718
+#: pyanaconda/iw/lvm_dialog_gui.py:128 pyanaconda/iw/lvm_dialog_gui.py:174
+#: pyanaconda/iw/lvm_dialog_gui.py:188 pyanaconda/iw/lvm_dialog_gui.py:227
+#: pyanaconda/iw/lvm_dialog_gui.py:304 pyanaconda/iw/lvm_dialog_gui.py:700
+#: pyanaconda/iw/lvm_dialog_gui.py:721
 msgid "Not enough space"
 msgstr "Niet voldoende ruimte"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:127
+#: pyanaconda/iw/lvm_dialog_gui.py:129
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
@@ -2890,11 +2820,11 @@ msgstr ""
 "ruimte, benodigd voor de momenteel gedefinieerde logische volumes, groter "
 "zal worden dan de beschikbare ruimte."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:136
+#: pyanaconda/iw/lvm_dialog_gui.py:138
 msgid "Confirm Physical Extent Change"
 msgstr "Aanpassing fysieke omvang bevestigen"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:137
+#: pyanaconda/iw/lvm_dialog_gui.py:139
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2908,11 +2838,11 @@ msgstr ""
 "\n"
 "Deze verandering zal meteen worden doorgevoerd."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:146 pyanaconda/iw/lvm_dialog_gui.py:208
+#: pyanaconda/iw/lvm_dialog_gui.py:148 pyanaconda/iw/lvm_dialog_gui.py:210
 msgid "C_ontinue"
 msgstr "_Doorgaan"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:173
+#: pyanaconda/iw/lvm_dialog_gui.py:175
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2923,7 +2853,7 @@ msgstr ""
 "geselecteerde waarde (%(curpe)10.2f MB) groter is dan het kleinste fysieke "
 "volume (%(maxpvsize)10.2f MB) in de volume groep."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:187
+#: pyanaconda/iw/lvm_dialog_gui.py:189
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2935,11 +2865,11 @@ msgstr ""
 "grootte van het kleinste fysieke volume (%(maxpvsize)10.2f MB) in de volume "
 "groep."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:201
+#: pyanaconda/iw/lvm_dialog_gui.py:203
 msgid "Too small"
 msgstr "Te klein"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:202
+#: pyanaconda/iw/lvm_dialog_gui.py:204
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
@@ -2948,7 +2878,7 @@ msgstr ""
 "hoeveelheid ruimte verspillen op een of meer van de fysieke volumes in de "
 "volume groep."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:226
+#: pyanaconda/iw/lvm_dialog_gui.py:228
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -2959,7 +2889,7 @@ msgstr ""
 "resulterende maximum logische volume grootte (%10.2f MB) kleiner is dan een "
 "of meer van de huidige gedefinieerde logische volumes."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:303
+#: pyanaconda/iw/lvm_dialog_gui.py:305
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
@@ -2967,109 +2897,109 @@ msgstr ""
 "Je kunt dit fysieke volume niet verwijderen omdat de volume groep anders te "
 "klein zou worden om de momenteel gedefinieerde logische volumes te bevatten."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:402
+#: pyanaconda/iw/lvm_dialog_gui.py:405
 msgid "Make Logical Volume"
 msgstr "Logische volume maken"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:404
+#: pyanaconda/iw/lvm_dialog_gui.py:407
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr "Bewerken van logische volume: %s"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:443 pyanaconda/iw/raid_dialog_gui.py:451
+#: pyanaconda/iw/lvm_dialog_gui.py:446 pyanaconda/iw/raid_dialog_gui.py:452
 msgid "_File System Type:"
 msgstr "_Bestandssysteem type:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:449
+#: pyanaconda/iw/lvm_dialog_gui.py:452
 msgid "_Logical Volume Name:"
 msgstr "_Logische volume naam:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:458
-#: pyanaconda/iw/partition_dialog_gui.py:493
+#: pyanaconda/iw/lvm_dialog_gui.py:461
+#: pyanaconda/iw/partition_dialog_gui.py:498
 msgid "_Size (MB):"
 msgstr "_Grootte (MB):"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:465
+#: pyanaconda/iw/lvm_dialog_gui.py:468
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr "(Max grootte is %s MB)"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:470
-#: pyanaconda/iw/partition_dialog_gui.py:545
-#: pyanaconda/iw/partition_ui_helpers_gui.py:341
-#: pyanaconda/iw/raid_dialog_gui.py:423
+#: pyanaconda/iw/lvm_dialog_gui.py:473
+#: pyanaconda/iw/partition_dialog_gui.py:550
+#: pyanaconda/iw/partition_ui_helpers_gui.py:339
+#: pyanaconda/iw/raid_dialog_gui.py:424
 msgid "_Encrypt"
 msgstr "_Versleutelen"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:479
-#: pyanaconda/iw/partition_dialog_gui.py:475
-#: pyanaconda/iw/raid_dialog_gui.py:461
+#: pyanaconda/iw/lvm_dialog_gui.py:482
+#: pyanaconda/iw/partition_dialog_gui.py:480
+#: pyanaconda/iw/raid_dialog_gui.py:462
 msgid "Original File System Type:"
 msgstr "Oorspronkelijk bestandssysteem type:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:484
-#: pyanaconda/iw/partition_dialog_gui.py:483
-#: pyanaconda/iw/raid_dialog_gui.py:468
+#: pyanaconda/iw/lvm_dialog_gui.py:487
+#: pyanaconda/iw/partition_dialog_gui.py:488
+#: pyanaconda/iw/raid_dialog_gui.py:469
 msgid "Original File System Label:"
 msgstr "Oorspronkelijk bestandssysteem label:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:489
+#: pyanaconda/iw/lvm_dialog_gui.py:492
 msgid "Logical Volume Name:"
 msgstr "Logische volume naam:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:493
+#: pyanaconda/iw/lvm_dialog_gui.py:496
 msgid "Size (MB):"
 msgstr "Grootte (MB):"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:520
+#: pyanaconda/iw/lvm_dialog_gui.py:523
 #: pyanaconda/iw/partition_dialog_gui.py:431
-#: pyanaconda/iw/raid_dialog_gui.py:442
+#: pyanaconda/iw/raid_dialog_gui.py:443
 msgid "_Mount Point:"
 msgstr "_Koppel punt:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:601
+#: pyanaconda/iw/lvm_dialog_gui.py:604
 #: pyanaconda/iw/partition_dialog_gui.py:118
-#: pyanaconda/iw/raid_dialog_gui.py:176
+#: pyanaconda/iw/raid_dialog_gui.py:177
 msgid "Mount Point Error"
 msgstr "Koppel punt fout"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:611
+#: pyanaconda/iw/lvm_dialog_gui.py:614
 msgid "Illegal Logical Volume Name"
 msgstr "Ongeldige logische volume naam"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:626
+#: pyanaconda/iw/lvm_dialog_gui.py:629
 msgid "Illegal logical volume name"
 msgstr "Ongeldige logische volume naam"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:627
+#: pyanaconda/iw/lvm_dialog_gui.py:630
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "De logische volume naam \"%s\" is reeds in gebruik. Kies een andere."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:668
+#: pyanaconda/iw/lvm_dialog_gui.py:671
 #: pyanaconda/iw/partition_dialog_gui.py:133
-#: pyanaconda/iw/raid_dialog_gui.py:191
+#: pyanaconda/iw/raid_dialog_gui.py:192
 msgid "Mount point in use"
 msgstr "Koppel punt in gebruik"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:669
+#: pyanaconda/iw/lvm_dialog_gui.py:672
 #: pyanaconda/iw/partition_dialog_gui.py:134
-#: pyanaconda/iw/raid_dialog_gui.py:192
+#: pyanaconda/iw/raid_dialog_gui.py:193
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr "Het koppel punt \"%s\" is in gebruik. Kies een andere."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:684
+#: pyanaconda/iw/lvm_dialog_gui.py:687
 msgid "Illegal size"
 msgstr "Ongeldige grootte"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:685
+#: pyanaconda/iw/lvm_dialog_gui.py:688
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr ""
 "De gevraagde grootte zoals die is ingevoerd is geen geldig getal groter dan "
 "0."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:698
+#: pyanaconda/iw/lvm_dialog_gui.py:701
 #, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
@@ -3082,7 +3012,7 @@ msgstr ""
 "verhogen kun je meer fysieke volumes vanuit niet-gepartitioneerde "
 "schijfruimte creëren en deze toevoegen aan deze volume groep."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:719
+#: pyanaconda/iw/lvm_dialog_gui.py:722
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
@@ -3095,11 +3025,11 @@ msgstr ""
 "volume groep (%(tempvgsize)d MB). Maak de volume groep a.u.b. groter of maak "
 "de logische volume kleiner."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:829
+#: pyanaconda/iw/lvm_dialog_gui.py:832
 msgid "No free slots"
 msgstr "Geen vrije ruimte"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:830
+#: pyanaconda/iw/lvm_dialog_gui.py:833
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
@@ -3107,11 +3037,11 @@ msgstr[0] "Je kunt niet meer dan %d logische volume per volume groep aanmaken."
 msgstr[1] ""
 "Je kunt niet meer dan %d logische volumes per volume groep aanmaken."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:840
+#: pyanaconda/iw/lvm_dialog_gui.py:843
 msgid "No free space"
 msgstr "Geen vrije ruimte"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:841
+#: pyanaconda/iw/lvm_dialog_gui.py:844
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
@@ -3121,29 +3051,29 @@ msgstr ""
 "maken. Om een logische volume toe te voegen moet je de grootte van een of "
 "meer van de huidige logische volumes verkleinen"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:878
+#: pyanaconda/iw/lvm_dialog_gui.py:881
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr "Weet je zeker dat je logische volume \"%s\" wilt verwijderen?"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:984
+#: pyanaconda/iw/lvm_dialog_gui.py:996
 msgid "Invalid Volume Group Name"
 msgstr "Ongeldige volume groep naam"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:993
+#: pyanaconda/iw/lvm_dialog_gui.py:1005
 msgid "Name in use"
 msgstr "Naam in gebruik"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:994
+#: pyanaconda/iw/lvm_dialog_gui.py:1006
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr "De volume groep naam \"%s\" is reeds in gebruik. Kies een andere."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1281
+#: pyanaconda/iw/lvm_dialog_gui.py:1293
 msgid "Not enough physical volumes"
 msgstr "Te weinig fysieke volumes"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1282
+#: pyanaconda/iw/lvm_dialog_gui.py:1294
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -3157,83 +3087,87 @@ msgstr ""
 "Maak een partitie of RAID opstelling van type \"fysieke volume (LVM)\" en "
 "selecteer daarna opnieuw de \"LVM\" optie."
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1293
+#: pyanaconda/iw/lvm_dialog_gui.py:1305
 msgid "Make LVM Volume Group"
 msgstr "LVM volume groep maken"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1296
+#: pyanaconda/iw/lvm_dialog_gui.py:1308
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr "Bewerken van LVM volume groep: %s"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1298
+#: pyanaconda/iw/lvm_dialog_gui.py:1310
 msgid "Edit LVM Volume Group"
 msgstr "LVM volume groep bewerken"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1314
+#: pyanaconda/iw/lvm_dialog_gui.py:1326
 msgid "_Volume Group Name:"
 msgstr "_Volume groep naam:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1322
+#: pyanaconda/iw/lvm_dialog_gui.py:1334
 msgid "Volume Group Name:"
 msgstr "Volume groep naam:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1330
+#: pyanaconda/iw/lvm_dialog_gui.py:1342
 msgid "_Physical Extent:"
 msgstr "_Fysieke omvang:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1345
+#: pyanaconda/iw/lvm_dialog_gui.py:1357
 msgid "Physical Volumes to _Use:"
 msgstr "Te gebruiken fysieke volumes:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1351
+#: pyanaconda/iw/lvm_dialog_gui.py:1363
 msgid "Used Space:"
 msgstr "Gebruikte ruimte:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1368
+#: pyanaconda/iw/lvm_dialog_gui.py:1381
+msgid "Snapshot Total:"
+msgstr "Momentopname totaal:"
+
+#: pyanaconda/iw/lvm_dialog_gui.py:1401
 msgid "Free Space:"
 msgstr "Vrije ruimte:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1386
+#: pyanaconda/iw/lvm_dialog_gui.py:1419
 msgid "Total Space:"
 msgstr "Totale ruimte:"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1424
+#: pyanaconda/iw/lvm_dialog_gui.py:1457
 msgid "Logical Volume Name"
 msgstr "Logische volume naam"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1427 pyanaconda/iw/partition_gui.py:614
+#: pyanaconda/iw/lvm_dialog_gui.py:1460 pyanaconda/iw/partition_gui.py:617
 #: pyanaconda/iw/upgrade_swap_gui.py:138 pyanaconda/textw/upgrade_text.py:124
 msgid "Mount Point"
 msgstr "Koppel punt"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1430 pyanaconda/iw/partition_gui.py:613
+#: pyanaconda/iw/lvm_dialog_gui.py:1463 pyanaconda/iw/partition_gui.py:616
 msgid "Size (MB)"
 msgstr "Grootte (MB)"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1444 pyanaconda/iw/osbootwidget.py:96
+#: pyanaconda/iw/lvm_dialog_gui.py:1477 pyanaconda/iw/osbootwidget.py:96
 msgid "_Add"
 msgstr "To_evoegen"
 
 # was eerst Wijzig_en
-#: pyanaconda/iw/lvm_dialog_gui.py:1447 pyanaconda/iw/osbootwidget.py:100
-#: pyanaconda/iw/partition_gui.py:1811 pyanaconda/iw/partition_gui.py:1821
+#: pyanaconda/iw/lvm_dialog_gui.py:1480 pyanaconda/iw/osbootwidget.py:100
+#: pyanaconda/iw/partition_gui.py:1814 pyanaconda/iw/partition_gui.py:1824
 msgid "_Edit"
 msgstr "_Bewerken"
 
-#: pyanaconda/iw/lvm_dialog_gui.py:1462
+#: pyanaconda/iw/lvm_dialog_gui.py:1495
 msgid "_Logical Volumes"
 msgstr "_Logische volumes"
 
-#: pyanaconda/iw/network_gui.py:80 pyanaconda/iw/network_gui.py:86
+#: pyanaconda/iw/network_gui.py:81 pyanaconda/iw/network_gui.py:87
 msgid "Error with Hostname"
 msgstr "Fout in host naam"
 
-#: pyanaconda/iw/network_gui.py:81
+#: pyanaconda/iw/network_gui.py:82
 msgid "You must enter a valid hostname for this computer."
 msgstr "Je moet een geldige host naam voor deze computer opgeven."
 
-#: pyanaconda/iw/network_gui.py:87
+#: pyanaconda/iw/network_gui.py:88
 #, python-format
 msgid ""
 "The hostname \"%(hostname)s\" is not valid for the following reason:\n"
@@ -3244,11 +3178,11 @@ msgstr ""
 "\n"
 "%(herrors)s"
 
-#: pyanaconda/iw/network_gui.py:131
+#: pyanaconda/iw/network_gui.py:132
 msgid "Select network interface"
 msgstr "Netwerk interface selecteren"
 
-#: pyanaconda/iw/network_gui.py:138
+#: pyanaconda/iw/network_gui.py:139
 msgid ""
 "This requires that you have an active network connection during the "
 "installation process.  Please configure a network interface."
@@ -3256,11 +3190,11 @@ msgstr ""
 "Dit vereist dat je een actieve netwerk verbinding hebt tijdens het "
 "installatieproces. Configureer a.u.b. een netwerk interface."
 
-#: pyanaconda/iw/network_gui.py:208
+#: pyanaconda/iw/network_gui.py:209
 msgid "Select APs"
 msgstr "Selecteer AP's"
 
-#: pyanaconda/iw/network_gui.py:215
+#: pyanaconda/iw/network_gui.py:216
 msgid "Select APs for wireless devices"
 msgstr "Selecteer AP's voor draadloze apparaten"
 
@@ -3272,7 +3206,7 @@ msgstr "Lijst met besturingssystemen voor bootloader"
 msgid "Default"
 msgstr "Standaard"
 
-#: pyanaconda/iw/osbootwidget.py:66 pyanaconda/iw/partition_gui.py:612
+#: pyanaconda/iw/osbootwidget.py:66 pyanaconda/iw/partition_gui.py:615
 msgid "Label"
 msgstr "Label"
 
@@ -3377,7 +3311,7 @@ msgstr "Bestandssysteem _type:"
 msgid "Allowable _Drives:"
 msgstr "Toegestane _stations:"
 
-#: pyanaconda/iw/partition_dialog_gui.py:532
+#: pyanaconda/iw/partition_dialog_gui.py:537
 msgid "Force to be a _primary partition"
 msgstr "Forceren als _primaire partitie"
 
@@ -3386,31 +3320,31 @@ msgstr "Forceren als _primaire partitie"
 msgid "Drive %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
 msgstr "Station %(drive)s (%(size)-0.f MB) (Model: %(model)s)"
 
-#: pyanaconda/iw/partition_gui.py:400 pyanaconda/iw/partition_gui.py:446
-#: pyanaconda/iw/partition_gui.py:513 pyanaconda/iw/partition_gui.py:998
-#: pyanaconda/iw/partition_gui.py:1070
+#: pyanaconda/iw/partition_gui.py:400 pyanaconda/iw/partition_gui.py:449
+#: pyanaconda/iw/partition_gui.py:516 pyanaconda/iw/partition_gui.py:1001
+#: pyanaconda/iw/partition_gui.py:1073
 msgid "Free"
 msgstr "Beschikbaar"
 
-#: pyanaconda/iw/partition_gui.py:478
+#: pyanaconda/iw/partition_gui.py:481
 #, python-format
 msgid "LVM Volume Group %s (%-0.f MB)"
 msgstr "LVM volume groep %s (%-0.f MB)"
 
-#: pyanaconda/iw/partition_gui.py:544
+#: pyanaconda/iw/partition_gui.py:547
 #, python-format
 msgid "MD RAID ARRAY %s (%-0.f MB)"
 msgstr "MD RAID OPSTELLING %s (%-0.f MB)"
 
-#: pyanaconda/iw/partition_gui.py:615
+#: pyanaconda/iw/partition_gui.py:618
 msgid "Type"
 msgstr "Type"
 
-#: pyanaconda/iw/partition_gui.py:616 pyanaconda/storage/__init__.py:1792
+#: pyanaconda/iw/partition_gui.py:619 pyanaconda/storage/__init__.py:1819
 msgid "Format"
 msgstr "Formaat"
 
-#: pyanaconda/iw/partition_gui.py:653
+#: pyanaconda/iw/partition_gui.py:656
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
@@ -3418,7 +3352,7 @@ msgstr ""
 "Koppel punt/\n"
 "RAID/Volume"
 
-#: pyanaconda/iw/partition_gui.py:655
+#: pyanaconda/iw/partition_gui.py:658
 msgid ""
 "Size\n"
 "(MB)"
@@ -3426,18 +3360,18 @@ msgstr ""
 "Grootte\n"
 "(MB)"
 
-#: pyanaconda/iw/partition_gui.py:760
+#: pyanaconda/iw/partition_gui.py:763
 msgid "Partitioning"
 msgstr "Partitioneren"
 
-#: pyanaconda/iw/partition_gui.py:850
+#: pyanaconda/iw/partition_gui.py:853
 msgid ""
 "The partitioning scheme you requested caused the following critical errors."
 msgstr ""
 "Het door jou aangevraagde partitie schema zorgde voor de volgende kritische "
 "fouten."
 
-#: pyanaconda/iw/partition_gui.py:852
+#: pyanaconda/iw/partition_gui.py:855
 #, python-format
 msgid ""
 "You must correct these errors before you continue your installation of %s."
@@ -3445,25 +3379,25 @@ msgstr ""
 "Je moet deze fouten herstellen voordat je verder gaat met jouw installatie "
 "van %s."
 
-#: pyanaconda/iw/partition_gui.py:858
+#: pyanaconda/iw/partition_gui.py:861
 msgid "Partitioning Errors"
 msgstr "Partitionering fouten"
 
-#: pyanaconda/iw/partition_gui.py:865
+#: pyanaconda/iw/partition_gui.py:868
 msgid "The partitioning scheme you requested generated the following warnings."
 msgstr ""
 "Het door jou aangevraagde partitie schema genereerde de volgende "
 "waarschuwingen."
 
-#: pyanaconda/iw/partition_gui.py:867
+#: pyanaconda/iw/partition_gui.py:870
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Wil je doorgaan met jouw opgegeven partitie schema?"
 
-#: pyanaconda/iw/partition_gui.py:872
+#: pyanaconda/iw/partition_gui.py:875
 msgid "Partitioning Warnings"
 msgstr "Partitionering waarschuwingen"
 
-#: pyanaconda/iw/partition_gui.py:881
+#: pyanaconda/iw/partition_gui.py:884
 msgid ""
 "The following pre-existing devices have been selected to be formatted, "
 "destroying all data."
@@ -3471,31 +3405,31 @@ msgstr ""
 "De volgende, reeds bestaande partities zijn geselecteerd voor formattering. "
 "Alle gegevens hierop worden vernietigd."
 
-#: pyanaconda/iw/partition_gui.py:893
+#: pyanaconda/iw/partition_gui.py:896
 msgid "Format Warnings"
 msgstr "Formattering waarschuwingen"
 
-#: pyanaconda/iw/partition_gui.py:986
+#: pyanaconda/iw/partition_gui.py:989
 msgid "LVM Volume Groups"
 msgstr "LVM volume groepen"
 
-#: pyanaconda/iw/partition_gui.py:1008
+#: pyanaconda/iw/partition_gui.py:1011
 msgid "RAID Devices"
 msgstr "RAID opstellingen"
 
-#: pyanaconda/iw/partition_gui.py:1024 loader/hdinstall.c:168
+#: pyanaconda/iw/partition_gui.py:1027 loader/hdinstall.c:168
 msgid "Hard Drives"
 msgstr "Harde schijven"
 
-#: pyanaconda/iw/partition_gui.py:1074
+#: pyanaconda/iw/partition_gui.py:1077
 msgid "Extended"
 msgstr "Uitgebreid"
 
-#: pyanaconda/iw/partition_gui.py:1364
+#: pyanaconda/iw/partition_gui.py:1367
 msgid "Cannot perform any creation action"
 msgstr "Kan geen enkele aanmaak actie uitvoeren"
 
-#: pyanaconda/iw/partition_gui.py:1365
+#: pyanaconda/iw/partition_gui.py:1368
 msgid ""
 "Note that the creation action requires one of the following:\n"
 "\n"
@@ -3511,7 +3445,7 @@ msgstr ""
 "* Tenminste een vrije fysieke volume (LVM) partitie.\n"
 "* Tenminste een volume groep met vrije ruimte."
 
-#: pyanaconda/iw/partition_gui.py:1468
+#: pyanaconda/iw/partition_gui.py:1471
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3525,7 +3459,7 @@ msgstr ""
 "van een enkele harde schijf.  Voor meer informatie over het gebruik van een "
 "RAID opstelling, raadpleeg je de %s documentatie.\n"
 
-#: pyanaconda/iw/partition_gui.py:1474
+#: pyanaconda/iw/partition_gui.py:1477
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device that can be formatted and "
@@ -3537,18 +3471,18 @@ msgstr ""
 "geformatteerd en aangekoppeld kan worden.\n"
 "\n"
 
-#: pyanaconda/iw/partition_gui.py:1478
+#: pyanaconda/iw/partition_gui.py:1481
 #, python-format
 msgid "You currently have %d software RAID partition free to use."
 msgid_plural "You currently have %d software RAID partitions free to use."
 msgstr[0] "Je hebt op dit moment %d Software RAID partitie vrij voor gebruik."
 msgstr[1] "Je hebt op dit moment %d Software RAID partities vrij voor gebruik."
 
-#: pyanaconda/iw/partition_gui.py:1482
+#: pyanaconda/iw/partition_gui.py:1485
 msgid "About RAID"
 msgstr "Over RAID"
 
-#: pyanaconda/iw/partition_gui.py:1488
+#: pyanaconda/iw/partition_gui.py:1491
 #, python-format
 msgid ""
 "Logical Volume Manager (LVM) is a 3 level construct. The first level is made "
@@ -3566,7 +3500,7 @@ msgstr ""
 "fysieke schijven kan zijn.  Voor meer informatie over het gebruik van LVM, "
 "refereer je naar de %s documentatie\n"
 
-#: pyanaconda/iw/partition_gui.py:1496
+#: pyanaconda/iw/partition_gui.py:1499
 msgid ""
 "To create a PV you need a partition with free space.  To create a VG you "
 "need a PV that is not part of any existing VG.  To create an LV you need a "
@@ -3578,41 +3512,41 @@ msgstr ""
 "bestaande VG.  Om een LV aan te maken heb je een VG nodig met vrije ruimte.\n"
 "\n"
 
-#: pyanaconda/iw/partition_gui.py:1500
+#: pyanaconda/iw/partition_gui.py:1503
 #, python-format
 msgid "You currently have %d available PV free to use.\n"
 msgid_plural "You currently have %d available PVs free to use.\n"
 msgstr[0] "Je hebt op dit moment %d PV beschikbaar voor gebruik.\n"
 msgstr[1] "Je hebt op dit moment %d PV's beschikbaar voor gebruik.\n"
 
-#: pyanaconda/iw/partition_gui.py:1504
+#: pyanaconda/iw/partition_gui.py:1507
 msgid "You currently have free space to create PVs."
 msgstr "Je hebt op dit moment vrije ruimte om PV's te maken."
 
-#: pyanaconda/iw/partition_gui.py:1507
+#: pyanaconda/iw/partition_gui.py:1510
 msgid "About LVM"
 msgstr "Over LVM"
 
-#: pyanaconda/iw/partition_gui.py:1585 pyanaconda/storage/partitioning.py:203
-#: pyanaconda/storage/partitioning.py:246
+#: pyanaconda/iw/partition_gui.py:1588 pyanaconda/storage/partitioning.py:203
+#: pyanaconda/storage/partitioning.py:245
 msgid "Error Partitioning"
 msgstr "Fout bij partitioneren"
 
-#: pyanaconda/iw/partition_gui.py:1586
+#: pyanaconda/iw/partition_gui.py:1589
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Kon de gevraagde partities niet toewijzen: %s."
 
-#: pyanaconda/iw/partition_gui.py:1595
+#: pyanaconda/iw/partition_gui.py:1598
 #, python-format
 msgid "Warning: %s."
 msgstr "Waarschuwing: %s."
 
-#: pyanaconda/iw/partition_gui.py:1626
+#: pyanaconda/iw/partition_gui.py:1629
 msgid "Unable To Edit"
 msgstr "Niet in staat om te bewerken"
 
-#: pyanaconda/iw/partition_gui.py:1627
+#: pyanaconda/iw/partition_gui.py:1630
 #, python-format
 msgid ""
 "You cannot edit this device:\n"
@@ -3623,15 +3557,15 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/iw/partition_gui.py:1810
+#: pyanaconda/iw/partition_gui.py:1813
 msgid "_Create"
 msgstr "_Aanmaken"
 
-#: pyanaconda/iw/partition_gui.py:1813
+#: pyanaconda/iw/partition_gui.py:1816
 msgid "Re_set"
 msgstr "Her_stellen"
 
-#: pyanaconda/iw/partition_gui.py:1836
+#: pyanaconda/iw/partition_gui.py:1839
 msgid "Please Select A Device"
 msgstr "Selecteer een apparaat"
 
@@ -3641,19 +3575,19 @@ msgstr "Selecteer een apparaat"
 msgid "<Not Applicable>"
 msgstr "<Niet Van Toepassing>"
 
-#: pyanaconda/iw/partition_ui_helpers_gui.py:322
+#: pyanaconda/iw/partition_ui_helpers_gui.py:320
 msgid "_Format as:"
 msgstr "_Formatteren als:"
 
-#: pyanaconda/iw/partition_ui_helpers_gui.py:344
+#: pyanaconda/iw/partition_ui_helpers_gui.py:342
 msgid "Mi_grate filesystem to:"
 msgstr "Mi_greer bestandssysteem naar:"
 
-#: pyanaconda/iw/partition_ui_helpers_gui.py:374
+#: pyanaconda/iw/partition_ui_helpers_gui.py:372
 msgid "_Resize"
 msgstr "_Grootte aanpassen"
 
-#: pyanaconda/iw/partition_ui_helpers_gui.py:429
+#: pyanaconda/iw/partition_ui_helpers_gui.py:427
 #, python-format
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  To do this, "
@@ -3663,7 +3597,7 @@ msgstr ""
 "bereik je door het station te selecteren in de check lijst: 'Toegestane "
 "stations'."
 
-#: pyanaconda/iw/raid_dialog_gui.py:390
+#: pyanaconda/iw/raid_dialog_gui.py:391
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -3677,36 +3611,36 @@ msgstr ""
 "Maak eerst tenminste twee partities aan van type \"software RAID\" en kies "
 "dan opnieuw de optie: \"RAID\"."
 
-#: pyanaconda/iw/raid_dialog_gui.py:404
+#: pyanaconda/iw/raid_dialog_gui.py:405
 msgid "Make RAID Device"
 msgstr "RAID opstelling maken"
 
-#: pyanaconda/iw/raid_dialog_gui.py:407
+#: pyanaconda/iw/raid_dialog_gui.py:408
 #, python-format
 msgid "Edit RAID Device: %s"
 msgstr "Bewerken van RAID opstelling: %s"
 
-#: pyanaconda/iw/raid_dialog_gui.py:409
+#: pyanaconda/iw/raid_dialog_gui.py:410
 msgid "Edit RAID Device"
 msgstr "RAID opstelling bewerken"
 
-#: pyanaconda/iw/raid_dialog_gui.py:476
+#: pyanaconda/iw/raid_dialog_gui.py:477
 msgid "RAID _Device:"
 msgstr "RAID _opstelling:"
 
-#: pyanaconda/iw/raid_dialog_gui.py:494
+#: pyanaconda/iw/raid_dialog_gui.py:495
 msgid "RAID _Level:"
 msgstr "RAID _level:"
 
-#: pyanaconda/iw/raid_dialog_gui.py:536
+#: pyanaconda/iw/raid_dialog_gui.py:537
 msgid "_RAID Members:"
 msgstr "_RAID onderdelen:"
 
-#: pyanaconda/iw/raid_dialog_gui.py:553
+#: pyanaconda/iw/raid_dialog_gui.py:554
 msgid "Number of _spares:"
 msgstr "Aantal re_serves:"
 
-#: pyanaconda/iw/raid_dialog_gui.py:563
+#: pyanaconda/iw/raid_dialog_gui.py:564
 msgid "_Format partition?"
 msgstr "Partitie _formatteren?"
 
@@ -4100,14 +4034,14 @@ msgstr ""
 msgid "Disc Not Found"
 msgstr "Schijf niet gevonden"
 
-#: loader/cdinstall.c:341 loader/driverdisk.c:410 loader/driverdisk.c:442
-#: loader/driverdisk.c:523 loader/driverselect.c:79 loader/driverselect.c:153
+#: loader/cdinstall.c:341 loader/driverdisk.c:393 loader/driverdisk.c:425
+#: loader/driverdisk.c:506 loader/driverselect.c:79 loader/driverselect.c:153
 #: loader/driverselect.c:179 loader/hdinstall.c:168 loader/hdinstall.c:222
-#: loader/kbd.c:119 loader/loader.c:499 loader/loader.c:516
-#: loader/loader.c:1357 loader/loader.c:1397 loader/net.c:625
+#: loader/kbd.c:118 loader/loader.c:499 loader/loader.c:516
+#: loader/loader.c:1380 loader/loader.c:1420 loader/net.c:625
 #: loader/net.c:1007 loader/net.c:1982 loader/net.c:2001
 #: loader/nfsinstall.c:92 loader/urls.c:264 pyanaconda/storage/__init__.py:123
-#: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:93
+#: pyanaconda/storage/__init__.py:169 pyanaconda/storage/devicetree.py:95
 #: pyanaconda/textw/constants_text.py:52
 msgid "Back"
 msgstr "Terug"
@@ -4121,19 +4055,19 @@ msgstr "Kan kickstar -bestand op CDROM niet vinden."
 msgid "Failed to read directory %s: %m"
 msgstr "Lezen van map %s: %m is mislukt"
 
-#: loader/driverdisk.c:274
+#: loader/driverdisk.c:256
 msgid "Loading"
 msgstr "Bezig met laden"
 
-#: loader/driverdisk.c:274
+#: loader/driverdisk.c:256
 msgid "Reading driver disk"
 msgstr "Inlezen van stuurprogramma schijf"
 
-#: loader/driverdisk.c:404 loader/driverdisk.c:437
+#: loader/driverdisk.c:387 loader/driverdisk.c:420
 msgid "Driver Disk Source"
 msgstr "Bron van stuurprogramma schijf"
 
-#: loader/driverdisk.c:405
+#: loader/driverdisk.c:388
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -4142,7 +4076,7 @@ msgstr ""
 "extra stuurprogramma's. Welke wil je gebruiken?"
 
 # vertaling van "disk image" naar "bestand" ok?
-#: loader/driverdisk.c:438
+#: loader/driverdisk.c:421
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
@@ -4150,54 +4084,54 @@ msgstr ""
 "Er zijn meerdere partities op dit apparaat die het stuurprogramma bestand "
 "kunnen bevatten.  Welke wil je gebruiken?"
 
-#: loader/driverdisk.c:473
+#: loader/driverdisk.c:456
 msgid "Failed to mount partition."
 msgstr "Aankoppelen van partitie mislukt."
 
 # vertaling ok?
-#: loader/driverdisk.c:478
+#: loader/driverdisk.c:461
 msgid "Select driver disk image"
 msgstr "Stuurprogramma bestand selecteren"
 
 # vertaling ok?
-#: loader/driverdisk.c:479
+#: loader/driverdisk.c:462
 msgid "Select the file which is your driver disk image."
 msgstr "Selecteer het stuurprogramma bestand."
 
 # vertaling ok?
-#: loader/driverdisk.c:508
+#: loader/driverdisk.c:491
 msgid "Failed to load driver disk from file."
 msgstr "Laden van stuurprogramma bestand mislukt."
 
-#: loader/driverdisk.c:520
+#: loader/driverdisk.c:503
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Plaats jouw stuurprogramma schijf in /dev/%s en druk op \"OK\" om door te "
 "gaan."
 
-#: loader/driverdisk.c:523
+#: loader/driverdisk.c:506
 msgid "Insert Driver Disk"
 msgstr "Stuurprogramma schijf plaatsen"
 
-#: loader/driverdisk.c:536
+#: loader/driverdisk.c:519
 msgid "Failed to mount driver disk."
 msgstr "Aankoppelen stuurprogramma schijf mislukt."
 
-#: loader/driverdisk.c:544
+#: loader/driverdisk.c:527
 #, c-format
 msgid "Driver disk is invalid for this release of %s."
 msgstr "Stuurprogramma schijf is ongeldig voor deze vrijgave van %s."
 
-#: loader/driverdisk.c:615
+#: loader/driverdisk.c:598
 msgid "Manually choose"
 msgstr "Kies handmatig"
 
-#: loader/driverdisk.c:616
+#: loader/driverdisk.c:599
 msgid "Load another disk"
 msgstr "Een andere schijf inladen"
 
-#: loader/driverdisk.c:617
+#: loader/driverdisk.c:600
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -4207,37 +4141,37 @@ msgstr ""
 "stuurprogramma schijf. Wil je handmatig een stuurprogramma selecteren, "
 "doorgaan of een andere schijf met stuurprogramma's proberen?"
 
-#: loader/driverdisk.c:655
+#: loader/driverdisk.c:638
 msgid "Driver disk"
 msgstr "Stuurprogramma schijf"
 
-#: loader/driverdisk.c:656
+#: loader/driverdisk.c:639
 msgid "Do you have a driver disk?"
 msgstr "Heb je een stuurprogramma schijf?"
 
-#: loader/driverdisk.c:665
+#: loader/driverdisk.c:648
 msgid "More Driver Disks?"
 msgstr "Meer stuurprogramma schijven?"
 
-#: loader/driverdisk.c:666
+#: loader/driverdisk.c:649
 msgid "Do you wish to load any more driver disks?"
 msgstr "Wil je nog meer stuurprogramma schijven laden?"
 
-#: loader/driverdisk.c:715 loader/driverdisk.c:754 loader/hdinstall.c:348
+#: loader/driverdisk.c:698 loader/driverdisk.c:737 loader/hdinstall.c:348
 #: loader/kickstart.c:135 loader/kickstart.c:145 loader/kickstart.c:187
 #: loader/kickstart.c:192 loader/kickstart.c:339 loader/kickstart.c:355
 #: loader/kickstart.c:571 loader/net.c:1655 loader/net.c:1676
-#: loader/nfsinstall.c:276 loader/urlinstall.c:278 loader/urlinstall.c:289
-#: loader/urlinstall.c:296
+#: loader/nfsinstall.c:276 loader/urlinstall.c:279 loader/urlinstall.c:290
+#: loader/urlinstall.c:297
 msgid "Kickstart Error"
 msgstr "Kickstart fout"
 
-#: loader/driverdisk.c:716
+#: loader/driverdisk.c:699
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr "Onbekende stuurprogramma schijf kickstart bron: %s"
 
-#: loader/driverdisk.c:755
+#: loader/driverdisk.c:738
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -4339,11 +4273,11 @@ msgstr "Kan het kickstart bestand niet vinden op de harde schijf."
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "Kan geen harde schijf voor BIOS schijf %s vinden"
 
-#: loader/kbd.c:117
+#: loader/kbd.c:116
 msgid "Keyboard Type"
 msgstr "Toetsenbord type"
 
-#: loader/kbd.c:118
+#: loader/kbd.c:117
 msgid "What type of keyboard do you have?"
 msgstr "Wat voor soort toetsenbord heb je?"
 
@@ -4400,23 +4334,23 @@ msgstr "Fout bij het downloaden van kickstart bestand"
 msgid "Bad argument to shutdown kickstart method command: %s"
 msgstr "Foutief argument voor uitschakelen kickstart methode commando: %s"
 
-#: loader/lang.c:63 loader/loader.c:228
+#: loader/lang.c:62 loader/loader.c:228
 #, c-format
 msgid "Welcome to %s for %s"
 msgstr "Welkom bij %s voor %s"
 
-#: loader/lang.c:64
+#: loader/lang.c:63
 #, c-format
 msgid "Welcome to %s for %s - Rescue Mode"
 msgstr "Welkom bij %s voor %s - Redding mode"
 
-#: loader/lang.c:65 loader/loader.c:252
+#: loader/lang.c:64 loader/loader.c:252
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "   <Tab>/<Alt-Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
 
-#: loader/lang.c:370
+#: loader/lang.c:364
 msgid "Choose a Language"
 msgstr "Kies een taal"
 
@@ -4503,35 +4437,49 @@ msgstr ""
 "%s vereist %d MB geheugen voor het installeren met deze installatie methode, "
 "maar je hebt op deze machine slechts %d MB."
 
-#: loader/loader.c:1349
+#: loader/loader.c:1236
+msgid "Unsupported Hardware Detected"
+msgstr "Niet-ondersteunde hardware gevonden"
+
+#: loader/loader.c:1237
+msgid ""
+"This hardware (or a combination thereof) is not supported by Red Hat.  For "
+"more information on supported hardware, please refer to http://www.redhat."
+"com/hardware."
+msgstr ""
+"Deze hardware (of een combinatie daarvan) wordt niet ondersteund door Red "
+"Hat. Voor meer informatie over ondersteunde hardware, refereer je naar "
+"http://www.redhat.com/hardware."
+
+#: loader/loader.c:1372
 msgid "Rescue Method"
 msgstr "Redding methode"
 
-#: loader/loader.c:1350
+#: loader/loader.c:1373
 msgid "Installation Method"
 msgstr "Installatie methode"
 
-#: loader/loader.c:1352
+#: loader/loader.c:1375
 msgid "What type of media contains the rescue image?"
 msgstr "Op wat voor medium staat het redding image?"
 
-#: loader/loader.c:1354
+#: loader/loader.c:1377
 msgid "What type of media contains the installation image?"
 msgstr "Op wat voor medium staat de installatie image?"
 
-#: loader/loader.c:1396
+#: loader/loader.c:1419
 msgid "No driver found"
 msgstr "Geen stuurprogramma gevonden"
 
-#: loader/loader.c:1396
+#: loader/loader.c:1419
 msgid "Select driver"
 msgstr "Stuurprogramma selecteren"
 
-#: loader/loader.c:1397
+#: loader/loader.c:1420
 msgid "Use a driver disk"
 msgstr "Stuurprogramma schijf gebruiken"
 
-#: loader/loader.c:1398
+#: loader/loader.c:1421
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -4540,11 +4488,11 @@ msgstr ""
 "Wil je handmatig het stuurprogramma selecteren of gebruik maken van een "
 "stuurprogramma schijf?"
 
-#: loader/loader.c:1609
+#: loader/loader.c:1632
 msgid "The following devices have been found on your system."
 msgstr "De volgende apparaten zijn op jouw systeem gevonden."
 
-#: loader/loader.c:1611
+#: loader/loader.c:1634
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -4552,48 +4500,48 @@ msgstr ""
 "Er zijn geen stuurprogramma's voor jouw systeem geladen. Wil je deze nu "
 "laden?"
 
-#: loader/loader.c:1615
+#: loader/loader.c:1638
 msgid "Devices"
 msgstr "Apparaten"
 
-#: loader/loader.c:1616
+#: loader/loader.c:1639
 msgid "Done"
 msgstr "Gereed"
 
-#: loader/loader.c:1617
+#: loader/loader.c:1640
 msgid "Add Device"
 msgstr "Apparaat toevoegen"
 
 # mooier dan: de lader is reeds uitgevoerd, en... komt op hetzelfde neer.
-#: loader/loader.c:1895
+#: loader/loader.c:1918
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr "Het laden is reeds gedaan.  Shell wordt nu opgestart.\n"
 
-#: loader/loader.c:2039
+#: loader/loader.c:2062
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr "Driver schijf werd ontdekt in %s. Wil je deze gebruiken?."
 
-#: loader/loader.c:2042
+#: loader/loader.c:2065
 msgid "Driver disc detected"
 msgstr "Driver schijf gevonden"
 
-#: loader/loader.c:2042
+#: loader/loader.c:2065
 msgid "Use it"
 msgstr "Gebruik het"
 
-#: loader/loader.c:2042
+#: loader/loader.c:2065
 msgid "Skip it"
 msgstr "Sla het over"
 
 # vertaling correct?
-#: loader/loader.c:2351
+#: loader/loader.c:2375
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "Opstarten van anaconda %s, de %s redding mode - even geduld a.u.b.\n"
 
-#: loader/loader.c:2353
+#: loader/loader.c:2377
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -4877,7 +4825,7 @@ msgstr ""
 msgid "NFS Setup"
 msgstr "NFS instellingen"
 
-#: loader/nfsinstall.c:196 loader/urlinstall.c:213
+#: loader/nfsinstall.c:196 loader/urlinstall.c:214
 msgid "The URL provided does not contain installation media."
 msgstr "De aangeboden URL bevat geen installatie media."
 
@@ -4886,21 +4834,21 @@ msgstr "De aangeboden URL bevat geen installatie media."
 msgid "Bad argument to NFS kickstart method command: %s"
 msgstr "Foutief argument voor het NFS kickstart methode commando: %s"
 
-#: loader/urlinstall.c:139
+#: loader/urlinstall.c:140
 #, c-format
 msgid "Unable to retrieve %s."
 msgstr "Niet in staat om %s binnen te halen."
 
-#: loader/urlinstall.c:279
+#: loader/urlinstall.c:280
 #, c-format
 msgid "Bad argument to URL kickstart method command: %s"
 msgstr "Foutief argument voor het URL kickstart methode commando: %s"
 
-#: loader/urlinstall.c:290
+#: loader/urlinstall.c:291
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Je moet een --url argument meegeven voor de kickstart URL methode."
 
-#: loader/urlinstall.c:297
+#: loader/urlinstall.c:298
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Onbekende URL methode %s"
@@ -4996,7 +4944,7 @@ msgstr ""
 "je hebt geen wachtzin opgegeven. Als je niet teruggaat en een wachtzin "
 "opgeeft, zal blok apparaat versleuteling worden uitgezet."
 
-#: pyanaconda/storage/__init__.py:188 pyanaconda/storage/devicetree.py:102
+#: pyanaconda/storage/__init__.py:188 pyanaconda/storage/devicetree.py:104
 msgid "Confirm"
 msgstr "Bevestigen"
 
@@ -5030,42 +4978,42 @@ msgstr "Encryptie sleutels opslaan"
 msgid "Error storing an encryption key: %s\n"
 msgstr "Fout bij het opslaan van een encryptie sleutel: %s\n"
 
-#: pyanaconda/storage/__init__.py:377
+#: pyanaconda/storage/__init__.py:399
 msgid "Examining Devices"
 msgstr "Apparaten onderzoeken"
 
-#: pyanaconda/storage/__init__.py:378
+#: pyanaconda/storage/__init__.py:400
 msgid "Examining storage devices"
 msgstr "Opslag apparaten onderzoeken"
 
-#: pyanaconda/storage/__init__.py:657
+#: pyanaconda/storage/__init__.py:676
 msgid "This partition is holding the data for the hard drive install."
 msgstr ""
 "Deze partitie bevat de gegevens voor installatie vanaf de harde schijf."
 
-#: pyanaconda/storage/__init__.py:662
+#: pyanaconda/storage/__init__.py:681
 msgid "You cannot delete a partition of a LDL formatted DASD."
 msgstr "Je kunt geen partitie verwijderen van een LDL geformatteerde DASD."
 
-#: pyanaconda/storage/__init__.py:668
+#: pyanaconda/storage/__init__.py:687
 #, python-format
 msgid "This device is part of the RAID device %s."
 msgstr "Dit apparaat is onderdeel van de RAID opstelling %s."
 
-#: pyanaconda/storage/__init__.py:671
+#: pyanaconda/storage/__init__.py:690
 msgid "This device is part of a RAID device."
 msgstr "Dit apparaat is onderdeel van een RAID opstelling."
 
-#: pyanaconda/storage/__init__.py:676
+#: pyanaconda/storage/__init__.py:695
 #, python-format
 msgid "This device is part of the LVM volume group '%s'."
 msgstr "Dit apparaat is onderdeel van de LVM volume groep '%s'."
 
-#: pyanaconda/storage/__init__.py:679
+#: pyanaconda/storage/__init__.py:698
 msgid "This device is part of a LVM volume group."
 msgstr "Dit apparaat is onderdeel van een LVM volume groep."
 
-#: pyanaconda/storage/__init__.py:695
+#: pyanaconda/storage/__init__.py:714
 msgid ""
 "This device is an extended partition which contains logical partitions that "
 "cannot be deleted:\n"
@@ -5075,7 +5023,7 @@ msgstr ""
 "logische partities bevinden die niet verwijderd kunnen worden:\n"
 "\n"
 
-#: pyanaconda/storage/__init__.py:970
+#: pyanaconda/storage/__init__.py:993
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -5084,7 +5032,7 @@ msgstr ""
 "Je hebt geen root partitie (/) gedefinieerd. Deze is vereist om verder te "
 "gaan met de installatie van %s."
 
-#: pyanaconda/storage/__init__.py:975
+#: pyanaconda/storage/__init__.py:998
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -5093,7 +5041,7 @@ msgstr ""
 "Jouw root partitie is minder dan 250 megabytes wat gewoonlijk te klein is om "
 "%s te installeren."
 
-#: pyanaconda/storage/__init__.py:981
+#: pyanaconda/storage/__init__.py:1004
 #, python-format
 msgid ""
 "Your / partition is less than %(min)s MB which is lower than recommended for "
@@ -5102,7 +5050,7 @@ msgstr ""
 "Jouw / partitie is minder dan %(min)s MB; wat kleiner is dan aanbevolen voor "
 "een normale %(productName)s installatie."
 
-#: pyanaconda/storage/__init__.py:991
+#: pyanaconda/storage/__init__.py:1014
 #, python-format
 msgid ""
 "Your / partition does not match the the live image you are installing from.  "
@@ -5111,7 +5059,7 @@ msgstr ""
 "Jouw / partitie komt niet overeen met de live image waarvan je installeert. "
 "Het moet geformatteerd worden als %s."
 
-#: pyanaconda/storage/__init__.py:998
+#: pyanaconda/storage/__init__.py:1021
 #, python-format
 msgid ""
 "Your %(mount)s partition is less than %(size)s megabytes which is lower than "
@@ -5120,13 +5068,13 @@ msgstr ""
 "Jouw %(mount)s partitie is minder dan %(size)s megabyte wat kleiner is dan "
 "aanbevolen voor een normale %(productName)s installatie."
 
-#: pyanaconda/storage/__init__.py:1027
+#: pyanaconda/storage/__init__.py:1050
 msgid ""
 "Installing on a USB device.  This may or may not produce a working system."
 msgstr ""
 "Installeren op een USB apparaat. Dit kan een niet-werkend systeem opleveren."
 
-#: pyanaconda/storage/__init__.py:1030
+#: pyanaconda/storage/__init__.py:1053
 msgid ""
 "Installing on a FireWire device.  This may or may not produce a working "
 "system."
@@ -5134,7 +5082,7 @@ msgstr ""
 "Installeren op een FireWire apparaat. Dit kan een niet-werkend systeem "
 "opleveren."
 
-#: pyanaconda/storage/__init__.py:1042
+#: pyanaconda/storage/__init__.py:1065
 #, python-format
 msgid ""
 "You have not specified a swap partition.  %s MB of memory is required to "
@@ -5143,7 +5091,7 @@ msgstr ""
 "Je hebt geen swap partitie opgegeven.  %s MB geheugen is vereist om verder "
 "te gaan met de installatie zonder swap partitie, maar je hebt slechts %s MB."
 
-#: pyanaconda/storage/__init__.py:1047
+#: pyanaconda/storage/__init__.py:1070
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -5152,23 +5100,23 @@ msgstr ""
 "strikt noodzakelijk is, verhoogt het in het algemeen wel de prestaties van "
 "het systeem."
 
-#: pyanaconda/storage/__init__.py:1054
+#: pyanaconda/storage/__init__.py:1077
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Dit koppel punt is ongeldig.  De %s map moet op het / bestandssysteem liggen."
 
-#: pyanaconda/storage/__init__.py:1058
+#: pyanaconda/storage/__init__.py:1081
 #, python-format
 msgid "The mount point %s must be on a linux file system."
 msgstr "Het koppelpunt %s dient zich op een linux bestandssysteem te bevinden."
 
-#: pyanaconda/storage/__init__.py:1069
+#: pyanaconda/storage/__init__.py:1092
 msgid "No Drives Found"
 msgstr "Geen stations gevonden"
 
-#: pyanaconda/storage/__init__.py:1070
+#: pyanaconda/storage/__init__.py:1093
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -5177,11 +5125,11 @@ msgstr ""
 "nieuwe bestandssystemen op gemaakt konden worden. Controleer jouw hardware "
 "om de oorzaak van dit probleem te vinden."
 
-#: pyanaconda/storage/__init__.py:1364 pyanaconda/storage/__init__.py:1373
+#: pyanaconda/storage/__init__.py:1366 pyanaconda/storage/__init__.py:1375
 msgid "Dirty File Systems"
 msgstr "Beschadigde bestandssystemen"
 
-#: pyanaconda/storage/__init__.py:1365
+#: pyanaconda/storage/__init__.py:1367
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5194,7 +5142,7 @@ msgstr ""
 "bestandssystemen en sluit netjes af voordat je met de upgrade begint.\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1374
+#: pyanaconda/storage/__init__.py:1376
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -5205,7 +5153,7 @@ msgstr ""
 "afgekoppeld.  Wil je ze toch aankoppelen?\n"
 "%s"
 
-#: pyanaconda/storage/__init__.py:1825
+#: pyanaconda/storage/__init__.py:1852
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5223,7 +5171,7 @@ msgstr ""
 "swap ruimte wilt gebruiken, moet je het opnieuw formatteren als een Linux "
 "swap partitie volgens de nieuwe stijl."
 
-#: pyanaconda/storage/__init__.py:1836
+#: pyanaconda/storage/__init__.py:1863
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5243,7 +5191,7 @@ msgstr ""
 "bevindt. Om een upgrade uit te voeren moet je het systeem uitzetten in "
 "plaats van het systeem in een slaapstand te brengen."
 
-#: pyanaconda/storage/__init__.py:1844
+#: pyanaconda/storage/__init__.py:1871
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5263,7 +5211,7 @@ msgstr ""
 "bevindt. Als je een nieuwe installatie uitvoert moet je ervoor zorgen dat "
 "het installatieprogramma alle swap apparaten zal formatteren."
 
-#: pyanaconda/storage/__init__.py:1856
+#: pyanaconda/storage/__init__.py:1883
 #, python-format
 msgid ""
 "The swap device:\n"
@@ -5280,7 +5228,7 @@ msgstr ""
 "bevat geen ondersteunde swap volume.  Om verder te gaan met de installatie, "
 "moet je het apparaat formatteren of het overslaan."
 
-#: pyanaconda/storage/__init__.py:1867
+#: pyanaconda/storage/__init__.py:1894
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5297,7 +5245,7 @@ msgstr ""
 "\n"
 "Druk op OK om het installatieprogramma af te sluiten"
 
-#: pyanaconda/storage/__init__.py:1874
+#: pyanaconda/storage/__init__.py:1901
 #, python-format
 msgid ""
 "Error enabling swap device %(name)s: %(msg)s\n"
@@ -5312,11 +5260,11 @@ msgstr ""
 "\n"
 "Druk op OK om het installatieprogramma af te sluiten."
 
-#: pyanaconda/storage/__init__.py:1937 pyanaconda/storage/__init__.py:1949
+#: pyanaconda/storage/__init__.py:1965 pyanaconda/storage/__init__.py:1977
 msgid "Invalid mount point"
 msgstr "Ongeldig koppel punt"
 
-#: pyanaconda/storage/__init__.py:1938
+#: pyanaconda/storage/__init__.py:1966
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -5330,7 +5278,7 @@ msgstr ""
 "\n"
 "Druk op <Enter> om het installatieprogramma af te sluiten."
 
-#: pyanaconda/storage/__init__.py:1950
+#: pyanaconda/storage/__init__.py:1978
 #, python-format
 msgid ""
 "An error occurred when trying to create %(mountpoint)s: %(msg)s.  This is a "
@@ -5343,11 +5291,11 @@ msgstr ""
 "\n"
 "Druk op <Enter> om het installatieprogramma af te sluiten."
 
-#: pyanaconda/storage/__init__.py:1966 pyanaconda/storage/__init__.py:1990
+#: pyanaconda/storage/__init__.py:1994 pyanaconda/storage/__init__.py:2018
 msgid "Unable to mount filesystem"
 msgstr "Niet in staat om het bestandssysteem aan te koppelen"
 
-#: pyanaconda/storage/__init__.py:1967
+#: pyanaconda/storage/__init__.py:1995
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s.  You may "
@@ -5357,7 +5305,7 @@ msgstr ""
 "(mountpoint)s. Je kunt verder gaan met de installatie, maar er kunnen "
 "problemen optreden."
 
-#: pyanaconda/storage/__init__.py:1991
+#: pyanaconda/storage/__init__.py:2019
 #, python-format
 msgid ""
 "An error occurred mounting device %(path)s as %(mountpoint)s: %(msg)s. This "
@@ -5394,31 +5342,41 @@ msgstr "vginfo mislukt voor %s"
 msgid "lvs failed for %s"
 msgstr "lvs mislukt voor %s"
 
-#: pyanaconda/storage/devices.py:1291 pyanaconda/storage/devices.py:1996
-#: pyanaconda/storage/devices.py:2412 pyanaconda/storage/devices.py:2907
-#: pyanaconda/storage/devices.py:3395
+#: pyanaconda/storage/devices.py:1300 pyanaconda/storage/devices.py:2113
+#: pyanaconda/storage/devices.py:2539 pyanaconda/storage/devices.py:3034
+#: pyanaconda/storage/devices.py:3515
 msgid "Creating"
 msgstr "Aanmaken"
 
-#: pyanaconda/storage/devices.py:1292 pyanaconda/storage/devices.py:1997
-#: pyanaconda/storage/devices.py:2413 pyanaconda/storage/devices.py:2908
+#: pyanaconda/storage/devices.py:1301 pyanaconda/storage/devices.py:2114
+#: pyanaconda/storage/devices.py:2540 pyanaconda/storage/devices.py:3035
 #, python-format
 msgid "Creating device %s"
 msgstr "Apparaat %s aanmaken"
 
-#: pyanaconda/storage/devices.py:2506
+#: pyanaconda/storage/devices.py:2633
 #, python-format
 msgid "A RAID%d set requires at least %d member"
 msgid_plural "A RAID%d set requires at least %d members"
 msgstr[0] "Een RAID%d opstelling vereist ten minste %d onderdeel"
 msgstr[1] "Een RAID%d opstelling vereist ten minste %d onderdelen"
 
-#: pyanaconda/storage/devices.py:3396
+#: pyanaconda/storage/devices.py:3516
 #, python-format
 msgid "Creating file %s"
 msgstr "Bestand %s aanmaken"
 
-#: pyanaconda/storage/devicetree.py:103
+#: pyanaconda/storage/devices.py:3820
+#, python-format
+msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
+msgstr "FCP apparaat %(device)s met  WWPN %(wwpn)s en LUN %(lun)s"
+
+#: pyanaconda/storage/devices.py:3847
+#, python-format
+msgid "DASD device %s"
+msgstr "RAID opstelling %s"
+
+#: pyanaconda/storage/devicetree.py:105
 #, python-format
 msgid ""
 "Are you sure you want to skip entering a passphrase for device %s?\n"
@@ -5432,7 +5390,7 @@ msgstr ""
 "Als je deze stap overslaat zal de inhoud van het apparaat niet beschikbaar "
 "zijn tijdens de installatie."
 
-#: pyanaconda/storage/devicetree.py:1500
+#: pyanaconda/storage/devicetree.py:1551
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Deze partitie is onderdeel van een inconsistente LVM volume groep."
 
@@ -5459,38 +5417,38 @@ msgstr "Bezig met formatteren"
 msgid "Creating %(type)s filesystem on %(device)s"
 msgstr "Bestandssysteem %(type)s aanmaken op %(device)s"
 
-#: pyanaconda/storage/formats/fs.py:463
+#: pyanaconda/storage/formats/fs.py:457
 msgid "Resizing"
 msgstr "Aanpassen van de grootte"
 
 # dubbele punt toegevoegd om verwarring te voorkomen: bijv:
 # Bestandssysteem / wordt nu geformatteerd
 # Misschien ook nog aanhalingstekens gebruiken?
-#: pyanaconda/storage/formats/fs.py:464
+#: pyanaconda/storage/formats/fs.py:458
 #, python-format
 msgid "Resizing filesystem on %s"
 msgstr "Aanpassen van de grootte van het bestandssysteem op %s"
 
-#: pyanaconda/storage/formats/fs.py:499
+#: pyanaconda/storage/formats/fs.py:493
 #, python-format
 msgid "Unknown return code: %d."
 msgstr "Onbekende code teruggegeven: %d."
 
-#: pyanaconda/storage/formats/fs.py:513
+#: pyanaconda/storage/formats/fs.py:507
 msgid "Checking"
 msgstr "Controleren"
 
-#: pyanaconda/storage/formats/fs.py:514
+#: pyanaconda/storage/formats/fs.py:508
 #, python-format
 msgid "Checking filesystem on %s"
 msgstr "Controleren van het bestandssysteem op %s"
 
-#: pyanaconda/storage/formats/fs.py:531
+#: pyanaconda/storage/formats/fs.py:525
 #, python-format
 msgid "%(type)s filesystem check failure on %(device)s: "
 msgstr "%(type)s bestandssysteem controle mislukt op %(device)s: "
 
-#: pyanaconda/storage/formats/fs.py:537
+#: pyanaconda/storage/formats/fs.py:531
 msgid ""
 "Errors like this usually mean there is a problem with the filesystem that "
 "will require user interaction to repair.  Before restarting installation, "
@@ -5505,27 +5463,27 @@ msgstr ""
 "bestandssysteem interactief te repareren.  Start de installatie opnieuw op "
 "nadat je de problemen met het bestandssysteem verholpen hebt."
 
-#: pyanaconda/storage/formats/fs.py:545 pyanaconda/storage/partitioning.py:282
+#: pyanaconda/storage/formats/fs.py:539 pyanaconda/storage/partitioning.py:279
 msgid "Unrecoverable Error"
 msgstr "Onherstelbare fout"
 
-#: pyanaconda/storage/formats/fs.py:885
+#: pyanaconda/storage/formats/fs.py:879
 msgid "File system errors left uncorrected."
 msgstr "Bestandssysteem fouten zijn niet hersteld."
 
-#: pyanaconda/storage/formats/fs.py:886
+#: pyanaconda/storage/formats/fs.py:880
 msgid "Operational error."
 msgstr "Operationele fout"
 
-#: pyanaconda/storage/formats/fs.py:887
+#: pyanaconda/storage/formats/fs.py:881
 msgid "Usage or syntax error."
 msgstr "Gebruik of syntax fout."
 
-#: pyanaconda/storage/formats/fs.py:888
+#: pyanaconda/storage/formats/fs.py:882
 msgid "e2fsck cancelled by user request."
 msgstr "e2fsck gestopt op verzoek van gebruiker."
 
-#: pyanaconda/storage/formats/fs.py:889
+#: pyanaconda/storage/formats/fs.py:883
 msgid "Shared library error."
 msgstr "Gedeelde bibliotheek fout."
 
@@ -5556,35 +5514,35 @@ msgstr "%s versleutelen"
 msgid "Creating %(type)s on %(device)s"
 msgstr "%(type)s aanmaken op %(device)s"
 
-#: pyanaconda/storage/iscsi.py:118
+#: pyanaconda/storage/iscsi.py:120
 msgid "Unable to change iSCSI initiator name once set"
 msgstr "Niet in staat om reeds ingestelde iSCSI initiator naam te veranderen"
 
-#: pyanaconda/storage/iscsi.py:120
+#: pyanaconda/storage/iscsi.py:122
 msgid "Must provide an iSCSI initiator name"
 msgstr "Je moet een iSCSI initiator naam opgeven."
 
-#: pyanaconda/storage/iscsi.py:151 pyanaconda/storage/iscsi.py:152
+#: pyanaconda/storage/iscsi.py:153 pyanaconda/storage/iscsi.py:154
 msgid "Scanning iSCSI nodes"
 msgstr "Scannen van iSCSI nodes"
 
-#: pyanaconda/storage/iscsi.py:172 pyanaconda/storage/iscsi.py:173
+#: pyanaconda/storage/iscsi.py:174 pyanaconda/storage/iscsi.py:175
 msgid "Initializing iSCSI initiator"
 msgstr "Initialiseren van iSCSI initiator"
 
-#: pyanaconda/storage/iscsi.py:214
+#: pyanaconda/storage/iscsi.py:225
 msgid "iSCSI not available"
 msgstr "iSCSI niet beschikbaar"
 
-#: pyanaconda/storage/iscsi.py:216
+#: pyanaconda/storage/iscsi.py:227
 msgid "No initiator name set"
 msgstr "Geen initiator naam ingesteld"
 
-#: pyanaconda/storage/iscsi.py:242
+#: pyanaconda/storage/iscsi.py:253
 msgid "Logging in to iSCSI node"
 msgstr "Inloggen op iSCSI nodes"
 
-#: pyanaconda/storage/iscsi.py:243
+#: pyanaconda/storage/iscsi.py:254
 #, python-format
 msgid "Logging in to iSCSI node %s"
 msgstr "Inloggen op iSCSI node %s"
@@ -5605,11 +5563,11 @@ msgstr ""
 "Kon niet genoeg vrije ruimte ontdekken om automatisch te partitioneren, "
 "gebruik een andere partitionering methode."
 
-#: pyanaconda/storage/partitioning.py:229
+#: pyanaconda/storage/partitioning.py:228
 msgid "Warnings During Automatic Partitioning"
 msgstr "Waarschuwingen tijdens automatisch partitioneren"
 
-#: pyanaconda/storage/partitioning.py:231
+#: pyanaconda/storage/partitioning.py:230
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -5620,8 +5578,8 @@ msgstr ""
 "\n"
 "%s"
 
-#: pyanaconda/storage/partitioning.py:245
-#: pyanaconda/storage/partitioning.py:266
+#: pyanaconda/storage/partitioning.py:244
+#: pyanaconda/storage/partitioning.py:263
 msgid ""
 "\n"
 "\n"
@@ -5631,7 +5589,7 @@ msgstr ""
 "\n"
 "Druk op 'OK' om het installatieprogramma af te sluiten."
 
-#: pyanaconda/storage/partitioning.py:247
+#: pyanaconda/storage/partitioning.py:246
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -5642,7 +5600,7 @@ msgstr ""
 "\n"
 "%(msg)s.%(extra)s"
 
-#: pyanaconda/storage/partitioning.py:268
+#: pyanaconda/storage/partitioning.py:265
 msgid ""
 "\n"
 "\n"
@@ -5652,11 +5610,11 @@ msgstr ""
 "\n"
 "Druk op 'OK' om een andere partitionering optie te kiezen."
 
-#: pyanaconda/storage/partitioning.py:270
+#: pyanaconda/storage/partitioning.py:267
 msgid "Automatic Partitioning Errors"
 msgstr "Fouten bij automatisch partitioneren"
 
-#: pyanaconda/storage/partitioning.py:271
+#: pyanaconda/storage/partitioning.py:268
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -7016,6 +6974,70 @@ msgstr "Welsh"
 #: data/lang-table.h:61
 msgid "Zulu"
 msgstr "Zulu"
+
+#~ msgid ""
+#~ "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
+#~ "(e)s)"
+#~ msgstr ""
+#~ "Fout: Op commando open kan de reIPL methode niet op %(reipl_type)s (%"
+#~ "(filename)s: %(e)s) gezet worden."
+
+#~ msgid ""
+#~ "Error: On write, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+#~ "%(e)s)"
+#~ msgstr ""
+#~ "Fout: Op commando write kan de reIPL methode niet op %(reipl_type)s (%"
+#~ "(filename)s: %(e)s) gezet worden."
+
+#~ msgid ""
+#~ "Error: On close, cannot set reIPL method to %(reipl_type)s (%(filename)s: "
+#~ "%(e)s)"
+#~ msgstr ""
+#~ "Fout: Op commando close kan de reIPL methode niet op %(reipl_type)s (%"
+#~ "(filename)s: %(e)s) gezet worden."
+
+#~ msgid "Error: Could not set %(device)s as reIPL device (%(e)s)"
+#~ msgstr "Fout: Kon van %(device)s geen reIPL apparaat (%(e)s) maken"
+
+#~ msgid "Error: Could not reset loadparm (%s)"
+#~ msgstr "Fout: Kon loadparm (%s) niet resetten"
+
+#~ msgid "Warning: Could not reset parm (%s)"
+#~ msgstr "Waarschuwing: Kon parm (%s) niet resetten"
+
+#~ msgid "Error: reading FCP property %(syspath_property)s for reIPL (%(e)s)"
+#~ msgstr ""
+#~ "Fout: Lezen van FCP eigenschap %(syspath_property)s  voor reIPL (%(e)s)"
+
+#~ msgid "Error: writing FCP property %(reipl_property)s for reIPL (%(e)s)"
+#~ msgstr ""
+#~ "Fout: Schrijven van FCP eigenschap %(reipl_property)s voor reIPL (%(e)s)"
+
+#~ msgid ""
+#~ "Error: writing default FCP property %(reipl_property)s for reIPL (%(e)s)"
+#~ msgstr ""
+#~ "Fout: Schrijven van standaard FCP eigenschap %(reipl_property)s voor "
+#~ "reIPL (%(e)s)"
+
+#~ msgid ""
+#~ "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
+#~ "%(wwpn)s and LUN %(lun)s to continue installation"
+#~ msgstr ""
+#~ "Na afsluiten a.u.b. een handmatige IPL uitvoeren van FCP %(device)s met "
+#~ "WWPN %(wwpn)s en LUN %(lun)s om de installatie te vervolgen"
+
+#~ msgid ""
+#~ "After shutdown, please perform a manual IPL from the device now "
+#~ "containing /boot to continue installation"
+#~ msgstr ""
+#~ "Na afsluiten a.u.b. een handmatige IPL uitvoeren van device waarop /boot "
+#~ "staat om de installatie te vervolgen"
+
+#~ msgid ""
+#~ "The mount point /boot or / is on a disk that we are not familiar with"
+#~ msgstr ""
+#~ "Het aankoppel punt /boot of / bevindt zich op een schijf waar we niet mee "
+#~ "uit de voeten kunnen"
 
 #~ msgid "You do not have enough RAM to use the graphical installer."
 #~ msgstr "Je hebt niet voldoende RAM-geheugen voor een grafische installatie."
