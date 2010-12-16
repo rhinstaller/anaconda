@@ -1,11 +1,11 @@
 Name: anaconda
-Version: 11.1.2.222
+Version: 11.1.2.223
 Release: 1
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
 Source: anaconda-%{version}.tar.bz2
-BuildPreReq: kudzu-devel >= 1.2.57.1.18, pciutils-devel
+BuildPreReq: kudzu-devel >= 1.2.57.1.26-1, pciutils-devel >= 3.1.7-3
 BuildPreReq: bzip2-devel, e2fsprogs-devel, python-devel, gtk2-devel
 BuildPreReq: rpm-python >= 4.2-0.61, newt-devel, rpm-devel, gettext >= 0.11
 BuildPreReq: rhpl, booty, libxml2-python, zlib-devel, elfutils-devel
@@ -22,7 +22,7 @@ BuildPreReq: iscsi-initiator-utils >= 6.2.0.871-0.0
 %endif
 Requires: rpm-python >= 4.2-0.61, rhpl >= 0.170, booty
 Requires: parted >= 1.7.1, pyparted >= 1.7.2
-Requires: kudzu >= 1.2.57.1.18, yum >= 2.9.2, pirut >= 1.1.0
+Requires: kudzu >= 1.2.57.1.26-1, yum >= 2.9.2, pirut >= 1.1.0
 Requires: libxml2-python, python-urlgrabber
 Requires: system-logos, pykickstart, system-config-date
 Requires: device-mapper >= 1.01.05-3
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 16 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.223-1
+- Rebuild for latest kudzu and pciutils (pciutils ABI change)
+  Related: rhbz#663395
+
 * Thu Dec 13 2010 Radek Vykydal <rvykydal@redhat.com> 11.1.2.222-1
 - Japanese translations were completed (transifex)
   Resolves: rhbz#661199
