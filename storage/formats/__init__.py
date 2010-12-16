@@ -23,9 +23,11 @@
 import os
 
 from iutil import notify_kernel, get_sysfs_path_by_name
+from baseudev import udev_get_device
 from ..storage_log import log_method_call
 from ..errors import *
 from ..devicelibs.dm import dm_node_from_name
+from ..udev import udev_device_get_major, udev_device_get_minor
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -399,6 +401,13 @@ class DeviceFormat(object):
     def hidden(self):
         """ Whether devices with this formatting should be hidden in UIs. """
         return self._hidden
+
+    @property
+    def majorminor(self):
+        """A string suitable for using as a pseudo-unique ID in kickstart."""
+        sysfs_path = get_sysfs_path_by_name(self.device)
+        dev = udev_get_device(sysfs_path[4:])
+        return "%03d%03d" % (udev_device_get_major(dev), udev_device_get_minor(dev))
 
     def writeKS(self, f):
         return
