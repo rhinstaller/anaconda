@@ -434,12 +434,18 @@ def udev_device_is_dm_mpath(info):
     return udev_device_dm_subsystem_match(info, "mpath")
 
 def udev_device_is_dm_anaconda(info):
-    """ Return True is the device is an anaconda disk image. """
+    """ Return True if the device is an anaconda disk image. """
     return udev_device_dm_subsystem_match(info, "anaconda")
+
+def udev_device_is_dm_livecd(info):
+    """ Return True if the device is a livecd OS image. """
+    # return udev_device_dm_subsystem_match(info, "livecd")
+    return (udev_device_is_dm(info) and
+            udev_device_get_name(info).startswith("live"))
 
 def udev_device_is_biosraid_member(info):
     # Note that this function does *not* identify raid sets.
-    # Tests to see if device is parto of a dmraid set.
+    # Tests to see if device is part of a dmraid set.
     # dmraid and mdraid have the same ID_FS_USAGE string, ID_FS_TYPE has a
     # string that describes the type of dmraid (isw_raid_member...),  I don't
     # want to maintain a list and mdraid's ID_FS_TYPE='linux_raid_member', so

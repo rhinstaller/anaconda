@@ -654,7 +654,6 @@ class DeviceTree(object):
                             return
 
                 if cleanup_luks:
-                    slave_dev = slave_dev
                     slave_info = new_info
 
             # try to get the device again now that we've got all the slaves
@@ -673,6 +672,14 @@ class DeviceTree(object):
 
                 # try once more to get the device
                 device = self.getDeviceByName(name)
+
+            # create a device for the livecd OS image(s)
+            if device is None and udev_device_is_dm_livecd(info):
+                device = DMDevice(name, dmUuid=info.get('DM_UUID'),
+                                  sysfsPath=sysfs_path, exists=True,
+                                  parents=[slave_dev])
+                device.protected = True
+                self._addDevice(device)
 
             # if we get here, we found all of the slave devices and
             # something must be wrong -- if all of the slaves are in
