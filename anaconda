@@ -992,8 +992,11 @@ if __name__ == "__main__":
     if anaconda.isKickstart and instClass.ksdata.reboot["eject"]:
         isys.flushDriveDict()
         for drive in isys.cdromList():
-            log.info("attempting to eject %s" % drive)
-            isys.ejectCdrom(drive)
+            if anaconda.noeject:
+                log.info("noeject in effect, not ejecting %s" % drive)
+            else:
+                log.info("attempting to eject %s" % drive)
+                isys.ejectCdrom(drive)
 
     del anaconda.intf
 
