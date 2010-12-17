@@ -575,8 +575,8 @@ class DeviceTree(object):
 
         if name.startswith("loop"):
             # ignore loop devices unless they're backed by a disk image file
-            backing_device = devicelibs.loop.get_device_path(name)
-            return (backing_device not in self.diskImages.values())
+            backing_file = devicelibs.loop.get_backing_file(name)
+            return (backing_file not in self.diskImages.values())
 
         # FIXME: check for virtual devices whose slaves are on the ignore list
 

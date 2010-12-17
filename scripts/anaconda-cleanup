@@ -58,8 +58,7 @@ for dev in os.listdir(sys_class_block):
         continue
 
     loop = os.listdir("%s/%s/slaves" % (sys_class_block, dev))[0].strip()
-    path = devicelibs.loop.get_device_path(loop)
-    storage_config.diskImages[name] = path
+    storage_config.diskImages[name] = devicelibs.loop.get_backing_file(loop)
 
 if not image_install and not live_install:
     print >> sys.stderr, "not a live install or an image install -- exiting"

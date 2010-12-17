@@ -50,17 +50,12 @@ def losetup(args, capture=False):
 
     return ret
 
-def get_device_path(name):
-    args = ["/dev/" + name]
-    buf = losetup(args, capture=True)
-    try:
-        start = buf.index("(") + 1
-        end = buf.rindex(")")
-        path = buf[start:end]
-    except (IndexError, ValueError):
-        path = ""
+def get_backing_file(name):
+    path = ""
+    sys_path  = "/sys/class/block/%s/loop/backing_file" % name
+    if os.access(sys_path, os.R_OK):
+        path = open(sys_path).read().strip()
 
-    log.debug("get_device_path(%s) got '%s'" % (name, path))
     return path
 
 def get_loop_name(path):
@@ -71,7 +66,6 @@ def get_loop_name(path):
         raise LoopError("multiple loops associated with %s" % path)
 
     name = os.path.basename(buf.split(":")[0])
-    log.debug("get_loop_name(%s) got '%s'" % (path, name))
     return name
 
 def loop_setup(path):
