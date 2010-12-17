@@ -1948,6 +1948,11 @@ reposdir=/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anacon
     def writeConfiguration(self):
         return
 
+    def postAction(self, anaconda):
+        self.close()
+        self.closeRpmDB()
+        iutil.resetRpmDb(anaconda.rootPath)
+
 class DownloadHeaderProgress:
     def __init__(self, intf, ayum=None):
         window = intf.progressWindow(_("Installation Starting"),
