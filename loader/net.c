@@ -2010,7 +2010,7 @@ int kickstartNetworkUp(struct loaderData_s * loaderData, iface_t * iface) {
         (loaderData->netDev != NULL) && (loaderData->netDev_set == 1))
         return 0;
 
-    memset(iface, 0, sizeof(*iface));
+    iface_init_iface_t(iface);
 
     return activateDevice(loaderData, iface);
 
