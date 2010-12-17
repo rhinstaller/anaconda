@@ -1594,6 +1594,9 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                        !strncmp(bootProto, "bootp", 4))) {
         loaderData->ipv4 = strdup("dhcp");
         loaderData->ipinfo_set = 1;
+    } else if (bootProto && (!strncmp(bootProto, "ibft", 4))) {
+        loaderData->ipv4 = strdup("ibft");
+        loaderData->ipinfo_set = 1;
     } else if (loaderData->ipv4) {
         /* JKFIXME: this assumes a bit... */
         loaderData->ipinfo_set = 1;
@@ -1601,7 +1604,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     /* now make sure the specified bootproto is valid */
     if (bootProto && strcmp(bootProto, "dhcp") && strcmp(bootProto, "bootp") &&
-        strcmp(bootProto, "static") && strcmp(bootProto, "query")) {
+        strcmp(bootProto, "static") && strcmp(bootProto, "query") && strcmp(bootProto, "ibft")) {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Bad bootproto %s specified in network command"),
                        bootProto);
