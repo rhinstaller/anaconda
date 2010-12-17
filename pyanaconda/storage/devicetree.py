@@ -574,9 +574,8 @@ class DeviceTree(object):
             return True
 
         if name.startswith("loop"):
-            # ignore loop devices unless they're backed by a disk image file
-            backing_file = devicelibs.loop.get_backing_file(name)
-            return (backing_file not in self.diskImages.values())
+            # ignore loop devices unless they're backed by a file
+            return (not devicelibs.loop.get_backing_file(name))
 
         # FIXME: check for virtual devices whose slaves are on the ignore list
 
@@ -871,6 +870,23 @@ class DeviceTree(object):
         self._addDevice(device)
         return device
 
+    def addUdevLoopDevice(self, info):
+        name = udev_device_get_name(info)
+        log_method_call(self, name=name)
+        sysfs_path = udev_device_get_sysfs_path(info)
+        sys_file = "/sys/%s/loop/backing_file" % sysfs_path
+        backing_file = open(sys_file).read().strip()
+        file_device = self.getDeviceByName(backing_file)
+        if not file_device:
+            file_device = FileDevice(backing_file, exists=True)
+            self._addDevice(file_device)
+        device = LoopDevice(name,
+                            parents=[file_device],
+                            sysfsPath=sysfs_path,
+                            exists=True)
+        self._addDevice(device)
+        return device
+
     def addUdevDevice(self, info):
         name = udev_device_get_name(info)
         log_method_call(self, name=name, info=info)
@@ -909,6 +925,9 @@ class DeviceTree(object):
         if device:
             # we successfully looked up the device. skip to format handling.
             pass
+        elif udev_device_is_loop(info):
+            log.debug("%s is a loop device" % name)
+            device = self.addUdevLoopDevice(info)
         elif udev_device_is_multipath_member(info):
             device = self.addUdevDiskDevice(info)
         elif udev_device_is_dm(info) and udev_device_is_dm_mpath(info):
