@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: new_ja\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-12-14 17:32-0500\n"
-"PO-Revision-Date: 2010-12-19 16:29+0900\n"
+"PO-Revision-Date: 2010-12-20 00:10+0900\n"
 "Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "Language: ja\n"
@@ -32,29 +32,28 @@ msgstr ""
 
 #: anaconda:314
 msgid "Press <enter> for a shell"
-msgstr "シェルには、<enter> を押します。"
+msgstr "シェルを開始するには <enter>キーを押します。"
 
 #: anaconda:328
 #, c-format
 msgid "%s requires %s MB of memory to install, but you only have %s MB on this machine.\n"
-msgstr ""
+msgstr "インストールするために %s は、最低 %s MB のメモリーを必要とします。お使いのシステムには %s MB しか搭載されていません。\n"
 
 #: anaconda:330
 #, c-format
 msgid "%s requires %s MB of memory to install using this installation method, but you only have %s MB on this machine.\n"
-msgstr ""
+msgstr "このインストール方法でインストールするために %s は、最低 %s MB のメモリーを必要とします。お使いのシステムには %s MB しか搭載されていません。\n"
 
 #: anaconda:333
 #, c-format
 msgid "The %s graphical installer requires %s MB of memory, but you only have %s MB."
-msgstr "%s のグラフィカルインストーラーは、%s MB のメモリーを必要とします。お使いのシステムには %s MB のメモリーしか搭載されていません。"
+msgstr "%s のグラフィカルインストーラーは、最低 %s MB のメモリーを必要とします。お使いのシステムには %s MB のメモリーしか搭載されていません。"
 
 #: anaconda:338
 msgid "Not enough RAM"
-msgstr "RAM が足りません"
+msgstr "メモリーが足りません。"
 
 #: anaconda:339
-#, fuzzy
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -62,11 +61,11 @@ msgid ""
 "\n"
 " from a root terminal."
 msgstr ""
-"以下を実行してテキストモードインストーラを試して下さい:\n"
+" 次にように実行してテキストモードインストーラを試して下さい。:\n"
 "\n"
 "'/usr/bin/liveinst -T'\n"
 "\n"
-"root でのターミナルから実行。"
+"なお、この操作は root でのターミナルから実行します。"
 
 #: anaconda:342
 msgid " Starting text mode."
@@ -167,7 +166,7 @@ msgstr "VNC を使用しますか ?"
 
 #: anaconda:748
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
-msgstr "テキストモードは限定的なインストールオプションのセットを提供します。好みの パーティション設定やパッケージ選択の指定がありません。代わりに VNC モードを 使用しますか？"
+msgstr "テキストモードによるインストールは限定的なインストールオプションしか提供されず、パーティション設定やパッケージ選択の指定が行えません。代わりに VNC モードを 使用しますか？"
 
 #: anaconda:774
 msgid "Graphical installation is not available. Starting text mode."
@@ -180,12 +179,12 @@ msgstr "DISPLAY 変数がセットされていません。テキストモード�
 #: pyanaconda/backend.py:133
 #, python-format
 msgid "Upgrading %s\n"
-msgstr "%s のアップグレード\n"
+msgstr "%s をアップグレード中\n"
 
 #: pyanaconda/backend.py:135
 #, python-format
 msgid "Installing %s\n"
-msgstr "%s のインストール\n"
+msgstr "%s をインストール中\n"
 
 #: pyanaconda/bootloader.py:55
 #: pyanaconda/bootloader.py:221
@@ -456,7 +455,7 @@ msgstr "ネットワークの有効化でエラー"
 #: pyanaconda/gui.py:1096
 #: pyanaconda/text.py:413
 msgid "You do not have an active network connection.  This is required by some exception saving methods.  Would you like to configure your network now?"
-msgstr ""
+msgstr "有効なネットワーク接続がありません。いくつかの例外を保存する方法で必要とされています。いますぐネットワークの設定を行いますか？"
 
 #: pyanaconda/gui.py:1102
 #: pyanaconda/rescue.py:270
@@ -469,9 +468,8 @@ msgstr "ネットワークは使用できません。"
 
 #: pyanaconda/gui.py:1103
 #: pyanaconda/text.py:420
-#, fuzzy
 msgid "Remote exception saving methods will not work."
-msgstr "リモート例外"
+msgstr "リモートに例外を保存する方式は機能しません。"
 
 #: pyanaconda/gui.py:1152
 #: pyanaconda/text.py:395
@@ -769,12 +767,12 @@ msgstr "ブートデバイスのディスク名の決定でエラー"
 
 #: pyanaconda/iutil.py:841
 msgid "the device containing /boot"
-msgstr ""
+msgstr "/boot を含むデバイス"
 
 #: pyanaconda/iutil.py:843
-#, fuzzy, python-format
+#, python-format
 msgid "After shutdown, please perform a manual IPL from %s to continue installation."
-msgstr "シャットダウンの後に、DASD デバイス %s から手動で IPL を実行してインストールを 継続してください"
+msgstr "シャットダウンの後に、%s から手動で IPL を実行してインストールを継続してください"
 
 #: pyanaconda/kickstart.py:116
 #, python-format
@@ -789,7 +787,7 @@ msgstr "Scriptlet の失敗"
 #: pyanaconda/kickstart.py:150
 #, python-format
 msgid "Escrow certificate with url %s requires network to be enabled in loader or configured in kickstart file."
-msgstr ""
+msgstr "URL %s 条件付き証明書は、起動オプションもしくは kickstart ファイル内で設定されたネットワーク接続を必要とします。"
 
 #: pyanaconda/kickstart.py:164
 #, python-format
@@ -1207,7 +1205,7 @@ msgstr "本当に、パーティションテーブル設定をリセットして
 
 #: pyanaconda/partIntfHelpers.py:361
 msgid "No credentials (discovery authentication disabled)"
-msgstr ""
+msgstr "証明書なし (探索時の認証は無効となります。)"
 
 #: pyanaconda/partIntfHelpers.py:362
 msgid "CHAP pair"
@@ -1215,11 +1213,11 @@ msgstr "CHAP 秘密鍵"
 
 #: pyanaconda/partIntfHelpers.py:363
 msgid "CHAP pair and a reverse pair"
-msgstr "CHAP 秘密鍵とリバース鍵"
+msgstr "CHAP 秘密鍵と逆順鍵"
 
 #: pyanaconda/partIntfHelpers.py:364
 msgid "Use the credentials from the discovery step"
-msgstr ""
+msgstr "探索時から証明書を使用"
 
 #: pyanaconda/partIntfHelpers.py:472
 msgid "iSCSI Nodes"
@@ -1227,7 +1225,7 @@ msgstr "iSCSI ノード"
 
 #: pyanaconda/partIntfHelpers.py:473
 msgid "No new iSCSI nodes discovered"
-msgstr "新しい iSCSI ノードは見付かりません"
+msgstr "新しい iSCSI ノードは探索されませんでした。"
 
 #: pyanaconda/partIntfHelpers.py:514
 msgid "iSCSI Error"
@@ -1235,7 +1233,7 @@ msgstr "iSCSI エラー"
 
 #: pyanaconda/partIntfHelpers.py:519
 msgid "Discovery"
-msgstr "Discovery"
+msgstr "探索"
 
 #: pyanaconda/partIntfHelpers.py:519
 msgid "Login"
@@ -1451,17 +1449,16 @@ msgstr "終了"
 
 #: pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:479
-#, fuzzy
 msgid "The system will reboot automatically when you exit from the shell."
-msgstr "Linux パーティションがありません。シェルを起動するには [Enter] を押してください。シェルを終了するとシステムは自動的に再起動します。"
+msgstr "シェルを終了するとシステムは自動的に再起動します。"
 
 #: pyanaconda/rescue.py:390
-#, fuzzy, python-format
+#, python-format
 msgid "Your system had dirty file systems which you chose not to mount.  Press return to get a shell from which you can fsck and mount your partitions. %s"
-msgstr "システムに損傷のあるファイルシステムがありマウントしないことを選択しています。[Enter] を押すとシェルが起動され、そこで fsck やパーティションのマウントができます。シェルを終了するとシステムは自動的に再起動します。"
+msgstr "システムに損傷のあるファイルシステムがありマウントしないことを選択しています。<enter> を押すとシェルが起動され、ファイルシステムの検証(fsck)や パーティションのマウント(mount)を行うことができます。 %s"
 
 #: pyanaconda/rescue.py:400
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1473,14 +1470,14 @@ msgid ""
 msgstr ""
 "システムを %(rootPath)s 下にマウントしています。\n"
 "\n"
-"シェルを起動するには <return> を押してください。そのシステムを root 環境として利用するには次のコマンドを実行します:\n"
+"シェルを起動するには <enter>キーを押してください。そのシステムを root 環境として利用するには次のコマンドを実行します:\n"
 "\n"
 "\tchroot %(rootPath)s\n"
 "\n"
-"シェルを終了するとシステムは自動的に再起動します。"
+"%(msg)s"
 
 #: pyanaconda/rescue.py:486
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may be mounted under %s.\n"
 "\n"
@@ -1488,25 +1485,24 @@ msgid ""
 msgstr ""
 "システムのいくつか、あるいはすべてをマウントしようと試みている間にエラーが発生しました。いくつかのパーティションは %s の下にマウントされています。\n"
 "\n"
-"シェルを起動するには [Enter] を押してください。シェルを終了するとシステムは自動的に再起動します。"
+"シェルを起動するには [Enter] を押してください。%s"
 
 #: pyanaconda/rescue.py:496
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr "Linux パーティションがありません。再起動します。\n"
 
 #: pyanaconda/rescue.py:500
-#, fuzzy
 msgid " The system will reboot automatically when you exit from the shell."
-msgstr "Linux パーティションがありません。シェルを起動するには [Enter] を押してください。シェルを終了するとシステムは自動的に再起動します。"
+msgstr " シェルを終了するとシステムは自動的に再起動します。"
 
 #: pyanaconda/rescue.py:504
 msgid "Rescue Mode"
 msgstr "レスキューモード"
 
 #: pyanaconda/rescue.py:505
-#, fuzzy, python-format
+#, python-format
 msgid "You don't have any Linux partitions. Press return to get a shell.%s"
-msgstr "Linux パーティションがありません。再起動します。\n"
+msgstr "Linux パーティションがありません。<enter>キーを押すとシェルを起動します。%s"
 
 #: pyanaconda/rescue.py:517
 #, python-format
@@ -1854,9 +1850,9 @@ msgid "Preparing transaction from installation source"
 msgstr "インストールソースからのトランザクションを準備中。"
 
 #: pyanaconda/yuminstall.py:166
-#, fuzzy, python-format
+#, python-format
 msgid "<b>Upgrading %(pkgStr)s</b> (%(size)s)\n"
-msgstr "<b>%(pkgStr)s のインストール</b> (%(size)s)\n"
+msgstr "<b>%(pkgStr)s をアップグレード中</b> (%(size)s)\n"
 
 #: pyanaconda/yuminstall.py:169
 #, python-format
@@ -1873,7 +1869,7 @@ msgstr[1] "完了したパッケージ: %(numpkgs)d 個の内 %(donepkgs)d "
 #: pyanaconda/yuminstall.py:233
 #, python-format
 msgid "<b>Cleaning up %s</b>"
-msgstr ""
+msgstr "<b>%s をクリーンナップ中</b>"
 
 #: pyanaconda/yuminstall.py:253
 msgid "Error Installing Package"
@@ -1909,9 +1905,9 @@ msgid "Change Disc"
 msgstr "ディスクの変更"
 
 #: pyanaconda/yuminstall.py:406
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert the %(productName)s disc to continue."
-msgstr "%(productName)s ディスク %(discnum)d を挿入して続行して下さい。"
+msgstr "%(productName)s のディスクを挿入して続行して下さい。"
 
 #: pyanaconda/yuminstall.py:415
 msgid "Wrong Disc"
@@ -2256,9 +2252,8 @@ msgid "%(name)s: %(msg)s"
 msgstr "%(name)s: %(msg)s"
 
 #: pyanaconda/iw/autopart_type.py:250
-#, fuzzy
 msgid "Use _All Space"
-msgstr "すべての領域を使用する"
+msgstr "すべての領域を使用する(_A)"
 
 #: pyanaconda/iw/autopart_type.py:252
 msgid ""
@@ -2271,9 +2266,8 @@ msgstr ""
 "<b>注意:</b>このオプションは選択したデバイスからデータを削除します。バックアップがあることを確認してください。"
 
 #: pyanaconda/iw/autopart_type.py:258
-#, fuzzy
 msgid "Replace Existing _Linux System(s)"
-msgstr "既存の Linux システムを入れ替える"
+msgstr "既存の Linux システムを入れ替える(_L)"
 
 #: pyanaconda/iw/autopart_type.py:260
 msgid ""
@@ -2286,27 +2280,24 @@ msgstr ""
 "<b>注意:</b> このオプションは、選択したデバイスからデータを削除します。バックアップがあることを確認して下さい。"
 
 #: pyanaconda/iw/autopart_type.py:268
-#, fuzzy
 msgid "_Shrink Current System"
-msgstr "現在のシステムを縮小する"
+msgstr "現在のシステムを縮小する(_S)"
 
 #: pyanaconda/iw/autopart_type.py:270
 msgid "Shrinks existing partitions to create free space for the default layout."
 msgstr "現在のパーティションを縮小してデフォルトレイアウト用に空き領域を作成します。"
 
 #: pyanaconda/iw/autopart_type.py:272
-#, fuzzy
 msgid "Use _Free Space"
-msgstr "空き領域を使用する"
+msgstr "空き領域を使用する(_F)"
 
 #: pyanaconda/iw/autopart_type.py:274
 msgid "Retains your current data and partitions and uses only the unpartitioned space on the selected device(s), assuming you have enough free space available."
 msgstr "現在のデータとパーティションを維持して、選択したデバイスに十分な空き領域がある場合は、その未設定領域のみを使用します。"
 
 #: pyanaconda/iw/autopart_type.py:278
-#, fuzzy
 msgid "Create _Custom Layout"
-msgstr "カスタムレイアウトを作成する"
+msgstr "カスタムレイアウトを作成する(_C)"
 
 #: pyanaconda/iw/autopart_type.py:280
 msgid "Manually create your own custom layout on the selected device(s) using our partitioning tool."
@@ -2575,18 +2566,16 @@ msgid "What type of devices will your installation involve?"
 msgstr "どちらのタイプのストレージデバイスにインストールしますか?"
 
 #: pyanaconda/iw/filter_type.py:61
-#, fuzzy
 msgid "B_asic Storage Devices"
-msgstr "基本ストレージデバイス"
+msgstr "基本ストレージデバイス(_A)"
 
 #: pyanaconda/iw/filter_type.py:62
 msgid "Installs or upgrades to typical types of storage devices.  If you're not sure which option is right for you, this is probably it."
 msgstr "一般的なストレージデバイスにインストール、またはアップグレードします。 どのオプションが正しいのか不明な場合は、これが適切でしょう。"
 
 #: pyanaconda/iw/filter_type.py:66
-#, fuzzy
 msgid "_Specialized Storage Devices"
-msgstr "エンタープライズストレージデバイス"
+msgstr "エンタープライズストレージデバイス(_S)"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid "Installs or upgrades to enterprise devices such as Storage Area Networks (SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to filter out devices the installer should ignore."
@@ -2928,7 +2917,7 @@ msgstr "ネットワークインターフェースを選択"
 
 #: pyanaconda/iw/network_gui.py:139
 msgid "This requires that you have an active network connection during the installation process.  Please configure a network interface."
-msgstr "これを行うにはインストール中にアクティブなネットワーク接続が必要になります。ネットワークインターフェースを設定してください。"
+msgstr "作業を継続するにはインストール中に有効なネットワーク接続が必要になります。ネットワークインターフェースを設定してください。"
 
 #: pyanaconda/iw/network_gui.py:209
 msgid "Select APs"
@@ -3609,7 +3598,7 @@ msgstr "DHCPv6 (動的 IP 設定)"
 #: loader/net.h:31
 #: pyanaconda/textw/netconfig_text.py:201
 msgid "Automatic neighbor discovery"
-msgstr "自動近隣接続発見機能"
+msgstr "近隣自動探索"
 
 #: loader/cdinstall.c:187
 #, c-format
@@ -3636,14 +3625,14 @@ msgid "Scanning"
 msgstr "スキャン中"
 
 #: loader/cdinstall.c:266
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation media on CD device %s\n"
-msgstr "CD デバイス %s 上のインストールイメージを探しています\n"
+msgstr "光学ドライブ %s の中のインストールイメージを探しています。\n"
 
 #: loader/cdinstall.c:268
-#, fuzzy, c-format
+#, c-format
 msgid "Looking for installation media on CD device %s"
-msgstr "CD デバイス %s 上のインストールイメージを探しています。"
+msgstr "光学ドライブ %s の中のインストールメディアを探しています。"
 
 #: loader/cdinstall.c:335
 #, c-format
@@ -3856,9 +3845,8 @@ msgstr "パーティションを選択してください"
 #: loader/hdinstall.c:283
 #: loader/hdinstall.c:301
 #: loader/hdinstall.c:310
-#, fuzzy
 msgid "That directory does not contain installation media."
-msgstr "そのディレクトリーは %s のインストールイメージを含んでいないようです。"
+msgstr "そのディレクトリーはインストールメディアを含んでいないようです。"
 
 #: loader/hdinstall.c:349
 #, c-format
@@ -4006,20 +3994,20 @@ msgstr "アップデートイメージのダウンロード中にエラー発生
 #: loader/loader.c:1199
 #, c-format
 msgid "%s requires %d MB of memory, to install, but you only have %d MB."
-msgstr ""
+msgstr "%s は、最低 %d MB のメモリーを必要とします。しかし %d MB しか搭載されていません。"
 
 #: loader/loader.c:1200
 #, c-format
 msgid "%s requires %d MB of memory to install using this installation method, but you only have %d MB on this machine."
-msgstr ""
+msgstr "指定したインストール方法では %s は、最低 %d MB のメモリーを必要とします。しかし %d MB しか搭載されていません。"
 
 #: loader/loader.c:1236
 msgid "Unsupported Hardware Detected"
-msgstr ""
+msgstr "サポートされていないハードウェアを検出しました。"
 
 #: loader/loader.c:1237
 msgid "This hardware (or a combination thereof) is not supported by Red Hat.  For more information on supported hardware, please refer to http://www.redhat.com/hardware."
-msgstr ""
+msgstr "お使いのハードウェア (またはシステム構成) は Red Hat によってサポートされておりません。 サポートされたハードウェアの詳細については、http://www.redhat.com/hardware をご参照ください。"
 
 #: loader/loader.c:1372
 msgid "Rescue Method"
@@ -4348,9 +4336,8 @@ msgstr "NFS 設定"
 
 #: loader/nfsinstall.c:196
 #: loader/urlinstall.c:214
-#, fuzzy
 msgid "The URL provided does not contain installation media."
-msgstr "デバイス %s にはインストールイメージが含まれていないようです。"
+msgstr "その URL にはインストールメディアが含まれていないようです。"
 
 #: loader/nfsinstall.c:277
 #, c-format
@@ -4557,9 +4544,9 @@ msgid "Installing on a FireWire device.  This may or may not produce a working s
 msgstr "FireWire デバイス上にインストールしています。稼動するシステムが作成されることもありますが、されないこともあります。"
 
 #: pyanaconda/storage/__init__.py:1065
-#, fuzzy, python-format
+#, python-format
 msgid "You have not specified a swap partition.  %s MB of memory is required to continue installation without a swap partition, but you only have %s MB."
-msgstr "swap パーティションが未指定です。現在のメモリー量では、インストールを完了させるには swap パーティションが必要です。"
+msgstr "swap パーティションが未指定です。%s MB のメモリーを必要とします。しかし %s MB しか搭載されていません。現在のメモリー搭載量でインストールを継続するには swap パーティションが必要です。"
 
 #: pyanaconda/storage/__init__.py:1070
 msgid "You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."
@@ -4798,12 +4785,12 @@ msgstr "ファイル %s の作成"
 #: pyanaconda/storage/devices.py:3820
 #, python-format
 msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
-msgstr ""
+msgstr "FCP デバイス %(device)s (WWPN: %(wwpn)s / LUN %(lun)s)"
 
 #: pyanaconda/storage/devices.py:3847
-#, fuzzy, python-format
+#, python-format
 msgid "DASD device %s"
-msgstr "RAID デバイス"
+msgstr "DASD デバイス %s"
 
 #: pyanaconda/storage/devicetree.py:105
 #, python-format
@@ -4841,9 +4828,9 @@ msgid "Formatting"
 msgstr "フォーマット中"
 
 #: pyanaconda/storage/formats/fs.py:355
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %(type)s filesystem on %(device)s"
-msgstr "%s 上に %s ファイルシステムを作成"
+msgstr "%(device)s 上に %(type)s 形式のファイルシステムを作成"
 
 #: pyanaconda/storage/formats/fs.py:457
 msgid "Resizing"
@@ -4904,7 +4891,7 @@ msgstr "共有ライブラリのエラー"
 
 #: pyanaconda/storage/formats/fs.py:1048
 msgid "Recoverable errors have been detected or dosfsck has discovered an internal inconsistency."
-msgstr "復元可能なエラーは検出されたか、又は dosfsck が内部の整合性問題を発見しました。"
+msgstr "復元可能なエラーが検出されたか、または dosfsck が内部の整合性問題を発見しました。"
 
 #: pyanaconda/storage/formats/fs.py:1050
 msgid "Usage error."
@@ -4921,9 +4908,9 @@ msgstr "暗号化 %s"
 
 #: pyanaconda/storage/formats/lvmpv.py:104
 #: pyanaconda/storage/formats/swap.py:162
-#, fuzzy, python-format
+#, python-format
 msgid "Creating %(type)s on %(device)s"
-msgstr "%s 上に %s を作成"
+msgstr "%(device)s 上に %(type)s を作成"
 
 #: pyanaconda/storage/iscsi.py:120
 msgid "Unable to change iSCSI initiator name once set"
@@ -4952,14 +4939,13 @@ msgid "No initiator name set"
 msgstr "イニシエーター名がありません"
 
 #: pyanaconda/storage/iscsi.py:253
-#, fuzzy
 msgid "Logging in to iSCSI node"
 msgstr "iSCSI ノードにログイン中"
 
 #: pyanaconda/storage/iscsi.py:254
-#, fuzzy, python-format
+#, python-format
 msgid "Logging in to iSCSI node %s"
-msgstr "iSCSI ノードにログイン中"
+msgstr "iSCSI ノード %s にログイン中"
 
 #: pyanaconda/storage/partitioning.py:197
 msgid "Could not find enough free space for automatic partitioning.  Press 'OK' to exit the installer."
@@ -5152,23 +5138,20 @@ msgid "Enable network interface"
 msgstr "ネットワークインターフェースを有効にする"
 
 #: pyanaconda/textw/netconfig_text.py:129
-#, fuzzy
 msgid "This requires that you have an active network connection during the installation process.  Please select network interface to configure."
-msgstr "これを行うにはインストール中にアクティブなネットワーク接続が必要になります。ネットワークインターフェースを設定してください。"
+msgstr "作業を継続するにはインストール中に有効なネットワーク接続が必要になります。ネットワークインターフェースを設定してください。"
 
 #: pyanaconda/textw/netconfig_text.py:155
-#, fuzzy, python-format
+#, python-format
 msgid "Configure interface %s to be used during installation process."
-msgstr "インストール時に使用する言語を選択してください。"
+msgstr "インストール時に使用するインタフェース %s を構成してください。"
 
 #: pyanaconda/textw/netconfig_text.py:160
-#, fuzzy
 msgid "Enable IPv4 Support"
 msgstr "IPv4 サポートを有効にする"
 
 #: pyanaconda/textw/netconfig_text.py:167
 #: pyanaconda/textw/netconfig_text.py:207
-#, fuzzy
 msgid "Manual Configuration"
 msgstr "手動による設定"
 
@@ -5182,91 +5165,77 @@ msgid "Nameserver:"
 msgstr "ネームサーバー:"
 
 #: pyanaconda/textw/netconfig_text.py:197
-#, fuzzy
 msgid "Enable IPv6 Support"
 msgstr "IPv6 サポートを有効にする"
 
 #: pyanaconda/textw/netconfig_text.py:204
-#, fuzzy
 msgid "Dynamic IP Configuration (DHCPv6)"
 msgstr "DHCPv6 (動的 IP 設定)"
 
 #: pyanaconda/textw/netconfig_text.py:215
-#, fuzzy
 msgid "IPv6 Address:"
 msgstr "IPv6 アドレス:"
 
 #: pyanaconda/textw/netconfig_text.py:270
-#, fuzzy
 msgid "Missing protocol"
 msgstr "見つからないプロトコル"
 
 #: pyanaconda/textw/netconfig_text.py:271
-#, fuzzy
 msgid "You must select at least one protocol version"
 msgstr "少くともプロトコルを 1 つ選択しなければなりません (IPv4 または IPv6)。"
 
 #: pyanaconda/textw/netconfig_text.py:279
 #: pyanaconda/textw/netconfig_text.py:282
-#, fuzzy
 msgid "IPv4 Address"
-msgstr "IPv4 アドレス:"
+msgstr "IPv4 アドレス"
 
 #: pyanaconda/textw/netconfig_text.py:286
 #: pyanaconda/textw/netconfig_text.py:291
-#, fuzzy
 msgid "IPv4 Prefix"
-msgstr "無効なプレフィックス"
+msgstr "IPv4 プレフィックス"
 
 #: pyanaconda/textw/netconfig_text.py:290
 msgid "IPv4 CIDR prefix must be between 0 and 32."
-msgstr "IPv4 CIDR の接頭辞は 0 から 32 の間にしてください。"
+msgstr "IPv4 CIDR のプレフィックスは 0 から 32 の間にしてください。"
 
 #: pyanaconda/textw/netconfig_text.py:298
-#, fuzzy
 msgid "IPv4 Gateway"
-msgstr "ゲートウェイ"
+msgstr "IPv4 ゲートウェイ"
 
 #: pyanaconda/textw/netconfig_text.py:307
-#, fuzzy
 msgid "IPv4 Nameserver"
-msgstr "ネームサーバー"
+msgstr "IPv6 ネームサーバー"
 
 #: pyanaconda/textw/netconfig_text.py:315
 #: pyanaconda/textw/netconfig_text.py:318
-#, fuzzy
 msgid "IPv6 Address"
-msgstr "IP アドレス"
+msgstr "IPv6 アドレス"
 
 #: pyanaconda/textw/netconfig_text.py:322
 #: pyanaconda/textw/netconfig_text.py:327
-#, fuzzy
 msgid "IPv6 Prefix"
-msgstr "無効なプレフィックス"
+msgstr "IPv6 プレフィックス"
 
 #: pyanaconda/textw/netconfig_text.py:326
-#, fuzzy
 msgid "IPv6 CIDR prefix must be between 0 and 128."
-msgstr "IPv4 CIDR の接頭辞は 0 から 32 の間にしてください。"
+msgstr "IPv6 CIDR のプレフィックスは 0 から 128 の間にしてください。"
 
 #: pyanaconda/textw/netconfig_text.py:334
-#, fuzzy
 msgid "IPv6 Gateway"
-msgstr "ゲートウェイ"
+msgstr "IPv6 ゲートウェイ"
 
 #: pyanaconda/textw/netconfig_text.py:342
-#, fuzzy
 msgid "IPv6 Nameserver"
-msgstr "ネームサーバー"
+msgstr "IPv6 ネームサーバー"
 
 #: pyanaconda/textw/netconfig_text.py:399
 msgid "Configuring Network Interfaces"
 msgstr "ネットワークインターフェースを設定"
 
 #: pyanaconda/textw/netconfig_text.py:404
-#, fuzzy, python-format
+#, python-format
 msgid "There was an error configuring network device %s"
-msgstr "ネットワークインターフェースの設定中にエラーが発生しました。"
+msgstr "ネットワークインターフェース %s の設定中にエラーが発生しました。"
 
 #: pyanaconda/textw/partition_text.py:59
 msgid "Partitioning Type"
@@ -5823,19 +5792,16 @@ msgid "Target:"
 msgstr "ターゲット:"
 
 #: data/ui/filter.glade.h:25
-#, fuzzy
 msgid "_Add Advanced Target"
-msgstr "高度なターゲットの追加"
+msgstr "高度なターゲットの追加(_A)"
 
 #: data/ui/iscsi-dialogs.glade.h:1
-#, fuzzy
 msgid "CHAP Password:"
-msgstr "パスワード:"
+msgstr "CHAP パスワード:"
 
 #: data/ui/iscsi-dialogs.glade.h:2
-#, fuzzy
 msgid "CHAP Username:"
-msgstr "<b>CHAP ユーザー名(_U):</b>"
+msgstr "CHAP ユーザー名:"
 
 #: data/ui/iscsi-dialogs.glade.h:3
 msgid "Check the nodes you wish to log into:"
@@ -5846,72 +5812,64 @@ msgid "Reason:"
 msgstr "理由:"
 
 #: data/ui/iscsi-dialogs.glade.h:5
-#, fuzzy
 msgid "Retry _Login"
-msgstr "再試行中"
+msgstr "再試行中(_L)"
 
 #: data/ui/iscsi-dialogs.glade.h:6
-#, fuzzy
 msgid "Reverse CHAP Password:"
-msgstr "<b>逆順 CHAP パスワード(_A):</b>"
+msgstr "逆順 CHAP パスワード:"
 
 #: data/ui/iscsi-dialogs.glade.h:7
-#, fuzzy
 msgid "Reverse CHAP Username:"
-msgstr "<b>逆順 CHAP ユーザー名(_S):</b>"
+msgstr "逆順 CHAP ユーザー名:"
 
 #: data/ui/iscsi-dialogs.glade.h:8
 msgid "Start _Discovery"
-msgstr "Discoveryを開始(_D)"
+msgstr "探索を開始(_D)"
 
 #: data/ui/iscsi-dialogs.glade.h:9
 msgid "Successfully logged in and attached the following nodes:"
-msgstr ""
+msgstr "ログインに成功しました。次のノードへ接続しました。"
 
 #: data/ui/iscsi-dialogs.glade.h:10
-#, fuzzy
 msgid "Target IP Address:"
-msgstr "<b>ターゲット IP アドレス(_T):</b>"
+msgstr "ターゲット IP アドレス:"
 
 #: data/ui/iscsi-dialogs.glade.h:11
 msgid "To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host."
-msgstr "iSCSI ディスクを使用するには、ホスト用に設定している iSCSI イニシエーター名及びiSCSI ターゲットのアドレスを入力してください。"
+msgstr "iSCSI ディスクを使用するには、このシステム向けに用意した iSCSI イニシエーター名およびiSCSI ターゲットのアドレスを入力してください。"
 
 #: data/ui/iscsi-dialogs.glade.h:12
 msgid "What kind of iSCSI <b>discovery authentication</b> do you wish to perform:"
-msgstr ""
+msgstr "iSCSI の <b>探索時の認証</b> の方式を指定してください。"
 
 #: data/ui/iscsi-dialogs.glade.h:13
 msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
-msgstr ""
+msgstr "iSCSI の <b>ログイン時の認証</b> の方式を指定してください。"
 
 #: data/ui/iscsi-dialogs.glade.h:14
-#, fuzzy
 msgid "_Cancel"
-msgstr "取り消し"
+msgstr "取り消し(_C)"
 
 #: data/ui/iscsi-dialogs.glade.h:15
 msgid "_Login"
 msgstr "ログイン(_L)"
 
 #: data/ui/iscsi-dialogs.glade.h:16
-#, fuzzy
 msgid "_OK"
-msgstr "OK"
+msgstr "OK(_O)"
 
 #: data/ui/iscsi-dialogs.glade.h:17
-#, fuzzy
 msgid "iSCSI Discovered Nodes"
-msgstr "iSCSI ノードが見付かりません"
+msgstr "iSCSI 探索されたノード"
 
 #: data/ui/iscsi-dialogs.glade.h:18
 msgid "iSCSI Discovery Details"
-msgstr "iSCSI Discoveryの詳細"
+msgstr "iSCSI 探索結果の詳細"
 
 #: data/ui/iscsi-dialogs.glade.h:19
-#, fuzzy
 msgid "iSCSI Initiator Name:"
-msgstr "<b>iSCSI イニシエーター名(_N):</b>"
+msgstr "iSCSI イニシエーター名:"
 
 #: data/ui/iscsi-dialogs.glade.h:20
 msgid "iSCSI Login Results"
@@ -6623,13 +6581,13 @@ msgstr "ズールー語"
 #~ msgstr "%s 上に %s を作成"
 
 #~ msgid "No iSCSI nodes discovered"
-#~ msgstr "iSCSI ノードが見付かりません"
+#~ msgstr "iSCSI ノードが探索されませんでした"
 
 #~ msgid "Logging in to iSCSI nodes"
 #~ msgstr "iSCSI ノードにログイン中"
 
 #~ msgid "Could not log in to any of the discovered nodes"
-#~ msgstr "見付かったノードのいずれにもログインできませんでした"
+#~ msgstr "探索されたノードのいずれにもログインできませんでした"
 
 #~ msgid "Use dynamic IP configuration (DHCP)"
 #~ msgstr "動的 IP 設定 (DHCP) を使用"
