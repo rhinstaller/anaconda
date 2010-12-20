@@ -587,7 +587,6 @@ class FilterWindow(InstallWindow):
         # if we've already populated the device tree at least once we should
         # do our best to make sure any active devices get deactivated
         anaconda.storage.devicetree.teardownAll()
-        udev_trigger(subsystem="block", action="change")
         # So that drives onlined by these show up in the filter UI
         iscsi.iscsi().startup(anaconda.intf)
         fcoe.fcoe().startup(anaconda.intf)
