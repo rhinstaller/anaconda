@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.223
+Version: 11.1.2.224
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,12 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Dec 20 2010 Radek Vykydal <dcantrell@redhat.com> 11.1.2.224-1
+- noeject overrides kickstart eject (bcl)
+  Related: rhbz#477887
+- Pass --noeject to anaconda (bcl)
+  Related: rhbz#477887
+
 * Thu Dec 16 2010 David Cantrell <dcantrell@redhat.com> 11.1.2.223-1
 - Rebuild for latest kudzu and pciutils (pciutils ABI change)
   Related: rhbz#663395
