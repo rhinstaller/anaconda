@@ -654,6 +654,7 @@ if __name__ == "__main__":
     # NetworkManager in the udev database
     from baseudev import udev_trigger, udev_settle
     udev_trigger("net")
+    udev_trigger("block") # trigger the block subsys too while at it
     udev_settle()
     # and for added fun, once doesn't seem to be enough?  so we 
     # do it twice, it works and we scream at the world "OH WHY?"

@@ -586,7 +586,6 @@ class FilterWindow(InstallWindow):
         self.store.set_sort_column_id(MODEL_COL, gtk.SORT_ASCENDING)
 
         anaconda.id.storage.devicetree.teardownAll()
-        udev_trigger(subsystem="block")
         # So that drives onlined by these show up in the filter UI
         storage.iscsi.iscsi().startup(anaconda.intf)
         storage.fcoe.fcoe().startup(anaconda.intf)
