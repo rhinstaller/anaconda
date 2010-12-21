@@ -239,29 +239,9 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
     if (loaderData->ipinfo_set && loaderData->ipv4 != NULL) {
 	/* this is iBFT configured device */
 	if (!strncmp(loaderData->ipv4, "ibft", 4)) {
-	    char *devmacaddr = iface_mac2str(loaderData->netDev);
 	    iface->ipv4method = IPV4_IBFT_METHOD;
-	    iface->isiBFT = 1;
-
-	    /* Problems with getting the info from iBFT or iBFT uses dhcp*/
-	    if(!devmacaddr || !ibft_present()){
-		iface->ipv4method = IPV4_DHCP_METHOD;
-		logMessage(INFO, "iBFT is not present");
-	    }
-
-	    /* MAC address doesn't match */
-	    else if(strcasecmp(ibft_iface_mac(), devmacaddr)){
-		iface->ipv4method = IPV4_DHCP_METHOD;
-		logMessage(INFO, "iBFT doesn't know what NIC to use - falling back to DHCP");
-	    }
-	    else if(ibft_iface_dhcp()){
-		iface->ipv4method = IPV4_IBFT_DHCP_METHOD;
-		logMessage(INFO, "iBFT is configured to use DHCP");
-	    }
-	    if(devmacaddr) free(devmacaddr);
-	}
         /* this is how we specify dhcp */
-        else if (!strncmp(loaderData->ipv4, "dhcp", 4)) {
+        } else if (!strncmp(loaderData->ipv4, "dhcp", 4)) {
             iface->dhcptimeout = loaderData->dhcpTimeout;
             iface->ipv4method = IPV4_DHCP_METHOD;
         } else if (inet_pton(AF_INET, loaderData->ipv4, &addr) >= 1) {
@@ -329,24 +309,6 @@ void setupIfaceStruct(iface_t * iface, struct loaderData_s * loaderData) {
         }
     }
 #endif
-
-    /* iBFT configured DNS */
-    if(iface->ipv4method == IPV4_IBFT_METHOD){
-	if(iface->numdns<MAXNS){
-	    if(ibft_iface_dns1() && inet_pton(AF_INET, ibft_iface_dns1(), &addr)>=1){
-		iface->dns[iface->numdns] = strdup(ibft_iface_dns1());
-		iface->numdns++;
-		logMessage(INFO, "adding iBFT dns server %s", ibft_iface_dns1());
-	    }
-	}
-	if(iface->numdns<MAXNS){
-	    if(ibft_iface_dns2() && inet_pton(AF_INET, ibft_iface_dns2(), &addr)>=1){
-		iface->dns[iface->numdns] = strdup(ibft_iface_dns2());
-		iface->numdns++;
-		logMessage(INFO, "adding iBFT dns server %s", ibft_iface_dns2());
-	    }
-	}
-    }
 
     if (loaderData->dns) {
         char * buf;
@@ -1320,15 +1282,7 @@ int writeEnabledNetInfo(iface_t *iface) {
 
     if (!FL_NOIPV4(flags)) {
         if (iface->ipv4method == IPV4_IBFT_METHOD) {
-	    /* When initrd and NM support iBFT, we should just write
-	     * BOOTPROTO=ibft and let NM deal with it. Until than,
-	     * just use static and do it ourselves. */
-            fprintf(fp, "BOOTPROTO=static\n");
-	    if(ibft_iface_ip()) fprintf(fp, "IPADDR=%s\n", ibft_iface_ip());
-	    if(ibft_iface_mask()) fprintf(fp, "NETMASK=%s\n", ibft_iface_mask());
-	    if(ibft_iface_gw()) fprintf(fp, "GATEWAY=%s\n", ibft_iface_gw());
-        } else if (iface->ipv4method == IPV4_IBFT_DHCP_METHOD) {
-            fprintf(fp, "BOOTPROTO=dhcp\n");
+            fprintf(fp, "BOOTPROTO=ibft\n");
         } else if (iface->ipv4method == IPV4_DHCP_METHOD) {
             fprintf(fp, "BOOTPROTO=dhcp\n");
         } else if (iface->ipv4method == IPV4_MANUAL_METHOD) {

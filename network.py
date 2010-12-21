@@ -832,7 +832,9 @@ class Network:
 
         dev = self.netdevices[nic]
 
-        if networkStorageDevice.host_address:
+        if dev.get('BOOTPROTO') == 'ibft':
+            netargs += "ip=ibft"
+        elif networkStorageDevice.host_address:
             if self.hostname:
                 hostname = self.hostname
             else:
