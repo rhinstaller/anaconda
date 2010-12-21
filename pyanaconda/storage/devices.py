@@ -3801,15 +3801,7 @@ class OpticalDevice(StorageDevice):
         os.close(fd)
 
 
-class MainframeDiskDevice(DiskDevice):
-    """ Abstract mainframe disk. """
-    _type = "mainframe"
-
-    def reIPLDescription(self):
-        return self.desc
-
-
-class ZFCPDiskDevice(MainframeDiskDevice):
+class ZFCPDiskDevice(DiskDevice):
     """ A mainframe ZFCP disk. """
     _type = "zfcp"
 
@@ -3817,12 +3809,7 @@ class ZFCPDiskDevice(MainframeDiskDevice):
         self.hba_id = kwargs.pop("hba_id")
         self.wwpn = kwargs.pop("wwpn")
         self.fcp_lun = kwargs.pop("fcp_lun")
-        self.desc = _("FCP device %(device)s with WWPN %(wwpn)s "
-                      "and LUN %(lun)s"
-                      % {'device': self.hba_id,
-                         'wwpn': self.wwpn,
-                         'lun': self.fcp_lun})
-        MainframeDiskDevice.__init__(self, device, **kwargs)
+        DiskDevice.__init__(self, device, **kwargs)
 
     def __str__(self):
         s = MainframeDiskDevice.__str__(self)
@@ -3832,11 +3819,18 @@ class ZFCPDiskDevice(MainframeDiskDevice):
                "fcp_lun": self.fcp_lun})
         return s
 
+    @property
+    def description(self):
+        return "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s" \
+               % {'device': self.hba_id,
+                  'wwpn': self.wwpn,
+                  'lun': self.fcp_lun})
+
     def dracutSetupString(self):
         return "rd_ZFCP=%s,%s,%s" % (self.hba_id, self.wwpn, self.fcp_lun,)
 
 
-class DASDDevice(MainframeDiskDevice):
+class DASDDevice(DiskDevice):
     """ A mainframe DASD. """
     _type = "dasd"
 
@@ -3844,11 +3838,14 @@ class DASDDevice(MainframeDiskDevice):
         self.busid = kwargs.pop('busid')
         self.opts = kwargs.pop('opts')
         self.dasd = kwargs.pop('dasd')
-        self.desc = _("DASD device %s" % self.busid)
-        MainframeDiskDevice.__init__(self, device, **kwargs)
+        DiskDevice.__init__(self, device, **kwargs)
 
         if self.dasd:
             self.dasd.addDASD(self)
+
+    @property
+    def description(self):
+        return "DASD device %s" % self.busid
 
     def getOpts(self):
         return map(lambda (k, v): "%s=%s" % (k, v,), self.opts.items())
