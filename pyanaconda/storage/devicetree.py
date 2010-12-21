@@ -1708,19 +1708,18 @@ class DeviceTree(object):
                      % (livetarget,))
             self.protectedDevNames.append(livetarget)
 
-        # First iteration - let's just look for disks.
-        old_devices = {}
-
-        devices = udev_get_block_devices()
-        for dev in devices:
-            old_devices[dev['name']] = dev
-
         cfg = self.__multipathConfigWriter.write()
         open("/etc/multipath.conf", "w+").write(cfg)
         del cfg
 
+        devices = udev_get_block_devices()
         (singles, mpaths, partitions) = devicelibs.mpath.identifyMultipaths(devices)
         devices = singles + reduce(list.__add__, mpaths, []) + partitions
+        # remember all the devices idenitfyMultipaths() gave us at this point
+        old_devices = {}
+        for dev in devices:
+            old_devices[dev['name']] = dev
+
         log.info("devices to scan: %s" % [d['name'] for d in devices])
         for dev in devices:
             self.addUdevDevice(dev)

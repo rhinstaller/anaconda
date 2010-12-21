@@ -7,6 +7,31 @@ from pyanaconda import iutil
 import logging
 log = logging.getLogger("storage")
 
+def _filter_out_mpath_devices(devices):
+    retval = []
+    for d in devices:
+        if udev_device_is_dm_mpath(d):
+            log.debug("filtering out coalesced mpath device: %s" % d['name'])
+        else:
+            retval.append(d)
+    return retval
+
+def _filter_out_mpath_partitions(devices, multipaths):
+    """
+    Use serial numbers of the multipath members to filter devices from the
+    devices list. The returned list will only partitions that are NOT partitions
+    of the multipath members.
+    """
+    serials = set(udev_device_get_serial(d)
+                  for mpath_members in multipaths for d in mpath_members)
+    retval = []
+    for d in devices:
+        if udev_device_get_serial(d) in serials:
+            log.debug("filtering out mpath partition: %s" % d['name'])
+        else:
+            retval.append(d)
+    return retval
+
 def parseMultipathOutput(output):
     """
     Parse output from "multipath -d" or "multipath -ll" and form a topology.
@@ -84,14 +109,27 @@ def parseMultipathOutput(output):
     return mpaths
 
 def identifyMultipaths(devices):
-    # this function does a couple of things
-    # 1) identifies multipath disks
-    # 2) sets their ID_FS_TYPE to multipath_member
-    # 3) removes the individual members of an mpath's partitions
-    # sample input with multipath pair [sdb,sdc]
-    # [sr0, sda, sda1, sdb, sdb1, sdb2, sdc, sdc1, sdd, sdd1, sdd2]
-    # sample output:
-    # [sda, sdd], [[sdb, sdc]], [sr0, sda1, sdd1, sdd2]]
+    """
+    This function does a couple of things:
+    1) identifies multipath disks,
+    2) sets their ID_FS_TYPE to multipath_member,
+    3) removes the individual members of an mpath's partitions as well as any
+    coalesced multipath devices:
+
+    The return value is a tuple of 3 lists, the first list containing all
+    devices except multipath members and partitions, the second list containing
+    only the multipath members and the last list only partitions. Specifically,
+    the second list is empty if there are no multipath devices found.
+
+    sample input:
+    [sr0, sda, sda1, sdb, sdb1, sdb2, sdc, sdc1, sdd, sdd1, sdd2, dm-0]
+    where:
+    [sdb, sdc] is a multipath pair
+    dm-0 is a mutliapth device already coalesced from [sdb, sdc]
+
+    sample output:
+    [sda, sdd], [[sdb, sdc]], [sr0, sda1, sdd1, sdd2]]
+    """
     log.info("devices to scan for multipath: %s" % [d['name'] for d in devices])
 
     with open("/etc/multipath.conf") as conf:
@@ -165,23 +203,10 @@ def identifyMultipaths(devices):
 
             multipaths.append([devmap[d] for d in disks])
 
-    non_disk_serials = {}
-    for name,device in non_disk_devices.items():
-        serial = udev_device_get_serial(device)
-        non_disk_serials.setdefault(serial, [])
-        non_disk_serials[serial].append(device)
-
-    for mpath in multipaths:
-        for serial in [d.get('ID_SERIAL_SHORT') for d in mpath]:
-            if non_disk_serials.has_key(serial):
-                log.info("filtering out non disk devices [%s]" % [d['name'] for d in non_disk_serials[serial]])
-                for name in [d['name'] for d in non_disk_serials[serial]]:
-                    if non_disk_devices.has_key(name):
-                        del non_disk_devices[name]
-
-    partition_devices = []
-    for device in non_disk_devices.values():
-        partition_devices.append(device)
+    # singlepaths and partitions should not contain multipath devices:
+    singlepath_disks = _filter_out_mpath_devices(singlepath_disks)
+    partition_devices = _filter_out_mpath_partitions(
+        non_disk_devices.values(), multipaths)
 
     # this is the list of devices we want to keep from the original
     # device list, but we want to maintain its original order.
