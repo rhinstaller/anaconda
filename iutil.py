@@ -824,7 +824,7 @@ def reIPL(anaconda, loader_pid):
 
         for disk in anaconda.id.storage.disks:
             if disk.name == ipldev:
-                devstring = disk.reIPLDescription()
+                devstring = disk.description
                 break
 
         if devstring is None:
