@@ -3824,7 +3824,7 @@ class ZFCPDiskDevice(DiskDevice):
         return "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s" \
                % {'device': self.hba_id,
                   'wwpn': self.wwpn,
-                  'lun': self.fcp_lun})
+                  'lun': self.fcp_lun}
 
     def dracutSetupString(self):
         return "rd_ZFCP=%s,%s,%s" % (self.hba_id, self.wwpn, self.fcp_lun,)
