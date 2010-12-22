@@ -229,6 +229,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Dec 22 2010 Chris Lumens <clumens@redhat.com> - 15.13-1
+- Fix a syntax error in f16a565aa3a879a94862f4c3e5b2ede792ed05ef. (clumens)
+- Pass --noeject to anaconda (#477887) (bcl)
+
 * Wed Dec 22 2010 Chris Lumens <clumens@redhat.com> - 15.12-1
 - Use cio_ignore and *_cio_free commands in linuxrc.s390 (#633469) (dcantrell)
 - Add /sbin/cio_ignore to the KEEPFILE list on s390x (dcantrell)
