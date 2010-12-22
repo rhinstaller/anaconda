@@ -192,7 +192,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     python-libs python-nss python-pyblock python-sqlite python-epdb
     python-urlgrabber python-volume_key pyxf86config rdate readline redhat-artwork
     reiserfs-utils report-config-default report-gtk report-newt rpm rpm-libs
-    rpm-python sed selinux-policy-targeted
+    rpm-python rsyslog sed selinux-policy-targeted
     setup slang smc-meera-fonts specspo sqlite startup-notification 
     subscription-manager synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
@@ -307,6 +307,7 @@ $LIBDIR/libwrap*.so*
 $LIBDIR/libsmime3.so
 $LIBDIR/libssl3.so
 $LIBDIR/multipath/*
+$LIBDIR/rsyslog/*
 $LIBDIR/security/pam_*
 bin/arch
 bin/basename
@@ -486,6 +487,7 @@ sbin/resize_reiserfs
 sbin/resize2fs
 sbin/rmmod
 sbin/route
+sbin/rsyslogd
 sbin/setfiles
 sbin/sfdisk
 sbin/silo
@@ -517,6 +519,7 @@ usr/$LIBDIR/python?.?
 usr/$LIBDIR/rpm/rpmpopt
 usr/lib/rpm/rpmrc
 usr/lib/rpm/macros
+$LIBDIR/rsyslog
 usr/$LIBDIR/libiscsi.so*
 usr/$LIBDIR/libfreebl3.so
 usr/$LIBDIR/libfreebl3.chk
