@@ -26,6 +26,7 @@
 #ifndef SOCK_STREAM
 # define SOCK_STREAM 1
 #endif 
+#define klogctl syslog
 #else
 #include <ctype.h>
 #include <dirent.h>
@@ -54,13 +55,13 @@
 #include <termios.h>
 #include <time.h>
 #include <libgen.h>
+#include <glib.h>
 
 #include "init.h"
 #include "copy.h"
 #include "devt.h"
 #include "devices.h"
 
-#define syslog klogctl
 #endif
 
 #include <asm/types.h>
@@ -114,6 +115,7 @@ char * env[] = {
 
 void shutDown(int doKill, reboot_action rebootAction);
 static int getKillPolicy(void);
+static void getSyslog(char*);
 struct termios ts;
 
 static int expected_exit = 0;
@@ -139,225 +141,39 @@ static void fatal_error(int usePerror) {
 #endif
 }
 
-struct log_chunk_context {
-    int starts_message;
-    int log1_fd; /* always nonzero */
-    int log2_fd;
-};
-
-static char* get_time_string()
-{
-    struct timeval current_time;
-    struct tm *t;
-    int msecs;
-    char *ret_string;
-    int rc;
-
-    gettimeofday(&current_time, NULL);
-    t = gmtime(&current_time.tv_sec);
-    msecs = current_time.tv_usec / 1000;
-    rc = asprintf(&ret_string, "%02d:%02d:%02d,%03d ",
-                  t->tm_hour, t->tm_min, t->tm_sec, msecs);
-    if (rc < 0)
-        return NULL;
-    return ret_string;
-}
-
-static void log_chunk_context_init(struct log_chunk_context *context,
-                                  int log1, int log2)
-{
-    context->starts_message = 1;
-    context->log1_fd = log1;
-    context->log2_fd = log2;
-}
-
-static void log_chunk_flush(struct log_chunk_context *context,
-                           char *buf, int length)
-{
-    int rc;
-    rc = write(context->log1_fd, buf, length);
-    if (context->log2_fd > 0) {
-        rc = write(context->log2_fd, buf, length);
-    }
-}
-
-static void log_chunk(struct log_chunk_context *context,
-                     int len, char *inbuf)
-{
-    int inctr, outctr = 0;
-    const unsigned BSIZE = 4;
-    char outbuf[512];
-    char *time_str = NULL;
-
-
-    /* We finished the previous chunk on message boundary. Put in the time
-     * stamp.
-     */
-    if (context->starts_message) {
-        time_str = get_time_string(0);
-        log_chunk_flush(context, time_str, strlen(time_str));
-        context->starts_message = 0;
-        free(time_str);
-    }
-
-
-    for (inctr = 0; inctr < len; ++inctr) {
-        /* If the character is a NULL or a newline, immediately followed by an
-         * open bracket, we've found the beginning of a new kernel message.  Put
-         * in a line separator and the time stamp.
-         */
-        if ((inbuf[inctr] == '\0' || inbuf[inctr] == '\n') &&
-            inctr+1 < len && inbuf[inctr+1] == '<') {
-            outbuf[outctr++] = '\n';
-            log_chunk_flush(context, outbuf, outctr);
-            outctr = 0;
-            time_str = get_time_string(0);
-            log_chunk_flush(context, time_str, strlen(time_str));
-            free(time_str);
-        }
-        /* Or, if we see a NULL or a newline right before the end of the chunk,
-           add a separator and remember timestamp should be added the next time.
-         */
-        else if ((inbuf[inctr] == '\0' || inbuf[inctr] == '\n') &&
-                 inctr+1 == len) {
-            outbuf[outctr++] = '\n';
-            context->starts_message = 1;
-        }
-        else {
-            outbuf[outctr++] = inbuf[inctr];
-        }
-
-        /* flush everything if we've filled up the buffer */
-        if (outctr == BSIZE) {
-            log_chunk_flush(context, outbuf, outctr);
-            outctr = 0;
-        }
-    }
-
-    /* flush everything */
-    log_chunk_flush(context, outbuf, outctr);
-}
-
-static void doklog(char * fn) {
-    fd_set readset, unixs;
-    int in, out, i;
-    int log;
-    socklen_t s;
-    int sock = -1;
-    struct sockaddr_un sockaddr;
-    char inbuf[1024];
-    int readfd;
+/* sets up and launches syslog */
+static void startSyslog(void) {
+    int conf_fd;
     int ret;
-
-    in = open("/proc/kmsg", O_RDONLY,0);
-    if (in < 0) {
-        /* FIXME: was perror */
-        printstr("open /proc/kmsg");
-        return;
-    }
-
-    out = open(fn, O_WRONLY, 0);
-    if (out < 0)
-        printf("couldn't open %s for syslog -- still using /tmp/syslog\n", fn);
-
-    log = open("/tmp/syslog", O_WRONLY | O_CREAT, 0644);
-    if (log < 0) {
-        /* FIXME: was perror */
-        printstr("error opening /tmp/syslog");
-        sleep(5);
-
-        close(in);
-        return;
-    }
-
-    /* if we get this far, we should be in good shape */
-
-    if (fork()) {
-        /* parent */
-        close(in);
-        close(out);
-        close(log);
-        return;
-    }
-    close(0);
-    close(1);
-    close(2);
-
-    dup2(1, log);
-
-#if defined(USE_LOGDEV)
-    /* now open the syslog socket */
-    sockaddr.sun_family = AF_UNIX;
-    strcpy(sockaddr.sun_path, "/dev/log");
-    sock = socket(AF_UNIX, SOCK_STREAM, 0);
-    if (sock < 0) {
-        printf("error creating socket: %d\n", errno);
-        sleep(5);
-    }
-    printstr("got socket\n");
-    if (bind(sock, (struct sockaddr *) &sockaddr, sizeof(sockaddr.sun_family) +
-			strlen(sockaddr.sun_path))) {
-        printf("bind error: %d\n", errno);
-        sleep(5);
-    }
-    printstr("bound socket\n");
-    chmod("/dev/log", 0666);
-    if (listen(sock, 5)) {
-        printf("listen error: %d\n", errno);
-        sleep(5);
-    }
-#endif
-
-    syslog(8, NULL, 1);
-
-    struct log_chunk_context context;
-    log_chunk_context_init(&context, log, out);
-
-    FD_ZERO(&unixs);
-    while (1) {
-        memcpy(&readset, &unixs, sizeof(unixs));
-
-        if (sock >= 0)
-            FD_SET(sock, &readset);
-
-        FD_SET(in, &readset);
-
-        i = select(20, &readset, NULL, NULL, NULL);
-        if (i <= 0) continue;
-
-        if (FD_ISSET(in, &readset)) {
-            i = read(in, inbuf, sizeof(inbuf));
-            if (i > 0) {
-                log_chunk(&context, i, inbuf);
-            }
+    char addr[128];
+    char forwardtcp[] = "*.* @@";
+    
+    /* update the config file with command line arguments first */
+    getSyslog(addr);
+    if (strlen(addr) > 0) {
+        conf_fd = open("/etc/rsyslog.conf", O_WRONLY|O_APPEND);
+        if (conf_fd < 0) {
+            printf("error opening /etc/rsyslog.conf: %d\n", errno);
+            printf("syslog forwarding will not be enabled\n");
+            sleep(5);
+        } else {
+            ret = write(conf_fd, forwardtcp, strlen(forwardtcp));
+            ret = write(conf_fd, addr, strlen(addr));
+            ret = write(conf_fd, "\n", 1);
+            close(conf_fd);
         }
+    }
 
-        for (readfd = 0; readfd < 20; ++readfd) {
-            if (FD_ISSET(readfd, &readset) && FD_ISSET(readfd, &unixs)) {
-                i = read(readfd, inbuf, sizeof(inbuf));
-                if (i > 0) {
-                    log_chunk(&context, i, inbuf);
-                } else if (i == 0) {
-                    /* socket closed */
-                    close(readfd);
-                    FD_CLR(readfd, &unixs);
-                }
-            }
-        }
-
-        if (sock >= 0 && FD_ISSET(sock, &readset)) {
-            s = sizeof(sockaddr);
-            readfd = accept(sock, (struct sockaddr *) &sockaddr, &s);
-            if (readfd < 0) {
-                if (out >= 0)
-                    ret = write(out, "error in accept\n", 16);
-                ret = write(log, "error in accept\n", 16);
-                close(sock);
-                sock = -1;
-            } else {
-                FD_SET(readfd, &unixs);
-            }
-        }
+    /* rsyslog is going to take care of things, so disable console logging */
+    klogctl(8, NULL, 1);
+    /* now we really start the daemon. */
+    int status;
+    status = system("/sbin/rsyslogd -c 4");
+    if (status < 0 || 
+        !WIFEXITED(status) || 
+        WEXITSTATUS(status)  != 0) {
+        printf("Unable to start syslog daemon.\n");
+        fatal_error(1);
     }
 }
 
@@ -500,6 +316,53 @@ static int getKillPolicy(void) {
             return 0;
     }
     return 1;
+}
+
+/* Looks through /proc/cmdline for remote syslog paramters. */
+static void getSyslog(char *addr) {
+    int fd;
+    int len;
+    char buf[1024];
+
+    /* assume nothing gets found */
+    addr[0] = '\0';
+    if ((fd = open("/proc/cmdline", O_RDONLY,0)) <= 0) {
+        return;
+    }
+    len = read(fd, buf, sizeof(buf) - 1);
+    close(fd);
+    buf[len] = '\0';
+    
+    /* Parse the command line into argument vector using glib */
+    int i;
+    int argc;
+    char** argv;
+    GError* err;
+    if (!g_shell_parse_argv(buf, &argc, &argv, &err )) {
+        g_error_free(err);
+        return;
+    }
+    for (i = 0; i < argc; ++i) {
+        /* find what we are looking for */
+        if (!strncmp(argv[i], "syslog=", 7)) {
+            strncpy(addr, argv[i] + 7, 127);
+            addr[127] = '\0';
+            break;
+        }
+    }
+    g_strfreev(argv);
+
+    /* address can be either a hostname or IPv4 or IPv6, with or without port;
+       thus we only allow the following characters in the address: letters and
+       digits, dots, colons, slashes, dashes and square brackets */
+    if (!g_regex_match_simple("^[\\w.:/\\-\\[\\]]*$", addr, 0, 0)) {
+        /* the parameter is malformed, disable its use */
+        addr[0] = '\0';
+        printf("The syslog= command line parameter is malformed and will be\n");
+        printf("ignored by the installer.\n");
+        sleep(5);
+    }
+
 }
 
 static int getInitPid(void) {
@@ -834,7 +697,7 @@ int main(int argc, char **argv) {
 
     /* Now we have some /tmp space set up, and /etc and /dev point to
        it. We should be in pretty good shape. */
-    doklog("/dev/tty4");
+    startSyslog();
 
     /* write out a pid file */
     if ((fd = open("/var/run/init.pid", O_WRONLY|O_CREAT, 0644)) > 0) {
