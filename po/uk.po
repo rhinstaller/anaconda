@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-12-14 17:32-0500\n"
-"PO-Revision-Date: 2010-12-17 20:06+0200\n"
+"POT-Creation-Date: 2010-12-22 13:33-0500\n"
+"PO-Revision-Date: 2010-12-23 08:55+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -100,11 +100,11 @@ msgstr "Запуск текстового режиму."
 msgid "OK"
 msgstr "Гаразд"
 
-#: anaconda:747
+#: anaconda:748
 msgid "Would you like to use VNC?"
 msgstr "Хочете використати VNC?"
 
-#: anaconda:748
+#: anaconda:749
 msgid ""
 "Text mode provides a limited set of installation options.  It does not allow "
 "you to specify your own partitioning layout or package selections.  Would "
@@ -114,11 +114,11 @@ msgstr ""
 "створювати власну розмітку диска або зробити вибір набору пакетів. "
 "Використовувати режим VNC натомість?"
 
-#: anaconda:774
+#: anaconda:775
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "Графічне встановлення неможливе. Запускається текстовий режим."
 
-#: anaconda:782
+#: anaconda:783
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "Змінна DISPLAY не встановлена. Запускається текстовий режим."
 
@@ -133,9 +133,9 @@ msgid "Installing %s\n"
 msgstr "Встановлення %s\n"
 
 #: pyanaconda/bootloader.py:55 pyanaconda/bootloader.py:221
-#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1095 pyanaconda/image.py:73
-#: pyanaconda/installinterfacebase.py:51 pyanaconda/installinterfacebase.py:82
-#: pyanaconda/installinterfacebase.py:142 pyanaconda/packages.py:320
+#: pyanaconda/bootloader.py:227 pyanaconda/gui.py:1155 pyanaconda/image.py:73
+#: pyanaconda/installinterfacebase.py:51
+#: pyanaconda/installinterfacebase.py:130 pyanaconda/packages.py:320
 #: pyanaconda/text.py:412 pyanaconda/yuminstall.py:1486
 #: pyanaconda/yuminstall.py:1624 pyanaconda/yuminstall.py:1659
 #: pyanaconda/iw/blpasswidget.py:149 pyanaconda/iw/upgrade_swap_gui.py:190
@@ -154,8 +154,8 @@ msgstr ""
 "Вибрані вами параметри розподілу вже активовані. Ви не зможете повернутися "
 "назад. Продовжити процес встановлення?"
 
-#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1118 pyanaconda/gui.py:1155
-#: pyanaconda/gui.py:1357 pyanaconda/image.py:82 pyanaconda/livecd.py:190
+#: pyanaconda/bootloader.py:60 pyanaconda/gui.py:1178 pyanaconda/gui.py:1215
+#: pyanaconda/gui.py:1417 pyanaconda/image.py:82 pyanaconda/livecd.py:190
 #: pyanaconda/livecd.py:422 pyanaconda/packages.py:137
 #: pyanaconda/upgrade.py:58 pyanaconda/upgrade.py:98 pyanaconda/upgrade.py:254
 #: pyanaconda/yuminstall.py:259 pyanaconda/yuminstall.py:812
@@ -209,7 +209,7 @@ msgstr "Завершено"
 msgid "In progress"
 msgstr "Триває обробка"
 
-#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1150
+#: pyanaconda/cmdline.py:89 pyanaconda/gui.py:1210
 #: pyanaconda/kickstart.py:1211 pyanaconda/kickstart.py:1291
 #: pyanaconda/kickstart.py:1299 pyanaconda/kickstart.py:1335
 #: pyanaconda/kickstart.py:1345 pyanaconda/text.py:393
@@ -328,7 +328,7 @@ msgstr ""
 "Пристрій %s зашифровано. Щоб отримати доступ до змісту пристрою у процесі "
 "встановлення, треба ввести пароль."
 
-#: pyanaconda/gui.py:681 pyanaconda/gui.py:1357
+#: pyanaconda/gui.py:681 pyanaconda/gui.py:1417
 #: pyanaconda/partIntfHelpers.py:159 pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101 pyanaconda/text.py:102
 #: pyanaconda/iw/account_gui.py:131 loader/dirbrowser.c:130
@@ -337,47 +337,47 @@ msgstr ""
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: pyanaconda/gui.py:693 pyanaconda/gui.py:694 pyanaconda/gui.py:812
-#: pyanaconda/gui.py:813 data/ui/anaconda.glade.h:3
+#: pyanaconda/gui.py:693 pyanaconda/gui.py:694 pyanaconda/gui.py:790
+#: pyanaconda/gui.py:862 pyanaconda/gui.py:863 data/ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "_Налагодження"
 
-#: pyanaconda/gui.py:939
+#: pyanaconda/gui.py:989
 msgid "Wireless setup"
 msgstr "Налаштування бездротової мережі"
 
-#: pyanaconda/gui.py:940
+#: pyanaconda/gui.py:990
 msgid "Scanning access points for wireless devices"
 msgstr "Пошук точок доступу для бездротових пристроїв"
 
-#: pyanaconda/gui.py:968 pyanaconda/textw/netconfig_text.py:399
+#: pyanaconda/gui.py:1018 pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "Очікується NetworkManager"
 
-#: pyanaconda/gui.py:969
+#: pyanaconda/gui.py:1019
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "Очікування на активацію NetworkManager таких пристроїв: %s"
 
-#: pyanaconda/gui.py:996
+#: pyanaconda/gui.py:1046
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "Не вдалося активувати такі інтерфейси мережі: %s"
 
-#: pyanaconda/gui.py:999
+#: pyanaconda/gui.py:1049
 msgid "Network Configuration"
 msgstr "Налаштування мережі"
 
-#: pyanaconda/gui.py:1008
+#: pyanaconda/gui.py:1058
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "Помилка при вмиканні мережного інтерфейсу %s."
 
-#: pyanaconda/gui.py:1010
+#: pyanaconda/gui.py:1060
 msgid "Error Enabling Network"
 msgstr "Помилка під час вмикання мережі"
 
-#: pyanaconda/gui.py:1096 pyanaconda/text.py:413
+#: pyanaconda/gui.py:1156 pyanaconda/text.py:413
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
@@ -386,30 +386,30 @@ msgstr ""
 "використання деяких зі способів збереження виключень. Бажаєте налаштувати "
 "з’єднання зараз?"
 
-#: pyanaconda/gui.py:1102 pyanaconda/rescue.py:270 pyanaconda/text.py:419
+#: pyanaconda/gui.py:1162 pyanaconda/rescue.py:270 pyanaconda/text.py:419
 #: pyanaconda/yuminstall.py:807 pyanaconda/yuminstall.py:1229
 #: pyanaconda/iw/task_gui.py:308
 msgid "No Network Available"
 msgstr "Мережа недоступна"
 
-#: pyanaconda/gui.py:1103 pyanaconda/text.py:420
+#: pyanaconda/gui.py:1163 pyanaconda/text.py:420
 msgid "Remote exception saving methods will not work."
 msgstr ""
 "Способи збереження виключень на віддалених комп’ютерах не працюватимуть."
 
-#: pyanaconda/gui.py:1152 pyanaconda/text.py:395
+#: pyanaconda/gui.py:1212 pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
 msgstr "Помилка аналізу конфігураційного файла Kickstart"
 
-#: pyanaconda/gui.py:1180
+#: pyanaconda/gui.py:1240
 msgid "default:LTR"
 msgstr "типово:LTR"
 
-#: pyanaconda/gui.py:1261 pyanaconda/text.py:514
+#: pyanaconda/gui.py:1321 pyanaconda/text.py:514
 msgid "Error!"
 msgstr "Помилка!"
 
-#: pyanaconda/gui.py:1262 pyanaconda/text.py:515
+#: pyanaconda/gui.py:1322 pyanaconda/text.py:515
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -421,49 +421,49 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: pyanaconda/gui.py:1267 pyanaconda/image.py:143 pyanaconda/image.py:171
+#: pyanaconda/gui.py:1327 pyanaconda/image.py:143 pyanaconda/image.py:171
 #: pyanaconda/packages.py:337 pyanaconda/storage/__init__.py:1819
 msgid "_Exit"
 msgstr "Ви_йти"
 
-#: pyanaconda/gui.py:1268 pyanaconda/image.py:143 pyanaconda/image.py:171
+#: pyanaconda/gui.py:1328 pyanaconda/image.py:143 pyanaconda/image.py:171
 #: pyanaconda/livecd.py:190 pyanaconda/yuminstall.py:899
 #: pyanaconda/yuminstall.py:1249 pyanaconda/yuminstall.py:1304
 #: pyanaconda/yuminstall.py:1514
 msgid "_Retry"
 msgstr "_Повторити"
 
-#: pyanaconda/gui.py:1270 pyanaconda/storage/partitioning.py:280
+#: pyanaconda/gui.py:1330 pyanaconda/storage/partitioning.py:280
 msgid "The system will now reboot."
 msgstr "Зараз систему буде перезавантажено."
 
-#: pyanaconda/gui.py:1271 pyanaconda/packages.py:341
+#: pyanaconda/gui.py:1331 pyanaconda/packages.py:341
 msgid "_Reboot"
 msgstr "_Перезавантажити"
 
-#: pyanaconda/gui.py:1273
+#: pyanaconda/gui.py:1333
 msgid "Exiting"
 msgstr "Вихід"
 
-#: pyanaconda/gui.py:1354 pyanaconda/livecd.py:126 pyanaconda/text.py:271
+#: pyanaconda/gui.py:1414 pyanaconda/livecd.py:126 pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "Перервати встановлення"
 
-#: pyanaconda/gui.py:1355
+#: pyanaconda/gui.py:1415
 msgid "Are you sure you wish to exit the installer?"
 msgstr "Дійсно бажаєте перервати встановлення ?"
 
-#: pyanaconda/gui.py:1364
+#: pyanaconda/gui.py:1424
 #, python-format
 msgid "%s Installer"
 msgstr "Програма встановлення %s"
 
-#: pyanaconda/gui.py:1370
+#: pyanaconda/gui.py:1430
 msgid "Unable to load title bar"
 msgstr "Не вдається завантажити заголовок"
 
-#: pyanaconda/gui.py:1448
+#: pyanaconda/gui.py:1508
 msgid "Install Window"
 msgstr "Вікно встановлення"
 
@@ -579,56 +579,11 @@ msgstr[2] ""
 "Диски %s містить метадані BIOS RAID, але не є частиною розпізнаного BIOS "
 "набору томів RAID. Диски ігноруються %s."
 
-#: pyanaconda/installinterfacebase.py:83
-#, python-format
-msgid ""
-"Error processing drive:\n"
-"\n"
-"%(path)s\n"
-"%(size)-0.fMB\n"
-"%(description)s\n"
-"\n"
-"This device may need to be reinitialized.\n"
-"\n"
-"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
-"\n"
-"This action may also be applied to all other disks needing reinitialization.%"
-"(details)s"
-msgstr ""
-"Помилка при обробці пристрою:\n"
-"\n"
-"%(path)s\n"
-"%(size)-0.fМб\n"
-"%(description)s\n"
-"\n"
-"Ймовірно його треба ініціалізувати.\n"
-"\n"
-"ПРИ ІНІЦІАЛІЗАЦІЇ БУДУТЬ ВТРАЧЕНІ ВСІ ДАНІ НА НЬОМУ!\n"
-"Це також можна зробити з усіма іншими дисками, що вимагають повторної "
-"ініціалізації.%(details)s"
+#: pyanaconda/installinterfacebase.py:82 data/ui/reinitialize-dialog.glade.h:4
+msgid "Storage Device Warning"
+msgstr "Попередження щодо пристрою зберігання"
 
-#: pyanaconda/installinterfacebase.py:92
-#: pyanaconda/installinterfacebase.py:150
-#: pyanaconda/installinterfacebase.py:184
-msgid "_Ignore"
-msgstr "_Ігнорувати"
-
-#: pyanaconda/installinterfacebase.py:93
-#: pyanaconda/installinterfacebase.py:151
-msgid "Ignore _all"
-msgstr "_Ігнорувати все"
-
-#: pyanaconda/installinterfacebase.py:94
-#: pyanaconda/installinterfacebase.py:152
-msgid "_Re-initialize"
-msgstr "Іні_ціалізувати повторно"
-
-#: pyanaconda/installinterfacebase.py:95
-#: pyanaconda/installinterfacebase.py:153
-msgid "Re-ini_tialize all"
-msgstr "Ініціалізувати повторно _всі"
-
-#: pyanaconda/installinterfacebase.py:143
+#: pyanaconda/installinterfacebase.py:131
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -643,14 +598,31 @@ msgstr ""
 "можете пропустити цей крок  і зберегти старий зміст. Цю дію можна також "
 "виконати з усіма фізичними томами, що мають неузгоджені метадані."
 
-#: pyanaconda/installinterfacebase.py:171
+#: pyanaconda/installinterfacebase.py:138
+#: pyanaconda/installinterfacebase.py:172
+msgid "_Ignore"
+msgstr "_Ігнорувати"
+
+#: pyanaconda/installinterfacebase.py:139
+msgid "Ignore _all"
+msgstr "_Ігнорувати все"
+
+#: pyanaconda/installinterfacebase.py:140
+msgid "_Re-initialize"
+msgstr "Іні_ціалізувати повторно"
+
+#: pyanaconda/installinterfacebase.py:141
+msgid "Re-ini_tialize all"
+msgstr "Ініціалізувати повторно _всі"
+
+#: pyanaconda/installinterfacebase.py:159
 msgid "Unformatted DASD Device Found"
 msgid_plural "Unformatted DASD Devices Found"
 msgstr[0] "Виявлено неформатований пристрій DASD"
 msgstr[1] "Виявлено неформатовані пристрої DASD"
 msgstr[2] "Виявлено неформатовані пристрої DASD"
 
-#: pyanaconda/installinterfacebase.py:173
+#: pyanaconda/installinterfacebase.py:161
 #, python-format
 msgid ""
 "Format uninitialized DASD device?\n"
@@ -679,7 +651,7 @@ msgstr[2] ""
 "встановлення, потрібно відформатувати пристрої. При форматуванні будуть "
 "видалені дані на них."
 
-#: pyanaconda/installinterfacebase.py:184 pyanaconda/iw/partition_gui.py:901
+#: pyanaconda/installinterfacebase.py:172 pyanaconda/iw/partition_gui.py:901
 msgid "_Format"
 msgstr "_Форматувати"
 
@@ -1337,10 +1309,9 @@ msgid "%s must have a mac disk label."
 msgstr "%s має бути міткою диска mac."
 
 #: pyanaconda/rescue.py:226 pyanaconda/rescue.py:382 pyanaconda/rescue.py:482
-msgid "Run anaconda-image-cleanup to unmount the system when you are finished."
-msgstr ""
-"Виконайте команду anaconda-image-cleanup для демонтування системи, коли "
-"завершите."
+#, python-format
+msgid "Run %s to unmount the system when you are finished."
+msgstr "Віддайте команду %s, щоб демонтувати систему після завершення."
 
 #: pyanaconda/rescue.py:229
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2843,7 +2814,7 @@ msgid "_Logical Volume Name:"
 msgstr "_Назва логічного тому:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:461
-#: pyanaconda/iw/partition_dialog_gui.py:498
+#: pyanaconda/iw/partition_dialog_gui.py:500
 msgid "_Size (MB):"
 msgstr "_Розмір (Мб):"
 
@@ -2853,20 +2824,20 @@ msgid "(Max size is %s MB)"
 msgstr "(Макс. розмір %s MB)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:473
-#: pyanaconda/iw/partition_dialog_gui.py:550
+#: pyanaconda/iw/partition_dialog_gui.py:552
 #: pyanaconda/iw/partition_ui_helpers_gui.py:339
 #: pyanaconda/iw/raid_dialog_gui.py:424
 msgid "_Encrypt"
 msgstr "_Шифрування"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:482
-#: pyanaconda/iw/partition_dialog_gui.py:480
+#: pyanaconda/iw/partition_dialog_gui.py:482
 #: pyanaconda/iw/raid_dialog_gui.py:462
 msgid "Original File System Type:"
 msgstr "Поточний тип файлової системи:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:487
-#: pyanaconda/iw/partition_dialog_gui.py:488
+#: pyanaconda/iw/partition_dialog_gui.py:490
 #: pyanaconda/iw/raid_dialog_gui.py:469
 msgid "Original File System Label:"
 msgstr "Поточна позначка файлової системи:"
@@ -2880,7 +2851,7 @@ msgid "Size (MB):"
 msgstr "Розмір (Мб):"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:523
-#: pyanaconda/iw/partition_dialog_gui.py:431
+#: pyanaconda/iw/partition_dialog_gui.py:433
 #: pyanaconda/iw/raid_dialog_gui.py:443
 msgid "_Mount Point:"
 msgstr "Точка _монтування:"
@@ -2905,13 +2876,13 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Назва логічного тому \"%s\" вже використовується. Виберіть іншу назву."
 
 #: pyanaconda/iw/lvm_dialog_gui.py:671
-#: pyanaconda/iw/partition_dialog_gui.py:133
+#: pyanaconda/iw/partition_dialog_gui.py:134
 #: pyanaconda/iw/raid_dialog_gui.py:192
 msgid "Mount point in use"
 msgstr "Точка монтування використовується"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:672
-#: pyanaconda/iw/partition_dialog_gui.py:134
+#: pyanaconda/iw/partition_dialog_gui.py:135
 #: pyanaconda/iw/raid_dialog_gui.py:193
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
@@ -3211,28 +3182,28 @@ msgstr "Заповнити весь простір д_о (МБ):"
 msgid "Fill to maximum _allowable size"
 msgstr "Заповнити весь _наявний простір"
 
-#: pyanaconda/iw/partition_dialog_gui.py:191
+#: pyanaconda/iw/partition_dialog_gui.py:193
 msgid "Error With Request"
 msgstr "Помилка з запитом"
 
-#: pyanaconda/iw/partition_dialog_gui.py:401
+#: pyanaconda/iw/partition_dialog_gui.py:403
 msgid "Add Partition"
 msgstr "Додавання розділу"
 
-#: pyanaconda/iw/partition_dialog_gui.py:403
+#: pyanaconda/iw/partition_dialog_gui.py:405
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "Правка розділу: %s"
 
-#: pyanaconda/iw/partition_dialog_gui.py:440
+#: pyanaconda/iw/partition_dialog_gui.py:442
 msgid "File System _Type:"
 msgstr "_Тип ФС:"
 
-#: pyanaconda/iw/partition_dialog_gui.py:456
+#: pyanaconda/iw/partition_dialog_gui.py:458
 msgid "Allowable _Drives:"
 msgstr "Доступні _пристрої:"
 
-#: pyanaconda/iw/partition_dialog_gui.py:537
+#: pyanaconda/iw/partition_dialog_gui.py:539
 msgid "Force to be a _primary partition"
 msgstr "Зробити _первинним розділом"
 
@@ -4424,13 +4395,13 @@ msgstr "Використати"
 msgid "Skip it"
 msgstr "Пропустити"
 
-#: loader/loader.c:2375
+#: loader/loader.c:2378
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 "Запускається anaconda %s, режим відновлення %s - зачекайте, будь ласка.\n"
 
-#: loader/loader.c:2377
+#: loader/loader.c:2380
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -5248,16 +5219,6 @@ msgstr[2] "Для RAID%d-масиву потрібен принаймні %d е�
 msgid "Creating file %s"
 msgstr "Створення файла %s"
 
-#: pyanaconda/storage/devices.py:3820
-#, python-format
-msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
-msgstr "Пристрій FCP %(device)s з WWPN %(wwpn)s і LUN %(lun)s"
-
-#: pyanaconda/storage/devices.py:3847
-#, python-format
-msgid "DASD device %s"
-msgstr "пристрій DASD %s"
-
 #: pyanaconda/storage/devicetree.py:105
 #, python-format
 msgid ""
@@ -5271,7 +5232,7 @@ msgstr ""
 "Якщо ви пропустите цей крок, зміст пристрою буде недоступний при "
 "встановленні."
 
-#: pyanaconda/storage/devicetree.py:1551
+#: pyanaconda/storage/devicetree.py:1565
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "Цей розділ є частиною неузгодженої групи томів LVM."
 
@@ -6598,6 +6559,54 @@ msgstr ""
 "Fibre Channel (FCP). Для кожного пристрою необхідно вказати: 16-бітний номер "
 "пристрою, 64-бітний World Wide Port Number (WWPN) та 64-бітний FCP LUN."
 
+#: data/ui/reinitialize-dialog.glade.h:1
+msgid ""
+"<span size=\"large\" weight=\"bold\">The storage device below may contain "
+"data.</span>"
+msgstr ""
+"<span size=\"large\" weight=\"bold\">Пристрій зберігання даних з наведеною "
+"нижче назвою може містити дані.</span>"
+
+#: data/ui/reinitialize-dialog.glade.h:2
+msgid ""
+"Apply my choice to all devices with undetected partitions or filesystems"
+msgstr ""
+"Застосувати вибраний варіант до всіх пристроїв без виявлених розділів або "
+"файлових систем"
+
+#: data/ui/reinitialize-dialog.glade.h:3
+msgid "No, keep any data"
+msgstr "Ні, зберегти дані"
+
+#: data/ui/reinitialize-dialog.glade.h:5
+msgid ""
+"We could not detect partitions or filesystems on this device.\n"
+"\n"
+"This could be because the device is <b>blank</b>, <b>unpartitioned</b>, or "
+"<b>virtual</b>. If not,\n"
+"there may be data on the device that can not be recovered if you use it in "
+"this\n"
+"installation. We can remove the device from this installation to protect the "
+"data.\n"
+"\n"
+"Are you sure this device does not contain valuable data?"
+msgstr ""
+"На цьому пристрої не вдалося виявити розділів або файлових систем.\n"
+"\n"
+"Причиною може бути те, що пристрій <b>порожній</b>, <b>не поділений на "
+"розділи</b> або "
+"<b>є віртуальним</b>. Якщо це не так,\n"
+"на пристрої можуть зберігатися дані, які не можна буде відновити, якщо ви "
+"використаєте його для встановлення\n"
+"системи. Пристрій можна вилучити зі списку пристроїв для встановлення, щоб "
+"зберегти дані.\n"
+"\n"
+"Ви впевнені, що на цьому пристрої не міститься цінних даних?"
+
+#: data/ui/reinitialize-dialog.glade.h:12
+msgid "Yes, discard any data"
+msgstr "Так, позбутися цих даних"
+
 #: data/lang-table.h:1
 msgid "Afrikaans"
 msgstr "Африканс"
@@ -6841,6 +6850,38 @@ msgstr "Уельська"
 #: data/lang-table.h:61
 msgid "Zulu"
 msgstr "Зулу"
+
+#~ msgid ""
+#~ "Error processing drive:\n"
+#~ "\n"
+#~ "%(path)s\n"
+#~ "%(size)-0.fMB\n"
+#~ "%(description)s\n"
+#~ "\n"
+#~ "This device may need to be reinitialized.\n"
+#~ "\n"
+#~ "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
+#~ "\n"
+#~ "This action may also be applied to all other disks needing "
+#~ "reinitialization.%(details)s"
+#~ msgstr ""
+#~ "Помилка при обробці пристрою:\n"
+#~ "\n"
+#~ "%(path)s\n"
+#~ "%(size)-0.fМб\n"
+#~ "%(description)s\n"
+#~ "\n"
+#~ "Ймовірно його треба ініціалізувати.\n"
+#~ "\n"
+#~ "ПРИ ІНІЦІАЛІЗАЦІЇ БУДУТЬ ВТРАЧЕНІ ВСІ ДАНІ НА НЬОМУ!\n"
+#~ "Це також можна зробити з усіма іншими дисками, що вимагають повторної "
+#~ "ініціалізації.%(details)s"
+
+#~ msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
+#~ msgstr "Пристрій FCP %(device)s з WWPN %(wwpn)s і LUN %(lun)s"
+
+#~ msgid "DASD device %s"
+#~ msgstr "пристрій DASD %s"
 
 #~ msgid ""
 #~ "Error: On open, cannot set reIPL method to %(reipl_type)s (%(filename)s: %"
