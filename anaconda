@@ -679,7 +679,7 @@ if __name__ == "__main__":
 
     setupEnvironment()
     # make sure we have /var/log soon, some programs fail to start without it
-    os.mkdir("/var/log", 0755)
+    iutil.mkdirChain("/var/log")
 
     pidfile = open("/var/run/anaconda.pid", "w")
     pidfile.write("%s\n" % (os.getpid(),))
