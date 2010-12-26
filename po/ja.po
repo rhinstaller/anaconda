@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: new_ja\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2010-12-14 17:32-0500\n"
-"PO-Revision-Date: 2010-12-20 00:10+0900\n"
+"POT-Creation-Date: 2010-12-22 13:33-0500\n"
+"PO-Revision-Date: 2010-12-26 22:07+0900\n"
 "Last-Translator: Hajime Taira <htaira@redhat.com>\n"
 "Language-Team: Japanese <jp@li.org>\n"
 "Language: ja\n"
@@ -61,7 +61,7 @@ msgid ""
 "\n"
 " from a root terminal."
 msgstr ""
-" 次にように実行してテキストモードインストーラを試して下さい。:\n"
+" 次にように実行してテキストモードインストーラーを試して下さい。:\n"
 "\n"
 "'/usr/bin/liveinst -T'\n"
 "\n"
@@ -160,19 +160,19 @@ msgstr " テキストモードを開始しています。"
 msgid "OK"
 msgstr "OK"
 
-#: anaconda:747
+#: anaconda:748
 msgid "Would you like to use VNC?"
 msgstr "VNC を使用しますか ?"
 
-#: anaconda:748
+#: anaconda:749
 msgid "Text mode provides a limited set of installation options.  It does not allow you to specify your own partitioning layout or package selections.  Would you like to use VNC mode instead?"
 msgstr "テキストモードによるインストールは限定的なインストールオプションしか提供されず、パーティション設定やパッケージ選択の指定が行えません。代わりに VNC モードを 使用しますか？"
 
-#: anaconda:774
+#: anaconda:775
 msgid "Graphical installation is not available. Starting text mode."
 msgstr "グラフィカルインストールは使用できません。テキストモードを起動します。"
 
-#: anaconda:782
+#: anaconda:783
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr "DISPLAY 変数がセットされていません。テキストモードで起動します。"
 
@@ -189,11 +189,10 @@ msgstr "%s をインストール中\n"
 #: pyanaconda/bootloader.py:55
 #: pyanaconda/bootloader.py:221
 #: pyanaconda/bootloader.py:227
-#: pyanaconda/gui.py:1095
+#: pyanaconda/gui.py:1155
 #: pyanaconda/image.py:73
 #: pyanaconda/installinterfacebase.py:51
-#: pyanaconda/installinterfacebase.py:82
-#: pyanaconda/installinterfacebase.py:142
+#: pyanaconda/installinterfacebase.py:130
 #: pyanaconda/packages.py:320
 #: pyanaconda/text.py:412
 #: pyanaconda/yuminstall.py:1486
@@ -218,9 +217,9 @@ msgstr ""
 "インストールを続けますか?"
 
 #: pyanaconda/bootloader.py:60
-#: pyanaconda/gui.py:1118
-#: pyanaconda/gui.py:1155
-#: pyanaconda/gui.py:1357
+#: pyanaconda/gui.py:1178
+#: pyanaconda/gui.py:1215
+#: pyanaconda/gui.py:1417
 #: pyanaconda/image.py:82
 #: pyanaconda/livecd.py:190
 #: pyanaconda/livecd.py:422
@@ -245,7 +244,7 @@ msgstr ""
 #: pyanaconda/storage/__init__.py:234
 #: pyanaconda/storage/__init__.py:2002
 msgid "_Exit installer"
-msgstr "インストーラを終了する(_E)"
+msgstr "インストーラーを終了する(_E)"
 
 #: pyanaconda/bootloader.py:60
 #: pyanaconda/image.py:83
@@ -285,7 +284,7 @@ msgid "In progress"
 msgstr "進行中"
 
 #: pyanaconda/cmdline.py:89
-#: pyanaconda/gui.py:1150
+#: pyanaconda/gui.py:1210
 #: pyanaconda/kickstart.py:1211
 #: pyanaconda/kickstart.py:1291
 #: pyanaconda/kickstart.py:1299
@@ -393,7 +392,7 @@ msgid "Device %s is encrypted. In order to access the device's contents during i
 msgstr "デバイス %s は暗号化されています。インストール中にこのデバイスの内容にアクセスするには、以下にデバイスのパスフレーズを入力する必要があります。"
 
 #: pyanaconda/gui.py:681
-#: pyanaconda/gui.py:1357
+#: pyanaconda/gui.py:1417
 #: pyanaconda/partIntfHelpers.py:159
 #: pyanaconda/partIntfHelpers.py:344
 #: pyanaconda/text.py:101
@@ -410,54 +409,55 @@ msgstr "取り消し"
 
 #: pyanaconda/gui.py:693
 #: pyanaconda/gui.py:694
-#: pyanaconda/gui.py:812
-#: pyanaconda/gui.py:813
+#: pyanaconda/gui.py:790
+#: pyanaconda/gui.py:862
+#: pyanaconda/gui.py:863
 #: data/ui/anaconda.glade.h:3
 msgid "_Debug"
 msgstr "デバッグ(_D)"
 
-#: pyanaconda/gui.py:939
+#: pyanaconda/gui.py:989
 msgid "Wireless setup"
 msgstr "無線のセットアップ"
 
-#: pyanaconda/gui.py:940
+#: pyanaconda/gui.py:990
 msgid "Scanning access points for wireless devices"
 msgstr "無線デバイス用のアクセスポイントをスキャンしています"
 
-#: pyanaconda/gui.py:968
+#: pyanaconda/gui.py:1018
 #: pyanaconda/textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr "NetworkManager を待っています。"
 
-#: pyanaconda/gui.py:969
+#: pyanaconda/gui.py:1019
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr "NetworkManager がこれらのデバイスを開始するのを待っています: %s"
 
-#: pyanaconda/gui.py:996
+#: pyanaconda/gui.py:1046
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr "これらのネットワークインターフェースの開始に失敗しました: %s"
 
-#: pyanaconda/gui.py:999
+#: pyanaconda/gui.py:1049
 msgid "Network Configuration"
 msgstr "ネットワークの設定"
 
-#: pyanaconda/gui.py:1008
+#: pyanaconda/gui.py:1058
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr "%s ネットワークインターフェイスを起動中にエラーが発生しました。"
 
-#: pyanaconda/gui.py:1010
+#: pyanaconda/gui.py:1060
 msgid "Error Enabling Network"
 msgstr "ネットワークの有効化でエラー"
 
-#: pyanaconda/gui.py:1096
+#: pyanaconda/gui.py:1156
 #: pyanaconda/text.py:413
 msgid "You do not have an active network connection.  This is required by some exception saving methods.  Would you like to configure your network now?"
 msgstr "有効なネットワーク接続がありません。いくつかの例外を保存する方法で必要とされています。いますぐネットワークの設定を行いますか？"
 
-#: pyanaconda/gui.py:1102
+#: pyanaconda/gui.py:1162
 #: pyanaconda/rescue.py:270
 #: pyanaconda/text.py:419
 #: pyanaconda/yuminstall.py:807
@@ -466,26 +466,26 @@ msgstr "有効なネットワーク接続がありません。いくつかの例
 msgid "No Network Available"
 msgstr "ネットワークは使用できません。"
 
-#: pyanaconda/gui.py:1103
+#: pyanaconda/gui.py:1163
 #: pyanaconda/text.py:420
 msgid "Remote exception saving methods will not work."
 msgstr "リモートに例外を保存する方式は機能しません。"
 
-#: pyanaconda/gui.py:1152
+#: pyanaconda/gui.py:1212
 #: pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
 msgstr "キックスタート設定ファイル解析エラー"
 
-#: pyanaconda/gui.py:1180
+#: pyanaconda/gui.py:1240
 msgid "default:LTR"
 msgstr "デフォルト:LTR"
 
-#: pyanaconda/gui.py:1261
+#: pyanaconda/gui.py:1321
 #: pyanaconda/text.py:514
 msgid "Error!"
 msgstr "エラー!"
 
-#: pyanaconda/gui.py:1262
+#: pyanaconda/gui.py:1322
 #: pyanaconda/text.py:515
 #, python-format
 msgid ""
@@ -497,7 +497,7 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: pyanaconda/gui.py:1267
+#: pyanaconda/gui.py:1327
 #: pyanaconda/image.py:143
 #: pyanaconda/image.py:171
 #: pyanaconda/packages.py:337
@@ -505,7 +505,7 @@ msgstr ""
 msgid "_Exit"
 msgstr "終了(_E)"
 
-#: pyanaconda/gui.py:1268
+#: pyanaconda/gui.py:1328
 #: pyanaconda/image.py:143
 #: pyanaconda/image.py:171
 #: pyanaconda/livecd.py:190
@@ -516,41 +516,41 @@ msgstr "終了(_E)"
 msgid "_Retry"
 msgstr "再試行(_R)"
 
-#: pyanaconda/gui.py:1270
+#: pyanaconda/gui.py:1330
 #: pyanaconda/storage/partitioning.py:280
 msgid "The system will now reboot."
 msgstr "システムが再起動します。"
 
-#: pyanaconda/gui.py:1271
+#: pyanaconda/gui.py:1331
 #: pyanaconda/packages.py:341
 msgid "_Reboot"
 msgstr "再起動(_R)"
 
-#: pyanaconda/gui.py:1273
+#: pyanaconda/gui.py:1333
 msgid "Exiting"
 msgstr "終了"
 
-#: pyanaconda/gui.py:1354
+#: pyanaconda/gui.py:1414
 #: pyanaconda/livecd.py:126
 #: pyanaconda/text.py:271
 #: pyanaconda/upgrade.py:245
 msgid "Exit installer"
 msgstr "インストーラーを終了する"
 
-#: pyanaconda/gui.py:1355
+#: pyanaconda/gui.py:1415
 msgid "Are you sure you wish to exit the installer?"
 msgstr "本当にインストーラーを終了しますか?"
 
-#: pyanaconda/gui.py:1364
+#: pyanaconda/gui.py:1424
 #, python-format
 msgid "%s Installer"
 msgstr "%s インストーラー"
 
-#: pyanaconda/gui.py:1370
+#: pyanaconda/gui.py:1430
 msgid "Unable to load title bar"
 msgstr "タイトルバーを読み込めません"
 
-#: pyanaconda/gui.py:1448
+#: pyanaconda/gui.py:1508
 msgid "Install Window"
 msgstr "インストールウィンドウ"
 
@@ -674,55 +674,12 @@ msgid_plural "Disks %s contain BIOS RAID metadata, but are not part of any recog
 msgstr[0] "ディクス %s には、BIOS RAID メタデータが含まれていますが、認識された BIOS RAID セットの一部ではありません。ディスク %s を無視します。"
 msgstr[1] "ディクス %s には、BIOS RAID メタデータが含まれていますが、認識された BIOS RAID セットの一部ではありません。ディスク %s を無視します。"
 
-#: pyanaconda/installinterfacebase.py:83
-#, python-format
-msgid ""
-"Error processing drive:\n"
-"\n"
-"%(path)s\n"
-"%(size)-0.fMB\n"
-"%(description)s\n"
-"\n"
-"This device may need to be reinitialized.\n"
-"\n"
-"REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
-"\n"
-"This action may also be applied to all other disks needing reinitialization.%(details)s"
-msgstr ""
-"ドライブの処理中にエラー発生:\n"
-"\n"
-"%(path)s\n"
-"%(size)-0.fMB\n"
-"%(description)s\n"
-"\n"
-"このデバイスは再初期化が必要かも知れません。\n"
-"\n"
-"再初期化すると全てのデータが消失します!\n"
-"\n"
-"このアクションは再初期化を必要とする全ての他のディスクにも適用できるかも知れません。%(details)s"
+#: pyanaconda/installinterfacebase.py:82
+#: data/ui/reinitialize-dialog.glade.h:4
+msgid "Storage Device Warning"
+msgstr "ストレージデバイスの警告"
 
-#: pyanaconda/installinterfacebase.py:92
-#: pyanaconda/installinterfacebase.py:150
-#: pyanaconda/installinterfacebase.py:184
-msgid "_Ignore"
-msgstr "無視(_I)"
-
-#: pyanaconda/installinterfacebase.py:93
-#: pyanaconda/installinterfacebase.py:151
-msgid "Ignore _all"
-msgstr "全てを無視(_A)"
-
-#: pyanaconda/installinterfacebase.py:94
-#: pyanaconda/installinterfacebase.py:152
-msgid "_Re-initialize"
-msgstr "再初期化(_R)"
-
-#: pyanaconda/installinterfacebase.py:95
-#: pyanaconda/installinterfacebase.py:153
-msgid "Re-ini_tialize all"
-msgstr "全てを再初期化(_T)"
-
-#: pyanaconda/installinterfacebase.py:143
+#: pyanaconda/installinterfacebase.py:131
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -731,13 +688,30 @@ msgstr ""
 "LVM をプロセス中にエラー発生。\n"
 "%(msg)s 上に一貫性のない LVM データが存在します。LVM メタデータが消失することになる、全ての関連した PV (%(pvs)s) を再初期化するか、又は、コンテンツを保存することになる無視をすることができます。このアクションは一貫性のないメタデータを持つ 全ての他の PV にも適用できるかも知れません。"
 
-#: pyanaconda/installinterfacebase.py:171
+#: pyanaconda/installinterfacebase.py:138
+#: pyanaconda/installinterfacebase.py:172
+msgid "_Ignore"
+msgstr "無視(_I)"
+
+#: pyanaconda/installinterfacebase.py:139
+msgid "Ignore _all"
+msgstr "全てを無視(_A)"
+
+#: pyanaconda/installinterfacebase.py:140
+msgid "_Re-initialize"
+msgstr "再初期化(_R)"
+
+#: pyanaconda/installinterfacebase.py:141
+msgid "Re-ini_tialize all"
+msgstr "全てを再初期化(_T)"
+
+#: pyanaconda/installinterfacebase.py:159
 msgid "Unformatted DASD Device Found"
 msgid_plural "Unformatted DASD Devices Found"
 msgstr[0] "フォーマットしていない DASD デバイスを発見しました"
 msgstr[1] "フォーマットしていない DASD デバイスを発見しました"
 
-#: pyanaconda/installinterfacebase.py:173
+#: pyanaconda/installinterfacebase.py:161
 #, python-format
 msgid ""
 "Format uninitialized DASD device?\n"
@@ -756,7 +730,7 @@ msgstr[1] ""
 "\n"
 "このシステムに %d 個の初期化していない DASD デバイスがあります。 インストールを継続するには、デバイスをフォーマットする必要があります。 フォーマットをするとデバイス上のデータはすべて消滅します。"
 
-#: pyanaconda/installinterfacebase.py:184
+#: pyanaconda/installinterfacebase.py:172
 #: pyanaconda/iw/partition_gui.py:901
 msgid "_Format"
 msgstr "フォーマット(_F)"
@@ -1225,7 +1199,7 @@ msgstr "iSCSI ノード"
 
 #: pyanaconda/partIntfHelpers.py:473
 msgid "No new iSCSI nodes discovered"
-msgstr "新しい iSCSI ノードは探索されませんでした。"
+msgstr "新しい iSCSI ノードは見つかりませんでした。"
 
 #: pyanaconda/partIntfHelpers.py:514
 msgid "iSCSI Error"
@@ -1344,8 +1318,9 @@ msgstr "%s には mac ディスクラベルを持っている必要がありま�
 #: pyanaconda/rescue.py:226
 #: pyanaconda/rescue.py:382
 #: pyanaconda/rescue.py:482
-msgid "Run anaconda-image-cleanup to unmount the system when you are finished."
-msgstr "メンテナンスが終わったら、システムをアンマウントするために anaconda-cleanup を実行してください。"
+#, python-format
+msgid "Run %s to unmount the system when you are finished."
+msgstr "メンテナンスが終わったら、システムをアンマウントするために %s を実行してください。"
 
 #: pyanaconda/rescue.py:229
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1628,7 +1603,7 @@ msgstr "以前のインストールされたシステムに root が見つかり
 
 #: pyanaconda/upgrade.py:249
 msgid "The root for the previously installed system was not found.  You can exit installer or backtrack to choose installation instead of upgrade."
-msgstr "以前にインストールされたシステムの root が見付かりません。インストーラを 終了するか、又はアップグレードの代わりにインストールを選択するために戻る ことが出来ます。"
+msgstr "以前にインストールされたシステムの root が見付かりません。インストーラーを 終了するか、又はアップグレードの代わりにインストールを選択するために戻る ことが出来ます。"
 
 #: pyanaconda/upgrade.py:272
 msgid ""
@@ -2579,7 +2554,7 @@ msgstr "エンタープライズストレージデバイス(_S)"
 
 #: pyanaconda/iw/filter_type.py:67
 msgid "Installs or upgrades to enterprise devices such as Storage Area Networks (SANs). This option will allow you to add FCoE / iSCSI / zFCP disks and to filter out devices the installer should ignore."
-msgstr "SANs (Storage Area Networks) などのエンタープライズデバイスにインストールするか、 またはアップグレードします。このオプションにより、FCoE / iSCSI / zFCP などのストレージデバイスを追加でき、インストーラが無視すべきデバイスを選別します。"
+msgstr "SANs (Storage Area Networks) などのエンタープライズデバイスにインストールするか、 またはアップグレードします。このオプションにより、FCoE / iSCSI / zFCP などのストレージデバイスを追加でき、インストーラーが無視すべきデバイスを選別します。"
 
 #: pyanaconda/iw/language_gui.py:33
 #: pyanaconda/textw/language_text.py:45
@@ -2671,7 +2646,7 @@ msgid "_Logical Volume Name:"
 msgstr "論理ボリューム名(_L):"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:461
-#: pyanaconda/iw/partition_dialog_gui.py:498
+#: pyanaconda/iw/partition_dialog_gui.py:500
 msgid "_Size (MB):"
 msgstr "サイズ (MB)(_S):"
 
@@ -2681,20 +2656,20 @@ msgid "(Max size is %s MB)"
 msgstr "(最大サイズは %s MB)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:473
-#: pyanaconda/iw/partition_dialog_gui.py:550
+#: pyanaconda/iw/partition_dialog_gui.py:552
 #: pyanaconda/iw/partition_ui_helpers_gui.py:339
 #: pyanaconda/iw/raid_dialog_gui.py:424
 msgid "_Encrypt"
 msgstr "暗号化(_E)"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:482
-#: pyanaconda/iw/partition_dialog_gui.py:480
+#: pyanaconda/iw/partition_dialog_gui.py:482
 #: pyanaconda/iw/raid_dialog_gui.py:462
 msgid "Original File System Type:"
 msgstr "元のファイルシステムタイプ:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:487
-#: pyanaconda/iw/partition_dialog_gui.py:488
+#: pyanaconda/iw/partition_dialog_gui.py:490
 #: pyanaconda/iw/raid_dialog_gui.py:469
 msgid "Original File System Label:"
 msgstr "元のファイルシステムラベル:"
@@ -2708,7 +2683,7 @@ msgid "Size (MB):"
 msgstr "サイズ (MB):"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:523
-#: pyanaconda/iw/partition_dialog_gui.py:431
+#: pyanaconda/iw/partition_dialog_gui.py:433
 #: pyanaconda/iw/raid_dialog_gui.py:443
 msgid "_Mount Point:"
 msgstr "マウントポイント(_M):"
@@ -2733,13 +2708,13 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "論理ボリューム名 \"%s\" はすでに使用中です。他の名前を選択してください。"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:671
-#: pyanaconda/iw/partition_dialog_gui.py:133
+#: pyanaconda/iw/partition_dialog_gui.py:134
 #: pyanaconda/iw/raid_dialog_gui.py:192
 msgid "Mount point in use"
 msgstr "使用中のマウントポイント"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:672
-#: pyanaconda/iw/partition_dialog_gui.py:134
+#: pyanaconda/iw/partition_dialog_gui.py:135
 #: pyanaconda/iw/raid_dialog_gui.py:193
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
@@ -3009,28 +2984,28 @@ msgstr "指定限度まで使用(MB)(_U):"
 msgid "Fill to maximum _allowable size"
 msgstr "最大許容量まで使用(_A)"
 
-#: pyanaconda/iw/partition_dialog_gui.py:191
+#: pyanaconda/iw/partition_dialog_gui.py:193
 msgid "Error With Request"
 msgstr "要求にエラーがあります"
 
-#: pyanaconda/iw/partition_dialog_gui.py:401
+#: pyanaconda/iw/partition_dialog_gui.py:403
 msgid "Add Partition"
 msgstr "パーティションの追加"
 
-#: pyanaconda/iw/partition_dialog_gui.py:403
+#: pyanaconda/iw/partition_dialog_gui.py:405
 #, python-format
 msgid "Edit Partition: %s"
 msgstr "パーティションの編集: %s"
 
-#: pyanaconda/iw/partition_dialog_gui.py:440
+#: pyanaconda/iw/partition_dialog_gui.py:442
 msgid "File System _Type:"
 msgstr "ファイルシステムタイプ(_T):"
 
-#: pyanaconda/iw/partition_dialog_gui.py:456
+#: pyanaconda/iw/partition_dialog_gui.py:458
 msgid "Allowable _Drives:"
 msgstr "使用可能なドライブ(_D):"
 
-#: pyanaconda/iw/partition_dialog_gui.py:537
+#: pyanaconda/iw/partition_dialog_gui.py:539
 msgid "Force to be a _primary partition"
 msgstr "基本パーティションにする(_P)"
 
@@ -4007,7 +3982,7 @@ msgstr "サポートされていないハードウェアを検出しました。
 
 #: loader/loader.c:1237
 msgid "This hardware (or a combination thereof) is not supported by Red Hat.  For more information on supported hardware, please refer to http://www.redhat.com/hardware."
-msgstr "お使いのハードウェア (またはシステム構成) は Red Hat によってサポートされておりません。 サポートされたハードウェアの詳細については、http://www.redhat.com/hardware をご参照ください。"
+msgstr "お使いのハードウェア (またはシステム構成) は Red Hat によってサポートされておりません。 サポートされているハードウェアの詳細については、http://www.redhat.com/hardware をご参照ください。"
 
 #: loader/loader.c:1372
 msgid "Rescue Method"
@@ -4083,12 +4058,12 @@ msgstr "それを使用する"
 msgid "Skip it"
 msgstr "それをスキップする"
 
-#: loader/loader.c:2375
+#: loader/loader.c:2378
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr "anaconda %s を %s レスキューモードで実行中 - しばらくお待ちください。\n"
 
-#: loader/loader.c:2377
+#: loader/loader.c:2380
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr "anaconda %s・%s システムインストーラーを実行中 - しばらくお待ちください。\n"
@@ -4666,7 +4641,7 @@ msgstr ""
 "\n"
 "アップグレードパーティションの /etc/fstab が有効なスワップデバイスを参照していません。\n"
 "\n"
-"OK を押してインストーラを終了してください。"
+"OK を押してインストーラーを終了してください。"
 
 #: pyanaconda/storage/__init__.py:1901
 #, python-format
@@ -4681,7 +4656,7 @@ msgstr ""
 "\n"
 "このスワップデバイスが初期化されていない可能性があります。\n"
 "\n"
-"OK を押してインストーラを終了してください。"
+"OK を押してインストーラーを終了してください。"
 
 #: pyanaconda/storage/__init__.py:1965
 #: pyanaconda/storage/__init__.py:1977
@@ -4697,7 +4672,7 @@ msgid ""
 msgstr ""
 "%s を作成中にエラーが発生しました。このパスのどこかがディレクトリーではありません。致命的なエラーとなるためインストールを続行できません。\n"
 "\n"
-"<Enter> を押してインストーラを終了してください。"
+"<Enter> を押してインストーラーを終了してください。"
 
 #: pyanaconda/storage/__init__.py:1978
 #, python-format
@@ -4708,7 +4683,7 @@ msgid ""
 msgstr ""
 "%(mountpoint)s を作成中にエラーが発生しました: %(msg)s。致命的な エラーとなるためインストールを続行できません。\n"
 "\n"
-"<Enter> を押してインストーラを終了してください。"
+"<Enter> を押してインストーラーを終了してください。"
 
 #: pyanaconda/storage/__init__.py:1994
 #: pyanaconda/storage/__init__.py:2018
@@ -4729,7 +4704,7 @@ msgid ""
 msgstr ""
 "デバイス %(path)s を %(mountpoint)s としてマウント中にエラーが発生しました: %(msg)s。 致命的なエラーとなるためインストールを続行できません。\n"
 "\n"
-"<Enter> を押してインストーラを終了してください。"
+"<Enter> を押してインストーラーを終了してください。"
 
 #: pyanaconda/storage/dasd.py:155
 msgid "Formatting DASD Device"
@@ -4782,16 +4757,6 @@ msgstr[1] "RAID%d セットには少なくとも %d 個のメンバーが必要�
 msgid "Creating file %s"
 msgstr "ファイル %s の作成"
 
-#: pyanaconda/storage/devices.py:3820
-#, python-format
-msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
-msgstr "FCP デバイス %(device)s (WWPN: %(wwpn)s / LUN %(lun)s)"
-
-#: pyanaconda/storage/devices.py:3847
-#, python-format
-msgid "DASD device %s"
-msgstr "DASD デバイス %s"
-
 #: pyanaconda/storage/devicetree.py:105
 #, python-format
 msgid ""
@@ -4803,7 +4768,7 @@ msgstr ""
 "\n"
 "このステップをスキップすると、インストール中のデバイス内のコンテンツへのアクセスはできません。"
 
-#: pyanaconda/storage/devicetree.py:1551
+#: pyanaconda/storage/devicetree.py:1565
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr "このパーティションは一貫性のない LVM ボリュームグループの一部です。"
 
@@ -4979,7 +4944,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"「OK」を押すとインストーラを終了します。"
+"「OK」を押すとインストーラーを終了します。"
 
 #: pyanaconda/storage/partitioning.py:246
 #, python-format
@@ -5813,7 +5778,7 @@ msgstr "理由:"
 
 #: data/ui/iscsi-dialogs.glade.h:5
 msgid "Retry _Login"
-msgstr "再試行中(_L)"
+msgstr "ログインの再試行(_L)"
 
 #: data/ui/iscsi-dialogs.glade.h:6
 msgid "Reverse CHAP Password:"
@@ -5963,6 +5928,40 @@ msgstr "FCP デバイスの追加"
 #: data/ui/zfcp-config.glade.h:5
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide a 16 bit device number, a 64 bit World Wide Port Name (WWPN), and a 64 bit FCP LUN for each device."
 msgstr "zSeries マシンはファイバーチャネル (FCP) 経由で業界基準の SCSI デバイスにアクセスすることができます。それぞれのデバイスに 16 ビットのデバイス番号、64 ビットの World Wide Port Name (WWPN) および 64 ビットの FCP LUN を指定する必要があります。"
+
+#: data/ui/reinitialize-dialog.glade.h:1
+msgid "<span size=\"large\" weight=\"bold\">The storage device below may contain data.</span>"
+msgstr "<span size=\"large\" weight=\"bold\">以下のストレージデバイスは、データを含むんでいるかもしれません。</span>"
+
+#: data/ui/reinitialize-dialog.glade.h:2
+msgid "Apply my choice to all devices with undetected partitions or filesystems"
+msgstr "私の選択したすべてのデバイス（検出されていないパーティションもしくはファイルシステムを含む）に適用します。"
+
+#: data/ui/reinitialize-dialog.glade.h:3
+msgid "No, keep any data"
+msgstr "いいえ。含まれています。どのようなデータであっても保護してください。"
+
+#: data/ui/reinitialize-dialog.glade.h:5
+msgid ""
+"We could not detect partitions or filesystems on this device.\n"
+"\n"
+"This could be because the device is <b>blank</b>, <b>unpartitioned</b>, or <b>virtual</b>. If not,\n"
+"there may be data on the device that can not be recovered if you use it in this\n"
+"installation. We can remove the device from this installation to protect the data.\n"
+"\n"
+"Are you sure this device does not contain valuable data?"
+msgstr ""
+"このデバイスからパーティションもしくはファイルシステムが検出できませんでした。\n"
+"\n"
+"この場合、デバイスが<b>ブランク</b>か <b>パーティション未定義</b>、もしくは <b>仮想</b>の場合が\n"
+"考えられます。デバイス上にデータが含まれている場合、今回インストールに使用するとデバイス上のデータは\n"
+"復元できなくなります。データを保護するために、インストール対象からデバイスを取り除くことができます。\n"
+"\n"
+"このデバイス上に価値のあるデータは本当に含まれていませんか？"
+
+#: data/ui/reinitialize-dialog.glade.h:12
+msgid "Yes, discard any data"
+msgstr "はい。含まれていません。どのようなデータであっても破棄してください。"
 
 #: data/lang-table.h:1
 msgid "Afrikaans"
@@ -6208,6 +6207,39 @@ msgstr "ウェールズ語"
 msgid "Zulu"
 msgstr "ズールー語"
 
+#~ msgid ""
+#~ "Error processing drive:\n"
+#~ "\n"
+#~ "%(path)s\n"
+#~ "%(size)-0.fMB\n"
+#~ "%(description)s\n"
+#~ "\n"
+#~ "This device may need to be reinitialized.\n"
+#~ "\n"
+#~ "REINITIALIZING WILL CAUSE ALL DATA TO BE LOST!\n"
+#~ "\n"
+#~ "This action may also be applied to all other disks needing "
+#~ "reinitialization.%(details)s"
+#~ msgstr ""
+#~ "ドライブの処理中にエラー発生:\n"
+#~ "\n"
+#~ "%(path)s\n"
+#~ "%(size)-0.fMB\n"
+#~ "%(description)s\n"
+#~ "\n"
+#~ "このデバイスは再初期化が必要かも知れません。\n"
+#~ "\n"
+#~ "再初期化すると全てのデータが消失します!\n"
+#~ "\n"
+#~ "このアクションは再初期化を必要とする全ての他のディスクにも適用できるかも知"
+#~ "れません。%(details)s"
+
+#~ msgid "FCP device %(device)s with WWPN %(wwpn)s and LUN %(lun)s"
+#~ msgstr "FCP デバイス %(device)s (WWPN: %(wwpn)s / LUN %(lun)s)"
+
+#~ msgid "DASD device %s"
+#~ msgstr "DASD デバイス %s"
+
 #~ msgid "You do not have enough RAM to use the graphical installer."
 #~ msgstr "グラフィカルインストーラーを使用するには RAM が足りません。"
 
@@ -6218,7 +6250,7 @@ msgstr "ズールー語"
 #~ "\n"
 #~ " from a root terminal."
 #~ msgstr ""
-#~ "以下を実行してテキストモードインストーラを試して下さい:\n"
+#~ "以下を実行してテキストモードインストーラーを試して下さい:\n"
 #~ "\n"
 #~ "'/usr/bin/liveinst -T'\n"
 #~ "\n"
@@ -6334,8 +6366,8 @@ msgstr "ズールー語"
 #~ "After shutdown, please perform a manual IPL from FCP %(device)s with WWPN "
 #~ "%(wwpn)s and LUN %(lun)s to continue installation"
 #~ msgstr ""
-#~ "シャットダウンの後に、WWPN %(wwpn)s と LUN %(lun)sを使用して FCP "
-#~ "%(device)s から手動で IPL を実行して、インストールを継続して下さい"
+#~ "シャットダウンの後に、WWPN %(wwpn)s と LUN %(lun)sを使用して FCP %(device)"
+#~ "s から手動で IPL を実行して、インストールを継続して下さい"
 
 #~ msgid ""
 #~ "After shutdown, please perform a manual IPL from the device now "
@@ -6445,9 +6477,6 @@ msgstr "ズールー語"
 #~ msgid "Create Custom Layout"
 #~ msgstr "カスタムレイアウトを作成する"
 
-#~ msgid "Basic Storage Devices"
-#~ msgstr "基本ストレージデバイス"
-
 #~ msgid "Specialized Storage Devices"
 #~ msgstr "エンタープライズストレージデバイス"
 
@@ -6518,7 +6547,7 @@ msgstr "ズールー語"
 #~ "ストが成功したら、再度使用する前に各ディスクをテストする必要はありません。"
 
 #~ msgid "Looking for installation images on CD device %s\n"
-#~ msgstr "CD デバイス %s 上のインストールイメージを探しています\n"
+#~ msgstr "CD デバイス %s 上のインストールイメージを探しています。\n"
 
 #~ msgid "Looking for installation images on CD device %s"
 #~ msgstr "CD デバイス %s 上のインストールイメージを探しています。"
@@ -6565,7 +6594,7 @@ msgstr "ズールー語"
 #~ msgstr "SCSI ドライバーを読み込み中"
 
 #~ msgid "Loading %s driver"
-#~ msgstr "%s ドライバーを読み込み中。"
+#~ msgstr "%s ドライバーを読み込み中"
 
 #~ msgid ""
 #~ "You have not specified a swap partition.  Due to the amount of memory "
@@ -6581,7 +6610,7 @@ msgstr "ズールー語"
 #~ msgstr "%s 上に %s を作成"
 
 #~ msgid "No iSCSI nodes discovered"
-#~ msgstr "iSCSI ノードが探索されませんでした"
+#~ msgstr "iSCSI ノードが見つかりませんでした"
 
 #~ msgid "Logging in to iSCSI nodes"
 #~ msgstr "iSCSI ノードにログイン中"
