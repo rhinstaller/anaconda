@@ -1338,7 +1338,7 @@ def mountExistingSystem(anaconda, rootEnt,
         rootDevice.setup()
         rootDevice.format.mount(chroot=rootPath,
                                 mountpoint="/",
-                                options=readOnly)
+                                options="ro")
 
     fsset.parseFSTab()
 
@@ -1379,6 +1379,10 @@ def mountExistingSystem(anaconda, rootEnt,
         if rc == 0:
             return -1
 
+    log.info("All is well mounting the rest of referenced filesystems")
+    if not readOnly:
+        log.info("Remounting /mnt/sysimage read-write")
+        rootDevice.format.remount(options="rw")
     fsset.mountFilesystems(anaconda, readOnly=readOnly, skipRoot=True)
 
 

@@ -632,6 +632,44 @@ class FS(DeviceFormat):
 
         self._mountpoint = chrootedMountpoint
 
+    def remount(self, *args, **kwargs):
+        """ Remount the filesystem with new options """
+        options = kwargs.get("options", "")
+        log.info("remounting %s on %s", self.device, self._mountpoint)
+
+        if not self.exists:
+            raise FSError("filesystem has not been created")
+
+        if not self._mountpoint:
+            # not mounted
+            return
+
+        if not os.path.exists(self._mountpoint):
+            raise FSError("mountpoint does not exist")
+
+        # passed in options override default options
+        if not options or not isinstance(options, str):
+            options = self.options
+
+        try: 
+            rc = isys.mount(self.device, self._mountpoint, 
+                            fstype=self.mountType,
+                            options=options, remount=True,
+                            bindMount=isinstance(self, BindFS))
+        except Exception as e:
+            raise FSError("mount failed: %s" % e)
+
+        if rc:
+            raise FSError("mount failed: %s" % rc)
+
+        if flags.selinux:
+            ret = isys.resetFileContext(self._mountpoint, "")
+            log.info("set SELinux context for newly mounted filesystem "
+                     "root at %s to %s" %(self._mountpoint, ret))
+            isys.setFileContext("%s/lost+found" % self._mountpoint,
+                                lost_and_found_context, "")
+
+
     def unmount(self):
         """ Unmount this filesystem. """
         if not self.exists:
