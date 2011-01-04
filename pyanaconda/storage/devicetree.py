@@ -38,9 +38,9 @@ import devicelibs.lvm
 import devicelibs.mpath
 import devicelibs.loop
 from udev import *
-from .storage_log import log_method_call
 from pyanaconda import iutil
 from pyanaconda import tsort
+from pyanaconda.anaconda_log import log_method_call
 import parted
 import _ped
 

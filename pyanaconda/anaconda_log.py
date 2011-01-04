@@ -22,11 +22,12 @@
 #            Michael Fulbright <msf@redhat.com>
 #
 
+import inspect
+import logging
+from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 import os
 import signal
 import sys
-import logging
-from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 import types
 
 import iutil
@@ -41,6 +42,7 @@ DATE_FORMAT = "%H:%M:%S"
 MAIN_LOG_FILE = "/tmp/anaconda.log"
 MAIN_LOG_TTY = "/dev/tty3"
 PROGRAM_LOG_FILE = "/tmp/program.log"
+STORAGE_LOG_FILE = "/tmp/storage.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 
 logLevelMap = {"debug": logging.DEBUG, "info": logging.INFO,
@@ -56,10 +58,29 @@ def setHandlersLevel(logger, level):
     map(lambda hdlr: hdlr.setLevel(level),
         filter (lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logger.handlers))
 
+def log_method_call(d, *args, **kwargs):
+    classname = d.__class__.__name__
+    stack = inspect.stack()
+    methodname = stack[1][3]
+
+    spaces = len(stack) * ' '
+    fmt = "%s%s.%s:"
+    fmt_args = [spaces, classname, methodname]
+
+    for arg in args:
+        fmt += " %s ;"
+        fmt_args.append(arg)
+
+    for k, v in kwargs.items():
+        fmt += " %s: %s ;"
+        fmt_args.extend([k, v])
+
+    logging.getLogger("storage").debug(fmt % tuple(fmt_args))
+
 class AnacondaSyslogHandler(SysLogHandler):
-    def __init__(self, 
+    def __init__(self,
                  address=('localhost', SYSLOG_UDP_PORT),
-                 facility=SysLogHandler.LOG_USER, 
+                 facility=SysLogHandler.LOG_USER,
                  tag=''):
         self.tag = tag
         SysLogHandler.__init__(self, address, facility)
@@ -78,17 +99,26 @@ class AnacondaLog:
         logging.addLevelName(logging.WARNING, "WARN")
         logging.addLevelName(logging.ERROR, "ERR")
         logging.addLevelName(logging.CRITICAL, "CRIT")
-        # Create the base of the logger hierarcy.
-        logger = logging.getLogger("anaconda")
-        logger.setLevel(logging.DEBUG)
-        self.addFileHandler(MAIN_LOG_FILE, logger,
+
+        # Create the base of the logger hierarchy.
+        anaconda_logger = logging.getLogger("anaconda")
+        self.addFileHandler(MAIN_LOG_FILE, anaconda_logger,
                             minLevel=logging.DEBUG)
-        self.forwardToSyslog(logger)
-        # Log to tty3.
-        if not iutil.isS390() and os.access(MAIN_LOG_TTY, os.W_OK):
-            self.addFileHandler(MAIN_LOG_TTY, logger,
-                                fmtStr=TTY_FORMAT,
-                                autoLevel=True)
+
+        # Create the storage logger.
+        storage_logger = logging.getLogger("storage")
+        self.addFileHandler(STORAGE_LOG_FILE, storage_logger,
+                            minLevel=logging.DEBUG)
+
+        # Set the common parameters for anaconda and storage loggers.
+        for logger in [anaconda_logger, storage_logger]:
+            logger.setLevel(logging.DEBUG)
+            self.forwardToSyslog(logger)
+            # Logging of basic stuff and storage to tty3.
+            if not iutil.isS390() and os.access(MAIN_LOG_TTY, os.W_OK):
+                self.addFileHandler(MAIN_LOG_TTY, logger,
+                                    fmtStr=TTY_FORMAT,
+                                    autoLevel=True)
 
         # External program output log
         program_logger = logging.getLogger("program")
@@ -135,7 +165,7 @@ class AnacondaLog:
             return
 
         syslogHandler = AnacondaSyslogHandler(
-            '/dev/log', 
+            '/dev/log',
             ANACONDA_SYSLOG_FACILITY,
             logger.name)
         syslogHandler.setLevel(logging.DEBUG)

@@ -36,7 +36,6 @@ from pyanaconda.constants import *
 from pykickstart.constants import *
 from pyanaconda.flags import flags
 
-import storage_log
 from errors import *
 from devices import *
 from devicetree import DeviceTree

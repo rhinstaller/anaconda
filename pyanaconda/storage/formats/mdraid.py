@@ -22,7 +22,7 @@
 
 import os
 
-from ..storage_log import log_method_call
+from pyanaconda.anaconda_log import log_method_call
 from pyanaconda.flags import flags
 from parted import PARTITION_RAID
 from ..errors import *

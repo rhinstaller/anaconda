@@ -271,7 +271,8 @@ def setupLoggingFromOpts(opts):
         level = anaconda_log.logLevelMap[opts.loglevel]
         anaconda_log.logger.tty_loglevel = level
         anaconda_log.setHandlersLevel(log, level)
-        anaconda_log.setHandlersLevel(pyanaconda.storage.storage_log.logger, level)
+        storage_log = logging.getLogger("storage")
+        anaconda_log.setHandlersLevel(storage_log, level)
 
     if opts.syslog:
         anaconda_log.logger.remote_syslog = opts.syslog
@@ -502,7 +503,6 @@ if __name__ == "__main__":
     from pyanaconda import vnc
     from pyanaconda import users
     from pyanaconda import kickstart
-    import pyanaconda.storage.storage_log
 
     # the following makes me very sad. -- katzj
     # we have a slightly different set of udev rules in the second 

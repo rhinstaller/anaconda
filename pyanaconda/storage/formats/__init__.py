@@ -26,7 +26,7 @@ from pyanaconda.baseudev import udev_get_device
 from pyanaconda.iutil import notify_kernel
 from pyanaconda.iutil import get_sysfs_path_by_name
 from pyanaconda.iutil import execWithRedirect
-from ..storage_log import log_method_call
+from pyanaconda.anaconda_log import log_method_call
 from ..errors import *
 from ..devicelibs.dm import dm_node_from_name
 from ..udev import udev_device_get_major, udev_device_get_minor

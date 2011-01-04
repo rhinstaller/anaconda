@@ -39,7 +39,7 @@ from . import DeviceFormat, register_device_format
 from pyanaconda import iutil
 from pyanaconda.flags import flags
 from parted import fileSystemType
-from ..storage_log import log_method_call
+from pyanaconda.anaconda_log import log_method_call
 
 import logging
 log = logging.getLogger("storage")

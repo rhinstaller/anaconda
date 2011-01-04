@@ -23,7 +23,7 @@
 import os
 import copy
 
-from ..storage_log import log_method_call
+from pyanaconda.anaconda_log import log_method_call
 import parted
 import _ped
 from pyanaconda import platform
