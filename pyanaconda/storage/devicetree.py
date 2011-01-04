@@ -40,7 +40,7 @@ import devicelibs.loop
 from udev import *
 from pyanaconda import iutil
 from pyanaconda import tsort
-from pyanaconda.anaconda_log import log_method_call
+from pyanaconda.anaconda_log import log_method_call, log_method_return
 import parted
 import _ped
 
@@ -1859,8 +1859,9 @@ class DeviceTree(object):
         return found
 
     def getDeviceByName(self, name):
-        log.debug("looking for device '%s'..." % name)
+        log_method_call(self, name=name)
         if not name:
+            log_method_return(self, None)
             return None
 
         found = None
@@ -1873,12 +1874,13 @@ class DeviceTree(object):
                 found = device
                 break
 
-        log.debug("found %s" % found)
+        log_method_return(self, found)
         return found
 
     def getDeviceByPath(self, path):
-        log.debug("looking for device '%s'..." % path)
+        log_method_call(self, path=path)
         if not path:
+            log_method_return(self, None)
             return None
 
         found = None
@@ -1891,7 +1893,7 @@ class DeviceTree(object):
                 found = device
                 break
 
-        log.debug("found %s" % found)
+        log_method_return(self, found)
         return found
 
     def getDevicesByType(self, device_type):
