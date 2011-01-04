@@ -5,13 +5,13 @@
 #
 # Automatically generated, 2004.
 # Ankit Patel <ankit@redhat.com>, 2004, 2005, 2006, 2007, 2008.
-# Sweta Kothari <swkothar@redhat.com>, 2008, 2009, 2010.
+# Sweta Kothari <swkothar@redhat.com>, 2008, 2009, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda.master.gu\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
 "POT-Creation-Date: 2010-12-22 13:33-0500\n"
-"PO-Revision-Date: 2010-12-31 16:17+0530\n"
+"PO-Revision-Date: 2011-01-04 16:16+0530\n"
 "Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -405,7 +405,7 @@ msgstr "નેટવર્ક ઉપલબ્ધ નથી"
 
 #: pyanaconda/gui.py:1163 pyanaconda/text.py:420
 msgid "Remote exception saving methods will not work."
-msgstr ""
+msgstr "દૂરસ્થ અપવાદને પદ્દતિઓને સંગ્રહી રાખવાનું કામ કરશે નહિં."
 
 #: pyanaconda/gui.py:1212 pyanaconda/text.py:395
 msgid "Error Parsing Kickstart Config"
@@ -662,11 +662,9 @@ msgid "the device containing /boot"
 msgstr "ઉપકરણ /boot ને સમાવી રહ્યુ છે"
 
 #: pyanaconda/iutil.py:843
-#, fuzzy, python-format
+#, python-format
 msgid "After shutdown, please perform a manual IPL from %s to continue installation."
-msgstr ""
-"બંધ કર્યા પછી, સ્થાપન ચલાવવા માટે DASD ઉપકરણ %s માંથી મહેરબાની કરીને મેન્યુઅલ IPL ને "
-"ચલાવો"
+msgstr "બંધ કર્યા પછી, સ્થાપન ચલાવવા માટે %s માંથી મહેરબાની કરીને મેન્યુઅલ IPL ને ચલાવો."
 
 #: pyanaconda/kickstart.py:116
 #, python-format
@@ -1157,19 +1155,19 @@ msgstr "શું તમે ચોક્કસ છો કે તમે પાર
 
 #: pyanaconda/partIntfHelpers.py:361
 msgid "No credentials (discovery authentication disabled)"
-msgstr ""
+msgstr "ઓળખપત્રો નથી (શોધ સત્તાધિકરણ નિષ્ક્રિય થયુ)"
 
 #: pyanaconda/partIntfHelpers.py:362
 msgid "CHAP pair"
-msgstr ""
+msgstr "CHAP જોડી"
 
 #: pyanaconda/partIntfHelpers.py:363
 msgid "CHAP pair and a reverse pair"
-msgstr ""
+msgstr "CHAP જોડી અને વિપરીત જોડી"
 
 #: pyanaconda/partIntfHelpers.py:364
 msgid "Use the credentials from the discovery step"
-msgstr ""
+msgstr "શોધ પગલાં માંથી હકોને વાપરો"
 
 #: pyanaconda/partIntfHelpers.py:472
 msgid "iSCSI Nodes"
@@ -1184,9 +1182,8 @@ msgid "iSCSI Error"
 msgstr "iSCSI ભૂલ"
 
 #: pyanaconda/partIntfHelpers.py:519
-#, fuzzy
 msgid "Discovery"
-msgstr "ડિરેક્ટરી (_D)"
+msgstr "શોધ"
 
 #: pyanaconda/partIntfHelpers.py:519
 msgid "Login"
@@ -1390,17 +1387,16 @@ msgid "The system will reboot automatically when you exit from the shell."
 msgstr "સિસ્ટમ આપમેળે રિબુટ થઇ જશે જ્યારે તમે શેલમાંથી બહાર નીકળો."
 
 #: pyanaconda/rescue.py:390
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions. %s"
 msgstr ""
 "તમારી સિસ્ટમમાં ગંદી ફાઈલ સિસ્ટમ છે કે જે માઉન્ટ કરવા માટે તમે નહિં પસંદ કરી શકો છો. શેલ "
-"મેળવવા માટે એન્ટર દબાવો કે જેમાંથી તમે તમારા પાર્ટીશનો માઉન્ટ અને fsck કરી શકો છો. તમે "
-"જ્યારે શેલમાંથી બહાર નીકળો ત્યારે તમારી સિસ્ટમ આપોઆપ રીબુટ થશે."
+"મેળવવા માટે પાછા જાઓ બટનને દબાવો કે જેમાંથી તમે તમારા પાર્ટીશનો માઉન્ટ અને fsck કરી શકો છો. %s"
 
 #: pyanaconda/rescue.py:400
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
 "\n"
@@ -1418,10 +1414,10 @@ msgstr ""
 "\n"
 "\tchroot %(rootPath)s\n"
 "\n"
-"તમે જ્યારે શેલમાંથી બહાર નીકળો ત્યારે તમારી સિસ્ટમ આપોઆપ રીબુટ થશે."
+"%(msg)s"
 
 #: pyanaconda/rescue.py:486
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
 "be mounted under %s.\n"
@@ -1431,8 +1427,7 @@ msgstr ""
 "તમારી સિસ્ટમનું અમુક અથવા બધુ માઉન્ટ કરવાનો પ્રયત્ન કરતાં ભૂલ ઉદ્ભવી. તેમાના અમુક %s હેઠળ "
 "માઉન્ટ થશે.\n"
 "\n"
-"શેલ મેળવવા માટે <return> દબાવો. તમે જ્યારે શેલમાંથી બહાર નીકળો ત્યારે તમારી સિસ્ટમ "
-"આપોઆપ રીબુટ થશે."
+"શેલ મેળવવા માટે <return> દબાવો. %s"
 
 #: pyanaconda/rescue.py:496
 msgid "You don't have any Linux partitions.  Rebooting.\n"
@@ -2943,7 +2938,7 @@ msgstr "વપરાયેલ જગ્યા:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1381
 msgid "Snapshot Total:"
-msgstr ""
+msgstr "કુલ સ્નેપશૉટ:"
 
 #: pyanaconda/iw/lvm_dialog_gui.py:1401
 msgid "Free Space:"
@@ -4204,6 +4199,8 @@ msgid ""
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
+"આ હાર્ડવેર (અથવા તેનું સંયોજન) Red Hat દ્દારા આધારભૂત નથી.  આધારભૂત હાર્ડવેર પર વધારે જાણકારી માટે, http://www.redhat."
+"com/hardware નો સંદર્ભ લો."
 
 #: loader/loader.c:1372
 msgid "Rescue Method"
@@ -6212,11 +6209,11 @@ msgstr "વિપરીત CHAP વપરાશકર્તાનામ:"
 
 #: data/ui/iscsi-dialogs.glade.h:8
 msgid "Start _Discovery"
-msgstr ""
+msgstr "શોધવાનું શરૂ કરો (_D)"
 
 #: data/ui/iscsi-dialogs.glade.h:9
 msgid "Successfully logged in and attached the following nodes:"
-msgstr ""
+msgstr "સફળતાપૂર્વક પ્રવેશ્યા અને નીચેનાં નોડો સાથે જોડાયા:"
 
 #: data/ui/iscsi-dialogs.glade.h:10
 msgid "Target IP Address:"
@@ -6232,11 +6229,11 @@ msgstr ""
 
 #: data/ui/iscsi-dialogs.glade.h:12
 msgid "What kind of iSCSI <b>discovery authentication</b> do you wish to perform:"
-msgstr ""
+msgstr "ક્યાં પ્રકારનું iSCSI <b>શોધ સત્તાધિકરણ</b> તમે ચલાવવા માંગો છો:"
 
 #: data/ui/iscsi-dialogs.glade.h:13
 msgid "What kind of iSCSI <b>login authentication</b> do you wish to perform:"
-msgstr ""
+msgstr "ક્યાં પ્રકારનું iSCSI <b>લૉગિન સત્તાધિકરણ</b> તમે ચલાવવા માંગો છો:"
 
 #: data/ui/iscsi-dialogs.glade.h:14
 msgid "_Cancel"
@@ -6251,13 +6248,12 @@ msgid "_OK"
 msgstr "બરાબર (_O)"
 
 #: data/ui/iscsi-dialogs.glade.h:17
-#, fuzzy
 msgid "iSCSI Discovered Nodes"
-msgstr "iSCSI નોડો શોધી કાઢેલ નથી"
+msgstr "iSCSI શોધી કાઢેલ નોડો"
 
 #: data/ui/iscsi-dialogs.glade.h:18
 msgid "iSCSI Discovery Details"
-msgstr ""
+msgstr "iSCSI શોધ વિગતો"
 
 #: data/ui/iscsi-dialogs.glade.h:19
 msgid "iSCSI Initiator Name:"
@@ -6269,11 +6265,11 @@ msgstr "iSCSI લૉગિન પરિણામો"
 
 #: data/ui/iscsi-dialogs.glade.h:21
 msgid "iSCSI Nodes Login"
-msgstr ""
+msgstr "iSCSI નોડ લૉગિન"
 
 #: data/ui/iscsi-dialogs.glade.h:22
 msgid "iSCSI login has failed for the following nodes:"
-msgstr ""
+msgstr "નીચેનાં નોડો માટે iSCSI લૉગિન નિષ્ફળ ગયું:"
 
 #: data/ui/lukspassphrase.glade.h:1
 msgid ""
@@ -6412,6 +6408,14 @@ msgid ""
 "\n"
 "Are you sure this device does not contain valuable data?"
 msgstr ""
+"અમે આ ઉપકરણ પર પાર્ટીશનો અથવા ફાઇલસિસ્ટમોને શોધી શક્યા નહિં.\n"
+"\n"
+"આ એટલે થયુ કારણ કે ઉપકરણ <b>ખાલી</b> , <b>પાર્ટીશન ન થયેલ</b>, અથવા "
+"<b>વર્ચ્યુઅલ</b> છે. જો નથી તો,\n"
+"ત્યાં ઉપકરણ પર માહિતી હોઇ શકે છે કે જેને મેળવી શકાતી નથી જો તમે આ સ્થાપનમાં તેને વાપરો તો.\n"
+" અમે માહિતીને સુરક્ષિત રાખવા માટે આ સ્થાપનમાંથી ઉપકરણને દૂર કરી શકો છો.\n"
+"\n"
+"શું તમને ખાતરી છે ને આ ઉપકરણ એ કિંમતી માહિતી સમાવતુ નથી?"
 
 #: data/ui/reinitialize-dialog.glade.h:12
 msgid "Yes, discard any data"
