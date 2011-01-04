@@ -405,7 +405,15 @@ class DeviceFormat(object):
     @property
     def majorminor(self):
         """A string suitable for using as a pseudo-unique ID in kickstart."""
-        sysfs_path = get_sysfs_path_by_name(self.device)
+
+        # If this is a device-mapper device, we have to get the DM node and
+        # build the sysfs path from that.
+        try:
+            device = dm_node_from_name(self.device)
+        except DMError:
+            device = self.device
+
+        sysfs_path = get_sysfs_path_by_name(device)
         dev = udev_get_device(sysfs_path[4:])
         return "%03d%03d" % (udev_device_get_major(dev), udev_device_get_minor(dev))
 
